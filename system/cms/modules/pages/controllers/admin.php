@@ -269,9 +269,9 @@ class Admin extends Admin_Controller {
 	{
 		if ($_POST)
 		{	
-			$chunk_slugs = array_values($this->input->post('chunk_slug'));
-			$chunk_bodies = array_values($this->input->post('chunk_body'));
-			$chunk_types = array_values($this->input->post('chunk_type'));
+			$chunk_slugs = $this->input->post('chunk_slug') ? array_values($this->input->post('chunk_slug')) : array();
+			$chunk_bodies = $this->input->post('chunk_body') ? array_values($this->input->post('chunk_body')) : array();
+			$chunk_types = $this->input->post('chunk_type') ? array_values($this->input->post('chunk_type')) : array();
 			
 			$page->chunks = array();
 			for ($i = 0; $i < count($this->input->post('chunk_body')); $i++)
@@ -280,7 +280,7 @@ class Admin extends Admin_Controller {
 					'id' => $i,
 					'slug' => ! empty($chunk_slugs[$i]) ? $chunk_slugs[$i] : '',
 					'type' => ! empty($chunk_types[$i]) ? $chunk_types[$i] : '',
-					'body' => $chunk_bodies[$i],
+					'body' => ! empty($chunk_bodies[$i]) ? $chunk_bodies[$i] : '',
 				);
 			}
 			
@@ -412,9 +412,9 @@ class Admin extends Admin_Controller {
 
 		if ($_POST)
 		{
-			$chunk_slugs = array_values($this->input->post('chunk_slug'));
-			$chunk_bodies = array_values($this->input->post('chunk_body'));
-			$chunk_types = array_values($this->input->post('chunk_type'));
+			$chunk_slugs = $this->input->post('chunk_slug') ? array_values($this->input->post('chunk_slug')) : array();
+			$chunk_bodies = $this->input->post('chunk_body') ? array_values($this->input->post('chunk_body')) : array();
+			$chunk_types = $this->input->post('chunk_type') ? array_values($this->input->post('chunk_type')) : array();
 			
 			$page->chunks = array();
 			for ($i = 0; $i < count($chunk_slugs); $i++)
