@@ -14,9 +14,9 @@ $lang['galleries.folder_error']			= 'Das Galerieverzeichnis "%s" konnte nicht ge
 $lang['galleries.delete_error']			= 'Die Galerie "%s" konnte nicht gelöscht werden.';
 $lang['galleries.no_galleries_error'] 	= 'Es wurden noch keine Galerien angelegt.';
 $lang['galleries.install_error']		= 'Das Modul konnte nicht installiert werden.';
-$lang['galleries.already_exist_error']	= 'A gallery with the slug "%s" already exist.'; #translate
-$lang['galleries.folder_duplicated_error']	= 'An error occurred! The folder already belongs to a gallery.'; #translate
-$lang['galleries.no_gallery_description']	= 'No description has been added yet.'; #translate
+$lang['galleries.already_exist_error']	= 'Eine Galerie mit dem Titel "%s" existiert bereits.';
+$lang['galleries.folder_duplicated_error']	= 'Ein Fehler ist aufgetreten! Das Verzeichnis gehört bereits zu einer Galerie.';
+$lang['galleries.no_gallery_description']	= 'Es wurde bis jetzt noch keine Beschreibung hinzugefügt.';
 
 // Labels
 $lang['galleries.galleries_label']			= 'Galerien';
@@ -35,24 +35,24 @@ $lang['galleries.css_label']				= 'CSS';
 $lang['galleries.js_label']					= 'JavaScript';
 
 // General labels $lang['galleries.preview_label']			= 'Folder Images Preview'; $lang['galleries.no_thumb_label']			= 'No Thumbnail';
-$lang['galleries.title_label']				= 'Title';
+$lang['galleries.title_label']				= 'Titel';
 $lang['galleries.slug_label']				= 'Slug';
-$lang['galleries.folder_label']				= 'Folder'; #translate
-$lang['galleries.description_label']		= 'Album Description';
+$lang['galleries.folder_label']				= 'Verzeichnis'; 
+$lang['galleries.description_label']		= 'Album Beschreibung';
 $lang['galleries.thumbnail_label']			= 'Thumbnail';
-$lang['galleries.comments_label']			= 'Enable Comments';
-$lang['galleries.published_label']			= 'Published';
-$lang['galleries.current_label']			= 'Current Images (drag and drop to sort, click to edit)';
+$lang['galleries.comments_label']			= 'Kommentare aktivieren';
+$lang['galleries.published_label']			= 'Veröffentlicht';
+$lang['galleries.current_label']			= 'Aktuelle Bilder (drag & drop um zu Sortieren, Klicken um zu Editieren)';
 
 // Sidebar labels
-$lang['galleries.list_label']				= 'List Galleries';
-$lang['galleries.new_gallery_label']		= 'Create a new gallery';
-$lang['galleries.upload_label']				= 'Upload Image';
+$lang['galleries.list_label']				= 'Galerien auflisten';
+$lang['galleries.new_gallery_label']		= 'Neue Galerie anlegen';
+$lang['galleries.upload_label']				= 'Bild Hochladen';
 
 // Frontend labels
-$lang['galleries.sub-galleries_label']		= 'Sub Galleries';
+$lang['galleries.sub-galleries_label']		= 'Unter-Galerien';
 
 // tabs
-$lang['galleries.content_label']			= 'Gallery content'; #translate
-$lang['galleries.design_label']				= 'Design'; #translate
-$lang['galleries.script_label']				= 'Script'; #translate
+$lang['galleries.content_label']			= 'Galerie Inhalt';
+$lang['galleries.design_label']				= 'Design';
+$lang['galleries.script_label']				= 'Script';
