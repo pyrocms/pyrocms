@@ -19,6 +19,7 @@ $lang['password']		= 	'كلمة السرّ';
 $lang['conf_password']	=	'تأكيد كلمة السرّ';
 $lang['finish']			=	'تثبيت';
 
+$lang['invalid_db_name'] = 'The database name you entered is invalid. Please use only alphanumeric characters and underscores.'; #translate
 $lang['error_101']		=	'لم يُعثر على قاعدة البيانات. إن طلبت من برنامج التثبيت إنشاء قاعدة البيانات، قد تكون العملية فشلت بسبب الصلاحيات الغير كافية.';
 $lang['error_102']		=	'تعذر على برنامج التثبيت إضافة أية جداول إلى قاعدة البيانات.';
 $lang['error_103']		=	'تعذر على برنامج التثبيت إدخال البيانات في قاعدة البيانات.';

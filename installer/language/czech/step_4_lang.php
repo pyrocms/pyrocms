@@ -19,6 +19,7 @@ $lang['password']		= 	'Heslo';
 $lang['conf_password']	=	'Potvrďte heslo';
 $lang['finish']			=	'Instalovat';
 
+$lang['invalid_db_name'] = 'The database name you entered is invalid. Please use only alphanumeric characters and underscores.'; #translate
 $lang['error_101']		=	'Databáze nebyla nalezena. Pokud jste chtěli, aby databázi vytvořil instalátor, mohl selhat kvůli oprávněním.';
 $lang['error_102']		=	'Instalátor nemohl přidat tabulky do databáze.';
 $lang['error_103']		=	'Instalátor nemohl vložit data do databáze.';

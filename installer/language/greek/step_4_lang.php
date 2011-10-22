@@ -19,6 +19,7 @@ $lang['password']		= 	'Συνθηματικό';
 $lang['conf_password']	=	'Επανάληψη συνθηματικού';
 $lang['finish']			=	'Εγκατάσταση';
 
+$lang['invalid_db_name'] = 'The database name you entered is invalid. Please use only alphanumeric characters and underscores.'; #translate
 $lang['error_101']		=	'Η βάση δεδομένων δεν βρέθηκε. Αν ζητήσατε από το πρόγραμμα εγκατάστασης να την δημιουργήσει μπορεί να απέτυχε λόγω δικαιωμάτων.';
 $lang['error_102']		=	'Το πρόγραμμα εγκατάστασης δεν μπόρεσε να προσθέσει πίνακες στην βάση δεδομένων.';
 $lang['error_103']		=	'Το πρόγραμμα εγκατάστασης δεν μπόρεσε να εισάγει δεδομένα στην βάση δεδομένων.';
