@@ -35,21 +35,24 @@ jQuery(function($) {
 	 */
 	pyro.init = function() {
 
-		$("#datepicker").datepicker({dateFormat: 'yy-mm-dd'});
-
-		$("#main-nav li a.top-link").click(function () {
-			if($(this).hasClass("no-submenu"))
-			{
-				return true;
-			}
-			$(this).parent().find('ul').toggle();
-			$(this).parent().siblings().find('ul').hide();
-			return false;
+		// Drop Menu
+		$(".topbar ul ul").css({display: "none"});
+	
+		$(".topbar ul li").hover(function(){
+			$(this).find('ul:first').css({visibility: "visible",display: "none"}).stop(true,true).slideDown(400);
+		},function(){
+			$(this).find('ul:first').css({visibility: "visible"}).stop(true,true).slideUp(400);
 		});
-		
-		$('#main-nav ul li').mouseleave(function(){
-			$(this).find('ul').fadeOut();
+	
+		// Disable Parent li if has child items
+		$(".topbar ul li:has(ul)").hover(function () {
+			$(this).children("a").click(function () {
+				return false;
+			});
 		});
+	
+		// Add class to show is dropdown
+		$(".topbar ul li:has(ul)").children("a").addClass("menu");
 
 		// Add the close link to all alert boxes
 		$('.alert').livequery(function(){
@@ -65,6 +68,8 @@ jQuery(function($) {
 				$(this).remove();
 			});
 		});
+
+		$("#datepicker").datepicker({dateFormat: 'yy-mm-dd'});
 
 		// Fade in the notifications
 		$('.alert').livequery(function(){
@@ -159,9 +164,10 @@ jQuery(function($) {
 			$(this).addClass("alt");
 		});
 
-		$('.tabs').livequery(function () {
+		$('#main, .tabs').livequery(function () {
 			$(this).tabs();
 		});
+
 		$('#tabs').livequery(function () {
 			$(this).tabs({
 				// This allows for the Back button to work.
@@ -345,25 +351,6 @@ jQuery(function($) {
 	      var order = $('#sortable').sortable('serialize'); 
 	    } 
 	}); 
-	
-	// Drop Menu
-	$(".topbar ul ul").css({display: "none"});
-
-	$(".topbar ul li").hover(function(){
-		$(this).find('ul:first').css({visibility: "visible",display: "none"}).stop(true,true).slideDown(400);
-	},function(){
-		$(this).find('ul:first').css({visibility: "visible"}).stop(true,true).slideUp(400);
-	});
-
-	// Disable Parent li if has child items
-	$(".topbar ul li:has(ul)").hover(function () {
-		$(this).children("a").click(function () {
-			return false;
-		});
-	});
-
-	// Add class to show is dropdown
-	$(".topbar ul li:has(ul)").children("a").addClass("menu");
 
 	// Pretty Photo
 	$('#main a:has(img)').addClass('prettyPhoto');
@@ -393,9 +380,6 @@ jQuery(function($) {
 		fade: true,
 		html: true
 	});
-
-	// Tabs
-	$( "#main" ).tabs();
 	
 	//functions for codemirror
 	$('.html_editor').each(function() {
