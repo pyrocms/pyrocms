@@ -227,6 +227,13 @@ jQuery(function($) {
 
 		return pyro;
 	};
+	
+	pyro.chosen = function()
+	{
+		// Chosen
+		$('select').addClass('chzn');
+		$(".chzn").chosen();
+	}
 
 	$(document).ajaxError(function(e, jqxhr, settings, exception) {
 		pyro.add_notification($('<div class="alert error">'+exception+'</div>'));
@@ -234,6 +241,7 @@ jQuery(function($) {
 
 	$(document).ready(function() {
 		pyro.init();
+		pyro.chosen();
 	});
 	
 	//close colorbox only when cancel button is clicked
@@ -307,10 +315,6 @@ jQuery(function($) {
 
 	// Tabs
 	$( "#main" ).tabs();
-
-	// Chosen
-	$('select').addClass('chzn');
-	$(".chzn").chosen();
 	
 	//functions for codemirror
 	$('.html_editor').each(function() {

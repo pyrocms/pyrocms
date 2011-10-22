@@ -83,9 +83,8 @@ jQuery(function($){
 					$loading = $('#cboxLoadingOverlay, #cboxLoadingGraphic'),
 					btn_action;
 				
-				// Chosen
-				$('select').addClass('chzn');
-				$(".chzn").chosen();
+				// Update Chosen
+				pyro.chosen();
 
 				form.find(':submit').click(function(e){
 					btn_action = $(this).val();
@@ -223,9 +222,8 @@ jQuery(function($){
 				pyro.add_notification(data.message);
 			}
 			
-			// Chosen
-			$('select').addClass('chzn');
-			$(".chzn").chosen();
+			// Update Chosen
+			pyro.chosen();
 
 		}, 'json');
 	});
@@ -276,9 +274,8 @@ jQuery(function($){
 
 				$.colorbox.resize();
 				
-				// Chosen
-				$('select').addClass('chzn');
-				$(".chzn").chosen();
+				// Update Chosen
+				pyro.chosen();
 
 				form.find(':input:last').keypress(function(e){
 					if (e.keyCode == 9 && ! e.shiftKey)

@@ -43,8 +43,7 @@
 			pyro.init_ckeditor();
 			
 			// Update Chosen
-			$('select').addClass('chzn');
-			$(".chzn").chosen();
+			pyro.chosen();
 		});
 		
 		$('a.remove-chunk').live('click', function(e) {

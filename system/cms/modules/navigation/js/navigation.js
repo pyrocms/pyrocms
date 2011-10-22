@@ -28,9 +28,8 @@
 				var title = $('#title-value-'+id).html();
 				$('section.box .title h4.group-title-'+id).html(title);
 				
-				// Chosen
-				$('select').addClass('chzn');
-				$(".chzn").chosen();
+				// Update Chosen
+				pyro.chosen();
 			});
 			return false;
 		});
