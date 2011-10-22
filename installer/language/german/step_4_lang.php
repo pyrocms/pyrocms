@@ -19,6 +19,7 @@ $lang['password']         =     'Passwort';
 $lang['conf_password']    =    'Passwort wiederholen';
 $lang['finish']           =    'Installieren';
 
+$lang['invalid_db_name'] = 'The database name you entered is invalid. Please use only alphanumeric characters and underscores.'; #translate
 $lang['error_101']        =    'Die Datenbank konnte nicht gefunden werden. Wenn der Installations-Manager die Datenbank erstellen sollte, k&ouml;nnte es an Berechtigungs-Problemen liegen warum der Vorgang fehlschlug.';
 $lang['error_102']        =    'Der Installations-Manager konnte keine Tabellen in der Datenbank anlegen.';
 $lang['error_103']        =    'Der Installations-Manager konnte keine Daten in der Datenbank hinterlegen.';
