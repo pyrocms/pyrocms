@@ -156,8 +156,9 @@ class Admin extends Admin_Controller {
 	 */
 	public function order()
 	{
-		$order = $this->input->post('order');
-		$group = (int) $this->input->post('group');
+		$order	= $this->input->post('order');
+		$data	= $this->input->post('data');
+		$group	= isset($data['group']) ? (int) $data['group'] : 0;
 
 		if (is_array($order))
 		{
@@ -174,12 +175,6 @@ class Admin extends Admin_Controller {
 			}
 			
 			$this->pyrocache->delete_all('navigation_m');
-				
-			echo 'Success';
-		}
-		else
-		{
-			echo 'Fail';
 		}
 	}
 

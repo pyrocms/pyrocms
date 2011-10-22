@@ -145,7 +145,9 @@ class Admin extends Admin_Controller {
 	 */
 	public function order()
 	{
-		$order = $this->input->post('order');
+		$order	= $this->input->post('order');
+		$data	= $this->input->post('data');
+		$root_pages	= isset($data['root_pages']) ? $data['root_pages'] : array();
 
 		if (is_array($order))
 		{
@@ -162,16 +164,10 @@ class Admin extends Admin_Controller {
 			}
 			
 			// rebuild page URIs
-			$this->page_m->update_lookup($this->input->post('root_pages'));
+			$this->page_m->update_lookup($root_pages);
 			
 			$this->pyrocache->delete_all('navigation_m');
 			$this->pyrocache->delete_all('page_m');
-				
-			echo 'Success';
-		}
-		else
-		{
-			echo 'Fail';
 		}
 	}
 

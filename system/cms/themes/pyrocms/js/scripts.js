@@ -228,6 +228,87 @@ jQuery(function($) {
 		return pyro;
 	};
 	
+	// Used by Pages and Navigation and is available for third-party add-ons.
+	// Module must load jquery/jquery.ui.nestedSortable.js and jquery/jquery.cooki.js
+	pyro.sort_tree = function($item_list, $url, $cookie, data_callback, post_sort_callback)
+	{
+		// collapse all ordered lists but the top level
+		$item_list.find('ul').children().hide();
+		
+		// this gets ran again after drop
+		var refresh_tree = function() {
+			
+			// add the minus icon to all parent items that now have visible children
+			$item_list.parent().find('ul li:has(li:visible)').removeClass().addClass('minus');
+			
+			// add the plus icon to all parent items with hidden children
+			$item_list.parent().find('ul li:has(li:hidden)').removeClass().addClass('plus');
+			
+			// remove the class if the child was removed
+			$item_list.parent().find('ul li:not(:has(ul))').removeClass();
+			
+			// call the post sort callback
+			post_sort_callback && post_sort_callback();
+		}
+		refresh_tree();
+		
+		// set the icons properly on parents restored from cookie
+		$($.cookie($cookie)).has('ul').toggleClass('minus plus');
+		
+		// show the parents that were open on last visit
+		$($.cookie($cookie)).children('ul').children().show();
+		
+		// show/hide the children when clicking on an <li>
+		$item_list.find('li').live('click', function()
+		{
+			$(this).children('ul').children().slideToggle('fast');
+			 
+			$(this).has('ul').toggleClass('minus plus');
+			 
+			var items = [];
+			 
+			// get all of the open parents
+			$item_list.find('li.minus:visible').each(function(){ items.push('#' + this.id) });
+
+			// save open parents in the cookie
+			$.cookie($cookie, items.join(', '), { expires: 1 });
+			 
+			 return false;
+		});
+		
+		$item_list.nestedSortable({
+			disableNesting: 'no-nest',
+			forcePlaceholderSize: true,
+			handle: 'div',
+			helper:	'clone',
+			items: 'li',
+			opacity: .4,
+			placeholder: 'placeholder',
+			tabSize: 25,
+			listType: 'ul',
+			tolerance: 'pointer',
+			toleranceElement: '> div',
+			stop: function(event, ui) {
+				
+				post = {};
+				// create the array using the toHierarchy method
+				post.order = $item_list.nestedSortable('toHierarchy');
+
+				// pass to third-party devs and let them return data to send along
+				if (data_callback) {
+					post.data = data_callback(event, ui);
+				}
+
+				// refresh the tree icons - needs a timeout to allow nestedSort
+				// to remove unused elements before we check for their existence
+				setTimeout(refresh_tree, 5);
+			
+				$.post(SITE_URL + $url, post );
+			}
+		});
+
+	}
+	
 	pyro.chosen = function()
 	{
 		// Chosen
