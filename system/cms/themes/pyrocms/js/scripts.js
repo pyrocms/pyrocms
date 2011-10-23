@@ -38,17 +38,18 @@ jQuery(function($) {
 		// Drop Menu
 		$(".topbar ul ul").css({display: "none"});
 	
-		$(".topbar ul li").hover(function(){
-			$(this).find('ul:first').css({visibility: "visible",display: "none"}).stop(true,true).slideDown(400);
-		},function(){
-			$(this).find('ul:first').css({visibility: "visible"}).stop(true,true).slideUp(400);
+		$(".topbar ul li a").click(function(e){
+			$a = $(this).parent();
+			($a.find('ul:first:hidden').css({visibility: "visible",display: "none"}).slideDown(400).length > 0) ||
+			$a.find('ul:first:visible').slideUp(400);
+
+			if ($a.parent().has('ul').length > 0) {
+				e.preventDefault();
+			};
 		});
-	
-		// Disable Parent li if has child items
-		$(".topbar ul li:has(ul)").hover(function () {
-			$(this).children("a").click(function () {
-				return false;
-			});
+		
+		$('.topbar ul li').mouseleave(function(){
+			$(this).find('ul').slideUp(400);
 		});
 	
 		// Add class to show is dropdown
