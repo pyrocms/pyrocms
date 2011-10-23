@@ -2,7 +2,7 @@
 
 <?php echo form_open_multipart(uri_string(), array('class' => 'crud', 'id' => 'files_crud')); ?>
 <fieldset>
-	<ol>
+	<ul>
 		<li class="even">
 			<?php echo form_label(lang('files.name_label'), 'name'); ?>
 			<?php echo form_input('name', $file->name, 'class="crud"'); ?>
@@ -26,7 +26,7 @@
 			<label for="nothing"><?php echo lang('files.file_label'); ?></label>
 			<?php echo form_upload('userfile'); ?>
 		</li>
-	</ol>
+	</ul>
 
 	<div class="align-right buttons">
 		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save') )); ?>

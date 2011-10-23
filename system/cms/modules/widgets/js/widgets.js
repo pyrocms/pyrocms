@@ -8,12 +8,9 @@ jQuery(function($){
 		}
 	});
 
-	pyro.cached = {
-		url_titles		: {},
-		widget_forms	: {
-			add		:{},
-			edit	:{}
-		}
+	pyro.cache.widget_forms = {
+		add		:{},
+		edit	:{}
 	}
 
 	pyro.widgets = {
@@ -209,30 +206,9 @@ jQuery(function($){
 			// Widget Boxes Draggable
 			pyro.widgets.$boxes.draggable(pyro.widgets.ui_options.draggable);
 
-			// Auto-create a short-name
-			$('input[name="title"]').live('keyup', $.debounce(350, function(){
+			// Create a slug
+			pyro.generate_slug('input[name="title"]', 'input[name="slug"]');
 
-				var $title	= $(this),
-					$form	= $title.parents('form'),
-					$slug	= $form.find('input[name=slug]'),
-					data	= { title: $title.val().toLowerCase() };
-
-				if ( ! data.title.length) return;
-
-				if (data.title in pyro.cached.url_titles)
-				{
-					$slug.val(pyro.cached.url_titles[data.title]);
-
-					return;
-				}
-
-				$.post(SITE_URL + 'ajax/url_title', data, function(slug){
-					pyro.cached.url_titles[data.title] = slug;
-
-					$slug.val(slug);
-				});
-
-			}));
 
 			// MANAGE ------------------------------------------------------------------------------
 
@@ -341,10 +317,10 @@ jQuery(function($){
 				url	= (action == 'add') ? SITE_URL + 'admin/widgets/instances/create/' + key : $(item).attr('href');
 
 			// known? receive the action form
-			if (key in pyro.cached.widget_forms[action])
+			if (key in pyro.cache.widget_forms[action])
 			{
 				// next step
-				return pyro.widgets.add_instance_form(pyro.cached.widget_forms[action][key], container, action, key);
+				return pyro.widgets.add_instance_form(pyro.cache.widget_forms[action][key], container, action, key);
 			}
 
 			$.get(url, function(response){
@@ -353,7 +329,7 @@ jQuery(function($){
 							response + '</li>';
 
 				// write action form into cache
-				pyro.cached.widget_forms[action][key] = response;
+				pyro.cache.widget_forms[action][key] = response;
 
 				pyro.widgets.add_instance_form(response, container, action, key);
 
@@ -454,8 +430,8 @@ jQuery(function($){
 				action === 'add'
 					? $(this).remove()
 					: key
-						? pyro.cached.widget_forms[action][key] = $(this).detach()
-						: pyro.cached.widget_forms[action] = {};
+						? pyro.cache.widget_forms[action][key] = $(this).detach()
+						: pyro.cache.widget_forms[action] = {};
 
 				pyro.widgets.$boxes.draggable('enable');
 				pyro.widgets.$areas.accordion('resize');

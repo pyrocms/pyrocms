@@ -8,7 +8,7 @@ $lang['settings_site_slogan']					= 'Slogan der Seite';
 $lang['settings_site_slogan_desc']				= 'Der Sloagen der Seite zur Anzeige auf der kompletten Web-Präsenz.';
 
 $lang['settings_site_lang']						= 'Sprache der Seite';
-$lang['settings_site_lang_desc']				= 'Die Muttersprache der Seite. Wird verwendet um Templates für interne E-mail Benachrichtungen zu wählen, Besucher Kontakte zu empfangen und andere Features die nicht von der Sprache des Benutzers beeinflusst werden sollen.'
+$lang['settings_site_lang_desc']				= 'Die Muttersprache der Seite. Wird verwendet um Templates für interne E-mail Benachrichtungen zu wählen, Besucher Kontakte zu empfangen und andere Features die nicht von der Sprache des Benutzers beeinflusst werden sollen.';
 #The native language of the website, used to choose templates of e-mail internal notifications and receiving visitors contact and other features that should not bend the language of a user.'; #tricky one
 
 $lang['settings_contact_email']					= 'Kontakt-Email';

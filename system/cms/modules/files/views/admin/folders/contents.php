@@ -89,16 +89,16 @@
 				<td><?php echo lang('files.type_'.$file->type); ?></td>
 				<td><?php echo strlen($file->name) > 25 ? '<span title="' . $file->name . '">' . ellipsize($file->name, 25, .8) . '</span>' : $file->name; ?></td>
 				<td class="align-center"><?php echo format_date($file->date_added); ?></td>
-				<td class="align-center buttons buttons-small">
+				<td class="actions">
 				<?php
 					if (group_has_role('files', 'download_file'))
 					{
-						echo anchor('files/download/' . $file->id, lang('files.download_label'), array('class' => 'button download download_file'));
+						echo anchor('files/download/' . $file->id, lang('files.download_label'), array('class' => 'button download download_file')).' ';
 					}
 					
 						if (group_has_role('files', 'edit_file'))
 					{
-						echo anchor('admin/files/edit/' . $file->id, lang('buttons.edit'), array('class' => 'button edit edit_file'));
+						echo anchor('admin/files/edit/' . $file->id, lang('buttons.edit'), array('class' => 'button edit edit_file')).' ';
 					}
 					
 					if (group_has_role('files', 'delete_file'))
@@ -112,7 +112,7 @@
 		</tbody>
 	</table>
 	
-	<div class="buttons align-right padding-top">
+	<div>
 		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete'))); ?>
 	</div>
 

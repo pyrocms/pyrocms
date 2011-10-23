@@ -67,6 +67,7 @@ $lang['user_lang']                             = 'Sprog';
 
 $lang['user_activation_code']                  = 'Aktiveringskode';
 
+$lang['user_reset_instructions']			   = 'Enter your email address or username'; #translate
 $lang['user_reset_password_link']              = 'Glemt password?';
 
 $lang['user_activation_code_sent_notice']      = 'Du modtager nu en e-mail med din aktiveringskode.';

@@ -64,6 +64,7 @@ $lang['user_lang']							= 'Idioma';
 
 $lang['user_activation_code']				= 'Código de activación';
 
+$lang['user_reset_instructions']			   = 'Enter your email address or username'; #translate
 $lang['user_reset_password_link']			= 'Olvidaste tu contraseña?';
 
 $lang['user_activation_code_sent_notice']	= 'Se te ha enviado un e-mail con tu código de activación.';

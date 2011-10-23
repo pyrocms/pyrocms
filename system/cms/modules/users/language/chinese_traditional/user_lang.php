@@ -66,6 +66,7 @@ $lang['user_lang']						= '語言';
 
 $lang['user_activation_code'] 			= '啟動碼';
 
+$lang['user_reset_instructions']			   = 'Enter your email address or username'; #translate
 $lang['user_reset_password_link'] 		= '忘記密碼';
 
 $lang['user_activation_code_sent_notice']	= '內含啟動碼的電子郵件已經寄給您了。';

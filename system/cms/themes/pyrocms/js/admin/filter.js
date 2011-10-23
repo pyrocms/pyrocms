@@ -94,9 +94,7 @@
 					}
 
 					//success stuff here
-					// Chosen
-					$('select').addClass('chzn');
-					$(".chzn").chosen();
+					pyro.chosen();
 					pyro.filter.$content.html(html).fadeIn('fast');
 				});
 			});

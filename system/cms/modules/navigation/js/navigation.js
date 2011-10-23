@@ -28,9 +28,8 @@
 				var title = $('#title-value-'+id).html();
 				$('section.box .title h4.group-title-'+id).html(title);
 				
-				// Chosen
-				$('select').addClass('chzn');
-				$(".chzn").chosen();
+				// Update Chosen
+				pyro.chosen();
 			});
 			return false;
 		});
@@ -99,81 +98,20 @@
 			});
 			return false;
 		});
+		
 
-		// collapse all ordered lists but the top level
-		$('#link-list ul:not(.sortable)').children().hide();
-
-		//this gets ran again after drop
-		var update_tree = function() {
-
-			// add the minus icon to all parent items that now have visible children
-			$('#link-list ul').children('li:has(li:visible)').removeClass().addClass('minus');
-
-			// add the plus icon to all parent items with hidden children
-			$('#link-list ul').children('li:has(li:hidden)').removeClass().addClass('plus');
-
-			// remove the class if the child was removed
-			$('#link-list ul').children('li:not(:has(ul))').removeClass();
-
-			// refresh the link details pane if it exists
-			if($('#link-details #link-id').val() > 0)
-			{
-				// Load the details box in
-				$('div#link-details').load(SITE_URL + 'admin/navigation/ajax_link_details/' + $('#link-details #link-id').val());
-			}
+		$item_list		= $('ul.sortable');
+		$url			= 'admin/navigation/order';
+		$cookie			= 'open_links';
+		$data_callback	= function(event, ui) {
+			// Grab the group id so we can update the right links
+			return { 'group' : ui.item.parents('section.box').attr('rel') };
 		}
-		update_tree();
+		// $post_callback is available but not needed here
+		
+		// Get sortified
+		pyro.sort_tree($item_list, $url, $cookie, $data_callback);
 
-		// set the icons properly on parents restored from cookie
-		$($.cookie('open_links')).has('ul').toggleClass('minus plus');
-
-		// show the parents that were open on last visit
-		$($.cookie('open_links')).children('ul').children().show();
-
-		// show/hide the children when clicking on an <li>
-		$('#link-list li').live('click', function()
-		{
-			$(this).children('ul').children().slideToggle('fast');
-
-			$(this).has('ul').toggleClass('minus plus');
-
-			var links = [];
-
-			// get all of the open parents
-			$('.item').find('li.minus').each(function(){ links.push('#' + this.id) });
-
-			// save open parents in the cookie
-			$.cookie('open_links', links.join(', '), { expires: 1 });
-
-			 return false;
-		});
-
-		$('ul.sortable').nestedSortable({
-			disableNesting: 'no-nest',
-			forcePlaceholderSize: true,
-			handle: 'div',
-			helper:	'clone',
-			items: 'li',
-			opacity: .4,
-			placeholder: 'placeholder',
-			tabSize: 25,
-			listType: 'ul',
-			tolerance: 'pointer',
-			toleranceElement: '> div',
-			stop: function(event, ui) {
-				// create the array using the toHierarchy method
-				order = $(this).nestedSortable('toHierarchy');
-
-				// get the group id
-				var group = $(this).parents('section.box').attr('rel');
-
-				// refresh the tree icons - needs a timeout to allow nestedSort
-				// to remove unused elements before we check for their existence
-				setTimeout(update_tree, 5);
-
-				$.post(SITE_URL + 'admin/navigation/order', { 'order': order, 'group': group } );
-			}
-		});
 	});
 
 })(jQuery);

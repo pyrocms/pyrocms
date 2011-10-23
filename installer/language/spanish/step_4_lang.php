@@ -19,6 +19,7 @@ $lang['password']      = 'Contraseña';
 $lang['conf_password'] = 'Confirmar contraseña';
 $lang['finish']        = 'Instalar';
 
+$lang['invalid_db_name'] = 'The database name you entered is invalid. Please use only alphanumeric characters and underscores.'; #translate
 $lang['error_101']     = 'La base de datos no se pudo encontrar. Si solicitó al instalador crear la base de datos entonces pudo haber fallado debido a permisos incorrectos.';
 $lang['error_102']     = 'El instalador no pudo agregar las tablas a la base de datos.<br/><br/>';
 $lang['error_103']     = 'El instalador no pudo agregar los datos en la base de datos.<br/><br/>';

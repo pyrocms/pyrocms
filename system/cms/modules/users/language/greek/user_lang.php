@@ -66,6 +66,7 @@ $lang['user_lang']                             = 'Γλώσσα';
 
 $lang['user_activation_code']                  = 'Κωδικός ενεργοποίησης';
 
+$lang['user_reset_instructions']			   = 'Εισάγετε την διεύθυνση email ή το όνομα χρήστη σας';
 $lang['user_reset_password_link']              = 'Ξεχάσατε το συνθηματικό σας;';
 
 $lang['user_activation_code_sent_notice']      = 'Έχει σταλλεί ένα email με τον κωδικό ενεργοποίησης του λογαριασμού σας.';

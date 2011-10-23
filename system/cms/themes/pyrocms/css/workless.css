@@ -226,7 +226,7 @@ label.inline {margin-right: 4px; font-weight: normal!important;}
 
 button, input, select, textarea { font-size: 100%; margin: 0; vertical-align: baseline; *vertical-align: middle; margin: 5px 0 5px 0; }
 
-select { min-width: 260px; }
+select { min-width: 260px; visibility: hidden; }
 
 .button,
 .cancel,
@@ -991,6 +991,7 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
 
 .pagination ul li a:hover, .pagination ul li.active a {
   background-color: #c7eefe;
+  color: #4C6169;
 }
 
 .pagination ul li.disabled a, .pagination ul li.disabled a:hover {
@@ -1096,7 +1097,7 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   float: left;
   display: none;
   position: absolute;
-  top: 50px;
+  top: 49px;
   min-width: 160px;
   max-width: 220px;
   _width: 160px;

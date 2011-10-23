@@ -56,7 +56,7 @@ class Module_Variables extends Module {
 				    'name' => 'variables.create_title',
 				    'uri' => 'admin/variables/create',
 					'class' => 'add',
-					'rel' => 'ajax',
+					//'rel' => 'ajax',
 				),
 		    ),
 		);

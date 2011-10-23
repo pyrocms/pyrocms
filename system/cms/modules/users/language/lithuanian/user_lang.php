@@ -66,6 +66,7 @@ $lang['user_lang']                             = 'Kalba';
 
 $lang['user_activation_code']                  = 'Aktyvacijos kodas';
 
+$lang['user_reset_instructions']			   = 'Enter your email address or username'; #translate
 $lang['user_reset_password_link']              = 'Pamiršote slaptažodį?';
 
 $lang['user_activation_code_sent_notice']      = 'Laiškas buvo išsiųsta su jūsų aktyvacijos kodu.';

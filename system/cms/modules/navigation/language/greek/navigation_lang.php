@@ -24,7 +24,7 @@ $lang['nav_link_create_title']                  = 'Προσθήκη συνδέμ
 $lang['nav_group_create_title']                 = 'Προσθήκη ομάδας';
 $lang['nav_link_edit_title']                    = 'Επεξεργασία συνδέσμου περιήγησης "%s"';
 $lang['nav_link_list_title']                    = 'Λίστα συνδέσμων';
-$lang['nav_group_list_title']                   = 'Groups'; #translate
+$lang['nav_group_list_title']                   = 'Ομάδες';
 
 // messages
 $lang['nav_group_no_links']                     = 'Δεν υπάρχουν συνδέσμοι σε αυτήν την ομάδα.';

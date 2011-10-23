@@ -360,11 +360,16 @@ class Users extends Public_Controller
 			$email = $this->input->post('email');
 
 			$user_meta = $this->ion_auth->get_user_by_email($email);
-
-			//supplied username match the email also given?  if yes keep going..
-			if ($user_meta && $user_meta->username == $uname)
+			
+			if ( ! $user_meta)
 			{
-				$new_password = $this->ion_auth->forgotten_password($email);
+				$user_meta = $this->ion_auth->get_user_by_username($uname);
+			}
+
+			// have we found a user?
+			if ($user_meta)
+			{
+				$new_password = $this->ion_auth->forgotten_password($user_meta->email);
 
 				if ($new_password)
 				{

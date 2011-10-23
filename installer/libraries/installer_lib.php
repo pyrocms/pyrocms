@@ -181,6 +181,17 @@ class Installer_lib {
 	}
 
 	/**
+	 * @return bool
+	 * Make sure the database name is a valid mysql identifier
+	 * 
+	 */
+	 public function validate_mysql_db_name($db_name)
+	 {
+	 	$expr = '/[^A-Za-z0-9_]+/';
+	 	return !(preg_match($expr,$db_name)>0);
+	 }
+
+	/**
 	 * @return 	mixed
 	 *
 	 * Make sure we can connect to the database

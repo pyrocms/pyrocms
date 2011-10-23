@@ -153,6 +153,26 @@ class Installer extends CI_Controller
 	}
 
 	/**
+	 *Function to validate the database name
+	 *
+	 * @access public
+	 * @return bool
+	*/
+	function validate_mysql_db_name($db_name)
+	{
+		
+		if(! $this->installer_lib->validate_mysql_db_name($db_name))
+		{
+			$this->form_validation->set_message('validate_mysql_db_name', lang('invalid_db_name'));
+			return FALSE;
+		}
+		else 
+		{
+			return TRUE;
+		}
+	}
+
+	/**
 	 * Function to test the DB connection (used for the form validation)
 	 *
 	 * @access public
@@ -291,7 +311,7 @@ class Installer extends CI_Controller
 			array(
 				'field' => 'database',
 				'label'	=> 'lang:database',
-				'rules'	=> 'trim|required'
+				'rules'	=> 'trim|required|callback_validate_mysql_db_name'
 			),
 			array(
 				'field' => 'site_ref',

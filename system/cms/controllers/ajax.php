@@ -6,7 +6,7 @@
  * @package     PyroCMS
  * @subpackage  Controllers
  */
-class Ajax extends CI_Controller {
+class Ajax extends MY_Controller {
 
     function url_title()
     {

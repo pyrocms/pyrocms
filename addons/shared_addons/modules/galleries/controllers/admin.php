@@ -3,7 +3,7 @@
  *
  * The galleries module enables users to create albums, upload photos and manage their existing albums.
  *
- * @author 		Yorick Peterse - PyroCMS Dev Team
+ * @author 		PyroCMS Dev Team
  * @package 	PyroCMS
  * @subpackage 	Gallery Module
  * @category 	Modules
@@ -96,13 +96,6 @@ class Admin extends Admin_Controller
 		)
 	);
 
-	/**
-	 * Constructor method
-	 *
-	 * @author Yorick Peterse - PyroCMS Dev Team
-	 * @access public
-	 * @return void
-	 */
 	public function __construct()
 	{
 		parent::__construct();
@@ -192,7 +185,6 @@ class Admin extends Admin_Controller
 			->append_metadata( css('galleries.css', 'galleries') )
 			->append_metadata( js('manage.js', 'galleries') )
 			->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
-			->append_metadata( js('form.js', 'galleries') )
 			->set('gallery',		$gallery)
 			->set('folders_tree',	$folders_tree)
 			->build('admin/form');
@@ -201,7 +193,6 @@ class Admin extends Admin_Controller
 	/**
 	 * Manage an existing gallery
 	 *
-	 * @author Yorick Peterse - PyroCMS Dev Team
 	 * @access public
 	 * @param int $id The ID of the gallery to manage
 	 * @return void
@@ -265,7 +256,6 @@ class Admin extends Admin_Controller
 			->append_metadata( css('galleries.css', 'galleries') )
 		   	->append_metadata( js('manage.js', 'galleries') )
 			->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
-			->append_metadata( js('form.js', 'galleries') )
 			->set('gallery',		$gallery)
 			->set('galleries',		$galleries)
 			->set('gallery_images',	$gallery_images)
@@ -290,7 +280,6 @@ class Admin extends Admin_Controller
 	/**
 	 * Delete an existing gallery
 	 *
-	 * @author Yorick Peterse - PyroCMS Dev Team
 	 * @access public
 	 * @param int $id The ID of the gallery to delete
 	 * @return void
@@ -363,7 +352,6 @@ class Admin extends Admin_Controller
 	/**
 	 * Sort images in an existing gallery
 	 *
-	 * @author Jerel Unruh - PyroCMS Dev Team
 	 * @access public
 	 */
 	public function ajax_update_order()
@@ -393,12 +381,6 @@ class Admin extends Admin_Controller
 		}
 	}
 
-	/**
-	 * Sort images in an existing gallery
-	 *
-	 * @author Phil Sturgeon - PyroCMS Dev Team
-	 * @access public
-	 */
 	public function ajax_select_folder($folder_id)
 	{
 		$folder = $this->file_folders_m->get($folder_id);
