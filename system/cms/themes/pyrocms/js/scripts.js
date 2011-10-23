@@ -45,7 +45,7 @@ jQuery(function($) {
 		$(".topbar ul ul").css({display: "none"});
 	
 		$(".topbar ul li a").click(function(e){
-			$a = $(this).parent();
+			$a = $(this).parent(':not(#dashboard-link)');
 			($a.find('ul:first:hidden').css({visibility: "visible",display: "none"}).slideDown(400).length > 0) ||
 			$a.find('ul:first:visible').slideUp(400);
 
