@@ -13,6 +13,12 @@ var pyro = {};
 
 jQuery(function($) {
 
+	// Set up an object for caching things
+	pyro.cache = {
+		// set this up for the slug generator
+		url_titles	: {}
+	}
+
 	/**
 	 * Overload the json converter to avoid error when json is null or empty.
 	 */
@@ -321,6 +327,31 @@ jQuery(function($) {
 		// Chosen
 		$('select').addClass('chzn');
 		$(".chzn").chosen();
+	}
+	
+	// Create a clean slug from whatever garbage is in the title field
+	pyro.generate_slug = function(input_form, output_form)
+	{
+		$(input_form).live('keyup', $.debounce(350, function(){
+
+				data	= { 'title' : $(input_form).val().toLowerCase() };
+
+			if ( ! data.title.length) return;
+
+			if (data.title in pyro.cache.url_titles)
+			{
+				$(output_form).val(pyro.cache.url_titles[data.title]);
+
+				return;
+			}
+
+			$.post(SITE_URL + 'ajax/url_title', data, function(slug){
+				pyro.cache.url_titles[data.title] = slug;
+
+				$(output_form).val(slug);
+			});
+
+		}));
 	}
 
 	$(document).ajaxError(function(e, jqxhr, settings, exception) {

@@ -1,6 +1,8 @@
 jQuery(function($){
-	var store_func = function(){};
-
+	
+	// generate a slug when the user types a title in
+	pyro.generate_slug('input[name="title"]', 'input[name="slug"]');
+		
 	$('.images-manage ul#gallery_images_list').sortable({
 		handle: 'img',
 		start: function(event, ui) {
