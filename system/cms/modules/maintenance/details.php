@@ -18,10 +18,12 @@ class Module_Maintenance extends Module
 		return array(
 			'name' => array(
 				'en' => 'Maintenance',
+				'el' => 'Συντήρηση',
 				'ar' => 'الصيانة',
 			),
 			'description' => array(
 				'en' => 'Manually delete cache items via the admin interface.',
+				'el' => 'Διαγραφή αντικειμένων προσωρινής αποθήκευσης μέσω της σελίδας διαχείρισης.',
 				'ar' => 'حذف عناصر الذاكرة المخبأة عبر واجهة الإدارة.',
 			),
 			'frontend' => FALSE,
