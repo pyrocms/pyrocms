@@ -592,7 +592,8 @@ body#login #login-box ul li input#remember {
 	width: 15px;
 	height: 15px;
 	margin: 0;
-	border: 0 !important;
+	outline: none!important;
+	border: none!important;
 }
 #login-box .error {
 	background: #ef8385;
