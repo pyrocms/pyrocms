@@ -72,6 +72,7 @@ jQuery(function($) {
 			$(this).fadeTo(200, 0); // This is a hack so that the close link fades out in IE
 			$(this).parent().fadeTo(200, 0);
 			$(this).parent().slideUp(400, function(){
+				$(window).trigger('notification-closed');
 				$(this).remove();
 			});
 		});
