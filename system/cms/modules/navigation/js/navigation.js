@@ -167,7 +167,7 @@
 				$('.group-'+ id +' #link-list a').removeClass('selected');
 				// and check if the container is visible
 				var $box = $('.group-'+ id);
-				if(!$box.find('.item').hasClass('collapsed')) {
+				if($box.find('.item').hasClass('collapsed')) {
 					$box.find('.title').click();
 				}
 			}
@@ -179,6 +179,7 @@
 				$('section.box header h3.group-title-'+id).html(title);
 			});
 
+			return false;
 		});
 
 		// submit create form via ajax

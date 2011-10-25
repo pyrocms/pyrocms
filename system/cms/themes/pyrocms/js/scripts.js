@@ -111,6 +111,7 @@ jQuery(function($) {
 		// Confirmation
 		$('a.confirm').live('click', function(e){
 			e.preventDefault();
+			e.stopPropagation();
 
 			var href		= $(this).attr('href'),
 				removemsg	= $(this).attr('title');
