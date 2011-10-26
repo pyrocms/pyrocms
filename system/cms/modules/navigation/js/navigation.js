@@ -77,71 +77,13 @@
 					//check if a notification should be display
 					var $notification = $(".notification", data);
 					if($notification.length > 0) {
-						$("#content").prepend($notification);
+						pyro.add_notification($notification.find('p').text());
 					}
 
-					//re-initialise all the stuff in the navigation content
-					init_navigation_content(true);
+					pyro.refresh_sort_tree($('ul.sortable'));
 				}
 			});			
 		}
-
-	
-		//this gets ran again after drop
-		var update_tree = function()
-		{
-			// add the minus icon to all parent items that now have visible children
-			$('#link-list ul').children('li:has(li:visible)').removeClass().addClass('minus');
-
-			// add the plus icon to all parent items with hidden children
-			$('#link-list ul').children('li:has(li:hidden)').removeClass().addClass('plus');
-
-			// remove the class if the child was removed
-			$('#link-list ul').children('li:not(:has(ul))').removeClass();
-
-			// refresh the link details pane if it exists
-			if($('#link-details #link-id').val() > 0)
-			{
-				// Load the details box in
-				$('div#link-details').load(SITE_URL + 'admin/navigation/ajax_link_details/' + $('#link-details #link-id').val());
-			}
-		}
-
-		var init_navigation_content = function(restore)
-		{
-			if(!restore) {
-				// collapse all ordered lists but the top level, but only if we didn't to a restore
-				$('#link-list ul:not(.sortable)').children().hide();			
-			}
-
-			$('ul.sortable').nestedSortable({
-				disableNesting: 'no-nest',
-				forcePlaceholderSize: true,
-				handle: 'div',
-				helper:	'clone',
-				items: 'li',
-				opacity: .4,
-				placeholder: 'placeholder',
-				tabSize: 25,
-				tolerance: 'pointer',
-				toleranceElement: '> div',
-				stop: function(event, ui) {
-					// create the array using the toHierarchy method
-					order = $(this).nestedSortable('toHierarchy');
-
-					// get the group id
-					var group = $(this).parents('section').attr('rel');
-
-					// refresh the tree icons - needs a timeout to allow nestedSort
-					// to remove unused elements before we check for their existence
-					setTimeout(update_tree, 5);
-
-					$.post(SITE_URL + 'admin/navigation/order', { 'order': order, 'group': group } );
-				}
-			});
-			
-			update_tree();		
-		}	
 
 		// show and hide the sections
 		$('.box .title').live('click', function()
@@ -155,13 +97,9 @@
 		});
 
 		// load edit via ajax
-		$('a.ajax').live('click', function(e)
-		{
-			e.preventDefault();
-
+		$('a.ajax').live('click', function(){
 			// make sure we load it into the right one
 			var id = $(this).attr('rel');
-
 			if ($(this).hasClass('add')) {
 				// if we're creating a new one remove the selected icon from link in the tree
 				$('.group-'+ id +' #link-list a').removeClass('selected');
@@ -169,21 +107,18 @@
 				var $box = $('.group-'+ id);
 				if($box.find('.item').hasClass('collapsed')) {
 					$box.find('.title').click();
-				}
+				}				
 			}
 			// Load the form
 			$('div#link-details.group-'+ id +'').load($(this).attr('href'), '', function(){
 				$('div#link-details.group-'+ id +'').fadeIn();
 				// display the create/edit title in the header
 				var title = $('#title-value-'+id).html();
-				$('section.box header h3.group-title-'+id).html(title);
+				$('section.box .title h4.group-title-'+id).html(title);
 
-        // Chosen
-        $('select').addClass('chzn');
-        $(".chzn").chosen();
-        				
+				// Update Chosen
+				pyro.chosen();
 			});
-
 			return false;
 		});
 
@@ -198,10 +133,8 @@
 					reload_content();
 				}
 				else {
-					$('.notification').remove();
-					$('nav#shortcuts').after(message);
-					// Fade in the notifications
-					$(".notification").fadeIn("slow");
+					alert(message).html();
+					pyro.add_notification($('<div class="alert error">').html($(message).find('p').text()));
 				}
 			});
 		});
@@ -215,17 +148,13 @@
 					reload_content();
 				}
 				else {
-					$('.notification').remove();
-					$('nav#shortcuts').after(message);
-					// Fade in the notifications
-					$(".notification").fadeIn("slow");
+					pyro.add_notification($('<div class="alert error">').html($(message).find('p').text()));
 				}
 			});
 		});
 
 		// Pick a rule type, show the correct field
-		$('input[name="link_type"]').live('change', function()
-		{
+		$('input[name="link_type"]').live('change', function(){
 			$(this).parents('ul').find('#navigation-' + $(this).val())
 
 			// Show only the selected type
@@ -234,7 +163,7 @@
 			// Reset values when switched
 			.find('input:not([value="http://"]), select').val('');
 
-		// Trigger default checked
+			// Trigger default checked
 		}).filter(':checked').change();
 
 		// show link details
@@ -251,16 +180,6 @@
 			});
 			return false;
 		});
-	
-		// show/hide the children when clicking on an <li>
-		$('#link-list li').live('click', function()
-		{
-			$(this).children('ul').children().slideToggle('fast');
-
-			$(this).has('ul').toggleClass('minus plus');
-
-			 return false;
-		});	
 
 		//initialisation
 		var $boxes = $(".box .item");
@@ -268,7 +187,19 @@
 		// show the first box with js to get around page jump
 		show_box($boxes.first(), 0);
 
-		init_navigation_content();
+		$data_callback = function(event, ui) {
+			// Grab the group id so we can update the right links
+			return { 'group' : ui.item.parents('section.box').attr('rel') };
+		}	
+		
+		$item_list = $('ul.sortable');
+		$url = 'admin/navigation/order';
+		$cookie = 'open_links';
+
+		// $post_callback is available but not needed here
+
+		// Get sortified
+		pyro.sort_tree($item_list, $url, $cookie, $data_callback);			
 
 	});
 

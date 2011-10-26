@@ -16,7 +16,7 @@
 			echo form_input(array(
 				'id' => 'hostname',
 				'name' => 'hostname',
-				'value' => set_value('hostname')
+				'value' => set_value('hostname', 'localhost'),
 			));
 		?>
 		</div>
@@ -60,12 +60,14 @@
 	<div class="server">
 		<h2>{server_settings}</h2>
 
-			<div class="input">
-				<?php echo lang('httpserver','http_server'); ?>
-				<?php
-					echo form_dropdown('http_server', $server_options, set_value('http_server'), 'id="http_server"');
-				?>
-			</div>
+		<p>{httpserver_text}</p>
+		
+		<div class="input">
+			<?php echo lang('httpserver','http_server'); ?>
+			<?php
+				echo form_dropdown('http_server', $server_options, set_value('http_server'), 'id="http_server"');
+			?>
+		</div>
 	</div>
 
 	<input type="hidden" name="installation_step" value="step_1" />

@@ -2,17 +2,19 @@
 
 // labels
 $lang['header']			=	'Step 1: Configure Database and Server';
-$lang['intro_text']		=	'Before we can check the database, we need to know where it is and what the login details are.';
+$lang['intro_text']		=	'PyroCMS is very easy to install and should only take a few minutes, but there are a few questions that may appear confusing if you do not have a technical background. If at any point you get stuck please ask your web hosting provider or <a href="http://pyrocms.com/contact" target="_blank">contact us</a> for support.';
 
 $lang['db_settings']	=	'Database Settings';
-$lang['db_text']		=	'In order for the installer to check your MySQL server version it requires you to enter the hostname, username and password in the form below. These settings will also be used when installing the database.';
+$lang['db_text']		=	'PyroCMS requires a database (MySQL) to store all of your content and settings, so the first thing we need to do is check the database connection details are ok. If you do not understand what you are being asked to enter please ask your web hosting provider or server administrator for the details.';
 
-$lang['server']			=	'Server';
-$lang['username']		=	'Username';
-$lang['password']		=	'Password';
-$lang['portnr']			=	'Port';
+$lang['server']			=	'MySQL Hostname';
+$lang['username']		=	'MySQL Username';
+$lang['password']		=	'MySQL Password';
+$lang['portnr']			=	'MySQL Port';
 $lang['server_settings']=	'Server Settings';
 $lang['httpserver']		=	'HTTP Server';
+
+$lang['httpserver_text']=	'PyroCMS requires a HTTP Server to display dynamic content when a user goes to your website. It looks like you already have one by the fact that you can see this page, but if know exactly which type then PyroCMS can configure itself even better. If you do not know what any of this means just ignore it and carry on with the installation.';
 $lang['rewrite_fail']	=	'You have selected "(Apache with mod_rewrite)" but we are unable to tell if mod_rewrite is enabled on your server. Ask your host if mod_rewrite is enabled or simply install at your own risk.';
 $lang['mod_rewrite']	=	'You have selected "(Apache with mod_rewrite)" but your server does not have the rewrite module enabled. Ask your host to enable it or install PyroCMS using the "Apache (without mod_rewrite)" option.';
 $lang['step2']			=	'Step 2';
