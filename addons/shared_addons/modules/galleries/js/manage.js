@@ -19,7 +19,38 @@ jQuery(function($){
 		}
 
 	}).disableSelection();
-
+	
+	// edit images with ajax
+	$(document).bind('cbox_complete',function(){
+		$.colorbox.resize();
+		$('#cboxLoadedContent form').bind('submit',function(){
+			var action = $(this).attr('action');
+			if(action.search(/admin\/files\/edit/) > -1){
+				$.ajax({
+					url: action,
+					type:'POST',
+					data:$(this).serialize(),
+					success: function(data){
+						if(data.status){
+							$(window).bind('notification-closed.editfile',function(e){
+								console.log('winning!');
+								$.colorbox.resize();
+								$(window).unbind('notification-closed.editfile');
+							});
+							$('#cboxLoadedContent h2').after(data.message)
+							window.delayint = window.setInterval(function(){
+								$.colorbox.resize();
+								console.log('delay');
+								clearInterval(window.delayint);
+							},120);
+						}
+					}
+				});
+			}
+			return false;
+		})
+	})
+	
 	
 	// update the folder images preview when folder selection changes
 	$('select#folder_id').change(function(){
