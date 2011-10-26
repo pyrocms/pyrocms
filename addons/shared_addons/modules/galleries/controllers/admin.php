@@ -11,8 +11,6 @@
  */
 class Admin extends Admin_Controller
 {
-	public $id = 0;
-
 	/**
 	 * Validation rules for creating a new gallery
 	 *
@@ -25,7 +23,7 @@ class Admin extends Admin_Controller
 			'label' => 'lang:galleries.title_label',
 			'rules' => 'trim|max_length[255]|required'
 		),
-		array(
+		'slug' => array(
 			'field' => 'slug',
 			'label' => 'lang:galleries.slug_label',
 			'rules' => 'trim|max_length[255]|required|callback__check_slug'
@@ -106,8 +104,8 @@ class Admin extends Admin_Controller
 		$this->load->library('form_validation');
 		$this->lang->load('galleries');
 		$this->lang->load('gallery_images');
+		
 		$this->load->helper('html');
-
 		$this->load->model('files/file_folders_m');
 	}
 
@@ -144,10 +142,10 @@ class Admin extends Admin_Controller
 	{
 		$file_folders = $this->file_folders_m->get_folders();
 		$folders_tree = array();
-		foreach($file_folders as $folder)
+		foreach ($file_folders as $folder)
 		{
 			$indent = repeater('&raquo; ', $folder->depth);
-			$folders_tree[$folder->id] = $indent . $folder->name;
+			$folders_tree[$folder->id] = $indent.$folder->name;
 		}
 
 		// Set the validation rules
@@ -163,7 +161,7 @@ class Admin extends Admin_Controller
 				// Redirect back to the form or main page
 				$this->input->post('btnAction') == 'save_exit'
 					? redirect('admin/galleries')
-					: redirect('admin/galleries/manage/' . $id);
+					: redirect('admin/galleries/manage/'.$id);
 			}
 			
 			// Something went wrong..
@@ -204,26 +202,30 @@ class Admin extends Admin_Controller
 		foreach($file_folders as $folder)
 		{
 			$indent = repeater('&raquo; ', $folder->depth);
-			$folders_tree[$folder->id] = $indent . $folder->name;
+			$folders_tree[$folder->id] = $indent.$folder->name;
 		}
 		
-		$this->form_validation->set_rules($this->gallery_validation_rules);
+		$this->form_validation->set_rules(array_merge($this->gallery_validation_rules, array(
+			'slug' => array(
+				'field' => 'slug',
+				'label' => 'lang:galleries.slug_label',
+				'rules' => 'trim|max_length[255]|required|callback__check_slug['.$id.']'
+			),
+		)));
 
 		// Get the gallery and all images
 		$galleries 		= $this->galleries_m->get_all();
 		$gallery 		= $this->galleries_m->get($id);
 		$gallery_images = $this->gallery_images_m->get_images_by_gallery($id);
 
-		if ( empty($gallery) )
+		if (empty($gallery))
 		{
 			$this->session->set_flashdata('error', lang('galleries.exists_error'));
 			redirect('admin/galleries');
 		}
 
-		$this->id = $id;
-
 		// Valid form data?
-		if ($this->form_validation->run() )
+		if ($this->form_validation->run())
 		{
 			// Try to update the gallery
 			if ($this->galleries_m->update($id, $this->input->post()) === TRUE )
@@ -233,12 +235,12 @@ class Admin extends Admin_Controller
 				// Redirect back to the form or main page
 				$this->input->post('btnAction') == 'save_exit'
 					? redirect('admin/galleries')
-					: redirect('admin/galleries/manage/' . $id);
+					: redirect('admin/galleries/manage/'.$id);
 			}
 			else
 			{
 				$this->session->set_flashdata('error', lang('galleries.update_error'));
-				redirect('admin/galleries/manage/' . $id);
+				redirect('admin/galleries/manage/'.$id);
 			}
 		}
 
@@ -401,16 +403,11 @@ class Admin extends Admin_Controller
 	 * @param string title The slug to check
 	 * @return bool
 	 */
-	public function _check_slug($slug = '')
+	public function _check_slug($slug = '', $id = NULL)
 	{
-		if ( ! $this->galleries_m->check_slug($slug, $this->id))
-		{
-			return TRUE;
-		}
-
 		$this->form_validation->set_message('_check_slug', sprintf(lang('galleries.already_exist_error'), $slug));
-
-		return FALSE;
+		
+		return ! $this->galleries_m->check_slug($slug, $id);
 	}
 
 	/**
@@ -444,15 +441,15 @@ class Admin extends Admin_Controller
 		// Check if folder already exist, rename if necessary.
 		$i = 0;
 		$counter = '';
-		while ( ((int) $this->file_folders_m->count_by('slug', $folder_slug . $counter) > 0))
+		while ( ((int) $this->file_folders_m->count_by('slug', $folder_slug.$counter) > 0))
 		{
-			$counter = '-' . ++$i;
+			$counter = '-'.++$i;
 		}
 
 		// Return data to create a new folder to this gallery.
 		return array(
-			'name' => $folder_name . ($i > 0 ? ' (' . $i . ')' : ''),
-			'slug' => $folder_slug . $counter
+			'name' => $folder_name.($i > 0 ? ' ('.$i.')' : ''),
+			'slug' => $folder_slug.$counter
 		);
 	}
 }
