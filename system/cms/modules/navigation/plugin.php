@@ -42,6 +42,7 @@ class Plugin_Navigation extends Plugin
 		$separator		= $this->attribute('separator', '');
 															//deprecated
 		$link_class		= $this->attribute('link-class', $this->attribute('link_class', ''));
+		$match_segment		= $this->attribute('match_segment', null);
 															//deprecated
 		$more_class		= $this->attribute('more-class', $this->attribute('more_class', ''));
 		$current_class	= $this->attribute('class', 'current');
@@ -149,7 +150,21 @@ class Plugin_Navigation extends Plugin
 				{
 					$wrapper['class'][] = 'has_' . $current_class;
 				}
-
+				elseif ($match_segment)
+				{
+					$match_segment_string = '';
+					for ($i = 1; $i <= $match_segment; $i++) {
+						$match_segment_string .= $this->uri->segment($i).DIRECTORY_SEPARATOR;
+					}
+	
+					$match_segment_string = substr($match_segment_string, 0, -1);
+	
+					if ($link['url'] === site_url().$match_segment_string)
+					{
+						$is_current = TRUE;
+						$wrapper['class'][] = $current_class;
+					}
+				}
 				if ($level === 0)
 				{
 					// we've got the expected result, stop check if has current children
