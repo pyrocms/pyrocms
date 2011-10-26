@@ -177,6 +177,11 @@
 				// display the create/edit title in the header
 				var title = $('#title-value-'+id).html();
 				$('section.box header h3.group-title-'+id).html(title);
+
+        // Chosen
+        $('select').addClass('chzn');
+        $(".chzn").chosen();
+        				
 			});
 
 			return false;
