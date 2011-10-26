@@ -9,7 +9,7 @@
 			$box.slideDown(anim_speed).removeClass('collapsed');
 		}
 
-		//shows (slides down) a container, anim_speed is optional (default 600)
+		//hides (slides uo) a container
 		var hide_box = function($box)
 		{
 			$box.slideUp(600).addClass('collapsed');
@@ -263,7 +263,7 @@
 		});	
 
 		//initialisation
-		$boxes = $(".box .item");
+		var $boxes = $(".box .item");
 		$boxes.addClass('collapsed');
 		// show the first box with js to get around page jump
 		show_box($boxes.first(), 0);
