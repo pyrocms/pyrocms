@@ -242,7 +242,6 @@ jQuery(function($) {
 
 		return pyro;
 	};
-
 		
 	// this gets ran again after drop
 	pyro.refresh_sort_tree = function($item_list, post_sort_callback) {

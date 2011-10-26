@@ -97,7 +97,8 @@
 		});
 
 		// load edit via ajax
-		$('a.ajax').live('click', function(){
+		$('a.ajax').live('click', function()
+		{
 			// make sure we load it into the right one
 			var id = $(this).attr('rel');
 			if ($(this).hasClass('add')) {
@@ -140,7 +141,8 @@
 		});
 
 		// submit edit form via ajax
-		$('#nav-edit button:submit').live('click', function(e){
+		$('#nav-edit button:submit').live('click', function(e)
+		{
 			e.preventDefault();
 			$.post(SITE_URL + 'admin/navigation/edit/' + $('input[name="link_id"]').val(), $('#nav-edit').serialize(), function(message){
 				// if message is simply "success" then it's a go. Reload!
