@@ -58,6 +58,8 @@
 
 			//show the previously opened box
 			show_box($boxes.eq(attrs['box']), 0);
+
+			pyro.refresh_sort_tree($('ul.sortable'));
 		};
 
 		//reloads the content of the navigation admin
@@ -80,7 +82,6 @@
 						pyro.add_notification($notification.find('p').text());
 					}
 
-					pyro.refresh_sort_tree($('ul.sortable'));
 				}
 			});			
 		}
