@@ -134,7 +134,6 @@
 					reload_content();
 				}
 				else {
-					alert(message).html();
 					pyro.add_notification($('<div class="alert error">').html($(message).find('p').text()));
 				}
 			});
