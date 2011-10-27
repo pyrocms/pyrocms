@@ -49,7 +49,7 @@ jQuery(function($) {
 			($a.find('ul:first:hidden').css({visibility: "visible",display: "none"}).slideDown(400).length > 0) ||
 			$a.find('ul:first:visible').slideUp(400);
 
-			if ($a.parent().has('ul').length > 0) {
+			if ($a.has('ul').length > 0) {
 				e.preventDefault();
 			};
 		});
