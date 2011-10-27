@@ -5,6 +5,7 @@ $lang['congrats']			= 'تهانينا';
 $lang['intro_text']			= 'تم تثبيت PyroCMS وهو جاهز للاستخدام! رجاءً سجل دخول إلى لوحة التحكم باستخدام البيانات التالية.';
 $lang['email']				= 'البريد الإلكتروني';
 $lang['password']			= 'كلمة المرور';
+$lang['show_password']		= 'Show Password?'; #translate
 $lang['outro_text']			= 'أخيراً، <strong>احذف برنامج التثبيت من الخادم</strong> حيث أن تركه موجوداً قد يُستخدم لاختراق موقعك.';
 
 $lang['go_website']			= 'تقدم إلى الموقع';
