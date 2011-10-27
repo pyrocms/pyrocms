@@ -6,7 +6,7 @@ class Module_Blog extends Module {
 
 	public function info()
 	{
-		return array(
+		$info =  array(
 			'name' => array(
 				'en' => 'Blog',
 				'ar' => 'المدوّنة',
@@ -42,7 +42,16 @@ class Module_Blog extends Module {
 			'menu'		=> 'content',
 
 			'roles' => array(
-				'put_live', 'edit_live', 'delete_live'
+				'put_live',
+				'edit_live',
+				'delete_live',
+				'restrict_own',
+				'addedit_categories',
+				array(
+				'name' 	=>	'limit_categories',
+				'table' => 	'blog_categories',
+				'field' => 	'title'
+				)
 			),
 			
 			'sections' => array(
@@ -55,19 +64,33 @@ class Module_Blog extends Module {
 						    'uri' => 'admin/blog/create',
 						),
 					),
-				),
-				'categories' => array(
-				    'name' => 'cat_list_title',
-				    'uri' => 'admin/blog/categories',
-				    'shortcuts' => array(
-						array(
-						    'name' => 'cat_create_title',
-						    'uri' => 'admin/blog/categories/create',
-						),
-				    ),
-			    ),
-		    ),
+				)
+				
+		    )			
+			
 		);
+		
+			if (function_exists('group_has_role') AND group_has_role('blog', 'addedit_categories'))
+			{
+				$info['sections']['categories'] =  array(
+												'name' => 'cat_list_title',
+												'uri' => 'admin/blog/categories',
+												'shortcuts' => array(
+													array(
+														'name' => 'cat_create_title',
+														'uri' => 'admin/blog/categories/create',
+													),
+												),
+											);
+				
+				
+			}
+		
+		
+			return $info;		
+		
+		
+		
 	}
 
 	public function install()

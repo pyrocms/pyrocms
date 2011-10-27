@@ -76,6 +76,9 @@ class Admin_Categories extends Admin_Controller {
 	 */
 	public function create()
 	{
+		//addedit categories permissions?
+		role_or_die ('blog', 'addedit_categories');
+
 		// Validate the data
 		if ($this->form_validation->run())
 		{
