@@ -1348,13 +1348,13 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
 }
 
 #shortcuts ul li a.add {
-	margin: -7px 0 0 10px;
+	margin-top: -4px;
 	float: left;
+	padding: 0 10px 2px 7px!important;
 }
 
 #shortcuts ul li a.add:before {
   content: '+ ';
-  margin-top: -6px;
   color: #333333;
   font-size: 16px;
   font-weight: bold;
@@ -1387,6 +1387,7 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
   padding: 3px 10px;
   text-shadow: #ffffff 0 1px 1px;
   width: auto;
+  line-height: 16px;
 }
 
 #shortcuts li a:hover {
@@ -2033,10 +2034,6 @@ Ensure your main styling comes before this!
 	
 	#analyticsWrapper, #analytics {
 		width: 1212px;	
-	}
-	
-	.topbar nav {
-		width: 1080px;
 	}
 	
 	section#content {
