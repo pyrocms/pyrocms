@@ -4,3 +4,6 @@
 $lang['blog.role_put_live']		= 'Put articles live';
 $lang['blog.role_edit_live']	= 'Edit live articles';
 $lang['blog.role_delete_live'] 	= 'Delete live articles';
+$lang['blog.role_restrict_own'] = 'Restrict to own';
+$lang['blog.role_addedit_categories'] = 'Add/Edit Categories';
+$lang['blog.role_limit_categories'] = 'Limit To Categories';

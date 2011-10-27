@@ -24,6 +24,16 @@ class Blog_m extends MY_Model {
 	{
 		$this->load->helper('date');
 
+		if (!empty($params['author_id']))
+		{
+			$this->db->where('blog.author_id', $params['author_id']);
+		}
+		
+		if (!empty($params['categories']))
+		{
+			$this->db->where_in('blog_categories.id', $params['categories']);
+		}
+	
 		if (!empty($params['category']))
 		{
 			if (is_numeric($params['category']))
