@@ -1,5 +1,10 @@
-<?php if (!empty($users)): ?>
+<section class="title">
+	<h4><?php echo lang('user_list_title'); ?></h4>
+</section>
+
 <section class="item">
+	
+<?php if (!empty($users)): ?>
 	<?php echo form_open('admin/users/action'); ?>
 		<table border="0" class="table-list">
 			<thead>
@@ -52,12 +57,7 @@
 	</div>
 
 <?php echo form_close(); ?>
-</section>
 
-<?php else: ?>
-	<section class="title">
-		<img src="<?php echo site_url('system/cms/modules/users/img/user.png') ?>" />
-		<h4><?php echo lang($this->method == 'index' ? 'user_no_registred' : 'user_no_inactives');?></h4>
-	</section>
 <?php endif; ?>
 
+</section>
