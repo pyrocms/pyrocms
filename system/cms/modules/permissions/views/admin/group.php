@@ -1,3 +1,35 @@
+<style>
+/* temp styles for permissions layout - need to work into site css */
+
+.subpermissions {
+	margin-top:10px;
+	border:1px solid #ddd;
+	border-radius:3px;
+	background: #eee;
+	padding:5px; 
+	overflow:auto;
+
+} 
+.subpermissions .title {
+	float:left;
+	font-weight:bold;
+	margin-right:12px;
+	padding-top:3px;
+
+}
+.subpermissions .roles > ul {
+	float:left; 
+	border-left:1px solid #ddd;
+	
+}
+
+.subpermissions .roles  li {
+	padding: 0 6px 4px 6px;
+	margin:0;
+
+}
+</style>
+
 <section class="title">
 	<h4><?php echo $group->description; ?></h4>
 </section>
@@ -18,37 +50,33 @@
 	<?php foreach ($permission_modules as $module): ?>
 		<tr>
 			<td style="width: 30px">
-				<?php echo form_checkbox('modules[' . $module['slug'] . ']', TRUE, $module['checked'], 'id="'.$module['slug'].'"');?>
+				<?php echo form_checkbox('modules[' . $module['slug'] . ']', TRUE, $module['checked']);?></td>
+			<td>
+				<?php echo $module['name']; ?>
 			</td>
 			<td>
-				<label class="inline" for="<?php echo $module['slug']; ?>"><?php echo $module['name']; ?></label>
-			</td>
-			<td>
-				<?php foreach ($module['binary_roles'] as $rolename => $checked): ?>
-					<label class="inline">
-					<?php echo form_checkbox('module_roles[' . $module['slug'] . ']['.$rolename.']',TRUE, $checked);?> 
-					<?php echo lang($module['slug'].'.role_'.$rolename); ?>
-					</label>
+				
+				<?php foreach ($module['binary_roles'] as $role => $html): ?>
+				
+				<?php echo $html; ?>
+				
 				<?php endforeach; ?>
 				
-				<?php foreach ($module['array_roles'] as $rolename => $subs): ?>
-					<?php 
-					//TODO: css input needed here
-					?>
-					<div style="border:1px solid #e4e4e4; padding:5px; margin-top:5px;">
-						<label style="margin-right:12px;">
-							<?php echo lang($module['slug'].'.role_'. $rolename)?> : 
-						</label>
-						<?php foreach ($subs as $subid => $sub): ?>
-							<label class="inline">
-							<?php echo form_checkbox('module_roles[' . $module['slug'] . ']['.$rolename .']['.$subid .']', TRUE, $sub['checked']); ?>
-							<?php echo $sub['name']; ?>
-							</label>
-						<?php endforeach; ?>
-
-					</div>				
- 				<?php endforeach; ?>
 				
+
+				<?php foreach ($module['array_roles'] as $rolename => $html): ?>
+				
+					<div class="subpermissions">
+						<div class="title">
+							<?php echo lang($module['slug'].'.role_'. $rolename); ?> : 
+						</div>
+						<div class="roles">	
+							<?php echo $html; ?>
+						</div>
+					</div>
+
+				<?php endforeach; ?>
+
 			</td>
 		</tr>
 	<?php endforeach; ?>
