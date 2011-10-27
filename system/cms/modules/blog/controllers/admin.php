@@ -101,6 +101,15 @@ class Admin extends Admin_Controller {
 		$this->data->minutes = array_combine($minutes = range(0, 59), $minutes);
 
 		$this->data->categories = array();
+		$this->limit_categories = '';
+		
+		//user group restricted to categories?
+		if (is_object(group_has_role('blog', 'limit_categories'))) 
+		{
+			$this->limit_categories = array_keys((array)group_has_role('blog', 'limit_categories'));
+			$this->db->where_in ('blog_categories.id',$this->limit_categories);
+		}
+		
 		if ($categories = $this->blog_categories_m->order_by('title')->get_all())
 		{
 			foreach ($categories as $category)
@@ -109,7 +118,6 @@ class Admin extends Admin_Controller {
 			}
 		}
 
-		$this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
 	}
 
 	/**
@@ -121,6 +129,13 @@ class Admin extends Admin_Controller {
 	{
 		//set the base/default where clause
 		$base_where = array('show_future' => TRUE, 'status' => 'all');
+
+		//check user permissions
+			//restrict own?
+			$base_where = group_has_role('blog', 'restrict_own') ? $base_where + array('author_id' => $this->current_user->id) : $base_where;
+			
+			//restrict to categories?
+			$base_where = ! empty($this->limit_categories) ? $base_where + array('categories' => $this->limit_categories) : $base_where;
 
 		//add post values to base_where if f_module is posted
 		$base_where = $this->input->post('f_category') ? $base_where + array('category' => $this->input->post('f_category')) : $base_where;
@@ -179,6 +194,11 @@ class Admin extends Admin_Controller {
 			if ($this->input->post('status') == 'live')
 			{
 				role_or_die('blog', 'put_live');
+			}
+			//check category restrictions 
+			if ( ! empty($this->limit_categories) AND ! in_array($this->input->post('category_id'), $this->limit_categories))
+			{
+			   show_error(lang('cp_access_denied'));
 			}
 
 			$id = $this->blog_m->insert(array(
@@ -244,6 +264,12 @@ class Admin extends Admin_Controller {
 		$post->author = $this->ion_auth->get_user($post->author_id);
 		$post->keywords = Keywords::get_string($post->keywords);
 
+		//good time to check on 'restrict_own' just in case...
+		if (group_has_role('blog', 'restrict_own') AND ($this->current_user->id != $post->author_id))
+		{
+		   show_error(lang('cp_access_denied'));
+		}
+
 		// If we have a useful date, use it
 		if ($this->input->post('created_on'))
 		{
@@ -274,6 +300,12 @@ class Admin extends Admin_Controller {
 			if ($post->status != 'live' and $this->input->post('status') == 'live')
 			{
 				role_or_die('blog', 'put_live');
+			}
+
+			//check category restrictions just in case 
+			if ( ! empty($this->limit_categories) AND ! in_array($this->input->post('category_id'), $this->limit_categories))
+			{
+			   show_error(lang('cp_access_denied'));
 			}
 
 			$author_id = empty($post->author) ? $this->current_user->id : $post->author_id;
