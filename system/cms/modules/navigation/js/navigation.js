@@ -42,25 +42,31 @@
 			$boxes.addClass('collapsed');
 
 			//there is always an open container, but not always a selected navigation element (create)
-			if(attrs['navigation'] != '')
+			if(attrs['navigation'] && attrs['navigation'] != '')
 			{
 				var a_alt = attrs['navigation'].substr(attrs['navigation'].lastIndexOf('_')+1);
 				$("#" + attrs['navigation'] + " a[alt=" + a_alt + "]").click();	
 			}
 
-			if(attrs['tree'].length > 0)
-			{
-				for(var x=0;x<attrs['tree'].length;x++) {
-					//again, just click it
-					$(attrs['tree']).click();	
-				}			
-			}
-
 			//show the previously opened box
 			show_box($boxes.eq(attrs['box']), 0);
-
-			pyro.refresh_sort_tree($('ul.sortable'));
 		};
+
+		var init_sortable = function() {
+
+			$item_list = $('ul.sortable');
+			$url = 'admin/navigation/order';
+			$cookie = 'open_links';
+
+			$data_callback = function(event, ui) {
+				// Grab the group id so we can update the right links
+				return { 'group' : ui.item.parents('section.box').attr('rel') };
+			}
+
+			// Get sortified
+			pyro.sort_tree($item_list, $url, $cookie, $data_callback);
+				
+		}
 
 		//reloads the content of the navigation admin
 		var reload_content = function()
@@ -76,6 +82,9 @@
 					$("#content-body").html($(data).find("#content-body").html());
 					restore_state($state);
 
+					init_sortable();
+					pyro.refresh_sort_tree($("ul.sortable"));
+					
 					//check if a notification should be display
 					var $notification = $(".notification", data);
 					if($notification.length > 0) {
@@ -83,7 +92,8 @@
 					}
 
 				}
-			});			
+			});
+
 		}
 
 		// show and hide the sections
@@ -169,8 +179,11 @@
 		}).filter(':checked').change();
 
 		// show link details
-		$('#link-list li a').live('click', function()
+		$('#link-list li a').live('click', function(e)
 		{
+			e.preventDefault();
+			e.stopPropagation();
+
 			var id = $(this).attr('rel');
 			link_id = $(this).attr('alt');
 			$('.group-'+ id +' #link-list a').removeClass('selected');
@@ -180,7 +193,9 @@
 			$('div#link-details.group-'+ id +'').load(SITE_URL + 'admin/navigation/ajax_link_details/' + link_id, '', function(){
 				$('div#link-details.group-'+ id +'').fadeIn();
 			});
+
 			return false;
+
 		});
 
 		//initialisation
@@ -189,19 +204,7 @@
 		// show the first box with js to get around page jump
 		show_box($boxes.first(), 0);
 
-		$data_callback = function(event, ui) {
-			// Grab the group id so we can update the right links
-			return { 'group' : ui.item.parents('section.box').attr('rel') };
-		}	
-		
-		$item_list = $('ul.sortable');
-		$url = 'admin/navigation/order';
-		$cookie = 'open_links';
-
-		// $post_callback is available but not needed here
-
-		// Get sortified
-		pyro.sort_tree($item_list, $url, $cookie, $data_callback);			
+		init_sortable();		
 
 	});
 

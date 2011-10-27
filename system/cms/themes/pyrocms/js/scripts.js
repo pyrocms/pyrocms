@@ -267,16 +267,20 @@ jQuery(function($) {
 		$item_list.find('ul').children().hide();
 
 		pyro.refresh_sort_tree($item_list, post_sort_callback);
-	
+
 		// set the icons properly on parents restored from cookie
 		$($.cookie($cookie)).has('ul').toggleClass('minus plus');
 		
 		// show the parents that were open on last visit
-		$($.cookie($cookie)).children('ul').children().show();				
-		
+		$($.cookie($cookie)).children('ul').children().show();
+			
+		// call die() to prevent the event from getting bound twice in case of a re-initalisation (e.g. ajax reload)
+		$item_list.find('li').die();
 		// show/hide the children when clicking on an <li>
-		$item_list.find('li').live('click', function()
+		$item_list.find('li').live('click', function(e)
 		{
+			e.stopPropagation();
+
 			$(this).children('ul').children().slideToggle('fast');
 			 
 			$(this).has('ul').toggleClass('minus plus');
@@ -288,8 +292,8 @@ jQuery(function($) {
 
 			// save open parents in the cookie
 			$.cookie($cookie, items.join(', '), { expires: 1 });
-			 
-			 return false;
+
+			return false;
 		});
 		
 		$item_list.nestedSortable({
@@ -314,12 +318,16 @@ jQuery(function($) {
 				if (data_callback) {
 					post.data = data_callback(event, ui);
 				}
+			
+				$.post(SITE_URL + $url, post );
 
 				// refresh the tree icons - needs a timeout to allow nestedSort
 				// to remove unused elements before we check for their existence
-				setTimeout(refresh_tree, 5);
-			
-				$.post(SITE_URL + $url, post );
+				setTimeout(
+					function() {
+						pyro.refresh_sort_tree($item_list, post_sort_callback);
+					}, 5
+				);				
 			}
 		});
 
