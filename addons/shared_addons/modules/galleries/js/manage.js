@@ -18,29 +18,48 @@ jQuery(function($){
 
 	}).disableSelection();
 	
-	// edit images with ajax
+	// hijack the complete event for cbox so we can meddle with the edit image form
 	$(document).bind('cbox_complete',function(){
 		$.colorbox.resize();
+		// hijack the edit file submit event to do it our way (AJAX)
 		$('#cboxLoadedContent form').bind('submit',function(){
 			var action = $(this).attr('action');
+			var id = action.split('/')[6];
+			// check to see if we're in the right form
 			if(action.search(/admin\/files\/edit/) > -1){
+				// make ajax not war
 				$.ajax({
 					url: action,
 					type:'POST',
 					data:$(this).serialize(),
 					success: function(data){
 						if(data.status){
+							
+							// find an update our DOM image's rep's attributes
+							$('img[src="http://pyro.bossninja.com/files/thumb/'+id+'"]').attr({
+								'alt':$('#cboxLoadedContent form input[name="name"]').val(),
+								'title':'Title: '+$('#cboxLoadedContent form input[name="name"]').val()+' -- Caption: '+$('#cboxLoadedContent form textarea[name="description"]').val()
+							});
+							
+							// insert the alert and resize cbox instance!
+							$('#cboxLoadedContent').html(data.message);
+							$.colorbox.resize();
+							
+							// close cbox instance in 1.5 seconds
+							clearInterval(window.delayint);
+							window.delayint = window.setInterval(function(){
+								clearInterval(window.delayint);
+								$.colorbox.close();
+							},1500);
+							
+						}else{
+							
+							// er' there was a problem show error
+							$('#cboxLoadedContent').prepend(data.message);
 							$(window).bind('notification-closed.editfile',function(e){
-								console.log('winning!');
 								$.colorbox.resize();
 								$(window).unbind('notification-closed.editfile');
 							});
-							$('#cboxLoadedContent h2').after(data.message)
-							window.delayint = window.setInterval(function(){
-								$.colorbox.resize();
-								console.log('delay');
-								clearInterval(window.delayint);
-							},120);
 						}
 					}
 				});
@@ -48,7 +67,6 @@ jQuery(function($){
 			return false;
 		})
 	})
-	
 	
 	// update the folder images preview when folder selection changes
 	$('select#folder_id').change(function(){

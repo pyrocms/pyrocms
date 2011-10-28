@@ -51,26 +51,22 @@ jQuery(function($) {
 			$(this).find('ul').fadeOut();
 		});
 
-		// Add the close link to all alert boxes
+		// Add the close link to all alert boxes and fade them in
 		$('.alert').livequery(function(){
-			$(this).append('<a href="#" class="close">close</a>');
+			$($(this).children('.message')[0]).append('<a href="javascript:void()" class="close">close</a>');
+			$(this).fadeIn('slow', function(){
+				$(window).trigger('notification-complete');
+			});
 		});
 
 		// Close the notifications when the close link is clicked
 		$('a.close').live('click', function(e){
 			e.preventDefault();
 			$(this).fadeTo(200, 0); // This is a hack so that the close link fades out in IE
-			$(this).parent().fadeTo(200, 0);
-			$(this).parent().slideUp(400, function(){
+			$(this).parents('.alert').fadeTo(200, 0);
+			$(this).parents('.alert').slideUp(400, function(){
 				$(window).trigger('notification-closed');
 				$(this).remove();
-			});
-		});
-
-		// Fade in the notifications
-		$('.alert').livequery(function(){
-			$(this).fadeIn('slow', function(){
-				$(window).trigger('notification-complete');
 			});
 		});
 
