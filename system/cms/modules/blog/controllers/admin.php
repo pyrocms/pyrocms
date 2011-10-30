@@ -117,12 +117,6 @@ class Admin extends Admin_Controller {
 				$this->data->categories[$category->id] = $category->title;
 			}
 		}
-		//user group not allowed addedit_categories?
-		if (!group_has_role('blog', 'addedit_categories')) 
-		{
-			unset($this->module_details['sections']['categories']);
-			$this->data->module_details = $this->module_details;
-		}
 
 	}
 
