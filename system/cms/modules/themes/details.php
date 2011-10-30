@@ -54,11 +54,17 @@ class Module_Themes extends Module {
 		
 		if (class_exists('Settings') AND Settings::get('addons_upload'))
 		{
-			$info['shortcuts'][] = array(
-				'name' => 'themes.upload_title',
-				'uri' => 'admin/themes/upload',
-				'class' => 'add',
-			);
+			$info['sections'] = array(
+				'themes' => 		array('name' => 'themes.list_title',
+										  'uri' => 'admin/themes',
+										  'shortcuts' => array(
+															   array('name' => 'themes.upload_title',
+																	 'uri' => 'admin/themes/upload',
+																	 'class' => 'add modal',
+																	 )
+															   )
+										  ),
+				);
 		}
 		
 		return $info;

@@ -7,7 +7,7 @@ jQuery(function($) {
 	});
 	
 	
-	$('#cboxContent').find(':submit').live('click', function(e){
+	$('.options-form').find(':submit').live('click', function(e){
 		e.preventDefault();
 		var post = '';
 		
