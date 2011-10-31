@@ -5,7 +5,7 @@
 			<section class="title">
 				<ul>
 					<li>
-						<h4><?php echo $group->title;?></h4>
+						<h4 class="tooltip" title="<?php echo lang('nav_abbrev_label').': '.$group->abbrev; ?>"><?php echo $group->title;?></h4>
 						<?php echo anchor('admin/navigation/create/'.$group->id, lang('nav_link_create_title'), 'rel="'.$group->id.'" class="add ajax button"') ?>
 					</li>
 					
@@ -19,7 +19,7 @@
 			
 			<?php if ( ! empty($navigation[$group->id])): ?>
 				
-				<section class="item">
+				<section class="item collapsed">
 					
 					<div style="background:#eeeeee;padding:15px 15px 0 0;" id="link-list">
 						<ul class="sortable">

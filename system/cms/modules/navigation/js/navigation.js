@@ -7,6 +7,7 @@
 
 		// show and hide the sections
 		$('.box .title').click(function(){
+			window.scrollTo(0, 0);
 			if ($(this).next('section.item').hasClass('collapsed')) {
 				$('.box .item').slideUp(600).addClass('collapsed');
 				$(this).next('section.collapsed').slideDown(600).removeClass('collapsed');
