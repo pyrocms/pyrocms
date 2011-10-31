@@ -1107,6 +1107,7 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   text-align: left;
   border: 0;
   zoom: 1;
+  z-index: 1;
   -webkit-border-radius: 0 0 5px 5px;
   -moz-border-radius: 0 0 5px 5px;
   border-radius: 0 0 5px 5px;
