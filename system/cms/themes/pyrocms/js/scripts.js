@@ -124,6 +124,7 @@ jQuery(function($) {
 		// Confirmation
 		$('a.confirm').live('click', function(e){
 			e.preventDefault();
+			e.stopPropagation();
 
 			var href		= $(this).attr('href'),
 				removemsg	= $(this).attr('title');
@@ -241,40 +242,45 @@ jQuery(function($) {
 
 		return pyro;
 	};
-	
+		
+	// this gets ran again after drop
+	pyro.refresh_sort_tree = function($item_list, post_sort_callback) {
+					
+		// add the minus icon to all parent items that now have visible children
+		$item_list.parent().find('ul li:has(li:visible)').removeClass().addClass('minus');
+		
+		// add the plus icon to all parent items with hidden children
+		$item_list.parent().find('ul li:has(li:hidden)').removeClass().addClass('plus');
+		
+		// remove the class if the child was removed
+		$item_list.parent().find('ul li:not(:has(ul))').removeClass();
+		
+		// call the post sort callback
+		post_sort_callback && post_sort_callback();
+	}
+			
 	// Used by Pages and Navigation and is available for third-party add-ons.
 	// Module must load jquery/jquery.ui.nestedSortable.js and jquery/jquery.cooki.js
 	pyro.sort_tree = function($item_list, $url, $cookie, data_callback, post_sort_callback)
 	{
 		// collapse all ordered lists but the top level
 		$item_list.find('ul').children().hide();
-		
-		// this gets ran again after drop
-		var refresh_tree = function() {
-			
-			// add the minus icon to all parent items that now have visible children
-			$item_list.parent().find('ul li:has(li:visible)').removeClass().addClass('minus');
-			
-			// add the plus icon to all parent items with hidden children
-			$item_list.parent().find('ul li:has(li:hidden)').removeClass().addClass('plus');
-			
-			// remove the class if the child was removed
-			$item_list.parent().find('ul li:not(:has(ul))').removeClass();
-			
-			// call the post sort callback
-			post_sort_callback && post_sort_callback();
-		}
-		refresh_tree();
-		
+
+		pyro.refresh_sort_tree($item_list, post_sort_callback);
+
 		// set the icons properly on parents restored from cookie
 		$($.cookie($cookie)).has('ul').toggleClass('minus plus');
 		
 		// show the parents that were open on last visit
 		$($.cookie($cookie)).children('ul').children().show();
-		
+			
+		// call die() to prevent the event from getting bound twice in case of a re-initalisation (e.g. ajax reload)
+		$item_list.find('li').die();
 		// show/hide the children when clicking on an <li>
-		$item_list.find('li').live('click', function()
+		$item_list.find('li').live('click', function(e)
 		{
+			e.stopPropagation();
+
 			$(this).children('ul').children().slideToggle('fast');
 			 
 			$(this).has('ul').toggleClass('minus plus');
@@ -286,8 +292,8 @@ jQuery(function($) {
 
 			// save open parents in the cookie
 			$.cookie($cookie, items.join(', '), { expires: 1 });
-			 
-			 return false;
+
+			return false;
 		});
 		
 		$item_list.nestedSortable({
@@ -306,18 +312,22 @@ jQuery(function($) {
 				
 				post = {};
 				// create the array using the toHierarchy method
-				post.order = $item_list.nestedSortable('toHierarchy');
+				post.order = $(this).nestedSortable('toHierarchy');
 
 				// pass to third-party devs and let them return data to send along
 				if (data_callback) {
 					post.data = data_callback(event, ui);
 				}
+			
+				$.post(SITE_URL + $url, post );
 
 				// refresh the tree icons - needs a timeout to allow nestedSort
 				// to remove unused elements before we check for their existence
-				setTimeout(refresh_tree, 5);
-			
-				$.post(SITE_URL + $url, post );
+				setTimeout(
+					function() {
+						pyro.refresh_sort_tree($item_list, post_sort_callback);
+					}, 5
+				);				
 			}
 		});
 
