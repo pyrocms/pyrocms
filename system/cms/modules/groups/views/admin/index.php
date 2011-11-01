@@ -9,7 +9,7 @@
 				<tr>
 					<th width="40%"><?php echo lang('groups.name');?></th>
 					<th><?php echo lang('groups.short_name');?></th>
-					<th width="220"></th>
+					<th width="300"></th>
 				</tr>
 			</thead>
 			<tfoot>
@@ -26,10 +26,10 @@
 					<td><?php echo $group->name; ?></td>
 					<td class="actions">
 					<?php echo anchor('admin/groups/edit/'.$group->id, lang('buttons.edit'), 'class="button edit"'); ?>
-					<?php echo anchor('admin/permissions/group/'.$group->id, lang('permissions.edit').' &rarr;', 'class="button edit"'); ?>
 					<?php if ( ! in_array($group->name, array('user', 'admin'))): ?>
 						<?php echo anchor('admin/groups/delete/'.$group->id, lang('buttons.delete'), 'class="confirm button delete"'); ?>
 					<?php endif; ?>
+					<?php echo anchor('admin/permissions/group/'.$group->id, lang('permissions.edit').' &rarr;', 'class="button edit"'); ?>
 					</td>
 				</tr>
 			<?php endforeach;?>
