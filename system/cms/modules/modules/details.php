@@ -52,7 +52,8 @@ class Module_Modules extends Module {
 			'menu'	  => FALSE,
 		);
 
-		if (class_exists('Settings') AND Settings::get('addons_upload'))
+		// Check to make sure we're not running the installer or MSM. Then check perms
+		if ( ! class_exists('Module_import') AND Settings::get('addons_upload'))
 		{
 			$info['shortcuts'][] = array(
 		 	 	'name' => 'upload_label',
