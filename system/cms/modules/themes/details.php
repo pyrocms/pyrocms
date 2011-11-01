@@ -52,7 +52,8 @@ class Module_Themes extends Module {
 			'menu'	  => 'design'
 		);
 		
-		if (class_exists('Settings') AND Settings::get('addons_upload'))
+		// Check to make sure we're not running the installer or MSM. Then check perms
+		if ( ! class_exists('Module_import') AND Settings::get('addons_upload'))
 		{
 			$info['sections'] = array(
 				'themes' => 		array('name' => 'themes.list_title',
