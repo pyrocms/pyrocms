@@ -14,9 +14,9 @@ $lang['themes.mass_delete_success']     = '%s themes out of %s themes successful
 $lang['themes.mass_delete_error']       = 'Only %s themes out of %s themes were deleted.';
 $lang['themes.delete_select_error']     = 'You need to select themes to delete first.';
 $lang['themes.upload_title']            = 'Upload Theme';
-$lang['themes.admin_list']				= 'Admin Theme List';
+$lang['themes.admin_list']				= 'Admin Themes';
 $lang['themes.list_title']              = 'Themes';
-$lang['themes.upload_desc']             = 'Please select a file and click Upload button';
+$lang['themes.upload_desc']             = 'Please select a file to upload';
 
 $lang['themes.options']					= 'Options';
 $lang['themes.theme_label']             = 'Theme';

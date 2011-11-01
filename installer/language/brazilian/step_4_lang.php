@@ -19,6 +19,7 @@ $lang['password']		= 	'Senha';
 $lang['conf_password']	=	'Confirme a senha';
 $lang['finish']			=	'Concluír a instalação';
 
+$lang['invalid_db_name'] = 'The database name you entered is invalid. Please use only alphanumeric characters and underscores.'; #translate
 $lang['error_101']		=	'O banco de dados não pode ser criado. Isto pode ter falhado se você marcou para criar o banco de dados e não possui permissões suficientes.';
 $lang['error_102']		=	'O instalador não conseguiu adicionar as tabelas ao banco de dados.<br/><br/>';
 $lang['error_103']		=	'O instalador não conseguiu inserir os dados no banco de dados.<br/><br/>';

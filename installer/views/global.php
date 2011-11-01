@@ -23,7 +23,7 @@
 				<img src="<?php echo base_url(); ?>assets/images/logo.png" alt="PyroCMS" />
 				<ul id="menu">
 					<li><?php echo anchor('', lang('intro'), $this->uri->segment(2, '') == '' ? 'id="current"' : ''); ?></li>
-					<li><?php echo anchor('installer/step_1', lang('step1'), $this->uri->segment(2, '') == 'step_1' ? 'id="current"' : ''); ?></li>
+					<li><span id="<?php echo $this->uri->segment(2, '') == 'step_1' ? 'current' : '' ?>"><?php echo lang('step1'); ?></span></li>
 					<li><span id="<?php echo $this->uri->segment(2, '') == 'step_2' ? 'current' : '' ?>"><?php echo lang('step2'); ?></span></li>
 					<li><span id="<?php echo $this->uri->segment(2, '') == 'step_3' ? 'current' : '' ?>"><?php echo lang('step3'); ?></span></li>
 					<li><span id="<?php echo $this->uri->segment(2, '') == 'step_4' ? 'current' : '' ?>"><?php echo lang('step4'); ?></span></li>

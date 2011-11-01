@@ -572,8 +572,8 @@ class Admin extends Admin_Controller {
 
 		//set the layout to false and load the view
 		$this->template
-				->set_layout(FALSE)
-				->set('blog', $results)
-				->build('admin/tables/posts');
+			->set_layout(FALSE)
+			->set('blog', $results)
+			->build('admin/tables/posts');
 	}
 }

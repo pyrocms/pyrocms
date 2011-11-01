@@ -226,7 +226,7 @@ label.inline {margin-right: 4px; font-weight: normal!important;}
 
 button, input, select, textarea { font-size: 100%; margin: 0; vertical-align: baseline; *vertical-align: middle; margin: 5px 0 5px 0; }
 
-select { min-width: 260px; }
+select { min-width: 260px; visibility: hidden; }
 
 .button,
 .cancel,
@@ -991,6 +991,7 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
 
 .pagination ul li a:hover, .pagination ul li.active a {
   background-color: #c7eefe;
+  color: #4C6169;
 }
 
 .pagination ul li.disabled a, .pagination ul li.disabled a:hover {
@@ -1096,7 +1097,7 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   float: left;
   display: none;
   position: absolute;
-  top: 50px;
+  top: 49px;
   min-width: 160px;
   max-width: 220px;
   _width: 160px;
@@ -1106,6 +1107,7 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   text-align: left;
   border: 0;
   zoom: 1;
+  z-index: 1;
   -webkit-border-radius: 0 0 5px 5px;
   -moz-border-radius: 0 0 5px 5px;
   border-radius: 0 0 5px 5px;
@@ -1347,13 +1349,13 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
 }
 
 #shortcuts ul li a.add {
-	margin: -7px 0 0 10px;
+	margin-top: -4px;
 	float: left;
+	padding: 0 10px 2px 7px!important;
 }
 
 #shortcuts ul li a.add:before {
   content: '+ ';
-  margin-top: -6px;
   color: #333333;
   font-size: 16px;
   font-weight: bold;
@@ -1386,6 +1388,7 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
   padding: 3px 10px;
   text-shadow: #ffffff 0 1px 1px;
   width: auto;
+  line-height: 16px;
 }
 
 #shortcuts li a:hover {
@@ -2032,10 +2035,6 @@ Ensure your main styling comes before this!
 	
 	#analyticsWrapper, #analytics {
 		width: 1212px;	
-	}
-	
-	.topbar nav {
-		width: 1080px;
 	}
 	
 	section#content {

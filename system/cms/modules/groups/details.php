@@ -47,7 +47,14 @@ class Module_Groups extends Module {
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
-			'menu'	  => 'users'
+			'menu'	  => 'users',
+
+			'shortcuts' => array(
+				array(
+			 	   'name' => 'groups.add_title',
+				   'uri' => 'admin/groups/add',
+				),
+			)
 		);
 	}
 

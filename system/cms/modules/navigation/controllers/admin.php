@@ -26,7 +26,7 @@ class Admin extends Admin_Controller {
 		array(
 			'field' => 'title',
 			'label'	=> 'lang:nav_title_label',
-			'rules'	=> 'trim|required|max_length[40]'
+			'rules'	=> 'trim|required|max_length[100]'
 		),
 		array(
 			'field' => 'link_type',
@@ -156,8 +156,9 @@ class Admin extends Admin_Controller {
 	 */
 	public function order()
 	{
-		$order = $this->input->post('order');
-		$group = (int) $this->input->post('group');
+		$order	= $this->input->post('order');
+		$data	= $this->input->post('data');
+		$group	= isset($data['group']) ? (int) $data['group'] : 0;
 
 		if (is_array($order))
 		{
@@ -174,12 +175,6 @@ class Admin extends Admin_Controller {
 			}
 			
 			$this->pyrocache->delete_all('navigation_m');
-				
-			echo 'Success';
-		}
-		else
-		{
-			echo 'Fail';
 		}
 	}
 
@@ -424,9 +419,9 @@ class Admin extends Admin_Controller {
 						</div>
 					
 				<?php if ($link['children']): ?>
-						<ol>
+						<ul>
 								<?php $this->tree_builder($link, $group_id); ?>
-						</ol>
+						</ul>
 					</li>
 				<?php else: ?>
 					</li>

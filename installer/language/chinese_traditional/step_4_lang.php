@@ -19,6 +19,7 @@ $lang['password']		= 	'密碼';
 $lang['conf_password']	=	'再次確認密碼';
 $lang['finish']			=	'開始安裝';
 
+$lang['invalid_db_name'] = 'The database name you entered is invalid. Please use only alphanumeric characters and underscores.'; #translate
 $lang['error_101']		=	'找不到資料庫。如果您是選擇安裝程式代為建立資料庫，那麼可能因為權限的關係失敗了。';
 $lang['error_102']		=	'安裝程式無法在資料庫內新增資料表(add tables)。<br/><br/>';
 $lang['error_103']		=	'安裝程式無法在資料庫內新增資料(insert data)。<br/><br/>';

@@ -21,14 +21,13 @@
 					<td><?php echo $module['is_backend'] ? anchor('admin/'  . $module['slug'], $module['name']) : $module['name']; ?></td>
 					<td><?php echo $module['description']; ?></td>
 					<td class="align-center"><?php echo $module['version']; ?></td>
-					<td class="align-center buttons">
+					<td class="actions">
 						<?php if ($module['installed']): ?>
 							<?php if ($module['enabled']): ?>
 								<?php echo anchor('admin/modules/disable/' . $module['slug'], lang('disable_label'), array('class'=>'confirm button small', 'title'=>lang('modules.confirm_disable'))); ?>
 							<?php else: ?>
 								<?php echo anchor('admin/modules/enable/' . $module['slug'], lang('enable_label'), array('class'=>'confirm button small', 'title'=>lang('modules.confirm_enable'))); ?>
 							<?php endif; ?>
-							&nbsp;&nbsp;
 							<?php if ($module['is_current']): ?>
 								<?php echo anchor('admin/modules/uninstall/' . $module['slug'], lang('uninstall_label'), array('class'=>'confirm button small', 'title'=>lang('modules.confirm_uninstall'))); ?>
 							<?php else: ?>

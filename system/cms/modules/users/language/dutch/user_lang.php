@@ -66,6 +66,7 @@ $lang['user_lang']						= 'Taal';
 
 $lang['user_activation_code'] 			= 'Activeringscode';
 
+$lang['user_reset_instructions']			   = 'Enter your email address or username'; #translate
 $lang['user_reset_password_link'] 		= 'Wachtwoord vergeten?';
 
 $lang['user_activation_code_sent_notice']	= 'Er is een email naar u gestuurd met daarin uw activeringscode.';

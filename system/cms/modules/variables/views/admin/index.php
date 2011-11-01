@@ -31,7 +31,7 @@
 					<td><?php echo $variable->data;?></td>
 					<td><?php form_input('', printf('{%s:variables:%s}', config_item('tags_trigger'), $variable->name));?></td>
 					<td class="actions">
-						<?php echo anchor('admin/variables/edit/' . $variable->id, lang('buttons.edit'), 'rel="ajax-eip" class="button edit"'); ?>
+						<?php echo anchor('admin/variables/edit/' . $variable->id, lang('buttons.edit'), 'class="button edit"'); ?>
 						<?php echo anchor('admin/variables/delete/' . $variable->id, lang('buttons.delete'), array('class'=>'confirm button delete')); ?>
 					</td>
 				</tr>
@@ -39,7 +39,7 @@
 			</tbody>
 		</table>
 
-		<div class="buttons float-right padding-top">
+		<div class="table_action_buttons">
 			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete') )); ?>
 		</div>
 	<?php echo form_close(); ?>

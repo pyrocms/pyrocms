@@ -21,7 +21,7 @@ class Admin_Controller extends MY_Controller {
 		}
 
 		// If the setting is enabled redirect request to HTTPS
-		if ($this->settings->admin_force_https and $_SERVER['SERVER_PORT'] != 443)
+		if ($this->settings->admin_force_https and strtolower(substr(current_url(), 4, 1)) != 's')
 		{
 			redirect(str_replace('http:', 'https:', current_url()).'?session='.session_id());
 		}
@@ -42,7 +42,7 @@ class Admin_Controller extends MY_Controller {
 		// Prepare Asset library
 	    $this->asset->set_theme(ADMIN_THEME);
 	
-		// Set the front-end theme directory
+		// Set the location of assets
 		$this->config->set_item('asset_dir', dirname($this->admin_theme->web_path).'/');
 		$this->config->set_item('asset_url', BASE_URL.dirname($this->admin_theme->web_path).'/');
 		$this->config->set_item('theme_asset_dir', dirname($this->admin_theme->web_path).'/');

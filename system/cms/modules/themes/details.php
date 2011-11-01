@@ -52,13 +52,20 @@ class Module_Themes extends Module {
 			'menu'	  => 'design'
 		);
 		
-		if (class_exists('Settings') AND Settings::get('addons_upload'))
+		// Check to make sure we're not running the installer or MSM. Then check perms
+		if ( ! class_exists('Module_import') AND Settings::get('addons_upload'))
 		{
-			$info['shortcuts'][] = array(
-				'name' => 'themes.upload_title',
-				'uri' => 'admin/themes/upload',
-				'class' => 'add',
-			);
+			$info['sections'] = array(
+				'themes' => 		array('name' => 'themes.list_title',
+										  'uri' => 'admin/themes',
+										  'shortcuts' => array(
+															   array('name' => 'themes.upload_title',
+																	 'uri' => 'admin/themes/upload',
+																	 'class' => 'add modal',
+																	 )
+															   )
+										  ),
+				);
 		}
 		
 		return $info;

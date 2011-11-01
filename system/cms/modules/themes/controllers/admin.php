@@ -2,14 +2,20 @@
 /**
  * Admin controller for the themes module
  *
- * @author 		Phil Sturgeon - PyroCMS Dev Team
- * @author		Jerel Unruh - PyroCMS Development Team
+ * @author 		PyroCMS Dev Team
  * @package 	PyroCMS
  * @subpackage 	Themes module
  * @category	Modules
  */
 class Admin extends Admin_Controller
 {
+	/**
+	 * The current active section
+	 * @access protected
+	 * @var string
+	 */
+	protected $section = 'themes';
+
 	/**
 	 * Validation array
 	 * @access private
@@ -253,6 +259,7 @@ class Admin extends Admin_Controller
 		}
 
 		$this->template
+			->set_layout('modal')
 			->title($this->module_details['name'], lang('themes.upload_title'))
 			->build('admin/upload', $this->data);
 	}

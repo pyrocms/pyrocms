@@ -75,19 +75,16 @@ jQuery(function($){
 
 		self.colorbox({
 			scrolling	: false,
-			width		:'600',
-			height		:'400',
+			width		:'650',
+			height		:'500',
 			onComplete	: function(){
 
 				var form = $('form#folders_crud'),
 					$loading = $('#cboxLoadingOverlay, #cboxLoadingGraphic'),
 					btn_action;
-
-				$.colorbox.resize();
 				
-				// Chosen
-				$('select').addClass('chzn');
-				$(".chzn").chosen();
+				// Update Chosen
+				pyro.chosen();
 
 				form.find(':submit').click(function(e){
 					btn_action = $(this).val();
@@ -225,9 +222,8 @@ jQuery(function($){
 				pyro.add_notification(data.message);
 			}
 			
-			// Chosen
-			$('select').addClass('chzn');
-			$(".chzn").chosen();
+			// Update Chosen
+			pyro.chosen();
 
 		}, 'json');
 	});
@@ -278,9 +274,8 @@ jQuery(function($){
 
 				$.colorbox.resize();
 				
-				// Chosen
-				$('select').addClass('chzn');
-				$(".chzn").chosen();
+				// Update Chosen
+				pyro.chosen();
 
 				form.find(':input:last').keypress(function(e){
 					if (e.keyCode == 9 && ! e.shiftKey)

@@ -32,7 +32,7 @@ class Admin extends Admin_Controller {
 		array(
 			'field' => 'userfile',
 			'label' => 'lang:files.file_label',
-			'rules' => 'callback__check_ext'
+			'rules' => 'trim'
 		),
 		array(
 			'field' => 'name',
@@ -134,6 +134,8 @@ class Admin extends Admin_Controller {
 	 */
 	public function upload($folder_id = '')
 	{
+		$this->_check_ext();
+		
 		$this->data->folders = $this->_folders;
 				
 		if ($this->form_validation->run())
@@ -189,7 +191,7 @@ class Admin extends Admin_Controller {
 				if ($id = $this->file_m->insert($data))
 				{
 					$status		= 'success';
-					$message	= lang('files.create_success');
+					$message	= sprintf(lang('files.create_success'), $file['file_name']);
 				}
 				// Insert error
 				else

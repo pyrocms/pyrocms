@@ -177,7 +177,7 @@ $config['directory_trigger']	= 'd'; // experimental not currently in use
 |	4 = All Messages
 |
 | You can also pass in a array with threshold levels to show individual error types
-|
+| 
 | 	array(2) = Debug Messages, without Error Messages
 |
 | For a live site you'll usually only enable Errors (1) to be logged otherwise
@@ -254,7 +254,7 @@ $config['sess_cookie_name']		= 'pyrocms' . (ENVIRONMENT !== 'live' ? '_' . ENVIR
 $config['sess_expiration']		= 0;
 $config['sess_expire_on_close']	= TRUE;
 $config['sess_encrypt_cookie']	= TRUE;
-$config['sess_use_database']	= FALSE;
+$config['sess_use_database']	= TRUE;
 $config['sess_table_name']		= 'default_ci_sessions';
 $config['sess_match_ip']		= FALSE;
 $config['sess_match_useragent']	= TRUE;

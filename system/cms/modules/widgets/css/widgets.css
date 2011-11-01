@@ -258,7 +258,7 @@ li.empty-drop-item {
 	height: 36px;
 }
 li.empty-drop-item.loading {
-	background-image: url(../../../themes/admin_theme/img/admin/loading.gif);
+	background-image: url(../../../themes/pyrocms/img/admin/loading.gif);
 	background-position: 50% 50%;
 	background-repeat: no-repeat;
 	border: none;

@@ -1,21 +1,8 @@
 (function($) {
 	$(function(){
 
-		form = $('form.crud');
-
-		$('input[name="title"]', form).keyup($.debounce(300, function(){
-
-			slug = $('input[name="slug"]', form);
-
-			if (slug.val() == 'home' || slug.val() == '404')
-			{
-				return;
-			}
-
-			$.post(SITE_URL + 'ajax/url_title', { title : $(this).val() }, function(new_slug){
-				slug.val( new_slug );
-			});
-		}));
+		// Generate a slug from the title
+		pyro.generate_slug('input[name="title"]', 'input[name="slug"]');
 
 		// add another page chunk
 		$('a.add-chunk').live('click', function(e){
@@ -24,7 +11,7 @@
 			// The date in hexdec
 			key = Number(new Date()).toString(16);
 			
-			$('#page-content ul li:last').before('<li class="page-chunk">' +
+			$('#page-content > ul li:last').before('<li class="page-chunk">' +
 				'<div class="float-left">'+
 				'<input type="text" name="chunk_slug[' + key + ']" value="chunk-' + key + '"/>' +
 				'<select name="chunk_type[' + key + ']">' +
@@ -41,6 +28,9 @@
 			
 			// initialize the editor using the view from fragments/wysiwyg.php
 			pyro.init_ckeditor();
+			
+			// Update Chosen
+			pyro.chosen();
 		});
 		
 		$('a.remove-chunk').live('click', function(e) {

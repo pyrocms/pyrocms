@@ -69,11 +69,11 @@ $lang['upgrade_label'] 					= 'Ενημέρωση';
 $lang['global:shortcuts'] 				= 'Συντομέυσεις';
 $lang['global:description'] 		    = 'Περιγραφή';
 $lang['global:actions']					= 'Ενέργειες';
-$lang['global:view']					= 'View'; #translate
-$lang['global:preview']					= 'Preview'; #translate
-$lang['global:add']						= 'Add'; #translate
+$lang['global:view']					= 'Προβολή';
+$lang['global:preview']					= 'Προεπισκόπηση';
+$lang['global:add']						= 'Προσθήκη';
 $lang['global:edit']					= 'Επεξεργασία';
-$lang['global:empty']					= 'Empty'; #translate
+$lang['global:empty']					= 'Άδειασμα';
 $lang['global:delete']					= 'Διαγραφή';
 $lang['global:remove']					= 'Διαγραφή';
 

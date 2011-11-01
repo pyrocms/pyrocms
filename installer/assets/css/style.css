@@ -153,11 +153,12 @@ Menu
 	background: transparent url(../images/nav_current.gif) no-repeat bottom center;
 }
 
-#menu span {
-	color: #5a686c;
+#menu #current {
+	color: #a2b6bd;
 }
 
 #menu span, #menu a {
+	color: #5a686c;
 	margin: 0px;
 	padding: 3px 18px;
 	text-decoration: none;
@@ -170,7 +171,7 @@ Menu
 }
 
 #menu a:link, #menu a:visited {
-	color: #a2b6bd;
+	color: #5a686c;
 }
 
 #menu a:hover, #menu a:active, #menu a:focus {
@@ -447,3 +448,9 @@ em.fail {
 .clearfix:before, .clearfix:after { content: ""; display: table; }
 .clearfix:after { clear: both; }
 .clearfix { zoom: 1; }
+
+/**********
+Completion Page
+**********/
+.show-pass { color: #505050; }
+.password { display: none; }

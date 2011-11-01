@@ -1,11 +1,11 @@
 jQuery(function($){
 	var parents = 'div.tabs fieldset';
 	
-	$(parents +' ol').sortable({
+	$(parents +' ul').sortable({
 		handle: 'span.move-handle',
 		update: function() {
-			$(parents +' ol li').removeClass('even');
-			$(parents +' ol li:nth-child(even)').addClass('even');
+			$(parents +' ul li').removeClass('even');
+			$(parents +' ul li:nth-child(even)').addClass('even');
 			order = new Array();
 			$(parents +' li').each(function(){
 				order.push( this.id );

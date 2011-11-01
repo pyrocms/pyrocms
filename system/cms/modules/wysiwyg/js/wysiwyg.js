@@ -154,9 +154,9 @@ var replace_html = null;
         $( "#slider" ).livequery(function() {
 			$(this).fadeIn('slow');
 			$(this).slider({
-				value:200,
-				min: 50,
-				max: 800,
+				value: 200,
+				min: 0,
+				max: 1000,
 				step: 1,
 				slide: function( event, ui ) {
 					$( "#insert_width" ).val( ui.value );

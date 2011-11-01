@@ -20,7 +20,7 @@
 			</thead>
 			<tfoot>
 				<tr>
-					<td colspan="4">
+					<td colspan="5">
 						<div class="inner"><?php $this->load->view('admin/partials/pagination'); ?></div>
 					</td>
 				</tr>
@@ -36,7 +36,7 @@
 					<td><?php echo anchor('admin/files/folders/contents/' . $folder->id, repeater('&raquo; ', $folder->depth) . $folder->name, 'title="' . $folder->name .'" data-path="' . $folder->virtual_path . '" class="folder-hash"'); ?></td>
 					<td><?php echo $folder->slug; ?></td>
 					<td class="align-center"><?php echo format_date($folder->date_added); ?></td>
-					<td class="align-center buttons buttons-small">
+					<td class="actions">
 						<?php if (group_has_role('files', 'edit_folder')): ?>
 						<?php echo anchor('admin/files/folders/edit/' . $folder->id, lang('buttons.edit'), 'class="folder-edit button edit"'); ?>
 						<?php endif; ?>
@@ -50,8 +50,8 @@
 		</table>
 		
 		<?php if (group_has_role('files', 'delete_folder')): ?>
-		<div class="buttons buttons-small align-right padding-top">
-			<button type="submit" name="btnAction" value="delete" class="button delete confirm">
+		<div class="table_action_buttons">
+			<button type="submit" name="btnAction" value="delete" class="btn red confirm">
 				<span><?php echo lang('buttons.delete'); ?></span>
 			</button>
 		</div>
