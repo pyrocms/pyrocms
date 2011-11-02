@@ -94,7 +94,7 @@
 				</div>
 				
 				<label class="time-meta"><?php echo lang('blog_time_label'); ?></label>
-				<?php echo form_dropdown('created_on_hour', $hours, date('H', $post->created_on), 'style="width:4em;"') ?>
+				<?php echo form_dropdown('created_on_hour', $hours, date('H', $post->created_on)) ?>
 				<?php echo form_dropdown('created_on_minute', $minutes, date('i', ltrim($post->created_on, '0'))) ?>
 			</li>
 			
