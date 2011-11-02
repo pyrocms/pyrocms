@@ -58,7 +58,7 @@ class MY_Controller extends MX_Controller {
 		$this->db->set_dbprefix(SITE_REF.'_');
 		
 		// Load the cache library now that we know the siteref
-		$this->load->library('pyrocache');
+		$this->load->library(array('session', 'pyrocache'));
 
 		// Add the site specific theme folder
 		$this->template->add_theme_location(ADDONPATH.'themes/');
