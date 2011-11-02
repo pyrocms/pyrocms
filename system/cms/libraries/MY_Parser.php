@@ -17,6 +17,11 @@ class MY_Parser extends CI_Parser {
 	function __construct($config = array())
 	{
 		$this->_ci = & get_instance();
+		
+		if ( ! class_exists('Lex_Autoloader'))
+		{
+			include APPPATH.'/libraries/Lex/Autoloader.php';
+		}
 	}
 
 	// --------------------------------------------------------------------
@@ -33,7 +38,7 @@ class MY_Parser extends CI_Parser {
 	 * @param	bool
 	 * @return	string
 	 */
-	function parse($template, $data = array(), $return = FALSE, $is_include = FALSE)
+	public function parse($template, $data = array(), $return = FALSE, $is_include = FALSE)
 	{
 		$string = $this->_ci->load->view($template, $data, TRUE);
 
@@ -54,7 +59,7 @@ class MY_Parser extends CI_Parser {
 	 * @param	bool
 	 * @return	string
 	 */
-	function parse_string($string, $data = array(), $return = FALSE, $is_include = FALSE)
+	public function parse_string($string, $data = array(), $return = FALSE, $is_include = FALSE)
 	{
 		return $this->_parse($string, $data, $return, $is_include);
 	}
@@ -67,7 +72,7 @@ class MY_Parser extends CI_Parser {
 	 * Parses pseudo-variables contained in the specified template,
 	 * replacing them with the data in the second param
 	 *
-	 * @access	public
+	 * @access	protected
 	 * @param	string
 	 * @param	array
 	 * @param	bool
@@ -79,49 +84,27 @@ class MY_Parser extends CI_Parser {
 		$this->_ci->benchmark->mark('parse_start');
 
 		// Convert from object to array
-		if ( ! is_array($data))
-		{
-			$data = (array) $data;
-		}
+		is_array($data) or $data = (array) $data;
 
 		$data = array_merge($data, $this->_ci->load->_ci_cached_vars);
 
-		// TAG SUPPORT
-		if ( ! isset($this->_ci->tags))
-		{
-			$this->_ci->load->library('tags');
-			$this->_ci->tags->set_trigger(config_item('tags_trigger').':');
-		}
+		Lex_Autoloader::register();
 
-		if (isset($data['_tags']) && is_array($data['_tags']))
-		{
-			foreach ($data['_tags'] as $method => $value)
-			{
-				$method_name = 'set_' . $method;
-
-				if (method_exists($this->_ci->tags, $method_name))
-				{
-					call_user_func(array($this->_ci->tags, $method_name), $value);
-				}
-			}
-
-			unset($data['_tags']);
-		}
-
-		$parsed = $this->_ci->tags->parse($string, $data, array($this, 'parser_callback'));
-		// END TAG SUPPORT
-
+		$parser = new Lex_Parser();
+		$parser->scope_glue(':');
+		$parsed = $parser->parse($string, $data, array($this, 'parser_callback'));
+		
 		// Finish benchmark
 		$this->_ci->benchmark->mark('parse_end');
-
+		
 		// Return results or not ?
 		if ( ! $return)
 		{
-			$this->_ci->output->append_output($parsed['content']);
+			$this->_ci->output->append_output($parsed);
 			return;
 		}
 
-		return $parsed['content'];
+		return $parsed;
 	}
 
 	// --------------------------------------------------------------------
@@ -132,11 +115,11 @@ class MY_Parser extends CI_Parser {
 	 * @param	array
 	 * @return	 mixed
 	 */
-	public function parser_callback($data)
+	public function parser_callback($plugin, $attributes, $content)
 	{
 		$this->_ci->load->library('plugins');
 
-		$return_data = $this->_ci->plugins->locate($data);
+		$return_data = $this->_ci->plugins->locate($plugin, $attributes, $content);
 
 		if (is_array($return_data) && $return_data)
 		{
@@ -148,21 +131,20 @@ class MY_Parser extends CI_Parser {
 			$content = $data['content'];
 			$parsed_return = '';
 
-			$simpletags = new Tags;
-			$simpletags->set_trigger(config_item('tags_trigger').':');
-
+			$parser = new Lex_Parser();
+			$parser->scope_glue(':');
+			
 			foreach ($return_data as $result)
 			{
-				if ($data['skip_content'])
-				{
-					$simpletags->set_skip_content($data['skip_content']);
-				}
+				// if ($data['skip_content'])
+				// {
+				// 	$simpletags->set_skip_content($data['skip_content']);
+				// }
 
-				$parsed = $simpletags->parse($content, $result, array($this, 'parser_callback'));
-				$parsed_return .= $parsed['content'];
+				$parsed_return .= $parser->parse($content, $result, array($this, 'parser_callback'));
 			}
 
-			unset($simpletags);
+			unset($parser);
 
 			$return_data = $parsed_return;
 		}

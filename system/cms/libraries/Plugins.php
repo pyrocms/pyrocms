@@ -13,6 +13,23 @@ abstract class Plugin
 
 	// ------------------------------------------------------------------------
 
+	/**
+	 * Constructor
+	 *
+	 * Create the plugin instance
+	 *
+	 * @param	array - Content of the tags if any
+	 * @param	array - Attributes passed to the plugin
+	 * @return 	array
+	 */
+	public function __construct($content, $attributes)
+	{
+		$content AND $this->content = $content;
+		$attributes AND $this->attributes = $attributes;
+	}
+	
+	// ------------------------------------------------------------------------
+
 	public function __get($var)
 	{
 		return get_instance()->$var;
@@ -101,55 +118,32 @@ abstract class Plugin
 
 		return $content;
 	}
-
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Get param
-	 *
-	 * This is a helper used from the parser files to process a list of params
-	 *
-	 * @param	array - Params passed from view
-	 * @param	array - Array of default params
-	 * @return 	array
-	 */
-	public function set_data($data)
-	{
-		isset($data['content']) AND $this->content = $data['content'];
-		isset($data['attributes']) AND $this->attributes = $data['attributes'];
-	}
 }
 
 class Plugins
 {
 	private $loaded = array();
 
-	function __construct()
+	public function __construct()
 	{
 		$this->_ci = & get_instance();
 	}
 
-	function locate($data)
+	public function locate($plugin, $attributes, $content)
 	{
-		if ( ! isset($data['segments'][0]) OR ! isset($data['segments'][1]))
-		{
-			return FALSE;
-		}
-
 		// Setup our paths from the data array
-		$class	= $data['segments'][0];
-		$method	= $data['segments'][1];
+		list($class, $method) = explode(':', $plugin);
 
 		foreach (array(APPPATH, ADDONPATH, SHARED_ADDONPATH) as $directory)
 		{
 			if (file_exists($path = $directory.'plugins/'.$class.'.php'))
 			{
-				return $this->_process($path, $class, $method, $data);
+				return $this->_process($path, $class, $method, $attributes, $content);
 			}
 			
 			else if (defined('ADMIN_THEME') and file_exists($path = APPPATH.'themes/'.ADMIN_THEME.'/plugins/'.$class.'.php'))
 			{
-				return $this->_process($path, $class, $method, $data);
+				return $this->_process($path, $class, $method, $attributes, $content);
 			}
 
 			// Maybe it's a module
@@ -162,7 +156,7 @@ class Plugins
 					// Set the module as a package so I can load stuff
 					$this->_ci->load->add_package_path($dirname);
 
-					$response = $this->_process($path, $class, $method, $data);
+					$response = $this->_process($path, $class, $method, $attributes, $content);
 
 					$this->_ci->load->remove_package_path($dirname);
 
@@ -189,7 +183,7 @@ class Plugins
 	 * @param	array
 	 * @return	mixed
 	 */
-	private function _process($path, $class, $method, $data)
+	private function _process($path, $class, $method, $attributes, $content)
 	{
 		$class = strtolower($class);
 		$class_name = 'Plugin_'.ucfirst($class);
@@ -210,8 +204,7 @@ class Plugins
 			return FALSE;
 		}
 
-		$class_init = new $class_name;
-		$class_init->set_data($data);
+		$class_init = new $class_name($content, $attributes);
 
 		if ( ! is_callable(array($class_init, $method)))
 		{
@@ -222,7 +215,7 @@ class Plugins
 
 			return FALSE;
 		}
-
+		
 		return call_user_func(array($class_init, $method));
 	}
 }

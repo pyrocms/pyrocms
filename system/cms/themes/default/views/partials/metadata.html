@@ -4,25 +4,25 @@
 <meta name="copyright" content="PyroCMS.com" />
 <meta name="distribution" content="global" />
 <meta name="resource-type" content="document" />
-<meta name="language" content="{pyro:lang:code}" />
-{pyro:theme:favicon file="favicon.ico" base="url"}
+<meta name="language" content="{{ lang.code }}" />
+{{ theme:favicon file="favicon.ico" base="url" }}
 
-<base href="{pyro:url:base}" />
+<base href="{{ url:base }}" />
 
 <!-- Begin stylesheets -->
-{pyro:theme:css file="style.css"}
+{{ theme:css file="style.css" }}
 <!-- End stylesheets -->
 
 <!-- Load jQuery Before Modules/Widgets -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
-<script>window.jQuery || document.write("\x3Cscript src='{pyro:theme:js_url file='jquery/jquery.min.js'}'>\x3C/script>")</script>
+<script>window.jQuery || document.write("\x3Cscript src='{{ theme:js_url file='jquery/jquery.min.js' }}'>\x3C/script>")</script>
 <!-- End jquery -->
 
-{pyro:template:metadata}
+{{ template:metadata }}
 
 <!-- Place CSS bug fixes for IE 7 in this comment -->
 <!--[if IE 7]>
-{pyro:theme:css file="ie.css"}
+{{ theme:css file="ie.css"}
 <![endif]-->
 
-<title>{pyro:settings:site_name}&nbsp;&bull;&nbsp;{pyro:template:title}</title>
+<title>{{ settings:site_name }}&nbsp;&bull;&nbsp;{{ template:title }}</title>
