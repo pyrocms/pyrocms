@@ -309,9 +309,13 @@ input[type="text"],
 input[type="password"], 
 input[type="file"], 
 textarea {
-	padding: 5px;
-	border: 3px solid #eeeeee;
-	border: 3px solid rgba(0, 0, 0, .1);
+	min-width: 260px;
+	background: #f1f1f1;
+	padding: 8px;
+	border: 1px solid #d9d9d9;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
 }
 
 textarea {
@@ -327,6 +331,16 @@ input.error {
 /* Colors for form validity */
 input:valid, textarea:valid {  }
 input:invalid, textarea:invalid { background-color: #f0dddd; }
+
+form .required-icon { 
+	background: url(../img/required.png) no-repeat; 
+	width: 94px; 
+	height: 28px; 
+	text-indent: -9999px !important; 
+	float: left;
+	position: absolute; 
+	margin-top: 7px;
+}
 
 /*
 -------------------------------------------------------------------------------------------------------
