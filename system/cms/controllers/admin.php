@@ -1,7 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
- * @name 		Main admin controller
- * @author 		Phil Sturgeon and Yorick Peterse - PyroCMS Development Team
+ * @author 		PyroCMS Development Team
  * @package 	PyroCMS
  * @subpackage 	Controllers
  */
