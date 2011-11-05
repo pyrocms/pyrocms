@@ -24,7 +24,17 @@ class Blog_m extends MY_Model {
 	{
 		$this->load->helper('date');
 
-		if (!empty($params['category']))
+		if ( ! empty($params['author_id']))
+		{
+			$this->db->where('blog.author_id', $params['author_id']);
+		}
+		
+		if ( ! empty($params['categories']))
+		{
+			$this->db->where_in('blog_categories.id', $params['categories']);
+		}
+	
+		if ( ! empty($params['category']))
 		{
 			if (is_numeric($params['category']))
 				$this->db->where('blog_categories.id', $params['category']);
@@ -32,18 +42,18 @@ class Blog_m extends MY_Model {
 				$this->db->where('blog_categories.slug', $params['category']);
 		}
 
-		if (!empty($params['month']))
+		if ( ! empty($params['month']))
 		{
 			$this->db->where('MONTH(FROM_UNIXTIME(created_on))', $params['month']);
 		}
 
-		if (!empty($params['year']))
+		if ( ! empty($params['year']))
 		{
 			$this->db->where('YEAR(FROM_UNIXTIME(created_on))', $params['year']);
 		}
 
 		// Is a status set?
-		if (!empty($params['status']))
+		if ( ! empty($params['status']))
 		{
 			// If it's all, then show whatever the status
 			if ($params['status'] != 'all')
@@ -60,7 +70,7 @@ class Blog_m extends MY_Model {
 		}
 
 		// By default, dont show future posts
-		if (!isset($params['show_future']) || (isset($params['show_future']) && $params['show_future'] == FALSE))
+		if ( ! isset($params['show_future']) || (isset($params['show_future']) && $params['show_future'] == FALSE))
 		{
 			$this->db->where('created_on <=', now());
 		}
@@ -78,7 +88,7 @@ class Blog_m extends MY_Model {
 	{
 		$this->db->join('blog_categories', 'blog.category_id = blog_categories.id', 'left');
 
-		if (!empty($params['category']))
+		if ( ! empty($params['category']))
 		{
 			if (is_numeric($params['category']))
 				$this->db->where('blog_categories.id', $params['category']);
@@ -86,18 +96,18 @@ class Blog_m extends MY_Model {
 				$this->db->where('blog_categories.slug', $params['category']);
 		}
 
-		if (!empty($params['month']))
+		if ( ! empty($params['month']))
 		{
 			$this->db->where('MONTH(FROM_UNIXTIME(created_on))', $params['month']);
 		}
 
-		if (!empty($params['year']))
+		if ( ! empty($params['year']))
 		{
 			$this->db->where('YEAR(FROM_UNIXTIME(created_on))', $params['year']);
 		}
 
 		// Is a status set?
-		if (!empty($params['status']))
+		if ( ! empty($params['status']))
 		{
 			// If it's all, then show whatever the status
 			if ($params['status'] != 'all')

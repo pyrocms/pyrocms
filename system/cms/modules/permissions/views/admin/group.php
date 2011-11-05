@@ -1,3 +1,35 @@
+<style>
+/* temp styles for permissions layout - need to work into site css */
+
+.subpermissions {
+	margin-top:10px;
+	border:1px solid #ddd;
+	border-radius:3px;
+	background: #eee;
+	padding:5px; 
+	overflow:auto;
+
+} 
+.subpermissions .title {
+	float:left;
+	font-weight:bold;
+	margin-right:12px;
+	padding-top:3px;
+
+}
+.subpermissions .roles > ul {
+	float:left; 
+	border-left:1px solid #ddd;
+	
+}
+
+.subpermissions .roles  li {
+	padding: 0 6px 4px 6px;
+	margin:0;
+
+}
+</style>
+
 <section class="title">
 	<h4><?php echo $group->description; ?></h4>
 </section>
@@ -15,23 +47,40 @@
 		</thead>
 		<tbody>
 	
-		<?php foreach ($permisison_modules as $module): ?>
-			<tr>
-				<td style="width: 30px"><?php echo form_checkbox('modules[' . $module['slug'] . ']', TRUE, array_key_exists($module['slug'], $edit_permissions), 'id="'.$module['slug'].'"'); ?></td>
-				<td>
-					<label class="inline" for="<?php echo $module['slug']; ?>"><?php echo $module['name']; ?></label>
-				</td>
-				<td>
-					<?php if ( ! empty($module['roles'])): ?>
-						<?php foreach ($module['roles'] as $role): ?>
-							<label class="inline"><?php echo form_checkbox('module_roles[' . $module['slug'] . ']['.$role.']', TRUE, isset($edit_permissions[$module['slug']]) AND array_key_exists($role, (array) $edit_permissions[$module['slug']])); ?>
-							 <?php echo lang($module['slug'].'.role_'.$role); ?></label>
-						<?php endforeach; ?>
-					<?php endif; ?>
-				</td>
-			</tr>
-		<?php endforeach; ?>
-	
+	<?php foreach ($permission_modules as $module): ?>
+		<tr>
+			<td style="width: 30px">
+				<?php echo form_checkbox('modules[' . $module['slug'] . ']', TRUE, $module['checked']);?></td>
+			<td>
+				<?php echo $module['name']; ?>
+			</td>
+			<td>
+				
+				<?php foreach ($module['binary_roles'] as $role => $html): ?>
+				
+				<?php echo $html; ?>
+				
+				<?php endforeach; ?>
+				
+				
+
+				<?php foreach ($module['array_roles'] as $rolename => $html): ?>
+				
+					<div class="subpermissions">
+						<div class="title">
+							<?php echo lang($module['slug'].'.role_'. $rolename); ?> : 
+						</div>
+						<div class="roles">	
+							<?php echo $html; ?>
+						</div>
+					</div>
+
+				<?php endforeach; ?>
+
+			</td>
+		</tr>
+	<?php endforeach; ?>
+
 		</tbody>
 	</table>
 	
