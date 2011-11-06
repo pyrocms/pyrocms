@@ -14,15 +14,15 @@ abstract class Plugin
 	// ------------------------------------------------------------------------
 
 	/**
-	 * Constructor
+	 * Set Data
 	 *
-	 * Create the plugin instance
+	 * Set Data for the plugin. Avoid doing this in constructor so we dont force logic on developers
 	 *
 	 * @param	array - Content of the tags if any
 	 * @param	array - Attributes passed to the plugin
 	 * @return 	array
 	 */
-	public function __construct($content, $attributes)
+	public function set_data($content, $attributes)
 	{
 		$content AND $this->content = $content;
 		$attributes AND $this->attributes = $attributes;
@@ -204,7 +204,8 @@ class Plugins
 			return FALSE;
 		}
 
-		$class_init = new $class_name($content, $attributes);
+		$class_init = new $class_name;
+		$class_init->set_data($content, $attributes);
 
 		if ( ! is_callable(array($class_init, $method)))
 		{

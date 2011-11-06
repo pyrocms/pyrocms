@@ -45,7 +45,7 @@ class Themes_m extends MY_Model
      */
     public function get_all()
     {
-        foreach($this->template->theme_locations() as $location)
+        foreach ($this->template->theme_locations() as $location)
         {
 			if ( ! $themes = glob($location.'*', GLOB_ONLYDIR))
 			{

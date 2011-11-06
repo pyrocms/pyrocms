@@ -11,21 +11,42 @@
  */
 class Plugin_Theme extends Plugin
 {
+	public static $options = null;
+	
 	/**
-	 * Options
+	 * Constructor
 	 *
-	 * Fetches a theme option
-	 *
-	 * Usage:
-	 * {{ theme:options option="layout" }}
-	 *
-	 * @param	string
+	 * Set options for this plugin
 	 */
-	public function options()
+	public function __construct()
 	{
-		$option = $this->pyrocache->model('themes_m', 'get_option', array(array('slug' => $this->attribute('option'))));
-
-		return is_object($option) ? $option->value : NULL;
+		// Use this class statically to store stuff
+		if (is_null(Plugin_Theme::$options))
+		{
+			$options = $this->pyrocache->model('themes_m', 'get_options_by', array(array('theme' => $this->theme->slug)));
+			
+			if ($options)
+			{
+				Plugin_Theme::$options = array();
+				foreach ($options as $option)
+				{
+					// Assign it so THIS tag can use it
+					$this->{$option->slug} = $option->value;
+					
+					// Save it for the next instance of this plugin
+					Plugin_Theme::$options[$option->slug] = $option->value;
+				}
+			}
+		}
+		
+		// Already got stuff, so assign it to this tag instance
+		else
+		{
+			foreach (Plugin_Theme::$options as $slug => $value)
+			{
+				$this->{$slug} = $value;
+			}
+		}
 	}
 	
 	/**

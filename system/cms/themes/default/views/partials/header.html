@@ -15,13 +15,13 @@
 			<a href="{{ url:site uri='my-profile' }}">{{ helper:gravatar email="{{ user:email }}" size="16" }} {{ user:display_name }}</a>
 		{{ else }}
 			{{ helper:gravatar email="{{ user:email }}" size="20" }} {{ user:display_name }}
-		{{ /if }}
+		{{ endif }}
 		</div>
 
 		{{ if settings:enable_profiles }}
 		<span class="nav-splitter">&nbsp;&bull;&nbsp;</span>
 		<a href="{{ url:site uri='edit-profile' }}">{{ helper:lang line="edit_profile_label" }}</a>
-		{{ /if }}
+		{{ endif }}
 
 		<span class="nav-splitter">&nbsp;&bull;&nbsp;</span>
 		<a href="{{ url:site uri='edit-settings' }}">{{ helper:lang line="settings_label" }}</a>
@@ -29,7 +29,7 @@
 		{{ if user:has_cp_permissions }}
 		<span class="nav-splitter">&nbsp;&bull;&nbsp;</span>
 		<a href="{{ url:site uri='admin' }}" target="_blank">{{ helper:lang line="global:control-panel" }}</a>
-		{{ /if }}
+		{{ endif }}
 
 		<span class="nav-splitter">&nbsp;&bull;&nbsp;</span>
 		<a href="{{ url:site uri='users/logout' }}">{{ helper:lang line="logout_label" }}</a>
@@ -52,7 +52,7 @@
 				</li>
 			</ul>
 		</form>
-	{{ /if }}
+	{{ endif }}
 </div>
 <!-- End user meta -->
 </header>
