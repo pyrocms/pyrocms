@@ -22,7 +22,7 @@ class Plugin_Widgets extends Plugin
 	 * Display all widgets in a widget area
 	 *
 	 * Usage:
-	 * {pyro:widgets:area slug="sidebar"}
+	 * {{ widgets:area slug="sidebar" }}
 	 *
 	 * @param	array
 	 * @return	array
@@ -43,7 +43,7 @@ class Plugin_Widgets extends Plugin
 	 * Show one specific widget instance
 	 *
 	 * Usage:
-	 * {pyro:widgets:instance id="8"}
+	 * {{ widgets:instance id="8" }}
 	 *
 	 * @param	array
 	 * @return	array

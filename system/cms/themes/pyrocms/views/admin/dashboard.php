@@ -76,7 +76,7 @@ $(function($) {
 <div id="sortable">
 
 	<!-- Dashboard Widgets -->
-	{pyro:widgets:area slug="dashboard"}
+	{{ widgets:area slug="dashboard" }}
 
 	<!-- Begin Recent Comments -->
 	<?php if (isset($recent_comments) AND is_array($recent_comments) AND $theme_options->pyrocms_recent_comments == 'yes') : ?>

@@ -28,9 +28,9 @@ class Plugin_Files extends Plugin
 	 *
 	 * Usage:
 	 *
-	 * {pyro:files:listing folder="home-slider" type="i" fetch="subfolder|root"}
+	 * {{ files:listing folder="home-slider" type="i" fetch="subfolder|root" }}
 	 * 	// your html logic
-	 * {/pyro:files:listing}
+	 * {{ /files:listing }}
 	 *
 	 * The tags that are available to use from this method are listed below
 	 *

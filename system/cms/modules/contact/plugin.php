@@ -62,12 +62,12 @@ class Plugin_Contact extends Plugin {
 	 *
 	 * Usage:
 	 *
-	 * {pyro:contact:form subjects=""}
+	 * {{ contact:form subjects="" }}
 	 *
 	 * @param	array
 	 * @return	array
 	 */
-	function form()
+	public function form()
 	{
 		$this->load->library('form_validation');
 		$this->load->helper('form');
@@ -117,7 +117,7 @@ class Plugin_Contact extends Plugin {
 		return $this->module_view('contact', 'form', $data, TRUE);
 	}
 
-	function _send_email($subjects = array())
+	public function _send_email($subjects = array())
 	{
 		$this->load->library('email');
 		$this->load->library('user_agent');

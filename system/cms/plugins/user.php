@@ -17,9 +17,9 @@ class Plugin_User extends Plugin
 	 * Loads a theme partial
 	 *
 	 * Usage:
-	 * {pyro:user:logged_in group="admin"}
+	 * {{ user:logged_in group="admin" }}
 	 *	<p>Hello admin!</p>
-	 * {/pyro:user:logged_in}
+	 * {{ /user:logged_in }}
 	 *
 	 * @param	array
 	 * @return	array
@@ -47,9 +47,9 @@ class Plugin_User extends Plugin
 	 * Loads a theme partial
 	 *
 	 * Usage:
-	 * {pyro:user:not_logged_in group="admin"}
+	 * {{ user:not_logged_in group="admin" }}
 	 *	<p>Hello not an admin</p>
-	 * {/pyro:user:not_logged_in}
+	 * {{ /user:not_logged_in }}
 	 *
 	 * @param	array
 	 * @return	array

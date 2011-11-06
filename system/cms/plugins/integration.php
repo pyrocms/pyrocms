@@ -17,7 +17,7 @@ class Plugin_Integration extends Plugin
 	 * Loads Google Analytic
 	 *
 	 * Usage:
-	 * {pyro:integration:analytics}
+	 * {{ integration:analytics }}
 	 *
 	 * @param	array
 	 * @return	array
@@ -28,4 +28,4 @@ class Plugin_Integration extends Plugin
 	}
 }
 
-/* End of file theme.php */
+/* End of file integration.php */

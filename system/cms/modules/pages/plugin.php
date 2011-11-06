@@ -60,10 +60,10 @@ class Plugin_Pages extends Plugin
 	 * Creates a list of child pages
 	 *
 	 * Usage:
-	 * {pyro:pages:children id="1" limit="5"}
+	 * {{ pages:children id="1" limit="5" }}
 	 *	<h2>{title}</h2>
 	 *	    {body}
-	 * {/pyro:pages:children}
+	 * {{ /pages:children }}
 	 *
 	 * @return	array
 	 */
@@ -88,7 +88,7 @@ class Plugin_Pages extends Plugin
 	 * Creates a nested ul of child pages
 	 *
 	 * Usage:
-	 * {pyro:pages:page_tree start-id="5"}
+	 * {{ pages:page_tree start-id="5" }}
 	 * optional attributes:
 	 *
 	 * disable-levels="slug"
@@ -129,10 +129,10 @@ class Plugin_Pages extends Plugin
 	 * Check the pages parent or descendent relation
 	 *
 	 * Usage:
-	 * {pyro:pages:is child="7" parent="cookbook"} // return 1 (TRUE)
-	 * {pyro:pages:is child="recipes" descendent="books"} // return 1 (TRUE)
-	 * {pyro:pages:is children="7,8,literature" parent="6"} // return 0 (FALSE)
-	 * {pyro:pages:is children="recipes,ingredients,9" descendent="4"} // return 1 (TRUE)
+	 * {{ pages:is child="7" parent="cookbook" }} // return 1 (TRUE)
+	 * {{ pages:is child="recipes" descendent="books" }} // return 1 (TRUE)
+	 * {{ pages:is children="7,8,literature" parent="6" }} // return 0 (FALSE)
+	 * {{ pages:is children="recipes,ingredients,9" descendent="4" }} // return 1 (TRUE)
 	 *
 	 * Use Id or Slug as param, following usage data reference
 	 * Id: 4 = Slug: books

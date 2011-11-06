@@ -1,11 +1,11 @@
-{{ if template:has_breadcrumbs }}
-	{{ if theme:options:show_breadcrumbs == 'yes' }}
+{{ if {template:has_breadcrumbs} }}
+	{{ if {theme:options:show_breadcrumbs == 'yes'} }}
 		<p id="forum_breadcrumbs">
 		{{ template:breadcrumbs }}
 			{{ if uri }}
 				{{ url:anchor segments='{{uri}}' title='{{name}}'}}&nbsp;>&nbsp;
 			{{ else }}
-				<span class="current">{pyro:name}</span>
+				<span class="current">{{ name }}</span>
 			{{ endif }}
 		{{ /template:breadcrumbs }}
 		</p>

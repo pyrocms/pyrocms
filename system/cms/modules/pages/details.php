@@ -150,7 +150,7 @@ class Module_Pages extends Module {
 
 		$default_page_layouts = "
 			INSERT INTO  ".$this->db->dbprefix('page_layouts')." (`id`, `title`, `body`, `css`, `js`, `updated_on`) VALUES
-			(1, 'Default', '<h2>{pyro:page:title}</h2>\n\n\n{pyro:page:body}', '', '', ".time().");
+			(1, 'Default', '<h2>{ {page:title }}</h2>\n\n\n{{ page:body }}', '', '', ".time().");
 		";
 
 		$default_pages = "
@@ -163,8 +163,8 @@ class Module_Pages extends Module {
 		$default_chunks = "
 			INSERT INTO ".$this->db->dbprefix('page_chunks')." (`id`, `slug`, `page_id`, `body`, `parsed`, `type`, `sort`) VALUES
 			  ('1', 'default', '1', '<p>Welcome to our homepage. We have not quite finished setting up our website yet, but please add us to your bookmarks and come back soon.</p>', '', 'wysiwyg-advanced', '0'),
-			  ('2', 'default', '2', '<p>We cannot find the page you are looking for, please click <a title=\"Home\" href=\"{pyro:pages:url id=\'1\'}\">here</a> to go to the homepage.</p>', '', 'wysiwyg-advanced', '0'),
-			  ('3', 'default', '3', '<p>To contact us please fill out the form below.</p> {pyro:contact:form}', '', 'wysiwyg-advanced', '0');
+			  ('2', 'default', '2', '<p>We cannot find the page you are looking for, please click <a title=\"Home\" href=\"{{ pages:url id=\'1\' }}\">here</a> to go to the homepage.</p>', '', 'wysiwyg-advanced', '0'),
+			  ('3', 'default', '3', '<p>To contact us please fill out the form below.</p> {{ contact:form }}', '', 'wysiwyg-advanced', '0');
 		";
 
 		if ($this->db->query($page_layouts) &&
@@ -224,11 +224,11 @@ class Module_Pages extends Module {
 		instead of placing them in every page. For example: If you have a twitter feed widget that you want to display at the bottom of every page you can just place
 		the widget tag in the page layout:
 <pre><code>
-{pyro:page:title}
-{pyro:page:body}
+{{ page:title }}
+{{ page:body }}
 
 < div class=\"my-twitter-widget\" >
-	{pyro:widgets:instance id=\"1\"}
+	{{ widgets:instance id=\"1\" }}
 < /div >
 </code></pre>
 		Now you can apply css styling to the \"my-twitter-widget\" class in the CSS tab.</p>";

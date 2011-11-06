@@ -1,4 +1,16 @@
 <?php
+/**
+ * @author 		PyroCMS Development Team
+ * @package 	PyroCMS
+ * @subpackage 	Controllers
+ */
+
+# If you have already installed then delete this
+if ( ! file_exists('system/cms/config/database.php'))
+{
+	header('Location: '.rtrim($_SERVER['REQUEST_URI'], '/').'/installer/');
+	exit;
+}
 
 /*
  *---------------------------------------------------------------
@@ -11,8 +23,8 @@
  *
  * This can be set to anything, but default usage is:
  *
- *     development
- *     testing
+ *     local
+ *     staging
  *     production
  *
  * NOTE: If you change these, also change the error_reporting() code below
@@ -27,22 +39,16 @@ if ($_SERVER['SERVER_NAME'])
 		define('ENVIRONMENT', 'local');
 	}
 
-	// Development: dev.example.com
-	elseif (strpos($_SERVER['SERVER_NAME'], 'dev.') === 0)
+	// Staging: staging.example.com
+	elseif (strpos($_SERVER['SERVER_NAME'], 'staging.') === 0)
 	{
-		define('ENVIRONMENT', 'dev');
+		define('ENVIRONMENT', 'staging');
 	}
 
-	// Quality Assurance: qa.example.com
-	elseif (strpos($_SERVER['SERVER_NAME'], 'qa.') === 0)
-	{
-		define('ENVIRONMENT', 'qa');
-	}
-
-	// Live: example.com
+	// Production: example.com
 	else
 	{
-		define('ENVIRONMENT', 'live');
+		define('ENVIRONMENT', 'production');
 	}
 }
 else
