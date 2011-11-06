@@ -53,10 +53,12 @@ class Lex_Parser
 
 		$text = $this->parse_comments($text);
 		$text = $this->extract_noparse($text);
+		$text = $this->extract_looped_tags($text);
 
 		// Order is important here.  We parse conditionals first as to avoid
 		// unnecessary code from being parsed and executed.
 		$text = $this->parse_conditionals($text, $data, $callback);
+		$text = $this->inject_extractions($text, 'looped_tags');
 		$text = $this->parse_variables($text, $data);
 
 		if ($callback)
@@ -331,6 +333,8 @@ class Lex_Parser
 		$this->variable_loop_regex = '/\{\{\s*('.$this->variable_regex.')\s*\}\}(.*?)\{\{\s*\/\1\s*\}\}/ms';
 		$this->variable_tag_regex = '/\{\{\s*('.$this->variable_regex.')\s*\}\}/m';
 
+		$this->callback_block_regex = '/\{\{\s*('.$this->variable_regex.')(\s+.*?)?\s*\}\}(.*?)\{\{\s*\/\1\s*\}\}/ms';
+
 		$this->noparse_regex = '/\{\{\s*noparse\s*\}\}(.*?)\{\{\s*\/noparse\s*\}\}/ms';
 
 		$this->conditional_regex = '/\{\{\s*(if|elseif)\s*((?:\()?(.*?)(?:\))?)\s*\}\}/ms';
@@ -339,9 +343,10 @@ class Lex_Parser
 	}
 
 	/**
-	 * Removes all of the comments from the text.
+	 * Extracts the noparse text so that it is not parsed.
 	 *
-	 * @return  void
+	 * @param   string  $text  The text to extract from
+	 * @return  string
 	 */
 	protected function extract_noparse($text)
 	{
@@ -354,6 +359,28 @@ class Lex_Parser
 			foreach ($matches as $match)
 			{
 				$text = $this->create_extraction('noparse', $match[0], $match[1], $text);
+			}
+		}
+
+		return $text;
+	}
+
+	/**
+	 * Extracts the looped tags so that we can parse conditionals then re-inject.
+	 *
+	 * @param   string  $text  The text to extract from
+	 * @return  string
+	 */
+	protected function extract_looped_tags($text)
+	{
+		/**
+		 * $matches[][0] is the raw match
+		 */
+		if (preg_match_all($this->callback_block_regex, $text, $matches, PREG_SET_ORDER))
+		{
+			foreach ($matches as $match)
+			{
+				$text = $this->create_extraction('looped_tags', $match[0], $match[0], $text);
 			}
 		}
 
@@ -393,6 +420,7 @@ class Lex_Parser
 				foreach ($extractions as $hash => $replacement)
 				{
 					$text = str_replace("{$type}_{$hash}", $replacement, $text);
+					unset($this->extractions[$type][$hash]);
 				}
 			}
 		}
@@ -406,6 +434,7 @@ class Lex_Parser
 			foreach ($this->extractions[$type] as $hash => $replacement)
 			{
 				$text = str_replace("{$type}_{$hash}", $replacement, $text);
+				unset($this->extractions[$type][$hash]);
 			}
 		}
 
