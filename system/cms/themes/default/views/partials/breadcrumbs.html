@@ -1,7 +1,7 @@
 {{ if {template:has_breadcrumbs} }}
-	{{ if {theme:options:show_breadcrumbs == 'yes'} }}
-		<p id="forum_breadcrumbs">
-		{{ template:breadcrumbs }}
+    {{ if {theme:options:show_breadcrumbs == 'yes'} }}
+        <p id="forum_breadcrumbs">
+        {{ template:breadcrumbs }}
 			{{ if uri }}
 				{{ url:anchor segments='{{uri}}' title='{{name}}'}}&nbsp;>&nbsp;
 			{{ else }}
