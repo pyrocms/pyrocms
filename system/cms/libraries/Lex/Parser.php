@@ -232,7 +232,7 @@ class Lex_Parser
 
 			if ($callback)
 			{
-				$condition = preg_replace('/\b('.$this->callback_name_regex.')\b/', '{$1}', $condition);
+				$condition = preg_replace('/\b(?!\{\s*)('.$this->callback_name_regex.')(?!\s*\})\b/', '{$1}', $condition);
 				$condition = $this->parse_callback_tags($condition, $callback);
 			}
 
