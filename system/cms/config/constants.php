@@ -38,15 +38,6 @@ define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 
 /*
 |--------------------------------------------------------------------------
-| Environment
-|--------------------------------------------------------------------------
-*/
-
-# Deprecated v1.2.0-beta1 This feature was rolled into CodeIgniter so we don't need to handle it ourselves anymore.
-define('ENV', ENVIRONMENT);
-
-/*
-|--------------------------------------------------------------------------
 | Docment root folders
 |--------------------------------------------------------------------------
 |
