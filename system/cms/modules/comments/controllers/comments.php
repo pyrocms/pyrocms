@@ -113,6 +113,9 @@ class Comments extends Public_Controller {
 					if ( ! $this->settings->moderate_comments OR (isset($this->current_user->group) && $this->current_user->group == 'admin'))
 					{
 						$this->session->set_flashdata('success', lang('comments.add_success'));
+						
+						// add an event so third-party devs can hook on
+						Events::trigger('comment_approved', $comment);
 					}
 
 					// Do we need to approve the comment?
