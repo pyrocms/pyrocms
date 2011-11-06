@@ -14,6 +14,8 @@ class Lex_Parser
 	protected $scope_glue = '.';
 	protected $tag_regex = '';
 
+	protected $in_condition = false;
+
 	protected $variable_regex = '';
 	protected $variable_loop_regex = '';
 	protected $variable_tag_regex = '';
@@ -142,9 +144,9 @@ class Lex_Parser
 	 * @param   bool    $in_conditional  Whether we are in a conditional tag
 	 * @return  string
 	 */
-	public function parse_callback_tags($text, $callback, $in_conditional = false)
+	public function parse_callback_tags($text, $callback)
 	{
-		if ($in_conditional)
+		if ($this->in_condition)
 		{
 			$regex = '/\{\s*('.$this->variable_regex.')(\s+.*?)?\s*\}/ms';
 		}
@@ -183,7 +185,7 @@ class Lex_Parser
 
 			$replacement = call_user_func_array($callback, array($name, $parameters, $content));
 
-			if ($in_conditional)
+			if ($this->in_condition)
 			{
 				$replacement = $this->value_to_literal($replacement);
 			}
@@ -206,6 +208,7 @@ class Lex_Parser
 		preg_match_all($this->conditional_regex, $text, $matches, PREG_SET_ORDER);
 
 		$this->conditional_data = $data;
+		$this->in_condition = true;
 
 		/**
 		 * $matches[][0] = Full Match
@@ -215,7 +218,6 @@ class Lex_Parser
 		foreach ($matches as $match)
 		{
 			$condition = $match[2];
-			$condition = $this->parse_callback_tags($condition, $callback, true);
 
 			// Extract all literal string in the conditional to make it easier
 			if (preg_match_all('/(["\']).*?(?<!\\\\)\1/', $condition, $str_matches))
@@ -227,6 +229,12 @@ class Lex_Parser
 			}
 
 			$condition = preg_replace_callback('/\b('.$this->variable_regex.')\b/', array($this, 'process_condition_var'), $condition);
+
+			if ($callback)
+			{
+				$condition = preg_replace('/\b('.$this->callback_name_regex.')\b/', '{$1}', $condition);
+				$condition = $this->parse_callback_tags($condition, $callback);
+			}
 
 			// Re-inject any strings we extracted
 			$condition = $this->inject_extractions($condition, '__cond_str');
@@ -240,7 +248,7 @@ class Lex_Parser
 		$text = preg_replace($this->conditional_end_regex, '<?php endif; ?>', $text);
 
 		$text = $this->parse_php($text);
-
+		$this->in_condition = false;
 		return $text;
 	}
 
@@ -281,7 +289,7 @@ class Lex_Parser
 
 		if ($value === '__process_condition_var__')
 		{
-			return 'null';
+			return $this->in_condition ? $var : 'null';
 		}
 
 		return $this->value_to_literal($value);
@@ -335,6 +343,7 @@ class Lex_Parser
 		$glue = preg_quote($this->scope_glue, '/');
 
 		$this->variable_regex = '[a-zA-Z0-9_'.$glue.']+';
+		$this->callback_name_regex = $this->variable_regex.$glue.$this->variable_regex;
 		$this->variable_loop_regex = '/\{\{\s*('.$this->variable_regex.')\s*\}\}(.*?)\{\{\s*\/\1\s*\}\}/ms';
 		$this->variable_tag_regex = '/\{\{\s*('.$this->variable_regex.')\s*\}\}/m';
 
