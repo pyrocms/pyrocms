@@ -56,7 +56,7 @@ class Lex_Parser
 
 		// Order is important here.  We parse conditionals first as to avoid
 		// unnecessary code from being parsed and executed.
-		$text = $this->parse_conditionals($text, $data);
+		$text = $this->parse_conditionals($text, $data, $callback);
 		$text = $this->parse_variables($text, $data);
 
 		if ($callback)
@@ -135,22 +135,21 @@ class Lex_Parser
 	/**
 	 * Parses all Callback tags, and sends them through the given $callback.
 	 *
-	 * Array sent to callback:
-	 *
-	 *     array(
-	 *         'full_tag' => $full_tag,
-	 *         'attributes' => $attributes, // Array of attributes
-	 *         'scope' => $scope, // Array to define scope
-	 *         'segments' => $scopes, // Here for backwards compat with Tags
-	 *         'content' => $looped_content,
-	 *     )
-	 *
-	 * @param   string  $text      Text to parse
-	 * @param   mixed   $callback  Callback to apply to each tag
+	 * @param   string  $text            Text to parse
+	 * @param   mixed   $callback        Callback to apply to each tag
+	 * @param   bool    $in_conditional  Whether we are in a conditional tag
 	 * @return  string
 	 */
-	public function parse_callback_tags($text, $callback)
+	public function parse_callback_tags($text, $callback, $in_conditional = false)
 	{
+		if ($in_conditional)
+		{
+			$regex = '/\{\s*('.$this->variable_regex.')(\s+.*?)?\s*\}/ms';
+		}
+		else
+		{
+			$regex = '/\{\{\s*('.$this->variable_regex.')(\s+.*?)?\s*\}\}/ms';
+		}
 		/**
 		 * $match[0][0] is the raw tag
 		 * $match[0][1] is the offset of raw tag
@@ -159,7 +158,7 @@ class Lex_Parser
 		 * $match[2][0] is the parameters
 		 * $match[2][1] is the offset of parameters
 		 */
-		while (preg_match('/\{\{\s*('.$this->variable_regex.')(\s+.*?)?\s*\}\}/ms', $text, $match, PREG_OFFSET_CAPTURE))
+		while (preg_match($regex, $text, $match, PREG_OFFSET_CAPTURE))
 		{
 			$tag = $match[0][0];
 			$start = $match[0][1];
@@ -176,6 +175,11 @@ class Lex_Parser
 			}
 
 			$replacement = call_user_func_array($callback, array($name, $parameters, $content));
+
+			if ($in_conditional)
+			{
+				$replacement = $this->value_to_literal($replacement);
+			}
 			$text = preg_replace('/'.preg_quote($tag, '/').'/m', $replacement, $text, 1);
 		}
 
@@ -185,11 +189,12 @@ class Lex_Parser
 	/**
 	 * Parses all conditionals, then executes the conditionals.
 	 *
-	 * @param   string  $text  Text to parse
-	 * @param   mixed   $data  Data to use when executing conditionals
+	 * @param   string  $text      Text to parse
+	 * @param   mixed   $data      Data to use when executing conditionals
+	 * @param   mixed   $callback  The callback to be used for tags
 	 * @return  string
 	 */
-	public function parse_conditionals($text, $data)
+	public function parse_conditionals($text, $data, $callback)
 	{
 		preg_match_all($this->conditional_regex, $text, $matches, PREG_SET_ORDER);
 
@@ -203,17 +208,18 @@ class Lex_Parser
 		foreach ($matches as $match)
 		{
 			$condition = $match[2];
+			$condition = $this->parse_callback_tags($condition, $callback, true);
 
 			// Extract all literal string in the conditional to make it easier
-			if (preg_match_all('/(["\']).*?(?<!\\\\)\1/', $match[2], $str_matches))
+			if (preg_match_all('/(["\']).*?(?<!\\\\)\1/', $condition, $str_matches))
 			{
 				foreach ($str_matches[0] as $m)
 				{
-					$match[2] = $this->create_extraction('__cond_str', $m, $m, $match[2]);
+					$condition = $this->create_extraction('__cond_str', $m, $m, $condition);
 				}
 			}
 
-			$condition = preg_replace_callback('/\b('.$this->variable_regex.')\b/', array($this, 'process_condition_var'), $match[2]);
+			$condition = preg_replace_callback('/\b('.$this->variable_regex.')\b/', array($this, 'process_condition_var'), $condition);
 
 			// Re-inject any strings we extracted
 			$condition = $this->inject_extractions($condition, '__cond_str');
@@ -271,6 +277,17 @@ class Lex_Parser
 			return 'null';
 		}
 
+		return $this->value_to_literal($value);
+	}
+
+	/**
+	 * Takes a value and returns the literal value for it for use in a tag.
+	 *
+	 * @param   string  $value  Value to convert
+	 * @return  string
+	 */
+	protected function value_to_literal($value)
+	{
 		if ($value === null)
 		{
 			return "null";
@@ -290,6 +307,10 @@ class Lex_Parser
 		elseif (is_string($value))
 		{
 			return '"'.addslashes($value).'"';
+		}
+		elseif (is_object($value) and is_callable(array($value, '__toString')))
+		{
+			return '"'.addslashes((string) $value).'"';
 		}
 		else
 		{
