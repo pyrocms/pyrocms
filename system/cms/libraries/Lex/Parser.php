@@ -53,10 +53,12 @@ class Lex_Parser
 
 		$text = $this->parse_comments($text);
 		$text = $this->extract_noparse($text);
+		$text = $this->extract_looped_tags($text);
 
 		// Order is important here.  We parse conditionals first as to avoid
 		// unnecessary code from being parsed and executed.
-		$text = $this->parse_conditionals($text, $data);
+		$text = $this->parse_conditionals($text, $data, $callback);
+		$text = $this->inject_extractions($text, 'looped_tags');
 		$text = $this->parse_variables($text, $data);
 
 		if ($callback)
@@ -135,22 +137,21 @@ class Lex_Parser
 	/**
 	 * Parses all Callback tags, and sends them through the given $callback.
 	 *
-	 * Array sent to callback:
-	 *
-	 *     array(
-	 *         'full_tag' => $full_tag,
-	 *         'attributes' => $attributes, // Array of attributes
-	 *         'scope' => $scope, // Array to define scope
-	 *         'segments' => $scopes, // Here for backwards compat with Tags
-	 *         'content' => $looped_content,
-	 *     )
-	 *
-	 * @param   string  $text      Text to parse
-	 * @param   mixed   $callback  Callback to apply to each tag
+	 * @param   string  $text            Text to parse
+	 * @param   mixed   $callback        Callback to apply to each tag
+	 * @param   bool    $in_conditional  Whether we are in a conditional tag
 	 * @return  string
 	 */
-	public function parse_callback_tags($text, $callback)
+	public function parse_callback_tags($text, $callback, $in_conditional = false)
 	{
+		if ($in_conditional)
+		{
+			$regex = '/\{\s*('.$this->variable_regex.')(\s+.*?)?\s*\}/ms';
+		}
+		else
+		{
+			$regex = '/\{\{\s*('.$this->variable_regex.')(\s+.*?)?\s*\}\}/ms';
+		}
 		/**
 		 * $match[0][0] is the raw tag
 		 * $match[0][1] is the offset of raw tag
@@ -159,7 +160,7 @@ class Lex_Parser
 		 * $match[2][0] is the parameters
 		 * $match[2][1] is the offset of parameters
 		 */
-		while (preg_match('/\{\{\s*('.$this->variable_regex.')(\s+.*?)?\s*\}\}/ms', $text, $match, PREG_OFFSET_CAPTURE))
+		while (preg_match($regex, $text, $match, PREG_OFFSET_CAPTURE))
 		{
 			$tag = $match[0][0];
 			$start = $match[0][1];
@@ -176,6 +177,11 @@ class Lex_Parser
 			}
 
 			$replacement = call_user_func_array($callback, array($name, $parameters, $content));
+
+			if ($in_conditional)
+			{
+				$replacement = $this->value_to_literal($replacement);
+			}
 			$text = preg_replace('/'.preg_quote($tag, '/').'/m', $replacement, $text, 1);
 		}
 
@@ -185,11 +191,12 @@ class Lex_Parser
 	/**
 	 * Parses all conditionals, then executes the conditionals.
 	 *
-	 * @param   string  $text  Text to parse
-	 * @param   mixed   $data  Data to use when executing conditionals
+	 * @param   string  $text      Text to parse
+	 * @param   mixed   $data      Data to use when executing conditionals
+	 * @param   mixed   $callback  The callback to be used for tags
 	 * @return  string
 	 */
-	public function parse_conditionals($text, $data)
+	public function parse_conditionals($text, $data, $callback)
 	{
 		preg_match_all($this->conditional_regex, $text, $matches, PREG_SET_ORDER);
 
@@ -203,17 +210,18 @@ class Lex_Parser
 		foreach ($matches as $match)
 		{
 			$condition = $match[2];
+			$condition = $this->parse_callback_tags($condition, $callback, true);
 
 			// Extract all literal string in the conditional to make it easier
-			if (preg_match_all('/(["\']).*?(?<!\\\\)\1/', $match[2], $str_matches))
+			if (preg_match_all('/(["\']).*?(?<!\\\\)\1/', $condition, $str_matches))
 			{
 				foreach ($str_matches[0] as $m)
 				{
-					$match[2] = $this->create_extraction('__cond_str', $m, $m, $match[2]);
+					$condition = $this->create_extraction('__cond_str', $m, $m, $condition);
 				}
 			}
 
-			$condition = preg_replace_callback('/\b('.$this->variable_regex.')\b/', array($this, 'process_condition_var'), $match[2]);
+			$condition = preg_replace_callback('/\b('.$this->variable_regex.')\b/', array($this, 'process_condition_var'), $condition);
 
 			// Re-inject any strings we extracted
 			$condition = $this->inject_extractions($condition, '__cond_str');
@@ -271,6 +279,17 @@ class Lex_Parser
 			return 'null';
 		}
 
+		return $this->value_to_literal($value);
+	}
+
+	/**
+	 * Takes a value and returns the literal value for it for use in a tag.
+	 *
+	 * @param   string  $value  Value to convert
+	 * @return  string
+	 */
+	protected function value_to_literal($value)
+	{
 		if ($value === null)
 		{
 			return "null";
@@ -291,6 +310,10 @@ class Lex_Parser
 		{
 			return '"'.addslashes($value).'"';
 		}
+		elseif (is_object($value) and is_callable(array($value, '__toString')))
+		{
+			return '"'.addslashes((string) $value).'"';
+		}
 		else
 		{
 			return $value;
@@ -310,6 +333,8 @@ class Lex_Parser
 		$this->variable_loop_regex = '/\{\{\s*('.$this->variable_regex.')\s*\}\}(.*?)\{\{\s*\/\1\s*\}\}/ms';
 		$this->variable_tag_regex = '/\{\{\s*('.$this->variable_regex.')\s*\}\}/m';
 
+		$this->callback_block_regex = '/\{\{\s*('.$this->variable_regex.')(\s+.*?)?\s*\}\}(.*?)\{\{\s*\/\1\s*\}\}/ms';
+
 		$this->noparse_regex = '/\{\{\s*noparse\s*\}\}(.*?)\{\{\s*\/noparse\s*\}\}/ms';
 
 		$this->conditional_regex = '/\{\{\s*(if|elseif)\s*((?:\()?(.*?)(?:\))?)\s*\}\}/ms';
@@ -318,9 +343,10 @@ class Lex_Parser
 	}
 
 	/**
-	 * Removes all of the comments from the text.
+	 * Extracts the noparse text so that it is not parsed.
 	 *
-	 * @return  void
+	 * @param   string  $text  The text to extract from
+	 * @return  string
 	 */
 	protected function extract_noparse($text)
 	{
@@ -333,6 +359,28 @@ class Lex_Parser
 			foreach ($matches as $match)
 			{
 				$text = $this->create_extraction('noparse', $match[0], $match[1], $text);
+			}
+		}
+
+		return $text;
+	}
+
+	/**
+	 * Extracts the looped tags so that we can parse conditionals then re-inject.
+	 *
+	 * @param   string  $text  The text to extract from
+	 * @return  string
+	 */
+	protected function extract_looped_tags($text)
+	{
+		/**
+		 * $matches[][0] is the raw match
+		 */
+		if (preg_match_all($this->callback_block_regex, $text, $matches, PREG_SET_ORDER))
+		{
+			foreach ($matches as $match)
+			{
+				$text = $this->create_extraction('looped_tags', $match[0], $match[0], $text);
 			}
 		}
 
@@ -372,6 +420,7 @@ class Lex_Parser
 				foreach ($extractions as $hash => $replacement)
 				{
 					$text = str_replace("{$type}_{$hash}", $replacement, $text);
+					unset($this->extractions[$type][$hash]);
 				}
 			}
 		}
@@ -385,6 +434,7 @@ class Lex_Parser
 			foreach ($this->extractions[$type] as $hash => $replacement)
 			{
 				$text = str_replace("{$type}_{$hash}", $replacement, $text);
+				unset($this->extractions[$type][$hash]);
 			}
 		}
 
