@@ -161,7 +161,7 @@ class Navigation_m extends MY_Model
 		if ( ! is_numeric($group))
 		{
 			$row = $this->get_group_by('abbrev', $group);
-			$group = $row->id;
+			$group = $row ? $row->id : null;
 		}
 		
 		if ( ! empty($params['order']))
