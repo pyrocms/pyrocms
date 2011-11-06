@@ -162,10 +162,15 @@ class Lex_Parser
 		 */
 		while (preg_match($regex, $text, $match, PREG_OFFSET_CAPTURE))
 		{
+			$parameters = array();
 			$tag = $match[0][0];
 			$start = $match[0][1];
 			$name = $match[1][0];
-			$parameters = $this->parse_parameters($match[2][0]);
+			if (isset($match[2]))
+			{
+				$parameters = $this->parse_parameters($match[2][0]);
+			}
+
 			$content = '';
 
 			$temp_text = substr($text, $start + strlen($tag));
