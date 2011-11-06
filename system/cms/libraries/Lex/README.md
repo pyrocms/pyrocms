@@ -3,8 +3,6 @@ Lex
 
 Lex is a lightweight template parser.
 
-**This is still under heavy development.**
-
 
 _Lex is released under the MIT License and is Copyrighted 2011 Dan Horrigan._
 
@@ -132,13 +130,13 @@ For our basic examples, lets assume you have the following array of variables (s
 
 **Basic Example:**
 
-	{{# Parsed: Hello, World! #}}
+    {{# Parsed: Hello, World! #}}
     Hello, {{ name }}!
 
-	{{# Parsed: <h1>Lex is Awesome!</h1> #}}
+    {{# Parsed: <h1>Lex is Awesome!</h1> #}}
     <h1>{{ title }}</h1>
 
-	{{# Parsed: My real name is Lex Luther!</h1> #}}
+    {{# Parsed: My real name is Lex Luther!</h1> #}}
     My real name is {{ real_name.first }} {{ real_name.last }}
 
 The `{{ real_name.first }}` and `{{ real_name.last }}` tags check if `real_name` exists, then check if `first` and `last` respectively exist inside the `real_name` array/object then returns it.
@@ -231,19 +229,51 @@ A Conditional can contain any Comparison Operators you would do in PHP (`==`, `!
 
 ### Callback Tags in Conditionals
 
-Callback Tags in conditionals are allowed, however, are frowned upon.  If a Callback Tag is required in a conditional, it would probable be better rewritten as a Variable.
+Using a callback tag in a conditional is simple.  Use it just like any other variable except for one exception.  When you need to provide attributes for the callback tag, you are required to surround the tag with a ***single*** set of braces (you can optionally use them for all callback tags).
 
-Something like this still works:
+**Examples**
 
-    {{ if '{{theme.options option="layout"}}' == 'fixed' }}
+    {{ if user.logged_in }} {{ endif }}
 
-However, it would probably be better used as a Variable:
+    {{ if user.logged_in and {user.is_group group="admin"} }} {{ endif }}
 
-    {{ if theme.options.layout == 'fixed' }}
-
-_Note that you must surround the tag in quotes if you want it to be treated as a string._
 
 Callback Tags
 -------------
 
-Coming Soon...
+Callback tags allow you to have tags with attributes that get sent through a callback.  This makes it easy to create a nice plugin system.
+
+Here is an example
+
+    {{ template.partial name="navigation" }}
+
+You can also close the tag to make it a **Callback Block**:
+
+    {{ template.partial name="navigation" }}
+    {{ /template.partial }}
+
+Note that attributes are not required.  When no attributes are given, the tag will first be checked to see if it is a data variable, and then execute it as a callback.
+
+    {{ template.partial }}
+
+### The Callback
+
+The callback can be any valid PHP callable.  It is sent to the `parse()` method as the third parameter:
+
+    $parser->parse(file_get_contents('template.lex'), $data, 'my_callback');
+
+The callback must accept the 3 parameters below (in this order):
+
+    $name - The name of the callback tag (it would be "template.partial" in the above examples)
+    $attributes - An associative array of the attributes set
+    $content - If it the tag is a block tag, it will be the content contained, else a blank string
+
+The callback must also return a string, which will replace the tag in the content.
+
+**Example**
+
+    function my_callback($name, $attributes, $content)
+    {
+        // Do something useful
+        return $result;
+    }
