@@ -16,7 +16,7 @@
 {{ theme:js file="easing.js" }}
 {{ if theme:options:cufon_enabled == 'yes' and settings:theme_default:cufon_enabled }}
 	{{ theme:js file="cufon.js" }}
-	{{ theme:js file="{{ settings:theme_default:cufon_font }}" }}
+	{{ theme:js file=settings:theme_default:cufon_font }}
 {{ endif }}
 {{ theme:js file="global.js" }}
 <!-- End scripts -->

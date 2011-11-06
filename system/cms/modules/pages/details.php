@@ -60,7 +60,7 @@ class Module_Pages extends Module {
 			'roles' => array(
 				'put_live', 'edit_live', 'delete_live'
 			),
-			
+
 			'sections' => array(
 			    'pages' => array(
 				    'name' => 'pages.list_title',
@@ -150,7 +150,7 @@ class Module_Pages extends Module {
 
 		$default_page_layouts = "
 			INSERT INTO  ".$this->db->dbprefix('page_layouts')." (`id`, `title`, `body`, `css`, `js`, `updated_on`) VALUES
-			(1, 'Default', '<h2>{ {page:title }}</h2>\n\n\n{{ page:body }}', '', '', ".time().");
+			(1, 'Default', '<h2>{{ page:title }}</h2>\n\n\n{{ page:body }}', '', '', ".time().");
 		";
 
 		$default_pages = "

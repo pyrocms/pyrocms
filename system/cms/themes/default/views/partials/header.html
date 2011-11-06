@@ -12,9 +12,9 @@
 	{{ if user:logged_in }}
 		<div class="avatar-name">
 		{{ if settings:enable_profiles }}
-			<a href="{{ url:site uri='my-profile' }}">{{ helper:gravatar email="{{ user:email }}" size="16" }} {{ user:display_name }}</a>
+			<a href="{{ url:site uri='my-profile' }}">{{ helper:gravatar email=user:email size="16" }} {{ user:display_name }}</a>
 		{{ else }}
-			{{ helper:gravatar email="{{ user:email }}" size="20" }} {{ user:display_name }}
+			{{ helper:gravatar email=user:email size="20" }} {{ user:display_name }}
 		{{ endif }}
 		</div>
 
@@ -33,7 +33,7 @@
 
 		<span class="nav-splitter">&nbsp;&bull;&nbsp;</span>
 		<a href="{{ url:site uri='users/logout' }}">{{ helper:lang line="logout_label" }}</a>
-		
+
 	{{ else }}
 		<form action="{{ url:site uri='users/login' }}" method="post" accept-charset="utf-8" id="login-small">
 			<input type="hidden" name="redirect_to" value="{{ url:current }}" />
