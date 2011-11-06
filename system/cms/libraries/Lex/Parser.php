@@ -170,7 +170,7 @@ class Lex_Parser
 			$name = $match[1][0];
 			if (isset($match[2]))
 			{
-				$parameters = $this->parse_parameters($match[2][0]);
+				$parameters = $this->parse_parameters($match[2][0], $callback);
 			}
 
 			$content = '';
@@ -277,7 +277,7 @@ class Lex_Parser
 	 */
 	protected function process_condition_var($match)
 	{
-		$var = $match[0];
+		$var = is_array($match) ? $match[0] : $match;
 		if (in_array(strtolower($var), array('true', 'false', 'null', 'or', 'and')) or
 		    strpos($var, '__cond_str') === 0 or
 		    is_numeric($var))
@@ -293,6 +293,18 @@ class Lex_Parser
 		}
 
 		return $this->value_to_literal($value);
+	}
+
+	/**
+	 * This is used as a callback for the conditional parser.  It takes a variable
+	 * and returns the value of it, properly formatted.
+	 *
+	 * @param   array  $match  A match from preg_replace_callback
+	 * @return  string
+	 */
+	protected function process_param_var($match)
+	{
+		return $match[1].$this->process_condition_var($match[2]);
 	}
 
 	/**
@@ -512,8 +524,33 @@ class Lex_Parser
 	 * @param	string	The string of parameters
 	 * @return	array
 	 */
-	protected function parse_parameters($parameters)
+	protected function parse_parameters($parameters, $callback)
 	{
+		$this->in_condition = true;
+		// Extract all literal string in the conditional to make it easier
+		if (preg_match_all('/(["\']).*?(?<!\\\\)\1/', $parameters, $str_matches))
+		{
+			foreach ($str_matches[0] as $m)
+			{
+				$parameters = $this->create_extraction('__param_str', $m, $m, $parameters);
+			}
+		}
+
+		$parameters = preg_replace_callback(
+			'/(.*?\s*=\s*(?!__))('.$this->variable_regex.')/is',
+			array($this, 'process_param_var'),
+			$parameters
+		);
+		if ($callback)
+		{
+			$parameters = preg_replace('/(.*?\s*=\s*(?!\{\s*)(?!__))('.$this->callback_name_regex.')(?!\s*\})\b/', '$1{$2}', $parameters);
+			$parameters = $this->parse_callback_tags($parameters, $callback);
+		}
+
+		// Re-inject any strings we extracted
+		$parameters = $this->inject_extractions($parameters, '__param_str');
+		$this->in_condition = false;
+
 		if (preg_match_all('/(.*?)\s*=\s*(\'|\")(.*?)\\2/is', trim($parameters), $matches))
 		{
 			$return = array();
