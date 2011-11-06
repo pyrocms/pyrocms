@@ -19,7 +19,7 @@ class Plugin_Helper extends Plugin
 	 * Loads a theme partial
 	 *
 	 * Usage:
-	 * {pyro:helper:lang line="foo"}
+	 * {{ helper:lang line="foo" }}
 	 *
 	 * @param	array
 	 * @return	array
@@ -60,29 +60,29 @@ class Plugin_Helper extends Plugin
 	 * Add counting to tag loops
 	 *
 	 * Usage:
-	 * {pyro:blog:posts}
-	 * 		{pyro:helper:count} -- {title}
-	 * {/pyro:blog:posts}
+	 * {{ blog:posts }}
+	 * 		{{ helper:count }} -- {{title}}
+	 * {{ /blog:posts }}
 	 *
 	 * Outputs:
 	 * 1 -- This is an example title
 	 * 2 -- This is another title
 	 *
 	 * Another example:
-	 * {pyro:blog:posts}
-	 * 		{pyro:helper:count mode="subtract" start="10"} -- {title}
-	 * {/pyro:blog:posts}
+	 * {{ blog:posts }}
+	 * 		{{ helper:count mode="subtract" start="10" }} -- {{title}}
+	 * {{ /blog:posts }}
 	 *
 	 * Outputs:
 	 * 10 -- This is an example title
 	 * 9  -- This is another title
 	 *
 	 * You can add a second counter to a page by setting a unique identifier:
-	 * {pyro:files:listing folder="foo"}
-	 * 		{pyro:helper:count identifier="files" return="false"}
-	 * 		{name} -- {slug}
-	 * 	{/pyro:files:listing}
-	 * 	You have {pyro:helper:show_count identifier="files"} files.
+	 * {{ files:listing folder="foo" }}
+	 * 		{{ helper:count identifier="files" return="false" }}
+	 * 		{{name}} -- {{slug}}
+	 * 	{{ /files:listing }}
+	 * 	You have {{ helper:show_count identifier="files" }} files.
 	 *
 	 * 	Outputs:
 	 * 	Test -- test
@@ -121,4 +121,4 @@ class Plugin_Helper extends Plugin
 	}
 }
 
-/* End of file theme.php */
+/* End of file helper.php */

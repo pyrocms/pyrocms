@@ -15,12 +15,12 @@ class Plugin_Navigation extends Plugin
 	 * Creates a list of menu items
 	 *
 	 * Usage:
-	 * {pyro:navigation:links group="header"}
+	 * {{ navigation:links group="header" }}
 	 * Optional:  indent="", tag="li", list_tag="ul", top="text", separator="", group_segment="", class="", more_class=""
 	 * @param	array
 	 * @return	array
 	 */
-	function links()
+	public function links()
 	{
 		$group			= $this->attribute('group');
 		$group_segment	= $this->attribute('group_segment');

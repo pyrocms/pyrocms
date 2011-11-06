@@ -18,12 +18,12 @@ class Plugin_Asset extends Plugin
 	 *
 	 * Usage:
 	 *
-	 * {pyro:asset:css file="" module=""}
+	 * {{ asset:css file="" module="" }}
 	 *
 	 * @param	array
 	 * @return	array
 	 */
-	function css()
+	public function css()
 	{
 		$this->load->library('asset');
 		
@@ -43,12 +43,12 @@ class Plugin_Asset extends Plugin
 	 *
 	 * Usage:
 	 *
-	 * {pyro:asset:css_url file="" module=""}
+	 * {{ asset:css_url file="" module="" }}
 	 *
 	 * @param	array
 	 * @return	string    full url to css asset
 	 */
-	function css_url()
+	public function css_url()
 	{
 		$this->load->library('asset');
 		
@@ -65,12 +65,12 @@ class Plugin_Asset extends Plugin
 	 *
 	 * Usage:
 	 *
-	 * {pyro:asset:css_path file="" module=""}
+	 * {{ asset:css_path file="" module="" }}
 	 *
 	 * @param	array
 	 * @return	string    full url to css asset
 	 */
-	function css_path()
+	public function css_path()
 	{
 		$this->load->library('asset');
 		
@@ -87,12 +87,12 @@ class Plugin_Asset extends Plugin
 	 *
 	 * Usage:
 	 *
-	 * {pyro:asset:image file="" module=""}
+	 * {{ asset:image file="" module="" }}
 	 *
 	 * @param	array
 	 * @return	array
 	 */
-	function image()
+	public function image()
 	{
 		$this->load->library('asset');
 
@@ -112,12 +112,12 @@ class Plugin_Asset extends Plugin
 	 *
 	 * Usage:
 	 *
-	 * {pyro:asset:image_url file="" module=""}
+	 * {{ asset:image_url file="" module="" }}
 	 *
 	 * @param	array
 	 * @return	string    full url to image asset
 	 */
-	function image_url()
+	public function image_url()
 	{
 		$this->load->library('asset');
 
@@ -134,12 +134,12 @@ class Plugin_Asset extends Plugin
 	 *
 	 * Usage:
 	 *
-	 * {pyro:asset:image_path file="" module=""}
+	 * {{ asset:image_path file="" module="" }}
 	 *
 	 * @param	array
 	 * @return	array
 	 */
-	function image_path()
+	public function image_path()
 	{
 		$this->load->library('asset');
 
@@ -156,12 +156,12 @@ class Plugin_Asset extends Plugin
 	 *
 	 * Usage:
 	 *
-	 * {pyro:asset:js file="" module=""}
+	 * {{ asset:js file="" module="" }}
 	 *
 	 * @param	array
 	 * @return	array
 	 */
-	function js()
+	public function js()
 	{
 		$this->load->library('asset');
 
@@ -178,12 +178,12 @@ class Plugin_Asset extends Plugin
 	 *
 	 * Usage:
 	 *
-	 * {pyro:asset:js_url file="" module=""}
+	 * {{ asset:js_url file="" module="" }}
 	 *
 	 * @param	array
 	 * @return	string    full url to JavaScript asset
 	 */
-	function js_url()
+	public function js_url()
 	{
 		$this->load->library('asset');
 
@@ -200,12 +200,12 @@ class Plugin_Asset extends Plugin
 	 *
 	 * Usage:
 	 *
-	 * {pyro:asset:js_path file="" module=""}
+	 * {{ asset:js_path file="" module="" }}
 	 *
 	 * @param	array
 	 * @return	string    web root path to JavaScript asset
 	 */
-	function js_path()
+	public function js_path()
 	{
 		$this->load->library('asset');
 

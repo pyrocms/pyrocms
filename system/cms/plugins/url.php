@@ -15,7 +15,7 @@ class Plugin_Url extends Plugin
 	 * Current uri string
 	 *
 	 * Usage:
-	 * {pyro:url:current}
+	 * {{ url:current }}
 	 *
 	 * @param	array
 	 * @return	array
@@ -30,7 +30,7 @@ class Plugin_Url extends Plugin
 	 * site URL of the install
 	 *
 	 * Usage:
-	 * {pyro:url:site}
+	 * {{ url:site }}
 	 *
 	 * @param	array
 	 * @return	array
@@ -47,7 +47,7 @@ class Plugin_Url extends Plugin
 	 * base URL of the install
 	 *
 	 * Usage:
-	 * {pyro:url:base}
+	 * {{ url:base }}
 	 *
 	 * @param	array
 	 * @return	array
@@ -62,7 +62,7 @@ class Plugin_Url extends Plugin
 	 * Pick a segment and provide a default if nothing there
 	 *
 	 * Usage:
-	 * {pyro:url:segments segment="1" default="home"}
+	 * {{ url:segments segment="1" default="home" }}
 	 *
 	 * @param	array
 	 * @return	array
@@ -79,7 +79,7 @@ class Plugin_Url extends Plugin
 	 * build an anchor tag
 	 *
 	 * Usage:
-	 * {pyro:url:anchor segments="users/login" title="Login" class="login"}
+	 * {{ url:anchor segments="users/login" title="Login" class="login" }}
 	 *
 	 * @param	array
 	 * @return	string
