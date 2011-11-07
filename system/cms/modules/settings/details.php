@@ -127,7 +127,9 @@ class Module_Settings extends Module {
 			 ('admin_theme','Control Panel Theme','Select the theme for the control panel.','','pyrocms','','func:get_themes','1','0','','0'),
 			 ('admin_force_https','Force HTTPS for Control Panel?','Allow only the HTTPS protocol when using the Control Panel?','radio','0','','1=Yes|0=No','1','1','','0'),
 			 ('version', 'Version', '', 'text', '1.0', '".CMS_VERSION."', '', '0', '0', '','0'),
-			 ('addons_upload', 'Addons Upload Permissions', 'Keeps mere admins from uploading addons by default', 'text', '0', '0', '', '1', '0', '','0');
+			 ('addons_upload', 'Addons Upload Permissions', 'Keeps mere admins from uploading addons by default', 'text', '0', '0', '', '1', '0', '','0'),
+			 ('save_pchunks_file','Save Page Chunks as File','This will save all pages chunks as files. When you request a page chunk (frontend or backend) PyroCMS will first load the database record. It will then check to see if a matching page chunk file exists in the \"save page chunks as file folder\".If a matching file is found it will replace the chunk data loaded from the database.When a page chunk is saved in the backend it will also save a copy to the \"save page chunks as file folder\".','radio','0','0','1=Enabled|0=Disabled',0,1,'',201),
+			 ('save_pchunks_file_path','Save Page Chunks as File Folder Path','This folder is based off the root level of your website (where index.php is) and because this is optional it must be manually created. The access privileges must also be set up to allow read/write access.','text','','','',0,1,'',200);
 		";
 
 		if ($this->db->query($settings) && $this->db->query($default_settings))

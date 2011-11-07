@@ -24,7 +24,7 @@ class Plugin_Pages extends Plugin
 
 		return site_url($page ? $page->uri : '');
 	}
-	
+
 	/**
 	 * Get a page by ID or slug
 	 *
@@ -42,8 +42,8 @@ class Plugin_Pages extends Plugin
 
 		// Grab all the chunks that make up the body
 		$page['chunks'] = $this->db->get_where('page_chunks', array('page_id' => $page['id']))->result();
-		$this->page_m->file_chunks_read($page['chunks']);
-		
+		$this->page_m->file_chunks_read($page['id'],$page['chunks']);
+
 		$page['body'] = '';
 		foreach ($page['chunks'] as $chunk)
 		{
@@ -54,7 +54,7 @@ class Plugin_Pages extends Plugin
 
 		return $this->content() ? $page : $page['body'];
 	}
-	
+
 	/**
 	 * Children list
 	 *
@@ -108,10 +108,10 @@ class Plugin_Pages extends Plugin
 		$order_dir		= $this->attribute('order-dir', 'ASC');
 		$list_tag		= $this->attribute('list-tab', 'ul');
 		$link			= $this->attribute('link', TRUE);
-		
+
 		// Disable individual pages or parent pages by submitting their slug
 		$this->disable = explode("|", $disable_levels);
-		
+
 		return '<'.$list_tag.'>' . $this->_build_tree_html(array(
 			'parent_id' => $start_id,
 			'order_by' => $order_by,
@@ -222,7 +222,7 @@ class Plugin_Pages extends Plugin
 			)) > 0: FALSE;
 		}
 	}
-	
+
 	/**
 	 * Tree html function
 	 *
@@ -245,7 +245,7 @@ class Plugin_Pages extends Plugin
 			$this->db->select('id, parent_id, slug, uri, title')
 					->order_by($order_by, $order_dir)
 					->where_not_in('slug', $this->disable);
-			
+
 			// check if they're logged in
 			if ( isset($this->current_user->group) )
 			{
@@ -254,7 +254,7 @@ class Plugin_Pages extends Plugin
 				{
 					// show pages for their group and all unrestricted
 					$this->db->where('status', 'live')
-						->where_in('restricted_to', array($this->current_user->group_id, 0, NULL));					
+						->where_in('restricted_to', array($this->current_user->group_id, 0, NULL));
 				}
 			}
 			else
@@ -263,7 +263,7 @@ class Plugin_Pages extends Plugin
 				$this->db->where('status', 'live')
 					->where('restricted_to <=', 0);
 			}
-			
+
 			$pages = $this->db->get('pages')
 				->result();
 
@@ -288,27 +288,27 @@ class Plugin_Pages extends Plugin
 			$html .= '<li';
 			$html .= (current_url() == site_url($item->uri)) ? ' class="current">' : '>';
 			$html .= ($link === TRUE) ? '<a href="' . site_url($item->uri) . '">' . $item->title . '</a>' : $item->title;
-			
-			
-			
+
+
+
 			$nested_list = $this->_build_tree_html(array(
 				'tree'			=> $tree,
 				'parent_id'		=> (int) $item->id,
 				'link'			=> $link,
 				'list_tag'		=> $list_tag
 			));
-			
+
 			if ($nested_list)
 			{
 				$html .= '<'.$list_tag.'>' . $nested_list . '</'.$list_tag.'>';
 			}
-			
+
 			$html .= '</li>';
 		}
 
 		return $html;
 	}
-	
+
 }
 
 /* End of file plugin.php */

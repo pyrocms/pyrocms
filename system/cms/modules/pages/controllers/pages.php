@@ -17,10 +17,10 @@ class Pages extends Public_Controller
 		parent::__construct();
 		$this->load->model('page_m');
 		$this->load->model('page_layouts_m');
-		
+
 		// This basically keeps links to /home always pointing to the actual homepage even when the default_controller is changed
 		@include APPPATH.'config/routes.php'; // simple hack to get the default_controller, could find another way.
-		
+
 		// No page is mentioned $this->current_userand we aren't using pages as default (eg blog on homepage)
 		if ( ! $this->uri->segment(1) AND $route['default_controller'] != 'pages')
 		{
@@ -41,7 +41,7 @@ class Pages extends Public_Controller
 		{
 			$url_segments = $this->uri->total_rsegments() > 0 ? array_slice($this->uri->rsegment_array(), 2) : null;
 		}
-		
+
 		// not routed, so use the actual URI segments
 		else
 		{
@@ -54,7 +54,7 @@ class Pages extends Public_Controller
 					header('Content-type: image/x-icon');
 					readfile(FCPATH.$favicon);
 				}
-				
+
 				else
 				{
 					set_status_header(404);
@@ -65,7 +65,7 @@ class Pages extends Public_Controller
 
 			$url_segments = $this->uri->total_segments() > 0 ? $this->uri->segment_array() : null;
 		}
-		
+
 		// If it has .rss on the end then parse the RSS feed
 		$url_segments && preg_match('/.rss$/', end($url_segments))
 			? $this->_rss($url_segments)
@@ -81,7 +81,7 @@ class Pages extends Public_Controller
 	public function _page($url_segments)
 	{
 		$page = $url_segments !== NULL
-		
+
 			// Fetch this page from the database via cache
 			? $this->pyrocache->model('page_m', 'get_by_uri', array($url_segments))
 
@@ -142,26 +142,26 @@ class Pages extends Public_Controller
 				$this->template->set_breadcrumb($parent_page->title, $parent_page->uri);
 			}
 		}
-			
+
 		// Not got a meta title? Use slogan for homepage or the normal page title for other pages
 		if ($page->meta_title == '')
 		{
 			$page->meta_title = $page->is_home ? $this->settings->site_slogan : $page->title;
 		}
-		
+
 		// If this page has an RSS feed, show it
 		if ($page->rss_enabled)
 		{
 			    $this->template->append_metadata('<link rel="alternate" type="application/rss+xml" title="'.$page->meta_title.'" href="'.site_url(uri_string(). '.rss').'" />');
 		}
-		
+
 		// Wrap the page with a page layout, otherwise use the default 'Home' layout
 		if ( ! $page->layout = $this->page_layouts_m->get($page->layout_id))
 		{
 		    // Some pillock deleted the page layout, use the default and pray to god they didnt delete that too
 		    $page->layout = $this->page_layouts_m->get(1);
 		}
-	
+
 		// Set pages layout files in your theme folder
 		if ($this->template->layout_exists($page->uri.'.html'))
 		{
@@ -178,8 +178,8 @@ class Pages extends Public_Controller
 
 		// Grab all the chunks that make up the body
 		$page->chunks = $this->db->get_where('page_chunks', array('page_id' => $page->id))->result();
-		$this->page_m->file_chunks_read($page->chunks);
-		
+		$this->page_m->file_chunks_read($page->id,$page->chunks);
+
 		$chunk_html = '';
 		foreach ($page->chunks as $chunk)
 		{
@@ -187,18 +187,18 @@ class Pages extends Public_Controller
 								(($chunk->type == 'markdown') ? $chunk->parsed : $chunk->body) .
 							'</div>'.PHP_EOL;
 		}
-		
+
 		// Parse it so the content is parsed. We pass along $page so that {pyro:page:id} and friends work in page content
 		$page->body = $this->parser->parse_string(str_replace(array('&#39;', '&quot;'), array("'", '"'), $chunk_html), array('page' => $page), TRUE);
-		
+
 		// Create page output
 		$this->template->title($page->meta_title)
-			
+
 			->set_metadata('keywords', $page->meta_keywords)
 			->set_metadata('description', $page->meta_description)
-			
+
 			->set('page', $page)
-			
+
 			// Most likely the other breadcrumbs are set above, set this one
 			->set_breadcrumb($page->title);
 
@@ -210,7 +210,7 @@ class Pages extends Public_Controller
 					'.$page->css.'
 				</style>');
 		}
-		
+
 		if ($page->layout->js OR $page->js)
 		{
 			$this->template->append_metadata('
@@ -219,7 +219,7 @@ class Pages extends Public_Controller
 					'.$page->js.'
 				</script>');
 		}
-		
+
 		echo $this->template->build('pages/page', null, true);
 	}
 
@@ -233,10 +233,10 @@ class Pages extends Public_Controller
 	{
 		// Remove the .rss suffix
 		$url_segments += array(preg_replace('/.rss$/', '', array_pop($url_segments)));
-		
+
 		// Fetch this page from the database via cache
 		$page = $this->pyrocache->model('page_m', 'get_by_uri', array($url_segments));
-		
+
 		// If page is missing or not live (and not an admin) show 404
 		if (empty($page) OR ($page->status == 'draft' AND $this->current_user->group !== 'admin') OR ! $page->rss_enabled)
 		{
@@ -244,26 +244,26 @@ class Pages extends Public_Controller
 			$this->_page('404');
 			return;
 		}
-		
+
 		$children = $this->pyrocache->model('page_m', 'get_many_by', array(array(
 			'parent_id' => $page->id,
 			'status' => 'live'
 		)));
-    	
+
 		$data->rss->title = ($page->meta_title ? $page->meta_title : $page->title).' | '. $this->settings->site_name;
 		$data->rss->description = $page->meta_description;
 		$data->rss->link = site_url($url_segments);
 		$data->rss->creator_email = $this->settings->contact_email;
-		
+
 		if ( ! empty($children))
 		{
 			$this->load->helper(array('date', 'xml'));
-			
+
 			foreach($children as &$row)
 			{
 				$row->link = $row->uri ? $row->uri : $row->slug;
 				$row->created_on = standard_date('DATE_RSS', $row->created_on);
-				
+
 				$item = array(
 					//'author' => $row->author,
 					'title' => xml_convert($row->title),
@@ -272,12 +272,12 @@ class Pages extends Public_Controller
 					'description'  => $row->meta_description,
 					'date' => $row->created_on
 				);
-						
+
 				$data->rss->items[] = (object) $item;
 			}
 		}
-		
+
 		$this->load->view('rss', $data);
 	}
-	
+
 }
