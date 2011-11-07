@@ -10,7 +10,7 @@
 <p>
 	<strong>{email}:</strong> {user_email}<br><br>
 	
-	<strong>{password}:</strong> <span class="password">{user_password}</span> <a class="button show-pass" href="#">{show_password}</a>
+	<strong>{password}:</strong> <span class="password" style="display:none;">{user_password}</span> <a class="button show-pass" href="#">{show_password}</a>
 </p>
 
 <p>{outro_text}</p>
