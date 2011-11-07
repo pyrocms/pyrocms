@@ -12,7 +12,7 @@
 
 <section class="item">
 	<ul class="permissions folders">
-		<?php foreach($permissions['directories'] as $directory => $status): ?>
+		<?php foreach ($permissions['directories'] as $directory => $status): ?>
 			<li>
 				<span><?php echo $directory; ?></span>
 			<?php echo $status ? '<em class="pass">{writable}</em>' : '<em class="fail">{not_writable}</em>'; ?>
@@ -44,14 +44,14 @@ foreach($permissions['files'] as $files => $status) {
 	$cmds_f .= $status ? '' : 'chmod 666 '.$files.PHP_EOL;
 }
 ?>
-<?php if(!empty($cmds_d) || !empty($cmds_f)): ?>
+<?php if ( ! empty($cmds_d) || ! empty($cmds_f)): ?>
 <p>
 	<a href="#" id="show-commands">+ <?php echo lang('show_commands'); ?></a>
 	<a href="#" id="hide-commands" style="display:none">- <?php echo lang('hide_commands'); ?></a>
 </p>
 
 
-<textarea id="commands" style="display:none; margin: 0 0 10px 10px; width:450px; background-color: #111; color: limegreen; padding: 0.5em;" rows="<?php echo count($permissions['directories']) + count($permissions['files']); ?>">
+<textarea id="commands" style="display:none; margin: 0 0 10px 10px; width:100%; background-color: #111; color: limegreen; padding: 0.5em;" rows="<?php echo count($permissions['directories']) + count($permissions['files']); ?>">
 <?php echo $cmds_d;?>
 <?php echo $cmds_f;?>
 </textarea>

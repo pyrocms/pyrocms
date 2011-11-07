@@ -137,8 +137,6 @@
 	<p class="success">
 		<?php echo lang('summary_success'); ?>
 	</p>
-	
-	<hr>
 
 	<a class="button" id="next_step" href="<?php echo site_url('installer/step_3'); ?>" title="<?php echo lang('next_step'); ?>"><?php echo lang('step3'); ?></a>
 

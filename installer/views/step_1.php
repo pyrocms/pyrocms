@@ -90,8 +90,6 @@
 			?>
 		</div>
 		
-		<hr>
-	
 		<input type="hidden" name="installation_step" value="step_1" />
 		<input id="next_step" type="submit" id="submit" value="{step2}" />
 	</section>
