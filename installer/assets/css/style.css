@@ -124,7 +124,7 @@ sup { top: -0.5em; }
 sub { bottom: -0.25em; }
 
 /* Give paragraphs some default styling. */
-p { font-size: 16px; font-weight: normal; line-height: 20px; margin-bottom: 12px; color: #313131; }
+p { font-size: 13px; font-weight: normal; line-height: 20px; margin-bottom: 12px; color: #313131; }
 p small { font-size: 11px; color: #bfbfbf; }
 
 /* Give headings some default styling. */
