@@ -28,6 +28,10 @@
 				'value' => set_value('hostname', 'localhost'),
 			));
 		?>
+		<a href="#" class="tooltip-s" title="Explanations here. Need to add for multi lang.">
+			<span class="help">?</span>
+		</a>
+		
 		</div>
 		
 		
@@ -40,6 +44,10 @@
 					'value' => set_value('username')
 				));
 			?>
+			
+			<a href="#" class="tooltip-s" title="Explanations here. Need to add for multi lang.">
+			<span class="help">?</span>
+		</a>
 		</div>
 		
 		<div class="input">
@@ -51,6 +59,10 @@
 					'value' => set_value('password')
 				));
 			?>
+			
+			<a href="#" class="tooltip-s" title="Explanations here. Need to add for multi lang.">
+			<span class="help">?</span>
+		</a>
 		</div>
 		
 		<div class="input">
@@ -62,6 +74,10 @@
 					'value' => set_value('port', $port)
 				));
 			?>
+			
+			<a href="#" class="tooltip-s" title="Explanations here. Need to add for multi lang.">
+			<span class="help">?</span>
+		</a>
 		</div>
 
 		<div id="notification">
