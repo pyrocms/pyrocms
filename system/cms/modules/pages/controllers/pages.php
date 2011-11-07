@@ -178,6 +178,7 @@ class Pages extends Public_Controller
 
 		// Grab all the chunks that make up the body
 		$page->chunks = $this->db->get_where('page_chunks', array('page_id' => $page->id))->result();
+		$this->page_m->file_chunks_read($page->chunks);
 		
 		$chunk_html = '';
 		foreach ($page->chunks as $chunk)
@@ -278,4 +279,5 @@ class Pages extends Public_Controller
 		
 		$this->load->view('rss', $data);
 	}
+	
 }

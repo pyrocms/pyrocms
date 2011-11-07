@@ -329,6 +329,7 @@ class Admin extends Admin_Controller {
 				{
 					$this->session->set_flashdata('notice', lang('pages_create_error'));
 				}
+			
 			}
 		}
 		
@@ -393,6 +394,7 @@ class Admin extends Admin_Controller {
 		
 		// Grab all the chunks that make up the body
 		$page->chunks = $this->db->get_where('page_chunks', array('page_id' => $id))->result();
+		$this->page_m->file_chunks_read($page->chunks);
 
 		// Got page?
 		if ( ! $page)

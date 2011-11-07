@@ -42,6 +42,7 @@ class Plugin_Pages extends Plugin
 
 		// Grab all the chunks that make up the body
 		$page['chunks'] = $this->db->get_where('page_chunks', array('page_id' => $page['id']))->result();
+		$this->page_m->file_chunks_read($page['chunks']);
 		
 		$page['body'] = '';
 		foreach ($page['chunks'] as $chunk)
@@ -70,7 +71,6 @@ class Plugin_Pages extends Plugin
 	public function children()
 	{
 		$limit = $this->attribute('limit');
-		
 		return $this->db->select('pages.*, page_chunks.body')
 			->where('pages.parent_id', $this->attribute('id'))
 			->where('status', 'live')
@@ -308,6 +308,7 @@ class Plugin_Pages extends Plugin
 
 		return $html;
 	}
+	
 }
 
 /* End of file plugin.php */

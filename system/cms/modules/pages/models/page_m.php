@@ -337,6 +337,7 @@ class Page_m extends MY_Model
 					'type' 		=> $chunk->type,
 					'parsed'	=> ($chunk->type == 'markdown') ? parse_markdown($chunk->body) : ''
 				));
+				$this->file_chunk_write($id,$chunk->body);
 			}
 		}	
 		
@@ -389,6 +390,7 @@ class Page_m extends MY_Model
 		if ($chunks)
 		{
 			// Remove the old chunks
+			$this->file_chunk_delete($id);
 			$this->db->delete('page_chunks', array('page_id' => $id));
 			
 			// And add the new ones
@@ -403,6 +405,7 @@ class Page_m extends MY_Model
 					'type' 		=> $chunk->type,
 					'parsed'	=> ($chunk->type == 'markdown') ? parse_markdown($chunk->body) : ''
 				));
+				$this->file_chunk_write($id,$chunk->body);
 			}
 		}	
 		// Wipe cache for this model, the content has changd
@@ -441,15 +444,60 @@ class Page_m extends MY_Model
 	/**
 	 * Check Slug for Uniqueness
 	 * @access public
+	 * @author Donald Myers
 	 * @param slug, parent id, this records id
 	 * @return bool
 	*/
-	public function check_slug($slug, $parent_id, $id = 0)
+  	public function check_slug($slug,$parent_id,$id=0)
+  	{
+	  	return (int)parent::count_by(
+	  	  array('id !='	=>	$id,'slug'	=>	$slug, 'parent_id' => $parent_id)
+	  	) > 0;
+	}
+
+	public function file_chunks_read(&$chunks)
 	{
-		return (int) parent::count_by(array('id !='	=>	$id,
-											'slug'	=>	$slug,
-											'parent_id' => $parent_id
-											)
-									  ) > 0;
+		foreach ($chunks as $key => $chunk) {
+			$rec = $this->db->select('pages.*, page_chunks.*')
+				->where('page_chunks.id', $chunk->id)
+				->join('page_chunks', 'pages.id = page_chunks.page_id', 'LEFT')
+				->limit(1)
+				->get('pages')
+				->result_array();
+			
+			$path = FCPATH.UPLOAD_PATH.'pages/'.str_replace('/','-',$rec[0]['uri']).' '.$rec[0]['slug'].'.tpl';
+			if (file_exists($path)) {
+				$chunk->body = file_get_contents($path);
+			}
+			
+			$chunks[$key] = $chunk;
+		}
+	}
+
+	
+	public function file_chunk_write($id,$content)
+	{
+		$rec = $this->db->select('pages.*, page_chunks.*')
+			->where('pages.id', $id)
+			->join('page_chunks', 'pages.id = page_chunks.page_id', 'LEFT')
+			->limit(1)
+			->get('pages')
+			->result_array();
+
+		$path = FCPATH.UPLOAD_PATH.'pages/'.str_replace('/','-',$rec[0]['uri']).' '.$rec[0]['slug'].'.tpl';
+		file_put_contents($path,$content);
+	}
+	
+	public function file_chunk_delete($id)
+	{
+		$rec = $this->db->select('pages.*, page_chunks.*')
+			->where('pages.id', $id)
+			->join('page_chunks', 'pages.id = page_chunks.page_id', 'LEFT')
+			->limit(1)
+			->get('pages')
+			->result_array();
+	
+		$path = FCPATH.UPLOAD_PATH.'pages/'.str_replace('/','-',$rec[0]['uri']).' '.$rec[0]['slug'].'.tpl';
+		@unlink($path);
 	}
 }
