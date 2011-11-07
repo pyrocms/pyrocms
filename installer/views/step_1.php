@@ -18,6 +18,10 @@
 
 		<hr>
 		
+		<span class="help">
+			Here we can add some explantions for the section. Etiam scelerisque, nunc ac egestas consequat, odio nibh euismod nulla, eget auctor orci nibh vel nisi. Aliquam erat volutpat. Mauris vel neque sit amet.</p>
+		</span>
+		
 		<div class="input">
 			<label for="hostname">{server}</label><br>
 			
@@ -28,9 +32,6 @@
 				'value' => set_value('hostname', 'localhost'),
 			));
 		?>
-		<a href="#" class="tooltip-s" title="Explanations here. Need to add for multi lang.">
-			<span class="help">?</span>
-		</a>
 		
 		</div>
 		
@@ -44,10 +45,6 @@
 					'value' => set_value('username')
 				));
 			?>
-			
-			<a href="#" class="tooltip-s" title="Explanations here. Need to add for multi lang.">
-			<span class="help">?</span>
-		</a>
 		</div>
 		
 		<div class="input">
@@ -60,9 +57,6 @@
 				));
 			?>
 			
-			<a href="#" class="tooltip-s" title="Explanations here. Need to add for multi lang.">
-			<span class="help">?</span>
-		</a>
 		</div>
 		
 		<div class="input">
@@ -75,9 +69,6 @@
 				));
 			?>
 			
-			<a href="#" class="tooltip-s" title="Explanations here. Need to add for multi lang.">
-			<span class="help">?</span>
-		</a>
 		</div>
 
 		<div id="notification">

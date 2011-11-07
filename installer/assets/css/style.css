@@ -312,8 +312,8 @@ input[type="text"],
 input[type="password"], 
 input[type="file"], 
 textarea {
-	min-width: 350px;
-	background: #f7f7f7;
+	min-width: 260px;
+	background: #f1f1f1;
 	padding: 8px;
 	border: 1px solid #d9d9d9;
 	border-radius: 5px;
@@ -1379,6 +1379,18 @@ footer p {
 	margin: 15px 0 0 5px;
 }
 
+.help {
+	max-width: 450px;
+	background: #c7eefe;
+    border: 1px solid #ade6fe;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	padding: 8px;
+	margin: 22px 0 25px 0;
+	float: left;
+}
+
 /*
 -------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------
@@ -1441,6 +1453,18 @@ Ensure your main styling comes before this!
 		float: left; 
 	}
 	
+	.help {
+		max-width: 450px;
+		background: #c7eefe;
+    	border: 1px solid #ade6fe;
+		border-radius: 5px;
+		-moz-border-radius: 5px;
+		-webkit-border-radius: 5px;
+		padding: 8px;
+		margin: 22px 0 25px 0;
+		float: left;
+	}
+	
 }
 
 @media only screen and (min-width: 769px) {	
@@ -1492,6 +1516,18 @@ Ensure your main styling comes before this!
 		width: 230px; 
 		margin-right: 15px; 
 		float: left; 
+	}
+	
+	.help {
+		max-width: 250px;
+		background: #c7eefe;
+    	border: 1px solid #ade6fe;
+		border-radius: 5px;
+		-moz-border-radius: 5px;
+		-webkit-border-radius: 5px;
+		padding: 8px;
+		margin: 22px 200px 0 0;
+		float: right;
 	}
 
 }
@@ -1545,6 +1581,18 @@ Ensure your main styling comes before this!
 		width: 230px; 
 		margin-right: 15px; 
 		float: left; 
+	}
+	
+	.help {
+		max-width: 250px;
+		background: #c7eefe;
+    	border: 1px solid #ade6fe;
+		border-radius: 5px;
+		-moz-border-radius: 5px;
+		-webkit-border-radius: 5px;
+		padding: 8px;
+		margin: 22px 440px 0 0;
+		float: right;
 	}
 
 }
@@ -1600,6 +1648,18 @@ Ensure your main styling comes before this!
 		float: left; 
 	}
 	
+	.help {
+		max-width: 250px;
+		background: #c7eefe;
+    	border: 1px solid #ade6fe;
+		border-radius: 5px;
+		-moz-border-radius: 5px;
+		-webkit-border-radius: 5px;
+		padding: 8px;
+		margin: 22px 700px 0 0;
+		float: right;
+	}
+	
 }
 
 
@@ -1614,6 +1674,7 @@ Non-semantic helper classes
 */
 
 ul.block-message { width: 100%; float: left; }
+
 .permissions li {
 	color: #ffffff;
 	font-family: monospace;
@@ -1660,6 +1721,20 @@ ul.block-message { width: 100%; float: left; }
 .textleft { text-align: left; }
 .textright { text-align: right; }
 .textcenter { text-align: center; }
+
+/* Tooltip */
+.tipsy { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; color: #ffffff; padding: 5px; position: absolute; z-index: 100000; }
+.tipsy a { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; color: #ffffff; }
+.tipsy-inner { padding: 5px 8px 6px 8px; background-color: black; color: white; max-width: 200px; text-align: left; border-radius: 3px; -moz-border-radius:3px; -webkit-border-radius:3px; font-size: 12px; }
+.tipsy-arrow { position: absolute; background: url('../images/tipsy.gif') no-repeat top left; width: 9px; height: 5px; }
+.tipsy-n .tipsy-arrow { top: 0; left: 50%; margin-left: -4px; }
+.tipsy-nw .tipsy-arrow { top: 0; left: 10px; }
+.tipsy-ne .tipsy-arrow { top: 0; right: 10px; }
+.tipsy-s .tipsy-arrow { bottom: 0; left: 50%; margin-left: -4px; background-position: bottom left; }
+.tipsy-sw .tipsy-arrow { bottom: 0; left: 10px; background-position: bottom left; }
+.tipsy-se .tipsy-arrow { bottom: 0; right: 10px; background-position: bottom left; }
+.tipsy-e .tipsy-arrow { top: 50%; margin-top: -4px; right: 0; width: 5px; height: 9px; background-position: top right; }
+.tipsy-w .tipsy-arrow { top: 50%; margin-top: -4px; left: 0; width: 5px; height: 9px; }
 
 /*
 -------------------------------------------------------------------------------------------------------

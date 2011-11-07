@@ -13,25 +13,18 @@
 	</section>
 	
 	<section class="item">
+		<span class="help">
+			Here we can add some explantions for the section. Etiam scelerisque, nunc ac egestas consequat, odio nibh euismod nulla, eget auctor orci nibh vel nisi. Aliquam erat volutpat. Mauris vel neque sit amet.</p>
+		</span>
 	<div class="input">
 		<label for="database"><?php echo lang('database'); ?></label><br>
 		<input type="text" id="database" class="input_text" name="database" value="<?php echo set_value('database'); ?>" />
-		
-		<a href="#" class="tooltip-s" title="Explanations here. Need to add for multi lang.">
-			<span class="help">?</span>
-		</a>
 	</div>
-	
-	<hr>
 
 	<div class="input">
 		<label for="create_db"><?php echo lang('db_create'); ?></label><br>
 		<input type="checkbox" name="create_db" value="true" id="create_db" />
 		<small>(<?php echo lang('db_notice'); ?>)</small>
-		
-		<a href="#" class="tooltip-s" title="Explanations here. Need to add for multi lang.">
-			<span class="help">?</span>
-		</a>
 	</div>
 
 	<br>
@@ -45,6 +38,10 @@
 	</section>
 	
 	<section class="item">
+		
+		<span class="help">
+			Here we can add some explantions for the section. Etiam scelerisque, nunc ac egestas consequat, odio nibh euismod nulla, eget auctor orci nibh vel nisi. Aliquam erat volutpat. Mauris vel neque sit amet.</p>
+		</span>
 
 	<div class="input">
 		<label for="user_name"><?php echo lang('user_name'); ?></label><br>
@@ -55,10 +52,6 @@
 				'value' => set_value('user_name')
 			));
 		?>
-		
-		<a href="#" class="tooltip-s" title="Explanations here. Need to add for multi lang.">
-			<span class="help">?</span>
-		</a>
 	</div>
 
 	<div class="input">
@@ -70,10 +63,6 @@
 				'value' => set_value('user_firstname')
 			));
 		?>
-		
-		<a href="#" class="tooltip-s" title="Explanations here. Need to add for multi lang.">
-			<span class="help">?</span>
-		</a>
 	</div>
 
 	<div class="input">
@@ -85,10 +74,6 @@
 				'value' => set_value('user_lastname')
 			));
 		?>
-		
-		<a href="#" class="tooltip-s" title="Explanations here. Need to add for multi lang.">
-			<span class="help">?</span>
-		</a>
 	</div>
 
 	<div class="input">
@@ -100,10 +85,6 @@
 				'value' => set_value('user_email')
 			));
 		?>
-		
-		<a href="#" class="tooltip-s" title="Explanations here. Need to add for multi lang.">
-			<span class="help">?</span>
-		</a>
 	</div>
 
 	<div class="input">
@@ -115,10 +96,6 @@
 				'value' => set_value('user_password')
 			));
 		?>
-		
-		<a href="#" class="tooltip-s" title="Explanations here. Need to add for multi lang.">
-			<span class="help">?</span>
-		</a>
 	</div>
 
 	<div id="notification">
