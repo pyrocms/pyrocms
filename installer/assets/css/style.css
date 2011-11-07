@@ -1249,7 +1249,7 @@ ul#lang li {
 
 nav#menu {
 	width: 100%;
-	margin: 0;
+	margin: 75px 0 0 5px;
 	padding: 10px 0 10px 0;
 	float: left;
 }
@@ -1257,9 +1257,9 @@ nav#menu {
 nav#menu ul li {
 	list-style: none;
 	float: left;
-	color: #ffffff;
 	color: #555555;
 	text-shadow: 0 1px 0 #ffffff;
+	font-weight: bold;
 }
 
 section.title {
@@ -1276,7 +1276,7 @@ section.title {
   	border: 1px solid #ffffff;
   	border-bottom: 1px solid #eeeeee;
   	padding: 0 15px 0 15px;
-  	margin-top: 85px;
+  	margin-top: 25px;
   	border-top-right-radius: 5px;
   	-moz-border-radius-topright: 5px; 	
   	-webkit-border-top-right-radius: 5px;
@@ -1286,6 +1286,15 @@ section.title {
   	box-shadow: 0px 0px 1px #aaaaaa;
   	-moz-box-shadow: 0px 0px 1px #aaaaaa;
   	-webkit-box-shadow: 0px 0px 1px #aaaaaa;
+}
+
+section.title h3, section.title h3 a {
+  	color: #555555;
+	font-size: 16px;
+  	text-shadow: 1px 1px 0 #ffffff;
+	margin: 0;
+	padding: 0;
+	float: left;
 }
 
 section.item {
@@ -1618,7 +1627,7 @@ Non-semantic helper classes
 -------------------------------------------------------------------------------------------------------
 */
 
-ul.block-message { width: 98%; float: left; }
+ul.block-message { width: 100%; float: left; }
 .permissions li {
 	color: #ffffff;
 	font-family: monospace;

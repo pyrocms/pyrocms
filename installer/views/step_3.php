@@ -1,5 +1,8 @@
+<section class="title">
 <h3>{header}</h3>
+</section>
 
+<section class="item">
 <p>{intro_text}</p>
 
 <hr>
@@ -79,3 +82,5 @@ foreach($permissions['files'] as $files => $status) {
 <?php else: ?>
 	<a class="button" id="next_step" href="<?php echo site_url('installer/step_3'); ?>">{retry}</a>
 <?php endif; ?>
+
+</section>

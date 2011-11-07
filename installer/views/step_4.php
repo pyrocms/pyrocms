@@ -1,5 +1,8 @@
+<section class="title">
 <h3><?php echo lang('header'); ?></h3>
+</section>
 
+<section class="item">
 <p><?php echo lang('intro_text'); ?></p>
 
 <hr>
@@ -93,3 +96,4 @@
 	<input class="button" id="next_step" type="submit" id="submit" value="<?php echo lang('finish'); ?>" />
 
 <?php echo form_close(); ?>
+</section>

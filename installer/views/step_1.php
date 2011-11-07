@@ -1,6 +1,9 @@
 <!-- Intro page -->
-<h3>{header}</h3>
+<section class="title">
+	<h3>{header}</h3>
+</section>
 
+<section class="item">
 <p>{intro_text}</p>
 
 <hr>
@@ -11,7 +14,7 @@
 		<h3>{db_settings}</h3>
 
 		<p>{db_text}</p>
-		
+
 		<div class="block-message">
 		<div class="input">
 			<label for="hostname">{server}</label><br>
@@ -54,6 +57,7 @@
 			?>
 		</div>
 		</div>
+
 	</div>
 
 	<div id="notification">
@@ -82,3 +86,4 @@
 	<input id="next_step" type="submit" id="submit" value="{step2}" />
 
 <?php echo form_close(); ?>
+</section>

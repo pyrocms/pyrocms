@@ -119,8 +119,6 @@
 		</div>		
 		</div>
 			
-		<section class="title">
-			
 			<nav id="menu">
 				<ul>
 					<li><?php echo anchor('', lang('intro'), $this->uri->segment(2, '') == '' ? 'id="current"' : ''); ?> &nbsp;&raquo;&nbsp; </li>
@@ -128,13 +126,9 @@
 					<li><span id="<?php echo $this->uri->segment(2, '') == 'step_2' ? 'current' : '' ?>"><?php echo lang('step2'); ?> &nbsp;&raquo;&nbsp; </span></li>
 					<li><span id="<?php echo $this->uri->segment(2, '') == 'step_3' ? 'current' : '' ?>"><?php echo lang('step3'); ?> &nbsp;&raquo;&nbsp; </span></li>
 					<li><span id="<?php echo $this->uri->segment(2, '') == 'step_4' ? 'current' : '' ?>"><?php echo lang('step4'); ?> &nbsp;&raquo;&nbsp; </span></li>
-					<li><span id="<?php echo $this->uri->segment(2, '') == 'complete' ? 'current' : '' ?>"><?php echo lang('final'); ?> &nbsp;&raquo;&nbsp; </span></li>
+					<li><span id="<?php echo $this->uri->segment(2, '') == 'complete' ? 'current' : '' ?>"><?php echo lang('final'); ?></span></li>
 				</ul>
 			</nav>
-		
-		</section>
-		
-		<section class="item">
 
 			<!-- Message type 1 (flashdata) -->
 			<?php if($this->session->flashdata('message')): ?>
@@ -153,7 +147,7 @@
 			<?php endif; ?>
 
 			<?php echo $page_output . PHP_EOL; ?>
-		</section>
+
 	</div>
 
 </body>

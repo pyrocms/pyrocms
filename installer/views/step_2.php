@@ -1,6 +1,9 @@
 <!-- Install PyroCMS - Step two -->
-<h3><?php echo lang('header'); ?></h3>
+<section class="title">
+	<h3><?php echo lang('header'); ?></h3>
+</section>
 
+<section class="item">
 <p><?php echo lang('intro_text'); ?></p>
 
 <hr>
@@ -139,3 +142,5 @@
 
 	<a class="button" id="next_step" href="<?php echo site_url('installer/step_2'); ?>"><?php echo lang('retry'); ?></a>
 <?php endif; ?>
+
+</section>

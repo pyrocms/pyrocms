@@ -1,6 +1,9 @@
 <!-- Install Complete -->
+<section class="title">
 <h3>{congrats}, {user_firstname} {user_lastname}!</h3>
+</section>
 
+<section class="item">
 <p>{intro_text}</p>
 
 <div class="block-message">
@@ -26,3 +29,5 @@
 	});
 </script>
 </div>
+
+</section>
