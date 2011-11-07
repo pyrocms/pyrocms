@@ -1,17 +1,20 @@
 <!-- Intro page -->
-<h1>{header}</h1>
+<h3>{header}</h3>
 
 <p>{intro_text}</p>
+
+<hr>
 
 <?php echo form_open(uri_string(), 'id="install_frm"'); ?>
 
 	<div class="database">
-		<h2>{db_settings}</h2>
+		<h3>{db_settings}</h3>
 
 		<p>{db_text}</p>
-
+		
+		<div class="block-message">
 		<div class="input">
-			<label for="hostname">{server}</label>
+			<label for="hostname">{server}</label><br>
 			<?php
 			echo form_input(array(
 				'id' => 'hostname',
@@ -21,7 +24,7 @@
 		?>
 		</div>
 		<div class="input">
-			<?php echo lang('username','username'); ?>
+			<?php echo lang('username','username'); ?><br>
 			<?php
 				echo form_input(array(
 					'id' => 'username',
@@ -31,7 +34,7 @@
 			?>
 		</div>
 		<div class="input">
-			<?php echo lang('password','password'); ?>
+			<?php echo lang('password','password'); ?><br>
 			<?php
 				echo form_password(array(
 					'id' => 'password',
@@ -41,7 +44,7 @@
 			?>
 		</div>
 		<div class="input">
-			<?php echo lang('portnr','port'); ?>
+			<?php echo lang('portnr','port'); ?><br>
 			<?php
 				echo form_input(array(
 					'id' => 'port',
@@ -50,15 +53,17 @@
 				));
 			?>
 		</div>
-
+		</div>
 	</div>
 
 	<div id="notification">
 	   <p class="text" id="confirm_db"></p>
 	</div>
-
+	
+	<hr>
+	
 	<div class="server">
-		<h2>{server_settings}</h2>
+		<h3>{server_settings}</h3>
 
 		<p>{httpserver_text}</p>
 		
@@ -72,7 +77,7 @@
 
 	<input type="hidden" name="installation_step" value="step_1" />
 
-	<br class="clear" />
+	<hr>
 
 	<input id="next_step" type="submit" id="submit" value="{step2}" />
 

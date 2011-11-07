@@ -1,10 +1,12 @@
 <!-- Install PyroCMS - Step two -->
-<h1><?php echo lang('header'); ?></h1>
+<h3><?php echo lang('header'); ?></h3>
 
 <p><?php echo lang('intro_text'); ?></p>
 
+<hr>
+
 <!-- Recommended -->
-<h2><?php echo lang('mandatory'); ?></h2>
+<h3><?php echo lang('mandatory'); ?></h3>
 
 <ul class="check">
 
@@ -56,8 +58,10 @@
 
 </ul>
 
+<hr>
+
 <!-- Recommended -->
-<h2><?php echo lang('recommended'); ?></h2>
+<h3><?php echo lang('recommended'); ?></h3>
 
 <ul class="check">
 
@@ -104,16 +108,20 @@
 
 </ul>
 
+<hr>
+
 <!-- Summary -->
-<h2><?php echo lang('summary'); ?></h2>
+<h3><?php echo lang('summary'); ?></h3>
 
 <?php if($step_passed === TRUE): ?>
 
 	<p class="success">
 		<?php echo lang('summary_success'); ?>
 	</p>
+	
+	<hr>
 
-	<a id="next_step" href="<?php echo site_url('installer/step_3'); ?>" title="<?php echo lang('next_step'); ?>"><?php echo lang('step3'); ?></a>
+	<a class="button" id="next_step" href="<?php echo site_url('installer/step_3'); ?>" title="<?php echo lang('next_step'); ?>"><?php echo lang('step3'); ?></a>
 
 <?php elseif($step_passed == 'partial'): ?>
 
@@ -129,5 +137,5 @@
 		<?php echo lang('summary_failure'); ?>
 	</p>
 
-	<a id="next_step" href="<?php echo site_url('installer/step_2'); ?>"><?php echo lang('retry'); ?></a>
+	<a class="button" id="next_step" href="<?php echo site_url('installer/step_2'); ?>"><?php echo lang('retry'); ?></a>
 <?php endif; ?>

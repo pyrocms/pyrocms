@@ -1,8 +1,10 @@
-<h1>{header}</h1>
+<h3>{header}</h3>
 
 <p>{intro_text}</p>
 
-<h2>{folder_perm}</h2>
+<hr>
+
+<h3>{folder_perm}</h3>
 
 <ul class="permissions folders">
 <?php foreach($permissions['directories'] as $directory => $status): ?>
@@ -13,7 +15,9 @@
 <?php endforeach; ?>
 </ul>
 
-<h2>{file_perm}</h2>
+<hr>
+
+<h3>{file_perm}</h3>
 
 <p>{file_text}</p>
 
@@ -68,8 +72,10 @@ foreach($permissions['files'] as $files => $status) {
 	});
 </script>
 
+<hr>
+
 <?php if($step_passed): ?>
-	<a id="next_step" href="<?php echo site_url('installer/step_4'); ?>" title="{next_step}">{step4}</a>
+	<a class="button" id="next_step" href="<?php echo site_url('installer/step_4'); ?>" title="{next_step}">{step4}</a>
 <?php else: ?>
-	<a id="next_step" href="<?php echo site_url('installer/step_3'); ?>">{retry}</a>
+	<a class="button" id="next_step" href="<?php echo site_url('installer/step_3'); ?>">{retry}</a>
 <?php endif; ?>
