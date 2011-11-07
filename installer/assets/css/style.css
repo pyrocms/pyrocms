@@ -83,7 +83,7 @@ blockquote p { font-size: 14px; font-weight: 300; line-height: 18px; margin-bott
 blockquote small { display: block; font-size: 12px; font-weight: 300; line-height: 18px; color: #bfbfbf; }
 blockquote small:before { content: '\2014 \00A0'; }
 dfn { font-style: italic; }
-hr { display: block; height: 1px; width: 100%; border: 0; border-top: 1px solid #eeeeee; margin: 25px 0 25px 0; padding: 0; float: left; }
+hr { display: block; height: 1px; width: 100%; border: 0; border-top: 1px solid #eeeeee; margin: 15px 0 25px 0; padding: 0; float: left; }
 .hr.top { display: block; height: 1px; width: 100%; border: 0; border-top: 1px solid #eeeeee; margin: 25px 0 25px 0; padding: 0; float: left; }
 .hr.top a { float: right; font-size: 9px; text-transform: uppercase; position: relative; top: 5px; }
 ins { background: #ff9; color: #333333; text-decoration: none; }
@@ -226,7 +226,7 @@ label.inline {margin-right: 4px; font-weight: normal!important;}
 
 button, input, select, textarea { font-size: 100%; margin: 0; vertical-align: baseline; *vertical-align: middle; margin: 5px 0 5px 0; }
 
-select { min-width: 260px; visibility: hidden; }
+select { min-width: 260px; }
 
 .button,
 .cancel,
