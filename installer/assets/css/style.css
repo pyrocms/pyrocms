@@ -40,7 +40,7 @@ Base
 -------------------------------------------------------------------------------------------------------
 */
 
-html, body { width: 100%; height: 100%; background: #f7f7f7; }
+html, body { width: 100%; height: 100%; background: #e0dbdb; }
 html { font-size: 100%; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
 body { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 13px; line-height: 1.231; text-rendering: optimizeLegibility; margin: 0; overflow-x: hidden; }
 body, button, input, select, textarea { font-family: sans-serif; color: #333333; }
@@ -310,7 +310,7 @@ input[type="password"],
 input[type="file"], 
 textarea {
 	min-width: 260px;
-	background: #f1f1f1;
+	background: #ffffff;
 	padding: 8px;
 	border: 1px solid #d9d9d9;
 	border-radius: 5px;
@@ -1051,7 +1051,7 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
 .topbar ul {
   display: block;
   float: left;
-  margin: 0 10px 0 -15px;
+  margin: 0;
   position: relative;
 }
 
@@ -1064,7 +1064,7 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
 .topbar ul li a {
   display: block;
   float: none;
-  padding: 15px 10px 15px 10px;
+  padding: 0;
   line-height: 19px;
   text-decoration: none;
   color: #bfbfbf;
@@ -1226,14 +1226,6 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
 -------------------------------------------------------------------------------------------------------
 */
 
-body {
-	background: url(../images/body-bg.jpg) repeat-x;
-	height: 80px;
-	margin: 0;
-	padding: 0;
-	float: left;
-}
-
 #container {
 	width: 280px;
 	height: 100%;
@@ -1242,15 +1234,10 @@ body {
 	padding: 0;
 }
 
-header {
-	width: 100%;
-	float: left;
-}
 
 ul#lang {
-	margin: 35px 45px 0 0;
+	margin: 15px -25px 0 0;
 	float: right;
-	text-shadow: 0 -1px 0 #ffffff;
 	color: #333333;
 }
  
@@ -1262,17 +1249,62 @@ ul#lang li {
 
 nav#menu {
 	width: 100%;
-	margin: 35px 0 50px 0;
-	padding: 10px 0 10px 5px;
+	margin: 0;
+	padding: 10px 0 10px 0;
 	float: left;
 }
 
 nav#menu ul li {
 	list-style: none;
-	margin-left: 15px;
 	float: left;
 	color: #ffffff;
-	text-shadow: 0 -1px 0px rgba(0, 0, 0, 0.2);
+	color: #555555;
+	text-shadow: 0 1px 0 #ffffff;
+}
+
+section.title {
+  	width: 100%;
+  	background: #f7f7f7;
+  	background-repeat: repeat-x;
+  	background-image: -khtml-gradient(linear, left top, left bottom, from(#f7f7f7), to(#f3f3f3));
+  	background-image: -moz-linear-gradient(#f7f7f7, #f3f3f3);
+  	background-image: -ms-linear-gradient(#f7f7f7, #f3f3f3);
+  	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f7f7f7), color-stop(100%, #f3f3f3));
+  	background-image: -webkit-linear-gradient(#f7f7f7, #f3f3f3);
+  	background-image: -o-linear-gradient(#f7f7f7, #f3f3f3);
+  	background-image: linear-gradient(#f7f7f7, #f3f3f3);
+  	border: 1px solid #ffffff;
+  	border-bottom: 1px solid #eeeeee;
+  	padding: 0 15px 0 15px;
+  	margin-top: 85px;
+  	border-top-right-radius: 5px;
+  	-moz-border-radius-topright: 5px; 	
+  	-webkit-border-top-right-radius: 5px;
+  	border-top-left-radius: 5px;
+  	-moz-border-radius-topleft: 5px; 	
+  	-webkit-border-top-left-radius: 5px;
+  	box-shadow: 0px 0px 1px #aaaaaa;
+  	-moz-box-shadow: 0px 0px 1px #aaaaaa;
+  	-webkit-box-shadow: 0px 0px 1px #aaaaaa;
+}
+
+section.item {
+	background: #ffffff;
+	width: 100%;
+	min-height: 100px;
+	margin: 0;
+	margin-bottom: 50px;
+	padding: 16px;
+	float: left;
+	border-bottom-right-radius: 5px;
+  	-moz-border-radius-bottomright: 5px; 	
+  	-webkit-border-bottom-right-radius: 5px;
+  	border-bottom-left-radius: 5px;
+  	-moz-border-radius-bottomleft: 5px; 	
+  	-webkit-border-bottom-left-radius: 5px;
+	box-shadow: 0px 0px 1px #aaaaaa;
+  	-moz-box-shadow: 0px 0px 1px #aaaaaa;
+  	-webkit-box-shadow: 0px 0px 1px #aaaaaa;
 }
 
 .one_full { 
@@ -1304,9 +1336,8 @@ nav#menu ul li {
 #logo {
 	font-size: 16px;
 	color: #ffffff;
-	margin: 0 12px 0 3px;
-	padding: 15px 15px 15px 0;
-	border-right: 1px solid #383838;
+	margin: -18px 12px 0 3px;
+	padding: 0;
 	float: left;
 }
 
