@@ -1381,8 +1381,8 @@ footer p {
 
 .help {
 	max-width: 450px;
-	background: #c7eefe;
-    border: 1px solid #ade6fe;
+	background: rgba(255, 105, 0, 0.2);
+    	border: 1px solid rgba(255, 105, 0, 0.4);
 	border-radius: 5px;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
@@ -1455,8 +1455,8 @@ Ensure your main styling comes before this!
 	
 	.help {
 		max-width: 450px;
-		background: #c7eefe;
-    	border: 1px solid #ade6fe;
+		background: rgba(255, 105, 0, 0.2);
+    	border: 1px solid rgba(255, 105, 0, 0.4);
 		border-radius: 5px;
 		-moz-border-radius: 5px;
 		-webkit-border-radius: 5px;
@@ -1520,8 +1520,8 @@ Ensure your main styling comes before this!
 	
 	.help {
 		max-width: 250px;
-		background: #c7eefe;
-    	border: 1px solid #ade6fe;
+		background: rgba(255, 105, 0, 0.2);
+    	border: 1px solid rgba(255, 105, 0, 0.4);
 		border-radius: 5px;
 		-moz-border-radius: 5px;
 		-webkit-border-radius: 5px;
@@ -1585,8 +1585,8 @@ Ensure your main styling comes before this!
 	
 	.help {
 		max-width: 250px;
-		background: #c7eefe;
-    	border: 1px solid #ade6fe;
+		background: rgba(255, 105, 0, 0.2);
+    	border: 1px solid rgba(255, 105, 0, 0.4);
 		border-radius: 5px;
 		-moz-border-radius: 5px;
 		-webkit-border-radius: 5px;
@@ -1650,8 +1650,8 @@ Ensure your main styling comes before this!
 	
 	.help {
 		max-width: 250px;
-		background: #c7eefe;
-    	border: 1px solid #ade6fe;
+		background: rgba(255, 105, 0, 0.2);
+    	border: 1px solid rgba(255, 105, 0, 0.4);
 		border-radius: 5px;
 		-moz-border-radius: 5px;
 		-webkit-border-radius: 5px;
