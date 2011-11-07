@@ -27,7 +27,7 @@ abstract class Plugin
 		$content AND $this->content = $content;
 		$attributes AND $this->attributes = $attributes;
 	}
-	
+
 	// ------------------------------------------------------------------------
 
 	public function __get($var)
@@ -131,6 +131,10 @@ class Plugins
 
 	public function locate($plugin, $attributes, $content)
 	{
+		if (strpos($plugin, ':') === FALSE)
+		{
+			return FALSE;
+		}
 		// Setup our paths from the data array
 		list($class, $method) = explode(':', $plugin);
 
@@ -140,7 +144,7 @@ class Plugins
 			{
 				return $this->_process($path, $class, $method, $attributes, $content);
 			}
-			
+
 			else if (defined('ADMIN_THEME') and file_exists($path = APPPATH.'themes/'.ADMIN_THEME.'/plugins/'.$class.'.php'))
 			{
 				return $this->_process($path, $class, $method, $attributes, $content);
@@ -216,7 +220,7 @@ class Plugins
 
 			return FALSE;
 		}
-		
+
 		return call_user_func(array($class_init, $method));
 	}
 }
