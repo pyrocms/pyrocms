@@ -1,34 +1,38 @@
 <section class="title">
-<h3>{header}</h3>
+	<h3>{header}</h3>
 </section>
 
 <section class="item">
-<p>{intro_text}</p>
+	<p>{intro_text}</p>
+</section>
 
-<hr>
+<section class="title">
+	<h3>{folder_perm}</h3>
+</section>
 
-<h3>{folder_perm}</h3>
+<section class="item">
+	<ul class="permissions folders">
+		<?php foreach($permissions['directories'] as $directory => $status): ?>
+			<li>
+				<span><?php echo $directory; ?></span>
+			<?php echo $status ? '<em class="pass">{writable}</em>' : '<em class="fail">{not_writable}</em>'; ?>
+			</li>
+		<?php endforeach; ?>
+	</ul>
+</section>
 
-<ul class="permissions folders">
-<?php foreach($permissions['directories'] as $directory => $status): ?>
-	<li>
-		<span><?php echo $directory; ?></span>
-		<?php echo $status ? '<em class="pass">{writable}</em>' : '<em class="fail">{not_writable}</em>'; ?>
-	</li>
-<?php endforeach; ?>
-</ul>
+<section class="title">
+	<h3>{file_perm}</h3>
+</section>
 
-<hr>
+<section class="item">
+	<p>{file_text}</p>
 
-<h3>{file_perm}</h3>
-
-<p>{file_text}</p>
-
-<ul class="permissions files">
-<?php foreach($permissions['files'] as $file => $status): ?>
-	<li><?php echo $file; ?> <?php echo $status ? '<em class="pass">{writable}</em>' : '<em class="fail">{not_writable}</em>'; ?></li>
-<?php endforeach; ?>
-</ul>
+	<ul class="permissions files">
+		<?php foreach($permissions['files'] as $file => $status): ?>
+			<li><?php echo $file; ?> <?php echo $status ? '<em class="pass">{writable}</em>' : '<em class="fail">{not_writable}</em>'; ?></li>
+		<?php endforeach; ?>
+	</ul>
 
 <?php
 $cmds_d = '';
@@ -82,5 +86,4 @@ foreach($permissions['files'] as $files => $status) {
 <?php else: ?>
 	<a class="button" id="next_step" href="<?php echo site_url('installer/step_3'); ?>">{retry}</a>
 <?php endif; ?>
-
 </section>

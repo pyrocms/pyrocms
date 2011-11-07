@@ -4,18 +4,20 @@
 </section>
 
 <section class="item">
-<p><?php echo lang('intro_text'); ?></p>
-
-<hr>
+	<p><?php echo lang('intro_text'); ?></p>
+</section>
 
 <!-- Recommended -->
-<h3><?php echo lang('mandatory'); ?></h3>
+<section class="title">
+	<h3><?php echo lang('mandatory'); ?></h3>
+</section>
 
+<section class="item">
 <ul class="check">
 
 	<!-- Server -->
 	<li>
-		<h4><?php echo lang('server_settings'); ?></h4>
+		<h5><?php echo lang('server_settings'); ?></h5>
 
 		<p class="result <?php echo ($http_server->supported === TRUE) ? 'pass' : 'partial'; ?>">
 			<?php if ($http_server->supported === TRUE): ?>
@@ -25,10 +27,12 @@
 			<?php endif; ?>
 		</p>
 	</li>
+	
+	<hr>
 
 	<!-- PHP -->
 	<li>
-		<h4><?php echo lang('php_settings'); ?></h4>
+		<h5><?php echo lang('php_settings'); ?></h5>
 		<p><?php echo sprintf(lang('php_required'), $php_min_version); ?></p>
 
 		<p class="result <?php echo ($php_acceptable) ? 'pass' : 'fail'; ?>">
@@ -39,10 +43,12 @@
 		</p>
 
 	</li>
+	
+	<hr>
 
 	<!-- MySQL -->
 	<li>
-		<h4><?php echo lang('mysql_settings'); ?></h4>
+		<h5><?php echo lang('mysql_settings'); ?></h5>
 		<p><?php echo lang('mysql_required'); ?></p>
 
 		<!-- Server -->
@@ -61,16 +67,19 @@
 
 </ul>
 
-<hr>
+</section>
 
 <!-- Recommended -->
-<h3><?php echo lang('recommended'); ?></h3>
+<section class="title">
+	<h3><?php echo lang('recommended'); ?></h3>
+</section>
 
+<section class="item">
 <ul class="check">
 
 	<!-- GD -->
 	<li>
-		<h4><?php echo lang('gd_settings'); ?></h4>
+		<h5><?php echo lang('gd_settings'); ?></h5>
 		<p><?php echo lang('gd_required'); ?></p>
 
 		<p class="result <?php echo ($gd_acceptable) ? 'pass' : 'fail'; ?>">
@@ -80,10 +89,12 @@
 			<?php endif; ?>
 		</p>
 	</li>
+	
+	<hr>
 
 	<!-- Zlib -->
 	<li>
-		<h4><?php echo lang('zlib'); ?></h4>
+		<h5><?php echo lang('zlib'); ?></h5>
 		<p><?php echo lang('zlib_required'); ?></p>
 
 		<p class="result <?php echo ($zlib_enabled) ? 'pass' : 'fail'; ?>">
@@ -94,10 +105,12 @@
 			<?php endif; ?>
 		</p>
 	</li>
+	
+	<hr>
 
 	<!-- Curl -->
 	<li>
-		<h4><?php echo lang('curl'); ?></h4>
+		<h5><?php echo lang('curl'); ?></h5>
 		<p><?php echo lang('curl_required'); ?></p>
 
 		<p class="result <?php echo ($curl_enabled) ? 'pass' : 'fail'; ?>">
@@ -111,11 +124,14 @@
 
 </ul>
 
-<hr>
+</section>
 
 <!-- Summary -->
-<h3><?php echo lang('summary'); ?></h3>
+<section class="title">
+	<h3><?php echo lang('summary'); ?></h3>
+</section>
 
+<section class="item">
 <?php if($step_passed === TRUE): ?>
 
 	<p class="success">
@@ -132,7 +148,7 @@
 		<?php echo lang('summary_partial'); ?>
 	</p>
 
-	<a id="next_step" href="<?php echo site_url('installer/step_3'); ?>" title="<?php echo lang('next_step'); ?>"><?php echo lang('step3'); ?></a>
+	<a class="button" id="next_step" href="<?php echo site_url('installer/step_3'); ?>" title="<?php echo lang('next_step'); ?>"><?php echo lang('step3'); ?></a>
 
 <?php else: ?>
 
@@ -142,5 +158,4 @@
 
 	<a class="button" id="next_step" href="<?php echo site_url('installer/step_2'); ?>"><?php echo lang('retry'); ?></a>
 <?php endif; ?>
-
 </section>

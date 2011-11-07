@@ -4,20 +4,23 @@
 </section>
 
 <section class="item">
-<p>{intro_text}</p>
-
-<hr>
+	<p>{intro_text}</p>
+</section>
 
 <?php echo form_open(uri_string(), 'id="install_frm"'); ?>
 
-	<div class="database">
+	<section class="title">
 		<h3>{db_settings}</h3>
-
+	</section>
+	
+	<section class="item">
 		<p>{db_text}</p>
 
-		<div class="block-message">
+		<hr>
+		
 		<div class="input">
 			<label for="hostname">{server}</label><br>
+			
 			<?php
 			echo form_input(array(
 				'id' => 'hostname',
@@ -26,6 +29,8 @@
 			));
 		?>
 		</div>
+		
+		
 		<div class="input">
 			<?php echo lang('username','username'); ?><br>
 			<?php
@@ -36,6 +41,7 @@
 				));
 			?>
 		</div>
+		
 		<div class="input">
 			<?php echo lang('password','password'); ?><br>
 			<?php
@@ -46,6 +52,7 @@
 				));
 			?>
 		</div>
+		
 		<div class="input">
 			<?php echo lang('portnr','port'); ?><br>
 			<?php
@@ -56,19 +63,17 @@
 				));
 			?>
 		</div>
+
+		<div id="notification">
+	   		<p class="text" id="confirm_db"></p>
 		</div>
-
-	</div>
-
-	<div id="notification">
-	   <p class="text" id="confirm_db"></p>
-	</div>
+	</section>
 	
-	<hr>
-	
-	<div class="server">
+	<section class="title">
 		<h3>{server_settings}</h3>
-
+	</section>
+	
+	<section class="item">
 		<p>{httpserver_text}</p>
 		
 		<div class="input">
@@ -77,13 +82,11 @@
 				echo form_dropdown('http_server', $server_options, set_value('http_server'), 'id="http_server"');
 			?>
 		</div>
-	</div>
-
-	<input type="hidden" name="installation_step" value="step_1" />
-
-	<hr>
-
-	<input id="next_step" type="submit" id="submit" value="{step2}" />
-
+		
+		<hr>
+	
+		<input type="hidden" name="installation_step" value="step_1" />
+		<input id="next_step" type="submit" id="submit" value="{step2}" />
+	</section>
+	
 <?php echo form_close(); ?>
-</section>

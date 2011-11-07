@@ -1,22 +1,26 @@
 <section class="title">
-<h3><?php echo lang('header'); ?></h3>
+	<h3><?php echo lang('header'); ?></h3>
 </section>
 
 <section class="item">
-<p><?php echo lang('intro_text'); ?></p>
-
-<hr>
+	<p><?php echo lang('intro_text'); ?></p>
+</section>
 
 <?php echo form_open(uri_string(), 'id="install_frm"'); ?>
-
-	<h3><?php echo lang('db_settings'); ?></h3>
-
-	<div class="block-message input">
+	
+	<section class="title">
+		<h3><?php echo lang('db_settings'); ?></h3>
+	</section>
+	
+	<section class="item">
+	<div class="input">
 		<label for="database"><?php echo lang('database'); ?></label><br>
 		<input type="text" id="database" class="input_text" name="database" value="<?php echo set_value('database'); ?>" />
 	</div>
+	
+	<hr>
 
-	<div class="block-message input">
+	<div class="input">
 		<label for="create_db"><?php echo lang('db_create'); ?></label><br>
 		<input type="checkbox" name="create_db" value="true" id="create_db" />
 		<small>(<?php echo lang('db_notice'); ?>)</small>
@@ -26,11 +30,14 @@
 
 		<input type="hidden" id="site_ref" name="site_ref" value="default" />
 		
-	<hr>
+	</section>
+	
+	<section class="title">
+		<h3><?php echo lang('default_user'); ?></h3>
+	</section>
+	
+	<section class="item">
 
-	<h3><?php echo lang('default_user'); ?></h3>
-
-	<div class="block-message">
 	<div class="input">
 		<label for="user_name"><?php echo lang('user_name'); ?></label><br>
 		<?php
@@ -84,7 +91,6 @@
 				'value' => set_value('user_password')
 			));
 		?>
-	</div>
 	</div>
 
 	<div id="notification">
