@@ -354,7 +354,7 @@ class Lex_Parser
 	{
 		$glue = preg_quote($this->scope_glue, '/');
 
-		$this->variable_regex = '[a-zA-Z0-9_'.$glue.']+';
+		$this->variable_regex = $glue === '\\.' ? '[a-zA-Z0-9_'.$glue.']+' : '[a-zA-Z0-9_\.'.$glue.']+';
 		$this->callback_name_regex = $this->variable_regex.$glue.$this->variable_regex;
 		$this->variable_loop_regex = '/\{\{\s*('.$this->variable_regex.')\s*\}\}(.*?)\{\{\s*\/\1\s*\}\}/ms';
 		$this->variable_tag_regex = '/\{\{\s*('.$this->variable_regex.')\s*\}\}/m';
