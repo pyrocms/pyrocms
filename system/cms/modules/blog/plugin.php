@@ -17,10 +17,10 @@ class Plugin_Blog extends Plugin
 	 * Creates a list of blog posts
 	 *
 	 * Usage:
-	 * {pyro:blog:posts order-by="title" limit="5"}
-	 *	<h2>{pyro:title}</h2>
-	 *	{pyro:body}
-	 * {/pyro:blog:posts}
+	 * {{ blog:posts order-by="title" limit="5" }}
+	 *		<h2>{{ title }}</h2>
+	 *		<p> {{ body }} </p>
+	 * {{ /blog:posts }}
 	 *
 	 * @param	array
 	 * @return	array

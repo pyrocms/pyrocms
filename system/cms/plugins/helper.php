@@ -30,6 +30,19 @@ class Plugin_Helper extends Plugin
 		return $this->lang->line($line);
 	}
 
+	/**
+	 * Date
+	 *
+	 * Displays the current date or formats
+	 * a timestamp that is passed to it
+	 *
+	 * @param	string
+	 * @return	string
+	 *
+	 * Usage:
+	 * {{ helper:date format="Y" }} Outputs: 2011
+	 * {{ helper:date format="Y" timestamp="2524608000" }} Outputs: 2050
+	 */
 	public function date()
 	{
         $this->load->helper('date');

@@ -18,24 +18,24 @@ class Plugin_Galleries extends Plugin
 	 * 
 	 * Usage:
 	 * 
-	 * {pyro:galleries:images slug="nature" limit="5"}
-	 * 	<a href="{pyro:url:base}galleries/{gallery_slug}/{id}" title="{name}">
-	 * 		<img src="{pyro:url:base}files/thumb/{file_id}/75/75" alt="{description}"/>
+	 * {{ galleries:images slug="nature" limit="5" }}
+	 * 	<a href="{{ url:base }}galleries/{{ gallery_slug }}/{{ id }}" title="{{ name }}">
+	 * 		<img src="{{ url:site }}files/thumb/{{ file_id }}/75/75" alt="{{ description }}"/>
 	 * 	</a>
-	 * {/pyro:galleries:images}
+	 * {{ /galleries:images }}
 	 * 
 	 * The following is a list of tags that are available to use from this method
 	 * 
-	 * 	{file_id}
-	 * 	{folder_id}
-	 * 	{gallery_id}
-	 * 	{gallery_slug}
-	 * 	{title}
-	 * 	{order}
-	 * 	{name}
-	 * 	{filename}
-	 * 	{description}
-	 * 	{extension}
+	 * 	{{ file_id }}
+	 * 	{{ folder_id }}
+	 * 	{{ gallery_id }}
+	 * 	{{ gallery_slug }}
+	 * 	{{ title }}
+	 * 	{{ order }}
+	 * 	{{ name }}
+	 * 	{{ filename }}
+	 * 	{{ description }}
+	 * 	{{ extension }}
 	 * 
 	 * @return	array
 	 */
