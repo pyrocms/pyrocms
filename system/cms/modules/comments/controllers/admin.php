@@ -269,8 +269,11 @@ class Admin extends Admin_Controller {
 				break;
 			}
 
-			// add an event so third-party devs can hook on
-			Events::trigger('comment_approved', $this->comments_m->get($id));
+			if ($action == 'approve')
+			{
+				// add an event so third-party devs can hook on
+				Events::trigger('comment_approved', $this->comments_m->get($id));
+			}
 		}
 
 		$this->session->set_flashdata(array($status => lang('comments.' . $action . '_' . $status . $multiple)));
