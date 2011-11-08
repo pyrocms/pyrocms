@@ -46,13 +46,13 @@ class Plugin_Galleries extends Plugin
 		$offset = $this->attribute('offset');
 		
 		$this->load->model(array(
-			'galleries_m',
-			'gallery_images_m'
+			'gallery_m',
+			'gallery_image_m'
 		));
 
-		$gallery = $this->galleries_m->get_by('slug', $slug);
+		$gallery = $this->gallery_m->get_by('slug', $slug);
 
-		return $gallery ? $this->gallery_images_m->get_images_by_gallery($gallery->id, array(
+		return $gallery ? $this->gallery_image_m->get_images_by_gallery($gallery->id, array(
 			'limit' => $limit,
 			'offset' => $offset
 		)) : array();
@@ -69,9 +69,9 @@ class Plugin_Galleries extends Plugin
 	{
 		$slug = $this->attribute('slug');
 
-		$this->load->model('galleries_m');
+		$this->load->model('gallery_m');
 
-		return (int) ($slug ? $this->galleries_m->count_by('slug', $slug) > 0 : FALSE);
+		return (int) ($slug ? $this->gallery_m->count_by('slug', $slug) > 0 : FALSE);
 	}
 }
 

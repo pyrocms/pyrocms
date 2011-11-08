@@ -99,8 +99,8 @@ class Admin extends Admin_Controller
 		parent::__construct();
 
 		// Load all the required classes
-		$this->load->model('galleries_m');
-		$this->load->model('gallery_images_m');
+		$this->load->model('gallery_m');
+		$this->load->model('gallery_image_m');
 		$this->load->library('form_validation');
 		$this->lang->load('galleries');
 		$this->lang->load('gallery_images');
@@ -118,7 +118,7 @@ class Admin extends Admin_Controller
 	public function index()
 	{
 		// Get all the galleries
-		$galleries = $this->galleries_m->get_all();
+		$galleries = $this->gallery_m->get_all();
 
 		// Get aux. folders
 		$this->load->model('file_folders_m');
@@ -153,7 +153,7 @@ class Admin extends Admin_Controller
 
 		if ($this->form_validation->run() )
 		{
-			if ($id = $this->galleries_m->insert($this->input->post()))
+			if ($id = $this->gallery_m->insert($this->input->post()))
 			{
 				// Everything went ok..
 				$this->session->set_flashdata('success', lang('galleries.create_success'));
@@ -214,9 +214,9 @@ class Admin extends Admin_Controller
 		)));
 
 		// Get the gallery and all images
-		$galleries 		= $this->galleries_m->get_all();
-		$gallery 		= $this->galleries_m->get($id);
-		$gallery_images = $this->gallery_images_m->get_images_by_gallery($id);
+		$galleries 		= $this->gallery_m->get_all();
+		$gallery 		= $this->gallery_m->get($id);
+		$gallery_images = $this->gallery_image_m->get_images_by_gallery($id);
 
 		if (empty($gallery))
 		{
@@ -228,7 +228,7 @@ class Admin extends Admin_Controller
 		if ($this->form_validation->run())
 		{
 			// Try to update the gallery
-			if ($this->galleries_m->update($id, $this->input->post()) === TRUE )
+			if ($this->gallery_m->update($id, $this->input->post()) === TRUE )
 			{
 				$this->session->set_flashdata('success', lang('galleries.update_success'));
 
@@ -273,7 +273,7 @@ class Admin extends Admin_Controller
 	 */
 	public function preview($id = 0)
 	{
-		$data->gallery  = $this->galleries_m->get($id);
+		$data->gallery  = $this->gallery_m->get($id);
 
 		$this->template->set_layout('modal', 'admin');
 		$this->template->build('admin/preview', $data);
@@ -313,14 +313,14 @@ class Admin extends Admin_Controller
 		foreach ( $id_array as $id)
 		{
 			// Get the gallery
-			$gallery = $this->galleries_m->get($id);
+			$gallery = $this->gallery_m->get($id);
 
 			// Does the gallery exist?
 			if ( !empty($gallery) )
 			{
 
 				// Delete the gallery along with all the images from the database
-				if ($this->galleries_m->delete($id) AND $this->gallery_images_m->delete_by('gallery_id', $id) )
+				if ($this->gallery_m->delete($id) AND $this->gallery_image_m->delete_by('gallery_id', $id) )
 				{
 					$this->session->set_flashdata('error', sprintf( lang('galleries.folder_error'), $gallery->title));
 					redirect('admin/galleries');
@@ -345,7 +345,7 @@ class Admin extends Admin_Controller
 	 */
 	public function image_preview($id = 0)
 	{
-		$data->image  = $this->gallery_images_m->get($id);
+		$data->image  = $this->gallery_image_m->get($id);
 
 		$this->template->set_layout('modal', 'admin');
 		$this->template->build('admin/image/preview', $data);
@@ -363,13 +363,13 @@ class Admin extends Admin_Controller
 		$i = 1;
 		foreach ($ids as $id)
 		{
-			$this->gallery_images_m->update($id, array(
+			$this->gallery_image_m->update($id, array(
 				'order' => $i
 			));
 
 			if ($i === 1)
 			{
-				$preview = $this->gallery_images_m->get($id);
+				$preview = $this->gallery_image_m->get($id);
 
 				if ($preview)
 				{
@@ -389,7 +389,7 @@ class Admin extends Admin_Controller
 		
 		if (isset($folder->id))
 		{
-			$folder->images = $this->gallery_images_m->get_images_by_file_folder($folder->id);
+			$folder->images = $this->gallery_image_m->get_images_by_file_folder($folder->id);
 			
 			return $this->template->build_json($folder);
 		}
@@ -407,7 +407,7 @@ class Admin extends Admin_Controller
 	{
 		$this->form_validation->set_message('_check_slug', sprintf(lang('galleries.already_exist_error'), $slug));
 		
-		return ! $this->galleries_m->check_slug($slug, $id);
+		return ! $this->gallery_m->check_slug($slug, $id);
 	}
 
 	/**
@@ -425,7 +425,7 @@ class Admin extends Admin_Controller
 		}
 		elseif ($this->file_folders_m->exists($id))
 		{
-			if ($this->galleries_m->count_by('folder_id', $id) > 0)
+			if ($this->gallery_m->count_by('folder_id', $id) > 0)
 			{
 				$this->form_validation->set_message('_check_folder', lang('galleries.folder_duplicated_error'));
 

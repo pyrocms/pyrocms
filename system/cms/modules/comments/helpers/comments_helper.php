@@ -155,8 +155,8 @@ function process_comment_items($comments)
 				break;
 			case 'gallery-image':
 				$comment->module = 'galleries';
-				$ci->load->model('galleries/gallery_images_m');
-				if ($item = $ci->gallery_images_m->get($comment->module_id))
+				$ci->load->model('galleries/gallery_image_m');
+				if ($item = $ci->gallery_image_m->get($comment->module_id))
 				{
 					$comment->item = anchor('admin/'.$comment->module.'/image_preview/'.$item->id, $item->title, 'class="modal-large"');
 					continue 2;
