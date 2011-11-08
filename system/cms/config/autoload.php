@@ -51,7 +51,7 @@ $autoload['packages'] = array();
 |
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 
-|	* pyrocache is loaded by MY_Controller to allow the site_ref to be set
+|	* pyrocache and session is loaded by MY_Controller to allow the site_ref to be set
 */
 
 $autoload['libraries'] = array('asset', 'database', 'template', 'parser');
