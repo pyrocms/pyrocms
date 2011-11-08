@@ -14,6 +14,7 @@ $lang['themes.mass_delete_success'] 	= '%s thèmes sur %s thèmes supprimés ave
 $lang['themes.mass_delete_error']		= 'Seuls %s themes sur %s ont été supprimés.';
 $lang['themes.delete_select_error'] 	= 'Vous devez d\'abord sélectionner un thème à supprimer.';
 $lang['themes.upload_title'] 			= 'Charger un thème';
+$lang['themes.admin_list']				= 'Administrer les thèmes';
 $lang['themes.list_title'] 				= 'Liste de thèmes';
 $lang['themes.upload_desc'] 			= 'Veuillez sélectionner un fichier et cliquer sur le bouton Charger';
 
