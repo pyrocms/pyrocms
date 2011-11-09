@@ -9,7 +9,7 @@ class Migration_Convert_lex_tags extends CI_Migration {
 		foreach ($page_chunks as $chunk)
 		{
 			$new_body = preg_replace(array(
-				'/{(/)?pyro:([^}]+)}/'
+				'/{(\/)?pyro:([^}]+)}/'
 			), array(
 				'{{ $1$2 }}'
 			), $chunk->body);
