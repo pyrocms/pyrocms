@@ -33,6 +33,16 @@ class Plugin_Contact extends Plugin {
 	 * 					to		 = "contact@site.com"
 	 * 					from	 = "server@site.com"
 	 * 	}}
+	 *		{{ open }} // Opening form tag.
+	 * 				{{ name }}
+	 * 				{{ email }}
+	 * 				{{ phone }}
+	 * 				{{ subject }}
+	 * 				{{ body }}
+	 * 		{{ close }} // Closing form tag + submit button.
+	 * 	{{ /contact:form }}
+	 *
+	 * 	If form validation doesn't pass the error messages will be displayed next to the corresponding form element.
 	 *
 	 * @param	fields		Pipe separated string of form inputs to build. Defaults to :text but :textarea can also be used
 	 * @param	required	Pipe separated string of fields that are required
