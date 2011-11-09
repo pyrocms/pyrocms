@@ -1,4 +1,4 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
  *
  * The Maintenance Module - currently only remove/empty cache folder(s)
@@ -67,11 +67,11 @@ class Admin extends Admin_Controller
 	public function cleanup($name = '', $andfolder = 0)
 	{
 
-		if (!empty($name))
+		if ( ! empty($name))
 		{
 			$apath = $this->_refind_apath($name);
 			
-			if (!empty($apath))
+			if ( ! empty($apath))
 			{
 				$item_count = count(glob($apath.'/*'));
 				$which = ($andfolder) ? 'remove' : 'empty'; /* just empty or empty and remove? */
@@ -94,11 +94,14 @@ class Admin extends Admin_Controller
 	{
 		$this->load->helper('file');
 
-		if (!delete_files($apath, TRUE)) return FALSE;
-
+		if ( ! delete_files($apath, TRUE)) 
+		{
+			return FALSE;
+		}
+		
 		if ($andfolder)
 		{
-			if (!rmdir($apath))
+			if ( ! rmdir($apath))
 			{
 				return FALSE;
 			}
