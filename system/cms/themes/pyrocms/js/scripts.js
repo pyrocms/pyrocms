@@ -451,21 +451,7 @@ jQuery(function($) {
 			accentchar = removeDiacritics(input_val);
 			alphanum = accentchar.toLowerCase().replace(/[^a-zA-Z 0-9-]/g,'');
 			slug = alphanum.split(" ").join("-");
-				/*data	= { 'title' : $(input_form).val().toLowerCase() };
 
-			if ( ! data.title.length) return;
-
-			if (data.title in pyro.cache.url_titles)
-			{
-				$(output_form).val(pyro.cache.url_titles[data.title]);
-
-				return;
-			}
-
-			$.post(SITE_URL + 'ajax/url_title', data, function(slug){
-				pyro.cache.url_titles[data.title] = slug;
-
-			});*/
 			$(output_form).val(slug);
 
 		});
