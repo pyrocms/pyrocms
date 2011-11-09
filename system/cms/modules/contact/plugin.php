@@ -12,47 +12,9 @@
  */
 class Plugin_Contact extends Plugin {
 
-	// Fields must match this certain criteria
-	private $rules = array(
-		array(
-			'field' => 'contact_name',
-			'label' => 'lang:contact_name_label',
-			'rules' => 'required|trim|max_length[80]'
-		),
-		array(
-			'field' => 'contact_email',
-			'label' => 'lang:contact_email_label',
-			'rules' => 'required|trim|valid_email|max_length[80]'
-		),
-		array(
-			'field' => 'company_name',
-			'label' => 'lang:contact_company_name_label',
-			'rules' => 'trim|max_length[80]'
-		),
-		array(
-			'field' => 'subject',
-			'label' => 'lang:contact_subject_label',
-			'rules' => 'required|trim'
-		),
-		array(
-			'field' => 'message',
-			'label' => 'lang:contact_message_label',
-			'rules' => 'required'
-		)
-	);
-
 	public function __construct()
 	{
 		$this->lang->load('contact');
-
-		$this->default_subjects = array(
-			'support'   => lang('subject_support'),
-			'sales'     => lang('subject_sales'),
-			'payments'  => lang('subject_payments'),
-			'business'  => lang('subject_business'),
-			'feedback'  => lang('subject_feedback'),
-			'other'     => lang('subject_other')
-		);
 	}
 
 	/**
@@ -62,101 +24,123 @@ class Plugin_Contact extends Plugin {
 	 *
 	 * Usage:
 	 *
-	 * {{ contact:form subjects="" }}
+	 * {{ contact:form 	fields	 = "name|email|phone|subject|body:textarea"
+	 * 					required = "name|email|body"
+	 * 					reply-to = "visitor@somewhere.com" * Read note below *
+	 * 					button	 = "send"
+	 * 					template = "contact"
+	 * 					lang	 = "en"
+	 * 					to		 = "contact@site.com"
+	 * 					from	 = "server@site.com"
+	 * 	}}
 	 *
-	 * @param	array
+	 * @param	fields		Pipe separated string of form inputs to build. Defaults to :text but :textarea can also be used
+	 * @param	required	Pipe separated string of fields that are required
+	 * @param	reply-to	*If you have a field named "email" it will be used as a default. You should have one or the other if you plan to reply
+	 * @param	button		The name of the submit button
+	 * @param	template	The slug of the Email Template that you wish to use
+	 * @param	lang		The language version of the Email template
+	 * @param	to			Email address to send to
+	 * @param	from		Server email that emails will show as the sender
 	 * @return	array
 	 */
 	public function form()
 	{
 		$this->load->library('form_validation');
 		$this->load->helper('form');
+		
+		$rules = array('input' 		=> 'trim|max_length[255]',
+					   'textarea' 	=> 'trim'
+					   );
+		
+		$field_list = explode('|', $this->attribute('fields'));
+		$required	= explode('|', $this->attribute('required'));
+		$button 	= $this->attribute('button', 'send');
+		$template	= $this->attribute('template', 'contact');
+		$lang 		= $this->attribute('lang', Settings::get('site_lang'));
+		$to			= $this->attribute('to', Settings::get('contact_email'));
+		$from		= $this->attribute('from', Settings::get('server_email'));
+		$reply_to	= $this->attribute('reply-to');
+		$form_meta 	= array();
+		$validation	= array();
+		$output		= array();
 
-		// Set the message subject
-		if ($this->attribute('subjects') && $subjects = explode('|', $this->attribute('subjects')))
+		foreach ($field_list AS $i => &$field)
 		{
-			$subjects = array_combine($subjects, $subjects);
-		}
-		else
-		{
-			$subjects = $this->default_subjects;
-		}
-
-		$this->form_validation->set_rules($this->rules);
-
-		// If the user has provided valid information
-		if ($this->form_validation->run())
-		{
-			// The try to send the email
-			if ($this->_send_email())
+			if (strpos($field, ':'))
 			{
-				$message = $this->attribute('confirmation', lang('contact_sent_text'));
-
-				// Store this session to limit useage
-				$this->session->set_flashdata('success', $message);
-
-				redirect(current_url());
+				$type = substr($field, (strpos($field, ':') +1));
+				// we let the user use the word "text" because it makes or sense then "input"
+				$type = ($type == 'text') ? 'input' : $type;
+				$field = substr($field, 0, strpos($field, ':'));
 			}
 			else
 			{
-				$message = $this->attribute('error', lang('contact_error_message'));
-
-				$data['messages']['error'] = $message;
+				$type = 'input';
 			}
+
+			$form_meta[$field]['type'] = $type;
+			$validation[$i]['field'] = $field;
+			$validation[$i]['label'] = ucfirst($field);
+			$validation[$i]['rules'] = $rules[$type].(in_array($field, $required) ? '|required' : '');
 		}
 
-		// Set the values for the form inputs
-		foreach ($this->rules as $rule)
+		$this->form_validation->set_rules($validation);
+
+		if ($this->form_validation->run())
 		{
-			$form_values->{$rule['field']} = set_value($rule['field']);
-		}
+			$data = $this->input->post();
 
-		$data['subjects']		= $subjects;
-		$data['form_values']	= $form_values;
+			// Add in some extra details
+			$data['sender_agent']	= $this->agent->browser() . ' ' . $this->agent->version();
+			$data['sender_ip']		= $this->input->ip_address();
+			$data['sender_os']		= $this->agent->platform();
+			$data['slug'] 			= $template;
+			// they may have an email field in the form. If they do we'll use that for reply-to.
+			$data['reply-to']		= (empty($reply_to) AND isset($data['email'])) ? $data['email'] : $reply_to;
+			$data['to']				= $to;
+			$data['from']			= $from;
+	
+			// Try to send the email
+			$results = Events::trigger('email', $data, 'array');
 
-		return $this->module_view('contact', 'form', $data, TRUE);
-	}
+			// fetch the template so we can parse it to insert into the database log
+			$this->load->model('templates/email_templates_m');
+			$templates = $this->email_templates_m->get_templates($template);
+			
+            $subject = array_key_exists($lang, $templates) ? $templates[$lang]->subject : $templates['en']->subject ;
+            $data['subject'] = $this->parser->parse_string($subject, $data, TRUE);
 
-	public function _send_email($subjects = array())
-	{
-		$this->load->library('email');
-		$this->load->library('user_agent');
-
-		// If "other subject" exists then use it, if not then use the selected subject
-		$subject = ($this->input->post('other_subject')) ? $this->input->post('other_subject') : $this->default_subjects[$this->input->post('subject')];
-
-		// Loop through cleaning data and inputting to $data
-		$data = $this->input->post();
-
-		// Add in some extra details
-		$data['subject']		= $subject;
-		$data['message']		= $this->input->post('message');
-		$data['company_name']	= $this->input->post('company_name');
-		$data['sender_agent']	= $this->agent->browser() . ' ' . $this->agent->version();
-		$data['sender_ip']		= $this->input->ip_address();
-		$data['sender_os']		= $this->agent->platform();
-		$data['slug'] 			= 'contact';
-		$data['email'] 			= $data['contact_email'];
-		$data['from'] 			= $data['contact_email'];
-		$data['name']			= $data['contact_name'];
-
-		// If the email has sent with no known erros, show the message
-		$results = Events::trigger('email', $data, 'array');
+            $body = array_key_exists($lang, $templates) ? $templates[$lang]->body : $templates['en']->body ;
+            $data['body'] = $this->parser->parse_string($body, $data, TRUE);
+			
+			$this->load->model('contact/contact_m');
+			
+			// Finally, we insert the same thing into the log as what we sent
+			$this->contact_m->insert_log($data);
 		
-		$this->load->model('contact/contact_m');
-		$this->contact_m->insert_log($data);
-		
-		foreach ($results as $result)
-		{
-			if ( ! $result)
+			foreach ($results as $result)
 			{
-				return FALSE;
+				if ( ! $result)
+				{
+					$this->session->set_flashdata('error', lang('contact_error_message'));
+					redirect(current_url());
+				}
 			}
+			$this->session->set_flashdata('success', lang('contact_sent_text'));
+			redirect(current_url());
 		}
 
-		return TRUE;
+		$output['open'] 	= form_open(current_url());
+		$output['close'] 	= form_submit($button, ucfirst($button));
+		$output['close']   .= form_close();
+		
+		foreach ($form_meta AS $form => $params)
+		{
+			$output[$form]  = form_error($form);
+			$output[$form] .= call_user_func('form_'.$params['type'], $form, set_value($form));
+		}
+
+		return $output;
 	}
-
 }
-
-/* End of file plugin.php */

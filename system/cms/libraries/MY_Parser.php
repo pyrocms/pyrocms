@@ -128,7 +128,7 @@ class MY_Parser extends CI_Parser {
 				$return_data = $this->_make_multi($return_data);
 			}
 
-			$content = $data['content'];
+			//$content = $data['content'];
 			$parsed_return = '';
 
 			$parser = new Lex_Parser();
