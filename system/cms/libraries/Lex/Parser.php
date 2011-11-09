@@ -11,6 +11,7 @@ class LexParsingException extends Exception { }
 
 class Lex_Parser
 {
+	protected $regex_setup = false;
 	protected $scope_glue = '.';
 	protected $tag_regex = '';
 
@@ -81,6 +82,7 @@ class Lex_Parser
 	 */
 	public function parse_comments($text)
 	{
+		$this->setup_regex();
 		return preg_replace('/\{\{#.*?#\}\}/s', '', $text);
 	}
 
@@ -94,6 +96,7 @@ class Lex_Parser
 	 */
 	public function parse_variables($text, $data, $callback = null)
 	{
+		$this->setup_regex();
 		/**
 		 * $data_matches[][0][0] is the raw data loop tag
 		 * $data_matches[][0][1] is the offset of raw data loop tag
@@ -151,6 +154,7 @@ class Lex_Parser
 	 */
 	public function parse_callback_tags($text, $data, $callback)
 	{
+		$this->setup_regex();
 		if ($this->in_condition)
 		{
 			$regex = '/\{\s*('.$this->variable_regex.')(\s+.*?)?\s*\}/ms';
@@ -210,6 +214,7 @@ class Lex_Parser
 	 */
 	public function parse_conditionals($text, $data, $callback)
 	{
+		$this->setup_regex();
 		preg_match_all($this->conditional_regex, $text, $matches, PREG_SET_ORDER);
 
 		$this->conditional_data = $data;
@@ -267,6 +272,7 @@ class Lex_Parser
 	{
 		if ($glue !== null)
 		{
+			$this->regex_setup = false;
 			$this->scope_glue = $glue;
 		}
 
@@ -357,6 +363,10 @@ class Lex_Parser
 	 */
 	protected function setup_regex()
 	{
+		if ($this->regex_setup)
+		{
+			return;
+		}
 		$glue = preg_quote($this->scope_glue, '/');
 
 		$this->variable_regex = $glue === '\\.' ? '[a-zA-Z0-9_'.$glue.']+' : '[a-zA-Z0-9_\.'.$glue.']+';
@@ -371,6 +381,8 @@ class Lex_Parser
 		$this->conditional_regex = '/\{\{\s*(if|elseif)\s*((?:\()?(.*?)(?:\))?)\s*\}\}/ms';
 		$this->conditional_else_regex = '/\{\{\s*else\s*\}\}/ms';
 		$this->conditional_end_regex = '/\{\{\s*(\/if|endif)\s*\}\}/ms';
+
+		$this->regex_setup = true;
 	}
 
 	/**
