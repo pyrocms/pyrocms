@@ -9,9 +9,9 @@ class Migration_Convert_lex_tags extends CI_Migration {
 		foreach ($page_chunks as $chunk)
 		{
 			$new_body = preg_replace(array(
-				'/{(\/)?pyro:([^}]+)}/'
+				'/{(\/)?(pyro:)?([^}]+)}/'
 			), array(
-				'{{ $1$2 }}'
+				'{{ $1$3 }}'
 			), $chunk->body);
 			
 			$this->db
@@ -24,7 +24,11 @@ class Migration_Convert_lex_tags extends CI_Migration {
 		
 		foreach ($page_layouts as $layout)
 		{
-			$new_body = preg_replace('/{pyro:([^}]+)}/', '{{ $1 }}', $layout->body);
+			$new_body = preg_replace(array(
+				'/{(\/)?(pyro:)?([^}]+)}/'
+			), array(
+				'{{ $1$3 }}'
+			), $layout->body);
 			
 			$this->db
 				->set('body', $new_body)
