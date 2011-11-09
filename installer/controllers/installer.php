@@ -13,7 +13,7 @@ class Installer extends CI_Controller
 	/**
 	 * Array of languages supported by the installer
 	 */
-	private $languages	= array ('arabic', 'brazilian', 'english', 'dutch', 'french', 'german', 'polish', 'chinese_traditional', 'slovenian', 'spanish', 'russian', 'greek', 'lithuanian','danish');
+	private $languages	= array ('arabic', 'brazilian', 'english', 'dutch', 'french', 'german', 'polish', 'chinese_traditional', 'slovenian', 'spanish', 'russian', 'greek', 'lithuanian','danish','vietnamese');
 
 	/**
 	 * Array containing the directories that need to be writeable
@@ -160,13 +160,13 @@ class Installer extends CI_Controller
 	*/
 	function validate_mysql_db_name($db_name)
 	{
-		
+
 		if(! $this->installer_lib->validate_mysql_db_name($db_name))
 		{
 			$this->form_validation->set_message('validate_mysql_db_name', lang('invalid_db_name'));
 			return FALSE;
 		}
-		else 
+		else
 		{
 			return TRUE;
 		}
@@ -363,11 +363,11 @@ class Installer extends CI_Controller
 			{
 				// Let's tell them why the install failed
 				$this->session->set_flashdata('message', $this->lang->line('error_'.$install['code']) . $install['message']);
-				
+
 				$final_data['page_output'] = $this->parser->parse('step_4', $this->lang->language, TRUE);
 				$this->load->view('global', $final_data);
 			}
-			
+
 			// Success!
 			$this->session->set_flashdata('message', lang('success'));
 			$this->session->set_flashdata('message_type', 'success');

@@ -51,9 +51,9 @@
 					<td class="align-center buttons buttons-small">
 						<?php if ($this->settings->moderate_comments): ?>
 							<?php if ($comment->is_active): ?>
-								<?php echo anchor('admin/comments/unapprove/' . $comment->id, lang('deactivate_label'), 'class="button deactivate"'); ?>
+								<?php echo anchor('admin/comments/unapprove/' . $comment->id, lang('buttons.deactivate'), 'class="button deactivate"'); ?>
 							<?php else: ?>
-								<?php echo anchor('admin/comments/approve/' . $comment->id, lang('activate_label'), 'class="button activate"'); ?>
+								<?php echo anchor('admin/comments/approve/' . $comment->id, lang('buttons.activate'), 'class="button activate"'); ?>
 							<?php endif; ?>
 						<?php endif; ?>
 					

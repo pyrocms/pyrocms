@@ -9,7 +9,7 @@
  * @category 	Modules
  * @license 	Apache License v2.0
  */
-class Gallery_images_m extends MY_Model
+class Gallery_image_m extends MY_Model
 {
 	/**
 	 * Constructor method
@@ -156,7 +156,7 @@ class Gallery_images_m extends MY_Model
 			// Remove missing files images
 			foreach ($old_images as $old_image)
 			{
-				$this->gallery_images_m->delete($old_image->id);
+				$this->gallery_image_m->delete($old_image->id);
 			}
 		}
 

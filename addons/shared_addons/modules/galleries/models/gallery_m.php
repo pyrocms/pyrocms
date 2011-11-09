@@ -10,7 +10,7 @@
  * @category 	Modules
  * @license 	Apache License v2.0
  */
-class Galleries_m extends MY_Model {
+class Gallery_m extends MY_Model {
 
 	/**
 	 * Get all galleries along with the total number of photos in each gallery
