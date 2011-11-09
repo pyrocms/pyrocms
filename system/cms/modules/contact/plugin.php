@@ -87,7 +87,7 @@ class Plugin_Contact extends Plugin {
 			  $field_list['to'],
 			  $field_list['from'],
 			  $field_list['reply-to'],
-			  $field_list['max_size']
+			  $field_list['max-size']
 			  );
 
 		foreach ($field_list AS $field => $rules)
@@ -205,15 +205,17 @@ class Plugin_Contact extends Plugin {
 			redirect(current_url());
 		}
 
-		$output['open'] 	= form_open_multipart(current_url());
-		$output['close'] 	= form_submit($button, ucfirst($button));
-		$output['close']   .= form_close();
-
+		$parse_data = array();
 		foreach ($form_meta AS $form => $value)
 		{
-			$output[$form]  = form_error($form);
-			$output[$form] .= call_user_func('form_'.$value['type'], $form, set_value($form));
+			$parse_data[$form]  = form_error($form);
+			$parse_data[$form] .= call_user_func('form_'.$value['type'], $form, set_value($form));
 		}
+	
+		$output	 = form_open_multipart(current_url()).PHP_EOL;
+		$output	.= $this->parser->parse_string($this->content(), $parse_data, TRUE).PHP_EOL;
+		$output .= '<p class="contact-button">'.form_submit($button, ucfirst($button)).'</p>'.PHP_EOL;
+		$output .= form_close();
 
 		return $output;
 	}
