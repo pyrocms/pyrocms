@@ -24,28 +24,32 @@ class Plugin_Contact extends Plugin {
 	 *
 	 * Usage:
 	 *
-	 * {{ contact:form 	fields	 = "name|email|phone|subject|body:textarea"
-	 * 					required = "name|email|body"
-	 * 					reply-to = "visitor@somewhere.com" * Read note below *
-	 * 					button	 = "send"
-	 * 					template = "contact"
-	 * 					lang	 = "en"
-	 * 					to		 = "contact@site.com"
-	 * 					from	 = "server@site.com"
+	 * {{ contact:form 	name	 	= "text|required"
+	 * 					email	 	= "text|required|valid_email"
+	 * 					message	 	= "textarea|required"
+	 * 					attachment	= "file|jpg|png|zip
+	 * 					max-size 	= "10000"
+	 * 					reply-to 	= "visitor@somewhere.com" * Read note below *
+	 * 					button	 	= "send"
+	 * 					template 	= "contact"
+	 * 					lang	 	= "en"
+	 * 					to		 	= "contact@site.com"
+	 * 					from	 	= "server@site.com"
 	 * 	}}
 	 *		{{ open }} // Opening form tag.
 	 * 				{{ name }}
 	 * 				{{ email }}
-	 * 				{{ phone }}
-	 * 				{{ subject }}
-	 * 				{{ body }}
+	 * 				{{ message }}
+	 * 				{{ attachment }}
 	 * 		{{ close }} // Closing form tag + submit button.
 	 * 	{{ /contact:form }}
 	 *
 	 * 	If form validation doesn't pass the error messages will be displayed next to the corresponding form element.
 	 *
-	 * @param	fields		Pipe separated string of form inputs to build. Defaults to :text but :textarea can also be used
-	 * @param	required	Pipe separated string of fields that are required
+	 * @param	wildcard	The attribute name will be used as a form name. First position denotes type of form. The rest denote validation rules.
+	 * 						Example: email="text|required|valid_email" will create a text field that must be a valid email. Valid form types are text,
+	 * 						textarea, and file.
+	 * @param	max-size	If file upload fields are used the max-size attribute will limit the file size that can be uploaded.
 	 * @param	reply-to	*If you have a field named "email" it will be used as a default. You should have one or the other if you plan to reply
 	 * @param	button		The name of the submit button
 	 * @param	template	The slug of the Email Template that you wish to use
@@ -59,40 +63,63 @@ class Plugin_Contact extends Plugin {
 		$this->load->library('form_validation');
 		$this->load->helper('form');
 		
-		$rules = array('input' 		=> 'trim|max_length[255]',
-					   'textarea' 	=> 'trim'
-					   );
+		$field_list = $this->attributes();
 		
-		$field_list = explode('|', $this->attribute('fields'));
-		$required	= explode('|', $this->attribute('required'));
 		$button 	= $this->attribute('button', 'send');
 		$template	= $this->attribute('template', 'contact');
 		$lang 		= $this->attribute('lang', Settings::get('site_lang'));
 		$to			= $this->attribute('to', Settings::get('contact_email'));
 		$from		= $this->attribute('from', Settings::get('server_email'));
 		$reply_to	= $this->attribute('reply-to');
+		$max_size	= $this->attribute('max-size', 10000);
 		$form_meta 	= array();
 		$validation	= array();
 		$output		= array();
+		
+		// unset all attributes that are not field names
+		unset($field_list['button'],
+			  $field_list['template'],
+			  $field_list['lang'],
+			  $field_list['to'],
+			  $field_list['from'],
+			  $field_list['reply-to'],
+			  $field_list['max_size']
+			  );
 
-		foreach ($field_list AS $i => &$field)
+		foreach ($field_list AS $field => $rules)
 		{
-			if (strpos($field, ':'))
-			{
-				$type = substr($field, (strpos($field, ':') +1));
-				// we let the user use the word "text" because it makes or sense then "input"
-				$type = ($type == 'text') ? 'input' : $type;
-				$field = substr($field, 0, strpos($field, ':'));
-			}
-			else
-			{
-				$type = 'input';
+			$rule_array = explode('|', $rules);
+			
+			// Take the simplified form names and turn them into the real deal
+			switch ($rule_array[0]) {
+				case '':
+					$form_meta[$field]['type'] = 'input';
+				break;
+				case 'text':
+					$form_meta[$field]['type'] = 'input';
+				break;
+				
+				case 'textarea':
+					$form_meta[$field]['type'] = 'textarea';
+				break;
+				
+				case 'file':
+					$form_meta[$field]['type'] = 'upload';
+					
+					$config = $rule_array;
+					// get rid of the field name
+					unset($config[0]);
+					
+					// set configs for file uploading
+					$form_meta[$field]['config']['allowed_types'] = implode('|', $config);
+					$form_meta[$field]['config']['max_size'] = $max_size;
+					$form_meta[$field]['config']['upload_path'] = UPLOAD_PATH.'contact_attachments';
+				break;					
 			}
 
-			$form_meta[$field]['type'] = $type;
-			$validation[$i]['field'] = $field;
-			$validation[$i]['label'] = ucfirst($field);
-			$validation[$i]['rules'] = $rules[$type].(in_array($field, $required) ? '|required' : '');
+			$validation[$field]['field'] = $field;
+			$validation[$field]['label'] = ucfirst($field);
+			$validation[$field]['rules'] = ($rule_array[0] == 'file') ? 'trim' : implode('|', $rule_array);
 		}
 
 		$this->form_validation->set_rules($validation);
@@ -101,7 +128,7 @@ class Plugin_Contact extends Plugin {
 		{
 			$data = $this->input->post();
 
-			// Add in some extra details
+			// Add in some extra details about the visitor
 			$data['sender_agent']	= $this->agent->browser() . ' ' . $this->agent->version();
 			$data['sender_ip']		= $this->input->ip_address();
 			$data['sender_os']		= $this->agent->platform();
@@ -110,7 +137,35 @@ class Plugin_Contact extends Plugin {
 			$data['reply-to']		= (empty($reply_to) AND isset($data['email'])) ? $data['email'] : $reply_to;
 			$data['to']				= $to;
 			$data['from']			= $from;
-	
+
+			// Yay they want to send attachments along
+			if ($_FILES > '')
+			{
+				$this->load->library('upload');
+				is_dir(UPLOAD_PATH.'contact_attachments') OR @mkdir(UPLOAD_PATH.'contact_attachments', 0777);
+				
+				foreach ($_FILES AS $form => $file)
+				{
+					// Make sure the upload matches a field
+					if ( ! in_array($form, $form_meta)) break;
+
+					$this->upload->initialize($form_meta[$form]['config']);
+					$this->upload->do_upload($form);
+					
+					if ($this->upload->display_errors() > '')
+					{
+						$this->session->set_flashdata('error', $this->upload->display_errors());
+						redirect(current_url());
+					}
+					else
+					{
+						$result_data = $this->upload->data();
+						// pass the attachment info to the email event
+						$data['attach'][$result_data['file_name']] = $result_data['full_path'];
+					}
+				}
+			}
+
 			// Try to send the email
 			$results = Events::trigger('email', $data, 'array');
 
@@ -141,14 +196,14 @@ class Plugin_Contact extends Plugin {
 			redirect(current_url());
 		}
 
-		$output['open'] 	= form_open(current_url());
+		$output['open'] 	= form_open_multipart(current_url());
 		$output['close'] 	= form_submit($button, ucfirst($button));
 		$output['close']   .= form_close();
-		
-		foreach ($form_meta AS $form => $params)
+
+		foreach ($form_meta AS $form => $value)
 		{
 			$output[$form]  = form_error($form);
-			$output[$form] .= call_user_func('form_'.$params['type'], $form, set_value($form));
+			$output[$form] .= call_user_func('form_'.$value['type'], $form, set_value($form));
 		}
 
 		return $output;
