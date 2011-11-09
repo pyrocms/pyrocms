@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 // labels
-$lang['groups.title']					= 'Title'; #translate
+$lang['groups.title']					= 'Titre';
 $lang['groups.name']				    = 'Nom';
 $lang['groups.short_name']				= 'Nom court';
 
