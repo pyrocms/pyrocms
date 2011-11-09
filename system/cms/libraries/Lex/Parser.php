@@ -61,11 +61,11 @@ class Lex_Parser
 		// unnecessary code from being parsed and executed.
 		$text = $this->parse_conditionals($text, $data, $callback);
 		$text = $this->inject_extractions($text, 'looped_tags');
-		$text = $this->parse_variables($text, $data);
+		$text = $this->parse_variables($text, $data, $callback);
 
 		if ($callback)
 		{
-			$text = $this->parse_callback_tags($text, $callback);
+			$text = $this->parse_callback_tags($text, $data, $callback);
 		}
 
 		$text = $this->inject_extractions($text);
@@ -92,7 +92,7 @@ class Lex_Parser
 	 * @param   array|object  $data  Array or object to use
 	 * @return  string
 	 */
-	public function parse_variables($text, $data)
+	public function parse_variables($text, $data, $callback = null)
 	{
 		/**
 		 * $data_matches[][0][0] is the raw data loop tag
@@ -111,7 +111,12 @@ class Lex_Parser
 					$looped_text = '';
 					foreach ($loop_data as $item_data)
 					{
-						$looped_text .= $this->parse_variables($match[2][0], $item_data);
+						$str = $this->parse_variables($match[2][0], $item_data, $callback);
+						if ($callback !== null)
+						{
+							$str = $this->parse_callback_tags($str, $item_data, $callback);
+						}
+						$looped_text .= $str;
 					}
 					$text = preg_replace('/'.preg_quote($match[0][0], '/').'/m', $looped_text, $text, 1);
 				}
@@ -144,7 +149,7 @@ class Lex_Parser
 	 * @param   bool    $in_conditional  Whether we are in a conditional tag
 	 * @return  string
 	 */
-	public function parse_callback_tags($text, $callback)
+	public function parse_callback_tags($text, $data, $callback)
 	{
 		if ($this->in_condition)
 		{
@@ -170,7 +175,7 @@ class Lex_Parser
 			$name = $match[1][0];
 			if (isset($match[2]))
 			{
-				$parameters = $this->parse_parameters($match[2][0], $callback);
+				$parameters = $this->parse_parameters($match[2][0], $data, $callback);
 			}
 
 			$content = '';
@@ -233,7 +238,7 @@ class Lex_Parser
 			if ($callback)
 			{
 				$condition = preg_replace('/\b(?!\{\s*)('.$this->callback_name_regex.')(?!\s*\})\b/', '{$1}', $condition);
-				$condition = $this->parse_callback_tags($condition, $callback);
+				$condition = $this->parse_callback_tags($condition, $data, $callback);
 			}
 
 			// Re-inject any strings we extracted
@@ -524,8 +529,9 @@ class Lex_Parser
 	 * @param	string	The string of parameters
 	 * @return	array
 	 */
-	protected function parse_parameters($parameters, $callback)
+	protected function parse_parameters($parameters, $data, $callback)
 	{
+		$this->conditional_data = $data;
 		$this->in_condition = true;
 		// Extract all literal string in the conditional to make it easier
 		if (preg_match_all('/(["\']).*?(?<!\\\\)\1/', $parameters, $str_matches))
@@ -544,7 +550,7 @@ class Lex_Parser
 		if ($callback)
 		{
 			$parameters = preg_replace('/(.*?\s*=\s*(?!\{\s*)(?!__))('.$this->callback_name_regex.')(?!\s*\})\b/', '$1{$2}', $parameters);
-			$parameters = $this->parse_callback_tags($parameters, $callback);
+			$parameters = $this->parse_callback_tags($parameters, $data, $callback);
 		}
 
 		// Re-inject any strings we extracted
