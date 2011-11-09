@@ -18,12 +18,14 @@ class Contact_m extends MY_Model {
 	public function insert_log($input)
 	{		
 		return $this->db->insert('contact_log', array(
+			'email'			=> isset($input['email']) ? $input['email'] : '',
 			'subject' 		=> substr($input['subject'], 0, 255),
 			'message' 		=> $input['body'],
 			'sender_agent' 	=> $input['sender_agent'],
 			'sender_ip' 	=> $input['sender_ip'],
 			'sender_os' 	=> $input['sender_os'],	
 			'sent_at' 		=> time(),
+			'attachments'	=> isset($input['attach']) ? implode('|', $input['attach']) : '',
 		));
 	}
 }

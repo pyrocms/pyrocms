@@ -91,7 +91,7 @@ class Module_Templates extends Module {
 		";
 
 		$contact_template = "
-			INSERT INTO " . $this->db->dbprefix('email_templates') . " (`slug`, `name`, `description`, `subject`, `body`, `lang`, `is_default`) VALUES ('contact', 'Contact Notification', 'Template for the contact form', '{{ settings:site_name} :: {{ subject }}', 'This message was sent via the contact form on with the following details:
+			INSERT INTO " . $this->db->dbprefix('email_templates') . " (`slug`, `name`, `description`, `subject`, `body`, `lang`, `is_default`) VALUES ('contact', 'Contact Notification', 'Template for the contact form', '{{ settings:site_name }} :: {{ subject }}', 'This message was sent via the contact form on with the following details:
 				<hr />
 				IP Address: {{ sender_ip }}
 				OS {{ sender_os }}
@@ -99,12 +99,12 @@ class Module_Templates extends Module {
 				<hr />
 				{{ message }}
 
-				{{ contact_name }},
-				{{ contact_company }}', 'en', '1');
+				{{ name }},
+				{{ email }}', 'en', '1');
 		";
 		
 		$registered_template = "
-			INSERT INTO " . $this->db->dbprefix('email_templates') . " (`slug`, `name`, `description`, `subject`, `body`, `lang`, `is_default`) VALUES ('registered', 'New User Registered', 'The email sent to the site contact e-mail when a new user registers', '{{ settings:site_name} :: You have just received a registration from {{ name}', '<h3>You have received a registration from {{ name}</h3><strong>IP Address: {{ sender_ip }}</strong>
+			INSERT INTO " . $this->db->dbprefix('email_templates') . " (`slug`, `name`, `description`, `subject`, `body`, `lang`, `is_default`) VALUES ('registered', 'New User Registered', 'The email sent to the site contact e-mail when a new user registers', '{{ settings:site_name }} :: You have just received a registration from {{ name}', '<h3>You have received a registration from {{ name}</h3><strong>IP Address: {{ sender_ip }}</strong>
 				<strong>Operating System: {{ sender_os }}
 				<strong>User Agent: {{ sender_agent }}</strong>', 'en', '1');
 		";

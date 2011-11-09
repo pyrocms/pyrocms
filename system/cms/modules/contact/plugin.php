@@ -35,6 +35,8 @@ class Plugin_Contact extends Plugin {
 	 * 					lang	 	= "en"
 	 * 					to		 	= "contact@site.com"
 	 * 					from	 	= "server@site.com"
+	 * 					sent		= "Your message has been sent. Thank you for contacting us"
+	 * 					error		= "Sorry. Your message could not be sent. Please call us at 123-456-7890"
 	 * 	}}
 	 *		{{ open }} // Opening form tag.
 	 * 				{{ name }}
@@ -56,6 +58,8 @@ class Plugin_Contact extends Plugin {
 	 * @param	lang		The language version of the Email template
 	 * @param	to			Email address to send to
 	 * @param	from		Server email that emails will show as the sender
+	 * @param	sent		Allows you to set a different message for each contact form.
+	 * @param	error		Set a unique error message for each form.
 	 * @return	array
 	 */
 	public function form()
@@ -147,7 +151,7 @@ class Plugin_Contact extends Plugin {
 				foreach ($_FILES AS $form => $file)
 				{
 					// Make sure the upload matches a field
-					if ( ! in_array($form, $form_meta)) break;
+					if ( ! array_key_exists($form, $form_meta)) break;
 
 					$this->upload->initialize($form_meta[$form]['config']);
 					$this->upload->do_upload($form);
@@ -188,11 +192,16 @@ class Plugin_Contact extends Plugin {
 			{
 				if ( ! $result)
 				{
-					$this->session->set_flashdata('error', lang('contact_error_message'));
+					$message = $this->attribute('error', lang('contact_error_message'));
+					
+					$this->session->set_flashdata('error', $message);
 					redirect(current_url());
 				}
 			}
-			$this->session->set_flashdata('success', lang('contact_sent_text'));
+			
+			$message = $this->attribute('sent', lang('contact_sent_text'));
+			
+			$this->session->set_flashdata('success', $message);
 			redirect(current_url());
 		}
 
