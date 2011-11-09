@@ -139,7 +139,7 @@ $lang['settings_form_option_Newest First']		= 'Du plus récent au plus ancien';
 $lang['settings_edit_title'] 					= 'Modifier les paramètres';
 
 // messages
-$lang['settings_no_settings']					= 'There are currently no settings.'; #translate
+$lang['settings_no_settings']					= 'Il n\'y a aucun paramétrages actuellement.';
 $lang['settings_save_success'] 					= 'Vos paramètres ont été enregistrés !';
 
 /* End of file settings_lang.php */

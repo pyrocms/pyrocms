@@ -66,11 +66,11 @@ $lang['global:shortcuts']	 			= 'Raccourci';
 $lang['global:description'] 		    = 'Description';
 $lang['global:actions']					= 'Actions';
 $lang['global:view']					= 'View'; #translate
-$lang['global:preview']					= 'Preview'; #translate
-$lang['global:add']						= 'Add'; #translate
+$lang['global:preview']					= 'Prévisualiser';
+$lang['global:add']						= 'Ajouter';
 $lang['global:edit']					= 'Editer';
-$lang['global:empty']					= 'Empty'; #translate
+$lang['global:empty']					= 'Vide';
 $lang['global:delete']					= 'Supprimer';
 $lang['global:remove']					= 'Supprimer';
 
-$lang['global:keywords']				= 'Keywords'; #translate
+$lang['global:keywords']				= 'Mots-clés';
