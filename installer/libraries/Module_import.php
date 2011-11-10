@@ -152,7 +152,8 @@ class Module_import {
 		foreach (array(PYROPATH, ADDONPATH, SHARED_ADDONPATH) as $directory)
 		{
 			// Loop through modules
-			foreach(glob($directory.'modules/*', GLOB_ONLYDIR) as $module_name)
+			$modules = glob($directory.'modules/*', GLOB_ONLYDIR);
+			foreach ($modules as $module_name)
 			{
 				$slug = basename($module_name);
 
