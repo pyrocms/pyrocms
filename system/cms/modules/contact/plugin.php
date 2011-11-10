@@ -12,47 +12,9 @@
  */
 class Plugin_Contact extends Plugin {
 
-	// Fields must match this certain criteria
-	private $rules = array(
-		array(
-			'field' => 'contact_name',
-			'label' => 'lang:contact_name_label',
-			'rules' => 'required|trim|max_length[80]'
-		),
-		array(
-			'field' => 'contact_email',
-			'label' => 'lang:contact_email_label',
-			'rules' => 'required|trim|valid_email|max_length[80]'
-		),
-		array(
-			'field' => 'company_name',
-			'label' => 'lang:contact_company_name_label',
-			'rules' => 'trim|max_length[80]'
-		),
-		array(
-			'field' => 'subject',
-			'label' => 'lang:contact_subject_label',
-			'rules' => 'required|trim'
-		),
-		array(
-			'field' => 'message',
-			'label' => 'lang:contact_message_label',
-			'rules' => 'required'
-		)
-	);
-
 	public function __construct()
 	{
 		$this->lang->load('contact');
-
-		$this->default_subjects = array(
-			'support'   => lang('subject_support'),
-			'sales'     => lang('subject_sales'),
-			'payments'  => lang('subject_payments'),
-			'business'  => lang('subject_business'),
-			'feedback'  => lang('subject_feedback'),
-			'other'     => lang('subject_other')
-		);
 	}
 
 	/**
@@ -62,101 +24,226 @@ class Plugin_Contact extends Plugin {
 	 *
 	 * Usage:
 	 *
-	 * {{ contact:form subjects="" }}
+	 * {{ contact:form 	name	 	= "text|required"
+	 * 					email	 	= "text|required|valid_email"
+	 * 					message	 	= "textarea|required"
+	 * 					attachment	= "file|jpg|png|zip
+	 * 					max-size 	= "10000"
+	 * 					reply-to 	= "visitor@somewhere.com" * Read note below *
+	 * 					button	 	= "send"
+	 * 					template 	= "contact"
+	 * 					lang	 	= "en"
+	 * 					to		 	= "contact@site.com"
+	 * 					from	 	= "server@site.com"
+	 * 					sent		= "Your message has been sent. Thank you for contacting us"
+	 * 					error		= "Sorry. Your message could not be sent. Please call us at 123-456-7890"
+	 * 	}}
+	 *		{{ open }} // Opening form tag.
+	 * 				{{ name }}
+	 * 				{{ email }}
+	 * 				{{ message }}
+	 * 				{{ attachment }}
+	 * 		{{ close }} // Closing form tag + submit button.
+	 * 	{{ /contact:form }}
 	 *
-	 * @param	array
+	 * 	If form validation doesn't pass the error messages will be displayed next to the corresponding form element.
+	 *
+	 * @param	wildcard	The attribute name will be used as a form name. First position denotes type of form. The rest denote validation rules.
+	 * 						Example: email="text|required|valid_email" will create a text field that must be a valid email. Valid form types are text,
+	 * 						textarea, and file.
+	 * @param	max-size	If file upload fields are used the max-size attribute will limit the file size that can be uploaded.
+	 * @param	reply-to	*If you have a field named "email" it will be used as a default. You should have one or the other if you plan to reply
+	 * @param	button		The name of the submit button
+	 * @param	template	The slug of the Email Template that you wish to use
+	 * @param	lang		The language version of the Email template
+	 * @param	to			Email address to send to
+	 * @param	from		Server email that emails will show as the sender
+	 * @param	sent		Allows you to set a different message for each contact form.
+	 * @param	error		Set a unique error message for each form.
 	 * @return	array
 	 */
 	public function form()
 	{
 		$this->load->library('form_validation');
 		$this->load->helper('form');
+		
+		$field_list = $this->attributes();
+		
+		$button 	= $this->attribute('button', 'send');
+		$template	= $this->attribute('template', 'contact');
+		$lang 		= $this->attribute('lang', Settings::get('site_lang'));
+		$to			= $this->attribute('to', Settings::get('contact_email'));
+		$from		= $this->attribute('from', Settings::get('server_email'));
+		$reply_to	= $this->attribute('reply-to');
+		$max_size	= $this->attribute('max-size', 10000);
+		$form_meta 	= array();
+		$validation	= array();
+		$output		= array();
+		
+		// unset all attributes that are not field names
+		unset($field_list['button'],
+			  $field_list['template'],
+			  $field_list['lang'],
+			  $field_list['to'],
+			  $field_list['from'],
+			  $field_list['reply-to'],
+			  $field_list['max-size']
+			  );
 
-		// Set the message subject
-		if ($this->attribute('subjects') && $subjects = explode('|', $this->attribute('subjects')))
+		foreach ($field_list AS $field => $rules)
 		{
-			$subjects = array_combine($subjects, $subjects);
-		}
-		else
-		{
-			$subjects = $this->default_subjects;
+			$rule_array = explode('|', $rules);
+			
+			// Take the simplified form names and turn them into the real deal
+			switch ($rule_array[0]) {
+				case '':
+					$form_meta[$field]['type'] = 'input';
+				break;
+				case 'text':
+					$form_meta[$field]['type'] = 'input';
+				break;
+				
+				case 'textarea':
+					$form_meta[$field]['type'] = 'textarea';
+				break;
+				
+				case 'file':
+					$form_meta[$field]['type'] = 'upload';
+					
+					$config = $rule_array;
+					// get rid of the field name
+					unset($config[0]);
+					
+					// If this attachment is required add that to the rules and unset it from upload config
+					if ($required_key = array_search('required', $config))
+					{
+						if ( ! self::_require_upload($field))
+						{
+							// We'll set this so validation will fail and our message will be shown
+							$file_rules = 'required';
+						}
+						unset($config[$required_key]);
+					}
+					else
+					{
+						$file_rules = 'trim';
+					}
+					
+					// set configs for file uploading
+					$form_meta[$field]['config']['allowed_types'] = implode('|', $config);
+					$form_meta[$field]['config']['max_size'] = $max_size;
+					$form_meta[$field]['config']['upload_path'] = UPLOAD_PATH.'contact_attachments';
+				break;					
+			}
+
+			$validation[$field]['field'] = $field;
+			$validation[$field]['label'] = ucfirst($field);
+			$validation[$field]['rules'] = ($rule_array[0] == 'file') ? $file_rules : implode('|', $rule_array);
 		}
 
-		$this->form_validation->set_rules($this->rules);
+		$this->form_validation->set_rules($validation);
 
-		// If the user has provided valid information
 		if ($this->form_validation->run())
 		{
-			// The try to send the email
-			if ($this->_send_email())
+			$data = $this->input->post();
+
+			// Add in some extra details about the visitor
+			$data['sender_agent']	= $this->agent->browser() . ' ' . $this->agent->version();
+			$data['sender_ip']		= $this->input->ip_address();
+			$data['sender_os']		= $this->agent->platform();
+			$data['slug'] 			= $template;
+			// they may have an email field in the form. If they do we'll use that for reply-to.
+			$data['reply-to']		= (empty($reply_to) AND isset($data['email'])) ? $data['email'] : $reply_to;
+			$data['to']				= $to;
+			$data['from']			= $from;
+
+			// Yay they want to send attachments along
+			if ($_FILES > '')
 			{
-				$message = $this->attribute('confirmation', lang('contact_sent_text'));
-
-				// Store this session to limit useage
-				$this->session->set_flashdata('success', $message);
-
-				redirect(current_url());
+				$this->load->library('upload');
+				is_dir(UPLOAD_PATH.'contact_attachments') OR @mkdir(UPLOAD_PATH.'contact_attachments', 0777);
+				
+				foreach ($_FILES AS $form => $file)
+				{
+					if ($file['name'] > '')
+					{
+						// Make sure the upload matches a field
+						if ( ! array_key_exists($form, $form_meta)) break;
+	
+						$this->upload->initialize($form_meta[$form]['config']);
+						$this->upload->do_upload($form);
+						
+						if ($this->upload->display_errors() > '')
+						{
+							$this->session->set_flashdata('error', $this->upload->display_errors());
+							redirect(current_url());
+						}
+						else
+						{
+							$result_data = $this->upload->data();
+							// pass the attachment info to the email event
+							$data['attach'][$result_data['file_name']] = $result_data['full_path'];
+						}
+					}
+				}
 			}
-			else
+
+			// Try to send the email
+			$results = Events::trigger('email', $data, 'array');
+
+			// fetch the template so we can parse it to insert into the database log
+			$this->load->model('templates/email_templates_m');
+			$templates = $this->email_templates_m->get_templates($template);
+			
+            $subject = array_key_exists($lang, $templates) ? $templates[$lang]->subject : $templates['en']->subject ;
+            $data['subject'] = $this->parser->parse_string($subject, $data, TRUE);
+
+            $body = array_key_exists($lang, $templates) ? $templates[$lang]->body : $templates['en']->body ;
+            $data['body'] = $this->parser->parse_string($body, $data, TRUE);
+			
+			$this->load->model('contact/contact_m');
+			
+			// Finally, we insert the same thing into the log as what we sent
+			$this->contact_m->insert_log($data);
+		
+			foreach ($results as $result)
 			{
-				$message = $this->attribute('error', lang('contact_error_message'));
-
-				$data['messages']['error'] = $message;
+				if ( ! $result)
+				{
+					$message = $this->attribute('error', lang('contact_error_message'));
+					
+					$this->session->set_flashdata('error', $message);
+					redirect(current_url());
+				}
 			}
+			
+			$message = $this->attribute('sent', lang('contact_sent_text'));
+			
+			$this->session->set_flashdata('success', $message);
+			redirect(current_url());
 		}
 
-		// Set the values for the form inputs
-		foreach ($this->rules as $rule)
+		$parse_data = array();
+		foreach ($form_meta AS $form => $value)
 		{
-			$form_values->{$rule['field']} = set_value($rule['field']);
+			$parse_data[$form]  = form_error($form);
+			$parse_data[$form] .= call_user_func('form_'.$value['type'], $form, set_value($form));
 		}
+	
+		$output	 = form_open_multipart(current_url()).PHP_EOL;
+		$output	.= $this->parser->parse_string($this->content(), $parse_data, TRUE).PHP_EOL;
+		$output .= '<p class="contact-button">'.form_submit($button, ucfirst($button)).'</p>'.PHP_EOL;
+		$output .= form_close();
 
-		$data['subjects']		= $subjects;
-		$data['form_values']	= $form_values;
-
-		return $this->module_view('contact', 'form', $data, TRUE);
+		return $output;
 	}
-
-	public function _send_email($subjects = array())
+	
+	public function _require_upload($field)
 	{
-		$this->load->library('email');
-		$this->load->library('user_agent');
-
-		// If "other subject" exists then use it, if not then use the selected subject
-		$subject = ($this->input->post('other_subject')) ? $this->input->post('other_subject') : $this->default_subjects[$this->input->post('subject')];
-
-		// Loop through cleaning data and inputting to $data
-		$data = $this->input->post();
-
-		// Add in some extra details
-		$data['subject']		= $subject;
-		$data['message']		= $this->input->post('message');
-		$data['company_name']	= $this->input->post('company_name');
-		$data['sender_agent']	= $this->agent->browser() . ' ' . $this->agent->version();
-		$data['sender_ip']		= $this->input->ip_address();
-		$data['sender_os']		= $this->agent->platform();
-		$data['slug'] 			= 'contact';
-		$data['email'] 			= $data['contact_email'];
-		$data['from'] 			= $data['contact_email'];
-		$data['name']			= $data['contact_name'];
-
-		// If the email has sent with no known erros, show the message
-		$results = Events::trigger('email', $data, 'array');
-		
-		$this->load->model('contact/contact_m');
-		$this->contact_m->insert_log($data);
-		
-		foreach ($results as $result)
+		if ( isset($_FILES[$field]) AND $_FILES[$field]['name'] > '')
 		{
-			if ( ! $result)
-			{
-				return FALSE;
-			}
+			return TRUE;
 		}
-
-		return TRUE;
+		return FALSE;
 	}
-
 }
-
-/* End of file plugin.php */
