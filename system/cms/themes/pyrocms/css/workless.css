@@ -372,7 +372,7 @@ input:invalid, textarea:invalid { background-color: #f0dddd; }
 	width: 68%;
 }
 .form_inputs input {
-	color: #A5A5A5;
+	color: #666;
 }
 .form_inputs label small {
 	display: block;
@@ -383,7 +383,7 @@ input:invalid, textarea:invalid { background-color: #f0dddd; }
 .form_inputs input:focus {
 	color: #4D4D4D;
 	outline: none;
-	border-color: #4D4D4D;
+	border-color: #ed8e28;
 }
 .form_inputs .datetime_input select {
 	width:  100px;
