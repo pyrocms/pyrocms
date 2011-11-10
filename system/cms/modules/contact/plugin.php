@@ -114,6 +114,21 @@ class Plugin_Contact extends Plugin {
 					// get rid of the field name
 					unset($config[0]);
 					
+					// If this attachment is required add that to the rules and unset it from upload config
+					if ($required_key = array_search('required', $config))
+					{
+						if ( ! self::_require_upload($field))
+						{
+							// We'll set this so validation will fail and our message will be shown
+							$file_rules = 'required';
+						}
+						unset($config[$required_key]);
+					}
+					else
+					{
+						$file_rules = 'trim';
+					}
+					
 					// set configs for file uploading
 					$form_meta[$field]['config']['allowed_types'] = implode('|', $config);
 					$form_meta[$field]['config']['max_size'] = $max_size;
@@ -123,7 +138,7 @@ class Plugin_Contact extends Plugin {
 
 			$validation[$field]['field'] = $field;
 			$validation[$field]['label'] = ucfirst($field);
-			$validation[$field]['rules'] = ($rule_array[0] == 'file') ? 'trim' : implode('|', $rule_array);
+			$validation[$field]['rules'] = ($rule_array[0] == 'file') ? $file_rules : implode('|', $rule_array);
 		}
 
 		$this->form_validation->set_rules($validation);
@@ -150,22 +165,25 @@ class Plugin_Contact extends Plugin {
 				
 				foreach ($_FILES AS $form => $file)
 				{
-					// Make sure the upload matches a field
-					if ( ! array_key_exists($form, $form_meta)) break;
-
-					$this->upload->initialize($form_meta[$form]['config']);
-					$this->upload->do_upload($form);
-					
-					if ($this->upload->display_errors() > '')
+					if ($file['name'] > '')
 					{
-						$this->session->set_flashdata('error', $this->upload->display_errors());
-						redirect(current_url());
-					}
-					else
-					{
-						$result_data = $this->upload->data();
-						// pass the attachment info to the email event
-						$data['attach'][$result_data['file_name']] = $result_data['full_path'];
+						// Make sure the upload matches a field
+						if ( ! array_key_exists($form, $form_meta)) break;
+	
+						$this->upload->initialize($form_meta[$form]['config']);
+						$this->upload->do_upload($form);
+						
+						if ($this->upload->display_errors() > '')
+						{
+							$this->session->set_flashdata('error', $this->upload->display_errors());
+							redirect(current_url());
+						}
+						else
+						{
+							$result_data = $this->upload->data();
+							// pass the attachment info to the email event
+							$data['attach'][$result_data['file_name']] = $result_data['full_path'];
+						}
 					}
 				}
 			}
@@ -218,5 +236,14 @@ class Plugin_Contact extends Plugin {
 		$output .= form_close();
 
 		return $output;
+	}
+	
+	public function _require_upload($field)
+	{
+		if ( isset($_FILES[$field]) AND $_FILES[$field]['name'] > '')
+		{
+			return TRUE;
+		}
+		return FALSE;
 	}
 }
