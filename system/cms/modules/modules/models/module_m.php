@@ -175,11 +175,11 @@ class Module_m extends MY_Model
 				'path' 				=> $location,
 				'updated_on'		=> $row->updated_on
 			);
-
+			
 			if ( ! empty($params['is_backend']))
 			{
 				// This user has no permissions for this module
-				if ( $this->current_user->group !== 'admin' AND (!isset($result->slug) OR !isset($this->permissions[$result->slug]) OR empty($this->permissions[$result->slug])))
+				if ( $this->current_user->group !== 'admin' AND empty($this->permissions[$row->slug]) )
 				{
 					continue;
 				}
@@ -187,7 +187,7 @@ class Module_m extends MY_Model
 
 			$modules[$module['name']] = $module;
 		}
-
+		
 		ksort($modules);
 
 		return array_values($modules);
