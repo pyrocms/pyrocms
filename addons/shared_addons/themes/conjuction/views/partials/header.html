@@ -1,12 +1,12 @@
 <div id="logo">
-	<h1><a href="{pyro:url:site}">{pyro:settings:site_name}</a></h1>
-	<p><em>{pyro:settings:site_slogan}</em></p>
+	<h1><a href="{{ url:site }}">{{ settings:site_name }}</a></h1>
+	<p><em>{{ settings:site_slogan }}</em></p>
 </div>
 <hr />
 <div id="header">
 	<div id="menu">
 		<ul>
-		{pyro:navigation:links group="header"}
+		{{ navigation:links group="header" }}
 		</ul>
 	</div>
 	<div id="search">
