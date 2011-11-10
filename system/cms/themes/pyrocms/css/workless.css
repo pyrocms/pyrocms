@@ -367,8 +367,12 @@ input:invalid, textarea:invalid { background-color: #f0dddd; }
 	color: red;
 }
 .form_inputs .input {
-	float: left;
+	float: left!important;
 	padding-left: 10px;
+	width: 68%;
+}
+.form_inputs input {
+	color: #A5A5A5;
 }
 .form_inputs label small {
 	display: block;
@@ -380,6 +384,9 @@ input:invalid, textarea:invalid { background-color: #f0dddd; }
 	color: #4D4D4D;
 	outline: none;
 	border-color: #4D4D4D;
+}
+.form_inputs .datetime_input select {
+	width:  100px;
 }
 
 /*
@@ -941,7 +948,7 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
 
 .tabs {
   width: 100%;
-  border-bottom: 1px solid #eeeeee;
+  margin-bottom: 0;
 }
 
 .tab-menu ul li, .tab-menu ol li, .pill li {
