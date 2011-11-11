@@ -213,6 +213,12 @@ class Plugins
 
 		if ( ! is_callable(array($class_init, $method)))
 		{
+			// But does a property exist by that name?
+			if (property_exists($class_init, $method))
+			{
+				return TRUE;
+			}
+
 //			throw new Exception('Method "' . $method . '" does not exist in plugin "' . $class_name . '".');
 //			return FALSE;
 
