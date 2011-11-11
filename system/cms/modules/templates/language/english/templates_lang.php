@@ -8,7 +8,7 @@ $lang['templates.body_label']				= 'Body';
 $lang['templates.slug_label']				= 'Slug';
 
 // Titles
-$lang['templates.create_title']				= 'Create Template';
+$lang['templates.create_title']				= 'Add Template';
 $lang['templates.edit_title']				= 'Editing Template "%s"';
 $lang['templates.clone_title']				= 'Copying Template "%s"';
 $lang['templates.list_title']				= 'Templates';

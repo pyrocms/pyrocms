@@ -54,6 +54,7 @@ class Module_Navigation extends Module {
 				array(
 				    'name' => 'nav_group_create_title',
 				    'uri' => 'admin/navigation/groups/create',
+				    'class' => 'add'
 				),
 		    ),
 		);

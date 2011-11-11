@@ -47,6 +47,7 @@ class Module_Galleries extends Module {
 				array(
 			 	   'name' => 'galleries.new_gallery_label',
 				   'uri' => 'admin/galleries/create',
+				   'class' => 'add'
 				),
 			),
 		);

@@ -53,6 +53,7 @@ class Module_Blog extends Module {
 						array(
 					 	   'name' => 'blog_create_title',
 						    'uri' => 'admin/blog/create',
+						    'class' => 'add'
 						),
 					),
 				),
@@ -63,6 +64,7 @@ class Module_Blog extends Module {
 						array(
 						    'name' => 'cat_create_title',
 						    'uri' => 'admin/blog/categories/create',
+						    'class' => 'add'
 						),
 				    ),
 			    ),

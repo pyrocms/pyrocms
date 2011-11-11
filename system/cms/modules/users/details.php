@@ -55,6 +55,7 @@ class Module_Users extends Module {
 				array(
 				    'name' => 'user_add_title',
 				    'uri' => 'admin/users/create',
+				    'class' => 'add'
 				),
 		    ),
 		);

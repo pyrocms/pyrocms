@@ -51,6 +51,7 @@ class Module_Templates extends Module {
 				array(
 				    'name' => 'templates.create_title',
 				    'uri' => 'admin/templates/create',
+				    'class' => 'add'
 				),
 		    ),
 		);
