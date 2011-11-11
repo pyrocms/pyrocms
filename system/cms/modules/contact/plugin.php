@@ -26,6 +26,7 @@ class Plugin_Contact extends Plugin {
 	 *
 	 * {{ contact:form 	name	 	= "text|required"
 	 * 					email	 	= "text|required|valid_email"
+	 * 					subject		= "dropdown|required|hello=Say Hello|support=Support Request|Something Else"
 	 * 					message	 	= "textarea|required"
 	 * 					attachment	= "file|jpg|png|zip
 	 * 					max-size 	= "10000"
@@ -38,19 +39,21 @@ class Plugin_Contact extends Plugin {
 	 * 					sent		= "Your message has been sent. Thank you for contacting us"
 	 * 					error		= "Sorry. Your message could not be sent. Please call us at 123-456-7890"
 	 * 	}}
-	 *		{{ open }} // Opening form tag.
-	 * 				{{ name }}
-	 * 				{{ email }}
-	 * 				{{ message }}
-	 * 				{{ attachment }}
-	 * 		{{ close }} // Closing form tag + submit button.
+	 * 		{{ name }}
+	 * 		{{ email }}
+	 * 		{{ subject }}
+	 * 		{{ message }}
+	 * 		{{ attachment }}
 	 * 	{{ /contact:form }}
 	 *
 	 * 	If form validation doesn't pass the error messages will be displayed next to the corresponding form element.
 	 *
-	 * @param	wildcard	The attribute name will be used as a form name. First position denotes type of form. The rest denote validation rules.
-	 * 						Example: email="text|required|valid_email" will create a text field that must be a valid email. Valid form types are text,
-	 * 						textarea, and file.
+	 * @param	wildcard	The attribute name will be used as a form name. First value position denotes type of form. The rest denote validation rules.
+	 * 						Example: email="text|required|valid_email" will create a text field named "email" that must be a valid email. In
+	 * 						the case of a dropdown field the rest will denote dropdown key => values. Example: subject="dropdown|value=First Option|second-value=Second"
+	 * 						Or if you prefer you can simply use the dropdown text and it will be used as the value also: subject="dropdown|First Option|Second"
+	 * 						Dropdown fields will additionally accept "required" as a rule. While file fields will accept "required" plus file extensions.
+	 * 						Valid form types are text, textarea, dropdown, and file.
 	 * @param	max-size	If file upload fields are used the max-size attribute will limit the file size that can be uploaded.
 	 * @param	reply-to	*If you have a field named "email" it will be used as a default. You should have one or the other if you plan to reply
 	 * @param	button		The name of the submit button
@@ -79,6 +82,7 @@ class Plugin_Contact extends Plugin {
 		$form_meta 	= array();
 		$validation	= array();
 		$output		= array();
+		$dropdown	= array();
 		
 		// unset all attributes that are not field names
 		unset($field_list['button'],
@@ -106,12 +110,43 @@ class Plugin_Contact extends Plugin {
 				case 'textarea':
 					$form_meta[$field]['type'] = 'textarea';
 				break;
+			
+				case 'dropdown':
+					$form_meta[$field]['type'] = 'dropdown';
+					
+					// In this case $rule_array holds the dropdown key=>values and possibly the "required" rule.
+					$values = $rule_array;
+					// get rid of the field type
+					unset($values[0]);
+					
+					// Is a value required?
+					if ($required_key = array_search('required', $values))
+					{
+						$other_rules = 'required';
+						unset($values[$required_key]);
+					}
+					else
+					{
+						// Just set something
+						$other_rules = 'trim';
+					}
+
+					// Build the array to pass to the form_dropdown() helper
+					foreach ($values AS $item)
+					{
+						$item = explode('=', $item);
+						// If they didn't specify a key=>value (example: name=Your Name) then we'll use the value for the key also
+						$dropdown[$item[0]] = (count($item) > 1) ? $item[1] : $item[0];
+					}
+					
+					$form_meta[$field]['dropdown'] = $dropdown;
+				break;
 				
 				case 'file':
 					$form_meta[$field]['type'] = 'upload';
 					
 					$config = $rule_array;
-					// get rid of the field name
+					// get rid of the field type
 					unset($config[0]);
 					
 					// If this attachment is required add that to the rules and unset it from upload config
@@ -120,13 +155,13 @@ class Plugin_Contact extends Plugin {
 						if ( ! self::_require_upload($field))
 						{
 							// We'll set this so validation will fail and our message will be shown
-							$file_rules = 'required';
+							$other_rules = 'required';
 						}
 						unset($config[$required_key]);
 					}
 					else
 					{
-						$file_rules = 'trim';
+						$other_rules = 'trim';
 					}
 					
 					// set configs for file uploading
@@ -138,7 +173,7 @@ class Plugin_Contact extends Plugin {
 
 			$validation[$field]['field'] = $field;
 			$validation[$field]['label'] = ucfirst($field);
-			$validation[$field]['rules'] = ($rule_array[0] == 'file') ? $file_rules : implode('|', $rule_array);
+			$validation[$field]['rules'] = ($rule_array[0] == 'file' OR $rule_array[0] == 'dropdown') ? $other_rules : implode('|', $rule_array);
 		}
 
 		$this->form_validation->set_rules($validation);
@@ -223,11 +258,27 @@ class Plugin_Contact extends Plugin {
 			redirect(current_url());
 		}
 
+		// From here on out is form production
 		$parse_data = array();
 		foreach ($form_meta AS $form => $value)
 		{
 			$parse_data[$form]  = form_error($form);
-			$parse_data[$form] .= call_user_func('form_'.$value['type'], $form, set_value($form));
+			
+			if ($value['type'] == 'dropdown')
+			{
+				$parse_data[$form] .= call_user_func('form_'.$value['type'],
+														$form,
+														$form_meta[$form]['dropdown'],
+														set_value($form)
+													 );
+			}
+			else
+			{
+				$parse_data[$form] .= call_user_func('form_'.$value['type'],
+														$form,
+														set_value($form)
+													 );				
+			}
 		}
 	
 		$output	 = form_open_multipart(current_url()).PHP_EOL;

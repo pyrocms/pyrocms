@@ -14,7 +14,7 @@ class Migration_Convert_lex_tags extends CI_Migration {
 			), array(
 				'{{ $1$3 }}',
 				'<p>To contact us please fill out the form below.</p>
-				{{ contact:form name="text|required" email="text|required|valid_email" subject="text|required|max_length[100]" message="textarea" attachment="file|zip" }}
+				{{ contact:form name="text|required" email="text|required|valid_email" subject=\"dropdown|Support|Sales|Feedback|Other\" message="textarea" attachment="file|zip" }}
 					<div><label for="name">Name:</label>{{ name }}</div>
 					<div><label for="email">Email:</label>{{ email }}</div>
 					<div><label for="subject">Subject:</label>{{ subject }}</div>
