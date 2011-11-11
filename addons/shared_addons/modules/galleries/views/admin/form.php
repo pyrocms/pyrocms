@@ -18,56 +18,44 @@
 				<li><a href="#gallery-script"><span><?php echo lang('galleries.script_label'); ?></span></a></li>
 			</ul>
 			
-			<hr>
-	
-			<div style="width:100%;" id="gallery-content">
+			<div class="form_inputs" id="gallery-content">
+			
+			<fieldset>
+			
 				<ul>
 					<li class="<?php echo alternator('', 'even'); ?>">
-						<?php echo form_dropdown('folder_id', array(lang('global:select-pick')) + $folders_tree, $gallery->folder_id, 'id="folder_id" class="required"'); ?>
+						<label for="folder_id"><?php echo lang('galleries.folder_label'); ?> <span>*</span></label>
+						<div class="input"><?php echo form_dropdown('folder_id', array(lang('global:select-pick')) + $folders_tree, $gallery->folder_id, 'id="folder_id" class="required"'); ?></div>
+					</li>
+						
+					<li class="<?php echo alternator('', 'even'); ?>">
+						<label for="title"><?php echo lang('galleries.title_label'); ?> <span>*</span></label>
+						<div class="input"><input type="text" id="title" name="title" maxlength="255" value="<?php echo $gallery->title; ?>" /></div>
 					</li>
 					
-					<hr>
-	
 					<li class="<?php echo alternator('', 'even'); ?>">
-						<label for="title"><?php echo lang('galleries.title_label'); ?></label><br>
-						<input type="text" id="title" name="title" maxlength="255" value="<?php echo $gallery->title; ?>" />
-						<span class="required-icon tooltip"><?php echo lang('required_label'); ?></span>
+						<label for="slug"><?php echo lang('galleries.slug_label'); ?> <span>*</span></label>
+						<div class="input"><?php echo form_input('slug', $gallery->slug, 'class="width-15"'); ?></div>
 					</li>
-					
-					<hr>
-	
+						
 					<li class="<?php echo alternator('', 'even'); ?>">
-						<label for="slug"><?php echo lang('galleries.slug_label'); ?></label><br>
-						<?php echo form_input('slug', $gallery->slug, 'class="width-15"'); ?>
-						<span class="required-icon tooltip"><?php echo lang('required_label'); ?></span>
-					</li>
-					
-					<hr>
-	
-					<li class="<?php echo alternator('', 'even'); ?>">
-						<label for="description"><?php echo lang('galleries.description_label'); ?></label><br>
+						<label for="description"><?php echo lang('galleries.description_label'); ?></label><br />
 						<?php echo form_textarea(array('id'=>'description', 'name'=>'description', 'value' => $gallery->description, 'rows' => 10, 'class' => 'wysiwyg-simple')); ?>
 					</li>
 					
-					<hr>
+					<li class="<?php echo alternator('', 'even'); ?>">
+						<label for="comments"><?php echo lang('galleries.comments_label'); ?></label>
+						<div class="input"><?php echo form_dropdown('enable_comments', array('1'=>lang('galleries.comments_enabled_label'), '0'=>lang('galleries.comments_disabled_label')), $gallery->enable_comments); ?></div>
+					</li>
 	
 					<li class="<?php echo alternator('', 'even'); ?>">
-						<label for="comments"><?php echo lang('galleries.comments_label'); ?></label><br>
-						<?php echo form_dropdown('enable_comments', array('1'=>lang('galleries.comments_enabled_label'), '0'=>lang('galleries.comments_disabled_label')), $gallery->enable_comments); ?>
+						<label for="published"><?php echo lang('galleries.published_label'); ?></label>
+						<div class="input"><?php echo form_dropdown('published', array('1'=>lang('galleries.published_yes_label'), '0'=>lang('galleries.published_no_label')), $gallery->published); ?></div>
 					</li>
-					
-					<hr>
-	
-					<li class="<?php echo alternator('', 'even'); ?>">
-						<label for="published"><?php echo lang('galleries.published_label'); ?></label><br>
-						<?php echo form_dropdown('published', array('1'=>lang('galleries.published_yes_label'), '0'=>lang('galleries.published_no_label')), $gallery->published); ?>
-					</li>
-					
-					<hr>
 	
 					<li class="thumbnail-manage <?php echo alternator('', 'even'); ?>">
-						<label for="gallery_thumbnail"><?php echo lang('galleries.thumbnail_label'); ?></label><br>
-						<select name="gallery_thumbnail" id="gallery_thumbnail">
+						<label for="gallery_thumbnail"><?php echo lang('galleries.thumbnail_label'); ?></label>
+						<div class="input"><select name="gallery_thumbnail" id="gallery_thumbnail">
 	
 							<?php if ( ! empty($gallery->thumbnail_id) ): ?>
 							<!-- Current thumbnail -->
@@ -90,7 +78,7 @@
 								<?php endforeach; ?>
 							</optgroup>
 	
-						</select>
+						</select></div>
 					</li>
 					
 					<?php if (isset($gallery_images) && $gallery_images): ?>
@@ -123,12 +111,14 @@
 					</li>
 	
 				</ul>
+				</fieldset>
 	
 			</div>
 	
 			<!-- Design tab -->
-			<div id="gallery-design">
+			<div class="form_inputs" id="gallery-design">
 	
+				<fieldset>
 				<ul>
 					<li>
 						<label for="css"><?php echo lang('galleries.css_label'); ?></label><br>
@@ -137,24 +127,24 @@
 						</div>
 					</li>
 				<ul>
-	
-				<br class="clear-both" />
+				</fieldset>
 	
 			</div>
 	
 			<!-- Script tab -->
-			<div id="gallery-script">
+			<div class="form_inputs" id="gallery-script">
 	
-				<ol>
+				<fieldset>
+				<ul>
 					<li>
 						<label for="js"><?php echo lang('galleries.js_label'); ?></label><br>
 						<div>
 							<?php echo form_textarea('js', $gallery->js, 'class="js_editor"'); ?>
 						</div>
 					</li>
-				</ol>
+				</ul>
 	
-				<br class="clear-both" />
+				</fieldset>
 	
 			</div>
 	

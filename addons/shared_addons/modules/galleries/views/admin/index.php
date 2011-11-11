@@ -43,7 +43,7 @@
 			</tbody>
 		</table>
 	
-		<div class="buttons align-right padding-top">
+		<div class="table_action_buttons">
 			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete') )); ?>
 		</div>
 	

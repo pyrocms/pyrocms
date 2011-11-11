@@ -332,14 +332,61 @@ input.error {
 input:valid, textarea:valid {  }
 input:invalid, textarea:invalid { background-color: #f0dddd; }
 
-form .required-icon { 
-	background: url(../img/required.png) no-repeat; 
-	width: 94px; 
-	height: 28px; 
-	text-indent: -9999px !important; 
+.required-icon { 
+	color: red!important;
+	display: block-inline;
+}
+
+
+/* Form UL Strucutre */
+
+.form_inputs {
+	width: 100%;
+}
+.form_inputs ul {
+	width: 100%;
+	height: 100%;
+	margin-bottom: 0;
+	padding-bottom: 0;
+}
+.form_inputs ul li {
 	float: left;
-	position: absolute; 
-	margin-top: 7px;
+	width: 100%;
+	border-bottom: 1px solid #efefef;
+	padding-bottom: 10px;
+	margin-bottom: 10px;
+}
+.form_inputs ul li:last-child {
+	border-bottom: none!important;
+}
+.form_inputs label {
+	width: 30%;
+	float: left;
+}
+.form_inputs label span {
+	color: red;
+}
+.form_inputs .input {
+	float: left!important;
+	padding-left: 10px;
+	width: 68%;
+}
+.form_inputs input {
+	color: #666;
+}
+.form_inputs label small {
+	display: block;
+	font-weight: normal;
+	font-style: italic;
+	color: #ccc;
+}
+.form_inputs input:focus {
+	color: #4D4D4D;
+	outline: none;
+	border-color: #ed8e28;
+}
+.form_inputs .datetime_input select {
+	width:  100px;
 }
 
 /*
@@ -901,7 +948,7 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
 
 .tabs {
   width: 100%;
-  border-bottom: 1px solid #eeeeee;
+  margin-bottom: 0;
 }
 
 .tab-menu ul li, .tab-menu ol li, .pill li {

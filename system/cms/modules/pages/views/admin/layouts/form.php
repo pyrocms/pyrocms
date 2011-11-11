@@ -18,57 +18,61 @@
 			<li><a href="#page-layout-script"><span><?php echo lang('pages.js_label');?></span></a></li>
 		</ul>
 		
-		<hr>
+		<div class="form_inputs" id="page-layout-html">
 		
-		<div style="width:100%;" id="page-layout-html">
 			<fieldset>
-						
-				<p><?php echo lang('page_layouts.variable_introduction'); ?>:</p>
-				
-				<ul class="list-unstyled spacer-bottom">
-					<li><strong>{<?php echo config_item('tags_trigger'); ?>:page:title}</strong> - <?php echo lang('page_layouts.variable_title'); ?></li>
-					<li><strong>{<?php echo config_item('tags_trigger'); ?>:page:body}</strong> - <?php echo lang('page_layouts.variable_body'); ?></li>
-				</ul>
 				
 				<ul>
 					<li class="even">
-						<label for="title"><?php echo lang('page_layouts.title_label');?></label><br>
-						<?php echo form_input('title', $page_layout->title, 'maxlength="60"'); ?>
-						<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
+						<label for="title"><?php echo lang('page_layouts.title_label');?> <span>*</span></label>
+						<div class="input"><?php echo form_input('title', $page_layout->title, 'maxlength="60"'); ?></div>
 					</li>
 					
-					<hr>
-
 					<li>
-						<label for="theme_layout"><?php echo lang('page_layouts.theme_layout_label');?></label><br>
-						<?php echo form_dropdown('theme_layout', $theme_layouts, $page_layout->theme_layout ? $page_layout->theme_layout : 'default'); ?>
+						<label for="theme_layout"><?php echo lang('page_layouts.theme_layout_label');?></label>
+						<div class="input"><?php echo form_dropdown('theme_layout', $theme_layouts, $page_layout->theme_layout ? $page_layout->theme_layout : 'default'); ?></div>
 					</li>
 			
 					<li class="even">
+						<label for="html_editor"><?php echo lang('page_layouts.layout'); ?></label>
 						<?php echo form_textarea(array('id'=>'html_editor', 'name'=>'body', 'value' => $page_layout->body, 'rows' => 50)); ?>
 					</li>
 				</ul>
+				
 			</fieldset>
+		
 		</div>
 		
 		<!-- Design tab -->
-		<div style="width:100%;" id="page-layout-css">
+		<div class="form_inputs" id="page-layout-css">
+			
+			<fieldset>
+		
 			<ul>
 				<li>
-					<label for="css">CSS</label><br>
-					<?php echo form_textarea('css', $page_layout->css, 'class="css_editor"'); ?>
+					<label for="css">CSS</label><br />
+					<?php echo form_textarea('css', $page_layout->css, 'class="css_editor" id="css"'); ?>
 				</li>
 			</ul>
+			
+			</fieldset>
+			
 		</div>
 		
 		<!-- Script tab -->
-		<div style="width:100%;" id="page-layout-script">
+		<div class="form_inputs" id="page-layout-script">
+
+			<fieldset>
+
 			<ul>
 				<li>
-					<label for="js">JavaScript</label><br>
-					<?php echo form_textarea('js', $page_layout->js, 'class="js_editor"'); ?>
+					<label for="js">JavaScript</label><br />
+					<?php echo form_textarea('js', $page_layout->js, 'class="js_editor" id="js"'); ?>
 				</li>
 			</ul>
+
+			</fieldset>
+
 		</div>
 		
 	</div>
