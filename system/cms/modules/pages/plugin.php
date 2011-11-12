@@ -190,6 +190,22 @@ class Plugin_Pages extends Plugin
 
 		return (int) TRUE;
 	}
+	
+	/**
+	* Page has function
+	*
+	* Check if this page has children
+	*
+	* Usage:
+	* {{ pages:has id="4" }}
+	*
+	* @param 	int id 	The id of the page you want to check
+	* @return 	bool
+	*/
+	public function has()
+	{
+		return $this->page_m->has_children($this->attribute('id'));
+	}
 
 	/**
 	 * Check Page is function
