@@ -739,6 +739,8 @@ class Template
 			$location		= $this->get_theme_path();
 			$theme_views	= array(
 				$this->get_views_path(TRUE) . 'modules/' . $this->_module . '/' . $view,
+				// This allows build('pages/page') to still overload same as build('page')
+				$this->get_views_path(TRUE) . 'modules/' . $view,
 				$this->get_views_path(TRUE) . $view
 			);
 
