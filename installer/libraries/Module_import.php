@@ -140,7 +140,7 @@ class Module_import {
 			 `user_data` text NULL,
 			PRIMARY KEY (`session_id`),
 			KEY `last_activity_idx` (`last_activity`)
-			);
+			) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 		";
 
 		// create a session table so they can use it if they want
