@@ -1,6 +1,6 @@
 <?php
 
-$lang['cp_title']								= 'Panneau de Contrôle';
+$lang['global:control-panel']								= 'Panneau de Contrôle';
 
 $lang['title_label'] 					        = 'Titre';
 $lang['name_label'] 					        = 'Nom';
