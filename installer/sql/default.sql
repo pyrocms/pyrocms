@@ -24,6 +24,7 @@ CREATE TABLE `core_sites` (
 	`name` VARCHAR(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
     `ref` VARCHAR(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
     `domain` VARCHAR(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci,
+	`active` TINYINT(1) NOT NULL default '1',
     `created_on` INT(11) NOT NULL default '0',
     `updated_on` INT(11) NOT NULL default '0',
     UNIQUE KEY `Unique ref` (`ref`),
