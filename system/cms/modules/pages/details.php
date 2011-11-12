@@ -145,8 +145,7 @@ class Module_Pages extends Module {
 			  `parsed` text collate utf8_unicode_ci NOT NULL,
 			  `type` set('html','markdown','wysiwyg-advanced','wysiwyg-simple') collate utf8_unicode_ci NOT NULL,
 			  `sort` int(11) NOT NULL,
-			PRIMARY KEY (`id`),
-			UNIQUE KEY `unique - slug` (`slug`, `page_id`)
+			PRIMARY KEY (`id`)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 		";
 

@@ -332,7 +332,7 @@ class Page_m extends MY_Model
 				$this->db->insert('page_chunks', array(
 					'page_id' 	=> $id,
 					'sort' 		=> $i++,
-					'slug' 		=> $chunk->slug,
+					'slug' 		=> preg_replace('/[^a-zA-Z0-9_-\s]/', '', $chunk->slug),
 					'body' 		=> $chunk->body,
 					'type' 		=> $chunk->type,
 					'parsed'	=> ($chunk->type == 'markdown') ? parse_markdown($chunk->body) : ''
@@ -398,7 +398,7 @@ class Page_m extends MY_Model
 				$this->db->insert('page_chunks', array(
 					'page_id' 	=> $id,
 					'sort' 		=> $i++,
-					'slug' 		=> $chunk->slug,
+					'slug' 		=> preg_replace('/[^a-zA-Z0-9_-\s]/', '', $chunk->slug),
 					'body' 		=> $chunk->body,
 					'type' 		=> $chunk->type,
 					'parsed'	=> ($chunk->type == 'markdown') ? parse_markdown($chunk->body) : ''
