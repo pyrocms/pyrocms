@@ -62,6 +62,7 @@ $lang['pages_mass_delete_success'] 				= 'تم حذف %s صفحة.';
 $lang['pages_delete_none_notice'] 				= 'لم تُحذف أية صفحات.';
 $lang['pages_page_already_exist_error'] 		= 'يوجد صفحة لها عنوان "%s" موجودة في %s.';
 $lang['pages_parent_not_exist_error'] 			= 'الصفحة الحاوية التي اخترتها غير موجودة.';
+$lang['pages_chunk_slug_length']					= 'Page Chunk slugs may be no more than 30 characters in length.'; #translate
 $lang['pages_root_folder']                = 'المستوى الأعلى';
 
 $lang['pages.tree_explanation'] 				= 'القائمة التي على اليمين تمثّل صفحات موقعك.
