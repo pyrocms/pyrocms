@@ -72,6 +72,12 @@ class Plugin_Contact extends Plugin {
 		
 		$field_list = $this->attributes();
 		
+		// If they try using the old form tag plugin give them an idea why it's failing.
+		if ( ! $this->content() OR count($field_list) == 0)
+		{
+			return 'This plugin requires field parameters and it must be used as a double tag.';
+		}
+		
 		$button 	= $this->attribute('button', 'send');
 		$template	= $this->attribute('template', 'contact');
 		$lang 		= $this->attribute('lang', Settings::get('site_lang'));
