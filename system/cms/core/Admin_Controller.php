@@ -64,8 +64,6 @@ class Admin_Controller extends MY_Controller {
 		// trigger the run() method in the selected admin theme
 		$class = 'Theme_'.ucfirst($this->admin_theme->slug);
 		call_user_func(array(new $class, 'run'));
-
-//	    $this->output->enable_profiler(TRUE);
 	}
 
 	private function _check_access()
