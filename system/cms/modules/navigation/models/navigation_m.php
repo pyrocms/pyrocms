@@ -155,7 +155,7 @@ class Navigation_m extends MY_Model
 	 * @param  string $group Either the group abbrev or the group id
 	 * @return array An array representing the link tree
 	 */
-	public function get_link_tree($group, $params = array())
+	public function get_link_tree($group, $params = array(), $front_end = FALSE)
 	{
 		// the plugin passes the abbreviation
 		if ( ! is_numeric($group))
@@ -182,7 +182,7 @@ class Navigation_m extends MY_Model
 		$links = array();
 		
 		// we must reindex the array first and build urls
-		$all_links = $this->make_url_array($all_links);
+		$all_links = $this->make_url_array($all_links, $front_end);
 		foreach ($all_links AS $row)
 		{
 			$links[$row['id']] = $row;
@@ -347,7 +347,7 @@ class Navigation_m extends MY_Model
 	 * @param array $row Array of links
 	 * @return mixed Array of links with valid urls
 	 */
-	public function make_url_array($links)
+	public function make_url_array($links, $front_end = FALSE)
 	{
 		foreach($links as $key => &$row)
 		{
@@ -365,11 +365,26 @@ class Navigation_m extends MY_Model
 				case 'page':
 					if ($page = $this->page_m->get_by(array_filter(array(
 						'id'		=> $row['page_id'],
-						'status'	=> (is_subclass_of(ci(), 'Public_Controller') ? 'live' : NULL)
+						'status'	=> ($front_end ? 'live' : NULL)
 					))))
 					{
 						$row['url'] = site_url($page->uri);
 						$row['is_home'] = $page->is_home;
+
+						// But wait. If we're on the front-end and they don't have access to the page then we'll remove it anyway.
+						if ($front_end AND $page->restricted_to)
+						{
+							$page->restricted_to = (array) explode(',', $page->restricted_to);
+
+							if ( ! $this->current_user OR
+								(isset($this->current_user->group) AND
+								 $this->current_user->group != 'admin' AND
+								 ! in_array($this->current_user->group_id, $page->restricted_to))
+								)
+							{
+								unset($links[$key]);
+							}
+						}
 					}
 					else
 					{
