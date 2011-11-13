@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-$lang['cp_title'] 						= 'Πίνακας Ελέγχου';
+$lang['global:control-panel'] 						= 'Πίνακας Ελέγχου';
 
 $lang['title_label'] 					= 'Τίτλος';
 $lang['name_label'] 					= 'Όνομα';

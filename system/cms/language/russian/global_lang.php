@@ -8,7 +8,7 @@
  * @link			http://pyrocms.com
  */
 
-$lang['cp_title']								= 'Администрирование';
+$lang['global:control-panel']								= 'Администрирование';
 
 $lang['title_label']						= 'Заголовок';
 $lang['name_label']							= 'Название';

@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-$lang['cp_title'] 						= 'Hallintapaneeli';
+$lang['global:control-panel'] 						= 'Hallintapaneeli';
 
 $lang['title_label'] 					= 'Otsikko';
 $lang['name_label'] 					= 'Nimi';
