@@ -11,47 +11,49 @@
 <section class="item">
 <?php echo form_open(current_url(), 'class="crud"'); ?>
 
-<div class="form_inputs">
-
-	<ul>
+	<div class="form_inputs">
 	
-	    <?php if ( ! $email_template->is_default): ?>
-	    <li class="<?php echo alternator('even', ''); ?>">
-	        <label for="name"><?php echo lang('name_label'); ?> <span>*</span></label>
-	        <div class="input"><?php echo form_input('name', $email_template->name); ?></div>
-	    </li>
+		<ul>
 		
-	    <li  class="<?php echo alternator('even', ''); ?>">
-	        <label for="slug"><?php echo lang('templates.slug_label'); ?> <span>*</span></label>
-	        <div class="input"><?php echo form_input('slug', $email_template->slug); ?></div>
-	    </li>
+			<?php if ( ! $email_template->is_default): ?>
+			<li class="<?php echo alternator('even', ''); ?>">
+				<label for="name"><?php echo lang('name_label'); ?> <span>*</span></label>
+				<div class="input"><?php echo form_input('name', $email_template->name); ?></div>
+			</li>
+			
+			<li  class="<?php echo alternator('even', ''); ?>">
+				<label for="slug"><?php echo lang('templates.slug_label'); ?> <span>*</span></label>
+				<div class="input"><?php echo form_input('slug', $email_template->slug); ?></div>
+			</li>
+			
+			<li class="<?php echo alternator('even', ''); ?>">
+				<label for="lang"><?php echo lang('templates.language_label'); ?></label>
+				<div class="input"><?php echo form_dropdown('lang', $lang_options, array($email_template->lang)); ?>
+			</li>
+			
+			<li class="<?php echo alternator('even', ''); ?>">
+				<label for="description"><?php echo lang('desc_label'); ?> <span>*</span></label>
+				<div class="input"><?php echo form_input('description', $email_template->description); ?></div>
+			</li>
+			
+			<?php endif; ?>
+			<li class="<?php echo alternator('even', ''); ?>">
+				<label for="subject"><?php echo lang('templates.subject_label'); ?></label>
+				<div class="input"><?php echo form_input('subject', $email_template->subject); ?></div>
+			</li>
 		
-	    <li class="<?php echo alternator('even', ''); ?>">
-	        <label for="lang"><?php echo lang('templates.language_label'); ?></label>
-	        <div class="input"><?php echo form_dropdown('lang', $lang_options, array($email_template->lang)); ?>
-	    </li>
+			<li class="<?php echo alternator('even', ''); ?>">
+				<label for="body"><?php echo lang('templates.body_label'); ?></label><br />
+				<?php echo form_textarea('body', $email_template->body, 'class="wysiwyg-advanced"'); ?>
+			</li>
 		
-	    <li class="<?php echo alternator('even', ''); ?>">
-	        <label for="description"><?php echo lang('desc_label'); ?> <span>*</span></label>
-			<div class="input"><?php echo form_input('description', $email_template->description); ?></div>
-	    </li>
-		
-	    <?php endif; ?>
-	    <li class="<?php echo alternator('even', ''); ?>">
-	        <label for="subject"><?php echo lang('templates.subject_label'); ?></label>
-	        <div class="input"><?php echo form_input('subject', $email_template->subject); ?></div>
-	    </li>
+		</ul>
 	
-	    <li class="<?php echo alternator('even', ''); ?>">
-	        <label for="body"><?php echo lang('templates.body_label'); ?></label><br />
-	        <?php echo form_textarea('body', $email_template->body, 'class="wysiwyg-advanced"'); ?>
-	    </li>
-	
-	</ul>
+		<div class="buttons alignleft">
+			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )); ?>
+		</div>
 
-<div class="buttons alignleft">
-	<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )); ?>
-</div>
-
+	</div>
+			
 <?php echo form_close(); ?>
 </section>
