@@ -21,6 +21,7 @@ $lang['nav_type_label'] 									= 'Тип ссылки';
 $lang['nav_uri_label'] 										= 'Ссылка на сайте (URI)';
 $lang['nav_page_label'] 									= 'Страница';
 $lang['nav_module_label'] 								= 'Модуль';
+$lang['nav_restricted_to']						= 'Restricted To'; #translate
 $lang['nav_abbrev_label'] 								= 'Аббревиатура';
 
 $lang['nav_link_target_self'] 						= 'Текущее окно (по-умолчанию)';

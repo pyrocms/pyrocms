@@ -14,6 +14,7 @@ $lang['nav_type_label']                         = 'סוג קישור';
 $lang['nav_uri_label']                          = 'קישור באתר (URI)';
 $lang['nav_page_label']                         = 'דף';
 $lang['nav_module_label']                       = 'מודול';
+$lang['nav_restricted_to']						= 'Restricted To'; #translate
 $lang['nav_abbrev_label']                       = 'קצור';
 
 $lang['nav_link_target_self']                   = 'החלון הנוכחי (default)';

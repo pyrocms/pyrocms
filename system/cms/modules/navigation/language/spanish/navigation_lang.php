@@ -14,6 +14,7 @@ $lang['nav_type_label'] 					= 'Tipo de vínculo';
 $lang['nav_uri_label'] 						= 'Dirección del sitio (URI)';
 $lang['nav_page_label'] 					= 'Página';
 $lang['nav_module_label'] 					= 'Módulo';
+$lang['nav_restricted_to']						= 'Restricted To'; #translate
 $lang['nav_abbrev_label'] 					= 'Abreviación';
 
 $lang['nav_link_target_self'] 				= 'Misma ventana (default)';

@@ -83,6 +83,13 @@
 			</li>
 			
 			<hr>
+				
+			<li class="<?php echo alternator('even', ''); ?>">
+				<label for="restricted_to[]"><?php echo lang('nav_restricted_to');?></label>
+				<div class="input"><?php echo form_multiselect('restricted_to[]', array(0 => lang('global:select-any')) + $group_options, $navigation_link->restricted_to, 'size="'.(($count = count($group_options)) > 1 ? $count : 2).'"'); ?></div>
+			</li>
+				
+			<hr>
 	
 			<li class="<?php echo alternator('', 'even'); ?>">
 				<label for="class"><?php echo lang('nav_class_label'); ?></label><br>

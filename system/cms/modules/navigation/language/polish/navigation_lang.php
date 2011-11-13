@@ -13,6 +13,7 @@ $lang['nav_type_label'] 						= 'Typ linku';
 $lang['nav_uri_label'] 							= 'Link do strony (URI)';
 $lang['nav_page_label'] 						= 'Strona';
 $lang['nav_module_label'] 						= 'Moduł';
+$lang['nav_restricted_to']						= 'Restricted To'; #translate
 $lang['nav_abbrev_label'] 						= 'Skrót';
 
 $lang['nav_link_target_self'] 					= 'Obecne okno (domyślnie)';

@@ -14,6 +14,7 @@ $lang['nav_type_label']                         = 'Linktype';
 $lang['nav_uri_label']                          = 'Sitelink (URI)';
 $lang['nav_page_label']                         = 'Side';
 $lang['nav_module_label']                       = 'Modul';
+$lang['nav_restricted_to']						= 'Restricted To'; #translate
 $lang['nav_abbrev_label']                       = 'forkortelse';
 
 $lang['nav_link_target_self']                   = 'Nuværende vindue (default)';
