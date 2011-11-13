@@ -370,6 +370,21 @@ class Navigation_m extends MY_Model
 					{
 						$row['url'] = site_url($page->uri);
 						$row['is_home'] = $page->is_home;
+
+						// But wait. If we're on the front-end and they don't have access to the page then we'll remove it anyway.
+						if ($front_end AND $page->restricted_to)
+						{
+							$page->restricted_to = (array) explode(',', $page->restricted_to);
+
+							if ( ! $this->current_user OR
+								(isset($this->current_user->group) AND
+								 $this->current_user->group != 'admin' AND
+								 ! in_array($this->current_user->group_id, $page->restricted_to))
+								)
+							{
+								unset($links[$key]);
+							}
+						}
 					}
 					else
 					{
