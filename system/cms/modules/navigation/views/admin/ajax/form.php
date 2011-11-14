@@ -77,6 +77,11 @@
 				<label for="target"><?php echo lang('nav_target_label'); ?></label>
 				<?php echo form_dropdown('target', array(''=> lang('nav_link_target_self'), '_blank' => lang('nav_link_target_blank')), $navigation_link->target); ?>
 			</li>
+
+			<li class="<?php echo alternator('even', ''); ?>">
+				<label for="restricted_to[]"><?php echo lang('nav_restricted_to');?></label>
+				<?php echo form_multiselect('restricted_to[]', array(0 => lang('global:select-any')) + $group_options, $navigation_link->restricted_to, 'size="'.(($count = count($group_options)) > 1 ? $count : 2).'"'); ?>
+			</li>
 	
 			<li class="<?php echo alternator('', 'even'); ?>">
 				<label for="class"><?php echo lang('nav_class_label'); ?></label>

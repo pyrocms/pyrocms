@@ -13,6 +13,7 @@ $lang['nav_type_label'] 						= 'Link type';
 $lang['nav_uri_label'] 							= 'Sitenaam (URI)';
 $lang['nav_page_label'] 						= 'Pagina';
 $lang['nav_module_label'] 						= 'Module';
+$lang['nav_restricted_to']						= 'Restricted To'; #translate
 $lang['nav_abbrev_label'] 						= 'Afkorting';
 
 $lang['nav_link_target_self'] 					= 'Huidig scherm (default)';

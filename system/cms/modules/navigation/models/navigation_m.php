@@ -87,7 +87,8 @@ class Navigation_m extends MY_Model
         	'position' 				=> $position,
 			'target'				=> isset($input['target']) ? $input['target'] : '',
 			'class'					=> isset($input['class']) ? $input['class'] : '',
-        	'navigation_group_id'	=> (int) $input['navigation_group_id']
+        	'navigation_group_id'	=> (int) $input['navigation_group_id'],
+			'restricted_to'			=> $input['restricted_to']
 		));
 
         return $this->db->insert_id();
@@ -114,7 +115,8 @@ class Navigation_m extends MY_Model
         	'page_id' 				=> (int) $input['page_id'],
 			'target'				=> $input['target'],
 			'class'					=> $input['class'],
-        	'navigation_group_id' 	=> (int) $input['navigation_group_id']
+        	'navigation_group_id' 	=> (int) $input['navigation_group_id'],
+			'restricted_to'			=> $input['restricted_to']
 		);
 		
 		// if it was changed to a different group we need to reset the parent > child
@@ -351,6 +353,21 @@ class Navigation_m extends MY_Model
 	{
 		foreach($links as $key => &$row)
 		{
+			// Looks like it's restricted. Let's find out who
+			if ($row['restricted_to'])
+			{
+				$row['restricted_to'] = (array) explode(',', $row['restricted_to']);
+
+				if ( ! $this->current_user OR
+					(isset($this->current_user->group) AND
+					 $this->current_user->group != 'admin' AND
+					 ! in_array($this->current_user->group_id, $row['restricted_to']))
+					)
+				{
+					unset($links[$key]);
+				}
+			}
+							
 			// If its any other type than a URL, it needs some help becoming one
 			switch($row['link_type'])
 			{

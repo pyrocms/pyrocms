@@ -139,9 +139,6 @@ jQuery(function($) {
 					$.data(this, 'stop-click', false);
 					return;
 				}
-
-				//submits it whether uniform likes it or not
-				window.location.replace(href);
 			}
 		});
 

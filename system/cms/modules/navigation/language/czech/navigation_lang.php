@@ -14,6 +14,7 @@ $lang['nav_type_label'] 						= 'Typ odkazu';
 $lang['nav_uri_label'] 							= 'Adresa stránky (URI)';
 $lang['nav_page_label'] 						= 'Stránka';
 $lang['nav_module_label'] 						= 'Modul';
+$lang['nav_restricted_to']						= 'Restricted To'; #translate
 $lang['nav_abbrev_label'] 						= 'Zkratka';
 
 $lang['nav_link_target_self'] 					= 'Stejné okno (výchozí)';

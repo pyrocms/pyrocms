@@ -30,6 +30,10 @@
 			<strong><?php echo lang('nav_location_label');?>:</strong>
 			<a target="_blank" href="<?php echo $link->url; ?>"><?php echo $link->url; ?></a>
 		</p>
+		
+		<p>
+			<strong><?php echo lang('nav_restricted_to');?>:</strong> <?php echo $link->restricted_to; ?>
+		</p>
 	</fieldset>	
 	
 	<div class="buttons">
