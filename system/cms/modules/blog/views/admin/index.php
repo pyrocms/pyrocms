@@ -20,7 +20,7 @@
 </div>
 
 <?php else : ?>
-		<p><?php echo lang('blog_currently_no_posts'); ?></p>
+	<div class="no_data"><?php echo lang('blog_currently_no_posts'); ?></div>
 <?php endif; ?>
 
 </section>

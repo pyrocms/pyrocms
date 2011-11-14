@@ -44,6 +44,6 @@
 		<?php echo form_close(); ?>
 
 	<?php else: ?>
-		<p><?php echo lang('cat_no_categories'); ?></p>
+		<div class="no_data"><?php echo lang('cat_no_categories'); ?></div>
 	<?php endif; ?>
 </section>

@@ -2201,6 +2201,22 @@ Non-semantic helper classes
 .textright { text-align: right; }
 .textcenter { text-align: center; }
 
+/* No Results */
+
+.no_data {
+	padding: 12px 10px 10px 10px;
+	border: 1px solid #D9EBF1;
+	border-radius: 5px;
+	background: #F2F7FA;
+	color: #829DAC;
+	text-align: center;
+	font-size: 14px;
+	font-weight: bold;
+	text-shadow: 1px 1px 1px #fff;
+	margin-bottom: 10px;
+}
+.no_data img {margin-right: 4px; margin-top: -3px;}
+
 /*
 -------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------

@@ -35,7 +35,7 @@
     </table>
 
 <?php else: ?>
-	<p><?php echo lang('keywords:no_keywords');?></p>
+	<div class="no_data"><?php echo lang('keywords:no_keywords');?></div>
 <?php endif;?>
 
 </section>

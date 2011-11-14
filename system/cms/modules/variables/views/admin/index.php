@@ -45,6 +45,6 @@
 	<?php echo form_close(); ?>
 
 <?php else: ?>
-		<p><?php echo lang('variables.no_variables');?></p>
+		<div class="no_data"><?php echo lang('variables.no_variables');?></div>
 <?php endif; ?>
 </section>

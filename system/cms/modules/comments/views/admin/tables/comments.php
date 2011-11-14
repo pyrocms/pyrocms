@@ -67,6 +67,6 @@
 	
 <?php else: ?>
 
-	<?php echo lang('comments.no_comments');?>
+	<div class="no_data"><?php echo lang('comments.no_comments');?></div>
 
 <?php endif; ?>
