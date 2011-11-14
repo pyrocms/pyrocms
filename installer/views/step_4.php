@@ -15,12 +15,12 @@
 	<section class="item">
 
 	<div class="input">
-		<label for="database"><?php echo lang('database'); ?></label><br>
+		<label for="database"><?php echo lang('database'); ?></label>
 		<input type="text" id="database" class="input_text" name="database" value="<?php echo set_value('database'); ?>" />
 	</div>
 
 	<div class="input">
-		<label for="create_db"><?php echo lang('db_create'); ?></label><br>
+		<label for="create_db"><?php echo lang('db_create'); ?></label>
 		<input type="checkbox" name="create_db" value="true" id="create_db" />
 		<small>(<?php echo lang('db_notice'); ?>)</small>
 	</div>
@@ -38,7 +38,7 @@
 	<section class="item">
 
 	<div class="input">
-		<label for="user_name"><?php echo lang('user_name'); ?></label><br>
+		<label for="user_name"><?php echo lang('user_name'); ?></label>
 		<?php
 			echo form_input(array(
 				'id' => 'user_name',
@@ -49,7 +49,7 @@
 	</div>
 
 	<div class="input">
-		<label for="user_firstname"><?php echo lang('first_name'); ?></label><br>
+		<label for="user_firstname"><?php echo lang('first_name'); ?></label>
 		<?php
 			echo form_input(array(
 				'id' => 'user_firstname',
@@ -60,7 +60,7 @@
 	</div>
 
 	<div class="input">
-		<label for="user_lastname"><?php echo lang('last_name'); ?></label><br>
+		<label for="user_lastname"><?php echo lang('last_name'); ?></label>
 		<?php
 			echo form_input(array(
 				'id' => 'user_lastname',
@@ -71,7 +71,7 @@
 	</div>
 
 	<div class="input">
-		<label for="user_email"><?php echo lang('email'); ?></label><br>
+		<label for="user_email"><?php echo lang('email'); ?></label>
 		<?php
 			echo form_input(array(
 				'id' => 'user_email',
@@ -82,7 +82,7 @@
 	</div>
 
 	<div class="input">
-		<label for="user_password"><?php echo lang('password'); ?></label><br>
+		<label for="user_password"><?php echo lang('password'); ?></label>
 		<?php
 			echo form_password(array(
 				'id' => 'user_password',
