@@ -39,19 +39,24 @@
 			</li>
 			
 			<li>
-				<label for="intro"><?php echo lang('blog_intro_label'); ?></label><br />
+				<label for="intro"><?php echo lang('blog_intro_label'); ?></label>
+				<br style="clear: both;" />
 				<?php echo form_textarea(array('id' => 'intro', 'name' => 'intro', 'value' => $post->intro, 'rows' => 5, 'class' => 'wysiwyg-simple')); ?>
 			</li>
 			
 			<li class="even editor">
-				<label for="body"><?php echo lang('blog_content_label'); ?></label><br />
+				<label for="body"><?php echo lang('blog_content_label'); ?></label>
 				
-				<?php echo form_dropdown('type', array(
-					'html' => 'html',
-					'markdown' => 'markdown',
-					'wysiwyg-simple' => 'wysiwyg-simple',
-					'wysiwyg-advanced' => 'wysiwyg-advanced',
-				), $post->type); ?>
+				<div class="input">
+					<?php echo form_dropdown('type', array(
+						'html' => 'html',
+						'markdown' => 'markdown',
+						'wysiwyg-simple' => 'wysiwyg-simple',
+						'wysiwyg-advanced' => 'wysiwyg-advanced',
+					), $post->type); ?>
+				</div>
+				
+				<br style="clear:both"/>
 				
 				<?php echo form_textarea(array('id' => 'body', 'name' => 'body', 'value' => $post->body, 'rows' => 30, 'class' => $post->type)); ?>
 				

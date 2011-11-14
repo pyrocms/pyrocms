@@ -72,15 +72,17 @@
 				
 				<?php foreach ($page->chunks as $chunk): ?>
 					<li class="<?php echo alternator('even', ''); ?> page-chunk">
-						<?php echo form_input('chunk_slug['.$chunk->id.']', $chunk->slug); ?>
-						<?php echo form_dropdown('chunk_type['.$chunk->id.']', array(
-							'html' => 'html',
-							'markdown' => 'markdown',
-							'wysiwyg-simple' => 'wysiwyg-simple',
-							'wysiwyg-advanced' => 'wysiwyg-advanced',
-						), $chunk->type); ?>
-						<div class="float-right">
-							<a href="javascript:void(0)" class="remove-chunk"><?php echo lang('global:remove') ?></a>
+						<?php echo form_input('chunk_slug['.$chunk->id.']', $chunk->slug, 'class="label"'); ?>
+						<div class="input">
+							<?php echo form_dropdown('chunk_type['.$chunk->id.']', array(
+								'html' => 'html',
+								'markdown' => 'markdown',
+								'wysiwyg-simple' => 'wysiwyg-simple',
+								'wysiwyg-advanced' => 'wysiwyg-advanced',
+							), $chunk->type); ?>
+							<div class="alignright">
+								<a href="javascript:void(0)" class="remove-chunk btn red"><?php echo lang('global:remove') ?></a>
+							</div>
 						</div>
 						<br style="clear:both" />
 						<?php echo form_textarea(array('id' => $chunk->slug.'_'.$chunk->id, 'name'=>'chunk_body['.$chunk->id.']', 'value' => $chunk->body, 'rows' => 20, 'class'=> $chunk->type, 'style' => 'width:100%')); ?>

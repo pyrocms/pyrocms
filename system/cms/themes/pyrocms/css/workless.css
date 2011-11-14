@@ -309,7 +309,6 @@ input[type="text"],
 input[type="password"], 
 input[type="file"], 
 textarea {
-	min-width: 260px;
 	background: #f1f1f1;
 	padding: 8px;
 	border: 1px solid #d9d9d9;
@@ -337,7 +336,7 @@ input:invalid, textarea:invalid { background-color: #f0dddd; }
 	display: block-inline;
 }
 
-/* Form UL Strucutre */
+/* Form UL Structure */
 
 .form_inputs {
 	width: 100%;
@@ -362,9 +361,13 @@ input:invalid, textarea:invalid { background-color: #f0dddd; }
 	border-bottom: none!important;
 }
 .form_inputs fieldset > ul > li > label, 
-.form_inputs > ul > li > label {
-	width: 30%;
+.form_inputs > ul > li > label,
+.form_inputs fieldset > ul > li > .label, 
+.form_inputs > ul > li > .label {
+	width: 27%;
 	float: left;
+	margin: 0 3% 0 0;
+	padding: 8px;
 }
 .form_inputs fieldset > ul > li > label span, 
 .form_inputs > ul > li > label span {
@@ -373,10 +376,11 @@ input:invalid, textarea:invalid { background-color: #f0dddd; }
 .form_inputs .input {
 	float: left!important;
 	padding-left: 10px;
-	width: 68%;
+	width: 67%;
 }
-.form_inputs input {
+.form_inputs .input > input {
 	color: #666;
+	min-width: 260px;
 }
 .form_inputs label small {
 	display: block;
