@@ -10,7 +10,7 @@ class Module_Galleries extends Module {
 			'name' => array(
 				'sl' => 'Galerija',
 				'en' => 'Galleries',
-				'en' => 'Γκαλερί',
+				'el' => 'Γκαλερί',
 				'de' => 'Galerien',
 				'nl' => 'Gallerijen',
 				'fr' => 'Galeries',
