@@ -28,14 +28,14 @@
 					<?php endforeach; ?>
 				</tbody>
 			</table>
-			
-			<?php else:?>
-				<p><?php echo lang('page_layouts.no_pages');?></p>
-			<?php endif; ?>		
-			
+
 			<div class="table_action_buttons">
 				<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete') )); ?>
 			</div>
-	
+			
+			<?php else:?>
+				<div class="no_data"><?php echo lang('page_layouts.no_pages');?></div>
+			<?php endif; ?>		
+			
 		<?php echo form_close(); ?>
 </section>

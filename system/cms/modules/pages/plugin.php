@@ -53,6 +53,24 @@ class Plugin_Pages extends Plugin
 
 		return $this->content() ? $page : $page['body'];
 	}
+
+	/**
+	 * Get a page chunk by page ID and chunk name
+	 *
+	 * @param int 		$id The ID of the page
+	 * @param string 	$slug The name of the chunk
+	 * @return array
+	 */
+	function chunk()
+	{
+		$chunk = $this->db->select('*')
+					->where('page_id', $this->attribute('id'))
+					->where('slug', $this->attribute('name'))
+					->get('page_chunks')
+					->row_array();
+
+		return ($chunk ? ($this->content() ? $chunk : $chunk['body']) : FALSE);
+	}
 	
 	/**
 	 * Children list
@@ -171,6 +189,22 @@ class Plugin_Pages extends Plugin
 		}
 
 		return (int) TRUE;
+	}
+	
+	/**
+	* Page has function
+	*
+	* Check if this page has children
+	*
+	* Usage:
+	* {{ pages:has id="4" }}
+	*
+	* @param 	int id 	The id of the page you want to check
+	* @return 	bool
+	*/
+	public function has()
+	{
+		return $this->page_m->has_children($this->attribute('id'));
 	}
 
 	/**

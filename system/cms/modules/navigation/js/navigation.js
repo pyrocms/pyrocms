@@ -46,7 +46,7 @@
 				}
 				else {
 					$('.notification').remove();
-					$('nav#shortcuts').after(message);
+					$('div#content-body').prepend(message);
 					// Fade in the notifications
 					$(".notification").fadeIn("slow");
 				}
@@ -64,7 +64,7 @@
 				}
 				else {
 					$('.notification').remove();
-					$('nav#shortcuts').after(message);
+					$('div#content-body').prepend(message);
 					// Fade in the notifications
 					$(".notification").fadeIn("slow");
 				}

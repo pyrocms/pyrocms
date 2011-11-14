@@ -145,8 +145,7 @@ class Module_Pages extends Module {
 			  `parsed` text collate utf8_unicode_ci NOT NULL,
 			  `type` set('html','markdown','wysiwyg-advanced','wysiwyg-simple') collate utf8_unicode_ci NOT NULL,
 			  `sort` int(11) NOT NULL,
-			PRIMARY KEY (`id`),
-			UNIQUE KEY `unique - slug` (`slug`, `page_id`)
+			PRIMARY KEY (`id`)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 		";
 
@@ -167,7 +166,7 @@ class Module_Pages extends Module {
 			  ('1', 'default', '1', '<p>Welcome to our homepage. We have not quite finished setting up our website yet, but please add us to your bookmarks and come back soon.</p>', '', 'wysiwyg-advanced', '0'),
 			  ('2', 'default', '2', '<p>We cannot find the page you are looking for, please click <a title=\"Home\" href=\"{{ pages:url id=\'1\' }}\">here</a> to go to the homepage.</p>', '', 'wysiwyg-advanced', '0'),
 			  ('3', 'default', '3', '<p>To contact us please fill out the form below.</p>
-				{{ contact:form name=\"text|required\" email=\"text|required|valid_email\" subject=\"text|required|max_length[100]\" message=\"textarea\" attachment=\"file|zip\" }}
+				{{ contact:form name=\"text|required\" email=\"text|required|valid_email\" subject=\"dropdown|Support|Sales|Feedback|Other\" message=\"textarea\" attachment=\"file|zip\" }}
 					<div><label for=\"name\">Name:</label>{{ name }}</div>
 					<div><label for=\"email\">Email:</label>{{ email }}</div>
 					<div><label for=\"subject\">Subject:</label>{{ subject }}</div>

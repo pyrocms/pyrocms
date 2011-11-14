@@ -100,8 +100,6 @@ class Blog extends Public_Controller
 			$post->body = $post->parsed;
 		}
 
-		$post->author = $this->ion_auth->get_user($post->author_id);
-
 		// IF this post uses a category, grab it
 		if ($post->category_id && ($category = $this->blog_categories_m->get($post->category_id)))
 		{

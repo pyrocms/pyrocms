@@ -309,7 +309,6 @@ input[type="text"],
 input[type="password"], 
 input[type="file"], 
 textarea {
-	min-width: 260px;
 	background: #f1f1f1;
 	padding: 8px;
 	border: 1px solid #d9d9d9;
@@ -337,42 +336,51 @@ input:invalid, textarea:invalid { background-color: #f0dddd; }
 	display: block-inline;
 }
 
-
-/* Form UL Strucutre */
+/* Form UL Structure */
 
 .form_inputs {
 	width: 100%;
 }
-.form_inputs ul {
+.form_inputs fieldset > ul,
+.form_inputs > ul {
 	width: 100%;
 	height: 100%;
 	margin-bottom: 0;
 	padding-bottom: 0;
 }
-.form_inputs ul li {
+.form_inputs fieldset > ul > li, 
+.form_inputs > ul > li {
 	float: left;
 	width: 100%;
 	border-bottom: 1px solid #efefef;
 	padding-bottom: 10px;
 	margin-bottom: 10px;
 }
-.form_inputs ul li:last-child {
+.form_inputs fieldset > ul > li:last-child, 
+.form_inputs > ul > li:last-child {
 	border-bottom: none!important;
 }
-.form_inputs label {
-	width: 30%;
+.form_inputs fieldset > ul > li > label, 
+.form_inputs > ul > li > label,
+.form_inputs fieldset > ul > li .label, 
+.form_inputs > ul > li .label {
+	width: 27%;
 	float: left;
+	margin: 0 3% 0 0;
+	padding: 8px;
 }
-.form_inputs label span {
+.form_inputs fieldset > ul > li > label span, 
+.form_inputs > ul > li > label span {
 	color: red;
 }
 .form_inputs .input {
 	float: left!important;
 	padding-left: 10px;
-	width: 68%;
+	width: 67%;
 }
-.form_inputs input {
+.form_inputs .input > input {
 	color: #666;
+	min-width: 260px;
 }
 .form_inputs label small {
 	display: block;
@@ -2196,6 +2204,22 @@ Non-semantic helper classes
 .textleft { text-align: left; }
 .textright { text-align: right; }
 .textcenter { text-align: center; }
+
+/* No Results */
+
+.no_data {
+	padding: 12px 10px 10px 10px;
+	border: 1px solid #D9EBF1;
+	border-radius: 5px;
+	background: #F2F7FA;
+	color: #829DAC;
+	text-align: center;
+	font-size: 14px;
+	font-weight: bold;
+	text-shadow: 1px 1px 1px #fff;
+	margin-bottom: 10px;
+}
+.no_data img {margin-right: 4px; margin-top: -3px;}
 
 /*
 -------------------------------------------------------------------------------------------------------

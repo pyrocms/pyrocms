@@ -78,13 +78,13 @@ section.blog_article { padding: 15px 0 15px 0; border-bottom: 1px dashed #cfcfcf
 p.article_date { width: 665px; background-color: #e8e8e8; font-size: 12px; padding: 5px 0 5px 10px; margin: 0 0 25px 0; float: left; border: 1px solid #fbfbfb; border-radius: 3px; -o-border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; }
 
 /* Contact form */
-section.post form input[type=text], section.post form input[type=password] { background-color: #F2F2F2; border: 1px solid #ccc; border-radius: 3px; -o-border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; padding: 4px 5px 4px 5px; font-family:  Tahoma, "Helvetica Neue", Helvetica, sans-serif;   color: #4D4D4D;  text-shadow: 0px 1px 0px #FBFBFB; }
-section.post form label { width: 725px; float: left; }
-section.post form select { float: left; }
+section.post form input[type=text], section.post form input[type=password] { width: 30%; margin-right: 70%; background-color: #F2F2F2; border: 1px solid #ccc; border-radius: 3px; -o-border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; padding: 4px 5px 4px 5px; font-family:  Tahoma, "Helvetica Neue", Helvetica, sans-serif;   color: #4D4D4D;  text-shadow: 0px 1px 0px #FBFBFB; }
+section.post form label { width: 100%; float: left; }
+section.post form select { width: 30%; margin-right: 70%; float: left; }
 section.post form input { float: left; }
-section.post form input#other_subject { margin: 5px 500px 0 0; }
-section.post form p label { width: 625px; }
-section.post form textarea#message { width: 640px; background-color: #e8e8e8; border: 1px solid #fbfbfb; border-radius: 3px; -o-border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; padding: 25px 15px 25px 15px; font-family:  Tahoma, "Helvetica Neue", Helvetica, sans-serif; font-size: 13px; font-weight: bold; color: #7d7d7d; letter-spacing: 0.5px; text-shadow: 1px 1px 0px #fbfbfb; }
+section.post form input { margin: 5px 500px 0 0; }
+section.post form p label { width: 100%; }
+section.post form textarea { width: 96%; background-color: #e8e8e8; border: 1px solid #fbfbfb; border-radius: 3px; -o-border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; padding: 15px; font-family:  Tahoma, "Helvetica Neue", Helvetica, sans-serif; font-size: 13px; font-weight: bold; color: #7d7d7d; letter-spacing: 0.5px; text-shadow: 1px 1px 0px #fbfbfb; }
 
 /* Comments */
 #comments_container { padding: 25px 0 0 0; }

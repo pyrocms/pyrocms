@@ -76,12 +76,6 @@ class Public_Controller extends MY_Controller
 			$this->template->append_metadata('<link rel="alternate" type="application/rss+xml" title="'.$this->settings->site_name.'" href="'.site_url('blog/rss/all.rss').'" />');
 	    }
 
-		// Enable profiler on local box
-	    if (ENVIRONMENT === PYRO_DEVELOPMENT && $this->input->get('_debug') )
-	    {
-	    	$this->output->enable_profiler(TRUE);
-	    }
-
 	    // Frontend data
 	    $this->load->library('variables/variables');
 

@@ -6,8 +6,9 @@ class Blog_m extends MY_Model {
 
 	function get_all()
 	{
-		$this->db->select('blog.*, blog_categories.title AS category_title, blog_categories.slug AS category_slug');
-		$this->db->join('blog_categories', 'blog.category_id = blog_categories.id', 'left');
+		$this->db->select('blog.*, blog_categories.title AS category_title, blog_categories.slug AS category_slug, profiles.display_name')
+			->join('blog_categories', 'blog.category_id = blog_categories.id', 'left')
+			->join('profiles', 'profiles.user_id = blog.author_id');
 
 		$this->db->order_by('created_on', 'DESC');
 
@@ -16,8 +17,28 @@ class Blog_m extends MY_Model {
 
 	function get($id)
 	{
-		$this->db->where(array('id' => $id));
-		return $this->db->get('blog')->row();
+		return $this->db->select('blog.*, profiles.display_name')
+					->join('profiles', 'profiles.user_id = blog.author_id')
+					->where(array('blog.id' => $id))
+					->get('blog')
+					->row();
+	}
+	
+	public function get_by($key, $value = '')
+	{
+		$this->db->select('blog.*, profiles.display_name')
+			->join('profiles', 'profiles.user_id = blog.author_id');
+			
+		if (is_array($key))
+		{
+			$this->db->where($key);
+		}
+		else
+		{
+			$this->db->where($key, $value);
+		}
+
+		return $this->db->get($this->_table)->row();
 	}
 
 	function get_many_by($params = array())
@@ -245,6 +266,7 @@ class Blog_m extends MY_Model {
 
 				$this->db->or_like('blog.body', $phrase);
 				$this->db->or_like('blog.intro', $phrase);
+				$this->db->or_like('profiles.display_name', $phrase);
 				$counter++;
 			}
 		}

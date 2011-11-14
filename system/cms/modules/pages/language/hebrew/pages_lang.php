@@ -60,6 +60,7 @@ $lang['pages_mass_delete_success']         = '%s דפים נמחקו בהצלח�
 $lang['pages_delete_none_notice']          = 'אף דף לא נמחק.';
 $lang['pages_page_already_exist_error']    = 'דף עם  URL "%s" כבר קיים ב %s.';
 $lang['pages_parent_not_exist_error']      = 'עמוד האב שבחרתם אינו קיים.';
+$lang['pages_chunk_slug_length']					= 'Page Chunk slugs may be no more than 30 characters in length.'; #translate
 $lang['pages_root_folder']                = 'the top level'; #translate
 
 $lang['pages.tree_explanation']            = 'הרשימה בצד שמאל מייצגת דפים באתר האינטרנט שלך.

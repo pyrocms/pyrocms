@@ -49,10 +49,10 @@
 	
 	<?php else: ?>
 		<div class="blank-slate">
-			<p>
+			<div class="no_data">
 				<?php //echo image('album.png', 'galleries', array('alt' => 'No Galleries')); ?>
 				<?php echo lang('galleries.no_galleries_error'); ?>
-			</p>
+			</div>
 		</div>
 	<?php endif;?>
 	

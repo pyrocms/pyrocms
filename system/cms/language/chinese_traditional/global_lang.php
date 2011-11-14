@@ -1,6 +1,6 @@
 <?php
 
-$lang['cp_title'] 						= '控制台'; 		//'Control Panel';
+$lang['global:control-panel'] 						= '控制台'; 		//'Control Panel';
 
 $lang['title_label'] 					= '標題'; 		//'Title';
 $lang['name_label'] 					= '名稱'; 		//'Name';

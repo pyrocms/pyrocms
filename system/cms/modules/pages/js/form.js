@@ -9,21 +9,21 @@
 			e.preventDefault();
 	
 			// The date in hexdec
-			key = Number(new Date()).toString(16);
+			key = Number(new Date()).toString(16).substr(-5, 5);
 			
-			$('#page-content > ul li:last').before('<li class="page-chunk">' +
-				'<div class="float-left">'+
-				'<input type="text" name="chunk_slug[' + key + ']" value="chunk-' + key + '"/>' +
+			$('#page-content > fieldset > ul li:last').before('<li class="page-chunk">' +
+				'<input class="label" type="text" name="chunk_slug[' + key + ']" value="' + key + '"/>' +
+				'<div class="input">'+
 				'<select name="chunk_type[' + key + ']">' +
 				'<option value="html">html</option>' +
 				'<option value="markdown">markdown</option>' +
 				'<option value="wysiwyg-simple">wysiwyg-simple</option>' +
 				'<option selected="selected" value="wysiwyg-advanced">wysiwyg-advanced</option>' +
 				'</select>' +
-				'</div><div class="float-right">' +
-				'<a href="javascript:void(0)" class="remove-chunk">Remove</a>' +
-				'</div><br style="clear:both" />' +
-				'<textarea id="chunk-' + key + '" class="wysiwyg-advanced" rows="20" style="width:100%" name="chunk_body[' + key + ']"></textarea>' +
+				'<div class="alignright">' +
+				'<a href="javascript:void(0)" class="remove-chunk btn red">' + pyro.lang.remove + '</a>' +
+				'</div></div><br style="clear:both" />' +
+				'<textarea id="' + key + '" class="wysiwyg-advanced" rows="20" style="width:100%" name="chunk_body[' + key + ']"></textarea>' +
 				'</li>');
 			
 			// initialize the editor using the view from fragments/wysiwyg.php

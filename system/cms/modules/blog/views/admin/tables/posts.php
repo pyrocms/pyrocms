@@ -25,8 +25,8 @@
 					<td><?php echo $post->category_title; ?></td>
 					<td><?php echo format_date($post->created_on); ?></td>
 					<td>
-					<?php if ($post->author): ?>
-						<?php echo anchor('user/' . $post->author_id, $post->author->display_name, 'target="_blank"'); ?>
+					<?php if (isset($post->display_name)): ?>
+						<?php echo anchor('user/' . $post->author_id, $post->display_name, 'target="_blank"'); ?>
 					<?php else: ?>
 						<?php echo lang('blog_author_unknown'); ?>
 					<?php endif; ?>

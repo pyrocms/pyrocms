@@ -647,7 +647,17 @@ class Admin extends Admin_Controller {
 			$this->form_validation->set_message('_check_slug',sprintf(lang('pages_page_already_exist_error'),$url, $parent_folder));
 			return FALSE;
 		}
-  
+		
+		// We check the page chunk slug length here too
+		foreach ($this->input->post('chunk_slug') AS $chunk)
+		{
+			if (strlen($chunk) > 30)
+			{
+				$this->form_validation->set_message('_check_slug', lang('pages_chunk_slug_length'));
+				return FALSE;				
+			}
+		}
+
 		return TRUE;
 	}
 }

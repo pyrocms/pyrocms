@@ -1,8 +1,3 @@
-// tipsy, facebook style tooltips for jquery
-// version 1.0.0a
-// (c) 2008-2010 jason frame [jason@onehackoranother.com]
-// released under the MIT license
-
 (function($) {
     
     function Tipsy(element, options) {
@@ -201,74 +196,70 @@
     
 })(jQuery);
 
-$(function() {
+jQuery(document).ready(function($) {
+
+// Add that cool orange bkg to the input that has focus
+$('input, select').bind({
+	focusin: function() {
+		var wrapper = $(this).closest('.input');
+		$(wrapper).addClass('block-message pyro');
+	},
+	focusout: function() {
+		var wrapper = $(this).closest('.input');
+		$(wrapper).removeClass('block-message pyro');
+	}
+});
+
+$('input[name=password]').bind('keyup focus', function() {
+
+	$.post(base_url + 'index.php/ajax/confirm_database', {
+			server: $('input[name=hostname]').val(),
+			username: $('input[name=username]').val(),
+			password: $('input[name=password]').val()
+		}, function(data) {
+			if (data.success == 'true') {
+				 $('#confirm_db').html(data.message).removeClass('block-message error').addClass('block-message success');
+			} else {
+				$('#confirm_db').html(data.message).removeClass('block-message success').addClass('block-message error');
+			}
+		}, 'json'
+	);
+
+});
+
+$('select#http_server').change(function(){
+	if ($(this).val() == 'apache_w') {
+		$.post(base_url + 'index.php/ajax/check_rewrite', '', function(data) {
+			if (data !== 'enabled') {
+				alert(data);
+			}
+		});
+	}
+});
 	
-	// Tipsy
-	$('.tooltip').tipsy({
-		gravity: $.fn.tipsy.autoNS,
-		fade: true,
-		html: true
-	});
+// Tipsy
+$('.tooltip').tipsy({
+	gravity: $.fn.tipsy.autoNS,
+	fade: true,
+	html: true
+});
 
-	$('.tooltip-s').tipsy({
-		gravity: 's',
-		fade: true,
-		html: true
-	});
+$('.tooltip-s').tipsy({
+	gravity: 's',
+	fade: true,
+	html: true
+});
 
-	$('.tooltip-e').tipsy({
-		gravity: 'e',
-		fade: true,
-		html: true
-	});
+$('.tooltip-e').tipsy({
+	gravity: 'e',
+	fade: true,
+	html: true
+});
 
-	$('.tooltip-w').tipsy({
-		gravity: 'w',
-		fade: true,
-		html: true
-	});
-
-	// Highlight current step in header
-	$('#current').closest('li').addClass('current');
-
-	// Add that cool orange bkg to the input that has focus
-	$('input, select').bind({
-		focusin: function() {
-			var wrapper = $(this).closest('.input');
-			$(wrapper).addClass('focus');
-		},
-		focusout: function() {
-			var wrapper = $(this).closest('.input');
-			$(wrapper).removeClass('focus');
-		}
-	});
-
-	$('input[name=password]').bind('keyup focus', function() {
-
-		$.post(base_url + 'index.php/ajax/confirm_database', {
-				server: $('input[name=hostname]').val(),
-				username: $('input[name=username]').val(),
-				password: $('input[name=password]').val()
-			}, function(data) {
-				if (data.success == 'true') {
-					 $('#confirm_db').html(data.message).removeClass('failure').addClass('success');
-				}
-				else {
-					$('#confirm_db').html(data.message).removeClass('success').addClass('failure');
-				}
-			}, 'json'
-		);
-
-    });
-
-	$('select#http_server').change(function(){
-		if ($(this).val() == 'apache_w') {
-			$.post(base_url + 'index.php/ajax/check_rewrite', '', function(data) {
-				if (data !== 'enabled') {
-					alert(data);
-				}
-			});
-		}
-	})
-
+$('.tooltip-w').tipsy({
+	gravity: 'w',
+	fade: true,
+	html: true
+});
+		
 });
