@@ -36,7 +36,14 @@
 		$('a.remove-chunk').live('click', function(e) {
 			e.preventDefault();
 			
-			$(this).closest('li.page-chunk').slideUp('slow', function(){ $(this).remove(); });
+			var removemsg = $(this).attr('title');
+
+			if (confirm(removemsg || pyro.lang.dialog_message))
+			{
+				$(this).closest('li.page-chunk').slideUp('slow', function(){ $(this).remove(); });
+				if ($('#page-content').find('li.page-chunk').length < 2) {
+				}				
+			}
 		});
 		
 		$('select[name^=chunk_type]').live('change', function() {
