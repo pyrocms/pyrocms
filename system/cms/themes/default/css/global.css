@@ -64,8 +64,8 @@ nav ul#head-nav ul ul ul ul li:hover ul li { visibility: visible; }/*make 6 visi
 nav ul#head-nav ul ul { left: 156px; top:-1px; width:149px; padding-top: 0; }
 
 /* Breadcrumbs */
-#forum_breadcrumbs { font-family:  Tahoma, "Helvetica Neue", Helvetica, sans-serif; font-size: 11px; font-weight: bold; color: #7d7d7d; text-shadow: 1px 1px 0px #ffffff; }
-#forum_breadcrumbs a:hover { text-decoration: underline; }
+.breadcrumbs { font-family:  Tahoma, "Helvetica Neue", Helvetica, sans-serif; font-size: 11px; font-weight: bold; color: #7d7d7d; text-shadow: 1px 1px 0px #ffffff; }
+.breadcrumbs a:hover { text-decoration: underline; }
 
 /* Content */
 #content { width: 75%; min-height: 500px; padding: 15px 0 150px 0; margin: 0; float: left; }
