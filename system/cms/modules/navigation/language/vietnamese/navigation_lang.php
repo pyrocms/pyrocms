@@ -24,6 +24,7 @@ $lang['nav_type_label']                         = 'Loại liên kết';
 $lang['nav_uri_label']                          = 'Liên kết Site (URI)';
 $lang['nav_page_label']                         = 'Trang';
 $lang['nav_module_label']                       = 'Mô đun';
+$lang['nav_restricted_to']						= 'Restricted To'; #translate
 $lang['nav_abbrev_label']                       = 'Viết tắt';
 
 $lang['nav_link_target_self']                   = 'Cửa sổ hiện tại (mặc định)';

@@ -14,6 +14,7 @@ $lang['nav_type_label']                         = 'Nuorodos tipas';
 $lang['nav_uri_label']                          = 'Site Link (URI)';
 $lang['nav_page_label']                         = 'Puslapis';
 $lang['nav_module_label']                       = 'Modulis';
+$lang['nav_restricted_to']						= 'Restricted To'; #translate
 $lang['nav_abbrev_label']                       = 'Santrumpa';
 
 $lang['nav_link_target_self']                   = 'Dabartinis langas (default)';

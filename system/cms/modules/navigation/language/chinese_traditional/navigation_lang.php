@@ -13,6 +13,7 @@ $lang['nav_type_label'] 						= '連結類型';
 $lang['nav_uri_label'] 							= '網站連結(URI)';
 $lang['nav_page_label'] 						= '頁面';
 $lang['nav_module_label'] 						= '模組';
+$lang['nav_restricted_to']						= 'Restricted To'; #translate
 $lang['nav_abbrev_label'] 						= '縮寫';
 
 $lang['nav_link_target_self'] 					= '原視窗開啟 (default)';

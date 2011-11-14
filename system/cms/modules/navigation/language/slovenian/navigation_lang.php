@@ -14,6 +14,7 @@ $lang['nav_type_label']                         = 'Vrsta povezave';
 $lang['nav_uri_label']                          = 'Povezava strani (URI)';
 $lang['nav_page_label']                         = 'Stran';
 $lang['nav_module_label']                       = 'Modul';
+$lang['nav_restricted_to']						= 'Restricted To'; #translate
 $lang['nav_abbrev_label']                       = 'Kartica'; //predpona ?
 
 $lang['nav_link_target_self']                   = 'V istem oknu (prednastavljeno)';
