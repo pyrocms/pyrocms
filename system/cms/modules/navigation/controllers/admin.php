@@ -69,6 +69,11 @@ class Admin extends Admin_Controller {
 			'rules'	=> 'trim|max_length[10]'
 		),
 		array(
+			'field' => 'restricted_to',
+			'label'	=> 'lang:nav_restricted_to',
+			'rules'	=> ''
+		),
+		array(
 			'field' => 'class',
 			'label'	=> 'lang:nav_class_label',
 			'rules'	=> 'trim'
@@ -187,6 +192,13 @@ class Admin extends Admin_Controller {
 	public function ajax_link_details($link_id)
 	{
 		$link = $this->navigation_m->get_url($link_id);
+		
+		$ids = explode(',', $link[0]->restricted_to);
+		
+		$this->load->model('groups/group_m');
+		$groups = $this->group_m->where_in('id', $ids)->dropdown('id', 'name');
+
+		$link[0]->{'restricted_to'} = implode(', ', $groups);
 
 		$this->load->view('admin/ajax/link_details', array('link' => $link['0']));
 	}
@@ -198,11 +210,23 @@ class Admin extends Admin_Controller {
 	 */
 	public function create($group_id = '')
 	{
+		// Set the options for restricted to
+		$this->load->model('groups/group_m');
+		$groups = $this->group_m->get_all();
+		foreach ($groups as $group)
+		{
+			$group->name !== 'admin' && $group_options[$group->id] = $group->name;
+		}
+		$this->data->group_options = $group_options;
+
 		// Run if valid
 		if ($this->form_validation->run())
 		{
+			$input = $this->input->post();
+			$input['restricted_to'] = isset($input['restricted_to']) ? implode(',', $input['restricted_to']) : '';
+			
 			// Got post?
-			if ($this->navigation_m->insert_link($_POST) > 0)
+			if ($this->navigation_m->insert_link($input) > 0)
 			{
 				$this->pyrocache->delete_all('navigation_m');
 				
@@ -258,6 +282,15 @@ class Admin extends Admin_Controller {
 
 		// Get the navigation item based on the ID
 		$this->data->navigation_link = $this->navigation_m->get_link($id);
+		
+		// Set the options for restricted to
+		$this->load->model('groups/group_m');
+		$groups = $this->group_m->get_all();
+		foreach ($groups as $group)
+		{
+			$group->name !== 'admin' && $group_options[$group->id] = $group->name;
+		}
+		$this->data->group_options = $group_options;
 
 		if ( ! $this->data->navigation_link)
 		{
@@ -270,8 +303,11 @@ class Admin extends Admin_Controller {
 		// Valid data?
 		if ($this->form_validation->run())
 		{
+			$input = $this->input->post();
+			$input['restricted_to'] = isset($input['restricted_to']) ? implode(',', $input['restricted_to']) : '';
+			
 			// Update the link and flush the cache
-			$this->navigation_m->update_link($id, $_POST);
+			$this->navigation_m->update_link($id, $input);
 			$this->pyrocache->delete_all('navigation_m');
 			
 			$this->session->set_flashdata('success', lang('nav_link_edit_success'));

@@ -14,6 +14,7 @@ $lang['nav_type_label'] 						= 'Tipo do Link';
 $lang['nav_uri_label'] 							= 'Link do Site (URI)';
 $lang['nav_page_label'] 						= 'Página';
 $lang['nav_module_label'] 						= 'Modulo';
+$lang['nav_restricted_to']						= 'Restricted To'; #translate
 $lang['nav_abbrev_label'] 						= 'Abreviação';
 
 $lang['nav_link_target_self'] 					= 'Janela atual (default)';
