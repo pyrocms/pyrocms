@@ -9,7 +9,10 @@ Author: PyroCMS Dev Team
  *
  * The Pyro object is the foundation of all PyroUI enhancements
  */
-var pyro = {};
+// It may already be defined in metadata partial
+if (typeof(pyro) == 'undefined') {
+	var pyro = {};
+}
 
 jQuery(function($) {
 
@@ -136,9 +139,6 @@ jQuery(function($) {
 					$.data(this, 'stop-click', false);
 					return;
 				}
-
-				//submits it whether uniform likes it or not
-				window.location.replace(href);
 			}
 		});
 
@@ -195,7 +195,8 @@ jQuery(function($) {
 			$(this).colorbox({
 				width: "60%",
 				maxHeight: "90%",
-				current: current_module + " {current} / {total}"
+				current: current_module + " {current} / {total}",
+				onComplete: function(){ pyro.chosen() }
 			});
 		});
 
@@ -205,7 +206,8 @@ jQuery(function($) {
 				height: "95%",
 				iframe: true,
 				scrolling: false,
-				current: current_module + " {current} / {total}"
+				current: current_module + " {current} / {total}",
+				onComplete: function(){ pyro.chosen() }
 			});
 		});
 	};

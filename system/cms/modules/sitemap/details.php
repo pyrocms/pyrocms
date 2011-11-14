@@ -14,6 +14,7 @@ class Module_Sitemap extends Module {
 		return array(
 			'name' => array(
 				'en' => 'Sitemap',
+				'el' => 'Χάρτης Ιστότοπου',
 				'de' => 'Sitemap',
 				'nl' => 'Sitemap',
 				'fr' => 'Plan du site',
@@ -28,6 +29,7 @@ class Module_Sitemap extends Module {
 			),
 			'description' => array(
 				'en' => 'The sitemap module creates an index of all pages and an XML sitemap for search engines.',
+				'el' => 'Δημιουργεί έναν κατάλογο όλων των σελίδων και έναν χάρτη σελίδων σε μορφή XML για τις μηχανές αναζήτησης.',
 				'de' => 'Die Sitemap Modul erstellt einen Index aller Seiten und eine XML-Sitemap für Suchmaschinen.',
 				'nl' => 'De sitemap module maakt een index van alle pagina\'s en een XML sitemap voor zoekmachines.',
 				'fr' => 'Le module sitemap crée un index de toutes les pages et un plan de site XML pour les moteurs de recherche.',

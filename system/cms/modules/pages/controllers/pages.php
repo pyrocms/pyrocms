@@ -197,7 +197,7 @@ class Pages extends Public_Controller
 			->set('page', $page)
 			
 			// Most likely the other breadcrumbs are set above, set this one
-			->set_breadcrumb($page->title, $page->uri);
+			->set_breadcrumb($page->title);
 
 		if ($page->layout->css OR $page->css)
 		{

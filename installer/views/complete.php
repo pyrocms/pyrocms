@@ -17,7 +17,7 @@
 
 <p>{outro_text}</p>
 
-<br><br>
+<hr>
 
 <?php echo anchor($website_url, lang('go_website'), 'class="button go_to_site"'); ?>
 <?php echo anchor($control_panel_url, lang('go_control_panel'), 'class="button go_to_site"'); ?>

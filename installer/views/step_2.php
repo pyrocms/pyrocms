@@ -27,8 +27,6 @@
 			<?php endif; ?>
 		</p>
 	</li>
-	
-	<hr>
 
 	<!-- PHP -->
 	<li>
@@ -43,8 +41,6 @@
 		</p>
 
 	</li>
-	
-	<hr>
 
 	<!-- MySQL -->
 	<li>
@@ -89,8 +85,6 @@
 			<?php endif; ?>
 		</p>
 	</li>
-	
-	<hr>
 
 	<!-- Zlib -->
 	<li>
@@ -105,8 +99,6 @@
 			<?php endif; ?>
 		</p>
 	</li>
-	
-	<hr>
 
 	<!-- Curl -->
 	<li>

@@ -79,8 +79,6 @@ foreach($permissions['files'] as $files => $status) {
 	});
 </script>
 
-<hr>
-
 <?php if($step_passed): ?>
 	<a class="button" id="next_step" href="<?php echo site_url('installer/step_4'); ?>" title="{next_step}">{step4}</a>
 <?php else: ?>

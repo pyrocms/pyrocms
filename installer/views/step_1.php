@@ -15,12 +15,6 @@
 	
 	<section class="item">
 		<p>{db_text}</p>
-
-		<hr>
-		
-		<span class="help">
-			Here we can add some explantions for the section. Etiam scelerisque, nunc ac egestas consequat, odio nibh euismod nulla, eget auctor orci nibh vel nisi. Aliquam erat volutpat. Mauris vel neque sit amet.</p>
-		</span>
 		
 		<div class="input">
 			<label for="hostname">{server}</label><br>
@@ -71,9 +65,7 @@
 			
 		</div>
 
-		<div id="notification">
-	   		<p class="text" id="confirm_db"></p>
-		</div>
+		<div id="confirm_db"></div>
 	</section>
 	
 	<section class="title">

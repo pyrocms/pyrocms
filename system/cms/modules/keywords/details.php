@@ -9,14 +9,16 @@ class Module_Keywords extends Module {
 		return array(
 			'name' => array(
 				'en' => 'Keywords',
+				'el' => 'Λέξεις Κλειδιά',
 				'nl' => 'Sleutelwoorden',
 				'ar' => 'Keywords',
 				'br' => 'Palavras-chave',
 				'ar' => 'كلمات البحث',
-				'da' => 'Nøgleord'
+				'da' => 'Nøgleord',
 			),
 			'description' => array(
 				'en' => 'Maintain a central list of keywords to label and organize your content.',
+				'el' => 'Συντηρεί μια κεντρική λίστα από λέξεις κλειδιά για να οργανώνετε μέσω ετικετών το περιεχόμενό σας.',
 				'nl' => 'Beheer een centrale lijst van sleutelwoorden om uw content te categoriseren en organiseren.',
 				'ar' => 'Maintain a central list of keywords to label and organize your content.',
 				'br' => 'Mantém uma lista central de palavras-chave para rotular e organizar o seu conteúdo.',
