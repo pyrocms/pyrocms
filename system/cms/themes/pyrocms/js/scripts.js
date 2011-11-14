@@ -9,7 +9,10 @@ Author: PyroCMS Dev Team
  *
  * The Pyro object is the foundation of all PyroUI enhancements
  */
-var pyro = {};
+// It may already be defined in metadata partial
+if (typeof(pyro) == 'undefined') {
+	var pyro = {};
+}
 
 jQuery(function($) {
 

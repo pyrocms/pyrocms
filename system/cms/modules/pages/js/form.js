@@ -21,7 +21,7 @@
 				'<option selected="selected" value="wysiwyg-advanced">wysiwyg-advanced</option>' +
 				'</select>' +
 				'<div class="alignright">' +
-				'<a href="javascript:void(0)" class="remove-chunk btn red">Remove</a>' +
+				'<a href="javascript:void(0)" class="remove-chunk btn red">' + pyro.lang.remove + '</a>' +
 				'</div></div><br style="clear:both" />' +
 				'<textarea id="' + key + '" class="wysiwyg-advanced" rows="20" style="width:100%" name="chunk_body[' + key + ']"></textarea>' +
 				'</li>');
