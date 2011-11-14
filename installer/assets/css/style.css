@@ -323,7 +323,7 @@ textarea {
 	-webkit-border-radius: 5px;
 }
 
-.input { margin-top: 10px; padding: 8px; }
+.input { margin-top: 10px; padding: 8px; border-bottom: 1px solid #eeeeee; }
 .input label { width: 250px; margin-top: 17px; float: left; }
 
 textarea {
@@ -1383,6 +1383,8 @@ a.show-pass { float: none; }
 	background: #ffffff;
 	border: none;
 }
+
+#confirm_db { margin-top: 15px; }
 
 footer {
 	background: #333333;
