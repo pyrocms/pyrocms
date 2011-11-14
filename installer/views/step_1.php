@@ -17,7 +17,7 @@
 		<p>{db_text}</p>
 		
 		<div class="input">
-			<label for="hostname">{server}</label><br>
+			<label for="hostname">{server}</label>
 			
 			<?php
 			echo form_input(array(
@@ -31,7 +31,7 @@
 		
 		
 		<div class="input">
-			<?php echo lang('username','username'); ?><br>
+			<?php echo lang('username','username'); ?>
 			<?php
 				echo form_input(array(
 					'id' => 'username',
@@ -42,7 +42,7 @@
 		</div>
 		
 		<div class="input">
-			<?php echo lang('password','password'); ?><br>
+			<?php echo lang('password','password'); ?>
 			<?php
 				echo form_password(array(
 					'id' => 'password',
@@ -54,7 +54,7 @@
 		</div>
 		
 		<div class="input">
-			<?php echo lang('portnr','port'); ?><br>
+			<?php echo lang('portnr','port'); ?>
 			<?php
 				echo form_input(array(
 					'id' => 'port',

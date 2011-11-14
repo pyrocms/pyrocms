@@ -311,6 +311,7 @@ input[type="button"]:hover {
 input[type="text"],
 input[type="password"],
 input[type="file"],
+select,
 textarea {
 	min-width: 260px;
 	background: #f1f1f1;
@@ -323,6 +324,7 @@ textarea {
 }
 
 .input { margin-top: 10px; padding: 8px; }
+.input label { width: 250px; margin-top: 17px; float: left; }
 
 textarea {
 	width: 98%;
