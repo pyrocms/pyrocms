@@ -195,7 +195,8 @@ jQuery(function($) {
 			$(this).colorbox({
 				width: "60%",
 				maxHeight: "90%",
-				current: current_module + " {current} / {total}"
+				current: current_module + " {current} / {total}",
+				onComplete: function(){ pyro.chosen() }
 			});
 		});
 
@@ -205,7 +206,8 @@ jQuery(function($) {
 				height: "95%",
 				iframe: true,
 				scrolling: false,
-				current: current_module + " {current} / {total}"
+				current: current_module + " {current} / {total}",
+				onComplete: function(){ pyro.chosen() }
 			});
 		});
 	};
