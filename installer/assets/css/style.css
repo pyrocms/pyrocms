@@ -315,11 +315,14 @@ textarea {
 	min-width: 260px;
 	background: #f1f1f1;
 	padding: 8px;
+	margin-top: 10px;
 	border: 1px solid #d9d9d9;
 	border-radius: 5px;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
 }
+
+.input { margin-top: 10px; padding: 8px; }
 
 textarea {
 	width: 98%;
@@ -866,6 +869,10 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
 .block-message.pyro {
   background: rgba(255, 105, 0, 0.3);
   border: 1px solid rgba(255, 105, 0, 0.5);
+  margin-bottom: 0px;
+  padding: 8px;
+  position: relative;
+  z-index: 999;
 }
 
 .block-message .close {
