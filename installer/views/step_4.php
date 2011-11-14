@@ -20,7 +20,7 @@
 	</div>
 
 	<div class="input">
-		<label for="create_db"><?php echo lang('db_create'); ?></label>
+		<label for="create_db"><?php echo lang('db_create'); ?></label><br>
 		<input type="checkbox" name="create_db" value="true" id="create_db" />
 		<small>(<?php echo lang('db_notice'); ?>)</small>
 	</div>
