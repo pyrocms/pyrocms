@@ -863,6 +863,11 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   border: 1px solid #ade6fe;
 }
 
+.block-message.pyro {
+  background: rgba(255, 105, 0, 0.3);
+  border: 1px solid rgba(255, 105, 0, 0.5);
+}
+
 .block-message .close {
   float: right;
   margin-top: -4px;
@@ -1257,7 +1262,7 @@ nav#menu {
 	float: left;
 }
 
-nav#menu ul li {
+nav#menu ul li, nav#menu ul li a {
 	list-style: none;
 	float: left;
 	color: #555555;
@@ -1363,8 +1368,12 @@ section.item {
 }
 
 .password-reveal { display: none; }
-
 a.show-pass { float: none; }
+
+.block-message.pyro input[type="text"] {
+	background: #ffffff;
+	border: none;
+}
 
 footer {
 	background: #333333;
@@ -1685,6 +1694,7 @@ ul.block-message { width: 100%; float: left; }
 	line-height: 18px;
 }
 
+#current { color: #ed8e28; }
 .pass { color: #238C2A; }
 .fail { color: #ff0000; }
 

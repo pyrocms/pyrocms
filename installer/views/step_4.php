@@ -13,9 +13,7 @@
 	</section>
 	
 	<section class="item">
-		<span class="help">
-			Here we can add some explantions for the section. Etiam scelerisque, nunc ac egestas consequat, odio nibh euismod nulla, eget auctor orci nibh vel nisi. Aliquam erat volutpat. Mauris vel neque sit amet.</p>
-		</span>
+
 	<div class="input">
 		<label for="database"><?php echo lang('database'); ?></label><br>
 		<input type="text" id="database" class="input_text" name="database" value="<?php echo set_value('database'); ?>" />
@@ -38,10 +36,6 @@
 	</section>
 	
 	<section class="item">
-		
-		<span class="help">
-			Here we can add some explantions for the section. Etiam scelerisque, nunc ac egestas consequat, odio nibh euismod nulla, eget auctor orci nibh vel nisi. Aliquam erat volutpat. Mauris vel neque sit amet.</p>
-		</span>
 
 	<div class="input">
 		<label for="user_name"><?php echo lang('user_name'); ?></label><br>
@@ -98,11 +92,7 @@
 		?>
 	</div>
 
-	<div id="notification">
-	   <p class="text" id="confirm_pass"></p>
-	</div>
-	
-	<hr>
+	<div id="confirm_pass"></div>
 
 	<input class="button" id="next_step" type="submit" id="submit" value="<?php echo lang('finish'); ?>" />
 
