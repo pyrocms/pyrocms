@@ -34,6 +34,8 @@
 				
 				<li class="<?php echo alternator('even', ''); ?>">
 					<label for="slug"><?php echo lang('pages.slug_label');?>  <span>*</span></label>
+					
+					<div class="input">
 					<?php if ( ! empty($page->parent_id)): ?>
 						<?php echo site_url($parent_page->uri); ?>/
 					<?php else: ?>
@@ -52,6 +54,8 @@
 					<?php endif;?>
 
 					<?php echo config_item('url_suffix'); ?>
+					
+					</div>
 				</li>
 				
 				<li class="<?php echo alternator('even', ''); ?>">
