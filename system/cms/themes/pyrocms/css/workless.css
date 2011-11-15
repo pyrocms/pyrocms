@@ -391,7 +391,7 @@ input:invalid, textarea:invalid { background-color: #f0dddd; }
 	display: block;
 	font-weight: normal;
 	font-style: italic;
-	color: #ccc;
+	color: #c0c0c0;
 }
 .form_inputs input:focus {
 	color: #4D4D4D;
