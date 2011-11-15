@@ -132,13 +132,19 @@ class Migration_Add_streams extends CI_Migration {
 
 	public function down()
 	{
+		// They should have the core version if we are going 
+		// to go about removing all of their streams and data here
+		// in the down function
+		if ( ! file_exists(APPPATH.'modules/streams/config/streams.php'))
+		{
+			return;
+		}
+
 		require_once(APPPATH.'modules/streams/config/streams.php');
 
 		$this->load->dbforge();
 		
-		$obj = $this->db->get($config['streams.streams_table']);
-		
-		$streams = $obj->result();
+		$streams = $this->db->get($config['streams.streams_table'])->result();
 		
 		foreach( $streams as $stream ):
 		
