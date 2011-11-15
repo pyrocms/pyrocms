@@ -204,7 +204,7 @@ class Module_m extends MY_Model
 	 */
 	public function add($module)
 	{
-		return $this->db->insert($this->_table, array(
+		return $this->db->replace($this->_table, array(
 			'name'			=> serialize($module['name']),
 			'slug'			=> $module['slug'],
 			'version'		=> $module['version'],

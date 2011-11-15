@@ -11,10 +11,10 @@ class Migration_Add_streams extends CI_Migration {
 	public function up()
 	{
 		$this->load->helper('date');
-	
+		
 		// If they don't have the streams module theres not much point in trying this
 		// (Probably means its community not professional, but who knows)
-		if (file_exists(APPPATH.'modules/streams/config/streams.php'))
+		if ( ! file_exists(APPPATH.'modules/streams/config/streams.php'))
 		{
 			return;
 		}
