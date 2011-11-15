@@ -139,6 +139,7 @@ jQuery(function($) {
 					$.data(this, 'stop-click', false);
 					return;
 				}
+				window.location.replace(href);
 			}
 		});
 
