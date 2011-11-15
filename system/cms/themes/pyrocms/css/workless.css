@@ -349,6 +349,8 @@ input:invalid, textarea:invalid { background-color: #f0dddd; }
 	padding-bottom: 0;
 }
 .form_inputs fieldset > ul > li, 
+.form_inputs > ul > div > li,
+.form_inputs fieldset > ul > div > li, 
 .form_inputs > ul > li {
 	float: left;
 	width: 100%;
@@ -356,11 +358,14 @@ input:invalid, textarea:invalid { background-color: #f0dddd; }
 	padding-bottom: 10px;
 	margin-bottom: 10px;
 }
+.form_inputs > ul > div > li:last-child, 
 .form_inputs fieldset > ul > li:last-child, 
 .form_inputs > ul > li:last-child {
 	border-bottom: none!important;
 }
 .form_inputs fieldset > ul > li > label, 
+.form_inputs fieldset > ul > div > li > label, 
+.form_inputs > ul > div > li > label, 
 .form_inputs > ul > li > label,
 .form_inputs fieldset > ul > li .label, 
 .form_inputs > ul > li .label {
