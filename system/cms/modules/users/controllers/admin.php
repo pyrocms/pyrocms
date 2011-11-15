@@ -39,7 +39,7 @@ class Admin extends Admin_Controller {
 		array(
 			'field' => 'username',
 			'label' => 'lang:user_username',
-			'rules' => 'required|alpha_numeric|min_length[3]|max_length[20]'
+			'rules' => 'required|alpha_dot_dash|min_length[3]|max_length[20]'
 		),
 		array(
 			'field' => 'display_name',
@@ -290,7 +290,7 @@ class Admin extends Admin_Controller {
 		{
 			if ($this->input->post($rule['field']) !== FALSE)
 			{
-				$member->{$rule['field']} = set_value($ractivaule['field']);
+				$member->{$rule['field']} = set_value($rule['field']);
 			}
 		}
 
