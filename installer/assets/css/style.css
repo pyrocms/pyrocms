@@ -1266,18 +1266,63 @@ ul#lang li {
 
 nav#menu {
 	width: 100%;
-	margin: 75px 0 0 5px;
-	padding: 10px 0 10px 0;
+	height: 35px;
+	margin: 75px 0 0 0;
+	padding: 0px 15px;
 	float: left;
+	background: #f7f7f7;
+  	background-repeat: repeat-x;
+  	background-image: -khtml-gradient(linear, left top, left bottom, from(#f7f7f7), to(#f3f3f3));
+  	background-image: -moz-linear-gradient(#f7f7f7, #f3f3f3);
+  	background-image: -ms-linear-gradient(#f7f7f7, #f3f3f3);
+  	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f7f7f7), color-stop(100%, #f3f3f3));
+  	background-image: -webkit-linear-gradient(#f7f7f7, #f3f3f3);
+  	background-image: -o-linear-gradient(#f7f7f7, #f3f3f3);
+  	background-image: linear-gradient(#f7f7f7, #f3f3f3);
+  	border: 1px solid #ffffff;
+  	border-bottom: 1px solid #eeeeee;
+  	border-radius: 5px;
+  	-moz-border-radius: 5px;
+  	-webkit-border-radius: 5px;
+  	box-shadow: 0px 0px 1px #aaaaaa;
+  	-moz-box-shadow: 0px 0px 1px #aaaaaa;
+  	-webkit-box-shadow: 0px 0px 1px #aaaaaa;
 }
 
-nav#menu ul li, nav#menu ul li a {
+nav#menu ul li {
 	list-style: none;
 	float: left;
 	color: #555555;
 	text-shadow: 0 1px 0 #ffffff;
 	font-weight: bold;
+	margin: 10px 0 0 0;
 }
+
+nav#menu ul li a { 
+	color: #555555; 
+	margin-left: 15px;
+	position: relative;
+	z-index: 999; 
+}
+
+nav#menu ul li span { 
+	margin-left: 15px; 
+	position: relative;
+	z-index: 999;
+}
+
+nav#menu .sep {
+	background: url(../images/sep.png) no-repeat;
+	width: 84px;
+	height: 37px;
+	float: left;
+	margin-left: -25px;
+	margin-top: -11px;
+	position: relative;
+	z-index: 99;
+}
+
+#current{ color: #ed8e28; }
 
 section.title {
   	width: 100%;
@@ -1705,7 +1750,6 @@ ul.block-message { width: 100%; float: left; }
 	line-height: 18px;
 }
 
-#current { color: #ed8e28; }
 .pass { color: #238C2A; }
 .fail { color: #ff0000; }
 

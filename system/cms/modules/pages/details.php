@@ -130,7 +130,6 @@ class Module_Pages extends Module {
 			 `is_home` TINYINT(1) NOT NULL default '0',
 			 `order` INT(11) NOT NULL default '0',
 			 PRIMARY KEY  (`id`),
-			 UNIQUE KEY `Unique` (`slug`,`parent_id`),
 			 KEY `slug` (`slug`),
 			 KEY `parent` (`parent_id`)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='User Editable Pages';
