@@ -157,7 +157,7 @@ class Navigation_m extends MY_Model
 	 * @param  string $group Either the group abbrev or the group id
 	 * @return array An array representing the link tree
 	 */
-	public function get_link_tree($group, $params = array(), $front_end = FALSE)
+	public function get_link_tree($group, $params = array())
 	{
 		// the plugin passes the abbreviation
 		if ( ! is_numeric($group))
@@ -174,6 +174,24 @@ class Navigation_m extends MY_Model
 		{
 			$this->db->order_by('position');
 		}
+		
+		if (isset($params['front_end']) AND $params['front_end'])
+		{
+			$front_end = TRUE;
+		}
+		else
+		{
+			$front_end = FALSE;
+		}
+		
+		if (isset($params['user_group']))
+		{
+			$user_group = $params['user_group'];
+		}
+		else
+		{
+			$user_group = FALSE;
+		}
 
 		$all_links = $this->db->where('navigation_group_id', $group)
 			 ->get($this->_table)
@@ -184,7 +202,7 @@ class Navigation_m extends MY_Model
 		$links = array();
 		
 		// we must reindex the array first and build urls
-		$all_links = $this->make_url_array($all_links, $front_end);
+		$all_links = $this->make_url_array($all_links, $user_group, $front_end);
 		foreach ($all_links AS $row)
 		{
 			$links[$row['id']] = $row;
@@ -349,19 +367,22 @@ class Navigation_m extends MY_Model
 	 * @param array $row Array of links
 	 * @return mixed Array of links with valid urls
 	 */
-	public function make_url_array($links, $front_end = FALSE)
+	public function make_url_array($links, $user_group = FALSE, $front_end = FALSE)
 	{
+		// We have to fetch it ourselves instead of just using $current_user because this
+		// will all be cached per user group
+		$group = $this->db->select('id')->where('name', $user_group)->get('groups')->row();
+
 		foreach($links as $key => &$row)
-		{
+		{				
 			// Looks like it's restricted. Let's find out who
-			if ($row['restricted_to'])
+			if ($row['restricted_to'] AND $front_end)
 			{
 				$row['restricted_to'] = (array) explode(',', $row['restricted_to']);
 
-				if ( ! $this->current_user OR
-					(isset($this->current_user->group) AND
-					 $this->current_user->group != 'admin' AND
-					 ! in_array($this->current_user->group_id, $row['restricted_to']))
+				if ( ! $user_group OR
+					($user_group != 'admin' AND
+					 ! in_array($group->id, $row['restricted_to']))
 					)
 				{
 					unset($links[$key]);
@@ -393,10 +414,9 @@ class Navigation_m extends MY_Model
 						{
 							$page->restricted_to = (array) explode(',', $page->restricted_to);
 
-							if ( ! $this->current_user OR
-								(isset($this->current_user->group) AND
-								 $this->current_user->group != 'admin' AND
-								 ! in_array($this->current_user->group_id, $page->restricted_to))
+							if ( ! $user_group OR
+								($user_group != 'admin' AND
+								 ! in_array($group->id, $page->restricted_to))
 								)
 							{
 								unset($links[$key]);
