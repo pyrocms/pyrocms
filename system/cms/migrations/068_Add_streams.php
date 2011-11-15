@@ -6,7 +6,7 @@
  * This takes into account the fact the user may already
  * have PyroStreams installed on their copy of PyroCMS.
  */
-class Migration_Upgrade_to_pyrostreams extends CI_Migration {
+class Migration_Add_streams extends CI_Migration {
 
 	public function up()
 	{
