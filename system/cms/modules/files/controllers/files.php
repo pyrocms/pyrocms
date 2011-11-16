@@ -178,7 +178,8 @@ class Files extends Public_Controller
 			}
 		}
 		else if (isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) &&
-			(strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE']) == filemtime($image_thumb)))
+			(strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE']) == filemtime($image_thumb)) &&
+				$expire )
 		{
 			// Send 304 back to browser if file has not beeb changed
 			header('Last-Modified: '.gmdate('D, d M Y H:i:s', filemtime($image_thumb)).' GMT', true, 304);
