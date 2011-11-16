@@ -63,9 +63,9 @@ class Events_Templates {
 			// $data['attach'][] = /path/to/file.zip
 			if (isset($data['attach']))
 			{
-				foreach ($data['attach'] AS $attach)
+				foreach ($data['attach'] AS $attachment)
 				{
-					$this->ci->email->attach($attach['full_path']);
+					$this->ci->email->attach($attachment);
 				}
 			}
 
