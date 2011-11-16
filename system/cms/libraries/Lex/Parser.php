@@ -114,7 +114,8 @@ class Lex_Parser
 					$looped_text = '';
 					foreach ($loop_data as $item_data)
 					{
-						$str = $this->parse_variables($match[2][0], $item_data, $callback);
+						$str = $this->parse_conditionals($match[2][0], $item_data, $callback);
+						$str = $this->parse_variables($str, $item_data, $callback);
 						if ($callback !== null)
 						{
 							$str = $this->parse_callback_tags($str, $item_data, $callback);
