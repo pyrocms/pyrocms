@@ -114,7 +114,8 @@ class Lex_Parser
 					$looped_text = '';
 					foreach ($loop_data as $item_data)
 					{
-						$str = $this->parse_variables($match[2][0], $item_data, $callback);
+						$str = $this->parse_conditionals($match[2][0], $item_data, $callback);
+						$str = $this->parse_variables($str, $item_data, $callback);
 						if ($callback !== null)
 						{
 							$str = $this->parse_callback_tags($str, $item_data, $callback);
@@ -155,7 +156,9 @@ class Lex_Parser
 	public function parse_callback_tags($text, $data, $callback)
 	{
 		$this->setup_regex();
-		if ($this->in_condition)
+		$in_condition = $this->in_condition;
+
+		if ($in_condition)
 		{
 			$regex = '/\{\s*('.$this->variable_regex.')(\s+.*?)?\s*\}/ms';
 		}
@@ -194,7 +197,7 @@ class Lex_Parser
 
 			$replacement = call_user_func_array($callback, array($name, $parameters, $content));
 
-			if ($this->in_condition)
+			if ($in_condition)
 			{
 				$replacement = $this->value_to_literal($replacement);
 			}
@@ -230,7 +233,7 @@ class Lex_Parser
 			$condition = $match[2];
 
 			// Extract all literal string in the conditional to make it easier
-			if (preg_match_all('/(["\']).*?(?<!\\\\)\1/', $condition, $str_matches))
+			if (preg_match_all('/(?!\{.*)(["\']).*?(?<!\\\\)\1(?!.*\})/', $condition, $str_matches))
 			{
 				foreach ($str_matches[0] as $m)
 				{
@@ -242,7 +245,7 @@ class Lex_Parser
 
 			if ($callback)
 			{
-				$condition = preg_replace('/\b(?!\{\s*)('.$this->callback_name_regex.')(?!\s*\})\b/', '{$1}', $condition);
+				$condition = preg_replace('/\b(?!\{\s*)('.$this->callback_name_regex.')(?!\s+.*?\s*\})\b/', '{$1}', $condition);
 				$condition = $this->parse_callback_tags($condition, $data, $callback);
 			}
 
