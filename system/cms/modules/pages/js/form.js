@@ -87,8 +87,9 @@ function pyroSave(reply) {
 		}
 
 		// is valid so show saved notice after the cancel button
+		jQuery(".save_alert").remove();
 		jQuery(".btn.gray.cancel").after(reply.msg);
-		jQuery(".save_alert").delay(3000).slideUp(500);
+		jQuery(".save_alert").delay(500).slideUp(500);
 	}
 	else
 	{

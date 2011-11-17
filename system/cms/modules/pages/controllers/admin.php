@@ -477,20 +477,24 @@ class Admin extends Admin_Controller {
 
 			$this->form_validation->set_message('_custom_required', lang('pages_chunk_slugs_empty'));
 
-			$dynamic_validation_rules = array();
+			// this gets replaced because if it's the same page it's ok to fail on check slug
+			$dynamic_validation_rules['slug'] = array(
+				'field' => 'slug',
+				'label'	=> 'lang:pages.slug_label',
+				'rules'	=> 'trim|required|alpha_dot_dash|max_length[250]|callback__check_slug['.$this->input->post('id').']'
+			);
+
 			foreach ($chunk_slugs_keys as $key)
 			{
-				$dynamic_validation_rules = array(
-					array(
-						'field' => 'chunk_slug['.$key.']',
-						'label'	=> 'lang:pages_chunk_slugs_empty',
-						'rules'	=> 'trim|required|alpha_dot_dash|max_length[30]'
-					),
-					array(
-						'field' => 'chunk_body['.$key.']',
-						'label'	=> 'lang:pages.body_label',
-						'rules'	=> 'trim|callback__strip_php'
-					)
+				$dynamic_validation_rules[] = array(
+					'field' => 'chunk_slug['.$key.']',
+					'label'	=> 'lang:pages_chunk_slugs_empty',
+					'rules'	=> 'trim|required|alpha_dot_dash|max_length[30]'
+				);
+				$dynamic_validation_rules[] = array(
+					'field' => 'chunk_body['.$key.']',
+					'label'	=> 'lang:pages.body_label',
+					'rules'	=> 'trim|callback__strip_php'
 				);
 
 
@@ -503,16 +507,8 @@ class Admin extends Admin_Controller {
 				);
 			}
 
-			// this gets replaced because if it's the same page it's ok to fail on check slug
-			$slug_validation_rules = array('slug' => array(
-				'field' => 'slug',
-				'label'	=> 'lang:pages.slug_label',
-				'rules'	=> 'trim|required|alpha_dot_dash|max_length[250]|callback__check_slug['.$this->input->post('id').']'
-			));
-
-
 			// we need to validate the input
-			$this->form_validation->set_rules(array_merge($this->validation_rules,$dynamic_validation_rules,$slug_validation_rules));
+			$this->form_validation->set_rules(array_merge($this->validation_rules,$dynamic_validation_rules));
 			$this->form_validation->set_error_delimiters('','<br>');
 
 			// let the validation begin
@@ -559,7 +555,8 @@ class Admin extends Admin_Controller {
 						{
 							// ok now we know it's good!
 							$json_responds['valid'] = true;
-							$json_responds['msg'] = '<span class="save_alert" style="padding-left: 32px">'.lang('pages_create_success').'</span>';
+							$link = anchor('admin/pages/preview/'.$page_id, $input['title'], 'class="modal-large"');
+							$json_responds['msg'] = '<span class="save_alert" style="padding-left: 32px">'.sprintf(lang('pages_edit_success'), $link).'</span>';
 						}
 					}
 					else
@@ -585,8 +582,8 @@ class Admin extends Admin_Controller {
 					}
 
 					// ok now we know it's good!
-					$link = anchor('admin/pages/preview/'.$page_id, $input['title'], 'class="modal-large"');
 					$json_responds['valid'] = true;
+					$link = anchor('admin/pages/preview/'.$page_id, $input['title'], 'class="modal-large"');
 					$json_responds['msg'] = '<span class="save_alert" style="padding-left: 32px">'.sprintf(lang('pages_edit_success'), $link).'</span>';
 				}
 			}

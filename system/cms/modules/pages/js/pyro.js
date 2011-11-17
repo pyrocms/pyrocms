@@ -20,8 +20,7 @@ jQuery.fn.pyroForm2Obj = function(obj) {
 };
 
 /* $.pyroRedirect('/goto/here') */
-jQuery.
-Redirect = function(url) {
+jQuery.pyroRedirect = function(url) {
   window.location.replace(SITE_URL + url);
 };
 
@@ -80,12 +79,11 @@ jQuery.fn.pyroFormAction = function (url) {
 
 /* add or change a hidden form value $("#formid").pyroFormHidden("name","value") */
 jQuery.fn.pyroFormHidden = function (name, value) {
-  name = name || '';
-  value = value || '';
+  if (!name || !value) return;
 
   return this.each(function () {
     if (jQuery('[name="' + name + '"]').length > 0) {
-      jQuery('#' + name).attr('value', value);
+      jQuery('[name="' + name + '"]').attr('value', value);
     } else {
       jQuery('<input />').attr('type', 'hidden').attr('id', name).attr('name', name).val(value).appendTo(this);
     }

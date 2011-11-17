@@ -496,25 +496,28 @@ class Page_m extends MY_Model
 	 */
 	public function insert_chunks($page_id,$chunks)
 	{
-		// is it a chunk or chunks?
-		$chunks = (!isset($chunks[0])) ? array($chunks) : $chunks;
-
-		foreach ($chunks as $chunk)
+		if ($chunks)
 		{
-			$chunk = (array)$chunk;
-
-			$this->db->insert('page_chunks', array(
-				'page_id' 	=> $page_id,
-				'sort' 		=> $this->chunk_index++,
-				'slug' 		=> $chunk['slug'],
-				'body' 		=> $chunk['body'],
-				'type' 		=> $chunk['type'],
-				'parsed'	=> ($chunk['type'] == 'markdown') ? parse_markdown($chunk['body']) : ''
-			));
-
+			// is it a chunk or chunks?
+			$chunks = (!isset($chunks[0])) ? array($chunks) : $chunks;
+	
+			foreach ($chunks as $chunk)
+			{
+				$chunk = (array)$chunk;
+	
+				$this->db->insert('page_chunks', array(
+					'page_id' 	=> $page_id,
+					'sort' 		=> $this->chunk_index++,
+					'slug' 		=> $chunk['slug'],
+					'body' 		=> $chunk['body'],
+					'type' 		=> $chunk['type'],
+					'parsed'	=> ($chunk['type'] == 'markdown') ? parse_markdown($chunk['body']) : ''
+				));
+	
+			}
+			// return id of last insert - if you want each insert id then send them in one at a time
+			return $this->db->insert_id();
 		}
-		// return id of last insert - if you want each insert id then send them in one at a time
-		return $this->db->insert_id();
 	}
 	
 	/**
@@ -526,24 +529,27 @@ class Page_m extends MY_Model
 	 */
 	public function update_chunks($chunks)
 	{
-		// is it a chunk or chunks?
-		$chunks = (!isset($chunks[0])) ? array($chunks) : $chunks;
-
-		foreach ($chunks as $chunk)
+		if ($chunks)
 		{
-			$chunk = (array)$chunk;
-
-			$chunk_id = $chunk['id'];
-			unset($chunk['id']);
-			
-			$this->db->update('page_chunks',array(
-				'page_id' 	=> $chunk['page_id'],
-				'sort' 		=> $this->chunk_index++,
-				'slug' 		=> $chunk['slug'],
-				'body' 		=> $chunk['body'],
-				'type' 		=> $chunk['type'],
-				'parsed'	=> ($chunk['type'] == 'markdown') ? parse_markdown($chunk['body']) : ''
-			),array('id'=>$chunk_id));
+			// is it a chunk or chunks?
+			$chunks = (!isset($chunks[0])) ? array($chunks) : $chunks;
+	
+			foreach ($chunks as $chunk)
+			{
+				$chunk = (array)$chunk;
+	
+				$chunk_id = $chunk['id'];
+				unset($chunk['id']);
+				
+				$this->db->update('page_chunks',array(
+					'page_id' 	=> $chunk['page_id'],
+					'sort' 		=> $this->chunk_index++,
+					'slug' 		=> $chunk['slug'],
+					'body' 		=> $chunk['body'],
+					'type' 		=> $chunk['type'],
+					'parsed'	=> ($chunk['type'] == 'markdown') ? parse_markdown($chunk['body']) : ''
+				),array('id'=>$chunk_id));
+			}
 		}
 	}
 	
