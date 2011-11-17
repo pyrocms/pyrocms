@@ -62,7 +62,7 @@ $lang['pages_page_already_exist_error'] = 'Una página con el URL "%s" ya existe
 $lang['pages_parent_not_exist_error'] 	= 'La página padre que has seleccionado no existe.';
 $lang['pages_root_folder']                = 'the top level'; #translate
 $lang['pages_upsert_error']							= 'Page Upsert Error';
-$lang['pages_chunk_slugs_empty']					= 'each page chunk name';
+$lang['pages_chunk_slugs_empty']					= 'page chunk name';
 
 $lang['pages.tree_explanation'] 		= 'La lista a la izquierda representa las páginas en tu sitio.
 Has click en el icono de "+" a un lado de la página para mostrar las páginas dentro de ella. Al hacer click en una página verás toda clase de información útil en está caja.';

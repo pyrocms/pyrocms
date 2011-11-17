@@ -68,6 +68,6 @@ $lang['pages.tree_explanation'] 				= '左側表列了您網站中的自定頁�
 
 $lang['pages.rss_explanation']					= '啟用這頁的 RSS 功能，用戶將可訂閱含有該子頁面資訊的 RSS Feed。';
 $lang['pages_upsert_error']							= 'Page Upsert Error';
-$lang['pages_chunk_slugs_empty']					= 'each page chunk name';
+$lang['pages_chunk_slugs_empty']					= 'page chunk name';
 
 ?>

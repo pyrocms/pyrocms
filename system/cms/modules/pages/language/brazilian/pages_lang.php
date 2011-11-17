@@ -64,7 +64,7 @@ $lang['pages_page_already_exist_error'] 	= 'Uma página com a URL "%s" já exist
 $lang['pages_parent_not_exist_error'] 		= 'A página pai que você selecionou não existe.';
 $lang['pages_root_folder']                = 'the top level'; #translate
 $lang['pages_upsert_error']							= 'Page Upsert Error';
-$lang['pages_chunk_slugs_empty']					= 'each page chunk name';
+$lang['pages_chunk_slugs_empty']					= 'page chunk name';
 
 $lang['pages.tree_explanation'] 			= 'A lista a esquerda representa as páginas do seu site em cada item. Quando houver um indicador de mais ao lado de um item, clique sobre o indicador para exibir suas subpáginas.<br><br>Você também pode arrastar as páginas para ordená-las e/ou posiciona-las distanciando para direita horizontalmente abaixo de outra página para transforma-las em subpáginas.<br><br>Se você clicar sobre o texto do título deverá ver todo tipo de informação útil nesta caixa.';
 

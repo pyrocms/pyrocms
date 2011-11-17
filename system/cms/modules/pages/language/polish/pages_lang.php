@@ -62,7 +62,7 @@ $lang['pages_page_already_exist_error']			= 'Strona o adresie URL "%s" już istn
 $lang['pages_parent_not_exist_error']			= 'Strona nadrzędna, którą wybrałeś nie istnieje.';
 $lang['pages_root_folder']                = 'the top level'; #translate
 $lang['pages_upsert_error']							= 'Page Upsert Error';
-$lang['pages_chunk_slugs_empty']					= 'each page chunk name';
+$lang['pages_chunk_slugs_empty']					= 'page chunk name';
 
 $lang['pages.tree_explanation'] 				= 'Lista po lewej stronie reprezentuje strony Twojej witryny.
 Kliknij ikonę "+" obok danej strony aby wyświetlić strony które zawiera. Jeżeli klikniesz stronę, w tym miejscu pojawi się wiele użytecznych informacji.';

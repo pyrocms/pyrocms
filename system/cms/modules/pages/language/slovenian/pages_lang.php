@@ -61,7 +61,7 @@ $lang['pages_page_already_exist_error']    = 'Stran s URL-jem "%s" že obstaja v
 $lang['pages_parent_not_exist_error']      = 'Glavna stran katero ste izbrali ne obstaja.';
 $lang['pages_root_folder']                = 'glavna mapa';
 $lang['pages_upsert_error']							= 'Page Upsert Error';
-$lang['pages_chunk_slugs_empty']					= 'each page chunk name';
+$lang['pages_chunk_slugs_empty']					= 'page chunk name';
 
 $lang['pages.tree_explanation']            = 'Seznam na levi predstavlja strani na vaši spletni strani.
 Kliknite "+" ikono zraven strani da se prikaže seznam podstrani. Če kliknete na stran se vam bo tukaj prikazal seznam vse uporabnih informacij in možnosti.';

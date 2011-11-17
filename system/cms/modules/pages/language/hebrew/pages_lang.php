@@ -62,7 +62,7 @@ $lang['pages_page_already_exist_error']    = 'דף עם  URL "%s" כבר קיי�
 $lang['pages_parent_not_exist_error']      = 'עמוד האב שבחרתם אינו קיים.';
 $lang['pages_root_folder']                = 'the top level'; #translate
 $lang['pages_upsert_error']							= 'Page Upsert Error';
-$lang['pages_chunk_slugs_empty']					= 'each page chunk name';
+$lang['pages_chunk_slugs_empty']					= 'page chunk name';
 
 $lang['pages.tree_explanation']            = 'הרשימה בצד שמאל מייצגת דפים באתר האינטרנט שלך.
 Click the page item to show its children. אתה יכול לגרור עמודים כדי לסדר אותם; גרור אופקית כדי להפוך אותו לילד. בעת לחיצה על הטקסט בדף תוכלו לראות כל מיני מידע שימושי בתיבה זו.';

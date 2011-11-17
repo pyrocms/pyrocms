@@ -74,7 +74,7 @@ $lang['pages_page_already_exist_error']				= 'Trang với đường dẫn URL "%
 $lang['pages_parent_not_exist_error']				= 'Trang cha được lựa chọn không tồn tại.';
 $lang['pages_root_folder']                = 'cấp cao nhất';
 $lang['pages_upsert_error']							= 'Page Upsert Error';
-$lang['pages_chunk_slugs_empty']					= 'each page chunk name';
+$lang['pages_chunk_slugs_empty']					= 'page chunk name';
 
 $lang['pages.tree_explanation']						= 'Danh sách bên trái hiển thị trang trên website của bạn. Bấm vào trang để hiển thị các trang con. Bạn có thể kéo thả để sắp xếp; rê ngang để tạo trang con. Khi bấm vào trang bạn sẽ xem được các thông tin về trang tại đây.';
 

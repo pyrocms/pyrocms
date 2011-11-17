@@ -64,7 +64,7 @@ $lang['pages_page_already_exist_error']    = 'Es existiert bereits eine Seite mi
 $lang['pages_parent_not_exist_error']      = 'Die ausgewählte übergeordnete Seite existiert nicht.';//there is no german word for 'parent' (in this context at least)
 $lang['pages_root_folder']                = 'the top level'; #translate
 $lang['pages_upsert_error']							= 'Page Upsert Error';
-$lang['pages_chunk_slugs_empty']					= 'each page chunk name';
+$lang['pages_chunk_slugs_empty']					= 'page chunk name';
 
 $lang['pages.tree_explanation']            = 'Die Liste zur Linken repräsentiert Seiten auf deiner Webseite.
 Wähle das "+" Icon neben der Seite um ihre untergeordneten Seiten anzuzeigen. Durch auswählen einer Seite erhältst du Informationen über die ausgewählte Seite.';

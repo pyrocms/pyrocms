@@ -64,7 +64,7 @@ $lang['pages_page_already_exist_error'] 		= 'Stránka s adresou URL "%s" již ex
 $lang['pages_parent_not_exist_error'] 			= 'Vybraná rodičovská stránka neexistuje.';
 $lang['pages_root_folder']                = 'the top level'; #translate
 $lang['pages_upsert_error']							= 'Page Upsert Error';
-$lang['pages_chunk_slugs_empty']					= 'each page chunk name';
+$lang['pages_chunk_slugs_empty']					= 'page chunk name';
 
 $lang['pages.tree_explanation'] 				= 'Seznam vlevo reprezentuje stránky na webu.
 Klikněte na ikonku "+" pro zobrazení stránek uvnitř. Při kliknutí na stránku tu uvidíte spoustu užitečných informací.';

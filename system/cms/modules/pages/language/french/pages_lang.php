@@ -65,7 +65,7 @@ $lang['pages_page_already_exist_error'] 		= 'Une page avec l\'URL "%s" existe d�
 $lang['pages_parent_not_exist_error'] 			= 'La page parente que vous avez sélectionné n\'existe pas.';
 $lang['pages_root_folder']                = 'the top level'; #translate
 $lang['pages_upsert_error']							= 'Page Upsert Error';
-$lang['pages_chunk_slugs_empty']					= 'each page chunk name';
+$lang['pages_chunk_slugs_empty']					= 'page chunk name';
 
 $lang['pages.tree_explanation'] 				= 'La liste de gauche affiche les pages de votre site web.
 Cliquez sur l\'icône "+" à côté de la page pour afficher les pages incluses. En cliquant sur une page vous verrez toutes sortes d\'informations utiles dans cette boîte.';
