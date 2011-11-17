@@ -77,7 +77,7 @@ class Plugin_Contact extends Plugin {
 		// If they try using the old form tag plugin give them an idea why it's failing.
 		if ( ! $this->content() OR count($field_list) == 0)
 		{
-			return 'This plugin requires field parameters and it must be used as a double tag.';
+			return 'The new contact plugin requires field parameters and it must be used as a double tag.';
 		}
 		
 		$button 	= $this->attribute('button', 'send');
@@ -293,7 +293,7 @@ class Plugin_Contact extends Plugin {
 		}
 	
 		$output	 = form_open_multipart(current_url()).PHP_EOL;
-		$output	.= $this->parser->parse_string($this->content(), $parse_data, TRUE).PHP_EOL;
+		$output	.= $this->parser->parse_string($this->content(), str_replace('{{', '{ {', $parse_data), TRUE).PHP_EOL;
 		$output .= '<p class="contact-button">'.form_submit($button, ucfirst($button)).'</p>'.PHP_EOL;
 		$output .= form_close();
 
