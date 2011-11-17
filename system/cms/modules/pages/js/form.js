@@ -4,29 +4,27 @@
 		// Generate a slug from the title
 		pyro.generate_slug('input[name="title"]', 'input[name="slug"]');
 
+		$('button[value="save"]').click(function(e) {
+			e.preventDefault();
+			pyroSave($.pyroAjax('admin/pages/upsert', $("#page-form").pyroForm2Obj()));
+			
+		});
+
+		$('button[value="save_exit"]').click(function(e) {
+			e.preventDefault();
+			pyroSave($.pyroAjax('admin/pages/upsert', $("#page-form").pyroForm2Obj()));
+			$.pyroRedirect('admin/pages');
+		});
+
 		// add another page chunk
 		$('a.add-chunk').live('click', function(e){
 			e.preventDefault();
-	
-			// The date in hexdec
-			key = Number(new Date()).toString(16);
+
+			var html = $.pyroAjax('admin/pages/page_chunk', {}, 'post', 'text');
+
+			$('#page-content > ul li:last').before(html);
 			
-			$('#page-content > ul li:last').before('<li class="page-chunk">' +
-				'<div class="float-left">'+
-				'<input type="text" name="chunk_slug[' + key + ']" value="chunk-' + key + '"/>' +
-				'<select name="chunk_type[' + key + ']">' +
-				'<option value="html">html</option>' +
-				'<option value="markdown">markdown</option>' +
-				'<option value="wysiwyg-simple">wysiwyg-simple</option>' +
-				'<option selected="selected" value="wysiwyg-advanced">wysiwyg-advanced</option>' +
-				'</select>' +
-				'</div><div class="float-right">' +
-				'<a href="javascript:void(0)" class="remove-chunk">Remove</a>' +
-				'</div><br style="clear:both" />' +
-				'<textarea id="chunk-' + key + '" class="wysiwyg-advanced" rows="20" style="width:100%" name="chunk_body[' + key + ']"></textarea>' +
-				'</li>');
-			
-			// initialize the editor using the view from fragments/wysiwyg.php
+			// initialize the editor
 			pyro.init_ckeditor();
 			
 			// Update Chosen
@@ -36,6 +34,14 @@
 		$('a.remove-chunk').live('click', function(e) {
 			e.preventDefault();
 			
+			var name = $(this).parent().children('input').attr('name');
+			var chunk_id = name.match(/\[(.*?)\]/);
+
+			if (chunk_id[1].length < 32)
+			{
+				$.pyroAjax('admin/pages/delete_chunk/' + chunk_id[1]);
+			}
+
 			$(this).closest('li.page-chunk').slideUp('slow', function(){ $(this).remove(); });
 		});
 		
@@ -62,3 +68,34 @@
 	});
 	
 })(jQuery);
+
+function pyroSave(reply) {
+	// remove any dynamic alerts that might be on the screen
+	jQuery(".alert").remove();
+
+	if (reply.valid)
+	{
+		jQuery("#page-form").pyroFormHidden('id',reply.id);
+		jQuery("#page-form").pyroFormHidden('old_slug',reply.old_slug);
+
+		var ary = reply.replace;
+		for (a in ary)
+		{
+			jQuery('[name="chunk_body[' + ary[a][0] + ']"]').attr('name','chunk_body[' + ary[a][1] + ']');
+			jQuery('[name="chunk_slug[' + ary[a][0] + ']"]').attr('name','chunk_slug[' + ary[a][1] + ']');
+			jQuery('[name="chunk_type[' + ary[a][0] + ']"]').attr('name','chunk_type[' + ary[a][1] + ']');
+		}
+
+		// is valid so show saved notice after the cancel button
+		jQuery(".btn.gray.cancel").after(reply.msg);
+		jQuery(".save_alert").delay(3000).slideUp(500);
+	}
+	else
+	{
+		// is not valid so show errors at the top of the page
+		jQuery("#content-body").before(reply.msg);
+		// let's scroll to the top of the page so they can see the msg
+		jQuery('html body').animate({scrollTop:1}, 100);
+	}
+	
+}

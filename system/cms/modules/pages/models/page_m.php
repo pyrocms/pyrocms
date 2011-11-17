@@ -2,7 +2,7 @@
 /**
 * Regular pages model
 *
-* @author Phil Sturgeon - PyroCMS Dev Team
+* @author Phil Sturgeon - PyroCMS Dev Team, Don Myers
 * @package PyroCMS
 * @subpackage Pages Module
 * @category Modules
@@ -10,6 +10,8 @@
 */
 class Page_m extends MY_Model
 {
+	
+	private $chunk_index = 1;
 	
 	/**
 	* Get a page by it's path
@@ -69,7 +71,8 @@ class Page_m extends MY_Model
 	return $this->db->get()->row();
 	}
 	*/
-		
+	
+	
 	/**
 	 * Get a page by it's URI
 	 *
@@ -221,6 +224,9 @@ class Page_m extends MY_Model
 	 */
 	public function build_lookup($id)
 	{
+		// flush uri cache
+		$this->chunk_uris = array();
+		
 		$current_id = $id;
 	
 		$segments = array();
@@ -323,22 +329,7 @@ class Page_m extends MY_Model
 	
 		$this->build_lookup($id);
 		
-		if ($chunks)
-		{
-			// And add the new ones
-			$i = 1;
-			foreach ($chunks as $chunk)
-			{
-				$this->db->insert('page_chunks', array(
-					'page_id' 	=> $id,
-					'sort' 		=> $i++,
-					'slug' 		=> $chunk->slug,
-					'body' 		=> $chunk->body,
-					'type' 		=> $chunk->type,
-					'parsed'	=> ($chunk->type == 'markdown') ? parse_markdown($chunk->body) : ''
-				));
-			}
-		}	
+		$this->insert_chunks($id,$chunks);
 		
 		$this->db->trans_complete();
 		
@@ -355,6 +346,7 @@ class Page_m extends MY_Model
 	*/
 	public function update($id = 0, $input = array(), $chunks = array())
 	{
+		
 		$this->db->trans_start();
 	
 		if ( ! empty($input['is_home']))
@@ -386,25 +378,8 @@ class Page_m extends MY_Model
 		
 		$this->build_lookup($id);
 		
-		if ($chunks)
-		{
-			// Remove the old chunks
-			$this->db->delete('page_chunks', array('page_id' => $id));
-			
-			// And add the new ones
-			$i = 1;
-			foreach ($chunks as $chunk)
-			{
-				$this->db->insert('page_chunks', array(
-					'page_id' 	=> $id,
-					'sort' 		=> $i++,
-					'slug' 		=> $chunk->slug,
-					'body' 		=> $chunk->body,
-					'type' 		=> $chunk->type,
-					'parsed'	=> ($chunk->type == 'markdown') ? parse_markdown($chunk->body) : ''
-				));
-			}
-		}	
+		$this->update_chunks($chunks);
+
 		// Wipe cache for this model, the content has changd
 		$this->pyrocache->delete_all('page_m');
 		$this->pyrocache->delete_all('navigation_m');
@@ -423,15 +398,28 @@ class Page_m extends MY_Model
 	*/
 	public function delete($id = 0)
 	{
+		
 		$this->db->trans_start();
 		
 		$ids = $this->get_descendant_ids($id);
 		
+		// the page
 		$this->db->where_in('id', $ids);
 		$this->db->delete('pages');
 		
+		// any navigations links to that page
 		$this->db->where_in('page_id', $ids);
 		$this->db->delete('navigation_links');
+		
+		// the pages - page chunks
+		foreach ($ids as $id)
+		{
+			$chunks = $this->get_chunks($id);
+			foreach ($chunks as $chunk)
+			{
+				$this->delete_chunks($chunk);
+			}
+		}
 		
 		$this->db->trans_complete();
 		
@@ -446,10 +434,139 @@ class Page_m extends MY_Model
 	*/
 	public function check_slug($slug, $parent_id, $id = 0)
 	{
-		return (int) parent::count_by(array('id !='	=>	$id,
-											'slug'	=>	$slug,
-											'parent_id' => $parent_id
-											)
-									  ) > 0;
+		return (int) parent::count_by(array('id !='	=> $id,'slug' => $slug,'parent_id' => $parent_id)) > 0;
 	}
+		
+	/*
+	* ** Chunk Handling Section **
+	*/
+
+	/**
+	 * Make a empty page chunk 
+	 * the model should be the keeper of what a empty chunk looks like
+	 *
+	 * @access public
+	 * @param mixed random slug name true (default) or string containing slug name
+	 * @return array containing basic page chunk
+	 */
+	public function create_chunk($random = true)
+	{
+		return array(
+			'id' => md5(uniqid()),
+			'type' => 'wysiwyg-advanced',
+			'slug' => ($random === true) ? 'chunk-'.substr(time().mt_rand(10,99),-6) : $random,
+			'body' => '',
+			'parsed' => '',
+			'sort' => 0,
+			'page_id' => 0		
+		);
+	}
+	
+	/**
+	 * get page chunks based on page id
+	 *
+	 * @access public
+	 * @param int page id
+	 * @return array chunk as array
+	 */
+	 public function get_chunks($page_id)
+	 {
+		return $this->db->get_where('page_chunks', array('page_id' => $page_id))->result();			
+	 }
+	
+	/**
+	 * get page chunk based on chunk id
+	 *
+	 * @access public
+	 * @param int chunk id
+	 * @return array chunk as array
+	 */
+	public function get_chunk($chunk_id)
+	{
+		return $this->db->get_where('page_chunks', array('id' => $chunk_id))->result();
+	}
+	
+	/**
+	 * insert a page chunk(s)
+	 *
+	 * @access public
+	 * @param int $page_id current page id
+	 * @param array $chunks array of posted page chunks
+	 * @return int last chunk inserted primary id
+	 */
+	public function insert_chunks($page_id,$chunks)
+	{
+		// is it a chunk or chunks?
+		$chunks = (!isset($chunks[0])) ? array($chunks) : $chunks;
+
+		foreach ($chunks as $chunk)
+		{
+			$chunk = (array)$chunk;
+
+			$this->db->insert('page_chunks', array(
+				'page_id' 	=> $page_id,
+				'sort' 		=> $this->chunk_index++,
+				'slug' 		=> $chunk['slug'],
+				'body' 		=> $chunk['body'],
+				'type' 		=> $chunk['type'],
+				'parsed'	=> ($chunk['type'] == 'markdown') ? parse_markdown($chunk['body']) : ''
+			));
+
+		}
+		// return id of last insert - if you want each insert id then send them in one at a time
+		return $this->db->insert_id();
+	}
+	
+	/**
+	 * update a page chunk(s)
+	 *
+	 * @access public
+	 * @param array of page chunks
+	 * @return void
+	 */
+	public function update_chunks($chunks)
+	{
+		// is it a chunk or chunks?
+		$chunks = (!isset($chunks[0])) ? array($chunks) : $chunks;
+
+		foreach ($chunks as $chunk)
+		{
+			$chunk = (array)$chunk;
+
+			$chunk_id = $chunk['id'];
+			unset($chunk['id']);
+			
+			$this->db->update('page_chunks',array(
+				'page_id' 	=> $chunk['page_id'],
+				'sort' 		=> $this->chunk_index++,
+				'slug' 		=> $chunk['slug'],
+				'body' 		=> $chunk['body'],
+				'type' 		=> $chunk['type'],
+				'parsed'	=> ($chunk['type'] == 'markdown') ? parse_markdown($chunk['body']) : ''
+			),array('id'=>$chunk_id));
+		}
+	}
+	
+	/**
+	 * Delete a page chunk(s)
+	 *
+	 * @access public
+	 * @param array of chunk objects
+	 * @returns void
+	 */
+	public function delete_chunks($chunks)
+	{
+		// is it a chunk or chunks?
+		$chunks = (array)$chunks;
+		$chunks = (!isset($chunks[0])) ? array($chunks) : $chunks;
+
+		foreach ($chunks as $chunk)
+		{
+			// let's turn this into an array incase it's a object
+			$chunk = (array)$chunk;
+
+			$this->db->delete('page_chunks',array('id'=>$chunk['id']));
+		}
+	}
+	
 }

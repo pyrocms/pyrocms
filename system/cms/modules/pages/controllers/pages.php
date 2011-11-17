@@ -177,17 +177,18 @@ class Pages extends Public_Controller
 		}
 
 		// Grab all the chunks that make up the body
-		$page->chunks = $this->db->get_where('page_chunks', array('page_id' => $page->id))->result();
+		$page->chunks = $this->pyrocache->model('page_m', 'get_chunks', $page->id);
 		
 		$chunk_html = '';
 		foreach ($page->chunks as $chunk)
 		{
-			$chunk_html .= 	'<div class="page-chunk '.$chunk->slug.'">' .
-								(($chunk->type == 'markdown') ? $chunk->parsed : $chunk->body) .
+			$chunk = (array)$chunk;
+			$chunk_html .= 	'<div class="page-chunk '.$chunk['slug'].'">' .
+								(($chunk['type'] == 'markdown') ? $chunk['parsed'] : $chunk['body']) .
 							'</div>'.PHP_EOL;
 		}
 		
-		// Parse it so the content is parsed. We pass along $page so that {pyro:page:id} and friends work in page content
+		// Parse it so the content is parsed. We pass along $page so that {{ page:id }} and friends work in page content
 		$page->body = $this->parser->parse_string(str_replace(array('&#39;', '&quot;'), array("'", '"'), $chunk_html), array('page' => $page), TRUE);
 		
 		// Create page output

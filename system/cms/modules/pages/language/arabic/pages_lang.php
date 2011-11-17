@@ -63,6 +63,8 @@ $lang['pages_delete_none_notice'] 				= 'لم تُحذف أية صفحات.';
 $lang['pages_page_already_exist_error'] 		= 'يوجد صفحة لها عنوان "%s" موجودة في %s.';
 $lang['pages_parent_not_exist_error'] 			= 'الصفحة الحاوية التي اخترتها غير موجودة.';
 $lang['pages_root_folder']                = 'المستوى الأعلى';
+$lang['pages_upsert_error']							= 'Page Upsert Error';
+$lang['pages_chunk_slugs_empty']					= 'each page chunk name';
 
 $lang['pages.tree_explanation'] 				= 'القائمة التي على اليمين تمثّل صفحات موقعك.
 اضغط علامة "+" المقابلة للصفحة التي تريد عرض صفحاتها الفرعيّة. وعندما تضغط على أحد الصفحات ستظهر لك جميع المعلومات المفيدة في هذا المربّع.';

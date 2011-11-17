@@ -10,6 +10,7 @@
 
 	<?php echo form_open(uri_string(), 'id="page-form" class="crud"'); ?>
 	<?php echo form_hidden('parent_id', (@$page->parent_id == '')? 0 : $page->parent_id); ?>
+	<?php echo form_hidden('id', (@$page->id == '')? 0 : $page->id); ?>
 
 	<div class="tabs">
 
@@ -20,7 +21,7 @@
 			<li><a href="#page-script"><span><?php echo lang('pages.script_label');?></span></a></li>
 			<li><a href="#page-options"><span><?php echo lang('pages.options_label');?></span></a></li>
 		</ul>
-		
+
 		<hr>
 
 		<!-- Content tab -->
@@ -31,9 +32,9 @@
 					<?php echo form_input('title', $page->title, 'maxlength="60"'); ?>
 					<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
 				</li>
-				
+
 				<hr>
-				
+
 				<li class="<?php echo alternator('even', ''); ?>">
 					<label for="slug"><?php echo lang('pages.slug_label');?></label><br>
 					<?php if ( ! empty($page->parent_id)): ?>
@@ -42,9 +43,7 @@
 						<?php echo site_url() . (config_item('index_page') ? '/' : ''); ?>
 					<?php endif; ?>
 
-					<?php if ($this->method == 'edit'): ?>
-						<?php echo form_hidden('old_slug', $page->slug); ?>
-					<?php endif; ?>
+					<?php echo form_hidden('old_slug', $page->slug); ?>
 
 					<?php if (in_array($page->slug, array('home', '404'))): ?>
 						<?php echo form_hidden('slug', $page->slug); ?>
@@ -56,16 +55,16 @@
 
 					<?php echo config_item('url_suffix'); ?>
 				</li>
-				
+
 				<hr>
-				
+
 				<li class="<?php echo alternator('even', ''); ?>">
 					<label for="category_id"><?php echo lang('pages.status_label'); ?></label><br>
 					<?php echo form_dropdown('status', array('draft'=>lang('pages.draft_label'), 'live'=>lang('pages.live_label')), $page->status); ?>
 				</li>
-				
+
 				<hr>
-				
+
 				<?php if ($this->method == 'create'): ?>
 				<li class="<?php echo alternator('even', ''); ?>">
 					<label for="navigation_group_id"><?php echo lang('pages.navigation_label');?></label><br>
@@ -73,27 +72,11 @@
 				</li>
 				<hr>
 				<?php endif; ?>
-				
+
 				<?php foreach ($page->chunks as $chunk): ?>
-					<li class="<?php echo alternator('even', ''); ?> page-chunk">
-						<div class="float-left">
-						<?php echo form_input('chunk_slug['.$chunk->id.']', $chunk->slug); ?>
-						<?php echo form_dropdown('chunk_type['.$chunk->id.']', array(
-							'html' => 'html',
-							'markdown' => 'markdown',
-							'wysiwyg-simple' => 'wysiwyg-simple',
-							'wysiwyg-advanced' => 'wysiwyg-advanced',
-						), $chunk->type); ?>
-						</div>
-						<div class="float-right">
-							<a href="javascript:void(0)" class="remove-chunk"><?php echo lang('global:remove') ?></a>
-						</div>
-						<br style="clear:both" />
-						<?php echo form_textarea(array('id' => $chunk->slug.'_'.$chunk->id, 'name'=>'chunk_body['.$chunk->id.']', 'value' => $chunk->body, 'rows' => 20, 'class'=> $chunk->type, 'style' => 'width:100%')); ?>
-					</li>
-					<hr>
+					<?php $this->load->view('admin/page_chunk',$chunk); ?>
 				<?php endforeach; ?>
-				
+
 				<li class="<?php echo alternator('even', ''); ?>">
 					<a class="add-chunk btn orange" href="#"><?php echo lang('pages.add_page_chunk'); ?></a>
 				</li>
@@ -108,16 +91,16 @@
 					<label for="meta_title"><?php echo lang('pages.meta_title_label');?></label><br>
 					<input type="text" id="meta_title" name="meta_title" maxlength="255" value="<?php echo $page->meta_title; ?>" />
 				</li>
-				
+
 				<hr>
-				
+
 				<li class="<?php echo alternator('even', ''); ?>">
 					<label for="meta_keywords"><?php echo lang('pages.meta_keywords_label');?></label><br>
 					<input type="text" id="meta_keywords" name="meta_keywords" maxlength="255" value="<?php echo $page->meta_keywords; ?>" />
 				</li>
-				
+
 				<hr>
-				
+
 				<li class="<?php echo alternator('even', ''); ?>">
 					<label for="meta_description"><?php echo lang('pages.meta_desc_label');?></label><br>
 					<?php echo form_textarea(array('name' => 'meta_description', 'value' => $page->meta_description, 'rows' => 5)); ?>
@@ -133,9 +116,9 @@
 					<label for="layout_id"><?php echo lang('pages.layout_id_label');?></label><br>
 					<?php echo form_dropdown('layout_id', $page_layouts, $page->layout_id); ?>
 				</li>
-				
+
 				<hr>
-				
+
 				<li class="<?php echo alternator('even', ''); ?>">
 					<label for="css"><?php echo lang('pages.css_label');?></label><br>
 					<div>
@@ -167,26 +150,26 @@
 					<label for="restricted_to[]"><?php echo lang('pages.access_label');?></label><br>
 					<?php echo form_multiselect('restricted_to[]', array(0 => lang('global:select-any')) + $group_options, $page->restricted_to, 'size="'.(($count = count($group_options)) > 1 ? $count : 2).'"'); ?>
 				</li>
-				
+
 				<hr>
-				
+
 				<li class="<?php echo alternator('even', ''); ?>">
-					<label for="comments_enabled"><?php echo lang('pages.comments_enabled_label');?></label><br>
 					<?php echo form_checkbox('comments_enabled', 1, $page->comments_enabled == 1); ?>
+					<label for="comments_enabled"><?php echo lang('pages.comments_enabled_label');?></label>
 				</li>
-				
+
 				<hr>
-				
+
 				<li class="<?php echo alternator('even', ''); ?>">
-					<label for="rss_enabled"><?php echo lang('pages.rss_enabled_label');?></label><br>
 					<?php echo form_checkbox('rss_enabled', 1, $page->rss_enabled == 1); ?>
+					<label for="rss_enabled"><?php echo lang('pages.rss_enabled_label');?></label>
 				</li>
-				
+
 				<hr>
-				
+
 				<li class="<?php echo alternator('even', ''); ?>">
-					<label for="is_home"><?php echo lang('pages.is_home_label');?></label>
 					<?php echo form_checkbox('is_home', 1, $page->is_home == 1); ?>
+					<label for="is_home"><?php echo lang('pages.is_home_label');?></label>
 				</li>
 				<br>
 			</ul>

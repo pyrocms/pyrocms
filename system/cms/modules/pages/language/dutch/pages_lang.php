@@ -63,6 +63,8 @@ $lang['pages_delete_none_notice'] 				= 'Er zijn geen pagina&apos;s verwijderd.'
 $lang['pages_page_already_exist_error'] 		= 'De pagina met URL "%s" bestaat al in %s.';
 $lang['pages_parent_not_exist_error'] 			= 'De geselecteerde bovenliggende pagina bestaat niet.';
 $lang['pages_root_folder']                = 'the top level'; #translate
+$lang['pages_upsert_error']							= 'Page Upsert Error';
+$lang['pages_chunk_slugs_empty']					= 'each page chunk name';
 
 $lang['pages.tree_explanation'] 				= 'De lijst aan de linkerkant stellen de pagina&apos;s op uw website voor.
 Klik op het "+" icoon naast de pagina om de onderliggende pagina&apos;s te zien. Als u een pagina selecteert ziet u de informatie over de pagina in dit veld.';

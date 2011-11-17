@@ -70,6 +70,8 @@ $lang['pages_delete_none_notice']          = 'Yhtään sivua ei poistettu.';
 $lang['pages_page_already_exist_error']    = 'Sivu, jolla on URL osoite "%s" on jo olemassa paikassa %s.';
 $lang['pages_parent_not_exist_error']      = 'Yläkohdan sivua ei ole olemassa.';
 $lang['pages_root_folder']                = 'the top level'; #translate
+$lang['pages_upsert_error']							= 'Page Upsert Error';
+$lang['pages_chunk_slugs_empty']					= 'each page chunk name';
 
 $lang['pages.tree_explanation']            = 'Vasemmalla oleva lista näyttää sivustosi sivut.
 Klikkaa "+" ikonia, niin näet sen alasivut. Kun klikkaat sivua, näet sivuun liittyen käteviä toimintoja.';

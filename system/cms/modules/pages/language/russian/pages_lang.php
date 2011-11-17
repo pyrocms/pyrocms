@@ -69,6 +69,8 @@ $lang['pages_delete_none_notice']				= 'Ни одной страницы не у
 $lang['pages_page_already_exist_error']	= 'Страница с адресом "%s" уже существует в %s.';
 $lang['pages_parent_not_exist_error']		= 'Выбранная родительская страница не существует.';
 $lang['pages_root_folder']                = 'the top level'; #translate
+$lang['pages_upsert_error']							= 'Page Upsert Error';
+$lang['pages_chunk_slugs_empty']					= 'each page chunk name';
 
 $lang['pages.tree_explanation']					= 'Список слева содержит все страницы вашего сайта. Нажмите знак "+" для отображения потомков выбранной страницы. При нажатии на страницу - в этом блоке будет выведена полезная информация.';
 

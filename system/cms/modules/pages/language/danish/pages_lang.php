@@ -64,6 +64,8 @@ $lang['pages_mass_delete_success']					= '%s sider er slettet.';
 $lang['pages_delete_none_notice']					= 'Ingen sider er slettet.';
 $lang['pages_page_already_exist_error']				= 'En side med URL "%s" findes allerede i %s.';
 $lang['pages_parent_not_exist_error']				= 'Parent-siden som du har valgt findes ikke.';
+$lang['pages_upsert_error']							= 'Page Upsert Error';
+$lang['pages_chunk_slugs_empty']					= 'each page chunk name';
 
 $lang['pages.tree_explanation']						= 'Listen til venstre viser siderne på dit website. Klik på siden for at se undersiderne. Du kan trække siderne for at sorter dem; træk vandret for at lave den til en underside. Når du klikker på sideteksten kan du se en række nyttige informationer i denne box.';
 

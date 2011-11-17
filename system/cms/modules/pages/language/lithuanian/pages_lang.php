@@ -61,6 +61,8 @@ $lang['pages_delete_none_notice']          = 'Nėra ištrintų puslapių.';
 $lang['pages_page_already_exist_error']    = 'Puslapis su URL "%s" jau egzistuoja %s.';
 $lang['pages_parent_not_exist_error']      = 'Tėvo puslapis, kurį pažymėjote neegzistuoja.';
 $lang['pages_root_folder']                = 'the top level'; #translate
+$lang['pages_upsert_error']							= 'Page Upsert Error';
+$lang['pages_chunk_slugs_empty']					= 'each page chunk name';
 
 $lang['pages.tree_explanation']            = 'Paspauskite ant puslapio pavadimo, kad pamatyti vidinius puslapius. Taip pat galite tampydami (aukštyn/žemyn/ vertikaliai) keisti puslapio poziciją; tampydami horizontaliai - galite jį padaryti vidiniu puslapiu. Paspaudę ant puslapio pavadinimo, gausite daugiau informacijos.';
 
