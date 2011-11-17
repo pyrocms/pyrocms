@@ -4,6 +4,14 @@
 		// generate a slug when the user types a title in
 		pyro.generate_slug('input[name="title"]', 'input[name="slug"]');
 		
+	$.ajaxSetup({
+		allowEmpty: true
+	});
+
+		$('#keywords').tagsInput({
+			autocomplete_url:'admin/keywords/autocomplete'
+		});
+		
 		// editor switcher
 		$('select[name^=type]').live('change', function() {
 			chunk = $(this).closest('li.editor');

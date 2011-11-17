@@ -219,7 +219,9 @@ class Admin extends Admin_Controller {
 		$this->template
 			->title($this->module_details['name'], lang('blog_create_title'))
 			->append_metadata($this->load->view('fragments/wysiwyg', $this->data, TRUE))
+			->append_metadata(js('jquery/jquery.tagsinput.min.js'))
 			->append_metadata(js('blog_form.js', 'blog'))
+			->append_metadata(css('jquery/jquery.tagsinput.css'))
 			->set('post', $post)
 			->build('admin/form');
 	}
@@ -326,7 +328,9 @@ class Admin extends Admin_Controller {
 		$this->template
 			->title($this->module_details['name'], sprintf(lang('blog_edit_title'), $post->title))
 			->append_metadata($this->load->view('fragments/wysiwyg', $this->data, TRUE))
+			->append_metadata(js('jquery/jquery.tagsinput.min.js'))
 			->append_metadata(js('blog_form.js', 'blog'))
+			->append_metadata(css('jquery/jquery.tagsinput.css'))
 			->set('post', $post)
 			->build('admin/form');
 	}
