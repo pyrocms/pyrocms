@@ -12,6 +12,12 @@
 				<?php echo lang('blog_category_label');?>: <?php echo anchor('blog/category/'.$post->category_slug, $post->category_title);?>
 			</p>
 			<?php endif; ?>
+			<?php if($post->keywords): ?>
+			<p class="post_keywords">
+				<?php echo lang('blog_tagged_label');?>:
+				<?php echo $post->keywords; ?>
+			</p>
+			<?php endif; ?>
 		</div>
 		<div class="post_body">
 			<?php echo $post->intro; ?>
