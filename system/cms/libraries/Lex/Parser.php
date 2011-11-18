@@ -114,7 +114,8 @@ class Lex_Parser
 					$looped_text = '';
 					foreach ($loop_data as $item_data)
 					{
-						$str = $this->parse_variables($match[2][0], $item_data, $callback);
+						$str = $this->parse_conditionals($match[2][0], $item_data, $callback);
+						$str = $this->parse_variables($str, $item_data, $callback);
 						if ($callback !== null)
 						{
 							$str = $this->parse_callback_tags($str, $item_data, $callback);
@@ -155,7 +156,9 @@ class Lex_Parser
 	public function parse_callback_tags($text, $data, $callback)
 	{
 		$this->setup_regex();
-		if ($this->in_condition)
+		$in_condition = $this->in_condition;
+
+		if ($in_condition)
 		{
 			$regex = '/\{\s*('.$this->variable_regex.')(\s+.*?)?\s*\}/ms';
 		}
@@ -177,9 +180,11 @@ class Lex_Parser
 			$tag = $match[0][0];
 			$start = $match[0][1];
 			$name = $match[1][0];
+
 			if (isset($match[2]))
 			{
-				$parameters = $this->parse_parameters($match[2][0], $data, $callback);
+				$raw_params = $this->inject_extractions($match[2][0], '__cond_str');
+				$parameters = $this->parse_parameters($raw_params, $data, $callback);
 			}
 
 			$content = '';
@@ -194,7 +199,7 @@ class Lex_Parser
 
 			$replacement = call_user_func_array($callback, array($name, $parameters, $content));
 
-			if ($this->in_condition)
+			if ($in_condition)
 			{
 				$replacement = $this->value_to_literal($replacement);
 			}
@@ -242,7 +247,8 @@ class Lex_Parser
 
 			if ($callback)
 			{
-				$condition = preg_replace('/\b(?!\{\s*)('.$this->callback_name_regex.')(?!\s*\})\b/', '{$1}', $condition);
+				$this->in_condition = true;
+				$condition = preg_replace('/\b(?!\{\s*)('.$this->callback_name_regex.')(?!\s+.*?\s*\})\b/', '{$1}', $condition);
 				$condition = $this->parse_callback_tags($condition, $data, $callback);
 			}
 
@@ -374,7 +380,7 @@ class Lex_Parser
 		$this->variable_loop_regex = '/\{\{\s*('.$this->variable_regex.')\s*\}\}(.*?)\{\{\s*\/\1\s*\}\}/ms';
 		$this->variable_tag_regex = '/\{\{\s*('.$this->variable_regex.')\s*\}\}/m';
 
-		$this->callback_block_regex = '/\{\{\s*('.$this->variable_regex.')(\s+.*?)?\s*\}\}(.*?)\{\{\s*\/\1\s*\}\}/ms';
+		$this->callback_block_regex = '/\{\{\s*(?!if)('.$this->variable_regex.')(\s+.*?)?\s*\}\}(.*?)\{\{\s*\/\1\s*\}\}/ms';
 
 		$this->noparse_regex = '/\{\{\s*noparse\s*\}\}(.*?)\{\{\s*\/noparse\s*\}\}/ms';
 
@@ -462,8 +468,11 @@ class Lex_Parser
 			{
 				foreach ($extractions as $hash => $replacement)
 				{
-					$text = str_replace("{$type}_{$hash}", $replacement, $text);
-					unset($this->extractions[$type][$hash]);
+					if (strpos($text, "{$type}_{$hash}") !== false)
+					{
+						$text = str_replace("{$type}_{$hash}", $replacement, $text);
+						unset($this->extractions[$type][$hash]);
+					}
 				}
 			}
 		}
@@ -476,8 +485,11 @@ class Lex_Parser
 
 			foreach ($this->extractions[$type] as $hash => $replacement)
 			{
-				$text = str_replace("{$type}_{$hash}", $replacement, $text);
-				unset($this->extractions[$type][$hash]);
+				if (strpos($text, "{$type}_{$hash}") !== false)
+				{
+					$text = str_replace("{$type}_{$hash}", $replacement, $text);
+					unset($this->extractions[$type][$hash]);
+				}
 			}
 		}
 
@@ -495,7 +507,15 @@ class Lex_Parser
 	 */
 	protected function get_variable($key, $data, $default = null)
 	{
-		foreach (explode($this->scope_glue, $key) as $key_part)
+		if (strpos($key, $this->scope_glue) === false)
+		{
+			$parts = explode('.', $key);
+		}
+		else
+		{
+			$parts = explode($this->scope_glue, $key);
+		}
+		foreach ($parts as $key_part)
 		{
 			if (is_array($data))
 			{

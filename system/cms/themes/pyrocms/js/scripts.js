@@ -329,19 +329,21 @@ jQuery(function($) {
 	pyro.chosen = function()
 	{
 		// Chosen
-		$('select').addClass('chzn');
-		$(".chzn").chosen();
+		$('select').livequery(function(){
+			$(this).addClass('chzn');
+			$(".chzn").chosen();
 
-		// This is a workaround for Chosen's visibility bug. In short if a select
-		// is inside a hidden element Chosen sets the width to 0. This iterates through
-		// the 0 width selects and sets a fixed width.
-		$('.chzn-container').each(function(i, ele){
-			if ($(ele).width() == 0) {
-				$(ele).css('width', '236px');
-				$(ele).find('.chzn-drop').css('width', '234px');
-				$(ele).find('.chzn-search input').css('width', '200px');
-				$(ele).find('.search-field input').css('width', '225px');
-			}
+			// This is a workaround for Chosen's visibility bug. In short if a select
+			// is inside a hidden element Chosen sets the width to 0. This iterates through
+			// the 0 width selects and sets a fixed width.
+			$('.chzn-container').each(function(i, ele){
+				if ($(ele).width() == 0) {
+					$(ele).css('width', '236px');
+					$(ele).find('.chzn-drop').css('width', '234px');
+					$(ele).find('.chzn-search input').css('width', '200px');
+					$(ele).find('.search-field input').css('width', '225px');
+				}
+			});
 		});
 	}
 

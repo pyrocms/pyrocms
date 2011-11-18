@@ -94,6 +94,30 @@ class Blog_m extends MY_Model {
 
 		return $this->get_all();
 	}
+	
+	public function count_tagged_by($tag, $params)
+	{
+		return $this->select('*')
+			->from('blog')
+			->join('keywords_applied', 'keywords_applied.hash = blog.keywords')
+			->join('keywords', 'keywords.id = keywords_applied.keyword_id')
+			->where('keywords.name', str_replace('-', ' ', $tag))
+			->where($params)
+			->count_all_results();
+	}
+	
+	public function get_tagged_by($tag, $params)
+	{
+		return $this->db->select('blog.*, blog.title title, blog.slug slug, blog_categories.title category_title, blog_categories.slug category_slug')
+			->from('blog')
+			->join('keywords_applied', 'keywords_applied.hash = blog.keywords')
+			->join('keywords', 'keywords.id = keywords_applied.keyword_id')
+			->join('blog_categories', 'blog_categories.id = blog.category_id', 'left')
+			->where('keywords.name', str_replace('-', ' ', $tag))
+			->where($params)
+			->get()
+			->result();
+	}
 
 	function count_by($params = array())
 	{

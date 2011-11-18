@@ -48,7 +48,7 @@ class Module_Contact extends Module {
 				'da' => 'Tilføjer en formular på din side som tillader besøgende at sende mails til dig, uden at du skal opgive din email-adresse'
 			),
 			'frontend' => FALSE,
-			'backend' => TRUE,
+			'backend' => FALSE,
 			'menu' => FALSE
 		);
 	}

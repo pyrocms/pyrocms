@@ -57,6 +57,54 @@ class Keywords {
 		
 		return implode(', ', $keywords);
 	}
+	
+	/**
+	 * Get keywords
+	 *
+	 * Gets all the keywords as an array
+	 *
+	 * @param	string	$hash	The unique hash stored for a entry
+	 * @return	array
+	 */
+	public function get_array($hash)
+	{
+		$keywords = array();
+		
+		foreach (ci()->keyword_m->get_applied($hash) as $keyword)
+		{
+			$keywords[] = $keyword->name;
+		}
+		
+		return $keywords;
+	}
+	
+	/**
+	 * Get keywords as links
+	 *
+	 * Returns keyword list as processed links
+	 *
+	 * @param	string	$hash	The unique hash stored for a entry
+	 * @return	array
+	 */
+	public function get_links($hash, $path = '')
+	{
+		$keywords = ci()->keyword_m->get_applied($hash);
+		$i = 1;
+		
+		if (is_array($keywords))
+		{
+			$links = '';
+
+			foreach ($keywords as $keyword)
+			{
+				$links .= anchor(trim($path, '/').'/'.str_replace(' ', '-', $keyword->name), $keyword->name) . ($i < count($keywords) ? ', ' : '');
+				$i++;
+			}
+			return $links;
+		}
+		
+		return $keywords;
+	}
 
 	/**
 	 * Add Keyword
