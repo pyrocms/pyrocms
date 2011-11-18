@@ -24,20 +24,21 @@ class Plugin_Contact extends Plugin {
 	 *
 	 * Usage:
 	 *
-	 * {{ contact:form 	name	 	= "text|required"
-	 * 					email	 	= "text|required|valid_email"
-	 * 					subject		= "dropdown|required|hello=Say Hello|support=Support Request|Something Else"
-	 * 					message	 	= "textarea|required"
-	 * 					attachment	= "file|jpg|png|zip
-	 * 					max-size 	= "10000"
-	 * 					reply-to 	= "visitor@somewhere.com" * Read note below *
-	 * 					button	 	= "send"
-	 * 					template 	= "contact"
-	 * 					lang	 	= "en"
-	 * 					to		 	= "contact@site.com"
-	 * 					from	 	= "server@site.com"
-	 * 					sent		= "Your message has been sent. Thank you for contacting us"
-	 * 					error		= "Sorry. Your message could not be sent. Please call us at 123-456-7890"
+	 * {{ contact:form 	name	 			= "text|required"
+	 * 					email	 			= "text|required|valid_email"
+	 * 					subject				= "dropdown|required|hello=Say Hello|support=Support Request|Something Else"
+	 * 					message	 			= "textarea|required"
+	 * 					attachment			= "file|jpg|png|zip
+	 * 					max-size 			= "10000"
+	 * 					reply-to 			= "visitor@somewhere.com" * Read note below *
+	 * 					button	 			= "send"
+	 * 					template 			= "contact"
+	 * 					lang	 			= "en"
+	 * 					to		 			= "contact@site.com"
+	 * 					from	 			= "server@site.com"
+	 * 					sent				= "Your message has been sent. Thank you for contacting us"
+	 * 					error				= "Sorry. Your message could not be sent. Please call us at 123-456-7890"
+	 * 					success-redirect	= "home"
 	 * 	}}
 	 * 		{{ name }}
 	 * 		{{ email }}
@@ -48,22 +49,23 @@ class Plugin_Contact extends Plugin {
 	 *
 	 * 	If form validation doesn't pass the error messages will be displayed next to the corresponding form element.
 	 *
-	 * @param	wildcard	The attribute name will be used as a form name. First value position denotes type of form. The rest denote validation rules.
-	 * 						Example: email="text|required|valid_email" will create a text field named "email" that must be a valid email. In
-	 * 						the case of a dropdown field the rest will denote dropdown key => values. Example: subject="dropdown|value=First Option|second-value=Second"
-	 * 						Or if you prefer you can simply use the dropdown text and it will be used as the value also: subject="dropdown|First Option|Second"
-	 * 						Dropdown fields will additionally accept "required" as a rule. While file fields will accept "required" plus file extensions.
-	 * 						Valid form types are text, textarea, dropdown, and file.
-	 * @param	max-size	If file upload fields are used the max-size attribute will limit the file size that can be uploaded.
-	 * @param	reply-to	*If you have a field named "email" it will be used as a default. You should have one or the other if you plan to reply
-	 * @param	button		The name of the submit button
-	 * @param	template	The slug of the Email Template that you wish to use
-	 * @param	lang		The language version of the Email template
-	 * @param	to			Email address to send to
-	 * @param	from		Server email that emails will show as the sender
-	 * @param	sent		Allows you to set a different message for each contact form.
-	 * @param	error		Set a unique error message for each form.
-	 * @return	array
+	 * @param	wildcard			The attribute name will be used as a form name. First value position denotes type of form. The rest denote validation rules.
+	 * 								Example: email="text|required|valid_email" will create a text field named "email" that must be a valid email. In
+	 * 								the case of a dropdown field the rest will denote dropdown key => values. Example: subject="dropdown|value=First Option|second-value=Second"
+	 * 								Or if you prefer you can simply use the dropdown text and it will be used as the value also: subject="dropdown|First Option|Second"
+	 * 								Dropdown fields will additionally accept "required" as a rule. While file fields will accept "required" plus file extensions.
+	 * 								Valid form types are text, textarea, dropdown, and file.
+	 * @param	max-size			If file upload fields are used the max-size attribute will limit the file size that can be uploaded.
+	 * @param	reply-to			*If you have a field named "email" it will be used as a default. You should have one or the other if you plan to reply
+	 * @param	button				The name of the submit button
+	 * @param	template			The slug of the Email Template that you wish to use
+	 * @param	lang				The language version of the Email template
+	 * @param	to					Email address to send to
+	 * @param	from				Server email that emails will show as the sender
+	 * @param	sent				Allows you to set a different message for each contact form.
+	 * @param	error				Set a unique error message for each form.
+	 * @param	success-redirect	Redirect the user to a different page if the message was sent successfully. 
+	 * @return	string
 	 */
 	public function form()
 	{
@@ -75,7 +77,7 @@ class Plugin_Contact extends Plugin {
 		// If they try using the old form tag plugin give them an idea why it's failing.
 		if ( ! $this->content() OR count($field_list) == 0)
 		{
-			return 'This plugin requires field parameters and it must be used as a double tag.';
+			return 'The new contact plugin requires field parameters and it must be used as a double tag.';
 		}
 		
 		$button 	= $this->attribute('button', 'send');
@@ -85,6 +87,7 @@ class Plugin_Contact extends Plugin {
 		$from		= $this->attribute('from', Settings::get('server_email'));
 		$reply_to	= $this->attribute('reply-to');
 		$max_size	= $this->attribute('max-size', 10000);
+		$redirect	= $this->attribute('success-redirect', FALSE);
 		$form_meta 	= array();
 		$validation	= array();
 		$output		= array();
@@ -261,7 +264,7 @@ class Plugin_Contact extends Plugin {
 			$message = $this->attribute('sent', lang('contact_sent_text'));
 			
 			$this->session->set_flashdata('success', $message);
-			redirect(current_url());
+			redirect( ($redirect ? $redirect : current_url()) );
 		}
 
 		// From here on out is form production
@@ -275,20 +278,22 @@ class Plugin_Contact extends Plugin {
 				$parse_data[$form] .= call_user_func('form_'.$value['type'],
 														$form,
 														$form_meta[$form]['dropdown'],
-														set_value($form)
+														set_value($form),
+														'class="'.$form.'"'
 													 );
 			}
 			else
 			{
 				$parse_data[$form] .= call_user_func('form_'.$value['type'],
 														$form,
-														set_value($form)
+														set_value($form),
+														'class="'.$form.'"'
 													 );				
 			}
 		}
 	
 		$output	 = form_open_multipart(current_url()).PHP_EOL;
-		$output	.= $this->parser->parse_string($this->content(), $parse_data, TRUE).PHP_EOL;
+		$output	.= $this->parser->parse_string($this->content(), str_replace('{{', '{ {', $parse_data), TRUE).PHP_EOL;
 		$output .= '<p class="contact-button">'.form_submit($button, ucfirst($button)).'</p>'.PHP_EOL;
 		$output .= form_close();
 

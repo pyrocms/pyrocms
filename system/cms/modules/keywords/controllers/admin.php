@@ -139,4 +139,13 @@ class Admin extends Admin_Controller
 
 		redirect('admin/keywords');
 	}
+	
+	public function autocomplete()
+	{
+		echo json_encode(
+						 $this->keyword_m->select('name value')
+							->like('name', $this->input->get('term'))
+							->get_all()
+						);
+	}
 }
