@@ -4,7 +4,7 @@
  * Русский перевод от Dark Preacher - dark[at]darklab.ru
  *
  * @package		PyroCMS
- * @author		Dark Preacher 
+ * @author		Dark Preacher
  * @link			http://pyrocms.com
  */
 
@@ -16,4 +16,3 @@ $lang['error_404_message']			= 'Мы не смогли найти страниц
 $lang['error_invalid_db_group']	= 'База данных использует ошибочную группу конфигурации "%s".';
 
 /* End of file errors_lang.php */
-/* Location: ./system/cms/language/russian/errors_lang.php */

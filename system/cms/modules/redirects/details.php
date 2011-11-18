@@ -16,12 +16,13 @@ class Module_Redirects extends Module {
 				'it' => 'Reindirizzi',
 				'ru' => 'Перенаправления',
 				'ar' => 'التوجيهات',
-				'pt' => 'Redirecionamentos',
+				'br' => 'Redirecionamentos',
 				'cs' => 'Přesměrování',
 				'fi' => 'Uudelleenohjaukset',
 				'el' => 'Ανακατευθύνσεις',
 				'he' => 'הפניות',
-				'lt' => 'Peradresavimai'
+				'lt' => 'Peradresavimai',
+				'da' => 'Omadressering'
 			),
 			'description' => array(
 				'sl' => 'Preusmeritev iz enega URL naslova na drugega',
@@ -32,16 +33,25 @@ class Module_Redirects extends Module {
 				'it' => 'Reindirizza da una URL ad un altra.',
 				'ru' => 'Перенаправления с одного адреса на другой.',
 				'ar' => 'التوجيه من رابط URL إلى آخر.',
-				'pt' => 'Redirecionamento de uma URL para outra.',
+				'br' => 'Redirecionamento de uma URL para outra.',
 				'cs' => 'Přesměrujte z jedné adresy URL na jinou.',
 				'fi' => 'Uudelleenohjaa käyttäjän paikasta toiseen.',
 				'el' => 'Ανακατευθείνετε μια διεύθυνση URL σε μια άλλη',
 				'he' => 'הפניות מכתובת אחת לאחרת',
-				'lt' => 'Peradresuokite puslapį iš vieno adreso (URL) į kitą.'
+				'lt' => 'Peradresuokite puslapį iš vieno adreso (URL) į kitą.',
+				'da' => 'Omadresser fra en URL til en anden.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
-			'menu'	  => 'utilities'
+			'menu'	  => 'utilities',
+			
+			'shortcuts' => array(
+				array(
+				    'name' => 'redirects.add_title',
+				    'uri' => 'admin/redirects/add',
+				    'class' => 'add'
+				),
+		    ),
 		);
 	}
 

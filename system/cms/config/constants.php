@@ -27,23 +27,14 @@ define('DIR_WRITE_MODE', 0777);
 |
 */
 
-define('FOPEN_READ', 							'rb');
+define('FOPEN_READ',							'rb');
 define('FOPEN_READ_WRITE',						'r+b');
-define('FOPEN_WRITE_CREATE_DESTRUCTIVE', 		'wb');	// truncates existing file data, use with care
-define('FOPEN_READ_WRITE_CREATE_DESTRUCTIVE', 	'w+b'); // truncates existing file data, use with care
-define('FOPEN_WRITE_CREATE', 					'ab');
-define('FOPEN_READ_WRITE_CREATE', 				'a+b');
-define('FOPEN_WRITE_CREATE_STRICT', 			'xb');
+define('FOPEN_WRITE_CREATE_DESTRUCTIVE',		'wb'); // truncates existing file data, use with care
+define('FOPEN_READ_WRITE_CREATE_DESTRUCTIVE',	'w+b'); // truncates existing file data, use with care
+define('FOPEN_WRITE_CREATE',					'ab');
+define('FOPEN_READ_WRITE_CREATE',				'a+b');
+define('FOPEN_WRITE_CREATE_STRICT',				'xb');
 define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
-
-/*
-|--------------------------------------------------------------------------
-| Environment
-|--------------------------------------------------------------------------
-*/
-
-# Deprecated v1.2.0-beta1 This feature was rolled into CodeIgniter so we don't need to handle it ourselves anymore.
-define('ENV', ENVIRONMENT);
 
 /*
 |--------------------------------------------------------------------------
@@ -92,7 +83,7 @@ unset($base_uri, $base_url);
 |
 */
 
-define('CMS_VERSION', '1.3.2');
+define('CMS_VERSION', '2.0.0-beta1');
 
 /*
 |--------------------------------------------------------------------------
@@ -114,7 +105,6 @@ define('CMS_EDITION', 'Community');
 |
 */
 
-define('CMS_DATE', '11/08/2011');
+define('CMS_DATE', '18/11/2011');
 
 /* End of file constants.php */
-/* Location: ./system/cms/config/constants.php */

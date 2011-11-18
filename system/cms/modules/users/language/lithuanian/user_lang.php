@@ -26,11 +26,7 @@ $lang['user_password_confirm_label']           = 'Patvortinti spaltažodį';
 $lang['user_name_label']                       = 'Vardas';
 $lang['user_joined_label']                     = 'Prisijungę';
 $lang['user_last_visit_label']                 = 'Paskutinis vizitas';
-$lang['user_actions_label']                    = 'Veiksmai';
 $lang['user_never_label']                      = 'Nė karto';
-$lang['user_delete_label']                     = 'Ištrinti';
-$lang['user_edit_label']                       = 'Redaguoti';
-$lang['user_view_label']                       = 'Peržiūrėti';
 
 $lang['user_no_inactives']                     = 'Nėra neaktyvių vartotojų.';
 $lang['user_no_registred']                     = 'Nėra registruotų vartotojų.';
@@ -46,7 +42,7 @@ $lang['user_activate_account_title']           = 'Aktyvios paskyros';
 $lang['user_activate_label']                   = 'Aktyvinti';
 $lang['user_activated_account_title']          = 'Aktyvuotos paskyros';
 $lang['user_reset_password_title']             = 'Atstatyti slaptažodį';
-$lang['user_password_reset_title']             = 'Slaptažodis atstatytas';  
+$lang['user_password_reset_title']             = 'Slaptažodis atstatytas';
 
 
 $lang['user_error_username']                   = 'Vartotojo vardas, kurį jūs pasirinkote jau naudojamas';
@@ -62,7 +58,6 @@ $lang['user_email']                            = 'E-paštas';
 $lang['user_confirm_email']                    = 'Patvirtinti E-paštą';
 $lang['user_password']                         = 'Slaptažodis';
 $lang['user_remember']                         = 'Prisiminti mane';
-$lang['user_confirm_password']                 = 'Patvirtinti slaptažodį';
 $lang['user_group_id_label']                   = 'Grupės ID'; // #TRANSLATE #TODO: Translate this into Spanish
 
 $lang['user_level']                            = 'Vartotojo vaidmuo';
@@ -71,6 +66,7 @@ $lang['user_lang']                             = 'Kalba';
 
 $lang['user_activation_code']                  = 'Aktyvacijos kodas';
 
+$lang['user_reset_instructions']			   = 'Enter your email address or username'; #translate
 $lang['user_reset_password_link']              = 'Pamiršote slaptažodį?';
 
 $lang['user_activation_code_sent_notice']      = 'Laiškas buvo išsiųsta su jūsų aktyvacijos kodu.';
@@ -170,7 +166,7 @@ $lang['profile_edit']                 = 'Redaguoti profilį';
 
 $lang['profile_personal_section']     = 'Asmeninis';
 
-$lang['profile_display_name']         = 'Rodomas vardas';  
+$lang['profile_display_name']         = 'Rodomas vardas';
 $lang['profile_dob']                  = 'Gimimo data';
 $lang['profile_dob_day']              = 'Diena';
 $lang['profile_dob_month']            = 'Mėnuo';
@@ -213,4 +209,3 @@ $lang['profile_edit_error']           = 'Įvyko klaida.';
 $lang['profile_save_btn']             = 'Išsaugoti profilį';
 
 /* End of file user_lang.php */
-/* Location: ./system/cms/modules/users/language/english/user_lang.php */

@@ -10,7 +10,7 @@
  *
  */
 class Plugin_Variables extends Plugin
-{
+{	
 	/**
 	 * Load a variable
 	 *
@@ -20,10 +20,24 @@ class Plugin_Variables extends Plugin
 	 * @param	string
 	 * @return	string
 	 */
-	function __call($name, $data)
+	public function __call($name, $arguments)
 	{
 		$this->load->library('variables/variables');
 		return $this->variables->$name;
+	}
+	
+	/**
+	 * Load a variable
+	 *
+	 * Magic method to get the variable.
+	 *
+	 * @param	string
+	 * @param	string
+	 * @return	string
+	 */
+	public function set()
+	{
+		$this->variables->{$this->attribute('name')} = $this->attribute('value');
 	}
 }
 

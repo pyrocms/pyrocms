@@ -215,12 +215,9 @@ if ( ! function_exists('random_string'))
 						case 'nozero'	:	$pool = '123456789';
 							break;
 					}
-
-					$str = '';
-					for ($i=0; $i < $len; $i++)
-					{
-						$str .= substr($pool, mt_rand(0, strlen($pool) -1), 1);
-					}
+					
+					$str = substr(str_shuffle(str_repeat($pool, ceil($len/strlen($pool)))),0,$len);
+					
 					return $str;
 				break;
 			case 'unique'	:
@@ -238,6 +235,23 @@ if ( ! function_exists('random_string'))
 				break;
 		}
 	}
+}
+
+// ------------------------------------------------------------------------
+
+/**
+ * Add's _1 to a string or increment the ending number to allow _2, _3, etc
+ *
+ * @param   string  $str  required
+ * @param   string  $separator  What should the duplicate number be appended with
+ * @param   string  $first  Which number should be used for the first dupe increment
+ * @return  string
+ */
+function increment_string($str, $separator = '_', $first = 1)
+{
+	preg_match('/(.+)'.$separator.'([0-9]+)$/', $str, $match);
+
+	return isset($match[2]) ? $match[1].$separator.($match[2] + 1) : $str.$separator.$first;
 }
 
 // ------------------------------------------------------------------------

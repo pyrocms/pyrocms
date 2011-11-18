@@ -1,7 +1,14 @@
-(function($){$(function(){
+(function($){
+
+	// Live typing for var names.
+	$('input[name=name]').live('keyup', function() {
+		$('#var_'+$(this).attr('id')).html($('input[name=name]').val()).replace(/[a-zA-Z]+[0-9]+/), '';
+	});
+	
+	$(function(){
 
 	var variables = {
-		$content : $('#content'),
+		$content : $('#content-body'),
 
 		/**
 		 * Constructor
@@ -20,7 +27,6 @@
 				variables.$content.slideUp(function(){
 					// Load the create form
 					$(this).load(fetch_url, function(){
-						$.uniform.update('input[type=checkbox], button');
 						$(this).slideDown();
 					});
 				});
@@ -54,11 +60,9 @@
 				{
 					return false;
 				}
-
+				
 				orig_tr.fadeOut(function(){
-					orig_tr.load(load_url, function(){
-						$.uniform.update('input[type=checkbox], button');
-					});
+					orig_tr.load(load_url);
 					orig_tr.fadeIn();
 				});
 
@@ -68,7 +72,7 @@
 			/**
 			 * Form submit behavior, both create and edit trigger
 			 */
-			$('button[value=save],button[value=save_exit]').live('click', function(e){
+			$('button[value=save]').live('click', function(e){
 				e.preventDefault();
 
 				var form_data	= {
@@ -79,6 +83,8 @@
 				has_id		= id !== undefined,
 				post_url	= SITE_URL + 'admin/variables/' + (has_id ? 'edit/' + id : 'create'),
 				callback	= ( $(this).val() == 'save_exit' || $(this).parent('td.actions').size() > 0 ) ? variables.load_list : false;
+				
+				if(has_id){form_data.variable_id=id;}
 
 				variables.do_submit(form_data, post_url, callback);
 			});
@@ -96,7 +102,6 @@
 			}
 
 			variables.$content.load(list_page, function(){
-				$.uniform.update('input[type=checkbox], button');
 				$(this).slideDown();
 			});
 		},
@@ -104,12 +109,12 @@
 		/**
 		 * Handles submits for both edit and create forms
 		 */
-		do_submit: function(form_data, post_url, callback){
+		do_submit: function(form_data, post_url, callback) {
 
 			// Remove notifications
 			pyro.clear_notifications();
 
-			$.post(post_url, form_data, function(data, status, xhr){
+			$.post(post_url, form_data, function(data, status, xhr) {
 
 				if (data.title)
 				{
@@ -130,6 +135,8 @@
 
 			}, 'json');
 		}
-	}; variables.init();
+	};
+	
+	variables.init();
 
 });})(jQuery);

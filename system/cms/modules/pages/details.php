@@ -1,8 +1,13 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
-
+/**
+ * @author 		PyroCMS Dev Team
+ * @package 	PyroCMS
+ * @subpackage 	Modules
+ * @category 	Pages
+ */
 class Module_Pages extends Module {
 
-	public $version = '1.2';
+	public $version = '2.0';
 
 	public function info()
 	{
@@ -15,7 +20,7 @@ class Module_Pages extends Module {
 				'fr' => 'Pages',
 				'de' => 'Seiten',
 				'pl' => 'Strony',
-				'pt' => 'Páginas',
+				'br' => 'Páginas',
 				'zh' => '頁面',
 				'it' => 'Pagine',
 				'ru' => 'Страницы',
@@ -24,7 +29,8 @@ class Module_Pages extends Module {
 				'fi' => 'Sivut',
 				'el' => 'Σελίδες',
 				'he' => 'דפים',
-				'lt' => 'Puslapiai'
+				'lt' => 'Puslapiai',
+				'da' => 'Sider'
 			),
 			'description' => array(
 				'sl' => 'Dodaj stran s kakršno koli vsebino želite.',
@@ -34,7 +40,7 @@ class Module_Pages extends Module {
 				'es' => 'Agrega páginas customizadas al sitio con cualquier contenido que tu quieras.',
 				'fr' => "Permet d'ajouter sur le site des pages personalisées avec le contenu que vous souhaitez.",
 				'de' => 'Füge eigene Seiten mit anpassbaren Inhalt hinzu.',
-				'pt' => 'Adicionar páginas personalizadas ao site com qualquer conteúdo que você queira.',
+				'br' => 'Adicionar páginas personalizadas ao site com qualquer conteúdo que você queira.',
 				'zh' => '為您的網站新增自定的頁面。',
 				'it' => 'Aggiungi pagine personalizzate al sito con qualsiesi contenuto tu voglia.',
 				'ru' => 'Управление информационными страницами сайта, с произвольным содержимым.',
@@ -43,7 +49,8 @@ class Module_Pages extends Module {
 				'fi' => 'Lisää mitä tahansa sisältöä sivustollesi.',
 				'el' => 'Προσθέστε δικές σας σελίδες στον ιστότοπό σας με ό,τι περιεχόμενο θέλετε.',
 				'he' => 'ניהול דפי תוכן האתר',
-				'lt' => 'Pridėkite nuosavus puslapius betkokio turinio'
+				'lt' => 'Pridėkite nuosavus puslapius betkokio turinio',
+				'da' => 'Tilføj brugerdefinerede sider til dit site med det indhold du ønsker.'
 			),
 			'frontend' => TRUE,
 			'backend'  => TRUE,
@@ -52,7 +59,32 @@ class Module_Pages extends Module {
 
 			'roles' => array(
 				'put_live', 'edit_live', 'delete_live'
-			)
+			),
+
+			'sections' => array(
+			    'pages' => array(
+				    'name' => 'pages.list_title',
+				    'uri' => 'admin/pages',
+				    'shortcuts' => array(
+						array(
+						    'name' => 'pages.create_title',
+						    'uri' => 'admin/pages/create',
+						    'class' => 'add'
+						),
+				    ),
+				),
+				'layouts' => array(
+				    'name' => 'pages.layouts_list_title',
+				    'uri' => 'admin/pages/layouts',
+				    'shortcuts' => array(
+						array(
+						    'name' => 'pages.layouts_create_title',
+						    'uri' => 'admin/pages/layouts/create',
+						    'class' => 'add'
+						),
+				    ),
+			    ),
+			),
 		);
 	}
 
@@ -64,7 +96,7 @@ class Module_Pages extends Module {
 		$this->dbforge->drop_table('revisions');
 
 		$page_layouts = "
-			CREATE TABLE " . $this->db->dbprefix('page_layouts') . " (
+			CREATE TABLE ".$this->db->dbprefix('page_layouts')." (
 			`id` INT( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
 			`title` VARCHAR( 60 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
 			`body` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
@@ -76,7 +108,7 @@ class Module_Pages extends Module {
 		";
 
 		$pages = "
-			CREATE TABLE " . $this->db->dbprefix('pages') . " (
+			CREATE TABLE ".$this->db->dbprefix('pages')." (
 			 `id` int(11) unsigned NOT NULL auto_increment,
 			 `slug` varchar(255) collate utf8_unicode_ci NOT NULL default '',
 			 `title` varchar(255) collate utf8_unicode_ci NOT NULL default '',
@@ -98,45 +130,51 @@ class Module_Pages extends Module {
 			 `is_home` TINYINT(1) NOT NULL default '0',
 			 `order` INT(11) NOT NULL default '0',
 			 PRIMARY KEY  (`id`),
-			 UNIQUE KEY `Unique` (`slug`,`parent_id`),
 			 KEY `slug` (`slug`),
 			 KEY `parent` (`parent_id`)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='User Editable Pages';
 		";
 
 		$page_chunks = "
-			CREATE TABLE " . $this->db->dbprefix('page_chunks') . " (
+			CREATE TABLE ".$this->db->dbprefix('page_chunks')." (
 			  `id` int(11) NOT NULL auto_increment,
 			  `slug` varchar(30) collate utf8_unicode_ci NOT NULL,
 			  `page_id` int(11) NOT NULL,
 			  `body` text collate utf8_unicode_ci NOT NULL,
-			  `type` set('html','wysiwyg-advanced','wysiwyg-simple') collate utf8_unicode_ci NOT NULL,
+			  `parsed` text collate utf8_unicode_ci NOT NULL,
+			  `type` set('html','markdown','wysiwyg-advanced','wysiwyg-simple') collate utf8_unicode_ci NOT NULL,
 			  `sort` int(11) NOT NULL,
-			PRIMARY KEY (`id`),
-			UNIQUE KEY `unique - slug` (`slug`, `page_id`)
+			PRIMARY KEY (`id`)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 		";
 
 		$default_page_layouts = "
-			INSERT INTO  " . $this->db->dbprefix('page_layouts') . " (`id`, `title`, `body`, `css`, `js`, `updated_on`) VALUES
-			(1, 'Default', '<h2>{pyro:page:title}</h2>\n\n\n{pyro:page:body}', '', '', ".time().");
+			INSERT INTO  ".$this->db->dbprefix('page_layouts')." (`id`, `title`, `body`, `css`, `js`, `updated_on`) VALUES
+			(1, 'Default', '<h2>{{ page:title }}</h2>\n\n\n{{ page:body }}', '', '', ".time().");
 		";
 
 		$default_pages = "
-			INSERT INTO " . $this->db->dbprefix('pages') . " (`id`, `slug`, `title`, `uri`, `revision_id`, `parent_id`, `layout_id`, `status`, `created_on`, `updated_on`, `restricted_to`, is_home) VALUES
+			INSERT INTO ".$this->db->dbprefix('pages')." (`id`, `slug`, `title`, `uri`, `revision_id`, `parent_id`, `layout_id`, `status`, `created_on`, `updated_on`, `restricted_to`, is_home) VALUES
 			('1','home', 'Home', 'home', 1, 0, 1, 'live', ".time().", ".time().", '', 1),
 			('2', '404', 'Page missing', '404', 2, 0, '1', 'live', ".time().", ".time().", '', 0),
 			('3','contact', 'Contact', 'contact', 3, 0, 1, 'live', ".time().", ".time().", '', 0);
 		";
 
 		$default_chunks = "
-			INSERT INTO " . $this->db->dbprefix('page_chunks') . " (`id`, `slug`, `page_id`, `body`, `type`, `sort`) VALUES
-			  ('1', 'default', '1', '<p>Welcome to our homepage. We have not quite finished setting up our website yet, but please add us to your bookmarks and come back soon.</p>', 'wysiwyg-advanced', '0'),
-			  ('2', 'default', '2', '<p>We cannot find the page you are looking for, please click <a title=\"Home\" href=\"{pyro:pages:url id=\'1\'}\">here</a> to go to the homepage.</p>', 'wysiwyg-advanced', '0'),
-			  ('3', 'default', '3', '<p>To contact us please fill out the form below.</p> {pyro:contact:form}', 'wysiwyg-advanced', '0');
+			INSERT INTO ".$this->db->dbprefix('page_chunks')." (`id`, `slug`, `page_id`, `body`, `parsed`, `type`, `sort`) VALUES
+			  ('1', 'default', '1', '<p>Welcome to our homepage. We have not quite finished setting up our website yet, but please add us to your bookmarks and come back soon.</p>', '', 'wysiwyg-advanced', '0'),
+			  ('2', 'default', '2', '<p>We cannot find the page you are looking for, please click <a title=\"Home\" href=\"{{ pages:url id=\'1\' }}\">here</a> to go to the homepage.</p>', '', 'wysiwyg-advanced', '0'),
+			  ('3', 'default', '3', '<p>To contact us please fill out the form below.</p>
+				{{ contact:form name=\"text|required\" email=\"text|required|valid_email\" subject=\"dropdown|Support|Sales|Feedback|Other\" message=\"textarea\" attachment=\"file|zip\" }}
+					<div><label for=\"name\">Name:</label>{{ name }}</div>
+					<div><label for=\"email\">Email:</label>{{ email }}</div>
+					<div><label for=\"subject\">Subject:</label>{{ subject }}</div>
+					<div><label for=\"message\">Message:</label>{{ message }}</div>
+					<div><label for=\"attachment\">Attach  a zip file:</label>{{ attachment }}</div>
+				{{ /contact:form }}', '', 'wysiwyg-advanced', '0');
 		";
 
-		if($this->db->query($page_layouts) &&
+		if ($this->db->query($page_layouts) &&
 		   $this->db->query($pages) &&
 		   $this->db->query($page_chunks) &&
 		   $this->db->query($default_page_layouts) &&
@@ -193,11 +231,11 @@ class Module_Pages extends Module {
 		instead of placing them in every page. For example: If you have a twitter feed widget that you want to display at the bottom of every page you can just place
 		the widget tag in the page layout:
 <pre><code>
-{pyro:page:title}
-{pyro:page:body}
+{{ page:title }}
+{{ page:body }}
 
 < div class=\"my-twitter-widget\" >
-	{pyro:widgets:instance id=\"1\"}
+	{{ widgets:instance id=\"1\" }}
 < /div >
 </code></pre>
 		Now you can apply css styling to the \"my-twitter-widget\" class in the CSS tab.</p>";

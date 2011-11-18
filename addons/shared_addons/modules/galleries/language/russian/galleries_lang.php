@@ -30,15 +30,12 @@ $lang['galleries.no_gallery_description']			= 'Описание пока ещё 
 // подписи
 $lang['galleries.galleries_label']						= 'Галереи';
 $lang['galleries.manage_gallery_label']				= 'Управление галереей';
-$lang['galleries.new_gallery_label']					= 'Создать галерею';
 
 $lang['galleries.gallery_label']							= 'Альбом';
 $lang['galleries.num_photos_label']						= 'Количество фотографий';
 $lang['galleries.updated_label']							= 'Последнее обновление';
-$lang['galleries.actions_label']							= 'Действия';
 $lang['galleries.view_label']									= 'Просмотр';
 $lang['galleries.manage_label']								= 'Управление';
-$lang['galleries.delete_label']								= 'Удалить';
 $lang['galleries.comments_enabled_label']			= 'Да';
 $lang['galleries.comments_disabled_label']		= 'Нет';
 $lang['galleries.published_yes_label']				= 'Да';
@@ -70,4 +67,3 @@ $lang['galleries.design_label']								= 'Оформление';
 $lang['galleries.script_label']								= 'Скрипты';
 
 /* End of file galleries_lang.php */
-/* Location: ./addons/modules/galleries/language/russian/galleries_lang.php */

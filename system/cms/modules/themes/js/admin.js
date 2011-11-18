@@ -1,13 +1,6 @@
 jQuery(function($) {
 	
-	// colorbox modal window
-	$('.options-modal').colorbox({
-		width: '60%',
-		height: '90%'
-	});
-	
-	
-	$('#cboxContent').find(':submit').live('click', function(e){
+	$('.options-form').find(':submit').live('click', function(e){
 		e.preventDefault();
 		var post = '';
 		

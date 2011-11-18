@@ -34,11 +34,7 @@ $lang['user_password_confirm_label']				= 'Подтверждение парол
 $lang['user_name_label']										= 'Имя';
 $lang['user_joined_label']									= 'Зарегистрировался';
 $lang['user_last_visit_label']							= 'Последний визит';
-$lang['user_actions_label']									= 'Действия';
 $lang['user_never_label']										= 'Никогда';
-$lang['user_delete_label']									= 'Удалить';
-$lang['user_edit_label']										= 'Редактировать';
-$lang['user_view_label']										= 'Просмотр';
 
 $lang['user_no_inactives']									= 'Неактивные пользователи отсутствуют.';
 $lang['user_no_registred']									= 'Зарегистрированные пользователи отсутствуют.';
@@ -69,7 +65,6 @@ $lang['user_email']													= 'E-mail';
 $lang['user_confirm_email']									= 'Подтверждение E-mail';
 $lang['user_password']											= 'Пароль';
 $lang['user_remember']											= 'Запомнить меня';
-$lang['user_confirm_password']							= 'Подтверждение пароля';
 $lang['user_group_id_label']								= 'ID группы';
 
 $lang['user_level']													= 'Уровень пользователя';
@@ -78,6 +73,7 @@ $lang['user_lang']													= 'Язык';
 
 $lang['user_activation_code']								= 'Код активации';
 
+$lang['user_reset_instructions']			   = 'Enter your email address or username'; #translate
 $lang['user_reset_password_link']						= 'Забыли пароль?';
 
 $lang['user_activation_code_sent_notice']		= 'На указанный Вами адрес электронной почты отправлено письмо с кодом активации.';
@@ -219,4 +215,3 @@ $lang['profile_edit_error'] 					= 'Во время сохранения про�
 $lang['profile_save_btn'] 						= 'Сохранить профиль';
 
 /* End of file user_lang.php */
-/* Location: ./system/cms/modules/users/language/russian/user_lang.php */

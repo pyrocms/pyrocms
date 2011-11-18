@@ -1,9 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // Labels
-$lang['templates.actions_label']			= 'Acciones';
-$lang['templates.name_label']				= 'Nombre';
-$lang['templates.description_label']		= 'Descripción';
 $lang['templates.language_label']			= 'Lenguaje';
 $lang['templates.choose_lang_label']		= 'Elegir lenguaje';
 $lang['templates.subject_label']			= 'Asunto';
@@ -33,4 +30,3 @@ $lang['templates.no_select_error'] 			= 'Necesitas seleccionar alguna plantilla.
 $lang['templates.already_exist_error']		= 'Ya existe una plantilla con el nombre "%s".';
 
 /* End of file templates_lang.php */
-/* Location: ./system/cms/modules/templates/language/spanish/templates_lang.php */

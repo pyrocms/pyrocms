@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['cp_admin_title'] 				= 'Hallintapaneeli';
-$lang['cp_admin_home_title'] 			= 'Dashboard';
+$lang['global:dashboard'] 			= 'Dashboard';
 $lang['cp_admin_quick_links']			= 'Pikalinkit';
 
 $lang['cp_welcome_title'] 				= 'Tervetuloa';
@@ -44,12 +44,7 @@ $lang['cp_upgrade_message']				= 'Käytät tällä hetkellä versiota %s, mutta 
 $lang['cp_google_analytics_missing']	= 'Google Analytics asetukset puuttuvat. Vaihda asetukset paikasta "%s" tai ota yhteyttä järjestelmänvalvojaan.';
 $lang['cp_google_analytics_no_connect']	= 'Google Analyticsiin ei saatu yhteyttä. Tarkista "%s".';
 
-// Admin-wide text
-$lang['cp_shortcuts_title'] 			= 'Pikavalinnat';
-$lang['cp_remove']						= 'Remove'; #translate
-
 $lang['required_label'] 				= 'Pakollinen';
 $lang['sb_recent_users'] 				= 'Uusimmat käyttäjät';
 
 /* End of file admin_lang.php */
-/* Location: ./system/cms/language/finnish/admin_lang.php */

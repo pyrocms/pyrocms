@@ -1,9 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // Labels
-$lang['templates.actions_label']			= 'פעולות';
-$lang['templates.name_label']				= 'שם';
-$lang['templates.description_label']		= 'תיאור';
 $lang['templates.language_label']			= 'שפה';
 $lang['templates.choose_lang_label']		= 'בחר שפה';
 $lang['templates.subject_label']			= 'נושא';
@@ -33,4 +30,3 @@ $lang['templates.no_select_error'] 			= 'עליך קודם לבחור תבניו
 $lang['templates.already_exist_error']		= 'תבנית עם שם "%s" כבר קיימת.';
 
 /* End of file templates_lang.php */
-/* Location: ./system/cms/modules/templates/language/hebrew/templates_lang.php */

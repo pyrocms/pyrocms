@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * Finnish translation.
- * 
+ *
  * @author Mikael Kundert <mikael@kundert.fi>
  * @date 07.02.2011
  * @version 1.0.3
@@ -33,11 +33,7 @@ $lang['user_password_confirm_label']           = 'Vahvista salasana';
 $lang['user_name_label']                       = 'Nimi';
 $lang['user_joined_label']                     = 'Liittynyt';
 $lang['user_last_visit_label']                 = 'Viimeksi paikalla';
-$lang['user_actions_label']                    = 'Toiminnot';
 $lang['user_never_label']                      = 'Ei koskaan';
-$lang['user_delete_label']                     = 'Poista';
-$lang['user_edit_label']                       = 'Muokkaa';
-$lang['user_view_label']                       = 'Katso';
 
 $lang['user_no_inactives']                     = 'Ei-aktiivisia käyttäjiä ei löytynyt.';
 $lang['user_no_registred']                     = 'Rekisteröityneitä käyttäjiä ei löytynyt.';
@@ -53,7 +49,7 @@ $lang['user_activate_account_title']           = 'Aktivoi tili';
 $lang['user_activate_label']                   = 'Aktivoi';
 $lang['user_activated_account_title']          = 'Tili aktivointiin';
 $lang['user_reset_password_title']             = 'Nollaa salasana';
-$lang['user_password_reset_title']             = 'Salasanan nollaaminen';  
+$lang['user_password_reset_title']             = 'Salasanan nollaaminen';
 
 
 $lang['user_error_username']                   = 'Käyttäjänimi, jonka syötit on jo käytössä';
@@ -69,7 +65,6 @@ $lang['user_email']                            = 'Sähköposti';
 $lang['user_confirm_email']                    = 'Vahvista sähköposti';
 $lang['user_password']                         = 'Salasana';
 $lang['user_remember']                         = 'Muista minut';
-$lang['user_confirm_password']                 = 'Vahvista salasana';
 $lang['user_group_id_label']                   = 'Ryhmän ID';
 
 $lang['user_level']                            = 'Käyttäjärooli';
@@ -78,6 +73,7 @@ $lang['user_lang']                             = 'Kieli';
 
 $lang['user_activation_code']                  = 'Aktivointi koodi';
 
+$lang['user_reset_instructions']			   = 'Enter your email address or username'; #translate
 $lang['user_reset_password_link']              = 'Unohditko salasanan?';
 
 $lang['user_activation_code_sent_notice']      = 'Aktivointi koodi lähetettiin sähköpostiisi.';
@@ -177,7 +173,7 @@ $lang['profile_edit']                 = 'Muokkaa profiilia';
 
 $lang['profile_personal_section']     = 'Henkilökohtaiset tiedot';
 
-$lang['profile_display_name']         = 'Näyttönimi';  
+$lang['profile_display_name']         = 'Näyttönimi';
 $lang['profile_dob']                  = 'Syntymäpäivä';
 $lang['profile_dob_day']              = 'Päivä';
 $lang['profile_dob_month']            = 'Kuukausi';
@@ -220,4 +216,3 @@ $lang['profile_edit_error']           = 'Tapahtui virhe.';
 $lang['profile_save_btn']             = 'Tallenna profiili';
 
 /* End of file user_lang.php */
-/* Location: ./system/cms/modules/users/language/finnish/user_lang.php */

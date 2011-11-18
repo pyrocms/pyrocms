@@ -9,7 +9,7 @@ function insertImage(file, alt)
 	}
 	var img_width = document.getElementById('insert_width').value;
 	
-	window.parent.instance.insertHtml('<img class="pyro-image" style="float: '+get_float()+';" src="' + BASE_URI + UPLOAD_PATH + 'files/' + file + '" alt="' + alt + '" width="'+img_width+'" />');
+	window.parent.instance.insertHtml('<img class="pyro-image" style="float: '+get_float()+';" src="' + SITE_URL + 'files/thumb/' + file + '/' + img_width + '" alt="' + alt + '" />');
     windowClose();
 }
 
@@ -79,11 +79,6 @@ var replace_html = null;
 		$('#images-container img').hover( function() {
 		    $(this).attr('title', 'Click to insert image');
 		});
-        
-        //cue up uniform
-        $('select, #upload-box input[type=text], input[type=file], input[type=submit]').livequery(function() {
-            $.uniform && $(this).uniform(); 
-        });
 		
         
         /**
@@ -133,7 +128,6 @@ var replace_html = null;
 			
 			$( '#upload-box' ).fadeOut( 800, function() {
 				$(this).find('input[type=text], input[type=file]').val('');
-				$.uniform.update('input[type=file]');
 			});
 			
 		});
@@ -160,15 +154,15 @@ var replace_html = null;
         $( "#slider" ).livequery(function() {
 			$(this).fadeIn('slow');
 			$(this).slider({
-				value:200,
-				min: 50,
-				max: 800,
+				value: 200,
+				min: 0,
+				max: 1000,
 				step: 1,
 				slide: function( event, ui ) {
-					$( "#insert_width" ).val( ui.value + 'px' );
+					$( "#insert_width" ).val( ui.value );
 				}
 			});
-			$( "#insert_width" ).val( $( "#slider" ).slider( "value" ) + 'px' );
+			$( "#insert_width" ).val( $( "#slider" ).slider( "value" ) );
         });
         
 		$('#radio-group').livequery(function(){

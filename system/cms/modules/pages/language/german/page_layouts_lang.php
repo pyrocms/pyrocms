@@ -6,12 +6,8 @@ $lang['page_layouts.css_label']                      = 'CSS';
 
 // labels
 $lang['page_layouts.updated_label']                  = 'Aktualisiert';
-$lang['page_layouts.actions_label']                  = 'Aktionen';
 $lang['page_layouts.title_label']                    = 'Titel';
 $lang['page_layouts.theme_layout_label']             = 'Seitenlayout';
-
-$lang['page_layouts.edit_label']                     = 'Bearbeiten';
-$lang['page_layouts.delete_label']                   = 'Löschen';
 
 // titles
 $lang['page_layouts.list_title']                     = 'Seitenlayouts auflisten';
@@ -33,5 +29,3 @@ $lang['page_layouts.already_exist_error']            = 'Es existiert bereits ein
 $lang['page_layouts.variable_introduction']          = 'In dieser Eingabebox stehen zwei Variablen zur Auswahl';
 $lang['page_layouts.variable_title']                 = 'Enthält den Titel der Seite.';
 $lang['page_layouts.variable_body']                  = 'Enthält den HTML Inhalt der Seite.';
-
-?>

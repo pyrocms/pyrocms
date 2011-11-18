@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * Finnish translation.
- * 
+ *
  * @author		Mikael Kundert <mikael@kundert.fi>
  * @package		PyroCMS
  * @subpackage 	Variables Module
@@ -12,10 +12,8 @@
  */
 
 // labels
-$lang['variables.name_label'] 			    = 'Nimi';
 $lang['variables.syntax_label']				= 'Syntaksi';
 $lang['variables.data_label'] 			    = 'Arvo';
-$lang['variables.actions_label'] 			= 'Toiminnot';
 
 // titles
 $lang['variables.create_title'] 			= 'Lisää muuttuja';

@@ -15,7 +15,6 @@ $lang['pages.add_page_chunk']				= 'Adicionar pedaço de página';
 $lang['pages.page_chunk']					= 'Pedaço de página';
 $lang['pages.language_label'] 				= 'Idioma';
 $lang['pages.updated_label'] 				= 'Atualizada';
-$lang['pages.actions_label'] 				= 'Ações';
 $lang['pages.unknown_label'] 				= 'Desconhecida';
 $lang['pages.title_label']					= 'Título';
 $lang['pages.slug_label']					= 'URI';
@@ -42,8 +41,7 @@ $lang['pages.current_label']				= 'Atual';
 
 $lang['pages.view_label'] 					= 'Ver';
 $lang['pages.create_label'] 				= 'Adicionar filho';
-$lang['pages.edit_label'] 					= 'Editar';
-$lang['pages.delete_label'] 				= 'Remover';
+$lang['pages.duplicate_label']				= 'Duplicar';
 
 // titles
 $lang['pages.create_title'] 				= 'Adicionar página';
@@ -51,8 +49,6 @@ $lang['pages.edit_title'] 					= 'Editar página "%s"';
 $lang['pages.list_title'] 					= 'Listar páginas';
 $lang['pages.layouts_create_title'] 		= 'Adicionar página de layout';
 $lang['pages.layouts_list_title'] 			= 'Listar páginas de layout';
-$lang['pages.compare_revisions_title']		= 'Comparar revisões';
-$lang['pages.preview_revision_title']		= 'Visualizar revisão';
 
 // messages
 $lang['pages.no_pages'] 					= 'Nenhuma página encontrada.';
@@ -66,10 +62,11 @@ $lang['pages_mass_delete_success'] 			= '%s páginas foram removidas.';
 $lang['pages_delete_none_notice'] 			= 'Nenhuma página foi removida.';
 $lang['pages_page_already_exist_error'] 	= 'Uma página com a URL "%s" já existe em %s.';
 $lang['pages_parent_not_exist_error'] 		= 'A página pai que você selecionou não existe.';
+$lang['pages_chunk_slug_length']					= 'Page Chunk slugs may be no more than 30 characters in length.'; #translate
+$lang['pages_root_folder']                = 'the top level'; #translate
 
 $lang['pages.tree_explanation'] 			= 'A lista a esquerda representa as páginas do seu site em cada item. Quando houver um indicador de mais ao lado de um item, clique sobre o indicador para exibir suas subpáginas.<br><br>Você também pode arrastar as páginas para ordená-las e/ou posiciona-las distanciando para direita horizontalmente abaixo de outra página para transforma-las em subpáginas.<br><br>Se você clicar sobre o texto do título deverá ver todo tipo de informação útil nesta caixa.';
 
 $lang['pages.rss_explanation']				= 'Ativando o Feed RSS para esta página dará acesso aos usuários a chance de se inscreverem a este Feed e receberem uma atualização imediata quando uma nova página filho for adicionada.';
 
 /* End of file pages_lang.php */
-/* Location: ./system/cms/modules/pages/language/brazilian/pages_lang.php */

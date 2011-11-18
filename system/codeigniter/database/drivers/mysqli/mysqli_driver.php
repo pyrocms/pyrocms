@@ -4,10 +4,22 @@
  *
  * An open source application development framework for PHP 5.1.6 or newer
  *
+ * NOTICE OF LICENSE
+ * 
+ * Licensed under the Open Software License version 3.0
+ * 
+ * This source file is subject to the Open Software License (OSL 3.0) that is
+ * bundled with this package in the files license.txt / license.rst.  It is
+ * also available through the world wide web at this URL:
+ * http://opensource.org/licenses/OSL-3.0
+ * If you did not receive a copy of the license and are unable to obtain it
+ * through the world wide web, please send an email to
+ * licensing@ellislab.com so we can send you a copy immediately.
+ *
  * @package		CodeIgniter
- * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008 - 2011, EllisLab, Inc.
- * @license		http://codeigniter.com/user_guide/license.html
+ * @author		EllisLab Dev Team
+ * @copyright	Copyright (c) 2008 - 2011, EllisLab, Inc. (http://ellislab.com/)
+ * @license		http://opensource.org/licenses/OSL-3.0 Open Software License (OSL 3.0)
  * @link		http://codeigniter.com
  * @since		Version 1.0
  * @filesource
@@ -25,7 +37,7 @@
  * @package		CodeIgniter
  * @subpackage	Drivers
  * @category	Database
- * @author		ExpressionEngine Dev Team
+ * @author		EllisLab Dev Team
  * @link		http://codeigniter.com/user_guide/database/
  */
 class CI_DB_mysqli_driver extends CI_DB {
@@ -53,6 +65,9 @@ class CI_DB_mysqli_driver extends CI_DB {
 	 * adding a bit more processing to all queries.
 	 */
 	var $delete_hack = TRUE;
+
+	// whether SET NAMES must be used to set the character set
+	var $use_set_names;
 
 	// --------------------------------------------------------------------
 
@@ -132,7 +147,9 @@ class CI_DB_mysqli_driver extends CI_DB {
 	 */
 	function _db_set_charset($charset, $collation)
 	{
-		return @mysqli_query($this->conn_id, "SET NAMES '".$this->escape_str($charset)."' COLLATE '".$this->escape_str($collation)."'");
+		return function_exists('mysqli_set_charset')
+			? @mysqli_set_charset($this->conn_id, $charset)
+			: @mysqli_query($this->conn_id, "SET NAMES '".$this->escape_str($charset)."' COLLATE '".$this->escape_str($collation)."'");
 	}
 
 	// --------------------------------------------------------------------
@@ -287,7 +304,7 @@ class CI_DB_mysqli_driver extends CI_DB {
 	{
 		if (is_array($str))
 		{
-			foreach($str as $key => $val)
+			foreach ($str as $key => $val)
 			{
 				$str[$key] = $this->escape_str($val, $like);
 			}
@@ -370,6 +387,7 @@ class CI_DB_mysqli_driver extends CI_DB {
 		}
 
 		$row = $query->row();
+		$this->_reset_select();
 		return (int) $row->numrows;
 	}
 
@@ -425,7 +443,7 @@ class CI_DB_mysqli_driver extends CI_DB {
 	 */
 	function _field_data($table)
 	{
-		return "SELECT * FROM ".$table." LIMIT 1";
+		return "DESCRIBE ".$table;
 	}
 
 	// --------------------------------------------------------------------
@@ -553,6 +571,25 @@ class CI_DB_mysqli_driver extends CI_DB {
 	{
 		return "INSERT INTO ".$table." (".implode(', ', $keys).") VALUES ".implode(', ', $values);
 	}
+
+	// --------------------------------------------------------------------
+
+
+	/**
+	 * Replace statement
+	 *
+	 * Generates a platform-specific replace string from the supplied data
+	 *
+	 * @access	public
+	 * @param	string	the table name
+	 * @param	array	the insert keys
+	 * @param	array	the insert values
+	 * @return	string
+	 */
+	function _replace($table, $keys, $values)
+	{
+		return "REPLACE INTO ".$table." (".implode(', ', $keys).") VALUES (".implode(', ', $values).")";
+	}
 	
 	// --------------------------------------------------------------------
 
@@ -571,7 +608,7 @@ class CI_DB_mysqli_driver extends CI_DB {
 	 */
 	function _update($table, $values, $where, $orderby = array(), $limit = FALSE)
 	{
-		foreach($values as $key => $val)
+		foreach ($values as $key => $val)
 		{
 			$valstr[] = $key." = ".$val;
 		}
@@ -607,11 +644,11 @@ class CI_DB_mysqli_driver extends CI_DB {
 		$ids = array();
 		$where = ($where != '' AND count($where) >=1) ? implode(" ", $where).' AND ' : '';
 
-		foreach($values as $key => $val)
+		foreach ($values as $key => $val)
 		{
 			$ids[] = $val[$index];
 
-			foreach(array_keys($val) as $field)
+			foreach (array_keys($val) as $field)
 			{
 				if ($field != $index)
 				{
@@ -623,7 +660,7 @@ class CI_DB_mysqli_driver extends CI_DB {
 		$sql = "UPDATE ".$table." SET ";
 		$cases = '';
 
-		foreach($final as $k => $v)
+		foreach ($final as $k => $v)
 		{
 			$cases .= $k.' = CASE '."\n";
 			foreach ($v as $row)

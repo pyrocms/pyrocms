@@ -11,19 +11,19 @@ class Module_Blog extends Module {
 				'en' => 'Blog',
 				'ar' => 'المدوّنة',
 				'el' => 'Ιστολόγιο',
-				'pt' => 'Blog',
+				'br' => 'Blog',
 				'he' => 'בלוג',
 				'lt' => 'Blogas',
 				'ru' => 'Блог'
 			),
 			'description' => array(
 				'en' => 'Post blog entries.',
-				'nl' => 'Post nieuwsartikelen en blog op uw site.', #update translation
+				'nl' => 'Post nieuwsartikelen en blogs op uw site.',
 				'es' => 'Escribe entradas para los artículos y blog (web log).', #update translation
 				'fr' => 'Envoyez de nouveaux posts et messages de blog.', #update translation
 				'de' => 'Veröffentliche neue Artikel und Blog-Einträge', #update translation
 				'pl' => 'Postuj nowe artykuły oraz wpisy w blogu', #update translation
-				'pt' => 'Escrever publicações de blog',
+				'br' => 'Escrever publicações de blog',
 				'zh' => '發表新聞訊息、部落格文章。', #update translation
 				'it' => 'Pubblica notizie e post per il blog.', #update translation
 				'ru' => 'Управление записями блога.',
@@ -33,7 +33,8 @@ class Module_Blog extends Module {
 				'fi' => 'Kirjoita uutisartikkeleita tai blogi artikkeleita.', #update translation
 				'el' => 'Δημιουργήστε άρθρα και εγγραφές στο ιστολόγιο σας.',
 				'he' => 'ניהול בלוג',
-				'lt' => 'Rašykite naujienas bei blog\'o įrašus.'
+				'lt' => 'Rašykite naujienas bei blog\'o įrašus.',
+				'da' => 'Skriv blogindlæg'
 			),
 			'frontend'	=> TRUE,
 			'backend'	=> TRUE,
@@ -42,7 +43,32 @@ class Module_Blog extends Module {
 
 			'roles' => array(
 				'put_live', 'edit_live', 'delete_live'
-			)
+			),
+			
+			'sections' => array(
+			    'posts' => array(
+				    'name' => 'blog_posts_title',
+				    'uri' => 'admin/blog',
+				    'shortcuts' => array(
+						array(
+					 	   'name' => 'blog_create_title',
+						    'uri' => 'admin/blog/create',
+						    'class' => 'add'
+						),
+					),
+				),
+				'categories' => array(
+				    'name' => 'cat_list_title',
+				    'uri' => 'admin/blog/categories',
+				    'shortcuts' => array(
+						array(
+						    'name' => 'cat_create_title',
+						    'uri' => 'admin/blog/categories/create',
+						    'class' => 'add'
+						),
+				    ),
+			    ),
+		    ),
 		);
 	}
 
@@ -72,18 +98,21 @@ class Module_Blog extends Module {
 			  `attachment` varchar(255) collate utf8_unicode_ci NOT NULL default '',
 			  `intro` text collate utf8_unicode_ci NOT NULL,
 			  `body` text collate utf8_unicode_ci NOT NULL,
+			  `parsed` text collate utf8_unicode_ci NOT NULL,
+			  `keywords` varchar(32) NOT NULL default '',
 			  `author_id` int(11) NOT NULL default '0',
 			  `created_on` int(11) NOT NULL,
 			  `updated_on` int(11) NOT NULL default 0,
-                          `comments_enabled` INT(1)  NOT NULL default '1',
+              `comments_enabled` INT(1)  NOT NULL default '1',
 			  `status` enum('draft','live') collate utf8_unicode_ci NOT NULL default 'draft',
+			  `type` set('html','markdown','wysiwyg-advanced','wysiwyg-simple') collate utf8_unicode_ci NOT NULL,
 			  PRIMARY KEY  (`id`),
 			  UNIQUE KEY `title` (`title`),
 			  KEY `category_id - normal` (`category_id`)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Blog posts.';
 		";
 
-		if($this->db->query($blog_categories) && $this->db->query($blog))
+		if ($this->db->query($blog_categories) && $this->db->query($blog))
 		{
 			return TRUE;
 		}

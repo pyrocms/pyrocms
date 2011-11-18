@@ -2,7 +2,7 @@
 
 class Module_Widgets extends Module {
 
-	public $version = '1.0';
+	public $version = '1.1';
 	
 	public function info()
 	{
@@ -11,7 +11,7 @@ class Module_Widgets extends Module {
 				'sl' => 'Vtičniki',
 				'en' => 'Widgets',
 				'es' => 'Widgets',
-				'pt' => 'Widgets',
+				'br' => 'Widgets',
 				'de' => 'Widgets',
 				'nl' => 'Widgets',
 				'fr' => 'Widgets',
@@ -27,7 +27,7 @@ class Module_Widgets extends Module {
 				'sl' => 'Urejanje manjših delov blokov strani ti. Vtičniki (Widgets)',
 				'en' => 'Manage small sections of self-contained logic in blocks or "Widgets".',
 				'es' => 'Manejar pequeñas secciones de lógica autocontenida en bloques o "Widgets"',
-				'pt' => 'Gerenciar pequenas seções de conteúdos em bloco conhecidos como "Widgets".',
+				'br' => 'Gerenciar pequenas seções de conteúdos em bloco conhecidos como "Widgets".',
 				'de' => 'Verwaltet kleine, eigentständige Bereiche, genannt "Widgets".',
 				'nl' => 'Beheer kleine onderdelen die zelfstandige logica bevatten, ofwel "Widgets".',
 				'fr' => 'Gérer des mini application ou "Widgets".',
@@ -38,11 +38,29 @@ class Module_Widgets extends Module {
 				'cs' => 'Spravujte malé funkční části webu neboli "Widgety".',
 				'fi' => 'Hallitse pieniä osioita, jotka sisältävät erillisiä lohkoja tai "Widgettejä".',
 				'el' => 'Διαχείριση μικρών τμημάτων αυτόνομης προγραμματιστικής λογικής σε πεδία ή "Widgets".',
-				'lt' => 'Nedidelių, savarankiškų blokų valdymas.'
+				'lt' => 'Nedidelių, savarankiškų blokų valdymas.',
+				'da' => 'Håndter små sektioner af selv-opretholdt logik i blokke eller "Widgets".'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
-			'menu'	  => 'content'
+			'menu'	  => 'content',
+			
+			'sections' => array(
+			    'instances' => array(
+				    'name' => 'widgets.instances',
+				    'uri' => 'admin/widgets',
+				),
+				'areas' => array(
+				    'name' => 'widgets.areas',
+				    'uri' => 'admin/widgets/areas',
+				    'shortcuts' => array(
+						array(
+						    'name' => 'widgets.add_area',
+						    'uri' => 'admin/widgets/areas/create',
+						),
+				    ),
+			    ),
+		    ),
 		);
 	}
 	
@@ -87,6 +105,7 @@ class Module_Widgets extends Module {
 			  `version` varchar(20) COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
 			  `enabled` tinyint(1) NOT NULL DEFAULT '1',
 			  `order` int(5) NOT NULL DEFAULT '0',
+			  `updated_on` int(11) NOT NULL DEFAULT '0',
 			  PRIMARY KEY (`id`)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 		";
@@ -95,7 +114,7 @@ class Module_Widgets extends Module {
 			INSERT INTO " . $this->db->dbprefix('widget_areas') . " (slug, title) VALUES ('sidebar', 'Sidebar');
 		";
 		
-		if($this->db->query($widget_areas) &&
+		if ($this->db->query($widget_areas) &&
 		   $this->db->query($widget_instances) &&
 		   $this->db->query($widgets) &&
 		   $this->db->query($default_data))

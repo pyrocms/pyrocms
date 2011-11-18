@@ -30,6 +30,7 @@ class CI_Upload {
 	public $max_width				= 0;
 	public $max_height				= 0;
 	public $max_filename			= 0;
+	public $max_filename_increment 	= 100;
 	public $allowed_types			= "";
 	public $file_temp				= "";
 	public $file_name				= "";
@@ -80,31 +81,32 @@ class CI_Upload {
 	public function initialize($config = array())
 	{
 		$defaults = array(
-							'max_size'			=> 0,
-							'max_width'			=> 0,
-							'max_height'		=> 0,
-							'max_filename'		=> 0,
-							'allowed_types'		=> "",
-							'file_temp'			=> "",
-							'file_name'			=> "",
-							'orig_name'			=> "",
-							'file_type'			=> "",
-							'file_size'			=> "",
-							'file_ext'			=> "",
-							'upload_path'		=> "",
-							'overwrite'			=> FALSE,
-							'encrypt_name'		=> FALSE,
-							'is_image'			=> FALSE,
-							'image_width'		=> '',
-							'image_height'		=> '',
-							'image_type'		=> '',
-							'image_size_str'	=> '',
-							'error_msg'			=> array(),
-							'mimes'				=> array(),
-							'remove_spaces'		=> TRUE,
-							'xss_clean'			=> FALSE,
-							'temp_prefix'		=> "temp_file_",
-							'client_name'		=> ''
+							'max_size'					=> 0,
+							'max_width'					=> 0,
+							'max_height'				=> 0,
+							'max_filename'				=> 0,
+							'max_filename_increment'	=> 100,
+							'allowed_types'				=> "",
+							'file_temp'					=> "",
+							'file_name'					=> "",
+							'orig_name'					=> "",
+							'file_type'					=> "",
+							'file_size'					=> "",
+							'file_ext'					=> "",
+							'upload_path'				=> "",
+							'overwrite'					=> FALSE,
+							'encrypt_name'				=> FALSE,
+							'is_image'					=> FALSE,
+							'image_width'				=> '',
+							'image_height'				=> '',
+							'image_type'				=> '',
+							'image_size_str'			=> '',
+							'error_msg'					=> array(),
+							'mimes'						=> array(),
+							'remove_spaces'				=> TRUE,
+							'xss_clean'					=> FALSE,
+							'temp_prefix'				=> "temp_file_",
+							'client_name'				=> ''
 						);
 
 
@@ -142,7 +144,8 @@ class CI_Upload {
 	 */
 	public function do_upload($field = 'userfile')
 	{
-		// Is $_FILES[$field] set? If not, no reason to continue.
+
+	// Is $_FILES[$field] set? If not, no reason to continue.
 		if ( ! isset($_FILES[$field]))
 		{
 			$this->set_error('upload_no_file_selected');
@@ -214,7 +217,7 @@ class CI_Upload {
 			$this->file_name = $this->_prep_filename($this->_file_name_override);
 
 			// If no extension was provided in the file_name config item, use the uploaded one
-			if(strpos($this->_file_name_override, '.') === FALSE)
+			if (strpos($this->_file_name_override, '.') === FALSE)
 			{
 				$this->file_name .= $this->file_ext;
 			}
@@ -401,7 +404,7 @@ class CI_Upload {
 		$filename = str_replace($this->file_ext, '', $filename);
 
 		$new_filename = '';
-		for ($i = 1; $i < 100; $i++)
+		for ($i = 1; $i < $this->max_filename_increment; $i++)
 		{
 			if ( ! file_exists($path.$filename.$i.$this->file_ext))
 			{
@@ -944,21 +947,21 @@ class CI_Upload {
 
 		if (count($this->mimes) == 0)
 		{
-			if (defined('ENVIRONMENT') AND is_file(APPPATH.'config/'.ENVIRONMENT.'/mimes'.EXT))
+			if (defined('ENVIRONMENT') AND is_file(APPPATH.'config/'.ENVIRONMENT.'/mimes.php'))
 			{
-				include(APPPATH.'config/'.ENVIRONMENT.'/mimes'.EXT);
+				include(APPPATH.'config/'.ENVIRONMENT.'/mimes.php');
 			}
-			elseif (is_file(APPPATH.'config/mimes'.EXT))
+			elseif (is_file(APPPATH.'config/mimes.php'))
 			{
-				include(APPPATH.'config//mimes'.EXT);
+				include(APPPATH.'config//mimes.php');
 			}
 			else
 			{
 				return FALSE;
 			}
 
-				$this->mimes = $mimes;
-				unset($mimes);
+			$this->mimes = $mimes;
+			unset($mimes);
 		}
 
 		return ( ! isset($this->mimes[$mime])) ? FALSE : $this->mimes[$mime];

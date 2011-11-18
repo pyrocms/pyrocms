@@ -26,11 +26,7 @@ $lang['user_password_confirm_label']           = 'Επανάληψη Συνθη�
 $lang['user_name_label']                       = 'Όνομα';
 $lang['user_joined_label']                     = 'Ημ/νια εγγραφής';
 $lang['user_last_visit_label']                 = 'Τελευταία επίσκεψη';
-$lang['user_actions_label']                    = 'Ενέργειες';
 $lang['user_never_label']                      = 'Ποτέ';
-$lang['user_delete_label']                     = 'Διαγραφή';
-$lang['user_edit_label']                       = 'Επεξεργασία';
-$lang['user_view_label']                       = 'Προβολή';
 
 $lang['user_no_inactives']                     = 'Δεν υπάρχουν ανενεργοί χρήστες.';
 $lang['user_no_registred']                     = 'Δεν υπάρχουν εγγεγραμμένοι χρήστες.';
@@ -46,7 +42,7 @@ $lang['user_activate_account_title']           = 'Ενεργοποίηση Λο�
 $lang['user_activate_label']                   = 'Ενεργοποίηση';
 $lang['user_activated_account_title']          = 'Ενεργοποιημένος Λογαριασμός';
 $lang['user_reset_password_title']             = 'Επανακαθορισμός Συνθηματικού';
-$lang['user_password_reset_title']             = 'Επανακαθορισμός Συνθηματικού';  
+$lang['user_password_reset_title']             = 'Επανακαθορισμός Συνθηματικού';
 
 
 $lang['user_error_username']                   = 'Το όνομα χρήστη που επιλέξατε χρησιμοποιείται ήδη';
@@ -57,12 +53,11 @@ $lang['user_first_name']                       = 'Όνομα';
 $lang['user_last_name']                        = 'Επίθετο';
 $lang['user_username']                         = 'Όνομα χρήστη';
 $lang['user_display_name']                     = 'Όνομα εμφάνισης';
-$lang['user_email_use'] 					   = 'used to login'; #translate
+$lang['user_email_use'] 					   = 'που χρησιμοποιείται για την σύνδεση';
 $lang['user_email']                            = 'E-mail';
 $lang['user_confirm_email']                    = 'Επανάληψη E-mail';
 $lang['user_password']                         = 'Συνθηματικό';
 $lang['user_remember']                         = 'Απομνημόνευση';
-$lang['user_confirm_password']                 = 'Επανάληψη συνθηματικού';
 $lang['user_group_id_label']                   = 'ID Ομάδας';
 
 $lang['user_level']                            = 'Ρόλος Χρήστη';
@@ -71,6 +66,7 @@ $lang['user_lang']                             = 'Γλώσσα';
 
 $lang['user_activation_code']                  = 'Κωδικός ενεργοποίησης';
 
+$lang['user_reset_instructions']			   = 'Εισάγετε την διεύθυνση email ή το όνομα χρήστη σας';
 $lang['user_reset_password_link']              = 'Ξεχάσατε το συνθηματικό σας;';
 
 $lang['user_activation_code_sent_notice']      = 'Έχει σταλλεί ένα email με τον κωδικό ενεργοποίησης του λογαριασμού σας.';
@@ -171,7 +167,7 @@ $lang['profile_edit']                 = 'Επεξεργαστείτε το πρ�
 
 $lang['profile_personal_section']     = 'Προσωπικά';
 
-$lang['profile_display_name']         = 'Όνομα Εμφάνισης';  
+$lang['profile_display_name']         = 'Όνομα Εμφάνισης';
 $lang['profile_dob']                  = 'Ημερομηνία Γέννησης';
 $lang['profile_dob_day']              = 'Ημέρα';
 $lang['profile_dob_month']            = 'Μήνα';
@@ -213,4 +209,3 @@ $lang['profile_edit_error']           = 'Συνέβη κάποιο σφάλμα.
 
 $lang['profile_save_btn']             = 'Αποθήκευση προφίλ';
 /* End of file user_lang.php */
-/* Location: ./system/cms/modules/users/language/greek/user_lang.php */

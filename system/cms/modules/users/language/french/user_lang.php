@@ -1,4 +1,4 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['user_register_header'] 	= 'Enregistrement';
 $lang['user_register_step1'] 	= '<strong>Etape 1:</strong> Enregistrez-vous';
@@ -26,11 +26,7 @@ $lang['user_password_confirm_label'] = 'Confirmez mot de passe';
 $lang['user_name_label'] = 'Surnom';
 $lang['user_joined_label'] = 'Inscrit';
 $lang['user_last_visit_label'] = 'Dernière visite';
-$lang['user_actions_label'] = 'Actions';
 $lang['user_never_label'] = 'Jamais';
-$lang['user_delete_label'] = 'Supprimer';
-$lang['user_edit_label'] = 'Modifier';
-$lang['user_view_label'] = 'Visualiser';
 
 $lang['user_no_inactives'] = 'Il n\'y a aucun utilisateurs actifs.';
 $lang['user_no_registred'] = 'Il n\'y a aucun utilisateurs enregistrés.';
@@ -48,14 +44,21 @@ $lang['user_activated_account_title'] = 'Compte activé';
 $lang['user_reset_password_title'] = 'Réinitialisez le mot de passe';
 $lang['user_password_reset_title'] = 'Mot de passe réinitialisé';
 
+
+$lang['user_error_username']                   = 'Le nom d\'utilisateur que vous avez entré est déjà utilisé';
+$lang['user_error_email']                      = 'L\'adresse email que vous avez entré est déjà utilisée';
+
 $lang['user_full_name'] 	= 'Nom Complet';
 $lang['user_first_name'] 	= 'Prénom';
 $lang['user_last_name'] 	= 'Nom';
+$lang['user_username']          = 'Nom Utilisateur';
+$lang['user_display_name']      = 'Nom Affiché';
 $lang['user_email_use'] 					   = 'used to login'; #translate
 $lang['user_email'] 		= 'E-mail';
 $lang['user_confirm_email'] = 'Confirmez E-mail';
 $lang['user_password'] 		= 'Mot de passe';
-$lang['user_confirm_password'] = 'Confirmez Mot de passe';
+$lang['user_remember']                         = 'Rester connecté';
+$lang['user_group_id_label']                   = 'ID Groupe';
 
 $lang['user_level']			= 'Rôle utilisateur';
 $lang['user_active']		= 'Activez';
@@ -63,6 +66,7 @@ $lang['user_lang']			= 'Langue';
 
 $lang['user_activation_code'] = 'Code d\'activation';
 
+$lang['user_reset_instructions']			   = 'Entre votre email ou votre Nom Utilisateur';
 $lang['user_reset_password_link'] = 'Mot de passe oublié ?';
 
 $lang['user_activation_code_sent_notice'] = 'Un e-mail vous a été envoyé avec votre code d\'activation.';
@@ -126,7 +130,6 @@ $lang['user_inactive']   = 'Le compte que vous tentez d\'accéder est inactif.<b
 // Logged Out
 $lang['user_logged_out']   = 'Vous avez été déconnecté.';
 
-
 // Forgot Pass
 $lang['user_forgot_incorrect']   = "Aucun compte correspondant à ces données n\'a été trouvé.";
 
@@ -168,9 +171,9 @@ $lang['profile_dob_day']	= 'Jour';
 $lang['profile_dob_month']	= 'Mois';
 $lang['profile_dob_year']	= 'Année';
 $lang['profile_gender']		= 'Civilité';
-$lang['profile_gender_nt']            = 'Not Telling'; #translate
-$lang['profile_gender_male']          = 'Male'; #translate
-$lang['profile_gender_female']        = 'Female'; #translate
+$lang['profile_gender_nt']            = 'Non spécifié';
+$lang['profile_gender_male']          = 'Masculin';
+$lang['profile_gender_female']        = 'Féminin';
 $lang['profile_bio']		= 'A mon sujet';
 
 $lang['profile_contact_section'] = 'Contact';
@@ -191,6 +194,7 @@ $lang['profile_yim_handle'] = 'Yahoo! messenger';
 $lang['profile_gtalk_handle'] = 'GTalk';
 
 $lang['profile_avatar_section'] = 'Avatar';
+$lang['profile_social_section']       = 'Social';
 
 $lang['profile_gravatar'] = 'Gravatar';
 
@@ -200,3 +204,4 @@ $lang['profile_edit_error'] = 'Une erreur est survenue.';
 // -- Buttons ------------------------------------------------------------------------------------------------
 
 $lang['profile_save_btn'] = 'Enregistrer votre profil';
+/* End of file user_lang.php */

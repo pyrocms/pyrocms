@@ -1,7 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 $lang['cp_admin_title']			= 'Panel de Control';
-$lang['cp_admin_home_title']		= 'Tablero';
+$lang['global:dashboard']		= 'Tablero';
 $lang['cp_admin_quick_links']		= 'Enlaces Rápidos';
 
 $lang['cp_welcome_title']		= 'Bienvenido';
@@ -16,11 +16,11 @@ $lang['cp_manage_files']		= 'Administrar Archivos';
 $lang['cp_manage_users']		= 'Administrar Usuarios';
 
 // header
-$lang['cp_to_home']			= 'Ir al inicio del Panel de Control';
+$lang['cp_to_home']				= 'Ir al inicio del Panel de Control';
 $lang['cp_view_frontend']		= 'Ver sitio web';
-$lang['cp_logged_in_welcome']		= 'Hola %s';
+$lang['cp_logged_in_welcome']	= 'Hola %s';
 $lang['cp_logout_label']		= 'cerrar sesión';
-$lang['cp_edit_profile_label']		= 'Editar perfil';
+$lang['cp_edit_profile_label']	= 'Editar perfil';
 
 // Footer
 $lang['cp_change_language']		= 'Cambiar idioma';
@@ -41,10 +41,6 @@ $lang['cp_must_login']			= 'Debes estar logueado para ver esta página.';
 $lang['cp_access_denied']		= 'No tienes el permiso suficiente como para ver esta página.';
 $lang['cp_delete_installer_message']	= 'Por favor eliminar el directorio "instaler" del servidor. Al dejarlo en línea podrías darle el acceso completo del sitio a otra persona.';
 $lang['cp_upgrade_message']		= 'Actualmente estas ejecutando la versión %s, pero la version de tu base de datos es %s. Por favor, <a href="%s">actualize la base de datos</a>.';
-
-// Admin-wide text
-$lang['cp_sidebar_title']		= 'Menu lateral';
-$lang['cp_remove']						= 'Remove'; #translate
 
 $lang['required_label']			= 'Obligatorio';
 $lang['sb_recent_users']		= 'Usuarios recientes';

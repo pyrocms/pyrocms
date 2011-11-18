@@ -2,15 +2,13 @@
 
 class Blog extends Public_Controller
 {
-	public $limit = 5; // TODO: PS - Make me a settings option
-
 	public function __construct()
 	{
-		parent::Public_Controller();
+		parent::__construct();
 		$this->load->model('blog_m');
 		$this->load->model('blog_categories_m');
 		$this->load->model('comments/comments_m');
-		$this->load->helper('text');
+		$this->load->library(array('keywords/keywords'));
 		$this->lang->load('blog');
 	}
 
@@ -22,6 +20,11 @@ class Blog extends Public_Controller
 
 		// Set meta description based on post titles
 		$meta = $this->_posts_metadata($this->data->blog);
+		
+		foreach ($this->data->blog AS &$post)
+		{
+			$post->keywords = Keywords::get_links($post->keywords, 'blog/tagged');
+		}
 
 		$this->template
 			->title($this->module_details['name'])
@@ -40,7 +43,7 @@ class Blog extends Public_Controller
 
 		// Count total blog posts and work out how many pages exist
 		$pagination = create_pagination('blog/category/'.$slug, $this->blog_m->count_by(array(
-			'category'=>$slug,
+			'category'=> $slug,
 			'status' => 'live'
 		)), NULL, 4);
 
@@ -52,6 +55,11 @@ class Blog extends Public_Controller
 
 		// Set meta description based on post titles
 		$meta = $this->_posts_metadata($blog);
+		
+		foreach ($blog AS &$post)
+		{
+			$post->keywords = Keywords::get_links($post->keywords, 'blog/tagged');
+		}
 
 		// Build the page
 		$this->template->title($this->module_details['name'], $category->title )
@@ -75,6 +83,11 @@ class Blog extends Public_Controller
 
 		// Set meta description based on post titles
 		$meta = $this->_posts_metadata($this->data->blog);
+		
+		foreach ($this->data->blog AS &$post)
+		{
+			$post->keywords = Keywords::get_links($post->keywords, 'blog/tagged');
+		}
 
 		$this->template->title( $this->data->month_year, $this->lang->line('blog_archive_title'), $this->lang->line('blog_blog_title'))
 			->set_metadata('description', $this->data->month_year.'. '.$meta['description'])
@@ -84,7 +97,7 @@ class Blog extends Public_Controller
 			->build('archive', $this->data);
 	}
 
-	// Public: View an post
+	// Public: View a post
 	public function view($slug = '')
 	{
 		if ( ! $slug or ! $post = $this->blog_m->get_by('slug', $slug))
@@ -96,8 +109,12 @@ class Blog extends Public_Controller
 		{
 			redirect('blog');
 		}
-
-		$post->author = $this->ion_auth->get_user($post->author_id);
+		
+		// if it uses markdown then display the parsed version
+		if ($post->type == 'markdown')
+		{
+			$post->body = $post->parsed;
+		}
 
 		// IF this post uses a category, grab it
 		if ($post->category_id && ($category = $this->blog_categories_m->get($post->category_id)))
@@ -124,11 +141,49 @@ class Blog extends Public_Controller
 		{
 			$this->template->set_breadcrumb($post->category->title, 'blog/category/'.$post->category->slug);
 		}
+		
+		$post->keywords = Keywords::get_links($post->keywords, 'blog/tagged');
 
 		$this->template
 			->set_breadcrumb($post->title)
 			->set('post', $post)
 			->build('view', $this->data);
+	}
+	
+	public function tagged($tag = '')
+	{
+		$tag OR redirect('blog');
+
+		// Count total blog posts and work out how many pages exist
+		$pagination = create_pagination('blog/tagged/'.$tag, $this->blog_m->count_tagged_by($tag, array(
+			'status' => 'live'
+		)), NULL, 4);
+
+		// Get the current page of blog posts
+		$blog = $this->blog_m->limit($pagination['limit'])->get_tagged_by($tag, array(
+			'status' => 'live'
+		));
+		
+		foreach ($blog AS &$post)
+		{
+			$post->keywords = Keywords::get_links($post->keywords, 'blog/tagged');
+		}
+
+		// Set meta description based on post titles
+		$meta = $this->_posts_metadata($blog);
+		
+		$name = str_replace('-', ' ', $tag);
+
+		// Build the page
+		$this->template->title($this->module_details['name'], lang('blog_tagged_label').': '.$name )
+			->set_metadata('description', lang('blog_tagged_label').': '.$name.'. '.$meta['description'] )
+			->set_metadata('keywords', $name )
+			->set_breadcrumb( lang('blog_blog_title'), 'blog')
+			->set_breadcrumb( lang('blog_tagged_label').': '.$name )
+			->set('blog', $blog)
+			->set('tag', $tag)
+			->set('pagination', $pagination)
+			->build('tagged', $this->data );
 	}
 
 	// Private methods not used for display

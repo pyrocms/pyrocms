@@ -13,19 +13,14 @@ $lang['themes.delete_error']            = 'Unable to delete dir "%s".';
 $lang['themes.mass_delete_success']     = '%s themes out of %s themes successfully deleted.';
 $lang['themes.mass_delete_error']       = 'Only %s themes out of %s themes were deleted.';
 $lang['themes.delete_select_error']     = 'You need to select themes to delete first.';
-$lang['themes.upload_title']            = 'Upload theme';
-$lang['themes.admin_list']				= 'Admin Theme List';
-$lang['themes.list_title']              = 'Theme list';
-$lang['themes.upload_desc']             = 'Please select a file and click Upload button';
+$lang['themes.upload_title']            = 'Upload Theme';
+$lang['themes.admin_list']				= 'Admin Themes';
+$lang['themes.list_title']              = 'Themes';
+$lang['themes.upload_desc']             = 'Please select a file to upload';
 
 $lang['themes.options']					= 'Options';
 $lang['themes.theme_label']             = 'Theme';
-$lang['themes.actions_label']           = 'Actions';
 $lang['themes.make_default']            = 'Make default';
-$lang['themes.description_label']		= 'Description';
-$lang['themes.author_label']			= 'Author';
 $lang['themes.version_label']			= 'Version';
-$lang['themes.default_theme_label']     = 'Default theme';
-$lang['themes.no_themes_installed']     = 'There are no themes installed.';
-
-?>
+$lang['themes.default_theme_label']     = 'Default Theme';
+$lang['themes.no_themes_installed']     = 'There are no Themes installed.';

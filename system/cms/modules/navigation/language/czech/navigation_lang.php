@@ -6,7 +6,6 @@ $lang['nav_parent_label']						= 'Rodič';
 $lang['nav_target_label']						= 'Cíl';
 $lang['nav_class_label']						= 'Třída';
 $lang['nav_url_label'] 							= 'Adresa URL';
-$lang['nav_actions_label'] 						= 'Akce';
 $lang['nav_details_label'] 						= 'Detaily';
 $lang['nav_text_label'] 						= 'Text';
 $lang['nav_group_label'] 						= 'Skupina';
@@ -15,11 +14,8 @@ $lang['nav_type_label'] 						= 'Typ odkazu';
 $lang['nav_uri_label'] 							= 'Adresa stránky (URI)';
 $lang['nav_page_label'] 						= 'Stránka';
 $lang['nav_module_label'] 						= 'Modul';
+$lang['nav_restricted_to']						= 'Restricted To'; #translate
 $lang['nav_abbrev_label'] 						= 'Zkratka';
-$lang['nav_edit_label'] 						= 'Upravit';
-$lang['nav_delete_label'] 						= 'Vymazat';
-$lang['nav_group_delete_label']					= 'Vymazat skupinu';
-$lang['nav_link_page_select_default']			= '--Vyberte stránku--';
 
 $lang['nav_link_target_self'] 					= 'Stejné okno (výchozí)';
 $lang['nav_link_target_blank'] 					= 'Nové okno (_blank)';
@@ -29,6 +25,7 @@ $lang['nav_link_create_title'] 					= 'Přidat odkaz do navigace';
 $lang['nav_group_create_title']					= 'Přidat skupinu';
 $lang['nav_link_edit_title'] 					= 'Upravit odkaz v navigaci "%s"';
 $lang['nav_link_list_title'] 					= 'Seznam odkazů';
+$lang['nav_group_list_title']                   = 'Groups'; #translate
 
 // messages
 $lang['nav_group_no_links'] 					= 'V této skupině nejsou žádné odkazy.';

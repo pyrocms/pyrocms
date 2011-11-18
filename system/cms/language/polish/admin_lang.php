@@ -1,7 +1,7 @@
 <?php
 
 $lang['cp_admin_title'] 				= 'Panel administracyjny';
-$lang['cp_admin_home_title']            = 'Tablica informacyjna';
+$lang['global:dashboard']            = 'Tablica informacyjna';
 $lang['cp_admin_quick_links']			= 'Szybkie linki';
 
 $lang['cp_welcome_title'] 				= 'Witaj';
@@ -41,10 +41,6 @@ $lang['cp_must_login']	 				= 'Musisz być zalogowany, żeby zobaczyć tę stron
 $lang['cp_access_denied'] 				= 'Nie posiadasz wystarczających uprawnień, żeby zobaczyć tą stronę.';
 $lang['cp_delete_installer_message']	= 'Proszę usunąć katalog o nazwie "installer" z serwera. Zostawiając go w głównym katalogu, narażasz się na utratę danych!';
 $lang['cp_upgrade_message']				= 'Używasz wersji %s, ale Twoja baza danych jest w wersji %s. <a href="%s">Kliknij tutaj</a>, aby zaktualizować bazę danych.';
-
-// Admin-wide text
-$lang['cp_shortcuts_title'] 			= 'Skróty klawiszowe'; 
-$lang['cp_remove']						= 'Usuń'; 
 
 $lang['required_label'] 				= 'Wymagane';
 $lang['sb_recent_users'] 				= 'Ostatni użytkownicy';

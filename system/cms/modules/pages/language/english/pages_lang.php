@@ -15,7 +15,6 @@ $lang['pages.add_page_chunk']						= 'Add Page Chunk';
 $lang['pages.page_chunk']							= 'Page Chunk';
 $lang['pages.language_label']						= 'Language';
 $lang['pages.updated_label']						= 'Updated';
-$lang['pages.actions_label']						= 'Actions';
 $lang['pages.unknown_label']						= 'Unknown';
 $lang['pages.title_label']							= 'Title';
 $lang['pages.slug_label']							= 'URL';
@@ -42,17 +41,14 @@ $lang['pages.current_label']						= 'Current';
 
 $lang['pages.view_label']							= 'View';
 $lang['pages.create_label']							= 'Add child';
-$lang['pages.edit_label']							= 'Edit';
-$lang['pages.delete_label']							= 'Delete';
+$lang['pages.duplicate_label']						= 'Duplicate';
 
 // titles
-$lang['pages.create_title']							= 'Add page';
-$lang['pages.edit_title']							= 'Edit page "%s"';
-$lang['pages.list_title']							= 'List pages';
-$lang['pages.layouts_create_title']					= 'Add page layout';
-$lang['pages.layouts_list_title']					= 'List page layouts';
-$lang['pages.compare_revisions_title']				= 'Compare Revisions';
-$lang['pages.preview_revision_title']				= 'Preview Revision';
+$lang['pages.create_title']							= 'Add Page';
+$lang['pages.edit_title']							= 'Edit Page "%s"';
+$lang['pages.list_title']							= 'Pages';
+$lang['pages.layouts_create_title']					= 'Add Page Layout';
+$lang['pages.layouts_list_title']					= 'Layouts';
 
 // messages
 $lang['pages.no_pages']								= 'There are no pages.';
@@ -66,6 +62,8 @@ $lang['pages_mass_delete_success']					= '%s pages have been deleted.';
 $lang['pages_delete_none_notice']					= 'No pages were deleted.';
 $lang['pages_page_already_exist_error']				= 'A page with the URL "%s" already exists in %s.';
 $lang['pages_parent_not_exist_error']				= 'The parent page you have selected does not exist.';
+$lang['pages_chunk_slug_length']					= 'Page Chunk slugs may be no more than 30 characters in length.';
+$lang['pages_root_folder']                = 'the top level';
 
 $lang['pages.tree_explanation']						= 'The list on the left represents pages on your website. Click the page item to show its children. You may drag pages to order them; drag horizontally to make it a child. When you click the page text you will see all sorts of handy information in this box.';
 

@@ -21,10 +21,7 @@ $lang['files.upload_title']				= 'העלאת קבצים';
 $lang['files.edit_title']                               = 'עריכת קובץ "%s"';
 
 // Labels
-$lang['files.actions_label']    			= 'פעולות';
 $lang['files.download_label']				= 'הורדה';
-$lang['files.edit_label']				= 'ערוך';
-$lang['files.delete_label']				= 'מחק';
 $lang['files.upload_label']				= 'העלא';
 $lang['files.description_label']                        = 'תיאור';
 $lang['files.type_label']                               = 'סוג';
@@ -87,7 +84,7 @@ $lang['file_folders.create_success']		= 'התיקיה נוצרה בהצלחה.';
 $lang['file_folders.create_error']			= 'התרחשה שגיעה בעת ניסיון לשמור תיקיה';
 $lang['file_folders.edit_success']			= 'התיקיה עודכנה בהצלחה.';
 $lang['file_folders.edit_error']			= 'התרחשה שגיעה בעת ניסיון לעדכן את התיקיה';
-$lang['file_folders.confirm_delete']		= 'אתם בטוחים שרוצים למחוק את התיקיה לגמרי יחד עם כל התת-תיקיות וקבצים?'; 
+$lang['file_folders.confirm_delete']		= 'אתם בטוחים שרוצים למחוק את התיקיה לגמרי יחד עם כל התת-תיקיות וקבצים?';
 $lang['file_folders.delete_mass_success']	= '%d תיקיות מתוך %d נמחקו בהצלחה. הם היו %s ו-%s';
 $lang['file_folders.delete_mass_error']		= 'התרחשה שגיעה בעת ניסיון למחוק %d קבצים מתוך %d. הם היו %s ו-%s';
 $lang['file_folders.delete_success']		= 'התיקיה "%s" נמחקה בהצלחה.';

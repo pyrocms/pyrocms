@@ -7,14 +7,14 @@ $lang['user_register_step2']                   = '<strong>Step 2:</strong> Activ
 $lang['user_login_header']                     = 'Login';
 
 // titles
-$lang['user_add_title']                        = 'Add user';
-$lang['user_list_title'] 				= 'List users';
-$lang['user_inactive_title']                   = 'Inactive users';
-$lang['user_active_title']                     = 'Active users';
+$lang['user_add_title']                        = 'Add User';
+$lang['user_list_title'] 					   = 'Users';
+$lang['user_inactive_title']                   = 'Inactive Users';
+$lang['user_active_title']                     = 'Active Users';
 $lang['user_registred_title']                  = 'Registered Users';
 
 // labels
-$lang['user_edit_title']                       = 'Edit user "%s"';
+$lang['user_edit_title']                       = 'Edit User "%s"';
 $lang['user_details_label']                    = 'Details';
 $lang['user_first_name_label']                 = 'First Name';
 $lang['user_last_name_label']                  = 'Last Name';
@@ -26,11 +26,7 @@ $lang['user_password_confirm_label']           = 'Confirm Password';
 $lang['user_name_label']                       = 'Name';
 $lang['user_joined_label']                     = 'Joined';
 $lang['user_last_visit_label']                 = 'Last visit';
-$lang['user_actions_label']                    = 'Actions';
 $lang['user_never_label']                      = 'Never';
-$lang['user_delete_label']                     = 'Delete';
-$lang['user_edit_label']                       = 'Edit';
-$lang['user_view_label']                       = 'View';
 
 $lang['user_no_inactives']                     = 'There are no inactive users.';
 $lang['user_no_registred']                     = 'There are no registered users.';
@@ -46,7 +42,7 @@ $lang['user_activate_account_title']           = 'Activate Account';
 $lang['user_activate_label']                   = 'Activate';
 $lang['user_activated_account_title']          = 'Activated Account';
 $lang['user_reset_password_title']             = 'Reset Password';
-$lang['user_password_reset_title']             = 'Password Reset';  
+$lang['user_password_reset_title']             = 'Password Reset';
 
 
 $lang['user_error_username']                   = 'The username you selected is already in use';
@@ -62,7 +58,6 @@ $lang['user_email']                            = 'E-mail';
 $lang['user_confirm_email']                    = 'Confirm E-mail';
 $lang['user_password']                         = 'Password';
 $lang['user_remember']                         = 'Remember Me';
-$lang['user_confirm_password']                 = 'Confirm Password';
 $lang['user_group_id_label']                   = 'Group ID';
 
 $lang['user_level']                            = 'User Role';
@@ -71,6 +66,7 @@ $lang['user_lang']                             = 'Language';
 
 $lang['user_activation_code']                  = 'Activation code';
 
+$lang['user_reset_instructions']			   = 'Enter your email address or username';
 $lang['user_reset_password_link']              = 'Forgot your password?';
 
 $lang['user_activation_code_sent_notice']      = 'An email has been sent to you with your activation code.';
@@ -170,7 +166,7 @@ $lang['profile_edit']                 = 'Edit your profile';
 
 $lang['profile_personal_section']     = 'Personal';
 
-$lang['profile_display_name']         = 'Display Name';  
+$lang['profile_display_name']         = 'Display Name';
 $lang['profile_dob']                  = 'Date of Birth';
 $lang['profile_dob_day']              = 'Day';
 $lang['profile_dob_month']            = 'Month';
@@ -212,4 +208,3 @@ $lang['profile_edit_error']           = 'An error occurred.';
 
 $lang['profile_save_btn']             = 'Save profile';
 /* End of file user_lang.php */
-/* Location: ./system/cms/modules/users/language/english/user_lang.php */

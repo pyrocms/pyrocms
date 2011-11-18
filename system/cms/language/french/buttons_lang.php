@@ -28,7 +28,7 @@ $lang['buttons.disable']	= 'Désactiver';
 $lang['buttons.yes']		= 'Oui';
 $lang['buttons.no']			= 'Non';
 $lang['buttons.activate']   = 'Activer';
-$lang['buttons.deactivate']	= 'Deactivate'; #translate
+$lang['buttons.deactivate']	= 'Désactiver';
 $lang['buttons.preview']	= 'Aperçu';
 $lang['buttons.close']		= 'Fermer';
 $lang['buttons.edit']		= 'Modifier';
@@ -37,4 +37,3 @@ $lang['buttons.re-index']	= 'Ré-indexer';
 $lang['buttons.copy']		= 'Copier';
 
 /* End of file buttons_lang.php */
-/* Location: ./system/cms/language/french/buttons_lang.php */

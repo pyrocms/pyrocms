@@ -1,6 +1,6 @@
 <?php if ($file_folders): ?>
 
-	<h3><?php echo lang('file_folders.manage_title'); ?></h3>
+	<h4><?php echo lang('file_folders.manage_title'); ?></h4>
 
 	<?php echo form_open('admin/files/folders/action', 'id="folders_list"');?>
 
@@ -13,17 +13,14 @@
 						<?php endif; ?>
 					</th>
 					<th><?php echo lang('files.name_label'); ?></th>
+					<th><?php echo lang('file_folders.slug_label'); ?>
 					<th width="100" class="align-center"><?php echo lang('file_folders.created_label'); ?></th>
-					<th width="200" class="align-center">
-						<?php if (group_has_role('files', 'edit_folder') OR group_has_role('files', 'delete_folder')): ?>
-						<?php echo lang('files.actions_label'); ?>
-						<?php endif; ?>
-					</th>
+					<th width="200"></th>
 				</tr>
 			</thead>
 			<tfoot>
 				<tr>
-					<td colspan="4">
+					<td colspan="5">
 						<div class="inner"><?php $this->load->view('admin/partials/pagination'); ?></div>
 					</td>
 				</tr>
@@ -37,8 +34,9 @@
 						<?php endif; ?>
 					</td>
 					<td><?php echo anchor('admin/files/folders/contents/' . $folder->id, repeater('&raquo; ', $folder->depth) . $folder->name, 'title="' . $folder->name .'" data-path="' . $folder->virtual_path . '" class="folder-hash"'); ?></td>
+					<td><?php echo $folder->slug; ?></td>
 					<td class="align-center"><?php echo format_date($folder->date_added); ?></td>
-					<td class="align-center buttons buttons-small">
+					<td class="actions">
 						<?php if (group_has_role('files', 'edit_folder')): ?>
 						<?php echo anchor('admin/files/folders/edit/' . $folder->id, lang('buttons.edit'), 'class="folder-edit button edit"'); ?>
 						<?php endif; ?>
@@ -52,8 +50,8 @@
 		</table>
 		
 		<?php if (group_has_role('files', 'delete_folder')): ?>
-		<div class="buttons buttons-small align-right padding-top">
-			<button type="submit" name="btnAction" value="delete" class="button delete confirm">
+		<div class="table_action_buttons">
+			<button type="submit" name="btnAction" value="delete" class="btn red confirm">
 				<span><?php echo lang('buttons.delete'); ?></span>
 			</button>
 		</div>
@@ -62,7 +60,7 @@
 	<?php echo form_close();?>
 <?php else: ?>
 	<div class="blank-slate file-folders">
-		<h2><?php echo lang('file_folders.no_folders');?>
-		<br />[ <?php echo anchor('admin/files/folders/create', lang('file_folders.create_title'), 'class="folder-create"'); ?> ]</h2>
+		<p><?php echo lang('file_folders.no_folders');?></p>
+		<p>[ <?php echo anchor('admin/files/folders/create', lang('file_folders.create_title'), 'class="folder-create"'); ?> ]</p>
 	</div>
 <?php endif; ?>

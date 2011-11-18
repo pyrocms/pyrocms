@@ -3,9 +3,6 @@
 // labels
 $lang['cat_title_label']            = 'Naslov';
 $lang['cat_category_label']         = 'Kategorija';
-$lang['cat_actions_label']          = 'Akcije';
-$lang['cat_edit_label']             = 'Uredi';
-$lang['cat_delete_label']           = 'Izbriši';
 
 // titles
 $lang['cat_create_title']           = 'Dodaj kategorijo';
@@ -24,4 +21,3 @@ $lang['cat_no_select_error']        = 'Najprej morate izbrati kategorije.';
 $lang['cat_already_exist_error']    = 'Kategorija s tem imenom "%s" že obstaja.';
 
 /* End of file categories_lang.php */
-/* Location: ./system/cms/modules/blog/language/slovenian/categories_lang.php */

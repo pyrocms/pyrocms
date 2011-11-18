@@ -26,11 +26,7 @@ $lang['user_password_confirm_label']            = 'Passwort bestätigen';
 $lang['user_name_label']                        = 'Name';
 $lang['user_joined_label']                      = 'Registriert';
 $lang['user_last_visit_label']                  = 'Letzer Besuch';
-$lang['user_actions_label']                     = 'Aktion';
 $lang['user_never_label']                       = 'Nie';
-$lang['user_delete_label']                      = 'Löschen';
-$lang['user_edit_label']                        = 'Bearbeiten';
-$lang['user_view_label']                        = 'Anzeigen';
 
 $lang['user_no_inactives']                      = 'Keine inaktiven Benutzer.';
 $lang['user_no_registred']                      = 'Keine registrierten Benutzer.';
@@ -62,7 +58,6 @@ $lang['user_email']                             = 'Email';
 $lang['user_confirm_email']                     = 'Email bestätigen';
 $lang['user_password']                          = 'Passwort';
 $lang['user_remember']                          = 'Angemeldet bleiben';
-$lang['user_confirm_password']                  = 'Passwort bestätigen';
 $lang['user_group_id_label']                    = 'Gruppen ID';
 
 $lang['user_level']                             = 'Benutzer Rolle';
@@ -71,6 +66,7 @@ $lang['user_lang']                              = 'Sprache';
 
 $lang['user_activation_code']                   = 'Aktivierungsschlüssel';
 
+$lang['user_reset_instructions']			   = 'Enter your email address or username'; #translate
 $lang['user_reset_password_link']               = 'Passwort vergessen?';
 
 $lang['user_activation_code_sent_notice']       = 'Sie haben eine Email mit ihren Aktivierungscode erhalten.';

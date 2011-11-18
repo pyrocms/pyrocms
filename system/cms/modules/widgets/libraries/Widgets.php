@@ -17,13 +17,20 @@ class Widgets {
 	{
 		$this->load->model('widgets/widget_m');
 		
-		$locations = array(APPPATH,
-						   ADDONPATH,
-						   SHARED_ADDONPATH,
-						   SHARED_ADDONPATH.'themes/'.ADMIN_THEME.'/',
-						   APPPATH.'themes/'.ADMIN_THEME.'/',
-						   ADDONPATH.'themes/'.ADMIN_THEME.'/'
-						   );
+		$locations = array(
+		   APPPATH,
+		   ADDONPATH,
+		   SHARED_ADDONPATH,
+		);
+		
+		if (defined('ADMIN_THEME'))
+		{
+			$locations += array(
+			   SHARED_ADDONPATH.'themes/'.ADMIN_THEME.'/',
+			   APPPATH.'themes/'.ADMIN_THEME.'/',
+			   ADDONPATH.'themes/'.ADMIN_THEME.'/',
+			);
+		}
 
 		// Map where all widgets are
 		foreach ($locations as $path)
@@ -86,6 +93,18 @@ class Widgets {
 				$this->delete_widget($widget->slug);
 
 				continue;
+			}
+
+			// Finally, check if is need and update the widget info
+			$widget_file = FCPATH . $this->_widget_locations[$widget->slug] . $widget->slug . EXT;
+
+			if (file_exists($widget_file) &&
+				filemtime($widget_file) > $widget->updated_on)
+			{
+
+				$this->reload_widget($widget->slug);
+
+				log_message('debug', sprintf('The information of the widget "%s" has been updated', $widget->slug));
 			}
 
 			$avaliable[] = $widget;
@@ -247,7 +266,8 @@ class Widgets {
 			list($path, $view) = Modules::find($view, 'widgets', 'views/');
 		}
 
-		$save_path = $this->load->_ci_view_path;
+		// save the existing view array so we can restore it
+		$save_path = $this->load->get_view_paths();
 
 		foreach ($widgets as $widget)
 		{
@@ -256,12 +276,13 @@ class Widgets {
 
 			if ($widget->body !== FALSE)
 			{
-				$this->load->_ci_view_path = $path;
+				// add this view location to the array
+				$this->load->set_view_path($path);
 
 				$output .= $this->load->_ci_load(array('_ci_view' => $view, '_ci_vars' => array('widget' => $widget), '_ci_return' => TRUE)) . "\n";
 
-				// Put the path back
-				$this->load->_ci_view_path = $save_path;
+				// Put the old array back
+				$this->load->set_view_path($save_path);
 			}
 		}
 
@@ -421,14 +442,14 @@ class Widgets {
 	private function _spawn_widget($name)
 	{
 		$widget_path = $this->_widget_locations[$name];
+		$widget_file = FCPATH . $widget_path . $name . EXT;
 
-		if (file_exists(FCPATH . $widget_path . $name . EXT))
+		if (file_exists($widget_file))
 		{
-			require_once FCPATH . $widget_path . $name . EXT;
+			require_once $widget_file;
 			$class_name = 'Widget_' . ucfirst($name);
 
 			$this->_widget = new $class_name;
-
 			$this->_widget->path = $widget_path;
 
 			return;

@@ -1,9 +1,9 @@
 <div class="blog_post">
 	<!-- Post heading -->
 	<div class="post_heading">
-		<h2><?php echo $post->title; ?></h2>
-		<?php if ($post->author): ?>
-		<p class="author"><?php echo lang('blog_written_by_label'); ?>: <?php echo anchor('user/' . $post->author_id, $post->author->display_name); ?></p>
+		<h4><?php echo $post->title; ?></h4>
+		<?php if (isset($post->display_name)): ?>
+		<p class="author"><?php echo lang('blog_written_by_label'); ?>: <?php echo anchor('user/' . $post->author_id, $post->display_name); ?></p>
 		<?php endif; ?>
 		<p class="post_date"><span class="post_date_label"><?php echo lang('blog_posted_label');?>: </span><?php echo format_date($post->created_on); ?></p>
 		<?php if($post->category->slug): ?>
@@ -12,6 +12,12 @@
 		</p>
 		<?php endif; ?>
 	</div>
+	<?php if($post->keywords): ?>
+	<p class="post_keywords">
+		<?php echo lang('blog_tagged_label');?>:
+		<?php echo $post->keywords; ?>
+	</p>
+	<?php endif; ?>
 	<div class="post_body">
 		<?php echo $post->body; ?>
 	</div>

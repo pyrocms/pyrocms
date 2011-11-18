@@ -8,12 +8,9 @@ jQuery(function($){
 		}
 	});
 
-	pyro.cached = {
-		url_titles		: {},
-		widget_forms	: {
-			add		:{},
-			edit	:{}
-		}
+	pyro.cache.widget_forms = {
+		add		:{},
+		edit	:{}
 	}
 
 	pyro.widgets = {
@@ -50,9 +47,9 @@ jQuery(function($){
 
 				update: function(){
 					var order = [];
-
-					$(this).children('li').each(function(){
-						order.push($(this).attr('id').replace(/^instance-/, ''));
+					
+					$(this).children('li').each(function(){					
+						order.push($(this).attr('id'));
 					});
 
 					$.post(SITE_URL + 'widgets/ajax/update_order', { order: order.join(',') });
@@ -209,30 +206,9 @@ jQuery(function($){
 			// Widget Boxes Draggable
 			pyro.widgets.$boxes.draggable(pyro.widgets.ui_options.draggable);
 
-			// Auto-create a short-name
-			$('input[name="title"]').live('keyup', $.debounce(350, function(){
+			// Create a slug
+			pyro.generate_slug('input[name="title"]', 'input[name="slug"]');
 
-				var $title	= $(this),
-					$form	= $title.parents('form'),
-					$slug	= $form.find('input[name=slug]'),
-					data	= { title: $title.val().toLowerCase() };
-
-				if ( ! data.title.length) return;
-
-				if (data.title in pyro.cached.url_titles)
-				{
-					$slug.val(pyro.cached.url_titles[data.title]);
-
-					return;
-				}
-
-				$.post(SITE_URL + 'ajax/url_title', data, function(slug){
-					pyro.cached.url_titles[data.title] = slug;
-
-					$slug.val(slug);
-				});
-
-			}));
 
 			// MANAGE ------------------------------------------------------------------------------
 
@@ -341,19 +317,19 @@ jQuery(function($){
 				url	= (action == 'add') ? SITE_URL + 'admin/widgets/instances/create/' + key : $(item).attr('href');
 
 			// known? receive the action form
-			if (key in pyro.cached.widget_forms[action])
+			if (key in pyro.cache.widget_forms[action])
 			{
 				// next step
-				return pyro.widgets.add_instance_form(pyro.cached.widget_forms[action][key], container, action, key);
+				return pyro.widgets.add_instance_form(pyro.cache.widget_forms[action][key], container, action, key);
 			}
 
 			$.get(url, function(response){
 
-				response = '<li id="' + action + '-instance-box" class="box hidden widget-instance no-sortable">' +
+				response = '<li id="' + action + '-instance-box" class="box widget-instance no-sortable">' +
 							response + '</li>';
 
 				// write action form into cache
-				pyro.cached.widget_forms[action][key] = response;
+				pyro.cache.widget_forms[action][key] = response;
 
 				pyro.widgets.add_instance_form(response, container, action, key);
 
@@ -454,8 +430,8 @@ jQuery(function($){
 				action === 'add'
 					? $(this).remove()
 					: key
-						? pyro.cached.widget_forms[action][key] = $(this).detach()
-						: pyro.cached.widget_forms[action] = {};
+						? pyro.cache.widget_forms[action][key] = $(this).detach()
+						: pyro.cache.widget_forms[action] = {};
 
 				pyro.widgets.$boxes.draggable('enable');
 				pyro.widgets.$areas.accordion('resize');
@@ -471,7 +447,16 @@ jQuery(function($){
 //		}
 
 	};
-
+	
 	pyro.widgets.init();
+
+	// Slide toggle for widget codes
+	$(".instance-code").livequery('click', function(){
+		$('#'+$(this).attr('id')+'-wrap').toggle();
+	});
+
+	// Select code 
+	$(".widget-code").focus(function(){$(this).select()});
+	$(".widget-code").mouseup(function(e){e.preventDefault();});
 
 });

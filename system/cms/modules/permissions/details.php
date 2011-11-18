@@ -15,7 +15,7 @@ class Module_Permissions extends Module {
 				'fr' => 'Permissions',
 				'de' => 'Zugriffsrechte',
 				'pl' => 'Uprawnienia',
-				'pt' => 'Permissões',
+				'br' => 'Permissões',
 				'zh' => '權限',
 				'it' => 'Permessi',
 				'ru' => 'Права доступа',
@@ -24,7 +24,8 @@ class Module_Permissions extends Module {
 				'fi' => 'Käyttöoikeudet',
 				'el' => 'Δικαιώματα',
 				'he' => 'הרשאות',
-				'lt' => 'Teisės'
+				'lt' => 'Teisės',
+				'da' => 'Adgangskontrol'
 			),
 			'description' => array(
 				'sl' => 'Uredite dovoljenja kateri tip uporabnika lahko vidi določena področja vaše strani.',
@@ -34,7 +35,7 @@ class Module_Permissions extends Module {
 				'es' => 'Controla que tipo de usuarios pueden ver secciones específicas dentro del sitio.',
 				'fr' => 'Permet de définir les autorisations des groupes d\'utilisateurs pour afficher les différentes sections.',
 				'de' => 'Regelt welche Art von Benutzer welche Sektion in der Seite sehen kann.',
-				'pt' => 'Controle quais tipos de usuários podem ver certas seções no site.',
+				'br' => 'Controle quais tipos de usuários podem ver certas seções no site.',
 				'zh' => '用來控制不同類別的用戶，設定其瀏覽特定網站內容的權限。',
 				'it' => 'Controlla che tipo di utenti posssono accedere a determinate sezioni del sito.',
 				'ru' => 'Управление правами доступа, ограничение доступа определённых групп пользователей к произвольным разделам сайта.',
@@ -43,11 +44,12 @@ class Module_Permissions extends Module {
 				'fi' => 'Hallitse minkä tyyppisiin osioihin käyttäjät pääsevät sivustolla.',
 				'el' => 'Ελέγξτε οι χρήστες ποιας ομάδας μπορούν να δούν ποιες περιοχές του ιστοτόπου.',
 				'he' => 'ניהול הרשאות כניסה לאיזורים מסוימים באתר',
-				'lt' => 'Kontroliuokite kokio tipo varotojai kokią dalį puslapio gali pasiekti.'
+				'lt' => 'Kontroliuokite kokio tipo varotojai kokią dalį puslapio gali pasiekti.',
+				'da' => 'Kontroller hvilken type brugere der kan se bestemte sektioner på sitet.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
-			'menu'	  => 'users'
+			'menu'	  => 'users',
 		);
 	}
 	

@@ -1,7 +1,7 @@
 <?php
 
 $lang['cp_admin_title'] 				= 'لوحة التحكم';
-$lang['cp_admin_home_title'] 			= 'لوحة التحكم';
+$lang['global:dashboard'] 			= 'لوحة التحكم';
 $lang['cp_admin_quick_links']			= 'روابط سريعة';
 
 $lang['cp_welcome_title'] 				= 'أهلاً';
@@ -41,10 +41,6 @@ $lang['cp_must_login']	 				= 'يجب أن تكون مسجّل الدخول كي
 $lang['cp_access_denied'] 				= 'ليست لديك الصلاحيات الكافية لعرض هذه الصفحة.';
 $lang['cp_delete_installer_message']		= 'رجاءً حذف مجلد التثبيت من خادمك، حيث أن تركه هناك قد يعني تحكم أحد آخر به.';
 $lang['cp_upgrade_message']		= 'أنت تستخدم النسخة %s حالياً، إلا أن نسخة قاعدة بياناتك هي %s. رجاءً <a href="%s" title="الترقية">اضغط هنا</a> لترقية قاعدة البيانات.';
-
-// Admin-wide text
-$lang['cp_shortcuts_title'] 			= 'الاختصارات';
-$lang['cp_remove']						= 'إزالة';
 
 $lang['required_label'] 				= 'مطلوب';
 $lang['sb_recent_users'] 				= 'أحديث المستخدمين';

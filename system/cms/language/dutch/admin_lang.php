@@ -1,11 +1,11 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['cp_admin_title'] 				= 'Controlepaneel';
-$lang['cp_admin_home_title'] 			= 'Dashboard';
+$lang['global:dashboard'] 			= 'Dashboard';
 $lang['cp_admin_quick_links']			= 'Snelkoppelingen';
 
 $lang['cp_welcome_title'] 				= 'Welkom';
-$lang['cp_welcome_message'] 			= 'Welkom in het %s Controlepaneel. Door de  links boven en links te gebruiken kunt u bijna ieder aspect van uw website instellen. Als u problemen ondervindt met dit systeem, plaats dan een issue op onze bugtracker..';
+$lang['cp_welcome_message'] 			= 'Welkom in het %s Controlepaneel. Door de opties boven en links te gebruiken kunt u bijna ieder aspect van uw website instellen. Als u problemen ondervindt met dit systeem, plaats dan een issue op onze bugtracker..';
 
 $lang['cp_news_feed_title'] 			= 'Nieuwsfeed';
 
@@ -33,7 +33,7 @@ $lang['cp_nav_addons']					= 'Add-ons';
 $lang['cp_nav_modules']					= 'Modules';
 $lang['cp_nav_widgets']					= 'Widgets';
 $lang['cp_nav_users']           = 'Gebruikers';
-$lang['cp_nav_design']					= 'Design';
+$lang['cp_nav_design']					= 'Ontwerp';
 $lang['cp_nav_content']					= 'Content';
 $lang['cp_nav_utilities']       = 'Gereedschappen';
 
@@ -46,12 +46,7 @@ $lang['cp_access_denied'] 				= 'U heeft geen toestemming om deze pagina te beki
 $lang['cp_delete_installer_message']	= 'Verwijder alstublieft de installer map van de server. Het online laten staan betekent dat controle van deze website gegeven kan worden aan iemand anders.';
 $lang['cp_upgrade_message']				= 'U draait momenteel versie %s, maar uw database is versie %s. <a href="%s" title="Upgrade">Klik hier</a> om uw database te upgraden.';
 
-// Admin-wide text
-$lang['cp_shortcuts_title'] 			= 'Snelkoppelingen';
-$lang['cp_remove']						= 'Remove'; #translate
-
 $lang['required_label'] 				= 'Vereist';
 $lang['sb_recent_users'] 				= 'Recente gebruikers';
 
 /* End of file admin_lang.php */
-/* Location: ./system/cms/language/dutch/admin_lang.php */

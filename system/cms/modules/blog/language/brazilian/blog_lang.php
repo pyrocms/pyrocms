@@ -5,6 +5,8 @@ $lang['blog_posted_label']				= 'Escrito';
 $lang['blog_posted_label_alt']			= 'Escrito em';
 $lang['blog_written_by_label']			= 'Por';
 $lang['blog_author_unknown']			= 'Desconhecido';
+$lang['blog_keywords_label']				= 'Keywords'; #translate
+$lang['blog_tagged_label']					= 'Tagged'; #translate
 $lang['blog_category_label']			= 'Categoria';
 $lang['blog_post_label'] 				= 'Artigo';
 $lang['blog_date_label'] 				= 'Data';
@@ -13,11 +15,6 @@ $lang['blog_time_label'] 				= 'Hora';
 $lang['blog_status_label'] 				= 'Situação';
 $lang['blog_draft_label'] 				= 'Rascunho';
 $lang['blog_live_label'] 				= 'Publico';
-$lang['blog_actions_label']				= 'Ações';
-$lang['blog_view_label'] 				= 'Ver';
-$lang['blog_preview_label']				= 'Visualizar';
-$lang['blog_edit_label'] 				= 'Editar';
-$lang['blog_delete_label'] 				= 'Remover';
 $lang['blog_content_label']				= 'Conteúdo';
 $lang['blog_options_label']				= 'Opções';
 $lang['blog_title_label'] 				= 'Título';
@@ -68,4 +65,3 @@ $lang['blog_twitter_error']				= 'Erro do Twitter';
 $lang['blog_archive_date_format']		= "%B de %Y";
 
 /* End of file blog_lang.php */
-/* Location: ./system/cms/modules/blog/language/brazilian/blog_lang.php */

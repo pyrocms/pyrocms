@@ -1,8 +1,8 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-$lang['themes.save_success']			= 'The theme options have been saved successfully.'; #translate 
+$lang['themes.save_success']			= 'The theme options have been saved successfully.'; #translate
 $lang['themes.re-index_success']		= 'The theme options have been re-indexed successfully'; #translate
-$lang['themes.no_options']				= 'This theme has no options.'; #translate 
+$lang['themes.no_options']				= 'This theme has no options.'; #translate
 $lang['themes.set_default_success']     = 'ערכת נושא "%s" היא ערכת הנושא החדשה.';
 $lang['themes.set_default_error']       = 'אין אפשרות להגדיר את "%s" כערכת נושא בררת מחדל החדשה.';
 $lang['themes.already_exists_error']    = 'כבר קיימת ערכת נושא עם שם כזה.';
@@ -17,14 +17,9 @@ $lang['themes.upload_title']            = 'Upload theme';
 $lang['themes.list_title']              = 'Theme list';
 $lang['themes.upload_desc']             = 'Please select a file and click Upload button';
 
-$lang['themes.options']					= 'Options'; #translate 
+$lang['themes.options']					= 'Options'; #translate
 $lang['themes.theme_label']             = 'ערכת נושא';
-$lang['themes.actions_label']           = 'פעולות';
 $lang['themes.make_default']            = 'הפוך לברירת מחדל';
-$lang['themes.description_label']		= 'תיאור';
-$lang['themes.author_label']			= 'מחבר';
 $lang['themes.version_label']			= 'גרסה';
 $lang['themes.default_theme_label']     = 'ערכת נושא ברירת מחדל';
 $lang['themes.no_themes_installed']     = 'אין ערכות נושאים מותקנות.';
-
-?>

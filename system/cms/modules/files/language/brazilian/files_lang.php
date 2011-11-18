@@ -21,10 +21,7 @@ $lang['files.upload_title']					= 'Envio de arquivo';
 $lang['files.edit_title']					= 'Editando o arquivo "%s"';
 
 // Labels
-$lang['files.actions_label']				= 'Ações';
 $lang['files.download_label']				= 'Download';
-$lang['files.edit_label']					= 'Editar';
-$lang['files.delete_label']					= 'Remover';
 $lang['files.upload_label']					= 'Enviar';
 $lang['files.description_label']			= 'Descrição';
 $lang['files.type_label']					= 'Tipo';
@@ -99,4 +96,3 @@ $lang['file_folders.chmod_error']			= 'Não foi possível aplicar chmod ao diret
 $lang['file_folders.no_select_error'] 		= 'Você precisa selecionar uma pasta primeiro, sua solicitação foi interrompida..';
 
 /* End of file files_lang.php */
-/* Location: ./system/cms/modules/files/language/brazilian/files_lang.php */

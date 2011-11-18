@@ -125,5 +125,5 @@ class CI_Cache_dummy extends CI_Driver {
 }
 // End Class
 
-/* End of file Cache_apc.php */
-/* Location: ./system/libraries/Cache/drivers/Cache_apc.php */
+/* End of file Cache_dummy.php */
+/* Location: ./system/libraries/Cache/drivers/Cache_dummy.php */

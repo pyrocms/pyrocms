@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Migration_Add_contact_log extends Migration {
+class Migration_Add_contact_log extends CI_Migration {
 
 	public function up()
 	{

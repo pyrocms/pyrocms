@@ -6,12 +6,8 @@ $lang['page_layouts.css_label'] 					= 'CSS';
 
 // labels
 $lang['page_layouts.updated_label'] 				= 'Aktualizováno';
-$lang['page_layouts.actions_label'] 				= 'Akce';
 $lang['page_layouts.title_label'] 					= 'Titulek';
 $lang['page_layouts.theme_layout_label'] 		= 'Šablona vzhledu';
-
-$lang['page_layouts.edit_label'] 					= 'Upravit';
-$lang['page_layouts.delete_label'] 					= 'Vymazat';
 
 // titles
 $lang['page_layouts.list_title'] 					= 'Seznam šablon stránek';

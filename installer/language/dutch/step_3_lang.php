@@ -2,7 +2,7 @@
 
 // labels
 $lang['header']			=	'Stap 3: Toegangsrechten';
-$lang['intro_text']		= 	'Voordat PyroCMS kan worden geinstalleerd, moet u controleren dat bepaalde bestanden en mappen schrijfbaar zijn. De bestanden staan hieronder. Controleer ook of de onderliggende mappen de juiste rechten hebben !';
+$lang['intro_text']		= 	'Voordat PyroCMS kan worden geinstalleerd, wordt gecontroleerd of bepaalde bestanden en mappen beschrijfbaar zijn. De bestanden staan hieronder. Controleer ook of de onderliggende mappen de juiste rechten hebben!';
 
 $lang['folder_perm']	= 	'Rechten op Mappen';
 $lang['folder_text']	=	'De CHMOD waarden van de volgende mappen moeten veranderd worden naar 777 (in sommige gevallen werkt 775 ook).';
@@ -21,4 +21,3 @@ $lang['step4']			=	'Stap 4';
 $lang['retry']			=	'Probeer nog eens';
 
 /* End of file step_3_lang.php */
-/* Location: ./installer/language/dutch/step_3_lang.php */

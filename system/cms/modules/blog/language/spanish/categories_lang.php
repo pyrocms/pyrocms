@@ -3,9 +3,6 @@
 # labels
 $lang['cat_title_label'] 			= 'Título';
 $lang['cat_category_label'] 		= 'Categoría';
-$lang['cat_actions_label'] 			= 'Acciones';
-$lang['cat_edit_label'] 			= 'Editar';
-$lang['cat_delete_label'] 			= 'Borrar';
 
 # titles
 $lang['cat_create_title'] 			= 'Crear una categoría';
@@ -24,4 +21,3 @@ $lang['cat_no_select_error'] 		= 'Necesitas seleccionar categorías primero.';
 $lang['cat_already_exist_error']	= 'Una categoría con el nombre "%s" ya existe.';
 
 /* End of file categories_lang.php */
-/* Location: ./system/cms/modules/blog/language/spanish/categories_lang.php */

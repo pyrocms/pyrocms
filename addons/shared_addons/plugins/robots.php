@@ -15,7 +15,7 @@ class Plugin_Robots extends Plugin
 	 * Hello
 	 *
 	 * Usage:
-	 * {pyro:robots:hello}
+	 * {{ robots:hello }}
 	 *
 	 * @param	array
 	 * @return	array

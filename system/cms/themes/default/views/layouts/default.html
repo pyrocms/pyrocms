@@ -1,36 +1,38 @@
 <!DOCTYPE html>
 <html>
 <head>
-	{pyro:theme:partial name="metadata"}
+	{{ theme:partial name="metadata" }}
 </head>
 <body id="top">
+{{ template:metadata in="body" }}
+
 	<!-- Begin pageWrapper -->
 	<div id="pageWrapper">
-		{pyro:integration:analytics}
+		{{ integration:analytics }}
 
-		{pyro:theme:partial name="header"}
+		{{ theme:partial name="header" }}
 
 		<!-- Begin nav -->
 		<nav>
 			<ul id="head-nav">
-			{pyro:navigation:links group="header"}
+			{{ navigation:links group="header" }}
 			</ul>
 		</nav>
 		<!-- End nav -->
 
 		<!-- Begin contentWrapper -->
 		<div id="contentWrapper">
-			
-			{pyro:theme:partial name="content"}
-			
-		</div>
-	<!-- End contentWrapper -->
 
-	{pyro:theme:partial name="footer"}
+			{{ theme:partial name="content" }}
+
+		</div>
+		<!-- End contentWrapper -->
+
+	{{ theme:partial name="footer" }}
 
 	</div>
 	<!-- End pageWrapper -->
 
+{{ template:metadata in="footer" }}
 </body>
-
 </html>

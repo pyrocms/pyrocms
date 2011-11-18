@@ -27,13 +27,9 @@ $lang['themes.upload_desc']						= 'Выберите архив с темой и
 
 $lang['themes.options']								= 'Настройки';
 $lang['themes.theme_label'] 					= 'Тема';
-$lang['themes.actions_label']					= 'Действия';
 $lang['themes.make_default']					= 'Установить по-умолчанию';
-$lang['themes.description_label']			= 'Описание';
-$lang['themes.author_label']					= 'Автор';
 $lang['themes.version_label']					= 'Версия';
 $lang['themes.default_theme_label']		= 'Тема по-умолчанию';
 $lang['themes.no_themes_installed']		= 'Темы оформления отсутствуют';
 
 /* End of file themes_lang.php */
-/* Location: ./system/cms/modules/themes/language/russian/themes_lang.php */

@@ -2,10 +2,8 @@
 
 
 // labels
-$lang['variables.name_label'] 			    = 'שם';
 $lang['variables.syntax_label']				= 'סינטאקס';
 $lang['variables.data_label'] 			    = 'ערך';
-$lang['variables.actions_label'] 			= 'פעולות';
 
 // titles
 $lang['variables.create_title'] 			= 'הוסף משתנה';

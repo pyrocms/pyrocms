@@ -16,13 +16,9 @@ $lang['comments.message_label'] 			= 'Wiadomość';
 $lang['comments.status_label'] 				= 'Status';
 $lang['comments.activate_label'] 			= 'Zatwierdź';
 $lang['comments.deactivate_label'] 			= 'Odmów';
-$lang['comments.author_label'] 				= 'Autor';
 $lang['comments.module_label'] 				= 'Moduł';
 $lang['comments.item_label'] 				= 'Numer';
 $lang['comments.date_label'] 				= 'Data';
-$lang['comments.actions_label'] 			= 'Akcje';
-$lang['comments.edit_label'] 				= 'Edycja';
-$lang['comments.delete_label'] 				= 'Kasuj';
 $lang['comments.posted_label'] 				= 'Wysłane';
 $lang['comments.from_label'] 				= 'Od';
 $lang['comments.preview_label'] 			= 'Podgląd';
@@ -57,8 +53,8 @@ $lang['comments.delete_multi_success']      = 'Komentarze #%s zostały skasowane
 $lang['comments.no_comments'] 				= 'Nie ma komentarzy';
 
 // Helper counter comments
-$lang['comments.counter_none_label']		= 'Brak komentarzy'; 
-$lang['comments.counter_singular_label']	= '%d komentarz'; 
-$lang['comments.counter_plural_label']		= '%d komentarzy'; 
+$lang['comments.counter_none_label']		= 'Brak komentarzy';
+$lang['comments.counter_singular_label']	= '%d komentarz';
+$lang['comments.counter_plural_label']		= '%d komentarzy';
 
 /* End of file comments_lang.php */

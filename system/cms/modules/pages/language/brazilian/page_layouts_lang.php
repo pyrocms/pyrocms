@@ -6,12 +6,8 @@ $lang['page_layouts.css_label'] 					= 'CSS';
 
 // labels
 $lang['page_layouts.updated_label'] 				= 'Atualizado';
-$lang['page_layouts.actions_label'] 				= 'Ações';
 $lang['page_layouts.title_label'] 					= 'Título';
 $lang['page_layouts.theme_layout_label']			= 'Tema de layout';
-
-$lang['page_layouts.edit_label'] 					= 'Editar';
-$lang['page_layouts.delete_label'] 					= 'Remover';
 
 // titles
 $lang['page_layouts.list_title'] 					= 'Listar páginas de layout';
@@ -35,4 +31,3 @@ $lang['page_layouts.variable_title']				= 'Contém o título da página.';
 $lang['page_layouts.variable_body']					= 'Contém o corpo HTML da página.';
 
 /* End of file page_layouts_lang.php */
-/* Location: ./system/cms/modules/page/language/brazilian/page_layouts_lang.php */

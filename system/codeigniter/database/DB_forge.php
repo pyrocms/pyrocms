@@ -99,7 +99,7 @@ class CI_DB_forge {
 	{
 		if (is_array($key))
 		{
-			foreach($key as $one)
+			foreach ($key as $one)
 			{
 				$this->add_key($one, $primary);
 			}
@@ -234,7 +234,7 @@ class CI_DB_forge {
 			show_error('A table name is required for that operation.');
 		}
 
-		$sql = $this->_rename_table($table_name, $new_table_name);
+		$sql = $this->_rename_table($this->db->dbprefix.$table_name, $this->db->dbprefix.$new_table_name);
 		return $this->db->query($sql);
 	}
 

@@ -1,9 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // Labels
-$lang['templates.actions_label']			= 'Actions';
-$lang['templates.name_label']				= 'Name';
-$lang['templates.description_label']		= 'Description';
 $lang['templates.language_label']			= 'Language';
 $lang['templates.choose_lang_label']		= 'Choose language';
 $lang['templates.subject_label']			= 'Subject';
@@ -11,16 +8,16 @@ $lang['templates.body_label']				= 'Body';
 $lang['templates.slug_label']				= 'Slug';
 
 // Titles
-$lang['templates.create_title']				= 'Create template';
-$lang['templates.edit_title']				= 'Editing template "%s"';
-$lang['templates.clone_title']				= 'Copying template "%s"';
-$lang['templates.list_title']				= 'List templates';
-$lang['templates.default_title']			= 'Default templates';
-$lang['templates.user_defined_title']		= 'User defined templates';
+$lang['templates.create_title']				= 'Add Template';
+$lang['templates.edit_title']				= 'Editing Template "%s"';
+$lang['templates.clone_title']				= 'Copying Template "%s"';
+$lang['templates.list_title']				= 'Templates';
+$lang['templates.default_title']			= 'Default Templates';
+$lang['templates.user_defined_title']		= 'User Defined Templates';
 
 // Messages
-$lang['templates.tmpl_create_success']		= 'Email template "%s" has been saved.';
-$lang['templates.tmpl_create_error']		= 'Email template "%s" was not saved.';
+$lang['templates.tmpl_create_success']		= 'Email Template "%s" has been saved.';
+$lang['templates.tmpl_create_error']		= 'Email Template "%s" was not saved.';
 $lang['templates.tmpl_edit_success']		= 'Changes made to email template "%s" has been saved.';
 $lang['templates.tmpl_edit_error']			= 'Changes made to email template "%s" was not saved.';
 $lang['templates.tmpl_clone_success']		= '"%s" has been cloned. You may now edit the template to your liking.';
@@ -33,4 +30,3 @@ $lang['templates.no_select_error'] 			= 'You need to select email templates firs
 $lang['templates.already_exist_error']		= 'A email template with the name "%s" already exists.';
 
 /* End of file templates_lang.php */
-/* Location: ./system/cms/modules/templates/language/english/templates_lang.php */

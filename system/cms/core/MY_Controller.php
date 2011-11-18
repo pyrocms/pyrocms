@@ -1,73 +1,84 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
+require APPPATH."libraries/MX/Controller.php";
+
 // Code here is run before ALL controllers
-class MY_Controller extends CI_Controller {
+class MY_Controller extends MX_Controller {
 
 	// Deprecated: No longer used globally
 	protected $data;
+	
 	public $module;
 	public $controller;
 	public $method;
 
-	public function MY_Controller()
+	public function __construct()
 	{
 		parent::__construct();
 
 		$this->benchmark->mark('my_controller_start');
-
-		// TODO: Remove all this migration check in the next major version after 1.3.0
-		// This extra check needs to be done to make the "multisite" changes run before the rest
-		// of the controller attempts to run
-		if ($this->db->table_exists('schema_version'))
-		{
-			$this->load->library('migrations');
-			$this->migrations->latest();
-
-			if ($this->migrations->error)
-			{
-				show_error($this->migrations->error);
-			}
-
-			redirect(current_url());
-		}
-		// End migration check
-
+		
 		// No record? Probably DNS'ed but not added to multisite
 		if ( ! defined('SITE_REF'))
 		{
-			show_error('This domain is not set up correctly.');
+			show_error('This domain is not set up correctly. Please go to '.anchor('sites') .' and log in to add this new site.');
+		}
+		
+		// TODO: Remove this in v2.1.0 as it just renames tables for v2.0.0
+		if ($this->db->table_exists(SITE_REF.'_schema_version'))
+		{	
+			$this->load->dbforge();
+			if ($this->db->table_exists(SITE_REF.'_migrations'))
+			{
+				$this->dbforge->drop_table(SITE_REF.'_schema_version');
+			}
+			else
+			{
+				$this->dbforge->rename_table(SITE_REF.'_schema_version', SITE_REF.'_migrations');
+			}
+		}
+		
+		// Upgrading from something old? Erf, try to shoehorn them back on track
+		elseif ($this->db->table_exists('schema_version'))
+		{
+			$this->load->dbforge();
+			$this->dbforge->rename_table('schema_version', 'migrations');
+			
+			// Migration logic helps to make sure PyroCMS is running the latest changes
+			$this->load->library('migration');
+
+			if ( ! ($schema_version = $this->migration->version(28)))
+			{
+				show_error($this->migration->error_string());
+			}
+			redirect(current_url());
 		}
 
-		// By changing the prefix we are essentially "namespacing" each pyro site
+		// By changing the prefix we are essentially "namespacing" each site
 		$this->db->set_dbprefix(SITE_REF.'_');
+
+		// Load the cache library now that we know the siteref
 		$this->load->library('pyrocache');
 
 		// Add the site specific theme folder
 		$this->template->add_theme_location(ADDONPATH.'themes/');
 
 		// Migration logic helps to make sure PyroCMS is running the latest changes
-
-		$this->load->library('migrations');
-		// $this->migrations->verbose = true;
-		$schema_version = $this->migrations->latest();
-
-		if ($this->migrations->error)
+		$this->load->library('migration');
+		
+		if ( ! ($schema_version = $this->migration->current()))
 		{
-			show_error($this->migrations->error);
+			show_error($this->migration->error_string());
 		}
 
 		// Result of schema version migration
-		if (is_numeric($schema_version))
+		else if (is_numeric($schema_version))
 		{
 			log_message('debug', 'PyroCMS was migrated to version: ' . $schema_version);
 		}
-		elseif ($schema_version === FALSE)
-		{
-			log_message('error', $this->migrations->error);
-		}
 
 		// With that done, load settings
-		$this->load->library(array('settings/settings'));
+		$this->load->library(array('session', 'settings/settings'));
 
 		// Lock front-end language
 		if ( ! (is_a($this, 'Admin_Controller') && ($site_lang = AUTO_LANGUAGE)))
@@ -84,7 +95,7 @@ class MY_Controller extends CI_Controller {
 			}
 		}
 
-		define('CURRENT_LANGUAGE', $site_lang);
+		defined('CURRENT_LANGUAGE') or define('CURRENT_LANGUAGE', $site_lang);
 
 		$langs = $this->config->item('supported_languages');
 
@@ -104,17 +115,17 @@ class MY_Controller extends CI_Controller {
 		{
 			$this->config->set_item('language', $langs[CURRENT_LANGUAGE]['folder']);
 			$this->lang->is_loaded = array();
-			$this->lang->load(array('errors', 'main', 'users/user', 'settings/settings'));
+			$this->lang->load(array('errors', 'global', 'users/user', 'settings/settings'));
 		}
 		else
 		{
-			$this->lang->load(array('main', 'users/user'));
+			$this->lang->load(array('global', 'users/user'));
 		}
 
 		$this->load->library(array('events', 'users/ion_auth'));
 
 		// Use this to define hooks with a nicer syntax
-		$this->hooks = & $GLOBALS['EXT'];
+		ci()->hooks =& $GLOBALS['EXT'];
 
 		// Create a hook point with access to instance but before custom code
 		$this->hooks->_call_hook('post_core_controller_constructor');
@@ -127,26 +138,26 @@ class MY_Controller extends CI_Controller {
 		// Load the user model and get user data
 		$this->load->library('users/ion_auth');
 
-		$this->user = $this->ion_auth->get_user();
+		$this->template->current_user = ci()->current_user = $this->current_user = $this->ion_auth->get_user();
 
 		// Work out module, controller and method and make them accessable throught the CI instance
-		$this->module = $this->router->fetch_module();
-		$this->controller = $this->router->fetch_class();
-		$this->method = $this->router->fetch_method();
+		ci()->module = $this->module = $this->router->fetch_module();
+		ci()->controller = $this->controller = $this->router->fetch_class();
+		ci()->method = $this->method = $this->router->fetch_method();
 
-		// Loaded after $this->user is set so that data can be used everywhere
+		// Loaded after $this->current_user is set so that data can be used everywhere
 		$this->load->model(array(
 			'permissions/permission_m',
 			'modules/module_m',
-			'pages/pages_m',
-			'themes/themes_m'
+			'pages/page_m',
+			'themes/themes_m',
 		));
 
 		// List available module permissions for this user
-		$this->permissions = $this->user ? $this->permission_m->get_group($this->user->group_id) : array();
+		ci()->permissions = $this->permissions = $this->current_user ? $this->permission_m->get_group($this->current_user->group_id) : array();
 
 		// Get meta data for the module
-		$this->template->module_details = $this->module_details = $this->module_m->get($this->module);
+		$this->template->module_details = ci()->module_details = $this->module_details = $this->module_m->get($this->module);
 
 		// If the module is disabled, then show a 404.
 		empty($this->module_details['enabled']) AND show_404();
@@ -157,23 +168,15 @@ class MY_Controller extends CI_Controller {
 		}
 
 		$this->load->vars($pyro);
-
-		// Load the admin theme so things like partials and assets are available everywhere
-		$this->admin_theme = $this->themes_m->get_admin();
-		// Load the current theme so we can set the assets right away
-		$this->theme = $this->themes_m->get() or show_error('Theme could not be found, perhaps it is in the wrong location.');
-
-		// make a constant as this is used in a lot of places
-		define('ADMIN_THEME', $this->admin_theme->slug);
-
-		// Asset library needs to know where the admin theme directory is
-		$this->config->set_item('asset_dir', $this->admin_theme->path.'/');
-		$this->config->set_item('asset_url', BASE_URL.$this->admin_theme->web_path.'/');
-		// Set the front-end theme directory
-		$this->config->set_item('theme_asset_dir', dirname($this->theme->path).'/');
-		$this->config->set_item('theme_asset_url', BASE_URL.dirname($this->theme->web_path).'/');
-
+		
 		$this->benchmark->mark('my_controller_end');
+		
+		// Enable profiler on local box
+	    if (ENVIRONMENT === PYRO_DEVELOPMENT AND is_array($_GET) AND array_key_exists('_debug', $_GET) )
+	    {
+			unset($_GET['_debug']);
+	    	$this->output->enable_profiler(TRUE);
+	    }
 	}
 }
 

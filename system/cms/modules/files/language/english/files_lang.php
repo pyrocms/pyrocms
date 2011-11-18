@@ -21,10 +21,7 @@ $lang['files.upload_title']					= 'Upload Files';
 $lang['files.edit_title']					= 'Edit file "%s"';
 
 // Labels
-$lang['files.actions_label']				= 'Actions';
 $lang['files.download_label']				= 'Download';
-$lang['files.edit_label']					= 'Edit';
-$lang['files.delete_label']					= 'Delete';
 $lang['files.upload_label']					= 'Upload';
 $lang['files.description_label']			= 'Description';
 $lang['files.type_label']					= 'Type';
@@ -47,13 +44,13 @@ $lang['files.display_grid']					= 'Grid';
 $lang['files.display_list']					= 'List';
 
 // Messages
-$lang['files.create_success']				= 'The file has now been saved.';
+$lang['files.create_success']				= '"%s" has been uploaded successfully.';
 $lang['files.create_error']					= 'An error as occourred.';
 $lang['files.edit_success']					= 'The file was successfully saved.';
 $lang['files.edit_error']					= 'An error occurred while trying to save the file.';
 $lang['files.delete_success']				= 'The file was deleted.';
 $lang['files.delete_error']					= 'The file could not be deleted.';
-$lang['files.mass_delete_success']			= '%d of %d files were successfully deleted, they were "%s and %s"';
+$lang['files.mass_delete_success']			= '%d of %d files were successfully deleted. They were "%s and %s"';
 $lang['files.mass_delete_error']			= 'An error occurred while trying to delete %d of %d files, they are "%s and %s".';
 $lang['files.upload_error']					= 'A file must be uploaded.';
 $lang['files.invalid_extension']			= 'File must have a valid extension.';

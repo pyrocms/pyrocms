@@ -32,6 +32,6 @@
 
 <?php else: ?>
 	<div class="blank-slate">
-		<h2><?php echo lang('themes.no_options'); ?></h2>
+		<p><?php echo lang('themes.no_options'); ?></p>
 	</div>
 <?php endif; ?>

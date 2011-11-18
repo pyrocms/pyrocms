@@ -2,7 +2,7 @@
 /**
  * @package 		PyroCMS
  * @subpackage 		WYSIWYG
- * @author			Stephen Cozart
+ * @author			PyroCMS Dev Team
  *
  * Manages file uploads from wysiwyg plugins
  */
@@ -10,7 +10,7 @@ class Upload extends WYSIWYG_Controller
 {
 	function __construct()
 	{
-		parent::WYSIWYG_Controller();
+		parent::__construct();
         $this->config->load('files/files');
         $this->_path = FCPATH . '/' . $this->config->item('files_folder') . '/';
 		
@@ -69,7 +69,7 @@ class Upload extends WYSIWYG_Controller
 
 				$this->file_m->insert(array(
 					'folder_id'		=> $this->input->post('folder_id'),
-					'user_id'		=> $this->user->id,
+					'user_id'		=> $this->current_user->id,
 					'type'			=> $type,
 					'name'			=> $this->input->post('name'),
 					'description'	=> $this->input->post('description') ? $this->input->post('description') : '',

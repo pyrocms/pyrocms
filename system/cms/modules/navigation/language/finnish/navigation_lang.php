@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * Finnish translation.
- * 
+ *
  * @author Mikael Kundert <mikael@kundert.fi>
  * @date 07.02.2011
  * @version 1.0.3
@@ -12,7 +12,6 @@ $lang['nav_title_label']                        = 'Otsikko';
 $lang['nav_target_label']                       = 'Kohde';
 $lang['nav_class_label']                        = 'Luokka';
 $lang['nav_url_label']                          = 'URL';
-$lang['nav_actions_label']                      = 'Toiminnot';
 $lang['nav_details_label']                      = 'Tiedot';
 $lang['nav_text_label']                         = 'Teksti';
 $lang['nav_group_label']                        = 'Ryhmä';
@@ -21,10 +20,8 @@ $lang['nav_type_label']                         = 'Linkin tyyppi';
 $lang['nav_uri_label']                          = 'Sivuston linkki (URI)';
 $lang['nav_page_label']                         = 'Sivu';
 $lang['nav_module_label']                       = 'Moduuli';
+$lang['nav_restricted_to']						= 'Restricted To'; #translate
 $lang['nav_abbrev_label']                       = 'Lyhennys';
-$lang['nav_edit_label']                         = 'Muokkaa';
-$lang['nav_delete_label']                       = 'Poista';
-$lang['nav_group_delete_label']                 = 'Poista ryhmä';
 
 $lang['nav_link_target_self']                   = 'Sama ikkuna (oletus)';
 $lang['nav_link_target_blank']                  = 'Uusi ikkuna (_blank)';
@@ -34,6 +31,7 @@ $lang['nav_link_create_title']                  = 'Lisää navigointi linkki';
 $lang['nav_group_create_title']                 = 'Lisää ryhmä';
 $lang['nav_link_edit_title']                    = 'Muokkaa navigointi linkkiä "%s"';
 $lang['nav_link_list_title']                    = 'Listaa linkit';
+$lang['nav_group_list_title']                   = 'Groups'; #translate
 
 // messages
 $lang['nav_group_no_links']                     = 'Tässä ryhmässä ei ole linkkejä.';

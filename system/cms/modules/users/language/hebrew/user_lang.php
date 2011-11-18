@@ -26,11 +26,7 @@ $lang['user_password_confirm_label']           = 'וידוי סיסמה';
 $lang['user_name_label']                       = 'שם';
 $lang['user_joined_label']                     = 'הצתרף';
 $lang['user_last_visit_label']                 = 'ביקור אחרון';
-$lang['user_actions_label']                    = 'פעולות';
 $lang['user_never_label']                      = 'אף פעם';
-$lang['user_delete_label']                     = 'מחק';
-$lang['user_edit_label']                       = 'ערוך';
-$lang['user_view_label']                       = 'הצג';
 
 $lang['user_no_inactives']                     = 'אין משתמשים לא פעילים.';
 $lang['user_no_registred']                     = 'אין משתמשים רשומים.';
@@ -46,7 +42,7 @@ $lang['user_activate_account_title']           = 'הפעל חשבון';
 $lang['user_activate_label']                   = 'הפעל';
 $lang['user_activated_account_title']          = 'החשבון הופעל';
 $lang['user_reset_password_title']             = 'חדש סיסמה';
-$lang['user_password_reset_title']             = 'הסיסמה חודשה';  
+$lang['user_password_reset_title']             = 'הסיסמה חודשה';
 
 
 $lang['user_error_username']                   = 'שם משתמש שבחרתם כבר בשימוש';
@@ -62,7 +58,6 @@ $lang['user_email']                            = 'E-mail';
 $lang['user_confirm_email']                    = 'וידוי E-mail';
 $lang['user_password']                         = 'סיסמה';
 $lang['user_remember']                         = 'זכור אותי';
-$lang['user_confirm_password']                 = 'וידוי סיסמה';
 $lang['user_group_id_label']                   = 'ID של הקבוצה'; // #TRANSLATE #TODO: Translate this into Spanish
 
 $lang['user_level']                            = 'תפקיד המשתמש';
@@ -71,6 +66,7 @@ $lang['user_lang']                             = 'שפה';
 
 $lang['user_activation_code']                  = 'קוד הפעלה';
 
+$lang['user_reset_instructions']			   = 'Enter your email address or username'; #translate
 $lang['user_reset_password_link']              = 'שכחת סיסמה?';
 
 $lang['user_activation_code_sent_notice']      = 'אימייל עם קוד הפעלה נשלח אליך.';
@@ -170,7 +166,7 @@ $lang['profile_edit']                 = 'ערוך פרופיל';
 
 $lang['profile_personal_section']     = 'אישי';
 
-$lang['profile_display_name']         = 'הצג שם';  
+$lang['profile_display_name']         = 'הצג שם';
 $lang['profile_dob']                  = 'תאריך לידה';
 $lang['profile_dob_day']              = 'יום';
 $lang['profile_dob_month']            = 'חודש';
@@ -213,4 +209,3 @@ $lang['profile_edit_error']           = 'אירעה שגיאה. הפרופיל �
 $lang['profile_save_btn']             = 'שמור פרופיל';
 
 /* End of file user_lang.php */
-/* Location: ./system/cms/modules/users/language/hebrew/user_lang.php */

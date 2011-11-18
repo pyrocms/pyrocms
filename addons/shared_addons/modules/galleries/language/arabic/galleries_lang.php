@@ -21,15 +21,12 @@ $lang['galleries.no_gallery_description']	= 'لم يضاف أي وصف بعد.';
 // Labels
 $lang['galleries.galleries_label']			= 'معارض الصّور';
 $lang['galleries.manage_gallery_label']		= 'إدارة معرض الصّور';
-$lang['galleries.new_gallery_label']		= 'معرض صوَر جديد';
 
 $lang['galleries.gallery_label']				= 'الألبوم';
 $lang['galleries.num_photos_label']			= 'عدد الصّور';
 $lang['galleries.updated_label']			= 'آخر تحديث';
-$lang['galleries.actions_label']			= 'الإجراءات';
 $lang['galleries.view_label']				= 'عرض';
 $lang['galleries.manage_label']				= 'إدارة';
-$lang['galleries.delete_label']				= 'حذف';
 $lang['galleries.comments_enabled_label']	= 'نعم';
 $lang['galleries.comments_disabled_label']	= 'لا';
 $lang['galleries.published_yes_label']		= 'نعم';

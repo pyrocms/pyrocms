@@ -8,7 +8,7 @@ $lang['folder_perm']		= 'Folder Permissions';
 $lang['folder_text']		= 'The CHMOD values of the following folders must be changed to 777 (in some cases 775 works too).';
 
 $lang['file_perm']		= 'File Permissions';
-$lang['file_text']		= 'The CHMOD values of the following files must be changed to 666. It\'s very important to change the file permissions of the database file <em>before</em> installing PyroCMS.';
+$lang['file_text']		= 'The CHMOD values of the following file must be changed to 666. It\'s very important to change the file permissions of the config file <em>before</em> continuing with the installation.';
 
 $lang['writable']		= 'Writable';
 $lang['not_writable']		= 'Not writable';
@@ -21,4 +21,3 @@ $lang['step4']			= 'Step 4';
 $lang['retry']			= 'Try again';
 
 /* End of file step_3_lang.php */
-/* Location: ./installer/language/english/step_3_lang.php */

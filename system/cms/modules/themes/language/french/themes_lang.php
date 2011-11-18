@@ -14,17 +14,13 @@ $lang['themes.mass_delete_success'] 	= '%s thèmes sur %s thèmes supprimés ave
 $lang['themes.mass_delete_error']		= 'Seuls %s themes sur %s ont été supprimés.';
 $lang['themes.delete_select_error'] 	= 'Vous devez d\'abord sélectionner un thème à supprimer.';
 $lang['themes.upload_title'] 			= 'Charger un thème';
+$lang['themes.admin_list']				= 'Administrer les thèmes';
 $lang['themes.list_title'] 				= 'Liste de thèmes';
 $lang['themes.upload_desc'] 			= 'Veuillez sélectionner un fichier et cliquer sur le bouton Charger';
 
 $lang['themes.options']					= 'Options';
 $lang['themes.theme_label'] 			= 'Thème';
-$lang['themes.actions_label'] 			= 'Actions';
 $lang['themes.make_default'] 			= 'Rendre par défaut';
-$lang['themes.description_label']		= 'Description';
-$lang['themes.author_label']			= 'Auteur';
 $lang['themes.version_label']			= 'Version';
 $lang['themes.default_theme_label'] 	= 'Thème par défaut';
 $lang['themes.no_themes_installed'] 	= 'Il n\'y a aucun thème installé.';
-
-?>

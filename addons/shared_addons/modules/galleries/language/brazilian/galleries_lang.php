@@ -21,15 +21,12 @@ $lang['galleries.no_gallery_description']	= 'Sem descrição.';
 // Labels
 $lang['galleries.galleries_label']			= 'Galerias';
 $lang['galleries.manage_gallery_label']		= 'Gerenciando a galeria "%s"';
-$lang['galleries.new_gallery_label']		= 'Nova galeria';
 
 $lang['galleries.gallery_label']			= 'Galeria';
 $lang['galleries.num_photos_label']			= 'Número de fotos';
 $lang['galleries.updated_label']			= 'Última atualização';
-$lang['galleries.actions_label']			= 'Ações';
 $lang['galleries.view_label']				= 'Ver';
 $lang['galleries.manage_label']				= 'Gerenciar';
-$lang['galleries.delete_label']				= 'Remover';
 $lang['galleries.comments_enabled_label']	= 'Sim';
 $lang['galleries.comments_disabled_label']	= 'Não';
 $lang['galleries.published_yes_label']		= 'Sim';

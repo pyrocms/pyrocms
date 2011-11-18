@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * Finnish translation.
- * 
+ *
  * @author Mikael Kundert <mikael@kundert.fi>
  * @date 07.02.2011
  * @version 1.0.3
@@ -13,12 +13,8 @@ $lang['page_layouts.css_label']                      = 'CSS';
 
 // labels
 $lang['page_layouts.updated_label']                  = 'Päivitetty';
-$lang['page_layouts.actions_label']                  = 'Toiminnot';
 $lang['page_layouts.title_label']                    = 'Otsikko';
 $lang['page_layouts.theme_layout_label']             = 'Sivupohja';
-
-$lang['page_layouts.edit_label']                     = 'Muokkaa';
-$lang['page_layouts.delete_label']                   = 'Poista';
 
 // titles
 $lang['page_layouts.list_title']                     = 'Listaa sivupohjat';

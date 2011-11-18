@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['cp_admin_title'] 			= 'לוח בקרה';
-$lang['cp_admin_home_title'] 			= 'לוח בקרה';
+$lang['global:dashboard'] 			= 'לוח בקרה';
 $lang['cp_admin_quick_links']			= 'קישורים מהירים';
 
 $lang['cp_welcome_title'] 			= 'ברוכים הבאים';
@@ -54,12 +54,7 @@ $lang['cp_google_analytics_missing']= '
 $lang['cp_google_analytics_no_connect']= '
 אין אפשרות להתחבר לגוגל אנליטיקס. אנא בדוק ב%s';
 
-// Admin-wide text
-$lang['cp_shortcuts_title'] 			= 'קיצורי דרך';
-$lang['cp_remove']						= 'Remove'; #translate
-
 $lang['required_label'] 				= 'דרוש';
 $lang['sb_recent_users'] 				= 'משתמשים חדשים';
 
 /* End of file admin_lang.php */
-/* Location: ./system/cms/language/hebrew/admin_lang.php */

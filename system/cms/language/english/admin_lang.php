@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['cp_admin_title'] 				= 'Control Panel';
-$lang['cp_admin_home_title'] 			= 'Dashboard';
+$lang['global:dashboard'] 			= 'Dashboard';
 $lang['cp_admin_quick_links']			= 'Quick Links';
 
 $lang['cp_welcome_title'] 				= 'Welcome';
@@ -44,12 +44,7 @@ $lang['cp_upgrade_message']				= 'You are currently running version %s, but your
 $lang['cp_google_analytics_missing']	= 'Google Analytics settings are missing. Add them into %s or contact your administrator.';
 $lang['cp_google_analytics_no_connect']	= 'Could not connect to Google Analytics. Check in %s.';
 
-// Admin-wide text
-$lang['cp_shortcuts_title'] 			= 'Shortcuts';
-$lang['cp_remove']						= 'Remove';
-
 $lang['required_label'] 				= 'Required';
 $lang['sb_recent_users'] 				= 'Recent users';
 
 /* End of file admin_lang.php */
-/* Location: ./system/cms/language/english/admin_lang.php */

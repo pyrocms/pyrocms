@@ -10,7 +10,7 @@ class Module_Comments extends Module {
 			'name' => array(
 				'sl' => 'Komentarji',
 				'en' => 'Comments',
-				'pt' => 'Comentários',
+				'br' => 'Comentários',
 				'nl' => 'Reacties',
 				'es' => 'Comentarios',
 				'fr' => 'Commentaires',
@@ -24,12 +24,13 @@ class Module_Comments extends Module {
 				'fi' => 'Kommentit',
 				'el' => 'Σχόλια',
 				'he' => 'תגובות',
-				'lt' => 'Komentarai'
+				'lt' => 'Komentarai',
+				'da' => 'Kommentarer'
 			),
 			'description' => array(
 				'sl' => 'Uporabniki in obiskovalci lahko vnesejo komentarje na vsebino kot je blok, stra ali slike',
 				'en' => 'Users and guests can write comments for content like blog, pages and photos.',
-				'pt' => 'Usuários e convidados podem escrever comentários para quase tudo com suporte nativo ao captcha.',
+				'br' => 'Usuários e convidados podem escrever comentários para quase tudo com suporte nativo ao captcha.',
 				'nl' => 'Gebruikers en gasten kunnen reageren op bijna alles.',
 				'es' => 'Los usuarios y visitantes pueden escribir comentarios en casi todo el contenido con el soporte de un sistema de captcha incluído.',
 				'fr' => 'Les utilisateurs et les invités peuvent écrire des commentaires pour quasiment tout grâce au générateur de captcha intégré.',
@@ -43,7 +44,8 @@ class Module_Comments extends Module {
 				'fi' => 'Käyttäjät ja vieraat voivat kirjoittaa kommentteja eri sisältöihin kuten uutisiin, sivuihin ja kuviin.',
 				'el' => 'Οι χρήστες και οι επισκέπτες μπορούν να αφήνουν σχόλια για περιεχόμενο όπως το ιστολόγιο, τις σελίδες και τις φωτογραφίες.',
 				'he' => 'משתמשי האתר יכולים לרשום תגובות למאמרים, תמונות וכו',
-				'lt' => 'Vartotojai ir svečiai gali komentuoti jūsų naujienas, puslapius ar foto.'
+				'lt' => 'Vartotojai ir svečiai gali komentuoti jūsų naujienas, puslapius ar foto.',
+				'da' => 'Brugere og besøgende kan skrive kommentarer til indhold som blog, sider og fotoer.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
@@ -64,6 +66,7 @@ class Module_Comments extends Module {
 			  `email` varchar(40) collate utf8_unicode_ci NOT NULL default '',
 			  `website` VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
 			  `comment` text collate utf8_unicode_ci NOT NULL,
+			  `parsed` text collate utf8_unicode_ci NOT NULL,
 			  `module` varchar(40) collate utf8_unicode_ci NOT NULL,
 			  `module_id` varchar(255) collate utf8_unicode_ci NOT NULL default '0',
 			  `created_on` varchar(11) collate utf8_unicode_ci NOT NULL default '0',

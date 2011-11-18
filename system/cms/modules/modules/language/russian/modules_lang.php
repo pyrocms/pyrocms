@@ -4,7 +4,7 @@
  * Русский перевод от Dark Preacher - dark[at]darklab.ru
  *
  * @package		PyroCMS
- * @author		Dark Preacher 
+ * @author		Dark Preacher
  * @link			http://pyrocms.com
  */
 
@@ -37,4 +37,3 @@ $lang['modules.confirm_uninstall']		= 'Все записи в базе данн�
 $lang['modules.confirm_delete']				= 'Вы уверены, что хотите удалить этот модуль?';
 
 /* End of file modules_lang.php */
-/* Location: ./system/cms/modules/modules/language/russian/modules_lang.php */

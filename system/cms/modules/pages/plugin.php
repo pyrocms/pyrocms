@@ -17,10 +17,10 @@ class Plugin_Pages extends Plugin
 	 * @param int $id The ID of the page
 	 * @return string
 	 */
-	function url()
+	public function url()
 	{
 		$id		= $this->attribute('id');
-		$page	= $this->pyrocache->model('pages_m', 'get', array($id));
+		$page	= $this->pyrocache->model('page_m', 'get', array($id));
 
 		return site_url($page ? $page->uri : '');
 	}
@@ -32,17 +32,44 @@ class Plugin_Pages extends Plugin
 	 * @param string 	$slug The uri of the page
 	 * @return array
 	 */
-	function display()
+	public function display()
 	{
-		$page = $this->db->select('pages.*, page_chunks.*')
-					->where('pages.id', $this->attribute('id'))
+		$page = $this->db->where('pages.id', $this->attribute('id'))
 					->or_where('pages.slug', $this->attribute('slug'))
 					->where('status', 'live')
-					->join('page_chunks', 'pages.id = page_chunks.page_id', 'LEFT')
 					->get('pages')
 					->row_array();
-					
+
+		// Grab all the chunks that make up the body
+		$page['chunks'] = $this->db->get_where('page_chunks', array('page_id' => $page['id']))->result();
+		
+		$page['body'] = '';
+		foreach ($page['chunks'] as $chunk)
+		{
+			$page['body'] .= 	'<div class="page-chunk ' . $chunk->slug . '">' .
+									(($chunk->type == 'markdown') ? $chunk->parsed : $chunk->body) .
+								'</div>'.PHP_EOL;
+		}
+
 		return $this->content() ? $page : $page['body'];
+	}
+
+	/**
+	 * Get a page chunk by page ID and chunk name
+	 *
+	 * @param int 		$id The ID of the page
+	 * @param string 	$slug The name of the chunk
+	 * @return array
+	 */
+	function chunk()
+	{
+		$chunk = $this->db->select('*')
+					->where('page_id', $this->attribute('id'))
+					->where('slug', $this->attribute('name'))
+					->get('page_chunks')
+					->row_array();
+
+		return ($chunk ? ($this->content() ? $chunk : $chunk['body']) : FALSE);
 	}
 	
 	/**
@@ -51,16 +78,14 @@ class Plugin_Pages extends Plugin
 	 * Creates a list of child pages
 	 *
 	 * Usage:
-	 * {pyro:pages:children id="1" limit="5"}
+	 * {{ pages:children id="1" limit="5" }}
 	 *	<h2>{title}</h2>
 	 *	    {body}
-	 * {/pyro:pages:children}
+	 * {{ /pages:children }}
 	 *
-	 * @param	array
 	 * @return	array
 	 */
-	
-	function children()
+	public function children()
 	{
 		$limit = $this->attribute('limit');
 		
@@ -81,15 +106,15 @@ class Plugin_Pages extends Plugin
 	 * Creates a nested ul of child pages
 	 *
 	 * Usage:
-	 * {pyro:pages:page_tree start-id="5"}
+	 * {{ pages:page_tree start-id="5" }}
 	 * optional attributes:
-	 * 
+	 *
 	 * disable-levels="slug"
 	 * order-by="title"
 	 * order-dir="desc"
 	 * list-tag="ul"
 	 * link="true"
-	 * 
+	 *
 	 * @param	array
 	 * @return	array
 	 */
@@ -106,12 +131,12 @@ class Plugin_Pages extends Plugin
 		$this->disable = explode("|", $disable_levels);
 		
 		return '<'.$list_tag.'>' . $this->_build_tree_html(array(
-												'parent_id' => $start_id,
-												'order_by' => $order_by,
-												'order_dir' => $order_dir,
-												'list_tag' => $list_tag,
-												'link' => $link
-												)) . '</'.$list_tag.'>';
+			'parent_id' => $start_id,
+			'order_by' => $order_by,
+			'order_dir' => $order_dir,
+			'list_tag' => $list_tag,
+			'link' => $link
+		)) . '</'.$list_tag.'>';
 	}
 
 	// --------------------------------------------------------------------------
@@ -122,10 +147,10 @@ class Plugin_Pages extends Plugin
 	 * Check the pages parent or descendent relation
 	 *
 	 * Usage:
-	 * {pyro:pages:is child="7" parent="cookbook"} // return 1 (TRUE)
-	 * {pyro:pages:is child="recipes" descendent="books"} // return 1 (TRUE)
-	 * {pyro:pages:is children="7,8,literature" parent="6"} // return 0 (FALSE)
-	 * {pyro:pages:is children="recipes,ingredients,9" descendent="4"} // return 1 (TRUE)
+	 * {{ pages:is child="7" parent="cookbook" }} // return 1 (TRUE)
+	 * {{ pages:is child="recipes" descendent="books" }} // return 1 (TRUE)
+	 * {{ pages:is children="7,8,literature" parent="6" }} // return 0 (FALSE)
+	 * {{ pages:is children="recipes,ingredients,9" descendent="4" }} // return 1 (TRUE)
 	 *
 	 * Use Id or Slug as param, following usage data reference
 	 * Id: 4 = Slug: books
@@ -165,6 +190,22 @@ class Plugin_Pages extends Plugin
 
 		return (int) TRUE;
 	}
+	
+	/**
+	* Page has function
+	*
+	* Check if this page has children
+	*
+	* Usage:
+	* {{ pages:has id="4" }}
+	*
+	* @param 	int id 	The id of the page you want to check
+	* @return 	bool
+	*/
+	public function has()
+	{
+		return $this->page_m->has_children($this->attribute('id'));
+	}
 
 	/**
 	 * Check Page is function
@@ -184,12 +225,12 @@ class Plugin_Pages extends Plugin
 		{
 			if ( ! is_numeric($child_id))
 			{
-				$child_id = ($child = $this->pages_m->get_by(array('slug' => $child_id))) ? $child->id: 0;
+				$child_id = ($child = $this->page_m->get_by(array('slug' => $child_id))) ? $child->id: 0;
 			}
 
 			if ( ! is_numeric($descendent_id))
 			{
-				$descendent_id = ($descendent = $this->pages_m->get_by(array('slug' => $descendent_id))) ? $descendent->id: 0;
+				$descendent_id = ($descendent = $this->page_m->get_by(array('slug' => $descendent_id))) ? $descendent->id: 0;
 			}
 
 			if ( ! ($child_id && $descendent_id))
@@ -197,7 +238,7 @@ class Plugin_Pages extends Plugin
 				return FALSE;
 			}
 
-			$descendent_ids	= $this->pages_m->get_descendant_ids($descendent_id);
+			$descendent_ids	= $this->page_m->get_descendant_ids($descendent_id);
 
 			return in_array($child_id, $descendent_ids);
 		}
@@ -206,10 +247,10 @@ class Plugin_Pages extends Plugin
 		{
 			if ( ! is_numeric($child_id))
 			{
-				$parent_id = ($parent = $this->pages_m->get_by(array('slug' => $parent_id))) ? $parent->id: 0;
+				$parent_id = ($parent = $this->page_m->get_by(array('slug' => $parent_id))) ? $parent->id: 0;
 			}
 
-			return $parent_id ? (int) $this->pages_m->count_by(array(
+			return $parent_id ? (int) $this->page_m->count_by(array(
 				(is_numeric($child) ? 'id' : 'slug') => $child,
 				'parent_id'	=> $parent_id
 			)) > 0: FALSE;
@@ -240,14 +281,14 @@ class Plugin_Pages extends Plugin
 					->where_not_in('slug', $this->disable);
 			
 			// check if they're logged in
-			if ( isset($this->user->group) )
+			if ( isset($this->current_user->group) )
 			{
 				// admins can see them all
-				if ($this->user->group != 'admin')
+				if ($this->current_user->group != 'admin')
 				{
 					// show pages for their group and all unrestricted
 					$this->db->where('status', 'live')
-						->where_in('restricted_to', array($this->user->group_id, 0, NULL));					
+						->where_in('restricted_to', array($this->current_user->group_id, 0, NULL));					
 				}
 			}
 			else

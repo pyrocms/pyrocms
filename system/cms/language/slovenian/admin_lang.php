@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['cp_admin_title'] 				= 'Nadzorna plošča';
-$lang['cp_admin_home_title'] 			= 'Namizje';
+$lang['global:dashboard'] 			= 'Namizje';
 $lang['cp_admin_quick_links']			= 'Hitre povezave';
 
 $lang['cp_welcome_title'] 				= 'Dobrodošli';
@@ -44,12 +44,7 @@ $lang['cp_upgrade_message']				= 'Trenutno imate verzijo %s, vaša podatkovna ba
 $lang['cp_google_analytics_missing']	= 'Nastavitve za GAnalytics manjkajo. Dodajte jih na %s ali kontaktirajte administratorja.';
 $lang['cp_google_analytics_no_connect']	= 'Ne morem se povezati s GAnalytics. Preverite v %s.';
 
-// Admin-wide text
-$lang['cp_shortcuts_title'] 			= 'Bližnjice';
-$lang['cp_remove']						= 'Odstrani';
-
 $lang['required_label'] 				= 'Zahtevano';
 $lang['sb_recent_users'] 				= 'Zadnji uporabniki';
 
 /* End of file admin_lang.php */
-/* Location: ./system/cms/language/slovenian/admin_lang.php */

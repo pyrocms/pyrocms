@@ -10,7 +10,7 @@ $lang['widgets.widget']                 = 'Widget';
 $lang['widgets.widget_author']          = 'Συγγραφέας';
 $lang['widgets.widget_short_name']      = 'Σύντομο όνομα';
 $lang['widgets.widget_version']         = 'Έκδοση';
-$lang['widgets.status_label']			= 'Κατάσταση'; 
+$lang['widgets.status_label']			= 'Κατάσταση';
 
 $lang['widgets.inactive_title'] 		= 'Widgets ανενεργά';
 $lang['widgets.active_title'] 			= 'Widgets ενεργά';
@@ -33,6 +33,4 @@ $lang['widgets.delete_instance']        = 'Διαγραφή widget instance';
 $lang['widgets.instance_title']         = 'Τίτλος';
 $lang['widgets.tag_title']              = 'Ετικέτα';
 
-$lang['widgets.instance_edit']          = 'Επεξεργασία';
-$lang['widgets.instance_delete']        = 'Διαγραφή';
 $lang['widgets.no_available_widgets']		= 'Δεν υπάρχουν διαθέσιμα widgets.';

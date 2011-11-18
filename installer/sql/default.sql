@@ -4,8 +4,8 @@ DROP TABLE IF EXISTS `core_users`, `core_settings`, `core_sites`, `{PREFIX}schem
 
 CREATE TABLE core_settings (
 	`slug` varchar( 30 ) COLLATE utf8_unicode_ci NOT NULL ,
-	`value` varchar( 255 ) COLLATE utf8_unicode_ci NOT NULL ,
-	`default` varchar( 255 ) COLLATE utf8_unicode_ci NOT NULL ,
+	`default` text COLLATE utf8_unicode_ci NOT NULL,
+	`value` text COLLATE utf8_unicode_ci NOT NULL,
 	PRIMARY KEY ( `slug` ) ,
 	UNIQUE KEY `unique - slug` ( `slug` ) ,
 	KEY `index - slug` ( `slug` )
@@ -15,7 +15,8 @@ CREATE TABLE core_settings (
 
 INSERT INTO `core_settings` (`slug`, `value`, `default`) VALUES 
 	('date_format', 'g:ia -- m/d/y', 'g:ia -- m/d/y'),
-	('lang_direction', 'ltr', 'ltr');
+	('lang_direction', 'ltr', 'ltr'),
+	('status_message', 'This site has been disabled by a super-administrator.', 'This site has been disabled by a super-administrator.');
 	
 -- command split --
 
@@ -24,6 +25,7 @@ CREATE TABLE `core_sites` (
 	`name` VARCHAR(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
     `ref` VARCHAR(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
     `domain` VARCHAR(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci,
+	`active` TINYINT(1) NOT NULL default '1',
     `created_on` INT(11) NOT NULL default '0',
     `updated_on` INT(11) NOT NULL default '0',
     UNIQUE KEY `Unique ref` (`ref`),
@@ -42,7 +44,7 @@ CREATE TABLE IF NOT EXISTS `{PREFIX}users` (
   `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
   `email` varchar(40) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `password` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `salt` varchar(5) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `salt` varchar(6) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `group_id` int(11) DEFAULT NULL,
   `ip_address` varchar(16) COLLATE utf8_unicode_ci DEFAULT NULL,
   `active` int(1) DEFAULT NULL,
@@ -67,7 +69,7 @@ CREATE TABLE IF NOT EXISTS `core_users` (
   `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
   `email` varchar(40) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `password` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `salt` varchar(5) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `salt` varchar(6) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `group_id` int(11) DEFAULT NULL,
   `ip_address` varchar(16) COLLATE utf8_unicode_ci DEFAULT NULL,
   `active` int(1) DEFAULT NULL,
@@ -127,10 +129,10 @@ INSERT INTO `{PREFIX}profiles` (`id`, `user_id`, `first_name`, `last_name`, `dis
 
 -- command split --
 
-CREATE TABLE {PREFIX}schema_version (
+CREATE TABLE IF NOT EXISTS {PREFIX}migrations (
   `version` int(3) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- command split --
 
-INSERT INTO {PREFIX}schema_version VALUES ('{MIGRATION}');
+INSERT INTO {PREFIX}migrations VALUES ('{MIGRATION}');

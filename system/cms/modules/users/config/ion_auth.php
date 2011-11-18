@@ -93,33 +93,33 @@
 	$config['user_extend_on_login'] = false;
 
 	/**
-	 * Folder where email templates are stored.
+	 * Folder where email templates are stored. Note: these are stored in the email_templates table.
      * Default : auth/
 	 **/
-	$config['email_templates']     = 'emails/';
+	$config['email_templates']     = '';
 
 	/**
 	 * activate Account Email Template
      * Default : activate.tpl.php
 	 **/
-	$config['email_activate']   = 'activation_required.php';
+	$config['email_activate']   = '';
 
 	/**
 	 * Forgot Password Email Template
      * Default : forgot_password.tpl.php
 	 **/
-	$config['email_forgot_password']   = 'forgot_password.tpl.php';
+	$config['email_forgot_password']   = '';
 
 	/**
 	 * Forgot Password Complete Email Template
      * Default : new_password.tpl.php
 	 **/
-	$config['email_forgot_password_complete']   = 'new_password.tpl.php';
+	$config['email_forgot_password_complete']   = '';
 
 	/**
 	 * Salt Length
 	 **/
-	$config['salt_length'] = 5;
+	$config['salt_length'] = 6;
 
 	/**
 	 * Should the salt be stored in the database?
@@ -150,4 +150,3 @@
 	$config['error_end_delimiter'] = '</p>';
 
 /* End of file ion_auth.php */
-/* Location: ./system/application/config/ion_auth.php */

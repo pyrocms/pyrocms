@@ -2,14 +2,20 @@
 /**
  * Admin controller for the themes module
  *
- * @author 		Phil Sturgeon - PyroCMS Dev Team
- * @author		Jerel Unruh - PyroCMS Development Team
+ * @author 		PyroCMS Dev Team
  * @package 	PyroCMS
  * @subpackage 	Themes module
  * @category	Modules
  */
 class Admin extends Admin_Controller
 {
+	/**
+	 * The current active section
+	 * @access protected
+	 * @var string
+	 */
+	protected $section = 'themes';
+
 	/**
 	 * Validation array
 	 * @access private
@@ -32,7 +38,6 @@ class Admin extends Admin_Controller
 		$this->load->library('form_validation');
 
 		$this->template
-			->set_partial('shortcuts', 'admin/partials/shortcuts')
 			->append_metadata(css('themes.css', 'themes'))
 			->append_metadata(js('admin.js', 'themes'));
 	}
@@ -233,7 +238,7 @@ class Admin extends Admin_Controller
 				{
 					// Now try to unzip
 					$this->load->library('unzip');
-					$this->unzip->allow(array('xml', 'html', 'css', 'js', 'png', 'gif', 'jpeg', 'jpg', 'swf', 'ico', 'php', 'txt', 'eot', 'svg', 'ttf', 'woff')); // TODO DEPRECATE php
+					$this->unzip->allow(array('xml', 'html', 'css', 'js', 'png', 'gif', 'jpeg', 'jpg', 'swf', 'ico', 'txt', 'eot', 'svg', 'ttf', 'woff'));
 
 					// Try and extract
 					$this->unzip->extract($upload_data['full_path'], ADDONPATH . 'themes/' )
@@ -254,6 +259,7 @@ class Admin extends Admin_Controller
 		}
 
 		$this->template
+			->set_layout('modal')
 			->title($this->module_details['name'], lang('themes.upload_title'))
 			->build('admin/upload', $this->data);
 	}
@@ -340,7 +346,7 @@ class Admin extends Admin_Controller
 				}
 				else
 				{
-					$option->options = array('=' . lang('select.none'));
+					$option->options = array('=' . lang('global:select-none'));
 				}
 			}
 

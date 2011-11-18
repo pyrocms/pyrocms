@@ -6,7 +6,6 @@ $lang['nav_parent_label']					= 'Padre';
 $lang['nav_target_label']					= 'Target (Donde abrirá el link)';
 $lang['nav_class_label']					= 'Clase';
 $lang['nav_url_label'] 						= 'URL';
-$lang['nav_actions_label'] 					= 'Acciones';
 $lang['nav_details_label'] 					= 'Detalles';
 $lang['nav_text_label'] 					= 'Texto';
 $lang['nav_group_label'] 					= 'Grupo';
@@ -15,10 +14,8 @@ $lang['nav_type_label'] 					= 'Tipo de vínculo';
 $lang['nav_uri_label'] 						= 'Dirección del sitio (URI)';
 $lang['nav_page_label'] 					= 'Página';
 $lang['nav_module_label'] 					= 'Módulo';
+$lang['nav_restricted_to']						= 'Restricted To'; #translate
 $lang['nav_abbrev_label'] 					= 'Abreviación';
-$lang['nav_edit_label'] 					= 'Editar';
-$lang['nav_delete_label'] 					= 'Borrar';
-$lang['nav_group_delete_label']				= 'Borrar el grupo';
 
 $lang['nav_link_target_self'] 				= 'Misma ventana (default)';
 $lang['nav_link_target_blank'] 				= 'Nueva ventana (_blank)';
@@ -28,6 +25,7 @@ $lang['nav_link_create_title'] 				= 'Agregar vínculo de navegación';
 $lang['nav_group_create_title']				= 'Agregar grupo';
 $lang['nav_link_edit_title'] 				= 'Editar el vínculo de navegación "%s"';
 $lang['nav_link_list_title'] 				= 'Lista de vínculos';
+$lang['nav_group_list_title']               = 'Groups'; #translate
 
 # messages
 $lang['nav_group_no_links'] 				= 'No hay vínculos en este grupo.';
@@ -45,4 +43,3 @@ $lang['nav_link_delete_success']			= 'El enlace de navegación fue eliminado.';
 $lang['nav_link_type_desc'] 				= 'Por favor selecciona un tipo de vínculo para así mostrar más opciones para crear el vínculo.';
 
 /* End of file navigation_lang.php */
-/* Location: ./system/cms/modules/navigation/language/spanish/navigation_lang.php */

@@ -4,7 +4,7 @@
  * Русский перевод от Dark Preacher - dark[at]darklab.ru
  *
  * @package		PyroCMS
- * @author		Dark Preacher 
+ * @author		Dark Preacher
  * @link			http://pyrocms.com
  */
 
@@ -13,4 +13,3 @@ $lang['decimal']						= "Поле %s может содержать только 
 $lang['csrf_bad_token']			= "Неправильный CSRF-токен";
 
 /* End of file extra_validation_lang.php */
-/* Location: ./system/cms/language/russian/extra_validation_lang.php */

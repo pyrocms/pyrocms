@@ -1,8 +1,5 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-$lang['settings_save_success']					= 'Οι ρυθμίσεις σας αποθηκεύτηκαν!';
-$lang['settings_edit_title']					= 'Επεξεργασία ρυθμίσεων';
-
 #section settings
 $lang['settings_site_name']						= 'Όνομα Ιστοτόπου';
 $lang['settings_site_name_desc']				= 'Το όνομα του ιστοτόπου για τους τίτλους των σελίδων και για γενική χρήση ανά τον ιστότοπο.';
@@ -141,5 +138,11 @@ $lang['settings_form_option_Optional']			= 'Προαιρετικό';
 $lang['settings_form_option_Oldest First']		= 'Τα παλιότερα πρώτα';
 $lang['settings_form_option_Newest First']		= 'Τα νεότερα πρώτα';
 
+// titles
+$lang['settings_edit_title']					= 'Επεξεργασία ρυθμίσεων';
+
+// messages
+$lang['settings_no_settings']					= 'Προς το παρόν δεν υπάρχουν ρυθμίσεις.';
+$lang['settings_save_success']					= 'Οι ρυθμίσεις σας αποθηκεύτηκαν!';
+
 /* End of file settings_lang.php */
-/* Location: ./system/cms/modules/settings/language/greek/settings_lang.php */

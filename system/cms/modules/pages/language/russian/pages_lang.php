@@ -23,7 +23,6 @@ $lang['pages.add_page_chunk']						= 'Добавить кусок страниц
 $lang['pages.page_chunk']								= 'Кусок страницы';
 $lang['pages.language_label']						= 'Язык';
 $lang['pages.updated_label']						= 'Обновлено';
-$lang['pages.actions_label']						= 'Действия';
 $lang['pages.unknown_label']						= 'Неизвестно';
 $lang['pages.title_label']							= 'Заголовок';
 $lang['pages.slug_label']								= 'URL';
@@ -43,15 +42,12 @@ $lang['pages.is_home_label']						= 'Это страница по-умолчан
 $lang['pages.status_label']							= 'Статус';
 $lang['pages.draft_label']							= 'Черновик';
 $lang['pages.live_label']								= 'Опубликовано';
-$lang['pages.revisions_label']					= 'Ревизии';
-$lang['pages.compare_label']						= 'Сравнить';
 $lang['pages.preview_label']						= 'Просмотр';
 $lang['pages.current_label']						= 'Текущая версия';
 
 $lang['pages.view_label']								= 'Просмотр';
 $lang['pages.create_label']							= 'Создать потомка';
-$lang['pages.edit_label']								= 'Редактировать';
-$lang['pages.delete_label']							= 'Удалить';
+$lang['pages.duplicate_label']					= 'Duplicate'; #translate
 
 // заголовки
 $lang['pages.create_title']							= 'Создать страницу';
@@ -59,8 +55,6 @@ $lang['pages.edit_title']								= 'Редактирование страниц�
 $lang['pages.list_title']								= 'Список страниц';
 $lang['pages.layouts_create_title']			= 'Создать макет';
 $lang['pages.layouts_list_title']				= 'Список макетов';
-$lang['pages.compare_revisions_title']	= 'Сравнение ревизий';
-$lang['pages.preview_revision_title']		= 'Просмотр ревизии';
 
 // сообщения
 $lang['pages.no_pages']									= 'Страницы отсутствуют';
@@ -74,10 +68,11 @@ $lang['pages_mass_delete_success']			= '%s страницы удалены.';
 $lang['pages_delete_none_notice']				= 'Ни одной страницы не удалено.';
 $lang['pages_page_already_exist_error']	= 'Страница с адресом "%s" уже существует в %s.';
 $lang['pages_parent_not_exist_error']		= 'Выбранная родительская страница не существует.';
+$lang['pages_chunk_slug_length']					= 'Page Chunk slugs may be no more than 30 characters in length.'; #translate
+$lang['pages_root_folder']                = 'the top level'; #translate
 
 $lang['pages.tree_explanation']					= 'Список слева содержит все страницы вашего сайта. Нажмите знак "+" для отображения потомков выбранной страницы. При нажатии на страницу - в этом блоке будет выведена полезная информация.';
 
 $lang['pages.rss_explanation']					= 'При активировании RSS для этой страницы у пользователей появится возможность подписаться на все страницы-потомки, добавляемые к этой странице.';
 
 /* End of file pages_lang.php */
-/* Location: ./system/cms/modules/pages/language/russian/pages_lang.php */

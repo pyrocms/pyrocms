@@ -21,15 +21,12 @@ $lang['galleries.no_gallery_description']	= 'No description has been added yet.'
 // Labels
 $lang['galleries.galleries_label']              = 'Galerie';
 $lang['galleries.manage_gallery_label']         = 'Zarządzaj galerią';
-$lang['galleries.new_gallery_label']		= 'Nowa galeria';
 
 $lang['galleries.gallery_label']			= 'Galeria';
 $lang['galleries.num_photos_label']		= 'Liczba zdjęć';
 $lang['galleries.updated_label']		= 'Ostatnia aktualizacja';
-$lang['galleries.actions_label']		= 'Akcje';
 $lang['galleries.view_label']			= 'Zobacz';
 $lang['galleries.manage_label']			= 'Zarządzaj';
-$lang['galleries.delete_label']			= 'Usuń';
 $lang['galleries.comments_enabled_label']	= 'Tak';
 $lang['galleries.comments_disabled_label']	= 'Nie';
 $lang['galleries.published_yes_label']		= 'Tak';

@@ -1,20 +1,17 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // Labels
-$lang['templates.actions_label']			= 'Acties';
-$lang['templates.name_label']				= 'Naam';
-$lang['templates.description_label']		= 'Omschrijving';
 $lang['templates.language_label']			= 'Taal';
 $lang['templates.choose_lang_label']		= 'Kies een taal';
 $lang['templates.subject_label']			= 'Onderwerp';
 $lang['templates.body_label']				= 'Inhoud';
-$lang['templates.slug_label']				= 'Slug'; #translate
+$lang['templates.slug_label']				= 'URL';
 
 // Titles
-$lang['templates.create_title']				= 'Een sjabloon maken'; 
+$lang['templates.create_title']				= 'Een sjabloon maken';
 $lang['templates.edit_title']				= 'Een sjabloon bewerken "%s"';
 $lang['templates.clone_title']				= 'Kopieer sjabloon "%s"';
-$lang['templates.list_title']				= 'Lijst sjablonen';
+$lang['templates.list_title']				= 'Overzicht sjablonen';
 $lang['templates.default_title']			= 'Standaard sjablonen';
 $lang['templates.user_defined_title']		= 'Door de gebruiker gedefinieerde sjablonen';
 
@@ -33,4 +30,3 @@ $lang['templates.no_select_error'] 			= 'U moet eerst een e-mail sjabloon select
 $lang['templates.already_exist_error']		= 'Een e-mail sjabloon met de naam "%s" bestaat al.';
 
 /* End of file templates_lang.php */
-/* Location: ./system/cms/modules/templates/language/dutch/templates_lang.php */

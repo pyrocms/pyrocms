@@ -21,15 +21,12 @@ $lang['galleries.no_gallery_description']	= 'Δεν έχει οριστεί ακ
 // Labels
 $lang['galleries.galleries_label']			= 'Γκαλερί';
 $lang['galleries.manage_gallery_label']		= 'Διαχείριση Γκαλερί';
-$lang['galleries.new_gallery_label']		= 'Νέα Γκαλερί';
 
 $lang['galleries.gallery_label']			= 'Άλμπουμ';
 $lang['galleries.num_photos_label']			= 'Αριθμός Φωτογραφιών';
 $lang['galleries.updated_label']			= 'Τελευταία Ενημέρωση';
-$lang['galleries.actions_label']			= 'Ενέργειες';
 $lang['galleries.view_label']				= 'Προβολή';
 $lang['galleries.manage_label']				= 'Διαχείριση';
-$lang['galleries.delete_label']				= 'Διαγραφή';
 $lang['galleries.comments_enabled_label']	= 'Ναί';
 $lang['galleries.comments_disabled_label']	= 'Όχι';
 $lang['galleries.published_yes_label']		= 'Ναί';

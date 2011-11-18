@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * Portuguese Brazilian translation.
- * 
+ *
  * @author		Marcos Coelho <the@marcoscoelho.com>
  * @package		PyroCMS
  * @subpackage 	Variables Module
@@ -12,10 +12,8 @@
  */
 
 // labels
-$lang['variables.name_label'] 			    = 'Nome';
 $lang['variables.syntax_label'] 		    = 'Sintaxe';
 $lang['variables.data_label'] 			    = 'Valor';
-$lang['variables.actions_label'] 			= 'Ações';
 
 // titles
 $lang['variables.create_title'] 			= 'Adicionar variável';

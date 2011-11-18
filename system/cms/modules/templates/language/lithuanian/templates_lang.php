@@ -1,9 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // Labels
-$lang['templates.actions_label']			= 'Veiksmai';
-$lang['templates.name_label']				= 'Vardas';
-$lang['templates.description_label']		= 'Aprašymas';
 $lang['templates.language_label']			= 'Kalba';
 $lang['templates.choose_lang_label']		= 'Pasirinkti kalbą';
 $lang['templates.subject_label']			= 'Tema';
@@ -33,4 +30,3 @@ $lang['templates.no_select_error'] 			= 'Pirmiau pasirinkite laiško ruošinį.'
 $lang['templates.already_exist_error']		= 'Laiško ruošinys tokiu vardu "%s" jau egzistuoja.';
 
 /* End of file templates_lang.php */
-/* Location: ./system/cms/modules/templates/language/english/templates_lang.php */

@@ -37,14 +37,9 @@ class Admin extends Admin_Controller {
 			'rules' => 'min_length[6]|max_length[20]'
 		),
 		array(
-			'field' => 'confirm_password',
-			'label' => 'lang:user_password_confirm_label',
-			'rules' => 'matches[password]'
-		),
-		array(
 			'field' => 'username',
 			'label' => 'lang:user_username',
-			'rules' => 'required|alpha_numeric|min_length[3]|max_length[20]'
+			'rules' => 'required|alpha_dot_dash|min_length[3]|max_length[20]'
 		),
 		array(
 			'field' => 'display_name',
@@ -70,8 +65,7 @@ class Admin extends Admin_Controller {
 	 */
 	public function __construct()
 	{
-		// Call the parent's constructor method
-		parent::Admin_Controller();
+		parent::__construct();
 
 		// Load the required classes
 		$this->load->model('users_m');
@@ -82,8 +76,6 @@ class Admin extends Admin_Controller {
 
 		$this->data->groups = $this->group_m->get_all();
 		$this->data->groups_select = array_for_select($this->data->groups, 'id', 'description');
-
-		$this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
 	}
 
 	/**
@@ -116,16 +108,17 @@ class Admin extends Admin_Controller {
 						->get_many_by($base_where);
 
 		//unset the layout if we have an ajax request
-		$this->input->is_ajax_request() ? $this->template->set_layout(FALSE) : '';
+		if ($this->input->is_ajax_request()) $this->template->set_layout(FALSE);
 
 		// Render the view
 		$this->template
+				->title($this->module_details['name'])
 				->set('pagination', $pagination)
 				->set('users', $users)
 				->set_partial('filters', 'admin/partials/filters')
-				->append_metadata(js('admin/filter.js'))
-				->title($this->module_details['name'])
-				->build('admin/index', $this->data);
+				->append_metadata(js('admin/filter.js'));
+				
+		$this->input->is_ajax_request() ? $this->template->build('admin/tables/users', $this->data) : $this->template->build('admin/index', $this->data);
 	}
 
 	/**
@@ -230,13 +223,6 @@ class Admin extends Admin_Controller {
 	 */
 	public function edit($id = 0)
 	{
-		// confirm_password is required in case the user enters a new password
-		if ($this->input->post('password') && $this->input->post('password') != '')
-		{
-			$this->validation_rules[3]['rules'] .= '|required';
-			$this->validation_rules[3]['rules'] .= '|matches[password]';
-		}
-
 		// Get the user's data
 		$member = $this->ion_auth->get_user($id);
 
@@ -273,7 +259,7 @@ class Admin extends Admin_Controller {
 			$update_data['group_id'] = $this->input->post('group_id');
 
 			// Password provided, hash it for storage
-			if ($this->input->post('password') && $this->input->post('confirm_password'))
+			if ($this->input->post('password'))
 			{
 				$update_data['password'] = $this->input->post('password');
 			}
@@ -304,15 +290,15 @@ class Admin extends Admin_Controller {
 		{
 			if ($this->input->post($rule['field']) !== FALSE)
 			{
-				$member->{$rule['field']} = set_value($ractivaule['field']);
+				$member->{$rule['field']} = set_value($rule['field']);
 			}
 		}
 
 		// Render the view
 		$this->data->member = & $member;
 		$this->template
-				->title($this->module_details['name'], sprintf(lang('user_edit_title'), $member->full_name))
-				->build('admin/form', $this->data);
+			->title($this->module_details['name'], sprintf(lang('user_edit_title'), $member->full_name))
+			->build('admin/form', $this->data);
 	}
 
 	/**
@@ -338,10 +324,8 @@ class Admin extends Admin_Controller {
 	 */
 	public function activate()
 	{
-		$ids = $this->input->post('action_to');
-
 		// Activate multiple
-		if (empty($ids))
+		if ( ! ($ids = $this->input->post('action_to')))
 		{
 			$this->session->set_flashdata('error', $this->lang->line('user_activate_error'));
 			redirect('admin/users');
@@ -461,3 +445,5 @@ class Admin extends Admin_Controller {
 	}
 
 }
+
+/* End of file admin.php */

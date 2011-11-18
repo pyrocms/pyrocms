@@ -6,11 +6,11 @@ class Module_Files extends Module {
 
 	public function info()
 	{
-		return array(
+		$info = array(
 			'name' => array(
 				'sl' => 'Datoteke',
 				'en' => 'Files',
-				'pt' => 'Arquivos',
+				'br' => 'Arquivos',
 				'de' => 'Dateien',
 				'nl' => 'Bestanden',
 				'fr' => 'Fichiers',
@@ -23,14 +23,15 @@ class Module_Files extends Module {
 				'fi' => 'Tiedostot',
 				'el' => 'Αρχεία',
 				'he' => 'קבצים',
-				'lt' => 'Failai'
+				'lt' => 'Failai',
+				'da' => 'Filer'
 			),
 			'description' => array(
 				'sl' => 'Uredi datoteke in mape na vaši strani',
 				'en' => 'Manages files and folders for your site.',
-				'pt' => 'Permite gerenciar facilmente os arquivos de seu site.',
+				'br' => 'Permite gerenciar facilmente os arquivos de seu site.',
 				'de' => 'Verwalte Dateien und Verzeichnisse.',
-				'nl' => 'Beheer bestanden en folders op uw website.',
+				'nl' => 'Beheer bestanden en mappen op uw website.',
 				'fr' => 'Gérer les fichiers et dossiers de votre site.',
 				'zh' => '管理網站中的檔案與目錄',
 				'it' => 'Gestisci file e cartelle del tuo sito.',
@@ -41,7 +42,8 @@ class Module_Files extends Module {
 				'fi' => 'Hallitse sivustosi tiedostoja ja kansioita.',
 				'el' => 'Διαχειρίζεται αρχεία και φακέλους για το ιστότοπό σας.',
 				'he' => 'ניהול תיקיות וקבצים שבאתר',
-				'lt' => 'Katalogų ir bylų valdymas.'
+				'lt' => 'Katalogų ir bylų valdymas.',
+				'da' => 'Administrer filer og mapper for dit site.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
@@ -49,7 +51,30 @@ class Module_Files extends Module {
 			'roles' => array(
 				'download_file', 'edit_file', 'delete_file', 'edit_folder', 'delete_folder'
 			),
-		);
+			'shortcuts' => array(
+								 array(
+									   'name' => 'files.files_title',
+									   'uri' => 'admin/files',
+									   ),
+								 ),
+			);
+		
+			if (function_exists('group_has_role') AND group_has_role('files', 'edit_file'))
+			{
+				$info['shortcuts'][] = array(
+											 'name' => 'file_folders.create_title',
+											 'uri' => 'admin/files/folders/create',
+											 'class' => 'add folder-create'
+											 );
+				
+				$info['shortcuts'][] = array(
+											 'name' => 'files.upload_title',
+											 'uri' => 'admin/files/upload',
+											 'class' => 'files-uploader'
+											 );
+			}
+			
+			return $info;
 	}
 
 	public function install()
@@ -87,7 +112,8 @@ class Module_Files extends Module {
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 		";
 
-		if($this->db->query($files) && $this->db->query($file_folders))
+		if( $this->db->query($files) &&
+			$this->db->query($file_folders))
 		{
 			return TRUE;
 		}

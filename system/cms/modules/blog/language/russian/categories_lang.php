@@ -4,16 +4,13 @@
  * Русский перевод от Dark Preacher - dark[at]darklab.ru
  *
  * @package		PyroCMS
- * @author		Dark Preacher 
+ * @author		Dark Preacher
  * @link			http://pyrocms.com
  */
 
 // подписи
 $lang['cat_title_label'] 					= 'Заголовок';
 $lang['cat_category_label'] 			= 'Категория';
-$lang['cat_actions_label'] 				= 'Действия';
-$lang['cat_edit_label'] 					= 'Редактировать';
-$lang['cat_delete_label'] 				= 'Удалить';
 
 // заголовки
 $lang['cat_create_title'] 				= 'Создать категорию';
@@ -32,4 +29,3 @@ $lang['cat_no_select_error'] 			= 'Сначала вам надо выбрать
 $lang['cat_already_exist_error']	= 'Категория с названием "%s" уже существует.';
 
 /* End of file categories_lang.php */
-/* Location: ./system/cms/modules/blog/language/russian/categories_lang.php */

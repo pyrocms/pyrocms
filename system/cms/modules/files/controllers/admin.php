@@ -9,7 +9,6 @@
  * @license		Apache License v2.0
  * @link		http://pyrocms.com
  * @since		Version 1.0
- * @filesource
  */
 
 /**
@@ -17,11 +16,10 @@
  *
  * Provides an admin for the file module.
  *
- * @author		Dan Horrigan <dan@dhorrigan.com>
- * @author		Eric Barnes <eric@pyrocms.com>
- * @author		Marcos Coelho <marcos@marcoscoelho.com>
+ * @author		PyroCMS Dev Team
  * @package		PyroCMS
- * @subpackage	file
+ * @subpackage	Modules
+ * @category	Files
  */
 class Admin extends Admin_Controller {
 
@@ -34,7 +32,7 @@ class Admin extends Admin_Controller {
 		array(
 			'field' => 'userfile',
 			'label' => 'lang:files.file_label',
-			'rules' => 'callback__check_ext'
+			'rules' => 'trim'
 		),
 		array(
 			'field' => 'name',
@@ -68,7 +66,7 @@ class Admin extends Admin_Controller {
 	 */
 	public function __construct()
 	{
-		parent::Admin_Controller();
+		parent::__construct();
 
 		$this->config->load('files');
 		$this->lang->load('files');
@@ -136,6 +134,8 @@ class Admin extends Admin_Controller {
 	 */
 	public function upload($folder_id = '')
 	{
+		$this->_check_ext();
+		
 		$this->data->folders = $this->_folders;
 				
 		if ($this->form_validation->run())
@@ -174,7 +174,7 @@ class Admin extends Admin_Controller {
 				$file = $this->upload->data();
 				$data = array(
 					'folder_id'		=> (int) $this->input->post('folder_id'),
-					'user_id'		=> (int) $this->user->id,
+					'user_id'		=> (int) $this->current_user->id,
 					'type'			=> $this->_type,
 					'name'			=> $this->input->post('name'),
 					'description'	=> $this->input->post('description') ? $this->input->post('description') : '',
@@ -191,7 +191,7 @@ class Admin extends Admin_Controller {
 				if ($id = $this->file_m->insert($data))
 				{
 					$status		= 'success';
-					$message	= lang('files.create_success');
+					$message	= sprintf(lang('files.create_success'), $file['file_name']);
 				}
 				// Insert error
 				else
@@ -258,7 +258,7 @@ class Admin extends Admin_Controller {
 		// Loop through each validation rule
 		foreach ($this->_validation_rules as $rule)
 		{
-			if ($rule['field'] == 'folder_id') 
+			if ($rule['field'] == 'folder_id')
 			{
 				$this->data->file->{$rule['field']} = set_value($rule['field'], $folder_id);
 			}
@@ -345,7 +345,7 @@ class Admin extends Admin_Controller {
 					$file = $this->upload->data();
 					$data = array(
 						'folder_id'		=> (int) $this->input->post('folder_id'),
-						'user_id'		=> (int) $this->user->id,
+						'user_id'		=> (int) $this->current_user->id,
 						'type'			=> $this->_type,
 						'name'			=> $this->input->post('name'),
 						'description'	=> $this->input->post('description'),
@@ -394,7 +394,7 @@ class Admin extends Admin_Controller {
 			{
 				$data = array(
 					'folder_id'		=> $this->input->post('folder_id'),
-					'user_id'		=> $this->user->id,
+					'user_id'		=> $this->current_user->id,
 					'name'			=> $this->input->post('name'),
 					'description'	=> $this->input->post('description')
 				);
@@ -607,4 +607,3 @@ class Admin extends Admin_Controller {
 }
 
 /* End of file admin.php */
-/* Location: ./system/cms/modules/files/controllers/admin.php */

@@ -6,17 +6,14 @@ $lang['page_layouts.css_label']                      = 'CSS';
 
 // labels
 $lang['page_layouts.updated_label']                  = 'Updated';
-$lang['page_layouts.actions_label']                  = 'Actions';
 $lang['page_layouts.title_label']                    = 'Title';
 $lang['page_layouts.theme_layout_label']             = 'Theme Layout';
-
-$lang['page_layouts.edit_label']                     = 'Edit';
-$lang['page_layouts.delete_label']                   = 'Delete';
+$lang['page_layouts.layout']             			= 'Layout';
 
 // titles
-$lang['page_layouts.list_title']                     = 'List page layouts';
-$lang['page_layouts.create_title']                   = 'Add page layout';
-$lang['page_layouts.edit_title']                     = 'Edit page layout "%s"';
+$lang['page_layouts.list_title']                     = 'Page Layouts';
+$lang['page_layouts.create_title']                   = 'Add Page Layout';
+$lang['page_layouts.edit_title']                     = 'Edit Page Layout "%s"';
 
 // messages
 $lang['page_layouts.no_pages']                       = 'There are no page layouts.';

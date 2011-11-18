@@ -8,14 +8,14 @@ class Module_Users extends Module {
 	{
 		return array(
 			'name' => array(
-				'sl' => 'Uporabniki',
 				'en' => 'Users',
+				'sl' => 'Uporabniki',
 				'nl' => 'Gebruikers',
 				'pl' => 'Użytkownicy',
 				'es' => 'Usuarios',
 				'fr' => 'Utilisateurs',
 				'de' => 'Benutzer',
-				'pt' => 'Usuários',
+				'br' => 'Usuários',
 				'zh' => '用戶',
 				'it' => 'Utenti',
 				'ru' => 'Пользователи',
@@ -24,17 +24,18 @@ class Module_Users extends Module {
 				'fi' => 'Käyttäjät',
 				'el' => 'Χρήστες',
 				'he' => 'משתמשים',
-				'lt' => 'Vartotojai'
+				'lt' => 'Vartotojai',
+				'da' => 'Brugere'
 			),
 			'description' => array(
-				'sl' => 'Dovoli uporabnikom za registracijo in prijavo na strani, urejanje le teh preko nadzorne plošče',
 				'en' => 'Let users register and log in to the site, and manage them via the control panel.',
+				'sl' => 'Dovoli uporabnikom za registracijo in prijavo na strani, urejanje le teh preko nadzorne plošče',
 				'nl' => 'Laat gebruikers registreren en inloggen op de site, en beheer ze via het controlepaneel.',
 				'pl' => 'Pozwól użytkownikom na logowanie się na stronie i zarządzaj nimi za pomocą panelu.',
 				'es' => 'Permite el registro de nuevos usuarios quienes podrán loguearse en el sitio. Estos podrán controlarse desde el panel de administración.',
 				'fr' => 'Permet aux utilisateurs de s\'enregistrer et de se connecter au site et de les gérer via le panneau de contrôle',
 				'de' => 'Erlaube Benutzern das Registrieren und Einloggen auf der Seite und verwalte sie über die Admin-Oberfläche.',
-				'pt' => 'Permite com que usuários se registrem e entrem no site e também que eles sejam gerenciáveis apartir do painel de controle.',
+				'br' => 'Permite com que usuários se registrem e entrem no site e também que eles sejam gerenciáveis apartir do painel de controle.',
 				'zh' => '讓用戶可以註冊並登入網站，並且管理者可在控制台內進行管理。',
 				'it' => 'Fai iscrivere de entrare nel sito gli utenti, e gestiscili attraverso il pannello di controllo.',
 				'ru' => 'Управление зарегистрированными пользователями, активирование новых пользователей.',
@@ -43,18 +44,27 @@ class Module_Users extends Module {
 				'fi' => 'Antaa käyttäjien rekisteröityä ja kirjautua sisään sivustolle sekä mahdollistaa niiden muokkaamisen hallintapaneelista.',
 				'el' => 'Παρέχει την δυνατότητα εγγραφής λογαριασμών χρηστών και σύνδεσης τους στους επισκέπτες του ιστοτόπου. Με αυτό το πρόσθετο μπορείτε επίσης να τους διαχειριστείτε.',
 				'he' => 'ניהול משתמשים: רישום, הפעלה ומחיקה',
-				'lt' => 'Leidžia vartotojams registruotis ir prisijungti prie puslapio, ir valdyti juos per administravimo panele.'
+				'lt' => 'Leidžia vartotojams registruotis ir prisijungti prie puslapio, ir valdyti juos per administravimo panele.',
+				'da' => 'Lader brugere registrere sig og logge ind på sitet, og håndtér dem via kontrolpanelet.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
-			'menu'	  => FALSE
+			'menu'	  => FALSE,
+			
+			'shortcuts' => array(
+				array(
+				    'name' => 'user_add_title',
+				    'uri' => 'admin/users/create',
+				    'class' => 'add'
+				),
+		    ),
 		);
 	}
 	
 	public function install()
 	{
 		//This is handled by the installer only so that a default user can be created.
-		return FALSE;
+		return TRUE;
 	}
 
 	public function uninstall()

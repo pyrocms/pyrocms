@@ -1,9 +1,8 @@
-<section class="box">
+<section class="title">
+	<h4><?php echo lang('modules.addon_list');?></h4>
+</section>
 
-	<header>
-		<h3><?php echo lang('modules.addon_list');?></h3>
-	</header>
-		
+<section class="item">		
 		<p><?php echo lang('modules.introduction'); ?></p>
 
 		<table class="table-list">
@@ -12,7 +11,7 @@
 					<th><?php echo lang('name_label');?></th>
 					<th><span><?php echo lang('desc_label');?></span></th>
 					<th><?php echo lang('version_label');?></th>
-					<th class="align-center"><?php echo lang('action_label'); ?></th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -22,14 +21,13 @@
 					<td><?php echo $module['is_backend'] ? anchor('admin/'  . $module['slug'], $module['name']) : $module['name']; ?></td>
 					<td><?php echo $module['description']; ?></td>
 					<td class="align-center"><?php echo $module['version']; ?></td>
-					<td class="align-center buttons">
+					<td class="actions">
 						<?php if ($module['installed']): ?>
 							<?php if ($module['enabled']): ?>
 								<?php echo anchor('admin/modules/disable/' . $module['slug'], lang('disable_label'), array('class'=>'confirm button small', 'title'=>lang('modules.confirm_disable'))); ?>
 							<?php else: ?>
 								<?php echo anchor('admin/modules/enable/' . $module['slug'], lang('enable_label'), array('class'=>'confirm button small', 'title'=>lang('modules.confirm_enable'))); ?>
 							<?php endif; ?>
-							&nbsp;&nbsp;
 							<?php if ($module['is_current']): ?>
 								<?php echo anchor('admin/modules/uninstall/' . $module['slug'], lang('uninstall_label'), array('class'=>'confirm button small', 'title'=>lang('modules.confirm_uninstall'))); ?>
 							<?php else: ?>
@@ -38,7 +36,7 @@
 						<?php else: ?>
 							<?php echo anchor('admin/modules/install/' . $module['slug'], lang('install_label'), array('class'=>'confirm button small', 'title'=>lang('modules.confirm_install'))); ?>
 						<?php endif; ?>
-						<?php echo anchor('admin/modules/delete/' . $module['slug'], lang('delete_label'), array('class'=>'confirm button small', 'title'=>lang('modules.confirm_delete'))); ?>
+						<?php echo anchor('admin/modules/delete/' . $module['slug'], lang('global:delete'), array('class'=>'confirm button small', 'title'=>lang('modules.confirm_delete'))); ?>
 					</td>
 				</tr>
 			<?php endforeach; ?>
@@ -47,11 +45,11 @@
 
 </section>
 
-<section class="box">
-	<header>
-		<h3><?php echo lang('modules.core_list');?></h3>
-	</header>
+<section class="title">
+	<h4><?php echo lang('modules.core_list');?></h4>
+</section>
 
+<section class="item">
 		<p><?php echo lang('modules.introduction'); ?></p>
 
 		<table class="table-list">

@@ -1,18 +1,26 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
- * Admin controller for the widgets module.
+ * Admin controller for adding and managing widget areas.
  *
  * @package 		PyroCMS
- * @subpackage 		Widgets
- * @author			Marcos Coelho - PyroCMS Development Team
+ * @subpackage 		Modules
+ * @category		Widgets
+ * @author			PyroCMS Development Team
  *
  */
 class Admin_areas extends Admin_Controller {
 
 	/**
+	 * The current active section
+	 * @access protected
+	 * @var string
+	 */
+	protected $section = 'areas';
+	
+	/**
 	 * Array that contains the validation rules
-	 * 
+	 *
 	 * @access	protected
 	 * @var		array
 	 */
@@ -31,7 +39,7 @@ class Admin_areas extends Admin_Controller {
 
 	/**
 	 * Constructor method
-	 * 
+	 *
 	 * @access	public
 	 * @return	void
 	 */
@@ -45,7 +53,6 @@ class Admin_areas extends Admin_Controller {
 		$this->input->is_ajax_request() AND $this->template->set_layout(FALSE);
 
 		$this->template
-			->set_partial('shortcuts', 'admin/partials/shortcuts')
 			->append_metadata(js('widgets.js', 'widgets'))
 			->append_metadata(css('widgets.css', 'widgets'));
 	}
@@ -120,7 +127,7 @@ class Admin_areas extends Admin_Controller {
 			{
 				$this->session->set_flashdata($status, $message);
 
-				redirect('admim/widgets');
+				redirect('admin/widgets');
 				return;
 			}
 

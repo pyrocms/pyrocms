@@ -1,10 +1,18 @@
-<h1><?php echo lang('header'); ?></h1>
+<section class="title">
+	<h3><?php echo lang('header'); ?></h3>
+</section>
 
-<p><?php echo lang('intro_text'); ?></p>
+<section class="item">
+	<p><?php echo lang('intro_text'); ?></p>
+</section>
 
 <?php echo form_open(uri_string(), 'id="install_frm"'); ?>
-
-	<h2><?php echo lang('db_settings'); ?></h2>
+	
+	<section class="title">
+		<h3><?php echo lang('db_settings'); ?></h3>
+	</section>
+	
+	<section class="item">
 
 	<div class="input">
 		<label for="database"><?php echo lang('database'); ?></label>
@@ -12,16 +20,22 @@
 	</div>
 
 	<div class="input">
-		<label for="create_db"><?php echo lang('db_create'); ?></label>
+		<label for="create_db"><?php echo lang('db_create'); ?></label><br>
 		<input type="checkbox" name="create_db" value="true" id="create_db" />
 		<small>(<?php echo lang('db_notice'); ?>)</small>
 	</div>
 
-	<br />
+	<br>
 
 		<input type="hidden" id="site_ref" name="site_ref" value="default" />
-
-	<h2><?php echo lang('default_user'); ?></h2>
+		
+	</section>
+	
+	<section class="title">
+		<h3><?php echo lang('default_user'); ?></h3>
+	</section>
+	
+	<section class="item">
 
 	<div class="input">
 		<label for="user_name"><?php echo lang('user_name'); ?></label>
@@ -78,21 +92,9 @@
 		?>
 	</div>
 
-	<div class="input">
-		<label for="user_confirm_password"><?php echo lang('conf_password'); ?></label>
-		<?php
-			echo form_password(array(
-				'id' => 'user_confirm_password',
-				'name' => 'user_confirm_password',
-				'value' => set_value('user_confirm_password')
-			));
-		?>
-	</div>
+	<div id="confirm_pass"></div>
 
-	<div id="notification">
-	   <p class="text" id="confirm_pass"></p>
-	</div>
-
-	<input id="next_step" type="submit" id="submit" value="<?php echo lang('finish'); ?>" />
+	<input class="button" id="next_step" type="submit" id="submit" value="<?php echo lang('finish'); ?>" />
 
 <?php echo form_close(); ?>
+</section>

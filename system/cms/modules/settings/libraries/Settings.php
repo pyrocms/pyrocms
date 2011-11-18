@@ -6,7 +6,7 @@
  *
  * @package		PyroCMS
  * @author		PyroCMS Dev Team
- * @license		Apache License v2.0
+ * @license		http://pyrocms.com/legal/license
  * @link		http://pyrocms.com
  * @since		Version 1.0-dev
  * @filesource
@@ -169,13 +169,7 @@ class Settings {
 			return self::$cache;
 		}
 
-		// FIXME: Put this back after 1.2.2 is released
-		// $settings = ci()->settings_m->get_all();
-		
-		$settings = ci()->db
-			->select('*, IF(`value` = "", `default`, `value`) as `value`', FALSE)
-			->get('settings')
-			->result();
+		$settings = ci()->settings_m->get_many_by(array());
 
 		foreach ($settings as $setting)
 		{
@@ -252,7 +246,7 @@ class Settings {
 				}
 				else
 				{
-					$setting->options = array('=' . lang('select.none'));
+					$setting->options = array('=' . lang('global:select-none'));
 				}
 			}
 
@@ -326,7 +320,7 @@ class Settings {
 						'checked'	=> $checked,
 						'value'		=> $value
 					));
-					$form_control .= ' ' . $label . '</label>';
+					$form_control .= ' ' . $label . '</label>&nbsp;&nbsp;';
 				}
 				break;
 
@@ -335,12 +329,12 @@ class Settings {
 				$form_control = '';
 				foreach ($this->_format_options($setting->options) as $value => $label)
 				{
-					$form_control .= '' . form_radio(array(
+					$form_control .= '<label class="inline">' . form_radio(array(
 						'id'		=> $setting->slug,
 						'name'		=> $setting->slug,
 						'checked'	=> $setting->value == $value,
 						'value'		=> $value
-					)) . ' ' . $label . '';
+					)) . ' ' . $label . '</label> ';
 				}
 				break;
 		}

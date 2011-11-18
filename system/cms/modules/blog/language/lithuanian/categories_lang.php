@@ -3,9 +3,6 @@
 // labels
 $lang['cat_title_label']            = 'Pavadinimas';
 $lang['cat_category_label']         = 'Kategorija';
-$lang['cat_actions_label']          = 'Veiksmai';
-$lang['cat_edit_label']             = 'Redaguoti';
-$lang['cat_delete_label']           = 'Ištrinti';
 
 // titles
 $lang['cat_create_title']           = 'Pridėti kategoriją';
@@ -22,4 +19,3 @@ $lang['cat_mass_delete_error']      = 'Įvyko klaida mėginant ištrinti kategor
 $lang['cat_mass_delete_success']    = '%s kategorijos iš %s sėkmingai ištrintos.';
 $lang['cat_no_select_error']        = 'Pirmiausiai reikia pažymėti ketegoriją.';
 $lang['cat_already_exist_error']    = 'Kategorija vardu "%s" jau egzistuoja.';
-?>

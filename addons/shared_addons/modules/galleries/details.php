@@ -10,6 +10,7 @@ class Module_Galleries extends Module {
 			'name' => array(
 				'sl' => 'Galerija',
 				'en' => 'Galleries',
+				'el' => 'Γκαλερί',
 				'de' => 'Galerien',
 				'nl' => 'Gallerijen',
 				'fr' => 'Galeries',
@@ -17,23 +18,24 @@ class Module_Galleries extends Module {
 				'it' => 'Gallerie',
 				'ru' => 'Галереи',
 				'ar' => 'معارض الصّور',
-				'pt' => 'Galerias',
+				'br' => 'Galerias',
 				'cs' => 'Galerie',
 				'es' => 'Galerías',
 				'fi' => 'Galleriat',
 				'lt' => 'Galerijos'
 			),
 			'description' => array(
-				'sl' => 'Modul galerije je mogočen modul ki dovoljuje uporabnikom ustavrjanje galerije slik',
+				'sl' => 'Modul galerije vam omogoča da ustvarite albume vaših slik.',
 				'en' => 'The galleries module is a powerful module that lets users create image galleries.',
+				'el' => 'Παρέχει την δυνατότητα στους χρήστες να δημιουργούν άλμπουμ εικόνων.',
 				'de' => 'Mit dem Galerie Modul kannst du Bildergalerien anlegen.',
-				'nl' => 'De gallerij module is een krachtige module dat gebruikers in staat stelt gallerijen te plaatsen.',
+				'nl' => 'De gallerij module die gebruikers in staat stelt afbeeldingsgallerijen te maken.',
 				'fr' => 'Galerie est une puissante extension permettant de créer des galeries d\'images.',
 				'zh' => '這是一個功能完整的模組，可以讓用戶建立自己的相簿或畫廊。',
 				'it' => 'Il modulo gallerie è un potente modulo che permette agli utenti di creare gallerie di immagini.',
 				'ru' => 'Галереи - мощный модуль, который даёт пользователям возможность создавать галереи изображений.',
 				'ar' => 'هذه الوحدة تمُكّنك من إنشاء معارض الصّور بسهولة.',
-				'pt' => 'O módulo de galerias é um poderoso módulo que permite aos usuários criar galerias de imagens.',
+				'br' => 'O módulo de galerias é um poderoso módulo que permite aos usuários criar galerias de imagens.',
 			    'cs' => 'Silný modul pro vytváření a správu galerií obrázků.',
 				'es' => 'Galerías es un potente módulo que permite a los usuarios crear galerías de imágenes.',
 				'fi' => 'Galleria moduuli antaa käyttäjien luoda kuva gallerioita.',
@@ -41,7 +43,15 @@ class Module_Galleries extends Module {
 			),
 			'frontend' => TRUE,
 			'backend' => TRUE,
-			'menu' => 'content'
+			'menu' => 'content',
+
+		    'shortcuts' => array(
+				array(
+			 	   'name' => 'galleries.new_gallery_label',
+				   'uri' => 'admin/galleries/create',
+				   'class' => 'add'
+				),
+			),
 		);
 	}
 

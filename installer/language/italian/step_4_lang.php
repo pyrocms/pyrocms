@@ -19,6 +19,7 @@ $lang['password']		= 	'Password';
 $lang['conf_password']	=	'Conferma Password';
 $lang['finish']			=	'Installa';
 
+$lang['invalid_db_name'] = 'The database name you entered is invalid. Please use only alphanumeric characters and underscores.'; #translate
 $lang['error_101']		=	'Il database non è stato trovato. Se hai chiesto all\' installer di crearlo, il problema potrebbero essere i permessi non corretti.';
 $lang['error_102']		=	'L\' installer non può aggiungere nessuna tabella al database.';
 $lang['error_103']		=	'L\' installer non può inserire dati nel database.';
@@ -28,4 +29,3 @@ $lang['error_106']		=	'Il file config non può essere scritto, sei sicuro che il
 $lang['success']		=	'PyroCMS è stato installato con successo.';
 
 /* End of file step_4_lang.php */
-/* Location: ./installer/language/italian/step_4_lang.php */

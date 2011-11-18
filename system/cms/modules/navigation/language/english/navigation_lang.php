@@ -6,7 +6,6 @@ $lang['nav_parent_label']						= 'Parent';
 $lang['nav_target_label']                       = 'Target';
 $lang['nav_class_label']                        = 'Class';
 $lang['nav_url_label']                          = 'URL';
-$lang['nav_actions_label']                      = 'Actions';
 $lang['nav_details_label']                      = 'Details';
 $lang['nav_text_label']                         = 'Text';
 $lang['nav_group_label']                        = 'Group';
@@ -15,20 +14,18 @@ $lang['nav_type_label']                         = 'Link type';
 $lang['nav_uri_label']                          = 'Site Link (URI)';
 $lang['nav_page_label']                         = 'Page';
 $lang['nav_module_label']                       = 'Module';
+$lang['nav_restricted_to']						= 'Restricted To';
 $lang['nav_abbrev_label']                       = 'Abbreviation';
-$lang['nav_edit_label']                         = 'Edit';
-$lang['nav_delete_label']                       = 'Delete';
-$lang['nav_group_delete_label']                 = 'Delete group';
-$lang['nav_link_page_select_default']			= '--Select Page--';
 
 $lang['nav_link_target_self']                   = 'Current window (default)';
 $lang['nav_link_target_blank']                  = 'New window (_blank)';
 
 // titles
-$lang['nav_link_create_title']                  = 'Add navigation link';
-$lang['nav_group_create_title']                 = 'Add a group';
+$lang['nav_link_create_title']                  = 'Add Link';
+$lang['nav_group_create_title']                 = 'Add a Group';
 $lang['nav_link_edit_title']                    = 'Edit navigation link "%s"';
-$lang['nav_link_list_title']                    = 'List links';
+$lang['nav_link_list_title']                    = 'Links';
+$lang['nav_group_list_title']                   = 'Groups';
 
 // messages
 $lang['nav_group_no_links']                     = 'There are no links in this group.';

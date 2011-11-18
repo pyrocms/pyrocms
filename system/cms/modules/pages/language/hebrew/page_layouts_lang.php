@@ -6,12 +6,8 @@ $lang['page_layouts.css_label']                      = 'CSS';
 
 // labels
 $lang['page_layouts.updated_label']                  = 'עודכן';
-$lang['page_layouts.actions_label']                  = 'פעולות';
 $lang['page_layouts.title_label']                    = 'כותרת';
 $lang['page_layouts.theme_layout_label']             = 'Theme Layout';
-
-$lang['page_layouts.edit_label']                     = 'ערוך';
-$lang['page_layouts.delete_label']                   = 'מחק';
 
 // titles
 $lang['page_layouts.list_title']                     = 'רשימת page layouts';

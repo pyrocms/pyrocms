@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['cp_admin_title']					= 'Kontrolní panel';
-$lang['cp_admin_home_title']			= 'Nástěnka';
+$lang['global:dashboard']			= 'Nástěnka';
 $lang['cp_admin_quick_links']			= 'Rychlé odkazy';
 
 $lang['cp_welcome_title']				= 'Vítejte';
@@ -43,10 +43,6 @@ $lang['cp_delete_installer_message']	= 'Prosím vymažte instalační složku ze
 $lang['cp_upgrade_message']				= 'Vaše verze systému je %s, ale verze vaší databáze je %s. <a href="%s" title="Aktualizace">Klikněte sem</a> pro aktualizaci vaší databáze.';
 $lang['cp_google_analytics_missing']	= 'Nastavení Google Analytics chybí. Zapište je do %s nebo kontaktujte svého administrátora.';
 $lang['cp_google_analytics_no_connect']	= 'Nepodařilo se připojit ke Google Analytics. Zkontrolujte na %s.';
-
-// Admin-wide text
-$lang['cp_shortcuts_title']				= 'Rychlé odkazy';
-$lang['cp_remove']						= 'Remove'; #translate
 
 $lang['required_label']					= 'Povinné';
 $lang['sb_recent_users']				= 'Nedávní uživatelé';

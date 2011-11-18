@@ -13,6 +13,8 @@ $lang['blog_posted_label']									= 'Дата';
 $lang['blog_posted_label_alt']							= 'Дата добавления';
 $lang['blog_written_by_label']							= 'Автор';
 $lang['blog_author_unknown']								= 'Неизвестно';
+$lang['blog_keywords_label']				= 'Keywords'; #translate
+$lang['blog_tagged_label']					= 'Tagged'; #translate
 $lang['blog_category_label']								= 'Категория';
 $lang['blog_post_label']										= 'Заголовок';
 $lang['blog_date_label']										= 'Дата';
@@ -21,11 +23,6 @@ $lang['blog_time_label']										= 'Время';
 $lang['blog_status_label']									= 'Статус';
 $lang['blog_draft_label']										= 'Черновик';
 $lang['blog_live_label']										= 'Опубликовано';
-$lang['blog_actions_label']									= 'Действия';
-$lang['blog_view_label']										= 'Просмотр';
-$lang['blog_preview_label']									= 'Предпросмотр';
-$lang['blog_edit_label']										= 'Редактировать';
-$lang['blog_delete_label']									= 'Удалить';
 $lang['blog_content_label']									= 'Содержание';
 $lang['blog_options_label']									= 'Опции';
 $lang['blog_title_label']										= 'Название';
@@ -76,4 +73,3 @@ $lang['blog_twitter_error']									= 'Ошибка Twitter\'а';
 $lang['blog_archive_date_format']						= "%B' %Y"; #see php strftime documentation
 
 /* End of file blog_lang.php */
-/* Location: ./system/cms/modules/blog/language/russian/blog_lang.php */

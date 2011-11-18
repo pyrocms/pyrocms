@@ -4,7 +4,7 @@
  * Русский перевод от Dark Preacher - dark[at]darklab.ru
  *
  * @package		PyroCMS
- * @author		Dark Preacher 
+ * @author		Dark Preacher
  * @link			http://pyrocms.com
  */
 
@@ -13,7 +13,6 @@ $lang['nav_title_label'] 									= 'Заголовок';
 $lang['nav_target_label']									= 'Цель';
 $lang['nav_class_label']									= 'Класс';
 $lang['nav_url_label'] 										= 'URL';
-$lang['nav_actions_label'] 								= 'Действия';
 $lang['nav_details_label'] 								= 'Подробности';
 $lang['nav_text_label'] 									= 'Текст';
 $lang['nav_group_label'] 									= 'Группа';
@@ -22,10 +21,8 @@ $lang['nav_type_label'] 									= 'Тип ссылки';
 $lang['nav_uri_label'] 										= 'Ссылка на сайте (URI)';
 $lang['nav_page_label'] 									= 'Страница';
 $lang['nav_module_label'] 								= 'Модуль';
+$lang['nav_restricted_to']						= 'Restricted To'; #translate
 $lang['nav_abbrev_label'] 								= 'Аббревиатура';
-$lang['nav_edit_label'] 									= 'Редактировать';
-$lang['nav_delete_label'] 								= 'Удалить';
-$lang['nav_group_delete_label']						= 'Удалить группу';
 
 $lang['nav_link_target_self'] 						= 'Текущее окно (по-умолчанию)';
 $lang['nav_link_target_blank'] 						= 'Новое окно (_blank)';
@@ -35,6 +32,7 @@ $lang['nav_link_create_title'] 						= 'Создать ссылку';
 $lang['nav_group_create_title']						= 'Создать группу';
 $lang['nav_link_edit_title'] 							= 'Редактирование ссылки "%s"';
 $lang['nav_link_list_title'] 							= 'Список ссылок';
+$lang['nav_group_list_title']                   = 'Groups'; #translate
 
 // сообщения
 $lang['nav_group_no_links'] 							= 'В данной группе ссылки отсутствуют.';
@@ -52,4 +50,3 @@ $lang['nav_link_delete_success'] 					= 'Ссылка удалена.';
 $lang['nav_link_type_desc'] 							= 'Пожалуйста, выберите тип ссылки, чтобы получить больше настроек для создания ссылки.';
 
 /* End of file navigation_lang.php */
-/* Location: ./system/cms/modules/navigation/language/russian/navigation_lang.php */

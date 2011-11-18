@@ -26,11 +26,7 @@ $lang['user_password_confirm_label'] 	= 'Potwierdź hasło';
 $lang['user_name_label'] 				= 'Nazwa';
 $lang['user_joined_label'] 				= 'Utworzony';
 $lang['user_last_visit_label'] 			= 'Ostatnia wizyta';
-$lang['user_actions_label']				= 'Akcje';
 $lang['user_never_label'] 				= 'Nigdy';
-$lang['user_delete_label'] 				= 'Usuń';
-$lang['user_edit_label'] 				= 'Edytuj';
-$lang['user_view_label'] 				= 'Podgląd';
 
 $lang['user_no_inactives'] 				= 'Nie ma nieaktywnych użytkowników.';
 $lang['user_no_registred'] 				= 'Nie ma zarejestrowanych użytkowników.';
@@ -62,7 +58,6 @@ $lang['user_email'] 					= 'E-mail';
 $lang['user_confirm_email'] 			= 'Potwierdź E-mail';
 $lang['user_password'] 					= 'Hasło';
 $lang['user_remember']                  = 'Pamiętaj mnie';
-$lang['user_confirm_password'] 			= 'Potwierdź hasło';
 $lang['user_group_id_label']            = 'ID grupy';
 
 $lang['user_level']						= 'Rola użytkownika';
@@ -71,6 +66,7 @@ $lang['user_lang']						= 'Język';
 
 $lang['user_activation_code']			 = 'Kod aktywacyjny';
 
+$lang['user_reset_instructions']			   = 'Enter your email address or username'; #translate
 $lang['user_reset_password_link']		 = 'Zapomniałeś hasła?';
 
 $lang['user_activation_code_sent_notice']	 = 'Na twoją skrzynkę pocztową został wysłany email z kodem aktywacyjnym.';
@@ -171,15 +167,15 @@ $lang['profile_edit'] 						= 'Edytuj swój profil';
 
 $lang['profile_personal_section'] 			= 'Osobiste';
 
-$lang['profile_display_name']         	= 'Wyświetlana nazwa'; 
+$lang['profile_display_name']         	= 'Wyświetlana nazwa';
 $lang['profile_dob']				  	= 'Data urodzenia';
 $lang['profile_dob_day']		      	= 'Dzień';
 $lang['profile_dob_month']		  	  	= 'Miesiąc';
 $lang['profile_dob_year']			  	= 'Rok';
 $lang['profile_gender']				  	= 'Płeć';
-$lang['profile_gender_nt']            	= 'Nie ujawniam'; 
-$lang['profile_gender_male']          	= 'Mężczyzna'; 
-$lang['profile_gender_female']        	= 'Kobieta'; 
+$lang['profile_gender_nt']            	= 'Nie ujawniam';
+$lang['profile_gender_male']          	= 'Mężczyzna';
+$lang['profile_gender_female']        	= 'Kobieta';
 $lang['profile_bio']				  	= 'O mnie';
 
 $lang['profile_contact_section'] 		= 'Kontakt';
@@ -214,4 +210,3 @@ $lang['profile_edit_error'] 			= 'Wystąpił błąd.';
 $lang['profile_save_btn'] 				= 'Zapisz profil';
 
 /* End of file user_lang.php */
-/* Location: ./system/cms/modules/users/language/polish/user_lang.php */

@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * Czech translation.
- * 
+ *
  * @author		-
  * @package		PyroCMS
  * @subpackage 	Variables Module
@@ -12,10 +12,8 @@
  */
 
 // labels
-$lang['variables.name_label'] 			    = 'Jméno';
 $lang['variables.syntax_label']				= 'Syntaxe';
 $lang['variables.data_label'] 			    = 'Hodnota';
-$lang['variables.actions_label'] 			= 'Akce';
 
 // titles
 $lang['variables.create_title'] 			= 'Přidat proměnnou';

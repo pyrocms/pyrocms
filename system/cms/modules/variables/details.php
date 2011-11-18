@@ -2,7 +2,7 @@
 
 class Module_Variables extends Module {
 
-	public $version = '0.3.1';
+	public $version = '0.4';
 	
 	public function info()
 	{
@@ -15,7 +15,7 @@ class Module_Variables extends Module {
 				'es' => 'Variables',
 				'fr' => 'Variables',
 				'de' => 'Variablen',
-				'pt' => 'Variáveis',
+				'br' => 'Variáveis',
 				'zh' => '系統變數',
 				'it' => 'Variabili',
 				'ru' => 'Переменные',
@@ -24,17 +24,18 @@ class Module_Variables extends Module {
 				'fi' => 'Muuttujat',
 				'el' => 'Μεταβλητές',
 				'he' => 'משתנים',
-				'lt' => 'Kintamieji'
+				'lt' => 'Kintamieji',
+				'da' => 'Variable'
 			),
 			'description' => array(
 				'sl' =>	'Urejanje globalnih spremenljivk za dostop od kjerkoli',
-				'en' => 'Manage global variables to access from everywhere.',
+				'en' => 'Manage global variables that can be accessed from anywhere.',
 				'nl' => 'Beheer globale variabelen die overal beschikbaar zijn.',
 				'pl' => 'Zarządzaj globalnymi zmiennymi do których masz dostęp z każdego miejsca aplikacji.',
 				'es' => 'Manage global variables to access from everywhere.',
 				'fr' => 'Manage global variables to access from everywhere.',
 				'de' => 'Verwaltet globale Variablen, auf die von überall zugegriffen werden kann.',
-				'pt' => 'Gerencia as variáveis globais acessíveis de qualquer lugar.',
+				'br' => 'Gerencia as variáveis globais acessíveis de qualquer lugar.',
 				'zh' => '管理此網站內可存取的全局變數。',
 				'it' => 'Gestisci le variabili globali per accedervi da ogni parte.',
 				'ru' => 'Управление глобальными переменными, которые доступны в любом месте сайта.',
@@ -43,11 +44,21 @@ class Module_Variables extends Module {
 				'fi' => 'Hallitse globaali muuttujia, joihin pääsee käsiksi mistä vain.',
 				'el' => 'Διαχείριση μεταβλητών που είναι προσβάσιμες από παντού στον ιστότοπο.',
 				'he' => 'ניהול משתנים גלובליים אשר ניתנים להמרה בכל חלקי האתר',
-				'lt' => 'Globalių kintamujų tvarkymas kurie yra pasiekiami iš bet kur.'
+				'lt' => 'Globalių kintamujų tvarkymas kurie yra pasiekiami iš bet kur.',
+				'da' => 'Håndtér globale variable som kan tilgås overalt.'
 			),
 			'frontend'	=> FALSE,
 			'backend'	=> TRUE,
-			'menu'		=> 'content'
+			'menu'		=> 'content',
+			
+			'shortcuts' => array(
+				array(
+				    'name' => 'variables.create_title',
+				    'uri' => 'admin/variables/create',
+					'class' => 'add',
+					//'rel' => 'ajax',
+				),
+		    ),
 		);
 	}
 	

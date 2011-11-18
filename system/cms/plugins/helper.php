@@ -11,13 +11,15 @@
  */
 class Plugin_Helper extends Plugin
 {
+	static $_counter_increment = TRUE;
+
 	/**
 	 * Data
 	 *
 	 * Loads a theme partial
 	 *
 	 * Usage:
-	 * {pyro:helper:lang line="foo"}
+	 * {{ helper:lang line="foo" }}
 	 *
 	 * @param	array
 	 * @return	array
@@ -28,6 +30,19 @@ class Plugin_Helper extends Plugin
 		return $this->lang->line($line);
 	}
 
+	/**
+	 * Date
+	 *
+	 * Displays the current date or formats
+	 * a timestamp that is passed to it
+	 *
+	 * @param	string
+	 * @return	string
+	 *
+	 * Usage:
+	 * {{ helper:date format="Y" }} Outputs: 2011
+	 * {{ helper:date format="Y" timestamp="2524608000" }} Outputs: 2050
+	 */
 	public function date()
 	{
         $this->load->helper('date');
@@ -53,6 +68,70 @@ class Plugin_Helper extends Plugin
 	{
 		return preg_replace('!\s+!', $this->attribute('replace', ' '), $this->content());
 	}
+	
+	/**
+	 * Add counting to tag loops
+	 *
+	 * Usage:
+	 * {{ blog:posts }}
+	 * 		{{ helper:count }} -- {{title}}
+	 * {{ /blog:posts }}
+	 *
+	 * Outputs:
+	 * 1 -- This is an example title
+	 * 2 -- This is another title
+	 *
+	 * Another example:
+	 * {{ blog:posts }}
+	 * 		{{ helper:count mode="subtract" start="10" }} -- {{title}}
+	 * {{ /blog:posts }}
+	 *
+	 * Outputs:
+	 * 10 -- This is an example title
+	 * 9  -- This is another title
+	 *
+	 * You can add a second counter to a page by setting a unique identifier:
+	 * {{ files:listing folder="foo" }}
+	 * 		{{ helper:count identifier="files" return="false" }}
+	 * 		{{name}} -- {{slug}}
+	 * 	{{ /files:listing }}
+	 * 	You have {{ helper:show_count identifier="files" }} files.
+	 *
+	 * 	Outputs:
+	 * 	Test -- test
+	 * 	Second -- second
+	 * 	You have 2 files.
+	 */
+	public function count()
+	{
+		static $count = array();
+		$identifier = $this->attribute('identifier', 'default');
+
+		// Use a default of 1 if they haven't specified one and it's the first iteration
+		if ( ! isset($count[$identifier])) $count[$identifier] = $this->attribute('start', 1);
+
+		// lets check to see if they're only wanting to show the count
+		if (self::$_counter_increment)
+		{
+			// count up unless they specify to "subtract"
+			$value = ($this->attribute('mode') == 'subtract') ? $count[$identifier]-- : $count[$identifier]++;
+
+			// go ahead and increment but return an empty string
+			if (strtolower($this->attribute('return')) === 'false')
+			{
+				return '';
+			}
+			return $value;
+		}
+		return $count[$identifier];
+	}
+	
+	public function show_count()
+	{
+		self::$_counter_increment = FALSE;
+
+		return self::count();
+	}
 }
 
-/* End of file theme.php */
+/* End of file helper.php */

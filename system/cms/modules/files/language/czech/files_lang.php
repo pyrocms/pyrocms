@@ -21,16 +21,13 @@ $lang['files.upload_title']					= 'Nahrát soubory';
 $lang['files.edit_title']					= 'Upravit soubor "%s"';
 
 // Labels
-$lang['files.actions_label']				= 'Akce';
 $lang['files.download_label']				= 'Stáhnout';
-$lang['files.edit_label']					= 'Upravit';
-$lang['files.delete_label']					= 'Vymazat';
 $lang['files.upload_label']					= 'Nahrát';
 $lang['files.description_label']			= 'Popis';
 $lang['files.type_label']					= 'Typ';
 $lang['files.file_label']					= 'Soubor';
 $lang['files.filename_label']				= 'Jméno souboru';
-$lang['files.filter_label']					= 'Filtr'; 
+$lang['files.filter_label']					= 'Filtr';
 $lang['files.loading_label']				= 'Nahrávám...';
 $lang['files.name_label']					= 'Jméno';
 

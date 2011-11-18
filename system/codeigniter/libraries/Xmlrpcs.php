@@ -99,7 +99,7 @@ class CI_Xmlrpcs extends CI_Xmlrpc
 	 * @access	public
 	 * @return	void
 	 */
-	function set_system_methods ()
+	function set_system_methods()
 	{
 		$this->methods = array(
 					'system.listMethods'	 => array(
@@ -120,7 +120,6 @@ class CI_Xmlrpcs extends CI_Xmlrpc
 												'docstring' => 'Combine multiple RPC calls in one request. See http://www.xmlrpc.com/discuss/msgReader$1208 for details')
 					);
 	}
-
 
 	// --------------------------------------------------------------------
 
@@ -154,7 +153,7 @@ class CI_Xmlrpcs extends CI_Xmlrpc
 	 * @param	string	docstring
 	 * @return	void
 	 */
-	function add_to_map($methodname,$function,$sig,$doc)
+	function add_to_map($methodname, $function, $sig, $doc)
 	{
 		$this->methods[$methodname] = array(
 			'function'  => $function,
@@ -162,7 +161,6 @@ class CI_Xmlrpcs extends CI_Xmlrpc
 			'docstring' => $doc
 		);
 	}
-
 
 	// --------------------------------------------------------------------
 
@@ -222,7 +220,7 @@ class CI_Xmlrpcs extends CI_Xmlrpc
 				xml_get_current_line_number($parser)));
 			xml_parser_free($parser);
 		}
-		elseif($parser_object->xh[$parser]['isf'])
+		elseif ($parser_object->xh[$parser]['isf'])
 		{
 			return new XML_RPC_Response(0, $this->xmlrpcerr['invalid_return'], $this->xmlrpcstr['invalid_return']);
 		}
@@ -233,7 +231,7 @@ class CI_Xmlrpcs extends CI_Xmlrpc
 			$m = new XML_RPC_Message($parser_object->xh[$parser]['method']);
 			$plist='';
 
-			for($i=0; $i < count($parser_object->xh[$parser]['params']); $i++)
+			for ($i=0; $i < count($parser_object->xh[$parser]['params']); $i++)
 			{
 				if ($this->debug === TRUE)
 				{
@@ -328,13 +326,13 @@ class CI_Xmlrpcs extends CI_Xmlrpc
 		if (isset($this->methods[$methName]['signature']))
 		{
 			$sig = $this->methods[$methName]['signature'];
-			for($i=0; $i<count($sig); $i++)
+			for ($i=0; $i<count($sig); $i++)
 			{
 				$current_sig = $sig[$i];
 
 				if (count($current_sig) == count($m->params)+1)
 				{
-					for($n=0; $n < count($m->params); $n++)
+					for ($n=0; $n < count($m->params); $n++)
 					{
 						$p = $m->params[$n];
 						$pt = ($p->kindOf() == 'scalar') ? $p->scalarval() : $p->kindOf();
@@ -383,8 +381,7 @@ class CI_Xmlrpcs extends CI_Xmlrpc
 			return call_user_func($this->methods[$methName]['function'], $m);
 		}
 	}
-
-
+	
 	// --------------------------------------------------------------------
 
 	/**
@@ -399,12 +396,12 @@ class CI_Xmlrpcs extends CI_Xmlrpc
 		$v = new XML_RPC_Values();
 		$output = array();
 
-		foreach($this->methods as $key => $value)
+		foreach ($this->methods as $key => $value)
 		{
 			$output[] = new XML_RPC_Values($key, 'string');
 		}
 
-		foreach($this->system_methods as $key => $value)
+		foreach ($this->system_methods as $key => $value)
 		{
 			$output[]= new XML_RPC_Values($key, 'string');
 		}
@@ -412,7 +409,7 @@ class CI_Xmlrpcs extends CI_Xmlrpc
 		$v->addArray($output);
 		return new XML_RPC_Response($v);
 	}
-
+	
 	// --------------------------------------------------------------------
 
 	/**
@@ -434,11 +431,11 @@ class CI_Xmlrpcs extends CI_Xmlrpc
 				$sigs = array();
 				$signature = $this->methods[$method_name]['signature'];
 
-				for($i=0; $i < count($signature); $i++)
+				for ($i=0; $i < count($signature); $i++)
 				{
 					$cursig = array();
 					$inSig = $signature[$i];
-					for($j=0; $j<count($inSig); $j++)
+					for ($j=0; $j<count($inSig); $j++)
 					{
 						$cursig[]= new XML_RPC_Values($inSig[$j], 'string');
 					}
@@ -483,7 +480,7 @@ class CI_Xmlrpcs extends CI_Xmlrpc
 			return new XML_RPC_Response(0, $this->xmlrpcerr['introspect_unknown'], $this->xmlrpcstr['introspect_unknown']);
 		}
 	}
-
+	
 	// --------------------------------------------------------------------
 
 	/**
@@ -510,7 +507,7 @@ class CI_Xmlrpcs extends CI_Xmlrpc
 			$m = new XML_RPC_Message($value[0]);
 			$plist='';
 
-			for($i=0; $i < count($value[1]); $i++)
+			for ($i=0; $i < count($value[1]); $i++)
 			{
 				$m->addParam(new XML_RPC_Values($value[1][$i], 'string'));
 			}
@@ -547,7 +544,6 @@ class CI_Xmlrpcs extends CI_Xmlrpc
 
 		return new XML_RPC_Values($struct, 'struct');
 	}
-
 
 	// --------------------------------------------------------------------
 

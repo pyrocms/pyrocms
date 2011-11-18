@@ -8,8 +8,14 @@
  */
 class Widget_m extends MY_Model
 {
+	public function __construct()
+	{
+		parent::__construct();
 
-	function get_instance($id)
+		$this->load->helper('date');
+	}
+
+	public function get_instance($id)
 	{
 		$this->db
 			->select('w.id, w.slug, wi.id as instance_id, wi.title as instance_title, w.title, wi.widget_area_id, wa.slug as widget_area_slug, wi.options')
@@ -28,7 +34,7 @@ class Widget_m extends MY_Model
 		return $result;
 	}
 
-	function get_by_area($slug)
+	public function get_by_area($slug)
 	{
 		$this->db
 			->select('wi.id, w.slug, wi.id as instance_id, wi.title as instance_title, w.title, wi.widget_area_id, wa.slug as widget_area_slug, wi.options')
@@ -48,7 +54,7 @@ class Widget_m extends MY_Model
 		return $result;
 	}
 
-	function get_by_areas($slug = array())
+	public function get_by_areas($slug = array())
 	{
 
 		if ( ! (is_array($slug) && $slug))
@@ -159,7 +165,8 @@ class Widget_m extends MY_Model
 			'website' 		=> $input['website'],
 			'version' 		=> $input['version'],
 			'enabled' 		=> $input['enabled'],
-			'order' 		=> $input['order']
+			'order' 		=> $input['order'],
+			'updated_on'	=> now()
 		));
 	}
 
@@ -178,11 +185,12 @@ class Widget_m extends MY_Model
 				'description' 	=> serialize($input['description']),
 				'author' 		=> $input['author'],
 				'website' 		=> $input['website'],
-				'version' 		=> $input['version']
+				'version' 		=> $input['version'],
+				'updated_on'	=> now()
 			));
 	}
 
-	function update_widget_order($id, $order)
+	public function update_widget_order($id, $order)
 	{
 		$this->db->where('id', $id);
 
@@ -191,7 +199,7 @@ class Widget_m extends MY_Model
 		));
 	}
 
-	function enable_widget($id = 0)
+	public function enable_widget($id = 0)
 	{
 		$this->db->where('id', $id);
 
@@ -200,7 +208,7 @@ class Widget_m extends MY_Model
 		));
 	}
 
-	function disable_widget($id = 0)
+	public function disable_widget($id = 0)
 	{
 		$this->db->where('id', $id);
 
@@ -273,7 +281,7 @@ class Widget_m extends MY_Model
 		));
 	}
 
-	function update_instance_order($id, $order)
+	public function update_instance_order($id, $order)
 	{
 		$this->db->where('id', $id);
 
@@ -282,7 +290,7 @@ class Widget_m extends MY_Model
 		));
 	}
 
-	function delete_widget($slug)
+	public function delete_widget($slug)
 	{
 		$widget = $this->db
 			->select('id')
@@ -317,7 +325,7 @@ class Widget_m extends MY_Model
 		return $this->db->delete('widget_areas', array('id' => $id));
 	}
 
-	function delete_instance($id)
+	public function delete_instance($id)
 	{
 		return $this->db->delete('widget_instances', array('id' => $id));
 	}

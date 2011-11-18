@@ -6,7 +6,6 @@ $lang['nav_parent_label']						= 'Starš';
 $lang['nav_target_label']                       = 'Cilj';
 $lang['nav_class_label']                        = 'Class';
 $lang['nav_url_label']                          = 'URL';
-$lang['nav_actions_label']                      = 'Akcija';
 $lang['nav_details_label']                      = 'Podrobnosti';
 $lang['nav_text_label']                         = 'Tekst';
 $lang['nav_group_label']                        = 'Skupina';
@@ -15,10 +14,8 @@ $lang['nav_type_label']                         = 'Vrsta povezave';
 $lang['nav_uri_label']                          = 'Povezava strani (URI)';
 $lang['nav_page_label']                         = 'Stran';
 $lang['nav_module_label']                       = 'Modul';
+$lang['nav_restricted_to']						= 'Restricted To'; #translate
 $lang['nav_abbrev_label']                       = 'Kartica'; //predpona ?
-$lang['nav_edit_label']                         = 'Uredi';
-$lang['nav_delete_label']                       = 'Izbriši';
-$lang['nav_group_delete_label']                 = 'Izbrišite skupino';
 
 $lang['nav_link_target_self']                   = 'V istem oknu (prednastavljeno)';
 $lang['nav_link_target_blank']                  = 'Novo okno(_blank)';
@@ -28,6 +25,7 @@ $lang['nav_link_create_title']                  = 'Dodaj povezavo v meni';
 $lang['nav_group_create_title']                 = 'Dodaj skupino';
 $lang['nav_link_edit_title']                    = 'Uredite povezavo menija "%s"';
 $lang['nav_link_list_title']                    = 'Seznam povezav';
+$lang['nav_group_list_title']                   = 'Groups'; #translate
 
 // messages
 $lang['nav_group_no_links']                     = 'V tej skupini ni povezav.';

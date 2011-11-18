@@ -1,7 +1,7 @@
 <?php
 /**
  * Finnish translation.
- * 
+ *
  * @author Mikael Kundert <mikael@kundert.fi>
  * @date 07.02.2011
  * @version 1.0.3
@@ -39,8 +39,5 @@ $lang['widgets.delete_instance']        = 'Poista widget instanssi';
 
 $lang['widgets.instance_title']         = 'Otsikko';
 $lang['widgets.tag_title']              = 'Tag';
-
-$lang['widgets.instance_edit']          = 'Muokkaa';
-$lang['widgets.instance_delete']        = 'Poista';
 
 $lang['widgets.no_available_widgets']	= 'Widgettejä ei ole saatavilla.';

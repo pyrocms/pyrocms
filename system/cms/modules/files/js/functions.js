@@ -1,11 +1,4 @@
 jQuery(function($){
-	// General -----------------------------------------------------
-
-	// Apply sexy style to input fields with uniform
-	$('select, textarea, input[type=text], input[type=file], input[type=submit]')
-		.livequery(function(){
-			$(this).not('.no-uniform').uniform().addClass('no-uniform');
-	});
 
 	// Folder ------------------------------------------------------
 
@@ -24,21 +17,20 @@ jQuery(function($){
 
 			data = 'btnAction=delete&' + form.serialize();
 
-			$.post(url, data, function(data){
-				if (data.status == 'success')
+			$.post(url, data, function(response){
+				if (response.status == 'success')
 				{
-					var callback_adjust_and_close = function(){
+					pyro.add_notification(response.message, {ref: '#cboxLoadedContent', method: 'prepend'}, function(){
 						$.colorbox.resize();
 						$(window).hashchange();
 						$.colorbox.close();
-					};
-
-					pyro.add_notification(data.message, {ref: '#cboxLoadedContent', method: 'prepend'}, callback_adjust_and_close);
+					});
 
 				}
-				else if (data.status == 'error')
+				else if (response.status == 'error')
 				{
-					pyro.add_notification(data.message, {ref: '#cboxLoadedContent', method: 'prepend'}, $.colorbox.resize);
+					pyro.add_notification(response.message, {ref: '#cboxLoadedContent', method: 'prepend'});
+                    $.colorbox.resize();
 				}
 			}, 'json');
 		});
@@ -83,15 +75,16 @@ jQuery(function($){
 
 		self.colorbox({
 			scrolling	: false,
-			width		:'600',
-			height		:'400',
+			width		:'650',
+			height		:'500',
 			onComplete	: function(){
 
 				var form = $('form#folders_crud'),
 					$loading = $('#cboxLoadingOverlay, #cboxLoadingGraphic'),
 					btn_action;
-
-				$.colorbox.resize();
+				
+				// Update Chosen
+				pyro.chosen();
 
 				form.find(':submit').click(function(e){
 					btn_action = $(this).val();
@@ -111,7 +104,7 @@ jQuery(function($){
 						}
 						else
 						{
-							$.post(SITE_URL + 'ajax/url_title', { title: title }, function(slug){
+							$.post(SITE_URL + 'ajax/url_title', {title: title}, function(slug){
 								$slug.val(slug);
 
 								cache[title] = slug;
@@ -183,7 +176,8 @@ jQuery(function($){
 							form.parent().fadeIn(function(){
 
 								// Show notification & resize colorbox
-								pyro.add_notification(data.message, {ref: '#cboxLoadedContent', method: 'prepend'}, $.colorbox.resize);
+								pyro.add_notification(data.message, {ref: '#cboxLoadedContent', method: 'prepend'});
+                                $.colorbox.resize();
 
 							});
 
@@ -213,8 +207,6 @@ jQuery(function($){
 			uri		= 'index';
 			hash	= 'path=';
 			path	= null;
-
-			$('#shortcuts li.files-uploader').addClass('hidden');
 		}
 
 		$.get(SITE_URL + 'admin/files/folders/' + uri, hash, function(data){
@@ -223,15 +215,15 @@ jQuery(function($){
 			{
 				data.navigation && $('#files-browser-nav').html(data.navigation);
 				data.content && $('#files-browser-contents').html(data.content);
-
-				$('#shortcuts li.files-uploader')[(path ? 'remove' : 'add') + 'Class']('hidden');
 			}
 			else if (data.status == 'error')
 			{
-				$('#shortcuts li.files-uploader').addClass('hidden');
 				parent.location.hash = null;
 				pyro.add_notification(data.message);
 			}
+			
+			// Update Chosen
+			pyro.chosen();
 
 		}, 'json');
 	});
@@ -281,6 +273,9 @@ jQuery(function($){
 					$loading = $('#cboxLoadingOverlay, #cboxLoadingGraphic');
 
 				$.colorbox.resize();
+				
+				// Update Chosen
+				pyro.chosen();
 
 				form.find(':input:last').keypress(function(e){
 					if (e.keyCode == 9 && ! e.shiftKey)
@@ -328,8 +323,8 @@ jQuery(function($){
 							form.parent().fadeIn(function(){
 
 								// Show notification & resize colorbox
-								pyro.add_notification(data.message, {ref: '#cboxLoadedContent', method: 'prepend'}, $.colorbox.resize);
-
+								pyro.add_notification(data.message, {ref: '#cboxLoadedContent', method: 'prepend'});
+                                $.colorbox.resize();
 							});
 
 						}, 'json');
@@ -362,10 +357,11 @@ jQuery(function($){
 		upload_vars	= upload_form.data('fileUpload');
 
 	upload_form.fileUploadUI({
-		fieldName		: 'userfile',
-		uploadTable		: $('#files-uploader-queue'),
-		downloadTable	: $('#files-uploader-queue'),
-		previewSelector	: '.file_upload_preview div',
+		fieldName       : 'userfile',
+		uploadTable     : $('#files-uploader-queue'),
+		downloadTable   : $('#files-uploader-queue'),
+		previewSelector : '.file_upload_preview div',
+        cancelSelector  : '.file_upload_cancel button.cancel',
 		buildUploadRow	: function(files, index, handler){
 			return $('<li><div class="file_upload_preview ui-corner-all"><div class="ui-corner-all"></div></div>' +
 					'<div class="filename"><label for="file-name">' + files[index].name + '</label>' +
@@ -378,12 +374,18 @@ jQuery(function($){
 					'</div>' +
 					'</li>');
 		},
-		buildDownloadRow: function(data){
-			if (data.status == 'success')
+		buildDownloadRow: function(response){
+			if (response.message)
 			{
-				return $('<li><div>' + data.file.name + '</div></li>');
+				pyro.add_notification(response.message, {
+					clear: false
+				});
 			}
-			return false;
+			if (response.status == 'success')
+			{
+				return $('<li><div>' + response.file.name + '</div></li>');
+			}
+			return;
 		},
 		beforeSend: function(event, files, index, xhr, handler, callBack){
 			handler.uploadRow.find('button.start').click(function(){

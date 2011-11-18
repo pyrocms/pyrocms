@@ -1,11 +1,11 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 // labels
 $lang['nav_title_label'] 						= 'Titre';
+$lang['nav_parent_label']						= 'Parent';
 $lang['nav_target_label']						= 'Cible';
 $lang['nav_class_label']						= 'Classe CSS';
 $lang['nav_url_label'] 							= 'URL';
-$lang['nav_actions_label'] 						= 'Actions';
 $lang['nav_details_label'] 						= 'Détails';
 $lang['nav_text_label'] 						= 'Texte';
 $lang['nav_group_label'] 						= 'Groupe';
@@ -14,19 +14,18 @@ $lang['nav_type_label'] 						= 'Type de lien';
 $lang['nav_uri_label'] 							= 'Lien interne (URI)';
 $lang['nav_page_label'] 						= 'Page';
 $lang['nav_module_label'] 						= 'Module';
+$lang['nav_restricted_to']						= 'Restricted To'; #translate
 $lang['nav_abbrev_label'] 						= 'Abbréviation';
-$lang['nav_edit_label'] 						= 'Modifier';
-$lang['nav_delete_label'] 						= 'Supprimer';
-$lang['nav_group_delete_label']					= 'Supprimer le groupe';
 
-$lang['nav_link_target_self'] 					= 'Fenêtre actuelle (default)'; 
-$lang['nav_link_target_blank'] 					= 'Nouvelle fenêtre (_blank)'; 
+$lang['nav_link_target_self'] 					= 'Fenêtre actuelle (default)';
+$lang['nav_link_target_blank'] 					= 'Nouvelle fenêtre (_blank)';
 
 // titles
-$lang['nav_link_create_title'] 					= 'Ajouter un lien de navigation'; 
+$lang['nav_link_create_title'] 					= 'Ajouter un lien de navigation';
 $lang['nav_group_create_title']					= 'Ajouter un groupe';
-$lang['nav_link_edit_title'] 					= 'Editer le lien "%s"'; 
+$lang['nav_link_edit_title'] 					= 'Editer le lien "%s"';
 $lang['nav_link_list_title'] 					= 'Lister les liens';
+$lang['nav_group_list_title']                   = 'Groupes';
 
 // messages
 $lang['nav_group_no_links'] 					= 'Il n\'y a pas de lien dans ce groupe.';

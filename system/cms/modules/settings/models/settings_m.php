@@ -25,7 +25,7 @@ class Settings_m extends MY_Model {
 
 	/**
 	 * Get
-	 * 
+	 *
 	 * Gets a setting based on the $where param.  $where can be either a string
 	 * containing a slug name or an array of WHERE options.
 	 *
@@ -35,21 +35,21 @@ class Settings_m extends MY_Model {
 	 */
 	public function get($where)
 	{
-		if(!is_array($where))
+		if ( ! is_array($where))
 		{
 			$where = array('slug' => $where);
 		}
-		
+
 		return $this->db
 			->select('*, IF(`value` = "", `default`, `value`) as `value`', FALSE)
 			->where($where)
-			->get('settings')
+			->get($this->_table)
 			->row();
 	}
 
 	/**
-	 * Get All
-	 * 
+	 * Get Many By
+	 *
 	 * Gets all settings based on the $where param.  $where can be either a string
 	 * containing a module name or an array of WHERE options.
 	 *
@@ -57,39 +57,23 @@ class Settings_m extends MY_Model {
 	 * @param	mixed	$where
 	 * @return	object
 	 */
-	public function get_all($where = array())
+	public function get_many_by($where = array())
 	{
 		if ( ! is_array($where))
 		{
 			$where = array('module' => $where);
 		}
 
-		return $this->db
+		return $this
 			->select('*, IF(`value` = "", `default`, `value`) as `value`', FALSE)
 			->where($where)
 			->order_by('`order`', 'DESC')
-			->get('settings')
-			->result();
-	}
-	
-	/**
-	 * Get Settings
-	 * 
-	 * This function is depriciated.  You should use get_all() instead.
-	 *
-	 * @deprecated	Since v1.0
-	 * @access		public
-	 * @param		mixed	$where
-	 * @return		object
-	 */
-	public function get_settings($where = NULL)
-	{
-		return $this->get_all($where);
+			->get_all();
 	}
 
 	/**
 	 * Update
-	 * 
+	 *
 	 * Updates a setting for a given $slug.
 	 *
 	 * @access	public
@@ -99,12 +83,12 @@ class Settings_m extends MY_Model {
 	 */
 	public function update($slug = '', $params = array())
 	{
-		return $this->db->update('settings', $params, array('slug' => $slug));
+		return $this->db->update($this->_table, $params, array('slug' => $slug));
 	}
 
 	/**
 	 * Sections
-	 * 
+	 *
 	 * Gets all the sections (modules) from the settings table.
 	 *
 	 * @access	public
@@ -112,24 +96,19 @@ class Settings_m extends MY_Model {
 	 */
 	public function sections()
 	{
-		$query = $this->db->select('module')
+		$sections = $this->select('module')
 			->distinct()
 			->where('module != ""')
-			->get('settings');
+			->get_all();
 
-		if ($query->num_rows() == 0)
+		$result = array();
+
+		foreach ($sections as $section)
 		{
-			return FALSE;
+			$result[] = $section->module;
 		}
 
-		$sections = array();
-
-		foreach ($query->result() as $section)
-		{
-			$sections[$section->module] = ucfirst($section->module);
-		}
-
-		return $sections;
+		return $result;
 	}
 
 }

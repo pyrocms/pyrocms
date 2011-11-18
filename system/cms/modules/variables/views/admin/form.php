@@ -1,29 +1,35 @@
-<?php if ($this->method == 'create'): ?>
-	<h3><?php echo lang('variables.create_title');?></h3>
+<section class="title">
+	<?php if ($this->method == 'create'): ?>
+	<h4><?php echo lang('variables.create_title');?></h4>
+	<?php else: ?>
+	<h4><?php echo sprintf(lang('variables.edit_title'), $variable->name);?></h4>
+	<?php endif; ?>
+</section>
 
-<?php else: ?>
-	<h3><?php echo sprintf(lang('variables.edit_title'), $variable->name);?></h3>
-<?php endif; ?>
-	
+<section class="item">
+
 <?php echo form_open($this->uri->uri_string(), 'class="crud" id="variables"'); ?>
 <?php if ($this->method == 'edit') echo form_hidden('variable_id', $variable->id); ?>
 
-	<fieldset>
-		<ul>
-			<li class="even">
-				<label for="name"><?php echo lang('variables.name_label');?></label>
-				<?php echo  form_input('name', $variable->name); ?>
-				<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
-			</li>
-			<li class="">
-				<label for="data"><?php echo lang('variables.data_label');?></label>
-				<?php echo  form_input('data', $variable->data); ?>
-			</li>
-		</ul>
+<div class="form_inputs">
 
-		<div class="buttons float-right padding-top">
-			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'save_exit', 'cancel') )); ?>
-		</div>
-	</fieldset>
+	<ul>
+		<li class="even">
+			<label for="name"><?php echo lang('name_label');?> <span>*</span></label>
+			<div class="input"><?php echo  form_input('name', $variable->name); ?></div>
+		</li>
+		
+		<li class="">
+			<label for="data"><?php echo lang('variables.data_label');?> <span>*</span></label>
+			<div class="input"><?php echo  form_input('data', $variable->data); ?></div>
+		</li>
+	</ul>
+		
+	<div>
+		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )); ?>
+	</div>
+
+</div>
 
 <?php echo form_close(); ?>
+</section>

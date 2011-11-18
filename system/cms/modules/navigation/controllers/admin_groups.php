@@ -2,19 +2,37 @@
 /**
  * Admin_groups controller
  *
- * @author 		Phil Sturgeon, Yorick Peterse - PyroCMS Dev Team
+ * @author 		PyroCMS Dev Team
  * @package 	PyroCMS
  * @subpackage 	Navigation module
  * @category 	Modules
  */
-class Admin_groups extends Admin_Controller
-{
+class Admin_groups extends Admin_Controller {
+	
+	/**
+	 * The current active section
+	 * @access protected
+	 * @var int
+	 */
+	protected $section = 'groups';
+	
 	/**
 	 * The array containing the rules for the navigation groups
 	 * @var array
 	 * @access private
 	 */
-	private $validation_rules = array();
+	private $validation_rules = array(
+		array(
+			'field' => 'title',
+			'label' => 'lang:nav_title_label',
+			'rules' => 'trim|required|max_length[50]'
+		),
+		array(
+			'field'	=> 'abbrev',
+			'label'	=> 'lang:nav_abbrev_label',
+			'rules'	=> 'trim|required|max_length[50]'
+		)
+	);
 
 	/**
 	 * Constructor method
@@ -32,21 +50,7 @@ class Admin_groups extends Admin_Controller
 		$this->lang->load('navigation');
 
 		// Set the validation rules
-		$this->validation_rules = array(
-			array(
-				'field' => 'title',
-				'label' => lang('nav_title_label'),
-				'rules' => 'trim|required|max_length[50]'
-			),
-			array(
-				'field'	=> 'abbrev',
-				'label'	=> lang('nav_abbrev_label'),
-				'rules'	=> 'trim|required|max_length[20]'
-			)
-		);
-
 		$this->form_validation->set_rules($this->validation_rules);
-		$this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
 	}
 
 	/**

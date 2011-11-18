@@ -1,7 +1,7 @@
 <?php
 
 $lang['cp_admin_title'] 				= 'Painel de Controle';
-$lang['cp_admin_home_title'] 			= 'Dashboard';
+$lang['global:dashboard'] 			= 'Dashboard';
 $lang['cp_admin_quick_links']			= 'Atalhos rápidos';
 
 $lang['cp_welcome_title'] 				= 'Bem vindo(a)';
@@ -44,12 +44,7 @@ $lang['cp_upgrade_message']				= 'Você está rodando a versão %s, mas seu banc
 $lang['cp_google_analytics_missing']	= 'Faltam as configuração para o Google Analytics. Adicione-as em %s ou entre em contato com seu administrador.';
 $lang['cp_google_analytics_no_connect']	= 'Não foi possível se conectar ao Google Analytics. Verifique suas %s.';
 
-// Admin-wide text
-$lang['cp_shortcuts_title'] 			= 'Atalhos';
-$lang['cp_remove']						= 'Remover';
-
 $lang['required_label'] 				= 'Obrigatório';
 $lang['sb_recent_users'] 				= 'Usuários recentes';
 
 /* End of file admin_lang.php */
-/* Location: ./system/cms/language/brazilian/admin_lang.php */

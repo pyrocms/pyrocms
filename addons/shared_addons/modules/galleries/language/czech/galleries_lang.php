@@ -21,15 +21,12 @@ $lang['galleries.no_gallery_description']	= 'Ještě nebyl přidán žádný pod
 // Labels
 $lang['galleries.galleries_label']			= 'Galerie';
 $lang['galleries.manage_gallery_label']		= 'Spravovat galerie';
-$lang['galleries.new_gallery_label']		= 'Nová galerie';
 
 $lang['galleries.gallery_label']				= 'Album';
 $lang['galleries.num_photos_label']			= 'Počet obrázků';
 $lang['galleries.updated_label']			= 'Poslední úpravy';
-$lang['galleries.actions_label']			= 'Akce';
 $lang['galleries.view_label']				= 'Zobrazit';
 $lang['galleries.manage_label']				= 'Spravovat';
-$lang['galleries.delete_label']				= 'Vymazat';
 $lang['galleries.comments_enabled_label']	= 'Ano';
 $lang['galleries.comments_disabled_label']	= 'Ne';
 $lang['galleries.published_yes_label']		= 'Ano';

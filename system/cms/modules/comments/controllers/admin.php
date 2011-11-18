@@ -44,15 +44,12 @@ class Admin extends Admin_Controller {
 	 */
 	public function __construct()
 	{
-		// Call the parent constructor
-		parent::Admin_Controller();
+		parent::__construct();
 
 		// Load the required libraries, models, etc
 		$this->load->library('form_validation');
 		$this->load->model('comments_m');
 		$this->lang->load('comments');
-
-		$this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
 
 		// Set the validation rules
 		$this->form_validation->set_rules($this->validation_rules);
@@ -92,14 +89,14 @@ class Admin extends Admin_Controller {
 
 		$this->template
 			->title($this->module_details['name'])
-			->set_partial('filters', 'admin/partials/filters')
 			->append_metadata( js('admin/filter.js') )
 			->set('module_list',		$module_list)
 			->set('content_title',		$content_title)
 			->set('comments',			process_comment_items($comments))
 			->set('comments_active',	$base_where['comments.is_active'])
-			->set('pagination',			$pagination)
-			->build('admin/index');
+			->set('pagination',			$pagination);
+			
+		$this->input->is_ajax_request() ? $this->template->build('admin/tables/comments') : $this->template->build('admin/index');
 	}
 
 	/**
@@ -270,6 +267,12 @@ class Admin extends Admin_Controller {
 			{
 				$status = 'error';
 				break;
+			}
+
+			if ($action == 'approve')
+			{
+				// add an event so third-party devs can hook on
+				Events::trigger('comment_approved', $this->comments_m->get($id));
 			}
 		}
 

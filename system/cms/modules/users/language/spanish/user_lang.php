@@ -26,11 +26,7 @@ $lang['user_password_confirm_label']		= 'Confirmar contraseña';
 $lang['user_name_label']					= 'Nombre';
 $lang['user_joined_label']					= 'Fecha de creación';
 $lang['user_last_visit_label']				= 'Última visita';
-$lang['user_actions_label']					= 'Acciones';
 $lang['user_never_label']					= 'Nunca';
-$lang['user_delete_label']					= 'Eliminar';
-$lang['user_edit_label']					= 'Editar';
-$lang['user_view_label']					= 'Ver';
 
 $lang['user_no_inactives']					= 'No hay usuarios inactivos.';
 $lang['user_no_registred']					= 'No hay usuarios registrados.';
@@ -60,7 +56,6 @@ $lang['user_email']							= 'E-mail';
 $lang['user_confirm_email']					= 'Confirmar E-mail';
 $lang['user_password']						= 'Contraseña';
 $lang['user_remember']						= 'Recordarme';
-$lang['user_confirm_password']				= 'Confirmar contraseña';
 $lang['user_group_id_label']				= 'ID de Grupo';
 
 $lang['user_level']							= 'Rol de usuario';
@@ -69,6 +64,7 @@ $lang['user_lang']							= 'Idioma';
 
 $lang['user_activation_code']				= 'Código de activación';
 
+$lang['user_reset_instructions']			   = 'Enter your email address or username'; #translate
 $lang['user_reset_password_link']			= 'Olvidaste tu contraseña?';
 
 $lang['user_activation_code_sent_notice']	= 'Se te ha enviado un e-mail con tu código de activación.';
@@ -165,7 +161,7 @@ $lang['profile_edit']					= 'Editar tu perfil';
 
 $lang['profile_personal_section']		= 'Personal';
 
-$lang['profile_display_name']			= 'Nombre a mostrar';  
+$lang['profile_display_name']			= 'Nombre a mostrar';
 $lang['profile_dob']					= 'Fecha de nacimiento';
 $lang['profile_dob_day']				= 'Día';
 $lang['profile_dob_month']				= 'Mes';
@@ -208,4 +204,3 @@ $lang['profile_edit_error']				= 'Ha ocurrido un error.';
 $lang['profile_save_btn']				= 'Guardar perfil';
 
 /* End of file user_lang.php */
-/* Location: ./system/cms/modules/users/language/spanish/user_lang.php */

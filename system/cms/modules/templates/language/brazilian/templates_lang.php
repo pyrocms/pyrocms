@@ -1,9 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // Labels
-$lang['templates.actions_label']			= 'Ações';
-$lang['templates.name_label']				= 'Nome';
-$lang['templates.description_label']		= 'Descrição';
 $lang['templates.language_label']			= 'Idimoa';
 $lang['templates.choose_lang_label']		= 'Altere o Idimoa';
 $lang['templates.subject_label']			= 'Assunto';
@@ -33,4 +30,3 @@ $lang['templates.no_select_error'] 			= 'Você precisa selecionar algum modelo d
 $lang['templates.already_exist_error']		= 'Um modelo de e-mail com o nome "%s" já existe.';
 
 /* End of file templates_lang.php */
-/* Location: ./system/cms/modules/templates/language/brazilian/templates_lang.php */

@@ -40,6 +40,7 @@ class Ajax extends MY_Controller
 			case 'instance':
 				foreach ($ids as $id)
 				{
+					$id = str_replace('instance-', '', $id);
 					$this->widgets->update_instance_order($id, ++$i);
 				}
 				break;

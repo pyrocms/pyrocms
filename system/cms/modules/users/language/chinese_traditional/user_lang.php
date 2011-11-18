@@ -26,11 +26,7 @@ $lang['user_password_confirm_label'] 	= '再次確認密碼';
 $lang['user_name_label'] 				= '名稱';
 $lang['user_joined_label'] 				= '已加入';
 $lang['user_last_visit_label'] 			= '最後訪問';
-$lang['user_actions_label'] 			= '操作';
 $lang['user_never_label'] 				= '從不';
-$lang['user_delete_label'] 				= '刪除';
-$lang['user_edit_label'] 				= '編輯';
-$lang['user_view_label'] 				= '查看';
 
 $lang['user_no_inactives'] 				= '沒有任何已禁用的用戶';
 $lang['user_no_registred'] 				= '沒有任何已註冊的用戶';
@@ -46,7 +42,7 @@ $lang['user_activate_account_title'] 	= '啟動帳號';
 $lang['user_activate_label'] 			= '啟動';
 $lang['user_activated_account_title'] 	= '已啟動帳號';
 $lang['user_reset_password_title'] 		= '重設密碼';
-$lang['user_password_reset_title'] 		= '密碼重設';  
+$lang['user_password_reset_title'] 		= '密碼重設';
 
 
 $lang['user_error_username'] 			= '您選擇的用戶名已經被使用了。';
@@ -62,7 +58,6 @@ $lang['user_email'] 					= 'E-mail';
 $lang['user_confirm_email'] 			= '確認 E-mail';
 $lang['user_password'] 					= '密碼';
 $lang['user_remember'] 					= '記住我';
-$lang['user_confirm_password'] 			= '確認密碼';
 $lang['user_group_id_label']			= '群組 ID';
 
 $lang['user_level']						= '用戶身分(Role)';
@@ -71,6 +66,7 @@ $lang['user_lang']						= '語言';
 
 $lang['user_activation_code'] 			= '啟動碼';
 
+$lang['user_reset_instructions']			   = 'Enter your email address or username'; #translate
 $lang['user_reset_password_link'] 		= '忘記密碼';
 
 $lang['user_activation_code_sent_notice']	= '內含啟動碼的電子郵件已經寄給您了。';
@@ -171,7 +167,7 @@ $lang['profile_edit'] 					= '編輯個人簡介';
 
 $lang['profile_personal_section'] 		= '個人資訊';
 
-$lang['profile_display_name']			= '顯示名稱';  
+$lang['profile_display_name']			= '顯示名稱';
 $lang['profile_dob']					= '出生日期';
 $lang['profile_dob_day']				= '日';
 $lang['profile_dob_month']				= '月';

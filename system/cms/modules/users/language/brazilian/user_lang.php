@@ -26,11 +26,7 @@ $lang['user_password_confirm_label'] 	= 'Confirmar senha';
 $lang['user_name_label'] 				= 'Nome';
 $lang['user_joined_label'] 				= 'Entrou em';
 $lang['user_last_visit_label'] 			= 'Última visita';
-$lang['user_actions_label'] 			= 'Ações';
 $lang['user_never_label'] 				= 'Nunca';
-$lang['user_delete_label'] 				= 'Remover';
-$lang['user_edit_label'] 				= 'Editar';
-$lang['user_view_label'] 				= 'Visualizar';
 
 $lang['user_no_inactives'] 				= 'Não existem usuários inativos.';
 $lang['user_no_registred'] 				= 'Não existem usuários cadastrados.';
@@ -46,7 +42,7 @@ $lang['user_activate_account_title'] 	= 'Ativar conta';
 $lang['user_activate_label'] 			= 'Ativação';
 $lang['user_activated_account_title'] 	= 'Contas ativadas';
 $lang['user_reset_password_title'] 		= 'Redefinir senha';
-$lang['user_password_reset_title'] 		= 'Redefinicão de senha';  
+$lang['user_password_reset_title'] 		= 'Redefinicão de senha';
 
 
 $lang['user_error_username'] 			= 'O nome de usuário selecionado já encontra-se em uso';
@@ -62,7 +58,6 @@ $lang['user_email'] 					= 'E-mail';
 $lang['user_confirm_email'] 			= 'Confirmar e-mail';
 $lang['user_password'] 					= 'Senha';
 $lang['user_remember'] 					= 'Lembrar-me';
-$lang['user_confirm_password'] 			= 'Confirmar Senha';
 $lang['user_group_id_label']			= 'ID de Grupo';
 
 $lang['user_level']						= 'Papel de usuário';
@@ -71,6 +66,7 @@ $lang['user_lang']						= 'Idioma';
 
 $lang['user_activation_code'] 			= 'Código de ativação';
 
+$lang['user_reset_instructions']			   = 'Enter your email address or username'; #translate
 $lang['user_reset_password_link'] 		= 'Esqueceu sua senha?';
 
 $lang['user_activation_code_sent_notice']	= 'Um e-mail foi enviado com o seu código de ativação.';
@@ -170,7 +166,7 @@ $lang['profile_edit'] 					= 'Editar seu perfil';
 
 $lang['profile_personal_section'] 		= 'Pessoal';
 
-$lang['profile_display_name']			= 'Nome de exibição';  
+$lang['profile_display_name']			= 'Nome de exibição';
 $lang['profile_dob']					= 'Data de nascimento';
 $lang['profile_dob_day']				= 'Dia';
 $lang['profile_dob_month']				= 'Mês';
@@ -213,4 +209,3 @@ $lang['profile_edit_error'] 			= 'Ocorreu um erro.';
 $lang['profile_save_btn'] 				= 'Salvar alterações no perfil';
 
 /* End of file users_lang.php */
-/* Location: ./system/cms/modules/users/language/brazilian/users_lang.php */

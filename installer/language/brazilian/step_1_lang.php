@@ -13,6 +13,7 @@ $lang['password']		=	'Senha';
 $lang['portnr']			=	'Porta';
 $lang['server_settings']=	'Servidor';
 $lang['httpserver']		=	'Servidor HTTP';
+$lang['httpserver_text']=	'PyroCMS requires a HTTP Server to display dynamic content when a user goes to your website. It looks like you already have one by the fact that you can see this page, but if know exactly which type then PyroCMS can configure itself even better. If you do not know what any of this means just ignore it and carry on with the installation.'; #translate
 $lang['rewrite_fail']	=	'Você selecionou "(Apache with mod_rewrite)", mas nós não conseguimos confirmar se o "mod_rewrite" está habilitado no seu servidor. Pergunte ao responsável de sua hospedagem se o "mod_rewrite" está habilitado ou simplesmente instale por conta própria.';
 $lang['mod_rewrite']	=	'Vcoê selecionou "(Apache with mod_rewrite)", mas seu servidor não possui o módulo de reescrita "mod_rewrite" habilitado. Peça ao responsável de sua hospedagem para habilitar isso ou instale o PyroCMS usando a opção "Apache (without mod_rewrite)".';
 $lang['step2']			=	'2ª Etapa';

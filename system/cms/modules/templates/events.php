@@ -1,27 +1,27 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 /**
  * Email Template Events Class
- * 
+ *
  * @package		PyroCMS
  * @subpackage	Email Templates
  * @category	events
  * @author		Stephen Cozart - PyroCMS Dev Team
  */
 class Events_Templates {
-    
+
     protected $ci;
-    
+
     protected $fallbacks = array();
-    
+
     public function __construct()
     {
         $this->ci =& get_instance();
-        
+
         $this->fallbacks = array(
             'comments'	=> array('comments'	=> 'email/comment'),
             'contact'	=> array('contact'	=> 'email/contact')
         );
-        
+
         //register the email event
         Events::register('email', array($this, 'send_email'));
     }
@@ -35,7 +35,7 @@ class Events_Templates {
 
         $this->ci->load->model('templates/email_templates_m');
 
-		//get all email templates 
+		//get all email templates
 		$templates = $this->ci->email_templates_m->get_templates($slug);
 
         //make sure we have something to work with
@@ -57,6 +57,17 @@ class Events_Templates {
             $this->ci->email->to($to);
             $this->ci->email->subject($subject);
             $this->ci->email->message($body);
+			
+			// To send attachments simply pass an array of file paths in Events::trigger('email')
+			// $data['attach'][] = /path/to/file.jpg
+			// $data['attach'][] = /path/to/file.zip
+			if (isset($data['attach']))
+			{
+				foreach ($data['attach'] AS $attachment)
+				{
+					$this->ci->email->attach($attachment);
+				}
+			}
 
 			return (bool) $this->ci->email->send();
         }
@@ -64,20 +75,5 @@ class Events_Templates {
         //return false if we can't find the necessary templates
         return FALSE;
     }
-
-    private function _module_view($module, $view, $vars = array())
-	{
-		list($path, $view) = Modules::find($view, $module, 'views/');
-
-		$save_path = $this->load->_ci_view_path;
-		$this->load->_ci_view_path = $path;
-
-		$content = $this->load->_ci_load(array('_ci_view' => $view, '_ci_vars' => ((array) $vars), '_ci_return' => TRUE));
-
-		// Put the path back
-		$this->load->_ci_view_path = $save_path;
-
-		return $content;
-	}
 }
 /* End of file events.php */

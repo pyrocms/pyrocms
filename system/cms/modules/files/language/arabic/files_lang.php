@@ -21,10 +21,7 @@ $lang['files.upload_title']					= 'رفع الملفات';
 $lang['files.edit_title']					= 'تعديل الملف "%s"';
 
 // Labels
-$lang['files.actions_label']				= 'الإجراء';
 $lang['files.download_label']				= 'تنزيل';
-$lang['files.edit_label']					= 'تعديل';
-$lang['files.delete_label']					= 'حذف';
 $lang['files.upload_label']					= 'رفع';
 $lang['files.description_label']			= 'الوصف';
 $lang['files.type_label']					= 'النوع';

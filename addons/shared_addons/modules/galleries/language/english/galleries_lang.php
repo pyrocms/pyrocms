@@ -21,15 +21,12 @@ $lang['galleries.no_gallery_description']	= 'No description has been added yet.'
 // Labels
 $lang['galleries.galleries_label']			= 'Galleries';
 $lang['galleries.manage_gallery_label']		= 'Manage Gallery';
-$lang['galleries.new_gallery_label']		= 'New Gallery';
 
 $lang['galleries.gallery_label']			= 'Gallery';
 $lang['galleries.num_photos_label']			= 'Number of Photos';
 $lang['galleries.updated_label']			= 'Last Updated';
-$lang['galleries.actions_label']			= 'Actions';
 $lang['galleries.view_label']				= 'View';
 $lang['galleries.manage_label']				= 'Manage';
-$lang['galleries.delete_label']				= 'Delete';
 $lang['galleries.comments_enabled_label']	= 'Yes';
 $lang['galleries.comments_disabled_label']	= 'No';
 $lang['galleries.published_yes_label']		= 'Yes';
@@ -51,7 +48,7 @@ $lang['galleries.current_label']			= 'Current Images (drag and drop to sort, cli
 
 // Sidebar labels
 $lang['galleries.list_label']				= 'List Galleries';
-$lang['galleries.new_gallery_label']		= 'Create a new gallery';
+$lang['galleries.new_gallery_label']		= 'Add Gallery';
 $lang['galleries.upload_label']				= 'Upload Image';
 
 // Frontend labels

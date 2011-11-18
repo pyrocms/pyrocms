@@ -21,10 +21,7 @@ $lang['files.upload_title']					= 'Subir Archivos';
 $lang['files.edit_title']					= 'Editar archivo "%s"';
 
 // Labels
-$lang['files.actions_label']				= 'Acción';
 $lang['files.download_label']				= 'Descargar';
-$lang['files.edit_label']					= 'Editar';
-$lang['files.delete_label']					= 'Eliminar';
 $lang['files.upload_label']					= 'Subir';
 $lang['files.description_label']			= 'Descripcioó';
 $lang['files.type_label']					= 'Tipo';
@@ -98,4 +95,3 @@ $lang['file_folders.mkdir_error']			= 'No se pudo crear el directorio uploads/fi
 $lang['file_folders.chmod_error']			= 'No se pudo cambiar el permiso del directorio uploads/files';
 
 /* End of file files_lang.php */
-/* Location: ./system/cms/modules/files/language/spanish/files_lang.php */

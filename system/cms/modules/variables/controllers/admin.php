@@ -2,32 +2,34 @@
 /**
  * Admin controller for the variables module
  *
- * @author		Phil Sturgeon - PyroCMS Dev Team
+ * @author		PyroCMS Dev Team
  * @package		PyroCMS
  * @subpackage 	Variables Module
  * @category	Modules
  * @copyright	Copyright (c) 2008 - 2011, PyroCMS
  */
 class Admin extends Admin_Controller
-{
+{	
 	/**
 	 * Variable's ID
-	 * 
+	 *
 	 * @access	public
 	 * @var		int
 	 */
 	public	$id = 0;
+	
+	public $temp;
 
 	/**
 	 * Array containing the validation rules
-	 * 
+	 *
 	 * @access	private
 	 * @var		array
 	 */
 	private	$_validation_rules = array(
 		array(
 			'field' => 'name',
-			'label' => 'lang:variables.name_label',
+			'label' => 'lang:global:name',
 			'rules' => 'trim|required|alpha_dash|max_length[50]|callback__check_name[0]'
 		),
 		array(
@@ -39,13 +41,12 @@ class Admin extends Admin_Controller
 
 	/**
 	 * Constructor method
-	 * 
+	 *
 	 * @access	public
 	 * @return	void
 	 */
 	public function __construct()
 	{
-		// Call the parent's constructor method
 		parent::__construct();
 
 		// Load the required classes
@@ -56,10 +57,6 @@ class Admin extends Admin_Controller
 		// Set the validation rules
 		$this->form_validation->set_rules($this->_validation_rules);
 
-		$this->template
-			->append_metadata( js('variables.js', 'variables') )
-			->set_partial('shortcuts', 'admin/partials/shortcuts');
-
 		// Set template layout to false if request is of ajax type
 		if ($this->input->is_ajax_request())
 		{
@@ -69,13 +66,15 @@ class Admin extends Admin_Controller
 
 	/**
 	 * List all variables
-	 * 
+	 *
 	 * @access	public
 	 * @return	void
 	 */
 	public function index()
 	{
-        // Create pagination links
+		$this->template->append_metadata(js('variables.js', 'variables'));
+
+       // Create pagination links
 		$this->data->pagination = create_pagination('admin/variables/index', $this->variables_m->count_all());
 
 		// Using this data, get the relevant results
@@ -90,7 +89,7 @@ class Admin extends Admin_Controller
 
 	/**
 	 * Create a new variable
-	 * 
+	 *
 	 * @access	public
 	 * @return	void
 	 */
@@ -149,16 +148,15 @@ class Admin extends Admin_Controller
 			$variable->{$rule['field']} = set_value($rule['field']);
 		}
 
-		$this->data->variable =& $variable;
-
 		$this->template
 			->title($this->module_details['name'], lang('variables.create_title'))
+			->set('variable', $variable)
 			->build('admin/form', $this->data);
 	}
 
 	/**
 	 * Edit an existing variable
-	 * 
+	 *
 	 * @access	public
 	 * @param	int $id The ID of the variable
 	 * @return	void
@@ -169,10 +167,8 @@ class Admin extends Admin_Controller
 		$id OR redirect('admin/variables');
 
 		// Get the variable
-		$variable = $this->variables_m->get($id);
-		$variable OR redirect('admin/variables');
-
-		$this->id = $id;
+		$this->data->variable = $this->variables_m->get($id);
+		$this->data->variable OR redirect('admin/variables');
 
 		if ($this->form_validation->run())
 		{
@@ -221,7 +217,7 @@ class Admin extends Admin_Controller
 		}
 
 		// Loop through each validation rule
-		foreach($this->_validation_rules as $rule)
+		foreach ($this->_validation_rules as $rule)
 		{
 			if ($this->input->post($rule['field']) !== FALSE)
 			{
@@ -229,21 +225,19 @@ class Admin extends Admin_Controller
 			}
 		}
 
-		$this->data->variable =& $variable;
-
 		if ($this->input->is_ajax_request())
 		{
 			return $this->template->build('admin/form_inline', $this->data);
 		}
 
 		$this->template
-			->title($this->module_details['name'], sprintf(lang('variables.edit_title'), $variable->name))
+			->title($this->module_details['name'], sprintf(lang('variables.edit_title'), $this->data->variable->name))
 			->build('admin/form', $this->data);
 	}
 
 	/**
 	 * Delete an existing variable
-	 * 
+	 *
 	 * @access	public
 	 * @param	int $id The ID of the variable
 	 * @return	void
@@ -292,26 +286,21 @@ class Admin extends Admin_Controller
 			$this->session->set_flashdata('error', lang('variables.no_select_error'));
 		}
 
-		// Redirect
 		redirect('admin/variables');
 	}
 
 	/**
 	 * Callback method for validating the variable's name
-	 * 
+	 *
 	 * @access	public
 	 * @param	str $name The name of the variable
 	 * @return	bool
 	 */
 	public function _check_name($name = '')
 	{
-		if ($this->variables_m->check_name($name, (int) $this->id))
-		{
-			$this->form_validation->set_message('_check_name', sprintf(lang('variables.already_exist_error'), $name));
-			return FALSE;
-		}
-
-		return TRUE;
+		$this->form_validation->set_message('_check_name', sprintf(lang('variables.already_exist_error'), $name));
+		
+		return ! $this->variables_m->check_name($name, (int) $this->input->post('variable_id'));
 	}
 }
 

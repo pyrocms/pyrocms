@@ -15,7 +15,6 @@ $lang['pages.add_page_chunk']						= 'Add Page Chunk'; #translate
 $lang['pages.page_chunk']							= 'Page Chunk'; #translate
 $lang['pages.language_label']              = 'Sprache';
 $lang['pages.updated_label']               = 'Aktualisiert';
-$lang['pages.actions_label']               = 'Aktionen';
 $lang['pages.unknown_label']               = 'Unbekannt';
 $lang['pages.title_label']                 = 'Titel';
 $lang['pages.slug_label']                  = 'URL';
@@ -35,16 +34,12 @@ $lang['pages.is_home_label']      = 'Is default (home) page?'; #translate
 $lang['pages.status_label']                = 'Status';
 $lang['pages.draft_label']                 = 'Entwurf';
 $lang['pages.live_label']                  = 'Live';
-$lang['pages.revisions_label']             = 'Änderungsübersicht';
-$lang['pages.compare_label']               = 'Vergleichen';
 $lang['pages.preview_label']               = 'Vorschau';
 $lang['pages.current_label']               = 'Aktuelle';
 
-
 $lang['pages.view_label']                  = 'Ansicht';
-$lang['pages.create_label']                = 'Unterobjekt hinzufügen';//there is no german word for 'child' (in this context at least)
-$lang['pages.edit_label']                  = 'Bearbeiten';
-$lang['pages.delete_label']                = 'Löschen';
+$lang['pages.create_label']                = 'Unterobjekt hinzufügen';
+$lang['pages.duplicate_label']			   = 'Duplicate'; #translate
 
 // titles
 $lang['pages.create_title']                = 'Seite erstellen';
@@ -67,6 +62,8 @@ $lang['pages_mass_delete_success']         = '%s Seiten wurden gelöscht.';
 $lang['pages_delete_none_notice']          = 'Keine Seiten wurden gelöscht.';
 $lang['pages_page_already_exist_error']    = 'Es existiert bereits eine Seite mit der URL "%s" in %s.';
 $lang['pages_parent_not_exist_error']      = 'Die ausgewählte übergeordnete Seite existiert nicht.';//there is no german word for 'parent' (in this context at least)
+$lang['pages_chunk_slug_length']					= 'Page Chunk slugs may be no more than 30 characters in length.'; #translate
+$lang['pages_root_folder']                = 'the top level'; #translate
 
 $lang['pages.tree_explanation']            = 'Die Liste zur Linken repräsentiert Seiten auf deiner Webseite.
 Wähle das "+" Icon neben der Seite um ihre untergeordneten Seiten anzuzeigen. Durch auswählen einer Seite erhältst du Informationen über die ausgewählte Seite.';

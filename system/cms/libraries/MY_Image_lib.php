@@ -96,7 +96,7 @@ class MY_Image_lib extends CI_Image_lib
 
             if ( $transparencyIndex >= 0 )
 			{
-                $transparencyColor    = imagecolorsforindex($src_img, $transparencyIndex);   
+                $transparencyColor    = imagecolorsforindex($src_img, $transparencyIndex);
             }
 
             $transparencyIndex    = imagecolorallocate($dst_img, $transparencyColor['red'], $transparencyColor['green'], $transparencyColor['blue']);

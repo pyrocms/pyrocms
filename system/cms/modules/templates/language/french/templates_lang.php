@@ -1,9 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // Labels
-$lang['templates.actions_label']			= 'Actions';
-$lang['templates.name_label']				= 'Nom';
-$lang['templates.description_label']		= 'Description';
 $lang['templates.language_label']			= 'Langue';
 $lang['templates.choose_lang_label']		= 'Choisir une langue';
 $lang['templates.subject_label']			= 'Sujet';
@@ -33,4 +30,3 @@ $lang['templates.no_select_error'] 			= 'Vous devez sélectionner une template d
 $lang['templates.already_exist_error']		= 'Une template d\'email du nom "%s" existe déjà.';
 
 /* End of file templates_lang.php */
-/* Location: ./system/cms/modules/templates/language/french/templates_lang.php */

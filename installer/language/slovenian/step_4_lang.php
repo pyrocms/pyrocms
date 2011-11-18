@@ -19,6 +19,7 @@ $lang['password']		= 	'Geslo';
 $lang['conf_password']	=	'Potrdi geslo';
 $lang['finish']			=	'Namesti';
 
+$lang['invalid_db_name'] = 'The database name you entered is invalid. Please use only alphanumeric characters and underscores.'; #translate
 $lang['error_101']		=	'Podatkovne baze ni mogoče najti. Če ste nastavili da jo ustvari Installer jo verjetno zaradi tega ker ni zadostnih pravic da bi jo ustvaril.';
 $lang['error_102']		=	'Installer ni mogel dodati tabel v podatkovno bazo.';
 $lang['error_103']		=	'Installer ni mogel vnesti podatkov v podatkovno bazo.';
@@ -28,4 +29,3 @@ $lang['error_106']		=	'Config datoteka ni zapisljiva, ali ste prepričani da ste
 $lang['success']		=	'PyroCMS je bil uspešno nameščen.';
 
 /* End of file step_4_lang.php */
-/* Location: ./installer/language/slovenian/step_4_lang.php */

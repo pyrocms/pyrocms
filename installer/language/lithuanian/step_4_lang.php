@@ -19,6 +19,7 @@ $lang['password']		= 	'Slaptažodis';
 $lang['conf_password']	=	'Patvirtinkite slaptažodį';
 $lang['finish']			=	'Įdiegti';
 
+$lang['invalid_db_name'] = 'The database name you entered is invalid. Please use only alphanumeric characters and underscores.'; #translate
 $lang['error_101']		=	'Duomenų bazė negali būti rasta. Jeigu pasirinkote sukurti duomenų bazę, gali būti kad tai neivyko dėl klaidingų teisių.';
 $lang['error_102']		=	'Irašymo vedlys negalėjo sukurti nei vienos lentelės.';
 $lang['error_103']		=	'Irašymo vedlys negalejo irašyti duomenų.';
@@ -28,4 +29,3 @@ $lang['error_106']		=	'Konfiguracijos failas negali būti įrašytas, ar esate i
 $lang['success']		=	'PyroCMS buvo sėkmingai instaliuotas.';
 
 /* End of file step_4_lang.php */
-/* Location: ./installer/language/english/step_4_lang.php */

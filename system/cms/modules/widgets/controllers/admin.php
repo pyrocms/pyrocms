@@ -4,12 +4,20 @@
  * Admin controller for the widgets module.
  *
  * @package 		PyroCMS
- * @subpackage 		Widgets
- * @author			Phil Sturgeon - PyroCMS Development Team
+ * @subpackage 		Modules
+ * @category		Widgets
+ * @author			PyroCMS Development Team
  *
  */
 class Admin extends Admin_Controller {
 
+	/**
+	 * The current active section
+	 * @access protected
+	 * @var string
+	 */
+	protected $section = 'instances';
+	
 	/**
 	 * Constructor method
 	 * @access public
@@ -31,7 +39,6 @@ class Admin extends Admin_Controller {
 		}
 
 		$this->template
-			->set_partial('shortcuts', 'admin/partials/shortcuts')
 			->append_metadata(js('widgets.js', 'widgets'))
 			->append_metadata(css('widgets.css', 'widgets'));
 	}
@@ -66,7 +73,10 @@ class Admin extends Admin_Controller {
 			$data['widget_areas'][$key]->widgets = array();
 		}
 
-		$data['widget_areas'] = array_combine(array_keys($slugs), $data['widget_areas']);
+		if ($data['widget_areas'])
+		{
+			$data['widget_areas'] = array_combine(array_keys($slugs), $data['widget_areas']);
+		}
 
 		$instances = $this->widgets->list_area_instances($slugs);
 
@@ -83,7 +93,7 @@ class Admin extends Admin_Controller {
 
 	/**
 	 * Manage method, lists all widgets to install, uninstall, etc..
-	 * 
+	 *
 	 * @access	public
 	 * @return	void
 	 */
@@ -120,7 +130,7 @@ class Admin extends Admin_Controller {
 
 	/**
 	 * Enable widget
-	 * 
+	 *
 	 * @access	public
 	 * @param	string	$id			The id of the widget
 	 * @param	bool	$redirect	Optional if a redirect should be done
@@ -140,7 +150,7 @@ class Admin extends Admin_Controller {
 
 	/**
 	 * Disable widget
-	 * 
+	 *
 	 * @access	public
 	 * @param	string	$id			The id of the widget
 	 * @param	bool	$redirect	Optional if a redirect should be done
@@ -155,7 +165,7 @@ class Admin extends Admin_Controller {
 
 	/**
 	 * Do the actual work for enable/disable
-	 * 
+	 *
 	 * @access	protected
 	 * @param	int|array	$ids	Id or array of Ids to process
 	 * @param	string		$action	Action to take: maps to model

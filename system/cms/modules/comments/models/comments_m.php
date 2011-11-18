@@ -18,8 +18,8 @@ class Comments_m extends MY_Model
   	public function get($id)
   	{
     	$this->db->select('c.*')
-    		->select('IF(c.user_id > 0, IF(m.last_name = "", m.first_name, CONCAT(m.first_name, " ", m.last_name)), c.name) as name')
-    		->select('IF(c.user_id > 0, u.email, c.email) as email')
+    		->select('IF(c.user_id > 0, m.display_name, c.name) as name', false)
+    		->select('IF(c.user_id > 0, u.email, c.email) as email', false)
     		->from('comments c')
     		->join('users u', 'c.user_id = u.id', 'left')
     		->join('profiles m', 'm.user_id = u.id', 'left')
@@ -33,7 +33,7 @@ class Comments_m extends MY_Model
   	
 	/**
 	 * Get recent comments
-	 * 
+	 *
 	 * @access public
 	 * @param int $limit The amount of comments to get
 	 * @return array
@@ -54,7 +54,7 @@ class Comments_m extends MY_Model
   	
 	/**
 	 * Get something based on a module item
-	 * 
+	 *
 	 * @access public
 	 * @param string $module The name of the module
 	 * @param int $ref_id The ID of the module
@@ -76,7 +76,7 @@ class Comments_m extends MY_Model
   	
 	/**
 	 * Get all comments
-	 * 
+	 *
 	 * @access public
 	 * @return array
 	 */
@@ -87,7 +87,7 @@ class Comments_m extends MY_Model
 	
 	/**
 	 * Insert a new comment
-	 * 
+	 *
 	 * @access public
 	 * @param array $input The data to insert
 	 * @return void
@@ -98,11 +98,12 @@ class Comments_m extends MY_Model
 		
 		return parent::insert(array(
 			'user_id'		=> isset($input['user_id']) 	? 	$input['user_id'] 									:  0,
-			'is_active'		=> isset($input['is_active']) 	? 	$input['is_active'] 								:  0,
+			'is_active'		=> ! empty($input['is_active']) ? 	1	 												:  0,
 			'name'			=> isset($input['name']) 		? 	ucwords(strtolower(strip_tags($input['name']))) 	: '',
 			'email'			=> isset($input['email']) 		? 	strtolower($input['email']) 						: '',
 			'website'		=> isset($input['website']) 	? 	prep_url(strip_tags($input['website'])) 			: '',
-			'comment'		=> htmlspecialchars($input['comment']),
+			'comment'		=> htmlspecialchars($input['comment'], NULL, NULL, FALSE),
+			'parsed'		=> parse_markdown(htmlspecialchars($input['comment'], NULL, NULL, FALSE)),
 			'module'		=> $input['module'],
 			'module_id'		=> $input['module_id'],
 			'created_on' 	=> now(),
@@ -112,7 +113,7 @@ class Comments_m extends MY_Model
 	
 	/**
 	 * Update an existing comment
-	 * 
+	 *
 	 * @access public
 	 * @param int $id The ID of the comment to update
 	 * @param array $input The array containing the data to update
@@ -126,13 +127,14 @@ class Comments_m extends MY_Model
 			'name'			=> isset($input['name']) 		? 	ucwords(strtolower(strip_tags($input['name']))) 	: '',
 			'email'			=> isset($input['email']) 		? 	strtolower($input['email']) 						: '',
 			'website'		=> isset($input['website']) 	? 	prep_url(strip_tags($input['website'])) 			: '',
-			'comment'		=> htmlspecialchars($input['comment']),
+			'comment'		=> htmlspecialchars($input['comment'], NULL, NULL, FALSE),
+			'parsed'		=> parse_markdown(htmlspecialchars($input['comment'], NULL, NULL, FALSE)),
 		));
 	}
 	
 	/**
 	 * Approve a comment
-	 * 
+	 *
 	 * @access public
 	 * @param int $id The ID of the comment to approve
 	 * @return mixed
@@ -144,7 +146,7 @@ class Comments_m extends MY_Model
 	
 	/**
 	 * Unapprove a comment
-	 * 
+	 *
 	 * @access public
 	 * @param int $id The ID of the comment to unapprove
 	 * @return mixed
@@ -226,8 +228,8 @@ class Comments_m extends MY_Model
 		$this->_table = NULL;
     	$this->db->select('c.*');
 		$this->db->from('comments c');
-    	$this->db->select('IF(c.user_id > 0, IF(m.last_name = "", m.first_name, CONCAT(m.first_name, " ", m.last_name)), c.name) as name');
-    	$this->db->select('IF(c.user_id > 0, u.email, c.email) as email');
+    	$this->db->select('IF(c.user_id > 0, m.display_name, c.name) as name', false);
+    	$this->db->select('IF(c.user_id > 0, u.email, c.email) as email', false);
 
     	$this->db->join('users u', 'c.user_id = u.id', 'left');
     	$this->db->join('profiles m', 'm.user_id = u.id', 'left');

@@ -16,13 +16,9 @@ $lang['comments.message_label'] 			= 'Mededeling';
 $lang['comments.status_label'] 				= 'Status';
 $lang['comments.activate_label'] 			= 'Goedkeuren';
 $lang['comments.deactivate_label'] 			= 'Afkeuren';
-$lang['comments.author_label'] 				= 'Auteur';
 $lang['comments.module_label'] 				= 'Module';
 $lang['comments.item_label'] 				= 'Item';
 $lang['comments.date_label'] 				= 'Datum';
-$lang['comments.actions_label'] 			= 'Acties';
-$lang['comments.edit_label'] 				= 'Wijzig';
-$lang['comments.delete_label'] 				= 'Verwijder';
 $lang['comments.posted_label'] 				= 'Gepost';
 $lang['comments.from_label'] 				= 'Van';
 $lang['comments.preview_label'] 			= 'Voorbeeld';
@@ -31,7 +27,7 @@ $lang['comments.send_label'] 				= 'Reageer';
 $lang['comments.inactive_title'] 			= 'Te beoordelen reacties';
 $lang['comments.active_title'] 				= 'Goedgekeurde reacties';
 $lang['comments.edit_title'] 				= 'Wijzig reactie';
-$lang['comments.list_title'] 				= 'List comments'; #translate
+$lang['comments.list_title'] 				= 'Overzicht reacties';
 
 // messages
 $lang['comments.add_success'] 				= 'De reactie is opgeslagen.';
@@ -54,11 +50,11 @@ $lang['comments.unapprove_error_multiple']	= 'Er is een fout opgetreden bij het 
 $lang['comments.delete_single_success'] 	= 'Deze reactie #%s is verwijderd en zal niet meer getoond worden op de live-site';
 $lang['comments.delete_multi_success'] 		= 'De geselecteerde reacties #%s zijn verwijderd en zullen niet meer getoond worden op de live-site';
 
-$lang['comments.no_comments'] 				= 'Er zijn geen reacties';
+$lang['comments.no_comments'] 				= 'Er zijn geen reacties.';
 
 // Helper counter comments
-$lang['comments.counter_none_label']		= 'No comment'; #translate
-$lang['comments.counter_singular_label']	= '%d comment'; #translate
-$lang['comments.counter_plural_label']		= '%d comments'; #translate
+$lang['comments.counter_none_label']		= 'Geen reacties';
+$lang['comments.counter_singular_label']	= '%d reactie';
+$lang['comments.counter_plural_label']		= '%d reacties';
 
 /* End of file comments_lang.php */

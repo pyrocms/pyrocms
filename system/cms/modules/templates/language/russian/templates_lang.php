@@ -11,9 +11,6 @@
  */
 
 // Подписи
-$lang['templates.actions_label']					= 'Действия';
-$lang['templates.name_label']							= 'Имя';
-$lang['templates.description_label']			= 'Описание';
 $lang['templates.language_label']					= 'Язык';
 $lang['templates.choose_lang_label']			= 'Выберите язык';
 $lang['templates.subject_label']					= 'Тема';
@@ -43,4 +40,3 @@ $lang['templates.no_select_error']				= 'Сначала вы должны выб
 $lang['templates.already_exist_error']		= 'Шаблон с именем "%s" уже существует.';
 
 /* End of file templates_lang.php */
-/* Location: ./system/cms/modules/templates/language/russian/templates_lang.php */

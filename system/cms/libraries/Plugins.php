@@ -13,10 +13,27 @@ abstract class Plugin
 
 	// ------------------------------------------------------------------------
 
-    function __get($var)
-    {
+	/**
+	 * Set Data
+	 *
+	 * Set Data for the plugin. Avoid doing this in constructor so we dont force logic on developers
+	 *
+	 * @param	array - Content of the tags if any
+	 * @param	array - Attributes passed to the plugin
+	 * @return 	array
+	 */
+	public function set_data($content, $attributes)
+	{
+		$content AND $this->content = $content;
+		$attributes AND $this->attributes = $attributes;
+	}
+
+	// ------------------------------------------------------------------------
+
+	public function __get($var)
+	{
 		return get_instance()->$var;
-    }
+	}
 
 	// ------------------------------------------------------------------------
 
@@ -79,7 +96,7 @@ abstract class Plugin
 	 */
 	public function module_view($module, $view, $vars = array())
 	{
-		if (file_exists($this->template->get_views_path() . 'modules/' . $module . '/' . $view . (pathinfo($view, PATHINFO_EXTENSION) ? '' : EXT)))
+		if (file_exists($this->template->get_views_path() . 'modules/' . $module . '/' . $view . (pathinfo($view, PATHINFO_EXTENSION) ? '' : '.php')))
 		{
 			$path = $this->template->get_views_path() . 'modules/' . $module . '/';
 		}
@@ -88,32 +105,18 @@ abstract class Plugin
 			list($path, $view) = Modules::find($view, $module, 'views/');
 		}
 
-		$save_path = $this->load->_ci_view_path;
-		$this->load->_ci_view_path = $path;
+		// save the existing view array so we can restore it
+		$save_path = $this->load->get_view_paths();
+
+		// add this view location to the array
+		$this->load->set_view_path($path);
 
 		$content = $this->load->_ci_load(array('_ci_view' => $view, '_ci_vars' => ((array) $vars), '_ci_return' => TRUE));
 
-		// Put the path back
-		$this->load->_ci_view_path = $save_path;
+		// Put the old array back
+		$this->load->set_view_path($save_path);
 
 		return $content;
-	}
-
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Get param
-	 *
-	 * This is a helper used from the parser files to process a list of params
-	 *
-	 * @param	array - Params passed from view
-	 * @param	array - Array of default params
-	 * @return 	array
-	 */
-	public function set_data($data)
-	{
-		isset($data['content']) AND $this->content = $data['content'];
-		isset($data['attributes']) AND $this->attributes = $data['attributes'];
 	}
 }
 
@@ -121,45 +124,43 @@ class Plugins
 {
 	private $loaded = array();
 
-	function __construct()
+	public function __construct()
 	{
 		$this->_ci = & get_instance();
 	}
 
-	function locate($data)
+	public function locate($plugin, $attributes, $content)
 	{
-		if ( ! isset($data['segments'][0]) OR ! isset($data['segments'][1]))
+		if (strpos($plugin, ':') === FALSE)
 		{
 			return FALSE;
 		}
-
 		// Setup our paths from the data array
-		$class	= $data['segments'][0];
-		$method	= $data['segments'][1];
+		list($class, $method) = explode(':', $plugin);
 
 		foreach (array(APPPATH, ADDONPATH, SHARED_ADDONPATH) as $directory)
 		{
-			if (file_exists($path = $directory.'plugins/'.$class.EXT))
+			if (file_exists($path = $directory.'plugins/'.$class.'.php'))
 			{
-				return $this->_process($path, $class, $method, $data);
+				return $this->_process($path, $class, $method, $attributes, $content);
 			}
-			
-			if (file_exists($path = APPPATH.'themes/'.ADMIN_THEME.'/plugins/'.$class.EXT))
+
+			else if (defined('ADMIN_THEME') and file_exists($path = APPPATH.'themes/'.ADMIN_THEME.'/plugins/'.$class.'.php'))
 			{
-				return $this->_process($path, $class, $method, $data);
+				return $this->_process($path, $class, $method, $attributes, $content);
 			}
 
 			// Maybe it's a module
 			if (module_exists($class))
 			{
-				if (file_exists($path = $directory . 'modules/' . $class . '/plugin' . EXT))
+				if (file_exists($path = $directory . 'modules/' . $class . '/plugin.php'))
 				{
 					$dirname = dirname($path).'/';
 
 					// Set the module as a package so I can load stuff
 					$this->_ci->load->add_package_path($dirname);
 
-					$response = $this->_process($path, $class, $method, $data);
+					$response = $this->_process($path, $class, $method, $attributes, $content);
 
 					$this->_ci->load->remove_package_path($dirname);
 
@@ -186,7 +187,7 @@ class Plugins
 	 * @param	array
 	 * @return	mixed
 	 */
-	private function _process($path, $class, $method, $data)
+	private function _process($path, $class, $method, $attributes, $content)
 	{
 		$class = strtolower($class);
 		$class_name = 'Plugin_'.ucfirst($class);
@@ -208,10 +209,16 @@ class Plugins
 		}
 
 		$class_init = new $class_name;
-		$class_init->set_data($data);
+		$class_init->set_data($content, $attributes);
 
 		if ( ! is_callable(array($class_init, $method)))
 		{
+			// But does a property exist by that name?
+			if (property_exists($class_init, $method))
+			{
+				return TRUE;
+			}
+
 //			throw new Exception('Method "' . $method . '" does not exist in plugin "' . $class_name . '".');
 //			return FALSE;
 
@@ -220,6 +227,6 @@ class Plugins
 			return FALSE;
 		}
 
-		return $class_init->{$method}();
+		return call_user_func(array($class_init, $method));
 	}
 }

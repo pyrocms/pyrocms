@@ -5,6 +5,8 @@ $lang['blog_posted_label']                   = 'Objavljeno';
 $lang['blog_posted_label_alt']               = 'Objavljeno ob';
 $lang['blog_written_by_label']				= 'Objavil';
 $lang['blog_author_unknown']				= 'Neznan';
+$lang['blog_keywords_label']				= 'Keywords'; #translate
+$lang['blog_tagged_label']					= 'Tagged'; #translate
 $lang['blog_category_label']                 = 'Kategorija';
 $lang['blog_post_label']                     = 'Objava';
 $lang['blog_date_label']                     = 'Datum';
@@ -13,11 +15,6 @@ $lang['blog_time_label']                     = 'Čas';
 $lang['blog_status_label']                   = 'Stanje';
 $lang['blog_draft_label']                    = 'Osnutek';
 $lang['blog_live_label']                     = 'Vidno';
-$lang['blog_actions_label']                  = 'Akcije';
-$lang['blog_view_label']                     = 'Ogled';
-$lang['blog_preview_label']                  = 'Predogled';
-$lang['blog_edit_label']                     = 'Uredi';
-$lang['blog_delete_label']                   = 'Izbriši';
 $lang['blog_content_label']                  = 'Vsebina';
 $lang['blog_options_label']                  = 'Možnosti';
 $lang['blog_title_label']                    = 'Naslov';
@@ -68,4 +65,3 @@ $lang['blog_twitter_error']                  = 'Twitter napaka';
 $lang['blog_archive_date_format']		= "%d' %m' %Y";
 
 /* End of file blog_lang.php */
-/* Location: ./system/cms/modules/blog/language/slovenian/blog_lang.php */

@@ -1,35 +1,48 @@
 <?php if ($this->method == 'edit'): ?>
-    <h3><?php echo sprintf(lang('groups.edit_title'), $group->name); ?></h3>
+	<section class="title">
+    	<h4><?php echo sprintf(lang('groups.edit_title'), $group->name); ?></h4>
+	</section>
 <?php else: ?>
-    <h3><?php echo lang('groups.add_title'); ?></h3>
+	<section class="title">
+    	<h4><?php echo lang('groups.add_title'); ?></h4>
+	</section>
 <?php endif; ?>
 
+<section class="item">
 <?php echo form_open(uri_string(), 'class="crud"'); ?>
+
+<div class="form_inputs">
+
     <ul>
 		<li>
-			<label for="description"><?php echo lang('groups.name');?>:</label>
-			<?php echo form_input('description', $group->description);?>
-			<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
+			<label for="description"><?php echo lang('groups.name');?> <span>*</span></label>
+			<div class="input"><?php echo form_input('description', $group->description);?></div>
 		</li>
-
+		
 		<li class="even">
-			<label for="name"><?php echo lang('groups.short_name');?></label>
+			<label for="name"><?php echo lang('groups.short_name');?> <span>*</span></label>
+			
+			<div class="input">
 
 			<?php if ( ! in_array($group->name, array('user', 'admin'))): ?>
 			<?php echo form_input('name', $group->name);?>
-			<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
 
 			<?php else: ?>
 			<p><?php echo $group->name; ?></p>
 			<?php endif; ?>
+			
+			</div>
 		</li>
     </ul>
+
+</div>
 
 	<div class="buttons float-right padding-top">
 		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )); ?>
 	</div>
 	
 <?php echo form_close();?>
+</section>
 
 <script type="text/javascript">
 	jQuery(function($) {

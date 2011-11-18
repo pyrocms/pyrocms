@@ -9,20 +9,19 @@
  * @copyright	Copyright (c) 2008 - 2011, PyroCMS
  *
  */
-class Plugin_Template extends Plugin
-{
+class Plugin_Template extends Plugin {
 	/**
 	 * Data
 	 *
 	 * Loads a template partial
 	 *
 	 * Usage:
-	 * {pyro:template:partial name="sidebar"}
+	 * {{ template:partial name="sidebar" }}
 	 *
 	 * @param	array
 	 * @return	array
 	 */
-	function partial()
+	public function partial()
 	{
 		$name = $this->attribute('name');
 
@@ -35,14 +34,15 @@ class Plugin_Template extends Plugin
 	 * Checks for existance of a partial
 	 *
 	 * Usage:
-	 * {pyro:template:has_partial name="sidebar"}
-	 *	<p>Hello admin!</p>
-	 * {/pyro:template:has_partial}
+	 * {{ template:has_partial name="sidebar" }}
+	 *   <h2>Sidebar</h2>
+	 *   {{ template:partial name="sidebar" }}
+	 * {{ /template:has_partial }}
 	 *
 	 * @param	array
 	 * @return	array
 	 */
-	function has_partial()
+	public function has_partial()
 	{
 		$name = $this->attribute('name');
 
@@ -60,32 +60,37 @@ class Plugin_Template extends Plugin
 	 * Check for the existance of breadcrumbs
 	 *
 	 * Usage:
-	 * {if '{pyro:template:has_breadcrumbs}'}
-	 *	{pyro:template:breadcrumbs}
-	 *		{if '{pyro:uri}'}
-     *			{pyro:url:anchor segments='{pyro:uri}' title='{pyro:name}'}
-     *		{else}
-	 *			{pyro:name}
-     *		{/if}
-	 *	{/pyro:template:breadcrumbs}
-	 * {/if}
+	 * {{ if {template:has_breadcrumbs} }}
+	 *	{{ template:breadcrumbs }}
+	 *		{{ if uri }}
+     *			{{ url:anchor segments='{{ uri }}' title='{{ name }}' }}
+     *		{{ else }}
+	 *			{{ name }}
+     *		{{ /if }}
+	 *	{{ /template:breadcrumbs }}
+	 * {{ /if }}
 	 *
 	 * @param	none
 	 * @return	bool
 	 */
-	function has_breadcrumbs()
+	public function has_breadcrumbs()
 	{
 		$data =& $this->load->_ci_cached_vars;
 		
 		$crumbs = $data['template']['breadcrumbs'];
 		
-		return !empty($crumbs) ? TRUE : FALSE ;
+		return ! empty($crumbs);
 	}
 
-	function __call($foo, $arguments)
+	public function metadata()
+	{
+		return $this->template->get_metadata($this->attribute('in', 'header'));
+	}
+
+	public function __call($foo, $arguments)
 	{
 		$data =& $this->load->_ci_cached_vars;
-		
+
 		return isset($data['template'][$foo]) ? $data['template'][$foo] : NULL;
 	}
 }

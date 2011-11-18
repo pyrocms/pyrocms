@@ -29,15 +29,12 @@ $lang['galleries.no_gallery_description']	= 'Kuvausta ei ole vielä lisätty.';
 // Labels
 $lang['galleries.galleries_label']			= 'Galleriat';
 $lang['galleries.manage_gallery_label']		= 'Hallitse galleriaa';
-$lang['galleries.new_gallery_label']		= 'Uusi galleria';
 
 $lang['galleries.gallery_label']				= 'Albumi';
 $lang['galleries.num_photos_label']			= 'Kuvia';
 $lang['galleries.updated_label']			= 'Viimeksi päivitetty';
-$lang['galleries.actions_label']			= 'Toiminnot';
 $lang['galleries.view_label']				= 'Katso';
 $lang['galleries.manage_label']				= 'Hallitse';
-$lang['galleries.delete_label']				= 'Poista';
 $lang['galleries.comments_enabled_label']	= 'Kyllä';
 $lang['galleries.comments_disabled_label']	= 'Ei';
 $lang['galleries.published_yes_label']		= 'Kyllä';

@@ -3,8 +3,10 @@
 // labels
 $lang['blog_posted_label'] 			= 'Geplaatst';
 $lang['blog_posted_label_alt']			= 'Geplaatst op';
-$lang['blog_written_by_label']				= 'Written by'; #translate
-$lang['blog_author_unknown']				= 'Unknown'; #translate
+$lang['blog_written_by_label']				= 'Geschreven door';
+$lang['blog_author_unknown']				= 'Onbekend';
+$lang['blog_keywords_label']				= 'Keywords'; #translate
+$lang['blog_tagged_label']					= 'Tagged'; #translate
 $lang['blog_category_label'] 			= 'Categorie';
 $lang['blog_post_label'] 			= 'Post';
 $lang['blog_date_label'] 			= 'Datum';
@@ -13,11 +15,6 @@ $lang['blog_time_label'] 			= 'Tijd';
 $lang['blog_status_label'] 			= 'Status';
 $lang['blog_draft_label'] 			= 'Concept';
 $lang['blog_live_label'] 			= 'Live';
-$lang['blog_actions_label'] 			= 'Acties';
-$lang['blog_view_label'] 			= 'Bekijken';
-$lang['blog_preview_label'] 			= 'Preview';
-$lang['blog_edit_label'] 			= 'Wijzig';
-$lang['blog_delete_label'] 			= 'Verwijderen';
 $lang['blog_content_label'] 			= 'Content';
 $lang['blog_options_label'] 			= 'Opties';
 $lang['blog_title_label'] 			= 'Titel';
@@ -43,12 +40,12 @@ $lang['blog_archive_title'] 			= 'Archief';
 $lang['blog_posts_title'] 			= 'Artikelen';
 $lang['blog_rss_posts_title'] 		= 'Nieuws artikelen voor %s';
 $lang['blog_blog_title'] 			= 'Nieuws';
-$lang['blog_list_title'] 			= 'Toon alle artikelen';
+$lang['blog_list_title'] 			= 'Overzicht artikelen';
 
 // messages
 $lang['blog_no_posts'] 			= 'Er zijn geen artikelen.';
-$lang['blog_subscripe_to_rss_desc'] 		= 'Ontvang artikelen meteen door te abonneren op onze RSS feed. U kan dit doen met de meeste populaire e-mail programma&acute;s, of probeer <a href="http://reader.google.co.uk/">Google Reader</a>.';
-$lang['blog_currently_no_posts'] 		= 'Er zijn geen artikelen op dit moment.';
+$lang['blog_subscripe_to_rss_desc'] 		= 'Ontvang artikelen meteen door te abonneren op onze RSS feed. U kunt dit doen met de meeste populaire e-mail programma&acute;s, of probeer <a href="http://reader.google.co.uk/">Google Reader</a>.';
+$lang['blog_currently_no_posts'] 		= 'Er zijn momenteel geen artikelen.';
 $lang['blog_post_add_success'] 		= 'Het artikel "%s" is opgeslagen.';
 $lang['blog_post_add_error'] 		= 'Er is een fout opgetreden.';
 $lang['blog_edit_success'] 			= 'Het artikel "%s" is opgeslagen.';
@@ -62,9 +59,9 @@ $lang['blog_delete_error'] 			= 'Geen artikelen zijn verwijderd.';
 $lang['blog_already_exist_error'] 		= 'Een artikel met deze URL bestaat al.';
 
 $lang['blog_twitter_posted']			= 'Geplaatst "%s" %s';
-$lang['blog_twitter_error'] 			= 'Twitter Error';
+$lang['blog_twitter_error'] 			= 'Twitter Fout';
 
 // date
-$lang['blog_archive_date_format']		= "%B' %Y"; #translate format - see php strftime documentation
+$lang['blog_archive_date_format']		= "%B' %Y";
 
 ?>

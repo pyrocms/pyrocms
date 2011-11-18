@@ -21,15 +21,12 @@ $lang['galleries.no_gallery_description']	= 'Ni še bilo dodanega opisa.';
 // Labels
 $lang['galleries.galleries_label']			= 'Galerije';
 $lang['galleries.manage_gallery_label']		= 'Uredi galerijo';
-$lang['galleries.new_gallery_label']		= 'Nova galerija';
 
 $lang['galleries.gallery_label']				= 'Album';
 $lang['galleries.num_photos_label']			= 'Število slik';
 $lang['galleries.updated_label']			= 'Zadnja posodobitev';
-$lang['galleries.actions_label']			= 'Akcije';
 $lang['galleries.view_label']				= 'Ogled';
 $lang['galleries.manage_label']				= 'Uredi';
-$lang['galleries.delete_label']				= 'Izbriši';
 $lang['galleries.comments_enabled_label']	= 'Da';
 $lang['galleries.comments_disabled_label']	= 'Ne';
 $lang['galleries.published_yes_label']		= 'Da';
@@ -37,9 +34,10 @@ $lang['galleries.published_no_label']		= 'Ne';
 $lang['galleries.css_label']				= 'CSS';
 $lang['galleries.js_label']					= 'JavaScript';
 
-// General labels $lang['galleries.preview_label']			= 'Folder Images Preview'; $lang['galleries.no_thumb_label']			= 'No Thumbnail';
+// General labels $lang['galleries.preview_label']			= 'Mapa predogleda slik'; 
+$lang['galleries.no_thumb_label']			= 'Ni malih slik';
 $lang['galleries.title_label']				= 'Naslov';
-$lang['galleries.slug_label']				= 'nasov url';
+$lang['galleries.slug_label']				= 'url naslov';
 $lang['galleries.folder_label']				= 'Mapa';
 $lang['galleries.description_label']		= 'Opis albuma';
 $lang['galleries.thumbnail_label']			= 'Mala slika';

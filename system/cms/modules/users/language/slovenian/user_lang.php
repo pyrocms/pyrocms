@@ -26,11 +26,7 @@ $lang['user_password_confirm_label']           = 'Potrdi geslo';
 $lang['user_name_label']                       = 'Uporabniško Ime';
 $lang['user_joined_label']                     = 'Prijavljen';
 $lang['user_last_visit_label']                 = 'Zadnja prijava';
-$lang['user_actions_label']                    = 'Akcije';
 $lang['user_never_label']                      = 'Nikoli';
-$lang['user_delete_label']                     = 'Izbriši';
-$lang['user_edit_label']                       = 'Uredi';
-$lang['user_view_label']                       = 'Ogled';
 
 $lang['user_no_inactives']                     = 'Ni neaktivnih uporabnikov';
 $lang['user_no_registred']                     = 'Ni registriranih uporabnikov.';
@@ -46,7 +42,7 @@ $lang['user_activate_account_title']           = 'Aktiviraj račun';
 $lang['user_activate_label']                   = 'Aktiviran';
 $lang['user_activated_account_title']          = 'Aktiviran račun';
 $lang['user_reset_password_title']             = 'Ponastavi geslo';
-$lang['user_password_reset_title']             = 'Ponastavitev gesla';  
+$lang['user_password_reset_title']             = 'Ponastavitev gesla';
 
 
 $lang['user_error_username']                   = 'Uporabniško ime katerega ste vnesli je že v uporabi';
@@ -62,7 +58,6 @@ $lang['user_email']                            = 'E-mail';
 $lang['user_confirm_email']                    = 'Potrdi E-mail';
 $lang['user_password']                         = 'Geslo';
 $lang['user_remember']                         = 'Zapomni si me';
-$lang['user_confirm_password']                 = 'Potrdi geslo';
 $lang['user_group_id_label']                   = 'ID skupine';
 
 $lang['user_level']                            = 'Vloga uporabnika';
@@ -71,6 +66,7 @@ $lang['user_lang']                             = 'Jezik';
 
 $lang['user_activation_code']                  = 'Koda aktivacije';
 
+$lang['user_reset_instructions']			   = 'Enter your email address or username'; #translate
 $lang['user_reset_password_link']              = 'Pozabili geslo?';
 
 $lang['user_activation_code_sent_notice']      = 'Email je bil poslan na naveden naslov s aktivacijsko kodo.';
@@ -125,7 +121,7 @@ $lang['user_activated_message']                = 'Vaš račun je bil aktiviran. 
 
 
 // Login
-$lang['user_logged_in']                        = 'Uspešno se se prijavili.'; 
+$lang['user_logged_in']                        = 'Uspešno se se prijavili.';
 $lang['user_already_logged_in']                = 'Ste že prijavljeni.Prosimo odjavite se predno ponovno poizkusite.';
 $lang['user_login_incorrect']                  = 'E-mail ali geslo se ne ujemata. Prosimo preverite vaše prijavne podatke ter da nimate vključenega CAPS LOCK-a.';
 $lang['user_inactive']                         = 'Račun do katerega želite dostopati je trenutno onemogočen.<br />Preverite vaš e-mail za navodila za aktivaicijo računa - <em>lahko da je v SPAM/JUNK mapi</em>.';
@@ -170,7 +166,7 @@ $lang['profile_edit']                 = 'Uredite svoj profil';
 
 $lang['profile_personal_section']     = 'Osebno';
 
-$lang['profile_display_name']         = 'Prikazno ime';  
+$lang['profile_display_name']         = 'Prikazno ime';
 $lang['profile_dob']                  = 'Datum rojstva';
 $lang['profile_dob_day']              = 'Dan';
 $lang['profile_dob_month']            = 'Mesec';
@@ -213,4 +209,3 @@ $lang['profile_edit_error']           = 'Prišlo je do napake.';
 $lang['profile_save_btn']             = 'Shrani profil';
 
 /* End of file user_lang.php */
-/* Location: ./system/cms/modules/users/language/slovenian/user_lang.php */

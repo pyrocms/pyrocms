@@ -6,7 +6,6 @@ $lang['nav_parent_label']						= 'Γονέας';
 $lang['nav_target_label']                       = 'Προορισμός';
 $lang['nav_class_label']                        = 'Class';
 $lang['nav_url_label']                          = 'URL';
-$lang['nav_actions_label']                      = 'Ενέργεια';
 $lang['nav_details_label']                      = 'Λεπτομέρειες';
 $lang['nav_text_label']                         = 'Κείμενο';
 $lang['nav_group_label']                        = 'Ομάδα';
@@ -15,10 +14,8 @@ $lang['nav_type_label']                         = 'Τύπος συνδέσμου
 $lang['nav_uri_label']                          = 'Σύνδεσμος ιστοτόπου (URI)';
 $lang['nav_page_label']                         = 'Σελίδα';
 $lang['nav_module_label']                       = 'Πρόσθετο';
+$lang['nav_restricted_to']						= 'Restricted To'; #translate
 $lang['nav_abbrev_label']                       = 'Συντόμευση';
-$lang['nav_edit_label']                         = 'Επεξεργασία';
-$lang['nav_delete_label']                       = 'Διαγραφή';
-$lang['nav_group_delete_label']                 = 'Διαγραφή ομάδας';
 
 $lang['nav_link_target_self']                   = 'Τρέχων παράθυρο (προεπιλογή)';
 $lang['nav_link_target_blank']                  = 'Νέο παράθυρο (_blank)';
@@ -28,6 +25,7 @@ $lang['nav_link_create_title']                  = 'Προσθήκη συνδέμ
 $lang['nav_group_create_title']                 = 'Προσθήκη ομάδας';
 $lang['nav_link_edit_title']                    = 'Επεξεργασία συνδέσμου περιήγησης "%s"';
 $lang['nav_link_list_title']                    = 'Λίστα συνδέσμων';
+$lang['nav_group_list_title']                   = 'Ομάδες';
 
 // messages
 $lang['nav_group_no_links']                     = 'Δεν υπάρχουν συνδέσμοι σε αυτήν την ομάδα.';

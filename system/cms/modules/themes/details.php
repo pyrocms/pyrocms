@@ -6,7 +6,7 @@ class Module_Themes extends Module {
 	
 	public function info()
 	{
-		return array(
+		$info = array(
 			'name' => array(
 				'sl' => 'Predloge',
 				'en' => 'Themes',
@@ -15,7 +15,7 @@ class Module_Themes extends Module {
 				'fr' => 'Thèmes',
 				'de' => 'Themen',
 				'pl' => 'Motywy',
-				'pt' => 'Temas',
+				'br' => 'Temas',
 				'zh' => '佈景主題',
 				'it' => 'Temi',
 				'ru' => 'Темы',
@@ -24,17 +24,18 @@ class Module_Themes extends Module {
 				'fi' => 'Teemat',
 				'el' => 'Θέματα Εμφάνισης',
 				'he' => 'ערכות נושאים',
-				'lt' => 'Temos'
+				'lt' => 'Temos',
+				'da' => 'Temaer'
 			),
 			'description' => array(
 				'sl' => 'Dovoljuje adminom in osebju spremembo izgleda spletne strani, namestitev novega izgleda in urejanja le tega v bolj vizualnem pristopu',
-				'en' => 'Allows admins and staff to change website theme, upload new themes and manage them in a more visual approach.',
+				'en' => 'Allows admins and staff to switch themes, upload new themes, and manage theme options.',
 				'nl' => 'Maakt het voor administratoren en medewerkers mogelijk om het thema van de website te wijzigen, nieuwe thema&apos;s te uploaden en ze visueel te beheren.',
 				'es' => 'Permite a los administradores y miembros del personal cambiar el tema del sitio web, subir nuevos temas y manejar los ya existentes.',
 				'fr' => 'Permet aux administrateurs et au personnel de modifier le thème du site, de charger de nouveaux thèmes et de le gérer de façon plus visuelle',
 				'de' => 'Ermöglicht es dem Administrator das Seiten Thema auszuwählen, neue Themen hochzulanden oder diese visuell zu verwalten.',
 				'pl' => 'Umożliwia administratorowi zmianę motywu strony, wgrywanie nowych motywów oraz zarządzanie nimi.',
-				'pt' => 'Permite aos administradores e membros da equipe fazer upload de novos temas e gerenciá-los através de uma interface visual.',
+				'br' => 'Permite aos administradores e membros da equipe fazer upload de novos temas e gerenciá-los através de uma interface visual.',
 				'zh' => '讓管理者可以更改網站顯示風貌，以視覺化的操作上傳並管理這些網站佈景主題。',
 				'it' => 'Permette ad amministratori e staff di cambiare il tema del sito, carica nuovi temi e gestiscili in um modo più visuale.',
 				'ru' => 'Управление темами оформления сайта, загрузка новых тем.',
@@ -43,12 +44,31 @@ class Module_Themes extends Module {
 				'fi' => 'Mahdollistaa sivuston teeman vaihtamisen, uusien teemojen lataamisen ja niiden hallinnoinnin visuaalisella käyttöliittymällä.',
 				'el' => 'Επιτρέπει στους διαχειριστές να αλλάξουν το θέμα προβολής του ιστοτόπου να ανεβάσουν νέα θέματα και να τα διαχειριστούν.',
 				'he' => 'ניהול של ערכות נושאים שונות - עיצוב',
-				'lt' => 'Leidžiama administratoriams ir personalui keisti puslapio temą, įkraunant naują temą ir valdyti ją.'
+				'lt' => 'Leidžiama administratoriams ir personalui keisti puslapio temą, įkraunant naują temą ir valdyti ją.',
+				'da' => 'Lader administratore ændre websidens tema, uploade nye temaer og håndtére dem med en mere visual tilgang.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
 			'menu'	  => 'design'
 		);
+		
+		// Check to make sure we're not running the installer or MSM. Then check perms
+		if ( ! class_exists('Module_import') AND Settings::get('addons_upload'))
+		{
+			$info['sections'] = array(
+				'themes' => 		array('name' => 'themes.list_title',
+										  'uri' => 'admin/themes',
+										  'shortcuts' => array(
+															   array('name' => 'themes.upload_title',
+																	 'uri' => 'admin/themes/upload',
+																	 'class' => 'add modal',
+																	 )
+															   )
+										  ),
+				);
+		}
+		
+		return $info;
 	}
 	
 	public function install()

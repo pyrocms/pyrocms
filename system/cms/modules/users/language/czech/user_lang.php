@@ -26,11 +26,7 @@ $lang['user_password_confirm_label'] 	= 'Potvrdit heslo';
 $lang['user_name_label'] 				= 'Jméno';
 $lang['user_joined_label'] 				= 'Uživatelem od';
 $lang['user_last_visit_label'] 			= 'Poslední návštěva';
-$lang['user_actions_label'] 			= 'Akce';
 $lang['user_never_label'] 				= 'Nikdy';
-$lang['user_delete_label'] 				= 'Vymazat';
-$lang['user_edit_label'] 				= 'Upravit';
-$lang['user_view_label'] 				= 'Zobrazit';
 
 $lang['user_no_inactives'] 				= 'Nejsou zde žádní neaktivní uživatelé.';
 $lang['user_no_registred'] 				= 'Nejsou zde žádní registrovaní uživatelé.';
@@ -57,12 +53,11 @@ $lang['user_first_name'] 				= 'Křestní jméno';
 $lang['user_last_name'] 				= 'Příjmení';
 $lang['user_username'] 					= 'Uživatelské jméno';
 $lang['user_display_name']				= 'Zobrazované jméno';
-$lang['user_email_use'] 					   = 'used to login'; #translate
+$lang['user_email_use'] 				= 'used to login'; #translate
 $lang['user_email'] 					= 'E-mail';
 $lang['user_confirm_email'] 			= 'Potvrdit e-mail';
 $lang['user_password'] 					= 'Heslo';
 $lang['user_remember'] 					= 'Zapamatovat';
-$lang['user_confirm_password'] 			= 'Potvrdit heslo';
 $lang['user_group_id_label']			= 'ID skupiny';
 
 $lang['user_level']						= 'Uživatelská role';
@@ -71,6 +66,7 @@ $lang['user_lang']						= 'Jazyk';
 
 $lang['user_activation_code'] 			= 'Aktivační kód';
 
+$lang['user_reset_instructions']			   = 'Enter your email address or username'; #translate
 $lang['user_reset_password_link'] 		= 'Zapomněl/a jste heslo?';
 
 $lang['user_activation_code_sent_notice']	= 'E-mail s odkazem na obnovení hesla byl odeslán';

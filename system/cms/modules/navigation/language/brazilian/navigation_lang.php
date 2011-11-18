@@ -6,7 +6,6 @@ $lang['nav_parent_label'] 						= 'Link Pai';
 $lang['nav_target_label']						= 'Destino';
 $lang['nav_class_label']						= 'Classe';
 $lang['nav_url_label'] 							= 'URL';
-$lang['nav_actions_label'] 						= 'Ações';
 $lang['nav_details_label'] 						= 'Detalhes';
 $lang['nav_text_label'] 						= 'Texto';
 $lang['nav_group_label'] 						= 'Grupo';
@@ -15,10 +14,8 @@ $lang['nav_type_label'] 						= 'Tipo do Link';
 $lang['nav_uri_label'] 							= 'Link do Site (URI)';
 $lang['nav_page_label'] 						= 'Página';
 $lang['nav_module_label'] 						= 'Modulo';
+$lang['nav_restricted_to']						= 'Restricted To'; #translate
 $lang['nav_abbrev_label'] 						= 'Abreviação';
-$lang['nav_edit_label'] 						= 'Editar';
-$lang['nav_delete_label'] 						= 'Remover';
-$lang['nav_group_delete_label']					= 'Remover grupo';
 
 $lang['nav_link_target_self'] 					= 'Janela atual (default)';
 $lang['nav_link_target_blank'] 					= 'Nova janela (_blank)';
@@ -27,7 +24,8 @@ $lang['nav_link_target_blank'] 					= 'Nova janela (_blank)';
 $lang['nav_link_create_title'] 					= 'Adicionar link de navegação';
 $lang['nav_group_create_title']					= 'Adicionar um grupo';
 $lang['nav_link_edit_title'] 					= 'Editar link de navegação "%s"';
-$lang['nav_link_list_title'] 					= 'Listar links';
+$lang['nav_link_list_title'] 					= 'Links';
+$lang['nav_group_list_title']                   = 'Groups'; #translate
 
 // messages
 $lang['nav_group_no_links'] 					= 'Não existem links neste grupo.';
@@ -45,4 +43,3 @@ $lang['nav_link_delete_success'] 				= 'O link de navegação foi removido.';
 $lang['nav_link_type_desc'] 					= 'Por favor, selecione o tipo do link para exibir mais opções e continuar a criá-lo.';
 
 /* End of file navigation_lang.php */
-/* Location: ./system/cms/modules/navigation/language/brazilian/navigation_lang.php */

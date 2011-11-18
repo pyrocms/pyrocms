@@ -5,12 +5,18 @@
  * @package 		PyroCMS
  * @subpackage 		Navigation module
  * @category		Modules
- * @author			Phil Sturgeon - PyroCMS Development Team
- * @author			Jerel Unruh - PyroCMS Development Team
+ * @author			PyroCMS Development Team
  *
  */
-class Admin extends Admin_Controller
-{
+class Admin extends Admin_Controller {
+	
+	/**
+	 * The current active section
+	 * @access protected
+	 * @var int
+	 */
+	protected $section = 'links';
+	
 	/**
 	 * The array containing the rules for the navigation items
 	 * @var array
@@ -20,7 +26,7 @@ class Admin extends Admin_Controller
 		array(
 			'field' => 'title',
 			'label'	=> 'lang:nav_title_label',
-			'rules'	=> 'trim|required|max_length[40]'
+			'rules'	=> 'trim|required|max_length[100]'
 		),
 		array(
 			'field' => 'link_type',
@@ -63,6 +69,11 @@ class Admin extends Admin_Controller
 			'rules'	=> 'trim|max_length[10]'
 		),
 		array(
+			'field' => 'restricted_to',
+			'label'	=> 'lang:nav_restricted_to',
+			'rules'	=> ''
+		),
+		array(
 			'field' => 'class',
 			'label'	=> 'lang:nav_class_label',
 			'rules'	=> 'trim'
@@ -81,10 +92,9 @@ class Admin extends Admin_Controller
 		// Load the required classes
 		$this->load->library('form_validation');
 		$this->load->model('navigation_m');
-		$this->load->model('pages/pages_m');
+		$this->load->model('pages/page_m');
 		$this->lang->load('navigation');
 
-	    $this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
 	    $this->template->append_metadata( js('navigation.js', 'navigation') );
 		$this->template->append_metadata( css('navigation.css', 'navigation') );
 
@@ -96,7 +106,7 @@ class Admin extends Admin_Controller
 		//only allow modules that user has permissions for
 		foreach($all_modules as $module)
 		{
-			if(in_array($module['slug'], $this->permissions) OR $this->user->group == 'admin') $modules[] = $module;
+			if(in_array($module['slug'], $this->permissions) OR $this->current_user->group == 'admin') $modules[] = $module;
 		}
 		
 		$this->data->modules_select = array_for_select($modules, 'slug', 'name');
@@ -104,7 +114,7 @@ class Admin extends Admin_Controller
 		// Get Pages and create pages tree
 		$tree = array();
 
-		if ($pages = $this->pages_m->get_all())
+		if ($pages = $this->page_m->get_all())
 		{
 			foreach($pages AS $page)
 			{
@@ -127,7 +137,7 @@ class Admin extends Admin_Controller
 	public function index()
 	{
 		// Go through all the groups
-		foreach($this->data->groups as $group)
+		foreach ($this->data->groups as $group)
 		{
 			//... and get navigation links for each one
 			$this->data->navigation[$group->id] = $this->navigation_m->get_link_tree($group->id);
@@ -145,14 +155,15 @@ class Admin extends Admin_Controller
 	
 	/**
 	 * Order the links and record their children
-	 * 
+	 *
 	 * @access public
 	 * @return string json message
 	 */
 	public function order()
 	{
-		$order = $this->input->post('order');
-		$group = (int) $this->input->post('group');
+		$order	= $this->input->post('order');
+		$data	= $this->input->post('data');
+		$group	= isset($data['group']) ? (int) $data['group'] : 0;
 
 		if (is_array($order))
 		{
@@ -169,12 +180,6 @@ class Admin extends Admin_Controller
 			}
 			
 			$this->pyrocache->delete_all('navigation_m');
-				
-			echo 'Success';
-		}
-		else
-		{
-			echo 'Fail';
 		}
 	}
 
@@ -187,6 +192,13 @@ class Admin extends Admin_Controller
 	public function ajax_link_details($link_id)
 	{
 		$link = $this->navigation_m->get_url($link_id);
+		
+		$ids = explode(',', $link[0]->restricted_to);
+		
+		$this->load->model('groups/group_m');
+		$groups = $this->group_m->where_in('id', $ids)->dropdown('id', 'name');
+
+		$link[0]->{'restricted_to'} = implode(', ', $groups);
 
 		$this->load->view('admin/ajax/link_details', array('link' => $link['0']));
 	}
@@ -198,11 +210,23 @@ class Admin extends Admin_Controller
 	 */
 	public function create($group_id = '')
 	{
+		// Set the options for restricted to
+		$this->load->model('groups/group_m');
+		$groups = $this->group_m->get_all();
+		foreach ($groups as $group)
+		{
+			$group->name !== 'admin' && $group_options[$group->id] = $group->name;
+		}
+		$this->data->group_options = $group_options;
+
 		// Run if valid
 		if ($this->form_validation->run())
 		{
+			$input = $this->input->post();
+			$input['restricted_to'] = isset($input['restricted_to']) ? implode(',', $input['restricted_to']) : '';
+			
 			// Got post?
-			if ($this->navigation_m->insert_link($_POST) > 0)
+			if ($this->navigation_m->insert_link($input) > 0)
 			{
 				$this->pyrocache->delete_all('navigation_m');
 				
@@ -258,6 +282,15 @@ class Admin extends Admin_Controller
 
 		// Get the navigation item based on the ID
 		$this->data->navigation_link = $this->navigation_m->get_link($id);
+		
+		// Set the options for restricted to
+		$this->load->model('groups/group_m');
+		$groups = $this->group_m->get_all();
+		foreach ($groups as $group)
+		{
+			$group->name !== 'admin' && $group_options[$group->id] = $group->name;
+		}
+		$this->data->group_options = $group_options;
 
 		if ( ! $this->data->navigation_link)
 		{
@@ -270,8 +303,11 @@ class Admin extends Admin_Controller
 		// Valid data?
 		if ($this->form_validation->run())
 		{
+			$input = $this->input->post();
+			$input['restricted_to'] = isset($input['restricted_to']) ? implode(',', $input['restricted_to']) : '';
+			
 			// Update the link and flush the cache
-			$this->navigation_m->update_link($id, $_POST);
+			$this->navigation_m->update_link($id, $input);
 			$this->pyrocache->delete_all('navigation_m');
 			
 			$this->session->set_flashdata('success', lang('nav_link_edit_success'));
@@ -376,7 +412,7 @@ class Admin extends Admin_Controller
 			$html .= '<option value="' . $item->id . '"';
 			$html .= $current_parent == $item->id ? ' selected="selected">': '>';
 
-			if ($level > 0) 
+			if ($level > 0)
 			{
 				for ($i = 0; $i < ($level*2); $i++)
 				{
@@ -419,9 +455,9 @@ class Admin extends Admin_Controller
 						</div>
 					
 				<?php if ($link['children']): ?>
-						<ol>
+						<ul>
 								<?php $this->tree_builder($link, $group_id); ?>
-						</ol>
+						</ul>
 					</li>
 				<?php else: ?>
 					</li>

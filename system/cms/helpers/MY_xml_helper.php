@@ -9,7 +9,7 @@ function to_xml($object, $element_name)
 	header("Content-Disposition: attachment; filename=$element_name.xml");
 
    $obj =& get_instance();
-   
+
    /* determine whether the $object is a table name or query result */
    switch (TRUE){
    case is_string($object): // treat object as a tablename
@@ -30,14 +30,14 @@ function to_xml($object, $element_name)
       }
       break;
    }
-   
+
    /* Prepare XML Writer  */
    $obj->xmlwriter4 = new Xmlwriter4();
    $xml = $obj->xmlwriter4;
 
-   /* Start XML */  
+   /* Start XML */
    $xml->push('newsletter_information', array('total' => $total));
-   
+
    /* Create an element for each query result */
    foreach ($query->result_array() as $row)
    {
@@ -47,7 +47,7 @@ function to_xml($object, $element_name)
       }
       $xml->emptyelement($element_name, $allfields);
    } //end loop through query
-     
+
    /* close XML and output */
    $xml->pop();
    print $xml->getXml();

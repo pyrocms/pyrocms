@@ -1,7 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
- * @name 		Main admin controller
- * @author 		Phil Sturgeon and Yorick Peterse - PyroCMS Development Team
+ * @author 		PyroCMS Development Team
  * @package 	PyroCMS
  * @subpackage 	Controllers
  */
@@ -15,11 +14,40 @@ class Admin extends Admin_Controller
 	 */
 	public function __construct()
 	{
-		// Call the parent's controller
-  		parent::Admin_Controller();
-		$this->load->helper('users/user');
-		$this->lang->load('main');
+  		parent::__construct();
 
+		$this->load->helper('users/user');
+ 	}
+
+ 	/**
+ 	 * Show the control panel
+	 *
+	 * @access public
+	 * @return void
+ 	 */
+ 	public function index()
+	{
+		$data = array();
+		
+		if (is_dir('./installer'))
+		{
+			$data['messages']['notice'] = lang('cp_delete_installer_message');
+		}
+		
+		$this->template
+			->enable_parser(TRUE)
+			->title(lang('global:dashboard'))
+			->build('admin/dashboard', $data);
+	}
+
+	/**
+	 * Log in
+	 *
+	 * @access public
+	 * @return void
+	 */
+	public function login()
+	{
 		// Set the validation rules
 		$this->validation_rules = array(
 			array(
@@ -36,46 +64,15 @@ class Admin extends Admin_Controller
 
 		// Call validation and set rules
 		$this->load->library('form_validation');
-	    $this->form_validation->set_rules($this->validation_rules);
- 	}
-
- 	/**
- 	 * Show the control panel
-	 *
-	 * @access public
-	 * @return void
- 	 */
- 	 
- 	public function index()
-	{
-		$data = array();
-		
-		if (is_dir('./installer'))
+		$this->form_validation->set_rules($this->validation_rules);
+	
+		// If the validation worked, or the user is already logged in
+		if ($this->form_validation->run() OR $this->ion_auth->logged_in())
 		{
-			$data['messages']['notice'] = lang('cp_delete_installer_message');
+			redirect('admin');
 		}
-		
+
 		$this->template
-			->enable_parser(TRUE)
-			->title(lang('cp_admin_home_title'))
-			->build('admin/dashboard', $data);
-	}
-
-	/**
-	 * Log in
-	 *
-	 * @access public
-	 * @return void
-	 */
-	public function login()
-	{
-	    // If the validation worked, or the user is already logged in
-	    if ($this->form_validation->run() OR $this->ion_auth->logged_in())
-	    {
-	    	redirect('admin');
-		}
-
-	    $this->template
 			->set_layout(FALSE)
 			->build('admin/login');
 	}
@@ -103,11 +100,7 @@ class Admin extends Admin_Controller
 	 */
 	public function _check_login($email)
 	{
-		$remember = FALSE;
-		if ($this->input->post('remember') == 1)
-		{
-			$remember = TRUE;
-		}
+		$remember = (bool) $this->input->post('remember');
 
 		if ($this->ion_auth->login($email, $this->input->post('password'), $remember))
 		{

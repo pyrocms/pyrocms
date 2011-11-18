@@ -2,6 +2,8 @@
 
 // labels
 $lang['blog_posted_label']					= 'Escrito';
+$lang['blog_keywords_label']				= 'Keywords'; #translate
+$lang['blog_tagged_label']					= 'Tagged'; #translate
 $lang['blog_category_label'] 				= 'Categoría';
 $lang['blog_written_by_label']				= 'Written by'; #translate
 $lang['blog_author_unknown']				= 'Unknown'; #translate
@@ -9,11 +11,6 @@ $lang['blog_post_label'] 					= 'Post';
 $lang['blog_date_label'] 					= 'Fecha';
 $lang['blog_time_label'] 					= 'Hora';
 $lang['blog_status_label'] 					= 'Estado';
-$lang['blog_actions_label'] 				= 'Acciones';
-$lang['blog_view_label'] 					= 'Ver';
-$lang['blog_preview_label'] 				= 'Vista previa';
-$lang['blog_edit_label'] 					= 'Editar';
-$lang['blog_delete_label'] 					= 'Borrar';
 $lang['blog_content_label'] 				= 'Contenido';
 $lang['blog_options_label'] 				= 'Opciones';
 $lang['blog_title_label'] 					= 'Título';
@@ -67,4 +64,3 @@ $lang['blog_twitter_error'] 				= 'Error de Twitter';
 $lang['blog_archive_date_format']			= "%B %Y";
 
 /* End of file blog_lang.php */
-/* Location: ./system/cms/modules/blog/language/spanish/blog_lang.php */

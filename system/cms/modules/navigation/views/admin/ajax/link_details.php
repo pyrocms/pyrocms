@@ -30,10 +30,14 @@
 			<strong><?php echo lang('nav_location_label');?>:</strong>
 			<a target="_blank" href="<?php echo $link->url; ?>"><?php echo $link->url; ?></a>
 		</p>
+		
+		<p>
+			<strong><?php echo lang('nav_restricted_to');?>:</strong> <?php echo $link->restricted_to; ?>
+		</p>
 	</fieldset>	
 	
 	<div class="buttons">
-		<?php echo anchor('admin/navigation/edit/' . $link->id, lang('nav_edit_label'), 'rel="'.$link->navigation_group_id.'" class="button ajax"'); ?>
-		<?php echo anchor('admin/navigation/delete/' . $link->id, lang('nav_delete_label'), 'class="confirm button"'); ?>
+		<?php echo anchor('admin/navigation/edit/' . $link->id, lang('global:edit'), 'rel="'.$link->navigation_group_id.'" class="button ajax"'); ?>
+		<?php echo anchor('admin/navigation/delete/' . $link->id, lang('global:delete'), 'class="confirm button"'); ?>
 	</div>
 </div>

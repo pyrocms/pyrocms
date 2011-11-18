@@ -32,12 +32,21 @@ class File_folders_m extends MY_Model {
 	 * Checks if a given folder exists.
 	 *
 	 * @access	public
-	 * @param	int		The folder id
+	 * @param	int		The folder id or slug
 	 * @return	bool	If the folder exists
 	 */
-	public function exists($folder_id = 0)
+	public function exists($folder = 0)
 	{
-		return (bool) (parent::count_by(array('id' => $folder_id)) > 0);
+		if (is_numeric($folder))
+		{
+			$count = array('id' => $folder);
+		}
+		else
+		{
+			$count = array('slug' => $folder);
+		}
+
+		return (bool) (parent::count_by($count) > 0);
 	}
 	
 	// ------------------------------------------------------------------------
@@ -157,14 +166,14 @@ class File_folders_m extends MY_Model {
 	
 	/**
 	* Breadcrumb
-	* 
+	*
 	* Generates a breadcrumb nav for folders
-	* 
+	*
 	* @param	int $node The current folder id
 	* @param	int $lev The current level
 	* @return	array
 	*/
-	public function breadcrumb($id, $separator = '&raquo;', $limit = 3) 
+	public function breadcrumb($id, $separator = '&raquo;', $limit = 3)
 	{
 		if ( ! $this->_folders)
 		{
@@ -179,7 +188,7 @@ class File_folders_m extends MY_Model {
 		));
 	}
 
-	public function _build_asc_segments($id, $options = array()) 
+	public function _build_asc_segments($id, $options = array())
 	{
 		if ( ! isset($options['segments']))
 		{
@@ -246,4 +255,3 @@ class File_folders_m extends MY_Model {
 }
 
 /* End of file file_folders_m.php */
-/* Location: ./system/cms/modules/files/models/file_folders_m.php */ 

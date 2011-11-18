@@ -24,6 +24,7 @@ class Admin extends Admin_Controller
 		$this->load->model('group_m');
 		$this->load->library('form_validation');
 		$this->lang->load('group');
+		$this->lang->load('permissions/permissions');
 
 		// Validation rules
 		$this->validation_rules = array(
@@ -38,8 +39,6 @@ class Admin extends Admin_Controller
 				'rules' => 'trim|required|max_length[250]'
 			)
 		);
-
-	    $this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
 	}
 
 	/**

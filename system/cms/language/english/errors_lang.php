@@ -8,4 +8,3 @@ $lang['error_404_message'] = 'We cannot find the page you are looking for, pleas
 $lang['error_invalid_db_group'] = 'The database is trying to use an invalid configuration group "%s".';
 
 /* End of file errors_lang.php */
-/* Location: ./system/cms/language/english/errors_lang.php */
