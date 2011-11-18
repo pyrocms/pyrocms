@@ -157,7 +157,11 @@ class MY_Controller extends MX_Controller {
 		ci()->permissions = $this->permissions = $this->current_user ? $this->permission_m->get_group($this->current_user->group_id) : array();
 
 		// Get meta data for the module
-		$this->template->module_details = ci()->module_details = $this->module_details = $this->module_m->get($this->module);
+		$module_details = $this->module_m->get($this->module);
+		$decorate_module_details = Events::trigger('decorate_module_details',$module_details,'array');
+
+		// if you send in an array it comes back in an array??
+		$this->template->module_details = ci()->module_details = $this->module_details = (count($decorate_module_details) > 0) ? $decorate_module_details[0] : $module_details ;
 
 		// If the module is disabled, then show a 404.
 		empty($this->module_details['enabled']) AND show_404();
