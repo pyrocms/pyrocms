@@ -4,9 +4,10 @@
 		// generate a slug when the user types a title in
 		pyro.generate_slug('input[name="title"]', 'input[name="slug"]');
 		
-	$.ajaxSetup({
-		allowEmpty: true
-	});
+		// needed so that Keywords can return empty JSON
+		$.ajaxSetup({
+			allowEmpty: true
+		});
 
 		$('#keywords').tagsInput({
 			autocomplete_url:'admin/keywords/autocomplete'

@@ -3,6 +3,15 @@
 
 		// Generate a slug from the title
 		pyro.generate_slug('input[name="title"]', 'input[name="slug"]');
+		
+		// needed so that Keywords can return empty JSON
+		$.ajaxSetup({
+			allowEmpty: true
+		});
+
+		$('#meta_keywords').tagsInput({
+			autocomplete_url:'admin/keywords/autocomplete'
+		});
 
 		// add another page chunk
 		$('a.add-chunk').live('click', function(e){
