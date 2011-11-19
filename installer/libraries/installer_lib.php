@@ -187,7 +187,7 @@ class Installer_lib {
 	 */
 	 public function validate_mysql_db_name($db_name)
 	 {
-	 	$expr = '/[^A-Za-z0-9_]+/';
+	 	$expr = '/[^A-Za-z0-9_-]+/';
 	 	return !(preg_match($expr,$db_name)>0);
 	 }
 

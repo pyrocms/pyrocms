@@ -158,18 +158,10 @@ class Installer extends CI_Controller
 	 * @access public
 	 * @return bool
 	*/
-	function validate_mysql_db_name($db_name)
+	public function validate_mysql_db_name($db_name)
 	{
-
-		if(! $this->installer_lib->validate_mysql_db_name($db_name))
-		{
-			$this->form_validation->set_message('validate_mysql_db_name', lang('invalid_db_name'));
-			return FALSE;
-		}
-		else
-		{
-			return TRUE;
-		}
+		$this->form_validation->set_message('validate_mysql_db_name', lang('invalid_db_name'));
+		return $this->installer_lib->validate_mysql_db_name($db_name);
 	}
 
 	/**
@@ -178,17 +170,10 @@ class Installer extends CI_Controller
 	 * @access public
 	 * @return bool
 	 */
-	function test_db_connection()
+	public function test_db_connection()
 	{
-		if ( ! $this->installer_lib->test_db_connection() )
-		{
-			$this->form_validation->set_message('test_db_connection', lang('db_failure') . mysql_error());
-			return FALSE;
-		}
-		else
-		{
-			return TRUE;
-		}
+		$this->form_validation->set_message('test_db_connection', lang('db_failure') . mysql_error());
+		return $this->installer_lib->test_db_connection();
 	}
 
 	/**
