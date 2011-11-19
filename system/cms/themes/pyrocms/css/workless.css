@@ -1831,8 +1831,32 @@ Ensure your main styling comes before this!
 -------------------------------------------------------------------------------------------------------
 */
 
-
-/* THESE QUERIES ARE ONLY TEMPORARY. NEED TO UPDATE PROPERLY LATER */
+@media only screen and (min-width: 281px) {
+	#logo {
+		display: none;
+	}
+	
+	.topbar {
+		height: 100px;
+	}
+	
+	.topbar ul li a {
+  		padding: 15px 5px 15px 5px;
+	}
+	
+	.subbar {
+		margin-top: 70px;
+	}
+	
+	.sections_bar {
+		margin-top: 55px;
+	}
+	
+	#content-body {
+		top: 30px;
+	}
+	
+}
 
 @media only screen and (min-width: 481px) {
 	.wrapper {
@@ -1848,20 +1872,28 @@ Ensure your main styling comes before this!
 		padding: 0;
 	}
 	
+	#logo {
+		display: none;
+	}
+	
 	.topbar {
-		height: 150px;
+		height: 100px;
+	}
+	
+	.topbar ul li a {
+  		padding: 15px 5px 15px 5px;
 	}
 	
 	.subbar {
-		top: 130px;
+		margin-top: 70px;
 	}
 	
 	.sections_bar {
-		top: 200px;
+		margin-top: 55px;
 	}
 	
 	#content-body {
-		top: 75px;
+		top: 30px;
 	}
 	
 	#analyticsWrapper, #analytics {
@@ -1928,20 +1960,28 @@ Ensure your main styling comes before this!
 		padding: 0;
 	}
 	
+	#logo {
+		display: inherit;
+	}
+	
 	.topbar {
-		height: 125px;
+		height: 50px;
+	}
+	
+	.topbar ul li a {
+  		padding: 15px 5px 15px 5px;
 	}
 	
 	.subbar {
-		top: 110px;
+		margin-top: 25px;
 	}
 	
 	.sections_bar {
-		top: 183px;
+		margin-top: 10px;
 	}
 	
 	#content-body {
-		top: 65px;
+		top: 0px;
 	}
 	
 	#analyticsWrapper, #analytics {
