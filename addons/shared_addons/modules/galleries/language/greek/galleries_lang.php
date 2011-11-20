@@ -34,7 +34,9 @@ $lang['galleries.published_no_label']		= 'Όχι';
 $lang['galleries.css_label']				= 'CSS';
 $lang['galleries.js_label']					= 'JavaScript';
 
-// General labels $lang['galleries.preview_label']			= 'Folder Images Preview'; $lang['galleries.no_thumb_label']			= 'No Thumbnail';
+// General labels
+$lang['galleries.preview_label']			= 'Προεπισκόπηση Εικόνων Φακέλου';
+$lang['galleries.no_thumb_label']			= 'Χωρίς Μικρογραφία';
 $lang['galleries.title_label']				= 'Τίτλος';
 $lang['galleries.slug_label']				= 'Σύντομο Όνομα';
 $lang['galleries.folder_label']				= 'Φάκελος';
