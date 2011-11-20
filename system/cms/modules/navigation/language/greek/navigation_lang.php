@@ -14,7 +14,7 @@ $lang['nav_type_label']                         = 'Τύπος συνδέσμου
 $lang['nav_uri_label']                          = 'Σύνδεσμος ιστοτόπου (URI)';
 $lang['nav_page_label']                         = 'Σελίδα';
 $lang['nav_module_label']                       = 'Πρόσθετο';
-$lang['nav_restricted_to']						= 'Restricted To'; #translate
+$lang['nav_restricted_to']						= 'Περιορισμένο Σε';
 $lang['nav_abbrev_label']                       = 'Συντόμευση';
 
 $lang['nav_link_target_self']                   = 'Τρέχων παράθυρο (προεπιλογή)';
