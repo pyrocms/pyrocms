@@ -29,10 +29,7 @@ $lang['widgets.widget_area'] 				= 'Zone';
 $lang['widgets.widget_area_title'] 			= 'Nome de la zone';
 $lang['widgets.widget_area_slug'] 			= 'Nom court';
 
-// Widget instance titles
-$lang['widgets.add_instance'] 				= 'Ajouter un widget';
-$lang['widgets.edit_instance'] 				= 'Editer ce widget';
-$lang['widgets.delete_instance'] 			= 'Supprimer ce widget';
+$lang['widgets.view_code']				= 'View Code'; #translate
 
 $lang['widgets.instance_title'] 			= 'Titre';
 $lang['widgets.tag_title']					= 'Tag';
