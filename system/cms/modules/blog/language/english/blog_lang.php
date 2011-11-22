@@ -40,7 +40,7 @@ $lang['blog_archive_title']                 = 'Archive';
 $lang['blog_posts_title']					= 'Posts';
 $lang['blog_rss_posts_title']				= 'Blog posts for %s';
 $lang['blog_blog_title']					= 'Blog';
-$lang['blog_list_title']					= 'List Posts'
+$lang['blog_list_title']					= 'List Posts';
 
 // messages
 $lang['blog_no_posts']                    = 'There are no posts.';
