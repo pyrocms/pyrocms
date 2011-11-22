@@ -72,7 +72,7 @@ $lang['global:view']					= '檢視';
 $lang['global:preview']					= '預覽';
 $lang['global:add']						= '新增';
 $lang['global:edit']					= '編輯';
-$lang['global:empty']					= '空的';
+$lang['global:empty']					= '清空';
 $lang['global:delete']					= '刪除';
 $lang['global:remove']					= '移除';
 
