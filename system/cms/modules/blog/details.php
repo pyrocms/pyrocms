@@ -14,7 +14,8 @@ class Module_Blog extends Module {
 				'br' => 'Blog',
 				'he' => 'בלוג',
 				'lt' => 'Blogas',
-				'ru' => 'Блог'
+				'ru' => 'Блог',
+				'zh' => '文章'
 			),
 			'description' => array(
 				'en' => 'Post blog entries.',
@@ -24,7 +25,7 @@ class Module_Blog extends Module {
 				'de' => 'Veröffentliche neue Artikel und Blog-Einträge', #update translation
 				'pl' => 'Postuj nowe artykuły oraz wpisy w blogu', #update translation
 				'br' => 'Escrever publicações de blog',
-				'zh' => '發表新聞訊息、部落格文章。', #update translation
+				'zh' => '發表新聞訊息、部落格等文章。',
 				'it' => 'Pubblica notizie e post per il blog.', #update translation
 				'ru' => 'Управление записями блога.',
 				'ar' => 'أنشر المقالات على مدوّنتك.',
