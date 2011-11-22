@@ -25,10 +25,7 @@ $lang['widgets.widget_area'] 				= '區塊';
 $lang['widgets.widget_area_title'] 			= '區塊名稱';
 $lang['widgets.widget_area_slug'] 			= '區塊簡稱';
 
-// Widget instance titles
-$lang['widgets.add_instance'] 				= '新增組件實體';
-$lang['widgets.edit_instance'] 				= '編輯組件實體';
-$lang['widgets.delete_instance'] 			= '刪除組件實體';
+$lang['widgets.view_code']				= 'View Code'; #translate
 
 $lang['widgets.instance_title'] 			= '標題';
 $lang['widgets.tag_title']					= '標籤';
