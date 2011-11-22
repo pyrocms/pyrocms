@@ -31,7 +31,7 @@ $lang['blog_author_name_label'] 				= '作者名稱';
 $lang['blog_read_more_label'] 					= '閱讀更多&nbsp;&raquo;';
 $lang['blog_created_hour']                  = '時間 (時)';
 $lang['blog_created_minute']                = '時間 (分)';
-$lang['blog_comments_enabled_label']         = '允許評論';
+$lang['blog_comments_enabled_label']         = '允許回應';
 
 // titles
 $lang['blog_create_title'] 				= '新增文章';
