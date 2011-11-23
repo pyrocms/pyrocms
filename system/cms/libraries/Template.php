@@ -273,6 +273,12 @@ class Template
 		{
 			$this->_body = process_data_jmr1($this->_body);
 		}
+		
+		// Now that *all* parsing is sure to be done we inject the {{ noparse }} contents back into the output
+		if (class_exists('Lex_Parser'))
+		{
+			$this->_body = Lex_Parser::inject_noparse($this->_body);
+		}
 
 		// Want it returned or output to browser?
 		if ( ! $return)
