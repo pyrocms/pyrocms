@@ -30,6 +30,16 @@ You can also set the Scope Glue (see "Scope Glue" under Syntax below):
     $parser = new Lex_Parser();
     $parser->scope_glue(':');
     $template = $parser->parse(file_get_contents('template.lex'), $data);
+	
+To allow noparse extractions to accumulate so they don't get parsed by a later call to the parser set cumulative_noparse to true:
+
+    $parser = new Lex_Parser();
+    $parser->cumulative_noparse(true);
+    $template = $parser->parse(file_get_contents('template.lex'), $data);
+	// Second parse on the same text somewhere else in your app
+	$template = $parser->parse($template, $data);
+	// Now that all parsing is done we inject the contents between the {{ noparse }} tags back into the template text
+	Lex_Parser::inject_noparse($template);
 
 If you only want to parse a data array and not worry about callback tags or comments, you can do use the `parse_variables()` method:
 

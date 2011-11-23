@@ -21,9 +21,9 @@
 */
 
 // public
-$route['(blog|news)/(:num)/(:num)/(:any)']	= 'blog/view/$4';
-$route['(blog|news)/page(/:num)?']			= 'blog/index$2';
-$route['(blog|news)/rss/all.rss']			= 'rss/index';
-$route['(blog|news)/rss/(:any).rss']		= 'rss/category/$2';
+$route['(blog)/(:num)/(:num)/(:any)']	= 'blog/view/$4';
+$route['(blog)/page(/:num)?']			    = 'blog/index$2';
+$route['(blog)/rss/all.rss']			    = 'rss/index';
+$route['(blog)/rss/(:any).rss']		    = 'rss/category/$2';
 // admin
 $route['blog/admin/categories(/:any)?']		= 'admin_categories$1';

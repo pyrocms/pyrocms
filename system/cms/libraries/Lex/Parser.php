@@ -14,6 +14,7 @@ class Lex_Parser
 	protected $regex_setup = false;
 	protected $scope_glue = '.';
 	protected $tag_regex = '';
+	protected $cumulative_noparse = false;
 
 	protected $in_condition = false;
 
@@ -70,8 +71,12 @@ class Lex_Parser
 		}
 
 		// To ensure that {{ noparse }} is never parsed even during consecutive parse calls
-		// we handle the noparse injections in Pyro's template library -- Jerel
-		//$text = $this->inject_extractions($text);
+		// set $cumulative_noparse to true and use Lex_Parser::inject_noparse($text); immediately
+		// before the final output is sent to the browser
+		if ( ! $this->cumulative_noparse)
+		{
+			$text = $this->inject_extractions($text);
+		}
 
 		return $text;
 	}
@@ -286,6 +291,43 @@ class Lex_Parser
 
 		return $glue;
 	}
+	
+	/**
+	 * Sets the noparse style. Immediate or cumulative.
+	 *
+	 * @param	bool $mode
+	 * @return	void
+	 */
+	public function cumulative_noparse($mode)
+	{
+		$this->cumulative_noparse = $mode;
+	}
+	
+	/**
+	 * Injects noparse extractions.
+	 *
+	 * This is so that multiple parses can store noparse
+	 * extractions and all noparse can then be injected right
+	 * before data is displayed.
+	 *
+	 * @param	string	$text	Text to inject into
+	 * @return	string
+	 */
+	public function inject_noparse($text)
+	{
+		if (isset(Lex_Parser::$extractions['noparse']))
+		{
+			foreach (Lex_Parser::$extractions['noparse'] AS $hash => $replacement)
+			{
+				if (strpos($text, "noparse_{$hash}") !== FALSE)
+				{
+					$text = str_replace("noparse_{$hash}", $replacement, $text);
+				}
+			}
+		}
+		
+		return $text;
+	}
 
 	/**
 	 * This is used as a callback for the conditional parser.  It takes a variable
@@ -455,29 +497,6 @@ class Lex_Parser
 
 		return str_replace($extraction, "{$type}_{$hash}", $text);
 	}
-	
-	/**
-	 * Injects noparse extractions.
-	 *
-	 * This is separate so that multiple parses can store noparse
-	 * extractions and all noparse can then be injected before
-	 * data is displayed.
-	 *
-	 * @param	string	$text	Text to inject into
-	 * @return	string
-	 */
-	public function inject_noparse($text)
-	{
-		foreach (Lex_Parser::$extractions['noparse'] AS $hash => $replacement)
-		{
-			if (strpos($text, "noparse_{$hash}") !== FALSE)
-			{
-				$text = str_replace("noparse_{$hash}", $replacement, $text);
-			}
-		}
-		
-		return $text;
-	}
 
 	/**
 	 * Injects all of the extractions.
@@ -574,7 +593,17 @@ class Lex_Parser
 	protected function parse_php($text)
 	{
 		ob_start();
-		echo eval('?>'.$text.'<?php ');
+		$result = eval('?>'.$text.'<?php ');
+		
+		if ($result === false)
+		{
+			log_message('error', str_replace(array('?>', '<?php '), '', $text));
+			echo '<br />You have a syntax error in your Lex tags: The snippet of text that contains the error has been written to your application\'s log file.<br />';
+		}
+		else
+		{
+			echo $result;
+		}
 
 		return ob_get_clean();
 	}
