@@ -17,12 +17,13 @@
 		<input type="password" id="password" name="password" maxlength="20" />
 	</li>
 	<li id="remember_me">
-		<?php echo form_checkbox('remember', '1', FALSE); ?><?php echo lang('user_remember')?>
+		<label><?php echo lang('user_remember'); ?></label>
+		<?php echo form_checkbox('remember', '1', FALSE); ?>
 	</li>
 	<li class="form_buttons">
-		<input type="submit" value="<?php echo lang('user_login_btn') ?>" name="btnLogin" /> | <?php echo anchor('register', lang('user_register_btn'));?>
+		<input type="submit" value="<?php echo lang('user_login_btn') ?>" name="btnLogin" /> <span class="register"> | <?php echo anchor('register', lang('user_register_btn'));?></span>
 	</li>
-	<li>
+	<li class="reset_pass">
 		<?php echo anchor('users/reset_pass', lang('user_reset_password_link'));?>
 	</li>
 </ul>
