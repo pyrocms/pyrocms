@@ -78,11 +78,15 @@ class Public_Controller extends MY_Controller
 
 	    // Frontend data
 	    $this->load->library('variables/variables');
+		
+		// grab the theme options if there are any
+		$data->options = $this->pyrocache->model('themes_m', 'get_values_by', array(array('theme' => $this->theme->slug) ));
 
         // Assign segments to the template the new way
 	    $this->template->variables = $this->variables->get_all();
 		$this->template->settings = $this->settings->get_all();
 		$this->template->server = $_SERVER;
+		$this->template->set('theme', $data);
 
 		$this->benchmark->mark('public_controller_end');
 	}

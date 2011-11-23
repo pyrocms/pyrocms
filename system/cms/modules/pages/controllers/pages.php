@@ -217,7 +217,7 @@ class Pages extends Public_Controller
 				</script>');
 		}
 		
-		echo $this->template->build('pages/page', null, true);
+		$this->template->build('page');
 	}
 
 	/**

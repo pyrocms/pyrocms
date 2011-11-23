@@ -31,7 +31,7 @@ class Lex_Parser
 	protected $conditional_end_regex = '';
 	protected $conditional_data = array();
 
-	protected $extractions = array(
+	protected static $extractions = array(
 		'noparse' => array(),
 	);
 
@@ -69,7 +69,9 @@ class Lex_Parser
 			$text = $this->parse_callback_tags($text, $data, $callback);
 		}
 
-		$text = $this->inject_extractions($text);
+		// To ensure that {{ noparse }} is never parsed even during consecutive parse calls
+		// we handle the noparse injections in Pyro's template library -- Jerel
+		//$text = $this->inject_extractions($text);
 
 		return $text;
 	}
@@ -449,9 +451,32 @@ class Lex_Parser
 	protected function create_extraction($type, $extraction, $replacement, $text)
 	{
 		$hash = md5($replacement);
-		$this->extractions[$type][$hash] = $replacement;
+		Lex_Parser::$extractions[$type][$hash] = $replacement;
 
 		return str_replace($extraction, "{$type}_{$hash}", $text);
+	}
+	
+	/**
+	 * Injects noparse extractions.
+	 *
+	 * This is separate so that multiple parses can store noparse
+	 * extractions and all noparse can then be injected before
+	 * data is displayed.
+	 *
+	 * @param	string	$text	Text to inject into
+	 * @return	string
+	 */
+	public function inject_noparse($text)
+	{
+		foreach (Lex_Parser::$extractions['noparse'] AS $hash => $replacement)
+		{
+			if (strpos($text, "noparse_{$hash}") !== FALSE)
+			{
+				$text = str_replace("noparse_{$hash}", $replacement, $text);
+			}
+		}
+		
+		return $text;
 	}
 
 	/**
@@ -464,31 +489,31 @@ class Lex_Parser
 	{
 		if ($type === null)
 		{
-			foreach ($this->extractions as $type => $extractions)
+			foreach (Lex_Parser::$extractions as $type => $extractions)
 			{
 				foreach ($extractions as $hash => $replacement)
 				{
 					if (strpos($text, "{$type}_{$hash}") !== false)
 					{
 						$text = str_replace("{$type}_{$hash}", $replacement, $text);
-						unset($this->extractions[$type][$hash]);
+						unset(Lex_Parser::$extractions[$type][$hash]);
 					}
 				}
 			}
 		}
 		else
 		{
-			if ( ! isset($this->extractions[$type]))
+			if ( ! isset(Lex_Parser::$extractions[$type]))
 			{
 				return $text;
 			}
 
-			foreach ($this->extractions[$type] as $hash => $replacement)
+			foreach (Lex_Parser::$extractions[$type] as $hash => $replacement)
 			{
 				if (strpos($text, "{$type}_{$hash}") !== false)
 				{
 					$text = str_replace("{$type}_{$hash}", $replacement, $text);
-					unset($this->extractions[$type][$hash]);
+					unset(Lex_Parser::$extractions[$type][$hash]);
 				}
 			}
 		}
