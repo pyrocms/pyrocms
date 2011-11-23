@@ -12,12 +12,14 @@ class Widget_Navigation extends Widgets
 {
 	public $title		= array(
 		'en' => 'Navigation',
+		'el' => 'Πλοήγηση',
 		'nl' => 'Navigatie',
 		'br' => 'Navegação',
 		'ru' => 'Навигация',
 	);
 	public $description	= array(
 		'en' => 'Display a navigation group with a widget',
+		'en' => 'Προβάλετε μια ομάδα στοιχείων πλοήγησης στον ιστότοπο',
 		'nl' => 'Toon een navigatiegroep met een widget',
 		'br' => 'Exibe um grupo de links de navegação como widget em seu site',
 		'ru' => 'Отображает навигационную группу внутри виджета',

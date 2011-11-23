@@ -39,10 +39,7 @@ $lang['widgets.widget_area']            = 'Vùng';
 $lang['widgets.widget_area_title']      = 'Tên vùng';
 $lang['widgets.widget_area_slug']       = 'Tên viết tắt vùng';
 
-// Widget instance titles
-$lang['widgets.add_instance']           = 'Thêm Widget Instance';
-$lang['widgets.edit_instance']          = 'Sửa Widget Instance';
-$lang['widgets.delete_instance']        = 'Xóa Widget Instance';
+$lang['widgets.view_code']				= 'View Code'; #translate
 
 $lang['widgets.instance_title']         = 'Tiêu đề';
 $lang['widgets.tag_title']              = 'Thẻ';

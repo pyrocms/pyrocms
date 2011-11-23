@@ -24,10 +24,7 @@ $lang['widgets.widget_area'] 				= 'Obszar';
 $lang['widgets.widget_area_title'] 			= 'Nazwa obszaru';
 $lang['widgets.widget_area_slug'] 			= 'Skrócona nazwa obszaru';
 
-// Widget instance titles
-$lang['widgets.add_instance'] 				= 'Dodaj instancję widgeta';
-$lang['widgets.edit_instance'] 				= 'Edytuj instancję widgeta';
-$lang['widgets.delete_instance'] 			= 'Usuń instancję widgeta';
+$lang['widgets.view_code']				= 'View Code'; #translate
 
 $lang['widgets.instance_title'] 			= 'Tytuł';
 $lang['widgets.tag_title']					= 'Tag';
