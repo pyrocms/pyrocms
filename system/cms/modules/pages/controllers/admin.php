@@ -394,7 +394,9 @@ class Admin extends Admin_Controller {
 		$page = $this->page_m->get($id);
 		
 		// Grab all the chunks that make up the body
-		$page->chunks = $this->db->get_where('page_chunks', array('page_id' => $id))->result();
+		$page->chunks = $this->db->order_by('sort')
+			->get_where('page_chunks', array('page_id' => $id))
+			->result();
 
 		// Got page?
 		if ( ! $page)
