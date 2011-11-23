@@ -593,7 +593,17 @@ class Lex_Parser
 	protected function parse_php($text)
 	{
 		ob_start();
-		echo eval('?>'.$text.'<?php ');
+		$result = eval('?>'.$text.'<?php ');
+		
+		if ($result === false)
+		{
+			log_message('error', str_replace(array('?>', '<?php '), '', $text));
+			echo '<br />You have a syntax error in your Lex tags: The snippet of text that contains the error has been written to your application\'s log file.<br />';
+		}
+		else
+		{
+			echo $result;
+		}
 
 		return ob_get_clean();
 	}
