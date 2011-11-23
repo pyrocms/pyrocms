@@ -188,7 +188,7 @@ class Pages extends Public_Controller
 		}
 		
 		// Parse it so the content is parsed. We pass along $page so that {{ page:id }} and friends work in page content
-		$page->body = $this->parser->parse_string(str_replace(array('&#39;', '&quot;'), array("'", '"'), $chunk_html), array('page' => $page), TRUE);
+		$page->body = $this->parser->parse_string(str_replace(array('&#39;', '&quot;'), array("'", '"'), $chunk_html), array('theme' => ci()->theme, 'page' => $page), TRUE);
 		
 		// Create page output
 		$this->template->title($page->meta_title)
