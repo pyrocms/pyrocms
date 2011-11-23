@@ -29,10 +29,7 @@ $lang['widgets.widget_area']            = 'Area';
 $lang['widgets.widget_area_title']      = 'Area name';
 $lang['widgets.widget_area_slug']       = 'Area short name';
 
-// Widget instance titles
-$lang['widgets.add_instance']           = 'Add Widget Instance';
-$lang['widgets.edit_instance']          = 'Edit Widget Instance';
-$lang['widgets.delete_instance']        = 'Delete Widget Instance';
+$lang['widgets.view_code']				= 'View Code'; #translate
 
 $lang['widgets.instance_title']         = 'Title';
 $lang['widgets.tag_title']              = 'Tag';
