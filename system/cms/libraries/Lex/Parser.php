@@ -595,10 +595,16 @@ class Lex_Parser
 		ob_start();
 		$result = eval('?>'.$text.'<?php ');
 		
-		if ($result === false)
+		if (($result === false) and (ENVIRONMENT === PYRO_DEVELOPMENT))
+		{
+			echo '<br />You have a syntax error in your Lex tags. The snippet of text that contains the error has been output below:<br />';
+			exit(str_replace(array('?>', '<?php '), '', $text));
+			
+		}
+		elseif ($result === false)
 		{
 			log_message('error', str_replace(array('?>', '<?php '), '', $text));
-			echo '<br />You have a syntax error in your Lex tags: The snippet of text that contains the error has been written to your application\'s log file.<br />';
+			echo '<br />You have a syntax error in your Lex tags: The snippet of text that contains the error has been output to your application\'s log file.<br />';
 		}
 		else
 		{
