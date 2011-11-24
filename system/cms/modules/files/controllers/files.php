@@ -31,11 +31,29 @@ class Files extends Public_Controller
 		force_download($file->name . $file->extension , $data);
 	}
 
-	public function thumb($id, $width = 100, $height = 100, $mode = NULL)
+	public function thumb($id = 0, $width = 100, $height = 100, $mode = NULL)
 	{
 		$this->load->model('file_m');
 
-		$file = $this->file_m->get($id) OR show_404();
+		if (is_numeric($id))
+		{
+			$file = $this->file_m->get($id);
+		}
+		
+		// they've passed the filename itself
+		if( ! is_numeric($id) OR ! $file)
+		{
+			$data = getimagesize($this->_path.$id) OR show_404();
+			
+			$ext = '.'.end(explode('.', $id));
+			
+			$file->width 		= $data[0];
+			$file->height 		= $data[1];
+			$file->filename 	= $id;
+			$file->extension 	= $ext;
+			$file->mimetype 	= $data['mime'];
+		}
+
 		$cache_dir = $this->config->item('cache_dir') . 'image_files/';
 
 		if ( ! is_dir($cache_dir))

@@ -14,18 +14,18 @@ $lang['dialog.confirm'] 				= '確認'; 		//'Confirm';
 $lang['dialog.yes'] 					= '是'; 			//'Yes';
 $lang['dialog.no'] 						= '否'; 			//'No';
 
-$lang['global:select-none'] 					= '-- None --'; #translate
-$lang['global:select-all'] 					= '-- All --'; #translate
-$lang['global:select-any'] 					= '-- Any --'; #translate
-$lang['global:select-pick']					= '-- 請選擇 --';
+$lang['global:select-none'] 			= '-- 無 --';
+$lang['global:select-all'] 				= '-- 全部 --';
+$lang['global:select-any'] 				= '-- 任何 --';
+$lang['global:select-pick']				= '-- 請選擇 --';
 
-$lang['global:check-none'] 					= 'None'; #translate
-$lang['global:check-all']						= 'All'; #translate
+$lang['global:check-none'] 				= '沒有';
+$lang['global:check-all']				= '全部';
 
-$lang['operators.equal'] 				= 'Equal to'; #translate
-$lang['operators.not_equal'] 			= 'Not equal to'; #translate
-$lang['operators.less_than'] 			= 'Less than'; #translate
-$lang['operators.greater_than'] 		= 'Greater than'; #translate
+$lang['operators.equal'] 				= '等於';
+$lang['operators.not_equal'] 			= '不等於';
+$lang['operators.less_than'] 			= '小於';
+$lang['operators.greater_than'] 		= '大於';
 
 $lang['navigation_headline'] 			= '導覽'; 		//'Navigation';
 $lang['breadcrumb_base_label'] 			= '首頁'; 		//'Home';
@@ -50,7 +50,7 @@ $lang['email_label'] 					= '電子郵件'; 		//'E-mail';
 $lang['password_label'] 				= '密碼'; 			//'Password';
 $lang['login_label'] 					= '登入'; 			//'Log In';
 
-$lang['help_label'] 					= 'Help';#translate
+$lang['help_label'] 					= '幫助';
 $lang['save_label'] 					= '儲存'; 			//'Save';
 $lang['cancel_label'] 					= '取消'; 			//'Cancel';
 $lang['update_label'] 					= '更新'; 			//'Update Caption';
@@ -65,15 +65,15 @@ $lang['install_label'] 					= '安裝'; 			//'Install';
 $lang['enable_label']					= '啟用'; 			//'Enable';
 $lang['disable_label'] 					= '禁用'; 			//'Disable';
 
-$lang['global:shortcuts'] 				= 'Shortcuts'; #translate
-$lang['global:description']				= 'Description'; #translate
+$lang['global:shortcuts'] 				= '捷徑';
+$lang['global:description']				= '說明';
 $lang['global:actions']					= '操作';
-$lang['global:view']					= 'View'; #translate
-$lang['global:preview']					= 'Preview'; #translate
-$lang['global:add']						= 'Add'; #translate
-$lang['global:edit']					= 'Edit'; #translate
-$lang['global:empty']					= 'Empty'; #translate
-$lang['global:delete']					= 'Delete'; #translate
-$lang['global:remove']					= 'Remove'; #translate
+$lang['global:view']					= '檢視';
+$lang['global:preview']					= '預覽';
+$lang['global:add']						= '新增';
+$lang['global:edit']					= '編輯';
+$lang['global:empty']					= '清空';
+$lang['global:delete']					= '刪除';
+$lang['global:remove']					= '移除';
 
-$lang['global:keywords']				= 'Keywords'; #translate
+$lang['global:keywords']				= '關鍵字';

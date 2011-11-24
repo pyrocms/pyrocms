@@ -1,32 +1,32 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // Labels
-$lang['templates.language_label']			= 'Language'; #translate
-$lang['templates.choose_lang_label']		= 'Choose language'; #translate
-$lang['templates.subject_label']			= 'Subject'; #translate
-$lang['templates.body_label']				= 'Body'; #translate
-$lang['templates.slug_label']				= 'Slug'; #translate
+$lang['templates.language_label']			= '語言';
+$lang['templates.choose_lang_label']		= '選擇語言';
+$lang['templates.subject_label']			= '主旨';
+$lang['templates.body_label']				= '內容';
+$lang['templates.slug_label']				= '縮略名(slug)';
 
 // Titles
-$lang['templates.create_title']				= 'Create template'; #translate
-$lang['templates.edit_title']				= 'Editing template "%s"'; #translate
-$lang['templates.clone_title']				= 'Coping template "%s"'; #translate
-$lang['templates.list_title']				= 'List templates'; #translate
-$lang['templates.default_title']			= 'Default templates'; #translate
-$lang['templates.user_defined_title']		= 'User defined templates'; #translate
+$lang['templates.create_title']				= '建立範本';
+$lang['templates.edit_title']				= '編輯範本 "%s"';
+$lang['templates.clone_title']				= '複製範本 "%s"';
+$lang['templates.list_title']				= '範本列表';
+$lang['templates.default_title']			= '預設範本';
+$lang['templates.user_defined_title']		= '自定範本';
 
 // Messages
-$lang['templates.tmpl_create_success']		= 'Email template "%s" has been saved.'; #translate
-$lang['templates.tmpl_create_error']		= 'Email template "%s" was not saved.'; #translate
-$lang['templates.tmpl_edit_success']		= 'Changes made to email template "%s" has been saved.'; #translate
-$lang['templates.tmpl_edit_error']			= 'Changes made to email template "%s" was not saved.'; #translate
-$lang['templates.tmpl_clone_success']		= '"%s" has been cloned. You may now edit the template to your liking.'; #translate
-$lang['templates.tmpl_clone_error']			= '"%s" was unable to be cloned.  Please try again.'; #translate
-$lang['templates.single_delete_success']	= 'The email template has been deleted.'; #translate
-$lang['templates.mass_delete_success']		= '%s email templates out of %s successfully deleted.'; #translate
-$lang['templates.mass_delete_error'] 		= 'Error occurred while trying to delete email template "%s".'; #translate
-$lang['templates.default_delete_error'] 	= 'Error occurred, default email templates can not be removed.'; #translate
-$lang['templates.no_select_error'] 			= 'You need to select email templates first.'; #translate
-$lang['templates.already_exist_error']		= 'A email template with the name "%s" already exists.'; #translate
+$lang['templates.tmpl_create_success']		= '郵件範本 "%s" 已經儲存';
+$lang['templates.tmpl_create_error']		= '郵件範本 "%s" 沒有儲存';
+$lang['templates.tmpl_edit_success']		= '郵件範本 "%s" 的變更已經儲存。';
+$lang['templates.tmpl_edit_error']			= '郵件範本 "%s" 的變更沒有儲存。';
+$lang['templates.tmpl_clone_success']		= '"%s" 已經複製。您現在可以開始編輯。';
+$lang['templates.tmpl_clone_error']			= '"%s" 無法複製。請再試一次。';
+$lang['templates.single_delete_success']	= '這個郵件範本已經刪除。';
+$lang['templates.mass_delete_success']		= '%s 個郵件範本已經刪除(共選擇 %s 個範本)。';
+$lang['templates.mass_delete_error'] 		= '正當嘗試刪除郵件範本 "%s" 時，有錯誤發生。';
+$lang['templates.default_delete_error'] 	= '有錯誤，預設郵件範本不能移除。';
+$lang['templates.no_select_error'] 			= '您需要先選取郵件範本。';
+$lang['templates.already_exist_error']		= '一個和 "%s" 相同名稱的郵件範本已經存在。';
 
 /* End of file templates_lang.php */

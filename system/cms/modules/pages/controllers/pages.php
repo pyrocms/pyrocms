@@ -218,7 +218,12 @@ class Pages extends Public_Controller
 					'.$page->js.'
 				</script>');
 		}
-		
+
+		if ($page->slug == '404')
+		{
+			log_message('error', 'Page Missing: '.$this->uri->uri_string());
+		}
+
 		$this->template->build('page');
 	}
 

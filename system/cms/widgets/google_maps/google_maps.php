@@ -13,12 +13,14 @@ class Widget_Google_maps extends Widgets
 {
     public $title		= array(
 			'en' => 'Google Maps',
+			'el' => 'Χάρτης Google',
 			'nl' => 'Google Maps',
 			'br' => 'Google Maps',
 			'ru' => 'Карты Google',
 		);
     public $description	= array(
 		'en' => 'Display Google Maps on your site',
+		'el' => 'Προβάλετε έναν Χάρτη Google στον ιστότοπό σας',
 		'nl' => 'Toon Google Maps in uw site',
 		'br' => 'Mostra mapas do Google no seu site',
 		'ru' => 'Выводит карты Google на страницах вашего сайта',
