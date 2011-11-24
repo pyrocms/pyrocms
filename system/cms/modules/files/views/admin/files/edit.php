@@ -23,8 +23,11 @@
 			?>
 		</li>
 		<li>
-			<label for="nothing"><?php echo lang('files.file_label'); ?></label>
-			<?php echo form_upload('userfile'); ?>
+			<?php echo form_label(lang('files.file_label'), 'userfile'); ?>
+			<?php echo form_upload(array(
+				'name'	=> 'userfile',
+				'id'	=> 'userfile'
+			)); ?>
 		</li>
 	</ul>
 
