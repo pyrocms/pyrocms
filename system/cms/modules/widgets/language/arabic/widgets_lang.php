@@ -25,7 +25,7 @@ $lang['widgets.widget_area'] 				= 'المساحة';
 $lang['widgets.widget_area_title'] 			= 'إسم المساحة';
 $lang['widgets.widget_area_slug'] 			= 'إسم المساحة المختصر';
 
-$lang['widgets.view_code']				= 'View Code'; #translate
+$lang['widgets.view_code']				= 'عرض النص البرمجي';
 
 $lang['widgets.instance_title'] 			= 'عنوان';
 $lang['widgets.tag_title']					= 'وسم';
