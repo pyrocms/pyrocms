@@ -433,6 +433,9 @@ class Page_m extends MY_Model
 		$this->db->where_in('page_id', $ids);
 		$this->db->delete('navigation_links');
 		
+        	$this->db->where_in('page_id', $ids);
+        	$this->db->delete('page_chunks');
+		
 		$this->db->trans_complete();
 		
 		return $this->db->trans_status() !== FALSE ? $ids : FALSE;
