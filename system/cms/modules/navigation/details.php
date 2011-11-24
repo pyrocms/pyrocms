@@ -16,7 +16,7 @@ class Module_Navigation extends Module {
 				'de' => 'Navigation',
 				'pl' => 'Nawigacja',
 				'br' => 'Navegação',
-				'zh' => '導航列',
+				'zh' => '導航選單',
 				'it' => 'Navigazione',
 				'ru' => 'Навигация',
 				'ar' => 'الروابط',

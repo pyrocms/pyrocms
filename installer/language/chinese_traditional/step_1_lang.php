@@ -13,9 +13,9 @@ $lang['password']		=	'密碼';
 $lang['portnr']			=	'連接埠(Port)';
 $lang['server_settings']=	'伺服器設定';
 $lang['httpserver']		=	'HTTP 伺服器';
-$lang['httpserver_text']=	'PyroCMS requires a HTTP Server to display dynamic content when a user goes to your website. It looks like you already have one by the fact that you can see this page, but if know exactly which type then PyroCMS can configure itself even better. If you do not know what any of this means just ignore it and carry on with the installation.'; #translate
-$lang['rewrite_fail']	=	'You have selected "(Apache with mod_rewrite)" but we are unable to tell if mod_rewrite is enabled on your server. Ask your host if mod_rewrite is enabled or simply install at your own risk.';
-$lang['mod_rewrite']	=	'You have selected "(Apache with mod_rewrite)" but your server does not have the rewrite module enabled. Ask your host to enable it or install PyroCMS using the "Apache (without mod_rewrite)" option.';
+$lang['httpserver_text']=	'PyroCMS需要一個 HTTP 伺服器來顯示動態內容，既然您已經看到這個頁面，代表已經有了。但如果更明確的知道是哪一種伺服器，那麼 PyroCMS將可以自行做最恰當的設定。如果您完全不了解這個設定，那就請忽略它，並繼續進行安裝。';
+$lang['rewrite_fail']	=	'您選擇了「Apache with mod_rewrite」，但我們無法分辨伺服器上已經啟用了mod_rewrite。請詢問您的主機管理員，向他確認是否已經啟用 mod_rewrite，或繼續安裝但需自行承擔風險。';
+$lang['mod_rewrite']	=	'您選擇了「Apache with mod_rewrite」，但您的伺服器並沒有啟用 mod_rewrite。請詢問您的主機管理員，請他安裝開啟 mod_rewrite，或使用「Apache without mod_rewrite」選項來進行 PyroCMS 的安裝。';
 $lang['step2']			=	'步驟 2';
 
 // messages
