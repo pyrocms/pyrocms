@@ -74,3 +74,4 @@ Think you should be on this list? Add yourself in the next pull request you subm
 * [imamo](http://www.imamo.si/) Slovenian
 * [Petsagourakis George](https://github.com/petsagouris) Greek
 * [Mikael Kundert](https://github.com/mikaelkundert) Finnish
+* [Jack Sun] (http://www.o-matic.com.tw/) Chinese Traditional
