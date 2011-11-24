@@ -31,7 +31,7 @@ class Module_Galleries extends Module {
 				'de' => 'Mit dem Galerie Modul kannst du Bildergalerien anlegen.',
 				'nl' => 'De gallerij module die gebruikers in staat stelt afbeeldingsgallerijen te maken.',
 				'fr' => 'Galerie est une puissante extension permettant de créer des galeries d\'images.',
-				'zh' => '這是一個功能完整的模組，可以讓用戶建立自己的相簿或畫廊。',
+				'zh' => '這是一個功能完整的畫廊模組，可以讓用戶建立自己的畫本或相簿。',
 				'it' => 'Il modulo gallerie è un potente modulo che permette agli utenti di creare gallerie di immagini.',
 				'ru' => 'Галереи - мощный модуль, который даёт пользователям возможность создавать галереи изображений.',
 				'ar' => 'هذه الوحدة تمُكّنك من إنشاء معارض الصّور بسهولة.',
