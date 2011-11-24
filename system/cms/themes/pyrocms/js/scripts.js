@@ -47,7 +47,7 @@ jQuery(function($) {
 		// Drop Menu
 		$(".topbar ul ul").css({display: "none"});
 
-		$(".topbar ul li a").click(function(e){
+		$(".topbar ul li a").mouseover(function(e){
 			$a = $(this).parent(':not(#dashboard-link)');
 			($a.find('ul:first:hidden').css({visibility: "visible",display: "none"}).slideDown(400).length > 0) ||
 			$a.find('ul:first:visible').slideUp(400);
