@@ -10,7 +10,7 @@ $lang['settings_site_slogan_desc'] 				= '在這裡設定的標語會應用在 t
 $lang['settings_site_lang']						= '網站語言';
 $lang['settings_site_lang_desc']				= '網站的預設母語，用於選擇內部通知、電子郵件模板和接受訪客的聯繫和其他功能的語言。';
 
-$lang['settings_contact_email'] 				= '收件者信箱';
+$lang['settings_contact_email'] 				= '網站預設信箱';
 $lang['settings_contact_email_desc'] 			= '所有來自於網站中用戶或訪客的信件，都將會寄到這個信箱裡。';
 
 $lang['settings_server_email'] 					= '伺服器信箱';
@@ -29,9 +29,7 @@ $lang['settings_dashboard_rss_count'] 			= '控制台 RSS 項目';
 $lang['settings_dashboard_rss_count_desc'] 		= '您想要多少 RSS 項目顯示在控制台中呢？';
 
 $lang['settings_date_format'] 					= '日期格式';
-$lang['settings_date_format_desc']				= '設定網站前後台的日期顯示格式。' .
-													'請參考 <a href="http://php.net/manual/en/function.date.php" target="_black">date format</a> from PHP - 或是 - ' .
-													'參考 <a href="http://php.net/manual/en/function.strftime.php" target="_black">strings formated as date</a> from PHP.';
+$lang['settings_date_format_desc']				= '設定網站前後台的日期顯示格式。請參考 <a href="http://php.net/manual/en/function.date.php" target="_black">date format</a> from PHP - 或是 - 參考 <a href="http://php.net/manual/en/function.strftime.php" target="_black">strings formated as date</a> from PHP.';
 
 $lang['settings_frontend_enabled'] 				= '網站狀態';
 $lang['settings_frontend_enabled_desc'] 		= '您可使用這個選項將網站關閉或開啟。若您想要暫時關閉網站以進行維護工作，這會非常有用。';
@@ -111,11 +109,32 @@ $lang['settings_akismet_api_key_desc'] 			= 'Akismet 是由 WordPress 團隊所�
 $lang['settings_comment_order'] 				= '回應順序';
 $lang['settings_comment_order_desc']			= '顯示回應的排序';
 
+$lang['settings_enable_comments'] 				= '請用回應';
+$lang['settings_enable_comments_desc']			= '是否允許用戶張貼回應？';
+
 $lang['settings_moderate_comments'] 			= '審核回應/評論';
 $lang['settings_moderate_comments_desc']		= '強制所有的回應都必須通過審核才會顯示在網站上。';
 
+$lang['settings_comment_markdown']				= '允許 Markdown';
+$lang['settings_comment_markdown_desc']			= '您允許訪客使用 Markdown 張貼回應？';
+
 $lang['settings_version'] 						= '版本';
 $lang['settings_version_desc'] 					= '';
+
+$lang['settings_site_public_lang']				= '前端的語言';
+$lang['settings_site_public_lang_desc']			= '這個網站前端支援什麼語言？';
+
+$lang['settings_admin_force_https']				= '在管理後台強制使用 HTTPS？';
+$lang['settings_admin_force_https_desc']		= '只允許使用 HTTPS 協定來使用此管理後台？';
+
+$lang['settings_files_cache']					= '檔案暫存';
+$lang['settings_files_cache_desc']				= '當您透過 site.com/files 來輸出圖片時，系統應該設定的暫存時效是？';
+
+$lang['settings_auto_username']					= '自動的 Username';
+$lang['settings_auto_username_desc']			= '自動為用戶建立 username，代表使用者可在註冊時略過這個步驟。';
+
+$lang['settings_registered_email']				= '發送註冊通知';
+$lang['settings_registered_email_desc']			= '當有人註冊時，寄送通知信到網站預設信箱。';
 
 #section titles
 $lang['settings_section_general']				= '一般';
@@ -124,6 +143,7 @@ $lang['settings_section_comments']				= '回應';
 $lang['settings_section_users']					= '用戶';
 $lang['settings_section_statistics']			= '統計';
 $lang['settings_section_twitter']				= 'Twitter';
+$lang['settings_section_files']					= '檔案';
 
 #checkbox and radio options
 $lang['settings_form_option_Open']				= '開啟';
@@ -134,6 +154,10 @@ $lang['settings_form_option_Required']			= '必要';
 $lang['settings_form_option_Optional']			= '可選擇';
 $lang['settings_form_option_Oldest First']		= '最舊優先';
 $lang['settings_form_option_Newest First']		= '最新優先';
+$lang['settings_form_option_Text Only']			= '僅限純文字';
+$lang['settings_form_option_Allow Markdown']	= '允許 Markdown';
+$lang['settings_form_option_Yes']				= '是';
+$lang['settings_form_option_No']				= '否';
 
 // titles
 $lang['settings_edit_title'] 					= '編輯設定';
