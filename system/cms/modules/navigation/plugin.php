@@ -135,7 +135,7 @@ class Plugin_Navigation extends Plugin
 			}
 
 			// is current ?
-			if (current_url() === $link['url'] OR ($link['link_type'] === 'page' && $link['is_home'] == TRUE) AND site_url() === current_url())
+			if (strpos(current_url(), $link['url'].'/') === 0 OR current_url() === $link['url'] OR ($link['link_type'] === 'page' && $link['is_home'] == TRUE) AND site_url() === current_url())
 			{
 				$is_current = TRUE;
 				$wrapper['class'][] = $current_class;
