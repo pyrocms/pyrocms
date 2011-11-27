@@ -18,7 +18,7 @@ class Widget_Twitter_feed extends Widgets {
 	);
 	public $description	= array(
 		'en' => 'Display Twitter feeds on your website',
-		'en' => 'Προβολή των τελευταίων tweets από το Twitter',
+		'el' => 'Προβολή των τελευταίων tweets από το Twitter',
 		'nl' => 'Toon Twitterfeeds op uw website',
 		'br' => 'Mostra os últimos tweets de um usuário do Twitter no seu site.',
 		'ru' => 'Выводит ленту новостей Twitter на страницах вашего сайта',
