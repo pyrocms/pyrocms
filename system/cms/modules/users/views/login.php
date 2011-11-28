@@ -10,7 +10,7 @@
 <ul>
 	<li>
 		<label for="email"><?php echo lang('user_email'); ?></label>
-		<input type="text" id="email" name="email" maxlength="120" />
+		<?php echo form_input('email', $this->input->post('email') ? $this->input->post('email') : '')?>
 	</li>
 	<li>
 		<label for="password"><?php echo lang('user_password'); ?></label>

@@ -1,9 +1,4 @@
 <?php
-/**
- * @author 		PyroCMS Development Team
- * @package 	PyroCMS
- * @subpackage 	Controllers
- */
 
 # If you have already installed then delete this
 if ( ! file_exists('system/cms/config/database.php'))
