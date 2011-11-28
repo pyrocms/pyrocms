@@ -592,6 +592,9 @@ class Lex_Parser
 	 */
 	protected function parse_php($text)
 	{
+		// if we leave the dollar signs in then the adjoining text will get eval'd
+		$text = str_replace('$', '&#36;', $text);
+
 		ob_start();
 		$result = eval('?>'.$text.'<?php ');
 		
