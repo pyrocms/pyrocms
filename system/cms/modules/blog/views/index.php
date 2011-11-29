@@ -11,6 +11,12 @@
 			</p>
 			<?php endif; ?>
 		</div>
+		<?php if($post->keywords): ?>
+		<p class="post_keywords">
+			<?php echo lang('blog_tagged_label');?>:
+			<?php echo $post->keywords; ?>
+		</p>
+		<?php endif; ?>
 		<div class="post_body">
 			<?php echo $post->intro; ?>
 		</div>

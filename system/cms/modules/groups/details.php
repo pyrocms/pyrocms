@@ -53,6 +53,7 @@ class Module_Groups extends Module {
 				array(
 			 	   'name' => 'groups.add_title',
 				   'uri' => 'admin/groups/add',
+				   'class' => 'add'
 				),
 			)
 		);

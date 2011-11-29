@@ -3,8 +3,10 @@
 // labels
 $lang['blog_posted_label'] 				= '已發佈';
 $lang['blog_posted_label_alt']			= '發表於';
-$lang['blog_written_by_label']				= 'Written by'; #translate
-$lang['blog_author_unknown']				= 'Unknown'; #translate
+$lang['blog_written_by_label']				= '撰文者';
+$lang['blog_author_unknown']				= '未知';
+$lang['blog_keywords_label']				= '關鍵字';
+$lang['blog_tagged_label']					= '標籤';
 $lang['blog_category_label'] 			= '分類';
 $lang['blog_post_label'] 				= '發表';
 $lang['blog_date_label'] 				= '日期';
@@ -27,9 +29,9 @@ $lang['blog_rss_name_suffix'] 					= ' 新聞';
 $lang['blog_rss_category_suffix'] 				= ' 新聞';
 $lang['blog_author_name_label'] 				= '作者名稱';
 $lang['blog_read_more_label'] 					= '閱讀更多&nbsp;&raquo;';
-$lang['blog_created_hour']                  = 'Time (Hour)'; #translate
-$lang['blog_created_minute']                = 'Time (Minute)'; #translate
-$lang['blog_comments_enabled_label']         = 'Comments Enabled'; #translate
+$lang['blog_created_hour']                  = '時間 (時)';
+$lang['blog_created_minute']                = '時間 (分)';
+$lang['blog_comments_enabled_label']         = '允許回應';
 
 // titles
 $lang['blog_create_title'] 				= '新增文章';

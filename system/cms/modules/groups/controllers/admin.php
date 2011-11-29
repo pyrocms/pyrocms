@@ -39,8 +39,6 @@ class Admin extends Admin_Controller
 				'rules' => 'trim|required|max_length[250]'
 			)
 		);
-
-	    $this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
 	}
 
 	/**

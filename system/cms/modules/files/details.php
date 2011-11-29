@@ -112,7 +112,8 @@ class Module_Files extends Module {
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 		";
 
-		if($this->db->query($files) && $this->db->query($file_folders))
+		if( $this->db->query($files) &&
+			$this->db->query($file_folders))
 		{
 			return TRUE;
 		}

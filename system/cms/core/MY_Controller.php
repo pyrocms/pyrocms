@@ -21,7 +21,7 @@ class MY_Controller extends MX_Controller {
 		// No record? Probably DNS'ed but not added to multisite
 		if ( ! defined('SITE_REF'))
 		{
-			show_error('This domain is not set up correctly.');
+			show_error('This domain is not set up correctly. Please go to '.anchor('sites') .' and log in to add this new site.');
 		}
 		
 		// TODO: Remove this in v2.1.0 as it just renames tables for v2.0.0
@@ -56,9 +56,9 @@ class MY_Controller extends MX_Controller {
 
 		// By changing the prefix we are essentially "namespacing" each site
 		$this->db->set_dbprefix(SITE_REF.'_');
-		
+
 		// Load the cache library now that we know the siteref
-		$this->load->library(array('session', 'pyrocache'));
+		$this->load->library('pyrocache');
 
 		// Add the site specific theme folder
 		$this->template->add_theme_location(ADDONPATH.'themes/');
@@ -78,7 +78,7 @@ class MY_Controller extends MX_Controller {
 		}
 
 		// With that done, load settings
-		$this->load->library(array('settings/settings'));
+		$this->load->library(array('session', 'settings/settings'));
 
 		// Lock front-end language
 		if ( ! (is_a($this, 'Admin_Controller') && ($site_lang = AUTO_LANGUAGE)))
@@ -168,8 +168,15 @@ class MY_Controller extends MX_Controller {
 		}
 
 		$this->load->vars($pyro);
-
+		
 		$this->benchmark->mark('my_controller_end');
+		
+		// Enable profiler on local box
+	    if (ENVIRONMENT === PYRO_DEVELOPMENT AND is_array($_GET) AND array_key_exists('_debug', $_GET) )
+	    {
+			unset($_GET['_debug']);
+	    	$this->output->enable_profiler(TRUE);
+	    }
 	}
 }
 

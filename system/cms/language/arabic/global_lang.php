@@ -1,6 +1,6 @@
 <?php
 
-$lang['cp_title'] 						= 'لوحة التحكم';
+$lang['global:control-panel'] 						= 'لوحة التحكم';
 
 $lang['title_label'] 					= 'العنوان';
 $lang['name_label'] 					= 'الإسم';

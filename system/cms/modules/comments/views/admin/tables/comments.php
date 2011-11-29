@@ -3,7 +3,7 @@
 	<table border="0" class="table-list clear-both">
 		<thead>
 			<tr>
-				<th width="30"><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all'));?></th>
+				<th width="20"><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all'));?></th>
 				<th width="25%"><?php echo lang('comments.message_label');?></th>
 				<th><?php echo lang('comments.item_label');?></th>
 				<th><?php echo lang('global:author');?></th>
@@ -51,9 +51,9 @@
 					<td class="align-center buttons buttons-small">
 						<?php if ($this->settings->moderate_comments): ?>
 							<?php if ($comment->is_active): ?>
-								<?php echo anchor('admin/comments/unapprove/' . $comment->id, lang('deactivate_label'), 'class="button deactivate"'); ?>
+								<?php echo anchor('admin/comments/unapprove/' . $comment->id, lang('buttons.deactivate'), 'class="button deactivate"'); ?>
 							<?php else: ?>
-								<?php echo anchor('admin/comments/approve/' . $comment->id, lang('activate_label'), 'class="button activate"'); ?>
+								<?php echo anchor('admin/comments/approve/' . $comment->id, lang('buttons.activate'), 'class="button activate"'); ?>
 							<?php endif; ?>
 						<?php endif; ?>
 					
@@ -67,6 +67,6 @@
 	
 <?php else: ?>
 
-	<?php echo lang('comments.no_comments');?>
+	<div class="no_data"><?php echo lang('comments.no_comments');?></div>
 
 <?php endif; ?>

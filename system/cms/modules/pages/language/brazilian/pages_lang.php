@@ -62,6 +62,7 @@ $lang['pages_mass_delete_success'] 			= '%s páginas foram removidas.';
 $lang['pages_delete_none_notice'] 			= 'Nenhuma página foi removida.';
 $lang['pages_page_already_exist_error'] 	= 'Uma página com a URL "%s" já existe em %s.';
 $lang['pages_parent_not_exist_error'] 		= 'A página pai que você selecionou não existe.';
+$lang['pages_chunk_slug_length']					= 'Page Chunk slugs may be no more than 30 characters in length.'; #translate
 $lang['pages_root_folder']                = 'the top level'; #translate
 
 $lang['pages.tree_explanation'] 			= 'A lista a esquerda representa as páginas do seu site em cada item. Quando houver um indicador de mais ao lado de um item, clique sobre o indicador para exibir suas subpáginas.<br><br>Você também pode arrastar as páginas para ordená-las e/ou posiciona-las distanciando para direita horizontalmente abaixo de outra página para transforma-las em subpáginas.<br><br>Se você clicar sobre o texto do título deverá ver todo tipo de informação útil nesta caixa.';

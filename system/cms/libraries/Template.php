@@ -273,6 +273,12 @@ class Template
 		{
 			$this->_body = process_data_jmr1($this->_body);
 		}
+		
+		// Now that *all* parsing is sure to be done we inject the {{ noparse }} contents back into the output
+		if (class_exists('Lex_Parser'))
+		{
+			$this->_body = Lex_Parser::inject_noparse($this->_body);
+		}
 
 		// Want it returned or output to browser?
 		if ( ! $return)
@@ -739,6 +745,8 @@ class Template
 			$location		= $this->get_theme_path();
 			$theme_views	= array(
 				$this->get_views_path(TRUE) . 'modules/' . $this->_module . '/' . $view,
+				// This allows build('pages/page') to still overload same as build('page')
+				$this->get_views_path(TRUE) . 'modules/' . $view,
 				$this->get_views_path(TRUE) . $view
 			);
 

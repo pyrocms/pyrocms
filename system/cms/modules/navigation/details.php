@@ -16,7 +16,7 @@ class Module_Navigation extends Module {
 				'de' => 'Navigation',
 				'pl' => 'Nawigacja',
 				'br' => 'Navegação',
-				'zh' => '導航列',
+				'zh' => '導航選單',
 				'it' => 'Navigazione',
 				'ru' => 'Навигация',
 				'ar' => 'الروابط',
@@ -54,6 +54,7 @@ class Module_Navigation extends Module {
 				array(
 				    'name' => 'nav_group_create_title',
 				    'uri' => 'admin/navigation/groups/create',
+				    'class' => 'add'
 				),
 		    ),
 		);
@@ -86,6 +87,7 @@ class Module_Navigation extends Module {
 			  `navigation_group_id` int(5) NOT NULL default '0',
 			  `position` int(5) NOT NULL default '0',
 			  `target` varchar(10) NULL default NULL,
+			  `restricted_to` varchar(255) NULL default NULL,
 			  `class` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL default '',
 			  PRIMARY KEY  (`id`),
 			  KEY `navigation_group_id - normal` (`navigation_group_id`)

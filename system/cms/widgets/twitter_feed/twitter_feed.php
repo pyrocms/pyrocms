@@ -11,12 +11,14 @@ class Widget_Twitter_feed extends Widgets {
 
 	public $title = array(
 		'en' => 'Twitter Feed',
+		'el' => 'Ροή Twitter',
 		'nl' => 'Twitterfeed',
 		'br' => 'Feed do Twitter',
 		'ru' => 'Лента Twitter\'а',
 	);
 	public $description	= array(
 		'en' => 'Display Twitter feeds on your website',
+		'el' => 'Προβολή των τελευταίων tweets από το Twitter',
 		'nl' => 'Toon Twitterfeeds op uw website',
 		'br' => 'Mostra os últimos tweets de um usuário do Twitter no seu site.',
 		'ru' => 'Выводит ленту новостей Twitter на страницах вашего сайта',

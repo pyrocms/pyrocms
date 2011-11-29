@@ -14,6 +14,7 @@ $lang['nav_type_label'] 						= 'Tipo di collegamento';
 $lang['nav_uri_label'] 							= 'Collegamento nel sito (URI)';
 $lang['nav_page_label'] 						= 'Pagina';
 $lang['nav_module_label'] 						= 'Modulo';
+$lang['nav_restricted_to']						= 'Restricted To'; #translate
 $lang['nav_abbrev_label'] 						= 'Abbreviazione';
 
 $lang['nav_link_target_self'] 					= 'Finestra corrente (default)';

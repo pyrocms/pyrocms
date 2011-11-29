@@ -10,29 +10,32 @@
 
 <section class="item">
 <?php echo form_open(uri_string(), 'class="crud"'); ?>
+
+<div class="form_inputs">
+
     <ul>
 		<li>
-			<label for="description"><?php echo lang('groups.name');?>:</label><br>
-			<?php echo form_input('description', $group->description);?>
-			<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
+			<label for="description"><?php echo lang('groups.name');?> <span>*</span></label>
+			<div class="input"><?php echo form_input('description', $group->description);?></div>
 		</li>
 		
-		<hr>
-
 		<li class="even">
-			<label for="name"><?php echo lang('groups.short_name');?></label><br>
+			<label for="name"><?php echo lang('groups.short_name');?> <span>*</span></label>
+			
+			<div class="input">
 
 			<?php if ( ! in_array($group->name, array('user', 'admin'))): ?>
 			<?php echo form_input('name', $group->name);?>
-			<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
 
 			<?php else: ?>
 			<p><?php echo $group->name; ?></p>
 			<?php endif; ?>
+			
+			</div>
 		</li>
     </ul>
 
-<hr>
+</div>
 
 	<div class="buttons float-right padding-top">
 		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )); ?>

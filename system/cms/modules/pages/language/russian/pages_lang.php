@@ -68,6 +68,7 @@ $lang['pages_mass_delete_success']			= '%s страницы удалены.';
 $lang['pages_delete_none_notice']				= 'Ни одной страницы не удалено.';
 $lang['pages_page_already_exist_error']	= 'Страница с адресом "%s" уже существует в %s.';
 $lang['pages_parent_not_exist_error']		= 'Выбранная родительская страница не существует.';
+$lang['pages_chunk_slug_length']					= 'Page Chunk slugs may be no more than 30 characters in length.'; #translate
 $lang['pages_root_folder']                = 'the top level'; #translate
 
 $lang['pages.tree_explanation']					= 'Список слева содержит все страницы вашего сайта. Нажмите знак "+" для отображения потомков выбранной страницы. При нажатии на страницу - в этом блоке будет выведена полезная информация.';

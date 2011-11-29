@@ -7,7 +7,7 @@ $lang['step3']	=	'Step #3';
 $lang['step4']	=	'Step #4';
 $lang['final']	=	'Final Step';
 
-$lang['installer.passwords_match']		= "Passwords Match."; #translate
-$lang['installer.passwords_dont_match']	= "Passwords Don\'t Match."; #translate
+$lang['installer.passwords_match']		= "Passwords Match.";
+$lang['installer.passwords_dont_match']	= "Passwords Don\'t Match.";
 
 /* End of file global_lang.php */

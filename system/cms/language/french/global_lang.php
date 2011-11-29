@@ -1,6 +1,6 @@
 <?php
 
-$lang['cp_title']								= 'Panneau de Contrôle';
+$lang['global:control-panel']								= 'Panneau de Contrôle';
 
 $lang['title_label'] 					        = 'Titre';
 $lang['name_label'] 					        = 'Nom';
@@ -65,7 +65,7 @@ $lang['disable_label'] 					        = 'Désactiver';
 $lang['global:shortcuts']	 			= 'Raccourci';
 $lang['global:description'] 		    = 'Description';
 $lang['global:actions']					= 'Actions';
-$lang['global:view']					= 'View'; #translate
+$lang['global:view']					= 'Voir';
 $lang['global:preview']					= 'Prévisualiser';
 $lang['global:add']						= 'Ajouter';
 $lang['global:edit']					= 'Editer';

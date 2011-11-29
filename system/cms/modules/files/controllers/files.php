@@ -31,11 +31,29 @@ class Files extends Public_Controller
 		force_download($file->name . $file->extension , $data);
 	}
 
-	public function thumb($id, $width = 100, $height = 100, $mode = NULL)
+	public function thumb($id = 0, $width = 100, $height = 100, $mode = NULL)
 	{
 		$this->load->model('file_m');
 
-		$file = $this->file_m->get($id) OR show_404();
+		if (is_numeric($id))
+		{
+			$file = $this->file_m->get($id);
+		}
+		
+		// they've passed the filename itself
+		if( ! is_numeric($id) OR ! $file)
+		{
+			$data = getimagesize($this->_path.$id) OR show_404();
+			
+			$ext = '.'.end(explode('.', $id));
+			
+			$file->width 		= $data[0];
+			$file->height 		= $data[1];
+			$file->filename 	= $id;
+			$file->extension 	= $ext;
+			$file->mimetype 	= $data['mime'];
+		}
+
 		$cache_dir = $this->config->item('cache_dir') . 'image_files/';
 
 		if ( ! is_dir($cache_dir))
@@ -112,6 +130,14 @@ class Files extends Public_Controller
 		$image_thumb .= '_' . ($height === NULL ? 'a' : ($height > $file->height ? 'b' : $height));
 		$image_thumb .= '_' . md5($file->filename) . $file->extension;
 
+		$expire = 60 * Settings::get('files_cache');
+		if ($expire)
+		{
+			header("Pragma: public");
+			header("Cache-Control: public");
+			header('Expires: ' . gmdate('D, d M Y H:i:s', time()+$expire) . ' GMT');
+		}
+
 		if ( ! file_exists($image_thumb) OR (filemtime($image_thumb) < filemtime($this->_path . $file->filename)))
 		{
 			if ($mode === $modes[1])
@@ -169,8 +195,17 @@ class Files extends Public_Controller
 				$this->image_lib->clear();
 			}
 		}
+		else if (isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) &&
+			(strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE']) == filemtime($image_thumb)) &&
+				$expire )
+		{
+			// Send 304 back to browser if file has not beeb changed
+			header('Last-Modified: '.gmdate('D, d M Y H:i:s', filemtime($image_thumb)).' GMT', true, 304);
+			exit();
+		}
 
 		header('Content-type: ' . $file->mimetype);
+		header('Last-Modified: ' . gmdate('D, d M Y H:i:s', filemtime($image_thumb)) . ' GMT');
 		readfile($image_thumb);
 	}
 

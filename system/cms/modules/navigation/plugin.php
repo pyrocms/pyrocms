@@ -27,8 +27,15 @@ class Plugin_Navigation extends Plugin
 
 		is_numeric($group_segment) ? $group = $this->uri->segment($group_segment) : NULL;
 
+		// We must pass the user group from here so that we can cache the results and still always return the links with the proper permissions
+		$params = array($group,
+						array('user_group' => ($this->current_user AND isset($this->current_user->group)) ? $this->current_user->group : FALSE,
+							  'front_end' => TRUE
+							  )
+						);
+
 		$this->load->model('navigation/navigation_m');
-		$links = $this->pyrocache->model('navigation_m', 'get_link_tree', array($group), $this->settings->navigation_cache);
+		$links = $this->pyrocache->model('navigation_m', 'get_link_tree', $params, Settings::get('navigation_cache'));
 
 		return $this->_build_links($links, $this->content());
 	}

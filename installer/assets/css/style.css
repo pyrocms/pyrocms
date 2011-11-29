@@ -308,25 +308,30 @@ input[type="button"]:hover {
   color: #000;
 }
 
-input[type="text"], 
-input[type="password"], 
-input[type="file"], 
+input[type="text"],
+input[type="password"],
+input[type="file"],
+select,
 textarea {
 	min-width: 260px;
 	background: #f1f1f1;
 	padding: 8px;
+	margin-top: 10px;
 	border: 1px solid #d9d9d9;
 	border-radius: 5px;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
 }
 
+.input { margin-top: 10px; padding: 8px; border-bottom: 1px solid #eeeeee; }
+.input label { width: 250px; margin-top: 17px; float: left; }
+
 textarea {
 	width: 98%;
 	min-height: 100px;
 }
 
-input.error { 
+input.error {
 	border: 5px solid #ff0000;
 	border: 5px solid rgba(255, 0, 0, .5);
 }
@@ -335,13 +340,13 @@ input.error {
 input:valid, textarea:valid {  }
 input:invalid, textarea:invalid { background-color: #f0dddd; }
 
-form .required-icon { 
-	background: url(../img/required.png) no-repeat; 
-	width: 94px; 
-	height: 28px; 
-	text-indent: -9999px !important; 
+form .required-icon {
+	background: url(../img/required.png) no-repeat;
+	width: 94px;
+	height: 28px;
+	text-indent: -9999px !important;
 	float: left;
-	position: absolute; 
+	position: absolute;
 	margin-top: 7px;
 }
 
@@ -863,6 +868,15 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   border: 1px solid #ade6fe;
 }
 
+.block-message.pyro {
+  background: rgba(255, 105, 0, 0.3);
+  border: 1px solid rgba(255, 105, 0, 0.5);
+  margin-bottom: 0px;
+  padding: 8px;
+  position: relative;
+  z-index: 999;
+}
+
 .block-message .close {
   float: right;
   margin-top: -4px;
@@ -1203,13 +1217,13 @@ li.L1, li.L3, li.L5, li.L7, li.L9 { background: #222222; }
 -------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------
 
-You can declare your primary styles in the following section, but, if your application becomes CSS 
+You can declare your primary styles in the following section, but, if your application becomes CSS
 'heavy' then I'd suggest moving your primary styles to a seperate stylesheet and including that in the
 HEAD.
 
 Why? Internet Explorer.
 
-Internet Explorer stops reading CSS selectors after 4095, effectively ignoring the rest of your CSS 
+Internet Explorer stops reading CSS selectors after 4095, effectively ignoring the rest of your CSS
 declarations!
 
 -------------------------------------------------------------------------------------------------------
@@ -1243,7 +1257,7 @@ ul#lang {
 	float: right;
 	color: #333333;
 }
- 
+
 ul#lang li {
 	list-style: none;
 	margin-left: 5px;
@@ -1252,9 +1266,27 @@ ul#lang li {
 
 nav#menu {
 	width: 100%;
-	margin: 75px 0 0 5px;
-	padding: 10px 0 10px 0;
+	height: 35px;
+	margin: 75px 0 0 0;
+	padding: 0px 15px;
 	float: left;
+	background: #f7f7f7;
+  	background-repeat: repeat-x;
+  	background-image: -khtml-gradient(linear, left top, left bottom, from(#f7f7f7), to(#f3f3f3));
+  	background-image: -moz-linear-gradient(#f7f7f7, #f3f3f3);
+  	background-image: -ms-linear-gradient(#f7f7f7, #f3f3f3);
+  	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f7f7f7), color-stop(100%, #f3f3f3));
+  	background-image: -webkit-linear-gradient(#f7f7f7, #f3f3f3);
+  	background-image: -o-linear-gradient(#f7f7f7, #f3f3f3);
+  	background-image: linear-gradient(#f7f7f7, #f3f3f3);
+  	border: 1px solid #ffffff;
+  	border-bottom: 1px solid #eeeeee;
+  	border-radius: 5px;
+  	-moz-border-radius: 5px;
+  	-webkit-border-radius: 5px;
+  	box-shadow: 0px 0px 1px #aaaaaa;
+  	-moz-box-shadow: 0px 0px 1px #aaaaaa;
+  	-webkit-box-shadow: 0px 0px 1px #aaaaaa;
 }
 
 nav#menu ul li {
@@ -1263,7 +1295,34 @@ nav#menu ul li {
 	color: #555555;
 	text-shadow: 0 1px 0 #ffffff;
 	font-weight: bold;
+	margin: 10px 0 0 0;
 }
+
+nav#menu ul li a { 
+	color: #555555; 
+	margin-left: 15px;
+	position: relative;
+	z-index: 999; 
+}
+
+nav#menu ul li span { 
+	margin-left: 15px; 
+	position: relative;
+	z-index: 999;
+}
+
+nav#menu .sep {
+	background: url(../images/sep.png) no-repeat;
+	width: 84px;
+	height: 37px;
+	float: left;
+	margin-left: -25px;
+	margin-top: -11px;
+	position: relative;
+	z-index: 99;
+}
+
+#current{ color: #ed8e28; }
 
 section.title {
   	width: 100%;
@@ -1281,10 +1340,10 @@ section.title {
   	padding: 0 15px 0 15px;
   	margin-top: 25px;
   	border-top-right-radius: 5px;
-  	-moz-border-radius-topright: 5px; 	
+  	-moz-border-radius-topright: 5px;
   	-webkit-border-top-right-radius: 5px;
   	border-top-left-radius: 5px;
-  	-moz-border-radius-topleft: 5px; 	
+  	-moz-border-radius-topleft: 5px;
   	-webkit-border-top-left-radius: 5px;
   	box-shadow: 0px 0px 1px #aaaaaa;
   	-moz-box-shadow: 0px 0px 1px #aaaaaa;
@@ -1308,40 +1367,40 @@ section.item {
 	padding: 16px;
 	float: left;
 	border-bottom-right-radius: 5px;
-  	-moz-border-radius-bottomright: 5px; 	
+  	-moz-border-radius-bottomright: 5px;
   	-webkit-border-bottom-right-radius: 5px;
   	border-bottom-left-radius: 5px;
-  	-moz-border-radius-bottomleft: 5px; 	
+  	-moz-border-radius-bottomleft: 5px;
   	-webkit-border-bottom-left-radius: 5px;
 	box-shadow: 0px 0px 1px #aaaaaa;
   	-moz-box-shadow: 0px 0px 1px #aaaaaa;
   	-webkit-box-shadow: 0px 0px 1px #aaaaaa;
 }
 
-.one_full { 
-	width: 250px; 
-	margin: 0; 
-	float: left; 
+.one_full {
+	width: 250px;
+	margin: 0;
+	float: left;
 }
 
-.one_half { 
-	width: 250px; 
-	float: left; 
+.one_half {
+	width: 250px;
+	float: left;
 }
 
-.one_third { 
-	width: 250px; 
-	float: left; 
+.one_third {
+	width: 250px;
+	float: left;
 }
 
-.two_third { 
-	width: 250px; 
-	float: left; 
+.two_third {
+	width: 250px;
+	float: left;
 }
 
-.one_quarter { 
-	width: 250px; 
-	float: left; 
+.one_quarter {
+	width: 250px;
+	float: left;
 }
 
 #logo {
@@ -1361,6 +1420,16 @@ section.item {
 	top: 135px;
 	position: relative;
 }
+
+.password-reveal { display: none; }
+a.show-pass { float: none; }
+
+.block-message.pyro input[type="text"] {
+	background: #ffffff;
+	border: none;
+}
+
+#confirm_db { margin-top: 15px; }
 
 footer {
 	background: #333333;
@@ -1411,7 +1480,7 @@ Ensure your main styling comes before this!
 		width: 480px;
 		margin: 0 auto;
 	}
-	
+
 	#container {
 		width: 480px;
 		height: 100%;
@@ -1419,40 +1488,40 @@ Ensure your main styling comes before this!
 		margin: 0 auto;
 		padding: 0 0 100px 0;
 	}
-	
+
 	section#content {
 		width: 450px;
 		padding: 0;
 		margin: 20px 0 150px 0;
 		float: left;
 	}
-	
-	.one_full { 
-		width: 450px; 
-		margin: 0; 
-		float: left; 
+
+	.one_full {
+		width: 450px;
+		margin: 0;
+		float: left;
 	}
 
-	.one_half { 
-		width: 450px; 
-		float: left; 
+	.one_half {
+		width: 450px;
+		float: left;
 	}
 
-	.one_third { 
-		width: 450px; 
-		float: left; 
+	.one_third {
+		width: 450px;
+		float: left;
 	}
 
-	.two_third { 
-		width: 450px; 
-		float: left; 
+	.two_third {
+		width: 450px;
+		float: left;
 	}
 
-	.one_quarter { 
-		width: 450px; 
-		float: left; 
+	.one_quarter {
+		width: 450px;
+		float: left;
 	}
-	
+
 	.help {
 		max-width: 450px;
 		background: rgba(255, 105, 0, 0.2);
@@ -1464,15 +1533,15 @@ Ensure your main styling comes before this!
 		margin: 22px 0 25px 0;
 		float: left;
 	}
-	
+
 }
 
-@media only screen and (min-width: 769px) {	
+@media only screen and (min-width: 769px) {
 	.wrapper {
 		width: 768px;
 		margin: 0 auto;
 	}
-	
+
 	#container {
 		width: 768px;
 		height: 100%;
@@ -1487,37 +1556,37 @@ Ensure your main styling comes before this!
 		margin: 20px 0 150px 0;
 		float: left;
 	}
-	
-	.one_full { 
-		width: 768px; 
-		margin: 0; 
-		float: left; 
+
+	.one_full {
+		width: 768px;
+		margin: 0;
+		float: left;
 	}
 
-	.one_half { 
-		width: 349px; 
-		margin-right: 15px; 
-		float: left; 
+	.one_half {
+		width: 349px;
+		margin-right: 15px;
+		float: left;
 	}
 
-	.one_third { 
-		width: 350px; 
-		margin-right: 15px; 
-		float: left; 
+	.one_third {
+		width: 350px;
+		margin-right: 15px;
+		float: left;
 	}
 
-	.two_third { 
-		width: 786px; 
-		margin-right: 15px; 
-		float: left; 
+	.two_third {
+		width: 786px;
+		margin-right: 15px;
+		float: left;
 	}
 
-	.one_quarter { 
-		width: 230px; 
-		margin-right: 15px; 
-		float: left; 
+	.one_quarter {
+		width: 230px;
+		margin-right: 15px;
+		float: left;
 	}
-	
+
 	.help {
 		max-width: 250px;
 		background: rgba(255, 105, 0, 0.2);
@@ -1537,7 +1606,7 @@ Ensure your main styling comes before this!
 		width: 1024px;
 		margin: 0 auto;
 	}
-	
+
 	#container {
 		width: 1024px;
 		height: 100%;
@@ -1545,44 +1614,44 @@ Ensure your main styling comes before this!
 		margin: 0 auto;
 		padding: 0 0 100px 0;
 	}
-	
+
 	section#content {
 		width: 1000px;
 		padding: 0;
 		margin: 20px 0 150px 0;
 		float: left;
 	}
-	
-	.one_full { 
-		width: 1000px; 
-		margin: 0; 
-		float: left; 
+
+	.one_full {
+		width: 1000px;
+		margin: 0;
+		float: left;
 	}
 
-	.one_half { 
-		width: 465px; 
-		margin-right: 15px; 
-		float: left; 
+	.one_half {
+		width: 465px;
+		margin-right: 15px;
+		float: left;
 	}
 
-	.one_third { 
-		width: 350px; 
-		margin-right: 15px; 
-		float: left; 
+	.one_third {
+		width: 350px;
+		margin-right: 15px;
+		float: left;
 	}
 
-	.two_third { 
-		width: 786px; 
-		margin-right: 15px; 
-		float: left; 
+	.two_third {
+		width: 786px;
+		margin-right: 15px;
+		float: left;
 	}
 
-	.one_quarter { 
-		width: 230px; 
-		margin-right: 15px; 
-		float: left; 
+	.one_quarter {
+		width: 230px;
+		margin-right: 15px;
+		float: left;
 	}
-	
+
 	.help {
 		max-width: 250px;
 		background: rgba(255, 105, 0, 0.2);
@@ -1597,12 +1666,12 @@ Ensure your main styling comes before this!
 
 }
 
-@media only screen and (min-width: 1281px) {	
+@media only screen and (min-width: 1281px) {
 	.wrapper {
 		width: 1280px;
 		margin: 0 auto;
 	}
-	
+
 	#container {
 		width: 1280px;
 		height: 100%;
@@ -1610,44 +1679,44 @@ Ensure your main styling comes before this!
 		margin: 0 auto;
 		padding: 0 0 100px 0;
 	}
-	
+
 	section#content {
 		width: 1230px;
 		padding: 0;
 		margin: 20px 0 150px 0;
 		float: left;
 	}
-	
-	.one_full { 
-		width: 1230px; 
-		margin: 0; 
-		float: left; 
+
+	.one_full {
+		width: 1230px;
+		margin: 0;
+		float: left;
 	}
 
-	.one_half { 
-		width: 580px; 
-		margin-right: 15px; 
-		float: left; 
+	.one_half {
+		width: 580px;
+		margin-right: 15px;
+		float: left;
 	}
 
-	.one_third { 
-		width: 350px; 
-		margin-right: 15px; 
-		float: left; 
+	.one_third {
+		width: 350px;
+		margin-right: 15px;
+		float: left;
 	}
 
-	.two_third { 
-		width: 786px; 
-		margin-right: 15px; 
-		float: left; 
+	.two_third {
+		width: 786px;
+		margin-right: 15px;
+		float: left;
 	}
 
-	.one_quarter { 
-		width: 230px; 
-		margin-right: 15px; 
-		float: left; 
+	.one_quarter {
+		width: 230px;
+		margin-right: 15px;
+		float: left;
 	}
-	
+
 	.help {
 		max-width: 250px;
 		background: rgba(255, 105, 0, 0.2);
@@ -1659,7 +1728,7 @@ Ensure your main styling comes before this!
 		margin: 22px 700px 0 0;
 		float: right;
 	}
-	
+
 }
 
 
@@ -1710,7 +1779,7 @@ ul.block-message { width: 100%; float: left; }
 /* Hide visually and from screenreaders, but maintain layout */
 .invisible { visibility: hidden; }
 
-/* Contain floats. */ 
+/* Contain floats. */
 .clearfix:before, .clearfix:after { content: ""; display: table; }
 .clearfix:after { clear: both; }
 .clearfix { zoom: 1; }
@@ -1745,7 +1814,7 @@ Print styles. Inlined to avoid HTTP connection.
 -------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------
 */
- 
+
 @media print {
   * { background: transparent !important; color: black !important; text-shadow: none !important; filter:none !important; -ms-filter: none !important; } /* Black prints faster */
   a, a:visited { text-decoration: underline; }

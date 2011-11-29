@@ -13,11 +13,9 @@
 	</section>
 	
 	<section class="item">
-		<span class="help">
-			Here we can add some explantions for the section. Etiam scelerisque, nunc ac egestas consequat, odio nibh euismod nulla, eget auctor orci nibh vel nisi. Aliquam erat volutpat. Mauris vel neque sit amet.</p>
-		</span>
+
 	<div class="input">
-		<label for="database"><?php echo lang('database'); ?></label><br>
+		<label for="database"><?php echo lang('database'); ?></label>
 		<input type="text" id="database" class="input_text" name="database" value="<?php echo set_value('database'); ?>" />
 	</div>
 
@@ -38,13 +36,9 @@
 	</section>
 	
 	<section class="item">
-		
-		<span class="help">
-			Here we can add some explantions for the section. Etiam scelerisque, nunc ac egestas consequat, odio nibh euismod nulla, eget auctor orci nibh vel nisi. Aliquam erat volutpat. Mauris vel neque sit amet.</p>
-		</span>
 
 	<div class="input">
-		<label for="user_name"><?php echo lang('user_name'); ?></label><br>
+		<label for="user_name"><?php echo lang('user_name'); ?></label>
 		<?php
 			echo form_input(array(
 				'id' => 'user_name',
@@ -55,7 +49,7 @@
 	</div>
 
 	<div class="input">
-		<label for="user_firstname"><?php echo lang('first_name'); ?></label><br>
+		<label for="user_firstname"><?php echo lang('first_name'); ?></label>
 		<?php
 			echo form_input(array(
 				'id' => 'user_firstname',
@@ -66,7 +60,7 @@
 	</div>
 
 	<div class="input">
-		<label for="user_lastname"><?php echo lang('last_name'); ?></label><br>
+		<label for="user_lastname"><?php echo lang('last_name'); ?></label>
 		<?php
 			echo form_input(array(
 				'id' => 'user_lastname',
@@ -77,7 +71,7 @@
 	</div>
 
 	<div class="input">
-		<label for="user_email"><?php echo lang('email'); ?></label><br>
+		<label for="user_email"><?php echo lang('email'); ?></label>
 		<?php
 			echo form_input(array(
 				'id' => 'user_email',
@@ -88,7 +82,7 @@
 	</div>
 
 	<div class="input">
-		<label for="user_password"><?php echo lang('password'); ?></label><br>
+		<label for="user_password"><?php echo lang('password'); ?></label>
 		<?php
 			echo form_password(array(
 				'id' => 'user_password',
@@ -98,11 +92,7 @@
 		?>
 	</div>
 
-	<div id="notification">
-	   <p class="text" id="confirm_pass"></p>
-	</div>
-	
-	<hr>
+	<div id="confirm_pass"></div>
 
 	<input class="button" id="next_step" type="submit" id="submit" value="<?php echo lang('finish'); ?>" />
 

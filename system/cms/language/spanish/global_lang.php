@@ -1,6 +1,6 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-$lang['cp_title']		= 'Panel de Control';
+$lang['global:control-panel']		= 'Panel de Control';
 
 $lang['title_label']		= 'Título';
 $lang['name_label']		= 'Nombre';

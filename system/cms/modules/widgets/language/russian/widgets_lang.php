@@ -33,10 +33,7 @@ $lang['widgets.widget_area']						= 'Область';
 $lang['widgets.widget_area_title']			= 'Наименование области';
 $lang['widgets.widget_area_slug']				= 'Короткое имя области';
 
-// Имена виджетов
-$lang['widgets.add_instance']						= 'Добавить копию виджета';
-$lang['widgets.edit_instance']					= 'Редактировать копию виджета';
-$lang['widgets.delete_instance']				= 'Удалить копию виджета';
+$lang['widgets.view_code']				= 'View Code'; #translate
 
 $lang['widgets.instance_title']					= 'Заголовок';
 $lang['widgets.tag_title']							= 'Тэг';

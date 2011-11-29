@@ -64,13 +64,13 @@ nav ul#head-nav ul ul ul ul li:hover ul li { visibility: visible; }/*make 6 visi
 nav ul#head-nav ul ul { left: 156px; top:-1px; width:149px; padding-top: 0; }
 
 /* Breadcrumbs */
-#forum_breadcrumbs { font-family:  Tahoma, "Helvetica Neue", Helvetica, sans-serif; font-size: 11px; font-weight: bold; color: #7d7d7d; text-shadow: 1px 1px 0px #ffffff; }
-#forum_breadcrumbs a:hover { text-decoration: underline; }
+.breadcrumbs { font-family:  Tahoma, "Helvetica Neue", Helvetica, sans-serif; font-size: 11px; font-weight: bold; color: #7d7d7d; text-shadow: 1px 1px 0px #ffffff; }
+.breadcrumbs a:hover { text-decoration: underline; }
 
 /* Content */
 #content { width: 75%; min-height: 500px; padding: 15px 0 150px 0; margin: 0; float: left; }
 #full-content { width: 100%; min-height: 500px; padding: 35px 0 150px 0; margin: 0; float: left; }
-section.post { padding: 20px; background-color: #f9f9f9; border: 1px solid #ffffff; outline: 1px solid #d1d1d1; color: #7d7d7d; font-size: 14px; text-shadow: 1px 1px #ffffff; }
+section.post { padding: 20px; background-color: #f9f9f9; border: 1px solid #ffffff; color: #7d7d7d; font-size: 14px; text-shadow: 1px 1px #ffffff; }
 section.post h1, .post h2, .post h3, .post h4, .post h5, .post h6 { padding: 0 0 25px 0; color: #7d7d7d; text-shadow: 1px 1px 0px #ffffff; }
 section.post ul { padding: 0 0 0 25px; }
 section.post img { margin: 10px 0 10px 0; border: 3px solid #cfcfcf; }
@@ -78,13 +78,13 @@ section.blog_article { padding: 15px 0 15px 0; border-bottom: 1px dashed #cfcfcf
 p.article_date { width: 665px; background-color: #e8e8e8; font-size: 12px; padding: 5px 0 5px 10px; margin: 0 0 25px 0; float: left; border: 1px solid #fbfbfb; border-radius: 3px; -o-border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; }
 
 /* Contact form */
-section.post form input[type=text], section.post form input[type=password] { background-color: #F2F2F2; border: 1px solid #ccc; border-radius: 3px; -o-border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; padding: 4px 5px 4px 5px; font-family:  Tahoma, "Helvetica Neue", Helvetica, sans-serif;   color: #4D4D4D;  text-shadow: 0px 1px 0px #FBFBFB; }
-section.post form label { width: 725px; float: left; }
-section.post form select { float: left; }
+section.post form input[type=text], section.post form input[type=password] { width: 30%; margin-right: 70%; background-color: #F2F2F2; border: 1px solid #ccc; border-radius: 3px; -o-border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; padding: 4px 5px 4px 5px; font-family:  Tahoma, "Helvetica Neue", Helvetica, sans-serif;   color: #4D4D4D;  text-shadow: 0px 1px 0px #FBFBFB; }
+section.post form label { width: 100%; float: left; }
+section.post form select { width: 30%; margin-right: 70%; float: left; }
 section.post form input { float: left; }
-section.post form input#other_subject { margin: 5px 500px 0 0; }
-section.post form p label { width: 625px; }
-section.post form textarea#message { width: 640px; background-color: #e8e8e8; border: 1px solid #fbfbfb; border-radius: 3px; -o-border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; padding: 25px 15px 25px 15px; font-family:  Tahoma, "Helvetica Neue", Helvetica, sans-serif; font-size: 13px; font-weight: bold; color: #7d7d7d; letter-spacing: 0.5px; text-shadow: 1px 1px 0px #fbfbfb; }
+section.post form input { margin: 5px 500px 0 0; }
+section.post form p label { width: 100%; }
+section.post form textarea { width: 96%; background-color: #e8e8e8; border: 1px solid #fbfbfb; border-radius: 3px; -o-border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; padding: 15px; font-family:  Tahoma, "Helvetica Neue", Helvetica, sans-serif; font-size: 13px; font-weight: bold; color: #7d7d7d; letter-spacing: 0.5px; text-shadow: 1px 1px 0px #fbfbfb; }
 
 /* Comments */
 #comments_container { padding: 25px 0 0 0; }
@@ -137,11 +137,14 @@ ul.galleries_list li a img { max-width: 100px; max-height: 100px; }
 
 /* Form login / register */
 form#register { padding: 0 0 325px 0; }
-form#login ul li label, form#register ul li label { width: 650px; }
 form#login ul li, form#register ul li { list-style: none; }
-form#login ul li input[type=text], form#login ul li input[type=password], form#register ul li input[type=text], form#register ul li input[type=password] { margin: 0 500px 15px 0; }
+form#login ul li input[type=text], form#login ul li input[type=password], form#register ul li input[type=text], form#register ul li input[type=password] { margin: 0 450px 15px 0; }
 form#login ul li input[type=text], form#login ul li input[type=password], form#register ul li input[type=text], form#register ul li input[type=password] { background-color: #e8e8e8; border: 1px solid #fbfbfb; border-radius: 3px; -o-border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; padding: 5px 15px 5px 15px; font-family:  Tahoma, "Helvetica Neue", Helvetica, sans-serif; font-size: 13px; font-weight: bold; color: #7d7d7d; letter-spacing: 0.5px; text-shadow: 1px 1px 0px #fbfbfb; margin: 0 500px 0 0; }
-form#login ul li.form_buttons input { background: none; border: none; font-family:  Tahoma, "Helvetica Neue", Helvetica, sans-serif; font-size: 14px; font-weight: normal; color: #ff6900; cursor: pointer; padding: 0; }
+form#login ul li.form_buttons input { background: none; border: none; font-size: 14px; color: #ff6900; cursor: pointer; padding: 0; }
+li#remember_me { float: left; }
+li#remember_me label { float: left; }
+span.register { margin: 5px 0 0 -495px; float: left; }
+li.reset_pass { margin: 5px 0 0 3px; float: left; }
 
 /* Form activate user */
 form#activate-user { padding: 0 0 325px 0; }

@@ -48,7 +48,7 @@ class Module_Contact extends Module {
 				'da' => 'Tilføjer en formular på din side som tillader besøgende at sende mails til dig, uden at du skal opgive din email-adresse'
 			),
 			'frontend' => FALSE,
-			'backend' => TRUE,
+			'backend' => FALSE,
 			'menu' => FALSE
 		);
 	}
@@ -60,15 +60,14 @@ class Module_Contact extends Module {
 		return $this->db->query("
 			CREATE TABLE ".$this->db->dbprefix('contact_log')." (
 			  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
-			  `name` varchar(255) NOT NULL default '',
 			  `email` varchar(255) NOT NULL default '',
 			  `subject` varchar(255) NOT NULL default '',
 			  `message` text collate utf8_unicode_ci NOT NULL,
-			  `company_name` varchar(255) NOT NULL default '',
 			  `sender_agent` varchar(64) NOT NULL default '',
 			  `sender_ip` varchar(32) NOT NULL default '',
 			  `sender_os` varchar(32) NOT NULL default '',
 			  `sent_at` int(11) NOT NULL default 0,
+			  `attachments` text collate utf8_unicode_ci NOT NULL,
 			  PRIMARY KEY (`id`)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Contact log'
 		");

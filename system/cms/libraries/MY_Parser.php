@@ -92,6 +92,7 @@ class MY_Parser extends CI_Parser {
 
 		$parser = new Lex_Parser();
 		$parser->scope_glue(':');
+		$parser->cumulative_noparse(TRUE);
 		$parsed = $parser->parse($string, $data, array($this, 'parser_callback'));
 		
 		// Finish benchmark
@@ -128,7 +129,7 @@ class MY_Parser extends CI_Parser {
 				$return_data = $this->_make_multi($return_data);
 			}
 
-			$content = $data['content'];
+			// $content = $data['content']; # TODO What was this doing other than throw warnings in 2.0?
 			$parsed_return = '';
 
 			$parser = new Lex_Parser();

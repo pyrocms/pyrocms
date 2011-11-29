@@ -6,6 +6,7 @@ $lang['pages.meta_label']                  = 'Meta data';
 $lang['pages.design_label']                = 'Σχεδιασμός';
 $lang['pages.script_label']                = 'Script';
 $lang['pages.options_label']               = 'Επιλογές';
+
 $lang['pages.detail_label']                = 'Λεπτομέρειες';
 
 // labels
@@ -30,11 +31,13 @@ $lang['pages.rss_enabled_label']           = 'RSS Ενεργό;';
 $lang['pages.comments_enabled_label']      = 'Σχόλια Ενεργά;';
 $lang['pages.is_home_label']      		   = 'Είναι η αρχική σελίδα;';
 
-$lang['pages.status_label']                = 'Κατάσταση';
-$lang['pages.draft_label']                 = 'Πρόχειρο';
-$lang['pages.live_label']                  = 'Δημοσιευμένο';
-$lang['pages.preview_label']               = 'Προεπισκόπηση';
-$lang['pages.current_label']               = 'Τρέχουσα';
+$lang['pages.status_label']             = 'Κατάσταση';
+$lang['pages.draft_label']              = 'Πρόχειρο';
+$lang['pages.live_label']               = 'Δημοσιευμένο';
+$lang['pages.revisions_label']		= 'Αναθεωρήσεις';
+$lang['pages.compare_label']		= 'Σύγκριση';
+$lang['pages.preview_label']		= 'Προεπισκόπηση';
+$lang['pages.current_label']            = 'Τρέχουσα';
 
 $lang['pages.view_label']                  = 'Προβολή';
 $lang['pages.create_label']                = 'Προσθήκη υποσελίδας';
@@ -59,9 +62,9 @@ $lang['pages_mass_delete_success']         = '%s σελίδες διαγράφη
 $lang['pages_delete_none_notice']          = 'Δεν διαγράφηκε καμμία σελίδα.';
 $lang['pages_page_already_exist_error']    = 'Υπάρχει ήδη μια σελίδα με URL "%s" στο %s.';
 $lang['pages_parent_not_exist_error']      = 'Η σελίδα γονέας που έχετε επιλέξει δεν υπάρχει.';
+$lang['pages_chunk_slug_length']		   = 'Τα Page Chunk slugs δεν μπορεί να είναι μεγαλύτερα από 30 χαρακτήρες.';
 $lang['pages_root_folder']                = 'το ανώτερο επίπεδο';
 
-$lang['pages.tree_explanation']            = 'Η λίστα στα αριστερά αναπαριστά τις σελίδες στον ιστότοπό σας.
-Κάντε κλικ στο εικονίδιο "+" δίπλα από την κάθε σελίδα για να δείξετε σελίδες κάτω από αυτήν. Όταν κάνετε κλικ σε μια σελίδα θα μπορείτε να δείτε πληροφορίες για αυτήν σε αυτήν την περιοχή.';
+$lang['pages.tree_explanation']            = 'Η λίστα στα αριστερά αναπαριστά τις σελίδες στον ιστότοπό σας. Κάντε κλικ στο εικονίδιο "+" δίπλα από την κάθε σελίδα για να δείξετε σελίδες κάτω από αυτήν. Όταν κάνετε κλικ σε μια σελίδα θα μπορείτε να δείτε πληροφορίες για αυτήν σε αυτήν την περιοχή.';
 
 $lang['pages.rss_explanation']             = 'Ενεργοποιόντας την τροοφοδοσία RSS για αυτή την σελίδα, οι χρήστες σας θα έχουν την ευκαιρία να εγγραφούν σε ανανεώσεις των άμεσων υποσελίδων που προστίθενται σε αυτή την σελίδα.';

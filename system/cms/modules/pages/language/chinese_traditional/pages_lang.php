@@ -11,14 +11,14 @@ $lang['pages.detail_label'] 					= '詳情';
 
 // labels
 $lang['pages.page_label'] 						= '頁面';
-$lang['pages.add_page_chunk']						= 'Add Page Chunk'; #translate
-$lang['pages.page_chunk']							= 'Page Chunk'; #translate
+$lang['pages.add_page_chunk']					= '新增區塊';
+$lang['pages.page_chunk']						= '內容區塊';
 $lang['pages.language_label'] 					= '語言';
 $lang['pages.updated_label'] 					= '已更新';
 $lang['pages.unknown_label'] 					= '未知';
 $lang['pages.title_label'] 						= '標題';
 $lang['pages.slug_label'] 						= '網址';
-$lang['pages.navigation_label']                  = 'Add to Navigation'; #translate
+$lang['pages.navigation_label']                 = '新增至導航選單';
 $lang['pages.body_label'] 						= '頁面主體';
 $lang['pages.meta_title_label'] 				= 'Meta 標題';
 $lang['pages.meta_keywords_label'] 				= 'Meta 關鍵字';
@@ -29,19 +29,19 @@ $lang['pages.js_label'] 						= 'JavaScript';
 $lang['pages.access_label'] 					= '存取';
 $lang['pages.rss_enabled_label'] 				= 'RSS 功能開啟';
 $lang['pages.comments_enabled_label']			= '回應功能開啟';
-$lang['pages.is_home_label']      = 'Is default (home) page?'; #translate
+$lang['pages.is_home_label']      				= '這是預設頁面（首頁）嗎？';
 
 $lang['pages.status_label'] 					= '狀態';
 $lang['pages.draft_label'] 						= '草稿';
 $lang['pages.live_label'] 						= '上線';
-$lang['pages.revisions_label']					= '版本'; #translate
-$lang['pages.compare_label']                    = 'Compare'; #translate
-$lang['pages.preview_label']                    = 'Preview'; #translate
-$lang['pages.current_label']                    = 'Current'; #translate
+$lang['pages.revisions_label']					= '版本';
+$lang['pages.compare_label']                    = '比較';
+$lang['pages.preview_label']                    = '預覽';
+$lang['pages.current_label']                    = '目前';
 
 $lang['pages.view_label'] 						= '查看';
 $lang['pages.create_label'] 					= '新增子頁面';
-$lang['pages.duplicate_label']					= 'Duplicate'; #translate
+$lang['pages.duplicate_label']					= '複製';
 
 // titles
 $lang['pages.create_title'] 					= '新增頁面';
@@ -62,7 +62,8 @@ $lang['pages_mass_delete_success'] 				= '%s 個頁面已經刪除。';
 $lang['pages_delete_none_notice'] 				= '沒有頁面被刪除';
 $lang['pages_page_already_exist_error'] 		= '與 "%s" 相同網址的頁面已經存在 %s 當中。';
 $lang['pages_parent_not_exist_error'] 			= '您所選擇的上級頁面不存在。';
-$lang['pages_root_folder']                = 'the top level'; #translate
+$lang['pages_chunk_slug_length']				= '區塊縮略名(slug)不能超過30個字元。';
+$lang['pages_root_folder']                		= '最上層';
 
 $lang['pages.tree_explanation'] 				= '左側表列了您網站中的自定頁面。點選頁面旁的 "+" 圖像即可顯示其下層頁面。當您點選了某頁面項目，您將會在此欄位裡看到關於該頁的有用資訊。';
 

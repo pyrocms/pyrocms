@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-$lang['cp_title'] 						= 'לוח בקרה';
+$lang['global:control-panel'] 						= 'לוח בקרה';
 
 $lang['title_label'] 					= 'Title'; #translate
 $lang['name_label'] 					= 'Name'; #translate

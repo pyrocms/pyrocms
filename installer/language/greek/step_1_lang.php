@@ -13,9 +13,9 @@ $lang['password']		=	'Κωδικός πρόσβασης';
 $lang['portnr']			=	'Θύρα';
 $lang['server_settings']=	'Ρυθμίσεις Διακομιστή';
 $lang['httpserver']		=	'Διακομιστής HTTP';
-$lang['httpserver_text']=	'PyroCMS requires a HTTP Server to display dynamic content when a user goes to your website. It looks like you already have one by the fact that you can see this page, but if know exactly which type then PyroCMS can configure itself even better. If you do not know what any of this means just ignore it and carry on with the installation.'; #translate
-$lang['rewrite_fail']	=	'You have selected "(Apache with mod_rewrite)" but we are unable to tell if mod_rewrite is enabled on your server. Ask your host if mod_rewrite is enabled or simply install at your own risk.';
-$lang['mod_rewrite']	=	'You have selected "(Apache with mod_rewrite)" but your server does not have the rewrite module enabled. Ask your host to enable it or install PyroCMS using the "Apache (without mod_rewrite)" option.';
+$lang['httpserver_text']=	'Το PyroCMS χρειάζεται έναν διακομιστή HTTP για να προβάλλει δυναμικό περιεχόμενο όταν κάποιος επισκέπτεται τον ιστότοπό σας. Εφόσον μπορείτε να βλέπετε αυτήν την σελίδα είναι προφανές ότι έχετε ένα τέτοιο διακομιστή. Το PyroCMS γνωρίζοντας τον ακριβή τύπο του διακομιστή HTTP μπορεί να ρυθμίσει τον εαυτό του καλύτερα. Αν δεν καταλαβάνετε τι σημαίνουν όλα αυτά, απλώς αγνοήστε τα και συνεχίστε την εγκατάσταση.';
+$lang['rewrite_fail']	=	'Έχετε επιλέξει "(Apache with mod_rewrite)" αλλά δεν ήταν δυνατό να διευκρινιστεί αν το mod_rewrite είναι ενεργοποιημένο στον διακομιστή σας. Ρωτήστε τον host σας αν το mod_rewrite είναι ενεργοποιημένο ή απλώς συνεχίστε την εγκατάσταση με δική σας ευθύνη.';
+$lang['mod_rewrite']	=	'Έχετε επιλέξει "(Apache with mod_rewrite)" αλλά ο διακομιστής σας δεν έχει το mod_rewrite ενεργοποιημένο. Ζητήστε από τον host σας να το ενεργοποιήσει ή εγκαταστήστε το PyroCMS χρησιμοποιώντας την επιλογή "Apache (without mod_rewrite)".';
 $lang['step2']			=	'Βήμα 2';
 
 // messages

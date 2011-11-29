@@ -72,6 +72,7 @@ $lang['pages_mass_delete_success']					= '%s trang đã được xóa.';
 $lang['pages_delete_none_notice']					= 'Không có trang nào được xóa.';
 $lang['pages_page_already_exist_error']				= 'Trang với đường dẫn URL "%s" đã tồn tại trong %s.';
 $lang['pages_parent_not_exist_error']				= 'Trang cha được lựa chọn không tồn tại.';
+$lang['pages_chunk_slug_length']					= 'Page Chunk slugs may be no more than 30 characters in length.'; #translate
 $lang['pages_root_folder']                = 'cấp cao nhất';
 
 $lang['pages.tree_explanation']						= 'Danh sách bên trái hiển thị trang trên website của bạn. Bấm vào trang để hiển thị các trang con. Bạn có thể kéo thả để sắp xếp; rê ngang để tạo trang con. Khi bấm vào trang bạn sẽ xem được các thông tin về trang tại đây.';

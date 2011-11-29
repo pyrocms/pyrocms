@@ -17,7 +17,7 @@ class Plugin_Session extends Plugin
 	 * Sets and retrieves flash data
 	 *
 	 * Usage:
-	 * {pyro:session:data name="foo"[ value="bar"]}
+	 * {{ session:data name="foo"[ value="bar"] }}
 	 */
 	public function data()
 	{
@@ -40,7 +40,7 @@ class Plugin_Session extends Plugin
 	 * Sets and retrieves flash data
 	 *
 	 * Usage:
-	 * {pyro:session:flash name="(success|notice|error)"[ value="bar"]}
+	 * {{ session:flash name="(success|notice|error)"[ value="bar"] }}
 	 */
 	public function flash()
 	{
@@ -64,7 +64,7 @@ class Plugin_Session extends Plugin
 	 * Include the session notices
 	 *
 	 * Usage:
-	 * {pyro:session:data name="foo"}
+	 * {{ session:data name="foo" }}
 	 *
 	 * @param	array
 	 * @return	array

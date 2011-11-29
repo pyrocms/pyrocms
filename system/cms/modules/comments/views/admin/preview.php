@@ -6,9 +6,9 @@
 
 <div class="float-right spacer-right buttons buttons-small">
 	<?php if ($comment->is_active): ?>
-		<?php echo anchor('admin/comments/unapprove/' . $comment->id, lang('deactivate_label'), 'class="button"');?>
+		<?php echo anchor('admin/comments/unapprove/' . $comment->id, lang('unapprove_label'), 'class="button"');?>
 	<?php else: ?>
-		<?php echo anchor('admin/comments/approve/' . $comment->id, lang('activate_label'), 'class="button"');?>
+		<?php echo anchor('admin/comments/approve/' . $comment->id, lang('approve_label'), 'class="button"');?>
 	<?php endif; ?>
 	<?php echo anchor('admin/comments/delete/' . $comment->id, lang('global:delete'), 'class="button"'); ?>
 </div>

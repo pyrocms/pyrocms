@@ -81,13 +81,19 @@ function display_comments($ref_id = '', $reference = NULL)
 }
 
 /**
- * Function to counter comments
+ * Function to count comments
  *
- * @param	int		$ref_id			The ID of the comment (I guess?)
- * @param	bool	$reference		Whether to use a reference or not (?)
- * @param	bool	$return_number	True to return a number or False to return a string translated
+ * @param	int		$module_item_id		The ID of the module item to count comments for
+ * @param	bool	$module_slug		Specify the module slug or the current module's slug will be used
+ * @param	bool	$return_as_number	True to return a number or False to return a language string
  * @return	void
  */
+function count_comments($module_item_id = '', $module_slug = NULL, $return_as_number = FALSE)
+{
+	return counter_comments($module_item_id, $module_slug, $return_as_number);
+}
+
+// Deprecated due to confusing grammar
 function counter_comments($ref_id = '', $reference = NULL, $return_number = FALSE)
 {
 	$ci =& get_instance();
@@ -96,13 +102,14 @@ function counter_comments($ref_id = '', $reference = NULL, $return_number = FALS
 	$reference OR $reference = $ci->router->fetch_module();
 
 	$ci->lang->load('comments/comments');
-	$ci->load->model('comments/comments_m');
 
-	$total = (int) $ci->comments_m->count_by(array(
+	$where = array(
 		'module'	=> $reference,
 		'module_id'	=> ($ref_id ? $ref_id : NULL),
 		'is_active'	=> 1
-	));
+	);
+
+	$total = (int) $ci->db->where($where)->count_all_results('comments');
 
 	if ($return_number)
 	{
@@ -148,8 +155,8 @@ function process_comment_items($comments)
 				break;
 			case 'gallery-image':
 				$comment->module = 'galleries';
-				$ci->load->model('galleries/gallery_images_m');
-				if ($item = $ci->gallery_images_m->get($comment->module_id))
+				$ci->load->model('galleries/gallery_image_m');
+				if ($item = $ci->gallery_image_m->get($comment->module_id))
 				{
 					$comment->item = anchor('admin/'.$comment->module.'/image_preview/'.$item->id, $item->title, 'class="modal-large"');
 					continue 2;

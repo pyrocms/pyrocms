@@ -136,11 +136,6 @@ class Admin extends Admin_Controller {
 		// Using this data, get the relevant results
 		$blog = $this->blog_m->limit($pagination['limit'])->get_many_by($base_where);
 
-		foreach ($blog as &$post)
-		{
-			$post->author = $this->ion_auth->get_user($post->author_id);
-		}
-
 		//do we need to unset the layout because the request is ajax?
 		$this->input->is_ajax_request() ? $this->template->set_layout(FALSE) : '';
 
@@ -224,7 +219,9 @@ class Admin extends Admin_Controller {
 		$this->template
 			->title($this->module_details['name'], lang('blog_create_title'))
 			->append_metadata($this->load->view('fragments/wysiwyg', $this->data, TRUE))
+			->append_metadata(js('jquery/jquery.tagsinput.min.js'))
 			->append_metadata(js('blog_form.js', 'blog'))
+			->append_metadata(css('jquery/jquery.tagsinput.css'))
 			->set('post', $post)
 			->build('admin/form');
 	}
@@ -241,7 +238,6 @@ class Admin extends Admin_Controller {
 		$id OR redirect('admin/blog');
 
 		$post = $this->blog_m->get($id);
-		$post->author = $this->ion_auth->get_user($post->author_id);
 		$post->keywords = Keywords::get_string($post->keywords);
 
 		// If we have a useful date, use it
@@ -276,7 +272,7 @@ class Admin extends Admin_Controller {
 				role_or_die('blog', 'put_live');
 			}
 
-			$author_id = empty($post->author) ? $this->current_user->id : $post->author_id;
+			$author_id = empty($post->display_name) ? $this->current_user->id : $post->author_id;
 
 			$result = $this->blog_m->update($id, array(
 				'title'				=> $this->input->post('title'),
@@ -332,7 +328,9 @@ class Admin extends Admin_Controller {
 		$this->template
 			->title($this->module_details['name'], sprintf(lang('blog_edit_title'), $post->title))
 			->append_metadata($this->load->view('fragments/wysiwyg', $this->data, TRUE))
+			->append_metadata(js('jquery/jquery.tagsinput.min.js'))
 			->append_metadata(js('blog_form.js', 'blog'))
+			->append_metadata(css('jquery/jquery.tagsinput.css'))
 			->set('post', $post)
 			->build('admin/form');
 	}

@@ -6,8 +6,8 @@
 		<div class="widget-area-content accordion-content">
 			<div class="area-buttons buttons buttons-small">
 						
-				<?php echo anchor('admin/'.$this->module_details['slug'].'/areas/edit/'.$widget_area->slug, lang('buttons.edit'), 'class="button edit"'); ?>
-				<button type="submit" name="btnAction" value="delete" class="button delete confirm"><span>Delete</span></button>
+				<?php echo anchor('admin/'.$this->module_details['slug'].'/areas/edit/'.$widget_area->slug, lang('global:edit'), 'class="button edit"'); ?>
+				<button type="submit" name="btnAction" value="delete" class="button delete confirm"><span><?php echo lang('global:delete'); ?></span></button>
 
 			</div>
 

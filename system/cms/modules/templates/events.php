@@ -57,6 +57,17 @@ class Events_Templates {
             $this->ci->email->to($to);
             $this->ci->email->subject($subject);
             $this->ci->email->message($body);
+			
+			// To send attachments simply pass an array of file paths in Events::trigger('email')
+			// $data['attach'][] = /path/to/file.jpg
+			// $data['attach'][] = /path/to/file.zip
+			if (isset($data['attach']))
+			{
+				foreach ($data['attach'] AS $attachment)
+				{
+					$this->ci->email->attach($attachment);
+				}
+			}
 
 			return (bool) $this->ci->email->send();
         }

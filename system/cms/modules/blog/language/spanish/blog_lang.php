@@ -2,6 +2,8 @@
 
 // labels
 $lang['blog_posted_label']					= 'Escrito';
+$lang['blog_keywords_label']				= 'Keywords'; #translate
+$lang['blog_tagged_label']					= 'Tagged'; #translate
 $lang['blog_category_label'] 				= 'Categoría';
 $lang['blog_written_by_label']				= 'Written by'; #translate
 $lang['blog_author_unknown']				= 'Unknown'; #translate

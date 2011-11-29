@@ -1,9 +1,9 @@
 {{ if template:has_breadcrumbs }}
     {{ if theme:options:show_breadcrumbs == 'yes' }}
-        <p id="forum_breadcrumbs">
+        <p class="breadcrumbs">
         {{ template:breadcrumbs }}
 			{{ if uri }}
-				{{ url:anchor segments='{{uri}}' title='{{name}}' }}&nbsp;>&nbsp;
+				{{ url:anchor segments=uri title=name }}&nbsp;>&nbsp;
 			{{ else }}
 				<span class="current">{{ name }}</span>
 			{{ endif }}

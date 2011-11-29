@@ -4,8 +4,8 @@ DROP TABLE IF EXISTS `core_users`, `core_settings`, `core_sites`, `{PREFIX}schem
 
 CREATE TABLE core_settings (
 	`slug` varchar( 30 ) COLLATE utf8_unicode_ci NOT NULL ,
-	`value` varchar( 255 ) COLLATE utf8_unicode_ci NOT NULL ,
-	`default` varchar( 255 ) COLLATE utf8_unicode_ci NOT NULL ,
+	`default` text COLLATE utf8_unicode_ci NOT NULL,
+	`value` text COLLATE utf8_unicode_ci NOT NULL,
 	PRIMARY KEY ( `slug` ) ,
 	UNIQUE KEY `unique - slug` ( `slug` ) ,
 	KEY `index - slug` ( `slug` )
@@ -15,7 +15,8 @@ CREATE TABLE core_settings (
 
 INSERT INTO `core_settings` (`slug`, `value`, `default`) VALUES 
 	('date_format', 'g:ia -- m/d/y', 'g:ia -- m/d/y'),
-	('lang_direction', 'ltr', 'ltr');
+	('lang_direction', 'ltr', 'ltr'),
+	('status_message', 'This site has been disabled by a super-administrator.', 'This site has been disabled by a super-administrator.');
 	
 -- command split --
 
@@ -24,6 +25,7 @@ CREATE TABLE `core_sites` (
 	`name` VARCHAR(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
     `ref` VARCHAR(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
     `domain` VARCHAR(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci,
+	`active` TINYINT(1) NOT NULL default '1',
     `created_on` INT(11) NOT NULL default '0',
     `updated_on` INT(11) NOT NULL default '0',
     UNIQUE KEY `Unique ref` (`ref`),

@@ -309,7 +309,6 @@ input[type="text"],
 input[type="password"], 
 input[type="file"], 
 textarea {
-	min-width: 260px;
 	background: #f1f1f1;
 	padding: 8px;
 	border: 1px solid #d9d9d9;
@@ -332,14 +331,75 @@ input.error {
 input:valid, textarea:valid {  }
 input:invalid, textarea:invalid { background-color: #f0dddd; }
 
-form .required-icon { 
-	background: url(../img/required.png) no-repeat; 
-	width: 94px; 
-	height: 28px; 
-	text-indent: -9999px !important; 
+.required-icon { 
+	color: red!important;
+	display: block-inline;
+}
+
+/* Form UL Structure */
+
+.form_inputs {
+	width: 100%;
+}
+.form_inputs fieldset > ul,
+.form_inputs > ul {
+	width: 100%;
+	height: 100%;
+	margin-bottom: 0;
+	padding-bottom: 0;
+}
+.form_inputs fieldset > ul > li, 
+.form_inputs > ul > div > li,
+.form_inputs fieldset > ul > div > li, 
+.form_inputs > ul > li {
 	float: left;
-	position: absolute; 
-	margin-top: 7px;
+	width: 100%;
+	border-bottom: 1px solid #efefef;
+	padding-bottom: 10px;
+	margin-bottom: 10px;
+}
+.form_inputs > ul > div > li:last-child, 
+.form_inputs fieldset > ul > li:last-child, 
+.form_inputs > ul > li:last-child {
+	border-bottom: none!important;
+}
+.form_inputs fieldset > ul > li > label, 
+.form_inputs fieldset > ul > div > li > label, 
+.form_inputs > ul > div > li > label, 
+.form_inputs > ul > li > label,
+.form_inputs fieldset > ul > li .label, 
+.form_inputs > ul > li .label {
+	width: 27%;
+	float: left;
+	margin: 0 3% 0 0;
+	padding: 8px;
+}
+.form_inputs fieldset > ul > li > label span, 
+.form_inputs > ul > li > label span {
+	color: red;
+}
+.form_inputs .input {
+	float: left!important;
+	padding-left: 10px;
+	width: 67%;
+}
+.form_inputs .input > input {
+	color: #666;
+	min-width: 260px;
+}
+.form_inputs label small {
+	display: block;
+	font-weight: normal;
+	font-style: italic;
+	color: #c0c0c0;
+}
+.form_inputs input:focus {
+	color: #4D4D4D;
+	outline: none;
+	border-color: #ed8e28;
+}
+.form_inputs .datetime_input select {
+	width:  100px;
 }
 
 /*
@@ -901,7 +961,7 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
 
 .tabs {
   width: 100%;
-  border-bottom: 1px solid #eeeeee;
+  margin-bottom: 0;
 }
 
 .tab-menu ul li, .tab-menu ol li, .pill li {
@@ -1478,6 +1538,11 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
 .ui-tabs-nav li { position: relative; float: left; border-bottom-width: 0 !important; margin: 22px 0 0 5px; padding: 0; }
 .ui-tabs-panel { display: block; border-width: 0; background: none; float: left; }
 .ui-tabs-hide { display: none !important; }
+.ui-autocomplete { padding: 1px; width: 300px; height: 200px; position: absolute; background-color: #F3F3F3; border: 1px solid #EEE; height: auto; -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; }
+.ui-autocomplete li { padding: 5px; list-style: none; font-size: 16px; background-color: white; cursor: pointer; line-height: 20px; border-bottom: 1px solid #EEE; }
+.ui-autocomplete li:last-child { border: none; }
+.ui-autocomplete li:hover { background: #ffffff; /* Old browsers */ background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(51%, #f9f9f9), color-stop(100%, #ffffff)); background: -webkit-linear-gradient(top, #ffffff 0%, #f9f9f9 51%, #ffffff 100%); background: -moz-linear-gradient(top, #ffffff 0%, #f9f9f9 51%, #ffffff 100%); background: -o-linear-gradient(top, #ffffff 0%, #f9f9f9 51%, #ffffff 100%); background: -ms-linear-gradient(top, #ffffff 0%, #f9f9f9 51%, #ffffff 100%); background: linear-gradient(top, #ffffff 0%, #f9f9f9 51%, #ffffff 100%); filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=0 ); }
+.ui-autocomplete li a { width: 290px; display: block; }
 
 #analyticsWrapper {
 	background: #ffffff;
@@ -1766,8 +1831,32 @@ Ensure your main styling comes before this!
 -------------------------------------------------------------------------------------------------------
 */
 
-
-/* THESE QUERIES ARE ONLY TEMPORARY. NEED TO UPDATE PROPERLY LATER */
+@media only screen and (min-width: 281px) {
+	#logo {
+		display: none;
+	}
+	
+	.topbar {
+		height: 100px;
+	}
+	
+	.topbar ul li a {
+  		padding: 15px 5px 15px 5px;
+	}
+	
+	.subbar {
+		margin-top: 70px;
+	}
+	
+	.sections_bar {
+		margin-top: 55px;
+	}
+	
+	#content-body {
+		top: 30px;
+	}
+	
+}
 
 @media only screen and (min-width: 481px) {
 	.wrapper {
@@ -1783,20 +1872,28 @@ Ensure your main styling comes before this!
 		padding: 0;
 	}
 	
+	#logo {
+		display: none;
+	}
+	
 	.topbar {
-		height: 150px;
+		height: 100px;
+	}
+	
+	.topbar ul li a {
+  		padding: 15px 5px 15px 5px;
 	}
 	
 	.subbar {
-		top: 130px;
+		margin-top: 70px;
 	}
 	
 	.sections_bar {
-		top: 200px;
+		margin-top: 55px;
 	}
 	
 	#content-body {
-		top: 75px;
+		top: 30px;
 	}
 	
 	#analyticsWrapper, #analytics {
@@ -1863,20 +1960,28 @@ Ensure your main styling comes before this!
 		padding: 0;
 	}
 	
+	#logo {
+		display: inherit;
+	}
+	
 	.topbar {
-		height: 125px;
+		height: 50px;
+	}
+	
+	.topbar ul li a {
+  		padding: 15px 5px 15px 5px;
 	}
 	
 	.subbar {
-		top: 110px;
+		margin-top: 25px;
 	}
 	
 	.sections_bar {
-		top: 183px;
+		margin-top: 10px;
 	}
 	
 	#content-body {
-		top: 65px;
+		top: 0px;
 	}
 	
 	#analyticsWrapper, #analytics {
@@ -2149,6 +2254,22 @@ Non-semantic helper classes
 .textleft { text-align: left; }
 .textright { text-align: right; }
 .textcenter { text-align: center; }
+
+/* No Results */
+
+.no_data {
+	padding: 12px 10px 10px 10px;
+	border: 1px solid #D9EBF1;
+	border-radius: 5px;
+	background: #F2F7FA;
+	color: #829DAC;
+	text-align: center;
+	font-size: 14px;
+	font-weight: bold;
+	text-shadow: 1px 1px 1px #fff;
+	margin-bottom: 10px;
+}
+.no_data img {margin-right: 4px; margin-top: -3px;}
 
 /*
 -------------------------------------------------------------------------------------------------------

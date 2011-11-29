@@ -1,11 +1,11 @@
 .CodeMirror {
-  line-height: 1em;
+  line-height: 1.4em;
   font-family: monospace;
   color: #333333;
 }
 
 .CodeMirror-scroll {
-  overflow: auto;
+  overflow: hidden;
   height: 300px;
   /* This is needed to prevent an IE[67] bug where the scrolled content
      is visible outside of the scrolling box. */
@@ -36,6 +36,9 @@
   -moz-border-radius: 0;
   -webkit-border-radius: 0;
   -o-border-radius: 0;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  -o-box-shadow: none;
   border-radius: 0;
   border-width: 0; margin: 0; padding: 0; background: transparent;
   font-family: inherit;
@@ -44,6 +47,7 @@
   white-space: pre;
   word-wrap: normal;
   box-shadow: none;
+  float: none;
 }
 
 .CodeMirror code, .CodeMirror pre {
@@ -57,7 +61,7 @@
 
 .CodeMirror-cursor {
   min-width: 250px;
-  min-height: 15px;
+  height: 15px !important;
   z-index: 10;
   position: absolute;
   visibility: hidden;

@@ -23,8 +23,8 @@ class Galleries extends Public_Controller
 		parent::__construct();
 		
 		// Load the required classes
-		$this->load->model('galleries_m');
-		$this->load->model('gallery_images_m');
+		$this->load->model('gallery_m');
+		$this->load->model('gallery_image_m');
 		$this->lang->load('galleries');
 		$this->lang->load('gallery_images');
 		$this->load->helper('html');
@@ -38,7 +38,7 @@ class Galleries extends Public_Controller
 	 */
 	public function index()
 	{
-		$data->galleries = $this->galleries_m->get_all_with_filename();
+		$data->galleries = $this->gallery_m->get_all_with_filename();
 
 		$this->template
 			->title($this->module_details['name'])
@@ -56,9 +56,9 @@ class Galleries extends Public_Controller
 	{
 		$slug or show_404();
 
-		$gallery		= $this->galleries_m->get_by('slug', $slug) or show_404();
-		$gallery_images	= $this->gallery_images_m->get_images_by_gallery($gallery->id);
-		$sub_galleries	= $this->galleries_m->get_all_with_filename('parent_id', $gallery->folder_id);
+		$gallery		= $this->gallery_m->get_by('slug', $slug) or show_404();
+		$gallery_images	= $this->gallery_image_m->get_images_by_gallery($gallery->id);
+		$sub_galleries	= $this->gallery_m->get_all_with_filename('parent_id', $gallery->folder_id);
         if($gallery->css) {
             $this->template->append_metadata('<style type="text/css">' . PHP_EOL . $gallery->css . PHP_EOL . '</style>');
         }
@@ -88,8 +88,8 @@ class Galleries extends Public_Controller
 			show_404();
 		}
 		
-		$gallery		= $this->galleries_m->get_by('slug', $gallery_slug);
-		$gallery_image	= $this->gallery_images_m->get($image_id);
+		$gallery		= $this->gallery_m->get_by('slug', $gallery_slug);
+		$gallery_image	= $this->gallery_image_m->get($image_id);
 
 		// Do the gallery and the image ID match?
 		if ( ! $gallery OR ($gallery->id != $gallery_image->gallery_id))

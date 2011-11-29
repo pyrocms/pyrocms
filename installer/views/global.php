@@ -23,12 +23,7 @@
 		pass_match = ['<?php echo lang('installer.passwords_match'); ?>','<?php echo lang('installer.passwords_dont_match'); ?>'];
 	</script>
 
-	<!-- Grab Google CDN's jQuery, with a protocol relative URL -->
-  	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
-	
-	<!-- fall back to local if offline -->
-  	<script>window.jQuery || document.write('<script src="<?php echo base_url(); ?>assets/js/jquery.js">\x3C/script>')</script>
-		
+	<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.js"></script>
 	<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/installer.js"></script>
 
 </head>
@@ -115,18 +110,23 @@
 			<img src="<?php echo base_url(); ?>assets/images/flags/dk.gif" alt="Danish" />
 		</a>
 	</li>
+	<li>
+		<a href="<?php echo site_url('installer/change/vietnamese'); ?>" title="Tiếng Việt">
+			<img src="<?php echo base_url(); ?>assets/images/flags/vn.gif" alt="Vietnamese" />
+		</a>
+	</li>
 </ul>
 		</div>		
 		</div>
 			
 			<nav id="menu">
 				<ul>
-					<li><?php echo anchor('', lang('intro'), $this->uri->segment(2, '') == '' ? 'id="current"' : ''); ?> &nbsp;&raquo;&nbsp; </li>
-					<li><span id="<?php echo $this->uri->segment(2, '') == 'step_1' ? 'current' : '' ?>"><?php echo lang('step1'); ?> &nbsp;&raquo;&nbsp; </span></li>
-					<li><span id="<?php echo $this->uri->segment(2, '') == 'step_2' ? 'current' : '' ?>"><?php echo lang('step2'); ?> &nbsp;&raquo;&nbsp; </span></li>
-					<li><span id="<?php echo $this->uri->segment(2, '') == 'step_3' ? 'current' : '' ?>"><?php echo lang('step3'); ?> &nbsp;&raquo;&nbsp; </span></li>
-					<li><span id="<?php echo $this->uri->segment(2, '') == 'step_4' ? 'current' : '' ?>"><?php echo lang('step4'); ?> &nbsp;&raquo;&nbsp; </span></li>
-					<li><span id="<?php echo $this->uri->segment(2, '') == 'complete' ? 'current' : '' ?>"><?php echo lang('final'); ?></span></li>
+					<li><?php echo anchor('', lang('intro'), $this->uri->segment(2, '') == '' ? 'id="current"' : ''); ?></li>
+					<li><span id="<?php echo $this->uri->segment(2, '') == 'step_1' ? 'current' : '' ?>"><?php echo lang('step1'); ?></span><span class="sep"></span></li>
+					<li><span id="<?php echo $this->uri->segment(2, '') == 'step_2' ? 'current' : '' ?>"><?php echo lang('step2'); ?></span><span class="sep"></span></li>
+					<li><span id="<?php echo $this->uri->segment(2, '') == 'step_3' ? 'current' : '' ?>"><?php echo lang('step3'); ?></span><span class="sep"></span></li>
+					<li><span id="<?php echo $this->uri->segment(2, '') == 'step_4' ? 'current' : '' ?>"><?php echo lang('step4'); ?></span><span class="sep"></span></li>
+					<li><span id="<?php echo $this->uri->segment(2, '') == 'complete' ? 'current' : '' ?>"><?php echo lang('final'); ?></span><span class="sep"></span></li>
 				</ul>
 			</nav>
 

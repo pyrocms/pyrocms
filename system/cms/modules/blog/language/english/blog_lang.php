@@ -5,6 +5,8 @@ $lang['blog_posted_label']                   = 'Posted';
 $lang['blog_posted_label_alt']               = 'Posted at';
 $lang['blog_written_by_label']				= 'Written by';
 $lang['blog_author_unknown']				= 'Unknown';
+$lang['blog_keywords_label']				= 'Keywords';
+$lang['blog_tagged_label']					= 'Tagged';
 $lang['blog_category_label']                 = 'Category';
 $lang['blog_post_label']                     = 'Post';
 $lang['blog_date_label']                     = 'Date';
@@ -34,10 +36,11 @@ $lang['blog_comments_enabled_label']         = 'Comments Enabled';
 // titles
 $lang['blog_create_title']                   = 'Add Post';
 $lang['blog_edit_title']                     = 'Edit post "%s"';
-$lang['blog_archive_title']                  = 'Archive';
-$lang['blog_posts_title']                 = 'Posts';
-$lang['blog_rss_posts_title']             = 'Blog posts for %s';
-$lang['blog_blog_title']                     = 'Blog';
+$lang['blog_archive_title']                 = 'Archive';
+$lang['blog_posts_title']					= 'Posts';
+$lang['blog_rss_posts_title']				= 'Blog posts for %s';
+$lang['blog_blog_title']					= 'Blog';
+$lang['blog_list_title']					= 'List Posts';
 
 // messages
 $lang['blog_no_posts']                    = 'There are no posts.';

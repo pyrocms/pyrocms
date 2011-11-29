@@ -43,16 +43,16 @@
 			</tbody>
 		</table>
 	
-		<div class="buttons align-right padding-top">
+		<div class="table_action_buttons">
 			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete') )); ?>
 		</div>
 	
 	<?php else: ?>
 		<div class="blank-slate">
-			<p>
+			<div class="no_data">
 				<?php //echo image('album.png', 'galleries', array('alt' => 'No Galleries')); ?>
 				<?php echo lang('galleries.no_galleries_error'); ?>
-			</p>
+			</div>
 		</div>
 	<?php endif;?>
 	

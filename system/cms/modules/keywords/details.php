@@ -9,19 +9,23 @@ class Module_Keywords extends Module {
 		return array(
 			'name' => array(
 				'en' => 'Keywords',
+				'el' => 'Λέξεις Κλειδιά',
 				'nl' => 'Sleutelwoorden',
 				'ar' => 'Keywords',
 				'br' => 'Palavras-chave',
 				'ar' => 'كلمات البحث',
-				'da' => 'Nøgleord'
+				'da' => 'Nøgleord',
+				'zh' => '鍵詞'
 			),
 			'description' => array(
 				'en' => 'Maintain a central list of keywords to label and organize your content.',
+				'el' => 'Συντηρεί μια κεντρική λίστα από λέξεις κλειδιά για να οργανώνετε μέσω ετικετών το περιεχόμενό σας.',
 				'nl' => 'Beheer een centrale lijst van sleutelwoorden om uw content te categoriseren en organiseren.',
 				'ar' => 'Maintain a central list of keywords to label and organize your content.',
 				'br' => 'Mantém uma lista central de palavras-chave para rotular e organizar o seu conteúdo.',
 				'ar' => 'أنشئ مجموعة من كلمات البحث التي تستطيع من خلالها وسم وتنظيم المحتوى.',
-				'da' => 'Vedligehold en central liste af nøgleord for at organisere dit indhold.'
+				'da' => 'Vedligehold en central liste af nøgleord for at organisere dit indhold.',
+				'zh' => '集中管理可用於標題與內容的鍵詞(keywords)列表。'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
@@ -31,6 +35,7 @@ class Module_Keywords extends Module {
 				array(
 			 	   'name' => 'keywords:add_title',
 				   'uri' => 'admin/keywords/add',
+				   'class' => 'add'
 				),
 			),
 		);

@@ -3,8 +3,10 @@
 // labels
 $lang['blog_posted_label'] 							= 'Envoyé vers';
 $lang['blog_posted_label_alt']						= 'Envoyé à';
-$lang['blog_written_by_label']				= 'Written by'; #translate
-$lang['blog_author_unknown']				= 'Unknown'; #translate
+$lang['blog_written_by_label']				= 'Écrit par';
+$lang['blog_author_unknown']				= 'Inconnu';
+$lang['blog_keywords_label']				= 'Mots-clés';
+$lang['blog_tagged_label']					= 'Taggé';
 $lang['blog_category_label'] 						= 'Catégorie';
 $lang['blog_post_label'] 							= 'Envoi';
 $lang['blog_date_label'] 							= 'Date';

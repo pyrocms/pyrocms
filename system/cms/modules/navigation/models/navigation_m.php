@@ -87,7 +87,8 @@ class Navigation_m extends MY_Model
         	'position' 				=> $position,
 			'target'				=> isset($input['target']) ? $input['target'] : '',
 			'class'					=> isset($input['class']) ? $input['class'] : '',
-        	'navigation_group_id'	=> (int) $input['navigation_group_id']
+        	'navigation_group_id'	=> (int) $input['navigation_group_id'],
+			'restricted_to'			=> $input['restricted_to']
 		));
 
         return $this->db->insert_id();
@@ -114,7 +115,8 @@ class Navigation_m extends MY_Model
         	'page_id' 				=> (int) $input['page_id'],
 			'target'				=> $input['target'],
 			'class'					=> $input['class'],
-        	'navigation_group_id' 	=> (int) $input['navigation_group_id']
+        	'navigation_group_id' 	=> (int) $input['navigation_group_id'],
+			'restricted_to'			=> $input['restricted_to']
 		);
 		
 		// if it was changed to a different group we need to reset the parent > child
@@ -172,6 +174,24 @@ class Navigation_m extends MY_Model
 		{
 			$this->db->order_by('position');
 		}
+		
+		if (isset($params['front_end']) AND $params['front_end'])
+		{
+			$front_end = TRUE;
+		}
+		else
+		{
+			$front_end = FALSE;
+		}
+		
+		if (isset($params['user_group']))
+		{
+			$user_group = $params['user_group'];
+		}
+		else
+		{
+			$user_group = FALSE;
+		}
 
 		$all_links = $this->db->where('navigation_group_id', $group)
 			 ->get($this->_table)
@@ -182,7 +202,7 @@ class Navigation_m extends MY_Model
 		$links = array();
 		
 		// we must reindex the array first and build urls
-		$all_links = $this->make_url_array($all_links);
+		$all_links = $this->make_url_array($all_links, $user_group, $front_end);
 		foreach ($all_links AS $row)
 		{
 			$links[$row['id']] = $row;
@@ -347,10 +367,28 @@ class Navigation_m extends MY_Model
 	 * @param array $row Array of links
 	 * @return mixed Array of links with valid urls
 	 */
-	public function make_url_array($links)
+	public function make_url_array($links, $user_group = FALSE, $front_end = FALSE)
 	{
+		// We have to fetch it ourselves instead of just using $current_user because this
+		// will all be cached per user group
+		$group = $this->db->select('id')->where('name', $user_group)->get('groups')->row();
+
 		foreach($links as $key => &$row)
-		{
+		{				
+			// Looks like it's restricted. Let's find out who
+			if ($row['restricted_to'] AND $front_end)
+			{
+				$row['restricted_to'] = (array) explode(',', $row['restricted_to']);
+
+				if ( ! $user_group OR
+					($user_group != 'admin' AND
+					 ! in_array($group->id, $row['restricted_to']))
+					)
+				{
+					unset($links[$key]);
+				}
+			}
+							
 			// If its any other type than a URL, it needs some help becoming one
 			switch($row['link_type'])
 			{
@@ -365,11 +403,25 @@ class Navigation_m extends MY_Model
 				case 'page':
 					if ($page = $this->page_m->get_by(array_filter(array(
 						'id'		=> $row['page_id'],
-						'status'	=> (is_subclass_of(ci(), 'Public_Controller') ? 'live' : NULL)
+						'status'	=> ($front_end ? 'live' : NULL)
 					))))
 					{
 						$row['url'] = site_url($page->uri);
 						$row['is_home'] = $page->is_home;
+
+						// But wait. If we're on the front-end and they don't have access to the page then we'll remove it anyway.
+						if ($front_end AND $page->restricted_to)
+						{
+							$page->restricted_to = (array) explode(',', $page->restricted_to);
+
+							if ( ! $user_group OR
+								($user_group != 'admin' AND
+								 ! in_array($group->id, $page->restricted_to))
+								)
+							{
+								unset($links[$key]);
+							}
+						}
 					}
 					else
 					{

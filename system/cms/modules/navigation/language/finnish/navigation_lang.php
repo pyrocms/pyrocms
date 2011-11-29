@@ -20,6 +20,7 @@ $lang['nav_type_label']                         = 'Linkin tyyppi';
 $lang['nav_uri_label']                          = 'Sivuston linkki (URI)';
 $lang['nav_page_label']                         = 'Sivu';
 $lang['nav_module_label']                       = 'Moduuli';
+$lang['nav_restricted_to']						= 'Restricted To'; #translate
 $lang['nav_abbrev_label']                       = 'Lyhennys';
 
 $lang['nav_link_target_self']                   = 'Sama ikkuna (oletus)';

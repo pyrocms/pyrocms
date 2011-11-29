@@ -7,7 +7,7 @@
         <?php echo  form_input('data', $variable->data); ?>
     </td>
     <td>
-        <?php form_input('', printf('{%s:variables:<span id="var_name_'.$variable->id.'">%s</span>}', config_item('tags_trigger'), $variable->name));?>
+        <?php form_input('', printf('{{&nbsp;variables:<span id="var_name_'.$variable->id.'">%s</span>&nbsp;}}', $variable->name));?>
         <?php echo form_hidden('variable_id', $variable->id); ?>
     </td>
     <td class="align-center buttons buttons-small actions">

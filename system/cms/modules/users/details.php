@@ -42,7 +42,7 @@ class Module_Users extends Module {
 				'ar' => 'تمكين المستخدمين من التسجيل والدخول إلى الموقع، وإدارتهم من لوحة التحكم.',
 				'cs' => 'Umožňuje uživatelům se registrovat a přihlašovat a zároveň jejich správu v Kontrolním panelu.',
 				'fi' => 'Antaa käyttäjien rekisteröityä ja kirjautua sisään sivustolle sekä mahdollistaa niiden muokkaamisen hallintapaneelista.',
-				'el' => 'Παρέχει την δυνατότητα εγγραφής λογαριασμών χρηστών και σύνδεσης τους στους επισκέπτες του ιστοτόπου. Με αυτό το πρόσθετο μπορείτε επίσης να τους διαχειριστείτε.',
+				'el' => 'Παρέχει λειτουργίες εγγραφής και σύνδεσης στους επισκέπτες. Επίσης από εδώ γίνεται η διαχείριση των λογαριασμών.',
 				'he' => 'ניהול משתמשים: רישום, הפעלה ומחיקה',
 				'lt' => 'Leidžia vartotojams registruotis ir prisijungti prie puslapio, ir valdyti juos per administravimo panele.',
 				'da' => 'Lader brugere registrere sig og logge ind på sitet, og håndtér dem via kontrolpanelet.'
@@ -55,6 +55,7 @@ class Module_Users extends Module {
 				array(
 				    'name' => 'user_add_title',
 				    'uri' => 'admin/users/create',
+				    'class' => 'add'
 				),
 		    ),
 		);
