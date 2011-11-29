@@ -14,7 +14,7 @@ $lang['nav_type_label'] 						= 'Type de lien';
 $lang['nav_uri_label'] 							= 'Lien interne (URI)';
 $lang['nav_page_label'] 						= 'Page';
 $lang['nav_module_label'] 						= 'Module';
-$lang['nav_restricted_to']						= 'Restricted To'; #translate
+$lang['nav_restricted_to']						= 'Restreint à';
 $lang['nav_abbrev_label'] 						= 'Abbréviation';
 
 $lang['nav_link_target_self'] 					= 'Fenêtre actuelle (default)';
