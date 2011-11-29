@@ -94,6 +94,12 @@ class Pages extends Public_Controller
 				show_error('The page you are trying to view does not exist and it also appears as if the 404 page has been deleted.');
 			}
 		}
+		
+		// If this is a homepage, do not show the slug in the URL
+		if ($page->is_home and $url_segments)
+		{
+			redirect('', 'location', 301);
+		}
 
 		// If the page is missing, set the 404 status header
 		if ($page->slug == '404')
