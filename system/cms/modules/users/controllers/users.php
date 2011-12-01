@@ -434,9 +434,16 @@ class Users extends Public_Controller
 	/**
 	 *
 	 */
-	public function edit()
+	public function edit($id = 0)
 	{
-		$user = $this->current_user or redirect('users/login');
+		if ($this->current_user->group === 'admin' AND $id > 0)
+		{
+			$user = $this->users_m->get(array('id' => $id));
+		}
+		else
+		{
+			$user = $this->current_user or redirect('users/login');
+		}
 
 		$this->validation_rules = array(
 			array(
