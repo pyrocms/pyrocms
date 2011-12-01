@@ -40,6 +40,7 @@ $lang['nav_link_not_exist_error'] 				= 'Il collegamento non esiste.';
 $lang['nav_link_edit_success'] 					= 'Il collegamento è stato salvato.';
 $lang['nav_link_delete_success'] 				= 'Il collegamento è stato eliminato.';
 
+$lang['nav_choose_value']						= 'The %s field must not be empty.'; #translate
 $lang['nav_link_type_desc'] 					= 'Seleziona il tipo di link per avere più parametri per creare il tuo collegamento.';
 
 ?>
