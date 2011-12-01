@@ -294,7 +294,7 @@ class Plugin_Contact extends Plugin {
 	
 		$output	 = form_open_multipart(current_url()).PHP_EOL;
 		$output	.= $this->parser->parse_string($this->content(), str_replace('{{', '{ {', $parse_data), TRUE).PHP_EOL;
-		$output .= '<p class="contact-button">'.form_submit($button, ucfirst($button)).'</p>'.PHP_EOL;
+		$output .= '<p class="contact-button">'.form_submit('submit-button', ucfirst($button)).'</p>'.PHP_EOL;
 		$output .= form_close();
 
 		return $output;
