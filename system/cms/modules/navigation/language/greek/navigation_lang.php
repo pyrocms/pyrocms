@@ -40,4 +40,5 @@ $lang['nav_link_not_exist_error']               = 'Αυτός ο σύνδεσμ�
 $lang['nav_link_edit_success']                  = 'Ο σύνδεσμος περιήγησης αποθηκεύτηκε.';
 $lang['nav_link_delete_success']                = 'Ο σύνδεσμος περιήγησης διαγράφηκε.';
 
+$lang['nav_choose_value']						= 'The %s field must not be empty.'; #translate
 $lang['nav_link_type_desc']                     = 'Παρακαλώ επιλέξτε ένα τύπο για τον σύνδεσμό σας έτσι ώστε να έχετε περισσότερες επιλογές κατά την δημιουργία του.';

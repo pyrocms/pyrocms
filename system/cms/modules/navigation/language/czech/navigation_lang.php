@@ -40,4 +40,5 @@ $lang['nav_link_not_exist_error'] 				= 'Tento odkaz v navigaci neexistuje.';
 $lang['nav_link_edit_success'] 					= 'Odkaz byl uložen.';
 $lang['nav_link_delete_success'] 				= 'Odkaz byl vymazán.';
 
+$lang['nav_choose_value']						= 'The %s field must not be empty.'; #translate
 $lang['nav_link_type_desc'] 					= 'Prosím vyberte typ odkazu pro výběr dalších možností pro vytvoření odkazu.';

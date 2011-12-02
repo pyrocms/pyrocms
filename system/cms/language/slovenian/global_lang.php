@@ -1,6 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['global:control-panel'] 						= 'Nadzorna plošča';
+$lang['global:profile']					= 'Profile'; #translate
 
 $lang['title_label'] 					= 'Naslov';
 $lang['name_label'] 					= 'Ime';

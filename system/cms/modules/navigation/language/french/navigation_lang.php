@@ -40,4 +40,5 @@ $lang['nav_link_not_exist_error'] 				= 'Ce lien de navigation n\'existe pas.';
 $lang['nav_link_edit_success'] 					= 'Le lien de navigation a été enregistré.';
 $lang['nav_link_delete_success'] 				= 'Le lien de navigation a été supprimé.';
 
+$lang['nav_choose_value']						= 'The %s field must not be empty.'; #translate
 $lang['nav_link_type_desc'] 					= 'Veuillez sélectionnez un type de lien pour afficher les options de création possible pour le lien';

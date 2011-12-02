@@ -1,6 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['global:control-panel'] 			= 'Control Panel';
+$lang['global:profile']					= 'Profile'; #translate
 
 $lang['title_label'] 					= 'Title';
 $lang['name_label'] 					= 'Name';

@@ -39,4 +39,5 @@ $lang['nav_link_not_exist_error'] 				= 'Deze koppeling bestaat niet.';
 $lang['nav_link_edit_success'] 					= 'De koppeling is opgeslagen.';
 $lang['nav_link_delete_success'] 				= 'De koppeling is verwijderd.';
 
+$lang['nav_choose_value']						= 'The %s field must not be empty.'; #translate
 $lang['nav_link_type_desc'] 					= 'Selecteer een type voor meer opties bij het maken van uw koppeling.';

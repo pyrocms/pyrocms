@@ -611,6 +611,9 @@ class Lex_Parser
 		}
 		else
 		{
+			// now put $ back to avoid breaking stuff (embedded javascript for example)
+			$result = str_replace('&#36;', '$', $result);
+		
 			echo $result;
 		}
 

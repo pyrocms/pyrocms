@@ -39,4 +39,5 @@ $lang['nav_link_not_exist_error'] 				= 'Ten link nawigacyjny nie istnieje.';
 $lang['nav_link_edit_success'] 					= 'Link nawigacyjny został zapisany.';
 $lang['nav_link_delete_success'] 				= 'Link nawigacyjny został skasowany.';
 
+$lang['nav_choose_value']						= 'The %s field must not be empty.'; #translate
 $lang['nav_link_type_desc'] 					= 'Proszę wybrać typ linku, aby mieć więcej opcji stworzenia swojego linku.';

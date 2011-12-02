@@ -185,9 +185,10 @@ class Template
 	 * @param	string	$view
 	 * @param	array	$data
 	 * @param	bool	$return
+	 * @param	bool	$IE_cache
 	 * @return	string
 	 */
-	public function build($view, $data = array(), $return = FALSE)
+	public function build($view, $data = array(), $return = FALSE, $IE_cache = TRUE)
 	{
 		// Set whatever values are given. These will be available to all view files
 		is_array($data) OR $data = (array) $data;
@@ -236,11 +237,15 @@ class Template
 		}
 
 		// Disable sodding IE7's constant cacheing!!
-		$this->_ci->output->set_header('Expires: Sat, 01 Jan 2000 00:00:01 GMT');
-		$this->_ci->output->set_header('Cache-Control: no-store, no-cache, must-revalidate');
-		$this->_ci->output->set_header('Cache-Control: post-check=0, pre-check=0, max-age=0');
-		$this->_ci->output->set_header('Last-Modified: ' . gmdate( 'D, d M Y H:i:s' ) . ' GMT' );
-		$this->_ci->output->set_header('Pragma: no-cache');
+		// This is in a conditional because otherwise it errors when output is returned instead of output to browser.
+		if ($IE_cache)
+		{
+			$this->_ci->output->set_header('Expires: Sat, 01 Jan 2000 00:00:01 GMT');
+			$this->_ci->output->set_header('Cache-Control: no-store, no-cache, must-revalidate');
+			$this->_ci->output->set_header('Cache-Control: post-check=0, pre-check=0, max-age=0');
+			$this->_ci->output->set_header('Last-Modified: ' . gmdate( 'D, d M Y H:i:s' ) . ' GMT' );
+			$this->_ci->output->set_header('Pragma: no-cache');
+		}
 
 		// Let CI do the caching instead of the browser
 		$this->cache_lifetime > 0 && $this->_ci->output->cache( $this->cache_lifetime );
