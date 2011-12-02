@@ -41,7 +41,7 @@
 					$name = lang('cp_nav_'.$menu_item)!=''&&lang('cp_nav_'.$menu_item)!=NULL ? lang('cp_nav_'.$menu_item) : $menu_item;
 					$current = (($this->module_details && $this->module_details['menu'] == $menu_item) or $menu_item == $this->module);
 					$class = $current ? "top-link current" : "top-link";
-					echo anchor('#', $name, array('class' => $class));
+					echo anchor(current_url() . '#', $name, array('class' => $class));
 
 					echo '<ul>';
 					
