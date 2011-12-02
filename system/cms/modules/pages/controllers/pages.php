@@ -224,7 +224,7 @@ class Pages extends Public_Controller
 			log_message('error', 'Page Missing: '.$this->uri->uri_string());
 		}
 
-		$this->template->build('page');
+		echo $this->template->build('pages/page', NULL, TRUE, FALSE);
 	}
 
 	/**
