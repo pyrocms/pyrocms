@@ -104,7 +104,9 @@ class Plugin_Contact extends Plugin {
 			  $field_list['to'],
 			  $field_list['from'],
 			  $field_list['reply-to'],
-			  $field_list['max-size']
+			  $field_list['max-size'],
+			  $field_list['redirect'],
+			  $field_list['action']
 			  );
 
 		foreach ($field_list AS $field => $rules)
