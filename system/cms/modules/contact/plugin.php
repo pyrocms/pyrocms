@@ -39,6 +39,9 @@ class Plugin_Contact extends Plugin {
 	 * 					sent				= "Your message has been sent. Thank you for contacting us"
 	 * 					error				= "Sorry. Your message could not be sent. Please call us at 123-456-7890"
 	 * 					success-redirect	= "home"
+	 * 					action				= "different/url" Default is current_url(). This can be used to place a contact form in
+	 * 											the footer (for example) and have it send via the regular contact page. Errors will then
+	 * 											be displayed on the regular contact page.
 	 * 	}}
 	 * 		{{ name }}
 	 * 		{{ email }}
@@ -88,6 +91,7 @@ class Plugin_Contact extends Plugin {
 		$reply_to	= $this->attribute('reply-to');
 		$max_size	= $this->attribute('max-size', 10000);
 		$redirect	= $this->attribute('success-redirect', FALSE);
+		$action		= $this->attribute('action', current_url());
 		$form_meta 	= array();
 		$validation	= array();
 		$output		= array();
@@ -292,9 +296,9 @@ class Plugin_Contact extends Plugin {
 			}
 		}
 	
-		$output	 = form_open_multipart(current_url()).PHP_EOL;
+		$output	 = form_open_multipart($action, 'class="contact-form"').PHP_EOL;
 		$output	.= $this->parser->parse_string($this->content(), str_replace('{{', '{ {', $parse_data), TRUE).PHP_EOL;
-		$output .= '<p class="contact-button">'.form_submit('submit-button', ucfirst($button)).'</p>'.PHP_EOL;
+		$output .= '<span class="contact-button">'.form_submit('submit-button', ucfirst($button)).'</span>'.PHP_EOL;
 		$output .= form_close();
 
 		return $output;
