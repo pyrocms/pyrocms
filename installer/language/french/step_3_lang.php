@@ -13,9 +13,9 @@ $lang['file_text']		=	'La valeur CHMOD des fichiers suivants doit être changé 
 $lang['writable']		=	'Inscriptible';
 $lang['not_writable']	=	'Non Inscriptible';
 
-$lang['show_commands']		= 'Show commands'; #translate
-$lang['hide_commands']		= 'Hide commands'; #translate
+$lang['show_commands']		= 'Afficher les commandes';
+$lang['hide_commands']		= 'Masquer les commandes';
 
 $lang['next_step']		=	'Passer à la prochaine étape';
 $lang['step4']			=	'Étape 4';
-$lang['retry']			=	'Essayez encore';
+$lang['retry']			=	'Réessayer';
