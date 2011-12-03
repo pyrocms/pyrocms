@@ -592,9 +592,6 @@ class Lex_Parser
 	 */
 	protected function parse_php($text)
 	{
-		// if we leave the dollar signs in then the adjoining text will get eval'd
-		$text = str_replace('$', '&#36;', $text);
-
 		ob_start();
 		$result = eval('?>'.$text.'<?php ');
 		
@@ -608,13 +605,6 @@ class Lex_Parser
 		{
 			log_message('error', str_replace(array('?>', '<?php '), '', $text));
 			echo '<br />You have a syntax error in your Lex tags: The snippet of text that contains the error has been output to your application\'s log file.<br />';
-		}
-		else
-		{
-			// now put $ back to avoid breaking stuff (embedded javascript for example)
-			$result = str_replace('&#36;', '$', $result);
-		
-			echo $result;
 		}
 
 		return ob_get_clean();
