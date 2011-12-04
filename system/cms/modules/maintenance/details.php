@@ -20,13 +20,15 @@ class Module_Maintenance extends Module
 				'en' => 'Maintenance',
 				'el' => 'Συντήρηση',
 				'ar' => 'الصيانة',
-				'zh' => '維護'
+				'zh' => '維護',
+                'hu' => 'Karbantartás'
 			),
 			'description' => array(
 				'en' => 'Manually delete cache items via the admin interface.',
 				'el' => 'Διαγραφή αντικειμένων προσωρινής αποθήκευσης μέσω της σελίδας διαχείρισης.',
 				'ar' => 'حذف عناصر الذاكرة المخبأة عبر واجهة الإدارة.',
-				'zh' => '經由管理介面手動刪除暫存資料。'
+				'zh' => '經由管理介面手動刪除暫存資料。',
+				'hu' => 'A gyorsítótár elemeinek törlése az admin felületen.'
 			),
 			'frontend' => FALSE,
 			'backend' => TRUE,

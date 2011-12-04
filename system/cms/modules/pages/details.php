@@ -30,7 +30,8 @@ class Module_Pages extends Module {
 				'el' => 'Σελίδες',
 				'he' => 'דפים',
 				'lt' => 'Puslapiai',
-				'da' => 'Sider'
+				'da' => 'Sider',
+				'hu' => 'Oldalak'
 			),
 			'description' => array(
 				'sl' => 'Dodaj stran s kakršno koli vsebino želite.',
@@ -50,7 +51,8 @@ class Module_Pages extends Module {
 				'el' => 'Προσθέστε δικές σας σελίδες στον ιστότοπό σας με ό,τι περιεχόμενο θέλετε.',
 				'he' => 'ניהול דפי תוכן האתר',
 				'lt' => 'Pridėkite nuosavus puslapius betkokio turinio',
-				'da' => 'Tilføj brugerdefinerede sider til dit site med det indhold du ønsker.'
+				'da' => 'Tilføj brugerdefinerede sider til dit site med det indhold du ønsker.',
+				'hu' => 'Saját oldalak hozzáadása a weboldalhoz, akármilyen tartalommal.'
 			),
 			'frontend' => TRUE,
 			'backend'  => TRUE,

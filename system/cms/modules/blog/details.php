@@ -35,7 +35,8 @@ class Module_Blog extends Module {
 				'el' => 'Δημιουργήστε άρθρα και εγγραφές στο ιστολόγιο σας.',
 				'he' => 'ניהול בלוג',
 				'lt' => 'Rašykite naujienas bei blog\'o įrašus.',
-				'da' => 'Skriv blogindlæg'
+				'da' => 'Skriv blogindlæg',
+				'hu' => 'Blog bejegyzések létrehozása.'
 			),
 			'frontend'	=> TRUE,
 			'backend'	=> TRUE,

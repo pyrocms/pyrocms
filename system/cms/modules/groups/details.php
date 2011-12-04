@@ -24,7 +24,8 @@ class Module_Groups extends Module {
 				'el' => 'Ομάδες',
 				'he' => 'קבוצות',
 				'lt' => 'Grupės',
-				'da' => 'Grupper'
+				'da' => 'Grupper',
+				'hu' => 'Csoportok'
 			),
 			'description' => array(
 				'sl' => 'Uporabniki so lahko razvrščeni v skupine za urejanje dovoljenj',
@@ -43,7 +44,8 @@ class Module_Groups extends Module {
 				'el' => 'Οι χρήστες μπορούν να τοποθετηθούν σε ομάδες και να διαχειριστείτε τα δικαιώματά τους.',
 				'he' => 'נותן אפשרות לאסוף משתמשים לקבוצות',
 				'lt' => 'Vartotojai gali būti priskirti grupei tam, kad valdyti jų teises.',
-				'da' => 'Brugere kan inddeles i grupper for adgangskontrol'
+				'da' => 'Brugere kan inddeles i grupper for adgangskontrol',
+				'hu' => 'A felhasználók csoportokba rendezhetőek a jogosultságok kezelésére.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
