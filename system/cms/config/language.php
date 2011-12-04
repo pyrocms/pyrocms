@@ -141,6 +141,13 @@ $config['supported_languages'] = array(
 		'direction'	=> 'ltr',
 		'codes'		=> array('da', 'da_DK'),
 		'ckeditor'	=> NULL
+	),
+	'hu' => array(
+		'name'		=> 'Magyar',
+		'folder'	=> 'hungarian',
+		'direction'	=> 'ltr',
+		'codes'		=> array('hu', 'hu_HU'),
+		'ckeditor'	=> NULL
 	)
 );
 
