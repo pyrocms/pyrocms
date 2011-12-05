@@ -120,12 +120,28 @@ class Plugin_Pages extends Plugin
 	 */
 	public function page_tree()
 	{
+		$start 			= $this->attribute('start');
 		$start_id 		= $this->attribute('start-id', $this->attribute('start_id'));
 		$disable_levels = $this->attribute('disable-levels');
 		$order_by 		= $this->attribute('order-by', 'title');
 		$order_dir		= $this->attribute('order-dir', 'ASC');
 		$list_tag		= $this->attribute('list-tab', 'ul');
 		$link			= $this->attribute('link', TRUE);
+		
+		// If we have a start URI, let's try and
+		// find that ID.
+		if($start)
+		{
+			$page = $this->page_m->get_by_uri($start);
+		
+			if(!$page) return NULL;
+			
+			$start_id = $page->id;
+		}
+		
+		// If our start doesn't exist, then
+		// what are we going to do? Nothing.
+		if(!$start_id) return NULL;
 		
 		// Disable individual pages or parent pages by submitting their slug
 		$this->disable = explode("|", $disable_levels);
