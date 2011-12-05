@@ -24,6 +24,8 @@ class Plugin_Pages extends Plugin
 
 		return site_url($page ? $page->uri : '');
 	}
+
+	// --------------------------------------------------------------------------
 	
 	/**
 	 * Get a page by ID or slug
@@ -54,6 +56,8 @@ class Plugin_Pages extends Plugin
 		return $this->content() ? $page : $page['body'];
 	}
 
+	// --------------------------------------------------------------------------
+
 	/**
 	 * Get a page chunk by page ID and chunk name
 	 *
@@ -71,6 +75,8 @@ class Plugin_Pages extends Plugin
 
 		return ($chunk ? ($this->content() ? $chunk : $chunk['body']) : FALSE);
 	}
+
+	// --------------------------------------------------------------------------
 	
 	/**
 	 * Children list
@@ -206,6 +212,8 @@ class Plugin_Pages extends Plugin
 
 		return (int) TRUE;
 	}
+
+	// --------------------------------------------------------------------------
 	
 	/**
 	* Page has function
@@ -222,6 +230,8 @@ class Plugin_Pages extends Plugin
 	{
 		return $this->page_m->has_children($this->attribute('id'));
 	}
+
+	// --------------------------------------------------------------------------
 
 	/**
 	 * Check Page is function
@@ -272,6 +282,8 @@ class Plugin_Pages extends Plugin
 			)) > 0: FALSE;
 		}
 	}
+
+	// --------------------------------------------------------------------------
 	
 	/**
 	 * Tree html function
