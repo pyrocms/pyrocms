@@ -47,6 +47,7 @@ $lang['nav_link_not_exist_error'] 				= 'Выбранная ссылка не с
 $lang['nav_link_edit_success'] 						= 'Ссылка сохранена.';
 $lang['nav_link_delete_success'] 					= 'Ссылка удалена.';
 
+$lang['nav_choose_value']						= 'The %s field must not be empty.'; #translate
 $lang['nav_link_type_desc'] 							= 'Пожалуйста, выберите тип ссылки, чтобы получить больше настроек для создания ссылки.';
 
 /* End of file navigation_lang.php */

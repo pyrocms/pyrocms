@@ -175,7 +175,9 @@ class Pages extends Public_Controller
 		}
 
 		// Grab all the chunks that make up the body
-		$page->chunks = $this->db->get_where('page_chunks', array('page_id' => $page->id))->result();
+		$page->chunks = $this->db->order_by('sort')
+			->get_where('page_chunks', array('page_id' => $page->id))
+			->result();
 		
 		$chunk_html = '';
 		foreach ($page->chunks as $chunk)
@@ -186,7 +188,7 @@ class Pages extends Public_Controller
 		}
 		
 		// Parse it so the content is parsed. We pass along $page so that {{ page:id }} and friends work in page content
-		$page->body = $this->parser->parse_string(str_replace(array('&#39;', '&quot;'), array("'", '"'), $chunk_html), array('page' => $page), TRUE);
+		$page->body = $this->parser->parse_string(str_replace(array('&#39;', '&quot;'), array("'", '"'), $chunk_html), array('theme' => $this->theme, 'page' => $page), TRUE);
 		
 		// Create page output
 		$this->template->title($page->meta_title)
@@ -216,8 +218,13 @@ class Pages extends Public_Controller
 					'.$page->js.'
 				</script>');
 		}
-		
-		echo $this->template->build('pages/page', null, true);
+
+		if ($page->slug == '404')
+		{
+			log_message('error', 'Page Missing: '.$this->uri->uri_string());
+		}
+
+		echo $this->template->build('pages/page', NULL, TRUE, FALSE);
 	}
 
 	/**

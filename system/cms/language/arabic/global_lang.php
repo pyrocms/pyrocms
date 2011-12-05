@@ -1,6 +1,7 @@
 <?php
 
 $lang['global:control-panel'] 						= 'لوحة التحكم';
+$lang['global:profile']					= 'الملف الشخصي';
 
 $lang['title_label'] 					= 'العنوان';
 $lang['name_label'] 					= 'الإسم';

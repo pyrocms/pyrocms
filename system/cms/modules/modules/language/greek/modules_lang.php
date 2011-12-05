@@ -23,9 +23,9 @@ $lang['modules.manually_remove']         = 'Πρέπει να αφαιρέσετ
 $lang['modules.upload_title']            = 'Ανέβασμα πρόσθετου';
 $lang['modules.upload_desc']             = 'Παρακαλούμε επιλέξτε ένα αρχείο και κάντε κλικ στο κουμπί Μεταφόρτωση';
 
-$lang['modules.confirm_enable']          = 'Είσαστε σίγουροι ότι θέλετε να ενεργοποιήσετε το πρόσθετο;';
-$lang['modules.confirm_disable']         = 'Είσαστε σίγουροι ότι θέλετε να απενεργοποιήσετε το πρόσθετο;';
-$lang['modules.confirm_install']         = 'Είσαστε σίγουροι ότι θέλετε να εγκαταστήσετε το πρόσθετο;';
-$lang['modules.confirm_uninstall']		 = 'All database records will be removed! Are you sure you want to uninstall this module?'; #tranlate
-$lang['modules.confirm_delete']       = 'Όλα τα αρχεία του πρόσθετου και τα στοιχεία του στην βάση δεδομένων θα διαγραφούν! Είσαστε σίγουροι ότι θέλετε να απεγκαταστήσετε το πρόθετο;';
-$lang['modules.confirm_upgrade'] 		 = 'Είσαστε σίγουροι ότι θέλετε να ενημερώσετε το πρόσθετο;';
+$lang['modules.confirm_enable']         = 'Είσαστε σίγουροι ότι θέλετε να ενεργοποιήσετε το πρόσθετο;';
+$lang['modules.confirm_disable']        = 'Είσαστε σίγουροι ότι θέλετε να απενεργοποιήσετε το πρόσθετο;';
+$lang['modules.confirm_install']        = 'Είσαστε σίγουροι ότι θέλετε να εγκαταστήσετε το πρόσθετο;';
+$lang['modules.confirm_uninstall']	= 'Όλες οι εγγραφές στην βάση δεδομένων θα διαγραφούν! Είσαστε σίγουροι ότι θέλετε να απεγκαταστήσετε αυτό το πρόσθετο;';
+$lang['modules.confirm_delete']     	= 'Όλα τα αρχεία του πρόσθετου και τα στοιχεία του στην βάση δεδομένων θα διαγραφούν! Είσαστε σίγουροι ότι θέλετε να απεγκαταστήσετε το πρόθετο;';
+$lang['modules.confirm_upgrade'] 	= 'Είσαστε σίγουροι ότι θέλετε να ενημερώσετε το πρόσθετο;';

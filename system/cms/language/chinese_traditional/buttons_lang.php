@@ -28,12 +28,12 @@ $lang['buttons.disable']	= '禁用';
 $lang['buttons.yes']		= '是';
 $lang['buttons.no']			= '否';
 $lang['buttons.activate']   = '啟動';
-$lang['buttons.deactivate']	= 'Deactivate'; #translate
-$lang['buttons.preview']	= 'Preview'; #translate
-$lang['buttons.close']		= 'Close'; #translate
-$lang['buttons.edit']		= 'Edit'; #translate
-$lang['buttons.clone']		= 'Clone'; #translate
-$lang['buttons.re-index']	= 'Re-index'; #translate
-$lang['buttons.copy']		= 'Copy'; #translate
+$lang['buttons.deactivate']	= '停用';
+$lang['buttons.preview']	= '預覽';
+$lang['buttons.close']		= '關閉';
+$lang['buttons.edit']		= '編輯';
+$lang['buttons.clone']		= '複製';
+$lang['buttons.re-index']	= '重新建立索引';
+$lang['buttons.copy']		= '複製';
 
 /* End of file buttons_lang.php */

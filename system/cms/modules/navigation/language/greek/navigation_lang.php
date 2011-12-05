@@ -14,7 +14,7 @@ $lang['nav_type_label']                         = 'Τύπος συνδέσμου
 $lang['nav_uri_label']                          = 'Σύνδεσμος ιστοτόπου (URI)';
 $lang['nav_page_label']                         = 'Σελίδα';
 $lang['nav_module_label']                       = 'Πρόσθετο';
-$lang['nav_restricted_to']						= 'Restricted To'; #translate
+$lang['nav_restricted_to']						= 'Περιορισμένο Σε';
 $lang['nav_abbrev_label']                       = 'Συντόμευση';
 
 $lang['nav_link_target_self']                   = 'Τρέχων παράθυρο (προεπιλογή)';
@@ -40,4 +40,5 @@ $lang['nav_link_not_exist_error']               = 'Αυτός ο σύνδεσμ�
 $lang['nav_link_edit_success']                  = 'Ο σύνδεσμος περιήγησης αποθηκεύτηκε.';
 $lang['nav_link_delete_success']                = 'Ο σύνδεσμος περιήγησης διαγράφηκε.';
 
+$lang['nav_choose_value']						= 'The %s field must not be empty.'; #translate
 $lang['nav_link_type_desc']                     = 'Παρακαλώ επιλέξτε ένα τύπο για τον σύνδεσμό σας έτσι ώστε να έχετε περισσότερες επιλογές κατά την δημιουργία του.';

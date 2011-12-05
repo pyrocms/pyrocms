@@ -3,7 +3,7 @@
 // labels
 $lang['nav_title_label'] 						= '標題';
 $lang['nav_target_label']						= '目的';
-$lang['nav_class_label']						= 'Class'; #translate
+$lang['nav_class_label']						= 'Class 樣式';
 $lang['nav_url_label'] 							= '網址';
 $lang['nav_details_label'] 						= '細節';
 $lang['nav_text_label'] 						= '文字';
@@ -13,7 +13,7 @@ $lang['nav_type_label'] 						= '連結類型';
 $lang['nav_uri_label'] 							= '網站連結(URI)';
 $lang['nav_page_label'] 						= '頁面';
 $lang['nav_module_label'] 						= '模組';
-$lang['nav_restricted_to']						= 'Restricted To'; #translate
+$lang['nav_restricted_to']						= '限制';
 $lang['nav_abbrev_label'] 						= '縮寫';
 
 $lang['nav_link_target_self'] 					= '原視窗開啟 (default)';
@@ -24,7 +24,7 @@ $lang['nav_link_create_title'] 					= '新增導航連結';
 $lang['nav_group_create_title']					= '新增群組';
 $lang['nav_link_edit_title'] 					= '編輯導航連結 "%s"';
 $lang['nav_link_list_title'] 					= '連結列表';
-$lang['nav_group_list_title']                   = 'Groups'; #translate
+$lang['nav_group_list_title']                   = '群組';
 
 // messages
 $lang['nav_group_no_links'] 					= '此群組下沒有連結';
@@ -39,4 +39,5 @@ $lang['nav_link_not_exist_error'] 				= '此導航連結不存在。';
 $lang['nav_link_edit_success'] 					= '此導航連結已經儲存。';
 $lang['nav_link_delete_success'] 				= '此導航連結已經刪除。';
 
+$lang['nav_choose_value']						= 'The %s field must not be empty.'; #translate
 $lang['nav_link_type_desc'] 					= '請選擇一個連結類型以建立您的連結。';

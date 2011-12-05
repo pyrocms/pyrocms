@@ -27,7 +27,7 @@ $lang['comments.send_label'] 				= '發表回應';
 $lang['comments.inactive_title'] 			= '待核准的回應';
 $lang['comments.active_title'] 				= '已核准的回應';
 $lang['comments.edit_title'] 				= '編輯回應';
-$lang['comments.list_title'] 				= 'List comments'; #translate
+$lang['comments.list_title'] 				= '回應列表';
 
 // messages
 $lang['comments.add_success'] 				= '回應已經儲存。';
@@ -53,8 +53,8 @@ $lang['comments.delete_multi_success'] 		= '這些回應 #%s 已經被刪除，�
 $lang['comments.no_comments'] 				= '目前沒有回應';
 
 // Helper counter comments
-$lang['comments.counter_none_label']		= 'No comment'; #translate
-$lang['comments.counter_singular_label']	= '%d comment'; #translate
-$lang['comments.counter_plural_label']		= '%d comments'; #translate
+$lang['comments.counter_none_label']		= '沒有回應';
+$lang['comments.counter_singular_label']	= '%d 回應';
+$lang['comments.counter_plural_label']		= '%d 回應';
 
 /* End of file comments_lang.php */

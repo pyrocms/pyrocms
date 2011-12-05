@@ -10,9 +10,11 @@
 
 <section class="item">
 
-<div class="form_inputs">
+
 
 <?php echo form_open(uri_string(), 'class="crud"'); ?>
+
+<div class="form_inputs">
 	
     <ul>
 		<li>
@@ -20,15 +22,18 @@
 			<div class="input"><?php echo form_input('name', $keyword->name);?></div>
 		</li>
     </ul>
-
+    
+</div>
+    
 	<div class="buttons">
 		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )); ?>
 	</div>	
 	
 <?php echo form_close();?>
-</section>
 
-</div>
+
+
+</section>
 
 <script type="text/javascript">
 	jQuery(function($) {

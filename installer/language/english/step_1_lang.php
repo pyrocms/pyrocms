@@ -2,7 +2,7 @@
 
 // labels
 $lang['header']			=	'Step 1: Configure Database and Server';
-$lang['intro_text']		=	'PyroCMS is very easy to install and should only take a few minutes, but there are a few questions that may appear confusing if you do not have a technical background. If at any point you get stuck please ask your web hosting provider or <a href="http://pyrocms.com/contact" target="_blank">contact us</a> for support.';
+$lang['intro_text']		=	'PyroCMS is very easy to install and should only take a few minutes, but there are a few questions that may appear confusing if you do not have a technical background. If at any point you get stuck please ask your web hosting provider or <a href="http://www.pyrocms.com/contact" target="_blank">contact us</a> for support.';
 
 $lang['db_settings']	=	'Database Settings';
 $lang['db_text']		=	'PyroCMS requires a database (MySQL) to store all of your content and settings, so the first thing we need to do is check if the database connection details are ok. If you do not understand what you are being asked to enter please ask your web hosting provider or server administrator for the details.';

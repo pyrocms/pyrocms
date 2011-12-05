@@ -39,7 +39,8 @@
 					</li>
 						
 					<li class="<?php echo alternator('', 'even'); ?>">
-						<label for="description"><?php echo lang('galleries.description_label'); ?></label><br />
+						<label for="description"><?php echo lang('galleries.description_label'); ?></label>
+						<br style="clear: both;" />
 						<?php echo form_textarea(array('id'=>'description', 'name'=>'description', 'value' => $gallery->description, 'rows' => 10, 'class' => 'wysiwyg-simple')); ?>
 					</li>
 					

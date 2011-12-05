@@ -46,7 +46,7 @@ $lang['user_password_reset_title']             = 'Επανακαθορισμός
 
 
 $lang['user_error_username']                   = 'Το όνομα χρήστη που επιλέξατε χρησιμοποιείται ήδη';
-$lang['user_error_email']                      = 'Το email που εισάγατε χρησιμοποιείται ήδη';
+$lang['user_error_email']                      = 'Η διεύθυνση email που εισάγατε χρησιμοποιείται ήδη';
 
 $lang['user_full_name']                        = 'Ονοματεπώνυμο';
 $lang['user_first_name']                       = 'Όνομα';

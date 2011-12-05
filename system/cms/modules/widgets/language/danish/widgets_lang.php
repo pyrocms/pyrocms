@@ -25,10 +25,7 @@ $lang['widgets.widget_area']            = 'Område';
 $lang['widgets.widget_area_title']      = 'Områdenavn';
 $lang['widgets.widget_area_slug']       = 'Område - forkortelse';
 
-// Widget instance titles
-$lang['widgets.add_instance']           = 'Tilføj widget-eksempel';
-$lang['widgets.edit_instance']          = 'Redigér widget-eksempel';
-$lang['widgets.delete_instance']        = 'Slet widget-eksempel';
+$lang['widgets.view_code']				= 'View Code'; #translate
 
 $lang['widgets.instance_title']         = 'Titel';
 $lang['widgets.tag_title']              = 'Tag';

@@ -23,9 +23,6 @@
 		<a href="{{ url:site uri='edit-profile' }}">{{ helper:lang line="edit_profile_label" }}</a>
 		{{ endif }}
 
-		<span class="nav-splitter">&nbsp;&bull;&nbsp;</span>
-		<a href="{{ url:site uri='edit-settings' }}">{{ helper:lang line="settings_label" }}</a>
-
 		{{ if user:has_cp_permissions }}
 		<span class="nav-splitter">&nbsp;&bull;&nbsp;</span>
 		<a href="{{ url:site uri='admin' }}" target="_blank">{{ helper:lang line="global:control-panel" }}</a>

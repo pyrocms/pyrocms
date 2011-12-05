@@ -40,6 +40,7 @@ $lang['nav_link_not_exist_error']			= 'Este vínculo de navegación no existe.';
 $lang['nav_link_edit_success'] 				= 'El enlace de navegación fue grabado.';
 $lang['nav_link_delete_success']			= 'El enlace de navegación fue eliminado.';
 
+$lang['nav_choose_value']						= 'The %s field must not be empty.'; #translate
 $lang['nav_link_type_desc'] 				= 'Por favor selecciona un tipo de vínculo para así mostrar más opciones para crear el vínculo.';
 
 /* End of file navigation_lang.php */

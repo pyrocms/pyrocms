@@ -39,4 +39,5 @@ $lang['nav_link_not_exist_error']         = 'Navigations-link existiert nicht.';
 $lang['nav_link_edit_success']            = 'Navigations-link wurde gesichert.';
 $lang['nav_link_delete_success']          = 'Navigations-link wurde gelöscht.';
 
+$lang['nav_choose_value']						= 'The %s field must not be empty.'; #translate
 $lang['nav_link_type_desc']               = 'Bitte wähle einen Link-Typ aus, um weitere Optionen angezeigt zu bekommen.';

@@ -15,7 +15,7 @@ class Admin extends Admin_Controller {
 	 * @var string
 	 */
 	protected $section = 'pages';
-	
+
 	/**
 	 * Array containing the validation rules
 	 * @access private
@@ -70,7 +70,7 @@ class Admin extends Admin_Controller {
 		array(
 			'field' => 'restricted_to[]',
 			'label'	=> 'lang:pages.access_label',
-			'rules'	=> 'trim|numeric'
+			'rules'	=> 'trim|numeric|required'
 		),
 		array(
 			'field' => 'rss_enabled',
@@ -136,7 +136,7 @@ class Admin extends Admin_Controller {
 			->append_metadata( css('index.css', 'pages') )
 			->build('admin/index', $this->data);
 	}
-	
+
 	/**
 	 * Order the pages and record their children
 	 *
@@ -158,14 +158,14 @@ class Admin extends Admin_Controller {
 			{
 				//set the order of the root pages
 				$this->page_m->update_by('id', str_replace('page_', '', $page['id']), array('order' => $i));
-				
+
 				//iterate through children and set their order and parent
 				$this->page_m->_set_children($page);
 			}
-			
+
 			// rebuild page URIs
 			$this->page_m->update_lookup($root_pages);
-			
+
 			$this->pyrocache->delete_all('navigation_m');
 			$this->pyrocache->delete_all('page_m');
 		}
@@ -208,12 +208,12 @@ class Admin extends Admin_Controller {
 	public function duplicate($id, $parent_id = null)
 	{
 		$page  = $this->page_m->get($id);
-		
+
 		// Steal their children
 		$children = $this->page_m->get_many_by('parent_id', $id);
-		
+
 		$new_slug = $page->slug;
-		
+
 		// No parent around? Do what you like
 		if (is_null($parent_id))
 		{
@@ -221,7 +221,7 @@ class Admin extends Admin_Controller {
 			{
 				// Turn "Foo" into "Foo 2"
 				$page->title = increment_string($page->title, ' ', 2);
-					
+
 				// Turn "foo" into "foo-2"
 				$page->slug = increment_string($page->slug, '-', 2);
 
@@ -233,22 +233,22 @@ class Admin extends Admin_Controller {
 			}
 			while ($dupes > 0);
 		}
-		
+
 		// Oop, a parent turned up, work with that
 		else
 		{
 			$page->parent_id = $parent_id;
 		}
-		
+
 		$chunks = $this->db->get_where('page_chunks', array('page_id' => $page->id))->result();
-		
+
 		$new_page_id = $this->page_m->insert((array) $page, $chunks);
-		
+
 		foreach ($children as $child)
 		{
 			$this->duplicate($child->id, $new_page_id);
 		}
-		
+
 		if ($parent_id === NULL)
 		{
 			redirect('admin/pages/edit/'.$new_page_id);
@@ -264,15 +264,15 @@ class Admin extends Admin_Controller {
 	public function create($parent_id = 0)
 	{
 		if ($_POST)
-		{	
+		{
 			$chunk_slugs = $this->input->post('chunk_slug') ? array_values($this->input->post('chunk_slug')) : array();
 			$chunk_bodies = $this->input->post('chunk_body') ? array_values($this->input->post('chunk_body')) : array();
 			$chunk_types = $this->input->post('chunk_type') ? array_values($this->input->post('chunk_type')) : array();
-			
+
 			$page->chunks = array();
 			$chunk_bodies_count = count($this->input->post('chunk_body'));
 			for ($i = 0; $i < $chunk_bodies_count; $i++)
-			{	
+			{
 				$page->chunks[] = (object) array(
 					'id' => $i,
 					'slug' => ! empty($chunk_slugs[$i]) ? $chunk_slugs[$i] : '',
@@ -280,27 +280,27 @@ class Admin extends Admin_Controller {
 					'body' => ! empty($chunk_bodies[$i]) ? $chunk_bodies[$i] : '',
 				);
 			}
-			
+
 			$this->form_validation->set_rules($this->validation_rules);
-				
+
 			// Validate the page
 			if ($this->form_validation->run())
 			{
 				$input = $this->input->post();
-	
+
 				if ($input['status'] == 'live')
 				{
 					role_or_die('pages', 'put_live');
 				}
-	
+
 				// First create the page
 				$nav_group_id	= $input['navigation_group_id'];
 				unset($input['navigation_group_id']);
-				
+
 				if ($id = $this->page_m->insert($input, $page->chunks))
 				{
-					$input['restricted_to'] = isset($input['restricted_to']) ? implode(',', $input['restricted_to']) : '';
-	
+					$input['restricted_to'] = isset($input['restricted_to']) ? implode(',', $input['restricted_to']) : '0';
+
 					// Add a Navigation Link
 					if ($nav_group_id)
 					{
@@ -312,18 +312,18 @@ class Admin extends Admin_Controller {
 							'navigation_group_id'	=> (int) $nav_group_id
 						));
 					}
-	
+
 					if ($this->page_m->update($id, $input))
 					{
 						$this->session->set_flashdata('success', lang('pages_create_success'));
-	
+
 						// Redirect back to the form or main page
 						$this->input->post('btnAction') == 'save_exit'
 							? redirect('admin/pages')
 							: redirect('admin/pages/edit/'.$id);
 					}
 				}
-	
+
 				// Fail
 				else
 				{
@@ -331,7 +331,7 @@ class Admin extends Admin_Controller {
 				}
 			}
 		}
-		
+
 		else
 		{
 			$page->chunks = array((object) array(
@@ -341,34 +341,34 @@ class Admin extends Admin_Controller {
 				'type' => 'wysiwyg-advanced',
 			));
 		}
-		
+
 		// Loop through each rule
 		foreach ($this->validation_rules as $rule)
 		{
 			if ($rule['field'] === 'restricted_to[]')
 			{
-				$page->restricted_to = set_value($rule['field']);
+				$page->restricted_to = set_value($rule['field'], array('0'));
 
 				continue;
 			}
 
 			$page->{$rule['field']} = set_value($rule['field']);
 		}
-		
+
 		// If a parent id was passed, fetch the parent details
 		if ($parent_id > 0)
 		{
 			$page->parent_id 	= $parent_id;
 			$parent_page 	= $this->page_m->get($parent_id);
 		}
-		
+
 		// Assign data for display
 		$data['page'] = & $page;
 		$data['parent_page'] = & $parent_page;
-		
+
 		// Set some data that both create and edit forms will need
 		self::_form_data();
-		
+
 		// Load WYSIWYG editor
 		$this->template
 			->title($this->module_details['name'], lang('pages.create_title'))
@@ -392,9 +392,11 @@ class Admin extends Admin_Controller {
 		role_or_die('pages', 'edit_live');
 
 		$page = $this->page_m->get($id);
-		
+
 		// Grab all the chunks that make up the body
-		$page->chunks = $this->db->get_where('page_chunks', array('page_id' => $id))->result();
+		$page->chunks = $this->db->order_by('sort')
+			->get_where('page_chunks', array('page_id' => $id))
+			->result();
 
 		// Got page?
 		if ( ! $page)
@@ -414,7 +416,7 @@ class Admin extends Admin_Controller {
 			$chunk_slugs = $this->input->post('chunk_slug') ? array_values($this->input->post('chunk_slug')) : array();
 			$chunk_bodies = $this->input->post('chunk_body') ? array_values($this->input->post('chunk_body')) : array();
 			$chunk_types = $this->input->post('chunk_type') ? array_values($this->input->post('chunk_type')) : array();
-			
+
 			$chunk_slugs_count = count($chunk_slugs);
 
 			$page->chunks = array();
@@ -422,22 +424,22 @@ class Admin extends Admin_Controller {
 			{
 				// Nothing in here?
 				if (empty($chunk_slugs[$i]) and ! strip_tags($chunk_bodies[$i])) continue;
-				
+
 				// Strip PHP from chunks
 				$chunk_bodies[$i] = str_replace(array(
 					'<?', '?>'
 				), array(
 					'&lt;?', '?&gt;'
 				), $chunk_bodies[$i]);
-				
+
 				$page->chunks[] = (object) array(
 					'id' => $i,
 					'slug' => ! empty($chunk_slugs[$i]) ? $chunk_slugs[$i] : '',
 					'type' => ! empty($chunk_types[$i]) ? $chunk_types[$i] : '',
 					'body' => ! empty($chunk_bodies[$i]) ? $chunk_bodies[$i] : '',
-				);	
+				);
 			}
-			
+
 			$this->form_validation->set_rules(array_merge($this->validation_rules, array(
 				'slug' => array(
 					'field' => 'slug',
@@ -445,31 +447,31 @@ class Admin extends Admin_Controller {
 					'rules'	=> 'trim|required|alpha_dot_dash|max_length[250]|callback__check_slug['.$id.']'
 				)
 			)));
-			
+
 			if ($this->form_validation->run())
 			{
 				$input = $this->input->post();
-				
+
 				if ($page->status != 'live' and $input['status'] == 'live')
 				{
 					role_or_die('pages', 'put_live');
 				}
-				
-				$input['restricted_to'] = isset($input['restricted_to']) ? implode(',', $input['restricted_to']) : '';
-	
+
+				$input['restricted_to'] = isset($input['restricted_to']) ? implode(',', $input['restricted_to']) : '0';
+
 				// Run the update code with the POST data
 				$this->page_m->update($id, $input, $page->chunks);
-	
+
 				// The slug has changed
 				if ($this->input->post('slug') != $this->input->post('old_slug'))
 				{
 					$this->page_m->reindex_descendants($id);
 				}
-	
+
 				// Set the flashdata message and redirect the user
 				$link = anchor('admin/pages/preview/'.$id, $this->input->post('title'), 'class="modal-large"');
 				$this->session->set_flashdata('success', sprintf(lang('pages_edit_success'), $link));
-	
+
 				// Redirect back to the form or main page
 				$this->input->post('btnAction') == 'save_exit'
 					? redirect('admin/pages')
@@ -488,18 +490,19 @@ class Admin extends Admin_Controller {
 			if ($rule['field'] === 'restricted_to[]')
 			{
 				$page->restricted_to = set_value($rule['field'], $page->restricted_to);
+				$page->restricted_to[0] = ($page->restricted_to[0] == '') ? '0' : $page->restricted_to[0];
 				continue;
 			}
 
 			$page->{$rule['field']} = set_value($rule['field'], $page->{$rule['field']});
 		}
-		
+
 		// If a parent id was passed, fetch the parent details
 		if ($page->parent_id > 0)
 		{
 			$parent_page = $this->page_m->get($page->parent_id);
 		}
-		
+
 		// Assign data for display
 		$this->data->page =& $page;
 		$this->data->parent_page =& $parent_page;
@@ -507,7 +510,7 @@ class Admin extends Admin_Controller {
 		self::_form_data();
 
 		$this->template
-		
+
 			->title($this->module_details['name'], sprintf(lang('pages.edit_title'), $page->title))
 
 			// Load WYSIWYG Editor
@@ -570,7 +573,7 @@ class Admin extends Admin_Controller {
 					$this->session->set_flashdata('error', lang('pages_delete_home_error'));
 				}
 			}
-			
+
 			// Some pages have been deleted
 			if ( ! empty($deleted_ids))
 			{
@@ -593,7 +596,7 @@ class Admin extends Admin_Controller {
 
 		redirect('admin/pages');
 	}
-	
+
 	/**
 	 * Build the html for the admin page tree view
 	 *
@@ -603,14 +606,14 @@ class Admin extends Admin_Controller {
 	public function tree_builder($page)
 	{
 		if (isset($page['children'])):
-	
+
 			foreach($page['children'] as $page): ?>
-		
+
 				<li id="page_<?php echo $page['id']; ?>">
 					<div>
 						<a href="#" rel="<?php echo $page['id'] . '">' . $page['title']; ?></a>
 					</div>
-				
+
 			<?php if(isset($page['children'])): ?>
 					<ul>
 							<?php $this->tree_builder($page); ?>
@@ -622,7 +625,7 @@ class Admin extends Admin_Controller {
 			endforeach;
 		endif;
 	}
-	
+
 	/**
 	 * Callback to check uniqueness of slug + parent
 	 *
@@ -646,18 +649,18 @@ class Admin extends Admin_Controller {
 				$page_obj = $this->page_m->get($this->input->post('parent_id'));
 				$parent_folder = $page_obj->title;
 			}
-		
+
 			$this->form_validation->set_message('_check_slug',sprintf(lang('pages_page_already_exist_error'),$url, $parent_folder));
 			return FALSE;
 		}
-		
+
 		// We check the page chunk slug length here too
 		foreach ($this->input->post('chunk_slug') AS $chunk)
 		{
 			if (strlen($chunk) > 30)
 			{
 				$this->form_validation->set_message('_check_slug', lang('pages_chunk_slug_length'));
-				return FALSE;				
+				return FALSE;
 			}
 		}
 

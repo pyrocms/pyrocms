@@ -1,6 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['global:control-panel'] 			= 'Quản trị hệ thống';
+$lang['global:profile']					= 'Profile'; #translate
 
 $lang['title_label'] 					= 'Tiêu đề';
 $lang['name_label'] 					= 'Tên';

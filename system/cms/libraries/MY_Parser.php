@@ -92,6 +92,7 @@ class MY_Parser extends CI_Parser {
 
 		$parser = new Lex_Parser();
 		$parser->scope_glue(':');
+		$parser->cumulative_noparse(TRUE);
 		$parsed = $parser->parse($string, $data, array($this, 'parser_callback'));
 		
 		// Finish benchmark
