@@ -129,7 +129,8 @@ class Lex_Parser
 						}
 						$looped_text .= $str;
 					}
-					$text = preg_replace('/'.preg_quote($match[0][0], '/').'/m', $looped_text, $text, 1);
+					$text = preg_replace('/'.preg_quote($match[0][0], '/').'/m', addcslashes($looped_text, '\\$'), $text, 1);
+
 				}
 			}
 		}
@@ -209,7 +210,8 @@ class Lex_Parser
 			{
 				$replacement = $this->value_to_literal($replacement);
 			}
-			$text = preg_replace('/'.preg_quote($tag, '/').'/m', $replacement, $text, 1);
+			$text = preg_replace('/'.preg_quote($tag, '/').'/m', addcslashes($replacement, '\\$'), $text, 1);
+
 		}
 
 		return $text;
@@ -263,7 +265,7 @@ class Lex_Parser
 
 			$conditional = '<?php '.$match[1].' ('.$condition.'): ?>';
 
-			$text = preg_replace('/'.preg_quote($match[0], '/').'/m', $conditional, $text, 1);
+			$text = preg_replace('/'.preg_quote($match[0], '/').'/m', addcslashes($conditional, '\\$'), $text, 1);
 		}
 
 		$text = preg_replace($this->conditional_else_regex, '<?php else: ?>', $text);
