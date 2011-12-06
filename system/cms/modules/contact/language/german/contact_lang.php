@@ -11,6 +11,6 @@
  * @since		Version 0.9.8
  * @filesource
  */
-
+$lang['contact_submit_error']				= 'Sorry. It appears that you attempted to post the form contents directly. This is not allowed.'; #translate
 $lang['contact_sent_text']					= 'Ihre Mitteilung wurde verschickt. Wir kommen schnellstmöglich auf Sie zurück.';
 $lang['contact_error_message']			= 'There was a problem sending this message. Please try again later..'; #translate

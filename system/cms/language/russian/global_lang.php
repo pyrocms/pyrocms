@@ -9,6 +9,7 @@
  */
 
 $lang['global:control-panel']								= 'Администрирование';
+$lang['global:profile']					= 'Profile'; #translate
 
 $lang['title_label']						= 'Заголовок';
 $lang['name_label']							= 'Название';

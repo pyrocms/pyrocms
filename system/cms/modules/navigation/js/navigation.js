@@ -93,7 +93,7 @@
 		}).filter(':checked').change();
 
 		// show link details
-		$('#link-list li a').live('click', function()
+		$('#link-list li a').livequery('click', function()
 		{
 			var id = $(this).attr('rel');
 			link_id = $(this).attr('alt');

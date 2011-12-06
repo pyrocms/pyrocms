@@ -8,7 +8,7 @@
 			<button class="button instance-code" id="instance-code-<?php echo $widget->id; ?>"><?php echo lang('widgets.view_code'); ?></button>
 		</div>
 		<div id="instance-code-<?php echo $widget->id; ?>-wrap" style="display: none;">
-			<input type="text" class="widget-code" value='{{ widgets.instance id="<?php echo $widget->id ?>"}}' />
+			<input type="text" class="widget-code" value='{{ widgets:instance id="<?php echo $widget->id ?>"}}' />
 		</div>
 		<div style="clear:both"></div>
 	</li>

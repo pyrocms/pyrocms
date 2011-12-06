@@ -1,4 +1,8 @@
-<h2 id="page_title" class="page-title"><?php echo lang('profile_edit') ?></h2>
+<h2 id="page_title" class="page-title">
+	<?php echo ($this->current_user->id !== $user->id) ?
+					sprintf(lang('user_edit_title'), $user->first_name.' '.$user->last_name) :
+					lang('profile_edit') ?>
+</h2>
 <div>
 	<?php if(validation_errors()):?>
 	<div class="error-box">

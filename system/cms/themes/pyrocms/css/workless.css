@@ -2054,8 +2054,13 @@ Ensure your main styling comes before this!
 	
 	.topbar {
 		height: 50px;
+		text-align: center;
 	}
 	
+	.topbar ul li {
+  		min-width: 70px;
+	}
+
 	.subbar {
 		top: 25px;
 	}
@@ -2138,6 +2143,11 @@ Ensure your main styling comes before this!
 	
 	.topbar {
 		height: 50px;
+		text-align: center;
+	}
+	
+	.topbar ul li {
+  		min-width: 80px;
 	}
 	
 	.subbar {

@@ -31,7 +31,7 @@ class Admin extends Admin_Controller {
 		array(
 			'field' => 'link_type',
 			'label'	=> 'lang:nav_type_label',
-			'rules'	=> 'trim|required|alpha'
+			'rules'	=> 'trim|required|alpha|callback__link_check'
 		),
 		array(
 			'field' => 'url',
@@ -467,5 +467,37 @@ class Admin extends Admin_Controller {
 			
 		<?php endif;
 	}
+	
+	/**
+	 * Validate the link value
+	 * Only the URI field may be submitted blank
+	 *
+	 * @param	string	$link	The link value
+	 */
+	public function _link_check($link)
+	{
+		$status = TRUE;
+
+		switch ($link) {
+			
+			case 'url':
+				$status = ($this->input->post('url') > '' AND $this->input->post('url') !== 'http://') ? TRUE : FALSE;
+			break;
+		
+			case 'module':
+				$status = ($this->input->post('module_name') > '') ? TRUE : FALSE;
+			break;
+		
+			case 'page':
+				$status = ($this->input->post('page_id') > '') ? TRUE : FALSE;
+			break;
+		}
+		
+		if ( ! $status)
+		{
+			$this->form_validation->set_message('_link_check', sprintf(lang('nav_choose_value'), lang('nav_'.$link.'_label')));
+			return FALSE;
+		}
+		return TRUE;
+	}
 }
-?>

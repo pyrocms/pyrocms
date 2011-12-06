@@ -129,7 +129,8 @@ class Lex_Parser
 						}
 						$looped_text .= $str;
 					}
-					$text = preg_replace('/'.preg_quote($match[0][0], '/').'/m', $looped_text, $text, 1);
+					$text = preg_replace('/'.preg_quote($match[0][0], '/').'/m', addcslashes($looped_text, '\\$'), $text, 1);
+
 				}
 			}
 		}
@@ -187,7 +188,6 @@ class Lex_Parser
 			$tag = $match[0][0];
 			$start = $match[0][1];
 			$name = $match[1][0];
-
 			if (isset($match[2]))
 			{
 				$raw_params = $this->inject_extractions($match[2][0], '__cond_str');
@@ -210,7 +210,8 @@ class Lex_Parser
 			{
 				$replacement = $this->value_to_literal($replacement);
 			}
-			$text = preg_replace('/'.preg_quote($tag, '/').'/m', $replacement, $text, 1);
+			$text = preg_replace('/'.preg_quote($tag, '/').'/m', addcslashes($replacement, '\\$'), $text, 1);
+
 		}
 
 		return $text;
@@ -230,7 +231,6 @@ class Lex_Parser
 		preg_match_all($this->conditional_regex, $text, $matches, PREG_SET_ORDER);
 
 		$this->conditional_data = $data;
-		$this->in_condition = true;
 
 		/**
 		 * $matches[][0] = Full Match
@@ -239,6 +239,8 @@ class Lex_Parser
 		 */
 		foreach ($matches as $match)
 		{
+			$this->in_condition = true;
+			
 			$condition = $match[2];
 
 			// Extract all literal string in the conditional to make it easier
@@ -254,7 +256,6 @@ class Lex_Parser
 
 			if ($callback)
 			{
-				$this->in_condition = true;
 				$condition = preg_replace('/\b(?!\{\s*)('.$this->callback_name_regex.')(?!\s+.*?\s*\})\b/', '{$1}', $condition);
 				$condition = $this->parse_callback_tags($condition, $data, $callback);
 			}
@@ -264,7 +265,7 @@ class Lex_Parser
 
 			$conditional = '<?php '.$match[1].' ('.$condition.'): ?>';
 
-			$text = preg_replace('/'.preg_quote($match[0], '/').'/m', $conditional, $text, 1);
+			$text = preg_replace('/'.preg_quote($match[0], '/').'/m', addcslashes($conditional, '\\$'), $text, 1);
 		}
 
 		$text = preg_replace($this->conditional_else_regex, '<?php else: ?>', $text);
@@ -390,7 +391,7 @@ class Lex_Parser
 		}
 		elseif (is_numeric($value))
 		{
-			return $value;
+			return '"'.$value.'"';
 		}
 		elseif (is_string($value))
 		{
@@ -399,6 +400,10 @@ class Lex_Parser
 		elseif (is_object($value) and is_callable(array($value, '__toString')))
 		{
 			return '"'.addslashes((string) $value).'"';
+		}
+		elseif (is_array($value))
+		{
+			return !empty($value) ? "true" : "false";
 		}
 		else
 		{
@@ -424,7 +429,7 @@ class Lex_Parser
 		$this->variable_loop_regex = '/\{\{\s*('.$this->variable_regex.')\s*\}\}(.*?)\{\{\s*\/\1\s*\}\}/ms';
 		$this->variable_tag_regex = '/\{\{\s*('.$this->variable_regex.')\s*\}\}/m';
 
-		$this->callback_block_regex = '/\{\{\s*(?!if)('.$this->variable_regex.')(\s+.*?)?\s*\}\}(.*?)\{\{\s*\/\1\s*\}\}/ms';
+		$this->callback_block_regex = '/\{\{\s*('.$this->variable_regex.')(\s.*?)\}\}(.*?)\{\{\s*\/\1\s*\}\}/ms';
 
 		$this->noparse_regex = '/\{\{\s*noparse\s*\}\}(.*?)\{\{\s*\/noparse\s*\}\}/ms';
 
@@ -605,10 +610,6 @@ class Lex_Parser
 		{
 			log_message('error', str_replace(array('?>', '<?php '), '', $text));
 			echo '<br />You have a syntax error in your Lex tags: The snippet of text that contains the error has been output to your application\'s log file.<br />';
-		}
-		else
-		{
-			echo $result;
 		}
 
 		return ob_get_clean();

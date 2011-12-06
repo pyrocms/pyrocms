@@ -1,6 +1,7 @@
 <?php
 
 $lang['global:control-panel'] 				= 'Kontrolní panel';
+$lang['global:profile']					= 'Profile'; #translate
 
 $lang['title_label'] 				= 'Titulek';
 $lang['name_label'] 				= 'Jméno';

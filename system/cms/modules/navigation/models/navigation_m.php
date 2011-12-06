@@ -82,7 +82,7 @@ class Navigation_m extends MY_Model
         	'link_type' 			=> $input['link_type'],
         	'url' 					=> isset($input['url']) ? $input['url'] : '',
         	'uri' 					=> isset($input['uri']) ? $input['uri'] : '',
-        	'module_name' 			=> $input['module_name'],
+        	'module_name' 			=> isset($input['module_name']) ? $input['module_name'] : '',
         	'page_id' 				=> (int) $input['page_id'],
         	'position' 				=> $position,
 			'target'				=> isset($input['target']) ? $input['target'] : '',
