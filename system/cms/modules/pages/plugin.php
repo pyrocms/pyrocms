@@ -277,8 +277,7 @@ class Plugin_Pages extends Plugin
 		if ( ! $tree)
 		{
 			$this->db->select('id, parent_id, slug, uri, title')
-					->order_by($order_by, $order_dir)
-					->where_not_in('slug', $this->disable);
+				->where_not_in('slug', $this->disable);
 			
 			// check if they're logged in
 			if ( isset($this->current_user->group) )
@@ -286,19 +285,45 @@ class Plugin_Pages extends Plugin
 				// admins can see them all
 				if ($this->current_user->group != 'admin')
 				{
-					// show pages for their group and all unrestricted
-					$this->db->where('status', 'live')
-						->where_in('restricted_to', array($this->current_user->group_id, 0, NULL));					
+					$id_list = array();
+					
+					$page_list = $this->db->select('id, restricted_to')
+						->get('pages')
+						->result();
+
+					foreach ($page_list AS $list_item)
+					{
+						// make an array of allowed user groups
+						$group_array = explode(',', $list_item->restricted_to);
+
+						// if restricted_to is 0 or empty (unrestricted) or if the current user's group is allowed
+						if (($group_array[0] < 1) OR in_array($this->current_user->group_id, $group_array))
+						{
+							$id_list[] = $list_item->id;
+						}
+					}
+					
+					// if it's an empty array then evidentally all pages are unrestricted
+					if (count($id_list) > 0)
+					{
+						// select only the pages they have permissions for
+						$this->db->where_in('id', $id_list);
+					}
+					
+					// since they aren't an admin they can't see drafts
+					$this->db->where('status', 'live');
 				}
 			}
 			else
 			{
-				//they aren't logged in, show them all unrestricted pages
+				//they aren't logged in, show them all live, unrestricted pages
 				$this->db->where('status', 'live')
-					->where('restricted_to <=', 0);
+					->where('restricted_to <', 1)
+					->or_where('restricted_to', NULL);
 			}
 			
-			$pages = $this->db->get('pages')
+			$pages = $this->db->order_by($order_by, $order_dir)
+				->get('pages')
 				->result();
 
 			if ($pages)
