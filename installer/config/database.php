@@ -48,7 +48,7 @@ $db['default']['db_debug'] = TRUE;
 $db['default']['cache_on'] = FALSE;
 $db['default']['cachedir'] = "";
 $db['default']['char_set'] = "utf8";
-$db['default']['dbcollat'] = "utf8_general_ci";
+$db['default']['dbcollat'] = "utf8_unicode_ci";
 
 
 /* End of file database.php */
