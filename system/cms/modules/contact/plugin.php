@@ -284,7 +284,8 @@ class Plugin_Contact extends Plugin {
 		$parse_data = array();
 		foreach ($form_meta AS $form => $value)
 		{
-			$parse_data[$form]  = form_error($form);
+			// use CodeIgniter's default of <p> but add a class in to match the form name
+			$parse_data[$form]  = form_error($form, '<p class="'.$form.'-error">', '</p>');
 			
 			if ($value['type'] == 'dropdown')
 			{
