@@ -24,6 +24,8 @@ class Plugin_Pages extends Plugin
 
 		return site_url($page ? $page->uri : '');
 	}
+
+	// --------------------------------------------------------------------------
 	
 	/**
 	 * Get a page by ID or slug
@@ -54,6 +56,8 @@ class Plugin_Pages extends Plugin
 		return $this->content() ? $page : $page['body'];
 	}
 
+	// --------------------------------------------------------------------------
+
 	/**
 	 * Get a page chunk by page ID and chunk name
 	 *
@@ -71,6 +75,8 @@ class Plugin_Pages extends Plugin
 
 		return ($chunk ? ($this->content() ? $chunk : $chunk['body']) : FALSE);
 	}
+
+	// --------------------------------------------------------------------------
 	
 	/**
 	 * Children list
@@ -120,12 +126,28 @@ class Plugin_Pages extends Plugin
 	 */
 	public function page_tree()
 	{
+		$start 			= $this->attribute('start');
 		$start_id 		= $this->attribute('start-id', $this->attribute('start_id'));
 		$disable_levels = $this->attribute('disable-levels');
 		$order_by 		= $this->attribute('order-by', 'title');
 		$order_dir		= $this->attribute('order-dir', 'ASC');
 		$list_tag		= $this->attribute('list-tab', 'ul');
 		$link			= $this->attribute('link', TRUE);
+		
+		// If we have a start URI, let's try and
+		// find that ID.
+		if($start)
+		{
+			$page = $this->page_m->get_by_uri($start);
+		
+			if(!$page) return NULL;
+			
+			$start_id = $page->id;
+		}
+		
+		// If our start doesn't exist, then
+		// what are we going to do? Nothing.
+		if(!$start_id) return NULL;
 		
 		// Disable individual pages or parent pages by submitting their slug
 		$this->disable = explode("|", $disable_levels);
@@ -190,6 +212,8 @@ class Plugin_Pages extends Plugin
 
 		return (int) TRUE;
 	}
+
+	// --------------------------------------------------------------------------
 	
 	/**
 	* Page has function
@@ -206,6 +230,8 @@ class Plugin_Pages extends Plugin
 	{
 		return $this->page_m->has_children($this->attribute('id'));
 	}
+
+	// --------------------------------------------------------------------------
 
 	/**
 	 * Check Page is function
@@ -256,6 +282,8 @@ class Plugin_Pages extends Plugin
 			)) > 0: FALSE;
 		}
 	}
+
+	// --------------------------------------------------------------------------
 	
 	/**
 	 * Tree html function
