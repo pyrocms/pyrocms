@@ -272,7 +272,7 @@ $config['sess_time_to_update']	= 300;
 |
 */
 $config['cookie_prefix']	= "";
-$config['cookie_domain']	= $_SERVER['SERVER_NAME'];
+$config['cookie_domain']	= ($_SERVER['SERVER_NAME'] == 'localhost') ? '' : $_SERVER['SERVER_NAME'];
 $config['cookie_path']		= BASE_URI;
 $config['cookie_secure']	= FALSE;
 
