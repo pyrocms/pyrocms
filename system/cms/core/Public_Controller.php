@@ -28,6 +28,16 @@ class Public_Controller extends MY_Controller
 			show_error($error, 503);
 		}
 
+		// check if this navigation menu is restricted
+		$this->load->model('navigation/navigation_m');
+		$restricted_m = $this->navigation_m->get_by(array('module_name'=>$this->module));
+		$restricted_to = (array) explode(',', $restricted_m->restricted_to);
+
+		if ($this->current_user->group != 'admin' && !empty($restricted_m->restricted_to) && !in_array($this->current_user->group_id, $restricted_to))
+		{
+			redirect('users/login/'.(empty($url_segments) ? '' : implode('/', $url_segments)));
+		}
+
 		// -- Navigation menu -----------------------------------
 		$this->load->model('pages/page_m');
 
