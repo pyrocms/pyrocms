@@ -9,3 +9,10 @@ $lang['maintenance.remove_msg'] 		= 'Folder %2$s deleted';
 
 $lang['maintenance.empty_msg_err'] 		= 'Error emptying folder %s';
 $lang['maintenance.remove_msg_err'] 	= 'Error removing folder %s';
+
+$lang['maintenance.export_data']		= 'Export Data';
+$lang['maintenance.export_xml']			= 'Export XML';
+$lang['maintenance.export_csv']			= 'Export CSV';
+$lang['maintenance.export_json']		= 'Export JSON';
+$lang['maintenance.table_label']		= 'Tables';
+$lang['maintenance.record_label']		= 'Records';
