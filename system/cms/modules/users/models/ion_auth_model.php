@@ -589,31 +589,64 @@ class Ion_auth_model extends CI_Model
 
 			if ($user->password === $password)
 			{
-				$this->update_last_login($user->id);
-
-				$group_row = $this->db->select('name')->where('id', $user->group_id)->get($this->tables['groups'])->row();
-
-				$session_data = array(
-					'username' 			   => $user->username,
-					'email' 			   => $user->email,
-					'id'                   => $user->id, //kept for backwards compatibility
-					'user_id'              => $user->id, //everyone likes to overwrite id so we'll use user_id
-					'group_id'             => $user->group_id,
-					'group'                => $group_row->name
-				);
-
-				$this->session->set_userdata($session_data);
-
-				if ($remember && $this->config->item('remember_users', 'ion_auth'))
-				{
-					$this->remember_user($user->id);
-				}
-
+				$this->_set_login($user);
 				return TRUE;
 			}
 		}
 
 		return FALSE;
+	}
+	
+	
+	public function force_login($identity, $remember=FALSE)
+	{
+		if (empty($identity))
+		{
+			return FALSE;
+		}
+
+		$this->db->select('username, email, id, password, group_id')
+			->where(sprintf('(username = "%1$s" OR email = "%1$s")', $this->db->escape_str($identity)));
+
+		if (isset($this->ion_auth->_extra_where))
+		{
+			$this->db->where($this->ion_auth->_extra_where);
+		}
+
+		$query = $this->db->where('active', 1)
+					   ->limit(1)
+					   ->get($this->tables['users']);
+
+		$user = $query->row();
+
+		if ($query->num_rows() == 1)
+		{
+			$this->_set_login($user);
+			return TRUE;
+		}
+
+		return FALSE;
+	}
+	
+	public function _set_login($user)
+	{
+		$this->update_last_login($user->id);
+
+		$group_row = $this->db->select('name')->where('id', $user->group_id)->get($this->tables['groups'])->row();
+
+		$this->session->set_userdata(array(
+			'username' 			   => $user->username,
+			'email' 			   => $user->email,
+			'id'                   => $user->id, //kept for backwards compatibility
+			'user_id'              => $user->id, //everyone likes to overwrite id so we'll use user_id
+			'group_id'             => $user->group_id,
+			'group'                => $group_row->name
+		));
+
+		if ($remember && $this->config->item('remember_users', 'ion_auth'))
+		{
+			$this->remember_user($user->id);
+		}
 	}
 
 	/**

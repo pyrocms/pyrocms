@@ -370,6 +370,18 @@ class Ion_auth
 		$this->set_error('login_unsuccessful');
 		return FALSE;
 	}
+	
+	public function force_login($identity, $remember = false)
+	{
+		if ($this->ci->ion_auth_model->force_login($identity, $remember))
+		{
+			$this->set_message('login_successful');
+			return TRUE;
+		}
+
+		$this->set_error('login_unsuccessful');
+		return FALSE;
+	}
 
 	/**
 	 * logout
