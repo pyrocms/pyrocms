@@ -15,7 +15,8 @@ class Module_Keywords extends Module {
 				'br' => 'Palavras-chave',
 				'ar' => 'كلمات البحث',
 				'da' => 'Nøgleord',
-				'zh' => '鍵詞'
+				'zh' => '鍵詞',
+				'hu' => 'Kulcsszavak'
 			),
 			'description' => array(
 				'en' => 'Maintain a central list of keywords to label and organize your content.',
@@ -25,7 +26,8 @@ class Module_Keywords extends Module {
 				'br' => 'Mantém uma lista central de palavras-chave para rotular e organizar o seu conteúdo.',
 				'ar' => 'أنشئ مجموعة من كلمات البحث التي تستطيع من خلالها وسم وتنظيم المحتوى.',
 				'da' => 'Vedligehold en central liste af nøgleord for at organisere dit indhold.',
-				'zh' => '集中管理可用於標題與內容的鍵詞(keywords)列表。'
+				'zh' => '集中管理可用於標題與內容的鍵詞(keywords)列表。',
+				'hu' => 'Ez egy központi kulcsszó lista a cimkékhez és a tartalomhoz.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,

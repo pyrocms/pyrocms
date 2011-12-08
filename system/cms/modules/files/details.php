@@ -24,7 +24,8 @@ class Module_Files extends Module {
 				'el' => 'Αρχεία',
 				'he' => 'קבצים',
 				'lt' => 'Failai',
-				'da' => 'Filer'
+				'da' => 'Filer',
+				'hu' => 'Fájlok'
 			),
 			'description' => array(
 				'sl' => 'Uredi datoteke in mape na vaši strani',
@@ -43,7 +44,8 @@ class Module_Files extends Module {
 				'el' => 'Διαχειρίζεται αρχεία και φακέλους για το ιστότοπό σας.',
 				'he' => 'ניהול תיקיות וקבצים שבאתר',
 				'lt' => 'Katalogų ir bylų valdymas.',
-				'da' => 'Administrer filer og mapper for dit site.'
+				'da' => 'Administrer filer og mapper for dit site.',
+				'hu' => 'Fájlok és mappák kezelése az oldalon.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
