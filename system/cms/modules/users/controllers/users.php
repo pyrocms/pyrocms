@@ -34,7 +34,14 @@ class Users extends Public_Controller
 	 */
 	public function index()
 	{
-		$this->view($this->current_user->id);
+		if (isset($this->current_user->id))
+		{
+			$this->view($this->current_user->id);
+		}
+		else
+		{
+			redirect('users/login/users');
+		}
 	}
 
 	/**
@@ -178,6 +185,12 @@ class Users extends Public_Controller
 	
 		if ($this->form_validation->run())
 		{	
+			// maybe it's a bot?
+			if ($this->input->post('d0ntf1llth1s1n') !== ' ')
+			{
+				$this->session->set_flashdata('error', lang('user_register_error'));
+				redirect(current_url());
+			}
 
 			$email				= $this->input->post('email');
 			$password			= $this->input->post('password');	
@@ -442,7 +455,7 @@ class Users extends Public_Controller
 		}
 		else
 		{
-			$user = $this->current_user or redirect('users/login');
+			$user = $this->current_user or redirect('users/login/users/edit'.(($id > 0) ? '/'.$id : ''));
 		}
 
 		$this->validation_rules = array(

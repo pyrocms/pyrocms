@@ -88,7 +88,7 @@ class Navigation_m extends MY_Model
 			'target'				=> isset($input['target']) ? $input['target'] : '',
 			'class'					=> isset($input['class']) ? $input['class'] : '',
         	'navigation_group_id'	=> (int) $input['navigation_group_id'],
-			'restricted_to'			=> $input['restricted_to']
+			'restricted_to'			=> empty($input['restricted_to']) ? 0 : $input['restricted_to']
 		));
 
         return $this->db->insert_id();
@@ -116,7 +116,7 @@ class Navigation_m extends MY_Model
 			'target'				=> $input['target'],
 			'class'					=> $input['class'],
         	'navigation_group_id' 	=> (int) $input['navigation_group_id'],
-			'restricted_to'			=> $input['restricted_to']
+			'restricted_to'			=> empty($input['restricted_to']) ? 0 : $input['restricted_to']
 		);
 		
 		// if it was changed to a different group we need to reset the parent > child

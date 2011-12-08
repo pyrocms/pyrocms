@@ -119,6 +119,7 @@ $lang['user_mass_delete_error']                = 'Sinun tulee valita käyttäjä
 // Register
 $lang['user_email_pass_missing']               = 'Sähköposti tai salasaa puuttuvat.';
 $lang['user_email_exists']                     = 'Kirjoittamasi sähköpostiosoite on jo käytössä.';
+$lang['user_register_error']				   = 'We think you are a bot. If we are mistaken please accept our apologies.'; #translate
 $lang['user_register_reasons']                 = 'Rekisteröidy, niin voit päästä sivuille johon et normaalisti pääse.';
 
 

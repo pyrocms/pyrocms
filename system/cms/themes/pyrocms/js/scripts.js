@@ -44,24 +44,15 @@ jQuery(function($) {
 	 */
 	pyro.init = function() {
 
-		// Drop Menu
-		$(".topbar ul ul").css({display: "none"});
-
-		$(".topbar ul li a").mouseover(function(e){
-			$a = $(this).parent(':not(#dashboard-link)');
-			($a.find('ul:first:hidden').css({visibility: "visible",display: "none"}).slideDown(400).length > 0) ||
-			$a.find('ul:first:visible').slideUp(400);
-
-			if ($a.has('ul').length > 0) {
-				e.preventDefault();
-			};
+		$('.topbar ul li:not(#dashboard-link)').hoverIntent({
+			sensitivity: 7,
+			interval: 75,
+			over: function(){ $(this).find('ul:first:hidden').css({visibility: "visible", display: "none"}).slideDown(400) },
+			timeout: 0,
+			out: function(){ $(this).parent().find('ul').slideUp(400) }
 		});
 
-		$('.topbar ul li').mouseleave(function(){
-			$(this).find('ul').slideUp(400);
-		});
-
-		// Add class to show is dropdown
+		// Add class to dropdowns for styling
 		$(".topbar ul li:has(ul)").children("a").addClass("menu");
 
 		// Add the close link to all alert boxes

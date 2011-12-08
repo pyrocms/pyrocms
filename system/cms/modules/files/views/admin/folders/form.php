@@ -2,7 +2,7 @@
 	? lang('file_folders.create_title')
 	: sprintf(lang('file_folders.edit_title'), $folder->name); ?></h4>
 
-<?php echo form_open($this->uri->uri_string(), array('class' => 'crud', 'id' => 'folders_crud')); ?>
+<?php echo form_open($this->uri->uri_string(), array('class' => 'form_inputs', 'id' => 'folders_crud')); ?>
 <fieldset>
 	<ul>
 		<li class="even">

@@ -116,7 +116,7 @@ class Keywords {
 	 */
 	public function add($keyword)
 	{
-		return ci()->keyword_m->insert(array('name' => self::prep(singular($keyword))));
+		return ci()->keyword_m->insert(array('name' => self::prep($keyword)));
 	}
 
 	/**

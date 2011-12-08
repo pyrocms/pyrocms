@@ -112,6 +112,7 @@ $lang['user_mass_delete_error'] 							= 'Vous devez d\'abord seclectionner des 
 // Register
 $lang['user_email_pass_missing'] = 'l\'e-mail ou le mot de passe ne sont pas renseignés.';
 $lang['user_email_exists'] = 'L\'adresse e-mail choisie est déjà affectée à un autre utilisateur.';
+$lang['user_register_error']				   = 'We think you are a bot. If we are mistaken please accept our apologies.'; #translate
 $lang['user_register_reasons'] = 'Abonnez-vous pour accéder aux espaces réservés. Vos paramètres seront enregistrés, plus de contenu et moins de publicité.';
 
 

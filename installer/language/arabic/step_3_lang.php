@@ -19,3 +19,5 @@ $lang['hide_commands']		= 'إخفاء الأوامر';
 $lang['next_step']		= 'تقدم إلى الخطوة التالية';
 $lang['step4']			= 'الخطوة الرابعة';
 $lang['retry']			= 'حاول مجدداً';
+
+/* End of file step_3_lang.php */

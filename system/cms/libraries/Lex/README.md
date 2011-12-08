@@ -140,13 +140,13 @@ For our basic examples, lets assume you have the following array of variables (s
 
 **Basic Example:**
 
-    {{# Parsed: Hello, World! #}}
+	{{# Parsed: Hello, World! #}}
     Hello, {{ name }}!
 
-    {{# Parsed: <h1>Lex is Awesome!</h1> #}}
+	{{# Parsed: <h1>Lex is Awesome!</h1> #}}
     <h1>{{ title }}</h1>
 
-    {{# Parsed: My real name is Lex Luther!</h1> #}}
+	{{# Parsed: My real name is Lex Luther!</h1> #}}
     My real name is {{ real_name.first }} {{ real_name.last }}
 
 The `{{ real_name.first }}` and `{{ real_name.last }}` tags check if `real_name` exists, then check if `first` and `last` respectively exist inside the `real_name` array/object then returns it.

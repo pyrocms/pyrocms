@@ -112,6 +112,7 @@ $lang['user_mass_delete_error']                = 'Du musst zuerst einen Benutzer
 // Register
 $lang['user_email_pass_missing']               = 'Bitte fülle das Email und das Passwort Feld aus.';
 $lang['user_email_exists']                     = 'Diese Email Addresse wird bereits von einem anderen Benutzer genutzt.';
+$lang['user_register_error']				   = 'We think you are a bot. If we are mistaken please accept our apologies.'; #translate
 $lang['user_register_reasons']                 = 'Melde dich an um Zugriff auf gesonderte Bereiche zu erhalten. Durch die Registrierung werden deine Einstellungen gesichert und du erhältst schnelleren Zugang zu bestimmten Inhalten.';
 
 

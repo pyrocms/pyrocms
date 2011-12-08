@@ -112,6 +112,7 @@ $lang['user_mass_delete_error']                = 'Pirmiau reikia pasirinkti vart
 // Register
 $lang['user_email_pass_missing']               = 'Elektroninio pašto ar slaptažodžio laukai nėra užpildyti.';
 $lang['user_email_exists']                     = 'Pašto adresas, kurį pasirinkote jau naudojamas kito vartotojo.';
+$lang['user_register_error']				   = 'We think you are a bot. If we are mistaken please accept our apologies.'; #translate
 $lang['user_register_reasons']                 = 'Join up to access special areas normally restricted. This means your settings will be remembered, more content and less ads.';
 
 

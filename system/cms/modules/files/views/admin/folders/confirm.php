@@ -1,6 +1,9 @@
 <?php if ($file_folders): ?>
+<section class="title">
+	<h4><?php echo lang('file_folders.delete_title'); ?></h4>
+</section>
 
-<h2><?php echo lang('file_folders.delete_title'); ?></h2>
+<section class="item">
 <div class="closable notification attention">
 	<?php echo lang('file_folders.confirm_delete'); ?>
 </div>
@@ -46,3 +49,4 @@
 	</div>
 <?php echo form_close(); ?>
 <?php endif; ?>
+</section>

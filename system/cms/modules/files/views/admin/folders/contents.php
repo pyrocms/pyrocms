@@ -117,7 +117,7 @@
 	</div>
 
 	<?php else: ?>
-	<div class="blank-slate files">
+	<div class="no_data files">
 		<p><?php echo lang('files.no_files');?></p>
 	</div>
 	<?php endif; ?>
