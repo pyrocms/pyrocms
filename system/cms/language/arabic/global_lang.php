@@ -1,6 +1,6 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-$lang['global:control-panel'] 						= 'لوحة التحكم';
+$lang['global:control-panel'] 				= 'لوحة التحكم';
 $lang['global:profile']					= 'الملف الشخصي';
 
 $lang['title_label'] 					= 'العنوان';
@@ -10,23 +10,24 @@ $lang['version_label'] 					= 'النسخة';
 $lang['global:author'] 					= 'الناشر';
 $lang['global:action'] 					= 'الإجراء';
 
-$lang['dialog.delete_message'] 			= 'متأكد أنك تريد حذف هذا؟ لا يمكن التراجع عن هذا الأمر.';
-$lang['dialog.confirm'] 				= 'التأكيد';
-$lang['dialog.yes'] 					= 'نعم';
-$lang['dialog.no'] 						= 'لا';
+$lang['global:dialog:delete_message'] 	= 'متأكد أنك تريد حذف هذا؟ لا يمكن التراجع عن هذا الأمر.';
+$lang['global:dialog:confirm'] 			= 'التأكيد';
 
-$lang['global:select-none'] 					= '-- لاشيء --';
-$lang['global:select-all'] 					= '-- الكل --';
-$lang['global:select-any'] 					= '-- أي --';
-$lang['global:select-pick'] 					= '-- اختر --';
+$lang['global:yes'] 					= 'نعم';
+$lang['global:no'] 						= 'لا';
 
-$lang['global:check-none'] 					= 'لاشيء';
-$lang['global:check-all']						= 'الكل';
+$lang['global:select-none'] 			= '-- لاشيء --';
+$lang['global:select-all'] 				= '-- الكل --';
+$lang['global:select-any'] 				= '-- أي --';
+$lang['global:select-pick'] 			= '-- اختر --';
 
-$lang['operators.equal'] 				= 'يساري';
-$lang['operators.not_equal'] 			= 'لا يساوي';
-$lang['operators.less_than'] 			= 'أقل من';
-$lang['operators.greater_than'] 		= 'أكثر من';
+$lang['global:check-all']				= 'الكل';
+$lang['global:check-none'] 				= 'لاشيء';
+
+$lang['global:operators:equal'] 		= 'يساري';
+$lang['global:operators:not-equal'] 	= 'لا يساوي';
+$lang['global:operators:less-than'] 	= 'أقل من';
+$lang['global:operators:greater-than'] 	= 'أكثر من';
 
 $lang['navigation_headline'] 			= 'الروابط';
 $lang['breadcrumb_base_label'] 			= 'الرئيسية';
@@ -65,9 +66,11 @@ $lang['uninstall_label'] 				= 'إزالة';
 $lang['install_label'] 					= 'تثبيت';
 $lang['enable_label']					= 'تمكين';
 $lang['disable_label'] 					= 'تعطيل';
+$lang['upgrade_label'] 					= 'تحديث';
 
+$lang['global:filters'] 				= 'تصفية';
 $lang['global:shortcuts'] 				= 'الاختصارات';
-$lang['global:description'] 		    = 'الوصف';
+$lang['global:description']				= 'الوصف';
 $lang['global:actions']					= 'الإجراءات';
 $lang['global:view']					= 'عرض';
 $lang['global:preview']					= 'مُعاينة';
@@ -78,3 +81,5 @@ $lang['global:delete']					= 'حذف';
 $lang['global:remove']					= 'إزالة';
 
 $lang['global:keywords']				= 'كلمات البحث';
+
+/* End of file main_lang.php */
