@@ -1,12 +1,12 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
- * @author 	PyroCMS Development Team
+ * @author 		PyroCMS Development Team
  * @package 	PyroCMS
  * @subpackage 	Users Module
- * @since	v0.1
+ * @since		v2.1
  *
  */
-class Users_m extends MY_Model
+class User_m extends MY_Model
 {
     function __construct()
     {

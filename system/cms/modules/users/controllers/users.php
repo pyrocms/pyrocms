@@ -20,7 +20,7 @@ class Users extends Public_Controller
 		parent::__construct();
 
 		// Load the required classes
-		$this->load->model('users_m');
+		$this->load->model('user_m');
 		$this->load->helper('user');
 		$this->lang->load('user');
 		$this->load->library('form_validation');
@@ -445,7 +445,7 @@ class Users extends Public_Controller
 	{
 		if ($this->current_user->group === 'admin' AND $id > 0)
 		{
-			$user = $this->users_m->get(array('id' => $id));
+			$user = $this->user_m->get(array('id' => $id));
 		}
 		else
 		{
