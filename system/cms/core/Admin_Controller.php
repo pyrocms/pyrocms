@@ -17,7 +17,8 @@ class Admin_Controller extends MY_Controller {
 		// Show error and exit if the user does not have sufficient permissions
 		if ( ! self::_check_access())
 		{
-			show_error(lang('cp_access_denied'));
+			$this->session->set_flashdata('error', lang('cp_access_denied'));
+			redirect();
 		}
 
 		// If the setting is enabled redirect request to HTTPS

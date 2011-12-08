@@ -104,7 +104,9 @@ class Plugin_Contact extends Plugin {
 			  $field_list['to'],
 			  $field_list['from'],
 			  $field_list['reply-to'],
-			  $field_list['max-size']
+			  $field_list['max-size'],
+			  $field_list['redirect'],
+			  $field_list['action']
 			  );
 
 		foreach ($field_list AS $field => $rules)
@@ -282,7 +284,7 @@ class Plugin_Contact extends Plugin {
 		$parse_data = array();
 		foreach ($form_meta AS $form => $value)
 		{
-			$parse_data[$form]  = form_error($form);
+			$parse_data[$form]  = form_error($form, '<div class="'.$form.'-error">', '</div>');
 			
 			if ($value['type'] == 'dropdown')
 			{

@@ -9,7 +9,7 @@
 <section class="item">
 
 	<?php echo form_open(uri_string(), 'id="page-form" class="crud"'); ?>
-	<?php echo form_hidden('parent_id', (@$page->parent_id == '')? 0 : $page->parent_id); ?>
+	<?php echo form_hidden('parent_id', empty($page->parent_id) ? 0 : $page->parent_id); ?>
 
 	<div class="tabs">
 

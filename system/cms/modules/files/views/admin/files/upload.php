@@ -3,9 +3,9 @@
 </section>
 
 <section class="item">
-	<?php echo form_open_multipart(uri_string(), array('class' => 'crud', 'id' => 'files_crud')); ?>
+	<?php echo form_open_multipart(uri_string(), array('class' => 'form_inputs', 'id' => 'files_crud')); ?>
 	<fieldset>
-		<ol>
+		<ul>
 			<li class="even">
 				<label for="nothing"><?php echo lang('files.file_label'); ?></label>
 				<?php echo form_upload('userfile'); ?>
@@ -28,7 +28,7 @@
 				<?php echo form_label(lang('file_folders.folder_label'), 'folder_id'); ?>
 				<?php echo form_dropdown('folder_id', $folders_tree, $file->folder_id, 'id="folder_id"'); ?>
 			</li>
-		</ol>
+		</ul>
 	
 		<div class="align-right buttons">
 			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save') )); ?>

@@ -41,7 +41,17 @@ function group_has_role($module, $role)
 
 function role_or_die($module, $role)
 {
-	group_has_role($module, $role) or show_error(lang('cp_access_denied'));
+	if (ci()->input->is_ajax_request() AND ! group_has_role($module, $role))
+	{
+		echo json_encode(array('error' => lang('cp_access_denied')));
+		return FALSE;
+	}
+	elseif ( ! group_has_role($module, $role))
+	{
+		ci()->session->set_flashdata('error', lang('cp_access_denied'));
+		redirect('admin');
+	}
+	return TRUE;
 }
 
 // ------------------------------------------------------------------------
