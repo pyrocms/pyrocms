@@ -9,3 +9,5 @@ $lang['final']	=	'الخطوة الأخيرة';
 
 $lang['installer.passwords_match']		= "كلمتا السرّ متطابقتان.";
 $lang['installer.passwords_dont_match']	= "كلمتا السرّ غير متطابقتين.";
+
+/* End of file global_lang.php */
