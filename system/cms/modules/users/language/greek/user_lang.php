@@ -112,6 +112,7 @@ $lang['user_mass_delete_error']                = 'Πρέπει πιο πριν �
 // Register
 $lang['user_email_pass_missing']               = 'Τα πεδία email ή συνθηματικού δεν έχουν συμπληρωθεί.';
 $lang['user_email_exists']                     = 'Η διεύθυνση email που εισάγατε χρησιμοποιείται ήδη από έναν άλλο χρήστη.';
+$lang['user_register_error']				   = 'We think you are a bot. If we are mistaken please accept our apologies.'; #translate
 $lang['user_register_reasons']                 = 'Εγγραφείτε για να έχετε πρόσβαση σε ειδικές περιοχές που κανονικά δεν είναι προσβάσιμες. Αυτό σημαίνει ότι οι ρυθμίσεις σας θα απομνημονεύονται, περισσότερο περιεχόμενο και λιγότερες διαφημίσεις.';
 
 

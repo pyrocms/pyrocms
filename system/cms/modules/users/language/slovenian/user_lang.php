@@ -112,6 +112,7 @@ $lang['user_mass_delete_error']                = 'Najprej morate izbrati uporabn
 // Register
 $lang['user_email_pass_missing']               = 'Email ali geslo polje nista izpolnjena.';
 $lang['user_email_exists']                     = 'Email naslov katerega ste vnesli je že v uporabi pri drugem uporabniku.';
+$lang['user_register_error']				   = 'We think you are a bot. If we are mistaken please accept our apologies.'; #translate
 $lang['user_register_reasons']                 = 'Pridružite se za dostop do zaklenjenih predelov strani. To pomeni da bodo vaše nastavitve shranjene več vsebine manj oglasov.';
 
 
