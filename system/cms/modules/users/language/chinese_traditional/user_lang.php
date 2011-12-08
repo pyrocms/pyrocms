@@ -112,6 +112,7 @@ $lang['user_mass_delete_error'] 				= '請先選擇用戶';
 // Register
 $lang['user_email_pass_missing'] 				= 'Email 或密碼欄位尚未完成。';
 $lang['user_email_exists'] 						= '您選擇的電子郵件已經被另一個用戶所使用。';
+$lang['user_register_error']				   = 'We think you are a bot. If we are mistaken please accept our apologies.'; #translate
 $lang['user_register_reasons'] 					= '加入即可存取特定網站專區。這及表示網站將記住您的設定，更多的內容會提供給您。';
 
 

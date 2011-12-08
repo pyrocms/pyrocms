@@ -112,6 +112,7 @@ $lang['user_mass_delete_error']                = 'You need to select users first
 // Register
 $lang['user_email_pass_missing']               = 'Email or password fields are not complete.';
 $lang['user_email_exists']                     = 'The email address you have chosen is already in use with a different user.';
+$lang['user_register_error']				   = 'We think you are a bot. If we are mistaken please accept our apologies.';
 $lang['user_register_reasons']                 = 'Join up to access special areas normally restricted. This means your settings will be remembered, more content and less ads.';
 
 

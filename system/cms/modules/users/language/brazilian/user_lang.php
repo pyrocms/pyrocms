@@ -112,6 +112,7 @@ $lang['user_mass_delete_error'] 				= 'Você precisa selecionar usuários primei
 // Register
 $lang['user_email_pass_missing'] 				= 'Os campos de e-mail e/ou senha não foram preenchidos.';
 $lang['user_email_exists'] 						= 'O endereço de email que você escolheu já está em uso por outro usuário.';
+$lang['user_register_error']				   = 'We think you are a bot. If we are mistaken please accept our apologies.'; #translate
 $lang['user_register_reasons'] 					= 'Entre para acessar áreas especiais que normalmente são restritas. Isto significa que você será relembrado, terá acesso a mais conteúdos e menos publicidade.';
 
 

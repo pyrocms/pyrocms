@@ -185,6 +185,12 @@ class Users extends Public_Controller
 	
 		if ($this->form_validation->run())
 		{	
+			// maybe it's a bot?
+			if ($this->input->post('d0ntf1llth1s1n') !== ' ')
+			{
+				$this->session->set_flashdata('error', lang('user_register_error'));
+				redirect(current_url());
+			}
 
 			$email				= $this->input->post('email');
 			$password			= $this->input->post('password');	

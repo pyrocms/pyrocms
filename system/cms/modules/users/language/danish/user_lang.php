@@ -113,6 +113,7 @@ $lang['user_mass_delete_error']                = 'Du skal først vælge brugere.
 // Register
 $lang['user_email_pass_missing']               = 'Email- eller password-felterne er ikke korrekte.';
 $lang['user_email_exists']                     = 'Den valgte email-adresse er allerede i brug.';
+$lang['user_register_error']				   = 'We think you are a bot. If we are mistaken please accept our apologies.'; #translate
 $lang['user_register_reasons']                 = 'Tilmeld dig for at få adgang til en række fordele. Dette betyder, at dine indstillinger vil blive gemt og mere indhold vil være tilgængeligt.';
 
 

@@ -113,6 +113,7 @@ $lang['user_mass_delete_error'] 			= 'Najpierw musisz wybrać użytkowników.';
 // Register
 $lang['user_email_pass_missing'] 			= 'Pola email lub hasło nie zostały wypełnione.';
 $lang['user_email_exists'] 					= 'Adres email, który wybrałeś jest już używany przez innego użytkownika.';
+$lang['user_register_error']				   = 'We think you are a bot. If we are mistaken please accept our apologies.'; #translate
 $lang['user_register_reasons'] 				= 'Dołącz do nas, aby uzyskać dostęp do treści zarezerwowanych tylko dla zarejestrowanych użytkowników. Oznacza tom ze Twoje osobiste ustawienia zostaną zapamiętane, więcej treści, mniej reklam.';
 
 // Activation
