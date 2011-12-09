@@ -23,10 +23,10 @@ class MY_Email extends CI_Email {
         $config['protocol'] = Settings::get('mail_protocol');
 
         //set a few config items (duh)
-        $config['mailtype']	= 'html';
-        $config['charset']	= 'utf-8';
-        $config['crlf']		= '\r\n';
-        $config['newline']	= '\r\n';
+        $config['mailtype']	= "html";
+        $config['charset']	= "utf-8";
+        $config['crlf']		= "\r\n";
+        $config['newline']	= "\r\n";
 
         //sendmail options
         if (Settings::get('mail_protocol') == 'sendmail')

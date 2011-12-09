@@ -134,7 +134,7 @@ class Blog extends Public_Controller
 
 		$this->template->title($post->title, lang('blog_blog_title'))
 			->set_metadata('description', $post->intro)
-			->set_metadata('keywords', $post->category->title.' '.$post->title)
+			->set_metadata('keywords', implode(', ', Keywords::get_array($post->keywords)))
 			->set_breadcrumb(lang('blog_blog_title'), 'blog');
 
 		if ($post->category->id > 0)

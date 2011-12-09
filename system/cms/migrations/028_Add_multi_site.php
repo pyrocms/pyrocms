@@ -52,7 +52,7 @@ class Migration_Add_multi_site extends CI_Migration {
 
 			$this->db->query("INSERT INTO core_sites (name, ref, domain, created_on) VALUES ('Default', ?, ?, ?);", array(
 				'default',
-				SITE_SLUG,
+				SITE_DOMAIN,
 				time(),
 			));
 

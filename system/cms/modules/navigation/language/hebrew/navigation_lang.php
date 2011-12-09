@@ -40,4 +40,5 @@ $lang['nav_link_not_exist_error']               = 'קישור הניווט אי�
 $lang['nav_link_edit_success']                  = 'קישור הניווט נשמר בהצלחה.';
 $lang['nav_link_delete_success']                = 'קישור הניווט נמחק בהצלחה.';
 
+$lang['nav_choose_value']						= 'The %s field must not be empty.'; #translate
 $lang['nav_link_type_desc']                     = 'אנא בחר סוג קישור תינתן יותר אפשרויות ליצירת הקישור שלך.';

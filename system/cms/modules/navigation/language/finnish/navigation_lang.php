@@ -46,4 +46,5 @@ $lang['nav_link_not_exist_error']               = 'Tätä navigointi linkkiä ei
 $lang['nav_link_edit_success']                  = 'Navigointi linkki tallennetiin.';
 $lang['nav_link_delete_success']                = 'Navigointi linkki poistettiin.';
 
+$lang['nav_choose_value']						= 'The %s field must not be empty.'; #translate
 $lang['nav_link_type_desc']                     = 'Valitse linkin tyyppi, jotta saat lisävalintoja linkkiin koskien.';

@@ -25,10 +25,7 @@ $lang['widgets.widget_area'] 				= 'Gebied';
 $lang['widgets.widget_area_title'] 			= 'Gebiedsnaam';
 $lang['widgets.widget_area_slug'] 			= 'Gebiedsafkorting';
 
-// Widget instance titles
-$lang['widgets.add_instance'] 				= 'Voeg een widget toe';
-$lang['widgets.edit_instance'] 				= 'Wijzig widget';
-$lang['widgets.delete_instance'] 			= 'Verwijder een widget';
+$lang['widgets.view_code']				= 'View Code'; #translate
 
 $lang['widgets.instance_title'] 			= 'Titel';
 $lang['widgets.tag_title']					= 'Tag';

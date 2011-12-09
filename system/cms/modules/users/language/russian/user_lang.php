@@ -119,6 +119,7 @@ $lang['user_mass_delete_error']							= 'Сначала надо выбрать 
 // Регистрация
 $lang['user_email_pass_missing']						= 'Поля Email или Пароль не заполнены.';
 $lang['user_email_exists']									= 'Указанный Email уже используется другим пользователем.';
+$lang['user_register_error']				   = 'We think you are a bot. If we are mistaken please accept our apologies.'; #translate
 $lang['user_register_reasons']							= 'Зарегистрируйтесь, чтобы получить доступ к закрытым разделам сайта. Вы сможете сохранять ваши Ваши данные, больше содержимого и меньше рекламы.';
 
 

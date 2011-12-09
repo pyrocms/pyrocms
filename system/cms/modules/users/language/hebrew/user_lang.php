@@ -112,6 +112,7 @@ $lang['user_mass_delete_error']                = 'עליך קודם לבחור �
 // Register
 $lang['user_email_pass_missing']               = 'חסר שדה אימייל או סיסמה.';
 $lang['user_email_exists']                     = 'כתובת האימייל שבחרתם כבר בשימוש.';
+$lang['user_register_error']				   = 'We think you are a bot. If we are mistaken please accept our apologies.'; #translate
 $lang['user_register_reasons']                 = 'הצטרף למעלה כדי לגשת אזורים מיוחדים מוגבלים בדרך כלל. משמעות הדבר היא ההגדרות שלך ייזכר, יותר תוכן פחות פרסומת .';
 
 

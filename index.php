@@ -1,13 +1,16 @@
 <?php
-/**
- * @author 		PyroCMS Development Team
- * @package 	PyroCMS
- * @subpackage 	Controllers
- */
 
 # If you have already installed then delete this
 if ( ! file_exists('system/cms/config/database.php'))
 {
+	// Make sure we've not already tried this
+	if (strpos($_SERVER['REQUEST_URI'], 'installer/'))
+	{
+		header('Status: 404');
+		exit('PyroCMS is missing system/cms/config/database.php and cannot find installer.');
+	}
+	
+	// Otherwise go to installer
 	header('Location: '.rtrim($_SERVER['REQUEST_URI'], '/').'/installer/');
 	exit;
 }
@@ -223,7 +226,7 @@ define('ENVIRONMENT', (isset($_SERVER['PYRO_ENV']) ? $_SERVER['PYRO_ENV'] : PYRO
 	define('BASEPATH', str_replace("\\", "/", $system_path));
 	
 	// The site slug: (example.com)
-	define('SITE_SLUG', preg_replace('/^www\./', '', $_SERVER['SERVER_NAME']));
+	define('SITE_DOMAIN', $_SERVER['HTTP_HOST']);
 
  	// This only allows you to change the name. ADDONPATH should still be used in the app
 	define('ADDON_FOLDER', $addon_folder.'/');

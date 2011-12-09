@@ -1,5 +1,5 @@
 <section class="title">
-	<h4>Comments</h4>
+	<h4><?php echo lang('comments.title'); ?></h4>
 </section>
 
 <section class="item">
