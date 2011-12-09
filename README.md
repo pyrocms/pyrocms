@@ -27,7 +27,7 @@ Run http://example.com/installer to run the web-based installation script.
 
 ## Upgrading
 
-For a detailed upgrade guide please look at the [2.0 Upgrading Documentation](http://pyrocms.com/docs/2.0/manuals/end-users/upgrading).
+For a detailed upgrade guide please look at the [2.0 Upgrading Documentation](http://www.pyrocms.com/docs/2.0/getting-started/upgrading-from-1.x).
 
 ## Bugs & Feature Requests
 
