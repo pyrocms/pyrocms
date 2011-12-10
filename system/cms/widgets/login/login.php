@@ -20,6 +20,7 @@ class Widget_Login extends Widgets
 		'en' => 'Login',
 		'el' => 'Σύνδεση',
 		'nl' => 'Login',
+		'fr' => 'Connexion',
 		'br' => 'Login',
 		'ru' => 'Вход на сайт',
 	);
@@ -32,6 +33,7 @@ class Widget_Login extends Widgets
 		'el' => 'Προβάλετε μια απλή φόρμα σύνδεσης χρήστη οπουδήποτε',
 		'br' => 'Permite colocar um formulário de login em qualquer lugar do seu site',
 		'nl' => 'Toon overal een simpele loginbox',
+		'nl' => 'Affiche un formulaire de connexion',
 		'ru' => 'Выводит простую форму для входа на сайт',
 	);
 	

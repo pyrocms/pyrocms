@@ -13,11 +13,13 @@ class Widget_Archive extends Widgets
 	public $title		= array(
 		'en' => 'Archive',
 		'br' => 'Arquivo do Blog',
+		'fr' => 'Archives',
 		'ru' => 'Архив',
 	);
 	public $description	= array(
 		'en' => 'Display a list of old months with links to posts in those months',
 		'br' => 'Mostra uma lista navegação cronológica contendo o índice dos artigos publicados mensalmente',
+		'fr' => 'Affciher la liste des mois et des liens vers les posts de ces mois',
 		'ru' => 'Выводит список по месяцам со ссылками на записи в этих месяцах',
 	);
 	public $author		= 'Phil Sturgeon';

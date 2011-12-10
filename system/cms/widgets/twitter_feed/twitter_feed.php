@@ -13,6 +13,7 @@ class Widget_Twitter_feed extends Widgets {
 		'en' => 'Twitter Feed',
 		'el' => 'Ροή Twitter',
 		'nl' => 'Twitterfeed',
+		'fr' => 'Twitter',
 		'br' => 'Feed do Twitter',
 		'ru' => 'Лента Twitter\'а',
 	);
@@ -20,6 +21,7 @@ class Widget_Twitter_feed extends Widgets {
 		'en' => 'Display Twitter feeds on your website',
 		'el' => 'Προβολή των τελευταίων tweets από το Twitter',
 		'nl' => 'Toon Twitterfeeds op uw website',
+		'fr' => 'Afficher des flux twitter sur votre site',
 		'br' => 'Mostra os últimos tweets de um usuário do Twitter no seu site.',
 		'ru' => 'Выводит ленту новостей Twitter на страницах вашего сайта',
 	);

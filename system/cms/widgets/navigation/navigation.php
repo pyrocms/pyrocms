@@ -14,6 +14,7 @@ class Widget_Navigation extends Widgets
 		'en' => 'Navigation',
 		'el' => 'Πλοήγηση',
 		'nl' => 'Navigatie',
+		'fr' => 'Navigation',
 		'br' => 'Navegação',
 		'ru' => 'Навигация',
 	);
@@ -21,6 +22,7 @@ class Widget_Navigation extends Widgets
 		'en' => 'Display a navigation group with a widget',
 		'el' => 'Προβάλετε μια ομάδα στοιχείων πλοήγησης στον ιστότοπο',
 		'nl' => 'Toon een navigatiegroep met een widget',
+		'fr' => 'Affiche un widget groupe de navigation',
 		'br' => 'Exibe um grupo de links de navegação como widget em seu site',
 		'ru' => 'Отображает навигационную группу внутри виджета',
 	);
