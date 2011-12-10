@@ -8,7 +8,7 @@ $lang['settings_site_slogan'] 					= 'Slogan du site';
 $lang['settings_site_slogan_desc'] 				= 'Le slogan du site. Ce nom sera utilisé dans le titre des pages ainsi que dans d\'autres emplacements.';
 
 $lang['settings_site_lang']						= 'Langue du site';
-$lang['settings_site_lang_desc']				= 'The native language of the website, used to choose templates of e-mail internal notifications and receiving visitors contact and other features that should not bend the language of a user.'; #translate
+$lang['settings_site_lang_desc']				= 'La langue native du site, utlisée pour choisir les templates d\'email de notifications internes, de contact et autres fonctionnalités ne dépendant pas de la langue de l\'utilisateur';
 
 $lang['settings_contact_email'] 				= 'E-mail de contact';
 $lang['settings_contact_email_desc'] 			= 'Tous les emails provenant des utilisateurs, des invités et du site seront adressés à cette adresse.';
@@ -111,11 +111,30 @@ $lang['settings_akismet_api_key_desc'] 			= 'Askimet est un anti-spam crée par 
 $lang['settings_comment_order'] 				= 'Ordre d\'affichage';
 $lang['settings_comment_order_desc']			= 'Ordre dans lequel afficher les commentaires.';
 
+$lang['settings_comment_markdown']				= 'Autoriser Markdown'; #translate
+$lang['settings_comment_markdown_desc']			= 'Voulez-vous autoriser les visiteurs à poster des commentaires utilisant Markdown?'; #translate
+
 $lang['settings_moderate_comments'] 			= 'Modérer les commentaires';
 $lang['settings_moderate_comments_desc']		= 'Exige l\'approbation des commentaires avant leur publication sur le site.';
 
 $lang['settings_version'] 						= 'Version';
 $lang['settings_version_desc'] 					= '';
+
+
+$lang['settings_site_public_lang']				= 'Langues'; #translate
+$lang['settings_site_public_lang_desc']			= 'Quelles sont les langues disponibles sur votre site ?'; #translate
+
+$lang['settings_admin_force_https']				= 'Forcer le protocole HTTPS pour le panneau de contrôle ?'; #translate
+$lang['settings_admin_force_https_desc']		= 'Autoriser l\'accès au panneau de contrôle que par HTTPS ?'; #translate
+
+$lang['settings_files_cache']					= 'Cache des fichiers'; #translate
+$lang['settings_files_cache_desc']				= 'When outputting an image via site.com/files what shall we set the cache expiration for?'; #translate
+
+$lang['settings_auto_username']					= 'Nom d\'utilisateur autmatique'; #translate
+$lang['settings_auto_username_desc']			= 'Créer le nom d\'utilisateur automatiquement lorsqu\'un utilisateur crée un compte sur le site.'; #translate
+
+$lang['settings_registered_email']				= 'Notification d\'inscription'; #translate
+$lang['settings_registered_email_desc']			= 'Envoyer un email à l\'adresse de contact quand un utilisateur s\'enregistre sur le site.'; #translate
 
 #section titles
 $lang['settings_section_general']				= 'Général';
@@ -134,6 +153,10 @@ $lang['settings_form_option_Required']			= 'Requis';
 $lang['settings_form_option_Optional']			= 'Optionnel';
 $lang['settings_form_option_Oldest First']		= 'Du plus ancien au plus récent';
 $lang['settings_form_option_Newest First']		= 'Du plus récent au plus ancien';
+$lang['settings_form_option_Text Only']			= 'Texte seulement'; #translate
+$lang['settings_form_option_Allow Markdown']	= 'Autoriser Markdown'; #translate
+$lang['settings_form_option_Yes']				= 'Oui'; #translate
+$lang['settings_form_option_No']				= 'Non'; #translate
 
 // titles
 $lang['settings_edit_title'] 					= 'Modifier les paramètres';
