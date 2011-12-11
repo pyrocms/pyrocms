@@ -64,7 +64,7 @@ class Users extends Public_Controller
 		}
 
 		$this->template->build('profile/view', array(
-			'user' => $user,
+			'usr' => $user,
 		));
 	}
 
@@ -577,7 +577,7 @@ class Users extends Public_Controller
 			array(
 				'field' => 'msn_handle',
 				'label' => lang('profile_msn_handle'),
-				'rules' => 'xss_clean|trim|valid_email'
+				'rules' => 'xss_clean|trim'
 			),
 			array(
 				'field' => 'aim_handle',
@@ -592,12 +592,12 @@ class Users extends Public_Controller
 			array(
 				'field' => 'gtalk_handle',
 				'label' => lang('profile_gtalk_handle'),
-				'rules' => 'xss_clean|trim|valid_email'
+				'rules' => 'xss_clean|trim'
 			),
 			array(
 				'field' => 'gravatar',
 				'label' => lang('profile_gravatar'),
-				'rules' => 'xss_clean|trim|valid_email'
+				'rules' => 'xss_clean|trim'
 			)
 		);
 
@@ -638,7 +638,7 @@ class Users extends Public_Controller
 			// Set the time of update
 			$secure_post['updated_on'] = now();
 
-			if ($this->ion_auth->update_user($this->current_user->id, $secure_post) !== FALSE)
+			if ($this->ion_auth->update_user($user->id, $secure_post) !== FALSE)
 			{
 				Events::trigger('post_user_update');
 
@@ -649,7 +649,7 @@ class Users extends Public_Controller
 				$this->session->set_flashdata('error', $this->ion_auth->errors());
 			}
 
-			redirect('edit-settings');
+			redirect('users/login/users/edit'.(($id > 0) ? '/'.$id : ''));
 		}
 		else
 		{
@@ -717,7 +717,7 @@ class Users extends Public_Controller
 		// Render the view
 		$this->template->build('profile/edit', array(
 			'languages' => $languages,
-			'user' => $user,
+			'usr' => $user,
 			'days' => $days,
 			'months' => $months,
 			'years' => $years,
