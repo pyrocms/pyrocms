@@ -52,12 +52,23 @@ class Plugin_Keywords extends Plugin
 				$hashes[] = $keyword->hash;
 			}
 		
-			return $this->db
+			$results = $this->db
 				->or_where_in('keywords', $hashes)
 				->order_by($order_by, $order_dir)
 				->limit($limit)
 				->get($module)
 				->result();
+				
+			// Keep supporting the blog url for convenience
+			if($module == 'blog')
+			{
+				foreach ($results as &$post)
+				{
+					$post->url = site_url('blog/'.date('Y', $post->created_on).'/'.date('m', $post->created_on).'/'.$post->slug);
+				}
+			}
+			
+			return $results;
 		}
 
 	}
