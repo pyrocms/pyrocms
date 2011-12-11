@@ -589,7 +589,7 @@ class Ion_auth_model extends CI_Model
 
 			if ($user->password === $password)
 			{
-				$this->_set_login($user);
+				$this->_set_login($user, $remember);
 				return TRUE;
 			}
 		}
@@ -598,37 +598,36 @@ class Ion_auth_model extends CI_Model
 	}
 	
 	
-	public function force_login($identity, $remember=FALSE)
+	public function force_login($user_id, $remember = FALSE)
 	{
-		if (empty($identity))
+		if (empty($user_id))
 		{
 			return FALSE;
 		}
 
-		$this->db->select('username, email, id, password, group_id')
-			->where(sprintf('(username = "%1$s" OR email = "%1$s")', $this->db->escape_str($identity)));
+		$this->db->select('username, email, id, password, group_id')->where('id', $user_id);
 
 		if (isset($this->ion_auth->_extra_where))
 		{
 			$this->db->where($this->ion_auth->_extra_where);
 		}
 
-		$query = $this->db->where('active', 1)
-					   ->limit(1)
-					   ->get($this->tables['users']);
+		$user = $this->db
+			->where('active', 1)
+			->limit(1)
+			->get($this->tables['users'])
+			->row();
 
-		$user = $query->row();
-
-		if ($query->num_rows() == 1)
+		if ($user)
 		{
-			$this->_set_login($user);
+			$this->_set_login($user, $remember);
 			return TRUE;
 		}
 
 		return FALSE;
 	}
 	
-	public function _set_login($user)
+	public function _set_login($user, $remember)
 	{
 		$this->update_last_login($user->id);
 

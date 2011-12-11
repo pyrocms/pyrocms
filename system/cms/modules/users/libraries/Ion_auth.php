@@ -371,9 +371,9 @@ class Ion_auth
 		return FALSE;
 	}
 	
-	public function force_login($identity, $remember = false)
+	public function force_login($user_id, $remember = false)
 	{
-		if ($this->ci->ion_auth_model->force_login($identity, $remember))
+		if ($this->ci->ion_auth_model->force_login($user_id, $remember))
 		{
 			$this->set_message('login_successful');
 			return TRUE;
