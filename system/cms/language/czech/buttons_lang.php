@@ -28,12 +28,12 @@ $lang['buttons.disable']	= 'Vypnout';
 $lang['buttons.yes']		= 'Ano';
 $lang['buttons.no']			= 'Ne';
 $lang['buttons.activate']	= 'Aktivovat';
-$lang['buttons.deactivate']	= 'Deactivate'; #translate
-$lang['buttons.preview']	= 'Preview'; #translate
-$lang['buttons.close']		= 'Close'; #translate
-$lang['buttons.edit']		= 'Edit'; #translate
-$lang['buttons.clone']		= 'Clone'; #translate
-$lang['buttons.re-index']	= 'Re-index'; #translate
-$lang['buttons.copy']		= 'Copy'; #translate
+$lang['buttons.deactivate']	= 'Deaktivovat';
+$lang['buttons.preview']	= 'Náhled';
+$lang['buttons.close']		= 'Zavřít';
+$lang['buttons.edit']		= 'Upravit';
+$lang['buttons.clone']		= 'Klonovat';
+$lang['buttons.re-index']	= 'Re-indexovat';
+$lang['buttons.copy']		= 'Kopírovat';
 
 /* End of file buttons_lang.php */
