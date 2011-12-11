@@ -1,13 +1,12 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
-
 /**
  *
  * @package  	PyroCMS
- * @subpackage  Categories
+ * @subpackage  Blog
  * @category  	Module
  */
-class Admin extends Admin_Controller {
-
+class Admin extends Admin_Controller
+{
 	/**
 	 * The current active section
 	 * @access protected
@@ -108,8 +107,6 @@ class Admin extends Admin_Controller {
 				$this->data->categories[$category->id] = $category->title;
 			}
 		}
-
-		$this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
 	}
 
 	/**
