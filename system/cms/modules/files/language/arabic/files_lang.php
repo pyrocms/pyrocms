@@ -31,7 +31,7 @@ $lang['files.filter_label']					= 'انتقاء';
 $lang['files.loading_label']				= 'جاري التحميل...';
 $lang['files.name_label']					= 'الاسم';
 
-$lang['files.dropdown_select']				= '-- Select Folder For Upload --'; #translate
+$lang['files.dropdown_select']				= '-- اختر مجلد رفع الملفات --';
 $lang['files.dropdown_no_subfolders']		= '-- لاشيء --';
 $lang['files.dropdown_root']				= '-- رئيسي --';
 
