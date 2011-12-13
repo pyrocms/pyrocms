@@ -20,7 +20,7 @@ $lang['global:no'] 								= 'Non';
 $lang['global:select-none'] 					        = '-- Aucun --';
 $lang['global:select-all'] 					        = '-- Tous --';
 $lang['global:select-any'] 					        = '-- N\'importe quel --';
-$lang['global:select-pick']							= '-- Selectionner --';
+$lang['global:select-pick']							= '-- Sélectionner --';
 
 $lang['global:check-none'] 					= 'Aucun';
 $lang['global:check-all']						= 'Tous';
