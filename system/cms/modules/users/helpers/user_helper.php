@@ -41,6 +41,8 @@ function group_has_role($module, $role)
 
 function role_or_die($module, $role)
 {
+	ci()->lang->load('admin');
+
 	if (ci()->input->is_ajax_request() AND ! group_has_role($module, $role))
 	{
 		echo json_encode(array('error' => lang('cp_access_denied')));
@@ -49,7 +51,7 @@ function role_or_die($module, $role)
 	elseif ( ! group_has_role($module, $role))
 	{
 		ci()->session->set_flashdata('error', lang('cp_access_denied'));
-		redirect('admin');
+		redirect();
 	}
 	return TRUE;
 }
