@@ -31,6 +31,7 @@ $lang['files.filter_label']					= '篩選';
 $lang['files.loading_label']				= '載入中...';
 $lang['files.name_label']					= '名稱';
 
+$lang['files.dropdown_select']				= '-- Select Folder For Upload --'; #translate
 $lang['files.dropdown_no_subfolders']		= '-- 無子目錄 --';
 $lang['files.dropdown_root']				= '-- 根目錄 --';
 

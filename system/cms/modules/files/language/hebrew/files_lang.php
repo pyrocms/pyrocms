@@ -31,6 +31,7 @@ $lang['files.filter_label']                             = 'מסנן';
 $lang['files.loading_label']                            = 'בטעינה...';
 $lang['files.name_label']                               = 'שם';
 
+$lang['files.dropdown_select']				= '-- Select Folder For Upload --'; #translate
 $lang['files.dropdown_no_subfolders']                   = '-- אין --';
 $lang['files.dropdown_root']				= '-- שורש --';
 

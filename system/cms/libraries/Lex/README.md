@@ -103,7 +103,7 @@ You can add comments to your templates by wrapping the text in `{{# #}}`.
 
 **Example**
 
-    {{# This will not bt parsed or shown in the resulting HTML #}}
+    {{# This will not be parsed or shown in the resulting HTML #}}
 
     {{#
         They can be multi-line too.
@@ -165,7 +165,7 @@ A Looped Variable tag is a closed tag which wraps the looped content.  The closi
 
     {{ projects }} Some Content Here {{/ projects }}
 
-The looped content is what is contained between the opening and closing tags.  This content is looped through and outputted for every item in the looped array.
+The looped content is what is contained between the opening and closing tags.  This content is looped through and output for every item in the looped array.
 
 When in a Looped Tag you have access to any sub-variables for the current element in the loop.
 
@@ -185,6 +185,8 @@ In the following example, let's assume you have the following array/object of va
                 'name' => 'Lex',
                 'contributors' => array(
                     array('name' => 'Dan'),
+                    array('name' => 'Ziggy'),
+					array('name' => 'Jerel')
                 ),
             ),
         ),
@@ -287,3 +289,82 @@ The callback must also return a string, which will replace the tag in the conten
         // Do something useful
         return $result;
     }
+
+Recursive Callback Blocks
+-------------
+
+The recursive callback tag allows you to loop through a child's element with the same output as the main block. It is triggered
+by using the ***recursive*** keyword along with the array key name. The two words must be surrounded by asterisks as shown in the example below.
+
+**Example**
+	
+	function my_callback($name, $attributes, $content)
+	{
+		$data = array(
+				'url' 		=> 'url_1', 
+				'title' 	=> 'First Title',
+				'children'	=> array(
+					array(
+						'url' 		=> 'url_2',
+						'title'		=> 'Second Title',
+						'children' 	=> array(
+							array(
+								'url' 	=> 'url_3',
+								'title'	=> 'Third Title'
+							)
+						)
+					),
+					array(
+						'url'		=> 'url_4',
+						'title'		=> 'Fourth Title',
+						'children'	=> array(
+							array(
+								'url' 	=> 'url_5',
+								'title'	=> 'Fifth Title'
+							)
+						)
+					)
+				)
+		);
+		
+		$parser = new Lex_Parser();
+		return $parser->parse($content, $data);
+	}
+	
+
+In the template set it up as shown below. If `children` is not empty Lex will
+parse the contents between the `{{ navigation }}` tags again for each of `children`'s arrays.
+The resulting text will then be inserted in place of `{{ *recursive children* }}`. This can be done many levels deep.
+	
+	<ul>
+		{{ navigation }}
+			<li><a href="{{ url }}">{{ title }}</a>
+				{{ if children }}
+					<ul>
+						{{ *recursive children* }}
+					</ul>
+				{{ endif }}
+			</li>
+		{{ /navigation }}
+	</ul>
+
+
+**Result**
+
+	<ul>
+		<li><a href="url_1">First Title</a>
+			<ul>
+				<li><a href="url_2">Second Title</a>
+					<ul>
+						<li><a href="url_3">Third Title</a></li>
+					</ul>
+				</li>
+				
+				<li><a href="url_4">Fourth Title</a>
+					<ul>
+						<li><a href="url_5">Fifth Title</a></li>
+					</ul>
+				</li>
+			</ul>
+		</li>
+	</ul>

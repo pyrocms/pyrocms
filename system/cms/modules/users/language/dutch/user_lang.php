@@ -112,6 +112,7 @@ $lang['user_mass_delete_error'] 				= 'U moet eerst gebruikers selecteren.';
 // Register
 $lang['user_email_pass_missing'] 				= 'Email of Wachtwoord zijn niet compleet.';
 $lang['user_email_exists'] 						= 'Het emailadres dat u ingevoerd heeft is al in gebruik bij een andere gebruiker.';
+$lang['user_register_error']				   = 'We think you are a bot. If we are mistaken please accept our apologies.'; #translate
 $lang['user_register_reasons'] 					= 'Registreer om afgeschermde gebieden te kunnen bezoeken. Ook worden uw instellingen onthouden. En bedenk: meer content, minder advertenties!';
 
 

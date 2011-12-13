@@ -5,7 +5,7 @@ $lang['congrats']			= 'Gratulujeme';
 $lang['intro_text']			= 'PyroCMS je nyní nainstalován a připraven! Přihlašte se prosím do administračního panelu s následujícími údaji.';
 $lang['email']				= 'E-mail';
 $lang['password']			= 'Heslo';
-$lang['show_password']		= 'Show Password?'; #translate
+$lang['show_password']		= 'Ukázat heslo';
 $lang['outro_text']			= 'Na závěr <strong>vymžete instalátor ze serveru</strong>, pokud ho tam necháte, bude váš web napadnutelný.';
 
 $lang['go_website']			= 'Přejít na web';

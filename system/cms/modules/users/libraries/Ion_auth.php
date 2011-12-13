@@ -325,7 +325,7 @@ class Ion_auth
 			$user				= $this->ci->ion_auth_model->get_user($id)->row();
 
 			// Add in some extra details
-			$data['subject']			= $this->ci->settings->get('site_name') . ' - Account Activation';
+			$data['subject']			= $this->ci->settings->get('site_name') . ' - Account Activation'; // No translation needed as this is merely a fallback to Email Template subject
 			$data['slug'] 				= 'activation';
 			$data['to'] 				= $email;
 			$data['from'] 				= $this->ci->settings->get('server_email');
