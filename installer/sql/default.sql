@@ -116,8 +116,6 @@ CREATE TABLE IF NOT EXISTS `{PREFIX}profiles` (
   `gtalk_handle` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `gravatar` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `website` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `twitter_access_token` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `twitter_access_token_secret` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `updated_on` int(11) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ;

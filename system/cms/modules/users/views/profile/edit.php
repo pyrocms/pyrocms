@@ -118,43 +118,6 @@
 		</ul>
 	</fieldset>
 
-	<fieldset id="user_social">
-		<legend><?php echo lang('profile_messenger_section') ?></legend>
-		<ul>
-			<li>
-				<label for="msn_handle"><?php echo lang('profile_msn_handle') ?></label>
-				<?php echo form_input('msn_handle', $usr->msn_handle); ?>
-			</li>
-			<li>	
-				<label for="aim_handle"><?php echo lang('profile_aim_handle') ?></label>
-				<?php echo form_input('aim_handle', $usr->aim_handle); ?>
-			</li>
-			<li>
-				<label for="yim_handle"><?php echo lang('profile_yim_handle') ?></label>
-				<?php echo form_input('yim_handle', $usr->yim_handle); ?>
-			</li>
-			<li>	
-				<label for="gtalk_handle"><?php echo lang('profile_gtalk_handle') ?></label>
-				<?php echo form_input('gtalk_handle', $usr->gtalk_handle); ?>
-			</li>
-		</ul>
-	</fieldset>
-
-	<fieldset>
-		<legend><?php echo lang('profile_social_section') ?></legend>
-		<ul>
-			<li>
-				<label for="mobile"><?php echo lang('profile_gravatar') ?></label>
-				<?php echo form_input('gravatar', $usr->gravatar); ?>
-			</li>
-		<!--
-			<li>
-				<label for="twitter"><?php echo lang('profile_twitter') ?></label></dt>
-				<?php echo (!$this->current_user->twitter_access_token) ? anchor('users/profile/twitter', 'Connect with Twitter') : 'Twitter Connected'; ?>
-			</li>
-		-->
-		</ul>
-	</fieldset>
 	<?php echo form_submit('', lang('profile_save_btn')); ?>
 	<?php echo form_close(); ?>
 </div>

@@ -725,45 +725,6 @@ class Users extends Public_Controller
 	}
 
 	/**
-	 * Authenticate to Twitter with oAuth
-	 *
-	 * @author Ben Edmunds
-	 * @return boolean
-	 */
-	public function twitter()
-	{
-		$this->load->library('twitter/twitter');
-
-		// Try to authenticate
-		$auth = $this->twitter->oauth(Settings::get('twitter_consumer_key'), Settings::get('twitter_consumer_key_secret'), $this->current_user->twitter_access_token, $this->current_user->twitter_access_token_secret);
-
-		if ($auth!=1 && Settings::get('twitter_consumer_key') && Settings::get('twitter_consumer_key_secret'))
-		{
-			if (isset($auth['access_token']) && !empty($auth['access_token']) && isset($auth['access_token_secret']) && !empty($auth['access_token_secret']))
-			{
-				// Save the access tokens to the users profile
-				$this->ion_auth->update_user($this->current_user->id, array(
-					'twitter_access_token' 		  => $auth['access_token'],
-					'twitter_access_token_secret' => $auth['access_token_secret'],
-				));
-
-				if (isset($_GET['oauth_token']) )
-				{
-					$parts = explode('?', $_SERVER['REQUEST_URI']);
-
-					// redirect the user since we've saved their info
-					redirect($parts[0]);
-				}
-			}
-		}
-		
-		elseif ($auth == 1)
-		{
-			redirect('edit-settings', 'refresh');
-		}
-	}
-
-	/**
 	 * Callback method used during login
 	 *
 	 * @param str $email The Email address
