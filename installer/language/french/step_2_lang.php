@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 // labels
-$lang['header']			=	'Étape 2: Vérification des exigences';
+$lang['header']			=	'Étape 2: Vérification de la configuration';
 $lang['intro_text']		= 	'La première étape de l\'installation va vérifier si votre serveur supporte PyroCMS. La plupart des serveurs peuvent lancer cette procédure sans aucun problème.';
 $lang['mandatory']		= 	'Obligatoire';
 $lang['recommended']	= 	'Recommandé';

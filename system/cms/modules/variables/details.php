@@ -33,7 +33,7 @@ class Module_Variables extends Module {
 				'nl' => 'Beheer globale variabelen die overal beschikbaar zijn.',
 				'pl' => 'Zarządzaj globalnymi zmiennymi do których masz dostęp z każdego miejsca aplikacji.',
 				'es' => 'Manage global variables to access from everywhere.',
-				'fr' => 'Manage global variables to access from everywhere.',
+				'fr' => 'Gérer les variables globales accessibles utilisables partout.',
 				'de' => 'Verwaltet globale Variablen, auf die von überall zugegriffen werden kann.',
 				'br' => 'Gerencia as variáveis globais acessíveis de qualquer lugar.',
 				'zh' => '管理此網站內可存取的全局變數。',

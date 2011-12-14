@@ -18,4 +18,4 @@ $lang['hide_commands']		= 'Cacher les commandes';
 
 $lang['next_step']		=	'Passer à la prochaine étape';
 $lang['step4']			=	'Étape 4';
-$lang['retry']			=	'Essayez encore';
+$lang['retry']			=	'Réessayer';

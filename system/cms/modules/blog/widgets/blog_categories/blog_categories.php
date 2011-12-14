@@ -13,11 +13,13 @@ class Widget_Blog_categories extends Widgets
 	public $title		= array(
 		'en' => 'Blog Categories',
 		'br' => 'Categorias do Blog',
+		'frr' => 'Catégories du blog',
 		'ru' => 'Категории Блога',
 	);
 	public $description	= array(
 		'en' => 'Show a list of blog categories',
 		'br' => 'Mostra uma lista de navegação com as categorias do Blog',
+		'fr' => 'Affiche la liste des catégories du blog',
 		'ru' => 'Выводит список категорий блога',
 	);
 	public $author		= 'Stephen Cozart';

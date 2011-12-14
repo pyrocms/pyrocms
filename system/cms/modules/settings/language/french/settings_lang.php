@@ -8,7 +8,7 @@ $lang['settings_site_slogan'] 					= 'Slogan du site';
 $lang['settings_site_slogan_desc'] 				= 'Le slogan du site. Ce nom sera utilisé dans le titre des pages ainsi que dans d\'autres emplacements.';
 
 $lang['settings_site_lang']						= 'Langue du site';
-$lang['settings_site_lang_desc']				= 'The native language of the website, used to choose templates of e-mail internal notifications and receiving visitors contact and other features that should not bend the language of a user.'; #translate
+$lang['settings_site_lang_desc']				= 'La langue native du site, utlisée pour choisir les templates d\'email de notifications internes, de contact et autres fonctionnalités ne dépendant pas de la langue de l\'utilisateur';
 
 $lang['settings_contact_email'] 				= 'E-mail de contact';
 $lang['settings_contact_email_desc'] 			= 'Tous les emails provenant des utilisateurs, des invités et du site seront adressés à cette adresse.';
@@ -30,7 +30,7 @@ $lang['settings_dashboard_rss_count_desc'] 		= 'Combien d\entrées RSS afficher 
 
 $lang['settings_date_format'] 					= 'Format de date';
 $lang['settings_date_format_desc']				= 'Comment les dates doivent être affichées dans le site et panel d\'administration ?' .
-													'Utilser le<a href="http://php.net/manual/en/function.date.php" target="_black">format de date</a> de PHP - OU - ' .
+													'Utilser le <a href="http://php.net/manual/en/function.date.php" target="_black">format de date</a> de PHP - OU - ' .
 													'Utiliser le format de <a href="http://php.net/manual/en/function.strftime.php" target="_black">chaine formaté en tant que date</a> de PHP.';
 
 $lang['settings_frontend_enabled'] 				= 'Statut du site';
@@ -111,11 +111,30 @@ $lang['settings_akismet_api_key_desc'] 			= 'Askimet est un anti-spam crée par 
 $lang['settings_comment_order'] 				= 'Ordre d\'affichage';
 $lang['settings_comment_order_desc']			= 'Ordre dans lequel afficher les commentaires.';
 
+$lang['settings_comment_markdown']				= 'Autoriser Markdown'; 
+$lang['settings_comment_markdown_desc']			= 'Voulez-vous autoriser les visiteurs à poster des commentaires utilisant Markdown?'; 
+
 $lang['settings_moderate_comments'] 			= 'Modérer les commentaires';
 $lang['settings_moderate_comments_desc']		= 'Exige l\'approbation des commentaires avant leur publication sur le site.';
 
 $lang['settings_version'] 						= 'Version';
 $lang['settings_version_desc'] 					= '';
+
+
+$lang['settings_site_public_lang']				= 'Langues'; 
+$lang['settings_site_public_lang_desc']			= 'Quelles sont les langues disponibles sur votre site ?'; 
+
+$lang['settings_admin_force_https']				= 'Forcer le protocole HTTPS pour le panneau de contrôle ?'; 
+$lang['settings_admin_force_https_desc']		= 'Autoriser l\'accès au panneau de contrôle que par HTTPS ?'; 
+
+$lang['settings_files_cache']					= 'Cache des fichiers'; 
+$lang['settings_files_cache_desc']				= 'Quelle est l\'expiration du cache pour les images du site ?'; 
+
+$lang['settings_auto_username']					= 'Nom d\'utilisateur autmatique'; 
+$lang['settings_auto_username_desc']			= 'Créer le nom d\'utilisateur automatiquement lorsqu\'un utilisateur crée un compte sur le site.'; 
+
+$lang['settings_registered_email']				= 'Notification d\'inscription'; 
+$lang['settings_registered_email_desc']			= 'Envoyer un email à l\'adresse de contact quand un utilisateur s\'enregistre sur le site.'; 
 
 #section titles
 $lang['settings_section_general']				= 'Général';
@@ -124,6 +143,7 @@ $lang['settings_section_comments']				= 'Commentaires';
 $lang['settings_section_users']					= 'Utilisateurs';
 $lang['settings_section_statistics']			= 'Statistiques';
 $lang['settings_section_twitter']				= 'Twitter';
+$lang['settings_section_files']					= 'Fichiers'; 
 
 #checkbox and radio options
 $lang['settings_form_option_Open']				= 'Ouvrir';
@@ -134,6 +154,10 @@ $lang['settings_form_option_Required']			= 'Requis';
 $lang['settings_form_option_Optional']			= 'Optionnel';
 $lang['settings_form_option_Oldest First']		= 'Du plus ancien au plus récent';
 $lang['settings_form_option_Newest First']		= 'Du plus récent au plus ancien';
+$lang['settings_form_option_Text Only']			= 'Texte seulement'; 
+$lang['settings_form_option_Allow Markdown']	= 'Autoriser Markdown'; 
+$lang['settings_form_option_Yes']				= 'Oui'; 
+$lang['settings_form_option_No']				= 'Non'; 
 
 // titles
 $lang['settings_edit_title'] 					= 'Modifier les paramètres';

@@ -13,6 +13,7 @@ class Widget_Rss_feed extends Widgets {
 		'en' => 'RSS Feed',
 		'el' => 'Τροφοδοσία RSS',
 		'nl' => 'RSS Feed',
+		'fr' => 'Flux RSS',
 		'br' => 'Feed RSS',
 		'ru' => 'Лента новостей RSS',
 	);
@@ -20,6 +21,7 @@ class Widget_Rss_feed extends Widgets {
 		'en' => 'Display parsed RSS feeds on your websites',
 		'el' => 'Προβάλετε τα περιεχόμενα μιας τροφοδοσίας RSS',
 		'nl' => 'Toon RSS feeds op uw website',
+		'fr' => 'Affiche des flux RSS sur votre site',
 		'br' => 'Interpreta e exibe qualquer feed RSS no seu site',
 		'ru' => 'Выводит обработанную ленту новостей на вашем сайте',
 	);

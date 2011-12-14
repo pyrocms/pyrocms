@@ -16,11 +16,13 @@ class Widget_Latest_posts extends Widgets
 	public $title		= array(
 		'en' => 'Latest posts',
 		'br' => 'Artigos recentes do Blog',
+		'fr' => 'Derniers posts',
 		'ru' => 'Последние записи',
 	);
 	public $description	= array(
 		'en' => 'Display latest blog posts with a widget',
 		'br' => 'Mostra uma lista de navegação para abrir os últimos artigos publicados no Blog',
+		'fr' => 'Widget d\'affichage des derniers posts',
 		'ru' => 'Выводит список последних записей блога внутри виджета',
 	);
 	public $author		= 'Erik Berman';
