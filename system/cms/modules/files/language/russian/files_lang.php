@@ -27,6 +27,7 @@ $lang['files.filter_label']								= 'Фильтр';
 $lang['files.loading_label']							= 'Зарузка&hellip;';
 $lang['files.name_label']									= 'Имя';
 
+$lang['files.dropdown_select']				= '-- Select Folder For Upload --'; #translate
 $lang['files.dropdown_no_subfolders']			= '-- нет --';
 $lang['files.dropdown_root']							= '-- корень --';
 

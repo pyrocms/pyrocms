@@ -8,7 +8,7 @@
 			<?php echo form_upload('userfile'); ?>
 		</p>
 		<p>
-			<?php echo form_dropdown('folder_id', array(0 => lang('files.dropdown_no_subfolders')) + $folders_tree); ?>
+			<?php echo form_dropdown('folder_id', array(0 => lang('files.dropdown_select')) + $folders_tree); ?>
 		</p>
 		<p>
 			<?php echo form_submit('button_action', lang('buttons.save'), 'class="button"'); ?>

@@ -87,15 +87,6 @@ $lang['settings_ga_tracking_desc']                = 'Irašykite Google Analytic 
 $lang['settings_twitter_username']                = 'Vartotojas';
 $lang['settings_twitter_username_desc']            = 'Twitterio vartotojas.';
 
-$lang['settings_twitter_consumer_key']            = 'Consumer raktas';
-$lang['settings_twitter_consumer_key_desc']        = 'Twitterio consumer raktas.';
-
-$lang['settings_twitter_consumer_key_secret']    = 'Consumer Key Secret';
-$lang['settings_twitter_consumer_key_secret_desc'] = 'Twitter consumer key secret.';
-
-$lang['settings_twitter_blog']                    = 'Twitterio ir Blog\'o integracija.';
-$lang['settings_twitter_blog_desc']                = 'Ar noretumėte kad nuorodos i naujus blogo irašai eitu tiesiai į Twitter?';
-
 $lang['settings_twitter_feed_count']            = 'Parašu kiekis';
 $lang['settings_twitter_feed_count_desc']        = 'Kiek įrašų turi būti gražinta į Twitterio bloką?';
 

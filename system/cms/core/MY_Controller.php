@@ -130,11 +130,6 @@ class MY_Controller extends MX_Controller {
 		// Create a hook point with access to instance but before custom code
 		$this->hooks->_call_hook('post_core_controller_constructor');
 
-		// override ion_auth config.php settings with pyro db settings
-		$this->config->set_item('site_title', $this->settings->site_name, 'ion_auth');
-		$this->config->set_item('admin_email', $this->settings->contact_email, 'ion_auth');
-		$this->config->set_item('email_activation', $this->settings->activation_email, 'ion_auth');
-
 		// Load the user model and get user data
 		$this->load->library('users/ion_auth');
 

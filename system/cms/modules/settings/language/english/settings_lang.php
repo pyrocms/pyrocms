@@ -88,15 +88,6 @@ $lang['settings_ga_tracking_desc']				= 'Enter your Google Analytic Tracking Cod
 $lang['settings_twitter_username']				= 'Username';
 $lang['settings_twitter_username_desc']			= 'Twitter username.';
 
-$lang['settings_twitter_consumer_key']			= 'Consumer Key';
-$lang['settings_twitter_consumer_key_desc']		= 'Twitter consumer key.';
-
-$lang['settings_twitter_consumer_key_secret']	= 'Consumer Key Secret';
-$lang['settings_twitter_consumer_key_secret_desc'] = 'Twitter consumer key secret.';
-
-$lang['settings_twitter_blog']					= 'Twitter &amp; Blog integration.';
-$lang['settings_twitter_blog_desc']				= 'Would you like to post links to new blog articles on Twitter?';
-
 $lang['settings_twitter_feed_count']			= 'Feed Count';
 $lang['settings_twitter_feed_count_desc']		= 'How many tweets should be returned to the Twitter feed block?';
 

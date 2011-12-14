@@ -284,7 +284,7 @@ class Plugin_Contact extends Plugin {
 		$parse_data = array();
 		foreach ($form_meta AS $form => $value)
 		{
-			$parse_data[$form]  = form_error($form, '<div class="'.$form.'-error">', '</div>');
+			$parse_data[$form]  = form_error($form, '<div class="'.$form.'-error error">', '</div>');
 			
 			if ($value['type'] == 'dropdown')
 			{

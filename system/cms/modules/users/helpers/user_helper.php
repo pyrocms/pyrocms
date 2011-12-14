@@ -39,17 +39,19 @@ function group_has_role($module, $role)
 }
 
 
-function role_or_die($module, $role)
+function role_or_die($module, $role, $redirect_to = 'admin', $message = '')
 {
+	ci()->lang->load('admin');
+
 	if (ci()->input->is_ajax_request() AND ! group_has_role($module, $role))
 	{
-		echo json_encode(array('error' => lang('cp_access_denied')));
+		echo json_encode(array('error' => ($message ? $message : lang('cp_access_denied')) ));
 		return FALSE;
 	}
 	elseif ( ! group_has_role($module, $role))
 	{
-		ci()->session->set_flashdata('error', lang('cp_access_denied'));
-		redirect('admin');
+		ci()->session->set_flashdata('error', ($message ? $message : lang('cp_access_denied')) );
+		redirect($redirect_to);
 	}
 	return TRUE;
 }

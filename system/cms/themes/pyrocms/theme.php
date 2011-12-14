@@ -191,7 +191,7 @@ class Theme_PyroCMS extends Theme {
 	public function get_recent_comments()
 	{
 		$this->load->model('comments/comments_m');
-		$this->load->model('users/users_m');
+		$this->load->model('users/user_m');
 
 		$this->lang->load('comments/comments');
 

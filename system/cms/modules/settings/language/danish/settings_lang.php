@@ -91,15 +91,6 @@ $lang['settings_ga_tracking_desc']				= 'Indtast din Google Analytic Sporingskod
 $lang['settings_twitter_username']				= 'Brugernavn';
 $lang['settings_twitter_username_desc']			= 'Twitter brugernavn.';
 
-$lang['settings_twitter_consumer_key']			= 'Consumer Key';
-$lang['settings_twitter_consumer_key_desc']		= 'Twitter consumer key.';
-
-$lang['settings_twitter_consumer_key_secret']	= 'Consumer Key Secret';
-$lang['settings_twitter_consumer_key_secret_desc'] = 'Twitter consumer key secret.';
-
-$lang['settings_twitter_blog']					= 'Twitter &amp; Blog integration.';
-$lang['settings_twitter_blog_desc']				= 'Vil du gerne poste links til nye blog-artikler på twitter?';
-
 $lang['settings_twitter_feed_count']			= 'Feed Antal';
 $lang['settings_twitter_feed_count_desc']		= 'Hvor mange tweets skal vises i twitter feed blokken?';
 
