@@ -90,15 +90,6 @@ $lang['settings_ga_tracking_desc']				= 'Voer uw Google Analytics Tracking Code 
 $lang['settings_twitter_username'] 				= 'Gebruikersnaam';
 $lang['settings_twitter_username_desc'] 		= 'Twitter gebruikersnaam.';
 
-$lang['settings_twitter_consumer_key'] 			= 'Consumentsleutel';
-$lang['settings_twitter_consumer_key_desc'] 	= 'Twitter consumentsleutel.';
-
-$lang['settings_twitter_consumer_key_secret'] 	= 'Geheime consumentsleutel';
-$lang['settings_twitter_consumer_key_secret_desc'] = 'Geheime Twitter Consumentsleutel.';
-
-$lang['settings_twitter_blog']					= 'Twitter &amp; Nieuws integratie.';
-$lang['settings_twitter_blog_desc'] 			= 'Wilt u links plaatsen naar nieuws artikelen op Twitter?';
-
 $lang['settings_twitter_feed_count'] 			= 'Feed Teller';
 $lang['settings_twitter_feed_count_desc'] 		= 'Hoeveel tweets moeten getoond worden in het Twitter feed blok?';
 

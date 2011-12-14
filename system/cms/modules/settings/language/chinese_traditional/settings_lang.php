@@ -88,15 +88,6 @@ $lang['settings_ga_tracking_desc']				= '請輸入您的 Tracking Code 來啟用
 $lang['settings_twitter_username'] 				= '用戶名稱';
 $lang['settings_twitter_username_desc'] 		= 'Twitter 的用戶名稱(Username)。';
 
-$lang['settings_twitter_consumer_key'] 			= '消費者金鑰';
-$lang['settings_twitter_consumer_key_desc'] 	= 'Twitter 的消費者金鑰(Consumer Key)。';
-
-$lang['settings_twitter_consumer_key_secret'] 	= '消費者機密';
-$lang['settings_twitter_consumer_key_secret_desc'] = 'Twitter 的消費者機密序號(Consumer Key Secret)。';
-
-$lang['settings_twitter_blog']					= 'Twitter &amp; 新聞 整合.';
-$lang['settings_twitter_blog_desc'] 			= '您想要自動在 Twitter 上發佈最新文章的連結嗎？';
-
 $lang['settings_twitter_feed_count'] 			= 'Feed 數量';
 $lang['settings_twitter_feed_count_desc'] 		= '請設定在 Twitter feed 區塊內顯示的 Tweets 訊息數量。';
 

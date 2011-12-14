@@ -97,15 +97,6 @@ $lang['settings_ga_tracking_desc']				= 'Syötä Google Analyticsin seuranta koo
 $lang['settings_twitter_username']				= 'Käyttäjätunnus';
 $lang['settings_twitter_username_desc']			= 'Twitterin käyttäjätunnus.';
 
-$lang['settings_twitter_consumer_key']			= 'Kuluttajan avain';
-$lang['settings_twitter_consumer_key_desc']		= 'Twitterin kuluttaja avain (consumer key).';
-
-$lang['settings_twitter_consumer_key_secret']		= 'Kuluttajan avaimen salaus';
-$lang['settings_twitter_consumer_key_secret_desc']	= 'Twitterin kuluttaja avaimen salaus (consumer key secret).';
-
-$lang['settings_twitter_blog']					= 'Twitter &amp; Uutisten integrointi.';
-$lang['settings_twitter_blog_desc']				= 'Haluatko, että uutisartikkelit julkaistaan automaattisesti Twitterissä?';
-
 $lang['settings_twitter_feed_count']			= 'Syöte lukumäärä';
 $lang['settings_twitter_feed_count_desc']		= 'Monta Twitterin syötteitä haluat näyttää lohkossa?';
 
