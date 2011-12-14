@@ -98,15 +98,6 @@ $lang['settings_ga_tracking_desc']						= 'Укажите код отслежи�
 $lang['settings_twitter_username']					= 'Логин';
 $lang['settings_twitter_username_desc']				= 'Имя пользователя Twitter.';
 
-$lang['settings_twitter_consumer_key']			= 'Ключ пользователя';
-$lang['settings_twitter_consumer_key_desc']		= 'Ключ пользователя Twitter.';
-
-$lang['settings_twitter_consumer_key_secret']			= 'Секретный ключ пользователя';
-$lang['settings_twitter_consumer_key_secret_desc']	= 'Секретный ключ пользователя Twitter.';
-
-$lang['settings_twitter_blog']							= 'Интеграция Twitter и Новостей.';
-$lang['settings_twitter_blog_desc']						= 'Вы желаете отправлять ссылки на новые новости сайта в Twitter?';
-
 $lang['settings_twitter_feed_count']				= 'Кол-во записей';
 $lang['settings_twitter_feed_count_desc']			= 'Какое количество твитов должно быть показано в блоке фидов Твиттера?';
 

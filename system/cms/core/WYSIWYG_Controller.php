@@ -45,6 +45,7 @@ class WYSIWYG_Controller extends MY_Controller
 		$this->load->model('files/file_m');
 		$this->lang->load('files/files');
 		$this->lang->load('wysiwyg');
+		$this->lang->load('buttons');
 
 		$this->template
 			->set_theme(ADMIN_THEME)

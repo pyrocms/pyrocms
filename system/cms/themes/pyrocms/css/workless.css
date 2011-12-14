@@ -227,6 +227,7 @@ label.inline {margin-right: 4px; font-weight: normal!important;}
 button, input, select, textarea { font-size: 100%; margin: 0; vertical-align: baseline; *vertical-align: middle; margin: 5px 0 5px 0; }
 
 select { min-width: 260px; visibility: hidden; }
+.cke_dialog select { visibility: visible; }
 
 .button,
 .cancel,

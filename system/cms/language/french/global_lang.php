@@ -1,7 +1,7 @@
 <?php
 
 $lang['global:control-panel']								= 'Panneau de Contrôle';
-$lang['global:profile']					= 'Profil'; 
+$lang['global:profile']					= 'Profil';
 
 $lang['title_label'] 					        = 'Titre';
 $lang['name_label'] 					        = 'Nom';
@@ -9,23 +9,26 @@ $lang['desc_label'] 					        = 'Description';
 $lang['version_label'] 					        = 'Version';
 $lang['global:author'] 					        = 'Auteur';
 $lang['global:action'] 					        = 'Action';
+$lang['global:slug'] 					= 'Slug'; #translate
 
-$lang['dialog.confirm'] 				        = 'Confirmez';
-$lang['dialog.yes'] 					        = 'Oui';
-$lang['dialog.no'] 								= 'Non';
+$lang['global:dialog:delete_message'] 	= 'Etes-vous sûr de vouloir supprimer ce fichier? Il ne peut pas être annulée.';
+$lang['global:dialog:confirm'] 				        = 'Confirmez';
+
+$lang['global:yes'] 					        = 'Oui';
+$lang['global:no'] 								= 'Non';
 
 $lang['global:select-none'] 					        = '-- Aucun --';
 $lang['global:select-all'] 					        = '-- Tous --';
 $lang['global:select-any'] 					        = '-- N\'importe quel --';
-$lang['global:select-pick']							= '-- Selectionner --';
+$lang['global:select-pick']							= '-- Sélectionner --';
 
 $lang['global:check-none'] 					= 'Aucun';
 $lang['global:check-all']						= 'Tous';
 
-$lang['operators.equal'] 				        = 'Égal à';
-$lang['operators.not_equal'] 			        = 'Pas égal à';
-$lang['operators.less_than'] 			        = 'Inférieur à';
-$lang['operators.greater_than'] 		        = 'Supérieur à';
+$lang['global:operators:equal'] 				        = 'Égal à';
+$lang['global:operators:not-equal'] 			        = 'Pas égal à';
+$lang['global:operators:less-than'] 			        = 'Inférieur à';
+$lang['global:operators:greater-than'] 		        = 'Supérieur à';
 
 $lang['navigation_headline'] 			        = 'Navigation';
 $lang['breadcrumb_base_label'] 			        = 'Accueil';
@@ -56,15 +59,19 @@ $lang['cancel_label'] 					        = 'Annuler';
 $lang['update_label'] 					        = 'Mettre à jour la légende';
 $lang['global:delete'] 					        = 'Supprimer';
 $lang['activate_label'] 				        = 'Activer';
+$lang['approve_label']							= 'Approve'; #translate
+$lang['unapprove_label']						= 'Unapprove'; #translate
 $lang['publish_label'] 					        = 'Publier';
 $lang['upload_label'] 					        = 'Uploader';
 $lang['uninstall_label'] 				        = 'Désinstaller';
 $lang['install_label'] 					        = 'Installer';
 $lang['enable_label']					        = 'Activer';
 $lang['disable_label'] 					        = 'Désactiver';
+$lang['upgrade_label'] 							= 'Mise à jour';
 
-$lang['global:shortcuts']	 			= 'Raccourci';
-$lang['global:description'] 		    = 'Description';
+$lang['global:filters'] 				= 'Filters';
+$lang['global:shortcuts'] 				= 'Raccourci';
+$lang['global:description']				= 'Description';
 $lang['global:actions']					= 'Actions';
 $lang['global:view']					= 'Voir';
 $lang['global:preview']					= 'Prévisualiser';

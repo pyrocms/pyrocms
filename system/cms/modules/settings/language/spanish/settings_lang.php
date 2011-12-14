@@ -90,15 +90,6 @@ $lang['settings_ga_tracking_desc']				= 'Inserte su código de seguimiento de Go
 $lang['settings_twitter_username']				= 'Usuario';
 $lang['settings_twitter_username_desc']			= 'Usuario de Twitter.';
 
-$lang['settings_twitter_consumer_key']			= 'Consumer Key';
-$lang['settings_twitter_consumer_key_desc']		= 'Consumer key de Twitter.';
-
-$lang['settings_twitter_consumer_key_secret']	= 'Consumer Key Secret';
-$lang['settings_twitter_consumer_key_secret_desc'] = 'Consumer key secret de Twitter.';
-
-$lang['settings_twitter_blog']					= 'Integración con Twitter';
-$lang['settings_twitter_blog_desc']				= '¿Te gustaría publicar enlaces a los artículos publicados en Twitter?';
-
 $lang['settings_twitter_feed_count']			= 'Cantidad de Tweets';
 $lang['settings_twitter_feed_count_desc']		= 'Cantidad de tweets que seran mostrados en el bloque de twitter.';
 

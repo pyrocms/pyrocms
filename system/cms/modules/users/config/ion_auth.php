@@ -27,12 +27,12 @@
 	/**
 	 * Site Title, example.com
 	 */
-	$config['site_title']		   = "Example.com";
+	$config['site_title']		   = Settings::get('site_name');
 
 	/**
 	 * Admin Email, admin@example.com
 	 */
-	$config['admin_email']		   = "admin@example.com";
+	$config['admin_email']		   = Settings::get('contact_email');
 
 	/**
 	 * Default group, use name
@@ -54,7 +54,7 @@
 	 * Columns in your meta table,
 	 * id not required.
 	 **/
-	$config['columns']             = array('display_name', 'first_name', 'last_name', 'company', 'lang', 'bio', 'dob', 'gender', 'phone', 'mobile', 'address_line1', 'address_line2', 'address_line3', 'postcode', 'website', 'msn_handle', 'aim_handle', 'yim_handle', 'gtalk_handle', 'gravatar', 'updated_on', 'twitter_access_token', 'twitter_access_token_secret');
+	$config['columns']             = array('display_name', 'first_name', 'last_name', 'company', 'lang', 'bio', 'dob', 'gender', 'phone', 'mobile', 'address_line1', 'address_line2', 'address_line3', 'postcode', 'website', 'updated_on');
 
 	/**
 	 * A database column which is used to
@@ -75,7 +75,7 @@
 	/**
 	 * Email Activation for registration
 	 **/
-	$config['email_activation']    = true;
+	$config['email_activation']    = Settings::get('activation_email');
 
 	/**
 	 * Allow users to be remembered and enable auto-login
