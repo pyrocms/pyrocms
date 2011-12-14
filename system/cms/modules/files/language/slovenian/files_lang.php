@@ -32,6 +32,7 @@ $lang['files.filter_label']					= 'Razvrstitev';
 $lang['files.loading_label']				= 'Nalagam...';
 $lang['files.name_label']					= 'Ime';
 
+$lang['files.dropdown_select']				= '-- Select Folder For Upload --'; #translate
 $lang['files.dropdown_no_subfolders']		= '-- Brez --';
 $lang['files.dropdown_root']				= '-- Root --';
 

@@ -27,12 +27,12 @@
 	/**
 	 * Site Title, example.com
 	 */
-	$config['site_title']		   = "Example.com";
+	$config['site_title']		   = Settings::get('site_name');
 
 	/**
 	 * Admin Email, admin@example.com
 	 */
-	$config['admin_email']		   = "admin@example.com";
+	$config['admin_email']		   = Settings::get('contact_email');
 
 	/**
 	 * Default group, use name
@@ -75,7 +75,7 @@
 	/**
 	 * Email Activation for registration
 	 **/
-	$config['email_activation']    = true;
+	$config['email_activation']    = Settings::get('activation_email');
 
 	/**
 	 * Allow users to be remembered and enable auto-login
