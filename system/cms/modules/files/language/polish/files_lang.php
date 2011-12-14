@@ -31,6 +31,7 @@ $lang['files.filter_label']					= 'Sortuj';
 $lang['files.loading_label']				= 'Ładuję...';
 $lang['files.name_label']					= 'Nazwa';
 
+$lang['files.dropdown_select']				= '-- Select Folder For Upload --'; #translate
 $lang['files.dropdown_no_subfolders']		= '-- Brak --';
 $lang['files.dropdown_root']				= '-- Root --';
 

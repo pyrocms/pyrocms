@@ -473,7 +473,9 @@ class Users extends Public_Controller
 	 */
 	public function edit($id = 0)
 	{
-		if ($this->current_user->group === 'admin' AND $id > 0)
+		if ($this->current_user AND
+			$this->current_user->group === 'admin'
+			AND $id > 0)
 		{
 			$user = $this->user_m->get(array('id' => $id));
 		}

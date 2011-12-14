@@ -28,6 +28,7 @@ $lang['files.filter_label']					= 'Lọc';
 $lang['files.loading_label']				= 'Đang tải...';
 $lang['files.name_label']					= 'Tên';
 
+$lang['files.dropdown_select']				= '-- Select Folder For Upload --'; #translate
 $lang['files.dropdown_no_subfolders']		= '-- None --';
 $lang['files.dropdown_root']				= '-- Root --';
 

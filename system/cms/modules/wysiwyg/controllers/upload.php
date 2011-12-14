@@ -82,7 +82,7 @@ class Upload extends WYSIWYG_Controller
 					'date_added'	=> time(),
 				));
 
-                $this->session->set_flashdata('success',  lang('files.create_success'));
+                $this->session->set_flashdata('success',  sprintf(lang('files.create_success'), $img['upload_data']['file_name']));
 			}
 
 			redirect("admin/wysiwyg/{$this->input->post('redirect_to')}/index/{$this->input->post('folder_id')}");

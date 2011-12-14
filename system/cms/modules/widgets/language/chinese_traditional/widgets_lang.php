@@ -1,9 +1,13 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 // sidebar
 $lang['widgets.available_title'] 			= '可用組件';
 $lang['widgets.widget_area_wrapper']		= '可用區塊';
 $lang['widgets.instructions']	 			= '使用拖放安裝';
+
+
+$lang['widgets.instances']            		= '組件列表';
+$lang['widgets.areas']            			= '組件區塊';
 
 // Widgets
 $lang['widgets.widget'] 					= '小組件';

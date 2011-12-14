@@ -11,6 +11,7 @@ class LexParsingException extends Exception { }
 
 class Lex_Parser
 {
+	protected $allow_php = false;
 	protected $regex_setup = false;
 	protected $scope_glue = '.';
 	protected $tag_regex = '';
@@ -51,7 +52,8 @@ class Lex_Parser
 	public function parse($text, $data = array(), $callback = false, $allow_php = false)
 	{
 		$this->setup_regex();
-
+		$this->allow_php = $allow_php;
+		
 		// Is this the first time parse() is called?
 		if (Lex_Parser::$data === null)
 		{
@@ -150,6 +152,7 @@ class Lex_Parser
 						{
 							$str = $this->parse_callback_tags($str, $item_data, $callback);
 						}
+						
 						$looped_text .= $str;
 					}
 					$text = preg_replace('/'.preg_quote($match[0][0], '/').'/m', addcslashes($looped_text, '\\$'), $text, 1);
@@ -218,14 +221,18 @@ class Lex_Parser
 			$name = $match[1][0];
 			if (isset($match[2]))
 			{
+				$cb_data = $data;
+				if ( !empty(Lex_Parser::$callback_data))
+				{
+					$cb_data = array_merge(Lex_Parser::$callback_data, $data);
+				}
 				$raw_params = $this->inject_extractions($match[2][0], '__cond_str');
-				$parameters = $this->parse_parameters($raw_params, array_merge($data, Lex_Parser::$callback_data), $callback);
+				$parameters = $this->parse_parameters($raw_params, $cb_data, $callback);
 			}
 
 			$content = '';
 
 			$temp_text = substr($text, $start + strlen($tag));
-
 			if (preg_match('/\{\{\s*\/'.preg_quote($name, '/').'\s*\}\}/m', $temp_text, $match, PREG_OFFSET_CAPTURE))
 			{
 				$content = substr($temp_text, 0, $match[0][1]);
@@ -240,7 +247,8 @@ class Lex_Parser
 			}
 
 			$replacement = call_user_func_array($callback, array($name, $parameters, $content));
-
+			$replacement = $this->parse_recursives($replacement, $content, $callback);
+			
 			if ($in_condition)
 			{
 				$replacement = $this->value_to_literal($replacement);
@@ -248,7 +256,6 @@ class Lex_Parser
 			$text = preg_replace('/'.preg_quote($tag, '/').'/m', addcslashes($replacement, '\\$'), $text, 1);
 			$text = $this->inject_extractions($text, 'nested_looped_tags');
 		}
-
 		return $text;
 	}
 
@@ -308,6 +315,70 @@ class Lex_Parser
 
 		$text = $this->parse_php($text);
 		$this->in_condition = false;
+		return $text;
+	}
+
+	/**
+	 * Goes recursively through a callback tag with a passed child array.
+	 * 
+	 * @param string  $text - The replaced text after a callback.
+	 * @param string  $orig_text - The original text, before a callback is called.
+	 * @param mixed   $callback
+	 * @return string $text
+	 */
+	public function parse_recursives($text, $orig_text, $callback)
+	{
+		// Is there a {{ *recursive [array_key]* }} tag here, let's loop through it.
+		if (preg_match($this->recursive_regex, $text, $match))
+		{
+			$array_key = $match[1];
+			$tag = $match[0];
+			$next_tag = null;
+			$children = Lex_Parser::$callback_data[$array_key];
+			$child_count = count($children);
+			$count = 1;
+			
+			// Is the array not multi-dimensional? Let's make it multi-dimensional.
+			if ($child_count == count($children, COUNT_RECURSIVE))
+			{
+				$children = array($children);
+				$child_count = 1;
+			}
+			
+			foreach ($children as $child)
+			{
+				$has_children = true;
+
+				// If this is a object let's convert it to an array.
+				is_array($child) OR $child = (array) $child;
+				
+				// Does this child not contain any children?
+				// Let's set it as empty then to avoid any errors.
+				if ( ! array_key_exists($array_key, $child))
+				{
+					$child[$array_key] = array();
+					$has_children = false;
+				}
+				
+				$replacement = $this->parse($orig_text, $child, $callback, $this->allow_php);
+				
+				// If this is the first loop we'll use $tag as reference, if not
+				// we'll use the previous tag ($next_tag)
+				$current_tag = ($next_tag !== null) ? $next_tag : $tag;
+				
+				// If this is the last loop set the next tag to be empty
+				// otherwise hash it.
+				$next_tag = ($count == $child_count) ? '' : md5($tag.$replacement);
+				
+				$text = str_replace($current_tag, $replacement.$next_tag, $text);
+				
+				if ($has_children)
+				{
+					$text = $this->parse_recursives($text, $orig_text, $callback);
+				}
+				$count++;
+			}
+		}
 		return $text;
 	}
 
@@ -466,6 +537,8 @@ class Lex_Parser
 
 		$this->callback_block_regex = '/\{\{\s*('.$this->variable_regex.')(\s.*?)\}\}(.*?)\{\{\s*\/\1\s*\}\}/ms';
 
+		$this->recursive_regex = '/\{\{\s*\*recursive\s*('.$this->variable_regex.')\*\s*\}\}/ms';
+		
 		$this->noparse_regex = '/\{\{\s*noparse\s*\}\}(.*?)\{\{\s*\/noparse\s*\}\}/ms';
 
 		$this->conditional_regex = '/\{\{\s*(if|elseif)\s*((?:\()?(.*?)(?:\))?)\s*\}\}/ms';
