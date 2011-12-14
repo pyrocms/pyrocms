@@ -2,14 +2,21 @@
 
 	$(function() {
 
-		// show the first box with js to get around page jump
-		$('.box .item:first').slideDown(600).removeClass('collapsed');
-
+		var open_sections = $.cookie('nav_groups');
+		
+		if (open_sections) {
+			$('section[rel="'+open_sections+'"] .item').slideDown(600).removeClass('collapsed');
+		} else {
+			// show the first box with js to get around page jump
+			$('.box .item:first').slideDown(600).removeClass('collapsed');			
+		}
+		
 		// show and hide the sections
 		$('.box .title').click(function(){
 			window.scrollTo(0, 0);
 			if ($(this).next('section.item').hasClass('collapsed')) {
 				$('.box .item').slideUp(600).addClass('collapsed');
+				$.cookie('nav_groups', $(this).parent('.box').attr('rel'), { expires: 1 });
 				$(this).next('section.collapsed').slideDown(600).removeClass('collapsed');
 			}
 		});
@@ -86,7 +93,7 @@
 		}).filter(':checked').change();
 
 		// show link details
-		$('#link-list li a').live('click', function()
+		$('#link-list li a').livequery('click', function()
 		{
 			var id = $(this).attr('rel');
 			link_id = $(this).attr('alt');
@@ -100,18 +107,19 @@
 			return false;
 		});
 		
-
-		$item_list		= $('ul.sortable');
-		$url			= 'admin/navigation/order';
-		$cookie			= 'open_links';
-		$data_callback	= function(event, ui) {
-			// Grab the group id so we can update the right links
-			return { 'group' : ui.item.parents('section.box').attr('rel') };
-		}
-		// $post_callback is available but not needed here
-		
-		// Get sortified
-		pyro.sort_tree($item_list, $url, $cookie, $data_callback);
+		$('.box:visible ul.sortable').livequery(function(){
+			$item_list		= $(this);
+			$url			= 'admin/navigation/order';
+			$cookie			= 'open_links';
+			$data_callback	= function(event, ui) {
+				// Grab the group id so we can update the right links
+				return { 'group' : ui.item.parents('section.box').attr('rel') };
+			}
+			// $post_callback is available but not needed here
+			
+			// Get sortified
+			pyro.sort_tree($item_list, $url, $cookie, $data_callback);
+		});
 
 	});
 

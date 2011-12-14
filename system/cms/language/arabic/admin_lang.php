@@ -1,4 +1,4 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['cp_admin_title'] 				= 'لوحة التحكم';
 $lang['global:dashboard'] 			= 'لوحة التحكم';
@@ -35,12 +35,16 @@ $lang['cp_nav_widgets']					= 'الودجتس';
 $lang['cp_nav_users']					= 'المستخدمون';
 $lang['cp_nav_design']					= 'التصميم';
 $lang['cp_nav_content']					= 'المحتوى';
-$lang['cp_nav_utilities']                               = 'الأدوات';
+$lang['cp_nav_utilities']				= 'الأدوات';
 
 $lang['cp_must_login']	 				= 'يجب أن تكون مسجّل الدخول كي تعرض هذه الصفحة.';
 $lang['cp_access_denied'] 				= 'ليست لديك الصلاحيات الكافية لعرض هذه الصفحة.';
-$lang['cp_delete_installer_message']		= 'رجاءً حذف مجلد التثبيت من خادمك، حيث أن تركه هناك قد يعني تحكم أحد آخر به.';
-$lang['cp_upgrade_message']		= 'أنت تستخدم النسخة %s حالياً، إلا أن نسخة قاعدة بياناتك هي %s. رجاءً <a href="%s" title="الترقية">اضغط هنا</a> لترقية قاعدة البيانات.';
+$lang['cp_delete_installer_message']	= 'رجاءً حذف مجلد التثبيت من خادمك، حيث أن تركه هناك قد يعني تحكم أحد آخر به.';
+$lang['cp_upgrade_message']				= 'أنت تستخدم النسخة %s حالياً، إلا أن نسخة قاعدة بياناتك هي %s. رجاءً <a href="%s" title="الترقية">اضغط هنا</a> لترقية قاعدة البيانات.';
+$lang['cp_google_analytics_missing']	= 'اعدادت Google Analytics غير موجودة، قم باضافتهم الى %1 او اتصل بمدير الموقع.';
+$lang['cp_google_analytics_no_connect']	= 'لا يمكن الاتصال بخدمة Google Analytics. تحقق من ذلك في %s.';
 
 $lang['required_label'] 				= 'مطلوب';
-$lang['sb_recent_users'] 				= 'أحديث المستخدمين';
+$lang['sb_recent_users'] 				= 'أحدث المستخدمين';
+
+/* End of file admin_lang.php */

@@ -227,6 +227,7 @@ label.inline {margin-right: 4px; font-weight: normal!important;}
 button, input, select, textarea { font-size: 100%; margin: 0; vertical-align: baseline; *vertical-align: middle; margin: 5px 0 5px 0; }
 
 select { min-width: 260px; visibility: hidden; }
+.cke_dialog select { visibility: visible; }
 
 .button,
 .cancel,
@@ -1425,7 +1426,7 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
 #shortcuts ul li a.add {
 	margin-top: -4px;
 	float: left;
-	padding: 0 10px 2px 7px!important;
+	padding: 2px 10px 2px 7px!important;
 }
 
 #shortcuts ul li a.add:before {
@@ -1434,6 +1435,7 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
   font-size: 16px;
   font-weight: bold;
   text-shadow: 0 1px 0 #ffffff;
+  vertical-align: middle;
 }
 
 #shortcuts li a {
@@ -1831,8 +1833,32 @@ Ensure your main styling comes before this!
 -------------------------------------------------------------------------------------------------------
 */
 
-
-/* THESE QUERIES ARE ONLY TEMPORARY. NEED TO UPDATE PROPERLY LATER */
+@media only screen and (min-width: 281px) {
+	#logo {
+		display: none;
+	}
+	
+	.topbar {
+		height: 100px;
+	}
+	
+	.topbar ul li a {
+  		padding: 15px 5px 15px 5px;
+	}
+	
+	.subbar {
+		margin-top: 70px;
+	}
+	
+	.sections_bar {
+		margin-top: 55px;
+	}
+	
+	#content-body {
+		top: 30px;
+	}
+	
+}
 
 @media only screen and (min-width: 481px) {
 	.wrapper {
@@ -1848,20 +1874,28 @@ Ensure your main styling comes before this!
 		padding: 0;
 	}
 	
+	#logo {
+		display: none;
+	}
+	
 	.topbar {
-		height: 150px;
+		height: 100px;
+	}
+	
+	.topbar ul li a {
+  		padding: 15px 5px 15px 5px;
 	}
 	
 	.subbar {
-		top: 130px;
+		margin-top: 70px;
 	}
 	
 	.sections_bar {
-		top: 200px;
+		margin-top: 55px;
 	}
 	
 	#content-body {
-		top: 75px;
+		top: 30px;
 	}
 	
 	#analyticsWrapper, #analytics {
@@ -1928,20 +1962,28 @@ Ensure your main styling comes before this!
 		padding: 0;
 	}
 	
+	#logo {
+		display: inherit;
+	}
+	
 	.topbar {
-		height: 125px;
+		height: 50px;
+	}
+	
+	.topbar ul li a {
+  		padding: 15px 5px 15px 5px;
 	}
 	
 	.subbar {
-		top: 110px;
+		margin-top: 25px;
 	}
 	
 	.sections_bar {
-		top: 183px;
+		margin-top: 10px;
 	}
 	
 	#content-body {
-		top: 65px;
+		top: 0px;
 	}
 	
 	#analyticsWrapper, #analytics {
@@ -2014,8 +2056,13 @@ Ensure your main styling comes before this!
 	
 	.topbar {
 		height: 50px;
+		text-align: center;
 	}
 	
+	.topbar ul li {
+  		min-width: 70px;
+	}
+
 	.subbar {
 		top: 25px;
 	}
@@ -2098,6 +2145,11 @@ Ensure your main styling comes before this!
 	
 	.topbar {
 		height: 50px;
+		text-align: center;
+	}
+	
+	.topbar ul li {
+  		min-width: 80px;
 	}
 	
 	.subbar {

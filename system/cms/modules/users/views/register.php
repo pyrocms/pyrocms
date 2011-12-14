@@ -34,6 +34,7 @@
 	<li>
 		<label for="email"><?php echo lang('user_email') ?></label>
 		<input type="text" name="email" maxlength="100" value="<?php echo set_value('email'); ?>" />
+		<?php echo form_input('d0ntf1llth1s1n', ' ', 'class="default-form" style="display:none"'); ?>
 	</li>
 	
 	<li>

@@ -22,8 +22,6 @@ class Admin extends Admin_Controller
 
 		$this->config->load('maintenance');
 		$this->lang->load('maintenance');
-
-		$this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
 	}
 
 
@@ -57,7 +55,19 @@ class Admin extends Admin_Controller
 				);
 			}
 		}
+		
+		$i = 0;
+		$table_list = config_item('maintenance.export_tables');
+		asort($table_list);
 
+		foreach ($table_list AS $table)
+		{
+			$tables->{$i}->{'name'} = $table;
+			$tables->{$i}->{'count'} = $this->db->count_all($table);
+			$i++;
+		}
+
+		$this->data->tables = $tables;
 		$this->data->folders = &$folder_ary;
 
 		$this->template->title($this->module_details['name'])->build('admin/items', $this->data);
@@ -107,6 +117,24 @@ class Admin extends Admin_Controller
 			}
 		}
 		return TRUE;
+	}
+	
+	public function export($table = '', $type = 'xml')
+	{
+		$this->load->model('maintenance_m');
+		$this->load->helper('download');
+		$this->load->library('format');
+
+		$table_list = config_item('maintenance.export_tables');
+
+		if (in_array($table, $table_list))
+		{			
+			$this->maintenance_m->export($table, $type, $table_list);
+		}
+		else
+		{
+			redirect('admin/maintenance');
+		}
 	}
 
 

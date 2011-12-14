@@ -154,7 +154,7 @@ class Module_Pages extends Module {
 		";
 
 		$default_pages = "
-			INSERT INTO ".$this->db->dbprefix('pages')." (`id`, `slug`, `title`, `uri`, `revision_id`, `parent_id`, `layout_id`, `status`, `created_on`, `updated_on`, `restricted_to`, is_home) VALUES
+			INSERT INTO ".$this->db->dbprefix('pages')." (`id`, `slug`, `title`, `uri`, `revision_id`, `parent_id`, `layout_id`, `status`, `created_on`, `updated_on`, `restricted_to`, `is_home`) VALUES
 			('1','home', 'Home', 'home', 1, 0, 1, 'live', ".time().", ".time().", '', 1),
 			('2', '404', 'Page missing', '404', 2, 0, '1', 'live', ".time().", ".time().", '', 0),
 			('3','contact', 'Contact', 'contact', 3, 0, 1, 'live', ".time().", ".time().", '', 0);

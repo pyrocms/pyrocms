@@ -31,6 +31,7 @@ $lang['files.filter_label']					= 'Φίλτρο';
 $lang['files.loading_label']				= 'Φορτώνει...';
 $lang['files.name_label']					= 'Όνομα';
 
+$lang['files.dropdown_select']				= '-- Select Folder For Upload --'; #translate
 $lang['files.dropdown_no_subfolders']		= '-- Κανένας --';
 $lang['files.dropdown_root']				= '-- Αρχικός --';
 
@@ -66,7 +67,7 @@ $lang['file_folders.folders_title']			= 'Φάκελοι Αρχείων';
 $lang['file_folders.manage_title']			= 'Διαχείριση Φακέλων';
 $lang['file_folders.create_title']			= 'Νέος Φάκελος';
 $lang['file_folders.delete_title']			= 'Επιβεβαίωση Διαγραφής';
-$lang['file_folders.edit_title']			= 'Edit folder "%s"';
+$lang['file_folders.edit_title']			= 'Επεξεργασία φακέλου "%s"';
 
 // Labels
 $lang['file_folders.folders_label']			= 'Φάκελοι';

@@ -59,8 +59,8 @@
 		
 	<?php echo form_close();?>
 <?php else: ?>
-	<div class="blank-slate file-folders">
+	<div class="no_data file-folders">
 		<p><?php echo lang('file_folders.no_folders');?></p>
-		<p>[ <?php echo anchor('admin/files/folders/create', lang('file_folders.create_title'), 'class="folder-create"'); ?> ]</p>
+		<p><?php echo anchor('admin/files/folders/create', lang('file_folders.create_title'), 'class="button folder-create"'); ?></p>
 	</div>
 <?php endif; ?>

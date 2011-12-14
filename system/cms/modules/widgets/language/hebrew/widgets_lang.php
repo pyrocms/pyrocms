@@ -25,10 +25,7 @@ $lang['widgets.widget_area']            = 'איזור';
 $lang['widgets.widget_area_title']      = 'שם האיזור';
 $lang['widgets.widget_area_slug']       = 'שם קצר לאיזור';
 
-// Widget instance titles
-$lang['widgets.add_instance']           = 'הוסף ויג\'ט';
-$lang['widgets.edit_instance']          = 'ערוך ויג\'ט';
-$lang['widgets.delete_instance']        = 'מחק ויג\'ט';
+$lang['widgets.view_code']				= 'View Code'; #translate
 
 $lang['widgets.instance_title']         = 'כותרת';
 $lang['widgets.tag_title']              = 'Tag'; #translate

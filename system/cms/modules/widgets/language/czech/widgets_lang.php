@@ -25,10 +25,7 @@ $lang['widgets.widget_area'] 				= 'Oblast';
 $lang['widgets.widget_area_title'] 			= 'Jméno oblasti';
 $lang['widgets.widget_area_slug'] 			= 'Krátké jméno oblasti';
 
-// Widget instance titles
-$lang['widgets.add_instance'] 				= 'Přidat instanci widgetu';
-$lang['widgets.edit_instance'] 				= 'Upravit instanci widgetu';
-$lang['widgets.delete_instance'] 			= 'Vymazat instanci widgetu';
+$lang['widgets.view_code']				= 'View Code'; #translate
 
 $lang['widgets.instance_title'] 			= 'Titulek';
 $lang['widgets.tag_title']					= 'Štítek';

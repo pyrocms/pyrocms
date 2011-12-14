@@ -3,8 +3,8 @@
 // labels
 $lang['header']			=	'步驟二：檢查安裝需求';
 $lang['intro_text']		= 	'安裝程序的第一步是檢查您的伺服器是否支援 PyroCMS，大部分的伺服器都可以正確執行沒有問題。';
-$lang['mandatory']		= 	'Mandatory'; #translate
-$lang['recommended']	= 	'Recommended'; #translate
+$lang['mandatory']		= 	'必須';
+$lang['recommended']	= 	'建議';
 
 $lang['server_settings']= 	'HTTP 伺服器設定';
 $lang['server_version']	=	'您的伺服器軟體:';
@@ -32,9 +32,9 @@ $lang['zlib']			=	'Zlib';
 $lang['zlib_required']	= 	'PyroCMS 需要 Zlib 才能對網站佈景主題(theme)進行解壓縮與安裝。';
 $lang['zlib_fail']		=	'找不到 Zlib 程式庫。這通常表示此程式庫尚未安裝。PyroCMS 將仍然可以運作，但是安裝佈景主題的相關功能就無法作用了。因此，我們強烈建議您先安裝並啟動 Zlib 程式庫。';
 
-$lang['curl']			=	'Curl'; #translate
-$lang['curl_required']	=	'PyroCMS requires Curl in order to make connections to other sites.'; #translate
-$lang['curl_fail']		=	'Curl can not be found. This usually means that Curl is not installed. PyroCMS will still run properly but some of the functions might not work. It is highly recommended to enable the Curl library.'; #translate
+$lang['curl']			=	'Curl';
+$lang['curl_required']	=	'PyroCMS 需要 Curl 才能和其他網站建立連結。';
+$lang['curl_fail']		=	'找不到 Curl 程式庫。這通常表示此程式庫尚未安裝。PyroCMS 將仍然可以運作，但是有些功能可能無法使用。因此，我們強烈建議您先安裝並啟動 Curl 程式庫。';
 
 
 $lang['summary_green']	=	'您的伺服器符合正確執行 PyroCMS 的所有需求，請點選下方的按鈕進行下一步。';

@@ -25,10 +25,7 @@ $lang['widgets.widget_area']            = 'Sritis';
 $lang['widgets.widget_area_title']      = 'Srities vardas';
 $lang['widgets.widget_area_slug']       = 'Srities trumpasis vardas';
 
-// Widget instance titles
-$lang['widgets.add_instance']           = 'Pridėti papildinio pavyzdį';
-$lang['widgets.edit_instance']          = 'Redaguoti papildinio pavyzdį';
-$lang['widgets.delete_instance']        = 'Ištrinti papildinio pavyzdį';
+$lang['widgets.view_code']				= 'View Code'; #translate
 
 $lang['widgets.instance_title']         = 'Pavadinimas';
 $lang['widgets.tag_title']              = 'Tag';

@@ -9,7 +9,7 @@ $lang['db_create']		=	'建立資料庫';
 $lang['db_notice']		=	'在某些情況下，您也許必須自己建立';
 $lang['default_user']	=	'預設使用者';
 $lang['database']		=	'資料庫';
-$lang['site_settings']		= 	'Site Settings'; #translate
+$lang['site_settings']	= 	'網站設定';
 $lang['site_ref']		=	'Site Ref'; #translate
 $lang['user_name']		= 	'用戶名稱';
 $lang['first_name']		= 	'大名';
@@ -19,7 +19,7 @@ $lang['password']		= 	'密碼';
 $lang['conf_password']	=	'再次確認密碼';
 $lang['finish']			=	'開始安裝';
 
-$lang['invalid_db_name'] = 'The database name you entered is invalid. Please use only alphanumeric characters and underscores.'; #translate
+$lang['invalid_db_name'] = '您輸入的資料庫名稱不正確，請限定使用英數字(alphanumeric)與下底線(underscore)。';
 $lang['error_101']		=	'找不到資料庫。如果您是選擇安裝程式代為建立資料庫，那麼可能因為權限的關係失敗了。';
 $lang['error_102']		=	'安裝程式無法在資料庫內新增資料表(add tables)。<br/><br/>';
 $lang['error_103']		=	'安裝程式無法在資料庫內新增資料(insert data)。<br/><br/>';

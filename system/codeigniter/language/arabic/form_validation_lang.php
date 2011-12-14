@@ -17,8 +17,13 @@ $lang['is_numeric']			= "يجب أن يحتوي %s أعداد فقط.";
 $lang['integer']			= "يجب أن يحتوي %s على عدد.";
 $lang['regex_match']		= "الحقل %s ليس مكتوباً بالنسق الصحيح.";
 $lang['matches']			= "قيمة %s لا تطابق قيمة %s.";
+$lang['is_unique'] 			= "يجب ان يحتوي %s على قيمة فريدة فقط.";
 $lang['is_natural']			= "يجب أن يحتوي %s أرقام موجبة فقط.";
 $lang['is_natural_no_zero']	= "يجب أن يحتوي %s رقماً أكبر من الصفر.";
+$lang['decimal']			= "يجب ان يحتوي %s على رقم عشري..";
+$lang['less_than']			= "يجب ان يحتوي %1 على عدد اصغر من %s.";
+$lang['greater_than']		= "يجب ان يحتوي %1 على عدد اكبر من %s.";
+
 
 /* End of file form_validation_lang.php */
 /* Location: ./system/language/arabic/form_validation_lang.php */

@@ -31,6 +31,7 @@ $lang['files.filter_label']					= 'Filtre';
 $lang['files.loading_label']				= 'Chargement...';
 $lang['files.name_label']					= 'Nom';
 
+$lang['files.dropdown_select']				= '-- Sélectionner le dossier à télécharger --';
 $lang['files.dropdown_no_subfolders']		= '-- Aucun --';
 $lang['files.dropdown_root']				= '-- Racine --';
 

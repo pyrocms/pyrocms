@@ -122,6 +122,7 @@ $lang['user_mass_delete_error']                = 'Bạn cần chọn tài khoả
 // Register
 $lang['user_email_pass_missing']               = 'Email hoặc mật khẩu chưa được nhập.';
 $lang['user_email_exists']                     = 'Email trùng với email của tài khoản khác.';
+$lang['user_register_error']				   = 'We think you are a bot. If we are mistaken please accept our apologies.'; #translate
 $lang['user_register_reasons']                 = 'Join up to access special areas normally restricted. This means your settings will be remembered, more content and less ads.';
 
 

@@ -50,4 +50,5 @@ $lang['nav_link_not_exist_error']               = 'Liên kết này không tồn
 $lang['nav_link_edit_success']                  = 'Liên kết đã được lưu.';
 $lang['nav_link_delete_success']                = 'Liên kết đã được xóa.';
 
+$lang['nav_choose_value']						= 'The %s field must not be empty.'; #translate
 $lang['nav_link_type_desc']                     = 'Hãy thêm tùy chọn cho liên kết của bạn.';
