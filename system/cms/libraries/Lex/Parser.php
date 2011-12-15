@@ -530,7 +530,7 @@ class Lex_Parser
 		}
 		$glue = preg_quote($this->scope_glue, '/');
 
-		$this->variable_regex = $glue === '\\.' ? '[a-zA-Z0-9_\-'.$glue.']+' : '[a-zA-Z0-9_\.\-'.$glue.']+';
+		$this->variable_regex = $glue === '\\.' ? '[a-zA-Z0-9_'.$glue.']+' : '[a-zA-Z0-9_\.'.$glue.']+';
 		$this->callback_name_regex = $this->variable_regex.$glue.$this->variable_regex;
 		$this->variable_loop_regex = '/\{\{\s*('.$this->variable_regex.')\s*\}\}(.*?)\{\{\s*\/\1\s*\}\}/ms';
 		$this->variable_tag_regex = '/\{\{\s*('.$this->variable_regex.')\s*\}\}/m';
@@ -721,17 +721,11 @@ class Lex_Parser
 	{
 		ob_start();
 		$result = eval('?>'.$text.'<?php ');
-		
-		if (($result === false) and (ENVIRONMENT === PYRO_DEVELOPMENT))
+
+		if ($result === false)
 		{
 			echo '<br />You have a syntax error in your Lex tags. The snippet of text that contains the error has been output below:<br />';
 			exit(str_replace(array('?>', '<?php '), '', $text));
-			
-		}
-		elseif ($result === false)
-		{
-			log_message('error', str_replace(array('?>', '<?php '), '', $text));
-			echo '<br />You have a syntax error in your Lex tags: The snippet of text that contains the error has been output to your application\'s log file.<br />';
 		}
 
 		return ob_get_clean();

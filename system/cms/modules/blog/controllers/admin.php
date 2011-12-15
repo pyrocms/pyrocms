@@ -1,13 +1,12 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
-
 /**
  *
  * @package  	PyroCMS
- * @subpackage  Categories
+ * @subpackage  Blog
  * @category  	Module
  */
-class Admin extends Admin_Controller {
-
+class Admin extends Admin_Controller
+{
 	/**
 	 * The current active section
 	 * @access protected
@@ -91,6 +90,9 @@ class Admin extends Admin_Controller {
 	{
 		parent::__construct();
 
+		// Fire an event, we're posting a new blog!
+		Events::trigger('blog_article_published');
+		
 		$this->load->model(array('blog_m', 'blog_categories_m'));
 		$this->lang->load(array('blog', 'categories'));
 		
@@ -108,8 +110,6 @@ class Admin extends Admin_Controller {
 				$this->data->categories[$category->id] = $category->title;
 			}
 		}
-
-		$this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
 	}
 
 	/**
@@ -195,6 +195,13 @@ class Admin extends Admin_Controller {
 			{
 				$this->pyrocache->delete_all('blog_m');
 				$this->session->set_flashdata('success', sprintf($this->lang->line('blog_post_add_success'), $this->input->post('title')));
+				
+				// They are trying to put this live
+				if ($this->input->post('status') == 'live')
+				{
+					// Fire an event, we're posting a new blog!
+					Events::trigger('blog_article_published');
+				}
 			}
 			else
 			{
@@ -293,16 +300,12 @@ class Admin extends Admin_Controller {
 			{
 				$this->session->set_flashdata(array('success' => sprintf(lang('blog_edit_success'), $this->input->post('title'))));
 
-				// The twitter module is here, and enabled!
-//				if ($this->settings->item('twitter_blog') == 1 && ($post->status != 'live' && $this->input->post('status') == 'live'))
-//				{
-//					$url = shorten_url('blog/'.$date[2].'/'.str_pad($date[1], 2, '0', STR_PAD_LEFT).'/'.url_title($this->input->post('title')));
-//					$this->load->model('twitter/twitter_m');
-//					if ( ! $this->twitter_m->update(sprintf($this->lang->line('blog_twitter_posted'), $this->input->post('title'), $url)))
-//					{
-//						$this->session->set_flashdata('error', lang('blog_twitter_error') . ": " . $this->twitter->last_error['error']);
-//					}
-//				}
+				// They are trying to put this live
+				if ($post->status != 'live' and $this->input->post('status') == 'live')
+				{
+					// Fire an event, we're posting a new blog!
+					Events::trigger('blog_article_published');
+				}
 			}
 			
 			else

@@ -90,15 +90,6 @@ $lang['settings_ga_tracking_desc']				= 'Podaj swój kod śledzenia Google Analy
 $lang['settings_twitter_username']				= 'Użytkownik';
 $lang['settings_twitter_username_desc']			= 'Twoja nazwa użytkownika w serwisie Twitter.';
 
-$lang['settings_twitter_consumer_key']			= 'Klucz klienta';
-$lang['settings_twitter_consumer_key_desc']		= 'Klucz klienta Twitter.';
-
-$lang['settings_twitter_consumer_key_secret']	= 'Prywatny klucz klienta';
-$lang['settings_twitter_consumer_key_secret_desc'] = 'Prywatny klucz klienta Twitter.';
-
-$lang['settings_twitter_blog']					= 'Integracja z Twitterem';
-$lang['settings_twitter_blog_desc']				= 'Czy chciałbyś publikować linki do nowości i artykułów bezpośrednio w serwisie Twitter?';
-
 $lang['settings_twitter_feed_count']			= 'Ilość wpisów z Twittera';
 $lang['settings_twitter_feed_count_desc']		= 'Ile twittów powinno zostać przekazanych do bloku Twittera?';
 
