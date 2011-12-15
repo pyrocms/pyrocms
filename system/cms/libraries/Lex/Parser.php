@@ -239,7 +239,8 @@ class Lex_Parser
 				$tag .= $content.$match[0][0];
 				
 				// Is there a nested block under this one existing with the same name?
-				if (preg_match($this->callback_block_regex, $content.$match[0][0], $nested_matches))
+				$nested_regex = '/\{\{\s*('.preg_quote($name, '/').')(\s.*?)\}\}(.*?)\{\{\s*\/\1\s*\}\}/ms';
+				if (preg_match($nested_regex, $content.$match[0][0], $nested_matches))
 				{
 					$nested_content = preg_replace('/\{\{\s*\/'.preg_quote($name, '/').'\s*\}\}/m', '', $nested_matches[0]);
 					$content = $this->create_extraction('nested_looped_tags', $nested_content, $nested_content, $content);
@@ -721,11 +722,17 @@ class Lex_Parser
 	{
 		ob_start();
 		$result = eval('?>'.$text.'<?php ');
-
-		if ($result === false)
+		
+		if (($result === false) and (ENVIRONMENT === PYRO_DEVELOPMENT))
 		{
 			echo '<br />You have a syntax error in your Lex tags. The snippet of text that contains the error has been output below:<br />';
 			exit(str_replace(array('?>', '<?php '), '', $text));
+			
+		}
+		elseif ($result === false)
+		{
+			log_message('error', str_replace(array('?>', '<?php '), '', $text));
+			echo '<br />You have a syntax error in your Lex tags: The snippet of text that contains the error has been output to your application\'s log file.<br />';
 		}
 
 		return ob_get_clean();
