@@ -66,6 +66,11 @@ $lang['install_label'] 					= 'Instalar';
 $lang['enable_label']					= 'Ativar';
 $lang['disable_label'] 					= 'Desativar';
 
+$lang['all_right_reserved']				= 'All Rights Reserved.';  #translate
+$lang['powered_by_pyrocms']				= 'Powered by PyroCMS';  #translate
+$lang['top_page']						= 'Top';  #translate
+$lang['back_to_top']					= 'Back to Top';  #translate
+
 $lang['global:shortcuts'] 				= 'Atalhos';
 $lang['global:description'] 		    = 'Descrição';
 $lang['global:actions']					= 'Ações';

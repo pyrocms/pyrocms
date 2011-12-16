@@ -69,6 +69,11 @@ $lang['enable_label']					= 'Enable';
 $lang['disable_label'] 					= 'Disable';
 $lang['upgrade_label'] 					= 'Upgrade';
 
+$lang['all_right_reserved']				= 'All Rights Reserved.';
+$lang['powered_by_pyrocms']				= 'Powered by PyroCMS';
+$lang['top_page']						= 'Top';
+$lang['back_to_top']					= 'Back to Top';
+
 $lang['global:filters'] 				= 'Filters';
 $lang['global:shortcuts'] 				= 'Shortcuts';
 $lang['global:description']				= 'Description';

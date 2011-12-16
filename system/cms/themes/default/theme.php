@@ -26,6 +26,12 @@ class Theme_Default extends Theme {
 																'type'          => 'radio',
 																'options'       => 'yes=Yes|no=No',
 																'is_required'   => TRUE),
+									'text_direction' => 		array('title' => 'Text Direction',
+																'description'   => 'What text direction to use?',
+																'default'       => 'LTR',
+																'type'          => 'select',
+																'options'       => 'LTR=Left to Right|RTL=Right to Left',
+																'is_required'   => TRUE),
 								   );
 
 	public function __construct()

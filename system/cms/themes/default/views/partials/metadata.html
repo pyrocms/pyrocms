@@ -10,7 +10,11 @@
 <base href="{{ url:base }}" />
 
 <!-- Begin stylesheets -->
-{{ theme:css file="style.css" }}
+{{ if theme:options:text_direction == 'LTR' }}
+  {{ theme:css file="style.css" }}
+{{ else }}
+  {{ theme:css file="style-rtl.css" }}
+{{ endif }}
 <!-- End stylesheets -->
 
 <!-- Use Html5Shiv in order to allow IE render HTML5 -->
@@ -25,7 +29,11 @@
 
 <!-- Place CSS bug fixes for IE 7 in this comment -->
 <!--[if IE 7]>
-{{ theme:css file="ie.css" }}
+{{ if theme:options:text_direction == 'LTR' }}
+  {{ theme:css file="ie.css" }}
+{{ else }}
+  {{ theme:css file="ie-rtl.css" }}
+{{ endif }}
 <![endif]-->
 
 <title>{{ settings:site_name }}&nbsp;&bull;&nbsp;{{ template:title }}</title>

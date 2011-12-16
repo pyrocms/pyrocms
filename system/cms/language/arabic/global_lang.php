@@ -68,6 +68,11 @@ $lang['enable_label']					= 'تمكين';
 $lang['disable_label'] 					= 'تعطيل';
 $lang['upgrade_label'] 					= 'تحديث';
 
+$lang['all_right_reserved']				= 'جميع الحقوق محفوظة.';
+$lang['powered_by_pyrocms']				= 'هذا الموقع يستخدم PyroCMS';
+$lang['top_page']						= 'اعلى الصفحة';
+$lang['back_to_top']					= 'رجوع الى اعلى الصفحة';
+
 $lang['global:filters'] 				= 'تصفية';
 $lang['global:shortcuts'] 				= 'الاختصارات';
 $lang['global:description']				= 'الوصف';
