@@ -69,7 +69,7 @@ $lang['disable_label'] 					= 'تعطيل';
 $lang['upgrade_label'] 					= 'تحديث';
 
 $lang['all_right_reserved']				= 'جميع الحقوق محفوظة.';
-$lang['powred_by_pyrocms']				= 'هذا الموقع يستخدم PyroCMS';
+$lang['powered_by_pyrocms']				= 'هذا الموقع يستخدم PyroCMS';
 $lang['top_page']						= 'اعلى الصفحة';
 $lang['back_to_top']					= 'رجوع الى اعلى الصفحة';
 
