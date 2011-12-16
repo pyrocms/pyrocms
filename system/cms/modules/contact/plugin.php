@@ -38,7 +38,7 @@ class Plugin_Contact extends Plugin {
 	 * 					from	 			= "server@site.com"
 	 * 					sent				= "Your message has been sent. Thank you for contacting us"
 	 * 					error				= "Sorry. Your message could not be sent. Please call us at 123-456-7890"
-	 *					autoreply			= "1"
+	 					auto-reply			= "contact-autoreply"
 	 * 					success-redirect	= "home"
 	 * 					action				= "different/url" Default is current_url(). This can be used to place a contact form in
 	 * 											the footer (for example) and have it send via the regular contact page. Errors will then
@@ -85,24 +85,25 @@ class Plugin_Contact extends Plugin {
 			return 'The new contact plugin requires field parameters and it must be used as a double tag.';
 		}
 		
-			$button				= $this->attribute('button', 'send');
-			$template			= $this->attribute('template', 'contact');
-			$autoreply			= $this->attribute('autoreply', 0);
-			$autoreply_template	= $this->attribute('template', 'contact-autoreply');
-			$lang				= $this->attribute('lang', Settings::get('site_lang'));
-			$to					= $this->attribute('to', Settings::get('contact_email'));
-			$from				= $this->attribute('from', Settings::get('server_email'));
-			$reply_to			= $this->attribute('reply-to');
-			$max_size			= $this->attribute('max-size', 10000);
-			$redirect			= $this->attribute('success-redirect', FALSE);
-			$form_meta			= array();
-			$validation			= array();
-			$output				= array();
-			$dropdown			= array();
+		$button 	= $this->attribute('button', 'send');
+		$template	= $this->attribute('template', 'contact');
+		$autoreply_template = $this->attribute('auto-reply', FALSE);
+		$lang 		= $this->attribute('lang', Settings::get('site_lang'));
+		$to			= $this->attribute('to', Settings::get('contact_email'));
+		$from		= $this->attribute('from', Settings::get('server_email'));
+		$reply_to	= $this->attribute('reply-to');
+		$max_size	= $this->attribute('max-size', 10000);
+		$redirect	= $this->attribute('success-redirect', FALSE);
+		$action		= $this->attribute('action', current_url());
+		$form_meta 	= array();
+		$validation	= array();
+		$output		= array();
+		$dropdown	= array();
 		
 		// unset all attributes that are not field names
 		unset($field_list['button'],
 			  $field_list['template'],
+			  $field_list['auto-reply'],
 			  $field_list['lang'],
 			  $field_list['to'],
 			  $field_list['from'],
@@ -252,16 +253,14 @@ class Plugin_Contact extends Plugin {
 			$results = Events::trigger('email', $data, 'array');
 
 			// If autoreply has been enabled then send the end user an autoreply response
-			if($autoreply == 1)
+			if($autoreply_template)
 			{
-				$data_autoreply = array();
+				$data_autoreply = $data;
 				$data_autoreply['to']       = $data['email'];
 				$data_autoreply['from']     = $data['from'];
 				$data_autoreply['slug']     = $autoreply_template;
 				$data_autoreply['name']     = $data['name'];
 				$data_autoreply['subject']  = $data['subject'];
-
-				Events::trigger('email', $data_autoreply, 'array');
 			}
 
 			// fetch the template so we can parse it to insert into the database log
@@ -288,6 +287,10 @@ class Plugin_Contact extends Plugin {
 					$this->session->set_flashdata('error', $message);
 					redirect(current_url());
 				}
+			}
+
+			if($autoreply_template) {
+				Events::trigger('email', $data_autoreply, 'array');
 			}
 			
 			$message = $this->attribute('sent', lang('contact_sent_text'));
