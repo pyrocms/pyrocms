@@ -1,4 +1,4 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 // labels
 $lang['blog_posted_label'] 					= 'Opublikowano w';
