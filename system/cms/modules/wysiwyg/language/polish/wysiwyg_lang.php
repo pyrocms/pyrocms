@@ -8,7 +8,7 @@ $lang['wysiwyg.label.no_limit']		= '(0 gdy brak limitu)';
 $lang['wysiwyg.label.float']		= 'Wyrównanie';
 $lang['wysiwyg.label.left']		= 'Lewo';
 $lang['wysiwyg.label.right']		= 'Prawo';
-$lang['wysiwyg.label.none']		= 'Brak;
+$lang['wysiwyg.label.none']		= 'Brak';
 $lang['wysiwyg.meta.mime']		= 'Typ Mime';
 
 /* end of file wysiwyg_lang.php */
