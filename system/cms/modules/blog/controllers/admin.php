@@ -453,7 +453,7 @@ class Admin extends Admin_Controller
 				// Get the current page so we can grab the id too
 				if ($post = $this->blog_m->get($id))
 				{
-					$this->blog_m->delete($id);
+					$this->blog_m->delete_post($post->id);
 
 					// Wipe cache for this model, the content has changed
 					$this->pyrocache->delete('blog_m');

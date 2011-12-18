@@ -173,6 +173,11 @@ class Blog_m extends MY_Model {
 		return parent::update($id, array('status' => 'live'));
 	}
 
+	public function delete_post($id)
+	{
+		$this->db->delete('blog', array('id' => $id));
+		$this->db->delete('comments', array('module_id' => $id));
+	}
 	// -- Archive ---------------------------------------------
 
 	function get_archive_months()
