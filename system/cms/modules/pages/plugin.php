@@ -53,6 +53,9 @@ class Plugin_Pages extends Plugin
 								'</div>'.PHP_EOL;
 		}
 
+		// we'll unset the chunks array as Lex is grouchy about mixed data at the moment
+		unset($page['chunks']);
+
 		return $this->content() ? $page : $page['body'];
 	}
 
