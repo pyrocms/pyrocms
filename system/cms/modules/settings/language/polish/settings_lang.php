@@ -100,11 +100,14 @@ $lang['settings_akismet_api_key_desc']				= 'Akismet umożliwia blokowanie spamu
 $lang['settings_comment_order']					= 'Sortowanie komentarzy';
 $lang['settings_comment_order_desc']				= 'Ustaw w jaki sposób mają być wyświetlane komentarze';
 
+$lang['settings_enable_comments'] 				= 'Włącz komentarze';
+$lang['settings_enable_comments_desc']				= 'Czy chcesz pozwolić użytkownikom pisać komentarze?';
+
 $lang['settings_moderate_comments']				= 'Moderacja komentarzy';
 $lang['settings_moderate_comments_desc']			= 'Ustaw czy przed pojawieniem się na stronie komentarze muszą zostać zatwierdzone przez administratora.';
 
 $lang['settings_comment_markdown']				= 'Włącz Markdown';
-$lang['settings_comment_markdown_desc']			= 'Czy chcesz pozwolić użytkownikom pisać komentarze używając składni Markdown?';
+$lang['settings_comment_markdown_desc']				= 'Czy chcesz pozwolić użytkownikom pisać komentarze używając składni Markdown?';
 
 $lang['settings_version']					= 'Wersja';
 $lang['settings_version_desc']					= '';
@@ -142,6 +145,10 @@ $lang['settings_form_option_Required']				= 'Wymagane';
 $lang['settings_form_option_Optional']				= 'Opcjonalne';
 $lang['settings_form_option_Oldest First']			= 'Najpierw najstarsze';
 $lang['settings_form_option_Newest First']			= 'Najpierw najnowsze';
+$lang['settings_form_option_Text Only']				= 'Tylko tekst';
+$lang['settings_form_option_Allow Markdown']			= 'Włącz Markdown';
+$lang['settings_form_option_Yes']				= 'Tak';
+$lang['settings_form_option_No']				= 'Nie';
 
 // titles
 $lang['settings_edit_title']					= 'Edytuj ustawienia';
