@@ -42,7 +42,7 @@ class Plugin_Navigation extends Plugin
 
 	private function _build_links($links = array(), $return_arr = TRUE)
 	{
-		static $is_current	= FALSE;
+		static $current_link	= FALSE;
 		static $level		= 0;
 
 		$top			= $this->attribute('top', FALSE);
@@ -134,34 +134,18 @@ class Plugin_Navigation extends Plugin
 				--$level;
 			}
 
-			// is current ?
-			if (strpos(current_url(), $link['url'].'/') === 0 OR current_url() === $link['url'] OR ($link['link_type'] === 'page' && $link['is_home'] == TRUE) AND site_url() === current_url())
+			// is this the link to the page that we're on?
+			if (preg_match('@^'.current_url().'/?$@', $link['url']) OR ($link['link_type'] == 'page' AND $link['is_home']) AND site_url() == current_url())
 			{
-				$is_current = TRUE;
+				$current_link = $link['url'];
 				$wrapper['class'][] = $current_class;
 			}
 
-			// current experimental
-			// fail ..
-			/*elseif ($link->module_name === get_instance()->module)
+			// is the link we're currently working with found inside the children html?
+			if ( ! in_array($current_class, $wrapper['class']) AND isset($wrapper['children']) AND $current_link AND strpos($wrapper['children'], $current_link))
 			{
-				$is_current = TRUE;
-				$wrapper['class'][] = 'current';
-			}*/
-
-			// has children as current ?
-			if ($is_current)
-			{
-				if ( ! in_array($current_class, $wrapper['class']))
-				{
-					$wrapper['class'][] = 'has_' . $current_class;
-				}
-
-				if ($level === 0)
-				{
-					// we've got the expected result, stop check if has current children
-					$is_current = FALSE;
-				}
+				// that means that this link is a parent
+				$wrapper['class'][] = 'has_' . $current_class;
 			}
 
 			++$i;
@@ -197,8 +181,11 @@ class Plugin_Navigation extends Plugin
 				// render and indent or only render inline?
 				if ($indent)
 				{
+					// remove all empty values so we don't have an empty class attribute
+					$classes = implode(' ', array_filter($wrapper['class']));
+
 					$output .= $add_first_tag ? "<{$list_tag}>" . PHP_EOL : '';
-					$output .= $ident_b . '<' . $tag . ' class="' . implode(' ', $wrapper['class']) . '">' . PHP_EOL;
+					$output .= $ident_b . '<' . $tag . ($classes > '' ? ' class="' . $classes . '">' : '>') . PHP_EOL;
 					$output .= $ident_c . ((($level == 0) AND $top == 'text' AND $wrapper['children']) ? $item['title'] : anchor($item['url'], $item['title'], trim(implode(' ', $item['attributes'])))) . PHP_EOL;
 
 					if ($wrapper['children'])
@@ -214,8 +201,11 @@ class Plugin_Navigation extends Plugin
 				}
 				else
 				{
+					// remove all empty values so we don't have an empty class attribute
+					$classes = implode(' ', array_filter($wrapper['class']));
+
 					$output .= $add_first_tag ? "<{$list_tag}>" : '';
-					$output .= '<' . $tag . ' class="' . implode(' ', $wrapper['class']) . '">';
+					$output .= '<' . $tag . ($classes > '' ? ' class="' . $classes . '">' : '>');
 					$output .= (($level == 0) AND $top == 'text' AND $wrapper['children']) ? $item['title'] : anchor($item['url'], $item['title'], trim(implode(' ', $item['attributes'])));
 
 					if ($wrapper['children'])
