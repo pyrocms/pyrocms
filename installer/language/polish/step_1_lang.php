@@ -4,18 +4,18 @@
 $lang['header']			=	'Krok 1: Konfiguracja bazy danych i serwera';
 $lang['intro_text']		=	'Zanim sprawdzimy bazę danych, musimy wiedzieć gdzie ona się znajduje i jak się do niej zalogować.';
 
-$lang['db_settings']	=	'Konfiguracja bazy danych';
+$lang['db_settings']		=	'Konfiguracja bazy danych';
 $lang['db_text']		=	'Instalator potrzebuje nazwy serwera bazy danych MySQL, nazwę użytkownika i hasło. Dane te będą wykorzystane do zainstalowania PyroCMS.';
 
 $lang['server']			=	'Serwer';
 $lang['username']		=	'Użytkownik';
 $lang['password']		=	'Hasło';
 $lang['portnr']			=	'Port';
-$lang['server_settings']=	'Ustawienia serwera';
+$lang['server_settings']	=	'Ustawienia serwera';
 $lang['httpserver']		=	'Serwer HTTP';
-$lang['httpserver_text']=	'PyroCMS requires a HTTP Server to display dynamic content when a user goes to your website. It looks like you already have one by the fact that you can see this page, but if know exactly which type then PyroCMS can configure itself even better. If you do not know what any of this means just ignore it and carry on with the installation.'; #translate
-$lang['rewrite_fail']	=	'You have selected "(Apache with mod_rewrite)" but we are unable to tell if mod_rewrite is enabled on your server. Ask your host if mod_rewrite is enabled or simply install at your own risk.';
-$lang['mod_rewrite']	=	'Zaznczyłes opcję "(Apache z mod_rewrite)" ale twój server nie ma aktywnego modułu rewrite. Zapytaj firmę hostingową by uaktywniła ten moduł albo zainstaluj PyroCMS używajac opcji "Apache (bez mod_rewrite)".';
+$lang['httpserver_text']	=	'PyroCMS wymaga serwera HTTP aby wyświetlać dynamiczną treść kiedy użytkownik odwiedzi Twój serwis. Jeśli wiesz dokładnie jakiego typu jest Twój serwer HTTP, PyroCMS będzie mógł skonfigurować się jeszcze lepiej. Jeśli nie wiesz nic na ten temat, po prostu kontynuuj instalację.';
+$lang['rewrite_fail']		=	'Wybrałeś opcję "(Apache z mod_rewrite)" ale nie jesteśmy w stanie stwierdzić czy mod_rewrite jest włączony na Twoim serwerze. Zapytaj firmę hostingową czy mod_rewrite jest włączony lub zainstaluj PyroCMS na własne ryzyko.';
+$lang['mod_rewrite']		=	'Wybrałeś opcję "(Apache z mod_rewrite)" ale Twój serwer nie ma aktywnego modułu mod_rewrite. Poproś firmę hostingową aby uaktywniła ten moduł albo zainstaluj PyroCMS używajac opcji "Apache (bez mod_rewrite)".';
 $lang['step2']			=	'Krok 2';
 
 // messages
