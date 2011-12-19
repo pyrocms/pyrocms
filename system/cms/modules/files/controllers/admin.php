@@ -307,6 +307,8 @@ class Admin extends Admin_Controller {
 
 		if ($this->form_validation->run())
 		{
+			$this->_check_ext();
+			
 			// We are uploading a new file
 			if ( ! empty($_FILES['userfile']['name']))
 			{
