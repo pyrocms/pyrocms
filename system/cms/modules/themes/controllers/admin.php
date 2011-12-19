@@ -33,7 +33,7 @@ class Admin extends Admin_Controller
 	{
 		// Call the parent's constructor
 		parent::__construct();
-		$this->load->model('themes_m');
+		$this->load->model('theme_m');
 		$this->lang->load('themes');
 		$this->load->library('form_validation');
 
@@ -50,11 +50,11 @@ class Admin extends Admin_Controller
 	 */
 	public function index()
 	{
-		$themes = $this->themes_m->get_all();
+		$themes = $this->theme_m->get_all();
 		
 		$data = array();
 		
-		foreach ($themes AS $theme)
+		foreach ($themes as $theme)
 		{
 			if ( ! isset($theme->type) OR $theme->type != 'admin')
 			{
@@ -84,10 +84,10 @@ class Admin extends Admin_Controller
 	{
 		if ($this->input->post('btnAction') == 're-index')
 		{
-			$this->themes_m->delete_options($this->input->post('slug'));
+			$this->theme_m->delete_options($this->input->post('slug'));
 			
 			// now re-index all themes that don't have saved options
-			if ($this->themes_m->get_all())
+			if ($this->theme_m->get_all())
 			{
 				// Success...
 				$data = array();
@@ -101,7 +101,7 @@ class Admin extends Admin_Controller
 			}
 		}
 		
-		$all_options 	= $this->themes_m->get_options_by(array('theme'=> $slug));
+		$all_options 	= $this->theme_m->get_options_by(array('theme'=> $slug));
 		$options_array 	= array();
 
 		if ($all_options)
@@ -137,7 +137,7 @@ class Admin extends Admin_Controller
 					// Dont update if its the same value
 					if ($input_value !== $stored_value)
 					{
-						$this->themes_m->update_options($option_slug, array('value' => $input_value));
+						$this->theme_m->update_options($option_slug, array('value' => $input_value));
 					}
 				}
 	
@@ -184,7 +184,7 @@ class Admin extends Admin_Controller
 		$theme = $this->input->post('theme');
 
 		// Set the theme
-		if ($this->themes_m->set_default($this->input->post()))
+		if ($this->theme_m->set_default($this->input->post()))
 		{
 			$this->session->set_flashdata('success', sprintf(lang('themes.set_default_success'), $theme));
 		}

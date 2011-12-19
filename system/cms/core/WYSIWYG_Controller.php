@@ -21,7 +21,7 @@ class WYSIWYG_Controller extends MY_Controller
 			show_error(lang('files.no_permissions'));
 	    }
 
-		ci()->admin_theme = $this->themes_m->get_admin();
+		ci()->admin_theme = $this->theme_m->get_admin();
 		
 		// Using a bad slug? Weak
 		if (empty($this->admin_theme->slug))

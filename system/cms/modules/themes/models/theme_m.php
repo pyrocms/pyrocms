@@ -1,13 +1,13 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
- * Themes model
+ * Theme model
  *
- * @author                 PyroCMS Development Team
- * @package             PyroCMS
- * @subpackage      Modules
- * @category            Modules
+ * @author          PyroCMS Development Team
+ * @package         PyroCMS
+ * @subpackage      Themes
+ * @category        Model
  */
-class Themes_m extends MY_Model
+class Theme_m extends MY_Model
 {
     /**
      * Default Theme
@@ -52,7 +52,7 @@ class Themes_m extends MY_Model
 				continue;
 			}
 
-			foreach($themes as $theme_path)
+			foreach ($themes as $theme_path)
             {
                 $this->_get_details(dirname($theme_path) . '/', basename($theme_path));
             }
@@ -195,19 +195,23 @@ class Themes_m extends MY_Model
 		foreach ($options AS $slug => $values)
 		{
 			// build the db insert array
-			$insert = array('slug' 			=> $slug,
-							'title' 		=> $values['title'],
-							'description'	=> $values['description'],
-							'default'		=> $values['default'],
-							'type'			=> $values['type'],
-							'value'			=> $values['default'],
-							'options'		=> $values['options'],
-							'is_required'	=> $values['is_required'],
-							'theme'			=> $theme);
+			$insert = array(
+				'slug' 			=> $slug,
+				'title' 		=> $values['title'],
+				'description'	=> $values['description'],
+				'default'		=> $values['default'],
+				'type'			=> $values['type'],
+				'value'			=> $values['default'],
+				'options'		=> $values['options'],
+				'is_required'	=> $values['is_required'],
+				'theme'			=> $theme,
+			);
 			
 			$this->db->insert('theme_options', $insert);
 		}
-		$this->pyrocache->delete_all('themes_m');
+		
+		$this->pyrocache->delete_all('theme_m');
+		
 		return TRUE;
 	}
 
@@ -298,10 +302,11 @@ class Themes_m extends MY_Model
 	 */
 	public function delete_options($theme)
 	{
-		$this->pyrocache->delete_all('themes_m');
+		$this->pyrocache->delete_all('theme_m');
 
-		return $this->db->where('theme', $theme)
-					->delete('theme_options');
+		return $this->db
+			->where('theme', $theme)
+			->delete('theme_options');
 	}
 	
 	/**
@@ -313,11 +318,12 @@ class Themes_m extends MY_Model
 	 */
 	public function get_option($params = array())
 	{
-		return $this->db->select('value')
-					->where($params)
-					->where('theme', $this->_theme)
-					->get('theme_options')
-					->row();
+		return $this->db
+			->select('value')
+			->where($params)
+			->where('theme', $this->_theme)
+			->get('theme_options')
+			->row();
 	}
 	
 	/**
@@ -329,9 +335,10 @@ class Themes_m extends MY_Model
 	 */
 	public function get_options_by($params = array())
 	{
-		return $this->db->where($params)
-					->get('theme_options')
-					->result();
+		return $this->db
+			->where($params)
+			->get('theme_options')
+			->result();
 	}
 	
 	/**
@@ -343,7 +350,8 @@ class Themes_m extends MY_Model
 	 */
 	public function get_values_by($params = array())
 	{
-		$query = $this->db->select('slug, value')
+		$query = $this->db
+			->select('slug, value')
 			->where($params)
 			->get('theme_options');
 			
@@ -368,10 +376,11 @@ class Themes_m extends MY_Model
 	 */
 	public function update_options($slug, $input)
 	{
-		$this->db->where('slug', $slug)
+		$this->db
+			->where('slug', $slug)
 			->update('theme_options', $input);
 			
-		$this->pyrocache->delete_all('themes_m');
+		$this->pyrocache->delete_all('theme_m');
 	}
 }
-/* End of file models/themes_m.php */
+/* End of file models/theme_m.php */
