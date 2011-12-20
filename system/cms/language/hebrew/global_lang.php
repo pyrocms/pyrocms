@@ -67,6 +67,11 @@ $lang['enable_label']					= 'הפעל';
 $lang['disable_label'] 					= 'כבה';
 $lang['upgrade_label'] 					= 'Upgrade'; #translate
 
+$lang['all_right_reserved']				= 'All Rights Reserved.';  #translate
+$lang['powered_by_pyrocms']				= 'Powered by PyroCMS';  #translate
+$lang['top_page']						= 'Top';  #translate
+$lang['back_to_top']					= 'Back to Top';  #translate
+
 $lang['global:shortcuts']	 			= 'קיצורי דרך';
 $lang['global:description'] 		    = 'תיאור';
 $lang['global:actions']					= 'פעולות';
