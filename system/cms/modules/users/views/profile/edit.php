@@ -1,6 +1,6 @@
 <h2 id="page_title" class="page-title">
-	<?php echo ($this->current_user->id !== $usr->id) ?
-					sprintf(lang('user_edit_title'), $usr->first_name.' '.$usr->last_name) :
+	<?php echo ($this->current_user->id !== $user->id) ?
+					sprintf(lang('user_edit_title'), $user->first_name.' '.$user->last_name) :
 					lang('profile_edit') ?>
 </h2>
 <div>
@@ -10,23 +10,23 @@
 	</div>
 	<?php endif;?>
 
-	<?php echo form_open('edit-settings', array('id'=>'user_edit'));?>
+	<?php echo form_open('edit-profile', array('id'=>'user_edit'));?>
 
 	<fieldset id="user_names">
 		<legend><?php echo lang('user_details_section') ?></legend>
 		<ul>
 			<li class="float-left spacer-right">
 				<label for="first_name"><?php echo lang('user_first_name') ?></label><br/>
-				<?php echo form_input('first_name', $usr->first_name); ?>
+				<?php echo form_input('first_name', $user->first_name); ?>
 			</li>
 
 			<li>
 				<label for="last_name"><?php echo lang('user_last_name') ?></label><br/>
-				<?php echo form_input('last_name', $usr->last_name); ?>
+				<?php echo form_input('last_name', $user->last_name); ?>
 			</li>
 			<li>
 				<label for="display_name"><?php echo lang('profile_display_name') ?></label>
-				<?php echo form_input('display_name', set_value('display_name', $usr->display_name)); ?>
+				<?php echo form_input('display_name', set_value('display_name', $user->display_name)); ?>
 			</li>
 			</ul>
 	</fieldset>
@@ -46,7 +46,7 @@
 		<ul>
 			<li>
 				<label for="lang"><?php echo lang('user_lang') ?></label><br/>
-				<?php echo form_dropdown('lang', $languages, $usr->lang); ?>
+				<?php echo form_dropdown('lang', $languages, $user->lang); ?>
 			</li>
 		</ul>
 	</fieldset>
@@ -59,27 +59,27 @@
 				<div class="fields">
 					<div>
 						<label for="dob_day"><?php echo lang('profile_dob_day') ?>:</label>
-						<?php echo form_dropdown('dob_day', $days, isset($usr->dob_day) ? $usr->dob_day : 1) ?>
+						<?php echo form_dropdown('dob_day', $days, isset($user->dob_day) ? $user->dob_day : 1) ?>
 					</div>
 					<div>
 						<label for="dob_month"><?php echo lang('profile_dob_month') ?>:</label>
-						<?php echo form_dropdown('dob_month', $months, isset($usr->dob_month) ? $usr->dob_month : 1) ?>
+						<?php echo form_dropdown('dob_month', $months, isset($user->dob_month) ? $user->dob_month : 1) ?>
 					</div>
 					<div>
 						<label for="dob_year"><?php echo lang('profile_dob_year') ?>:</label>
-						<?php echo form_dropdown('dob_year', $years, isset($usr->dob_year) ? $usr->dob_year : null) ?>
+						<?php echo form_dropdown('dob_year', $years, isset($user->dob_year) ? $user->dob_year : null) ?>
 					</div>
 				</div>
 			</li>
 	
 			<li>
 				<label for="gender"><?php echo lang('profile_gender') ?></label>
-				<?php echo form_dropdown('gender', array(''=> lang('profile_gender_nt'), 'm'=>lang('profile_gender_male'), 'f'=>lang('profile_gender_female')), $usr->gender); ?>
+				<?php echo form_dropdown('gender', array(''=> lang('profile_gender_nt'), 'm'=>lang('profile_gender_male'), 'f'=>lang('profile_gender_female')), $user->gender); ?>
 			</li>
 		
 			<li>
 				<label for="bio"><?php echo lang('profile_bio') ?></label>
-				<?php echo form_textarea(array('name'=>'bio', 'value'=>$usr->bio, 'cols'=>60, 'rows'=>8)); ?>
+				<?php echo form_textarea(array('name'=>'bio', 'value' => $user->bio, 'cols'=>60, 'rows'=>8)); ?>
 			</li>
 		</ul>
 	</fieldset>
@@ -88,32 +88,36 @@
 		<legend><?php echo lang('profile_contact_section') ?></legend>
 		<ul>
 			<li>
+				<label for="phone"><?php echo lang('user_email_label') ?></label>
+				<?php echo form_input('email', $user->email); ?>
+			</li>
+			<li>
 				<label for="phone"><?php echo lang('profile_phone') ?></label>
-				<?php echo form_input('phone', $usr->phone); ?>
+				<?php echo form_input('phone', $user->phone); ?>
 			</li>	
 			<li>
 				<label for="mobile"><?php echo lang('profile_mobile') ?></label>
-				<?php echo form_input('mobile', $usr->mobile); ?>
+				<?php echo form_input('mobile', $user->mobile); ?>
 			</li>
 			<li>
 				<label for="address_line1"><?php echo lang('profile_address_line1') ?></label>
-				<?php echo form_input('address_line1', $usr->address_line1); ?>
+				<?php echo form_input('address_line1', $user->address_line1); ?>
 			</li>
 			<li>
 				<label for="address_line2"><?php echo lang('profile_address_line2') ?></label>
-				<?php echo form_input('address_line2', $usr->address_line2); ?>
+				<?php echo form_input('address_line2', $user->address_line2); ?>
 			</li>
 			<li>	
 				<label for="address_line3"><?php echo lang('profile_address_line3') ?></label>
-				<?php echo form_input('address_line3', $usr->address_line3); ?>
+				<?php echo form_input('address_line3', $user->address_line3); ?>
 			</li>
 			<li>	
 				<label for="postcode"><?php echo lang('profile_address_postcode') ?></label>
-				<?php echo form_input('postcode', $usr->postcode); ?>
+				<?php echo form_input('postcode', $user->postcode); ?>
 			</li>
 			<li>
 				<label for="website"><?php echo lang('profile_website'); ?></label>
-				<?php echo form_input('website', $usr->website); ?>
+				<?php echo form_input('website', $user->website); ?>
 			</li>
 		</ul>
 	</fieldset>
