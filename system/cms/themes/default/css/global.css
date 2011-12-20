@@ -37,6 +37,7 @@ nav ul#head-nav li { position: relative; list-style: none; margin: 0 35px 0 0; p
 nav ul#head-nav li a, ul#head-nav li a:visited{ font-size: 12px; font-weight: bold; color: #7d7d7d; letter-spacing: 0.5px; text-shadow: 1px 1px 0px #ffffff; }
 nav ul#head-nav li a:hover, ul#head-nav a:visited:hover { color: #ff6900; text-decoration: none; }
 nav ul#head-nav li a:active, ul#head-nav li a:visited:active { color: #ffffff; }
+nav ul#head-nav li.has_current > a { color: #4d4d4d; }
 
 /* Header Menu second level */
 nav ul#head-nav li:hover ul { visibility: visible; }/*make 2 visible when hovering on 1*/

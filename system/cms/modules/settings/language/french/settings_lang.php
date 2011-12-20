@@ -90,15 +90,6 @@ $lang['settings_ga_tracking_desc']				= 'Code de tracking Google Analytics pour 
 $lang['settings_twitter_username'] 				= 'Nom d\'utilisateur';
 $lang['settings_twitter_username_desc'] 		= 'Nom d\'utilisateur Twitter.';
 
-$lang['settings_twitter_consumer_key'] 			= 'Clé du compte';
-$lang['settings_twitter_consumer_key_desc'] 	= 'Clé du compte Twitter.';
-
-$lang['settings_twitter_consumer_key_secret'] 	= 'Clé secrète du compte';
-$lang['settings_twitter_consumer_key_secret_desc'] = 'Clé secrète du compte Twitter.';
-
-$lang['settings_twitter_blog']					= 'Intégrations de Twitter &amp; des blogs.';
-$lang['settings_twitter_blog_desc'] 			= 'Poster les liens des articles sur Twitter';
-
 $lang['settings_twitter_feed_count'] 			= 'Nombre de tweets';
 $lang['settings_twitter_feed_count_desc'] 		= 'Combien de tweet doivent être affiché dans le block Twitter ?';
 
