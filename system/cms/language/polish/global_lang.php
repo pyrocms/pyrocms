@@ -69,10 +69,10 @@ $lang['enable_label']				= 'Włącz';
 $lang['disable_label']				= 'Wyłącz';
 $lang['upgrade_label'] 				= 'Aktualizuj';
 
-$lang['all_right_reserved']				= 'All Rights Reserved.';  #translate
-$lang['powered_by_pyrocms']				= 'Powered by PyroCMS';  #translate
-$lang['top_page']						= 'Top';  #translate
-$lang['back_to_top']					= 'Back to Top';  #translate
+$lang['all_right_reserved'] 		= 'Wszelkie prawa zastrzeżone.';
+$lang['powered_by_pyrocms'] 		= 'Wspierane przez PyroCMS';
+$lang['top_page'] 					= 'Góra';
+$lang['back_to_top'] 				= 'Do góry';
 
 $lang['global:filters'] 			= 'Filtry';
 $lang['global:shortcuts']	 		= 'Skróty klawiszowe';
