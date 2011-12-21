@@ -1428,7 +1428,7 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
 #shortcuts ul li a.add {
 	margin-top: -4px;
 	float: left;
-	padding: 2px 10px 2px 7px!important;
+	padding: 0 10px 2px 7px!important;
 }
 
 #shortcuts ul li a.add:before {
@@ -1437,7 +1437,7 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
   font-size: 16px;
   font-weight: bold;
   text-shadow: 0 1px 0 #ffffff;
-  vertical-align: middle;
+  vertical-align: 0;
 }
 
 #shortcuts li a {
