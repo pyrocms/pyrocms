@@ -1,6 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['global:control-panel'] 			= 'Control Panel';
+$lang['global:profile']					= 'Profile'; #translate
 
 $lang['title_label'] 					= 'Title';
 $lang['name_label'] 					= 'Name';
@@ -8,6 +9,7 @@ $lang['desc_label'] 					= 'Description';
 $lang['version_label'] 					= 'Version';
 $lang['global:author'] 					= 'Author';
 $lang['global:action'] 					= 'Action';
+$lang['global:slug'] 					= 'Slug';
 
 $lang['global:dialog:delete_message'] 	= 'Are you sure you want to delete this? It cannot be undone.';
 $lang['global:dialog:confirm'] 			= 'Confirm';
@@ -66,6 +68,11 @@ $lang['install_label'] 					= 'Install';
 $lang['enable_label']					= 'Enable';
 $lang['disable_label'] 					= 'Disable';
 $lang['upgrade_label'] 					= 'Upgrade';
+
+$lang['all_right_reserved']				= 'All Rights Reserved.';
+$lang['powered_by_pyrocms']				= 'Powered by PyroCMS';
+$lang['top_page']						= 'Top';
+$lang['back_to_top']					= 'Back to Top';
 
 $lang['global:filters'] 				= 'Filters';
 $lang['global:shortcuts'] 				= 'Shortcuts';

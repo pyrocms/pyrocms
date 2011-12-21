@@ -72,8 +72,7 @@ class MX_Router extends CI_Router
 			
 			if (DB()->table_exists('core_sites'))
 			{
-
-					$site = DB()->where('domain', SITE_SLUG)
+				$site = DB()->where('domain', SITE_DOMAIN)
 					->get('core_sites')
 					->row();
 					

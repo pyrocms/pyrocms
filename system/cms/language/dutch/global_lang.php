@@ -1,6 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['global:control-panel'] 						= 'Controle Paneel';
+$lang['global:profile']					= 'Profile'; #translate
 
 $lang['title_label'] 					= 'Titel';
 $lang['name_label'] 					= 'Naam';
@@ -64,6 +65,11 @@ $lang['uninstall_label'] 				= 'Deinstalleren';
 $lang['install_label'] 					= 'Installeren';
 $lang['enable_label']					= 'Inschakelen';
 $lang['disable_label']					= 'Uitschakelen';
+
+$lang['all_right_reserved']				= 'All Rights Reserved.';  #translate
+$lang['powered_by_pyrocms']				= 'Powered by PyroCMS';  #translate
+$lang['top_page']						= 'Top';  #translate
+$lang['back_to_top']					= 'Back to Top';  #translate
 
 $lang['global:shortcuts'] 				= 'Snelkoppelingen';
 $lang['global:description'] 		    = 'Beschrijving';

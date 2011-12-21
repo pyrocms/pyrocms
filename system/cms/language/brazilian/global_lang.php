@@ -1,6 +1,7 @@
 <?php
 
 $lang['global:control-panel']						= 'Painel de Controle';
+$lang['global:profile']					= 'Profile'; #translate
 
 $lang['title_label'] 					= 'Título';
 $lang['name_label'] 					= 'Nome';
@@ -64,6 +65,11 @@ $lang['uninstall_label'] 				= 'Desinstalar';
 $lang['install_label'] 					= 'Instalar';
 $lang['enable_label']					= 'Ativar';
 $lang['disable_label'] 					= 'Desativar';
+
+$lang['all_right_reserved']				= 'All Rights Reserved.';  #translate
+$lang['powered_by_pyrocms']				= 'Powered by PyroCMS';  #translate
+$lang['top_page']						= 'Top';  #translate
+$lang['back_to_top']					= 'Back to Top';  #translate
 
 $lang['global:shortcuts'] 				= 'Atalhos';
 $lang['global:description'] 		    = 'Descrição';

@@ -40,4 +40,5 @@ $lang['nav_link_not_exist_error']               = 'Ši navigacijos nuoroda neegz
 $lang['nav_link_edit_success']                  = 'Navigacijos nuorda išsaugota.';
 $lang['nav_link_delete_success']                = 'Navigacijos nuoroda ištrinta.';
 
+$lang['nav_choose_value']						= 'The %s field must not be empty.'; #translate
 $lang['nav_link_type_desc']                     = 'Prašome pasirinkti nuorodos tipą, kad būtų suteikta daugiau galimybių kurti savo nuorodą.';

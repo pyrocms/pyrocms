@@ -110,6 +110,7 @@ $lang['user_mass_delete_error'] 			= 'Necesitas seleccionar algunos usuarios pri
 # Register
 $lang['user_email_pass_missing'] 			= 'Campos del Email o contraseña no estan completos.';
 $lang['user_email_exists'] 					= 'El correo electrónico que has escogido esta siendo utilizado por otro usuario.';
+$lang['user_register_error']				   = 'We think you are a bot. If we are mistaken please accept our apologies.'; #translate
 $lang['user_register_reasons'] 				= 'Registrate para acceder a áreas especiales que normalmente están restringidas. Esto quiere decir que tu configuración será recordada, más contenido y menos publicidad.';
 
 # Activation

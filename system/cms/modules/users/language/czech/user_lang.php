@@ -112,6 +112,7 @@ $lang['user_mass_delete_error'] 				= 'Je třeba nejprve vybrat uživatele.';
 // Register
 $lang['user_email_pass_missing'] 				= 'E-mail nebo heslo není vyplněno správně.';
 $lang['user_email_exists'] 					= 'Zvolený e-mail je již použit.';
+$lang['user_register_error']				   = 'We think you are a bot. If we are mistaken please accept our apologies.'; #translate
 $lang['user_register_reasons'] 					= 'Registrujte se a získejte přístup k částem webu, které jsou vám zatím skryty. Budeme si pamatovat vaše nastavení, uvidíte více obsahu a méně reklamy.';
 
 

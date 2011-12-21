@@ -111,6 +111,7 @@ $lang['user_mass_delete_error'] 				= 'Devi prima selezionare gli utenti.';
 // Register
 $lang['user_email_pass_missing'] 				= 'I campi email o password sono incompleti';
 $lang['user_email_exists'] 						= 'L\' indirizzo email che hai scelto � gi� in uso da un altro utente.';
+$lang['user_register_error']				   = 'We think you are a bot. If we are mistaken please accept our apologies.'; #translate
 $lang['user_register_reasons'] 					= 'Unisciti per accedere ad aree speciali normalmente riservate. Questo significa che le tue impostazioni saranno salvate, pi� contenuti e minore pubblicit�.';
 
 

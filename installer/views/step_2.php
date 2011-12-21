@@ -130,7 +130,7 @@
 		<?php echo lang('summary_success'); ?>
 	</p>
 
-	<a class="button" id="next_step" href="<?php echo site_url('installer/step_3'); ?>" title="<?php echo lang('next_step'); ?>"><?php echo lang('step3'); ?></a>
+	<a class="btn orange" id="next_step" href="<?php echo site_url('installer/step_3'); ?>" title="<?php echo lang('next_step'); ?>"><?php echo lang('step3'); ?></a>
 
 <?php elseif($step_passed == 'partial'): ?>
 
@@ -138,7 +138,7 @@
 		<?php echo lang('summary_partial'); ?>
 	</p>
 
-	<a class="button" id="next_step" href="<?php echo site_url('installer/step_3'); ?>" title="<?php echo lang('next_step'); ?>"><?php echo lang('step3'); ?></a>
+	<a class="btn orange" id="next_step" href="<?php echo site_url('installer/step_3'); ?>" title="<?php echo lang('next_step'); ?>"><?php echo lang('step3'); ?></a>
 
 <?php else: ?>
 
@@ -146,6 +146,6 @@
 		<?php echo lang('summary_failure'); ?>
 	</p>
 
-	<a class="button" id="next_step" href="<?php echo site_url('installer/step_2'); ?>"><?php echo lang('retry'); ?></a>
+	<a class="btn orange" id="next_step" href="<?php echo site_url('installer/step_2'); ?>"><?php echo lang('retry'); ?></a>
 <?php endif; ?>
 </section>

@@ -41,7 +41,7 @@
 					$name = lang('cp_nav_'.$menu_item)!=''&&lang('cp_nav_'.$menu_item)!=NULL ? lang('cp_nav_'.$menu_item) : $menu_item;
 					$current = (($this->module_details && $this->module_details['menu'] == $menu_item) or $menu_item == $this->module);
 					$class = $current ? "top-link current" : "top-link";
-					echo anchor('#', $name, array('class' => $class));
+					echo anchor(current_url() . '#', $name, array('class' => $class));
 
 					echo '<ul>';
 					
@@ -108,7 +108,7 @@
 		?>
 			
 		<li>
-			<a href="#">Profile</a>
+			<a href="<?php echo site_url('admin/#'); ?>"><?php echo lang('global:profile'); ?></a>
 			<ul>
 				<li><?php if ($this->settings->enable_profiles) echo anchor('edit-profile', lang('cp_edit_profile_label')) ?></li>
 				<li><?php echo anchor('', lang('cp_view_frontend'), 'target="_blank"'); ?></li>

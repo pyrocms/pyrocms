@@ -1,6 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['global:control-panel'] 						= 'Πίνακας Ελέγχου';
+$lang['global:profile']					= 'Profile'; #translate
 
 $lang['title_label'] 					= 'Τίτλος';
 $lang['name_label'] 					= 'Όνομα';
@@ -9,23 +10,24 @@ $lang['version_label'] 					= 'Έκδοση';
 $lang['global:author'] 					= 'Συγγραφέας';
 $lang['global:action'] 					= 'Ενέργεια';
 
-$lang['dialog.delete_message'] 			= 'Είσαστε σίγουροι ότι θέλετε να το διαγράψετε; Δεν μπορεί να αναιρεθεί.';
-$lang['dialog.confirm'] 				= 'Επιβεβαίωση';
-$lang['dialog.yes'] 					= 'Ναι';
-$lang['dialog.no'] 						= 'Όχι';
+$lang['global:dialog.delete_message'] 			= 'Είσαστε σίγουροι ότι θέλετε να το διαγράψετε; Δεν μπορεί να αναιρεθεί.';
+$lang['global:dialog.confirm'] 				= 'Επιβεβαίωση';
+
+$lang['global:yes'] 					= 'Ναι';
+$lang['global:no'] 						= 'Όχι';
 
 $lang['global:select-none'] 					= '-- Κανένα --';
 $lang['global:select-all'] 					= '-- Όλα --';
 $lang['global:select-any'] 					= '-- Όποιο νά \'ναι --';
 $lang['global:select-pick'] 					= '-- Επιλογή --';
 
-$lang['global:check-none'] 					= 'Κανένα';
 $lang['global:check-all']						= 'Όλα';
+$lang['global:check-none'] 					= 'Κανένα';
 
-$lang['operators.equal'] 				= 'Ίσο με';
-$lang['operators.not_equal'] 			= 'Όχι ίσο με';
-$lang['operators.less_than'] 			= 'Μικρότερο από';
-$lang['operators.greater_than'] 		= 'Μεγαλύτερο από';
+$lang['global:operators:equal'] 				= 'Ίσο με';
+$lang['global:operators:not_equal'] 			= 'Όχι ίσο με';
+$lang['global:operators:less_than'] 			= 'Μικρότερο από';
+$lang['global:operators:greater_than'] 		= 'Μεγαλύτερο από';
 
 $lang['navigation_headline'] 			= 'Πλοήγηση';
 $lang['breadcrumb_base_label'] 			= 'Αρχική';
@@ -66,6 +68,12 @@ $lang['enable_label']					= 'Ενεργοποίηση';
 $lang['disable_label'] 					= 'Απενεργοποίηση';
 $lang['upgrade_label'] 					= 'Ενημέρωση';
 
+$lang['all_right_reserved']				= 'All Rights Reserved.';  #translate
+$lang['powered_by_pyrocms']				= 'Powered by PyroCMS';  #translate
+$lang['top_page']						= 'Top';  #translate
+$lang['back_to_top']					= 'Back to Top';  #translate
+
+$lang['global:filters'] 				= 'Φίλτρα';
 $lang['global:shortcuts'] 				= 'Συντομέυσεις';
 $lang['global:description'] 		    = 'Περιγραφή';
 $lang['global:actions']					= 'Ενέργειες';

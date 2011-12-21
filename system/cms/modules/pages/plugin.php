@@ -24,6 +24,8 @@ class Plugin_Pages extends Plugin
 
 		return site_url($page ? $page->uri : '');
 	}
+
+	// --------------------------------------------------------------------------
 	
 	/**
 	 * Get a page by ID or slug
@@ -51,8 +53,13 @@ class Plugin_Pages extends Plugin
 								'</div>'.PHP_EOL;
 		}
 
+		// we'll unset the chunks array as Lex is grouchy about mixed data at the moment
+		unset($page['chunks']);
+
 		return $this->content() ? $page : $page['body'];
 	}
+
+	// --------------------------------------------------------------------------
 
 	/**
 	 * Get a page chunk by page ID and chunk name
@@ -71,6 +78,8 @@ class Plugin_Pages extends Plugin
 
 		return ($chunk ? ($this->content() ? $chunk : $chunk['body']) : FALSE);
 	}
+
+	// --------------------------------------------------------------------------
 	
 	/**
 	 * Children list
@@ -120,12 +129,28 @@ class Plugin_Pages extends Plugin
 	 */
 	public function page_tree()
 	{
+		$start 			= $this->attribute('start');
 		$start_id 		= $this->attribute('start-id', $this->attribute('start_id'));
 		$disable_levels = $this->attribute('disable-levels');
 		$order_by 		= $this->attribute('order-by', 'title');
 		$order_dir		= $this->attribute('order-dir', 'ASC');
 		$list_tag		= $this->attribute('list-tab', 'ul');
 		$link			= $this->attribute('link', TRUE);
+		
+		// If we have a start URI, let's try and
+		// find that ID.
+		if($start)
+		{
+			$page = $this->page_m->get_by_uri($start);
+		
+			if(!$page) return NULL;
+			
+			$start_id = $page->id;
+		}
+		
+		// If our start doesn't exist, then
+		// what are we going to do? Nothing.
+		if(!$start_id) return NULL;
 		
 		// Disable individual pages or parent pages by submitting their slug
 		$this->disable = explode("|", $disable_levels);
@@ -190,6 +215,8 @@ class Plugin_Pages extends Plugin
 
 		return (int) TRUE;
 	}
+
+	// --------------------------------------------------------------------------
 	
 	/**
 	* Page has function
@@ -206,6 +233,8 @@ class Plugin_Pages extends Plugin
 	{
 		return $this->page_m->has_children($this->attribute('id'));
 	}
+
+	// --------------------------------------------------------------------------
 
 	/**
 	 * Check Page is function
@@ -247,15 +276,17 @@ class Plugin_Pages extends Plugin
 		{
 			if ( ! is_numeric($child_id))
 			{
-				$parent_id = ($parent = $this->page_m->get_by(array('slug' => $parent_id))) ? $parent->id: 0;
+				$parent_id = ($parent = $this->page_m->get_by(array('slug' => $parent_id))) ? $parent->id : 0;
 			}
 
 			return $parent_id ? (int) $this->page_m->count_by(array(
-				(is_numeric($child) ? 'id' : 'slug') => $child,
+				(is_numeric($child_id) ? 'id' : 'slug') => $child_id,
 				'parent_id'	=> $parent_id
-			)) > 0: FALSE;
+			)) > 0 : FALSE;
 		}
 	}
+
+	// --------------------------------------------------------------------------
 	
 	/**
 	 * Tree html function
@@ -277,8 +308,7 @@ class Plugin_Pages extends Plugin
 		if ( ! $tree)
 		{
 			$this->db->select('id, parent_id, slug, uri, title')
-					->order_by($order_by, $order_dir)
-					->where_not_in('slug', $this->disable);
+				->where_not_in('slug', $this->disable);
 			
 			// check if they're logged in
 			if ( isset($this->current_user->group) )
@@ -286,19 +316,45 @@ class Plugin_Pages extends Plugin
 				// admins can see them all
 				if ($this->current_user->group != 'admin')
 				{
-					// show pages for their group and all unrestricted
-					$this->db->where('status', 'live')
-						->where_in('restricted_to', array($this->current_user->group_id, 0, NULL));					
+					$id_list = array();
+					
+					$page_list = $this->db->select('id, restricted_to')
+						->get('pages')
+						->result();
+
+					foreach ($page_list AS $list_item)
+					{
+						// make an array of allowed user groups
+						$group_array = explode(',', $list_item->restricted_to);
+
+						// if restricted_to is 0 or empty (unrestricted) or if the current user's group is allowed
+						if (($group_array[0] < 1) OR in_array($this->current_user->group_id, $group_array))
+						{
+							$id_list[] = $list_item->id;
+						}
+					}
+					
+					// if it's an empty array then evidentally all pages are unrestricted
+					if (count($id_list) > 0)
+					{
+						// select only the pages they have permissions for
+						$this->db->where_in('id', $id_list);
+					}
+					
+					// since they aren't an admin they can't see drafts
+					$this->db->where('status', 'live');
 				}
 			}
 			else
 			{
-				//they aren't logged in, show them all unrestricted pages
+				//they aren't logged in, show them all live, unrestricted pages
 				$this->db->where('status', 'live')
-					->where('restricted_to <=', 0);
+					->where('restricted_to <', 1)
+					->or_where('restricted_to', NULL);
 			}
 			
-			$pages = $this->db->get('pages')
+			$pages = $this->db->order_by($order_by, $order_dir)
+				->get('pages')
 				->result();
 
 			if ($pages)

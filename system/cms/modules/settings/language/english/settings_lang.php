@@ -88,15 +88,6 @@ $lang['settings_ga_tracking_desc']				= 'Enter your Google Analytic Tracking Cod
 $lang['settings_twitter_username']				= 'Username';
 $lang['settings_twitter_username_desc']			= 'Twitter username.';
 
-$lang['settings_twitter_consumer_key']			= 'Consumer Key';
-$lang['settings_twitter_consumer_key_desc']		= 'Twitter consumer key.';
-
-$lang['settings_twitter_consumer_key_secret']	= 'Consumer Key Secret';
-$lang['settings_twitter_consumer_key_secret_desc'] = 'Twitter consumer key secret.';
-
-$lang['settings_twitter_blog']					= 'Twitter &amp; Blog integration.';
-$lang['settings_twitter_blog_desc']				= 'Would you like to post links to new blog articles on Twitter?';
-
 $lang['settings_twitter_feed_count']			= 'Feed Count';
 $lang['settings_twitter_feed_count_desc']		= 'How many tweets should be returned to the Twitter feed block?';
 
@@ -108,12 +99,33 @@ $lang['settings_akismet_api_key_desc']			= 'Akismet is a spam-blocker from the W
 
 $lang['settings_comment_order']					= 'Comment Order';
 $lang['settings_comment_order_desc']			= 'Sort order in which to display comments.';
+
+$lang['settings_enable_comments'] 				= 'Enable Comments';
+$lang['settings_enable_comments_desc']			= 'Allow users to post comments?';
 	
 $lang['settings_moderate_comments']				= 'Moderate Comments';
 $lang['settings_moderate_comments_desc']		= 'Force comments to be approved before they appear on the site.';
 
+$lang['settings_comment_markdown']				= 'Allow Markdown'; #translate
+$lang['settings_comment_markdown_desc']			= 'Do you want to allow visitors to post comments using Markdown?'; #translate
+
 $lang['settings_version']						= 'Version';
 $lang['settings_version_desc']					= '';
+
+$lang['settings_site_public_lang']				= 'Public Languages'; #translate
+$lang['settings_site_public_lang_desc']			= 'Which are the languages really supported and offered on the front-end of your website?'; #translate
+
+$lang['settings_admin_force_https']				= 'Force HTTPS for Control Panel?'; #translate
+$lang['settings_admin_force_https_desc']		= 'Allow only the HTTPS protocol when using the Control Panel?'; #translate
+
+$lang['settings_files_cache']					= 'Files Cache'; #translate
+$lang['settings_files_cache_desc']				= 'When outputting an image via site.com/files what shall we set the cache expiration for?'; #translate
+
+$lang['settings_auto_username']					= 'Auto Username'; #translate
+$lang['settings_auto_username_desc']			= 'Create the username automatically, meaning users can skip making one on registration.'; #translate
+
+$lang['settings_registered_email']				= 'User Registered Email'; #translate
+$lang['settings_registered_email_desc']			= 'Send a notification email to the contact e-mail when someone registers.'; #translate
 
 #section titles
 $lang['settings_section_general']				= 'General';
@@ -122,6 +134,7 @@ $lang['settings_section_comments']				= 'Comments';
 $lang['settings_section_users']					= 'Users';
 $lang['settings_section_statistics']			= 'Statistics';
 $lang['settings_section_twitter']				= 'Twitter';
+$lang['settings_section_files']					= 'Files'; #translate
 
 #checkbox and radio options
 $lang['settings_form_option_Open']				= 'Open';
@@ -132,6 +145,10 @@ $lang['settings_form_option_Required']			= 'Required';
 $lang['settings_form_option_Optional']			= 'Optional';
 $lang['settings_form_option_Oldest First']		= 'Oldest First'; #translate
 $lang['settings_form_option_Newest First']		= 'Newest First'; #translate
+$lang['settings_form_option_Text Only']			= 'Text Only'; #translate
+$lang['settings_form_option_Allow Markdown']	= 'Allow Markdown'; #translate
+$lang['settings_form_option_Yes']				= 'Yes'; #translate
+$lang['settings_form_option_No']				= 'No'; #translate
 
 // titles
 $lang['settings_edit_title']					= 'Edit settings';

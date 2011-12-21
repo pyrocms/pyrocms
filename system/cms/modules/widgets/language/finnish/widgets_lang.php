@@ -32,10 +32,7 @@ $lang['widgets.widget_area']            = 'Alue';
 $lang['widgets.widget_area_title']      = 'Alueen nimi';
 $lang['widgets.widget_area_slug']       = 'Alueen polkutunnus';
 
-// Widget instance titles
-$lang['widgets.add_instance']           = 'Lisää widget instanssi';
-$lang['widgets.edit_instance']          = 'Muokkaa widget instanssia';
-$lang['widgets.delete_instance']        = 'Poista widget instanssi';
+$lang['widgets.view_code']				= 'View Code'; #translate
 
 $lang['widgets.instance_title']         = 'Otsikko';
 $lang['widgets.tag_title']              = 'Tag';

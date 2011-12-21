@@ -1,6 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['global:control-panel'] 						= 'Nadzorna plošča';
+$lang['global:profile']					= 'Profile'; #translate
 
 $lang['title_label'] 					= 'Naslov';
 $lang['name_label'] 					= 'Ime';
@@ -65,6 +66,11 @@ $lang['install_label'] 					= 'Namesti';
 $lang['enable_label']					= 'Omogoči';
 $lang['disable_label'] 					= 'Onemogoči';
 $lang['upgrade_label'] 					= 'Posodobi';
+
+$lang['all_right_reserved']				= 'All Rights Reserved.';  #translate
+$lang['powered_by_pyrocms']				= 'Powered by PyroCMS';  #translate
+$lang['top_page']						= 'Top';  #translate
+$lang['back_to_top']					= 'Back to Top';  #translate
 
 $lang['global:filters']                 = 'Razvrstitev';
 $lang['global:shortcuts'] 				= 'Bližnjice';

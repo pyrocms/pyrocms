@@ -25,10 +25,7 @@ $lang['widgets.widget_area'] 				= 'المساحة';
 $lang['widgets.widget_area_title'] 			= 'إسم المساحة';
 $lang['widgets.widget_area_slug'] 			= 'إسم المساحة المختصر';
 
-// Widget instance titles
-$lang['widgets.add_instance'] 				= 'إضافة نسخة ودجت';
-$lang['widgets.edit_instance'] 				= 'تعديل نسخة ودجت';
-$lang['widgets.delete_instance'] 			= 'حذف نسخة ودجت';
+$lang['widgets.view_code']				= 'عرض النص البرمجي';
 
 $lang['widgets.instance_title'] 			= 'عنوان';
 $lang['widgets.tag_title']					= 'وسم';

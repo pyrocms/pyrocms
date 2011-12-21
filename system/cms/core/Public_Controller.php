@@ -32,7 +32,7 @@ class Public_Controller extends MY_Controller
 		$this->load->model('pages/page_m');
 
 		// Load the current theme so we can set the assets right away
-		ci()->theme = $this->themes_m->get();
+		ci()->theme = $this->theme_m->get();
 		
 		if (empty($this->theme->slug))
 		{
@@ -78,11 +78,15 @@ class Public_Controller extends MY_Controller
 
 	    // Frontend data
 	    $this->load->library('variables/variables');
+		
+		// grab the theme options if there are any
+		$this->theme->options = $this->pyrocache->model('theme_m', 'get_values_by', array(array('theme' => $this->theme->slug) ));
 
         // Assign segments to the template the new way
 	    $this->template->variables = $this->variables->get_all();
 		$this->template->settings = $this->settings->get_all();
 		$this->template->server = $_SERVER;
+		$this->template->theme = $this->theme;
 
 		$this->benchmark->mark('public_controller_end');
 	}

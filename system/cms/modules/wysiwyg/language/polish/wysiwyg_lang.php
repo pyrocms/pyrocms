@@ -1,17 +1,14 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-$lang = array(
-    'wysiwyg.meta.width'   			 =>  'Szerokość',
-    'wysiwyg.meta.height'  			 =>  'Wysokość',
-    'wysiwyg.meta.size'    			 =>  'Rozmiar',
-    'wysiwyg.label.insert_width'     =>  'Wprowadz szerokość obrazka:',
-	'wysiwyg.label.no_limit' =>	'(0 for no limit)', #translate
-    'wysiwyg.label.float'  			 =>  'Umieść',
-    'wysiwyg.label.left'    		 =>  'Prawo',
-    'wysiwyg.label.right'  			 =>  'Lewo',
-    'wysiwyg.label.none'   			 =>  'Brak',
-    'wysiwyg.meta.mime'    			 =>  'Typ Mime'
-
-);
+$lang['wysiwyg.meta.width']		= 'Szerokość';
+$lang['wysiwyg.meta.height']		= 'Wysokość';
+$lang['wysiwyg.meta.size']		= 'Rozmiar';
+$lang['wysiwyg.label.insert_width']	= 'Wprowadź szerokość obrazka:';
+$lang['wysiwyg.label.no_limit']		= '(0 gdy brak limitu)';
+$lang['wysiwyg.label.float']		= 'Wyrównanie';
+$lang['wysiwyg.label.left']		= 'Lewo';
+$lang['wysiwyg.label.right']		= 'Prawo';
+$lang['wysiwyg.label.none']		= 'Brak';
+$lang['wysiwyg.meta.mime']		= 'Typ Mime';
 
 /* end of file wysiwyg_lang.php */

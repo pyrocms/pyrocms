@@ -1,4 +1,8 @@
-<h2 id="page_title" class="page-title"><?php echo lang('profile_edit') ?></h2>
+<h2 id="page_title" class="page-title">
+	<?php echo ($this->current_user->id !== $user->id) ?
+					sprintf(lang('user_edit_title'), $user->first_name.' '.$user->last_name) :
+					lang('profile_edit') ?>
+</h2>
 <div>
 	<?php if(validation_errors()):?>
 	<div class="error-box">
@@ -6,7 +10,7 @@
 	</div>
 	<?php endif;?>
 
-	<?php echo form_open('edit-settings', array('id'=>'user_edit'));?>
+	<?php echo form_open('edit-profile', array('id'=>'user_edit'));?>
 
 	<fieldset id="user_names">
 		<legend><?php echo lang('user_details_section') ?></legend>
@@ -75,7 +79,7 @@
 		
 			<li>
 				<label for="bio"><?php echo lang('profile_bio') ?></label>
-				<?php echo form_textarea(array('name'=>'bio', 'value'=>$user->bio, 'cols'=>60, 'rows'=>8)); ?>
+				<?php echo form_textarea(array('name'=>'bio', 'value' => $user->bio, 'cols'=>60, 'rows'=>8)); ?>
 			</li>
 		</ul>
 	</fieldset>
@@ -83,6 +87,10 @@
 	<fieldset id="user_contact">
 		<legend><?php echo lang('profile_contact_section') ?></legend>
 		<ul>
+			<li>
+				<label for="phone"><?php echo lang('user_email_label') ?></label>
+				<?php echo form_input('email', $user->email); ?>
+			</li>
 			<li>
 				<label for="phone"><?php echo lang('profile_phone') ?></label>
 				<?php echo form_input('phone', $user->phone); ?>
@@ -114,43 +122,6 @@
 		</ul>
 	</fieldset>
 
-	<fieldset id="user_social">
-		<legend><?php echo lang('profile_messenger_section') ?></legend>
-		<ul>
-			<li>
-				<label for="msn_handle"><?php echo lang('profile_msn_handle') ?></label>
-				<?php echo form_input('msn_handle', $user->msn_handle); ?>
-			</li>
-			<li>	
-				<label for="aim_handle"><?php echo lang('profile_aim_handle') ?></label>
-				<?php echo form_input('aim_handle', $user->aim_handle); ?>
-			</li>
-			<li>
-				<label for="yim_handle"><?php echo lang('profile_yim_handle') ?></label>
-				<?php echo form_input('yim_handle', $user->yim_handle); ?>
-			</li>
-			<li>	
-				<label for="gtalk_handle"><?php echo lang('profile_gtalk_handle') ?></label>
-				<?php echo form_input('gtalk_handle', $user->gtalk_handle); ?>
-			</li>
-		</ul>
-	</fieldset>
-
-	<fieldset>
-		<legend><?php echo lang('profile_social_section') ?></legend>
-		<ul>
-			<li>
-				<label for="mobile"><?php echo lang('profile_gravatar') ?></label>
-				<?php echo form_input('gravatar', $user->gravatar); ?>
-			</li>
-		<!--
-			<li>
-				<label for="twitter"><?php echo lang('profile_twitter') ?></label></dt>
-				<?php echo (!$this->current_user->twitter_access_token) ? anchor('users/profile/twitter', 'Connect with Twitter') : 'Twitter Connected'; ?>
-			</li>
-		-->
-		</ul>
-	</fieldset>
 	<?php echo form_submit('', lang('profile_save_btn')); ?>
 	<?php echo form_close(); ?>
 </div>

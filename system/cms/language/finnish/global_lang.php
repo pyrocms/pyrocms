@@ -1,6 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['global:control-panel'] 						= 'Hallintapaneeli';
+$lang['global:profile']					= 'Profile'; #translate
 
 $lang['title_label'] 					= 'Otsikko';
 $lang['name_label'] 					= 'Nimi';
@@ -65,6 +66,11 @@ $lang['install_label'] 					= 'Asenna';
 $lang['enable_label']					= 'Pälle';
 $lang['disable_label'] 					= 'Pois päältä';
 $lang['upgrade_label'] 					= 'Päivitä';
+
+$lang['all_right_reserved']				= 'All Rights Reserved.';  #translate
+$lang['powered_by_pyrocms']				= 'Powered by PyroCMS';  #translate
+$lang['top_page']						= 'Top';  #translate
+$lang['back_to_top']					= 'Back to Top';  #translate
 
 $lang['global:shortcuts']	 			= 'Pikavalinnat';
 $lang['global:description']             = 'Kuvaus';

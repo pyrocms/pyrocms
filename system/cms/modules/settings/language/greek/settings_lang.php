@@ -29,9 +29,7 @@ $lang['settings_dashboard_rss_count']			= 'Στοιχεί RSS Επισκόπησ
 $lang['settings_dashboard_rss_count_desc']		= 'Πόσα στοιχεία από την τροφοδοσία RSS να προβάλλονται στην επισκόπηση;';
 
 $lang['settings_date_format']					= 'Μορφή Ημερομηνίας';
-$lang['settings_date_format_desc']				= 'Πως να εμφανίζονται οι ημερομηνίες ανά τον ιστότοπο και τον πίνακα διαχείρισης;'.
-													'Χρησιμοποιώντας τις διαθέσιμες <a href="http://php.net/manual/en/function.date.php" target="_black">μορφές ημερομηνιών</a> από την PHP - ή - ' .
-													'Χρησιμοποιώντας την λειτουργία <a href="http://php.net/manual/en/function.strftime.php" target="_black">κειμένου μορφοποιημένης ημερομηνίας</a> από την PHP.';
+$lang['settings_date_format_desc']				= 'Πως να εμφανίζονται οι ημερομηνίες ανά τον ιστότοπο και τον πίνακα διαχείρισης; Χρησιμοποιώντας τις διαθέσιμες <a target="_blank" href="http://php.net/manual/en/function.date.php">μορφές ημερομηνιών</a> από την PHP - ή - Χρησιμοποιώντας την λειτουργία <a target="_blank" href="http://php.net/manual/en/function.strftime.php">κειμένου μορφοποιημένης ημερομηνίας</a> από την PHP.';
 
 $lang['settings_frontend_enabled']				= 'Κατάσταση Ιστότοπου';
 $lang['settings_frontend_enabled_desc']			= 'Χρησιμοποιήστε αυτήν την επιλογή για να κλείσετε τον ιστότοπο. Αυτό είναι χρήσιμο όταν θέλετε να κατεβάσετε τον ιστότοπο για συντήρηση';
@@ -90,15 +88,6 @@ $lang['settings_ga_tracking_desc']				= 'Εισάγεται τον Google Analyt
 $lang['settings_twitter_username']				= 'Όνομα χρήστη';
 $lang['settings_twitter_username_desc']			= 'Όνομα χρήστη στο Twitter.';
 
-$lang['settings_twitter_consumer_key']			= 'Consumer Key';
-$lang['settings_twitter_consumer_key_desc']		= 'Twitter consumer key.';
-
-$lang['settings_twitter_consumer_key_secret']	= 'Consumer Key Secret';
-$lang['settings_twitter_consumer_key_secret_desc'] = 'Twitter consumer key secret.';
-
-$lang['settings_twitter_blog']					= 'Ενσωμάτωση Twitter &amp; Ιστολογίου.';
-$lang['settings_twitter_blog_desc']				= 'Θα θέλατε να δημοσιεύονται συνδέσμοι προς τις νέες αναρτήσεις στο ιστολόγιο σας στο Twitter;';
-
 $lang['settings_twitter_feed_count']			= 'Αριθμός Τροφοδοσίας';
 $lang['settings_twitter_feed_count_desc']		= 'Πόσα tweets να επιστρέφονται από το μπλοκ τροφοδοσίας του Twitter;';
 
@@ -117,8 +106,26 @@ $lang['settings_enable_comments_desc']			= 'Να επιτρέπονται τα �
 $lang['settings_moderate_comments']				= 'Συντονισμός Σχολίων';
 $lang['settings_moderate_comments_desc']		= 'Να απαιτείται η έγκριση των σχολίων πριν την δημοσίευσή τους.';
 
+$lang['settings_comment_markdown']				= 'Ενεργοποίηση Markdown';
+$lang['settings_comment_markdown_desc']			= 'Να επιτρέπεται οι χρήστες να κάνουν χρήση του Markdown στα σχόλιά τους;';
+
 $lang['settings_version']						= 'Έκδοση';
 $lang['settings_version_desc']					= '';
+
+$lang['settings_site_public_lang']				= 'Διαθέσιμες Γλώσσες';
+$lang['settings_site_public_lang_desc']			= 'Ποιες γλώσσες υποστηρίζονται πραγματικά και είναι διαθέσιμες στον ιστότοπό σας;';
+
+$lang['settings_admin_force_https']				= 'Πρόσβαση Πίνακα Ελέγχου μόνο μέσω HTTPS;';
+$lang['settings_admin_force_https_desc']		= 'Να επιτρέπεται η πρόσβαση στον Πίνακα Ελέγχου μόνο μέσω του πρωτοκόλλου HTTPS;';
+
+$lang['settings_files_cache']					= 'Cache Αρχείων';
+$lang['settings_files_cache_desc']				= 'Όταν εξυπηρετείται μια εικόνα μέσω του site.com/files πόσο να είναι η χρονική περίοδος για το cache;';
+
+$lang['settings_auto_username']					= 'Αυτόματα Ονόματα Χρηστών';
+$lang['settings_auto_username_desc']			= 'Να δημιουργούνται αυτόματα τα ονόματα χρηστών, με την έννοια ότι οι χρήστες θα μπορούν να μην επιλέγουν ένα κατά την εγγραφή τους.';
+
+$lang['settings_registered_email']				= 'Ειδοποίηση Email Για Νέα Εγγραφή';
+$lang['settings_registered_email_desc']			= 'Να αποστέλεται μια ειδοποιήση μέσω email στην διεύθυνση email για επικοινωνία όταν υπάρχει μια νέα εγγραφή χρήστη.';
 
 #section titles
 $lang['settings_section_general']				= 'Γενικά';
@@ -127,6 +134,7 @@ $lang['settings_section_comments']				= 'Σχόλια';
 $lang['settings_section_users']					= 'Χρήστες';
 $lang['settings_section_statistics']			= 'Στατιστικά';
 $lang['settings_section_twitter']				= 'Twitter';
+$lang['settings_section_files']					= 'Αρχεία';
 
 #checkbox and radio options
 $lang['settings_form_option_Open']				= 'Ανοικτό';
@@ -137,6 +145,10 @@ $lang['settings_form_option_Required']			= 'Απαιτούμενο';
 $lang['settings_form_option_Optional']			= 'Προαιρετικό';
 $lang['settings_form_option_Oldest First']		= 'Τα παλιότερα πρώτα';
 $lang['settings_form_option_Newest First']		= 'Τα νεότερα πρώτα';
+$lang['settings_form_option_Text Only']			= 'Απλό Κείμενο';
+$lang['settings_form_option_Allow Markdown']	= 'Ενεργοποίηση Markdown';
+$lang['settings_form_option_Yes']				= 'Ναι';
+$lang['settings_form_option_No']				= 'Όχι';
 
 // titles
 $lang['settings_edit_title']					= 'Επεξεργασία ρυθμίσεων';

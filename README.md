@@ -4,7 +4,7 @@
 * [Documentation](http://pyrocms.com/docs)
 * [License](http://pyrocms.com/legal/license)
 * [Forums](http://pyrocms.com/forums)
-* Version: 2.0.0-beta1
+* Version: 2.0.0-dev
 
 ## Team
 
@@ -27,7 +27,7 @@ Run http://example.com/installer to run the web-based installation script.
 
 ## Upgrading
 
-For a detailed upgrade guide please look at the [2.0 Upgrading Documentation](http://pyrocms.com/docs/2.0/manuals/end-users/upgrading).
+For a detailed upgrade guide please look at the [2.0 Upgrading Documentation](http://www.pyrocms.com/docs/2.0/getting-started/upgrading-from-1.x).
 
 ## Bugs & Feature Requests
 
@@ -74,3 +74,4 @@ Think you should be on this list? Add yourself in the next pull request you subm
 * [imamo](http://www.imamo.si/) Slovenian
 * [Petsagourakis George](https://github.com/petsagouris) Greek
 * [Mikael Kundert](https://github.com/mikaelkundert) Finnish
+* [Jack Sun](http://www.o-matic.com.tw/) Chinese Traditional

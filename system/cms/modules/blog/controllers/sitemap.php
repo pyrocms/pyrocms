@@ -26,7 +26,7 @@ class Sitemap extends Public_Controller
 		{			
 			$node = $doc->addChild('url');
 
-			$loc = site_url(date('Y/m/', $article->created_on).$article->slug);
+			$loc = site_url('blog/'.date('Y/m/', $article->created_on).$article->slug);
 
 			$node->addChild('loc', $loc);
 

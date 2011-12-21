@@ -53,7 +53,7 @@ $lang['user_first_name'] 	= 'Prénom';
 $lang['user_last_name'] 	= 'Nom';
 $lang['user_username']          = 'Nom Utilisateur';
 $lang['user_display_name']      = 'Nom Affiché';
-$lang['user_email_use'] 					   = 'used to login'; #translate
+$lang['user_email_use'] 					   = 'utilisé pour se connecter';
 $lang['user_email'] 		= 'E-mail';
 $lang['user_confirm_email'] = 'Confirmez E-mail';
 $lang['user_password'] 		= 'Mot de passe';
@@ -112,6 +112,7 @@ $lang['user_mass_delete_error'] 							= 'Vous devez d\'abord seclectionner des 
 // Register
 $lang['user_email_pass_missing'] = 'l\'e-mail ou le mot de passe ne sont pas renseignés.';
 $lang['user_email_exists'] = 'L\'adresse e-mail choisie est déjà affectée à un autre utilisateur.';
+$lang['user_register_error']				   = 'We think you are a bot. If we are mistaken please accept our apologies.'; #translate
 $lang['user_register_reasons'] = 'Abonnez-vous pour accéder aux espaces réservés. Vos paramètres seront enregistrés, plus de contenu et moins de publicité.';
 
 
