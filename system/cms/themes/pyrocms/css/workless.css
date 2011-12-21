@@ -1529,8 +1529,8 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
   	-webkit-box-shadow: 0px 0px 1px #aaaaaa;
 }
 .sections_bar ul li {float: left; position: relative; padding: 8px 10px 10px 10px;}
-.sections_bar ul li a {color: #797878; text-shadow: 1px 1px 1px #fff;}
-.sections_bar ul li.current a, .sections_bar ul li a:hover {color: #aeadad;}
+.sections_bar ul li a {color: #858585; text-shadow: 1px 1px 1px #fff;}
+.sections_bar ul li.current a, .sections_bar ul li a:hover {color: #4E4E4E;}
 .sections_bar ul li img {
 	position: absolute;
 	bottom: -12px;
