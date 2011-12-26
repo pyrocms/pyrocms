@@ -112,7 +112,7 @@ $lang['user_mass_delete_error'] 				= 'يجب أن تحدد المستخدمين
 // Register
 $lang['user_email_pass_missing'] 				= 'حقل عنوان البريد الإلكتروني أو كلمة السرّ غير مكتمل.';
 $lang['user_email_exists'] 						= 'عنوان البريد الإلكتروني الذي اخترته يستخدمه مسبقاً مستخدم آخر.';
-$lang['user_register_error']				   = 'We think you are a bot. If we are mistaken please accept our apologies.'; #translate
+$lang['user_register_error']				   = 'نعتقد أنك روبوت. إن كنا مخطئين فاقبل اعتذارنا.';
 $lang['user_register_reasons'] 					= 'اشترك معنا للوصول إلى الأقسام المحجوبة من الموقع. اشتراكك يتيح لك حفظ إعداداتك والمزيد من المُحتوى والقليل من الدعائيات.';
 
 

@@ -64,7 +64,7 @@ class Users extends Public_Controller
 		}
 
 		$this->template->build('profile/view', array(
-			'usr' => $user,
+			'user' => $user,
 		));
 	}
 
@@ -107,7 +107,7 @@ class Users extends Public_Controller
 		$this->form_validation->set_rules($validation);
 
 		// If the validation worked, or the user is already logged in
-		if ($this->form_validation->run() or $this->ion_auth->logged_in())
+		if ($this->form_validation->run() or $this->current_user)
 		{
 			$this->session->set_flashdata('success', lang('user_logged_in'));
 
@@ -353,8 +353,8 @@ class Users extends Public_Controller
 			}
 		}
 
-		$this->template->title($this->lang->line('user_activate_account_title'));
-		$this->template->set_breadcrumb($this->lang->line('user_activate_label'), 'users/activate');
+		$this->template->title(lang('user_activate_account_title'));
+		$this->template->set_breadcrumb(lang('user_activate_label'), 'users/activate');
 		$this->template->build('activate', $this->data);
 	}
 
@@ -366,14 +366,14 @@ class Users extends Public_Controller
 	public function activated()
 	{
 		//if they are logged in redirect them to the home page
-		if ($this->ion_auth->logged_in())
+		if ($this->current_user)
 		{
 			redirect(base_url());
 		}
 
 		$this->data->activated_email = ($email = $this->session->flashdata('activated_email')) ? $email : '';
 
-		$this->template->title($this->lang->line('user_activated_account_title'));
+		$this->template->title(lang('user_activated_account_title'));
 		$this->template->build('activated', $this->data);
 	}
 
@@ -385,9 +385,9 @@ class Users extends Public_Controller
 	public function reset_pass($code = FALSE)
 	{
 		//if user is logged in they don't need to be here. and should use profile options
-		if ($this->ion_auth->logged_in())
+		if ($this->current_user)
 		{
-			$this->session->set_flashdata('error', $this->lang->line('user_already_logged_in'));
+			$this->session->set_flashdata('error', lang('user_already_logged_in'));
 			redirect('my-profile');
 		}
 
@@ -396,9 +396,7 @@ class Users extends Public_Controller
 			$uname = $this->input->post('user_name');
 			$email = $this->input->post('email');
 
-			$user_meta = $this->ion_auth->get_user_by_email($email);
-			
-			if ( ! $user_meta)
+			if ( ! ($user_meta = $this->ion_auth->get_user_by_email($email)))
 			{
 				$user_meta = $this->ion_auth->get_user_by_username($uname);
 			}
@@ -422,29 +420,29 @@ class Users extends Public_Controller
 			else
 			{
 				//wrong username / email combination
-				$this->data->error_string = $this->lang->line('user_forgot_incorrect');
+				$this->data->error_string = lang('user_forgot_incorrect');
 			}
 		}
 
-		//code is supplied in url so lets try to reset the password
+		// code is supplied in url so lets try to reset the password
 		if ($code)
 		{
-			//verify reset_code against code stored in db
+			// verify reset_code against code stored in db
 			$reset = $this->ion_auth->forgotten_password_complete($code);
 
-			//did the password reset?
+			// did the password reset?
 			if ($reset)
 			{
 				redirect('users/reset_complete');
 			}
 			else
 			{
-				//nope, set error message
+				// nope, set error message
 				$this->data->error_string = $this->ion_auth->errors();
 			}
 		}
 
-		$this->template->title($this->lang->line('user_reset_password_title'));
+		$this->template->title(lang('user_reset_password_title'));
 		$this->template->build('reset_pass', $this->data);
 	}
 
@@ -473,9 +471,7 @@ class Users extends Public_Controller
 	 */
 	public function edit($id = 0)
 	{
-		if ($this->current_user AND
-			$this->current_user->group === 'admin'
-			AND $id > 0)
+		if ($this->current_user AND $this->current_user->group === 'admin' AND $id > 0)
 		{
 			$user = $this->user_m->get(array('id' => $id));
 		}
@@ -576,31 +572,6 @@ class Users extends Public_Controller
 				'label' => lang('profile_website'),
 				'rules' => 'xss_clean|trim|max_length[255]'
 			),
-			array(
-				'field' => 'msn_handle',
-				'label' => lang('profile_msn_handle'),
-				'rules' => 'xss_clean|trim'
-			),
-			array(
-				'field' => 'aim_handle',
-				'label' => lang('profile_aim_handle'),
-				'rules' => 'xss_clean|trim|alpha_numeric'
-			),
-			array(
-				'field' => 'yim_handle',
-				'label' => lang('profile_yim_handle'),
-				'rules' => 'xss_clean|trim|alpha_numeric'
-			),
-			array(
-				'field' => 'gtalk_handle',
-				'label' => lang('profile_gtalk_handle'),
-				'rules' => 'xss_clean|trim'
-			),
-			array(
-				'field' => 'gravatar',
-				'label' => lang('profile_gravatar'),
-				'rules' => 'xss_clean|trim'
-			)
 		);
 
 		// Set the validation rules
@@ -719,7 +690,7 @@ class Users extends Public_Controller
 		// Render the view
 		$this->template->build('profile/edit', array(
 			'languages' => $languages,
-			'usr' => $user,
+			'user' => $user,
 			'days' => $days,
 			'months' => $months,
 			'years' => $years,
@@ -759,7 +730,7 @@ class Users extends Public_Controller
 	{
 	    if ($this->ion_auth->username_check($username))
 	    {
-	        $this->form_validation->set_message('_username_check', $this->lang->line('user_error_username'));
+	        $this->form_validation->set_message('_username_check', lang('user_error_username'));
 	        return FALSE;
 	    }
 	
@@ -776,7 +747,7 @@ class Users extends Public_Controller
 	{
 		if ($this->ion_auth->email_check($email))
 		{
-			$this->form_validation->set_message('_email_check', $this->lang->line('user_error_email'));
+			$this->form_validation->set_message('_email_check', lang('user_error_email'));
 			return FALSE;
 		}
 		

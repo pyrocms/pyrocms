@@ -655,15 +655,17 @@ class Admin extends Admin_Controller {
 		}
 
 		// We check the page chunk slug length here too
-		foreach ($this->input->post('chunk_slug') AS $chunk)
+		if (is_array($this->input->post('chunk_slug')))
 		{
-			if (strlen($chunk) > 30)
+			foreach ($this->input->post('chunk_slug') AS $chunk)
 			{
-				$this->form_validation->set_message('_check_slug', lang('pages_chunk_slug_length'));
-				return FALSE;
+				if (strlen($chunk) > 30)
+				{
+					$this->form_validation->set_message('_check_slug', lang('pages_chunk_slug_length'));
+					return FALSE;
+				}
 			}
+			return TRUE;
 		}
-
-		return TRUE;
 	}
 }

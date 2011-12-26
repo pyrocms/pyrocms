@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 // labels
-$lang['header']			=	'Étape 3: Définir les permissions';
+$lang['header']			=	'Étape 3&nbsp;: Définir les permissions';
 $lang['intro_text']		= 	'Avant de procéder à l\'installation de PyroCMS, assurez-vous que les fichiers et les répertoires sont inscriptibles. Vous trouverez la liste de ces derniers ci-dessous. Les sous-repertoires doivent aussi hériter des permissions !';
 
 $lang['folder_perm']	= 	'Permissions des répertoires';

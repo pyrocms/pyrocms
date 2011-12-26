@@ -35,7 +35,7 @@
 			
 					<li class="even">
 						<label for="html_editor"><?php echo lang('page_layouts.layout'); ?></label>
-						<?php echo form_textarea(array('id'=>'html_editor', 'name'=>'body', 'value' => $page_layout->body, 'rows' => 50)); ?>
+						<?php echo form_textarea(array('id'=>'html_editor', 'name'=>'body', 'value' => ($page_layout->body == '' ? '<h2>{{ page:title }}</h2>'.PHP_EOL.'{{ page:body }}' : $page_layout->body), 'rows' => 50)); ?>
 					</li>
 				</ul>
 				

@@ -1,13 +1,13 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 // labels
-$lang['header']			=	'Étape 2: Vérification des exigences';
+$lang['header']			=	'Étape 2&nbsp;: Vérification des exigences';
 $lang['intro_text']		= 	'La première étape de l\'installation va vérifier si votre serveur supporte PyroCMS. La plupart des serveurs peuvent lancer cette procédure sans aucun problème.';
 $lang['mandatory']		= 	'Obligatoire';
 $lang['recommended']	= 	'Recommandé';
 
 $lang['server_settings']= 	'Paramètres serveur HTTP';
-$lang['server_version']	=	'Les logiciels de votre serveur :';
+$lang['server_version']	=	'Les logiciels de votre serveur&nbsp;:';
 $lang['server_fail']	=	'Les logiciels de votre serveur ne sont pas supportés, PyroCMS peut ou ne peut pas fonctionner. Tant que votre PHP et votre MySQL n\'est pas mis à jour. PyroCMS devrait être en mesure de fonctionner correctement, il suffit de nettoyer les URL.';
 
 $lang['php_settings']	=	'Paramètres PHP';
