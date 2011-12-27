@@ -1,7 +1,7 @@
 
 	$(document).ready(function() {
 		// Add the close link to all boxes with the closable class
-		$(".closable").append('<a href="#" class="close">close</a>');
+		$(".closable").append('<a href="#" class="close">x</a>');
 
 		// Close the notifications when the close link is clicked
 		$("a.close").click(function () {
