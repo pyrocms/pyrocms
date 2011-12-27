@@ -1,7 +1,7 @@
 <?php
 
 $lang['cp_admin_title'] 				= 'Panel administracyjny';
-$lang['global:dashboard']           			= 'Tablica informacyjna';
+$lang['global:dashboard']           			= 'Kokpit';
 $lang['cp_admin_quick_links']				= 'Szybkie linki';
 
 $lang['cp_welcome_title'] 				= 'Witaj';
@@ -16,7 +16,7 @@ $lang['cp_manage_files']				= 'Zarządzaj plikami';
 $lang['cp_manage_users']				= 'Zarządzaj użytkownikami';
 
 // Header
-$lang['cp_to_home'] 					= 'Wróć do tablicy';
+$lang['cp_to_home'] 					= 'Wróć do kokpitu';
 $lang['cp_view_frontend'] 				= 'Podgląd strony';
 $lang['cp_logged_in_welcome']           		= 'Witaj %s';
 $lang['cp_logout_label'] 				= 'Wyloguj';
