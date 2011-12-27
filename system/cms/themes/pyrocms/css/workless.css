@@ -1396,7 +1396,7 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
   	color: #555555;
   	text-shadow: 1px 1px 0 #ffffff;
 	margin: 0;
-	padding: 0;
+	padding: 0 0 0 5px;
 	float: left;
 }
 
@@ -1406,6 +1406,7 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
 	float: left;
 	text-shadow: 0 1px 1px #ffffff;
 	font-size: 13px;
+	display: none;
 }
 
 #shortcuts {
@@ -1746,28 +1747,32 @@ footer {
 	background: #333333;
 	border-top: 1px solid #ececec;
 	width: 100%;
-	height: 50px;
+	height: 140px;
 	color: #eeeeee;
 	margin-top: -100px;
-	padding: 25px 0 25px 0;
+	padding: 0;
 	float: left;
 	text-shadow: 0 -1px 0 #000000;
 }
 
 footer p {
-	float: left ;
-	margin: 15px 0 0 5px;
+	float: left;
+	font-size: 12px;
+	margin: 5px 0 15px 0;
+	padding: 0 10px;
 }
 
 ul#lang {
-	margin-right: 20px;
-	float: right;
+	margin-right: 24px;
+	text-align: center;
 	text-shadow: 0 -1px 0 #ffffff;
 	color: #333333;
 }
 
 ul#lang .chzn-results {
 	width: 97%;
+	z-index: 999;
+	position: relative;
 }
 
 ul#lang .chzn-drop {
@@ -1836,6 +1841,7 @@ Ensure your main styling comes before this!
 */
 
 @media only screen and (min-width: 281px) {
+
 	#logo {
 		display: none;
 	}
@@ -1863,6 +1869,7 @@ Ensure your main styling comes before this!
 }
 
 @media only screen and (min-width: 481px) {
+
 	.wrapper {
 		width: 480px;
 		margin: 0 auto;
@@ -1891,7 +1898,9 @@ Ensure your main styling comes before this!
 	.subbar {
 		margin-top: 70px;
 	}
-	
+	.subbar h2, .subbar h2 a {
+		padding: 0;
+	}	
 	.sections_bar {
 		margin-top: 55px;
 	}
@@ -1947,10 +1956,15 @@ Ensure your main styling comes before this!
 		float: left;
 		margin: 3px 15px 0 15px;
 	}
+
+	footer p {
+		padding: 0;
+	}
 	
 }
 
 @media only screen and (min-width: 769px) {	
+
 	.wrapper {
 		width: 768px;
 		margin: 0 auto;
@@ -1978,6 +1992,9 @@ Ensure your main styling comes before this!
 	
 	.subbar {
 		margin-top: 25px;
+	}
+	.subbar small {
+		display: block;
 	}
 	
 	.sections_bar {
@@ -2040,9 +2057,24 @@ Ensure your main styling comes before this!
 		margin: 3px 5px 0 5px;
 	}
 
+	footer p {
+		float: left;
+		padding: 10px 0 0 0;
+		width: 60%;
+	}
+	
+	ul#lang {
+		float: right;
+		margin-right: 0;
+		padding-right: 0;
+		text-align: left;
+		width: 30%;
+	}
+
 }
 
 @media only screen and (min-width: 1025px) {
+
 	.wrapper {
 		width: 1024px;
 		margin: 0 auto;
@@ -2129,9 +2161,14 @@ Ensure your main styling comes before this!
 		margin: 3px 18px 0 18px;
 	}
 
+	ul#lang {
+		margin-right: -50px;
+	}
+
 }
 
 @media only screen and (min-width: 1281px) {	
+
 	.wrapper {
 		width: 1280px;
 		margin: 0 auto;
