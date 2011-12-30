@@ -22,11 +22,11 @@ $lang['settings_meta_topic_desc']				= 'Dwa lub trzy słowa, które będą opisy
 $lang['settings_currency']					= 'Waluta';
 $lang['settings_currency_desc']					= 'Symbol waluty do stosowania przy produktach, usługach, itp.';
 
-$lang['settings_dashboard_rss']					= 'Kanał RSS na tablicy';
-$lang['settings_dashboard_rss_desc']				= 'Link do kanału RSS, który będzie wyświetlany w zakładce Tablica informacyjna.';
+$lang['settings_dashboard_rss']					= 'Kanał RSS w kokpicie';
+$lang['settings_dashboard_rss_desc']				= 'Link do kanału RSS, który będzie wyświetlany w zakładce Kokpit.';
 
 $lang['settings_dashboard_rss_count']				= 'Ilość blogów RSS';
-$lang['settings_dashboard_rss_count_desc']			= 'Ile wpisów z kanału RSS ma być wyświetlane w zakładce Tablica informacyjna?';
+$lang['settings_dashboard_rss_count_desc']			= 'Ile wpisów z kanału RSS ma być wyświetlane w zakładce Kokpit?';
 
 $lang['settings_date_format'] 					= 'Format daty';
 $lang['settings_date_format_desc']				= 'Jak daty powinny być wyświetlane w serwisie i panelu administratora? Używając <a href="http://php.net/manual/pl/function.date.php" target="_black">formatu daty</a> z PHP - czy -  używając formatu <a href="http://php.net/manual/en/function.strftime.php" target="_black">ciągu jako daty</a> z PHP.';
@@ -74,10 +74,10 @@ $lang['settings_enable_profiles']				= 'Włącz profile';
 $lang['settings_enable_profiles_desc']				= 'Pozwól użytkownikom na dodawanie i edycję profili.';
 
 $lang['settings_ga_email']					= 'E-mail Google Analytics';
-$lang['settings_ga_email_desc']					= 'Podaj adres e-mail, który używasz do logowania się na konto Google Analytics, wymagane do przedstawiania statystyk na Tablicy informacyjnej';
+$lang['settings_ga_email_desc']					= 'Podaj adres e-mail, który używasz do logowania się na konto Google Analytics, wymagane do przedstawiania statystyk w Kokpicie';
 
 $lang['settings_ga_password']					= 'Hasło Google Analytics';
-$lang['settings_ga_password_desc']				= 'Podaj hasło, które używasz do logowania się na konto Google Analytics, również wymagane do przedstawiania statystyk na Tablicy informacyjnej';
+$lang['settings_ga_password_desc']				= 'Podaj hasło, które używasz do logowania się na konto Google Analytics, również wymagane do przedstawiania statystyk w Kokpicie';
 
 $lang['settings_ga_profile']					= 'Profil Google Analytics';
 $lang['settings_ga_profile_desc']				= 'Podaj ID profilu Google Analytics aby aktywować statystyki serwisu. Przykład: UA-19483569-6';
