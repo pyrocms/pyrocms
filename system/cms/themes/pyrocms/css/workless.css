@@ -1421,7 +1421,7 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
 }
 
 #shortcuts {
-	margin: 3px 30px 0 0;
+	margin: 3px 20px 0 0;
 	float: right;
 }
 
@@ -2094,9 +2094,8 @@ Ensure your main styling comes before this!
 		display: inline;
 		margin-bottom: 0;
 	}
-
 	.subbar h2, .subbar h2 a {font-size: 28px;}
-
+	#shortcuts {margin: 3px -5px 0 0;}
 }
 
 @media only screen and (min-width: 1025px) {
@@ -2190,8 +2189,11 @@ Ensure your main styling comes before this!
 	ul#lang {
 		margin-right: -54px;
 	}
+	
 
 }
+
+@media only screen and (max-width: 1024px) {#shortcuts {margin: 3px -30px 0 0;}}
 
 @media only screen and (min-width: 1281px) {	
 
@@ -2284,6 +2286,7 @@ Ensure your main styling comes before this!
 	ul#lang {
 		margin-right: -105px;
 	}
+	#shortcuts {margin: 3px 20px 0 0;}
 	
 }
 
