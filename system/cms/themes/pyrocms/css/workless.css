@@ -1125,6 +1125,7 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   float: left;
   margin: 0 10px 0 -15px;
   position: relative;
+  padding-left: 5px!important;
 }
 
 .topbar ul li {
@@ -1905,6 +1906,10 @@ Ensure your main styling comes before this!
 	
 	.topbar {
 		height: 100px;
+	}
+	.topbar ul {
+		margin-left: -15px;
+		padding-left: 0px!important;
 	}
 	
 	.topbar ul li a {
