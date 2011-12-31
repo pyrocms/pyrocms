@@ -118,19 +118,6 @@ $config['rest_ip_whitelist'] = '';
 
 /*
 |--------------------------------------------------------------------------
-| REST Database Group
-|--------------------------------------------------------------------------
-|
-| Connect to a database group for keys, logging, etc. It will only connect
-| if you have any of these features enabled.
-|
-|	'default'
-|
-*/
-$config['rest_database_group'] = 'default';
-
-/*
-|--------------------------------------------------------------------------
 | REST API Keys Table Name
 |--------------------------------------------------------------------------
 |

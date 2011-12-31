@@ -32,7 +32,10 @@ class REST_Controller extends MY_Controller {
 		'html' => 'text/html',
 		'csv' => 'application/csv'
 	);
-
+	
+	// Developers can extend this class and add a check in here
+	protected function early_checks() {}
+	
 	// Constructor function
 	public function __construct()
 	{
@@ -110,6 +113,9 @@ class REST_Controller extends MY_Controller {
 		// Which format should the data be returned in?
 		$this->response->lang = $this->_detect_lang();
 
+		// Developers can extend this class and add a check in here
+		$this->early_checks();
+
 		// Check if there is a specific auth type for the current class/method
 		$this->auth_override = $this->_auth_override_check();
 
@@ -134,6 +140,12 @@ class REST_Controller extends MY_Controller {
 		if (config_item('rest_database_group') AND (config_item('rest_enable_keys') OR config_item('rest_enable_logging')))
 		{
 			$this->rest->db = $this->load->database(config_item('rest_database_group'), TRUE);
+		}
+		
+		// Use whatever database is in use (isset returns false)
+		elseif(@$this->db)
+		{
+			$this->rest->db = $this->db;
 		}
 
 		// Checking for keys? GET TO WORK!

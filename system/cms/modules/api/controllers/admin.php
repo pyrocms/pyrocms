@@ -82,10 +82,14 @@ class Admin extends Admin_Controller
 					// Now build it!
 					->create_table('api_logs');
 			}
-			
-			// Update the setting
-			Settings::set('api_enabled', (bool) (int) $this->input->post('api_status'));
 		}
+		
+		$status = (bool) (int) $this->input->post('api_status');
+		
+		// Update the setting
+		Settings::set('api_enabled', $status);
+		
+		echo json_encode(array('status' => $status));
 	}
 }
 

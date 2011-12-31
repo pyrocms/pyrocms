@@ -10,7 +10,7 @@
  * @category	Controller
 */
 
-class Api extends REST_Controller
+class Api extends API_Controller
 {
 	public function index_get()
 	{

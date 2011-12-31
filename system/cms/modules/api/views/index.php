@@ -30,12 +30,12 @@ div.status {
 			
 			var url = SITE_URL + 'admin/api/ajax_set_api_status',
 				$button = $(this),
-				status = parseInt($button.val());
+				status = $button.val();
 			
 			$.post(url, { api_status: status }, function() {
 				
 				$button.hide().siblings('button').show().removeClass('hidden');
-				$('div.status').text(status ? lang_enabled : lang_disabled);
+				$('div.status').text(parseInt(status) ? lang_enabled : lang_disabled);
 				
 			});
 			
