@@ -2185,7 +2185,7 @@ Ensure your main styling comes before this!
 	}
 
 	ul#lang {
-		margin-right: -50px;
+		margin-right: -54px;
 	}
 
 }
@@ -2276,6 +2276,10 @@ Ensure your main styling comes before this!
 		width: 75px;
 		float: left;
 		margin: 3px 35px 0 35px;
+	}
+
+	ul#lang {
+		margin-right: -105px;
 	}
 	
 }
