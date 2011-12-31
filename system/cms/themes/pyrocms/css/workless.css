@@ -1402,6 +1402,7 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
 	position: relative;
 }
 
+.subbar .wrapper {position: relative;}
 .subbar h2, .subbar h2 a {
   	color: #555555;
   	text-shadow: 1px 1px 0 #ffffff;
@@ -1421,8 +1422,10 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
 }
 
 #shortcuts {
-	margin: 3px 20px 0 0;
-	float: right;
+	margin: 0!important;
+	position: absolute;
+	right: 10px;
+	top: 2px;
 }
 
 #shortcuts h6 {
@@ -1893,6 +1896,8 @@ Ensure your main styling comes before this!
 		margin: 0 auto;
 		padding: 0;
 	}
+
+	section.title, section.item {width: 450px;}
 	
 	#logo {
 		display: none;
@@ -1971,6 +1976,10 @@ Ensure your main styling comes before this!
 	footer p {
 		padding: 0;
 	}
+
+	#shortcuts {
+		right: 0;
+	}
 	
 }
 
@@ -1988,6 +1997,8 @@ Ensure your main styling comes before this!
 		margin: 0 auto;
 		padding: 0;
 	}
+
+	section.title, section.item {width: 738px;}
 	
 	#logo {
 		display: inherit;
@@ -2095,7 +2106,7 @@ Ensure your main styling comes before this!
 		margin-bottom: 0;
 	}
 	.subbar h2, .subbar h2 a {font-size: 28px;}
-	#shortcuts {margin: 3px -5px 0 0;}
+
 }
 
 @media only screen and (min-width: 1025px) {
@@ -2112,6 +2123,8 @@ Ensure your main styling comes before this!
 		margin: 0 auto;
 		padding: 0;
 	}
+
+	section.title, section.item {width: 994px;}
 	
 	.topbar {
 		height: 50px;
@@ -2193,8 +2206,6 @@ Ensure your main styling comes before this!
 
 }
 
-@media only screen and (max-width: 1024px) {#shortcuts {margin: 3px -30px 0 0;}}
-
 @media only screen and (min-width: 1281px) {	
 
 	.wrapper {
@@ -2209,6 +2220,8 @@ Ensure your main styling comes before this!
 		margin: 0 auto;
 		padding: 0;
 	}
+
+	section.title, section.item {width: 1250px;}
 	
 	.topbar {
 		height: 50px;
@@ -2286,7 +2299,6 @@ Ensure your main styling comes before this!
 	ul#lang {
 		margin-right: -105px;
 	}
-	#shortcuts {margin: 3px 20px 0 0;}
 	
 }
 
