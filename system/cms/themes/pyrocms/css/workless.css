@@ -1408,6 +1408,7 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
 	margin: 0;
 	padding: 0 0 0 5px;
 	float: left;
+	font-size: 20px;
 }
 
 .subbar small {
@@ -2093,6 +2094,8 @@ Ensure your main styling comes before this!
 		display: inline;
 		margin-bottom: 0;
 	}
+
+	.subbar h2, .subbar h2 a {font-size: 28px;}
 
 }
 
