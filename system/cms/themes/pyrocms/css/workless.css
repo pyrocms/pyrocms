@@ -784,6 +784,7 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
 /* Alerts */
 .alert {
   width: 100%;
+  float: left;
   background-color: rgba(0, 0, 0, 0.15);
   background-repeat: repeat-x;
   background-image: -khtml-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 0, 0, 0.15)));
@@ -807,7 +808,9 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
 
 .alert p {
   color: #ffffff;
-  margin-bottom: 0;
+  margin: 0;
+  width: 95%;
+  float: left;
 }
 
 .alert p + p {
@@ -2008,7 +2011,7 @@ Ensure your main styling comes before this!
 	}
 	
 	.sections_bar {
-		margin-top: 10px;
+		margin-top: 9px;
 	}
 	
 	#content-body {
