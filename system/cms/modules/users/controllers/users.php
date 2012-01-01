@@ -64,7 +64,7 @@ class Users extends Public_Controller
 		}
 
 		$this->template->build('profile/view', array(
-			'user' => $user,
+			'_user' => $user,
 		));
 	}
 
@@ -124,7 +124,7 @@ class Users extends Public_Controller
 		}
 
 		$this->template->build('login', array(
-			'user' => $user,
+			'_user' => $user,
 			'redirect_to' => $redirect_to,
 		));
 	}
@@ -292,7 +292,7 @@ class Users extends Public_Controller
 				$user->{$rule['field']} = set_value($rule['field']);
 			}
 			
-			$this->template->user = $user;
+			$this->template->_user = $user;
 		}
 		
 		// Is there a user hash?
@@ -305,7 +305,7 @@ class Users extends Public_Controller
 			$user->username			= $user_hash['nickname'];
 			$user->email			= isset($user_hash['email']) ? $user_hash['email'] : '';
 			
-			$this->template->user = $user;
+			$this->template->_user = $user;
 		}
 		
 		$this->template
@@ -690,7 +690,7 @@ class Users extends Public_Controller
 		// Render the view
 		$this->template->build('profile/edit', array(
 			'languages' => $languages,
-			'user' => $user,
+			'_user' => $user,
 			'days' => $days,
 			'months' => $months,
 			'years' => $years,
