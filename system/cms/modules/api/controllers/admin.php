@@ -27,11 +27,13 @@ class Admin extends Admin_Controller
 		$this->load->model('api_log_m');
 		$this->load->language('users/user');
 		
-		$logs = $this->api_log_m->limit(10)->get_all();
+		if ($this->db->table_exists('api_logs'))
+		{
+			$this->template->logs = $this->api_log_m->limit(10)->get_all();
+		}
 		
 		$this->template
 			->title($this->module_details['name'])
-			->set('logs', $logs)
 			->build('index');
 	}
 	

@@ -120,6 +120,7 @@ div.status {
 
 <section class="item">
 
+	<?php if ( ! empty($logs)): ?>
 	<table>
 		<thead>
 			<th>URI</th>
@@ -143,6 +144,11 @@ div.status {
 			</tr>
 			<?php endforeach; ?>
 		</tbody>
+		<?php else: ?>
+			
+			<p><?php echo lang('api:no_logs');?></p>
+			
+		<?php endif; ?>
 	</table>
 
 </section>
