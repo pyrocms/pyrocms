@@ -2004,7 +2004,7 @@ Ensure your main styling comes before this!
 	.form_inputs > ul > li > label,
 	.form_inputs fieldset > ul > li .label, 
 	.form_inputs > ul > li .label {
-		width: 27%;
+		width: 27%!important;
 		float: left;
 	}
 	
