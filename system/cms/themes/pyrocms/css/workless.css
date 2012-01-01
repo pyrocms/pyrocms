@@ -2017,6 +2017,13 @@ Ensure your main styling comes before this!
 	.form_inputs fieldset {
 		width: auto;
 	}
+
+	table {
+		width: 100%;
+		margin: 0;
+		font-size: 13px;
+	}
+
 }
 
 @media only screen and (min-width: 768px) {	
@@ -2133,11 +2140,6 @@ Ensure your main styling comes before this!
 	.move-handle {display: block;}
 	fieldset {padding: 25px; margin: 5px 0 15px 0;}
 	.form_inputs .input > input {min-width: 210px!important;}
-	table {
-		width: 100%;
-		margin: 0;
-		font-size: 13px;
-	}
 	table th.collapse, table td.collapse {display: table-cell;}
 	table .actions a {
 		display: inline;
