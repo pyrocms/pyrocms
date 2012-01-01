@@ -1968,17 +1968,18 @@ Ensure your main styling comes before this!
 	.two_third { 
 		width: 450px; 
 		float: left; 
-	}
+	}*/
 
 	.one_quarter { 
-		width: 450px; 
-		float: left; 
+		width: 100px; 
+		float: left;
+		margin-right: 15px;
 	}
 	
 	.three_quarter {
-		width: 450px;
+		width: 310px;
 		float: left;
-	}*/
+	}
 	
 	#quick_links ul li {
 		width: 75px;
@@ -2099,17 +2100,18 @@ Ensure your main styling comes before this!
 		float: left; 
 	}
 	.two_third section.title, .two_third section.item {width: 470px;}
-
+	*/
+	
 	.one_quarter { 
-		width: 230px; 
+		width: 200px; 
 		margin-right: 15px; 
 		float: left; 
 	}
 	
 	.three_quarter {
-		width: 520px;
+		width: 500px;
 		float: left;
-	}*/
+	}
 
 	#quick_links ul li {
 		width: 75px;
@@ -2221,7 +2223,7 @@ Ensure your main styling comes before this!
 		width: 786px; 
 		margin-right: 15px; 
 		float: left; 
-	}
+	}*/
 
 	.one_quarter { 
 		width: 230px; 
@@ -2230,9 +2232,9 @@ Ensure your main styling comes before this!
 	}
 	
 	.three_quarter {
-		width: 750px;
+		width: 730px;
 		float: left;
-	}*/
+	}
 
 	#quick_links ul li {
 		width: 75px;
@@ -2319,7 +2321,7 @@ Ensure your main styling comes before this!
 		width: 786px; 
 		margin-right: 15px; 
 		float: left; 
-	}
+	}*/
 
 	.one_quarter { 
 		width: 230px; 
@@ -2330,7 +2332,7 @@ Ensure your main styling comes before this!
 	.three_quarter {
 		width: 975px;
 		float: left;
-	}*/
+	}
 
 	#quick_links ul li {
 		width: 75px;
