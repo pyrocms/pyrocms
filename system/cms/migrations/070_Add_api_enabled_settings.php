@@ -17,8 +17,8 @@ class Migration_Add_api_enabled_settings extends CI_Migration {
 			'version' => '1.0'
 			'name' => 'a:1:{s:2:"en";s:14:"API Management";}',
 			'description' => 'a:1:{s:2:"en";s:66:"Set up a RESTful API with API Keys and out in JSON, XML, CSV, etc.";}',
-			'is_frontend' => 0,
-			'is_backend' => 1,
+			'is_frontend' => true,
+			'is_backend' => true,
 			'menu' => 'utilities',
 			'enabled' => 1,
 			'is_core' => 1,
@@ -57,5 +57,9 @@ class Migration_Add_api_enabled_settings extends CI_Migration {
 		$this->db
 			->where_in('slug', array('api_enabled', 'api_user_keys'))
 			->delete('settings');
+			
+		$this->db
+			->where('slug', 'api')
+			->delete('modules');
 	}
 }

@@ -59,6 +59,7 @@ class Admin extends Admin_Controller
 						'ignore_limits' => array('type' => 'tinyint', 'constraint' => 1, 'default' => 0),
 						'user_id' => array('type' => 'int', 'constraint' => 11),
 						'date_created' => array('type' => 'int', 'constraint' => 11),
+						'active' => array('type' => 'tinyint', 'constraint' => 1),
 					))
 					// Make the key Primary (thats what true does)
 					->add_key('id', true)

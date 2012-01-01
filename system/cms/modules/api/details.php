@@ -13,7 +13,7 @@ class Module_Api extends Module
 			'description' => array(
 				'en' => 'Set up a RESTful API with API Keys and out in JSON, XML, CSV, etc.',
 			),
-			'frontend' => FALSE,
+			'frontend' => TRUE,
 			'backend'  => TRUE,
 			'menu'	  => 'utilities',
 			
