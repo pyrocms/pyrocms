@@ -186,7 +186,7 @@ class REST_Controller extends MY_Controller {
 		// Get that useless shitty key out of here
 		if (config_item('rest_enable_keys') AND $use_key AND $this->_allow === FALSE)
 		{
-      if (config_item('rest_enable_logging') AND $log_method)
+			if (config_item('rest_enable_logging') AND $log_method)
 			{
 				$this->_log_request();
 			}
@@ -426,8 +426,8 @@ class REST_Controller extends MY_Controller {
 	protected function _detect_api_key()
 	{
 
-                // Get the api key name variable set in the rest config file
-                $api_key_variable = config_item('rest_key_name');
+		// Get the api key name variable set in the rest config file
+		$api_key_variable = config_item('rest_key_name');
 
 		// Work out the name of the SERVER entry based on config
 		$key_name = 'HTTP_' . strtoupper(str_replace('-', '_', $api_key_variable));
@@ -437,15 +437,16 @@ class REST_Controller extends MY_Controller {
 		$this->rest->ignore_limits = FALSE;
 
 		// Find the key from server or arguments
-		if ($key = isset($this->_args[$api_key_variable]) ? $this->_args[$api_key_variable] : $this->input->server($key_name))
+		if (($key = isset($this->_args[$api_key_variable]) ? $this->_args[$api_key_variable] : $this->input->server($key_name)))
 		{
-			if ( ! $row = $this->rest->db->where('key', $key)->get(config_item('rest_keys_table'))->row())
+			if ( ! ($row = $this->rest->db->where('key', $key)->get(config_item('rest_keys_table'))->row()))
 			{
 				return FALSE;
 			}
 
 			$this->rest->key = $row->key;
-
+			
+			isset($row->user_id) AND $this->rest->user_id = $row->user_id;
 			isset($row->level) AND $this->rest->level = $row->level;
 			isset($row->ignore_limits) AND $this->rest->ignore_limits = $row->ignore_limits;
 
@@ -501,7 +502,7 @@ class REST_Controller extends MY_Controller {
 		return $this->rest->db->insert(config_item('rest_logs_table'), array(
 			'uri' => $this->uri->uri_string(),
 			'method' => $this->request->method,
-			'params' => serialize($this->_args),
+			'params' => $this->_args ? serialize($this->_args) : null,
 			'api_key' => isset($this->rest->key) ? $this->rest->key : '',
 			'ip_address' => $this->input->ip_address(),
 			'time' => function_exists('now') ? now() : time(),

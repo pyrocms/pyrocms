@@ -16,6 +16,7 @@ class Admin extends Admin_Controller
 		
 		$this->load->language('api');
 	}
+	
 	/**
 	 * Index method
 	 *
@@ -23,8 +24,14 @@ class Admin extends Admin_Controller
 	 */
 	public function index()
 	{
+		$this->load->model('api_log_m');
+		$this->load->language('users/user');
+		
+		$logs = $this->api_log_m->limit(10)->get_all();
+		
 		$this->template
 			->title($this->module_details['name'])
+			->set('logs', $logs)
 			->build('index');
 	}
 	
@@ -36,7 +43,7 @@ class Admin extends Admin_Controller
 		}
 		
 		// Are we enabling?
-		if ($this->input->post('api_status') === "1")
+		if ($this->input->post('status') === "1")
 		{
 			$this->load->dbforge();
 			
@@ -50,6 +57,7 @@ class Admin extends Admin_Controller
 						'key' => array('type' => 'varchar', 'constraint' => 40),
 						'level' => array('type' => 'int', 'constraint' => 2),
 						'ignore_limits' => array('type' => 'tinyint', 'constraint' => 1, 'default' => 0),
+						'user_id' => array('type' => 'int', 'constraint' => 11),
 						'date_created' => array('type' => 'int', 'constraint' => 11),
 					))
 					// Make the key Primary (thats what true does)
@@ -69,7 +77,7 @@ class Admin extends Admin_Controller
 						'id' => array('type' => 'int', 'constraint' => 11, 'auto_increment' => true),
 						'uri' => array('type' => 'varchar', 'constraint' => 255),
 						'method' => array('type' => 'varchar', 'constraint' => 6),
-						'params' => array('type' => 'text'),
+						'params' => array('type' => 'text', 'null' => true),
 						'api_key' => array('type' => 'varchar', 'constraint' => 40),
 						'ip_address' => array('type' => 'varchar', 'constraint' => 15),
 						'time' => array('type' => 'int', 'constraint' => 11),
@@ -84,10 +92,25 @@ class Admin extends Admin_Controller
 			}
 		}
 		
-		$status = (bool) (int) $this->input->post('api_status');
+		$status = (bool) (int) $this->input->post('status');
 		
 		// Update the setting
 		Settings::set('api_enabled', $status);
+		
+		echo json_encode(array('status' => $status));
+	}
+	
+	public function ajax_set_api_user_keys()
+	{
+		if ( ! $this->input->is_ajax_request())
+		{
+			exit('Trickery is afoot.');
+		}
+		
+		$status = (bool) (int) $this->input->post('status');
+		
+		// Update the setting
+		Settings::set('api_user_keys', $status);
 		
 		echo json_encode(array('status' => $status));
 	}

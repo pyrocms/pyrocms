@@ -4,7 +4,7 @@
 					lang('profile_edit') ?>
 </h2>
 <div>
-	<?php if(validation_errors()):?>
+	<?php if (validation_errors()):?>
 	<div class="error-box">
 		<?php echo validation_errors();?>
 	</div>
@@ -37,16 +37,6 @@
 			<li class="float-left spacer-right">
 				<label for="password"><?php echo lang('user_password') ?></label><br/>
 				<?php echo form_password('password', '', 'autocomplete="off"'); ?>
-			</li>
-		</ul>
-	</fieldset>
-
-	<fieldset>
-		<legend><?php echo lang('user_other_settings_section') ?></legend>
-		<ul>
-			<li>
-				<label for="lang"><?php echo lang('user_lang') ?></label><br/>
-				<?php echo form_dropdown('lang', $languages, $_user->lang); ?>
 			</li>
 		</ul>
 	</fieldset>
@@ -118,6 +108,21 @@
 			<li>
 				<label for="website"><?php echo lang('profile_website'); ?></label>
 				<?php echo form_input('website', $_user->website); ?>
+			</li>
+		</ul>
+	</fieldset>
+
+	<fieldset>
+		<legend><?php echo lang('user_other_settings_section') ?></legend>
+		<ul>
+			<li>
+				<label for="lang"><?php echo lang('user_lang') ?></label><br/>
+				<?php echo form_dropdown('lang', $languages, $_user->lang); ?>
+			</li>
+			
+			<li>
+				<label for="lang"><?php echo lang('user_lang') ?></label><br/>
+				<?php echo form_input('api_key', $_user->api_key, 'readonly'); ?>
 			</li>
 		</ul>
 	</fieldset>
