@@ -23,7 +23,7 @@ class Migration_Add_api_enabled_settings extends CI_Migration {
 			'enabled' => 1,
 			'is_core' => 1,
 			'installed' => 1,
-		))
+		));
 		
 		$this->db->insert_batch('settings', array(
 			array(
