@@ -65,6 +65,11 @@ $lang['global:install']		= 'Instalar';
 $lang['global:enable']		= 'Activar';
 $lang['global:disable']		= 'Desactivar';
 
+$lang['all_right_reserved']				= 'All Rights Reserved.';  #translate
+$lang['powered_by_pyrocms']				= 'Powered by PyroCMS';  #translate
+$lang['top_page']						= 'Top';  #translate
+$lang['back_to_top']					= 'Back to Top';  #translate
+
 $lang['global:sidebar']			= 'Shortcuts'; #translate
 $lang['global:description']		= 'Descripción';
 $lang['global:actions']			= 'Acciones';

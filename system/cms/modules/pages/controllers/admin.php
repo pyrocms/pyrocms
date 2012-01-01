@@ -168,6 +168,7 @@ class Admin extends Admin_Controller {
 
 			$this->pyrocache->delete_all('navigation_m');
 			$this->pyrocache->delete_all('page_m');
+			Events::trigger('post_page_order', array($order, $root_pages));
 		}
 	}
 
@@ -315,6 +316,8 @@ class Admin extends Admin_Controller {
 
 					if ($this->page_m->update($id, $input))
 					{
+						Events::trigger('post_page_create', $input);
+
 						$this->session->set_flashdata('success', lang('pages_create_success'));
 
 						// Redirect back to the form or main page
@@ -468,6 +471,8 @@ class Admin extends Admin_Controller {
 					$this->page_m->reindex_descendants($id);
 				}
 
+				Events::trigger('post_page_edit', $input);
+
 				// Set the flashdata message and redirect the user
 				$link = anchor('admin/pages/preview/'.$id, $this->input->post('title'), 'class="modal-large"');
 				$this->session->set_flashdata('success', sprintf(lang('pages_edit_success'), $link));
@@ -577,6 +582,8 @@ class Admin extends Admin_Controller {
 			// Some pages have been deleted
 			if ( ! empty($deleted_ids))
 			{
+				Events::trigger('post_page_delete', $deleted_ids);
+
 				// Only deleting one page
 				if ( count($deleted_ids) == 1 )
 				{

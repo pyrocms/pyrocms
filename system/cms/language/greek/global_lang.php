@@ -68,6 +68,11 @@ $lang['global:enable']					= 'Ενεργοποίηση';
 $lang['global:disable'] 					= 'Απενεργοποίηση';
 $lang['global:upgrade'] 					= 'Ενημέρωση';
 
+$lang['all_right_reserved']				= 'All Rights Reserved.';  #translate
+$lang['powered_by_pyrocms']				= 'Powered by PyroCMS';  #translate
+$lang['top_page']						= 'Top';  #translate
+$lang['back_to_top']					= 'Back to Top';  #translate
+
 $lang['global:filters'] 				= 'Φίλτρα';
 $lang['global:shortcuts'] 				= 'Συντομέυσεις';
 $lang['global:description'] 		    = 'Περιγραφή';

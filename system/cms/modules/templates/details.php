@@ -19,6 +19,7 @@ class Module_Templates extends Module {
 			'name' => array(
 				'sl' => 'Email predloge',
 				'en' => 'Email Templates',
+                                'fr' => 'Modèles d\'emails',
 				'nl' => 'Email sjablonen',
 				'es' => 'Plantillas de email',
 				'ar' => 'قوالب الرسائل الإلكترونية',
@@ -33,6 +34,7 @@ class Module_Templates extends Module {
 			'description' => array(
 				'sl' => 'Ustvari, uredi in shrani spremenljive email predloge',
 				'en' => 'Create, edit, and save dynamic email templates',
+                                'fr' => 'Créer, éditer et sauver dynamiquement des modèles d\'emails',
 				'nl' => 'Maak, bewerk, en beheer dynamische emailsjablonen',
 				'es' => 'Crear, editar y guardar plantillas de email dinámicas',
 				'ar' => 'أنشئ، عدّل واحفظ قوالب البريد الإلكترني الديناميكية.',
@@ -90,7 +92,7 @@ class Module_Templates extends Module {
 
 		$comment_template = "
 			INSERT INTO " . $this->db->dbprefix('email_templates') . " (`slug`, `name`, `description`, `subject`, `body`, `lang`, `is_default`) VALUES
-			('comments', 'Comment Notificiation', 'Email that is sent to admin when someone creates a comment', '".$comment_subject."', '".$comment_body."', 'en', 1);
+			('comments', 'Comment Notification', 'Email that is sent to admin when someone creates a comment', '".$comment_subject."', '".$comment_body."', 'en', 1);
 		";
 
 		$contact_template = "

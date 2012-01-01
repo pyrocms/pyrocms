@@ -7,7 +7,7 @@ $lang['widgets.instructions']	 			= 'Glisser-déposer pour installer le widget';
 
 
 $lang['widgets.instances']            	= 'Instances';
-$lang['widgets.areas']            		= 'Areas';
+$lang['widgets.areas']            		= 'Zones';
 
 // Widgets
 $lang['widgets.widget'] 					= 'Widget';

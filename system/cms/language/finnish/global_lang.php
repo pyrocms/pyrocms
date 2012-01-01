@@ -67,6 +67,11 @@ $lang['global:enable']					= 'Pälle';
 $lang['global:disable'] 					= 'Pois päältä';
 $lang['global:upgrade'] 					= 'Päivitä';
 
+$lang['all_right_reserved']				= 'All Rights Reserved.';  #translate
+$lang['powered_by_pyrocms']				= 'Powered by PyroCMS';  #translate
+$lang['top_page']						= 'Top';  #translate
+$lang['back_to_top']					= 'Back to Top';  #translate
+
 $lang['global:shortcuts']	 			= 'Pikavalinnat';
 $lang['global:description']             = 'Kuvaus';
 $lang['global:actions']                 = 'Toiminnot';

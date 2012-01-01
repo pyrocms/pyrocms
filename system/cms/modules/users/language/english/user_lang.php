@@ -189,18 +189,7 @@ $lang['profile_address_line3']        = 'Line #3';
 $lang['profile_address_postcode']     = 'Post/Zip Code';
 $lang['profile_website']              = 'Website';
 
-$lang['profile_messenger_section']    = 'Instant messengers';
-
-$lang['profile_msn_handle']           = 'MSN';
-$lang['profile_aim_handle']           = 'AIM';
-$lang['profile_yim_handle']           = 'Yahoo! messenger';
-$lang['profile_gtalk_handle']         = 'GTalk';
-
 $lang['profile_avatar_section']       = 'Avatar';
-$lang['profile_social_section']       = 'Social';
-
-$lang['profile_gravatar']             = 'Gravatar';
-$lang['profile_twitter']              = 'Twitter';
 
 $lang['profile_edit_success']         = 'Your profile has been saved.';
 $lang['profile_edit_error']           = 'An error occurred.';

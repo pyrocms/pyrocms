@@ -69,6 +69,11 @@ $lang['global:enable']				= 'Włącz';
 $lang['global:disable']				= 'Wyłącz';
 $lang['global:upgrade'] 				= 'Aktualizuj';
 
+$lang['all_right_reserved'] 		= 'Wszelkie prawa zastrzeżone.';
+$lang['powered_by_pyrocms'] 		= 'Wspierane przez PyroCMS';
+$lang['top_page'] 					= 'Góra';
+$lang['back_to_top'] 				= 'Do góry';
+
 $lang['global:filters'] 			= 'Filtry';
 $lang['global:shortcuts']	 		= 'Skróty klawiszowe';
 $lang['global:description']			= 'Opis';

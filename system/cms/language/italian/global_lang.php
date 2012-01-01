@@ -67,6 +67,11 @@ $lang['global:enable']					= 'Abilita';
 $lang['global:disable'] 					= 'Disabilita';
 $lang['global:upgrade'] 					= 'Aggiorna';
 
+$lang['all_right_reserved']				= 'All Rights Reserved.';  #translate
+$lang['powered_by_pyrocms']				= 'Powered by PyroCMS';  #translate
+$lang['top_page']						= 'Top';  #translate
+$lang['back_to_top']					= 'Back to Top';  #translate
+
 $lang['global:shortcuts'] 				= 'Collegamenti';
 $lang['global:description'] 		    = 'Descrizione';
 $lang['global:actions']					= 'Azioni';

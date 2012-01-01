@@ -94,7 +94,7 @@
 
 	<div id="confirm_pass"></div>
 
-	<input class="button" id="next_step" type="submit" id="submit" value="<?php echo lang('finish'); ?>" />
+	<input class="btn orange" id="next_step" type="submit" id="submit" value="<?php echo lang('finish'); ?>" />
 
 <?php echo form_close(); ?>
 </section>

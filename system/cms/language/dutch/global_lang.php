@@ -66,6 +66,11 @@ $lang['global:install'] 					= 'Installeren';
 $lang['global:enable']					= 'Inschakelen';
 $lang['global:disable']					= 'Uitschakelen';
 
+$lang['all_right_reserved']				= 'All Rights Reserved.';  #translate
+$lang['powered_by_pyrocms']				= 'Powered by PyroCMS';  #translate
+$lang['top_page']						= 'Top';  #translate
+$lang['back_to_top']					= 'Back to Top';  #translate
+
 $lang['global:shortcuts'] 				= 'Snelkoppelingen';
 $lang['global:description'] 		    = 'Beschrijving';
 $lang['global:actions']					= 'Acties';

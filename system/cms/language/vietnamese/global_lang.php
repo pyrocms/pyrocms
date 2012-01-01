@@ -68,6 +68,11 @@ $lang['global:enable']					= 'Hoạt động';
 $lang['global:disable'] 					= 'Ngừng hoạt động';
 $lang['global:upgrade'] 					= 'Nâng cấp';
 
+$lang['all_right_reserved']				= 'All Rights Reserved.';  #translate
+$lang['powered_by_pyrocms']				= 'Powered by PyroCMS';  #translate
+$lang['top_page']						= 'Top';  #translate
+$lang['back_to_top']					= 'Back to Top';  #translate
+
 $lang['global:filters'] 				= 'Lọc';
 $lang['global:shortcuts'] 				= 'Shortcuts';
 $lang['global:description']				= 'Mô tả';

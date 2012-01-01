@@ -66,6 +66,11 @@ $lang['global:install'] 					= '安裝'; 			//'Install';
 $lang['global:enable']					= '啟用'; 			//'Enable';
 $lang['global:disable'] 					= '禁用'; 			//'Disable';
 
+$lang['all_right_reserved']				= 'All Rights Reserved.';  #translate
+$lang['powered_by_pyrocms']				= 'Powered by PyroCMS';  #translate
+$lang['top_page']						= 'Top';  #translate
+$lang['back_to_top']					= 'Back to Top';  #translate
+
 $lang['global:shortcuts'] 				= '捷徑';
 $lang['global:description']				= '說明';
 $lang['global:actions']					= '操作';

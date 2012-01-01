@@ -16,24 +16,24 @@
 <ul>
 	<li>
 		<label for="first_name"><?php echo lang('user_first_name') ?></label>
-		<input type="text" name="first_name" maxlength="40" value="<?php echo $user->first_name; ?>" />
+		<input type="text" name="first_name" maxlength="40" value="<?php echo $_user->first_name; ?>" />
 	</li>
 	
 	<li>
 		<label for="last_name"><?php echo lang('user_last_name') ?></label>
-		<input type="text" name="last_name" maxlength="40" value="<?php echo $user->last_name; ?>" />
+		<input type="text" name="last_name" maxlength="40" value="<?php echo $_user->last_name; ?>" />
 	</li>
 	
 	<?php if ( ! Settings::get('auto_username')): ?>
 	<li>
 		<label for="username"><?php echo lang('user_username') ?></label>
-		<input type="text" name="username" maxlength="100" value="<?php echo $user->username; ?>" />
+		<input type="text" name="username" maxlength="100" value="<?php echo $_user->username; ?>" />
 	</li>
 	<?php endif; ?>
 	
 	<li>
 		<label for="email"><?php echo lang('user_email') ?></label>
-		<input type="text" name="email" maxlength="100" value="<?php echo $user->email; ?>" />
+		<input type="text" name="email" maxlength="100" value="<?php echo $_user->email; ?>" />
 		<?php echo form_input('d0ntf1llth1s1n', ' ', 'class="default-form" style="display:none"'); ?>
 	</li>
 	

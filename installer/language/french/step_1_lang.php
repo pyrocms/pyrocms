@@ -1,11 +1,11 @@
 <?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 // labels
-$lang['header']			=	'Étape 1: Configurer la base de données et le serveur';
-$lang['intro_text']		=	'Avant de vérifier la base de données, nous devons connaître sa version et les informations de connexion.';
+$lang['header']			=	'Étape 1&nbsp;: Configurer la base de données et le serveur';
+$lang['intro_text']		=	'PyroCMS est très simple à installer, ceci ne prends que quelques minutes. Cependant certaines question peuvent être déroutantes si vous n\'avez pas suffisament de connaissances techniques. Si vous rencontrez des difficultés contacter votre hébergeur ou <a href="http://www.pyrocms.com/contact" target="_blank">contactez nous</a>.';
 
 $lang['db_settings']	=	'Paramètres de la base de données';
-$lang['db_text']		=	'Nous devons vérifier votre version du serveur MySQL, vous devez saisir le nom d\'hôte, le nom d\'utilisateur et le mot de passe dans le formulaire ci-dessous. Ces paramètres seront également utilisés lors de l\'installation de la base de données.';
+$lang['db_text']		=	'PyroCMS requiert une base de données (MySQL) pour stocker vos contenus et paramètres. Nous devons vérifier votre version du serveur MySQL, vous devez saisir le nom d\'hôte, le nom d\'utilisateur et le mot de passe dans le formulaire ci-dessous. Ces paramètres seront également utilisés lors de l\'installation de la base de données. Si vous ne comprenez pas les informations demandées merci de contacter votre hébergeur ou votre administrateur système pour les obtenir.';
 
 $lang['server']			=	'Nom d\'hôte';
 $lang['username']		=	'Nom d\'utilisateur';
@@ -13,13 +13,14 @@ $lang['password']		=	'Mot de passe';
 $lang['portnr']			=	'Port';
 $lang['server_settings']=	'Paramètres serveur';
 $lang['httpserver']		=	'Serveur HTTP';
-$lang['httpserver_text']=	'PyroCMS requires a HTTP Server to display dynamic content when a user goes to your website. It looks like you already have one by the fact that you can see this page, but if know exactly which type then PyroCMS can configure itself even better. If you do not know what any of this means just ignore it and carry on with the installation.'; #translate
-$lang['rewrite_fail']	=	'You have selected "(Apache with mod_rewrite)" but we are unable to tell if mod_rewrite is enabled on your server. Ask your host if mod_rewrite is enabled or simply install at your own risk.';
-$lang['mod_rewrite']	=	'You have selected "(Apache with mod_rewrite)" but your server does not have the rewrite module enabled. Ask your host to enable it or install PyroCMS using the "Apache (without mod_rewrite)" option.';
+$lang['httpserver_text']=	'PyroCMS requiert un serveur HTTP pour afficher dynamiquement du contenu quand un utilisateur viens sur votre site web. Il semble que vous disposez déjà d\'un serveur vu que vous affichez cette page, si vous connaissez précisemment le type de serveur alors PyroCMS peut effectuer une configuration automatique. Si vous ne connaissez pas le type de serveur utilisé alors ignorez cette partie et continuez l\'installation.';
+$lang['rewrite_fail']	=	'Vous avez sélectionné "(Apache with mod_rewrite)" mais nous ne pouvons confirmer que mod_rewrite est activé sur votre serveur. Demandez à votre hébergeur si mod_rewrite est bien activé ou continuez l\'installation à vos propres risques.';
+$lang['mod_rewrite']	=	'Vous avez sélectionné "(Apache with mod_rewrite)" mais votre serveur ne possède pas le module rewrite activé. Demandez à votre hébergeur de l\'activer ou installez PyroCMS en utilisant l\'option "(Apache without mod_rewrite)"';
 $lang['step2']			=	'Étape 2';
 
 // messages
 $lang['db_success']		=	'Les paramètres de la base de données ont été testés et fonctionnent correctement';
-$lang['db_failure']		=	'Problème de connexion à la base de données : ';
+$lang['db_failure']		=	'Problème de connexion à la base de données&nbsp;: ';
 
 
+/* End of file step_1_lang.php */
