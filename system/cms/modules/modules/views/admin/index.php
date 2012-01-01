@@ -58,6 +58,7 @@
 					<th><?php echo lang('name_label');?></th>
 					<th><span><?php echo lang('desc_label');?></span></th>
 					<th><?php echo lang('version_label');?></th>
+					<th></th>
 				</tr>
 			</thead>	
 			<tbody>
@@ -67,6 +68,13 @@
 					<td><?php echo $module['is_backend'] ? anchor('admin/'  . $module['slug'], $module['name']) : $module['name']; ?></td>
 					<td><?php echo $module['description']; ?></td>
 					<td class="align-center"><?php echo $module['version']; ?></td>
+					<td class="actions">
+					<?php if ($module['enabled']): ?>
+     					<?php echo anchor('admin/modules/disable/' . $module['slug'], lang('disable_label'), array('class'=>'confirm button small', 'title'=>lang('modules.confirm_disable'))); ?>
+					<?php else: ?>
+						<?php echo anchor('admin/modules/enable/' . $module['slug'], lang('enable_label'), array('class'=>'confirm button small', 'title'=>lang('modules.confirm_enable'))); ?>
+					<?php endif; ?>
+					</td>
 				</tr>
 			<?php endforeach; ?>
 			</tbody>	
