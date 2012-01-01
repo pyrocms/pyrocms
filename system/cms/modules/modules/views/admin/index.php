@@ -50,7 +50,7 @@
 </section>
 
 <section class="item">
-		<p><?php echo lang('modules.introduction'); ?></p>
+		<p><?php echo lang('modules.core_introduction'); ?></p>
 
 		<table class="table-list">
 			<thead>

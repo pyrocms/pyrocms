@@ -5,7 +5,8 @@
 $lang['modules.core_list']				= 'Moduli di Sistema';
 $lang['modules.addon_list']				= 'Moduli Add-on';
 $lang['modules.introduction']			= 'Di seguito una lista dei moduli installati e le loro informazioni, quali descrizione o versione.';
-$lang['modules.disable_error']			= 'Non è possibile disabilitare il modulo "%s".';
+$lang['modules.core_introduction']		 = 'Below is a list of core modules and their information. You may disable them but do so with extreme care. Disabling modules such as Users will render your site inoperable.'; #translate
+$lang['modules.disable_error'] 			= 'Non è possibile disabilitare il modulo "%s".';
 $lang['modules.disable_success']		= 'Il modulo "%s" è stato disattivato.';
 $lang['modules.enable_error']			= 'Impossibile attivare il modulo "%s".';
 $lang['modules.enable_success']			= 'Il modulo "%s" è stato attivato.';

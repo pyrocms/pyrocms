@@ -3,7 +3,8 @@
 $lang['modules.core_list']               = 'Kernemoduler';
 $lang['modules.addon_list']              = 'Add-on moduler';
 $lang['modules.introduction']            = 'Nedenfor er en liste over installerede moduler og deres information, såsom beskrivelse og version.';
-$lang['modules.disable_error']           = 'Kunne ikke deaktivere modulet "%s".';
+$lang['modules.core_introduction']		 = 'Below is a list of core modules and their information. You may disable them but do so with extreme care. Disabling modules such as Users will render your site inoperable.'; #translate
+$lang['modules.disable_error']            = 'Kunne ikke deaktivere modulet "%s".';
 $lang['modules.disable_success']         = 'Modulet "%s" er deaktiveret.';
 $lang['modules.enable_error']            = 'Kunne ikke aktivere modulet "%s".';
 $lang['modules.enable_success']          = 'Modulet "%s" er aktiveret.';

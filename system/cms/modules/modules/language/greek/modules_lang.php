@@ -3,7 +3,8 @@
 $lang['modules.core_list']               = 'Βασικά Πρόσθετα';
 $lang['modules.addon_list']              = 'Πρόσθετα';
 $lang['modules.introduction']            = 'Παρακάτω υπάρχει μια λίστα των εγκατεστημένων πρόσθετων μαζί με τις πληροφορίες τους, όπως η περιγραφή και η έκδοσή τους.';
-$lang['modules.disable_error']           = 'Δεν ήταν δυνατό να απενεργοποιηθεί το πρόσθετο "%s".';
+$lang['modules.core_introduction']		 = 'Below is a list of core modules and their information. You may disable them but do so with extreme care. Disabling modules such as Users will render your site inoperable.'; #translate
+$lang['modules.disable_error']            = 'Δεν ήταν δυνατό να απενεργοποιηθεί το πρόσθετο "%s".';
 $lang['modules.disable_success']         = 'Το πρόσθετο "%s" απενεργοποιήθηκε.';
 $lang['modules.enable_error']            = 'Δεν ήταν δυνατό να ενεργοποιηθεί το πρόσθετο "%s".';
 $lang['modules.enable_success']          = 'Το πρόσθετο "%s" ενεργοποιήθηκε.';

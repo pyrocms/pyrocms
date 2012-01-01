@@ -3,7 +3,8 @@
 $lang['modules.core_list']				= 'Základní moduly';
 $lang['modules.addon_list']				= 'Přidané moduly';
 $lang['modules.introduction']			= 'Níže je seznam nainstalovaných modulů a informací o nich (popis, verze apod.)';
-$lang['modules.disable_error']			= 'Nepodařilo se zakázat "%s".';
+$lang['modules.core_introduction']		 = 'Below is a list of core modules and their information. You may disable them but do so with extreme care. Disabling modules such as Users will render your site inoperable.'; #translate
+$lang['modules.disable_error'] 			= 'Nepodařilo se zakázat "%s".';
 $lang['modules.disable_success']		= 'Modul "%s" byl zakázán.';
 $lang['modules.enable_error']			= 'Nepodařilo se povolit modul "%s".';
 $lang['modules.enable_success']			= 'Modul "%s" byl povolen.';
