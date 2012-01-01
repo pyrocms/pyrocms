@@ -342,6 +342,10 @@ input:invalid, textarea:invalid { background-color: #f0dddd; }
 .form_inputs {
 	width: 100%;
 }
+.move-handle {display: none;}
+.form_inputs fieldset {
+	width: 250px;
+}
 .form_inputs fieldset > ul,
 .form_inputs > ul {
 	width: 100%;
@@ -370,8 +374,8 @@ input:invalid, textarea:invalid { background-color: #f0dddd; }
 .form_inputs > ul > li > label,
 .form_inputs fieldset > ul > li .label, 
 .form_inputs > ul > li .label {
-	width: 27%;
-	float: left;
+	width: 90%;
+	float: none;
 	margin: 0 3% 0 0;
 	padding: 8px;
 }
@@ -390,6 +394,8 @@ input:invalid, textarea:invalid { background-color: #f0dddd; }
 }
 .form_inputs label small {
 	display: block;
+	margin-left: 5px;
+	margin-bottom: 10px;
 	font-weight: normal;
 	font-style: italic;
 	font-size: 11px;
@@ -1989,7 +1995,25 @@ Ensure your main styling comes before this!
 	.alert {
 		width: 450px;
 	}
+
+	.form_inputs fieldset > ul > li > label, 
+	.form_inputs fieldset > ul > div > li > label, 
+	.form_inputs > ul > div > li > label, 
+	.form_inputs > ul > li > label,
+	.form_inputs fieldset > ul > li .label, 
+	.form_inputs > ul > li .label {
+		width: 27%;
+		float: left;
+	}
 	
+	.form_inputs label small {
+		margin-left: 0;
+		margin-bottom: 0;
+	}
+	
+	.form_inputs fieldset {
+		width: auto;
+	}
 }
 
 @media only screen and (min-width: 768px) {	
@@ -2102,6 +2126,7 @@ Ensure your main styling comes before this!
 		margin-right: 0;
 	}
 	
+	.move-handle {display: block;}
 	fieldset {padding: 25px; margin: 5px 0 15px 0;}
 	.form_inputs .input > input {min-width: 210px!important;}
 	table {
