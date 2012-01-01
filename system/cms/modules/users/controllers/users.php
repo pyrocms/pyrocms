@@ -285,14 +285,6 @@ class Users extends Public_Controller
 				// Return the validation error
 				$this->template->error_string = $this->form_validation->error_string();
 			}
-			
-			// Repopulate the form
-			foreach ($validation as $rule)
-			{
-				$user->{$rule['field']} = set_value($rule['field']);
-			}
-			
-			$this->template->_user = $user;
 		}
 		
 		// Is there a user hash?
@@ -304,12 +296,17 @@ class Users extends Public_Controller
 			$user->last_name		= $user_hash['last_name'];
 			$user->username			= $user_hash['nickname'];
 			$user->email			= isset($user_hash['email']) ? $user_hash['email'] : '';
-			
-			$this->template->_user = $user;
+		}
+		
+		// Repopulate the form
+		foreach ($validation as $rule)
+		{
+			$user->{$rule['field']} = set_value($rule['field']);
 		}
 		
 		$this->template
 			->title(lang('user_register_title'))
+			->set('_user', $user)
 			->build('register');
 	}
 
