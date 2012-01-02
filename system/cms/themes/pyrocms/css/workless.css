@@ -1099,7 +1099,7 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
 
 .topbar {
   height: 50px;
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   right: 0;
@@ -1374,7 +1374,7 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
 }
 
 .subbar {
-	position: fixed;
+	position: absolute;
 	z-index: 9997;
 	top: 25px!important;
 	right: 0;
@@ -1539,7 +1539,7 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
 }
 
 .sections_bar {
-	position: fixed;
+	position: absolute;
 	z-index: 9995;
 	top: 101px!important;
 	right: 0;
@@ -2026,6 +2026,8 @@ Ensure your main styling comes before this!
 }
 
 @media only screen and (min-width: 768px) {	
+
+	.topbar, .subbar, .sections_bar {position: fixed;}
 
 	.wrapper {
 		width: 750px;
