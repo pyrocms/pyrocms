@@ -985,7 +985,7 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
 }
 
 .tab-menu ul li, .tab-menu ol li, .pill li {
-  display: inline;
+	display: inline;
 }
 
 .tab-menu li a, .pill li a {
@@ -1561,8 +1561,8 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
 	left: 32%;
 }
 
-.ui-tabs-nav { width: 1180px; float: left; }
-.ui-tabs-nav li { position: relative; float: left; border-bottom-width: 0 !important; margin: 22px 0 0 5px; padding: 0; }
+.ui-tabs-nav {width: 100%; float: left;}
+.ui-tabs-nav li { position: relative; float: left; border-bottom-width: 0 !important; margin: 7px 0 0 5px; padding: 0; }
 .ui-tabs-panel { display: block; border-width: 0; background: none; float: left; }
 .ui-tabs-hide { display: none !important; }
 .ui-autocomplete { padding: 1px; width: 300px; height: 200px; position: absolute; background-color: #F3F3F3; border: 1px solid #EEE; height: auto; -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; }
