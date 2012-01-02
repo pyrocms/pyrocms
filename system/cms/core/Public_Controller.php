@@ -26,7 +26,6 @@ class Public_Controller extends MY_Controller
 				if (strpos($redirect->to, '$') !== FALSE)
 				{
 					$from = str_replace('%', '(.*?)', $redirect->from);
-					//$redirect->to = preg_replace('#^'.$from.'$#', $redirect->to, $uri);
 					$redirect->to = preg_replace('#^'.$from.'$#', $redirect->to, $uri);
 				}
 				// Redirect with wanted redirect header type
