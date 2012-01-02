@@ -5,6 +5,11 @@ $lang['redirects.from'] 			    = 'Z';
 $lang['redirects.to']					= 'Na';
 $lang['redirects.edit']					= 'Upravit';
 $lang['redirects.delete']				= 'Vymazat';
+$lang['redirects.type']					= 'Type'; #translate
+
+// redirect types
+$lang['redirects.301']					= '301 - Moved Permanently'; #translate
+$lang['redirects.302']					= '302 - Moved Temporarily'; #translate
 
 // titles
 $lang['redirects.add_title'] 			= 'Přidat přesměrování';

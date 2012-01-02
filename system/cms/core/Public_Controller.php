@@ -8,13 +8,30 @@ class Public_Controller extends MY_Controller
 		parent::__construct();
 
 		$this->benchmark->mark('public_controller_start');
-		
-		//check for a redirect
-		$this->load->model('redirects/redirect_m');
-		$uri = trim(uri_string(), '/');
-		if ($redirect = $this->redirect_m->get_from($uri))
+
+		// Check redirects if GET and Not AJAX
+		if (!$this->input->is_ajax_request() AND
+			 $_SERVER['REQUEST_METHOD'] == 'GET')
 		{
-			redirect($redirect->to);
+			$this->load->model('redirects/redirect_m');
+			$uri = trim(uri_string(), '/');
+
+			if ($redirect = $this->redirect_m->get_from($uri))
+			{
+				// Check if it was direct match
+				if ($redirect->from == $uri)
+					redirect($redirect->to,'location',$redirect->type);
+
+				// If it has back reference
+				if (strpos($redirect->to, '$') !== FALSE)
+				{
+					$from = str_replace('%', '(.*?)', $redirect->from);
+					//$redirect->to = preg_replace('#^'.$from.'$#', $redirect->to, $uri);
+					$redirect->to = preg_replace('#^'.$from.'$#', $redirect->to, $uri);
+				}
+				// Redirect with wanted redirect header type
+				redirect($redirect->to,'location',$redirect->type);
+			}
 		}
 
 		Events::trigger('public_controller');
@@ -33,7 +50,7 @@ class Public_Controller extends MY_Controller
 
 		// Load the current theme so we can set the assets right away
 		ci()->theme = $this->theme_m->get();
-		
+
 		if (empty($this->theme->slug))
 		{
 			show_error('This site has been set to use a theme that does not exist. If you are an administrator please '.anchor('admin/themes', 'change the theme').'.');
