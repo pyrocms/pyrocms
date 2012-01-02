@@ -1198,7 +1198,7 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   _width: 160px;
   margin-left: 0;
   margin-right: 0;
-  padding: 0;
+  padding: 0!important;
   text-align: left;
   border: 0;
   zoom: 1;
@@ -1233,6 +1233,7 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
 
 .topbar ul li ul li a:hover {
   background-color: #333;
+  margin-left: 0!important;
   background-color: rgba(255, 255, 255, 0.25);
   color: #fff;
 }
