@@ -1099,7 +1099,7 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
 
 .topbar {
   height: 50px;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
@@ -1132,7 +1132,6 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   float: left;
   margin: 0 10px 0 -15px;
   position: relative;
-  padding-left: 5px!important;
 }
 
 .topbar ul li {
@@ -1198,7 +1197,7 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   _width: 160px;
   margin-left: 0;
   margin-right: 0;
-  padding: 0!important;
+  padding: 0;
   text-align: left;
   border: 0;
   zoom: 1;
@@ -1233,7 +1232,6 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
 
 .topbar ul li ul li a:hover {
   background-color: #333;
-  margin-left: 0!important;
   background-color: rgba(255, 255, 255, 0.25);
   color: #fff;
 }
@@ -1351,7 +1349,7 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
 }
 
 .topbar ul li#dashboard-link {
-	margin: 8px 10px 8px 5px;
+	margin: 8px 10px 8px 15px;
 }
 
 .topbar ul li#dashboard-link a {
@@ -1375,11 +1373,12 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
 }
 
 .subbar {
-	position: absolute;
+	position: fixed;
 	z-index: 9997;
 	top: 25px!important;
 	right: 0;
 	left: 0;
+	width: 100%;
 	height: 30px;
 	background: #f7f7f7;
   	background-repeat: repeat-x;
@@ -1415,25 +1414,30 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
   	color: #555555;
   	text-shadow: 1px 1px 0 #ffffff;
 	margin: 0;
-	padding: 0 0 0 5px;
+	padding: 0;
 	float: left;
-	font-size: 20px;
 }
-
+.subbar spliter{
+	color: #888888;
+	margin: 12px 0 0 0;
+	float: left;
+	text-shadow: 0 1px 1px #ffffff;
+	font-size: 13px;
+	height: 18px;
+}
 .subbar small {
 	color: #888888;
 	margin: 12px 0 0 0;
 	float: left;
 	text-shadow: 0 1px 1px #ffffff;
 	font-size: 13px;
-	display: none;
+	width: 800px;
+	height: 18px; overflow:hidden;
 }
 
 #shortcuts {
-	margin: 0!important;
-	position: absolute;
-	right: 10px;
-	top: 2px;
+	margin: 3px 30px 0 0;
+	float: right;
 }
 
 #shortcuts h6 {
@@ -1451,7 +1455,7 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
 #shortcuts ul li a.add {
 	margin-top: -4px;
 	float: left;
-	padding: 0 10px 2px 7px!important;
+	padding: 2px 10px 2px 7px!important;
 }
 
 #shortcuts ul li a.add:before {
@@ -1460,7 +1464,7 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
   font-size: 16px;
   font-weight: bold;
   text-shadow: 0 1px 0 #ffffff;
-  vertical-align: 0;
+  vertical-align: middle;
 }
 
 #shortcuts li a {
@@ -1539,7 +1543,7 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
 }
 
 .sections_bar {
-	position: absolute;
+	position: fixed;
 	z-index: 9995;
 	top: 101px!important;
 	right: 0;
@@ -1888,10 +1892,13 @@ Ensure your main styling comes before this!
 		top: 30px;
 	}
 	
+	.subbar small {
+		display:none;
+	}
+	
 }
 
 @media only screen and (min-width: 481px) {
-
 	.wrapper {
 		width: 480px;
 		margin: 0 auto;
@@ -1904,8 +1911,6 @@ Ensure your main styling comes before this!
 		margin: 0 auto;
 		padding: 0;
 	}
-
-	section.title, section.item {width: 450px;}
 	
 	#logo {
 		display: none;
@@ -1913,10 +1918,6 @@ Ensure your main styling comes before this!
 	
 	.topbar {
 		height: 100px;
-	}
-	.topbar ul {
-		margin-left: -15px;
-		padding-left: 0px!important;
 	}
 	
 	.topbar ul li a {
@@ -1926,9 +1927,12 @@ Ensure your main styling comes before this!
 	.subbar {
 		margin-top: 70px;
 	}
-	.subbar h2, .subbar h2 a {
-		padding: 0;
-	}	
+	
+	.subbar small {
+		width: 220px;
+		display:block;
+	}
+	
 	.sections_bar {
 		margin-top: 55px;
 	}
@@ -2025,27 +2029,22 @@ Ensure your main styling comes before this!
 
 }
 
-@media only screen and (min-width: 768px) {	
-
-	.topbar, .subbar, .sections_bar {position: fixed;}
-
+@media only screen and (min-width: 769px) {	
 	.wrapper {
-		width: 750px;
+		width: 768px;
 		margin: 0 auto;
 	}
 	
 	#container {
-		width: 750px;
+		width: 768px;
 		height: 100%;
 		min-height: 100%;
 		margin: 0 auto;
 		padding: 0;
 	}
-
-	section.title, section.item {width: 720px;}
 	
 	#logo {
-		display: inherit;
+		display: none;
 	}
 	
 	.topbar {
@@ -2059,12 +2058,14 @@ Ensure your main styling comes before this!
 	.subbar {
 		margin-top: 25px;
 	}
+	
 	.subbar small {
-		display: block;
+		width: 390px;
+		display:block;
 	}
 	
 	.sections_bar {
-		margin-top: 9px;
+		margin-top: 10px;
 	}
 	
 	#content-body {
@@ -2076,7 +2077,7 @@ Ensure your main styling comes before this!
 	}
 	
 	section#content {
-		width: 750px;
+		width: 768px;
 		padding: 0;
 		margin: 150px 0 150px 0;
 		float: left;
@@ -2168,8 +2169,10 @@ Ensure your main styling comes before this!
 		margin: 0 auto;
 		padding: 0;
 	}
-
-	section.title, section.item {width: 994px;}
+	
+	#logo {
+		display: block;
+	}
 	
 	.topbar {
 		height: 50px;
@@ -2182,6 +2185,11 @@ Ensure your main styling comes before this!
 
 	.subbar {
 		top: 25px;
+	}
+	
+	.subbar small {
+		width: 590px;
+		display:block;
 	}
 	
 	.sections_bar {
@@ -2197,7 +2205,7 @@ Ensure your main styling comes before this!
 	}
 	
 	section#content {
-		width: 1024px;
+		width: 1000px;
 		padding: 0;
 		margin: 150px 0 150px 0;
 		float: left;
@@ -2257,7 +2265,7 @@ Ensure your main styling comes before this!
 		width: 1280px;
 		margin: 0 auto;
 	}
-		
+	
 	#container {
 		width: 1280px;
 		height: 100%;
@@ -2265,8 +2273,6 @@ Ensure your main styling comes before this!
 		margin: 0 auto;
 		padding: 0;
 	}
-
-	section.title, section.item {width: 1250px;}
 	
 	.topbar {
 		height: 50px;
@@ -2281,6 +2287,11 @@ Ensure your main styling comes before this!
 		top: 25px;
 	}
 	
+	.subbar small {
+		width: 790px;
+		display:block;
+	}
+	
 	.sections_bar {
 		top: 95px;
 	}
@@ -2290,11 +2301,11 @@ Ensure your main styling comes before this!
 	}
 	
 	#analyticsWrapper, #analytics {
-		width: 1280px;	
+		width: 1212px;	
 	}
 	
 	section#content {
-		width: 1280px;
+		width: 1230px;
 		padding: 0;
 		margin: 170px 0 150px 0;
 		float: left;

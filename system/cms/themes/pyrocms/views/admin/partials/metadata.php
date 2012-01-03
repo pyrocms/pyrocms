@@ -5,6 +5,7 @@
 
 <?php echo js('jquery/jquery-ui.min.js'); ?>
 <?php echo js('jquery/jquery.colorbox.min.js'); ?>
+<?php echo js('jquery/jquery.easing.1.3.js'); ?>
 <?php echo js('codemirror/codemirror.js'); ?>
 <?php echo js('codemirror/mode/css/css.js'); ?>
 <?php echo js('codemirror/mode/htmlmixed/htmlmixed.js'); ?>
