@@ -42,7 +42,7 @@ Base
 
 html, body { width: 100%; height: 100%; background: #e0dbdb; }
 html { font-size: 100%; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
-body { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 13px; line-height: 1.231; text-rendering: optimizeLegibility; margin: 0; overflow-x: hidden; }
+body { font-family: "Helvetica Neue", Helvetica, Arial, "Microsoft JhengHei", sans-serif; font-size: 13px; line-height: 1.231; text-rendering: optimizeLegibility; margin: 0; overflow-x: hidden; }
 body, button, input, select, textarea { font-family: sans-serif; color: #333333;}
 
 ::-moz-selection { background: #F2C741; color: #ffffff; text-shadow: none; }
@@ -128,7 +128,7 @@ p { font-size: 13px; font-weight: normal; line-height: 20px; margin-bottom: 12px
 p small { font-size: 11px; color: #bfbfbf; }
 
 /* Give headings some default styling. */
-h1, h2, h3, h4, h5, h6 { font-family: "Questrial", sans-serif; font-weight: normal; color: #555555; line-height: 36px; }
+h1, h2, h3, h4, h5, h6 { font-family: "Questrial", "Microsoft JhengHei" ,sans-serif; font-weight: normal; color: #555555; line-height: 36px; }
 h1 small, h2 small, h3 small, h4 small, h5 small, h6 small { color: #bfbfbf; }
 
 /* Set individual heading styles */
