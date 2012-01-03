@@ -90,15 +90,6 @@ $lang['settings_ga_tracking_desc']				= 'Gib deinen Google Analytic Tracking Cod
 
 $lang['settings_twitter_username']				= 'Twitter-Benutzername';
 $lang['settings_twitter_username_desc']			= 'Dein Twitter-Benutzername.';
-
-$lang['settings_twitter_consumer_key']			= 'Nutzungsschlüssel';
-$lang['settings_twitter_consumer_key_desc']		= 'Dein Nutzungsschlüssel.';
-
-$lang['settings_twitter_consumer_key_secret']	= 'Sicherer Nutzungsschlüssel';
-$lang['settings_twitter_consumer_key_secret_desc'] = 'Dein sicherer Nutzungsschlüssel.';
-
-$lang['settings_twitter_blog']					= 'Twitter &amp; News-Intigrierung.';
-$lang['settings_twitter_blog_desc']				= 'Möchtest du Links zu neuen News auf Twitter posten?';
 	
 $lang['settings_twitter_feed_count']			= 'Anzahl der Feeds';
 $lang['settings_twitter_feed_count_desc']		= 'Wie viele Tweets sollen im Twitter-Block maximal angezeigt werden?';

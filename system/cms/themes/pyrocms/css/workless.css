@@ -43,7 +43,7 @@ Base
 html, body { width: 100%; height: 100%; background: #e0dbdb; }
 html { font-size: 100%; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
 body { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 13px; line-height: 1.231; text-rendering: optimizeLegibility; margin: 0; overflow-x: hidden; }
-body, button, input, select, textarea { font-family: sans-serif; color: #333333; }
+body, button, input, select, textarea { font-family: sans-serif; color: #333333;}
 
 ::-moz-selection { background: #F2C741; color: #ffffff; text-shadow: none; }
 ::selection { background: #F2C741; color: #ffffff; text-shadow: none; }
@@ -217,16 +217,17 @@ form { margin: 0; }
 form ul { margin: 5px 0 5px 0; padding: 0; }
 form ul li { list-style: none; }
 form .help-inline { font-size: 11px; }
-fieldset { border: 1px solid #eeeeee; margin: 5px 0 15px 0; padding: 25px; }
+fieldset { border: 1px solid #eeeeee; margin: 5px 0 15px -5px; padding: 2px 6px 2px 2px; }
 
 /* Indicate that 'label' will shift focus to the associated form element */
 label { cursor: pointer; font-size: 12px; font-weight: bold; }
 legend { border: 0; padding: 0; margin-left: 5px; font-size: 18px; font-weight: bold; }
 label.inline {margin-right: 4px; font-weight: normal!important;}
 
-button, input, select, textarea { font-size: 100%; margin: 0; vertical-align: baseline; *vertical-align: middle; margin: 5px 0 5px 0; }
+button, input, select, textarea { font-size: 100%; margin: 0; vertical-align: baseline; *vertical-align: middle; margin: 5px 0 5px 0; outline: none;}
 
 select { min-width: 260px; visibility: hidden; }
+.cke_dialog select { visibility: visible; min-width: 0; }
 
 .button,
 .cancel,
@@ -341,6 +342,10 @@ input:invalid, textarea:invalid { background-color: #f0dddd; }
 .form_inputs {
 	width: 100%;
 }
+.move-handle {display: none;}
+.form_inputs fieldset {
+	width: 250px;
+}
 .form_inputs fieldset > ul,
 .form_inputs > ul {
 	width: 100%;
@@ -369,8 +374,9 @@ input:invalid, textarea:invalid { background-color: #f0dddd; }
 .form_inputs > ul > li > label,
 .form_inputs fieldset > ul > li .label, 
 .form_inputs > ul > li .label {
-	width: 27%;
+	width: 90%!important;
 	float: left;
+	text-align: left;
 	margin: 0 3% 0 0;
 	padding: 8px;
 }
@@ -385,15 +391,17 @@ input:invalid, textarea:invalid { background-color: #f0dddd; }
 }
 .form_inputs .input > input {
 	color: #666;
-	min-width: 260px;
+	min-width: 210px!important;
 }
 .form_inputs label small {
 	display: block;
 	font-weight: normal;
 	font-style: italic;
-	color: #c0c0c0;
+	font-size: 11px;
+	color: #aaa;
 }
-.form_inputs input:focus {
+.form_inputs input:focus,
+.form_inputs textarea:focus {
 	color: #4D4D4D;
 	outline: none;
 	border-color: #ed8e28;
@@ -413,11 +421,12 @@ Tables
 */
 
 table {
-  width: 100%;
+  width: 113%;
+  margin: -16px;
   margin-bottom: 18px;
   padding: 0;
   border-collapse: separate;
-  font-size: 13px;
+  font-size: 11px;
 }
 
 table th, table td {
@@ -426,6 +435,10 @@ table th, table td {
   text-align: left;
   vertical-align: middle;
   border-bottom: 1px solid #ddd;
+}
+
+table th.collapse, table td.collapse {
+	display: none;
 }
 
 table th {
@@ -547,6 +560,11 @@ table .headerSortUp.purple, table .headerSortDown.purple {
 
 table .actions {
 	text-align: right;
+}
+table .actions a {
+	display: block;
+	margin-bottom: 5px;
+	text-align: center;
 }
 
 /*
@@ -770,7 +788,7 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
 
 /* Alerts */
 .alert {
-  width: 100%;
+  width: 250px;
   background-color: rgba(0, 0, 0, 0.15);
   background-repeat: repeat-x;
   background-image: -khtml-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 0, 0, 0.15)));
@@ -794,7 +812,9 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
 
 .alert p {
   color: #ffffff;
-  margin-bottom: 0;
+  margin: 0;
+  width: 95%;
+  float: left;
 }
 
 .alert p + p {
@@ -965,7 +985,7 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
 }
 
 .tab-menu ul li, .tab-menu ol li, .pill li {
-  display: inline;
+	display: inline;
 }
 
 .tab-menu li a, .pill li a {
@@ -1079,7 +1099,7 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
 
 .topbar {
   height: 50px;
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   right: 0;
@@ -1112,6 +1132,7 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   float: left;
   margin: 0 10px 0 -15px;
   position: relative;
+  padding-left: 5px!important;
 }
 
 .topbar ul li {
@@ -1177,7 +1198,7 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   _width: 160px;
   margin-left: 0;
   margin-right: 0;
-  padding: 0;
+  padding: 0!important;
   text-align: left;
   border: 0;
   zoom: 1;
@@ -1212,6 +1233,7 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
 
 .topbar ul li ul li a:hover {
   background-color: #333;
+  margin-left: 0!important;
   background-color: rgba(255, 255, 255, 0.25);
   color: #fff;
 }
@@ -1329,7 +1351,7 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
 }
 
 .topbar ul li#dashboard-link {
-	margin: 8px 10px 8px 15px;
+	margin: 8px 10px 8px 5px;
 }
 
 .topbar ul li#dashboard-link a {
@@ -1353,12 +1375,11 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
 }
 
 .subbar {
-	position: fixed;
+	position: absolute;
 	z-index: 9997;
 	top: 25px!important;
 	right: 0;
 	left: 0;
-	width: 100%;
 	height: 30px;
 	background: #f7f7f7;
   	background-repeat: repeat-x;
@@ -1389,12 +1410,14 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
 	position: relative;
 }
 
+.subbar .wrapper {position: relative;}
 .subbar h2, .subbar h2 a {
   	color: #555555;
   	text-shadow: 1px 1px 0 #ffffff;
 	margin: 0;
-	padding: 0;
+	padding: 0 0 0 5px;
 	float: left;
+	font-size: 20px;
 }
 
 .subbar small {
@@ -1403,11 +1426,14 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
 	float: left;
 	text-shadow: 0 1px 1px #ffffff;
 	font-size: 13px;
+	display: none;
 }
 
 #shortcuts {
-	margin: 3px 30px 0 0;
-	float: right;
+	margin: 0!important;
+	position: absolute;
+	right: 10px;
+	top: 2px;
 }
 
 #shortcuts h6 {
@@ -1425,7 +1451,7 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
 #shortcuts ul li a.add {
 	margin-top: -4px;
 	float: left;
-	padding: 2px 10px 2px 7px!important;
+	padding: 0 10px 2px 7px!important;
 }
 
 #shortcuts ul li a.add:before {
@@ -1434,7 +1460,7 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
   font-size: 16px;
   font-weight: bold;
   text-shadow: 0 1px 0 #ffffff;
-  vertical-align: middle;
+  vertical-align: 0;
 }
 
 #shortcuts li a {
@@ -1513,7 +1539,7 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
 }
 
 .sections_bar {
-	position: fixed;
+	position: absolute;
 	z-index: 9995;
 	top: 101px!important;
 	right: 0;
@@ -1527,16 +1553,16 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
   	-webkit-box-shadow: 0px 0px 1px #aaaaaa;
 }
 .sections_bar ul li {float: left; position: relative; padding: 8px 10px 10px 10px;}
-.sections_bar ul li a {color: #797878; text-shadow: 1px 1px 1px #fff;}
-.sections_bar ul li.current a, .sections_bar ul li a:hover {color: #aeadad;}
+.sections_bar ul li a {color: #858585; text-shadow: 1px 1px 1px #fff;}
+.sections_bar ul li.current a, .sections_bar ul li a:hover {color: #4E4E4E;}
 .sections_bar ul li img {
 	position: absolute;
 	bottom: -12px;
 	left: 32%;
 }
 
-.ui-tabs-nav { width: 1180px; float: left; }
-.ui-tabs-nav li { position: relative; float: left; border-bottom-width: 0 !important; margin: 22px 0 0 5px; padding: 0; }
+.ui-tabs-nav {width: 100%; float: left;}
+.ui-tabs-nav li { position: relative; float: left; border-bottom-width: 0 !important; margin: 7px 0 0 5px; padding: 0; }
 .ui-tabs-panel { display: block; border-width: 0; background: none; float: left; }
 .ui-tabs-hide { display: none !important; }
 .ui-autocomplete { padding: 1px; width: 300px; height: 200px; position: absolute; background-color: #F3F3F3; border: 1px solid #EEE; height: auto; -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; }
@@ -1743,28 +1769,32 @@ footer {
 	background: #333333;
 	border-top: 1px solid #ececec;
 	width: 100%;
-	height: 50px;
+	height: 140px;
 	color: #eeeeee;
 	margin-top: -100px;
-	padding: 25px 0 25px 0;
+	padding: 0;
 	float: left;
 	text-shadow: 0 -1px 0 #000000;
 }
 
 footer p {
-	float: left ;
-	margin: 15px 0 0 5px;
+	float: left;
+	font-size: 12px;
+	margin: 5px 0 15px 0;
+	padding: 0 10px;
 }
 
 ul#lang {
-	margin-right: 20px;
-	float: right;
+	margin-right: 24px;
+	text-align: center;
 	text-shadow: 0 -1px 0 #ffffff;
 	color: #333333;
 }
 
 ul#lang .chzn-results {
 	width: 97%;
+	z-index: 999;
+	position: relative;
 }
 
 ul#lang .chzn-drop {
@@ -1833,6 +1863,7 @@ Ensure your main styling comes before this!
 */
 
 @media only screen and (min-width: 281px) {
+
 	#logo {
 		display: none;
 	}
@@ -1860,6 +1891,7 @@ Ensure your main styling comes before this!
 }
 
 @media only screen and (min-width: 481px) {
+
 	.wrapper {
 		width: 480px;
 		margin: 0 auto;
@@ -1872,6 +1904,8 @@ Ensure your main styling comes before this!
 		margin: 0 auto;
 		padding: 0;
 	}
+
+	section.title, section.item {width: 450px;}
 	
 	#logo {
 		display: none;
@@ -1879,6 +1913,10 @@ Ensure your main styling comes before this!
 	
 	.topbar {
 		height: 100px;
+	}
+	.topbar ul {
+		margin-left: -15px;
+		padding-left: 0px!important;
 	}
 	
 	.topbar ul li a {
@@ -1888,7 +1926,9 @@ Ensure your main styling comes before this!
 	.subbar {
 		margin-top: 70px;
 	}
-	
+	.subbar h2, .subbar h2 a {
+		padding: 0;
+	}	
 	.sections_bar {
 		margin-top: 55px;
 	}
@@ -1919,7 +1959,7 @@ Ensure your main styling comes before this!
 		float: left; 
 	}
 
-	.one_third { 
+	/*.one_third { 
 		width: 450px; 
 		float: left; 
 	}
@@ -1927,15 +1967,16 @@ Ensure your main styling comes before this!
 	.two_third { 
 		width: 450px; 
 		float: left; 
-	}
+	}*/
 
 	.one_quarter { 
-		width: 450px; 
-		float: left; 
+		width: 100px; 
+		float: left;
+		margin-right: 15px;
 	}
 	
 	.three_quarter {
-		width: 450px;
+		width: 310px;
 		float: left;
 	}
 	
@@ -1944,22 +1985,64 @@ Ensure your main styling comes before this!
 		float: left;
 		margin: 3px 15px 0 15px;
 	}
+
+	footer p {
+		padding: 0;
+	}
+
+	#shortcuts {
+		right: 0;
+	}
 	
+	.alert {
+		width: 450px;
+	}
+
+	.form_inputs fieldset > ul > li > label, 
+	.form_inputs fieldset > ul > div > li > label, 
+	.form_inputs > ul > div > li > label, 
+	.form_inputs > ul > li > label,
+	.form_inputs fieldset > ul > li .label, 
+	.form_inputs > ul > li .label {
+		width: 27%!important;
+		float: left;
+	}
+	
+	.form_inputs label small {
+		margin-left: 0;
+		margin-bottom: 0;
+	}
+	
+	.form_inputs fieldset {
+		width: auto;
+	}
+
+	table {
+		width: 100%;
+		margin: 0;
+		font-size: 13px;
+	}
+
 }
 
-@media only screen and (min-width: 769px) {	
+@media only screen and (min-width: 768px) {	
+
+	.topbar, .subbar, .sections_bar {position: fixed;}
+
 	.wrapper {
-		width: 768px;
+		width: 750px;
 		margin: 0 auto;
 	}
 	
 	#container {
-		width: 768px;
+		width: 750px;
 		height: 100%;
 		min-height: 100%;
 		margin: 0 auto;
 		padding: 0;
 	}
+
+	section.title, section.item {width: 720px;}
 	
 	#logo {
 		display: inherit;
@@ -1976,9 +2059,12 @@ Ensure your main styling comes before this!
 	.subbar {
 		margin-top: 25px;
 	}
+	.subbar small {
+		display: block;
+	}
 	
 	.sections_bar {
-		margin-top: 10px;
+		margin-top: 9px;
 	}
 	
 	#content-body {
@@ -1990,44 +2076,48 @@ Ensure your main styling comes before this!
 	}
 	
 	section#content {
-		width: 768px;
+		width: 750px;
 		padding: 0;
 		margin: 150px 0 150px 0;
 		float: left;
 	}
 	
 	.one_full { 
-		width: 768px; 
+		width: 750px; 
 		margin: 0; 
 		float: left; 
 	}
 
-	.one_half { 
-		width: 349px; 
+	.one_half {
+		width: 365px; 
 		margin-right: 15px; 
 		float: left; 
 	}
+	.one_half section.title, .one_half section.item {width: 335px;}
 
-	.one_third { 
-		width: 350px; 
+	/*.one_third { 
+		width: 250px; 
 		margin-right: 15px; 
 		float: left; 
 	}
+	.one_third section.title, .one_third section.item {width: 220px;}
 
 	.two_third { 
-		width: 786px; 
+		width: 500px; 
 		margin-right: 15px; 
 		float: left; 
 	}
-
+	.two_third section.title, .two_third section.item {width: 470px;}
+	*/
+	
 	.one_quarter { 
-		width: 230px; 
+		width: 200px; 
 		margin-right: 15px; 
 		float: left; 
 	}
 	
 	.three_quarter {
-		width: 520px;
+		width: 500px;
 		float: left;
 	}
 
@@ -2037,9 +2127,35 @@ Ensure your main styling comes before this!
 		margin: 3px 5px 0 5px;
 	}
 
+	footer p {
+		float: left;
+		padding: 10px 0 0 0;
+		width: 60%;
+	}
+	
+	ul#lang {
+		float: right;
+		margin-right: 0;
+	}
+	
+	.move-handle {display: block;}
+	fieldset {padding: 25px; margin: 5px 0 15px 0;}
+	.form_inputs .input > input {min-width: 210px!important;}
+	table th.collapse, table td.collapse {display: table-cell;}
+	table .actions a {
+		display: inline;
+		margin-bottom: 0;
+	}
+	.subbar h2, .subbar h2 a {font-size: 28px;}
+
+	.alert {
+		width: 720px;
+	}
+
 }
 
 @media only screen and (min-width: 1025px) {
+
 	.wrapper {
 		width: 1024px;
 		margin: 0 auto;
@@ -2052,6 +2168,8 @@ Ensure your main styling comes before this!
 		margin: 0 auto;
 		padding: 0;
 	}
+
+	section.title, section.item {width: 994px;}
 	
 	.topbar {
 		height: 50px;
@@ -2079,7 +2197,7 @@ Ensure your main styling comes before this!
 	}
 	
 	section#content {
-		width: 1000px;
+		width: 1024px;
 		padding: 0;
 		margin: 150px 0 150px 0;
 		float: left;
@@ -2092,12 +2210,13 @@ Ensure your main styling comes before this!
 	}
 
 	.one_half { 
-		width: 465px; 
-		margin-right: 15px; 
+		width: 500px; 
+		margin-right: 10px;
 		float: left; 
 	}
+	.one_half section.title, .one_half section.item {width: 470px;}
 
-	.one_third { 
+	/*.one_third { 
 		width: 350px; 
 		margin-right: 15px; 
 		float: left; 
@@ -2107,7 +2226,7 @@ Ensure your main styling comes before this!
 		width: 786px; 
 		margin-right: 15px; 
 		float: left; 
-	}
+	}*/
 
 	.one_quarter { 
 		width: 230px; 
@@ -2116,7 +2235,7 @@ Ensure your main styling comes before this!
 	}
 	
 	.three_quarter {
-		width: 750px;
+		width: 730px;
 		float: left;
 	}
 
@@ -2124,16 +2243,21 @@ Ensure your main styling comes before this!
 		width: 75px;
 		float: left;
 		margin: 3px 18px 0 18px;
+	}	
+
+	.alert {
+		width: 995px;
 	}
 
 }
 
 @media only screen and (min-width: 1281px) {	
+
 	.wrapper {
 		width: 1280px;
 		margin: 0 auto;
 	}
-	
+		
 	#container {
 		width: 1280px;
 		height: 100%;
@@ -2141,6 +2265,8 @@ Ensure your main styling comes before this!
 		margin: 0 auto;
 		padding: 0;
 	}
+
+	section.title, section.item {width: 1250px;}
 	
 	.topbar {
 		height: 50px;
@@ -2164,29 +2290,31 @@ Ensure your main styling comes before this!
 	}
 	
 	#analyticsWrapper, #analytics {
-		width: 1212px;	
+		width: 1280px;	
 	}
 	
 	section#content {
-		width: 1230px;
+		width: 1280px;
 		padding: 0;
 		margin: 170px 0 150px 0;
 		float: left;
 	}
 	
 	.one_full { 
-		width: 1230px; 
+		width: 1280px; 
 		margin: 0; 
 		float: left; 
 	}
+	.one_full section.title, .one_full section.item {width: 1250px;}
 
 	.one_half { 
-		width: 580px; 
-		margin-right: 15px; 
+		width: 625px; 
+		margin-right: 10px;
 		float: left; 
 	}
+	.one_half section.title, .one_half section.item {width: 595px;}
 
-	.one_third { 
+	/*.one_third { 
 		width: 350px; 
 		margin-right: 15px; 
 		float: left; 
@@ -2196,7 +2324,7 @@ Ensure your main styling comes before this!
 		width: 786px; 
 		margin-right: 15px; 
 		float: left; 
-	}
+	}*/
 
 	.one_quarter { 
 		width: 230px; 
@@ -2214,6 +2342,10 @@ Ensure your main styling comes before this!
 		float: left;
 		margin: 3px 35px 0 35px;
 	}
+
+	.alert {
+		width: 1250px;
+	}
 	
 }
 
@@ -2229,7 +2361,7 @@ Non-semantic helper classes
 */
 
 /* Last class to remove margin and change float */
-.last { margin-right: 0; float: right; }
+.last { margin-right: 0!important; float: right; }
 
 /* Some colors */
 .muted { color: #e6e6e6; }

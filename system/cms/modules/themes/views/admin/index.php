@@ -12,8 +12,8 @@
 				<tr>
 					<th width="50px" class="align-center"><?php echo lang('themes.default_theme_label'); ?></th>
 					<th width="15%"><?php echo lang('themes.theme_label'); ?></th>
-					<th><?php echo lang('global:description'); ?></th>
-					<th width="15%"><?php echo lang('global:author'); ?></th>
+					<th class="collapse"><?php echo lang('global:description'); ?></th>
+					<th class="collapse" width="15%"><?php echo lang('global:author'); ?></th>
 					<th width="50px" class="align-center"><?php echo lang('themes.version_label'); ?></th>
 					<th width="250px"></th>
 				</tr>
@@ -26,27 +26,31 @@
 				</tr>
 			</tfoot>
 			<tbody>
-				<?php foreach($themes as $theme): ?>
+				<?php foreach ($themes as $theme): ?>
 				<tr>
 					<td class="align-center"><input type="radio" name="theme" value="<?php echo $theme->slug; ?>"
-					<?php echo isset($theme->is_default) ? 'checked="checked" ' : ''; ?>/>
+						<?php echo isset($theme->is_default) ? 'checked' : ''; ?> />
 					</td>
-					<td><?php if (!empty($theme->website)): ?>
-									<?php echo anchor($theme->website, $theme->name, array('target'=>'_blank')); ?>
-								<?php else: ?>
-									<?php echo $theme->name; ?>
-								<?php endif; ?></td>
-					<td><?php echo $theme->description; ?></td>
-					<td><?php if ($theme->author_website): ?>
-									<?php echo anchor($theme->author_website, $theme->author, array('target'=>'_blank')); ?>
-								<?php else: ?>
-									<?php echo $theme->author; ?>
-								<?php endif; ?></td>
+					<td>
+						<?php if ( ! empty($theme->website)): ?>
+							<?php echo anchor($theme->website, $theme->name, array('target'=>'_blank')); ?>
+						<?php else: ?>
+							<?php echo $theme->name; ?>
+						<?php endif; ?>
+					</td>
+					<td class="collapse"><?php echo $theme->description; ?></td>
+					<td class="collapse">
+						<?php if ($theme->author_website): ?>
+							<?php echo anchor($theme->author_website, $theme->author, array('target'=>'_blank')); ?>
+						<?php else: ?>
+							<?php echo $theme->author; ?>
+						<?php endif; ?>
+					</td>
 	
 					<td class="align-center"><?php echo $theme->version; ?></td>
 					<td class="actions">
+						<?php echo isset($theme->options) ? anchor('admin/themes/options/'.$theme->slug, lang('themes.options'), 'title="'.$theme->name.'" class="button options modal"') : ''; ?>
 						<a href="<?php echo $theme->screenshot; ?>" rel="screenshots" title="<?php echo $theme->name; ?>" class="button modal"><?php echo lang('buttons.preview'); ?></a>
-						<?php echo anchor('admin/themes/options/' . $theme->slug, lang('themes.options'), 'title="'.$theme->name.'" class="button options modal"'); ?>
 						<?php if($theme->slug != 'admin_theme') { echo anchor('admin/themes/delete/' . $theme->slug, lang('buttons.delete'), 'class="confirm button delete"'); } ?>
 					</td>
 				</tr>

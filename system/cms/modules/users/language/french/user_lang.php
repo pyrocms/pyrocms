@@ -1,8 +1,8 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['user_register_header'] 	= 'Enregistrement';
-$lang['user_register_step1'] 	= '<strong>Etape 1:</strong> Enregistrez-vous';
-$lang['user_register_step2'] 	= '<strong>Etape 2:</strong> Activation';
+$lang['user_register_step1'] 	= '<strong>Etape 1&nbsp;:</strong> Enregistrez-vous';
+$lang['user_register_step2'] 	= '<strong>Etape 2&nbsp;:</strong> Activation';
 
 $lang['user_login_header'] 		= 'Login';
 
@@ -112,7 +112,7 @@ $lang['user_mass_delete_error'] 							= 'Vous devez d\'abord seclectionner des 
 // Register
 $lang['user_email_pass_missing'] = 'l\'e-mail ou le mot de passe ne sont pas renseignés.';
 $lang['user_email_exists'] = 'L\'adresse e-mail choisie est déjà affectée à un autre utilisateur.';
-$lang['user_register_error']				   = 'We think you are a bot. If we are mistaken please accept our apologies.'; #translate
+$lang['user_register_error']				   = 'Nous pensons que vous êtes un robot. Si nous faisons erreur, merci d\'daccepter nos excuses.';
 $lang['user_register_reasons'] = 'Abonnez-vous pour accéder aux espaces réservés. Vos paramètres seront enregistrés, plus de contenu et moins de publicité.';
 
 
@@ -193,14 +193,6 @@ $lang['profile_msn_handle'] = 'MSN';
 $lang['profile_aim_handle'] = 'AIM';
 $lang['profile_yim_handle'] = 'Yahoo! messenger';
 $lang['profile_gtalk_handle'] = 'GTalk';
-
-$lang['profile_avatar_section'] = 'Avatar';
-$lang['profile_social_section']       = 'Social';
-
-$lang['profile_gravatar'] = 'Gravatar';
-
-$lang['profile_edit_success'] = 'Votre profil a été enregistré.';
-$lang['profile_edit_error'] = 'Une erreur est survenue.';
 
 // -- Buttons ------------------------------------------------------------------------------------------------
 

@@ -13,8 +13,8 @@
             <tr>
                 <th><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all'));?></th>
                 <th><?php echo lang('name_label'); ?></th>
-                <th><?php echo lang('global:description'); ?></th>
-                <th><?php echo lang('templates.language_label'); ?></th>
+                <th class="collapse"><?php echo lang('global:description'); ?></th>
+                <th class="collapse"><?php echo lang('templates.language_label'); ?></th>
                 <th width="220"></th>
             </tr>
         </thead>
@@ -26,8 +26,8 @@
             <tr>
 				<td><?php echo form_checkbox('action_to[]', $template->id);?></td>
                 <td><?php echo $template->name; ?></td>
-                <td><?php echo $template->description; ?></td>
-                <td><?php echo $template->lang; ?></td>
+                <td class="collapse"><?php echo $template->description; ?></td>
+                <td class="collapse"><?php echo $template->lang; ?></td>
                 <td class="actions">
 				<div class="buttons buttons-small align-center">
 					<?php echo anchor('admin/templates/preview/' . $template->id, lang('buttons.preview'), 'class="button preview modal"'); ?>

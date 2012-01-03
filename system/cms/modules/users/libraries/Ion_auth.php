@@ -325,7 +325,7 @@ class Ion_auth
 			$user				= $this->ci->ion_auth_model->get_user($id)->row();
 
 			// Add in some extra details
-			$data['subject']			= $this->ci->settings->get('site_name') . ' - Account Activation';
+			$data['subject']			= $this->ci->settings->get('site_name') . ' - Account Activation'; // No translation needed as this is merely a fallback to Email Template subject
 			$data['slug'] 				= 'activation';
 			$data['to'] 				= $email;
 			$data['from'] 				= $this->ci->settings->get('server_email');
@@ -362,6 +362,18 @@ class Ion_auth
 	public function login($identity, $password, $remember=false)
 	{
 		if ($this->ci->ion_auth_model->login($identity, $password, $remember))
+		{
+			$this->set_message('login_successful');
+			return TRUE;
+		}
+
+		$this->set_error('login_unsuccessful');
+		return FALSE;
+	}
+	
+	public function force_login($user_id, $remember = false)
+	{
+		if ($this->ci->ion_auth_model->force_login($user_id, $remember))
 		{
 			$this->set_message('login_successful');
 			return TRUE;

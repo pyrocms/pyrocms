@@ -53,6 +53,9 @@ class Plugin_Pages extends Plugin
 								'</div>'.PHP_EOL;
 		}
 
+		// we'll unset the chunks array as Lex is grouchy about mixed data at the moment
+		unset($page['chunks']);
+
 		return $this->content() ? $page : $page['body'];
 	}
 
@@ -273,13 +276,13 @@ class Plugin_Pages extends Plugin
 		{
 			if ( ! is_numeric($child_id))
 			{
-				$parent_id = ($parent = $this->page_m->get_by(array('slug' => $parent_id))) ? $parent->id: 0;
+				$parent_id = ($parent = $this->page_m->get_by(array('slug' => $parent_id))) ? $parent->id : 0;
 			}
 
 			return $parent_id ? (int) $this->page_m->count_by(array(
-				(is_numeric($child) ? 'id' : 'slug') => $child,
+				(is_numeric($child_id) ? 'id' : 'slug') => $child_id,
 				'parent_id'	=> $parent_id
-			)) > 0: FALSE;
+			)) > 0 : FALSE;
 		}
 	}
 

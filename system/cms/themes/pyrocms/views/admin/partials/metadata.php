@@ -35,7 +35,7 @@
 <?php echo css('jquery/colorbox.css'); ?>
 <?php echo css('codemirror.css'); ?>
 
-<?php if($module_details['sections']): ?>
+<?php if ($module_details['sections']): ?>
 <style>section#content {margin-top: 170px!important;}</style>
 <?php endif; ?>
 
