@@ -22,6 +22,28 @@ class Plugin_Blog extends Plugin
 	 *		<p> {{ body }} </p>
 	 * {{ /blog:posts }}
 	 *
+	 *
+	 * {{ id }}
+	 * {{ title }}
+	 * {{ slug }}
+	 * {{ category_id }}
+	 * {{ attachment }}
+	 * {{ intro }}
+	 * {{ body }}
+	 * {{ parsed }}
+	 * {{ keywords }}
+	 * {{ author_id }}
+	 * {{ created_on }}
+	 * {{ updated_on }}
+	 * {{ comment_enabled }}
+	 * {{ intro }}
+	 * {{ status }}
+	 * {{ type }}
+	 * {{ category_title }}
+	 * {{ category_slug }}
+	 * {{ author_name }}
+	 * {{ url }}
+	 *
 	 * @param	array
 	 * @return	array
 	 */

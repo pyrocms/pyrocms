@@ -4,7 +4,7 @@
     {
         $(document).ready(function()
         {
-            var canvas = $('div#gmap_canvas');
+            var canvas = $('div#gmap_canvas_<?php echo md5($options['address']); ?>');
             canvas.css('width',<?php echo '"' . $options['width'] . '"'; ?>);
             canvas.css('height',<?php echo '"' . $options['height'] . '"'; ?>);
 
@@ -59,4 +59,4 @@
     })(jQuery);
 </script>
 
-<div id='gmap_canvas'></div>
+<div id='gmap_canvas_<?php echo md5($options['address']); ?>'></div>

@@ -88,8 +88,8 @@ class Plugin_Pages extends Plugin
 	 *
 	 * Usage:
 	 * {{ pages:children id="1" limit="5" }}
-	 *	<h2>{title}</h2>
-	 *	    {body}
+	 *	<h2>{{ title }}</h2>
+	 *	    {{ body }}
 	 * {{ /pages:children }}
 	 *
 	 * @return	array
