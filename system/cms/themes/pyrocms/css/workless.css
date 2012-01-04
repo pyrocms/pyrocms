@@ -1409,7 +1409,6 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
 	position: relative;
 }
 
-.subbar .wrapper {position: relative;}
 .subbar h2, .subbar h2 a {
   	color: #555555;
   	text-shadow: 1px 1px 0 #ffffff;
@@ -1867,7 +1866,6 @@ Ensure your main styling comes before this!
 */
 
 @media only screen and (min-width: 281px) {
-
 	#logo {
 		display: none;
 	}
@@ -2094,7 +2092,7 @@ Ensure your main styling comes before this!
 		margin-right: 15px; 
 		float: left; 
 	}
-	.one_half section.title, .one_half section.item {width: 335px;}
+	.one_half section.title, .one_half section.item {width: 345px;}
 
 	/*.one_third { 
 		width: 250px; 
@@ -2152,11 +2150,9 @@ Ensure your main styling comes before this!
 	.alert {
 		width: 720px;
 	}
-
 }
 
 @media only screen and (min-width: 1025px) {
-
 	.wrapper {
 		width: 1024px;
 		margin: 0 auto;
@@ -2218,7 +2214,7 @@ Ensure your main styling comes before this!
 	}
 
 	.one_half { 
-		width: 500px; 
+		width: 470px; 
 		margin-right: 10px;
 		float: left; 
 	}
@@ -2260,7 +2256,6 @@ Ensure your main styling comes before this!
 }
 
 @media only screen and (min-width: 1281px) {	
-
 	.wrapper {
 		width: 1280px;
 		margin: 0 auto;
@@ -2319,8 +2314,8 @@ Ensure your main styling comes before this!
 	.one_full section.title, .one_full section.item {width: 1250px;}
 
 	.one_half { 
-		width: 625px; 
-		margin-right: 10px;
+		width: 575px; 
+		margin-right: 5px;
 		float: left; 
 	}
 	.one_half section.title, .one_half section.item {width: 595px;}
