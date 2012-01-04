@@ -19,9 +19,8 @@
 <div class="subbar">
 	<div class="wrapper">
 		<h2><?php echo $module_details['name'] ? anchor('admin/'.$module_details['slug'], $module_details['name']) : lang('global:dashboard'); ?></h2>
-	
+		<spliter><?php if ( $this->uri->segment(2) ) { echo '&nbsp; | &nbsp;'; } ?></spliter>
 		<small>
-			<?php if ( $this->uri->segment(2) ) { echo '&nbsp; | &nbsp;'; } ?>
 			<?php echo $module_details['description'] ? $module_details['description'] : ''; ?>
 		</small>
 

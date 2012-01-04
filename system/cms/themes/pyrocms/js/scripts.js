@@ -43,13 +43,62 @@ jQuery(function($) {
 	 * This initializes all JS goodness
 	 */
 	pyro.init = function() {
-
+		var _otxt,_owidth,_twidth,tiid,titd
+		// Prevent the style to break layout.
+		$(window).resize(function(){
+			var _topbar_h = $('.topbar ul').height();
+			var _topbar_pos = $('.topbar ul').position();
+			
+			$('.topbar').css('height', Math.floor(_topbar_pos.top+_topbar_h)+'px');
+			$('.subbar').css({
+				'margin-top': Math.floor($('.topbar').height()-29)+'px',
+				'top':'0px'
+			});
+			$('.sections_bar').css({
+				'top': '0px',
+				'margin-top':Math.floor($('.topbar').height()-45)+'px',
+				'display':'block'
+			});
+			$('#container').css({
+				'top': '0px',
+				'margin-top': Math.floor($('.topbar').outerHeight(true) / 50 -1) *20+  'px',
+				'display':'block'
+			});
+			
+			// make the .subbar small is running , adjust the text size.
+			clearInterval(tiid);
+			clearTimeout(titd);
+			$('.subbar small').attr('style','');
+			titd = setTimeout(function(){
+				_otxt = $('.subbar small').text();
+				_owidth = $('.subbar small').width();
+				_twidth = $('.subbar small').css('width','auto').css('white-space','nowrap').width();
+				$('.subbar small').css('width',_owidth).css('white-space','none'); // roll back style.
+				if ( _owidth <=  _twidth ){
+					tiid = setInterval(function(){
+						var speed = 1;
+						var offset = parseInt($('.subbar small').css('text-indent'));
+						$('.subbar small').css('text-indent', offset-speed);
+						if ( Math.abs(offset) >  _twidth+100){
+							$('.subbar small').css('text-indent', _owidth+50);	
+						}
+					},25);
+				}
+			},3000);
+			
+			
+		})
+		
+		$(document).ready(function(){
+			$(window).trigger('resize');
+		}); 
+		
 		$('.topbar ul li:not(#dashboard-link)').hoverIntent({
 			sensitivity: 7,
-			interval: 75,
-			over: function(){ $(this).find('ul:first:hidden').css({visibility: "visible", display: "none"}).slideDown(400) },
+			interval: 0,
+			over: function(){ $(this).find('ul:first:hidden').css({visibility: "visible", display: "none"}).slideDown(200,'easeOutBack') },
 			timeout: 0,
-			out: function(){ $(this).parent().find('ul').slideUp(400) }
+			out: function(){ $(this).parent().find('ul').fadeOut(200) }
 		});
 
 		// Add class to dropdowns for styling
