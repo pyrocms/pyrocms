@@ -813,8 +813,6 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
 .alert p {
   color: #ffffff;
   margin: 0;
-  width: 95%;
-  float: left;
 }
 
 .alert p + p {
