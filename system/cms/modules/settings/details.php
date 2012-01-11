@@ -25,7 +25,8 @@ class Module_Settings extends Module {
 				'el' => 'Ρυθμίσεις',
 				'he' => 'הגדרות',
 				'lt' => 'Nustatymai',
-				'da' => 'Indstillinger'
+				'da' => 'Indstillinger',
+				'id' => 'Pengaturan'
 			),
 			'description' => array(
 				'sl' => 'Dovoljuje administratorjem posodobitev nastavitev kot je Ime strani, sporočil, email naslova itd.',
@@ -45,7 +46,8 @@ class Module_Settings extends Module {
 				'el' => 'Επιτρέπει στους διαχειριστές να τροποποιήσουν ρυθμίσεις όπως το Όνομα του Ιστοτόπου, τα μηνύματα και τις διευθύνσεις email, κ.α.',
 				'he' => 'ניהול הגדרות שונות של האתר כגון: שם האתר, הודעות, כתובות דואר וכו',
 				'lt' => 'Leidžia administratoriams keisti puslapio vavadinimą, žinutes, administratoriaus el. pašta ir kitą.',
-				'da' => 'Lader administratorer opdatere indstillinger som sidenavn, beskeder og email adresse, etc.'
+				'da' => 'Lader administratorer opdatere indstillinger som sidenavn, beskeder og email adresse, etc.',
+				'id' => 'Memungkinkan administrator untuk dapat memperbaharui pengaturan seperti nama situs, pesan dan alamat email, dsb.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
