@@ -17,6 +17,7 @@ class Widget_Html extends Widgets
 		'br' => 'Permite criar blocos de HTML customizados',
 		'nl' => 'Maak blokken met maatwerk HTML',
 		'ru' => 'Создание HTML-блоков с произвольным содержимым',
+		'id' => 'Membuat blok HTML apapun',
 	);
 	public $author		= 'Phil Sturgeon';
 	public $website		= 'http://philsturgeon.co.uk/';
