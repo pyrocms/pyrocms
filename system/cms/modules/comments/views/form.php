@@ -29,7 +29,7 @@
 
 		<li class="even">
 			<label for="body"><?php echo lang('comments.message_label'); ?>:</label><br />
-			<?php echo form_textarea(array('name'=>'comment', 'value' => $comment->comment, 'rows' => 5, 'class'=>'wysiwyg-simple')); ?>
+			<?php echo form_textarea(array('name'=>'comment', 'value' => $comment->comment, 'rows' => 5, 'class'=>'comments wysiwyg-simple')); ?>
 		</li>
 
 		<li>
