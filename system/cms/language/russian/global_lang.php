@@ -69,10 +69,10 @@ $lang['approve_label']					= 'Утвердить';
 $lang['unapprove_label']				= 'Отменить';
 $lang['publish_label']					= 'Опубликовать';
 $lang['upload_label']						= 'Загрузить';
-$lang['uninstall_label']				= 'Удалить';
-$lang['install_label']					= 'Установить';
-$lang['enable_label']						= 'Включить';
-$lang['disable_label']					= 'Отключить';
+$lang['global:uninstall']				= 'Удалить';
+$lang['global:install']					= 'Установить';
+$lang['global:enable']						= 'Включить';
+$lang['global:disable']					= 'Отключить';
 
 $lang['all_right_reserved']				= 'All Rights Reserved.';  #translate
 $lang['powered_by_pyrocms']				= 'Powered by PyroCMS';  #translate

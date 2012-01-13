@@ -18,6 +18,10 @@ class Plugin_Twitter extends Plugin
 	 *
 	 * Magic method to get a constant or global var
 	 *
+	 *	{{ twitter:feed username="PyroCMS" limit="5" }}
+	 *		<p> {{ text }} - <a href="https://twitter.com/#!/{{ username }}/status/{{ id }}" target="_blank">{{ timespan }}</a> </p>
+	 *	{{ /twitter:feed }}
+	 *
 	 * @param	string
 	 * @param	string
 	 * @return	string
@@ -56,6 +60,7 @@ class Plugin_Twitter extends Plugin
 			$tweet->text	= str_replace($username.': ', '', $tweet->text);
 			$tweet->text	= preg_replace(array_keys($patterns), $patterns, $tweet->text);
 			$tweet->timespan = strtolower(current(explode(',', timespan(strtotime($tweet->created_at))))).' ago';
+			$tweet->username = $username;
 		}
 		
 		return $tweets;

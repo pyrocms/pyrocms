@@ -2,7 +2,7 @@
 
 class Module_Settings extends Module {
 
-	public $version = '0.6';
+	public $version = '1.0';
 
 	public function info()
 	{
@@ -50,7 +50,7 @@ class Module_Settings extends Module {
 			'frontend' => FALSE,
 			'backend'  => TRUE,
 			'skip_xss' => TRUE,
-			'menu'	  => FALSE
+			'menu'	  => FALSE,
 		);
 	}
 

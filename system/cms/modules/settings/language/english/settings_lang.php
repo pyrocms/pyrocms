@@ -106,52 +106,49 @@ $lang['settings_enable_comments_desc']			= 'Allow users to post comments?';
 $lang['settings_moderate_comments']				= 'Moderate Comments';
 $lang['settings_moderate_comments_desc']		= 'Force comments to be approved before they appear on the site.';
 
-$lang['settings_comment_markdown']				= 'Allow Markdown'; #translate
-$lang['settings_comment_markdown_desc']			= 'Do you want to allow visitors to post comments using Markdown?'; #translate
+$lang['settings_comment_markdown']				= 'Allow Markdown';
+$lang['settings_comment_markdown_desc']			= 'Do you want to allow visitors to post comments using Markdown?';
 
 $lang['settings_version']						= 'Version';
 $lang['settings_version_desc']					= '';
 
-$lang['settings_site_public_lang']				= 'Public Languages'; #translate
-$lang['settings_site_public_lang_desc']			= 'Which are the languages really supported and offered on the front-end of your website?'; #translate
+$lang['settings_site_public_lang']				= 'Public Languages';
+$lang['settings_site_public_lang_desc']			= 'Which are the languages really supported and offered on the front-end of your website?';
 
-$lang['settings_admin_force_https']				= 'Force HTTPS for Control Panel?'; #translate
-$lang['settings_admin_force_https_desc']		= 'Allow only the HTTPS protocol when using the Control Panel?'; #translate
+$lang['settings_admin_force_https']				= 'Force HTTPS for Control Panel?';
+$lang['settings_admin_force_https_desc']		= 'Allow only the HTTPS protocol when using the Control Panel?';
 
-$lang['settings_files_cache']					= 'Files Cache'; #translate
-$lang['settings_files_cache_desc']				= 'When outputting an image via site.com/files what shall we set the cache expiration for?'; #translate
+$lang['settings_files_cache']					= 'Files Cache';
+$lang['settings_files_cache_desc']				= 'When outputting an image via site.com/files what shall we set the cache expiration for?';
 
-$lang['settings_auto_username']					= 'Auto Username'; #translate
-$lang['settings_auto_username_desc']			= 'Create the username automatically, meaning users can skip making one on registration.'; #translate
+$lang['settings_auto_username']					= 'Auto Username';
+$lang['settings_auto_username_desc']			= 'Create the username automatically, meaning users can skip making one on registration.';
 
-$lang['settings_registered_email']				= 'User Registered Email'; #translate
-$lang['settings_registered_email_desc']			= 'Send a notification email to the contact e-mail when someone registers.'; #translate
+$lang['settings_registered_email']				= 'User Registered Email';
+$lang['settings_registered_email_desc']			= 'Send a notification email to the contact e-mail when someone registers.';
 
-#section titles
+# section titles
 $lang['settings_section_general']				= 'General';
 $lang['settings_section_integration']			= 'Integration';
 $lang['settings_section_comments']				= 'Comments';
 $lang['settings_section_users']					= 'Users';
 $lang['settings_section_statistics']			= 'Statistics';
 $lang['settings_section_twitter']				= 'Twitter';
-$lang['settings_section_files']					= 'Files'; #translate
+$lang['settings_section_files']					= 'Files';
 
-#checkbox and radio options
+# checkbox and radio options
 $lang['settings_form_option_Open']				= 'Open';
 $lang['settings_form_option_Closed']			= 'Closed';
 $lang['settings_form_option_Enabled']			= 'Enabled';
 $lang['settings_form_option_Disabled']			= 'Disabled';
 $lang['settings_form_option_Required']			= 'Required';
 $lang['settings_form_option_Optional']			= 'Optional';
-$lang['settings_form_option_Oldest First']		= 'Oldest First'; #translate
-$lang['settings_form_option_Newest First']		= 'Newest First'; #translate
-$lang['settings_form_option_Text Only']			= 'Text Only'; #translate
-$lang['settings_form_option_Allow Markdown']	= 'Allow Markdown'; #translate
-$lang['settings_form_option_Yes']				= 'Yes'; #translate
-$lang['settings_form_option_No']				= 'No'; #translate
-
-// titles
-$lang['settings_edit_title']					= 'Edit settings';
+$lang['settings_form_option_Oldest First']		= 'Oldest First';
+$lang['settings_form_option_Newest First']		= 'Newest First';
+$lang['settings_form_option_Text Only']			= 'Text Only';
+$lang['settings_form_option_Allow Markdown']	= 'Allow Markdown';
+$lang['settings_form_option_Yes']				= 'Yes';
+$lang['settings_form_option_No']				= 'No';
 
 // messages
 $lang['settings_no_settings']					= 'There are currently no settings.';

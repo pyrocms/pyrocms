@@ -61,11 +61,11 @@ $lang['approve_label']					= 'Oddobri';
 $lang['unapprove_label']				= 'Prekliči oddobritev';
 $lang['publish_label'] 					= 'Objavi';
 $lang['upload_label'] 					= 'Naloži';
-$lang['uninstall_label'] 				= 'Odstrani';
-$lang['install_label'] 					= 'Namesti';
-$lang['enable_label']					= 'Omogoči';
-$lang['disable_label'] 					= 'Onemogoči';
-$lang['upgrade_label'] 					= 'Posodobi';
+$lang['global:uninstall'] 				= 'Odstrani';
+$lang['global:install'] 					= 'Namesti';
+$lang['global:enable']					= 'Omogoči';
+$lang['global:disable'] 					= 'Onemogoči';
+$lang['global:upgrade'] 					= 'Posodobi';
 
 $lang['all_right_reserved']				= 'All Rights Reserved.';  #translate
 $lang['powered_by_pyrocms']				= 'Powered by PyroCMS';  #translate

@@ -24,17 +24,17 @@
 					<td class="actions">
 						<?php if ($module['installed']): ?>
 							<?php if ($module['enabled']): ?>
-								<?php echo anchor('admin/modules/disable/' . $module['slug'], lang('disable_label'), array('class'=>'confirm button small', 'title'=>lang('modules.confirm_disable'))); ?>
+								<?php echo anchor('admin/modules/disable/' . $module['slug'], lang('global:disable'), array('class'=>'confirm button small', 'title'=>lang('modules.confirm_disable'))); ?>
 							<?php else: ?>
-								<?php echo anchor('admin/modules/enable/' . $module['slug'], lang('enable_label'), array('class'=>'confirm button small', 'title'=>lang('modules.confirm_enable'))); ?>
+								<?php echo anchor('admin/modules/enable/' . $module['slug'], lang('global:enable'), array('class'=>'confirm button small', 'title'=>lang('modules.confirm_enable'))); ?>
 							<?php endif; ?>
 							<?php if ($module['is_current']): ?>
-								<?php echo anchor('admin/modules/uninstall/' . $module['slug'], lang('uninstall_label'), array('class'=>'confirm button small', 'title'=>lang('modules.confirm_uninstall'))); ?>
+								<?php echo anchor('admin/modules/uninstall/' . $module['slug'], lang('global:uninstall'), array('class'=>'confirm button small', 'title'=>lang('modules.confirm_uninstall'))); ?>
 							<?php else: ?>
-								<?php echo anchor('admin/modules/upgrade/' . $module['slug'], lang('upgrade_label'), array('class'=>'confirm button small', 'title'=>lang('modules.confirm_upgrade'))); ?>
+								<?php echo anchor('admin/modules/upgrade/' . $module['slug'], lang('global:upgrade'), array('class'=>'confirm button small', 'title'=>lang('modules.confirm_upgrade'))); ?>
 							<?php endif; ?>
 						<?php else: ?>
-							<?php echo anchor('admin/modules/install/' . $module['slug'], lang('install_label'), array('class'=>'confirm button small', 'title'=>lang('modules.confirm_install'))); ?>
+							<?php echo anchor('admin/modules/install/' . $module['slug'], lang('global:install'), array('class'=>'confirm button small', 'title'=>lang('modules.confirm_install'))); ?>
 						<?php endif; ?>
 						<?php echo anchor('admin/modules/delete/' . $module['slug'], lang('global:delete'), array('class'=>'confirm button small', 'title'=>lang('modules.confirm_delete'))); ?>
 					</td>

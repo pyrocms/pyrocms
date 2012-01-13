@@ -61,11 +61,11 @@ $lang['approve_label']					= 'Approve'; #translate
 $lang['unapprove_label']				= 'Unapprove'; #translate
 $lang['publish_label'] 					= 'פרסם';
 $lang['upload_label'] 					= 'Upload'; #translate
-$lang['uninstall_label'] 				= 'Uninstall'; #translate
-$lang['install_label'] 					= 'התקן';
-$lang['enable_label']					= 'הפעל';
-$lang['disable_label'] 					= 'כבה';
-$lang['upgrade_label'] 					= 'Upgrade'; #translate
+$lang['global:uninstall'] 				= 'Uninstall'; #translate
+$lang['global:install'] 					= 'התקן';
+$lang['global:enable']					= 'הפעל';
+$lang['global:disable'] 					= 'כבה';
+$lang['global:upgrade'] 					= 'Upgrade'; #translate
 
 $lang['all_right_reserved']				= 'All Rights Reserved.';  #translate
 $lang['powered_by_pyrocms']				= 'Powered by PyroCMS';  #translate

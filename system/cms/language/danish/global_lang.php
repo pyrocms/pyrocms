@@ -61,11 +61,11 @@ $lang['approve_label']					= 'Godkend';
 $lang['unapprove_label']				= 'Godkend ikke';
 $lang['publish_label'] 					= 'Publicér';
 $lang['upload_label'] 					= 'Upload';
-$lang['uninstall_label'] 				= 'Afinstallér';
-$lang['install_label'] 					= 'Installér';
-$lang['enable_label']					= 'Aktivér';
-$lang['disable_label'] 					= 'Deaktivér';
-$lang['upgrade_label'] 					= 'Opgradér';
+$lang['global:uninstall'] 				= 'Afinstallér';
+$lang['global:install'] 					= 'Installér';
+$lang['global:enable']					= 'Aktivér';
+$lang['global:disable'] 					= 'Deaktivér';
+$lang['global:upgrade'] 					= 'Opgradér';
 
 $lang['all_right_reserved']				= 'All Rights Reserved.';  #translate
 $lang['powered_by_pyrocms']				= 'Powered by PyroCMS';  #translate
