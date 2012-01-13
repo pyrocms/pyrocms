@@ -53,7 +53,7 @@
 
 #files-uploader { position: relative; margin: 0 5px; }
 #files-uploader .files-uploader-browser { padding-bottom: 75px; }
-#files-uploader > .buttons { position: absolute; bottom: 0; right: 0; }
+#files-uploader > .buttons { position: absolute; bottom: 20px; right: 0; }
 #files-uploader form.file_upload {
 	background-color: transparent;
 	border: 2px dashed #d0d0d0;
@@ -116,7 +116,9 @@
     float: right;
     margin-right: 0;
 }
-
+#files-uploader-queue .file_upload_cancel .button {
+	margin-left: 5px;
+}
 
 
 #grid { display: none; }
