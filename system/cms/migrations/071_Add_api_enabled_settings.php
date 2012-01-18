@@ -8,7 +8,7 @@ class Migration_Add_api_enabled_settings extends CI_Migration {
 			'value' => array(
 				'name' => 'value',
 				'type' => 'TEXT',
-				'null' => true,
+				'null' => TRUE,
 			),
 		));
 		
@@ -17,12 +17,13 @@ class Migration_Add_api_enabled_settings extends CI_Migration {
 			'version' => '1.0',
 			'name' => 'a:1:{s:2:"en";s:14:"API Management";}',
 			'description' => 'a:1:{s:2:"en";s:66:"Set up a RESTful API with API Keys and out in JSON, XML, CSV, etc.";}',
-			'is_frontend' => true,
-			'is_backend' => true,
+			'is_frontend' => TRUE,
+			'is_backend' => TRUE,
 			'menu' => 'utilities',
-			'enabled' => 1,
-			'is_core' => 1,
-			'installed' => 1,
+			'enabled' => TRUE,
+			'is_core' => TRUE,
+			'installed' => TRUE,
+			'skip_xss' => FALSE,
 		));
 		
 		$this->db->insert_batch('settings', array(
