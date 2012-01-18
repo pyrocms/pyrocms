@@ -25,8 +25,8 @@
 	pyro.admin_theme_url			= "<?php echo BASE_URL . $this->admin_theme->path; ?>";
 	pyro.apppath_uri				= "<?php echo APPPATH_URI; ?>";
 	pyro.base_uri					= "<?php echo BASE_URI; ?>";
-	pyro.lang.remove				= "<?php echo lang('global:remove'); ?>"
-	pyro.lang.delete				= "<?php echo lang('global:delete'); ?>"
+	pyro.lang.remove				= "<?php echo lang('global:remove'); ?>";
+	pyro.lang.delete				= "<?php echo lang('global:delete'); ?>";
 	pyro.lang.dialog_message 		= DIALOG_MESSAGE;
 </script>
 
