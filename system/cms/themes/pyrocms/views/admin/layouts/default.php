@@ -41,6 +41,10 @@
 	
 	<!-- metadata needs to load before some stuff -->
 	<?php file_partial('metadata'); ?>
+	
+	<!--[if lt IE 9]>
+	<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
 		
 </head>
 
