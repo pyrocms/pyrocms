@@ -12,7 +12,8 @@ $lang['modules.core_list']						= 'Модули ядра';
 $lang['modules.addon_list']						= 'Дополнения';
 $lang['modules.introduction']					= 'В списке ниже представлены установленные модули, их описание и номер версии.';
 
-$lang['modules.disable_error']				= 'Во время отключения модуля "%s" произошла ошибка.';
+$lang['modules.core_introduction']		 = 'Below is a list of core modules and their information. You may disable them but do so with extreme care. Disabling modules such as Users will render your site inoperable.'; #translate
+$lang['modules.disable_error'] 				= 'Во время отключения модуля "%s" произошла ошибка.';
 $lang['modules.disable_success']			= 'Модуль "%s" отключен.';
 $lang['modules.enable_error']					= 'Во время включения модуля "%s" произошла ошибка.';
 $lang['modules.enable_success']				= 'Модуль "%s" включен.';

@@ -3,10 +3,10 @@
 	border-right: 1px solid #eeeeee;
 }
 
-#files-browser-nav ul,
-#files-browser-nav ul li,
-#files-toolbar ul,
-#files-toolbar ul li {
+#files-browser-nav > ul,
+#files-browser-nav > ul > li,
+#files-toolbar > ul,
+#files-toolbar > ul > li {
 	list-style: none;
 	padding: 0px;
 	margin: 0px;
@@ -37,7 +37,7 @@
 }
 
 #files-toolbar { margin: 5px -10px 10px; border: 1px solid #ccc; border-right: 0; border-left: 0; padding: 5px; background: #f9f9f9; }
-#files-toolbar ul li {
+#files-toolbar > ul > li {
 	display: inline-block;
 	padding-left: 5px;
 	vertical-align: middle;
@@ -53,7 +53,7 @@
 
 #files-uploader { position: relative; margin: 0 5px; }
 #files-uploader .files-uploader-browser { padding-bottom: 75px; }
-#files-uploader > .buttons { position: absolute; bottom: 0; right: 0; }
+#files-uploader > .buttons { position: absolute; bottom: 20px; right: 0; }
 #files-uploader form.file_upload {
 	background-color: transparent;
 	border: 2px dashed #d0d0d0;
@@ -116,7 +116,9 @@
     float: right;
     margin-right: 0;
 }
-
+#files-uploader-queue .file_upload_cancel .button {
+	margin-left: 5px;
+}
 
 
 #grid { display: none; }
