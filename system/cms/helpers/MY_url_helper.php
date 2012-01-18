@@ -164,7 +164,7 @@ function shorten_url($url = '')
 {
 	$CI =& get_instance();
 	
-	$CI->load->library('curl');
+	$CI->load->spark('curl/1.2.1');
 
 	if(!$url)
 	{
@@ -179,5 +179,3 @@ function shorten_url($url = '')
 
 	return $CI->curl->simple_get('http://tinyurl.com/api-create.php?url='.$url);
 }
-
-?>
