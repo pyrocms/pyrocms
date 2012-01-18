@@ -16,9 +16,9 @@
 			</thead>
 			<tbody>
 			<?php foreach($all_modules as $module): ?>
-			<?php if($module['is_core']) continue; ?>
+			<?php if ($module['is_core']) continue; ?>
 				<tr>
-					<td class="collapse"><?php echo $module['is_backend'] ? anchor('admin/'  . $module['slug'], $module['name']) : $module['name']; ?></td>
+					<td class="collapse"><?php echo $module['is_backend'] ? anchor('admin/'.$module['slug'], $module['name']) : $module['name']; ?></td>
 					<td><?php echo $module['description']; ?></td>
 					<td class="align-center"><?php echo $module['version']; ?></td>
 					<td class="actions">
@@ -70,9 +70,9 @@
 					<td class="align-center"><?php echo $module['version']; ?></td>
 					<td class="actions">
 					<?php if ($module['enabled']): ?>
-     					<?php echo anchor('admin/modules/disable/' . $module['slug'], lang('disable_label'), array('class'=>'confirm button small', 'title'=>lang('modules.confirm_disable'))); ?>
+     					<?php echo anchor('admin/modules/disable/' . $module['slug'], lang('global:disable'), array('class'=>'confirm button small', 'title'=>lang('modules.confirm_disable'))); ?>
 					<?php else: ?>
-						<?php echo anchor('admin/modules/enable/' . $module['slug'], lang('enable_label'), array('class'=>'confirm button small', 'title'=>lang('modules.confirm_enable'))); ?>
+						<?php echo anchor('admin/modules/enable/' . $module['slug'], lang('global:enable'), array('class'=>'confirm button small', 'title'=>lang('modules.confirm_enable'))); ?>
 					<?php endif; ?>
 					</td>
 				</tr>
