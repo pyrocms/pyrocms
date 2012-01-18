@@ -126,7 +126,6 @@ class Admin extends Admin_Controller
 					? $this->session->set_flashdata('success', sprintf(lang('groups.edit_success'), $this->input->post('name')))
 					: $this->session->set_flashdata('error', sprintf(lang('groups.edit_error'), $this->input->post('name')));
 
-				// Redirect
 				redirect('admin/groups');
 			}
 		}

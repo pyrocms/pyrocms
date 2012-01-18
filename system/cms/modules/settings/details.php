@@ -58,7 +58,7 @@ class Module_Settings extends Module {
 	{
 		$this->dbforge->drop_table('settings');
 
-		$settings = "
+		$this->db->query("
 			CREATE TABLE " . $this->db->dbprefix('settings') . " (
 			  `slug` varchar(30) collate utf8_unicode_ci NOT NULL,
 			  `title` varchar(100) collate utf8_unicode_ci NOT NULL,
@@ -75,7 +75,7 @@ class Module_Settings extends Module {
 			UNIQUE KEY `unique - slug` (`slug`),
 			KEY `index - slug` (`slug`)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Stores all sorts of settings for the admin to change';
-		";
+		");
 
 		// regarding ordering... any additions to this table can have an order value the same as a sibling in the same section.
 		// for example if you add to the Email tab give it a value in the range of 983 to 975
@@ -153,7 +153,7 @@ class Module_Settings extends Module {
 			),
 		));
 		
-		if ($this->db->query($settings) && $this->db->query($default_settings))
+		if ($this->db->query($default_settings))
 		{
 			return TRUE;
 		}
