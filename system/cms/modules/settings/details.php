@@ -124,10 +124,35 @@ class Module_Settings extends Module {
 			 ('default_theme','Default Theme','Select the theme you want users to see by default.','','default','default','func:get_themes','1','0','','0'),
 			 ('admin_theme','Control Panel Theme','Select the theme for the control panel.','','pyrocms','','func:get_themes','1','0','','0'),
 			 ('admin_force_https','Force HTTPS for Control Panel?','Allow only the HTTPS protocol when using the Control Panel?','radio','0','','1=Yes|0=No','1','1','','0'),
-			 ('version', 'Version', '', 'text', '1.0', '".CMS_VERSION."', '', '0', '0', '','0'),
 			 ('addons_upload', 'Addons Upload Permissions', 'Keeps mere admins from uploading addons by default', 'text', '0', '0', '', '1', '0', '','0');
 		";
-
+		
+		// TODO Convert more settings over to use this syntax
+		$this->db->insert_batch('settings', array(
+			array(
+				'slug'			=> 'api_enabled',
+				'title'			=> 'API Enabled',
+				'description'	=> 'Allow API access to all modules which have an API controller.',
+				'`default`' 	=> false,
+				'type'			=> 'select',
+				'`options`'		=> '0=Disabled|1=Enabled',
+				'is_required'	=> false,
+				'is_gui' 		=> false,
+				'module' 		=> 'files'
+			),
+			array(
+				'slug'			=> 'api_user_keys',
+				'title'			=> 'API User Keys',
+				'description'	=> 'Allow users to sign up for API keys (if the API is Enabled).',
+				'`default`' 	=> false,
+				'type'			=> 'select',
+				'`options`'		=> '0=Disabled|1=Enabled',
+				'is_required'	=> false,
+				'is_gui' 		=> false,
+				'module' 		=> 'files'
+			),
+		));
+		
 		if ($this->db->query($settings) && $this->db->query($default_settings))
 		{
 			return TRUE;

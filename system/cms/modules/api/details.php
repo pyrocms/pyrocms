@@ -2,7 +2,7 @@
 
 class Module_Api extends Module
 {
-	public $version = '1.0';
+	public $version = '1.0.0';
 
 	public function info()
 	{
@@ -39,30 +39,7 @@ class Module_Api extends Module
 
 	public function install()
 	{
-		$this->db->insert_batch('settings', array(
-			array(
-				'slug'			=> 'api_enabled',
-				'title'			=> 'API Enabled',
-				'description'	=> 'Allow API access to all modules which have an API controller.',
-				'`default`' 	=> false,
-				'type'			=> 'select',
-				'`options`'		=> '0=Disabled|1=Enabled',
-				'is_required'	=> false,
-				'is_gui' 		=> false,
-				'module' 		=> 'files'
-			),
-			array(
-				'slug'			=> 'api_user_keys',
-				'title'			=> 'API User Keys',
-				'description'	=> 'Allow users to sign up for API keys (if the API is Enabled).',
-				'`default`' 	=> false,
-				'type'			=> 'select',
-				'`options`'		=> '0=Disabled|1=Enabled',
-				'is_required'	=> false,
-				'is_gui' 		=> false,
-				'module' 		=> 'files'
-			),
-		));
+		return TRUE;
 	}
 
 	public function uninstall()
