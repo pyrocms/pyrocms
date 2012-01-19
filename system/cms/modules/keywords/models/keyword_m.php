@@ -11,7 +11,7 @@
 class Keyword_m extends MY_Model {
 	
 	/**
-	 * Get applied
+	 * Get keywords applied
 	 *
 	 * Gets all the keywords applied with a certain hash
 	 *
@@ -26,6 +26,25 @@ class Keyword_m extends MY_Model {
 			->join('keywords', 'keyword_id = keywords.id')
 			->order_by('name')
 			->get('keywords_applied')
+			->result();
+	}
+	
+	/**
+	 * Get hashes applied
+	 *
+	 * Does the reverse of get_applied()
+	 * Gets all the hashes applied with certain keywords
+	 *
+	 * @param	string	$names	The array of names to get
+	 * @return	array
+	 */
+	public function get_hashes_applied($names)
+	{	
+		return $this->db
+			->or_where_in('name', $names)
+			->join('keywords_applied', 'keywords_applied.keyword_id = keywords.id')
+			->order_by('name')
+			->get('keywords')
 			->result();
 	}
 	
