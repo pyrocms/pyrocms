@@ -35,6 +35,11 @@
 <?php echo css('jquery/colorbox.css'); ?>
 <?php echo css('codemirror.css'); ?>
 
+<!--[if lt IE 9]>
+<?php echo css('ie8.css'); ?>
+<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
 <?php if ($module_details['sections']): ?>
 <style>section#content {margin-top: 170px!important;}</style>
 <?php endif; ?>
