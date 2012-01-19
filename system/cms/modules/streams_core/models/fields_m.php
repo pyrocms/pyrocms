@@ -437,9 +437,9 @@ class Fields_m extends CI_Model {
 	{
 		$this->db->select(STREAMS_TABLE.'.*, '.STREAMS_TABLE.'.view_options as stream_view_options, '.STREAMS_TABLE.'.id as stream_id, '.FIELDS_TABLE.'.id as field_id, '.FIELDS_TABLE.'.*, '.FIELDS_TABLE.'.view_options as field_view_options');
 		$this->db->from(STREAMS_TABLE.', '.ASSIGN_TABLE.', '.FIELDS_TABLE);
-		$this->db->where(PYROSTREAMS_DB_PRE.STREAMS_TABLE.'.id', PYROSTREAMS_DB_PRE.ASSIGN_TABLE.'.stream_id', FALSE);
-		$this->db->where(PYROSTREAMS_DB_PRE.FIELDS_TABLE.'.id', PYROSTREAMS_DB_PRE.ASSIGN_TABLE.'.field_id', FALSE);
-		$this->db->where(PYROSTREAMS_DB_PRE.ASSIGN_TABLE.'.field_id', $field_id, FALSE);
+		$this->db->where($this->db->dbprefix(STREAMS_TABLE).'.id', $this->db->dbprefix(ASSIGN_TABLE).'.stream_id', FALSE);
+		$this->db->where($this->db->dbprefix(FIELDS_TABLE).'.id', $this->db->dbprefix(ASSIGN_TABLE).'.field_id', FALSE);
+		$this->db->where($this->db->dbprefix(ASSIGN_TABLE).'.field_id', $field_id, FALSE);
 		
 		$obj = $this->db->get();
 		
@@ -461,9 +461,9 @@ class Fields_m extends CI_Model {
 	{
 		$this->db->select(STREAMS_TABLE.'.*, '.STREAMS_TABLE.'.view_options as stream_view_options, '.STREAMS_TABLE.'.id as stream_id, '.FIELDS_TABLE.'.id as field_id, '.FIELDS_TABLE.'.*, '.FIELDS_TABLE.'.view_options as field_view_options');
 		$this->db->from(STREAMS_TABLE.', '.ASSIGN_TABLE.', '.FIELDS_TABLE);
-		$this->db->where(PYROSTREAMS_DB_PRE.STREAMS_TABLE.'.id', PYROSTREAMS_DB_PRE.ASSIGN_TABLE.'.stream_id', FALSE);
-		$this->db->where(PYROSTREAMS_DB_PRE.FIELDS_TABLE.'.id', PYROSTREAMS_DB_PRE.ASSIGN_TABLE.'.field_id', FALSE);
-		$this->db->where(PYROSTREAMS_DB_PRE.ASSIGN_TABLE.'.stream_id', $stream_id, FALSE);
+		$this->db->where($this->db->dbprefix(STREAMS_TABLE).'.id', $this->db->dbprefix(ASSIGN_TABLE).'.stream_id', FALSE);
+		$this->db->where($this->db->dbprefix(FIELDS_TABLE).'.id', $this->db->dbprefix(ASSIGN_TABLE).'.field_id', FALSE);
+		$this->db->where($this->db->dbprefix(ASSIGN_TABLE).'.stream_id', $stream_id, FALSE);
 		
 		$obj = $this->db->get();
 			
