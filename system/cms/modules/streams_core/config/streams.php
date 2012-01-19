@@ -58,12 +58,34 @@ $config['streams:schema'] = array(
         				'constraint' => 60
         			),
 	        	'stream_slug' => array(
-	        			'type' => 'VARCHAR', 'constraint' => 60),
-	        			'about' => array('type' => 'VARCHAR', 'constraint' => 255),
-	        			'view_options' => array('type' => 'BLOB'),
-	        			'title_column' => array('type' => 'VARCHAR', 'constraint' => 255, 'null' => true),
-	        			'sorting' => array('type' => 'ENUM', 'constraint' => "'title', 'custom'", 'default' => 'title')
+	        			'type' => 'VARCHAR',
+	        			'constraint' => 60
 	        		),
+	        	'stream_namespace' => array(
+	        			'type' => 'VARCHAR',
+	        			'constraint' => 60
+	        		),
+	        	'stream_prefix' => array(
+	        			'type' => 'VARCHAR',
+	        			'constraint' => 60
+	        		),
+    			'about' => array(
+    					'type' => 'VARCHAR',
+    					'constraint' => 255
+    				),
+    			'view_options' => array(
+    					'type' => 'BLOB'
+    				),
+    			'title_column' => array(
+    					'type' => 'VARCHAR',
+    					'constraint' => 255,
+    					'null' => true
+    				),
+    			'sorting' => array(
+    					'type' => 'ENUM',
+    					'constraint' => "'title', 'custom'",
+    					'default' => 'title')
+	     ),
         'primary_key' => 'id'),
     $config['streams:fields_table'] => array(
         'fields' => array(
@@ -78,11 +100,25 @@ $config['streams:schema'] = array(
 	        			'constraint' => 60
 	        	),
 	        	'field_slug' => array(
-	        			'type' => 'VARCHAR', 'constraint' => 60),
-			        	'field_type' => array('type' => 'VARCHAR', 'constraint' => 50),
-			        	'field_data' => array('type' => 'BLOB', 'null' => true),
-			        	'view_options' => array('type' => 'BLOB', 'null' => true)
-			        ),
+	        			'type' => 'VARCHAR',
+	        			'constraint' => 60
+	        		),
+	        	'field_namespace' => array(
+	        			'type' => 'VARCHAR',
+	        			'constraint' => 60
+	        		),
+	        	'field_type' => array(
+	        			'type' => 'VARCHAR',
+	        			'constraint' => 50
+	        		),
+	        	'field_data' => array(
+	        			'type' => 'BLOB',
+	        			'null' => true
+	        		),
+	        	'view_options' => array(
+	        			'type' => 'BLOB',
+	        			'null' => true)
+	     ),
         'primary_key' => 'id'),
     $config['streams:fields_table'] => array(
         'fields' => array(
@@ -123,7 +159,7 @@ $config['streams:schema'] = array(
 	        			'constraint' => 255,
 	        			'null' => true
 	        		)
-	        	),
+	    ),
         'primary_key' => 'id'),
 	$config['streams:searches_table'] => array(
         'fields' => array(
@@ -155,6 +191,6 @@ $config['streams:schema'] = array(
 	        			'type' => 'VARCHAR',
 	        			'constraint' => 255
 	        		)
-	        	),
+	    ),
         'primary_key' => 'id')
-    );
+);
