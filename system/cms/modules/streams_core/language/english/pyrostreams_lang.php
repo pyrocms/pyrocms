@@ -73,6 +73,7 @@ $lang['streams.updated_date']							= "Updated Date";
 $lang['streams.value']									= "Value";
 $lang['streams.manage']									= "Manage";
 $lang['streams.search']									= "Search";
+$lang['streams:stream_prefix']							= "Stream Prefix";
 
 /* Field Instructions */
 

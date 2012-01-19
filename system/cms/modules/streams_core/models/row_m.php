@@ -114,8 +114,8 @@ class Row_m extends MY_Model {
 		$this->data->stream = $stream;
 
 		//Just for sanity's sake
-		$this->full_select_prefix = PYROSTREAMS_DB_PRE.STR_PRE.$stream->stream_slug.'.';
-		$this->base_prefix = STR_PRE.$stream->stream_slug.'.';
+		$this->full_select_prefix = $this->db->dbprefix($stream->stream_prefix.$stream->stream_slug).'.';
+		$this->base_prefix = $stream->stream_prefix.$stream->stream_slug.'.';
 		
 		// Get your asses in the seats
 		$this->db->flush_cache();
@@ -125,7 +125,7 @@ class Row_m extends MY_Model {
 		// -------------------------------------
 		
 		// We may build on this.
-		$this->select_string = STR_PRE."$stream->stream_slug.*";
+		$this->select_string = $stream->stream_prefix.$stream->stream_slug.'.*';
 		
 		// -------------------------------------
 		// Get the day.
@@ -426,7 +426,7 @@ class Row_m extends MY_Model {
 			
 			endforeach;		
 			
-			$tmp_obj = $this->db->get( STR_PRE.$stream->stream_slug );
+			$tmp_obj = $this->db->get($stream->stream_prefix.$stream->stream_slug);
 			
 			$return['pag_count'] = $tmp_obj->num_rows();
 			
@@ -476,7 +476,7 @@ class Row_m extends MY_Model {
 		// Run the Get
 		// -------------------------------------
 		
-		$rows = $this->db->get(STR_PRE.$stream->stream_slug)->result_array();
+		$rows = $this->db->get($stream->stream_prefix.$stream->stream_slug)->result_array();
 
 		// -------------------------------------
 		// Partials
@@ -600,7 +600,7 @@ class Row_m extends MY_Model {
 
 		$stream_fields = $this->streams_m->get_stream_fields($stream->id);
 
-		$obj = $this->db->limit(1)->where('id', $id)->get(STR_PRE.$stream->stream_slug);
+		$obj = $this->db->limit(1)->where('id', $id)->get($stream->stream_prefix.$stream->stream_slug);
 		
 		if( $obj->num_rows() == 0 ):
 		
@@ -1147,7 +1147,7 @@ class Row_m extends MY_Model {
 		
 		$this->db->where('id', $row_id);
 		
-		if( !$this->db->update(STR_PRE.$stream->stream_slug, $update_data) ):
+		if( !$this->db->update($stream->stream_prefix.$stream->stream_slug, $update_data) ):
 		
 			return FALSE;
 		
@@ -1232,7 +1232,7 @@ class Row_m extends MY_Model {
 		// Set incremental ordering
 		// -------------------------------------
 		
-		$db_obj = $this->db->select("MAX(ordering_count) as max_ordering")->get(STR_PRE.$stream->stream_slug);
+		$db_obj = $this->db->select("MAX(ordering_count) as max_ordering")->get($stream->stream_prefix.$stream->stream_slug);
 		
 		if( $db_obj->num_rows() == 0 || !$db_obj ):
 		
@@ -1260,7 +1260,7 @@ class Row_m extends MY_Model {
 		// Insert data
 		// -------------------------------------
 		
-		if( !$this->db->insert(STR_PRE.$stream->stream_slug, $insert_data) ):
+		if( !$this->db->insert($stream->stream_prefix.$stream->stream_slug, $insert_data) ):
 		
 			return FALSE;
 		

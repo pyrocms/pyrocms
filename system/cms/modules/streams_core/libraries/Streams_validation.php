@@ -245,9 +245,9 @@ class Streams_validation extends CI_Form_validation
 	 * stream_fields, etc.
 	 */
 	public function slug_safe($string)
-	{
+	{	
 		// See if word is MySQL Reserved Word
-		if (in_array(strtoupper($string), $this->CI->config->item('mysql_reserved')))
+		if (in_array(strtoupper($string), $this->CI->config->item('streams:reserved')))
 		{
 			$this->set_message('slug_safe', lang('streams.not_mysql_safe_word'));
 			return FALSE;

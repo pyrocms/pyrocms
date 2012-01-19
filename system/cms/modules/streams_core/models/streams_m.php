@@ -15,6 +15,7 @@ class Streams_m extends MY_Model {
 
     // --------------------------------------------------------------------------
     // Caches
+    // --------------------------------------------------------------------------
     // This is data stored in the class at runtime
     // and saved/checked so we don't keep going back to
     // the database.
@@ -47,6 +48,11 @@ class Streams_m extends MY_Model {
 			'field'	=> 'stream_slug',
 			'label' => 'Steam Slug',
 			'rules'	=> 'trim|required|max_length[60]|slug_safe'
+		),
+		array(
+			'field'	=> 'stream_prefix',
+			'label' => 'streams:stream_prefix',
+			'rules'	=> 'trim|max_length[60]'
 		),
 		array(
 			'field'	=> 'about',
@@ -92,12 +98,14 @@ class Streams_m extends MY_Model {
      * Get streams
      *
      * @access	public
-     * @param	int limit
-     * @param	int offset
+     * @param	string - the stream namespace
+     * @param	[int limit]
+     * @param	[int offset]
      * @return	obj
      */
-    public function get_streams( $limit = 25, $offset = 0 )
+    public function get_streams($namespace, $limit = 25, $offset = 0 )
 	{
+		$this->db->where('stream_namespace', $namespace);
 		$this->db->order_by('stream_name', 'ASC');
 		
 		$obj = $this->db->get($this->table, $limit, $offset);
@@ -119,11 +127,16 @@ class Streams_m extends MY_Model {
      * Count total streams
      *
      * @access	public
+     * @param	[mixed - provide a namespace string to restrict total]
      * @return	int
      */
-	public function total_streams()
+	public function total_streams($namespace = FALSE)
 	{
-    	return $this->db->count_all($this->table);
+		$where = ($namespace) ? "WHERE stream_namespace='$namespace'" : NULL;
+	
+		$result = $this->db->query("SELECT COUNT(*) as total FROM {$this->db->dbprefix($this->table)} $where")->row();
+	
+    	return $result->total;
 	}
 
     // --------------------------------------------------------------------------
@@ -137,7 +150,9 @@ class Streams_m extends MY_Model {
 	 */
 	public function count_stream_entries($stream_slug)
 	{
-		return $this->db->count_all(STR_PRE.$stream_slug);
+		$stream = $this->get_stream($stream_slug, TRUE);
+	
+		return $this->db->count_all($stream->stream_prefix.$stream->stream_slug);
 	}
 
     // --------------------------------------------------------------------------
@@ -148,17 +163,15 @@ class Streams_m extends MY_Model {
 	 * @access	public
 	 * @param	string - name of the stream
 	 * @param	string - stream slug
+	 * @param	string - stream prefix
+	 * @param	string - stream namespace
 	 * @param	[string - about the stream]
 	 * @return	bool
 	 */
-	public function create_new_stream($stream_name, $stream_slug, $about = null)
-	{		
+	public function create_new_stream($stream_name, $stream_slug, $prefix, $namespace, $about = null)
+	{	
 		// See if table exists. You never know if it sneaked past validation
-		if($this->db->table_exists(STR_PRE.$stream_slug)):
-		
-			return FALSE;
-		
-		endif;
+		if ($this->db->table_exists($prefix.$stream_slug)) return FALSE;
 	
 		// Create the db table
 		$this->load->dbforge();
@@ -175,17 +188,15 @@ class Streams_m extends MY_Model {
 		
 		$this->dbforge->add_field($standard_fields);
 		
-		if( !$this->dbforge->create_table(STR_PRE.$stream_slug) ):
-		
-			return FALSE;
-		
-		endif;
+		if ( ! $this->dbforge->create_table($prefix.$stream_slug) ) return FALSE;
 		
 		// Add data into the streams table
 		$insert_data['stream_slug']			= $stream_slug;
 		$insert_data['stream_name']			= $stream_name;
+		$insert_data['stream_prefix']		= $prefix;
+		$insert_data['stream_namespace']	= $namespace;
 		$insert_data['about']				= $about;
-		$insert_data['title_column']		= null;
+		$insert_data['title_column']		= NULL;
 		
 		// Since this is a new stream, we are going to add a basic view profile
 		// with data we know will be there.	
@@ -209,29 +220,26 @@ class Streams_m extends MY_Model {
 		// See if the stream slug is different
 		$stream = $this->get_stream($stream_id);
 		
-		if( $stream->stream_slug != $data['stream_slug'] ):
-		
+		if ($stream->stream_slug != $data['stream_slug'])
+		{
 			// Okay looks like we need to alter the table name.			
 			// Check to see if there is a table, then alter it.
-			if( $this->db->table_exists(STR_PRE.$data['stream_slug']) ):
-			
+			if ($this->db->table_exists($stream->stream_prefix.$data['stream_slug']))
+			{
 				show_error(sprintf(lang('streams.table_exists'), $data['stream_slug']));
-			
-			endif;
+			}
 			
 			$this->load->dbforge();
 			
 			// Using the PyroStreams DB prefix because rename_table
 			// does not prefix the table name properly, it would seem
-			if( !$this->dbforge->rename_table(STR_PRE.$stream->stream_slug, STR_PRE.$data['stream_slug']) ):
-			
+			if ( ! $this->dbforge->rename_table($stream->stream_prefix.$stream->stream_slug, $stream->stream_prefix.$data['stream_slug']) )
+			{
 				return FALSE;
-			
-			endif;
+			}
 		
 			$update_data['stream_slug']	= $data['stream_slug'];
-		
-		endif;
+		}
 		
 		$update_data['stream_name']		= $data['stream_name']; 
 		$update_data['about']			= $data['about'];
@@ -239,14 +247,12 @@ class Streams_m extends MY_Model {
 		
 		// We won't always have a title column. If we don't have
 		// any fields yet, for instance, it will not exist.
-		if( isset($data['title_column']) ):
-		
+		if (isset($data['title_column']))
+		{
 			$update_data['title_column'] = $data['title_column'];
+		}
 		
-		endif;
-		
-		$this->db->where('id', $stream_id);
-		return $this->db->update($this->table, $update_data);
+		return $this->db->where('id', $stream_id)->update($this->table, $update_data);
 	}
 
 	// --------------------------------------------------------------------------
@@ -266,20 +272,17 @@ class Streams_m extends MY_Model {
 
 		$assignments = $this->fields_m->get_assignments_for_stream($stream->id);
 		
-		if(is_array($assignments)):
-
-			foreach($assignments as $assignment):
-		
+		if (is_array($assignments))
+		{
+			foreach ($assignments as $assignment)
+			{
 				// Run the destruct
-				if(method_exists($this->type->types->{$assignment->field_type}, 'field_assignment_destruct')):
-				
+				if(method_exists($this->type->types->{$assignment->field_type}, 'field_assignment_destruct'))
+				{
 					$this->type->types->{$assignment->field_type}->field_assignment_destruct($this->fields_m->get_field($assignment->field_id), $this->streams_m->get_stream($assignment->stream_slug, true));
-			
-				endif;		
-			
-			endforeach;
-		
-		endif;
+				}
+			}		
+		}
 
 		// -------------------------------------
 		// Delete actual table
@@ -287,11 +290,7 @@ class Streams_m extends MY_Model {
 		
 		$this->load->dbforge();
 		
-		if( !$this->dbforge->drop_table(STR_PRE.$stream->stream_slug) ):
-		
-			return FALSE;
-		
-		endif;
+		if ( ! $this->dbforge->drop_table($stream->stream_prefix.$stream->stream_slug) ) return FALSE;
 
 		// -------------------------------------
 		// Delete from assignments
@@ -299,11 +298,7 @@ class Streams_m extends MY_Model {
 		
 		$this->db->where('stream_id', $stream->id);
 		
-		if( !$this->db->delete(ASSIGN_TABLE) ):
-		
-			return FALSE;
-		
-		endif;
+		if ( ! $this->db->delete(ASSIGN_TABLE) ) return FALSE;
 
 		// -------------------------------------
 		// Delete from streams table
@@ -325,17 +320,16 @@ class Streams_m extends MY_Model {
 	{
 		$db = $this->db->limit(1)->where('stream_slug', $slug)->get($this->table);
 		
-		if( $db->num_rows() == 0 ):
-		
+		if ($db->num_rows() == 0)
+		{
 			return FALSE;
-		
-		else:
-		
+		}
+		else
+		{
 			$row = $db->row();
 			
 			return $row->id;
-		
-		endif;
+		}
 	}
 
 	// --------------------------------------------------------------------------
@@ -351,47 +345,39 @@ class Streams_m extends MY_Model {
 	public function get_stream($stream_id, $by_slug = FALSE)
 	{
 		// Check for cache. We only cache by slug
-		if( !$by_slug and is_numeric($stream_id) ):
-		
-			if(isset($this->streams_cache[$stream_id])):
-			
+		if ( ! $by_slug and is_numeric($stream_id))
+		{
+			if (isset($this->streams_cache[$stream_id]))
+			{
 				return $this->streams_cache[$stream_id];
-			
-			endif;
-			
-		endif;
+			}
+		}	
 	
 		$this->db->limit(1);
 		
-		if( $by_slug == TRUE ):
-
+		if ($by_slug == TRUE)
+		{
 			$this->db->where('stream_slug', $stream_id);		
-		
-		else:
-		
+		}
+		else
+		{
 			$this->db->where('id', $stream_id);
-		
-		endif;
+		}
 
 		$obj = $this->db->get($this->table);
 		
-		if( $obj->num_rows() == 0 ):
-		
-			return FALSE;
-		
-		endif;
+		if ($obj->num_rows() == 0) return FALSE;
 		
 		$stream = $obj->row();
 		
-		if( trim($stream->view_options) == '' ):
-		
+		if (trim($stream->view_options) == '')
+		{
 			$stream->view_options = array();
-		
-		else:
-
+		}
+		else
+		{
 			$stream->view_options = unserialize($stream->view_options);
-		
-		endif;
+		}
 		
 		// Save to cache
 		$this->streams_cache[$stream_id] = $stream;
@@ -421,31 +407,27 @@ class Streams_m extends MY_Model {
 		// Set Ordering
 		// -------------------------------------
 
-		if($stream->sorting == 'title' and ($stream->title_column != '' and $this->db->field_exists($stream->title_column, $this->config->item('stream_prefix').$stream->stream_slug))):
-								
-			if($stream->title_column != '' and $this->db->field_exists($stream->title_column, STR_PRE.$stream->stream_slug)):
-			
+		if ($stream->sorting == 'title' AND ($stream->title_column != '' and $this->db->field_exists($stream->title_column, $stream->stream_prefix.$stream->stream_slug)))
+		{
+			if ($stream->title_column != '' AND $this->db->field_exists($stream->title_column, $stream->stream_prefix.$stream->stream_slug))
+			{
 				$this->db->order_by($stream->title_column, 'ASC');
-			
-			endif;
-		
-		elseif($stream->sorting == 'custom'):
-		
+			}
+		}
+		elseif ($stream->sorting == 'custom')
+		{
 			$this->db->order_by('ordering_count', 'ASC');
-			
-		else:
-		
+		}	
+		else
+		{
 			$this->db->order_by('created', 'DESC');
-		
-		endif;
+		}
 
 		// -------------------------------------
 		// Get Data
 		// -------------------------------------
 	
-		$this->db->limit($limit, $offset);
-		$obj = $this->db->get(STR_PRE.$stream->stream_slug);		
-		$items = $obj->result();
+		$items = $this->db->limit($limit, $offset)->get($stream->stream_prefix.$stream->stream_slug)->result();
 		
 		// -------------------------------------
 		// Get Format Profile
@@ -457,21 +439,19 @@ class Streams_m extends MY_Model {
 		// Run formatting
 		// -------------------------------------
 		
-		if( count($items) != 0 ):
-		
+		if (count($items) != 0)
+		{
 			$fields = new stdClass;
 	
-			foreach( $items as $id => $item ):
-			
+			foreach ($items as $id => $item)
+			{
 				$fields->$id = $this->row_m->format_row($item, $stream_fields, $stream);
-			
-			endforeach;
-		
-		else:
-		
+			}
+		}
+		else
+		{
 			$fields = FALSE;
-
-		endif;
+		}
 		
 		return $fields;
 	}
@@ -644,7 +624,7 @@ class Streams_m extends MY_Model {
 		
 			if(!isset($field_type->alt_process) or !$field_type->alt_process):
 		
-				if( ! $this->dbforge->add_column(STR_PRE.$stream->stream_slug, $field_to_add) ) return FALSE;
+				if( ! $this->dbforge->add_column($stream->stream_prefix.$stream->stream_slug, $field_to_add) ) return FALSE;
 			
 			endif;
 		
@@ -748,9 +728,9 @@ class Streams_m extends MY_Model {
 		
 		// Alternate method fields will not have a column, so we just
 		// check for it first
-		if($this->db->field_exists($field->field_slug, STR_PRE.$stream->stream_slug)):
+		if($this->db->field_exists($field->field_slug, $stream->stream_prefix.$stream->stream_slug)):
 			
-			if( !$this->dbforge->drop_column(STR_PRE.$stream->stream_slug, $field->field_slug) ):
+			if( !$this->dbforge->drop_column($stream->stream_prefix.$stream->stream_slug, $field->field_slug) ):
 		
 				return FALSE;
 		
@@ -845,7 +825,7 @@ class Streams_m extends MY_Model {
 	public function delete_row($row_id, $stream)
 	{
 		// Get the row
-		$db_obj = $this->db->limit(1)->where('id', $row_id)->get(STR_PRE.$stream->stream_slug);
+		$db_obj = $this->db->limit(1)->where('id', $row_id)->get($stream->stream_prefix.$stream->stream_slug);
 		
 		if( $db_obj->num_rows() == 0 ) return false;
 		
@@ -856,7 +836,7 @@ class Streams_m extends MY_Model {
 		// Delete the actual row
 		$this->db->where('id', $row_id);
 		
-		if( !$this->db->delete(STR_PRE.$stream->stream_slug) ):
+		if( !$this->db->delete($stream->stream_prefix.$stream->stream_slug) ):
 		
 			return FALSE;
 		
@@ -895,7 +875,7 @@ class Streams_m extends MY_Model {
 			// -------------------------------------
 			
 			$this->db->where('ordering_count >', $ordering_count)->select('id, ordering_count');
-			$ord_obj = $this->db->get(STR_PRE.$stream->stream_slug);
+			$ord_obj = $this->db->get($stream->stream_prefix.$stream->stream_slug);
 			
 			if( $ord_obj->num_rows() > 0 ):
 			
@@ -906,7 +886,7 @@ class Streams_m extends MY_Model {
 					$update_data['ordering_count'] = $update_row->ordering_count - 1;
 					
 					$this->db->where('id', $update_row->id);
-					$this->db->update(STR_PRE.$stream->stream_slug, $update_data);
+					$this->db->update($stream->stream_prefix.$stream->stream_slug, $update_data);
 					
 					$update_data = array();
 				

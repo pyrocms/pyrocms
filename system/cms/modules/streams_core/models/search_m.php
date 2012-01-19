@@ -112,7 +112,7 @@ class Search_m extends CI_Model {
 		endif;
 
 		// Build query sans limit/offset
-		$query_string = 'SELECT * FROM '.$this->CI->db->dbprefix(STR_PRE.$stream_slug).' WHERE ('.implode(' OR ', $likes).')';
+		$query_string = 'SELECT * FROM '.$this->CI->db->dbprefix($stream->stream_prefix.$stream_slug).' WHERE ('.implode(' OR ', $likes).')';
 
 		// Get total of all the results
 		$total = $this->CI->db->query($query_string);

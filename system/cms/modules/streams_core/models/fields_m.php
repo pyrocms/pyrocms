@@ -49,15 +49,18 @@ class Fields_m extends CI_Model {
      * Get some fields
      *
      * @access	public
-     * @param	int limit
-     * @param	int offset
+     * @param	[string - field namespace]
+     * @param	[int limit]
+     * @param	[int offset]
      * @return	obj
      */
-    public function get_fields($limit = FALSE, $offset = 0)
+    public function get_fields($namespace = NULL, $limit = FALSE, $offset = 0)
 	{
-		if($offset) $this->db->offset($offset);
+		if ($namespace) $this->db->where('field_namespace', $namespace);
+	
+		if ($offset) $this->db->offset($offset);
 		
-		if($limit) $this->db->limit($limit);
+		if ($limit) $this->db->limit($limit);
 
 		$query = $this->db->order_by('field_name', 'asc')->get($this->table);
      
@@ -102,6 +105,7 @@ class Fields_m extends CI_Model {
      */
 	public function count_fields()
 	{
+		// @todo - add namespace
 		return $this->db->count_all($this->table);
 	}
 
@@ -117,12 +121,13 @@ class Fields_m extends CI_Model {
 	 * @param	[array - any extra data]
 	 * @return	bool
 	 */
-	public function insert_field($field_name, $field_slug, $field_type, $extra = array())
+	public function insert_field($field_name, $field_slug, $field_type, $field_namespace, $extra = array())
 	{
 		$insert_data = array(
-			'field_name' 	=> $field_name,
-			'field_slug'	=> $field_slug,
-			'field_type'	=> $field_type
+			'field_name' 		=> $field_name,
+			'field_slug'		=> $field_slug,
+			'field_namespace'	=> $field_namespace,
+			'field_type'		=> $field_type
 		);
 	
 		// Load the type to see if there are other fields
@@ -371,6 +376,7 @@ class Fields_m extends CI_Model {
 		// Update field information		
 		$update_data['field_name']		= $data['field_name'];
 		$update_data['field_slug']		= $data['field_slug'];
+		$update_data['field_namespace']	= $data['field_namespace'];
 		$update_data['field_type']		= $data['field_type'];
 		
 		// Gather extra data		
