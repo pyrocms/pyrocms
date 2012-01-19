@@ -10,18 +10,6 @@
  * @link		http://parse19.com/pyrostreams
  */
 
-// --------------------------------------------------------------------------
-
-/**
- * Streams select limit.
- *
- * Once the relationship stream reaches this
- * number, it'll turn into an auto-complete. 
- */
-//$config['streams:select_limit'] 		= 100;
-
-// --------------------------------------------------------------------------
-
 /**
  * Database Table Names
  */
