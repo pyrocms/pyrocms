@@ -165,12 +165,9 @@ class Fields
 					}
 					
 					$node = NULL;
-				
-				endif;
-			
-			endif;
-		
-		endforeach;
+				}
+			}
+		}
 
 		// -------------------------------------
 		// Validation
@@ -234,10 +231,8 @@ class Fields
 					// -------------------------------------
 				
 					$this->CI->session->set_flashdata('success', $data->success_message);	
-				
-				endif;
-			
-			endif;
+				}
+			}
 			
 			// Redirect based on if this is a plugin call or not
 			if ($plugin)
