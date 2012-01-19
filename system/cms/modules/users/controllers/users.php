@@ -64,7 +64,7 @@ class Users extends Public_Controller
 		}
 
 		$this->template->build('profile/view', array(
-			'user' => $user,
+			'_user' => $user,
 		));
 	}
 
@@ -124,7 +124,7 @@ class Users extends Public_Controller
 		}
 
 		$this->template->build('login', array(
-			'user' => $user,
+			'_user' => $user,
 			'redirect_to' => $redirect_to,
 		));
 	}
@@ -285,14 +285,6 @@ class Users extends Public_Controller
 				// Return the validation error
 				$this->template->error_string = $this->form_validation->error_string();
 			}
-			
-			// Repopulate the form
-			foreach ($validation as $rule)
-			{
-				$user->{$rule['field']} = set_value($rule['field']);
-			}
-			
-			$this->template->user = $user;
 		}
 		
 		// Is there a user hash?
@@ -304,12 +296,17 @@ class Users extends Public_Controller
 			$user->last_name		= $user_hash['last_name'];
 			$user->username			= $user_hash['nickname'];
 			$user->email			= isset($user_hash['email']) ? $user_hash['email'] : '';
-			
-			$this->template->user = $user;
+		}
+		
+		// Repopulate the form
+		foreach ($validation as $rule)
+		{
+			$user->{$rule['field']} = set_value($rule['field']);
 		}
 		
 		$this->template
 			->title(lang('user_register_title'))
+			->set('_user', $user)
 			->build('register');
 	}
 
@@ -690,7 +687,7 @@ class Users extends Public_Controller
 		// Render the view
 		$this->template->build('profile/edit', array(
 			'languages' => $languages,
-			'user' => $user,
+			'_user' => $user,
 			'days' => $days,
 			'months' => $months,
 			'years' => $years,

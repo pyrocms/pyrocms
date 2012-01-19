@@ -12,8 +12,8 @@
 				<tr>
 					<th width="50px" class="align-center"><?php echo lang('themes.default_theme_label'); ?></th>
 					<th width="15%"><?php echo lang('themes.theme_label'); ?></th>
-					<th><?php echo lang('global:description'); ?></th>
-					<th width="15%"><?php echo lang('global:author'); ?></th>
+					<th class="collapse"><?php echo lang('global:description'); ?></th>
+					<th class="collapse" width="15%"><?php echo lang('global:author'); ?></th>
 					<th width="50px" class="align-center"><?php echo lang('themes.version_label'); ?></th>
 					<th width="250px"></th>
 				</tr>
@@ -38,8 +38,8 @@
 							<?php echo $theme->name; ?>
 						<?php endif; ?>
 					</td>
-					<td><?php echo $theme->description; ?></td>
-					<td>
+					<td class="collapse"><?php echo $theme->description; ?></td>
+					<td class="collapse">
 						<?php if ($theme->author_website): ?>
 							<?php echo anchor($theme->author_website, $theme->author, array('target'=>'_blank')); ?>
 						<?php else: ?>

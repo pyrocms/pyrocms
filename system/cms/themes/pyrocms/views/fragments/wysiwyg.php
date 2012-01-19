@@ -16,8 +16,10 @@
 			pyro.init_ckeditor = function(){
 				$('textarea.wysiwyg-simple').ckeditor({
 					toolbar: [
-						 ['Bold', 'Italic', '-', 'NumberedList', 'BulletedList', '-', 'Link', 'Unlink']
+						<?php if ($this->module == 'blog'): ?> ['pyroimages'], <?php endif; ?>
+						['Bold', 'Italic', '-', 'NumberedList', 'BulletedList', '-', 'Link', 'Unlink']
 					  ],
+					<?php if ($this->module == 'blog'): ?> extraPlugins: 'pyroimages', <?php endif; ?>
 					width: '99%',
 					height: 100,
 					dialog_backgroundCoverColor: '#000',

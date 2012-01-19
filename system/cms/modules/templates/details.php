@@ -92,7 +92,7 @@ class Module_Templates extends Module {
 
 		$comment_template = "
 			INSERT INTO " . $this->db->dbprefix('email_templates') . " (`slug`, `name`, `description`, `subject`, `body`, `lang`, `is_default`) VALUES
-			('comments', 'Comment Notificiation', 'Email that is sent to admin when someone creates a comment', '".$comment_subject."', '".$comment_body."', 'en', 1);
+			('comments', 'Comment Notification', 'Email that is sent to admin when someone creates a comment', '".$comment_subject."', '".$comment_body."', 'en', 1);
 		";
 
 		$contact_template = "

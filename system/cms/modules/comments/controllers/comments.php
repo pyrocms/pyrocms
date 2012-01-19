@@ -240,6 +240,7 @@ class Comments extends Public_Controller {
 		$comment['sender_ip']		= $this->input->ip_address();
 		$comment['sender_os']		= $this->agent->platform();
 		$comment['redirect_url']	= anchor(ltrim($comment['redirect_to'], '/') . '#' . $comment['comment_id']);
+		$comment['reply-to']		= $comment['email'];
 
 		//trigger the event
 		return (bool) Events::trigger('email', $comment);
