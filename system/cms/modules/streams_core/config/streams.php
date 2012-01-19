@@ -120,7 +120,7 @@ $config['streams:schema'] = array(
 	        			'null' => true)
 	     ),
         'primary_key' => 'id'),
-    $config['streams:fields_table'] => array(
+    $config['streams:assignments_table'] => array(
         'fields' => array(
 	        	'id' => array(
 	        			'type' => 'INT',
