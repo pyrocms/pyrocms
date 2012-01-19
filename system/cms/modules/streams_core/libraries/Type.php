@@ -72,7 +72,7 @@ class Type
 		// Since this is PyroStreams core we know where
 		// PyroStreams is, but we set this for backwards
 		// compatability for anyone using this constant
-		define('PYROSTEAMS_DIR', APPPATH.'modules/streams/');
+		define('PYROSTEAMS_DIR', APPPATH.'modules/streams_core/');
 
 		// Set our addon paths
 		$this->addon_paths = array(
@@ -82,7 +82,7 @@ class Type
 		);
 		
 		// Go ahead and gather our types
-		$this->gather_types();
+		$this->gather_types();		
 	}
 
 	// --------------------------------------------------------------------------
