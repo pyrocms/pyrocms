@@ -55,7 +55,7 @@ class Plugin_Navigation extends Plugin
 		$first_class	= $this->attribute('first-class', 'first');
 		$last_class		= $this->attribute('last-class', 'last');
 		$output			= $return_arr ? array() : '';
-
+		$inner_tag		= $this->attribute('inner_tag');
 		$i		= 1;
 		$total	= sizeof($links);
 
@@ -98,6 +98,11 @@ class Plugin_Navigation extends Plugin
 			// attributes of anchor
 			$item['url']					= $link['url'];
 			$item['title']					= $link['title'];
+			if($inner_tag)
+			{
+				$item['title']  = '<'.$inner_tag.'>'.$item['title'].'</'.$inner_tag.'>';
+			}
+			
 			$item['attributes']['target']	= $link['target'] ? 'target="' . $link['target'] . '"' : NULL;
 			$item['attributes']['class']	= $link_class ? 'class="' . $link_class . '"' : '';
 
