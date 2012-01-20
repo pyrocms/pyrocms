@@ -28,23 +28,24 @@ class Streams_entries extends CI_Driver {
 	 * @var		array
 	 */
 	public $entries_params = array(
-			'stream'			=> null,
-			'limit'				=> null,
+			'stream'			=> NULL,
+			'namespace'			=> NULL,
+			'limit'				=> NULL,
 			'offset'			=> 0,
 			'single'			=> 'no',
-			'id'				=> null,
+			'id'				=> NULL,
 			'date_by'			=> 'created',
-			'year'				=> null,
-			'month'				=> null,
-			'day'				=> null,
+			'year'				=> NULL,
+			'month'				=> NULL,
+			'day'				=> NULL,
 			'show_upcoming'		=> 'yes',
 			'show_past'			=> 'yes',
 			'restrict_user'		=> 'no',
-			'where'				=> null,
-			'exclude'			=> null,
+			'where'				=> NULL,
+			'exclude'			=> NULL,
 			'exclude_by'		=> 'id',
-			'disable'			=> null,
-			'order_by'			=> null,
+			'disable'			=> NULL,
+			'order_by'			=> NULL,
 			'sort'				=> 'asc',
 			'exclude_called'	=> 'no',
 			'paginate'			=> 'no',
@@ -99,35 +100,37 @@ class Streams_entries extends CI_Driver {
 	{
 		$return = array();
 		
+		print_r($params);
+		
 		// -------------------------------------
 		// Set Parameters
 		// -------------------------------------
 
-		if(!$skip_params):
-
-			foreach($this->entries_params as $param => $default):
-			
-				if(!isset($params[$param]) and !is_null($this->entries_params[$param])) $params[$param] = $default;
-			
-			endforeach;
-	
-		endif;
+		if ( ! $skip_params)
+		{
+			foreach ($this->entries_params as $param => $default)
+			{
+				if ( ! isset($params[$param]) and !is_null($this->entries_params[$param])) $params[$param] = $default;
+			}
+		}
 	
 		// -------------------------------------
 		// Stream Data Check
 		// -------------------------------------
 		
-		if(!isset($params['stream'])) $this->_error(lang('streams.no_stream_provided'));
+		if ( ! isset($params['stream'])) $this->log_error('no_stream_provided', 'get_entries');
 				
-		$stream = $this->CI->streams_m->get_stream($params['stream'], true);
+		if ( ! isset($params['namespace'])) $this->log_error('no_namespace_provided', 'get_entries');
+	
+		$stream = $this->CI->streams_m->get_stream($params['stream'], TRUE, $params['namespace']);
 				
-		if(!$stream) $this->_error(lang('streams.invalid_stream'));
+		if ( ! $stream) $this->log_error('invalid_stream', 'get_entries');
 
 		// -------------------------------------
 		// Pagination Limit
 		// -------------------------------------
 
-		if($params['paginate'] == 'yes' and !$params['limit']) $params['limit'] = 25;
+		if ($params['paginate'] == 'yes' AND ( ! isset($params['limit']) OR ! is_numeric($params['limit']))) $params['limit'] = 25;
 				
 		// -------------------------------------
 		// Get Stream Fields
@@ -147,29 +150,27 @@ class Streams_entries extends CI_Driver {
 		// Pagination
 		// -------------------------------------
 		
-		if($params['paginate'] == 'yes'):
-		
+		if ($params['paginate'] == 'yes')
+		{
 			$return['total'] 	= $rows['pag_count'];
 			
 			// Add in our pagination config
 			// override varaibles.
-			foreach($this->pagination_config as $key => $var):
-			
-				if(isset($pagination_config[$key])) $this->pagination_config = $pagination_config[$key];
+			foreach ($this->pagination_config as $key => $var)
+			{
+				if (isset($pagination_config[$key])) $this->pagination_config = $pagination_config[$key];
 				
-				// Make sure we obey the FALSE params
-				if($pagination_config[$key] == 'FALSE') $pagination_config[$key] = FALSE;
+				// Make sure we set the FALSE params to boolean
+				if ($this->pagination_config[$key] == 'FALSE') $this->pagination_config[$key] = FALSE;
+			}
 			
-			endforeach;
-			
-			$return['pagination'] = $this->CI->row_m->build_pagination($params['pag_segment'], $params['limit'], $return['total'], $pagination_config);
-					
-		else:
-			
-			$return['pagination'] 	= null;
+			$return['pagination'] = $this->CI->row_m->build_pagination($params['pag_segment'], $params['limit'], $return['total'], $this->pagination_config);
+		}		
+		else
+		{
+			$return['pagination'] 	= NULL;
 			$return['total'] 		= count($return['entries']);
-		
-		endif;
+		}
 
 		// -------------------------------------
 	
@@ -187,9 +188,9 @@ class Streams_entries extends CI_Driver {
 	 * @param	bool - format results?
 	 * @return	object
 	 */
-	function get_entry($entry_id, $stream, $format = true)
+	function get_entry($entry_id, $stream, $namespace = NULL, $format = TRUE)
 	{
-		return $this->row_m->get_row($entry_id, $this->stream_obj($stream), $format);
+		return $this->row_m->get_row($entry_id, $this->stream_obj($stream, $namespace), $format);
 	}
 
 	// --------------------------------------------------------------------------
@@ -202,9 +203,9 @@ class Streams_entries extends CI_Driver {
 	 * @param	stream - int, slug, or obj
 	 * @return	object
 	 */
-	function delete_entry($entry_id, $stream)
+	function delete_entry($entry_id, $stream, $namespace = NULL)
 	{
-		return $this->CI->row_m->delete_row($entry_id, $stream);
+		return $this->CI->row_m->delete_row($entry_id, $this->stream_obj($stream, $namespace));
 	}
 
 	// --------------------------------------------------------------------------
