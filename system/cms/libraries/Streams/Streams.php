@@ -15,7 +15,7 @@ class Streams extends CI_Driver_Library {
 	 * @access	protected
 	 * @var		obj
 	 */
-	protected $ci;
+	protected $CI;
 
 	// --------------------------------------------------------------------------
 
@@ -31,6 +31,7 @@ class Streams extends CI_Driver_Library {
 			'streams_entries',
 			'streams_fields',
 			'streams_streams',
+			'streams_cp',
 			'streams_utilities'
 	);
 
