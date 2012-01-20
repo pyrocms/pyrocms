@@ -145,12 +145,13 @@ class Streams_m extends MY_Model {
 	 * Count entries in a stream
 	 *
 	 * @access	public
-	 * @param	string
+	 * @param	string - stream slug
+	 * @param	string - stream namespace
 	 * @return	int
 	 */
-	public function count_stream_entries($stream_slug)
+	public function count_stream_entries($stream_slug, $namespace)
 	{
-		$stream = $this->get_stream($stream_slug, TRUE);
+		$stream = $this->get_stream($stream_slug, TRUE, $namespace);
 	
 		return $this->db->count_all($stream->stream_prefix.$stream->stream_slug);
 	}
@@ -171,7 +172,7 @@ class Streams_m extends MY_Model {
 	public function create_new_stream($stream_name, $stream_slug, $prefix, $namespace, $about = null)
 	{	
 		// See if table exists. You never know if it sneaked past validation
-		if ($this->db->table_exists($prefix.$stream_slug)) return FALSE;
+		if ($this->db->table_exists($prefix.$stream_slug)) return NULL;
 	
 		// Create the db table
 		$this->load->dbforge();
@@ -266,6 +267,8 @@ class Streams_m extends MY_Model {
 	 */
 	public function delete_stream($stream)
 	{
+		if( ! is_object($stream)) return NULL;
+	
 		// -------------------------------------
 		// Get assignments and run destructs
 		// -------------------------------------
@@ -342,9 +345,9 @@ class Streams_m extends MY_Model {
 	 * @param	bool
 	 * @return	mixed
 	 */
-	public function get_stream($stream_id, $by_slug = FALSE)
+	public function get_stream($stream_id, $by_slug = FALSE, $namespace = NULL)
 	{
-		// Check for cache. We only cache by slug
+		// Check for cache. We only cache by ID.
 		if ( ! $by_slug and is_numeric($stream_id))
 		{
 			if (isset($this->streams_cache[$stream_id]))
@@ -355,13 +358,18 @@ class Streams_m extends MY_Model {
 	
 		$this->db->limit(1);
 		
-		if ($by_slug == TRUE)
+		if ($by_slug == TRUE AND ! is_null($namespace))
 		{
+			$this->db->where('stream_namespace', $namespace);
 			$this->db->where('stream_slug', $stream_id);		
+		}
+		elseif (is_numeric($stream_id))
+		{
+			$this->db->where('id', $stream_id);
 		}
 		else
 		{
-			$this->db->where('id', $stream_id);
+			return NULL;
 		}
 
 		$obj = $this->db->get($this->table);
@@ -812,93 +820,4 @@ class Streams_m extends MY_Model {
 		return TRUE;
 	}
 	
-	// --------------------------------------------------------------------------	
-	
-	/**
-	 * Delete a row
-	 *
-	 * @access	public
-	 * @param	int
-	 * @param	obj
-	 * @return 	bool
-	 */
-	public function delete_row($row_id, $stream)
-	{
-		// Get the row
-		$db_obj = $this->db->limit(1)->where('id', $row_id)->get($stream->stream_prefix.$stream->stream_slug);
-		
-		if( $db_obj->num_rows() == 0 ) return false;
-		
-		// Get the ordering count
-		$row = $db_obj->row();
-		$ordering_count = $row->ordering_count;
-		
-		// Delete the actual row
-		$this->db->where('id', $row_id);
-		
-		if( !$this->db->delete($stream->stream_prefix.$stream->stream_slug) ):
-		
-			return FALSE;
-		
-		else:
-		
-			// -------------------------------------
-			// Entry Destructs
-			// -------------------------------------
-			// Go through the assignments and call
-			// entry destruct methods
-			// -------------------------------------
-		
-			// Get the assignments
-			$assignments = $this->fields_m->get_assignments_for_stream($stream->id);
-			
-			// Do they have a destruct function?
-			foreach($assignments as $assign):
-			
-				if(method_exists($this->type->types->{$assign->field_type}, 'entry_destruct')):
-				
-					// Get the field
-					$field = $this->fields_m->get_field($assign->field_id);
-				
-					$this->type->types->{$assign->field_type}->entry_destruct($row, $field, $stream);
-				
-				endif;
-			
-			endforeach;
-		
-			// -------------------------------------
-			// Reset reordering
-			// -------------------------------------
-			// We're doing this by subtracting one to
-			// everthing higher than the row's
-			// order count
-			// -------------------------------------
-			
-			$this->db->where('ordering_count >', $ordering_count)->select('id, ordering_count');
-			$ord_obj = $this->db->get($stream->stream_prefix.$stream->stream_slug);
-			
-			if( $ord_obj->num_rows() > 0 ):
-			
-				$rows = $ord_obj->result();
-				
-				foreach( $rows as $update_row ):
-
-					$update_data['ordering_count'] = $update_row->ordering_count - 1;
-					
-					$this->db->where('id', $update_row->id);
-					$this->db->update($stream->stream_prefix.$stream->stream_slug, $update_data);
-					
-					$update_data = array();
-				
-				endforeach;
-			
-			endif;
-			
-			return TRUE;
-		
-		endif;
-	}
-
 }
-
-/* End of file streams_m.php */

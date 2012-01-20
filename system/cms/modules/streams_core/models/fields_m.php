@@ -621,14 +621,17 @@ class Fields_m extends CI_Model {
 	 * Get a single field by the field slug
 	 *
 	 * @access	public
-	 * @param	int
+	 * @param	string - field slug
+	 * @param	string - field namespace
 	 * @return	obj
 	 */
-	public function get_field_by_slug($field_slug)
+	public function get_field_by_slug($field_slug, $field_namespace)
 	{
-		$this->db->limit(1)->where('field_slug', $field_slug);
-		
-		$obj = $this->db->get($this->table);
+		$obj = $this->db
+				->limit(1)
+				->where('field_namespace', $field_namespace)
+				->where('field_slug', $field_slug)
+				->get($this->table);
 		
 		if( $obj->num_rows() == 0 ):
 		
@@ -642,7 +645,6 @@ class Fields_m extends CI_Model {
 		
 		return $field;
 	}
-
 
 	// --------------------------------------------------------------------------
 	

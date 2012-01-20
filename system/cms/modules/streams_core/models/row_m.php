@@ -1339,6 +1339,91 @@ class Row_m extends MY_Model {
 	
 	}
 
-}
+	// --------------------------------------------------------------------------	
+	
+	/**
+	 * Delete a row
+	 *
+	 * @access	public
+	 * @param	int
+	 * @param	obj
+	 * @return 	bool
+	 */
+	public function delete_row($row_id, $stream)
+	{
+		// Get the row
+		$db_obj = $this->db->limit(1)->where('id', $row_id)->get($stream->stream_prefix.$stream->stream_slug);
+		
+		if( $db_obj->num_rows() == 0 ) return false;
+		
+		// Get the ordering count
+		$row = $db_obj->row();
+		$ordering_count = $row->ordering_count;
+		
+		// Delete the actual row
+		$this->db->where('id', $row_id);
+		
+		if( !$this->db->delete($stream->stream_prefix.$stream->stream_slug) ):
+		
+			return FALSE;
+		
+		else:
+		
+			// -------------------------------------
+			// Entry Destructs
+			// -------------------------------------
+			// Go through the assignments and call
+			// entry destruct methods
+			// -------------------------------------
+		
+			// Get the assignments
+			$assignments = $this->fields_m->get_assignments_for_stream($stream->id);
+			
+			// Do they have a destruct function?
+			foreach($assignments as $assign):
+			
+				if(method_exists($this->type->types->{$assign->field_type}, 'entry_destruct')):
+				
+					// Get the field
+					$field = $this->fields_m->get_field($assign->field_id);
+				
+					$this->type->types->{$assign->field_type}->entry_destruct($row, $field, $stream);
+				
+				endif;
+			
+			endforeach;
+		
+			// -------------------------------------
+			// Reset reordering
+			// -------------------------------------
+			// We're doing this by subtracting one to
+			// everthing higher than the row's
+			// order count
+			// -------------------------------------
+			
+			$this->db->where('ordering_count >', $ordering_count)->select('id, ordering_count');
+			$ord_obj = $this->db->get($stream->stream_prefix.$stream->stream_slug);
+			
+			if( $ord_obj->num_rows() > 0 ):
+			
+				$rows = $ord_obj->result();
+				
+				foreach( $rows as $update_row ):
 
-/* End of file row_m.php */
+					$update_data['ordering_count'] = $update_row->ordering_count - 1;
+					
+					$this->db->where('id', $update_row->id);
+					$this->db->update($stream->stream_prefix.$stream->stream_slug, $update_data);
+					
+					$update_data = array();
+				
+				endforeach;
+			
+			endif;
+			
+			return TRUE;
+		
+		endif;
+	}
+
+}
