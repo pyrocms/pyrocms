@@ -67,7 +67,8 @@ $config['streams:schema'] = array(
 	        		),
     			'about' => array(
     					'type' => 'VARCHAR',
-    					'constraint' => 255
+    					'constraint' => 255,
+    					'null' => TRUE
     				),
     			'view_options' => array(
     					'type' => 'BLOB'
@@ -75,7 +76,7 @@ $config['streams:schema'] = array(
     			'title_column' => array(
     					'type' => 'VARCHAR',
     					'constraint' => 255,
-    					'null' => true
+    					'null' => TRUE
     				),
     			'sorting' => array(
     					'type' => 'ENUM',
@@ -109,7 +110,7 @@ $config['streams:schema'] = array(
 	        		),
 	        	'field_data' => array(
 	        			'type' => 'BLOB',
-	        			'null' => true
+	        			'null' => TRUE
 	        		),
 	        	'view_options' => array(
 	        			'type' => 'BLOB',
@@ -153,7 +154,7 @@ $config['streams:schema'] = array(
 	        	'field_name' => array(
 	        			'type' => 'VARCHAR',
 	        			'constraint' => 255,
-	        			'null' => true
+	        			'null' => TRUE
 	        		)
 	    ),
         'primary_key' => 'id'),
