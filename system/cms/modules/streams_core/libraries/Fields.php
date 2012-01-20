@@ -76,24 +76,58 @@ class Fields
      * @param	bool - is this a plugin call?
      * @param	bool - are we using reCAPTCHA?
      * @param	array - all the skips
+     * @param	array - extra data:
+     *
+     * - email_notifications
+     * - return
+     * - success_message
+     * - failure_message
+     * - error_start
+     * - error_end
+     * - required
+     *
      * @return	mixed
      */
- 	public function build_form($data, $method, $row = false, $plugin = false, $recaptcha = false, $skips = array())
- 	{ 	
- 		$this->data = $data;
+ 	public function build_form($stream, $method, $row = false, $plugin = false, $recaptcha = false, $skips = array(), $extra = array())
+ 	{ 	 		
+ 		$this->CI->load->helper(array('form', 'url'));
  	
- 		$this->data->method = $method;
- 		
- 		$this->data->row = $row;
- 		
+ 		// -------------------------------------
+		// Set default extras
+		// -------------------------------------
+		
+		$default_extras = array(
+			'email_notifications'		=> NULL,
+			'return'					=> current_url(),
+			'error_start'				=> NULL,
+			'error_end'					=> NULL,
+			'required'					=> '<span>*</span>'
+		);
+		
+		if ($method == 'new')
+		{
+			$default_extras['success_message']	 = 'streams.new_entry_success';
+			$default_extras['success_message']	 = 'streams.new_entry_error';
+		}
+		else
+		{
+			$default_extras['success_message']	 = 'streams.edit_entry_success';
+			$default_extras['success_message']	 = 'streams.edit_entry_error';
+		}
+		
+		foreach($default_extras as $key => $value)
+		{
+			if( ! isset($extra[$key])) $extra[$key] = $value;
+		}
+
  		// -------------------------------------
 		// Get Stream Fields
 		// -------------------------------------
 		
-		$this->data->stream_fields = $this->CI->streams_m->get_stream_fields( $this->data->stream_id );
+		$stream_fields = $this->CI->streams_m->get_stream_fields($stream->id);
 		
 		// Can't do nothing if we don't have any fields		
-		if ($this->data->stream_fields === FALSE) return FALSE;
+		if ($stream_fields === FALSE) return FALSE;
 			
 		// -------------------------------------
 		// Run Type Events
@@ -101,7 +135,7 @@ class Fields
 
 		$events_called = array();
 		
-		foreach ($this->data->stream_fields as $field)
+		foreach ($stream_fields as $field)
 		{
 			if ( ! in_array($field->field_slug, $skips))
 			{
@@ -123,7 +157,7 @@ class Fields
 		// Set Validation Rules
 		// -------------------------------------
 
-		$this->set_rules($this->data->stream_fields, $method, $skips);
+		$this->set_rules($stream_fields, $method, $skips);
 		
 		// -------------------------------------
 		// Set reCAPTCHA
@@ -141,15 +175,15 @@ class Fields
 		// Set Values
 		// -------------------------------------
 
-		$this->data->values = array();
+		$values = array();
 		
-		foreach ($this->data->stream_fields as $stream_field)
+		foreach ($stream_fields as $stream_field)
 		{
 			if( ! in_array($stream_field->field_slug, $skips))
 			{
 				if ($method == "new")
 				{
-					$this->data->values[$stream_field->field_slug] = $this->CI->input->post($stream_field->field_slug);
+					$values[$stream_field->field_slug] = $this->CI->input->post($stream_field->field_slug);
 				}
 				else
 				{
@@ -157,11 +191,11 @@ class Fields
 					
 					if (isset($row->$node))
 					{
-						$this->data->values[$stream_field->field_slug] = $row->$node;
+						$values[$stream_field->field_slug] = $row->$node;
 					}
 					else
 					{
-						$this->data->values[$stream_field->field_slug] = NULL;
+						$values[$stream_field->field_slug] = NULL;
 					}
 					
 					$node = NULL;
@@ -179,9 +213,9 @@ class Fields
 		{
 			if($method == 'new')
 			{
-				if ( ! $result_id = $this->CI->row_m->insert_entry($_POST, $this->data->stream_fields, $this->data->stream, $skips))
+				if ( ! $result_id = $this->CI->row_m->insert_entry($_POST, $stream_fields, $stream, $skips))
 				{
-					$this->CI->session->set_flashdata('notice', $data->failure_message);	
+					$this->CI->session->set_flashdata('notice', $failure_message);	
 				}
 				else
 				{
@@ -189,30 +223,30 @@ class Fields
 					// Send Emails
 					// -------------------------------------
 					
-					if ($plugin and $data->email_notifications)
+					if ($plugin and $email_notifications)
 					{
 						foreach ($data->email_notifications as $notify)
 						{
-							$this->_send_email($notify, $result_id, $method = 'new', $this->data->stream);
+							$this->_send_email($notify, $result_id, $method = 'new', $stream);
 						}
 					}
 	
 					// -------------------------------------
 				
-					$this->CI->session->set_flashdata('success', $data->success_message);	
+					$this->CI->session->set_flashdata('success', $extra['success_message']);	
 				}
 			}
 			else
 			{
 				if ( ! $result_id = $this->CI->row_m->update_entry(
-													$this->data->stream_fields,
-													$this->data->stream,
+													$stream_fields,
+													$stream,
 													$row->id,
 													$this->CI->input->post(),
 													$skips
 												))
 				{
-					$this->CI->session->set_flashdata('notice', $data->failure_message);	
+					$this->CI->session->set_flashdata('notice', $extra['failure_message']);	
 				}
 				else
 				{
@@ -220,45 +254,77 @@ class Fields
 					// Send Emails
 					// -------------------------------------
 					
-					if ($plugin AND $data->email_notifications)
+					if ($plugin AND (isset($extra['email_notifications']) AND is_array($extra['email_notifications'])))
 					{
 						foreach($data->email_notifications as $notify)
 						{
-							$this->_send_email($notify, $result_id, $method = 'update', $this->data->stream);
+							$this->_send_email($notify, $result_id, $method = 'update', $stream);
 						}
 					}
 	
 					// -------------------------------------
 				
-					$this->CI->session->set_flashdata('success', $data->success_message);	
+					$this->CI->session->set_flashdata('success', $extra['success_message']);	
 				}
 			}
 			
 			// Redirect based on if this is a plugin call or not
 			if ($plugin)
 			{
-				redirect(str_replace('-id-', $result_id, $this->data->return));
+				redirect(str_replace('-id-', $result_id, $extra['return']));
 			}
 			else
 			{
-				redirect('admin/streams/entries/index/'.$this->data->stream->id);
+				redirect('admin/streams/entries/index/'.$stream->id);
 			}
 		}
 		
 		// -------------------------------------
-		// Build Output
+		// Set Fields & Return Them
 		// -------------------------------------
-		
-		if($plugin)
+
+		$fields = array();
+
+		$count = 0;
+
+		foreach($stream_fields as $slug => $field)
 		{
-			$this->data->output = $this->data->values;
+			if ( ! in_array($field->field_slug, $skips))
+			{
+				$fields[$count]['input_title'] 		= $field->field_name;
+				$fields[$count]['input_slug'] 		= $field->field_slug;
+				$fields[$count]['instructions'] 	= $field->instructions;
+
+				// Get the acutal form input
+				if ($method == 'edit')
+				{
+					$fields[$count]['input'] 		= $this->build_form_input($field, $values[$field->field_slug], $row->id);
+				}
+				else
+				{
+					$fields[$count]['input'] 		= $this->build_form_input($field, $values[$field->field_slug]);			
+				}
+
+				// Set the error if there is one
+				$fields[$count]['error']			= $this->CI->streams_validation->error($field->field_slug, $extra['error_start'], $extra['error_end']);
+
+				// Format tht error
+				if ($fields[$count]['error']) 
+				{
+					$fields[$count]['error']		= $extra['error_start'].$fields[$count]['error'].$extra['error_end'];
+				}
+
+				// Set the required string
+				$fields[$count]['required'] = ($field->is_required == 'yes') ? $extra['required'] : NULL;
+
+				// Set even/odd
+				$fields[$count]['odd_even'] = (($count+1)%2 == 0) ? 'even' : 'odd';
+
+				$count++;
+			}
+		}
 		
-			return $this->data;
-		}
-		else
-		{
-        	$this->CI->template->build('admin/entries/form', $this->data);
-		}
+		return $fields;
 	}
 
 	// --------------------------------------------------------------------------
