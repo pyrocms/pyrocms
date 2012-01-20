@@ -1,14 +1,13 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
- * @name        Ajax controller
  * @author      PyroCMS Development Team
  * @package     PyroCMS
  * @subpackage  Controllers
  */
-class Ajax extends MY_Controller {
-
-    function url_title()
+class Ajax extends MY_Controller
+{
+    public function url_title()
     {
         $this->load->helper('text');
 

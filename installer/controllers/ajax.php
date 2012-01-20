@@ -112,7 +112,7 @@ class Ajax extends CI_Controller {
 			'curl' => $this->installer_lib->curl_enabled(),
 		);
 
-		include '../system/cms/sparks/curl/1.2.1/libraries/Curl.php';
+		include '../system/sparks/curl/1.2.1/libraries/Curl.php';
 		$url = 'http://www.pyrocms.com/statistics/add ';
 		$curl = new Curl;
 		$curl->simple_post($url, $data);
