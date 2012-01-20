@@ -47,7 +47,7 @@ class Streams extends CI_Driver_Library {
 	 * @access	protected
 	 * @var		obj
 	 */
-	protected $debug = true;
+	public $debug = true;
 
 	// --------------------------------------------------------------------------
 	
@@ -63,52 +63,51 @@ class Streams extends CI_Driver_Library {
 	{
 		$this->CI = get_instance();
 
-		$this->CI->load->language('streams/pyrostreams');
+		$this->CI->load->language('streams_core/pyrostreams');
 
-		$this->CI->load->config('streams/streams');
-
-		$this->CI->load->helper('streams/streams');
-
-        streams_constants();
+		$this->CI->load->config('streams_core/streams');
         
-		$this->CI->load->library('streams/Type');
+		$this->CI->load->library('streams_core/Type');
 	
-		$this->CI->load->model(array('streams/row_m', 'streams/streams_m', 'streams/fields_m'));
+		$this->CI->load->model(array('streams_core/row_m', 'streams_core/streams_m', 'streams_core/fields_m'));
 		
 		// Load the language file
-		if(is_dir(APPPATH.'libraries/Streams')):
-		
+		if(is_dir(APPPATH.'libraries/Streams'))
+		{
 			$this->CI->lang->load('streams_api', 'english', FALSE, TRUE, APPPATH.'libraries/Streams/');
-		
-		endif;
+		}
 	}
 
 	// --------------------------------------------------------------------------
 
 	/**
+	 * Stream ID
+	 *
 	 * Get a stream ID from any number of
-	 * stream inputs (object, id, or slug)
+	 * stream inputs (object, id, or slug).
+	 *
+	 * If you are using the stream slug, you
+	 * need to provide the namespace. 
 	 *
 	 * @access	public
 	 * @param	mixed - obj, int, or string
 	 * @return	mixed - null or int
 	 */
-	public function stream_id($stream)
+	public function stream_id($stream, $namespace = NULL)
 	{
-		// Check for ID
-		if(is_numeric($stream)) return $stream;
+		// If we have an ID, then we're done.
+		if (is_numeric($stream)) return $stream;
 		
 		// Check for slug
-		if(is_string($stream)):
-		
+		if (is_string($stream))
+		{
 			return $this->CI->streams_m->get_stream_id_from_slug($stream);
-		
-		endif;
+		}
 
 		// Check for object
-		if(is_object($stream) and isset($stream->id)) return $stream->id;
+		if (is_object($stream) AND isset($stream->id)) return $stream->id;
 		
-		return null;
+		return NULL;
 	}
 	
 	// --------------------------------------------------------------------------
@@ -121,18 +120,18 @@ class Streams extends CI_Driver_Library {
 	 * @param	mixed - obj, int, or string
 	 * @return	mixed - null or int
 	 */
-	public function stream_obj($stream)
+	public function stream_obj($stream, $namespace = NULL)
 	{
 		// Check for object
-		if(is_object($stream)) return $stream;
+		if (is_object($stream)) return $stream;
 
 		// Check for ID
-		if(is_numeric($stream)) return $this->CI->streams_m->get_stream($stream);
-		
+		if (is_numeric($stream)) return $this->CI->streams_m->get_stream($stream);
+				
 		// Check for slug
-		if(is_string($stream)) return $this->CI->streams_m->get_stream($stream, true);
+		if (is_string($stream) AND $namespace) return $this->CI->streams_m->get_stream($stream, TRUE, $namespace);
 		
-		return null;
+		return NULL;
 	}
 
 	// --------------------------------------------------------------------------
@@ -147,12 +146,13 @@ class Streams extends CI_Driver_Library {
 	 */
 	public function log_error($lang_code, $function)
 	{
-		$error = lang('streams.api.'.$lang_code).' ['.$function.']';
+		//$error = lang('streams.api.'.$lang_code).' ['.$function.']';
+		$error = $lang_code.' ['.$function.']';
 		
 		// Log the message either way
 		log_message('error', $error);
 	
-		if($this->debug === true) show_error($error);
+		if ($this->debug === TRUE) show_error($error);
 	}
 	
 }
