@@ -54,7 +54,7 @@ class Asset extends Plugin {
 	public function css()
 	{
 		$src = 		$this->CI->config->item('base_url').
-					$this->CI->config->item('asset_folder').
+					$this->CI->vars['assets_folder'].
 					'/css/'.$this->get_param('file');
 
 		return '<link rel="stylesheet" type="text/css" href="'.$src.'" />';

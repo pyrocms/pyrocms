@@ -28,7 +28,7 @@ class Fizl extends CI_Controller {
 		$this->load->library('Plugin');
 		$this->load->library('Parse');
 		
-		include(FCPATH.'fizl/app/libraries/Lex/Autoloader.php');
+		include(APPPATH.'libraries/Lex/Autoloader.php');
 		Lex_Autoloader::register();
 		
 		$this->load->helper(array('file', 'url'));
@@ -55,26 +55,11 @@ class Fizl extends CI_Controller {
 		);
 
 		// Get them configs
-		$raw_configs = read_file(FCPATH.'fizl/config.txt');
+		$raw_configs = require_once(FCPATH.'config.php');
 		
-		// Parse the configs
-		$lines = explode("\n", $raw_configs);
-		
-		foreach($lines as $line)
+		foreach($config as $key => $var)
 		{
-			$line = trim($line);
-
-			if ($line == '' OR $line[0] == '#') continue;
-			
-			$items = explode(':', $line, 2);
-			
-			if (count($items) != 2) continue;
-		
-			// Set the var
-			$this->vars[trim($items[0])] = trim($items[1]);
-			
-			// Set configs so eeeeveryone can use them
-			$this->config->set_item(trim($items[0]), trim($items[1]));
+			$this->vars[$key] = $var;
 		}
 		
 		// Set the site folder as a constant
@@ -172,28 +157,28 @@ class Fizl extends CI_Controller {
 
 		$template = FALSE;
 
-		$template_path = FCPATH.'fizl/templates';
+		$template_path = FCPATH.$this->vars['assets_folder'].'/templates/';
 
-		if($is_home and is_file($template_path.'/home.html')):
+		if($is_home and is_file($template_path.'home.html')):
 				
-			$template = read_file($template_path.'/home.html');
+			$template = read_file($template_path.'home.html');
 			
 		elseif($is_404):
 		
-			$template = read_file('fizl/standards/404.html');
+			$template = read_file($template_path.'404.html');
 			
 		// Do we have a template for this folder?
-		elseif(is_file($template_path.'/'.implode('_', $segments).'.html')):
+		elseif(is_file($template_path.implode('_', $segments).'.html')):
 		
-			$template = read_file($template_path.'/'.implode('_', $segments).'.html');
+			$template = read_file($template_path.implode('_', $segments).'.html');
 			
-		elseif(is_file($template_path.'/sub.html')):
+		elseif(is_file($template_path.'sub.html')):
 		
-			$template = read_file($template_path.'/sub.html');
+			$template = read_file($template_path.'sub.html');
 		
-		elseif(is_file($template_path.'/default.html')):
+		elseif(is_file($template_path.'default.html')):
 		
-			$template = read_file($template_path.'/default.html');
+			$template = read_file($template_path.'default.html');
 		
 		endif;
 		
@@ -248,7 +233,7 @@ class Fizl extends CI_Controller {
 		
 		$parser = new Lex_Parser();
 		$parser->scope_glue(':');
-				
+		
 		echo $parser->parse($template, $this->vars, array($this->parse, 'callback'));
 	}
 	
@@ -265,7 +250,7 @@ class Fizl extends CI_Controller {
 	private function embed($file, $attributes)
 	{
 		// Load the file. Always an .html
-		$embed_content = read_file(FCPATH.'fizl/embeds/'.$file.'.html');
+		$embed_content = read_file(FCPATH.$this->vars['assets_folder'].'/embeds/'.$file.'.html');
 		
 		if ( ! $embed_content) return NULL;
 		

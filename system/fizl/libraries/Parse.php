@@ -49,7 +49,7 @@ class Parse {
 		{
 			$this->CI->load->add_package_path(APPPATH.'plugins/'.$plugin);
 		}	
-		elseif (is_dir(FCPATH.'fizl/plugins/'.$plugin))
+		elseif (is_dir(FCPATH.'addons/plugins/'.$plugin))
 		{
 			$this->CI->load->add_package_path(FCPATH.'fizl/plugins/'.$plugin);
 		}	

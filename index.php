@@ -56,7 +56,7 @@ if (defined('ENVIRONMENT'))
  * as this file.
  *
  */
-	$system_path = 'fizl/codeigniter';
+	$system_path = 'system/codeigniter';
 
 /*
  *---------------------------------------------------------------
@@ -72,7 +72,7 @@ if (defined('ENVIRONMENT'))
  * NO TRAILING SLASH!
  *
  */
-	$application_folder = 'fizl/app';
+	$application_folder = 'system/fizl';
 
 /*
  * --------------------------------------------------------------------
