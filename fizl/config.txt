@@ -2,10 +2,10 @@
 
 site_title: 			Fizl Test Site
 asset_folder: 			assets
-site_folder: 			site
+site_folder: 			content
 fizl_date_format:		Y-m-d H:i:s
 
 # Custom Configs
 
-contact_email:			adam.fairholm@gmail.com
+contact_email:			example@example.com
 

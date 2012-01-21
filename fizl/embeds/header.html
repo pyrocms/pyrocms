@@ -2,13 +2,13 @@
 <html lang="en"> 
 <head> 
  
-	<base href="{base_url}" /> 
+	<base href="{{ base_url }}" /> 
  
 	<meta charset="utf-8"> 
 	
-	<title>{site_title}</title> 
+	<title>{{ site_title }}</title> 
 	
-	{fiz:asset:css file="main.css"}
+	{{ asset:css file="main.css" }}
 	
 </head>
 
@@ -22,13 +22,13 @@
 
 <nav>
 
-{fiz:nav}
+{{ nav }}
 	
 |Home
 about|About
 - about/team|Team
 contact|Contact
 	
-{/fiz:nav}
+{{ /nav }}
 
 </nav>

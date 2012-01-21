@@ -1,7 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 /**
- * Plugin Library
+ * Fizl Parse Library
  *
  * Class for plugins to extend. 
  *
@@ -15,8 +15,28 @@ class Plugin {
 
 	/**
 	 * Whatever is between the tags for tag pairs
+	 *
+	 * @access	public
+	 * @param	string
 	 */
 	public $tag_content;
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Any passed attributes from the tag
+	 *
+	 * @access	public
+	 * @var		array
+	 */
+	public $attributes;
+
+	// --------------------------------------------------------------------------
+	
+	public function __construct()
+	{
+		$this->CI = get_instance();
+	}
 
 	// --------------------------------------------------------------------------
 	
@@ -28,19 +48,16 @@ class Plugin {
 	 * @param	[string]
 	 * @return	string
 	 */
-	public function get_param($key, $default = '')
+	public function get_param($key, $default = NULL)
 	{
-		if(isset($this->$key)):
-		
-			return $this->$key;
-			
-		else:
-		
+		if(isset($this->attributes[$key]))
+		{
+			return $this->attributes[$key];
+		}	
+		else
+		{
 			return $default;
-		
-		endif;
+		}
 	}
 
 }
-
-/* End of file Plugin.php */
