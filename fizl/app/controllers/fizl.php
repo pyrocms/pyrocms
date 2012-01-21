@@ -191,6 +191,10 @@ class Fizl extends CI_Controller {
 		
 			$template = read_file($template_path.'/sub.html');
 		
+		elseif(is_file($template_path.'/default.html')):
+		
+			$template = read_file($template_path.'/default.html');
+		
 		endif;
 		
 		// -------------------------------------
