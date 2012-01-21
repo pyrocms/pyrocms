@@ -38,7 +38,7 @@ class Format extends Plugin {
 		
 			// Default is markdown
 			default:
-				include_once('markdown.php');
+				require_once('markdown.php');
 				return Markdown($content);
 				break;
 		
