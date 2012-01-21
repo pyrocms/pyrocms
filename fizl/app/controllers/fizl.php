@@ -90,43 +90,68 @@ class Fizl extends CI_Controller {
 		$is_home = FALSE;
 		
 		// Blank mean it's the home page, ya hurd?
-		if(empty($segments)):
-		
+		if (empty($segments))
+		{
 			$is_home = TRUE;
-		
 			$segments = array('index');
-			
-		endif;
+		}	
+
+		// -------------------------------------
+		// Find filename
+		// -------------------------------------
 
 		// Is this a folder? If so we are looking for the index
 		// file in the folder.
-		if(is_dir(SITE_FOLDER.'/'.implode('/', $segments))):
-		
-			$segments[] = 'index';
-		
-		endif;
-		
-		// Okay let's take a look at the last element
-		$file = array_pop($segments);
-				
-		// We just want two things
-		$file_elems = array_slice(explode('.', $file), 0, 2);
-		
-		// No file ext is an html
-		if(count($file_elems) == 1) $file_elems[1] = 'html';
+		if(is_dir(SITE_FOLDER.'/'.implode('/', $segments)))
+		{
+			$file = 'index';
+		}
+		else
+		{
+			// Okay let's take a look at the last element
+			$file = array_pop($segments);
+		}
 		
 		// Turn the URL into a file path
 		$file_path = SITE_FOLDER;
-		
 		if ($segments) $file_path .= '/'.implode('/', $segments);
+								
+		// -------------------------------------
+		// Find file
+		// -------------------------------------
+
+		// We just want two things
+		$file_elems = array_slice(explode('.', $file), 0, 2);
+				
+		$supported_files = array('html', 'md', 'textile');
+		$file_ext = NULL;
 		
-		$file_path .= '/'.implode('.', $file_elems);
-		
+		// If there is a file extenison,
+		// we just add it here.
+		if(count($file_elems) == 2)
+		{
+			$file_ext = $file_elems[1];
+		}
+		else
+		{
+			// Try and find a file to match
+			// our URL
+			foreach($supported_files as $ext)
+			{
+				if (file_exists($file_path.'/'.$file.'.'.$ext))
+				{
+					$file_ext = $ext;
+					$file_path .= '/'.$file.'.'.$ext;
+					break;
+				}
+			}
+		}
+								
 		// -------------------------------------
 		// Set headers
 		// -------------------------------------
 				
-		if ( ! file_exists($file_path))
+		if ( ! $file_ext)
 		{
 			// No file for this? Set us a 404
 			header('HTTP/1.0 404 Not Found');
@@ -137,14 +162,7 @@ class Fizl extends CI_Controller {
 		{
 			$is_404 = false;
 
-			switch ($file_elems[1])
-			{
-				case 'html':
-					$this->output->set_content_type('text/html');
-					break;
-				default:
-					$this->output->set_content_type('text/html');						
-			}
+			$this->output->set_content_type('text/html');
 		}
 		
 		// -------------------------------------
@@ -153,10 +171,10 @@ class Fizl extends CI_Controller {
 
 		$template = FALSE;
 
-		$template_path = 'fizl/templates';
+		$template_path = FCPATH.'fizl/templates';
 
 		if($is_home and is_file($template_path.'/home.html')):
-		
+				
 			$template = read_file($template_path.'/home.html');
 			
 		elseif($is_404):
@@ -178,24 +196,31 @@ class Fizl extends CI_Controller {
 		// Get Content	
 		// -------------------------------------
 		
-		if(!$is_404):
-				
+		if ( ! $is_404):
+			
 			$content = read_file($file_path);
 	
-			/*if($template):
-	
-				$content = $this->parser->parse_string($template, array('content'=>$content), TRUE);
-				
-			endif;*/
-		
-		else:
-		
-			$content = $template;
+			// If we have no template, then
+			// we just use the content.
+			if( ! $template)
+			{
+				$template = $content;
+			}
+			else
+			{
+				// If we have a template, let's be
+				// sneakty and add in the content
+				// variable manually.
+				$template = str_replace(array('{{ content }}', '{{content}}'), $content, $template);
+			}
+			
+			// Our content is avialble
+			$this->vars['content'] = $content;
 		
 		endif;
-				
+						
 		// -------------------------------------
-		// Return Content	
+		// Prep and Output Content	
 		// -------------------------------------
 		
 		$parser = new Lex_Parser();
