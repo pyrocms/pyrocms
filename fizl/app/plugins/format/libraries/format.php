@@ -43,9 +43,6 @@ class Format extends Plugin {
 				break;
 		
 		endswitch;
-			
-	}
-	
-}
+	}	
 
-/* End of file format.php */
+}
