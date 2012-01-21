@@ -200,10 +200,28 @@ class Fizl extends CI_Controller {
 		if ( ! $is_404):
 			
 			$content = read_file($file_path);
+			
+			// -------------------------------------
+			// Prep content by filetype	
+			// -------------------------------------
+			// .md and .textile get formatted
+			// automatically.
+			// -------------------------------------
+
+			if ($file_ext == 'md')
+			{
+				$content = '{{ format }}'.$content.'{{ /format }}';
+			}
+			elseif( $file_ext == 'textile')
+			{
+				$content = '{{ format method="textile" }}'.$content.'{{ /format }}';
+			}
+
+			// -------------------------------------
 	
 			// If we have no template, then
 			// we just use the content.
-			if( ! $template)
+			if ( ! $template)
 			{
 				$template = $content;
 			}
