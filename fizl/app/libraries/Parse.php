@@ -40,10 +40,10 @@ class Parse {
 			
 			if (count($pieces) != 2) return NULL;
 			
-			$plugin 	= $name[0];
-			$call		= $name[1];
+			$plugin 	= $pieces[0];
+			$call		= $pieces[1];
 		}
-
+		
 		// Look for the plugin file
 		if (is_dir(APPPATH.'plugins/'.$plugin))
 		{
