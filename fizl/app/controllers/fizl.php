@@ -131,6 +131,7 @@ class Fizl extends CI_Controller {
 		if(count($file_elems) == 2)
 		{
 			$file_ext = $file_elems[1];
+			$file_path .= '/'.$file;
 		}
 		else
 		{
