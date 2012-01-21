@@ -7,9 +7,9 @@
  *
  * @package		Fizl
  * @author		Adam Fairholm (@adamfairholm)
- * @copyright	Copyright (c) 2011, 1bit
- * @license		http://1bitapps.com/fizl/license.html
- * @link		http://1bitapps.com/fizl
+ * @copyright	Copyright (c) 2011-2012, Parse19
+ * @license		http://parse19.com/fizl/docs/license.html
+ * @link		http://parse19.com/fizl
  */
 class Plugin {
 
