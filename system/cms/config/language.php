@@ -141,7 +141,14 @@ $config['supported_languages'] = array(
 		'direction'	=> 'ltr',
 		'codes'		=> array('da', 'danish', 'da_DK'),
 		'ckeditor'	=> NULL
-	)
+	),
+	'id' => array(
+		'name'		=> 'Indonesian',
+		'folder'	=> 'indonesian',
+		'direction'	=> 'ltr',
+		'codes'		=> array('id', 'id_ID'),
+		'ckeditor'	=> NULL
+	),
 );
 
 /*
