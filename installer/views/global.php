@@ -115,6 +115,11 @@
 			<img src="<?php echo base_url(); ?>assets/images/flags/vn.gif" alt="Vietnamese" />
 		</a>
 	</li>
+	<li>
+		<a href="<?php echo site_url('installer/change/indonesian'); ?>" title="Indonesian">
+			<img src="<?php echo base_url(); ?>assets/images/flags/id.gif" alt="Indonesian" />
+		</a>
+	</li>
 </ul>
 		</div>		
 		</div>

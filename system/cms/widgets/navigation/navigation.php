@@ -16,6 +16,7 @@ class Widget_Navigation extends Widgets
 		'nl' => 'Navigatie',
 		'br' => 'Navegação',
 		'ru' => 'Навигация',
+		'id' => 'Navigasi',
 	);
 	public $description	= array(
 		'en' => 'Display a navigation group with a widget',
@@ -23,6 +24,7 @@ class Widget_Navigation extends Widgets
 		'nl' => 'Toon een navigatiegroep met een widget',
 		'br' => 'Exibe um grupo de links de navegação como widget em seu site',
 		'ru' => 'Отображает навигационную группу внутри виджета',
+		'id' => 'Menampilkan grup navigasi menggunakan widget',
 	);
 	public $author		= 'Phil Sturgeon';
 	public $website		= 'http://philsturgeon.co.uk/';

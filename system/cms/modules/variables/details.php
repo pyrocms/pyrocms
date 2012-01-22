@@ -25,7 +25,8 @@ class Module_Variables extends Module {
 				'el' => 'Μεταβλητές',
 				'he' => 'משתנים',
 				'lt' => 'Kintamieji',
-				'da' => 'Variable'
+				'da' => 'Variable',
+				'id' => 'Variabel'
 			),
 			'description' => array(
 				'sl' =>	'Urejanje globalnih spremenljivk za dostop od kjerkoli',
@@ -45,7 +46,8 @@ class Module_Variables extends Module {
 				'el' => 'Διαχείριση μεταβλητών που είναι προσβάσιμες από παντού στον ιστότοπο.',
 				'he' => 'ניהול משתנים גלובליים אשר ניתנים להמרה בכל חלקי האתר',
 				'lt' => 'Globalių kintamujų tvarkymas kurie yra pasiekiami iš bet kur.',
-				'da' => 'Håndtér globale variable som kan tilgås overalt.'
+				'da' => 'Håndtér globale variable som kan tilgås overalt.',
+				'id' => 'Mengatur variabel global yang dapat diakses dari mana saja.'
 			),
 			'frontend'	=> FALSE,
 			'backend'	=> TRUE,
