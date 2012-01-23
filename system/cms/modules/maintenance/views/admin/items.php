@@ -27,9 +27,9 @@
 					<td class="align-center"><?php echo $table->count; ?></td>
 					<td class="buttons buttons-small align-center actions">
 						<?php if ($table->count > 0):
-							echo anchor('admin/maintenance/export/'.$table->name.'/xml', lang('maintenance.export_xml'), array('class'=>'button'));
-							echo anchor('admin/maintenance/export/'.$table->name.'/csv', lang('maintenance.export_csv'), array('class'=>'button'));
-							echo anchor('admin/maintenance/export/'.$table->name.'/json', lang('maintenance.export_json'), array('class'=>'button'));
+							echo anchor('admin/maintenance/export/'.$table->name.'/xml', lang('maintenance.export_xml'), array('class'=>'button')).' ';
+							echo anchor('admin/maintenance/export/'.$table->name.'/csv', lang('maintenance.export_csv'), array('class'=>'button')).' ';
+							echo anchor('admin/maintenance/export/'.$table->name.'/json', lang('maintenance.export_json'), array('class'=>'button')).' ';
 						endif; ?>
 					</td>
 				</tr>

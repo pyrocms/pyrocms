@@ -51,6 +51,6 @@
 
 <?php else: ?>
 	<section class="item">
-		<p><?php echo lang('redirects.no_redirects');?></p>
+		<div class="no_data"><?php echo lang('redirects.no_redirects');?></div>
 	</section>
 <?php endif; ?>

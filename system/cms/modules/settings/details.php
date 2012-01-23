@@ -58,7 +58,7 @@ class Module_Settings extends Module {
 	{
 		$this->dbforge->drop_table('settings');
 
-		$settings = "
+		$this->db->query("
 			CREATE TABLE " . $this->db->dbprefix('settings') . " (
 			  `slug` varchar(30) collate utf8_unicode_ci NOT NULL,
 			  `title` varchar(100) collate utf8_unicode_ci NOT NULL,
@@ -75,7 +75,7 @@ class Module_Settings extends Module {
 			UNIQUE KEY `unique - slug` (`slug`),
 			KEY `index - slug` (`slug`)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Stores all sorts of settings for the admin to change';
-		";
+		");
 
 		// regarding ordering... any additions to this table can have an order value the same as a sibling in the same section.
 		// for example if you add to the Email tab give it a value in the range of 983 to 975
@@ -89,6 +89,7 @@ class Module_Settings extends Module {
 			 ('site_public_lang', 'Public Languages', 'Which are the languages really supported and offered on the front-end of your website?', 'checkbox', '".DEFAULT_LANG."', '".DEFAULT_LANG."', 'func:get_supported_lang', '1', '1', '', '996'),
 			 ('date_format', 'Date Format', 'How should dates be displayed across the website and control panel? Using the <a target=\"_blank\" href=\"http://php.net/manual/en/function.date.php\">date format</a> from PHP - OR - Using the format of <a target=\"_blank\" href=\"http://php.net/manual/en/function.strftime.php\">strings formatted as date</a> from PHP.', 'text', 'Y-m-d', '', '', 1, 1, '','996'),
 			 ('currency','Currency','The currency symbol for use on products, services, etc.','text','&pound;','','','1','1','','995'),
+			 ('ckeditor_config', 'CKEditor Config', 'You can find a list of valid configuration items in <a target=\"_blank\" href=\"http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.config.html\">CKEditor\'s documentation.</a>', 'textarea', '', '{{# this is the config for all wysiwyg-simple textareas #}}\n$(''textarea.wysiwyg-simple'').ckeditor({\n	toolbar: [\n		[''Bold'', ''Italic'', ''-'', ''NumberedList'', ''BulletedList'', ''-'', ''Link'', ''Unlink'']\n	  ],\n	width: ''99%'',\n	height: 100,\n	dialog_backgroundCoverColor: ''#000'',\n	defaultLanguage: ''{{ helper:config item=\"default_language\" }}'',\n	language: ''{{ global:current_language }}''\n});\n\n{{# this is a wysiwyg-simple editor customized for the blog module (it allows images to be inserted) #}}\n$(''textarea.blog.wysiwyg-simple'').ckeditor({\n	toolbar: [\n		[''pyroimages''],\n		[''Bold'', ''Italic'', ''-'', ''NumberedList'', ''BulletedList'', ''-'', ''Link'', ''Unlink'']\n	  ],\n	extraPlugins: ''pyroimages'',\n	width: ''99%'',\n	height: 100,\n	dialog_backgroundCoverColor: ''#000'',\n	defaultLanguage: ''{{ helper:config item=\"default_language\" }}'',\n	language: ''{{ global:current_language }}''\n});\n\n{{# and this is the advanced editor #}}\n$(''textarea.wysiwyg-advanced'').ckeditor({\n	toolbar: [\n		[''Maximize''],\n		[''pyroimages'', ''pyrofiles''],\n		[''Cut'',''Copy'',''Paste'',''PasteFromWord''],\n		[''Undo'',''Redo'',''-'',''Find'',''Replace''],\n		[''Link'',''Unlink''],\n		[''Table'',''HorizontalRule'',''SpecialChar''],\n		[''Bold'',''Italic'',''StrikeThrough''],\n		[''JustifyLeft'',''JustifyCenter'',''JustifyRight'',''JustifyBlock'',''-'',''BidiLtr'',''BidiRtl''],\n		[''Format'', ''FontSize'', ''Subscript'',''Superscript'', ''NumberedList'',''BulletedList'',''Outdent'',''Indent'',''Blockquote''],\n		[''ShowBlocks'', ''RemoveFormat'', ''Source'']\n	],\n	extraPlugins: ''pyroimages,pyrofiles'',\n	width: ''99%'',\n	height: 400,\n	dialog_backgroundCoverColor: ''#000'',\n	removePlugins: ''elementspath'',\n	defaultLanguage: ''{{ helper:config item=\"default_language\" }}'',\n	language: ''{{ global:current_language }}''\n);', '', 1, 1, 'CKEditor', 994),
 			 ('records_per_page','Records Per Page','How many records should we show per page in the admin section?','select','25','','10=10|25=25|50=50|100=100','1','1','','994'),
 			 ('rss_feed_items','Feed item count','How many items should we show in RSS/blog feeds?','select','25','','10=10|25=25|50=50|100=100','1','1','','993'),
 			 ('dashboard_rss', 'Dashboard RSS Feed', 'Link to an RSS feed that will be displayed on the dashboard.', 'text', 'http://feeds.feedburner.com/pyrocms-installed', '', '', 0, 1, '','992'),
@@ -124,11 +125,36 @@ class Module_Settings extends Module {
 			 ('default_theme','Default Theme','Select the theme you want users to see by default.','','default','default','func:get_themes','1','0','','0'),
 			 ('admin_theme','Control Panel Theme','Select the theme for the control panel.','','pyrocms','','func:get_themes','1','0','','0'),
 			 ('admin_force_https','Force HTTPS for Control Panel?','Allow only the HTTPS protocol when using the Control Panel?','radio','0','','1=Yes|0=No','1','1','','0'),
-			 ('version', 'Version', '', 'text', '1.0', '".CMS_VERSION."', '', '0', '0', '','0'),
 			 ('addons_upload', 'Addons Upload Permissions', 'Keeps mere admins from uploading addons by default', 'text', '0', '0', '', '1', '0', '','0');
 		";
-
-		if ($this->db->query($settings) && $this->db->query($default_settings))
+		
+		// TODO Convert more settings over to use this syntax
+		$this->db->insert_batch('settings', array(
+			array(
+				'slug'			=> 'api_enabled',
+				'title'			=> 'API Enabled',
+				'description'	=> 'Allow API access to all modules which have an API controller.',
+				'`default`' 	=> false,
+				'type'			=> 'select',
+				'`options`'		=> '0=Disabled|1=Enabled',
+				'is_required'	=> false,
+				'is_gui' 		=> false,
+				'module' 		=> 'files'
+			),
+			array(
+				'slug'			=> 'api_user_keys',
+				'title'			=> 'API User Keys',
+				'description'	=> 'Allow users to sign up for API keys (if the API is Enabled).',
+				'`default`' 	=> false,
+				'type'			=> 'select',
+				'`options`'		=> '0=Disabled|1=Enabled',
+				'is_required'	=> false,
+				'is_gui' 		=> false,
+				'module' 		=> 'files'
+			),
+		));
+		
+		if ($this->db->query($default_settings))
 		{
 			return TRUE;
 		}

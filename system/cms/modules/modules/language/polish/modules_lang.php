@@ -2,7 +2,8 @@
 $lang['modules.core_list']				= 'Moduły rdzenia';
 $lang['modules.addon_list']				= 'Moduły dodatków';
 $lang['modules.introduction']			= 'Poniżej znajduje się lista zainstalowanych modułów oraz ich informacjami, takimi jak krótki opis oraz wersja.';
-$lang['modules.disable_error']			= 'Nie można wyłączyć modułu "%s".';
+$lang['modules.core_introduction']		 = 'Below is a list of core modules and their information. You may disable them but do so with extreme care. Disabling modules such as Users will render your site inoperable.'; #translate
+$lang['modules.disable_error'] 			= 'Nie można wyłączyć modułu "%s".';
 $lang['modules.disable_success']		= 'Moduł "%s" został wyłączony.';
 $lang['modules.enable_error']			= 'Nie można włączyć modułu "%s".';
 $lang['modules.enable_success']			= 'Moduł "%s" został włączony.';

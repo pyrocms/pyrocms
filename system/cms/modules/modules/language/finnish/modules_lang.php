@@ -10,7 +10,8 @@
 $lang['modules.core_list']               = 'Ytimen moduulit';
 $lang['modules.addon_list']              = 'Lisäosa moduulit';
 $lang['modules.introduction']            = 'Alla näet asennetut moduulit ja niiden tiedot, kuten kuvauksen ja moduulien versiot.';
-$lang['modules.disable_error']           = 'Moduulia "%s" ei voitu poistaa käytöstä.';
+$lang['modules.core_introduction']		 = 'Below is a list of core modules and their information. You may disable them but do so with extreme care. Disabling modules such as Users will render your site inoperable.'; #translate
+$lang['modules.disable_error']            = 'Moduulia "%s" ei voitu poistaa käytöstä.';
 $lang['modules.disable_success']         = 'Moduuli "%s" poistettiin käytöstä.';
 $lang['modules.enable_error']            = 'Moduulia "%s" ei voitu ottaa käyttöön.';
 $lang['modules.enable_success']          = 'Moduuli "%s" otettiin käyttöön.';

@@ -3,7 +3,8 @@
 $lang['modules.core_list']				= 'Modules système';
 $lang['modules.addon_list']				= 'Modules additionels';
 $lang['modules.introduction']			= 'Ci-desous la liste des modules installés et leur rôle, description et version.';
-$lang['modules.disable_error']			= 'Impossible de désactiver le module "%s".';
+$lang['modules.core_introduction']		 = 'Below is a list of core modules and their information. You may disable them but do so with extreme care. Disabling modules such as Users will render your site inoperable.'; #translate
+$lang['modules.disable_error'] 			= 'Impossible de désactiver le module "%s".';
 $lang['modules.disable_success']		= 'Le module "%s" a été désactivé.';
 $lang['modules.enable_error']			= 'Le module "%s" n\'a pu être activé.';
 $lang['modules.enable_success']			= 'Le module "%s" a été activé.';

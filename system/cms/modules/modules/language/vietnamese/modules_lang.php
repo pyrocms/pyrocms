@@ -13,7 +13,8 @@
 $lang['modules.core_list']               = 'Mô đun lõi';
 $lang['modules.addon_list']              = 'Mô đun cài đặt thêm';
 $lang['modules.introduction']            = 'Dưới đây là danh sách và thông tin (phiên bản, mô tả) của các mô đun đã được cài đặt.';
-$lang['modules.disable_error']           = 'Không thể vô hiệu hóa mô đun "%s".';
+$lang['modules.core_introduction']		 = 'Below is a list of core modules and their information. You may disable them but do so with extreme care. Disabling modules such as Users will render your site inoperable.'; #translate
+$lang['modules.disable_error']            = 'Không thể vô hiệu hóa mô đun "%s".';
 $lang['modules.disable_success']         = 'Mô đun "%s" đã được vô hiệu hóa.';
 $lang['modules.enable_error']            = 'Không thể kích hoạt mô đun "%s".';
 $lang['modules.enable_success']          = 'Mô đun "%s" đã được kích hoạt.';
