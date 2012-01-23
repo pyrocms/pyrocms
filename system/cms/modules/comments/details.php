@@ -25,7 +25,8 @@ class Module_Comments extends Module {
 				'el' => 'Σχόλια',
 				'he' => 'תגובות',
 				'lt' => 'Komentarai',
-				'da' => 'Kommentarer'
+				'da' => 'Kommentarer',
+				'id' => 'Komentar'
 			),
 			'description' => array(
 				'sl' => 'Uporabniki in obiskovalci lahko vnesejo komentarje na vsebino kot je blok, stra ali slike',
@@ -45,7 +46,8 @@ class Module_Comments extends Module {
 				'el' => 'Οι χρήστες και οι επισκέπτες μπορούν να αφήνουν σχόλια για περιεχόμενο όπως το ιστολόγιο, τις σελίδες και τις φωτογραφίες.',
 				'he' => 'משתמשי האתר יכולים לרשום תגובות למאמרים, תמונות וכו',
 				'lt' => 'Vartotojai ir svečiai gali komentuoti jūsų naujienas, puslapius ar foto.',
-				'da' => 'Brugere og besøgende kan skrive kommentarer til indhold som blog, sider og fotoer.'
+				'da' => 'Brugere og besøgende kan skrive kommentarer til indhold som blog, sider og fotoer.',
+				'id' => 'Pengguna dan pengunjung dapat menuliskan komentaruntuk setiap konten seperti blog, halaman dan foto.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,

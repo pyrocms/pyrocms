@@ -16,7 +16,8 @@ class Module_Blog extends Module {
 				'he' => 'בלוג',
 				'lt' => 'Blogas',
 				'ru' => 'Блог',
-				'zh' => '文章'
+				'zh' => '文章',
+				'id' => 'Blog'
 			),
 			'description' => array(
 				'en' => 'Post blog entries.',
@@ -36,7 +37,8 @@ class Module_Blog extends Module {
 				'el' => 'Δημιουργήστε άρθρα και εγγραφές στο ιστολόγιο σας.',
 				'he' => 'ניהול בלוג',
 				'lt' => 'Rašykite naujienas bei blog\'o įrašus.',
-				'da' => 'Skriv blogindlæg'
+				'da' => 'Skriv blogindlæg',
+				'id' => 'Post entri blog'
 			),
 			'frontend'	=> TRUE,
 			'backend'	=> TRUE,

@@ -25,8 +25,8 @@
 	pyro.admin_theme_url			= "<?php echo BASE_URL . $this->admin_theme->path; ?>";
 	pyro.apppath_uri				= "<?php echo APPPATH_URI; ?>";
 	pyro.base_uri					= "<?php echo BASE_URI; ?>";
-	pyro.lang.remove				= "<?php echo lang('global:remove'); ?>"
-	pyro.lang.delete				= "<?php echo lang('global:delete'); ?>"
+	pyro.lang.remove				= "<?php echo lang('global:remove'); ?>";
+	pyro.lang.delete				= "<?php echo lang('global:delete'); ?>";
 	pyro.lang.dialog_message 		= DIALOG_MESSAGE;
 </script>
 
@@ -34,6 +34,11 @@
 <?php echo css('plugins.css'); ?>
 <?php echo css('jquery/colorbox.css'); ?>
 <?php echo css('codemirror.css'); ?>
+
+<!--[if lt IE 9]>
+<?php echo css('ie8.css'); ?>
+<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
 
 <?php if ($module_details['sections']): ?>
 <style>section#content {margin-top: 170px!important;}</style>
