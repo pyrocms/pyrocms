@@ -10,8 +10,7 @@ class Public_Controller extends MY_Controller
 		$this->benchmark->mark('public_controller_start');
 
 		// Check redirects if GET and Not AJAX
-		if (!$this->input->is_ajax_request() AND
-			 $_SERVER['REQUEST_METHOD'] == 'GET')
+		if ( ! $this->input->is_ajax_request() AND $_SERVER['REQUEST_METHOD'] == 'GET')
 		{
 			$this->load->model('redirects/redirect_m');
 			$uri = trim(uri_string(), '/');
@@ -20,7 +19,9 @@ class Public_Controller extends MY_Controller
 			{
 				// Check if it was direct match
 				if ($redirect->from == $uri)
+				{
 					redirect($redirect->to,'location',$redirect->type);
+				}
 
 				// If it has back reference
 				if (strpos($redirect->to, '$') !== FALSE)
