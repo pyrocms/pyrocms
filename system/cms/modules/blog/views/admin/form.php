@@ -41,7 +41,7 @@
 			<li>
 				<label for="intro"><?php echo lang('blog_intro_label'); ?></label>
 				<br style="clear: both;" />
-				<?php echo form_textarea(array('id' => 'intro', 'name' => 'intro', 'value' => $post->intro, 'rows' => 5, 'class' => 'wysiwyg-simple')); ?>
+				<?php echo form_textarea(array('id' => 'intro', 'name' => 'intro', 'value' => $post->intro, 'rows' => 5, 'class' => 'blog wysiwyg-simple')); ?>
 			</li>
 			
 			<li class="even editor">
