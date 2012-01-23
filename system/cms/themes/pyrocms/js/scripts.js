@@ -111,7 +111,7 @@ jQuery(function($) {
 			if( $('input[name="action_to[]"]:checked, .check-all:checked').length >= 1 ){
 				$(".table_action_buttons .btn").removeAttr('disabled');
 			} else {
-				$(".table_action_buttons .btn").attr('disabled', 'disabled');
+				$(".table_action_buttons .btn").attr('disabled', true);
 			}
 		});
 

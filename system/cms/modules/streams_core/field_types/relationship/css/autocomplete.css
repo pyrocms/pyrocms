@@ -1,0 +1,23 @@
+.streams_rel_anchor {position: relative;}
+ul.streams_dropdown {
+	position: absolute;
+	top: 34px;
+	left: 0;
+	border: 1px solid #ccc;
+	width: 200px;
+	box-shadow: 2px 3px 2px #ccc;
+	background: #fff;
+	z-index: 999;
+}
+ul.streams_dropdown li a {
+	padding: 5px 6px;
+	display: block;
+	color: #0064cd;
+	border-bottom: 1px solid #F3F3F3;
+	cursor: pointer;
+}
+ul.streams_dropdown li a:last {border-bottom: none;}
+ul.streams_dropdown li a:hover {
+	background: #0064cd;
+	color: #fff;
+}

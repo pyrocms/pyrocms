@@ -511,7 +511,6 @@ class Admin extends Admin_Controller {
 			$this->session->set_flashdata('error', lang('files.no_select_error'));
 		}
 
-		// Redirect
 		isset($folder) ? redirect('admin/files/#!path=' . $folder->virtual_path) : redirect('admin/files');
 	}
 

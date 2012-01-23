@@ -60,7 +60,6 @@ class Admin_groups extends Admin_Controller {
 	 */
 	public function index()
 	{
-		// Redirect
 		redirect('admin/navigation');
 	}
 

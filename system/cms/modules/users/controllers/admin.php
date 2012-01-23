@@ -384,9 +384,10 @@ class Admin extends Admin_Controller {
 		}
 		// The array of id's to delete is empty
 		else
+		{
 			$this->session->set_flashdata('error', $this->lang->line('user_mass_delete_error'));
-
-		// Redirect
+		}
+		
 		redirect('admin/users');
 	}
 

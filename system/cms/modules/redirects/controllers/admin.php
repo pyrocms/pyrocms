@@ -73,7 +73,6 @@ class Admin extends Admin_Controller
 			{
 				$this->session->set_flashdata('success', lang('redirects.add_success'));
 
-				// Redirect
 				redirect('admin/redirects');
 			}
 			
@@ -158,7 +157,6 @@ class Admin extends Admin_Controller
 			$this->session->set_flashdata('error', $this->lang->line('redirects.no_select_error'));
 		}		
 		
-		// Redirect
 		redirect('admin/redirects');
 	}
 	

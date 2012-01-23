@@ -40,8 +40,8 @@ class MX_Loader extends CI_Loader
 	public $_ci_plugins = array();
 	public $_ci_cached_vars = array();
 	
-	public function __construct() {
-		
+	public function __construct()
+	{
 		parent::__construct();
 		
 		/* set the module name */

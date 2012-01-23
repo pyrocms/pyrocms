@@ -23,36 +23,6 @@ class MY_Controller extends MX_Controller {
 		{
 			show_error('This domain is not set up correctly. Please go to '.anchor('sites') .' and log in to add this new site.');
 		}
-		
-		// TODO: Remove this in v2.1.0 as it just renames tables for v2.0.0
-		if ($this->db->table_exists(SITE_REF.'_schema_version'))
-		{	
-			$this->load->dbforge();
-			if ($this->db->table_exists(SITE_REF.'_migrations'))
-			{
-				$this->dbforge->drop_table(SITE_REF.'_schema_version');
-			}
-			else
-			{
-				$this->dbforge->rename_table(SITE_REF.'_schema_version', SITE_REF.'_migrations');
-			}
-		}
-		
-		// Upgrading from something old? Erf, try to shoehorn them back on track
-		elseif ($this->db->table_exists('schema_version'))
-		{
-			$this->load->dbforge();
-			$this->dbforge->rename_table('schema_version', 'migrations');
-			
-			// Migration logic helps to make sure PyroCMS is running the latest changes
-			$this->load->library('migration');
-
-			if ( ! ($schema_version = $this->migration->version(28)))
-			{
-				show_error($this->migration->error_string());
-			}
-			redirect(current_url());
-		}
 
 		// By changing the prefix we are essentially "namespacing" each site
 		$this->db->set_dbprefix(SITE_REF.'_');
