@@ -1956,6 +1956,10 @@ Ensure your main styling comes before this!
 		width: 450px; 
 		float: left; 
 	}
+	
+	td.one_half { 
+		width: 430px; 
+	}
 
 	/*.one_third { 
 		width: 450px; 
@@ -2091,6 +2095,11 @@ Ensure your main styling comes before this!
 		margin-right: 15px; 
 		float: left; 
 	}
+	
+	td.one_half {
+		width: 325px;
+	}
+	
 	.one_half section.title, .one_half section.item {width: 335px;}
 
 	/*.one_third { 
@@ -2212,6 +2221,11 @@ Ensure your main styling comes before this!
 		margin-right: 10px;
 		float: left; 
 	}
+	
+	td.one_half {
+		width: 465px;
+	}
+	
 	.one_half section.title, .one_half section.item {width: 470px;}
 
 	/*.one_third { 
@@ -2310,6 +2324,11 @@ Ensure your main styling comes before this!
 		margin-right: 10px;
 		float: left; 
 	}
+	
+	td.one_half {
+		width: 595px;
+	}
+	
 	.one_half section.title, .one_half section.item {width: 595px;}
 
 	/*.one_third { 

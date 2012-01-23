@@ -44,10 +44,16 @@ class Admin extends Admin_Controller
 
 		if ($_POST)
 		{
+			$modules = $this->input->post('modules');
+			$roles = $this->input->post('module_roles');
+			
 			// register the user
-			$this->permission_m->save($group_id, $this->input->post('modules'), $this->input->post('module_roles'));
+			$this->permission_m->save($group_id, $modules, $roles);
 			
 			$this->session->set_flashdata('success', lang('permissions.message_group_saved'));
+			
+			// Fire an event. One or more categories have being deleted.
+			Events::trigger('permissions_saved', array($group_id, $modules, $roles));
 
 			redirect('admin/permissions/group/'.$group_id);
 		}
