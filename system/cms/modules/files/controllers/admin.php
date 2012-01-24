@@ -221,7 +221,7 @@ class Admin extends Admin_Controller {
 				if ($status === 'success')
 				{
 					// Fire an event. A file has been uploaded to a folder.
-					Events::trigger('file_uploaded', $folder_id);
+					Events::trigger('file_uploaded', $data);
 
 					$this->session->set_flashdata($status, $message);
 					redirect('admin/files');
