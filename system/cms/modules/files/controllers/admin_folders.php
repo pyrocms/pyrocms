@@ -263,7 +263,6 @@ class Admin_folders extends Admin_Controller {
 				)) );
 			}
 
-			// Redirect
 			$this->session->set_flashdata($status, $message);
 			redirect('admin/files/folders' . ($status === 'error' OR $this->input->post('btnAction') !== 'save_exit' ? '/edit': ''));
 		}
@@ -353,7 +352,6 @@ class Admin_folders extends Admin_Controller {
 				)) );
 			}
 
-			// Redirect
 			$this->session->set_flashdata($status, $message);
 			redirect('admin/files/folders' . ($status === 'error' ? '/edit': ''));
 		}

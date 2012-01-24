@@ -32,7 +32,7 @@
 				'<div class="alignright">' +
 				'<a href="javascript:void(0)" class="remove-chunk btn red">' + pyro.lang.remove + '</a>' +
 				'</div></div><br style="clear:both" />' +
-				'<textarea id="' + key + '" class="wysiwyg-advanced" rows="20" style="width:100%" name="chunk_body[' + key + ']"></textarea>' +
+				'<textarea id="' + key + '" class="pages wysiwyg-advanced" rows="20" style="width:100%" name="chunk_body[' + key + ']"></textarea>' +
 				'</li>');
 			
 			// initialize the editor using the view from fragments/wysiwyg.php

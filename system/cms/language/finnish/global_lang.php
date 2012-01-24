@@ -61,11 +61,11 @@ $lang['approve_label']					= 'Hyväksy';
 $lang['unapprove_label']				= 'Hylkää';
 $lang['publish_label'] 					= 'Julkaise';
 $lang['upload_label'] 					= 'Lataa';
-$lang['uninstall_label'] 				= 'Poista asennus';
-$lang['install_label'] 					= 'Asenna';
-$lang['enable_label']					= 'Pälle';
-$lang['disable_label'] 					= 'Pois päältä';
-$lang['upgrade_label'] 					= 'Päivitä';
+$lang['global:uninstall'] 				= 'Poista asennus';
+$lang['global:install'] 					= 'Asenna';
+$lang['global:enable']					= 'Pälle';
+$lang['global:disable'] 					= 'Pois päältä';
+$lang['global:upgrade'] 					= 'Päivitä';
 
 $lang['all_right_reserved']				= 'All Rights Reserved.';  #translate
 $lang['powered_by_pyrocms']				= 'Powered by PyroCMS';  #translate

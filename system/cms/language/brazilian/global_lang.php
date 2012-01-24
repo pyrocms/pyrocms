@@ -61,10 +61,10 @@ $lang['approve_label']					= 'Aprovar';
 $lang['unapprove_label']				= 'Rejeitar';
 $lang['publish_label'] 					= 'Publicar';
 $lang['upload_label'] 					= 'Enviar';
-$lang['uninstall_label'] 				= 'Desinstalar';
-$lang['install_label'] 					= 'Instalar';
-$lang['enable_label']					= 'Ativar';
-$lang['disable_label'] 					= 'Desativar';
+$lang['global:uninstall'] 				= 'Desinstalar';
+$lang['global:install'] 					= 'Instalar';
+$lang['global:enable']					= 'Ativar';
+$lang['global:disable'] 					= 'Desativar';
 
 $lang['all_right_reserved']				= 'All Rights Reserved.';  #translate
 $lang['powered_by_pyrocms']				= 'Powered by PyroCMS';  #translate

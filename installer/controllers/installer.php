@@ -196,7 +196,6 @@ class Installer extends CI_Controller
 			$this->session->set_flashdata('message', lang('step1_failure'));
 			$this->session->set_flashdata('message_type','failure');
 
-			// Redirect
 			redirect('');
 		}
 

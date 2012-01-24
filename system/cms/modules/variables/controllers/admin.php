@@ -124,7 +124,6 @@ class Admin extends Admin_Controller
 				)) );
 			}
 
-			// Redirect
 			$this->session->set_flashdata($status, $message);
 			redirect('admin/variables' . ($status === 'error' ? '/create': ''));
 		}
@@ -199,7 +198,6 @@ class Admin extends Admin_Controller
 				));
 			}
 
-			// Redirect
 			$this->session->set_flashdata($status, $message);
 			redirect('admin/variables' . ($status === 'error' ? '/edit': ''));
 		}

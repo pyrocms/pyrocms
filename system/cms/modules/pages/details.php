@@ -140,7 +140,7 @@ class Module_Pages extends Module {
 		$page_chunks = "
 			CREATE TABLE ".$this->db->dbprefix('page_chunks')." (
 			  `id` int(11) NOT NULL auto_increment,
-			  `slug` varchar(30) collate utf8_unicode_ci NOT NULL,
+			  `slug` varchar(255) collate utf8_unicode_ci NOT NULL DEFAULT '',
 			  `page_id` int(11) NOT NULL,
 			  `body` text collate utf8_unicode_ci NOT NULL,
 			  `parsed` text collate utf8_unicode_ci NOT NULL,

@@ -62,11 +62,11 @@ $lang['approve_label']					= 'Έγκριση';
 $lang['unapprove_label']				= 'Απόρριψη';
 $lang['publish_label'] 					= 'Δημοσίευση';
 $lang['upload_label'] 					= 'Ανέβασμα';
-$lang['uninstall_label'] 				= 'Απεγκατάσταση';
-$lang['install_label'] 					= 'Εγκατάσταση';
-$lang['enable_label']					= 'Ενεργοποίηση';
-$lang['disable_label'] 					= 'Απενεργοποίηση';
-$lang['upgrade_label'] 					= 'Ενημέρωση';
+$lang['global:uninstall'] 				= 'Απεγκατάσταση';
+$lang['global:install'] 					= 'Εγκατάσταση';
+$lang['global:enable']					= 'Ενεργοποίηση';
+$lang['global:disable'] 					= 'Απενεργοποίηση';
+$lang['global:upgrade'] 					= 'Ενημέρωση';
 
 $lang['all_right_reserved']				= 'All Rights Reserved.';  #translate
 $lang['powered_by_pyrocms']				= 'Powered by PyroCMS';  #translate

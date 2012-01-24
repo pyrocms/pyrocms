@@ -61,10 +61,10 @@ $lang['approve_label']					= '核准'; 			//'Approve';
 $lang['unapprove_label']				= '取消核准'; 		//'Unapprove';
 $lang['publish_label'] 					= '發佈'; 			//'Publish';
 $lang['upload_label'] 					= '上傳'; 			//'Upload';
-$lang['uninstall_label'] 				= '卸載'; 			//'Uninstall';
-$lang['install_label'] 					= '安裝'; 			//'Install';
-$lang['enable_label']					= '啟用'; 			//'Enable';
-$lang['disable_label'] 					= '禁用'; 			//'Disable';
+$lang['global:uninstall'] 				= '卸載'; 			//'Uninstall';
+$lang['global:install'] 					= '安裝'; 			//'Install';
+$lang['global:enable']					= '啟用'; 			//'Enable';
+$lang['global:disable'] 					= '禁用'; 			//'Disable';
 
 $lang['all_right_reserved']				= 'All Rights Reserved.';  #translate
 $lang['powered_by_pyrocms']				= 'Powered by PyroCMS';  #translate
