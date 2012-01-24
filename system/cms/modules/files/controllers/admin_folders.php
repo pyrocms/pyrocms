@@ -242,6 +242,9 @@ class Admin_folders extends Admin_Controller {
 				{
 					$message	= sprintf(lang('file_folders.create_success'), $name);
 					$status		= 'success';
+				
+					// Fire an event. A new folder has been created.
+					Events::trigger('folder_created');
 				}
 				else
 				{
@@ -332,6 +335,9 @@ class Admin_folders extends Admin_Controller {
 			{
 				$message	= sprintf(lang('file_folders.create_success'), $name);
 				$status		= 'success';
+				
+				// Fire an event. A folder has been updated.
+				Events::trigger('folder_updated', $id);
 			}
 			else
 			{
@@ -400,6 +406,7 @@ class Admin_folders extends Admin_Controller {
 		{
 			$total		= sizeof($ids);
 			$deleted	= array();
+			$deleted_ids	= array();
 
 			// Try do deletion
 			foreach ($ids as $id)
@@ -409,8 +416,12 @@ class Admin_folders extends Admin_Controller {
 				{
 					// Make deletion retrieving an status and store an value to display in the messages
 					$deleted[($this->file_folders_m->delete($id) ? 'success': 'error')][] = $folder->name;
+					$deleted_ids[] = $id;
 				}
 			}
+
+			// Fire an event. One or more folders have been deleted.
+			Events::trigger('folder_deleted', $deleted_ids);
 
 			// Set status messages
 			foreach ($deleted as $status => &$values)

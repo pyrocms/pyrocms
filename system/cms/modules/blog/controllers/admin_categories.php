@@ -82,7 +82,10 @@ class Admin_Categories extends Admin_Controller {
 			$this->blog_categories_m->insert($_POST)
 				? $this->session->set_flashdata('success', sprintf( lang('cat_add_success'), $this->input->post('title')) )
 				: $this->session->set_flashdata('error', lang('cat_add_error'));
-
+			
+			// Fire an event. A new blog category has been created.
+			Events::trigger('blog_category_created');
+			
 			redirect('admin/blog/categories');
 		}
 		
@@ -119,6 +122,9 @@ class Admin_Categories extends Admin_Controller {
 				? $this->session->set_flashdata('success', sprintf( lang('cat_edit_success'), $this->input->post('title')) )
 				: $this->session->set_flashdata('error', lang('cat_edit_error'));
 			
+			// Fire an event. A blog category is being updated.
+			Events::trigger('blog_category_updated', $id);
+			
 			redirect('admin/blog/categories/index');
 		}
 		
@@ -152,11 +158,13 @@ class Admin_Categories extends Admin_Controller {
 		{
 			$deleted = 0;
 			$to_delete = 0;
+			$deleted_ids = array();
 			foreach ($id_array as $id)
 			{
 				if ($this->blog_categories_m->delete($id))
 				{
 					$deleted++;
+					$deleted_ids[] = $id;
 				}
 				else
 				{
@@ -169,6 +177,9 @@ class Admin_Categories extends Admin_Controller {
 			{
 				$this->session->set_flashdata('success', sprintf(lang('cat_mass_delete_success'), $deleted, $to_delete));
 			}
+			
+			// Fire an event. One or more categories have been deleted.
+			Events::trigger('blog_category_deleted', $deleted_ids);
 		}		
 		else
 		{

@@ -102,6 +102,9 @@ class Admin_instances extends Admin_Controller {
 
 			if ($result['status'] === 'success')
 			{
+				// Fire an event. A widget instance has been created. 
+				Events::trigger('widget_instance_created', $id);
+				
 				$status		= 'success';
 				$message	= lang('success_label');
 
@@ -176,6 +179,9 @@ class Admin_instances extends Admin_Controller {
 
 			if ($result['status'] === 'success')
 			{
+				// Fire an event. A widget instance has been updated. 
+				Events::trigger('widget_instance_updated', $id);
+				
 				$status		= 'success';
 				$message	= lang('success_label');
 
@@ -231,6 +237,9 @@ class Admin_instances extends Admin_Controller {
 	{
 		if ($this->widgets->delete_instance($id))
 		{
+			// Fire an event. A widget instance has been deleted. 
+			Events::trigger('widget_instance_deleted', $id);
+				
 			$status = 'success';
 			$message = lang('success_label');
 		}

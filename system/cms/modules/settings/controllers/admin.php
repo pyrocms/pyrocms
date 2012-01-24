@@ -165,6 +165,9 @@ class Admin extends Admin_Controller {
 					$this->settings->set_item($slug, $input_value);
 				}
 			}
+			
+			// Fire an event. Yay! We know when settings are updated. 
+			Events::trigger('settings_updated', array($settings_stored));
 
 			// Success...
 			$this->session->set_flashdata('success', $this->lang->line('settings_save_success'));
