@@ -20,21 +20,21 @@ $config['supported_languages'] = array(
 		'name'		=> 'English',
 		'folder'	=> 'english',
 		'direction'	=> 'ltr',
-		'codes'		=> array('english', 'en_US'),
+		'codes'		=> array('en', 'english', 'en_US'),
 		'ckeditor'	=> NULL
 	),
 	'de' => array(
 		'name'		=> 'Deutsch',
 		'folder'	=> 'german',
 		'direction'	=> 'ltr',
-		'codes'		=> array('deu', 'german', 'de_DE'),
+		'codes'		=> array('de', 'german', 'de_DE'),
 		'ckeditor'	=> NULL
 	),
 	'ar' => array(
 		'name'		=> 'العربية',
 		'folder'	=> 'arabic',
 		'direction'	=> 'rtl',
-		'codes'		=> array('arabic', 'ar_SA'),
+		'codes'		=> array('ar', 'arabic', 'ar_SA'),
 		'ckeditor'	=> NULL
 	),
 	'cs' => array(
@@ -83,7 +83,7 @@ $config['supported_languages'] = array(
 		'name'		=> 'Slovensko',
 		'folder'	=> 'slovenian',
 		'direction'	=> 'ltr',
-		'codes'		=> array('slovenian', 'sl_SI'),
+		'codes'		=> array('sl', 'slovenian', 'sl_SI'),
 		'ckeditor'	=> NULL
 	),
 	'pl' => array(
@@ -97,7 +97,7 @@ $config['supported_languages'] = array(
 		'name'		=> 'Portugu&ecirc;s do Brasil',
 		'folder'	=> 'brazilian',
 		'direction'	=> 'ltr',
-		'codes'		=> array('portuguese-brazil', 'ptb', 'pt_BR'),
+		'codes'		=> array('ptb', 'portuguese-brazil', 'pt_BR'),
 		'ckeditor'	=> 'pt-br'
 	),
 	'ru' => array(
@@ -111,7 +111,7 @@ $config['supported_languages'] = array(
 		'name'		=> '繁體中文',
 		'folder'	=> 'chinese_traditional',
 		'direction'	=> 'ltr',
-		'codes'		=> array('chinese-traditional', 'cht', 'zh_HK'),
+		'codes'		=> array('cht', 'chinese-traditional', 'zh_HK'),
 		'ckeditor'	=> NULL
 	),
 	'he' => array(
@@ -125,23 +125,30 @@ $config['supported_languages'] = array(
 		'name'		=> 'Lietuvių',
 		'folder'	=> 'lithuanian',
 		'direction'	=> 'ltr',
-		'codes'		=> array('lt', 'lt_LT'),
+		'codes'		=> array('lt', 'lithuanian', 'lt_LT'),
 		'ckeditor'	=> NULL
 	),
 	'fi' => array(
 		'name'		=> 'Suomi',
 		'folder'	=> 'finnish',
 		'direction'	=> 'ltr',
-		'codes'		=> array('fi', 'fi_FI'),
+		'codes'		=> array('fi', 'finnish', 'fi_FI'),
 		'ckeditor'	=> NULL
 	),
 	'da' => array(
 		'name'		=> 'Dansk',
 		'folder'	=> 'danish',
 		'direction'	=> 'ltr',
-		'codes'		=> array('da', 'da_DK'),
+		'codes'		=> array('da', 'danish', 'da_DK'),
 		'ckeditor'	=> NULL
-	)
+	),
+	'id' => array(
+		'name'		=> 'Indonesian',
+		'folder'	=> 'indonesian',
+		'direction'	=> 'ltr',
+		'codes'		=> array('id', 'id_ID'),
+		'ckeditor'	=> NULL
+	),
 );
 
 /*

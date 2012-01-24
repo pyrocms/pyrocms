@@ -21,7 +21,8 @@ class Module_Widgets extends Module {
 				'ar' => 'الودجت',
 				'cs' => 'Widgety',
 				'fi' => 'Widgetit',
-				'lt' => 'Papildiniai'
+				'lt' => 'Papildiniai',
+				'id' => 'Widget'
 			),
 			'description' => array(
 				'sl' => 'Urejanje manjših delov blokov strani ti. Vtičniki (Widgets)',
@@ -39,7 +40,8 @@ class Module_Widgets extends Module {
 				'fi' => 'Hallitse pieniä osioita, jotka sisältävät erillisiä lohkoja tai "Widgettejä".',
 				'el' => 'Διαχείριση μικρών τμημάτων αυτόνομης προγραμματιστικής λογικής σε πεδία ή "Widgets".',
 				'lt' => 'Nedidelių, savarankiškų blokų valdymas.',
-				'da' => 'Håndter små sektioner af selv-opretholdt logik i blokke eller "Widgets".'
+				'da' => 'Håndter små sektioner af selv-opretholdt logik i blokke eller "Widgets".',
+				'id' => 'Mengatur bagian-bagian kecil dari blok-blok yang memuat sesuatu atau dikenal dengan istilah "Widget".'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
