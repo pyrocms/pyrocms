@@ -3,7 +3,8 @@
 $lang['modules.core_list']               = 'Core Modules';
 $lang['modules.addon_list']              = 'Add-on Modules';
 $lang['modules.introduction']            = 'Below is a list of installed modules and their information, such as the description or version.';
-$lang['modules.disable_error']           = 'Could not disable the module "%s".';
+$lang['modules.core_introduction']		 = 'Below is a list of core modules and their information. You may disable them but do so with extreme care. Disabling modules such as Users will render your site inoperable.'; #translate
+$lang['modules.disable_error']            = 'Could not disable the module "%s".';
 $lang['modules.disable_success']         = 'The module "%s" has been disabled.';
 $lang['modules.enable_error']            = 'Could not enable the module "%s".';
 $lang['modules.enable_success']          = 'The module "%s" has been enabled.';

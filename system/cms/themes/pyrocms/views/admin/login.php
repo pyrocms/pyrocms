@@ -5,6 +5,7 @@
 	<title><?php echo $this->settings->site_name; ?> - <?php echo lang('login_title');?></title>
 	
 	<base href="<?php echo base_url(); ?>" />
+	<meta name="robots" content="noindex, nofollow" />
 	
 	<?php echo theme_css('admin/style.css'); ?>
 	<?php echo theme_js('jquery/jquery.min.js'); ?>

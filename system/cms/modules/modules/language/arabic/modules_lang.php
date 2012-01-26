@@ -2,7 +2,8 @@
 $lang['modules.core_list']				= 'الوحدات الأساسيّة';
 $lang['modules.addon_list']				= 'الوحدات الإضافيّة';
 $lang['modules.introduction']			= 'فيما يلي قائمة بأسماء الوحدات المُثبّتة ومعلوماتها، كالوصف والإصدار.';
-$lang['modules.disable_error']			= 'تعذّر تعطيل الوحدة "%s".';
+$lang['modules.core_introduction']		 = 'Below is a list of core modules and their information. You may disable them but do so with extreme care. Disabling modules such as Users will render your site inoperable.'; #translate
+$lang['modules.disable_error'] 			= 'تعذّر تعطيل الوحدة "%s".';
 $lang['modules.disable_success']		= 'تم تعطيل الوحدة "%s".';
 $lang['modules.enable_error']			= 'تعذّر تمكين الوحدة "%s".';
 $lang['modules.enable_success']			= 'تم تمكين الوحدة "%s".';

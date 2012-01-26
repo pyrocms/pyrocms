@@ -180,6 +180,7 @@ class Admin extends Admin_Controller {
 			}
 			
 			$this->pyrocache->delete_all('navigation_m');
+			Events::trigger('post_navigation_order', array($order, $group));
 		}
 	}
 
@@ -230,6 +231,8 @@ class Admin extends Admin_Controller {
 			{
 				$this->pyrocache->delete_all('navigation_m');
 				
+				Events::trigger('post_navigation_create', $input);
+
 				$this->session->set_flashdata('success', lang('nav_link_add_success'));
 				
 				// echo success to let the js refresh the page
@@ -309,6 +312,8 @@ class Admin extends Admin_Controller {
 			// Update the link and flush the cache
 			$this->navigation_m->update_link($id, $input);
 			$this->pyrocache->delete_all('navigation_m');
+
+			Events::trigger('post_navigation_edit', $input);
 			
 			$this->session->set_flashdata('success', lang('nav_link_edit_success'));
 				
@@ -357,6 +362,8 @@ class Admin extends Admin_Controller {
 			{
 				$this->navigation_m->delete_link($id);
 			}
+
+			Events::trigger('post_navigation_delete', $id_array);
 		}
 		// Flush the cache and redirect
 		$this->pyrocache->delete_all('navigation_m');

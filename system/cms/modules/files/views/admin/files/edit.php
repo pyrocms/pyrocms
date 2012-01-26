@@ -2,7 +2,7 @@
 	<h4><?php echo sprintf(lang('files.edit_title'), $file->name); ?></h4>
 </section>
 
-<section class="item">
+<section>
 	<?php echo form_open_multipart(uri_string(), array('class' => 'form_inputs', 'id' => 'files_crud')); ?>
 	<fieldset>
 		<ul>

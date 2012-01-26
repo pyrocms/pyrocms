@@ -24,7 +24,8 @@ class Module_Files extends Module {
 				'el' => 'Αρχεία',
 				'he' => 'קבצים',
 				'lt' => 'Failai',
-				'da' => 'Filer'
+				'da' => 'Filer',
+				'id' => 'File'
 			),
 			'description' => array(
 				'sl' => 'Uredi datoteke in mape na vaši strani',
@@ -43,7 +44,8 @@ class Module_Files extends Module {
 				'el' => 'Διαχειρίζεται αρχεία και φακέλους για το ιστότοπό σας.',
 				'he' => 'ניהול תיקיות וקבצים שבאתר',
 				'lt' => 'Katalogų ir bylų valdymas.',
-				'da' => 'Administrer filer og mapper for dit site.'
+				'da' => 'Administrer filer og mapper for dit site.',
+				'id' => 'Mengatur file dan folder dalam situs Anda.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
@@ -97,6 +99,7 @@ class Module_Files extends Module {
 			  `height` int(5) DEFAULT NULL,
 			  `filesize` int(11) NOT NULL DEFAULT 0,
 			  `date_added` int(11) NOT NULL DEFAULT 0,
+			  `sort` int(11) NOT NULL DEFAULT 0,
 			  PRIMARY KEY (`id`)
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 		";
@@ -108,6 +111,7 @@ class Module_Files extends Module {
 			  `slug` varchar(100) NOT NULL,
 			  `name` varchar(50) NOT NULL,
 			  `date_added` int(11) NOT NULL,
+			  `sort` int(11) NOT NULL DEFAULT 0,
 			  PRIMARY KEY (`id`)
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 		";

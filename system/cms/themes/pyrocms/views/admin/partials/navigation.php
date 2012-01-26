@@ -47,7 +47,7 @@
 					
 				// User has access to Users module only, no other users item
 				} 
-				elseif ($count == 1 AND ($this->module == 'users' OR $this->module == '') AND $menu_item == 'users') 
+				elseif ($count == 1 AND ($this->module == 'users') AND $menu_item == 'users')
 				{
 					echo '<li>' . anchor('admin/users', lang('cp_manage_users'), array('style' => 'font-weight: bold;', 'class' => $this->module == 'users' ? 'top-link no-submenu  current' : 'top-link no-submenu ')) . '</li>';
 				}
