@@ -100,13 +100,11 @@ class Ajax extends Admin_Controller {
 	 *
 	 * Accessed via AJAX
 	 *
-	 * @access	public
+	 * @access	publicå
 	 * @return	void
 	 */
 	public function update_field_order()
 	{
-		if(!$this->input->is_ajax_request()) exit();
-	
 		$ids = explode(',', $this->input->post('order'));
 
 		// Set the count by the offset for
@@ -137,7 +135,7 @@ class Ajax extends Admin_Controller {
 	public function ajax_entry_order_update()
 	{	
 		// Get the stream from the ID
-		$this->load->model('streams_m');
+		$this->load->model('streams_corestreams_m');
 		$stream = $this->streams_m->get_stream($this->input->post('stream_id'));
 	
 		$ids = explode(',', $this->input->post('order'));
@@ -150,8 +148,7 @@ class Ajax extends Admin_Controller {
 		
 			$update_data['ordering_count']		= $order_count;
 			
-			$this->db->where('id', $id);
-			$this->db->update(STR_PRE.$stream->stream_slug, $update_data);
+			$this->db->where('id', $id)->update(STR_PRE.$stream->stream_slug, $update_data);
 			
 			$update_data = array();
 			
@@ -161,5 +158,3 @@ class Ajax extends Admin_Controller {
 	}
 		
 }
-
-/* End of file ajax.php */
