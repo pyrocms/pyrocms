@@ -23,7 +23,8 @@ class Module_Redirects extends Module {
 				'he' => 'הפניות',
 				'lt' => 'Peradresavimai',
 				'da' => 'Omadressering',
-				'zh' => '轉址'
+				'zh' => '轉址',
+				'id' => 'Redirect'
 			),
 			'description' => array(
 				'sl' => 'Preusmeritev iz enega URL naslova na drugega',
@@ -41,7 +42,8 @@ class Module_Redirects extends Module {
 				'he' => 'הפניות מכתובת אחת לאחרת',
 				'lt' => 'Peradresuokite puslapį iš vieno adreso (URL) į kitą.',
 				'da' => 'Omadresser fra en URL til en anden.',
-				'zh' => '將網址轉址、重新定向。'
+				'zh' => '將網址轉址、重新定向。',
+				'id' => 'Redirect dari satu URL ke URL yang lain.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
