@@ -19,9 +19,6 @@ class Ajax extends Admin_Controller {
         // in our AJAX calls.
         $this->output->enable_profiler(FALSE);
  
-		$this->load->helper('streams/streams');        
-		streams_constants();
-       
         // We need this for all of the variable setups in
         // the Type library __construct
         $this->load->library('Type');
@@ -45,12 +42,12 @@ class Ajax extends Admin_Controller {
 		// Out for certain characters
 		if( $this->input->post('data') == '-' ) return null;
 	
-		$this->load->language('pyrostreams');
+		$this->load->language('streams_core/pyrostreams');
 	
 		$type = $this->input->post('data');
 		
 		// Load paramaters
-		require_once(PYROSTEAMS_DIR.'libraries/Parameter_fields.php');
+		require_once(APPPATH.'modules/streams_core/libraries/Parameter_fields.php');
 		
 		$parameters = new Parameter_fields();
 	
@@ -58,7 +55,7 @@ class Ajax extends Admin_Controller {
 		$field_type = $this->type->load_single_type($type);
 		
 		// I guess we don't have any to show.
-		if( !isset($field_type->custom_parameters) ) return null;
+		if( !isset($field_type->custom_parameters) ) return NULL;
 
 		// Otherwise, the beat goes on.		
 		$extra_fields = $field_type->custom_parameters;
@@ -90,7 +87,7 @@ class Ajax extends Admin_Controller {
 			
 			$data['input_slug'] = $field;
 		
-			echo $this->load->view('admin/ajax/extra_field', $data, TRUE);
+			echo $this->load->view('extra_field', $data, TRUE);
 			
 			$data['count']++;
 		}
