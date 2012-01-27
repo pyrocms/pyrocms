@@ -21,20 +21,20 @@
  * @copyright	Copyright (c) 2008 - 2011, EllisLab, Inc. (http://ellislab.com/)
  * @license		http://opensource.org/licenses/OSL-3.0 Open Software License (OSL 3.0)
  * @link		http://codeigniter.com
- * @since		Version 1.0
+ * @since		Version 2.1.0
  * @filesource
  */
 
 // ------------------------------------------------------------------------
 
 /**
- * MS SQL Forge Class
+ * PDO Forge Class
  *
  * @category	Database
  * @author		EllisLab Dev Team
- * @link		http://codeigniter.com/user_guide/database/
+ * @link		http://codeigniter.com/database/
  */
-class CI_DB_mssql_forge extends CI_DB_forge {
+class CI_DB_pdo_forge extends CI_DB_forge {
 
 	/**
 	 * Create database
@@ -43,9 +43,15 @@ class CI_DB_mssql_forge extends CI_DB_forge {
 	 * @param	string	the database name
 	 * @return	bool
 	 */
-	function _create_database($name)
+	function _create_database()
 	{
-		return "CREATE DATABASE ".$name;
+		// PDO has no "create database" command since it's
+		// designed to connect to an existing database
+		if ($this->db->db_debug)
+		{
+			return $this->db->display_error('db_unsuported_feature');
+		}
+		return FALSE;
 	}
 
 	// --------------------------------------------------------------------
@@ -59,20 +65,13 @@ class CI_DB_mssql_forge extends CI_DB_forge {
 	 */
 	function _drop_database($name)
 	{
-		return "DROP DATABASE ".$name;
-	}
-
-	// --------------------------------------------------------------------
-
-	/**
-	 * Drop Table
-	 *
-	 * @access	private
-	 * @return	bool
-	 */
-	function _drop_table($table)
-	{
-		return "DROP TABLE ".$this->db->_escape_identifiers($table);
+		// PDO has no "drop database" command since it's
+		// designed to connect to an existing database
+		if ($this->db->db_debug)
+		{
+			return $this->db->display_error('db_unsuported_feature');
+		}
+		return FALSE;
 	}
 
 	// --------------------------------------------------------------------
@@ -185,6 +184,24 @@ class CI_DB_mssql_forge extends CI_DB_forge {
 	// --------------------------------------------------------------------
 
 	/**
+	 * Drop Table
+	 *
+	 * @access	private
+	 * @return	bool
+	 */
+	function _drop_table($table)
+	{
+		// Not a supported PDO feature
+		if ($this->db->db_debug)
+		{
+			return $this->db->display_error('db_unsuported_feature');
+		}
+		return FALSE;
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
 	 * Alter table query
 	 *
 	 * Generates a platform-specific query so that a table can be altered
@@ -235,6 +252,7 @@ class CI_DB_mssql_forge extends CI_DB_forge {
 
 	}
 
+
 	// --------------------------------------------------------------------
 
 	/**
@@ -249,12 +267,12 @@ class CI_DB_mssql_forge extends CI_DB_forge {
 	 */
 	function _rename_table($table_name, $new_table_name)
 	{
-		// I think this syntax will work, but can find little documentation on renaming tables in MSSQL
 		$sql = 'ALTER TABLE '.$this->db->_protect_identifiers($table_name)." RENAME TO ".$this->db->_protect_identifiers($new_table_name);
 		return $sql;
 	}
 
+
 }
 
-/* End of file mssql_forge.php */
-/* Location: ./system/database/drivers/mssql/mssql_forge.php */
+/* End of file pdo_forge.php */
+/* Location: ./system/database/drivers/pdo/pdo_forge.php */

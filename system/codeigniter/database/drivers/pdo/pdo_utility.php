@@ -21,20 +21,20 @@
  * @copyright	Copyright (c) 2008 - 2011, EllisLab, Inc. (http://ellislab.com/)
  * @license		http://opensource.org/licenses/OSL-3.0 Open Software License (OSL 3.0)
  * @link		http://codeigniter.com
- * @since		Version 1.0
+ * @since		Version 2.1.0
  * @filesource
  */
 
 // ------------------------------------------------------------------------
 
 /**
- * MS SQL Utility Class
+ * PDO Utility Class
  *
  * @category	Database
  * @author		EllisLab Dev Team
- * @link		http://codeigniter.com/user_guide/database/
+ * @link		http://codeigniter.com/database/
  */
-class CI_DB_mssql_utility extends CI_DB_utility {
+class CI_DB_pdo_utility extends CI_DB_utility {
 
 	/**
 	 * List databases
@@ -44,7 +44,12 @@ class CI_DB_mssql_utility extends CI_DB_utility {
 	 */
 	function _list_databases()
 	{
-		return "EXEC sp_helpdb"; // Can also be: EXEC sp_databases
+		// Not sure if PDO lets you list all databases...
+		if ($this->db->db_debug)
+		{
+			return $this->db->display_error('db_unsuported_feature');
+		}
+		return FALSE;
 	}
 
 	// --------------------------------------------------------------------
@@ -60,7 +65,12 @@ class CI_DB_mssql_utility extends CI_DB_utility {
 	 */
 	function _optimize_table($table)
 	{
-		return FALSE; // Is this supported in MS SQL?
+		// Not a supported PDO feature
+		if ($this->db->db_debug)
+		{
+			return $this->db->display_error('db_unsuported_feature');
+		}
+		return FALSE;
 	}
 
 	// --------------------------------------------------------------------
@@ -76,13 +86,18 @@ class CI_DB_mssql_utility extends CI_DB_utility {
 	 */
 	function _repair_table($table)
 	{
-		return FALSE; // Is this supported in MS SQL?
+		// Not a supported PDO feature
+		if ($this->db->db_debug)
+		{
+			return $this->db->display_error('db_unsuported_feature');
+		}
+		return FALSE;
 	}
 
 	// --------------------------------------------------------------------
 
 	/**
-	 * MSSQL Export
+	 * PDO Export
 	 *
 	 * @access	private
 	 * @param	array	Preferences
@@ -96,5 +111,5 @@ class CI_DB_mssql_utility extends CI_DB_utility {
 
 }
 
-/* End of file mssql_utility.php */
-/* Location: ./system/database/drivers/mssql/mssql_utility.php */
+/* End of file pdo_utility.php */
+/* Location: ./system/database/drivers/pdo/pdo_utility.php */
