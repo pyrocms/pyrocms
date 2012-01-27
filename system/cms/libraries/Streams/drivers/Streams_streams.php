@@ -89,7 +89,7 @@ class Streams_streams extends CI_Driver {
 	 * @param	[string - namespace]
 	 * @return	object
 	 */
-	public function get_stream($stream, $namespace = NULL)
+	public function get_stream($stream, $namespace)
 	{
 		return $this->CI->streams_m->get_stream($this->stream_id($stream, $namespace));
 	}
@@ -104,7 +104,7 @@ class Streams_streams extends CI_Driver {
 	 * @param	[string - namespace]
 	 * @return	object
 	 */
-	public function delete_stream($stream, $namespace = NULL)
+	public function delete_stream($stream, $namespace)
 	{
 		$str_obj = $this->stream_obj($stream, $namespace);
 		
