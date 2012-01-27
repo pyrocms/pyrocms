@@ -34,6 +34,8 @@ class Streams_streams extends CI_Driver {
 	 */
 	public function add_stream($stream_name, $stream_slug, $namespace, $prefix = NULL, $about = NULL)
 	{
+		$CI = get_instance();
+	
 		// -------------------------------------
 		// Validate Data
 		// -------------------------------------
@@ -60,7 +62,7 @@ class Streams_streams extends CI_Driver {
 		}				
 		
 		// Is this stream slug already available?
-		if( is_object($this->CI->streams_m->get_stream($stream_slug, true)) )
+		if( is_object($CI->streams_m->get_stream($stream_slug, true)) )
 		{
 			$this->log_error('stream_slug_in_use', 'add_stream');
 			return FALSE;
@@ -70,7 +72,7 @@ class Streams_streams extends CI_Driver {
 		// Create Stream
 		// -------------------------------------
 		
-		return $this->CI->streams_m->create_new_stream(
+		return $CI->streams_m->create_new_stream(
 												$stream_name,
 												$stream_slug,
 												$prefix,
@@ -91,7 +93,7 @@ class Streams_streams extends CI_Driver {
 	 */
 	public function get_stream($stream, $namespace)
 	{
-		return $this->CI->streams_m->get_stream($this->stream_id($stream, $namespace));
+		return get_instance()->streams_m->get_stream($this->stream_id($stream, $namespace));
 	}
 
 	// --------------------------------------------------------------------------
@@ -110,7 +112,7 @@ class Streams_streams extends CI_Driver {
 		
 		if ( ! $str_obj) $this->log_error('invalid_stream', 'delete_stream');
 	
-		return $this->CI->streams_m->delete_stream($str_obj);
+		return get_instance()->streams_m->delete_stream($str_obj);
 	}
 
 	// --------------------------------------------------------------------------
@@ -126,6 +128,8 @@ class Streams_streams extends CI_Driver {
 	 */
 	function update_stream($stream, $data, $namespace = NULL)
 	{
+		$this->CI = get_instance();
+	
 		return $this->CI->streams_m->update_stream($this->stream_id($stream, $namespace), $data);
 	}
 
@@ -141,6 +145,8 @@ class Streams_streams extends CI_Driver {
 	 */
 	public function get_assignments($stream, $namespace = NULL)
 	{
+		$this->CI = get_instance();
+	
 		return $this->CI->field_m->get_assignments_for_stream($this->stream_id($stream, $namespace));
 	}
 	
