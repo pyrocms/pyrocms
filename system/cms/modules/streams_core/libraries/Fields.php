@@ -88,8 +88,8 @@ class Fields
      *
      * @return	mixed
      */
- 	public function build_form($stream, $method, $row = false, $plugin = false, $recaptcha = false, $skips = array(), $extra = array())
- 	{ 	 		
+ 	public function build_form($stream, $method, $row = FALSE, $plugin = false, $recaptcha = false, $skips = array(), $extra = array())
+ 	{
  		$this->CI->load->helper(array('form', 'url'));
  	
  		// -------------------------------------

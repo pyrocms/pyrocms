@@ -19,9 +19,6 @@ class Ajax extends Admin_Controller {
         // in our AJAX calls.
         $this->output->enable_profiler(FALSE);
  
-		$this->load->helper('streams/streams');        
-		streams_constants();
-       
         // We need this for all of the variable setups in
         // the Type library __construct
         $this->load->library('Type');
@@ -45,12 +42,12 @@ class Ajax extends Admin_Controller {
 		// Out for certain characters
 		if( $this->input->post('data') == '-' ) return null;
 	
-		$this->load->language('pyrostreams');
+		$this->load->language('streams_core/pyrostreams');
 	
 		$type = $this->input->post('data');
 		
 		// Load paramaters
-		require_once(PYROSTEAMS_DIR.'libraries/Parameter_fields.php');
+		require_once(APPPATH.'modules/streams_core/libraries/Parameter_fields.php');
 		
 		$parameters = new Parameter_fields();
 	
@@ -58,7 +55,7 @@ class Ajax extends Admin_Controller {
 		$field_type = $this->type->load_single_type($type);
 		
 		// I guess we don't have any to show.
-		if( !isset($field_type->custom_parameters) ) return null;
+		if( !isset($field_type->custom_parameters) ) return NULL;
 
 		// Otherwise, the beat goes on.		
 		$extra_fields = $field_type->custom_parameters;
@@ -90,7 +87,7 @@ class Ajax extends Admin_Controller {
 			
 			$data['input_slug'] = $field;
 		
-			echo $this->load->view('admin/ajax/extra_field', $data, TRUE);
+			echo $this->load->view('extra_field', $data, TRUE);
 			
 			$data['count']++;
 		}
@@ -103,13 +100,11 @@ class Ajax extends Admin_Controller {
 	 *
 	 * Accessed via AJAX
 	 *
-	 * @access	public
+	 * @access	publicå
 	 * @return	void
 	 */
 	public function update_field_order()
 	{
-		if(!$this->input->is_ajax_request()) exit();
-	
 		$ids = explode(',', $this->input->post('order'));
 
 		// Set the count by the offset for
@@ -140,7 +135,7 @@ class Ajax extends Admin_Controller {
 	public function ajax_entry_order_update()
 	{	
 		// Get the stream from the ID
-		$this->load->model('streams_m');
+		$this->load->model('streams_corestreams_m');
 		$stream = $this->streams_m->get_stream($this->input->post('stream_id'));
 	
 		$ids = explode(',', $this->input->post('order'));
@@ -153,8 +148,7 @@ class Ajax extends Admin_Controller {
 		
 			$update_data['ordering_count']		= $order_count;
 			
-			$this->db->where('id', $id);
-			$this->db->update(STR_PRE.$stream->stream_slug, $update_data);
+			$this->db->where('id', $id)->update(STR_PRE.$stream->stream_slug, $update_data);
 			
 			$update_data = array();
 			
@@ -164,5 +158,3 @@ class Ajax extends Admin_Controller {
 	}
 		
 }
-
-/* End of file ajax.php */

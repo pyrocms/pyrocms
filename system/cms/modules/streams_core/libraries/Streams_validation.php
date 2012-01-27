@@ -72,7 +72,7 @@ class Streams_validation extends CI_Form_validation
 			
 		$this->CI->db->where(trim($column), trim($string));
 		
-		$obj = $this->CI->db->get(STR_PRE.$stream->stream_slug);
+		$obj = $this->CI->db->get($stream->stream_prefix.$stream->stream_slug);
 		
 		if ($mode == 'new')
 		{
@@ -85,7 +85,7 @@ class Streams_validation extends CI_Form_validation
 		{
 			// We need to see if the new value is different.
 			$this->CI->db->select(trim($column))->limit(1)->where( 'id', $this->CI->input->post('row_edit_id') );
-			$db_obj = $this->CI->db->get(STR_PRE.$stream->stream_slug);
+			$db_obj = $this->CI->db->get($stream->stream_prefix.$stream->stream_slug);
 			
 			$existing = $db_obj->row();
 			
