@@ -148,21 +148,22 @@ class Module_import {
 
 		// Loop through directories that hold modules
 		$is_core = TRUE;
-
 		foreach (array(PYROPATH, ADDONPATH, SHARED_ADDONPATH) as $directory)
 		{
 			// Loop through modules
-			$modules = glob($directory.'modules/*', GLOB_ONLYDIR);
-			foreach ($modules as $module_name)
+			if ($modules = glob($directory.'modules/*', GLOB_ONLYDIR))
 			{
-				$slug = basename($module_name);
-
-				if ( ! $details_class = $this->_spawn_class($slug, $is_core))
+				foreach ($modules as $module_name)
 				{
-					continue;
-				}
+					$slug = basename($module_name);
 
-				$this->install($slug, $is_core);
+					if ( ! $details_class = $this->_spawn_class($slug, $is_core))
+					{
+						continue;
+					}
+
+					$this->install($slug, $is_core);
+				}
 			}
 
 			// Going back around, 2nd time is addons
