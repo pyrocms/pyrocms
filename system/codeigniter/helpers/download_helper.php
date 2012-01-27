@@ -18,7 +18,7 @@
  *
  * @package		CodeIgniter
  * @author		EllisLab Dev Team
- * @copyright	Copyright (c) 2008 - 2011, EllisLab, Inc. (http://ellislab.com/)
+ * @copyright	Copyright (c) 2008 - 2012, EllisLab, Inc. (http://ellislab.com/)
  * @license		http://opensource.org/licenses/OSL-3.0 Open Software License (OSL 3.0)
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -88,26 +88,20 @@ if ( ! function_exists('force_download'))
 		{
 			$mime = (is_array($mimes[$extension])) ? $mimes[$extension][0] : $mimes[$extension];
 		}
-
+		
 		// Generate the server headers
-		if (strpos($_SERVER['HTTP_USER_AGENT'], "MSIE") !== FALSE)
+		header('Content-Type: "'.$mime.'"');
+		header('Content-Disposition: attachment; filename="'.$filename.'"');
+		header('Expires: 0');
+		header("Content-Transfer-Encoding: binary");
+		header("Content-Length: ".strlen($data));
+		header('Pragma: no-cache');
+
+		// Internet Explorer-specific headers.
+		if (isset($_SERVER['HTTP_USER_AGENT']) && strpos($_SERVER['HTTP_USER_AGENT'], "MSIE") !== FALSE)
 		{
-			header('Content-Type: "'.$mime.'"');
-			header('Content-Disposition: attachment; filename="'.$filename.'"');
-			header('Expires: 0');
 			header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
-			header("Content-Transfer-Encoding: binary");
 			header('Pragma: public');
-			header("Content-Length: ".strlen($data));
-		}
-		else
-		{
-			header('Content-Type: "'.$mime.'"');
-			header('Content-Disposition: attachment; filename="'.$filename.'"');
-			header("Content-Transfer-Encoding: binary");
-			header('Expires: 0');
-			header('Pragma: no-cache');
-			header("Content-Length: ".strlen($data));
 		}
 
 		exit($data);
