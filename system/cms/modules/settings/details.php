@@ -25,7 +25,8 @@ class Module_Settings extends Module {
 				'el' => 'Ρυθμίσεις',
 				'he' => 'הגדרות',
 				'lt' => 'Nustatymai',
-				'da' => 'Indstillinger'
+				'da' => 'Indstillinger',
+				'id' => 'Pengaturan'
 			),
 			'description' => array(
 				'sl' => 'Dovoljuje administratorjem posodobitev nastavitev kot je Ime strani, sporočil, email naslova itd.',
@@ -45,7 +46,8 @@ class Module_Settings extends Module {
 				'el' => 'Επιτρέπει στους διαχειριστές να τροποποιήσουν ρυθμίσεις όπως το Όνομα του Ιστοτόπου, τα μηνύματα και τις διευθύνσεις email, κ.α.',
 				'he' => 'ניהול הגדרות שונות של האתר כגון: שם האתר, הודעות, כתובות דואר וכו',
 				'lt' => 'Leidžia administratoriams keisti puslapio vavadinimą, žinutes, administratoriaus el. pašta ir kitą.',
-				'da' => 'Lader administratorer opdatere indstillinger som sidenavn, beskeder og email adresse, etc.'
+				'da' => 'Lader administratorer opdatere indstillinger som sidenavn, beskeder og email adresse, etc.',
+				'id' => 'Memungkinkan administrator untuk dapat memperbaharui pengaturan seperti nama situs, pesan dan alamat email, dsb.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
@@ -122,6 +124,7 @@ class Module_Settings extends Module {
 			 ('require_lastname','Require last names?','For some situations, a last name may not be required. Do you want to force users to enter one or not?','radio','1','','1=Required|0=Optional','1','1','users','964'),
 			 ('activation_email','Activation Email','Send out an e-mail when a user signs up with an activation link. Disable this to let only admins activate accounts.','radio','1','','1=Enabled|0=Disabled','0','1','users','963'),
 			 ('registered_email','User Registered Email','Send a notification email to the contact e-mail when someone registers.','radio','1','','1=Enabled|0=Disabled','0','1','users','962'),
+			 ('enable_registration','Enable user registration','Allow users to register in your site.','radio','1','','1=Enabled|0=Disabled','0','1','users','961'),
 			 ('default_theme','Default Theme','Select the theme you want users to see by default.','','default','default','func:get_themes','1','0','','0'),
 			 ('admin_theme','Control Panel Theme','Select the theme for the control panel.','','pyrocms','','func:get_themes','1','0','','0'),
 			 ('admin_force_https','Force HTTPS for Control Panel?','Allow only the HTTPS protocol when using the Control Panel?','radio','0','','1=Yes|0=No','1','1','','0'),

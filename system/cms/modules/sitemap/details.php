@@ -25,7 +25,8 @@ class Module_Sitemap extends Module {
 				'br' => 'Mapa do Site',
 				'es' => 'Mapa del Sitio',
 				'fi' => 'Sivukartta',
-				'lt' => 'Svetainės medis'
+				'lt' => 'Svetainės medis',
+				'id' => 'Peta Situs'
 			),
 			'description' => array(
 				'en' => 'The sitemap module creates an index of all pages and an XML sitemap for search engines.',
@@ -41,7 +42,8 @@ class Module_Sitemap extends Module {
 				'es' => 'El módulo de mapa crea un índice de todas las páginas y un mapa del sitio XML para los motores de búsqueda.',
 				'fi' => 'sivukartta moduuli luo hakemisto kaikista sivuista ja XML sivukartta hakukoneille.',
 				'lt' => 'struktūra modulis sukuria visų puslapių ir XML Sitemap paieškos sistemų indeksas.',
-				'da' => 'Sitemapmodulet opretter et indeks over alle sider og et XML sitemap til søgemaskiner.'
+				'da' => 'Sitemapmodulet opretter et indeks over alle sider og et XML sitemap til søgemaskiner.',
+				'id' => 'Modul peta situs ini membuat indeks dari setiap halaman dan sebuah format XML untuk mempermudah mesin pencari.',
 			),
 			'frontend' => TRUE,
 			'backend' => FALSE,

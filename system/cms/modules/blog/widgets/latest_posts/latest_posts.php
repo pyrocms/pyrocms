@@ -17,11 +17,13 @@ class Widget_Latest_posts extends Widgets
 		'en' => 'Latest posts',
 		'br' => 'Artigos recentes do Blog',
 		'ru' => 'Последние записи',
+		'id' => 'Post Terbaru',
 	);
 	public $description	= array(
 		'en' => 'Display latest blog posts with a widget',
 		'br' => 'Mostra uma lista de navegação para abrir os últimos artigos publicados no Blog',
 		'ru' => 'Выводит список последних записей блога внутри виджета',
+		'id' => 'Menampilkan posting blog terbaru menggunakan widget',
 	);
 	public $author		= 'Erik Berman';
 	public $website		= 'http://www.nukleo.fr';
