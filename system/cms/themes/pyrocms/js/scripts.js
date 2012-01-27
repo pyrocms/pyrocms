@@ -348,53 +348,29 @@ jQuery(function($) {
 
 			if ( ! value.length ) return;
 
-			// Copied from Wolf CMS
-			var rx=/[a-z]|[A-Z]|[0-9]|[áàâąбćčцдđďéèêëęěфгѓíîïийкłлмñńňóôóпúùûůřšśťтвýыžżźзäæœчöøüшщßåяюж]/;
+			var rx = /[a-z]|[A-Z]|[0-9]|[áàâąбćčцдđďéèêëęěфгѓíîïийкłлмñńňóôóпúùûůřšśťтвýыžżźзäæœчöøüшщßåяюж]/,
+				value = value.toLowerCase(),
+				chars = pyro.foreign_characters,
+				search, replace;
 
-		    if (!rx.test(value.toLowerCase())) {
+			// If already a slug then no need to process any further
+		    if (!rx.test(value)) {
 		        slug = value;
-		    }
-		    else {
+		    } else {
 		        value = $.trim(value);
-		        value = value.toLowerCase();
-		        value = value
-		        .replace(/[áàâą]/g,"a")
-		        .replace(/[б]/g,"b")
-		        .replace(/[ćčçц]/g,"c")
-		        .replace(/[дđď]/g,"d")
-		        .replace(/[éèêëęě]/g,"e")
-		        .replace(/[ф]/g,"f")
-		        .replace(/[гѓ]/g,"g")
-		        .replace(/[íîïи]/g,"i")
-		        .replace(/[й]/g,"j")
-		        .replace(/[к]/g,"k")
-		        .replace(/[łл]/g,"l")
-		        .replace(/[м]/g,"m")
-		        .replace(/[ñńň]/g,"n")
-		        .replace(/[óôó]/g,"o")
-		        .replace(/[п]/g,"p")
-		        .replace(/[úùûů]/g,"u")
-		        .replace(/[ř]/g,"r")
-		        .replace(/[šś]/g,"s")
-		        .replace(/[ťт]/g,"t")
-		        .replace(/[в]/g,"v")
-		        .replace(/[ýы]/g,"y")
-		        .replace(/[žżźз]/g,"z")
-		        .replace(/[äæ]/g,"ae")
-		        .replace(/[ч]/g,"ch")
-		        .replace(/[öøœ]/g,"oe")
-		        .replace(/[ü]/g,"ue")
-		        .replace(/[ш]/g,"sh")
-		        .replace(/[щ]/g,"shh")
-		        .replace(/[ß]/g,"ss")
-		        .replace(/[å]/g,"aa")
-		        .replace(/[я]/g,"ya")
-		        .replace(/[ю]/g,"yu")
-		        .replace(/[ж]/g,"zh")
-		        .replace(/[^-a-z0-9~\s\.:;+=_]/g, '')
-		        .replace(/[\s\.:;=+]+/g, '-');
 
-		        slug = value.replace(/[-]+/g, '-');
+		        for (var i = chars.length - 1; i >= 0; i--) {
+		        	// Remove backslash from string
+		        	search = chars[i].search.replace(new RegExp('/', 'g'), '');
+		        	replace = chars[i].replace;
+
+		        	// create regex from string and replace with normal string
+		        	value = value.replace(new RegExp(search, 'g'), replace);
+		        };
+
+		        slug = value.replace(/[^-a-z0-9~\s\.:;+=_]/g, '')
+		        			.replace(/[\s\.:;=+]+/g, '-')
+		        			.replace(/[-]+/g, '-');
 		    }
 
 			$(output_form).val(slug);
