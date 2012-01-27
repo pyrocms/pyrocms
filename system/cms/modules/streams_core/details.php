@@ -12,11 +12,6 @@
 class Module_Streams_core extends Module {
 
 	public $version = '1.0';
-	
-	function __construct()
-	{		
-		$this->load->config('streams_core/streams');		
-	}
 
 	// --------------------------------------------------------------------------
 
@@ -53,7 +48,7 @@ class Module_Streams_core extends Module {
 	{
 		// Go through our schema and make sure
 		// all the tables are complete.
-		foreach ($this->config->item('streams:schema') as $table_name => $schema)
+		foreach ($this->schema() as $table_name => $schema)
 		{
 			// Case where table does not exist.
 			// Add fields and keys.
@@ -111,7 +106,7 @@ class Module_Streams_core extends Module {
 	public function uninstall()
 	{
 		// Go through our schema and drop each table
-		foreach ($this->config->item('streams:schema') as $table_name => $schema)
+		foreach ($this->schema() as $table_name => $schema)
 		{
 			if ( ! $this->dbforge->drop_table($table_name)) return FALSE;
 		}
@@ -124,6 +119,171 @@ class Module_Streams_core extends Module {
 	public function upgrade($old_version)
 	{
 		return TRUE;
+	}
+
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * Our database schema for 
+	 * Streams core
+	 *
+	 * @access	public
+	 * @return	array
+	 */
+	public function schema()
+	{
+		return array(
+	
+	    'data_streams' => array(
+	        'fields' => array(
+	        		'id' => array(
+	        				'type' => 'INT',
+	        				'constraint' => 11,
+	        				'unsigned' => TRUE,
+	        				'auto_increment' => TRUE
+	        			),
+	        		'stream_name' => array(
+	        				'type' => 'VARCHAR',
+	        				'constraint' => 60
+	        			),
+		        	'stream_slug' => array(
+		        			'type' => 'VARCHAR',
+		        			'constraint' => 60
+		        		),
+		        	'stream_namespace' => array(
+		        			'type' => 'VARCHAR',
+		        			'constraint' => 60
+		        		),
+		        	'stream_prefix' => array(
+		        			'type' => 'VARCHAR',
+		        			'constraint' => 60
+		        		),
+	    			'about' => array(
+	    					'type' => 'VARCHAR',
+	    					'constraint' => 255,
+	    					'null' => TRUE
+	    				),
+	    			'view_options' => array(
+	    					'type' => 'BLOB'
+	    				),
+	    			'title_column' => array(
+	    					'type' => 'VARCHAR',
+	    					'constraint' => 255,
+	    					'null' => TRUE
+	    				),
+	    			'sorting' => array(
+	    					'type' => 'ENUM',
+	    					'constraint' => "'title', 'custom'",
+	    					'default' => 'title')
+		     ),
+	        'primary_key' => 'id'),
+		'data_fields' => array(
+	        'fields' => array(
+		        	'id' => array(
+		        			'type' => 'INT',
+		        			'constraint' => 11,
+		        			'unsigned' => TRUE,
+		        			'auto_increment' => TRUE
+		        	),
+		        	'field_name' => array(
+		        			'type' => 'VARCHAR',
+		        			'constraint' => 60
+		        	),
+		        	'field_slug' => array(
+		        			'type' => 'VARCHAR',
+		        			'constraint' => 60
+		        		),
+		        	'field_namespace' => array(
+		        			'type' => 'VARCHAR',
+		        			'constraint' => 60
+		        		),
+		        	'field_type' => array(
+		        			'type' => 'VARCHAR',
+		        			'constraint' => 50
+		        		),
+		        	'field_data' => array(
+		        			'type' => 'BLOB',
+		        			'null' => TRUE
+		        		),
+		        	'view_options' => array(
+		        			'type' => 'BLOB',
+		        			'null' => true)
+		     ),
+	        'primary_key' => 'id'),
+	    'data_field_assignments' => array(
+	        'fields' => array(
+		        	'id' => array(
+		        			'type' => 'INT',
+		        			'constraint' => 11,
+		        			'unsigned' => TRUE,
+		        			'auto_increment' => TRUE
+		        		),
+		        	'sort_order' => array(
+		        			'type' => 'INT',
+		        			'constraint' => 11
+		        		),
+		        	'stream_id' => array(
+		        			'type' => 'INT',
+		        			'constraint' => 11
+		        		),
+		        	'field_id' => array(
+		        			'type' => 'INT',
+		        			'constraint' => 11
+		        		),
+		        	'is_required' => array(
+		        			'type' => 'ENUM',
+		        			'constraint' => "'yes', 'no'",
+		        			'default' => 'no'
+		        		),
+		        	'is_unique' => array(
+		        			'type' => 'ENUM',
+		        			'constraint' => "'yes', 'no'",
+		        			'default' => 'no'
+		        		),
+		        	'instructions' => array(
+		        			'type' => 'VARCHAR',
+		        			'constraint' => 255
+		        		),
+		        	'field_name' => array(
+		        			'type' => 'VARCHAR',
+		        			'constraint' => 255,
+		        			'null' => TRUE
+		        		)
+		    ),
+	        'primary_key' => 'id'),
+		'data_stream_searches' => array(
+	        'fields' => array(
+		        	'id' => array(
+		        			'type' => 'INT',
+		        			'constraint' => 11,
+		        			'unsigned' => TRUE,
+		        			'auto_increment' => TRUE
+		        		),
+		        	'search_id' => array(
+		        			'type' => 'VARCHAR',
+		        			'constraint' => 255
+		        		),
+		        	'search_term' => array(
+		        			'type' => 'TEXT'
+		        		),
+		        	'ip_address' => array(
+		        			'type' => 'VARCHAR',
+		        			'constraint' => 100
+		        		),
+		        	'total_results' => array(
+		        			'type' => 'INT',
+		        			'constraint' => 11
+		        		),
+		        	'query_string' => array(
+		        			'type' => 'LONGTEXT'
+		        		),
+		        	'stream_slug' => array(
+		        			'type' => 'VARCHAR',
+		        			'constraint' => 255
+		        		)
+		    ),
+	        'primary_key' => 'id')
+		);
 	}
 
 }
