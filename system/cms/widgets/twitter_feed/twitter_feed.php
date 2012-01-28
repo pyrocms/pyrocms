@@ -63,22 +63,20 @@ class Widget_Twitter_feed extends Widgets {
 			// Detect Twitter #tags
 			'|#([a-z0-9-_]+)|i' => '<a href="http://twitter.com/search?q=%23$1" target="_blank">$0</a>'
 		);
-		
-		if ( ! $tweets)
-		{
-			return array();
-		}
 
-		foreach ($tweets as &$tweet)
+		if ($tweets)
 		{
-			$tweet->text	= str_replace($options['username'] . ': ', '', $tweet->text);
-			$tweet->text	= preg_replace(array_keys($patterns), $patterns, $tweet->text);
+			foreach ($tweets as &$tweet)
+			{
+				$tweet->text	= str_replace($options['username'] . ': ', '', $tweet->text);
+				$tweet->text	= preg_replace(array_keys($patterns), $patterns, $tweet->text);
+			}
 		}
 
 		// Store the feed items
 		return array(
 			'username'	=> $options['username'],
-			'tweets'	=> $tweets
+			'tweets'	=> $tweets ? $tweets : array(),
 		);
 	}
 
