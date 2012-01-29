@@ -103,22 +103,16 @@ class Streams_m extends MY_Model {
      * @param	[int offset]
      * @return	obj
      */
-    public function get_streams($namespace, $limit = 25, $offset = 0 )
+    public function get_streams($namespace, $limit = NULL, $offset = 0)
 	{
-		$this->db->where('stream_namespace', $namespace);
-		$this->db->order_by('stream_name', 'ASC');
-		
-		$obj = $this->db->get($this->table, $limit, $offset);
+		if ($limit) $this->db->limit($offset, $limit);
+	
+		$obj = $this->db
+				->where('stream_namespace', $namespace)
+				->order_by('stream_name', 'ASC')
+				->get($this->table);
 
-		if( $obj->num_rows() == 0 ):
-		
-			return FALSE;
-		
-		else:
-		
-			return $obj->result();
-
-		endif;
+		return ($obj->num_rows() == 0) ? FALSE : $obj->result();
 	}
 
     // --------------------------------------------------------------------------
@@ -293,7 +287,7 @@ class Streams_m extends MY_Model {
 		
 		$this->load->dbforge();
 		
-		if ( ! $this->dbforge->drop_table($stream->stream_prefix.$stream->stream_slug) ) return FALSE;
+		if ( ! $this->dbforge->drop_table($stream->stream_prefix.$stream->stream_slug)) return FALSE;
 
 		// -------------------------------------
 		// Delete from assignments
@@ -301,7 +295,7 @@ class Streams_m extends MY_Model {
 		
 		$this->db->where('stream_id', $stream->id);
 		
-		if ( ! $this->db->delete(ASSIGN_TABLE) ) return FALSE;
+		if ( ! $this->db->delete(ASSIGN_TABLE)) return FALSE;
 
 		// -------------------------------------
 		// Delete from streams table
