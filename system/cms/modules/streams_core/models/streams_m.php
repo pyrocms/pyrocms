@@ -111,8 +111,18 @@ class Streams_m extends MY_Model {
 				->where('stream_namespace', $namespace)
 				->order_by('stream_name', 'ASC')
 				->get($this->table);
+				
+		if($obj->num_rows() == 0) return FALSE;
+		
+		$streams = $obj->result();
+		
+		// Go through and unserialize all the view_options
+		foreach($streams as $key => $stream)
+		{
+			$streams[$key]->view_options = unserialize($streams[$key]->view_options);
+		}
 
-		return ($obj->num_rows() == 0) ? FALSE : $obj->result();
+		return $streams;
 	}
 
     // --------------------------------------------------------------------------
@@ -167,7 +177,7 @@ class Streams_m extends MY_Model {
 	{	
 		// See if table exists. You never know if it sneaked past validation
 		if ($this->db->table_exists($prefix.$stream_slug)) return NULL;
-	
+			
 		// Create the db table
 		$this->load->dbforge();
 		
@@ -176,9 +186,9 @@ class Streams_m extends MY_Model {
 		// Add in our standard fields		
 		$standard_fields = array(
 	        'created' 			=> array('type' => 'DATETIME'),
-            'updated'	 		=> array('type' => 'DATETIME', 'null' => true),
-            'created_by'		=> array('type' => 'INT', 'constraint' => '11', 'null' => true ),
-            'ordering_count'	=> array('type' => 'INT', 'constraint' => '11' )
+            'updated'	 		=> array('type' => 'DATETIME', 'null' => TRUE),
+            'created_by'		=> array('type' => 'INT', 'constraint' => '11', 'null' => TRUE),
+            'ordering_count'	=> array('type' => 'INT', 'constraint' => '11')
 		);
 		
 		$this->dbforge->add_field($standard_fields);
