@@ -19,6 +19,19 @@
  */
 class Streams_streams extends CI_Driver {
 
+	private $CI;
+
+	/**
+	 * Constructor
+	 *
+	 * @access	public
+	 * @return	void
+	 */
+	function __construct()
+	{
+		$this->CI =& get_instance();
+	}
+
 	// --------------------------------------------------------------------------
 
 	/**
@@ -34,8 +47,6 @@ class Streams_streams extends CI_Driver {
 	 */
 	public function add_stream($stream_name, $stream_slug, $namespace, $prefix = NULL, $about = NULL)
 	{
-		$CI = get_instance();
-	
 		// -------------------------------------
 		// Validate Data
 		// -------------------------------------
@@ -62,7 +73,7 @@ class Streams_streams extends CI_Driver {
 		}				
 		
 		// Is this stream slug already available?
-		if( is_object($CI->streams_m->get_stream($stream_slug, true)) )
+		if( is_object($this->CI->streams_m->get_stream($stream_slug, true)) )
 		{
 			$this->log_error('stream_slug_in_use', 'add_stream');
 			return FALSE;
@@ -72,7 +83,7 @@ class Streams_streams extends CI_Driver {
 		// Create Stream
 		// -------------------------------------
 		
-		return $CI->streams_m->create_new_stream(
+		return $this->CI->streams_m->create_new_stream(
 												$stream_name,
 												$stream_slug,
 												$prefix,
@@ -93,7 +104,11 @@ class Streams_streams extends CI_Driver {
 	 */
 	public function get_stream($stream, $namespace)
 	{
-		return get_instance()->streams_m->get_stream($this->stream_id($stream, $namespace));
+		$str_id = $this->stream_id($stream, $namespace);
+		
+		if ( ! $str_id) $this->log_error('invalid_stream', 'get_stream');
+
+		return $this->CI->streams_m->get_stream($str_id);
 	}
 
 	// --------------------------------------------------------------------------
@@ -112,7 +127,7 @@ class Streams_streams extends CI_Driver {
 		
 		if ( ! $str_obj) $this->log_error('invalid_stream', 'delete_stream');
 	
-		return get_instance()->streams_m->delete_stream($str_obj);
+		return $this->CI->streams_m->delete_stream($str_obj);
 	}
 
 	// --------------------------------------------------------------------------
@@ -122,15 +137,17 @@ class Streams_streams extends CI_Driver {
 	 *
 	 * @access	public
 	 * @param	stream - obj, id, or string
-	 * @param 	array - data
-	 * @param	[string - namespace]
+	 * @param	string - namespace
+	 * @param 	array - associative array of new data
 	 * @return	object
 	 */
-	function update_stream($stream, $data, $namespace = NULL)
-	{
-		$this->CI = get_instance();
-	
-		return $this->CI->streams_m->update_stream($this->stream_id($stream, $namespace), $data);
+	function update_stream($stream, $namespace, $data)
+	{	
+		$str_id = $this->stream_id($stream, $namespace);
+		
+		if ( ! $str_id) $this->log_error('invalid_stream', 'update_stream');
+
+		return $this->CI->streams_m->update_stream($str_id, $data);
 	}
 
 	// --------------------------------------------------------------------------
@@ -140,14 +157,31 @@ class Streams_streams extends CI_Driver {
 	 *
 	 * @access	public
 	 * @param	stream - obj, id, or string
+	 * @param	string - namespace
+	 * @return	object
+	 */
+	public function get_assignments($stream, $namespace)
+	{
+		$str_id = $this->stream_id($stream, $namespace);
+		
+		if ( ! $str_id) $this->log_error('invalid_stream', 'get_stream');
+
+		return $this->CI->field_m->get_assignments_for_stream($this->stream_id($stream, $namespace));
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Get streams in a namespace
+	 *
+	 * @access	public
+	 * @param	stream - obj, id, or string
 	 * @param	[string - namespace]
 	 * @return	object
 	 */
-	public function get_assignments($stream, $namespace = NULL)
+	public function get_streams($namespace)
 	{
-		$this->CI = get_instance();
-	
-		return $this->CI->field_m->get_assignments_for_stream($this->stream_id($stream, $namespace));
+		return $this->CI->streams_m->get_streams($namespace);
 	}
 	
 }
