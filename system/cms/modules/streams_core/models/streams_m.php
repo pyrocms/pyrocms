@@ -225,11 +225,33 @@ class Streams_m extends MY_Model {
 		// See if the stream slug is different
 		$stream = $this->get_stream($stream_id);
 		
-		if ($stream->stream_slug != $data['stream_slug'])
+		if ($stream->stream_slug != $data['stream_slug'] OR $stream->stream_prefix != $data['stream_prefix'])
 		{
+			// Use the right DB prefix
+			if (isset($data['stream_prefix']))
+			{
+				$prefix = $data['stream_prefix'];
+				$update_data['stream_prefix'] = $prefix;
+			}
+			else
+			{
+				$prefix = $stream->stream_prefix;
+			}
+			
+			// Use the right stream slug
+			if (isset($data['stream_slug']))
+			{
+				$stream_slug = $data['stream_slug'];
+				$update_data['stream_slug'] = $stream_slug;
+			}
+			else
+			{
+				$stream_slug = $stream->stream_slug;
+			}
+
 			// Okay looks like we need to alter the table name.			
 			// Check to see if there is a table, then alter it.
-			if ($this->db->table_exists($stream->stream_prefix.$data['stream_slug']))
+			if ($this->db->table_exists($prefix.$stream_slug))
 			{
 				show_error(sprintf(lang('streams.table_exists'), $data['stream_slug']));
 			}
@@ -238,24 +260,16 @@ class Streams_m extends MY_Model {
 			
 			// Using the PyroStreams DB prefix because rename_table
 			// does not prefix the table name properly, it would seem
-			if ( ! $this->dbforge->rename_table($stream->stream_prefix.$stream->stream_slug, $stream->stream_prefix.$data['stream_slug']) )
+			if ( ! $this->dbforge->rename_table($stream->stream_prefix.$stream->stream_slug, $prefix.$stream_slug))
 			{
 				return FALSE;
 			}
-		
-			$update_data['stream_slug']	= $data['stream_slug'];
 		}
 		
-		$update_data['stream_name']		= $data['stream_name']; 
-		$update_data['about']			= $data['about'];
-		$update_data['sorting']			= $data['sorting'];
-		
-		// We won't always have a title column. If we don't have
-		// any fields yet, for instance, it will not exist.
-		if (isset($data['title_column']))
-		{
-			$update_data['title_column'] = $data['title_column'];
-		}
+		if(isset($data['stream_name']))			$update_data['stream_name']		= $data['stream_name'];
+		if(isset($data['about']))				$update_data['about']			= $data['about'];
+		if(isset($data['sorting']))				$update_data['sorting']			= $data['sorting'];
+		if(isset($data['title_column']))		$update_data['title_column']			= $data['title_column'];
 		
 		return $this->db->where('id', $stream_id)->update($this->table, $update_data);
 	}
