@@ -15,8 +15,6 @@ class Asset extends Plugin {
 
 	function __construct()
 	{
-		$this->CI = get_instance();
-		
 		$this->CI->load->helper('html');
 	}
 
@@ -28,7 +26,7 @@ class Asset extends Plugin {
 	public function img()
 	{
 		$image_properties['src'] = $this->CI->config->item('base_url').
-					$this->CI->config->item('asset_folder').
+					$this->CI->vars['assets_folder'].
 					'/img/'.$this->get_param('file');
 
 		$properties = array('alt', 'id', 'class', 'width', 'height', 'title', 'rel');
@@ -68,7 +66,7 @@ class Asset extends Plugin {
 	public function js()
 	{
 		$src = 		$this->CI->config->item('base_url').
-					$this->CI->config->item('asset_folder').
+					$this->CI->vars['assets_folder'].
 					'/js/'.$this->get_param('file');
 
 		return '<script type="text/javascript" src="'.$src.'"></script>';
