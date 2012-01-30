@@ -18,10 +18,36 @@ em {font-style: italic;}
 /* Example Styles 		      */
 /* ------------------------------------- */
 
-body {background: #F7F7F7;}
-#wrap {width: 900px; padding: 30px; background: #fff; margin: 20px auto;}
-a {color: #464646;}
-h1 {font-size: 30px; margin-bottom: 25px;}
-nav > ul {margin-bottom: 20px;}
-nav ul li ul {margin-left: 10px;}
-li.current > a {color: #287AB1;}
+body {
+	background: #F7F7F7;
+	font-size: 12px;
+	color: #4B4B4B;
+}
+#wrap {
+	width: 900px;
+	padding: 30px;
+	background: #fff;
+	margin: 20px auto;
+	box-shadow: 0px 0px 5px #ccc;
+}
+a {
+	color: #1C62A3;
+	text-decoration: none;
+}
+h1 {
+	font-size: 24px;
+	margin-bottom: 25px;
+}
+h2 {
+	font-size: 20px;
+	margin-bottom: 25px;
+}
+nav > ul {
+	margin-bottom: 20px;
+}
+nav ul li ul {
+	margin-left: 10px;
+}
+li.current > a {
+	color: #287AB1;
+}
