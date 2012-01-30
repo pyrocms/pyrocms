@@ -13,6 +13,10 @@
  */
 class Plugin {
 
+	protected $CI;
+
+	// --------------------------------------------------------------------------
+	
 	/**
 	 * Whatever is between the tags for tag pairs
 	 *
@@ -50,7 +54,7 @@ class Plugin {
 	 */
 	public function get_param($key, $default = NULL)
 	{
-		if(isset($this->attributes[$key]))
+		if (isset($this->attributes[$key]))
 		{
 			return $this->attributes[$key];
 		}	
