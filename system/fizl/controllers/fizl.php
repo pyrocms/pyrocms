@@ -236,30 +236,5 @@ class Fizl extends CI_Controller {
 		
 		echo $parser->parse($template, $this->vars, array($this->parse, 'callback'));
 	}
-	
-	// --------------------------------------------------------------------------
-	
-	/**
-	 * Parse Template Embeds
-	 *
-	 * @access	public
-	 * @param	string - file to embed
-	 * @param	array - new vars
-	 * @return 	string
-	 */
-	private function embed($file, $attributes)
-	{
-		// Load the file. Always an .html
-		$embed_content = read_file(FCPATH.$this->vars['assets_folder'].'/embeds/'.$file.'.html');
-		
-		if ( ! $embed_content) return NULL;
-		
-		if ( ! empty($attributes)) return $embed_content;
-	
-		$parser = new Lex_Parser();
-		$parser->scope_glue(':');
-		
-		$parser->parse_variables($embed_content, $attributes);
-	}
 
 }
