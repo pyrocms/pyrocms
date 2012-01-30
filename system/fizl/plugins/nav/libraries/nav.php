@@ -149,7 +149,7 @@ class Nav extends Plugin {
 		// We need a start
 		if ( ! $start) return NULL;
 		
-		if ($start = '/')
+		if ($start == '/')
 		{
 			$segs = array();
 		}
@@ -157,7 +157,7 @@ class Nav extends Plugin {
 		{
 			$segs = explode('/', $start);
 		}
-						
+		
 		$this->CI->load->helper(array('file', 'directory'));
 		
 		$this->start = $start;

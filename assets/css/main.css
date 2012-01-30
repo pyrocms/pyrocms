@@ -29,6 +29,15 @@ body {
 	background: #fff;
 	margin: 20px auto;
 	box-shadow: 0px 0px 5px #ccc;
+	-moz-box-shadow: 0px 0px 5px #ccc;
+	-webkit-box-shadow: 0px 0px 5px #ccc;
+}
+footer {
+	width: 900px;
+	padding: 4px;
+	margin: 2px auto;
+	color: #999999;
+	text-shadow: 1px 1px 1px #fff;
 }
 a {
 	color: #1C62A3;
