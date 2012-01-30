@@ -45,6 +45,12 @@ h2 {
 nav > ul {
 	margin-bottom: 20px;
 }
+nav > ul li ul {
+	margin-top: 4px;
+}
+nav li {
+	margin-bottom: 4px;
+}
 nav ul li ul {
 	margin-left: 10px;
 }
