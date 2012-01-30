@@ -116,6 +116,177 @@ class Nav extends Plugin {
 		
 		return $html .= "</li>\n</ul>";
 	}
+
+	/**
+	 * Attempts to create a nav from
+	 * the directory tree.
+	 */
+	function auto()
+	{
+		$this->CI = get_instance();
+
+		$start = $this->get_param('start');
+		$depth = $this->get_param('depth', 2);
+		
+		// We need a start
+		if(!$start) return;
+		
+		$segs = explode('/', $start);
+		$first = $segs[0];
+				
+		$this->CI->load->helper('directory');
+		
+		$this->start = $start;
+						
+		$map = directory_map(FCPATH.$this->CI->vars['site_folder'].'/'.$start);
+		
+		if(!$map) return;
+		
+		// See if we have an order.txt
+		if(in_array('order.txt', $map)):
+		
+			// get the order
+			$this->CI->load->helper('file');
+			$order = trim(read_file(FCPATH.$this->CI->vars['site_folder'].'/order.txt'));
+			
+			// chop it up
+			$ord = explode("\n", $order);
+			
+			// Go through and create a new array
+			$new_map = array();
+			
+			foreach($ord as $k => $o):
+			
+				// Go through, see if the old map value
+				// was an array, and if so pass it through
+				if(isset($map[$o])):
+				
+					$new_map[$o] = $map[$o];
+					
+				else:
+				
+					$new_map[] = $o;
+				
+				endif;
+			
+			endforeach;
+			
+		else:
+		
+			$new_map = $map;
+					
+		endif;
+		
+		$this->depth = 0;
+		$this->stack = $segs;
+		
+		$this->html = '';
+		$this->create_ul($new_map);
+		
+		return $this->html;
+	}
+
+	function create_ul($tree)
+	{
+		$this->depth++;
+	
+		$this->html .= '<ul class="depth_'.$this->depth.'">'."\n";
+		
+	    foreach($tree as $key => $item):
+	    
+	        if (is_array($item)):
+	        	
+	        	$this->stack[] = $key;
+
+	        	$item = $this->order_items($item);	        	
+	        
+	        	$this->html .= '<li>'.$this->guess_name($key)."\n";
+	        
+	            	$this->create_ul($item);
+	            
+	            $this->html .= '</li>';
+	            
+	        	array_pop($this->stack);
+	            
+	        else:
+
+	    		$this->stack[] = $this->remove_extension($item);
+	        
+	            $this->html .= "\t".'<li><a href="'.site_url(implode('/', $this->stack)).'">'.$this->guess_name($item).'</a></li>'."\n";
+
+	        	array_pop($this->stack);
+	        
+	        endif;
+	        
+	    endforeach;
+
+		$this->html .= '</ul>'."\n\n";
+
+		$this->depth--;
+	}
+	
+	function guess_name($name)
+	{
+		$name = $this->remove_extension($name);
+	
+		$name = str_replace('-', ' ', $name);
+		$name = str_replace('_', ' ', $name);
+		$name = str_replace('.', ' ', $name);
+		
+		return ucwords($name);
+	}
+	
+	function remove_extension($file)
+	{
+		$segs = explode('.', $file);
+		
+		if(count($segs) > 1):
+			array_pop($segs);
+			$file = implode('.', $segs);
+		endif;
+		
+		return $file;
+	}
+	
+	function order_items($arr)
+	{
+		// Do we have an order txt file?
+		if(!in_array('order.txt', $arr)):
+		
+			return $arr;
+		
+		endif;
+		
+		// If so, remove it and break it down into an array.
+		$key = array_search('order.txt', $arr);
+		unset($arr[$key]);
+		
+		$loc = array_merge(array(FCPATH.$this->CI->vars['site_folder'].'/'.$this->start), $this->stack);
+		
+		$path = implode('/', $loc);
+		
+		if(!is_file($path.'/order.txt')) return $arr;
+		
+		$this->CI->load->helper('file');
+		
+		$order = trim(read_file($path.'/order.txt'));
+		
+		if(!$order) return $arr;
+		
+		// Break it down
+		$ord = explode("\n", $order);
+		
+		// Go through and create a new array
+		$new_arr = array();
+		
+		foreach($ord as $o):
+		
+			$new_arr[] = $o.'.html';
+		
+		endforeach;
+		
+		return $new_arr;
+	}
 		
 }
 
