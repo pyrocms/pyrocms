@@ -102,5 +102,3 @@ class Files extends Plugin {
 	}
 			
 }
-
-/* End of file pages.php */
