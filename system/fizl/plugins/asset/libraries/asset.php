@@ -15,6 +15,8 @@ class Asset extends Plugin {
 
 	function __construct()
 	{
+		parent::__construct();
+	
 		$this->CI->load->helper('html');
 	}
 
