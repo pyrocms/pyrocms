@@ -147,7 +147,7 @@ class Nav extends Plugin {
 		
 			// get the order
 			$this->CI->load->helper('file');
-			$order = trim(read_file(FCPATH.$this->CI->vars['site_folder'].'/order.txt'));
+			$order = trim(read_file(FCPATH.$this->CI->vars['site_folder'].'/'.$this->start.'/order.txt'));
 			
 			// chop it up
 			$ord = explode("\n", $order);
@@ -155,19 +155,39 @@ class Nav extends Plugin {
 			// Go through and create a new array
 			$new_map = array();
 			
-			foreach($ord as $k => $o):
+			foreach($ord as $order_string):
+			
+				$name = NULL;
+			
+				$pieces = explode('|', $order_string);
+				
+				if(count($pieces) == 2)
+				{
+					$file = trim($pieces[0]);
+					$name = trim($pieces[1]);
+				}
+				else
+				{
+					$file = $order_string;
+				}
 			
 				// Go through, see if the old map value
 				// was an array, and if so pass it through
-				if(isset($map[$o])):
-				
-					$new_map[$o] = $map[$o];
-					
-				else:
-				
-					$new_map[] = $o;
-				
-				endif;
+				if(isset($map[$file]))
+				{
+					$new_map[$file] = $map[$file];
+				}	
+				else
+				{
+					if (is_null($name))
+					{
+						$new_map[] = $file;
+					}
+					else
+					{
+						$new_map[$name] = $file;
+					}
+				}
 			
 			endforeach;
 			
@@ -199,10 +219,17 @@ class Nav extends Plugin {
 	        	$this->stack[] = $key;
 
 	        	$item = $this->order_items($item);	        	
-	        
-	        	$this->html .= '<li>'.$this->guess_name($key)."\n";
-	        
-	            	$this->create_ul($item);
+	        	
+	        	if(is_numeric($key))
+	        	{
+	        		$this->html .= '<li>'.$this->guess_name($key)."\n";
+	        	}
+	        	else
+	        	{
+	        		$this->html .= '<li>'.$key."\n";
+	        	}
+	        	
+	            $this->create_ul($item);
 	            
 	            $this->html .= '</li>';
 	            
@@ -212,7 +239,18 @@ class Nav extends Plugin {
 
 	    		$this->stack[] = $this->remove_extension($item);
 	        
-	            $this->html .= "\t".'<li><a href="'.site_url(implode('/', $this->stack)).'">'.$this->guess_name($item).'</a></li>'."\n";
+	            $this->html .= "\t".'<li><a href="'.site_url(implode('/', $this->stack)).'">';
+	            
+				if(is_numeric($key))
+				{
+	           		 $this->html .= $this->guess_name($item);
+	            }
+	            else
+	            {
+	            	$this->html .= $key;
+	            }
+	            
+	            $this->html .= '</a></li>'."\n";
 
 	        	array_pop($this->stack);
 	        
@@ -231,14 +269,14 @@ class Nav extends Plugin {
 	
 		$name = str_replace('-', ' ', $name);
 		$name = str_replace('_', ' ', $name);
-		$name = str_replace('.', ' ', $name);
+		//$name = str_replace('.', ' ', $name);
 		
 		return ucwords($name);
 	}
 	
 	function remove_extension($file)
 	{
-		$segs = explode('.', $file);
+		$segs = explode('.', $file, 2);
 		
 		if(count($segs) > 1):
 			array_pop($segs);
@@ -289,5 +327,3 @@ class Nav extends Plugin {
 	}
 		
 }
-
-/* End of file nav.php */
