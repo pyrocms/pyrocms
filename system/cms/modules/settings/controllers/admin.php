@@ -3,23 +3,23 @@
 /**
  * Admin controller for the settings module
  *
- * @author 		Phil Sturgeon - PyroCMS Dev Team
+ * @author 		PyroCMS Dev Team
  * @package 	PyroCMS
- * @subpackage 	Settings module
+ * @subpackage 	Settings
  * @category	Modules
  */
 class Admin extends Admin_Controller {
 
 	/**
 	 * Validation array
-	 * @access private
+	 * 
 	 * @var array
 	 */
 	private $validation_rules = array();
 
 	/**
 	 * Constructor method
-	 * @access public
+	 * 
 	 * @return void
 	 */
 	public function __construct()
@@ -37,7 +37,6 @@ class Admin extends Admin_Controller {
 	/**
 	 * Index method, lists all generic settings
 	 *
-	 * @access public
 	 * @return void
 	 */
 	public function index()
@@ -123,7 +122,6 @@ class Admin extends Admin_Controller {
 	/**
 	 * Edit an existing settings item
 	 *
-	 * @access public
 	 * @return void
 	 */
 	public function edit()
@@ -181,8 +179,7 @@ class Admin extends Admin_Controller {
 	/**
 	 * Sort settings items
 	 *
-	 * @author Jerel Unruh - PyroCMS Dev Team
-	 * @access public
+	 * @return void
 	 */
 	public function ajax_update_order()
 	{
@@ -192,9 +189,8 @@ class Admin extends Admin_Controller {
 		foreach ($slugs as $slug)
 		{
 			$this->settings_m->update($slug, array(
-				'order' => $i
+				'order' => $i--,
 			));
-			$i--;
 		}
 	}
 }

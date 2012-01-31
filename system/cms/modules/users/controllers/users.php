@@ -15,7 +15,7 @@ class Users extends Public_Controller
 	 *
 	 * @return void
 	 */
-	function __construct()
+	public function __construct()
 	{
 		parent::__construct();
 
@@ -29,7 +29,6 @@ class Users extends Public_Controller
 	/**
 	 * Show the current user's profile
 	 *
-	 * @access public
 	 * @return void
 	 */
 	public function index()
@@ -477,6 +476,15 @@ class Users extends Public_Controller
 			$user = $this->current_user or redirect('users/login/users/edit'.(($id > 0) ? '/'.$id : ''));
 		}
 
+		// If we have API's enabled, load stuff
+		if (Settings::get('api_enabled') and Settings::get('api_user_keys'))
+		{
+			$this->load->model('api/api_key_m');
+			$this->load->language('api/api');
+			
+			$api_key = $this->api_key_m->get_active_key($user->id);
+		}
+
 		$this->validation_rules = array(
 			array(
 				'field' => 'first_name',
@@ -691,6 +699,7 @@ class Users extends Public_Controller
 			'days' => $days,
 			'months' => $months,
 			'years' => $years,
+			'api_key' => isset($api_key) ? $api_key : null,
 		));
 	}
 

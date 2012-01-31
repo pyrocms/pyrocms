@@ -45,7 +45,7 @@
 			<li class="<?php echo alternator('even', ''); ?>">
 				<label for="body"><?php echo lang('templates.body_label'); ?></label>
 				<br style="clear:both" />
-				<?php echo form_textarea('body', $email_template->body, 'class="wysiwyg-advanced"'); ?>
+				<?php echo form_textarea('body', $email_template->body, 'class="templates wysiwyg-advanced"'); ?>
 			</li>
 		
 		</ul>

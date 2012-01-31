@@ -31,6 +31,23 @@ class Plugin_Helper extends Plugin
 	}
 
 	/**
+	 * Config
+	 *
+	 * Displays a config item
+	 *
+	 * Usage:
+	 * {{ helper:config item="foo" }}
+	 *
+	 * @param	string
+	 * @return	array
+	 */
+	public function config()
+	{
+		$item = $this->attribute('item');
+		return config_item($item);
+	}
+
+	/**
 	 * Date
 	 *
 	 * Displays the current date or formats

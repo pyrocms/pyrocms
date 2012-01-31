@@ -89,9 +89,6 @@ class Admin extends Admin_Controller
 	public function __construct()
 	{
 		parent::__construct();
-
-		// Fire an event, we're posting a new blog!
-		Events::trigger('blog_article_published');
 		
 		$this->load->model(array('blog_m', 'blog_categories_m'));
 		$this->lang->load(array('blog', 'categories'));

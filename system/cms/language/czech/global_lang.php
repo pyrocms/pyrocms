@@ -63,11 +63,11 @@ $lang['approve_label']					= 'Schválit';
 $lang['unapprove_label']				= 'Zamítnout';
 $lang['publish_label'] 					= 'Publikovat';
 $lang['upload_label'] 					= 'Nahrát';
-$lang['uninstall_label'] 				= 'Odinstalovat';
-$lang['install_label'] 					= 'Instalovat';
-$lang['enable_label']					= 'Zapnout';
-$lang['disable_label'] 					= 'Vypnout';
-$lang['upgrade_label'] 					= 'Upgrade';
+$lang['global:uninstall'] 				= 'Odinstalovat';
+$lang['global:install'] 					= 'Instalovat';
+$lang['global:enable']					= 'Zapnout';
+$lang['global:disable'] 					= 'Vypnout';
+$lang['global:upgrade'] 					= 'Upgrade';
 
 $lang['all_right_reserved']				= 'All Rights Reserved.';  #translate
 $lang['powered_by_pyrocms']				= 'Powered by PyroCMS';  #translate

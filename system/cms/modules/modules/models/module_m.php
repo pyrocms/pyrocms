@@ -14,18 +14,6 @@ class Module_m extends MY_Model
 	private $_module_exists = array();
 
 	/**
-	 * Constructor method
-	 * @access public
-	 * @return void
-	 */
-	public function __construct()
-	{
-		parent::__construct();
-
-		$this->load->helper(array('date', 'modules/module'));
-	}
-
-	/**
 	 * Get
 	 *
 	 * Return an array containing module data
@@ -480,7 +468,7 @@ class Module_m extends MY_Model
 				// Yeah yeah we know
 				if (in_array($slug, $known_array))
 				{
-					$details_file = $directory . 'modules/' . $slug . '/details'.EXT;
+					$details_file = $directory.'modules/'.$slug.'/details'.EXT;
 
 					if (file_exists($details_file) &&
 						filemtime($details_file) > $known_mtime[$slug]['updated_on'] &&
@@ -551,12 +539,12 @@ class Module_m extends MY_Model
 		$path = $is_core ? APPPATH : ADDONPATH;
 
 		// Before we can install anything we need to know some details about the module
-		$details_file = $path . 'modules/' . $slug . '/details'.EXT;
+		$details_file = $path.'modules/'.$slug.'/details'.EXT;
 
 		// Check the details file exists
 		if ( ! is_file($details_file))
 		{
-			$details_file = SHARED_ADDONPATH . 'modules/' . $slug . '/details'.EXT;
+			$details_file = SHARED_ADDONPATH.'modules/'.$slug.'/details'.EXT;
 			
 			if ( ! is_file($details_file))
 			{
@@ -634,7 +622,7 @@ class Module_m extends MY_Model
 
 				if ( ! empty($info['roles']))
 				{
-					$this->lang->load($slug . '/permission');
+					$this->lang->load($slug.'/permission');
 					return $info['roles'];
 				}
 			}

@@ -62,11 +62,11 @@ $lang['approve_label']					= 'اعتماد';
 $lang['unapprove_label']				= 'حجب';
 $lang['publish_label'] 					= 'نشر';
 $lang['upload_label'] 					= 'رفع';
-$lang['uninstall_label'] 				= 'إزالة';
-$lang['install_label'] 					= 'تثبيت';
-$lang['enable_label']					= 'تمكين';
-$lang['disable_label'] 					= 'تعطيل';
-$lang['upgrade_label'] 					= 'تحديث';
+$lang['global:uninstall'] 				= 'إزالة';
+$lang['global:install'] 					= 'تثبيت';
+$lang['global:enable']					= 'تمكين';
+$lang['global:disable'] 					= 'تعطيل';
+$lang['global:upgrade'] 					= 'تحديث';
 
 $lang['all_right_reserved']				= 'جميع الحقوق محفوظة.';
 $lang['powered_by_pyrocms']				= 'هذا الموقع يستخدم PyroCMS';
