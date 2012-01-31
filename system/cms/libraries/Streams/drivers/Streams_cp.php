@@ -54,14 +54,16 @@ class Streams_cp extends CI_Driver {
 	 */
 	function form($stream_slug, $namespace, $mode = 'new', $entry = NULL, $view_override = FALSE, $skips = array())
 	{
+		$CI = get_instance();
+	
 		$stream = $this->stream_obj($stream_slug, $namespace);
 		
 		if ( ! $stream) $this->log_error('invalid_stream', 'delete_stream');
 
 		// Load up things we'll need for the form
-		get_instance()->load->library(array('form_validation', 'streams_core/Streams_validation', 'streams_core/Fields'));
+		$CI->load->library(array('form_validation', 'streams_core/Streams_validation', 'streams_core/Fields'));
 		
-		$fields = get_instance()->fields->build_form($stream, $mode, $entry, FALSE, FALSE, $skips);
+		$fields = $CI->fields->build_form($stream, $mode, $entry, FALSE, FALSE, $skips);
 		
 		$data = array(
 					'fields' 	=> $fields,
@@ -69,13 +71,13 @@ class Streams_cp extends CI_Driver {
 					'entry'		=> $entry,
 					'mode'		=> $mode);
 		
-		$form = get_instance()->load->view('admin/partials/streams/form', $data, TRUE);
+		$form = $CI->load->view('admin/partials/streams/form', $data, TRUE);
 		
 		if ($view_override === FALSE) return $form;
 		
-		get_instance()->data->content = $form;
+		$CI->data->content = $form;
 		
-		get_instance()->template->build('admin/partials/blank_section', get_instance()->data);
+		$CI->template->build('admin/partials/blank_section', get_instance()->data);
 	}
 	
 }

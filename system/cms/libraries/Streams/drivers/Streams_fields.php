@@ -29,6 +29,8 @@ class Streams_fields extends CI_Driver {
 	 */
 	function add_field($field)
 	{
+		$CI = get_instance();
+	
 		extract($field);
 	
 		// -------------------------------------
@@ -36,72 +38,83 @@ class Streams_fields extends CI_Driver {
 		// -------------------------------------
 		
 		// Do we have a field name?
-		if( !isset($name) or !trim($name) ):
-		
+		if ( ! isset($name) OR ! trim($name))
+		{
 			$this->log_error('empty_field_name', 'add_field');
-			return false;
-						
-		endif;
+			return FALSE;
+		}			
 
 		// Do we have a field slug?
-		if( !isset($slug) or !trim($slug) ):
-		
+		if( ! isset($slug) OR ! trim($slug))
+		{
 			$this->log_error('empty_field_slug', 'add_field');
-			return false;
-						
-		endif;
+			return FALSE;
+		}
+
+		// Do we have a namespace?
+		if( ! isset($namespace) OR ! trim($namespace))
+		{
+			$this->log_error('empty_field_namespace', 'add_field');
+			return FALSE;
+		}
 		
 		// Is this stream slug already available?
-		if( is_object($this->CI->fields_m->get_field_by_slug($slug)) ):
-		
+		if (is_object($CI->fields_m->get_field_by_slug($slug, $namespace)))
+		{
 			$this->log_error('field_slug_in_use', 'add_field');
-			return false;
-		
-		endif;
+			return FALSE;
+		}
 
 		// Is this a valid field type?
-		if( !isset($type) or !isset($this->CI->type->types->$type) ):
-		
+		if ( ! isset($type) OR ! isset($CI->type->types->$type) )
+		{
 			$this->log_error('invalid_fieldtype', 'add_field');
-			return false;
-		
-		endif;
+			return FALSE;
+		}
 		
 		// Set extra
-		if(!isset($extra)) $extra = array();
+		if ( ! isset($extra) OR ! is_array($extra)) $extra = array();
 	
 		// -------------------------------------
 		// Create Field
 		// -------------------------------------
 
-		if( !$this->CI->fields_m->insert_field($name, $slug, $type, $extra) ) return false;
+		if ( ! $CI->fields_m->insert_field($name, $slug, $type, $namespace, $extra)) return FALSE;
 		
-		$field_id = $this->CI->db->insert_id();
+		$field_id = $CI->db->insert_id();
 
 		// -------------------------------------
 		// Assignment (Optional)
 		// -------------------------------------
 
-		if( isset($assign) and $assign != '' and (is_object($stream = $this->CI->streams_m->get_stream($assign, true))) ):
-		
+		if (isset($assign) and $assign != '' and (is_object($stream = $CI->streams_m->get_stream($assign, TRUE, $namespace))))
+		{
 			$data = array();
 		
 			// Title column
-			if(isset($title_column) and $title_column === true) $data['title_column'] = 'yes';
+			if (isset($title_column) and $title_column === TRUE)
+			{
+				$data['title_column'] = 'yes';
+			}
 
 			// Instructions
 			$data['instructions'] = (isset($instructions) and $instructions != '') ? $instructions : NULL;
 			
 			// Is Unique
-			if(isset($unique) and $unique === true) $data['is_unique'] = 'yes';
+			if (isset($unique) and $unique === TRUE)
+			{
+				$data['is_unique'] = 'yes';
+			}
 			
 			// Is Required
-			if(isset($required) and $required === true) $data['is_required'] = 'yes';
+			if (isset($required) and $required === TRUE)
+			{
+				$data['is_required'] = 'yes';
+			}
 		
 			// Add actual assignment
-			$this->CI->streams_m->add_field_to_stream($field_id, $stream->id, $data);
-		
-		endif;
+			$CI->streams_m->add_field_to_stream($field_id, $stream->id, $data);
+		}
 		
 		return $field_id;
 	}
@@ -117,9 +130,9 @@ class Streams_fields extends CI_Driver {
 	 */
 	function add_fields($fields)
 	{
-		if(!is_array($fields)) return false;
+		if ( ! is_array($fields)) return FALSE;
 		
-		foreach($fields as $field):
+		foreach ($fields as $field):
 		
 			$this->add_field($field);
 		
@@ -132,14 +145,15 @@ class Streams_fields extends CI_Driver {
 	 * Delete field
 	 *
 	 * @access	public
-	 * @param	string - slug
+	 * @param	string - field slug
+	 * @param	string - field namespace
 	 * @return	bool
 	 */
-	function delete_field($field_slug)
+	function delete_field($field_slug, $namespace)
 	{
-		if( !trim($field_slug) ) return false;
+		if ( ! trim($field_slug)) return FALSE;
 	
-		if( !$field = $this->CI->fields_m->get_field_by_slug($field_slug) ) return false;
+		if ( ! $field = $this->CI->fields_m->get_field_by_slug($field_slug)) return FALSE;
 	
 		return $this->CI->fields_m->delete_field($field->id);
 	}
@@ -154,11 +168,11 @@ class Streams_fields extends CI_Driver {
 	 * @param	array - new data
 	 * @return	bool
 	 */
-	function update_field($field_slug, $field_data)
+	function update_field($field_slug, $field_namespace, $field_data)
 	{
-		if( !trim($field_slug) ) return false;
+		if ( ! trim($field_slug) ) return FALSE;
 	
-		if( !$field = $this->CI->fields_m->get_field_by_slug($field_slug) ) return false;
+		if ( ! $field = $this->CI->fields_m->get_field_by_slug($field_slug, $field_namespace)) return FALSE;
 
 		return $this->CI->fields_m->update_field($field, $field_data);
 	}
@@ -196,18 +210,17 @@ class Streams_fields extends CI_Driver {
 	 * @param	[int - offset]
 	 * @return	object
 	 */
-	function get_stream_fields($stream, $current_data = array(), $entry_id = null)
+	function get_stream_fields($stream, $stream_namespace = NULL, $current_data = array(), $entry_id = null)
 	{
-		$assignments = $this->CI->field_m->get_assignments_for_stream($this->stream_id($stream));
+		$assignments = $this->CI->field_m->get_assignments_for_stream($this->stream_id($stream, $stream_namespace));
 		
 		$return = array();
 		
-		if(!$assignments) return $return;
+		if ( ! $assignments) return $return;
 		
-		foreach($assignments as $assign):
-		
+		foreach ($assignments as $assign)
+		{
 			// Get the input
-		
 			$value = null;
 		
 			if(isset($current_data[$assign->field_slug])) $value = $current_data[$assign->field_slug];
@@ -219,8 +232,7 @@ class Streams_fields extends CI_Driver {
 			// Other data
 			$return[$count]['value'] 			= $value;
 			$reutnr[$count]['instructions']		= $assign->instructions;
-		
-		endforeach;
+		}
 		
 		return $return;
 	}

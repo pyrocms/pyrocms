@@ -99,8 +99,8 @@ class Streams_entries extends CI_Driver {
 	public function get_entries($params, $pagination_config = array(), $skip_params = false)
 	{
 		$return = array();
-		
-		print_r($params);
+
+		$CI = get_instance();
 		
 		// -------------------------------------
 		// Set Parameters
@@ -122,7 +122,7 @@ class Streams_entries extends CI_Driver {
 				
 		if ( ! isset($params['namespace'])) $this->log_error('no_namespace_provided', 'get_entries');
 	
-		$stream = $this->CI->streams_m->get_stream($params['stream'], TRUE, $params['namespace']);
+		$stream = $CI->streams_m->get_stream($params['stream'], TRUE, $params['namespace']);
 				
 		if ( ! $stream) $this->log_error('invalid_stream', 'get_entries');
 
@@ -136,13 +136,13 @@ class Streams_entries extends CI_Driver {
 		// Get Stream Fields
 		// -------------------------------------
 				
-		$this->fields = $this->CI->streams_m->get_stream_fields($stream->id);
+		$this->fields =$CI->streams_m->get_stream_fields($stream->id);
 
 		// -------------------------------------
 		// Get Rows
 		// -------------------------------------
 
-		$rows = $this->CI->row_m->get_rows($params, $this->fields, $stream);
+		$rows = $CI->row_m->get_rows($params, $this->fields, $stream);
 		
 		$return['entries'] = $rows['rows'];
 				
@@ -164,7 +164,7 @@ class Streams_entries extends CI_Driver {
 				if ($this->pagination_config[$key] == 'FALSE') $this->pagination_config[$key] = FALSE;
 			}
 			
-			$return['pagination'] = $this->CI->row_m->build_pagination($params['pag_segment'], $params['limit'], $return['total'], $this->pagination_config);
+			$return['pagination'] = $CI->row_m->build_pagination($params['pag_segment'], $params['limit'], $return['total'], $this->pagination_config);
 		}		
 		else
 		{
@@ -190,7 +190,7 @@ class Streams_entries extends CI_Driver {
 	 */
 	function get_entry($entry_id, $stream, $namespace = NULL, $format = TRUE)
 	{
-		return $this->row_m->get_row($entry_id, $this->stream_obj($stream, $namespace), $format);
+		return get_instance()->row_m->get_row($entry_id, $this->stream_obj($stream, $namespace), $format);
 	}
 
 	// --------------------------------------------------------------------------
@@ -205,7 +205,7 @@ class Streams_entries extends CI_Driver {
 	 */
 	function delete_entry($entry_id, $stream, $namespace = NULL)
 	{
-		return $this->CI->row_m->delete_row($entry_id, $this->stream_obj($stream, $namespace));
+		return get_instance()->row_m->delete_row($entry_id, $this->stream_obj($stream, $namespace));
 	}
 
 	// --------------------------------------------------------------------------
