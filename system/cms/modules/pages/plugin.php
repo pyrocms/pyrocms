@@ -56,7 +56,7 @@ class Plugin_Pages extends Plugin
 		// we'll unset the chunks array as Lex is grouchy about mixed data at the moment
 		unset($page['chunks']);
 
-		return $this->content() ? $page : $page['body'];
+		return $this->content() ? array($page) : $page['body'];
 	}
 
 	// --------------------------------------------------------------------------
