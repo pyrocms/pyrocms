@@ -1,13 +1,13 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
  * CodeIgniter
  *
  * An open source application development framework for PHP 5.1.6 or newer
  *
  * NOTICE OF LICENSE
- *
+ * 
  * Licensed under the Open Software License version 3.0
- *
+ * 
  * This source file is subject to the Open Software License (OSL 3.0) that is
  * bundled with this package in the files license.txt / license.rst.  It is
  * also available through the world wide web at this URL:
@@ -21,12 +21,14 @@
  * @copyright	Copyright (c) 2008 - 2012, EllisLab, Inc. (http://ellislab.com/)
  * @license		http://opensource.org/licenses/OSL-3.0 Open Software License (OSL 3.0)
  * @link		http://codeigniter.com
- * @since		Version 1.0
+ * @since		Version 2.1.0
  * @filesource
  */
 
+// ------------------------------------------------------------------------
+
 /**
- * MySQLi Result Class
+ * PDO Result Class
  *
  * This class extends the parent result class: CI_DB_result
  *
@@ -34,16 +36,17 @@
  * @author		EllisLab Dev Team
  * @link		http://codeigniter.com/user_guide/database/
  */
-class CI_DB_mysqli_result extends CI_DB_result {
+class CI_DB_pdo_result extends CI_DB_result {
 
 	/**
 	 * Number of rows in the result set
 	 *
-	 * @return	int
+	 * @access	public
+	 * @return	integer
 	 */
-	public function num_rows()
+	function num_rows()
 	{
-		return @mysqli_num_rows($this->result_id);
+		return $this->result_id->rowCount();
 	}
 
 	// --------------------------------------------------------------------
@@ -51,11 +54,12 @@ class CI_DB_mysqli_result extends CI_DB_result {
 	/**
 	 * Number of fields in the result set
 	 *
-	 * @return	int
+	 * @access	public
+	 * @return	integer
 	 */
-	public function num_fields()
+	function num_fields()
 	{
-		return @mysqli_num_fields($this->result_id);
+		return $this->result_id->columnCount();
 	}
 
 	// --------------------------------------------------------------------
@@ -65,17 +69,16 @@ class CI_DB_mysqli_result extends CI_DB_result {
 	 *
 	 * Generates an array of column names
 	 *
+	 * @access	public
 	 * @return	array
 	 */
-	public function list_fields()
+	function list_fields()
 	{
-		$field_names = array();
-		while ($field = mysqli_fetch_field($this->result_id))
+		if ($this->db->db_debug)
 		{
-			$field_names[] = $field->name;
+			return $this->db->display_error('db_unsuported_feature');
 		}
-
-		return $field_names;
+		return FALSE;
 	}
 
 	// --------------------------------------------------------------------
@@ -85,26 +88,30 @@ class CI_DB_mysqli_result extends CI_DB_result {
 	 *
 	 * Generates an array of objects containing field meta-data
 	 *
+	 * @access	public
 	 * @return	array
 	 */
-	public function field_data()
+	function field_data()
 	{
-		$retval = array();
-		while ($field = mysqli_fetch_object($this->result_id))
+		$data = array();
+	
+		try
 		{
-			preg_match('/([a-zA-Z]+)(\(\d+\))?/', $field->Type, $matches);
-
-			$F		= new stdClass();
-			$F->name	= $field->Field;
-			$F->type	= ( ! empty($matches[1])) ? $matches[1] : NULL;
-			$F->default	= $field->Default;
-			$F->max_length	= ( ! empty($matches[2])) ? preg_replace('/[^\d]/', '', $matches[2]) : NULL;
-			$F->primary_key = (int) ($field->Key === 'PRI');
-
-			$retval[] = $F;
+			for($i = 0; $i < $this->num_fields(); $i++)
+			{
+				$data[] = $this->result_id->getColumnMeta($i);
+			}
+			
+			return $data;
 		}
-
-		return $retval;
+		catch (Exception $e)
+		{
+			if ($this->db->db_debug)
+			{
+				return $this->db->display_error('db_unsuported_feature');
+			}
+			return FALSE;
+		}
 	}
 
 	// --------------------------------------------------------------------
@@ -112,13 +119,12 @@ class CI_DB_mysqli_result extends CI_DB_result {
 	/**
 	 * Free the result
 	 *
-	 * @return	void
+	 * @return	null
 	 */
-	public function free_result()
+	function free_result()
 	{
 		if (is_object($this->result_id))
 		{
-			mysqli_free_result($this->result_id);
 			$this->result_id = FALSE;
 		}
 	}
@@ -132,11 +138,12 @@ class CI_DB_mysqli_result extends CI_DB_result {
 	 * this internally before fetching results to make sure the
 	 * result set starts at zero
 	 *
+	 * @access	private
 	 * @return	array
 	 */
-	protected function _data_seek($n = 0)
+	function _data_seek($n = 0)
 	{
-		return mysqli_data_seek($this->result_id, $n);
+		return FALSE;
 	}
 
 	// --------------------------------------------------------------------
@@ -146,11 +153,12 @@ class CI_DB_mysqli_result extends CI_DB_result {
 	 *
 	 * Returns the result set as an array
 	 *
+	 * @access	private
 	 * @return	array
 	 */
-	protected function _fetch_assoc()
+	function _fetch_assoc()
 	{
-		return mysqli_fetch_assoc($this->result_id);
+		return $this->result_id->fetch(PDO::FETCH_ASSOC);
 	}
 
 	// --------------------------------------------------------------------
@@ -160,14 +168,16 @@ class CI_DB_mysqli_result extends CI_DB_result {
 	 *
 	 * Returns the result set as an object
 	 *
+	 * @access	private
 	 * @return	object
 	 */
-	protected function _fetch_object()
-	{
-		return mysqli_fetch_object($this->result_id);
+	function _fetch_object()
+	{	
+		return $this->result_id->fetchObject();
 	}
 
 }
 
-/* End of file mysqli_result.php */
-/* Location: ./system/database/drivers/mysqli/mysqli_result.php */
+
+/* End of file pdo_result.php */
+/* Location: ./system/database/drivers/pdo/pdo_result.php */

@@ -21,20 +21,20 @@
  * @copyright	Copyright (c) 2008 - 2012, EllisLab, Inc. (http://ellislab.com/)
  * @license		http://opensource.org/licenses/OSL-3.0 Open Software License (OSL 3.0)
  * @link		http://codeigniter.com
- * @since		Version 1.0
+ * @since		Version 2.1.0
  * @filesource
  */
 
 // ------------------------------------------------------------------------
 
 /**
- * Postgre Forge Class
+ * PDO Forge Class
  *
  * @category	Database
  * @author		EllisLab Dev Team
- * @link		http://codeigniter.com/user_guide/database/
+ * @link		http://codeigniter.com/database/
  */
-class CI_DB_postgre_forge extends CI_DB_forge {
+class CI_DB_pdo_forge extends CI_DB_forge {
 
 	/**
 	 * Create database
@@ -43,9 +43,15 @@ class CI_DB_postgre_forge extends CI_DB_forge {
 	 * @param	string	the database name
 	 * @return	bool
 	 */
-	function _create_database($name)
+	function _create_database()
 	{
-		return "CREATE DATABASE ".$name;
+		// PDO has no "create database" command since it's
+		// designed to connect to an existing database
+		if ($this->db->db_debug)
+		{
+			return $this->db->display_error('db_unsuported_feature');
+		}
+		return FALSE;
 	}
 
 	// --------------------------------------------------------------------
@@ -59,117 +65,13 @@ class CI_DB_postgre_forge extends CI_DB_forge {
 	 */
 	function _drop_database($name)
 	{
-		return "DROP DATABASE ".$name;
-	}
-
-	// --------------------------------------------------------------------
-	
-	/**
-	 * Process Fields
-	 *
-	 * @param	mixed	the fields
-	 * @return	string
-	 */
-	function _process_fields($fields, $primary_keys=array())
-	{
-		$sql = '';
-		$current_field_count = 0;
-
-		foreach ($fields as $field=>$attributes)
+		// PDO has no "drop database" command since it's
+		// designed to connect to an existing database
+		if ($this->db->db_debug)
 		{
-			// Numeric field names aren't allowed in databases, so if the key is
-			// numeric, we know it was assigned by PHP and the developer manually
-			// entered the field information, so we'll simply add it to the list
-			if (is_numeric($field))
-			{
-				$sql .= "\n\t$attributes";
-			}
-			else
-			{
-				$attributes = array_change_key_case($attributes, CASE_UPPER);
-
-				$sql .= "\n\t".$this->db->_protect_identifiers($field);
-
-				$is_unsigned = (array_key_exists('UNSIGNED', $attributes) && $attributes['UNSIGNED'] === TRUE);
-
-				// Convert datatypes to be PostgreSQL-compatible
-				switch (strtoupper($attributes['TYPE']))
-				{
-					case 'TINYINT':
-						$attributes['TYPE'] = 'SMALLINT';
-						break;
-					case 'SMALLINT':
-						$attributes['TYPE'] = ($is_unsigned) ? 'INTEGER' : 'SMALLINT';
-						break;
-					case 'MEDIUMINT':
-						$attributes['TYPE'] = 'INTEGER';
-						break;
-					case 'INT':
-						$attributes['TYPE'] = ($is_unsigned) ? 'BIGINT' : 'INTEGER';
-						break;
-					case 'BIGINT':
-						$attributes['TYPE'] = ($is_unsigned) ? 'NUMERIC' : 'BIGINT';
-						break;
-					case 'DOUBLE':
-						$attributes['TYPE'] = 'DOUBLE PRECISION';
-						break;
-					case 'DATETIME':
-						$attributes['TYPE'] = 'TIMESTAMP';
-						break;
-					case 'LONGTEXT':
-						$attributes['TYPE'] = 'TEXT';
-						break;
-					case 'BLOB':
-						$attributes['TYPE'] = 'BYTEA';
-						break;
-				}
-
-				// If this is an auto-incrementing primary key, use the serial data type instead
-				if (in_array($field, $primary_keys) && array_key_exists('AUTO_INCREMENT', $attributes) 
-					&& $attributes['AUTO_INCREMENT'] === TRUE)
-				{
-					$sql .= ' SERIAL';
-				}
-				else
-				{
-					$sql .=  ' '.$attributes['TYPE'];
-				}
-
-				// Modified to prevent constraints with integer data types
-				if (array_key_exists('CONSTRAINT', $attributes) && strpos($attributes['TYPE'], 'INT') === false)
-				{
-					$sql .= '('.$attributes['CONSTRAINT'].')';
-				}
-
-				if (array_key_exists('DEFAULT', $attributes))
-				{
-					$sql .= ' DEFAULT \''.$attributes['DEFAULT'].'\'';
-				}
-
-				if (array_key_exists('NULL', $attributes) && $attributes['NULL'] === TRUE)
-				{
-					$sql .= ' NULL';
-				}
-				else
-				{
-					$sql .= ' NOT NULL';
-				}
-
-				// Added new attribute to create unqite fields. Also works with MySQL
-				if (array_key_exists('UNIQUE', $attributes) && $attributes['UNIQUE'] === TRUE)
-				{
-					$sql .= ' UNIQUE';
-				}
-			}
-
-			// don't add a comma on the end of the last field
-			if (++$current_field_count < count($fields))
-			{
-				$sql .= ',';
-			}
+			return $this->db->display_error('db_unsuported_feature');
 		}
-		
-		return $sql;
+		return FALSE;
 	}
 
 	// --------------------------------------------------------------------
@@ -191,28 +93,71 @@ class CI_DB_postgre_forge extends CI_DB_forge {
 
 		if ($if_not_exists === TRUE)
 		{
-			// PostgreSQL doesn't support IF NOT EXISTS syntax so we check if table exists manually
-			if ($this->db->table_exists($table))
-			{
-				return TRUE;
-			}
+			$sql .= 'IF NOT EXISTS ';
 		}
 
 		$sql .= $this->db->_escape_identifiers($table)." (";
-		$sql .= $this->_process_fields($fields, $primary_keys);
+		$current_field_count = 0;
+
+		foreach ($fields as $field=>$attributes)
+		{
+			// Numeric field names aren't allowed in databases, so if the key is
+			// numeric, we know it was assigned by PHP and the developer manually
+			// entered the field information, so we'll simply add it to the list
+			if (is_numeric($field))
+			{
+				$sql .= "\n\t$attributes";
+			}
+			else
+			{
+				$attributes = array_change_key_case($attributes, CASE_UPPER);
+
+				$sql .= "\n\t".$this->db->_protect_identifiers($field);
+
+				$sql .=  ' '.$attributes['TYPE'];
+
+				if (array_key_exists('CONSTRAINT', $attributes))
+				{
+					$sql .= '('.$attributes['CONSTRAINT'].')';
+				}
+
+				if (array_key_exists('UNSIGNED', $attributes) && $attributes['UNSIGNED'] === TRUE)
+				{
+					$sql .= ' UNSIGNED';
+				}
+
+				if (array_key_exists('DEFAULT', $attributes))
+				{
+					$sql .= ' DEFAULT \''.$attributes['DEFAULT'].'\'';
+				}
+
+				if (array_key_exists('NULL', $attributes) && $attributes['NULL'] === TRUE)
+				{
+					$sql .= ' NULL';
+				}
+				else
+				{
+					$sql .= ' NOT NULL';
+				}
+
+				if (array_key_exists('AUTO_INCREMENT', $attributes) && $attributes['AUTO_INCREMENT'] === TRUE)
+				{
+					$sql .= ' AUTO_INCREMENT';
+				}
+			}
+
+			// don't add a comma on the end of the last field
+			if (++$current_field_count < count($fields))
+			{
+				$sql .= ',';
+			}
+		}
 
 		if (count($primary_keys) > 0)
 		{
-			// Something seems to break when passing an array to _protect_identifiers()
-			foreach ($primary_keys as $index => $key)
-			{
-				$primary_keys[$index] = $this->db->_protect_identifiers($key);
-			}
-
+			$primary_keys = $this->db->_protect_identifiers($primary_keys);
 			$sql .= ",\n\tPRIMARY KEY (" . implode(', ', $primary_keys) . ")";
 		}
-
-		$sql .= "\n);";
 
 		if (is_array($keys) && count($keys) > 0)
 		{
@@ -227,12 +172,11 @@ class CI_DB_postgre_forge extends CI_DB_forge {
 					$key = array($this->db->_protect_identifiers($key));
 				}
 
-				foreach ($key as $field)
-				{
-					$sql .= "CREATE INDEX " . $table . "_" . str_replace(array('"', "'"), '', $field) . "_index ON $table ($field); ";
-				}
+				$sql .= ",\n\tFOREIGN KEY (" . implode(', ', $key) . ")";
 			}
 		}
+
+		$sql .= "\n)";
 
 		return $sql;
 	}
@@ -241,10 +185,18 @@ class CI_DB_postgre_forge extends CI_DB_forge {
 
 	/**
 	 * Drop Table
+	 *
+	 * @access	private
+	 * @return	bool
 	 */
 	function _drop_table($table)
 	{
-		return "DROP TABLE IF EXISTS ".$this->db->_escape_identifiers($table)." CASCADE";
+		// Not a supported PDO feature
+		if ($this->db->db_debug)
+		{
+			return $this->db->display_error('db_unsuported_feature');
+		}
+		return FALSE;
 	}
 
 	// --------------------------------------------------------------------
@@ -265,25 +217,41 @@ class CI_DB_postgre_forge extends CI_DB_forge {
 	 * @param	string	the field after which we should add the new field
 	 * @return	object
 	 */
- 	function _alter_table($alter_type, $table, $fields, $after_field = '')
- 	{
- 		$sql = 'ALTER TABLE '.$this->db->_protect_identifiers($table)." $alter_type ";
+	function _alter_table($alter_type, $table, $column_name, $column_definition = '', $default_value = '', $null = '', $after_field = '')
+	{
+		$sql = 'ALTER TABLE '.$this->db->_protect_identifiers($table)." $alter_type ".$this->db->_protect_identifiers($column_name);
 
- 		// DROP has everything it needs now.
- 		if ($alter_type == 'DROP')
- 		{
- 			return $sql.$this->db->_protect_identifiers($fields);
- 		}
+		// DROP has everything it needs now.
+		if ($alter_type == 'DROP')
+		{
+			return $sql;
+		}
 
- 		$sql .= $this->_process_fields($fields);
+		$sql .= " $column_definition";
 
- 		if ($after_field != '')
- 		{
- 			$sql .= ' AFTER ' . $this->db->_protect_identifiers($after_field);
- 		}
+		if ($default_value != '')
+		{
+			$sql .= " DEFAULT \"$default_value\"";
+		}
 
- 		return $sql;
- 	}
+		if ($null === NULL)
+		{
+			$sql .= ' NULL';
+		}
+		else
+		{
+			$sql .= ' NOT NULL';
+		}
+
+		if ($after_field != '')
+		{
+			$sql .= ' AFTER ' . $this->db->_protect_identifiers($after_field);
+		}
+
+		return $sql;
+
+	}
+
 
 	// --------------------------------------------------------------------
 
@@ -302,7 +270,9 @@ class CI_DB_postgre_forge extends CI_DB_forge {
 		$sql = 'ALTER TABLE '.$this->db->_protect_identifiers($table_name)." RENAME TO ".$this->db->_protect_identifiers($new_table_name);
 		return $sql;
 	}
+
+
 }
 
-/* End of file postgre_forge.php */
-/* Location: ./system/database/drivers/postgre/postgre_forge.php */
+/* End of file pdo_forge.php */
+/* Location: ./system/database/drivers/pdo/pdo_forge.php */

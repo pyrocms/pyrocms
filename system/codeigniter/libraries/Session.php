@@ -1,13 +1,25 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
  * CodeIgniter
  *
  * An open source application development framework for PHP 5.1.6 or newer
  *
+ * NOTICE OF LICENSE
+ *
+ * Licensed under the Open Software License version 3.0
+ *
+ * This source file is subject to the Open Software License (OSL 3.0) that is
+ * bundled with this package in the files license.txt / license.rst.  It is
+ * also available through the world wide web at this URL:
+ * http://opensource.org/licenses/OSL-3.0
+ * If you did not receive a copy of the license and are unable to obtain it
+ * through the world wide web, please send an email to
+ * licensing@ellislab.com so we can send you a copy immediately.
+ *
  * @package		CodeIgniter
- * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008 - 2011, EllisLab, Inc.
- * @license		http://codeigniter.com/user_guide/license.html
+ * @author		EllisLab Dev Team
+ * @copyright	Copyright (c) 2008 - 2012, EllisLab, Inc. (http://ellislab.com/)
+ * @license		http://opensource.org/licenses/OSL-3.0 Open Software License (OSL 3.0)
  * @link		http://codeigniter.com
  * @since		Version 1.0
  * @filesource
@@ -21,7 +33,7 @@
  * @package		CodeIgniter
  * @subpackage	Libraries
  * @category	Sessions
- * @author		ExpressionEngine Dev Team
+ * @author		EllisLab Dev Team
  * @link		http://codeigniter.com/user_guide/libraries/sessions.html
  */
 class CI_Session {
@@ -55,7 +67,7 @@ class CI_Session {
 	 */
 	public function __construct($params = array())
 	{
-		log_message('debug', 'Session Class Initialized');
+		log_message('debug', "Session Class Initialized");
 
 		// Set the super object to a local variable for use throughout the class
 		$this->CI =& get_instance();
@@ -81,14 +93,14 @@ class CI_Session {
 			$this->CI->load->library('encrypt');
 		}
 
-		// Are we using a database? If so, load it
-		if ($this->sess_use_database === TRUE && $this->sess_table_name != '')
+		// Are we using a database?  If so, load it
+		if ($this->sess_use_database === TRUE AND $this->sess_table_name != '')
 		{
 			$this->CI->load->database();
 		}
 
-		// Set the "now" time. Can either be GMT or server time, based on the
-		// config prefs. We use this to set the "last activity" time
+		// Set the "now" time.  Can either be GMT or server time, based on the
+		// config prefs.  We use this to set the "last activity" time
 		$this->now = $this->_get_time();
 
 		// Set the session length. If the session expiration is
@@ -102,7 +114,7 @@ class CI_Session {
 		$this->sess_cookie_name = $this->cookie_prefix.$this->sess_cookie_name;
 
 		// Run the Session routine. If a session doesn't exist we'll
-		// create a new one. If it does, we'll update it.
+		// create a new one.  If it does, we'll update it.
 		if ( ! $this->sess_read())
 		{
 			$this->sess_create();
@@ -121,7 +133,7 @@ class CI_Session {
 		// Delete expired sessions if necessary
 		$this->_sess_gc();
 
-		log_message('debug', 'Session routines successfully run');
+		log_message('debug', "Session routines successfully run");
 	}
 
 	// --------------------------------------------------------------------
@@ -154,7 +166,7 @@ class CI_Session {
 			$hash	 = substr($session, strlen($session)-32); // get last 32 chars
 			$session = substr($session, 0, strlen($session)-32);
 
-			// Does the md5 hash match? This is to prevent manipulation of session data in userspace
+			// Does the md5 hash match?  This is to prevent manipulation of session data in userspace
 			if ($hash !==  md5($session.$this->encryption_key))
 			{
 				log_message('error', 'The session cookie data did not match what was expected. This could be a possible hacking attempt.');
@@ -167,7 +179,7 @@ class CI_Session {
 		$session = $this->_unserialize($session);
 
 		// Is the session data we unserialized an array with the correct format?
-		if ( ! is_array($session) OR ! isset($session['session_id'], $session['ip_address'], $session['user_agent'], $session['last_activity']))
+		if ( ! is_array($session) OR ! isset($session['session_id']) OR ! isset($session['ip_address']) OR ! isset($session['user_agent']) OR ! isset($session['last_activity']))
 		{
 			$this->sess_destroy();
 			return FALSE;
@@ -180,15 +192,15 @@ class CI_Session {
 			return FALSE;
 		}
 
-		// Does the IP match?
-		if ($this->sess_match_ip == TRUE && $session['ip_address'] !== $this->CI->input->ip_address())
+		// Does the IP Match?
+		if ($this->sess_match_ip == TRUE AND $session['ip_address'] !== $this->CI->input->ip_address())
 		{
 			$this->sess_destroy();
 			return FALSE;
 		}
 
 		// Does the User Agent Match?
-		if ($this->sess_match_useragent == TRUE && trim($session['user_agent']) !== trim(substr($this->CI->input->user_agent(), 0, 120)))
+		if ($this->sess_match_useragent == TRUE AND trim($session['user_agent']) !== trim(substr($this->CI->input->user_agent(), 0, 120)))
 		{
 			$this->sess_destroy();
 			return FALSE;
@@ -211,7 +223,7 @@ class CI_Session {
 
 			$query = $this->CI->db->get($this->sess_table_name);
 
-			// No result? Kill it!
+			// No result?  Kill it!
 			if ($query->num_rows() === 0)
 			{
 				$this->sess_destroy();
@@ -220,7 +232,7 @@ class CI_Session {
 
 			// Is there custom data?  If so, add it to the main session array
 			$row = $query->row();
-			if (isset($row->user_data) && $row->user_data != '')
+			if (isset($row->user_data) AND $row->user_data != '')
 			{
 				$custom_data = $this->_unserialize($row->user_data);
 
@@ -270,7 +282,7 @@ class CI_Session {
 			$cookie_userdata[$val] = $this->userdata[$val];
 		}
 
-		// Did we find any custom data? If not, we turn the empty array into a string
+		// Did we find any custom data?  If not, we turn the empty array into a string
 		// since there's no reason to serialize and store an empty array in the DB
 		if (count($custom_userdata) === 0)
 		{
@@ -286,7 +298,7 @@ class CI_Session {
 		$this->CI->db->where('session_id', $this->userdata['session_id']);
 		$this->CI->db->update($this->sess_table_name, array('last_activity' => $this->userdata['last_activity'], 'user_data' => $custom_userdata));
 
-		// Write the cookie. Notice that we manually pass the cookie data array to the
+		// Write the cookie.  Notice that we manually pass the cookie data array to the
 		// _set_cookie() function. Normally that function will store $this->userdata, but
 		// in this case that array contains custom data, which we do not want in the cookie.
 		$this->_set_cookie($cookie_userdata);
@@ -312,12 +324,13 @@ class CI_Session {
 		$sessid .= $this->CI->input->ip_address();
 
 		$this->userdata = array(
-					'session_id'	=> md5(uniqid($sessid, TRUE)),
-					'ip_address'	=> $this->CI->input->ip_address(),
-					'user_agent'	=> substr($this->CI->input->user_agent(), 0, 120),
-					'last_activity'	=> $this->now,
-					'user_data'	=> ''
-				);
+							'session_id'	=> md5(uniqid($sessid, TRUE)),
+							'ip_address'	=> $this->CI->input->ip_address(),
+							'user_agent'	=> substr($this->CI->input->user_agent(), 0, 120),
+							'last_activity'	=> $this->now,
+							'user_data'		=> ''
+							);
+
 
 		// Save the data to the DB if needed
 		if ($this->sess_use_database === TRUE)
@@ -344,35 +357,6 @@ class CI_Session {
 			return;
 		}
 
-		// _set_cookie() will handle this for us if we aren't using database sessions
-		// by pushing all userdata to the cookie.
-		$cookie_data = NULL;
-
-		/* Changing the session ID during an AJAX call causes problems,
-		 * so we'll only update our last_activity
-		 */
-		if ($this->CI->input->is_ajax_request())
-		{
-			$this->userdata['last_activity'] = $this->now;
-
-			// Update the session ID and last_activity field in the DB if needed
-			if ($this->sess_use_database === TRUE)
-			{
-				// set cookie explicitly to only have our session data
-				$cookie_data = array();
-				foreach (array('session_id','ip_address','user_agent','last_activity') as $val)
-				{
-					$cookie_data[$val] = $this->userdata[$val];
-				}
-
-				$this->CI->db->query($this->CI->db->update_string($this->sess_table_name,
-											array('last_activity' => $this->userdata['last_activity']),
-											array('session_id' => $this->userdata['session_id'])));
-			}
-
-			return $this->_set_cookie($cookie_data);
-		}
-
 		// Save the old session id so we know which record to
 		// update in the database if we need it
 		$old_sessid = $this->userdata['session_id'];
@@ -389,6 +373,10 @@ class CI_Session {
 		// Turn it into a hash and update the session data array
 		$this->userdata['session_id'] = $new_sessid = md5(uniqid($new_sessid, TRUE));
 		$this->userdata['last_activity'] = $this->now;
+
+		// _set_cookie() will handle this for us if we aren't using database sessions
+		// by pushing all userdata to the cookie.
+		$cookie_data = NULL;
 
 		// Update the session ID and last_activity field in the DB if needed
 		if ($this->sess_use_database === TRUE)
@@ -417,7 +405,7 @@ class CI_Session {
 	public function sess_destroy()
 	{
 		// Kill the session DB row
-		if ($this->sess_use_database === TRUE && isset($this->userdata['session_id']))
+		if ($this->sess_use_database === TRUE AND isset($this->userdata['session_id']))
 		{
 			$this->CI->db->where('session_id', $this->userdata['session_id']);
 			$this->CI->db->delete($this->sess_table_name);
@@ -425,13 +413,13 @@ class CI_Session {
 
 		// Kill the cookie
 		setcookie(
-				$this->sess_cookie_name,
-				addslashes(serialize(array())),
-				($this->now - 31500000),
-				$this->cookie_path,
-				$this->cookie_domain,
-				0
-			);
+					$this->sess_cookie_name,
+					addslashes(serialize(array())),
+					($this->now - 31500000),
+					$this->cookie_path,
+					$this->cookie_domain,
+					0
+				);
 	}
 
 	// --------------------------------------------------------------------
@@ -547,7 +535,7 @@ class CI_Session {
 	 */
 	public function keep_flashdata($key)
 	{
-		// 'old' flashdata gets removed. Here we mark all
+		// 'old' flashdata gets removed.  Here we mark all
 		// flashdata as 'new' to preserve it from _flashdata_sweep()
 		// Note the function will return FALSE if the $key
 		// provided cannot be found
@@ -598,6 +586,7 @@ class CI_Session {
 	 *
 	 * @return	void
 	 */
+
 	protected function _flashdata_sweep()
 	{
 		$userdata = $this->all_userdata();
@@ -620,9 +609,13 @@ class CI_Session {
 	 */
 	protected function _get_time()
 	{
-		return (strtolower($this->time_reference) === 'gmt')
-			? mktime(gmdate('H'), gmdate('i'), gmdate('s'), gmdate('m'), gmdate('d'), gmdate('Y'))
-			: time();
+		if (strtolower($this->time_reference) === 'gmt')
+		{
+			$now = time();
+			return mktime(gmdate('H', $now), gmdate('i', $now), gmdate('s', $now), gmdate('m', $now), gmdate('d', $now), gmdate('Y', $now));
+		}
+
+		return time();
 	}
 
 	// --------------------------------------------------------------------
@@ -656,13 +649,13 @@ class CI_Session {
 
 		// Set the cookie
 		setcookie(
-				$this->sess_cookie_name,
-				$cookie_data,
-				$expire,
-				$this->cookie_path,
-				$this->cookie_domain,
-				$this->cookie_secure
-			);
+					$this->sess_cookie_name,
+					$cookie_data,
+					$expire,
+					$this->cookie_path,
+					$this->cookie_domain,
+					$this->cookie_secure
+				);
 	}
 
 	// --------------------------------------------------------------------
@@ -694,11 +687,8 @@ class CI_Session {
 	 *
 	 * This function converts any slashes found into a temporary marker
 	 *
-	 * @param	string
-	 * @param	string
-	 * @return	void
 	 */
-	protected function _escape_slashes(&$val, $key)
+	function _escape_slashes(&$val, $key)
 	{
 		if (is_string($val))
 		{
@@ -735,9 +725,6 @@ class CI_Session {
 	 *
 	 * This function converts any slash markers back into actual slashes
 	 *
-	 * @param	string
-	 * @param	string
-	 * @return	void
 	 */
 	protected function _unescape_slashes(&$val, $key)
 	{
@@ -776,7 +763,9 @@ class CI_Session {
 		}
 	}
 
+
 }
+// END Session Class
 
 /* End of file Session.php */
 /* Location: ./system/libraries/Session.php */
