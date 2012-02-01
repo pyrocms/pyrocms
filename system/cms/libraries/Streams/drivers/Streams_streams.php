@@ -166,7 +166,7 @@ class Streams_streams extends CI_Driver {
 		
 		if ( ! $str_id) $this->log_error('invalid_stream', 'get_stream');
 
-		return $this->CI->field_m->get_assignments_for_stream($this->stream_id($stream, $namespace));
+		return $this->CI->fields_m->get_assignments_for_stream($str_id);
 	}
 
 	// --------------------------------------------------------------------------

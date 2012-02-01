@@ -86,7 +86,7 @@ class Streams_utilities extends CI_Driver {
 	 * @param	[array - view options]
 	 * @return	bool
 	 */
-	function table_to_stream($table_slug, $namespace, $prefix, $stream_name, $about = NULL, $title_column = NULL, $view_options = array('id', 'created'))
+	function convert_table_to_stream($table_slug, $namespace, $prefix, $stream_name, $about = NULL, $title_column = NULL, $view_options = array('id', 'created'))
 	{
 		// ----------------------------
 		// Table data checks
@@ -175,6 +175,23 @@ class Streams_utilities extends CI_Driver {
 		);
 	
 		return $this->CI->db->insert($this->CI->config->item('streams:streams_table'), $insert_data);
+	}
+
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * Field to Stream Frield
+	 *
+	 * Allows you to take a column in a stream table
+	 * and turn it into a stream field.
+	 *
+	 * @access	public
+	 * @param	string - namespace
+	 * @return	bool
+	 */
+	function convert_column_to_field($stream_slug, $namespace, $field_data, )
+	{
+		
 	}
 
 }
