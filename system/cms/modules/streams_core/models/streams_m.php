@@ -105,7 +105,7 @@ class Streams_m extends MY_Model {
      */
     public function get_streams($namespace, $limit = NULL, $offset = 0)
 	{
-		if ($limit) $this->db->limit($offset, $limit);
+		if ($limit) $this->db->limit($limit, $offset);
 	
 		$obj = $this->db
 				->where('stream_namespace', $namespace)
@@ -269,7 +269,22 @@ class Streams_m extends MY_Model {
 		if(isset($data['stream_name']))			$update_data['stream_name']		= $data['stream_name'];
 		if(isset($data['about']))				$update_data['about']			= $data['about'];
 		if(isset($data['sorting']))				$update_data['sorting']			= $data['sorting'];
-		if(isset($data['title_column']))		$update_data['title_column']			= $data['title_column'];
+		if(isset($data['title_column']))		$update_data['title_column']	= $data['title_column'];
+		
+		// View options
+		if ($data['view_options'])
+		{
+			// We can take a serizlied array or we can serialize it
+			// all by ourselves.
+			if(is_array($data['view_options']))
+			{
+				$update_data['view_options']	= serialize($data['view_options']);
+			}
+			else
+			{
+				$update_data['view_options']	= $data['view_options'];
+			}
+		}
 		
 		return $this->db->where('id', $stream_id)->update($this->table, $update_data);
 	}
@@ -770,7 +785,7 @@ class Streams_m extends MY_Model {
 	
 		$this->db->where('id', $assignment->id);
 		
-		if( !$this->db->delete(ASSIGN_TABLE) ) return FALSE;
+		if( ! $this->db->delete(ASSIGN_TABLE)) return FALSE;
 
 		// -------------------------------------
 		// Reset the ordering
