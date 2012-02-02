@@ -336,7 +336,7 @@ $config['compress_output'] = FALSE;
 | code less readable.
 |
 */
-$config['minify_output'] = TRUE;//(ENVIRONMENT !== PYRO_DEVELOPMENT); // only do this on 
+$config['minify_output'] = (ENVIRONMENT !== PYRO_DEVELOPMENT); // only do this on 
 
 /*
 |--------------------------------------------------------------------------

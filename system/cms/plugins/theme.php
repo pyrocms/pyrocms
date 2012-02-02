@@ -26,7 +26,6 @@ class Plugin_Theme extends Plugin
 	public function partial()
 	{
 		$name = $this->attribute('name');
-		$name = $this->attribute('file', $name); #deprecated 2.0
 
 		$path =& $this->load->get_var('template_views');
 		$data = $this->load->_ci_cached_vars;
@@ -66,34 +65,23 @@ class Plugin_Theme extends Plugin
 	 * @param	array
 	 * @return	array
 	 */
-	public function css($return = '')
+	public function css()
 	{
 		$this->load->library('asset');
 		
 		$file		= $this->attribute('file');
 		$attributes	= $this->attributes();
-		$module		= $this->attribute('module', '_theme_');
-		$method		= 'css' . (in_array($return, array('url', 'path')) ? '_' . $return : ($return = ''));
-		$base		= $this->attribute('base', '');
 
-		foreach (array('file', 'module', 'base') as $key)
+		if (isset($attributes['file']))
 		{
-			if (isset($attributes[$key]))
-			{
-				unset($attributes[$key]);
-			}
-			else if ($key === 'file')
-			{
-				return '';
-			}
+			unset($attributes['file']);
+		}
+		else
+		{
+			return '';
 		}
 
-		if ( ! $return)
-		{
-			return $this->asset->{$method}($file, $module, $attributes, $base);
-		}
-
-		return $this->asset->{$method}($file, $module, $attributes);
+		return Asset::css($file, $module, $attributes);
 	}
 
 	/**
@@ -138,34 +126,27 @@ class Plugin_Theme extends Plugin
 	 * @param	array
 	 * @return	array
 	 */
-	public function image($return = '')
+	public function image()
 	{
 		$this->load->library('asset');
 
 		$file		= $this->attribute('file');
+		$alt		= $this->attribute('alt', $file);
 		$attributes	= $this->attributes();
-		$module		= $this->attribute('module', '_theme_');
-		$method		= 'image' . (in_array($return, array('url', 'path')) ? '_' . $return : ($return = ''));
-		$base		= $this->attribute('base', '');
 
-		foreach (array('file', 'module', 'base') as $key)
+		foreach (array('file', 'alt') as $key)
 		{
 			if (isset($attributes[$key]))
 			{
 				unset($attributes[$key]);
 			}
-			else if ($key === 'file')
+			else if ($key == 'file')
 			{
 				return '';
 			}
 		}
-
-		if ( ! $return)
-		{
-			return $this->asset->{$method}($file, $module, $attributes, $base);
-		}
-
-		return $this->asset->{$method}($file, $module, $attributes);
+		
+		return Asset::img('theme::'.$file, $alt);
 	}
 
 	/**
@@ -216,25 +197,17 @@ class Plugin_Theme extends Plugin
 
 		$file	= $this->attribute('file');
 		$attributes	= $this->attributes();
-		$module	= $this->attribute('module', '_theme_');
-		$method	= 'js' . (in_array($return, array('url', 'path')) ? '_' . $return : ($return = ''));
-		$base	= $this->attribute('base', '');
 		
-
-		foreach (array('file', 'module', 'base') as $key)
+		if (isset($attributes['file']))
 		{
-			if (isset($attributes[$key]))
-			{
-				unset($attributes[$key]);
-			}
+			unset($attributes['file']);
+		}
+		else
+		{
+			return '';
 		}
 
-		if ( ! $return)
-		{
-			return $this->asset->{$method}($file, $module, $attributes, $base);
-		}
-
-		return $this->asset->{$method}($file, $module, $attributes);
+		return Asset::js('theme::'.$file, $attributes);
 	}
 
 	/**
@@ -321,7 +294,7 @@ class Plugin_Theme extends Plugin
 		elseif ($base === 'url')
 		{
 			$this->load->library('asset');
-			$file = $this->asset->image_url($this->attribute('file', 'favicon.ico'), '_theme_');
+			$file = Asset::image_url($this->attribute('file', 'favicon.ico'), '_theme_');
 		}
 
 		$rel		= $this->attribute('rel', 'shortcut icon');

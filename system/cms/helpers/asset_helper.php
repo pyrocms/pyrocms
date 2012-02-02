@@ -27,86 +27,38 @@
 // ------------------------------------------------------------------------
 
 
-function css($asset_name, $module_name = NULL, $attributes = array())
+function css($asset_name, $attributes = array())
 {
-	$CI =& get_instance();
-	$CI->load->library('asset');
-	return $CI->asset->css($asset_name, $module_name, $attributes);
+	return Asset::css($asset_name, $attributes);
 }
 
 function theme_css($asset, $attributes = array())
 {
-	return css($asset, '_theme_', $attributes);
-}
-
-function css_url($asset_name, $module_name = NULL)
-{
-	$CI =& get_instance();
-	$CI->load->library('asset');
-	return $CI->asset->css_url($asset_name, $module_name);
-}
-
-function css_path($asset_name, $module_name = NULL)
-{
-	$CI =& get_instance();
-	$CI->load->library('asset');
-	return $CI->asset->css_path($asset_name, $module_name);
+	return css($asset, $attributes);
 }
 
 // ------------------------------------------------------------------------
 
 
-function image($asset_name, $module_name = NULL, $attributes = array())
+function image($asset_name, $attributes = array())
 {
-	$CI =& get_instance();
-	$CI->load->library('asset');
-	return $CI->asset->image($asset_name, $module_name, $attributes);
+	return Asset::img($asset_name, NULL, $attributes);
 }
 
 function theme_image($asset, $attributes = array())
 {
-	return image($asset, '_theme_', $attributes);
-}
-
-function image_url($asset_name, $module_name = NULL)
-{
-	$CI =& get_instance();
-	$CI->load->library('asset');
-	return $CI->asset->image_url($asset_name, $module_name);
-}
-
-function image_path($asset_name, $module_name = NULL)
-{
-	$CI =& get_instance();
-	$CI->load->library('asset');
-	return $CI->asset->image_path($asset_name, $module_name);
+	return image($asset, $attributes);
 }
 
 // ------------------------------------------------------------------------
 
 
-function js($asset_name, $module_name = NULL, $attributes = array())
+function js($asset_name, $attributes = array())
 {
-	$CI =& get_instance();
-	$CI->load->library('asset');
-	return $CI->asset->js($asset_name, $module_name, $attributes);
+	return Asset::js($asset_name, $attributes);
 }
 
 function theme_js($asset, $attributes = array())
 {
-	return js($asset, '_theme_', $attributes);
-}
-
-function js_url($asset_name, $module_name = NULL)
-{
-	$CI =& get_instance();
-	$CI->load->library('asset');
-	return $CI->asset->js_url($asset_name, $module_name);
-}
-
-function js_path($asset_name, $module_name = NULL)
-{
-	$CI =& get_instance();
-	$CI->load->library('asset');
-	return $CI->asset->js_path($asset_name, $module_name);
+	return js($asset, $attributes);
 }

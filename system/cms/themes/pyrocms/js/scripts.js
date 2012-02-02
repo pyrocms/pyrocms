@@ -122,7 +122,7 @@ jQuery(function($) {
 			var href		= $(this).attr('href'),
 				removemsg	= $(this).attr('title');
 
-			if (confirm(removemsg || DIALOG_MESSAGE))
+			if (confirm(removemsg || pyro.lang.dialog_message))
 			{
 				$(this).trigger('click-confirmed');
 
@@ -146,7 +146,7 @@ jQuery(function($) {
 
 			var removemsg = $(this).attr('title');
 
-			if (confirm(removemsg || DIALOG_MESSAGE))
+			if (confirm(removemsg || pyro.lang.dialog_message))
 			{
 				$(this).trigger('click-confirmed');
 

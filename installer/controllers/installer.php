@@ -25,7 +25,8 @@ class Installer extends CI_Controller
 		'system/cms/cache',
 		'system/cms/config',
 		'addons',
-		'uploads'
+		'assets/cache',
+		'uploads',
 	);
 
 	/**
