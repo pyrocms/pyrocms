@@ -73,7 +73,7 @@ $config['asset_cache_path'] = 'assets/cache/';
 /**
  * Whether to minify files.
  */
-$config['asset_min'] = false;//(ENVIRONMENT !== PYRO_DEVELOPMENT);
+$config['asset_min'] = true;//(ENVIRONMENT !== PYRO_DEVELOPMENT);
 
 /**
  * Whether to combine files

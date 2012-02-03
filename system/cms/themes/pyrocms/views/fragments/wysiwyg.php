@@ -1,5 +1,7 @@
-<?php echo js('ckeditor/ckeditor.js'); ?>
-<?php echo js('ckeditor/adapters/jquery.js'); ?>
+<?php 
+Asset::js('ckeditor/ckeditor_source.js', 'ckeditor/ckeditor.js', 'wysiwyg');
+Asset::js('ckeditor/adapters/jquery.js', NULL, 'wysiwyg'); 
+echo Asset::render_js('wysiwyg') ?>
 
 <script type="text/javascript">
 

@@ -11,7 +11,6 @@
  */
 class Plugin_Theme extends Plugin
 {
-
 	/**
 	 * Partial
 	 *
@@ -27,13 +26,11 @@ class Plugin_Theme extends Plugin
 	{
 		$name = $this->attribute('name');
 
-		$path =& $this->load->get_var('template_views');
-		$data = $this->load->_ci_cached_vars;
+		$path = $this->load->get_var('template_views');
+		$data = $this->load->get_vars();
 
-		return $this->parser->parse_string($this->load->_ci_load(array(
-			'_ci_path' => $path.'partials/'.$name.'.html',
-			'_ci_return' => TRUE
-		)), $data, TRUE, TRUE);
+		$string = $this->load->file($path.'partials/'.$name.'.html', TRUE);
+		return $this->parser->parse_string($string, $data, TRUE, TRUE);
 	}
 	
 	/**
@@ -42,7 +39,23 @@ class Plugin_Theme extends Plugin
 	 * Get the path to the theme
 	 *
 	 * Usage:
-	 * {{ theme:partial file="header" }}
+	 * {{ theme:assets }}
+	 *
+	 * @param	array
+	 * @return	array
+	 */
+	public function assets()
+	{
+		return Asset::render('theme');
+	}
+	
+	/**
+	 * Path
+	 *
+	 * Get the path to the theme
+	 *
+	 * Usage:
+	 * {{ theme:assets }}
 	 *
 	 * @param	array
 	 * @return	array
@@ -67,21 +80,9 @@ class Plugin_Theme extends Plugin
 	 */
 	public function css()
 	{
-		$this->load->library('asset');
-		
-		$file		= $this->attribute('file');
-		$attributes	= $this->attributes();
+		$file = $this->attribute('file');
 
-		if (isset($attributes['file']))
-		{
-			unset($attributes['file']);
-		}
-		else
-		{
-			return '';
-		}
-
-		return Asset::css($file, $module, $attributes);
+		return Asset::css($file, NULL, 'theme');
 	}
 
 	/**
@@ -128,8 +129,6 @@ class Plugin_Theme extends Plugin
 	 */
 	public function image()
 	{
-		$this->load->library('asset');
-
 		$file		= $this->attribute('file');
 		$alt		= $this->attribute('alt', $file);
 		$attributes	= $this->attributes();
@@ -193,21 +192,9 @@ class Plugin_Theme extends Plugin
 	 */
 	public function js($return = '')
 	{
-		$this->load->library('asset');
-
 		$file	= $this->attribute('file');
-		$attributes	= $this->attributes();
-		
-		if (isset($attributes['file']))
-		{
-			unset($attributes['file']);
-		}
-		else
-		{
-			return '';
-		}
 
-		return Asset::js('theme::'.$file, $attributes);
+		return Asset::js('theme::'.$file, NULL, 'theme');
 	}
 
 	/**
@@ -284,22 +271,12 @@ class Plugin_Theme extends Plugin
 	 */
 	public function favicon()
 	{
-		$base = $this->attribute('base', 'path');
-
-		if ($base === 'path')
-		{
-			$theme_path = $this->template->get_theme_path();
-			$file = BASE_URI . $theme_path . $this->attribute('file', 'favicon.ico');
-		}
-		elseif ($base === 'url')
-		{
-			$this->load->library('asset');
-			$file = Asset::image_url($this->attribute('file', 'favicon.ico'), '_theme_');
-		}
+		$this->load->library('asset');
+		$file = Asset::get_filepath_img($this->attribute('file', 'favicon.ico'), true);
 
 		$rel		= $this->attribute('rel', 'shortcut icon');
 		$type		= $this->attribute('type', 'image/x-icon');
-		$is_xhtml	= in_array($this->attribute('xhtml', 'true'), array('1','y','yes','true'));
+		$is_xhtml	= in_array($this->attribute('xhtml', 'true'), array('1', 'y', 'yes', 'true'));
 
 		$link = '<link ';
 		$link .= 'href="' . $file . '" ';

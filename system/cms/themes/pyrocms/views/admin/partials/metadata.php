@@ -3,10 +3,13 @@
 	<?php Asset::js('jquery/jquery.flot.js'); ?>
 <?php endif; ?>
 
-<?php Asset::js('jquery/jquery.js').Asset::js_inline('jQuery.noConflict()').Asset::js(array(
-	'jquery/jquery-ui.min.js',
-	'jquery/jquery.colorbox.min.js',
-	'codemirror/codemirror.js',
+<?php
+Asset::js('jquery/jquery.js');
+Asset::js_inline('jQuery.noConflict();');
+Asset::js('jquery/jquery-ui.min.js', 'jquery/jquery-ui.min.js');
+Asset::js('jquery/jquery.colorbox.js');
+
+Asset::js(array('codemirror/codemirror.js',
 	'codemirror/mode/css/css.js',
 	'codemirror/mode/htmlmixed/htmlmixed.js',
 	'codemirror/mode/javascript/javascript.js',

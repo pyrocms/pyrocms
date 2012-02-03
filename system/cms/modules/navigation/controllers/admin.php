@@ -95,8 +95,8 @@ class Admin extends Admin_Controller {
 		$this->load->model('pages/page_m');
 		$this->lang->load('navigation');
 
-	    $this->template->append_metadata( js('navigation.js', 'navigation') );
-		$this->template->append_metadata( css('navigation.css', 'navigation') );
+	    $this->template->append_js('module::navigation.js');
+		$this->template->append_css('module::navigation.css');
 
 		// Get Navigation Groups
 		$this->data->groups 		= $this->navigation_m->get_groups();
@@ -147,8 +147,8 @@ class Admin extends Admin_Controller {
 		
 		// Create the layout
 		$this->template
-			->append_metadata( js('jquery/jquery.ui.nestedSortable.js') )
-			->append_metadata( js('jquery/jquery.cooki.js') )
+			->append_js('jquery/jquery.ui.nestedSortable.js')
+			->append_js('jquery/jquery.cooki.js')
 			->title($this->module_details['name'])
 			->build('admin/index', $this->data);
 	}
