@@ -8,7 +8,7 @@
 	<meta name="robots" content="noindex, nofollow" />
 	
 	<?php Asset::css('admin/style.css'); ?>
-	<?php Asset::js('jquery/jquery.min.js'); ?>
+	<?php Asset::js('jquery/jquery.js'); ?>
 	<?php Asset::js('admin/login.js'); ?>
 	
 	<?php echo Asset::render() ?>
@@ -45,12 +45,12 @@
 			<ul>
 				<li>
 					<input type="text" name="email" placeholder="<?php echo lang('email_label'); ?>" />
-					<?php echo theme_image('admin/email-icon.png', array('class' => 'input-email', 'alt' => lang('email_label')));?>
+					<?php echo Asset::img('admin/email-icon.png', lang('email_label'), array('class' => 'input-email'));?>
 				</li>
 				
 				<li>
 					<input type="password" name="password" placeholder="<?php echo lang('password_label'); ?>"  />
-					<?php echo theme_image('admin/lock-icon.png', array('class' => 'input-password', 'alt' => lang('password_label')));?>
+					<?php echo Asset::img('admin/lock-icon.png', lang('password_label'), array('class' => 'input-password'));?>
 				</li>
 				
 				<li>

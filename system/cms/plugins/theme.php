@@ -151,7 +151,14 @@ class Plugin_Theme extends Plugin
 			}
 		}
 		
-		return Asset::img($file, $alt);
+		try
+		{
+			return Asset::img($file, $alt);
+		}
+		catch (Asset_Exception $e)
+		{
+			return '';
+		}
 	}
 
 	/**
