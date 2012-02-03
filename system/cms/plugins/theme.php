@@ -81,8 +81,10 @@ class Plugin_Theme extends Plugin
 	public function css()
 	{
 		$file = $this->attribute('file');
+		$title = $this->attribute('title');
+		$media = $this->attribute('media');
 
-		return Asset::css($file, NULL, 'theme');
+		return link_tag($this->css_path($file), 'stylesheet', 'text/css', $title, $media);
 	}
 
 	/**
@@ -97,7 +99,9 @@ class Plugin_Theme extends Plugin
 	 */
 	public function css_url()
 	{
-		return $this->css('url');
+		$file = $this->attribute('file');
+
+		return Asset::get_filepath_css($file, true);
 	}
 
 	/**
@@ -112,7 +116,9 @@ class Plugin_Theme extends Plugin
 	 */
 	public function css_path()
 	{
-		return $this->css('path');
+		$file = $this->attribute('file');
+		
+		return BASE_URI.Asset::get_filepath_css($file, false);
 	}
 
 	/**
@@ -145,7 +151,7 @@ class Plugin_Theme extends Plugin
 			}
 		}
 		
-		return Asset::img('theme::'.$file, $alt);
+		return Asset::img($file, $alt);
 	}
 
 	/**
@@ -160,7 +166,9 @@ class Plugin_Theme extends Plugin
 	 */
 	public function image_url()
 	{
-		return $this->image('url');
+		$file = $this->attribute('file');
+
+		return Asset::get_filepath_img($file, true);
 	}
 
 	/**
@@ -175,7 +183,9 @@ class Plugin_Theme extends Plugin
 	 */
 	public function image_path()
 	{
-		return $this->image('path');
+		$file = $this->attribute('file');
+
+		return BASE_URI.Asset::get_filepath_img($file, false);
 	}
 
 	/**
@@ -194,7 +204,7 @@ class Plugin_Theme extends Plugin
 	{
 		$file	= $this->attribute('file');
 
-		return Asset::js('theme::'.$file, NULL, 'theme');
+		return '<script src="'.$this->js_path($file).'" type="text/css"></script>';
 	}
 
 	/**
@@ -209,7 +219,9 @@ class Plugin_Theme extends Plugin
 	 */
 	public function js_url()
 	{
-		return $this->js('url');
+		$file = $this->attribute('file');
+
+		return Asset::get_filepath_js($file, true);
 	}
 
 
@@ -225,7 +237,9 @@ class Plugin_Theme extends Plugin
 	 */
 	public function js_path()
 	{
-		return $this->js('path');
+		$file = $this->attribute('file');
+
+		return BASE_URI.Asset::get_filepath_js($file, false);
 	}
 
 	/**

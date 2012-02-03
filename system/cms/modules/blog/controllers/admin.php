@@ -138,7 +138,7 @@ class Admin extends Admin_Controller
 
 		$this->template
 			->title($this->module_details['name'])
-			->append_metadata(js('admin/filter.js'))
+			->append_js('admin/filter.js')
 			->set('pagination', $pagination)
 			->set('blog', $blog);
 

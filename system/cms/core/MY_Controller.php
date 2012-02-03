@@ -131,8 +131,11 @@ class MY_Controller extends MX_Controller {
 		{
 			$_POST = $this->security->xss_clean($_POST);
 		}
-		
-		Asset::add_path('module', $this->module_details['path'].'/');
+
+		if ($this->module)
+		{
+			Asset::add_path('module', $this->module_details['path'].'/');
+		}
 
 		$this->load->vars($pyro);
 		

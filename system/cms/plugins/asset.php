@@ -66,7 +66,7 @@ class Plugin_Asset extends Plugin
 	{
 		$file = $this->attribute('file');
 
-		return APPPATH.Asset::get_filepath_js($file, FALSE);
+		return BASE_URI.Asset::get_filepath_js($file, FALSE);
 	}
 
 	/**
@@ -128,7 +128,7 @@ class Plugin_Asset extends Plugin
 	{
 		$file = $this->attribute('file');
 
-		return APPPATH.Asset::get_filepath_img($file, false);
+		return BASE_URI.Asset::get_filepath_img($file, false);
 	}
 
 	/**
@@ -186,7 +186,7 @@ class Plugin_Asset extends Plugin
 	{
 		$file = $this->attribute('file');
 
-		return APPPATH.Asset::get_filepath_js($file, false);
+		return BASE_URI.Asset::get_filepath_js($file, false);
 	}
 	
 	/**
