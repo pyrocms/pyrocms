@@ -1,17 +1,17 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-$lang['user_register_header']                  = 'Εγγραφή';
-$lang['user_register_step1']                   = '<strong>Βήμα 1:</strong> Εγγραφή';
-$lang['user_register_step2']                   = '<strong>Βήμα 2:</strong> Ενεργοποίηση';
+$lang['user_register_header']   = 'Εγγραφή';
+$lang['user_register_step1']    = '<strong>Βήμα 1:</strong> Εγγραφή';
+$lang['user_register_step2']    = '<strong>Βήμα 2:</strong> Ενεργοποίηση';
 
-$lang['user_login_header']                     = 'Σύνδεση';
+$lang['user_login_header']      = 'Σύνδεση';
 
 // titles
 $lang['user_add_title']					= 'Προσθήκη χρήστη';
 $lang['user_list_title']				= 'Λίστα Χρηστών';
-$lang['user_inactive_title']            = 'Ανενεργοί χρήστες';
-$lang['user_active_title']				= 'Ενεργοί χρήστες';
-$lang['user_registred_title']			= 'Εγγεγραμμένοι χρήστες';
+$lang['user_inactive_title']    = 'Ανενεργοί χρήστες';
+$lang['user_active_title']			= 'Ενεργοί χρήστες';
+$lang['user_registred_title']		= 'Εγγεγραμμένοι χρήστες';
 
 // labels
 $lang['user_edit_title']                       = 'Επεξεργασία χρήστη "%s"';
@@ -53,7 +53,7 @@ $lang['user_first_name']                       = 'Όνομα';
 $lang['user_last_name']                        = 'Επίθετο';
 $lang['user_username']                         = 'Όνομα χρήστη';
 $lang['user_display_name']                     = 'Όνομα εμφάνισης';
-$lang['user_email_use'] 					   = 'που χρησιμοποιείται για την σύνδεση';
+$lang['user_email_use'] 					             = 'που χρησιμοποιείται για την σύνδεση';
 $lang['user_email']                            = 'E-mail';
 $lang['user_confirm_email']                    = 'Επανάληψη E-mail';
 $lang['user_password']                         = 'Συνθηματικό';
@@ -66,7 +66,7 @@ $lang['user_lang']                             = 'Γλώσσα';
 
 $lang['user_activation_code']                  = 'Κωδικός ενεργοποίησης';
 
-$lang['user_reset_instructions']			   = 'Εισάγετε την διεύθυνση email ή το όνομα χρήστη σας';
+$lang['user_reset_instructions']		      	   = 'Εισάγετε την διεύθυνση email ή το όνομα χρήστη σας';
 $lang['user_reset_password_link']              = 'Ξεχάσατε το συνθηματικό σας;';
 
 $lang['user_activation_code_sent_notice']      = 'Έχει σταλλεί ένα email με τον κωδικό ενεργοποίησης του λογαριασμού σας.';
@@ -112,7 +112,7 @@ $lang['user_mass_delete_error']                = 'Πρέπει πιο πριν �
 // Register
 $lang['user_email_pass_missing']               = 'Τα πεδία email ή συνθηματικού δεν έχουν συμπληρωθεί.';
 $lang['user_email_exists']                     = 'Η διεύθυνση email που εισάγατε χρησιμοποιείται ήδη από έναν άλλο χρήστη.';
-$lang['user_register_error']				   = 'We think you are a bot. If we are mistaken please accept our apologies.'; #translate
+$lang['user_register_error']				           = 'Μας φαίνετε ότι είσαστε ένα ρομπότ. Αν κάνουμε λάθος σας ζητάμε ειλικρινά συγνώμη.';
 $lang['user_register_reasons']                 = 'Εγγραφείτε για να έχετε πρόσβαση σε ειδικές περιοχές που κανονικά δεν είναι προσβάσιμες. Αυτό σημαίνει ότι οι ρυθμίσεις σας θα απομνημονεύονται, περισσότερο περιεχόμενο και λιγότερες διαφημίσεις.';
 
 
