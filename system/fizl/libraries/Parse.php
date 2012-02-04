@@ -44,6 +44,13 @@ class Parse {
 			$call		= $pieces[1];
 		}
 		
+		// Easy out for configs.
+		// We have a special place in our heart for config:config_item.
+		if ($plugin == 'config')
+		{
+			return $this->CI->config->item($call);
+		}
+		
 		$plugin_dirs = array(APPPATH.'plugins/', FCPATH.'addons/plugins/');
 		
 		// We can either have plugin folders or plugin files.
