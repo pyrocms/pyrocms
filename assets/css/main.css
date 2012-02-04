@@ -43,6 +43,10 @@ a {
 	color: #1C62A3;
 	text-decoration: none;
 }
+p {
+	margin-bottom: 15px;
+	line-height: 16px;
+}
 h1 {
 	font-size: 24px;
 	margin-bottom: 25px;
