@@ -44,33 +44,47 @@ class Parse {
 			$call		= $pieces[1];
 		}
 		
-		// Look for the plugin file
-		if (is_dir(APPPATH.'plugins/'.$plugin))
-		{
-			$this->CI->load->add_package_path(APPPATH.'plugins/'.$plugin);
-		}	
-		elseif (is_dir(FCPATH.'addons/plugins/'.$plugin))
-		{
-			$this->CI->load->add_package_path(FCPATH.'fizl/plugins/'.$plugin);
-		}	
-		else
-		{
-			return NULL;
+		$plugin_dirs = array(APPPATH.'plugins/', FCPATH.'addons/plugins/');
+		
+		// We can either have plugin folders or plugin files.
+		foreach ($plugin_dirs as $dir)
+		{		
+			if (is_dir($dir.$plugin) AND is_file($dir.$plugin.'/'.$plugin.'.php'))
+			{
+				$file = $dir.$plugin.'/'.$plugin.'.php';
+				break;
+			}
+			elseif (is_file($dir.$plugin.'.php'))
+			{
+				$file = $dir.$plugin.'.php';
+				break;
+			}
 		}
 		
-		$this->CI->load->library($plugin);
+		if ( ! isset($file)) return NULL;
+		
+		require_once($file);
+		
+		$class = 'Plugin_'.$plugin;
+		
+		if(class_exists($class))
+		{
+			$plug = new $class();
+		}
 		
 		// Add our params to the library
 		// as class variables
 		foreach($attributes as $key => $val)
 		{
-			$this->CI->$plugin->attributes[$key] = $val;
+			$plug->attributes[$key] = $val;
 		}
 		
 		// Add content to the library
-		$this->CI->$plugin->tag_content = $content;
+		$plug->tag_content = $content;
 		
-		return $this->CI->$plugin->$call();
+		if ( ! method_exists($plug, $call)) return NULL;
+		
+		return $plug->$call();
 	}
 
 }

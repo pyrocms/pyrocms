@@ -14,7 +14,7 @@
  * @license		http://parse19.com/fizl/docs/license.html
  * @link		http://parse19.com/fizl
  */
-class Format extends Plugin {
+class Plugin_format extends Plugin {
 
 	/**
 	 * Markdown the content
@@ -32,8 +32,8 @@ class Format extends Plugin {
 		
 			// Textile
 			case 'textile':
-				$this->CI->load->library('Textile');
-				return $this->CI->textile->TextileThis($content);
+				require_once('textile.php');
+				return TextileThis($content);
 				break;
 		
 			// Default is markdown

@@ -11,7 +11,7 @@
  * @license		http://parse19.com/fizl/docs/license.html
  * @link		http://parse19.com/fizl
  */
-class Asset extends Plugin {
+class Plugin_asset extends Plugin {
 
 	function __construct()
 	{

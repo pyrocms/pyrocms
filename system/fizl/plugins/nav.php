@@ -11,7 +11,7 @@
  * @license		http://parse19.com/fizl/docs/license.html
  * @link		http://parse19.com/fizl
  */
-class Nav extends Plugin {
+class Plugin_nav extends Plugin {
 
 	public $level;
 

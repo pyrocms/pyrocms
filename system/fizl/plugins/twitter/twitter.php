@@ -11,7 +11,7 @@
  * @license		http://parse19.com/fizl/docs/license.html
  * @link		http://parse19.com/fizl
  */
-class Twitter extends Plugin {
+class Plugin_twitter extends Plugin {
 
 	/**
 	 * Get some tweets
