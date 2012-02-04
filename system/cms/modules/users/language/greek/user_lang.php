@@ -152,7 +152,6 @@ $lang['user_reset_pass_email_subject']         = 'Επανακαθορισμός
 $lang['user_reset_pass_email_body']            = 'Το συνθηματικό του λογαριασμού σας στο %s έχει επανακαθοριστεί. Αν δεν ζητήσατε εσείς αυτή την αλλαγή, παρακαλούμε επικοινωνήστε μαζί μας στο %s και θα διελευκάνουμε την κατάσταση.';
 
 // Profile
-
 $lang['profile_of_title']             = 'Το προφίλ του %s';
 
 $lang['profile_user_details_label']   = 'Πληροφορίες Χρήστη';
@@ -190,18 +189,7 @@ $lang['profile_address_line3']        = 'Γραμμή #3';
 $lang['profile_address_postcode']     = 'Ταχ. Κώδικας';
 $lang['profile_website']              = 'Ιστότοπος';
 
-$lang['profile_messenger_section']    = 'Instant messengers';
-
-$lang['profile_msn_handle']           = 'MSN';
-$lang['profile_aim_handle']           = 'AIM';
-$lang['profile_yim_handle']           = 'Yahoo! messenger';
-$lang['profile_gtalk_handle']         = 'GTalk';
-
-$lang['profile_avatar_section']       = 'Avatar';
-$lang['profile_social_section']       = 'Social';
-
-$lang['profile_gravatar']             = 'Gravatar';
-$lang['profile_twitter']              = 'Twitter';
+$lang['profile_api_section']     	  = 'Πρόσβαση API';
 
 $lang['profile_edit_success']         = 'Το προφίλ σας αποθηκεύτηκε.';
 $lang['profile_edit_error']           = 'Συνέβη κάποιο σφάλμα.';
