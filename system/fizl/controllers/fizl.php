@@ -27,6 +27,7 @@ class Fizl extends CI_Controller {
 	{
 		$this->load->library('Plugin');
 		$this->load->library('Parse');
+		$this->load->config('fizl');
 		
 		include(APPPATH.'libraries/Lex/Autoloader.php');
 		Lex_Autoloader::register();
