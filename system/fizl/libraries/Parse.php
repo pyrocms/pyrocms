@@ -24,6 +24,10 @@ class Parse {
 	{
 		$this->CI = get_instance();
 
+		// ----------------------------
+		// Determine Call
+		// ----------------------------
+
 		// Do we have a : in the name? If so, we need
 		// to separate this into the plugin/call
 		if (strpos($name, ':') === FALSE)
@@ -50,6 +54,10 @@ class Parse {
 		{
 			return $this->CI->config->item($call);
 		}
+
+		// ----------------------------
+		// Find & Load Plugin Class
+		// ----------------------------
 		
 		$plugin_dirs = array(APPPATH.'plugins/', FCPATH.'addons/plugins/');
 		
@@ -79,8 +87,13 @@ class Parse {
 			$plug = new $class();
 		}
 		
+		// ----------------------------
+		// Attributes
+		// ----------------------------
 		// Add our params to the library
 		// as class variables
+		// ----------------------------
+		
 		foreach($attributes as $key => $val)
 		{
 			$plug->attributes[$key] = $val;
@@ -91,7 +104,31 @@ class Parse {
 		
 		if ( ! method_exists($plug, $call)) return NULL;
 		
-		return $plug->$call();
+		// ----------------------------
+		// Make Plugin Call
+		// ----------------------------
+		
+		$return = $plug->$call();
+		
+		// ----------------------------
+		// Return data based on type
+		// ----------------------------
+	
+		if (is_array($return))
+		{
+			$parser = new Lex_Parser();
+			$parser->scope_glue(':');
+					
+			return $parser->parse($content, $return, array($this->CI->parse, 'callback'));
+		}
+		elseif (is_string($return))
+		{
+			return $return;
+		}
+		else
+		{
+			return NULL;
+		}
 	}
 
 }
