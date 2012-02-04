@@ -234,7 +234,7 @@ class Installer extends CI_Controller
 		// Skip Step 2 if it passes
 		if ($data->step_passed)
 		{
-			$this->session->userdata('step_2_passed', true);
+			$this->session->set_userdata('step_2_passed', true);
 			
 			redirect('installer/step_3');
 		}
@@ -283,7 +283,7 @@ class Installer extends CI_Controller
 		// Skip Step 2 if it passes
 		if ($data->step_passed)
 		{
-			$this->session->userdata('step_3_passed', true);
+			$this->session->set_userdata('step_3_passed', true);
 			
 			redirect('installer/step_4');
 		}
