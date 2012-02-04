@@ -15,27 +15,26 @@ class Plugin_twitter extends Plugin {
 
 	/**
 	 * Get some tweets
+	 *
+	 * @access	public
+	 * @return	array
 	 */
 	public function twitter()
 	{
+		// We need a handle
+		if ( ! $handle = $this->get_param('name')) return NULL;
+
 		$this->CI = get_instance();
-	
-		$this->CI->load->library('Simple_tweets');
-		$this->CI->load->library('Parser');
 		
-		if(!$handle = $this->get_param('name')) return;
+		require_once('simple_tweets.php');
+
+		$twitter = new Simple_tweets();
 		
-		// We play our oooown game when it comes
-		// to the cache
-		$this->CI->simple_tweets->cache_dir = 'cache/simple_tweets/';
+		$tweets = $twitter->get_tweets($handle, $this->get_param('number', 1));
 		
-		$tweets = $this->CI->simple_tweets->get_tweets($handle, $this->get_param('number', 1));
+		if ( ! $tweets) return NULL;
 		
-		if(!$tweets) return;
-		
-		return $this->CI->parser->parse_string($this->tag_content, $tweets, TRUE);
+		return $tweets;
 	}
 		
 }
-
-/* End of file format.php */
