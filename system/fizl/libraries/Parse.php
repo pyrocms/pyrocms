@@ -3,7 +3,7 @@
 /**
  * Parse Library
  *
- * Class for plugins to extend. 
+ * Parse callback for the Lex parser. 
  *
  * @package		Fizl
  * @author		Adam Fairholm (@adamfairholm)
