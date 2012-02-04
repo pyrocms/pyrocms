@@ -1,4 +1,4 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['themes.save_success']			= 'De opties zijn opgeslagen.';
 $lang['themes.re-index_success']		= 'De opties zijn geherindexeerd.';
@@ -14,6 +14,7 @@ $lang['themes.mass_delete_success'] 	= '%s van %s thema&apos;s verwijderd.';
 $lang['themes.mass_delete_error']		= '%s thema&acute;s van %s themes verwijderd.';
 $lang['themes.delete_select_error'] 	= 'U moet eerst thema(&apos;s) selecteren om te verwijderen.';
 $lang['themes.upload_title']			= 'Upload thema';
+$lang['themes.admin_list']				= 'Admin thema\'s';
 $lang['themes.list_title']				= 'Toon alle thema&apos;s';
 $lang['themes.upload_desc']				= 'Selecteer een bestand en klik de Upload-knop';
 
