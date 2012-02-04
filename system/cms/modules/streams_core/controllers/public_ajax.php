@@ -14,16 +14,16 @@ class Public_ajax extends Public_Controller {
     function __construct()
     {
         parent::__construct();
- 
-		$this->load->helper('streams/streams');        
-		streams_constants();
        
         // We need this for all of the variable setups in
         // the Type library __construct
         $this->load->library('Type');
         
         // Only AJAX gets through!
-       	if( !$this->input->is_ajax_request() ) die('Invalid request.');
+       	if ( !$this->input->is_ajax_request())
+       	{
+       		die('Invalid request.');
+       	}
     }
 	
 	// --------------------------------------------------------------------------
@@ -41,20 +41,25 @@ class Public_ajax extends Public_Controller {
 		$field_type = $this->uri->segment(4);
 		$method = $this->uri->segment(5);
 		
-		if(!$field_type or !$method) exit('No data.');
+		if ( ! $field_type OR ! $method)
+		{
+			exit('No data.');
+		}
 		
 		// Is this a valid field type?
-		if(!isset($this->type->types->$field_type)) exit('Invalid Field Type.');
+		if ( ! isset($this->type->types->$field_type))
+		{
+			exit('Invalid Field Type.');
+		}
 		
 		// We prefix all ajax functions with ajax_
 		$method = 'ajax_'.$method;
 
 		// Does the method exist?		
-		if(method_exists($this->type->types->$field_type, $method)):
-		
+		if ( method_exists($this->type->types->$field_type, $method))
+		{
 			exit($this->type->types->$field_type->$method());
-		
-		endif;
+		}
 		
 		exit("Method '{$method}' not found.");
 	}
