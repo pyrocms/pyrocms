@@ -87,7 +87,7 @@ class Module_Streams_core extends Module {
 					{
 						// Okay, it exists, we are just going to modify it.
 						// If the schema is the same it won't hurt it.
-						$this->CI->dbforge->modify_column($table_name, array($field_name => $field_data));
+						$this->dbforge->modify_column($table_name, array($field_name => $field_data));
 					}
 				}
 			}
