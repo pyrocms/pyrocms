@@ -162,7 +162,7 @@ class Plugin_nav extends Plugin {
 		
 		$this->start = $start;
 						
-		$map = directory_map(FCPATH.$this->CI->vars['site_folder'].'/'.$start, $depth);
+		$map = directory_map(FCPATH.$this->CI->config->item('site_folder').'/'.$start, $depth);
 		
 		if( ! $map) return NULL;
 
@@ -207,7 +207,7 @@ class Plugin_nav extends Plugin {
 		// it up into an array.
 		if (in_array('order.txt', $map))
 		{					
-			$path = implode('/', array_merge(array(FCPATH.$this->CI->vars['site_folder']), $this->stack));
+			$path = implode('/', array_merge(array(FCPATH.$this->CI->config->item('site_folder')), $this->stack));
 			
 			if (is_file($path.'/order.txt'))
 			{

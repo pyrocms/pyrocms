@@ -28,7 +28,7 @@ class Plugin_asset extends Plugin {
 	public function img()
 	{
 		$image_properties['src'] = $this->CI->config->item('base_url').
-					$this->CI->vars['assets_folder'].
+					$this->CI->config->item('assets_folder').
 					'/img/'.$this->get_param('file');
 
 		$properties = array('alt', 'id', 'class', 'width', 'height', 'title', 'rel');
@@ -54,7 +54,7 @@ class Plugin_asset extends Plugin {
 	public function css()
 	{
 		$src = 		$this->CI->config->item('base_url').
-					$this->CI->vars['assets_folder'].
+					$this->CI->config->item('assets_folder').
 					'/css/'.$this->get_param('file');
 
 		return '<link rel="stylesheet" type="text/css" href="'.$src.'" />';
@@ -68,7 +68,7 @@ class Plugin_asset extends Plugin {
 	public function js()
 	{
 		$src = 		$this->CI->config->item('base_url').
-					$this->CI->vars['assets_folder'].
+					$this->CI->config->item('assets_folder').
 					'/js/'.$this->get_param('file');
 
 		return '<script type="text/javascript" src="'.$src.'"></script>';

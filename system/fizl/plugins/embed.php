@@ -25,7 +25,7 @@ class Plugin_embed extends Plugin {
 		$CI->load->helper('file');
 	
 		// Load the file. Always an .html
-		$embed_content = read_file(FCPATH.$CI->vars['assets_folder'].'/embeds/'.$this->get_param('file').'.html');
+		$embed_content = read_file(FCPATH.$CI->config->item('assets_folder').'/embeds/'.$this->get_param('file').'.html');
 		
 		if ( ! $embed_content) return NULL;
 		

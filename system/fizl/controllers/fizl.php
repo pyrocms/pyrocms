@@ -35,6 +35,17 @@ class Fizl extends CI_Controller {
 		$this->load->helper(array('file', 'url'));
 
 		// -------------------------------------
+		// Site config load
+		// -------------------------------------
+
+		$raw_configs = require_once(FCPATH.'config.php');
+		
+		foreach($config as $key => $var)
+		{
+			$this->config->set_item($key, $var);
+		}
+
+		// -------------------------------------
 		// Configs
 		// -------------------------------------
 		// We do this first since we need this
@@ -54,17 +65,9 @@ class Fizl extends CI_Controller {
 			'site_url'		=> site_url(),
 			'base_url'		=> $this->config->item('base_url')
 		);
-
-		// Get them configs
-		$raw_configs = require_once(FCPATH.'config.php');
-		
-		foreach($config as $key => $var)
-		{
-			$this->vars[$key] = $var;
-		}
 		
 		// Set the site folder as a constant
-		define('SITE_FOLDER', $this->vars['site_folder']);
+		define('SITE_FOLDER', $this->config->item('site_folder'));
 
 		// -------------------------------------
 		// Look for page
@@ -158,7 +161,7 @@ class Fizl extends CI_Controller {
 
 		$template = FALSE;
 
-		$template_path = FCPATH.$this->vars['assets_folder'].'/templates/';
+		$template_path = FCPATH.$this->config->item('assets_folder').'/templates/';
 
 		if($is_home and is_file($template_path.'home.html')):
 				
@@ -234,7 +237,7 @@ class Fizl extends CI_Controller {
 		
 		$parser = new Lex_Parser();
 		$parser->scope_glue(':');
-		
+				
 		echo $parser->parse($template, $this->vars, array($this->parse, 'callback'));
 	}
 
