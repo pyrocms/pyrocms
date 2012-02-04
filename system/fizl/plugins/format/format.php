@@ -28,6 +28,12 @@ class Plugin_format extends Plugin {
 		// Prep our content
 		$content = trim($this->tag_content);
 		
+		// Run our content through the parser
+		$parser = new Lex_Parser();
+		$parser->scope_glue(':');
+				
+		$content = $parser->parse($content, $this->CI->vars, array($this->CI->parse, 'callback'));
+		
 		switch($method):
 		
 			// Textile
