@@ -1,11 +1,14 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 /**
  * Sitemap module public controller
+ * 
  * Renders a human-readable sitemap with all public pages and blog categories
  * Also renders a machine-readable sitemap for search engines
+ * 
  * @author  	Barnabas Kendall <barnabas@bkendall.biz>
  * @license 	Apache License v2.0
  * @version 	1.1
+ * @package		PyroCMS\Core\Modules\Sitemap\Controllers
  */
 class Sitemap extends Public_Controller {
 

@@ -5,11 +5,7 @@
  * Handles the variables data
  *
  * @author		PyroCMS Dev Team
- * @package		PyroCMS
- * @subpackage	Variables module
- * @category	Modules
- * @copyright	Copyright (c) 2008 - 2011, PyroCMS
- *
+ * @package  	PyroCMS\Core\Modules\Variables\Libraries
  */
 class Variables {
 

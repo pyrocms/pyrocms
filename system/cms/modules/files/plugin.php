@@ -4,10 +4,9 @@
  *
  * Create a list of files
  *
- * @package		PyroCMS
- * @author		Marcos Coelho - PyroCMS Dev Team
- * @copyright	Copyright (c) 2008 - 2011, PyroCMS
- *
+ * @author		Marcos Coelho
+ * @author		PyroCMS Dev Team
+ * @package		PyroCMS\Core\Modules\Files\Plugins
  */
 class Plugin_Files extends Plugin
 {

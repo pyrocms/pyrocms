@@ -3,7 +3,7 @@
 /**
  * PyroStreams Core Config
  *
- * @package		PyroStreams Core
+ * @package		PyroCMS\Core\Modules\Streams Core\Config
  * @author		Parse19
  * @copyright	Copyright (c) 2011 - 2012, Parse19
  * @license		http://parse19.com/pyrostreams/docs/license

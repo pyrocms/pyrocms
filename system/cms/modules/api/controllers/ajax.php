@@ -3,10 +3,8 @@
 /**
  * Admin controller for the api module
  *
- * @author 		PyroCMS Dev Team
- * @package 	PyroCMS
- * @subpackage 	Api
- * @category	Modules
+ * @author		PyroCMS Dev Team
+ * @package		PyroCMS\Core\Modules\API\Controllers
  */
 class Ajax extends Public_Controller
 {

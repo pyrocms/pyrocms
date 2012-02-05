@@ -2,10 +2,9 @@
 /**
  * Permission model
  *
- * @author Phil Sturgeon - PyroCMS Dev Team
- * @package PyroCMS
- * @subpackage Permissions module
- * @category Modules
+ * @author Phil Sturgeon
+ * @author		PyroCMS Dev Team
+ * @package		PyroCMS\Core\Modules\Permissions\Models
  *
  */
 class Permission_m extends CI_Model

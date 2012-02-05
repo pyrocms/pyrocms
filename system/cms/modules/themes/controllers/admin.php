@@ -3,9 +3,7 @@
  * Admin controller for the themes module
  *
  * @author 		PyroCMS Dev Team
- * @package 	PyroCMS
- * @subpackage 	Themes module
- * @category	Modules
+ * @package 	PyroCMS\Core\Modules\Themes\Controllers
  */
 class Admin extends Admin_Controller
 {

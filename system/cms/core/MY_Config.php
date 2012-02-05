@@ -3,16 +3,15 @@
 /**
  * Extends the CodeIgniter Config class
  *
- * @package   PyroCMS
+ * @package   PyroCMS\Core\Libraries
  */
 class MY_Config extends CI_Config
 {
 	/**
-	 * Site URL - modified to stop double extensions eg: .rss.html
+	 * Modified CI_Config::site_ul() to stop double extensions eg: .rss.html
 	 *
-	 * @access	public
-	 * @param	string	the URI string
-	 * @return	string
+	 * @param string $uri the URI string
+	 * @return string
 	 */
 	function site_url($uri = '')
 	{
@@ -54,10 +53,9 @@ class MY_Config extends CI_Config
 	/**
 	 * Set a config file item
 	 *
-	 * @access	public
-	 * @param	string	the config item key
-	 * @param	string	the config item value
-	 * @return	void
+	 * @param string $item the config item key
+	 * @param string $value the config item value
+	 * @param string $index 
 	 */
 	function set_item($item, $value, $index = '')
 	{

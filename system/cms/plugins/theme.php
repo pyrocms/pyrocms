@@ -4,10 +4,8 @@
  *
  * Load partials and access data
  *
- * @package		PyroCMS
  * @author		PyroCMS Dev Team
- * @copyright	Copyright (c) 2008 - 2011, PyroCMS
- *
+ * @package		PyroCMS\Core\Plugins
  */
 class Plugin_Theme extends Plugin
 {
@@ -19,8 +17,7 @@ class Plugin_Theme extends Plugin
 	 * Usage:
 	 * {{ theme:partial file="header" }}
 	 *
-	 * @param	array
-	 * @return	array
+	 * @return array
 	 */
 	public function partial()
 	{
@@ -41,8 +38,7 @@ class Plugin_Theme extends Plugin
 	 * Usage:
 	 * {{ theme:assets }}
 	 *
-	 * @param	array
-	 * @return	array
+	 * @return array
 	 */
 	public function assets()
 	{
@@ -57,8 +53,7 @@ class Plugin_Theme extends Plugin
 	 * Usage:
 	 * {{ theme:assets }}
 	 *
-	 * @param	array
-	 * @return	array
+	 * @return array
 	 */
 	public function path()
 	{
@@ -75,8 +70,7 @@ class Plugin_Theme extends Plugin
 	 *
 	 * {{ theme:css file="" }}
 	 *
-	 * @param	array
-	 * @return	array
+	 * @return array
 	 */
 	public function css()
 	{
@@ -94,8 +88,7 @@ class Plugin_Theme extends Plugin
 	 *
 	 * {{ theme:css_url file="" }}
 	 *
-	 * @param	array
-	 * @return	string The css location url
+	 * @return string The css location url
 	 */
 	public function css_url()
 	{
@@ -111,8 +104,7 @@ class Plugin_Theme extends Plugin
 	 *
 	 * {{ theme:css_path file="" }}
 	 *
-	 * @param	array
-	 * @return	string The css location path
+	 * @return string The css location path
 	 */
 	public function css_path()
 	{
@@ -130,7 +122,6 @@ class Plugin_Theme extends Plugin
 	 *
 	 * {{ theme:image file="" }}
 	 *
-	 * @param	array
 	 * @return	array
 	 */
 	public function image()
@@ -168,7 +159,6 @@ class Plugin_Theme extends Plugin
 	 *
 	 * {{ theme:image_url file="" }}
 	 *
-	 * @param	array
 	 * @return	string The image location url
 	 */
 	public function image_url()
@@ -185,7 +175,6 @@ class Plugin_Theme extends Plugin
 	 *
 	 * {{ theme:image_path file="" }}
 	 *
-	 * @param	array
 	 * @return	string The image location path
 	 */
 	public function image_path()
@@ -204,7 +193,6 @@ class Plugin_Theme extends Plugin
 	 *
 	 * {{ theme:js file="" }}
 	 *
-	 * @param	array
 	 * @return	array
 	 */
 	public function js($return = '')
@@ -221,7 +209,6 @@ class Plugin_Theme extends Plugin
 	 *
 	 * {{ theme:js_url file="" }}
 	 *
-	 * @param	array
 	 * @return	string The js location url
 	 */
 	public function js_url()
@@ -239,7 +226,6 @@ class Plugin_Theme extends Plugin
 	 *
 	 * {{ theme:js_path file="" }}
 	 *
-	 * @param	array
 	 * @return	string The js location path
 	 */
 	public function js_path()
@@ -256,7 +242,6 @@ class Plugin_Theme extends Plugin
 	 * Usage:
 	 * {{ theme:variables name="foo" }}
 	 *
-	 * @param	array
 	 * @return	array
 	 */
 	public function variables()
@@ -287,7 +272,6 @@ class Plugin_Theme extends Plugin
 	 *
 	 * {{ theme:favicon file="" [rel="foo"] [type="bar"] }}
 	 *
-	 * @param	array
 	 * @return	array
 	 */
 	public function favicon()

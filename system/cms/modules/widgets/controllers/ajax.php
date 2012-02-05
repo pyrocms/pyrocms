@@ -2,10 +2,8 @@
 /**
  * Ajax controller for the widgets module
  *
- * @package 		PyroCMS
- * @subpackage 		Widgets
- * @category 		Modules
- * @author			PyroCMS Development Team
+ * @author		PyroCMS Dev Team
+ * @package		PyroCMS\Core\Modules\Widgets\Controllers
  */
 class Ajax extends MY_Controller
 {

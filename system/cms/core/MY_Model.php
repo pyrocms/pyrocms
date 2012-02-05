@@ -1,8 +1,8 @@
 <?php
 
 /**
- * A base model to provide the basic CRUD
- * actions for all models that inherit from it.
+ * A base model to provide the basic CRUD actions for all models that inherit 
+ * from it.
  *
  * @package CodeIgniter
  * @subpackage MY_Model
@@ -10,40 +10,36 @@
  * @link http://github.com/philsturgeon/codeigniter-base-model
  * @version 1.3
  * @author Jamie Rumbelow <http://jamierumbelow.net>
- * @modified Phil Sturgeon <http://philsturgeon.co.uk>
- * @modified Dan Horrigan <http://dhorrigan.com>
+ * @author Phil Sturgeon <http://philsturgeon.co.uk>
+ * @author Dan Horrigan <http://dhorrigan.com>
  * @copyright Copyright (c) 2009, Jamie Rumbelow <http://jamierumbelow.net>
  */
 
 class MY_Model extends CI_Model
 {
 	/**
-	 * The database table to use, only
-	 * set if you want to bypass the magic
+	 * The database table to use, only set if you want to bypass the magic.
 	 *
 	 * @var string
 	 */
 	protected $_table;
 
 	/**
-	 * The primary key, by default set to
-	 * `id`, for use in some functions.
+	 * The primary key, by default set to `id`, for use in some functions.
 	 *
 	 * @var string
 	 */
 	protected $primary_key = 'id';
 
 	/**
-	 * An array of functions to be called before
-	 * a record is created.
+	 * An array of functions to be called before a record is created.
 	 *
 	 * @var array
 	 */
 	protected $before_create = array();
 
 	/**
-	 * An array of functions to be called after
-	 * a record is created.
+	 * An array of functions to be called after a record is created.
 	 *
 	 * @var array
 	 */
@@ -64,9 +60,8 @@ class MY_Model extends CI_Model
 	protected $skip_validation = FALSE;
 
 	/**
-	* Wrapper to __construct for when loading
-	* class is a superclass to a regular controller,
-	* i.e. - extends Base not extends Controller.
+	* Wrapper to __construct for when loading class is a superclass to a regular 
+	 * controller, i.e. - extends Base not extends Controller.
 	*
 	* @return void
 	* @author Jamie Rumbelow
@@ -74,8 +69,7 @@ class MY_Model extends CI_Model
 	public function MY_Model() { $this->__construct(); }
 
 	/**
-	 * The class constructer, tries to guess
-	 * the table name.
+	 * The class constructer, tries to guess the table name.
 	 *
 	 * @author Jamie Rumbelow
 	 */
@@ -86,6 +80,14 @@ class MY_Model extends CI_Model
 		$this->_fetch_table();
 	}
 
+	/**
+	 * 
+	 *
+	 * @param string $method
+	 * @param array $arguments
+	 * @return \MY_Model
+	 * @throws Exception 
+	 */
 	public function __call($method, $arguments)
 	{
 		$db_method = array($this->db, $method);
@@ -108,10 +110,9 @@ class MY_Model extends CI_Model
 	/**
 	 * Get table name
 	 *
-	 * @access public
-	 * @param string $prefix
-	 * @return string
 	 * @author PyroCMS Development Team
+	 * @param string $prefix
+	 * @return string 
 	 */
 	public function table_name($prefix = TRUE)
 	{
@@ -121,10 +122,9 @@ class MY_Model extends CI_Model
 	/**
 	 * Set table name
 	 *
-	 * @access public
+	 * @author PyroCMS Development Team
 	 * @param string $name
 	 * @return string
-	 * @author PyroCMS Development Team
 	 */
 	public function set_table_name($name = NULL)
 	{
@@ -132,12 +132,12 @@ class MY_Model extends CI_Model
 	}
 
 	/**
-	 * Get a single record by creating a WHERE clause with
-	 * a value for your primary key
+	 * Get a single record by creating a WHERE clause with a value for your 
+	 * primary key.
 	 *
+	 * @author Phil Sturgeon
 	 * @param string $primary_value The value of your primary key
 	 * @return object
-	 * @author Phil Sturgeon
 	 */
 	public function get($primary_value)
 	{
@@ -147,13 +147,11 @@ class MY_Model extends CI_Model
 	}
 
 	/**
-	 * Get a single record by creating a WHERE clause with
-	 * the key of $key and the value of $val.
+	 * Get a single record by creating a WHERE clause with the key of $key and 
+	 * the value of $val.
 	 *
-	 * @param string $key The key to search by
-	 * @param string $val The value of that key
-	 * @return object
 	 * @author Phil Sturgeon
+	 * @return object
 	 */
 	public function get_by()
 	{
@@ -424,13 +422,10 @@ class MY_Model extends CI_Model
 	}
 
 	/**
-	 * Delete a row from the database table by the
-	 * key and value.
+	 * Delete a row from the database table by the key and value.
 	 *
-	 * @param string $key
-	 * @param string $value
-	 * @return bool
 	 * @author Phil Sturgeon
+	 * @return type 
 	 */
 	public function delete_by()
 	{
@@ -441,12 +436,11 @@ class MY_Model extends CI_Model
 	}
 
 	/**
-	 * Delete many rows from the database table by
-	 * an array of IDs passed.
+	 * Delete many rows from the database table by an array of IDs passed.
 	 *
-	 * @param array $primary_values
-	 * @return bool
 	 * @author Phil Sturgeon
+	 * @param array $primary_values
+	 * @return bool 
 	 */
 	public function delete_many($primary_values)
 	{
@@ -482,14 +476,14 @@ class MY_Model extends CI_Model
 	}
 
 	/**
-	* Orders the result set by the criteria,
-	* using the same format as CI's AR library.
-	*
-	* @param string $criteria The criteria to order by
-	* @return object	$this
-	* @since 1.1.2
-	* @author Jamie Rumbelow
-	*/
+	 * Orders the result set by the criteria, using the same format as 
+	 * CodeIgniter's AR library.
+	 * 
+	 * @author Jamie Rumbelow
+	 * @param string $criteria The criteria to order by
+	 * @param string $order the order direction
+	 * @return \MY_Model 
+	 */
 	public function order_by($criteria, $order = 'ASC')
 	{
 		$this->db->order_by($criteria, $order);
@@ -497,15 +491,16 @@ class MY_Model extends CI_Model
 	}
 
 	/**
-	* Limits the result set by the integer passed.
-	* Pass a second parameter to offset.
-	*
-	* @param integer $limit The number of rows
-	* @param integer $offset The offset
-	* @return object	$this
-	* @since 1.1.1
-	* @author Jamie Rumbelow
-	*/
+	 * Limits the result set.
+	 * 
+	 * Pass an integer to set the actual result limit.
+	 * Pass a second integer set the offset.
+	 *
+	 * @author Jamie Rumbelow
+	 * @param int $limit The number of rows
+	 * @param int $offset The offset
+	 * @return \MY_Model 
+	 */
 	public function limit($limit, $offset = 0)
 	{
 		$limit =& func_get_args();
@@ -514,12 +509,11 @@ class MY_Model extends CI_Model
 	}
 
 	/**
-	* Removes duplicate entries from the result set.
-	*
-	* @return object	$this
-	* @since 1.1.1
-	* @author Phil Sturgeon
-	*/
+	 * Removes duplicate entries from the result set.
+	 *
+	 * @author Phil Sturgeon
+	 * @return \MY_Model 
+	 */
 	public function distinct()
 	{
 		$this->db->distinct();
@@ -529,9 +523,9 @@ class MY_Model extends CI_Model
 	/**
 	 * Runs the before create actions.
 	 *
-	 * @param array $data The array of actions
-	 * @return void
 	 * @author Jamie Rumbelow
+	 * @param array $data The array of actions
+	 * @return type 
 	 */
 	private function _run_before_create($data)
 	{
@@ -546,9 +540,9 @@ class MY_Model extends CI_Model
 	/**
 	 * Runs the after create actions.
 	 *
-	 * @param array $data The array of actions
-	 * @return void
 	 * @author Jamie Rumbelow
+	 * @param array $data The array of actions
+	 * @param type $id 
 	 */
 	private function _run_after_create($data, $id)
 	{
@@ -561,8 +555,9 @@ class MY_Model extends CI_Model
 	/**
 	 * Runs validation on the passed data.
 	 *
-	 * @return bool
 	 * @author Dan Horrigan
+	 * @param array $data
+	 * @return boolean 
 	 */
 	private function _run_validation($data)
 	{
@@ -595,8 +590,7 @@ class MY_Model extends CI_Model
 
 	/**
 	 * Fetches the table from the pluralised model name.
-	 *
-	 * @return void
+	 * 
 	 * @author Jamie Rumbelow
 	 */
 	private function _fetch_table()
@@ -609,12 +603,11 @@ class MY_Model extends CI_Model
 		}
 	}
 
-
 	/**
 	 * Sets where depending on the number of parameters
 	 *
-	 * @return void
 	 * @author Phil Sturgeon
+	 * @param array $params 
 	 */
 	private function _set_where($params)
 	{
@@ -629,12 +622,11 @@ class MY_Model extends CI_Model
 		}
 	}
 
-
 	/**
 	 * Sets limit depending on the number of parameters
 	 *
-	 * @return void
 	 * @author Phil Sturgeon
+	 * @param array $params 
 	 */
 	private function _set_limit($params)
 	{

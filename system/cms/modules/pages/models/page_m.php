@@ -1,13 +1,12 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
-* Regular pages model
-*
-* @author Phil Sturgeon - PyroCMS Dev Team
-* @package PyroCMS
-* @subpackage Pages Module
-* @category Modules
-*
-*/
+ * Regular pages model
+ *
+ * @author		Phil Sturgeon
+ * @author		PyroCMS Dev Team
+ * @package		PyroCMS\Core\Modules\Pages\Models
+ *
+ */
 class Page_m extends MY_Model
 {
 	

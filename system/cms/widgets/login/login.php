@@ -2,13 +2,9 @@
 
 /**
  * Show a login box in your widget areas
- *
- * @package 		PyroCMS
- * @subpackage 		Widgets
- * @author			PyroCMS Development Team
- * @copyright		PyroCMS Development Team
- * @license			http://pyrocms.com/legal/license
- * @since			1.0
+ * 
+ * @author		PyroCMS Dev Team
+ * @package		PyroCMS\Core\Widgets
  */
 
 class Widget_Login extends Widgets

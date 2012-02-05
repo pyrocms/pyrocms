@@ -2,11 +2,8 @@
 /**
  * Modules model
  *
- * @author 		PyroCMS Development Team
- * @package 	PyroCMS
- * @subpackage 	Modules
- * @category	Modules
- * @since 		v1.0
+ * @author		PyroCMS Dev Team
+ * @package		PyroCMS\Core\Modules\Modules\Models
  */
 class Module_m extends MY_Model
 {
