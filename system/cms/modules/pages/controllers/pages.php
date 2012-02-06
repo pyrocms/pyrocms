@@ -189,7 +189,9 @@ class Pages extends Public_Controller
 		foreach ($page->chunks as $chunk)
 		{
 			$chunk_html .= 	'<div class="page-chunk '.$chunk->slug.'">' .
+							'	<div class="page-chunk-wrapper">'.
 								(($chunk->type == 'markdown') ? $chunk->parsed : $chunk->body) .
+							'	</div>'.
 							'</div>'.PHP_EOL;
 		}
 		
