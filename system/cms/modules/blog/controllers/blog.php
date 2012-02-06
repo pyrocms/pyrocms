@@ -185,6 +185,40 @@ class Blog extends Public_Controller
 			->set('pagination', $pagination)
 			->build('tagged', $this->data );
 	}
+	
+	public function search()
+	{		
+		// Get query data
+		$query = $this->input->post('b_keywords');
+		
+		$query OR redirect('blog');
+		
+		// Construct search data
+		$post_data = array(
+			'status'	=>	'live',
+			'keywords'	=>	$query
+			);
+
+		$this->data->blog = $this->blog_m->search($post_data);		
+		
+		// Set meta data
+		$meta = $this->_posts_metadata($this->data->blog);
+		
+		foreach ($this->data->blog AS &$post)
+		{
+			$post->keywords = Keywords::get_links($post->keywords, 'blog/tagged');
+		}
+		
+		// Build search page
+		$this->template
+			->title($this->module_details['name'], lang( 'blog_search_results_label' ) .': ' .$query)
+			->set_breadcrumb( lang('blog_blog_title'), 'blog')
+			->set_breadcrumb( lang( 'blog_search_results_label' ) .': ' .$query)
+			->set_metadata('description', $meta['description'])
+			->set_metadata('keywords', $meta['keywords'])
+			->set('blog', $this->data->blog)
+			->build('search', $this->data);
+	}
 
 	// Private methods not used for display
 	private function _posts_metadata(&$posts = array())
