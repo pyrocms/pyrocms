@@ -31,12 +31,12 @@ $lang['files.filter_label']					= 'Φίλτρο';
 $lang['files.loading_label']				= 'Φορτώνει...';
 $lang['files.name_label']					= 'Όνομα';
 
-$lang['files.dropdown_select']				= '-- Select Folder For Upload --'; #translate
+$lang['files.dropdown_select']				= '-- Επιλογή φακέλου μεταφόροτωσης --';
 $lang['files.dropdown_no_subfolders']		= '-- Κανένας --';
 $lang['files.dropdown_root']				= '-- Αρχικός --';
 
 $lang['files.type_a']						= 'Ηχητικό';
-$lang['files.type_v']						= 'Video';
+$lang['files.type_v']						= 'Βίντεο';
 $lang['files.type_d']						= 'Έγγραφο';
 $lang['files.type_i']						= 'Εικόνα';
 $lang['files.type_o']						= 'Άλλο';
@@ -81,6 +81,7 @@ $lang['file_folders.created_label']			= 'Δημιουργήθηκε στις';
 // Messages
 $lang['file_folders.create_success']		= 'Ο φάκελος αποθηκεύτηκε.';
 $lang['file_folders.create_error']			= 'Συνέβη κάποιο σφάλμα κατά την προσπάθεια να δημιουργηθεί ο φάκελος.';
+$lang['file_folders.duplicate_error']		= 'Ο φάκελος "%s" υπάρχει ήδη.';
 $lang['file_folders.edit_success']			= 'Οι αλλαγές στο φάκελο αποθηκεύτηκαν επιτυχώς.';
 $lang['file_folders.edit_error']			= 'Συνέβη κάποιο σφάλμα κατά την προσπάθεια να αποθηκευτούν οι αλλαγές.';
 $lang['file_folders.confirm_delete']		= 'Είσαστε σίγουροι ότι θέλετε να διαγράψετε τους παρακάτω φακέλους μαζί με τα αρχεία που υπάρχουν μέσα σε αυτούς;';

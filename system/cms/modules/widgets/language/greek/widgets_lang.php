@@ -5,6 +5,7 @@ $lang['widgets.available_title']        = 'Διαθέσιμα widgets';
 $lang['widgets.widget_area_wrapper']    = 'Διαθέσιμες Περιοχές';
 $lang['widgets.instructions']           = 'Τραβήξτε & αφήστε για να εγκαταστήσετε';
 
+
 $lang['widgets.instances']            	= 'Περιπτώσεις χρήσεων';
 $lang['widgets.areas']            	= 'Περιοχές';
 
