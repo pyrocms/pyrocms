@@ -25,10 +25,12 @@ class Module_Streams_core extends Module {
 	{
 		return array(
 			'name' => array(
-				'en' => 'Streams Core'
+				'en' => 'Streams Core',
+                            'fr' => 'Noyau Flux'
 			),
 			'description' => array(
-				'en' => 'Core data module for streams.'
+				'en' => 'Core data module for streams.',
+                            'fr' => 'Noyau de données pour les Flux.'
 			),
 			'frontend' => FALSE,
 			'backend' => FALSE,
