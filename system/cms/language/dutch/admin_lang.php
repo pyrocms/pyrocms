@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['cp_admin_title'] 				= 'Controlepaneel';
-$lang['global:dashboard'] 			= 'Dashboard';
+$lang['global:dashboard'] 				= 'Dashboard';
 $lang['cp_admin_quick_links']			= 'Snelkoppelingen';
 
 $lang['cp_welcome_title'] 				= 'Welkom';
@@ -32,10 +32,10 @@ $lang['cp_nav_settings']				= 'Instellingen';
 $lang['cp_nav_addons']					= 'Add-ons';
 $lang['cp_nav_modules']					= 'Modules';
 $lang['cp_nav_widgets']					= 'Widgets';
-$lang['cp_nav_users']           = 'Gebruikers';
+$lang['cp_nav_users']           		= 'Gebruikers';
 $lang['cp_nav_design']					= 'Ontwerp';
 $lang['cp_nav_content']					= 'Content';
-$lang['cp_nav_utilities']       = 'Gereedschappen';
+$lang['cp_nav_utilities']       		= 'Gereedschappen';
 
 $lang['cp_access_denied'] 				= 'U heeft geen rechten om deze pagina te bekijken.';
 $lang['cp_delete_installer_message']	= 'Verwijder alstublieft de installer-directory op uw server. Als u deze online laat kan deze misbruikt worden door een hacker.';
