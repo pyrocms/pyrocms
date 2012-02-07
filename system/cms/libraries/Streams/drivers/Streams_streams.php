@@ -19,6 +19,19 @@
  */
 class Streams_streams extends CI_Driver {
 
+	private $CI;
+
+	/**
+	 * Constructor
+	 *
+	 * @access	public
+	 * @return	void
+	 */
+	function __construct()
+	{
+		$this->CI =& get_instance();
+	}
+
 	// --------------------------------------------------------------------------
 
 	/**
@@ -89,9 +102,13 @@ class Streams_streams extends CI_Driver {
 	 * @param	[string - namespace]
 	 * @return	object
 	 */
-	public function get_stream($stream, $namespace = NULL)
+	public function get_stream($stream, $namespace)
 	{
-		return $this->CI->streams_m->get_stream($this->stream_id($stream, $namespace));
+		$str_id = $this->stream_id($stream, $namespace);
+		
+		if ( ! $str_id) $this->log_error('invalid_stream', 'get_stream');
+
+		return $this->CI->streams_m->get_stream($str_id);
 	}
 
 	// --------------------------------------------------------------------------
@@ -104,7 +121,7 @@ class Streams_streams extends CI_Driver {
 	 * @param	[string - namespace]
 	 * @return	object
 	 */
-	public function delete_stream($stream, $namespace = NULL)
+	public function delete_stream($stream, $namespace)
 	{
 		$str_obj = $this->stream_obj($stream, $namespace);
 		
@@ -120,13 +137,17 @@ class Streams_streams extends CI_Driver {
 	 *
 	 * @access	public
 	 * @param	stream - obj, id, or string
-	 * @param 	array - data
-	 * @param	[string - namespace]
+	 * @param	string - namespace
+	 * @param 	array - associative array of new data
 	 * @return	object
 	 */
-	function update_stream($stream, $data, $namespace = NULL)
-	{
-		return $this->CI->streams_m->update_stream($this->stream_id($stream, $namespace), $data);
+	function update_stream($stream, $namespace, $data)
+	{	
+		$str_id = $this->stream_id($stream, $namespace);
+		
+		if ( ! $str_id) $this->log_error('invalid_stream', 'update_stream');
+
+		return $this->CI->streams_m->update_stream($str_id, $data);
 	}
 
 	// --------------------------------------------------------------------------
@@ -136,12 +157,31 @@ class Streams_streams extends CI_Driver {
 	 *
 	 * @access	public
 	 * @param	stream - obj, id, or string
+	 * @param	string - namespace
+	 * @return	object
+	 */
+	public function get_assignments($stream, $namespace)
+	{
+		$str_id = $this->stream_id($stream, $namespace);
+		
+		if ( ! $str_id) $this->log_error('invalid_stream', 'get_stream');
+
+		return $this->CI->fields_m->get_assignments_for_stream($str_id);
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Get streams in a namespace
+	 *
+	 * @access	public
+	 * @param	stream - obj, id, or string
 	 * @param	[string - namespace]
 	 * @return	object
 	 */
-	public function get_assignments($stream, $namespace = NULL)
+	public function get_streams($namespace)
 	{
-		return $this->CI->field_m->get_assignments_for_stream($this->stream_id($stream, $namespace));
+		return $this->CI->streams_m->get_streams($namespace);
 	}
 	
 }

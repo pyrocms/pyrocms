@@ -15,6 +15,7 @@ class Widget_Twitter_feed extends Widgets {
 		'nl' => 'Twitterfeed',
 		'br' => 'Feed do Twitter',
 		'ru' => 'Лента Twitter\'а',
+		'id' => 'Twitter Feed',
 	);
 	public $description	= array(
 		'en' => 'Display Twitter feeds on your website',
@@ -22,6 +23,7 @@ class Widget_Twitter_feed extends Widgets {
 		'nl' => 'Toon Twitterfeeds op uw website',
 		'br' => 'Mostra os últimos tweets de um usuário do Twitter no seu site.',
 		'ru' => 'Выводит ленту новостей Twitter на страницах вашего сайта',
+		'id' => 'Menampilkan koleksi Tweet di situs Anda'
 	);
 	public $author		= 'Phil Sturgeon';
 	public $website		= 'http://philsturgeon.co.uk/';
@@ -61,22 +63,20 @@ class Widget_Twitter_feed extends Widgets {
 			// Detect Twitter #tags
 			'|#([a-z0-9-_]+)|i' => '<a href="http://twitter.com/search?q=%23$1" target="_blank">$0</a>'
 		);
-		
-		if ( ! $tweets)
-		{
-			return array();
-		}
 
-		foreach ($tweets as &$tweet)
+		if ($tweets)
 		{
-			$tweet->text	= str_replace($options['username'] . ': ', '', $tweet->text);
-			$tweet->text	= preg_replace(array_keys($patterns), $patterns, $tweet->text);
+			foreach ($tweets as &$tweet)
+			{
+				$tweet->text	= str_replace($options['username'] . ': ', '', $tweet->text);
+				$tweet->text	= preg_replace(array_keys($patterns), $patterns, $tweet->text);
+			}
 		}
 
 		// Store the feed items
 		return array(
 			'username'	=> $options['username'],
-			'tweets'	=> $tweets
+			'tweets'	=> $tweets ? $tweets : array(),
 		);
 	}
 

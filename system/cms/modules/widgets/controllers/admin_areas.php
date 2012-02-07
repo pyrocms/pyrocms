@@ -53,8 +53,8 @@ class Admin_areas extends Admin_Controller {
 		$this->input->is_ajax_request() AND $this->template->set_layout(FALSE);
 
 		$this->template
-			->append_metadata(js('widgets.js', 'widgets'))
-			->append_metadata(css('widgets.css', 'widgets'));
+			->append_js('module::widgets.js')
+			->append_css('module::widgets.css');
 	}
 
 	public function index()

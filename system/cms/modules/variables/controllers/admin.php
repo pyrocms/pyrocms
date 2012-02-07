@@ -72,7 +72,7 @@ class Admin extends Admin_Controller
 	 */
 	public function index()
 	{
-		$this->template->append_metadata(js('variables.js', 'variables'));
+		$this->template->append_js('module::variables.js');
 
        // Create pagination links
 		$this->data->pagination = create_pagination('admin/variables/index', $this->variables_m->count_all());
@@ -118,7 +118,7 @@ class Admin extends Admin_Controller
 				$data['messages'][$status] = $message;
 				$message = $this->load->view('admin/partials/notices', $data, TRUE);
 
-				return print ( json_encode((object) array(
+				return print (json_encode((object) array(
 					'status'	=> $status,
 					'message'	=> $message
 				)) );
@@ -243,7 +243,7 @@ class Admin extends Admin_Controller
 	public function delete($id = 0)
 	{
 		$ids		= $id ? array($id): $this->input->post('action_to');
-		$total		= sizeof($ids);
+		$total		= count($ids);
 		$deleted	= array();
 
 		// Try do deletion

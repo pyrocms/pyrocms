@@ -30,8 +30,8 @@ class Admin extends Admin_Controller {
 		$this->load->library('settings');
 		$this->load->library('form_validation');
 		$this->lang->load('settings');
-		$this->template->append_metadata(js('settings.js', 'settings'));
-		$this->template->append_metadata(css('settings.css', 'settings'));
+		$this->template->append_js('module::settings.js');
+		$this->template->append_css('module::settings.css');
 	}
 
 	/**
@@ -43,7 +43,7 @@ class Admin extends Admin_Controller {
 	{
 		$setting_language = array();
 		$setting_sections = array();
-		$settings = $this->settings_m->get_many_by(array('is_gui' => 1 ));
+		$settings = $this->settings_m->get_many_by(array('is_gui' => 1));
 
 		// Loop through each setting
 		foreach ($settings as $key => $setting)
@@ -126,6 +126,12 @@ class Admin extends Admin_Controller {
 	 */
 	public function edit()
 	{
+		if (PYRO_DEMO)
+		{
+			$this->session->set_flashdata('notice', lang('global:demo_restrictions'));
+			redirect('admin/settings');
+		}
+		
 		$settings = $this->settings_m->get_many_by(array('is_gui'=>1));
 		$settings_stored = array();
 

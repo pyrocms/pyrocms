@@ -291,10 +291,10 @@ class Users extends Public_Controller
 		{
 			// Convert the array to an object
 			$user					= new stdClass();
-			$user->first_name 		= $user_hash['first_name'];
-			$user->last_name		= $user_hash['last_name'];
+			$user->first_name 		= ( ! empty($user_hash['first_name'])) ? $user_hash['first_name']: '';
+			$user->last_name 		= ( ! empty($user_hash['last_name'])) ? $user_hash['last_name']: '';
+			$user->email 			= ( ! empty($user_hash['email'])) ? $user_hash['email']: '';
 			$user->username			= $user_hash['nickname'];
-			$user->email			= isset($user_hash['email']) ? $user_hash['email'] : '';
 		}
 		
 		// Repopulate the form
@@ -380,6 +380,11 @@ class Users extends Public_Controller
 	 */
 	public function reset_pass($code = FALSE)
 	{
+		if (PYRO_DEMO)
+		{
+			show_error(lang('global:demo_restrictions'));
+		}
+		
 		//if user is logged in they don't need to be here. and should use profile options
 		if ($this->current_user)
 		{
@@ -585,6 +590,8 @@ class Users extends Public_Controller
 		// Settings valid?
 		if ($this->form_validation->run())
 		{
+			PYRO_DEMO and show_error(lang('global:demo_restrictions'));
+			
 			// Loop through each POST item and add it to the secure_post array
 			$secure_post = $this->input->post();
 

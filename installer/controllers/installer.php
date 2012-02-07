@@ -13,7 +13,7 @@ class Installer extends CI_Controller
 	/**
 	 * Array of languages supported by the installer
 	 */
-	private $languages	= array ('arabic', 'brazilian', 'english', 'dutch', 'french', 'german', 'polish', 'chinese_traditional', 'slovenian', 'spanish', 'russian', 'greek', 'lithuanian','danish','vietnamese');
+	private $languages	= array ('arabic', 'brazilian', 'english', 'dutch', 'french', 'german', 'polish', 'chinese_traditional', 'slovenian', 'spanish', 'russian', 'greek', 'lithuanian','danish','vietnamese', 'indonesian');
 
 	/**
 	 * Array containing the directories that need to be writeable
@@ -25,7 +25,8 @@ class Installer extends CI_Controller
 		'system/cms/cache',
 		'system/cms/config',
 		'addons',
-		'uploads'
+		'assets/cache',
+		'uploads',
 	);
 
 	/**
@@ -229,6 +230,15 @@ class Installer extends CI_Controller
 
 		// Check the final results
 		$data->step_passed = $this->installer_lib->check_server($data);
+		
+		// Skip Step 2 if it passes
+		if ($data->step_passed)
+		{
+			$this->session->set_userdata('step_2_passed', true);
+			
+			redirect('installer/step_3');
+		}
+		
 		$this->session->set_userdata('step_2_passed', $data->step_passed);
 
 		// Load the view files
@@ -244,7 +254,7 @@ class Installer extends CI_Controller
 	 */
 	public function step_3()
 	{
-		if ( ! $this->session->userdata('step_1_passed') OR !$this->session->userdata('step_2_passed'))
+		if ( ! $this->session->userdata('step_1_passed') OR ! $this->session->userdata('step_2_passed'))
 		{
 			// Redirect the user back to step 1
 			redirect('installer/step_2');
@@ -267,14 +277,22 @@ class Installer extends CI_Controller
 		}
 
 		// If all permissions are TRUE, go ahead
-		$data->step_passed = !in_array(FALSE, $permissions['directories']) && !in_array(FALSE, $permissions['files']);
+		$data->step_passed = ! in_array(FALSE, $permissions['directories']) && !in_array(FALSE, $permissions['files']);
 		$this->session->set_userdata('step_3_passed', $data->step_passed);
 
+		// Skip Step 2 if it passes
+		if ($data->step_passed)
+		{
+			$this->session->set_userdata('step_3_passed', true);
+			
+			redirect('installer/step_4');
+		}
+		
 		// View variables
 		$data->permissions = $permissions;
 
 		// Load the language labels
-		$data = (object) array_merge((array) $data,$this->lang->language);
+		$data = (object) array_merge((array) $data, $this->lang->language);
 
 		// Load the view file
 		$final_data['page_output'] = $this->parser->parse('step_3', $data, TRUE);

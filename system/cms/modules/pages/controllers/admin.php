@@ -127,13 +127,17 @@ class Admin extends Admin_Controller {
 	{
 		$this->data->pages = $this->page_m->get_page_tree();
 		$this->data->controller =& $this;
-
+		
 		$this->template
+		
 			->title($this->module_details['name'])
-			->append_metadata( js('jquery/jquery.ui.nestedSortable.js') )
-			->append_metadata( js('jquery/jquery.cooki.js') )
-			->append_metadata( js('index.js', 'pages') )
-			->append_metadata( css('index.css', 'pages') )
+			
+			->append_js('jquery/jquery.ui.nestedSortable.js')
+			->append_js('jquery/jquery.cooki.js')
+			->append_js('module::index.js')
+			
+			->append_css('module::index.css')
+			
 			->build('admin/index', $this->data);
 	}
 
@@ -376,9 +380,6 @@ class Admin extends Admin_Controller {
 		$this->template
 			->title($this->module_details['name'], lang('pages.create_title'))
 			->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
-			->append_metadata(js('jquery/jquery.tagsinput.min.js'))
-			->append_metadata( js('form.js', 'pages') )
-			->append_metadata(css('jquery/jquery.tagsinput.css'))
 			->build('admin/form', $data);
 	}
 
@@ -520,9 +521,6 @@ class Admin extends Admin_Controller {
 
 			// Load WYSIWYG Editor
 			->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
-			->append_metadata(js('jquery/jquery.tagsinput.min.js'))
-			->append_metadata( js('form.js', 'pages') )
-			->append_metadata(css('jquery/jquery.tagsinput.css'))
 			->build('admin/form', $this->data);
 	}
 
@@ -544,6 +542,11 @@ class Admin extends Admin_Controller {
 			$group->name !== 'admin' && $group_options[$group->id] = $group->name;
 		}
 		$this->template->group_options = $group_options;
+		
+		$this->template->append_js('jquery/jquery.tagsinput.min.js');
+		$this->template->append_js('jquery/jquery.cooki.js');
+		$this->template->append_js('module::form.js');
+		$this->template->append_css('jquery/jquery.tagsinput.css');
 	}
 
 	/**

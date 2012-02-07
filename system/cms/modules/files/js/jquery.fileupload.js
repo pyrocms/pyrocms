@@ -555,7 +555,7 @@
             legacyUploadFormDataInit = function (input, form, settings) {
                 var formData = getFormData(settings);
                 form.find(':input').not(':disabled')
-                    .attr('disabled', true)
+                    .prop('disabled', true)
                     .addClass(settings.namespace + '_disabled');
                 $.each(formData, function (index, field) {
                     $('<input type="hidden"/>')
@@ -572,7 +572,7 @@
             legacyUploadFormDataReset = function (input, form, settings) {
                 input.detach();
                 form.find('.' + settings.namespace + '_disabled')
-                    .removeAttr('disabled')
+                    .prop('disabled', false)
                     .removeClass(settings.namespace + '_disabled');
                 form.find('.' + settings.namespace + '_form_data').remove();
             },

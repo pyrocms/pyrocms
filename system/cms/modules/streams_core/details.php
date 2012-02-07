@@ -11,12 +11,7 @@
  */
 class Module_Streams_core extends Module {
 
-	public $version = '1.0';
-	
-	function __construct()
-	{		
-		$this->load->config('streams_core/streams');		
-	}
+	public $version = '0.9';
 
 	// --------------------------------------------------------------------------
 
@@ -51,9 +46,13 @@ class Module_Streams_core extends Module {
 	 */
 	public function install()
 	{
+		$config = $this->_load_config();
+		
+		if ($config === FALSE) return FALSE;
+	
 		// Go through our schema and make sure
 		// all the tables are complete.
-		foreach ($this->config->item('streams:schema') as $table_name => $schema)
+		foreach ($config['streams:schema'] as $table_name => $schema)
 		{
 			// Case where table does not exist.
 			// Add fields and keys.
@@ -88,7 +87,7 @@ class Module_Streams_core extends Module {
 					{
 						// Okay, it exists, we are just going to modify it.
 						// If the schema is the same it won't hurt it.
-						$this->CI->dbforge->modify_column($table_name, array($field_name => $field_data));
+						$this->dbforge->modify_column($table_name, array($field_name => $field_data));
 					}
 				}
 			}
@@ -110,8 +109,12 @@ class Module_Streams_core extends Module {
 	 */
 	public function uninstall()
 	{
+		$config = $this->_load_config();
+		
+		if ($config === FALSE) return FALSE;
+
 		// Go through our schema and drop each table
-		foreach ($this->config->item('streams:schema') as $table_name => $schema)
+		foreach ($config['streams:schema'] as $table_name => $schema)
 		{
 			if ( ! $this->dbforge->drop_table($table_name)) return FALSE;
 		}
@@ -126,4 +129,26 @@ class Module_Streams_core extends Module {
 		return TRUE;
 	}
 
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Manually load config that has all
+	 * of our streams table data.
+	 *
+	 * @access	private
+	 * @return	mixed - FALSE or config array
+	 */
+	private function _load_config()
+	{
+		if (defined('PYROPATH'))
+		{
+			require_once(PYROPATH.'modules/streams_core/config/streams.php');
+		}
+		elseif (defined('APPPATH'))
+		{
+			require_once(APPPATH.'modules/streams_core/config/streams.php');
+		}
+
+		return (isset($config)) ? $config : FALSE;
+	}
 }

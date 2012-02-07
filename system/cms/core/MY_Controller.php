@@ -65,6 +65,7 @@ class MY_Controller extends MX_Controller {
 			}
 		}
 
+		// What language us being used
 		defined('CURRENT_LANGUAGE') or define('CURRENT_LANGUAGE', $site_lang);
 
 		$langs = $this->config->item('supported_languages');
@@ -130,6 +131,11 @@ class MY_Controller extends MX_Controller {
 		if ( ! $this->module_details['skip_xss'])
 		{
 			$_POST = $this->security->xss_clean($_POST);
+		}
+
+		if ($this->module)
+		{
+			Asset::add_path('module', $this->module_details['path'].'/');
 		}
 
 		$this->load->vars($pyro);

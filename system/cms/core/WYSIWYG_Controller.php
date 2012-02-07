@@ -52,11 +52,11 @@ class WYSIWYG_Controller extends MY_Controller
 			->set_layout('wysiwyg', 'admin')
 			->enable_parser(FALSE)
 			->set('editor_path', config_item('asset_dir').'js/ckeditor/')
-			->append_metadata( css('wysiwyg.css', 'wysiwyg') )
-			->append_metadata( css('jquery/ui-lightness/jquery-ui.css') )
-			->append_metadata( js('jquery/jquery.min.js') )
-			->append_metadata( js('plugins.js') )
-			->append_metadata( js('jquery/jquery-ui.min.js') )
-			->append_metadata( js('wysiwyg.js', 'wysiwyg') );
+			->append_css('wysiwyg.css')
+			->append_css('jquery/ui-lightness/jquery-ui.css')
+			->append_js('jquery/jquery.min.js')
+			->append_js('plugins.js')
+			->append_js('jquery/jquery-ui.js')
+			->append_js('module::wysiwyg.js');
 	}
 }

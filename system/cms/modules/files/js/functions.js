@@ -76,7 +76,7 @@ jQuery(function($){
 		self.colorbox({
 			scrolling	: false,
 			width		:'650',
-			height		:'500',
+			height		:'535',
 			onComplete	: function(){
 
 				var form = $('form#folders_crud'),

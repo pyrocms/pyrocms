@@ -328,9 +328,9 @@ class Row_m extends MY_Model {
 				
 					// Check and see if a user is logged in
 					// and then set the param
-					if( $this->user->id ):
+					if( $this->current_user->id ):
 					
-						$restrict_user = $this->user->id;
+						$restrict_user = $this->current_user->id;
 					
 					endif;
 				

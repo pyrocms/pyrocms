@@ -48,7 +48,7 @@ class Streams extends CI_Driver_Library {
 	 * @access	protected
 	 * @var		obj
 	 */
-	public $debug = true;
+	public $debug = TRUE;
 
 	// --------------------------------------------------------------------------
 	

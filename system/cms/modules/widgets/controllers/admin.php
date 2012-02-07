@@ -39,8 +39,8 @@ class Admin extends Admin_Controller {
 		}
 
 		$this->template
-			->append_metadata(js('widgets.js', 'widgets'))
-			->append_metadata(css('widgets.css', 'widgets'));
+			->append_js('module::widgets.js')
+			->append_css('module::widgets.css');
 	}
 
 	/**
@@ -55,7 +55,7 @@ class Admin extends Admin_Controller {
 		// Get Widgets
 		$data['available_widgets'] = $this->widget_m
 			->where('enabled', 1)
-			->order_by('`order`')
+			->order_by('order')
 			->get_all();
 
 		// Get Areas
@@ -124,7 +124,7 @@ class Admin extends Admin_Controller {
 		$this->template
 			->title($this->module_details['name'])
 			->set_partial('filters', 'admin/partials/filters')
-			->append_metadata( js('admin/filter.js') )
+			->append_js('admin/filter.js')
 			->build('admin/manage', $data);
 	}
 
