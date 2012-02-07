@@ -14,11 +14,13 @@ $lang['themes.mass_delete_success']     = '%s από τα %s θέματα δια
 $lang['themes.mass_delete_error']       = 'Διαγράφηκαν μόνο %s από τα %s θέματα.';
 $lang['themes.delete_select_error']     = 'Πρέπει να επιλέξετε κάποια θέματα για να τα διαγράψετε.';
 $lang['themes.upload_title']            = 'Μεταφόρτωση θέματος';
+$lang['themes.admin_list']				= 'Λίστα θεμάτων διαχείρισης';
 $lang['themes.list_label']              = 'Λίστα θεμάτων';
 $lang['themes.upload_desc']             = 'Παρακαλώ επιλέξτε ένα αρχείο και κάντε κλικ στο κουμπί Μεταφόρτωση';
 
 $lang['themes.options']					= 'Επιλογές';
 $lang['themes.theme_label']             = 'Θέμα';
 $lang['themes.make_default']            = 'Ως προεπιλεγμένο';
+$lang['themes.version_label']			= 'Έκδοση';
 $lang['themes.default_theme_label']     = 'Προεπιλεγμένο θέμα';
 $lang['themes.no_themes_installed']     = 'Δεν υπάρχουν εγκατεστημένα θέματα.';

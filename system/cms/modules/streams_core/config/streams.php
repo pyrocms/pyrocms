@@ -59,11 +59,13 @@ $config['streams:schema'] = array(
 	        		),
 	        	'stream_namespace' => array(
 	        			'type' => 'VARCHAR',
-	        			'constraint' => 60
+	        			'constraint' => 60,
+	        			'null' => TRUE
 	        		),
 	        	'stream_prefix' => array(
 	        			'type' => 'VARCHAR',
-	        			'constraint' => 60
+	        			'constraint' => 60,
+	        			'null' => TRUE
 	        		),
     			'about' => array(
     					'type' => 'VARCHAR',
@@ -80,7 +82,7 @@ $config['streams:schema'] = array(
     				),
     			'sorting' => array(
     					'type' => 'ENUM',
-    					'constraint' => "'title', 'custom'",
+    					'constraint' => array('title', 'custom'),
     					'default' => 'title')
 	     ),
         'primary_key' => 'id'),
@@ -102,7 +104,8 @@ $config['streams:schema'] = array(
 	        		),
 	        	'field_namespace' => array(
 	        			'type' => 'VARCHAR',
-	        			'constraint' => 60
+	        			'constraint' => 60,
+	        			'null' => TRUE
 	        		),
 	        	'field_type' => array(
 	        			'type' => 'VARCHAR',
@@ -114,7 +117,7 @@ $config['streams:schema'] = array(
 	        		),
 	        	'view_options' => array(
 	        			'type' => 'BLOB',
-	        			'null' => true)
+	        			'null' => TRUE)
 	     ),
         'primary_key' => 'id'),
     $config['streams:assignments_table'] => array(
@@ -139,54 +142,23 @@ $config['streams:schema'] = array(
 	        		),
 	        	'is_required' => array(
 	        			'type' => 'ENUM',
-	        			'constraint' => "'yes', 'no'",
+	        			'constraint' => array('yes', 'no'),
 	        			'default' => 'no'
 	        		),
 	        	'is_unique' => array(
 	        			'type' => 'ENUM',
-	        			'constraint' => "'yes', 'no'",
+	        			'constraint' => array('yes', 'no'),
 	        			'default' => 'no'
 	        		),
 	        	'instructions' => array(
 	        			'type' => 'VARCHAR',
-	        			'constraint' => 255
+	        			'constraint' => 255,
+	        			'null' => TRUE
 	        		),
 	        	'field_name' => array(
 	        			'type' => 'VARCHAR',
 	        			'constraint' => 255,
 	        			'null' => TRUE
-	        		)
-	    ),
-        'primary_key' => 'id'),
-	$config['streams:searches_table'] => array(
-        'fields' => array(
-	        	'id' => array(
-	        			'type' => 'INT',
-	        			'constraint' => 11,
-	        			'unsigned' => TRUE,
-	        			'auto_increment' => TRUE
-	        		),
-	        	'search_id' => array(
-	        			'type' => 'VARCHAR',
-	        			'constraint' => 255
-	        		),
-	        	'search_term' => array(
-	        			'type' => 'TEXT'
-	        		),
-	        	'ip_address' => array(
-	        			'type' => 'VARCHAR',
-	        			'constraint' => 100
-	        		),
-	        	'total_results' => array(
-	        			'type' => 'INT',
-	        			'constraint' => 11
-	        		),
-	        	'query_string' => array(
-	        			'type' => 'LONGTEXT'
-	        		),
-	        	'stream_slug' => array(
-	        			'type' => 'VARCHAR',
-	        			'constraint' => 255
 	        		)
 	    ),
         'primary_key' => 'id')

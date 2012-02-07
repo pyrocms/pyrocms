@@ -118,7 +118,7 @@ class Plugin_Theme extends Plugin
 	{
 		$file = $this->attribute('file');
 		
-		return BASE_URI.Asset::get_filepath_css($file, false);
+		return Asset::get_filepath_css($file, false);
 	}
 
 	/**
