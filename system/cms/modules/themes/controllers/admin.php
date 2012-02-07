@@ -107,7 +107,7 @@ class Admin extends Admin_Controller
 		if ($all_options)
 		{
 			// Create dynamic validation rules
-			foreach($all_options as $option)
+			foreach ($all_options as $option)
 			{
 				$this->validation_rules[] = array(
 					'field' => $option->slug . (in_array($option->type, array('select-multiple', 'checkbox')) ? '[]' : ''),
@@ -125,7 +125,7 @@ class Admin extends Admin_Controller
 			if ($this->form_validation->run())
 			{
 				// Loop through again now we know it worked
-				foreach($options_array as $option_slug => $stored_value)
+				foreach ($options_array as $option_slug => $stored_value)
 				{
 					$input_value = $this->input->post($option_slug, FALSE);
 	
@@ -216,7 +216,7 @@ class Admin extends Admin_Controller
 			show_error('Uploading add-ons has been disabled for this site. Please contact your administrator');
 		}
 
-		if($this->input->post('btnAction') == 'upload')
+		if ($this->input->post('btnAction') == 'upload')
 		{
 			$config['upload_path'] 		= FCPATH.UPLOAD_PATH;
 			$config['allowed_types'] 	= 'zip';
