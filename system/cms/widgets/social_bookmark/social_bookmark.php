@@ -1,11 +1,10 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
- * @package 		PyroCMS
- * @subpackage 		Widgets
- * @author			PyroCMS Development Team
- *
  * Show RSS feeds in your site
+ * 
+ * @author		PyroCMS Dev Team
+ * @package		PyroCMS\Core\Widgets
  */
 
 class Widget_Social_bookmark extends Widgets

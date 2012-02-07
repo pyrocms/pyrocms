@@ -3,10 +3,9 @@
 /**
  * Shared logic and data for all CMS controllers
  *
- * @package		PyroCMS
- * @subpackage	Libraries
- * @category	Controller
  * @author		Phil Sturgeon
+ * @author		PyroCMS Dev Team
+ * @package		PyroCMS\Core\Controllers
  */
 class WYSIWYG_Controller extends MY_Controller
 {

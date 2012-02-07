@@ -1,13 +1,12 @@
 <?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 /**
-* PyroCMS Theme Helpers
-*
-* @package		PyroCMS
-* @subpackage	Helpers
-* @category		Helpers
-* @author       Jerel Unruh - PyroCMS Dev Team
-*/
+ * PyroCMS Theme Helpers
+ *
+ * @author		Jerel Unruh
+ * @author		PyroCMS Dev Team
+ * @package		PyroCMS\Core\Modules\Theme\Helpers
+ */
 
 // ------------------------------------------------------------------------
 

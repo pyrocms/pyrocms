@@ -3,10 +3,8 @@
 /**
  * Admin controller for adding and managing widget areas.
  *
- * @package 		PyroCMS
- * @subpackage 		Modules
- * @category		Widgets
- * @author			PyroCMS Development Team
+ * @author		PyroCMS Dev Team
+ * @package 	PyroCMS\Core\Modules\Widgets\Controllers
  *
  */
 class Admin_areas extends Admin_Controller {

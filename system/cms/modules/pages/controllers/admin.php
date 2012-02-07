@@ -2,10 +2,8 @@
 /**
  * Pages controller
  *
- * @author	PyroCMS Dev Team
- * @package 	PyroCMS
- * @subpackage 	Pages module
- * @category	Modules
+ * @author 		PyroCMS Dev Team
+ * @package 	PyroCMS\Core\Modules\Pages\Controllers
  */
 class Admin extends Admin_Controller {
 

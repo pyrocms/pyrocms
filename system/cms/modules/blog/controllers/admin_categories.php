@@ -1,10 +1,8 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 /**
  *
- * @package  	PyroCMS
- * @subpackage  Categories
- * @category  	Module
- * @author  	PyroCMS Dev Team
+ * @author		PyroCMS Dev Team
+ * @package 	PyroCMS\Core\Modules\Blog\Controllers
  */
 class Admin_Categories extends Admin_Controller {
 

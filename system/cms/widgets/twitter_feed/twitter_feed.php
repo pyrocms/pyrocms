@@ -1,11 +1,11 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
- * @package 		PyroCMS
- * @subpackage 		Twitter Feed Widget
- * @author			Phil Sturgeon - PyroCMS Development Team
- *
  * Show Twitter streams in your site
+ * 
+ * @author		Phil Sturgeon
+ * @author		PyroCMS Dev Team
+ * @package		PyroCMS\Core\Widgets
  */
 class Widget_Twitter_feed extends Widgets {
 

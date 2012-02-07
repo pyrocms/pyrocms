@@ -4,10 +4,8 @@
  *
  * Create and store dynamic email templates in the database
  *
- * @package		PyroCMS
- * @subpackage	Templates Module
- * @category	Module
  * @author		PyroCMS Dev Team
+ * @package		PyroCMS\Core\Modules\Templates
  */
 class Module_Templates extends Module {
 

@@ -4,10 +4,8 @@
  *
  * @author 		Philip Sturgeon
  * @modified	Dan Horrigan
- * @package 	PyroCMS
- * @subpackage 	Modules module
- * @category 	Modules
- * @version 	1.0
+ * @author		PyroCMS Dev Team
+ * @package		PyroCMS\Core\Modules\Modules\Helpers
  */
 
 /**

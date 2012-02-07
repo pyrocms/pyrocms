@@ -2,11 +2,9 @@
 
 /**
  * Admin controller for the widgets module.
- *
- * @package 		PyroCMS
- * @subpackage 		Modules
- * @category		Widgets
- * @author			PyroCMS Development Team
+ * 
+ * @author 		PyroCMS Dev Team
+ * @package 	PyroCMS\Core\Modules\Widgets\Controllers
  *
  */
 class Admin extends Admin_Controller {
