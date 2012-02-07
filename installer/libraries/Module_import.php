@@ -150,6 +150,9 @@ class Module_import {
 		$is_core = TRUE;
 		foreach (array(PYROPATH, ADDONPATH, SHARED_ADDONPATH) as $directory)
 		{
+			// some servers return false instead of an empty array
+			if ( ! $directory) continue;
+
 			// Loop through modules
 			if ($modules = glob($directory.'modules/*', GLOB_ONLYDIR))
 			{

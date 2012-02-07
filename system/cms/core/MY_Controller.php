@@ -65,6 +65,7 @@ class MY_Controller extends MX_Controller {
 			}
 		}
 
+		// What language us being used
 		defined('CURRENT_LANGUAGE') or define('CURRENT_LANGUAGE', $site_lang);
 
 		$langs = $this->config->item('supported_languages');
