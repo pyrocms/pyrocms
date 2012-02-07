@@ -24,7 +24,29 @@ class Widget_Archive extends Widgets
 	);
 	public $author		= 'Phil Sturgeon';
 	public $website		= 'http://philsturgeon.co.uk/';
-	public $version		= '1.0';
+	public $version		= '1.1';
+	
+		public $fields = array(
+			array(
+				'field' => 'display_by',
+				'label' => 'Display By',
+				)
+			);
+	
+	/*
+	 *	Set Option Defaults and Return
+	 */
+	public function form($options)
+	{		
+		$options['display_by'] = array(
+				'month'	=> 'Month',
+				'year'	=> 'Year',
+			);
+		
+		return array(
+			'options' => $options
+		);
+	}
 	
 	public function run($options)
 	{
@@ -32,7 +54,9 @@ class Widget_Archive extends Widgets
 		$this->lang->load('blog/blog');
 
 		return array(
-			'archive_months' => $this->blog_m->get_archive_months()
+			'display_by'	 => $options['display_by'],
+			'archive_months' => $this->blog_m->get_archive_months(),
+			'archive_years'  => $this->blog_m->get_archive_years()
 		);
 	}	
 }
