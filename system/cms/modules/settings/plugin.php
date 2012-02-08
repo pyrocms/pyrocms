@@ -3,11 +3,9 @@
  * Settings Plugin
  *
  * Allows settings to be used in content tags.
- *
- * @package		PyroCMS
+ * 
  * @author		PyroCMS Dev Team
- * @copyright	Copyright (c) 2008 - 2011, PyroCMS
- *
+ * @package		PyroCMS\Core\Modules\Settings\Plugins
  */
 class Plugin_Settings extends Plugin
 {

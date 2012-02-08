@@ -1,5 +1,10 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
-
+/**
+ * Redirects module
+ *
+ * @author 		PyroCMS Dev Team
+ * @package 	PyroCMS\Core\Modules\Redirects 
+ */
 class Module_Redirects extends Module {
 
 	public $version = '1.0';

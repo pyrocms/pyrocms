@@ -3,8 +3,9 @@
 /**
  * REST_controller V 2.5.x
  *
+ * @author Phil Sturgeon
+ * @package PyroCMS\Core\Controllers
  * @see https://github.com/philsturgeon/codeigniter-restserver
- *
  */
 
 class REST_Controller extends MY_Controller {

@@ -1,11 +1,11 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
- * @package 		PyroCMS
- * @subpackage 		RSS Feed Widget
- * @author			Phil Sturgeon - PyroCMS Development Team
- *
  * Show RSS feeds in your site
+ * 
+ * @author		Phil Sturgeon
+ * @author		PyroCMS Dev Team
+ * @package		PyroCMS\Core\Widgets
  */
 class Widget_Rss_feed extends Widgets {
 

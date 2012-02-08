@@ -3,9 +3,7 @@
  * Maintain a central list of keywords to label and organize your content.
  *
  * @author PyroCMS Dev Team
- * @package PyroCMS
- * @subpackage Groups Module
- * @category Modules
+ * @package PyroCMS\Core\Modules\Keywords\Controllers
  *
  */
 class Admin extends Admin_Controller

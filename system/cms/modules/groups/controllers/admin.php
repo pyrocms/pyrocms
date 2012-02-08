@@ -2,10 +2,9 @@
 /**
  * Roles controller for the groups module
  *
- * @author Phil Sturgeon - PyroCMS Dev Team
- * @package PyroCMS
- * @subpackage Groups Module
- * @category Modules
+ * @author		Phil Sturgeon
+ * @author		PyroCMS Dev Team
+ * @package 	PyroCMS\Core\Modules\Groups\Controllers
  *
  */
 class Admin extends Admin_Controller

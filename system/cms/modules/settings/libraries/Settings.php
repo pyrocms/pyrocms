@@ -1,25 +1,12 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 /**
- * PyroCMS
- *
- * An open source CMS based on CodeIgniter
- *
- * @package		PyroCMS
- * @author		PyroCMS Dev Team
- * @license		http://pyrocms.com/legal/license
- * @link		http://pyrocms.com
- * @since		Version 1.0-dev
- * @filesource
- */
-
-/**
  * PyroCMS Settings Library
  *
  * Allows for an easy interface for site settings
  *
  * @author		Dan Horrigan <dan@dhorrigan.com>
- * @package		PyroCMS
- * @subpackage	Settings
+ * @author		PyroCMS Dev Team
+ * @package		PyroCMS\Core\Modules\Settings\Libraries
  */
 class Settings {
 

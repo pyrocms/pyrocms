@@ -1,5 +1,10 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
+/**
+ * API module
+ * 
+ * @package PyroCMS\Core\Modules\API
+ */
 class Module_Api extends Module
 {
 	public $version = '1.0.0';

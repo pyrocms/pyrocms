@@ -1,28 +1,20 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
-
-/**
- * PyroStreams API Library
- *
- * @package  	Streams API
- * @category  	Libraries
- * @author  	Parse19
- */
-
-// --------------------------------------------------------------------------
- 
 /**
  * Streams Utilities Driver
  *
- * Functions to help out with common
- * utility tasks.
- *
- * @package  	Streams API
- * @category  	Drivers
+ * Functions to help out with common utility tasks.
+ * 
  * @author  	Parse19
+ * @package  	PyroCMS\Core\Libraries\Streams\Drivers
  */ 
  
 class Streams_utilities extends CI_Driver {
 
+	/**
+	 * The CodeIgniter instance
+	 *
+	 * @var object 
+	 */
 	private $CI;
 
 	/**

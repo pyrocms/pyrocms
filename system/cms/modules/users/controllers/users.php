@@ -3,10 +3,9 @@
 /**
  * User controller for the users module (frontend)
  *
- * @author 		Phil Sturgeon - PyroCMS Dev Team
- * @package 	PyroCMS
- * @subpackage 	Users module
- * @category	Modules
+ * @author 		Phil Sturgeon
+ * @author		PyroCMS Dev Team
+ * @package		PyroCMS\Core\Modules\Users\Controllers
  */
 class Users extends Public_Controller
 {

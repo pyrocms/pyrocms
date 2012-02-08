@@ -1,12 +1,10 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * Navigation model for the navigation module.
- *
- * @package 		PyroCMS
- * @subpackage 		Navigation Module
- * @category		Modules
- * @author			Phil Sturgeon - PyroCMS Development Team
- *
+ * 
+ * @author		Phil Sturgeon
+ * @author		PyroCMS Dev Team
+ * @package		PyroCMS\Core\Modules\Navigation\Models
  */
 class Navigation_m extends MY_Model
 {

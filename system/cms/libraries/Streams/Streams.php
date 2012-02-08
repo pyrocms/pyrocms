@@ -3,9 +3,8 @@
 /**
  * PyroStreams API Library
  *
- * @package  	Streams API
- * @category  	Models
  * @author  	Parse19
+ * @package  	PyroCMS\Core\Libraries\Streams
  */ 
 class Streams extends CI_Driver_Library {
 
@@ -90,9 +89,9 @@ class Streams extends CI_Driver_Library {
 	 * If you are using the stream slug, you
 	 * need to provide the namespace. 
 	 *
-	 * @access	public
-	 * @param	mixed - obj, int, or string
-	 * @return	mixed - null or int
+	 * @param	obj|int|string $stream
+	 * @param	obj|int|string $namespace
+	 * @return	null|int
 	 */
 	public function stream_id($stream, $namespace = NULL)
 	{
@@ -117,9 +116,9 @@ class Streams extends CI_Driver_Library {
 	 * Get a stream object from any number of
 	 * stream inputs (object, id, or slug)
 	 *
-	 * @access	public
-	 * @param	mixed - obj, int, or string
-	 * @return	mixed - null or int
+	 * @param	obj|int|string $stream
+	 * @param	obj|int|string $namespace
+	 * @return	null|int
 	 */
 	public function stream_obj($stream, $namespace = NULL)
 	{
@@ -141,8 +140,8 @@ class Streams extends CI_Driver_Library {
 	 * Show an error message based on the
 	 * debug level.
 	 *
-	 * @access	public
-	 * @param	string - error message
+	 * @param	string $lang_code error message
+	 * @param	function $function 
 	 * @return	void
 	 */
 	public function log_error($lang_code, $function)

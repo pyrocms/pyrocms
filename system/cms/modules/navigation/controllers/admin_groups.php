@@ -2,10 +2,8 @@
 /**
  * Admin_groups controller
  *
- * @author 		PyroCMS Dev Team
- * @package 	PyroCMS
- * @subpackage 	Navigation module
- * @category 	Modules
+ * @author		PyroCMS Dev Team
+ * @package 	PyroCMS\Core\Modules\Navigation\Controllers
  */
 class Admin_groups extends Admin_Controller {
 	

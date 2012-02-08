@@ -1,10 +1,8 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  *
- * @author 		PyroCMS Dev Team
- * @package 	PyroCMS
- * @subpackage 	Contact
- * @category 	Module
+ * @author		PyroCMS Dev Team
+ * @package		PyroCMS\Core\Modules\Contact\Models
  */
 class Contact_m extends MY_Model {
 	

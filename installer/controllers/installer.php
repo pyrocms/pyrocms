@@ -1,12 +1,10 @@
 <?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
 /**
- * @author 		Yorick Peterse - PyroCMS development team
- * @package		PyroCMS
- * @subpackage	Installer
- * @category	Application
- * @since 		v0.9.6.2
- *
  * Installer controller.
+ * 
+ * @author 		Yorick Peterse
+ * @author		PyroCMS Dev Team
+ * @package		PyroCMS\Installer\Controllers
  */
 class Installer extends CI_Controller
 {

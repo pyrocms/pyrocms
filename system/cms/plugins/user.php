@@ -4,10 +4,8 @@
  *
  * Run checks on a users status
  *
- * @package		PyroCMS
  * @author		PyroCMS Dev Team
- * @copyright	Copyright (c) 2008 - 2011, PyroCMS
- *
+ * @package		PyroCMS\Core\Plugins
  */
 class Plugin_User extends Plugin
 {
