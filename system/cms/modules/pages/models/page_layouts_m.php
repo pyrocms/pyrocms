@@ -2,11 +2,8 @@
 /**
  * Page layout model
  *
- * @author PyroCMS Dev Team
- * @package PyroCMS
- * @subpackage Pages
- * @category Module
- *
+ * @author		PyroCMS Dev Team
+ * @package		PyroCMS\Core\Modules\Pages\Models
  */
 class Page_layouts_m extends MY_Model
 {

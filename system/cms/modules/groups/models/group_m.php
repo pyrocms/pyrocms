@@ -2,10 +2,9 @@
 /**
  * Group model
  *
- * @author Phil Sturgeon - PyroCMS Dev Team
- * @package PyroCMS
- * @subpackage Groups module
- * @category Modules
+ * @author		Phil Sturgeon
+ * @author		PyroCMS Dev Team
+ * @package		PyroCMS\Core\Modules\Groups\Models
  *
  */
 class Group_m extends MY_Model

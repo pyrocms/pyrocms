@@ -4,9 +4,7 @@
  * Admin controller for the settings module
  *
  * @author 		PyroCMS Dev Team
- * @package 	PyroCMS
- * @subpackage 	Settings
- * @category	Modules
+ * @package 	PyroCMS\Core\Modules\Settings\Controllers
  */
 class Admin extends Admin_Controller {
 

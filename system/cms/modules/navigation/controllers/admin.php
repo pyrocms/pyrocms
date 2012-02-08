@@ -2,10 +2,8 @@
 /**
  * Admin controller for the navigation module. Handles actions such as editing links or creating new ones.
  *
- * @package 		PyroCMS
- * @subpackage 		Navigation module
- * @category		Modules
- * @author			PyroCMS Development Team
+ * @author		PyroCMS Development Team
+ * @package 	PyroCMS\Core\Modules\Navigation\Controllers
  *
  */
 class Admin extends Admin_Controller {

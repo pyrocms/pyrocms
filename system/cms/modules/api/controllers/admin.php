@@ -2,11 +2,9 @@
 
 /**
  * Admin controller for the api module
- *
+ * 
  * @author 		PyroCMS Dev Team
- * @package 	PyroCMS
- * @subpackage 	Api
- * @category	Modules
+ * @package 	PyroCMS\Core\Modules\API\Controllers
  */
 class Admin extends Admin_Controller
 {

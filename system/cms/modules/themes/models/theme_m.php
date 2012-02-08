@@ -2,10 +2,8 @@
 /**
  * Theme model
  *
- * @author          PyroCMS Development Team
- * @package         PyroCMS
- * @subpackage      Themes
- * @category        Model
+ * @author		PyroCMS Dev Team
+ * @package  	PyroCMS\Core\Modules\Themes\Model
  */
 class Theme_m extends MY_Model
 {

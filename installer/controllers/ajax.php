@@ -1,13 +1,11 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
- * @author 		Zack Kitzmiller - PyroCMS development team
- * @package		PyroCMS
- * @subpackage	Installer
- * @category	Application
- * @since 		v0.9.9.2
- *
  * Installer's Ajax controller.
+ * 
+ * @author 		Zack Kitzmiller
+ * @author		PyroCMS Dev Team
+ * @package		PyroCMS\Installer\Controllers
  */
 class Ajax extends CI_Controller {
 

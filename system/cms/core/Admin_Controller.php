@@ -1,11 +1,25 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-// Code here is run before admin controllers
+/**
+ * This is the basis for the Admin class that is used throughout PyroCMS.
+ * 
+ * Code here is run before admin controllers
+ * 
+ * @package PyroCMS\Core\Controllers
+ */
 class Admin_Controller extends MY_Controller {
 
-	// Admin controllers can have sections, normally an arbitrary string
+	/**
+	 * Admin controllers can have sections, normally an arbitrary string
+	 *
+	 * @var string 
+	 */
 	protected $section = NULL;
 
+	/**
+	 * Load language, check flashdata, define https, load and setup the data 
+	 * for the admin theme
+	 */
 	public function __construct()
 	{
 		parent::__construct();
@@ -62,6 +76,11 @@ class Admin_Controller extends MY_Controller {
 		call_user_func(array(new $class, 'run'));
 	}
 
+	/**
+	 * Checks to see if a user object has access rights to the admin area.
+	 *
+	 * @return boolean 
+	 */
 	private function _check_access()
 	{
 		// These pages get past permission checks

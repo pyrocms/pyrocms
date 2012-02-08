@@ -1,12 +1,9 @@
 <?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
 /**
- * @author 		Phil Sturgeon - PyroCMS development team
+ * @author 		Phil Sturgeon
  * @author 		Victor Michnowicz
- * @package 	PyroCMS
- * @subpackage 	Installer
- *
- * @since 		v0.9.8
- *
+ * @author		PyroCMS Dev Team
+ * @package 	PyroCMS\Installer\Libraries
  */
 class Installer_lib {
 

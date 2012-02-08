@@ -1,10 +1,9 @@
 <?php  defined('BASEPATH') OR exit('No direct script access allowed');
 /**
- * @package 		PyroCMS
- * @subpackage 		WYSIWYG
- * @author			PyroCMS Dev Team
- *
  * Manages file uploads from wysiwyg plugins
+ * 
+ * @author		PyroCMS Dev Team
+ * @package		PyroCMS\Core\Modules\WYSIWYG\Controllers
  */
 class Upload extends WYSIWYG_Controller
 {

@@ -4,10 +4,8 @@
  *
  * Allows tags to be used in content items.
  *
- * @package		PyroCMS
  * @author		PyroCMS Dev Team
- * @copyright	Copyright (c) 2008 - 2011, PyroCMS
- *
+ * @package		PyroCMS\Core\Modules\Variables\Plugins
  */
 class Plugin_Variables extends Plugin
 {	

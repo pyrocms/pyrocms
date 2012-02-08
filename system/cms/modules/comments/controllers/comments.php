@@ -3,10 +3,9 @@
 /**
  * Comments controller (frontend)
  *
- * @author 		Phil Sturgeon, Yorick Peterse - PyroCMS Dev Team
- * @package 	PyroCMS
- * @subpackage 	Comments module
- * @category 	Modules
+ * @author 		Phil Sturgeon
+ * @author		PyroCMS Dev Team
+ * @package		PyroCMS\Core\Modules\Comments\Controllers
  */
 class Comments extends Public_Controller {
 

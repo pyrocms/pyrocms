@@ -2,8 +2,16 @@
 
 require APPPATH."libraries/MX/Loader.php";
 
+/**
+ * This is the loader class used throughout PyroCMS.
+ * 
+ * @package PyroCMS\Core\Libraries
+ */
 class MY_Loader extends MX_Loader {
 	
+	/**
+	 * Make it possible to get spark packages. 
+	 */
 	public function __construct()
 	{
 		if ( ! defined('SPARKPATH'))
@@ -17,9 +25,10 @@ class MY_Loader extends MX_Loader {
 	}
 
 	/**
-	 * Since _ci_view_paths is protected we use
-	 * this setter to allow things like plugins to
-	 * set a view location
+	 * Since parent::_ci_view_paths is protected we use this setter to allow 
+	 * things like plugins to set a view location.
+	 *
+	 * @param string $path 
 	 */
 	public function set_view_path($path)
 	{
@@ -36,41 +45,32 @@ class MY_Loader extends MX_Loader {
 	}
 	
 	/**
-	 * Since _ci_view_paths is protected we use
-	 * this to retrieve them.
+	 * Since parent::_ci_view_paths is protected we use this to retrieve them.
+	 *
+	 * @return array 
 	 */
 	public function get_view_paths()
 	{
 		// return the full array of paths
 		return $this->_ci_view_paths;
 	}
-	
-	/**
-	 * Sparks
-	 *
-	 * An open source application development framework for PHP 5.1.6 or newer
-	 *
-	 * @package		CodeIgniter
-	 * @author		CodeIgniter Reactor Dev Team
-	 * @author      Kenny Katzgrau <katzgrau@gmail.com>
-	 * @since		CodeIgniter Version 1.0
-	 * @filesource
-	 */
 
     /**
      * Keep track of which sparks are loaded. This will come in handy for being
      *  speedy about loading files later.
      *
      * @var array
+	 * @author      Kenny Katzgrau <katzgrau@gmail.com>
      */
     var $_ci_loaded_sparks = array();
 
-    /**
-     * To accomodate CI 2.1.0, we override the initialize() method instead of
-     *  the ci_autoloader() method. Once sparks is integrated into CI, we
-     *  can avoid the awkward version-specific logic.
-     * @return Loader
-     */
+	/**
+     * To accomodate CI 2.1.0, we override the initialize() method instead of 
+	 * the ci_autoloader() method. Once sparks is integrated into CI, we can 
+	 * avoid the awkward version-specific logic.
+	 *
+	 * @return \MY_Loader 
+	 */
     function initialize()
     {
         parent::initialize();
@@ -82,14 +82,16 @@ class MY_Loader extends MX_Loader {
 
     /**
      * Load a spark by it's path within the sparks directory defined by
-     *  SPARKPATH, such as 'markdown/1.0'
+	 *  SPARKPATH, such as 'markdown/1.0'
+	 * 
+	 * @author Kenny Katzgrau <katzgrau@gmail.com>
      * @param string $spark The spark path withint he sparks directory
-     * @param <type> $autoload An optional array of items to autoload
-     *  in the format of:
-     *   array (
-     *     'helper' => array('somehelper')
-     *   )
-     * @return <type>
+     * @param array $autoload An optional array of items to autoload in the
+	 *						  format of:
+	 *							array (
+	 *							  'helper' => array('somehelper')
+	 *							)
+     * @return boolean
      */
 	public function spark($spark, $autoload = array())
     {
