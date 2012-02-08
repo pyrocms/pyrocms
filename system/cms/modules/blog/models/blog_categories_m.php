@@ -4,7 +4,7 @@
  * 
  * @author		Phil Sturgeon
  * @author		PyroCMS Dev Team
- * @package		PyroCMS\Core\Core\Modules\Blog\Models
+ * @package		PyroCMS\Core\Modules\Blog\Models
  */
 class Blog_categories_m extends MY_Model
 {

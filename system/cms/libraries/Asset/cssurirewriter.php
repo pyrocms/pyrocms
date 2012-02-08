@@ -3,17 +3,11 @@
 /**
  * Rewrite file-relative URIs as root-relative in CSS files
  *
- * @package Minify
- * @author Stephen Clay <steve@mrclay.org>
- */
-/**
- * This library is used as part of Casset.
- *
- * @package    Casset
+ * @author 	   Stephen Clay <steve@mrclay.org>
  * @version    v1.11
  * @author     Antony Male
  * @license    MIT License
- * @link       http://github.com/canton7/fuelphp-casset
+ * @package    PyroCMS\Core\Libraries\Asset
  */
 
 class Asset_Cssurirewriter {
