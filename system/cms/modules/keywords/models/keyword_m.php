@@ -2,11 +2,8 @@
 /**
  * Keyword model
  *
- * @author PyroCMS Dev Team
- * @package PyroCMS
- * @subpackage Modules
- * @category Keywords
- *
+ * @author		PyroCMS Dev Team
+ * @package		PyroCMS\Core\Modules\Keywords\Models
  */
 class Keyword_m extends MY_Model {
 	

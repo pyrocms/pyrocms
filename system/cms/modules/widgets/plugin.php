@@ -2,12 +2,10 @@
 /**
  * Widgets Plugin
  *
- * Load widget instances and asrea
+ * Load widget instances and area
  *
- * @package		PyroCMS
  * @author		PyroCMS Dev Team
- * @copyright	Copyright (c) 2008 - 2011, PyroCMS
- *
+ * @package		PyroCMS\Core\Modules\Widgets\Plugins
  */
 class Plugin_Widgets extends Plugin
 {

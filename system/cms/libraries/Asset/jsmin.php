@@ -48,14 +48,10 @@
  * @copyright 2008 Ryan Grove <ryan@wonko.com> (PHP port)
  * @license http://opensource.org/licenses/mit-license.php MIT License
  * @link http://code.google.com/p/jsmin-php/
- */
-/**
- * This library is used as part of Casset.
- * @package    Casset
  * @version    v1.11
  * @author     Antony Male
  * @license    MIT License
- * @link       http://github.com/canton7/fuelphp-casset
+ * @package    PyroCMS\Core\Libraries\Asset
  */
 
 class Asset_JSMin {

@@ -1,11 +1,11 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
- * @package 		PyroCMS
- * @subpackage 		Widget module
- * @author			Phil Sturgeon - PyroCMS Development Team
- *
  * Widget library takes care of the logic for widgets
+ * 
+ * @author		Phil Sturgeon
+ * @author		PyroCMS Dev Team
+ * @package		PyroCMS\Core\Modules\Widgets\Libraries
  */
 class Widgets {
 

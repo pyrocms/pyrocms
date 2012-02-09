@@ -1,8 +1,9 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
+ * The admin class is basically the main controller for the backend.
+ * 
  * @author 		PyroCMS Development Team
- * @package 	PyroCMS
- * @subpackage 	Controllers
+ * @package 	PyroCMS\Core\Controllers
  */
 class Admin extends Admin_Controller
 {

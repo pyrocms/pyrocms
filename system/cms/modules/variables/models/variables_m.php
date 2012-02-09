@@ -3,9 +3,7 @@
  * Variables model
  *
  * @author		PyroCMS Dev Team
- * @package		PyroCMS
- * @subpackage	Variables module
- * @category	Modules
+ * @package  	PyroCMS\Core\Modules\Variables\Models
  */
 
 class Variables_m extends MY_Model

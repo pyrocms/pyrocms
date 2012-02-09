@@ -1,11 +1,9 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * Navigation Plugin
- *
- * @package		PyroCMS
+ * 
  * @author		PyroCMS Dev Team
- * @copyright	Copyright (c) 2008 - 2011, PyroCMS
- *
+ * @package		PyroCMS\Core\Modules\Navigation\Plugins
  */
 class Plugin_Navigation extends Plugin
 {

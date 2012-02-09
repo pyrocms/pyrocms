@@ -1,12 +1,11 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
- * @package 		PyroCMS
- * @subpackage 		Google Maps Widget
- * @author			Gregory Athons
- * @modified		-
- *
  * Show a Google Map in your site
+ * 
+ * @author		Gregory Athons
+ * @author		PyroCMS Dev Team
+ * @package		PyroCMS\Core\Widgets
  */
 
 class Widget_Google_maps extends Widgets

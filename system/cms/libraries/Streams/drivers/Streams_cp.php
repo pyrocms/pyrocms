@@ -1,15 +1,4 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
-
-/**
- * PyroStreams API Library
- *
- * @package  	Streams API
- * @category  	Libraries
- * @author  	Parse19
- */
-
-// --------------------------------------------------------------------------
- 
 /**
  * Control Panel Driver
  *
@@ -17,9 +6,8 @@
  * constructing PyrCMS stream control
  * panel elements.
  *
- * @package  	Streams API
- * @category  	Drivers
  * @author  	Parse19
+ * @package  	PyroCMS\Core\Libraries\Streams\Drivers
  */ 
  
 class Streams_cp extends CI_Driver {

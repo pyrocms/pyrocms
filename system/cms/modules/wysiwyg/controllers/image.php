@@ -1,11 +1,10 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
- * @package 		PyroCMS
- * @subpackage 		WYSIWYG
- * @author			PyroCMS Dev Team
- *
  * Manages image selection and insertion for WYSIWYG editors
+ *
+ * @author		PyroCMS Dev Team
+ * @package		PyroCMS\Core\Modules\WYSIWYG\Controllers
  */
 class Image extends WYSIWYG_Controller {
 

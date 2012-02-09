@@ -3,10 +3,8 @@
 /**
  * Admin controller for the users module
  *
- * @author 		Phil Sturgeon - PyroCMS Dev Team
- * @package 	PyroCMS
- * @subpackage 	Users module
- * @category	Modules
+ * @author 		PyroCMS Dev Team
+ * @package 	PyroCMS\Core\Modules\Users\Controllers
  */
 class Admin extends Admin_Controller {
 

@@ -12,15 +12,10 @@
  *
  * @author Stephen Clay <steve@mrclay.org>
  * @author http://code.google.com/u/1stvamp/ (Issue 64 patch)
- */
-/**
- * This library is used as part of Casset.
- *
- * @package    Casset
  * @version    v1.11
  * @author     Antony Male
  * @license    MIT License
- * @link       http://github.com/canton7/fuelphp-casset
+ * @package    PyroCMS\Core\Libraries\Asset
  */
 
 class Asset_Csscompressor {

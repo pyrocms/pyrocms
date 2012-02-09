@@ -5,9 +5,7 @@
  * This is an example of a few basic user interaction methods you could use
  * all done with a hardcoded array.
  *
- * @package		CodeIgniter
- * @subpackage	Rest Server
- * @category	Controller
+ * @package		PyroCMS\Core\Modules\Pages\Controllers
 */
 
 class Api extends API_Controller
