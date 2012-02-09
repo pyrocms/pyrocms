@@ -45,6 +45,7 @@ $lang['success_label'] 					= 'Επιτυχία';
 
 $lang['login_title'] 					= 'Σύνδεση';
 $lang['cms_fatal_error'] 				= 'Σφάλμα, το CMS είναι εγκατεστημένο;';
+$lang['global:demo_restrictions']       = 'Some features on this page have been disabled for the demo.'; #translate
 
 $lang['login_error_label'] 				= 'Σφάλμα σύνδεσης';
 $lang['forgot_password_label'] 			= 'Ξεχάσατε το συνθηματικό σας;';

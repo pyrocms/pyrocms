@@ -451,6 +451,8 @@ class Users extends Public_Controller
 	 */
 	public function reset_complete()
 	{
+		PYRO_DEMO and show_error(lang('global:demo_restrictions'));
+		
 		//if user is logged in they don't need to be here. and should use profile options
 		if ($this->current_user)
 		{
@@ -577,6 +579,8 @@ class Users extends Public_Controller
 		// Settings valid?
 		if ($this->form_validation->run())
 		{
+			PYRO_DEMO and show_error(lang('global:demo_restrictions'));
+			
 			// Loop through each POST item and add it to the secure_post array
 			$secure_post = $this->input->post();
 

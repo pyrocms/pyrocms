@@ -128,6 +128,12 @@ class Admin extends Admin_Controller {
 	 */
 	public function action()
 	{
+		if (PYRO_DEMO)
+		{
+		    $this->session->set_flashdata('notice', lang('global:demo_restrictions'));
+		    redirect('admin/users');
+		}
+		
 		// Determine the type of action
 		switch ($this->input->post('btnAction'))
 		{
@@ -249,6 +255,12 @@ class Admin extends Admin_Controller {
 		$this->form_validation->set_rules($this->validation_rules);
 		if ($this->form_validation->run() === TRUE)
 		{
+			if (PYRO_DEMO)
+			{
+			    $this->session->set_flashdata('notice', lang('global:demo_restrictions'));
+			    redirect('admin/users');
+			}
+			
 			// Get the POST data
 			$update_data['first_name'] = $this->input->post('first_name');
 			$update_data['last_name'] = $this->input->post('last_name');
@@ -355,6 +367,12 @@ class Admin extends Admin_Controller {
 	 */
 	public function delete($id = 0)
 	{
+		if (PYRO_DEMO)
+		{
+		    $this->session->set_flashdata('notice', lang('global:demo_restrictions'));
+		    redirect('admin/users');
+		}
+		
 		$ids = ($id > 0) ? array($id) : $this->input->post('action_to');
 
 		if (!empty($ids))

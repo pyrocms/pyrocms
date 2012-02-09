@@ -44,6 +44,7 @@ $lang['success_label'] 					= '成功'; 			//'Success';
 
 $lang['login_title'] 					= '登入'; 			//'Log In';
 $lang['cms_fatal_error'] 				= '嚴重錯誤，CMS安裝了嗎？'; //'Fatal error, is CMS installed?';
+$lang['global:demo_restrictions']       = 'Some features on this page have been disabled for the demo.'; #translate
 
 $lang['login_error_label'] 				= '登入錯誤'; 		//'Login Error';
 $lang['forgot_password_label'] 			= '忘記密碼'; 		//'Forgot your password ?';
