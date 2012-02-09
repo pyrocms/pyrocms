@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <docblox>
+	<title>PyroCMS v2.0.x API</title>
     <parser>
         <default-package-name>No Package</default-package-name>
         <target>../docs.pyrocms.com/2.0/api/</target>
