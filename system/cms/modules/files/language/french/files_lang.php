@@ -79,7 +79,7 @@ $lang['file_folders.slug_label']			= 'URL';
 $lang['file_folders.created_label']			= 'Créé le';
 
 // Messages
-$lang['file_folders.create_success']		= 'Le dossier a été enregistrer.';
+$lang['file_folders.create_success']		= 'Le dossier a été enregistré.';
 $lang['file_folders.create_error']			= 'Une erreur est survenue lors de la création du répertoire.';
 $lang['file_folders.duplicate_error']		= 'Un répertoire nommé "%s" existe déjà.';
 $lang['file_folders.edit_success']			= 'Le répertoire à été sauvegardé.';
