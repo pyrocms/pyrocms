@@ -87,15 +87,6 @@ $lang['settings_ga_tracking_desc']				= 'טראקינג קוד של גוגל א�
 $lang['settings_twitter_username']				= 'שם משתמש';
 $lang['settings_twitter_username_desc']			= 'Twitter username.';
 
-$lang['settings_twitter_consumer_key']			= 'Consumer Key';
-$lang['settings_twitter_consumer_key_desc']		= 'Twitter consumer key.';
-
-$lang['settings_twitter_consumer_key_secret']	= 'Consumer Key Secret';
-$lang['settings_twitter_consumer_key_secret_desc'] = 'Twitter consumer key secret.';
-
-$lang['settings_twitter_blog']					= 'Twitter &amp; Blog integration.';
-$lang['settings_twitter_blog_desc']				= 'האם אתה רוצה לפרסם קישורים למאמרים בלוג חדש על טוויטר?';
-
 $lang['settings_twitter_feed_count']			= 'Feed Count';
 $lang['settings_twitter_feed_count_desc']		= 'כמה טוויטים יש להחזיר לTwitter feed block?';
 

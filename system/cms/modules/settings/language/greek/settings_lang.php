@@ -88,15 +88,6 @@ $lang['settings_ga_tracking_desc']				= 'Εισάγεται τον Google Analyt
 $lang['settings_twitter_username']				= 'Όνομα χρήστη';
 $lang['settings_twitter_username_desc']			= 'Όνομα χρήστη στο Twitter.';
 
-$lang['settings_twitter_consumer_key']			= 'Consumer Key';
-$lang['settings_twitter_consumer_key_desc']		= 'Twitter consumer key.';
-
-$lang['settings_twitter_consumer_key_secret']	= 'Consumer Key Secret';
-$lang['settings_twitter_consumer_key_secret_desc'] = 'Twitter consumer key secret.';
-
-$lang['settings_twitter_blog']					= 'Ενσωμάτωση Twitter &amp; Ιστολογίου.';
-$lang['settings_twitter_blog_desc']				= 'Θα θέλατε να δημοσιεύονται συνδέσμοι προς τις νέες αναρτήσεις στο ιστολόγιο σας στο Twitter;';
-
 $lang['settings_twitter_feed_count']			= 'Αριθμός Τροφοδοσίας';
 $lang['settings_twitter_feed_count_desc']		= 'Πόσα tweets να επιστρέφονται από το μπλοκ τροφοδοσίας του Twitter;';
 

@@ -26,6 +26,7 @@ $lang['files.filter_label']					= 'Suodata';
 $lang['files.loading_label']				= 'Ladataan...';
 $lang['files.name_label']					= 'Nimi';
 
+$lang['files.dropdown_select']				= '-- Select Folder For Upload --'; #translate
 $lang['files.dropdown_no_subfolders']		= '-- Ei mikään --';
 $lang['files.dropdown_root']				= '-- Juuri --';
 

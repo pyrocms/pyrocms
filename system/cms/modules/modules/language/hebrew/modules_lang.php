@@ -3,7 +3,8 @@
 $lang['modules.core_list']               = 'ליבה מודולים';
 $lang['modules.addon_list']              = 'תוספות מודולים';
 $lang['modules.introduction']            = 'להלן רשימה של מודולים מותקנים, המידע שלהם, כגון תיאור או גרסה.';
-$lang['modules.disable_error']           = 'אין אפשרות לבטל את מודול "%s".';
+$lang['modules.core_introduction']		 = 'Below is a list of core modules and their information. You may disable them but do so with extreme care. Disabling modules such as Users will render your site inoperable.'; #translate
+$lang['modules.disable_error']            = 'אין אפשרות לבטל את מודול "%s".';
 $lang['modules.disable_success']         = 'מודול "%s" בוטל.';
 $lang['modules.enable_error']            = 'אין אפשרות להפעיל את מודול "%s".';
 $lang['modules.enable_success']          = 'מודול "%s" הופעל.';

@@ -68,7 +68,7 @@ class Admin extends Admin_Controller {
 		parent::__construct();
 
 		// Load the required classes
-		$this->load->model('users_m');
+		$this->load->model('user_m');
 		$this->load->model('groups/group_m');
 		$this->load->helper('user');
 		$this->load->library('form_validation');
@@ -98,25 +98,25 @@ class Admin extends Admin_Controller {
 		$base_where = $this->input->post('f_keywords') ? $base_where + array('name' => $this->input->post('f_keywords')) : $base_where;
 
 		// Create pagination links
-		$pagination = create_pagination('admin/users/index', $this->users_m->count_by($base_where));
+		$pagination = create_pagination('admin/users/index', $this->user_m->count_by($base_where));
 
 
 		// Using this data, get the relevant results
-		$users = $this->users_m
-						->order_by('active', 'desc')
-						->limit($pagination['limit'])
-						->get_many_by($base_where);
+		$users = $this->user_m
+			->order_by('active', 'desc')
+			->limit($pagination['limit'])
+			->get_many_by($base_where);
 
 		//unset the layout if we have an ajax request
 		if ($this->input->is_ajax_request()) $this->template->set_layout(FALSE);
 
 		// Render the view
 		$this->template
-				->title($this->module_details['name'])
-				->set('pagination', $pagination)
-				->set('users', $users)
-				->set_partial('filters', 'admin/partials/filters')
-				->append_metadata(js('admin/filter.js'));
+			->title($this->module_details['name'])
+			->set('pagination', $pagination)
+			->set('users', $users)
+			->set_partial('filters', 'admin/partials/filters')
+			->append_metadata(js('admin/filter.js'));
 				
 		$this->input->is_ajax_request() ? $this->template->build('admin/tables/users', $this->data) : $this->template->build('admin/index', $this->data);
 	}
@@ -128,6 +128,12 @@ class Admin extends Admin_Controller {
 	 */
 	public function action()
 	{
+		if (PYRO_DEMO)
+		{
+		    $this->session->set_flashdata('notice', lang('global:demo_restrictions'));
+		    redirect('admin/users');
+		}
+		
 		// Determine the type of action
 		switch ($this->input->post('btnAction'))
 		{
@@ -249,6 +255,12 @@ class Admin extends Admin_Controller {
 		$this->form_validation->set_rules($this->validation_rules);
 		if ($this->form_validation->run() === TRUE)
 		{
+			if (PYRO_DEMO)
+			{
+			    $this->session->set_flashdata('notice', lang('global:demo_restrictions'));
+			    redirect('admin/users');
+			}
+			
 			// Get the POST data
 			$update_data['first_name'] = $this->input->post('first_name');
 			$update_data['last_name'] = $this->input->post('last_name');
@@ -355,6 +367,12 @@ class Admin extends Admin_Controller {
 	 */
 	public function delete($id = 0)
 	{
+		if (PYRO_DEMO)
+		{
+		    $this->session->set_flashdata('notice', lang('global:demo_restrictions'));
+		    redirect('admin/users');
+		}
+		
 		$ids = ($id > 0) ? array($id) : $this->input->post('action_to');
 
 		if (!empty($ids))

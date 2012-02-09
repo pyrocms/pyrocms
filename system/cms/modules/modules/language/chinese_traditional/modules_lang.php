@@ -2,7 +2,8 @@
 $lang['modules.core_list']				= '核心(Core)模組';
 $lang['modules.addon_list']				= '附加(Add-on)模組';
 $lang['modules.introduction']			= '下方是已安裝的模組列表及其資訊，例如：說明或版本。';
-$lang['modules.disable_error']			= '無法禁用名稱為 "%s" 的模組';
+$lang['modules.core_introduction']		 = 'Below is a list of core modules and their information. You may disable them but do so with extreme care. Disabling modules such as Users will render your site inoperable.'; #translate
+$lang['modules.disable_error'] 			= '無法禁用名稱為 "%s" 的模組';
 $lang['modules.disable_success']		= '此模組 "%s" 已經被禁用';
 $lang['modules.enable_error']			= '無法啟用名稱為 "%s" 的模組';
 $lang['modules.enable_success']			= '此模組 "%s" 已經啟用';

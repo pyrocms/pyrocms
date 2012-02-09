@@ -12,10 +12,12 @@ class Module_Blog extends Module {
 				'ar' => 'المدوّنة',
 				'el' => 'Ιστολόγιο',
 				'br' => 'Blog',
+				'pl' => 'Blog',
 				'he' => 'בלוג',
 				'lt' => 'Blogas',
 				'ru' => 'Блог',
-				'zh' => '文章'
+				'zh' => '文章',
+				'id' => 'Blog'
 			),
 			'description' => array(
 				'en' => 'Post blog entries.',
@@ -23,7 +25,7 @@ class Module_Blog extends Module {
 				'es' => 'Escribe entradas para los artículos y blog (web log).', #update translation
 				'fr' => 'Envoyez de nouveaux posts et messages de blog.', #update translation
 				'de' => 'Veröffentliche neue Artikel und Blog-Einträge', #update translation
-				'pl' => 'Postuj nowe artykuły oraz wpisy w blogu', #update translation
+				'pl' => 'Dodawaj nowe wpisy na blogu',
 				'br' => 'Escrever publicações de blog',
 				'zh' => '發表新聞訊息、部落格等文章。',
 				'it' => 'Pubblica notizie e post per il blog.', #update translation
@@ -35,7 +37,8 @@ class Module_Blog extends Module {
 				'el' => 'Δημιουργήστε άρθρα και εγγραφές στο ιστολόγιο σας.',
 				'he' => 'ניהול בלוג',
 				'lt' => 'Rašykite naujienas bei blog\'o įrašus.',
-				'da' => 'Skriv blogindlæg'
+				'da' => 'Skriv blogindlæg',
+				'id' => 'Post entri blog'
 			),
 			'frontend'	=> TRUE,
 			'backend'	=> TRUE,

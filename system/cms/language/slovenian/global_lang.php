@@ -44,6 +44,7 @@ $lang['success_label'] 					= 'Uspešno';
 
 $lang['login_title'] 					= 'Prijava';
 $lang['cms_fatal_error'] 				= 'Kritična napaka pri namestitvi CMS-ja';
+$lang['global:demo_restrictions']       = 'Some features on this page have been disabled for the demo.'; #translate
 
 $lang['login_error_label'] 				= 'Napaka pri prijavi';
 $lang['forgot_password_label'] 			= 'Ali ste pozabili geslo ?';
@@ -66,6 +67,11 @@ $lang['install_label'] 					= 'Namesti';
 $lang['enable_label']					= 'Omogoči';
 $lang['disable_label'] 					= 'Onemogoči';
 $lang['upgrade_label'] 					= 'Posodobi';
+
+$lang['all_right_reserved']				= 'All Rights Reserved.';  #translate
+$lang['powered_by_pyrocms']				= 'Powered by PyroCMS';  #translate
+$lang['top_page']						= 'Top';  #translate
+$lang['back_to_top']					= 'Back to Top';  #translate
 
 $lang['global:filters']                 = 'Razvrstitev';
 $lang['global:shortcuts'] 				= 'Bližnjice';

@@ -15,6 +15,7 @@ class Widget_Twitter_feed extends Widgets {
 		'nl' => 'Twitterfeed',
 		'br' => 'Feed do Twitter',
 		'ru' => 'Лента Twitter\'а',
+		'id' => 'Twitter Feed',
 	);
 	public $description	= array(
 		'en' => 'Display Twitter feeds on your website',
@@ -22,6 +23,7 @@ class Widget_Twitter_feed extends Widgets {
 		'nl' => 'Toon Twitterfeeds op uw website',
 		'br' => 'Mostra os últimos tweets de um usuário do Twitter no seu site.',
 		'ru' => 'Выводит ленту новостей Twitter на страницах вашего сайта',
+		'id' => 'Menampilkan koleksi Tweet di situs Anda'
 	);
 	public $author		= 'Phil Sturgeon';
 	public $website		= 'http://philsturgeon.co.uk/';

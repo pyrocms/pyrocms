@@ -44,6 +44,7 @@ $lang['success_label'] 					= '成功'; 			//'Success';
 
 $lang['login_title'] 					= '登入'; 			//'Log In';
 $lang['cms_fatal_error'] 				= '嚴重錯誤，CMS安裝了嗎？'; //'Fatal error, is CMS installed?';
+$lang['global:demo_restrictions']       = 'Some features on this page have been disabled for the demo.'; #translate
 
 $lang['login_error_label'] 				= '登入錯誤'; 		//'Login Error';
 $lang['forgot_password_label'] 			= '忘記密碼'; 		//'Forgot your password ?';
@@ -65,6 +66,11 @@ $lang['uninstall_label'] 				= '卸載'; 			//'Uninstall';
 $lang['install_label'] 					= '安裝'; 			//'Install';
 $lang['enable_label']					= '啟用'; 			//'Enable';
 $lang['disable_label'] 					= '禁用'; 			//'Disable';
+
+$lang['all_right_reserved']				= 'All Rights Reserved.';  #translate
+$lang['powered_by_pyrocms']				= 'Powered by PyroCMS';  #translate
+$lang['top_page']						= 'Top';  #translate
+$lang['back_to_top']					= 'Back to Top';  #translate
 
 $lang['global:shortcuts'] 				= '捷徑';
 $lang['global:description']				= '說明';

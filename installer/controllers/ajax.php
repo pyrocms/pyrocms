@@ -113,7 +113,7 @@ class Ajax extends CI_Controller {
 		);
 
 		include '../system/cms/libraries/Curl.php';
-		$url = 'http://pyrocms.com/statistics/add ';
+		$url = 'http://www.pyrocms.com/statistics/add ';
 		$curl = new Curl;
 		$curl->simple_post($url, $data);
 	}

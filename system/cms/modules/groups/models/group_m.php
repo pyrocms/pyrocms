@@ -110,10 +110,10 @@ class Group_m extends MY_Model
 	 */
 	public function delete($id = 0)
 	{
-		$this->load->model('users/users_m');
+		$this->load->model('users/user_m');
 		
 		// don't delete the group if there are still users assigned to it
-		if ($this->users_m->count_by(array('group_id' => $id)) > 0)
+		if ($this->user_m->count_by(array('group_id' => $id)) > 0)
 		{
 			return FALSE;
 		}

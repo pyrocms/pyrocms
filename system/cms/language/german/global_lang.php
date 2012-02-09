@@ -44,6 +44,7 @@ $lang['success_label'] 					= 'Erfolgreich';
 
 $lang['login_title'] 					= 'Anmelden';
 $lang['cms_fatal_error'] 				= 'Schwerwiegender Fehler! Ist das CMS installiert?';
+$lang['global:demo_restrictions']       = 'Some features on this page have been disabled for the demo.'; #translate
 
 $lang['login_error_label'] 				= 'Anmeldefehler';
 $lang['forgot_password_label'] 			= 'Passwort vergessen ?';
@@ -65,6 +66,11 @@ $lang['uninstall_label'] 				= 'Deinstallieren';
 $lang['install_label'] 					= 'Installieren';
 $lang['enable_label']					= 'Aktivieren';
 $lang['disable_label'] 					= 'Deaktivieren';
+
+$lang['all_right_reserved']				= 'All Rights Reserved.';  #translate
+$lang['powered_by_pyrocms']				= 'Powered by PyroCMS';  #translate
+$lang['top_page']						= 'Top';  #translate
+$lang['back_to_top']					= 'Back to Top';  #translate
 
 $lang['global:shortcuts'] 				= 'Shortcuts'; #translate 
 $lang['global:description']				= 'Beschreibung'; 

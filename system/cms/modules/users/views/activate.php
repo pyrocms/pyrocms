@@ -14,7 +14,7 @@
 <ul>
 	<li>
 		<label for="email"><?php echo lang('user_email') ?></label>
-		<?php echo form_input('email', isset($user['email']) ? $user['email'] : '', 'maxlength="40"');?>
+		<?php echo form_input('email', isset($_user['email']) ? $_user['email'] : '', 'maxlength="40"');?>
 	</li>
 
 	<li>

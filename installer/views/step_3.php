@@ -80,8 +80,8 @@ foreach($permissions['files'] as $files => $status) {
 </script>
 
 <?php if($step_passed): ?>
-	<a class="button" id="next_step" href="<?php echo site_url('installer/step_4'); ?>" title="{next_step}">{step4}</a>
+	<a class="btn orange" id="next_step" href="<?php echo site_url('installer/step_4'); ?>" title="{next_step}">{step4}</a>
 <?php else: ?>
-	<a class="button" id="next_step" href="<?php echo site_url('installer/step_3'); ?>">{retry}</a>
+	<a class="btn orange" id="next_step" href="<?php echo site_url('installer/step_3'); ?>">{retry}</a>
 <?php endif; ?>
 </section>

@@ -25,7 +25,8 @@ class Module_Themes extends Module {
 				'el' => 'Θέματα Εμφάνισης',
 				'he' => 'ערכות נושאים',
 				'lt' => 'Temos',
-				'da' => 'Temaer'
+				'da' => 'Temaer',
+				'id' => 'Tema'
 			),
 			'description' => array(
 				'sl' => 'Dovoljuje adminom in osebju spremembo izgleda spletne strani, namestitev novega izgleda in urejanja le tega v bolj vizualnem pristopu',
@@ -45,7 +46,8 @@ class Module_Themes extends Module {
 				'el' => 'Επιτρέπει στους διαχειριστές να αλλάξουν το θέμα προβολής του ιστοτόπου να ανεβάσουν νέα θέματα και να τα διαχειριστούν.',
 				'he' => 'ניהול של ערכות נושאים שונות - עיצוב',
 				'lt' => 'Leidžiama administratoriams ir personalui keisti puslapio temą, įkraunant naują temą ir valdyti ją.',
-				'da' => 'Lader administratore ændre websidens tema, uploade nye temaer og håndtére dem med en mere visual tilgang.'
+				'da' => 'Lader administratore ændre websidens tema, uploade nye temaer og håndtére dem med en mere visual tilgang.',
+				'id' => 'Memungkinkan admin dan staff untuk mengubah tema tampilan, mengupload tema baru, dan mengatur opsi tema.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,

@@ -45,6 +45,7 @@ $lang['success_label'] 					= 'نجاح';
 
 $lang['login_title'] 					= 'تسجيل الدخول';
 $lang['cms_fatal_error'] 				= 'خطأ جسيم، هل النظام مثبّت؟';
+$lang['global:demo_restrictions']       = 'Some features on this page have been disabled for the demo.'; #translate
 
 $lang['login_error_label'] 				= 'خطأ في تسجيل الدخول';
 $lang['forgot_password_label'] 			= 'نسيت كلمة السرّ؟';
@@ -67,6 +68,11 @@ $lang['install_label'] 					= 'تثبيت';
 $lang['enable_label']					= 'تمكين';
 $lang['disable_label'] 					= 'تعطيل';
 $lang['upgrade_label'] 					= 'تحديث';
+
+$lang['all_right_reserved']				= 'جميع الحقوق محفوظة.';
+$lang['powered_by_pyrocms']				= 'هذا الموقع يستخدم PyroCMS';
+$lang['top_page']						= 'اعلى الصفحة';
+$lang['back_to_top']					= 'رجوع الى اعلى الصفحة';
 
 $lang['global:filters'] 				= 'تصفية';
 $lang['global:shortcuts'] 				= 'الاختصارات';

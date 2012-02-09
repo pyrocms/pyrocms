@@ -44,6 +44,7 @@ $lang['success_label'] 				= 'הצלחה';
 
 $lang['login_title'] 					= 'התחבר';
 $lang['cms_fatal_error'] 				= 'Fatal error, is CMS installed?'; #translate
+$lang['global:demo_restrictions']       = 'Some features on this page have been disabled for the demo.'; #translate
 
 $lang['login_error_label'] 				= 'Login Error';
 $lang['forgot_password_label'] 			= 'שחחת סיסמה?';
@@ -66,6 +67,11 @@ $lang['install_label'] 					= 'התקן';
 $lang['enable_label']					= 'הפעל';
 $lang['disable_label'] 					= 'כבה';
 $lang['upgrade_label'] 					= 'Upgrade'; #translate
+
+$lang['all_right_reserved']				= 'All Rights Reserved.';  #translate
+$lang['powered_by_pyrocms']				= 'Powered by PyroCMS';  #translate
+$lang['top_page']						= 'Top';  #translate
+$lang['back_to_top']					= 'Back to Top';  #translate
 
 $lang['global:shortcuts']	 			= 'קיצורי דרך';
 $lang['global:description'] 		    = 'תיאור';

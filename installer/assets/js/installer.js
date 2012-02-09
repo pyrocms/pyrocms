@@ -214,6 +214,7 @@ $('input[name=password]').bind('keyup focus', function() {
 
 	$.post(base_url + 'index.php/ajax/confirm_database', {
 			server: $('input[name=hostname]').val(),
+            port: $('input[name=port]').val(),
 			username: $('input[name=username]').val(),
 			password: $('input[name=password]').val()
 		}, function(data) {

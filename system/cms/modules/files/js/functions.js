@@ -76,7 +76,7 @@ jQuery(function($){
 		self.colorbox({
 			scrolling	: false,
 			width		:'650',
-			height		:'500',
+			height		:'535',
 			onComplete	: function(){
 
 				var form = $('form#folders_crud'),
@@ -266,7 +266,7 @@ jQuery(function($){
 	$(".edit_file").livequery(function(){
 		$(this).colorbox({
 			scrolling	: false,
-			width		: '600',
+			width		: '750',
 			height		: '480',
 			onComplete: function(){
 				var form = $('form#files_crud'),
@@ -291,45 +291,6 @@ jQuery(function($){
 						e.preventDefault();
 						form.find(':input:last').focus();
 					}
-				});
-
-				form.submit(function(e){
-
-					e.preventDefault();
-
-					form.parent().fadeOut(function(){
-
-						$loading.show();
-
-						pyro.clear_notifications();
-
-						$.post(form.attr('action'), form.serialize(), function(data){
-
-							// Update title
-							data.title && $('#cboxLoadedContent h2:eq(0)').text(data.title);
-
-							if (data.status == 'success')
-							{
-								$(window).hashchange();
-
-								// TODO: Create a countdown with an option to cancel before close
-								setTimeout(function(){
-									$.colorbox.close();
-								}, 1800);
-							}
-
-							$loading.hide();
-
-							form.parent().fadeIn(function(){
-
-								// Show notification & resize colorbox
-								pyro.add_notification(data.message, {ref: '#cboxLoadedContent', method: 'prepend'});
-                                $.colorbox.resize();
-							});
-
-						}, 'json');
-
-					});
 				});
 			},
 			onClosed: function(){}

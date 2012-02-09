@@ -45,6 +45,7 @@ $lang['success_label'] 					= 'Επιτυχία';
 
 $lang['login_title'] 					= 'Σύνδεση';
 $lang['cms_fatal_error'] 				= 'Σφάλμα, το CMS είναι εγκατεστημένο;';
+$lang['global:demo_restrictions']       = 'Some features on this page have been disabled for the demo.'; #translate
 
 $lang['login_error_label'] 				= 'Σφάλμα σύνδεσης';
 $lang['forgot_password_label'] 			= 'Ξεχάσατε το συνθηματικό σας;';
@@ -67,6 +68,11 @@ $lang['install_label'] 					= 'Εγκατάσταση';
 $lang['enable_label']					= 'Ενεργοποίηση';
 $lang['disable_label'] 					= 'Απενεργοποίηση';
 $lang['upgrade_label'] 					= 'Ενημέρωση';
+
+$lang['all_right_reserved']				= 'All Rights Reserved.';  #translate
+$lang['powered_by_pyrocms']				= 'Powered by PyroCMS';  #translate
+$lang['top_page']						= 'Top';  #translate
+$lang['back_to_top']					= 'Back to Top';  #translate
 
 $lang['global:filters'] 				= 'Φίλτρα';
 $lang['global:shortcuts'] 				= 'Συντομέυσεις';

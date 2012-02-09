@@ -44,6 +44,7 @@ $lang['success_label'] 					= 'Onnistunut';
 
 $lang['login_title'] 					= 'Kirjaudu sisään';
 $lang['cms_fatal_error'] 				= 'Virhe, onko CMS asennettu?';
+$lang['global:demo_restrictions']       = 'Some features on this page have been disabled for the demo.'; #translate
 
 $lang['login_error_label'] 				= 'Kirjautumis virhe';
 $lang['forgot_password_label'] 			= 'Unohditko salasanasi?';
@@ -66,6 +67,11 @@ $lang['install_label'] 					= 'Asenna';
 $lang['enable_label']					= 'Pälle';
 $lang['disable_label'] 					= 'Pois päältä';
 $lang['upgrade_label'] 					= 'Päivitä';
+
+$lang['all_right_reserved']				= 'All Rights Reserved.';  #translate
+$lang['powered_by_pyrocms']				= 'Powered by PyroCMS';  #translate
+$lang['top_page']						= 'Top';  #translate
+$lang['back_to_top']					= 'Back to Top';  #translate
 
 $lang['global:shortcuts']	 			= 'Pikavalinnat';
 $lang['global:description']             = 'Kuvaus';

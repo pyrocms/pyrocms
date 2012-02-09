@@ -473,6 +473,9 @@ class Module_m extends MY_Model
 
 		foreach (array(APPPATH, ADDONPATH, SHARED_ADDONPATH) as $directory)
     	{
+			// some servers return false instead of an empty array
+			if ( ! $directory) continue;
+
 			foreach (glob($directory.'modules/*', GLOB_ONLYDIR) as $path)
 			{
 				$slug = basename($path);

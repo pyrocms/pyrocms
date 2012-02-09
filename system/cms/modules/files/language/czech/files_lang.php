@@ -31,6 +31,7 @@ $lang['files.filter_label']					= 'Filtr';
 $lang['files.loading_label']				= 'Nahrávám...';
 $lang['files.name_label']					= 'Jméno';
 
+$lang['files.dropdown_select']				= '-- Select Folder For Upload --'; #translate
 $lang['files.dropdown_no_subfolders']		= '-- Nic --';
 $lang['files.dropdown_root']				= '-- Kořenový adresář --';
 

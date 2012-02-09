@@ -44,6 +44,7 @@ $lang['success_label'] 					= 'Gennemført';
 
 $lang['login_title'] 					= 'Log ind';
 $lang['cms_fatal_error'] 				= 'Fejl! Er CMS installeret?';
+$lang['global:demo_restrictions']       = 'Some features on this page have been disabled for the demo.'; #translate
 
 $lang['login_error_label'] 				= 'Fejl ved log ind';
 $lang['forgot_password_label'] 			= 'Glemt password ?';
@@ -66,6 +67,11 @@ $lang['install_label'] 					= 'Installér';
 $lang['enable_label']					= 'Aktivér';
 $lang['disable_label'] 					= 'Deaktivér';
 $lang['upgrade_label'] 					= 'Opgradér';
+
+$lang['all_right_reserved']				= 'All Rights Reserved.';  #translate
+$lang['powered_by_pyrocms']				= 'Powered by PyroCMS';  #translate
+$lang['top_page']						= 'Top';  #translate
+$lang['back_to_top']					= 'Back to Top';  #translate
 
 $lang['global:shortcuts'] 				= 'Shortcuts'; #translate
 $lang['global:description']				= 'Description'; #translate

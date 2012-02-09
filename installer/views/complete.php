@@ -13,7 +13,7 @@
 <p class="password-reveal">
 	<strong>{password}:</strong> <span class="password">{user_password}</span>
 </p>
-<p><a class="button show-pass" href="#">{show_password}</a></p>
+<p><a class="button show-pass" href="#"> {show_password}</a></p>
 
 <p>{outro_text}</p>
 

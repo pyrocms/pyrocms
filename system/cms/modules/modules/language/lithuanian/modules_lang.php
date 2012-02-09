@@ -3,7 +3,8 @@
 $lang['modules.core_list']               = 'Pagrindiniai moduliai';
 $lang['modules.addon_list']              = 'Prideti moduliai';
 $lang['modules.introduction']            = 'Žemiau yra įdiegtų modulių, su aprašymu, versijomis, sąrašas.';
-$lang['modules.disable_error']           = 'Nepavyko išjungti modulio "%s".';
+$lang['modules.core_introduction']		 = 'Below is a list of core modules and their information. You may disable them but do so with extreme care. Disabling modules such as Users will render your site inoperable.'; #translate
+$lang['modules.disable_error']            = 'Nepavyko išjungti modulio "%s".';
 $lang['modules.disable_success']         = 'Modulis "%s" buvo išjungtas.';
 $lang['modules.enable_error']            = 'Nepavyko įjungti modulio "%s".';
 $lang['modules.enable_success']          = 'Modulis "%s" buvo įjungtas.';
