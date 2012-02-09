@@ -256,6 +256,18 @@ define('ENVIRONMENT', (isset($_SERVER['PYRO_ENV']) ? $_SERVER['PYRO_ENV'] : PYRO
 	
 	// Path to the views folder
 	define ('VIEWPATH', APPPATH.'views/' );
+	
+/*
+ *---------------------------------------------------------------
+ * DEMO
+ *---------------------------------------------------------------
+ *
+ * Should PyroCMS run as a demo, meaning no destructive actions
+ * can be taken such as removing admins or changing passwords?
+ *
+ */
+
+    define('PYRO_DEMO', (file_exists(FCPATH.'DEMO')));
 
 /*
  * --------------------------------------------------------------------
