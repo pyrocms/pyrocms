@@ -183,6 +183,12 @@ class Users extends Public_Controller
 		// Set the validation rules
 		$this->form_validation->set_rules($validation);
 	
+		// Set default values as empty or POST values
+		foreach ($validation as $rule)
+		{
+			$user->{$rule['field']} = $this->input->post($rule['field']);
+		}
+		
 		// Are they TRYing to submit?
 		if ($_POST)
 		{
@@ -284,12 +290,6 @@ class Users extends Public_Controller
 			{
 				// Return the validation error
 				$this->template->error_string = $this->form_validation->error_string();
-			}
-			
-			// Repopulate the form
-			foreach ($validation as $rule)
-			{
-				$user->{$rule['field']} = set_value($rule['field']);
 			}
 		}
 		
