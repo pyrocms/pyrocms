@@ -1101,7 +1101,8 @@ class Row_m extends MY_Model {
 									$data[$field->field_slug],
 									$field,
 									$stream,
-									$row_id
+									$row_id,
+									$data
 						);
 						
 					else:
@@ -1124,7 +1125,8 @@ class Row_m extends MY_Model {
 									$data[$field->field_slug],
 									$field,
 									$stream,
-									$row_id
+									$row_id,
+									$data
 						);
 					
 					endif;
@@ -1199,7 +1201,7 @@ class Row_m extends MY_Model {
 					
 						if( method_exists($type, 'pre_save') ):
 						
-							$data[$field->field_slug] = $type->pre_save($data[$field->field_slug], $field, $stream);
+							$data[$field->field_slug] = $type->pre_save($data[$field->field_slug], $field, $stream, NULL, $data);
 						
 						endif;
 						
@@ -1271,7 +1273,7 @@ class Row_m extends MY_Model {
 			// Process any alt process stuff
 			foreach($alt_process as $field_slug):
 						
-				$this->type->types->{$fields->$field_slug->field_type}->pre_save($data[$field_slug], $fields->{$field_slug}, $stream, $id);
+				$this->type->types->{$fields->$field_slug->field_type}->pre_save($data[$field_slug], $fields->{$field_slug}, $stream, $id, $data);
 			
 			endforeach;
 			
