@@ -84,7 +84,7 @@ $mimes = array('hqx'	=>	array('application/mac-binhex40', 'application/mac-binhe
 				'log'	=>	array('text/plain', 'text/x-log'),
 				'rtx'	=>	'text/richtext',
 				'rtf'	=>	'text/rtf',
-				'xml'	=>	'text/xml',
+				'xml'	=>	array('application/xml', 'text/xml'),
 				'xsl'	=>	'text/xml',
 				'mpeg'	=>	'video/mpeg',
 				'mpg'	=>	'video/mpeg',

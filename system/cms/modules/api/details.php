@@ -14,9 +14,11 @@ class Module_Api extends Module
 		return array(
 			'name' => array(
 				'en' => 'API Management',
+                            'fr' => 'Gestionnaire d\'API'
 			),
 			'description' => array(
 				'en' => 'Set up a RESTful API with API Keys and out in JSON, XML, CSV, etc.',
+                            'fr' => 'Paramétrage d\'une API RESTgul avec clés API et export en JSON, XML, CSV, etc.'
 			),
 			'frontend' => TRUE,
 			'backend'  => TRUE,
