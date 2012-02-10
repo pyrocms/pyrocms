@@ -63,7 +63,7 @@ $lang['files.no_select_error'] 				= 'Você precisa selecionar um arquivo primei
 // File folders
 
 // Titles
-$lang['file_folders.folders_title']			= 'Pastas de arquivos';
+$lang['file_folders.folders_title']			= 'Folders'; #translate
 $lang['file_folders.manage_title']			= 'Gerenciar pastas';
 $lang['file_folders.create_title']			= 'Nova pasta';
 $lang['file_folders.delete_title']			= 'Confirmar remoção';

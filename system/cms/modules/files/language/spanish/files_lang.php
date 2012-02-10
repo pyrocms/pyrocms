@@ -63,7 +63,7 @@ $lang['files.no_select_error'] 				= 'Debes seleccionar un archivo primero, el p
 // File folders
 
 // Titles
-$lang['file_folders.folders_title']			= 'Directorios';
+$lang['file_folders.folders_title']			= 'Folders'; #translate
 $lang['file_folders.manage_title']			= 'Administrar Directorios';
 $lang['file_folders.create_title']			= 'Nuevo Directorio';
 $lang['file_folders.delete_title']			= 'Confirmar para eliminar';

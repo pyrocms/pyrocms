@@ -63,7 +63,7 @@ $lang['files.no_select_error'] 				= '您必須先選擇一個檔案';
 // File folders
 
 // Titles
-$lang['file_folders.folders_title']			= '檔案目錄';
+$lang['file_folders.folders_title']			= 'Folders'; #translate
 $lang['file_folders.manage_title']			= '管理目錄';
 $lang['file_folders.create_title']			= '新增目錄';
 $lang['file_folders.delete_title']			= '確認刪除';

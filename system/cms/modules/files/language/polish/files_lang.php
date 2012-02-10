@@ -63,7 +63,7 @@ $lang['files.no_select_error'] 				= 'Musisz napierw zaznaczyc plik.';
 // File folders
 
 // Titles
-$lang['file_folders.folders_title']			= 'Katalogi plików';
+$lang['file_folders.folders_title']			= 'Folders'; #translate
 $lang['file_folders.manage_title']			= 'Zarządzaj katalogami';
 $lang['file_folders.create_title']			= 'Dodaj katalog';
 $lang['file_folders.delete_title']			= 'Potwierdź usunięcie';

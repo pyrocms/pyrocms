@@ -63,7 +63,7 @@ $lang['files.no_select_error'] 				= 'Πρέπει να επιλέξετε έν�
 // File folders
 
 // Titles
-$lang['file_folders.folders_title']			= 'Φάκελοι Αρχείων';
+$lang['file_folders.folders_title']			= 'Folders'; #translate
 $lang['file_folders.manage_title']			= 'Διαχείριση Φακέλων';
 $lang['file_folders.create_title']			= 'Νέος Φάκελος';
 $lang['file_folders.delete_title']			= 'Επιβεβαίωση Διαγραφής';

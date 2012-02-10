@@ -58,7 +58,7 @@ $lang['files.no_select_error'] 				= 'Sinun tulee ensin valita tiedosto, pyyntö
 // File folders
 
 // Titles
-$lang['file_folders.folders_title']			= 'Kansiot';
+$lang['file_folders.folders_title']			= 'Folders'; #translate
 $lang['file_folders.manage_title']			= 'Hallitse kansioita';
 $lang['file_folders.create_title']			= 'Uusi kansio';
 $lang['file_folders.delete_title']			= 'Vahvista poistaminen';

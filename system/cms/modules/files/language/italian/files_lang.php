@@ -65,7 +65,7 @@ $lang['files.no_select_error'] 				= 'You must select a file first, his request 
 // File folders
 
 // Titles
-$lang['file_folders.folders_title']			= 'Cartelle &amp; File';
+$lang['file_folders.folders_title']			= 'Folders'; #translate File';
 $lang['file_folders.manage_title']			= 'Gestisci Cartelle';
 $lang['file_folders.create_title']			= 'Nuova Cartella';
 $lang['file_folders.delete_title']			= 'Conferma l\' eliminazione';

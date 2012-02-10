@@ -64,7 +64,7 @@ $lang['files.no_select_error'] 				= 'Najprej morate izbrati datoteko, zahteva j
 // File folders
 
 // Titles
-$lang['file_folders.folders_title']			= 'Mape datotek';
+$lang['file_folders.folders_title']			= 'Folders'; #translate
 $lang['file_folders.manage_title']			= 'Uredi mape';
 $lang['file_folders.create_title']			= 'Nova mapa';
 $lang['file_folders.delete_title']			= 'Potrdi izbris';

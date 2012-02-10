@@ -60,7 +60,7 @@ $lang['files.no_select_error'] 				= 'Bạn phải chọn một file trước, k
 // File folders
 
 // Titles
-$lang['file_folders.folders_title']			= 'Thư mục File';
+$lang['file_folders.folders_title']			= 'Folders'; #translate
 $lang['file_folders.manage_title']			= 'Quản lý thư mục';
 $lang['file_folders.create_title']			= 'Thư mục mới';
 $lang['file_folders.delete_title']			= 'Xác nhận xóa';

@@ -63,7 +63,7 @@ $lang['files.no_select_error'] 				= 'You must select a file first, his request 
 // File folders
 
 // Titles
-$lang['file_folders.folders_title']			= 'File Folders';
+$lang['file_folders.folders_title']			= 'Folders'; #translate
 $lang['file_folders.manage_title']			= 'Manage Folders';
 $lang['file_folders.create_title']			= 'New Folder';
 $lang['file_folders.delete_title']			= 'Confirm Delete';

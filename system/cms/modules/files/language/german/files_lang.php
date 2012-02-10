@@ -63,7 +63,7 @@ $lang['files.no_select_error'] 				= 'Es muss eine Datei ausgewählt sein, die A
 // File folders
 
 // Titles
-$lang['file_folders.folders_title']			= 'Verzeichnisse';
+$lang['file_folders.folders_title']			= 'Folders'; #translate
 $lang['file_folders.manage_title']			= 'Verzeichnisse verwalten';
 $lang['file_folders.create_title']			= 'Neues Verzeichnis';
 $lang['file_folders.delete_title']			= 'Löschen bestätigen';

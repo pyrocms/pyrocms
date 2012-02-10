@@ -65,7 +65,7 @@ $lang['files.no_select_error'] 				= 'עליכם לבחור קובץ קודם כ
 // File folders
 
 // Titles
-$lang['file_folders.folders_title']			= 'תיקיות';
+$lang['file_folders.folders_title']			= 'Folders'; #translate
 $lang['file_folders.manage_title']			= 'ניהול תיקיות';
 $lang['file_folders.create_title']			= 'תיקיה חדשה';
 $lang['file_folders.delete_title']			= 'אשר מחיקה';

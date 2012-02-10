@@ -63,7 +63,7 @@ $lang['files.no_select_error'] 				= 'Anda harus memilih file terlebih dahulu, p
 // File folders
 
 // Titles
-$lang['file_folders.folders_title']			= 'Folder File';
+$lang['file_folders.folders_title']			= 'Folders'; #translate
 $lang['file_folders.manage_title']			= 'Atur Folder';
 $lang['file_folders.create_title']			= 'Folder Baru';
 $lang['file_folders.delete_title']			= 'Konfirmasi Penghapusan';

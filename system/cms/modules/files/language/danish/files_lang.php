@@ -63,7 +63,7 @@ $lang['files.no_select_error'] 				= 'Du skal vælge en fil først, hans anmodni
 // File folders
 
 // Titles
-$lang['file_folders.folders_title']			= 'Filmapper';
+$lang['file_folders.folders_title']			= 'Folders'; #translate
 $lang['file_folders.manage_title']			= 'Administrér mapper';
 $lang['file_folders.create_title']			= 'Ny mappe';
 $lang['file_folders.delete_title']			= 'Bekræft sletning';

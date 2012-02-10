@@ -63,7 +63,7 @@ $lang['files.no_select_error'] 				= 'Musíte neprve vybrat soubor, požadavek b
 // File folders
 
 // Titles
-$lang['file_folders.folders_title']			= 'Složky souborů';
+$lang['file_folders.folders_title']			= 'Folders'; #translate
 $lang['file_folders.manage_title']			= 'Spravovat složky';
 $lang['file_folders.create_title']			= 'Nová složka';
 $lang['file_folders.delete_title']			= 'Potvrdit vymazání';

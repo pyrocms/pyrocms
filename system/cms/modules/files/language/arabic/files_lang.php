@@ -63,7 +63,7 @@ $lang['files.no_select_error'] 				= 'يجب أن تختار ملفاً أولا
 // File folders
 
 // Titles
-$lang['file_folders.folders_title']			= 'مجلدات الملفات';
+$lang['file_folders.folders_title']			= 'Folders'; #translate
 $lang['file_folders.manage_title']			= 'إدارة المجلدات';
 $lang['file_folders.create_title']			= 'مجلد جديد';
 $lang['file_folders.delete_title']			= 'تأكيد الحذف';
