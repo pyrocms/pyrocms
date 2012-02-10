@@ -168,7 +168,7 @@ class MY_Controller extends MX_Controller {
 		$this->benchmark->mark('my_controller_end');
 		
 		// Enable profiler on local box
-	    if (ENVIRONMENT === PYRO_DEVELOPMENT AND is_array($_GET) AND array_key_exists('_debug', $_GET) )
+	    if ((isset($this->current_user->group) AND $this->current_user->group == 'admin') AND is_array($_GET) AND array_key_exists('_debug', $_GET) )
 	    {
 			unset($_GET['_debug']);
 	    	$this->output->enable_profiler(TRUE);
