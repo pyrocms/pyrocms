@@ -20,7 +20,7 @@ class Public_ajax extends Public_Controller {
         $this->load->library('Type');
         
         // Only AJAX gets through!
-       	if ( !$this->input->is_ajax_request())
+       	if ( ! $this->input->is_ajax_request())
        	{
        		die('Invalid request.');
        	}
