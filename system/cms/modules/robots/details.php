@@ -51,6 +51,26 @@ class Module_Robots extends Module {
 
 	public function install()
 	{
+		$create = $this->dbforge->add_field(array(
+			'robots_id' => array(
+				'type'				=> 'INT',
+				'constraint'		=> 5,
+				'auto_increment'	=> TRUE
+			),
+			'sites_id' => array(
+				'type'				=> 'INT',
+				'constraint'		=> 5,
+			),
+			'site_ref' => array(
+				'type'				=>'VARCHAR',
+				'constraint'		=> '255',
+			),
+			'txt' => array(
+				'type'				=> 'TEXT',
+				'null'				=> TRUE,
+			),
+		))->add_key('robots_id', TRUE)->add_key('sites_id', TRUE)->create_table('core_robots', TRUE);
+		
 		$txt = "";
 		$txt .= "# www.robotstxt.org/\n";
 		$txt .= "# www.google.com/support/webmasters/bin/answer.py?hl=en&answer=156449\n";
@@ -58,23 +78,24 @@ class Module_Robots extends Module {
 		$txt .= "Allow: /\n";
 		$txt .= "Sitemap: " . site_url('sitemap.xml');
 		
-		$this->db->query("
-			CREATE  TABLE IF NOT EXISTS `core_robots` (
-				`robots_id` INT NOT NULL AUTO_INCREMENT ,
-				`sites_id` INT(5) NOT NULL ,
-				`site_ref` VARCHAR(255) NOT NULL ,
-				`txt` TEXT,
-				PRIMARY KEY (`robots_id`, `sites_id`) )
-			ENGINE = InnoDB;");
+		$site = $this->db->where('ref',$this->site_ref)->row('core_sites');
+		$insert = $this->db->insert('core_robots',array(
+			'robots_id'	=>	NULL,
+			'sites_id'	=>	$site->id,
+			'site_ref'	=>	$this->site_ref,
+			'txt'		=>	$txt,
+		));
 		
-		$this->db->query("INSERT INTO `core_robots` (robots_id, sites_id, site_ref, txt) VALUES (null,(SELECT `id` FROM `core_sites` WHERE ref='" . $this->site_ref . "'), '" . $this->site_ref . "', '" . $txt . "');");
-		return TRUE;
+		if($create AND $insert)
+		{
+			return TRUE;
+		}
 	}
 
 	public function uninstall()
 	{
-		$this->db->query("DELETE FROM `core_robots` WHERE sites_id=(SELECT `id` FROM `core_sites` WHERE ref='" . $this->site_ref . "');");
-		$this->db->delete('settings', array('module' => 'store'));
+		$delete = $this->db->where('site_ref', $this->site_ref)->delete('core_robots');
+		if($delete)
 		{
 			return TRUE;
 		}
@@ -83,22 +104,27 @@ class Module_Robots extends Module {
 
 	public function upgrade($old_version)
 	{
+		$delete = $this->db->where('site_ref', $this->site_ref)->delete('core_robots');
 		
-		$this->db->query("
-			CREATE  TABLE IF NOT EXISTS `core_robots` (
-				`robots_id` INT NOT NULL AUTO_INCREMENT ,
-				`sites_id` INT(5) NOT NULL ,
-				`site_ref` VARCHAR(255) NOT NULL ,
-				`txt` TEXT,
-				PRIMARY KEY (`robots_id`, `sites_id`) )
-			ENGINE = InnoDB;");
-			
-		$this->db->query("DELETE FROM `core_robots` WHERE sites_id=(SELECT `id` FROM `core_sites` WHERE ref='" . $this->site_ref . "');");
-		$this->db->delete('settings', array('module' => 'store'));
-		{
-			$uninstall = TRUE;
-		}
-		
+		$create = $this->dbforge->add_field(array(
+			'robots_id' => array(
+				'type'				=> 'INT',
+				'constraint'		=> 5,
+				'auto_increment'	=> TRUE
+			),
+			'sites_id' => array(
+				'type'				=> 'INT',
+				'constraint'		=> 5,
+			),
+			'site_ref' => array(
+				'type'				=>'VARCHAR',
+				'constraint'		=> '255',
+			),
+			'txt' => array(
+				'type'				=> 'TEXT',
+				'null'				=> TRUE,
+			),
+		))->add_key('robots_id', TRUE)->add_key('sites_id', TRUE)->create_table('core_robots', TRUE);
 		
 		$txt = "";
 		$txt .= "# www.robotstxt.org/\n";
@@ -107,15 +133,18 @@ class Module_Robots extends Module {
 		$txt .= "Allow: /\n";
 		$txt .= "Sitemap: " . site_url('sitemap.xml');
 		
-		$this->db->query("INSERT INTO `core_robots` (robots_id, sites_id, site_ref, txt) VALUES (null,(SELECT `id` FROM `core_sites` WHERE ref='" . $this->site_ref . "'), '" . $this->site_ref . "', '" . $txt . "');");
-		$install = TRUE;
+		$site = $this->db->where('ref',$this->site_ref)->row('core_sites');
+		$insert = $this->db->insert('core_robots',array(
+			'robots_id'	=>	NULL,
+			'sites_id'	=>	$site->id,
+			'site_ref'	=>	$this->site_ref,
+			'txt'		=>	$txt,
+		));
 		
-		if($uninstall == TRUE AND $install == TRUE):
-			
+		if($delete AND $create AND $insert)
+		{
 			return TRUE;
-			
-		endif;
-		
+		}
 	}
 
 	public function help()
