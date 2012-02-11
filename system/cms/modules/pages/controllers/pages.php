@@ -1,9 +1,8 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
- * @author 		PyroCMS Dev Team
- * @package 	PyroCMS
- * @subpackage 	Modules
- * @category 	Pages
+ * 
+ * @author		PyroCMS Dev Team
+ * @package		PyroCMS\Core\Modules\Pages\Controllers
  */
 class Pages extends Public_Controller
 {
@@ -230,7 +229,7 @@ class Pages extends Public_Controller
 			log_message('error', 'Page Missing: '.$this->uri->uri_string());
 		}
 
-		echo $this->template->build('pages/page', NULL, TRUE, FALSE);
+		$this->template->build('pages/page', NULL, FALSE, FALSE);
 	}
 
 	/**

@@ -12,7 +12,6 @@
  */
 
 // labels
-$lang['variables.name_label'] 			    = 'Όνομα';
 $lang['variables.syntax_label']				= 'Σύνταξη';
 $lang['variables.data_label'] 			    = 'Τιμή';
 

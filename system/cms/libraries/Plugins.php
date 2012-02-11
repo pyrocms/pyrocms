@@ -1,10 +1,10 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
- * @package 		PyroCMS
- * @subpackage 		Libraries
- * @author			Phil Sturgeon - PyroCMS Development Team
- *
  * Central library for Plugin logic
+ *
+ * @author		Phil Sturgeon
+ * @author		PyroCMS Dev Team
+ * @package 	PyroCMS\Core\Libraries
  */
 abstract class Plugin
 {

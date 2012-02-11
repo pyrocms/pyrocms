@@ -4,14 +4,11 @@
  *
  * Load partials and access data
  *
- * @package		PyroCMS
  * @author		PyroCMS Dev Team
- * @copyright	Copyright (c) 2008 - 2011, PyroCMS
- *
+ * @package		PyroCMS\Core\Plugins
  */
 class Plugin_Theme extends Plugin
 {
-
 	/**
 	 * Partial
 	 *
@@ -20,21 +17,17 @@ class Plugin_Theme extends Plugin
 	 * Usage:
 	 * {{ theme:partial file="header" }}
 	 *
-	 * @param	array
-	 * @return	array
+	 * @return array
 	 */
 	public function partial()
 	{
 		$name = $this->attribute('name');
-		$name = $this->attribute('file', $name); #deprecated 2.0
 
-		$path =& $this->load->get_var('template_views');
-		$data = $this->load->_ci_cached_vars;
+		$path = $this->load->get_var('template_views');
+		$data = $this->load->get_vars();
 
-		return $this->parser->parse_string($this->load->_ci_load(array(
-			'_ci_path' => $path.'partials/'.$name.'.html',
-			'_ci_return' => TRUE
-		)), $data, TRUE, TRUE);
+		$string = $this->load->file($path.'partials/'.$name.'.html', TRUE);
+		return $this->parser->parse_string($string, $data, TRUE, TRUE);
 	}
 	
 	/**
@@ -43,10 +36,24 @@ class Plugin_Theme extends Plugin
 	 * Get the path to the theme
 	 *
 	 * Usage:
-	 * {{ theme:partial file="header" }}
+	 * {{ theme:assets }}
 	 *
-	 * @param	array
-	 * @return	array
+	 * @return array
+	 */
+	public function assets()
+	{
+		return Asset::render('theme');
+	}
+	
+	/**
+	 * Path
+	 *
+	 * Get the path to the theme
+	 *
+	 * Usage:
+	 * {{ theme:assets }}
+	 *
+	 * @return array
 	 */
 	public function path()
 	{
@@ -63,37 +70,15 @@ class Plugin_Theme extends Plugin
 	 *
 	 * {{ theme:css file="" }}
 	 *
-	 * @param	array
-	 * @return	array
+	 * @return array
 	 */
-	public function css($return = '')
+	public function css()
 	{
-		$this->load->library('asset');
-		
-		$file		= $this->attribute('file');
-		$attributes	= $this->attributes();
-		$module		= $this->attribute('module', '_theme_');
-		$method		= 'css' . (in_array($return, array('url', 'path')) ? '_' . $return : ($return = ''));
-		$base		= $this->attribute('base', '');
+		$file = $this->attribute('file');
+		$title = $this->attribute('title');
+		$media = $this->attribute('media');
 
-		foreach (array('file', 'module', 'base') as $key)
-		{
-			if (isset($attributes[$key]))
-			{
-				unset($attributes[$key]);
-			}
-			else if ($key === 'file')
-			{
-				return '';
-			}
-		}
-
-		if ( ! $return)
-		{
-			return $this->asset->{$method}($file, $module, $attributes, $base);
-		}
-
-		return $this->asset->{$method}($file, $module, $attributes);
+		return link_tag($this->css_path($file), 'stylesheet', 'text/css', $title, $media);
 	}
 
 	/**
@@ -103,12 +88,13 @@ class Plugin_Theme extends Plugin
 	 *
 	 * {{ theme:css_url file="" }}
 	 *
-	 * @param	array
-	 * @return	string The css location url
+	 * @return string The css location url
 	 */
 	public function css_url()
 	{
-		return $this->css('url');
+		$file = $this->attribute('file');
+
+		return Asset::get_filepath_css($file, true);
 	}
 
 	/**
@@ -118,12 +104,13 @@ class Plugin_Theme extends Plugin
 	 *
 	 * {{ theme:css_path file="" }}
 	 *
-	 * @param	array
-	 * @return	string The css location path
+	 * @return string The css location path
 	 */
 	public function css_path()
 	{
-		return $this->css('path');
+		$file = $this->attribute('file');
+		
+		return Asset::get_filepath_css($file, false);
 	}
 
 	/**
@@ -135,37 +122,34 @@ class Plugin_Theme extends Plugin
 	 *
 	 * {{ theme:image file="" }}
 	 *
-	 * @param	array
 	 * @return	array
 	 */
-	public function image($return = '')
+	public function image()
 	{
-		$this->load->library('asset');
-
 		$file		= $this->attribute('file');
+		$alt		= $this->attribute('alt', $file);
 		$attributes	= $this->attributes();
-		$module		= $this->attribute('module', '_theme_');
-		$method		= 'image' . (in_array($return, array('url', 'path')) ? '_' . $return : ($return = ''));
-		$base		= $this->attribute('base', '');
 
-		foreach (array('file', 'module', 'base') as $key)
+		foreach (array('file', 'alt') as $key)
 		{
 			if (isset($attributes[$key]))
 			{
 				unset($attributes[$key]);
 			}
-			else if ($key === 'file')
+			else if ($key == 'file')
 			{
 				return '';
 			}
 		}
-
-		if ( ! $return)
+		
+		try
 		{
-			return $this->asset->{$method}($file, $module, $attributes, $base);
+			return Asset::img($file, $alt);
 		}
-
-		return $this->asset->{$method}($file, $module, $attributes);
+		catch (Asset_Exception $e)
+		{
+			return '';
+		}
 	}
 
 	/**
@@ -175,12 +159,13 @@ class Plugin_Theme extends Plugin
 	 *
 	 * {{ theme:image_url file="" }}
 	 *
-	 * @param	array
 	 * @return	string The image location url
 	 */
 	public function image_url()
 	{
-		return $this->image('url');
+		$file = $this->attribute('file');
+
+		return Asset::get_filepath_img($file, true);
 	}
 
 	/**
@@ -190,12 +175,13 @@ class Plugin_Theme extends Plugin
 	 *
 	 * {{ theme:image_path file="" }}
 	 *
-	 * @param	array
 	 * @return	string The image location path
 	 */
 	public function image_path()
 	{
-		return $this->image('path');
+		$file = $this->attribute('file');
+
+		return BASE_URI.Asset::get_filepath_img($file, false);
 	}
 
 	/**
@@ -207,34 +193,13 @@ class Plugin_Theme extends Plugin
 	 *
 	 * {{ theme:js file="" }}
 	 *
-	 * @param	array
 	 * @return	array
 	 */
 	public function js($return = '')
 	{
-		$this->load->library('asset');
-
 		$file	= $this->attribute('file');
-		$attributes	= $this->attributes();
-		$module	= $this->attribute('module', '_theme_');
-		$method	= 'js' . (in_array($return, array('url', 'path')) ? '_' . $return : ($return = ''));
-		$base	= $this->attribute('base', '');
-		
 
-		foreach (array('file', 'module', 'base') as $key)
-		{
-			if (isset($attributes[$key]))
-			{
-				unset($attributes[$key]);
-			}
-		}
-
-		if ( ! $return)
-		{
-			return $this->asset->{$method}($file, $module, $attributes, $base);
-		}
-
-		return $this->asset->{$method}($file, $module, $attributes);
+		return '<script src="'.$this->js_path($file).'" type="text/css"></script>';
 	}
 
 	/**
@@ -244,12 +209,13 @@ class Plugin_Theme extends Plugin
 	 *
 	 * {{ theme:js_url file="" }}
 	 *
-	 * @param	array
 	 * @return	string The js location url
 	 */
 	public function js_url()
 	{
-		return $this->js('url');
+		$file = $this->attribute('file');
+
+		return Asset::get_filepath_js($file, true);
 	}
 
 
@@ -260,12 +226,13 @@ class Plugin_Theme extends Plugin
 	 *
 	 * {{ theme:js_path file="" }}
 	 *
-	 * @param	array
 	 * @return	string The js location path
 	 */
 	public function js_path()
 	{
-		return $this->js('path');
+		$file = $this->attribute('file');
+
+		return BASE_URI.Asset::get_filepath_js($file, false);
 	}
 
 	/**
@@ -275,7 +242,6 @@ class Plugin_Theme extends Plugin
 	 * Usage:
 	 * {{ theme:variables name="foo" }}
 	 *
-	 * @param	array
 	 * @return	array
 	 */
 	public function variables()
@@ -306,27 +272,16 @@ class Plugin_Theme extends Plugin
 	 *
 	 * {{ theme:favicon file="" [rel="foo"] [type="bar"] }}
 	 *
-	 * @param	array
 	 * @return	array
 	 */
 	public function favicon()
 	{
-		$base = $this->attribute('base', 'path');
-
-		if ($base === 'path')
-		{
-			$theme_path = $this->template->get_theme_path();
-			$file = BASE_URI . $theme_path . $this->attribute('file', 'favicon.ico');
-		}
-		elseif ($base === 'url')
-		{
-			$this->load->library('asset');
-			$file = $this->asset->image_url($this->attribute('file', 'favicon.ico'), '_theme_');
-		}
+		$this->load->library('asset');
+		$file = Asset::get_filepath_img($this->attribute('file', 'favicon.ico'), true);
 
 		$rel		= $this->attribute('rel', 'shortcut icon');
 		$type		= $this->attribute('type', 'image/x-icon');
-		$is_xhtml	= in_array($this->attribute('xhtml', 'true'), array('1','y','yes','true'));
+		$is_xhtml	= in_array($this->attribute('xhtml', 'true'), array('1', 'y', 'yes', 'true'));
 
 		$link = '<link ';
 		$link .= 'href="' . $file . '" ';

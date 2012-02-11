@@ -2,10 +2,8 @@
 /**
  * Admin_groups controller
  *
- * @author 		PyroCMS Dev Team
- * @package 	PyroCMS
- * @subpackage 	Navigation module
- * @category 	Modules
+ * @author		PyroCMS Dev Team
+ * @package 	PyroCMS\Core\Modules\Navigation\Controllers
  */
 class Admin_groups extends Admin_Controller {
 	
@@ -96,7 +94,7 @@ class Admin_groups extends Admin_Controller {
 		// Render the view
 		$this->data->navigation_group =& $navigation_group;
 		$this->template
-			->title($this->module_details['name'],lang('nav_group_label'), lang('nav_group_create_title'))
+			->title($this->module_details['name'], lang('nav_group_label'), lang('nav_group_create_title'))
 			->build('admin/groups/create', $this->data);
 	}
 
@@ -130,4 +128,3 @@ class Admin_groups extends Admin_Controller {
 		redirect('admin/navigation/index');
 	}
 }
-?>

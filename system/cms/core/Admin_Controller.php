@@ -1,11 +1,25 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-// Code here is run before admin controllers
+/**
+ * This is the basis for the Admin class that is used throughout PyroCMS.
+ * 
+ * Code here is run before admin controllers
+ * 
+ * @package PyroCMS\Core\Controllers
+ */
 class Admin_Controller extends MY_Controller {
 
-	// Admin controllers can have sections, normally an arbitrary string
+	/**
+	 * Admin controllers can have sections, normally an arbitrary string
+	 *
+	 * @var string 
+	 */
 	protected $section = NULL;
 
+	/**
+	 * Load language, check flashdata, define https, load and setup the data 
+	 * for the admin theme
+	 */
 	public function __construct()
 	{
 		parent::__construct();
@@ -40,14 +54,9 @@ class Admin_Controller extends MY_Controller {
 		// make a constant as this is used in a lot of places
 		defined('ADMIN_THEME') or define('ADMIN_THEME', $this->admin_theme->slug);
 			
-		// Prepare Asset library
-	    $this->asset->set_theme(ADMIN_THEME);
-	
 		// Set the location of assets
-		$this->config->set_item('asset_dir', dirname($this->admin_theme->web_path).'/');
-		$this->config->set_item('asset_url', BASE_URL.dirname($this->admin_theme->web_path).'/');
-		$this->config->set_item('theme_asset_dir', dirname($this->admin_theme->web_path).'/');
-		$this->config->set_item('theme_asset_url', BASE_URL.dirname($this->admin_theme->web_path).'/');
+		Asset::add_path('theme', $this->admin_theme->web_path.'/');
+		Asset::set_path('theme');
 		
 		// grab the theme options if there are any
 		ci()->theme_options = $this->pyrocache->model('theme_m', 'get_values_by', array(array('theme' => ADMIN_THEME) ));
@@ -67,6 +76,11 @@ class Admin_Controller extends MY_Controller {
 		call_user_func(array(new $class, 'run'));
 	}
 
+	/**
+	 * Checks to see if a user object has access rights to the admin area.
+	 *
+	 * @return boolean 
+	 */
 	private function _check_access()
 	{
 		// These pages get past permission checks

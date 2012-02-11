@@ -1,13 +1,11 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
- * Session Plugin
+ * Template Plugin
  *
- * Read and write session data
- *
- * @package		PyroCMS
+ * Display theme templates
+ * 
  * @author		PyroCMS Dev Team
- * @copyright	Copyright (c) 2008 - 2011, PyroCMS
- *
+ * @package		PyroCMS\Core\Plugins
  */
 class Plugin_Template extends Plugin {
 	/**

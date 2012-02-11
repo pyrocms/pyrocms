@@ -1,11 +1,11 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
- * @package 		PyroCMS
- * @subpackage 		Category Menu Widget
- * @author			Stephen Cozart
- *
  * Show a list of blog categories.
+ * 
+ * @author		PyroCMS Dev Team
+ * @author		Stephen Cozart
+ * @package 	PyroCMS\Core\Modules\Blog\Widgets
  */
 
 class Widget_Blog_categories extends Widgets

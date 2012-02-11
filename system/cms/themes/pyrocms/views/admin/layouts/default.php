@@ -19,7 +19,7 @@
   	<meta name="viewport" content="width=device-width,user-scalable=no">
 
   	<!-- CSS. No need to specify the media attribute unless specifically targeting a media type, leaving blank implies media=all -->
-	<?php echo css('style.css'); ?>
+	<?php echo Asset::css('style.css'); ?>
   	<!-- End CSS-->
 
 	<!-- Googlelicious -->
@@ -32,12 +32,6 @@
   	<link rel="apple-touch-icon" href="apple-touch-icon-57x57-precomposed.png">
   	<link rel="apple-touch-icon" href="apple-touch-icon-72x72-precomposed.png">
   	<link rel="apple-touch-icon" href="apple-touch-icon-114x114-precomposed.png">
-
-	<!-- Grab Google CDN's jQuery, with a protocol relative URL -->
-  	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
-
-	<!-- fall back to local if offline -->
-  	<script>window.jQuery || document.write('<script src="<?php echo js_path('jquery/jquery.min.js'); ?>">\x3C/script>')</script>
 	
 	<!-- metadata needs to load before some stuff -->
 	<?php file_partial('metadata'); ?>

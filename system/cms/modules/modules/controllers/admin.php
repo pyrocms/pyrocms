@@ -2,11 +2,8 @@
 /**
  * Modules controller, lists all installed modules
  *
- * @author 		Phil Sturgeon - PyroCMS Development Team
- * @package 	PyroCMS
- * @subpackage 	Core modules
- * @category 	Modules
- * @since 		v1.0
+ * @author 		PyroCMS Dev Team
+ * @package 	PyroCMS\Core\Modules\Modules\Controllers
  */
 class Admin extends Admin_Controller
 {

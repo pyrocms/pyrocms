@@ -1,21 +1,10 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
- * PyroStreams API Library
- *
- * @package  	Streams API
- * @category  	Libraries
- * @author  	Parse19
- */
-
-// --------------------------------------------------------------------------
- 
-/**
  * Entries Driver
- *
- * @package  	Streams API
- * @category  	Drivers
+ * 
  * @author  	Parse19
+ * @package  	PyroCMS\Core\Libraries\Streams\Drivers
  */
 class Streams_streams extends CI_Driver {
 
@@ -166,7 +155,7 @@ class Streams_streams extends CI_Driver {
 		
 		if ( ! $str_id) $this->log_error('invalid_stream', 'get_stream');
 
-		return $this->CI->field_m->get_assignments_for_stream($this->stream_id($stream, $namespace));
+		return $this->CI->fields_m->get_assignments_for_stream($str_id);
 	}
 
 	// --------------------------------------------------------------------------

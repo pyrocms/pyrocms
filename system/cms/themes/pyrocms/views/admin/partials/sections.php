@@ -7,7 +7,7 @@
 			<li class="<?php if ($name === $active_section) echo 'current' ?>">
 				<?php echo anchor($section['uri'], lang($section['name'])); ?>
 				<?php if ($name === $active_section): ?>
-					<?php echo image('admin/section_arrow.png'); ?>
+					<?php echo Asset::img('admin/section_arrow.png', ''); ?>
 				<?php endif; ?>
 			</li>
 			<?php endif; ?>

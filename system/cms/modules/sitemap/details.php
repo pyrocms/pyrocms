@@ -1,9 +1,7 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 /**
- * @author 		PyroCMS Dev Team
- * @package 	PyroCMS
- * @subpackage 	Modules
- * @category 	Sitemap
+ * @author		PyroCMS Dev Team
+ * @package		PyroCMS\Core\Modules\Sitemap
  */
 class Module_Sitemap extends Module {
 

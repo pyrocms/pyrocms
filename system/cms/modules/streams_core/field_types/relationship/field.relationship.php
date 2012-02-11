@@ -3,7 +3,7 @@
 /**
  * PyroStreams Relationship Field Type
  *
- * @package		PyroStreams
+ * @package		PyroCMS\Core\Modules\Streams Core\Field Types
  * @author		Parse19
  * @copyright	Copyright (c) 2011 - 2012, Parse19
  * @license		http://parse19.com/pyrostreams/docs/license
@@ -48,14 +48,14 @@ class Field_relationship
 		$title_column = $stream->title_column;
 		
 		// Default to ID for title column
-		if(!trim($title_column) or !$this->CI->db->field_exists($title_column, STR_PRE.$stream->stream_slug)):
+		if(!trim($title_column) or !$this->CI->db->field_exists($title_column, $stream->stream_prefix.$stream->stream_slug)):
 		
 			$title_column = 'id';
 		
 		endif;
 	
 		// Get the entries
-		$obj = $this->CI->db->get(STR_PRE.$stream->stream_slug);
+		$obj = $this->CI->db->get($stream->stream_prefix.$stream->stream_slug);
 		
 		$choices = array();
 		
@@ -122,7 +122,7 @@ class Field_relationship
 		
 		// Make sure the table exists still. If it was deleted we don't want to
 		// have everything go to hell.
-		if(!$this->CI->db->table_exists($this->CI->config->item('stream_prefix').$stream->stream_slug)):
+		if(!$this->CI->db->table_exists($stream->stream_prefix.$stream->stream_slug)):
 		
 			return;
 		
@@ -141,7 +141,7 @@ class Field_relationship
 		// -------------------------------------
 		
 		$this->CI->db->select('id, '.$title_column)->where('id', $input);
-		$obj = $this->CI->db->get($this->CI->config->item('stream_prefix').$stream->stream_slug);	
+		$obj = $this->CI->db->get($stream->stream_prefix.$stream->stream_slug);	
 		
 		$row = $obj->row();
 
@@ -173,7 +173,7 @@ class Field_relationship
 		// Okay good to go
 		$stream = $this->CI->streams_m->get_stream($custom['choose_stream']);
 		
-		$obj = $this->CI->db->where('id', $row)->get(STR_PRE.$stream->stream_slug);
+		$obj = $this->CI->db->where('id', $row)->get($stream->stream_prefix.$stream->stream_slug);
 		
 		if($obj->num_rows() == 0) return;
 		

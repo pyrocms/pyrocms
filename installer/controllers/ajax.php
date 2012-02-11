@@ -1,20 +1,18 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
- * @author 		Zack Kitzmiller - PyroCMS development team
- * @package		PyroCMS
- * @subpackage	Installer
- * @category	Application
- * @since 		v0.9.9.2
- *
  * Installer's Ajax controller.
+ * 
+ * @author 		Zack Kitzmiller
+ * @author		PyroCMS Dev Team
+ * @package		PyroCMS\Installer\Controllers
  */
 class Ajax extends CI_Controller {
 
 	/**
 	 * Array of languages supported by the installer
 	 */
-	private $languages = array('arabic', 'english', 'dutch', 'brazilian', 'polish', 'chinese_traditional', 'french', 'slovenian', 'spanish', 'lithuanian','danish');
+	private $languages	= array ('arabic', 'brazilian', 'english', 'dutch', 'french', 'german', 'polish', 'chinese_traditional', 'slovenian', 'spanish', 'russian', 'greek', 'lithuanian','danish','vietnamese', 'indonesian');
 
 	public function __construct()
 	{

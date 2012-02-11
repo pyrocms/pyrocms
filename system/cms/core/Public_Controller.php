@@ -39,12 +39,9 @@ class Public_Controller extends MY_Controller
 			show_error('This site has been set to use a theme that does not exist. If you are an administrator please '.anchor('admin/themes', 'change the theme').'.');
 		}
 
-		// Prepare Asset library
-	    $this->asset->set_theme($this->theme->slug);
-	
-		// Set the front-end theme directory
-		$this->config->set_item('theme_asset_dir', dirname($this->theme->path).'/');
-		$this->config->set_item('theme_asset_url', BASE_URL.dirname($this->theme->web_path).'/');
+		// Set the theme as a path for Asset library
+		Asset::add_path('theme', $this->theme->path.'/');
+		Asset::set_path('theme');
 
 	    // Set the theme view folder
 	    $this->template

@@ -1,10 +1,10 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
- * @package 		PyroCMS
- * @subpackage 		Files
- * @author			Phil Sturgeon
- *
  * Frontend controller for files and stuffs
+ * 
+ * @author		Phil Sturgeon
+ * @author		PyroCMS Dev Team
+ * @package		PyroCMS\Core\Modules\Files\Controllers
  */
 class Files extends Public_Controller
 {

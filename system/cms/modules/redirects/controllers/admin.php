@@ -3,9 +3,7 @@
  * Cms controller for the redirects module
  *
  * @author 		PyroCMS Dev Team
- * @package 	PyroCMS
- * @subpackage 	Variables Module
- * @category	Modules
+ * @package 	PyroCMS\Core\Modules\Redirects\Controllers
  */
 class Admin extends Admin_Controller
 {

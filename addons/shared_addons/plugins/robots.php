@@ -3,11 +3,9 @@
  * Example Plugin
  *
  * Quick plugin to demonstrate how things work
- *
- * @package		PyroCMS
+ * 
  * @author		PyroCMS Dev Team
- * @copyright	Copyright (c) 2009 - 2010, PyroCMS
- *
+ * @package		PyroCMS\Addon\Plugins
  */
 class Plugin_Robots extends Plugin
 {

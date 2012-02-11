@@ -3,9 +3,7 @@
  * Admin controller for the themes module
  *
  * @author 		PyroCMS Dev Team
- * @package 	PyroCMS
- * @subpackage 	Themes module
- * @category	Modules
+ * @package 	PyroCMS\Core\Modules\Themes\Controllers
  */
 class Admin extends Admin_Controller
 {
@@ -38,8 +36,8 @@ class Admin extends Admin_Controller
 		$this->load->library('form_validation');
 
 		$this->template
-			->append_metadata(css('themes.css', 'themes'))
-			->append_metadata(js('admin.js', 'themes'));
+			->append_css('module::themes.css')
+			->append_js('module::admin.js');
 	}
 
 	/**
@@ -107,7 +105,7 @@ class Admin extends Admin_Controller
 		if ($all_options)
 		{
 			// Create dynamic validation rules
-			foreach($all_options as $option)
+			foreach ($all_options as $option)
 			{
 				$this->validation_rules[] = array(
 					'field' => $option->slug . (in_array($option->type, array('select-multiple', 'checkbox')) ? '[]' : ''),
@@ -125,7 +123,7 @@ class Admin extends Admin_Controller
 			if ($this->form_validation->run())
 			{
 				// Loop through again now we know it worked
-				foreach($options_array as $option_slug => $stored_value)
+				foreach ($options_array as $option_slug => $stored_value)
 				{
 					$input_value = $this->input->post($option_slug, FALSE);
 	
@@ -168,7 +166,8 @@ class Admin extends Admin_Controller
 		$this->data->options_array 	= $all_options;
 		$this->data->controller		= &$this;
 
-		$this->template->set_layout('modal', 'admin')
+		$this->template
+			->set_layout('modal', 'admin')
 			->build('admin/options', $this->data);
 	}
 
@@ -215,7 +214,7 @@ class Admin extends Admin_Controller
 			show_error('Uploading add-ons has been disabled for this site. Please contact your administrator');
 		}
 
-		if($this->input->post('btnAction') == 'upload')
+		if ($this->input->post('btnAction') == 'upload')
 		{
 			$config['upload_path'] 		= FCPATH.UPLOAD_PATH;
 			$config['allowed_types'] 	= 'zip';
@@ -288,7 +287,7 @@ class Admin extends Admin_Controller
 				$theme_name = urldecode($theme_name);
 				$to_delete++;
 
-				if($this->settings->default_theme == $theme_name)
+				if ($this->settings->default_theme == $theme_name)
 				{
 					$this->session->set_flashdata('error', lang('themes.default_delete_error'));
 				}
@@ -297,11 +296,11 @@ class Admin extends Admin_Controller
 				{
 					$theme_dir = ADDONPATH.'themes/'.$theme_name;
 
-					if( is_really_writable($theme_dir) )
+					if (is_really_writable($theme_dir))
 					{
 						delete_files($theme_dir, TRUE);
 
-						if(@rmdir($theme_dir))
+						if (@rmdir($theme_dir))
 						{
 							$deleted++;
 						}
@@ -314,7 +313,7 @@ class Admin extends Admin_Controller
 				}
 			}
 
-			if( $deleted == $to_delete)
+			if ($deleted == $to_delete)
 			{
 				$this->session->set_flashdata('success', sprintf(lang('themes.mass_delete_success'), $deleted, $to_delete) );
 			}

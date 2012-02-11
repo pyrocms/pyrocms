@@ -1,11 +1,10 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * Comments model
- *
- * @package		PyroCMS
- * @subpackage	Comments Module
- * @category	Models
- * @author		Phil Sturgeon - PyroCMS Dev Team
+ * 
+ * @author		Phil Sturgeon
+ * @author		PyroCMS Dev Team
+ * @package		PyroCMS\Core\Modules\Comments\Models
  */
 class Comments_m extends MY_Model
 {

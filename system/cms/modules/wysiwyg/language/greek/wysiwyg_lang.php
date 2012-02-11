@@ -1,17 +1,14 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-$lang = array(
-    'wysiwyg.meta.width'    =>  'Πλάτος',
-    'wysiwyg.meta.height'   =>  'Ύψος',
-    'wysiwyg.meta.size'     =>  'Μέγεθος',
-    'wysiwyg.label.insert_width'    => 'Εισαγωγή Πλάτους Εικόνας:',
-	'wysiwyg.label.no_limit' =>	'(0 για απεριόριστο)',
-    'wysiwyg.label.float'   =>  'Στοίχιση',
-    'wysiwyg.label.left'    =>  'Αριστερά',
-    'wysiwyg.label.right'   =>  'Δεξιά',
-    'wysiwyg.label.none'    =>  'Καμία',
-    'wysiwyg.meta.mime'     =>  'Τύπος Mime'
-
-);
+$lang['wysiwyg.meta.width']    =  'Πλάτος',
+$lang['wysiwyg.meta.height']   =  'Ύψος',
+$lang['wysiwyg.meta.size']     =  'Μέγεθος',
+$lang['wysiwyg.label.insert_width']    = 'Εισαγωγή Πλάτους Εικόνας:',
+$lang['wysiwyg.label.no_limit'] =	'(0 για απεριόριστο)',
+$lang['wysiwyg.label.float']   =  'Στοίχιση',
+$lang['wysiwyg.label.left']    =  'Αριστερά',
+$lang['wysiwyg.label.right']   =  'Δεξιά',
+$lang['wysiwyg.label.none']    =  'Καμία',
+$lang['wysiwyg.meta.mime']     =  'Τύπος Mime'
 
 /* end of file wysiwyg_lang.php */

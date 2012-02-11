@@ -2,11 +2,8 @@
 /**
  * Modules model
  *
- * @author 		PyroCMS Development Team
- * @package 	PyroCMS
- * @subpackage 	Modules
- * @category	Modules
- * @since 		v1.0
+ * @author		PyroCMS Dev Team
+ * @package		PyroCMS\Core\Modules\Modules\Models
  */
 class Module_m extends MY_Model
 {
@@ -461,6 +458,9 @@ class Module_m extends MY_Model
 
 		foreach (array(APPPATH, ADDONPATH, SHARED_ADDONPATH) as $directory)
     	{
+			// some servers return false instead of an empty array
+			if ( ! $directory) continue;
+
 			foreach (glob($directory.'modules/*', GLOB_ONLYDIR) as $path)
 			{
 				$slug = basename($path);

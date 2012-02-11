@@ -2,16 +2,20 @@
 
 require APPPATH."libraries/MX/Lang.php";
 
+/**
+ * General Language library class for using in PyroCMS
+ * 
+ * @package PyroCMS\Core\Libraries
+ */
 class MY_Lang extends MX_Lang {
 
 	/**
 	 * Fetch a single line of text from the language array
 	 *
-	 * @access	public
-	 * @param	string	$line	the language line
-	 * @return	string
+	 * @param string $line the language line
+	 * @return string
 	 */
-	function line($line = '')
+	public function line($line = '')
 	{
 		$translation = ($line == '' OR ! isset($this->language[$line])) ? FALSE : $this->language[$line];
 

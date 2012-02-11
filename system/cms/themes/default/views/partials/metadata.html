@@ -5,7 +5,8 @@
 <meta name="distribution" content="global" />
 <meta name="resource-type" content="document" />
 <meta name="language" content="{{ lang:code }}" />
-{{ theme:favicon file="favicon.ico" base="url" }}
+
+{{ theme:favicon file="favicon.ico" }}
 
 <base href="{{ url:base }}" />
 
@@ -16,10 +17,9 @@
 <!-- Use Html5Shiv in order to allow IE render HTML5 -->
 <!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 
-<!-- Load jQuery Before Modules/Widgets -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
-<script>window.jQuery || document.write("\x3Cscript src='{{ theme:js_url file='jquery/jquery.min.js' }}'>\x3C/script>")</script>
-<!-- End jquery -->
+<!-- Begin scripts -->
+{{ theme:js file='jquery/jquery.js' }}
+<!-- End scripts -->
 
 {{ template:metadata }}
 
