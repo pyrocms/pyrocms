@@ -6,7 +6,7 @@
  * @author		Phil Sturgeon
  * @package 	PyroCMS\Core\Helpers
  */
-if (!function_exists('html_to_assoc'))
+if (!function_exists('gravatar'))
 {
 
 	/**
