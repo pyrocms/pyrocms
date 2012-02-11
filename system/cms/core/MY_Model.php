@@ -4,15 +4,14 @@
  * A base model to provide the basic CRUD actions for all models that inherit 
  * from it.
  *
- * @package CodeIgniter
- * @subpackage MY_Model
- * @license GPLv3 <http://www.gnu.org/licenses/gpl-3.0.txt>
- * @link http://github.com/philsturgeon/codeigniter-base-model
- * @version 1.3
  * @author Jamie Rumbelow <http://jamierumbelow.net>
  * @author Phil Sturgeon <http://philsturgeon.co.uk>
  * @author Dan Horrigan <http://dhorrigan.com>
+ * @license GPLv3 <http://www.gnu.org/licenses/gpl-3.0.txt>
+ * @link http://github.com/philsturgeon/codeigniter-base-model
+ * @version 1.3
  * @copyright Copyright (c) 2009, Jamie Rumbelow <http://jamierumbelow.net>
+ * @package PyroCMS\Core\Libraries
  */
 class MY_Model extends CI_Model
 {
@@ -85,6 +84,7 @@ class MY_Model extends CI_Model
 
 	/**
 	 * 
+	 * @todo Provide short description.
 	 *
 	 * @param string $method
 	 * @param array $arguments
@@ -181,14 +181,17 @@ class MY_Model extends CI_Model
 	}
 
 	/**
-	 * Similar to get_by(), but returns a result array of
-	 * many result objects.
-	 *
-	 * @todo What are the ghost parameters this accepts?
+	 * Similar to get_by(), but returns a result array of many result objects.
 	 * 
+	 * The function accepts ghost parameters, fetched via func_get_args().
+	 * Those are:
+	 *  1. string `$key` The key to search by.
+	 *  2. string `$value` The value of that key.
+	 * 
+	 * They are used in the query in the where statement something like:
+	 *   <code>[...] WHERE {$key}={$value} [...]</code>
+	 *
 	 * @author Phil Sturgeon
-	 * @param string $key The key to search by
-	 * @param string $val The value of that key
 	 * @return array
 	 */
 	public function get_many_by()
@@ -202,9 +205,8 @@ class MY_Model extends CI_Model
 	/**
 	 * Get all records in the database
 	 *
-	 * @param	string 	Type object or array
-	 * @return 	mixed
-	 * @author 	Jamie Rumbelow
+	 * @author Jamie Rumbelow
+	 * @return object
 	 */
 	public function get_all()
 	{
@@ -212,14 +214,17 @@ class MY_Model extends CI_Model
 	}
 
 	/**
-	 * Similar to get_by(), but returns a result array of
-	 * many result objects.
-	 *
-	 * @todo What are the ghost parameters this accepts?
+	 * Similar to get_by(), but returns a result array of many result objects.
+	 * 
+	 * The function accepts ghost parameters, fetched via func_get_args().
+	 * Those are:
+	 *  1. string `$key` The key to search by.
+	 *  2. string `$value` The value of that key.
+	 * 
+	 * They are used in the query in the where statement something like:
+	 *   <code>[...] WHERE {$key}={$value} [...]</code>
 	 * 
 	 * @author Phil Sturgeon
-	 * @param string $key The key to search by
-	 * @param string $val The value of that key
 	 * @return array
 	 */
 	public function count_by()
@@ -242,15 +247,14 @@ class MY_Model extends CI_Model
 	}
 
 	/**
-	 * Insert a new record into the database, 
-	 * calling the before and after create callbacks.
-	 * Returns the insert ID.
+	 * Insert a new record into the database, calling the before and after 
+	 * create callbacks.
 	 *
 	 * @author Jamie Rumbelow
 	 * @author Dan Horrigan
 	 * @param array $data Information
 	 * @param boolean $skip_validation Whether we should skip the validation of the data.
-	 * @return integer|true
+	 * @return integer|true The insert ID
 	 */
 	public function insert($data, $skip_validation = FALSE)
 	{
@@ -279,12 +283,12 @@ class MY_Model extends CI_Model
 	 * Insert multiple rows at once.
 	 * 
 	 * Similar to insert(), just passing an array to insert multiple rows at 
-	 * once. Returns an array of insert IDs.
+	 * once.
 	 *
 	 * @author Jamie Rumbelow
 	 * @param array $data Array of arrays to insert
 	 * @param boolean $skip_validation Whether we should skip the validation of the data.
-	 * @return boolean 
+	 * @return array An array of insert IDs.
 	 */
 	public function insert_many($data, $skip_validation = FALSE)
 	{
