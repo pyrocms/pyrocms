@@ -4,7 +4,7 @@
  *
  * Provides an admin for the file module.
  *
- * @author		PyroCMS Dev Team
+ * @author		Jerel Unruh - PyroCMS Dev Team
  * @package		PyroCMS\Core\Modules\Files\Controllers
  */
 class Admin extends Admin_Controller {
@@ -14,42 +14,9 @@ class Admin extends Admin_Controller {
 	private $_type 		= NULL;
 	private $_ext 		= NULL;
 	private $_filename	= NULL;
-	private $_validation_rules = array(
-		array(
-			'field' => 'userfile',
-			'label' => 'lang:files.file_label',
-			'rules' => 'trim'
-		),
-		array(
-			'field' => 'name',
-			'label' => 'lang:files.name_label',
-			'rules' => 'trim|required|max_length[250]'
-		),
-		array(
-			'field' => 'description',
-			'label' => 'lang:files.description_label',
-			'rules' => 'trim|max_length[250]'
-		),
-		array(
-			'field' => 'type',
-			'label' => 'lang:files.type_label',
-			'rules' => 'trim|max_length[1]'
-		),
-		array(
-			'field' => 'folder_id',
-			'label' => 'lang:file_folders.parent_label',
-			'rules' => 'trim|is_numeric'
-		)
-	);
 
-	/**
-	 * Constructor
-	 *
-	 * Loads dependencies.
-	 *
-	 * @access	public
-	 * @return	void
-	 */
+	// ------------------------------------------------------------------------
+
 	public function __construct()
 	{
 		parent::__construct();
@@ -61,464 +28,58 @@ class Admin extends Admin_Controller {
 			'file_folders_m'
 		));
 
-		$this->load->library('form_validation');
-		$this->form_validation->set_rules($this->_validation_rules);
-
-		$this->_folders = $this->file_folders_m->get_folders();
-
-		// Get the parent -> childs
-		$this->data->folders_tree = array();
-		foreach ($this->_folders as $folder)
-		{
-			$this->data->folders_tree[$folder->id] = repeater('&raquo; ', $folder->depth) . $folder->name;
-		}
-
-		$this->template
-			->set_partial('nav', 'admin/partials/nav', array(
-				'file_folders'	=> $this->_folders,
-				'current_id'	=> 0
-			));
-
-		$this->_path = FCPATH . $this->config->item('files_folder');
 		$this->_check_dir();
 	}
 
+	// ------------------------------------------------------------------------
+
 	/**
-	 * Index
-	 *
-	 * Shows the default
+	 * Folder Listing
 	 *
 	 * @access	public
 	 * @return	void
 	 */
 	public function index()
 	{
-		$this->data->file_folders	= $this->_folders;
-		$this->data->content		= $this->load->view('admin/folders/index', $this->data, TRUE);
 
-		
+		$data->folders = $this->file_folders_m->where('parent_id', 0)
+			->order_by('sort')
+			->get_all();
 
 		$this->template
 			->title($this->module_details['name'])
 			
 			->append_css('module::jquery.fileupload-ui.css')
 			->append_css('module::files.css')
-			
+
+			->append_js('jquery/jquery.ui.nestedSortable.js')
 			->append_js('jquery/jquery.cooki.js')
 			->append_js('module::jquery.fileupload.js')
 			->append_js('module::jquery.fileupload-ui.js')
-			->append_js('module::jquery.ba-hashchange.min.js')
 			->append_js('module::functions.js')
 		
-			->build('admin/layouts/index', $this->data);
+			->build('admin/index', $data);
 	}
 
 	// ------------------------------------------------------------------------
 
 	/**
-	 * Upload
+	 * Set the order of folders
 	 *
-	 * Upload a file to the destination folder
-	 *
-	 * @params int	The folder id
+	 * @access	public
+	 * @return	void
 	 */
-	public function upload($folder_id = '')
+	public function order_folders()
 	{
-		$this->_check_ext();
-		
-		$this->data->folders = $this->_folders;
-				
-		if ($this->form_validation->run())
+		$i = 0;
+
+		if ($order = $this->input->post('order'))
 		{
-			// Setup upload config
-			$this->load->library('upload', array(
-				'upload_path'	=> $this->_path,
-				'allowed_types'	=> $this->_ext,
-				'file_name'		=> $this->_filename
-			));
-
-			// File upload error
-			if ( ! $this->upload->do_upload('userfile'))
+			foreach (explode(',', $order) as $value) 
 			{
-				$status		= 'error';
-				$message	= $this->upload->display_errors();
-
-				if ($this->input->is_ajax_request())
-				{
-					$data = array();
-					$data['messages'][$status] = $message;
-					$message = $this->load->view('admin/partials/notices', $data, TRUE);
-
-					return $this->template->build_json(array(
-						'status'	=> $status,
-						'message'	=> $message
-					));
-				}
-
-				$this->data->messages[$status] = $message;
+				$this->file_folders_m->update_by('slug', $value, array('sort' => $i));
+				$i++;
 			}
-
-			// File upload success
-			else
-			{
-				$file = $this->upload->data();
-				$data = array(
-					'folder_id'		=> (int) $this->input->post('folder_id'),
-					'user_id'		=> (int) $this->current_user->id,
-					'type'			=> $this->_type,
-					'name'			=> $this->input->post('name'),
-					'description'	=> $this->input->post('description') ? $this->input->post('description') : '',
-					'filename'		=> $file['file_name'],
-					'extension'		=> $file['file_ext'],
-					'mimetype'		=> $file['file_type'],
-					'filesize'		=> $file['file_size'],
-					'width'			=> (int) $file['image_width'],
-					'height'		=> (int) $file['image_height'],
-					'date_added'	=> now()
-				);
-
-				// Insert success
-				if ($id = $this->file_m->insert($data))
-				{
-					$status		= 'success';
-					$message	= sprintf(lang('files.create_success'), $file['file_name']);
-				}
-				// Insert error
-				else
-				{
-					$status		= 'error';
-					$message	= lang('files.create_error');
-				}
-
-				if ($this->input->is_ajax_request())
-				{
-					$data = array();
-					$data['messages'][$status] = $message;
-					$message = $this->load->view('admin/partials/notices', $data, TRUE);
-
-					return $this->template->build_json(array(
-						'status'	=> $status,
-						'message'	=> $message,
-						'file'		=> array(
-							'name'	=> $file['file_name'],
-							'type'	=> $file['file_type'],
-							'size'	=> $file['file_size'],
-							'thumb'	=> base_url() . 'files/thumb/' . $id . '/80'
-						)
-					));
-				}
-
-				if ($status === 'success')
-				{
-					$this->session->set_flashdata($status, $message);
-					redirect('admin/files');
-				}
-			}
-		}
-		elseif (validation_errors())
-		{
-			// if request is ajax return json data, otherwise do normal stuff
-			if ($this->input->is_ajax_request())
-			{
-				$message = $this->load->view('admin/partials/notices', array(), TRUE);
-
-				return $this->template->build_json(array(
-					'status'	=> 'error',
-					'message'	=> $message
-				));
-			}
-		}
-
-		if ($this->input->is_ajax_request())
-		{
-			// todo: debug errors here
-			$status		= 'error';
-			$message	= 'unknown';
-
-			$data = array();
-			$data['messages'][$status] = $message;
-			$message = $this->load->view('admin/partials/notices', $data, TRUE);
-
-			return $this->template->build_json(array(
-				'status'	=> $status,
-				'message'	=> $message
-			));
-		}
-
-		// Loop through each validation rule
-		foreach ($this->_validation_rules as $rule)
-		{
-			if ($rule['field'] == 'folder_id')
-			{
-				$this->data->file->{$rule['field']} = set_value($rule['field'], $folder_id);
-			}
-			else
-			{
-				$this->data->file->{$rule['field']} = set_value($rule['field']);
-			}
-			
-		}
-
-		$this->template
-			->title()
-			->build('admin/files/upload', $this->data);
-	}
-
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Edit Uploaded file
-	 *
-	 */
-	public function edit($id = '')
-	{
-		if ( ! ($id && ($file = $this->file_m->get($id))))
-		{
-			$status		= 'error';
-			$message	= lang('files.file_label_not_found');
-
-			if ($this->input->is_ajax_request())
-			{
-				$data = array();
-				$data['messages'][$status] = $message;
-				$message = $this->load->view('admin/partials/notices', $data, TRUE);
-
-				return $this->template->build_json(array(
-					'status'	=> $status,
-					'message'	=> $message
-				));
-			}
-
-			$this->session->set_flashdata($status, $message);
-			redirect('admin/files');
-		}
-
-		$this->data->file =& $file;
-
-		if ($this->form_validation->run())
-		{
-			$this->_check_ext();
-			
-			// We are uploading a new file
-			if ( ! empty($_FILES['userfile']['name']))
-			{
-				// Setup upload config
-				$this->load->library('upload', array(
-					'upload_path'	=> $this->_path,
-					'allowed_types'	=> $this->_ext
-				));
-
-				// File upload error
-				if ( ! $this->upload->do_upload('userfile'))
-				{
-					$status		= 'error';
-					$message	= $this->upload->display_errors();
-
-					if ($this->input->is_ajax_request())
-					{
-						$data = array();
-						$data['messages'][$status] = $message;
-						$message = $this->load->view('admin/partials/notices', $data, TRUE);
-
-						return $this->template->build_json(array(
-							'status'	=> $status,
-							'message'	=> $message
-						));
-					}
-
-					$this->data->messages[$status] = $message;
-				}
-				// File upload success
-				else
-				{
-					// Remove the original file
-					$this->file_m->delete_file($id);
-
-					$file = $this->upload->data();
-					$data = array(
-						'folder_id'		=> (int) $this->input->post('folder_id'),
-						'user_id'		=> (int) $this->current_user->id,
-						'type'			=> $this->_type,
-						'name'			=> $this->input->post('name'),
-						'description'	=> $this->input->post('description'),
-						'filename'		=> $file['file_name'],
-						'extension'		=> $file['file_ext'],
-						'mimetype'		=> $file['file_type'],
-						'filesize'		=> $file['file_size'],
-						'width'			=> (int) $file['image_width'],
-						'height'		=> (int) $file['image_height'],
-					);
-
-					if ($this->file_m->update($id, $data))
-					{
-						$status		= 'success';
-						$message	= lang('files.edit_success');
-					}
-					else
-					{
-						$status		= 'error';
-						$message	= lang('files.edit_error');
-					};
-
-					if ($this->input->is_ajax_request())
-					{
-						$data = array();
-						$data['messages'][$status] = $message;
-						$message = $this->load->view('admin/partials/notices', $data, TRUE);
-
-						return $this->template->build_json(array(
-							'status'	=> $status,
-							'message'	=> $message,
-							'title'		=> $status === 'success' ? sprintf(lang('files.edit_title'), $this->input->post('name')) : $file->name
-						));
-					}
-
-					if ($status === 'success')
-					{
-						$this->session->set_flashdata($status, $message);
-						redirect ('admin/files');
-					}
-				}
-			}
-
-			// Upload data
-			else
-			{
-				$data = array(
-					'folder_id'		=> $this->input->post('folder_id'),
-					'user_id'		=> $this->current_user->id,
-					'name'			=> $this->input->post('name'),
-					'description'	=> $this->input->post('description')
-				);
-
-				if ($this->file_m->update($id, $data))
-				{
-					$status		= 'success';
-					$message	= lang('files.edit_success');
-				}
-				else
-				{
-					$status		= 'error';
-					$message	= lang('files.edit_error');
-				};
-
-				if ($this->input->is_ajax_request())
-				{
-					$data = array();
-					$data['messages'][$status] = $message;
-					$message = $this->load->view('admin/partials/notices', $data, TRUE);
-
-					return $this->template->build_json(array(
-						'status'	=> $status,
-						'message'	=> $message,
-						'title'		=> $status === 'success' ? sprintf(lang('files.edit_title'), $this->input->post('name')) : $file->name
-					));
-				}
-
-				if ($status === 'success')
-				{
-					$this->session->set_flashdata($status, $message);
-					redirect ('admin/files');
-				}
-			}
-		}
-		elseif (validation_errors())
-		{
-			// if request is ajax return json data, otherwise do normal stuff
-			if ($this->input->is_ajax_request())
-			{
-				$message = $this->load->view('admin/partials/notices', array(), TRUE);
-
-				return $this->template->build_json(array(
-					'status'	=> 'error',
-					'message'	=> $message
-				));
-			}
-		}
-
-		$this->input->is_ajax_request() && $this->template->set_layout(FALSE);
-
-		$this->template
-			->title('')
-			->build('admin/files/edit', $this->data);
-	}
-
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Delete a file
-	 *
-	 * @params 	int The file id
-	 */
-	public function delete($id = 0)
-	{
-		$ids = $id
-			? is_array($id)
-				? $id
-				: array($id)
-			: (array) $this->input->post('action_to');
-
-		$total		= sizeof($ids);
-		$deleted	= array();
-
-		// Try do deletion
-		foreach ($ids as $id)
-		{
-			// Get the row to use a value.. as title, name
-			if ($file = $this->file_m->get($id))
-			{
-				// Make deletion retrieving an status and store an value to display in the messages
-				$deleted[($this->file_m->delete($id) ? 'success': 'error')][] = $file->filename;
-
-				$folder	= $this->_folders[$file->folder_id];
-			}
-		}
-
-		// Set status messages
-		foreach ($deleted as $status => $values)
-		{
-			// Mass deletion
-			if (($status_total = sizeof($values)) > 1)
-			{
-				$last_value		= array_pop($values);
-				$first_values	= implode(', ', $values);
-
-				// Success / Error message
-				$this->session->set_flashdata($status, sprintf(lang('files.mass_delete_' . $status), $status_total, $total, $first_values, $last_value));
-			}
-
-			// Single deletion
-			else
-			{
-				// Success / Error messages
-				$this->session->set_flashdata($status, sprintf(lang('files.delete_' . $status), $values[0]));
-			}
-		}
-
-		// He arrived here but it was not done nothing, certainly valid ids not were selected
-		if ( ! $deleted)
-		{
-			$this->session->set_flashdata('error', lang('files.no_select_error'));
-		}
-
-		isset($folder) ? redirect('admin/files/#!path=' . $folder->virtual_path) : redirect('admin/files');
-	}
-
-	/**
-	 * Helper method to determine what to do with selected items from form post
-	 * @access public
-	 * @return void
-	 */
-	public function action()
-	{
-		switch($this->input->post('btnAction'))
-		{
-			case 'delete':
-				$this->delete();
-			break;
-			default:
-				redirect('admin/files');
-			break;
 		}
 	}
 

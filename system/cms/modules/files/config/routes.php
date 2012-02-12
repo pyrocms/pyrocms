@@ -20,5 +20,5 @@
 |	http://www.codeigniter.com/user_guide/general/routing.html
 */
 
-// public
-$route['files(:any)?']	= 'files_front$1';
+$route['files/admin(:any)?']	= 'admin$1';
+$route['files(:any)?']			= 'files_front$1';

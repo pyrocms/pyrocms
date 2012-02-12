@@ -16,7 +16,8 @@
 // Files
 
 // Titles
-$lang['files.files_title']					= 'Files';
+$lang['files:files_title']					= 'Files';
+$lang['files:places']						= 'Places';
 $lang['files.upload_title']					= 'Upload Files';
 $lang['files.edit_title']					= 'Edit file "%s"';
 
@@ -95,7 +96,7 @@ $lang['file_folders.delete_success']		= 'The folder "%s" was deleted.';
 $lang['file_folders.delete_error']			= 'An error occurred while trying to delete the folder "%s".';
 $lang['file_folders.not_exists']			= 'An invalid folder has been selected.';
 $lang['file_folders.no_subfolders']			= 'None';
-$lang['file_folders.no_folders']			= 'Your files are sorted by folders, currently you do not have any folders setup.';
+$lang['files:no_folders']					= 'Your files are sorted by folders, currently you do not have any folders setup.';
 $lang['file_folders.mkdir_error']			= 'Could not make the uploads/files directory';
 $lang['file_folders.chmod_error']			= 'Could not chmod the uploads/files directory';
 

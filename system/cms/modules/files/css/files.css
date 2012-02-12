@@ -1,55 +1,15 @@
-#files-browser {
-	margin-bottom: 20px;
-	border-right: 1px solid #eeeeee;
-}
 
-#files-browser-nav > ul,
-#files-browser-nav > ul > li,
-#files-toolbar > ul,
-#files-toolbar > ul > li {
-	list-style: none;
-	padding: 0px;
-	margin: 0px;
-}
+/** temporary so that it's a decent size while I work on it **/
+.one_half { width: 760px; }
+.right.one_quarter { width: 200px; }
+/** end temporary **/
 
-#files-browser-nav {
-	float: none;
-}
+.folders-sidebar { min-height: 400px; border-right: 1px solid #d8d8d8; }
+.folders-right { min-height: 400px; }
+.folders-right li { width: 80px; height: 80px; background-color: #f7f7f7; margin: 20px; float: left; }
+.folders-right li.selected { background-color: #d8d8d8; }
+.console { min-height: 400px; border-left: 1px solid #d8d8d8; }
 
-#files-browser-contents form {
-	position: relative;
-}
-
-#files-browser-nav li a {
-	padding: 10px;
-	background: transparent;
-	display: block;
-	text-decoration: none;
-	color: #666666;
-}
-#files-browser-nav li a:hover {
-	background-color: #F4F4F4;
-	color: #333333;
-}
-#files-browser-nav li.current a {
-	background-color: #3a4043;
-	color: #FFFFFF;
-}
-
-#files-toolbar { margin: 5px -10px 10px; border: 1px solid #ccc; border-right: 0; border-left: 0; padding: 5px; background: #f9f9f9; }
-#files-toolbar > ul > li {
-	display: inline-block;
-	padding-left: 5px;
-	vertical-align: middle;
-}
-#files-toolbar li.buttons { border-left: 1px solid #ccc; }
-#files-toolbar label {
-	font-weight: bold;
-}
-#files-toolbar a.button {
-	padding-top: 2px;
-	padding-bottom: 2px;
-}
 
 #files-uploader { position: relative; margin: 0 5px; }
 #files-uploader .files-uploader-browser { padding-bottom: 75px; }
@@ -118,69 +78,4 @@
 }
 #files-uploader-queue .file_upload_cancel .button {
 	margin-left: 5px;
-}
-
-
-#grid { display: none; }
-
-#grid ul {
-	list-style-type: none;
-	margin-top: 10px;
-}
-#grid li {
-	float: left;
-	margin: 0 5px 5px 0;
-	height: 100px;
-	width: 190px;
-	background-color: #f5f5f5;
-	-webkit-border-radius: 8px;
-	-moz-border-radius: 8px;
-	border-radius: 8px;
-	overflow: hidden;
-}
-#grid img {
-	display: block;
-	margin: 0 auto;
-	margin-bottom: 5px;
-}
-#grid .actions,
-#grid .actions a,
-#grid .actions input {
-	vertical-align: middle;
-}
-#grid .actions {
-	padding: 5px 0;
-}
-#grid .actions a {
-	border-left: 1px solid #c2c2c2;
-	vertical-align: middle;
-	padding-left: 2px;
-}
-#grid .actions a.download_file {
-	border-left: none;
-	padding: 0;
-}
-
-#files-display { position: absolute; right: 0; top: -42px; }
-#files-display a { font-weight: bold; display: inline-block; }
-#files-display a.toggle-view {
-	display: inline-block;
-	padding: 3px 7px;
-	text-decoration: none;
-	font-size: 14px;
-	font-weight: bold;
-}
-#files-display a.active-view {
-	background-color: #f2f2f2;
-	-webkit-border-radius: 4px;
-	-moz-border-radius: 4px;
-	border-radius: 4px;
-}
-
-#folders_crud fieldset,
-#files_crud fieldset { margin-bottom: 0; }
-
-.blank-slate.files,
-.blank-slate.file-folders {
-	margin: 20% auto;
 }

@@ -1,5 +1,37 @@
 jQuery(function($){
 
+	$('.item li, .item .one_half').bind('contextmenu', function(e){
+		e.preventDefault();
+		console.log(e);
+		alert('Right button');
+	});
+
+	// select folders; including use of control key
+	$('[data-slug-main]').click(function(e){
+		var selected = $('.folders-right').find('.selected').length > 0;
+		if ( ! e.ctrlKey && ! e.shiftKey) {
+			if(selected) {
+				$('[data-slug-main]').removeClass('selected');
+			}
+		}
+		$(this).toggleClass('selected');
+	});
+
+	// sort folders
+	$('.folders-right, .folders-sidebar').sortable({
+		connectWith: '.folders-sidebar',
+		update: function() {
+			order = new Array();
+			$(this).find('li').each(function(){
+				order.push( $(this).attr('data-slug') );
+			});
+			order = order.join(',');
+
+			$.post(SITE_URL + 'admin/files/order_folders', { order: order });
+		}
+
+	});
+
 	$('.open-files-uploader').livequery(function(){
 		$(this).colorbox({
 			scrolling	: false,

@@ -1,15 +1,19 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
- * PyroCMS File library. This handles all file manipulation
+ * PyroCMS File library. 
+ *
+ * This handles all file manipulation 
+ * both locally and in the cloud
  * 
- * @author		Jerel Unruh
- * @author		PyroCMS Dev Team
+ * @author		Jerel Unruh - PyroCMS Dev Team
  * @package		PyroCMS\Core\Modules\Files\Libraries
  */
 class Files
 {
 	public		static $providers;
 	protected 	static $_path;
+
+	// ------------------------------------------------------------------------
 
 	public function __construct()
 	{
@@ -19,6 +23,8 @@ class Files
 		ci()->load->model('files/file_m');
 		ci()->load->spark('cloudmanic-storage/1.0.4');
 	}
+
+	// ------------------------------------------------------------------------
 
 	/**
 	 * Rename files on the local filesystem or in the cloud
@@ -39,11 +45,11 @@ class Files
 			{
 				@rename(self::$_path.$file, self::$_path.$new_file);
 
-				return static::result();
+				return self::result();
 			}
 			else
 			{
-				return static::result(lang('files:file_not_found'), $file);
+				return self::result(lang('files:file_not_found'), $file);
 			}
 		}
 		// we'll be pushing the file from here to the cloud
@@ -53,14 +59,15 @@ class Files
 
 			$containers = ci()->storage->list_containers();
 
+			// if we try uploading to a non-existant container it gets ugly
 			if (in_array($container, $containers))
 			{
-				ci()->storage->upload_file($container, self::$_path.$file, $new_file);
+				ci()->storage->upload_file($container, self::$_path.$file, $new_file, NULL, 'public');
 
-				return static::result();
+				return self::result();
 			}
 
-			return static::result(lang('files:invalid_container'), $container);
+			return self::result(lang('files:invalid_container'), $container);
 		}
 		// pull it from the cloud to our filesystem
 		elseif ($location AND $new_location === 'local')
@@ -68,15 +75,17 @@ class Files
 			ci()->load->helper('file');
 			ci()->load->spark('curl/1.2.1');
 
+			// download the file... dum de dum
 			$curl_result = ci()->curl->simple_get($file);
 
 			if ($curl_result)
 			{
+				// ...and save it
 				write_file(self::$_path.$new_file, $curl_result, 'wb');
 			}
 			else
 			{
-				return static::result(lang('files:unsuccessful_fetch'), $file);
+				return self::result(lang('files:unsuccessful_fetch'), $file);
 			}
 		}
 		// pulling from the cloud and then pushing to another part of the cloud :P
@@ -85,8 +94,10 @@ class Files
 			ci()->load->helper('file');
 			ci()->storage->load_driver($new_location);
 
+			// make a really random temp file name
 			$temp_file = self::$_path.md5(time()).'_temp_'.$new_file;
 
+			// and we download...
 			$curl_result = ci()->curl->simple_get($file);
 
 			if ($curl_result)
@@ -95,16 +106,19 @@ class Files
 			}
 			else
 			{
-				return static::result(lang('files:unsuccessful_fetch'), $file);
+				return self::result(lang('files:unsuccessful_fetch'), $file);
 			}
 
-			$result = ci()->storage->upload_file($container, $temp_file, $new_file);
+			// shove it into the cloud and hope it stays
+			$result = ci()->storage->upload_file($container, $temp_file, $new_file, NULL, 'public');
 
 			@unlink($temp_file);
 
-			return static::result($result);
+			return self::result($result);
 		}
 	}
+
+	// ------------------------------------------------------------------------
 
 	/**
 	 * Get A Single File
@@ -115,6 +129,7 @@ class Files
 	**/
 	public static function get_file($identifier = 0)
 	{
+		// they could have specified the row id or the actual filename
 		$column = is_numeric($identifier) ? 'files.id' : 'filename';
 
 		$results = ci()->file_m->select('files.*, file_folders.name folder_name, file_folders.slug folder_slug')
@@ -123,8 +138,10 @@ class Files
 
 		$message = $results ? NULL : lang('files:no_records_found');
 
-		return static::result($message, NULL, $results);
+		return self::result($message, NULL, $results);
 	}
+
+	// ------------------------------------------------------------------------
 
 	/**
 	 * Get Known Files
@@ -144,11 +161,15 @@ class Files
 
 		$message = $results ? NULL : lang('files:no_records_found');
 
-		return static::result(NULL, NULL, $results);
+		return self::result(NULL, NULL, $results);
 	}
 
+	// ------------------------------------------------------------------------
+
 	/**
-	 * List Files
+	 * List Files -- get_files() returns database records. This pulls from
+	 * the cloud instead but for completeness it will fetch local file names 
+	 * from the database if the location is "local"
 	 *
 	 * @param	string	$location	The cloud provider or local
 	 * @param	string	$container	The container or folder to list files from
@@ -160,6 +181,7 @@ class Files
 		$i = 0;
 		$files = array();
 
+		// yup they want real live file names from the cloud
 		if ($location !== 'local')
 		{
 			ci()->storage->load_driver($location);
@@ -177,6 +199,7 @@ class Files
 				}
 			}
 		}
+		// they're wanting a local list... give it to 'em but only if the file really exists
 		elseif ($location === 'local') 
 		{
 			$results = ci()->file_m->select('filename, filesize')
@@ -198,8 +221,10 @@ class Files
 
 		$message = $files ? NULL : lang('files:no_records_found');
 
-		return static::result($message, NULL, $files);
+		return self::result($message, NULL, $files);
 	}
+
+	// ------------------------------------------------------------------------
 
 	/**
 	 * Result
