@@ -15,8 +15,7 @@ class Plugin_Robots extends Plugin
 	 * Usage:
 	 * {{ robots:hello }}
 	 *
-	 * @param	array
-	 * @return	array
+	 * @return string
 	 */
 	function hello()
 	{
