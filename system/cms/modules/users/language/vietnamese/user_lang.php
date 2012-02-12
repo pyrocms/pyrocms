@@ -81,6 +81,7 @@ $lang['user_reset_password_link']              = 'Quên mật khẩu?';
 
 $lang['user_activation_code_sent_notice']      = 'Mã kích hoạt đã được gửi tới email của bạn.';
 $lang['user_activation_by_admin_notice']       = 'Tài khoản của bạn đang chờ Quản trị phê duyệt.';
+$lang['user_registration_disabled']            = 'Sorry, but the user registration is disabled.'; #translate
 
 // -- Settings ---------------------------------------------------------------------------------------------
 
