@@ -177,7 +177,7 @@ class Streams_entries extends CI_Driver {
 	 * @param	bool - format results?
 	 * @return	object
 	 */
-	function get_entry($entry_id, $stream, $namespace = NULL, $format = TRUE)
+	function get_entry($entry_id, $stream, $namespace, $format = TRUE)
 	{
 		return get_instance()->row_m->get_row($entry_id, $this->stream_obj($stream, $namespace), $format);
 	}
@@ -192,7 +192,7 @@ class Streams_entries extends CI_Driver {
 	 * @param	stream - int, slug, or obj
 	 * @return	object
 	 */
-	function delete_entry($entry_id, $stream, $namespace = NULL)
+	function delete_entry($entry_id, $stream, $namespace)
 	{
 		return get_instance()->row_m->delete_row($entry_id, $this->stream_obj($stream, $namespace));
 	}
@@ -208,7 +208,7 @@ class Streams_entries extends CI_Driver {
 	 */
 	function update_entry($entry_id, $data)
 	{
-		
+		// @todo
 	}
 	
 }
