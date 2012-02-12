@@ -45,7 +45,7 @@ class Streams_utilities extends CI_Driver {
 		// Get all the streams in this namespace and remove each one:
 		$streams = $this->CI->streams_m->get_streams($namespace);
 		
-		if ( ! $streams) return NULL;
+		if ( ! $streams) return null;
 		
 		foreach ($streams as $stream)
 		{
@@ -78,7 +78,7 @@ class Streams_utilities extends CI_Driver {
 	 * @param	[array - view options]
 	 * @return	bool
 	 */
-	function convert_table_to_stream($table_slug, $namespace, $prefix, $stream_name, $about = NULL, $title_column = NULL, $view_options = array('id', 'created'))
+	function convert_table_to_stream($table_slug, $namespace, $prefix, $stream_name, $about = null, $title_column = null, $view_options = array('id', 'created'))
 	{
 		// ----------------------------
 		// Table data checks
@@ -89,7 +89,7 @@ class Streams_utilities extends CI_Driver {
 		// out of a table that doesn't exist.
 		if ( ! $this->CI->db->table_exists($prefix.$table_slug))
 		{
-			return FALSE;
+			return false;
 		}
 		
 		// Maybe this table already exsits in our streams table?
@@ -101,14 +101,14 @@ class Streams_utilities extends CI_Driver {
 						->get($this->CI->config->item('streams:streams_table'))
 						->num_rows > 0)
 		{
-			return FALSE;
+			return false;
 		}
 		
 		// We need an ID field to be able to make
 		// a table into a stream.
 		if ( ! $this->CI->db->field_exists('id', $prefix.$table_slug) )
 		{
-			return FALSE;
+			return false;
 		}
 		
 		// ----------------------------
@@ -121,25 +121,25 @@ class Streams_utilities extends CI_Driver {
 		// Created Field
 		if ( ! $this->CI->db->field_exists('created', $prefix.$table_slug) )
 		{
-			$this->CI->dbforge->add_column($prefix.$table_slug, array('created' => array('type' => 'DATETIME', 'null' => TRUE)));
+			$this->CI->dbforge->add_column($prefix.$table_slug, array('created' => array('type' => 'DATETIME', 'null' => true)));
 		}
 	
 		// Updated Field
 		if ( ! $this->CI->db->field_exists('updated', $prefix.$table_slug) )
 		{
-			$this->CI->dbforge->add_column($prefix.$table_slug, array('updated' => array('type' => 'DATETIME', 'null' => TRUE)));
+			$this->CI->dbforge->add_column($prefix.$table_slug, array('updated' => array('type' => 'DATETIME', 'null' => true)));
 		}
 
 		// Created_by Field
 		if ( ! $this->CI->db->field_exists('created_by', $prefix.$table_slug) )
 		{
-			$this->CI->dbforge->add_column($prefix.$table_slug, array('created_by' => array('type' => 'INT', 'constraint' => 11, 'null' => TRUE)));
+			$this->CI->dbforge->add_column($prefix.$table_slug, array('created_by' => array('type' => 'INT', 'constraint' => 11, 'null' => true)));
 		}
 
 		// Ordering_count Field
 		if ( ! $this->CI->db->field_exists('ordering_count', $prefix.$table_slug) )
 		{
-			$this->CI->dbforge->add_column($prefix.$table_slug, array('ordering_count' => array('type' => 'INT', 'constraint' => 11, 'null' => TRUE)));
+			$this->CI->dbforge->add_column($prefix.$table_slug, array('ordering_count' => array('type' => 'INT', 'constraint' => 11, 'null' => true)));
 		}
 
 		// ----------------------------
