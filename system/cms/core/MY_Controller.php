@@ -73,7 +73,7 @@ class MY_Controller extends MX_Controller {
 		}
 
 		// With that done, load settings
-		$this->load->library(array('session', 'settings/settings'));
+		$this->load->library(array('session', 'settings/settings', 'files/files'));
 
 		// Lock front-end language
 		if ( ! (is_a($this, 'Admin_Controller') && ($site_lang = AUTO_LANGUAGE)))
@@ -111,7 +111,7 @@ class MY_Controller extends MX_Controller {
 		{
 			$this->config->set_item('language', $langs[CURRENT_LANGUAGE]['folder']);
 			$this->lang->is_loaded = array();
-			$this->lang->load(array('errors', 'global', 'users/user', 'settings/settings'));
+			$this->lang->load(array('errors', 'global', 'users/user', 'settings/settings', 'files/files'));
 		}
 		else
 		{
