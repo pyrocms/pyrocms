@@ -1,4 +1,6 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php
+
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * Show RSS feeds in your site
@@ -6,18 +8,29 @@
  * @author		PyroCMS Dev Team
  * @package		PyroCMS\Core\Widgets
  */
-
 class Widget_Social_bookmark extends Widgets
 {
-	public $title		= array(
+
+	/**
+	 * The translations for the widget title
+	 *
+	 * @var array
+	 */
+	public $title = array(
 		'en' => 'Social Bookmark',
 		'el' => 'Κοινωνική δικτύωση',
 		'nl' => 'Sociale Bladwijzers',
 		'br' => 'Social Bookmark',
 		'ru' => 'Социальные закладки',
 		'id' => 'Social Bookmark',
-		);
-	public $description	= array(
+	);
+
+	/**
+	 * The translations for the widget description
+	 *
+	 * @var array
+	 */
+	public $description = array(
 		'en' => 'Configurable social bookmark links from AddThis',
 		'el' => 'Παραμετροποιήσιμα στοιχεία κοινωνικής δικτυώσης από το AddThis',
 		'nl' => 'Voeg sociale bladwijzers toe vanuit AddThis',
@@ -25,10 +38,33 @@ class Widget_Social_bookmark extends Widgets
 		'ru' => 'Конфигурируемые социальные закладки с сайта AddThis',
 		'id' => 'Tautan social bookmark yang dapat dikonfigurasi dari AddThis',
 	);
-	public $author		= 'Phil Sturgeon';
-	public $website		= 'http://philsturgeon.co.uk/';
-	public $version		= '1.0';
-	
+
+	/**
+	 * The author of the widget
+	 *
+	 * @var string
+	 */
+	public $author = 'Phil Sturgeon';
+
+	/**
+	 * The author's website.
+	 * 
+	 * @var string 
+	 */
+	public $website = 'http://philsturgeon.co.uk/';
+
+	/**
+	 * The version of the widget
+	 *
+	 * @var string
+	 */
+	public $version = '1.0';
+
+	/**
+	 * The fields for customizing the options of the widget.
+	 *
+	 * @var array 
+	 */
 	public $fields = array(
 		array(
 			'field' => 'mode',
@@ -37,10 +73,17 @@ class Widget_Social_bookmark extends Widgets
 		)
 	);
 
+	/**
+	 * The main function of the widget.
+	 *
+	 * @param array $options The options for the AddThis widget.
+	 * @return array 
+	 */
 	public function run($options)
 	{
 		!empty($options['mode']) OR $options['mode'] = 'default';
-		
+
 		return $options;
 	}
+
 }

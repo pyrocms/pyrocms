@@ -40,7 +40,7 @@ class Streams_cp extends CI_Driver {
 	 * @param	[array - fields to skip]
 	 * @return	object
 	 */
-	function form($stream_slug, $namespace, $mode = 'new', $entry = NULL, $view_override = FALSE, $skips = array())
+	function form($stream_slug, $namespace, $mode = 'new', $entry = null, $view_override = false, $skips = array())
 	{
 		$CI = get_instance();
 	
@@ -51,7 +51,7 @@ class Streams_cp extends CI_Driver {
 		// Load up things we'll need for the form
 		$CI->load->library(array('form_validation', 'streams_core/Streams_validation', 'streams_core/Fields'));
 		
-		$fields = $CI->fields->build_form($stream, $mode, $entry, FALSE, FALSE, $skips);
+		$fields = $CI->fields->build_form($stream, $mode, $entry, false, false, $skips);
 		
 		$data = array(
 					'fields' 	=> $fields,
@@ -59,9 +59,9 @@ class Streams_cp extends CI_Driver {
 					'entry'		=> $entry,
 					'mode'		=> $mode);
 		
-		$form = $CI->load->view('admin/partials/streams/form', $data, TRUE);
+		$form = $CI->load->view('admin/partials/streams/form', $data, true);
 		
-		if ($view_override === FALSE) return $form;
+		if ($view_override === false) return $form;
 		
 		$CI->data->content = $form;
 		
