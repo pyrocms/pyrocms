@@ -44,7 +44,8 @@ $lang['files.type_o']						= 'Other';
 $lang['files.display_grid']					= 'Grid';
 $lang['files.display_list']					= 'List';
 
-// Messages
+// Files
+$lang['files:file_not_found']				= 'Sorry. The file "%s" could not be found.';
 $lang['files.create_success']				= '"%s" has been uploaded successfully.';
 $lang['files.create_error']					= 'An error as occourred.';
 $lang['files.edit_success']					= 'The file was successfully saved.';
@@ -58,9 +59,9 @@ $lang['files.invalid_extension']			= 'File must have a valid extension.';
 $lang['files.not_exists']					= 'An invalid folder has been selected.';
 $lang['files.no_files']						= 'There are currently no files.';
 $lang['files.no_permissions']				= 'You do not have permissions to see the files module.';
-$lang['files.no_select_error'] 				= 'You must select a file first, his request was interrupted.';
+$lang['files.no_select_error'] 				= 'You must select a file first, this request was interrupted.';
 
-// File folders
+// Folders
 
 // Titles
 $lang['file_folders.folders_title']			= 'Folders'; #translate
@@ -78,7 +79,7 @@ $lang['file_folders.name_label']			= 'Name';
 $lang['file_folders.slug_label']			= 'URL Slug';
 $lang['file_folders.created_label']			= 'Created On';
 
-// Messages
+// Folders
 $lang['file_folders.create_success']		= 'The folder has now been saved.';
 $lang['file_folders.create_error']			= 'An error occurred while attempting to create your folder.';
 $lang['file_folders.duplicate_error']		= 'A folder named "%s" already exists.';

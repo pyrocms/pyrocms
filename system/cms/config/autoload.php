@@ -54,7 +54,7 @@ $autoload['packages'] = array();
 |	* pyrocache and session is loaded by MY_Controller to allow the site_ref to be set
 */
 
-$autoload['libraries'] = array('asset', 'database', 'template', 'parser');
+$autoload['libraries'] = array('asset', 'database', 'template', 'parser', 'files/files');
 
 
 /*
@@ -101,7 +101,7 @@ $autoload['config'] = array('language');
 |
 */
 
-$autoload['language'] = array('errors');
+$autoload['language'] = array('errors', 'files/files');
 
 
 /*

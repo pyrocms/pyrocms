@@ -1,7 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
- * Frontend controller for files and stuffs. Named "files_front" so
- * as not to conflict with the Files library
+ * Frontend controller for files and stuffs
  * 
  * @author		Phil Sturgeon
  * @author		PyroCMS Dev Team
