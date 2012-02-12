@@ -72,7 +72,7 @@ class Fields
      * @access	public
      * @param	obj
      * @param	string
-     * @param	bool
+     * @param	mixed - false or row object
      * @param	bool - is this a plugin call?
      * @param	bool - are we using reCAPTCHA?
      * @param	array - all the skips
@@ -268,15 +268,8 @@ class Fields
 				}
 			}
 			
-			// Redirect based on if this is a plugin call or not
-			if ($plugin)
-			{
-				redirect(str_replace('-id-', $result_id, $extra['return']));
-			}
-			else
-			{
-				redirect('admin/streams/entries/index/'.$stream->id);
-			}
+			// Redirect and replace -id- with the result ID
+			redirect(str_replace('-id-', $result_id, $extra['return']));
 		}
 		
 		// -------------------------------------
