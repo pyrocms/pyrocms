@@ -37,10 +37,23 @@ class Streams_cp extends CI_Driver {
 	 * @param	mode - new or edit
 	 * @param	[array - current entry data]
 	 * @param	[bool - view override - setting this to true will build template]
-	 * @param	[array - fields to skip]
+	 * @param	[array - extra params (see below)]
+	 * @param	[array - fields to skip]	 
 	 * @return	object
+	 *
+	 * Extra parameters to pass in $extra array:
+	 *
+     * email_notifications 	- see docs for more explanaiton
+     * return				- URL to return to after submission
+     *							defaults to current URL.
+     * success_message		- Flash message to show after successful submission
+     *							defaults to generic successful entry submission message
+     * failure_message		- Flash message to show after failed submission,
+     *							defaults to generic failed entry submission message
+     * required				- String to show as required - this defaults to the
+     *							standard * for the PyroCMS CP
 	 */
-	function form($stream_slug, $namespace, $mode = 'new', $entry = null, $view_override = false, $skips = array())
+	function form($stream_slug, $namespace, $mode = 'new', $entry = null, $view_override = false, $extra = array(), $skips = array())
 	{
 		$CI = get_instance();
 	
@@ -51,7 +64,7 @@ class Streams_cp extends CI_Driver {
 		// Load up things we'll need for the form
 		$CI->load->library(array('form_validation', 'streams_core/Streams_validation', 'streams_core/Fields'));
 		
-		$fields = $CI->fields->build_form($stream, $mode, $entry, false, false, $skips);
+		$fields = $CI->fields->build_form($stream, $mode, $entry, false, false, $skips, $extra);
 		
 		$data = array(
 					'fields' 	=> $fields,
@@ -65,7 +78,7 @@ class Streams_cp extends CI_Driver {
 		
 		$CI->data->content = $form;
 		
-		$CI->template->build('admin/partials/blank_section', get_instance()->data);
+		$CI->template->build('admin/partials/blank_section', $CI->data);
 	}
 	
 }
