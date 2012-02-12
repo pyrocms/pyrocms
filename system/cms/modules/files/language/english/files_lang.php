@@ -46,6 +46,9 @@ $lang['files.display_list']					= 'List';
 
 // Files
 $lang['files:file_not_found']				= 'Sorry. The file "%s" could not be found.';
+$lang['files:unsuccessful_fetch']			= 'We were unable to fetch "%s". Are you sure it is a public file?';
+$lang['files:invalid_container']			= '"%s" does not appear to be a valid container.';
+$lang['files:no_records_found']				= 'No records could be found';
 $lang['files.create_success']				= '"%s" has been uploaded successfully.';
 $lang['files.create_error']					= 'An error as occourred.';
 $lang['files.edit_success']					= 'The file was successfully saved.';

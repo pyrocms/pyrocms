@@ -12,6 +12,24 @@ class Migration_Add_cloud_files extends CI_Migration {
 					 ('files_cf_username', 'Rackspace Cloud Files Username', 'To enable cloud file storage in your Rackspace Cloud Files account please enter your Cloud Files Username. <a href=\"https://manage.rackspacecloud.com/APIAccess.do\">Find your credentials</a>', 'text', '', '', '', '1', '1', 'files', '991'),
 					 ('files_cf_api_key', 'Rackspace Cloud Files API Key', 'You also must provide your Cloud Files API Key. You will find it at the same location as your Username in your Rackspace account.', 'text', '', '', '', '1', '1', 'files', '990')
 			");
+
+		$this->dbforge->add_column('file_folders', array(
+			'location' => array(
+				'type' => 'VARCHAR',
+				'constraint' => 20,
+				'null' => FALSE,
+				'default' => 'local'
+			),
+		));
+
+		$this->dbforge->add_column('files', array(
+			'path' => array(
+				'type' => 'VARCHAR',
+				'constraint' => 255,
+				'null' => FALSE,
+				'default' => ''
+			),
+		));
 	}
 
 	public function down()
@@ -21,5 +39,8 @@ class Migration_Add_cloud_files extends CI_Migration {
 		$this->db->where('slug', 'files_s3_secret_key')->delete('settings');
 		$this->db->where('slug', 'files_cf_username')->delete('settings');
 		$this->db->where('slug', 'files_cf_api_key')->delete('settings');
+
+		$this->dbforge->drop_column('file_folders', 'location');
+		$this->dbforge->drop_column('files', 'path');
 	}
 }

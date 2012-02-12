@@ -115,7 +115,7 @@ class MY_Controller extends MX_Controller {
 		}
 		else
 		{
-			$this->lang->load(array('global', 'users/user'));
+			$this->lang->load(array('global', 'users/user', 'files/files'));
 		}
 
 		$this->load->library(array('events', 'users/ion_auth'));

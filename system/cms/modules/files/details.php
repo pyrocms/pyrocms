@@ -69,6 +69,7 @@ class Module_Files extends Module {
 			  `type` enum('a','v','d','i','o') COLLATE utf8_unicode_ci DEFAULT NULL,
 			  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
 			  `filename` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+			  `path` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
 			  `description` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
 			  `extension` varchar(5) COLLATE utf8_unicode_ci NOT NULL,
 			  `mimetype` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -87,6 +88,7 @@ class Module_Files extends Module {
 			  `parent_id` int(11) DEFAULT '0',
 			  `slug` varchar(100) NOT NULL,
 			  `name` varchar(50) NOT NULL,
+			  `location` varchar(20) NOT NULL DEFAULT 'local',
 			  `date_added` int(11) NOT NULL,
 			  `sort` int(11) NOT NULL DEFAULT 0,
 			  PRIMARY KEY (`id`)
