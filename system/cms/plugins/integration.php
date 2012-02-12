@@ -1,31 +1,29 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
+
 /**
- * Theme Plugin
+ * Integration Plugin
  *
- * Load partials and access data
+ * Attaches a Google Analytics tracking piece of code.
  *
- * @package		CodeIgniter
- * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008 - 2010, EllisLab, Inc.
- *
+ * @author		PyroCMS Dev Team
+ * @package		PyroCMS\Core\Plugins
  */
 class Plugin_Integration extends Plugin
 {
+
 	/**
 	 * Partial
 	 *
 	 * Loads Google Analytic
 	 *
 	 * Usage:
-	 * {{ integration:analytics }}
+	 *   {{ integration:analytics }}
 	 *
-	 * @param	array
-	 * @return	array
+	 * @return string The analytics partial view.
 	 */
 	function analytics()
 	{
 		return $this->load->view('fragments/google_analytics', NULL, TRUE);
 	}
-}
 
-/* End of file integration.php */
+}
