@@ -52,6 +52,7 @@ class Streams_cp extends CI_Driver {
      *							defaults to generic failed entry submission message
      * required				- String to show as required - this defaults to the
      *							standard * for the PyroCMS CP
+     * title				- Title of the form header (if using view override)
 	 */
 	function form($stream_slug, $namespace, $mode = 'new', $entry = null, $view_override = false, $extra = array(), $skips = array())
 	{
@@ -71,6 +72,12 @@ class Streams_cp extends CI_Driver {
 					'stream'	=> $stream,
 					'entry'		=> $entry,
 					'mode'		=> $mode);
+		
+		// Set title
+		if (isset($extra['title']))
+		{
+			$data['title'] = $extra['title'];
+		}
 		
 		$form = $CI->load->view('admin/partials/streams/form', $data, true);
 		
