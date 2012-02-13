@@ -611,9 +611,10 @@ class Streams_m extends MY_Model {
 	 * @param	int
 	 * @param	int
 	 * @param	array - data
+	 * @param	[bool - should we create the column?]
 	 * @return	bool
 	 */
-	public function add_field_to_stream($field_id, $stream_id, $data)
+	public function add_field_to_stream($field_id, $stream_id, $data, $create_column = true)
 	{
 		// -------------------------------------
 		// Get the field data
@@ -670,15 +671,13 @@ class Streams_m extends MY_Model {
 		
 		$field_to_add[$field->field_slug] 	= $this->fields_m->field_data_to_col_data( $field_type, $field_data );
 		
-		if($field_type->db_col_type !== FALSE):
-		
-			if(!isset($field_type->alt_process) or !$field_type->alt_process):
-		
-				if( ! $this->dbforge->add_column($stream->stream_prefix.$stream->stream_slug, $field_to_add) ) return FALSE;
-			
-			endif;
-		
-		endif;
+		if ($field_type->db_col_type !== false and $create_column === true)
+		{
+			if ( ! isset($field_type->alt_process) or !$field_type->alt_process)
+			{
+				if ( ! $this->dbforge->add_column($stream->stream_prefix.$stream->stream_slug, $field_to_add)) return FALSE;
+			}
+		}
 		
 		// -------------------------------------
 		// Check for title column
