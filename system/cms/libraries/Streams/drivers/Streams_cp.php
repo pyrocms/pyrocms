@@ -13,7 +13,9 @@
 class Streams_cp extends CI_Driver {
 
 	/**
-	 * Create a table of entries
+	 * Entries Table
+	 *
+	 * Creates a table of entries.
  	 *
 	 * @access	public
 	 * @param	string - the stream slug
@@ -124,8 +126,9 @@ class Streams_cp extends CI_Driver {
 	// --------------------------------------------------------------------------
 
 	/**
-	 * Get all fields, regardless
-	 * of stream
+	 * Entry Form
+	 *
+	 * Creates an entry form for a stream.
 	 *
 	 * @access	public
 	 * @param	string - stream slug
