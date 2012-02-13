@@ -181,9 +181,78 @@ class Streams_utilities extends CI_Driver {
 	 * @param	string - namespace
 	 * @return	bool
 	 */
-	function convert_column_to_field($stream_slug, $namespace, $field_data, )
+	function convert_column_to_field($stream_slug, $namespace, $field_name, $field_slug, $field_type, $extra = array(), $assign_data = array())
 	{
+		// Get the stream
+		if ( ! $stream = $this->stream_obj($stream_slug, $namespace))
+		{
+			$this->log_error('invalid_stream', 'convert_column_to_field');
+			return false;
+		}
+	
+		// Make sure this column actually exists.
+		if ( ! $this->CI->db->field_exists($field_slug, $stream->stream_prefix.$stream->stream_slug))
+		{
+			$this->log_error('no_column', 'convert_column_to_field');
+			return false;
+		}
 		
+		// Maybe we already added this?
+		if ($this->CI->db
+					->limit(1)
+					->where('field_slug', $field_slug)
+					->where('field_namespace', $namespace)
+					->get(FIELDS_TABLE)
+					->num_rows() == 1)
+		{
+			return false;
+		}
+		
+		// If it does, we are in business! Let's add the field
+		// metadata + the field assignment
+
+		// ----------------------------
+		// Add Field Metadata
+		// ----------------------------
+
+		if ( ! isset($extra) or ! is_array($extra)) $extra = array();
+
+		if ( ! $this->CI->fields_m->insert_field($field_name, $field_slug, $field_type, $namespace, $extra)) return false;
+		
+		$field_id = $this->CI->db->insert_id();
+
+		// ----------------------------
+		// Add Assignment
+		// ----------------------------
+
+		$data = array();
+		extract($assign_data);
+	
+		// Title column
+		if (isset($title_column) and $title_column === true)
+		{
+			$data['title_column'] = 'yes';
+		}
+
+		// Instructions
+		$data['instructions'] = (isset($instructions) and $instructions != '') ? $instructions : null;
+		
+		// Is Unique
+		if (isset($unique) and $unique === true)
+		{
+			$data['is_unique'] = 'yes';
+		}
+		
+		// Is Required
+		if (isset($required) and $required === true)
+		{
+			$data['is_required'] = 'yes';
+		}
+	
+		// Add actual assignment
+		// The 4th parameter is to stop the column from being
+		// created, since we already did that.
+		return $this->CI->streams_m->add_field_to_stream($field_id, $stream->id, $data, false);
 	}
 
 }
