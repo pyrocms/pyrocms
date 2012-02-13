@@ -545,9 +545,9 @@ class Fields_m extends CI_Model {
 	function cleanup_assignment($assignment)
 	{
 		// Drop the column if it exists
-		if( $this->db->field_exists($assignment->field_slug, STR_PRE.$assignment->stream_slug) ):
+		if( $this->db->field_exists($assignment->field_slug, $assignment->stream_prefix.$assignment->stream_slug) ):
 	
-			if( !$this->dbforge->drop_column(STR_PRE.$assignment->stream_slug, $assignment->field_slug) ):
+			if( !$this->dbforge->drop_column($assignment->stream_prefix.$assignment->stream_slug, $assignment->field_slug) ):
 			
 				$outcome = FALSE;
 			
