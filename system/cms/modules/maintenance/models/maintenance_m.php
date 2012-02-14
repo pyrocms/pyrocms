@@ -2,10 +2,8 @@
 /**
  * Maintenance Module
  *
- * @author 		PyroCMS Dev Team
- * @package 	PyroCMS
- * @subpackage 	Maintenance module
- * @category 	Modules
+ * @author		PyroCMS Dev Team
+ * @package		PyroCMS\Core\Modules\Maintenance\Models
  */
 class Maintenance_m extends MY_Model
 {

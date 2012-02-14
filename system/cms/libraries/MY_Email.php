@@ -2,10 +2,9 @@
 /**
  * MY_Email - Allows for email config settings to be stored in the db.
  *
- * @author      Stephen Cozart - PyroCMS dev team
- * @package 	PyroCMS
- * @subpackage  library
- * @category	email
+ * @author      Stephen Cozart
+ * @author		PyroCMS Dev Team
+ * @package 	PyroCMS\Core\Libraries
  */
 class MY_Email extends CI_Email {
 

@@ -3,7 +3,7 @@
 /**
  * PyroStreams Field Asset Controller
  *
- * @package		PyroStreams
+ * @package		PyroCMS\Core\Modules\Streams Core\Controllers
  * @author		Parse19
  * @copyright	Copyright (c) 2011 - 2012, Parse19
  * @license		http://parse19.com/pyrostreams/docs/license
@@ -27,7 +27,7 @@ class Field_asset extends Public_Controller {
 		parent::__construct();
 		
 		// Turn off the OP for these assets.
-		$this->output->enable_profiler(false);
+		$this->output->enable_profiler(FALSE);
 		    
 		$this->load->library('streams/Type');
 		
@@ -49,20 +49,19 @@ class Field_asset extends Public_Controller {
 		// Check the file
 		$file = $this->uri->segment(5);
 		
-		if(trim($file) == '') return;
+		if (trim($file) == '') return NULL;
 		
 		$file = $this->security->sanitize_filename($file);
 		
 		// Call the method
-		if($method == 'css'):
-		
+		if ($method == 'css')
+		{
 			$this->_css($file);
-		
-		elseif($method == 'js'):
-		
+		}
+		elseif ($method == 'js'):
+		{
 			$this->_js($file);
-		
-		endif;
+		}
 	}
 
 	// --------------------------------------------------------------------------
@@ -80,7 +79,7 @@ class Field_asset extends Public_Controller {
     	
     	$file = $this->field_type->ft_path.'css/'.$file;
     	
-   	 	if(!is_file($file)) return;
+   	 	if ( ! is_file($file)) return NULL;
    	 	
 		echo read_file($file);   	 	
     }
@@ -100,7 +99,7 @@ class Field_asset extends Public_Controller {
     	
     	$file = $this->field_type->ft_path.'js/'.$file;
     	
-   	 	if(!is_file($file)) return;
+   	 	if ( ! is_file($file)) return NULL;
    	 	
 		echo read_file($file);   	 	
     }

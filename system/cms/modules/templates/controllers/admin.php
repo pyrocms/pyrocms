@@ -3,9 +3,7 @@
  * Email Templates Admin Controller
  *
  * @author      Stephen Cozart - PyroCMS Dev Team
- * @package 	PyroCMS
- * @subpackage  Templates Module
- * @category	Module
+ * @package 	PyroCMS\Core\Modules\Templates\Controllers
  */
 class Admin extends Admin_Controller {
 

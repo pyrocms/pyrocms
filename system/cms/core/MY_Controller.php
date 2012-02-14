@@ -2,16 +2,41 @@
 
 require APPPATH."libraries/MX/Controller.php";
 
-// Code here is run before ALL controllers
+/**
+ * Code here is run before ALL controllers
+ * 
+ * @package PyroCMS\Core\Controllers 
+ */
 class MY_Controller extends MX_Controller {
 
-	// Deprecated: No longer used globally
+	/**
+	 * No longer used globally
+	 * 
+	 * @deprecated
+	 */
 	protected $data;
-	
+	/**
+	 * The name of the module that this controller instance actually belongs to.
+	 *
+	 * @var string 
+	 */
 	public $module;
+	/**
+	 * The name of the controller class for the current class instance.
+	 *
+	 * @var string
+	 */
 	public $controller;
+	/**
+	 * The name of the method for the current request.
+	 *
+	 * @var string 
+	 */
 	public $method;
 
+	/**
+	 * Load and set data for some common used libraries.
+	 */
 	public function __construct()
 	{
 		parent::__construct();
@@ -143,7 +168,7 @@ class MY_Controller extends MX_Controller {
 		$this->benchmark->mark('my_controller_end');
 		
 		// Enable profiler on local box
-	    if (ENVIRONMENT === PYRO_DEVELOPMENT AND is_array($_GET) AND array_key_exists('_debug', $_GET) )
+	    if ((isset($this->current_user->group) AND $this->current_user->group == 'admin') AND is_array($_GET) AND array_key_exists('_debug', $_GET) )
 	    {
 			unset($_GET['_debug']);
 	    	$this->output->enable_profiler(TRUE);
@@ -152,12 +177,11 @@ class MY_Controller extends MX_Controller {
 }
 
 /**
- * Returns the CI object.
+ * Returns the CodeIgniter object.
  *
  * Example: ci()->db->get('table');
  *
- * @staticvar	object	$ci
- * @return		object
+ * @return \CI_Controller
  */
 function ci()
 {

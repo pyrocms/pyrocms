@@ -6,7 +6,7 @@
  * These are re-usable, common field parameters. Any
  * field can use them.
  *
- * @package		PyroStreams Core
+ * @package		PyroCMS\Core\Modules\Streams Core\Libraries
  * @author		Parse19
  * @copyright	Copyright (c) 2011 - 2012, Parse19
  * @license		http://parse19.com/pyrostreams/docs/license

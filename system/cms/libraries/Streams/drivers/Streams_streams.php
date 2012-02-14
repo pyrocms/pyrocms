@@ -1,21 +1,10 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
- * PyroStreams API Library
- *
- * @package  	Streams API
- * @category  	Libraries
- * @author  	Parse19
- */
-
-// --------------------------------------------------------------------------
- 
-/**
  * Entries Driver
- *
- * @package  	Streams API
- * @category  	Drivers
+ * 
  * @author  	Parse19
+ * @package  	PyroCMS\Core\Libraries\Streams\Drivers
  */
 class Streams_streams extends CI_Driver {
 
@@ -45,7 +34,7 @@ class Streams_streams extends CI_Driver {
 	 * @param	[string - about notes for stream]
 	 * @return	bool
 	 */
-	public function add_stream($stream_name, $stream_slug, $namespace, $prefix = NULL, $about = NULL)
+	public function add_stream($stream_name, $stream_slug, $namespace, $prefix = null, $about = null)
 	{
 		// -------------------------------------
 		// Validate Data
@@ -55,28 +44,28 @@ class Streams_streams extends CI_Driver {
 		if ( ! trim($stream_name))
 		{
 			$this->log_error('empty_stream_name', 'add_stream');
-			return FALSE;
+			return false;
 		}				
 
 		// Do we have a stream slug?
 		if ( ! trim($stream_slug))
 		{
 			$this->log_error('empty_stream_slug', 'add_stream');
-			return FALSE;
+			return false;
 		}				
 
 		// Do we have a stream namespace?
 		if ( ! trim($namespace))
 		{
 			$this->log_error('empty_stream_namespace', 'add_stream');
-			return FALSE;
+			return false;
 		}				
 		
 		// Is this stream slug already available?
 		if( is_object($this->CI->streams_m->get_stream($stream_slug, true)) )
 		{
 			$this->log_error('stream_slug_in_use', 'add_stream');
-			return FALSE;
+			return false;
 		}
 	
 		// -------------------------------------

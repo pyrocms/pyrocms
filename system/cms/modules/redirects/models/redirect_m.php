@@ -1,5 +1,10 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
-
+/**
+ * Redirect model
+ *
+ * @author 		PyroCMS Dev Team
+ * @package 	PyroCMS\Core\Modules\Redirects\Models 
+ */
 class Redirect_m extends MY_Model
 {
 	function get_all()

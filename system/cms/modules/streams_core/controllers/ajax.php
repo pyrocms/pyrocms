@@ -3,7 +3,7 @@
 /**
  * PyroStreams AJAX Controller
  *
- * @package		PyroStreams
+ * @package		PyroCMS\Core\Modules\Streams Core\Controllers
  * @author		Parse19
  * @copyright	Copyright (c) 2011 - 2012, Parse19
  * @license		http://parse19.com/pyrostreams/docs/license
@@ -24,7 +24,10 @@ class Ajax extends Admin_Controller {
         $this->load->library('Type');
         
         // Only AJAX gets through!
-       	if( !$this->input->is_ajax_request() ) die('Invalid request.');
+       	if ( ! $this->input->is_ajax_request())
+       	{
+       		die('Invalid request.');
+       	}
     }
 
 	// --------------------------------------------------------------------------
@@ -40,7 +43,7 @@ class Ajax extends Admin_Controller {
 	public function build_parameters()
 	{
 		// Out for certain characters
-		if( $this->input->post('data') == '-' ) return null;
+		if ($this->input->post('data') == '-') return NULL;
 	
 		$this->load->language('streams_core/pyrostreams');
 	
@@ -55,7 +58,7 @@ class Ajax extends Admin_Controller {
 		$field_type = $this->type->load_single_type($type);
 		
 		// I guess we don't have any to show.
-		if( !isset($field_type->custom_parameters) ) return NULL;
+		if ( ! isset($field_type->custom_parameters)) return NULL;
 
 		// Otherwise, the beat goes on.		
 		$extra_fields = $field_type->custom_parameters;
@@ -63,27 +66,26 @@ class Ajax extends Admin_Controller {
 		$data['count'] = 0;
 				
 		//Echo them out
-		foreach( $extra_fields as $field )
+		foreach ($extra_fields as $field)
 		{
 			// Check to see if it is a standard one or a custom one
 			// from the field type
-			if( method_exists($parameters, $field) ):
-	
+			if (method_exists($parameters, $field))
+			{
 				$data['input'] 			= $parameters->$field();
 				$data['input_name']		= $this->lang->line('streams.'.$field);
-		
-			elseif( method_exists($field_type, 'param_'.$field)):
-
+			}
+			elseif (method_exists($field_type, 'param_'.$field))
+			{
 				$call = 'param_'.$field;
 
 				$data['input'] 			= $field_type->$call();
 				$data['input_name']		= $this->lang->line('streams.'.$field_type->field_type_slug.'.'.$field);
-
-			else:
-			
-				return false;
-			
-			endif;
+			}
+			else
+			{
+				return FALSE;
+			}
 			
 			$data['input_slug'] = $field;
 		
@@ -100,7 +102,7 @@ class Ajax extends Admin_Controller {
 	 *
 	 * Accessed via AJAX
 	 *
-	 * @access	publicå
+	 * @access	public
 	 * @return	void
 	 */
 	public function update_field_order()
@@ -111,15 +113,14 @@ class Ajax extends Admin_Controller {
 		// paginated lists
 		$order_count = $this->input->post('offset')+1;
 		
-		foreach($ids as $id):
-		
+		foreach ($ids as $id)
+		{
 			$this->db
 					->where('id', $id)
 					->update('data_field_assignments', array('sort_order' => $order_count));
 			
 			$order_count++;
-		
-		endforeach;
+		}
 	}
 
 	// --------------------------------------------------------------------------
@@ -144,17 +145,15 @@ class Ajax extends Admin_Controller {
 		// paginated lists
 		$order_count = $this->input->post('offset')+1;
 
-		foreach($ids as $id):
-		
-			$update_data['ordering_count']		= $order_count;
-			
-			$this->db->where('id', $id)->update(STR_PRE.$stream->stream_slug, $update_data);
-			
-			$update_data = array();
-			
+		foreach($ids as $id)
+		{
+			$this->db
+					->limit(1)
+					->where('id', $id)
+					->update($stream->stream_prefix.$stream->stream_slug, array('ordering_count' => $order_count));
+
 			++$order_count;
-		
-		endforeach;
+		}
 	}
 		
 }

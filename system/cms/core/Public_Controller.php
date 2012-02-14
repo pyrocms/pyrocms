@@ -1,8 +1,16 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
-
-// Code here is run before frontend controllers
+/**
+ * Code here is run before frontend controllers
+ * 
+ * @author PyroCMS Dev Team
+ * @package PyroCMS\Core\Controllers
+ */
 class Public_Controller extends MY_Controller
 {
+	/**
+	 * Loads the gazillion of stuff, in Flash Gordon speed.
+	 * @todo Document properly please.
+	 */
 	public function __construct()
 	{
 		parent::__construct();

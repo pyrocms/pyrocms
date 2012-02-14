@@ -114,7 +114,7 @@ $config['asset_deps_max_depth'] = 2;
  * $group_name = the name of the group to which the file belongs
  *
  * You are allowed to define functions in this config file, or you can use
- * Casset::set_post_load_callback(function($content,  ...) { ... }); instead
+ * Asset::set_post_load_callback(function($content,  ...) { ... }); instead
  */
 $config['asset_post_load_callback'] = null;
 

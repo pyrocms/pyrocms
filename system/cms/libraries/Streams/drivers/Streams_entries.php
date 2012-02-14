@@ -1,21 +1,10 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
- * PyroStreams API Library
- *
- * @package  	Streams API
- * @category  	Libraries
- * @author  	Parse19
- */
-
-// --------------------------------------------------------------------------
- 
-/**
  * Entries Driver
  *
- * @package  	Streams API
- * @category  	Drivers
  * @author  	Parse19
+ * @package  	PyroCMS\Core\Libraries\Streams\Drivers
  */ 
  
 class Streams_entries extends CI_Driver {
@@ -28,24 +17,24 @@ class Streams_entries extends CI_Driver {
 	 * @var		array
 	 */
 	public $entries_params = array(
-			'stream'			=> NULL,
-			'namespace'			=> NULL,
-			'limit'				=> NULL,
+			'stream'			=> null,
+			'namespace'			=> null,
+			'limit'				=> null,
 			'offset'			=> 0,
 			'single'			=> 'no',
-			'id'				=> NULL,
+			'id'				=> null,
 			'date_by'			=> 'created',
-			'year'				=> NULL,
-			'month'				=> NULL,
-			'day'				=> NULL,
+			'year'				=> null,
+			'month'				=> null,
+			'day'				=> null,
 			'show_upcoming'		=> 'yes',
 			'show_past'			=> 'yes',
 			'restrict_user'		=> 'no',
-			'where'				=> NULL,
-			'exclude'			=> NULL,
+			'where'				=> null,
+			'exclude'			=> null,
 			'exclude_by'		=> 'id',
-			'disable'			=> NULL,
-			'order_by'			=> NULL,
+			'disable'			=> null,
+			'order_by'			=> null,
 			'sort'				=> 'asc',
 			'exclude_called'	=> 'no',
 			'paginate'			=> 'no',
@@ -130,7 +119,7 @@ class Streams_entries extends CI_Driver {
 		// Pagination Limit
 		// -------------------------------------
 
-		if ($params['paginate'] == 'yes' AND ( ! isset($params['limit']) OR ! is_numeric($params['limit']))) $params['limit'] = 25;
+		if ($params['paginate'] == 'yes' and ( ! isset($params['limit']) or ! is_numeric($params['limit']))) $params['limit'] = 25;
 				
 		// -------------------------------------
 		// Get Stream Fields
@@ -168,7 +157,7 @@ class Streams_entries extends CI_Driver {
 		}		
 		else
 		{
-			$return['pagination'] 	= NULL;
+			$return['pagination'] 	= null;
 			$return['total'] 		= count($return['entries']);
 		}
 
@@ -188,7 +177,7 @@ class Streams_entries extends CI_Driver {
 	 * @param	bool - format results?
 	 * @return	object
 	 */
-	function get_entry($entry_id, $stream, $namespace = NULL, $format = TRUE)
+	function get_entry($entry_id, $stream, $namespace, $format = true)
 	{
 		return get_instance()->row_m->get_row($entry_id, $this->stream_obj($stream, $namespace), $format);
 	}
@@ -203,7 +192,7 @@ class Streams_entries extends CI_Driver {
 	 * @param	stream - int, slug, or obj
 	 * @return	object
 	 */
-	function delete_entry($entry_id, $stream, $namespace = NULL)
+	function delete_entry($entry_id, $stream, $namespace)
 	{
 		return get_instance()->row_m->delete_row($entry_id, $this->stream_obj($stream, $namespace));
 	}
@@ -219,7 +208,7 @@ class Streams_entries extends CI_Driver {
 	 */
 	function update_entry($entry_id, $data)
 	{
-		
+		// @todo
 	}
 	
 }

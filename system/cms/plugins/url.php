@@ -1,24 +1,23 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
+
 /**
  * Session Plugin
  *
  * Read and write session data
  *
- * @package		PyroCMS
  * @author		PyroCMS Dev Team
- * @copyright	Copyright (c) 2008 - 2011, PyroCMS
- *
+ * @package		PyroCMS\Core\Plugins
  */
 class Plugin_Url extends Plugin
 {
+
 	/**
 	 * Current uri string
 	 *
 	 * Usage:
-	 * {{ url:current }}
-	 *
-	 * @param	array
-	 * @return	array
+	 *   {{ url:current }}
+	 * 
+	 * @return string The current URI string.
 	 */
 	function current()
 	{
@@ -26,14 +25,12 @@ class Plugin_Url extends Plugin
 	}
 
 	/**
-	 *
-	 * site URL of the install
+	 * Site URL of the installation.
 	 *
 	 * Usage:
-	 * {{ url:site }}
+	 *   {{ url:site }}
 	 *
-	 * @param	array
-	 * @return	array
+	 * @return string Site URL of the install.
 	 */
 	function site()
 	{
@@ -43,14 +40,12 @@ class Plugin_Url extends Plugin
 	}
 
 	/**
-	 *
-	 * base URL of the install
+	 * Base URL of the installation.
 	 *
 	 * Usage:
-	 * {{ url:base }}
+	 *   {{ url:base }}
 	 *
-	 * @param	array
-	 * @return	array
+	 * @return string The base URL for the installation.
 	 */
 	function base()
 	{
@@ -58,14 +53,12 @@ class Plugin_Url extends Plugin
 	}
 
 	/**
-	 *
-	 * Pick a segment and provide a default if nothing there
+	 * Get URI segment.
 	 *
 	 * Usage:
-	 * {{ url:segments segment="1" default="home" }}
+	 *   {{ url:segments segment="1" default="home" }}
 	 *
-	 * @param	array
-	 * @return	array
+	 * @return string The URI segment, or the provided default.
 	 */
 	function segments()
 	{
@@ -74,26 +67,24 @@ class Plugin_Url extends Plugin
 
 		return $this->uri->segment($segment, $default);
 	}
-	
+
 	/**
-	 * build an anchor tag
+	 * Build an anchor tag
 	 *
 	 * Usage:
-	 * {{ url:anchor segments="users/login" title="Login" class="login" }}
+	 *   {{ url:anchor segments="users/login" title="Login" class="login" }}
 	 *
-	 * @param	array
-	 * @return	string
+	 * @return string The anchor HTML tag.
 	 */
 	function anchor()
 	{
 		$segments = $this->attribute('segments');
 		$title = $this->attribute('title', '');
 		$class = $this->attribute('class', '');
-		
-		$class = ! empty($class) ? 'class="' . $class . '"' : '' ;
-		
+
+		$class = !empty($class) ? 'class="'.$class.'"' : '';
+
 		return anchor($segments, $title, $class);
 	}
-}
 
-/* End of file url.php */
+}

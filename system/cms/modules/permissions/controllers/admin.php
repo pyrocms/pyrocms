@@ -2,10 +2,10 @@
 /**
  * Permissions controller
  *
- * @author 		Phil Sturgeon, Yorick Peterse - PyroCMS Dev Team
- * @package 	PyroCMS
- * @subpackage 	Pages module
- * @category	Modules
+ * @author 		Phil Sturgeon
+ * @author 		Yorick Peterse
+ * @author		PyroCMS Dev Team
+ * @package 	PyroCMS\Core\Modules\Permissions\Controllers
  */
 class Admin extends Admin_Controller
 {

@@ -3,7 +3,7 @@
 /**
  * PyroStreams Public AJAX Controller
  *
- * @package		PyroStreams
+ * @package		PyroCMS\Core\Modules\Streams Core\Controllers
  * @author		Parse19
  * @copyright	Copyright (c) 2011 - 2012, Parse19
  * @license		http://parse19.com/pyrostreams/docs/license
@@ -20,7 +20,7 @@ class Public_ajax extends Public_Controller {
         $this->load->library('Type');
         
         // Only AJAX gets through!
-       	if ( !$this->input->is_ajax_request())
+       	if ( ! $this->input->is_ajax_request())
        	{
        		die('Invalid request.');
        	}

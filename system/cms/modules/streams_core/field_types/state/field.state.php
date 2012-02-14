@@ -3,7 +3,7 @@
 /**
  * PyroStreams US State Field Type
  *
- * @package		PyroStreams
+ * @package		PyroCMS\Core\Modules\Streams Core\Field Types
  * @author		Parse19
  * @license		http://parse19.com/pyrostreams/docs/license
  * @license		http://parse19.com/pyrostreams/license

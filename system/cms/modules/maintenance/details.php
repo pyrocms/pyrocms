@@ -1,11 +1,9 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 /**
  * Maintenance Module
- *
- * @author		Donald Myers
- * @package		PyroCMS
- * @subpackage	Maintenance Module
- * @category	Modules
+ * 
+ * @author		PyroCMS Dev Team
+ * @package		PyroCMS\Core\Modules\Maintenance
  */
 class Module_Maintenance extends Module 
 {

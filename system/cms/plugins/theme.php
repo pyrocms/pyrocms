@@ -1,16 +1,16 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
+
 /**
  * Theme Plugin
  *
  * Load partials and access data
  *
- * @package		PyroCMS
  * @author		PyroCMS Dev Team
- * @copyright	Copyright (c) 2008 - 2011, PyroCMS
- *
+ * @package		PyroCMS\Core\Plugins
  */
 class Plugin_Theme extends Plugin
 {
+
 	/**
 	 * Partial
 	 *
@@ -19,8 +19,7 @@ class Plugin_Theme extends Plugin
 	 * Usage:
 	 * {{ theme:partial file="header" }}
 	 *
-	 * @param	array
-	 * @return	array
+	 * @return string The final rendered partial view.
 	 */
 	public function partial()
 	{
@@ -32,7 +31,7 @@ class Plugin_Theme extends Plugin
 		$string = $this->load->file($path.'partials/'.$name.'.html', TRUE);
 		return $this->parser->parse_string($string, $data, TRUE, TRUE);
 	}
-	
+
 	/**
 	 * Path
 	 *
@@ -41,14 +40,13 @@ class Plugin_Theme extends Plugin
 	 * Usage:
 	 * {{ theme:assets }}
 	 *
-	 * @param	array
-	 * @return	array
+	 * @return string The rendered assets (CSS/Js) for the theme.
 	 */
 	public function assets()
 	{
 		return Asset::render('theme');
 	}
-	
+
 	/**
 	 * Path
 	 *
@@ -57,12 +55,11 @@ class Plugin_Theme extends Plugin
 	 * Usage:
 	 * {{ theme:assets }}
 	 *
-	 * @param	array
-	 * @return	array
+	 * @return string The path to the theme (relative to web root).
 	 */
 	public function path()
 	{
-		$path =& rtrim($this->load->get_var('template_views'), '/');
+		$path = & rtrim($this->load->get_var('template_views'), '/');
 		return preg_replace('#(\/views(\/web|\/mobile)?)$#', '', $path).'/';
 	}
 
@@ -72,11 +69,9 @@ class Plugin_Theme extends Plugin
 	 * Insert a CSS tag with location based for url or path from the theme or module
 	 *
 	 * Usage:
+	 *  {{ theme:css file="" }}
 	 *
-	 * {{ theme:css file="" }}
-	 *
-	 * @param	array
-	 * @return	array
+	 * @return string The link HTML tag for the stylesheets.
 	 */
 	public function css()
 	{
@@ -91,16 +86,13 @@ class Plugin_Theme extends Plugin
 	 * Theme CSS URL
 	 *
 	 * Usage:
+	 *  {{ theme:css_url file="" }}
 	 *
-	 * {{ theme:css_url file="" }}
-	 *
-	 * @param	array
-	 * @return	string The css location url
+	 * @return string The CSS URL
 	 */
 	public function css_url()
 	{
 		$file = $this->attribute('file');
-
 		return Asset::get_filepath_css($file, true);
 	}
 
@@ -108,16 +100,13 @@ class Plugin_Theme extends Plugin
 	 * Theme CSS PATH
 	 *
 	 * Usage:
+	 *   {{ theme:css_path file="" }}
 	 *
-	 * {{ theme:css_path file="" }}
-	 *
-	 * @param	array
-	 * @return	string The css location path
+	 * @return string The CSS location path
 	 */
 	public function css_path()
 	{
 		$file = $this->attribute('file');
-		
 		return Asset::get_filepath_css($file, false);
 	}
 
@@ -127,17 +116,15 @@ class Plugin_Theme extends Plugin
 	 * Insert a image tag with location based for url or path from the theme or module
 	 *
 	 * Usage:
+	 *   {{ theme:image file="" }}
 	 *
-	 * {{ theme:image file="" }}
-	 *
-	 * @param	array
-	 * @return	array
+	 * @return string An empty string or the image tag.
 	 */
 	public function image()
 	{
-		$file		= $this->attribute('file');
-		$alt		= $this->attribute('alt', $file);
-		$attributes	= $this->attributes();
+		$file = $this->attribute('file');
+		$alt = $this->attribute('alt', $file);
+		$attributes = $this->attributes();
 
 		foreach (array('file', 'alt') as $key)
 		{
@@ -150,7 +137,7 @@ class Plugin_Theme extends Plugin
 				return '';
 			}
 		}
-		
+
 		try
 		{
 			return Asset::img($file, $alt);
@@ -165,16 +152,13 @@ class Plugin_Theme extends Plugin
 	 * Theme Image URL
 	 *
 	 * Usage:
+	 *   {{ theme:image_url file="" }}
 	 *
-	 * {{ theme:image_url file="" }}
-	 *
-	 * @param	array
-	 * @return	string The image location url
+	 * @return string The image URL
 	 */
 	public function image_url()
 	{
 		$file = $this->attribute('file');
-
 		return Asset::get_filepath_img($file, true);
 	}
 
@@ -182,16 +166,13 @@ class Plugin_Theme extends Plugin
 	 * Theme Image PATH
 	 *
 	 * Usage:
+	 *   {{ theme:image_path file="" }}
 	 *
-	 * {{ theme:image_path file="" }}
-	 *
-	 * @param	array
-	 * @return	string The image location path
+	 * @return string The image location path
 	 */
 	public function image_path()
 	{
 		$file = $this->attribute('file');
-
 		return BASE_URI.Asset::get_filepath_img($file, false);
 	}
 
@@ -204,13 +185,12 @@ class Plugin_Theme extends Plugin
 	 *
 	 * {{ theme:js file="" }}
 	 *
-	 * @param	array
-	 * @return	array
+	 * @param string $return Not used
+	 * @return string An empty string or the script tag.
 	 */
 	public function js($return = '')
 	{
-		$file	= $this->attribute('file');
-
+		$file = $this->attribute('file');
 		return '<script src="'.$this->js_path($file).'" type="text/css"></script>';
 	}
 
@@ -218,56 +198,47 @@ class Plugin_Theme extends Plugin
 	 * Theme JS URL
 	 *
 	 * Usage:
+	 *   {{ theme:js_url file="" }}
 	 *
-	 * {{ theme:js_url file="" }}
-	 *
-	 * @param	array
-	 * @return	string The js location url
+	 * @return string The javascript asset URL.
 	 */
 	public function js_url()
 	{
 		$file = $this->attribute('file');
-
 		return Asset::get_filepath_js($file, true);
 	}
-
 
 	/**
 	 * Theme JS PATH
 	 *
 	 * Usage:
+	 *   {{ theme:js_path file="" }}
 	 *
-	 * {{ theme:js_path file="" }}
-	 *
-	 * @param	array
-	 * @return	string The js location path
+	 * @return string The javascript asset location path.
 	 */
 	public function js_path()
 	{
 		$file = $this->attribute('file');
-
 		return BASE_URI.Asset::get_filepath_js($file, false);
 	}
 
 	/**
-	 *
 	 * Set and get theme variables
 	 *
 	 * Usage:
 	 * {{ theme:variables name="foo" }}
 	 *
-	 * @param	array
-	 * @return	array
+	 * @return string The variable value.
 	 */
 	public function variables()
 	{
-		if ( ! isset($variables))
+		if (!isset($variables))
 		{
 			static $variables = array();
 		}
 
-		$name	= $this->attribute('name');
-		$value	= $this->attribute('value');
+		$name = $this->attribute('name');
+		$value = $this->attribute('value');
 
 		if ($value !== NULL)
 		{
@@ -284,29 +255,26 @@ class Plugin_Theme extends Plugin
 	 * Insert a link tag for favicon from your theme
 	 *
 	 * Usage:
+	 *   {{ theme:favicon file="" [rel="foo"] [type="bar"] }}
 	 *
-	 * {{ theme:favicon file="" [rel="foo"] [type="bar"] }}
-	 *
-	 * @param	array
-	 * @return	array
+	 * @return string The link HTML tag for the favicon.
 	 */
 	public function favicon()
 	{
 		$this->load->library('asset');
 		$file = Asset::get_filepath_img($this->attribute('file', 'favicon.ico'), true);
 
-		$rel		= $this->attribute('rel', 'shortcut icon');
-		$type		= $this->attribute('type', 'image/x-icon');
-		$is_xhtml	= in_array($this->attribute('xhtml', 'true'), array('1', 'y', 'yes', 'true'));
+		$rel = $this->attribute('rel', 'shortcut icon');
+		$type = $this->attribute('type', 'image/x-icon');
+		$is_xhtml = in_array($this->attribute('xhtml', 'true'), array('1', 'y', 'yes', 'true'));
 
 		$link = '<link ';
-		$link .= 'href="' . $file . '" ';
-		$link .= 'rel="' . $rel . '" ';
-		$link .= 'type="' . $type . '" ';
-		$link .= ($is_xhtml ? '/' : '') . '>';
+		$link .= 'href="'.$file.'" ';
+		$link .= 'rel="'.$rel.'" ';
+		$link .= 'type="'.$type.'" ';
+		$link .= ($is_xhtml ? '/' : '').'>';
 
 		return $link;
 	}
-}
 
-/* End of file theme.php */
+}

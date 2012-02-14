@@ -2,21 +2,19 @@
 
 /**
  * Show a login box in your widget areas
- *
- * @package 		PyroCMS
- * @subpackage 		Widgets
- * @author			PyroCMS Development Team
- * @copyright		PyroCMS Development Team
- * @license			http://pyrocms.com/legal/license
- * @since			1.0
+ * 
+ * @author		PyroCMS Dev Team
+ * @package		PyroCMS\Core\Widgets
  */
-
 class Widget_Login extends Widgets
 {
+
 	/**
-	 * @var  string  Name of the widget in an array, with lang code as the key.
+	 * The translations for the widget title
+	 *
+	 * @var array
 	 */
-	public $title		= array(
+	public $title = array(
 		'en' => 'Login',
 		'el' => 'Σύνδεση',
 		'nl' => 'Login',
@@ -24,11 +22,13 @@ class Widget_Login extends Widgets
 		'ru' => 'Вход на сайт',
 		'id' => 'Login',
 	);
-	
+
 	/**
-	 * @var  array  Description of the widget in an array, with lang code as the key.
+	 * The translations for the widget description
+	 *
+	 * @var array
 	 */
-	public $description	= array(
+	public $description = array(
 		'en' => 'Display a simple login form anywhere',
 		'el' => 'Προβάλετε μια απλή φόρμα σύνδεσης χρήστη οπουδήποτε',
 		'br' => 'Permite colocar um formulário de login em qualquer lugar do seu site',
@@ -36,30 +36,34 @@ class Widget_Login extends Widgets
 		'ru' => 'Выводит простую форму для входа на сайт',
 		'id' => 'Menampilkan form login sederhana',
 	);
-	
+
 	/**
-	 * @var  string  Name of the Widget author
+	 * The author of the widget
+	 *
+	 * @var string
 	 */
-	public $author		= 'Phil Sturgeon';
-	
+	public $author = 'Phil Sturgeon';
+
 	/**
-	 * @var  string  Widget authors website
+	 * The author's website.
+	 * 
+	 * @var string 
 	 */
-	public $website		= 'http://philsturgeon.co.uk/';
-	
+	public $website = 'http://philsturgeon.co.uk/';
+
 	/**
-	 * @var  string  Widget version
+	 * The version of the widget
+	 *
+	 * @var string
 	 */
-	public $version		= '1.0';
+	public $version = '1.0';
 
 	/**
 	 * Runs code and logic required to display the widget.
-	 *
-	 * @access	public
-	 * @return	void
 	 */
 	public function run()
 	{
 		return !$this->ion_auth->logged_in();
 	}
+
 }

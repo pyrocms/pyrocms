@@ -3,7 +3,7 @@
 /**
  * PyroStreams Core Module
  *
- * @package		PyroStreams Core
+ * @package		PyroCMS\Core\Modules\Streams Core
  * @author		Parse19
  * @copyright	Copyright (c) 2011 - 2012, Parse19
  * @license		http://parse19.com/pyrostreams/docs/license
@@ -25,10 +25,12 @@ class Module_Streams_core extends Module {
 	{
 		return array(
 			'name' => array(
-				'en' => 'Streams Core'
+				'en' => 'Streams Core',
+                            'fr' => 'Noyau Flux'
 			),
 			'description' => array(
-				'en' => 'Core data module for streams.'
+				'en' => 'Core data module for streams.',
+                            'fr' => 'Noyau de données pour les Flux.'
 			),
 			'frontend' => FALSE,
 			'backend' => FALSE,

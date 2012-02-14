@@ -1,17 +1,29 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
- * @package 		PyroCMS
- * @subpackage 		RSS Feed Widget
- * @author			Phil Sturgeon - PyroCMS Development Team
- *
  * Show RSS feeds in your site
+ * 
+ * @author  	Phil Sturgeon
+ * @author		PyroCMS Dev Team
+ * @package		PyroCMS\Core\Widgets
  */
-
 class Widget_Html extends Widgets
 {
-	public $title		= 'HTML';
-	public $description	= array(
+
+
+	/**
+	 * The widget title
+	 *
+	 * @var array
+	 */
+	public $title = 'HTML';
+
+	/**
+	 * The translations for the widget description
+	 *
+	 * @var array
+	 */
+	public $description = array(
 		'en' => 'Create blocks of custom HTML',
 		'el' => 'Δημιουργήστε περιοχές με δικό σας κώδικα HTML',
 		'br' => 'Permite criar blocos de HTML customizados',
@@ -19,26 +31,56 @@ class Widget_Html extends Widgets
 		'ru' => 'Создание HTML-блоков с произвольным содержимым',
 		'id' => 'Membuat blok HTML apapun',
 	);
-	public $author		= 'Phil Sturgeon';
-	public $website		= 'http://philsturgeon.co.uk/';
-	public $version		= '1.0';
 	
+	/**
+	 * The author of the widget
+	 *
+	 * @var string
+	 */
+	public $author = 'Phil Sturgeon';
+
+	/**
+	 * The author's website.
+	 * 
+	 * @var string 
+	 */
+	public $website = 'http://philsturgeon.co.uk/';
+
+	/**
+	 * The version of the widget
+	 *
+	 * @var string
+	 */
+	public $version = '1.0';
+
+	/**
+	 * The fields for customizing the options of the widget.
+	 *
+	 * @var array 
+	 */
 	public $fields = array(
 		array(
-			'field'   => 'html',
-			'label'   => 'HTML',
-			'rules'   => 'required'
+			'field' => 'html',
+			'label' => 'HTML',
+			'rules' => 'required'
 		)
 	);
 
+	/**
+	 * The main function of the widget.
+	 *
+	 * @param array $options The options for displaying an HTML widget.
+	 * @return array 
+	 */
 	public function run($options)
 	{
 		if (empty($options['html']))
 		{
 			return array('output' => '');
 		}
-		
+
 		// Store the feed items
 		return array('output' => $this->parser->parse_string($options['html'], NULL, TRUE));
-	}	
+	}
+
 }
