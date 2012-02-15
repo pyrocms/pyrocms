@@ -16,9 +16,9 @@ class Redirect_m extends MY_Model
 	function get_from($from)
 	{
 		//$this->db->where('site_id', $this->site->id);
-		$this->db->where($this->db->escape($from)." LIKE ".
-			$this->db->dbprefix('redirects').".from", null, false);
-		$data = $this->db->get('redirects')->row();
+		$redirects_table = $this->db->dbprefix('redirects');
+		$data = $this->db->query("SELECT * FROM (`$redirects_table`) WHERE ? LIKE $redirects_table.from",
+			array($from))->row();
 		return $data;
 	}
 
