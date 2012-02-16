@@ -153,6 +153,10 @@
  *  Resolve the system path for increased reliability
  * ---------------------------------------------------------------
  */
+
+ 	// The name of THIS file
+	define('SELF', pathinfo(__FILE__, PATHINFO_BASENAME));
+	
 	if (function_exists('realpath') AND @realpath($system_path) !== FALSE)
 	{
 		$system_path = realpath($system_path).'/';
@@ -172,9 +176,6 @@
  *  Now that we know the path, set the main path constants
  * -------------------------------------------------------------------
  */		
-	// The name of THIS file
-	define('SELF', pathinfo(__FILE__, PATHINFO_BASENAME));
-
 	// The PHP file extension
 	define('EXT', '.php');
 
