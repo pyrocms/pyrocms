@@ -9,9 +9,10 @@ $lang['desc_label'] 					= 'Περιγραφή';
 $lang['version_label'] 					= 'Έκδοση';
 $lang['global:author'] 					= 'Συγγραφέας';
 $lang['global:action'] 					= 'Ενέργεια';
+$lang['global:slug'] 					= 'Slug';
 
-$lang['global:dialog.delete_message'] 	= 'Είσαστε σίγουροι ότι θέλετε να το διαγράψετε; Δεν μπορεί να αναιρεθεί.';
-$lang['global:dialog.confirm'] 			= 'Επιβεβαίωση';
+$lang['global:dialog:delete_message'] 	= 'Είσαστε σίγουροι ότι θέλετε να το διαγράψετε; Δεν μπορεί να αναιρεθεί.';
+$lang['global:dialog:confirm'] 			= 'Επιβεβαίωση';
 
 $lang['global:yes'] 					= 'Ναι';
 $lang['global:no'] 						= 'Όχι';
@@ -25,9 +26,9 @@ $lang['global:check-all']				= 'Όλα';
 $lang['global:check-none'] 				= 'Κανένα';
 
 $lang['global:operators:equal'] 		= 'Ίσο με';
-$lang['global:operators:not_equal'] 	= 'Όχι ίσο με';
-$lang['global:operators:less_than'] 	= 'Μικρότερο από';
-$lang['global:operators:greater_than'] 	= 'Μεγαλύτερο από';
+$lang['global:operators:not-equal'] 	= 'Όχι ίσο με';
+$lang['global:operators:less-than'] 	= 'Μικρότερο από';
+$lang['global:operators:greater-than'] 	= 'Μεγαλύτερο από';
 
 $lang['navigation_headline'] 			= 'Πλοήγηση';
 $lang['breadcrumb_base_label'] 			= 'Αρχική';
@@ -44,7 +45,8 @@ $lang['note_label'] 					= 'Σημείωση';
 $lang['success_label'] 					= 'Επιτυχία';
 
 $lang['login_title'] 					= 'Σύνδεση';
-$lang['cms_fatal_error'] 				= 'Σφάλμα, το CMS είναι εγκατεστημένο;';
+$lang['global:fatal_error'] 				= 'Σφάλμα, το CMS είναι εγκατεστημένο;';
+$lang['global:demo_restrictions'] 		= 'Μερικές λειτουργίες σε αυτήν την σελίδα έχουν απενεργοποιηθεί για την επίδειξη.';
 
 $lang['login_error_label'] 				= 'Σφάλμα σύνδεσης';
 $lang['forgot_password_label'] 			= 'Ξεχάσατε το συνθηματικό σας;';
@@ -64,9 +66,11 @@ $lang['publish_label'] 					= 'Δημοσίευση';
 $lang['upload_label'] 					= 'Ανέβασμα';
 $lang['global:uninstall'] 				= 'Απεγκατάσταση';
 $lang['global:install'] 				= 'Εγκατάσταση';
+$lang['global:upgrade'] 				= 'Ενημέρωση';
 $lang['global:enable']					= 'Ενεργοποίηση';
 $lang['global:disable'] 				= 'Απενεργοποίηση';
-$lang['global:upgrade'] 				= 'Ενημέρωση';
+$lang['global:enabled']					= 'Ενεργοποιημένο';
+$lang['global:disabled'] 				= 'Απενεργοποιημένο';
 
 $lang['all_right_reserved']				= 'Με επιφύλαξη παντός δικαιώματος.';
 $lang['powered_by_pyrocms']				= 'Με την δύναμη του PyroCMS';
