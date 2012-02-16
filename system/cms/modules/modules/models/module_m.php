@@ -261,8 +261,6 @@ class Module_m extends MY_Model
 	 */
 	public function exists($module)
 	{
-		$this->_module_exists = array();
-
 		if ( ! $module)
 		{
 			return FALSE;
