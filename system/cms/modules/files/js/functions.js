@@ -1,13 +1,32 @@
 jQuery(function($){
 
+	// open a right click menu on items and the main area
 	$('.item li, .item .one_half').bind('contextmenu', function(e){
 		e.preventDefault();
-		console.log(e);
-		alert('Right button');
+		$('.context-menu-source').fadeIn('fast');
+		// jquery UI position the context menu by the mouse
+		$('.context-menu-source').position({
+			my:			"left top",
+			at:			"left bottom",
+			of:			e,
+			collision:	"fit"
+		});
+	});
+
+	// grab the value from the clicked menu item
+	$('[data-menu]').click(function(e){
+		var menu = $(this).attr('data-menu');
+
+		switch (menu){
+			case 'upload':
+				console.log(menu);
+			break;
+		}
 	});
 
 	// select folders; including use of control key
 	$('.folders-right [data-slug]').click(function(e){
+		e.stopPropagation();
 		var selected = $('.folders-right').find('.selected').length > 0;
 		if ( ! e.ctrlKey && ! e.shiftKey) {
 			if(selected) {
@@ -15,6 +34,12 @@ jQuery(function($){
 			}
 		}
 		$(this).toggleClass('selected');
+	});
+
+	// if they click in the main area reset selected items or hide the context menu
+	$('html').click(function(e){
+		$('.folder').removeClass('selected');
+		$('.context-menu-source').fadeOut('fast');
 	});
 
 	// sort folders
@@ -33,6 +58,18 @@ jQuery(function($){
 
 	});
 
+	/***************************************************************************
+	 * Files uploading section                                                 *
+	 ***************************************************************************/
+
+	// Store data for filesUpload plugin
+	$('#files-uploader form').data('fileUpload', {
+		lang : {
+			start : 'Start',
+			cancel : pyro.lang.delete
+		}
+	});
+
 	$('.open-files-uploader').livequery(function(){
 		$(this).colorbox({
 			scrolling	: false,
@@ -45,7 +82,7 @@ jQuery(function($){
 				$.colorbox.resize();
 			},
 			onCleanup : function(){
-				$(window).hashchange();
+				//$(window).hashchange();
 			}
 		});
 	});

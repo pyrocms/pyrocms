@@ -5,11 +5,17 @@
 /** end temporary **/
 
 .folders-sidebar { min-height: 400px; border-right: 1px solid #d8d8d8; }
+.folders-sidebar li { padding: 3px; border-bottom: 1px solid #e0e0e0; cursor: pointer; }
+.folders-sidebar li.places { cursor: default; margin-bottom: 10px; font-size: 14px; font-weight: bold; font-style: italic; border: none; }
 .folders-right { min-height: 400px; }
-.folders-right .folder { width: 70px; height: 112px; margin: 25px; overflow: hidden; float: left; background: url(../img/folder.png) no-repeat; }
-.folders-right .folder.selected { background-color: #d8d8d8; }
-.folders-right .folder .folder-text { display: block; margin-top: 65px; text-align: center; }
+.folders-right .folder { width: 100px; height: 112px; margin: 10px; overflow: hidden; float: left; background: url(../img/folder.png) no-repeat; }
+.folders-right .folder.selected { background: url(../img/folder-select.png) no-repeat; }
+.folders-right .folder .folder-text { display: block; margin: 0 4px 0 4px; font-size: 11px; height: 15px; overflow: hidden; margin-top: 80px; text-align: center; }
 .console { min-height: 400px; border-left: 1px solid #d8d8d8; }
+.console .console-title { margin-left: 15px; margin-bottom: 10px; font-size: 14px; font-weight: bold; font-style: italic; border: none; }
+
+.context-menu-source { display: none; position: absolute; width: 100px; background-color: #f7f7f7; }
+.context-menu-source li { height: 15px; cursor: pointer; padding: 5px 10px 5px 10px; border-bottom: 1px solid #e0e0e0; }
 
 
 #files-uploader { position: relative; margin: 0 5px; }

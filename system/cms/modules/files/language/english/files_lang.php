@@ -23,7 +23,12 @@ $lang['files.edit_title']					= 'Edit file "%s"';
 
 // Labels
 $lang['files.download_label']				= 'Download';
-$lang['files.upload_label']					= 'Upload';
+$lang['files:upload']						= 'Upload';
+$lang['files:rename']						= 'Rename';
+$lang['files:delete']						= 'Delete';
+$lang['files:edit']							= 'Edit';
+$lang['files:details']						= 'Details';
+$lang['files:activity']						= 'Activity';
 $lang['files.description_label']			= 'Description';
 $lang['files.type_label']					= 'Type';
 $lang['files.file_label']					= 'File';
