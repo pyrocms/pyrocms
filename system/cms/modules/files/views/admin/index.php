@@ -23,7 +23,7 @@
 
 			<ul class="folders-right">
 				<?php foreach ($folders as $folder): ?>
-					<li data-slug="<?php echo $folder->slug.'">'.$folder->name; ?></li>
+					<li class="folder" data-slug="<?php echo $folder->slug.'"><span class="folder-text">'.$folder->name; ?></span></li>
 				<?php endforeach; ?>
 			</ul>
 

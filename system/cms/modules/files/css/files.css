@@ -6,8 +6,9 @@
 
 .folders-sidebar { min-height: 400px; border-right: 1px solid #d8d8d8; }
 .folders-right { min-height: 400px; }
-.folders-right li { width: 80px; height: 80px; background-color: #f7f7f7; margin: 20px; float: left; }
-.folders-right li.selected { background-color: #d8d8d8; }
+.folders-right .folder { width: 70px; height: 112px; margin: 25px; overflow: hidden; float: left; background: url(../img/folder.png) no-repeat; }
+.folders-right .folder.selected { background-color: #d8d8d8; }
+.folders-right .folder .folder-text { display: block; margin-top: 65px; text-align: center; }
 .console { min-height: 400px; border-left: 1px solid #d8d8d8; }
 
 

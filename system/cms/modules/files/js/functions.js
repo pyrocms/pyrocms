@@ -7,19 +7,20 @@ jQuery(function($){
 	});
 
 	// select folders; including use of control key
-	$('[data-slug-main]').click(function(e){
+	$('.folders-right [data-slug]').click(function(e){
 		var selected = $('.folders-right').find('.selected').length > 0;
 		if ( ! e.ctrlKey && ! e.shiftKey) {
 			if(selected) {
-				$('[data-slug-main]').removeClass('selected');
+				$('[data-slug]').removeClass('selected');
 			}
 		}
 		$(this).toggleClass('selected');
 	});
 
 	// sort folders
-	$('.folders-right, .folders-sidebar').sortable({
-		connectWith: '.folders-sidebar',
+	$('.folders-sidebar, .folders-right').sortable({
+		cursor: 'move',
+		delay: 100,
 		update: function() {
 			order = new Array();
 			$(this).find('li').each(function(){
