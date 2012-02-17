@@ -177,18 +177,11 @@ class MY_Controller extends MX_Controller {
 }
 
 /**
- * 
- *
- * @staticvar	object	$ci
- * @return		object
- */
-
-/**
  * Returns the CodeIgniter object.
  *
  * Example: ci()->db->get('table');
  *
- * @return object 
+ * @return \CI_Controller
  */
 function ci()
 {

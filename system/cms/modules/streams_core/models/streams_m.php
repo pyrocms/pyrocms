@@ -440,7 +440,7 @@ class Streams_m extends MY_Model {
 	 * @param	int
 	 * @return 	obj
 	 */
-	public function get_stream_data($stream, $stream_fields, $limit, $offset = 0)
+	public function get_stream_data($stream, $stream_fields, $limit = null, $offset = 0)
 	{
 		$this->load->config('streams');
 
@@ -465,10 +465,19 @@ class Streams_m extends MY_Model {
 		}
 
 		// -------------------------------------
+		// Optional Limit
+		// -------------------------------------
+
+		if (is_numeric($limit))
+		{
+			$this->db->limit($limit, $offset);
+		}
+
+		// -------------------------------------
 		// Get Data
 		// -------------------------------------
-	
-		$items = $this->db->limit($limit, $offset)->get($stream->stream_prefix.$stream->stream_slug)->result();
+		
+		$items = $this->db->get($stream->stream_prefix.$stream->stream_slug)->result();
 		
 		// -------------------------------------
 		// Get Format Profile
