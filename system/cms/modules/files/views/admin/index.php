@@ -4,39 +4,38 @@
 
 <section class="item">
 	<section class="one_quarter">
-		<?php if ($folders) : ?>
-
 			<ul class="folders-sidebar">
 				<li class="places"><?php echo lang('files:places') ?></li>
-				<?php foreach ($folders as $folder): ?>
-					<li data-slug="<?php echo $folder->slug.'" '.
-						(strlen($folder->name) > 20 ? 'title="'.$folder->name.'">'.substr($folder->name, 0, 20).'...' : '>'.$folder->name); ?>
-					</li>
-				<?php endforeach; ?>
+				<?php if ($folders) : ?>
+					<?php foreach ($folders as $folder): ?>
+						<li data-folder-id="<?php echo $folder->id.'" '.
+							(strlen($folder->name) > 20 ? 'title="'.$folder->name.'">'.substr($folder->name, 0, 20).'...' : '>'.$folder->name); ?>
+						</li>
+					<?php endforeach; ?>
+				<?php endif; ?>
 			</ul>
-
-		<?php endif; ?>
 	</section>
 
 	<section class="one_half">
-		<?php if ($folders) : ?>
-
+		<?php echo form_open().form_hidden('current-level', '0').form_close(); ?>
 			<ul class="folders-right">
-				<?php foreach ($folders as $folder): ?>
-					<li class="folder" data-slug="<?php echo $folder->slug.'"><span class="folder-text">'.$folder->name; ?></span></li>
-				<?php endforeach; ?>
+				<?php if ($folders) : ?>
+					<?php foreach ($folders as $folder): ?>
+						<li class="folder" data-folder-id="<?php echo $folder->id.'"><span class="folder-text">'.$folder->name; ?></span></li>
+					<?php endforeach; ?>
+				<?php else : ?>
+					<div class="no_data"><?php echo lang('files:no_folders'); ?></div>
+				<?php endif; ?>
 			</ul>
 
 			<ul class="context-menu-source">
+				<li data-menu="new-folder"><?php echo lang('files:new_folder'); ?></li>
 				<li data-menu="upload" class="open-files-uploader"><?php echo lang('files:upload'); ?></li>
 				<li data-menu="rename"><?php echo lang('files:rename'); ?></li>
 				<li data-menu="edit"><?php echo lang('files:edit'); ?></li>
 				<li data-menu="delete"><?php echo lang('files:delete'); ?></li>
 				<li data-menu="details"><?php echo lang('files:details'); ?></li>
 			</ul>
-		<?php else : ?>
-			<div class="no_data"><?php echo lang('files:no_folders'); ?></div>
-		<?php endif; ?>
 	</section>
 
 	<section class="right one_quarter">
@@ -62,6 +61,10 @@
 			</div>
 			
 		</div>
+
+		<ul>
+			<li class="new-folder" data-folder-id=""><span class="folder-text"><?php echo lang('files:new_folder_name'); ?></span></li>
+		</ul>
 	</div>
 
 </section>

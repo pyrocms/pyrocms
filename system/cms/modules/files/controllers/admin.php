@@ -27,8 +27,6 @@ class Admin extends Admin_Controller {
 			'file_m',
 			'file_folders_m'
 		));
-
-		$this->_check_dir();
 	}
 
 	// ------------------------------------------------------------------------
@@ -64,6 +62,23 @@ class Admin extends Admin_Controller {
 	// ------------------------------------------------------------------------
 
 	/**
+	 * Create a new folder
+	 *
+	 * @access	public
+	 * @param	int		$parent	The parent folder's id
+	 * @return	string
+	 */
+	public function new_folder()
+	{
+		$parent_id = $this->input->post('parent');
+		$name = $this->input->post('name');
+
+		echo json_encode(Files::create_folder($parent_id, $name));
+	}
+
+	// ------------------------------------------------------------------------
+
+	/**
 	 * Set the order of folders
 	 *
 	 * @access	public
@@ -77,84 +92,60 @@ class Admin extends Admin_Controller {
 		{
 			foreach (explode(',', $order) as $value) 
 			{
-				$this->file_folders_m->update_by('slug', $value, array('sort' => $i));
+				$this->file_folders_m->update_by('id', $value, array('sort' => $i));
 				$i++;
 			}
 		}
+
+		echo json_encode(array('status' => TRUE, 'message' => lang('files:folder_sort_saved')));
 	}
 
 	// ------------------------------------------------------------------------
 
 	/**
-	 * Validate our upload directory.
+	 * Rename a folder
+	 *
+	 * @access	public
+	 * @return	void
 	 */
-	private function _check_dir()
+	public function rename_folder()
 	{
-		if (is_dir($this->_path) && is_really_writable($this->_path))
+		if ($id = $this->input->post('folder_id') AND $name = $this->input->post('name'))
 		{
-			return TRUE;
-		}
-		elseif ( ! is_dir($this->_path))
-		{
-			if ( ! @mkdir($this->_path, 0777, TRUE))
-			{
-				$this->data->messages['notice'] = lang('file_folders.mkdir_error');
-				return FALSE;
-			}
-			else
-			{
-				// create a catch all html file for safety
-				$uph = fopen($this->_path . 'index.html', 'w');
-				fclose($uph);
-			}
-		}
-		else
-		{
-			if ( ! chmod($this->_path, 0777))
-			{
-				$this->session->messages['notice'] = lang('file_folders.chmod_error');
-				return FALSE;
-			}
+			echo json_encode(Files::rename_folder($id, $name));
 		}
 	}
-	
+
 	// ------------------------------------------------------------------------
-	
+
 	/**
-	 * Validate upload file name and extension and remove special characters.
+	 * Delete an empty folder
+	 *
+	 * @access	public
+	 * @return	void
 	 */
-	function _check_ext()
+	public function delete_folder()
 	{
-		if ( ! empty($_FILES['userfile']['name']))
+		if ($id = $this->input->post('folder_id'))
 		{
-			$ext		= pathinfo($_FILES['userfile']['name'], PATHINFO_EXTENSION);
-			$allowed	= $this->config->item('files_allowed_file_ext');
-
-			foreach ($allowed as $type => $ext_arr)
-			{				
-				if (in_array(strtolower($ext), $ext_arr))
-				{
-					$this->_type		= $type;
-					$this->_ext			= implode('|', $ext_arr);
-					$this->_filename	= trim(url_title($_FILES['userfile']['name'], 'dash', TRUE), '-');
-
-					break;
-				}
-			}
-
-			if ( ! $this->_ext)
-			{
-				$this->form_validation->set_message('_check_ext', lang('files.invalid_extension'));
-				return FALSE;
-			}
-		}		
-		elseif ($this->method === 'upload')
-		{
-			$this->form_validation->set_message('_check_ext', lang('files.upload_error'));
-			return FALSE;
+			echo json_encode(Files::delete_folder($id));
 		}
+	}
 
-		return TRUE;
+	// ------------------------------------------------------------------------
+
+	/**
+	 * Upload files
+	 *
+	 * @access	public
+	 * @return	void
+	 */
+	public function upload()
+	{
+		if ($folder_id = $this->input->post('folder_id') AND $name = $this->input->post('name'))
+		{
+			echo json_encode(Files::upload($folder_id, $name));
+		}
 	}
 }
 

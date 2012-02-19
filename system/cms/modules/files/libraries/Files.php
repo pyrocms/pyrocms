@@ -12,16 +12,165 @@ class Files
 {
 	public		static $providers;
 	protected 	static $_path;
+	protected 	static $_ext;
+	protected	static $_type = '';
+	protected	static $_filename = NULL;
 
 	// ------------------------------------------------------------------------
 
 	public function __construct()
 	{
-		self::$_path = UPLOAD_PATH.'files/';
+		ci()->load->config('files/files');
+
+		self::$_path = config_item('files:path');
 		self::$providers = explode(',', Settings::get('files_enabled_providers'));
 
 		ci()->load->model('files/file_m');
+		ci()->load->model('files/file_folders_m');
 		ci()->load->spark('cloudmanic-storage/1.0.4');
+	}
+
+	// ------------------------------------------------------------------------
+
+	/**
+	 * Create an empty folder
+	 *
+	 * @param	int		$parent	The id of this folder's parent
+	 * @param	string	$name	Desired Name. If left empty a name will be assigned
+	 * @return	array
+	 *
+	**/
+	public static function create_folder($parent = 0, $name = 'Untitled Folder')
+	{
+		$i = '';
+		$original_slug = self::create_slug($name);
+		$original_name = $name;
+
+		$slug = $original_slug;
+
+		while (ci()->file_folders_m->count_by('slug', $slug))
+		{
+			$i++;
+			$slug = $original_slug.'-'.$i;
+			$name = $original_name.'-'.$i;
+		}
+
+		$insert = array('parent_id' => $parent, 
+						'slug' => $slug, 
+						'name' => $name, 
+						'date_added' => now(), 
+						'sort' => 0
+						);
+
+		$id = ci()->file_folders_m->insert($insert);
+
+		$insert['id'] = $id;
+
+		return self::result(TRUE, lang('files:folder_created'), $insert['name'], $insert);
+	}
+
+	// ------------------------------------------------------------------------
+
+	/**
+	 * Rename a folder
+	 *
+	 * @param	int		$id		The id of the folder
+	 * @param	string	$name	The new name
+	 * @return	array
+	 *
+	**/
+	public static function rename_folder($id = 0, $name)
+	{
+
+		ci()->file_folders_m->update($id, array('name' => $name));
+
+		return self::result(TRUE, lang('files:folder_updated'), $name, array('id' => $id, 'name' => $name));
+	}
+
+	// ------------------------------------------------------------------------
+
+	/**
+	 * Delete an empty folder
+	 *
+	 * @param	int		$id		The id of the folder
+	 * @return	array
+	 *
+	**/
+	public static function delete_folder($id = 0)
+	{
+		$folder = ci()->file_folders_m->get($id);
+
+		if ( ! $files = ci()->file_m->get_by('folder_id', $id))
+		{
+			ci()->file_folders_m->delete($id);
+
+			return self::result(TRUE, lang('files:folder_deleted'), $folder->name);
+		}
+		else
+		{
+			return self::result(FALSE, lang('files:folder_not_empty'), $folder->name);
+		}
+	}
+
+	// ------------------------------------------------------------------------
+
+	/**
+	 * Upload a file
+	 *
+	 * @param	int		$folder_id	The folder to upload it to
+	 * @param	string	$name		The filename
+	 * @param	string	$field		Like CI this defaults to "userfile"
+	 * @return	array
+	 *
+	**/
+	public static function upload($folder_id, $name, $field = 'userfile')
+	{
+		if ( ! $check_dir = self::_check_dir()) return $check_dir;
+
+		if ( ! $check_ext = self::_check_ext()) return $check_ext;
+
+		$folder = ci()->file_folders_m->get($folder_id);
+
+		if ($folder AND $folder->location === 'local')
+		{
+			ci()->load->library('upload', array(
+				'upload_path'	=> self::$_path,
+				'allowed_types'	=> self::$_ext,
+				'file_name'		=> self::$_filename
+			));
+
+			if (ci()->upload->do_upload())
+			{
+				$file = ci()->upload->data();
+				$data = array(
+					'folder_id'		=> (int) $folder_id,
+					'user_id'		=> (int) ci()->current_user->id,
+					'type'			=> self::$_type,
+					'name'			=> $name,
+					'description'	=> '',
+					'filename'		=> $file['file_name'],
+					'extension'		=> $file['file_ext'],
+					'mimetype'		=> $file['file_type'],
+					'filesize'		=> $file['file_size'],
+					'width'			=> (int) $file['image_width'],
+					'height'		=> (int) $file['image_height'],
+					'date_added'	=> now()
+				);
+
+				ci()->file_m->insert($data);
+
+				return self::result(TRUE, lang('files:file_uploaded'), $name);
+			}
+			else
+			{
+				$errors = ci()->upload->display_errors();
+
+				return self::result(FALSE, $errors);
+			}
+		}
+
+		// a catch-all to let them know something failed if it happens to make it this far
+		return self::result(FALSE, lang('files:upload_error'));
 	}
 
 	// ------------------------------------------------------------------------
@@ -49,7 +198,7 @@ class Files
 			}
 			else
 			{
-				return self::result(lang('files:file_not_found'), $file);
+				return self::result(FALSE, lang('files:file_not_found'), $file);
 			}
 		}
 		// we'll be pushing the file from here to the cloud
@@ -67,7 +216,7 @@ class Files
 				return self::result();
 			}
 
-			return self::result(lang('files:invalid_container'), $container);
+			return self::result(FALSE, lang('files:invalid_container'), $container);
 		}
 		// pull it from the cloud to our filesystem
 		elseif ($location AND $new_location === 'local')
@@ -85,7 +234,7 @@ class Files
 			}
 			else
 			{
-				return self::result(lang('files:unsuccessful_fetch'), $file);
+				return self::result(FALSE, lang('files:unsuccessful_fetch'), $file);
 			}
 		}
 		// pulling from the cloud and then pushing to another part of the cloud :P
@@ -106,7 +255,7 @@ class Files
 			}
 			else
 			{
-				return self::result(lang('files:unsuccessful_fetch'), $file);
+				return self::result(FALSE, lang('files:unsuccessful_fetch'), $file);
 			}
 
 			// shove it into the cloud and hope it stays
@@ -114,7 +263,7 @@ class Files
 
 			@unlink($temp_file);
 
-			return self::result($result);
+			return self::result( (bool)$result, $result);
 		}
 	}
 
@@ -138,7 +287,7 @@ class Files
 
 		$message = $results ? NULL : lang('files:no_records_found');
 
-		return self::result($message, NULL, $results);
+		return self::result( (bool) $results, $message, NULL, $results);
 	}
 
 	// ------------------------------------------------------------------------
@@ -161,7 +310,7 @@ class Files
 
 		$message = $results ? NULL : lang('files:no_records_found');
 
-		return self::result(NULL, NULL, $results);
+		return self::result( (bool) $results, $message, NULL, $results);
 	}
 
 	// ------------------------------------------------------------------------
@@ -221,7 +370,7 @@ class Files
 
 		$message = $files ? NULL : lang('files:no_records_found');
 
-		return self::result($message, NULL, $files);
+		return self::result( (bool) $files, $message, NULL, $files);
 	}
 
 	// ------------------------------------------------------------------------
@@ -229,27 +378,115 @@ class Files
 	/**
 	 * Result
 	 * 
-	 * We return a status of true unless a failure message is specified
+	 * Return a message in a uniform format for the entire library
 	 *
+	 * @param	bool	$status		Operation was a success or failure
 	 * @param	string	$message	The failure message to return
 	 * @param	mixed	$args		Arguments to pass to sprint_f
 	 * @param	mixed	$data		Any data to be returned
 	 * @return	array
 	 *
 	**/
-	protected static function result($message = '', $args = FALSE, $data = '')
+	protected static function result($status = TRUE, $message = '', $args = FALSE, $data = '')
 	{
-		if ( ! $message)
+		return array('status' 	=> $status, 
+					 'message' 	=> $args ? sprintf($message, $args) : $message, 
+					 'data' 	=> $data
+					 );
+	}
+
+	// ------------------------------------------------------------------------
+
+	/**
+	 * Create Slug
+	 * 
+	 * Strip all odd characters out of a name and lowercase it
+	 *
+	 * @param	string	$name	The uncleaned name string
+	 * @return	string
+	 *
+	**/
+	protected static function create_slug($name)
+	{
+		return strtolower(preg_replace('/-+/', '-', preg_replace('/[^a-zA-Z0-9]/', '-', $name)));
+	}
+
+	// ------------------------------------------------------------------------
+
+	/**
+	 * Check our upload directory
+	 * 
+	 * This is used on the local filesystem
+	 *
+	 * @return	bool
+	 *
+	**/
+	private static function _check_dir()
+	{
+		if (is_dir(self::$_path) AND is_really_writable(self::$_path))
 		{
-			return array('status' => TRUE, 'message' => '', 'data' => $data);
+			return self::result(TRUE);
+		}
+		elseif ( ! is_dir(self::$_path))
+		{
+			if ( ! @mkdir(self::$_path, 0777, TRUE))
+			{
+				return self::result(FALSE, lang('files:mkdir_error'));
+			}
+			else
+			{
+				// create a catch all html file for safety
+				$uph = fopen(self::$_path . 'index.html', 'w');
+				fclose($uph);
+			}
 		}
 		else
 		{
-			// the method provided a failure message
-			return array('status' => FALSE, 
-						 'message' => $args ? sprintf($message, $args) : $message, 
-						 'data' => $data
-						 );
+			if ( ! chmod(self::$_path, 0777))
+			{
+				return self::result(FALSE, lang('files:chmod_error'));
+			}
 		}
+	}
+	
+	// ------------------------------------------------------------------------
+
+	/**
+	 * Check the extension and clean the file name
+	 * 
+	 *
+	 * @return	bool
+	 *
+	**/
+	private static function _check_ext()
+	{
+		if ( ! empty($_FILES['userfile']['name']))
+		{
+			$ext		= pathinfo($_FILES['userfile']['name'], PATHINFO_EXTENSION);
+			$allowed	= config_item('files:allowed_file_ext');
+
+			foreach ($allowed as $type => $ext_arr)
+			{				
+				if (in_array(strtolower($ext), $ext_arr))
+				{
+					self::$_type		= $type;
+					self::$_ext			= implode('|', $ext_arr);
+					self::$_filename	= trim(url_title($_FILES['userfile']['name'], 'dash', TRUE), '-');
+
+					break;
+				}
+			}
+
+			if ( ! self::$_ext)
+			{
+				return self::result(FALSE, lang('files:invalid_extension'), $_FILES['userfile']['name']);
+			}
+		}		
+		elseif ($this->method === 'upload')
+		{
+			return self::result(FALSE, lang('files:upload_error'));
+		}
+
+		return self::result(TRUE);
 	}
 }

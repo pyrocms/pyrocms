@@ -1,21 +1,28 @@
 
 /** temporary so that it's a decent size while I work on it **/
 .one_half { width: 760px; }
-.right.one_quarter { width: 200px; }
+.right.one_quarter { width: 220px; }
 /** end temporary **/
 
-.folders-sidebar { min-height: 400px; border-right: 1px solid #d8d8d8; }
+.item { height: 450px; overflow: hidden; }
+
+.folders-sidebar { height: 450px; border-right: 1px solid #d8d8d8; }
 .folders-sidebar li { padding: 3px; border-bottom: 1px solid #e0e0e0; cursor: pointer; }
 .folders-sidebar li.places { cursor: default; margin-bottom: 10px; font-size: 14px; font-weight: bold; font-style: italic; border: none; }
-.folders-right { min-height: 400px; }
+.folders-right { height: 450px; overflow-y: auto; }
 .folders-right .folder { width: 100px; height: 112px; margin: 10px; overflow: hidden; float: left; background: url(../img/folder.png) no-repeat; }
 .folders-right .folder.selected { background: url(../img/folder-select.png) no-repeat; }
 .folders-right .folder .folder-text { display: block; margin: 0 4px 0 4px; font-size: 11px; height: 15px; overflow: hidden; margin-top: 80px; text-align: center; }
-.console { min-height: 400px; border-left: 1px solid #d8d8d8; }
-.console .console-title { margin-left: 15px; margin-bottom: 10px; font-size: 14px; font-weight: bold; font-style: italic; border: none; }
+.folders-right .folder .folder-text input { width: 92px; margin: 0; padding: 0; background: transparent; border: none; margin: 0; padding: 0; text-align: center; }
 
-.context-menu-source { display: none; position: absolute; width: 100px; background-color: #f7f7f7; }
-.context-menu-source li { height: 15px; cursor: pointer; padding: 5px 10px 5px 10px; border-bottom: 1px solid #e0e0e0; }
+.console { height: 450px; border-left: 1px solid #d8d8d8; }
+.console .console-title { margin-left: 15px; margin-bottom: 10px; font-size: 14px; font-weight: bold; font-style: italic; border: none; }
+.console li { padding: 10px 0 10px 20px; border-bottom: 1px solid #d8d8d8; }
+.console li.success { list-style: url(../img/success.png) inside !important; }
+.console li.failure { list-style: url(../img/failure.png) inside !important; }
+
+.context-menu-source { display: none; position: absolute; width: 150px; background-color: #f7f7f7; }
+.context-menu-source li { height: 15px; cursor: pointer; font-size: 14px; padding: 7px 25px 7px 25px; border-bottom: 1px solid #e0e0e0; }
 
 
 #files-uploader { position: relative; margin: 0 5px; }

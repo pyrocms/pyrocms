@@ -6,103 +6,44 @@
  * An open source CMS based on CodeIgniter
  *
  * @package		PyroCMS
- * @author		PyroCMS Dev Team
+ * @author		Jerel Unruh - PyroCMS Dev Team
  * @license		Apache License v2.0
  * @link		http://pyrocms.com
  * @since		Version 1.0-dev
  * @filesource
  */
 
-// Files
-
-// Titles
-$lang['files:files_title']					= 'Files';
-$lang['files:places']						= 'Places';
-$lang['files.upload_title']					= 'Upload Files';
-$lang['files.edit_title']					= 'Edit file "%s"';
-
 // Labels
-$lang['files.download_label']				= 'Download';
+$lang['files:activity']						= 'Activity';
+$lang['files:places']						= 'Places';
+
+// Context Menu
+$lang['files:new_folder']					= 'New Folder';
 $lang['files:upload']						= 'Upload';
 $lang['files:rename']						= 'Rename';
 $lang['files:delete']						= 'Delete';
 $lang['files:edit']							= 'Edit';
 $lang['files:details']						= 'Details';
-$lang['files:activity']						= 'Activity';
-$lang['files.description_label']			= 'Description';
-$lang['files.type_label']					= 'Type';
-$lang['files.file_label']					= 'File';
-$lang['files.filename_label']				= 'File Name';
-$lang['files.filter_label']					= 'Filter';
-$lang['files.loading_label']				= 'Loading...';
-$lang['files.name_label']					= 'Name';
 
-$lang['files.dropdown_select']				= '-- Select Folder For Upload --';
-$lang['files.dropdown_no_subfolders']		= '-- None --';
-$lang['files.dropdown_root']				= '-- Root --';
+// Folders
 
-$lang['files.type_a']						= 'Audio';
-$lang['files.type_v']						= 'Video';
-$lang['files.type_d']						= 'Document';
-$lang['files.type_i']						= 'Image';
-$lang['files.type_o']						= 'Other';
-
-$lang['files.display_grid']					= 'Grid';
-$lang['files.display_list']					= 'List';
+$lang['files:no_folders']					= 'Your files are sorted by folders, currently you do not have any folders set up.<br />Files and folders are managed much like they would be on your desktop. Use your mouse\'s right click to create, edit, and delete files and folders.';
+$lang['files:new_folder_name']				= 'Untitled Folder';
+$lang['files:folder_created']				= '"%s" was created';
+$lang['files:folder_updated']				= '"%s" was updated';
+$lang['files:folder_deleted']				= '"%s" was deleted';
+$lang['files:folder_not_empty']				= '"%s" still contains files';
+$lang['files:folder_sort_saved']			= 'Folder sort order saved';
+$lang['files:mkdir_error']					= 'We are unable to create the upload folder. You must create it manually';
+$lang['files:chmod_error']					= 'The upload directory is unwriteable. It must be 0777';
 
 // Files
+$lang['files:file_uploaded']				= '"%s" has been uploaded';
 $lang['files:file_not_found']				= 'Sorry. The file "%s" could not be found.';
 $lang['files:unsuccessful_fetch']			= 'We were unable to fetch "%s". Are you sure it is a public file?';
 $lang['files:invalid_container']			= '"%s" does not appear to be a valid container.';
 $lang['files:no_records_found']				= 'No records could be found';
-$lang['files.create_success']				= '"%s" has been uploaded successfully.';
-$lang['files.create_error']					= 'An error as occourred.';
-$lang['files.edit_success']					= 'The file was successfully saved.';
-$lang['files.edit_error']					= 'An error occurred while trying to save the file.';
-$lang['files.delete_success']				= 'The file was deleted.';
-$lang['files.delete_error']					= 'The file could not be deleted.';
-$lang['files.mass_delete_success']			= '%d of %d files were successfully deleted. They were "%s and %s"';
-$lang['files.mass_delete_error']			= 'An error occurred while trying to delete %d of %d files, they are "%s and %s".';
-$lang['files.upload_error']					= 'A file must be uploaded.';
-$lang['files.invalid_extension']			= 'File must have a valid extension.';
-$lang['files.not_exists']					= 'An invalid folder has been selected.';
-$lang['files.no_files']						= 'There are currently no files.';
-$lang['files.no_permissions']				= 'You do not have permissions to see the files module.';
-$lang['files.no_select_error'] 				= 'You must select a file first, this request was interrupted.';
-
-// Folders
-
-// Titles
-$lang['file_folders.folders_title']			= 'Folders'; #translate
-$lang['file_folders.manage_title']			= 'Manage Folders';
-$lang['file_folders.create_title']			= 'New Folder';
-$lang['file_folders.delete_title']			= 'Confirm Delete';
-$lang['file_folders.edit_title']			= 'Edit folder "%s"';
-
-// Labels
-$lang['file_folders.folders_label']			= 'Folders';
-$lang['file_folders.folder_label']			= 'Folder';
-$lang['file_folders.subfolders_label']		= 'Sub-Folders';
-$lang['file_folders.parent_label']			= 'Parent';
-$lang['file_folders.name_label']			= 'Name';
-$lang['file_folders.slug_label']			= 'URL Slug';
-$lang['file_folders.created_label']			= 'Created On';
-
-// Folders
-$lang['file_folders.create_success']		= 'The folder has now been saved.';
-$lang['file_folders.create_error']			= 'An error occurred while attempting to create your folder.';
-$lang['file_folders.duplicate_error']		= 'A folder named "%s" already exists.';
-$lang['file_folders.edit_success']			= 'The folder was successfully saved.';
-$lang['file_folders.edit_error']			= 'An error occurred while trying to save the changes.';
-$lang['file_folders.confirm_delete']		= 'Are you sure you want to delete the folders below, including all files and subfolders inside them?';
-$lang['file_folders.delete_mass_success']	= '%d of %d folders have been successfully deleted, they were "%s and %s.';
-$lang['file_folders.delete_mass_error']		= 'An error occurred while trying to delete %d of %d folders, they are "%s and %s".';
-$lang['file_folders.delete_success']		= 'The folder "%s" was deleted.';
-$lang['file_folders.delete_error']			= 'An error occurred while trying to delete the folder "%s".';
-$lang['file_folders.not_exists']			= 'An invalid folder has been selected.';
-$lang['file_folders.no_subfolders']			= 'None';
-$lang['files:no_folders']					= 'Your files are sorted by folders, currently you do not have any folders setup.';
-$lang['file_folders.mkdir_error']			= 'Could not make the uploads/files directory';
-$lang['file_folders.chmod_error']			= 'Could not chmod the uploads/files directory';
+$lang['files:invalid_extension']			= '"%s" has a file extension that is not allowed';
+$lang['files:upload_error']					= 'The file upload failed';
 
 /* End of file files_lang.php */

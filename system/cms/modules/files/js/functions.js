@@ -1,42 +1,94 @@
 jQuery(function($){
 
-	// open a right click menu on items and the main area
-	$('.item li, .item .one_half').bind('contextmenu', function(e){
+	pyro.files = { results : { status : null } };
+
+	/***************************************************************************
+	 * A worker to display messages as they become available                   *
+	 ***************************************************************************/
+ 	window.setInterval(function ()
+ 	{
+ 		if (pyro.files.results && pyro.files.results.status !== null) {
+
+ 			var status_class = pyro.files.results.status === true ? 'success' : 'failure';
+
+	 		$('.console-title').after('<li class="'+status_class+'">'+pyro.files.results.message+'</li>');
+	 		pyro.files.results.status = null;
+ 		}
+ 	}, 50);
+ 
+	/***************************************************************************
+	 * Context menu management                                                 *
+	 ***************************************************************************/
+
+	// open a right click menu on items in the main area
+	$('.item').delegate('.one_half', 'contextmenu', function(e){
 		e.preventDefault();
+
+		pyro.files.last_right_clicked = e.target;
+
+		// we hide/show the items that don't apply to a folder
+		if ($(e.target).hasClass('folder')){
+			$('[data-menu]').show();
+			$('[data-menu="new-folder"], [data-menu="edit"]').hide();
+		} else {
+			// show everything if they clicked in the open area but aren't in the root
+			$('[data-menu]').show();
+
+			// we only want to show New Folder and Details menus in the root
+			if ($('[name="current-level"]').val() == '0'){
+				$('[data-menu]').hide();
+				$('[data-menu="new-folder"], [data-menu="details"]').show();
+			}
+		}
+
 		$('.context-menu-source').fadeIn('fast');
 		// jquery UI position the context menu by the mouse
 		$('.context-menu-source').position({
-			my:			"left top",
-			at:			"left bottom",
+			my:			'left top',
+			at:			'left bottom',
 			of:			e,
-			collision:	"fit"
+			collision:	'fit'
 		});
 	});
 
-	// grab the value from the clicked menu item
-	$('[data-menu]').click(function(e){
+	// call the correct function for the menu item they have clicked
+	$('.context-menu-source').on('click', '[data-menu]', function(e){
+
 		var menu = $(this).attr('data-menu');
+		var current_level = $('[name="current-level"]').val();
 
 		switch (menu){
 			case 'upload':
 				console.log(menu);
 			break;
+
+			case 'new-folder':
+				pyro.files.new_folder(current_level);
+			break;
+
+			case 'rename':
+				pyro.files.rename_folder(current_level);
+			break;
+
+			case 'delete':
+				pyro.files.delete_folder(current_level);
+			break;
 		}
 	});
 
-	// select folders; including use of control key
-	$('.folders-right [data-slug]').click(function(e){
+	// select folders; including use of control key. #TODO: shift key
+	$('.folders-right [data-folder-id]').click(function(e){
 		e.stopPropagation();
 		var selected = $('.folders-right').find('.selected').length > 0;
 		if ( ! e.ctrlKey && ! e.shiftKey) {
 			if(selected) {
-				$('[data-slug]').removeClass('selected');
+				$('[data-folder-id]').removeClass('selected');
 			}
 		}
 		$(this).toggleClass('selected');
 	});
 
-	// if they click in the main area reset selected items or hide the context menu
+	// if they left click in the main area reset selected items or hide the context menu
 	$('html').click(function(e){
 		$('.folder').removeClass('selected');
 		$('.context-menu-source').fadeOut('fast');
@@ -49,17 +101,19 @@ jQuery(function($){
 		update: function() {
 			order = new Array();
 			$(this).find('li').each(function(){
-				order.push( $(this).attr('data-slug') );
+				order.push( $(this).attr('data-folder-id') );
 			});
 			order = order.join(',');
 
-			$.post(SITE_URL + 'admin/files/order_folders', { order: order });
+			$.post(SITE_URL + 'admin/files/order_folders', { order: order }, function(data){
+				pyro.files.results = $.parseJSON(data);
+			});
 		}
 
 	});
 
 	/***************************************************************************
-	 * Files uploading section                                                 *
+	 * Files uploader section                                                 *
 	 ***************************************************************************/
 
 	// Store data for filesUpload plugin
@@ -111,21 +165,14 @@ jQuery(function($){
 		buildDownloadRow: function(response){
 			if (response.message)
 			{
-				pyro.add_notification(response.message, {
-					clear: false
-				});
+				pyro.files.results = response;
 			}
-			if (response.status == 'success')
-			{
-				return $('<li><div>' + response.file.name + '</div></li>');
-			}
-			return;
 		},
 		beforeSend: function(event, files, index, xhr, handler, callBack){
 			handler.uploadRow.find('button.start').click(function(){
 				handler.formData = {
 					name: handler.uploadRow.find('input.file-name').val(),
-					folder_id: $('input[name=folder_id]', '#files-toolbar').val()
+					folder_id: $(pyro.files.last_right_clicked).attr('data-folder-id')
 				};
 				callBack();
 			});
@@ -161,42 +208,74 @@ jQuery(function($){
 		$.colorbox.close();
 	});
 
-	$('#grid').livequery(function(){
-		if ($.cookie('file_view') != 'grid')
-		{
-			$('#grid').hide();
-		}
-		else
-		{
-			$('#list').hide();
-			$('#grid').fadeIn();
-			$('a.active-view').removeClass('active-view');
-			$("a[title='grid']").addClass('active-view');
-		}
-	});
 
-	$('a.toggle-view').livequery('click', function(e){
-		e.preventDefault();
 
-		var view = $(this).attr('title');
+	/***************************************************************************
+	 * All functions that are part of the pyro.files namespace                 *
+	 ***************************************************************************/
+	 pyro.files.new_folder = function(current_level, name)
+	 {
+	 	if (typeof(name) === 'undefined') name = 'Untitled Folder';
+	 	var new_class = Math.floor(Math.random() * 1000);
 
-		// remember the user's preference
-		$.cookie('file_view', view);
+		$('.new-folder').clone()
+			.appendTo('.folders-right')
+			.removeClass('new-folder')
+			.addClass('folder folder-' + new_class);
 
-		$('a.active-view').removeClass('active-view');
-		$(this).addClass('active-view');
+		$('.no_data').fadeOut('fast');
 
-		if (view == 'grid')
-		{
-			hide_view = 'list';
-		}
-		else
-		{
-			hide_view = 'grid';
-		}
+		var data
+		var post = { parent : current_level, name : name };
 
-		$('#'+hide_view).fadeOut(50, function() {
-			$('#'+view).fadeIn(500);   
-		});            
-	});
+		$.post(SITE_URL + 'admin/files/new_folder', post, function(data){
+			pyro.files.results = $.parseJSON(data);
+
+			if (pyro.files.results.status) {
+
+				// add the id in so we know who he is
+				$('.folder-' + new_class).attr('data-folder-id', pyro.files.results.data.id);
+
+				// update the text and remove the temporary class
+				$('.folder-' + new_class + ' .folder-text')
+					.html(pyro.files.results.data.name)
+					.removeClass('folder-' + new_class);
+			}
+		});
+	 }
+
+	 pyro.files.rename_folder = function(current_level)
+	 {
+	 	// if they have one selected already then undo it
+	 	$('[name="rename"]').parent().html($('[name="rename"]').val());
+
+	 	var $folder = $(pyro.files.last_right_clicked).find('.folder-text');
+
+	 	$folder.html('<input name="rename" value="'+$folder.html()+'"/>').find('input').select();
+
+	 	$folder.find('input').blur(function(){
+	 		var post = { 'folder_id' : $folder.parent('li').attr('data-folder-id'), 
+	 					 'name' 	 : $folder.find('input').val() }
+
+	 		$.post(SITE_URL + 'admin/files/rename_folder', post, function(data){
+	 			pyro.files.results = $.parseJSON(data);
+
+	 			// remove the input and place it back in the span
+	 			$('[name="rename"]').parent().html($('[name="rename"]').val());
+	 		})
+	 	})
+	 }
+
+	 pyro.files.delete_folder = function(current_level)
+	 {
+	 	var post = { 'folder_id' : $(pyro.files.last_right_clicked).attr('data-folder-id') };
+
+ 		$.post(SITE_URL + 'admin/files/delete_folder', post, function(data){
+ 			pyro.files.results = $.parseJSON(data);
+ 			if (pyro.files.results.status) {
+ 				$('[data-folder-id="'+post.folder_id+'"]').remove();
+ 			}
+ 		})
+	 }
+
 });
