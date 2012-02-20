@@ -35,7 +35,7 @@ class Streams_validation extends CI_Form_validation
 						$this->CI->input->post('recaptcha_challenge_field'),
 						$val))
 		{
-	    	return TRUE;
+	    	return true;
 		}
 		else
 		{
@@ -43,7 +43,7 @@ class Streams_validation extends CI_Form_validation
 						'check_captcha',
 						$this->CI->lang->line('recaptcha_incorrect_response'));
 			
-			return FALSE;
+			return false;
 	    }
 	}
 
@@ -63,7 +63,7 @@ class Streams_validation extends CI_Form_validation
 		// Split the data
 		$items = explode(":", $data);
 		
-		$column 	= $items[0];
+		$column 	= trim($items[0]);
 		$mode 		= $items[1];
 		$stream_id	= $items[2];
 		
@@ -78,26 +78,28 @@ class Streams_validation extends CI_Form_validation
 		{
 			if ($obj->num_rows() == 0)
 			{
-				return TRUE;
+				return true;
 			}
 		}
 		elseif ($mode == 'edit')
 		{
 			// We need to see if the new value is different.
-			$this->CI->db->select(trim($column))->limit(1)->where( 'id', $this->CI->input->post('row_edit_id') );
-			$db_obj = $this->CI->db->get($stream->stream_prefix.$stream->stream_slug);
-			
-			$existing = $db_obj->row();
+			$existing = $this->CI->db
+				->select($column)
+				->limit(1)
+				->where( 'id', $this->CI->input->post('row_edit_id'))
+				->get($stream->stream_prefix.$stream->stream_slug)
+				->row();
 			
 			if ($existing->$column == $string)
 			{
 				// No change
-				if ($obj->num_rows() >= 1) return TRUE;
+				if ($obj->num_rows() >= 1) return true;
 			}
 			else
 			{
 				// There was a change. We treat it as new now.
-				if($obj->num_rows() == 0) return TRUE;
+				if($obj->num_rows() == 0) return true;
 			}
 		}
 
@@ -127,22 +129,22 @@ class Streams_validation extends CI_Form_validation
 		// file system.
 		if (is_numeric($this->CI->input->post($field)))
 		{
-			return TRUE;
+			return true;
 		}
 		
 		// OK. Now we really need to make sure there is a file here.
 		// The method of choice here is checking for a file name		
-		if (isset($_FILES[$field.'_file']['name']) && $_FILES[$field.'_file']['name'] != '')
+		if (isset($_FILES[$field.'_file']['name']) and $_FILES[$field.'_file']['name'] != '')
 		{
 			// Don't do shit.
 		}			
 		else
 		{
 			$this->CI->streams_validation->set_message('file_required', lang('streams.field_is_required'));
-			return FALSE;
+			return false;
 		}
 
-		return NULL;
+		return null;
 	}
 
 	// --------------------------------------------------------------------------
@@ -170,7 +172,7 @@ class Streams_validation extends CI_Form_validation
 			if( $db_obj->num_rows() > 0)
 			{
 				$this->set_message('unique_field_slug', lang('streams.field_slug_not_unique'));
-				return FALSE;
+				return false;
 			}	
 		}
 		else
@@ -183,12 +185,12 @@ class Streams_validation extends CI_Form_validation
 				if ($db_obj->num_rows() != 0)
 				{
 					$this->set_message('unique_field_slug', lang('streams.field_slug_not_unique'));
-					return FALSE;
+					return false;
 				}			
 			}
 		}
 
-		return TRUE;		
+		return true;		
 	}
 
 	// --------------------------------------------------------------------------
@@ -214,7 +216,7 @@ class Streams_validation extends CI_Form_validation
 			if ($db_obj->num_rows() > 0)
 			{
 				$this->set_message('stream_unique', lang('streams.stream_slug_not_unique'));
-				return FALSE;	
+				return false;	
 			}
 		}	
 		else
@@ -228,12 +230,12 @@ class Streams_validation extends CI_Form_validation
 				if ($db_obj->num_rows() != 0)
 				{
 					$this->set_message('stream_unique', lang('streams.stream_slug_not_unique'));
-					return FALSE;
+					return false;
 				}
 			}
 		}
 
-		return TRUE;
+		return true;
 	}
 
 	// --------------------------------------------------------------------------
@@ -250,17 +252,17 @@ class Streams_validation extends CI_Form_validation
 		if (in_array(strtoupper($string), $this->CI->config->item('streams:reserved')))
 		{
 			$this->set_message('slug_safe', lang('streams.not_mysql_safe_word'));
-			return FALSE;
+			return false;
 		}
 				
 		// See if there are no-no characters
 		if ( ! preg_match("/^([-a-z0-9_-])+$/i", $string))
 		{
 			$this->set_message('slug_safe', lang('streams.not_mysql_safe_characters'));
-			return FALSE;
+			return false;
 		}
 		
-		return TRUE;
+		return true;
 	}
 
 	// --------------------------------------------------------------------------
@@ -277,10 +279,10 @@ class Streams_validation extends CI_Form_validation
 		if ($string == '-')
 		{
 			$this->set_message('type_valid', lang('streams.type_not_valid'));
-			return FALSE;
+			return false;
 		}	
 		
-		return TRUE;
+		return true;
 	}
 
 }

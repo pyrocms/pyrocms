@@ -43,7 +43,7 @@ class Ajax extends Admin_Controller {
 	public function build_parameters()
 	{
 		// Out for certain characters
-		if ($this->input->post('data') == '-') return NULL;
+		if ($this->input->post('data') == '-') return null;
 	
 		$this->load->language('streams_core/pyrostreams');
 	
@@ -58,7 +58,7 @@ class Ajax extends Admin_Controller {
 		$field_type = $this->type->load_single_type($type);
 		
 		// I guess we don't have any to show.
-		if ( ! isset($field_type->custom_parameters)) return NULL;
+		if ( ! isset($field_type->custom_parameters)) return null;
 
 		// Otherwise, the beat goes on.		
 		$extra_fields = $field_type->custom_parameters;
@@ -84,12 +84,12 @@ class Ajax extends Admin_Controller {
 			}
 			else
 			{
-				return FALSE;
+				return false;
 			}
 			
 			$data['input_slug'] = $field;
 		
-			echo $this->load->view('extra_field', $data, TRUE);
+			echo $this->load->view('extra_field', $data, true);
 			
 			$data['count']++;
 		}
@@ -136,7 +136,7 @@ class Ajax extends Admin_Controller {
 	public function ajax_entry_order_update()
 	{	
 		// Get the stream from the ID
-		$this->load->model('streams_corestreams_m');
+		$this->load->model('streams_core/streams_m');
 		$stream = $this->streams_m->get_stream($this->input->post('stream_id'));
 	
 		$ids = explode(',', $this->input->post('order'));
@@ -145,7 +145,7 @@ class Ajax extends Admin_Controller {
 		// paginated lists
 		$order_count = $this->input->post('offset')+1;
 
-		foreach($ids as $id)
+		foreach ($ids as $id)
 		{
 			$this->db
 					->limit(1)

@@ -72,24 +72,25 @@ class Streams_m extends MY_Model {
 		// call for each.
 		$obj = $this->db->get($this->table);
 		
-		foreach($obj->result() as $stream):
-		
-			if( trim($stream->view_options) == '' ):
-			
+		foreach($obj->result() as $stream)
+		{
+			if (trim($stream->view_options) == '')
+			{
 				$stream->view_options = array();
-			
-			else:
-	
+			}
+			else
+			{
 				$stream->view_options = unserialize($stream->view_options);
 				
 				// Just in case we get bad data
-				if(!is_array($stream->view_options)) $stream->view_options = array();
-			
-			endif;
+				if ( ! is_array($stream->view_options))
+				{
+					$stream->view_options = array();
+				}
+			}
 
 			$this->streams_cache[$stream->id] = $stream;	
-		
-		endforeach; 
+		}
 	}
     
     // --------------------------------------------------------------------------
@@ -103,7 +104,7 @@ class Streams_m extends MY_Model {
      * @param	[int offset]
      * @return	obj
      */
-    public function get_streams($namespace, $limit = NULL, $offset = 0)
+    public function get_streams($namespace, $limit = null, $offset = 0)
 	{
 		if ($limit) $this->db->limit($limit, $offset);
 	
@@ -112,12 +113,15 @@ class Streams_m extends MY_Model {
 				->order_by('stream_name', 'ASC')
 				->get($this->table);
 				
-		if($obj->num_rows() == 0) return FALSE;
+		if ($obj->num_rows() == 0)
+		{
+			return false;
+		}
 		
 		$streams = $obj->result();
 		
 		// Go through and unserialize all the view_options
-		foreach($streams as $key => $stream)
+		foreach ($streams as $key => $stream)
 		{
 			$streams[$key]->view_options = unserialize($streams[$key]->view_options);
 		}
@@ -136,7 +140,7 @@ class Streams_m extends MY_Model {
      */
 	public function total_streams($namespace = FALSE)
 	{
-		$where = ($namespace) ? "WHERE stream_namespace='$namespace'" : NULL;
+		$where = ($namespace) ? "WHERE stream_namespace='$namespace'" : null;
 	
 		$result = $this->db->query("SELECT COUNT(*) as total FROM {$this->db->dbprefix($this->table)} $where")->row();
 	
@@ -155,7 +159,7 @@ class Streams_m extends MY_Model {
 	 */
 	public function count_stream_entries($stream_slug, $namespace)
 	{
-		$stream = $this->get_stream($stream_slug, TRUE, $namespace);
+		$stream = $this->get_stream($stream_slug, true, $namespace);
 	
 		return $this->db->count_all($stream->stream_prefix.$stream->stream_slug);
 	}
@@ -176,7 +180,7 @@ class Streams_m extends MY_Model {
 	public function create_new_stream($stream_name, $stream_slug, $prefix, $namespace, $about = null)
 	{	
 		// See if table exists. You never know if it sneaked past validation
-		if ($this->db->table_exists($prefix.$stream_slug)) return NULL;
+		if ($this->db->table_exists($prefix.$stream_slug)) return null;
 			
 		// Create the db table
 		$this->load->dbforge();
@@ -187,13 +191,13 @@ class Streams_m extends MY_Model {
 		$standard_fields = array(
 	        'created' 			=> array('type' => 'DATETIME'),
             'updated'	 		=> array('type' => 'DATETIME', 'null' => TRUE),
-            'created_by'		=> array('type' => 'INT', 'constraint' => '11', 'null' => TRUE),
+            'created_by'		=> array('type' => 'INT', 'constraint' => '11', 'null' => true),
             'ordering_count'	=> array('type' => 'INT', 'constraint' => '11')
 		);
 		
 		$this->dbforge->add_field($standard_fields);
 		
-		if ( ! $this->dbforge->create_table($prefix.$stream_slug) ) return FALSE;
+		if ( ! $this->dbforge->create_table($prefix.$stream_slug) ) return false;
 		
 		// Add data into the streams table
 		$insert_data['stream_slug']			= $stream_slug;
@@ -225,7 +229,7 @@ class Streams_m extends MY_Model {
 		// See if the stream slug is different
 		$stream = $this->get_stream($stream_id);
 		
-		if ($stream->stream_slug != $data['stream_slug'] OR $stream->stream_prefix != $data['stream_prefix'])
+		if ($stream->stream_slug != $data['stream_slug'] or $stream->stream_prefix != $data['stream_prefix'])
 		{
 			// Use the right DB prefix
 			if (isset($data['stream_prefix']))
@@ -262,7 +266,7 @@ class Streams_m extends MY_Model {
 			// does not prefix the table name properly, it would seem
 			if ( ! $this->dbforge->rename_table($stream->stream_prefix.$stream->stream_slug, $prefix.$stream_slug))
 			{
-				return FALSE;
+				return false;
 			}
 		}
 		
@@ -300,7 +304,7 @@ class Streams_m extends MY_Model {
 	 */
 	public function delete_stream($stream)
 	{
-		if( ! is_object($stream)) return NULL;
+		if ( ! is_object($stream)) return null;
 	
 		// -------------------------------------
 		// Get assignments and run destructs
@@ -326,7 +330,7 @@ class Streams_m extends MY_Model {
 		
 		$this->load->dbforge();
 		
-		if ( ! $this->dbforge->drop_table($stream->stream_prefix.$stream->stream_slug)) return FALSE;
+		if ( ! $this->dbforge->drop_table($stream->stream_prefix.$stream->stream_slug)) return false;
 
 		// -------------------------------------
 		// Delete from assignments
@@ -334,7 +338,7 @@ class Streams_m extends MY_Model {
 		
 		$this->db->where('stream_id', $stream->id);
 		
-		if ( ! $this->db->delete(ASSIGN_TABLE)) return FALSE;
+		if ( ! $this->db->delete(ASSIGN_TABLE)) return false;
 
 		// -------------------------------------
 		// Delete from streams table
@@ -358,7 +362,7 @@ class Streams_m extends MY_Model {
 		
 		if ($db->num_rows() == 0)
 		{
-			return FALSE;
+			return false;
 		}
 		else
 		{
@@ -378,7 +382,7 @@ class Streams_m extends MY_Model {
 	 * @param	bool
 	 * @return	mixed
 	 */
-	public function get_stream($stream_id, $by_slug = FALSE, $namespace = NULL)
+	public function get_stream($stream_id, $by_slug = false, $namespace = null)
 	{
 		// Check for cache. We only cache by ID.
 		if ( ! $by_slug and is_numeric($stream_id))
@@ -391,7 +395,7 @@ class Streams_m extends MY_Model {
 	
 		$this->db->limit(1);
 		
-		if ($by_slug == TRUE AND ! is_null($namespace))
+		if ($by_slug == TRUE and ! is_null($namespace))
 		{
 			$this->db->where('stream_namespace', $namespace);
 			$this->db->where('stream_slug', $stream_id);		
@@ -402,12 +406,12 @@ class Streams_m extends MY_Model {
 		}
 		else
 		{
-			return NULL;
+			return null;
 		}
 
 		$obj = $this->db->get($this->table);
 		
-		if ($obj->num_rows() == 0) return FALSE;
+		if ($obj->num_rows() == 0) return false;
 		
 		$stream = $obj->row();
 		
@@ -448,9 +452,9 @@ class Streams_m extends MY_Model {
 		// Set Ordering
 		// -------------------------------------
 
-		if ($stream->sorting == 'title' AND ($stream->title_column != '' and $this->db->field_exists($stream->title_column, $stream->stream_prefix.$stream->stream_slug)))
+		if ($stream->sorting == 'title' and ($stream->title_column != '' and $this->db->field_exists($stream->title_column, $stream->stream_prefix.$stream->stream_slug)))
 		{
-			if ($stream->title_column != '' AND $this->db->field_exists($stream->title_column, $stream->stream_prefix.$stream->stream_slug))
+			if ($stream->title_column != '' and $this->db->field_exists($stream->title_column, $stream->stream_prefix.$stream->stream_slug))
 			{
 				$this->db->order_by($stream->title_column, 'ASC');
 			}
@@ -500,7 +504,7 @@ class Streams_m extends MY_Model {
 		}
 		else
 		{
-			$fields = FALSE;
+			$fields = false;
 		}
 		
 		return $fields;
@@ -517,37 +521,33 @@ class Streams_m extends MY_Model {
 	 * @param	int
 	 * @return	mixed
 	 */
-	public function get_stream_fields($stream_id, $limit = FALSE, $offset = FALSE)
+	public function get_stream_fields($stream_id, $limit = false, $offset = false)
 	{	
 		// Check and see if there is a cache
-		if(isset($this->stream_fields_cache[$stream_id]) and !$limit and !$offset):
-		
+		if (isset($this->stream_fields_cache[$stream_id]) and ! $limit and ! $offset)
+		{
 			return $this->stream_fields_cache[$stream_id];
-		
-		endif;
+		}
 	
-		if( !is_numeric($stream_id) ):
-		
-			return FALSE;
-		
-		endif;
+		if ( ! is_numeric($stream_id))
+		{
+			return false;
+		}
 	
 		$this->db->select(ASSIGN_TABLE.'.id as assign_id, '.STREAMS_TABLE.'.*, '.ASSIGN_TABLE.'.*, '.FIELDS_TABLE.'.*');
 		$this->db->order_by(ASSIGN_TABLE.'.sort_order', 'asc');
 		
-		if(is_numeric($limit)):
-		
-			if(is_numeric($offset)):
-			
+		if (is_numeric($limit))
+		{
+			if (is_numeric($offset))
+			{
 				$this->db->limit($limit, $offset);
-				
-			else:
-			
+			}	
+			else
+			{
 				$this->db->limit($limit);
-			
-			endif;
-		
-		endif;
+			}
+		}
 		
 		$this->db->where(STREAMS_TABLE.'.id', $stream_id);
 		$this->db->join(ASSIGN_TABLE, STREAMS_TABLE.'.id='.ASSIGN_TABLE.'.stream_id');
@@ -555,32 +555,30 @@ class Streams_m extends MY_Model {
 		
 		$obj = $this->db->get(STREAMS_TABLE);
 		
-		if( $obj->num_rows() == 0 ):
-		
-			return FALSE;
-		
-		else:
-		
+		if ($obj->num_rows() == 0)
+		{
+			return false;
+		}
+		else
+		{
 			$streams = new stdClass;
 		
 			$raw = $obj->result();
 			
-			foreach( $raw as $item ):
-			
+			foreach ($raw as $item)
+			{
 				$node = $item->field_slug;
 			
 				$streams->$node = $item;
 				
 				$streams->$node->field_data = unserialize($item->field_data);
-			
-			endforeach;
+			}
 			
 			// Save for cache
-			if( !$limit and !$offset ) $this->stream_fields_cache[$stream_id] = $streams;
+			if ( ! $limit and ! $offset) $this->stream_fields_cache[$stream_id] = $streams;
 			
 			return $streams;
-		
-		endif;
+		}
 	}
 
 	// --------------------------------------------------------------------------
@@ -622,7 +620,7 @@ class Streams_m extends MY_Model {
 		
 		$field = $this->fields_m->get_field($field_id);
 		
-		if( !$field ) return FALSE;
+		if ( ! $field) return false;
 		
 		// -------------------------------------
 		// Get stream info
@@ -630,7 +628,7 @@ class Streams_m extends MY_Model {
 		
 		$stream = $this->get_stream($stream_id);
 		
-		if( !$stream ) return FALSE;
+		if ( ! $stream) return false;
 
 		// -------------------------------------
 		// Load the field type
@@ -638,14 +636,13 @@ class Streams_m extends MY_Model {
 		
 		$field_type = $this->type->types->{$field->field_type};
 		
-		if( !$field_type ) return FALSE;
+		if ( ! $field_type) return false;
 		
 		// Do we have a pre-add function?
-		if(method_exists($field_type, 'field_assignment_construct')):
-		
+		if (method_exists($field_type, 'field_assignment_construct'))
+		{
 			$field_type->field_assignment_construct($field, $stream);
-		
-		endif;
+		}
 		
 		// -------------------------------------
 		// Create database column
@@ -657,25 +654,23 @@ class Streams_m extends MY_Model {
 		
 		$field_data['field_slug']				= $field->field_slug;
 		
-		if( isset( $field->field_data['max_length'] ) ):
-			
+		if (isset($field->field_data['max_length']))
+		{
 			$field_data['max_length']			= $field->field_data['max_length'];
-		
-		endif;
+		}
 
-		if( isset( $field->field_data['default_value'] ) ):
-			
+		if (isset($field->field_data['default_value']))
+		{
 			$field_data['default_value']		= $field->field_data['default_value'];
+		}
 		
-		endif;
-		
-		$field_to_add[$field->field_slug] 	= $this->fields_m->field_data_to_col_data( $field_type, $field_data );
+		$field_to_add[$field->field_slug] 	= $this->fields_m->field_data_to_col_data($field_type, $field_data);
 		
 		if ($field_type->db_col_type !== false and $create_column === true)
 		{
 			if ( ! isset($field_type->alt_process) or !$field_type->alt_process)
 			{
-				if ( ! $this->dbforge->add_column($stream->stream_prefix.$stream->stream_slug, $field_to_add)) return FALSE;
+				if ( ! $this->dbforge->add_column($stream->stream_prefix.$stream->stream_slug, $field_to_add)) return false;
 			}
 		}
 		
@@ -685,14 +680,13 @@ class Streams_m extends MY_Model {
 		// See if this should be made the title column
 		// -------------------------------------
 
-		if( isset($data['title_column']) and $data['title_column'] == 'yes' ):
-		
+		if (isset($data['title_column']) and $data['title_column'] == 'yes')
+		{
 			$update_data['title_column'] = $field->field_slug;
 		
 			$this->db->where('id', $stream->id );
 			$this->db->update(STREAMS_TABLE, $update_data);
-		
-		endif;
+		}
 		
 		// -------------------------------------
 		// Create record in assignments
@@ -701,53 +695,48 @@ class Streams_m extends MY_Model {
 		$insert_data['stream_id'] 		= $stream_id;
 		$insert_data['field_id']		= $field_id;
 		
-		if(isset($data['instructions'])):
-		
+		if (isset($data['instructions']))
+		{
 			$insert_data['instructions']	= $data['instructions'];
-		
-		else:
-		
-			$insert_data['instructions']	= NULL;
-		
-		endif;
+		}
+		else
+		{
+			$insert_data['instructions']	= null;
+		}
 		
 		// +1 for ordering.
 		$this->db->select('MAX(sort_order) as top_num')->where('stream_id', $stream->id);
 		$query = $this->db->get(ASSIGN_TABLE);
 		
-		if($query->num_rows() == 0):
-		
+		if ($query->num_rows() == 0)
+		{
 			// First one! Make it 1
 			$insert_data['sort_order'] = 1;
-		
-		else:
-			
+		}
+		else
+		{
 			$row = $query->row();
 			$insert_data['sort_order'] = $row->top_num+1;
-		
-		endif;
+		}
 		
 		// Is Required
-		if( isset($data['is_required']) and $data['is_required'] == 'yes' ):
-		
+		if (isset($data['is_required']) and $data['is_required'] == 'yes')
+		{
 			$insert_data['is_required']		= 'yes';
-
-		endif;
+		}
 		
 		// Unique		
-		if( isset($data['is_unique']) and  $data['is_unique'] == 'yes' ):
-		
+		if (isset($data['is_unique']) and $data['is_unique'] == 'yes')
+		{
 			$insert_data['is_unique']		= 'yes';
-
-		endif;
+		}
 		
-		if( !$this->db->insert(ASSIGN_TABLE, $insert_data) ):
+		if ( ! $this->db->insert(ASSIGN_TABLE, $insert_data))
+		{
+			return false;
+		}
 		
-			return FALSE;
-		
-		endif;
-		
-		return TRUE;
+		return true;
 	}
 
 	// --------------------------------------------------------------------------
@@ -765,11 +754,10 @@ class Streams_m extends MY_Model {
 		$this->load->dbforge();
 
 		// Do we have a destruct function
-		if(method_exists($this->type->types->{$field->field_type}, 'field_assignment_destruct')):
-		
+		if (method_exists($this->type->types->{$field->field_type}, 'field_assignment_destruct'))
+		{
 			$this->type->types->{$field->field_type}->field_assignment_destruct($field, $stream, $assignment);
-		
-		endif;
+		}
 
 		// -------------------------------------
 		// Remove from db structure
@@ -777,15 +765,13 @@ class Streams_m extends MY_Model {
 		
 		// Alternate method fields will not have a column, so we just
 		// check for it first
-		if($this->db->field_exists($field->field_slug, $stream->stream_prefix.$stream->stream_slug)):
-			
-			if( !$this->dbforge->drop_column($stream->stream_prefix.$stream->stream_slug, $field->field_slug) ):
-		
-				return FALSE;
-		
-			endif;
-		
-		endif;
+		if ($this->db->field_exists($field->field_slug, $stream->stream_prefix.$stream->stream_slug))
+		{
+			if ( ! $this->dbforge->drop_column($stream->stream_prefix.$stream->stream_slug, $field->field_slug))
+			{
+				return false;
+			}
+		}
 
 		// -------------------------------------
 		// Remove from field assignments table
@@ -793,7 +779,7 @@ class Streams_m extends MY_Model {
 	
 		$this->db->where('id', $assignment->id);
 		
-		if( ! $this->db->delete(ASSIGN_TABLE)) return FALSE;
+		if ( ! $this->db->delete(ASSIGN_TABLE)) return false;
 
 		// -------------------------------------
 		// Reset the ordering
@@ -801,64 +787,57 @@ class Streams_m extends MY_Model {
 
 		// Find everything above it, and take each one
 		// down a peg.
-		if($assignment->sort_order == '' or !is_numeric($assignment->sort_order)):
-		
+		if ($assignment->sort_order == '' or !is_numeric($assignment->sort_order))
+		{
 			$assignment->sort_order = 0;
-		
-		endif;
+		}
 		
 		$this->db->where('sort_order >', $assignment->sort_order)->select('id, sort_order');
 		$ord_obj = $this->db->get(ASSIGN_TABLE);
 		
-		if($ord_obj->num_rows() > 0):
-		
+		if ($ord_obj->num_rows() > 0)
+		{		
 			$rows = $ord_obj->result();
 			
-			foreach( $rows as $update_row ):
-
+			foreach ($rows as $update_row)
+			{
 				$update_data['sort_order'] = $update_row->sort_order-1;
 				
 				$this->db->where('id', $update_row->id)->update(ASSIGN_TABLE, $update_data);
 				
 				$update_data = array();
-			
-			endforeach;
-		
-		endif;
+			}
+		}
 
 		// -------------------------------------
 		// Remove from from field options
 		// -------------------------------------
 		
-		if( is_array($stream->view_options) and in_array($field->field_slug, $stream->view_options) ):
-		
+		if (is_array($stream->view_options) and in_array($field->field_slug, $stream->view_options))
+		{
 			$options = $stream->view_options;
 			
-			foreach( $options as $key => $val ):
-			
-				if( $val == $field->field_slug ):
-				
+			foreach ($options as $key => $val)
+			{
+				if ($val == $field->field_slug)
+				{
 					unset($options[$key]);
-				
-				endif;
-			
-			endforeach;
+				}
+			}
 			
 			$update_data['view_options'] = serialize($options);
 			
 			$this->db->where('id', $stream->id);
 		
-			if( ! $this->db->update($this->table, $update_data) ):
-			
-				return FALSE;
-			
-			endif;
-		
-		endif;
+			if ( ! $this->db->update($this->table, $update_data))
+			{
+				return false;
+			}
+		}
 		
 		// -------------------------------------
 		
-		return TRUE;
+		return false;
 	}
 	
 }

@@ -59,7 +59,10 @@ class Type
 		// This defaults to english.
 		$langs = $this->CI->config->item('supported_languages');
 		
-		if (isset($langs[CURRENT_LANGUAGE])) $this->current_lang = $langs[CURRENT_LANGUAGE]['folder'];
+		if (isset($langs[CURRENT_LANGUAGE]))
+		{
+			$this->current_lang = $langs[CURRENT_LANGUAGE]['folder'];
+		}
 		
 		// Obj to hold all our field types
 		$this->types = new stdClass;
@@ -171,7 +174,7 @@ class Type
 			}					
 		}
 		
-		return NULL;
+		return null;
 	}
 
 	// --------------------------------------------------------------------------
@@ -200,7 +203,7 @@ class Type
 			// Fallback on English
 			if ( ! is_dir($path.$type.'/language/'.$lang)) $lang = 'english';
 						
-			$this->CI->lang->load($type, $lang, FALSE, TRUE, $path.$type.'/');
+			$this->CI->lang->load($type, $lang, false, true, $path.$type.'/');
 			
 			unset($lang);
 		}
@@ -346,7 +349,7 @@ class Type
 		$return = array();
 		
 		// For the chozen data placeholder value
-		$return[NULL] = NULL;
+		$return[null] = null;
 			
 		foreach ($this->types as $type)
 		{

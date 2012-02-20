@@ -36,7 +36,7 @@ class Field_datetime
 	 */
 	public function form_output($data)
 	{			
-		$date = $this->_break_date( trim($data['value']), $data['form_slug'], $data['custom']['use_time'] );
+		$date = $this->_break_date(trim($data['value']), $data['form_slug'], $data['custom']['use_time']);
 
 		// -------------------------------------
 		// Date
@@ -47,8 +47,15 @@ class Field_datetime
 	
 		$current_year = date('Y');
 		
-		if(isset($data['custom']['start_date']) and $data['custom']['start_date']) $dp_mods[] = 'minDate: "'.$data['custom']['start_date'].'"';
-		if(isset($data['custom']['end_date']) and $data['custom']['end_date']) $dp_mods[] = 'maxDate: "'.$data['custom']['end_date'].'"';	
+		if (isset($data['custom']['start_date']) and $data['custom']['start_date'])
+		{
+			$dp_mods[] = 'minDate: "'.$data['custom']['start_date'].'"';
+		}
+		
+		if (isset($data['custom']['end_date']) and $data['custom']['end_date'])
+		{
+			$dp_mods[] = 'maxDate: "'.$data['custom']['end_date'].'"';	
+		}	
 			
 		$date_input = '
 				
@@ -61,9 +68,10 @@ class Field_datetime
 		$options['name'] 	= $data['form_slug'];
 		$options['id']		= 'datepicker_'.$data['form_slug'];
 		
-		if($date['year'] and $date['month'] and $date['day']):
+		if ($date['year'] and $date['month'] and $date['day'])
+		{
 			$options['value']	= $date['year'].'-'.$date['month'].'-'.$date['day'];
-		endif;		
+		}	
 			
 		$date_input .= form_input($options)."&nbsp;&nbsp;";
 					
@@ -71,52 +79,47 @@ class Field_datetime
 		// Time
 		// -------------------------------------
 		
-		if( $data['custom']['use_time'] == 'yes' ):
-				
+		if ($data['custom']['use_time'] == 'yes')
+		{
 			// Hour	
 			$hour_count = 1;
 			
 			$hours = array();
 			
-			while( $hour_count <= 12 ):
-			
+			while ($hour_count <= 12 )
+			{
 				$hour_key = $hour_count;
 			
-				if( strlen($hour_key) == 1 ):
-				
+				if (strlen($hour_key) == 1)
+				{
 					$hour_key = '0'.$hour_key;
-				
-				endif;
+				}
 			
 				$hours[$hour_key] = $hour_count;
 	
 				$hour_count++;
-			
-			endwhile;
+			}
 
 			$date_input .= form_dropdown($data['form_slug'].'_hour', $hours, $date['hour']);
 			
 			// Minute
-
 			$minute_count = 0;
 			
 			$minutes = array();
 			
-			while( $minute_count <= 59 ):
-			
+			while ($minute_count <= 59)
+			{
 				$minute_key = $minute_count;
 				
-				if( strlen($minute_key) == 1 ):
-				
+				if (strlen($minute_key) == 1)
+				{
 					$minute_key = '0'.$minute_key;
-				
-				endif;
+				}
 			
 				$minutes[$minute_key] = $minute_key;
-	
-				$minute_count++;
 			
-			endwhile;
+				$minute_count++;
+			}
 
 			$date_input .= form_dropdown($data['form_slug'].'_minute', $minutes, $date['minute']);
 		
@@ -124,30 +127,27 @@ class Field_datetime
 			$am_pm = array('am'=>'am', 'pm'=>'pm');
 			
 			// Is this AM or PM?
-			if($this->CI->input->post($data['form_slug'].'_am_pm')):
-			
+			if ($this->CI->input->post($data['form_slug'].'_am_pm'))
+			{
 				$am_pm_current = $this->CI->input->post($data['form_slug'].'_am_pm');
-			
-			else:
-			
+			}
+			else
+			{
 				$am_pm_current = 'am';
 			
-				if(isset($date['pre_hour'])):
-				
-					if($date['pre_hour'] >= 12):
-					
+				if (isset($date['pre_hour']))
+				{
+					if ($date['pre_hour'] >= 12)
+					{
 						$am_pm_current = 'pm';
-					
-					endif;
-				
-				endif;
-			
-			endif;
+					}
+				}
+			}
 			
 			$date_input .= form_dropdown($data['form_slug'].'_am_pm', $am_pm, $am_pm_current, 'style="small_select"');
 		
-		endif;
-				
+		}
+
 		return $date_input;
 	}
 
@@ -164,11 +164,10 @@ class Field_datetime
 	public function event()
 	{
 		// We need the JS file for the front-end. 
-		if(!defined('ADMIN_THEME')):
-		
+		if ( ! defined('ADMIN_THEME'))
+		{
 			$this->CI->type->add_js('datetime', 'jquery.datepicker.js');
-		
-		endif;
+		}
 	
 		$this->CI->type->add_css('datetime', 'datepicker.css');
 	}
@@ -188,18 +187,16 @@ class Field_datetime
 	public function field_assignment_construct($field, $stream)
 	{
 		// Is this in UNIX time?
-		if( isset($field->field_data['storage']) and $field->field_data['storage'] == 'unix' ):
-		
+		if (isset($field->field_data['storage']) and $field->field_data['storage'] == 'unix')
+		{	
 			$this->db_col_type = 'int';
-		
-		endif;
+		}
 		
 		// We need more room for checkboxes
-		if($field->field_data['use_time'] == 'no'):
-		
+		if ($field->field_data['use_time'] == 'no')
+		{
 			$this->db_col_type = 'date';
-		
-		endif;
+		}
 	}
 
 	// --------------------------------------------------------------------------
@@ -212,21 +209,18 @@ class Field_datetime
 	function update_field($field, $assignments)
 	{
 		// Check to see if this WAS date/datetime and is now UNIX
-		if( $field->field_data['storage'] == 'unix' and $this->CI->input->post('storage') == 'datetime' ):
-		
-			// Go through all the fields and update them to 
-		
-		endif;
-		
+		if ($field->field_data['storage'] == 'unix' and $this->CI->input->post('storage') == 'datetime')
+		{
+			// @todo: Go through all the fields and update them to 
+		}
 		
 		// Check to see if they are the same.
 		// What happens below doesn't matter if they are.
 		if( ($this->CI->input->post('use_time') == $field->field_data['use_time']) and 
-			($this->CI->input->post('storage') == $field->field_data['storage']) ):
-			
-			return;
-	
-		endif;
+			($this->CI->input->post('storage') == $field->field_data['storage']) )
+		{
+			return null;
+		}
 	
 		// We need more room for checkboxes
 		$switch_to = ($this->CI->input->post('use_time') == 'yes') ? 'datetime' : 'date';
@@ -234,11 +228,10 @@ class Field_datetime
 		$this->CI->load->dbforge();
 		
 		// Run through assignments to change the col type
-		foreach($assignments as $assign):
-		
+		foreach ($assignments as $assign)
+		{
 			$this->CI->db->query("ALTER TABLE ".$this->CI->db->dbprefix(STR_PRE.$assign->stream_slug)." CHANGE {$this->CI->input->post('field_slug')} {$this->CI->input->post('field_slug')} $switch_to");
-
-		endforeach;
+		}
 	}
 
 	// --------------------------------------------------------------------------
@@ -257,47 +250,42 @@ class Field_datetime
 		
 		$date = $this->CI->input->post($field->field_slug);
 
-		if($field->field_data['use_time'] == 'yes'):
-
+		if ($field->field_data['use_time'] == 'yes')
+		{
 			// Hour
-			if( $this->CI->input->post($field->field_slug.'_hour') ):
-			
+			if ($this->CI->input->post($field->field_slug.'_hour'))
+			{
 				$hour = $this->CI->input->post($field->field_slug.'_hour');
 	
-				if( $this->CI->input->post($field->field_slug.'_am_pm') == 'pm' && $hour < 12 ):
-				
+				if ($this->CI->input->post($field->field_slug.'_am_pm') == 'pm' && $hour < 12)
+				{
 					$hour = $hour+12;
-				
-				endif;
-				
-			else:
-			
+				}
+			}	
+			else
+			{
 				$hour = '00';
-			
-			endif;
+			}
 			
 			// Minute
-			if( $this->CI->input->post($field->field_slug.'_minute') ):
-			
+			if ($this->CI->input->post($field->field_slug.'_minute'))
+			{
 				$minute = $this->CI->input->post($field->field_slug.'_minute');
-							
-			else:
-			
+			}				
+			else
+			{
 				$minute = '00';
-			
-			endif;
+			}
+		}
 		
-		endif;
-		
-		if($field->field_data['use_time'] == 'yes'):
-		
+		if ($field->field_data['use_time'] == 'yes')
+		{
 			return $date.' '.$hour.':'.$minute.':00';
-		
-		else:
-
+		}
+		else
+		{
 			return $date;
-		
-		endif;		
+		}
 	}
 
 	// --------------------------------------------------------------------------
@@ -318,42 +306,38 @@ class Field_datetime
 	private function _process_year_input($years_data)
 	{
 		// Blank value or current year.
-		if(trim($years_data) == '' or $years_data == 'current' ) return date('Y');
+		if (trim($years_data) == '' or $years_data == 'current' )
+		{
+			return date('Y');
+		}
 	
 		// Is this numeric? If so then cool.
-		
-		if( $years_data[0] != '-' && $years_data[0] != '+' && is_numeric($years_data) ):
-		
+		if ($years_data[0] != '-' && $years_data[0] != '+' && is_numeric($years_data))
+		{
 			return $years_data;
+		}
 		
-		endif;
-		
-		// Else, we have + or - from the current time
-		
-		if( $years_data[0] == '+' ):
-		
+		// Else, we have + or - from the current time		
+		if ($years_data[0] == '+')
+		{
 			$num = str_replace('+', '', $years_data);
 			
-			if( is_numeric($num) ):
-			
+			if (is_numeric($num))
+			{
 				return date('Y')+$num;
-			
-			endif;
-		
-		elseif( $years_data[0] == '-' ):
-
+			}
+		}
+		elseif ($years_data[0] == '-')
+		{
 			$num = str_replace('-', '', $years_data);
 			
-			if( is_numeric($num) ):
-			
+			if (is_numeric($num))
+			{
 				return date('Y')-$num;
-			
-			endif;
+			}
+		}
 		
-		endif;
-		
-		// Default just return the current year
-		
+		// Default just return the current year		
 		return date('Y');
 	}
 
@@ -368,7 +352,7 @@ class Field_datetime
 	 * @param	string
 	 * @return	array
 	 */
-	private function _break_date( $date, $slug, $use_time )
+	private function _break_date($date, $slug, $use_time)
 	{
 		$out['year'] 	= '';
 		$out['month']	= '';
@@ -376,33 +360,33 @@ class Field_datetime
 		$out['hour']	= '';
 		$out['minute']	= '';
 		
-		if( $date == '' ):
-		
+		if ($date == '')
+		{
 			return $out;
+		}
 		
-		endif;
-		
-		if($date == 'dummy'):
-		
+		if ($date == 'dummy')
+		{
 			$date = $_POST[$slug.'_year'].'-'.$_POST[$slug.'_month'].'-'.$_POST[$slug.'_day'];
 			
-			if($use_time == 'yes'):
-			
+			if ($use_time == 'yes')
+			{
 				$date .= ' '.$_POST[$slug.'_hour'].':'.$_POST[$slug.'_minute'].':00';
-			
-			else:
-			
+			}
+			else
+			{
 				$date .= ' 00:00:00';
-			
-			endif;
-		
-		endif;
+			}
+		}
 		
 		$raw_time = explode(' ', $date);
 		
 		$dates = explode('-', $raw_time[0]);
 		
-		if($use_time == 'yes') $times = explode(':', $raw_time[1]);
+		if ($use_time == 'yes')
+		{
+			$times = explode(':', $raw_time[1]);
+		}
 		
 		$out = array();
 		
@@ -410,16 +394,15 @@ class Field_datetime
 		$out['month']	= $dates[1];
 		$out['day']		= $dates[2];
 		
-		if($use_time == 'yes'):
-		
-			$out['hour']	= $times[0];
-			$out['minute']	= $times[1];
-			$out['pre_hour']= $out['hour'];
+		if ($use_time == 'yes')
+		{
+			$out['hour']		= $times[0];
+			$out['minute']		= $times[1];
+			$out['pre_hour']	= $out['hour'];
 			
 			// Format hour for our drop down since we are using am/pm
 			if( $out['hour'] > 12 ) $out['hour'] = $out['hour']-12;
-		
-		endif;
+		}
 	
 		return $out;
 	}
@@ -433,7 +416,7 @@ class Field_datetime
 	 * @param	string
 	 * @return	string
 	 */
-	public function param_start_date($value = '')
+	public function param_start_date($value = null)
 	{
 		$options['name'] 	= 'start_date';
 		$options['id']		= 'start_date';
@@ -471,17 +454,16 @@ class Field_datetime
 	 */
 	public function param_use_time($value = '')
 	{
-		if($value == 'no'):
-		
-			$no_select = true;
-			$yes_select = false;
-		
-		else:
-		
-			$no_select = false;
-			$yes_select = true;
-		
-		endif;
+		if ($value == 'no')
+		{
+			$no_select 		= true;
+			$yes_select 	= false;
+		}
+		else
+		{
+			$no_select 		= false;
+			$yes_select 	= true;
+		}
 	
 		$form  = '<ul><li><label>'.form_radio('use_time', 'yes', $yes_select).' Yes</label></li>';
 		
@@ -499,11 +481,11 @@ class Field_datetime
 	 * @param	string
 	 * @return	string
 	 */
-	public function param_storage($value = '')
+	public function param_storage($value = null)
 	{
 		$options = array(
-					'datetime'		=> 'MySQL Datetime',
-					'unix'			=> 'Unix Time'			
+					'datetime'	=> 'MySQL Datetime',
+					'unix'		=> 'Unix Time'			
 		);
 			
 		return form_dropdown('storage', $options, $value);
@@ -522,24 +504,22 @@ class Field_datetime
 	{
 		$this->CI->load->helper('date');
 		
-		if($this->CI->uri->segment(1) == 'admin'):
-			
+		if ($this->CI->uri->segment(1) == 'admin')
+		{
 			// Format for admin
-			if($params['use_time'] == 'no'):
-			
+			if ($params['use_time'] == 'no')
+			{
 				return(date($this->CI->settings->get('date_format'), mysql_to_unix($input)));
-				
-			else:
-
+			}	
+			else
+			{
 				return(date($this->CI->settings->get('date_format').' g:i a', mysql_to_unix($input)));
-			
-			endif;
-					
-		else:
-			
+			}
+		}
+		else
+		{
 			return(mysql_to_unix($input));
-		
-		endif;
+		}
 	}
 	
 	// --------------------------------------------------------------------------
@@ -553,30 +533,31 @@ class Field_datetime
 	 */
 	public function alt_process_plugin($data)
 	{
-		$this->CI =& get_instance();
+		$this->CI = get_instance();
 		
 		// No input value? Then just blank it:
-		if( !isset($data['input_value'])) return null;
+		if ( ! isset($data['input_value']))
+		{
+			return null;
+		}
 		
 		$input = $data['input_value'];
 
 		// Get the format string
-		if(isset($data['attributes']['format'])):
-			
+		if (isset($data['attributes']['format']))
+		{
 			// Is this a preset format?
-			if(in_array($data['attributes']['format'], $this->date_formats)):
-			
+			if (in_array($data['attributes']['format'], $this->date_formats))
+			{
 				$this->CI->load->helper('date');
 			
 				return standard_date($data['attributes']['format'], strtotime($input));
-			
-			else:
-			
+			}
+			else
+			{
 				return date($data['attributes']['format'], strtotime($input));
-			
-			endif;
-		
-		endif;
+			}
+		}
 		
 		// Return raw date input if there is no format:
 		return $input;
@@ -596,23 +577,19 @@ class Field_datetime
 	 */	
 	private function _format_date($format, $unix_date, $standard = FALSE)
 	{
-		if( ! $unix_date ):
+		if ( ! $unix_date)
+		{
+			return null;
+		}
 		
-			return '';
-		
-		endif;
-		
-		if( !$standard ):
-		
+		if ( ! $standard)
+		{
 			return date($format, $unix_date);
-		
-		else:
-		
+		}
+		else
+		{
 			return standard_date($format, $unix_date);
-		
-		endif;
+		}
 	}
 
 }
-
-/* End of file field.datetime.php */

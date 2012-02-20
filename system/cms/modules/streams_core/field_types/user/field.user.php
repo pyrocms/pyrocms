@@ -39,33 +39,27 @@ class Field_user
 	{
 		$this->CI->db->select('username, id');
 	
-		if( is_numeric($params['custom']['restrict_group']) ):
-		
+		if (is_numeric($params['custom']['restrict_group']))
+		{
 			$this->CI->db->where('group_id', $params['custom']['restrict_group']);
+		}
 		
-		endif;
-		
-		$this->CI->db->order_by('username', 'asc');
-		$db_obj = $this->CI->db->get('users');
-		
-		$users_raw = $db_obj->result();
+		$users_raw = $this->CI->db->order_by('username', 'asc')->get('users')->result();
 		
 		$users = array();
 
 		// If this is not required, then
 		// let's allow a null option
-		if($field->is_required == 'no'):
-		
+		if ($field->is_required == 'no')
+		{
 			$users[null] = $this->CI->config->item('dropdown_choose_null');
-		
-		endif;
+		}
 		
 		// Get user choices
-		foreach( $users_raw as $user ):
-		
+		foreach ($users_raw as $user)
+		{
 			$users[$user->id] = $user->username;
-		
-		endforeach;
+		}
 	
 		return form_dropdown($params['form_slug'], $users, $params['value'], 'id="'.$params['form_slug'].'"');
 	}
@@ -75,7 +69,7 @@ class Field_user
 	/**
 	 * Restrict to Group
 	 */
-	public function param_restrict_group($value = '')
+	public function param_restrict_group($value = null)
 	{
 		$this->CI->db->order_by('name', 'asc');
 		
@@ -85,11 +79,10 @@ class Field_user
 		
 		$groups_raw = $db_obj->result();
 		
-		foreach( $groups_raw as $group ):
-		
+		foreach ($groups_raw as $group)
+		{
 			$groups[$group->id] = $group->name;
-		
-		endforeach;
+		}
 	
 		return form_dropdown('restrict_group', $groups, $value);
 	}
@@ -112,14 +105,20 @@ class Field_user
 	public function pre_output_plugin($input, $params)
 	{
 		// Can't do anything without an input
-		if(!is_numeric($input)) return;
+		if ( ! is_numeric($input))
+		{
+			return null;
+		}
 	
 		// Check run-time cache
-		if(isset($this->cache[$input])) return $this->cache[$input];
+		if (isset($this->cache[$input]))
+		{
+			return $this->cache[$input];
+		}
 	
 		$this->CI->load->model('users/user_m');
 		
-		$user = $this->CI->user_m->get( array('id' => $input) );
+		$user = $this->CI->user_m->get(array('id' => $input));
 
 		$return = array(
 			'user_id'			=> $user->user_id,
@@ -136,5 +135,5 @@ class Field_user
 		
 		return $return;
 	}
+
 }
-/* End of file field.user.php */
