@@ -156,6 +156,9 @@ class Admin extends Admin_Controller {
 				? $this->session->set_flashdata('success', lang('comments.edit_success'))
 				: $this->session->set_flashdata('error', lang('comments.edit_error'));
 
+			// Fire an event. A comment has been updated.
+			Events::trigger('comment_updated', $id);
+
 			redirect('admin/comments');
 		}
 
@@ -202,6 +205,9 @@ class Admin extends Admin_Controller {
 			(count($comments) == 1)
 				? $this->session->set_flashdata('success', sprintf(lang('comments.delete_single_success'), $comments[0]))				/* Only deleting one comment */
 				: $this->session->set_flashdata('success', sprintf(lang('comments.delete_multi_success'), implode(', #', $comments )));	/* Deleting multiple comments */
+		
+			// Fire an event. One or more comments were deleted.
+			Events::trigger('comment_deleted', $comments);
 		}
 
 		// For some reason, none of them were deleted
@@ -271,6 +277,10 @@ class Admin extends Admin_Controller {
 			{
 				// add an event so third-party devs can hook on
 				Events::trigger('comment_approved', $this->comments_m->get($id));
+			}
+			else
+			{
+				Events::trigger('comment_unapproved', $id);
 			}
 		}
 
