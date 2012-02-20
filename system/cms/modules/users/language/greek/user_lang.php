@@ -7,11 +7,11 @@ $lang['user_register_step2']    = '<strong>Βήμα 2:</strong> Ενεργοπο
 $lang['user_login_header']      = 'Σύνδεση';
 
 // titles
-$lang['user_add_title']					= 'Προσθήκη χρήστη';
-$lang['user_list_title']				= 'Λίστα Χρηστών';
+$lang['user_add_title']		= 'Προσθήκη χρήστη';
+$lang['user_list_title']	= 'Λίστα Χρηστών';
 $lang['user_inactive_title']    = 'Ανενεργοί χρήστες';
-$lang['user_active_title']			= 'Ενεργοί χρήστες';
-$lang['user_registred_title']		= 'Εγγεγραμμένοι χρήστες';
+$lang['user_active_title']	= 'Ενεργοί χρήστες';
+$lang['user_registred_title']	= 'Εγγεγραμμένοι χρήστες';
 
 // labels
 $lang['user_edit_title']                       = 'Επεξεργασία χρήστη "%s"';
@@ -48,38 +48,38 @@ $lang['user_password_reset_title']             = 'Επανακαθορισμός
 $lang['user_error_username']                   = 'Το όνομα χρήστη που επιλέξατε χρησιμοποιείται ήδη';
 $lang['user_error_email']                      = 'Η διεύθυνση email που εισάγατε χρησιμοποιείται ήδη';
 
-$lang['user_full_name']                        = 'Ονοματεπώνυμο';
-$lang['user_first_name']                       = 'Όνομα';
-$lang['user_last_name']                        = 'Επίθετο';
-$lang['user_username']                         = 'Όνομα χρήστη';
-$lang['user_display_name']                     = 'Όνομα εμφάνισης';
-$lang['user_email_use'] 					             = 'που χρησιμοποιείται για την σύνδεση';
-$lang['user_email']                            = 'E-mail';
-$lang['user_confirm_email']                    = 'Επανάληψη E-mail';
-$lang['user_password']                         = 'Συνθηματικό';
-$lang['user_remember']                         = 'Απομνημόνευση';
-$lang['user_group_id_label']                   = 'ID Ομάδας';
+$lang['user_full_name']				= 'Ονοματεπώνυμο';
+$lang['user_first_name']			= 'Όνομα';
+$lang['user_last_name']				= 'Επίθετο';
+$lang['user_username']				= 'Όνομα χρήστη';
+$lang['user_display_name']			= 'Όνομα εμφάνισης';
+$lang['user_email_use']				= 'που χρησιμοποιείται για την σύνδεση';
+$lang['user_email']				= 'E-mail';
+$lang['user_confirm_email']			= 'Επανάληψη E-mail';
+$lang['user_password']				= 'Συνθηματικό';
+$lang['user_remember']				= 'Απομνημόνευση';
+$lang['user_group_id_label']			= 'ID Ομάδας';
 
-$lang['user_level']                            = 'Ρόλος Χρήστη';
-$lang['user_active']                           = 'Ενεργός';
-$lang['user_lang']                             = 'Γλώσσα';
+$lang['user_level']				= 'Ρόλος Χρήστη';
+$lang['user_active']				= 'Ενεργός';
+$lang['user_lang']				= 'Γλώσσα';
 
-$lang['user_activation_code']                  = 'Κωδικός ενεργοποίησης';
+$lang['user_activation_code']			= 'Κωδικός ενεργοποίησης';
 
-$lang['user_reset_instructions']		      	   = 'Εισάγετε την διεύθυνση email ή το όνομα χρήστη σας';
-$lang['user_reset_password_link']              = 'Ξεχάσατε το συνθηματικό σας;';
+$lang['user_reset_instructions']		= 'Εισάγετε την διεύθυνση email ή το όνομα χρήστη σας';
+$lang['user_reset_password_link']		= 'Ξεχάσατε το συνθηματικό σας;';
 
-$lang['user_activation_code_sent_notice']      = 'Έχει σταλλεί ένα email με τον κωδικό ενεργοποίησης του λογαριασμού σας.';
-$lang['user_activation_by_admin_notice']       = 'Η εγγραφή σας αναμένει έγκριση από την διαχείριση.';
+$lang['user_activation_code_sent_notice']	= 'Έχει σταλλεί ένα email με τον κωδικό ενεργοποίησης του λογαριασμού σας.';
+$lang['user_activation_by_admin_notice']	= 'Η εγγραφή σας αναμένει έγκριση από την διαχείριση.';
 
 // -- Settings ---------------------------------------------------------------------------------------------
 
-$lang['user_details_section']                  = 'Όνομα';
-$lang['user_password_section']                 = 'Αλλαγή συνθηματικού';
-$lang['user_other_settings_section']           = 'Άλλες ρυθμίσεις';
+$lang['user_details_section']			= 'Όνομα';
+$lang['user_password_section']			= 'Αλλαγή συνθηματικού';
+$lang['user_other_settings_section']		= 'Άλλες ρυθμίσεις';
 
-$lang['user_settings_saved_success']           = 'Οι ρυθμίσεις για τον λογαριασμό σας αποθηκεύτηκαν.';
-$lang['user_settings_saved_error']             = 'Συνέβη κάποιο σφάλμα.';
+$lang['user_settings_saved_success']		= 'Οι ρυθμίσεις για τον λογαριασμό σας αποθηκεύτηκαν.';
+$lang['user_settings_saved_error']		= 'Συνέβη κάποιο σφάλμα.';
 
 // -- Buttons ----------------------------------------------------------------------------------------------
 
