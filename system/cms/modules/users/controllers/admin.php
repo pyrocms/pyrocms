@@ -190,6 +190,9 @@ class Admin extends Admin_Controller {
 			// Try to register the user
 			if ($user_id = $this->ion_auth->register($username, $password, $email, $user_data, $group->name))
 			{
+				// Fire an event. A new user has been created. 
+				Events::trigger('user_created', $user_id);
+		
 				// Set the flashdata message and redirect
 				$this->session->set_flashdata('success', $this->ion_auth->messages());
 				redirect('admin/users');
@@ -275,6 +278,9 @@ class Admin extends Admin_Controller {
 
 			if ($this->ion_auth->update_user($id, $update_data))
 			{
+				// Fire an event. A user has been updated. 
+				Events::trigger('user_updated', $id);
+				
 				$this->session->set_flashdata('success', $this->ion_auth->messages());
 			}
 			else
@@ -375,6 +381,7 @@ class Admin extends Admin_Controller {
 		{
 			$deleted = 0;
 			$to_delete = 0;
+			$deleted_ids = array();
 			foreach ($ids as $id)
 			{
 				// Make sure the admin is not trying to delete themself
@@ -386,6 +393,7 @@ class Admin extends Admin_Controller {
 
 				if ($this->ion_auth->delete_user($id))
 				{
+					$deleted_ids[] = $id;
 					$deleted++;
 				}
 				$to_delete++;
@@ -393,6 +401,9 @@ class Admin extends Admin_Controller {
 
 			if ($to_delete > 0)
 			{
+				// Fire an event. One or more users have been deleted. 
+				Events::trigger('user_deleted', $deleted_ids);
+				
 				$this->session->set_flashdata('success', sprintf(lang('user_mass_delete_success'), $deleted, $to_delete));
 			}
 		}
