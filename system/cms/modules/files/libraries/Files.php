@@ -72,6 +72,27 @@ class Files
 	// ------------------------------------------------------------------------
 
 	/**
+	 * Get all folders and files within a folder
+	 *
+	 * @param	int		$parent	The id of this folder
+	 * @return	array
+	 *
+	**/
+	public static function folder_contents($parent = 0)
+	{
+
+		$folders = ci()->file_folders_m->where('parent_id', $parent)
+			->get_all();
+
+		$files = ci()->file_m->where('folder_id', $parent)
+			->get_all();
+
+		return self::result(TRUE, NULL, NULL, array('folder' => $folders, 'file' => $files));
+	}
+
+	// ------------------------------------------------------------------------
+
+	/**
 	 * Rename a folder
 	 *
 	 * @param	int		$id		The id of the folder
@@ -81,10 +102,26 @@ class Files
 	**/
 	public static function rename_folder($id = 0, $name)
 	{
+		$i = '';
+		$original_slug = self::create_slug($name);
+		$original_name = $name;
 
-		ci()->file_folders_m->update($id, array('name' => $name));
+		$slug = $original_slug;
 
-		return self::result(TRUE, lang('files:folder_updated'), $name, array('id' => $id, 'name' => $name));
+		while (ci()->file_folders_m->where('id !=', $id)->count_by('slug', $slug))
+		{
+			$i++;
+			$slug = $original_slug.'-'.$i;
+			$name = $original_name.'-'.$i;
+		}
+
+		$insert = array('slug' => $slug, 
+						'name' => $name
+						);
+
+		ci()->file_folders_m->update($id, $insert);
+
+		return self::result(TRUE, lang('files:folder_updated'), $insert['name'], $insert);
 	}
 
 	// ------------------------------------------------------------------------

@@ -9,11 +9,17 @@
 .folders-sidebar { height: 450px; border-right: 1px solid #d8d8d8; }
 .folders-sidebar li { padding: 3px; border-bottom: 1px solid #e0e0e0; cursor: pointer; }
 .folders-sidebar li.places { cursor: default; margin-bottom: 10px; font-size: 14px; font-weight: bold; font-style: italic; border: none; }
-.folders-right { height: 450px; overflow-y: auto; }
+.folders-right { height: 450px; overflow-y: auto; overflow-x: hidden; }
 .folders-right .folder { width: 100px; height: 112px; margin: 10px; overflow: hidden; float: left; background: url(../img/folder.png) no-repeat; }
-.folders-right .folder.selected { background: url(../img/folder-select.png) no-repeat; }
+.folders-right .selected { background-color: #e8e8e8; }
 .folders-right .folder .folder-text { display: block; margin: 0 4px 0 4px; font-size: 11px; height: 15px; overflow: hidden; margin-top: 80px; text-align: center; }
 .folders-right .folder .folder-text input { width: 92px; margin: 0; padding: 0; background: transparent; border: none; margin: 0; padding: 0; text-align: center; }
+
+.folders-right .file { width: 100px; height: 112px; margin: 10px; overflow: hidden; float: left; }
+.folders-right .file.type-a { background: url(../img/a.png) no-repeat; }
+.folders-right .file.type-d { background: url(../img/d.png) no-repeat; }
+.folders-right .file.type-o { background: url(../img/o.png) no-repeat; }
+.folders-right .file.type-v { background: url(../img/v.png) no-repeat; }
 
 .console { height: 450px; border-left: 1px solid #d8d8d8; }
 .console .console-title { margin-left: 15px; margin-bottom: 10px; font-size: 14px; font-weight: bold; font-style: italic; border: none; }

@@ -8,7 +8,9 @@
 				<li class="places"><?php echo lang('files:places') ?></li>
 				<?php if ($folders) : ?>
 					<?php foreach ($folders as $folder): ?>
-						<li data-folder-id="<?php echo $folder->id.'" '.
+						<li class="folder"
+							data-folder-id="<?php echo $folder->id.'" 
+							data-folder-name="'.$folder->name.'" '.
 							(strlen($folder->name) > 20 ? 'title="'.$folder->name.'">'.substr($folder->name, 0, 20).'...' : '>'.$folder->name); ?>
 						</li>
 					<?php endforeach; ?>
@@ -17,11 +19,19 @@
 	</section>
 
 	<section class="one_half">
+		<div class="files-navigation">
+			<a class="back alignleft" href="<?php echo current_url();?>#"><?php echo lang('files:back');?></a>
+			<a class="forward alignright" href="<?php echo current_url();?>#"><?php echo lang('files:forward');?></a>
+		</div>
 		<?php echo form_open().form_hidden('current-level', '0').form_close(); ?>
 			<ul class="folders-right">
 				<?php if ($folders) : ?>
 					<?php foreach ($folders as $folder): ?>
-						<li class="folder" data-folder-id="<?php echo $folder->id.'"><span class="folder-text">'.$folder->name; ?></span></li>
+						<li class="folder" 
+							data-folder-id="<?php echo $folder->id.'" 
+							data-folder-name="'.$folder->name.'">
+								<span class="folder-text">'.$folder->name; ?></span>
+						</li>
 					<?php endforeach; ?>
 				<?php else : ?>
 					<div class="no_data"><?php echo lang('files:no_folders'); ?></div>
@@ -29,6 +39,7 @@
 			</ul>
 
 			<ul class="context-menu-source">
+				<li data-menu="open"><?php echo lang('files:open'); ?></li>
 				<li data-menu="new-folder"><?php echo lang('files:new_folder'); ?></li>
 				<li data-menu="upload" class="open-files-uploader"><?php echo lang('files:upload'); ?></li>
 				<li data-menu="rename"><?php echo lang('files:rename'); ?></li>
@@ -63,7 +74,7 @@
 		</div>
 
 		<ul>
-			<li class="new-folder" data-folder-id=""><span class="folder-text"><?php echo lang('files:new_folder_name'); ?></span></li>
+			<li class="new-folder" data-folder-id="" data-folder-name="" data-folder-slug=""><span class="folder-text"><?php echo lang('files:new_folder_name'); ?></span></li>
 		</ul>
 	</div>
 

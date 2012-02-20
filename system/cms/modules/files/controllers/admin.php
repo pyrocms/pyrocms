@@ -27,6 +27,12 @@ class Admin extends Admin_Controller {
 			'file_m',
 			'file_folders_m'
 		));
+
+		$this->template->append_metadata(
+			"<script>
+				pyro.lang.fetching = '".lang('files:fetching')."';
+				pyro.lang.fetch_completed = '".lang('files:fetch_completed')."';
+			</script>");
 	}
 
 	// ------------------------------------------------------------------------
@@ -74,6 +80,22 @@ class Admin extends Admin_Controller {
 		$name = $this->input->post('name');
 
 		echo json_encode(Files::create_folder($parent_id, $name));
+	}
+
+	// ------------------------------------------------------------------------
+
+	/**
+	 * Get all files and folders within a folder
+	 *
+	 * @access	public
+	 * @param	int		$parent	The folder id
+	 * @return	string
+	 */
+	public function folder_contents()
+	{
+		$parent = $this->input->post('parent');
+
+		echo json_encode(Files::folder_contents($parent));
 	}
 
 	// ------------------------------------------------------------------------

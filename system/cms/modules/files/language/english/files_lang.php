@@ -13,11 +13,18 @@
  * @filesource
  */
 
+// General
+$lang['files:fetching']						= 'Retrieving data...';
+$lang['files:fetch_completed']				= 'Completed';
+
 // Labels
 $lang['files:activity']						= 'Activity';
 $lang['files:places']						= 'Places';
+$lang['files:back']							= 'Back';
+$lang['files:forward']						= 'Forward';
 
 // Context Menu
+$lang['files:open']							= 'Open';
 $lang['files:new_folder']					= 'New Folder';
 $lang['files:upload']						= 'Upload';
 $lang['files:rename']						= 'Rename';
