@@ -142,20 +142,21 @@ class Files extends Public_Controller
 		{
 			if ($mode === $modes[1])
 			{
-				$ratio = $file->width / $file->height;
-
 				$crop_width	 = $width;
 				$crop_height = $height;
 
-				if ($crop_width > $crop_height)
+				$x = $file->width / $file->height;
+				$y = $crop_width / $crop_height;
+
+				if( $x >= $y )
 				{
-					$width	= $crop_width;
-					$height	= $crop_width / $ratio;
+					$width = $x * $crop_height;
+					$height = $crop_height;
 				}
 				else
 				{
-					$width	= $crop_height * $ratio;
-					$height	= $crop_height;
+					$width = $crop_width;
+					$height = $crop_width / $x;
 				}
 
 				$width	= ceil($width);
