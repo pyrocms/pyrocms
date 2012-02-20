@@ -44,9 +44,15 @@ class Admin extends Admin_Controller
 
 		if ($_POST)
 		{
+			$modules = $this->input->post('modules');
+			$roles = $this->input->post('module_roles');
+
 			// save the permissions
-			$this->permission_m->save($group_id, $this->input->post('modules'), $this->input->post('module_roles'));
-			
+			$this->permission_m->save($group_id, $modules, $roles);
+
+			// Fire an event. Permissions have been saved.
+			Events::trigger('permissions_saved', array($group_id, $modules, $roles));
+
 			$this->session->set_flashdata('success', lang('permissions.message_group_saved'));
 
 			redirect('admin/permissions/group/'.$group_id);
