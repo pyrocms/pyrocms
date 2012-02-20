@@ -149,6 +149,12 @@ class Users extends Public_Controller
 	 */
 	public function register()
 	{
+		if (isset($this->current_user->id))
+		{
+			$this->session->set_flashdata('notice', lang('user_already_logged_in'));
+			redirect();
+		}
+
 		// Validation rules
 		$validation = array(
 			array(
