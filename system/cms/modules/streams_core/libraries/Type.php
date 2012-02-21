@@ -225,7 +225,7 @@ class Type
 			// Set some ft class vars
 			$tmp->ft_mode 		= $mode;
 			$tmp->ft_root_path 	= $path;
-			$tmp->ft_path 		= $path.'/'.$type.'/';
+			$tmp->ft_path 		= $path.$type.'/';
 			
 			// And give us a CI instance
 			$tmp->CI			= get_instance();
@@ -247,7 +247,7 @@ class Type
 	 */
 	public function add_css($field_type, $file)
 	{
-		$html = '<link href="'.site_url('streams/field_asset/css/'.$field_type.'/'.$file).'" type="text/css" rel="stylesheet" />';
+		$html = '<link href="'.site_url('streams_core/field_asset/css/'.$field_type.'/'.$file).'" type="text/css" rel="stylesheet" />';
 	
 		$this->CI->template->append_metadata($html);
 		
@@ -261,7 +261,7 @@ class Type
 	 */
 	public function add_js($field_type, $file)
 	{
-		$html = '<script type="text/javascript" src="'.site_url('streams/field_asset/js/'.$field_type.'/'.$file).'"></script>';
+		$html = '<script type="text/javascript" src="'.site_url('streams_core/field_asset/js/'.$field_type.'/'.$file).'"></script>';
 	
 		$this->CI->template->append_metadata($html);
 		
