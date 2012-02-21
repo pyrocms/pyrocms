@@ -62,13 +62,11 @@ function role_or_die($module, $role, $redirect_to = 'admin', $message = '')
  * Return a users display name based on settings
  *
  * @param int $user the users id
- * @param string $output Accepts three specific options:
- *						- 'link' : returns the link to the user profile.
- *						- 'name' : returns the user name.
- *						- 'both' : returns both in an array.
+ * @param string $linked if true a link to the profile page is returned, 
+ *                       if false it returns just the display name.
  * @return  string
  */
-function user_displayname($user, $output = 'link')
+function user_displayname($user, $linked = TRUE)
 {
 	if (is_numeric($user))
 	{
@@ -91,19 +89,9 @@ function user_displayname($user, $output = 'link')
 
 	$user_name = empty($user['display_name']) ? $user['username'] : $user['display_name'];
 
-	if (ci()->settings->enable_profiles)
+	if (ci()->settings->enable_profiles and $linked)
 	{
-		if ($output == 'link')
-		{
-			$user_name = anchor('user/'.$user['id'], $user_name);
-		}
-		elseif ($output == 'both')
-		{
-			$user_name = array(
-				'link' => anchor('user/'.$user['id'], $user_name),
-				'name' => $user_name
-			);
-		}
+		$user_name = anchor('user/'.$user['id'], $user_name);
 	}
 	
 	$_users[$user['id']] = $user_name;
