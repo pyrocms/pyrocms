@@ -30,15 +30,13 @@ class Field_textarea
 	 * @param	array
 	 * @return	string
 	 */
-	public function form_output( $data )
+	public function form_output($data)
 	{
 		$options['name'] 	= $data['form_slug'];
 		$options['id']		= $data['form_slug'];
 		$options['value']	= $data['value'];
 		
-		return form_textarea( $options );
+		return form_textarea($options);
 	}
 	
 }
-
-/* End of file field.textarea.php */

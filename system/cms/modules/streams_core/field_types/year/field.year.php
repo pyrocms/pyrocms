@@ -43,19 +43,17 @@ class Field_year
 		
 		// If this is not required, then
 		// let's allow a null option
-		if($field->is_required == 'no'):
-		
+		if ($field->is_required == 'no')
+		{
 			$years[null] = get_instance()->config->item('dropdown_choose_null');
+		}
 		
-		endif;
-		
-		while( $end_year >= $start_year ):
-		
+		while ($end_year >= $start_year)
+		{
 			$years[$end_year] = $end_year;
 			
 			--$end_year;
-		
-		endwhile;
+		}
 		
 		return form_dropdown($data['form_slug'], $years, $data['value']);
 	}
@@ -77,44 +75,42 @@ class Field_year
 	 */
 	private function _process_year_input($years_data)
 	{
-		if(!$years_data) return date('Y');
+		if ( ! $years_data)
+		{
+			return date('Y');
+		}
 	
 		// Do they want the current year?
-		if( $years_data == 'current' ):
-		
+		if ($years_data == 'current')
+		{
 			return date('Y');
-		
-		endif;
+		}
 	
 		// Is this numeric? If so then cool.		
-		if( $years_data[0] != '-' && $years_data[0] != '+' && is_numeric($years_data) ):
-		
+		if ($years_data[0] != '-' and $years_data[0] != '+' and is_numeric($years_data))
+		{
 			return $years_data;
-		
-		endif;
+		}
 		
 		// Else, we have + or - from the current time
-		if( $years_data[0] == '+' ):
-		
+		if ($years_data[0] == '+')
+		{
 			$num = str_replace('+', '', $years_data);
 			
-			if( is_numeric($num) ):
-			
+			if (is_numeric($num))
+			{
 				return date('Y')+$num;
-			
-			endif;
-		
-		elseif( $years_data[0] == '-' ):
-
+			}
+		}
+		elseif ($years_data[0] == '-')
+		{
 			$num = str_replace('-', '', $years_data);
 			
-			if( is_numeric($num) ):
-			
+			if (is_numeric($num))
+			{
 				return date('Y')-$num;
-			
-			endif;
-		
-		endif;
+			}
+		}
 		
 		// Default just return the current year
 		return date('Y');
@@ -157,5 +153,3 @@ class Field_year
 	}
 
 }
-
-/* End of file field.year.php */

@@ -91,15 +91,13 @@ class Row_m extends MY_Model {
 		// class array
 		// -------------------------------------
 	
-		foreach($this->cycle_defaults as $key => $value):
-		
-			if(!isset($params[$key])):
-			
+		foreach ($this->cycle_defaults as $key => $value)
+		{
+			if ( ! isset($params[$key]))
+			{
 				$params[$key] = $value;
-			
-			endif;
-		
-		endforeach;
+			}
+		}
 	
 		// -------------------------------------
 		// Extract Our Params
@@ -132,11 +130,10 @@ class Row_m extends MY_Model {
 		// For calendars and stuff
 		// -------------------------------------
 
-		if( isset($get_day) and $get_day == true ):
-		
+		if (isset($get_day) and $get_day == true)
+		{
 			$this->select_string .= ', DAY('.$this->full_select_prefix.$date_by.') as pyrostreams_cal_day';
-		
-		endif;
+		}
 	
 		// -------------------------------------
 		// Disable
@@ -145,107 +142,103 @@ class Row_m extends MY_Model {
 		// and created_by to save some queries
 		// -------------------------------------
 		
-		if( isset($disable) and $disable ):
-		
+		if (isset($disable) and $disable)
+		{		
 			// Can be pre-processed
-			if(!is_array($disable)):
-
-				$disable = explode("|", $disable);
-			
-			endif;
-			
-		else:
-		
+			if ( ! is_array($disable))
+			{
+				$disable = explode('|', $disable);
+			}
+		}	
+		else
+		{
 			$disable = array();
-		
-		endif;
+		}
 
 		// -------------------------------------
 		// Specialing Sorting
 		// -------------------------------------
 
 		// Special provision for sort by random
-		if( isset($sort) and $sort == 'random' ):
-		
+		if (isset($sort) and $sort == 'random')
+		{
 			$this->db->order_by('RAND()');
-
-		else:
-	
+		}
+		else
+		{
 			// Default Sort
-			if( !isset($sort) or $sort == '' ) $sort = 'asc';
+			if ( ! isset($sort) or $sort == '')
+			{
+				$sort = 'asc';
+			}
 	
 			// If we don't have an override, let's see what
 			// else we can sort by
-			if( !isset($order_by) or $order_by == '' ):
-			
+			if ( ! isset($order_by) or $order_by == '')
+			{
 				// Let's go with the stream setting now
 				// since there isn't an override	
-				if( $stream->sorting == 'title' && $stream->title_column != '' ):
-				
+				if ($stream->sorting == 'title' and $stream->title_column != '')
+				{
 					$order_by = $stream->title_column;	
-			
-				elseif( $stream->sorting == 'custom' ):
-				
+				}
+				elseif ($stream->sorting == 'custom')
+				{
 					$order_by 	= 'ordering_count';
-				
-				endif;
-			
-			endif;
+				}
+			}
 	
 			// -------------------------------------
 			// Order by
 			// -------------------------------------
 			
-			if( isset($order_by) and $order_by ) $this->db->order_by( $this->base_prefix.$order_by, $sort );
-		
-		endif;
+			if (isset($order_by) and $order_by)
+			{
+				$this->db->order_by($this->base_prefix.$order_by, $sort);
+			}
+		}
 
 		// -------------------------------------
 		// Exclude
 		// -------------------------------------
 		
 		// Do we have anything in the excludes that was can add?
-		if(	isset($exclude_called) and $exclude_called == 'yes' and 
-			isset($this->called[$stream->stream_slug]) and !empty($this->called[$stream->stream_slug])):
-		
+		if (isset($exclude_called) and $exclude_called == 'yes' and 
+			isset($this->called[$stream->stream_slug]) and ! empty($this->called[$stream->stream_slug]))
+		{
 			$exclude .= '|'.implode('|', $this->called[$stream->stream_slug]);
+		}
 		
-		endif;
-		
-		if( isset($exclude) and $exclude ):
-		
+		if (isset($exclude) and $exclude)
+		{		
 			$exclusions = explode('|', $exclude);
 			
-			foreach( $exclusions as $exclude_id ):
-			
-				$this->db->where( $this->base_prefix.$exclude_by.' !=', $exclude_id );
-			
-			endforeach;
-		
-		endif;
+			foreach ($exclusions as $exclude_id)
+			{
+				$this->db->where($this->base_prefix.$exclude_by.' !=', $exclude_id);
+			}
+		}
 
 		// -------------------------------------
 		// Include
 		// -------------------------------------
 		
-		if( isset($include) and $include ):
-		
+		if (isset($include) and $include)
+		{
 			$inclusions = explode('|', $include);
 			
-			foreach( $inclusions as $include_id ):
-			
-				$this->db->or_where( $this->base_prefix.$include_by.' =', $include_id );
-			
-			endforeach;
-		
-		endif;
+			foreach ($inclusions as $include_id)
+			{
+				$this->db->or_where($this->base_prefix.$include_by.' =', $include_id);
+			}
+		}
 
 		// -------------------------------------
 		// Where
 		// -------------------------------------
 
-		if( isset($where) and $where ):
-		
+		if (isset($where) and $where)
+		{
 			// Replace the segs
 			
 			$seg_markers 	= array('seg_1', 'seg_2', 'seg_3', 'seg_4', 'seg_5', 'seg_6', 'seg_7');
@@ -253,135 +246,121 @@ class Row_m extends MY_Model {
 		
 			$where = str_replace($seg_markers, $seg_values, $where);
 			
-			$where_pieces = explode("|", $where);
+			$where_pieces = explode('|', $where);
 			
-			foreach($where_pieces as $w):
-			
-				$vals = explode("==", trim($w));
+			foreach ($where_pieces as $w)
+			{
+				$vals = explode('==', trim($w));
 				
-				if( count($vals) == 2 ):
-				
-					$this->db->where( $this->base_prefix.$vals[0], $vals[1] );
-				
-				endif;
-			
-			endforeach;
-		
-		endif;
+				if (count($vals) == 2)
+				{
+					$this->db->where($this->base_prefix.$vals[0], $vals[1]);
+				}
+			}
+		}
 		
 		// -------------------------------------
 		// Show Upcoming
 		// -------------------------------------
 		
-		if( isset($show_upcoming) and $show_upcoming == 'no'):
-		
-			$upc_prefix = (count($this->db->ar_where) == 0 AND count($this->db->ar_cache_where) == 0) ? '' : 'AND';
+		if (isset($show_upcoming) and $show_upcoming == 'no')
+		{
+			$upc_prefix = (count($this->db->ar_where) == 0 and count($this->db->ar_cache_where) == 0) ? '' : 'AND';
 			
-			$this->db->ar_where[] = $upc_prefix.' '.$this->db->_protect_identifiers($this->base_prefix.$date_by, FALSE, TRUE).' <= CURDATE()';
-
-		endif;
+			$this->db->ar_where[] = $upc_prefix.' '.$this->db->_protect_identifiers($this->base_prefix.$date_by, false, true).' <= CURDATE()';
+		}
 
 		// -------------------------------------
 		// Show Past
 		// -------------------------------------
 		
-		if( isset($show_past) and $show_past == 'no'):
-
-			$past_prefix = (count($this->db->ar_where) == 0 AND count($this->db->ar_cache_where) == 0) ? '' : 'AND';
+		if (isset($show_past) and $show_past == 'no')
+		{
+			$past_prefix = (count($this->db->ar_where) == 0 and count($this->db->ar_cache_where) == 0) ? '' : 'AND';
 			
-			$this->db->ar_where[] = $past_prefix.' '.$this->db->_protect_identifiers($this->base_prefix.$date_by, FALSE, TRUE).' >= CURDATE()';
-
-		endif;
+			$this->db->ar_where[] = $past_prefix.' '.$this->db->_protect_identifiers($this->base_prefix.$date_by, false, true).' >= CURDATE()';
+		}
 
 		// -------------------------------------
 		// Month / Day / Year
 		// -------------------------------------
 		
-		if( isset($year) and is_numeric($year) ):
-		
+		if (isset($year) and is_numeric($year))
+		{
 			$this->db->where('YEAR('.$this->full_select_prefix.$date_by.')', $year);
-		
-		endif;
+		}
 
-		if( isset($month) and is_numeric($month) ):
-		
+		if (isset($month) and is_numeric($month))
+		{
 			$this->db->where('MONTH('.$this->full_select_prefix.$date_by.')', $month);
-		
-		endif;
+		}
 
-		if( isset($day) and is_numeric($day) ):
-		
+		if (isset($day) and is_numeric($day))
+		{
 			$this->db->where('DAY('.$this->full_select_prefix.$date_by.')', $day);
-		
-		endif;
+		}
 
 		// -------------------------------------
 		// Restrict User
 		// -------------------------------------
 		
-		if( isset($restrict_user) ):
-		
-			if( $restrict_user != 'no' ):
-			
+		if (isset($restrict_user))
+		{
+			if ($restrict_user != 'no')
+			{
 				// Should we restrict to the current user?
-				if( $restrict_user == 'current' ):
-				
+				if ($restrict_user == 'current')
+				{
 					// Check and see if a user is logged in
 					// and then set the param
-					if( $this->current_user->id ):
-					
+					if ($this->current_user->id)
+					{
 						$restrict_user = $this->current_user->id;
-					
-					endif;
-				
-				elseif( is_numeric($restrict_user) ):
-				
+					}
+				}
+				elseif (is_numeric($restrict_user))
+				{
 					// It's numeric, meaning we don't have to do anything. Durrr...
-				
-				else:
-				
+				}
+				else
+				{
 					// Looks like they might have put in a user's handle
 					$this->db->limit(1)->select('id')->where('username', $user);
 					$db_obj = $this->db->get('users');
 					
-					if( $db_obj->num_rows == 0 ):
-					
+					if ($db_obj->num_rows == 0)
+					{
 						// Whoops, no dice.
 						$restrict_user = 'no';
-					
-					else:
-					
+					}
+					else
+					{
 						$user = $db_obj->row();
-						
 						$restrict_user = $user->id;
-					
-					endif;
-				
-				endif;
-			
-			endif;
+					}
+				}
+			}
 		
-			if( $restrict_user != 'no' && is_numeric($restrict_user) ):
-			
-				$this->db->where($this->full_select_prefix.'created_by', $restrict_user, FALSE );
-			
-			endif;
-		
-		endif;
+			if ($restrict_user != 'no' and is_numeric($restrict_user))
+			{
+				$this->db->where($this->full_select_prefix.'created_by', $restrict_user, false);
+			}
+		}
 
 		// -------------------------------------
 		// Get by ID & Single
 		// -------------------------------------
 		
-		if( isset($id) and is_numeric($id) ):
-		
-			$this->db->where( $this->base_prefix.'id', $id );
-			
+		if (isset($id) and is_numeric($id))
+		{
+			$this->db->where($this->base_prefix.'id', $id);	
 			$limit = 1;
-		
-		endif;
+		}
 
-		if( isset($single) and $single == 'yes' ) $limit = 1;
+		if (isset($single) and $single == 'yes')
+		{
+			$limit = 1;
+		}
 
 		// -------------------------------------
 		// Hook
@@ -390,28 +369,26 @@ class Row_m extends MY_Model {
 		// to add to the query
 		// -------------------------------------
 		
-		if( $this->get_rows_hook ):
-		
-			if(method_exists($this->get_rows_hook[0], $this->get_rows_hook[1])):
-						
+		if ($this->get_rows_hook)
+		{
+			if (method_exists($this->get_rows_hook[0], $this->get_rows_hook[1]))
+			{
 				$this->get_rows_hook[0]->{$this->get_rows_hook[1]}($this->get_rows_hook_data);
-			
-			endif;
-		
-		endif;
+			}
+		}
 		
 		// -------------------------------------
 		// Run Our Select
 		// -------------------------------------
 		
-		$this->db->select( $this->select_string );		
+		$this->db->select($this->select_string);		
 
 		// -------------------------------------
 		// Pagination
 		// -------------------------------------
 		
-		if( isset($paginate) and $paginate == 'yes' ):
-		
+		if (isset($paginate) and $paginate == 'yes')
+		{
 			// If we are paginating, then we 
 			// need to return the count based on all
 			// the shit we did above this.
@@ -420,11 +397,10 @@ class Row_m extends MY_Model {
 			
 			$tmp = array();
 			
-			foreach($class_vars as $var => $val):
-			
+			foreach ($class_vars as $var => $val)
+			{
 				$tmp[$var] = $this->db->$var;
-			
-			endforeach;		
+			}
 			
 			$tmp_obj = $this->db->get($stream->stream_prefix.$stream->stream_slug);
 			
@@ -433,44 +409,43 @@ class Row_m extends MY_Model {
 			// We basically just borrowed the class for a
 			// second and then put everything back.
 			// No one will be any the wiser!! Durrr!
-			foreach($tmp as $v => $k):
-			
+			foreach ($tmp as $v => $k)
+			{
 				$this->db->$v = $k;
-			
-			endforeach;
+			}
 
 			// Set the offset
-			if( $this->uri->segment($pag_segment) == '' ):
-			
+			if ($this->uri->segment($pag_segment) == '')
+			{
 				$offset = 0;
-	
-			else:
-			
+			}
+			else
+			{
 				$offset = $this->uri->segment($pag_segment);
-						
-			endif;
-		
-		endif;
+			}			
+		}
 
 		// -------------------------------------
 		// Offset
 		// -------------------------------------
 
-		if( !isset($offset) ) $offset = 0;
+		if ( ! isset($offset))
+		{
+			$offset = 0;
+		}
 
 		// -------------------------------------
 		// Limit
 		// -------------------------------------
 		
-		if( isset($limit) and is_numeric($limit) ):
-		
-			$this->db->limit( $limit, $offset );
-		
-		elseif( isset($offset) and is_numeric($offset) ):
-
-			$this->db->offset( $offset );
-		
-		endif;
+		if (isset($limit) and is_numeric($limit))
+		{
+			$this->db->limit($limit, $offset);
+		}
+		elseif (isset($offset) and is_numeric($offset))
+		{
+			$this->db->offset($offset);
+		}
 
 		// -------------------------------------
 		// Run the Get
@@ -486,19 +461,20 @@ class Row_m extends MY_Model {
 		// limits/offsets in queries.
 		// -------------------------------------
 				
-		if( isset($partial) and ! is_null($partial) ):
-				
-			if( count($partials = explode('of', $partial)) == 2 and is_numeric($partials[1]) ):
-								
+		if (isset($partial) and ! is_null($partial))
+		{
+			if (count($partials = explode('of', $partial)) == 2 and is_numeric($partials[1]))
+			{
 				// Break the array into how many pieces
 				// we want.
 				$chunks = array_chunk($rows, ceil(count($rows)/$partials[1]), true);
 								
-				if( isset($chunks[$partials[0]-1]) ) $rows =& $chunks[$partials[0]-1];
-		
-			endif;
-		
-		endif;
+				if (isset($chunks[$partials[0]-1]))
+				{
+					$rows =& $chunks[$partials[0]-1];
+				}
+			}
+		}
 		
 		// -------------------------------------
 		// Run formatting
@@ -540,40 +516,24 @@ class Row_m extends MY_Model {
 		
 		$total = count($data);
 		
-		foreach($data as $id => $item):
-		
+		foreach ($data as $id => $item)
+		{
 			// Log the ID called
 			$this->called[$stream->stream_slug][] = $item['id'];
 		
-			$data[$id] = $this->format_row($item, $stream_fields, $stream, FALSE, TRUE, $disable);
+			$data[$id] = $this->format_row($item, $stream_fields, $stream, false, true, $disable);
 			
 			// Give some info on if it is the last element
-			if( $count == $total ):
-			
-				$data[$id]['last']	= '1';
-			
-			else:
-			
-				$data[$id]['last']	= '0';
-			
-			endif;
-			
+			$data[$id]['last'] = ($count == $total) ? '1' : '0';
+						
 			// Odd/Even			
-			if( $count%2 == 0 ):
+			$data[$id]['odd_even'] = ($count%2 == 0) ? 'even' : 'odd';
 			
-				$data[$id]['odd_even'] = 'even';
-			
-			else:
-			
-				$data[$id]['odd_even'] = 'odd';
-			
-			endif;
-			
+			// Count
 			$data[$id]['count'] = $count;
 			
 			$count++;
-		
-		endforeach;
+		}
 		
 		return $data;
 	}
@@ -589,38 +549,42 @@ class Row_m extends MY_Model {
 	 * @param	[bool]
 	 * @return	mixed
 	 */
-	public function get_row($id, $stream, $format_output = TRUE)
+	public function get_row($id, $stream, $format_output = true)
 	{
 		// First, let's get all out fields. That's
 		// right. All of them.
-		if(!$this->all_fields) $this->all_fields = $this->fields_m->get_all_fields();
+		if ( ! $this->all_fields)
+		{
+			$this->all_fields = $this->fields_m->get_all_fields();
+		}
 		
 		// Now the structure. We will need this as well.
-		if(!$this->structure) $this->structure = $this->gather_structure();
+		if ( ! $this->structure)
+		{
+			$this->structure = $this->gather_structure();
+		}
 
 		$stream_fields = $this->streams_m->get_stream_fields($stream->id);
 
 		$obj = $this->db->limit(1)->where('id', $id)->get($stream->stream_prefix.$stream->stream_slug);
 		
-		if( $obj->num_rows() == 0 ):
-		
-			return FALSE;
-		
-		else:
-		
+		if ($obj->num_rows() == 0)
+		{
+			return false;
+		}
+		else
+		{
 			$row = $obj->row();
 			
-			if( $format_output ):
-			
-				return $this->format_row( $row , $stream_fields, $stream );
-			
-			else:
-					
+			if ($format_output)
+			{
+				return $this->format_row($row , $stream_fields, $stream);
+			}
+			else
+			{	
 				return $row;
-			
-			endif;
-		
-		endif;
+			}
+		}
 	}
 
 	// --------------------------------------------------------------------------	
@@ -638,14 +602,20 @@ class Row_m extends MY_Model {
 	 * @param	[bool]
 	 * @param	[array - things to disable]
 	 */
-	public function format_row($row, $stream_fields, $stream, $return_object = TRUE, $plugin_call = FALSE,  $disable = array())
+	public function format_row($row, $stream_fields, $stream, $return_object = true, $plugin_call = false,  $disable = array())
 	{		
 		// First, let's get all out fields. That's
 		// right. All of them.
-		if(!$this->all_fields) $this->all_fields = $this->fields_m->get_all_fields();
+		if ( ! $this->all_fields)
+		{
+			$this->all_fields = $this->fields_m->get_all_fields();
+		}
 
 		// Now the structure. We will need this as well.
-		if(!$this->structure) $this->structure = $this->gather_structure();
+		if ( ! $this->structure)
+		{
+			$this->structure = $this->gather_structure();
+		}
 
 		// -------------------------------------
 		// Format Rows
@@ -655,12 +625,15 @@ class Row_m extends MY_Model {
 		// format it
 		// -------------------------------------
 
-		foreach( $row as $row_slug => $data ):
-		
+		foreach ($row as $row_slug => $data)
+		{
 			// Easy out for our non-formattables and
 			// fields we are disabling.
-			if( in_array($row_slug, array('id')) or in_array($row_slug, $disable) ) continue;
-
+			if (in_array($row_slug, array('id')) or in_array($row_slug, $disable))
+			{
+				continue;
+			}
+			
 			// -------------------------------------
 			// Format Created By
 			// -------------------------------------
@@ -669,121 +642,108 @@ class Row_m extends MY_Model {
 				$row_slug == 'created_by' and 
 				isset($this->type->types->user) and 
 				method_exists($this->type->types->user, 'pre_output_plugin')
-			):
-			
-				if($return_object):
-	
+			)
+			{
+				if ($return_object)
+				{
 					$row->created_by	= $this->type->types->user->pre_output_plugin($row->created_by, null);
-			
-				else:
-						
+				}
+				else
+				{	
 					$row['created_by']	= $this->type->types->user->pre_output_plugin($row['created_by'], null);
-			
-				endif;
-			
-			endif;
+				}
+			}
 			
 			// -------------------------------------
 			// Format Dates
 			// -------------------------------------
 			
-			if($row_slug == 'created' or $row_slug == 'updated'):
-			
-				if($return_object):
-				
+			if ($row_slug == 'created' or $row_slug == 'updated')
+			{
+				if ($return_object)
+				{
 					$row->$row_slug = strtotime($row->$row_slug);
-				
-				else:
-		
+				}
+				else
+				{
 					$row[$row_slug] = strtotime($row[$row_slug]);
-				
-				endif;
-				
-			endif;
+				}
+			}	
 
 			// -------------------------------------
 			// Format Columns
 			// -------------------------------------
 
-			if(array_key_exists($row_slug, $this->all_fields)):
-			
+			if (array_key_exists($row_slug, $this->all_fields))
+			{
 				$format_data = $this->all_fields[$row_slug];
 						
 				$type = $this->type->types->{$format_data['field_type']};
 							
 				// First off, is this an alt process type?
-				if( isset($type->alt_process) and $type->alt_process === TRUE ):
-				
+				if (isset($type->alt_process) and $type->alt_process === true)
+				{
 					$out = null;
 				
-					if(!$plugin_call and method_exists($type, 'alt_pre_output')):
-					
+					if ( ! $plugin_call and method_exists($type, 'alt_pre_output'))
+					{
 						$out = $type->alt_pre_output($row->id, $format_data['field_data'], $type, $stream);
-					
-					endif;
+					}
 					
 					($return_object) ? $row->$row_slug = $out : $row[$row_slug] = $out;
-					
-				else:
-		
+				}	
+				else
+				{
 					// If not, check and see if there is a method
 					// for pre output or pre_output_plugin
-					if( $plugin_call and method_exists($type, 'pre_output_plugin') ):
-					
+					if ($plugin_call and method_exists($type, 'pre_output_plugin'))
+					{
 						$plugin_output = $type->pre_output_plugin($row[$row_slug], $format_data['field_data'], $row_slug);
 					
 						// Do we get an array or a string?
-						if( is_array($plugin_output) ):
-						
+						if (is_array($plugin_output))
+						{
 							// For arrays we replace the node with a new array
 							// of data merged into the current array
-							if( is_array($row) ):
-							
-								if(isset($type->plugin_return) and $type->plugin_return == 'array'):
-								
+							if (is_array($row))
+							{
+								if (isset($type->plugin_return) and $type->plugin_return == 'array')
+								{
 									$row[$row_slug] = $plugin_output;
-								
-								elseif(isset($type->plugin_return) and $type->plugin_return == 'cycle'):
-								
+								}
+								elseif (isset($type->plugin_return) and $type->plugin_return == 'cycle')
+								{
 									// Don't do shit
-								
-								else:
-						
+								}
+								else
+								{
 									($return_object) ? $row->{$row_slug} = $plugin_output : $row[$row_slug] = $plugin_output;
-								
-								endif;
-								
-							endif;		
-						
-						else:
-							
+								}
+							}
+						}
+						else
+						{
 							// Else it was just a special plugin output and we just need 
 							// to use that string output.
 							$row[$row_slug] = $plugin_output;
-						
-						endif;
-	
-					elseif(method_exists($type, 'pre_output')):
-										
-						if(is_array($row)):
-							
+						}
+					}
+					elseif (method_exists($type, 'pre_output'))
+					{
+						if (is_array($row))
+						{
 							$out = $type->pre_output($row[$row_slug], $format_data['field_data']);
-						
-						else:
-						
+						}
+						else
+						{
 							$out = $type->pre_output($row->$row_slug, $format_data['field_data']);
-						
-						endif;
+						}
 						
 						($return_object) ? $row->{$row_slug} = $out : $row[$row_slug] = $out;
-						
-					endif;
-									
-				endif;
-			
-			endif;
-		
-		endforeach;
+					}
+				}				
+			}
+		}		
 
 		// -------------------------------------
 		// Run through alt processes
@@ -792,33 +752,28 @@ class Row_m extends MY_Model {
 		// add them to the row for display
 		// -------------------------------------
 		
-		if(!$plugin_call):
-		
-			if($stream_fields):
-		
-				foreach($stream_fields as $row_slug => $f):
-				
-					if(isset($f->field_type, $this->ignore)):
-							
-					if(
-						isset($this->type->types->{$f->field_type}->alt_process) and 
-						$this->type->types->{$f->field_type}->alt_process === TRUE and 
-						method_exists($this->type->types->{$f->field_type}, 'alt_pre_output')
-					):
-	
-						$out = $this->type->types->{$f->field_type}->alt_pre_output($row->id, $this->all_fields[$row_slug]['field_data'], $f->field_type, $stream);
-							
-						($return_object) ? $row->$row_slug = $out : $row[$row_slug] = $out;
-						
-					endif;
-					
-					endif;
-				
-				endforeach;
-			
-			endif;
-		
-		endif;
+		if ( ! $plugin_call)
+		{
+			if ($stream_fields)
+			{
+				foreach ($stream_fields as $row_slug => $f)
+				{
+					if (isset($f->field_type, $this->ignore))
+					{
+						if(
+							isset($this->type->types->{$f->field_type}->alt_process) and 
+							$this->type->types->{$f->field_type}->alt_process === true and 
+							method_exists($this->type->types->{$f->field_type}, 'alt_pre_output')
+						)
+						{
+							$out = $this->type->types->{$f->field_type}->alt_pre_output($row->id, $this->all_fields[$row_slug]['field_data'], $f->field_type, $stream);
+								
+							($return_object) ? $row->$row_slug = $out : $row[$row_slug] = $out;
+						}
+					}
+				}
+			}
+		}
 
 		// -------------------------------------
 		
@@ -1037,21 +992,18 @@ class Row_m extends MY_Model {
 		
 		$struct = array();
 		
-		foreach($this->streams_m->streams_cache as $stream_id => $stream):
-		
+		foreach ($this->streams_m->streams_cache as $stream_id => $stream)
+		{
 			$struct[$stream_id]['stream'] = $stream;
 			
-			foreach($fields as $field):
-			
-				if($field->stream_slug == $stream->stream_slug):
-			
+			foreach ($fields as $field)
+			{
+				if ($field->stream_slug == $stream->stream_slug)
+				{
 					$struct[$stream_id]['fields'][] = $field;
-				
-				endif;
-			
-			endforeach;
-		
-		endforeach;
+				}
+			}
+		}
 		
 		return $struct;
 	}
@@ -1077,25 +1029,24 @@ class Row_m extends MY_Model {
 
 		$update_data = array();
 		
-		foreach( $fields as $field ):
-		
-			if(!in_array($field->field_slug, $skips)):
-		
+		foreach ($fields as $field)
+		{
+			if ( ! in_array($field->field_slug, $skips))
+			{
 				$type_call = $field->field_type;
 			
 				$type = $this->type->types->$type_call;
 	
-				if(!isset($type->alt_process) or !$type->alt_process):
-				
+				if ( ! isset($type->alt_process) or ! $type->alt_process)
+				{
 					// If a pre_save function exists, go ahead and run it
-					if( method_exists($type, 'pre_save') ):
-					
+					if (method_exists($type, 'pre_save'))
+					{
 						// Special case for data this is not there.
-						if( ! isset($data[$field->field_slug]) ):
-						
+						if ( ! isset($data[$field->field_slug]))
+						{
 							$data[$field->field_slug] = null;
-						
-						endif;
+						}
 					
 						$update_data[$field->field_slug] = $type->pre_save(
 									$data[$field->field_slug],
@@ -1104,23 +1055,25 @@ class Row_m extends MY_Model {
 									$row_id,
 									$data
 						);
-						
-					else:
-					
+					}
+					else
+					{
 						$update_data[$field->field_slug] = $data[$field->field_slug];
 	
 						// Make null - some fields don't like just blank values
-						if($update_data[$field->field_slug] == '') $update_data[$field->field_slug] = NULL;
-
-					endif;
-					
-				else:
-				
+						if ($update_data[$field->field_slug] == '')
+						{
+							$update_data[$field->field_slug] = null;
+						}
+					}
+				}	
+				else
+				{
 					// If this is an alt_process, there can still be a pre_save,
 					// it just won't return anything so we don't have to
 					// save the value
-					if( method_exists($type, 'pre_save') ):
-					
+					if (method_exists($type, 'pre_save'))
+					{
 						$type->pre_save(
 									$data[$field->field_slug],
 									$field,
@@ -1128,14 +1081,10 @@ class Row_m extends MY_Model {
 									$row_id,
 									$data
 						);
-					
-					endif;
-				
-				endif;
-			
-			endif;		
-		
-		endforeach;
+					}
+				}
+			}	
+		}
 
 		// -------------------------------------
 		// Set standard fields
@@ -1149,15 +1098,14 @@ class Row_m extends MY_Model {
 		
 		$this->db->where('id', $row_id);
 		
-		if( !$this->db->update($stream->stream_prefix.$stream->stream_slug, $update_data) ):
-		
-			return FALSE;
-		
-		else:
-		
+		if ( ! $this->db->update($stream->stream_prefix.$stream->stream_slug, $update_data))
+		{
+			return false;
+		}
+		else
+		{
 			return $row_id;
-		
-		endif;
+		}
 	}
 
 	// --------------------------------------------------------------------------
@@ -1182,46 +1130,47 @@ class Row_m extends MY_Model {
 		
 		$alt_process = array();
 			
-		foreach( $fields as $field ):
-		
-			if(!in_array($field->field_slug, $skips) or (in_array($field->field_slug, $skips) and isset($_POST[$field->field_slug])) ):
-		
+		foreach ($fields as $field)
+		{
+			if ( ! in_array($field->field_slug, $skips) or (in_array($field->field_slug, $skips) and isset($_POST[$field->field_slug])))
+			{
 				$type = $this->type->types->{$field->field_type};
 				
-				if(isset($data[$field->field_slug]) and $data[$field->field_slug] != ''):
-				
+				if (isset($data[$field->field_slug]) and $data[$field->field_slug] != '')
+				{
 					// We don't process the alt process stuff.
 					// This is for field types that store data outside of the
 					// actual table
-					if(isset($type->alt_process) and $type->alt_process === TRUE):
-									
+					if (isset($type->alt_process) and $type->alt_process === true)
+					{
 						$alt_process[] = $field->field_slug;
-					
-					else:
-					
-						if( method_exists($type, 'pre_save') ):
-						
-							$data[$field->field_slug] = $type->pre_save($data[$field->field_slug], $field, $stream, NULL, $data);
-						
-						endif;
+					}
+					else
+					{
+						if (method_exists($type, 'pre_save'))
+						{
+							$data[$field->field_slug] = $type->pre_save($data[$field->field_slug], $field, $stream, null, $data);
+						}
 						
 						// Trim if a string
-						if(is_string($data[$field->field_slug])) $data[$field->field_slug] = trim($data[$field->field_slug]);
+						if (is_string($data[$field->field_slug]))
+						{
+							$data[$field->field_slug] = trim($data[$field->field_slug]);
+						}
 						
 						$insert_data[$field->field_slug] = $data[$field->field_slug];
 
 						// Make null - some fields don't like just blank values
-						if($insert_data[$field->field_slug] == '') $insert_data[$field->field_slug] = NULL;
-					
-					endif;
-				
-				endif;
+						if ($insert_data[$field->field_slug] == '')
+						{
+							$insert_data[$field->field_slug] = null;
+						}
+					}
+				}
 				
 				unset($type);
-			
-			endif;
-		
-		endforeach;
+			}
+		}
 
 		// -------------------------------------
 		// Set standard fields
@@ -1236,25 +1185,23 @@ class Row_m extends MY_Model {
 		
 		$db_obj = $this->db->select("MAX(ordering_count) as max_ordering")->get($stream->stream_prefix.$stream->stream_slug);
 		
-		if( $db_obj->num_rows() == 0 || !$db_obj ):
-		
+		if ($db_obj->num_rows() == 0 or !$db_obj)
+		{
 			$ordering = 0;
-		
-		else:
-		
+		}
+		else
+		{
 			$order_row = $db_obj->row();
 			
-			if( !is_numeric($order_row->max_ordering) ):
-			
+			if ( ! is_numeric($order_row->max_ordering))
+			{
 				$ordering = 0;
-			
-			else:
-			
+			}
+			else
+			{
 				$ordering = $order_row->max_ordering;
-			
-			endif;
-		
-		endif;
+			}
+		}
 
 		$insert_data['ordering_count'] 	= $ordering+1;
 
@@ -1262,24 +1209,22 @@ class Row_m extends MY_Model {
 		// Insert data
 		// -------------------------------------
 		
-		if( !$this->db->insert($stream->stream_prefix.$stream->stream_slug, $insert_data) ):
-		
-			return FALSE;
-		
-		else:
-		
+		if ( ! $this->db->insert($stream->stream_prefix.$stream->stream_slug, $insert_data))
+		{
+			return false;
+		}
+		else
+		{
 			$id = $this->db->insert_id();
 			
 			// Process any alt process stuff
-			foreach($alt_process as $field_slug):
-						
+			foreach ($alt_process as $field_slug)
+			{
 				$this->type->types->{$fields->$field_slug->field_type}->pre_save($data[$field_slug], $fields->{$field_slug}, $stream, $id, $data);
-			
-			endforeach;
+			}
 			
 			return $id;
-		
-		endif;
+		}
 	}
 
 	// --------------------------------------------------------------------------
@@ -1304,19 +1249,17 @@ class Row_m extends MY_Model {
 
 		$segments = $this->uri->segment_array();
 		
-		if( isset($segments[count($segments)]) and is_numeric($segments[count($segments)]) ):
-		
+		if (isset($segments[count($segments)]) and is_numeric($segments[count($segments)]))
+		{
 			unset($segments[count($segments)]);
-		
-		endif;
+		}
 		
 		$pag_uri = '';
 		
-		foreach($segments as $segment):
-		
-			$pag_uri .= $segment . '/';
-		
-		endforeach;
+		foreach ($segments as $segment)
+		{
+			$pag_uri .= $segment.'/';
+		}
 		
 		$pagination_config['base_url'] 			= site_url( $pag_uri );
 		
@@ -1356,7 +1299,10 @@ class Row_m extends MY_Model {
 		// Get the row
 		$db_obj = $this->db->limit(1)->where('id', $row_id)->get($stream->stream_prefix.$stream->stream_slug);
 		
-		if( $db_obj->num_rows() == 0 ) return false;
+		if ($db_obj->num_rows() == 0)
+		{
+			return false;
+		}
 		
 		// Get the ordering count
 		$row = $db_obj->row();
@@ -1365,12 +1311,12 @@ class Row_m extends MY_Model {
 		// Delete the actual row
 		$this->db->where('id', $row_id);
 		
-		if( !$this->db->delete($stream->stream_prefix.$stream->stream_slug) ):
-		
-			return FALSE;
-		
-		else:
-		
+		if ( ! $this->db->delete($stream->stream_prefix.$stream->stream_slug))
+		{
+			return false;
+		}
+		else
+		{
 			// -------------------------------------
 			// Entry Destructs
 			// -------------------------------------
@@ -1382,18 +1328,15 @@ class Row_m extends MY_Model {
 			$assignments = $this->fields_m->get_assignments_for_stream($stream->id);
 			
 			// Do they have a destruct function?
-			foreach($assignments as $assign):
-			
-				if(method_exists($this->type->types->{$assign->field_type}, 'entry_destruct')):
-				
+			foreach ($assignments as $assign)
+			{
+				if (method_exists($this->type->types->{$assign->field_type}, 'entry_destruct'))
+				{
 					// Get the field
 					$field = $this->fields_m->get_field($assign->field_id);
-				
 					$this->type->types->{$assign->field_type}->entry_destruct($row, $field, $stream);
-				
-				endif;
-			
-			endforeach;
+				}
+			}
 		
 			// -------------------------------------
 			// Reset reordering
@@ -1406,26 +1349,23 @@ class Row_m extends MY_Model {
 			$this->db->where('ordering_count >', $ordering_count)->select('id, ordering_count');
 			$ord_obj = $this->db->get($stream->stream_prefix.$stream->stream_slug);
 			
-			if( $ord_obj->num_rows() > 0 ):
-			
+			if ($ord_obj->num_rows() > 0)
+			{
 				$rows = $ord_obj->result();
 				
-				foreach( $rows as $update_row ):
-
-					$update_data['ordering_count'] = $update_row->ordering_count - 1;
+				foreach ($rows as $update_row)
+				{
+					$update_data['ordering_count'] = $update_row->ordering_count-1;
 					
 					$this->db->where('id', $update_row->id);
 					$this->db->update($stream->stream_prefix.$stream->stream_slug, $update_data);
 					
 					$update_data = array();
-				
-				endforeach;
+				}
+			}
 			
-			endif;
-			
-			return TRUE;
-		
-		endif;
+			return true;
+		}
 	}
 
 }

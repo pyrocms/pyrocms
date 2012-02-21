@@ -139,6 +139,9 @@ class Admin extends Admin_Controller
 					}
 				}
 	
+				// Fire an event. Theme options have been updated. 
+				Events::trigger('theme_options_updated', $options_array);
+					
 				// Success...
 				$data = array();
 				$data['messages']['success'] = lang('themes.save_success');
@@ -185,6 +188,9 @@ class Admin extends Admin_Controller
 		// Set the theme
 		if ($this->theme_m->set_default($this->input->post()))
 		{
+			// Fire an event. A default theme has been set. 
+			Events::trigger('theme_set_default', $theme);
+				
 			$this->session->set_flashdata('success', sprintf(lang('themes.set_default_success'), $theme));
 		}
 
@@ -282,6 +288,8 @@ class Admin extends Admin_Controller
 		{
 			$deleted = 0;
 			$to_delete = 0;
+			$deleted_names = array();
+			
 			foreach ($name_array as $theme_name)
 			{
 				$theme_name = urldecode($theme_name);
@@ -303,6 +311,7 @@ class Admin extends Admin_Controller
 						if (@rmdir($theme_dir))
 						{
 							$deleted++;
+							$deleted_names[] = $theme_name;
 						}
 					}
 
@@ -315,6 +324,9 @@ class Admin extends Admin_Controller
 
 			if ($deleted == $to_delete)
 			{
+				// Fire an event. One or more themes have been deleted. 
+				Events::trigger('theme_deleted', $deleted_names);
+				
 				$this->session->set_flashdata('success', sprintf(lang('themes.mass_delete_success'), $deleted, $to_delete) );
 			}
 		}

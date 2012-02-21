@@ -70,15 +70,14 @@ class Field_encrypt
 		$options['id']		= $params['form_slug'];
 		$options['value']	= $this->CI->encrypt->decode( $params['value'] );
 		
-		if( $params['custom']['hide_typing'] == 'yes' ):
-		
+		if ($params['custom']['hide_typing'] == 'yes')
+		{
 			return form_password($options);
-		
-		else:
-		
+		}
+		else
+		{
 			return form_input($options);
-		
-		endif;
+		}
 	}
 
 	// --------------------------------------------------------------------------
@@ -94,38 +93,19 @@ class Field_encrypt
 	{
 		$selected = 'yes';
 	
-		if( $params == 'no' ):
-		
+		if ($params == 'no')
+		{
 			$selected = 'no';
+		}
 		
-		endif;
-		
-		if( $selected == 'yes' ):
-		
-			$yes_select = TRUE;
-		
-		else:
-		
-			$yes_select = FALSE;
-		
-		endif;
-
-		if( $selected == 'no' ):
-		
-			$no_select = TRUE;
-		
-		else:
-		
-			$no_select = FALSE;
-		
-		endif;
+		$yes_select 	= ($selected == 'yes') ? true : false;
+		$no_select 		= ($selected == 'no') ? true : false;
 	
 		$form  = '<ul><li><label>'.form_radio('hide_typing', 'yes', $yes_select).' Yes </label></li>';
 		
-		$form .= '<li><label>'.form_radio('hide_typing', 'no', $no_select) . ' No </label></li></ul>';
+		$form .= '<li><label>'.form_radio('hide_typing', 'no', $no_select).' No </label></li></ul>';
 		
 		return $form;
 	}
-}
 
-/* End of file field.encrypt.php */
+}
