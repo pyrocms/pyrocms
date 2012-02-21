@@ -71,6 +71,7 @@ $lang['user_reset_password_link']               = 'Passwort vergessen?';
 
 $lang['user_activation_code_sent_notice']       = 'Sie haben eine Email mit ihren Aktivierungscode erhalten.';
 $lang['user_activation_by_admin_notice']        = 'Ihre Registrierung muss noch von einem Administrator bestätigt werden.';
+$lang['user_registration_disabled']            = 'Sorry, but the user registration is disabled.'; #translate
 
 // -- Settings ---------------------------------------------------------------------------------------------
 

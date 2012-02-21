@@ -71,7 +71,7 @@ $lang['user_reset_password_link']		= 'Ξεχάσατε το συνθηματικ
 
 $lang['user_activation_code_sent_notice']	= 'Έχει σταλλεί ένα email με τον κωδικό ενεργοποίησης του λογαριασμού σας.';
 $lang['user_activation_by_admin_notice']	= 'Η εγγραφή σας αναμένει έγκριση από την διαχείριση.';
-
+$lang['user_registration_disabled']            = 'Sorry, but the user registration is disabled.'; #translate
 // -- Settings ---------------------------------------------------------------------------------------------
 
 $lang['user_details_section']			= 'Όνομα';
