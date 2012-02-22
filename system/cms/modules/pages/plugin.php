@@ -101,11 +101,10 @@ class Plugin_Pages extends Plugin
 		$order_dir		= $this->attribute('order-dir', 'ASC');
 		
 		return $this->db
-			->select('pages.*, page_chunks.body')
+			->select('pages.*')
 			->where('pages.parent_id', $this->attribute('id'))
 			->where('status', 'live')
 			->order_by($order_by, $order_dir)
-			->join('page_chunks', 'pages.id = page_chunks.page_id', 'LEFT')
 			->limit($limit)
 			->get('pages')
 			->result_array();
