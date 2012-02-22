@@ -58,22 +58,18 @@ class Module_Permissions extends Module {
 	public function install()
 	{
 		$this->dbforge->drop_table('permissions');
-		
-		$permission_rules = "
-			CREATE TABLE " . $this->db->dbprefix('permissions') . " (
-			  `id` int(11) NOT NULL AUTO_INCREMENT,
-			  `group_id` int(11) NOT NULL,
-			  `module` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-			  `roles` text NULL,
-			  PRIMARY KEY (`id`),
-			  INDEX `group_id` (`group_id`)
-			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Contains a list of modules that a group can access.';
-		";
-		
-		if ($this->db->query($permission_rules))
-		{
-			return TRUE;
-		}
+
+		$tables = array(
+			'permissions' => array(
+				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
+				'group_id' => array('type' => 'INT', 'constraint' => 11, 'key' => true),
+				'to' => array('type' => 'VARCHAR', 'constraint' => 50,),
+				'roles' => array('type' => 'TEXT', 'null' => true,),
+			),
+		);
+
+		$this->install_tables($tables);
+		return TRUE;
 	}
 
 	public function uninstall()
