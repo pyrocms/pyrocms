@@ -59,52 +59,296 @@ class Module_Settings extends Module {
 	public function install()
 	{
 		$this->dbforge->drop_table('settings');
+		$tables = array(	
+			'settings' => array(
+				'slug' => array('type' => 'VARCHAR', 'constraint' => 30, 'primary' => true, 'unique' => true, 'key' => 'index_slug'),
+				'title' => array('type' => 'VARCHAR', 'constraint' => 100,),
+				'description' => array('type' => 'TEXT',),
+				'type' => array('type' => 'set',  'constraint' => array('text','textarea','password','select','select-multiple','radio','checkbox'),),
+				'default' => array('type' => 'TEXT',),
+				'value' => array('type' => 'TEXT',),
+				'options' => array('type' => 'VARCHAR', 'constraint' => 255,),
+				'is_required' => array('type' => 'INT', 'constraint' => 1, 'default' => 1,),
+				'is_gui' => array('type' => 'INT', 'constraint' => 1, 'default' => 1,),
+				'module' => array('type' => 'VARCHAR', 'constraint' => 50,),
+				'order' => array('type' => 'INT', 'constraint' => 10, 'default' => 0,),
+			),
+		);
 
-		$this->db->query("
-			CREATE TABLE " . $this->db->dbprefix('settings') . " (
-			  `slug` varchar(30) collate utf8_unicode_ci NOT NULL,
-			  `title` varchar(100) collate utf8_unicode_ci NOT NULL,
-			  `description` text collate utf8_unicode_ci NOT NULL,
-			  `type` set('text','textarea','password','select','select-multiple','radio','checkbox') collate utf8_unicode_ci NOT NULL,
-			  `default` text COLLATE utf8_unicode_ci NOT NULL,
-			  `value` text COLLATE utf8_unicode_ci NOT NULL,
-			  `options` varchar(255) collate utf8_unicode_ci NOT NULL,
-			  `is_required` tinyint(1) NOT NULL,
-			  `is_gui` tinyint(1) NOT NULL,
-			  `module` varchar(50) collate utf8_unicode_ci NOT NULL,
-			  `order` int(5) NOT NULL DEFAULT 0,
-			PRIMARY KEY  (`slug`),
-			UNIQUE KEY `unique - slug` (`slug`),
-			KEY `index - slug` (`slug`)
-			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Stores all sorts of settings for the admin to change';
-		");
+		$this->install_tables($tables);
+		
 
+		$settings = array(
+			'site_name' => array(
+				'title' => 'Site Name',
+				'description' => 'The name of the website for page titles and for use around the site.',
+				'type' => 'text',
+				'default' => 'Un-named Website',
+				'value' => '',
+				'options' => '',
+				'is_required' => 1,
+				'is_gui' => 1,
+				'module' => '',
+				'order' => 1000
+			),
+			'site_slogan' => array(
+				'title' => 'Site Slogan',
+				'description' => 'The slogan of the website for page titles and for use around the site',
+				'type' => 'text',
+				'default' => '',
+				'value' => 'Add your slogan here',
+				'options' => '',
+				'is_required' => 0,
+				'is_gui' => 1,
+				'module' => '',
+				'order' => 999
+			),
+			'meta_topic' => array(
+				'title' => 'Meta Topic',
+				'description' => 'Two or three words describing this type of company/website.',
+				'type' => 'text',
+				'default' => 'Content Management',
+				'value' => 'Add your slogan here',
+				'options' => '',
+				'is_required' => 0,
+				'is_gui' => 1,
+				'module' => '',
+				'order' => 998
+			),
+			'site_lang' => array(
+				'title' => 'Site Language',
+				'description' => 'The native language of the website, used to choose templates of e-mail notifications, contact form, and other features that should not depend on the language of a user.',
+				'type' => 'select',
+				'default' => '"'.DEFAULT_LANG.'"',
+				'value' => '"'.DEFAULT_LANG.'"',
+				'options' => 'func:get_supported_lang',
+				'is_required' => 1,
+				'is_gui' => 1,
+				'module' => '',
+				'order' => 997
+			),
+			'site_public_lang' => array(
+				'title' => 'Public Languages',
+				'description' => 'Which are the languages really supported and offered on the front-end of your website?',
+				'type' => 'checkbox',
+				'default' => '"'.DEFAULT_LANG.'"',
+				'value' => '"'.DEFAULT_LANG.'"',
+				'options' => 'func:get_supported_lang',
+				'is_required' => 1,
+				'is_gui' => 1,
+				'module' => '',
+				'order' => 996
+			),
+			'date_format' => array(
+				'title' => 'Date Format',
+				'description' => 'How should dates be displayed across the website and control panel? Using the <a target=\"_blank\" href=\"http://php.net/manual/en/function.date.php\">date format</a> from PHP - OR - Using the format of <a target=\"_blank\" href=\"http://php.net/manual/en/function.strftime.php\">strings formatted as date</a> from PHP.',
+				'type' => 'text',
+				'default' => 'Y-m-d',
+				'value' => '',
+				'options' => '',
+				'is_required' => 1,
+				'is_gui' => 1,
+				'module' => '',
+				'order' => 995
+			),
+			'currency' => array(
+				'title' => 'Currency',
+				'description' => 'The currency symbol for use on products, services, etc.',
+				'type' => 'text',
+				'default' => '&pound;',
+				'value' => '',
+				'options' => '',
+				'is_required' => 1,
+				'is_gui' => 1,
+				'module' => '',
+				'order' => 994
+			),
+			'ckeditor_config' => array(
+				'title' => 'CKEditor Config',
+				'description' => 'You can find a list of valid configuration items in <a target=\"_blank\" href=\"http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.config.html\">CKEditor\'s documentation.</a>',
+				'type' => 'textarea',
+				'default' => '',
+				'value' => "{{# this is the config for all wysiwyg-simple textareas #}}\n$(''textarea.wysiwyg-simple'').ckeditor({\n	toolbar: [\n		[''Bold'', ''Italic'', ''-'', ''NumberedList'', ''BulletedList'', ''-'', ''Link'', ''Unlink'']\n	  ],\n	width: ''99%'',\n	height: 100,\n	dialog_backgroundCoverColor: ''#000'',\n	defaultLanguage: ''{{ helper:config item=\"default_language\" }}'',\n	language: ''{{ global:current_language }}''\n});\n\n{{# this is a wysiwyg-simple editor customized for the blog module (it allows images to be inserted) #}}\n$(''textarea.blog.wysiwyg-simple'').ckeditor({\n	toolbar: [\n		[''pyroimages''],\n		[''Bold'', ''Italic'', ''-'', ''NumberedList'', ''BulletedList'', ''-'', ''Link'', ''Unlink'']\n	  ],\n	extraPlugins: ''pyroimages'',\n	width: ''99%'',\n	height: 100,\n	dialog_backgroundCoverColor: ''#000'',\n	defaultLanguage: ''{{ helper:config item=\"default_language\" }}'',\n	language: ''{{ global:current_language }}''\n});\n\n{{# and this is the advanced editor #}}\n$(''textarea.wysiwyg-advanced'').ckeditor({\n	toolbar: [\n		[''Maximize''],\n		[''pyroimages'', ''pyrofiles''],\n		[''Cut'',''Copy'',''Paste'',''PasteFromWord''],\n		[''Undo'',''Redo'',''-'',''Find'',''Replace''],\n		[''Link'',''Unlink''],\n		[''Table'',''HorizontalRule'',''SpecialChar''],\n		[''Bold'',''Italic'',''StrikeThrough''],\n		[''JustifyLeft'',''JustifyCenter'',''JustifyRight'',''JustifyBlock'',''-'',''BidiLtr'',''BidiRtl''],\n		[''Format'', ''FontSize'', ''Subscript'',''Superscript'', ''NumberedList'',''BulletedList'',''Outdent'',''Indent'',''Blockquote''],\n		[''ShowBlocks'', ''RemoveFormat'', ''Source'']\n	],\n	extraPlugins: ''pyroimages,pyrofiles'',\n	width: ''99%'',\n	height: 400,\n	dialog_backgroundCoverColor: ''#000'',\n	removePlugins: ''elementspath'',\n	defaultLanguage: ''{{ helper:config item=\"default_language\" }}'',\n	language: ''{{ global:current_language }}''\n});",
+				'options' => '',
+				'is_required' => 1,
+				'is_gui' => 1,
+				'module' => 'wysiwyg',
+				'order' => 993
+			),
+			'records_per_page' => array(
+				'title' => 'Records Per Page',
+				'description' => 'How many records should we show per page in the admin section?',
+				'type' => 'select',
+				'default' => '25',
+				'value' => '',
+				'options' => '10=10|25=25|50=50|100=100',
+				'is_required' => 1,
+				'is_gui' => 1,
+				'module' => '',
+				'order' => 993
+			),
+			'rss_feed_items' => array(
+				'title' => 'Feed item count',
+				'description' => 'How many items should we show in RSS/blog feeds?',
+				'type' => 'select',
+				'default' => '25',
+				'value' => '',
+				'options' => '10=10|25=25|50=50|100=100',
+				'is_required' => 1,
+				'is_gui' => 1,
+				'module' => '',
+				'order' => 992
+			),
+			'dashboard_rss' => array(
+				'title' => 'Dashboard RSS Feed',
+				'description' => 'Link to an RSS feed that will be displayed on the dashboard.',
+				'type' => 'text',
+				'default' => 'http://feeds.feedburner.com/pyrocms-installed',
+				'value' => '',
+				'options' => '10=10|25=25|50=50|100=100',
+				'is_required' => 0,
+				'is_gui' => 1,
+				'module' => '',
+				'order' => 991
+			),
+			'dashboard_rss_count' => array(
+				'title' => 'Dashboard RSS Items',
+				'description' => 'How many RSS items would you like to display on the dashboard?',
+				'type' => 'text',
+				'default' => '5',
+				'value' => '5',
+				'options' => '10=10|25=25|50=50|100=100',
+				'is_required' => 1,
+				'is_gui' => 1,
+				'module' => '',
+				'order' => 990
+			),
+			'frontend_enabled' => array(
+				'title' => 'Site Status',
+				'description' => 'Use this option to the user-facing part of the site on or off. Useful when you want to take the site down for maintenance.',
+				'type' => 'radio',
+				'default' => '1',
+				'value' => '',
+				'options' => '1=Open|0=Closed',
+				'is_required' => 1,
+				'is_gui' => 1,
+				'module' => '',
+				'order' => 989
+			),
+			'unavailable_message' => array(
+				'title' => 'Unavailable Message',
+				'description' => 'When the site is turned off or there is a major problem, this message will show to users.',
+				'type' => 'textarea',
+				'default' => 'Sorry, this website is currently unavailable.',
+				'value' => '',
+				'options' => '1=Open|0=Closed',
+				'is_required' => 0,
+				'is_gui' => 1,
+				'module' => '',
+				'order' => 988
+			),
+			'files_cache' => array(
+				'title' => 'Files Cache',
+				'description' => 'When outputting an image via site.com/files what shall we set the cache expiration for?',
+				'type' => 'select',
+				'default' => '480',
+				'value' => '480',
+				'options' => '0=no-cache|1=1-minute|60=1-hour|180=3-hour|480=8-hour|1440=1-day|43200=30-days',
+				'is_required' => 1,
+				'is_gui' => 1,
+				'module' => 'files',
+				'order' => 987
+			),
+			'ga_tracking' => array(
+				'title' => 'Google Tracking Code',
+				'description' => 'Enter your Google Analytic Tracking Code to activate Google Analytics view data capturing. E.g: UA-19483569-6',
+				'type' => 'text',
+				'default' => '',
+				'value' => '',
+				'options' => '',
+				'is_required' => 0,
+				'is_gui' => 1,
+				'module' => 'integration',
+				'order' => 986
+			),
+			'ga_profile' => array(
+				'title' => 'Google Analytic Profile ID',
+				'description' => 'Profile ID for this website in Google Analytics',
+				'type' => 'text',
+				'default' => '',
+				'value' => '',
+				'options' => '',
+				'is_required' => 0,
+				'is_gui' => 1,
+				'module' => 'integration',
+				'order' => 985
+			),
+			'ga_email' => array(
+				'title' => 'Google Analytic E-mail',
+				'description' => 'E-mail address used for Google Analytics, we need this to show the graph on the dashboard.',
+				'type' => 'text',
+				'default' => '',
+				'value' => '',
+				'options' => '',
+				'is_required' => 0,
+				'is_gui' => 1,
+				'module' => 'integration',
+				'order' => 984
+			),
+			'ga_password' => array(
+				'title' => 'Google Analytic Password',
+				'description' => 'This is also needed this to show the graph on the dashboard.',
+				'type' => 'text',
+				'default' => '',
+				'value' => '',
+				'options' => '',
+				'is_required' => 0,
+				'is_gui' => 1,
+				'module' => 'integration',
+				'order' => 983
+			),
+			'akismet_api_key' => array(
+				'title' => 'Akismet API Key',
+				'description' => 'Akismet is a spam-blocker from the WordPress team. It keeps spam under control without forcing users to get past human-checking CAPTCHA forms.',
+				'type' => 'text',
+				'default' => '',
+				'value' => '',
+				'options' => '',
+				'is_required' => 0,
+				'is_gui' => 1,
+				'module' => 'integration',
+				'order' => 982
+			),
+			'contact_email' => array(
+				'title' => 'Contact E-mail',
+				'description' => 'All e-mails from users, guests and the site will go to this e-mail address.',
+				'type' => 'text',
+				'default' => '"'.DEFAULT_EMAIL.'"',
+				'value' => '',
+				'options' => '',
+				'is_required' => 1,
+				'is_gui' => 1,
+				'module' => 'email', // @todo Check this, there is no such module, or is there?
+				'order' => 981
+			),
+		);
+		
+		
+		// Lets add the settings for this module.
+		$this->load->library('settings/settings');
+		
+		foreach ($settings as $slug=>$setting_info)
+		{
+			$setting_info['slug'] = $slug;
+			$this->settings->add($setting_info);
+		}
+		
+		
 		// regarding ordering... any additions to this table can have an order value the same as a sibling in the same section.
 		// for example if you add to the Email tab give it a value in the range of 983 to 975
 		// Third-party modules should use lower numbers or 0
 		$default_settings = "
 			INSERT INTO " . $this->db->dbprefix('settings') . " (`slug`, `title`, `description`, `type`, `default`, `value`, `options`, `is_required`, `is_gui`, `module`, `order`) VALUES
-			 ('site_name','Site Name','The name of the website for page titles and for use around the site.','text','Un-named Website','','','1','1','','1000'),
-			 ('site_slogan','Site Slogan','The slogan of the website for page titles and for use around the site.','text','','Add your slogan here','','0','1','','999'),
-			 ('meta_topic','Meta Topic','Two or three words describing this type of company/website.','text','Content Management','','','0','1','','998'),
-			 ('site_lang','Site Language','The native language of the website, used to choose templates of e-mail notifications, contact form, and other features that should not depend on the language of a user.','select','".DEFAULT_LANG."','".DEFAULT_LANG."','func:get_supported_lang','1','1','','997'),
-			 ('site_public_lang', 'Public Languages', 'Which are the languages really supported and offered on the front-end of your website?', 'checkbox', '".DEFAULT_LANG."', '".DEFAULT_LANG."', 'func:get_supported_lang', '1', '1', '', '996'),
-			 ('date_format', 'Date Format', 'How should dates be displayed across the website and control panel? Using the <a target=\"_blank\" href=\"http://php.net/manual/en/function.date.php\">date format</a> from PHP - OR - Using the format of <a target=\"_blank\" href=\"http://php.net/manual/en/function.strftime.php\">strings formatted as date</a> from PHP.', 'text', 'Y-m-d', '', '', 1, 1, '','996'),
-			 ('currency','Currency','The currency symbol for use on products, services, etc.','text','&pound;','','','1','1','','995'),
-			 ('ckeditor_config', 'CKEditor Config', 'You can find a list of valid configuration items in <a target=\"_blank\" href=\"http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.config.html\">CKEditor\'s documentation.</a>', 'textarea', '', '{{# this is the config for all wysiwyg-simple textareas #}}\n$(''textarea.wysiwyg-simple'').ckeditor({\n	toolbar: [\n		[''Bold'', ''Italic'', ''-'', ''NumberedList'', ''BulletedList'', ''-'', ''Link'', ''Unlink'']\n	  ],\n	width: ''99%'',\n	height: 100,\n	dialog_backgroundCoverColor: ''#000'',\n	defaultLanguage: ''{{ helper:config item=\"default_language\" }}'',\n	language: ''{{ global:current_language }}''\n});\n\n{{# this is a wysiwyg-simple editor customized for the blog module (it allows images to be inserted) #}}\n$(''textarea.blog.wysiwyg-simple'').ckeditor({\n	toolbar: [\n		[''pyroimages''],\n		[''Bold'', ''Italic'', ''-'', ''NumberedList'', ''BulletedList'', ''-'', ''Link'', ''Unlink'']\n	  ],\n	extraPlugins: ''pyroimages'',\n	width: ''99%'',\n	height: 100,\n	dialog_backgroundCoverColor: ''#000'',\n	defaultLanguage: ''{{ helper:config item=\"default_language\" }}'',\n	language: ''{{ global:current_language }}''\n});\n\n{{# and this is the advanced editor #}}\n$(''textarea.wysiwyg-advanced'').ckeditor({\n	toolbar: [\n		[''Maximize''],\n		[''pyroimages'', ''pyrofiles''],\n		[''Cut'',''Copy'',''Paste'',''PasteFromWord''],\n		[''Undo'',''Redo'',''-'',''Find'',''Replace''],\n		[''Link'',''Unlink''],\n		[''Table'',''HorizontalRule'',''SpecialChar''],\n		[''Bold'',''Italic'',''StrikeThrough''],\n		[''JustifyLeft'',''JustifyCenter'',''JustifyRight'',''JustifyBlock'',''-'',''BidiLtr'',''BidiRtl''],\n		[''Format'', ''FontSize'', ''Subscript'',''Superscript'', ''NumberedList'',''BulletedList'',''Outdent'',''Indent'',''Blockquote''],\n		[''ShowBlocks'', ''RemoveFormat'', ''Source'']\n	],\n	extraPlugins: ''pyroimages,pyrofiles'',\n	width: ''99%'',\n	height: 400,\n	dialog_backgroundCoverColor: ''#000'',\n	removePlugins: ''elementspath'',\n	defaultLanguage: ''{{ helper:config item=\"default_language\" }}'',\n	language: ''{{ global:current_language }}''\n});', '', 1, 1, 'CKEditor', 994),
-			 ('records_per_page','Records Per Page','How many records should we show per page in the admin section?','select','25','','10=10|25=25|50=50|100=100','1','1','','994'),
-			 ('rss_feed_items','Feed item count','How many items should we show in RSS/blog feeds?','select','25','','10=10|25=25|50=50|100=100','1','1','','993'),
-			 ('dashboard_rss', 'Dashboard RSS Feed', 'Link to an RSS feed that will be displayed on the dashboard.', 'text', 'http://feeds.feedburner.com/pyrocms-installed', '', '', 0, 1, '','992'),
-			 ('dashboard_rss_count', 'Dashboard RSS Items', 'How many RSS items would you like to display on the dashboard ? ', 'text', '5', '5', '', 1, 1, '','991'),
-			 ('frontend_enabled','Site Status','Use this option to the user-facing part of the site on or off. Useful when you want to take the site down for maintenence','radio','1','','1=Open|0=Closed','1','1','','990'),
-			 ('unavailable_message','Unavailable Message','When the site is turned off or there is a major problem, this message will show to users.','textarea','Sorry, this website is currently unavailable.','','','0','1','','989'),
-			 ('files_cache', 'Files Cache', 'When outputting an image via site.com/files what shall we set the cache expiration for?', 'select', '480', '480', '0=no-cache|1=1-minute|60=1-hour|180=3-hour|480=8-hour|1440=1-day|43200=30-days', '1', '1', 'files', '989'),
-			 ('ga_tracking','Google Tracking Code','Enter your Google Analytic Tracking Code to activate Google Analytics view data capturing. E.g: UA-19483569-6','text','','','','0','1','integration','988'),
-			 ('ga_profile','Google Analytic Profile ID','Profile ID for this website in Google Analytics.','text','','','','0','1','integration','987'),
-			 ('ga_email','Google Analytic E-mail','E-mail address used for Google Analytics, we need this to show the graph on the dashboard.','text','','','','0','1','integration','986'),
-			 ('ga_password','Google Analytic Password','Google Analytics password. This is also needed this to show the graph on the dashboard.','password','','','','0','1','integration','985'),
-			 ('akismet_api_key', 'Akismet API Key', 'Akismet is a spam-blocker from the WordPress team. It keeps spam under control without forcing users to get past human-checking CAPTCHA forms.', 'text', '', '', '', 0, '1', 'integration','984'),
-			 ('contact_email','Contact E-mail','All e-mails from users, guests and the site will go to this e-mail address.','text','".DEFAULT_EMAIL."','','','1','1','email','983'),
 			 ('server_email','Server E-mail','All e-mails to users will come from this e-mail address.','text','admin@localhost','','','1','1','email','981'),
 			 ('mail_protocol', 'Mail Protocol', 'Select desired email protocol.', 'select', 'mail', 'mail', 'mail=Mail|sendmail=Sendmail|smtp=SMTP', '1', '1', 'email','980'),
 			 ('mail_smtp_host', 'SMTP Host Name', 'The host name of your smtp server.', 'text', '', '', '', '0', '1', 'email','979'),
