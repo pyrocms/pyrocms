@@ -182,7 +182,7 @@ class Files
 	{
 		$folder = ci()->file_folders_m->get($id);
 
-		if ( ! $files = ci()->file_m->get_by('folder_id', $id))
+		if ( ! $files = ci()->file_m->get_by('folder_id', $id) AND ! ci()->file_folders_m->get_by('parent_id', $id))
 		{
 			ci()->file_folders_m->delete($id);
 

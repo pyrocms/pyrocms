@@ -107,6 +107,7 @@ jQuery(function($){
 			break;
 
 			case 'delete':
+				if ( ! confirm(pyro.lang.dialog_message)) return;
 				pyro.files.delete_folder(pyro.files.current_level);
 			break;
 		}
@@ -344,7 +345,7 @@ jQuery(function($){
 
 						// if it's an image then we set the thumbnail as the content
 						if (item.type && item.type == 'i') {
-							var li_content = '<img src="'+SITE_URL+'files/thumb/'+item.id+'/64/64" alt="'+item.name+'"/>';
+							var li_content = '<img src="'+SITE_URL+'files/thumb/'+item.id+'/75/55/fill" alt="'+item.name+'"/>';
 						} else {
 							var li_content = '<span class="'+type+'-text">'+item.name+'</span>'
 						}

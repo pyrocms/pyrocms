@@ -123,7 +123,7 @@ class Field_image
 		$this->CI->load->config('files/files');
 
 		// Set upload data
-		$upload_config['upload_path'] 		= FCPATH . $this->CI->config->item('files_folder') . '/';
+		$upload_config['upload_path'] 		= FCPATH . $this->CI->config->item('files:path') . '/';
 		
 		// Set allowed types to all if there is none
 		if(trim($field->field_data['allowed_types']) == ''):
@@ -164,7 +164,7 @@ class Field_image
 			// No matter what, we make a thumb
 			// -------------------------------------
 					
-			$img_config['source_image']		= FCPATH.$this->CI->config->item('files_folder').$image['file_name'];
+			$img_config['source_image']		= FCPATH.$this->CI->config->item('files:path').$image['file_name'];
 			$img_config['create_thumb'] 	= TRUE;
 			$img_config['maintain_ratio'] 	= TRUE;
 			$img_config['height']	 		= 1;
@@ -197,7 +197,7 @@ class Field_image
 			
 			if( is_numeric($field->field_data['resize_width']) ):
 			
-				$img_config['source_image']		= FCPATH . $this->CI->config->item('files_folder').$image['file_name'];
+				$img_config['source_image']		= FCPATH . $this->CI->config->item('files:path').$image['file_name'];
 				$img_config['quality']			= '100%';
 				$img_config['create_thumb'] 	= FALSE;
 				$img_config['maintain_ratio'] 	= TRUE;
@@ -320,7 +320,7 @@ class Field_image
 		
 			$image = $db_obj->row();
 			
-			$full = $this->CI->config->item('files_folder') . '/' . $image->name;
+			$full = $this->CI->config->item('files:path') . '/' . $image->name;
 		
 			$image_data['filename']		= $image->name;
 			$image_data['image']		= base_url().$full;
@@ -331,13 +331,13 @@ class Field_image
 			$image_data['height']		= $image->height;
 
 			//If there is a thumb, add it.
-			$path 			= FCPATH . $this->CI->config->item('files_folder');
+			$path 			= FCPATH . $this->CI->config->item('files:path');
 			$plain_name 	= str_replace($image->extension, '', $image->filename);
 			
 			if( file_exists( $path . '/'.$plain_name.'_thumb'.$image->extension ) ):
 			
-				$image_data['thumb']		= base_url().$this->CI->config->item('files_folder') . '/' . $plain_name.'_thumb' . $image->extension;
-				$image_data['thumb_img']	= img( array('alt'=>$image->name, 'src'=> $this->CI->config->item('files_folder') . '/' . $plain_name.'_thumb' . $image->extension) );
+				$image_data['thumb']		= base_url().$this->CI->config->item('files:path') . '/' . $plain_name.'_thumb' . $image->extension;
+				$image_data['thumb_img']	= img( array('alt'=>$image->name, 'src'=> $this->CI->config->item('files:path') . '/' . $plain_name.'_thumb' . $image->extension) );
 				
 			else:
 			
@@ -386,7 +386,7 @@ class Field_image
 	
 		$this->CI->load->helper('html');
 
-		$path 			= FCPATH . $this->CI->config->item('files_folder');
+		$path 			= FCPATH . $this->CI->config->item('files:path');
 		$plain_name 	= str_replace($image->extension, '', $image->filename);
 	
 		$image_config = array(
@@ -398,13 +398,13 @@ class Field_image
 	
 			$use_link = TRUE;
 		
-			$image_config['src']	= $this->CI->config->item('files_folder').'/'.$plain_name.'_thumb'.$image->extension;
+			$image_config['src']	= $this->CI->config->item('files:path').'/'.$plain_name.'_thumb'.$image->extension;
 					
 		elseif( file_exists( $path . '/'.$image->name ) ):
 		
 			$use_link = FALSE;
 
-			$image_config['src']	= $this->CI->config->item('files_folder').'/'.$image->name;
+			$image_config['src']	= $this->CI->config->item('files:path').'/'.$image->name;
 			
 		else:
 		
@@ -412,7 +412,7 @@ class Field_image
 		
 		if( $use_link ):
 		
-			return '<a href="'.$this->CI->config->item('files_folder').$image->name.'" target="_blank">'.img( $image_config ).'</a>'.br();
+			return '<a href="'.$this->CI->config->item('files:path').$image->name.'" target="_blank">'.img( $image_config ).'</a>'.br();
 		
 		else:
 		

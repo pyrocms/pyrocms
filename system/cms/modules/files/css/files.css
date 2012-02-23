@@ -24,6 +24,7 @@
 .folders-right .file.type-d { background: url(../img/d.png) no-repeat; }
 .folders-right .file.type-o { background: url(../img/o.png) no-repeat; }
 .folders-right .file.type-v { background: url(../img/v.png) no-repeat; }
+.folders-right .file.type-i img { padding: 20px 15px 0 15px; }
 
 .console { height: 450px; border-left: 1px solid #d8d8d8; }
 .console .console-title { margin-left: 15px; margin-bottom: 10px; font-size: 14px; font-weight: bold; font-style: italic; border: none; }

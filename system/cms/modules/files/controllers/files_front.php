@@ -15,7 +15,7 @@ class Files_front extends Public_Controller
 		parent::__construct();
 		
 		$this->config->load('files');
-		$this->_path = FCPATH . $this->config->item('files_folder') . DIRECTORY_SEPARATOR;
+		$this->_path = FCPATH . $this->config->item('files:path') . DIRECTORY_SEPARATOR;
 	}
 	
 	public function download($id = 0)
