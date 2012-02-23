@@ -1,36 +1,19 @@
-<!DOCTYPE html>
-<html>
-<head>
-	{{ theme:partial name="metadata" }}
-</head>
-<body id="top">
+{{ theme:partial name="header" }}
+	
+	<!-- slider -->
+	{{ if { url:segments segment="1" } == '' AND theme:options:slider == 'yes' }}
+		{{ theme:partial name="slider" }}
+	{{ endif }}
+	<!-- /slider -->
+	
+	<!-- slogan -->
+	{{ if { url:segments segment="1" } == '' AND theme:options:slogan == 'yes' }}
+		{{ theme:options:slogan }}
+	{{ endif }}
+	<!-- content -->
+	<section id="content">
+		{{ template:body }}
+	</section>
+	<!-- /content -->
 
-	<!-- Begin pageWrapper -->
-	<div id="pageWrapper">
-		{{ integration:analytics }}
-
-		{{ theme:partial name="header" }}
-
-		<!-- Begin nav -->
-		<nav>
-			<ul id="head-nav">
-			{{ navigation:links group="header" }}
-			</ul>
-		</nav>
-		<!-- End nav -->
-
-		<!-- Begin contentWrapper -->
-		<div id="contentWrapper">
-
-			{{ theme:partial name="content" }}
-
-		</div>
-		<!-- End contentWrapper -->
-
-	{{ theme:partial name="footer" }}
-
-	</div>
-	<!-- End pageWrapper -->
-
-</body>
-</html>
+{{ theme:partial name="footer" }}

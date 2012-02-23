@@ -1,56 +1,118 @@
-<!-- Begin header -->
-<header>
-	<!-- Begin logo -->
-	<div id="logo">
-		<h1><a href="{{ url:site  }}" title="Home">{{ settings:site_name }}</a></h1>
-		<h2 class="slogan">{{ settings:site_slogan }}</h2>
-	</div>
-	<!-- End logo -->
+<!doctype html>
 
-	<!-- Begin user meta -->
-	<div id="user-meta">
-	{{ if user:logged_in }}
-		<div class="avatar-name">
-		{{ if settings:enable_profiles }}
-			<a href="{{ url:site uri='my-profile' }}">{{ helper:gravatar email=user:email size="16" }} {{ user:display_name }}</a>
-		{{ else }}
-			{{ helper:gravatar email=user:email size="20" }} {{ user:display_name }}
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if gt IE 8]> <html class="no-js" lang="en"> 		   <![endif]-->
+
+<head>
+	<meta charset="utf-8">
+
+  	<!-- You can use .htaccess and remove these lines to avoid edge case issues. -->
+  	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  	<title>{{ settings:site_name }} &raquo; {{ template:title }}</title>
+
+  	<meta name="author" content="Scott Parry - iKreativ">
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+
+  	<!-- Mobile viewport optimized -->
+  	<meta name="viewport" content="width=device-width,initial-scale=1">
+	
+	<!-- Set a base location for assets -->
+	<base href="{{ url:base }}"/>
+	<!-- End base -->
+
+  	<!-- CSS. No need to specify the media attribute unless specifically targeting a media type, leaving blank implies media=all -->
+  	{{ theme:css file="plugins.css" }}
+	{{ theme:css file="workless.css" }}
+  	<!-- End CSS-->
+
+	<!-- Googlelicious -->
+	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Droid+Sans:regular,bold" type="text/css" />
+	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Droid+Serif:regular,bold" type="text/css" />
+
+	<!-- Load up some favicons -->
+  	{{ theme:favicon }}
+  	{{ theme:favicon file="apple-touch-icon.png" rel="apple-touch-icon" }}
+  	{{ theme:favicon file="apple-touch-icon-precomposed.png" rel="apple-touch-icon" }}
+  	{{ theme:favicon file="apple-touch-icon-57x57-precomposed.png" rel="apple-touch-icon" }}
+  	{{ theme:favicon file="apple-touch-icon-72x72-precomposed.png" rel="apple-touch-icon" }}
+  	{{ theme:favicon file="apple-touch-icon-114x114-precomposed.png" rel="apple-touch-icon" }}
+
+  	<!-- All JavaScript at the bottom, except for Modernizr. -->
+  	{{ theme:js file="libs/modernizr.js" }}
+
+	<!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+	<script>window.jQuery || document.write('{{ theme:path }}libs/jquery.js')</script>
+	
+	{{ template:metadata }}
+	
+	<!-- Google Analytics -->
+	{{ integration:analytics }}
+	
+	<!-- Add some theme option variables for styling -->
+	<style type="text/css">
+		/* Background */
+		{{ if theme:options:background == 'black' }}
+			body { background: url({{ theme:path }}/img/bg_black.jpg) fixed repeat; }
+		{{ elseif theme:options:background == 'fabric' }}
+			body { background: url({{ theme:path }}/img/bg_fabric.jpg) fixed repeat; }
+		{{ elseif theme:options:background == 'graph' }}
+			body { background: url({{ theme:path }}/img/bg_graph.jpg) fixed repeat; }
+		{{ elseif theme:options:background == 'leather' }}
+			body { background: url({{ theme:path }}/img/bg_leather.jpg) fixed repeat; }
+		{{ elseif theme:options:background == 'noise' }}
+			body { background: url({{ theme:path }}/img/bg_noise.jpg) fixed repeat; }
+		{{ elseif theme:options:background == 'texture' }}
+			body { background: url({{ theme:path }}/img/bg_texture.jpg) fixed repeat; }
+		{{ elseif theme:options:background == 'fabric' }}
+			body { background: url({{ theme:path }}/img/bg_fabric.jpg) fixed repeat; }
 		{{ endif }}
-		</div>
-
-		{{ if settings:enable_profiles }}
-		<span class="nav-splitter">&nbsp;&bull;&nbsp;</span>
-		<a href="{{ url:site uri='edit-profile' }}">{{ helper:lang line="edit_profile_label" }}</a>
+		/* Colors */
+		{{ if theme:options:color == 'red' }}
+			.pagination ul li a:hover, .pagination ul li.active a, nav#primary ul li.current { background:#ff0000; }
+			a:hover, .single_post h5 small a:hover, nav#primary ul li a:hover { color:#ff0000; }
+		{{ elseif theme:options:color == 'orange' }}
+			.pagination ul li a:hover, .pagination ul li.active a, nav#primary ul li.current { background:#EF770E; }
+			a:hover, .single_post h5 small a:hover, nav#primary ul li a:hover { color:#EF770E; }
+		{{ elseif theme:options:color == 'yellow' }}
+			.pagination ul li a:hover, .pagination ul li.active a, nav#primary ul li.current { background:#EDBB1C; }
+			a:hover, .single_post h5 small a:hover, nav#primary ul li a:hover { color:#EDBB1C; }
+		{{ elseif theme:options:color == 'green' }}
+			.pagination ul li a:hover, .pagination ul li.active a, nav#primary ul li.current { background:#bada55; }
+			a:hover, .single_post h5 small a:hover, nav#primary ul li a:hover { color:#bada55; }
+		{{ elseif theme:options:color == 'blue' }}
+		 	.pagination ul li a:hover, .pagination ul li.active a, nav#primary ul li.current { background:#0087C2; }
+			a:hover, .single_post h5 small a:hover, nav#primary ul li a:hover { color:#0087C2; }
+		{{ elseif theme:options:color == 'pink' }}
+			.pagination ul li a:hover, .pagination ul li.active a, nav#primary ul li.current { background:#DD1251; }
+			a:hover, .single_post h5 small a:hover, nav#primary ul li a:hover { color:#DD1251; }
 		{{ endif }}
+	</style>
+</head>
 
-		{{ if user:has_cp_permissions }}
-		<span class="nav-splitter">&nbsp;&bull;&nbsp;</span>
-		<a href="{{ url:site uri='admin' }}" target="_blank">{{ helper:lang line="global:control-panel" }}</a>
-		{{ endif }}
+<body class="{{ url:segments segment="1" default="home" }}" onload="prettyPrint()">
+	
+	<!-- container -->
+	<div class="container">	
 
-		<span class="nav-splitter">&nbsp;&bull;&nbsp;</span>
-		<a href="{{ url:site uri='users/logout' }}">{{ helper:lang line="logout_label" }}</a>
-
-	{{ else }}
-		<form action="{{ url:site uri='users/login' }}" method="post" accept-charset="utf-8" id="login-small">
-			<input type="hidden" name="redirect_to" value="{{ url:current }}" />
-			<ul>
-				<li class="email">
-					<input type="text" id="email" name="email" maxlength="120" placeholder="{{ helper:lang line="user_email" }}" />
-				</li>
-
-				<li class="pword">
-					<input type="password" id="password" name="password" maxlength="20" placeholder="{{ helper:lang line="user_password" }}" />
-				</li>
-
-				<li class="form-buttons">
-					<input type="submit" value="{{ helper:lang line='user_login_btn' }}" name="btnLogin" /> | &nbsp;<a href="{{ url:site }}register">{{ helper:lang line="user_register_btn" }}</a>
-					<label><input type="checkbox" id="remember-checksidebar" name="remember" value="1"  /> {{ helper:lang line="user_remember" }}</label>
-				</li>
-			</ul>
-		</form>
-	{{ endif }}
-</div>
-<!-- End user meta -->
-</header>
-<!-- End header -->
+		<header>
+			<div id="logo">
+				<a href="{{ url:base }}">
+					<h1>{{ settings:site_name }}</h1>
+				</a>
+		
+				<span class="slogan">
+					{{ settings:site_slogan }}
+				</span>
+			</div>
+		
+			<nav id="primary">
+				<ul>
+					{{ navigation:links group="header" }}
+				</ul>
+			</nav>
+		</header>
