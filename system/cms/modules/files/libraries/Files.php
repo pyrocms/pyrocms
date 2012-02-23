@@ -82,9 +82,11 @@ class Files
 	{
 
 		$folders = ci()->file_folders_m->where('parent_id', $parent)
+			->order_by('sort')
 			->get_all();
 
 		$files = ci()->file_m->where('folder_id', $parent)
+			->order_by('sort')
 			->get_all();
 
 		return self::result(TRUE, NULL, NULL, array('folder' => $folders, 'file' => $files));

@@ -46,9 +46,12 @@ class Admin extends Admin_Controller {
 	public function index()
 	{
 
-		$data->folders = $this->file_folders_m->where('parent_id', 0)
-			->order_by('sort')
-			->get_all();
+		$result = Files::folder_contents(0);
+
+		if ($result)
+		{
+			$data->folders = $result['data']['folder'];
+		}
 
 		$data->folder_tree = Files::folder_tree();
 
