@@ -49,7 +49,7 @@
 	
 					<td class="align-center"><?php echo $theme->version; ?></td>
 					<td class="actions">
-						<?php echo isset($theme->options) ? anchor('admin/themes/options/'.$theme->slug, lang('themes.options'), 'title="'.$theme->name.'" class="button options modal"') : ''; ?>
+						<?php echo isset($theme->options) ? anchor('admin/themes/options/'.$theme->slug, lang('themes.options'), 'title="'.$theme->name.'" class="button options"') : ''; ?>
 						<a href="<?php echo $theme->screenshot; ?>" rel="screenshots" title="<?php echo $theme->name; ?>" class="button modal"><?php echo lang('buttons.preview'); ?></a>
 						<?php if($theme->slug != 'admin_theme') { echo anchor('admin/themes/delete/' . $theme->slug, lang('buttons.delete'), 'class="confirm button delete"'); } ?>
 					</td>
