@@ -7,8 +7,12 @@
 .item { height: 450px; overflow: hidden; }
 
 .folders-sidebar { height: 450px; border-right: 1px solid #d8d8d8; }
-.folders-sidebar li { padding: 3px; border-bottom: 1px solid #e0e0e0; cursor: pointer; }
-.folders-sidebar li.places { cursor: default; margin-bottom: 10px; font-size: 14px; font-weight: bold; font-style: italic; border: none; }
+.folders-sidebar li { padding: 3px; line-height: 20px; border-bottom: 1px solid #e0e0e0; cursor: pointer; }
+.folders-sidebar li { border: none; }
+.folders-sidebar li.places a { color: #808080; margin-bottom: 10px; font-size: 14px; font-weight: bold; font-style: italic; }
+.folders-sidebar .open { list-style: url(../img/more.png) inside !important; }
+.folders-sidebar .close { list-style: url(../img/less.png) inside !important; }
+
 .folders-right { height: 450px; overflow-y: auto; overflow-x: hidden; }
 .folders-right .folder { width: 100px; height: 112px; margin: 10px; overflow: hidden; float: left; background: url(../img/folder.png) no-repeat; }
 .folders-right .selected { background-color: #e8e8e8; }

@@ -50,6 +50,10 @@ class Admin extends Admin_Controller {
 			->order_by('sort')
 			->get_all();
 
+		$data->folder_tree = Files::folder_tree();
+
+		$data->admin =& $this;
+
 		$this->template
 			->title($this->module_details['name'])
 			
@@ -63,6 +67,37 @@ class Admin extends Admin_Controller {
 			->append_js('module::functions.js')
 		
 			->build('admin/index', $data);
+	}
+
+	// ------------------------------------------------------------------------
+
+	/**
+	 * Folder Sidebar
+	 *
+	 * @access	public
+	 * @return	void
+	 */
+	public function sidebar($folder)
+	{
+		if (isset($folder['children'])):
+
+			foreach($folder['children'] as $folder): ?>
+
+				<li class="folder"
+					data-folder-id="<?php echo $folder['id']?>" 
+					data-folder-name="<?php echo $folder['name']?>"
+						<?php echo (strlen($folder['name']) > 20 ? 'title="'.$folder['name'].'"><a href="#">'.substr($folder['name'], 0, 20).'...</a>' : '><a href="#">'.$folder['name']); ?></a>
+
+				<?php if(isset($folder['children'])): ?>
+						<ul style="display:none" >
+								<?php $this->sidebar($folder); ?>
+						</ul>
+					</li>
+				<?php else: ?>
+					</li>
+				<?php endif;
+			endforeach;
+		endif;
 	}
 
 	// ------------------------------------------------------------------------

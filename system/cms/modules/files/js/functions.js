@@ -1,7 +1,7 @@
 jQuery(function($){
 
-	pyro.files = { results : {status : null}, cache : {}, history : { 'back' : '', 'forward' : '' } };
-	pyro.files.current_level = $('[name="current-level"]').val();
+	pyro.files = { results : {status : null}, cache : {}, history : {} };
+	pyro.files.current_level = 0;
 
 	/***************************************************************************
 	 * A worker to display messages as they become available                   *
@@ -18,38 +18,32 @@ jQuery(function($){
  	}, 50);
 
  	/***************************************************************************
-	 * History... Back and Forward  #TODO this needs more work... it's 2:30am  *
-	 ***************************************************************************/
-	 $('.files-navigation').on('click', 'a', function(e){
-
-	 	var direction = ($(this).hasClass('back') ? 'back' : 'forward');
-
-	 	if (direction == 'back' && pyro.files.history.back !== '') {
-	 		pyro.files.history.forward = pyro.files.current_level;
-	 		pyro.files.folder_contents(pyro.files.history.back);
-	 		pyro.files.history.back = '';
-	 	} else if(pyro.files.history.forward !== ''){
-	 		pyro.files.folder_contents(pyro.files.history.forward);
-	 		pyro.files.history.forward = '';
-	 	}
-	 });
-
- 	/***************************************************************************
 	 * Left click to open folders                                              *
 	 ***************************************************************************/
  	$('.folders-right').on('dblclick', '.folder', function(e){
  		// fake a right click
- 		pyro.files.cache.$last_r_click = $(e.target);
+ 		pyro.files.$last_r_click = $(e.target);
 
  		$('.context-menu-source [data-menu="open"]').trigger('click');
  	});
 
+ 	$('.folders-sidebar li:has(ul)').addClass('open');
+
  	// use a single left click in the left sidebar
  	$('.folders-sidebar').on('click', '.folder', function(e){
- 		// fake a right click
- 		pyro.files.cache.$last_r_click = $(e.target);
+ 		e.preventDefault();
 
- 		$('.context-menu-source [data-menu="open"]').trigger('click');
+ 		// did they click on the link or the icon
+ 		if ($(e.target).parent('li').length > 0) {
+	 		// fake a right click
+	 		pyro.files.$last_r_click = $(e.target).parent();
+
+	 		$('.context-menu-source [data-menu="open"]').trigger('click');
+ 		} else {
+ 			$(e.target).children('ul').toggle();
+ 			$(e.target).toggleClass('open close');
+ 		}
+ 		e.stopPropagation();
  	});
 
 	/***************************************************************************
@@ -61,7 +55,7 @@ jQuery(function($){
 		e.preventDefault();
 
 		// make the right clicked element easily accessible
-		pyro.files.cache.$last_r_click = $(e.target);
+		pyro.files.$last_r_click = $(e.target);
 
 		// we hide/show the items that don't apply to a folder
 		if ($(e.target).hasClass('folder')){
@@ -72,7 +66,7 @@ jQuery(function($){
 			$('[data-menu]').show();
 
 			// we only want to show New Folder and Details menus in the root
-			if ($('[name="current-level"]').val() == '0'){
+			if (pyro.files.current_level == 0){
 				$('[data-menu]').hide();
 				$('[data-menu="new-folder"], [data-menu="details"]').show();
 			}
@@ -92,12 +86,11 @@ jQuery(function($){
 	$('.context-menu-source').on('click', '[data-menu]', function(e){
 
 		var menu = $(this).attr('data-menu');
-		var current_level = $('[name="current-level"]').val();
 
 		switch (menu){
 			case 'open':
 				pyro.files.folder_contents(
-					pyro.files.cache.$last_r_click.attr('data-folder-id')
+					pyro.files.$last_r_click.attr('data-folder-id')
 				)
 			break;
 
@@ -106,15 +99,15 @@ jQuery(function($){
 			break;
 
 			case 'new-folder':
-				pyro.files.new_folder(current_level);
+				pyro.files.new_folder(pyro.files.current_level);
 			break;
 
 			case 'rename':
-				pyro.files.rename_folder(current_level);
+				pyro.files.rename_folder(pyro.files.current_level);
 			break;
 
 			case 'delete':
-				pyro.files.delete_folder(current_level);
+				pyro.files.delete_folder(pyro.files.current_level);
 			break;
 		}
 	});
@@ -219,9 +212,17 @@ jQuery(function($){
 		},
 		beforeSend: function(event, files, index, xhr, handler, callBack){
 			handler.uploadRow.find('button.start').click(function(){
+
+				// we use the current level if they clicked in the open area
+				if (pyro.files.$last_r_click.attr('data-folder-id') > '') {
+					var folder_id = pyro.files.$last_r_click.attr('data-folder-id');
+				} else {
+					var folder_id = pyro.files.current_level;
+				}
+
 				handler.formData = {
 					name: handler.uploadRow.find('input.file-name').val(),
-					folder_id: pyro.files.cache.$last_r_click.attr('data-folder-id')
+					folder_id: folder_id
 				};
 				callBack();
 			});
@@ -262,7 +263,7 @@ jQuery(function($){
 	/***************************************************************************
 	 * All functions that are part of the pyro.files namespace                 *
 	 ***************************************************************************/
-	 pyro.files.new_folder = function(current_level, name)
+	 pyro.files.new_folder = function(parent, name)
 	 {
 	 	if (typeof(name) === 'undefined') name = 'Untitled Folder';
 	 	var new_class = Math.floor(Math.random() * 1000);
@@ -275,7 +276,7 @@ jQuery(function($){
 		$('.no_data').fadeOut('fast');
 
 		var data
-		var post = { parent : current_level, name : name };
+		var post = { parent : parent, name : name };
 
 		$.post(SITE_URL + 'admin/files/new_folder', post, function(data){
 			pyro.files.results = $.parseJSON(data);
@@ -289,6 +290,10 @@ jQuery(function($){
 				$('.folder-' + new_class + ' .folder-text')
 					.html(pyro.files.results.data.name)
 					.removeClass('folder-' + new_class);
+
+				// now they will want to rename it
+		 		pyro.files.$last_r_click = $('[data-folder-id="'+pyro.files.results.data.id+'"]');
+		 		$('.context-menu-source [data-menu="rename"]').trigger('click');
 			}
 		});
 	 }
@@ -355,7 +360,6 @@ jQuery(function($){
 
 				// Toto, we're not in Kansas anymore
 				pyro.files.current_level = folder_id;
-				pyro.files.history.back = level;
 
 				// and we succeeded
 				pyro.files.results.status = true;
@@ -369,7 +373,7 @@ jQuery(function($){
 	 	// if they have one selected already then undo it
 	 	$('[name="rename"]').parent().html($('[name="rename"]').val());
 
-	 	var $folder = pyro.files.cache.$last_r_click.find('.folder-text');
+	 	var $folder = pyro.files.$last_r_click.find('.folder-text');
 	 	$folder.html('<input name="rename" value="'+$folder.html()+'"/>')
 
 	 	var $input  = $folder.find('input');
@@ -396,7 +400,7 @@ jQuery(function($){
 
 	 pyro.files.delete_folder = function(current_level)
 	 {
-	 	var post = { 'folder_id' : pyro.files.cache.$last_r_click.attr('data-folder-id') };
+	 	var post = { 'folder_id' : pyro.files.$last_r_click.attr('data-folder-id') };
 
  		$.post(SITE_URL + 'admin/files/delete_folder', post, function(data){
  			pyro.files.results = $.parseJSON(data);

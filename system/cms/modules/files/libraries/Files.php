@@ -59,7 +59,7 @@ class Files
 						'slug' => $slug, 
 						'name' => $name, 
 						'date_added' => now(), 
-						'sort' => 0
+						'sort' => now()
 						);
 
 		$id = ci()->file_folders_m->insert($insert);
@@ -88,6 +88,51 @@ class Files
 			->get_all();
 
 		return self::result(TRUE, NULL, NULL, array('folder' => $folders, 'file' => $files));
+	}
+
+	// ------------------------------------------------------------------------
+
+	/**
+	 * Get all folders in a tree
+	 *
+	 * @param	int		$parent	The id of this folder
+	 * @return	array
+	 *
+	**/
+	public function folder_tree()
+	{
+		$folders = array();
+
+		$all_folders = $this->file_folders_m
+			->select('id, parent_id, slug, name')
+			 ->order_by('sort')
+			 ->get_all();
+	
+		// we must reindex the array first
+		foreach ($all_folders as $row)
+		{
+			$folders[$row->id] = (array) $row;
+		}
+		
+		unset($all_folders);
+	
+		// build a multidimensional array of parent > children
+		foreach ($folders as $row)
+		{
+			if (array_key_exists($row['parent_id'], $folders))
+			{
+				// add this folder to the children array of the parent folder
+				$folders[$row['parent_id']]['children'][] =& $folders[$row['id']];
+			}
+			
+			// this is a root folder
+			if ($row['parent_id'] == 0)
+			{
+				$folder_array[] =& $folders[$row['id']];
+			}
+		}
+	
+		return $folder_array;
 	}
 
 	// ------------------------------------------------------------------------

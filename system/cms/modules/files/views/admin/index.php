@@ -5,13 +5,18 @@
 <section class="item">
 	<section class="one_quarter">
 			<ul class="folders-sidebar">
-				<li class="places"><?php echo lang('files:places') ?></li>
-				<?php if ($folders) : ?>
-					<?php foreach ($folders as $folder): ?>
+				<li class="folder places" data-folder-id="0"><a href="#"><?php echo lang('files:places') ?></a></li>
+				<?php if ($folder_tree) : ?>
+					<?php foreach ($folder_tree as $folder): ?>
 						<li class="folder"
-							data-folder-id="<?php echo $folder->id.'" 
-							data-folder-name="'.$folder->name.'" '.
-							(strlen($folder->name) > 20 ? 'title="'.$folder->name.'">'.substr($folder->name, 0, 20).'...' : '>'.$folder->name); ?>
+							data-folder-id="<?php echo $folder['id'].'" 
+							data-folder-name="'.$folder['name'].'" '.
+							(strlen($folder['name']) > 20 ? 'title="'.$folder['name'].'"><a href="#">'.substr($folder['name'], 0, 20).'...</a>' : '><a href="#">'.$folder['name']); ?></a>
+							<?php if (isset($folder['children'])): ?>
+								<ul style="display:none" >
+									<?php $admin->sidebar($folder); ?>
+								</ul>
+							<?php endif; ?>
 						</li>
 					<?php endforeach; ?>
 				<?php endif; ?>
@@ -19,11 +24,6 @@
 	</section>
 
 	<section class="one_half">
-		<div class="files-navigation">
-			<a class="back alignleft" href="<?php echo current_url();?>#"><?php echo lang('files:back');?></a>
-			<a class="forward alignright" href="<?php echo current_url();?>#"><?php echo lang('files:forward');?></a>
-		</div>
-		<?php echo form_open().form_hidden('current-level', '0').form_close(); ?>
 			<ul class="folders-right">
 				<?php if ($folders) : ?>
 					<?php foreach ($folders as $folder): ?>
