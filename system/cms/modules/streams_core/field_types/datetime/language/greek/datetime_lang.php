@@ -6,3 +6,4 @@ $lang['streams.datetime.timezone'] 				= 'Ζώνη Ώρας';
 $lang['streams.datetime.start_date'] 			= 'Ξεκινά Από';
 $lang['streams.datetime.end_date'] 				= 'Τελείωνει Σε';
 $lang['streams.datetime.rest_instructions'] 	= 'Μπορεί να εισαχθεί μια καταχώριση με προσθαφαίρεση αριθμών με βάση την σημερινή ημερομηνία (πχ: -20) ή ξεχωριστά για μέρες (D), μήνες (M) και χρόνια (Y). πχ: +1D +2Y<';
+$lang['streams.datetime.storage']				= 'Storage Format'; #translate

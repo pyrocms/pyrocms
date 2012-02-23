@@ -35,30 +35,38 @@ class Field_datetime
 	 * @return	string
 	 */
 	public function form_output($data)
-	{			
+	{
+		// Update the value to datetime format if it is UNIX.
+		// The rest of the function expects datetime.
+		if (isset($data['custom']['storage']) and $data['custom']['storage'] == 'unix')
+		{
+			$data['value'] = date('Y-m-d H:i:s', $data['value']);
+		}
+		
 		$date = $this->_break_date(trim($data['value']), $data['form_slug'], $data['custom']['use_time']);
 
 		// -------------------------------------
 		// Date
 		// -------------------------------------
 	
-		// Datepicker options
+		// jQuery datepicker options
 		$dp_mods = array('dateFormat: "yy-mm-dd"');
 	
 		$current_year = date('Y');
 		
+		// Start Date
 		if (isset($data['custom']['start_date']) and $data['custom']['start_date'])
 		{
 			$dp_mods[] = 'minDate: "'.$data['custom']['start_date'].'"';
 		}
 		
+		// End Date
 		if (isset($data['custom']['end_date']) and $data['custom']['end_date'])
 		{
 			$dp_mods[] = 'maxDate: "'.$data['custom']['end_date'].'"';	
 		}	
 			
 		$date_input = '
-				
 		<script>
 		$(function() {
 			$( "#datepicker_'.$data['form_slug'].'" ).datepicker({ '.implode(', ', $dp_mods).' });
@@ -168,8 +176,6 @@ class Field_datetime
 		{
 			$this->CI->type->add_js('datetime', 'jquery.datepicker.js');
 		}
-	
-		$this->CI->type->add_css('datetime', 'datepicker.css');
 	}
 
 	// --------------------------------------------------------------------------
@@ -190,6 +196,7 @@ class Field_datetime
 		if (isset($field->field_data['storage']) and $field->field_data['storage'] == 'unix')
 		{	
 			$this->db_col_type = 'int';
+			return true;
 		}
 		
 		// We need more room for checkboxes
@@ -197,6 +204,8 @@ class Field_datetime
 		{
 			$this->db_col_type = 'date';
 		}
+		
+		return true;
 	}
 
 	// --------------------------------------------------------------------------
@@ -246,8 +255,6 @@ class Field_datetime
 	 */
 	public function pre_save($input, $field)
 	{
-		$this->CI =& get_instance();
-		
 		$date = $this->CI->input->post($field->field_slug);
 
 		if ($field->field_data['use_time'] == 'yes')
@@ -257,7 +264,7 @@ class Field_datetime
 			{
 				$hour = $this->CI->input->post($field->field_slug.'_hour');
 	
-				if ($this->CI->input->post($field->field_slug.'_am_pm') == 'pm' && $hour < 12)
+				if ($this->CI->input->post($field->field_slug.'_am_pm') == 'pm' and $hour < 12)
 				{
 					$hour = $hour+12;
 				}
@@ -280,12 +287,20 @@ class Field_datetime
 		
 		if ($field->field_data['use_time'] == 'yes')
 		{
-			return $date.' '.$hour.':'.$minute.':00';
+			$date .= ' '.$hour.':'.$minute.':00';
 		}
-		else
-		{
-			return $date;
+
+		// -------------------------------------
+		// Return based on storage format
+		// -------------------------------------
+
+		if (isset($field->field_data['storage']) and $field->field_data['storage'] == 'unix')
+		{	
+			$this->CI->load->helper('date');
+			return mysql_to_unix($date);
 		}
+		
+		return $date;
 	}
 
 	// --------------------------------------------------------------------------
@@ -502,23 +517,29 @@ class Field_datetime
 	 */
 	public function pre_output($input, $params)
 	{
-		$this->CI->load->helper('date');
+		// If this is a date-time stored value,
+		// we need this to be converted to UNIX.
+		if ( ! isset($params['storage']) or $params['storage'] == 'datetime')
+		{
+			$this->CI->load->helper('date');
+			$input = mysql_to_unix($input);
+		}
 		
 		if ($this->CI->uri->segment(1) == 'admin')
 		{
 			// Format for admin
 			if ($params['use_time'] == 'no')
 			{
-				return(date($this->CI->settings->get('date_format'), mysql_to_unix($input)));
+				return(date($this->CI->settings->get('date_format'), $input));
 			}	
 			else
 			{
-				return(date($this->CI->settings->get('date_format').' g:i a', mysql_to_unix($input)));
+				return(date($this->CI->settings->get('date_format').' g:i a', $input));
 			}
 		}
 		else
 		{
-			return(mysql_to_unix($input));
+			return $input;
 		}
 	}
 	
@@ -531,7 +552,7 @@ class Field_datetime
 	 * @param	array
 	 * @return	string
 	 */
-	public function alt_process_plugin($data)
+	/*public function alt_process_plugin($data)
 	{
 		$this->CI = get_instance();
 		
@@ -561,7 +582,7 @@ class Field_datetime
 		
 		// Return raw date input if there is no format:
 		return $input;
-	}
+	}*/
 
 	// --------------------------------------------------------------------------
 

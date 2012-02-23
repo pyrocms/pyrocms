@@ -172,7 +172,7 @@ class Admin extends Admin_Controller
 				role_or_die('blog', 'put_live');
 			}
 
-			$id = $this->blog_m->insert(array(
+			if ($id = $this->blog_m->insert($this->blog_m->insert(array(
 				'title'				=> $this->input->post('title'),
 				'slug'				=> $this->input->post('slug'),
 				'category_id'		=> $this->input->post('category_id'),
@@ -185,9 +185,7 @@ class Admin extends Admin_Controller
 				'author_id'			=> $this->current_user->id,
 				'type'				=> $this->input->post('type'),
 				'parsed'			=> ($this->input->post('type') == 'markdown') ? parse_markdown($this->input->post('body')) : ''
-			));
-
-			if ($id)
+			))))
 			{
 				$this->pyrocache->delete_all('blog_m');
 				$this->session->set_flashdata('success', sprintf($this->lang->line('blog_post_add_success'), $this->input->post('title')));
@@ -196,7 +194,7 @@ class Admin extends Admin_Controller
 				if ($this->input->post('status') == 'live')
 				{
 					// Fire an event, we're posting a new blog!
-					Events::trigger('blog_article_published');
+					Events::trigger('blog_article_published', $id);
 				}
 			}
 			else
@@ -300,7 +298,7 @@ class Admin extends Admin_Controller
 				if ($post->status != 'live' and $this->input->post('status') == 'live')
 				{
 					// Fire an event, we're posting a new blog!
-					Events::trigger('blog_article_published');
+					Events::trigger('blog_article_published', $id);
 				}
 			}
 			
@@ -444,18 +442,24 @@ class Admin extends Admin_Controller
 		if ( ! empty($ids))
 		{
 			$post_titles = array();
+			$deleted_ids = array();
 			foreach ($ids as $id)
 			{
 				// Get the current page so we can grab the id too
 				if ($post = $this->blog_m->get($id))
 				{
-					$this->blog_m->delete($id);
-
-					// Wipe cache for this model, the content has changed
-					$this->pyrocache->delete('blog_m');
-					$post_titles[] = $post->title;
+					if ($this->blog_m->delete($id))
+					{
+						// Wipe cache for this model, the content has changed
+						$this->pyrocache->delete('blog_m');
+						$post_titles[] = $post->title;
+						$deleted_ids[] = $id;
+					}
 				}
 			}
+			
+			// Fire an event. We've deleted one or more blog posts.
+			Events::trigger('blog_article_deleted', $deleted_ids);
 		}
 
 		// Some pages have been deleted

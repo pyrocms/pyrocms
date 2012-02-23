@@ -70,6 +70,7 @@ $lang['user_reset_password_link']		= 'Zapomniałeś hasła?';
 
 $lang['user_activation_code_sent_notice']	= 'Na twoją skrzynkę pocztową został wysłany email z kodem aktywacyjnym.';
 $lang['user_activation_by_admin_notice']	= 'Twoje rejestracja oczekuje na zatwierdzenie przez administratora.';
+$lang['user_registration_disabled']            = 'Sorry, but the user registration is disabled.'; #translate
 
 // -- Settings ---------------------------------------------------------------------------------------------
 

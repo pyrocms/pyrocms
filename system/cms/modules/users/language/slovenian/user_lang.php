@@ -71,6 +71,7 @@ $lang['user_reset_password_link']              = 'Pozabili geslo?';
 
 $lang['user_activation_code_sent_notice']      = 'Email je bil poslan na naveden naslov s aktivacijsko kodo.';
 $lang['user_activation_by_admin_notice']       = 'Vaša registracija čaka na potrditev s strani administratorja.';
+$lang['user_registration_disabled']            = 'Sorry, but the user registration is disabled.'; #translate
 
 // -- Settings ---------------------------------------------------------------------------------------------
 
