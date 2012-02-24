@@ -62,9 +62,11 @@ function role_or_die($module, $role, $redirect_to = 'admin', $message = '')
  * Return a users display name based on settings
  *
  * @param int $user the users id
+ * @param string $linked if true a link to the profile page is returned, 
+ *                       if false it returns just the display name.
  * @return  string
  */
-function user_displayname($user)
+function user_displayname($user, $linked = TRUE)
 {
 	if (is_numeric($user))
 	{
@@ -87,11 +89,11 @@ function user_displayname($user)
 
 	$user_name = empty($user['display_name']) ? $user['username'] : $user['display_name'];
 
-	if (ci()->settings->enable_profiles)
+	if (ci()->settings->enable_profiles and $linked)
 	{
-		$user_name = anchor('user/' . $user['id'], $user_name);
+		$user_name = anchor('user/'.$user['id'], $user_name);
 	}
-
+	
 	$_users[$user['id']] = $user_name;
 
 	return $user_name;
