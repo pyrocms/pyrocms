@@ -11,7 +11,7 @@
  */
 class Module_Templates extends Module {
 
-	public $version = '0.1';
+	public $version = '1.0';
 
 	public function info()
 	{
@@ -52,6 +52,7 @@ class Module_Templates extends Module {
 			'backend' => TRUE,
 			'menu' => 'design',
 			'author' => 'Stephen Cozart',
+			'skip_xss' => TRUE,
 			
 			'shortcuts' => array(
 				array(
