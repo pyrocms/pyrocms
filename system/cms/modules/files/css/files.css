@@ -31,6 +31,7 @@
 .console li { padding: 10px 0 10px 20px; border-bottom: 1px solid #d8d8d8; }
 .console li.success { list-style: url(../img/success.png) inside !important; }
 .console li.failure { list-style: url(../img/failure.png) inside !important; }
+.console li.info { list-style: url(../img/info.png) inside !important; }
 
 .context-menu-source { display: none; position: absolute; width: 150px; background-color: #f7f7f7; }
 .context-menu-source li { height: 15px; cursor: pointer; font-size: 14px; padding: 7px 25px 7px 25px; border-bottom: 1px solid #e0e0e0; }

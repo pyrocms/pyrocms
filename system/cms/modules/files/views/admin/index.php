@@ -24,7 +24,7 @@
 	</section>
 
 	<section class="one_half">
-			<ul class="folders-right">
+			<ul class="folders-right pane">
 				<?php if ($folders) : ?>
 					<?php foreach ($folders as $folder): ?>
 						<li class="folder" 
@@ -39,13 +39,13 @@
 			</ul>
 
 			<ul class="context-menu-source">
-				<li data-menu="open"><?php echo lang('files:open'); ?></li>
-				<li data-menu="new-folder"><?php echo lang('files:new_folder'); ?></li>
-				<li data-menu="upload" class="open-files-uploader"><?php echo lang('files:upload'); ?></li>
-				<li data-menu="rename"><?php echo lang('files:rename'); ?></li>
-				<li data-menu="edit"><?php echo lang('files:edit'); ?></li>
-				<li data-menu="delete"><?php echo lang('files:delete'); ?></li>
-				<li data-menu="details"><?php echo lang('files:details'); ?></li>
+				<li data-applies-to="folder" 						data-menu="open"><?php echo lang('files:open'); ?></li>
+				<li data-applies-to="pane root-pane"				data-menu="new-folder"><?php echo lang('files:new_folder'); ?></li>
+				<li data-applies-to="folder pane" 					data-menu="upload" class="open-files-uploader"><?php echo lang('files:upload'); ?></li>
+				<li data-applies-to="folder file" 					data-menu="rename"><?php echo lang('files:rename'); ?></li>
+				<li data-applies-to="file" 							data-menu="edit"><?php echo lang('files:edit'); ?></li>
+				<li data-applies-to="folder file" 					data-menu="delete"><?php echo lang('files:delete'); ?></li>
+				<li data-applies-to="folder file pane root-pane"	data-menu="details"><?php echo lang('files:details'); ?></li>
 			</ul>
 	</section>
 
