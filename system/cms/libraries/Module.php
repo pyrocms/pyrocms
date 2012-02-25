@@ -78,7 +78,7 @@ abstract class Module {
 	 * @return	bool	Whether the module was installed
 	 */
 	public abstract function upgrade($old_version);
-	
+
 	/**
 	 * Construct
 	 *
@@ -92,7 +92,7 @@ abstract class Module {
 		$this->load->database();
 		$this->load->dbforge();
 	}
-	
+
 	/**
 	 * Help
 	 *
@@ -123,17 +123,16 @@ abstract class Module {
 		isset($ci) OR $ci =& get_instance();
 		return $ci->{$var};
 	}
-	
+
 	/**
 	 * Installs the modules tables in the database.
-	 * 
+	 *
 	 * Can handle primary keys and FULLTEXT indexes.
 	 *
 	 * @param array $tables The database tables definitions.
 	 */
 	public function install_tables($tables)
 	{
-
 		foreach ($tables as $table_name => $fields)
 		{
 			// First we go ahead and add all the fields.
@@ -142,67 +141,56 @@ abstract class Module {
 
 			// Then go ahead and check for our special cases such as, primary
 			// keys, fulltext indices etc.
-			$primary = array();
-			$fulltext = array();
+			$key_or_index_types = array(
+				'primary' => array(),
+				'fulltext' => array(),
+				'unique' => array(),
+				'key' => array(),
+			);
 
 			//So for all the fields of this table:
 			foreach ($fields as $field => $field_data)
 			{
-				// Check every property of the field definition
-				foreach ($field_data as $key => $value)
+				// Lets collect the keys/indexes now.
+				foreach ($key_or_index_types as $type => $arr)
 				{
-					// Primary keys
-					if ($key === 'primary')
+					// Check every property of the field definition
+					foreach ($field_data as $key => $value)
 					{
-						// Add it for later
-						$primary[] = $field;
-					}
-
-					if ($key === 'fulltext')
-					{
-						// Check if we are actually doing multiple FULLTEXT keys
-						if (is_array($value))
+						if ($key === $type)
 						{
-							foreach ($value as $fulltext_index_name)
-							{
-								// If we dont have a key for this fulltext
-								if (!array_key_exists($fulltext_index_name, $fulltext))
-								{
-									// Go ahead and create it.
-									$fulltext[$fulltext_index_name] = array();
-								}
-								// Register the field for fulltext keying later on.
-								$fulltext[$fulltext_index_name][] = $field;
-							}
-						}
-						// Or this is just a single fulltext key name.
-						elseif (is_string($value))
-						{
-							// If we dont have a key for this fulltext
-							if (!array_key_exists($value, $fulltext))
-							{
-								// Go ahead and create it.
-								$fulltext[$value] = array();
-							}
-
-							// Register the field for fulltext keying later on.
-							$fulltext[$value][] = $field;
+							$this->_add_to_array($key_or_index_types[$type], $value, $field, $type);
 						}
 					}
 				}
 			}
 			// Add primary keys now
-			if (count($primary) > 0)
+			if (count($key_or_index_types['primary']) > 0)
 			{
-				if (count($primary) > 1)
+				if (count($key_or_index_types['primary']) > 1)
 				{
-					// Add them all
-					$this->dbforge->add_key($primary, TRUE);
+					// Add them one by one.
+					foreach ($key_or_index_types['primary'] as $primary_key)
+					{
+						$this->dbforge->add_key($primary_key, TRUE);
+					}
 				}
 				else
 				{
 					// Just add a single one
-					$this->dbforge->add_key($primary[0], TRUE);
+					$this->dbforge->add_key($key_or_index_types['primary'][array_shift(array_keys($key_or_index_types['primary']))], TRUE);
+				}
+			}
+
+			if (count($key_or_index_types['key']) > 0)
+			{
+				if (count($key_or_index_types['key']) > 1)
+				{
+					$this->dbforge->add_key($key_or_index_types['key']);
+				}
+				else
+				{
+					$this->dbforge->add_key($key_or_index_types['key'][array_shift(array_keys($key_or_index_types['key']))]);
 				}
 			}
 
@@ -210,20 +198,53 @@ abstract class Module {
 			if ($this->dbforge->create_table($table_name, true))
 			{
 				// Add any fulltext indices now
-				if (count($fulltext) > 0)
+				if (count($key_or_index_types['fulltext']) > 0)
 				{
 					// FULLTEXT is only available on MyISAM.
 					$this->db->query('ALTER TABLE '.$this->db->dbprefix($table_name).' ENGINE = MyISAM');
 
 					// Add all the fulltext indices we have collected
 					// @todo there is no checking whether the index exists already.
-					foreach ($fulltext as $index_name => $field_names)
+					foreach ($key_or_index_types['fulltext'] as $index_name => $field_names)
 					{
 						$this->db->query('CREATE FULLTEXT INDEX '.$index_name.' ON '.$this->db->dbprefix($table_name).'('.implode(', ', $field_names).')');
 					}
 				}
+				// Add any unique indexes now
+				if (count($key_or_index_types['unique']) > 0)
+				{
+					foreach ($key_or_index_types['unique'] as $index_name => $field_names)
+					{
+						$this->db->query('CREATE UNIQUE INDEX '.$index_name.' ON '.$this->db->dbprefix($table_name).'('.implode(', ', $field_names).')');
+					}
+				}
 			}
 		}
+	}
+
+	private function _add_to_array(&$arr, $index, $value, $type='')
+	{
+		if(is_array($value)) {
+			foreach ($value as $v)
+			{
+				$this->_add_to_array($arr, $index, $v);
+			}
+		}
+
+		if ($index === true)
+		{
+			// The key/index takes the fields name.
+			$index = $type.'_'.$value;
+		}
+
+		// If we dont have a key for this
+		if (!array_key_exists($index, $arr))
+		{
+			// Go ahead and create it
+			$arr[$index] = array();
+		}
+		// Add it
+		$arr[$index][] = $value;
 	}
 }
 
