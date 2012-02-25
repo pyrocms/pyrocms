@@ -16,6 +16,12 @@
 // General
 $lang['files:fetching']						= 'Retrieving data...';
 $lang['files:fetch_completed']				= 'Completed';
+$lang['files:save_failed']					= 'Sorry. The changes could not be saved';
+$lang['files:item_created']					= '"%s" was created';
+$lang['files:item_updated']					= '"%s" was updated';
+$lang['files:item_deleted']					= '"%s" was deleted';
+$lang['files:item_not_found']				= 'Sorry. "%s" could not be found';
+$lang['files:sort_saved']					= 'Sort order saved';
 
 // Labels
 $lang['files:activity']						= 'Activity';
@@ -36,17 +42,12 @@ $lang['files:details']						= 'Details';
 
 $lang['files:no_folders']					= 'Your files are sorted by folders, currently you do not have any folders set up.<br />Files and folders are managed much like they would be on your desktop. Use your mouse\'s right click to create, edit, and delete files and folders.';
 $lang['files:new_folder_name']				= 'Untitled Folder';
-$lang['files:folder_created']				= '"%s" was created';
-$lang['files:folder_updated']				= '"%s" was updated';
-$lang['files:folder_deleted']				= '"%s" was deleted';
 $lang['files:folder_not_empty']				= 'You must delete the contents of "%s" first';
-$lang['files:folder_sort_saved']			= 'Folder sort order saved';
 $lang['files:mkdir_error']					= 'We are unable to create the upload folder. You must create it manually';
 $lang['files:chmod_error']					= 'The upload directory is unwriteable. It must be 0777';
 
 // Files
 $lang['files:file_uploaded']				= '"%s" has been uploaded';
-$lang['files:file_not_found']				= 'Sorry. The file "%s" could not be found.';
 $lang['files:unsuccessful_fetch']			= 'We were unable to fetch "%s". Are you sure it is a public file?';
 $lang['files:invalid_container']			= '"%s" does not appear to be a valid container.';
 $lang['files:no_records_found']				= 'No records could be found';

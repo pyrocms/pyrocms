@@ -5,12 +5,12 @@
 <section class="item">
 	<section class="one_quarter">
 			<ul class="folders-sidebar">
-				<li class="folder places" data-folder-id="0"><a href="#"><?php echo lang('files:places') ?></a></li>
+				<li class="folder places" data-id="0"><a href="#"><?php echo lang('files:places') ?></a></li>
 				<?php if ($folder_tree) : ?>
 					<?php foreach ($folder_tree as $folder): ?>
 						<li class="folder"
-							data-folder-id="<?php echo $folder['id'].'" 
-							data-folder-name="'.$folder['name'].'" '.
+							data-id="<?php echo $folder['id'].'" 
+							data-name="'.$folder['name'].'" '.
 							(strlen($folder['name']) > 20 ? 'title="'.$folder['name'].'"><a href="#">'.substr($folder['name'], 0, 20).'...</a>' : '><a href="#">'.$folder['name']); ?></a>
 							<?php if (isset($folder['children'])): ?>
 								<ul style="display:none" >
@@ -28,9 +28,9 @@
 				<?php if ($folders) : ?>
 					<?php foreach ($folders as $folder): ?>
 						<li class="folder" 
-							data-folder-id="<?php echo $folder->id.'" 
-							data-folder-name="'.$folder->name.'">
-								<span class="folder-text">'.$folder->name; ?></span>
+							data-id="<?php echo $folder->id.'" 
+							data-name="'.$folder->name.'">
+								<span class="name-text">'.$folder->name; ?></span>
 						</li>
 					<?php endforeach; ?>
 				<?php else : ?>
@@ -74,7 +74,7 @@
 		</div>
 
 		<ul>
-			<li class="new-folder" data-folder-id="" data-folder-name="" data-folder-slug=""><span class="folder-text"><?php echo lang('files:new_folder_name'); ?></span></li>
+			<li class="new-folder" data-id="" data-name="" data-folder-slug=""><span class="name-text"><?php echo lang('files:new_folder_name'); ?></span></li>
 		</ul>
 	</div>
 

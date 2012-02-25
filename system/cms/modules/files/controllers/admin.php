@@ -87,8 +87,8 @@ class Admin extends Admin_Controller {
 			foreach($folder['children'] as $folder): ?>
 
 				<li class="folder"
-					data-folder-id="<?php echo $folder['id']?>" 
-					data-folder-name="<?php echo $folder['name']?>"
+					data-id="<?php echo $folder['id']?>" 
+					data-name="<?php echo $folder['name']?>"
 						<?php echo (strlen($folder['name']) > 20 ? 'title="'.$folder['name'].'"><a href="#">'.substr($folder['name'], 0, 20).'...</a>' : '><a href="#">'.$folder['name']); ?></a>
 
 				<?php if(isset($folder['children'])): ?>
@@ -139,25 +139,35 @@ class Admin extends Admin_Controller {
 	// ------------------------------------------------------------------------
 
 	/**
-	 * Set the order of folders
+	 * Set the order of files and folders
 	 *
 	 * @access	public
 	 * @return	void
 	 */
-	public function order_folders()
+	public function order()
 	{
-		$i = 0;
 
-		if ($order = $this->input->post('order'))
+		if ($collection = $this->input->post('order'))
 		{
-			foreach (explode(',', $order) as $value) 
+			foreach ($collection as $type => $item)
 			{
-				$this->file_folders_m->update_by('id', $value, array('sort' => $i));
-				$i++;
-			}
-		}
+				$i = 0;
 
-		echo json_encode(array('status' => TRUE, 'message' => lang('files:folder_sort_saved')));
+				foreach ($item as $id) 
+				{
+					$model = $type == 'folder' ? 'file_folders_m' : 'file_m';
+
+					$this->{$model}->update_by('id', $id, array('sort' => $i));
+					$i++;
+				}
+			}
+
+			echo json_encode(array('status' => TRUE, 'message' => lang('files:sort_saved')));
+		}
+		else 
+		{
+			echo json_encode(array('status' => FALSE, 'message' => lang('files:save_failed')));
+		}
 	}
 
 	// ------------------------------------------------------------------------
@@ -207,6 +217,24 @@ class Admin extends Admin_Controller {
 			echo json_encode(Files::upload($folder_id, $name));
 		}
 	}
+
+	// ------------------------------------------------------------------------
+
+	/**
+	 * Rename a file
+	 *
+	 * @access	public
+	 * @return	void
+	 */
+	public function rename_file()
+	{
+		if ($id = $this->input->post('file_id') AND $name = $this->input->post('name'))
+		{
+			echo json_encode(Files::move($id, $name));
+		}
+	}
+
+	// ------------------------------------------------------------------------
 }
 
 /* End of file admin.php */

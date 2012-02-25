@@ -40,18 +40,18 @@ jQuery(function($){
  	// use a single left click in the left sidebar
  	$('.folders-sidebar').on('click', '.folder', function(e){
  		e.preventDefault();
+ 		e.stopPropagation();
+ 		var $clicked = $(e.target);
 
  		// did they click on the link or the icon
- 		if ($(e.target).parent('li').length > 0) {
+ 		if ($clicked.is('a')) {
 	 		// store element so it can be accessed the same as if it was right clicked
-	 		pyro.files.$last_r_click = $(e.target).parent();
-
+	 		pyro.files.$last_r_click = $clicked.parent('li');
 	 		$('.context-menu-source [data-menu="open"]').trigger('click');
  		} else {
- 			$(e.target).children('ul').slideToggle();
- 			$(e.target).toggleClass('open close');
+ 			$clicked.children('ul').slideToggle();
+ 			$clicked.toggleClass('open close');
  		}
- 		e.stopPropagation();
  	});
 
 	/***************************************************************************
@@ -59,11 +59,12 @@ jQuery(function($){
 	 ***************************************************************************/
 
 	// open a right click menu on items in the main area
-	$('.item').on('contextmenu', '.folders-right, li', function(e){
+	$('.item').on('contextmenu', '.folders-right, .folders-right li', function(e){
 		e.preventDefault();
+		e.stopPropagation();
 
 		// make the right clicked element easily accessible
-		pyro.files.$last_r_click = $(e.target);
+		pyro.files.$last_r_click = $(this);
 
 		// reset in case they've right clicked before
 		$('.context-menu-source li').show();
@@ -106,7 +107,7 @@ jQuery(function($){
 		switch (menu){
 			case 'open':
 				pyro.files.folder_contents(
-					pyro.files.$last_r_click.attr('data-folder-id')
+					pyro.files.$last_r_click.attr('data-id')
 				)
 			break;
 
@@ -119,7 +120,7 @@ jQuery(function($){
 			break;
 
 			case 'rename':
-				pyro.files.rename_folder(pyro.files.current_level);
+				pyro.files.rename();
 			break;
 
 			case 'delete':
@@ -133,12 +134,12 @@ jQuery(function($){
 	 * Select folders including with the control key. #TODO: shift key         *
 	 ***************************************************************************/
 
-	$('.folders-right').on('click', '[data-folder-id]', function(e){
+	$('.folders-right').on('click', '[data-id]', function(e){
 		e.stopPropagation();
 		var selected = $('.folders-right').find('.selected').length > 0;
 		if ( ! e.ctrlKey && ! e.shiftKey) {
 			if(selected) {
-				$('[data-folder-id]').removeClass('selected');
+				$('[data-id]').removeClass('selected');
 			}
 		}
 		$(this).toggleClass('selected');
@@ -157,15 +158,32 @@ jQuery(function($){
 	$('.folders-right').sortable({
 		cursor: 'move',
 		delay: 100,
-		update: function() {
-			order = [];
-			$(this).find('li').each(function(){
-				order.push( $(this).attr('data-folder-id') );
+		update: function(e) {
+			var order = { 'folder' : {}, 'file' : {} };
+			$(this).find('li').each(function(index, data){
+				var type = $(data).hasClass('folder') ? 'folder' : 'file';
+				order[type][index] = $(this).attr('data-id');
 			});
-			order = order.join(',');
 
-			$.post(SITE_URL + 'admin/files/order_folders', { order: order }, function(data){
-				$(window).trigger('show-message', $.parseJSON(data));
+			$.post(SITE_URL + 'admin/files/order', { order : order }, function(data){
+				var results = $.parseJSON(data);
+				if (results.status) {
+					// synchronize the left sidebar
+					var after_id = $(e.target).prev('li').attr('data-id');
+					var moved_id = $(e.target).attr('data-id');
+					if (after_id === undefined && $(moved_id).parent('.folders-sidebar')) {
+						$('.folders-sidebar [data-id="0"]')
+							.after($('.folders-sidebar [data-id="'+moved_id+'"]'));
+					} else if (after_id === undefined && $(moved_id).parent('ul')) {
+						$(moved_id).parent('ul')
+							.prepend($('.folders-sidebar [data-id="'+moved_id+'"]'));
+					} else {
+						$('.folders-sidebar [data-id="'+after_id+'"]')
+							.after($('.folders-sidebar [data-id="'+moved_id+'"]'));
+					}
+
+				}
+				$(window).trigger('show-message', results);
 			});
 		}
 
@@ -231,8 +249,8 @@ jQuery(function($){
 			handler.uploadRow.find('button.start').click(function(){
 
 				// we use the current level if they clicked in the open area
-				if (pyro.files.$last_r_click.attr('data-folder-id') > '') {
-					var folder_id = pyro.files.$last_r_click.attr('data-folder-id');
+				if (pyro.files.$last_r_click.attr('data-id') > '') {
+					var folder_id = pyro.files.$last_r_click.attr('data-id');
 				} else {
 					var folder_id = pyro.files.current_level;
 				}
@@ -301,15 +319,15 @@ jQuery(function($){
 			if (results.status) {
 
 				// add the id in so we know who he is
-				$('.folder-' + new_class).attr('data-folder-id', results.data.id);
+				$('.folder-' + new_class).attr('data-id', results.data.id);
 
 				// update the text and remove the temporary class
-				$('.folder-' + new_class + ' .folder-text')
+				$('.folder-' + new_class + ' .name-text')
 					.html(results.data.name)
 					.removeClass('folder-' + new_class);
 
 				// now they will want to rename it
-		 		pyro.files.$last_r_click = $('[data-folder-id="'+results.data.id+'"]');
+		 		pyro.files.$last_r_click = $('[data-id="'+results.data.id+'"]');
 		 		$('.context-menu-source [data-menu="rename"]').trigger('click');
 
 		 		$(window).trigger('show-message', results);
@@ -339,14 +357,13 @@ jQuery(function($){
 					var folder = {}
 					var file = {}
 
-					folder.id = $(this).attr('data-folder-id');
-
-					if (folder.id > '') {
-						folder.name = $(this).attr('data-folder-name');
+					if ($(this).hasClass('folder')) {
+						folder.id = $(this).attr('data-id');
+						folder.name = $(this).attr('data-name');
 						folders[index] = folder;
 					} else {
-						file.id = $(this).attr('data-file-id');
-						file.name = $(this).attr('data-file-name');
+						file.id = $(this).attr('data-id');
+						file.name = $(this).attr('data-name');
 						files[index] = file;
 					}
 				});
@@ -365,13 +382,13 @@ jQuery(function($){
 						// if it's an image then we set the thumbnail as the content
 						if (item.type && item.type == 'i') {
 							var li_content = '<img src="'+SITE_URL+'files/thumb/'+item.id+'/75/55/fill" alt="'+item.name+'"/>'+
-												'<span class="'+type+'-text">'+item.name+'</span>';
+												'<span class="name-text">'+item.name+'</span>';
 						} else {
-							var li_content = '<span class="'+type+'-text">'+item.name+'</span>'
+							var li_content = '<span class="name-text">'+item.name+'</span>'
 						}
 
 						$('.folders-right').append(
-							'<li class="'+type+' '+(type == 'file' ? 'type-'+item.type : '')+'" data-'+type+'-id="'+item.id+'" data-'+type+'-name="'+item.name+'">'+
+							'<li class="'+type+' '+(type == 'file' ? 'type-'+item.type : '')+'" data-id="'+item.id+'" data-name="'+item.name+'">'+
 								li_content+
 							'</li>'
 						)
@@ -389,15 +406,18 @@ jQuery(function($){
 		});
 	 }
 
-	 pyro.files.rename_folder = function(current_level)
+	 pyro.files.rename = function()
 	 {
+	 	// what type of item are we renaming?
+	 	var type = pyro.files.$last_r_click.hasClass('folder') ? 'folder' : 'file';
+
 	 	// if they have one selected already then undo it
 	 	$('[name="rename"]').parent().html($('[name="rename"]').val());
 
-	 	var $folder = pyro.files.$last_r_click.find('.folder-text');
-	 	$folder.html('<input name="rename" value="'+$folder.html()+'"/>')
+	 	var $item = pyro.files.$last_r_click.find('.name-text');
+	 	$item.html('<input name="rename" value="'+$item.html()+'"/>')
 
-	 	var $input  = $folder.find('input');
+	 	var $input  = $item.find('input');
 	 	$input.select();
 
 	 	$input.keyup(function(e){
@@ -407,10 +427,11 @@ jQuery(function($){
 	 	})
 
 	 	$input.blur(function(){
-	 		var post = { 'folder_id' : $folder.parent('li').attr('data-folder-id'), 
-	 					 'name' 	 : $input.val() }
+	 		var post = {}
+	 		post[type+'_id'] = $item.parent('li').attr('data-id');
+ 			post['name'] = $input.val();
 
-	 		$.post(SITE_URL + 'admin/files/rename_folder', post, function(data){
+	 		$.post(SITE_URL + 'admin/files/rename_'+type, post, function(data){
 	 			var results = $.parseJSON(data);
 	 			$(window).trigger('show-message', results);
 
@@ -422,13 +443,13 @@ jQuery(function($){
 
 	 pyro.files.delete_folder = function(current_level)
 	 {
-	 	var post = { 'folder_id' : pyro.files.$last_r_click.attr('data-folder-id') };
+	 	var post = { 'folder_id' : pyro.files.$last_r_click.attr('data-id') };
 
  		$.post(SITE_URL + 'admin/files/delete_folder', post, function(data){
  			var results = $.parseJSON(data);
  			$(window).trigger('show-message', results);
  			if (results.status) {
- 				$('[data-folder-id="'+post.folder_id+'"]').remove();
+ 				$('[data-id="'+post.folder_id+'"]').remove();
  			}
  		})
 	 }

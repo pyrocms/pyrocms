@@ -66,7 +66,7 @@ class Files
 
 		$insert['id'] = $id;
 
-		return self::result(TRUE, lang('files:folder_created'), $insert['name'], $insert);
+		return self::result(TRUE, lang('files:item_created'), $insert['name'], $insert);
 	}
 
 	// ------------------------------------------------------------------------
@@ -168,7 +168,7 @@ class Files
 
 		ci()->file_folders_m->update($id, $insert);
 
-		return self::result(TRUE, lang('files:folder_updated'), $insert['name'], $insert);
+		return self::result(TRUE, lang('files:item_updated'), $insert['name'], $insert);
 	}
 
 	// ------------------------------------------------------------------------
@@ -188,7 +188,7 @@ class Files
 		{
 			ci()->file_folders_m->delete($id);
 
-			return self::result(TRUE, lang('files:folder_deleted'), $folder->name);
+			return self::result(TRUE, lang('files:item_deleted'), $folder->name);
 		}
 		else
 		{
@@ -262,27 +262,46 @@ class Files
 	/**
 	 * Rename files on the local filesystem or in the cloud
 	 *
-	 * @param	string	$file			The old filename
+	 * @param	string	$file_id		The file's database record
 	 * @param	string	$new_file		The desired filename
-	 * @param	string	$location		local, aws, cloudfiles, etc
 	 * @param	string	$new_location	The desired provider to move the file to
 	 * @param	string	$container		The bucket, container, or folder to move the file to
 	 * @return	array
 	**/
-	public static function move($file, $new_file, $location = 'local', $new_location = 'local', $container = '')
+	public static function move($file_id, $new_name = FALSE, $new_location = 'local', $container = '')
 	{
-		// if both locations are on the local filesystem then we just rename
-		if ($location === 'local' AND $new_location === 'local')
-		{
-			if (file_exists(self::$_path.$file))
-			{
-				@rename(self::$_path.$file, self::$_path.$new_file);
+		$file = ci()->file_m->select('files.*, file_folders.name foldername, file_folders.slug, file_folders.location')
+			->join('file_folders', 'files.folder_id = file_folders.id')
+			->get_by('files.id', $file_id);
 
-				return self::result();
+		if ( ! $file)
+		{
+			return self::result(FALSE, lang('files:item_not_found'), $new_name ? $new_name : $file_id);
+		}
+
+		// if both locations are on the local filesystem then we just rename
+		if ($file->location === 'local' AND $new_location === 'local')
+		{
+			// if they were helpful enough to provide an extension then remove it
+			if (strpos($new_name, $file->extension))
+			{
+				$new_name = str_replace($file->extension, '', $new_name);
+			}
+
+			// force the correct extension
+			$filename = self::create_slug($new_name).$file->extension;
+
+			if (file_exists(self::$_path.$file->filename))
+			{
+				ci()->file_m->update($file_id, array('filename' => $filename, 'name' => $new_name));
+
+				@rename(self::$_path.$file->filename, self::$_path.$filename);
+
+				return self::result(TRUE, lang('files:item_updated'), $new_name);
 			}
 			else
 			{
-				return self::result(FALSE, lang('files:file_not_found'), $file);
+				return self::result(FALSE, lang('files:item_not_found'), $file->name);
 			}
 		}
 		// we'll be pushing the file from here to the cloud

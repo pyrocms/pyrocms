@@ -7,8 +7,10 @@
 .item { height: 450px; overflow: hidden; }
 
 .folders-sidebar { height: 450px; border-right: 1px solid #d8d8d8; }
-.folders-sidebar li { padding: 3px; line-height: 20px; border-bottom: 1px solid #e0e0e0; cursor: pointer; }
-.folders-sidebar li { border: none; }
+.folders-sidebar li { padding: 3px; line-height: 20px; cursor: pointer; }
+.folders-sidebar li.open > ul > li, .folders-sidebar li.close > ul > li { padding-left: 18px; }
+.folders-sidebar li a { margin-left: 22px; }
+.folders-sidebar li.open > a, .folders-sidebar li.close > a  { margin-left: 0; }
 .folders-sidebar li.places a { color: #808080; margin-bottom: 10px; font-size: 14px; font-weight: bold; font-style: italic; }
 .folders-sidebar .open { list-style: url(../img/more.png) inside !important; }
 .folders-sidebar .close { list-style: url(../img/less.png) inside !important; }
@@ -16,10 +18,11 @@
 .folders-right { height: 450px; overflow-y: auto; overflow-x: hidden; }
 .folders-right .folder { width: 100px; height: 112px; margin: 10px; overflow: hidden; float: left; background: url(../img/folder.png) no-repeat; }
 .folders-right .selected { background-color: #e8e8e8; }
-.folders-right .folder .folder-text { display: block; margin: 0 4px 0 4px; font-size: 11px; height: 15px; overflow: hidden; margin-top: 80px; text-align: center; }
-.folders-right .folder .folder-text input { width: 92px; margin: 0; padding: 0; background: transparent; border: none; margin: 0; padding: 0; text-align: center; }
+.folders-right li .name-text { display: block; margin: 0 4px 0 4px; font-size: 11px; height: 15px; overflow: hidden; margin-top: 80px; text-align: center; }
+.folders-right li .name-text input { width: 92px; margin: 0; padding: 0; background: transparent; border: none; margin: 0; padding: 0; text-align: center; }
 
 .folders-right .file { width: 100px; height: 112px; margin: 10px; overflow: hidden; float: left; }
+.folders-right .file .name-text { margin-top: 5px; }
 .folders-right .file.type-a { background: url(../img/a.png) no-repeat; }
 .folders-right .file.type-d { background: url(../img/d.png) no-repeat; }
 .folders-right .file.type-o { background: url(../img/o.png) no-repeat; }
