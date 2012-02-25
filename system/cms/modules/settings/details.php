@@ -77,7 +77,10 @@ class Module_Settings extends Module {
 
 		$this->install_tables($tables);
 		
-
+		// Regarding ordering: any additions to this table can have an order 
+		// value the same as a sibling in the same section. For example if you 
+		// add to the Email tab give it a value in the range of 983 to 975.
+		// Third-party modules should use lower numbers or 0.
 		$settings = array(
 			'site_name' => array(
 				'title' => 'Site Name',
@@ -89,7 +92,7 @@ class Module_Settings extends Module {
 				'is_required' => 1,
 				'is_gui' => 1,
 				'module' => '',
-				'order' => 1000
+				'order' => 1000,
 			),
 			'site_slogan' => array(
 				'title' => 'Site Slogan',
@@ -101,7 +104,7 @@ class Module_Settings extends Module {
 				'is_required' => 0,
 				'is_gui' => 1,
 				'module' => '',
-				'order' => 999
+				'order' => 999,
 			),
 			'meta_topic' => array(
 				'title' => 'Meta Topic',
@@ -113,7 +116,7 @@ class Module_Settings extends Module {
 				'is_required' => 0,
 				'is_gui' => 1,
 				'module' => '',
-				'order' => 998
+				'order' => 998,
 			),
 			'site_lang' => array(
 				'title' => 'Site Language',
@@ -125,7 +128,7 @@ class Module_Settings extends Module {
 				'is_required' => 1,
 				'is_gui' => 1,
 				'module' => '',
-				'order' => 997
+				'order' => 997,
 			),
 			'site_public_lang' => array(
 				'title' => 'Public Languages',
@@ -137,7 +140,7 @@ class Module_Settings extends Module {
 				'is_required' => 1,
 				'is_gui' => 1,
 				'module' => '',
-				'order' => 996
+				'order' => 996,
 			),
 			'date_format' => array(
 				'title' => 'Date Format',
@@ -149,7 +152,7 @@ class Module_Settings extends Module {
 				'is_required' => 1,
 				'is_gui' => 1,
 				'module' => '',
-				'order' => 995
+				'order' => 995,
 			),
 			'currency' => array(
 				'title' => 'Currency',
@@ -161,8 +164,9 @@ class Module_Settings extends Module {
 				'is_required' => 1,
 				'is_gui' => 1,
 				'module' => '',
-				'order' => 994
+				'order' => 994,
 			),
+			// @todo Move this to the respective module
 			'ckeditor_config' => array(
 				'title' => 'CKEditor Config',
 				'description' => 'You can find a list of valid configuration items in <a target=\"_blank\" href=\"http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.config.html\">CKEditor\'s documentation.</a>',
@@ -173,7 +177,7 @@ class Module_Settings extends Module {
 				'is_required' => 1,
 				'is_gui' => 1,
 				'module' => 'wysiwyg',
-				'order' => 993
+				'order' => 993,
 			),
 			'records_per_page' => array(
 				'title' => 'Records Per Page',
@@ -185,7 +189,7 @@ class Module_Settings extends Module {
 				'is_required' => 1,
 				'is_gui' => 1,
 				'module' => '',
-				'order' => 993
+				'order' => 992,
 			),
 			'rss_feed_items' => array(
 				'title' => 'Feed item count',
@@ -197,7 +201,7 @@ class Module_Settings extends Module {
 				'is_required' => 1,
 				'is_gui' => 1,
 				'module' => '',
-				'order' => 992
+				'order' => 991,
 			),
 			'dashboard_rss' => array(
 				'title' => 'Dashboard RSS Feed',
@@ -209,7 +213,7 @@ class Module_Settings extends Module {
 				'is_required' => 0,
 				'is_gui' => 1,
 				'module' => '',
-				'order' => 991
+				'order' => 990,
 			),
 			'dashboard_rss_count' => array(
 				'title' => 'Dashboard RSS Items',
@@ -221,7 +225,7 @@ class Module_Settings extends Module {
 				'is_required' => 1,
 				'is_gui' => 1,
 				'module' => '',
-				'order' => 990
+				'order' => 989,
 			),
 			'frontend_enabled' => array(
 				'title' => 'Site Status',
@@ -233,7 +237,7 @@ class Module_Settings extends Module {
 				'is_required' => 1,
 				'is_gui' => 1,
 				'module' => '',
-				'order' => 989
+				'order' => 988,
 			),
 			'unavailable_message' => array(
 				'title' => 'Unavailable Message',
@@ -245,8 +249,9 @@ class Module_Settings extends Module {
 				'is_required' => 0,
 				'is_gui' => 1,
 				'module' => '',
-				'order' => 988
+				'order' => 987,
 			),
+			// @todo Move this to the respective module
 			'files_cache' => array(
 				'title' => 'Files Cache',
 				'description' => 'When outputting an image via site.com/files what shall we set the cache expiration for?',
@@ -257,8 +262,9 @@ class Module_Settings extends Module {
 				'is_required' => 1,
 				'is_gui' => 1,
 				'module' => 'files',
-				'order' => 987
+				'order' => 986,
 			),
+			// @todo Move this to the respective module
 			'ga_tracking' => array(
 				'title' => 'Google Tracking Code',
 				'description' => 'Enter your Google Analytic Tracking Code to activate Google Analytics view data capturing. E.g: UA-19483569-6',
@@ -269,8 +275,9 @@ class Module_Settings extends Module {
 				'is_required' => 0,
 				'is_gui' => 1,
 				'module' => 'integration',
-				'order' => 986
+				'order' => 985,
 			),
+			// @todo Move this to the respective module
 			'ga_profile' => array(
 				'title' => 'Google Analytic Profile ID',
 				'description' => 'Profile ID for this website in Google Analytics',
@@ -281,8 +288,9 @@ class Module_Settings extends Module {
 				'is_required' => 0,
 				'is_gui' => 1,
 				'module' => 'integration',
-				'order' => 985
+				'order' => 984,
 			),
+			// @todo Move this to the respective module
 			'ga_email' => array(
 				'title' => 'Google Analytic E-mail',
 				'description' => 'E-mail address used for Google Analytics, we need this to show the graph on the dashboard.',
@@ -293,8 +301,9 @@ class Module_Settings extends Module {
 				'is_required' => 0,
 				'is_gui' => 1,
 				'module' => 'integration',
-				'order' => 984
+				'order' => 983,
 			),
+			// @todo Move this to the respective module
 			'ga_password' => array(
 				'title' => 'Google Analytic Password',
 				'description' => 'This is also needed this to show the graph on the dashboard.',
@@ -305,8 +314,9 @@ class Module_Settings extends Module {
 				'is_required' => 0,
 				'is_gui' => 1,
 				'module' => 'integration',
-				'order' => 983
+				'order' => 982,
 			),
+			// @todo Move this to the respective module
 			'akismet_api_key' => array(
 				'title' => 'Akismet API Key',
 				'description' => 'Akismet is a spam-blocker from the WordPress team. It keeps spam under control without forcing users to get past human-checking CAPTCHA forms.',
@@ -317,7 +327,7 @@ class Module_Settings extends Module {
 				'is_required' => 0,
 				'is_gui' => 1,
 				'module' => 'integration',
-				'order' => 982
+				'order' => 981,
 			),
 			'contact_email' => array(
 				'title' => 'Contact E-mail',
@@ -329,10 +339,337 @@ class Module_Settings extends Module {
 				'is_required' => 1,
 				'is_gui' => 1,
 				'module' => 'email', // @todo Check this, there is no such module, or is there?
-				'order' => 981
+				'order' => 979,
+			),
+			'server_email' => array(
+				'title' => 'Server E-mail',
+				'description' => 'All e-mails to users will come from this e-mail address.',
+				'type' => 'text',
+				'default' => 'admin@localhost',
+				'value' => '',
+				'options' => '',
+				'is_required' => 1,
+				'is_gui' => 1,
+				'module' => 'email', // @todo Check this, there is no such module, or is there?
+				'order' => 978,
+			),
+			'mail_protocol' => array(
+				'title' => 'Mail Protocol',
+				'description' => 'Select desired email protocol.',
+				'type' => 'select',
+				'default' => 'mail',
+				'value' => 'mail',
+				'options' => 'mail=Mail|sendmail=Sendmail|smtp=SMTP',
+				'is_required' => 1,
+				'is_gui' => 1,
+				'module' => 'email', // @todo Check this, there is no such module, or is there?
+				'order' => 977,
+			),
+			'mail_smtp_host' => array(
+				'title' => 'SMTP Host Name',
+				'description' => 'The host name of your smtp server.',
+				'type' => 'text',
+				'default' => '',
+				'value' => '',
+				'options' => '',
+				'is_required' => 0,
+				'is_gui' => 1,
+				'module' => 'email', // @todo Check this, there is no such module, or is there?
+				'order' => 976,
+			),
+			'mail_smtp_pass' => array(
+				'title' => 'SMTP password',
+				'description' => 'SMTP password.',
+				'type' => 'password',
+				'default' => '',
+				'value' => '',
+				'options' => '',
+				'is_required' => 0,
+				'is_gui' => 1,
+				'module' => 'email', // @todo Check this, there is no such module, or is there?
+				'order' => 975,
+			),
+			'mail_smtp_port' => array(
+				'title' => 'SMTP Port',
+				'description' => 'SMTP port number.',
+				'type' => 'text',
+				'default' => '',
+				'value' => '',
+				'options' => '',
+				'is_required' => 0,
+				'is_gui' => 1,
+				'module' => 'email', // @todo Check this, there is no such module, or is there?
+				'order' => 974,
+			),
+			'mail_smtp_user' => array(
+				'title' => 'SMTP User Name',
+				'description' => 'SMTP user name.',
+				'type' => 'text',
+				'default' => '',
+				'value' => '',
+				'options' => '',
+				'is_required' => 0,
+				'is_gui' => 1,
+				'module' => 'email', // @todo Check this, there is no such module, or is there?
+				'order' => 973,
+			),
+			'mail_sendmail_path' => array(
+				'title' => 'Sendmail Path',
+				'description' => 'Path to server sendmail binary.',
+				'type' => 'text',
+				'default' => '',
+				'value' => '',
+				'options' => '',
+				'is_required' => 0,
+				'is_gui' => 1,
+				'module' => 'email', // @todo Check this, there is no such module, or is there?
+				'order' => 972,
+			),
+			'twitter_username' => array(
+				'title' => 'Username',
+				'description' => 'Twitter username.',
+				'type' => 'text',
+				'default' => '',
+				'value' => '',
+				'options' => '',
+				'is_required' => 0,
+				'is_gui' => 1,
+				'module' => 'twitter', // @todo Check this, there is no such module, or is there?
+				'order' => 971,
+			),
+			'twitter_feed_count' => array(
+				'title' => 'Feed Count',
+				'description' => 'How many tweets should be returned to the Twitter feed block?',
+				'type' => 'text',
+				'default' => '5',
+				'value' => '',
+				'options' => '',
+				'is_required' => 0,
+				'is_gui' => 1,
+				'module' => 'twitter', // @todo Check this, there is no such module, or is there?
+				'order' => 970,
+			),
+			'twitter_cache' => array(
+				'title' => 'Cache time',
+				'description' => 'How many minutes should your Tweets be stored?',
+				'type' => 'text',
+				'default' => '300',
+				'value' => '',
+				'options' => '',
+				'is_required' => 0,
+				'is_gui' => 1,
+				'module' => 'twitter', // @todo Check this, there is no such module, or is there?
+				'order' => 969,
+			),
+			// @todo Move this to the respective module
+			'enable_comments' => array(
+				'title' => 'Enable Comments',
+				'description' => 'Enable comments.',
+				'type' => 'radio',
+				'default' => '1',
+				'value' => '1',
+				'options' => '1=Enabled|0=Disabled',
+				'is_required' => 1,
+				'is_gui' => 1,
+				'module' => 'comments',
+				'order' => 968,
+			),
+			// @todo Move this to the respective module
+			'moderate_comments' => array(
+				'title' => 'Moderate Comments',
+				'description' => 'Force comments to be approved before they appear on the site.',
+				'type' => 'radio',
+				'default' => '1',
+				'value' => '1',
+				'options' => '1=Enabled|0=Disabled',
+				'is_required' => 1,
+				'is_gui' => 1,
+				'module' => 'comments',
+				'order' => 967,
+			),
+			// @todo Move this to the respective module
+			'comment_order' => array(
+				'title' => 'Comment Order',
+				'description' => 'Sort order in which to display comments.',
+				'type' => 'select',
+				'default' => 'ASC',
+				'value' => 'ASC',
+				'options' => 'ASC=Oldest First|DESC=Newest First',
+				'is_required' => 1,
+				'is_gui' => 1,
+				'module' => 'comments',
+				'order' => 966,
+			),
+			// @todo Move this to the respective module
+			'comment_markdown' => array(
+				'title' => 'Allow Markdown',
+				'description' => 'Do you want to allow visitors to post comments using Markdown?',
+				'type' => 'select',
+				'default' => '0',
+				'value' => '0',
+				'options' => '0=Text Only|1=Allow Markdown',
+				'is_required' => 1,
+				'is_gui' => 1,
+				'module' => 'comments',
+				'order' => 965,
+			),
+			// @todo Move this to the respective module
+			'auto_username' => array(
+				'title' => 'Auto Username',
+				'description' => 'Create the username automatically, meaning users can skip making one on registration.',
+				'type' => 'radio',
+				'default' => '1',
+				'value' => '',
+				'options' => '1=Enabled|0=Disabled',
+				'is_required' => 0,
+				'is_gui' => 1,
+				'module' => 'users',
+				'order' => 964,
+			),
+			// @todo Move this to the respective module
+			'enable_profiles' => array(
+				'title' => 'Enable profiles',
+				'description' => 'Allow users to add and edit profiles.',
+				'type' => 'radio',
+				'default' => '1',
+				'value' => '',
+				'options' => '1=Enabled|0=Disabled',
+				'is_required' => 1,
+				'is_gui' => 1,
+				'module' => 'users',
+				'order' => 963,
+			),
+			// @todo Move this to the respective module
+			'require_lastname' => array(
+				'title' => 'Require last names?',
+				'description' => 'For some situations, a last name may not be required. Do you want to force users to enter one or not?',
+				'type' => 'radio',
+				'default' => '1',
+				'value' => '',
+				'options' => '1=Required|0=Optional',
+				'is_required' => 1,
+				'is_gui' => 1,
+				'module' => 'users',
+				'order' => 962,
+			),
+			// @todo Move this to the respective module
+			'activation_email' => array(
+				'title' => 'Activation Email',
+				'description' => 'Send out an e-mail when a user signs up with an activation link. Disable this to let only admins activate accounts.',
+				'type' => 'radio',
+				'default' => '1',
+				'value' => '',
+				'options' => '1=Enabled|0=Disabled',
+				'is_required' => 0,
+				'is_gui' => 1,
+				'module' => 'users',
+				'order' => 961,
+			),
+			// @todo Move this to the respective module
+			'registered_email' => array(
+				'title' => 'User Registered Email',
+				'description' => 'Send a notification email to the contact e-mail when someone registers.',
+				'type' => 'radio',
+				'default' => '1',
+				'value' => '',
+				'options' => '1=Enabled|0=Disabled',
+				'is_required' => 0,
+				'is_gui' => 1,
+				'module' => 'users',
+				'order' => 962,
+			),
+			// @todo Move this to the respective module
+			'enable_registration' => array(
+				'title' => 'Enable user registration',
+				'description' => 'Allow users to register in your site.',
+				'type' => 'radio',
+				'default' => '1',
+				'value' => '',
+				'options' => '1=Enabled|0=Disabled',
+				'is_required' => 0,
+				'is_gui' => 1,
+				'module' => 'users',
+				'order' => 961,
+			),
+			// @todo Move this to the respective module
+			'default_theme' => array(
+				'title' => 'Default Theme',
+				'description' => 'Select the theme you want users to see by default.',
+				'type' => '',
+				'default' => 'default',
+				'value' => 'default',
+				'options' => 'func:get_themes',
+				'is_required' => 1,
+				'is_gui' => 0,
+				'module' => '',
+				'order' => 0,
+			),
+			// @todo Move this to the respective module
+			'admin_theme' => array(
+				'title' => 'Control Panel Theme',
+				'description' => 'Select the theme for the control panel.',
+				'type' => '',
+				'default' => '',
+				'value' => 'pyrocms',
+				'options' => 'func:get_themes',
+				'is_required' => 1,
+				'is_gui' => 0,
+				'module' => '',
+				'order' => 0,
+			),
+			// @todo Move this to the respective module
+			'admin_force_https' => array(
+				'title' => 'Force HTTPS for Control Panel?',
+				'description' => 'Allow only the HTTPS protocol when using the Control Panel?',
+				'type' => 'radio',
+				'default' => '0',
+				'value' => '',
+				'options' => '1=Yes|0=No',
+				'is_required' => 1,
+				'is_gui' => 1,
+				'module' => '',
+				'order' => 0,
+			),
+			// @todo Move this to the respective module
+			'addons_upload' => array(
+				'title' => 'Addons Upload Permissions',
+				'description' => 'Keeps mere admins from uploading addons by default',
+				'type' => 'text',
+				'default' => '0',
+				'value' => '0',
+				'options' => '',
+				'is_required' => 1,
+				'is_gui' => 0,
+				'module' => '',
+				'order' => 0,
+			),
+			// @todo Move this to the respective module
+			'api_enabled' => array(
+				'title' => 'API Enabled',
+				'description' => 'Allow API access to all modules which have an API controller.',
+				'type' => 'select',
+				'`default`' => false,
+				'value' => '0',
+				'`options`' => '0=Disabled|1=Enabled',
+				'is_required' => false,
+				'is_gui' => false,
+				'module' => 'api',
+				'order' => 0,
+			),
+			// @todo Move this to the respective module
+			'api_user_keys' => array(
+				'title' => 'API User Keys',
+				'description' => 'Allow users to sign up for API keys (if the API is Enabled).',
+				'type' => 'select',
+				'`default`' => false,
+				'value' => '0',
+				'`options`' => '0=Disabled|1=Enabled',
+				'is_required' => false,
+				'is_gui' => false,
+				'module' => 'api',
+				'order' => 0,
 			),
 		);
-		
 		
 		// Lets add the settings for this module.
 		$this->load->library('settings/settings');
@@ -342,69 +679,7 @@ class Module_Settings extends Module {
 			$setting_info['slug'] = $slug;
 			$this->settings->add($setting_info);
 		}
-		
-		
-		// regarding ordering... any additions to this table can have an order value the same as a sibling in the same section.
-		// for example if you add to the Email tab give it a value in the range of 983 to 975
-		// Third-party modules should use lower numbers or 0
-		$default_settings = "
-			INSERT INTO " . $this->db->dbprefix('settings') . " (`slug`, `title`, `description`, `type`, `default`, `value`, `options`, `is_required`, `is_gui`, `module`, `order`) VALUES
-			 ('server_email','Server E-mail','All e-mails to users will come from this e-mail address.','text','admin@localhost','','','1','1','email','981'),
-			 ('mail_protocol', 'Mail Protocol', 'Select desired email protocol.', 'select', 'mail', 'mail', 'mail=Mail|sendmail=Sendmail|smtp=SMTP', '1', '1', 'email','980'),
-			 ('mail_smtp_host', 'SMTP Host Name', 'The host name of your smtp server.', 'text', '', '', '', '0', '1', 'email','979'),
-			 ('mail_smtp_pass', 'SMTP Password', 'SMTP password.', 'password', '', '', '', '0', '1', 'email','978'),
-			 ('mail_smtp_port', 'SMTP Port', 'SMTP port number.', 'text', '', '', '', '0', '1', 'email','977'),
-			 ('mail_smtp_user', 'SMTP User Name', 'SMTP user name.', 'text', '', '', '', '0', '1', 'email','976'),
-			 ('mail_sendmail_path', 'Sendmail Path', 'Path to server sendmail binary.', 'text', '', '', '', '0', '1', 'email','975'),
-			 ('twitter_username','Username','Twitter username.','text','','','','0','1','twitter','973'),
-			 ('twitter_feed_count','Feed Count','How many tweets should be returned to the Twitter feed block?','text','5','','','0','1','twitter','972'),
-			 ('twitter_cache', 'Cache time', 'How many minutes should your Tweets be stored?','text','300','','','0','1','twitter','969'),
-			 ('enable_comments', 'Enable Comments', 'Enable comments.', 'radio', '1', '1', '1=Enabled|0=Disabled', '0', '1', 'comments','968'),
-			 ('moderate_comments', 'Moderate Comments', 'Force comments to be approved before they appear on the site.', 'radio', '1', '1', '1=Enabled|0=Disabled', '0', '1', 'comments','967'),
-			 ('comment_order', 'Comment Order', 'Sort order in which to display comments.', 'select', 'ASC', 'ASC', 'ASC=Oldest First|DESC=Newest First', '1', '1', 'comments','966'),
-			 ('comment_markdown', 'Allow Markdown', 'Do you want to allow visitors to post comments using Markdown?', 'select', '0', '0', '0=Text Only|1=Allow Markdown', '1', '1', 'comments','966'),
-			 ('auto_username','Auto Username','Create the username automatically, meaning users can skip making one on registration.','radio','1','','1=Enabled|0=Disabled','0','1','users','1'),
-			 ('enable_profiles','Enable profiles','Allow users to add and edit profiles.','radio','1','','1=Enabled|0=Disabled','1','1','users','965'),
-			 ('require_lastname','Require last names?','For some situations, a last name may not be required. Do you want to force users to enter one or not?','radio','1','','1=Required|0=Optional','1','1','users','964'),
-			 ('activation_email','Activation Email','Send out an e-mail when a user signs up with an activation link. Disable this to let only admins activate accounts.','radio','1','','1=Enabled|0=Disabled','0','1','users','963'),
-			 ('registered_email','User Registered Email','Send a notification email to the contact e-mail when someone registers.','radio','1','','1=Enabled|0=Disabled','0','1','users','962'),
-			 ('enable_registration','Enable user registration','Allow users to register in your site.','radio','1','','1=Enabled|0=Disabled','0','1','users','961'),
-			 ('default_theme','Default Theme','Select the theme you want users to see by default.','','default','default','func:get_themes','1','0','','0'),
-			 ('admin_theme','Control Panel Theme','Select the theme for the control panel.','','pyrocms','','func:get_themes','1','0','','0'),
-			 ('admin_force_https','Force HTTPS for Control Panel?','Allow only the HTTPS protocol when using the Control Panel?','radio','0','','1=Yes|0=No','1','1','','0'),
-			 ('addons_upload', 'Addons Upload Permissions', 'Keeps mere admins from uploading addons by default', 'text', '0', '0', '', '1', '0', '','0');
-		";
-		
-		// TODO Convert more settings over to use this syntax
-		$this->db->insert_batch('settings', array(
-			array(
-				'slug'			=> 'api_enabled',
-				'title'			=> 'API Enabled',
-				'description'	=> 'Allow API access to all modules which have an API controller.',
-				'`default`' 	=> false,
-				'type'			=> 'select',
-				'`options`'		=> '0=Disabled|1=Enabled',
-				'is_required'	=> false,
-				'is_gui' 		=> false,
-				'module' 		=> 'files'
-			),
-			array(
-				'slug'			=> 'api_user_keys',
-				'title'			=> 'API User Keys',
-				'description'	=> 'Allow users to sign up for API keys (if the API is Enabled).',
-				'`default`' 	=> false,
-				'type'			=> 'select',
-				'`options`'		=> '0=Disabled|1=Enabled',
-				'is_required'	=> false,
-				'is_gui' 		=> false,
-				'module' 		=> 'files'
-			),
-		));
-		
-		if ($this->db->query($default_settings))
-		{
-			return TRUE;
-		}
+
 	}
 
 	public function uninstall()
