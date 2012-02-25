@@ -4,6 +4,8 @@ class Module_Keywords extends Module {
 
 	public $version = '1.0';
 
+	public $_tables = array('keywords', 'keywords_applied');
+	
 	public function info()
 	{
 		return array(
@@ -50,27 +52,20 @@ class Module_Keywords extends Module {
 		$this->dbforge->drop_table('keywords');
 		$this->dbforge->drop_table('keywords_applied');
 
-		$keywords = "
-			CREATE TABLE " . $this->db->dbprefix('keywords') . " (
-			  `id` int unsigned NOT NULL AUTO_INCREMENT,
-			  `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-			  PRIMARY KEY (`id`)
-			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-		";
+		$tables = array(
+			'keywords' => array(
+				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
+				'name' => array('type' => 'VARCHAR', 'constraint' => 50,),
+			),
+			'keywords_applied' => array(
+				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
+				'hash' => array('type' => 'CHAR', 'constraint' => 32, 'default' => '',),
+				'keyword_id' => array('type' => 'INT', 'constraint' => 11,),
+			),
+		);
+		$this->install_tables($tables);
 		
-		$keywords_applied = "
-			CREATE TABLE " . $this->db->dbprefix('keywords_applied') . " (
-			  `id` int unsigned NOT NULL AUTO_INCREMENT,
-			  `hash` char(32) NOT NULL,
-			  `keyword_id` int unsigned COLLATE utf8_unicode_ci NOT NULL,
-			  PRIMARY KEY (`id`)
-			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-		";
-
-		if ($this->db->query($keywords) && $this->db->query($keywords_applied))
-		{
-			return TRUE;
-		}
+		return TRUE;
 	}
 
 	public function uninstall()
