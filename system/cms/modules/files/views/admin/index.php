@@ -41,7 +41,7 @@
 			<ul class="context-menu-source">
 				<li data-applies-to="folder" 						data-menu="open"><?php echo lang('files:open'); ?></li>
 				<li data-applies-to="pane root-pane"				data-menu="new-folder"><?php echo lang('files:new_folder'); ?></li>
-				<li data-applies-to="folder pane" 					data-menu="upload" class="open-files-uploader"><?php echo lang('files:upload'); ?></li>
+				<li data-applies-to="folder pane" 					data-menu="upload"><?php echo lang('files:upload'); ?></li>
 				<li data-applies-to="folder file" 					data-menu="rename"><?php echo lang('files:rename'); ?></li>
 				<li data-applies-to="file" 							data-menu="edit"><?php echo lang('files:edit'); ?></li>
 				<li data-applies-to="folder file" 					data-menu="delete"><?php echo lang('files:delete'); ?></li>
@@ -74,7 +74,7 @@
 		</div>
 
 		<ul>
-			<li class="new-folder" data-id="" data-name="" data-folder-slug=""><span class="name-text"><?php echo lang('files:new_folder_name'); ?></span></li>
+			<li class="new-folder" data-id="" data-name=""><span class="name-text"><?php echo lang('files:new_folder_name'); ?></span></li>
 		</ul>
 	</div>
 

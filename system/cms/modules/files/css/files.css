@@ -17,17 +17,18 @@
 
 .folders-right { height: 450px; overflow-y: auto; overflow-x: hidden; }
 .folders-right .folder { width: 100px; height: 112px; margin: 10px; overflow: hidden; float: left; background: url(../img/folder.png) no-repeat; }
-.folders-right .selected { background-color: #e8e8e8; }
+.folders-right .selected { background-color: #e8e8e8; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; }
 .folders-right li .name-text { display: block; margin: 0 4px 0 4px; font-size: 11px; height: 15px; overflow: hidden; margin-top: 80px; text-align: center; }
 .folders-right li .name-text input { width: 92px; margin: 0; padding: 0; background: transparent; border: none; margin: 0; padding: 0; text-align: center; }
 
 .folders-right .file { width: 100px; height: 112px; margin: 10px; overflow: hidden; float: left; }
-.folders-right .file .name-text { margin-top: 5px; }
-.folders-right .file.type-a { background: url(../img/a.png) no-repeat; }
-.folders-right .file.type-d { background: url(../img/d.png) no-repeat; }
-.folders-right .file.type-o { background: url(../img/o.png) no-repeat; }
-.folders-right .file.type-v { background: url(../img/v.png) no-repeat; }
-.folders-right .file.type-i img { padding: 20px 15px 0 15px; }
+.folders-right .file .name-text { margin-top: 83px; }
+.folders-right .file.type-a { background-image: url(../img/a.png); }
+.folders-right .file.type-d { background-image: url(../img/d.png); }
+.folders-right .file.type-o { background-image: url(../img/o.png); }
+.folders-right .file.type-v { background-image: url(../img/v.png); }
+.folders-right .file.type-i .name-text { margin-top: 7px; }
+.folders-right .file.type-i img { padding: 25px 13px 0 13px; }
 
 .console { height: 450px; border-left: 1px solid #d8d8d8; }
 .console .console-title { margin-left: 15px; margin-bottom: 10px; font-size: 14px; font-weight: bold; font-style: italic; border: none; }

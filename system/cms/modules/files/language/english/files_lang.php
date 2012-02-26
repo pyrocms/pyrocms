@@ -20,6 +20,7 @@ $lang['files:save_failed']					= 'Sorry. The changes could not be saved';
 $lang['files:item_created']					= '"%s" was created';
 $lang['files:item_updated']					= '"%s" was updated';
 $lang['files:item_deleted']					= '"%s" was deleted';
+$lang['files:item_not_deleted']				= '"%s" could not be deleted';
 $lang['files:item_not_found']				= 'Sorry. "%s" could not be found';
 $lang['files:sort_saved']					= 'Sort order saved';
 
@@ -28,6 +29,7 @@ $lang['files:activity']						= 'Activity';
 $lang['files:places']						= 'Places';
 $lang['files:back']							= 'Back';
 $lang['files:forward']						= 'Forward';
+$lang['files:start']						= 'Start';
 
 // Context Menu
 $lang['files:open']							= 'Open';

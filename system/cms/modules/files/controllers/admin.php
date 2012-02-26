@@ -32,6 +32,8 @@ class Admin extends Admin_Controller {
 			"<script>
 				pyro.lang.fetching = '".lang('files:fetching')."';
 				pyro.lang.fetch_completed = '".lang('files:fetch_completed')."';
+				pyro.lang.start = '".lang('files:start')."';
+				pyro.lang.cancel = '".lang('buttons.cancel')."';
 			</script>");
 	}
 
@@ -231,6 +233,22 @@ class Admin extends Admin_Controller {
 		if ($id = $this->input->post('file_id') AND $name = $this->input->post('name'))
 		{
 			echo json_encode(Files::move($id, $name));
+		}
+	}
+
+	// ------------------------------------------------------------------------
+
+	/**
+	 * Delete a file
+	 *
+	 * @access	public
+	 * @return	void
+	 */
+	public function delete_file()
+	{
+		if ($id = $this->input->post('file_id'))
+		{
+			echo json_encode(Files::delete_file($id));
 		}
 	}
 

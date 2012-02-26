@@ -112,7 +112,7 @@ jQuery(function($){
 			break;
 
 			case 'upload':
-				console.log(menu);
+				$(window).trigger('open-upload');
 			break;
 
 			case 'new-folder':
@@ -125,7 +125,7 @@ jQuery(function($){
 
 			case 'delete':
 				if ( ! confirm(pyro.lang.dialog_message)) return;
-				pyro.files.delete_folder(pyro.files.current_level);
+				pyro.files.delete_item(pyro.files.current_level);
 			break;
 		}
 	});
@@ -147,7 +147,7 @@ jQuery(function($){
 
 	// if they left click in the main area reset selected items or hide the context menu
 	$('html').click(function(e){
-		$('.folder').removeClass('selected');
+		$('.folders-right li').removeClass('selected');
 		$('.context-menu-source').fadeOut('fast');
 	});
 
@@ -190,38 +190,31 @@ jQuery(function($){
 	});
 
 	/***************************************************************************
-	 * Files uploader section                                                 *
+	 * Files uploader section                                                  *
 	 ***************************************************************************/
 
-	// Store data for filesUpload plugin
-	$('#files-uploader form').data('fileUpload', {
-		lang : {
-			start : 'Start',
-			cancel : pyro.lang.delete
-		}
-	});
-
-	$('.open-files-uploader').livequery(function(){
-		$(this).colorbox({
+	$(window).on('open-upload', function(){
+		$.colorbox({
 			scrolling	: false,
 			inline		: true,
 			href		: '#files-uploader',
 			width		: '800',
 			height		: '80%',
+			opacity		: 0.3,
 			onComplete	: function(){
 				$('#files-uploader-queue').empty();
 				$.colorbox.resize();
 			},
 			onCleanup : function(){
-				//$(window).hashchange();
+				// we don't reload unless they are inside the folder that they uploaded to
+				if (pyro.files.upload_to === pyro.files.current_level) {
+					pyro.files.folder_contents(pyro.files.upload_to);
+				}
 			}
 		});
 	});
 
-	var upload_form = $('#files-uploader form'),
-		upload_vars	= upload_form.data('fileUpload');
-
-	upload_form.fileUploadUI({
+	$('#files-uploader form').fileUploadUI({
 		fieldName       : 'userfile',
 		uploadTable     : $('#files-uploader-queue'),
 		downloadTable   : $('#files-uploader-queue'),
@@ -234,15 +227,15 @@ jQuery(function($){
 					'</div>' +
 					'<div class="file_upload_progress"><div></div></div>' +
 					'<div class="file_upload_cancel buttons buttons-small">' +
-					'<button class="button start ui-helper-hidden-accessible"><span>' + upload_vars.lang.start + '</span></button>'+
-					'<button class="button cancel"><span>' + upload_vars.lang.cancel + '</span></button>' +
+					'<button class="button start ui-helper-hidden-accessible"><span>' + pyro.lang.start + '</span></button>'+
+					'<button class="button cancel"><span>' + pyro.lang.cancel + '</span></button>' +
 					'</div>' +
 					'</li>');
 		},
 		buildDownloadRow: function(results){
 			if (results.message)
 			{
-				$(window).trigger('show-message', response);
+				$(window).trigger('show-message', results);
 			}
 		},
 		beforeSend: function(event, files, index, xhr, handler, callBack){
@@ -250,14 +243,14 @@ jQuery(function($){
 
 				// we use the current level if they clicked in the open area
 				if (pyro.files.$last_r_click.attr('data-id') > '') {
-					var folder_id = pyro.files.$last_r_click.attr('data-id');
+					pyro.files.upload_to = pyro.files.$last_r_click.attr('data-id');
 				} else {
-					var folder_id = pyro.files.current_level;
+					pyro.files.upload_to = pyro.files.current_level;
 				}
 
 				handler.formData = {
 					name: handler.uploadRow.find('input.file-name').val(),
-					folder_id: folder_id
+					folder_id: pyro.files.upload_to
 				};
 				callBack();
 			});
@@ -303,6 +296,7 @@ jQuery(function($){
 	 	if (typeof(name) === 'undefined') name = 'Untitled Folder';
 	 	var new_class = Math.floor(Math.random() * 1000);
 
+		// add an editable one to the right pane
 		$('.new-folder').clone()
 			.appendTo('.folders-right')
 			.removeClass('new-folder')
@@ -325,6 +319,20 @@ jQuery(function($){
 				$('.folder-' + new_class + ' .name-text')
 					.html(results.data.name)
 					.removeClass('folder-' + new_class);
+
+				$parent_li = $('.folders-sidebar [data-id="'+parent+'"]');
+				if (parent === 0) {
+					// this is a top level folder, we'll insert it after Places. Not really its parent
+					$parent_li.after('<li class="folder" data-id="'+results.data.id+'" data-name="'+results.data.name+'"><a href="#">'+results.data.name+'</a></li>');
+				} else if ($parent_li.has('ul').length > 0) {
+					// it already has children so we'll just append this li to its ul
+					$parent_li.children('ul')
+						.append('<li class="folder" data-id="'+results.data.id+'" data-name="'+results.data.name+'"><a href="#">'+results.data.name+'</a></li>');
+				} else {
+					// it had no children, we'll have to add the <ul> and the icon class also
+					$parent_li.append('<ul><li class="folder" data-id="'+results.data.id+'" data-name="'+results.data.name+'"><a href="#">'+results.data.name+'</a></li></ul>');
+					$parent_li.addClass('close');			
+				}
 
 				// now they will want to rename it
 		 		pyro.files.$last_r_click = $('[data-id="'+results.data.id+'"]');
@@ -381,7 +389,7 @@ jQuery(function($){
 
 						// if it's an image then we set the thumbnail as the content
 						if (item.type && item.type == 'i') {
-							var li_content = '<img src="'+SITE_URL+'files/thumb/'+item.id+'/75/55/fill" alt="'+item.name+'"/>'+
+							var li_content = '<img src="'+SITE_URL+'files/thumb/'+item.id+'/75/50/fill" alt="'+item.name+'"/>'+
 												'<span class="name-text">'+item.name+'</span>';
 						} else {
 							var li_content = '<span class="name-text">'+item.name+'</span>'
@@ -398,6 +406,9 @@ jQuery(function($){
 
 				// Toto, we're not in Kansas anymore
 				pyro.files.current_level = folder_id;
+
+				// show the children in the left sidebar
+				$('.folders-sidebar [data-id="'+folder_id+'"] > ul:hidden').parent().trigger('click');
 
 				// and we succeeded
 				results.message = pyro.lang.fetch_completed;
@@ -437,21 +448,29 @@ jQuery(function($){
 
 	 			// remove the input and place the text back in the span
 	 			$('[name="rename"]').parent().html(results.data.name);
+	 			$('.folders-sidebar [data-id="'+post.folder_id+'"] a').html(results.data.name);
+	 			$('.folder[data-id="'+post[type+'_id']+'"]').attr('data-name', results.data.name);
 	 		})
 	 	})
 	 }
 
-	 pyro.files.delete_folder = function(current_level)
+	 pyro.files.delete_item = function(current_level)
 	 {
-	 	var post = { 'folder_id' : pyro.files.$last_r_click.attr('data-id') };
+	 	var type = pyro.files.$last_r_click.hasClass('folder') ? 'folder' : 'file';
+	 	var post = {};
+	 		post[type+'_id'] = pyro.files.$last_r_click.attr('data-id');
 
- 		$.post(SITE_URL + 'admin/files/delete_folder', post, function(data){
+ 		$.post(SITE_URL + 'admin/files/delete_'+type, post, function(data){
  			var results = $.parseJSON(data);
  			$(window).trigger('show-message', results);
  			if (results.status) {
- 				$('[data-id="'+post.folder_id+'"]').remove();
+ 				$('[data-id="'+post[type+'_id']+'"]').remove();
+
+ 				if (type == 'folder') {
+					$('[data-id="'+current_level+'"] ul:empty').remove();
+					$('[data-id="'+current_level+'"]').removeClass('open close');
+ 				}
  			}
  		})
 	 }
-
 });

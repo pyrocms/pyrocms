@@ -283,13 +283,16 @@ class Files
 		if ($file->location === 'local' AND $new_location === 'local')
 		{
 			// if they were helpful enough to provide an extension then remove it
-			if (strpos($new_name, $file->extension))
-			{
-				$new_name = str_replace($file->extension, '', $new_name);
-			}
+			$filename = str_replace($file->extension, '', $new_name);
 
 			// force the correct extension
-			$filename = self::create_slug($new_name).$file->extension;
+			$filename = self::create_slug($filename).$file->extension;
+
+			$data = array('id' => $file_id,
+						  'name' => $new_name,
+						  'filename' => $filename,
+						  'location' => $new_location,
+						  'container' => $container);
 
 			if (file_exists(self::$_path.$file->filename))
 			{
@@ -297,11 +300,11 @@ class Files
 
 				@rename(self::$_path.$file->filename, self::$_path.$filename);
 
-				return self::result(TRUE, lang('files:item_updated'), $new_name);
+				return self::result(TRUE, lang('files:item_updated'), $new_name, $data);
 			}
 			else
 			{
-				return self::result(FALSE, lang('files:item_not_found'), $file->name);
+				return self::result(FALSE, lang('files:item_not_found'), $file->name, $data);
 			}
 		}
 		// we'll be pushing the file from here to the cloud
@@ -474,6 +477,29 @@ class Files
 		$message = $files ? NULL : lang('files:no_records_found');
 
 		return self::result( (bool) $files, $message, NULL, $files);
+	}
+
+	// ------------------------------------------------------------------------
+
+	/**
+	 * Delete a file
+	 *
+	 * @param	int		$id		The id of the file
+	 * @return	array
+	 *
+	**/
+	public static function delete_file($id = 0)
+	{
+		if ($file = ci()->file_m->get($id))
+		{
+			ci()->file_m->delete($id);
+
+			@unlink(self::$_path.$file->filename);
+
+			return self::result(TRUE, lang('files:item_deleted'), $file->name);
+		}
+
+		return self::result(FALSE, lang('files:item_not_found'), $id);
 	}
 
 	// ------------------------------------------------------------------------
