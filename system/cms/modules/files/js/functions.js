@@ -511,20 +511,26 @@ jQuery(function($){
 				height		: '450',
 				opacity		: 0,
 				onCleanup	:function(){
-					pyro.files.save_description($item_id);
+					if (type == 'file'){
+						pyro.files.save_description($item_id, $item.description);
+					}
 				}
 			});
 		}
 	 }
 
-	 pyro.files.save_description = function(item_id)
+	 pyro.files.save_description = function(item_id, description)
 	 {
-	 	post = { 'file_id' : item_id, 'description' : $('.item-details textarea.description').val() };
+	 	// only save it if it's different than the old one
+	 	if (description != $('.item-details textarea.description').val()){
 
- 		$.post(SITE_URL + 'admin/files/save_description', post, function(data){
- 			var results = $.parseJSON(data);
- 			$(window).trigger('show-message', results);
- 		})
+		 	post = { 'file_id' : item_id, 'description' : $('.item-details textarea.description').val() };
+
+	 		$.post(SITE_URL + 'admin/files/save_description', post, function(data){
+	 			var results = $.parseJSON(data);
+	 			$(window).trigger('show-message', results);
+	 		});
+	 	}
 	 }
 
 	// when the page loads we try loading the root folder's contents
