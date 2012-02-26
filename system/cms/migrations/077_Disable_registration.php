@@ -6,7 +6,7 @@ class Migration_Disable_registration extends CI_Migration {
     {
         $this->load->model('settings/settings_m');
 
-        if(!$this->settings_m->get_by(array('slug' => 'enable_registration')))
+        if ( ! $this->settings_m->get_by(array('slug' => 'enable_registration')))
         {
             $this->settings_m->insert(
                 array(
