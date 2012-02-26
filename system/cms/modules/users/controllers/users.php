@@ -199,7 +199,8 @@ class Users extends Public_Controller
 		// Set default values as empty or POST values
 		foreach ($validation as $rule)
 		{
-			$user->{$rule['field']} = $this->input->post($rule['field']) ? $this->input->post($rule['field']) : null;
+			$user->{$rule['field'
+			]} = $this->input->post($rule['field']) ? $this->input->post($rule['field']) : null;
 		}
 		
 		// Are they TRYing to submit?
