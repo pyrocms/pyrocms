@@ -187,6 +187,14 @@ class Plugin_Contact extends Plugin {
 					$form_meta[$field]['config']['allowed_types'] = implode('|', $config);
 					$form_meta[$field]['config']['max_size'] = $max_size;
 					$form_meta[$field]['config']['upload_path'] = UPLOAD_PATH.'contact_attachments';
+				break;	
+				
+				case 'hidden':
+					$form_meta[$field]['type'] = 'hidden';
+					$value = preg_split('/=/',$rule_array[1]);
+					$value = $value[1];
+					$form_meta[$field]['value'] = $value;
+					
 				break;					
 			}
 
@@ -311,6 +319,14 @@ class Plugin_Contact extends Plugin {
 														$form,
 														$form_meta[$form]['dropdown'],
 														set_value($form),
+														'class="'.$form.'"'
+													 );
+			}
+			elseif($value['type'] == 'hidden')
+			{
+				$parse_data[$form] .= call_user_func('form_'.$value['type'],
+														$form,
+														$value['value'],
 														'class="'.$form.'"'
 													 );
 			}
