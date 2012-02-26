@@ -44,6 +44,7 @@ $lang['success_label'] 					= 'Gennemført';
 
 $lang['login_title'] 					= 'Log ind';
 $lang['cms_fatal_error'] 				= 'Fejl! Er CMS installeret?';
+$lang['global:demo_restrictions']       = 'Some features on this page have been disabled for the demo.'; #translate
 
 $lang['login_error_label'] 				= 'Fejl ved log ind';
 $lang['forgot_password_label'] 			= 'Glemt password ?';

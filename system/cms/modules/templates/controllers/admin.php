@@ -31,7 +31,7 @@ class Admin extends Admin_Controller {
 
         $this->template->set('lang_options', $lang_options);
 
-        $base_rules = 'required|trim|xss_clean';
+        $base_rules = 'required|trim';
 
         $this->_validation_rules = array(
 			array(

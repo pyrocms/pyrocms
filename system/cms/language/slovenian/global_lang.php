@@ -44,6 +44,7 @@ $lang['success_label'] 					= 'Uspešno';
 
 $lang['login_title'] 					= 'Prijava';
 $lang['cms_fatal_error'] 				= 'Kritična napaka pri namestitvi CMS-ja';
+$lang['global:demo_restrictions']       = 'Some features on this page have been disabled for the demo.'; #translate
 
 $lang['login_error_label'] 				= 'Napaka pri prijavi';
 $lang['forgot_password_label'] 			= 'Ali ste pozabili geslo ?';

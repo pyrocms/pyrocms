@@ -35,9 +35,7 @@ class Admin extends Admin_Controller
 		$this->lang->load('themes');
 		$this->load->library('form_validation');
 
-		$this->template
-			->append_css('module::themes.css')
-			->append_js('module::admin.js');
+		$this->template->append_css('module::themes.css');
 	}
 
 	/**
@@ -88,14 +86,9 @@ class Admin extends Admin_Controller
 			if ($this->theme_m->get_all())
 			{
 				// Success...
-				$data = array();
-				$data['messages']['success'] = lang('themes.re-index_success');
-				$message = $this->load->view('admin/partials/notices', $data, TRUE);
-
-				return $this->template->build_json(array(
-					'status'	=> 'success',
-					'message'	=> $message
-				));
+				$this->session->set_flashdata('success', lang('themes.re-index_success'));
+				
+				redirect('admin/themes/options/'.$slug);
 			}
 		}
 		
@@ -158,20 +151,17 @@ class Admin extends Admin_Controller
 				$data = array();
 				$message = $this->load->view('admin/partials/notices', $data, TRUE);
 
-				return $this->template->build_json(array(
-					'status'	=> 'error',
-					'message'	=> $message
-				));
+				$this->session->set_flashdata('success', lang('themes.save_success'));
+				
+				redirect('admin/themes/options/'.$slug);
 			}
 		}
 		
-		$this->data->slug			= $slug;
-		$this->data->options_array 	= $all_options;
-		$this->data->controller		= &$this;
+		$data->slug			= $slug;
+		$data->options_array 	= $all_options;
+		$data->controller		= &$this;
 
-		$this->template
-			->set_layout('modal', 'admin')
-			->build('admin/options', $this->data);
+		$this->template->build('admin/options', $data);
 	}
 
 	/**

@@ -131,8 +131,8 @@ class Admin extends Admin_Controller {
 	{
 		if (PYRO_DEMO)
 		{
-			$this->session->set_flashdata('notice', lang('global:demo_restrictions'));
-			redirect('admin/settings');
+		    $this->session->set_flashdata('notice', lang('global:demo_restrictions'));
+		    redirect('admin/users');
 		}
 		
 		// Determine the type of action

@@ -195,15 +195,13 @@ class Users extends Public_Controller
 
 		// Set the validation rules
 		$this->form_validation->set_rules($validation);
-
-		// Set the user object to default null values
-		$user					= new stdClass();
-		$user->first_name 		= null;
-		$user->last_name		= null;
-		$user->username			= null;
-		$user->display_name		= null;
-		$user->email			= null;
-
+	
+		// Set default values as empty or POST values
+		foreach ($validation as $rule)
+		{
+			$user->{$rule['field']} = $this->input->post($rule['field']) ? $this->input->post($rule['field']) : null;
+		}
+		
 		// Are they TRYing to submit?
 		if ($_POST)
 		{
@@ -304,12 +302,6 @@ class Users extends Public_Controller
 			{
 				// Return the validation error
 				$this->template->error_string = $this->form_validation->error_string();
-			}
-			
-			// Repopulate the form
-			foreach ($validation as $rule)
-			{
-				$user->{$rule['field']} = set_value($rule['field']);
 			}
 		}
 		
@@ -475,6 +467,8 @@ class Users extends Public_Controller
 	 */
 	public function reset_complete()
 	{
+		PYRO_DEMO and show_error(lang('global:demo_restrictions'));
+		
 		//if user is logged in they don't need to be here. and should use profile options
 		if ($this->current_user)
 		{
