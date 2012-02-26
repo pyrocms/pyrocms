@@ -86,14 +86,19 @@ class Module_Navigation extends Module {
 				'uri' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '',),
 				'navigation_group_id' => array('type' => 'INT', 'constraint' => 5, 'default' => 0, 'key' => 'navigation_group_id'),
 				'position' => array('type' => 'INT', 'constraint' => 5, 'default' => 0,),
-				'target' => array('type' => 'VARCHAR', 'constraint' => 10, 'default' => 'NULL',),
-				'restricted_to' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => 'NULL',),
+				'target' => array('type' => 'VARCHAR', 'constraint' => 10, 'null' => true,),
+				'restricted_to' => array('type' => 'VARCHAR', 'constraint' => 255, 'null' => true,),
 				'class' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '',),
 			),
 		);
 		$this->install_tables($tables);
 
-		$this->load->model('navigation/navigation_m');
+		// Plain PHP including and instanciating here because installer does not 
+		// use the MX_Loader.
+		require_once BASEPATH.'core/Model.php';
+		require_once PYROPATH .'core/MY_Model.php';
+		require_once 'models/navigation_m.php';
+		$this->navigation_m = new Navigation_m();
 
 		$groups = array(
 			array('title' => 'Header', 'abbrev' => 'header',),

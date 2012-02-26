@@ -77,16 +77,15 @@ class Module_Variables extends Module {
 	{
 		$this->dbforge->drop_table('variables');
 
-		$tables = array(	
+		$tables = array(
 			'variables' => array(
 				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
-				'name' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => 'NULL',),
-				'data' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => 'NULL',),
+				'name' => array('type' => 'VARCHAR', 'constraint' => 255, 'null' => true,),
+				'data' => array('type' => 'VARCHAR', 'constraint' => 255, 'null' => true,),
 			),
 		);
-		
+
 		$this->install_tables($tables);
-		
 	}
 
 	public function uninstall()

@@ -69,14 +69,17 @@ class Module_Groups extends Module {
 			'groups' => array(
 				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
 				'name' => array('type' => 'VARCHAR', 'constraint' => 100,),
-				'title' => array('type' => 'VARCHAR', 'constraint' => 250,),
+				'description' => array('type' => 'VARCHAR', 'constraint' => 250,),
 			),
 		);
 		$this->install_tables($tables);
-
-		get_class($this->load);
-		var_dump($this->load);
-		$this->load->model('groups/group_m');
+		
+		// Plain PHP including and instanciating here because installer does not 
+		// use the MX_Loader.
+		require_once BASEPATH.'core/Model.php';
+		require_once PYROPATH .'core/MY_Model.php';
+		require_once 'models/group_m.php';
+		$this->group_m = new Group_m();
 
 		$groups = array(
 			array('name' => 'admin', 'description' => 'Administrators',),

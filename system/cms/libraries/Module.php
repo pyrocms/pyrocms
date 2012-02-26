@@ -170,9 +170,9 @@ abstract class Module {
 				if (count($key_or_index_types['primary']) > 1)
 				{
 					// Add them one by one.
-					foreach ($key_or_index_types['primary'] as $primary_key)
+					foreach ($key_or_index_types['primary'] as $i => $primary_key)
 					{
-						$this->dbforge->add_key($primary_key, TRUE);
+						$this->dbforge->add_key($key_or_index_types['primary'][$i], TRUE);
 					}
 				}
 				else

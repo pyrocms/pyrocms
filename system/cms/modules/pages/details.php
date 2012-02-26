@@ -98,7 +98,7 @@ class Module_Pages extends Module {
 
 		$tables = array(
 			'page_layouts' => array(
-				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true),
+				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
 				'title' => array('type' => 'VARCHAR', 'constraint' => 60,),
 				'body' => array('type' => 'TEXT',),
 				'css' => array('type' => 'TEXT',),
@@ -110,12 +110,12 @@ class Module_Pages extends Module {
 				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
 				'slug' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '', 'key' => 'slug',),
 				'title' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '',),
-				'uri' => array('type' => 'TEXT',),
+				'uri' => array('type' => 'TEXT', 'null' => true,),
 				'parent_id' => array('type' => 'INT', 'constraint' => 11, 'default' => 0, 'key' => 'parent_id',),
 				'revision_id' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '1',),
 				'layout_id' => array('type' => 'VARCHAR', 'constraint' => 255,),
-				'css' => array('type' => 'TEXT',),
-				'js' => array('type' => 'TEXT',),
+				'css' => array('type' => 'TEXT', 'null' => true,),
+				'js' => array('type' => 'TEXT', 'null' => true,),
 				'meta_title' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '',),
 				'meta_keywords' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '',),
 				'meta_description' => array('type' => 'TEXT',),
@@ -124,7 +124,7 @@ class Module_Pages extends Module {
 				'status' => array('type' => 'ENUM', 'constraint' => array('draft', 'live'), 'default' => 'draft',),
 				'created_on' => array('type' => 'INT', 'constraint' => 11, 'default' => 0),
 				'updated_on' => array('type' => 'INT', 'constraint' => 11, 'default' => 0),
-				'restricted_to' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => 'NULL',),
+				'restricted_to' => array('type' => 'VARCHAR', 'constraint' => 255, 'null' => true,),
 				'theme_layout' => array('type' => 'VARCHAR', 'constraint' => 100, 'default' => 'default',),
 				'is_home' => array('type' => 'INT', 'constraint' => 1, 'default' => 0,),
 				'order' => array('type' => 'INT', 'constraint' => 11, 'default' => 0),
@@ -141,7 +141,16 @@ class Module_Pages extends Module {
 		);
 		$this->install_tables($tables);
 
-		$this->load->model('pages/page_layouts_m');
+		
+		// Plain PHP including and instanciating here because installer does not 
+		// use the MX_Loader.
+		require_once BASEPATH.'core/Model.php';
+		require_once PYROPATH .'core/MY_Model.php';
+		
+		require_once 'models/page_layouts_m.php';
+		$this->page_layouts_m = new Page_layouts_m();
+		
+		//$this->load->model('pages/page_layouts_m');
 		$this->page_layouts_m->insert(array(
 			'id' => 1,
 			'title' => 'Default',
@@ -150,7 +159,9 @@ class Module_Pages extends Module {
 			'js' => '',
 		));
 
-		$this->load->model('pages/page_m');
+		require_once 'models/page_m.php';
+		$this->page_m = new Page_m();
+		//$this->load->model('pages/page_m');
 		$pages = array(
 			array(
 				'page' => array(

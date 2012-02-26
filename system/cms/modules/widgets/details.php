@@ -92,9 +92,9 @@ class Module_Widgets extends Module {
 			
 			'widget_instances' => array(
 				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
-				'title' => array('type' => 'VARCHAR', 'constraint' => 100, 'null' => true, 'default' => 'NULL',),
-				'widget_id' => array('type' => 'INT', 'constraint' => 11, 'null' => true, 'default' => 'NULL',),
-				'widget_area_id' => array('type' => 'INT', 'constraint' => 11, 'null' => true, 'default' => 'NULL',),
+				'title' => array('type' => 'VARCHAR', 'constraint' => 100, 'null' => true,),
+				'widget_id' => array('type' => 'INT', 'constraint' => 11, 'null' => true,),
+				'widget_area_id' => array('type' => 'INT', 'constraint' => 11, 'null' => true,),
 				'options' => array('type' => 'TEXT'),
 				'order' => array('type' => 'INT', 'constraint' => 10, 'default' => 0,),
 				'created_on' => array('type' => 'INT', 'constraint' => 11, 'default' => 0,),
