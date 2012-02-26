@@ -87,7 +87,7 @@ class Admin extends Admin_Controller {
 
 		$this->template
 			->title($this->module_details['name'])
-			->append_metadata( js('admin/filter.js') )
+			->append_js('admin/filter.js')
 			->set('module_list',		$module_list)
 			->set('content_title',		$content_title)
 			->set('comments',			process_comment_items($comments))
