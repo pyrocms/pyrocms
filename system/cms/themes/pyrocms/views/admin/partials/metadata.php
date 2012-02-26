@@ -1,8 +1,3 @@
-<?php if (isset($analytic_visits) OR isset($analytic_views)): ?>
-	<?php Asset::js('jquery/jquery.excanvas.min.js'); ?>
-	<?php Asset::js('jquery/jquery.flot.js'); ?>
-<?php endif; ?>
-
 <?php
 Asset::js('jquery/jquery.js');
 Asset::js_inline('jQuery.noConflict();');
@@ -17,6 +12,11 @@ Asset::js(array('codemirror/codemirror.js',
 	'plugins.js',
 	'scripts.js'
 )); ?>
+
+<?php if (isset($analytic_visits) OR isset($analytic_views)): ?>
+	<?php Asset::js('jquery/jquery.excanvas.min.js'); ?>
+	<?php Asset::js('jquery/jquery.flot.js'); ?>
+<?php endif; ?>
 
 <script type="text/javascript">
 	pyro = { 'lang' : {} };
