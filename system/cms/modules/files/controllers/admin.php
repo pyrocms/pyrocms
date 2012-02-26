@@ -47,13 +47,8 @@ class Admin extends Admin_Controller {
 	 */
 	public function index()
 	{
-
-		$result = Files::folder_contents(0);
-
-		if ($result)
-		{
-			$data->folders = $result['data']['folder'];
-		}
+		// should we show the "no data" message to them?
+		$data->folders = $this->file_folders_m->count_by('parent_id', 0);
 
 		$data->folder_tree = Files::folder_tree();
 
@@ -64,9 +59,6 @@ class Admin extends Admin_Controller {
 			
 			->append_css('module::jquery.fileupload-ui.css')
 			->append_css('module::files.css')
-
-			->append_js('jquery/jquery.ui.nestedSortable.js')
-			->append_js('jquery/jquery.cooki.js')
 			->append_js('module::jquery.fileupload.js')
 			->append_js('module::jquery.fileupload-ui.js')
 			->append_js('module::functions.js')
@@ -233,6 +225,24 @@ class Admin extends Admin_Controller {
 		if ($id = $this->input->post('file_id') AND $name = $this->input->post('name'))
 		{
 			echo json_encode(Files::move($id, $name));
+		}
+	}
+
+	// ------------------------------------------------------------------------
+
+	/**
+	 * Edit description of a file
+	 *
+	 * @access	public
+	 * @return	void
+	 */
+	public function save_description()
+	{
+		if ($id = $this->input->post('file_id') AND $description = $this->input->post('description'))
+		{
+			$this->file_m->update($id, array('description' => $description));
+
+			echo json_encode(array('status' => TRUE, 'message' => lang('files:description_saved')));
 		}
 	}
 

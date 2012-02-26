@@ -89,6 +89,23 @@ class Files
 			->order_by('sort')
 			->get_all();
 
+		// let's be nice and add a date in that's formatted like the rest of the CMS
+		if ($folders)
+		{
+			foreach ($folders as &$folder) 
+			{
+				$folder->formatted_date = format_date($folder->date_added);
+			}
+		}
+
+		if ($files)
+		{
+			foreach ($files as &$file) 
+			{
+				$file->formatted_date = format_date($file->date_added);
+			}
+		}
+
 		return self::result(TRUE, NULL, NULL, array('folder' => $folders, 'file' => $files));
 	}
 

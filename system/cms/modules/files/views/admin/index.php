@@ -25,15 +25,7 @@
 
 	<section class="one_half">
 			<ul class="folders-right pane">
-				<?php if ($folders) : ?>
-					<?php foreach ($folders as $folder): ?>
-						<li class="folder" 
-							data-id="<?php echo $folder->id.'" 
-							data-name="'.$folder->name.'">
-								<span class="name-text">'.$folder->name; ?></span>
-						</li>
-					<?php endforeach; ?>
-				<?php else : ?>
+				<?php if ( ! $folders) : ?>
 					<div class="no_data"><?php echo lang('files:no_folders'); ?></div>
 				<?php endif; ?>
 			</ul>
@@ -71,6 +63,39 @@
 				<a href="#" title="" class="button cancel-upload"><?php echo lang('buttons.cancel');?></a>
 			</div>
 			
+		</div>
+
+		<div class="item-details">
+			<h4><?php echo lang('files:details'); ?></h4>
+			<ul>
+				<li><?php echo lang('files:name'); ?>: 
+					<span class="name"></span>
+				</li>
+				<li><?php echo lang('files:slug'); ?>: 
+					<span class="slug"></span>
+				</li>
+				<li><?php echo lang('files:path'); ?>: 
+					<span class="path">http://bucket.s3.amazon.com/this/is/the/object.jpg</span>
+				</li>
+				<li><?php echo lang('files:added'); ?>: 
+					<span class="added"></span>
+				</li>
+				<li><?php echo lang('files:width'); ?>: 
+					<span class="width"></span>
+				</li>
+				<li><?php echo lang('files:height'); ?>: 
+					<span class="height"></span>
+				</li>
+				<li><?php echo lang('files:filename'); ?>: 
+					<span class="filename"></span>
+				</li>
+				<li><?php echo lang('files:filesize'); ?>: 
+					<span class="filesize"></span>
+				</li>
+				<li><?php echo lang('files:description'); ?>: <br />
+					<textarea class="description"></textarea>
+				</li>
+			</ul>
 		</div>
 
 		<ul>

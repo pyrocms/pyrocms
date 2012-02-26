@@ -30,6 +30,10 @@
 .folders-right .file.type-i .name-text { margin-top: 7px; }
 .folders-right .file.type-i img { padding: 25px 13px 0 13px; }
 
+.item-details li { font-size: 16px; list-style: none; line-height: 26px; }
+.item-details span { padding-left: 5px; }
+.item-details textarea { width: 390px; min-height: 0; height: 75px; }
+
 .console { height: 450px; border-left: 1px solid #d8d8d8; }
 .console .console-title { margin-left: 15px; margin-bottom: 10px; font-size: 14px; font-weight: bold; font-style: italic; border: none; }
 .console li { padding: 10px 0 10px 20px; border-bottom: 1px solid #d8d8d8; }

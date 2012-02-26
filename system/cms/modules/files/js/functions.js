@@ -76,7 +76,7 @@ jQuery(function($){
 				var pattern = new RegExp('file');
 			} else if ($(e.target).hasClass('folder')){
 				var pattern = new RegExp('folder');
-			} else if ($(e.target).hasClass('pane') && pyro.files.current_level === 0){
+			} else if ($(e.target).hasClass('pane') && pyro.files.current_level == 0){
 				var pattern = new RegExp('root-pane');
 			} else {
 				var pattern = new RegExp('pane');
@@ -126,6 +126,10 @@ jQuery(function($){
 			case 'delete':
 				if ( ! confirm(pyro.lang.dialog_message)) return;
 				pyro.files.delete_item(pyro.files.current_level);
+			break;
+
+			case 'details':
+				pyro.files.details();			
 			break;
 		}
 	});
@@ -399,7 +403,9 @@ jQuery(function($){
 							'<li class="'+type+' '+(type == 'file' ? 'type-'+item.type : '')+'" data-id="'+item.id+'" data-name="'+item.name+'">'+
 								li_content+
 							'</li>'
-						)
+						);
+						// save all its details for other uses. The Details window for example
+						$(window).data(type+'_'+item.id, item);
 					})
 
 				});
@@ -473,4 +479,56 @@ jQuery(function($){
  			}
  		})
 	 }
+
+	 pyro.files.details = function()
+	 {
+	 	// file or folder?
+	 	var type = pyro.files.$last_r_click.hasClass('file') ? 'file' : 'folder';
+	 	// figure out the ID from the last clicked item
+	 	var $item_id = pyro.files.$last_r_click.attr('data-id') > 0 ? pyro.files.$last_r_click.attr('data-id') : 0;
+	 	// retrieve all the data that was stored when the item was initially loaded
+	 	var $item = $(window).data(type+'_'+$item_id);
+
+	 	// hide all the unused elements
+	 	$('.item-details li').hide();
+
+	 	if ($item) {
+		 	if ($item.name) 			$('.item-details .name').html($item.name).parent().show();
+		 	if ($item.slug) 			$('.item-details .slug').html($item.slug).parent().show();
+		 	if ($item.path) 			$('.item-details .path').html($item.path).parent().show();
+		 	if ($item.formatted_date) 	$('.item-details .added').html($item.formatted_date).parent().show();
+		 	if ($item.width > 0) 		$('.item-details .width').html($item.width+'px').parent().show();
+		 	if ($item.height > 0) 		$('.item-details .height').html($item.height+'px').parent().show();
+		 	if ($item.filesize) 		$('.item-details .filesize').html(($item.filesize < 1000 ? $item.filesize+'Kb' : $item.filesize / 1000+'MB')).parent().show();
+		 	if ($item.filename) 		$('.item-details .filename').html($item.filename).parent().show();
+		 	if (type == 'file') 		$('.item-details .description').html($item.description).parent().show();
+
+			$.colorbox({
+				scrolling	: false,
+				inline		: true,
+				href		: 'div.item-details',
+				width		: '500',
+				height		: '450',
+				opacity		: 0,
+				onCleanup	:function(){
+					pyro.files.save_description($item_id);
+				}
+			});
+		}
+	 }
+
+	 pyro.files.save_description = function(item_id)
+	 {
+	 	post = { 'file_id' : item_id, 'description' : $('.item-details textarea.description').val() };
+
+ 		$.post(SITE_URL + 'admin/files/save_description', post, function(data){
+ 			var results = $.parseJSON(data);
+ 			$(window).trigger('show-message', results);
+ 		})
+	 }
+
+	// when the page loads we try loading the root folder's contents
+	if ($('.folders-right').find('.no_data').length == 0) {
+		pyro.files.folder_contents(0);
+	}
 });

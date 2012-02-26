@@ -30,6 +30,16 @@ $lang['files:places']						= 'Places';
 $lang['files:back']							= 'Back';
 $lang['files:forward']						= 'Forward';
 $lang['files:start']						= 'Start';
+$lang['files:details']						= 'Details';
+$lang['files:name']							= 'Name';
+$lang['files:slug']							= 'Slug';
+$lang['files:path']							= 'Path';
+$lang['files:added']						= 'Date Added';
+$lang['files:width']						= 'Width';
+$lang['files:height']						= 'Height';
+$lang['files:filename']						= 'Filename';
+$lang['files:filesize']						= 'Filesize';
+$lang['files:description']					= 'Description';
 
 // Context Menu
 $lang['files:open']							= 'Open';
@@ -55,5 +65,6 @@ $lang['files:invalid_container']			= '"%s" does not appear to be a valid contain
 $lang['files:no_records_found']				= 'No records could be found';
 $lang['files:invalid_extension']			= '"%s" has a file extension that is not allowed';
 $lang['files:upload_error']					= 'The file upload failed';
+$lang['files:description_saved']			= 'The file description has been saved';
 
 /* End of file files_lang.php */
