@@ -67,25 +67,24 @@ class Module_Templates extends Module {
 		$this->dbforge->drop_table('email_templates');
 
 		$tables = array(
-			'theme_options' => array(
+			'email_templates' => array(
 				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
-				'slug' => array('type' => 'VARCHAR', 'constraint' => 100,),
+				'slug' => array('type' => 'VARCHAR', 'constraint' => 100, 'unique' => 'slug_lang',),
 				'name' => array('type' => 'VARCHAR', 'constraint' => 100,), // @todo rename this to 'title' to keep coherency with the rest of the modules
 				'description' => array('type' => 'VARCHAR', 'constraint' => 255,), // @todo change this to TEXT to be coherent with the rest of the modules
 				'subject' => array('type' => 'VARCHAR', 'constraint' => 255,),
 				'body' => array('type' => 'TEXT'),
-				'lang' => array('type' => 'VARCHAR', 'constraint' => 2,),
-				'is_default' => array('type' => 'INT', 'constraint' => 1,),
+				'lang' => array('type' => 'VARCHAR', 'constraint' => 2, 'null' => true, 'unique' => 'slug_lang',),
+				'is_default' => array('type' => 'INT', 'constraint' => 1, 'default' => 0,),
 			),
 		);
 
 		$this->install_tables($tables);
 
 		// Insert the default email templates
-		$this->load->model('templates/email_templates_m');
 
 		// @todo move this to the comments module
-		$this->email_templates_m->insert(array(
+		$this->db->insert('email_templates',array(
 			'slug' => 'comments',
 			'name' => 'Comment Notification',
 			'description' => 'Email that is sent to admin when someone creates a comment',
@@ -101,7 +100,7 @@ class Module_Templates extends Module {
 		));
 
 		// @todo move this to the contact module
-		$this->email_templates_m->insert(array(
+		$this->db->insert('email_templates',array(
 			'slug' => 'contact',
 			'name' => 'Contact Notification',
 			'description' => 'Template for the contact form',
@@ -121,7 +120,7 @@ class Module_Templates extends Module {
 		));
 
 		// @todo move this to the users module
-		$this->email_templates_m->insert(array(
+		$this->db->insert('email_templates',array(
 			'slug' => 'registered',
 			'name' => 'New User Registered',
 			'description' => 'Email sent to the site contact e-mail when a new user registers',
@@ -136,7 +135,7 @@ class Module_Templates extends Module {
 		));
 
 		// @todo move this to the users module
-		$this->email_templates_m->insert(array(
+		$this->db->insert('email_templates',array(
 			'slug' => 'activation',
 			'name' => 'Activation Email',
 			'description' => 'The email which contains the activation code that is sent to a new user',
@@ -153,7 +152,7 @@ class Module_Templates extends Module {
 		));
 
 		// @todo move this to the users module
-		$this->email_templates_m->insert(array(
+		$this->db->insert('email_templates',array(
 			'slug' => 'forgotten_password',
 			'name' => 'Forgotten Password Email',
 			'description' => 'The email that is sent containing a password reset code',
@@ -166,7 +165,7 @@ class Module_Templates extends Module {
 		));
 
 		// @todo move this to the users module
-		$this->email_templates_m->insert(array(
+		$this->db->insert('email_templates',array(
 			'slug' => 'new_password',
 			'name' => 'New Password Email',
 			'description' => 'After a password is reset this email is sent containing the new password',

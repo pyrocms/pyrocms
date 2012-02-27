@@ -69,7 +69,7 @@ class Module_Groups extends Module {
 			'groups' => array(
 				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
 				'name' => array('type' => 'VARCHAR', 'constraint' => 100,),
-				'description' => array('type' => 'VARCHAR', 'constraint' => 250,),
+				'description' => array('type' => 'VARCHAR', 'constraint' => 250, 'null' => true,),
 			),
 		);
 		$this->install_tables($tables);

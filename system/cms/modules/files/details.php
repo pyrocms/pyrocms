@@ -103,10 +103,10 @@ class Module_Files extends Module {
 			),
 			'file_folders' => array(
 				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
-				'parent_id' => array('type' => 'INT', 'constraint' => 11, 'default' => 0,),
+				'parent_id' => array('type' => 'INT', 'constraint' => 11, 'null' => true, 'default' => 0,),
 				'slug' => array('type' => 'VARCHAR', 'constraint' => 100,),
 				'name' => array('type' => 'VARCHAR', 'constraint' => 50,),
-				'date_added' => array('type' => 'INT', 'constraint' => 11, 'default' => 0,),
+				'date_added' => array('type' => 'INT', 'constraint' => 11,),
 				'sort' => array('type' => 'INT', 'constraint' => 11, 'default' => 0,),
 			),
 		);

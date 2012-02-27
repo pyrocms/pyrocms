@@ -231,10 +231,10 @@ abstract class Module {
 			}
 		}
 
-		if ($index === true)
+		if ( is_bool($index) and $index === true)
 		{
 			// The key/index takes the fields name.
-			$index = $type.'_'.$value;
+			$index = ( ! empty($type)) ? $type.'_'.$value : $value;
 		}
 
 		// If we dont have a key for this

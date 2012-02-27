@@ -86,8 +86,8 @@ class Module_Widgets extends Module {
 		$tables = array(	
 			'widget_areas' => array(
 				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
-				'slug' => array('type' => 'VARCHAR', 'constraint' => 100, 'default' => '',),
-				'title' => array('type' => 'VARCHAR', 'constraint' => 100, 'default' => '',),
+				'slug' => array('type' => 'VARCHAR', 'constraint' => 100, 'null' => true,),
+				'title' => array('type' => 'VARCHAR', 'constraint' => 100, 'null' => true,),
 			),
 			
 			'widget_instances' => array(
@@ -117,10 +117,12 @@ class Module_Widgets extends Module {
 
 		$this->install_tables($tables);
 		
-		// Add the default data 
-		$this->load->library('widgets/widgets');
+		// Add the default data
 		// @todo Use a language string for the 'title'?
-		$this->widgets->add_area(array('slug' => 'sidebar', 'title' => 'Sidebar'));
+		$this->db->insert('widget_areas', array(
+			'title' => 'Sidebar',
+			'slug' 	=> 'sidebar',
+		));
 	}
 
 	public function uninstall()

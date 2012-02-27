@@ -60,18 +60,18 @@ class Module_Comments extends Module {
 		$this->dbforge->drop_table('comments');
 
 		$tables = array(
-			'contact_log' => array(
+			'comments' => array(
 				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
 				'is_active' => array('type' => 'INT', 'constraint' => 1, 'default' => 0,),
 				'user_id' => array('type' => 'INT', 'constraint' => 11, 'default' => 0,),
 				'name' => array('type' => 'VARCHAR', 'constraint' => 40, 'default' => '',),
-				'email' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '',),
+				'email' => array('type' => 'VARCHAR', 'constraint' => 40, 'default' => '',), // @todo Shouldn't this be 255?
 				'website' => array('type' => 'VARCHAR', 'constraint' => 255,),
 				'comment' => array('type' => 'TEXT',),
 				'parsed' => array('type' => 'TEXT',),
 				'module' => array('type' => 'VARCHAR', 'constraint' => 40,),
 				'module_id' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => 0,),
-				'created_on' => array('type' => 'INT', 'constraint' => 11, 'default' => 0,),
+				'created_on' => array('type' => 'VARCHAR', 'constraint' => 11, 'default' => '0',), // @todo Shouldn't this be an int?
 				'ip_address' => array('type' => 'VARCHAR', 'constraint' => 15, 'default' => '',),
 			),
 		);

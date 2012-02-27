@@ -69,7 +69,7 @@ class Module_Contact extends Module {
 				'sender_ip' => array('type' => 'VARCHAR', 'constraint' => 32, 'default' => '',),
 				'sender_os' => array('type' => 'VARCHAR', 'constraint' => 32, 'default' => '',),
 				'sent_at' => array('type' => 'INT', 'constraint' => 11, 'default' => 0,),
-				'name' => array('type' => 'TEXT',),
+				'attachments' => array('type' => 'TEXT',),
 			),
 		);
 		

@@ -68,8 +68,8 @@ class Module_Settings extends Module {
 				'default' => array('type' => 'TEXT',),
 				'value' => array('type' => 'TEXT',),
 				'options' => array('type' => 'VARCHAR', 'constraint' => 255,),
-				'is_required' => array('type' => 'INT', 'constraint' => 1, 'default' => 1,),
-				'is_gui' => array('type' => 'INT', 'constraint' => 1, 'default' => 1,),
+				'is_required' => array('type' => 'INT', 'constraint' => 1,),
+				'is_gui' => array('type' => 'INT', 'constraint' => 1,),
 				'module' => array('type' => 'VARCHAR', 'constraint' => 50,),
 				'order' => array('type' => 'INT', 'constraint' => 10, 'default' => 0,),
 			),
@@ -672,12 +672,10 @@ class Module_Settings extends Module {
 		);
 		
 		// Lets add the settings for this module.
-		$this->load->library('settings/settings');
-		
 		foreach ($settings as $slug=>$setting_info)
 		{
 			$setting_info['slug'] = $slug;
-			$this->settings->add($setting_info);
+			$this->db->insert('settings',$setting_info);
 		}
 
 	}

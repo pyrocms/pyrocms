@@ -80,8 +80,8 @@ class Module_Variables extends Module {
 		$tables = array(
 			'variables' => array(
 				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
-				'name' => array('type' => 'VARCHAR', 'constraint' => 255, 'null' => true,),
-				'data' => array('type' => 'VARCHAR', 'constraint' => 255, 'null' => true,),
+				'name' => array('type' => 'VARCHAR', 'constraint' => 250, 'null' => true,),
+				'data' => array('type' => 'VARCHAR', 'constraint' => 250, 'null' => true,),
 			),
 		);
 
