@@ -59,9 +59,9 @@ class Type
 		// This defaults to english.
 		$langs = $this->CI->config->item('supported_languages');
 		
-		if (isset($langs[CURRENT_LANGUAGE]))
+		if (isset($langs[$this->CI->settings->get('site_lang')]))
 		{
-			$this->current_lang = $langs[CURRENT_LANGUAGE]['folder'];
+			$this->current_lang = $langs[$this->CI->settings->get('site_lang')]['folder'];
 		}
 		
 		// Obj to hold all our field types
