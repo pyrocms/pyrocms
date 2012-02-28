@@ -151,8 +151,8 @@ $(function($) {
 
 	<!-- Display RSS Block: Only show if Dashboard RSS Items is greater than zero -->
 	<?php if ( count($rss_items) > 0) : ?>
-	<div id="feed" class="one_full">
-		
+	
+	<div id="feed" class="one_full">	
 		<section class="draggable title">
 			<h4><?php echo lang('cp_news_feed_title'); ?></h4>
 			<a class="tooltip-s toggle" title="Toggle this element"></a>
