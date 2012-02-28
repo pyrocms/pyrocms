@@ -121,6 +121,7 @@ class Files
 	public function folder_tree()
 	{
 		$folders = array();
+		$folder_array = array();
 
 		$all_folders = $this->file_folders_m
 			->select('id, parent_id, slug, name')

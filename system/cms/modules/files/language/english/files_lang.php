@@ -39,6 +39,7 @@ $lang['files:width']						= 'Width';
 $lang['files:height']						= 'Height';
 $lang['files:filename']						= 'Filename';
 $lang['files:filesize']						= 'Filesize';
+$lang['files:location']						= 'Location';
 $lang['files:description']					= 'Description';
 
 // Context Menu
@@ -57,6 +58,7 @@ $lang['files:new_folder_name']				= 'Untitled Folder';
 $lang['files:folder_not_empty']				= 'You must delete the contents of "%s" first';
 $lang['files:mkdir_error']					= 'We are unable to create the upload folder. You must create it manually';
 $lang['files:chmod_error']					= 'The upload directory is unwriteable. It must be 0777';
+$lang['files:location_saved']				= 'The folder location has been saved';
 
 // Files
 $lang['files:file_uploaded']				= '"%s" has been uploaded';

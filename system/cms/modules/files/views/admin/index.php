@@ -75,7 +75,7 @@
 					<span class="slug"></span>
 				</li>
 				<li><?php echo lang('files:path'); ?>: 
-					<span class="path">http://bucket.s3.amazon.com/this/is/the/object.jpg</span>
+					<span class="path">http://bucket.s3.amazon.com/30958591749/object.jpg</span>
 				</li>
 				<li><?php echo lang('files:added'); ?>: 
 					<span class="added"></span>
@@ -92,10 +92,16 @@
 				<li><?php echo lang('files:filesize'); ?>: 
 					<span class="filesize"></span>
 				</li>
+				<li><?php echo lang('files:location'); ?>: 
+					<?php echo form_dropdown('location', $locations, '', 'class="location"'); ?>
+				</li>
 				<li><?php echo lang('files:description'); ?>: <br />
 					<textarea class="description"></textarea>
 				</li>
 			</ul>
+			<div class="buttons">
+				<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )); ?>
+			</div>
 		</div>
 
 		<ul>

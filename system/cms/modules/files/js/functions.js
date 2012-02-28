@@ -129,7 +129,7 @@ jQuery(function($){
 			break;
 
 			case 'details':
-				pyro.files.details();			
+				pyro.files.details();
 			break;
 		}
 	});
@@ -488,52 +488,93 @@ jQuery(function($){
 	 	var $item_id = pyro.files.$last_r_click.attr('data-id') > 0 ? pyro.files.$last_r_click.attr('data-id') : 0;
 	 	// retrieve all the data that was stored when the item was initially loaded
 	 	var $item = $(window).data(type+'_'+$item_id);
+	 	var $select = $('.item-details .location');
 
 	 	// hide all the unused elements
 	 	$('.item-details li').hide();
 
 	 	if ($item) {
-		 	if ($item.name) 			$('.item-details .name').html($item.name).parent().show();
-		 	if ($item.slug) 			$('.item-details .slug').html($item.slug).parent().show();
-		 	if ($item.path) 			$('.item-details .path').html($item.path).parent().show();
-		 	if ($item.formatted_date) 	$('.item-details .added').html($item.formatted_date).parent().show();
-		 	if ($item.width > 0) 		$('.item-details .width').html($item.width+'px').parent().show();
-		 	if ($item.height > 0) 		$('.item-details .height').html($item.height+'px').parent().show();
-		 	if ($item.filesize) 		$('.item-details .filesize').html(($item.filesize < 1000 ? $item.filesize+'Kb' : $item.filesize / 1000+'MB')).parent().show();
-		 	if ($item.filename) 		$('.item-details .filename').html($item.filename).parent().show();
-		 	if (type == 'file') 		$('.item-details .description').html($item.description).parent().show();
+		 	if ($item.name) 			$('.item-details .name')		.html($item.name).parent().show();
+		 	if ($item.slug) 			$('.item-details .slug')		.html($item.slug).parent().show();
+		 	if ($item.path) 			$('.item-details .path')		.html($item.path).parent().show();
+		 	if ($item.formatted_date) 	$('.item-details .added')		.html($item.formatted_date).parent().show();
+		 	if ($item.width > 0) 		$('.item-details .width')		.html($item.width+'px').parent().show();
+		 	if ($item.height > 0) 		$('.item-details .height')		.html($item.height+'px').parent().show();
+		 	if ($item.filesize) 		$('.item-details .filesize')	.html(($item.filesize < 1000 ? $item.filesize+'Kb' : $item.filesize / 1000+'MB')).parent().show();
+		 	if ($item.filename) 		$('.item-details .filename')	.html($item.filename).parent().show();
+		 	if (type == 'file') 		$('.item-details .description')	.val($item.description).parent().show();
+		 	if (type == 'folder'){
+		 		// update the value and trigger an update on Chosen
+		 		$select.val($item.location).attr('selected', true);
+		 		$select.trigger('liszt:updated').parents().show();
+		 	}
 
 			$.colorbox({
 				scrolling	: false,
 				inline		: true,
 				href		: 'div.item-details',
 				width		: '500',
-				height		: '450',
-				opacity		: 0,
-				onCleanup	:function(){
-					if (type == 'file'){
-						pyro.files.save_description($item_id, $item.description);
-					}
+				height		: '500',
+				opacity		: 0
+			});
+
+			// save on click, then close the modal
+			$('.item-details .buttons').on('click', function(){
+				if (type == 'file'){
+					pyro.files.save_description($item);
+				} else {
+					pyro.files.save_location($item);
 				}
+				$.colorbox.close();
+
+				$(this).off('click');
 			});
 		}
 	 }
 
-	 pyro.files.save_description = function(item_id, description)
+	 pyro.files.save_description = function(item)
 	 {
-	 	// only save it if it's different than the old one
-	 	if (description != $('.item-details textarea.description').val()){
+	 	var new_description = $('.item-details textarea.description').val();
 
-		 	post = { 'file_id' : item_id, 'description' : $('.item-details textarea.description').val() };
+	 	// only save it if it's different than the old one
+	 	if (item.description != new_description){
+
+		 	post = { 'file_id' : item.id, 'description' : new_description };
 
 	 		$.post(SITE_URL + 'admin/files/save_description', post, function(data){
 	 			var results = $.parseJSON(data);
 	 			$(window).trigger('show-message', results);
+
+	 			// resave it locally
+	 			item.description = new_description;
+	 			$(window).data('file_'+item.id, item);
 	 		});
 	 	}
 	 }
 
-	// when the page loads we try loading the root folder's contents
+	 pyro.files.save_location = function(item)
+	 {
+	 	var new_location = $('.item-details .location').val();
+
+	 	// only save if it has been modified
+	 	if (item.location != new_location){
+
+		 	post = { 'folder_id' : item.id, 'location' : new_location };
+
+	 		$.post(SITE_URL + 'admin/files/save_location', post, function(data){
+				var results = $.parseJSON(data);
+				$(window).trigger('show-message', results);
+
+				// resave it locally
+				item.location = new_location;
+		 		$(window).data('folder_'+item.id, item);
+	 		});
+ 		}
+	}
+
+ 	/***************************************************************************
+	 * And off we go... load the root folder                                   *
+	 ***************************************************************************/
 	if ($('.folders-right').find('.no_data').length == 0) {
 		pyro.files.folder_contents(0);
 	}

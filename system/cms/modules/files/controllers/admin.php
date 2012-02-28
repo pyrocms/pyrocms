@@ -50,6 +50,12 @@ class Admin extends Admin_Controller {
 		// should we show the "no data" message to them?
 		$data->folders = $this->file_folders_m->count_by('parent_id', 0);
 
+		$parts = explode(',', Settings::get('files_enabled_providers'));
+		foreach ($parts as $location)
+		{
+			$data->locations[$location] = $location;
+		}
+
 		$data->folder_tree = Files::folder_tree();
 
 		$data->admin =& $this;
@@ -243,6 +249,24 @@ class Admin extends Admin_Controller {
 			$this->file_m->update($id, array('description' => $description));
 
 			echo json_encode(array('status' => TRUE, 'message' => lang('files:description_saved')));
+		}
+	}
+
+	// ------------------------------------------------------------------------
+
+	/**
+	 * Edit location of a folder (S3/Cloud Files/Local)
+	 *
+	 * @access	public
+	 * @return	void
+	 */
+	public function save_location()
+	{
+		if ($id = $this->input->post('folder_id') AND $location = $this->input->post('location'))
+		{
+			$this->file_folders_m->update($id, array('location' => $location));
+
+			echo json_encode(array('status' => TRUE, 'message' => lang('files:location_saved')));
 		}
 	}
 
