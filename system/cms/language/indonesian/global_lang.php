@@ -46,6 +46,7 @@ $lang['success_label'] 					= 'Berhasil';
 
 $lang['login_title'] 					= 'Masuk';
 $lang['cms_fatal_error'] 				= 'Kesalahan fatal, sudahkah CMS terinstall?';
+$lang['global:demo_restrictions']       = 'Some features on this page have been disabled for the demo.'; #translate
 
 $lang['login_error_label'] 				= 'Kesalahan ketika Masuk';
 $lang['forgot_password_label'] 			= 'Lupa Password ?';

@@ -44,6 +44,7 @@ $lang['success_label'] 					= 'Onnistunut';
 
 $lang['login_title'] 					= 'Kirjaudu sisään';
 $lang['cms_fatal_error'] 				= 'Virhe, onko CMS asennettu?';
+$lang['global:demo_restrictions']       = 'Some features on this page have been disabled for the demo.'; #translate
 
 $lang['login_error_label'] 				= 'Kirjautumis virhe';
 $lang['forgot_password_label'] 			= 'Unohditko salasanasi?';

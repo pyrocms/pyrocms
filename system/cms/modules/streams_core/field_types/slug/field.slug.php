@@ -45,7 +45,7 @@ class Field_slug
 	 * @param	array
 	 * @return	string
 	 */
-	public function form_output( $params )
+	public function form_output($params)
 	{
 		$options['name'] 	= $params['form_slug'];
 		$options['id']		= $params['form_slug'];
@@ -65,7 +65,7 @@ class Field_slug
 	/**
 	 * Dash or Underscore?
 	 */	
-	public function param_space_type( $value = null )
+	public function param_space_type($value = null)
 	{	
 		$options = array(
 			'-' => $this->CI->lang->line('streams.slug.dash'),
@@ -80,7 +80,7 @@ class Field_slug
 	/**
 	 * What field to slugify?
 	 */	
-	public function param_slug_field( $value = null )
+	public function param_slug_field($value = null)
 	{
 		$this->CI->load->model('fields_m');
 	
@@ -89,20 +89,16 @@ class Field_slug
 		
 		$drop = array();
 		
-		foreach($fields as $field):
-			
+		foreach ($fields as $field)
+		{
 			// We don't want no slugs.
-			if($field['field_type'] != 'slug'):
-			
+			if($field['field_type'] != 'slug')
+			{
 				$drop[$field['field_slug']] = $field['field_name'];
-			
-			endif;
-		
-		endforeach;
+			}
+		}
 		
 		return form_dropdown('slug_field', $drop, $value);
 	}
 
 }
-
-/* End of file field.encrypt.php */

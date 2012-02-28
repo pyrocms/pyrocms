@@ -214,7 +214,7 @@ class Admin extends Admin_Controller {
 		$groups = $this->group_m->get_all();
 		foreach ($groups as $group)
 		{
-			$group->name !== 'admin' && $group_options[$group->id] = $group->name;
+			$group_options[$group->id] = $group->name;
 		}
 		$this->data->group_options = $group_options;
 
@@ -254,7 +254,7 @@ class Admin extends Admin_Controller {
 		}
 
 		// Loop through each validation rule
-		foreach($this->validation_rules as $rule)
+		foreach ($this->validation_rules as $rule)
 		{
 			$this->data->navigation_link->{$rule['field']} = set_value($rule['field']);
 		}
@@ -289,7 +289,7 @@ class Admin extends Admin_Controller {
 		$groups = $this->group_m->get_all();
 		foreach ($groups as $group)
 		{
-			$group->name !== 'admin' && $group_options[$group->id] = $group->name;
+			$group_options[$group->id] = $group->name;
 		}
 		$this->data->group_options = $group_options;
 

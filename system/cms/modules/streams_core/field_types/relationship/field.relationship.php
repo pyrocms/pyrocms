@@ -43,28 +43,30 @@ class Field_relationship
 		// Get slug stream
 		$stream = $this->CI->streams_m->get_stream($data['custom']['choose_stream']);
 		
-		if(!$stream) return '<em>Related stream does not exist.</em>';
+		if ( ! $stream)
+		{
+			// @todo - languagize
+			return '<em>Related stream does not exist.</em>';
+		}
 
 		$title_column = $stream->title_column;
 		
 		// Default to ID for title column
-		if(!trim($title_column) or !$this->CI->db->field_exists($title_column, $stream->stream_prefix.$stream->stream_slug)):
-		
+		if ( ! trim($title_column) or !$this->CI->db->field_exists($title_column, $stream->stream_prefix.$stream->stream_slug))
+		{
 			$title_column = 'id';
-		
-		endif;
+		}
 	
 		// Get the entries
 		$obj = $this->CI->db->get($stream->stream_prefix.$stream->stream_slug);
 		
 		$choices = array();
 		
-		foreach($obj->result() as $row):
-		
+		foreach ($obj->result() as $row)
+		{
 			// Need to replace with title column
 			$choices[$row->id] = $row->$title_column;
-		
-		endforeach;
+		}
 		
 		// Output the form input
 		return form_dropdown($data['form_slug'], $choices, $data['value'], 'id="'.$data['form_slug'].'"');
@@ -80,18 +82,14 @@ class Field_relationship
 	 */
 	public function param_choose_stream($stream_id = FALSE)
 	{
-		$this->CI =& get_instance();
+		$this->CI = get_instance();
 		
-		$this->CI->db->select('id, stream_name');
-		$db_obj = $this->CI->db->get('data_streams');
+		$streams = $this->CI->db->select('id, stream_name')->get('data_streams')->result();
 		
-		$streams = $db_obj->result();
-		
-		foreach($streams as $stream):
-		
+		foreach ($streams as $stream)
+		{
 			$choices[$stream->id] = $stream->stream_name;
-		
-		endforeach;
+		}
 		
 		return form_dropdown('choose_stream', $choices, $stream_id);
 	}
@@ -110,7 +108,10 @@ class Field_relationship
 		// We only need this in the admin.
 		// Relationships are taken care of by a join
 		// on the front end
-		if($this->CI->uri->segment(1) != 'admin') return;
+		if ($this->CI->uri->segment(1) != 'admin')
+		{
+			return null;
+		}
 	
 		$stream = $this->CI->streams_m->get_stream($data['choose_stream']);
 
@@ -122,36 +123,34 @@ class Field_relationship
 		
 		// Make sure the table exists still. If it was deleted we don't want to
 		// have everything go to hell.
-		if(!$this->CI->db->table_exists($stream->stream_prefix.$stream->stream_slug)):
-		
-			return;
-		
-		endif;
+		if ( ! $this->CI->db->table_exists($stream->stream_prefix.$stream->stream_slug))
+		{
+			return null;
+		}
 		
 		// We need to make sure the select is NOT null.
 		// So, if we have no title column, let's use the id
-		if(trim($title_column) == ''):
-			
+		if (trim($title_column) == '')
+		{
 			$title_column = 'id';
-		
-		endif;
+		}
 
 		// -------------------------------------
 		// Get the entry
 		// -------------------------------------
 		
-		$this->CI->db->select('id, '.$title_column)->where('id', $input);
-		$obj = $this->CI->db->get($stream->stream_prefix.$stream->stream_slug);	
+		$row = $this->CI->db
+						->select('id, '.$title_column)
+						->where('id', $input)
+						->get($stream->stream_prefix.$stream->stream_slug)
+						->row();
 		
-		$row = $obj->row();
-
-		if( isset($row->$title_column) ):
-		
+		if (isset($row->$title_column))
+		{
 			return '<a href="'.site_url('admin/streams/entries/view/'.$stream->id.'/'.$row->id).'">'.$row->$title_column.'</a>';
+		}
 		
-		endif;
-		
-		return '';
+		return null;
 	}
 
 	// --------------------------------------------------------------------------
@@ -175,19 +174,21 @@ class Field_relationship
 		
 		$obj = $this->CI->db->where('id', $row)->get($stream->stream_prefix.$stream->stream_slug);
 		
-		if($obj->num_rows() == 0) return;
+		if ($obj->num_rows() == 0)
+		{
+			return null;
+		}
 		
 		$returned_row = $obj->row();
 		
-		foreach($returned_row as $key => $val):
-		
+		foreach ($returned_row as $key => $val)
+		{
 			$return[$key] = $val;
-		
-		endforeach;
+		}
 		
 		$stream_fields = $this->CI->streams_m->get_stream_fields($stream->id);
 
-		return $this->CI->row_m->format_row($return, $stream_fields, $stream, FALSE, TRUE);
+		return $this->CI->row_m->format_row($return, $stream_fields, $stream, false, true);
 	}
 
 	// --------------------------------------------------------------------------

@@ -9,7 +9,6 @@
  */
 class WYSIWYG_Controller extends MY_Controller
 {
-
 	/**
 	 * @todo Document this please. 
 	 */
@@ -18,7 +17,7 @@ class WYSIWYG_Controller extends MY_Controller
 		parent::__construct();
 
 		// Not an admin and not allowed to see files
-		if ($this->current_user->group !== 'admin' AND !array_key_exists('files', $this->permissions))
+		if ($this->current_user->group !== 'admin' AND ! array_key_exists('files', $this->permissions))
 		{
 			$this->load->language('files/files');
 			show_error(lang('files.no_permissions'));
@@ -35,14 +34,9 @@ class WYSIWYG_Controller extends MY_Controller
 		// Make a constant as this is used in a lot of places
 		defined('ADMIN_THEME') or define('ADMIN_THEME', $this->admin_theme->slug);
 
-		// Prepare Asset library
-		$this->asset->set_theme(ADMIN_THEME);
-
 		// Set the location of assets
-		$this->config->set_item('asset_dir', dirname($this->admin_theme->web_path).'/');
-		$this->config->set_item('asset_url', BASE_URL.dirname($this->admin_theme->web_path).'/');
-		$this->config->set_item('theme_asset_dir', dirname($this->admin_theme->web_path).'/');
-		$this->config->set_item('theme_asset_url', BASE_URL.dirname($this->admin_theme->web_path).'/');
+		Asset::add_path('theme', $this->admin_theme->web_path.'/');
+		Asset::set_path('theme');
 
 		$this->load->model('files/file_folders_m');
 		$this->load->model('files/file_m');
@@ -51,16 +45,15 @@ class WYSIWYG_Controller extends MY_Controller
 		$this->lang->load('buttons');
 
 		$this->template
-				->set_theme(ADMIN_THEME)
-				->set_layout('wysiwyg', 'admin')
-				->enable_parser(FALSE)
-				->set('editor_path', config_item('asset_dir').'js/ckeditor/')
-				->append_css('wysiwyg.css')
-				->append_css('jquery/ui-lightness/jquery-ui.css')
-				->append_js('jquery/jquery.min.js')
-				->append_js('plugins.js')
-				->append_js('jquery/jquery-ui.js')
-				->append_js('module::wysiwyg.js');
+			->set_theme(ADMIN_THEME)
+			->set_layout('wysiwyg', 'admin')
+			->enable_parser(FALSE)
+			->append_css('wysiwyg.css')
+			->append_css('jquery/ui-lightness/jquery-ui.css')
+			->append_js('jquery/jquery.js')
+			->append_js('plugins.js')
+			->append_js('jquery/jquery-ui.js')
+			->append_js('module::wysiwyg.js');
 	}
 
 }

@@ -53,7 +53,7 @@ class Plugin_Theme extends Plugin
 	 * Get the path to the theme
 	 *
 	 * Usage:
-	 * {{ theme:assets }}
+	 * {{ theme:path }}
 	 *
 	 * @return string The path to the theme (relative to web root).
 	 */
@@ -191,7 +191,7 @@ class Plugin_Theme extends Plugin
 	public function js($return = '')
 	{
 		$file = $this->attribute('file');
-		return '<script src="'.$this->js_path($file).'" type="text/css"></script>';
+		return '<script src="'.$this->js_path($file).'" type="text/javascript"></script>';
 	}
 
 	/**

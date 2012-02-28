@@ -139,7 +139,7 @@ class Plugin_Asset extends Plugin
 	public function js()
 	{
 		$file = $this->attribute('file');
-		$module = $this->attribute('group');
+		$group = $this->attribute('group');
 
 		return Asset::js($file, NULL, $group);
 	}

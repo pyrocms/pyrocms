@@ -42,5 +42,3 @@ class Field_integer
 	}
 	
 }
-
-/* End of file field.integer.php */
