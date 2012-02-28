@@ -27,7 +27,7 @@ $lang['comments.send_label'] 				= 'Kommentar';
 $lang['comments.inactive_title'] 			= 'Noch unbestätigte Kommentare';
 $lang['comments.active_title'] 				= 'Bestätigte Kommentare';
 $lang['comments.edit_title'] 				= 'Kommentar bearbeiten';
-$lang['comments.list_title'] 				= 'List comments'; #translate
+$lang['comments.list_title'] 				= 'Kommentare auflisten';
 
 // messages
 $lang['comments.add_success'] 				= 'Der Kommentar wurde erfolgreich gesichert.';
@@ -53,8 +53,8 @@ $lang['comments.delete_multi_success'] 		= 'Diese Kommentare #%s wurden gelösch
 $lang['comments.no_comments'] 				= 'Keine Kommentare vorhanden';
 
 // Helper counter comments
-$lang['comments.counter_none_label']		= 'No comment'; #translate
-$lang['comments.counter_singular_label']	= '%d comment'; #translate
-$lang['comments.counter_plural_label']		= '%d comments'; #translate
+$lang['comments.counter_none_label']		= 'Keine Kommentare';
+$lang['comments.counter_singular_label']	= '%d Kommentar';
+$lang['comments.counter_plural_label']		= '%d Kommentare';
 
 /* End of file comments_lang.php */

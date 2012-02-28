@@ -21,17 +21,17 @@ $lang['files.upload_title']					= 'Dateien hochladen';
 $lang['files.edit_title']					= 'Datei "%s" bearbeiten';
 
 // Labels
-$lang['files.download_label']				= 'Download'; #translate same meaning in german
+$lang['files.download_label']				= 'Download';
 $lang['files.upload_label']					= 'Hochladen';
 $lang['files.description_label']			= 'Beschreibung';
 $lang['files.type_label']					= 'Typ';
 $lang['files.file_label']					= 'Datei';
 $lang['files.filename_label']				= 'Dateiname';
-$lang['files.filter_label']					= 'Filter'; #translate same in german
+$lang['files.filter_label']					= 'Filter';
 $lang['files.loading_label']				= 'Wird geladen...';
-$lang['files.name_label']					= 'Name'; #translate same in german
+$lang['files.name_label']					= 'Name';
 
-$lang['files.dropdown_select']				= '-- Select Folder For Upload --'; #translate
+$lang['files.dropdown_select']				= '-- Ordner f&uuml;r Upload w&auml;hlen --';
 $lang['files.dropdown_no_subfolders']		= '-- Keines --';
 $lang['files.dropdown_root']				= '-- Root --';
 

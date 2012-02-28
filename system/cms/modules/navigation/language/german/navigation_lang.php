@@ -13,7 +13,7 @@ $lang['nav_type_label']                   = 'Link-Typ';
 $lang['nav_uri_label']                    = 'Seiten-Link (URI)';
 $lang['nav_page_label']                   = 'Seite';
 $lang['nav_module_label']                 = 'Modul';
-$lang['nav_restricted_to']						= 'Restricted To'; #translate
+$lang['nav_restricted_to']                = 'Beschr&auml;nkt auf';
 $lang['nav_abbrev_label']                 = 'Abkürzung';
 
 $lang['nav_link_target_self']             = 'Aktuelles Fenster (Standard)';
@@ -24,7 +24,7 @@ $lang['nav_link_create_title']            = 'Navigations-Link hinzufügen';
 $lang['nav_group_create_title']           = 'Gruppe hinzufügen';
 $lang['nav_link_edit_title']              = 'Navigations-Link "%s" bearbeiten';
 $lang['nav_link_list_title']              = 'Links auflisten';
-$lang['nav_group_list_title']                   = 'Groups'; #translate
+$lang['nav_group_list_title']             = 'Gruppen';
 
 // messages
 $lang['nav_group_no_links']               = 'Es existieren keine Links in dieser Gruppe.';
@@ -39,5 +39,5 @@ $lang['nav_link_not_exist_error']         = 'Navigations-link existiert nicht.';
 $lang['nav_link_edit_success']            = 'Navigations-link wurde gesichert.';
 $lang['nav_link_delete_success']          = 'Navigations-link wurde gelöscht.';
 
-$lang['nav_choose_value']						= 'The %s field must not be empty.'; #translate
+$lang['nav_choose_value']                 = 'Das Feld %s darf nicht leer sein.';
 $lang['nav_link_type_desc']               = 'Bitte wähle einen Link-Typ aus, um weitere Optionen angezeigt zu bekommen.';
