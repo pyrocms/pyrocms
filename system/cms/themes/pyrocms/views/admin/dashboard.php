@@ -148,6 +148,9 @@ $(function($) {
 
 	<!-- Begin RSS Feed -->
 	<?php if ( isset($rss_items) AND $theme_options->pyrocms_news_feed == 'yes') : ?>
+
+	<!-- Display RSS Block: Only show if Dashboard RSS Items is greater than zero -->
+	<?php if ( count($rss_items) > 0) : ?>
 	<div id="feed" class="one_full">
 		
 		<section class="draggable title">
@@ -183,7 +186,10 @@ $(function($) {
 			</ul>
 		</section>
 
-	</div>		
+	</div>
+	<?php endif; ?>
+	<!-- End Display RSS Block -->
+
 	<?php endif; ?>
 	<!-- End RSS Feed -->
 
