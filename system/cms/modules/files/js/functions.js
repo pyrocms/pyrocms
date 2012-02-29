@@ -135,18 +135,28 @@ jQuery(function($){
 	});
 
 	/***************************************************************************
-	 * Select folders including with the control key. #TODO: shift key         *
+	 * Select files including with the control and shift keys                  *
 	 ***************************************************************************/
 
-	$('.folders-right').on('click', '[data-id]', function(e){
+	$('.folders-right').on('click', '.file[data-id]', function(e){
 		e.stopPropagation();
-		var selected = $('.folders-right').find('.selected').length > 0;
+		var first;
+		var last;
+
+		var selected = $('.folders-right').find('.selected').length;
 		if ( ! e.ctrlKey && ! e.shiftKey) {
-			if(selected) {
+			if(selected > 0) {
 				$('[data-id]').removeClass('selected');
 			}
 		}
 		$(this).toggleClass('selected');
+
+		// select 
+		if (e.shiftKey){
+			$('.folders-right .selected:last')
+				.prevAll('.folders-right .selected:first ~ *')
+				.addClass('selected');
+		}
 	});
 
 	// if they left click in the main area reset selected items or hide the context menu
@@ -462,22 +472,46 @@ jQuery(function($){
 
 	 pyro.files.delete_item = function(current_level)
 	 {
-	 	var type = pyro.files.$last_r_click.hasClass('folder') ? 'folder' : 'file';
 	 	var post = {};
-	 		post[type+'_id'] = pyro.files.$last_r_click.attr('data-id');
+	 	var do_delete;
+	 	var items = $('.selected[data-id]');
+	 	// if there are selected items then they have to be files
+	 	var type = items.length > 0 ? 'file' : 'folder';
 
- 		$.post(SITE_URL + 'admin/files/delete_'+type, post, function(data){
- 			var results = $.parseJSON(data);
- 			$(window).trigger('show-message', results);
- 			if (results.status) {
- 				$('[data-id="'+post[type+'_id']+'"]').remove();
+	 	// file or folder?
+	 	if (items.length > 0 || pyro.files.$last_r_click.hasClass('file')){
+	 		type = 'file';
 
- 				if (type == 'folder') {
-					$('[data-id="'+current_level+'"] ul:empty').remove();
-					$('[data-id="'+current_level+'"]').removeClass('open close');
- 				}
- 			}
- 		})
+	 		// they've clicked on a file but it isn't selected. Grab it and stuff it into "items"
+	 		if (items.length === 0){
+		 		items = pyro.files.$last_r_click;
+		 	}
+
+	 		items.each(function(index, item){
+	 			post.file_id = $(item).attr('data-id');
+	 			do_delete();
+ 				$('[data-id="'+post.file_id+'"]').remove();
+	 		})
+	 	} else {
+	 		items = pyro.files.$last_r_click;
+	 		// gotta be a folder
+	 		type = 'folder';
+	 		items.each(function(index, item){
+	 			post.folder_id = $(item).attr('data-id');
+	 			do_delete();
+ 				$('[data-id="'+post.folder_id+'"]').remove();
+
+				$('[data-id="'+current_level+'"] ul:empty').remove();
+				$('[data-id="'+current_level+'"]').removeClass('open close');
+	 		})
+	 	}
+
+ 		function do_delete(){
+	 		$.post(SITE_URL + 'admin/files/delete_'+type, post, function(data){
+	 			var results = $.parseJSON(data);
+	 			$(window).trigger('show-message', results);
+	 		});
+		}
 	 }
 
 	 pyro.files.details = function()
