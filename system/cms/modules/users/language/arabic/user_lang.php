@@ -71,6 +71,7 @@ $lang['user_reset_password_link'] 		= 'نسيت كلمة السرّ الخاصة
 
 $lang['user_activation_code_sent_notice']	= 'أرسلت رسالة إليك تحتوي رمز التفعيل.';
 $lang['user_activation_by_admin_notice'] 	= 'تسجيلك في الموقع بانتظار موافقة الإدارة.';
+$lang['user_registration_disabled']            = 'Sorry, but the user registration is disabled.'; #translate
 
 // -- Settings ---------------------------------------------------------------------------------------------
 

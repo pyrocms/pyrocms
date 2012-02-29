@@ -70,10 +70,18 @@ class Admin extends Admin_Controller
 
 			if ($this->form_validation->run())
 			{
-				$this->group_m->insert($this->input->post())
-					? $this->session->set_flashdata('success', sprintf(lang('groups.add_success'), $this->input->post('name')))
-					: $this->session->set_flashdata('error', sprintf(lang('groups.add_error'), $this->input->post('name')));
-
+				if ($id = $this->group_m->insert($this->input->post()))
+				{
+					// Fire an event. A new group has been created.
+					Events::trigger('group_created', $id);
+					
+					$this->session->set_flashdata('success', sprintf(lang('groups.add_success'), $this->input->post('name')));
+				}
+				else
+				{
+					$this->session->set_flashdata('error', sprintf(lang('groups.add_error'), $this->input->post('name')));
+				}
+				
 				redirect('admin/groups');
 			}
 		}
@@ -121,10 +129,17 @@ class Admin extends Admin_Controller
 			
 			if ($this->form_validation->run())
 			{
-				$this->group_m->update($id, $this->input->post())
+				$success = $this->group_m->update($id, $this->input->post())
 					? $this->session->set_flashdata('success', sprintf(lang('groups.edit_success'), $this->input->post('name')))
 					: $this->session->set_flashdata('error', sprintf(lang('groups.edit_error'), $this->input->post('name')));
 
+				if ($success)
+				{
+					// Fire an event. A group has been updated.
+					Events::trigger('group_updated', $id);
+				}
+				
+				// Redirect
 				redirect('admin/groups');
 			}
 		}
@@ -144,10 +159,16 @@ class Admin extends Admin_Controller
 	 */
 	public function delete($id = 0)
 	{
-		$this->group_m->delete($id)
+		$success = $this->group_m->delete($id)
 			? $this->session->set_flashdata('success', lang('groups.delete_success'))
 			: $this->session->set_flashdata('error', lang('groups.delete_error'));
 
+		if ($success)
+		{
+			// Fire an event. A group has been deleted.
+			Events::trigger('group_deleted', $id);
+		}
+				
 		redirect('admin/groups');
 	}
 }

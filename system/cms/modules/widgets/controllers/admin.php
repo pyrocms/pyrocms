@@ -182,6 +182,20 @@ class Admin extends Admin_Controller {
 				$status = 'error';
 				break;
 			}
+			else
+			{
+				// Fire an Event. A widget has been enabled or disabled. 
+				switch ($action)
+				{
+					case 'enable':		
+						Events::trigger('widget_enabled', $ids);
+						break;
+					
+					case 'disable':		
+						Events::trigger('widget_disabled', $ids);
+						break;
+				}
+			}
 		}
 
 		$this->session->set_flashdata( array($status=> lang('widgets.'.$action.'_'.$status.$multiple)));

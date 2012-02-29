@@ -72,6 +72,7 @@ $lang['user_reset_password_link']              = 'Glemt password?';
 
 $lang['user_activation_code_sent_notice']      = 'Du modtager nu en e-mail med din aktiveringskode.';
 $lang['user_activation_by_admin_notice']       = 'Din registering afventer godkendelse af en administrator.';
+$lang['user_registration_disabled']            = 'Sorry, but the user registration is disabled.'; #translate
 
 // -- Settings ---------------------------------------------------------------------------------------------
 

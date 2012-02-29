@@ -33,9 +33,9 @@ class Field_wysiwyg
 	 */
 	public function event()
 	{
-		$CI =& get_instance();
+		$CI = get_instance();
 		
-		$html = $CI->type->load_view('wysiwyg', 'wysiwyg_js_code', '', TRUE);
+		$html = $CI->type->load_view('wysiwyg', 'wysiwyg_js_code', '', true);
 		
 		$CI->type->add_misc($html);
 	}
@@ -52,15 +52,14 @@ class Field_wysiwyg
 	public function form_output($data)
 	{
 		// Set editor type
-		if(isset($data['custom']['editor_type'])):
-
+		if (isset($data['custom']['editor_type']))
+		{
 			$options['class']	= 'wysiwyg-'.$data['custom']['editor_type'];
-		
-		else:
-
+		}
+		else
+		{
 			$options['class']	= 'wysiwyg-simple';
-		
-		endif;
+		}
 	
 		$options['name'] 	= $data['form_slug'];
 		$options['id']		= $data['form_slug'];
@@ -76,7 +75,7 @@ class Field_wysiwyg
 	 *
 	 * Choose the type of editor.
 	 */
-	public function param_editor_type($value = '')
+	public function param_editor_type($value = null)
 	{
 		$types = array(
 			'simple'	=> lang('streams.wysiwyg.simple'),
@@ -85,6 +84,5 @@ class Field_wysiwyg
 	
 		return form_dropdown('editor_type', $types, $value);
 	}	
-}
 
-/* End of file field.text.php */
+}

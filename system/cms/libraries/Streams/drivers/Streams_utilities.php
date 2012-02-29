@@ -45,7 +45,7 @@ class Streams_utilities extends CI_Driver {
 		// Get all the streams in this namespace and remove each one:
 		$streams = $this->CI->streams_m->get_streams($namespace);
 		
-		if ( ! $streams) return NULL;
+		if ( ! $streams) return null;
 		
 		foreach ($streams as $stream)
 		{
@@ -78,7 +78,7 @@ class Streams_utilities extends CI_Driver {
 	 * @param	[array - view options]
 	 * @return	bool
 	 */
-	function convert_table_to_stream($table_slug, $namespace, $prefix, $stream_name, $about = NULL, $title_column = NULL, $view_options = array('id', 'created'))
+	function convert_table_to_stream($table_slug, $namespace, $prefix, $stream_name, $about = null, $title_column = null, $view_options = array('id', 'created'))
 	{
 		// ----------------------------
 		// Table data checks
@@ -89,7 +89,7 @@ class Streams_utilities extends CI_Driver {
 		// out of a table that doesn't exist.
 		if ( ! $this->CI->db->table_exists($prefix.$table_slug))
 		{
-			return FALSE;
+			return false;
 		}
 		
 		// Maybe this table already exsits in our streams table?
@@ -101,14 +101,14 @@ class Streams_utilities extends CI_Driver {
 						->get($this->CI->config->item('streams:streams_table'))
 						->num_rows > 0)
 		{
-			return FALSE;
+			return false;
 		}
 		
 		// We need an ID field to be able to make
 		// a table into a stream.
 		if ( ! $this->CI->db->field_exists('id', $prefix.$table_slug) )
 		{
-			return FALSE;
+			return false;
 		}
 		
 		// ----------------------------
@@ -121,25 +121,25 @@ class Streams_utilities extends CI_Driver {
 		// Created Field
 		if ( ! $this->CI->db->field_exists('created', $prefix.$table_slug) )
 		{
-			$this->CI->dbforge->add_column($prefix.$table_slug, array('created' => array('type' => 'DATETIME', 'null' => TRUE)));
+			$this->CI->dbforge->add_column($prefix.$table_slug, array('created' => array('type' => 'DATETIME', 'null' => true)));
 		}
 	
 		// Updated Field
 		if ( ! $this->CI->db->field_exists('updated', $prefix.$table_slug) )
 		{
-			$this->CI->dbforge->add_column($prefix.$table_slug, array('updated' => array('type' => 'DATETIME', 'null' => TRUE)));
+			$this->CI->dbforge->add_column($prefix.$table_slug, array('updated' => array('type' => 'DATETIME', 'null' => true)));
 		}
 
 		// Created_by Field
 		if ( ! $this->CI->db->field_exists('created_by', $prefix.$table_slug) )
 		{
-			$this->CI->dbforge->add_column($prefix.$table_slug, array('created_by' => array('type' => 'INT', 'constraint' => 11, 'null' => TRUE)));
+			$this->CI->dbforge->add_column($prefix.$table_slug, array('created_by' => array('type' => 'INT', 'constraint' => 11, 'null' => true)));
 		}
 
 		// Ordering_count Field
 		if ( ! $this->CI->db->field_exists('ordering_count', $prefix.$table_slug) )
 		{
-			$this->CI->dbforge->add_column($prefix.$table_slug, array('ordering_count' => array('type' => 'INT', 'constraint' => 11, 'null' => TRUE)));
+			$this->CI->dbforge->add_column($prefix.$table_slug, array('ordering_count' => array('type' => 'INT', 'constraint' => 11, 'null' => true)));
 		}
 
 		// ----------------------------
@@ -181,9 +181,78 @@ class Streams_utilities extends CI_Driver {
 	 * @param	string - namespace
 	 * @return	bool
 	 */
-	function convert_column_to_field($stream_slug, $namespace, $field_data, )
+	function convert_column_to_field($stream_slug, $namespace, $field_name, $field_slug, $field_type, $extra = array(), $assign_data = array())
 	{
+		// Get the stream
+		if ( ! $stream = $this->stream_obj($stream_slug, $namespace))
+		{
+			$this->log_error('invalid_stream', 'convert_column_to_field');
+			return false;
+		}
+	
+		// Make sure this column actually exists.
+		if ( ! $this->CI->db->field_exists($field_slug, $stream->stream_prefix.$stream->stream_slug))
+		{
+			$this->log_error('no_column', 'convert_column_to_field');
+			return false;
+		}
 		
+		// Maybe we already added this?
+		if ($this->CI->db
+					->limit(1)
+					->where('field_slug', $field_slug)
+					->where('field_namespace', $namespace)
+					->get(FIELDS_TABLE)
+					->num_rows() == 1)
+		{
+			return false;
+		}
+		
+		// If it does, we are in business! Let's add the field
+		// metadata + the field assignment
+
+		// ----------------------------
+		// Add Field Metadata
+		// ----------------------------
+
+		if ( ! isset($extra) or ! is_array($extra)) $extra = array();
+
+		if ( ! $this->CI->fields_m->insert_field($field_name, $field_slug, $field_type, $namespace, $extra)) return false;
+		
+		$field_id = $this->CI->db->insert_id();
+
+		// ----------------------------
+		// Add Assignment
+		// ----------------------------
+
+		$data = array();
+		extract($assign_data);
+	
+		// Title column
+		if (isset($title_column) and $title_column === true)
+		{
+			$data['title_column'] = 'yes';
+		}
+
+		// Instructions
+		$data['instructions'] = (isset($instructions) and $instructions != '') ? $instructions : null;
+		
+		// Is Unique
+		if (isset($unique) and $unique === true)
+		{
+			$data['is_unique'] = 'yes';
+		}
+		
+		// Is Required
+		if (isset($required) and $required === true)
+		{
+			$data['is_required'] = 'yes';
+		}
+	
+		// Add actual assignment
+		// The 4th parameter is to stop the column from being
+		// created, since we already did that.
+		return $this->CI->streams_m->add_field_to_stream($field_id, $stream->id, $data, false);
 	}
 
 }

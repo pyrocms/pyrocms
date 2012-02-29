@@ -37,37 +37,36 @@ class Field_file
 		$this->CI->load->config('files/files');
 		
 		// Get the file
-		$this->CI->db->limit(1);
-		$this->CI->db->where('id', $params['value']);
-		$db_obj = $this->CI->db->get('files');
+		$db_obj = $this->CI->db
+							->where('id', $params['value'])
+							->limit(1)
+							->get('files');
 		
 		$out = '';
 		
-		if( $db_obj->num_rows() != 0 ):
-			
+		if ($db_obj->num_rows() != 0)
+		{
 			$out .= $this->_output_link($db_obj->row()).'<br />';
-	
-		else:
-		
+		}
+		else
+		{
 			$out .= '';
-		
-		endif;
+		}
 		
 		// Output the actual used value
-		if( is_numeric($params['value']) ):
-		
+		if (is_numeric($params['value']))
+		{
 			$out .= form_hidden($params['form_slug'], $params['value']);
-		
-		else:
-
+		}
+		else
+		{
 			$out .= form_hidden($params['form_slug'], 'dummy');
-		
-		endif;
+		}
 
 		$options['name'] 	= $params['form_slug'];
 		$options['name'] 	= $params['form_slug'].'_file';
 		
-		return $out .= form_upload( $options );
+		return $out .= form_upload($options);
 	}
 
 	// --------------------------------------------------------------------------
@@ -83,27 +82,24 @@ class Field_file
 	public function pre_save($input, $field)
 	{	
 		// Only go through the pre_save upload if there is a file ready to go
-		if( isset($_FILES[$field->field_slug.'_file']['name']) && $_FILES[$field->field_slug.'_file']['name'] != '' ):
-		
+		if (isset($_FILES[$field->field_slug.'_file']['name']) && $_FILES[$field->field_slug.'_file']['name'] != '')
+		{
 			// Do nothing
-			
-		else:
-		
+		}	
+		else
+		{
 			// If we have a file already just return that value
-			if( is_numeric($this->CI->input->post( $field->field_slug )) ):
-		
+			if (is_numeric($this->CI->input->post( $field->field_slug )))
+			{
 				return $this->CI->input->post( $field->field_slug );
-		
-			else:
-			
-				return;
-			
-			endif;
-				
-		endif;
+			}
+			else
+			{
+				return null;
+			}
+		}	
 	
 		$this->CI->load->model('files/file_m');
-		
 		$this->CI->load->config('files/files');
 
 		// Set upload data
@@ -111,17 +107,17 @@ class Field_file
 		$upload_config['allowed_types'] 	= $field->field_data['allowed_types'];
 
 		// Do the upload
-
 		$this->CI->load->library('upload', $upload_config);
 
-		if( ! $this->CI->upload->do_upload( $field->field_slug . '_file' ) ):
-		
+		if ( ! $this->CI->upload->do_upload( $field->field_slug . '_file' ))
+		{
+			// @todo - languagize
 			$this->CI->session->set_flashdata('notice', 'The following errors occurred when adding your file: '.$this->CI->upload->display_errors());	
 			
-			return;
-		
-		else:
-		
+			return null;
+		}
+		else
+		{
 			$file = $this->CI->upload->data();
 			
 			// Insert the data
@@ -143,8 +139,7 @@ class Field_file
 			
 			// Return the ID
 			return $id;
-			
-		endif;			
+		}
 	}
 
 	// --------------------------------------------------------------------------
@@ -162,11 +157,10 @@ class Field_file
 		
 		$db_obj = $this->CI->db->limit(1)->where('id', $input)->get('files');
 		
-		if( $db_obj->num_rows() > 0 ):
-				
-			return $this->_output_link( $db_obj->row(), FALSE );
-	
-		endif;
+		if ($db_obj->num_rows() > 0)
+		{
+			return $this->_output_link($db_obj->row(), false);
+		}
 	}
 
 	// --------------------------------------------------------------------------
@@ -193,22 +187,21 @@ class Field_file
 		
 		$db_obj = $this->CI->db->limit(1)->where('id', $input)->get('files');
 		
-		if( $db_obj->num_rows() > 0 ):
-		
+		if ($db_obj->num_rows() > 0)
+		{
 			$file = $db_obj->row();
 					
 			$file_data['filename']		= $file->name;
 			$file_data['file']			= base_url().$this->CI->config->item('files:path').'/'.$file->filename;
 			$file_data['ext']			= $file->extension;
 			$file_data['mimetype']		= $file->mimetype;
-			
-		else:
-		
-			$file_data['filename']		= NULL;
-			$file_data['ext']			= NULL;
-			$file_data['mimetype']		= NULL;
-	
-		endif;
+		}
+		else
+		{
+			$file_data['filename']		= null;
+			$file_data['ext']			= null;
+			$file_data['mimetype']		= null;
+		}
 
 		return $file_data;
 	}
@@ -247,24 +240,22 @@ class Field_file
 		
 		$tree = (array)$tree;
 		
-		if(!$tree):
-		
+		if ( ! $tree)
+		{
 			return '<em>'.lang('streams.file.folder_notice').'</em>';
-		
-		endif;
+		}
 		
 		$choices = array();
 		
-		foreach( $tree as $tree_item ):
-		
+		foreach ($tree as $tree_item)
+		{
 			// We are doing this to be backwards compat
 			// with PyroStreams 1.1 and below where 
 			// This is an array, not an object
 			$tree_item = (object)$tree_item;
 			
 			$choices[$tree_item->id] = $tree_item->name;
-		
-		endforeach;
+		}
 	
 		return form_dropdown('folder', $choices, $value);
 	}
@@ -286,5 +277,3 @@ class Field_file
 	}
 	
 }
-
-/* End of file field.image.php */

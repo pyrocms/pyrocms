@@ -27,9 +27,9 @@ class Field_asset extends Public_Controller {
 		parent::__construct();
 		
 		// Turn off the OP for these assets.
-		$this->output->enable_profiler(FALSE);
+		$this->output->enable_profiler(false);
 		    
-		$this->load->library('streams/Type');
+		$this->load->library('streams_core/Type');
 		
 		$this->load->helper('file');
 	}
@@ -49,7 +49,7 @@ class Field_asset extends Public_Controller {
 		// Check the file
 		$file = $this->uri->segment(5);
 		
-		if (trim($file) == '') return NULL;
+		if (trim($file) == '') return null;
 		
 		$file = $this->security->sanitize_filename($file);
 		
@@ -58,7 +58,7 @@ class Field_asset extends Public_Controller {
 		{
 			$this->_css($file);
 		}
-		elseif ($method == 'js'):
+		elseif ($method == 'js')
 		{
 			$this->_js($file);
 		}
@@ -77,9 +77,9 @@ class Field_asset extends Public_Controller {
     {
     	header("Content-Type: text/css");
     	
-    	$file = $this->field_type->ft_path.'css/'.$file;
+    	echo $file = FCPATH.$this->field_type->ft_path.'css/'.$file;
     	
-   	 	if ( ! is_file($file)) return NULL;
+   	 	if ( ! is_file($file)) return null;
    	 	
 		echo read_file($file);   	 	
     }
@@ -105,5 +105,3 @@ class Field_asset extends Public_Controller {
     }
   
 }
-
-/* End of file field_asset.php */

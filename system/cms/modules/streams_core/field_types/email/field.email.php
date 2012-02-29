@@ -30,13 +30,13 @@ class Field_email
 	 * @param	array
 	 * @return	string
 	 */
-	public function form_output( $data )
+	public function form_output($data)
 	{
 		$options['name'] 	= $data['form_slug'];
 		$options['id']		= $data['form_slug'];
 		$options['value']	= $data['value'];
 		
-		return form_input( $options );
+		return form_input($options);
 	}
 
 	// --------------------------------------------------------------------------
@@ -58,9 +58,7 @@ class Field_email
 	{
 		$choices = array();
 		
-		$CI =& get_instance();
-		
-		$CI->load->helper('url');
+		get_instance()->load->helper('url');
 		
 		$choices['email_address']		= $input;
 		$choices['mailto_link']			= mailto($input, $input);
@@ -70,5 +68,3 @@ class Field_email
 	}
 
 }
-
-/* End of file field.email.php */

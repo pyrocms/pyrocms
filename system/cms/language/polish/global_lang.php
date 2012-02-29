@@ -46,6 +46,7 @@ $lang['success_label']				= 'Sukces!';
 
 $lang['login_title']				= 'Zaloguj się';
 $lang['cms_fatal_error']			= 'Błąd krytyczny, sprawdź czy CMS jest zainstalowany!';
+$lang['global:demo_restrictions']       = 'Some features on this page have been disabled for the demo.'; #translate
 
 $lang['login_error_label']			= 'Błąd logowania';
 $lang['forgot_password_label']			= 'Nie pamiętasz hasła?';

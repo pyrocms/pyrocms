@@ -21,7 +21,7 @@
 	
 	</ul>	
 
-</duv>
+</div>
 
 	<?php if ($mode == 'edit'){ ?><input type="hidden" value="<?php echo $entry->id;?>" name="row_edit_id" /><?php } ?>
 
