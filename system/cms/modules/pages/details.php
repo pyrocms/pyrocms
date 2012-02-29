@@ -140,79 +140,83 @@ class Module_Pages extends Module {
 		);
 		$this->install_tables($tables);
 
-		
-		// Plain PHP including and instanciating here because installer does not 
-		// use the MX_Loader.
-		require_once BASEPATH.'core/Model.php';
-		require_once PYROPATH .'core/MY_Model.php';
-		
-		require_once 'models/page_layouts_m.php';
-		$this->page_layouts_m = new Page_layouts_m();
+		// We will need to get now() later on.
+		$this->load->helper('date');
 		
 		//$this->load->model('pages/page_layouts_m');
-		$this->page_layouts_m->insert(array(
+		$this->db->insert('page_layouts', array(
 			'id' => 1,
 			'title' => 'Default',
 			'body' => '<h2>{{ page:title }}</h2>\n\n\n{{ page:body }}',
 			'css' => '',
 			'js' => '',
+			'updated_on' => now(),
 		));
 
-		require_once 'models/page_m.php';
-		$this->page_m = new Page_m();
-		//$this->load->model('pages/page_m');
-		$pages = array(
-			array(
-				'page' => array(
-					'slug' => 'home',
-					'title' => 'Home',
-					'uri' => 'home',
-					'revision_id' => 1,
-					'parent_id' => 0,
-					'layout_id' => 1,
-					'status' => 'live',
-					'restricted_to' => '',
-					'is_home' => 1,
-				),
-				'page_chunk' => array(
-					'slug' => 'default',
-					'body' => '<p>Welcome to our homepage. We have not quite finished setting up our website yet, but please add us to your bookmarks and come back soon.</p>',
-					'type' => 'wysiwyg-advanced',
-				)
-			),
-			array(
-				'page' => array(
-					'slug' => '404',
-					'title' => 'Page missing',
-					'uri' => '404',
-					'revision_id' => 1,
-					'parent_id' => 0,
-					'layout_id' => 1,
-					'status' => 'live',
-					'restricted_to' => '',
-					'is_home' => 0,
-				),
-				'page_chunk' => array(
-					'slug' => 'default',
-					'body' => '<p>We cannot find the page you are looking for, please click <a title=\"Home\" href=\"{{ pages:url id=\'1\' }}\">here</a> to go to the homepage.</p>',
-					'type' => 'wysiwyg-advanced',
-				)
-			),
-			array(
-				'page' => array(
-					'slug' => 'contact',
-					'title' => 'Contact',
-					'uri' => 'contact',
-					'revision_id' => 1,
-					'parent_id' => 0,
-					'layout_id' => 1,
-					'status' => 'live',
-					'restricted_to' => '',
-					'is_home' => 0,
-				),
-				'page_chunk' => array(
-					'slug' => 'default',
-					'body' => '<p>To contact us please fill out the form below.</p>
+		// The home page.
+		$this->db->insert('pages', array(
+			'slug' => 'home',
+			'title' => 'Home',
+			'uri' => 'home',
+			'revision_id' => 1,
+			'parent_id' => 0,
+			'layout_id' => 1,
+			'status' => 'live',
+			'restricted_to' => '',
+			'created_on' => now(),
+			'is_home' => 1,
+			'order' => now()
+		));
+		$this->db->insert('page_chunks', array(
+			'slug' => 'default',
+			'page_id' => 1,
+			'body' => '<p>Welcome to our homepage. We have not quite finished setting up our website yet, but please add us to your bookmarks and come back soon.</p>',
+			'parsed' => '',
+			'type' => 'wysiwyg-advanced',
+			'sort' => 1,
+		));
+		
+		// The 404 page.
+		$this->db->insert('pages', array(
+			'slug' => '404',
+			'title' => 'Page missing',
+			'uri' => '404',
+			'revision_id' => 1,
+			'parent_id' => 0,
+			'layout_id' => 1,
+			'status' => 'live',
+			'restricted_to' => '',
+			'created_on' => now(),
+			'is_home' => 1,
+			'order' => now()
+		));
+		$this->db->insert('page_chunks', array(
+			'slug' => 'default',
+			'page_id' => 2,
+			'body' => '<p>We cannot find the page you are looking for, please click <a title=\"Home\" href=\"{{ pages:url id=\'1\' }}\">here</a> to go to the homepage.</p>',
+			'parsed' => '',
+			'type' => 'wysiwyg-advanced',
+			'sort' => 1,
+		));
+		
+		// The 404 page.
+		$this->db->insert('pages', array(
+			'slug' => 'contact',
+			'title' => 'Contact',
+			'uri' => 'contact',
+			'revision_id' => 1,
+			'parent_id' => 0,
+			'layout_id' => 1,
+			'status' => 'live',
+			'restricted_to' => '',
+			'created_on' => now(),
+			'is_home' => 1,
+			'order' => now()
+		));
+		$this->db->insert('page_chunks', array(
+			'slug' => 'default',
+			'page_id' => 3,
+			'body' => '<p>To contact us please fill out the form below.</p>
 				{{ contact:form name=\"text|required\" email=\"text|required|valid_email\" subject=\"dropdown|Support|Sales|Feedback|Other\" message=\"textarea\" attachment=\"file|zip\" }}
 					<div><label for=\"name\">Name:</label>{{ name }}</div>
 					<div><label for=\"email\">Email:</label>{{ email }}</div>
@@ -220,14 +224,10 @@ class Module_Pages extends Module {
 					<div><label for=\"message\">Message:</label>{{ message }}</div>
 					<div><label for=\"attachment\">Attach  a zip file:</label>{{ attachment }}</div>
 				{{ /contact:form }}',
-					'type' => 'wysiwyg-advanced',
-				)
-			),
-		);
-		foreach ($pages as $page_info)
-		{
-			$this->page_m->insert($page_info['page'], array((object) $page_info['page_chunk']));
-		}
+			'parsed' => '',
+			'type' => 'wysiwyg-advanced',
+			'sort' => 1,
+		));
 
 		return TRUE;
 	}

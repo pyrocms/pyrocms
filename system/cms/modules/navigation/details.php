@@ -93,13 +93,6 @@ class Module_Navigation extends Module {
 		);
 		$this->install_tables($tables);
 
-		// Plain PHP including and instanciating here because installer does not 
-		// use the MX_Loader.
-		require_once BASEPATH.'core/Model.php';
-		require_once PYROPATH .'core/MY_Model.php';
-		require_once 'models/navigation_m.php';
-		$this->navigation_m = new Navigation_m();
-
 		$groups = array(
 			array('title' => 'Header', 'abbrev' => 'header',),
 			array('title' => 'Sidebar', 'abbrev' => 'sidebar',),
@@ -107,7 +100,7 @@ class Module_Navigation extends Module {
 		);
 		foreach ($groups as $group)
 		{
-			$this->navigation_m->insert_group($group);
+			$this->db->insert('navigation_groups', $group);
 		}
 
 		$links = array(
@@ -117,7 +110,7 @@ class Module_Navigation extends Module {
 		);
 		foreach ($links as $link)
 		{
-			$this->navigation_m->insert_link($link);
+			$this->db->insert('navigation_links', $link);
 		}
 
 		return TRUE;

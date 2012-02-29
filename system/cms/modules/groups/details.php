@@ -73,13 +73,6 @@ class Module_Groups extends Module {
 			),
 		);
 		$this->install_tables($tables);
-		
-		// Plain PHP including and instanciating here because installer does not 
-		// use the MX_Loader.
-		require_once BASEPATH.'core/Model.php';
-		require_once PYROPATH .'core/MY_Model.php';
-		require_once 'models/group_m.php';
-		$this->group_m = new Group_m();
 
 		$groups = array(
 			array('name' => 'admin', 'description' => 'Administrators',),
@@ -87,7 +80,7 @@ class Module_Groups extends Module {
 		);
 		foreach ($groups as $group)
 		{
-			$this->group_m->insert($group);
+			$this->db->insert('groups', $group);
 		}
 
 		return TRUE;
