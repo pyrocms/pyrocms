@@ -47,7 +47,7 @@ class Module_Pages extends Module {
 				'ar' => 'إضافة صفحات مُخصّصة إلى الموقع تحتوي أية مُحتوى تريده.',
 				'cs' => 'Přidávejte vlastní stránky na web s jakýmkoliv obsahem budete chtít.',
 				'fi' => 'Lisää mitä tahansa sisältöä sivustollesi.',
-				'el' => 'Προσθέστε δικές σας σελίδες στον ιστότοπό σας με ό,τι περιεχόμενο θέλετε.',
+				'el' => 'Προσθέστε και επεξεργαστείτε σελίδες στον ιστότοπό σας με ό,τι περιεχόμενο θέλετε.',
 				'he' => 'ניהול דפי תוכן האתר',
 				'lt' => 'Pridėkite nuosavus puslapius betkokio turinio',
 				'da' => 'Tilføj brugerdefinerede sider til dit site med det indhold du ønsker.',
