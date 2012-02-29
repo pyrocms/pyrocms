@@ -15,15 +15,15 @@ $lang['modules.delete_error']			 = 'Das Modul "%s" konnte nicht gel&ouml;scht we
 $lang['modules.uninstall_error']         = 'Das Modul "%s" konnte nicht deinstalliert werden.';
 $lang['modules.uninstall_success']       = 'Das Modul "%s" wurde deinstalliert.';
 $lang['modules.already_exists_error']    = 'Ein Modul mit dem Namen "%s" existiert bereits.';
-$lang['modules.module_not_specified']    = 'Sie müssen ein Modul auswählen.';
+$lang['modules.module_not_specified']    = 'Sie m&uuml;ssen ein Modul ausw&auml;hlen.';
 $lang['modules.details_error']           = 'Es ist ein Fehler in der details.php des Modules %s aufgetreten. Korrigiere den Fehler und installiere das Modul erneut.';
 
-$lang['modules.manually_remove']         = 'Sie müssen "%s" entfernen um das Modul komplett zu entfernen.';
+$lang['modules.manually_remove']         = 'Sie m&uuml;ssen "%s" entfernen um das Modul komplett zu entfernen.';
 $lang['modules.upload_title']            = 'Modul Hochladen';
-$lang['modules.upload_desc']             = 'Bitte wähle eine Datei und klicke auf Hochladen';
+$lang['modules.upload_desc']             = 'Bitte w&auml;hle eine Datei und klicke auf Hochladen';
 
-$lang['modules.confirm_enable']          = 'Bist du sicher, dass du dieses Modul aktivieren möchtest?';
-$lang['modules.confirm_disable']         = 'Bist du sicher, dass du dieses Modul deaktivieren möchtest?';
-$lang['modules.confirm_install']         = 'Bist du sicher, dass du dieses Modul installieren möchtest?';
+$lang['modules.confirm_enable']          = 'Bist du sicher, dass du dieses Modul aktivieren m&ouml;chtest?';
+$lang['modules.confirm_disable']         = 'Bist du sicher, dass du dieses Modul deaktivieren m&ouml;chtest?';
+$lang['modules.confirm_install']         = 'Bist du sicher, dass du dieses Modul installieren m&ouml;chtest?';
 $lang['modules.confirm_uninstall']       = 'Alle Datenbankeintr&auml;ge werden gel&ouml;scht! Sind Sie sich sicher dieses Modul zu deinstallieren?';
-$lang['modules.confirm_delete']          = 'Alle Dateien und Datenbank-Einträge des Modules werden gelöscht! Bist du sicher, dass du dieses Modul deinstallieren möchtest?';
+$lang['modules.confirm_delete']          = 'Alle Dateien und Datenbank-Eintr&auml;ge des Modules werden gel&ouml;scht! Bist du sicher, dass du dieses Modul deinstallieren m&ouml;chtest?';
