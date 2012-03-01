@@ -2163,6 +2163,21 @@ Ensure your main styling comes before this!
 
 }
 
+/*Target iPad specifically*/
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+
+	#analyticsWrapper {
+		max-width: 93.6%;
+	}
+
+	#analytics {
+	max-width: 100%;
+	}
+}
+
+
+
+
 @media only screen and (min-width: 1025px) {
 
 	.wrapper {
