@@ -1572,6 +1572,7 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
 #analyticsWrapper {
 	background: #ffffff;
 	width: 232px;
+	max-width:96.25%;
 	height: 300px;
 	padding: 25px;
 	float: left;
@@ -1588,6 +1589,7 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
 
 #analytics {
 	width: 232px;
+	max-width:100%;
 	height: 300px;
 	float: left;
 }
