@@ -25,7 +25,7 @@ $lang['widgets.widget_area']            = 'Področje';
 $lang['widgets.widget_area_title']      = 'Ime področja';
 $lang['widgets.widget_area_slug']       = 'Kratko ime področja';
 
-$lang['widgets.view_code']				= 'View Code'; #translate
+$lang['widgets.view_code']				= 'Ogled kode';
 
 $lang['widgets.instance_title']         = 'Naslov';
 $lang['widgets.tag_title']              = 'Značka';

@@ -21,7 +21,7 @@ class Blog extends Public_Controller
 		// Set meta description based on post titles
 		$meta = $this->_posts_metadata($this->data->blog);
 		
-		foreach ($this->data->blog AS &$post)
+		foreach ($this->data->blog as &$post)
 		{
 			$post->keywords = Keywords::get_links($post->keywords, 'blog/tagged');
 		}

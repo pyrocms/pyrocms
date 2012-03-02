@@ -26,11 +26,13 @@ class Module_Streams_core extends Module {
 		return array(
 			'name' => array(
 				'en' => 'Streams Core',
-                            'fr' => 'Noyau Flux'
+				'fr' => 'Noyau Flux',
+				'el' => 'Πυρήνας Ροών',
 			),
 			'description' => array(
 				'en' => 'Core data module for streams.',
-                            'fr' => 'Noyau de données pour les Flux.'
+				'fr' => 'Noyau de données pour les Flux.',
+				'el' => 'Προγραμματιστικός πυρήνας για την λειτουργία ροών δεδομένων.',
 			),
 			'frontend' => FALSE,
 			'backend' => FALSE,
@@ -50,7 +52,7 @@ class Module_Streams_core extends Module {
 	{
 		$config = $this->_load_config();
 		
-		if ($config === FALSE) return FALSE;
+		if ($config === false) return false;
 	
 		// Go through our schema and make sure
 		// all the tables are complete.
@@ -63,7 +65,7 @@ class Module_Streams_core extends Module {
 				$this->dbforge->add_field($schema['fields']);
 	
 				// Add keys
-				if(isset($schema['keys']) AND ! empty($schema['keys']))
+				if(isset($schema['keys']) and ! empty($schema['keys']))
 				{
 					$this->dbforge->add_key($schema['keys']);	
 				}
@@ -71,7 +73,7 @@ class Module_Streams_core extends Module {
 				// Add primary key
 				if(isset($schema['primary_key']))
 				{
-					$this->dbforge->add_key($schema['primary_key'], TRUE);
+					$this->dbforge->add_key($schema['primary_key'], true);
 				}
 	
 				$this->dbforge->create_table($table_name);
@@ -95,7 +97,7 @@ class Module_Streams_core extends Module {
 			}
 		}
 		
-		return TRUE;
+		return true;
 	}
 
 	// --------------------------------------------------------------------------
@@ -113,12 +115,12 @@ class Module_Streams_core extends Module {
 	{
 		$config = $this->_load_config();
 		
-		if ($config === FALSE) return FALSE;
+		if ($config === false) return false;
 
 		// Go through our schema and drop each table
 		foreach ($config['streams:schema'] as $table_name => $schema)
 		{
-			if ( ! $this->dbforge->drop_table($table_name)) return FALSE;
+			if ( ! $this->dbforge->drop_table($table_name)) return false;
 		}
 		
 		return TRUE;
@@ -128,7 +130,7 @@ class Module_Streams_core extends Module {
 	
 	public function upgrade($old_version)
 	{
-		return TRUE;
+		return true;
 	}
 
 	// --------------------------------------------------------------------------
@@ -151,6 +153,6 @@ class Module_Streams_core extends Module {
 			require_once(APPPATH.'modules/streams_core/config/streams.php');
 		}
 
-		return (isset($config)) ? $config : FALSE;
+		return (isset($config)) ? $config : false;
 	}
 }

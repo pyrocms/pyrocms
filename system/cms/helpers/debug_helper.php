@@ -1,24 +1,16 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
-* Code Igniter Debug Helpers
-*
-* @package		CodeIgniter
-* @subpackage	Helpers
-* @category		Helpers
-* @author       Philip Sturgeon < email@philsturgeon.co.uk >
-*/
-
-// ------------------------------------------------------------------------
+ * Code Igniter Debug Helpers
+ *
+ * @author       Philip Sturgeon <email@philsturgeon.co.uk>
+ * @package		PyroCMS\Core\Helpers
+ */
 
 /**
-  * Debug Helper
-  *
-  * Outputs the given variable with formatting and location
-  *
-  * @access		public
-  * @param		mixed    variable to be output
-  */
-
+ * Debug Helper
+ *
+ * Outputs the given variable with formatting and location
+ */
 function dump()
 {
 	list($callee) = debug_backtrace();
@@ -35,6 +27,6 @@ function dump()
 		var_dump($argument);
 	}
 
-	echo "</pre>";
-	echo "</fieldset>";
+	echo '</pre>';
+	echo '</fieldset>';
 }

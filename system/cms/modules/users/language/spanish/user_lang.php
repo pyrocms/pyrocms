@@ -69,6 +69,7 @@ $lang['user_reset_password_link']			= 'Olvidaste tu contraseña?';
 
 $lang['user_activation_code_sent_notice']	= 'Se te ha enviado un e-mail con tu código de activación.';
 $lang['user_activation_by_admin_notice']	= 'Tu registro esta esperando la aprobación de un administrador.';
+$lang['user_registration_disabled']         = 'Lo sentimos, pero el registro de usuarios está deshabilitado.';
 
 # Settings
 

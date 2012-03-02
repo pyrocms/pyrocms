@@ -18,7 +18,7 @@ class Module_import {
 		$db['username'] = $this->ci->session->userdata('username');
 		$db['password'] = $this->ci->session->userdata('password');
 		$db['database'] = $this->ci->input->post('database');
-		$db['port'] = $this->ci->input->post('port');
+		$db['port'] 	= $this->ci->input->post('port');
 		$db['dbdriver'] = "mysql";
 		$db['dbprefix'] = 'default_';
 		$db['pconnect'] = TRUE;
@@ -124,7 +124,8 @@ class Module_import {
 			  `is_core` tinyint(1) NOT NULL,
 			  `updated_on` int(11) NOT NULL DEFAULT '0',
 			  PRIMARY KEY (`id`),
-			  UNIQUE KEY `slug` (`slug`)
+			  UNIQUE KEY `slug` (`slug`),
+			  INDEX `enabled` (`enabled`)
 			) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 		";
 

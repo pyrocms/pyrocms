@@ -13,6 +13,7 @@
  * @author   Phil Sturgeon
  * @package    PyroCMS\Core\Libraries\Asset
  */
+class Asset_Exception extends Exception {}
 
 include('Asset/jsmin.php');
 include('Asset/csscompressor.php');
@@ -1306,7 +1307,5 @@ class Asset {
 		return trim($attr_str);
 	}
 }
-
-class Asset_Exception extends Exception {}
 
 /* End of file asset_php */

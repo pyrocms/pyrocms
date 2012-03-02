@@ -2,7 +2,7 @@
 	$(function(){
 		
 		// generate a slug when the user types a title in
-		pyro.generate_slug('input[name="title"]', 'input[name="slug"]');
+		pyro.generate_slug('#blog-content-tab input[name="title"]', 'input[name="slug"]');
 		
 		// needed so that Keywords can return empty JSON
 		$.ajaxSetup({

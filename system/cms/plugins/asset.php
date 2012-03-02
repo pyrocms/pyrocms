@@ -1,4 +1,5 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
+
 /**
  * Asset Plugin
  *
@@ -9,6 +10,7 @@
  */
 class Plugin_Asset extends Plugin
 {
+
 	/**
 	 * Asset CSS
 	 *
@@ -16,10 +18,9 @@ class Plugin_Asset extends Plugin
 	 *
 	 * Usage:
 	 *
-	 * {{ asset:css file="" group="" }}
+	 * <code>{{ asset:css file="" group="" }}</code>
 	 *
-	 * @param	array
-	 * @return	array
+	 * @return string Full url to css asset
 	 */
 	public function css()
 	{
@@ -28,7 +29,7 @@ class Plugin_Asset extends Plugin
 
 		return Asset::css($file, NULL, $group);
 	}
-	
+
 	/**
 	 * Asset CSS URL
 	 *
@@ -38,16 +39,15 @@ class Plugin_Asset extends Plugin
 	 *
 	 * {{ asset:css_url file="" }}
 	 *
-	 * @param	array
-	 * @return	string    full url to css asset
+	 * @return string Full url to CSS asset
 	 */
 	public function css_url()
 	{
 		$file = $this->attribute('file');
-		
+
 		return Asset::get_filepath_js($file, true);
 	}
-	
+
 	/**
 	 * Asset CSS Path
 	 *
@@ -57,8 +57,7 @@ class Plugin_Asset extends Plugin
 	 *
 	 * {{ asset:css_path file="" module="" }}
 	 *
-	 * @param	array
-	 * @return	string    full url to css asset
+	 * @return string Path to the CSS asset relative to web root
 	 */
 	public function css_path()
 	{
@@ -76,21 +75,20 @@ class Plugin_Asset extends Plugin
 	 *
 	 * {{ asset:image file="" alt="" }}
 	 *
-	 * @param	array
-	 * @return	array
+	 * @return array Full url to image asset
 	 */
 	public function image()
 	{
 		$file = $this->attribute('file');
 		$alt = $this->attribute('alt');
-		
+
 		$attributes = $this->attributes();
 		unset($attributes['file']);
 		unset($attributes['alt']);
 
 		return Asset::img($file, $alt, $attributes);
 	}
-	
+
 	/**
 	 * Asset Image URL
 	 *
@@ -100,8 +98,7 @@ class Plugin_Asset extends Plugin
 	 *
 	 * {{ asset:image_url file="" }}
 	 *
-	 * @param	array
-	 * @return	string    full url to image asset
+	 * @return string Full url to image asset
 	 */
 	public function image_url()
 	{
@@ -109,7 +106,7 @@ class Plugin_Asset extends Plugin
 
 		return Asset::get_filepath_img($file, true);
 	}
-	
+
 	/**
 	 * Asset Image Path
 	 *
@@ -119,8 +116,7 @@ class Plugin_Asset extends Plugin
 	 *
 	 * {{ asset:image_path file="" }}
 	 *
-	 * @param	array
-	 * @return	array
+	 * @return string Path to the image asset relative to web root
 	 */
 	public function image_path()
 	{
@@ -138,17 +134,16 @@ class Plugin_Asset extends Plugin
 	 *
 	 * {{ asset:js file="" group="" }}
 	 *
-	 * @param	array
-	 * @return	array
+	 * @return string
 	 */
 	public function js()
 	{
 		$file = $this->attribute('file');
-		$module = $this->attribute('group');
+		$group = $this->attribute('group');
 
 		return Asset::js($file, NULL, $group);
 	}
-	
+
 	/**
 	 * Asset JS URL
 	 *
@@ -158,8 +153,7 @@ class Plugin_Asset extends Plugin
 	 *
 	 * {{ asset:js_url file="" }}
 	 *
-	 * @param	array
-	 * @return	string    full url to JavaScript asset
+	 * @return string Full url to the Javascript asset
 	 */
 	public function js_url()
 	{
@@ -167,7 +161,7 @@ class Plugin_Asset extends Plugin
 
 		return Asset::get_filepath_js($file, true);
 	}
-	
+
 	/**
 	 * Asset JS Path
 	 *
@@ -177,8 +171,7 @@ class Plugin_Asset extends Plugin
 	 *
 	 * {{ asset:js_path file="" }}
 	 *
-	 * @param	array
-	 * @return	string    web root path to JavaScript asset
+	 * @return string Path to the JavaScript asset relative to web root
 	 */
 	public function js_path()
 	{
@@ -186,7 +179,7 @@ class Plugin_Asset extends Plugin
 
 		return BASE_URI.Asset::get_filepath_js($file, false);
 	}
-	
+
 	/**
 	 * Asset Render
 	 *
@@ -196,8 +189,7 @@ class Plugin_Asset extends Plugin
 	 *
 	 * {{ asset:render group="" }}
 	 *
-	 * @param	array
-	 * @return	string    Style and script tags for css and js
+	 * @return string Style and script tags for CSS and Javascript
 	 */
 	public function render()
 	{
@@ -205,6 +197,5 @@ class Plugin_Asset extends Plugin
 
 		return Asset::render($group);
 	}
-}
 
-/* End of file asset.php */
+}

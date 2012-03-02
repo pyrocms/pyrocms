@@ -13,6 +13,6 @@
  * @translation IMAMO, Danijel Ocepek s.p.
  * @filesource
  */
-$lang['contact_submit_error']				= 'Sorry. It appears that you attempted to post the form contents directly. This is not allowed.'; #translate
+$lang['contact_submit_error']				= 'Oprostite. Izgleda da želite direktno vnesti v obrazec. To ni dovoljeno.';
 $lang['contact_sent_text']					= 'Vaše sporočio je bilo poslano. Nanj bomo odgovorili v najkrajšem možnem času. Hvala!';
-$lang['contact_error_message']				= 'There was a problem sending this message. Please try again later..'; #translate
+$lang['contact_error_message']				= 'Prišlo je do težav pri pošiljanju sporočila. Prosimo poizkusite znova..';

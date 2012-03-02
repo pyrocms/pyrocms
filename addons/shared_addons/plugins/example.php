@@ -16,8 +16,7 @@ class Plugin_Example extends Plugin
 	 * Usage:
 	 * {{ example:hello }}
 	 *
-	 * @param	array
-	 * @return	array
+	 * @return string
 	 */
 	function hello()
 	{

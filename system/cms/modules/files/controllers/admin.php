@@ -210,6 +210,9 @@ class Admin extends Admin_Controller {
 
 				if ($status === 'success')
 				{
+					// Fire an event. A file has been uploaded to a folder.
+					Events::trigger('file_uploaded', $data);
+
 					$this->session->set_flashdata($status, $message);
 					redirect('admin/files');
 				}
@@ -421,6 +424,11 @@ class Admin extends Admin_Controller {
 					redirect ('admin/files');
 				}
 			}
+			if ($status === 'success')
+			{
+				// Fire an event. A file has been updated.
+				Events::trigger('file_updated', $id);
+			}
 		}
 		elseif (validation_errors())
 		{
@@ -500,7 +508,13 @@ class Admin extends Admin_Controller {
 		{
 			$this->session->set_flashdata('error', lang('files.no_select_error'));
 		}
-
+		else
+		{
+			// or we fire an event because one or more files have been deleted.
+			Events::trigger('file_deleted', $deleted);			
+		}
+		
+		// Redirect
 		isset($folder) ? redirect('admin/files/#!path=' . $folder->virtual_path) : redirect('admin/files');
 	}
 

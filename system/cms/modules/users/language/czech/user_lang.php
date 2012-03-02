@@ -71,6 +71,7 @@ $lang['user_reset_password_link'] 		= 'Zapomněl/a jste heslo?';
 
 $lang['user_activation_code_sent_notice']	= 'E-mail s odkazem na obnovení hesla byl odeslán';
 $lang['user_activation_by_admin_notice'] 	= 'Vaše registrace čeká na schválení administrátorem.';
+$lang['user_registration_disabled']            = 'Sorry, but the user registration is disabled.'; #translate
 
 // -- Settings ---------------------------------------------------------------------------------------------
 

@@ -41,7 +41,7 @@ class Module_Groups extends Module {
 				'cs' => 'Uživatelé mohou být rozřazeni do skupin pro lepší správu oprávnění.',
 				'es' => 'Los usuarios podrán ser colocados en grupos para administrar sus permisos.',
 				'fi' => 'Käyttäjät voidaan liittää ryhmiin, jotta käyttöoikeuksia voidaan hallinnoida.',
-				'el' => 'Οι χρήστες μπορούν να τοποθετηθούν σε ομάδες και να διαχειριστείτε τα δικαιώματά τους.',
+				'el' => 'Οι χρήστες μπορούν να τοποθετηθούν σε ομάδες και έτσι να διαχειριστείτε τα δικαιώματά τους.',
 				'he' => 'נותן אפשרות לאסוף משתמשים לקבוצות',
 				'lt' => 'Vartotojai gali būti priskirti grupei tam, kad valdyti jų teises.',
 				'da' => 'Brugere kan inddeles i grupper for adgangskontrol',
@@ -65,25 +65,25 @@ class Module_Groups extends Module {
 	{
 		$this->dbforge->drop_table('groups');
 
-		$groups = "
-			CREATE TABLE IF NOT EXISTS " . $this->db->dbprefix('groups') . " (
-			  `id` int(11) NOT NULL AUTO_INCREMENT,
-			  `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-			  `description` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
-			  PRIMARY KEY (`id`)
-			) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Permission roles such as admins, moderators, staff, etc' AUTO_INCREMENT=3 ;
-		";
+		$tables = array(
+			'groups' => array(
+				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
+				'name' => array('type' => 'VARCHAR', 'constraint' => 100,),
+				'description' => array('type' => 'VARCHAR', 'constraint' => 250, 'null' => true,),
+			),
+		);
+		$this->install_tables($tables);
 
-		$default_data = "
-			INSERT INTO " . $this->db->dbprefix('groups') . " (`id`, `name`, `description`) VALUES
-			(1, 'admin', 'Administrators'),
-			(2, 'user', 'Users');
-		";
-
-		if($this->db->query($groups) && $this->db->query($default_data))
+		$groups = array(
+			array('name' => 'admin', 'description' => 'Administrators',),
+			array('name' => 'users', 'description' => 'Users',),
+		);
+		foreach ($groups as $group)
 		{
-			return TRUE;
+			$this->db->insert('groups', $group);
 		}
+
+		return TRUE;
 	}
 
 	public function uninstall()
