@@ -41,6 +41,9 @@ $lang['files:filename']						= 'Filename';
 $lang['files:filesize']						= 'Filesize';
 $lang['files:location']						= 'Location';
 $lang['files:description']					= 'Description';
+$lang['files:container']					= 'Container';
+$lang['files:bucket']						= 'Bucket';
+$lang['files:check_container']				= 'Check Validity';
 
 // Context Menu
 $lang['files:open']							= 'Open';
@@ -59,6 +62,10 @@ $lang['files:folder_not_empty']				= 'You must delete the contents of "%s" first
 $lang['files:mkdir_error']					= 'We are unable to create the upload folder. You must create it manually';
 $lang['files:chmod_error']					= 'The upload directory is unwriteable. It must be 0777';
 $lang['files:location_saved']				= 'The folder location has been saved';
+$lang['files:container_exists']				= '"%s" exists. Save to link its contents to this folder';
+$lang['files:container_not_exists']			= '"%s" does not exist. Save and it will be created';
+$lang['files:error_container_exists']		= '"%s" already exists so cannot be created';
+$lang['files:container_created']			= '"%s" has been created';
 
 // Files
 $lang['files:file_uploaded']				= '"%s" has been uploaded';

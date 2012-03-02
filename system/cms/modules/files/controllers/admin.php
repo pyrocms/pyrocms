@@ -139,6 +139,25 @@ class Admin extends Admin_Controller {
 	// ------------------------------------------------------------------------
 
 	/**
+	 * See if a container exists with that name. This is different than
+	 * folder_exists() as this checks for unindexed containers
+	 *
+	 * @access	public
+	 * @param	int		$name 		The container/bucket name
+	 * @param	string	$location	The cloud provider
+	 * @return	string
+	 */
+	public function check_container()
+	{
+		$name = $this->input->post('name');
+		$location = $this->input->post('location');
+
+		echo json_encode(Files::check_container($name, $location));
+	}
+
+	// ------------------------------------------------------------------------
+
+	/**
 	 * Set the order of files and folders
 	 *
 	 * @access	public
@@ -162,11 +181,12 @@ class Admin extends Admin_Controller {
 				}
 			}
 
-			echo json_encode(array('status' => TRUE, 'message' => lang('files:sort_saved')));
+			// let the files library format the return array like all the others
+			echo json_encode(Files::result(TRUE, lang('files:sort_saved')));
 		}
 		else 
 		{
-			echo json_encode(array('status' => FALSE, 'message' => lang('files:save_failed')));
+			echo json_encode(Files::result(FALSE, lang('files:save_failed')));
 		}
 	}
 
@@ -262,11 +282,14 @@ class Admin extends Admin_Controller {
 	 */
 	public function save_location()
 	{
-		if ($id = $this->input->post('folder_id') AND $location = $this->input->post('location'))
+		if ($id = $this->input->post('folder_id') AND 
+			$location = $this->input->post('location') AND
+			$container = $this->input->post('container'))
 		{
 			$this->file_folders_m->update($id, array('location' => $location));
 
-			echo json_encode(array('status' => TRUE, 'message' => lang('files:location_saved')));
+			echo json_encode(Files::create_container($container, $location));
+			//echo json_encode(array('status' => TRUE, 'message' => lang('files:location_saved')));
 		}
 	}
 

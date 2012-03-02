@@ -95,6 +95,17 @@
 				<li><?php echo lang('files:location'); ?>: 
 					<?php echo form_dropdown('location', $locations, '', 'class="location"'); ?>
 				</li>
+				<li><?php echo lang('files:bucket'); ?>: 
+					<?php echo form_input('bucket', '', 'class="container amazon-s3"'); ?>
+					<a class="container-button button"><?php echo lang('files:check_container'); ?></a>
+				</li>
+				<li><?php echo lang('files:container'); ?>: 
+					<?php echo form_input('container', '', 'class="container rackspace-cf"'); ?>
+					<a class="container-button button"><?php echo lang('files:check_container'); ?></a>
+				</li>
+				<li>
+					<span class="container-info"></span>
+				</li>
 				<li><?php echo lang('files:description'); ?>: <br />
 					<textarea class="description"></textarea>
 				</li>

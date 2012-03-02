@@ -348,6 +348,9 @@ jQuery(function($){
 					$parent_li.addClass('close');			
 				}
 
+				// save its data locally
+				$(window).data('folder_'+results.data.id, results.data);
+
 				// now they will want to rename it
 		 		pyro.files.$last_r_click = $('[data-id="'+results.data.id+'"]');
 		 		$('.context-menu-source [data-menu="rename"]').trigger('click');
@@ -455,12 +458,19 @@ jQuery(function($){
 
 	 	$input.blur(function(){
 	 		var post = {}
+	 		var item_data;
 	 		post[type+'_id'] = $item.parent('li').attr('data-id');
  			post['name'] = $input.val();
 
 	 		$.post(SITE_URL + 'admin/files/rename_'+type, post, function(data){
 	 			var results = $.parseJSON(data);
 	 			$(window).trigger('show-message', results);
+
+	 			// update the local data
+	 			item_data = $(window).data('folder_'+post['folder_id']);
+	 			item_data.name = results.data.name;
+	 			item_data.slug = results.data.slug;
+	 			$(window).data('folder_'+item_data.id, item_data);
 
 	 			// remove the input and place the text back in the span
 	 			$('[name="rename"]').parent().html(results.data.name);
@@ -489,7 +499,10 @@ jQuery(function($){
 
 	 		items.each(function(index, item){
 	 			post.file_id = $(item).attr('data-id');
+	 			// delete remotely
 	 			do_delete();
+	 			// delete locally
+	 			$(window).removeData('file_'+post.file_id);
  				$('[data-id="'+post.file_id+'"]').remove();
 	 		})
 	 	} else {
@@ -498,9 +511,13 @@ jQuery(function($){
 	 		type = 'folder';
 	 		items.each(function(index, item){
 	 			post.folder_id = $(item).attr('data-id');
+	 			// delete remotely
 	 			do_delete();
+	 			// delete locally
+	 			$(window).removeData('folder_'+post.file_id);
+	 			// remove it from the left and right panes
  				$('[data-id="'+post.folder_id+'"]').remove();
-
+ 				// adjust the parents
 				$('[data-id="'+current_level+'"] ul:empty').remove();
 				$('[data-id="'+current_level+'"]').removeClass('open close');
 	 		})
@@ -516,6 +533,8 @@ jQuery(function($){
 
 	 pyro.files.details = function()
 	 {
+	 	var timer;
+	 	var location;
 	 	// file or folder?
 	 	var type = pyro.files.$last_r_click.hasClass('file') ? 'file' : 'folder';
 	 	// figure out the ID from the last clicked item
@@ -539,9 +558,25 @@ jQuery(function($){
 		 	if (type == 'file') 		$('.item-details .description')	.val($item.description).parent().show();
 		 	if (type == 'folder'){
 		 		// update the value and trigger an update on Chosen
-		 		$select.val($item.location).attr('selected', true);
+		 		$select.val($item.location).find('option[value="'+$item.location+'"]').attr('selected', true);
 		 		$select.trigger('liszt:updated').parents().show();
 		 	}
+
+		 	// show/hide the bucket/container name field on change
+		 	$select.change(function(e){
+		 		location = $(e.target).val();
+		 		$('.item-details .container').parent().hide();
+		 		$('.'+location).parent().show();
+		 	});
+
+		 	// check if a container with that name exists
+		 	$('.container-button.button').click(function(e){
+	 			var post = { 'name' : $(this).siblings('.container').val(), 'location' : location };
+	 			$.post(SITE_URL + 'admin/files/check_container', post, function(data){
+		 			var results = $.parseJSON(data);
+		 			$(window).trigger('show-message', results);
+	 			});
+ 			});
 
 			$.colorbox({
 				scrolling	: false,
@@ -589,22 +624,19 @@ jQuery(function($){
 	 pyro.files.save_location = function(item)
 	 {
 	 	var new_location = $('.item-details .location').val();
+	 	var container = $('.item-details .'+new_location).val();
 
-	 	// only save if it has been modified
-	 	if (item.location != new_location){
+	 	post = { 'folder_id' : item.id, 'location' : new_location, 'container' : container };
 
-		 	post = { 'folder_id' : item.id, 'location' : new_location };
+ 		$.post(SITE_URL + 'admin/files/save_location', post, function(data){
+			var results = $.parseJSON(data);
+			$(window).trigger('show-message', results);
 
-	 		$.post(SITE_URL + 'admin/files/save_location', post, function(data){
-				var results = $.parseJSON(data);
-				$(window).trigger('show-message', results);
-
-				// resave it locally
-				item.location = new_location;
-		 		$(window).data('folder_'+item.id, item);
-	 		});
- 		}
-	}
+			// resave it locally
+			item.location = new_location;
+	 		$(window).data('folder_'+item.id, item);
+ 		});
+ 	}
 
  	/***************************************************************************
 	 * And off we go... load the root folder                                   *

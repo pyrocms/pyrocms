@@ -72,6 +72,32 @@ class Files
 	// ------------------------------------------------------------------------
 
 	/**
+	 * Create a container with the cloud provider
+	 *
+	 * @param	string	$container	Container name
+	 * @param	string	$location	The cloud provider
+	 * @return	array
+	 *
+	**/
+	public static function create_container($container, $location)
+	{
+		ci()->storage->load_driver($location);
+
+		$result = ci()->storage->create_container($container);
+
+		if ($result === null)
+		{
+			return self::result(TRUE, lang('files:container_created'), $container);
+		}
+		else
+		{
+			return self::result(FALSE, lang('files:error_container_exists'), $container);
+		}
+	}
+
+	// ------------------------------------------------------------------------
+
+	/**
 	 * Get all folders and files within a folder
 	 *
 	 * @param	int		$parent	The id of this folder
@@ -153,6 +179,32 @@ class Files
 		}
 	
 		return $folder_array;
+	}
+
+	// ------------------------------------------------------------------------
+
+	/**
+	 * Check if an unindexed container exists in the cloud
+	 *
+	 * @param	string	$name		The container name
+	 * @param	string	$location	Amazon/Rackspace
+	 * @return	array
+	 *
+	**/
+	public function check_container($name, $location)
+	{
+		ci()->storage->load_driver($location);
+
+		$containers = ci()->storage->list_containers();
+
+		foreach($containers AS $container)
+		{
+			if ($name === $container)
+			{
+				return self::result(TRUE, lang('files:container_exists'), $name);
+			}
+		}
+		return self::result(FALSE, lang('files:container_not_exists'), $name);
 	}
 
 	// ------------------------------------------------------------------------
@@ -534,7 +586,7 @@ class Files
 	 * @return	array
 	 *
 	**/
-	protected static function result($status = TRUE, $message = '', $args = FALSE, $data = '')
+	public static function result($status = TRUE, $message = '', $args = FALSE, $data = '')
 	{
 		return array('status' 	=> $status, 
 					 'message' 	=> $args ? sprintf($message, $args) : $message, 

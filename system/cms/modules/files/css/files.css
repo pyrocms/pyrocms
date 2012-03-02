@@ -16,8 +16,8 @@
 .folders-sidebar .close { list-style: url(../img/less.png) inside !important; }
 
 .folders-right { height: 450px; overflow-y: auto; overflow-x: hidden; }
+.folders-right li:hover { background-color: #f7f7f7; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; }
 .folders-right .folder { width: 100px; height: 112px; margin: 10px; overflow: hidden; float: left; background: url(../img/folder.png) no-repeat; }
-.folders-right .selected { background-color: #e8e8e8; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; }
 .folders-right li .name-text { display: block; margin: 0 4px 0 4px; font-size: 11px; height: 15px; overflow: hidden; margin-top: 80px; text-align: center; }
 .folders-right li .name-text input { width: 92px; margin: 0; padding: 0; background: transparent; border: none; margin: 0; padding: 0; text-align: center; }
 
