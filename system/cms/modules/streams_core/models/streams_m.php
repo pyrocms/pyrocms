@@ -276,7 +276,7 @@ class Streams_m extends MY_Model {
 		if(isset($data['title_column']))		$update_data['title_column']	= $data['title_column'];
 		
 		// View options
-		if ($data['view_options'])
+		if (isset($data['view_options']) and $data['view_options'])
 		{
 			// We can take a serizlied array or we can serialize it
 			// all by ourselves.
