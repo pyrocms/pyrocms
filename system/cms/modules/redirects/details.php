@@ -67,19 +67,18 @@ class Module_Redirects extends Module {
 	public function install()
 	{
 		$this->dbforge->drop_table('redirects');
-		
-		$revisions = "
-			CREATE TABLE " . $this->db->dbprefix('redirects') . " (
-			  `id` int(11) NOT NULL AUTO_INCREMENT,
-			  `from` varchar(250) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-			  `to` varchar(250) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-			  PRIMARY KEY (`id`),
-			  KEY `request` (`from`)
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-		";
 
+		$tables = array(
+			'redirects' => array(
+				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
+				'from' => array('type' => 'VARCHAR', 'constraint' => 250, 'key' => 'request'),
+				'to' => array('type' => 'VARCHAR', 'constraint' => 250,),
+			),
+		);
 
-		return (bool) $this->db->query($revisions);
+		$this->install_tables($tables);
+
+		return TRUE;
 	}
 
 	public function uninstall()

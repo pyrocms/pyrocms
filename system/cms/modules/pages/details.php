@@ -96,94 +96,140 @@ class Module_Pages extends Module {
 		$this->dbforge->drop_table('pages');
 		$this->dbforge->drop_table('revisions');
 
-		$page_layouts = "
-			CREATE TABLE ".$this->db->dbprefix('page_layouts')." (
-			`id` INT( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
-			`title` VARCHAR( 60 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
-			`body` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-			`css` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci,
-			 `js` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci,
-			`theme_layout` VARCHAR( 100 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'default',
-			`updated_on` INT( 11 ) NOT NULL
-			) ENGINE=InnoDB CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Store shared page layouts & CSS';
-		";
+		$tables = array(
+			'page_layouts' => array(
+				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
+				'title' => array('type' => 'VARCHAR', 'constraint' => 60,),
+				'body' => array('type' => 'TEXT',),
+				'css' => array('type' => 'TEXT', 'null' => true,),
+				'js' => array('type' => 'TEXT', 'null' => true,),
+				'theme_layout' => array('type' => 'VARCHAR', 'constraint' => 100, 'default' => 'default',),
+				'updated_on' => array('type' => 'INT', 'constraint' => 11,),
+			),
+			'pages' => array(
+				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
+				'slug' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '', 'key' => 'slug',),
+				'title' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '',),
+				'uri' => array('type' => 'TEXT', 'null' => true,),
+				'parent_id' => array('type' => 'INT', 'constraint' => 11, 'default' => 0, 'key' => 'parent_id',),
+				'revision_id' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '1',),
+				'layout_id' => array('type' => 'VARCHAR', 'constraint' => 255,),
+				'css' => array('type' => 'TEXT', 'null' => true,),
+				'js' => array('type' => 'TEXT', 'null' => true,),
+				'meta_title' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '',),
+				'meta_keywords' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '',),
+				'meta_description' => array('type' => 'TEXT', 'null' => true,),
+				'rss_enabled' => array('type' => 'INT', 'constraint' => 1, 'default' => 0,),
+				'comments_enabled' => array('type' => 'INT', 'constraint' => 1, 'default' => 0,),
+				'status' => array('type' => 'ENUM', 'constraint' => array('draft', 'live'), 'default' => 'draft',),
+				'created_on' => array('type' => 'INT', 'constraint' => 11, 'default' => 0),
+				'updated_on' => array('type' => 'INT', 'constraint' => 11, 'default' => 0),
+				'restricted_to' => array('type' => 'VARCHAR', 'constraint' => 255, 'null' => true,),
+				'is_home' => array('type' => 'INT', 'constraint' => 1, 'default' => 0,),
+				'order' => array('type' => 'INT', 'constraint' => 11, 'default' => 0),
+			),
+			'page_chunks' => array(
+				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
+				'slug' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '',),
+				'page_id' => array('type' => 'INT', 'constraint' => 11,),
+				'body' => array('type' => 'TEXT',),
+				'parsed' => array('type' => 'TEXT',),
+				'type' => array('type' => 'SET', 'constraint' => array('html', 'markdown', 'wysiwyg-advanced', 'wysiwyg-simple'),),
+				'sort' => array('type' => 'INT', 'constraint' => 11,),
+			),
+		);
+		$this->install_tables($tables);
 
-		$pages = "
-			CREATE TABLE ".$this->db->dbprefix('pages')." (
-			 `id` int(11) unsigned NOT NULL auto_increment,
-			 `slug` varchar(255) collate utf8_unicode_ci NOT NULL default '',
-			 `title` varchar(255) collate utf8_unicode_ci NOT NULL default '',
-			 `uri` text COLLATE utf8_unicode_ci,
-			 `parent_id` int(11) default '0',
-			 `revision_id` varchar(255) collate utf8_unicode_ci NOT NULL default '1',
-			 `layout_id` varchar(255) collate utf8_unicode_ci NOT NULL,
-			 `css` text CHARACTER SET utf8 COLLATE utf8_unicode_ci,
-			 `js` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci,
-			 `meta_title` varchar(255) collate utf8_unicode_ci NOT NULL default '',
-			 `meta_keywords` varchar(255) collate utf8_unicode_ci NOT NULL default '',
-			 `meta_description` text collate utf8_unicode_ci,
-			 `rss_enabled` INT(1)  NOT NULL default '0',
-			 `comments_enabled` INT(1)  NOT NULL default '0',
-			 `status` ENUM( 'draft', 'live' ) collate utf8_unicode_ci NOT NULL DEFAULT 'draft',
-			 `created_on` INT(11) NOT NULL default '0',
-			 `updated_on` INT(11) NOT NULL default '0',
-			 `restricted_to` VARCHAR(255) collate utf8_unicode_ci DEFAULT NULL,
-			 `is_home` TINYINT(1) NOT NULL default '0',
-			 `order` INT(11) NOT NULL default '0',
-			 PRIMARY KEY  (`id`),
-			 KEY `slug` (`slug`),
-			 KEY `parent` (`parent_id`)
-			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='User Editable Pages';
-		";
+		// We will need to get now() later on.
+		$this->load->helper('date');
+		
+		//$this->load->model('pages/page_layouts_m');
+		$this->db->insert('page_layouts', array(
+			'id' => 1,
+			'title' => 'Default',
+			'body' => '<h2>{{ page:title }}</h2>\n\n\n{{ page:body }}',
+			'css' => '',
+			'js' => '',
+			'updated_on' => now(),
+		));
 
-		$page_chunks = "
-			CREATE TABLE ".$this->db->dbprefix('page_chunks')." (
-			  `id` int(11) NOT NULL auto_increment,
-			  `slug` varchar(255) collate utf8_unicode_ci NOT NULL DEFAULT '',
-			  `page_id` int(11) NOT NULL,
-			  `body` text collate utf8_unicode_ci NOT NULL,
-			  `parsed` text collate utf8_unicode_ci NOT NULL,
-			  `type` set('html','markdown','wysiwyg-advanced','wysiwyg-simple') collate utf8_unicode_ci NOT NULL,
-			  `sort` int(11) NOT NULL,
-			PRIMARY KEY (`id`)
-			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-		";
-
-		$default_page_layouts = "
-			INSERT INTO  ".$this->db->dbprefix('page_layouts')." (`id`, `title`, `body`, `css`, `js`, `updated_on`) VALUES
-			(1, 'Default', '<h2>{{ page:title }}</h2>\n\n\n{{ page:body }}', '', '', ".time().");
-		";
-
-		$default_pages = "
-			INSERT INTO ".$this->db->dbprefix('pages')." (`id`, `slug`, `title`, `uri`, `revision_id`, `parent_id`, `layout_id`, `status`, `created_on`, `updated_on`, `restricted_to`, `is_home`) VALUES
-			('1','home', 'Home', 'home', 1, 0, 1, 'live', ".time().", ".time().", '', 1),
-			('2', '404', 'Page missing', '404', 2, 0, '1', 'live', ".time().", ".time().", '', 0),
-			('3','contact', 'Contact', 'contact', 3, 0, 1, 'live', ".time().", ".time().", '', 0);
-		";
-
-		$default_chunks = "
-			INSERT INTO ".$this->db->dbprefix('page_chunks')." (`id`, `slug`, `page_id`, `body`, `parsed`, `type`, `sort`) VALUES
-			  ('1', 'default', '1', '<p>Welcome to our homepage. We have not quite finished setting up our website yet, but please add us to your bookmarks and come back soon.</p>', '', 'wysiwyg-advanced', '0'),
-			  ('2', 'default', '2', '<p>We cannot find the page you are looking for, please click <a title=\"Home\" href=\"{{ pages:url id=\'1\' }}\">here</a> to go to the homepage.</p>', '', 'wysiwyg-advanced', '0'),
-			  ('3', 'default', '3', '<p>To contact us please fill out the form below.</p>
+		// The home page.
+		$this->db->insert('pages', array(
+			'slug' => 'home',
+			'title' => 'Home',
+			'uri' => 'home',
+			'revision_id' => 1,
+			'parent_id' => 0,
+			'layout_id' => 1,
+			'status' => 'live',
+			'restricted_to' => '',
+			'created_on' => now(),
+			'is_home' => 1,
+			'order' => now()
+		));
+		$this->db->insert('page_chunks', array(
+			'slug' => 'default',
+			'page_id' => 1,
+			'body' => '<p>Welcome to our homepage. We have not quite finished setting up our website yet, but please add us to your bookmarks and come back soon.</p>',
+			'parsed' => '',
+			'type' => 'wysiwyg-advanced',
+			'sort' => 1,
+		));
+		
+		// The 404 page.
+		$this->db->insert('pages', array(
+			'slug' => '404',
+			'title' => 'Page missing',
+			'uri' => '404',
+			'revision_id' => 1,
+			'parent_id' => 0,
+			'layout_id' => 1,
+			'status' => 'live',
+			'restricted_to' => '',
+			'created_on' => now(),
+			'is_home' => 1,
+			'order' => now()
+		));
+		$this->db->insert('page_chunks', array(
+			'slug' => 'default',
+			'page_id' => 2,
+			'body' => '<p>We cannot find the page you are looking for, please click <a title=\"Home\" href=\"{{ pages:url id=\'1\' }}\">here</a> to go to the homepage.</p>',
+			'parsed' => '',
+			'type' => 'wysiwyg-advanced',
+			'sort' => 1,
+		));
+		
+		// The 404 page.
+		$this->db->insert('pages', array(
+			'slug' => 'contact',
+			'title' => 'Contact',
+			'uri' => 'contact',
+			'revision_id' => 1,
+			'parent_id' => 0,
+			'layout_id' => 1,
+			'status' => 'live',
+			'restricted_to' => '',
+			'created_on' => now(),
+			'is_home' => 1,
+			'order' => now()
+		));
+		$this->db->insert('page_chunks', array(
+			'slug' => 'default',
+			'page_id' => 3,
+			'body' => '<p>To contact us please fill out the form below.</p>
 				{{ contact:form name=\"text|required\" email=\"text|required|valid_email\" subject=\"dropdown|Support|Sales|Feedback|Other\" message=\"textarea\" attachment=\"file|zip\" }}
 					<div><label for=\"name\">Name:</label>{{ name }}</div>
 					<div><label for=\"email\">Email:</label>{{ email }}</div>
 					<div><label for=\"subject\">Subject:</label>{{ subject }}</div>
 					<div><label for=\"message\">Message:</label>{{ message }}</div>
 					<div><label for=\"attachment\">Attach  a zip file:</label>{{ attachment }}</div>
-				{{ /contact:form }}', '', 'wysiwyg-advanced', '0');
-		";
+				{{ /contact:form }}',
+			'parsed' => '',
+			'type' => 'wysiwyg-advanced',
+			'sort' => 1,
+		));
 
-		if ($this->db->query($page_layouts) &&
-		   $this->db->query($pages) &&
-		   $this->db->query($page_chunks) &&
-		   $this->db->query($default_page_layouts) &&
-		   $this->db->query($default_pages) &&
-		   $this->db->query($default_chunks))
-		{
-			return TRUE;
-		}
+		return TRUE;
 	}
 
 	public function uninstall()
