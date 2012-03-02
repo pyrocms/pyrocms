@@ -73,7 +73,7 @@ class Module_Navigation extends Module {
 			'navigation_groups' => array(
 				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
 				'title' => array('type' => 'VARCHAR', 'constraint' => 50,),
-				'abbrev' => array('type' => 'VARCHAR', 'constraint' => 50, 'index' => true),
+				'abbrev' => array('type' => 'VARCHAR', 'constraint' => 50, 'key' => true),
 			),
 			'navigation_links' => array(
 				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
