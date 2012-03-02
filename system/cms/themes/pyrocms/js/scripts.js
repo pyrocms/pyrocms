@@ -348,7 +348,7 @@ jQuery(function($) {
 
 			if ( ! value.length ) return;
 
-			var rx = /[a-z]|[A-Z]|[0-9]|[áàâąбćčцдđďéèêëęěфгѓíîïийкłлмñńňóôóпúùûůřšśťтвýыžżźзäæœчöøüшщßåяюж]/,
+			var rx = /[a-z]|[A-Z]|[0-9]|[áàâąбćčцдđďéèêëęěфгѓíîïийкłлмñńňóôóпúùûůřšśťтвýыžżźзäæœчöøüшщßåяюжαβγδεέζηήθιίϊκλμνξοόπρστυύϋφχψωώ]/,
 				value = value.toLowerCase(),
 				chars = pyro.foreign_characters,
 				search, replace;
