@@ -6,7 +6,8 @@ class Migration_Add_indexes extends CI_Migration
     {
         $this->db->query('ALTER TABLE '.$this->db->dbprefix('navigation_groups').' ADD INDEX abbrev (`abbrev`)');
         $this->db->query('ALTER TABLE '.$this->db->dbprefix('modules').' ADD INDEX enabled (`enabled`)');
-        $this->db->query('ALTER TABLE '.$this->db->dbprefix('permissions ').' ADD INDEX group_id (`group_id`)');
+        $this->db->query('ALTER TABLE '.$this->db->dbprefix('permissions').' ADD INDEX group_id (`group_id`)');
+        $this->db->query('ALTER TABLE '.$this->db->dbprefix('profiles').' ADD INDEX user_id (`user_id`)');
     }
 
     public function down()
@@ -14,5 +15,6 @@ class Migration_Add_indexes extends CI_Migration
         $this->db->query('ALTER TABLE '.$this->db->dbprefix('navigation_groups').' DROP INDEX abbrev');
         $this->db->query('ALTER TABLE '.$this->db->dbprefix('modules').' DROP INDEX enabled ');
         $this->db->query('ALTER TABLE '.$this->db->dbprefix('permissions ').' DROP INDEX group_id');
+        $this->db->query('ALTER TABLE '.$this->db->dbprefix('profiles').' DROP INDEX user_id');
     }
 }
