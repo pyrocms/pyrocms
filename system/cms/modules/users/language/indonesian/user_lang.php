@@ -71,6 +71,7 @@ $lang['user_reset_password_link']              = 'Lupa Password?';
 
 $lang['user_activation_code_sent_notice']      = 'Kode aktivasi sudah dikirimkan ke alamat email Anda.';
 $lang['user_activation_by_admin_notice']       = 'Permohonan registrasi Anda sedang menunggu persetujuan Administrator.';
+$lang['user_registration_disabled']            = 'Sorry, but the user registration is disabled.'; #translate
 
 // -- Settings ---------------------------------------------------------------------------------------------
 

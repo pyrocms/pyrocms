@@ -1,16 +1,16 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
+
 /**
  * Events
  *
  * A simple events system for CodeIgniter.
  *
- * @package		CodeIgniter
- * @subpackage	Events
  * @version		1.0
  * @author		Dan Horrigan <http://dhorrigan.com>
  * @author		Eric Barnes <http://ericlbarnes.com>
  * @license		Apache License v2.0
  * @copyright	2010 Dan Horrigan
+ * @package		PyroCMS\Core\Libraries
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,25 +28,30 @@
 /**
  * Events Library
  */
-class Events {
+class Events
+{
 
 	/**
-	 * @var	array	An array of listeners
+	 * An array of listeners
+	 * 
+	 * @var	array
 	 */
 	protected static $_listeners = array();
 
+	/**
+	 * Constructor
+	 * 
+	 * Load up the modules. 
+	 */
 	public function __construct()
 	{
 		self::_load_modules();
 	}
 
-	// ------------------------------------------------------------------------
-
 	/**
 	 * Load Modules
 	 *
 	 * Loads all active modules
-	 *
 	 */
 	private static function _load_modules()
 	{
@@ -56,15 +61,15 @@ class Events {
 
 		$_ci->load->model('modules/module_m');
 
-		if ( ! $results = $_ci->module_m->get_all())
+		if (!$results = $_ci->module_m->get_all())
 		{
 			return FALSE;
 		}
 
 		foreach ($results as $row)
 		{
-			// This doesnt have a valid details.php file! :o
-			if ( ! $details_class = self::_spawn_class($row['slug'], $row['is_core']))
+			// This does not have a valid details.php file! :o
+			if (!$details_class = self::_spawn_class($row['slug'], $row['is_core']))
 			{
 				continue;
 			}
@@ -77,24 +82,24 @@ class Events {
 	 * Spawn Class
 	 *
 	 * Checks to see if a events.php exists and returns a class
-	 *
-	 * @param	string	$slug	The folder name of the module
-	 * @access	private
-	 * @return	array
+	 * 
+	 * @param string $slug The folder name of the module.
+	 * @param boolean $is_core Whether the module is a core module.
+	 * @return object|boolean 
 	 */
 	private static function _spawn_class($slug, $is_core = FALSE)
 	{
 		$path = $is_core ? APPPATH : ADDONPATH;
 
 		// Before we can install anything we need to know some details about the module
-		$events_file = $path . 'modules/' . $slug . '/events'.EXT;
+		$events_file = $path.'modules/'.$slug.'/events'.EXT;
 
 		// Check the details file exists
-		if ( ! is_file($events_file))
+		if (!is_file($events_file))
 		{
-			$events_file = SHARED_ADDONPATH . 'modules/' . $slug . '/events'.EXT;
-			
-			if ( ! is_file($events_file))
+			$events_file = SHARED_ADDONPATH.'modules/'.$slug.'/events'.EXT;
+
+			if (!is_file($events_file))
 			{
 				return FALSE;
 			}
@@ -115,10 +120,8 @@ class Events {
 	 *
 	 * Registers a Callback for a given event
 	 *
-	 * @access	public
-	 * @param	string	The name of the event
-	 * @param	array	The callback for the Event
-	 * @return	void
+	 * @param string $event The name of the event.
+	 * @param array $callback The callback for the event.
 	 */
 	public static function register($event, array $callback)
 	{
@@ -128,21 +131,18 @@ class Events {
 	}
 
 	/**
-	 * Trigger
+	 * Triggers an event and returns the results.
+	 * 
+	 * The results can be returned in the following formats:
+	 *  - 'array'
+	 *  - 'json'
+	 *  - 'serialized'
+	 *  - 'string'
 	 *
-	 * Triggers an event and returns the results.  The results can be returned
-	 * in the following formats:
-	 *
-	 * 'array'
-	 * 'json'
-	 * 'serialized'
-	 * 'string'
-	 *
-	 * @access	public
-	 * @param	string	The name of the event
-	 * @param	mixed	Any data that is to be passed to the listener
-	 * @param	string	The return type
-	 * @return	mixed	The return of the listeners, in the return type
+	 * @param string $event The name of the event
+	 * @param string $data Any data that is to be passed to the listener
+	 * @param string $return_type The return type
+	 * @return string|array The return of the listeners, in the return type
 	 */
 	public static function trigger($event, $data = '', $return_type = 'string')
 	{
@@ -169,10 +169,9 @@ class Events {
 	 *
 	 * Formats the return in the given type
 	 *
-	 * @access	protected
-	 * @param	array	The array of returns
-	 * @param	string	The return type
-	 * @return	mixed	The formatted return
+	 * @param array $calls The array of returns
+	 * @param string $return_type The return type
+	 * @return array|null The formatted return
 	 */
 	protected static function _format_return(array $calls, $return_type)
 	{
@@ -202,18 +201,22 @@ class Events {
 				break;
 		}
 
-		// Doesn't do anything, so send NULL. FALSE would suggest an error
+		// Does not do anything, so send NULL. FALSE would suggest an error
 		return NULL;
 	}
 
 	/**
-	 * Has Listeners
-	 *
-	 * Checks if the event has listeners
 	 *
 	 * @access	public
-	 * @param	string	The name of the event
-	 * @return	bool	Whether the event has listeners
+	 * @param	string	
+	 * @return	bool	
+	 */
+
+	/**
+	 * Checks if the event has listeners
+	 *
+	 * @param string $event The name of the event
+	 * @return boolean Whether the event has listeners
 	 */
 	public static function has_listeners($event)
 	{
@@ -223,8 +226,8 @@ class Events {
 		{
 			return TRUE;
 		}
+
 		return FALSE;
 	}
-}
 
-/* End of file Events.php */
+}

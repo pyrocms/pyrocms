@@ -91,4 +91,4 @@ unset($base_uri, $base_url);
 |
 */
 
-define('CMS_VERSION', '2.0.1');
+define('CMS_VERSION', '2.1-dev');

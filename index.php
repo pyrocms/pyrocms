@@ -255,7 +255,7 @@ define('ENVIRONMENT', (isset($_SERVER['PYRO_ENV']) ? $_SERVER['PYRO_ENV'] : PYRO
 	
 	// Path to the views folder
 	define ('VIEWPATH', APPPATH.'views/' );
-
+	
 /*
  *---------------------------------------------------------------
  * DEMO
@@ -266,7 +266,7 @@ define('ENVIRONMENT', (isset($_SERVER['PYRO_ENV']) ? $_SERVER['PYRO_ENV'] : PYRO
  *
  */
 
-	define('PYRO_DEMO', (file_exists(FCPATH.'DEMO')));
+    define('PYRO_DEMO', (file_exists(FCPATH.'DEMO')));
 
 /*
  * --------------------------------------------------------------------

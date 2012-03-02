@@ -1,5 +1,17 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed.');
+/**
+ * Implementation of custom PyroCMS hooks.
+ * 
+ * @author PyroCMS Dev Team
+ * @package PyroCMS\Core\Hooks
+ */
 
+/**
+ * Determines the language to use.
+ * 
+ * This is called from the Codeigniter hook system. 
+ * The hook is defined in system/cms/config/hooks.php
+ */
 function pick_language()
 {
 	require APPPATH.'/config/language.php';

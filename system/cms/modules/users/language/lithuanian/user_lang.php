@@ -71,6 +71,7 @@ $lang['user_reset_password_link']              = 'Pamiršote slaptažodį?';
 
 $lang['user_activation_code_sent_notice']      = 'Laiškas buvo išsiųsta su jūsų aktyvacijos kodu.';
 $lang['user_activation_by_admin_notice']       = 'Jūsų registracija laukia patvirtinimo administratoriaus.';
+$lang['user_registration_disabled']            = 'Sorry, but the user registration is disabled.'; #translate
 
 // -- Settings ---------------------------------------------------------------------------------------------
 

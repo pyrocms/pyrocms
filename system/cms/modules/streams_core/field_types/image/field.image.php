@@ -50,8 +50,8 @@ class Field_image
 		
 		$out = '';
 		
-		if( $db_obj->num_rows() != 0 ):
-			
+		if ($db_obj->num_rows() != 0)
+		{
 			// Div for the PyroCMS admin
 			/*if( $this->CI->uri->segment(1) == 'admin' ):
 			
@@ -59,32 +59,29 @@ class Field_image
 				
 			endif;*/
 
-			$out .= $this->_output_thumb( $db_obj->row(), TRUE ).br();
-	
-		else:
-		
+			$out .= $this->_output_thumb($db_obj->row(), true).br();
+		}
+		else
+		{
 			$out .= '';
-		
-		endif;
+		}
 		
 		// Output the actual used value
-		
-		if( is_numeric($params['value']) ):
-		
-			$out .= form_hidden( $params['form_slug'], $params['value'] );
-		
-		else:
-
-			$out .= form_hidden( $params['form_slug'], 'dummy' );
-		
-		endif;
+		if (is_numeric($params['value']))
+		{
+			$out .= form_hidden($params['form_slug'], $params['value']);
+		}
+		else
+		{
+			$out .= form_hidden( $params['form_slug'], 'dummy');
+		}
 
 		$options['name'] 	= $params['form_slug'];
 		$options['name'] 	= $params['form_slug'].'_file';
 
 		//if( $this->CI->uri->segment(1) == 'admin' ): $out .= '</div>'; endif;
 		
-		return $out .= form_upload( $options );
+		return $out .= form_upload($options);
 	}
 
 	// --------------------------------------------------------------------------
@@ -100,54 +97,50 @@ class Field_image
 	public function pre_save($input, $field)
 	{	
 		// Only go through the pre_save upload if there is a file ready to go
-		if( isset($_FILES[$field->field_slug.'_file']['name']) && $_FILES[$field->field_slug.'_file']['name'] != '' ):
-		
+		if (isset($_FILES[$field->field_slug.'_file']['name']) && $_FILES[$field->field_slug.'_file']['name'] != '')
+		{
 			// Do nothing
-			
-		else:
-		
+		}	
+		else
+		{
 			// If we have a file already just return that value
-			if( is_numeric($this->CI->input->post( $field->field_slug )) ):
-		
-				return $this->CI->input->post( $field->field_slug );
-		
-			else:
-			
-				return;
-			
-			endif;
-				
-		endif;
+			if (is_numeric($this->CI->input->post($field->field_slug)))
+			{
+				return $this->CI->input->post($field->field_slug);
+			}
+			else
+			{
+				return null;
+			}
+		}		
 	
 		$this->CI->load->model('files/file_m');
 		$this->CI->load->config('files/files');
 
 		// Set upload data
-		$upload_config['upload_path'] 		= FCPATH . $this->CI->config->item('files_folder') . '/';
+		$upload_config['upload_path'] 		= FCPATH.$this->CI->config->item('files_folder').'/';
 		
 		// Set allowed types to all if there is none
-		if(trim($field->field_data['allowed_types']) == ''):
-
+		if (trim($field->field_data['allowed_types']) == '')
+		{
 			$upload_config['allowed_types'] 	= '*';
-		
-		else:
-		
+		}
+		else
+		{
 			$upload_config['allowed_types'] 	= $field->field_data['allowed_types'];
-		
-		endif;
+		}
 
 		// Do the upload
-
 		$this->CI->load->library('upload', $upload_config);
 
-		if( ! $this->CI->upload->do_upload( $field->field_slug . '_file' ) ):
-		
+		if ( ! $this->CI->upload->do_upload($field->field_slug . '_file'))
+		{
 			$this->CI->session->set_flashdata('notice', lang('streams.image.image_errors').' '.$this->CI->upload->display_errors());	
 			
-			return;
-		
-		else:
-		
+			return null;
+		}
+		else
+		{
 			$image = $this->CI->upload->data();
 			
 			// -------------------------------------
@@ -165,25 +158,22 @@ class Field_image
 			// -------------------------------------
 					
 			$img_config['source_image']		= FCPATH.$this->CI->config->item('files_folder').$image['file_name'];
-			$img_config['create_thumb'] 	= TRUE;
-			$img_config['maintain_ratio'] 	= TRUE;
+			$img_config['create_thumb'] 	= true;
+			$img_config['maintain_ratio'] 	= true;
 			$img_config['height']	 		= 1;
 			$img_config['master_dim']	 	= 'width';
 			
 			// For small images, we don't want to
 			// make a thumb that is larger than
 			// the actual image.
-			if( $image['image_width'] > 200 ):
-			
+			if ($image['image_width'] > 200)
+			{
 				$img_config['width']	 	= 200;
-			
-			else:
-			
+			}
+			else
+			{
 				$img_config['width']	 	= $image['image_width'];
-			
-			endif;
-			
-			//print_r($img_config);
+			}
 					
 			$this->CI->image_lib->initialize($img_config);
 			$this->CI->image_lib->resize();			
@@ -195,50 +185,45 @@ class Field_image
 			// Resize
 			// -------------------------------------
 			
-			if( is_numeric($field->field_data['resize_width']) ):
-			
-				$img_config['source_image']		= FCPATH . $this->CI->config->item('files_folder').$image['file_name'];
+			if (is_numeric($field->field_data['resize_width']))
+			{
+				$img_config['source_image']		= FCPATH.$this->CI->config->item('files_folder').$image['file_name'];
 				$img_config['quality']			= '100%';
-				$img_config['create_thumb'] 	= FALSE;
-				$img_config['maintain_ratio'] 	= TRUE;
+				$img_config['create_thumb'] 	= false;
+				$img_config['maintain_ratio'] 	= true;
 				$img_config['width']	 		= $field->field_data['resize_width'];
 				
-				if( is_numeric($field->field_data['resize_height']) ):
-				
+				if (is_numeric($field->field_data['resize_height']))
+				{
 					// We are using a hard numeric value for the resize h&w
 					$img_config['height']	 		= $field->field_data['resize_height'];
-					$img_config['maintain_ratio']	= FALSE;
-					
-				else:
-				
+					$img_config['maintain_ratio']	= false;
+				}	
+				else
+				{
 					// We need to come close to what the height is, because
 					// they left that blank
-					
-					$scale = $image['image_width'] / $img_config['width'];
+					$scale = $image['image_width']/$img_config['width'];
 					
 					$img_config['height']	 		= $image['image_height']/$scale;
-					$img_config['maintain_ratio']	= TRUE;
-				
-				endif;
+					$img_config['maintain_ratio']	= true;
+				}
 				
 				$this->CI->image_lib->initialize($img_config);
 				$this->CI->image_lib->resize();
 				$this->custom_clear();
-			
-			endif;
+			}
 			
 			// Use resized numbers for the files module.
-			if( isset($img_config['width']) and is_numeric($img_config['width']) ):
-			
+			if (isset($img_config['width']) and is_numeric($img_config['width']))
+			{
 				$image['image_width'] = $img_config['width'];
-			
-			endif;
+			}
 
-			if( isset($img_config['height']) and is_numeric($img_config['height']) ):
-			
+			if (isset($img_config['height']) and is_numeric($img_config['height']))
+			{
 				$image['image_height'] = $img_config['height'];
-			
-			endif;
+			}
 			
 			// Insert the data
 			$this->CI->file_m->insert(array(
@@ -262,8 +247,7 @@ class Field_image
 			
 			// Return the ID
 			return $id;
-			
-		endif;			
+		}
 	}
 
 	// --------------------------------------------------------------------------
@@ -275,19 +259,19 @@ class Field_image
 	 * @param	array
 	 * @return	string
 	 */	
-	public function pre_output( $input, $params )
+	public function pre_output($input, $params)
 	{
 		$this->CI->load->config('files/files');
 		
-		$this->CI->db->limit(1);
-		$this->CI->db->where('id', $input);
-		$db_obj = $this->CI->db->get('files');
+		$db_obj = $this->CI->db
+							->limit(1)
+							->where('id', $input)
+							->get('files');
 		
-		if( $db_obj->num_rows() > 0 ):
-				
-			return $this->_output_thumb($db_obj->row(), FALSE);
-	
-		endif;
+		if ($db_obj->num_rows() > 0)
+		{
+			return $this->_output_thumb($db_obj->row(), false);
+		}
 	}
 
 	// --------------------------------------------------------------------------
@@ -316,54 +300,50 @@ class Field_image
 		$this->CI->db->where('id', $input);
 		$db_obj = $this->CI->db->get('files');
 		
-		if( $db_obj->num_rows() > 0 ):
-		
+		if ($db_obj->num_rows() > 0)
+		{
 			$image = $db_obj->row();
 			
-			$full = $this->CI->config->item('files_folder') . '/' . $image->name;
+			$full = $this->CI->config->item('files_folder').'/'.$image->name;
 		
 			$image_data['filename']		= $image->name;
 			$image_data['image']		= base_url().$full;
-			$image_data['img']			= img( array('alt'=>$image->name, 'src'=>$full) );
+			$image_data['img']			= img(array('alt'=>$image->name, 'src'=>$full));
 			$image_data['ext']			= $image->extension;
 			$image_data['mimetype']		= $image->mimetype;
 			$image_data['width']		= $image->width;
 			$image_data['height']		= $image->height;
 
-			//If there is a thumb, add it.
-			$path 			= FCPATH . $this->CI->config->item('files_folder');
+			// If there is a thumb, add it.
+			$path 			= FCPATH.$this->CI->config->item('files_folder');
 			$plain_name 	= str_replace($image->extension, '', $image->filename);
 			
-			if( file_exists( $path . '/'.$plain_name.'_thumb'.$image->extension ) ):
-			
-				$image_data['thumb']		= base_url().$this->CI->config->item('files_folder') . '/' . $plain_name.'_thumb' . $image->extension;
-				$image_data['thumb_img']	= img( array('alt'=>$image->name, 'src'=> $this->CI->config->item('files_folder') . '/' . $plain_name.'_thumb' . $image->extension) );
-				
-			else:
-			
+			if (file_exists($path.'/'.$plain_name.'_thumb'.$image->extension))
+			{
+				$image_data['thumb']		= base_url().$this->CI->config->item('files_folder').'/'.$plain_name.'_thumb'.$image->extension;
+				$image_data['thumb_img']	= img(array('alt'=>$image->name, 'src'=> $this->CI->config->item('files_folder').'/'.$plain_name.'_thumb'.$image->extension));
+			}	
+			else
+			{
 				// The image may be small enough to be it's own thumb, so let's
 				// put that in there anyways
-				
 				$image_data['thumb']		= base_url().$full;
-				$image_data['thumb_img']	= img( array('alt'=>$image->name, 'src'=>$full) );
-						
-			endif;
-			
-		else:
-		
+				$image_data['thumb_img']	= img(array('alt'=>$image->name, 'src'=>$full));
+			}			
+		}
+		else
+		{
 			// We want just blank if there is no image.
-		
-			$image_data['filename']		= NULL;
-			$image_data['image']		= NULL;
-			$image_data['img']			= NULL;
-			$image_data['ext']			= NULL;
-			$image_data['mimetype']		= NULL;
-			$image_data['width']		= NULL;
-			$image_data['height']		= NULL;
-			$image_data['thumb']		= NULL;
-			$image_data['thumb_img']	= NULL;
-	
-		endif;
+			$image_data['filename']		= null;
+			$image_data['image']		= null;
+			$image_data['img']			= null;
+			$image_data['ext']			= null;
+			$image_data['mimetype']		= null;
+			$image_data['width']		= null;
+			$image_data['height']		= null;
+			$image_data['thumb']		= null;
+			$image_data['thumb_img']	= null;
+		}
 		
 		return $image_data;
 	}
@@ -380,13 +360,13 @@ class Field_image
 	 * @param	bool
 	 * @return	string
 	 */
-	private function _output_thumb($image, $scale = FALSE)
+	private function _output_thumb($image, $scale = false)
 	{	
 		$message = '';
 	
 		$this->CI->load->helper('html');
 
-		$path 			= FCPATH . $this->CI->config->item('files_folder');
+		$path 			= FCPATH.$this->CI->config->item('files_folder');
 		$plain_name 	= str_replace($image->extension, '', $image->filename);
 	
 		$image_config = array(
@@ -394,33 +374,27 @@ class Field_image
 		          'title' 		=> $image->name
 		);
 			
-		if( file_exists( $path . '/'.$plain_name.'_thumb'.$image->extension ) ):
-	
-			$use_link = TRUE;
+		if (file_exists($path.'/'.$plain_name.'_thumb'.$image->extension))
+		{
+			$use_link = true;
 		
 			$image_config['src']	= $this->CI->config->item('files_folder').'/'.$plain_name.'_thumb'.$image->extension;
-					
-		elseif( file_exists( $path . '/'.$image->name ) ):
-		
+		}
+		elseif (file_exists( $path . '/'.$image->name))
+		{
 			$use_link = FALSE;
 
 			$image_config['src']	= $this->CI->config->item('files_folder').'/'.$image->name;
-			
-		else:
+		}	
 		
-		endif;
-		
-		if( $use_link ):
-		
-			return '<a href="'.$this->CI->config->item('files_folder').$image->name.'" target="_blank">'.img( $image_config ).'</a>'.br();
-		
-		else:
-		
-			return img( $image_config ).br();
-		
-		endif;
-
-		
+		if ($use_link)
+		{
+			return '<a href="'.$this->CI->config->item('files_folder').$image->name.'" target="_blank">'.img($image_config).'</a>'.br();
+		}
+		else
+		{
+			return img($image_config ).br();
+		}
 	}
 
 	// --------------------------------------------------------------------------
@@ -441,24 +415,22 @@ class Field_image
 		
 		$tree = (array)$tree;
 		
-		if(!$tree):
-		
+		if ( ! $tree)
+		{
 			return '<em>'.lang('streams.image.need_folder').'</em>';
-		
-		endif;
+		}
 		
 		$choices = array();
 		
-		foreach( $tree as $tree_item ):
-		
+		foreach ($tree as $tree_item)
+		{
 			// We are doing this to be backwards compat
 			// with PyroStreams 1.1 and below where 
 			// This is an array, not an object
 			$tree_item = (object)$tree_item;
 			
 			$choices[$tree_item->id] = $tree_item->name;
-		
-		endforeach;
+		}
 	
 		return form_dropdown('folder', $choices, $value);
 	}
@@ -556,5 +528,3 @@ class Field_image
 	}
 	
 }
-
-/* End of file field.image.php */

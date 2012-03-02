@@ -7,6 +7,7 @@
  */
 class Module_Api extends Module
 {
+
 	public $version = '1.0.0';
 
 	public function info()
@@ -14,32 +15,33 @@ class Module_Api extends Module
 		return array(
 			'name' => array(
 				'en' => 'API Management',
-                            'fr' => 'Gestionnaire d\'API'
+				'el' => 'Διαχείριση API',
+				'fr' => 'Gestionnaire d\'API'
 			),
 			'description' => array(
 				'en' => 'Set up a RESTful API with API Keys and out in JSON, XML, CSV, etc.',
-                            'fr' => 'Paramétrage d\'une API RESTgul avec clés API et export en JSON, XML, CSV, etc.'
+				'el' => 'Ρυθμίσεις για ένα RESTful API με κλειδιά API και αποτελέσματα σε JSON, XML, CSV, κτλ.',
+				'fr' => 'Paramétrage d\'une API RESTgul avec clés API et export en JSON, XML, CSV, etc.'
 			),
 			'frontend' => TRUE,
-			'backend'  => TRUE,
-			'menu'	  => 'utilities',
-			
+			'backend' => TRUE,
+			'menu' => 'utilities',
 			'sections' => array(
-			    'overview' => array(
-				    'name' => 'api:overview',
-				    'uri' => 'admin/api',
+				'overview' => array(
+					'name' => 'api:overview',
+					'uri' => 'admin/api',
 				),
 				'keys' => array(
-				    'name' => 'api:keys',
-				    'uri' => 'admin/api/keys',
-				    'shortcuts' => array(
-						// array(
-						//     'name' => 'cat_create_title',
-						//     'uri' => 'admin/blog/categories/create',
-						//     'class' => 'add'
-						// ),
-				    ),
-			    ),
+					'name' => 'api:keys',
+					'uri' => 'admin/api/keys',
+					'shortcuts' => array(
+					// array(
+					//     'name' => 'cat_create_title',
+					//     'uri' => 'admin/blog/categories/create',
+					//     'class' => 'add'
+					// ),
+					),
+				),
 			),
 		);
 	}
@@ -67,5 +69,7 @@ class Module_Api extends Module
 		// You could include a file and return it here.
 		return "No documentation has been added for this module.";
 	}
+
 }
+
 /* End of file details.php */

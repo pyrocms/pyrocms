@@ -246,8 +246,6 @@ class Module_m extends MY_Model
 	 */
 	public function exists($module)
 	{
-		$this->_module_exists = array();
-
 		if ( ! $module)
 		{
 			return FALSE;
@@ -459,9 +457,12 @@ class Module_m extends MY_Model
 		foreach (array(APPPATH, ADDONPATH, SHARED_ADDONPATH) as $directory)
     	{
 			// some servers return false instead of an empty array
-			if ( ! $directory) continue;
-
-			foreach (glob($directory.'modules/*', GLOB_ONLYDIR) as $path)
+			if ( ! $directory or ! ($temp_modules = glob($directory.'modules/*', GLOB_ONLYDIR)))
+			{
+				continue;
+			}
+			
+			foreach ($temp_modules as $path)
 			{
 				$slug = basename($path);
 
@@ -516,6 +517,7 @@ class Module_m extends MY_Model
 				// Looks like it installed ok, add a record
 				$this->add($input);
 			}
+			unset($temp_modules);
 
 			// Going back around, 2nd time is addons
 			$is_core = FALSE;

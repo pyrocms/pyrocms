@@ -78,6 +78,7 @@ $lang['user_reset_password_link']              = 'Unohditko salasanan?';
 
 $lang['user_activation_code_sent_notice']      = 'Aktivointi koodi lähetettiin sähköpostiisi.';
 $lang['user_activation_by_admin_notice']       = 'Rekisteröityminen vaatii ylläpidon hyväksymisen.';
+$lang['user_registration_disabled']            = 'Sorry, but the user registration is disabled.'; #translate
 
 // -- Settings ---------------------------------------------------------------------------------------------
 

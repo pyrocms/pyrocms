@@ -1,15 +1,23 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
-
-// Code here is run before frontend controllers
+/**
+ * Code here is run before frontend controllers
+ * 
+ * @author PyroCMS Dev Team
+ * @package PyroCMS\Core\Controllers
+ */
 class Public_Controller extends MY_Controller
 {
+	/**
+	 * Loads the gazillion of stuff, in Flash Gordon speed.
+	 * @todo Document properly please.
+	 */
 	public function __construct()
 	{
 		parent::__construct();
 
 		$this->benchmark->mark('public_controller_start');
 		
-		//check for a redirect
+		// Check for a redirect
 		$this->load->model('redirects/redirect_m');
 		$uri = trim(uri_string(), '/');
 		if ($redirect = $this->redirect_m->get_from($uri))
