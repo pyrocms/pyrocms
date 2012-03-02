@@ -2,7 +2,7 @@
 
 class Module_Permissions extends Module {
 
-	public $version = '0.5';
+	public $version = '0.6';
 	
 	public function info()
 	{
@@ -65,11 +65,12 @@ class Module_Permissions extends Module {
 			  `group_id` int(11) NOT NULL,
 			  `module` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
 			  `roles` text NULL,
-			  PRIMARY KEY (`id`)
+			  PRIMARY KEY (`id`),
+			  INDEX `group_id` (`group_id`)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Contains a list of modules that a group can access.';
 		";
 		
-		if($this->db->query($permission_rules))
+		if ($this->db->query($permission_rules))
 		{
 			return TRUE;
 		}
@@ -97,4 +98,5 @@ class Module_Permissions extends Module {
 				by each module that you want users in that group to be able to access.</p>";
 	}
 }
+
 /* End of file details.php */

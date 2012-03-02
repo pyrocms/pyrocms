@@ -25,7 +25,7 @@ class Module_Navigation extends Module {
 				'el' => 'Πλοήγηση',
 				'he' => 'ניווט',
 				'lt' => 'Navigacija',
-				'id' => 'Navigasi'
+				'id' => 'Navigasi',
 			),
 			'description' => array(
 				'sl' => 'Uredi povezave v meniju in vse skupine povezav ki jim pripadajo.',
@@ -46,7 +46,7 @@ class Module_Navigation extends Module {
 				'he' => 'ניהול שלוחות תפריטי ניווט וקבוצות ניווט',
 				'lt' => 'Tvarkyk nuorodas navigacijų menių ir visas navigacijų grupes kurioms tos nuorodos priklauso.',
 				'da' => 'Håndtér links på navigationsmenuerne og alle navigationsgrupperne de tilhører.',
-				'id' => 'Mengatur tautan pada menu navigasi dan semua pengelompokan grup navigasi.'
+				'id' => 'Mengatur tautan pada menu navigasi dan semua pengelompokan grup navigasi.',
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
@@ -56,7 +56,7 @@ class Module_Navigation extends Module {
 				array(
 				    'name' => 'nav_group_create_title',
 				    'uri' => 'admin/navigation/groups/create',
-				    'class' => 'add'
+				    'class' => 'add',
 				),
 		    ),
 		);
@@ -72,7 +72,8 @@ class Module_Navigation extends Module {
 			  `id` int(11) NOT NULL auto_increment,
 			  `title` varchar(50) collate utf8_unicode_ci NOT NULL,
 			  `abbrev` varchar(50) collate utf8_unicode_ci NOT NULL,
-			  PRIMARY KEY  (`id`)
+			  PRIMARY KEY  (`id`),
+			  INDEX `abbrev` (`abbrev`)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Navigation groupings. Eg, header, sidebar, footer, etc';
 		";
 		
@@ -80,9 +81,9 @@ class Module_Navigation extends Module {
 			CREATE TABLE " . $this->db->dbprefix('navigation_links') . " (
 			  `id` int(11) NOT NULL auto_increment,
 			  `title` varchar(100) collate utf8_unicode_ci NOT NULL default '',
-			  `parent` int(11) NOT NULL default '0',
+			  `parent` int(11) NULL default NULL,
 			  `link_type` VARCHAR( 20 ) collate utf8_unicode_ci NOT NULL default 'uri',
-			  `page_id` int(11) NOT NULL default '0',
+			  `page_id` int(11) NULL default NULL,
 			  `module_name` varchar(50) collate utf8_unicode_ci NOT NULL default '',
 			  `url` varchar(255) collate utf8_unicode_ci NOT NULL default '',
 			  `uri` varchar(255) collate utf8_unicode_ci NOT NULL default '',
@@ -104,9 +105,10 @@ class Module_Navigation extends Module {
 		";
 		
 		$default_links = "
-			INSERT INTO " . $this->db->dbprefix('navigation_links') . " (title, link_type, page_id, navigation_group_id, position) VALUES
-			('Home', 'page', 1, 1, 1),
-			('Contact', 'page', 3, 1, 2);
+			INSERT INTO " . $this->db->dbprefix('navigation_links') . " (title, link_type, page_id, navigation_group_id, position, module_name) VALUES
+			('Home', 'page', 1, 1, 1, ''),
+			('Blog', 'module', null, 1, 2, 'blog'),
+			('Contact', 'page', 3, 1, 3, '');
 		";
 		
 		if($this->db->query($navigation_groups) &&
