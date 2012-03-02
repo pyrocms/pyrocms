@@ -231,7 +231,7 @@ class Module_Settings extends Module {
 				'title' => 'Site Status',
 				'description' => 'Use this option to the user-facing part of the site on or off. Useful when you want to take the site down for maintenance.',
 				'type' => 'radio',
-				'default' => '1',
+				'default' => true,
 				'value' => '',
 				'options' => '1=Open|0=Closed',
 				'is_required' => 1,
@@ -338,7 +338,7 @@ class Module_Settings extends Module {
 				'options' => '',
 				'is_required' => 1,
 				'is_gui' => 1,
-				'module' => 'email', // @todo Check this, there is no such module, or is there?
+				'module' => 'email',
 				'order' => 979,
 			),
 			'server_email' => array(
@@ -350,7 +350,7 @@ class Module_Settings extends Module {
 				'options' => '',
 				'is_required' => 1,
 				'is_gui' => 1,
-				'module' => 'email', // @todo Check this, there is no such module, or is there?
+				'module' => 'email',
 				'order' => 978,
 			),
 			'mail_protocol' => array(
@@ -362,7 +362,7 @@ class Module_Settings extends Module {
 				'options' => 'mail=Mail|sendmail=Sendmail|smtp=SMTP',
 				'is_required' => 1,
 				'is_gui' => 1,
-				'module' => 'email', // @todo Check this, there is no such module, or is there?
+				'module' => 'email',
 				'order' => 977,
 			),
 			'mail_smtp_host' => array(
@@ -374,7 +374,7 @@ class Module_Settings extends Module {
 				'options' => '',
 				'is_required' => 0,
 				'is_gui' => 1,
-				'module' => 'email', // @todo Check this, there is no such module, or is there?
+				'module' => 'email',
 				'order' => 976,
 			),
 			'mail_smtp_pass' => array(
@@ -386,7 +386,7 @@ class Module_Settings extends Module {
 				'options' => '',
 				'is_required' => 0,
 				'is_gui' => 1,
-				'module' => 'email', // @todo Check this, there is no such module, or is there?
+				'module' => 'email',
 				'order' => 975,
 			),
 			'mail_smtp_port' => array(
@@ -398,7 +398,7 @@ class Module_Settings extends Module {
 				'options' => '',
 				'is_required' => 0,
 				'is_gui' => 1,
-				'module' => 'email', // @todo Check this, there is no such module, or is there?
+				'module' => 'email',
 				'order' => 974,
 			),
 			'mail_smtp_user' => array(
@@ -410,7 +410,7 @@ class Module_Settings extends Module {
 				'options' => '',
 				'is_required' => 0,
 				'is_gui' => 1,
-				'module' => 'email', // @todo Check this, there is no such module, or is there?
+				'module' => 'email',
 				'order' => 973,
 			),
 			'mail_sendmail_path' => array(
@@ -422,9 +422,10 @@ class Module_Settings extends Module {
 				'options' => '',
 				'is_required' => 0,
 				'is_gui' => 1,
-				'module' => 'email', // @todo Check this, there is no such module, or is there?
+				'module' => 'email',
 				'order' => 972,
 			),
+			// @todo 'twitter_*' settings are not used anywhere, maybe remove this? (Check thouroughly first)
 			'twitter_username' => array(
 				'title' => 'Username',
 				'description' => 'Twitter username.',
@@ -434,7 +435,7 @@ class Module_Settings extends Module {
 				'options' => '',
 				'is_required' => 0,
 				'is_gui' => 1,
-				'module' => 'twitter', // @todo Check this, there is no such module, or is there?
+				'module' => 'twitter',
 				'order' => 971,
 			),
 			'twitter_feed_count' => array(
@@ -446,7 +447,7 @@ class Module_Settings extends Module {
 				'options' => '',
 				'is_required' => 0,
 				'is_gui' => 1,
-				'module' => 'twitter', // @todo Check this, there is no such module, or is there?
+				'module' => 'twitter',
 				'order' => 970,
 			),
 			'twitter_cache' => array(
@@ -458,7 +459,7 @@ class Module_Settings extends Module {
 				'options' => '',
 				'is_required' => 0,
 				'is_gui' => 1,
-				'module' => 'twitter', // @todo Check this, there is no such module, or is there?
+				'module' => 'twitter',
 				'order' => 969,
 			),
 			// @todo Move this to the respective module
@@ -466,8 +467,8 @@ class Module_Settings extends Module {
 				'title' => 'Enable Comments',
 				'description' => 'Enable comments.',
 				'type' => 'radio',
-				'default' => '1',
-				'value' => '1',
+				'default' => true,
+				'value' => true,
 				'options' => '1=Enabled|0=Disabled',
 				'is_required' => 1,
 				'is_gui' => 1,
@@ -479,8 +480,8 @@ class Module_Settings extends Module {
 				'title' => 'Moderate Comments',
 				'description' => 'Force comments to be approved before they appear on the site.',
 				'type' => 'radio',
-				'default' => '1',
-				'value' => '1',
+				'default' => true,
+				'value' => true,
 				'options' => '1=Enabled|0=Disabled',
 				'is_required' => 1,
 				'is_gui' => 1,
@@ -518,7 +519,7 @@ class Module_Settings extends Module {
 				'title' => 'Auto Username',
 				'description' => 'Create the username automatically, meaning users can skip making one on registration.',
 				'type' => 'radio',
-				'default' => '1',
+				'default' => true,
 				'value' => '',
 				'options' => '1=Enabled|0=Disabled',
 				'is_required' => 0,
@@ -531,7 +532,7 @@ class Module_Settings extends Module {
 				'title' => 'Enable profiles',
 				'description' => 'Allow users to add and edit profiles.',
 				'type' => 'radio',
-				'default' => '1',
+				'default' => true,
 				'value' => '',
 				'options' => '1=Enabled|0=Disabled',
 				'is_required' => 1,
@@ -544,7 +545,7 @@ class Module_Settings extends Module {
 				'title' => 'Require last names?',
 				'description' => 'For some situations, a last name may not be required. Do you want to force users to enter one or not?',
 				'type' => 'radio',
-				'default' => '1',
+				'default' => true,
 				'value' => '',
 				'options' => '1=Required|0=Optional',
 				'is_required' => 1,
@@ -557,7 +558,7 @@ class Module_Settings extends Module {
 				'title' => 'Activation Email',
 				'description' => 'Send out an e-mail when a user signs up with an activation link. Disable this to let only admins activate accounts.',
 				'type' => 'radio',
-				'default' => '1',
+				'default' => true,
 				'value' => '',
 				'options' => '1=Enabled|0=Disabled',
 				'is_required' => 0,
@@ -570,7 +571,7 @@ class Module_Settings extends Module {
 				'title' => 'User Registered Email',
 				'description' => 'Send a notification email to the contact e-mail when someone registers.',
 				'type' => 'radio',
-				'default' => '1',
+				'default' => true,
 				'value' => '',
 				'options' => '1=Enabled|0=Disabled',
 				'is_required' => 0,
@@ -583,7 +584,7 @@ class Module_Settings extends Module {
 				'title' => 'Enable user registration',
 				'description' => 'Allow users to register in your site.',
 				'type' => 'radio',
-				'default' => '1',
+				'default' => true,
 				'value' => '',
 				'options' => '1=Enabled|0=Disabled',
 				'is_required' => 0,
@@ -622,7 +623,7 @@ class Module_Settings extends Module {
 				'title' => 'Force HTTPS for Control Panel?',
 				'description' => 'Allow only the HTTPS protocol when using the Control Panel?',
 				'type' => 'radio',
-				'default' => '0',
+				'default' => false,
 				'value' => '',
 				'options' => '1=Yes|0=No',
 				'is_required' => 1,

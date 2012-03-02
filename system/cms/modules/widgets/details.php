@@ -118,7 +118,6 @@ class Module_Widgets extends Module {
 		$this->install_tables($tables);
 		
 		// Add the default data
-		// @todo Use a language string for the 'title'?
 		$this->db->insert('widget_areas', array(
 			'title' => 'Sidebar',
 			'slug' 	=> 'sidebar',
