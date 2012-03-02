@@ -41,7 +41,7 @@ class Module_Groups extends Module {
 				'cs' => 'Uživatelé mohou být rozřazeni do skupin pro lepší správu oprávnění.',
 				'es' => 'Los usuarios podrán ser colocados en grupos para administrar sus permisos.',
 				'fi' => 'Käyttäjät voidaan liittää ryhmiin, jotta käyttöoikeuksia voidaan hallinnoida.',
-				'el' => 'Οι χρήστες μπορούν να τοποθετηθούν σε ομάδες και να διαχειριστείτε τα δικαιώματά τους.',
+				'el' => 'Οι χρήστες μπορούν να τοποθετηθούν σε ομάδες και έτσι να διαχειριστείτε τα δικαιώματά τους.',
 				'he' => 'נותן אפשרות לאסוף משתמשים לקבוצות',
 				'lt' => 'Vartotojai gali būti priskirti grupei tam, kad valdyti jų teises.',
 				'da' => 'Brugere kan inddeles i grupper for adgangskontrol',

@@ -19,8 +19,8 @@ $lang['settings_server_email_desc']		= 'Όλα τα e-mail προς τους χ�
 $lang['settings_meta_topic']			= 'Meta Topic';
 $lang['settings_meta_topic_desc']		= 'Δυο ή τρεις λέξεις που να περιγράφουν αυτόν τον τύπο της επιχείρησης/ιστότοπου.';
 
-$lang['settings_currency']			= 'Συνάλλαγμα';
-$lang['settings_currency_desc']			= 'Το σύμβολο του συναλλάγματος για χρήση σε προϊόντα, υπηρεσίες κ.λπ.';
+$lang['settings_currency']			= 'Νόμισμα';
+$lang['settings_currency_desc']			= 'Το σύμβολο του νομίσματος για χρήση σε προϊόντα, υπηρεσίες κ.λπ.';
 
 $lang['settings_dashboard_rss']			= 'Τροφοδοσία RSS Επισκόπησης';
 $lang['settings_dashboard_rss_desc']		= 'Ο σύνδεσμος σε μια τροφοδοσία RSS που θα προβάλλεται στην επισκόπηση.';
