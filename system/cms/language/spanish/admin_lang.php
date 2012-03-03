@@ -25,7 +25,7 @@ $lang['cp_edit_profile_label']	= 'Editar perfil';
 // Footer
 $lang['cp_change_language']		= 'Cambiar idioma';
 $lang['cp_documentation']		= 'Documentación';
-$lang['cp_report_bug']			= 'Reportar un bug';
+$lang['cp_report_bug']			= 'Avisar de un bug';
 $lang['cp_contact_support']		= 'Soporte';
 
 $lang['cp_nav_settings']		= 'Configuraciones';
