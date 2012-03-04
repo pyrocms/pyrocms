@@ -1572,6 +1572,7 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
 #analyticsWrapper {
 	background: #ffffff;
 	width: 232px;
+	max-width:96.25%;
 	height: 300px;
 	padding: 25px;
 	float: left;
@@ -1588,6 +1589,7 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
 
 #analytics {
 	width: 232px;
+	max-width:100%;
 	height: 300px;
 	float: left;
 }
@@ -2160,6 +2162,21 @@ Ensure your main styling comes before this!
 	}
 
 }
+
+/*Target iPad specifically*/
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+
+	#analyticsWrapper {
+		max-width: 93.6%;
+	}
+
+	#analytics {
+	max-width: 100%;
+	}
+}
+
+
+
 
 @media only screen and (min-width: 1025px) {
 
