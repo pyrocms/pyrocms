@@ -53,5 +53,6 @@ $route['my-profile']	= 'users/index';
 $route['edit-profile']	= 'users/edit';
 
 $route['sitemap.xml'] = 'sitemap/xml';
+$route['robots.txt'] = 'robots/index';
 
 /* End of file routes.php */

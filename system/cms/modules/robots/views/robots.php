@@ -1,0 +1,1 @@
+<?php echo $robots_txt->txt; ?>
