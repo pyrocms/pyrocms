@@ -4,6 +4,25 @@ class Module_Contact extends Module {
 
 	public $version = 0.9;
 
+	/**
+	 * The modules tables.
+	 *
+	 * @var array
+	 */
+	public $tables = array(
+		'contact_log' => array(
+			'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
+			'email' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '',),
+			'subject' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '',),
+			'message' => array('type' => 'TEXT',),
+			'sender_agent' => array('type' => 'VARCHAR', 'constraint' => 64, 'default' => '',),
+			'sender_ip' => array('type' => 'VARCHAR', 'constraint' => 32, 'default' => '',),
+			'sender_os' => array('type' => 'VARCHAR', 'constraint' => 32, 'default' => '',),
+			'sent_at' => array('type' => 'INT', 'constraint' => 11, 'default' => 0,),
+			'attachments' => array('type' => 'TEXT',),
+		),
+	);
+	
 	public function info()
 	{
 		return array(
@@ -49,44 +68,22 @@ class Module_Contact extends Module {
 				'da' => 'Tilføjer en formular på din side som tillader besøgende at sende mails til dig, uden at du skal opgive din email-adresse',
 				'id' => 'Menambahkan formulir ke dalam situs Anda yang memungkinkan pengunjung untuk mengirimkan email kepada Anda tanpa memberikan alamat email kepada mereka'
 			),
-			'frontend' => FALSE,
-			'backend' => FALSE,
-			'menu' => FALSE
+			'frontend' => false,
+			'backend' => false,
+			'menu' => false,
 		);
-	}
-
-	public function install()
-	{
-		$this->dbforge->drop_table('contact_log');
-		
-		$tables = array(
-			'contact_log' => array(
-				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
-				'email' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '',),
-				'subject' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '',),
-				'message' => array('type' => 'TEXT',),
-				'sender_agent' => array('type' => 'VARCHAR', 'constraint' => 64, 'default' => '',),
-				'sender_ip' => array('type' => 'VARCHAR', 'constraint' => 32, 'default' => '',),
-				'sender_os' => array('type' => 'VARCHAR', 'constraint' => 32, 'default' => '',),
-				'sent_at' => array('type' => 'INT', 'constraint' => 11, 'default' => 0,),
-				'attachments' => array('type' => 'TEXT',),
-			),
-		);
-		
-		$this->install_tables($tables);
-		return TRUE;
 	}
 
 	public function uninstall()
 	{
 		//it's a core module, lets keep it around
-		return FALSE;
+		return false;
 	}
 
 	public function upgrade($old_version)
 	{
 		// Your Upgrade Logic
-		return TRUE;
+		return true;
 	}
 
 	public function help()
@@ -96,4 +93,3 @@ class Module_Contact extends Module {
 		return "This module has no inline docs as it does not have a back-end.";
 	}
 }
-/* End of file details.php */

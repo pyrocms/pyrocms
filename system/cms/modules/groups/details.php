@@ -4,6 +4,19 @@ class Module_Groups extends Module {
 
 	public $version = '1.0';
 
+	/**
+	 * The modules tables.
+	 *
+	 * @var array
+	 */
+	public $tables = array(
+		'groups' => array(
+			'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
+			'name' => array('type' => 'VARCHAR', 'constraint' => 100,),
+			'description' => array('type' => 'VARCHAR', 'constraint' => 250, 'null' => true,),
+		),
+	);
+	
 	public function info()
 	{
 		return array(
@@ -47,8 +60,8 @@ class Module_Groups extends Module {
 				'da' => 'Brugere kan inddeles i grupper for adgangskontrol',
 				'id' => 'Pengguna dapat dikelompokkan ke dalam grup untuk mengatur perizinan.'
 			),
-			'frontend' => FALSE,
-			'backend'  => TRUE,
+			'frontend' => false,
+			'backend'  => true,
 			'menu'	  => 'users',
 
 			'shortcuts' => array(
@@ -63,46 +76,39 @@ class Module_Groups extends Module {
 
 	public function install()
 	{
-		$this->dbforge->drop_table('groups');
-
-		$tables = array(
-			'groups' => array(
-				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
-				'name' => array('type' => 'VARCHAR', 'constraint' => 100,),
-				'description' => array('type' => 'VARCHAR', 'constraint' => 250, 'null' => true,),
-			),
-		);
-		$this->install_tables($tables);
+		if ( ! parent::install())
+		{
+			return false;
+		}
 
 		$groups = array(
 			array('name' => 'admin', 'description' => 'Administrators',),
 			array('name' => 'users', 'description' => 'Users',),
 		);
-		foreach ($groups as $group)
+		if ( ! $this->batch_insert('groups', $groups))
 		{
-			$this->db->insert('groups', $group);
+			return false;
 		}
-
-		return TRUE;
+		
+		return true;
 	}
 
 	public function uninstall()
 	{
 		//it's a core module, lets keep it around
-		return FALSE;
+		return false;
 	}
 
 	public function upgrade($old_version)
 	{
 		// Your Upgrade Logic
-		return TRUE;
+		return true;
 	}
 
 	public function help()
 	{
 		// Return a string containing help info
 		// You could include a file and return it here.
-		return TRUE;
+		return true;
 	}
 }
-/* End of file details.php */

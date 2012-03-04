@@ -8,6 +8,19 @@
 class Module_Redirects extends Module {
 
 	public $version = '1.0';
+	
+	/**
+	 * The modules tables.
+	 *
+	 * @var array
+	 */
+	public $tables = array(
+		'redirects' => array(
+			'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
+			'from' => array('type' => 'VARCHAR', 'constraint' => 250, 'key' => 'request'),
+			'to' => array('type' => 'VARCHAR', 'constraint' => 250,),
+		),
+	);
 
 	public function info()
 	{
@@ -50,8 +63,8 @@ class Module_Redirects extends Module {
 				'zh' => '將網址轉址、重新定向。',
 				'id' => 'Redirect dari satu URL ke URL yang lain.'
 			),
-			'frontend' => FALSE,
-			'backend'  => TRUE,
+			'frontend' => false,
+			'backend'  => true,
 			'menu'	  => 'utilities',
 			
 			'shortcuts' => array(
@@ -64,40 +77,22 @@ class Module_Redirects extends Module {
 		);
 	}
 
-	public function install()
-	{
-		$this->dbforge->drop_table('redirects');
-
-		$tables = array(
-			'redirects' => array(
-				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
-				'from' => array('type' => 'VARCHAR', 'constraint' => 250, 'key' => 'request'),
-				'to' => array('type' => 'VARCHAR', 'constraint' => 250,),
-			),
-		);
-
-		$this->install_tables($tables);
-
-		return TRUE;
-	}
-
 	public function uninstall()
 	{
 		//it's a core module, lets keep it around
-		return FALSE;
+		return false;
 	}
 
 	public function upgrade($old_version)
 	{
 		// Your Upgrade Logic
-		return TRUE;
+		return true;
 	}
 
 	public function help()
 	{
 		// Return a string containing help info
 		// You could include a file and return it here.
-		return TRUE;
+		return true;
 	}
 }
-/* End of file details.php */

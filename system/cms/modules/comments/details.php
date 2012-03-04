@@ -4,6 +4,28 @@ class Module_Comments extends Module {
 	
 	public $version = '1.0';
 
+	/**
+	 * The modules tables.
+	 *
+	 * @var array
+	 */
+	public $tables = array(
+		'comments' => array(
+			'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
+			'is_active' => array('type' => 'INT', 'constraint' => 1, 'default' => 0,),
+			'user_id' => array('type' => 'INT', 'constraint' => 11, 'default' => 0,),
+			'name' => array('type' => 'VARCHAR', 'constraint' => 40, 'default' => '',),
+			'email' => array('type' => 'VARCHAR', 'constraint' => 40, 'default' => '',), // @todo Shouldn't this be 255?
+			'website' => array('type' => 'VARCHAR', 'constraint' => 255,),
+			'comment' => array('type' => 'TEXT',),
+			'parsed' => array('type' => 'TEXT',),
+			'module' => array('type' => 'VARCHAR', 'constraint' => 40,),
+			'module_id' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => 0,),
+			'created_on' => array('type' => 'VARCHAR', 'constraint' => 11, 'default' => '0',), // @todo Shouldn't this be an int?
+			'ip_address' => array('type' => 'VARCHAR', 'constraint' => 15, 'default' => '',),
+		),
+	);
+	
 	public function info()
 	{
 		return array(
@@ -49,53 +71,27 @@ class Module_Comments extends Module {
 				'da' => 'Brugere og besøgende kan skrive kommentarer til indhold som blog, sider og fotoer.',
 				'id' => 'Pengguna dan pengunjung dapat menuliskan komentaruntuk setiap konten seperti blog, halaman dan foto.'
 			),
-			'frontend' => FALSE,
-			'backend'  => TRUE,
+			'frontend' => false,
+			'backend'  => true,
 			'menu'	  => 'content'
 		);
-	}
-	
-	public function install()
-	{
-		$this->dbforge->drop_table('comments');
-
-		$tables = array(
-			'comments' => array(
-				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
-				'is_active' => array('type' => 'INT', 'constraint' => 1, 'default' => 0,),
-				'user_id' => array('type' => 'INT', 'constraint' => 11, 'default' => 0,),
-				'name' => array('type' => 'VARCHAR', 'constraint' => 40, 'default' => '',),
-				'email' => array('type' => 'VARCHAR', 'constraint' => 40, 'default' => '',), // @todo Shouldn't this be 255?
-				'website' => array('type' => 'VARCHAR', 'constraint' => 255,),
-				'comment' => array('type' => 'TEXT',),
-				'parsed' => array('type' => 'TEXT',),
-				'module' => array('type' => 'VARCHAR', 'constraint' => 40,),
-				'module_id' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => 0,),
-				'created_on' => array('type' => 'VARCHAR', 'constraint' => 11, 'default' => '0',), // @todo Shouldn't this be an int?
-				'ip_address' => array('type' => 'VARCHAR', 'constraint' => 15, 'default' => '',),
-			),
-		);
-
-		$this->install_tables($tables);
-
-		return TRUE;
 	}
 
 	public function uninstall()
 	{
 		//it's a core module, lets keep it around
-		return FALSE;
+		return false;
 	}
 
 	public function upgrade($old_version)
 	{
 		// Your Upgrade Logic
-		return TRUE;
+		return true;
 	}
 
 	public function help()
 	{
-		return TRUE;
+		return true;
 	}
 
 }

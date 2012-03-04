@@ -49,9 +49,9 @@ class Module_Users extends Module {
 				'da' => 'Lader brugere registrere sig og logge ind på sitet, og håndtér dem via kontrolpanelet.',
 				'id' => 'Memungkinkan pengguna untuk mendaftar dan masuk ke dalam situs, dan mengaturnya melalui control panel.'
 			),
-			'frontend' => FALSE,
-			'backend'  => TRUE,
-			'menu'	  => FALSE,
+			'frontend' => false,
+			'backend'  => true,
+			'menu'	  => false,
 			
 			'shortcuts' => array(
 				array(
@@ -62,23 +62,17 @@ class Module_Users extends Module {
 		    ),
 		);
 	}
-	
-	public function install()
-	{
-		//This is handled by the installer only so that a default user can be created.
-		return TRUE;
-	}
 
 	public function uninstall()
 	{
 		//it's a core module, lets keep it around
-		return FALSE;
+		return false;
 	}
 
 	public function upgrade($old_version)
 	{
 		// Your Upgrade Logic
-		return TRUE;
+		return true;
 	}
 	
 	public function help()
@@ -95,4 +89,3 @@ class Module_Users extends Module {
 		menu item until you either approve or delete their account. If activation emails are enabled users may register silently, without an admin's help.</p>";
 	}
 }
-/* End of file details.php */

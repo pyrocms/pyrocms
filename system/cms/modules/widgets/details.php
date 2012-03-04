@@ -9,10 +9,34 @@ class Module_Widgets extends Module {
 	 *
 	 * @var array
 	 */
-	protected $_tables = array(
-		'widgets',
-		'widget_areas',
-		'widget_instances',
+	public $tables = array(
+		'widget_areas' => array(
+			'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
+			'slug' => array('type' => 'VARCHAR', 'constraint' => 100, 'null' => true,),
+			'title' => array('type' => 'VARCHAR', 'constraint' => 100, 'null' => true,),
+		),
+		'widget_instances' => array(
+			'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
+			'title' => array('type' => 'VARCHAR', 'constraint' => 100, 'null' => true,),
+			'widget_id' => array('type' => 'INT', 'constraint' => 11, 'null' => true,),
+			'widget_area_id' => array('type' => 'INT', 'constraint' => 11, 'null' => true,),
+			'options' => array('type' => 'TEXT'),
+			'order' => array('type' => 'INT', 'constraint' => 10, 'default' => 0,),
+			'created_on' => array('type' => 'INT', 'constraint' => 11, 'default' => 0,),
+			'updated_on' => array('type' => 'INT', 'constraint' => 11, 'default' => 0,),
+		),
+		'widgets' => array(
+			'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
+			'slug' => array('type' => 'VARCHAR', 'constraint' => 100, 'default' => '',),
+			'title' => array('type' => 'TEXT', 'constraint' => 100,),
+			'description' => array('type' => 'TEXT', 'constraint' => 100,),
+			'author' => array('type' => 'VARCHAR', 'constraint' => 100, 'default' => '',),
+			'website' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '',),
+			'version' => array('type' => 'VARCHAR', 'constraint' => 20, 'default' => 0,),
+			'enabled' => array('type' => 'INT', 'constraint' => 1, 'default' => 1,),
+			'order' => array('type' => 'INT', 'constraint' => 10, 'default' => 0,),
+			'updated_on' => array('type' => 'INT', 'constraint' => 11, 'default' => 0,),
+		),
 	);
 	
 	public function info()
@@ -79,61 +103,36 @@ class Module_Widgets extends Module {
 	
 	public function install()
 	{
-		$this->dbforge->drop_table('widget_areas');
-		$this->dbforge->drop_table('widget_instances');
-		$this->dbforge->drop_table('widgets');
+
+		if ( ! parent::install())
+		{
+			return false;
+		}
 		
-		$tables = array(	
-			'widget_areas' => array(
-				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
-				'slug' => array('type' => 'VARCHAR', 'constraint' => 100, 'null' => true,),
-				'title' => array('type' => 'VARCHAR', 'constraint' => 100, 'null' => true,),
-			),
-			
-			'widget_instances' => array(
-				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
-				'title' => array('type' => 'VARCHAR', 'constraint' => 100, 'null' => true,),
-				'widget_id' => array('type' => 'INT', 'constraint' => 11, 'null' => true,),
-				'widget_area_id' => array('type' => 'INT', 'constraint' => 11, 'null' => true,),
-				'options' => array('type' => 'TEXT'),
-				'order' => array('type' => 'INT', 'constraint' => 10, 'default' => 0,),
-				'created_on' => array('type' => 'INT', 'constraint' => 11, 'default' => 0,),
-				'updated_on' => array('type' => 'INT', 'constraint' => 11, 'default' => 0,),
-			),
-			
-			'widgets' => array(
-				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
-				'slug' => array('type' => 'VARCHAR', 'constraint' => 100, 'default' => '',),
-				'title' => array('type' => 'TEXT', 'constraint' => 100,),
-				'description' => array('type' => 'TEXT', 'constraint' => 100,),
-				'author' => array('type' => 'VARCHAR', 'constraint' => 100, 'default' => '',),
-				'website' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '',),
-				'version' => array('type' => 'VARCHAR', 'constraint' => 20, 'default' => 0,),
-				'enabled' => array('type' => 'INT', 'constraint' => 1, 'default' => 1,),
-				'order' => array('type' => 'INT', 'constraint' => 10, 'default' => 0,),
-				'updated_on' => array('type' => 'INT', 'constraint' => 11, 'default' => 0,),
+		$default_widget_areas = array(
+			array(
+				'title' => 'Sidebar',
+				'slug' => 'sidebar',
 			),
 		);
+		if (!$this->batch_insert('widget_areas', $default_widget_areas))
+		{
+			return false;
+		}
 
-		$this->install_tables($tables);
-		
-		// Add the default data
-		$this->db->insert('widget_areas', array(
-			'title' => 'Sidebar',
-			'slug' 	=> 'sidebar',
-		));
+		return true;
 	}
 
 	public function uninstall()
 	{
 		//it's a core module, lets keep it around
-		return FALSE;
+		return false;
 	}
 
 	public function upgrade($old_version)
 	{
 		// Your Upgrade Logic
-		return TRUE;
+		return true;
 	}
 	
 	public function help()
@@ -143,4 +142,3 @@ class Module_Widgets extends Module {
 		return "No documentation has been added for this module.";
 	}
 }
-/* End of file details.php */

@@ -9,8 +9,12 @@ class Module_Variables extends Module {
 	 *
 	 * @var array
 	 */
-	protected $_tables = array(
-		'variables',
+	public $tables = array(
+		'variables' => array(
+			'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
+			'name' => array('type' => 'VARCHAR', 'constraint' => 250, 'null' => true,),
+			'data' => array('type' => 'VARCHAR', 'constraint' => 250, 'null' => true,),
+		),
 	);
 	
 	public function info()
@@ -58,8 +62,8 @@ class Module_Variables extends Module {
 				'da' => 'Håndtér globale variable som kan tilgås overalt.',
 				'id' => 'Mengatur variabel global yang dapat diakses dari mana saja.'
 			),
-			'frontend'	=> FALSE,
-			'backend'	=> TRUE,
+			'frontend'	=> false,
+			'backend'	=> true,
 			'menu'		=> 'content',
 			
 			'shortcuts' => array(
@@ -72,32 +76,17 @@ class Module_Variables extends Module {
 		    ),
 		);
 	}
-	
-	public function install()
-	{
-		$this->dbforge->drop_table('variables');
-
-		$tables = array(
-			'variables' => array(
-				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
-				'name' => array('type' => 'VARCHAR', 'constraint' => 250, 'null' => true,),
-				'data' => array('type' => 'VARCHAR', 'constraint' => 250, 'null' => true,),
-			),
-		);
-
-		$this->install_tables($tables);
-	}
 
 	public function uninstall()
 	{
 		//it's a core module, lets keep it around
-		return FALSE;
+		return false;
 	}
 
 	public function upgrade($old_version)
 	{
 		// Your Upgrade Logic
-		return TRUE;
+		return true;
 	}
 	
 	public function help()
@@ -111,5 +100,3 @@ class Module_Variables extends Module {
 			generated tag in page content, blog posts, etc. and the assigned value will be displayed.</p>";
 	}
 }
-
-/* End of file details.php */

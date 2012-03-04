@@ -29,30 +29,21 @@ class Module_Maintenance extends Module
 				'zh' => '經由管理介面手動刪除暫存資料。',
 				'id' => 'Mengatur cache situs dan mengexport informasi dari database.'
 			),
-			'frontend' => FALSE,
-			'backend' => TRUE,
+			'frontend' => false,
+			'backend' => true,
 			'menu' => 'utilities'
 		);
 	}
-
-
-	public function install()
-	{
-		return TRUE;
-	}
-
-
+	
 	public function uninstall()
 	{
-		return TRUE;
+		return false;
 	}
-
 
 	public function upgrade($old_version)
 	{
-		return TRUE;
+		return true;
 	}
-
 
 	public function help()
 	{
@@ -60,7 +51,4 @@ class Module_Maintenance extends Module
 				and also allows admins to export information from the database.";
 	}
 
-
 }
-
-/* End of file details.php */

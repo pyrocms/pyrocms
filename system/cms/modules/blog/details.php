@@ -4,6 +4,36 @@ class Module_Blog extends Module {
 
 	public $version = '2.0';
 
+	/**
+	 * The modules tables.
+	 *
+	 * @var array
+	 */
+	public $tables = array(
+		'blog_categories' => array(
+			'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
+			'slug' => array('type' => 'VARCHAR', 'constraint' => 20, 'default' => '', 'unique' => true, 'key' => true,),
+			'title' => array('type' => 'VARCHAR', 'constraint' => 20, 'default' => '', 'unique' => true,),
+		),
+		'blog' => array(
+			'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
+			'title' => array('type' => 'VARCHAR', 'constraint' => 100, 'default' => '', 'unique' => true,),
+			'slug' => array('type' => 'VARCHAR', 'constraint' => 100, 'default' => '',),
+			'category_id' => array('type' => 'INT', 'constraint' => 11, 'key' => true,),
+			'attachment' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '',),
+			'intro' => array('type' => 'TEXT',),
+			'body' => array('type' => 'TEXT',),
+			'parsed' => array('type' => 'TEXT',),
+			'keywords' => array('type' => 'VARCHAR', 'constraint' => 32, 'default' => '',),
+			'author_id' => array('type' => 'INT', 'constraint' => 11, 'default' => 0,),
+			'created_on' => array('type' => 'INT', 'constraint' => 11,),
+			'updated_on' => array('type' => 'INT', 'constraint' => 11, 'default' => 0,),
+			'comments_enabled' => array('type' => 'INT', 'constraint' => 1, 'default' => 1,),
+			'status' => array('type' => 'ENUM', 'constraint' => array('draft', 'live'), 'default' => 'draft',),
+			'type' => array('type' => 'SET', 'constraint' => array('html', 'markdown', 'wysiwyg-advanced', 'wysiwyg-simple')),
+		),
+	);
+	
 	public function info()
 	{
 		return array(
@@ -74,41 +104,6 @@ class Module_Blog extends Module {
 			    ),
 		    ),
 		);
-	}
-
-	public function install()
-	{
-		$this->dbforge->drop_table('blog_categories');
-		$this->dbforge->drop_table('blog');
-		
-		$tables = array(
-			'blog_categories' => array(
-				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
-				'slug' => array('type' => 'VARCHAR', 'constraint' => 20, 'default' => '', 'unique' => true, 'key' => true,),
-				'title' => array('type' => 'VARCHAR', 'constraint' => 20, 'default' => '', 'unique' => true,),
-			),
-			'blog' => array(
-				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
-				'title' => array('type' => 'VARCHAR', 'constraint' => 100, 'default' => '', 'unique' => true,),
-				'slug' => array('type' => 'VARCHAR', 'constraint' => 100, 'default' => '',),
-				'category_id' => array('type' => 'INT', 'constraint' => 11, 'key' => true,),
-				'attachment' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '',),
-				'intro' => array('type' => 'TEXT',),
-				'body' => array('type' => 'TEXT',),
-				'parsed' => array('type' => 'TEXT',),
-				'keywords' => array('type' => 'VARCHAR', 'constraint' => 32, 'default' => '',),
-				'author_id' => array('type' => 'INT', 'constraint' => 11, 'default' => 0,),
-				'created_on' => array('type' => 'INT', 'constraint' => 11,),
-				'updated_on' => array('type' => 'INT', 'constraint' => 11, 'default' => 0,),
-				'comments_enabled' => array('type' => 'INT', 'constraint' => 1, 'default' => 1,),
-				'status' => array('type' => 'ENUM', 'constraint' => array('draft', 'live'), 'default' => 'draft',),
-				'type' => array('type' => 'SET', 'constraint' => array('html', 'markdown', 'wysiwyg-advanced', 'wysiwyg-simple')),
-			),
-		);
-
-		$this->install_tables($tables);
-
-		return TRUE;
 	}
 
 	public function uninstall()
