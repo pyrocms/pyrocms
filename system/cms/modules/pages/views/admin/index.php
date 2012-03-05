@@ -32,7 +32,7 @@
 	</section>
 </div>
 
-<div class="one_half last">	
+<div class="one_half last" id="page-details-container">	
 	<section class="title">
 		<h4>Explanation</h4>
 	</section>
