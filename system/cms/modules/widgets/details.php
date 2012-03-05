@@ -115,7 +115,7 @@ class Module_Widgets extends Module {
 				'slug' => 'sidebar',
 			),
 		);
-		if (!$this->batch_insert('widget_areas', $default_widget_areas))
+		if ( ! $this->batch_insert('widget_areas', $default_widget_areas))
 		{
 			return false;
 		}

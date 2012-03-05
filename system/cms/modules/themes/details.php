@@ -75,7 +75,7 @@ class Module_Themes extends Module {
 		);
 
 		// Check to make sure we're not running the installer or MSM. Then check perms
-		if (!class_exists('Module_import') AND Settings::get('addons_upload'))
+		if ( ! class_exists('Module_import') AND Settings::get('addons_upload'))
 		{
 			$info['sections'] = array(
 				'themes' => array('name' => 'themes.list_title',

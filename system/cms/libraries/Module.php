@@ -63,7 +63,7 @@ abstract class Module {
 	 */
 	public function install()
 	{
-		if(! empty($this->tables) )
+		if( ! empty($this->tables) )
 		{
 			foreach (array_keys($this->tables) as $table)
 			{
