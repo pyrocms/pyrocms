@@ -11,6 +11,89 @@ class Page_m extends MY_Model
 {
 
 	/**
+	 * Array containing the validation rules
+	 * @access public
+	 * @var array
+	 */
+	public $validate = array(
+		array(
+			'field' => 'title',
+			'label'	=> 'lang:pages.title_label',
+			'rules'	=> 'trim|required|max_length[250]'
+		),
+		'slug' => array(
+			'field' => 'slug',
+			'label'	=> 'lang:pages.slug_label',
+			'rules'	=> 'trim|required|alpha_dot_dash|max_length[250]|callback__check_slug'
+		),
+		array(
+			'field' => 'chunk_body[]',
+			'label'	=> 'lang:pages.body_label',
+			'rules' => 'trim'
+		),
+		array(
+			'field' => 'layout_id',
+			'label'	=> 'lang:pages.layout_id_label',
+			'rules'	=> 'trim|numeric|required'
+		),
+		array(
+			'field'	=> 'css',
+			'label'	=> 'lang:pages.css_label',
+			'rules'	=> 'trim'
+		),
+		array(
+			'field'	=> 'js',
+			'label'	=> 'lang:pages.js_label',
+			'rules'	=> 'trim'
+		),
+		array(
+			'field' => 'meta_title',
+			'label' => 'lang:pages.meta_title_label',
+			'rules' => 'trim|max_length[250]'
+		),
+		array(
+			'field'	=> 'meta_keywords',
+			'label' => 'lang:pages.meta_keywords_label',
+			'rules' => 'trim|max_length[250]'
+		),
+		array(
+			'field'	=> 'meta_description',
+			'label'	=> 'lang:pages.meta_description_label',
+			'rules'	=> 'trim'
+		),
+		array(
+			'field' => 'restricted_to[]',
+			'label'	=> 'lang:pages.access_label',
+			'rules'	=> 'trim|numeric|required'
+		),
+		array(
+			'field' => 'rss_enabled',
+			'label'	=> 'lang:pages.rss_enabled_label',
+			'rules'	=> 'trim|numeric'
+		),
+		array(
+			'field' => 'comments_enabled',
+			'label'	=> 'lang:pages.comments_enabled_label',
+			'rules'	=> 'trim|numeric'
+		),
+		array(
+			'field' => 'is_home',
+			'label'	=> 'lang:pages.is_home_label',
+			'rules'	=> 'trim|numeric'
+		),
+		array(
+			'field'	=> 'status',
+			'label'	=> 'lang:pages.status_label',
+			'rules'	=> 'trim|alpha|required'
+		),
+		array(
+			'field' => 'navigation_group_id',
+			'label' => 'lang:pages.navigation_label',
+			'rules' => 'numeric'
+		)
+	);
+
+	/**
 	* Get a page by it's path
 	*
 	* @access public
@@ -283,65 +366,65 @@ class Page_m extends MY_Model
 	/**
 	 * Create a new page
 	 *
-	 * @access public
-	 * @param array $input The data to insert
-	 * @return bool
+	 * @access 	public
+	 * @param 	array 	$input The sanitized $_POST
+	 * @return 	bool
 	 */
-	public function insert(array $input = array(), $chunks = array())
+	public function create($input)
 	{
 		$this->db->trans_start();
 
 		if ( ! empty($input['is_home']))
 		{
-			// Remove other homepages
-			$this->db
-				->where('is_home', 1)
+			// Remove other homepages so this one can have the spot
+			$this->where('is_home', 1)
 				->update('pages', array('is_home' => 0));
 		}
 
-		parent::insert(array(
-			'slug'			=> $input['slug'],
-			'title'			=> $input['title'],
-			'uri'			=> NULL,
-			'parent_id'		=> (int) $input['parent_id'],
-			'layout_id'		=> (int) $input['layout_id'],
-			'css'			=> isset($input['css']) ? $input['css'] : null,
-			'js'			=> isset($input['js']) ? $input['js'] : null,
-			'meta_title'    => isset($input['meta_title']) ? $input['meta_title'] : '',
-			'meta_keywords' => isset($input['meta_keywords']) ? $input['meta_keywords'] : '',
-			'meta_description' => isset($input['meta_description']) ? $input['meta_description'] : '',
+		// validate the data and insert it if it passes
+		$input['id'] = $this->insert(array(
+			'slug'				=> $input['slug'],
+			'title'				=> $input['title'],
+			'uri'				=> NULL,
+			'parent_id'			=> (int) $input['parent_id'],
+			'layout_id'			=> (int) $input['layout_id'],
+			'css'				=> isset($input['css']) ? $input['css'] : null,
+			'js'				=> isset($input['js']) ? $input['js'] : null,
+			'meta_title'    	=> isset($input['meta_title']) ? $input['meta_title'] : '',
+			'meta_keywords' 	=> isset($input['meta_keywords']) ? $input['meta_keywords'] : '',
+			'meta_description' 	=> isset($input['meta_description']) ? $input['meta_description'] : '',
 			'rss_enabled'		=> (int) ! empty($input['rss_enabled']),
 			'comments_enabled'	=> (int) ! empty($input['comments_enabled']),
-			'status'		=> $input['status'],
+			'status'			=> $input['status'],
 			'created_on'		=> now(),
-			'is_home'		=> (int) ! empty($input['is_home']),
-			'order'		=> now()
+			'restricted_to'		=> isset($input['restricted_to']) ? implode(',', $input['restricted_to']) : '0',
+			'is_home'			=> (int) ! empty($input['is_home']),
+			'order'				=> now()
 		));
 
-		$id = $this->db->insert_id();
+		// did it pass validation?
+		if ( ! $input['id']) return FALSE;
 
-		$this->build_lookup($id);
+		$this->build_lookup($input['id']);
 
-		if ($chunks)
+		// now insert this page's chunks
+		$this->page_chunk_m->create($input);
+
+		// Add a Navigation Link
+		if ($input['navigation_group_id'] > 0)
 		{
-			// And add the new ones
-			$i = 1;
-			foreach ($chunks as $chunk)
-			{
-				$this->db->insert('page_chunks', array(
-					'slug' 		=> preg_replace('/[^a-zA-Z0-9_-\s]/', '', $chunk->slug),
-					'page_id' 	=> $id,
-					'body' 		=> $chunk->body,
-					'parsed'	=> ($chunk->type == 'markdown') ? parse_markdown($chunk->body) : '',
-					'type' 		=> $chunk->type,
-					'sort' 		=> $i++,
-				));
-			}
+			$this->load->model('navigation/navigation_m');
+			$this->navigation_m->insert_link(array(
+				'title'					=> $input['title'],
+				'link_type'				=> 'page',
+				'page_id'				=> $input['id'],
+				'navigation_group_id'	=> (int) $input['navigation_group_id']
+			));
 		}
 
 		$this->db->trans_complete();
 
-		return ($this->db->trans_status() === FALSE) ? FALSE : $id;
+		return ($this->db->trans_status() === FALSE) ? FALSE : $input;
 	}
 
 	/**
@@ -450,5 +533,48 @@ class Page_m extends MY_Model
 											'parent_id' => $parent_id
 											)
 									  ) > 0;
+	}
+
+	/**
+	 * Callback to check uniqueness of slug + parent
+	 *
+	 * @access public
+	 * @param $slug slug to check
+	 * @return bool
+	 */
+	 public function _check_slug($slug, $page_id = null)
+	 {
+		if ($this->check_slug($slug, $this->input->post('parent_id'), (int) $page_id))
+		{
+			if ($this->input->post('parent_id') == 0)
+			{
+				$parent_folder = lang('pages_root_folder');
+				$url = '/'.$slug;
+			}
+			else
+			{
+				$page_obj = $this->get($page_id);
+				$url = '/'.trim(dirname($page_obj->uri),'.').$slug;
+				$page_obj = $this->get($this->input->post('parent_id'));
+				$parent_folder = $page_obj->title;
+			}
+
+			$this->form_validation->set_message('_check_slug',sprintf(lang('pages_page_already_exist_error'),$url, $parent_folder));
+			return FALSE;
+		}
+
+		// We check the page chunk slug length here too
+		if (is_array($this->input->post('chunk_slug')))
+		{
+			foreach ($this->input->post('chunk_slug') AS $chunk)
+			{
+				if (strlen($chunk) > 30)
+				{
+					$this->form_validation->set_message('_check_slug', lang('pages_chunk_slug_length'));
+					return FALSE;
+				}
+			}
+			return TRUE;
+		}
 	}
 }

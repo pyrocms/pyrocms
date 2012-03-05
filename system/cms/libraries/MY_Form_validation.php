@@ -2,6 +2,11 @@
 
 class MY_Form_validation extends CI_Form_validation
 {
+	/**
+	 * The model class to call with callbacks
+	 */
+	private $_model;
+
 	function __construct($rules = array())
 	{
 		parent::__construct($rules);
@@ -42,12 +47,31 @@ class MY_Form_validation extends CI_Form_validation
 
 		return htmlentities($str, ENT_QUOTES, 'UTF-8');
 	}
-	
-	// NOTE: This was done because HMVC is not happy with $this->CI being used as a callback, instead it wants to look at CI::APP->controller
-	// -- Phil
-	
+
+	// --------------------------------------------------------------------
+
+	/**
+	 * Sets the model to be used for validation callbacks. It's set dynamically in MY_Model
+	 *
+	 * @access	private
+	 * @param	string	The model class name
+	 * @return	void
+	 */
+	public function set_model($model)
+	{
+		if ($model)
+		{
+			$this->_model = strtolower($model);
+		}
+	}
+
+	// --------------------------------------------------------------------
+
 	/**
 	 * Executes the Validation routines
+	 *
+	 * Modified to work with HMVC -- Phil Sturgeon
+	 * Modified to work with callbacks in the calling model -- Jerel Unruh
 	 *
 	 * @access	private
 	 * @param	array
@@ -173,13 +197,28 @@ class MY_Form_validation extends CI_Form_validation
 			// Call the function that corresponds to the rule
 			if ($callback === TRUE)
 			{
-				if ( ! method_exists(CI::$APP->controller, $rule))
+				// first check in the controller scope
+				if (method_exists(CI::$APP->controller, $rule))
 				{
-					throw new Exception('Undefined callback "$rule" in '.CI::$APP->controller);
+					$result = call_user_func(array(new CI::$APP->controller, $rule), $postdata, $param);
 				}
-
-				// Run the function and grab the result
-				$result = call_user_func(array(new CI::$APP->controller, $rule), $postdata, $param);
+				// it wasn't in the controller. Did MY_Model specify a valid model in use?
+				elseif ($this->_model)
+				{
+					// moment of truth. Does the callback itself exist?
+					if (method_exists(CI::$APP->{$this->_model}, $rule))
+					{
+						$result = call_user_func(array(CI::$APP->{$this->_model}, $rule), $postdata, $param);
+					}
+					else
+					{
+						throw new Exception('Undefined callback '.$rule.' Not found in '.$this->_model);
+					}
+				}
+				else
+				{
+					throw new Exception('Undefined callback '.$rule.' Not found in '.CI::$APP->controller);
+				}
 
 				// Re-assign the result to the master data array
 				if ($_in_array == TRUE)

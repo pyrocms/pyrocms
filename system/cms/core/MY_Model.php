@@ -7,6 +7,7 @@
  * @author Jamie Rumbelow <http://jamierumbelow.net>
  * @author Phil Sturgeon <http://philsturgeon.co.uk>
  * @author Dan Horrigan <http://dhorrigan.com>
+ * @author Jerel Unruh <http://unruhdesigns.com>
  * @license GPLv3 <http://www.gnu.org/licenses/gpl-3.0.txt>
  * @link http://github.com/philsturgeon/codeigniter-base-model
  * @version 1.3
@@ -541,6 +542,17 @@ class MY_Model extends CI_Model
 		return $this;
 	}
 
+    /**
+     * Run validation only using the
+     * same rules as insert/update will
+     *
+     * @return bool
+     */
+    public function validate($data)
+    {
+        return $this->_run_validation($data);
+    }
+
 	/**
 	 * Runs the before create actions.
 	 *
@@ -577,6 +589,7 @@ class MY_Model extends CI_Model
 	 * Runs validation on the passed data.
 	 *
 	 * @author Dan Horrigan
+	 * @author Jerel Unruh
 	 * @param array $data
 	 * @return boolean 
 	 */
@@ -598,6 +611,16 @@ class MY_Model extends CI_Model
 		}
 
 		$this->load->library('form_validation');
+
+		// only set the model if it can be used for callbacks
+		if ($class = get_class($this) AND $class !== 'MY_Model')
+		{
+			// make sure their MY_Form_validation is set up for it
+			if (method_exists($this->form_validation, 'set_model'))
+			{
+				$this->form_validation->set_model($class);
+			}
+		}
 
 		if (is_array($this->validate))
 		{

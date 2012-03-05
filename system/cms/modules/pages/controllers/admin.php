@@ -15,89 +15,6 @@ class Admin extends Admin_Controller {
 	protected $section = 'pages';
 
 	/**
-	 * Array containing the validation rules
-	 * @access private
-	 * @var array
-	 */
-	private $validation_rules = array(
-		array(
-			'field' => 'title',
-			'label'	=> 'lang:pages.title_label',
-			'rules'	=> 'trim|required|max_length[250]'
-		),
-		'slug' => array(
-			'field' => 'slug',
-			'label'	=> 'lang:pages.slug_label',
-			'rules'	=> 'trim|required|alpha_dot_dash|max_length[250]|callback__check_slug'
-		),
-		array(
-			'field' => 'chunk_body[]',
-			'label'	=> 'lang:pages.body_label',
-			'rules' => 'trim|required'
-		),
-		array(
-			'field' => 'layout_id',
-			'label'	=> 'lang:pages.layout_id_label',
-			'rules'	=> 'trim|numeric|required'
-		),
-		array(
-			'field'	=> 'css',
-			'label'	=> 'lang:pages.css_label',
-			'rules'	=> 'trim'
-		),
-		array(
-			'field'	=> 'js',
-			'label'	=> 'lang:pages.js_label',
-			'rules'	=> 'trim'
-		),
-		array(
-			'field' => 'meta_title',
-			'label' => 'lang:pages.meta_title_label',
-			'rules' => 'trim|max_length[250]'
-		),
-		array(
-			'field'	=> 'meta_keywords',
-			'label' => 'lang:pages.meta_keywords_label',
-			'rules' => 'trim|max_length[250]'
-		),
-		array(
-			'field'	=> 'meta_description',
-			'label'	=> 'lang:pages.meta_description_label',
-			'rules'	=> 'trim'
-		),
-		array(
-			'field' => 'restricted_to[]',
-			'label'	=> 'lang:pages.access_label',
-			'rules'	=> 'trim|numeric|required'
-		),
-		array(
-			'field' => 'rss_enabled',
-			'label'	=> 'lang:pages.rss_enabled_label',
-			'rules'	=> 'trim|numeric'
-		),
-		array(
-			'field' => 'comments_enabled',
-			'label'	=> 'lang:pages.comments_enabled_label',
-			'rules'	=> 'trim|numeric'
-		),
-		array(
-			'field' => 'is_home',
-			'label'	=> 'lang:pages.is_home_label',
-			'rules'	=> 'trim|numeric'
-		),
-		array(
-			'field'	=> 'status',
-			'label'	=> 'lang:pages.status_label',
-			'rules'	=> 'trim|alpha|required'
-		),
-		array(
-			'field' => 'navigation_group_id',
-			'label' => 'lang:pages.navigation_label',
-			'rules' => 'numeric'
-		)
-	);
-
-	/**
 	 * Constructor method
 	 * @access public
 	 * @return void
@@ -107,9 +24,8 @@ class Admin extends Admin_Controller {
 		parent::__construct();
 
 		// Load the required classes
-		$this->load->library('form_validation');
-
 		$this->load->model('page_m');
+		$this->load->model('page_chunk_m');
 		$this->load->model('page_layouts_m');
 		$this->load->model('navigation/navigation_m');
 		$this->lang->load('pages');
@@ -266,79 +182,50 @@ class Admin extends Admin_Controller {
 	 */
 	public function create($parent_id = 0)
 	{
-		if ($_POST)
+		// did they even submit?
+		if ($input = $this->input->post())
 		{
-			$chunk_slugs = $this->input->post('chunk_slug') ? array_values($this->input->post('chunk_slug')) : array();
-			$chunk_bodies = $this->input->post('chunk_body') ? array_values($this->input->post('chunk_body')) : array();
-			$chunk_types = $this->input->post('chunk_type') ? array_values($this->input->post('chunk_type')) : array();
-
-			$page->chunks = array();
-			$chunk_bodies_count = count($this->input->post('chunk_body'));
-			for ($i = 0; $i < $chunk_bodies_count; $i++)
+			// do they have permission to proceed?
+			if ($input['status'] == 'live')
 			{
-				$page->chunks[] = (object) array(
-					'id' => $i,
-					'slug' => ! empty($chunk_slugs[$i]) ? $chunk_slugs[$i] : '',
-					'type' => ! empty($chunk_types[$i]) ? $chunk_types[$i] : '',
-					'body' => ! empty($chunk_bodies[$i]) ? $chunk_bodies[$i] : '',
-				);
+				role_or_die('pages', 'put_live');
 			}
 
-			$this->form_validation->set_rules($this->validation_rules);
-
-			// Validate the page
-			if ($this->form_validation->run())
+			// validate and insert
+			if ($data = $this->page_m->create($input))
 			{
-				$input = $this->input->post();
+				$this->session->set_flashdata('success', lang('pages_create_success'));
 
-				if ($input['status'] == 'live')
+				Events::trigger('post_page_create', $data);
+
+				// Mission accomplished!
+				$input['btnAction'] == 'save_exit'
+					? redirect('admin/pages')
+					: redirect('admin/pages/edit/'.$data['id']);
+			}
+			else
+			{
+				// validation failed, we must repopulate the chunks form
+				$chunk_slugs 	= $this->input->post('chunk_slug') ? array_values($this->input->post('chunk_slug')) : array();
+				$chunk_bodies 	= $this->input->post('chunk_body') ? array_values($this->input->post('chunk_body')) : array();
+				$chunk_types 	= $this->input->post('chunk_type') ? array_values($this->input->post('chunk_type')) : array();
+
+				$page->chunks 		= array();
+				$chunk_bodies_count = count($input['chunk_body']);
+				for ($i = 0; $i < $chunk_bodies_count; $i++)
 				{
-					role_or_die('pages', 'put_live');
-				}
-
-				// First create the page
-				$nav_group_id	= $input['navigation_group_id'];
-				unset($input['navigation_group_id']);
-
-				if ($id = $this->page_m->insert($input, $page->chunks))
-				{
-					$input['restricted_to'] = isset($input['restricted_to']) ? implode(',', $input['restricted_to']) : '0';
-
-					// Add a Navigation Link
-					if ($nav_group_id)
-					{
-						$this->load->model('navigation/navigation_m');
-						$this->navigation_m->insert_link(array(
-							'title'					=> $input['title'],
-							'link_type'				=> 'page',
-							'page_id'				=> $id,
-							'navigation_group_id'	=> (int) $nav_group_id
-						));
-					}
-
-					if ($this->page_m->update($id, $input))
-					{
-						Events::trigger('post_page_create', $input);
-
-						$this->session->set_flashdata('success', lang('pages_create_success'));
-
-						// Redirect back to the form or main page
-						$this->input->post('btnAction') == 'save_exit'
-							? redirect('admin/pages')
-							: redirect('admin/pages/edit/'.$id);
-					}
-				}
-
-				// Fail
-				else
-				{
-					$this->session->set_flashdata('notice', lang('pages_create_error'));
+					$page->chunks[] = (object) array(
+						'id' 	=> $i,
+						'slug' 	=> ! empty($chunk_slugs[$i]) 	? $chunk_slugs[$i] 	: '',
+						'type' 	=> ! empty($chunk_types[$i]) 	? $chunk_types[$i] 	: '',
+						'body' 	=> ! empty($chunk_bodies[$i]) 	? $chunk_bodies[$i] : '',
+					);
 				}
 			}
 		}
-
 		else
 		{
+			// define some default values for the chunks form
 			$page->chunks = array((object) array(
 				'id' => 'NEW',
 				'slug' => 'default',
@@ -347,8 +234,8 @@ class Admin extends Admin_Controller {
 			));
 		}
 
-		// Loop through each rule
-		foreach ($this->validation_rules as $rule)
+		// Populate the rest of the form variables
+		foreach ($this->page_m->validate as $rule)
 		{
 			if ($rule['field'] === 'restricted_to[]')
 			{
@@ -364,20 +251,18 @@ class Admin extends Admin_Controller {
 		if ($parent_id > 0)
 		{
 			$page->parent_id 	= $parent_id;
-			$parent_page 	= $this->page_m->get($parent_id);
+			$page->parent_page 	= $this->page_m->get($parent_id);
 		}
-
-		// Assign data for display
-		$data['page'] = & $page;
-		$data['parent_page'] = & $parent_page;
 
 		// Set some data that both create and edit forms will need
 		self::_form_data();
 
+		$data->page = $page;
+
 		// Load WYSIWYG editor
 		$this->template
 			->title($this->module_details['name'], lang('pages.create_title'))
-			->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
+			->append_metadata( $this->load->view('fragments/wysiwyg', NULL, TRUE) )
 			->build('admin/form', $data);
 	}
 
@@ -484,7 +369,7 @@ class Admin extends Admin_Controller {
 		}
 
 		// Loop through each validation rule
-		foreach ($this->validation_rules as $rule)
+		foreach ($this->page_m->validate as $rule)
 		{
 			if (in_array($rule['field'], array('navigation_group_id', 'chunk_body[]')))
 			{
@@ -632,48 +517,5 @@ class Admin extends Admin_Controller {
 			<?php endif;
 			endforeach;
 		endif;
-	}
-
-	/**
-	 * Callback to check uniqueness of slug + parent
-	 *
-	 * @access public
-	 * @param $slug slug to check
-	 * @return bool
-	 */
-	 public function _check_slug($slug, $page_id = null)
-	 {
-		if ($this->page_m->check_slug($slug, $this->input->post('parent_id'), (int) $page_id))
-		{
-			if ($this->input->post('parent_id') == 0)
-			{
-				$parent_folder = lang('pages_root_folder');
-				$url = '/'.$slug;
-			}
-			else
-			{
-				$page_obj = $this->page_m->get($page_id);
-				$url = '/'.trim(dirname($page_obj->uri),'.').$slug;
-				$page_obj = $this->page_m->get($this->input->post('parent_id'));
-				$parent_folder = $page_obj->title;
-			}
-
-			$this->form_validation->set_message('_check_slug',sprintf(lang('pages_page_already_exist_error'),$url, $parent_folder));
-			return FALSE;
-		}
-
-		// We check the page chunk slug length here too
-		if (is_array($this->input->post('chunk_slug')))
-		{
-			foreach ($this->input->post('chunk_slug') AS $chunk)
-			{
-				if (strlen($chunk) > 30)
-				{
-					$this->form_validation->set_message('_check_slug', lang('pages_chunk_slug_length'));
-					return FALSE;
-				}
-			}
-			return TRUE;
-		}
 	}
 }
