@@ -4,7 +4,7 @@
 	<div id="poweredby"><a href="http://pyrocms.com/">{{ theme:image file="logo.png" alt="Powered by PyroCMS" }} {{ helper:lang line="powered_by_pyrocms" }}</a></div>
 	<ul id="foot-nav">
 		{{ navigation:links group="footer" }}
-		<li><a class="last" href="#top" title="{{ helper:lang line="back_to_top" }}">{{ helper:lang line="top_page" }} &uarr;</a></li>
+		<li><a class="last" href="{{ url:current }}#top" title="{{ helper:lang line="back_to_top" }}">{{ helper:lang line="top_page" }} &uarr;</a></li>
 		<li>&copy;{{ helper:date format="Y" }} {{ settings:site_name }}. {{ helper:lang line="all_right_reserved" }}</li>
 	</ul>
 </footer>
