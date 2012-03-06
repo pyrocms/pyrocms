@@ -441,6 +441,8 @@ class Admin extends Admin_Controller
 	 */
 	public function delete($id = 0)
 	{
+		role_or_die('blog', 'delete_live');
+
 		// Delete one
 		$ids = ($id) ? array($id) : $this->input->post('action_to');
 
