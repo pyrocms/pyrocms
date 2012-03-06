@@ -364,18 +364,16 @@ class Admin extends Admin_Controller
 		switch ($this->input->post('btnAction'))
 		{
 			case 'publish':
-				role_or_die('blog', 'put_live');
 				$this->publish();
-				break;
+			break;
 			
 			case 'delete':
-				role_or_die('blog', 'delete_live');
 				$this->delete();
-				break;
+			break;
 			
 			default:
 				redirect('admin/blog');
-				break;
+			break;
 		}
 	}
 
