@@ -108,7 +108,7 @@ class Blog_m extends MY_Model {
 	
 	public function get_tagged_by($tag, $params)
 	{
-		return $this->db->select('blog.*, blog.title title, blog.slug slug, blog_categories.title category_title, blog_categories.slug category_slug')
+		return $this->db->select('blog.*, blog.title title, blog.slug slug, blog_categories.title category_title, blog_categories.slug category_slug, profiles.display_name')
 			->from('blog')
 			->join('keywords_applied', 'keywords_applied.hash = blog.keywords')
 			->join('keywords', 'keywords.id = keywords_applied.keyword_id')
