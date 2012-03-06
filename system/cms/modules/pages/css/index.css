@@ -20,3 +20,5 @@ ol.sortable { margin: 20px; }
 .minus { background: url('../img/less.png') no-repeat 0 4px; }
 
 #page-details h5 { margin: 0; padding: 0; }
+
+#page-details-container.fixed { position: fixed; top: 140px; margin-left:655px;}
