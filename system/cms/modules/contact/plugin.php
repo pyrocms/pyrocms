@@ -313,7 +313,7 @@ class Plugin_Contact extends Plugin {
 														$form,
 														$form_meta[$form]['dropdown'],
 														set_value($form),
-														'class="'.$form.'"'
+														'id="contact_'.$form.'" class="'.$form.'"'
 													 );
 			}
 			else
@@ -321,8 +321,8 @@ class Plugin_Contact extends Plugin {
 				$parse_data[$form] .= call_user_func('form_'.$value['type'],
 														$form,
 														set_value($form),
-														'class="'.$form.'"'
-													 );				
+														'id="contact_'.$form.'" class="'.$form.'"'
+													 );
 			}
 		}
 	
