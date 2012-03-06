@@ -113,6 +113,7 @@ class Blog_m extends MY_Model {
 			->join('keywords_applied', 'keywords_applied.hash = blog.keywords')
 			->join('keywords', 'keywords.id = keywords_applied.keyword_id')
 			->join('blog_categories', 'blog_categories.id = blog.category_id', 'left')
+			->join('profiles', 'profiles.user_id = blog.author_id', 'left')
 			->where('keywords.name', str_replace('-', ' ', $tag))
 			->where($params)
 			->get()
