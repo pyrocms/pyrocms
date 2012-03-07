@@ -58,12 +58,12 @@
 		// And off we go
 		pyro.sort_tree($item_list, $url, $cookie, data_callback, post_sort_callback);
 
-    function refresh_sticky_page_details() {
-      $('.scroll-follow').stickyScroll('reset');
-      // Lets keep the page-details-container follow our scroll position
-      $('.scroll-follow').stickyScroll({ topBoundary: 170, bottomBoundary: 190 });
-    }
-    refresh_sticky_page_details();
+        function refresh_sticky_page_details() {
+          $('.scroll-follow').stickyScroll('reset');
+          // Lets keep the page-details-container follow our scroll position
+          $('.scroll-follow').stickyScroll({ topBoundary: 170, bottomBoundary: 190, minimumWidth: 770});
+        }	
+        refresh_sticky_page_details();
 
 	});
   

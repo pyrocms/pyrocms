@@ -51,7 +51,8 @@
           autoBottomBoundary: true,
           container: $('body'),
           topBoundary: null,
-          bottomBoundary: null
+          bottomBoundary: null,
+          minimumWidth: null,
         }, options);
         
         function bottomBoundary() {
@@ -98,30 +99,33 @@
           win.bind('scroll.stickyscroll-' + id, function() {
             var top = $(document).scrollTop() + settings.topBoundary,
             bottom = $(document).height() - top - elHeight(el);
+            if( $(window).width() > settings.minimumWidth) {
+              if(bottom <= settings.bottomBoundary) {
+                el.offset({
+                  top: $(document).height() - settings.bottomBoundary - elHeight(el)
+                })
+                .removeClass('sticky-active sticky-inactive')
+                .addClass('sticky-stopped');
+              }
             
-            if(bottom <= settings.bottomBoundary) {
-              el.offset({
-                top: $(document).height() - settings.bottomBoundary - elHeight(el)
-              })
-              .removeClass('sticky-active sticky-inactive')
-              .addClass('sticky-stopped');
-            }
+              else if(top > settings.topBoundary) {
+                el.offset({
+                  top: $(window).scrollTop() + settings.topBoundary
+                })
+                .removeClass('sticky-stopped sticky-inactive')
+                .addClass('sticky-active');
+              }
             
-            else if(top > settings.topBoundary) {
-              el.offset({
-                top: $(window).scrollTop() + settings.topBoundary
-              })
-              .removeClass('sticky-stopped sticky-inactive')
-              .addClass('sticky-active');
-            }
-            
-            else if(top < settings.topBoundary || $(document).scrollTop() === 0) {
-              el.css({
-                position: '', 
-                top: '',
-              })
-              .removeClass('sticky-stopped sticky-active')
-              .addClass('sticky-inactive');
+              else if(top < settings.topBoundary || $(document).scrollTop() === 0) {
+                el.css({
+                  position: '', 
+                  top: '',
+                })
+                .removeClass('sticky-stopped sticky-active')
+                .addClass('sticky-inactive');
+              }
+            } else {
+              methods.reset.apply(this);
             }
           });
           
