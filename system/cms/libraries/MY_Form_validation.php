@@ -175,7 +175,7 @@ class MY_Form_validation extends CI_Form_validation
 			{
 				if ( ! method_exists(CI::$APP->controller, $rule))
 				{
-					throw new Exception('Undefined callback "$rule" in '.CI::$APP->controller);
+					throw new Exception('Undefined callback "'.$rule.'" in '.CI::$APP->controller);
 				}
 
 				// Run the function and grab the result
