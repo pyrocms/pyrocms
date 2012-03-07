@@ -55,7 +55,7 @@ class Plugin_Navigation extends Plugin
 		$first_class	= $this->attribute('first-class', 'first');
 		$last_class		= $this->attribute('last-class', 'last');
 		$output			= $return_arr ? array() : '';
-		$inner_tag		= $this->attribute('wrap');
+		$wrap			= $this->attribute('wrap');
 		$i		= 1;
 		$total	= sizeof($links);
 
