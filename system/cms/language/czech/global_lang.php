@@ -46,6 +46,7 @@ $lang['success_label'] 					= 'Úspěch';
 
 $lang['login_title'] 					= 'Přihlásit';
 $lang['cms_fatal_error'] 				= 'Závažná chyba, je systém nainstalován?';
+$lang['global:demo_restrictions']       = 'Some features on this page have been disabled for the demo.'; #translate
 
 $lang['login_error_label'] 				= 'Chyba při přihlášení';
 $lang['forgot_password_label'] 			= 'Zapomenuté heslo?';

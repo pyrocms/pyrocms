@@ -1,6 +1,6 @@
 <?php
 
-$lang['required']			= "Polje %s je zahtevno.";
+$lang['required']			= "Polje %s je zahtevano.";
 $lang['isset']				= "Polje %s mora imeti vsebino.";
 $lang['valid_email']		= "Polje %s mora vsebovati veljaven email naslov.";
 $lang['valid_emails']		= "Polje %s mora vsebovati vse veljavne email naslove.";

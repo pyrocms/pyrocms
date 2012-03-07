@@ -18,7 +18,7 @@ class Module_import {
 		$db['username'] = $this->ci->session->userdata('username');
 		$db['password'] = $this->ci->session->userdata('password');
 		$db['database'] = $this->ci->input->post('database');
-		$db['port'] = $this->ci->input->post('port');
+		$db['port'] 	= $this->ci->input->post('port');
 		$db['dbdriver'] = "mysql";
 		$db['dbprefix'] = 'default_';
 		$db['pconnect'] = TRUE;
@@ -148,21 +148,25 @@ class Module_import {
 
 		// Loop through directories that hold modules
 		$is_core = TRUE;
-
 		foreach (array(PYROPATH, ADDONPATH, SHARED_ADDONPATH) as $directory)
 		{
+			// some servers return false instead of an empty array
+			if ( ! $directory) continue;
+
 			// Loop through modules
-			$modules = glob($directory.'modules/*', GLOB_ONLYDIR);
-			foreach ($modules as $module_name)
+			if ($modules = glob($directory.'modules/*', GLOB_ONLYDIR))
 			{
-				$slug = basename($module_name);
-
-				if ( ! $details_class = $this->_spawn_class($slug, $is_core))
+				foreach ($modules as $module_name)
 				{
-					continue;
-				}
+					$slug = basename($module_name);
 
-				$this->install($slug, $is_core);
+					if ( ! $details_class = $this->_spawn_class($slug, $is_core))
+					{
+						continue;
+					}
+
+					$this->install($slug, $is_core);
+				}
 			}
 
 			// Going back around, 2nd time is addons

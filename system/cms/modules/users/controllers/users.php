@@ -183,6 +183,12 @@ class Users extends Public_Controller
 		// Set the validation rules
 		$this->form_validation->set_rules($validation);
 	
+		// Set default values as empty or POST values
+		foreach ($validation as $rule)
+		{
+			$user->{$rule['field']} = $this->input->post($rule['field']);
+		}
+		
 		// Are they TRYing to submit?
 		if ($_POST)
 		{
@@ -292,16 +298,10 @@ class Users extends Public_Controller
 		{
 			// Convert the array to an object
 			$user					= new stdClass();
-			$user->first_name 		= $user_hash['first_name'];
-			$user->last_name		= $user_hash['last_name'];
+			$user->first_name 		= ( ! empty($user_hash['first_name'])) ? $user_hash['first_name']: '';
+			$user->last_name 		= ( ! empty($user_hash['last_name'])) ? $user_hash['last_name']: '';
+			$user->email 			= ( ! empty($user_hash['email'])) ? $user_hash['email']: '';
 			$user->username			= $user_hash['nickname'];
-			$user->email			= isset($user_hash['email']) ? $user_hash['email'] : '';
-		}
-		
-		// Repopulate the form
-		foreach ($validation as $rule)
-		{
-			$user->{$rule['field']} = set_value($rule['field']);
 		}
 		
 		$this->template
@@ -451,6 +451,8 @@ class Users extends Public_Controller
 	 */
 	public function reset_complete()
 	{
+		PYRO_DEMO and show_error(lang('global:demo_restrictions'));
+		
 		//if user is logged in they don't need to be here. and should use profile options
 		if ($this->current_user)
 		{
@@ -577,6 +579,8 @@ class Users extends Public_Controller
 		// Settings valid?
 		if ($this->form_validation->run())
 		{
+			PYRO_DEMO and show_error(lang('global:demo_restrictions'));
+			
 			// Loop through each POST item and add it to the secure_post array
 			$secure_post = $this->input->post();
 
@@ -619,7 +623,7 @@ class Users extends Public_Controller
 				$this->session->set_flashdata('error', $this->ion_auth->errors());
 			}
 
-			redirect('users/login/users/edit'.(($id > 0) ? '/'.$id : ''));
+			redirect('users/edit'.(($id > 0) ? '/'.$id : ''));
 		}
 		else
 		{

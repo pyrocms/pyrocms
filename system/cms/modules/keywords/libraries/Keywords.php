@@ -151,7 +151,7 @@ class Keywords {
 		}
 		
 		// Remove the old keyword assignments if we're updating
-		if (is_string($old_hash))
+		if ($old_hash !== null)
 		{
 			ci()->db->where('hash', $old_hash)->get('keywords_applied');
 		}

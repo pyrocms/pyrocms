@@ -7,7 +7,7 @@ if ( ! file_exists('system/cms/config/database.php'))
 	if (strpos($_SERVER['REQUEST_URI'], 'installer/'))
 	{
 		header('Status: 404');
-		exit('PyroCMS is missing system/cms/config/database.php and cannot find installer.');
+		exit('PyroCMS is missing system/cms/config/database.php and cannot find the installer folder. Does your server have permission to access these files?');
 	}
 	
 	// Otherwise go to installer
@@ -256,6 +256,18 @@ define('ENVIRONMENT', (isset($_SERVER['PYRO_ENV']) ? $_SERVER['PYRO_ENV'] : PYRO
 	
 	// Path to the views folder
 	define ('VIEWPATH', APPPATH.'views/' );
+	
+/*
+ *---------------------------------------------------------------
+ * DEMO
+ *---------------------------------------------------------------
+ *
+ * Should PyroCMS run as a demo, meaning no destructive actions
+ * can be taken such as removing admins or changing passwords?
+ *
+ */
+
+    define('PYRO_DEMO', (file_exists(FCPATH.'DEMO')));
 
 /*
  * --------------------------------------------------------------------

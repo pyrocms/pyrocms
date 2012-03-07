@@ -1,4 +1,4 @@
-<h2 class="page-title"><?php echo sprintf(lang('profile_of_title'), $_user->first_name.' '.$_user->last_name);?></h2>
+<h2 class="page-title"><?php echo sprintf(lang('profile_of_title'), $_user->display_name);?></h2>
 
 <!-- Container for the user's profile -->
 <div id="user_profile_container">
@@ -13,9 +13,9 @@
 		<?php endif; ?>
 	</div>
 	
-<?php if($_user): ?>
+<?php if ($_user): ?>
 	
-	<?php if($_user->bio): ?>
+	<?php if ($_user->bio): ?>
 	<!-- User's biography -->
 	<div id="user_bio">
 		<h3><?php echo lang('profile_bio'); ?></h3>

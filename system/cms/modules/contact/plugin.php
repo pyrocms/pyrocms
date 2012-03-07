@@ -38,7 +38,7 @@ class Plugin_Contact extends Plugin {
 	 * 					from	 			= "server@site.com"
 	 * 					sent				= "Your message has been sent. Thank you for contacting us"
 	 * 					error				= "Sorry. Your message could not be sent. Please call us at 123-456-7890"
-	 					auto-reply			= "contact-autoreply"
+	 *					auto-reply			= "contact-autoreply"
 	 * 					success-redirect	= "home"
 	 * 					action				= "different/url" Default is current_url(). This can be used to place a contact form in
 	 * 											the footer (for example) and have it send via the regular contact page. Errors will then
@@ -159,6 +159,8 @@ class Plugin_Contact extends Plugin {
 					}
 					
 					$form_meta[$field]['dropdown'] = $dropdown;
+					// we need to empty the array else we'll end up with all values appended
+					$dropdown = array();
 				break;
 				
 				case 'file':
@@ -311,7 +313,7 @@ class Plugin_Contact extends Plugin {
 														$form,
 														$form_meta[$form]['dropdown'],
 														set_value($form),
-														'class="'.$form.'"'
+														'id="contact_'.$form.'" class="'.$form.'"'
 													 );
 			}
 			else
@@ -319,8 +321,8 @@ class Plugin_Contact extends Plugin {
 				$parse_data[$form] .= call_user_func('form_'.$value['type'],
 														$form,
 														set_value($form),
-														'class="'.$form.'"'
-													 );				
+														'id="contact_'.$form.'" class="'.$form.'"'
+													 );
 			}
 		}
 	

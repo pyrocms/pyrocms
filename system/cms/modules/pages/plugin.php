@@ -56,7 +56,7 @@ class Plugin_Pages extends Plugin
 		// we'll unset the chunks array as Lex is grouchy about mixed data at the moment
 		unset($page['chunks']);
 
-		return $this->content() ? $page : $page['body'];
+		return $this->content() ? array($page) : $page['body'];
 	}
 
 	// --------------------------------------------------------------------------
@@ -96,15 +96,33 @@ class Plugin_Pages extends Plugin
 	 */
 	public function children()
 	{
-		$limit = $this->attribute('limit');
+		$limit = $this->attribute('limit', 10);
 		
-		return $this->db->select('pages.*, page_chunks.body')
+		$pages = $this->db->select('pages.*')
 			->where('pages.parent_id', $this->attribute('id'))
 			->where('status', 'live')
-			->join('page_chunks', 'pages.id = page_chunks.page_id', 'LEFT')
 			->limit($limit)
 			->get('pages')
 			->result_array();
+
+		if ($pages)
+		{
+			foreach ($pages AS &$page)
+			{
+				// Grab all the chunks that make up the body for this page
+				$page['chunks'] = $this->db->get_where('page_chunks', array('page_id' => $page['id']))->result();
+				
+				$page['body'] = '';
+				foreach ($page['chunks'] as $chunk)
+				{
+					$page['body'] .= 	'<div class="page-chunk ' . $chunk->slug . '">' .
+											(($chunk->type == 'markdown') ? $chunk->parsed : $chunk->body) .
+										'</div>'.PHP_EOL;
+				}
+			}
+		}
+
+		return $pages;
 	}
 
 	// --------------------------------------------------------------------------

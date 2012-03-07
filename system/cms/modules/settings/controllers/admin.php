@@ -128,6 +128,12 @@ class Admin extends Admin_Controller {
 	 */
 	public function edit()
 	{
+		if (PYRO_DEMO)
+		{
+			$this->session->set_flashdata('notice', lang('global:demo_restrictions'));
+		    redirect('admin/settings');
+		}
+		
 		$settings = $this->settings_m->get_many_by(array('is_gui'=>1));
 		$settings_stored = array();
 
