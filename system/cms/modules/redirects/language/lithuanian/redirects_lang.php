@@ -5,6 +5,11 @@ $lang['redirects.from']                      = 'Nuo';
 $lang['redirects.to']                        = 'Kam';
 $lang['redirects.edit']                      = 'Redaguoti';
 $lang['redirects.delete']                    = 'Ištrinti';
+$lang['redirects.type']						= 'Type'; #translate
+
+// redirect types
+$lang['redirects.301']						= '301 - Moved Permanently'; #translate
+$lang['redirects.302']						= '302 - Moved Temporarily'; #translate
 
 // titles
 $lang['redirects.add_title']                 = 'Pridėti nukreipimą';

@@ -12,6 +12,11 @@ $lang['redirects.from']                      = 'Mistä';
 $lang['redirects.to']                        = 'Mihin';
 $lang['redirects.edit']                      = 'Muokkaa';
 $lang['redirects.delete']                    = 'Poista';
+$lang['redirects.type']						= 'Tyyppi';
+
+// redirect types
+$lang['redirects.301']						= '301 - Siirretty pysyvästi';
+$lang['redirects.302']						= '302 - Siirretty tilapäisesti';
 
 // titles
 $lang['redirects.add_title']                 = 'Lisää uudelleenohjaus';
