@@ -16,15 +16,14 @@ class Redirect_m extends MY_Model
 	function get_from($from)
 	{
 		//$this->db->where('site_id', $this->site->id);
-		// This is reverse like query
-		// SELECT * FROM (`default_redirects`) WHERE 'blog/my-post' LIKE default_redirects.from
+		// Reverse like query
 		$redirects_table = $this->db->dbprefix('redirects');
 		if ($this->db->platform() == 'mysql')
 		{
-			$data = $this->db->query("SELECT * FROM (`$redirects_table`) WHERE ? LIKE $redirects_table.from",
+			$data = $this->db->query("SELECT * FROM (`$redirects_table`) WHERE ? LIKE $redirects_table.from", 
 				array($from))->row();
 		}
-		// Fall back to postgres * this has not been tested *
+		// Postgres version * Not tested *
 		else
 		{
 			$data = $this->db->query("SELECT * FROM $redirects_table WHERE ? LIKE $redirects_table.from",
