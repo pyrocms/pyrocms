@@ -84,43 +84,35 @@ class Module_Files extends Module {
 		$this->dbforge->drop_table('files');
 		$this->dbforge->drop_table('file_folders');
 
-		$files = "
-			CREATE TABLE " . $this->db->dbprefix('files') . " (
-			  `id` int(11) NOT NULL AUTO_INCREMENT,
-			  `folder_id` int(11) NOT NULL DEFAULT '0',
-			  `user_id` int(11) NOT NULL DEFAULT '1',
-			  `type` enum('a','v','d','i','o') COLLATE utf8_unicode_ci DEFAULT NULL,
-			  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-			  `filename` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-			  `description` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-			  `extension` varchar(5) COLLATE utf8_unicode_ci NOT NULL,
-			  `mimetype` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-			  `width` int(5) DEFAULT NULL,
-			  `height` int(5) DEFAULT NULL,
-			  `filesize` int(11) NOT NULL DEFAULT 0,
-			  `date_added` int(11) NOT NULL DEFAULT 0,
-			  `sort` int(11) NOT NULL DEFAULT 0,
-			  PRIMARY KEY (`id`)
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-		";
-
-		$file_folders = "
-			CREATE TABLE " . $this->db->dbprefix('file_folders') . " (
-			  `id` int(11) NOT NULL AUTO_INCREMENT,
-			  `parent_id` int(11) DEFAULT '0',
-			  `slug` varchar(100) NOT NULL,
-			  `name` varchar(50) NOT NULL,
-			  `date_added` int(11) NOT NULL,
-			  `sort` int(11) NOT NULL DEFAULT 0,
-			  PRIMARY KEY (`id`)
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-		";
-
-		if( $this->db->query($files) &&
-			$this->db->query($file_folders))
-		{
-			return TRUE;
-		}
+		$tables = array(
+			'files' => array(
+				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
+				'folder_id' => array('type' => 'INT', 'constraint' => 11, 'default' => 0,),
+				'user_id' => array('type' => 'INT', 'constraint' => 11, 'default' => 1,),
+				'type' => array('type' => 'ENUM', 'constraint' => array('a', 'v', 'd', 'i', 'o'), 'null' => true, 'default' => null,),
+				'name' => array('type' => 'VARCHAR', 'constraint' => 255,),
+				'filename' => array('type' => 'VARCHAR', 'constraint' => 255,),
+				'description' => array('type' => 'VARCHAR', 'constraint' => 255,),
+				'extension' => array('type' => 'VARCHAR', 'constraint' => 5,),
+				'mimetype' => array('type' => 'VARCHAR', 'constraint' => 255,),
+				'width' => array('type' => 'INT', 'constraint' => 5, 'null' => true,),
+				'height' => array('type' => 'INT', 'constraint' => 5, 'null' => true,),
+				'filesize' => array('type' => 'INT', 'constraint' => 11, 'default' => 0,),
+				'date_added' => array('type' => 'INT', 'constraint' => 11, 'default' => 0,),
+				'sort' => array('type' => 'INT', 'constraint' => 11, 'default' => 0,),
+			),
+			'file_folders' => array(
+				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
+				'parent_id' => array('type' => 'INT', 'constraint' => 11, 'null' => true, 'default' => 0,),
+				'slug' => array('type' => 'VARCHAR', 'constraint' => 100,),
+				'name' => array('type' => 'VARCHAR', 'constraint' => 50,),
+				'date_added' => array('type' => 'INT', 'constraint' => 11,),
+				'sort' => array('type' => 'INT', 'constraint' => 11, 'default' => 0,),
+			),
+		);
+		$this->install_tables($tables);
+		
+		return TRUE;
 	}
 
 	public function uninstall()

@@ -59,20 +59,22 @@ class Module_Contact extends Module {
 	{
 		$this->dbforge->drop_table('contact_log');
 		
-		return $this->db->query("
-			CREATE TABLE ".$this->db->dbprefix('contact_log')." (
-			  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
-			  `email` varchar(255) NOT NULL default '',
-			  `subject` varchar(255) NOT NULL default '',
-			  `message` text collate utf8_unicode_ci NOT NULL,
-			  `sender_agent` varchar(64) NOT NULL default '',
-			  `sender_ip` varchar(32) NOT NULL default '',
-			  `sender_os` varchar(32) NOT NULL default '',
-			  `sent_at` int(11) NOT NULL default 0,
-			  `attachments` text collate utf8_unicode_ci NOT NULL,
-			  PRIMARY KEY (`id`)
-			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Contact log'
-		");
+		$tables = array(
+			'contact_log' => array(
+				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
+				'email' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '',),
+				'subject' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '',),
+				'message' => array('type' => 'TEXT',),
+				'sender_agent' => array('type' => 'VARCHAR', 'constraint' => 64, 'default' => '',),
+				'sender_ip' => array('type' => 'VARCHAR', 'constraint' => 32, 'default' => '',),
+				'sender_os' => array('type' => 'VARCHAR', 'constraint' => 32, 'default' => '',),
+				'sent_at' => array('type' => 'INT', 'constraint' => 11, 'default' => 0,),
+				'attachments' => array('type' => 'TEXT',),
+			),
+		);
+		
+		$this->install_tables($tables);
+		return TRUE;
 	}
 
 	public function uninstall()

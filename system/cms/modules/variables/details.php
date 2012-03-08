@@ -4,6 +4,15 @@ class Module_Variables extends Module {
 
 	public $version = '0.4';
 	
+	/**
+	 * The modules tables.
+	 *
+	 * @var array
+	 */
+	protected $_tables = array(
+		'variables',
+	);
+	
 	public function info()
 	{
 		return array(
@@ -67,20 +76,16 @@ class Module_Variables extends Module {
 	public function install()
 	{
 		$this->dbforge->drop_table('variables');
-		
-		$variables = "
-			CREATE TABLE " . $this->db->dbprefix('variables') . " (
-			  `id` int(11) NOT NULL AUTO_INCREMENT,
-			  `name` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
-			  `data` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
-			  PRIMARY KEY (`id`)
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-		";
-		
-		if($this->db->query($variables))
-		{
-			return TRUE;
-		}
+
+		$tables = array(
+			'variables' => array(
+				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
+				'name' => array('type' => 'VARCHAR', 'constraint' => 250, 'null' => true,),
+				'data' => array('type' => 'VARCHAR', 'constraint' => 250, 'null' => true,),
+			),
+		);
+
+		$this->install_tables($tables);
 	}
 
 	public function uninstall()

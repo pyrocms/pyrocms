@@ -4,6 +4,8 @@ class Module_Navigation extends Module {
 
 	public $version = '1.1';
 	
+	public $_tables = array('navigation_groups', 'navigation_links');
+	
 	public function info()
 	{
 		return array(
@@ -25,7 +27,7 @@ class Module_Navigation extends Module {
 				'el' => 'Πλοήγηση',
 				'he' => 'ניווט',
 				'lt' => 'Navigacija',
-				'id' => 'Navigasi'
+				'id' => 'Navigasi',
 			),
 			'description' => array(
 				'sl' => 'Uredi povezave v meniju in vse skupine povezav ki jim pripadajo.',
@@ -46,7 +48,7 @@ class Module_Navigation extends Module {
 				'he' => 'ניהול שלוחות תפריטי ניווט וקבוצות ניווט',
 				'lt' => 'Tvarkyk nuorodas navigacijų menių ir visas navigacijų grupes kurioms tos nuorodos priklauso.',
 				'da' => 'Håndtér links på navigationsmenuerne og alle navigationsgrupperne de tilhører.',
-				'id' => 'Mengatur tautan pada menu navigasi dan semua pengelompokan grup navigasi.'
+				'id' => 'Mengatur tautan pada menu navigasi dan semua pengelompokan grup navigasi.',
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
@@ -56,7 +58,7 @@ class Module_Navigation extends Module {
 				array(
 				    'name' => 'nav_group_create_title',
 				    'uri' => 'admin/navigation/groups/create',
-				    'class' => 'add'
+				    'class' => 'add',
 				),
 		    ),
 		);
@@ -66,56 +68,52 @@ class Module_Navigation extends Module {
 	{
 		$this->dbforge->drop_table('navigation_groups');
 		$this->dbforge->drop_table('navigation_links');
-		
-		$navigation_groups = "
-			CREATE TABLE " . $this->db->dbprefix('navigation_groups') . " (
-			  `id` int(11) NOT NULL auto_increment,
-			  `title` varchar(50) collate utf8_unicode_ci NOT NULL,
-			  `abbrev` varchar(50) collate utf8_unicode_ci NOT NULL,
-			  PRIMARY KEY  (`id`)
-			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Navigation groupings. Eg, header, sidebar, footer, etc';
-		";
-		
-		$navigation_links = "
-			CREATE TABLE " . $this->db->dbprefix('navigation_links') . " (
-			  `id` int(11) NOT NULL auto_increment,
-			  `title` varchar(100) collate utf8_unicode_ci NOT NULL default '',
-			  `parent` int(11) NOT NULL default '0',
-			  `link_type` VARCHAR( 20 ) collate utf8_unicode_ci NOT NULL default 'uri',
-			  `page_id` int(11) NOT NULL default '0',
-			  `module_name` varchar(50) collate utf8_unicode_ci NOT NULL default '',
-			  `url` varchar(255) collate utf8_unicode_ci NOT NULL default '',
-			  `uri` varchar(255) collate utf8_unicode_ci NOT NULL default '',
-			  `navigation_group_id` int(5) NOT NULL default '0',
-			  `position` int(5) NOT NULL default '0',
-			  `target` varchar(10) NULL default NULL,
-			  `restricted_to` varchar(255) NULL default NULL,
-			  `class` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL default '',
-			  PRIMARY KEY  (`id`),
-			  KEY `navigation_group_id - normal` (`navigation_group_id`)
-			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Links for site navigation';
-		";
-		
-		$default_groups = "
-			INSERT INTO " . $this->db->dbprefix('navigation_groups') . " VALUES
-			('1','Header','header'),
-			('2','Sidebar','sidebar'),
-			('3','Footer','footer');
-		";
-		
-		$default_links = "
-			INSERT INTO " . $this->db->dbprefix('navigation_links') . " (title, link_type, page_id, navigation_group_id, position) VALUES
-			('Home', 'page', 1, 1, 1),
-			('Contact', 'page', 3, 1, 2);
-		";
-		
-		if($this->db->query($navigation_groups) &&
-		   $this->db->query($navigation_links) &&
-		   $this->db->query($default_groups) &&
-		   $this->db->query($default_links))
+
+		$tables = array(
+			'navigation_groups' => array(
+				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
+				'title' => array('type' => 'VARCHAR', 'constraint' => 50,),
+				'abbrev' => array('type' => 'VARCHAR', 'constraint' => 50, 'key' => true),
+			),
+			'navigation_links' => array(
+				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
+				'title' => array('type' => 'VARCHAR', 'constraint' => 100, 'default' => '',),
+				'parent' => array('type' => 'INT', 'constraint' => 11, 'null' => true,),
+				'link_type' => array('type' => 'VARCHAR', 'constraint' => 20, 'default' => 'uri',),
+				'page_id' => array('type' => 'INT', 'constraint' => 11, 'null' => true,),
+				'module_name' => array('type' => 'VARCHAR', 'constraint' => 50, 'default' => '',),
+				'url' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '',),
+				'uri' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '',),
+				'navigation_group_id' => array('type' => 'INT', 'constraint' => 5, 'default' => 0, 'key' => 'navigation_group_id'),
+				'position' => array('type' => 'INT', 'constraint' => 5, 'default' => 0,),
+				'target' => array('type' => 'VARCHAR', 'constraint' => 10, 'null' => true,),
+				'restricted_to' => array('type' => 'VARCHAR', 'constraint' => 255, 'null' => true,),
+				'class' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '',),
+			),
+		);
+		$this->install_tables($tables);
+
+		$groups = array(
+			array('title' => 'Header', 'abbrev' => 'header',),
+			array('title' => 'Sidebar', 'abbrev' => 'sidebar',),
+			array('title' => 'Footer', 'abbrev' => 'footer',),
+		);
+		foreach ($groups as $group)
 		{
-			return TRUE;
+			$this->db->insert('navigation_groups', $group);
 		}
+
+		$links = array(
+			array('title' => 'Home', 'link_type' => 'page', 'page_id' => 1, 'navigation_group_id' => 1, 'position' => 1,),
+			array('title' => 'Blog', 'link_type' => 'module', 'page_id' => null, 'navigation_group_id' => 1, 'position' => 2, 'module_name' => 'blog'),
+			array('title' => 'Contact', 'link_type' => 'page', 'page_id' => 3, 'navigation_group_id' => 1, 'position' => 3,),
+		);
+		foreach ($links as $link)
+		{
+			$this->db->insert('navigation_links', $link);
+		}
+
+		return TRUE;
 	}
 
 	public function uninstall()
