@@ -7,12 +7,12 @@
 // AVAILABLE WIDGETS LIST
 //-------------------------------------------------------------------*/
 
-#available-widgets > ul {
+#available-widgets  ul {
 	position: relative;
 	margin: 0;
 	list-style: none;
 }
-#available-widgets > ul li {
+#available-widgets  ul li {
 	position: relative;
 	padding: 1px 10px 10px 10px;
 	margin: 0;
@@ -20,34 +20,34 @@
 	border-color: #ddd;
 	margin-bottom: 5px;
 }
-#available-widgets > ul li p span {
+#available-widgets  ul li p span {
 	color: #484848;
 	font-weight: bold;
 }
-#available-widgets > ul li:hover {
+#available-widgets  ul li:hover {
 	background-color: #e6e6e6;
 	cursor: move;
 }
 
-#available-widgets > ul h3 {
+#available-widgets  ul h3 {
 }
-#available-widgets > ul p {
+#available-widgets  ul p {
 	margin-bottom: 0;
 	line-height: 1.5;
 }
 
-#available-widgets > ul a {
+#available-widgets  ul a {
 	color: #999;
 }
-#available-widgets > ul a:hover {
+#available-widgets  ul a:hover {
 	color: #ff6400;
 }
 
 /* Drag State for Available Widgets */
-#available-widgets > ul li.widget-drag {
+#available-widgets  ul li.widget-drag {
 	opacity: 0.3;
 }
-#available-widgets > ul li.ui-draggable-dragging {
+#available-widgets  ul li.ui-draggable-dragging {
 	width: 90%;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
