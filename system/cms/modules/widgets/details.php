@@ -4,6 +4,17 @@ class Module_Widgets extends Module {
 
 	public $version = '1.1';
 	
+	/**
+	 * The modules tables.
+	 *
+	 * @var array
+	 */
+	protected $_tables = array(
+		'widgets',
+		'widget_areas',
+		'widget_instances',
+	);
+	
 	public function info()
 	{
 		return array(
@@ -72,57 +83,45 @@ class Module_Widgets extends Module {
 		$this->dbforge->drop_table('widget_instances');
 		$this->dbforge->drop_table('widgets');
 		
-		$widget_areas = "
-			CREATE TABLE " . $this->db->dbprefix('widget_areas') . " (
-			  `id` int(11) NOT NULL AUTO_INCREMENT,
-			  `slug` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-			  `title` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-			  PRIMARY KEY (`id`),
-			  UNIQUE KEY `unique_slug` (`slug`)
-			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-		";
+		$tables = array(	
+			'widget_areas' => array(
+				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
+				'slug' => array('type' => 'VARCHAR', 'constraint' => 100, 'null' => true,),
+				'title' => array('type' => 'VARCHAR', 'constraint' => 100, 'null' => true,),
+			),
+			
+			'widget_instances' => array(
+				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
+				'title' => array('type' => 'VARCHAR', 'constraint' => 100, 'null' => true,),
+				'widget_id' => array('type' => 'INT', 'constraint' => 11, 'null' => true,),
+				'widget_area_id' => array('type' => 'INT', 'constraint' => 11, 'null' => true,),
+				'options' => array('type' => 'TEXT'),
+				'order' => array('type' => 'INT', 'constraint' => 10, 'default' => 0,),
+				'created_on' => array('type' => 'INT', 'constraint' => 11, 'default' => 0,),
+				'updated_on' => array('type' => 'INT', 'constraint' => 11, 'default' => 0,),
+			),
+			
+			'widgets' => array(
+				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
+				'slug' => array('type' => 'VARCHAR', 'constraint' => 100, 'default' => '',),
+				'title' => array('type' => 'TEXT', 'constraint' => 100,),
+				'description' => array('type' => 'TEXT', 'constraint' => 100,),
+				'author' => array('type' => 'VARCHAR', 'constraint' => 100, 'default' => '',),
+				'website' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '',),
+				'version' => array('type' => 'VARCHAR', 'constraint' => 20, 'default' => 0,),
+				'enabled' => array('type' => 'INT', 'constraint' => 1, 'default' => 1,),
+				'order' => array('type' => 'INT', 'constraint' => 10, 'default' => 0,),
+				'updated_on' => array('type' => 'INT', 'constraint' => 11, 'default' => 0,),
+			),
+		);
+
+		$this->install_tables($tables);
 		
-		$widget_instances = "
-			CREATE TABLE " . $this->db->dbprefix('widget_instances') . " (
-			  `id` int(11) NOT NULL AUTO_INCREMENT,
-			  `title` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-			  `widget_id` int(11) DEFAULT NULL,
-			  `widget_area_id` int(11) DEFAULT NULL,
-			  `options` text COLLATE utf8_unicode_ci NOT NULL,
-			  `order` int(10) NOT NULL DEFAULT '0',
-			  `created_on` int(11) NOT NULL DEFAULT '0',
-			  `updated_on` int(11) NOT NULL DEFAULT '0',
-			  PRIMARY KEY (`id`)
-			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-		";
-		
-		$widgets = "
-			CREATE TABLE " . $this->db->dbprefix('widgets') . " (
-			  `id` int(11) NOT NULL AUTO_INCREMENT,
-			  `slug` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-			  `title` text COLLATE utf8_unicode_ci NOT NULL,
-			  `description` text COLLATE utf8_unicode_ci NOT NULL,
-			  `author` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-			  `website` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-			  `version` varchar(20) COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
-			  `enabled` tinyint(1) NOT NULL DEFAULT '1',
-			  `order` int(5) NOT NULL DEFAULT '0',
-			  `updated_on` int(11) NOT NULL DEFAULT '0',
-			  PRIMARY KEY (`id`)
-			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-		";
-		
-		$default_data = "
-			INSERT INTO " . $this->db->dbprefix('widget_areas') . " (slug, title) VALUES ('sidebar', 'Sidebar');
-		";
-		
-		if ($this->db->query($widget_areas) &&
-		   $this->db->query($widget_instances) &&
-		   $this->db->query($widgets) &&
-		   $this->db->query($default_data))
-		{
-			return TRUE;
-		}
+		// Add the default data
+		$this->db->insert('widget_areas', array(
+			'title' => 'Sidebar',
+			'slug' 	=> 'sidebar',
+		));
 	}
 
 	public function uninstall()

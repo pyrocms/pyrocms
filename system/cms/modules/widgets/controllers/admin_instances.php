@@ -100,8 +100,8 @@ class Admin_instances extends Admin_Controller {
 
 			if ($result['status'] === 'success')
 			{
-				// Fire an event. A widget instance has been created. 
-				Events::trigger('widget_instance_created', $id);
+				// Fire an event. A widget instance has been created. pass the widget id 
+				Events::trigger('widget_instance_created', $widget_id);
 				
 				$status		= 'success';
 				$message	= lang('success_label');
@@ -177,8 +177,8 @@ class Admin_instances extends Admin_Controller {
 
 			if ($result['status'] === 'success')
 			{
-				// Fire an event. A widget instance has been updated. 
-				Events::trigger('widget_instance_updated', $id);
+				// Fire an event. A widget instance has been updated pass the widget instance id.
+				Events::trigger('widget_instance_updated', $instance_id);
 				
 				$status		= 'success';
 				$message	= lang('success_label');

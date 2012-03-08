@@ -58,29 +58,27 @@ class Module_Comments extends Module {
 	public function install()
 	{
 		$this->dbforge->drop_table('comments');
-		
-		$comments = "
-			CREATE TABLE " . $this->db->dbprefix('comments') . " (
-			  `id` smallint(5) unsigned NOT NULL auto_increment,
-			  `is_active` tinyint(1) NOT NULL default '0',
-			  `user_id` int(11) NOT NULL default '0',
-			  `name` varchar(40) collate utf8_unicode_ci NOT NULL default '',
-			  `email` varchar(40) collate utf8_unicode_ci NOT NULL default '',
-			  `website` VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-			  `comment` text collate utf8_unicode_ci NOT NULL,
-			  `parsed` text collate utf8_unicode_ci NOT NULL,
-			  `module` varchar(40) collate utf8_unicode_ci NOT NULL,
-			  `module_id` varchar(255) collate utf8_unicode_ci NOT NULL default '0',
-			  `created_on` varchar(11) collate utf8_unicode_ci NOT NULL default '0',
-			  `ip_address` varchar(15) collate utf8_unicode_ci NOT NULL default '',
-			  PRIMARY KEY  (`id`)
-			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Comments by users or guests';
-		";
-		
-		if($this->db->query($comments))
-		{
-			return TRUE;
-		}
+
+		$tables = array(
+			'comments' => array(
+				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
+				'is_active' => array('type' => 'INT', 'constraint' => 1, 'default' => 0,),
+				'user_id' => array('type' => 'INT', 'constraint' => 11, 'default' => 0,),
+				'name' => array('type' => 'VARCHAR', 'constraint' => 40, 'default' => '',),
+				'email' => array('type' => 'VARCHAR', 'constraint' => 40, 'default' => '',), // @todo Shouldn't this be 255?
+				'website' => array('type' => 'VARCHAR', 'constraint' => 255,),
+				'comment' => array('type' => 'TEXT',),
+				'parsed' => array('type' => 'TEXT',),
+				'module' => array('type' => 'VARCHAR', 'constraint' => 40,),
+				'module_id' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => 0,),
+				'created_on' => array('type' => 'VARCHAR', 'constraint' => 11, 'default' => '0',), // @todo Shouldn't this be an int?
+				'ip_address' => array('type' => 'VARCHAR', 'constraint' => 15, 'default' => '',),
+			),
+		);
+
+		$this->install_tables($tables);
+
+		return TRUE;
 	}
 
 	public function uninstall()
