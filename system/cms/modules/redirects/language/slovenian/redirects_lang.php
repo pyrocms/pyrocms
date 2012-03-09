@@ -5,6 +5,11 @@ $lang['redirects.from']                      = 'Od';
 $lang['redirects.to']                        = 'Za';
 $lang['redirects.edit']                      = 'Uredi';
 $lang['redirects.delete']                    = 'Izbriši';
+$lang['redirects.type']						= 'Type'; #translate
+
+// redirect types
+$lang['redirects.301']						= '301 - Moved Permanently'; #translate
+$lang['redirects.302']						= '302 - Moved Temporarily'; #translate
 
 // titles
 $lang['redirects.add_title']                 = 'Dodaj preusmeritev';
