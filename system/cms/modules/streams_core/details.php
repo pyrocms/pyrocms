@@ -11,7 +11,7 @@
  */
 class Module_Streams_core extends Module {
 
-	public $version = '0.9';
+	public $version = '1.0.0';
 
 	// --------------------------------------------------------------------------
 
@@ -36,6 +36,7 @@ class Module_Streams_core extends Module {
 			),
 			'frontend' => FALSE,
 			'backend' => FALSE,
+			'skip_xss' => FALSE,
 			'author' => 'Parse19'
 		);
 	}
