@@ -27,39 +27,11 @@
 	(function($) {
 		$(function(){
 
-			$('textarea.wysiwyg-simple').ckeditor({
-				toolbar: [
-					 ['Bold', 'Italic', '-', 'NumberedList', 'BulletedList', '-', 'Link', 'Unlink']
-				  ],
-				width: 675,
-				height: 100,
-				dialog_backgroundCoverColor: '#000',
-				defaultLanguage: '<?php echo config_item('default_language'); ?>',
-				language: '<?php echo CURRENT_LANGUAGE; ?>'
-			});
-
-			$('textarea.wysiwyg-advanced').ckeditor({
-				toolbar: [
-                    ['Maximize'],
-					['pyroimages', 'pyrofiles'],
-					['Cut','Copy','Paste','PasteFromWord'],
-					['Undo','Redo','-','Find','Replace'],
-					['Link','Unlink'],
-					['Table','HorizontalRule','SpecialChar'],
-					['Bold','Italic','StrikeThrough'],
-					['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],'/',
-					['Format', 'FontSize', 'Subscript','Superscript', 'NumberedList','BulletedList','Outdent','Indent','Blockquote'],
-					['ShowBlocks', 'RemoveFormat', 'Source']
-				],
-				extraPlugins: 'pyroimages,pyrofiles',
-				width: 675,
-				height: 300,
-				dialog_backgroundCoverColor: '#000',
-				removePlugins: 'elementspath',
-				defaultLanguage: '<?php echo config_item('default_language'); ?>',
-				language: '<?php echo CURRENT_LANGUAGE; ?>'
-			});
-
+			pyro.init_ckeditor = function(){
+				<?php echo $this->parser->parse_string(Settings::get('ckeditor_config'), $this, TRUE); ?>
+			};
+			pyro.init_ckeditor();
+			
 		});
 	})(jQuery);
 </script>
