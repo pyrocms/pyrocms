@@ -8,8 +8,8 @@
 	
 	endif;
 	
-	echo js('ckeditor/ckeditor.js', '_theme_');
-	echo js('ckeditor/adapters/jquery.js', '_theme_');
+	echo Asset::get_filepath_js('ckeditor/ckeditor.js');
+	echo Asset::get_filepath_js('ckeditor/adapters/jquery.js');
 
 	if(!defined('ADMIN_THEME')) $this->asset->set_theme($this->theme->slug);
 

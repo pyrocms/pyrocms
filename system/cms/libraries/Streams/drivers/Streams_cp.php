@@ -70,10 +70,10 @@ class Streams_cp extends CI_Driver {
 			$this->template->append_metadata('<script type="text/javascript" language="javascript">var stream_id='.$this->data->stream->id.';var stream_offset='.$offset.';</script>');
 		
 			// We want to sort this
-		    //$this->template->append_js('entry_sorting.js', 'streams');
+		    //$this->template->append_js('module::entry_sorting.js');
 		    		      
 			// Comeon' Livequery! You're goin' in!
-			//$this->template->append_metadata( js('jquery.livequery.js', 'streams') );
+			//$this->template->append_js('module::jquery.livequery.js');
 		}*/
   
   		$data = array(
