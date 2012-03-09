@@ -1,4 +1,7 @@
 <script type="text/javascript">var SITE_URL	= "<?php echo site_url(); ?>";</script>
+
+<script src="<?php echo Asset::get_filepath_js('ckeditor/ckeditor.js'); ?>"></script>
+<script src="<?php echo Asset::get_filepath_js('ckeditor/adapters/jquery.js'); ?>"></script>
 <?php 
 
 	if(!defined('ADMIN_THEME')):
@@ -7,9 +10,6 @@
 		$this->asset->set_theme($admin_theme->slug);
 	
 	endif;
-	
-	echo Asset::get_filepath_js('ckeditor/ckeditor.js');
-	echo Asset::get_filepath_js('ckeditor/adapters/jquery.js');
 
 	if(!defined('ADMIN_THEME')) $this->asset->set_theme($this->theme->slug);
 
