@@ -4,6 +4,26 @@ class Module_Themes extends Module {
 
 	public $version = '1.0';
 	
+	/**
+	 * The modules tables.
+	 *
+	 * @var array
+	 */
+	public $tables = array(
+		'theme_options' => array(
+			'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
+			'slug' => array('type' => 'VARCHAR', 'constraint' => 30,),
+			'title' => array('type' => 'VARCHAR', 'constraint' => 100,),
+			'description' => array('type' => 'TEXT', 'constraint' => 100,),
+			'type' => array('type' => 'set', 'constraint' => array('text', 'textarea', 'password', 'select', 'select-multiple', 'radio', 'checkbox')),
+			'default' => array('type' => 'VARCHAR', 'constraint' => 255,),
+			'value' => array('type' => 'VARCHAR', 'constraint' => 255,),
+			'options' => array('type' => 'VARCHAR', 'constraint' => 255,),
+			'is_required' => array('type' => 'INT', 'constraint' => 1,),
+			'theme' => array('type' => 'VARCHAR', 'constraint' => 50,),
+		),
+	);
+	
 	public function info()
 	{
 		$info = array(
@@ -49,69 +69,46 @@ class Module_Themes extends Module {
 				'da' => 'Lader administratore ændre websidens tema, uploade nye temaer og håndtére dem med en mere visual tilgang.',
 				'id' => 'Memungkinkan admin dan staff untuk mengubah tema tampilan, mengupload tema baru, dan mengatur opsi tema.'
 			),
-			'frontend' => FALSE,
-			'backend'  => TRUE,
-			'menu'	  => 'design'
+			'frontend' => false,
+			'backend' => true,
+			'menu' => 'design'
 		);
-		
+
 		// Check to make sure we're not running the installer or MSM. Then check perms
 		if ( ! class_exists('Module_import') AND Settings::get('addons_upload'))
 		{
 			$info['sections'] = array(
-				'themes' => 		array('name' => 'themes.list_title',
-										  'uri' => 'admin/themes',
-										  'shortcuts' => array(
-															   array('name' => 'themes.upload_title',
-																	 'uri' => 'admin/themes/upload',
-																	 'class' => 'add modal',
-																	 )
-															   )
-										  ),
-				);
+				'themes' => array('name' => 'themes.list_title',
+					'uri' => 'admin/themes',
+					'shortcuts' => array(
+						array('name' => 'themes.upload_title',
+							'uri' => 'admin/themes/upload',
+							'class' => 'add modal',
+						)
+					)
+				),
+			);
 		}
-		
+
 		return $info;
-	}
-	
-	public function install()
-	{
-		$this->dbforge->drop_table('theme_options');
-
-		$tables = array(
-			'theme_options' => array(
-				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
-				'slug' => array('type' => 'VARCHAR', 'constraint' => 30,),
-				'title' => array('type' => 'VARCHAR', 'constraint' => 100,),
-				'description' => array('type' => 'TEXT', 'constraint' => 100,),
-				'type' => array('type' => 'set', 'constraint' => array('text', 'textarea', 'password', 'select', 'select-multiple', 'radio', 'checkbox')),
-				'default' => array('type' => 'VARCHAR', 'constraint' => 255,),
-				'value' => array('type' => 'VARCHAR', 'constraint' => 255,),
-				'options' => array('type' => 'VARCHAR', 'constraint' => 255,),
-				'is_required' => array('type' => 'INT', 'constraint' => 1,),
-				'theme' => array('type' => 'VARCHAR', 'constraint' => 50,),
-			),
-		);
-
-		$this->install_tables($tables);
 	}
 
 	public function uninstall()
 	{
 		//it's a core module, lets keep it around
-		return FALSE;
+		return false;
 	}
 
 	public function upgrade($old_version)
 	{
 		// Your Upgrade Logic
-		return TRUE;
+		return true;
 	}
 	
 	public function help()
 	{
 		// Return a string containing help info
 		// You could include a file and return it here.
-		return TRUE;
+		return true;
 	}
 }
-/* End of file details.php */

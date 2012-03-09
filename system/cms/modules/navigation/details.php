@@ -4,7 +4,33 @@ class Module_Navigation extends Module {
 
 	public $version = '1.1';
 	
-	public $_tables = array('navigation_groups', 'navigation_links');
+	/**
+	 * The modules tables.
+	 *
+	 * @var array
+	 */
+	public $tables = array(
+			'navigation_groups' => array(
+				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
+				'title' => array('type' => 'VARCHAR', 'constraint' => 50,),
+				'abbrev' => array('type' => 'VARCHAR', 'constraint' => 50, 'key' => true),
+			),
+			'navigation_links' => array(
+				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
+				'title' => array('type' => 'VARCHAR', 'constraint' => 100, 'default' => '',),
+				'parent' => array('type' => 'INT', 'constraint' => 11, 'null' => true,),
+				'link_type' => array('type' => 'VARCHAR', 'constraint' => 20, 'default' => 'uri',),
+				'page_id' => array('type' => 'INT', 'constraint' => 11, 'null' => true,),
+				'module_name' => array('type' => 'VARCHAR', 'constraint' => 50, 'default' => '',),
+				'url' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '',),
+				'uri' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '',),
+				'navigation_group_id' => array('type' => 'INT', 'constraint' => 5, 'default' => 0, 'key' => 'navigation_group_id'),
+				'position' => array('type' => 'INT', 'constraint' => 5, 'default' => 0,),
+				'target' => array('type' => 'VARCHAR', 'constraint' => 10, 'null' => true,),
+				'restricted_to' => array('type' => 'VARCHAR', 'constraint' => 255, 'null' => true,),
+				'class' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '',),
+			),
+		);
 	
 	public function info()
 	{
@@ -50,8 +76,8 @@ class Module_Navigation extends Module {
 				'da' => 'Håndtér links på navigationsmenuerne og alle navigationsgrupperne de tilhører.',
 				'id' => 'Mengatur tautan pada menu navigasi dan semua pengelompokan grup navigasi.',
 			),
-			'frontend' => FALSE,
-			'backend'  => TRUE,
+			'frontend' => false,
+			'backend'  => true,
 			'menu'	  => 'design',
 			
 		    'shortcuts' => array(
@@ -66,41 +92,19 @@ class Module_Navigation extends Module {
 	
 	public function install()
 	{
-		$this->dbforge->drop_table('navigation_groups');
-		$this->dbforge->drop_table('navigation_links');
-
-		$tables = array(
-			'navigation_groups' => array(
-				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
-				'title' => array('type' => 'VARCHAR', 'constraint' => 50,),
-				'abbrev' => array('type' => 'VARCHAR', 'constraint' => 50, 'key' => true),
-			),
-			'navigation_links' => array(
-				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
-				'title' => array('type' => 'VARCHAR', 'constraint' => 100, 'default' => '',),
-				'parent' => array('type' => 'INT', 'constraint' => 11, 'null' => true,),
-				'link_type' => array('type' => 'VARCHAR', 'constraint' => 20, 'default' => 'uri',),
-				'page_id' => array('type' => 'INT', 'constraint' => 11, 'null' => true,),
-				'module_name' => array('type' => 'VARCHAR', 'constraint' => 50, 'default' => '',),
-				'url' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '',),
-				'uri' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '',),
-				'navigation_group_id' => array('type' => 'INT', 'constraint' => 5, 'default' => 0, 'key' => 'navigation_group_id'),
-				'position' => array('type' => 'INT', 'constraint' => 5, 'default' => 0,),
-				'target' => array('type' => 'VARCHAR', 'constraint' => 10, 'null' => true,),
-				'restricted_to' => array('type' => 'VARCHAR', 'constraint' => 255, 'null' => true,),
-				'class' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '',),
-			),
-		);
-		$this->install_tables($tables);
+		if ( ! parent::install())
+		{
+			return false;
+		}
 
 		$groups = array(
 			array('title' => 'Header', 'abbrev' => 'header',),
 			array('title' => 'Sidebar', 'abbrev' => 'sidebar',),
 			array('title' => 'Footer', 'abbrev' => 'footer',),
 		);
-		foreach ($groups as $group)
+		if ( ! $this->batch_insert('navigation_groups', $groups))
 		{
-			$this->db->insert('navigation_groups', $group);
+			return false;
 		}
 
 		$links = array(
@@ -108,31 +112,30 @@ class Module_Navigation extends Module {
 			array('title' => 'Blog', 'link_type' => 'module', 'page_id' => null, 'navigation_group_id' => 1, 'position' => 2, 'module_name' => 'blog'),
 			array('title' => 'Contact', 'link_type' => 'page', 'page_id' => 3, 'navigation_group_id' => 1, 'position' => 3,),
 		);
-		foreach ($links as $link)
+		if ( ! $this->batch_insert('navigation_links', $links))
 		{
-			$this->db->insert('navigation_links', $link);
+			return false;
 		}
 
-		return TRUE;
+		return true;
 	}
 
 	public function uninstall()
 	{
 		//it's a core module, lets keep it around
-		return FALSE;
+		return false;
 	}
 
 	public function upgrade($old_version)
 	{
 		// Your Upgrade Logic
-		return TRUE;
+		return true;
 	}
 	
 	public function help()
 	{
 		// Return a string containing help info
 		// You could include a file and return it here.
-		return TRUE;
+		return true;
 	}
 }
-/* End of file details.php */

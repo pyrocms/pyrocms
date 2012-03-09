@@ -4,6 +4,38 @@ class Module_Files extends Module {
 
 	public $version = '1.2';
 
+	/**
+	 * The modules tables.
+	 *
+	 * @var array
+	 */
+	public $tables = array(
+		'files' => array(
+			'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
+			'folder_id' => array('type' => 'INT', 'constraint' => 11, 'default' => 0,),
+			'user_id' => array('type' => 'INT', 'constraint' => 11, 'default' => 1,),
+			'type' => array('type' => 'ENUM', 'constraint' => array('a', 'v', 'd', 'i', 'o'), 'null' => true, 'default' => null,),
+			'name' => array('type' => 'VARCHAR', 'constraint' => 255,),
+			'filename' => array('type' => 'VARCHAR', 'constraint' => 255,),
+			'description' => array('type' => 'VARCHAR', 'constraint' => 255,),
+			'extension' => array('type' => 'VARCHAR', 'constraint' => 5,),
+			'mimetype' => array('type' => 'VARCHAR', 'constraint' => 255,),
+			'width' => array('type' => 'INT', 'constraint' => 5, 'null' => true,),
+			'height' => array('type' => 'INT', 'constraint' => 5, 'null' => true,),
+			'filesize' => array('type' => 'INT', 'constraint' => 11, 'default' => 0,),
+			'date_added' => array('type' => 'INT', 'constraint' => 11, 'default' => 0,),
+			'sort' => array('type' => 'INT', 'constraint' => 11, 'default' => 0,),
+		),
+		'file_folders' => array(
+			'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
+			'parent_id' => array('type' => 'INT', 'constraint' => 11, 'null' => true, 'default' => 0,),
+			'slug' => array('type' => 'VARCHAR', 'constraint' => 100,),
+			'name' => array('type' => 'VARCHAR', 'constraint' => 50,),
+			'date_added' => array('type' => 'INT', 'constraint' => 11,),
+			'sort' => array('type' => 'INT', 'constraint' => 11, 'default' => 0,),
+		),
+	);
+	
 	public function info()
 	{
 		$info = array(
@@ -47,90 +79,57 @@ class Module_Files extends Module {
 				'da' => 'Administrer filer og mapper for dit site.',
 				'id' => 'Mengatur file dan folder dalam situs Anda.'
 			),
-			'frontend' => FALSE,
-			'backend'  => TRUE,
-			'menu'	  => 'content',
+			'frontend' => false,
+			'backend' => true,
+			'menu' => 'content',
 			'roles' => array(
-				'download_file', 'edit_file', 'delete_file', 'edit_folder', 'delete_folder'
+				'download_file',
+				'edit_file',
+				'delete_file',
+				'edit_folder',
+				'delete_folder'
 			),
 			'shortcuts' => array(
-								 array(
-									   'name' => 'files.files_title',
-									   'uri' => 'admin/files',
-									   ),
-								 ),
-			);
-		
-			if (function_exists('group_has_role') AND group_has_role('files', 'edit_file'))
-			{
-				$info['shortcuts'][] = array(
-											 'name' => 'file_folders.create_title',
-											 'uri' => 'admin/files/folders/create',
-											 'class' => 'add folder-create'
-											 );
-				
-				$info['shortcuts'][] = array(
-											 'name' => 'files.upload_title',
-											 'uri' => 'admin/files/upload',
-											 'class' => 'files-uploader'
-											 );
-			}
-			
-			return $info;
-	}
-
-	public function install()
-	{
-		$this->dbforge->drop_table('files');
-		$this->dbforge->drop_table('file_folders');
-
-		$tables = array(
-			'files' => array(
-				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
-				'folder_id' => array('type' => 'INT', 'constraint' => 11, 'default' => 0,),
-				'user_id' => array('type' => 'INT', 'constraint' => 11, 'default' => 1,),
-				'type' => array('type' => 'ENUM', 'constraint' => array('a', 'v', 'd', 'i', 'o'), 'null' => true, 'default' => null,),
-				'name' => array('type' => 'VARCHAR', 'constraint' => 255,),
-				'filename' => array('type' => 'VARCHAR', 'constraint' => 255,),
-				'description' => array('type' => 'VARCHAR', 'constraint' => 255,),
-				'extension' => array('type' => 'VARCHAR', 'constraint' => 5,),
-				'mimetype' => array('type' => 'VARCHAR', 'constraint' => 255,),
-				'width' => array('type' => 'INT', 'constraint' => 5, 'null' => true,),
-				'height' => array('type' => 'INT', 'constraint' => 5, 'null' => true,),
-				'filesize' => array('type' => 'INT', 'constraint' => 11, 'default' => 0,),
-				'date_added' => array('type' => 'INT', 'constraint' => 11, 'default' => 0,),
-				'sort' => array('type' => 'INT', 'constraint' => 11, 'default' => 0,),
-			),
-			'file_folders' => array(
-				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
-				'parent_id' => array('type' => 'INT', 'constraint' => 11, 'null' => true, 'default' => 0,),
-				'slug' => array('type' => 'VARCHAR', 'constraint' => 100,),
-				'name' => array('type' => 'VARCHAR', 'constraint' => 50,),
-				'date_added' => array('type' => 'INT', 'constraint' => 11,),
-				'sort' => array('type' => 'INT', 'constraint' => 11, 'default' => 0,),
+				array(
+					'name' => 'files.files_title',
+					'uri' => 'admin/files',
+				),
 			),
 		);
-		$this->install_tables($tables);
-		
-		return TRUE;
+
+		if (function_exists('group_has_role') AND group_has_role('files', 'edit_file'))
+		{
+			$info['shortcuts'][] = array(
+				'name' => 'file_folders.create_title',
+				'uri' => 'admin/files/folders/create',
+				'class' => 'add folder-create'
+			);
+
+			$info['shortcuts'][] = array(
+				'name' => 'files.upload_title',
+				'uri' => 'admin/files/upload',
+				'class' => 'files-uploader'
+			);
+		}
+
+		return $info;
 	}
 
 	public function uninstall()
 	{
 		//it's a core module, lets keep it around
-		return FALSE;
+		return false;
 	}
 
 	public function upgrade($old_version)
 	{
 		// Your Upgrade Logic
-		return TRUE;
+		return true;
 	}
 
 	public function help()
 	{
 		// Return a string containing help info
-		return TRUE;
+		return true;
 	}
 }
-/* End of file details.php */

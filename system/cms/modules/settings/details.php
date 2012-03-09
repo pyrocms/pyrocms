@@ -4,6 +4,27 @@ class Module_Settings extends Module {
 
 	public $version = '1.0';
 
+	/**
+	 * The modules tables.
+	 *
+	 * @var array
+	 */
+	public $tables = array(
+		'settings' => array(
+			'slug' => array('type' => 'VARCHAR', 'constraint' => 30, 'primary' => true, 'unique' => true, 'key' => true),
+			'title' => array('type' => 'VARCHAR', 'constraint' => 100,),
+			'description' => array('type' => 'TEXT',),
+			'type' => array('type' => 'set', 'constraint' => array('text', 'textarea', 'password', 'select', 'select-multiple', 'radio', 'checkbox'),),
+			'default' => array('type' => 'TEXT',),
+			'value' => array('type' => 'TEXT',),
+			'options' => array('type' => 'VARCHAR', 'constraint' => 255,),
+			'is_required' => array('type' => 'INT', 'constraint' => 1,),
+			'is_gui' => array('type' => 'INT', 'constraint' => 1,),
+			'module' => array('type' => 'VARCHAR', 'constraint' => 50,),
+			'order' => array('type' => 'INT', 'constraint' => 10, 'default' => 0,),
+		),
+	);
+
 	public function info()
 	{
 		return array(
@@ -58,24 +79,11 @@ class Module_Settings extends Module {
 
 	public function install()
 	{
-		$this->dbforge->drop_table('settings');
-		$tables = array(	
-			'settings' => array(
-				'slug' => array('type' => 'VARCHAR', 'constraint' => 30, 'primary' => true, 'unique' => true, 'key' => 'index_slug'),
-				'title' => array('type' => 'VARCHAR', 'constraint' => 100,),
-				'description' => array('type' => 'TEXT',),
-				'type' => array('type' => 'set',  'constraint' => array('text','textarea','password','select','select-multiple','radio','checkbox'),),
-				'default' => array('type' => 'TEXT',),
-				'value' => array('type' => 'TEXT',),
-				'options' => array('type' => 'VARCHAR', 'constraint' => 255,),
-				'is_required' => array('type' => 'INT', 'constraint' => 1,),
-				'is_gui' => array('type' => 'INT', 'constraint' => 1,),
-				'module' => array('type' => 'VARCHAR', 'constraint' => 50,),
-				'order' => array('type' => 'INT', 'constraint' => 10, 'default' => 0,),
-			),
-		);
 
-		$this->install_tables($tables);
+		if ( ! parent::install())
+		{
+			return false;
+		}
 		
 		// Regarding ordering: any additions to this table can have an order 
 		// value the same as a sibling in the same section. For example if you 
@@ -676,21 +684,25 @@ class Module_Settings extends Module {
 		foreach ($settings as $slug=>$setting_info)
 		{
 			$setting_info['slug'] = $slug;
-			$this->db->insert('settings',$setting_info);
+			if ( ! $this->db->insert('settings',$setting_info)) 
+			{
+				return false;
+			}
 		}
-
+		
+		return true;
 	}
 
 	public function uninstall()
 	{
 		//it's a core module, lets keep it around
-		return FALSE;
+		return false;
 	}
 
 	public function upgrade($old_version)
 	{
 		// Your Upgrade Logic
-		return TRUE;
+		return true;
 	}
 
 	public function help()
@@ -700,4 +712,3 @@ class Module_Settings extends Module {
 		return "No documentation has been added for this module.";
 	}
 }
-/* End of file details.php */

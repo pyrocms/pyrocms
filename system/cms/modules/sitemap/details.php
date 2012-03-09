@@ -43,38 +43,28 @@ class Module_Sitemap extends Module {
 				'da' => 'Sitemapmodulet opretter et indeks over alle sider og et XML sitemap til søgemaskiner.',
 				'id' => 'Modul peta situs ini membuat indeks dari setiap halaman dan sebuah format XML untuk mempermudah mesin pencari.',
 			),
-			'frontend' => TRUE,
-			'backend' => FALSE,
+			'frontend' => true,
+			'backend' => false,
 			'menu' => 'content'
 		);
 	}
 
-	public function install()
-	{
-		return TRUE;
-	}
-
 	public function uninstall()
 	{
-		return TRUE;
+		return true;
 	}
 
 	public function upgrade($old_version)
 	{
 		// Your Upgrade Logic
-		return TRUE;
+		return true;
 	}
 
 	public function help()
 	{
-		return <<<EOF
-		
-		<h4>Overview</h4>
+		return '<h4>Overview</h4>
 		<p>The sitemap module automatically generates an index page and an XML file suitable for search crawlers.
 		See <a href="http://sitemaps.org">sitemaps.org</a> for more information.
-		</p>
-		
-EOF;
+		</p>';
 	}
 }
-/* End of file details.php */

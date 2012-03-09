@@ -4,6 +4,20 @@ class Module_Permissions extends Module {
 
 	public $version = '0.6';
 	
+	/**
+	 * The modules tables.
+	 *
+	 * @var array
+	 */
+	public $tables = array(
+		'permissions' => array(
+			'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
+			'group_id' => array('type' => 'INT', 'constraint' => 11, 'key' => true),
+			'module' => array('type' => 'VARCHAR', 'constraint' => 50,),
+			'roles' => array('type' => 'TEXT', 'null' => true,),
+		),
+	);
+	
 	public function info()
 	{
 		return array(
@@ -49,38 +63,21 @@ class Module_Permissions extends Module {
 				'da' => 'Kontroller hvilken type brugere der kan se bestemte sektioner på sitet.',
 				'id' => 'Mengontrol tipe pengguna mana yang dapat mengakses suatu bagian dalam situs.'
 			),
-			'frontend' => FALSE,
-			'backend'  => TRUE,
+			'frontend' => false,
+			'backend'  => true,
 			'menu'	  => 'users',
 		);
-	}
-	
-	public function install()
-	{
-		$this->dbforge->drop_table('permissions');
-
-		$tables = array(
-			'permissions' => array(
-				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
-				'group_id' => array('type' => 'INT', 'constraint' => 11, 'key' => true),
-				'module' => array('type' => 'VARCHAR', 'constraint' => 50,),
-				'roles' => array('type' => 'TEXT', 'null' => true,),
-			),
-		);
-
-		$this->install_tables($tables);
-		return TRUE;
 	}
 
 	public function uninstall()
 	{
 		//it's a core module, lets keep it around
-		return FALSE;
+		return false;
 	}
 
 	public function upgrade($old_version)
 	{
-		return TRUE;
+		return true;
 	}
 	
 	public function help()
@@ -94,5 +91,3 @@ class Module_Permissions extends Module {
 				by each module that you want users in that group to be able to access.</p>";
 	}
 }
-
-/* End of file details.php */

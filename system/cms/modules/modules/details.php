@@ -49,9 +49,9 @@ class Module_Modules extends Module {
 				'da' => 'Lader administratorer se en liste over de installerede moduler.',
 				'id' => 'Memperlihatkan kepada admin daftar modul yang terinstall.'
 			),
-			'frontend' => FALSE,
-			'backend'  => TRUE,
-			'menu'	  => FALSE,
+			'frontend' => false,
+			'backend'  => true,
+			'menu'	  => false,
 		);
 
 		// Check to make sure we're not running the installer or MSM. Then check perms
@@ -66,29 +66,23 @@ class Module_Modules extends Module {
 
 		return $info;
 	}
-	
-	public function install()
-	{
-		return TRUE;
-	}
 
 	public function uninstall()
 	{
 		//it's a core module, lets keep it around
-		return FALSE;
+		return false;
 	}
 
 	public function upgrade($old_version)
 	{
 		// Your Upgrade Logic
-		return TRUE;
+		return true;
 	}
 	
 	public function help()
 	{
 		// Return a string containing help info
 		// You could include a file and return it here.
-		return TRUE;
+		return true;
 	}
 }
-/* End of file details.php */

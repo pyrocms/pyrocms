@@ -4,7 +4,22 @@ class Module_Keywords extends Module {
 
 	public $version = '1.0';
 
-	public $_tables = array('keywords', 'keywords_applied');
+	/**
+	 * The modules tables.
+	 *
+	 * @var array
+	 */
+	public $tables = array(
+		'keywords' => array(
+			'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
+			'name' => array('type' => 'VARCHAR', 'constraint' => 50,),
+		),
+		'keywords_applied' => array(
+			'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
+			'hash' => array('type' => 'CHAR', 'constraint' => 32, 'default' => '',),
+			'keyword_id' => array('type' => 'INT', 'constraint' => 11,),
+		),
+	);
 	
 	public function info()
 	{
@@ -47,45 +62,22 @@ class Module_Keywords extends Module {
 		);
 	}
 
-	public function install()
-	{
-		$this->dbforge->drop_table('keywords');
-		$this->dbforge->drop_table('keywords_applied');
-
-		$tables = array(
-			'keywords' => array(
-				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
-				'name' => array('type' => 'VARCHAR', 'constraint' => 50,),
-			),
-			'keywords_applied' => array(
-				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
-				'hash' => array('type' => 'CHAR', 'constraint' => 32, 'default' => '',),
-				'keyword_id' => array('type' => 'INT', 'constraint' => 11,),
-			),
-		);
-		$this->install_tables($tables);
-		
-		return TRUE;
-	}
-
 	public function uninstall()
 	{
 		//it's a core module, lets keep it around
-		return FALSE;
+		return false;
 	}
 
 	public function upgrade($old_version)
 	{
 		// Your Upgrade Logic
-		return TRUE;
+		return true;
 	}
 
 	public function help()
 	{
 		// Return a string containing help info
 		// You could include a file and return it here.
-		return TRUE;
+		return true;
 	}
 }
-
-/* End of file details.php */

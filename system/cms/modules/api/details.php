@@ -46,11 +46,6 @@ class Module_Api extends Module
 		);
 	}
 
-	public function install()
-	{
-		return TRUE;
-	}
-
 	public function uninstall()
 	{
 		//it's a core module, lets keep it around

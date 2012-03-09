@@ -8,6 +8,54 @@ class Module_Pages extends Module {
 
 	public $version = '2.0';
 
+	/**
+	 * The modules tables.
+	 *
+	 * @var array
+	 */
+	public $tables = array(
+		'page_layouts' => array(
+			'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
+			'title' => array('type' => 'VARCHAR', 'constraint' => 60,),
+			'body' => array('type' => 'TEXT',),
+			'css' => array('type' => 'TEXT', 'null' => true,),
+			'js' => array('type' => 'TEXT', 'null' => true,),
+			'theme_layout' => array('type' => 'VARCHAR', 'constraint' => 100, 'default' => 'default',),
+			'updated_on' => array('type' => 'INT', 'constraint' => 11,),
+		),
+		'pages' => array(
+			'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
+			'slug' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '', 'key' => 'slug',),
+			'title' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '',),
+			'uri' => array('type' => 'TEXT', 'null' => true,),
+			'parent_id' => array('type' => 'INT', 'constraint' => 11, 'default' => 0, 'key' => 'parent_id',),
+			'revision_id' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '1',),
+			'layout_id' => array('type' => 'VARCHAR', 'constraint' => 255,),
+			'css' => array('type' => 'TEXT', 'null' => true,),
+			'js' => array('type' => 'TEXT', 'null' => true,),
+			'meta_title' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '',),
+			'meta_keywords' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '',),
+			'meta_description' => array('type' => 'TEXT', 'null' => true,),
+			'rss_enabled' => array('type' => 'INT', 'constraint' => 1, 'default' => 0,),
+			'comments_enabled' => array('type' => 'INT', 'constraint' => 1, 'default' => 0,),
+			'status' => array('type' => 'ENUM', 'constraint' => array('draft', 'live'), 'default' => 'draft',),
+			'created_on' => array('type' => 'INT', 'constraint' => 11, 'default' => 0),
+			'updated_on' => array('type' => 'INT', 'constraint' => 11, 'default' => 0),
+			'restricted_to' => array('type' => 'VARCHAR', 'constraint' => 255, 'null' => true,),
+			'is_home' => array('type' => 'INT', 'constraint' => 1, 'default' => 0,),
+			'order' => array('type' => 'INT', 'constraint' => 11, 'default' => 0),
+		),
+		'page_chunks' => array(
+			'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
+			'slug' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '',),
+			'page_id' => array('type' => 'INT', 'constraint' => 11,),
+			'body' => array('type' => 'TEXT',),
+			'parsed' => array('type' => 'TEXT',),
+			'type' => array('type' => 'SET', 'constraint' => array('html', 'markdown', 'wysiwyg-advanced', 'wysiwyg-simple'),),
+			'sort' => array('type' => 'INT', 'constraint' => 11,),
+		),
+	);
+	
 	public function info()
 	{
 		return array(
@@ -53,9 +101,9 @@ class Module_Pages extends Module {
 				'da' => 'Tilføj brugerdefinerede sider til dit site med det indhold du ønsker.',
 				'id' => 'Menambahkan halaman ke dalam situs dengan konten apapun yang Anda perlukan.'
 			),
-			'frontend' => TRUE,
-			'backend'  => TRUE,
-			'skip_xss' => TRUE,
+			'frontend' => true,
+			'backend'  => true,
+			'skip_xss' => true,
 			'menu'	  => 'content',
 
 			'roles' => array(
@@ -91,132 +139,98 @@ class Module_Pages extends Module {
 
 	public function install()
 	{
-		$this->dbforge->drop_table('page_chunks');
-		$this->dbforge->drop_table('page_layouts');
-		$this->dbforge->drop_table('pages');
-		$this->dbforge->drop_table('revisions');
 
-		$tables = array(
-			'page_layouts' => array(
-				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
-				'title' => array('type' => 'VARCHAR', 'constraint' => 60,),
-				'body' => array('type' => 'TEXT',),
-				'css' => array('type' => 'TEXT', 'null' => true,),
-				'js' => array('type' => 'TEXT', 'null' => true,),
-				'theme_layout' => array('type' => 'VARCHAR', 'constraint' => 100, 'default' => 'default',),
-				'updated_on' => array('type' => 'INT', 'constraint' => 11,),
-			),
-			'pages' => array(
-				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
-				'slug' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '', 'key' => 'slug',),
-				'title' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '',),
-				'uri' => array('type' => 'TEXT', 'null' => true,),
-				'parent_id' => array('type' => 'INT', 'constraint' => 11, 'default' => 0, 'key' => 'parent_id',),
-				'revision_id' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '1',),
-				'layout_id' => array('type' => 'VARCHAR', 'constraint' => 255,),
-				'css' => array('type' => 'TEXT', 'null' => true,),
-				'js' => array('type' => 'TEXT', 'null' => true,),
-				'meta_title' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '',),
-				'meta_keywords' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '',),
-				'meta_description' => array('type' => 'TEXT', 'null' => true,),
-				'rss_enabled' => array('type' => 'INT', 'constraint' => 1, 'default' => 0,),
-				'comments_enabled' => array('type' => 'INT', 'constraint' => 1, 'default' => 0,),
-				'status' => array('type' => 'ENUM', 'constraint' => array('draft', 'live'), 'default' => 'draft',),
-				'created_on' => array('type' => 'INT', 'constraint' => 11, 'default' => 0),
-				'updated_on' => array('type' => 'INT', 'constraint' => 11, 'default' => 0),
-				'restricted_to' => array('type' => 'VARCHAR', 'constraint' => 255, 'null' => true,),
-				'is_home' => array('type' => 'INT', 'constraint' => 1, 'default' => 0,),
-				'order' => array('type' => 'INT', 'constraint' => 11, 'default' => 0),
-			),
-			'page_chunks' => array(
-				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
-				'slug' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '',),
-				'page_id' => array('type' => 'INT', 'constraint' => 11,),
-				'body' => array('type' => 'TEXT',),
-				'parsed' => array('type' => 'TEXT',),
-				'type' => array('type' => 'SET', 'constraint' => array('html', 'markdown', 'wysiwyg-advanced', 'wysiwyg-simple'),),
-				'sort' => array('type' => 'INT', 'constraint' => 11,),
-			),
-		);
-		$this->install_tables($tables);
+		if ( ! parent::install())
+		{
+			return false;
+		}
 
 		// We will need to get now() later on.
 		$this->load->helper('date');
-		
-		//$this->load->model('pages/page_layouts_m');
-		$this->db->insert('page_layouts', array(
-			'id' => 1,
-			'title' => 'Default',
-			'body' => '<h2>{{ page:title }}</h2>\n\n\n{{ page:body }}',
-			'css' => '',
-			'js' => '',
-			'updated_on' => now(),
-		));
 
-		// The home page.
-		$this->db->insert('pages', array(
-			'slug' => 'home',
-			'title' => 'Home',
-			'uri' => 'home',
-			'revision_id' => 1,
-			'parent_id' => 0,
-			'layout_id' => 1,
-			'status' => 'live',
-			'restricted_to' => '',
-			'created_on' => now(),
-			'is_home' => 1,
-			'order' => now()
-		));
-		$this->db->insert('page_chunks', array(
-			'slug' => 'default',
-			'page_id' => 1,
-			'body' => '<p>Welcome to our homepage. We have not quite finished setting up our website yet, but please add us to your bookmarks and come back soon.</p>',
-			'parsed' => '',
-			'type' => 'wysiwyg-advanced',
-			'sort' => 1,
-		));
-		
-		// The 404 page.
-		$this->db->insert('pages', array(
-			'slug' => '404',
-			'title' => 'Page missing',
-			'uri' => '404',
-			'revision_id' => 1,
-			'parent_id' => 0,
-			'layout_id' => 1,
-			'status' => 'live',
-			'restricted_to' => '',
-			'created_on' => now(),
-			'is_home' => 1,
-			'order' => now()
-		));
-		$this->db->insert('page_chunks', array(
-			'slug' => 'default',
-			'page_id' => 2,
-			'body' => '<p>We cannot find the page you are looking for, please click <a title=\"Home\" href=\"{{ pages:url id=\'1\' }}\">here</a> to go to the homepage.</p>',
-			'parsed' => '',
-			'type' => 'wysiwyg-advanced',
-			'sort' => 1,
-		));
-		
-		// The 404 page.
-		$this->db->insert('pages', array(
-			'slug' => 'contact',
-			'title' => 'Contact',
-			'uri' => 'contact',
-			'revision_id' => 1,
-			'parent_id' => 0,
-			'layout_id' => 1,
-			'status' => 'live',
-			'restricted_to' => '',
-			'created_on' => now(),
-			'is_home' => 1,
-			'order' => now()
-		));
-		$this->db->insert('page_chunks', array(
-			'slug' => 'default',
-			'page_id' => 3,
-			'body' => '<p>To contact us please fill out the form below.</p>
+		// Insert the default pages now.
+		$default_page_layouts = array(
+			array(
+				'id' => 1,
+				'title' => 'Default',
+				'body' => '<h2>{{ page:title }}</h2>\n\n\n{{ page:body }}',
+				'css' => '',
+				'js' => '',
+				'updated_on' => now(),
+			)
+		);
+		if ( ! $this->batch_insert('page_layouts', $default_page_layouts))
+		{
+			return false;
+		}
+
+		$default_pages = array(
+			array(
+				'slug' => 'home',
+				'title' => 'Home',
+				'uri' => 'home',
+				'revision_id' => 1,
+				'parent_id' => 0,
+				'layout_id' => 1,
+				'status' => 'live',
+				'restricted_to' => '',
+				'created_on' => now(),
+				'is_home' => 1,
+				'order' => now()
+			), 
+			array(
+				'slug' => '404',
+				'title' => 'Page missing',
+				'uri' => '404',
+				'revision_id' => 1,
+				'parent_id' => 0,
+				'layout_id' => 1,
+				'status' => 'live',
+				'restricted_to' => '',
+				'created_on' => now(),
+				'is_home' => 1,
+				'order' => now()
+			),
+			array(
+				'slug' => 'contact',
+				'title' => 'Contact',
+				'uri' => 'contact',
+				'revision_id' => 1,
+				'parent_id' => 0,
+				'layout_id' => 1,
+				'status' => 'live',
+				'restricted_to' => '',
+				'created_on' => now(),
+				'is_home' => 1,
+				'order' => now()
+			)
+		);
+		if ( ! $this->batch_insert('pages', $default_pages))
+		{
+			return false;
+		}
+
+		$default_page_chunks = array(
+			array(
+				'slug' => 'default',
+				'page_id' => 1,
+				'body' => '<p>Welcome to our homepage. We have not quite finished setting up our website yet, but please add us to your bookmarks and come back soon.</p>',
+				'parsed' => '',
+				'type' => 'wysiwyg-advanced',
+				'sort' => 1,
+			),
+			array(
+				'slug' => 'default',
+				'page_id' => 2,
+				'body' => '<p>We cannot find the page you are looking for, please click <a title=\"Home\" href=\"{{ pages:url id=\'1\' }}\">here</a> to go to the homepage.</p>',
+				'parsed' => '',
+				'type' => 'wysiwyg-advanced',
+				'sort' => 1,
+			),
+			array(
+				'slug' => 'default',
+				'page_id' => 3,
+				'body' => '<p>To contact us please fill out the form below.</p>
 				{{ contact:form name=\"text|required\" email=\"text|required|valid_email\" subject=\"dropdown|Support|Sales|Feedback|Other\" message=\"textarea\" attachment=\"file|zip\" }}
 					<div><label for=\"name\">Name:</label>{{ name }}</div>
 					<div><label for=\"email\">Email:</label>{{ email }}</div>
@@ -224,24 +238,29 @@ class Module_Pages extends Module {
 					<div><label for=\"message\">Message:</label>{{ message }}</div>
 					<div><label for=\"attachment\">Attach  a zip file:</label>{{ attachment }}</div>
 				{{ /contact:form }}',
-			'parsed' => '',
-			'type' => 'wysiwyg-advanced',
-			'sort' => 1,
-		));
+				'parsed' => '',
+				'type' => 'wysiwyg-advanced',
+				'sort' => 1,
+			)
+		);
+		if ( ! $this->batch_insert('page_chunks', $default_page_chunks))
+		{
+			return false;
+		}
 
-		return TRUE;
+		return true;
 	}
 
 	public function uninstall()
 	{
 		//it's a core module, lets keep it around
-		return FALSE;
+		return false;
 	}
 
 	public function upgrade($old_version)
 	{
 		// Your Upgrade Logic
-		return TRUE;
+		return true;
 	}
 
 	public function help()
@@ -288,5 +307,3 @@ class Module_Pages extends Module {
 		Now you can apply css styling to the \"my-twitter-widget\" class in the CSS tab.</p>";
 	}
 }
-
-/* End of file details.php */
