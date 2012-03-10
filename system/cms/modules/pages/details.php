@@ -1,8 +1,10 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
+
 /**
- * 
- * @author		PyroCMS Dev Team
- * @package		PyroCMS\Core\Modules\Pages
+ * Pages Module
+ *
+ * @author PyroCMS Dev Team
+ * @package PyroCMS\Core\Modules\Pages
  */
 class Module_Pages extends Module {
 
@@ -12,50 +14,50 @@ class Module_Pages extends Module {
 	{
 		return array(
 			'name' => array(
-				'sl' => 'Strani',
 				'en' => 'Pages',
-				'nl' => 'Pagina&apos;s',
-				'es' => 'Páginas',
-				'fr' => 'Pages',
-				'de' => 'Seiten',
-				'pl' => 'Strony',
-				'br' => 'Páginas',
-				'zh' => '頁面',
-				'it' => 'Pagine',
-				'ru' => 'Страницы',
 				'ar' => 'الصفحات',
+				'br' => 'Páginas',
 				'cs' => 'Stránky',
-				'fi' => 'Sivut',
-				'el' => 'Σελίδες',
-				'he' => 'דפים',
-				'lt' => 'Puslapiai',
 				'da' => 'Sider',
-				'id' => 'Halaman'
+				'de' => 'Seiten',
+				'el' => 'Σελίδες',
+				'es' => 'Páginas',
+				'fi' => 'Sivut',
+				'fr' => 'Pages',
+				'he' => 'דפים',
+				'id' => 'Halaman',
+				'it' => 'Pagine',
+				'lt' => 'Puslapiai',
+				'nl' => 'Pagina&apos;s',
+				'pl' => 'Strony',
+				'ru' => 'Страницы',
+				'sl' => 'Strani',
+				'zh' => '頁面',
 			),
 			'description' => array(
-				'sl' => 'Dodaj stran s kakršno koli vsebino želite.',
 				'en' => 'Add custom pages to the site with any content you want.',
+				'ar' => 'إضافة صفحات مُخصّصة إلى الموقع تحتوي أية مُحتوى تريده.',
+				'br' => 'Adicionar páginas personalizadas ao site com qualquer conteúdo que você queira.',
+				'cs' => 'Přidávejte vlastní stránky na web s jakýmkoliv obsahem budete chtít.',
+				'da' => 'Tilføj brugerdefinerede sider til dit site med det indhold du ønsker.',
+				'de' => 'Füge eigene Seiten mit anpassbaren Inhalt hinzu.',
+				'el' => 'Προσθέστε και επεξεργαστείτε σελίδες στον ιστότοπό σας με ό,τι περιεχόμενο θέλετε.',
+				'es' => 'Agrega páginas customizadas al sitio con cualquier contenido que tu quieras.',
+				'fi' => 'Lisää mitä tahansa sisältöä sivustollesi.',
+				'fr' => "Permet d'ajouter sur le site des pages personalisées avec le contenu que vous souhaitez.",
+				'he' => 'ניהול דפי תוכן האתר',
+				'id' => 'Menambahkan halaman ke dalam situs dengan konten apapun yang Anda perlukan.',
+				'it' => 'Aggiungi pagine personalizzate al sito con qualsiesi contenuto tu voglia.',
+				'lt' => 'Pridėkite nuosavus puslapius betkokio turinio',
 				'nl' => "Voeg aangepaste pagina&apos;s met willekeurige inhoud aan de site toe.",
 				'pl' => 'Dodaj własne strony z dowolną treścią do witryny.',
-				'es' => 'Agrega páginas customizadas al sitio con cualquier contenido que tu quieras.',
-				'fr' => "Permet d'ajouter sur le site des pages personalisées avec le contenu que vous souhaitez.",
-				'de' => 'Füge eigene Seiten mit anpassbaren Inhalt hinzu.',
-				'br' => 'Adicionar páginas personalizadas ao site com qualquer conteúdo que você queira.',
-				'zh' => '為您的網站新增自定的頁面。',
-				'it' => 'Aggiungi pagine personalizzate al sito con qualsiesi contenuto tu voglia.',
 				'ru' => 'Управление информационными страницами сайта, с произвольным содержимым.',
-				'ar' => 'إضافة صفحات مُخصّصة إلى الموقع تحتوي أية مُحتوى تريده.',
-				'cs' => 'Přidávejte vlastní stránky na web s jakýmkoliv obsahem budete chtít.',
-				'fi' => 'Lisää mitä tahansa sisältöä sivustollesi.',
-				'el' => 'Προσθέστε και επεξεργαστείτε σελίδες στον ιστότοπό σας με ό,τι περιεχόμενο θέλετε.',
-				'he' => 'ניהול דפי תוכן האתר',
-				'lt' => 'Pridėkite nuosavus puslapius betkokio turinio',
-				'da' => 'Tilføj brugerdefinerede sider til dit site med det indhold du ønsker.',
-				'id' => 'Menambahkan halaman ke dalam situs dengan konten apapun yang Anda perlukan.'
+				'sl' => 'Dodaj stran s kakršno koli vsebino želite.',
+				'zh' => '為您的網站新增自定的頁面。',
 			),
-			'frontend' => TRUE,
-			'backend'  => TRUE,
-			'skip_xss' => TRUE,
+			'frontend' => true,
+			'backend'  => true,
+			'skip_xss' => true,
 			'menu'	  => 'content',
 
 			'roles' => array(
@@ -138,115 +140,136 @@ class Module_Pages extends Module {
 				'sort' => array('type' => 'INT', 'constraint' => 11,),
 			),
 		);
-		$this->install_tables($tables);
+		if ( ! $this->install_tables($tables))
+		{
+			return false;
+		}
 
 		// We will need to get now() later on.
 		$this->load->helper('date');
-		
-		//$this->load->model('pages/page_layouts_m');
-		$this->db->insert('page_layouts', array(
+
+		$default_page_layout = array(
 			'id' => 1,
 			'title' => 'Default',
-			'body' => '<h2>{{ page:title }}</h2>\n\n\n{{ page:body }}',
+			'body' => '<h2>{{ page:title }}</h2>{{ page:body }}',
 			'css' => '',
 			'js' => '',
 			'updated_on' => now(),
-		));
+		);
 
-		// The home page.
-		$this->db->insert('pages', array(
-			'slug' => 'home',
-			'title' => 'Home',
-			'uri' => 'home',
-			'revision_id' => 1,
-			'parent_id' => 0,
-			'layout_id' => 1,
-			'status' => 'live',
-			'restricted_to' => '',
-			'created_on' => now(),
-			'is_home' => 1,
-			'order' => now()
-		));
-		$this->db->insert('page_chunks', array(
-			'slug' => 'default',
-			'page_id' => 1,
-			'body' => '<p>Welcome to our homepage. We have not quite finished setting up our website yet, but please add us to your bookmarks and come back soon.</p>',
-			'parsed' => '',
-			'type' => 'wysiwyg-advanced',
-			'sort' => 1,
-		));
-		
-		// The 404 page.
-		$this->db->insert('pages', array(
-			'slug' => '404',
-			'title' => 'Page missing',
-			'uri' => '404',
-			'revision_id' => 1,
-			'parent_id' => 0,
-			'layout_id' => 1,
-			'status' => 'live',
-			'restricted_to' => '',
-			'created_on' => now(),
-			'is_home' => 1,
-			'order' => now()
-		));
-		$this->db->insert('page_chunks', array(
-			'slug' => 'default',
-			'page_id' => 2,
-			'body' => '<p>We cannot find the page you are looking for, please click <a title="Home" href="{{ pages:url id="1" }}">here</a> to go to the homepage.</p>',
-			'parsed' => '',
-			'type' => 'html',
-			'sort' => 1,
-		));
-		
-		// The 404 page.
-		$this->db->insert('pages', array(
-			'slug' => 'contact',
-			'title' => 'Contact',
-			'uri' => 'contact',
-			'revision_id' => 1,
-			'parent_id' => 0,
-			'layout_id' => 1,
-			'status' => 'live',
-			'restricted_to' => '',
-			'created_on' => now(),
-			'is_home' => 1,
-			'order' => now()
-		));
-		$this->db->insert('page_chunks', array(
-			'slug' => 'default',
-			'page_id' => 3,
-			'body' => '<p>To contact us please fill out the form below.</p>
-				{{ contact:form name="text|required" email="text|required|valid_email" subject="dropdown|Support|Sales|Feedback|Other" message="textarea" attachment="file|zip" }}
-					<div><label for="name">Name:</label>{{ name }}</div>
-					<div><label for="email">Email:</label>{{ email }}</div>
-					<div><label for="subject">Subject:</label>{{ subject }}</div>
-					<div><label for="message">Message:</label>{{ message }}</div>
-					<div><label for="attachment">Attach  a zip file:</label>{{ attachment }}</div>
-				{{ /contact:form }}',
-			'parsed' => '',
-			'type' => 'html',
-			'sort' => 1,
-		));
+		if ( ! $this->db->insert('page_layouts', $default_page_layout))
+		{
+			return false;
+		}
 
-		return TRUE;
+		$default_pages = array(
+			/* The home page. */
+			array(
+				'slug' => 'home',
+				'title' => 'Home',
+				'uri' => 'home',
+				'revision_id' => 1,
+				'parent_id' => 0,
+				'layout_id' => 1,
+				'status' => 'live',
+				'restricted_to' => '',
+				'created_on' => now(),
+				'is_home' => 1,
+				'order' => now()
+			),
+			/* The 404 page. */
+			array(
+				'slug' => '404',
+				'title' => 'Page missing',
+				'uri' => '404',
+				'revision_id' => 1,
+				'parent_id' => 0,
+				'layout_id' => 1,
+				'status' => 'live',
+				'restricted_to' => '',
+				'created_on' => now(),
+				'is_home' => 1,
+				'order' => now()
+			),
+			/* The contact page. */
+			array(
+				'slug' => 'contact',
+				'title' => 'Contact',
+				'uri' => 'contact',
+				'revision_id' => 1,
+				'parent_id' => 0,
+				'layout_id' => 1,
+				'status' => 'live',
+				'restricted_to' => '',
+				'created_on' => now(),
+				'is_home' => 1,
+				'order' => now()
+			),
+		);
+
+		foreach($default_pages as $page_chunk)
+		{
+			if ( ! $this->db->insert('pages', $page_chunk))
+			{
+				return false;
+			}
+		}
+
+		$default_page_chunks = array(
+			/* The home page chunk. */
+			array(
+				'slug' => 'default',
+				'page_id' => 1,
+				'body' => '<p>Welcome to our homepage. We have not quite finished setting up our website yet, but please add us to your bookmarks and come back soon.</p>',
+				'parsed' => '',
+				'type' => 'wysiwyg-advanced',
+				'sort' => 1,
+			),
+			/* The 404 page chunk. */
+			array(
+				'slug' => 'default',
+				'page_id' => 2,
+				'body' => '<p>We cannot find the page you are looking for, please click <a title="Home" href="{{ pages:url id="1" }}">here</a> to go to the homepage.</p>',
+				'parsed' => '',
+				'type' => 'html',
+				'sort' => 1,
+			),
+			/* The contact page chunk. */
+			array(
+				'slug' => 'default',
+				'page_id' => 3,
+				'body' => '<p>To contact us please fill out the form below.</p>
+					{{ contact:form name="text|required" email="text|required|valid_email" subject="dropdown|Support|Sales|Feedback|Other" message="textarea" attachment="file|zip" }}
+						<div><label for="name">Name:</label>{{ name }}</div>
+						<div><label for="email">Email:</label>{{ email }}</div>
+						<div><label for="subject">Subject:</label>{{ subject }}</div>
+						<div><label for="message">Message:</label>{{ message }}</div>
+						<div><label for="attachment">Attach  a zip file:</label>{{ attachment }}</div>
+					{{ /contact:form }}',
+				'parsed' => '',
+				'type' => 'html',
+				'sort' => 1,
+			),
+		);
+		foreach($default_page_chunks as $page_chunk)
+		{
+			if ( ! $this->db->insert('page_chunks', $page_chunk))
+			{
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 	public function uninstall()
 	{
-		//it's a core module, lets keep it around
-		return FALSE;
+		// This is a core module, lets keep it around.
+		return false;
 	}
 
 	public function upgrade($old_version)
 	{
-		// Your Upgrade Logic
-		return TRUE;
-	}
-
-	public function help()
-	{
-		// Nevermind, we have a help_lang.php
 		return true;
 	}
 }

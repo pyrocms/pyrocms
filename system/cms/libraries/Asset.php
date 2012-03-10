@@ -245,6 +245,16 @@ class Asset {
 	}
 
 	/**
+	 * Set the asset_url, to allow for CDN url's and such
+	 *
+	 * @param $path_key the url to use
+	 */
+	public static function set_url($url)
+	{
+		static::$asset_url = $url;
+	}
+
+	/**
 	 * Adds a group of assets. If a group of this name exists, the function returns.
 	 *
 	 * @param string $group_type 'js' or 'css'
