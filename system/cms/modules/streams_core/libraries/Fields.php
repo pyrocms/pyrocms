@@ -219,6 +219,18 @@ class Fields
 				}
 				else
 				{
+
+					// -------------------------------------
+					// Event: Post Insert Entry
+					// -------------------------------------
+
+					$trigger_data = array(
+						'entry_id'		=> $result_id,
+						'stream'		=> $this->data->stream
+					);
+
+					Events::trigger('streams_post_insert_entry', $trigger_data);
+
 					// -------------------------------------
 					// Send Emails
 					// -------------------------------------
@@ -250,6 +262,18 @@ class Fields
 				}
 				else
 				{
+
+					// -------------------------------------
+					// Event: Post Update Entry
+					// -------------------------------------
+
+					$trigger_data = array(
+						'entry_id'		=> $result_id,
+						'stream'		=> $this->data->stream
+					);
+
+					Events::trigger('streams_post_update_entry', $trigger_data);
+
 					// -------------------------------------
 					// Send Emails
 					// -------------------------------------
