@@ -45,8 +45,7 @@ class Field_relationship
 		
 		if ( ! $stream)
 		{
-			// @todo - languagize
-			return '<em>Related stream does not exist.</em>';
+			return '<em>'.$this->CI->lang->line('streams.relationship.doesnt_exist').'</em>';
 		}
 
 		$title_column = $stream->title_column;
@@ -61,6 +60,13 @@ class Field_relationship
 		$obj = $this->CI->db->get($stream->stream_prefix.$stream->stream_slug);
 		
 		$choices = array();
+
+		// If this is not required, then
+		// let's allow a null option
+		if ($field->is_required == 'no')
+		{
+			$choices[null] = $this->CI->config->item('dropdown_choose_null');
+		}
 		
 		foreach ($obj->result() as $row)
 		{
