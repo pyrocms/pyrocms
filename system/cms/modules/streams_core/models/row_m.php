@@ -106,6 +106,15 @@ class Row_m extends MY_Model {
 		extract($params, EXTR_OVERWRITE);
 
 		// -------------------------------------
+		// Set the site_ref
+		// -------------------------------------
+		// Allows you to use streams from other
+		// sites on a multi-site managed site.
+		// -------------------------------------
+
+		$this->db->set_dbprefix($site_ref.'_');
+
+		// -------------------------------------
 		// Get Data We'll Need
 		// -------------------------------------
 		
@@ -489,6 +498,7 @@ class Row_m extends MY_Model {
 		// Reset
 		$this->get_rows_hook = array();
 		$this->select_string = '';
+		$this->db->set_dbprefix(SITE_REF.'_');
 				
 		return $return;
 	}
