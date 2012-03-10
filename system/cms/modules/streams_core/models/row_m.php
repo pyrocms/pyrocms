@@ -51,10 +51,19 @@ class Row_m extends MY_Model {
 	/**
 	 * Cycle Select String
 	 *
+	 * Each of the arrays can also be a string,
+	 * in which case they will not be imploded.
+	 *
 	 * @access 	public
 	 * @var 	string
 	 */
-	public $select_string;
+	public $sql = array(
+		'select'	=> array(), 	// will be joined by ','
+		'where'		=> array(),		// will be joined by 'AND'
+		'from'		=> array(),		// array of tables
+		'order_by'	=> array(),		// will be joined by ','
+		'misc'		=> array()		// will be joined by line breaks
+	);
 	
 	// --------------------------------------------------------------------------
 			
@@ -159,19 +168,21 @@ class Row_m extends MY_Model {
 		
 		$this->data->stream = $stream;
 
-		$this->full_select_prefix = $this->db->dbprefix($stream->stream_prefix.$stream->stream_slug).'.';
-		$this->base_prefix = $stream->stream_prefix.$stream->stream_slug.'.';
+		$this->select_prefix 	= $this->db->dbprefix($stream->stream_prefix.$stream->stream_slug).'.';
 		
-		// Get your asses in the seats
-		$this->db->flush_cache();
-
 		// -------------------------------------
 		// Start Query Build
 		// -------------------------------------
 		
 		// We may build on this.
-		$this->select_string = $stream->stream_prefix.$stream->stream_slug.'.*';
+		$this->sql['select'][] = $this->db->dbprefix($stream->stream_prefix.$stream->stream_slug).'.*';
+
+		// -------------------------------------
+		// From
+		// -------------------------------------
 		
+		$this->sql['from'][] = $this->db->dbprefix($stream->stream_slug);
+
 		// -------------------------------------
 		// Get the day.
 		// For calendars and stuff
@@ -179,7 +190,7 @@ class Row_m extends MY_Model {
 
 		if (isset($get_day) and $get_day == true)
 		{
-			$this->select_string .= ', DAY('.$this->full_select_prefix.$date_by.') as pyrostreams_cal_day';
+			$this->sql['select'][] = 'DAY('.$this->select_prefix.$date_by.') as pyrostreams_cal_day';
 		}
 	
 		// -------------------------------------
@@ -203,45 +214,41 @@ class Row_m extends MY_Model {
 		}
 
 		// -------------------------------------
-		// Specialing Sorting
+		// Ordering and Sorting
 		// -------------------------------------
 
-		// Special provision for sort by random
 		if (isset($sort) and $sort == 'random')
 		{
-			$this->db->order_by('RAND()');
+			// If we are doing sort by random,
+			// it is a string since it is the only one
+			$this->sql['order_by'] = 'RAND()';
 		}
 		else
 		{
-			// Default Sort
+			// Default Sort. This should be set beforehand,
+			// but setting it here is a last resort
 			if ( ! isset($sort) or $sort == '')
 			{
-				$sort = 'asc';
+				$sort = 'ASC';
 			}
 	
-			// If we don't have an override, let's see what
-			// else we can sort by
+			// Other sorting options
 			if ( ! isset($order_by) or $order_by == '')
 			{
 				// Let's go with the stream setting now
 				// since there isn't an override	
-				if ($stream->sorting == 'title' and $stream->title_column != '')
+				if ($stream->sorting == 'title' and $stream->title_column)
 				{
-					$order_by = $stream->title_column;	
+					$this->sql['order_by'][] = $this->select_prefix.$stream->title_column.' '.strtoupper($sort);	
 				}
 				elseif ($stream->sorting == 'custom')
 				{
-					$order_by 	= 'ordering_count';
+					$this->sql['order_by'][] = $this->select_prefix.'ordering_count'.' '.strtoupper($sort);
 				}
 			}
-	
-			// -------------------------------------
-			// Order by
-			// -------------------------------------
-			
-			if (isset($order_by) and $order_by)
+			else
 			{
-				$this->db->order_by($this->base_prefix.$order_by, $sort);
+				$this->sql['order_by'][] = $this->select_prefix.$order_by.' '.strtoupper($sort);
 			}
 		}
 
@@ -249,7 +256,7 @@ class Row_m extends MY_Model {
 		// Exclude
 		// -------------------------------------
 		
-		// Do we have anything in the excludes that was can add?
+		// Do we have anything in the excludes that we can add?
 		if (isset($exclude_called) and $exclude_called == 'yes' and 
 			isset($this->called[$stream->stream_slug]) and ! empty($this->called[$stream->stream_slug]))
 		{
@@ -262,7 +269,7 @@ class Row_m extends MY_Model {
 			
 			foreach ($exclusions as $exclude_id)
 			{
-				$this->db->where($this->base_prefix.$exclude_by.' !=', $exclude_id);
+				$this->sql['where'][] = $this->select_prefix.$exclude_by.' !="'.$exclude_id.'"';
 			}
 		}
 
@@ -276,12 +283,12 @@ class Row_m extends MY_Model {
 			
 			foreach ($inclusions as $include_id)
 			{
-				$this->db->or_where($this->base_prefix.$include_by.' =', $include_id);
+				$this->sql['where'][] = $this->select_prefix.$include_by.' !='.$include_id;
 			}
 		}
 
 		// -------------------------------------
-		// Where
+		// Where (Legacy)
 		// -------------------------------------
 
 		if (isset($where) and $where)
@@ -293,39 +300,42 @@ class Row_m extends MY_Model {
 		
 			$where = str_replace($seg_markers, $seg_values, $where);
 			
-			$where_pieces = explode('|', $where);
+			$vals = explode('==', trim($w));
 			
-			foreach ($where_pieces as $w)
+			if (count($vals) == 2)
 			{
-				$vals = explode('==', trim($w));
-				
-				if (count($vals) == 2)
-				{
-					$this->db->where($this->base_prefix.$vals[0], $vals[1]);
-				}
+				$this->sql['where'][] = $this->select_prefix.$vals[0].' !='.$vals[1];
 			}
 		}
+
+		// -------------------------------------
+		// Where (Current)
+		// -------------------------------------
+
+		// @todo
 		
 		// -------------------------------------
 		// Show Upcoming
 		// -------------------------------------
-		
+		// @todo - check to see if this is a
+		// mysql date or a UNIX one.
+		// -------------------------------------
+
 		if (isset($show_upcoming) and $show_upcoming == 'no')
 		{
-			$upc_prefix = (count($this->db->ar_where) == 0 and count($this->db->ar_cache_where) == 0) ? '' : 'AND';
-			
-			$this->db->ar_where[] = $upc_prefix.' '.$this->db->_protect_identifiers($this->base_prefix.$date_by, false, true).' <= CURDATE()';
+			$this->sql['where'][] = $this->select_prefix.$date_by.' <= CURDATE()';
 		}
 
 		// -------------------------------------
 		// Show Past
 		// -------------------------------------
-		
+		// @todo - check to see if this is a
+		// mysql date or a UNIX one.
+		// -------------------------------------
+
 		if (isset($show_past) and $show_past == 'no')
 		{
-			$past_prefix = (count($this->db->ar_where) == 0 and count($this->db->ar_cache_where) == 0) ? '' : 'AND';
-			
-			$this->db->ar_where[] = $past_prefix.' '.$this->db->_protect_identifiers($this->base_prefix.$date_by, false, true).' >= CURDATE()';
+			$this->sql['where'][] = $this->select_prefix.$date_by.' >= CURDATE()';
 		}
 
 		// -------------------------------------
@@ -334,24 +344,24 @@ class Row_m extends MY_Model {
 		
 		if (isset($year) and is_numeric($year))
 		{
-			$this->db->where('YEAR('.$this->full_select_prefix.$date_by.')', $year);
+			$this->sql['where'][] = 'YEAR('.$this->select_prefix.$date_by.')='.$year;
 		}
 
 		if (isset($month) and is_numeric($month))
 		{
-			$this->db->where('MONTH('.$this->full_select_prefix.$date_by.')', $month);
+			$this->sql['where'][] = 'MONTH('.$this->select_prefix.$date_by.')='.$month;
 		}
 
 		if (isset($day) and is_numeric($day))
 		{
-			$this->db->where('DAY('.$this->full_select_prefix.$date_by.')', $day);
+			$this->sql['where'][] = 'DAY('.$this->select_prefix.$date_by.')='.$day;
 		}
 
 		// -------------------------------------
 		// Restrict User
 		// -------------------------------------
 		
-		if (isset($restrict_user))
+		if (isset($restrict_user) and $restrict_user)
 		{
 			if ($restrict_user != 'no')
 			{
@@ -372,37 +382,39 @@ class Row_m extends MY_Model {
 				else
 				{
 					// Looks like they might have put in a user's handle
-					$this->db->limit(1)->select('id')->where('username', $user);
-					$db_obj = $this->db->get('users');
+					$user = $this->db
+							->select('id')
+							->limit(1)
+							->where('username', $user)
+							->get('users');
 					
-					if ($db_obj->num_rows == 0)
-					{
-						// Whoops, no dice.
-						$restrict_user = 'no';
-					}
-					else
-					{
-						$user = $db_obj->row();
-						$restrict_user = $user->id;
-					}
+					$restrict_user = ($user) ? $user->id : 'no';
 				}
 			}
 		
 			if ($restrict_user != 'no' and is_numeric($restrict_user))
 			{
-				$this->db->where($this->full_select_prefix.'created_by', $restrict_user, false);
+				$this->sql['where'][] = $this->select_prefix.'created_by='.$restrict_user;
 			}
 		}
 
 		// -------------------------------------
-		// Get by ID & Single
+		// Get by ID
 		// -------------------------------------
 		
 		if (isset($id) and is_numeric($id))
 		{
-			$this->db->where($this->base_prefix.'id', $id);	
+			$this->sql['where'][] = $this->select_prefix.'id='.$id;
 			$limit = 1;
 		}
+
+		// -------------------------------------
+		// Single
+		// -------------------------------------
+		// I don't even know why this exists
+		// really, but it does make sure that
+		// limit is set to one.
+		// -------------------------------------
 
 		if (isset($single) and $single == 'yes')
 		{
@@ -427,53 +439,30 @@ class Row_m extends MY_Model {
 		// -------------------------------------
 		// Run Our Select
 		// -------------------------------------
-		
-		$this->db->select($this->select_string);		
 
+		$sql = $this->build_query($this->sql);
+		
 		// -------------------------------------
 		// Pagination
 		// -------------------------------------
 		
 		if (isset($paginate) and $paginate == 'yes')
 		{
-			// If we are paginating, then we 
-			// need to return the count based on all
-			// the shit we did above this.
-			// Check out this dumb hack.
-			$class_vars = get_class_vars('CI_DB_active_record');
+			// Run the query as is. It does not
+			// have limit/offset, so we can get the
+			// total num rows with the current
+			// parameters we have applie.
+			$return['pag_count'] = $this->db->query($sql)->num_rows();
 			
-			$tmp = array();
-			
-			foreach ($class_vars as $var => $val)
-			{
-				$tmp[$var] = $this->db->$var;
-			}
-			
-			$tmp_obj = $this->db->get($stream->stream_prefix.$stream->stream_slug);
-			
-			$return['pag_count'] = $tmp_obj->num_rows();
-			
-			// We basically just borrowed the class for a
-			// second and then put everything back.
-			// No one will be any the wiser!! Durrr!
-			foreach ($tmp as $v => $k)
-			{
-				$this->db->$v = $k;
-			}
-
-			// Set the offset
-			if ($this->uri->segment($pag_segment) == '')
-			{
-				$offset = 0;
-			}
-			else
-			{
-				$offset = $this->uri->segment($pag_segment);
-			}			
+			// Set the offset. Blank segment
+			// is a 0 offset.
+			$offset = $this->uri->segment($pag_segment, 0);
 		}
 
 		// -------------------------------------
-		// Offset
+		// Offset 
+		// -------------------------------------
+		// Just in case.
 		// -------------------------------------
 
 		if ( ! isset($offset))
@@ -482,23 +471,24 @@ class Row_m extends MY_Model {
 		}
 
 		// -------------------------------------
-		// Limit
+		// Limit & Offset
 		// -------------------------------------
 		
 		if (isset($limit) and is_numeric($limit))
 		{
-			$this->db->limit($limit, $offset);
+			$sql .= ' LIMIT '.$limit;
 		}
-		elseif (isset($offset) and is_numeric($offset))
+
+		if (isset($offset) and is_numeric($offset) and $offset != 0)
 		{
-			$this->db->offset($offset);
+			$sql .= ' OFFSET '.$offset;
 		}
 
 		// -------------------------------------
 		// Run the Get
 		// -------------------------------------
 		
-		$rows = $this->db->get($stream->stream_prefix.$stream->stream_slug)->result_array();
+		$rows = $this->db->query($sql)->result_array();
 
 		// -------------------------------------
 		// Partials
@@ -527,18 +517,115 @@ class Row_m extends MY_Model {
 		// Run formatting
 		// -------------------------------------
 				
-		$return['rows'] = $this->format_rows(
-									$rows,
-									$this->data->stream,
-									$disable
-								);
+		$return['rows'] = $this->format_rows($rows, $stream, $disable);
 		
 		// Reset
 		$this->get_rows_hook = array();
-		$this->select_string = '';
+		$this->sql = array();
 		$this->db->set_dbprefix(SITE_REF.'_');
 				
 		return $return;
+	}
+
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Build Query
+	 *
+	 * Does not do LIMIT/OFFSET since that will
+	 * be taken care of after pagination is 
+	 * calculated.
+	 */
+	public function build_query($sql)
+	{
+		// -------------------------------------
+		// Select
+		// -------------------------------------
+
+		if (is_string($this->sql['select']))
+		{
+			$select = $this->sql['select'];
+		}
+		else
+		{
+			$select = implode(', ', $this->sql['select']);
+		}
+		
+		// -------------------------------------
+		// From
+		// -------------------------------------
+
+		if (is_string($this->sql['from']))
+		{
+			$from = $this->sql['from'];
+		}
+		else
+		{
+			$from = implode(', ', $this->sql['from']);
+		}
+
+		// -------------------------------------
+		// Where
+		// -------------------------------------
+
+		if (is_string($this->sql['where']))
+		{
+			$where = $this->sql['where'];
+		}
+		else
+		{
+			$where = implode(' AND ', $this->sql['where']);
+		}
+
+		if ($where != '')
+		{
+			$where = 'WHERE '.$where;
+		}
+
+		// -------------------------------------
+		// Order By
+		// -------------------------------------
+		// If there is a RAND, make sure it
+		// is the only order by segment
+		// -------------------------------------
+
+		if (is_string($this->sql['order_by']))
+		{
+			$order_by = $this->sql['order_by'];
+		}
+		else
+		{
+			$order_by = implode(', ', $this->sql['order_by']);
+		}
+
+		if ($order_by)
+		{
+			$order_by = 'ORDER BY '.$order_by;
+		}
+
+		// -------------------------------------
+		// Misc
+		// -------------------------------------
+
+		if (is_string($this->sql['misc']))
+		{
+			$misc = $this->sql['misc'];
+		}
+		else
+		{
+			$misc = implode(' ', $this->sql['misc']);
+		}
+
+		// -------------------------------------
+		// Build Query
+		// -------------------------------------
+
+		return "SELECT {$select}
+		FROM {$from}
+		{$where}
+		{$misc}
+		{$order_by} ";
 	}
 
 	// --------------------------------------------------------------------------
