@@ -80,9 +80,12 @@ class Pages extends Public_Controller
 		$page = $url_segments !== NULL
 		
 			// Fetch this page from the database via cache
-			? $this->pyrocache->model('page_m', 'get_by_uri', array($url_segments))
+			? $this->pyrocache->model('page_m', 'get_by_uri', array($url_segments, TRUE))
 
 			: $this->pyrocache->model('page_m', 'get_home');
+
+		// the home page won't have a base uri
+		isset($page->base_uri) OR $page->base_uri = $url_segments;
 
 		// If page is missing or not live (and not an admin) show 404
 		if ( ! $page OR ($page->status == 'draft' AND ( ! isset($this->current_user->group) OR $this->current_user->group != 'admin')))
@@ -114,12 +117,14 @@ class Pages extends Public_Controller
 			// Are they logged in and an admin or a member of the correct group?
 			if ( ! $this->current_user OR (isset($this->current_user->group) AND $this->current_user->group != 'admin' AND ! in_array($this->current_user->group_id, $page->restricted_to)))
 			{
+				// send them to login but bring them back when they're done
 				redirect('users/login/'.(empty($url_segments) ? '' : implode('/', $url_segments)));
 			}
 		}
 
-		// Don't worry about breadcrumbs for 404 or restricted
-		elseif (count($url_segments) > 1)
+		// We want to use the valid uri from here on. Don't worry about segments passed by Streams or 
+		// similar. Also we don't worry about breadcrumbs for 404 or restricted
+		elseif ($url_segments = explode('/', $page->base_uri) AND count($url_segments) > 1)
 		{
 			// we dont care about the last one
 			array_pop($url_segments);
@@ -133,7 +138,7 @@ class Pages extends Public_Controller
 				{
 					$breadcrumb_segments[] = $segment;
 
-					$parents[] = $this->pyrocache->model('page_m', 'get_by_uri', array($breadcrumb_segments));
+					$parents[] = $this->pyrocache->model('page_m', 'get_by_uri', array($breadcrumb_segments, TRUE));
 				}
 
 				// Cache for next time
@@ -244,7 +249,7 @@ class Pages extends Public_Controller
 		$url_segments += array(preg_replace('/.rss$/', '', array_pop($url_segments)));
 		
 		// Fetch this page from the database via cache
-		$page = $this->pyrocache->model('page_m', 'get_by_uri', array($url_segments));
+		$page = $this->pyrocache->model('page_m', 'get_by_uri', array($url_segments, TRUE));
 		
 		// If page is missing or not live (and not an admin) show 404
 		if (empty($page) OR ($page->status == 'draft' AND $this->current_user->group !== 'admin') OR ! $page->rss_enabled)
