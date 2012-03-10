@@ -30,7 +30,7 @@ class Streams_cp extends CI_Driver {
 	 *						'confirm'	= true
 	 *				));
 	 * @param	[bool - setting this to true will take care of the $this->template business
-	 * @return	object
+	 * @return	mixed - void or string
 	 */
 	function entries_table($stream_slug, $namespace_slug, $pagination = null, $pagination_uri = null, $buttons = array(), $view_override = false)
 	{
@@ -70,10 +70,10 @@ class Streams_cp extends CI_Driver {
 			$this->template->append_metadata('<script type="text/javascript" language="javascript">var stream_id='.$this->data->stream->id.';var stream_offset='.$offset.';</script>');
 		
 			// We want to sort this
-		    //$this->template->append_js('entry_sorting.js', 'streams');
+		    //$this->template->append_js('module::entry_sorting.js');
 		    		      
 			// Comeon' Livequery! You're goin' in!
-			//$this->template->append_metadata( js('jquery.livequery.js', 'streams') );
+			//$this->template->append_js('module::jquery.livequery.js');
 		}*/
   
   		$data = array(
@@ -138,7 +138,7 @@ class Streams_cp extends CI_Driver {
 	 * @param	[bool - view override - setting this to true will build template]
 	 * @param	[array - extra params (see below)]
 	 * @param	[array - fields to skip]	 
-	 * @return	object
+	 * @return	mixed - void or string
 	 *
 	 * Extra parameters to pass in $extra array:
 	 *
@@ -185,5 +185,158 @@ class Streams_cp extends CI_Driver {
 		
 		$CI->template->build('admin/partials/blank_section', $CI->data);
 	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Custom Field Form
+	 *
+	 * Creates a custom field form.
+	 *
+	 * This allows you to easily create a form that users can
+	 * use to add new fields to a stream. They don't need to assign
+	 * them, this CP function takes care of that automatically.
+	 *
+	 * @access	public
+	 * @param	string - stream slug
+	 * @param	string - namespace
+	 * @param	[array - field types to include]
+	 * @param	[bool - view override - setting this to true will build template]
+	 * @return	mixed - void or string
+	 */
+	public function field_form($stream_slug, $namespace, $method = 'new', $assign_id = null, $include_types = array(), $view_override = false)
+	{
+		$CI = get_instance();
+		
+		$data = array();
+
+		// -------------------------------------
+		// Field Type Assets
+		// -------------------------------------
+		// These are assets field types may
+		// need when adding/editing fields
+		// -------------------------------------
+   		
+   		$CI->type->load_field_crud_assets();
+   		
+   		// -------------------------------------
+        
+        $data['method'] = $method;
+        
+        // Prep the fields
+        // @todo - implement include_types
+		$data['field_types'] = $CI->type->field_types_array(true);
+
+		// -------------------------------------
+		// Validation & Setup
+		// -------------------------------------
+		
+		// Manually add in the unique_field_slug callback
+		if ($method == 'new')
+		{
+			$CI->fields_m->fields_validation[1]['rules'] .= '|unique_field_slug[new]';
+		}
+		else
+		{
+			$CI->fields_m->fields_validation[1]['rules'] .= '|unique_field_slug['.$data['current_field']->field_slug.']';
+		}
+
+		$CI->streams_validation->set_rules($CI->fields_m->fields_validation);
+				
+		foreach ($this->fields_m->fields_validation as $field)
+		{
+			$key = $field['field'];
+			
+			if ( ! isset($_POST[$key]))
+			{
+				$data['field']->$key = $data['current_field']->$key;
+			}
+			else
+			{
+				$data['field']->$key = $CI->input->post($key);
+			}
+			
+			$key = null;
+		}
+			
+		$CI->streams_validation->set_rules($CI->fields_m->fields_validation);
+
+		// -------------------------------------
+		// Process Data
+		// -------------------------------------
+		
+		if ($CI->streams_validation->run())
+		{
+			if ($method == 'new')
+			{
+				if ( ! $CI->fields_m->insert_field(
+									$CI->input->post('field_name'),
+									$CI->input->post('field_slug'),
+									$CI->input->post('field_type'),
+									$namespace,
+									$CI->input->post()
+					))
+				{
+					$CI->session->set_flashdata('notice', lang('streams.save_field_error'));	
+				}
+				else
+				{
+					$CI->session->set_flashdata('success', lang('streams.field_add_success'));	
+				}
+			}
+			else
+			{
+				if ( ! $CI->fields_m->update_field(
+											$CI->fields_m->get_field($field_id),
+											$CI->input->post()
+										))
+				{
+					$CI->session->set_flashdata('notice', lang('streams.field_update_error'));	
+				}
+				else
+				{
+					$CI->session->set_flashdata('success', lang('streams.field_update_success'));	
+				}
+			}
 	
+			redirect('admin/streams/fields');
+		}
+
+		// -------------------------------------
+		// Parameter Fields
+		// -------------------------------------
+		
+		if( $this->input->post('field_type') and $this->input->post('field_type') != '')
+		{
+			if (isset($this->type->types->{$this->input->post('field_type')}))
+			{
+				// Get the type so we can use the custom params
+				$this->data->current_type = $this->type->types->{$this->input->post('field_type')};
+				
+				// Get our standard params
+				require_once(PYROSTEAMS_DIR.'libraries/Parameter_fields.php');
+				
+				$this->data->parameters = new Parameter_fields();
+				
+				$this->data->current_field->field_data = array();				
+				
+				if(isset($this->data->current_type->custom_parameters) and is_array($this->data->current_type->custom_parameters)):
+				
+					// Build items out of post data
+					foreach($this->data->current_type->custom_parameters as $param):
+					
+						$this->data->current_field->field_data[$param] = $this->input->post($param);
+					
+					endforeach;
+				
+				endif;
+			}
+		}
+
+		// -------------------------------------
+		
+		$CI->template
+        		->append_js('stream_field.js')
+				->build('admin/fields/form', $this->data);
+	}
 }

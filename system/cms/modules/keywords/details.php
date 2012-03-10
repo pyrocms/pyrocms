@@ -4,13 +4,15 @@ class Module_Keywords extends Module {
 
 	public $version = '1.0';
 
+	public $_tables = array('keywords', 'keywords_applied');
+	
 	public function info()
 	{
 		return array(
 			'name' => array(
 				'en' => 'Keywords',
 				'el' => 'Λέξεις Κλειδιά',
-                                'fr' => 'Mots-Clés',
+				'fr' => 'Mots-Clés',
 				'nl' => 'Sleutelwoorden',
 				'ar' => 'Keywords',
 				'br' => 'Palavras-chave',
@@ -22,7 +24,7 @@ class Module_Keywords extends Module {
 			'description' => array(
 				'en' => 'Maintain a central list of keywords to label and organize your content.',
 				'el' => 'Συντηρεί μια κεντρική λίστα από λέξεις κλειδιά για να οργανώνετε μέσω ετικετών το περιεχόμενό σας.',
-                                'fr' => 'Maintenir une liste centralisée de Mots-Clés pour libeller et organiser vos contenus.',
+				'fr' => 'Maintenir une liste centralisée de Mots-Clés pour libeller et organiser vos contenus.',
 				'nl' => 'Beheer een centrale lijst van sleutelwoorden om uw content te categoriseren en organiseren.',
 				'ar' => 'Maintain a central list of keywords to label and organize your content.',
 				'br' => 'Mantém uma lista central de palavras-chave para rotular e organizar o seu conteúdo.',
@@ -50,27 +52,20 @@ class Module_Keywords extends Module {
 		$this->dbforge->drop_table('keywords');
 		$this->dbforge->drop_table('keywords_applied');
 
-		$keywords = "
-			CREATE TABLE " . $this->db->dbprefix('keywords') . " (
-			  `id` int unsigned NOT NULL AUTO_INCREMENT,
-			  `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-			  PRIMARY KEY (`id`)
-			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-		";
+		$tables = array(
+			'keywords' => array(
+				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
+				'name' => array('type' => 'VARCHAR', 'constraint' => 50,),
+			),
+			'keywords_applied' => array(
+				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
+				'hash' => array('type' => 'CHAR', 'constraint' => 32, 'default' => '',),
+				'keyword_id' => array('type' => 'INT', 'constraint' => 11,),
+			),
+		);
+		$this->install_tables($tables);
 		
-		$keywords_applied = "
-			CREATE TABLE " . $this->db->dbprefix('keywords_applied') . " (
-			  `id` int unsigned NOT NULL AUTO_INCREMENT,
-			  `hash` char(32) NOT NULL,
-			  `keyword_id` int unsigned COLLATE utf8_unicode_ci NOT NULL,
-			  PRIMARY KEY (`id`)
-			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-		";
-
-		if ($this->db->query($keywords) && $this->db->query($keywords_applied))
-		{
-			return TRUE;
-		}
+		return TRUE;
 	}
 
 	public function uninstall()

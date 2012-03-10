@@ -77,25 +77,22 @@ class Module_Themes extends Module {
 	{
 		$this->dbforge->drop_table('theme_options');
 
-		$theme_options = "
-			CREATE TABLE " . $this->db->dbprefix('theme_options') . " (
-			  `id` int(5) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
-			  `slug` varchar(30) collate utf8_unicode_ci NOT NULL,
-			  `title` varchar(100) collate utf8_unicode_ci NOT NULL,
-			  `description` text collate utf8_unicode_ci NOT NULL,
-			  `type` set('text','textarea','password','select','select-multiple','radio','checkbox') collate utf8_unicode_ci NOT NULL,
-			  `default` varchar(255) collate utf8_unicode_ci NOT NULL,
-			  `value` varchar(255) collate utf8_unicode_ci NOT NULL,
-			  `options` varchar(255) collate utf8_unicode_ci NOT NULL,
-			  `is_required` tinyint(1) NOT NULL,
-			  `theme` varchar(50) collate utf8_unicode_ci NOT NULL
-			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Stores theme options.';
-		";
+		$tables = array(
+			'theme_options' => array(
+				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
+				'slug' => array('type' => 'VARCHAR', 'constraint' => 30,),
+				'title' => array('type' => 'VARCHAR', 'constraint' => 100,),
+				'description' => array('type' => 'TEXT', 'constraint' => 100,),
+				'type' => array('type' => 'set', 'constraint' => array('text', 'textarea', 'password', 'select', 'select-multiple', 'radio', 'checkbox')),
+				'default' => array('type' => 'VARCHAR', 'constraint' => 255,),
+				'value' => array('type' => 'VARCHAR', 'constraint' => 255,),
+				'options' => array('type' => 'VARCHAR', 'constraint' => 255,),
+				'is_required' => array('type' => 'INT', 'constraint' => 1,),
+				'theme' => array('type' => 'VARCHAR', 'constraint' => 50,),
+			),
+		);
 
-		if ($this->db->query($theme_options))
-		{
-			return TRUE;
-		}
+		$this->install_tables($tables);
 	}
 
 	public function uninstall()

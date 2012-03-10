@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-$lang['global:control-panel'] 						= 'Admin-Oberfläche';
+$lang['global:control-panel'] 			= 'Admin-Oberfläche';
 $lang['global:profile']					= 'Profile'; #translate
 
 $lang['title_label'] 					= 'Titel';
@@ -15,13 +15,13 @@ $lang['dialog.confirm'] 				= 'Bestätigen';
 $lang['dialog.yes'] 					= 'Ja';
 $lang['dialog.no'] 						= 'Nein';
 
-$lang['global:select-none'] 					= '-- Keine --';
-$lang['global:select-all'] 					= '-- Alle --';
-$lang['global:select-any'] 					= '-- Eines --';
-$lang['global:select-pick']			 		= '-- Auswählen --';
+$lang['global:select-none'] 			= '-- Keine --';
+$lang['global:select-all'] 				= '-- Alle --';
+$lang['global:select-any'] 				= '-- Eines --';
+$lang['global:select-pick']			 	= '-- Auswählen --';
 
-$lang['global:check-none'] 					= 'Keine';
-$lang['global:check-all']						= 'Alle';
+$lang['global:check-none'] 				= 'Keine';
+$lang['global:check-all']				= 'Alle';
 
 $lang['operators.equal'] 				= 'Gleicht';
 $lang['operators.not_equal'] 			= 'Gleicht nicht';
@@ -65,7 +65,7 @@ $lang['upload_label'] 					= 'Hochladen';
 $lang['global:uninstall'] 				= 'Deinstallieren';
 $lang['global:install'] 					= 'Installieren';
 $lang['global:enable']					= 'Aktivieren';
-$lang['global:disable'] 					= 'Deaktivieren';
+$lang['global:disable'] 				= 'Deaktivieren';
 
 $lang['all_right_reserved']				= 'All Rights Reserved.';  #translate
 $lang['powered_by_pyrocms']				= 'Powered by PyroCMS';  #translate

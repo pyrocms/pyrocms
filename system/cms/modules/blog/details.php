@@ -80,46 +80,35 @@ class Module_Blog extends Module {
 	{
 		$this->dbforge->drop_table('blog_categories');
 		$this->dbforge->drop_table('blog');
+		
+		$tables = array(
+			'blog_categories' => array(
+				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
+				'slug' => array('type' => 'VARCHAR', 'constraint' => 20, 'default' => '', 'unique' => true, 'key' => true,),
+				'title' => array('type' => 'VARCHAR', 'constraint' => 20, 'default' => '', 'unique' => true,),
+			),
+			'blog' => array(
+				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
+				'title' => array('type' => 'VARCHAR', 'constraint' => 100, 'default' => '', 'unique' => true,),
+				'slug' => array('type' => 'VARCHAR', 'constraint' => 100, 'default' => '',),
+				'category_id' => array('type' => 'INT', 'constraint' => 11, 'key' => true,),
+				'attachment' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '',),
+				'intro' => array('type' => 'TEXT',),
+				'body' => array('type' => 'TEXT',),
+				'parsed' => array('type' => 'TEXT',),
+				'keywords' => array('type' => 'VARCHAR', 'constraint' => 32, 'default' => '',),
+				'author_id' => array('type' => 'INT', 'constraint' => 11, 'default' => 0,),
+				'created_on' => array('type' => 'INT', 'constraint' => 11,),
+				'updated_on' => array('type' => 'INT', 'constraint' => 11, 'default' => 0,),
+				'comments_enabled' => array('type' => 'INT', 'constraint' => 1, 'default' => 1,),
+				'status' => array('type' => 'ENUM', 'constraint' => array('draft', 'live'), 'default' => 'draft',),
+				'type' => array('type' => 'SET', 'constraint' => array('html', 'markdown', 'wysiwyg-advanced', 'wysiwyg-simple')),
+			),
+		);
 
-		$blog_categories = "
-			CREATE TABLE " . $this->db->dbprefix('blog_categories') . " (
-			  `id` int(11) NOT NULL auto_increment,
-			  `slug` varchar(20) collate utf8_unicode_ci NOT NULL default '',
-			  `title` varchar(20) collate utf8_unicode_ci NOT NULL default '',
-			  PRIMARY KEY  (`id`),
-			  UNIQUE KEY `slug - unique` (`slug`),
-			  UNIQUE KEY `title - unique` (`title`),
-			  KEY `slug - normal` (`slug`)
-			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Blog Categories.';
-		";
+		$this->install_tables($tables);
 
-		$blog = "
-			CREATE TABLE " . $this->db->dbprefix('blog') . " (
-			  `id` int(11) NOT NULL auto_increment,
-			  `title` varchar(100) collate utf8_unicode_ci NOT NULL default '',
-			  `slug` varchar(100) collate utf8_unicode_ci NOT NULL default '',
-			  `category_id` int(11) NOT NULL,
-			  `attachment` varchar(255) collate utf8_unicode_ci NOT NULL default '',
-			  `intro` text collate utf8_unicode_ci NOT NULL,
-			  `body` text collate utf8_unicode_ci NOT NULL,
-			  `parsed` text collate utf8_unicode_ci NOT NULL,
-			  `keywords` varchar(32) NOT NULL default '',
-			  `author_id` int(11) NOT NULL default '0',
-			  `created_on` int(11) NOT NULL,
-			  `updated_on` int(11) NOT NULL default 0,
-              `comments_enabled` INT(1)  NOT NULL default '1',
-			  `status` enum('draft','live') collate utf8_unicode_ci NOT NULL default 'draft',
-			  `type` set('html','markdown','wysiwyg-advanced','wysiwyg-simple') collate utf8_unicode_ci NOT NULL,
-			  PRIMARY KEY  (`id`),
-			  UNIQUE KEY `title` (`title`),
-			  KEY `category_id - normal` (`category_id`)
-			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Blog posts.';
-		";
-
-		if ($this->db->query($blog_categories) && $this->db->query($blog))
-		{
-			return TRUE;
-		}
+		return TRUE;
 	}
 
 	public function uninstall()
