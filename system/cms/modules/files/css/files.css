@@ -22,6 +22,7 @@
 .folders-right li .name-text input { width: 92px; margin: 0; padding: 0; background: transparent; border: none; margin: 0; padding: 0; text-align: center; }
 
 .folders-right .file { width: 100px; height: 112px; margin: 10px; overflow: hidden; float: left; }
+.folders-right .file.selected { background-color: #e0e0e0; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; }
 .folders-right .file .name-text { margin-top: 83px; }
 .folders-right .file.type-a { background-image: url(../img/a.png); }
 .folders-right .file.type-d { background-image: url(../img/d.png); }

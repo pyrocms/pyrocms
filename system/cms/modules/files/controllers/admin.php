@@ -27,6 +27,7 @@ class Admin extends Admin_Controller {
 			'file_m',
 			'file_folders_m'
 		));
+		$this->_path = config_item('files:path');
 
 		$this->template->append_metadata(
 			"<script>
@@ -59,6 +60,8 @@ class Admin extends Admin_Controller {
 		$data->folder_tree = Files::folder_tree();
 
 		$data->admin =& $this;
+
+		is_really_writable($this->_path) OR $data->messages['error'] = sprintf(lang('files:unwritable'), $this->_path);
 
 		$this->template
 			->title($this->module_details['name'])

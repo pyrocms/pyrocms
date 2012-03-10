@@ -66,6 +66,7 @@ $lang['files:container_exists']				= '"%s" exists. Save to link its contents to 
 $lang['files:container_not_exists']			= '"%s" does not exist. Save and it will be created';
 $lang['files:error_container_exists']		= '"%s" already exists so cannot be created';
 $lang['files:container_created']			= '"%s" has been created';
+$lang['files:unwritable']					= '"%s" is unwritable, please set its permissions to 0777';
 
 // Files
 $lang['files:file_uploaded']				= '"%s" has been uploaded';
