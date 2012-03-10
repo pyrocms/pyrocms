@@ -13,13 +13,10 @@ class Module_Streams_core extends Module {
 
 	public $version = '0.9';
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Module Info
 	 *
-	 * @access	public
-	 * @return	array
+	 * @return array
 	 */
 	public function info()
 	{
@@ -34,26 +31,26 @@ class Module_Streams_core extends Module {
 				'fr' => 'Noyau de données pour les Flux.',
 				'el' => 'Προγραμματιστικός πυρήνας για την λειτουργία ροών δεδομένων.',
 			),
-			'frontend' => FALSE,
-			'backend' => FALSE,
+			'frontend' => false,
+			'backend' => false,
 			'author' => 'Parse19'
 		);
 	}
-	
-	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Install PyroStreams Core Tables
 	 *
-	 * @access	public
-	 * @return	bool
+	 * @return bool
 	 */
 	public function install()
 	{
 		$config = $this->_load_config();
-		
-		if ($config === false) return false;
-	
+
+		if ($config === false)
+		{
+			return false;
+		}
+
 		// Go through our schema and make sure
 		// all the tables are complete.
 		foreach ($config['streams:schema'] as $table_name => $schema)
@@ -63,19 +60,19 @@ class Module_Streams_core extends Module {
 			if( ! $this->db->table_exists($table_name))
 			{
 				$this->dbforge->add_field($schema['fields']);
-	
+
 				// Add keys
 				if(isset($schema['keys']) and ! empty($schema['keys']))
 				{
-					$this->dbforge->add_key($schema['keys']);	
+					$this->dbforge->add_key($schema['keys']);
 				}
-	
+
 				// Add primary key
 				if(isset($schema['primary_key']))
 				{
 					$this->dbforge->add_key($schema['primary_key'], true);
 				}
-	
+
 				$this->dbforge->create_table($table_name);
 			}
 			else
@@ -85,7 +82,7 @@ class Module_Streams_core extends Module {
 					// If a field does not exist, then create it.
 					if ( ! $this->db->field_exists($field_name, $table_name))
 					{
-						$this->dbforge->add_column($table_name, array($field_name => $field_data));	
+						$this->dbforge->add_column($table_name, array($field_name => $field_data));
 					}
 					else
 					{
@@ -96,51 +93,49 @@ class Module_Streams_core extends Module {
 				}
 			}
 		}
-		
+
 		return true;
 	}
 
-	// --------------------------------------------------------------------------
-	
 	/**
 	 * Uninstall Streams Core
 	 *
-	 * This is a very dangerous function. It removes
-	 * the core streams tables so watch out.
+	 * This is a very dangerous function. It removes the core streams tables so
+	 * watch out.
 	 *
-	 * @access	public
-	 * @return	bool
+	 * @return bool
 	 */
 	public function uninstall()
 	{
 		$config = $this->_load_config();
-		
-		if ($config === false) return false;
+
+		if ($config === false)
+		{
+			return false;
+		}
 
 		// Go through our schema and drop each table
 		foreach ($config['streams:schema'] as $table_name => $schema)
 		{
-			if ( ! $this->dbforge->drop_table($table_name)) return false;
+			if ( ! $this->dbforge->drop_table($table_name))
+			{
+				return false;
+			}
 		}
-		
-		return TRUE;
+
+		return true;
 	}
 
-	// --------------------------------------------------------------------------
-	
+
 	public function upgrade($old_version)
 	{
 		return true;
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
-	 * Manually load config that has all
-	 * of our streams table data.
+	 * Manually load config that has all of our streams table data.
 	 *
-	 * @access	private
-	 * @return	mixed - FALSE or config array
+	 * @return mixed False or the config array
 	 */
 	private function _load_config()
 	{

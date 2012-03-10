@@ -2,7 +2,8 @@
 
 /**
  * API module
- * 
+ *
+ * @author PyroCMS Dev Team
  * @package PyroCMS\Core\Modules\API
  */
 class Module_Api extends Module
@@ -48,28 +49,18 @@ class Module_Api extends Module
 
 	public function install()
 	{
-		return TRUE;
+		return true;
 	}
 
 	public function uninstall()
 	{
-		//it's a core module, lets keep it around
-		return FALSE;
+		// This is a core module, lets keep it around.
+		return false;
 	}
 
 	public function upgrade($old_version)
 	{
-		// Your Upgrade Logic
-		return TRUE;
-	}
-
-	public function help()
-	{
-		// Return a string containing help info
-		// You could include a file and return it here.
-		return "No documentation has been added for this module.";
+		return true;
 	}
 
 }
-
-/* End of file details.php */
