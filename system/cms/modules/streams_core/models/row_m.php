@@ -11,23 +11,71 @@
  */
 class Row_m extends MY_Model {
 
+	/**
+	 * Field Types to Ignore
+	 *
+	 * An array of the default columns
+	 * that are created in every stream table
+	 * that we don't need to include in
+	 * some processes.
+	 *
+	 * @access 	public
+	 * @var 	array
+	 */
 	public $ignore = array('id', 'created', 'updated', 'created_by');
-	
+
+	// --------------------------------------------------------------------------
+				
+	/**
+	 * Cycle Select String
+	 *
+	 * @access 	public
+	 * @var 	string
+	 */
 	public $data;
-	
-	public $cycle_defaults = array(
-	
-		'exclude_by'		=> 'id',
-		'include_by'		=> 'id'
-	
-	);
-	
+
+	// --------------------------------------------------------------------------
+		
+	/**
+	 * Base Prefix
+	 *
+	 * Convenience Var
+	 *
+	 * @access 	public
+	 * @var 	string
+	 */
 	public $base_prefix;
-	
+
+	// --------------------------------------------------------------------------
+			
+	/**
+	 * Cycle Select String
+	 *
+	 * @access 	public
+	 * @var 	string
+	 */
 	public $select_string;
 	
+	// --------------------------------------------------------------------------
+			
+	/**
+	 * All fields (so we don't have)
+	 * to keep grabbing them from
+	 * the database.
+	 *
+	 * @access 	public
+	 * @var 	obj
+	 */
 	public $all_fields;
 	
+	// --------------------------------------------------------------------------
+			
+	/**
+	 * Streams structure
+	 *
+	 * @access 	public
+	 * @var 	array
+	 */
 	public $structure;
 	
 	// --------------------------------------------------------------------------
@@ -44,7 +92,8 @@ class Row_m extends MY_Model {
 	/**
 	 * Hook for get_rows
 	 *
-	 * array($obj, $method_name)
+	 * @param 	public
+	 * @var 	array($obj, $method_name)
 	 */
 	public $get_rows_hook 	= array();
 
@@ -82,23 +131,11 @@ class Row_m extends MY_Model {
 		$this->structure = $this->gather_structure();
 	
 		// So we don't get things confused
-		if(isset($params['stream'])) unset($params['stream']);
-
-		// -------------------------------------
-		// Set our defaults
-		// While many items check if they are set,
-		// we can set defaults with the cycyle_defaults
-		// class array
-		// -------------------------------------
-	
-		foreach ($this->cycle_defaults as $key => $value)
+		if (isset($params['stream']))
 		{
-			if ( ! isset($params[$key]))
-			{
-				$params[$key] = $value;
-			}
+			unset($params['stream']);
 		}
-	
+
 		// -------------------------------------
 		// Extract Our Params
 		// -------------------------------------
@@ -117,12 +154,11 @@ class Row_m extends MY_Model {
 		$this->db->set_dbprefix($site_ref.'_');
 
 		// -------------------------------------
-		// Get Data We'll Need
+		// Convenience Vars
 		// -------------------------------------
 		
 		$this->data->stream = $stream;
 
-		//Just for sanity's sake
 		$this->full_select_prefix = $this->db->dbprefix($stream->stream_prefix.$stream->stream_slug).'.';
 		$this->base_prefix = $stream->stream_prefix.$stream->stream_slug.'.';
 		
@@ -759,6 +795,7 @@ class Row_m extends MY_Model {
 
 		// -------------------------------------
 		// Run through alt processes
+		// -------------------------------------
 		// If this is not a plugin call, we just
 		// need to get the alt processes and
 		// add them to the row for display
