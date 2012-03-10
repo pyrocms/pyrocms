@@ -26,7 +26,7 @@ $config['base_url']	= '';
 | variable so that it is blank.
 |
 */
-$config['index_page'] = '';
+$config['index_page'] = 'index.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -325,6 +325,18 @@ $config['csrf_exclude_uris'] = array();
 |
 */
 $config['compress_output'] = FALSE;
+
+/*
+|--------------------------------------------------------------------------
+| Minify
+|--------------------------------------------------------------------------
+|
+| Removes extra characters (usually unnecessary spaces) from your
+| output for faster page load speeds.  Makes your outputted HTML source
+| code less readable.
+|
+*/
+$config['minify_output'] = (ENVIRONMENT !== PYRO_DEVELOPMENT); // only do this on
 
 /*
 |--------------------------------------------------------------------------
