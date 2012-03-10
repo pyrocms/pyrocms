@@ -147,7 +147,7 @@ class Module_Pages extends Module {
 		$this->db->insert('page_layouts', array(
 			'id' => 1,
 			'title' => 'Default',
-			'body' => '<h2>{{ page:title }}</h2>\n\n\n{{ page:body }}',
+			'body' => '<h2>{{ page:title }}</h2>{{ page:body }}',
 			'css' => '',
 			'js' => '',
 			'updated_on' => now(),

@@ -96,19 +96,37 @@ class Plugin_Pages extends Plugin
 	 */
 	public function children()
 	{
-		$limit 			= $this->attribute('limit');
-		$order_by 		= $this->attribute('order-by', 'title');
-		$order_dir		= $this->attribute('order-dir', 'ASC');
+
+		$limit = $this->attribute('limit', 10);
+		$order_by 	= $this->attribute('order-by', 'title');
+		$order_dir	= $this->attribute('order-dir', 'ASC');
 		
-		return $this->db
-			->select('pages.*, page_chunks.body')
+		$pages = $this->db->select('pages.*')
 			->where('pages.parent_id', $this->attribute('id'))
 			->where('status', 'live')
 			->order_by($order_by, $order_dir)
-			->join('page_chunks', 'pages.id = page_chunks.page_id', 'LEFT')
 			->limit($limit)
 			->get('pages')
 			->result_array();
+
+		if ($pages)
+		{
+			foreach ($pages AS &$page)
+			{
+				// Grab all the chunks that make up the body for this page
+				$page['chunks'] = $this->db->get_where('page_chunks', array('page_id' => $page['id']))->result();
+				
+				$page['body'] = '';
+				foreach ($page['chunks'] as $chunk)
+				{
+					$page['body'] .= 	'<div class="page-chunk ' . $chunk->slug . '">' .
+											(($chunk->type == 'markdown') ? $chunk->parsed : $chunk->body) .
+										'</div>'.PHP_EOL;
+				}
+			}
+		}
+
+		return $pages;
 	}
 
 	// --------------------------------------------------------------------------
