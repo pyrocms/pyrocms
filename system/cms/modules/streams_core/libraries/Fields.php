@@ -226,7 +226,7 @@ class Fields
 
 					$trigger_data = array(
 						'entry_id'		=> $result_id,
-						'stream'		=> $this->data->stream
+						'stream'		=> $stream
 					);
 
 					Events::trigger('streams_post_insert_entry', $trigger_data);
@@ -269,7 +269,7 @@ class Fields
 
 					$trigger_data = array(
 						'entry_id'		=> $result_id,
-						'stream'		=> $this->data->stream
+						'stream'		=> $stream
 					);
 
 					Events::trigger('streams_post_update_entry', $trigger_data);
