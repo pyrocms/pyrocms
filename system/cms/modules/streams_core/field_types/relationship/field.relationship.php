@@ -86,15 +86,20 @@ class Field_relationship
 	 * @access	public
 	 * @return	string
 	 */
-	public function param_choose_stream($stream_id = FALSE)
+	public function param_choose_stream($stream_id = false)
 	{
-		$this->CI = get_instance();
-		
-		$streams = $this->CI->db->select('id, stream_name')->get('data_streams')->result();
+		$choices = array();
+
+		// Now get our streams and add them
+		// under their namespace
+		$streams = $this->CI->db->select('id, stream_name, stream_namespace')->get(STREAMS_TABLE)->result();
 		
 		foreach ($streams as $stream)
 		{
-			$choices[$stream->id] = $stream->stream_name;
+			if ($stream->stream_namespace)
+			{
+				$choices[$stream->stream_namespace][$stream->id] = $stream->stream_name;
+			}
 		}
 		
 		return form_dropdown('choose_stream', $choices, $stream_id);
