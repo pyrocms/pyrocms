@@ -290,7 +290,7 @@ class Files
 	{
 		if ( ! $check_dir = self::_check_dir()) return $check_dir;
 
-		if ( ! $check_ext = self::_check_ext()) return $check_ext;
+		if ( ! $check_ext = self::_check_ext($field)) return $check_ext;
 
 		$folder = ci()->file_folders_m->get($folder_id);
 
@@ -409,7 +409,7 @@ class Files
 				// make a unique object name
 				$object = now().'/'.$new_name;
 
-				$path = ci()->storage->upload_file($container, self::$_path.$file->filename, $object);
+				$path = ci()->storage->upload_file($container, self::$_path.$file->filename, $object, NULL, 'public');
 
 				$data = array('filename' => $object, 'path' => $path);
 				// save its location
@@ -741,11 +741,11 @@ class Files
 	 * @return	bool
 	 *
 	**/
-	private static function _check_ext()
+	private static function _check_ext($field)
 	{
-		if ( ! empty($_FILES['userfile']['name']))
+		if ( ! empty($_FILES[$field]['name']))
 		{
-			$ext		= pathinfo($_FILES['userfile']['name'], PATHINFO_EXTENSION);
+			$ext		= pathinfo($_FILES[$field]['name'], PATHINFO_EXTENSION);
 			$allowed	= config_item('files:allowed_file_ext');
 
 			foreach ($allowed as $type => $ext_arr)
@@ -754,7 +754,7 @@ class Files
 				{
 					self::$_type		= $type;
 					self::$_ext			= implode('|', $ext_arr);
-					self::$_filename	= trim(url_title($_FILES['userfile']['name'], 'dash', TRUE), '-');
+					self::$_filename	= trim(url_title($_FILES[$field]['name'], 'dash', TRUE), '-');
 
 					break;
 				}
@@ -762,10 +762,10 @@ class Files
 
 			if ( ! self::$_ext)
 			{
-				return self::result(FALSE, lang('files:invalid_extension'), $_FILES['userfile']['name']);
+				return self::result(FALSE, lang('files:invalid_extension'), $_FILES[$field]['name']);
 			}
 		}		
-		elseif ($this->method === 'upload')
+		elseif (ci()->method === 'upload')
 		{
 			return self::result(FALSE, lang('files:upload_error'));
 		}
