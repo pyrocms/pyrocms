@@ -25,11 +25,13 @@ class Module_Streams_core extends Module {
 				'en' => 'Streams Core',
 				'fr' => 'Noyau Flux',
 				'el' => 'Πυρήνας Ροών',
+				'hu' => 'Streams Core' #translate
 			),
 			'description' => array(
 				'en' => 'Core data module for streams.',
 				'fr' => 'Noyau de données pour les Flux.',
 				'el' => 'Προγραμματιστικός πυρήνας για την λειτουργία ροών δεδομένων.',
+				'hu' => 'Core data module for streams.' #translate
 			),
 			'frontend' => false,
 			'backend' => false,

@@ -28,6 +28,7 @@ class Module_Templates extends Module {
 				'ru' => 'Шаблоны почты',
 				'sl' => 'Email predloge',
 				'zh' => '郵件範本',
+				'hu' => 'Email sablonok'
 			),
 			'description' => array(
 				'en' => 'Create, edit, and save dynamic email templates',
@@ -44,6 +45,7 @@ class Module_Templates extends Module {
 				'ru' => 'Создавайте, редактируйте и сохраняйте динамические почтовые шаблоны',
 				'sl' => 'Ustvari, uredi in shrani spremenljive email predloge',
 				'zh' => '新增、編輯與儲存可顯示動態資料的 email 範本',
+                                'hu' => 'Csináld, szerkeszd és mentsd el a dinamikus e-mail sablonokat'
 			),
 			'frontend' => false,
 			'backend' => true,

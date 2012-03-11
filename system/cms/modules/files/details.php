@@ -32,6 +32,7 @@ class Module_Files extends Module {
 				'ru' => 'Файлы',
 				'sl' => 'Datoteke',
 				'zh' => '檔案',
+				'hu' => 'Fájlok'
 			),
 			'description' => array(
 				'en' => 'Manages files and folders for your site.',
@@ -52,6 +53,7 @@ class Module_Files extends Module {
 				'ru' => 'Управление файлами и папками вашего сайта.',
 				'sl' => 'Uredi datoteke in mape na vaši strani',
 				'zh' => '管理網站中的檔案與目錄',
+				'hu' => 'Fájlok és mappák kezelése az oldalon.'
 			),
 			'frontend' => FALSE,
 			'backend' => TRUE,
