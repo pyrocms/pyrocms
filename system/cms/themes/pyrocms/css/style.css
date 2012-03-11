@@ -1,2 +1,4 @@
 @import 'plugins.css';
-@import 'workless.css';
+@import 'workless/workless.css';
+@import 'workless/application.css';
+@import 'workless/responsive.css';
