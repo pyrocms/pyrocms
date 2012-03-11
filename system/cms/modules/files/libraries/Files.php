@@ -11,7 +11,7 @@
 class Files
 {
 	public		static $providers;
-	protected 	static $_path;
+	public 	static $_path;
 	protected 	static $_ext;
 	protected	static $_type = '';
 	protected	static $_filename = NULL;
@@ -24,6 +24,9 @@ class Files
 
 		self::$_path = config_item('files:path');
 		self::$providers = explode(',', Settings::get('files_enabled_providers'));
+
+		set_exception_handler(array($this, 'exception_handler'));
+		set_error_handler(array($this, 'error_handler'));
 
 		ci()->load->model('files/file_m');
 		ci()->load->model('files/file_folders_m');
@@ -79,19 +82,25 @@ class Files
 	 * @return	array
 	 *
 	**/
-	public static function create_container($container, $location)
+	public static function create_container($container, $location, $id = 0)
 	{
 		ci()->storage->load_driver($location);
 
 		$result = ci()->storage->create_container($container);
 
-		if ($result === null)
+		// if they are also linking a local folder then we save that
+		if ($id)
+		{
+			ci()->db->where('id', $id)->update('file_folders', array('remote_container' => $container));
+		}
+
+		if ($result AND $location == 'amazon-s3' OR $result === NULL AND $location == 'rackspace-cf')
 		{
 			return self::result(TRUE, lang('files:container_created'), $container);
 		}
 		else
 		{
-			return self::result(FALSE, lang('files:error_container_exists'), $container);
+			return self::result(FALSE, lang('files:error_container'), $container);
 		}
 	}
 
@@ -204,7 +213,7 @@ class Files
 				return self::result(TRUE, lang('files:container_exists'), $name);
 			}
 		}
-		return self::result(FALSE, lang('files:container_not_exists'), $name);
+		return self::result(TRUE, lang('files:container_not_exists'), $name);
 	}
 
 	// ------------------------------------------------------------------------
@@ -285,7 +294,7 @@ class Files
 
 		$folder = ci()->file_folders_m->get($folder_id);
 
-		if ($folder AND $folder->location === 'local')
+		if ($folder AND $folder->location !== 'amazon-s3')
 		{
 			ci()->load->library('upload', array(
 				'upload_path'	=> self::$_path,
@@ -293,7 +302,7 @@ class Files
 				'file_name'		=> self::$_filename
 			));
 
-			if (ci()->upload->do_upload())
+			if (ci()->upload->do_upload($field))
 			{
 				$file = ci()->upload->data();
 				$data = array(
@@ -311,7 +320,12 @@ class Files
 					'date_added'	=> now()
 				);
 
-				ci()->file_m->insert($data);
+				$file_id = ci()->file_m->insert($data);
+
+				if ($folder->location === 'rackspace-cf')
+				{
+					return Files::move($file_id, $data['filename'], 'local', 'rackspace-cf', $folder->remote_container);
+				}
 
 				return self::result(TRUE, lang('files:file_uploaded'), $name);
 			}
@@ -334,11 +348,12 @@ class Files
 	 *
 	 * @param	string	$file_id		The file's database record
 	 * @param	string	$new_file		The desired filename
+	 * @param	string	$location		Its current location, except in the case of an upload this will be found from the db
 	 * @param	string	$new_location	The desired provider to move the file to
 	 * @param	string	$container		The bucket, container, or folder to move the file to
 	 * @return	array
 	**/
-	public static function move($file_id, $new_name = FALSE, $new_location = 'local', $container = '')
+	public static function move($file_id, $new_name = FALSE, $location = FALSE, $new_location = 'local', $container = '')
 	{
 		$file = ci()->file_m->select('files.*, file_folders.name foldername, file_folders.slug, file_folders.location')
 			->join('file_folders', 'files.folder_id = file_folders.id')
@@ -348,6 +363,10 @@ class Files
 		{
 			return self::result(FALSE, lang('files:item_not_found'), $new_name ? $new_name : $file_id);
 		}
+
+		// this would be used when move() is used during a rackspace upload as the location in the 
+		// database is not the actual file location, its location is local temporarily
+		if ($location) $file->location = $location;
 
 		// if both locations are on the local filesystem then we just rename
 		if ($file->location === 'local' AND $new_location === 'local')
@@ -378,7 +397,7 @@ class Files
 			}
 		}
 		// we'll be pushing the file from here to the cloud
-		elseif ($location === 'local' AND $new_location)
+		elseif ($file->location === 'local' AND $new_location)
 		{
 			ci()->storage->load_driver($new_location);
 
@@ -387,15 +406,25 @@ class Files
 			// if we try uploading to a non-existant container it gets ugly
 			if (in_array($container, $containers))
 			{
-				ci()->storage->upload_file($container, self::$_path.$file, $new_file, NULL, 'public');
+				// make a unique object name
+				$object = now().'/'.$new_name;
 
-				return self::result();
+				$path = ci()->storage->upload_file($container, self::$_path.$file->filename, $object);
+
+				$data = array('filename' => $object, 'path' => $path);
+				// save its location
+				ci()->file_m->update($file->id, $data);
+
+				// get rid of the "temp" file
+				@unlink(self::$_path.$file->filename);
+
+				return self::result(TRUE, lang('files:file_uploaded'), $new_name, $data);
 			}
 
 			return self::result(FALSE, lang('files:invalid_container'), $container);
 		}
 		// pull it from the cloud to our filesystem
-		elseif ($location AND $new_location === 'local')
+		elseif ($file->location AND $new_location === 'local')
 		{
 			ci()->load->helper('file');
 			ci()->load->spark('curl/1.2.1');
@@ -406,7 +435,7 @@ class Files
 			if ($curl_result)
 			{
 				// ...and save it
-				write_file(self::$_path.$new_file, $curl_result, 'wb');
+				write_file(self::$_path.$new_name, $curl_result, 'wb');
 			}
 			else
 			{
@@ -414,13 +443,13 @@ class Files
 			}
 		}
 		// pulling from the cloud and then pushing to another part of the cloud :P
-		elseif ($location AND $new_location)
+		elseif ($file->location AND $new_location)
 		{
 			ci()->load->helper('file');
 			ci()->storage->load_driver($new_location);
 
 			// make a really random temp file name
-			$temp_file = self::$_path.md5(time()).'_temp_'.$new_file;
+			$temp_file = self::$_path.md5(time()).'_temp_'.$new_name;
 
 			// and we download...
 			$curl_result = ci()->curl->simple_get($file);
@@ -435,7 +464,7 @@ class Files
 			}
 
 			// shove it into the cloud and hope it stays
-			$result = ci()->storage->upload_file($container, $temp_file, $new_file, NULL, 'public');
+			$result = ci()->storage->upload_file($container, $temp_file, $new_name, NULL, 'public');
 
 			@unlink($temp_file);
 
@@ -560,11 +589,21 @@ class Files
 	**/
 	public static function delete_file($id = 0)
 	{
-		if ($file = ci()->file_m->get($id))
+		if ($file = ci()->file_m->select('files.*, file_folders.name foldername, file_folders.slug, file_folders.location, file_folders.remote_container')
+			->join('file_folders', 'files.folder_id = file_folders.id')
+			->get_by('files.id', $id))
 		{
 			ci()->file_m->delete($id);
 
-			@unlink(self::$_path.$file->filename);
+			if ($file->location === 'local')
+			{
+				@unlink(self::$_path.$file->filename);
+			}
+			else
+			{
+				ci()->storage->load_driver($file->location);
+				ci()->storage->delete_file($file->remote_container, $file->filename);
+			}
 
 			return self::result(TRUE, lang('files:item_deleted'), $file->name);
 		}
@@ -592,6 +631,51 @@ class Files
 					 'message' 	=> $args ? sprintf($message, $args) : $message, 
 					 'data' 	=> $data
 					 );
+	}
+
+	// ------------------------------------------------------------------------
+
+	/**
+	 * Exception Handler
+	 * 
+	 * Return a the error message thrown by Cloud Files
+	 *
+	 * @return	array
+	 *
+	**/
+	public static function exception_handler($e)
+	{
+		echo json_encode( 
+			array('status' 	=> FALSE, 
+				  'message' => $e->getMessage(),
+				  'data' 	=> ''
+				 )
+		);
+	}
+
+	// ------------------------------------------------------------------------
+
+	/**
+	 * Error Handler
+	 * 
+	 * Return the error message thrown by Amazon S3
+	 *
+	 * @return	array
+	 *
+	**/
+	public static function error_handler($e_number, $error)
+	{
+		// only output the S3 error messages
+		if (strpos($error, 'S3') !== FALSE)
+		{
+			echo json_encode( 
+				array('status' 	=> FALSE, // clean up the error message to make it more readable
+					  'message' => preg_replace('@S3.*?\[.*?\](.*)$@ms', '$1', $error),
+					  'data' 	=> ''
+					 )
+			);
+			die();
+		}
 	}
 
 	// ------------------------------------------------------------------------

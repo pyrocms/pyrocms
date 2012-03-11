@@ -10,7 +10,6 @@
 class Admin extends Admin_Controller {
 
 	private $_folders	= array();
-	private $_path 		= '';
 	private $_type 		= NULL;
 	private $_ext 		= NULL;
 	private $_filename	= NULL;
@@ -27,7 +26,6 @@ class Admin extends Admin_Controller {
 			'file_m',
 			'file_folders_m'
 		));
-		$this->_path = config_item('files:path');
 
 		$this->template->append_metadata(
 			"<script>
@@ -61,7 +59,7 @@ class Admin extends Admin_Controller {
 
 		$data->admin =& $this;
 
-		is_really_writable($this->_path) OR $data->messages['error'] = sprintf(lang('files:unwritable'), $this->_path);
+		is_really_writable(Files::$_path) OR $data->messages['error'] = sprintf(lang('files:unwritable'), Files::$_path);
 
 		$this->template
 			->title($this->module_details['name'])
@@ -244,6 +242,22 @@ class Admin extends Admin_Controller {
 	// ------------------------------------------------------------------------
 
 	/**
+	 * Return the authenticated Amazon upload form
+	 *
+	 * @access	public
+	 * @return	void
+	 */
+	public function amazon_form($folder_id = FALSE)
+	{
+		if ($folder_id)
+		{
+			echo $this->load->view('admin/amazon_form', NULL, TRUE);
+		}
+	}
+
+	// ------------------------------------------------------------------------
+
+	/**
 	 * Rename a file
 	 *
 	 * @access	public
@@ -271,7 +285,7 @@ class Admin extends Admin_Controller {
 		{
 			$this->file_m->update($id, array('description' => $description));
 
-			echo json_encode(array('status' => TRUE, 'message' => lang('files:description_saved')));
+			echo json_encode(Files::result(TRUE, lang('files:description_saved')));
 		}
 	}
 
@@ -291,8 +305,7 @@ class Admin extends Admin_Controller {
 		{
 			$this->file_folders_m->update($id, array('location' => $location));
 
-			echo json_encode(Files::create_container($container, $location));
-			//echo json_encode(array('status' => TRUE, 'message' => lang('files:location_saved')));
+			echo json_encode(Files::create_container($container, $location, $id));
 		}
 	}
 

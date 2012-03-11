@@ -63,9 +63,9 @@ $lang['files:mkdir_error']					= 'We are unable to create the upload folder. You
 $lang['files:chmod_error']					= 'The upload directory is unwriteable. It must be 0777';
 $lang['files:location_saved']				= 'The folder location has been saved';
 $lang['files:container_exists']				= '"%s" exists. Save to link its contents to this folder';
-$lang['files:container_not_exists']			= '"%s" does not exist. Save and it will be created';
-$lang['files:error_container_exists']		= '"%s" already exists so cannot be created';
-$lang['files:container_created']			= '"%s" has been created';
+$lang['files:container_not_exists']			= '"%s" does not exist. Save and we will try to create it';
+$lang['files:error_container']				= '"%s" could not be created and we could not determine the reason';
+$lang['files:container_created']			= '"%s" has been created and is now linked to this folder';
 $lang['files:unwritable']					= '"%s" is unwritable, please set its permissions to 0777';
 
 // Files

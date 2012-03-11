@@ -22,6 +22,15 @@ class Migration_Add_cloud_files extends CI_Migration {
 			),
 		));
 
+		$this->dbforge->add_column('file_folders', array(
+			'remote_container' => array(
+				'type' => 'VARCHAR',
+				'constraint' => 100,
+				'null' => FALSE,
+				'default' => ''
+			),
+		));
+
 		$this->dbforge->add_column('files', array(
 			'path' => array(
 				'type' => 'VARCHAR',

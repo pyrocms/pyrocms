@@ -208,10 +208,20 @@ jQuery(function($){
 	 ***************************************************************************/
 
 	$(window).on('open-upload', function(){
+
+		// we use the current level if they clicked in the open area
+		if (pyro.files.$last_r_click.attr('data-id') > '') {
+			pyro.files.upload_to = pyro.files.$last_r_click.attr('data-id');
+		} else {
+			pyro.files.upload_to = pyro.files.current_level;
+		}
+
+		var folder = $(window).data('folder_'+pyro.files.upload_to);
+
 		$.colorbox({
 			scrolling	: false,
-			inline		: true,
-			href		: '#files-uploader',
+			inline		: folder.location != 'amazon-s3' ? true : false,
+			href		: folder.location != 'amazon-s3' ? '#files-uploader' : SITE_URL+'/admin/files/amazon_form/'+folder.id,
 			width		: '800',
 			height		: '80%',
 			opacity		: 0.3,
@@ -228,66 +238,63 @@ jQuery(function($){
 		});
 	});
 
-	$('#files-uploader form').fileUploadUI({
-		fieldName       : 'userfile',
-		uploadTable     : $('#files-uploader-queue'),
-		downloadTable   : $('#files-uploader-queue'),
-		previewSelector : '.file_upload_preview div',
-        cancelSelector  : '.file_upload_cancel button.cancel',
-		buildUploadRow	: function(files, index, handler){
-			return $('<li><div class="file_upload_preview ui-corner-all"><div class="ui-corner-all"></div></div>' +
-					'<div class="filename"><label for="file-name">' + files[index].name + '</label>' +
-					'<input class="file-name" type="hidden" name="name" value="'+files[index].name+'" />' +
-					'</div>' +
-					'<div class="file_upload_progress"><div></div></div>' +
-					'<div class="file_upload_cancel buttons buttons-small">' +
-					'<button class="button start ui-helper-hidden-accessible"><span>' + pyro.lang.start + '</span></button>'+
-					'<button class="button cancel"><span>' + pyro.lang.cancel + '</span></button>' +
-					'</div>' +
-					'</li>');
-		},
-		buildDownloadRow: function(results){
-			if (results.message)
-			{
-				$(window).trigger('show-message', results);
-			}
-		},
-		beforeSend: function(event, files, index, xhr, handler, callBack){
-			handler.uploadRow.find('button.start').click(function(){
-
-				// we use the current level if they clicked in the open area
-				if (pyro.files.$last_r_click.attr('data-id') > '') {
-					pyro.files.upload_to = pyro.files.$last_r_click.attr('data-id');
-				} else {
-					pyro.files.upload_to = pyro.files.current_level;
+	pyro.init_upload = function($form){
+		$($form).fileUploadUI({
+			fieldName       : 'userfile',
+			uploadTable     : $('#files-uploader-queue'),
+			downloadTable   : $('#files-uploader-queue'),
+			previewSelector : '.file_upload_preview div',
+	        cancelSelector  : '.file_upload_cancel button.cancel',
+			buildUploadRow	: function(files, index, handler){
+				return $('<li><div class="file_upload_preview ui-corner-all"><div class="ui-corner-all"></div></div>' +
+						'<div class="filename"><label for="file-name">' + files[index].name + '</label>' +
+						'<input class="file-name" type="hidden" name="name" value="'+files[index].name+'" />' +
+						'</div>' +
+						'<div class="file_upload_progress"><div></div></div>' +
+						'<div class="file_upload_cancel buttons buttons-small">' +
+						'<button class="button start ui-helper-hidden-accessible"><span>' + pyro.lang.start + '</span></button>'+
+						'<button class="button cancel"><span>' + pyro.lang.cancel + '</span></button>' +
+						'</div>' +
+						'</li>');
+			},
+			buildDownloadRow: function(results){
+				if (results.message)
+				{
+					$(window).trigger('show-message', results);
+				}
+			},
+			beforeSend: function(event, files, index, xhr, handler, callBack){
+				handler.uploadRow.find('button.start').click(function(){
+					handler.formData = {
+						name: handler.uploadRow.find('input.file-name').val(),
+						folder_id: pyro.files.upload_to
+					};
+					callBack();
+				});
+			},
+			onComplete: function (event, files, index, xhr, handler){
+				handler.onCompleteAll(files);
+			},
+			onCompleteAll: function (files){
+				if ( ! files.uploadCounter)
+				{
+					files.uploadCounter = 1;  
+				}
+				else
+				{
+					files.uploadCounter = files.uploadCounter + 1;
 				}
 
-				handler.formData = {
-					name: handler.uploadRow.find('input.file-name').val(),
-					folder_id: pyro.files.upload_to
-				};
-				callBack();
-			});
-		},
-		onComplete: function (event, files, index, xhr, handler){
-			handler.onCompleteAll(files);
-		},
-		onCompleteAll: function (files){
-			if ( ! files.uploadCounter)
-			{
-				files.uploadCounter = 1;  
+				if (files.uploadCounter === files.length)
+				{
+					$('#files-uploader a.cancel-upload').click();
+				}
 			}
-			else
-			{
-				files.uploadCounter = files.uploadCounter + 1;
-			}
+		});
+	}
 
-			if (files.uploadCounter === files.length)
-			{
-				$('#files-uploader a.cancel-upload').click();
-			}
-		}
-	});
+	// go ahead and init non-amazon uploads
+	pyro.init_upload('#files-uploader form');
 
 	$('#files-uploader a.start-upload').click(function(e){
 		e.preventDefault();
@@ -483,7 +490,6 @@ jQuery(function($){
 	 pyro.files.delete_item = function(current_level)
 	 {
 	 	var post = {};
-	 	var do_delete;
 	 	var items = $('.selected[data-id]');
 	 	// if there are selected items then they have to be files
 	 	var type = items.length > 0 ? 'file' : 'folder';
@@ -500,10 +506,7 @@ jQuery(function($){
 	 		items.each(function(index, item){
 	 			post.file_id = $(item).attr('data-id');
 	 			// delete remotely
-	 			do_delete();
-	 			// delete locally
-	 			$(window).removeData('file_'+post.file_id);
- 				$('[data-id="'+post.file_id+'"]').remove();
+	 			do_delete(post.file_id, 'file');
 	 		})
 	 	} else {
 	 		items = pyro.files.$last_r_click;
@@ -512,21 +515,28 @@ jQuery(function($){
 	 		items.each(function(index, item){
 	 			post.folder_id = $(item).attr('data-id');
 	 			// delete remotely
-	 			do_delete();
-	 			// delete locally
-	 			$(window).removeData('folder_'+post.file_id);
-	 			// remove it from the left and right panes
- 				$('[data-id="'+post.folder_id+'"]').remove();
- 				// adjust the parents
-				$('[data-id="'+current_level+'"] ul:empty').remove();
-				$('[data-id="'+current_level+'"]').removeClass('open close');
+	 			do_delete(post.folder_id, 'folder');
 	 		})
 	 	}
 
- 		function do_delete(){
+ 		function do_delete(id, type){
 	 		$.post(SITE_URL + 'admin/files/delete_'+type, post, function(data){
 	 			var results = $.parseJSON(data);
 	 			$(window).trigger('show-message', results);
+	 			if (results.status && type == 'file') {
+		 			// delete locally
+		 			$(window).removeData('file_'+id);
+	 				$('[data-id="'+id+'"]').remove();
+	 			}
+	 			if (results.status && type == 'folder') {
+		 			// delete locally
+		 			$(window).removeData('folder_'+id);
+		 			// remove it from the left and right panes
+	 				$('[data-id="'+id+'"]').remove();
+	 				// adjust the parents
+					$('[data-id="'+current_level+'"] ul:empty').remove();
+					$('[data-id="'+current_level+'"]').removeClass('open close');
+	 			}
 	 		});
 		}
 	 }
@@ -570,7 +580,7 @@ jQuery(function($){
 		 	});
 
 		 	// check if a container with that name exists
-		 	$('.container-button.button').click(function(e){
+		 	$('.container-button.button').on('click', function(e){
 	 			var post = { 'name' : $(this).siblings('.container').val(), 'location' : location };
 	 			$.post(SITE_URL + 'admin/files/check_container', post, function(data){
 		 			var results = $.parseJSON(data);
@@ -631,10 +641,12 @@ jQuery(function($){
  		$.post(SITE_URL + 'admin/files/save_location', post, function(data){
 			var results = $.parseJSON(data);
 			$(window).trigger('show-message', results);
-
-			// resave it locally
-			item.location = new_location;
-	 		$(window).data('folder_'+item.id, item);
+			if (results.status) {
+				// resave it locally
+				item.location = new_location;
+				item.remote_container = container;
+		 		$(window).data('folder_'+item.id, item);
+			}
  		});
  	}
 

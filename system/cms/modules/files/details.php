@@ -85,6 +85,7 @@ class Module_Files extends Module {
 				'slug' => array('type' => 'VARCHAR', 'constraint' => 100,),
 				'name' => array('type' => 'VARCHAR', 'constraint' => 50,),
 				'location' => array('type' => 'VARCHAR', 'constraint' => 20, 'default' => 'local',),
+				'remote_container' => array('type' => 'VARCHAR', 'constraint' => 100, 'default' => '',),
 				'date_added' => array('type' => 'INT', 'constraint' => 11,),
 				'sort' => array('type' => 'INT', 'constraint' => 11, 'default' => 0,),
 			),
