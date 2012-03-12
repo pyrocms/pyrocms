@@ -529,7 +529,6 @@ class Row_m extends MY_Model {
 		return $return;
 	}
 
-
 	// --------------------------------------------------------------------------
 
 	/**
@@ -1066,9 +1065,10 @@ class Row_m extends MY_Model {
 	 * @param	obj - our stream fields
 	 * @param	obj - our stream
 	 * @param	array - optional skipping fields
+	 * @param 	array - optional assoc array of data to exclude from processing
 	 * @return	mixed
 	 */
-	public function insert_entry($data, $fields, $stream, $skips = array())
+	public function insert_entry($data, $fields, $stream, $skips = array(), $extra = array())
 	{
 		// -------------------------------------
 		// Run through fields
@@ -1118,6 +1118,15 @@ class Row_m extends MY_Model {
 				
 				unset($type);
 			}
+		}
+
+		// -------------------------------------
+		// Merge Extra Data
+		// -------------------------------------
+
+		if ( ! empty($extra))
+		{
+			$insert_data = array_merge($insert_data, $extra);
 		}
 
 		// -------------------------------------

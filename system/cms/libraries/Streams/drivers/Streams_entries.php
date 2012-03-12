@@ -211,9 +211,10 @@ class Streams_entries extends CI_Driver {
 	 * @param	stream - int, slug, or obj
 	 * @param 	string - namespace
 	 * @param 	array - field slugs to skip
+	 * @param 	array - extra data to add in
 	 * @return	object
 	 */
-	function insert_entry($entry_data, $stream, $namespace, $skips = array())
+	function insert_entry($entry_data, $stream, $namespace, $skips = array(), $extra = array())
 	{
 		$str_obj = $this->stream_obj($stream, $namespace);
 		
@@ -223,7 +224,7 @@ class Streams_entries extends CI_Driver {
 
 		$stream_fields = $CI->streams_m->get_stream_fields($str_obj->id);
 
-		return $CI->row_m->insert_entry($entry_data, $stream_fields, $str_obj, $skips);
+		return $CI->row_m->insert_entry($entry_data, $stream_fields, $str_obj, $skips, $extra);
 	}
 
 	// --------------------------------------------------------------------------
