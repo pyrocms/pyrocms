@@ -161,7 +161,7 @@ class Streams_cp extends CI_Driver {
 		if ( ! $stream) $this->log_error('invalid_stream', 'form');
 
 		// Load up things we'll need for the form
-		$CI->load->library(array('form_validation', 'streams_core/Streams_validation', 'streams_core/Fields'));
+		$CI->load->library(array('form_validation', 'streams_core/Fields'));
 		
 		$fields = $CI->fields->build_form($stream, $mode, $entry, false, false, $skips, $extra);
 		
@@ -241,7 +241,7 @@ class Streams_cp extends CI_Driver {
 			$CI->fields_m->fields_validation[1]['rules'] .= '|unique_field_slug['.$data['current_field']->field_slug.']';
 		}
 
-		$CI->streams_validation->set_rules($CI->fields_m->fields_validation);
+		$CI->form_validation->set_rules($CI->fields_m->fields_validation);
 				
 		foreach ($this->fields_m->fields_validation as $field)
 		{
@@ -259,13 +259,13 @@ class Streams_cp extends CI_Driver {
 			$key = null;
 		}
 			
-		$CI->streams_validation->set_rules($CI->fields_m->fields_validation);
+		$CI->form_validation->set_rules($CI->fields_m->fields_validation);
 
 		// -------------------------------------
 		// Process Data
 		// -------------------------------------
 		
-		if ($CI->streams_validation->run())
+		if ($CI->form_validation->run())
 		{
 			if ($method == 'new')
 			{
