@@ -190,7 +190,7 @@ class Row_m extends MY_Model {
 
 		if (isset($get_day) and $get_day == true)
 		{
-			$this->sql['select'][] = 'DAY('.$this->select_prefix.$date_by.') as pyrostreams_cal_day';
+			$this->sql['select'][] = 'DAY('.$this->select_prefix.$this->db->protect_identifiers($date_by).') as pyrostreams_cal_day';
 		}
 	
 		// -------------------------------------
@@ -239,16 +239,16 @@ class Row_m extends MY_Model {
 				// since there isn't an override	
 				if ($stream->sorting == 'title' and $stream->title_column)
 				{
-					$this->sql['order_by'][] = $this->select_prefix.$stream->title_column.' '.strtoupper($sort);	
+					$this->sql['order_by'][] = $this->select_prefix.$this->db->protect_identifiers($stream->title_column).' '.strtoupper($sort);	
 				}
 				elseif ($stream->sorting == 'custom')
 				{
-					$this->sql['order_by'][] = $this->select_prefix.'ordering_count'.' '.strtoupper($sort);
+					$this->sql['order_by'][] = $this->select_prefix.$this->db->protect_identifiers('ordering_count').' '.strtoupper($sort);
 				}
 			}
 			else
 			{
-				$this->sql['order_by'][] = $this->select_prefix.$order_by.' '.strtoupper($sort);
+				$this->sql['order_by'][] = $this->select_prefix.$this->db->protect_identifiers($order_by).' '.strtoupper($sort);
 			}
 		}
 
@@ -269,7 +269,7 @@ class Row_m extends MY_Model {
 			
 			foreach ($exclusions as $exclude_id)
 			{
-				$this->sql['where'][] = $this->select_prefix.$exclude_by.' !="'.$exclude_id.'"';
+				$this->sql['where'][] = $this->select_prefix.$this->db->protect_identifiers($exclude_by).' !='.$this->db->escape($exclude_id);
 			}
 		}
 
@@ -283,7 +283,7 @@ class Row_m extends MY_Model {
 			
 			foreach ($inclusions as $include_id)
 			{
-				$this->sql['where'][] = $this->select_prefix.$include_by.' !='.$include_id;
+				$this->sql['where'][] = $this->select_prefix.$this->db->protect_identifiers($include_by).' !='.$this->db->escape($include_id);
 			}
 		}
 
@@ -304,7 +304,7 @@ class Row_m extends MY_Model {
 			
 			if (count($vals) == 2)
 			{
-				$this->sql['where'][] = $this->select_prefix.$vals[0].' !='.$vals[1];
+				$this->sql['where'][] = $this->select_prefix.$this->db->protect_identifiers($vals[0]).' !='.$this->db->escape($vals[1]);
 			}
 		}
 
@@ -323,7 +323,7 @@ class Row_m extends MY_Model {
 
 		if (isset($show_upcoming) and $show_upcoming == 'no')
 		{
-			$this->sql['where'][] = $this->select_prefix.$date_by.' <= CURDATE()';
+			$this->sql['where'][] = $this->select_prefix.$this->db->protect_identifiers($date_by).' <= CURDATE()';
 		}
 
 		// -------------------------------------
@@ -335,26 +335,28 @@ class Row_m extends MY_Model {
 
 		if (isset($show_past) and $show_past == 'no')
 		{
-			$this->sql['where'][] = $this->select_prefix.$date_by.' >= CURDATE()';
+			$this->sql['where'][] = $this->select_prefix.$this->db->protect_identifiers($date_by).' >= CURDATE()';
 		}
 
 		// -------------------------------------
 		// Month / Day / Year
 		// -------------------------------------
 		
+		$date_by_protected = $this->db->protect_identifiers($date_by);
+
 		if (isset($year) and is_numeric($year))
 		{
-			$this->sql['where'][] = 'YEAR('.$this->select_prefix.$date_by.')='.$year;
+			$this->sql['where'][] = 'YEAR('.$this->select_prefix.$date_by_protected.')='.$this->db->escape($year);
 		}
 
 		if (isset($month) and is_numeric($month))
 		{
-			$this->sql['where'][] = 'MONTH('.$this->select_prefix.$date_by.')='.$month;
+			$this->sql['where'][] = 'MONTH('.$this->select_prefix.$date_by_protected.')='.$this->db->escape($month);
 		}
 
 		if (isset($day) and is_numeric($day))
 		{
-			$this->sql['where'][] = 'DAY('.$this->select_prefix.$date_by.')='.$day;
+			$this->sql['where'][] = 'DAY('.$this->select_prefix.$date_by_protected.')='.$this->db->escape($day);
 		}
 
 		// -------------------------------------
@@ -394,7 +396,7 @@ class Row_m extends MY_Model {
 		
 			if ($restrict_user != 'no' and is_numeric($restrict_user))
 			{
-				$this->sql['where'][] = $this->select_prefix.'created_by='.$restrict_user;
+				$this->sql['where'][] = $this->select_prefix.$this->db->protect_identifiers('created_by').'='.$restrict_user;
 			}
 		}
 
@@ -404,7 +406,7 @@ class Row_m extends MY_Model {
 		
 		if (isset($id) and is_numeric($id))
 		{
-			$this->sql['where'][] = $this->select_prefix.'id='.$id;
+			$this->sql['where'][] = $this->select_prefix.$this->db->protect_identifiers('id').'='.$id;
 			$limit = 1;
 		}
 
