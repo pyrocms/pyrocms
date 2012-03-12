@@ -168,20 +168,20 @@ class Row_m extends MY_Model {
 		
 		$this->data->stream = $stream;
 
-		$this->select_prefix 	= $this->db->dbprefix($stream->stream_prefix.$stream->stream_slug).'.';
+		$this->select_prefix 	= $this->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug, true).'.';
 		
 		// -------------------------------------
 		// Start Query Build
 		// -------------------------------------
 		
 		// We may build on this.
-		$this->sql['select'][] = $this->db->dbprefix($stream->stream_prefix.$stream->stream_slug).'.*';
+		$this->sql['select'][] = $this->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug, true).'.*';
 
 		// -------------------------------------
 		// From
 		// -------------------------------------
 		
-		$this->sql['from'][] = $this->db->dbprefix($stream->stream_slug);
+		$this->sql['from'][] = $this->db->protect_identifiers($stream->stream_slug, true);
 
 		// -------------------------------------
 		// Get the day.
@@ -487,7 +487,7 @@ class Row_m extends MY_Model {
 		// -------------------------------------
 		// Run the Get
 		// -------------------------------------
-		
+
 		$rows = $this->db->query($sql)->result_array();
 
 		// -------------------------------------
