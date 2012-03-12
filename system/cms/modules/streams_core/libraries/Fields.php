@@ -86,7 +86,7 @@ class Fields
      * - error_end
      * - required
      *
-     * @return	mixed
+     * @return	array - fields
      */
  	public function build_form($stream, $method, $row = FALSE, $plugin = false, $recaptcha = false, $skips = array(), $extra = array())
  	{
@@ -158,7 +158,13 @@ class Fields
 		// -------------------------------------
 
 		$this->set_rules($stream_fields, $method, $skips);
-		
+
+		// -------------------------------------
+		// Set Error Delimns
+		// -------------------------------------
+
+		$this->CI->form_validation->set_error_delimiters($extra['error_start'], $extra['error_end']);
+
 		// -------------------------------------
 		// Set reCAPTCHA
 		// -------------------------------------
@@ -300,6 +306,19 @@ class Fields
 		// Set Fields & Return Them
 		// -------------------------------------
 
+		return $this->build_fields($stream_fields, $values, $method, $skips, $extra['required']);
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Build Fields
+	 *
+	 * Builds fields (no validation)
+	 *
+	 */
+	public function build_fields($stream_fields, $values = array(), $method = 'new', $skips = array(), $required = '<span>*</span>')
+	{
 		$fields = array();
 
 		$count = 0;
@@ -312,6 +331,8 @@ class Fields
 				$fields[$count]['input_slug'] 		= $field->field_slug;
 				$fields[$count]['instructions'] 	= $field->instructions;
 
+				// Set the value
+
 				// Get the acutal form input
 				if ($method == 'edit')
 				{
@@ -323,16 +344,20 @@ class Fields
 				}
 
 				// Set the error if there is one
-				$fields[$count]['error']			= $this->CI->form_validation->error($field->field_slug, $extra['error_start'], $extra['error_end']);
+				$fields[$count]['error_raw']		= $this->CI->form_validation->error($field->field_slug);
 
 				// Format tht error
-				if ($fields[$count]['error']) 
+				if ($fields[$count]['error_raw']) 
 				{
-					$fields[$count]['error']		= $extra['error_start'].$fields[$count]['error'].$extra['error_end'];
+					$fields[$count]['error']		= $this->CI->form_validation->format_error($fields[$count]['error_raw']);
+				}
+				else
+				{
+					$fields[$count]['error']		= null;
 				}
 
 				// Set the required string
-				$fields[$count]['required'] = ($field->is_required == 'yes') ? $extra['required'] : NULL;
+				$fields[$count]['required'] = ($field->is_required == 'yes') ? $required : null;
 
 				// Set even/odd
 				$fields[$count]['odd_even'] = (($count+1)%2 == 0) ? 'even' : 'odd';
