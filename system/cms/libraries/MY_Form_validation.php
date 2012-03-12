@@ -8,6 +8,8 @@ class MY_Form_validation extends CI_Form_validation
 		$this->CI->load->language('extra_validation');
 	}
 
+	// --------------------------------------------------------------------
+
 	/**
 	 * Alpha-numeric with underscores dots and dashes
 	 *
@@ -19,6 +21,8 @@ class MY_Form_validation extends CI_Form_validation
 	{
 		return ( ! preg_match("/^([-a-z0-9_\-\.])+$/i", $str)) ? FALSE : TRUE;
 	}
+
+	// --------------------------------------------------------------------
 
 	/**
 	 * Formats an UTF-8 string and removes potential harmful characters
@@ -42,6 +46,22 @@ class MY_Form_validation extends CI_Form_validation
 
 		return htmlentities($str, ENT_QUOTES, 'UTF-8');
 	}
+
+	// --------------------------------------------------------------------
+
+	/**
+	 * Format an error in the set error delimiters
+	 *
+	 * @access 	public
+	 * @param	string
+	 * @return	void
+	 */
+	public function format_error($error)
+	{
+		return $this->_error_prefix.$error.$this->_error_suffix;
+	}
+
+	// --------------------------------------------------------------------
 	
 	// NOTE: This was done because HMVC is not happy with $this->CI being used as a callback, instead it wants to look at CI::APP->controller
 	// -- Phil
