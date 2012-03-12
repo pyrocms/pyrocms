@@ -33,22 +33,20 @@ class Fields
 	 * @param	bool
 	 * @return	string
 	 */
-	public function build_form_input($field, $value = FALSE, $row_id = NULL)
+	public function build_form_input($field, $value = false, $row_id = null)
 	{
-		$tmp = $field->field_type;
-		
-		$type = $this->CI->type->types->$tmp;
+		$type = $this->CI->type->types->{$field->field_type};
 		
 		$form_data['form_slug']		= $field->field_slug;
 		
 		if ( ! isset($field->field_data['default_value']))
 		{
-			$field->field_data['default_value'] = '';
+			$field->field_data['default_value'] = null;
 		}
-		
+				
 		// Set the value
 		$value ? $form_data['value'] = $value : $form_data['value'] = $field->field_data['default_value'];
-		
+
 		$form_data['custom'] = $field->field_data;
 		
 		// Set the max_length
