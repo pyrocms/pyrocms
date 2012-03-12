@@ -168,7 +168,7 @@ class Fields
 			$this->CI->config->load('streams_core/recaptcha');
 			$this->CI->load->library('streams_core/Recaptcha');
 			
-			$this->CI->streams_validation->set_rules('recaptcha_response_field', 'lang:recaptcha_field_name', 'required|check_captcha');
+			$this->CI->validation->set_rules('recaptcha_response_field', 'lang:recaptcha_field_name', 'required|check_captcha');
 		}
 		
 		// -------------------------------------
@@ -209,7 +209,7 @@ class Fields
 		
 		$result_id = '';
 
-		if ($this->CI->streams_validation->run() === TRUE)
+		if ($this->CI->form_validation->run() === TRUE)
 		{
 			if($method == 'new')
 			{
@@ -323,7 +323,7 @@ class Fields
 				}
 
 				// Set the error if there is one
-				$fields[$count]['error']			= $this->CI->streams_validation->error($field->field_slug, $extra['error_start'], $extra['error_end']);
+				$fields[$count]['error']			= $this->CI->form_validation->error($field->field_slug, $extra['error_start'], $extra['error_end']);
 
 				// Format tht error
 				if ($fields[$count]['error']) 
@@ -350,27 +350,30 @@ class Fields
 	 * Set Rules
 	 *
 	 * Set the rules from the stream fields
+	 *
+	 * @access 	public
+	 * @param 	obj - fields to set rules for
+	 * @param 	string - method - edit or new
+	 * @param 	array - fields to skip
+	 * @param 	bool - return the array or set the validation
+	 * @param 	mixed - array or true
 	 */	
-	public function set_rules($stream_fields, $method, $skips)
+	public function set_rules($stream_fields, $method, $skips = array(), $return_array = false)
 	{
+		$validation_rules = array();
+
 		// -------------------------------------
 		// Loop through and set the rules
 		// -------------------------------------
-	
+
 		foreach ($stream_fields  as $stream_field)
 		{
 			if ( ! in_array($stream_field->field_slug, $skips))
 			{
-				// Get the type object
-				$type_call = $stream_field->field_type;	
-				$type = $this->CI->type->types->$type_call;	
+				$rules = array();
+
+				$type = $this->CI->type->types->{$stream_field->field_type};	
 			
-				$rules = array(
-					'field'	=> $stream_field->field_slug,
-					'label' => $stream_field->field_name,
-					'rules'	=> ''				
-				);
-				
 				// -------------------------------------
 				// Set required if necessary
 				// -------------------------------------
@@ -379,11 +382,11 @@ class Fields
 				{
 					if (isset($type->input_is_file) && $type->input_is_file === TRUE)
 					{
-						$rules['rules'] .= '|file_required['.$stream_field->field_slug.']';
+						$rules[] = 'streams_file_required['.$stream_field->field_slug.']';
 					}
 					else
 					{
-						$rules['rules'] .= '|required';
+						$rules[] = 'required';
 					}
 				}
 				
@@ -393,7 +396,7 @@ class Fields
 	
 				if ($stream_field->is_unique == 'yes')
 				{
-					$rules['rules'] .= '|unique['.$stream_field->field_slug.':'.$method.':'.$stream_field->stream_id.']';
+					$rules[] = 'streams_unique['.$stream_field->field_slug.':'.$method.':'.$stream_field->stream_id.']';
 				}
 				
 				// -------------------------------------
@@ -402,18 +405,51 @@ class Fields
 				
 				if (isset($type->extra_validation))
 				{
-					$rules['rules'] .= '|'.$type->extra_validation;
+					if (is_string($type->extra_validation))
+					{
+						$extra_rules = explode('|', $type->extra_validation);
+						$rules = array_merge($rules, $extra_rules);
+						unset($extra_rules);
+					}
+					elseif (is_array($type->extra_validation))
+					{
+						$rules = array_merge($rules, $this->extra_validation);
+					}
 				}
-	
+
 				// -------------------------------------
-				// Set them rules
+				// Remove duplicate rule values
 				// -------------------------------------
 	
-				$this->CI->streams_validation->set_rules($rules['field'], $rules['label'], $rules['rules']);
-				
-				// Reset this baby!
-				$rules = array();
+				$rules = array_unique($rules);
+
+				// -------------------------------------
+				// Add to validation rules array
+				// and unset $rules
+				// -------------------------------------
+
+				$validation_rules[] = array(
+					'field'	=> $stream_field->field_slug,
+					'label' => $stream_field->field_name,
+					'rules'	=> implode('|', $rules)				
+				);
+
+				unset($rules);
 			}
+		}
+
+		// -------------------------------------
+		// Set the rules or return them
+		// -------------------------------------
+
+		if ($return_array)
+		{
+			return $validation_rules;
+		}
+		else
+		{
+			$this->CI->form_validation->set_rules($validation_rules);
+			return true;		
 		}
 	}
 
