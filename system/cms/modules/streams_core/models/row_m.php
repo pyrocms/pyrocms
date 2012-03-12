@@ -370,7 +370,7 @@ class Row_m extends MY_Model {
 				{
 					// Check and see if a user is logged in
 					// and then set the param
-					if ($this->current_user->id)
+					if (isset($this->current_user->id) and is_numeric($this->current_user->id))
 					{
 						$restrict_user = $this->current_user->id;
 					}
