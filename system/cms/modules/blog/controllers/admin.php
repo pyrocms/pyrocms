@@ -172,7 +172,7 @@ class Admin extends Admin_Controller
 				role_or_die('blog', 'put_live');
 			}
 
-			if ($id = $this->blog_m->insert($this->blog_m->insert(array(
+			if ($id = $this->blog_m->insert(array(
 				'title'				=> $this->input->post('title'),
 				'slug'				=> $this->input->post('slug'),
 				'category_id'		=> $this->input->post('category_id'),
@@ -184,8 +184,8 @@ class Admin extends Admin_Controller
 				'comments_enabled'	=> $this->input->post('comments_enabled'),
 				'author_id'			=> $this->current_user->id,
 				'type'				=> $this->input->post('type'),
-				'parsed'			=> ($this->input->post('type') == 'markdown') ? parse_markdown($this->input->post('body')) : ''
-			))))
+				'parsed'			=> ($this->input->post('type') == 'markdown') ? parse_markdown($this->input->post('body')) : '',
+			)))
 			{
 				$this->pyrocache->delete_all('blog_m');
 				$this->session->set_flashdata('success', sprintf($this->lang->line('blog_post_add_success'), $this->input->post('title')));
@@ -358,18 +358,16 @@ class Admin extends Admin_Controller
 		switch ($this->input->post('btnAction'))
 		{
 			case 'publish':
-				role_or_die('blog', 'put_live');
 				$this->publish();
-				break;
+			break;
 			
 			case 'delete':
-				role_or_die('blog', 'delete_live');
 				$this->delete();
-				break;
+			break;
 			
 			default:
 				redirect('admin/blog');
-				break;
+			break;
 		}
 	}
 
@@ -435,6 +433,8 @@ class Admin extends Admin_Controller
 	 */
 	public function delete($id = 0)
 	{
+		role_or_die('blog', 'delete_live');
+
 		// Delete one
 		$ids = ($id) ? array($id) : $this->input->post('action_to');
 

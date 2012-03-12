@@ -184,7 +184,7 @@ $config['directory_trigger']	= 'd'; // experimental not currently in use
 | your log files will fill up very fast.
 |
 */
-$config['log_threshold'] = 3;
+$config['log_threshold'] = 1;
 
 /*
 |--------------------------------------------------------------------------
@@ -336,7 +336,7 @@ $config['compress_output'] = FALSE;
 | code less readable.
 |
 */
-$config['minify_output'] = (ENVIRONMENT !== PYRO_DEVELOPMENT); // only do this on 
+$config['minify_output'] = (ENVIRONMENT !== PYRO_DEVELOPMENT); // only do this on
 
 /*
 |--------------------------------------------------------------------------

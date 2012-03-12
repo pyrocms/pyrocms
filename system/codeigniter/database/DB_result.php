@@ -65,8 +65,8 @@ class CI_DB_result {
 	/**
 	 * Custom query result.
 	 *
-	 * @param string A string that represents the type of object you want back
-	 * @return array An array of objects
+	 * @param	string	A string that represents the type of object you want back
+	 * @return	array	of objects
 	 */
 	public function custom_result_object($class_name)
 	{

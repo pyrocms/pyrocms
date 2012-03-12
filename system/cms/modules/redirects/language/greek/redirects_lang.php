@@ -5,6 +5,11 @@ $lang['redirects.from']                      = 'Από';
 $lang['redirects.to']                        = 'Στο';
 $lang['redirects.edit']                      = 'Επεξεργασία';
 $lang['redirects.delete']                    = 'Διαγραφή';
+$lang['redirects.type']						= 'Type'; #translate
+
+// redirect types
+$lang['redirects.301']						= '301 - Moved Permanently'; #translate
+$lang['redirects.302']						= '302 - Moved Temporarily'; #translate
 
 // titles
 $lang['redirects.add_title']                 = 'Προσθήκη Ανακατεύθυνσης';

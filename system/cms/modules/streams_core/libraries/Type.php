@@ -46,7 +46,7 @@ class Type
 		$this->CI =& get_instance();
 		
 		$this->CI->load->helper('directory');
-		$this->CI->load->config('language');
+		$this->CI->load->config('streams_core/streams');
 
 		// These constants are used throughout the models.
 		// They should be removed at some point in the future.

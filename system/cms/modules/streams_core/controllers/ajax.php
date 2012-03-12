@@ -11,7 +11,7 @@
  */
 class Ajax extends Admin_Controller {
 
-    function __construct()
+    public function __construct()
     {
         parent::__construct();
         
@@ -21,7 +21,7 @@ class Ajax extends Admin_Controller {
  
         // We need this for all of the variable setups in
         // the Type library __construct
-        $this->load->library('Type');
+        $this->load->library('streams_core/Type');
         
         // Only AJAX gets through!
        	if ( ! $this->input->is_ajax_request())
