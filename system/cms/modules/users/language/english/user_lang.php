@@ -12,6 +12,7 @@ $lang['user_list_title'] 					   = 'Users';
 $lang['user_inactive_title']                   = 'Inactive Users';
 $lang['user_active_title']                     = 'Active Users';
 $lang['user_registred_title']                  = 'Registered Users';
+$lang['user_add_field']                        = 'Add User Profile Field'; // @new
 
 // labels
 $lang['user_edit_title']                       = 'Edit User "%s"';

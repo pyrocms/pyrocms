@@ -8,6 +8,8 @@
  */
 class Admin extends Admin_Controller {
 
+	protected $section = 'users';
+
 	/**
 	 * Validation for basic profile
 	 * data. The rest of the validation is

@@ -58,14 +58,31 @@ class Module_Users extends Module {
 			'frontend' => false,
 			'backend'  => true,
 			'menu'	  => false,
-			'shortcuts' => array(
-				array(
-				    'name' => 'user_add_title',
-				    'uri' => 'admin/users/create',
-				    'class' => 'add'
-				),
-		    ),
-		);
+			'sections' => array(
+				'users' => array(
+						'name' 	=> 'user_list_title',
+						'uri' 	=> 'admin/users',
+							'shortcuts' => array(
+								'create' => array(
+									'name' 	=> 'user_add_title',
+									'uri' 	=> 'admin/users/create',
+									'class' => 'add'
+									)
+								)
+							),
+				'fields' => array(
+						'name' 	=> 'user_profile_fields_label',
+						'uri' 	=> 'admin/users/fields',
+							'shortcuts' => array(
+								'create' => array(
+									'name' 	=> 'user_add_field',
+									'uri' 	=> 'admin/users/fields/create',
+									'class' => 'add'
+									)
+								)
+							)
+					)
+			);
 	}
 
 	/**
