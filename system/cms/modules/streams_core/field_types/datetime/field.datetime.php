@@ -40,7 +40,10 @@ class Field_datetime
 		// The rest of the function expects datetime.
 		if (isset($data['custom']['storage']) and $data['custom']['storage'] == 'unix')
 		{
-			$data['value'] = date('Y-m-d H:i:s', $data['value']);
+			if (is_numeric($data['value']))
+			{
+				$data['value'] = date('Y-m-d H:i:s', $data['value']);
+			}
 		}
 		
 		$date = $this->_break_date(trim($data['value']), $data['form_slug'], $data['custom']['use_time']);
@@ -374,7 +377,7 @@ class Field_datetime
 		$out['day']		= '';
 		$out['hour']	= '';
 		$out['minute']	= '';
-		
+
 		if ($date == '')
 		{
 			return $out;
