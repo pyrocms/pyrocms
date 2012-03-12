@@ -36,7 +36,7 @@ class Migration_Convert_user_profiles_table extends CI_Migration {
     			'extra'		 => array('max_length' => 50)
     		),
     		'company' => array(
-    			'field_name' => 'Company',
+    			'field_name' => lang('profile_company'),
     			'field_slug' => 'company',
     			'field_type' => 'text',
     			'extra'		 => array('max_length' => 100)
@@ -90,7 +90,11 @@ class Migration_Convert_user_profiles_table extends CI_Migration {
      		'website' => array(
     			'field_name' => lang('profile_website'),
     			'field_type' => 'text'
-    		)
+    		),
+            'updated_on' => array(
+                'field_name' => lang('profile_updated_on'),
+                'field_type' => 'current_time'
+            )
     	);
 
 		// Special case: Do we require the last name?
@@ -127,8 +131,6 @@ class Migration_Convert_user_profiles_table extends CI_Migration {
 	    		unset($assign);
     		}
     	}
-
-    	// @todo - handle the updated_on field
     }
 
     public function down()
