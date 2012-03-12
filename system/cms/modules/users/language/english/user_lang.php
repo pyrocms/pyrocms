@@ -156,11 +156,13 @@ $lang['user_reset_pass_email_body']            = 'Your password at %s has been r
 $lang['profile_of_title']             = '%s\'s Profile';
 
 $lang['profile_user_details_label']   = 'User Details';
+$lang['profile_user_basic_data_label']   = 'Basic Data'; // @new
 $lang['profile_role_label']           = 'Role';
 $lang['profile_registred_on_label']   = 'Registered on';
 $lang['profile_last_login_label']     = 'Last login';
 $lang['profile_male_label']           = 'Male';
 $lang['profile_female_label']         = 'Female';
+$lang['user_profile_fields_label']	  = 'Profile Fields';
 
 $lang['profile_not_set_up']           = 'This user does not have a profile set up.';
 
@@ -168,6 +170,7 @@ $lang['profile_edit']                 = 'Edit your profile';
 
 $lang['profile_personal_section']     = 'Personal';
 
+$lang['profile_company']         	  = 'Company'; // @new
 $lang['profile_display_name']         = 'Display Name';
 $lang['profile_dob']                  = 'Date of Birth';
 $lang['profile_dob_day']              = 'Day';
@@ -189,6 +192,8 @@ $lang['profile_address_line2']        = 'Line #2';
 $lang['profile_address_line3']        = 'Town/City';
 $lang['profile_address_postcode']     = 'Post/Zip Code';
 $lang['profile_website']              = 'Website';
+
+$lang['profile_updated_on']           = 'Updated On'; // @new
 
 $lang['profile_api_section']     	  = 'API Access';
 
