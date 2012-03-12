@@ -33,7 +33,7 @@ class Module_Themes extends Module {
 				'ru' => 'Темы',
 				'sl' => 'Predloge',
 				'zh' => '佈景主題',
-				'hu' => 'Témák'
+				'hu' => 'Sablonok'
 			),
 			'description' => array(
 				'en' => 'Allows admins and staff to switch themes, upload new themes, and manage theme options.',

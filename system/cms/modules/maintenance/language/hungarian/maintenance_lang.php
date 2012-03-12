@@ -10,9 +10,9 @@ $lang['maintenance.remove_msg'] 		= 'A(z) %2$s mappa törölve';
 $lang['maintenance.empty_msg_err'] 		= 'Hiba a(z) %s mappa ürítésekor';
 $lang['maintenance.remove_msg_err']             = 'Hiba a(z) %s mappa eltávolításakor';
 
-$lang['maintenance.export_data']		= 'Export Data';
-$lang['maintenance.export_xml']			= 'Export XML';
-$lang['maintenance.export_csv']			= 'Export CSV';
-$lang['maintenance.export_json']		= 'Export JSON';
+$lang['maintenance.export_data']		= 'Adatmentés';
+$lang['maintenance.export_xml']			= 'XML-be mentés';
+$lang['maintenance.export_csv']			= 'CSV-be mentés';
+$lang['maintenance.export_json']		= 'JSON-ba mentés';
 $lang['maintenance.table_label']		= 'Táblák';
-$lang['maintenance.record_label']		= 'Recordok';
+$lang['maintenance.record_label']		= 'Rekordok';

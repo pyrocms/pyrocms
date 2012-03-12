@@ -1,13 +1,13 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 // sidebar
-$lang['widgets.available_title']        = 'Rendelkezésre álló widget';
+$lang['widgets.available_title']        = 'Rendelkezésre álló widgetek';
 $lang['widgets.widget_area_wrapper']    = 'Rendelkezésre álló területek';
 $lang['widgets.instructions']           = 'Húzd és dobd telepítés';
 
 
 $lang['widgets.instances']            	= 'Példányok';
-$lang['widgets.areas']            	= 'Terület';
+$lang['widgets.areas']            	= 'Területek';
 
 // Widgets
 $lang['widgets.widget']                 = 'Widget';
@@ -29,7 +29,7 @@ $lang['widgets.widget_area']            = 'Terület';
 $lang['widgets.widget_area_title']      = 'Terület neve';
 $lang['widgets.widget_area_slug']       = 'Terület rövid neve';
 
-$lang['widgets.view_code']		= 'Code megtekintése';
+$lang['widgets.view_code']		= 'Kód megtekintése';
 
 $lang['widgets.instance_title']         = 'Cím';
 $lang['widgets.tag_title']              = 'Címszó';

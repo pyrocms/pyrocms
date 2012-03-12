@@ -2,7 +2,7 @@
 
 // labels
 $lang['header']                  = 'Első lépés: Szerver és adatbázis beállításai';
-$lang['intro_text']              = 'A PyroCMS-t nagyon egyszerű telepíteni és csak pár percet vesz igénybe, de az itt feltett kérdések zavarva ejtőek lehetnek, ha nem rendelkezel megfelelő technikai tudásháttérrel. Ha valamelyik pontnál megakadnál, akkor kérdezd meg a tárhelyszolgáltatódat vagy <a href="http://www.pyrocms.com/contact" target="_blank">minket</a>, hogy segíthessünk!';
+$lang['intro_text']              = 'A PyroCMS-t nagyon egyszerű telepíteni és csak pár percet vesz igénybe, de az itt feltett kérdések zavarba ejtőek lehetnek, ha nem rendelkezel megfelelő technikai tudásháttérrel. Ha valamelyik pontnál megakadnál, akkor kérdezd meg a tárhelyszolgáltatódat vagy <a href="http://www.pyrocms.com/contact" target="_blank">minket</a>, hogy segíthessünk!';
 
 $lang['db_settings']             = 'Adatbázis beállítások';
 $lang['db_text']                 = 'PyroCMS-hez szükség van egy adatbázisra (MySQL), ami tárolja az összes tartalmat és beállítást. Tehát elsőként ezt kell ellenőriznünk, hogy minden adatbázis beállitás rendben van-e. Ha nem tudod, hogy mit kell megadni, akkor kérd el az adatokat a tárhelyszolgáltatódtól vagy a szerver adminisztrátorától!';

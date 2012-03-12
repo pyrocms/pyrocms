@@ -12,7 +12,7 @@ $lang['templates.create_title']			= 'Sablon létrehozása';
 $lang['templates.edit_title']			= 'A(z) %s sablon módosítása';
 $lang['templates.clone_title']			= 'A(z) %s sablon másolása';
 $lang['templates.list_title']			= 'Sablonok listája';
-$lang['templates.default_title']		= 'Alapértelmezett sablon';
+$lang['templates.default_title']		= 'Alapértelmezett sablonok';
 $lang['templates.user_defined_title']		= 'Felhasználó által megadott sablonok';
 
 // Messages

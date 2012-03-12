@@ -28,7 +28,7 @@ class Module_Templates extends Module {
 				'ru' => 'Шаблоны почты',
 				'sl' => 'Email predloge',
 				'zh' => '郵件範本',
-				'hu' => 'Email sablonok'
+				'hu' => 'E-mail sablonok'
 			),
 			'description' => array(
 				'en' => 'Create, edit, and save dynamic email templates',

@@ -11,7 +11,7 @@ $lang['page_layouts.theme_layout_label']             = 'Oldalterv felirata';
 $lang['page_layouts.layout']                         = 'Oldalterv';
 
 // titles
-$lang['page_layouts.list_title']                     = 'Oldalterv címe';
+$lang['page_layouts.list_title']                     = 'Oldaltervek';
 $lang['page_layouts.create_title']                   = 'Új oldalterv létrehozása';
 $lang['page_layouts.edit_title']                     = 'A(z) "%s" oldalterv szerkesztése';
 

@@ -4,7 +4,7 @@
 $lang['pages.content_label']			= 'Oldal tartalma';
 $lang['pages.meta_label']			= 'Meta adatok';
 $lang['pages.design_label']			= 'Küllem';
-$lang['pages.script_label']			= 'Script';
+$lang['pages.script_label']			= 'Szkript';
 $lang['pages.options_label']			= 'Beállítások';
 
 $lang['pages.detail_label']			= 'Részletek';
@@ -65,6 +65,7 @@ $lang['pages_parent_not_exist_error']		= 'Nem létező szülő.';
 $lang['pages_chunk_slug_length']		= 'A keresőbarát URL nem lehet hosszabb 30 karakternél.';
 $lang['pages_root_folder']                      = 'A legfelső szint';
 
-$lang['pages.tree_explanation']		        = 'A bal oldali lista tartalmazza a weboldalon látható oldalakat. Rájuk kattintva megtekinthetőek az aloldalak. Az oldalakat húzogatva lehet rendezni, újrarendezni; függőlegesen ha aloldal létrehozása a cél. Ha a doboz szövegére kattintasz, akkor sajátkezűleg lehet rendezni az információkat a jobb oldali dobozban.';
+$lang['pages.tree_explanation_title']	        = 'Magyarázat';
+$lang['pages.tree_explanation']		        = 'A bal oldali lista tartalmazza a weboldalon látható oldalakat. Rájuk kattintva megtekinthetőek az aloldalak. Az oldalakat húzogatva lehet rendezni, újrarendezni - függőlegesen, ha aloldal létrehozása a cél. Ha a doboz szövegére kattintasz, akkor saját kezűleg lehet rendezni az információkat a jobb oldali dobozban.';
 
-$lang['pages.rss_explanation']		        = 'Az RSS bekapcsolásval lehetőséget adhatsz az oldal felhasználói számára, hogy nyomon kövessék amint változás történik az oldalon.';
+$lang['pages.rss_explanation']		        = 'Az RSS bekapcsolásval lehetőséget adhatsz az oldal felhasználói számára, hogy nyomon kövessék, amint változás történik az oldalon.';
