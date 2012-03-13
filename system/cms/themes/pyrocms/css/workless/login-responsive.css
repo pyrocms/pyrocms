@@ -74,9 +74,7 @@
 	}
 
 	#login-box label {
-		display: inline-block;
-		width: 70px;
-		margin: 0 5px;
+		width: 100%;
 		cursor: pointer;
 	}
 
@@ -101,9 +99,7 @@
 	}
 
 	#login-box input[type=checkbox] {
-		width: 15px;
-		height: 16px;
-		margin: 0px 0px 0px 30px;
+		margin: 5px -5px 5px -140px;
 		vertical-align: middle;
 	}
 

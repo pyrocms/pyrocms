@@ -104,7 +104,8 @@ body {
 
 #login-box input[type=checkbox] {
 	width: 25px;
-	height: 25px;
+	height: 20px;
+	vertical-align: middle;
 }
 
 #login-box input[type=submit] {
