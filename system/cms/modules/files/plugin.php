@@ -85,11 +85,15 @@ class Plugin_Files extends Plugin
 			))
 		{
 			$ids = array_merge(array((int) $folder->id), array_keys($subfolders));
-			$this->file_m->where_in('folder_id', $ids);
+			$this->file_m->select('files.*, file_folders.location')
+				->join('file_folders', 'file_folders.id = files.folder_id')
+				->where_in('folder_id', $ids);
 		}
 		else
 		{
-			$this->file_m->where('folder_id', $folder->id);
+			$this->file_m->select('files.*, file_folders.location')
+				->join('file_folders', 'file_folders.id = files.folder_id')
+				->where('folder_id', $folder->id);
 		}
 
 		$type AND $this->file_m->where('type', $type);
@@ -97,7 +101,7 @@ class Plugin_Files extends Plugin
 		$offset AND $this->file_m->limit($offset);
 
 		$files = $this->file_m->get_all();
-		$files AND array_merge($this->_files, assoc_array_prop($files));
+		$files AND array_merge($this->_files, $files);
 
 		return $files;
 	}

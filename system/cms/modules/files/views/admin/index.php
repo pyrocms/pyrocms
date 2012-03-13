@@ -2,8 +2,8 @@
 	<h4><?php echo lang('files:files_title'); ?></h4>
 </section>
 
-<section class="item">
-	<section class="one_quarter">
+<section class="item one_full">
+	<section class="sidebar">
 			<ul class="folders-sidebar">
 				<li class="folder places" data-id="0"><a href="#"><?php echo lang('files:places') ?></a></li>
 				<?php if ($folder_tree) : ?>
@@ -23,7 +23,7 @@
 			</ul>
 	</section>
 
-	<section class="one_half">
+	<section class="two_third">
 			<ul class="folders-right pane">
 				<?php if ( ! $folders) : ?>
 					<div class="no_data"><?php echo lang('files:no_folders'); ?></div>
@@ -41,7 +41,7 @@
 			</ul>
 	</section>
 
-	<section class="right one_quarter">
+	<section class="right sidebar">
 		<ul class="console">
 			<li class="console-title"><?php echo lang('files:activity'); ?></li>
 		</ul>

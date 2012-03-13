@@ -313,6 +313,7 @@ class Files
 					'user_id'		=> (int) ci()->current_user->id,
 					'type'			=> self::$_type,
 					'name'			=> $name,
+					'path'			=> '{{ url:site }}files/large/'.$file['file_name'],
 					'description'	=> '',
 					'filename'		=> $file['file_name'],
 					'extension'		=> $file['file_ext'],

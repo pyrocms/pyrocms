@@ -1,10 +1,6 @@
 
-/** temporary so that it's a decent size while I work on it **/
-.one_half { width: 760px; }
-.right.one_quarter { width: 220px; }
-/** end temporary **/
-
 .item { height: 450px; overflow: hidden; }
+.sidebar { width: 20%; }
 
 .folders-sidebar { height: 450px; border-right: 1px solid #d8d8d8; }
 .folders-sidebar li { padding: 3px; line-height: 20px; cursor: pointer; }
