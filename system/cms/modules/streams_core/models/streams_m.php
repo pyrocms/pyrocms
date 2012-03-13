@@ -392,10 +392,10 @@ class Streams_m extends MY_Model {
 				return $this->streams_cache[$stream_id];
 			}
 		}	
-	
+
 		$this->db->limit(1);
 		
-		if ($by_slug == TRUE and ! is_null($namespace))
+		if ($by_slug == true and ! is_null($namespace))
 		{
 			$this->db->where('stream_namespace', $namespace);
 			$this->db->where('stream_slug', $stream_id);		
