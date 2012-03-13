@@ -130,6 +130,8 @@ class Files
 			foreach ($folders as &$folder) 
 			{
 				$folder->formatted_date = format_date($folder->date_added);
+
+				$folder->file_count = ci()->file_m->count_by('folder_id', $folder->id);
 			}
 		}
 

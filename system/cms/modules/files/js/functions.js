@@ -565,10 +565,15 @@ jQuery(function($){
 		 	if ($item.filesize) 		$('.item-details .filesize')	.html(($item.filesize < 1000 ? $item.filesize+'Kb' : $item.filesize / 1000+'MB')).parent().show();
 		 	if ($item.filename) 		$('.item-details .filename')	.html($item.filename).parent().show();
 		 	if (type == 'file') 		$('.item-details .description')	.val($item.description).parent().show();
-		 	if (type == 'folder'){
+		 	if (type == 'folder' && $item.file_count == 0){
 		 		// update the value and trigger an update on Chosen
 		 		$select.val($item.location).find('option[value="'+$item.location+'"]').attr('selected', true);
 		 		$select.trigger('liszt:updated').parents().show();
+		 	} else if (type == 'folder') {
+		 		$('.item-details .location-static').html($item.location).parent().show();
+		 		if ($item.remote_container > '') {
+			 		$('.item-details .container-static').html($item.remote_container).parent().show();		 		
+				}
 		 	}
 
 		 	// show/hide the bucket/container name field on change

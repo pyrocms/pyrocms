@@ -75,7 +75,7 @@
 					<span class="slug"></span>
 				</li>
 				<li><?php echo lang('files:path'); ?>: 
-					<span class="path">http://bucket.s3.amazon.com/30958591749/object.jpg</span>
+					<span class="path"></span>
 				</li>
 				<li><?php echo lang('files:added'); ?>: 
 					<span class="added"></span>
@@ -91,6 +91,12 @@
 				</li>
 				<li><?php echo lang('files:filesize'); ?>: 
 					<span class="filesize"></span>
+				</li>
+				<li><?php echo lang('files:location'); ?>: 
+					<span class="location-static"></span>
+				</li>
+				<li><?php echo lang('files:container'); ?>: 
+					<span class="container-static"></span>
 				</li>
 				<li><?php echo lang('files:location'); ?>: 
 					<?php echo form_dropdown('location', $locations, '', 'class="location"'); ?>
