@@ -102,10 +102,14 @@ class Fields_m extends CI_Model {
      * @access	public
      * @return	int
      */
-	public function count_fields()
+	public function count_fields($namespace)
 	{
-		// @todo - add namespace
-		return $this->db->count_all($this->table);
+		if ( ! $namespace) return 0;
+
+		return $this->db
+				->where('field_namespace', $namespace)
+				->from($this->table)
+				->count_all_results();
 	}
 
     // --------------------------------------------------------------------------
