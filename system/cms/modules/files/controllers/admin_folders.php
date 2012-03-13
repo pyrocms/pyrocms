@@ -200,7 +200,7 @@ class Admin_folders extends Admin_Controller {
 
 		$this->template
 			->title($this->module_details['name'], $folder->name)
-			->append_metadata( css('files.css', 'files') )
+			->append_css('module::files.css')
 			->build('admin/folders/contents', $this->data);
 	}
 

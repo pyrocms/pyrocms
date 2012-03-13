@@ -1,5 +1,11 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
+/**
+ * Files module
+ *
+ * @author PyroCMS Dev Team
+ * @package PyroCMS\Core\Modules\Files
+ */
 class Module_Files extends Module {
 
 	public $version = '1.2';
@@ -8,75 +14,75 @@ class Module_Files extends Module {
 	{
 		$info = array(
 			'name' => array(
-				'sl' => 'Datoteke',
 				'en' => 'Files',
-				'br' => 'Arquivos',
-				'de' => 'Dateien',
-				'nl' => 'Bestanden',
-				'fr' => 'Fichiers',
-				'zh' => '檔案',
-				'it' => 'File',
-				'ru' => 'Файлы',
 				'ar' => 'الملفّات',
+				'br' => 'Arquivos',
 				'cs' => 'Soubory',
+				'da' => 'Filer',
+				'de' => 'Dateien',
+				'el' => 'Αρχεία',
 				'es' => 'Archivos',
 				'fi' => 'Tiedostot',
-				'el' => 'Αρχεία',
+				'fr' => 'Fichiers',
 				'he' => 'קבצים',
+				'id' => 'File',
+				'it' => 'File',
 				'lt' => 'Failai',
-				'da' => 'Filer',
-				'id' => 'File'
+				'nl' => 'Bestanden',
+				'ru' => 'Файлы',
+				'sl' => 'Datoteke',
+				'zh' => '檔案',
 			),
 			'description' => array(
-				'sl' => 'Uredi datoteke in mape na vaši strani',
 				'en' => 'Manages files and folders for your site.',
-				'br' => 'Permite gerenciar facilmente os arquivos de seu site.',
-				'de' => 'Verwalte Dateien und Verzeichnisse.',
-				'nl' => 'Beheer bestanden en mappen op uw website.',
-				'fr' => 'Gérer les fichiers et dossiers de votre site.',
-				'zh' => '管理網站中的檔案與目錄',
-				'it' => 'Gestisci file e cartelle del tuo sito.',
-				'ru' => 'Управление файлами и папками вашего сайта.',
 				'ar' => 'إدارة ملفات ومجلّدات موقعك.',
+				'br' => 'Permite gerenciar facilmente os arquivos de seu site.',
 				'cs' => 'Spravujte soubory a složky na vašem webu.',
+				'da' => 'Administrer filer og mapper for dit site.',
+				'de' => 'Verwalte Dateien und Verzeichnisse.',
+				'el' => 'Διαχειρίζεται αρχεία και φακέλους για το ιστότοπό σας.',
 				'es' => 'Administra archivos y carpetas en tu sitio.',
 				'fi' => 'Hallitse sivustosi tiedostoja ja kansioita.',
-				'el' => 'Διαχειρίζεται αρχεία και φακέλους για το ιστότοπό σας.',
+				'fr' => 'Gérer les fichiers et dossiers de votre site.',
 				'he' => 'ניהול תיקיות וקבצים שבאתר',
+				'id' => 'Mengatur file dan folder dalam situs Anda.',
+				'it' => 'Gestisci file e cartelle del tuo sito.',
 				'lt' => 'Katalogų ir bylų valdymas.',
-				'da' => 'Administrer filer og mapper for dit site.',
-				'id' => 'Mengatur file dan folder dalam situs Anda.'
+				'nl' => 'Beheer bestanden en mappen op uw website.',
+				'ru' => 'Управление файлами и папками вашего сайта.',
+				'sl' => 'Uredi datoteke in mape na vaši strani',
+				'zh' => '管理網站中的檔案與目錄',
 			),
 			'frontend' => FALSE,
-			'backend'  => TRUE,
-			'menu'	  => 'content',
+			'backend' => TRUE,
+			'menu' => 'content',
 			'roles' => array(
 				'download_file', 'edit_file', 'delete_file', 'edit_folder', 'delete_folder'
 			),
 			'shortcuts' => array(
-								 array(
-									   'name' => 'files.files_title',
-									   'uri' => 'admin/files',
-									   ),
-								 ),
+				array(
+					'name' => 'files.files_title',
+					'uri' => 'admin/files',
+				),
+			),
+		);
+
+		if (function_exists('group_has_role') AND group_has_role('files', 'edit_file'))
+		{
+			$info['shortcuts'][] = array(
+				'name' => 'file_folders.create_title',
+				'uri' => 'admin/files/folders/create',
+				'class' => 'add folder-create'
 			);
-		
-			if (function_exists('group_has_role') AND group_has_role('files', 'edit_file'))
-			{
-				$info['shortcuts'][] = array(
-											 'name' => 'file_folders.create_title',
-											 'uri' => 'admin/files/folders/create',
-											 'class' => 'add folder-create'
-											 );
-				
-				$info['shortcuts'][] = array(
-											 'name' => 'files.upload_title',
-											 'uri' => 'admin/files/upload',
-											 'class' => 'files-uploader'
-											 );
-			}
-			
-			return $info;
+
+			$info['shortcuts'][] = array(
+				'name' => 'files.upload_title',
+				'uri' => 'admin/files/upload',
+				'class' => 'files-uploader'
+			);
+		}
+
+		return $info;
 	}
 
 	public function install()
@@ -110,27 +116,24 @@ class Module_Files extends Module {
 				'sort' => array('type' => 'INT', 'constraint' => 11, 'default' => 0,),
 			),
 		);
-		$this->install_tables($tables);
-		
-		return TRUE;
+
+		if ( ! $this->install_tables($tables))
+		{
+			return false;
+		}
+
+		return true;
 	}
 
 	public function uninstall()
 	{
-		//it's a core module, lets keep it around
-		return FALSE;
+		// This is a core module, lets keep it around.
+		return false;
 	}
 
 	public function upgrade($old_version)
 	{
-		// Your Upgrade Logic
-		return TRUE;
+		return true;
 	}
 
-	public function help()
-	{
-		// Return a string containing help info
-		return TRUE;
-	}
 }
-/* End of file details.php */

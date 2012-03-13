@@ -285,6 +285,7 @@ jQuery(function($) {
 		});
 
 		$item_list.nestedSortable({
+			delay: 100,
 			disableNesting: 'no-nest',
 			forcePlaceholderSize: true,
 			handle: 'div',

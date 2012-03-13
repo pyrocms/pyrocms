@@ -358,18 +358,16 @@ class Admin extends Admin_Controller
 		switch ($this->input->post('btnAction'))
 		{
 			case 'publish':
-				role_or_die('blog', 'put_live');
 				$this->publish();
-				break;
+			break;
 			
 			case 'delete':
-				role_or_die('blog', 'delete_live');
 				$this->delete();
-				break;
+			break;
 			
 			default:
 				redirect('admin/blog');
-				break;
+			break;
 		}
 	}
 
@@ -435,6 +433,8 @@ class Admin extends Admin_Controller
 	 */
 	public function delete($id = 0)
 	{
+		role_or_die('blog', 'delete_live');
+
 		// Delete one
 		$ids = ($id) ? array($id) : $this->input->post('action_to');
 
