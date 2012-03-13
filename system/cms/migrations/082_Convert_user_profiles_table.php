@@ -19,80 +19,80 @@ class Migration_Convert_user_profiles_table extends CI_Migration {
     	// Go ahead and convert our standard user fields:
     	$columns = array(
     		'display_name' => array(
-    			'field_name' => lang('profile_display_name'),
+    			'field_name' => 'profile_display_name',
     			'field_type' => 'text',
     			'extra'		 => array('max_length' => 50),
     			'assign'	 => array('required' => true)
     		),
 			'first_name' => array(
-    			'field_name' => lang('user_first_name'),
+    			'field_name' => 'user_first_name',
     			'field_type' => 'text',
     			'extra'		 => array('max_length' => 50),
     			'assign'	 => array('required' => true)
     		),
 			'last_name' => array(
-    			'field_name' => lang('user_last_name'),
+    			'field_name' => 'user_last_name',
     			'field_type' => 'text',
     			'extra'		 => array('max_length' => 50)
     		),
     		'company' => array(
-    			'field_name' => lang('profile_company'),
+    			'field_name' => 'profile_company',
     			'field_slug' => 'company',
     			'field_type' => 'text',
     			'extra'		 => array('max_length' => 100)
     		),
     		'language' => array(
-    			'field_name' => lang('user_lang'),
+    			'field_name' => 'user_lang',
     			'field_slug' => 'pyro_lang',
     			'extra'		 => array('filter_theme' => 'yes')
     		),
  			'bio' => array(
-    			'field_name' => lang('profile_bio'),
+    			'field_name' => 'profile_bio',
     			'field_type' => 'textarea'
     		),
  			'dob' => array(
-    			'field_name' => 'Date of Birth',
+    			'field_name' => 'profile_dob',
     			'field_type' => 'datetime',
     			'extra'		 => array('use_time' => 'no', 'storage' => 'unix')
     		),
     		'gender' => array(
-    			'field_name' => lang('profile_gender'),
+    			'field_name' => 'profile_gender',
     			'field_type' => 'choice',
     			'extra'		 => array('choice_type' => 'radio', 'choice_data' => " : Not Telling\nm : Male\nf : Female")
     		),
      		'phone' => array(
-    			'field_name' => lang('profile_phone'),
+    			'field_name' => 'profile_phone',
     			'field_type' => 'text',
     			'extra'		 => array('max_length' => 20)
     		),
      		'mobile' => array(
-    			'field_name' => lang('profile_mobile'),
+    			'field_name' => 'profile_mobile',
     			'field_type' => 'text',
     			'extra'		 => array('max_length' => 20)
     		),
       		'address_line1' => array(
-    			'field_name' => lang('profile_address_line1'),
+    			'field_name' => 'profile_address_line1',
     			'field_type' => 'text'
     		),
       		'address_line2' => array(
-    			'field_name' => lang('profile_address_line2'),
+    			'field_name' => 'profile_address_line2',
     			'field_type' => 'text'
     		),
     		'address_line3' => array(
-    			'field_name' => lang('profile_address_line3'),
+    			'field_name' => 'profile_address_line3',
     			'field_type' => 'text'
     		),
     		'postcode' => array(
-    			'field_name' => lang('profile_address_postcode'),
+    			'field_name' => 'profile_address_postcode',
     			'field_type' => 'text',
     			'extra'		 => array('max_length' => 20)
     		),
      		'website' => array(
-    			'field_name' => lang('profile_website'),
+    			'field_name' => 'profile_website',
     			'field_type' => 'text'
     		),
             'updated_on' => array(
-                'field_name' => lang('profile_updated_on'),
+                'field_name' => 'profile_updated_on',
                 'field_type' => 'current_time'
             )
     	);
