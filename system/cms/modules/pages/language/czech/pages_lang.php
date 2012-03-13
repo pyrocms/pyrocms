@@ -65,6 +65,7 @@ $lang['pages_parent_not_exist_error'] 			= 'Vybraná rodičovská stránka neexi
 $lang['pages_chunk_slug_length']					= 'Page Chunk slugs may be no more than 30 characters in length.'; #translate
 $lang['pages_root_folder']                = 'the top level'; #translate
 
+$lang['pages.tree_explanation_title']	        = 'Explanation'; #translate
 $lang['pages.tree_explanation'] 				= 'Seznam vlevo reprezentuje stránky na webu.
 Klikněte na ikonku "+" pro zobrazení stránek uvnitř. Při kliknutí na stránku tu uvidíte spoustu užitečných informací.';
 

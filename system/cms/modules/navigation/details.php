@@ -33,6 +33,7 @@ class Module_Navigation extends Module {
 				'ru' => 'Навигация',
 				'sl' => 'Navigacija',
 				'zh' => '導航選單',
+                                'hu' => 'Navigáció'
 			),
 			'description' => array(
 				'en' => 'Manage links on navigation menus and all the navigation groups they belong to.',
@@ -54,6 +55,7 @@ class Module_Navigation extends Module {
 				'ru' => 'Управление ссылками в меню навигации и группах, к которым они принадлежат.',
 				'sl' => 'Uredi povezave v meniju in vse skupine povezav ki jim pripadajo.',
 				'zh' => '管理導航選單中的連結，以及它們所隸屬的導航群組。',
+				'hu' => 'Linkek kezelése a navigációs menükben és a navigációs csoportok kezelése, amikhez tartoznak.'
 			),
 			'frontend' => false,
 			'backend'  => true,

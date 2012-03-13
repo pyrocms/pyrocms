@@ -17,12 +17,14 @@ class Module_Api extends Module
 			'name' => array(
 				'en' => 'API Management',
 				'el' => 'Διαχείριση API',
-				'fr' => 'Gestionnaire d\'API'
+				'fr' => 'Gestionnaire d\'API',
+				'hu' => 'API Kezelés'
 			),
 			'description' => array(
 				'en' => 'Set up a RESTful API with API Keys and out in JSON, XML, CSV, etc.',
 				'el' => 'Ρυθμίσεις για ένα RESTful API με κλειδιά API και αποτελέσματα σε JSON, XML, CSV, κτλ.',
-				'fr' => 'Paramétrage d\'une API RESTgul avec clés API et export en JSON, XML, CSV, etc.'
+				'fr' => 'Paramétrage d\'une API RESTgul avec clés API et export en JSON, XML, CSV, etc.',
+                                'hu' => 'Körültekintően állítsd be az API-t (alkalmazásprogramozási felület) az API Kulcsokkal együtt és küldd JSON-ba, XML-be, CSV-be, vagy bármi egyébbe.'
 			),
 			'frontend' => TRUE,
 			'backend' => TRUE,

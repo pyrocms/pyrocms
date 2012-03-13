@@ -65,6 +65,7 @@ $lang['pages_parent_not_exist_error'] 			= 'De geselecteerde bovenliggende pagin
 $lang['pages_chunk_slug_length']					= 'Page Chunk slugs may be no more than 30 characters in length.'; #translate
 $lang['pages_root_folder']                = 'the top level'; #translate
 
+$lang['pages.tree_explanation_title']	        = 'Explanation'; #translate
 $lang['pages.tree_explanation'] 				= 'De lijst aan de linkerkant stellen de pagina&apos;s op uw website voor.
 Klik op het "+" icoon naast de pagina om de onderliggende pagina&apos;s te zien. Als u een pagina selecteert ziet u de informatie over de pagina in dit veld.';
 
