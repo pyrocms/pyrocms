@@ -220,8 +220,8 @@ jQuery(function($){
 
 		$.colorbox({
 			scrolling	: false,
-			inline		: folder.location != 'amazon-s3' ? true : false,
-			href		: folder.location != 'amazon-s3' ? '#files-uploader' : SITE_URL+'/admin/files/amazon_form/'+folder.id,
+			inline		: true,
+			href		: '#files-uploader',
 			width		: '800',
 			height		: '80%',
 			opacity		: 0.3,
@@ -239,8 +239,8 @@ jQuery(function($){
 	});
 
 	pyro.init_upload = function($form){
-		$($form).fileUploadUI({
-			fieldName       : 'userfile',
+		$form.find('form').fileUploadUI({
+			fieldName       : 'file',
 			uploadTable     : $('#files-uploader-queue'),
 			downloadTable   : $('#files-uploader-queue'),
 			previewSelector : '.file_upload_preview div',
@@ -291,22 +291,21 @@ jQuery(function($){
 				}
 			}
 		});
+
+		$form.on('click', '.start-upload', function(e){
+			e.preventDefault();
+			$('#files-uploader-queue button.start').click();
+		});
+
+		$form.on('click', '.cancel-upload', function(e){
+			e.preventDefault();
+			$('#files-uploader-queue button.cancel').click();
+			$.colorbox.close();
+		});
+
 	}
 
-	// go ahead and init non-amazon uploads
-	pyro.init_upload('#files-uploader form');
-
-	$('#files-uploader a.start-upload').click(function(e){
-		e.preventDefault();
-		$('#files-uploader-queue button.start').click();
-	});
-
-	$('#files-uploader a.cancel-upload').click(function(e){
-		e.preventDefault();
-		$('#files-uploader-queue button.cancel').click();
-		$.colorbox.close();
-	});
-
+	pyro.init_upload($('#files-uploader'));
 
 
 	/***************************************************************************

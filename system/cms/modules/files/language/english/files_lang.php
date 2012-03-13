@@ -76,5 +76,6 @@ $lang['files:no_records_found']				= 'No records could be found';
 $lang['files:invalid_extension']			= '"%s" has a file extension that is not allowed';
 $lang['files:upload_error']					= 'The file upload failed';
 $lang['files:description_saved']			= 'The file description has been saved';
+$lang['files:file_moved']					= '"%s" has been moved successfully';
 
 /* End of file files_lang.php */

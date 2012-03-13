@@ -235,23 +235,7 @@ class Admin extends Admin_Controller {
 	{
 		if ($folder_id = $this->input->post('folder_id') AND $name = $this->input->post('name'))
 		{
-			echo json_encode(Files::upload($folder_id, $name));
-		}
-	}
-
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Return the authenticated Amazon upload form
-	 *
-	 * @access	public
-	 * @return	void
-	 */
-	public function amazon_form($folder_id = FALSE)
-	{
-		if ($folder_id)
-		{
-			echo $this->load->view('admin/amazon_form', NULL, TRUE);
+			echo json_encode(Files::upload($folder_id, $name, 'file'));
 		}
 	}
 

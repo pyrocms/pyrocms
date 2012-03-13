@@ -292,9 +292,12 @@ class Files
 
 		if ( ! $check_ext = self::_check_ext($field)) return $check_ext;
 
+		// this keeps a long running upload from stalling the site
+		session_write_close();
+
 		$folder = ci()->file_folders_m->get($folder_id);
 
-		if ($folder AND $folder->location !== 'amazon-s3')
+		if ($folder)
 		{
 			ci()->load->library('upload', array(
 				'upload_path'	=> self::$_path,
@@ -322,9 +325,9 @@ class Files
 
 				$file_id = ci()->file_m->insert($data);
 
-				if ($folder->location === 'rackspace-cf')
+				if ($folder->location !== 'local')
 				{
-					return Files::move($file_id, $data['filename'], 'local', 'rackspace-cf', $folder->remote_container);
+					return Files::move($file_id, $data['filename'], 'local', $folder->location, $folder->remote_container);
 				}
 
 				return self::result(TRUE, lang('files:file_uploaded'), $name);
@@ -364,7 +367,10 @@ class Files
 			return self::result(FALSE, lang('files:item_not_found'), $new_name ? $new_name : $file_id);
 		}
 
-		// this would be used when move() is used during a rackspace upload as the location in the 
+		// this keeps a long running transaction from stalling the site
+		session_write_close();
+
+		// this would be used when move() is used during a rackspace or amazon upload as the location in the 
 		// database is not the actual file location, its location is local temporarily
 		if ($location) $file->location = $location;
 
@@ -407,9 +413,15 @@ class Files
 			if (in_array($container, $containers))
 			{
 				// make a unique object name
-				$object = now().'/'.$new_name;
+				$object = now().'.'.$new_name;
 
 				$path = ci()->storage->upload_file($container, self::$_path.$file->filename, $object, NULL, 'public');
+
+				if ($new_location === 'amazon-s3')
+				{
+					// if amazon didn't throw an error we'll create a path to store like rackspace does
+					$path = 'http://'.$container.'.'.'s3.amazonaws.com/'.$object;
+				}
 
 				$data = array('filename' => $object, 'path' => $path);
 				// save its location
@@ -463,12 +475,26 @@ class Files
 				return self::result(FALSE, lang('files:unsuccessful_fetch'), $file);
 			}
 
-			// shove it into the cloud and hope it stays
-			$result = ci()->storage->upload_file($container, $temp_file, $new_name, NULL, 'public');
+			// make a unique object name
+			$object = now().'.'.$new_name;
 
+			$path = ci()->storage->upload_file($container, $temp_file, $object, NULL, 'public');
+
+			if ($new_location === 'amazon-s3')
+			{
+				// if amazon didn't throw an error we'll create a path to store like rackspace does
+				$path = 'http://'.$container.'.'.'s3.amazonaws.com/'.$object;
+			}
+
+			$data = array('filename' => $object, 'path' => $path);
+
+			// save its new location
+			ci()->file_m->update($file->id, $data);
+
+			// get rid of the "temp" file
 			@unlink($temp_file);
 
-			return self::result( (bool)$result, $result);
+			return self::result(TRUE, lang('files:file_moved'), $file->name, $data);
 		}
 	}
 
