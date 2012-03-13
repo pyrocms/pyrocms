@@ -15,7 +15,7 @@
 				<td width="30" class="handle"><?php echo Asset::img('icons/drag_handle.gif', 'Drag Handle'); ?></td>
 				<td>
 					<input type="hidden" name="action_to[]" value="<?php echo $assignment->assign_id;?>" />
-					<?php echo $assignment->field_name; ?></td>
+					<?php echo (lang($assignment->field_name)) ? lang($assignment->field_name) : $assignment->field_name; ?></td>
 				<td><?php echo $assignment->field_slug; ?></td>
 				<td class="actions">
 					<?php
