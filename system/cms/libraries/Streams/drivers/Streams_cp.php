@@ -595,6 +595,9 @@ class Streams_cp extends CI_Driver {
 		// Build Pages
 		// -------------------------------------
 
+		$CI->template->append_metadata('<script>var fields_offset='.$offset.';</script>');
+		$CI->template->append_js('streams/assignments.js');
+
 		$table = $CI->load->view('admin/partials/streams/assignments', $data, true);
 		
 		if ($view_override)
