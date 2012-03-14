@@ -30,7 +30,8 @@ class Module_Templates extends Module {
 				'ru' => 'Шаблоны почты',
 				'da' => 'Email skabeloner',
 				'zh' => '郵件範本',
-				'id' => 'Template Email'
+				'id' => 'Template Email',
+				'fi' => 'Sähköposti viestipohjat'
 			),
 			'description' => array(
 				'sl' => 'Ustvari, uredi in shrani spremenljive email predloge',
@@ -46,7 +47,8 @@ class Module_Templates extends Module {
 				'ru' => 'Создавайте, редактируйте и сохраняйте динамические почтовые шаблоны',
 				'da' => 'Opret, redigér og gem dynamiske emailskabeloner.',
 				'zh' => '新增、編輯與儲存可顯示動態資料的 email 範本',
-				'id' => 'Membuat, mengedit, dan menyimpan template email dinamis'
+				'id' => 'Membuat, mengedit, dan menyimpan template email dinamis',
+				'fi' => 'Lisää, muokkaa ja tallenna dynaamisia sähköposti viestipohjia.'
 			),
 			'frontend' => FALSE,
 			'backend' => TRUE,
