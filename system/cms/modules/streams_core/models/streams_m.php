@@ -742,7 +742,7 @@ class Streams_m extends MY_Model {
 	// --------------------------------------------------------------------------
 	
 	/**
-	 * Remove a field
+	 * Remove a field assignment
 	 *
 	 * @param	obj
 	 * @param	obj
@@ -837,7 +837,7 @@ class Streams_m extends MY_Model {
 		
 		// -------------------------------------
 		
-		return false;
+		return true;
 	}
 	
 }
