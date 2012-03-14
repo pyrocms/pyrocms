@@ -611,4 +611,46 @@ class Streams_cp extends CI_Driver {
 			return $table;
 		}
 	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Tear down assignment + field combo
+	 *
+	 * Usually we'd just delete the assignment, but in
+	 * this can we need to delete the field as well since
+	 * there is a 1-1 relationship here.
+	 *
+	 * @access 	public
+	 * @param 	int - assignment id
+	 * @return 	bool - success/fail
+	 */
+	public function teardown_assignment_field($assign_id)
+	{
+		$CI = get_instance();
+
+		// Get the assignment
+		$assignment = $CI->db->limit(1)->where('id', $assign_id)->get(ASSIGN_TABLE)->row();
+
+		if ( ! $assignment)
+		{
+			$this->log_error('invalid_assignment', 'teardown_assignment_field');
+		}
+
+		// Get stream
+		$stream = $CI->streams_m->get_stream($assignment->stream_id);
+
+		// Get field
+		$field = $CI->fields_m->get_field($assignment->field_id);
+
+		// Delete the assignment
+		if ( ! $CI->streams_m->remove_field_assignment($assignment, $field, $stream))
+		{
+			$this->log_error('invalid_assignment', 'teardown_assignment_field');
+		}
+
+		// Remove the field
+		return $CI->fields_m->delete_field($field->id);
+	}
+
 }
