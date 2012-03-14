@@ -4,9 +4,8 @@
  * The Maintenance Module - currently only remove/empty cache folder(s)
  *
  * @author		Donald Myers
- * @package		PyroCMS
- * @subpackage	Maintenance Module
- * @category	Modules
+ * @author		PyroCMS Dev Team
+ * @package 	PyroCMS\Core\Modules\Maintainance\Controllers
  */
 
 class Admin extends Admin_Controller 

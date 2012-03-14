@@ -21,5 +21,3 @@
 */
 
 $route['navigation/admin/groups(:any)?'] = 'admin_groups$1';
-
-?>

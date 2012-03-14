@@ -1,26 +1,12 @@
 <?php  defined('BASEPATH') OR exit('No direct script access allowed');
 /**
- * PyroCMS
- *
- * An open source CMS based on CodeIgniter
- *
- * @package		PyroCMS
- * @author		PyroCMS Dev Team
- * @license		Apache License v2.0
- * @link		http://pyrocms.com
- * @since		Version 1.0-dev
- * @filesource
- */
-
-/**
  * PyroCMS Files Admin Controller
  *
  * Provides an admin for the files module.
  *
  * @author		Dan Horrigan <dan@dhorrigan.com>
  * @author		Eric Barnes <eric@pyrocms.com>
- * @package		PyroCMS
- * @subpackage	Files
+ * @package		PyroCMS\Core\Modules\Files\Controllers
  */
 class Admin_folders extends Admin_Controller {
 
@@ -214,7 +200,7 @@ class Admin_folders extends Admin_Controller {
 
 		$this->template
 			->title($this->module_details['name'], $folder->name)
-			->append_metadata( css('files.css', 'files') )
+			->append_css('module::files.css')
 			->build('admin/folders/contents', $this->data);
 	}
 
@@ -233,7 +219,7 @@ class Admin_folders extends Admin_Controller {
 			}
 			else
 			{
-				if ($this->file_folders_m->insert(array(
+				if ($id = $this->file_folders_m->insert(array(
 					'name'			=> $name,
 					'slug'			=> $this->input->post('slug'),
 					'parent_id'		=> $this->input->post('parent_id'),
@@ -242,6 +228,9 @@ class Admin_folders extends Admin_Controller {
 				{
 					$message	= sprintf(lang('file_folders.create_success'), $name);
 					$status		= 'success';
+				
+					// Fire an event. A new folder has been created.
+					Events::trigger('file_folder_created', $id);
 				}
 				else
 				{
@@ -263,7 +252,6 @@ class Admin_folders extends Admin_Controller {
 				)) );
 			}
 
-			// Redirect
 			$this->session->set_flashdata($status, $message);
 			redirect('admin/files/folders' . ($status === 'error' OR $this->input->post('btnAction') !== 'save_exit' ? '/edit': ''));
 		}
@@ -332,6 +320,9 @@ class Admin_folders extends Admin_Controller {
 			{
 				$message	= sprintf(lang('file_folders.create_success'), $name);
 				$status		= 'success';
+				
+				// Fire an event. A folder has been updated.
+				Events::trigger('file_folder_updated', $id);
 			}
 			else
 			{
@@ -353,7 +344,6 @@ class Admin_folders extends Admin_Controller {
 				)) );
 			}
 
-			// Redirect
 			$this->session->set_flashdata($status, $message);
 			redirect('admin/files/folders' . ($status === 'error' ? '/edit': ''));
 		}
@@ -400,6 +390,7 @@ class Admin_folders extends Admin_Controller {
 		{
 			$total		= sizeof($ids);
 			$deleted	= array();
+			$deleted_ids	= array();
 
 			// Try do deletion
 			foreach ($ids as $id)
@@ -409,8 +400,12 @@ class Admin_folders extends Admin_Controller {
 				{
 					// Make deletion retrieving an status and store an value to display in the messages
 					$deleted[($this->file_folders_m->delete($id) ? 'success': 'error')][] = $folder->name;
+					$deleted_ids[] = $id;
 				}
 			}
+
+			// Fire an event. One or more folders have been deleted.
+			Events::trigger('file_folder_deleted', $deleted_ids);
 
 			// Set status messages
 			foreach ($deleted as $status => &$values)

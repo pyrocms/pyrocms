@@ -1,16 +1,15 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
-* Regular pages model
-*
-* @author Phil Sturgeon - PyroCMS Dev Team
-* @package PyroCMS
-* @subpackage Pages Module
-* @category Modules
-*
-*/
+ * Regular pages model
+ *
+ * @author		Phil Sturgeon
+ * @author		PyroCMS Dev Team
+ * @package		PyroCMS\Core\Modules\Pages\Models
+ *
+ */
 class Page_m extends MY_Model
 {
-	
+
 	/**
 	* Get a page by it's path
 	*
@@ -28,20 +27,20 @@ class Page_m extends MY_Model
 	{
 		$segments = explode('/', $segments);
 	}
-	
+
 	// Work out how many segments there are
 	$total_segments = count($segments);
-	
+
 		// Which is the target alias (the final page in the tree)
 	$target_alias = 'p'.$total_segments;
-	
+
 	// Start Query, Select (*) from Target Alias, from Pages
 	$this->db->select($target_alias.'.*, revisions.id as revision_id, revisions.owner_id, revisions.table_name, revisions.body, revisions.revision_date, revisions.author_id');
 	$this->db->from('pages p1');
-	
+
 		// Simple join enables revisions - Yorick
 		$this->db->join('revisions', 'p1.revision_id = revisions.id');
-	
+
 	// Loop thorugh each Slug
 	$level = 1;
 	foreach( $segments as $segment )
@@ -49,27 +48,27 @@ class Page_m extends MY_Model
 	    // Current is the current page, child is the next page to join on.
 	    $current_alias = 'p'.$level;
 	    $child_alias = 'p'.($level - 1);
-	
+
 	    // We dont want to join the first page again
 	    if($level != 1)
 	    {
 		$this->db->join('pages '.$current_alias, $current_alias.'.parent_id = '.$child_alias.'.id');
 	    }
-	
+
 	    // Add slug to where clause to keep us on the right tree
 	    $this->db->where($current_alias . '.slug', $segment);
-	
+
 	    // Increment
 	    ++$level;
 	}
-	
+
 	// Can only be one result
 	$this->db->limit(1);
-	
+
 	return $this->db->get()->row();
 	}
 	*/
-		
+
 	/**
 	 * Get a page by it's URI
 	 *
@@ -81,7 +80,7 @@ class Page_m extends MY_Model
 	{
 		// If the URI has been passed as a array, implode to create an string of uri segments
 		is_array($uri) && $uri = implode('/', $uri);
-	
+
 		return $this->db
 			->where('uri', trim($uri, '/'))
 			->limit(1)
@@ -103,7 +102,7 @@ class Page_m extends MY_Model
 			->get('pages')
 			->row();
 	}
-	
+
 	/**
 	 * Build a multi-array of parent > children.
 	 *
@@ -118,15 +117,15 @@ class Page_m extends MY_Model
 			 ->order_by('`order`')
 			 ->get('pages')
 			 ->result_array();
-	
+
 		// we must reindex the array first
 		foreach ($all_pages as $row)
 		{
 			$pages[$row['id']] = $row;
 		}
-		
+
 		unset($all_pages);
-	
+
 		// build a multidimensional array of parent > children
 		foreach ($pages as $row)
 		{
@@ -135,17 +134,17 @@ class Page_m extends MY_Model
 				// add this page to the children array of the parent page
 				$pages[$row['parent_id']]['children'][] =& $pages[$row['id']];
 			}
-			
+
 			// this is a root page
 			if ($row['parent_id'] == 0)
 			{
 				$page_array[] =& $pages[$row['id']];
 			}
 		}
-	
+
 		return $page_array;
 	}
-	
+
 	/**
 	 * Set the parent > child relations and child order
 	 *
@@ -161,7 +160,7 @@ class Page_m extends MY_Model
 			{
 				$this->db->where('id', str_replace('page_', '', $child['id']));
 				$this->db->update('pages', array('parent_id' => str_replace('page_', '', $page['id']), '`order`' => $i));
-				
+
 				//repeat as long as there are children
 				if (isset($child['children']))
 				{
@@ -170,7 +169,7 @@ class Page_m extends MY_Model
 			}
 		}
 	}
-	
+
 	/**
 	 * Does the page have children?
 	 *
@@ -182,7 +181,7 @@ class Page_m extends MY_Model
 	{
 		return parent::count_by(array('parent_id' => $parent_id)) > 0;
 	}
-	
+
 	/**
 	 * Get the child IDs
 	 *
@@ -193,13 +192,13 @@ class Page_m extends MY_Model
 	public function get_descendant_ids($id, $id_array = array())
 	{
 		$id_array[] = $id;
-	
+
 		$children = $this->db->select('id, title')
 			->where('parent_id', $id)
 			->get('pages')->result();
-	
+
 		$has_children = !empty($children);
-	
+
 		if ($has_children)
 		{
 			// Loop through all of the children and run this function again
@@ -208,10 +207,10 @@ class Page_m extends MY_Model
 				$id_array = $this->get_descendant_ids($child->id, $id_array);
 			}
 		}
-	
+
 		return $id_array;
 	}
-	
+
 	/**
 	 * Build a lookup
 	 *
@@ -222,7 +221,7 @@ class Page_m extends MY_Model
 	public function build_lookup($id)
 	{
 		$current_id = $id;
-	
+
 		$segments = array();
 		do
 		{
@@ -231,18 +230,18 @@ class Page_m extends MY_Model
 				->where('id', $current_id)
 				->get('pages')
 				->row();
-	
+
 			$current_id = $page->parent_id;
 			array_unshift($segments, $page->slug);
 		}
 		while( $page->parent_id > 0 );
-	
+
 		// If the URI has been passed as a string, explode to create an array of segments
 		return parent::update($id, array(
 			'uri' => implode('/', $segments)
 		));
 	}
-	
+
 	/**
 	 * Reindex child items
 	 *
@@ -258,7 +257,7 @@ class Page_m extends MY_Model
 			$this->build_lookup($descendant);
 		}
 	}
-	
+
 	/**
 	 * Update lookup for entire page tree
 	 * used to update page uri after ajax sort
@@ -274,13 +273,13 @@ class Page_m extends MY_Model
 			->where('parent_id', 0)
 			->set('uri', 'slug', FALSE)
 			->update('pages');
-			
+
 		foreach ($root_pages as $page)
 		{
 			$this->reindex_descendants($page);
 		}
 	}
-	
+
 	/**
 	 * Create a new page
 	 *
@@ -291,7 +290,7 @@ class Page_m extends MY_Model
 	public function insert(array $input = array(), $chunks = array())
 	{
 		$this->db->trans_start();
-	
+
 		if ( ! empty($input['is_home']))
 		{
 			// Remove other homepages
@@ -299,30 +298,30 @@ class Page_m extends MY_Model
 				->where('is_home', 1)
 				->update('pages', array('is_home' => 0));
 		}
-	
+
 		parent::insert(array(
 			'slug'			=> $input['slug'],
 			'title'			=> $input['title'],
 			'uri'			=> NULL,
 			'parent_id'		=> (int) $input['parent_id'],
 			'layout_id'		=> (int) $input['layout_id'],
-			'css'			=> $input['css'],
-			'js'			=> $input['js'],
-			'meta_title'		=> $input['meta_title'],
-			'meta_keywords'		=> $input['meta_keywords'],
-			'meta_description'	=> $input['meta_description'],
+			'css'			=> isset($input['css']) ? $input['css'] : null,
+			'js'			=> isset($input['js']) ? $input['js'] : null,
+			'meta_title'    => isset($input['meta_title']) ? $input['meta_title'] : '',
+			'meta_keywords' => isset($input['meta_keywords']) ? $input['meta_keywords'] : '',
+			'meta_description' => isset($input['meta_description']) ? $input['meta_description'] : '',
 			'rss_enabled'		=> (int) ! empty($input['rss_enabled']),
 			'comments_enabled'	=> (int) ! empty($input['comments_enabled']),
-			'is_home'		=> (int) ! empty($input['is_home']),
 			'status'		=> $input['status'],
 			'created_on'		=> now(),
+			'is_home'		=> (int) ! empty($input['is_home']),
 			'order'		=> now()
 		));
-		
+
 		$id = $this->db->insert_id();
-	
+
 		$this->build_lookup($id);
-		
+
 		if ($chunks)
 		{
 			// And add the new ones
@@ -330,21 +329,21 @@ class Page_m extends MY_Model
 			foreach ($chunks as $chunk)
 			{
 				$this->db->insert('page_chunks', array(
-					'page_id' 	=> $id,
-					'sort' 		=> $i++,
 					'slug' 		=> preg_replace('/[^a-zA-Z0-9_-\s]/', '', $chunk->slug),
+					'page_id' 	=> $id,
 					'body' 		=> $chunk->body,
+					'parsed'	=> ($chunk->type == 'markdown') ? parse_markdown($chunk->body) : '',
 					'type' 		=> $chunk->type,
-					'parsed'	=> ($chunk->type == 'markdown') ? parse_markdown($chunk->body) : ''
+					'sort' 		=> $i++,
 				));
 			}
-		}	
-		
+		}
+
 		$this->db->trans_complete();
-		
+
 		return ($this->db->trans_status() === FALSE) ? FALSE : $id;
 	}
-	
+
 	/**
 	* Update a Page
 	 *
@@ -356,7 +355,7 @@ class Page_m extends MY_Model
 	public function update($id = 0, $input = array(), $chunks = array())
 	{
 		$this->db->trans_start();
-	
+
 		if ( ! empty($input['is_home']))
 		{
 			// Remove other homepages
@@ -364,7 +363,7 @@ class Page_m extends MY_Model
 				->where('is_home', 1)
 				->update($this->_table, array('is_home' => 0));
 		}
-	
+
 		parent::update($id, array(
 			'title'				=> $input['title'],
 			'slug'				=> $input['slug'],
@@ -383,14 +382,14 @@ class Page_m extends MY_Model
 			'status'			=> $input['status'],
 			'updated_on'		=> now()
 		));
-		
+
 		$this->build_lookup($id);
-		
+
 		if ($chunks)
 		{
 			// Remove the old chunks
 			$this->db->delete('page_chunks', array('page_id' => $id));
-			
+
 			// And add the new ones
 			$i = 1;
 			foreach ($chunks as $chunk)
@@ -404,16 +403,16 @@ class Page_m extends MY_Model
 					'parsed'	=> ($chunk->type == 'markdown') ? parse_markdown($chunk->body) : ''
 				));
 			}
-		}	
+		}
 		// Wipe cache for this model, the content has changd
 		$this->pyrocache->delete_all('page_m');
 		$this->pyrocache->delete_all('navigation_m');
-	
+
 		$this->db->trans_complete();
-		
+
 		return ($this->db->trans_status() === FALSE) ? FALSE : TRUE;
 	}
-	
+
 	/**
 	* Delete a Page
 	 *
@@ -424,20 +423,20 @@ class Page_m extends MY_Model
 	public function delete($id = 0)
 	{
 		$this->db->trans_start();
-		
+
 		$ids = $this->get_descendant_ids($id);
-		
+
 		$this->db->where_in('id', $ids);
 		$this->db->delete('pages');
-		
+
 		$this->db->where_in('page_id', $ids);
 		$this->db->delete('navigation_links');
-		
+
 		$this->db->trans_complete();
-		
+
 		return $this->db->trans_status() !== FALSE ? $ids : FALSE;
 	}
-	
+
 	/**
 	 * Check Slug for Uniqueness
 	 * @access public

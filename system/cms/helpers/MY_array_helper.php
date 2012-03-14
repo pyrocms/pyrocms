@@ -1,122 +1,155 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed.');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
- * CodeIgniter Array Helpers
+ * PyroCMS Array Helpers
+ * 
+ * This overrides Codeigniter's helpers/array_helper.php file.
  *
- * @package		CodeIgniter
- * @subpackage	Helpers
- * @category	Helpers
  * @author		Philip Sturgeon
- * @link		http://www.codeigniter.com/user_guide/helpers/text_helper.html
+ * @package		PyroCMS\Core\Helpers
  */
 
-// ------------------------------------------------------------------------
 
-function array_object_merge(&$object, $array)
+if (!function_exists('array_object_merge'))
 {
-	is_array($array) OR $array = get_object_vars($array);
-	
-	foreach ($array as $key => $value)
+	/**
+	 * Merge an array or an object into another object
+	 *
+	 * @param object $object The object to act as host for the merge.
+	 * @param object|array $array The object or the array to merge.
+	 */
+	function array_object_merge(&$object, $array)
 	{
-        $object->{$key} = $value;
-	}
-}
+		// Make sure we are dealing with an array.
+		is_array($array) OR $array = get_object_vars($array);
 
-function array_for_select()
-{
-	$args =& func_get_args();
-
-	$return = array();
-	
-	switch(count($args))
-	{
-		case 3:
-			foreach ($args[0] as $itteration):
-				if(is_object($itteration)) $itteration = (array) $itteration;
-		        $return[$itteration[$args[1]]] = $itteration[$args[2]];
-		    endforeach;
-		break;
-		
-		case 2:
-			foreach ($args[0] as $key => $itteration):
-				if(is_object($itteration)) $itteration = (array) $itteration;
-		        $return[$key] = $itteration[$args[1]];
-		    endforeach;
-		break;
-		
-		case 1:
-			foreach ($args[0] as $itteration):
-		        $return[$itteration] = $itteration;
-		    endforeach;
-		break;
-		
-		default:
-			return FALSE;
-	}
-
-    return $return;
-}
-
-function html_to_assoc($html_array)
-{
-	$keys = array_keys($html_array);
-
-	if (!isset($keys[0]))
-	{
-		return array();
-	}
-
-	$total = count(current($html_array));
-
-	$array = array();
-
-	for ($i = 0; $i < $total; $i++)
-	{
-		foreach ($keys as $key)
+		foreach ($array as $key => $value)
 		{
-			$array[$i][$key] = $html_array[$key][$i];
+			$object->{$key} = $value;
 		}
 	}
 
-	return $array;
 }
 
-/**
- * Associative array property
- *
- * Reindexes an array using a property of your elements. The elements should be a collection of
- * array or objects.
- *
- * Obs.: To give a full result all elements must have the property defined in second param of
- * this function.
- *
- * @author Marcos Coelho - PyroCMS development team
- * @access public
- * @param array $arr
- * @param string $prop Should be a commum property with value scalar, as id, slug, order..
- * @return array
- */
-function assoc_array_prop(array &$arr = NULL, $prop = 'id')
+if (!function_exists('array_for_select'))
 {
-	$newarr = array();
-
-	foreach ($arr as $old_index => $element)
+	/**
+	 * @todo Document this please.
+	 *
+	 * @return boolean 
+	 */
+	function array_for_select()
 	{
-		if (is_array($element))
+		$args = & func_get_args();
+
+		$return = array();
+
+		switch (count($args))
 		{
-			if (isset($element[$prop]) && is_scalar($element[$prop]))
+			case 3:
+				foreach ($args[0] as $itteration):
+					if (is_object($itteration))
+						$itteration = (array) $itteration;
+					$return[$itteration[$args[1]]] = $itteration[$args[2]];
+				endforeach;
+				break;
+
+			case 2:
+				foreach ($args[0] as $key => $itteration):
+					if (is_object($itteration))
+						$itteration = (array) $itteration;
+					$return[$key] = $itteration[$args[1]];
+				endforeach;
+				break;
+
+			case 1:
+				foreach ($args[0] as $itteration):
+					$return[$itteration] = $itteration;
+				endforeach;
+				break;
+
+			default:
+				return FALSE;
+		}
+
+		return $return;
+	}
+
+}
+
+if (!function_exists('html_to_assoc'))
+{
+	/**
+	 * @todo Document this please.
+	 * 
+	 * @param array $html_array
+	 * @return array 
+	 */
+	function html_to_assoc($html_array)
+	{
+		$keys = array_keys($html_array);
+
+		if (!isset($keys[0]))
+		{
+			return array();
+		}
+
+		$total = count(current($html_array));
+
+		$array = array();
+
+		for ($i = 0; $i < $total; $i++)
+		{
+			foreach ($keys as $key)
 			{
-				$newarr[$element[$prop]] = $element;
+				$array[$i][$key] = $html_array[$key][$i];
 			}
 		}
-		elseif (is_object($element))
-		{
-			if (isset($element->{$prop}) && is_scalar($element->{$prop}))
-			{
-				$newarr[$element->{$prop}] = $element;
-			}
-		}
+
+		return $array;
 	}
 
-	return $arr = $newarr;
+}
+
+if (!function_exists('html_to_assoc'))
+{
+	/**
+	 * Associative array property
+	 *
+	 * Reindexes an array using a property of your elements. The elements should 
+	 * be a collection of array or objects.
+	 *
+	 * Note: To give a full result all elements must have the property defined 
+	 * in the second parameter of this function.
+	 *
+	 * @author Marcos Coelho
+	 * @param array $arr
+	 * @param string $prop Should be a common property with value scalar, as id, slug, order.
+	 * @return array 
+	 */
+	function assoc_array_prop(array &$arr = NULL, $prop = 'id')
+	{
+		$newarr = array();
+
+		foreach ($arr as $old_index => $element)
+		{
+			if (is_array($element))
+			{
+				if (isset($element[$prop]) && is_scalar($element[$prop]))
+				{
+					$newarr[$element[$prop]] = $element;
+				}
+			}
+			elseif (is_object($element))
+			{
+				if (isset($element->{$prop}) && is_scalar($element->{$prop}))
+				{
+					$newarr[$element->{$prop}] = $element;
+				}
+			}
+		}
+
+		return $arr = $newarr;
+	}
+
 }

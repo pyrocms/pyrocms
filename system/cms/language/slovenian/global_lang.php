@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['global:control-panel'] 						= 'Nadzorna plošča';
-$lang['global:profile']					= 'Profile'; #translate
+$lang['global:profile']					= 'Profil';
 
 $lang['title_label'] 					= 'Naslov';
 $lang['name_label'] 					= 'Ime';
@@ -62,26 +62,26 @@ $lang['approve_label']					= 'Oddobri';
 $lang['unapprove_label']				= 'Prekliči oddobritev';
 $lang['publish_label'] 					= 'Objavi';
 $lang['upload_label'] 					= 'Naloži';
-$lang['uninstall_label'] 				= 'Odstrani';
-$lang['install_label'] 					= 'Namesti';
-$lang['enable_label']					= 'Omogoči';
-$lang['disable_label'] 					= 'Onemogoči';
-$lang['upgrade_label'] 					= 'Posodobi';
+$lang['global:uninstall'] 				= 'Odstrani';
+$lang['global:install'] 					= 'Namesti';
+$lang['global:enable']					= 'Omogoči';
+$lang['global:disable'] 					= 'Onemogoči';
+$lang['global:upgrade'] 					= 'Posodobi';
 
-$lang['all_right_reserved']				= 'All Rights Reserved.';  #translate
-$lang['powered_by_pyrocms']				= 'Powered by PyroCMS';  #translate
-$lang['top_page']						= 'Top';  #translate
-$lang['back_to_top']					= 'Back to Top';  #translate
+$lang['all_right_reserved']				= 'Vse pravice pridržane';
+$lang['powered_by_pyrocms']				= 'Gnano z PyroCMS';
+$lang['top_page']						= 'Vrh';
+$lang['back_to_top']					= 'Na vrh strani';
 
 $lang['global:filters']                 = 'Razvrstitev';
 $lang['global:shortcuts'] 				= 'Bližnjice';
 $lang['global:description']				= 'Opis';
 $lang['global:actions']					= 'Dejanja';
-$lang['global:view']					= 'View'; #translate
-$lang['global:preview']					= 'Preview'; #translate
-$lang['global:add']						= 'Add'; #translate
+$lang['global:view']					= 'Ogled';
+$lang['global:preview']					= 'Predogled';
+$lang['global:add']						= 'Dodaj';
 $lang['global:edit']					= 'Uredi';
-$lang['global:empty']					= 'Empty'; #translate
+$lang['global:empty']					= 'Prazno';
 $lang['global:delete']					= 'Izbriši';
 $lang['global:remove']					= 'Odstrani';
 

@@ -71,6 +71,7 @@ $lang['user_reset_password_link']              = 'שכחת סיסמה?';
 
 $lang['user_activation_code_sent_notice']      = 'אימייל עם קוד הפעלה נשלח אליך.';
 $lang['user_activation_by_admin_notice']       = 'הרשמתך מחכה לאישורו של המנהל.';
+$lang['user_registration_disabled']            = 'Sorry, but the user registration is disabled.'; #translate
 
 // -- Settings ---------------------------------------------------------------------------------------------
 

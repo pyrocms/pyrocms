@@ -4,11 +4,9 @@
  * Contact Plugin
  *
  * Build and send contact forms
- *
- * @package		PyroCMS
+ * 
  * @author		PyroCMS Dev Team
- * @copyright	Copyright (c) 2008 - 2011, PyroCMS
- *
+ * @package		PyroCMS\Core\Modules\Contact\Plugins
  */
 class Plugin_Contact extends Plugin {
 
@@ -189,6 +187,14 @@ class Plugin_Contact extends Plugin {
 					$form_meta[$field]['config']['allowed_types'] = implode('|', $config);
 					$form_meta[$field]['config']['max_size'] = $max_size;
 					$form_meta[$field]['config']['upload_path'] = UPLOAD_PATH.'contact_attachments';
+				break;	
+				
+				case 'hidden':
+					$form_meta[$field]['type'] = 'hidden';
+					$value = preg_split('/=/',$rule_array[1]);
+					$value = $value[1];
+					$form_meta[$field]['value'] = $value;
+					
 				break;					
 			}
 
@@ -314,6 +320,14 @@ class Plugin_Contact extends Plugin {
 														$form_meta[$form]['dropdown'],
 														set_value($form),
 														'id="contact_'.$form.'" class="'.$form.'"'
+													 );
+			}
+			elseif($value['type'] == 'hidden')
+			{
+				$parse_data[$form] .= call_user_func('form_'.$value['type'],
+														$form,
+														$value['value'],
+														'class="'.$form.'"'
 													 );
 			}
 			else

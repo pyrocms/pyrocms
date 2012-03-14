@@ -1,5 +1,5 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title><?php echo $this->settings->site_name; ?> - <?php echo lang('login_title');?></title>
@@ -7,9 +7,11 @@
 	<base href="<?php echo base_url(); ?>" />
 	<meta name="robots" content="noindex, nofollow" />
 	
-	<?php echo theme_css('admin/style.css'); ?>
-	<?php echo theme_js('jquery/jquery.min.js'); ?>
-	<?php echo theme_js('admin/login.js'); ?>
+	<?php Asset::css('admin/style.css'); ?>
+	<?php Asset::js('jquery/jquery.js'); ?>
+	<?php Asset::js('admin/login.js'); ?>
+	
+	<?php echo Asset::render() ?>
 	
 	<!-- Place CSS bug fixes for IE 7 in this comment -->
 	<!--[if IE 7]>
@@ -42,13 +44,13 @@
 		<?php echo form_open('admin/login'); ?>
 			<ul>
 				<li>
-					<input type="text" name="email" value="<?php echo lang('email_label'); ?>" onblur="if (this.value == '') {this.value = '<?php echo lang('email_label'); ?>';}"  onfocus="if (this.value == '<?php echo lang('email_label'); ?>') {this.value = '';}" />
-					<?php echo theme_image('admin/email-icon.png', array('class' => 'input-email', 'alt' => lang('email_label')));?>
+					<input type="text" name="email" placeholder="<?php echo lang('email_label'); ?>" />
+					<?php echo Asset::img('admin/email-icon.png', lang('email_label'), array('class' => 'input-email'));?>
 				</li>
 				
 				<li>
-					<input type="password" name="password" value="<?php echo lang('password_label'); ?>" onblur="if (this.value == '') {this.value = '<?php echo lang('password_label'); ?>';}"  onfocus="if (this.value == '<?php echo lang('password_label'); ?>') {this.value = '';}"  />
-					<?php echo theme_image('admin/lock-icon.png', array('class' => 'input-password', 'alt' => lang('password_label')));?>
+					<input type="password" name="password" placeholder="<?php echo lang('password_label'); ?>"  />
+					<?php echo Asset::img('admin/lock-icon.png', lang('password_label'), array('class' => 'input-password'));?>
 				</li>
 				
 				<li>

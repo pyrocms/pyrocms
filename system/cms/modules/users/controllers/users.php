@@ -3,10 +3,9 @@
 /**
  * User controller for the users module (frontend)
  *
- * @author 		Phil Sturgeon - PyroCMS Dev Team
- * @package 	PyroCMS
- * @subpackage 	Users module
- * @category	Modules
+ * @author 		Phil Sturgeon
+ * @author		PyroCMS Dev Team
+ * @package		PyroCMS\Core\Modules\Users\Controllers
  */
 class Users extends Public_Controller
 {
@@ -15,7 +14,7 @@ class Users extends Public_Controller
 	 *
 	 * @return void
 	 */
-	function __construct()
+	public function __construct()
 	{
 		parent::__construct();
 
@@ -29,7 +28,6 @@ class Users extends Public_Controller
 	/**
 	 * Show the current user's profile
 	 *
-	 * @access public
 	 * @return void
 	 */
 	public function index()
@@ -151,6 +149,21 @@ class Users extends Public_Controller
 	 */
 	public function register()
 	{
+		if (isset($this->current_user->id))
+		{
+			$this->session->set_flashdata('notice', lang('user_already_logged_in'));
+			redirect();
+		}
+
+        /* show the disabled registration message */
+        if ( ! Settings::get('enable_registration'))
+        {
+            $this->template
+                ->title(lang('user_register_title'))
+                ->build('disabled');
+            return;
+        }
+
 		// Validation rules
 		$validation = array(
 			array(
@@ -186,7 +199,8 @@ class Users extends Public_Controller
 		// Set default values as empty or POST values
 		foreach ($validation as $rule)
 		{
-			$user->{$rule['field']} = $this->input->post($rule['field']);
+			$user->{$rule['field'
+			]} = $this->input->post($rule['field']) ? $this->input->post($rule['field']) : null;
 		}
 		
 		// Are they TRYing to submit?
@@ -239,7 +253,6 @@ class Users extends Public_Controller
 				if ($id > 0)
 				{
 					// Convert the array to an object
-					$user					= new stdClass();
 					$user->first_name 		= $this->input->post('first_name');
 					$user->last_name		= $this->input->post('last_name');
 					$user->username			= $username;
@@ -297,7 +310,6 @@ class Users extends Public_Controller
 		else if (($user_hash = $this->session->userdata('user_hash')))
 		{
 			// Convert the array to an object
-			$user					= new stdClass();
 			$user->first_name 		= ( ! empty($user_hash['first_name'])) ? $user_hash['first_name']: '';
 			$user->last_name 		= ( ! empty($user_hash['last_name'])) ? $user_hash['last_name']: '';
 			$user->email 			= ( ! empty($user_hash['email'])) ? $user_hash['email']: '';
@@ -381,6 +393,11 @@ class Users extends Public_Controller
 	 */
 	public function reset_pass($code = FALSE)
 	{
+		if (PYRO_DEMO)
+		{
+			show_error(lang('global:demo_restrictions'));
+		}
+		
 		//if user is logged in they don't need to be here. and should use profile options
 		if ($this->current_user)
 		{
@@ -477,6 +494,15 @@ class Users extends Public_Controller
 		else
 		{
 			$user = $this->current_user or redirect('users/login/users/edit'.(($id > 0) ? '/'.$id : ''));
+		}
+
+		// If we have API's enabled, load stuff
+		if (Settings::get('api_enabled') and Settings::get('api_user_keys'))
+		{
+			$this->load->model('api/api_key_m');
+			$this->load->language('api/api');
+			
+			$api_key = $this->api_key_m->get_active_key($user->id);
 		}
 
 		$this->validation_rules = array(
@@ -695,6 +721,7 @@ class Users extends Public_Controller
 			'days' => $days,
 			'months' => $months,
 			'years' => $years,
+			'api_key' => isset($api_key) ? $api_key : null,
 		));
 	}
 

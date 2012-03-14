@@ -1,9 +1,8 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
- *
- * @package  	PyroCMS
- * @subpackage  Blog
- * @category  	Module
+ * 
+ * @author 		PyroCMS Dev Team
+ * @package 	PyroCMS\Core\Modules\Blog\Controllers
  */
 class Admin extends Admin_Controller
 {
@@ -89,9 +88,6 @@ class Admin extends Admin_Controller
 	public function __construct()
 	{
 		parent::__construct();
-
-		// Fire an event, we're posting a new blog!
-		Events::trigger('blog_article_published');
 		
 		$this->load->model(array('blog_m', 'blog_categories_m'));
 		$this->lang->load(array('blog', 'categories'));
@@ -141,7 +137,7 @@ class Admin extends Admin_Controller
 
 		$this->template
 			->title($this->module_details['name'])
-			->append_metadata(js('admin/filter.js'))
+			->append_js('admin/filter.js')
 			->set('pagination', $pagination)
 			->set('blog', $blog);
 
@@ -176,7 +172,7 @@ class Admin extends Admin_Controller
 				role_or_die('blog', 'put_live');
 			}
 
-			$id = $this->blog_m->insert(array(
+			if ($id = $this->blog_m->insert(array(
 				'title'				=> $this->input->post('title'),
 				'slug'				=> $this->input->post('slug'),
 				'category_id'		=> $this->input->post('category_id'),
@@ -188,10 +184,8 @@ class Admin extends Admin_Controller
 				'comments_enabled'	=> $this->input->post('comments_enabled'),
 				'author_id'			=> $this->current_user->id,
 				'type'				=> $this->input->post('type'),
-				'parsed'			=> ($this->input->post('type') == 'markdown') ? parse_markdown($this->input->post('body')) : ''
-			));
-
-			if ($id)
+				'parsed'			=> ($this->input->post('type') == 'markdown') ? parse_markdown($this->input->post('body')) : '',
+			)))
 			{
 				$this->pyrocache->delete_all('blog_m');
 				$this->session->set_flashdata('success', sprintf($this->lang->line('blog_post_add_success'), $this->input->post('title')));
@@ -200,7 +194,7 @@ class Admin extends Admin_Controller
 				if ($this->input->post('status') == 'live')
 				{
 					// Fire an event, we're posting a new blog!
-					Events::trigger('blog_article_published');
+					Events::trigger('blog_article_published', $id);
 				}
 			}
 			else
@@ -226,9 +220,9 @@ class Admin extends Admin_Controller
 		$this->template
 			->title($this->module_details['name'], lang('blog_create_title'))
 			->append_metadata($this->load->view('fragments/wysiwyg', $this->data, TRUE))
-			->append_metadata(js('jquery/jquery.tagsinput.min.js'))
-			->append_metadata(js('blog_form.js', 'blog'))
-			->append_metadata(css('jquery/jquery.tagsinput.css'))
+			->append_js('jquery/jquery.tagsinput.js')
+			->append_js('module::blog_form.js')
+			->append_css('jquery/jquery.tagsinput.css')
 			->set('post', $post)
 			->build('admin/form');
 	}
@@ -304,7 +298,7 @@ class Admin extends Admin_Controller
 				if ($post->status != 'live' and $this->input->post('status') == 'live')
 				{
 					// Fire an event, we're posting a new blog!
-					Events::trigger('blog_article_published');
+					Events::trigger('blog_article_published', $id);
 				}
 			}
 			
@@ -331,9 +325,9 @@ class Admin extends Admin_Controller
 		$this->template
 			->title($this->module_details['name'], sprintf(lang('blog_edit_title'), $post->title))
 			->append_metadata($this->load->view('fragments/wysiwyg', $this->data, TRUE))
-			->append_metadata(js('jquery/jquery.tagsinput.min.js'))
-			->append_metadata(js('blog_form.js', 'blog'))
-			->append_metadata(css('jquery/jquery.tagsinput.css'))
+			->append_js('jquery/jquery.tagsinput.js')
+			->append_js('module::blog_form.js')
+			->append_css('jquery/jquery.tagsinput.css')
 			->set('post', $post)
 			->build('admin/form');
 	}
@@ -448,18 +442,24 @@ class Admin extends Admin_Controller
 		if ( ! empty($ids))
 		{
 			$post_titles = array();
+			$deleted_ids = array();
 			foreach ($ids as $id)
 			{
 				// Get the current page so we can grab the id too
 				if ($post = $this->blog_m->get($id))
 				{
-					$this->blog_m->delete($id);
-
-					// Wipe cache for this model, the content has changed
-					$this->pyrocache->delete('blog_m');
-					$post_titles[] = $post->title;
+					if ($this->blog_m->delete($id))
+					{
+						// Wipe cache for this model, the content has changed
+						$this->pyrocache->delete('blog_m');
+						$post_titles[] = $post->title;
+						$deleted_ids[] = $id;
+					}
 				}
 			}
+			
+			// Fire an event. We've deleted one or more blog posts.
+			Events::trigger('blog_article_deleted', $deleted_ids);
 		}
 
 		// Some pages have been deleted

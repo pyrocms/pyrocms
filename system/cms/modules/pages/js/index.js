@@ -23,10 +23,10 @@
 			$a.addClass('selected');
 			
 			// Load the details box in
-			$details.load(SITE_URL + 'admin/pages/ajax_page_details/' + page_id);
+			$details.load(SITE_URL + 'admin/pages/ajax_page_details/' + page_id, function(){refresh_sticky_page_details();});
 			
 			$details.parent().prev('section.title').html( $('<h4 />').text(page_title) );
-			
+
 			// return false to keep the list from toggling when link is clicked
 			return false;
 		});
@@ -57,6 +57,13 @@
 		
 		// And off we go
 		pyro.sort_tree($item_list, $url, $cookie, data_callback, post_sort_callback);
+
+        function refresh_sticky_page_details() {
+          $('.scroll-follow').stickyScroll('reset');
+          // Lets keep the page-details-container follow our scroll position
+          $('.scroll-follow').stickyScroll({ topBoundary: 170, bottomBoundary: 190, minimumWidth: 770});
+        }	
+        refresh_sticky_page_details();
 
 	});
   

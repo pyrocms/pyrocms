@@ -71,6 +71,7 @@ $lang['user_reset_password_link'] 		= '忘記密碼';
 
 $lang['user_activation_code_sent_notice']	= '內含啟動碼的電子郵件已經寄給您了。';
 $lang['user_activation_by_admin_notice'] 	= '您的註冊資料正在等候管理員的審核。';
+$lang['user_registration_disabled']            = 'Sorry, but the user registration is disabled.'; #translate
 
 // -- Settings ---------------------------------------------------------------------------------------------
 
