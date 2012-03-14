@@ -34,7 +34,12 @@ class Admin_fields extends Admin_Controller {
 		$buttons = array(
 			array(
 				'url'		=> 'admin/users/fields/edit/-assign_id-', 
-				'label'		=> $this->lang->line('user_edit_profile_field')
+				'label'		=> $this->lang->line('global:edit')
+			),
+			array(
+				'url'		=> 'admin/users/fields/delete/-assign_id-',
+				'label'		=> $this->lang->line('global:delete'),
+				'confirm'	=> true
 			)
 		);
 
@@ -70,6 +75,22 @@ class Admin_fields extends Admin_Controller {
 	 */
 	function delete()
 	{
+		if ( ! $assign_id = $this->uri->segment(5))
+		{
+			show_error(lang('streams.cannot_find_assign'));
+		}
+	
+		// Tear down the assignment
+		if ( ! $this->streams->cp->teardown_assignment_field($assign_id))
+		{
+		    $this->session->set_flashdata('notice', lang('user_profile_delete_failure'));
+		}
+		else
+		{
+		    $this->session->set_flashdata('success', lang('user_profile_delete_success'));			
+		}
+	
+		redirect('admin/users/fields');
 	}
 
 	// --------------------------------------------------------------------------
@@ -84,7 +105,7 @@ class Admin_fields extends Admin_Controller {
 	{
 		if ( ! $assign_id = $this->uri->segment(5))
 		{
-			show_error('Unable to find assignment');
+			show_error(lang('streams.cannot_find_assign'));
 		}
 
 		$this->streams->cp->field_form('profiles', 'users', 'edit', 'admin/users/fields', $assign_id, array(), true);

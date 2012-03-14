@@ -13,7 +13,6 @@ $lang['user_inactive_title']                   = 'Inactive Users';
 $lang['user_active_title']                     = 'Active Users';
 $lang['user_registred_title']                  = 'Registered Users';
 $lang['user_add_field']                        = 'Add User Profile Field'; // @new
-$lang['user_edit_profile_field']               = 'Edit User Profile Field'; // @new
 
 // labels
 $lang['user_edit_title']                       = 'Edit User "%s"';
@@ -138,6 +137,11 @@ $lang['user_logged_out']                       = 'You have been logged out.';
 $lang['user_forgot_incorrect']                 = "No account was found with these details.";
 
 $lang['user_password_reset_message']           = "Your password has been reset. You should recieve the email within the next 2 hours. If you don't, it might have gone into your junk mail by accident.";
+
+
+$lang['user_profile_delete_success']            = 'User profile field deleted successfully'; // @new
+$lang['user_profile_delete_failure']            = 'There was a problem with deleting your user profile field'; // @new
+
 
 // Emails ----------------------------------------------------------------------------------------------------
 
