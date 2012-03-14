@@ -77,6 +77,8 @@ class Ion_auth_model extends CI_Model
 	    $this->meta_join       = $this->config->item('join', 'ion_auth');
 	}
 
+	// --------------------------------------------------------------------------
+
 	/**
 	 * Misc functions
 	 *
@@ -87,6 +89,8 @@ class Ion_auth_model extends CI_Model
 	 *
 	 * @author Mathew
 	 */
+
+	// --------------------------------------------------------------------------
 
 	/**
 	 * Hashes the password to be stored in the database.
@@ -111,6 +115,8 @@ class Ion_auth_model extends CI_Model
 		return  $salt . substr(sha1($salt . $password), 0, -$this->salt_length);
 		}
 	}
+
+	// --------------------------------------------------------------------------
 
 	/**
 	 * This function takes a password and validates it
@@ -152,6 +158,8 @@ class Ion_auth_model extends CI_Model
 		}
 	}
 
+	// --------------------------------------------------------------------------
+
 	/**
 	 * Generates a random salt value.
 	 *
@@ -163,6 +171,8 @@ class Ion_auth_model extends CI_Model
 		return substr(md5(uniqid(rand(), true)), 0, $this->salt_length);
 	}
 
+	// --------------------------------------------------------------------------
+
 	/**
 	 * Activation functions
 	 *
@@ -171,6 +181,8 @@ class Ion_auth_model extends CI_Model
 	 *
 	 * @author Mathew
 	 */
+
+	// --------------------------------------------------------------------------
 
 	/**
 	 * activate
@@ -218,6 +230,7 @@ class Ion_auth_model extends CI_Model
 		return $this->db->affected_rows() == 1;
 	}
 
+	// --------------------------------------------------------------------------
 
 	/**
 	 * Deactivate
@@ -245,6 +258,8 @@ class Ion_auth_model extends CI_Model
 
 		return $this->db->affected_rows() == 1;
 	}
+
+	// --------------------------------------------------------------------------
 
 	/**
 	 * change password
@@ -283,6 +298,8 @@ class Ion_auth_model extends CI_Model
 	    return FALSE;
 	}
 
+	// --------------------------------------------------------------------------
+
 	/**
 	 * Checks username
 	 *
@@ -300,6 +317,8 @@ class Ion_auth_model extends CI_Model
 		->where($this->ion_auth->_extra_where)
 			->count_all_results($this->tables['users']) > 0;
 	}
+
+	// --------------------------------------------------------------------------
 
 	/**
 	 * Checks email
@@ -319,6 +338,8 @@ class Ion_auth_model extends CI_Model
 			->count_all_results($this->tables['users']) > 0;
 	}
 
+	// --------------------------------------------------------------------------
+
 	/**
 	 * Identity check
 	 *
@@ -335,6 +356,8 @@ class Ion_auth_model extends CI_Model
 	    return $this->db->where($this->identity_column, $identity)
 			->count_all_results($this->tables['users']) > 0;
 	}
+
+	// --------------------------------------------------------------------------
 
 	/**
 	 * Insert a forgotten password key.
@@ -359,6 +382,8 @@ class Ion_auth_model extends CI_Model
 
 		return $this->db->affected_rows() == 1;
 	}
+
+	// --------------------------------------------------------------------------
 
 	/**
 	 * Forgotten Password Complete
@@ -393,6 +418,8 @@ class Ion_auth_model extends CI_Model
 		return FALSE;
 	}
 
+	// --------------------------------------------------------------------------
+
 	/**
 	 * profile
 	 *
@@ -409,16 +436,9 @@ class Ion_auth_model extends CI_Model
 		$this->db->select(array(
 			$this->tables['users'].'.*',
 			$this->tables['groups'].'.name AS '. $this->db->protect_identifiers('group'),
-			$this->tables['groups'].'.description AS '. $this->db->protect_identifiers('group_description')
+			$this->tables['groups'].'.description AS '. $this->db->protect_identifiers('group_description'),
+			$this->tables['meta'].'.*',
 		));
-
-		if (!empty($this->columns))
-		{
-			foreach ($this->columns as $field)
-			{
-				$this->db->select($this->tables['meta'] .'.' . $field);
-			}
-		}
 
 		$this->db->join($this->tables['meta'], $this->tables['users'].'.id = '.$this->tables['meta'].'.'.$this->meta_join, 'left');
 		$this->db->join($this->tables['groups'], $this->tables['users'].'.group_id = '.$this->tables['groups'].'.id', 'left');
@@ -437,8 +457,12 @@ class Ion_auth_model extends CI_Model
 		$this->db->limit(1);
 		$i = $this->db->get($this->tables['users']);
 
+		// @todo - run the profile fields through streams
+
 		return ($i->num_rows > 0) ? $i->row() : FALSE;
 	}
+
+	// --------------------------------------------------------------------------
 
 	/**
 	 * Basic functionality
@@ -448,6 +472,8 @@ class Ion_auth_model extends CI_Model
 	 *
 	 * @author Mathew
 	 */
+
+	// --------------------------------------------------------------------------
 
 	/**
 	 * register
@@ -541,6 +567,8 @@ class Ion_auth_model extends CI_Model
 		}
 	}
 
+	// --------------------------------------------------------------------------
+
 	/**
 	 * login
 	 *
@@ -582,6 +610,7 @@ class Ion_auth_model extends CI_Model
 		return FALSE;
 	}
 	
+	// --------------------------------------------------------------------------
 	
 	public function force_login($user_id, $remember = FALSE)
 	{
@@ -611,6 +640,8 @@ class Ion_auth_model extends CI_Model
 
 		return FALSE;
 	}
+
+	// --------------------------------------------------------------------------
 	
 	public function _set_login($user, $remember)
 	{
@@ -633,23 +664,20 @@ class Ion_auth_model extends CI_Model
 		}
 	}
 
+	// --------------------------------------------------------------------------
+
 	/**
 	 * get_users
 	 *
 	 * @return object Users
 	 * @author Ben Edmunds
 	 **/
-	public function get_users($group=false, $limit=NULL, $offset=NULL)
+	public function get_users($group = false, $limit = null, $offset = null)
 	{
 		$this->db->select(array(
 			$this->tables['users'].'.*',
 			$this->tables['groups'].'.name AS '. $this->db->protect_identifiers('group'),
-			$this->tables['groups'].'.description AS '. $this->db->protect_identifiers('group_description'),
-			'IF('.
-			$this->tables['meta'].'.last_name = "",'.
-			$this->tables['meta'].'.first_name, CONCAT('.
-			$this->tables['meta'].'.first_name," ",'.
-			$this->tables['meta'].'.last_name)) AS full_name'
+			$this->tables['groups'].'.description AS '. $this->db->protect_identifiers('group_description')
 		));
 
 		if (!empty($this->columns))
@@ -687,13 +715,15 @@ class Ion_auth_model extends CI_Model
 		return $this->db->get($this->tables['users']);
 	}
 
+	// --------------------------------------------------------------------------
+
 	/**
 	 * get_users_count
 	 *
 	 * @return int Number of Users
 	 * @author Sven Lueckenbach
 	 **/
-	public function get_users_count($group=false)
+	public function get_users_count($group = false)
 	{
 		if (is_string($group))
 		{
@@ -714,6 +744,8 @@ class Ion_auth_model extends CI_Model
 		return $this->db->count_all_results();
 	}
 
+	// --------------------------------------------------------------------------
+
 	/**
 	 * get_active_users
 	 *
@@ -727,6 +759,8 @@ class Ion_auth_model extends CI_Model
 		return $this->get_users($group_name);
 	}
 
+	// --------------------------------------------------------------------------
+
 	/**
 	 * get_inactive_users
 	 *
@@ -739,6 +773,8 @@ class Ion_auth_model extends CI_Model
 
 		return $this->get_users($group_name);
 	}
+
+	// --------------------------------------------------------------------------
 
 	/**
 	 * get_user
@@ -789,6 +825,8 @@ class Ion_auth_model extends CI_Model
 		return $user;
 	}
 
+	// --------------------------------------------------------------------------
+
 	/**
 	 * get_user_by_email
 	 *
@@ -801,6 +839,8 @@ class Ion_auth_model extends CI_Model
 
 	    return $this->get_users_by_email($email);
 	}
+
+	// --------------------------------------------------------------------------
 
 	/**
 	 * get_users_by_email
@@ -815,6 +855,8 @@ class Ion_auth_model extends CI_Model
 	    return $this->get_users();
 	}
 
+	// --------------------------------------------------------------------------
+
 	/**
 	 * get_user_by_username
 	 *
@@ -828,6 +870,8 @@ class Ion_auth_model extends CI_Model
 	    return $this->get_users_by_username($username);
 	}
 
+	// --------------------------------------------------------------------------
+
 	/**
 	 * get_users_by_username
 	 *
@@ -840,6 +884,8 @@ class Ion_auth_model extends CI_Model
 
 	    return $this->get_users();
 	}
+
+	// --------------------------------------------------------------------------
 
 	/**
 	 * get_user_by_identity
@@ -855,6 +901,8 @@ class Ion_auth_model extends CI_Model
 	    return $this->get_users();
 	}
 
+	// --------------------------------------------------------------------------
+
 	/**
 	 * get_newest_users
 	 *
@@ -863,11 +911,13 @@ class Ion_auth_model extends CI_Model
 	 **/
 	public function get_newest_users($limit = 10)
 	{
-	$this->db->order_by($this->tables['users'].'.created_on', 'desc');
-	$this->db->limit($limit);
+		$this->db->order_by($this->tables['users'].'.created_on', 'desc');
+		$this->db->limit($limit);
 
-	return $this->get_users();
+		return $this->get_users();
 	}
+
+	// --------------------------------------------------------------------------
 
 	/**
 	 * get_users_group
@@ -891,6 +941,8 @@ class Ion_auth_model extends CI_Model
 			->row();
 	}
 
+	// --------------------------------------------------------------------------
+
 	/**
 	 * get_groups
 	 *
@@ -902,6 +954,8 @@ class Ion_auth_model extends CI_Model
 	return $this->db->get($this->tables['groups'])
 			->result();
 	}
+
+	// --------------------------------------------------------------------------
 
 	/**
 	 * get_group
@@ -917,6 +971,8 @@ class Ion_auth_model extends CI_Model
 					->row();
 	}
 
+	// --------------------------------------------------------------------------
+
 	/**
 	 * get_group_by_name
 	 *
@@ -930,6 +986,8 @@ class Ion_auth_model extends CI_Model
 		return $this->db->get($this->tables['groups'])
 					->row();
 	}
+
+	// --------------------------------------------------------------------------
 
 	/**
 	 * update_user
@@ -995,6 +1053,7 @@ class Ion_auth_model extends CI_Model
 		return TRUE;
 	}
 
+	// --------------------------------------------------------------------------
 
 	/**
 	 * delete_user
@@ -1019,6 +1078,7 @@ class Ion_auth_model extends CI_Model
 		return TRUE;
 	}
 
+	// --------------------------------------------------------------------------
 
 	/**
 	 * update_last_login
@@ -1041,6 +1101,8 @@ class Ion_auth_model extends CI_Model
 	}
 
 
+	// --------------------------------------------------------------------------
+
 	/**
 	 * set_lang
 	 *
@@ -1057,6 +1119,8 @@ class Ion_auth_model extends CI_Model
 
 		return TRUE;
 	}
+
+	// --------------------------------------------------------------------------
 
 	/**
 	 * login_remembed_user
@@ -1115,6 +1179,8 @@ class Ion_auth_model extends CI_Model
 
 		return FALSE;
 	}
+
+	// --------------------------------------------------------------------------
 
 	/**
 	 * remember_user
