@@ -137,7 +137,7 @@ $lang['settings_form_option_Newest First']		= 'Uusin ensin';
 $lang['settings_edit_title']					= 'Muokkaa asetuksia';
 
 // messages
-$lang['settings_no_settings']					= 'There are currently no settings.'; #translate
+$lang['settings_no_settings']					= 'Asetuksia ei ole määritetty.';
 $lang['settings_save_success']					= 'Asetukset tallennettiin!';
 
 /* End of file settings_lang.php */

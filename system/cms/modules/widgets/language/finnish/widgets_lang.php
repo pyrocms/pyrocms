@@ -17,10 +17,10 @@ $lang['widgets.widget']                 = 'Widget';
 $lang['widgets.widget_author']          = 'Tekijä';
 $lang['widgets.widget_short_name']      = 'Lyhyt nimi';
 $lang['widgets.widget_version']         = 'Versio';
-$lang['widgets.status_label']			= 'Status'; #translate
+$lang['widgets.status_label']			= 'Status';
 
-$lang['widgets.inactive_title'] 		= 'Widgets disabled'; #translate
-$lang['widgets.active_title'] 			= 'Widgets enabled'; #translate
+$lang['widgets.inactive_title'] 		= 'Widget pois käytöstä';
+$lang['widgets.active_title'] 			= 'Widget käytössä';
 
 // Widget area titles
 $lang['widgets.add_area']               = 'Lisää widget alue';
@@ -32,7 +32,7 @@ $lang['widgets.widget_area']            = 'Alue';
 $lang['widgets.widget_area_title']      = 'Alueen nimi';
 $lang['widgets.widget_area_slug']       = 'Alueen polkutunnus';
 
-$lang['widgets.view_code']				= 'View Code'; #translate
+$lang['widgets.view_code']				= 'Näytä koodi';
 
 $lang['widgets.instance_title']         = 'Otsikko';
 $lang['widgets.tag_title']              = 'Tag';
