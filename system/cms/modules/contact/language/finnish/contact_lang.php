@@ -2,9 +2,7 @@
 /**
  * Finnish translation.
  *
- * @author Mikael Kundert <mikael@kundert.fi>
- * @date 07.02.2011
- * @version 1.0.3
+ * @author Mikael Kundert
  */
 $lang['contact_submit_error']				= 'Pahoittelut. Näyttää siltä, että yritit lähettää lomakkeen tiedot suoraan. Tämä ei ole sallittua.';
 $lang['contact_sent_text']					= 'Viesti lähetettiin. Otamme yhteyttä niin pian kuin mahdollista.';
