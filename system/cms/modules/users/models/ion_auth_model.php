@@ -995,7 +995,7 @@ class Ion_auth_model extends CI_Model
 	 * @return bool
 	 * @author Phil Sturgeon
 	 **/
-	public function update_user($id, $data)
+	public function update_user($id, $data, $profile_data)
 	{
 		$user = $this->get_user($id)->row();
 
@@ -1007,29 +1007,26 @@ class Ion_auth_model extends CI_Model
 			$this->ion_auth->set_error('account_creation_duplicate_'.$this->identity_column);
 			return FALSE;
 	    }
-		
-		if (!empty($this->columns))
-		{
-			//filter the data passed by the columns in the config
-			$meta_fields = array();
-			foreach ($this->columns as $field)
-			{
-				if (is_array($data) && isset($data[$field]))
-				{
-					$meta_fields[$field] = $data[$field];
-					unset($data[$field]);
-				}
-			}
 
-			//update the meta data
-			if (count($meta_fields) > 0)
-			{
-				// 'user_id' = $id
-				$this->db->where($this->meta_join, $id);
-				$this->db->set($meta_fields);
-				$this->db->update($this->tables['meta']);
-			}
-	    }
+	    $this->load->driver('streams');
+
+	    // Get the row id for the profile. Probably the same as
+	    // the user_id by not necessarilt
+	    $profile = $this->db->limit(1)->where('user_id', $id)->get($this->tables['meta'])->row();
+	    if ( ! $profile) return false;
+
+	    // Get the stream
+	    $stream = $this->streams_m->get_stream('profiles', true, 'users');
+	    if ( ! $stream) die('boo');
+
+		$stream_fields = $this->streams_m->get_stream_fields($stream->id);
+	
+	    $profile_parsed_data = $this->row_m->run_field_pre_processes($stream_fields, $stream, $profile->id, $profile_data);
+
+	    // Hey look at me I'm Phil Sturgeon I'm using transactions I'm so fancyyyy
+		$this->db->where($this->meta_join, $id);
+		$this->db->set($profile_parsed_data);
+		$this->db->update($this->tables['meta']);
 
 		if (array_key_exists('username', $data) || array_key_exists('password', $data) || array_key_exists('email', $data) || array_key_exists('group_id', $data))
 		{
@@ -1039,7 +1036,6 @@ class Ion_auth_model extends CI_Model
 			}
 
 			$this->db->where($this->ion_auth->_extra_where);
-
 			$this->db->update($this->tables['users'], $data, array('id' => $id));
 		}
 

@@ -4,7 +4,7 @@
 		<?php echo form_open(uri_string(), 'class="crud" autocomplete="off"'); ?>
 	
 	<?php else: ?>
-		<h4><?php echo sprintf(lang('user_edit_title'), $member->full_name);?></h4>
+		<h4><?php echo sprintf(lang('user_edit_title'), $member->username);?></h4>
 		<?php echo form_open(uri_string(), 'class="crud"'); ?>
 	<?php endif; ?>
 </section>

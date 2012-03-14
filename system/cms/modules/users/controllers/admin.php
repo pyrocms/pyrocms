@@ -257,17 +257,42 @@ class Admin extends Admin_Controller {
 		// Check to see if we are changing usernames
 		if ($member->username != $this->input->post('username'))
 		{
-			$this->validation_rules[6]['rules'] .= '|callback__username_check';
+			$this->validation_rules[3]['rules'] .= '|callback__username_check';
 		}
 
 		// Check to see if we are changing emails
 		if ($member->email != $this->input->post('email'))
 		{
-			$this->validation_rules[5]['rules'] .= '|callback__email_check';
+			$this->validation_rules[1]['rules'] .= '|callback__email_check';
 		}
 
-		// Run the validation
-		$this->form_validation->set_rules($this->validation_rules);
+		// Get the profile fields validation array from streams
+		$this->load->driver('Streams');
+		$profile_validation = $this->streams->streams->validation_array('profiles', 'users');
+
+		// Set the validation rules
+		$this->form_validation->set_rules(array_merge($this->validation_rules, $profile_validation));
+
+		// Get user profile data. This will be passed to our
+		// streams insert_entry data in the model.
+		$assignments = $this->streams->streams->get_assignments('profiles', 'users');
+		$profile_data = array();
+
+		// Get the profile data
+		$profile_row = $this->db->limit(1)->get('profiles')->row();
+
+		foreach($assignments as $assign)
+		{	
+			if (isset($_POST[$assign->field_slug]))
+			{
+				$profile_data[$assign->field_slug] = $this->input->post($assign->field_slug);
+			}
+			else
+			{
+				$profile_data[$assign->field_slug] = $profile_row->{$assign->field_slug};
+			}
+		}
+
 		if ($this->form_validation->run() === TRUE)
 		{
 			if (PYRO_DEMO)
@@ -277,13 +302,18 @@ class Admin extends Admin_Controller {
 			}
 			
 			// Get the POST data
-			$update_data['first_name'] = $this->input->post('first_name');
-			$update_data['last_name'] = $this->input->post('last_name');
-			$update_data['email'] = $this->input->post('email');
-			$update_data['active'] = $this->input->post('active');
-			$update_data['username'] = $this->input->post('username');
-			$update_data['display_name'] = $this->input->post('display_name');
-			$update_data['group_id'] = $this->input->post('group_id');
+			$update_data['email'] 			= $this->input->post('email');
+			$update_data['active'] 			= $this->input->post('active');
+			$update_data['username'] 		= $this->input->post('username');
+			$update_data['group_id'] 		= $this->input->post('group_id');
+
+			$profile_data = array();
+
+			// Grab the profile data
+			foreach($assignments as $assign)
+			{
+				$profile_data[$assign->field_slug] 	= $this->input->post($assign->field_slug);
+			}	
 
 			// Password provided, hash it for storage
 			if ($this->input->post('password'))
@@ -291,7 +321,7 @@ class Admin extends Admin_Controller {
 				$update_data['password'] = $this->input->post('password');
 			}
 
-			if ($this->ion_auth->update_user($id, $update_data))
+			if ($this->ion_auth->update_user($id, $update_data, $profile_data))
 			{
 				// Fire an event. A user has been updated. 
 				Events::trigger('user_updated', $id);
@@ -311,9 +341,9 @@ class Admin extends Admin_Controller {
 			if ($_POST)
 			{
 				$member = (object) $_POST;
-				$member->full_name = $member->first_name . ' ' . $member->last_name;
 			}
 		}
+
 		// Loop through each validation rule
 		foreach ($this->validation_rules as $rule)
 		{
@@ -324,7 +354,8 @@ class Admin extends Admin_Controller {
 		}
 
 		$this->template
-			->title($this->module_details['name'], sprintf(lang('user_edit_title'), $member->full_name))
+			->title($this->module_details['name'], sprintf(lang('user_edit_title'), $member->username))
+			->set('profile_fields', $this->streams->fields->get_stream_fields('profiles', 'users', $profile_data))
 			->set('member', $member)
 			->build('admin/form', $this->data);
 	}

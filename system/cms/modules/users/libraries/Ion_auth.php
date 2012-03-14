@@ -655,9 +655,9 @@ class Ion_auth
 	 * @return void
 	 * @author Phil Sturgeon
 	 **/
-	public function update_user($id, $data)
+	public function update_user($id, $data, $profile_data)
 	{
-		 if ($this->ci->ion_auth_model->update_user($id, $data))
+		 if ($this->ci->ion_auth_model->update_user($id, $data, $profile_data))
 		 {
 			$this->set_message('update_successful');
 			return TRUE;
