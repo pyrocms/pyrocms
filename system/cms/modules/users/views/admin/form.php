@@ -69,7 +69,7 @@
 				<?php foreach($profile_fields as $field) { ?>
 				<li>
 					<label for="<?php echo $field['field_slug']; ?>">
-						<?php echo lang($field['field_name']); ?>
+						<?php echo (lang($field['field_name'])) ? lang($field['field_name']) : $field['field_name'];  ?>
 						<?php if ($field['required']){ ?> <span>*</span><?php } ?>
 					</label>
 					<div class="input">
