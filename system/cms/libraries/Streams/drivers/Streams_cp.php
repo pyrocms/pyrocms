@@ -400,7 +400,10 @@ class Streams_cp extends CI_Driver {
 					{
 						if ( ! isset($_POST[$param]) and $method == 'edit')
 						{
-							$data['current_field']->field_data[$param] = $data['current_field']->field_data[$param];
+							if (isset($data['current_field']->field_data[$param]))
+							{
+								$data['current_field']->field_data[$param] = $data['current_field']->field_data[$param];
+							}
 						}
 						else
 						{
