@@ -4,6 +4,8 @@ class Migration_Add_cloud_files extends CI_Migration {
 
 	public function up()
 	{
+		$this->load->model('files/file_m');
+
 		$this->db->query(
 				"INSERT INTO ".$this->db->dbprefix('settings')." (`slug`, `title`, `description`, `type`, `default`, `value`, `options`, `is_required`, `is_gui`, `module`, `order`) VALUES
 					 ('files_enabled_providers', 'Enabled File Storage Providers', 'Which file storage providers do you want to enable? (If you enable a cloud provider you must provide valid auth keys below)', 'checkbox', 'local', 'local', 'local=Local Filesystem|amazon-s3=Amazon S3|rackspace-cf=Rackspace Cloud Files', '1', '1', 'files', '994'),
