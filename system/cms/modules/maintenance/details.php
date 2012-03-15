@@ -20,11 +20,8 @@ class Module_Maintenance extends Module
 				'fr' => 'Maintenance',
 				'id' => 'Pemeliharaan',
 				'zh' => '維護',
-<<<<<<< HEAD
+				'hu' => 'Karbantartás',
 				'fi' => 'Ylläpito'
-=======
-                                'hu' => 'Karbantartás'
->>>>>>> d9beda16ead7b4a081a0c96a3ab396fd089c12ec
 			),
 			'description' => array(
 				'en' => 'Manage the site cache and export information from the database.',
@@ -33,11 +30,8 @@ class Module_Maintenance extends Module
 				'fr' => 'Gérer le cache du site et exporter les contenus de la base de données',
 				'id' => 'Mengatur cache situs dan mengexport informasi dari database.',
 				'zh' => '經由管理介面手動刪除暫存資料。',
-<<<<<<< HEAD
+				'hu' => 'Az oldal gyorsítótár kezelése és az adatbázis exportálása.',
 				'fi' => 'Hallinoi sivuston välimuistia ja vie tietoa tietokannasta.'
-=======
-				'hu' => 'Az oldal gyorsítótár kezelése és az adatbázis exportálása.'
->>>>>>> d9beda16ead7b4a081a0c96a3ab396fd089c12ec
 			),
 			'frontend' => false,
 			'backend' => true,

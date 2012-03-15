@@ -22,6 +22,7 @@ class Widget_Navigation extends Widgets
 		'br' => 'Navegação',
 		'ru' => 'Навигация',
 		'id' => 'Navigasi',
+		'fi' => 'Navigaatio',
 	);
 
 	/**
@@ -36,6 +37,7 @@ class Widget_Navigation extends Widgets
 		'br' => 'Exibe um grupo de links de navegação como widget em seu site',
 		'ru' => 'Отображает навигационную группу внутри виджета',
 		'id' => 'Menampilkan grup navigasi menggunakan widget',
+		'fi' => 'Näytä widgetillä navigaatio ryhmä',
 	);
 
 	/**
