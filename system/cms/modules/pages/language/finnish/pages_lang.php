@@ -72,6 +72,7 @@ $lang['pages_parent_not_exist_error']      = 'Yläkohdan sivua ei ole olemassa.'
 $lang['pages_chunk_slug_length']					= 'Page Chunk slugs may be no more than 30 characters in length.'; #translate
 $lang['pages_root_folder']                = 'the top level'; #translate
 
+$lang['pages.tree_explanation_title']	   = 'Explanation'; #translate
 $lang['pages.tree_explanation']            = 'Vasemmalla oleva lista näyttää sivustosi sivut.
 Klikkaa "+" ikonia, niin näet sen alasivut. Kun klikkaat sivua, näet sivuun liittyen käteviä toimintoja.';
 
