@@ -143,12 +143,19 @@ $config['supported_languages'] = array(
         'ckeditor'    => NULL
     ),
     'id' => array(
-        'name'        => 'Indonesian',
+        'name'        => 'Bahasa Indonesia',
         'folder'    => 'indonesian',
         'direction'    => 'ltr',
-        'codes'        => array('id', 'id_ID'),
+        'codes'        => array('id', 'indonesian' ,'id_ID'),
         'ckeditor'    => NULL
     ),
+    'hu' => array(
+        'name'          => 'Magyar',
+        'folder'        => 'hungarian',
+        'direction'     => 'ltr',
+        'codes'         => array('hu', 'hu_HU'),
+        'ckeditor'      => NULL
+    )
 );
 
 /*

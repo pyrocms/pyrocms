@@ -33,6 +33,7 @@ class Module_Contact extends Module {
 				'ru' => 'Обратная связь',
 				'sl' => 'Kontakt',
 				'zh' => '聯絡我們',
+				'hu' => 'Kapcsolat'
 			),
 			'description' => array(
 				'en' => 'Adds a form to your site that allows visitors to send emails to you without disclosing an email address to them.',
@@ -54,6 +55,7 @@ class Module_Contact extends Module {
 				'ru' => 'Добавляет форму обратной связи на сайт, через которую посетители могут отправлять вам письма, при этом адрес Email остаётся скрыт.',
 				'sl' => 'Dodaj obrazec za kontakt da vam lahko obiskovalci pošljejo sporočilo brez da bi jim razkrili vaš email naslov.',
 				'zh' => '為您的網站新增「聯絡我們」的功能，對訪客是較為清楚便捷的聯絡方式，也無須您將電子郵件公開在網站上。',
+                                'hu' => 'Létrehozható vele olyan űrlap, amely lehetővé teszi a látogatók számára, hogy e-mailt küldjenek neked úgy, hogy nem feded fel az e-mail címedet.'
 			),
 			'frontend' => false,
 			'backend' => false,

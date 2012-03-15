@@ -65,6 +65,7 @@ $lang['pages_parent_not_exist_error']      = 'Die ausgew&auml;hlte &uuml;bergeor
 $lang['pages_chunk_slug_length']           = 'Page Chunk slugs may be no more than 30 characters in length.';#translate
 $lang['pages_root_folder']                 = 'the top level';#translate
 
+$lang['pages.tree_explanation_title']	   = 'Explanation'; #translate
 $lang['pages.tree_explanation']            = 'Die Liste zur Linken repr&auml;sentiert Seiten auf deiner Webseite.
 W&auml;hle das "+" Icon neben der Seite um ihre untergeordneten Seiten anzuzeigen. Durch ausw&auml;hlen einer Seite erh&auml;ltst du Informationen &uuml;ber die ausgew&auml;hlte Seite.';
 
