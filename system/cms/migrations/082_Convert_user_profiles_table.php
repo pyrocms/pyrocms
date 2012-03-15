@@ -33,7 +33,7 @@ class Migration_Convert_user_profiles_table extends CI_Migration {
 			'last_name' => array(
     			'field_name' => 'user_last_name',
     			'field_type' => 'text',
-    			'extra'		 => array('max_length' => 50)
+    			'extra'		 => array('max_length' => 50, 'required' => false)
     		),
     		'company' => array(
     			'field_name' => 'profile_company',
@@ -102,6 +102,18 @@ class Migration_Convert_user_profiles_table extends CI_Migration {
 		{
 			$fields['last_name']['assign'] = array('required' => true);
 		}
+        else
+        {
+            // To be complete 
+            $ls_update = array(
+                'last_name'         => array(
+                    'null'          => true,
+                    'type'          => 'VARCHAR',
+                    'constraint'    => 50
+                )
+            );
+            $this->dbforge->modify_column('profiles', $ls_update);
+        }
 
 		// Here we go...
 		// Run through each column and add the field
@@ -131,6 +143,7 @@ class Migration_Convert_user_profiles_table extends CI_Migration {
 	    		unset($assign);
     		}
     	}
+
     }
 
     public function down()
