@@ -25,6 +25,8 @@ class Users extends Public_Controller
 		$this->load->library('form_validation');
 	}
 
+	// --------------------------------------------------------------------------
+
 	/**
 	 * Show the current user's profile
 	 *
@@ -42,6 +44,8 @@ class Users extends Public_Controller
 		}
 	}
 
+	// --------------------------------------------------------------------------
+
 	/**
 	 * View a user profile based on the ID
 	 *
@@ -55,16 +59,12 @@ class Users extends Public_Controller
 		// No user? Show a 404 error. Easy way for now, instead should show a custom error message
 		$user or show_404();
 		
-		// Take care of the {} braces in the content
-		foreach ($user as $field => $value)
-		{
-			$user->{$field} = escape_tags($value);
-		}
-
 		$this->template->build('profile/view', array(
 			'_user' => $user,
 		));
 	}
+
+	// --------------------------------------------------------------------------
 
 	/**
 	 * Let's login, shall we?
@@ -126,6 +126,8 @@ class Users extends Public_Controller
 			'redirect_to' => $redirect_to,
 		));
 	}
+
+	// --------------------------------------------------------------------------
 
 	/**
 	 * Method to log the user out of the system
@@ -626,7 +628,7 @@ class Users extends Public_Controller
 			// Set the language for this user
 			// --------------------------------
 
-			if ($secure_post['lang'])
+			if (isset($secure_post['lang']) and $secure_post['lang'])
 			{
 				$this->ion_auth->set_lang( $secure_post['lang'] );
 				$_SESSION['lang_code'] = $secure_post['lang'];
