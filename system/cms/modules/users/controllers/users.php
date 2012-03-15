@@ -483,7 +483,7 @@ class Users extends Public_Controller
 	}
 
 	/**
-	 *
+	 * Edit Profile
 	 */
 	public function edit($id = 0)
 	{
@@ -507,141 +507,78 @@ class Users extends Public_Controller
 
 		$this->validation_rules = array(
 			array(
-				'field' => 'first_name',
-				'label' => lang('user_first_name'),
-				'rules' => 'xss_clean|required'
-			),
-			array(
-				'field' => 'last_name',
-				'label' => lang('user_last_name'),
-				'rules' => 'xss_clean'.(Settings::get('require_lastname') ? '|required' : '')
-			),
-			array(
-				'field' => 'password',
-				'label' => lang('user_password'),
-				'rules' => 'xss_clean|min_length[6]|max_length[20]'
-			),
-			array(
 				'field' => 'email',
 				'label' => lang('user_email'),
 				'rules' => 'xss_clean|valid_email'
-			),
-			array(
-				'field' => 'lang',
-				'label' => lang('user_lang'),
-				'rules' => 'xss_clean|alpha|max_length[2]'
-			),
-			array(
-				'field' => 'display_name',
-				'label' => lang('profile_display'),
-				'rules' => 'xss_clean|trim|required'
-			),
-			// More fields
-			array(
-				'field' => 'gender',
-				'label' => lang('profile_gender'),
-				'rules' => 'xss_clean|trim|max_length[1]'
-			),
-			array(
-				'field' => 'dob_day',
-				'label' => lang('profile_dob_day'),
-				'rules' => 'xss_clean|trim|numeric|max_length[2]|required'
-			),
-			array(
-				'field' => 'dob_month',
-				'label' => lang('profile_dob_month'),
-				'rules' => 'xss_clean|trim|numeric|max_length[2]|required'
-			),
-			array(
-				'field' => 'dob_year',
-				'label' => lang('profile_dob_year'),
-				'rules' => 'xss_clean|trim|numeric|max_length[4]|required'
-			),
-			array(
-				'field' => 'bio',
-				'label' => lang('profile_bio'),
-				'rules' => 'xss_clean|trim|max_length[1000]'
-			),
-			array(
-				'field' => 'phone',
-				'label' => lang('profile_phone'),
-				'rules' => 'xss_clean|trim|alpha_numeric|max_length[20]'
-			),
-			array(
-				'field' => 'mobile',
-				'label' => lang('profile_mobile'),
-				'rules' => 'xss_clean|trim|alpha_numeric|max_length[20]'
-			),
-			array(
-				'field' => 'address_line1',
-				'label' => lang('profile_address_line1'),
-				'rules' => 'xss_clean|trim'
-			),
-			array(
-				'field' => 'address_line2',
-				'label' => lang('profile_address_line2'),
-				'rules' => 'xss_clean|trim'
-			),
-			array(
-				'field' => 'address_line3',
-				'label' => lang('profile_address_line3'),
-				'rules' => 'xss_clean|trim'
-			),
-			array(
-				'field' => 'postcode',
-				'label' => lang('profile_postcode'),
-				'rules' => 'xss_clean|trim|max_length[20]'
-			),
-			array(
-				'field' => 'website',
-				'label' => lang('profile_website'),
-				'rules' => 'xss_clean|trim|max_length[255]'
-			),
+			)
 		);
 
+		// --------------------------------
+		// Merge streams and users validation
+		// --------------------------------
+
+		// Get the profile fields validation array from streams
+		$this->load->driver('Streams');
+		$profile_validation = $this->streams->streams->validation_array('profiles', 'users');
+
 		// Set the validation rules
-		$this->form_validation->set_rules($this->validation_rules);
+		$this->form_validation->set_rules(array_merge($this->validation_rules, $profile_validation));
+
+		// Get user profile data. This will be passed to our
+		// streams insert_entry data in the model.
+		$assignments = $this->streams->streams->get_assignments('profiles', 'users');
+
+		// --------------------------------
 
 		// Settings valid?
 		if ($this->form_validation->run())
 		{
 			PYRO_DEMO and show_error(lang('global:demo_restrictions'));
-			
+
 			// Loop through each POST item and add it to the secure_post array
 			$secure_post = $this->input->post();
+			
+			$user_data 			= array();		// Data for our user table
+			$profile_data 		= array();		// Data for our profile table
 
-			// Set the full date of birth
-			$secure_post['dob'] = mktime(0, 0, 0, $secure_post['dob_month'], $secure_post['dob_day'], $secure_post['dob_year']);
+			// --------------------------------
+			// Deal with non-profile fields
+			// --------------------------------
+			// The non-profile fields are:
+			// - email
+			// - password
+			// The rest are streams
+			// --------------------------------
 
-			// Unset the data that's no longer required
-			unset($secure_post['dob_month']);
-			unset($secure_post['dob_day']);
-			unset($secure_post['dob_year']);
+			$user_data['email'] = $secure_post['email'];
 
+			// If password is being changed (and matches)
+			if ( ! $secure_post['password'])
+			{
+				$user_data['password'] = $secure_post['password'];
+				unset($secure_post['password']);
+			}
+
+			// --------------------------------
 			// Set the language for this user
+			// --------------------------------
+
 			if ($secure_post['lang'])
 			{
 				$this->ion_auth->set_lang( $secure_post['lang'] );
 				$_SESSION['lang_code'] = $secure_post['lang'];
 			}
-			else
-			{
-				unset($secure_post['lang']);
-			}
 
-			// If password is being changed (and matches)
-			if ( ! $secure_post['password'])
-			{
-				unset($secure_post['password']);
-			}
+			// --------------------------------
+			// The profile data is what is left
+			// over from secure_post.
+			// --------------------------------
 
-			// Set the time of update
-			$secure_post['updated_on'] = now();
+			$profile_data = $secure_post;
 
-			if ($this->ion_auth->update_user($user->id, $secure_post) !== FALSE)
+			if ($this->ion_auth->update_user($user->id, $user_data, $profile_data) !== FALSE)
 			{
 				Events::trigger('post_user_update');
-
 				$this->session->set_flashdata('success', $this->ion_auth->messages());
 			}
 			else
@@ -653,13 +590,36 @@ class Users extends Public_Controller
 		}
 		else
 		{
-			// Loop through each validation rule
-			foreach ($this->validation_rules as $rule)
+			// --------------------------------
+			// Grab user data
+			// --------------------------------
+			// Currently just the email.
+			// --------------------------------		
+
+			if (isset($_POST['email']))
 			{
-				if ($this->input->post($rule['field']) !== FALSE)
-				{
-					$user->{$rule['field']} = set_value($rule['field']);
-				}
+				$user->email = $_POST['email'];
+			}
+		}
+
+		// --------------------------------
+		// Grab user profile data
+		// --------------------------------
+
+		$profile_data = array(); // For our form
+
+		// Get the profile data
+		$profile_row = $this->db->limit(1)->get('profiles')->row();
+
+		foreach($assignments as $assign)
+		{	
+			if (isset($_POST[$assign->field_slug]))
+			{
+				$profile_data[$assign->field_slug] = $this->input->post($assign->field_slug);
+			}
+			else
+			{
+				$profile_data[$assign->field_slug] = $profile_row->{$assign->field_slug};
 			}
 		}
 
@@ -669,40 +629,8 @@ class Users extends Public_Controller
 			$user->{$field} = escape_tags($value);
 		}
 		
-		// If this user already has a profile, use their data if nothing in post array
-		if ($user->dob > 0)
-		{
-		    $user->dob_day 	= date('j', $user->dob);
-		    $user->dob_month = date('n', $user->dob);
-		    $user->dob_year = date('Y', $user->dob);
-		}
-
-		// Fix the months
-		$this->lang->load('calendar');
-		
-		$month_names = array(
-			lang('cal_january'),
-			lang('cal_february'),
-			lang('cal_march'),
-			lang('cal_april'),
-			lang('cal_mayl'),
-			lang('cal_june'),
-			lang('cal_july'),
-			lang('cal_august'),
-			lang('cal_september'),
-			lang('cal_october'),
-			lang('cal_november'),
-			lang('cal_december'),
-		);
-		
-	    $days 	= array_combine($days 	= range(1, 31), $days);
-		$months = array_combine($months = range(1, 12), $month_names);
-	    $years 	= array_combine($years 	= range(date('Y'), date('Y')-120), $years);
-
-	    // Format languages for the dropdown box
-	    $languages = array();
 	    // get the languages offered on the front-end
-	    $site_public_lang = explode(',', Settings::get('site_public_lang'));
+	    /*$site_public_lang = explode(',', Settings::get('site_public_lang'));
 	
 	    foreach ($this->config->item('supported_languages') as $lang_code => $lang)
 	    {
@@ -712,15 +640,12 @@ class Users extends Public_Controller
           	// add it to the dropdown list
         	   $languages[$lang_code] = $lang['name'];
 	       }
-	    }
+	    }*/
 
 		// Render the view
 		$this->template->build('profile/edit', array(
-			'languages' => $languages,
 			'_user' => $user,
-			'days' => $days,
-			'months' => $months,
-			'years' => $years,
+			'profile_fields' => $this->streams->fields->get_stream_fields('profiles', 'users', $profile_data),
 			'api_key' => isset($api_key) ? $api_key : null,
 		));
 	}
