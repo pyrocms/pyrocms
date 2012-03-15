@@ -24,6 +24,7 @@ class Module_Blog extends Module {
 				'pl' => 'Blog',
 				'ru' => 'Блог',
 				'zh' => '文章',
+				'hu' => 'Blog',
 				'fi' => 'Blogi'
 			),
 			'description' => array(
@@ -37,7 +38,7 @@ class Module_Blog extends Module {
 				'fi' => 'Kirjoita blogi artikkeleita.',
 				'el' => 'Δημιουργήστε άρθρα και εγγραφές στο ιστολόγιο σας.',
 				'es' => 'Escribe entradas para los artículos y blog (web log).', #update translation
-				'fi' => 'Kirjoita uutisartikkeleita tai blogi artikkeleita.', #update translation
+				'fi' => 'Kirjoita blogi artikkeleita.',
 				'fr' => 'Envoyez de nouveaux posts et messages de blog.', #update translation
 				'he' => 'ניהול בלוג',
 				'id' => 'Post entri blog',
@@ -48,6 +49,7 @@ class Module_Blog extends Module {
 				'ru' => 'Управление записями блога.',
 				'sl' => 'Objavite blog prispevke',
 				'zh' => '發表新聞訊息、部落格等文章。',
+                                'hu' => 'Blog bejegyzések létrehozása.'
 			),
 			'frontend'	=> true,
 			'backend'	=> true,

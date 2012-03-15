@@ -34,7 +34,7 @@
 
 <div class="one_half last scroll-follow">	
 	<section class="title">
-		<h4>Explanation</h4>
+		<h4><?php echo lang('pages.tree_explanation_title'); ?></h4>
 	</section>
 	
 	<section class="item">

@@ -33,6 +33,7 @@ class Module_Permissions extends Module {
 				'ru' => 'Права доступа',
 				'sl' => 'Dovoljenja',
 				'zh' => '權限',
+				'hu' => 'Jogosultságok'
 			),
 			'description' => array(
 				'en' => 'Control what type of users can see certain sections within the site.',
@@ -54,6 +55,7 @@ class Module_Permissions extends Module {
 				'ru' => 'Управление правами доступа, ограничение доступа определённых групп пользователей к произвольным разделам сайта.',
 				'sl' => 'Uredite dovoljenja kateri tip uporabnika lahko vidi določena področja vaše strani.',
 				'zh' => '用來控制不同類別的用戶，設定其瀏覽特定網站內容的權限。',
+				'hu' => 'A felhasználók felügyelet alatt tartására, hogy milyen típusú felhasználók, mit láthatnak, mely szakaszain az oldalnak.'
 			),
 			'frontend' => false,
 			'backend'  => true,

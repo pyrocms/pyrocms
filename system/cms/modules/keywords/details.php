@@ -25,6 +25,7 @@ class Module_Keywords extends Module {
 				'id' => 'Kata Kunci',
 				'nl' => 'Sleutelwoorden',
 				'zh' => '鍵詞',
+				'hu' => 'Kulcsszavak',
 				'fi' => 'Avainsanat'
 			),
 			'description' => array(
@@ -37,6 +38,7 @@ class Module_Keywords extends Module {
 				'id' => 'Memantau daftar kata kunci untuk melabeli dan mengorganisasikan konten.',
 				'nl' => 'Beheer een centrale lijst van sleutelwoorden om uw content te categoriseren en organiseren.',
 				'zh' => '集中管理可用於標題與內容的鍵詞(keywords)列表。',
+				'hu' => 'Ez egy központi kulcsszó lista a cimkékhez és a tartalmakhoz.',
 				'fi' => 'Hallinnoi keskitettyä listaa avainsanoista merkitäksesi ja järjestelläksesi sisältöä.'
 			),
 			'frontend' => false,

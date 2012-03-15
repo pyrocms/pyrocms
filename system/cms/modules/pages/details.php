@@ -33,6 +33,7 @@ class Module_Pages extends Module {
 				'ru' => 'Страницы',
 				'sl' => 'Strani',
 				'zh' => '頁面',
+				'hu' => 'Oldalak'
 			),
 			'description' => array(
 				'en' => 'Add custom pages to the site with any content you want.',
@@ -54,6 +55,7 @@ class Module_Pages extends Module {
 				'ru' => 'Управление информационными страницами сайта, с произвольным содержимым.',
 				'sl' => 'Dodaj stran s kakršno koli vsebino želite.',
 				'zh' => '為您的網站新增自定的頁面。',
+				'hu' => 'Saját oldalak hozzáadása a weboldalhoz, akármilyen tartalommal.'
 			),
 			'frontend' => true,
 			'backend'  => true,
