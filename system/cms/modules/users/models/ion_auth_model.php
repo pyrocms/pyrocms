@@ -481,7 +481,7 @@ class Ion_auth_model extends CI_Model
 	 * @return bool
 	 * @author Mathew
 	 **/
-	public function register($username, $password, $email, $group_id, $additional_data = array(), $group_name = false)
+	public function register($username, $password, $email, $group_id = null, $additional_data = array(), $group_name = false)
 	{
 		if ($this->identity_column == 'email' && $this->email_check($email))
 		{
@@ -506,12 +506,12 @@ class Ion_auth_model extends CI_Model
 			}
 		}
 
-		// If the group id does not exist, find it via 
-		// group name.
+		// If the group id does not exist, get it via the 
+		// group name. 
 		if ( ! $group_id)
 		{
 			// Group ID
-			if(!$group_name)
+			if( ! $group_name)
 			{
 				$group_name = $this->config->item('default_group', 'ion_auth');
 			}
@@ -551,12 +551,17 @@ class Ion_auth_model extends CI_Model
 
 		$this->db->insert($this->tables['users'], $data);
 
-		// Meta table.
+		// For the profiles tables.
 		$id = $this->db->insert_id();
 
 		// Use streams to add the profile data.
 		// Even if there is not data to add, we still want an entry
 		// for the profile data.
+		if ( ! class_exists('Streams'))
+		{
+			$this->load->driver('Streams');
+		}
+
 		if ($this->streams->entries->insert_entry($additional_data, 'profiles', 'users', array(), array('user_id' => $id)))
 		{
 			return $id;

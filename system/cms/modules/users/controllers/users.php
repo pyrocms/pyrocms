@@ -142,6 +142,8 @@ class Users extends Public_Controller
 		redirect('');
 	}
 
+	// --------------------------------------------------------------------------
+
 	/**
 	 * Method to register a new user
 	 *
@@ -167,16 +169,6 @@ class Users extends Public_Controller
 		// Validation rules
 		$validation = array(
 			array(
-				'field' => 'first_name',
-				'label' => lang('user_first_name'),
-				'rules' => 'required'
-			),
-			array(
-				'field' => 'last_name',
-				'label' => lang('user_last_name'),
-				'rules' => (Settings::get('require_lastname') ? 'required' : '')
-			),
-			array(
 				'field' => 'password',
 				'label' => lang('user_password'),
 				'rules' => 'required|min_length[6]|max_length[20]'
@@ -192,6 +184,54 @@ class Users extends Public_Controller
 				'rules' => Settings::get('auto_username') ? '' : 'required|alpha_dot_dash|min_length[3]|max_length[20]|callback__username_check',
 			),
 		);
+
+		// --------------------------------
+		// Merge streams and users validation
+		// --------------------------------
+		// Why are we doing this? We need
+		// any fields that are required to
+		// be filled out by the user when
+		// registering.
+		// --------------------------------
+
+		// Get the profile fields validation array from streams
+		$this->load->driver('Streams');
+		$profile_validation = $this->streams->streams->validation_array('profiles', 'users');
+
+		// Remove display_name
+		foreach ($profile_validation as $key => $values)
+		{
+			if($values['field'] == 'display_name')
+			{
+				unset($profile_validation[$key]);
+				break;
+			}
+		}
+
+		// Set the validation rules
+		$this->form_validation->set_rules(array_merge($validation, $profile_validation));
+
+		// Get user profile data. This will be passed to our
+		// streams insert_entry data in the model.
+		$assignments = $this->streams->streams->get_assignments('profiles', 'users');
+
+		// This is the required profile data we have from
+		// the register form
+		$profile_data = array();
+
+		// Get the profile data to pass to the register function.
+		foreach ($assignments as $assign)
+		{	
+			if($assign->is_required == 'yes' and $assign->field_slug != 'display_name')
+			{
+				if (isset($_POST[$assign->field_slug]))
+				{
+					$profile_data[$assign->field_slug] = $this->input->post($assign->field_slug);
+				}
+			}
+		}
+
+		// --------------------------------
 
 		// Set the validation rules
 		$this->form_validation->set_rules($validation);
@@ -221,40 +261,43 @@ class Users extends Public_Controller
 				// Let's do some crazy shit and make a username!
 				if (Settings::get('auto_username'))
 				{
+					// We don't know what fields we have to create a username from,
+					// so we are going to use the string before their email address
+					// since we know they have at least an email address.
+					$email_parts = explode('@', $email);
+					$username = $email_parts[0];
+
 					$i = 1;
-				
+
 					do
 					{
-						$username = url_title($this->input->post('first_name').'.'.$this->input->post('last_name'), '-', true);
-					
-						// Add 2, 3, 4 etc to the end
 						$i > 1 and $username .= $i;
-					
+
 						++$i;
 					}
-				
-					// Keep trying until it is unique
 					while ($this->db->where('username', $username)->count_all_results('users') > 0);
 				}
-			
-				// Let's just use post (which we required earlier)
 				else
 				{
+					// The user specified a username, so let's use that.
 					$username = $this->input->post('username');
 				}
 
-				$id = $this->ion_auth->register($username, $password, $email, array(
-					'first_name'		=> $this->input->post('first_name'),
-					'last_name'			=> $this->input->post('last_name'),
-					'display_name'		=> $username,
-				));
+				// Do we have a display name? If so, let's use that.
+				// Othwerise we can use the username.
+				if ( ! isset($profile_data['display_name']))
+				{
+					$profile_data['display_name'] = $username;
+				}
+
+				// We are registering with a null group_id so we just
+				// use the default user ID in the settings.
+				$id = $this->ion_auth->register($username, $password, $email, null, $profile_data);
 
 				// Try to create the user
 				if ($id > 0)
 				{
 					// Convert the array to an object
-					$user->first_name 		= $this->input->post('first_name');
-					$user->last_name		= $this->input->post('last_name');
 					$user->username			= $username;
 					$user->display_name		= $username;
 					$user->email			= $email;
@@ -269,9 +312,9 @@ class Users extends Public_Controller
 						$this->load->library('user_agent');
 
 						Events::trigger('email', array(
-							'name' => $user->first_name.' '.$user->last_name,
+							'name' => $user->display_name,
 							'sender_ip' => $this->input->ip_address(),
-							'sender_agent' => $this->agent->browser() . ' ' . $this->agent->version(),
+							'sender_agent' => $this->agent->browser().' '.$this->agent->version(),
 							'sender_os' => $this->agent->platform(),
 							'slug' => 'registered',
 							'email' => Settings::get('contact_email'),
@@ -310,17 +353,27 @@ class Users extends Public_Controller
 		else if (($user_hash = $this->session->userdata('user_hash')))
 		{
 			// Convert the array to an object
-			$user->first_name 		= ( ! empty($user_hash['first_name'])) ? $user_hash['first_name']: '';
-			$user->last_name 		= ( ! empty($user_hash['last_name'])) ? $user_hash['last_name']: '';
 			$user->email 			= ( ! empty($user_hash['email'])) ? $user_hash['email']: '';
 			$user->username			= $user_hash['nickname'];
 		}
+
+		// --------------------------------
+		// Create profile fields.
+		// --------------------------------
+
+		// Anything in the post?
+
+		$this->template->set('profile_fields', $this->streams->fields->get_stream_fields('profiles', 'users', $profile_data));
+
+		// --------------------------------
 		
 		$this->template
 			->title(lang('user_register_title'))
 			->set('_user', $user)
 			->build('register');
 	}
+
+	// --------------------------------------------------------------------------
 
 	/**
 	 * Activate a user
@@ -367,8 +420,12 @@ class Users extends Public_Controller
 		$this->template->build('activate', $this->data);
 	}
 
+	// --------------------------------------------------------------------------
+
 	/**
-	 * Activated page
+	 * Activated page.
+	 *
+	 * Shows an activated messages and a login form.
 	 *
 	 * @return void
 	 */
@@ -385,6 +442,8 @@ class Users extends Public_Controller
 		$this->template->title(lang('user_activated_account_title'));
 		$this->template->build('activated', $this->data);
 	}
+
+	// --------------------------------------------------------------------------
 
 	/**
 	 * Reset a user's password
@@ -460,6 +519,8 @@ class Users extends Public_Controller
 		$this->template->build('reset_pass', $this->data);
 	}
 
+	// --------------------------------------------------------------------------
+
 	/**
 	 * Password reset is finished
 	 *
@@ -481,6 +542,8 @@ class Users extends Public_Controller
 			->title(lang('user_password_reset_title'))
 			->build('reset_pass_complete', $this->data);
 	}
+
+	// --------------------------------------------------------------------------
 
 	/**
 	 * Edit Profile
@@ -609,7 +672,7 @@ class Users extends Public_Controller
 		$profile_data = array(); // For our form
 
 		// Get the profile data
-		$profile_row = $this->db->limit(1)->get('profiles')->row();
+		$profile_row = $this->db->limit(1)->where('user_id', $this->current_user->id)->get('profiles')->row();
 
 		foreach($assignments as $assign)
 		{	
@@ -624,10 +687,10 @@ class Users extends Public_Controller
 		}
 
 		// Take care of the {} braces in the content
-		foreach ($user as $field => $value)
+		/*foreach ($user as $field => $value)
 		{
 			$user->{$field} = escape_tags($value);
-		}
+		}*/
 		
 	    // get the languages offered on the front-end
 	    /*$site_public_lang = explode(',', Settings::get('site_public_lang'));

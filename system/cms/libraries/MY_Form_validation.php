@@ -263,7 +263,7 @@ class MY_Form_validation extends CI_Form_validation
 				{
 					if (FALSE === ($line = $this->CI->lang->line($rule)))
 					{
-						$line = 'Unable to access an error message corresponding to your field name.';
+						$line = 'Unable to access an error message corresponding to your field name.'.$rule;
 					}
 				}
 				else
@@ -344,9 +344,15 @@ class MY_Form_validation extends CI_Form_validation
 		$items = explode(":", $data);
 		
 		$column 	= trim($items[0]);
+
+		if ( ! isset($items[0]) or ! isset($items[1]))
+		{
+			return true;
+		}
+
 		$mode 		= $items[1];
 		$stream_id	= $items[2];
-		
+
 		// Get the stream
 		$stream = $this->CI->streams_m->get_stream($stream_id);
 			
