@@ -1156,7 +1156,15 @@ class Row_m extends MY_Model {
 		// -------------------------------------
 
 		$insert_data['created'] 	= date('Y-m-d H:i:s');
-		$insert_data['created_by'] 	= $this->current_user->id;
+
+		if (isset($this->current_user->id))
+		{
+			$insert_data['created_by'] 	= $this->current_user->id;
+		}
+		else
+		{
+			$insert_data['created_by'] 	= null;
+		}
 
 		// -------------------------------------
 		// Set incremental ordering
