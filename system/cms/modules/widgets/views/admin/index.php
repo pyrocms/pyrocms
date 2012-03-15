@@ -1,6 +1,6 @@
 <div class="one_half" id="available-widgets">
 	<section class="title">
-		<h4>Available Widgets</h4>
+		<h4><?php echo lang('widgets.available_title'); ?></h4>
 	</section>
 	<section class="item">
 		<?php if ($available_widgets): ?>
