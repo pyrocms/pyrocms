@@ -23,6 +23,7 @@ class Widget_Social_bookmark extends Widgets
 		'br' => 'Social Bookmark',
 		'ru' => 'Социальные закладки',
 		'id' => 'Social Bookmark',
+		'fi' => 'Sosiaalinen kirjanmerkki',
 	);
 
 	/**
@@ -37,6 +38,7 @@ class Widget_Social_bookmark extends Widgets
 		'br' => 'Adiciona links de redes sociais usando o AddThis, podendo fazer algumas configurações',
 		'ru' => 'Конфигурируемые социальные закладки с сайта AddThis',
 		'id' => 'Tautan social bookmark yang dapat dikonfigurasi dari AddThis',
+		'fi' => 'Konfiguroitava sosiaalinen kirjanmerkki linkit AddThis:stä',
 	);
 
 	/**

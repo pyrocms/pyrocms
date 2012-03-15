@@ -30,6 +30,7 @@ class Widget_Html extends Widgets
 		'nl' => 'Maak blokken met maatwerk HTML',
 		'ru' => 'Создание HTML-блоков с произвольным содержимым',
 		'id' => 'Membuat blok HTML apapun',
+		'fi' => 'Luo lohkoja omasta HTML koodista',
 	);
 	
 	/**
