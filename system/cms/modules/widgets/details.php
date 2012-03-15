@@ -30,6 +30,7 @@ class Module_Widgets extends Module {
 				'ru' => 'Виджеты',
 				'sl' => 'Vtičniki',
 				'zh' => '小組件',
+				'hu' => 'Widget-ek'
 			),
 			'description' => array(
 				'en' => 'Manage small sections of self-contained logic in blocks or "Widgets".',
@@ -49,6 +50,7 @@ class Module_Widgets extends Module {
 				'ru' => 'Управление небольшими, самостоятельными блоками.',
 				'sl' => 'Urejanje manjših delov blokov strani ti. Vtičniki (Widgets)',
 				'zh' => '可將小段的程式碼透過小組件來管理。即所謂 "Widgets"，或稱為小工具、部件。',
+				'hu' => 'Önálló kis logikai tömbök vagy widget-ek kezelése.'
 			),
 			'frontend' => false,
 			'backend'  => true,
