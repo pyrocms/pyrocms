@@ -188,7 +188,7 @@ class Module_Pages extends Module {
 				'status' => 'live',
 				'restricted_to' => '',
 				'created_on' => now(),
-				'is_home' => 1,
+				'is_home' => 0,
 				'order' => now()
 			),
 			/* The contact page. */
@@ -202,7 +202,7 @@ class Module_Pages extends Module {
 				'status' => 'live',
 				'restricted_to' => '',
 				'created_on' => now(),
-				'is_home' => 1,
+				'is_home' => 0,
 				'order' => now()
 			),
 		);
