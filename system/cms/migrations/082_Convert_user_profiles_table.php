@@ -7,6 +7,11 @@ class Migration_Convert_user_profiles_table extends CI_Migration {
 
     public function up()
     {
+        if (defined('PYROPATH'))
+        {
+            $this->load->add_package_path(PYROPATH.'modules/streams_core');
+        }
+
     	$this->load->language('users/user');
     	$this->load->library('settings/Settings');
 
