@@ -120,6 +120,11 @@
 			<img src="<?php echo base_url(); ?>assets/images/flags/id.gif" alt="Indonesian" />
 		</a>
 	</li>
+	<li>
+		<a href="<?php echo site_url('installer/change/hungarian'); ?>" title="Magyar">
+			<img src="<?php echo base_url(); ?>assets/images/flags/hu.gif" alt="Magyar" />
+		</a>
+	</li>        
 </ul>
 		</div>		
 		</div>

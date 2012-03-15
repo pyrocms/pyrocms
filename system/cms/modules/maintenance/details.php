@@ -20,6 +20,7 @@ class Module_Maintenance extends Module
 				'fr' => 'Maintenance',
 				'id' => 'Pemeliharaan',
 				'zh' => '維護',
+                                'hu' => 'Karbantartás'
 			),
 			'description' => array(
 				'en' => 'Manage the site cache and export information from the database.',
@@ -28,6 +29,7 @@ class Module_Maintenance extends Module
 				'fr' => 'Gérer le cache du site et exporter les contenus de la base de données',
 				'id' => 'Mengatur cache situs dan mengexport informasi dari database.',
 				'zh' => '經由管理介面手動刪除暫存資料。',
+				'hu' => 'Az oldal gyorsítótár kezelése és az adatbázis exportálása.'
 			),
 			'frontend' => false,
 			'backend' => true,

@@ -33,6 +33,7 @@ class Module_Settings extends Module {
 				'ru' => 'Настройки',
 				'sl' => 'Nastavitve',
 				'zh' => '網站設定',
+				'hu' => 'Beállítások'
 			),
 			'description' => array(
 				'en' => 'Allows administrators to update settings like Site Name, messages and email address, etc.',
@@ -54,6 +55,7 @@ class Module_Settings extends Module {
 				'ru' => 'Управление настройками сайта - Имя сайта, сообщения, почтовые адреса и т.п.',
 				'sl' => 'Dovoljuje administratorjem posodobitev nastavitev kot je Ime strani, sporočil, email naslova itd.',
 				'zh' => '網站管理者可更新的重要網站設定。例如：網站名稱、訊息、電子郵件等。',
+				'hu' => 'Lehetővé teszi az adminok számára a beállítások frissítését, mint a weboldal neve, üzenetek, e-mail címek, stb...'
 			),
 			'frontend' => false,
 			'backend'  => true,
