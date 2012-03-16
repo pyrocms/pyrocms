@@ -12,7 +12,7 @@ class MY_Controller extends MX_Controller {
 	/**
 	 * No longer used globally
 	 * 
-	 * @deprecated
+	 * @deprecated remove in 2.2
 	 */
 	protected $data;
 	/**
@@ -98,6 +98,8 @@ class MY_Controller extends MX_Controller {
 		$pyro['lang'] = $langs[CURRENT_LANGUAGE];
 		$pyro['lang']['code'] = CURRENT_LANGUAGE;
 
+		$this->load->vars($pyro);
+
 		// Set php locale time
 		if (isset($langs[CURRENT_LANGUAGE]['codes']) && sizeof($locale = (array) $langs[CURRENT_LANGUAGE]['codes']) > 1)
 		{
@@ -163,8 +165,6 @@ class MY_Controller extends MX_Controller {
 			Asset::add_path('module', $this->module_details['path'].'/');
 		}
 
-		$this->load->vars($pyro);
-		
 		$this->benchmark->mark('my_controller_end');
 		
 		// Enable profiler on local box

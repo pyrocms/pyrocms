@@ -625,7 +625,7 @@ class Fields_m extends CI_Model {
 	}
 
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Edit Assignment
 	 *
@@ -639,42 +639,62 @@ class Fields_m extends CI_Model {
 	public function edit_assignment($assignment_id, $stream, $field, $data)
 	{
 		// -------------------------------------
-		// Check for title column
-		// -------------------------------------
-		// See if this should be made the title column
+		// Title Column
 		// -------------------------------------
 
-		if (isset($data['title_column']) and $data['title_column'] == 'yes')
+		// Scenario A: The title column is the field slug, and we 
+		// have it unchecked.
+		if (
+			$stream->title_column == $field->field_slug and
+			( ! isset($data['title_column']) or $data['title_column'] == 'no' or ! $data['title_column'])
+		)
 		{
-			$title_update_data['title_column'] = $field->field_slug;
-		
-			$this->db->where('id', $stream->id );
-			$this->db->update('data_streams', $title_update_data);
+			// In this case, they don't want this to
+			// be the title column anymore, so we wipe it out
+			$this->db
+				->limit(1)
+				->where('id', $stream->id)
+				->update('data_streams', array('title_column' => null));
+		}
+		elseif (
+			isset($data['title_column']) and
+			($data['title_column'] == 'yes' or $data['title_column'] === true) and
+			$stream->title_column != $field->field_slug
+		)
+		{
+			// Scenario B: They have checked the title column
+			// and this field it not the current field.
+			$this->db
+					->limit(1)
+					->where('id', $stream->id)
+					->update('data_streams', array('title_column' => $field->field_slug));
 		}
 
 		// Is required	
-		if (isset($data['is_required']) and $data['is_required'] == 'yes')
-		{
+		if( isset($data['is_required']) and $data['is_required'] == 'yes' ):
+
 			$update_data['is_required'] = 'yes';
-		}	
-		else
-		{
+
+		else:
+
 			$update_data['is_required'] = 'no';
-		}
-		
+
+		endif;
+
 		// Is unique
-		if (isset($data['is_unique']) and $data['is_unique'] == 'yes')
-		{
+		if( isset($data['is_unique']) and $data['is_unique'] == 'yes' ):
+
 			$update_data['is_unique'] = 'yes';
-		}	
-		else
-		{
+
+		else:
+
 			$update_data['is_unique'] = 'no';
-		}
-			
+
+		endif;
+
 		// Add in instructions		
 		$update_data['instructions'] = $data['instructions'];
-		
+
 		$this->db->where('id', $assignment_id);
 		return $this->db->update(ASSIGN_TABLE, $update_data);
 	}

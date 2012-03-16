@@ -65,6 +65,7 @@ $lang['pages_parent_not_exist_error'] 			= '您所選擇的上級頁面不存在
 $lang['pages_chunk_slug_length']				= '區塊縮略名(slug)不能超過30個字元。';
 $lang['pages_root_folder']                		= '最上層';
 
+$lang['pages.tree_explanation_title']	        = 'Explanation'; #translate
 $lang['pages.tree_explanation'] 				= '左側表列了您網站中的自定頁面。點選頁面旁的 "+" 圖像即可顯示其下層頁面。當您點選了某頁面項目，您將會在此欄位裡看到關於該頁的有用資訊。';
 
 $lang['pages.rss_explanation']					= '啟用這頁的 RSS 功能，用戶將可訂閱含有該子頁面資訊的 RSS Feed。';

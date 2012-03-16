@@ -2,7 +2,8 @@
 
 /**
  * API module
- * 
+ *
+ * @author PyroCMS Dev Team
  * @package PyroCMS\Core\Modules\API
  */
 class Module_Api extends Module
@@ -16,12 +17,14 @@ class Module_Api extends Module
 			'name' => array(
 				'en' => 'API Management',
 				'el' => 'Διαχείριση API',
-				'fr' => 'Gestionnaire d\'API'
+				'fr' => 'Gestionnaire d\'API',
+				'hu' => 'API Kezelés'
 			),
 			'description' => array(
 				'en' => 'Set up a RESTful API with API Keys and out in JSON, XML, CSV, etc.',
 				'el' => 'Ρυθμίσεις για ένα RESTful API με κλειδιά API και αποτελέσματα σε JSON, XML, CSV, κτλ.',
-				'fr' => 'Paramétrage d\'une API RESTgul avec clés API et export en JSON, XML, CSV, etc.'
+				'fr' => 'Paramétrage d\'une API RESTgul avec clés API et export en JSON, XML, CSV, etc.',
+                                'hu' => 'Körültekintően állítsd be az API-t (alkalmazásprogramozási felület) az API Kulcsokkal együtt és küldd JSON-ba, XML-be, CSV-be, vagy bármi egyébbe.'
 			),
 			'frontend' => TRUE,
 			'backend' => TRUE,
@@ -48,28 +51,18 @@ class Module_Api extends Module
 
 	public function install()
 	{
-		return TRUE;
+		return true;
 	}
 
 	public function uninstall()
 	{
-		//it's a core module, lets keep it around
-		return FALSE;
+		// This is a core module, lets keep it around.
+		return false;
 	}
 
 	public function upgrade($old_version)
 	{
-		// Your Upgrade Logic
-		return TRUE;
-	}
-
-	public function help()
-	{
-		// Return a string containing help info
-		// You could include a file and return it here.
-		return "No documentation has been added for this module.";
+		return true;
 	}
 
 }
-
-/* End of file details.php */

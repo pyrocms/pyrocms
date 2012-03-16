@@ -1,59 +1,66 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
+/**
+ * Navigation Module
+ *
+ * @author PyroCMS Dev Team
+ * @package PyroCMS\Core\Modules\Navigation
+ */
 class Module_Navigation extends Module {
 
 	public $version = '1.1';
-	
-	public $_tables = array('navigation_groups', 'navigation_links');
-	
+
 	public function info()
 	{
 		return array(
 			'name' => array(
-				'sl' => 'Navigacija',
 				'en' => 'Navigation',
-				'nl' => 'Navigatie',
-				'es' => 'Navegación',
-				'fr' => 'Navigation',
-				'de' => 'Navigation',
-				'pl' => 'Nawigacja',
-				'br' => 'Navegação',
-				'zh' => '導航選單',
-				'it' => 'Navigazione',
-				'ru' => 'Навигация',
 				'ar' => 'الروابط',
+				'br' => 'Navegação',
 				'cs' => 'Navigace',
-				'fi' => 'Navigointi',
+				'da' => 'Navigation', #translate
+				'de' => 'Navigation',
 				'el' => 'Πλοήγηση',
+				'es' => 'Navegación',
+				'fi' => 'Navigointi',
+				'fr' => 'Navigation',
 				'he' => 'ניווט',
-				'lt' => 'Navigacija',
 				'id' => 'Navigasi',
+				'it' => 'Navigazione',
+				'lt' => 'Navigacija',
+				'nl' => 'Navigatie',
+				'pl' => 'Nawigacja',
+				'ru' => 'Навигация',
+				'sl' => 'Navigacija',
+				'zh' => '導航選單',
+                                'hu' => 'Navigáció'
 			),
 			'description' => array(
-				'sl' => 'Uredi povezave v meniju in vse skupine povezav ki jim pripadajo.',
 				'en' => 'Manage links on navigation menus and all the navigation groups they belong to.',
-				'nl' => 'Beheer koppelingen op de navigatiemenu&apos;s en alle navigatiegroepen waar ze onder vallen.',
-				'es' => 'Administra links en los menús de navegación y en todos los grupos de navegación al cual pertenecen.',
-				'fr' => 'Gérer les liens du menu Navigation et tous les groupes de navigation auxquels ils appartiennent.',
-				'de' => 'Verwalte Links in Navigationsmenüs und alle zugehörigen Navigationsgruppen',
-				'pl' => 'Zarządzaj linkami w menu nawigacji oraz wszystkimi grupami nawigacji do których one należą.',
-				'br' => 'Gerenciar links do menu de navegação e todos os grupos de navegação pertencentes a ele.',
-				'zh' => '管理導航選單中的連結，以及它們所隸屬的導航群組。',
-				'it' => 'Gestisci i collegamenti dei menu di navigazione e tutti i gruppi di navigazione da cui dipendono.',
-				'ru' => 'Управление ссылками в меню навигации и группах, к которым они принадлежат.',
 				'ar' => 'إدارة روابط وقوائم ومجموعات الروابط في الموقع.',
+				'br' => 'Gerenciar links do menu de navegação e todos os grupos de navegação pertencentes a ele.',
 				'cs' => 'Správa odkazů v navigaci a všech souvisejících navigačních skupin.',
-				'fi' => 'Hallitse linkkejä navigointi valikoissa ja kaikkia navigointi ryhmiä, joihin ne kuuluvat.',
-				'el' => 'Διαχειριστείτε τους συνδέσμους στα μενού πλοήγησης και όλες τις ομάδες συνδέσμων πλοήγησης στις οποίες ανήκουν.',
-				'he' => 'ניהול שלוחות תפריטי ניווט וקבוצות ניווט',
-				'lt' => 'Tvarkyk nuorodas navigacijų menių ir visas navigacijų grupes kurioms tos nuorodos priklauso.',
 				'da' => 'Håndtér links på navigationsmenuerne og alle navigationsgrupperne de tilhører.',
+				'de' => 'Verwalte Links in Navigationsmenüs und alle zugehörigen Navigationsgruppen',
+				'el' => 'Διαχειριστείτε τους συνδέσμους στα μενού πλοήγησης και όλες τις ομάδες συνδέσμων πλοήγησης στις οποίες ανήκουν.',
+				'es' => 'Administra links en los menús de navegación y en todos los grupos de navegación al cual pertenecen.',
+				'fi' => 'Hallitse linkkejä navigointi valikoissa ja kaikkia navigointi ryhmiä, joihin ne kuuluvat.',
+				'fr' => 'Gérer les liens du menu Navigation et tous les groupes de navigation auxquels ils appartiennent.',
+				'he' => 'ניהול שלוחות תפריטי ניווט וקבוצות ניווט',
 				'id' => 'Mengatur tautan pada menu navigasi dan semua pengelompokan grup navigasi.',
+				'it' => 'Gestisci i collegamenti dei menu di navigazione e tutti i gruppi di navigazione da cui dipendono.',
+				'lt' => 'Tvarkyk nuorodas navigacijų menių ir visas navigacijų grupes kurioms tos nuorodos priklauso.',
+				'nl' => 'Beheer koppelingen op de navigatiemenu&apos;s en alle navigatiegroepen waar ze onder vallen.',
+				'pl' => 'Zarządzaj linkami w menu nawigacji oraz wszystkimi grupami nawigacji do których one należą.',
+				'ru' => 'Управление ссылками в меню навигации и группах, к которым они принадлежат.',
+				'sl' => 'Uredi povezave v meniju in vse skupine povezav ki jim pripadajo.',
+				'zh' => '管理導航選單中的連結，以及它們所隸屬的導航群組。',
+				'hu' => 'Linkek kezelése a navigációs menükben és a navigációs csoportok kezelése, amikhez tartoznak.'
 			),
-			'frontend' => FALSE,
-			'backend'  => TRUE,
+			'frontend' => false,
+			'backend'  => true,
 			'menu'	  => 'design',
-			
+
 		    'shortcuts' => array(
 				array(
 				    'name' => 'nav_group_create_title',
@@ -63,7 +70,7 @@ class Module_Navigation extends Module {
 		    ),
 		);
 	}
-	
+
 	public function install()
 	{
 		$this->dbforge->drop_table('navigation_groups');
@@ -91,7 +98,10 @@ class Module_Navigation extends Module {
 				'class' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '',),
 			),
 		);
-		$this->install_tables($tables);
+		if ( ! $this->install_tables($tables))
+		{
+			return false;
+		}
 
 		$groups = array(
 			array('title' => 'Header', 'abbrev' => 'header',),
@@ -100,7 +110,10 @@ class Module_Navigation extends Module {
 		);
 		foreach ($groups as $group)
 		{
-			$this->db->insert('navigation_groups', $group);
+			if ( ! $this->db->insert('navigation_groups', $group))
+			{
+				return false;
+			}
 		}
 
 		$links = array(
@@ -110,29 +123,24 @@ class Module_Navigation extends Module {
 		);
 		foreach ($links as $link)
 		{
-			$this->db->insert('navigation_links', $link);
+			if ( ! $this->db->insert('navigation_links', $link))
+			{
+				return false;
+			}
 		}
 
-		return TRUE;
+		return true;
 	}
 
 	public function uninstall()
 	{
-		//it's a core module, lets keep it around
-		return FALSE;
+		// This is a core module, lets keep it around.
+		return false;
 	}
 
 	public function upgrade($old_version)
 	{
-		// Your Upgrade Logic
-		return TRUE;
+		return true;
 	}
-	
-	public function help()
-	{
-		// Return a string containing help info
-		// You could include a file and return it here.
-		return TRUE;
-	}
+
 }
-/* End of file details.php */

@@ -79,7 +79,7 @@ class Plugin_Theme extends Plugin
 		$title = $this->attribute('title');
 		$media = $this->attribute('media');
 
-		return link_tag($this->css_path($file), 'stylesheet', 'text/css', $title, $media);
+		return link_tag($this->css_url($file), 'stylesheet', 'text/css', $title, $media);
 	}
 
 	/**
@@ -191,7 +191,7 @@ class Plugin_Theme extends Plugin
 	public function js($return = '')
 	{
 		$file = $this->attribute('file');
-		return '<script src="'.$this->js_path($file).'" type="text/javascript"></script>';
+		return '<script src="'.$this->js_url($file).'" type="text/javascript"></script>';
 	}
 
 	/**
