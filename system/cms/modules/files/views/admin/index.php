@@ -24,7 +24,7 @@
 	</section>
 
 	<section class="two_third">
-			<ul class="folders-right pane">
+			<ul class="folders-center pane">
 				<?php if ( ! $folders) : ?>
 					<div class="no_data"><?php echo lang('files:no_folders'); ?></div>
 				<?php endif; ?>

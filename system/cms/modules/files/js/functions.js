@@ -61,14 +61,14 @@ jQuery(function($){
 
  		// after the folder contents have loaded highlight the results
  		$(window).on('load-completed', function(e, results){
- 			$('.folders-right :contains('+text+')').parent('li').addClass('selected');
+ 			$('.folders-center :contains('+text+')').parent('li').addClass('selected');
  		});
  	});
 
  	/***************************************************************************
 	 * Open folders                                                            *
 	 ***************************************************************************/
- 	$('.folders-right').on('dblclick', '.folder', function(e){
+ 	$('.folders-center').on('dblclick', '.folder', function(e){
  		// store element so it can be accessed the same as if it was right clicked
  		pyro.files.$last_r_click = $(e.target);
 
@@ -99,7 +99,7 @@ jQuery(function($){
 	 ***************************************************************************/
 
 	// open a right click menu on items in the main area
-	$('.item').on('contextmenu', '.folders-right, .folders-right li', function(e){
+	$('.item').on('contextmenu', '.folders-center, .folders-center li', function(e){
 		e.preventDefault();
 		e.stopPropagation();
 
@@ -178,12 +178,12 @@ jQuery(function($){
 	 * Select files including with the control and shift keys                  *
 	 ***************************************************************************/
 
-	$('.folders-right').on('click', '.file[data-id]', function(e){
+	$('.folders-center').on('click', '.file[data-id]', function(e){
 		e.stopPropagation();
 		var first;
 		var last;
 
-		var selected = $('.folders-right').find('.selected').length;
+		var selected = $('.folders-center').find('.selected').length;
 		if ( ! e.ctrlKey && ! e.shiftKey) {
 			if(selected > 0) {
 				$('[data-id]').removeClass('selected');
@@ -193,15 +193,15 @@ jQuery(function($){
 
 		// select 
 		if (e.shiftKey){
-			$('.folders-right .selected:last')
-				.prevAll('.folders-right .selected:first ~ *')
+			$('.folders-center .selected:last')
+				.prevAll('.folders-center .selected:first ~ *')
 				.addClass('selected');
 		}
 	});
 
 	// if they left click in the main area reset selected items or hide the context menu
 	$('html').click(function(e){
-		$('.folders-right li').removeClass('selected');
+		$('.folders-center li').removeClass('selected');
 		$('.context-menu-source').fadeOut('fast');
 	});
 
@@ -209,7 +209,7 @@ jQuery(function($){
 	 * File and folder sorting                                                 *
 	 ***************************************************************************/
 
-	$('.folders-right').sortable({
+	$('.folders-center').sortable({
 		cursor: 'move',
 		delay: 100,
 		update: function(e) {
@@ -374,7 +374,7 @@ jQuery(function($){
 
 		// add an editable one to the right pane
 		$('.new-folder').clone()
-			.appendTo('.folders-right')
+			.appendTo('.folders-center')
 			.removeClass('new-folder')
 			.addClass('folder folder-' + new_class);
 
@@ -440,7 +440,7 @@ jQuery(function($){
 			if (results.status) {
 
 				// iterate over all items so we can build a cache
-				$('.folders-right li').each(function(index){
+				$('.folders-center li').each(function(index){
 					var folder = {}
 					var file = {}
 
@@ -459,7 +459,7 @@ jQuery(function($){
 				pyro.files.history[level] = { 'folder' : folders, 'file' : files }
 
 				// so let's wipe it clean...
-				$('.folders-right li').fadeOut('fast').remove();
+				$('.folders-center li').fadeOut('fast').remove();
 
 				// iterate over array('folder' => $folders, 'file' => $files)
 				$.each(results.data, function(type, data){
@@ -474,7 +474,7 @@ jQuery(function($){
 							var li_content = '<span class="name-text">'+item.name+'</span>'
 						}
 
-						$('.folders-right').append(
+						$('.folders-center').append(
 							'<li class="'+type+' '+(type == 'file' ? 'type-'+item.type : '')+'" data-id="'+item.id+'" data-name="'+item.name+'">'+
 								li_content+
 							'</li>'
@@ -715,7 +715,7 @@ jQuery(function($){
  	/***************************************************************************
 	 * And off we go... load the root folder                                   *
 	 ***************************************************************************/
-	if ($('.folders-right').find('.no_data').length == 0) {
+	if ($('.folders-center').find('.no_data').length == 0) {
 		pyro.files.folder_contents(0);
 	}
 });
