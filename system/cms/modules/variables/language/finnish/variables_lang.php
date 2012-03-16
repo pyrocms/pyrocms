@@ -2,13 +2,7 @@
 /**
  * Finnish translation.
  *
- * @author		Mikael Kundert <mikael@kundert.fi>
- * @package		PyroCMS
- * @subpackage 	Variables Module
- * @category	Modules
- * @link		http://pyrocms.com
- * @date		2011-03-13
- * @version		1.1.0
+ * @author Mikael Kundert
  */
 
 // labels

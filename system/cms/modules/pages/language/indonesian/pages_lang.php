@@ -65,6 +65,7 @@ $lang['pages_parent_not_exist_error']				= 'Halaman induk yang Anda pilih tidak 
 $lang['pages_chunk_slug_length']					= 'Panjang slug dari potongan halaman tidak boleh lebih dari 30 karakter.';
 $lang['pages_root_folder']                = 'level atas';
 
+$lang['pages.tree_explanation_title']	        = 'Explanation'; #translate
 $lang['pages.tree_explanation']						= 'Daftar sebelah kiri merepresentasikan halaman di dalam situs. Klik item halaman untuk menampilkan anak halaman. Anda dapat men-drag halaman untuk mengurutkan; drag secara horizontal untuk menjadikannya anak halaman. Apabila Anda mengklik teks halaman Anda akan melihat semua daftar informasi di dalam kotak ini.';
 
 $lang['pages.rss_explanation']						= 'Mengaktifkan RSS untuk halaman ini dapat memberikan kesempatan pada pengguna untuk berlangganan RSS feed yang menunjukkan setiap anak halaman sebagai entri baru.';
