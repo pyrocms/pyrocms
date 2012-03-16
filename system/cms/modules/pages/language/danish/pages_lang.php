@@ -65,6 +65,7 @@ $lang['pages_delete_none_notice']					= 'Ingen sider er slettet.';
 $lang['pages_page_already_exist_error']				= 'En side med URL "%s" findes allerede i %s.';
 $lang['pages_parent_not_exist_error']				= 'Parent-siden som du har valgt findes ikke.';
 
+$lang['pages.tree_explanation_title']	        = 'Explanation'; #translate
 $lang['pages.tree_explanation']						= 'Listen til venstre viser siderne på dit website. Klik på siden for at se undersiderne. Du kan trække siderne for at sorter dem; træk vandret for at lave den til en underside. Når du klikker på sideteksten kan du se en række nyttige informationer i denne box.';
 
 $lang['pages.rss_explanation']						= 'Ved at aktivere RSS for denne side, giver du brugerne mulighed for at abonnere på en RSS feed, som viser hver underside som en ny indgang.';

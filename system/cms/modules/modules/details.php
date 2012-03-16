@@ -34,6 +34,7 @@ class Module_Modules extends Module
 				'ru' => 'Модули',
 				'sl' => 'Moduli',
 				'zh' => '模組',
+				'hu' => 'Modulok'
 			),
 			'description' => array(
 				'en' => 'Allows admins to see a list of currently installed modules.',
@@ -55,6 +56,7 @@ class Module_Modules extends Module
 				'ru' => 'Список модулей, которые установлены на сайте.',
 				'sl' => 'Dovoljuje administratorjem pregled trenutno nameščenih modulov.',
 				'zh' => '管理員可以檢視目前已經安裝模組的列表',
+				'hu' => 'Lehetővé teszi az adminoknak, hogy lássák a telepített modulok listáját.'
 			),
 			'frontend' => false,
 			'backend' => true,

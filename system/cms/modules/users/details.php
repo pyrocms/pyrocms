@@ -33,6 +33,7 @@ class Module_Users extends Module {
 				'ru' => 'Пользователи',
 				'sl' => 'Uporabniki',
 				'zh' => '用戶',
+				'hu' => 'Felhasználók'
 			),
 			'description' => array(
 				'en' => 'Let users register and log in to the site, and manage them via the control panel.',
@@ -54,6 +55,7 @@ class Module_Users extends Module {
 				'ru' => 'Управление зарегистрированными пользователями, активирование новых пользователей.',
 				'sl' => 'Dovoli uporabnikom za registracijo in prijavo na strani, urejanje le teh preko nadzorne plošče',
 				'zh' => '讓用戶可以註冊並登入網站，並且管理者可在控制台內進行管理。',
+                                'hu' => 'Hogy a felhasználók tudjanak az oldalra regisztrálni és belépni, valamint lehessen őket kezelni a vezérlőpulton.'
 			),
 			'frontend' => false,
 			'backend'  => true,

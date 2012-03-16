@@ -33,6 +33,7 @@ class Module_Variables extends Module {
 				'ru' => 'Переменные',
 				'sl' => 'Spremenljivke',
 				'zh' => '系統變數',
+				'hu' => 'Változók'
 			),
 			'description' => array(
 				'en' => 'Manage global variables that can be accessed from anywhere.',
@@ -54,6 +55,8 @@ class Module_Variables extends Module {
 				'ru' => 'Управление глобальными переменными, которые доступны в любом месте сайта.',
 				'sl' =>	'Urejanje globalnih spremenljivk za dostop od kjerkoli',
 				'zh' => '管理此網站內可存取的全局變數。',
+                                'hu' => 'Globális változók kezelése a hozzáféréshez, bárhonnan.'
+
 			),
 			'frontend'	=> false,
 			'backend'	=> true,

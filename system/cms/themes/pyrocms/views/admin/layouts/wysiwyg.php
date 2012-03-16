@@ -64,7 +64,7 @@
 		})(jQuery);
 	</script>
 
-	<?php echo css('admin/basic_layout.css'); ?>
+	<?php echo Asset::css('admin/basic_layout.css'); ?>
 </head>
 <body>
 	<?php $this->load->view('admin/partials/notices') ?>

@@ -38,7 +38,8 @@ class Streams_entries extends CI_Driver {
 			'sort'				=> 'asc',
 			'exclude_called'	=> 'no',
 			'paginate'			=> 'no',
-			'pag_segment'		=> 2
+			'pag_segment'		=> 2,
+			'site_ref'      	=> SITE_REF
 	);
 
 	// --------------------------------------------------------------------------

@@ -45,8 +45,7 @@ class Field_relationship
 		
 		if ( ! $stream)
 		{
-			// @todo - languagize
-			return '<em>Related stream does not exist.</em>';
+			return '<em>'.$this->CI->lang->line('streams.relationship.doesnt_exist').'</em>';
 		}
 
 		$title_column = $stream->title_column;
@@ -61,6 +60,13 @@ class Field_relationship
 		$obj = $this->CI->db->get($stream->stream_prefix.$stream->stream_slug);
 		
 		$choices = array();
+
+		// If this is not required, then
+		// let's allow a null option
+		if ($field->is_required == 'no')
+		{
+			$choices[null] = $this->CI->config->item('dropdown_choose_null');
+		}
 		
 		foreach ($obj->result() as $row)
 		{
@@ -80,15 +86,20 @@ class Field_relationship
 	 * @access	public
 	 * @return	string
 	 */
-	public function param_choose_stream($stream_id = FALSE)
+	public function param_choose_stream($stream_id = false)
 	{
-		$this->CI = get_instance();
-		
-		$streams = $this->CI->db->select('id, stream_name')->get('data_streams')->result();
+		$choices = array();
+
+		// Now get our streams and add them
+		// under their namespace
+		$streams = $this->CI->db->select('id, stream_name, stream_namespace')->get(STREAMS_TABLE)->result();
 		
 		foreach ($streams as $stream)
 		{
-			$choices[$stream->id] = $stream->stream_name;
+			if ($stream->stream_namespace)
+			{
+				$choices[$stream->stream_namespace][$stream->id] = $stream->stream_name;
+			}
 		}
 		
 		return form_dropdown('choose_stream', $choices, $stream_id);

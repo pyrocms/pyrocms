@@ -65,6 +65,7 @@ $lang['pages_parent_not_exist_error']				= 'The parent page you have selected do
 $lang['pages_chunk_slug_length']					= 'Page Chunk slugs may be no more than 30 characters in length.';
 $lang['pages_root_folder']                = 'the top level';
 
+$lang['pages.tree_explanation_title']	        = 'Explanation';
 $lang['pages.tree_explanation']						= 'The list on the left represents pages on your website. Click the page item to show its children. You may drag pages to order them; drag horizontally to make it a child. When you click the page text you will see all sorts of handy information in this box.';
 
 $lang['pages.rss_explanation']						= 'Enabling RSS for this page will give users a chance to subscribe to an RSS feed which shows each immediate page child as a new entry.';
