@@ -1,20 +1,29 @@
 <div id="upload-box">
 	<h2><?php echo lang('files:upload'); ?><span class="close ui-icon ui-icon-closethick"><?php echo lang('buttons.close'); ?></span></h2>
 	<?php echo form_open_multipart('admin/wysiwyg/upload'); ?>
-		<?php echo form_hidden('redirect_to', 'files'); ?>
-		<p>
-			<?php echo form_input('name', set_value('name',lang('files:name'))); ?>
-			<?php echo form_upload('userfile'); ?>
-		</p>
-		<p>
-			<?php echo form_dropdown('type', $file_types, array($this->input->post('type'))); ?>
-		</p>
-		<p>
-			<?php echo form_dropdown('folder_id', array(0 => lang('files.dropdown_select')) + $folders_tree); ?>
-		</p>
-		<p>
-			<?php echo form_submit('button_action', lang('buttons.save'), 'class="button"'); ?>
-		</p>
+		<?php echo form_hidden('redirect_to', 'files_wysiwyg'); ?>
+		<ul>
+			<li>
+				<label for="name"><?php echo lang('files:name'); ?></label>
+				<?php echo form_input('name', set_value('name'), 'id="name"'); ?>
+			</li>
+			<li>
+				<label for="file">&nbsp;</label>
+				<?php echo form_upload('userfile', 'id="file"'); ?>
+			</li>
+			<li>
+				<label for="folder_id">&nbsp;</label>
+				<?php echo form_dropdown('folder_id', array(0 => lang('files:select_folder')) + $folders_tree, 'id="folder"'); ?>
+			</li>
+			<li>
+				<label for="description"><?php echo lang('files:description'); ?></label>
+				<?php echo form_textarea('description', set_value('description'), 'id="description"'); ?>
+			</li>
+			<li>
+				<?php echo form_submit('button_action', lang('buttons.save'), 'class="button"'); ?>
+				<a href="<?php echo current_url(); ?>#" class="btn cancel"><?php echo lang('buttons.cancel'); ?></a>
+			</li>
+		</ul>
 	<?php echo form_close(); ?>
 </div>
 <div id="files_browser">
@@ -53,7 +62,7 @@
 				<thead>
 					<tr>
 						<th><?php echo lang('global:actions'); ?></th>
-						<th><?php echo lang('files:name') . '/' . lang('files.description_label'); ?></th>
+						<th><?php echo lang('files:name') . '/' . lang('files:description'); ?></th>
 						<th><?php echo lang('files:filename') . '/' . lang('files:added'); ?></th>
 						<th><?php echo lang('wysiwyg.meta.mime'); ?></th>
 					</tr>
@@ -80,7 +89,7 @@
 				</tbody>
 			</table>
 			<?php else: ?>
-			<p><?php echo lang('files.no_files'); ?></p>
+			<p><?php echo lang('files:no_files'); ?></p>
 			<?php endif; ?>
 		<?php else: ?>
 			<div class="blank-slate file-folders">

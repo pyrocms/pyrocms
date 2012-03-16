@@ -23,6 +23,7 @@ $lang['files:item_deleted']					= '"%s" was deleted';
 $lang['files:item_not_deleted']				= '"%s" could not be deleted';
 $lang['files:item_not_found']				= 'Sorry. "%s" could not be found';
 $lang['files:sort_saved']					= 'Sort order saved';
+$lang['files:no_permissions']				= 'You do not have sufficient permissions';
 
 // Labels
 $lang['files:activity']						= 'Activity';
@@ -65,7 +66,9 @@ $lang['files:details']						= 'Details';
 $lang['files:no_folders']					= 'Files and folders are managed much like they would be on your desktop. Use your mouse\'s right click in the area below this message to create, edit, and delete files and folders.';
 $lang['files:no_folders_wysiwyg']			= 'No folders have been created yet';
 $lang['files:new_folder_name']				= 'Untitled Folder';
+$lang['files:folder']						= 'Folder';
 $lang['files:folders']						= 'Folders';
+$lang['files:select_folder']				= 'Select a Folder';
 $lang['files:subfolders']					= 'Subfolders';
 $lang['files:root']							= 'Root';
 $lang['files:no_subfolders']				= 'No Subfolders';
@@ -78,8 +81,10 @@ $lang['files:container_not_exists']			= '"%s" does not exist in your account. Sa
 $lang['files:error_container']				= '"%s" could not be created and we could not determine the reason';
 $lang['files:container_created']			= '"%s" has been created and is now linked to this folder';
 $lang['files:unwritable']					= '"%s" is unwritable, please set its permissions to 0777';
+$lang['files:specify_valid_folder']			= 'You must specify a valid folder to upload the file to';
 
 // Files
+$lang['files:no_files']						= 'No files found';
 $lang['files:file_uploaded']				= '"%s" has been uploaded';
 $lang['files:unsuccessful_fetch']			= 'We were unable to fetch "%s". Are you sure it is a public file?';
 $lang['files:invalid_container']			= '"%s" does not appear to be a valid container.';

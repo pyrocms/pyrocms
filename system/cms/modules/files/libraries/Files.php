@@ -11,7 +11,7 @@
 class Files
 {
 	public		static $providers;
-	public 	static $_path;
+	public 		static $_path;
 	protected 	static $_ext;
 	protected	static $_type = '';
 	protected	static $_filename = NULL;
@@ -293,7 +293,7 @@ class Files
 	 * @return	array
 	 *
 	**/
-	public static function upload($folder_id, $name, $field = 'userfile', $width = FALSE, $height = FALSE, $ratio = FALSE)
+	public static function upload($folder_id, $name = FALSE, $field = 'userfile', $width = FALSE, $height = FALSE, $ratio = FALSE)
 	{
 		if ( ! $check_dir = self::_check_dir()) return $check_dir;
 
@@ -319,7 +319,7 @@ class Files
 					'folder_id'		=> (int) $folder_id,
 					'user_id'		=> (int) ci()->current_user->id,
 					'type'			=> self::$_type,
-					'name'			=> $name,
+					'name'			=> $name ? $name : $file['file_name'],
 					'path'			=> '{{ url:site }}files/large/'.$file['file_name'],
 					'description'	=> '',
 					'filename'		=> $file['file_name'],
@@ -362,9 +362,10 @@ class Files
 				return self::result(FALSE, $errors);
 			}
 		}
-
-		// a catch-all to let them know something failed if it happens to make it this far
-		return self::result(FALSE, lang('files:upload_error'));
+		else
+		{
+			return self::result(FALSE, lang('files:specify_valid_folder'));
+		}
 	}
 
 	// ------------------------------------------------------------------------

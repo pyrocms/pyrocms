@@ -27,7 +27,6 @@ class Files_wysiwyg extends WYSIWYG_Controller {
 				->select('files.*, file_folders.location')
 				->join('file_folders', 'file_folders.id = files.folder_id')
 				->order_by('files.date_added', 'DESC')
-				->where('files.type !=', 'i')
 				->get_many_by('files.folder_id', $data->current_folder->id);
 
 			$subfolders = $this->file_folders_m->folder_tree($data->current_folder->id);
@@ -49,14 +48,6 @@ class Files_wysiwyg extends WYSIWYG_Controller {
 		{
 			$data->folders_tree[$folder->id] = repeater('&raquo; ', $folder->depth) . $folder->name;
 		}
-
-		$data->file_types = array(
-			'a' => lang('files:type_a'),
-			'v' => lang('files:type_v'),
-			'd' => lang('files:type_d'),
-			'i' => lang('files:type_i'),
-			'o' => lang('files:type_o')
-		);
 
 		$this->template
 			->title('Files')

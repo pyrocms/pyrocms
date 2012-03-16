@@ -21,7 +21,7 @@ class WYSIWYG_Controller extends MY_Controller
 		if ($this->current_user->group !== 'admin' AND ! array_key_exists('files', $this->permissions))
 		{
 			$this->load->language('files/files');
-			show_error(lang('files.no_permissions'));
+			show_error(lang('files:no_permissions'));
 		}
 
 		ci()->admin_theme = $this->theme_m->get_admin();
