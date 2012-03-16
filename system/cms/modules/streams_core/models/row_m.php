@@ -181,7 +181,7 @@ class Row_m extends MY_Model {
 		// From
 		// -------------------------------------
 		
-		$this->sql['from'][] = $this->db->protect_identifiers($stream->stream_slug, true);
+		$this->sql['from'][] = $this->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug, true);
 
 		// -------------------------------------
 		// Get the day.
@@ -300,7 +300,7 @@ class Row_m extends MY_Model {
 		
 			$where = str_replace($seg_markers, $seg_values, $where);
 			
-			$vals = explode('==', trim($w));
+			$vals = explode('==', trim($where));
 			
 			if (count($vals) == 2)
 			{
@@ -342,7 +342,7 @@ class Row_m extends MY_Model {
 		// Month / Day / Year
 		// -------------------------------------
 		
-		$date_by_protected = $this->db->protect_identifiers($date_by);
+		if(isset($date_by)) $date_by_protected = $this->db->protect_identifiers($date_by);
 
 		if (isset($year) and is_numeric($year))
 		{
@@ -557,7 +557,7 @@ class Row_m extends MY_Model {
 		// From
 		// -------------------------------------
 
-		if (is_string($this->sql['from']))
+		if (isset($this->sql['from']) && is_string($this->sql['from']))
 		{
 			$from = $this->sql['from'];
 		}
@@ -570,13 +570,13 @@ class Row_m extends MY_Model {
 		// Where
 		// -------------------------------------
 
-		if (is_string($this->sql['where']))
+		if (isset($this->sql['where']) && is_string($this->sql['where']))
 		{
 			$where = $this->sql['where'];
 		}
 		else
 		{
-			$where = implode(' AND ', $this->sql['where']);
+			(isset($this->sql['where'])) ? $where = implode(' AND ', $this->sql['where']) : $where = NULL;
 		}
 
 		if ($where != '')
@@ -591,13 +591,13 @@ class Row_m extends MY_Model {
 		// is the only order by segment
 		// -------------------------------------
 
-		if (is_string($this->sql['order_by']))
+		if (isset($this->sql['order_by']) && is_string($this->sql['order_by']))
 		{
 			$order_by = $this->sql['order_by'];
 		}
 		else
 		{
-			$order_by = implode(', ', $this->sql['order_by']);
+			(isset($this->sql['order_by'])) ? $order_by = implode(', ', $this->sql['order_by']) : $order_by = NULL;
 		}
 
 		if ($order_by)
@@ -609,13 +609,13 @@ class Row_m extends MY_Model {
 		// Misc
 		// -------------------------------------
 
-		if (is_string($this->sql['misc']))
+		if (isset($this->sql['misc']) && is_string($this->sql['misc']))
 		{
 			$misc = $this->sql['misc'];
 		}
 		else
 		{
-			$misc = implode(' ', $this->sql['misc']);
+			(isset($this->sql['misc'])) ? $misc = implode(' ', $this->sql['misc']) : $misc = NULL;
 		}
 
 		// -------------------------------------

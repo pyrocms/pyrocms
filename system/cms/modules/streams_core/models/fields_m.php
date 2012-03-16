@@ -318,7 +318,7 @@ class Fields_m extends CI_Model {
 						// Run the regular column renaming
 						$fields[$field->field_slug] = $this->field_data_to_col_data($type, $data, 'edit');
 					
-						if ( ! $this->dbforge->modify_column(STR_PRE.$assignment->stream_slug, $fields))
+						if ( ! $this->dbforge->modify_column($assignment->stream_prefix.$assignment->stream_slug, $fields))
 						{
 							return false;
 						}
@@ -360,10 +360,10 @@ class Fields_m extends CI_Model {
 		}
 			
 		// Update field information		
-		$update_data['field_name']		= $data['field_name'];
-		$update_data['field_slug']		= $data['field_slug'];
-		$update_data['field_namespace']	= $data['field_namespace'];
-		$update_data['field_type']		= $data['field_type'];
+		if (isset($data['field_name']))			$update_data['field_name']		= $data['field_name'];
+		if (isset($data['field_slug'])) 		$update_data['field_slug']		= $data['field_slug'];
+		if (isset($data['field_namespace'])) 	$update_data['field_namespace']	= $data['field_namespace'];
+		if (isset($data['field_type']))			$update_data['field_type']		= $data['field_type'];
 		
 		// Gather extra data		
 		if ( ! isset($type->custom_parameters) or $type->custom_parameters == '')
