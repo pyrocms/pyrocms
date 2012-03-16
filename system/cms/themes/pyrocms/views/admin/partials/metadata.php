@@ -3,6 +3,7 @@ Asset::js('jquery/jquery.js');
 Asset::js_inline('jQuery.noConflict();');
 Asset::js('jquery/jquery-ui.min.js', 'jquery/jquery-ui.min.js');
 Asset::js('jquery/jquery.colorbox.js');
+Asset::js('jquery/jquery.cooki.js');
 
 Asset::js(array('codemirror/codemirror.js',
 	'codemirror/mode/css/css.js',

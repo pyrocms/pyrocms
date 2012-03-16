@@ -36,6 +36,9 @@ jQuery(function($) {
 				}
 				return json;
 			}
+		},
+		data: {
+			csrf_hash_name: $.cookie('csrf_cookie_name')
 		}
 	});
 
