@@ -3,17 +3,14 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title><?php echo $this->settings->site_name; ?> - <?php echo lang('login_title');?></title>
-	
 	<base href="<?php echo base_url(); ?>" />
 	<meta name="robots" content="noindex, nofollow" />
-	
-	<?php Asset::css('admin/style.css'); ?>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<?php Asset::css('login.css'); ?>
 	<?php Asset::js('jquery/jquery.js'); ?>
 	<?php Asset::js('admin/login.js'); ?>
-	
 	<?php echo Asset::render() ?>
-	
-	<!-- Place CSS bug fixes for IE 7 in this comment -->
+		<!-- Place CSS bug fixes for IE 7 in this comment -->
 	<!--[if IE 7]>
 	<style type="text/css" media="screen">
 		#login-logo { margin: 15px auto 15px auto; }
@@ -23,49 +20,43 @@
 		body#login{ margin-top: 14%;}
 	</style>
 	<![endif]-->
-
 </head>
+<body>
+	<div id="login-box-container">
+		<div id="login-box">
+			<h1 id="login-logo">
+				<?php echo Asset::img('admin/login-logo.png', lang('login_title'));?>
+			</h1>
+			<?php $this->load->view('admin/partials/notices') ?>
+			<?php echo form_open('admin/login'); ?>
+				<ul>
+					<li>
+						<i class="icon-user input-icon"></i>
+						<?php echo form_input(array('name' => 'email', 'placeholder' => lang('email_label'), 'autocorrect' => 'off', 'autocomplete' => 'off', 'autocapitalize' => 'off'));?>
+					</li>
 
-<body id="login">
+					<li>
+						<i class="icon-lock input-icon"></i>
+						<?php echo form_password(array('name' => 'password', 'placeholder' => lang('password_label'), 'autocorrect' => 'off', 'autocomplete' => 'off', 'autocapitalize' => 'off'));?>
+					</li>
 
-<div id="left"></div>
-<div id="right"></div>
-<div id="top"></div>
-<div id="bottom"></div>
+					<li>
+						<?php echo form_checkbox(array('id' => 'remember', 'class' => 'remember',  'name' => 'remember', 'value'=> 1)); ?>
+						<?php echo form_label(lang('user_remember'), 'remember', array('class' => 'remember',)); ?></label>
+					</li>
 
-	<div id="login-box">
-		
-		<?php $this->load->view('admin/partials/notices') ?>
-		
-		<header id="main">
-			<div id="login-logo"></div>
-		</header>
-		
-		<?php echo form_open('admin/login'); ?>
-			<ul>
-				<li>
-					<input type="text" name="email" placeholder="<?php echo lang('email_label'); ?>" />
-					<?php echo Asset::img('admin/email-icon.png', lang('email_label'), array('class' => 'input-email'));?>
-				</li>
-				
-				<li>
-					<input type="password" name="password" placeholder="<?php echo lang('password_label'); ?>"  />
-					<?php echo Asset::img('admin/lock-icon.png', lang('password_label'), array('class' => 'input-password'));?>
-				</li>
-				
-				<li>
-					<input class="remember" class="remember" id="remember" type="checkbox" name="remember" value="1" />
-					<label for="remember" class="remember"><?php echo lang('user_remember'); ?></label>
-				</li>
-				
-				<li><center><input class="button" type="submit" name="submit" value="<?php echo lang('login_label'); ?>" /></center></li>
-			</ul>
-		<?php echo form_close(); ?>
+					<li>
+						<?php echo form_submit(array('name' => 'submit', 'value' => lang('login_label'), 'class'=>'btn orange'));?>
+					</li>
+				</ul>
+			<?php echo form_close(); ?>
+		</div>
+		<div id="powered-by">
+			<a href="http://pyrocms.com/">&nbsp;
+				<!-- <?php echo Asset::img('admin/poweredby.png', lang('powered_by_pyrocms')); ?> -->
+			</a>
+		</div>
 	</div>
-	<center>
-		<ul id="login-footer">
-			<li><a href="http://pyrocms.com/">Powered by PyroCMS</a></li>
-		</ul>
-	</center>
 </body>
 </html>
+

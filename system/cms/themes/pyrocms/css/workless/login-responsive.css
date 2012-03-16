@@ -1,0 +1,168 @@
+/*
+ * ==================================
+ *     Workless 2.0 ❖ by @iKreativ
+ * ==================================
+ *
+ * Workless is a mixup of HTML5 Boilerplate and Twitters Bootstrap with some added extras!
+ *
+ * Credits:
+ * - HTML5 Boilerplate: Nicolas Gallagher, Jonathan Neal, Kroc Camen, and the H5BP dev team.
+ * - Twitter Bootstrap: @twitter, @mdo and @fat.
+*/
+
+/* ----------------------------------
+ *   Responsivness
+ * ----------------------------------
+ * @media queries for responsive design.
+ * These override the primary('mobile first') styles.
+ *
+ * ! Ensure your main styling comes before this !
+ *
+ * ---------------------------------- */
+
+@media only screen and (min-width: 281px) {
+
+}
+
+@media only screen and (min-width: 481px) {
+	#login-box-container {
+		width: 400px;
+		height: auto;
+		margin:0 auto;
+		padding:0;
+	}
+
+	#login-box {
+		background: #e9eaee; /* Old browsers */
+		background: -moz-linear-gradient(top, #e9eaee 0%, #d2d5dc 100%); /* FF3.6+ */
+		background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e9eaee), color-stop(100%,#d2d5dc)); /* Chrome,Safari4+ */
+		background: -webkit-linear-gradient(top, #e9eaee 0%,#d2d5dc 100%); /* Chrome10+,Safari5.1+ */
+		background: -o-linear-gradient(top, #e9eaee 0%,#d2d5dc 100%); /* Opera 11.10+ */
+		background: -ms-linear-gradient(top, #e9eaee 0%,#d2d5dc 100%); /* IE10+ */
+		background: linear-gradient(top, #e9eaee 0%,#d2d5dc 100%); /* W3C */
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e9eaee', endColorstr='#d2d5dc',GradientType=0 ); /* IE6-9 */
+
+		border: 1px solid #ffffff;
+		outline: 5px solid #202327;
+		-moz-outline-radius: 7px;
+		-webkit-border-radius: 5px;
+		-moz-border-radius: 5px;
+		-o-border-radius: 5px;
+		border-radius: 5px;
+
+		padding: 3px 35px;
+		width: 330px;
+	}
+
+	#login-box header {
+		margin: 10px 0 15px;
+	}
+
+	#login-logo {
+		width: 100%;
+		text-align: center;
+	}
+	.input-icon {
+		position: relative;
+		right:-30px;
+		top: 2px;
+		display: inline-block;
+	}
+
+	#login-box li {
+		margin-bottom: 10px;
+	}
+
+	#login-box label {
+		width: 100%;
+		cursor: pointer;
+	}
+
+	#login-box input[type=text],
+	#login-box input[type=password] {
+		padding: 4px 4px 4px 35px;
+		width: 250px;
+		height: 28px;
+		-webkit-box-shadow: inset 0px 0px 5px #C9CCCF;
+		-moz-box-shadow: inset 0px 0px 5px #C9CCCF;
+		box-shadow: inset 0px 0px 5px #C9CCCF;
+		border: 1px solid #a2a5a8;
+		-moz-outline-radius: 5px;
+		-webkit-border-radius: 5px;
+		-moz-border-radius: 5px;
+		-o-border-radius: 5px;
+		border-radius: 5px;
+	}
+
+	#login-box input:hover {
+		border: 1px solid #ff6900;
+	}
+
+	#login-box input[type=checkbox] {
+		margin: 5px -5px 5px -140px;
+		vertical-align: middle;
+	}
+
+	#login-box input[type=submit] {
+		width: 88%;
+		margin: 5px 19px 10px;
+		height: 35px;
+		font-size: 115%;
+		color: #1E1715;
+	}
+	#login-box input[type=submit]:hover {
+		border: 1px solid #B6782C;
+	}
+
+	#login-box .error {
+		background: #ED7C3B;
+		border: 1px solid red;
+		-webkit-border-radius: 3px;
+		-moz-border-radius: 3px;
+		-o-border-radius: 3px;
+		border-radius: 3px;
+		margin: 10px 0 15px 20px;
+		display: inline-block;
+		width: 255px;
+	}
+
+	#login-box .error p {
+		text-align: center;
+		font-size: 14px;
+		font-weight: bold;
+	}
+
+	#powered-by {
+		width: 125px;
+		margin: 15px auto;
+		text-align: center;
+	}
+	#powered-by a  {
+		background-image:  url('../../img/admin/poweredby.png');
+		background-repeat: no-repeat;
+		background-position: 0 0;
+		width: 125px;
+		height: 21px;
+		display: block;
+		-webkit-transition: background 0ms linear;
+		-moz-transition: background 0ms linear;
+		-o-transition: background 0ms linear;
+		transition: background 0ms linear;
+	}
+
+	#powered-by a:hover {
+		background-position: 0 -23px;
+	}
+}
+
+@media only screen and (min-width: 768px) {
+
+}
+
+@media only screen and (min-width: 1025px) {
+
+}
+
+@media only screen and (min-width: 1281px) {
+
+}
