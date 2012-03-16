@@ -163,6 +163,16 @@ jQuery(function($){
 				pyro.files.rename();
 			break;
 
+			case 'download':
+				var $item = $(window).data('file_'+pyro.files.$last_r_click.attr('data-id'));
+				log($item);
+				if ($item.type == 'i' && $item.location !== 'local') {
+					window.open(SITE_URL+'files/download/'+$item.id);
+				} else {
+					window.location = SITE_URL+'files/download/'+$item.id;
+				}
+			break;
+
 			case 'delete':
 				if ( ! confirm(pyro.lang.dialog_message)) return;
 				pyro.files.delete_item(pyro.files.current_level);

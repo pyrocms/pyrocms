@@ -36,6 +36,7 @@
 				<li data-applies-to="folder pane" 		data-menu="upload"><?php echo lang('files:upload'); ?></li>
 				<li data-applies-to="folder file" 		data-menu="rename"><?php echo lang('files:rename'); ?></li>
 				<!--<li data-applies-to="file" 			data-menu="edit"><?php echo lang('files:edit'); ?></li>-->
+				<li data-applies-to="file" 				data-menu="download"><?php echo lang('files:download'); ?></li>
 				<li data-applies-to="folder file" 		data-menu="delete"><?php echo lang('files:delete'); ?></li>
 				<li data-applies-to="folder file pane"	data-menu="details"><?php echo lang('files:details'); ?></li>
 			</ul>

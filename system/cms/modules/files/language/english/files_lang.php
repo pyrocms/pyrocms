@@ -42,6 +42,7 @@ $lang['files:full_size']					= 'Full Size';
 $lang['files:filename']						= 'Filename';
 $lang['files:filesize']						= 'Filesize';
 $lang['files:download_count']				= 'Download Count';
+$lang['files:download']						= 'Download';
 $lang['files:location']						= 'Location';
 $lang['files:description']					= 'Description';
 $lang['files:container']					= 'Container';
