@@ -23,7 +23,18 @@ class Files_front extends Public_Controller
 		$this->load->model('file_m');
 		$this->load->helper('download');
 
-		$file = $this->file_m->get($id) OR show_404();
+		$file = $this->file_m->select('files.*, file_folders.location')
+			->join('file_folders', 'file_folders.id = files.folder_id')
+			->get_by('files.id', $id) OR show_404();
+
+		// increment the counter
+		$this->file_m->update($id, array('download_count' => $file->download_count + 1));
+
+		// if it's cloud hosted then we send them there
+		if ($file->location !== 'local')
+		{
+			redirect($file->path);
+		}
 
 		// Read the file's contents
 		$data = file_get_contents($this->_path . $file->filename);

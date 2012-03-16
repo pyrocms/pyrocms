@@ -96,6 +96,9 @@
 				<li><?php echo lang('files:filesize'); ?>: 
 					<span class="filesize"></span>
 				</li>
+				<li><?php echo lang('files:download_count'); ?>: 
+					<span class="download_count"></span>
+				</li>
 				<li><?php echo lang('files:location'); ?>: 
 					<span class="location-static"></span>
 				</li>

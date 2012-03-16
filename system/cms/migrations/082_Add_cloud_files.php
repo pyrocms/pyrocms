@@ -42,6 +42,15 @@ class Migration_Add_cloud_files extends CI_Migration {
 			),
 		));
 
+		$this->dbforge->add_column('files', array(
+			'download_count' => array(
+				'type' => 'INT',
+				'constraint' => 11,
+				'null' => FALSE,
+				'default' => 0
+			),
+		));
+
 		$files = $this->file_m->select('id, filename')->get_all();
 
 		foreach ($files as $file) 

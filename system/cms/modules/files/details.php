@@ -84,6 +84,7 @@ class Module_Files extends Module {
 				'width' => array('type' => 'INT', 'constraint' => 5, 'null' => true,),
 				'height' => array('type' => 'INT', 'constraint' => 5, 'null' => true,),
 				'filesize' => array('type' => 'INT', 'constraint' => 11, 'default' => 0,),
+				'download_count' => array('type' => 'INT', 'constraint' => 11, 'default' => 0,),
 				'date_added' => array('type' => 'INT', 'constraint' => 11, 'default' => 0,),
 				'sort' => array('type' => 'INT', 'constraint' => 11, 'default' => 0,),
 			),
