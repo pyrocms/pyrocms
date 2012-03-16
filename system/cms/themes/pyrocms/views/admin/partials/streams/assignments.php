@@ -6,6 +6,7 @@
 				<th></th>
 			    <th><?php echo lang('streams.label.field_name');?></th>
 			    <th><?php echo lang('streams.label.field_slug');?></th>
+			    <th><?php echo lang('streams.label.field_type');?></th>
 			    <th></th>
 			</tr>
 		</thead>
@@ -17,6 +18,7 @@
 					<input type="hidden" name="action_to[]" value="<?php echo $assignment->assign_id;?>" />
 					<?php echo (lang($assignment->field_name)) ? lang($assignment->field_name) : $assignment->field_name; ?></td>
 				<td><?php echo $assignment->field_slug; ?></td>
+				<td><?php echo $this->type->types->{$assignment->field_type}->field_type_name; ?></td>
 				<td class="actions">
 					<?php
 					
