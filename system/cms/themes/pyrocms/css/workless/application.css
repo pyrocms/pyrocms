@@ -123,8 +123,8 @@
 .subbar h2, .subbar h2 a {
   	color: #555555;
   	text-shadow: 1px 1px 0 #ffffff;
-	margin: 0;
-	padding: 0 0 0 5px;
+	margin: 0 0 0 5px;
+	padding: 0;
 	float: left;
 	font-size: 20px;
 }
