@@ -222,7 +222,7 @@ jQuery(function($){
 			scrolling	: false,
 			inline		: true,
 			href		: '#files-uploader',
-			width		: '800',
+			width		: '920',
 			height		: '80%',
 			opacity		: 0.3,
 			onComplete	: function(){
@@ -246,12 +246,25 @@ jQuery(function($){
 			previewSelector : '.file_upload_preview div',
 	        cancelSelector  : '.file_upload_cancel button.cancel',
 			buildUploadRow	: function(files, index, handler){
-				return $('<li><div class="file_upload_preview ui-corner-all"><div class="ui-corner-all"></div></div>' +
+				var resize = '';
+				var type = files[index]['type'];
+				// if it isn't an image then they can't resize it
+				if (type.search('image') >= 0) {
+					resize = 	'<label>'+pyro.lang.width+'</label>'+
+								'<select name="width" class="skip"><option value="0">'+pyro.lang.full_size+'</option><option value="100">100px</option><option value="200">200px</option><option value="300">300px</option><option value="400">400px</option><option value="500">500px</option><option value="600">600px</option><option value="700">700px</option><option value="800">800px</option><option value="900">900px</option><option value="1000">1000px</option><option value="1100">1100px</option><option value="1200">1200px</option><option value="1300">1300px</option><option value="1400">1400px</option><option value="1500">1500px</option><option value="1600">1600px</option><option value="1700">1700px</option><option value="1800">1800px</option><option value="1900">1900px</option><option value="2000">2000px</option></select>'+
+								'<label>'+pyro.lang.height+'</label>'+
+								'<select name="height" class="skip"><option value="0">'+pyro.lang.full_size+'</option><option value="100">100px</option><option value="200">200px</option><option value="300">300px</option><option value="400">400px</option><option value="500">500px</option><option value="600">600px</option><option value="700">700px</option><option value="800">800px</option><option value="900">900px</option><option value="1000">1000px</option><option value="1100">1100px</option><option value="1200">1200px</option><option value="1300">1300px</option><option value="1400">1400px</option><option value="1500">1500px</option><option value="1600">1600px</option><option value="1700">1700px</option><option value="1800">1800px</option><option value="1900">1900px</option><option value="2000">2000px</option></select>'+
+								'<label>'+pyro.lang.ratio+'</label>'+
+								'<input name="ratio" type="checkbox" value="1"/>';
+				}
+				// build the upload html for this file
+				return $('<li><div class="file_upload_preview ui-corner-all"><div class="ui-corner-all preview-container"></div></div>' +
 						'<div class="filename"><label for="file-name">' + files[index].name + '</label>' +
 						'<input class="file-name" type="hidden" name="name" value="'+files[index].name+'" />' +
 						'</div>' +
 						'<div class="file_upload_progress"><div></div></div>' +
 						'<div class="file_upload_cancel buttons buttons-small">' +
+						resize+
 						'<button class="button start ui-helper-hidden-accessible"><span>' + pyro.lang.start + '</span></button>'+
 						'<button class="button cancel"><span>' + pyro.lang.cancel + '</span></button>' +
 						'</div>' +
@@ -267,6 +280,9 @@ jQuery(function($){
 				handler.uploadRow.find('button.start').click(function(){
 					handler.formData = {
 						name: handler.uploadRow.find('input.file-name').val(),
+						width: handler.uploadRow.find('[name="width"]').val(),
+						height: handler.uploadRow.find('[name="height"]').val(),
+						ratio: handler.uploadRow.find('[name="ratio"]').val(),
 						folder_id: pyro.files.upload_to
 					};
 					callBack();
@@ -584,7 +600,7 @@ jQuery(function($){
 		 	});
 
 		 	// check if a container with that name exists
-		 	$('.container-button.button').on('click', function(e){
+		 	$('.container-button').on('click', function(e){
 	 			var post = { 'name' : $(this).siblings('.container').val(), 'location' : location };
 	 			$.post(SITE_URL + 'admin/files/check_container', post, function(data){
 		 			var results = $.parseJSON(data);

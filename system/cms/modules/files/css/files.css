@@ -1,6 +1,7 @@
 
 .item { height: 450px; overflow: hidden; }
 .sidebar { width: 20%; }
+section.two_third { width: 60%; }
 
 .folders-sidebar { height: 450px; border-right: 1px solid #d8d8d8; }
 .folders-sidebar li { padding: 3px; line-height: 20px; cursor: pointer; }
@@ -95,7 +96,8 @@
     width: 80px;
 }
 #files-uploader-queue .filename {
-    width: 290px;
+    width: 100px;
+    overflow: hidden;
     color: #666666;
     margin-top: 10px;
 }
@@ -106,6 +108,15 @@
     margin-top: 5px;
     float: right;
     margin-right: 0;
+}
+#files-uploader-queue .file_upload_cancel label {
+    margin-right: 5px;
+}
+#files-uploader-queue .file_upload_cancel select {
+    margin-right: 10px;
+}
+#files-uploader-queue .file_upload_cancel input {
+    margin-right: 10px;
 }
 #files-uploader-queue .file_upload_cancel .button {
 	margin-left: 5px;

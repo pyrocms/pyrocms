@@ -285,10 +285,13 @@ class Files
 	 * @param	int		$folder_id	The folder to upload it to
 	 * @param	string	$name		The filename
 	 * @param	string	$field		Like CI this defaults to "userfile"
+	 * @param	int		$width		The width to resize the image to
+	 * @param	int		$height		The height to resize the image to
+	 * @param	bool	$ratio		Keep the aspect ratio or not?
 	 * @return	array
 	 *
 	**/
-	public static function upload($folder_id, $name, $field = 'userfile')
+	public static function upload($folder_id, $name, $field = 'userfile', $width = FALSE, $height = FALSE, $ratio = FALSE)
 	{
 		if ( ! $check_dir = self::_check_dir()) return $check_dir;
 
@@ -325,6 +328,21 @@ class Files
 					'height'		=> (int) $file['image_height'],
 					'date_added'	=> now()
 				);
+
+				// perhaps they want to resize it a bit as they upload
+				if ($file['is_image'] AND $width OR $height)
+				{
+					ci()->load->library('image_lib');
+
+					$config['image_library']    = 'gd2';
+					$config['source_image']     = self::$_path.$data['filename'];
+					$config['new_image']        = self::$_path.$data['filename'];
+					$config['maintain_ratio']   = $ratio;
+					$config['height']           = $height;
+					$config['width']            = $width;
+					ci()->image_lib->initialize($config);
+					ci()->image_lib->resize();
+				}
 
 				$file_id = ci()->file_m->insert($data);
 

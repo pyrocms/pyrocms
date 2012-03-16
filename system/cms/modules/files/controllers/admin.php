@@ -32,6 +32,10 @@ class Admin extends Admin_Controller {
 				pyro.lang.fetching = '".lang('files:fetching')."';
 				pyro.lang.fetch_completed = '".lang('files:fetch_completed')."';
 				pyro.lang.start = '".lang('files:start')."';
+				pyro.lang.width = '".lang('files:width')."';
+				pyro.lang.height = '".lang('files:height')."';
+				pyro.lang.ratio = '".lang('files:ratio')."';
+				pyro.lang.full_size = '".lang('files:full_size')."';
 				pyro.lang.cancel = '".lang('buttons.cancel')."';
 			</script>");
 	}
@@ -233,9 +237,11 @@ class Admin extends Admin_Controller {
 	 */
 	public function upload()
 	{
-		if ($folder_id = $this->input->post('folder_id') AND $name = $this->input->post('name'))
+		$input = $this->input->post();
+
+		if ($input['folder_id'] AND $input['name'])
 		{
-			echo json_encode(Files::upload($folder_id, $name, 'file'));
+			echo json_encode(Files::upload($input['folder_id'], $input['name'], 'file', $input['width'], $input['height'], $input['ratio']));
 		}
 	}
 
