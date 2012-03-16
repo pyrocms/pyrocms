@@ -1384,7 +1384,7 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   display: inline;
 }
 
-.pagination ul li a {
+.pagination ul li a, .pagination ul li span {
   float: left;
   padding: 0 14px;
   line-height: 34px;
@@ -1393,7 +1393,7 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   text-decoration: none;
 }
 
-.pagination ul li a:hover, .pagination ul li.active a {
+.pagination ul li a:hover, .pagination ul li.active span {
   background-color: #c7eefe;
   color: #4C6169;
 }
