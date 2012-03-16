@@ -13,14 +13,21 @@
 			<div class="input"><?php echo form_input('field_slug', $field->field_slug, 'maxlength="60" id="field_slug"'); ?></div>
 		</li>
 
+		<?php
+
+		$is_required = ($field->is_required == 'yes') ? true : false;
+		$is_unique = ($field->is_unique == 'yes') ? true : false;
+
+		?>
+
 		<li>
 			<label for="is_required"><?php echo lang('streams.label.field_required');?></label>
-			<div class="input"><?php echo form_checkbox('is_required', 'yes', $field->is_required, 'id="is_required"');?></div>
+			<div class="input"><?php echo form_checkbox('is_required', 'yes', $is_required, 'id="is_required"');?></div>
 		</li>
 
 		<li>
 			<label for="is_unique"><?php echo lang('streams.label.field_unique');?></label>
-			<div class="input"><?php echo form_checkbox('is_unique', 'yes', $field->is_unique, 'id="is_unique"'); ?></div>
+			<div class="input"><?php echo form_checkbox('is_unique', 'yes', $is_unique, 'id="is_unique"'); ?></div>
 		</li>
 
 		<li>
