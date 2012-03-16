@@ -9,8 +9,9 @@
  */
 class WYSIWYG_Controller extends MY_Controller
 {
+
 	/**
-	 * @todo Document this please. 
+	 * @todo Document this please.
 	 */
 	public function __construct()
 	{
@@ -48,11 +49,11 @@ class WYSIWYG_Controller extends MY_Controller
 			->set_theme(ADMIN_THEME)
 			->set_layout('wysiwyg', 'admin')
 			->enable_parser(FALSE)
-			->append_css('wysiwyg.css')
+			->append_css('module::wysiwyg.css')
 			->append_css('jquery/ui-lightness/jquery-ui.css')
 			->append_js('jquery/jquery.js')
 			->append_js('plugins.js')
-			->append_js('jquery/jquery-ui.js')
+			->append_js('jquery/jquery-ui.min.js')
 			->append_js('module::wysiwyg.js');
 	}
 
