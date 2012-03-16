@@ -60,7 +60,7 @@ $lang['files:details']						= 'Details';
 
 // Folders
 
-$lang['files:no_folders']					= 'Your files are sorted by folders, currently you do not have any folders set up.<br />Files and folders are managed much like they would be on your desktop. Use your mouse\'s right click to create, edit, and delete files and folders.';
+$lang['files:no_folders']					= 'Files and folders are managed much like they would be on your desktop. Use your mouse\'s right click in the area below this message to create, edit, and delete files and folders.';
 $lang['files:new_folder_name']				= 'Untitled Folder';
 $lang['files:folder_not_empty']				= 'You must delete the contents of "%s" first';
 $lang['files:mkdir_error']					= 'We are unable to create the upload folder. You must create it manually';

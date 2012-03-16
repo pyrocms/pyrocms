@@ -2,6 +2,7 @@
 .item { height: 450px; overflow: hidden; }
 .sidebar { width: 20%; }
 section.two_third { width: 60%; }
+section.two_third .no_data { margin: 20px; }
 
 .folders-sidebar { height: 450px; border-right: 1px solid #d8d8d8; }
 .folders-sidebar li { padding: 3px; line-height: 20px; cursor: pointer; }
