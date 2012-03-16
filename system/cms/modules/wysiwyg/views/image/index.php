@@ -1,5 +1,5 @@
 <div id="upload-box">
-	<h2><?php echo lang('files.upload_title'); ?><span class="close ui-icon ui-icon-closethick"><?php echo lang('buttons.close'); ?></span></h2>
+	<h2><?php echo lang('files:upload'); ?><span class="close ui-icon ui-icon-closethick"><?php echo lang('buttons.close'); ?></span></h2>
 	<?php echo form_open_multipart('admin/wysiwyg/upload'); ?>
 		<?php echo form_hidden('type', 'i'); ?>
 		<?php echo form_hidden('redirect_to', 'image'); ?>
@@ -17,7 +17,7 @@
 </div>
 <div id="files_browser">
 	<div id="files_left_pane">
-		<h3><?php echo lang('file_folders.folders_label'); ?></h3>
+		<h3><?php echo lang('files:folders'); ?></h3>
 		<ul id="files-nav">
 		<?php foreach ($folders as $folder): ?>
 		<?php if ( ! $folder->parent_id): ?>
@@ -28,7 +28,7 @@
 		<?php endforeach; ?>
 		<?php if ($folders): ?>
 			<li class="upload">
-				<?php echo anchor("admin/wysiwyg/image/#upload", lang('files.upload_title'), 'title="upload"'); ?>
+				<?php echo anchor("admin/wysiwyg/image/#upload", lang('files:upload'), 'title="upload"'); ?>
 			</li>
 		<?php endif; ?>
 		</ul>
@@ -41,7 +41,7 @@
 			<div id="files_toolbar">
 				<ul>
 					<li>
-						<label for="folder"><?php echo lang('file_folders.subfolders_label'); ?>:</label>
+						<label for="folder"><?php echo lang('files:subfolders'); ?>:</label>
 						<?php echo form_dropdown('parent_id', $subfolders, $current_folder->id, 'id="parent_id" title="image"'); ?>
 					</li>
 				</ul>
@@ -70,9 +70,9 @@
 			<table class="table-list" border="0">
 				<thead>
 					<tr>
-						<th><?php echo lang('files.type_i'); ?></th>
+						<th><?php echo lang('files:type_i'); ?></th>
 						<th><?php echo lang('files.name_label') . '/' . lang('files.description_label'); ?></th>
-						<th><?php echo lang('files.filename_label') . '/' . lang('file_folders.created_label'); ?></th>
+						<th><?php echo lang('files.filename_label') . '/' . lang('files:added'); ?></th>
 						<th><?php echo lang('wysiwyg.meta.width'); ?></th>
 						<th><?php echo lang('wysiwyg.meta.height'); ?></th>
 						<th><?php echo lang('wysiwyg.meta.size'); ?></th>
@@ -102,7 +102,7 @@
 			<?php endif; ?>
 		<?php else: ?>
 			<div class="blank-slate file-folders">
-				<h2><?php echo lang('file_folders.no_folders');?></h2>
+				<h2><?php echo lang('files:no_folders_wysiwyg');?></h2>
 			</div>
 		<?php endif; ?>
 		</div>

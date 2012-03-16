@@ -49,11 +49,11 @@ class Files extends WYSIWYG_Controller {
 		}
 
 		$data->file_types = array(
-			'a' => lang('files.type_a'),
-			'v' => lang('files.type_v'),
-			'd' => lang('files.type_d'),
-			'i' => lang('files.type_i'),
-			'o' => lang('files.type_o')
+			'a' => lang('files:type_a'),
+			'v' => lang('files:type_v'),
+			'd' => lang('files:type_d'),
+			'i' => lang('files:type_i'),
+			'o' => lang('files:type_o')
 		);
 
 		$this->template

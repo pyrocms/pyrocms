@@ -62,7 +62,10 @@ $lang['files:details']						= 'Details';
 // Folders
 
 $lang['files:no_folders']					= 'Files and folders are managed much like they would be on your desktop. Use your mouse\'s right click in the area below this message to create, edit, and delete files and folders.';
+$lang['files:no_folders_wysiwyg']			= 'No folders have been created yet';
 $lang['files:new_folder_name']				= 'Untitled Folder';
+$lang['files:folders']						= 'Folders';
+$lang['files:subfolders']					= 'Subfolders';
 $lang['files:folder_not_empty']				= 'You must delete the contents of "%s" first';
 $lang['files:mkdir_error']					= 'We are unable to create the upload folder. You must create it manually';
 $lang['files:chmod_error']					= 'The upload directory is unwriteable. It must be 0777';
@@ -82,5 +85,10 @@ $lang['files:invalid_extension']			= '"%s" has a file extension that is not allo
 $lang['files:upload_error']					= 'The file upload failed';
 $lang['files:description_saved']			= 'The file description has been saved';
 $lang['files:file_moved']					= '"%s" has been moved successfully';
+$lang['files:type_a']						= 'Audio';
+$lang['files:type_v']						= 'Video';
+$lang['files:type_d']						= 'Document';
+$lang['files:type_i']						= 'Image';
+$lang['files:type_o']						= 'Other';
 
 /* End of file files_lang.php */
