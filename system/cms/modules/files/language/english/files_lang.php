@@ -46,6 +46,8 @@ $lang['files:description']					= 'Description';
 $lang['files:container']					= 'Container';
 $lang['files:bucket']						= 'Bucket';
 $lang['files:check_container']				= 'Check Validity';
+$lang['files:search_message']				= 'Type and hit Enter';
+$lang['files:search']						= 'Search';
 
 // Context Menu
 $lang['files:open']							= 'Open';

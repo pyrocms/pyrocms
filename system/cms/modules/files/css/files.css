@@ -6,7 +6,7 @@ section.two_third { width: 60%; }
 .folders-sidebar { height: 450px; border-right: 1px solid #d8d8d8; }
 .folders-sidebar li { padding: 3px; line-height: 20px; cursor: pointer; }
 .folders-sidebar li.open > ul > li, .folders-sidebar li.close > ul > li { padding-left: 18px; }
-.folders-sidebar li a { margin-left: 22px; }
+.folders-sidebar li a { display: inline-block; width: 90%; }
 .folders-sidebar li.open > a, .folders-sidebar li.close > a  { margin-left: 0; }
 .folders-sidebar li.places a { color: #808080; margin-bottom: 10px; font-size: 14px; font-weight: bold; font-style: italic; }
 .folders-sidebar .open { list-style: url(../img/more.png) inside !important; }
@@ -19,7 +19,7 @@ section.two_third { width: 60%; }
 .folders-right li .name-text input { width: 92px; margin: 0; padding: 0; background: transparent; border: none; margin: 0; padding: 0; text-align: center; }
 
 .folders-right .file { width: 100px; height: 112px; margin: 10px; overflow: hidden; float: left; }
-.folders-right .file.selected { background-color: #e0e0e0; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; }
+.folders-right .selected { background-color: #e0e0e0; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; }
 .folders-right .file .name-text { margin-top: 83px; }
 .folders-right .file.type-a { background-image: url(../img/a.png); }
 .folders-right .file.type-d { background-image: url(../img/d.png); }
@@ -33,11 +33,11 @@ section.two_third { width: 60%; }
 .item-details textarea { width: 390px; min-height: 0; height: 75px; }
 
 .console { height: 450px; border-left: 1px solid #d8d8d8; }
-.console .console-title { margin-left: 15px; margin-bottom: 10px; font-size: 14px; font-weight: bold; font-style: italic; border: none; }
 .console li { padding: 10px 0 10px 20px; border-bottom: 1px solid #d8d8d8; }
 .console li.success { list-style: url(../img/success.png) inside !important; }
 .console li.failure { list-style: url(../img/failure.png) inside !important; }
 .console li.info { list-style: url(../img/info.png) inside !important; }
+li.right-title, li.right-title label { font-size: 14px; font-weight: bold; font-style: italic; border: none; }
 
 .context-menu-source { display: none; position: absolute; width: 150px; background-color: #f7f7f7; }
 .context-menu-source li { height: 15px; cursor: pointer; font-size: 14px; padding: 7px 25px 7px 25px; border-bottom: 1px solid #e0e0e0; }

@@ -31,19 +31,23 @@
 			</ul>
 
 			<ul class="context-menu-source">
-				<li data-applies-to="folder" 						data-menu="open"><?php echo lang('files:open'); ?></li>
-				<li data-applies-to="pane root-pane"				data-menu="new-folder"><?php echo lang('files:new_folder'); ?></li>
-				<li data-applies-to="folder pane" 					data-menu="upload"><?php echo lang('files:upload'); ?></li>
-				<li data-applies-to="folder file" 					data-menu="rename"><?php echo lang('files:rename'); ?></li>
-				<li data-applies-to="file" 							data-menu="edit"><?php echo lang('files:edit'); ?></li>
-				<li data-applies-to="folder file" 					data-menu="delete"><?php echo lang('files:delete'); ?></li>
-				<li data-applies-to="folder file pane root-pane"	data-menu="details"><?php echo lang('files:details'); ?></li>
+				<li data-applies-to="folder" 			data-menu="open"><?php echo lang('files:open'); ?></li>
+				<li data-applies-to="pane root-pane"	data-menu="new-folder"><?php echo lang('files:new_folder'); ?></li>
+				<li data-applies-to="folder pane" 		data-menu="upload"><?php echo lang('files:upload'); ?></li>
+				<li data-applies-to="folder file" 		data-menu="rename"><?php echo lang('files:rename'); ?></li>
+				<!--<li data-applies-to="file" 			data-menu="edit"><?php echo lang('files:edit'); ?></li>-->
+				<li data-applies-to="folder file" 		data-menu="delete"><?php echo lang('files:delete'); ?></li>
+				<li data-applies-to="folder file pane"	data-menu="details"><?php echo lang('files:details'); ?></li>
 			</ul>
 	</section>
 
 	<section class="right sidebar">
 		<ul class="console">
-			<li class="console-title"><?php echo lang('files:activity'); ?></li>
+			<li class="right-title"><label for="file-search"><?php echo lang('files:search'); ?></label></li>
+			<li class="right-title"><input type="text" id="file-search" name="file-search" value="" placeholder="<?php echo lang('files:search_message'); ?>"/>
+				<ul class="search-results"></ul>
+			</li>
+			<li class="right-title console-title"><?php echo lang('files:activity'); ?></li>
 		</ul>
 	</section>
 

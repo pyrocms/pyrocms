@@ -1,6 +1,6 @@
 jQuery(function($){
 
-	pyro.files = { cache : {}, history : {} };
+	pyro.files = { cache : {}, history : {}, timeout : '' };
 	pyro.files.current_level = 0;
 
 	/***************************************************************************
@@ -26,7 +26,47 @@ jQuery(function($){
  	});
 
  	/***************************************************************************
-	 * Left click to open folders                                              *
+	 * Sidebar search functionality                           			       *
+	 ***************************************************************************/
+ 	$('.console #file-search').keyup(function(e){
+ 		// sumit on Enter
+ 		if (e.which == 13) {
+ 			$('.console .search-results').empty();
+
+ 			$.post(SITE_URL+'admin/files/search', { search : $('.console #file-search').val() }, function(data){
+ 				var results = $.parseJSON(data);
+ 				if (results.status) {
+ 					$.each(results.data, function(type, item){
+ 						if (item.length > 0){
+ 							$.each(item, function(i, result){
+ 								$('.console .search-results').append(
+ 									'<li class="'+type+'">'+
+ 										'<a data-parent="'+(type == 'folder' ? result.parent_id : result.folder_id)+'" href="'+SITE_URL+'admin/files#">'+result.name+'</a>'+
+ 									'</li>');
+ 							});
+ 						}
+ 					});
+ 				}
+ 			})
+	 	} else {
+	 		$('.console .search-results').empty();
+	 	}
+ 	});
+
+ 	$('.console .search-results').on('click', 'a', function(e){
+ 		e.preventDefault();
+ 		var id = $(this).attr('data-parent');
+ 		var text = $(this).html();
+ 		pyro.files.folder_contents(id);
+
+ 		// after the folder contents have loaded highlight the results
+ 		$(window).on('load-completed', function(e, results){
+ 			$('.folders-right :contains('+text+')').parent('li').addClass('selected');
+ 		});
+ 	});
+
+ 	/***************************************************************************
+	 * Open folders                                                            *
 	 ***************************************************************************/
  	$('.folders-right').on('dblclick', '.folder', function(e){
  		// store element so it can be accessed the same as if it was right clicked
@@ -454,6 +494,7 @@ jQuery(function($){
 				// and we succeeded
 				results.message = pyro.lang.fetch_completed;
 				$(window).trigger('show-message', results);
+				$(window).trigger('load-completed');
 			}
 		});
 	 }
@@ -613,7 +654,7 @@ jQuery(function($){
 				inline		: true,
 				href		: 'div.item-details',
 				width		: '500',
-				height		: '500',
+				height		: type == 'file' ? '550' : '400',
 				opacity		: 0
 			});
 

@@ -661,6 +661,59 @@ class Files
 	// ------------------------------------------------------------------------
 
 	/**
+	 * Search all files and folders
+	 *
+	 * @param	int		$search		The keywords to search for
+	 * @return	array
+	 *
+	**/
+	public static function search($search, $limit = 5)
+	{
+		$results = array();
+		$search = explode(' ', $search);
+
+		// first we search folders
+		ci()->file_folders_m->select('name, parent_id');
+		
+		foreach ($search as $match) 
+		{
+			$match = trim($match);
+
+			ci()->file_folders_m->like('name', $match)
+				->or_like('location', $match)
+				->or_like('remote_container', $match);
+		}
+
+		$results['folder'] = ci()->file_folders_m->limit($limit)
+			->get_all();
+
+
+		// search the file records
+		ci()->file_m->select('name, folder_id');
+
+		foreach ($search as $match) 
+		{
+			$match = trim($match);
+
+			ci()->file_m->like('name', $match)
+			->or_like('filename', $match)
+			->or_like('extension', $match);
+		}
+
+		$results['file'] = 	ci()->file_m->limit($limit)
+			->get_all();
+
+		if ($results['file'] OR $results['folder'])
+		{
+			return self::result(TRUE, NULL, NULL, $results);
+		}
+
+		return self::result(FALSE, NULL, NULL, $results);
+	}
+
+	// ------------------------------------------------------------------------
+
+	/**
 	 * Result
 	 * 
 	 * Return a message in a uniform format for the entire library

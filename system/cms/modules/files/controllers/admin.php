@@ -316,6 +316,19 @@ class Admin extends Admin_Controller {
 	}
 
 	// ------------------------------------------------------------------------
+
+	/**
+	 * Search for files and folders
+	 *
+	 * @access	public
+	 * @return	void
+	 */
+	public function search()
+	{
+		echo json_encode(Files::search($this->input->post('search')));
+	}
+
+	// ------------------------------------------------------------------------
 }
 
 /* End of file admin.php */
