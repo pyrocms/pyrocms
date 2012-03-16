@@ -323,7 +323,8 @@ jQuery(function($){
 						width: handler.uploadRow.find('[name="width"]').val(),
 						height: handler.uploadRow.find('[name="height"]').val(),
 						ratio: handler.uploadRow.find('[name="ratio"]').val(),
-						folder_id: pyro.files.upload_to
+						folder_id: pyro.files.upload_to,
+						csrf_hash_name: $.cookie('csrf_cookie_name')
 					};
 					callBack();
 				});

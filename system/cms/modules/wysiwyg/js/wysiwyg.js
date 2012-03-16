@@ -1,25 +1,33 @@
 var CKEDITOR = window.parent.CKEDITOR;
 var img_float;
 
-function insertImage(file, alt)
+function insertImage(file, alt, location, path)
 {
 	if(replace_html)
 	{
 		replace_html.remove();
 	}
 	var img_width = document.getElementById('insert_width').value;
+
+	if (location == 'local') {
+		path = '{{ url:site }}files/thumb/' + file + '/' + img_width;
+	}
 	
-	window.parent.instance.insertHtml('<img class="pyro-image" style="float: '+get_float()+';" src="{{ url:site }}files/thumb/' + file + '/' + img_width + '" alt="' + alt + '" />');
+	window.parent.instance.insertHtml('<img class="pyro-image" width="'+img_width+'" style="float: '+get_float()+';" src="'+path+'" alt="' + alt + '" />');
     windowClose();
 }
 
-function insertFile(id, title)
+function insertFile(id, title, location, path)
 {
+	if (location == 'local') {
+		var path = '{{ url:site }}files/download/' + id;
+	}
+
 	if(replace_html)
 	{
 		replace_html.remove();
 	}
-	window.parent.instance.insertHtml('<a class="pyro-file" href="{{ url:site }}files/download/' + id + '">' + title + '</a>');
+	window.parent.instance.insertHtml('<a class="pyro-file" href="'+path+'">' + title + '</a>');
     windowClose();
 }
 

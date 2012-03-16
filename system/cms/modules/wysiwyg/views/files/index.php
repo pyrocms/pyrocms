@@ -24,13 +24,13 @@
 		<?php foreach ($folders as $folder): ?>
 		<?php if ( ! $folder->parent_id): ?>
 			<li id="folder-id-<?php echo $folder->id; ?>" class="<?php echo $current_folder && $current_folder->id == $folder->id ? 'current' : ''; ?>">
-				<?php echo anchor("admin/wysiwyg/files/index/{$folder->id}", $folder->name, 'title="'.$folder->slug.'"'); ?>
+				<?php echo anchor("admin/wysiwyg/files_wysiwyg/index/{$folder->id}", $folder->name, 'title="'.$folder->slug.'"'); ?>
 			</li>
 		<?php endif; ?>
 		<?php endforeach; ?>
 		<?php if ($folders): ?>
 			<li class="upload">
-				<?php echo anchor("admin/wysiwyg/files/upload", lang('files:upload'), 'title="upload"'); ?>
+				<?php echo anchor("admin/wysiwyg/files_wysiwyg/upload", lang('files:upload'), 'title="upload"'); ?>
 			</li>
 		<?php endif; ?>
 		</ul>
@@ -53,8 +53,8 @@
 				<thead>
 					<tr>
 						<th><?php echo lang('global:actions'); ?></th>
-						<th><?php echo lang('files.name_label') . '/' . lang('files.description_label'); ?></th>
-						<th><?php echo lang('files.file_name') . '/' . lang('files:added'); ?></th>
+						<th><?php echo lang('files:name') . '/' . lang('files.description_label'); ?></th>
+						<th><?php echo lang('files:filename') . '/' . lang('files:added'); ?></th>
 						<th><?php echo lang('wysiwyg.meta.mime'); ?></th>
 					</tr>
 				</thead>
@@ -62,7 +62,7 @@
 					<?php foreach ($current_folder->items as $file): ?>
 					<tr class="<?php echo alternator('', 'alt'); ?>">
 						<td class="image">
-							<button onclick="javascript:insertFile('<?php echo $file->id; ?>', '<?php echo htmlentities($file->name); ?>');">
+							<button onclick="javascript:insertFile('<?php echo $file->id."', '".htmlentities($file->name)."', '".$file->location."', '".$file->path; ?>');">
 								Insert
 							</button>
 						</td>
