@@ -153,7 +153,7 @@ class Streams_cp extends CI_Driver {
      *							standard * for the PyroCMS CP
      * title				- Title of the form header (if using view override)
 	 */
-	function form($stream_slug, $namespace_slug, $mode = 'new', $entry = null, $view_override = false, $extra = array(), $skips = array())
+	function form($stream_slug, $namespace_slug, $mode = 'new', $entry_id = null, $view_override = false, $extra = array(), $skips = array())
 	{
 		$CI = get_instance();
 	
@@ -162,8 +162,22 @@ class Streams_cp extends CI_Driver {
 
 		// Load up things we'll need for the form
 		$CI->load->library(array('form_validation', 'streams_core/Streams_validation', 'streams_core/Fields'));
-		
+	
+		if ($mode == 'edit')
+		{
+			if( ! $entry = $CI->row_m->get_row($entry_id, $stream, false))
+			{
+				$this->log_error('invalid_row', 'form');
+			}
+		}
+		else
+		{
+			$entry = null;
+		}
+
 		$fields = $CI->fields->build_form($stream, $mode, $entry, false, false, $skips, $extra);
+
+		// Get the entry
 		
 		$data = array(
 					'fields' 	=> $fields,

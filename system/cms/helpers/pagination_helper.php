@@ -32,7 +32,7 @@ if (!function_exists('create_pagination'))
 		$config['base_url'] = $config['suffix'] !== FALSE ? rtrim(site_url($uri), $config['suffix']) : site_url($uri);
 		// Count all records
 		$config['total_rows'] = $total_rows;
-		$config['per_page'] = $limit === NULL ? $ci->settings->records_per_page : $limit;
+		$config['per_page'] = $limit === NULL ? Settings::get('records_per_page') : $limit;
 		$config['uri_segment'] = $uri_segment;
 		$config['page_query_string'] = FALSE;
 

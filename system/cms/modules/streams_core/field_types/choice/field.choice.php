@@ -292,19 +292,37 @@ class Field_choice
 		
 		foreach ($lines as $line)
 		{
-			$bits = explode(":", $line);
-			
+			$bits = explode(' : ', $line);
+
+			$key_bit = trim($bits[0]);
+		
 			if (count($bits) == 1)
 			{
-				$choices[trim($bits[0])] = trim($bits[0]);
+				$key_bit = $this->replace_lang($key_bit);
+
+				$choices[$key_bit] = $key_bit;
 			}
 			else
 			{
-				$choices[trim($bits[0])] = trim($bits[1]);
+				$choices[$key_bit] = $this->replace_lang(trim($bits[1]));
 			}
 		}
 		
 		return $choices;
 	}
+
+	// --------------------------------------------------------------------------
 	
+	private function replace_lang($string)
+	{
+		// lang:?
+		if (preg_match('/^lang:/', $string) > 0)
+		{
+			return lang(preg_replace('/^lang:/', null, $string));
+		}
+		else
+		{
+			return $string;
+		}
+	}
 }
