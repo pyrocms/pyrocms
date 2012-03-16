@@ -15,17 +15,17 @@
 
 		<li>
 			<label for="is_required"><?php echo lang('streams.label.field_required');?></label>
-			<div class="inputs"><?php echo form_checkbox('is_required', 'yes', $field->is_required, 'id="is_required"');?></div>
+			<div class="input"><?php echo form_checkbox('is_required', 'yes', $field->is_required, 'id="is_required"');?></div>
 		</li>
 
 		<li>
 			<label for="is_unique"><?php echo lang('streams.label.field_unique');?></label>
-			<div class="inputs"><?php echo form_checkbox('is_unique', 'yes', $field->is_unique, 'id="is_unique"'); ?></div>
+			<div class="input"><?php echo form_checkbox('is_unique', 'yes', $field->is_unique, 'id="is_unique"'); ?></div>
 		</li>
 
 		<li>
 			<label for="field_instructions"><?php echo lang('streams.label.field_instructions');?><br /><small><?php echo lang('streams.instr.field_instructions');?></small></label>
-			<div class="inputs"><?php echo form_input('instructions', $field->instructions, 'id="field_instructions"');?></div>
+			<div class="input"><?php echo form_input('instructions', $field->instructions, 'id="field_instructions"');?></div>
 		</li>
 
 		<!--<li>
