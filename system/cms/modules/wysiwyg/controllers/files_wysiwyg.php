@@ -6,7 +6,7 @@
  * @author		PyroCMS Dev Team
  * @package		PyroCMS\Core\Modules\WYSIWYG\Controllers
  */
-class Files extends WYSIWYG_Controller {
+class Files_wysiwyg extends WYSIWYG_Controller {
 
 	public function __construct()
 	{
@@ -24,9 +24,11 @@ class Files extends WYSIWYG_Controller {
 		if ($data->current_folder)
 		{
 			$data->current_folder->items = $this->file_m
-				->order_by('date_added', 'DESC')
-				->where('type !=', 'i')
-				->get_many_by('folder_id', $data->current_folder->id);
+				->select('files.*, file_folders.location')
+				->join('file_folders', 'file_folders.id = files.folder_id')
+				->order_by('files.date_added', 'DESC')
+				->where('files.type !=', 'i')
+				->get_many_by('files.folder_id', $data->current_folder->id);
 
 			$subfolders = $this->file_folders_m->folder_tree($data->current_folder->id);
 
@@ -37,8 +39,8 @@ class Files extends WYSIWYG_Controller {
 
 			// Set a default label
 			$data->subfolders = $data->subfolders
-				? array($data->current_folder->id => lang('files.dropdown_root')) + $data->subfolders
-				: array($data->current_folder->id => lang('files.dropdown_no_subfolders'));
+				? array($data->current_folder->id => lang('files:root')) + $data->subfolders
+				: array($data->current_folder->id => lang('files:no_subfolders'));
 		}
 
 		// Array for select
@@ -68,7 +70,6 @@ class Files extends WYSIWYG_Controller {
 		$folders = array();
 		if ($folder_id = $this->input->post('folder_id'))
 		{
-			$this->load->model('folders/folders_m');
 			$folders = $this->file_folders_m->get_folder_path($folder_id);
 		}
 
