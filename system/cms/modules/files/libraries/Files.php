@@ -68,6 +68,8 @@ class Files
 		$id = ci()->file_folders_m->insert($insert);
 
 		$insert['id'] = $id;
+		$insert['file_count'] = 0;
+		$insert['location']	= 'local';
 
 		return self::result(TRUE, lang('files:item_created'), $insert['name'], $insert);
 	}
