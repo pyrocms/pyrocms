@@ -5,11 +5,11 @@ $lang['redirects.from']                      = 'Από';
 $lang['redirects.to']                        = 'Στο';
 $lang['redirects.edit']                      = 'Επεξεργασία';
 $lang['redirects.delete']                    = 'Διαγραφή';
-$lang['redirects.type']						= 'Type'; #translate
+$lang['redirects.type']                      = 'Τύπος';
 
 // redirect types
-$lang['redirects.301']						= '301 - Moved Permanently'; #translate
-$lang['redirects.302']						= '302 - Moved Temporarily'; #translate
+$lang['redirects.301']                       = '301 - Μετακινήθηκε Μόνιμα';
+$lang['redirects.302']                       = '302 - Μετακινήθηκε Προσωρινά';
 
 // titles
 $lang['redirects.add_title']                 = 'Προσθήκη Ανακατεύθυνσης';
