@@ -750,10 +750,14 @@ class Files
 	{
 		$allowed_actions = array();
 
-		foreach (ci()->permissions['files'] as $item => $value)
+		foreach (ci()->module_m->roles('files') as $value)
 		{
 			// build a simplified permission list for use in this module
-			if ($value)	$allowed_actions[] = $item;
+			if (isset(ci()->permissions['files']) AND 
+				array_key_exists($value, ci()->permissions['files']) OR ci()->current_user->group == 'admin')
+			{
+				$allowed_actions[] = $value;
+			}
 		}
 
 		return $allowed_actions;
