@@ -16,17 +16,13 @@
  * Mobile first, everything else is overridden in responsive.css
  * ---------------------------------- */
 
-body {
-	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-
-.button,
-.cancel,
-button,
-input[type="reset"],
-input[type="submit"],
-input[type="button"] {
-	font-family: 'Helvetica Neue', Helvetica, Arial, 'Liberation Sans', FreeSans, sans-serif;
+* { 
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	line-height: 1.231;
+	text-rendering: optimizeLegibility;
+	font-size: 100%;
+	-webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
 }
 
 #container {
