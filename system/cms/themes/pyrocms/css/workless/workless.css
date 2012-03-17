@@ -1591,7 +1591,7 @@ the rest of your CSS declarations! */
  * ---------------------------------- */
 
 /* Last class to remove margin and change float */
-.last { margin-right: 0!important; float: right; }
+.last { margin-right: 0!important; float: right !important; }
 
 /* Some colors */
 .muted { color: #e6e6e6; }
