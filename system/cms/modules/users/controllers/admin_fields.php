@@ -43,6 +43,8 @@ class Admin_fields extends Admin_Controller {
 			)
 		);
 
+		$this->template->title(lang('user_profile_fields_label'));
+
 		$this->streams->cp->assignments_table(
 								'profiles',
 								'users',
