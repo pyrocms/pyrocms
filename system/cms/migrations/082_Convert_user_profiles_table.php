@@ -23,12 +23,6 @@ class Migration_Convert_user_profiles_table extends CI_Migration {
 
     	// Go ahead and convert our standard user fields:
     	$columns = array(
-    		'display_name' => array(
-    			'field_name' => 'profile_display_name',
-    			'field_type' => 'text',
-    			'extra'		 => array('max_length' => 50),
-    			'assign'	 => array('required' => true)
-    		),
 			'first_name' => array(
     			'field_name' => 'user_first_name',
     			'field_type' => 'text',
