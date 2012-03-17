@@ -49,7 +49,12 @@ class Migration_Convert_user_profiles_table extends CI_Migration {
     			'field_name' => 'lang:profile_bio',
     			'field_type' => 'textarea'
     		),
- 			'dob' => array(
+            'lang' => array(
+                'field_name' => 'lang:user_lang',
+                'field_type' => 'pyro_lang',
+                'extra'      => array('filter_theme' => 'yes')
+            ),
+			'dob' => array(
     			'field_name' => 'lang:profile_dob',
     			'field_type' => 'datetime',
     			'extra'		 => array('use_time' => 'no', 'storage' => 'unix')
