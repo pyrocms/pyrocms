@@ -36,8 +36,6 @@ class Field_pyro_lang
 	{
 	    $languages = array();
 
-	    $this->CI->load->config('languages');
-
 	    if ($data['custom']['filter_theme'] = 'yes')
 	    {
 	  		// get the languages offered on the front-end
