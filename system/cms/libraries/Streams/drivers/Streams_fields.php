@@ -350,12 +350,13 @@ class Streams_fields extends CI_Driver {
 			$return[$count]['input'] = $this->CI->fields->build_form_input($assign, $value, $entry_id);
 					
 			// Other data
-			$return[$count]['value'] 			= $value;
-			$return[$count]['instructions']		= $assign->instructions;
-			$return[$count]['field_name']		= $assign->field_name;
-			$return[$count]['field_slug']		= $assign->field_slug;
+			$return[$count]['value'] 				= $value;
+			$return[$count]['instructions']			= $assign->instructions;
+			$return[$count]['field_name']			= $this->CI->fields->translate_label($assign->field_name);
+			$return[$count]['field_unprocessed']	= $assign->field_name;
+			$return[$count]['field_slug']			= $assign->field_slug;
 			
-			$return[$count]['required']			= ($assign->is_required == 'yes') ? true : false;
+			$return[$count]['required']				= ($assign->is_required == 'yes') ? true : false;
 
 			unset($value);
 			
