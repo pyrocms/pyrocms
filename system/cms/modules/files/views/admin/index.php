@@ -76,54 +76,54 @@
 		<div class="item-details">
 			<h4><?php echo lang('files:details'); ?></h4>
 			<ul>
-				<li><?php echo lang('files:name'); ?>: 
+				<li><label><?php echo lang('files:name'); ?>:</label> 
 					<span class="name"></span>
 				</li>
-				<li><?php echo lang('files:slug'); ?>: 
+				<li><label><?php echo lang('files:slug'); ?>:</label> 
 					<span class="slug"></span>
 				</li>
-				<li><?php echo lang('files:path'); ?>: 
-					<span class="path"></span>
+				<li><label><?php echo lang('files:path'); ?>:</label> 
+					<input readonly="readonly" type="text" class="path"/>
 				</li>
-				<li><?php echo lang('files:added'); ?>: 
+				<li><label><?php echo lang('files:added'); ?>:</label> 
 					<span class="added"></span>
 				</li>
-				<li><?php echo lang('files:width'); ?>: 
+				<li><label><?php echo lang('files:width'); ?>:</label> 
 					<span class="width"></span>
 				</li>
-				<li><?php echo lang('files:height'); ?>: 
+				<li><label><?php echo lang('files:height'); ?>:</label> 
 					<span class="height"></span>
 				</li>
-				<li><?php echo lang('files:filename'); ?>: 
+				<li><label><?php echo lang('files:filename'); ?>:</label> 
 					<span class="filename"></span>
 				</li>
-				<li><?php echo lang('files:filesize'); ?>: 
+				<li><label><?php echo lang('files:filesize'); ?>:</label> 
 					<span class="filesize"></span>
 				</li>
-				<li><?php echo lang('files:download_count'); ?>: 
+				<li><label><?php echo lang('files:download_count'); ?>:</label> 
 					<span class="download_count"></span>
 				</li>
-				<li><?php echo lang('files:location'); ?>: 
+				<li><label><?php echo lang('files:location'); ?>:</label> 
 					<span class="location-static"></span>
 				</li>
-				<li><?php echo lang('files:container'); ?>: 
+				<li><label><?php echo lang('files:container'); ?>:</label> 
 					<span class="container-static"></span>
 				</li>
-				<li><?php echo lang('files:location'); ?>: 
+				<li><label><?php echo lang('files:location'); ?>:</label> 
 					<?php echo form_dropdown('location', $locations, '', 'class="location"'); ?>
 				</li>
-				<li><?php echo lang('files:bucket'); ?>: 
+				<li><label><?php echo lang('files:bucket'); ?>:</label> 
 					<?php echo form_input('bucket', '', 'class="container amazon-s3"'); ?>
 					<a class="container-button button"><?php echo lang('files:check_container'); ?></a>
 				</li>
-				<li><?php echo lang('files:container'); ?>: 
+				<li><label><?php echo lang('files:container'); ?>:</label> 
 					<?php echo form_input('container', '', 'class="container rackspace-cf"'); ?>
 					<a class="container-button button"><?php echo lang('files:check_container'); ?></a>
 				</li>
 				<li>
 					<span class="container-info"></span>
 				</li>
-				<li><?php echo lang('files:description'); ?>: <br />
+				<li><label><?php echo lang('files:description'); ?>:</label> <br />
 					<textarea class="description"></textarea>
 				</li>
 			</ul>

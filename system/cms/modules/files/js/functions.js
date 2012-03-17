@@ -648,7 +648,7 @@ jQuery(function($){
 	 	if ($item) {
 		 	if ($item.name) 			$('.item-details .name')			.html($item.name).parent().show();
 		 	if ($item.slug) 			$('.item-details .slug')			.html($item.slug).parent().show();
-		 	if ($item.path) 			$('.item-details .path')			.html($item.path).parent().show();
+		 	if ($item.path) 			$('.item-details .path')			.val($item.path).parent().show();
 		 	if ($item.formatted_date) 	$('.item-details .added')			.html($item.formatted_date).parent().show();
 		 	if ($item.width > 0) 		$('.item-details .width')			.html($item.width+'px').parent().show();
 		 	if ($item.height > 0) 		$('.item-details .height')			.html($item.height+'px').parent().show();
@@ -692,7 +692,7 @@ jQuery(function($){
 				inline		: true,
 				href		: 'div.item-details',
 				width		: '500',
-				height		: type == 'file' ? '550' : '400',
+				height		: type == 'file' ? '530' : '380',
 				opacity		: 0
 			});
 
