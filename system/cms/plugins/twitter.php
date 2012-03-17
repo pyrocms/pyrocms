@@ -1,26 +1,30 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
- * Global Plugin
+ * Twitter Plugin
  *
- * Make global constants available as tags
+ * Provides for displaying twitter feeds.
  *
- * @package		PyroCMS
  * @author		PyroCMS Dev Team
- * @copyright	Copyright (c) 2008 - 2011, PyroCMS
- *
+ * @package		PyroCMS\Core\Plugins
  */
 class Plugin_Twitter extends Plugin
 {
+	/**
+	 * The URL used to retrieve tweets from the Twitter API
+	 *
+	 * @var string
+	 */
 	private $feed_url = 'http://api.twitter.com/1/statuses/user_timeline.json?trim_user=1&include_rts=1';
 	
 	/**
 	 * Load a constant
 	 *
-	 * Magic method to get a constant or global var
-	 *
-	 * @param	string
-	 * @param	string
-	 * @return	string
+	 * Magic method to get a constant or global variable
+	 * 
+	 * Usage:
+	 *   {{ twitter:feed username="twitterusername" limit="5" }}
+	 * 
+	 * @return array The tweet objects in an array.
 	 */
 	function feed()
 	{
@@ -61,5 +65,3 @@ class Plugin_Twitter extends Plugin
 		return $tweets;
 	}
 }
-
-/* End of file twitter.php */

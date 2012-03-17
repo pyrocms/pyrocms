@@ -1,5 +1,11 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
+/**
+ * Files module
+ *
+ * @author PyroCMS Dev Team
+ * @package PyroCMS\Core\Modules\Files
+ */
 class Module_Files extends Module {
 
 	public $version = '1.2';
@@ -8,75 +14,77 @@ class Module_Files extends Module {
 	{
 		$info = array(
 			'name' => array(
-				'sl' => 'Datoteke',
 				'en' => 'Files',
-				'br' => 'Arquivos',
-				'de' => 'Dateien',
-				'nl' => 'Bestanden',
-				'fr' => 'Fichiers',
-				'zh' => '檔案',
-				'it' => 'File',
-				'ru' => 'Файлы',
 				'ar' => 'الملفّات',
+				'br' => 'Arquivos',
 				'cs' => 'Soubory',
+				'da' => 'Filer',
+				'de' => 'Dateien',
+				'el' => 'Αρχεία',
 				'es' => 'Archivos',
 				'fi' => 'Tiedostot',
-				'el' => 'Αρχεία',
+				'fr' => 'Fichiers',
 				'he' => 'קבצים',
+				'id' => 'File',
+				'it' => 'File',
 				'lt' => 'Failai',
-				'da' => 'Filer',
-				'id' => 'File'
+				'nl' => 'Bestanden',
+				'ru' => 'Файлы',
+				'sl' => 'Datoteke',
+				'zh' => '檔案',
+				'hu' => 'Fájlok'
 			),
 			'description' => array(
-				'sl' => 'Uredi datoteke in mape na vaši strani',
 				'en' => 'Manages files and folders for your site.',
-				'br' => 'Permite gerenciar facilmente os arquivos de seu site.',
-				'de' => 'Verwalte Dateien und Verzeichnisse.',
-				'nl' => 'Beheer bestanden en mappen op uw website.',
-				'fr' => 'Gérer les fichiers et dossiers de votre site.',
-				'zh' => '管理網站中的檔案與目錄',
-				'it' => 'Gestisci file e cartelle del tuo sito.',
-				'ru' => 'Управление файлами и папками вашего сайта.',
 				'ar' => 'إدارة ملفات ومجلّدات موقعك.',
+				'br' => 'Permite gerenciar facilmente os arquivos de seu site.',
 				'cs' => 'Spravujte soubory a složky na vašem webu.',
+				'da' => 'Administrer filer og mapper for dit site.',
+				'de' => 'Verwalte Dateien und Verzeichnisse.',
+				'el' => 'Διαχειρίζεται αρχεία και φακέλους για το ιστότοπό σας.',
 				'es' => 'Administra archivos y carpetas en tu sitio.',
 				'fi' => 'Hallitse sivustosi tiedostoja ja kansioita.',
-				'el' => 'Διαχειρίζεται αρχεία και φακέλους για το ιστότοπό σας.',
+				'fr' => 'Gérer les fichiers et dossiers de votre site.',
 				'he' => 'ניהול תיקיות וקבצים שבאתר',
+				'id' => 'Mengatur file dan folder dalam situs Anda.',
+				'it' => 'Gestisci file e cartelle del tuo sito.',
 				'lt' => 'Katalogų ir bylų valdymas.',
-				'da' => 'Administrer filer og mapper for dit site.',
-				'id' => 'Mengatur file dan folder dalam situs Anda.'
+				'nl' => 'Beheer bestanden en mappen op uw website.',
+				'ru' => 'Управление файлами и папками вашего сайта.',
+				'sl' => 'Uredi datoteke in mape na vaši strani',
+				'zh' => '管理網站中的檔案與目錄',
+				'hu' => 'Fájlok és mappák kezelése az oldalon.'
 			),
 			'frontend' => FALSE,
-			'backend'  => TRUE,
-			'menu'	  => 'content',
+			'backend' => TRUE,
+			'menu' => 'content',
 			'roles' => array(
 				'download_file', 'edit_file', 'delete_file', 'edit_folder', 'delete_folder'
 			),
 			'shortcuts' => array(
-								 array(
-									   'name' => 'files.files_title',
-									   'uri' => 'admin/files',
-									   ),
-								 ),
+				array(
+					'name' => 'files.files_title',
+					'uri' => 'admin/files',
+				),
+			),
+		);
+
+		if (function_exists('group_has_role') AND group_has_role('files', 'edit_file'))
+		{
+			$info['shortcuts'][] = array(
+				'name' => 'file_folders.create_title',
+				'uri' => 'admin/files/folders/create',
+				'class' => 'add folder-create'
 			);
-		
-			if (function_exists('group_has_role') AND group_has_role('files', 'edit_file'))
-			{
-				$info['shortcuts'][] = array(
-											 'name' => 'file_folders.create_title',
-											 'uri' => 'admin/files/folders/create',
-											 'class' => 'add folder-create'
-											 );
-				
-				$info['shortcuts'][] = array(
-											 'name' => 'files.upload_title',
-											 'uri' => 'admin/files/upload',
-											 'class' => 'files-uploader'
-											 );
-			}
-			
-			return $info;
+
+			$info['shortcuts'][] = array(
+				'name' => 'files.upload_title',
+				'uri' => 'admin/files/upload',
+				'class' => 'files-uploader'
+			);
+		}
+
+		return $info;
 	}
 
 	public function install()
@@ -84,61 +92,50 @@ class Module_Files extends Module {
 		$this->dbforge->drop_table('files');
 		$this->dbforge->drop_table('file_folders');
 
-		$files = "
-			CREATE TABLE " . $this->db->dbprefix('files') . " (
-			  `id` int(11) NOT NULL AUTO_INCREMENT,
-			  `folder_id` int(11) NOT NULL DEFAULT '0',
-			  `user_id` int(11) NOT NULL DEFAULT '1',
-			  `type` enum('a','v','d','i','o') COLLATE utf8_unicode_ci DEFAULT NULL,
-			  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-			  `filename` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-			  `description` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-			  `extension` varchar(5) COLLATE utf8_unicode_ci NOT NULL,
-			  `mimetype` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-			  `width` int(5) DEFAULT NULL,
-			  `height` int(5) DEFAULT NULL,
-			  `filesize` int(11) NOT NULL DEFAULT 0,
-			  `date_added` int(11) NOT NULL DEFAULT 0,
-			  `sort` int(11) NOT NULL DEFAULT 0,
-			  PRIMARY KEY (`id`)
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-		";
+		$tables = array(
+			'files' => array(
+				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
+				'folder_id' => array('type' => 'INT', 'constraint' => 11, 'default' => 0,),
+				'user_id' => array('type' => 'INT', 'constraint' => 11, 'default' => 1,),
+				'type' => array('type' => 'ENUM', 'constraint' => array('a', 'v', 'd', 'i', 'o'), 'null' => true, 'default' => null,),
+				'name' => array('type' => 'VARCHAR', 'constraint' => 255,),
+				'filename' => array('type' => 'VARCHAR', 'constraint' => 255,),
+				'description' => array('type' => 'VARCHAR', 'constraint' => 255,),
+				'extension' => array('type' => 'VARCHAR', 'constraint' => 5,),
+				'mimetype' => array('type' => 'VARCHAR', 'constraint' => 255,),
+				'width' => array('type' => 'INT', 'constraint' => 5, 'null' => true,),
+				'height' => array('type' => 'INT', 'constraint' => 5, 'null' => true,),
+				'filesize' => array('type' => 'INT', 'constraint' => 11, 'default' => 0,),
+				'date_added' => array('type' => 'INT', 'constraint' => 11, 'default' => 0,),
+				'sort' => array('type' => 'INT', 'constraint' => 11, 'default' => 0,),
+			),
+			'file_folders' => array(
+				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
+				'parent_id' => array('type' => 'INT', 'constraint' => 11, 'null' => true, 'default' => 0,),
+				'slug' => array('type' => 'VARCHAR', 'constraint' => 100,),
+				'name' => array('type' => 'VARCHAR', 'constraint' => 50,),
+				'date_added' => array('type' => 'INT', 'constraint' => 11,),
+				'sort' => array('type' => 'INT', 'constraint' => 11, 'default' => 0,),
+			),
+		);
 
-		$file_folders = "
-			CREATE TABLE " . $this->db->dbprefix('file_folders') . " (
-			  `id` int(11) NOT NULL AUTO_INCREMENT,
-			  `parent_id` int(11) DEFAULT '0',
-			  `slug` varchar(100) NOT NULL,
-			  `name` varchar(50) NOT NULL,
-			  `date_added` int(11) NOT NULL,
-			  `sort` int(11) NOT NULL DEFAULT 0,
-			  PRIMARY KEY (`id`)
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-		";
-
-		if( $this->db->query($files) &&
-			$this->db->query($file_folders))
+		if ( ! $this->install_tables($tables))
 		{
-			return TRUE;
+			return false;
 		}
+
+		return true;
 	}
 
 	public function uninstall()
 	{
-		//it's a core module, lets keep it around
-		return FALSE;
+		// This is a core module, lets keep it around.
+		return false;
 	}
 
 	public function upgrade($old_version)
 	{
-		// Your Upgrade Logic
-		return TRUE;
+		return true;
 	}
 
-	public function help()
-	{
-		// Return a string containing help info
-		return TRUE;
-	}
 }
-/* End of file details.php */

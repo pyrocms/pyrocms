@@ -1,10 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
- * @author 		PyroCMS Development Team
- * @package 	PyroCMS
- * @subpackage 	Users Module
- * @since		v0.1
- *
+ * @author		PyroCMS Dev Team
+ * @package		PyroCMS\Core\Modules\Users\Models
  */
 class Profile_m extends MY_Model
 {

@@ -2,16 +2,41 @@
 
 require APPPATH."libraries/MX/Controller.php";
 
-// Code here is run before ALL controllers
+/**
+ * Code here is run before ALL controllers
+ * 
+ * @package PyroCMS\Core\Controllers 
+ */
 class MY_Controller extends MX_Controller {
 
-	// Deprecated: No longer used globally
+	/**
+	 * No longer used globally
+	 * 
+	 * @deprecated remove in 2.2
+	 */
 	protected $data;
-	
+	/**
+	 * The name of the module that this controller instance actually belongs to.
+	 *
+	 * @var string 
+	 */
 	public $module;
+	/**
+	 * The name of the controller class for the current class instance.
+	 *
+	 * @var string
+	 */
 	public $controller;
+	/**
+	 * The name of the method for the current request.
+	 *
+	 * @var string 
+	 */
 	public $method;
 
+	/**
+	 * Load and set data for some common used libraries.
+	 */
 	public function __construct()
 	{
 		parent::__construct();
@@ -22,36 +47,6 @@ class MY_Controller extends MX_Controller {
 		if ( ! defined('SITE_REF'))
 		{
 			show_error('This domain is not set up correctly. Please go to '.anchor('sites') .' and log in to add this new site.');
-		}
-		
-		// TODO: Remove this in v2.1.0 as it just renames tables for v2.0.0
-		if ($this->db->table_exists(SITE_REF.'_schema_version'))
-		{	
-			$this->load->dbforge();
-			if ($this->db->table_exists(SITE_REF.'_migrations'))
-			{
-				$this->dbforge->drop_table(SITE_REF.'_schema_version');
-			}
-			else
-			{
-				$this->dbforge->rename_table(SITE_REF.'_schema_version', SITE_REF.'_migrations');
-			}
-		}
-		
-		// Upgrading from something old? Erf, try to shoehorn them back on track
-		elseif ($this->db->table_exists('schema_version'))
-		{
-			$this->load->dbforge();
-			$this->dbforge->rename_table('schema_version', 'migrations');
-			
-			// Migration logic helps to make sure PyroCMS is running the latest changes
-			$this->load->library('migration');
-
-			if ( ! ($schema_version = $this->migration->version(28)))
-			{
-				show_error($this->migration->error_string());
-			}
-			redirect(current_url());
 		}
 
 		// By changing the prefix we are essentially "namespacing" each site
@@ -95,12 +90,15 @@ class MY_Controller extends MX_Controller {
 			}
 		}
 
+		// What language us being used
 		defined('CURRENT_LANGUAGE') or define('CURRENT_LANGUAGE', $site_lang);
 
 		$langs = $this->config->item('supported_languages');
 
 		$pyro['lang'] = $langs[CURRENT_LANGUAGE];
 		$pyro['lang']['code'] = CURRENT_LANGUAGE;
+
+		$this->load->vars($pyro);
 
 		// Set php locale time
 		if (isset($langs[CURRENT_LANGUAGE]['codes']) && sizeof($locale = (array) $langs[CURRENT_LANGUAGE]['codes']) > 1)
@@ -162,12 +160,15 @@ class MY_Controller extends MX_Controller {
 			$_POST = $this->security->xss_clean($_POST);
 		}
 
-		$this->load->vars($pyro);
-		
+		if ($this->module)
+		{
+			Asset::add_path('module', $this->module_details['path'].'/');
+		}
+
 		$this->benchmark->mark('my_controller_end');
 		
 		// Enable profiler on local box
-	    if (ENVIRONMENT === PYRO_DEVELOPMENT AND is_array($_GET) AND array_key_exists('_debug', $_GET) )
+	    if ((isset($this->current_user->group) AND $this->current_user->group == 'admin') AND is_array($_GET) AND array_key_exists('_debug', $_GET) )
 	    {
 			unset($_GET['_debug']);
 	    	$this->output->enable_profiler(TRUE);
@@ -176,12 +177,11 @@ class MY_Controller extends MX_Controller {
 }
 
 /**
- * Returns the CI object.
+ * Returns the CodeIgniter object.
  *
  * Example: ci()->db->get('table');
  *
- * @staticvar	object	$ci
- * @return		object
+ * @return \CI_Controller
  */
 function ci()
 {

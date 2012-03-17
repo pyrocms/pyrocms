@@ -1,45 +1,54 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
+/**
+ * Keywords module
+ *
+ * @author PyroCMS Dev Team
+ * @package PyroCMS\Core\Modules\Keywords
+ */
 class Module_Keywords extends Module {
 
 	public $version = '1.0';
+
+	public $_tables = array('keywords', 'keywords_applied');
 
 	public function info()
 	{
 		return array(
 			'name' => array(
 				'en' => 'Keywords',
-				'el' => 'Λέξεις Κλειδιά',
-                                'fr' => 'Mots-Clés',
-				'nl' => 'Sleutelwoorden',
-				'ar' => 'Keywords',
-				'br' => 'Palavras-chave',
 				'ar' => 'كلمات البحث',
+				'br' => 'Palavras-chave',
 				'da' => 'Nøgleord',
+				'el' => 'Λέξεις Κλειδιά',
+				'fr' => 'Mots-Clés',
+				'id' => 'Kata Kunci',
+				'nl' => 'Sleutelwoorden',
 				'zh' => '鍵詞',
-				'id' => 'Kata Kunci'
+				'hu' => 'Kulcsszavak',
+				'fi' => 'Avainsanat'
 			),
 			'description' => array(
 				'en' => 'Maintain a central list of keywords to label and organize your content.',
-				'el' => 'Συντηρεί μια κεντρική λίστα από λέξεις κλειδιά για να οργανώνετε μέσω ετικετών το περιεχόμενό σας.',
-                                'fr' => 'Maintenir une liste centralisée de Mots-Clés pour libeller et organiser vos contenus.',
-				'nl' => 'Beheer een centrale lijst van sleutelwoorden om uw content te categoriseren en organiseren.',
-				'ar' => 'Maintain a central list of keywords to label and organize your content.',
-				'br' => 'Mantém uma lista central de palavras-chave para rotular e organizar o seu conteúdo.',
 				'ar' => 'أنشئ مجموعة من كلمات البحث التي تستطيع من خلالها وسم وتنظيم المحتوى.',
+				'br' => 'Mantém uma lista central de palavras-chave para rotular e organizar o seu conteúdo.',
 				'da' => 'Vedligehold en central liste af nøgleord for at organisere dit indhold.',
+				'el' => 'Συντηρεί μια κεντρική λίστα από λέξεις κλειδιά για να οργανώνετε μέσω ετικετών το περιεχόμενό σας.',
+				'fr' => 'Maintenir une liste centralisée de Mots-Clés pour libeller et organiser vos contenus.',
+				'id' => 'Memantau daftar kata kunci untuk melabeli dan mengorganisasikan konten.',
+				'nl' => 'Beheer een centrale lijst van sleutelwoorden om uw content te categoriseren en organiseren.',
 				'zh' => '集中管理可用於標題與內容的鍵詞(keywords)列表。',
-				'id' => 'Memantau daftar kata kunci untuk melabeli dan mengorganisasikan konten.'
+				'hu' => 'Ez egy központi kulcsszó lista a cimkékhez és a tartalmakhoz.',
+				'fi' => 'Hallinnoi keskitettyä listaa avainsanoista merkitäksesi ja järjestelläksesi sisältöä.'
 			),
-			'frontend' => FALSE,
-			'backend'  => TRUE,
+			'frontend' => false,
+			'backend'  => true,
 			'menu'     => 'content',
-			
 			'shortcuts' => array(
 				array(
 			 	   'name' => 'keywords:add_title',
 				   'uri' => 'admin/keywords/add',
-				   'class' => 'add'
+				   'class' => 'add',
 				),
 			),
 		);
@@ -50,47 +59,35 @@ class Module_Keywords extends Module {
 		$this->dbforge->drop_table('keywords');
 		$this->dbforge->drop_table('keywords_applied');
 
-		$keywords = "
-			CREATE TABLE " . $this->db->dbprefix('keywords') . " (
-			  `id` int unsigned NOT NULL AUTO_INCREMENT,
-			  `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-			  PRIMARY KEY (`id`)
-			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-		";
-		
-		$keywords_applied = "
-			CREATE TABLE " . $this->db->dbprefix('keywords_applied') . " (
-			  `id` int unsigned NOT NULL AUTO_INCREMENT,
-			  `hash` char(32) NOT NULL,
-			  `keyword_id` int unsigned COLLATE utf8_unicode_ci NOT NULL,
-			  PRIMARY KEY (`id`)
-			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-		";
+		$tables = array(
+			'keywords' => array(
+				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
+				'name' => array('type' => 'VARCHAR', 'constraint' => 50,),
+			),
+			'keywords_applied' => array(
+				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
+				'hash' => array('type' => 'CHAR', 'constraint' => 32, 'default' => '',),
+				'keyword_id' => array('type' => 'INT', 'constraint' => 11,),
+			),
+		);
 
-		if ($this->db->query($keywords) && $this->db->query($keywords_applied))
+		if ( ! $this->install_tables($tables))
 		{
-			return TRUE;
+			return false;
 		}
+
+		return true;
 	}
 
 	public function uninstall()
 	{
-		//it's a core module, lets keep it around
-		return FALSE;
+		// This is a core module, lets keep it around.
+		return false;
 	}
 
 	public function upgrade($old_version)
 	{
-		// Your Upgrade Logic
-		return TRUE;
+		return true;
 	}
 
-	public function help()
-	{
-		// Return a string containing help info
-		// You could include a file and return it here.
-		return TRUE;
-	}
 }
-
-/* End of file details.php */

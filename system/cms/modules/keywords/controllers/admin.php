@@ -3,9 +3,7 @@
  * Maintain a central list of keywords to label and organize your content.
  *
  * @author PyroCMS Dev Team
- * @package PyroCMS
- * @subpackage Groups Module
- * @category Modules
+ * @package PyroCMS\Core\Modules\Keywords\Controllers
  *
  */
 class Admin extends Admin_Controller
@@ -67,10 +65,18 @@ class Admin extends Admin_Controller
 			
 			if ($this->form_validation->run())
 			{
-				$this->keyword_m->insert(array('name' => $name))
-					? $this->session->set_flashdata('success', sprintf(lang('keywords:add_success'), $name))
-					: $this->session->set_flashdata('error', sprintf(lang('keywords:add_error'), $name));
-
+				if ($id = $this->keyword_m->insert(array('name' => $name)))
+				{
+					// Fire an event. A new keyword has been added.
+					Events::trigger('keyword_created', $id);
+					
+					$this->session->set_flashdata('success', sprintf(lang('keywords:add_success'), $name));
+				}
+				else
+				{
+					$this->session->set_flashdata('error', sprintf(lang('keywords:add_error'), $name));
+				}
+				
 				redirect('admin/keywords');
 			}
 		}
@@ -110,10 +116,16 @@ class Admin extends Admin_Controller
 			
 			if ($this->form_validation->run())
 			{
-				$this->keyword_m->update($id, array('name' => $name))
+				$success = $this->keyword_m->update($id, array('name' => $name))
 					? $this->session->set_flashdata('success', sprintf(lang('keywords:edit_success'), $name))
 					: $this->session->set_flashdata('error', sprintf(lang('keywords:edit_error'), $name));
 
+				if ($success)
+				{
+					// Fire an event. A keyword has been updated.
+					Events::trigger('keyword_updated', $id);
+				}
+				
 				redirect('admin/keywords');
 			}
 		}
@@ -133,9 +145,15 @@ class Admin extends Admin_Controller
 	 */
 	public function delete($id = 0)
 	{
-		$this->keyword_m->delete($id)
+		$success = $this->keyword_m->delete($id)
 			? $this->session->set_flashdata('success', lang('keywords:delete_success'))
 			: $this->session->set_flashdata('error', lang('keywords:delete_error'));
+		
+		if ($success)
+		{
+			// Fire an event. A keyword has been deleted.
+			Events::trigger('keyword_deleted', $id);
+		}
 
 		redirect('admin/keywords');
 	}

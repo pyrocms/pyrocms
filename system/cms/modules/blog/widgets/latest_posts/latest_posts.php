@@ -1,14 +1,20 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
- * @package 		PyroCMS
- * @subpackage 		Latest blog Widget
- * @author			Erik Berman
  *
- * Show Latest blog in your site with a widget. Intended for use on cms pages
- *
- * Usage : on a CMS page add {widget_area('name_of_area')}
- * where 'name_of_area' is the name of the widget area you created in the admin control panel
+ * Show Latest blog in your site with a widget. 
+ * 
+ * Intended for use on cms pages. Usage : 
+ * on a CMS page add:
+ * 
+ *		{widget_area('name_of_area')} 
+ * 
+ * 'name_of_area' is the name of the widget area you created in the  admin 
+ * control panel
+ * 
+ * @author		Erik Berman
+ * @author		PyroCMS Dev Team
+ * @package		PyroCMS\Core\Modules\Blog\Widgets
  */
 
 class Widget_Latest_posts extends Widgets

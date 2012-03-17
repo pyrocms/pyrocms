@@ -1,100 +1,98 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
+/**
+ * Permissions Module
+ *
+ * @author PyroCMS Dev Team
+ * @package PyroCMS\Core\Modules\Permissions
+ */
 class Module_Permissions extends Module {
 
-	public $version = '0.5';
-	
+	public $version = '0.6';
+
 	public function info()
 	{
 		return array(
 			'name' => array(
-				'sl' => 'Dovoljenja',
 				'en' => 'Permissions',
-				'nl' => 'Toegangsrechten',
-				'es' => 'Permisos',
-				'fr' => 'Permissions',
-				'de' => 'Zugriffsrechte',
-				'pl' => 'Uprawnienia',
-				'br' => 'Permissões',
-				'zh' => '權限',
-				'it' => 'Permessi',
-				'ru' => 'Права доступа',
 				'ar' => 'الصلاحيات',
+				'br' => 'Permissões',
 				'cs' => 'Oprávnění',
-				'fi' => 'Käyttöoikeudet',
-				'el' => 'Δικαιώματα',
-				'he' => 'הרשאות',
-				'lt' => 'Teisės',
 				'da' => 'Adgangskontrol',
-				'id' => 'Perizinan'
+				'de' => 'Zugriffsrechte',
+				'el' => 'Δικαιώματα',
+				'es' => 'Permisos',
+				'fi' => 'Käyttöoikeudet',
+				'fr' => 'Permissions',
+				'he' => 'הרשאות',
+				'id' => 'Perizinan',
+				'it' => 'Permessi',
+				'lt' => 'Teisės',
+				'nl' => 'Toegangsrechten',
+				'pl' => 'Uprawnienia',
+				'ru' => 'Права доступа',
+				'sl' => 'Dovoljenja',
+				'zh' => '權限',
+				'hu' => 'Jogosultságok'
 			),
 			'description' => array(
-				'sl' => 'Uredite dovoljenja kateri tip uporabnika lahko vidi določena področja vaše strani.',
 				'en' => 'Control what type of users can see certain sections within the site.',
+				'ar' => 'التحكم بإعطاء الصلاحيات للمستخدمين للوصول إلى أقسام الموقع المختلفة.',
+				'br' => 'Controle quais tipos de usuários podem ver certas seções no site.',
+				'cs' => 'Spravujte oprávnění pro jednotlivé typy uživatelů a ke kterým sekcím mají přístup.',
+				'da' => 'Kontroller hvilken type brugere der kan se bestemte sektioner på sitet.',
+				'de' => 'Regelt welche Art von Benutzer welche Sektion in der Seite sehen kann.',
+				'el' => 'Ελέγξτε τα δικαιώματα χρηστών και ομάδων χρηστών όσο αφορά σε διάφορες λειτουργίες του ιστοτόπου.',
+				'es' => 'Controla que tipo de usuarios pueden ver secciones específicas dentro del sitio.',
+				'fi' => 'Hallitse minkä tyyppisiin osioihin käyttäjät pääsevät sivustolla.',
+				'fr' => 'Permet de définir les autorisations des groupes d\'utilisateurs pour afficher les différentes sections.',
+				'he' => 'ניהול הרשאות כניסה לאיזורים מסוימים באתר',
+				'id' => 'Mengontrol tipe pengguna mana yang dapat mengakses suatu bagian dalam situs.',
+				'it' => 'Controlla che tipo di utenti posssono accedere a determinate sezioni del sito.',
+				'lt' => 'Kontroliuokite kokio tipo varotojai kokią dalį puslapio gali pasiekti.',
 				'nl' => 'Bepaal welke typen gebruikers toegang hebben tot gedeeltes van de site.',
 				'pl' => 'Ustaw, którzy użytkownicy mogą mieć dostęp do odpowiednich sekcji witryny.',
-				'es' => 'Controla que tipo de usuarios pueden ver secciones específicas dentro del sitio.',
-				'fr' => 'Permet de définir les autorisations des groupes d\'utilisateurs pour afficher les différentes sections.',
-				'de' => 'Regelt welche Art von Benutzer welche Sektion in der Seite sehen kann.',
-				'br' => 'Controle quais tipos de usuários podem ver certas seções no site.',
-				'zh' => '用來控制不同類別的用戶，設定其瀏覽特定網站內容的權限。',
-				'it' => 'Controlla che tipo di utenti posssono accedere a determinate sezioni del sito.',
 				'ru' => 'Управление правами доступа, ограничение доступа определённых групп пользователей к произвольным разделам сайта.',
-				'ar' => 'التحكم بإعطاء الصلاحيات للمستخدمين للوصول إلى أقسام الموقع المختلفة.',
-				'cs' => 'Spravujte oprávnění pro jednotlivé typy uživatelů a ke kterým sekcím mají přístup.',
-				'fi' => 'Hallitse minkä tyyppisiin osioihin käyttäjät pääsevät sivustolla.',
-				'el' => 'Ελέγξτε οι χρήστες ποιας ομάδας μπορούν να δούν ποιες περιοχές του ιστοτόπου.',
-				'he' => 'ניהול הרשאות כניסה לאיזורים מסוימים באתר',
-				'lt' => 'Kontroliuokite kokio tipo varotojai kokią dalį puslapio gali pasiekti.',
-				'da' => 'Kontroller hvilken type brugere der kan se bestemte sektioner på sitet.',
-				'id' => 'Mengontrol tipe pengguna mana yang dapat mengakses suatu bagian dalam situs.'
+				'sl' => 'Uredite dovoljenja kateri tip uporabnika lahko vidi določena področja vaše strani.',
+				'zh' => '用來控制不同類別的用戶，設定其瀏覽特定網站內容的權限。',
+				'hu' => 'A felhasználók felügyelet alatt tartására, hogy milyen típusú felhasználók, mit láthatnak, mely szakaszain az oldalnak.'
 			),
-			'frontend' => FALSE,
-			'backend'  => TRUE,
+			'frontend' => false,
+			'backend'  => true,
 			'menu'	  => 'users',
 		);
 	}
-	
+
 	public function install()
 	{
 		$this->dbforge->drop_table('permissions');
-		
-		$permission_rules = "
-			CREATE TABLE " . $this->db->dbprefix('permissions') . " (
-			  `id` int(11) NOT NULL AUTO_INCREMENT,
-			  `group_id` int(11) NOT NULL,
-			  `module` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-			  `roles` text NULL,
-			  PRIMARY KEY (`id`)
-			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Contains a list of modules that a group can access.';
-		";
-		
-		if($this->db->query($permission_rules))
+
+		$tables = array(
+			'permissions' => array(
+				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
+				'group_id' => array('type' => 'INT', 'constraint' => 11, 'key' => true),
+				'module' => array('type' => 'VARCHAR', 'constraint' => 50,),
+				'roles' => array('type' => 'TEXT', 'null' => true,),
+			),
+		);
+
+		if ( ! $this->install_tables($tables))
 		{
-			return TRUE;
+			return false;
 		}
+
+		return true;
 	}
 
 	public function uninstall()
 	{
-		//it's a core module, lets keep it around
-		return FALSE;
+		// This is a core module, lets keep it around.
+		return false;
 	}
 
 	public function upgrade($old_version)
 	{
-		return TRUE;
+		return true;
 	}
-	
-	public function help()
-	{
-		// Return a string containing help info
-		// You could include a file and return it here.
-		return "<h2>Overview</h2>
-				<p>The Permissions module works together with the User Manager and the Groups module to give PyroCMS access control.</p>
-				<h2>Setting Permissions</h2>
-				<p>New groups have no permissions at all by default. Simply check the box
-				by each module that you want users in that group to be able to access.</p>";
-	}
+
 }
-/* End of file details.php */

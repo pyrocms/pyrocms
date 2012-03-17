@@ -5,6 +5,11 @@ $lang['redirects.from'] 			    = 'Vanaf';
 $lang['redirects.to']					= 'Naar';
 $lang['redirects.edit']					= 'Wijzig';
 $lang['redirects.delete']				= 'Verwijder';
+$lang['redirects.type']					= 'Type'; #translate
+
+// redirect types
+$lang['redirects.301']					= '301 - Moved Permanently'; #translate
+$lang['redirects.302']					= '302 - Moved Temporarily'; #translate
 
 // titles
 $lang['redirects.add_title'] 			= 'Voeg verwijzing toe';

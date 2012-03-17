@@ -2,6 +2,7 @@
 .buildpath
 .project
 .settings
+assets/cache/*
 system/cms/cache/*
 system/cms/config/database.php
 system/cms/logs/log-*.php
@@ -42,3 +43,7 @@ addons/shared_addons/plugins/*
 !addons/shared_addons/plugins/robots.php
 !addons/shared_addons/plugins/example.php
 !addons/shared_addons/plugins/index.html
+
+!addons/shared_addons/field_types
+addons/shared_addons/field_types/*
+!addons/shared_addons/field_types/index.html

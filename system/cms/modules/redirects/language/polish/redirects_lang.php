@@ -5,6 +5,11 @@ $lang['redirects.from'] 			= 'Z';
 $lang['redirects.to']				= 'Do';
 $lang['redirects.edit']				= 'Edytuj';
 $lang['redirects.delete']			= 'Usuń';
+$lang['redirects.type']				= 'Type'; #translate
+
+// redirect types
+$lang['redirects.301']				= '301 - Moved Permanently'; #translate
+$lang['redirects.302']				= '302 - Moved Temporarily'; #translate
 
 // titles
 $lang['redirects.add_title'] 			= 'Dodaj przekierowanie';

@@ -2,10 +2,9 @@
 /**
  * Email Template Events Class
  *
- * @package		PyroCMS
- * @subpackage	Email Templates
- * @category	events
- * @author		Stephen Cozart - PyroCMS Dev Team
+ * @author      Stephen Cozart
+ * @author		PyroCMS Dev Team
+ * @package		PyroCMS\Core\Modules\Templates
  */
 class Events_Templates {
 

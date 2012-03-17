@@ -1,25 +1,11 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
- * PyroCMS
- *
- * An open source CMS based on CodeIgniter
- *
- * @package		PyroCMS
- * @author		PyroCMS Dev Team
- * @license		Apache License v2.0
- * @link		http://pyrocms.com
- * @since		Version 1.0
- */
-
-/**
  * PyroCMS file Admin Controller
  *
  * Provides an admin for the file module.
  *
  * @author		PyroCMS Dev Team
- * @package		PyroCMS
- * @subpackage	Modules
- * @category	Files
+ * @package		PyroCMS\Core\Modules\Files\Controllers
  */
 class Admin extends Admin_Controller {
 
@@ -88,7 +74,6 @@ class Admin extends Admin_Controller {
 		}
 
 		$this->template
-			->set_partial('shortcuts', 'admin/partials/shortcuts')
 			->set_partial('nav', 'admin/partials/nav', array(
 				'file_folders'	=> $this->_folders,
 				'current_id'	=> 0
@@ -111,15 +96,20 @@ class Admin extends Admin_Controller {
 		$this->data->file_folders	= $this->_folders;
 		$this->data->content		= $this->load->view('admin/folders/index', $this->data, TRUE);
 
+		
+
 		$this->template
 			->title($this->module_details['name'])
-			->append_metadata( css('jquery.fileupload-ui.css', 'files') )
-			->append_metadata( css('files.css', 'files') )
-			->append_metadata( js('jquery/jquery.cooki.js') )
-			->append_metadata( js('jquery.fileupload.js', 'files') )
-			->append_metadata( js('jquery.fileupload-ui.js', 'files') )
-			->append_metadata( js('jquery.ba-hashchange.min.js', 'files') )
-			->append_metadata( js('functions.js', 'files') )
+			
+			->append_css('module::jquery.fileupload-ui.css')
+			->append_css('module::files.css')
+			
+			->append_js('jquery/jquery.cooki.js')
+			->append_js('module::jquery.fileupload.js')
+			->append_js('module::jquery.fileupload-ui.js')
+			->append_js('module::jquery.ba-hashchange.min.js')
+			->append_js('module::functions.js')
+		
 			->build('admin/layouts/index', $this->data);
 	}
 
@@ -220,6 +210,9 @@ class Admin extends Admin_Controller {
 
 				if ($status === 'success')
 				{
+					// Fire an event. A file has been uploaded to a folder.
+					Events::trigger('file_uploaded', $data);
+
 					$this->session->set_flashdata($status, $message);
 					redirect('admin/files');
 				}
@@ -431,6 +424,11 @@ class Admin extends Admin_Controller {
 					redirect ('admin/files');
 				}
 			}
+			if ($status === 'success')
+			{
+				// Fire an event. A file has been updated.
+				Events::trigger('file_updated', $id);
+			}
 		}
 		elseif (validation_errors())
 		{
@@ -510,7 +508,12 @@ class Admin extends Admin_Controller {
 		{
 			$this->session->set_flashdata('error', lang('files.no_select_error'));
 		}
-
+		else
+		{
+			// or we fire an event because one or more files have been deleted.
+			Events::trigger('file_deleted', $deleted);			
+		}
+		
 		// Redirect
 		isset($folder) ? redirect('admin/files/#!path=' . $folder->virtual_path) : redirect('admin/files');
 	}

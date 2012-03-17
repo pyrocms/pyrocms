@@ -1,6 +1,13 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-class Module_Groups extends Module {
+/**
+ * Groups module
+ *
+ * @author PyroCMS Dev Team
+ * @package PyroCMS\Core\Modules\Groups
+ */
+ class Module_Groups extends Module
+{
 
 	public $version = '1.0';
 
@@ -8,54 +15,55 @@ class Module_Groups extends Module {
 	{
 		return array(
 			'name' => array(
-				'sl' => 'Skupine',
 				'en' => 'Groups',
-				'br' => 'Grupos',
-				'de' => 'Gruppen',
-				'nl' => 'Groepen',
-				'fr' => 'Groupes',
-				'zh' => '群組',
-				'it' => 'Gruppi',
-				'ru' => 'Группы',
 				'ar' => 'المجموعات',
+				'br' => 'Grupos',
 				'cs' => 'Skupiny',
+				'da' => 'Grupper',
+				'de' => 'Gruppen',
+				'el' => 'Ομάδες',
 				'es' => 'Grupos',
 				'fi' => 'Ryhmät',
-				'el' => 'Ομάδες',
+				'fr' => 'Groupes',
 				'he' => 'קבוצות',
+				'id' => 'Grup',
+				'it' => 'Gruppi',
 				'lt' => 'Grupės',
-				'da' => 'Grupper',
-				'id' => 'Grup'
+				'nl' => 'Groepen',
+				'ru' => 'Группы',
+				'sl' => 'Skupine',
+				'zh' => '群組',
+				'hu' => 'Csoportok'
 			),
 			'description' => array(
-				'sl' => 'Uporabniki so lahko razvrščeni v skupine za urejanje dovoljenj',
 				'en' => 'Users can be placed into groups to manage permissions.',
-				'br' => 'Usuários podem ser inseridos em grupos para gerenciar suas permissões.',
-				'de' => 'Benutzer können zu Gruppen zusammengefasst werden um diesen Zugriffsrechte zu geben.',
-				'nl' => 'Gebruikers kunnen in groepen geplaatst worden om rechten te kunnen geven.',
-				'fr' => 'Les utilisateurs peuvent appartenir à des groupes afin de gérer les permissions.',
-				'zh' => '用戶可以依群組分類並管理其權限',
-				'it' => 'Gli utenti possono essere inseriti in gruppi per gestirne i permessi.',
-				'ru' => 'Пользователей можно объединять в группы, для управления правами доступа.',
 				'ar' => 'يمكن وضع المستخدمين في مجموعات لتسهيل إدارة صلاحياتهم.',
+				'br' => 'Usuários podem ser inseridos em grupos para gerenciar suas permissões.',
 				'cs' => 'Uživatelé mohou být rozřazeni do skupin pro lepší správu oprávnění.',
+				'da' => 'Brugere kan inddeles i grupper for adgangskontrol',
+				'de' => 'Benutzer können zu Gruppen zusammengefasst werden um diesen Zugriffsrechte zu geben.',
+				'el' => 'Οι χρήστες μπορούν να τοποθετηθούν σε ομάδες και έτσι να διαχειριστείτε τα δικαιώματά τους.',
 				'es' => 'Los usuarios podrán ser colocados en grupos para administrar sus permisos.',
 				'fi' => 'Käyttäjät voidaan liittää ryhmiin, jotta käyttöoikeuksia voidaan hallinnoida.',
-				'el' => 'Οι χρήστες μπορούν να τοποθετηθούν σε ομάδες και να διαχειριστείτε τα δικαιώματά τους.',
+				'fr' => 'Les utilisateurs peuvent appartenir à des groupes afin de gérer les permissions.',
 				'he' => 'נותן אפשרות לאסוף משתמשים לקבוצות',
+				'id' => 'Pengguna dapat dikelompokkan ke dalam grup untuk mengatur perizinan.',
+				'it' => 'Gli utenti possono essere inseriti in gruppi per gestirne i permessi.',
 				'lt' => 'Vartotojai gali būti priskirti grupei tam, kad valdyti jų teises.',
-				'da' => 'Brugere kan inddeles i grupper for adgangskontrol',
-				'id' => 'Pengguna dapat dikelompokkan ke dalam grup untuk mengatur perizinan.'
+				'nl' => 'Gebruikers kunnen in groepen geplaatst worden om rechten te kunnen geven.',
+				'ru' => 'Пользователей можно объединять в группы, для управления правами доступа.',
+				'sl' => 'Uporabniki so lahko razvrščeni v skupine za urejanje dovoljenj',
+				'zh' => '用戶可以依群組分類並管理其權限',
+				'hu' => 'A felhasználók csoportokba rendezhetőek a jogosultságok kezelésére.'
 			),
-			'frontend' => FALSE,
-			'backend'  => TRUE,
-			'menu'	  => 'users',
-
+			'frontend' => false,
+			'backend' => true,
+			'menu' => 'users',
 			'shortcuts' => array(
 				array(
-			 	   'name' => 'groups.add_title',
-				   'uri' => 'admin/groups/add',
-				   'class' => 'add'
+					'name' => 'groups.add_title',
+					'uri' => 'admin/groups/add',
+					'class' => 'add'
 				),
 			)
 		);
@@ -65,44 +73,44 @@ class Module_Groups extends Module {
 	{
 		$this->dbforge->drop_table('groups');
 
-		$groups = "
-			CREATE TABLE IF NOT EXISTS " . $this->db->dbprefix('groups') . " (
-			  `id` int(11) NOT NULL AUTO_INCREMENT,
-			  `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-			  `description` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
-			  PRIMARY KEY (`id`)
-			) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Permission roles such as admins, moderators, staff, etc' AUTO_INCREMENT=3 ;
-		";
+		$tables = array(
+			'groups' => array(
+				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
+				'name' => array('type' => 'VARCHAR', 'constraint' => 100,),
+				'description' => array('type' => 'VARCHAR', 'constraint' => 250, 'null' => true,),
+			),
+		);
 
-		$default_data = "
-			INSERT INTO " . $this->db->dbprefix('groups') . " (`id`, `name`, `description`) VALUES
-			(1, 'admin', 'Administrators'),
-			(2, 'user', 'Users');
-		";
-
-		if($this->db->query($groups) && $this->db->query($default_data))
+		if ( ! $this->install_tables($tables))
 		{
-			return TRUE;
+			return false;
 		}
+
+		$groups = array(
+			array('name' => 'admin', 'description' => 'Administrators',),
+			array('name' => 'users', 'description' => 'Users',),
+		);
+
+		foreach ($groups as $group)
+		{
+			if ( ! $this->db->insert('groups', $group))
+			{
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 	public function uninstall()
 	{
-		//it's a core module, lets keep it around
-		return FALSE;
+		// This is a core module, lets keep it around.
+		return false;
 	}
 
 	public function upgrade($old_version)
 	{
-		// Your Upgrade Logic
-		return TRUE;
+		return true;
 	}
 
-	public function help()
-	{
-		// Return a string containing help info
-		// You could include a file and return it here.
-		return TRUE;
-	}
 }
-/* End of file details.php */

@@ -2,10 +2,9 @@
 /**
  * Comments helper
  *
- * @package		PyroCMS
- * @subpackage	Comments Module
- * @category	Helper
- * @author		Phil Sturgeon - PyroCMS Dev Team
+ * @author		Phil Sturgeon
+ * @author		PyroCMS Dev Team
+ * @package		PyroCMS\Core\Modules\Comments\Helpers
  */
 
 /**

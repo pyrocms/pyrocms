@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Blog_m extends MY_Model {
-
+class Blog_m extends MY_Model
+{
 	protected $_table = 'blog';
 
 	function get_all()
