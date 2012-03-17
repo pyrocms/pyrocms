@@ -7,11 +7,10 @@ section.two_third .no_data { margin: 20px; }
 .folders-sidebar { height: 450px; border-right: 1px solid #d8d8d8; }
 .folders-sidebar li { padding: 3px; line-height: 20px; cursor: pointer; }
 .folders-sidebar li.open > ul > li, .folders-sidebar li.close > ul > li { padding-left: 18px; }
-.folders-sidebar li a { display: inline-block; width: 90%; }
-.folders-sidebar li.open > a, .folders-sidebar li.close > a  { margin-left: 0; }
+.folders-sidebar li a { margin-left: 13px; font-size: 14px; display: inline-block; width: 215px; }
 .folders-sidebar li.places a { color: #808080; margin-bottom: 10px; font-size: 14px; font-weight: bold; font-style: italic; }
-.folders-sidebar .open { list-style: url(../img/more.png) inside !important; }
-.folders-sidebar .close { list-style: url(../img/less.png) inside !important; }
+.folders-sidebar .open { width: 14px; height: 14px; margin-right: 5px; float: left; background: url(../img/glyphicons-halflings-gray.png) no-repeat -457px -67px; }
+.folders-sidebar .close { width: 14px; height: 14px; margin-right: 5px; float: left; background: url(../img/glyphicons-halflings-gray.png) no-repeat -313px -114px; }
 
 .folders-center { height: 450px; overflow-y: auto; overflow-x: hidden; }
 .folders-center li:hover { background-color: #f7f7f7; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; }
@@ -37,17 +36,17 @@ section.two_third .no_data { margin: 20px; }
 
 .console { height: 450px; border-left: 1px solid #d8d8d8; }
 .console li { padding: 10px 0 10px 20px; border-bottom: 1px solid #d8d8d8; }
-.console li.success { list-style: url(../img/success.png) inside !important; }
-.console li.failure { list-style: url(../img/failure.png) inside !important; }
-.console li.info { list-style: url(../img/info.png) inside !important; }
+.console li .success { width: 20px; height: 20px; margin-right: 5px; float: left; background: url(../img/glyphicons-halflings-gray.png) no-repeat -71px -95px; }
+.console li .failure { width: 20px; height: 20px; margin-right: 5px; float: left; background: url(../img/glyphicons-halflings-gray.png) no-repeat -47px -94px; }
+.console li .info { width: 20px; height: 20px; margin-right: 5px; float: left; background: url(../img/glyphicons-halflings-gray.png) no-repeat -119px -95px; }
 li.right-title { padding-left: 0; }
 li.right-title label { padding-left: 10px; }
 li.right-title input { margin-left: 20px; width: 83%; }
 li.right-title, li.right-title label { font-size: 14px; font-weight: bold; font-style: italic; border: none; }
 
 .search-results li { padding-left: 15px; font-size: 13px; }
-.search-results .folder { width: 20px; height: 20px; margin-right: 5px; float: left; background: url(../img/glyphicons-halflings.png) no-repeat -405px -120px; }
-.search-results .file { width: 20px; height: 20px; margin-right: 5px; float: left; background: url(../img/glyphicons-halflings.png) no-repeat -19px -23px; }
+.search-results .folder { width: 20px; height: 20px; margin-right: 5px; float: left; background: url(../img/glyphicons-halflings-gray.png) no-repeat -405px -120px; }
+.search-results .file { width: 20px; height: 20px; margin-right: 5px; float: left; background: url(../img/glyphicons-halflings-gray.png) no-repeat -19px -23px; }
 
 .context-menu-source { display: none; position: absolute; width: 150px; background-color: #f7f7f7; }
 .context-menu-source li { height: 15px; cursor: pointer; font-size: 14px; padding: 7px 25px 7px 25px; border-bottom: 1px solid #e0e0e0; }
