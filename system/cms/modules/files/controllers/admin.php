@@ -37,6 +37,7 @@ class Admin extends Admin_Controller {
 				pyro.lang.ratio = '".lang('files:ratio')."';
 				pyro.lang.full_size = '".lang('files:full_size')."';
 				pyro.lang.cancel = '".lang('buttons.cancel')."';
+				pyro.files = { permissions : ".json_encode(Files::allowed_actions())." };
 			</script>");
 	}
 
@@ -63,7 +64,7 @@ class Admin extends Admin_Controller {
 
 		$data->admin =& $this;
 
-		is_really_writable(Files::$_path) OR $data->messages['error'] = sprintf(lang('files:unwritable'), Files::$_path);
+		is_really_writable(Files::$path) OR $data->messages['error'] = sprintf(lang('files:unwritable'), Files::$path);
 
 		$this->template
 			->title($this->module_details['name'])
@@ -119,6 +120,9 @@ class Admin extends Admin_Controller {
 	 */
 	public function new_folder()
 	{
+		// this is just a safeguard if they circumvent the JS permissions
+		if ( ! in_array('create_folder', Files::allowed_actions())) show_error(lang('files:no_permissions'));
+
 		$parent_id = $this->input->post('parent');
 		$name = $this->input->post('name');
 
@@ -205,6 +209,9 @@ class Admin extends Admin_Controller {
 	 */
 	public function rename_folder()
 	{
+		// this is just a safeguard if they circumvent the JS permissions
+		if ( ! in_array('edit_folder', Files::allowed_actions())) show_error(lang('files:no_permissions'));
+
 		if ($id = $this->input->post('folder_id') AND $name = $this->input->post('name'))
 		{
 			echo json_encode(Files::rename_folder($id, $name));
@@ -221,6 +228,9 @@ class Admin extends Admin_Controller {
 	 */
 	public function delete_folder()
 	{
+		// this is just a safeguard if they circumvent the JS permissions
+		if ( ! in_array('delete_folder', Files::allowed_actions())) show_error(lang('files:no_permissions'));
+
 		if ($id = $this->input->post('folder_id'))
 		{
 			echo json_encode(Files::delete_folder($id));
@@ -237,6 +247,9 @@ class Admin extends Admin_Controller {
 	 */
 	public function upload()
 	{
+		// this is just a safeguard if they circumvent the JS permissions
+		if ( ! in_array('upload', Files::allowed_actions())) show_error(lang('files:no_permissions'));
+
 		$input = $this->input->post();
 
 		if ($input['folder_id'] AND $input['name'])
@@ -255,6 +268,9 @@ class Admin extends Admin_Controller {
 	 */
 	public function rename_file()
 	{
+		// this is just a safeguard if they circumvent the JS permissions
+		if ( ! in_array('edit_file', Files::allowed_actions())) show_error(lang('files:no_permissions'));
+
 		if ($id = $this->input->post('file_id') AND $name = $this->input->post('name'))
 		{
 			echo json_encode(Files::move($id, $name));
@@ -289,6 +305,9 @@ class Admin extends Admin_Controller {
 	 */
 	public function save_location()
 	{
+		// this is just a safeguard if they circumvent the JS permissions
+		if ( ! in_array('set_location', Files::allowed_actions())) show_error(lang('files:no_permissions'));
+
 		if ($id = $this->input->post('folder_id') AND 
 			$location = $this->input->post('location') AND
 			$container = $this->input->post('container'))
@@ -309,6 +328,9 @@ class Admin extends Admin_Controller {
 	 */
 	public function delete_file()
 	{
+		// this is just a safeguard if they circumvent the JS permissions
+		if ( ! in_array('delete_file', Files::allowed_actions())) show_error(lang('files:no_permissions'));
+
 		if ($id = $this->input->post('file_id'))
 		{
 			echo json_encode(Files::delete_file($id));

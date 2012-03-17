@@ -59,7 +59,7 @@ class Module_Files extends Module {
 			'backend' => TRUE,
 			'menu' => 'content',
 			'roles' => array(
-				'download_file', 'edit_file', 'delete_file', 'edit_folder', 'delete_folder'
+				'wysiwyg', 'upload', 'download_file', 'edit_file', 'delete_file', 'create_folder', 'set_location', 'edit_folder', 'delete_folder'
 			)
 		);
 	}

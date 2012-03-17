@@ -1,6 +1,8 @@
 jQuery(function($){
 
-	pyro.files = { cache : {}, history : {}, timeout : '' };
+	pyro.files.cache = {};
+	pyro.files.history = {};
+	pyro.files.timeout = {};
 	pyro.files.current_level = 0;
 
 	/***************************************************************************
@@ -122,8 +124,13 @@ jQuery(function($){
 				var pattern = new RegExp('pane');
 			}
 
-			// now hide the menu items not allowed for that type
+			// now hide this item if it's not allowed for that type
 			if ( ! pattern.test($(this).attr('data-applies-to'))){
+				$(this).hide();
+			}
+
+			// and hide it if they don't have permission for it
+			if ($(this).attr('data-role') && $.inArray($(this).attr('data-role'), pyro.files.permissions) < 0) {
 				$(this).hide();
 			}
 			
@@ -634,12 +641,16 @@ jQuery(function($){
 		 	if ($item.download_count) 	$('.item-details .download_count')	.html($item.download_count).parent().show();
 		 	if ($item.filename) 		$('.item-details .filename')		.html($item.filename).parent().show();
 		 	if (type == 'file') 		$('.item-details .description')		.val($item.description).parent().show();
-		 	if (type == 'folder' && $item.file_count == 0){
+
+		 	// they can only change the cloud provider if the folder is empty and they have permission
+		 	if (type == 'folder' && $item.file_count == 0 && $.inArray('set_location', pyro.files.permissions) >= 0){
 		 		// update the value and trigger an update on Chosen
 		 		$select.val($item.location).find('option[value="'+$item.location+'"]').attr('selected', true);
 		 		$select.trigger('liszt:updated').parents().show();
 		 	} else if (type == 'folder') {
+		 		// show the location
 		 		$('.item-details .location-static').html($item.location).parent().show();
+		 		// show the bucket/container also if it has one
 		 		if ($item.remote_container > '') {
 			 		$('.item-details .container-static').html($item.remote_container).parent().show();		 		
 				}

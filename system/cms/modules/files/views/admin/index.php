@@ -31,14 +31,16 @@
 			</ul>
 
 			<ul class="context-menu-source">
-				<li data-applies-to="folder" 			data-menu="open"><?php echo lang('files:open'); ?></li>
-				<li data-applies-to="pane root-pane"	data-menu="new-folder"><?php echo lang('files:new_folder'); ?></li>
-				<li data-applies-to="folder pane" 		data-menu="upload"><?php echo lang('files:upload'); ?></li>
-				<li data-applies-to="folder file" 		data-menu="rename"><?php echo lang('files:rename'); ?></li>
-				<!--<li data-applies-to="file" 			data-menu="edit"><?php echo lang('files:edit'); ?></li>-->
-				<li data-applies-to="file" 				data-menu="download"><?php echo lang('files:download'); ?></li>
-				<li data-applies-to="folder file" 		data-menu="delete"><?php echo lang('files:delete'); ?></li>
-				<li data-applies-to="folder file pane"	data-menu="details"><?php echo lang('files:details'); ?></li>
+				<li 							data-applies-to="folder" 			data-menu="open"><?php echo lang('files:open'); ?></li>
+				<li data-role="create_folder"	data-applies-to="pane root-pane"	data-menu="new-folder"><?php echo lang('files:new_folder'); ?></li>
+				<li data-role="upload" 			data-applies-to="folder pane" 		data-menu="upload"><?php echo lang('files:upload'); ?></li>
+				<li data-role="edit_file"		data-applies-to="file" 				data-menu="rename"><?php echo lang('files:rename'); ?></li>
+				<li data-role="edit_folder"		data-applies-to="folder" 			data-menu="rename"><?php echo lang('files:rename'); ?></li>
+				<!--<li 						data-applies-to="file" 				data-menu="edit"><?php echo lang('files:edit'); ?></li>-->
+				<li data-role="download_file"	data-applies-to="file" 				data-menu="download"><?php echo lang('files:download'); ?></li>
+				<li data-role="delete_file"		data-applies-to="file" 				data-menu="delete"><?php echo lang('files:delete'); ?></li>
+				<li data-role="delete_folder"	data-applies-to="folder" 			data-menu="delete"><?php echo lang('files:delete'); ?></li>
+				<li 							data-applies-to="folder file pane"	data-menu="details"><?php echo lang('files:details'); ?></li>
 			</ul>
 	</section>
 

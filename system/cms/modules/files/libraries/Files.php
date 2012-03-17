@@ -11,7 +11,7 @@
 class Files
 {
 	public		static $providers;
-	public 		static $_path;
+	public 		static $path;
 	protected 	static $_ext;
 	protected	static $_type = '';
 	protected	static $_filename = NULL;
@@ -22,7 +22,7 @@ class Files
 	{
 		ci()->load->config('files/files');
 
-		self::$_path = config_item('files:path');
+		self::$path = config_item('files:path');
 		self::$providers = explode(',', Settings::get('files_enabled_providers'));
 
 		set_exception_handler(array($this, 'exception_handler'));
@@ -307,7 +307,7 @@ class Files
 		if ($folder)
 		{
 			ci()->load->library('upload', array(
-				'upload_path'	=> self::$_path,
+				'upload_path'	=> self::$path,
 				'allowed_types'	=> self::$_ext,
 				'file_name'		=> self::$_filename
 			));
@@ -337,8 +337,8 @@ class Files
 					ci()->load->library('image_lib');
 
 					$config['image_library']    = 'gd2';
-					$config['source_image']     = self::$_path.$data['filename'];
-					$config['new_image']        = self::$_path.$data['filename'];
+					$config['source_image']     = self::$path.$data['filename'];
+					$config['new_image']        = self::$path.$data['filename'];
 					$config['maintain_ratio']   = $ratio;
 					$config['height']           = $height;
 					$config['width']            = $width;
@@ -413,11 +413,11 @@ class Files
 						  'location' => $new_location,
 						  'container' => $container);
 
-			if (file_exists(self::$_path.$file->filename))
+			if (file_exists(self::$path.$file->filename))
 			{
 				ci()->file_m->update($file_id, array('filename' => $filename, 'name' => $new_name));
 
-				@rename(self::$_path.$file->filename, self::$_path.$filename);
+				@rename(self::$path.$file->filename, self::$path.$filename);
 
 				return self::result(TRUE, lang('files:item_updated'), $new_name, $data);
 			}
@@ -439,7 +439,7 @@ class Files
 				// make a unique object name
 				$object = now().'.'.$new_name;
 
-				$path = ci()->storage->upload_file($container, self::$_path.$file->filename, $object, NULL, 'public');
+				$path = ci()->storage->upload_file($container, self::$path.$file->filename, $object, NULL, 'public');
 
 				if ($new_location === 'amazon-s3')
 				{
@@ -452,7 +452,7 @@ class Files
 				ci()->file_m->update($file->id, $data);
 
 				// get rid of the "temp" file
-				@unlink(self::$_path.$file->filename);
+				@unlink(self::$path.$file->filename);
 
 				return self::result(TRUE, lang('files:file_uploaded'), $new_name, $data);
 			}
@@ -471,7 +471,7 @@ class Files
 			if ($curl_result)
 			{
 				// ...and save it
-				write_file(self::$_path.$new_name, $curl_result, 'wb');
+				write_file(self::$path.$new_name, $curl_result, 'wb');
 			}
 			else
 			{
@@ -485,7 +485,7 @@ class Files
 			ci()->storage->load_driver($new_location);
 
 			// make a really random temp file name
-			$temp_file = self::$_path.md5(time()).'_temp_'.$new_name;
+			$temp_file = self::$path.md5(time()).'_temp_'.$new_name;
 
 			// and we download...
 			$curl_result = ci()->curl->simple_get($file);
@@ -617,7 +617,7 @@ class Files
 				{
 					$files[$i]['filesize'] 		= $value->filesize;
 					$files[$i]['filename'] 		= $value->filename;
-					$files[$i]['file_exists'] 	= file_exists(self::$_path.$value->filename) ? TRUE : FALSE;
+					$files[$i]['file_exists'] 	= file_exists(self::$path.$value->filename) ? TRUE : FALSE;
 					$i++;
 				}
 			}
@@ -647,7 +647,7 @@ class Files
 
 			if ($file->location === 'local')
 			{
-				@unlink(self::$_path.$file->filename);
+				@unlink(self::$path.$file->filename);
 			}
 			else
 			{
@@ -739,6 +739,29 @@ class Files
 	// ------------------------------------------------------------------------
 
 	/**
+	 * Permissions
+	 * 
+	 * Return a simple array of allowed actions
+	 *
+	 * @return	array
+	 *
+	**/
+	public static function allowed_actions()
+	{
+		$allowed_actions = array();
+
+		foreach (ci()->permissions['files'] as $item => $value)
+		{
+			// build a simplified permission list for use in this module
+			if ($value)	$allowed_actions[] = $item;
+		}
+
+		return $allowed_actions;
+	}
+
+	// ------------------------------------------------------------------------
+
+	/**
 	 * Exception Handler
 	 * 
 	 * Return a the error message thrown by Cloud Files
@@ -809,26 +832,26 @@ class Files
 	**/
 	private static function _check_dir()
 	{
-		if (is_dir(self::$_path) AND is_really_writable(self::$_path))
+		if (is_dir(self::$path) AND is_really_writable(self::$path))
 		{
 			return self::result(TRUE);
 		}
-		elseif ( ! is_dir(self::$_path))
+		elseif ( ! is_dir(self::$path))
 		{
-			if ( ! @mkdir(self::$_path, 0777, TRUE))
+			if ( ! @mkdir(self::$path, 0777, TRUE))
 			{
 				return self::result(FALSE, lang('files:mkdir_error'));
 			}
 			else
 			{
 				// create a catch all html file for safety
-				$uph = fopen(self::$_path . 'index.html', 'w');
+				$uph = fopen(self::$path . 'index.html', 'w');
 				fclose($uph);
 			}
 		}
 		else
 		{
-			if ( ! chmod(self::$_path, 0777))
+			if ( ! chmod(self::$path, 0777))
 			{
 				return self::result(FALSE, lang('files:chmod_error'));
 			}
