@@ -685,6 +685,18 @@ class Module_Settings extends Module {
 				'module' => 'api',
 				'order' => 0,
 			),
+			'cdn_domain' => array(
+				'title' => 'CDN Domain',
+				'description' => 'CDN domains allow you to offload static content to various edge servers, like Amazon CloudFront or MaxCDN.',
+				'type' => 'text',
+				'default' => '',
+				'value' => '',
+				'options' => '',
+				'is_required' => false,
+				'is_gui' => true,
+				'module' => 'integration',
+				'order' => 1000,
+			)
 		);
 
 		// Lets add the settings for this module.
