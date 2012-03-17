@@ -40,7 +40,14 @@ section.two_third .no_data { margin: 20px; }
 .console li.success { list-style: url(../img/success.png) inside !important; }
 .console li.failure { list-style: url(../img/failure.png) inside !important; }
 .console li.info { list-style: url(../img/info.png) inside !important; }
+li.right-title { padding-left: 0; }
+li.right-title label { padding-left: 10px; }
+li.right-title input { margin-left: 20px; width: 83%; }
 li.right-title, li.right-title label { font-size: 14px; font-weight: bold; font-style: italic; border: none; }
+
+.search-results li { padding-left: 15px; font-size: 13px; }
+.search-results .folder { width: 20px; height: 20px; margin-right: 5px; float: left; background: url(../img/glyphicons-halflings.png) no-repeat -405px -120px; }
+.search-results .file { width: 20px; height: 20px; margin-right: 5px; float: left; background: url(../img/glyphicons-halflings.png) no-repeat -19px -23px; }
 
 .context-menu-source { display: none; position: absolute; width: 150px; background-color: #f7f7f7; }
 .context-menu-source li { height: 15px; cursor: pointer; font-size: 14px; padding: 7px 25px 7px 25px; border-bottom: 1px solid #e0e0e0; }

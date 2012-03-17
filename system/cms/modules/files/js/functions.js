@@ -42,7 +42,8 @@ jQuery(function($){
  						if (item.length > 0){
  							$.each(item, function(i, result){
  								$('.console .search-results').append(
- 									'<li class="'+type+'">'+
+ 									'<li>'+
+ 										'<div class="'+type+'"></div>'+
  										'<a data-parent="'+(type == 'folder' ? result.parent_id : result.folder_id)+'" href="'+SITE_URL+'admin/files#">'+result.name+'</a>'+
  									'</li>');
  							});

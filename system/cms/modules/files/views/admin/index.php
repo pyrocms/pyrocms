@@ -51,7 +51,7 @@
 			<li class="right-title"><input type="text" id="file-search" name="file-search" value="" placeholder="<?php echo lang('files:search_message'); ?>"/>
 				<ul class="search-results"></ul>
 			</li>
-			<li class="right-title console-title"><?php echo lang('files:activity'); ?></li>
+			<li class="right-title console-title"><label><?php echo lang('files:activity'); ?></label></li>
 		</ul>
 	</section>
 
