@@ -479,6 +479,38 @@ class Fields
 	// --------------------------------------------------------------------------
 
 	/**
+	 * Translate a label.
+	 *
+	 * If it has the label: before it, then we can
+	 * look for a language line.
+	 *
+	 * This is partially from the CodeIgniter Form Validation
+	 * library but it protected so we need to replicate the
+	 * functionality here.
+	 *
+	 * @access 	public
+	 * @param 	string - the field label
+	 * @return 	string - translated or original label
+	 */
+	public function translate_label($label)
+	{
+		// Look for lang
+		if (substr($label, 0, 5) === 'lang:')
+		{
+			$line = substr($label, 5);
+
+			if (($label = $this->CI->lang->line($line)) === false)
+			{
+				return $line;
+			}
+		}
+
+		return $label;		
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
 	 * Send Emails
 	 *
 	 * Sends emails for a notify group
