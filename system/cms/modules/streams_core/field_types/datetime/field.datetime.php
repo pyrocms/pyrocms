@@ -15,7 +15,7 @@ class Field_datetime
 	
 	public $db_col_type				= 'datetime';
 
-	public $custom_parameters		= array('use_time', 'start_date', 'end_date', 'storage');
+	public $custom_parameters		= array('use_time', 'start_date', 'end_date', 'storage', 'input_type');
 
 	public $version					= '2.0';
 
@@ -48,43 +48,59 @@ class Field_datetime
 		
 		$date = $this->_break_date(trim($data['value']), $data['form_slug'], $data['custom']['use_time']);
 
+		// Form type.
+		// Defaults to datepicker
+		if ( ! isset($data['custom']['input_type']))
+		{
+			$input_type = 'datepicker';
+		}
+		else
+		{
+			$input_type = $data['custom']['input_type'];
+		}
+
+		$date_input = null;
+
 		// -------------------------------------
 		// Date
 		// -------------------------------------
 	
-		// jQuery datepicker options
-		$dp_mods = array('dateFormat: "yy-mm-dd"');
-	
-		$current_year = date('Y');
-		
-		// Start Date
-		if (isset($data['custom']['start_date']) and $data['custom']['start_date'])
+		if ($input_type)
 		{
-			$dp_mods[] = 'minDate: "'.$data['custom']['start_date'].'"';
-		}
+			// jQuery datepicker options
+			$dp_mods = array('dateFormat: "yy-mm-dd"');
 		
-		// End Date
-		if (isset($data['custom']['end_date']) and $data['custom']['end_date'])
-		{
-			$dp_mods[] = 'maxDate: "'.$data['custom']['end_date'].'"';	
-		}	
+			$current_year = date('Y');
 			
-		$date_input = '
-		<script>
-		$(function() {
-			$( "#datepicker_'.$data['form_slug'].'" ).datepicker({ '.implode(', ', $dp_mods).' });
-		});
-		</script>';
+			// Start Date
+			if (isset($data['custom']['start_date']) and $data['custom']['start_date'])
+			{
+				$dp_mods[] = 'minDate: "'.$data['custom']['start_date'].'"';
+			}
+			
+			// End Date
+			if (isset($data['custom']['end_date']) and $data['custom']['end_date'])
+			{
+				$dp_mods[] = 'maxDate: "'.$data['custom']['end_date'].'"';	
+			}	
+				
+			$date_input = '
+			<script>
+			$(function() {
+				$( "#datepicker_'.$data['form_slug'].'" ).datepicker({ '.implode(', ', $dp_mods).' });
+			});
+			</script>';
 
-		$options['name'] 	= $data['form_slug'];
-		$options['id']		= 'datepicker_'.$data['form_slug'];
-		
-		if ($date['year'] and $date['month'] and $date['day'])
-		{
-			$options['value']	= $date['year'].'-'.$date['month'].'-'.$date['day'];
-		}	
+			$options['name'] 	= $data['form_slug'];
+			$options['id']		= 'datepicker_'.$data['form_slug'];
 			
-		$date_input .= form_input($options)."&nbsp;&nbsp;";
+			if ($date['year'] and $date['month'] and $date['day'])
+			{
+				$options['value']	= $date['year'].'-'.$date['month'].'-'.$date['day'];
+			}	
+				
+			$date_input .= form_input($options)."&nbsp;&nbsp;";
+		}
 					
 		// -------------------------------------
 		// Time
@@ -509,6 +525,24 @@ class Field_datetime
 		return form_dropdown('storage', $options, $value);
 	}
 
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * How should we store this in the DB?
+	 *
+	 * @access	public
+	 * @param	string
+	 * @return	string
+	 */
+	public function param_input_type($value = null)
+	{
+		$options = array(
+					'datepicker'	=> 'Datepicker',
+					'dropdown'		=> 'Dropdown'
+		);
+			
+		return form_dropdown('input_type', $options, $value);
+	}
 	// --------------------------------------------------------------------------
 
 	/**
