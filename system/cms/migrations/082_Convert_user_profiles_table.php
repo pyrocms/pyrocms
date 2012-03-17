@@ -57,7 +57,7 @@ class Migration_Convert_user_profiles_table extends CI_Migration {
     		'gender' => array(
     			'field_name' => 'lang:profile_gender',
     			'field_type' => 'choice',
-    			'extra'		 => array('choice_type' => 'radio', 'choice_data' => " : Not Telling\nm : Male\nf : Female")
+    			'extra'		 => array('choice_type' => 'dropdown', 'choice_data' => " : Not Telling\nm : Male\nf : Female")
     		),
      		'phone' => array(
     			'field_name' => 'lang:profile_phone',
