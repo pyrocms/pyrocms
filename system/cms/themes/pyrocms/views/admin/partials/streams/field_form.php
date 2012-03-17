@@ -6,7 +6,21 @@
 
 		<li>
 			<label for="field_name"><?php echo lang('streams.label.field_name');?> <span>*</span></label>
-			<div class="input"><?php echo form_input('field_name', $field->field_name, 'maxlength="60" id="field_name" autocomplete="off"'); ?></div>
+			<div class="input">
+				<?php
+
+				if (substr($field->field_name, 0, 5) === 'lang:')
+				{
+					echo '<p><em>'.$this->lang->line(substr($field->field_name, 5)).'</em></p>';
+					echo form_hidden('field_name', $field->field_name);
+				}
+				else
+				{
+					echo form_input('field_name', $field->field_name, 'maxlength="60" id="field_name" autocomplete="off"');
+				}
+
+				?></div>
+
 		</li>
 		<li>
 			<label for="field_slug"><?php echo lang('streams.label.field_slug');?> <span>*</span></label>
