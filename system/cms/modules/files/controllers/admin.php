@@ -321,6 +321,25 @@ class Admin extends Admin_Controller {
 	// ------------------------------------------------------------------------
 
 	/**
+	 * Pull new files down from the cloud location
+	 *
+	 * @access	public
+	 * @return	void
+	 */
+	public function synchronize()
+	{
+		// this is just a safeguard if they circumvent the JS permissions
+		if ( ! in_array('synchronize', Files::allowed_actions())) show_error(lang('files:no_permissions'));
+
+		if ($id = $this->input->post('folder_id'))
+		{
+			echo json_encode(Files::synchronize($id));
+		}
+	}
+
+	// ------------------------------------------------------------------------
+
+	/**
 	 * Delete a file
 	 *
 	 * @access	public

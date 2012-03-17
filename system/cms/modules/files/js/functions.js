@@ -118,6 +118,7 @@ jQuery(function($){
 				var pattern = new RegExp('file');
 			} else if ($(e.target).hasClass('folder')){
 				var pattern = new RegExp('folder');
+				var folder = true;
 			} else if ($(e.target).hasClass('pane') && pyro.files.current_level == 0){
 				var pattern = new RegExp('root-pane');
 			} else {
@@ -132,6 +133,17 @@ jQuery(function($){
 			// and hide it if they don't have permission for it
 			if ($(this).attr('data-role') && $.inArray($(this).attr('data-role'), pyro.files.permissions) < 0) {
 				$(this).hide();
+			}
+
+			// this is disabled for now
+			// one final check for the oddball "synchronize". If it's a local folder we hide it anyway
+			if (folder && $(this).attr('data-role') == 'synchronize') {
+				// fetch the item's data so we can check what its location is
+			//	$item = $(window).data('folder_'+pyro.files.$last_r_click.attr('data-id'));
+				// sorry buddy, no cloud for you
+			//	if ($item.location == 'local') {
+					$(this).hide();
+			//	}
 			}
 			
 		});
@@ -178,6 +190,10 @@ jQuery(function($){
 				} else {
 					window.location = SITE_URL+'files/download/'+$item.id;
 				}
+			break;
+
+			case 'synchronize':
+				pyro.files.synchronize();
 			break;
 
 			case 'delete':
@@ -732,6 +748,18 @@ jQuery(function($){
 		 		$(window).data('folder_'+item.id, item);
 			}
  		});
+ 	}
+
+ 	pyro.files.synchronize = function()
+ 	{
+ 		folder_id = pyro.files.$last_r_click.attr('data-id');
+
+ 	 	post = { 'folder_id' : folder_id };
+
+ 		$.post(SITE_URL + 'admin/files/synchronize', post, function(data){
+ 			var results = $.parseJSON(data);
+ 			$(window).trigger('show-message', results);
+ 		});		
  	}
 
  	/***************************************************************************

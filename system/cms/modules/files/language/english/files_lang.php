@@ -51,6 +51,7 @@ $lang['files:bucket']						= 'Bucket';
 $lang['files:check_container']				= 'Check Validity';
 $lang['files:search_message']				= 'Type and hit Enter';
 $lang['files:search']						= 'Search';
+$lang['files:synchronize']					= 'Synchronize';
 
 // Context Menu
 $lang['files:open']							= 'Open';

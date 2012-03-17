@@ -15,6 +15,7 @@ class Files
 	protected 	static $_ext;
 	protected	static $_type = '';
 	protected	static $_filename = NULL;
+	protected	static $_mimetype;
 
 	// ------------------------------------------------------------------------
 
@@ -439,7 +440,7 @@ class Files
 				// make a unique object name
 				$object = now().'.'.$new_name;
 
-				$path = ci()->storage->upload_file($container, self::$path.$file->filename, $object, NULL, 'public');
+				$path = ci()->storage->upload_file($container, self::$path.$file->filename, $object, NULL, 'public-read');
 
 				if ($new_location === 'amazon-s3')
 				{
@@ -502,7 +503,7 @@ class Files
 			// make a unique object name
 			$object = now().'.'.$new_name;
 
-			$path = ci()->storage->upload_file($container, $temp_file, $object, NULL, 'public');
+			$path = ci()->storage->upload_file($container, $temp_file, $object, NULL, 'public-read');
 
 			if ($new_location === 'amazon-s3')
 			{
@@ -586,7 +587,7 @@ class Files
 		$files = array();
 
 		// yup they want real live file names from the cloud
-		if ($location !== 'local')
+		if ($location !== 'local' AND $container)
 		{
 			ci()->storage->load_driver($location);
 
@@ -596,9 +597,14 @@ class Files
 			{
 				foreach ($cloud_list as $value) 
 				{
+					self::_get_file_info($value['name']);
+					$path = $location === 'amazon-s3' ? 'http://'.$container.'.'.'s3.amazonaws.com/'.$object : '';
+
 					$files[$i]['filesize'] 		= (int) $value['size'];
 					$files[$i]['filename'] 		= $value['name'];
-					$files[$i]['file_exists']	= TRUE;
+					$files[$i]['extension']		= self::$_ext;
+					$files[$i]['mimetype']		= self::$_mimetype;
+					$files[$i]['path']			= $path;
 					$i++;
 				}
 			}
@@ -626,6 +632,33 @@ class Files
 		$message = $files ? NULL : lang('files:no_records_found');
 
 		return self::result( (bool) $files, $message, NULL, $files);
+	}
+
+	// ------------------------------------------------------------------------
+
+	/**
+	 * Index files from a remote container
+	 *
+	 * @param	string	$folder_id	The cloud provider or local
+	 * @return	array
+	 *
+	**/
+	public static function synchronize($folder_id)
+	{
+		$folder = ci()->file_folders_m->get_by('id', $folder_id);
+
+		$files = Files::list_files($folder->location, $folder->remote_container);
+
+		if ($files)
+		{
+			dump($files);exit;
+		}
+		else
+		{
+			return self::result(FALSE, lang('files:no_records_found'));
+		}
+
+		return self::result(TRUE, lang('files:synchronize_complete'), $folder->name, $data);
 	}
 
 	// ------------------------------------------------------------------------
@@ -901,5 +934,35 @@ class Files
 		}
 
 		return self::result(TRUE);
+	}
+
+	// ------------------------------------------------------------------------
+
+	/**
+	 * Get the file type and extension from the name
+	 * 
+	 *
+	 * @return	bool
+	 *
+	**/
+	private static function _get_file_info($filename)
+	{
+		ci()->load->helper('file');
+
+		$ext		= pathinfo($filename, PATHINFO_EXTENSION);
+		$allowed	= config_item('files:allowed_file_ext');
+
+		foreach ($allowed as $type => $ext_arr)
+		{				
+			if (in_array(strtolower($ext), $ext_arr))
+			{
+				self::$_type		= $type;
+				self::$_ext			= implode('|', $ext_arr);
+				self::$_filename	= $filename;
+				self::$_mimetype	= get_mime_by_extension($filename);
+
+				break;
+			}
+		}
 	}
 }
