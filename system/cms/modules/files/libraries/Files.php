@@ -89,7 +89,7 @@ class Files
 	{
 		ci()->storage->load_driver($location);
 
-		$result = ci()->storage->create_container($container);
+		$result = ci()->storage->create_container($container, 'public');
 
 		// if they are also linking a local folder then we save that
 		if ($id)
@@ -97,7 +97,7 @@ class Files
 			ci()->db->where('id', $id)->update('file_folders', array('remote_container' => $container));
 		}
 
-		if ($result AND $location == 'amazon-s3' OR $result === NULL AND $location == 'rackspace-cf')
+		if ($result)
 		{
 			return self::result(TRUE, lang('files:container_created'), $container);
 		}
@@ -440,12 +440,13 @@ class Files
 				// make a unique object name
 				$object = now().'.'.$new_name;
 
-				$path = ci()->storage->upload_file($container, self::$path.$file->filename, $object, NULL, 'public-read');
+				$path = ci()->storage->upload_file($container, self::$path.$file->filename, $object, NULL, 'public');
 
 				if ($new_location === 'amazon-s3')
 				{
 					// if amazon didn't throw an error we'll create a path to store like rackspace does
-					$path = 'http://'.$container.'.'.'s3.amazonaws.com/'.$object;
+					$url = ci()->parser->parse_string(Settings::get('files_s3_url'), array('bucket'=> $container), TRUE);
+					$path = rtrim($url, '/').'/'.$object;
 				}
 
 				$data = array('filename' => $object, 'path' => $path);
@@ -503,12 +504,13 @@ class Files
 			// make a unique object name
 			$object = now().'.'.$new_name;
 
-			$path = ci()->storage->upload_file($container, $temp_file, $object, NULL, 'public-read');
+			$path = ci()->storage->upload_file($container, $temp_file, $object, NULL, 'public');
 
 			if ($new_location === 'amazon-s3')
 			{
 				// if amazon didn't throw an error we'll create a path to store like rackspace does
-				$path = 'http://'.$container.'.'.'s3.amazonaws.com/'.$object;
+				$url = ci()->parser->parse_string(Settings::get('files_s3_url'), array('bucket'=> $container), TRUE);
+				$path = rtrim($url, '/').'/'.$object;
 			}
 
 			$data = array('filename' => $object, 'path' => $path);
@@ -598,13 +600,39 @@ class Files
 				foreach ($cloud_list as $value) 
 				{
 					self::_get_file_info($value['name']);
-					$path = $location === 'amazon-s3' ? 'http://'.$container.'.'.'s3.amazonaws.com/'.$object : '';
 
-					$files[$i]['filesize'] 		= (int) $value['size'];
+					if ($location === 'amazon-s3')
+					{
+						// we'll create a path to store like rackspace does
+						$url = ci()->parser->parse_string(Settings::get('files_s3_url'), array('bucket'=> $container), TRUE);
+						$path = rtrim($url, '/').'/'.$value['name'];
+					}
+					elseif ($location === 'rackspace-cf')
+					{
+						// fetch the cdn uri from Rackspace
+						$cf_container = ci()->storage->get_container($container);
+						$path = $cf_container['cdn_uri'];
+
+						// they are trying to index a non-cdn enabled container
+						if ( ! $cf_container['cdn_enabled'])
+						{
+							// we'll try to enable it for them
+							if ( ! $path = ci()->storage->create_container($container, 'public'))
+							{
+								// epic fails all around!!
+								return self::result(FALSE, lang('files:enable_cdn'), $container);
+							}
+						}
+						$path = rtrim($path, '/').'/'.$value['name'];
+					}
+
+					$files[$i]['filesize'] 		= ((int) $value['size']) / 1000;
 					$files[$i]['filename'] 		= $value['name'];
 					$files[$i]['extension']		= self::$_ext;
+					$files[$i]['type']			= self::$_type;
 					$files[$i]['mimetype']		= self::$_mimetype;
 					$files[$i]['path']			= $path;
+					$files[$i]['date_added']	= $value['time'];
 					$i++;
 				}
 			}
@@ -621,10 +649,17 @@ class Files
 			{
 				foreach ($results as $value) 
 				{
-					$files[$i]['filesize'] 		= $value->filesize;
-					$files[$i]['filename'] 		= $value->filename;
-					$files[$i]['file_exists'] 	= file_exists(self::$path.$value->filename) ? TRUE : FALSE;
-					$i++;
+					if (file_exists(self::$path.$value->filename))
+					{
+						$files[$i]['filesize'] 		= $value->filesize;
+						$files[$i]['filename'] 		= $value->filename;
+						$files[$i]['extension']		= $value->extension;
+						$files[$i]['type']			= $value->type;
+						$files[$i]['mimetype']		= $value->mimetype;
+						$files[$i]['path']			= $value->path;
+						$files[$i]['date_added']	= $value->date_added;
+						$i++;
+					}
 				}
 			}
 		}
@@ -639,7 +674,7 @@ class Files
 	/**
 	 * Index files from a remote container
 	 *
-	 * @param	string	$folder_id	The cloud provider or local
+	 * @param	string	$folder_id	The folder id to refresh. Files will be fetched from its assigned container
 	 * @return	array
 	 *
 	**/
@@ -649,16 +684,63 @@ class Files
 
 		$files = Files::list_files($folder->location, $folder->remote_container);
 
-		if ($files)
+		// did the fetch go ok?
+		if ($files['status'])
 		{
-			dump($files);exit;
+			$valid_records = array();
+			$known = array();
+			$known_files = ci()->file_m->where('folder_id', $folder_id)->get_all();
+
+			// now we build an array with the database filenames as the keys so we can compare with the cloud list
+			foreach ($known_files as $item)
+			{
+				$known[$item->filename] = $item;
+			}
+
+			foreach ($files['data'] as $file)
+			{
+				// it's a totally new file
+				if ( ! array_key_exists($file['filename'], $known))
+				{
+					$insert = array(
+						'folder_id' 	=> $folder_id,
+						'user_id'		=> ci()->current_user->id,
+						'type'			=> $file['type'],
+						'name'			=> $file['filename'],
+						'filename'		=> $file['filename'],
+						'path'			=> $file['path'],
+						'description'	=> '',
+						'extension'		=> $file['extension'],
+						'mimetype'		=> $file['mimetype'],
+						'filesize'		=> $file['filesize'],
+						'date_added'	=> $file['date_added']
+					);
+
+					// we add the id to the list of records that have existing files to match them
+					$valid_records[] = ci()->file_m->insert($insert);
+				}
+				// it's totally not a new file
+				else
+				{
+					// update with the details we got from the cloud
+					ci()->file_m->update($known[$file['filename']]->id, $file);
+
+					// we add the id to the list of records that have existing files to match them
+					$valid_records[] = $known[$file['filename']]->id;
+				}
+			}
+
+			// Ok then. Let's clean up the records with no files and get out of here
+			ci()->db->where('folder_id', $folder_id)
+				->where_not_in('id', $valid_records)
+				->delete('files');
+
+			return self::result(TRUE, lang('files:synchronization_complete'), $folder->name, $files['data']);
 		}
 		else
 		{
-			return self::result(FALSE, lang('files:no_records_found'));
+			return self::result(NULL, lang('files:no_records_found'));
 		}
-
-		return self::result(TRUE, lang('files:synchronize_complete'), $folder->name, $data);
 	}
 
 	// ------------------------------------------------------------------------
@@ -949,7 +1031,7 @@ class Files
 	{
 		ci()->load->helper('file');
 
-		$ext		= pathinfo($filename, PATHINFO_EXTENSION);
+		$ext		= array_pop(explode('.', $filename));
 		$allowed	= config_item('files:allowed_file_ext');
 
 		foreach ($allowed as $type => $ext_arr)
@@ -957,7 +1039,7 @@ class Files
 			if (in_array(strtolower($ext), $ext_arr))
 			{
 				self::$_type		= $type;
-				self::$_ext			= implode('|', $ext_arr);
+				self::$_ext			= '.'.$ext;
 				self::$_filename	= $filename;
 				self::$_mimetype	= get_mime_by_extension($filename);
 

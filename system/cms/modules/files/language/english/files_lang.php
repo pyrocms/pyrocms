@@ -83,6 +83,9 @@ $lang['files:error_container']				= '"%s" could not be created and we could not 
 $lang['files:container_created']			= '"%s" has been created and is now linked to this folder';
 $lang['files:unwritable']					= '"%s" is unwritable, please set its permissions to 0777';
 $lang['files:specify_valid_folder']			= 'You must specify a valid folder to upload the file to';
+$lang['files:enable_cdn']					= 'You must enable CDN for "%s" via your Rackspace control panel before we can synchronize';
+$lang['files:synchronization_started']		= 'Starting synchronization';
+$lang['files:synchronization_complete']		= 'Synchronization for "%s" has been completed';
 
 // Files
 $lang['files:no_files']						= 'No files found';

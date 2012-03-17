@@ -37,6 +37,7 @@ class Admin extends Admin_Controller {
 				pyro.lang.ratio = '".lang('files:ratio')."';
 				pyro.lang.full_size = '".lang('files:full_size')."';
 				pyro.lang.cancel = '".lang('buttons.cancel')."';
+				pyro.lang.synchronization_started = '".lang('files:synchronization_started')."';
 				pyro.files = { permissions : ".json_encode(Files::allowed_actions())." };
 			</script>");
 	}

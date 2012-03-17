@@ -62,6 +62,14 @@ class Storage
 	{
 		return $this->_CI->{$this->_driver}->delete_container($cont);	
 	}
+
+	//
+	// Get a container
+	//
+	function get_container($cont)
+	{
+		return $this->_CI->{$this->_driver}->get_container($cont);
+	}
 	
 	//
 	// List all containers.

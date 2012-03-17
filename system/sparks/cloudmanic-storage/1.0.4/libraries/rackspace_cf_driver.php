@@ -49,6 +49,25 @@ class Rackspace_Cf_Driver extends Storage
 			break;
 		}
 	}
+
+	//
+	// Get the info for a container
+	//
+	function get_container($cont)
+	{
+		$my_container = $this->_conn->get_container($cont);
+
+		return array(
+			'name' 					=> $my_container->name,
+			'object_count'			=> $my_container->object_count,
+			'cdn_enabled'			=> $my_container->cdn_enabled,
+			'cdn_uri'				=> $my_container->cdn_uri,
+			'cdn_ttl'				=> $my_container->cdn_ttl,
+			'cdn_log_retention'		=> $my_container->cdn_log_retention,
+			'cdn_acl_user_agent'	=> $my_container->cdn_acl_user_agent,
+			'cdn_acl_referrer'		=> $my_container->cdn_acl_referrer
+		);
+	}
 	
 	//
 	// Delete a container.

@@ -315,6 +315,18 @@ class Module_Settings extends Module {
 				'module' => 'files',
 				'order' => 992,
 			),
+			'files_s3_url' => array(
+				'title' => 'Amazon S3 URL',
+				'description' => 'You may need to change this if using one of Amazon\'s UK locations.',
+				'type' => 'text',
+				'default' => 'http://{{ bucket }}.s3.amazonaws.com/',
+				'value' => 'http://{{ bucket }}.s3.amazonaws.com/',
+				'options' => '',
+				'is_required' => 1,
+				'is_gui' => 1,
+				'module' => 'files',
+				'order' => 991,
+			),
 			'files_cf_username' => array(
 				'title' => 'Rackspace Cloud Files Username',
 				'description' => 'To enable cloud file storage in your Rackspace Cloud Files account please enter your Cloud Files Username. <a href=\"https://manage.rackspacecloud.com/APIAccess.do\">Find your credentials</a>',
@@ -325,7 +337,7 @@ class Module_Settings extends Module {
 				'is_required' => 1,
 				'is_gui' => 1,
 				'module' => 'files',
-				'order' => 991,
+				'order' => 990,
 			),
 			'files_cf_api_key' => array(
 				'title' => 'Rackspace Cloud Files API Key',
@@ -337,7 +349,7 @@ class Module_Settings extends Module {
 				'is_required' => 1,
 				'is_gui' => 1,
 				'module' => 'files',
-				'order' => 990,
+				'order' => 989,
 			),
 			// @todo Move this to the respective module
 			'ga_tracking' => array(

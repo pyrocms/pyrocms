@@ -135,15 +135,14 @@ jQuery(function($){
 				$(this).hide();
 			}
 
-			// this is disabled for now
 			// one final check for the oddball "synchronize". If it's a local folder we hide it anyway
 			if (folder && $(this).attr('data-role') == 'synchronize') {
 				// fetch the item's data so we can check what its location is
-			//	$item = $(window).data('folder_'+pyro.files.$last_r_click.attr('data-id'));
+				$item = $(window).data('folder_'+pyro.files.$last_r_click.attr('data-id'));
 				// sorry buddy, no cloud for you
-			//	if ($item.location == 'local') {
+				if ($item.location == 'local') {
 					$(this).hide();
-			//	}
+				}
 			}
 			
 		});
@@ -752,6 +751,8 @@ jQuery(function($){
 
  	pyro.files.synchronize = function()
  	{
+ 		$(window).trigger('show-message', { status : null, message : pyro.lang.synchronization_started });
+
  		folder_id = pyro.files.$last_r_click.attr('data-id');
 
  	 	post = { 'folder_id' : folder_id };
@@ -759,6 +760,9 @@ jQuery(function($){
  		$.post(SITE_URL + 'admin/files/synchronize', post, function(data){
  			var results = $.parseJSON(data);
  			$(window).trigger('show-message', results);
+ 			if (results.status) {
+ 				pyro.files.folder_contents(folder_id);
+ 			}
  		});		
  	}
 

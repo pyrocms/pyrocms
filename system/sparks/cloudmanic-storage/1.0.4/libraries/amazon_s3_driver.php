@@ -45,6 +45,26 @@ class Amazon_S3_Driver extends Storage
 	}
 
 	//
+	// Get information about a bucket
+	// The Rackspace version of this actually does something useful :P
+	//
+	function get_container($cont)
+	{
+		$objects = $this->_CI->s3->getBucket($cont);
+
+		return array(
+			'name' 					=> $cont,
+			'object_count'			=> count($objects),
+			'cdn_enabled'			=> '',
+			'cdn_uri'				=> '',
+			'cdn_ttl'				=> '',
+			'cdn_log_retention'		=> '',
+			'cdn_acl_user_agent'	=> '',
+			'cdn_acl_referrer'		=> ''
+		);
+	}
+
+	//
 	// Delete a S3 bucket.
 	//
 	function delete_container($cont)
