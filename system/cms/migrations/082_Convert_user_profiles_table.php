@@ -19,7 +19,7 @@ class Migration_Convert_user_profiles_table extends CI_Migration {
     	// into a stream.
     	$this->load->driver('Streams');
 
-    	$this->streams->utilities->convert_table_to_stream('profiles', 'users', null, 'User Profiles', 'Profiles for users module', 'display_name', array('display_name'));
+    	$this->streams->utilities->convert_table_to_stream('profiles', 'users', null, 'lang:user_profile_fields_label', 'Profiles for users module', 'display_name', array('display_name'));
 
     	// Go ahead and convert our standard user fields:
     	$columns = array(
