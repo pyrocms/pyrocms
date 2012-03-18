@@ -197,7 +197,7 @@ class Plugin_User extends Plugin
 
 			$plugin_data[] = array(
 								'value'		=> $profile_data[$key],
-								'name'		=> $name,
+								'name'		=> $this->fields->translate_label($name),
 								'slug'		=> $field->field_slug
 							);
 		
