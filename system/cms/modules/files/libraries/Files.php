@@ -158,12 +158,12 @@ class Files
 	 * @return	array
 	 *
 	**/
-	public function folder_tree()
+	public static function folder_tree()
 	{
 		$folders = array();
 		$folder_array = array();
 
-		$all_folders = $this->file_folders_m
+		$all_folders = ci()->file_folders_m
 			->select('id, parent_id, slug, name')
 			 ->order_by('sort')
 			 ->get_all();
@@ -205,7 +205,7 @@ class Files
 	 * @return	array
 	 *
 	**/
-	public function check_container($name, $location)
+	public static function check_container($name, $location)
 	{
 		ci()->storage->load_driver($location);
 
@@ -890,6 +890,8 @@ class Files
 	**/
 	public static function exception_handler($e)
 	{
+		log_message('debug', $error);
+
 		echo json_encode( 
 			array('status' 	=> FALSE, 
 				  'message' => $e->getMessage(),
@@ -910,6 +912,8 @@ class Files
 	**/
 	public static function error_handler($e_number, $error)
 	{
+		log_message('debug', $error);
+
 		// only output the S3 error messages
 		if (strpos($error, 'S3') !== FALSE)
 		{

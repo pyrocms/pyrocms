@@ -22,10 +22,7 @@ class Admin extends Admin_Controller {
 
 		$this->config->load('files');
 		$this->lang->load('files');
-		$this->load->models(array(
-			'file_m',
-			'file_folders_m'
-		));
+		$this->load->library('files/files');
 
 		$this->template->append_metadata(
 			"<script>

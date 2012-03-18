@@ -41,8 +41,7 @@ class WYSIWYG_Controller extends MY_Controller
 		Asset::add_path('theme', $this->admin_theme->web_path.'/');
 		Asset::set_path('theme');
 
-		$this->load->model('files/file_folders_m');
-		$this->load->model('files/file_m');
+		$this->load->library('files/files');
 		$this->lang->load('files/files');
 		$this->lang->load('wysiwyg');
 		$this->lang->load('buttons');
