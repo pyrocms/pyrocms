@@ -2,8 +2,9 @@
 .item { height: 450px; overflow: hidden; }
 .sidebar { width: 20%; }
 section.two_third { width: 60%; }
-section.two_third .no_data { margin: 20px; }
+section.two_third .no_data { margin: 40px 20px 20px 20px; }
 
+.folders-sidebar .no_data { margin-right: 20px; }
 .folders-sidebar { height: 450px; border-right: 1px solid #d8d8d8; overflow-x: hidden; overflow-y: auto; }
 .folders-sidebar ul { padding-left: 15px !important; }
 .folders-sidebar li a { width: 80%; padding: 6px 3px 6px 3px; cursor: pointer; font-size: 14px; display: inline-block; }

@@ -51,7 +51,13 @@ jQuery(function($){
  							});
  						}
  					});
- 				}
+ 				} else {
+					$('.console .search-results').append(
+						'<li>'+
+							'<div class="info"></div>'+
+							results.message+
+						'</li>'); 							
+				}
  			})
 	 	} else {
 	 		$('.console .search-results').empty();
@@ -177,7 +183,11 @@ jQuery(function($){
 			break;
 
 			case 'new-folder':
-				pyro.files.new_folder(pyro.files.current_level);
+				$('.no_data').fadeOut(100);
+				// jQuery insists on adding the folder before no_data is removed. So we force it to wait
+				setTimeout(function(){
+					pyro.files.new_folder(pyro.files.current_level)
+				}, 150);
 			break;
 
 			case 'rename':
@@ -405,7 +415,7 @@ jQuery(function($){
 	 ***************************************************************************/
 	 pyro.files.new_folder = function(parent, name)
 	 {
-	 	if (typeof(name) === 'undefined') name = 'Untitled Folder';
+	 	if (typeof(name) === 'undefined') name = pyro.lang.untitled_folder;
 	 	var new_class = Math.floor(Math.random() * 1000);
 
 		// add an editable one to the right pane
@@ -413,8 +423,6 @@ jQuery(function($){
 			.appendTo('.folders-center')
 			.removeClass('new-folder')
 			.addClass('folder folder-' + new_class);
-
-		$('.no_data').fadeOut('fast');
 
 		var data
 		var post = { parent : parent, name : name };
@@ -435,14 +443,14 @@ jQuery(function($){
 				$parent_li = $('.folders-sidebar [data-id="'+parent+'"]');
 				if (parent === 0 || $parent_li.hasClass('places')) {
 					// this is a top level folder, we'll insert it after Places. Not really its parent
-					$parent_li.after('<li class="folder" data-id="'+results.data.id+'" data-name="'+results.data.name+'"><a href="#">'+results.data.name+'</a></li>');
+					$parent_li.after('<li class="folder" data-id="'+results.data.id+'" data-name="'+results.data.name+'"><div></div><a href="#">'+results.data.name+'</a></li>');
 				} else if ($parent_li.has('ul').length > 0) {
 					// it already has children so we'll just append this li to its ul
 					$parent_li.children('ul')
-						.append('<li class="folder" data-id="'+results.data.id+'" data-name="'+results.data.name+'"><a href="#">'+results.data.name+'</a></li>');
+						.append('<li class="folder" data-id="'+results.data.id+'" data-name="'+results.data.name+'"><div></div><a href="#">'+results.data.name+'</a></li>');
 				} else {
 					// it had no children, we'll have to add the <ul> and the icon class also
-					$parent_li.append('<ul><li class="folder" data-id="'+results.data.id+'" data-name="'+results.data.name+'"><a href="#">'+results.data.name+'</a></li></ul>');
+					$parent_li.append('<ul><li class="folder" data-id="'+results.data.id+'" data-name="'+results.data.name+'"><div></div><a href="#">'+results.data.name+'</a></li></ul>');
 					$parent_li.addClass('close');			
 				}
 
@@ -632,6 +640,12 @@ jQuery(function($){
 	 				// adjust the parents
 					$('[data-id="'+current_level+'"] ul:empty').remove();
 					$('[data-id="'+current_level+'"]').removeClass('open close');
+
+					// if they are trying it out and created a folder and then removed it
+					// then we show the no data messages again
+					if ($('.folders-center li').length == 0) {
+						$('.no_data').fadeIn('fast');
+					}
 	 			}
 	 		});
 		}

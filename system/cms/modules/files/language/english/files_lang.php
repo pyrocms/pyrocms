@@ -64,7 +64,8 @@ $lang['files:details']						= 'Details';
 
 // Folders
 
-$lang['files:no_folders']					= 'Files and folders are managed much like they would be on your desktop. Right click in the area below this message to create, edit, and delete files and folders.';
+$lang['files:no_folders']					= 'Files and folders are managed much like they would be on your desktop. Right click in the area below this message to create your first folder. Then right click on the folder to rename, delete, upload files to it, or change details such as linking it to a cloud location.';
+$lang['files:no_folders_places']			= 'Folders that you create will show up here in a tree that can be expanded and collapsed. Click on "Places" to view the root folder.';
 $lang['files:no_folders_wysiwyg']			= 'No folders have been created yet';
 $lang['files:new_folder_name']				= 'Untitled Folder';
 $lang['files:folder']						= 'Folder';
@@ -86,6 +87,7 @@ $lang['files:specify_valid_folder']			= 'You must specify a valid folder to uplo
 $lang['files:enable_cdn']					= 'You must enable CDN for "%s" via your Rackspace control panel before we can synchronize';
 $lang['files:synchronization_started']		= 'Starting synchronization';
 $lang['files:synchronization_complete']		= 'Synchronization for "%s" has been completed';
+$lang['files:untitled_folder']				= 'Untitled Folder';
 
 // Files
 $lang['files:no_files']						= 'No files found';

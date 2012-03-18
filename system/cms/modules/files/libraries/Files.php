@@ -848,7 +848,7 @@ class Files
 			return self::result(TRUE, NULL, NULL, $results);
 		}
 
-		return self::result(FALSE, NULL, NULL, $results);
+		return self::result(FALSE, lang('files:no_records_found'));
 	}
 
 	// ------------------------------------------------------------------------
