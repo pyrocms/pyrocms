@@ -504,7 +504,7 @@ jQuery(function($){
 
 						// if it's an image then we set the thumbnail as the content
 						if (item.type && item.type == 'i') {
-							var li_content = '<img src="'+SITE_URL+'files/thumb/'+item.id+'/75/50/fill" alt="'+item.name+'"/>'+
+							var li_content = '<img src="'+SITE_URL+'files/cloud_thumb/'+item.id+'" alt="'+item.name+'"/>'+
 												'<span class="name-text">'+item.name+'</span>';
 						} else {
 							var li_content = '<span class="name-text">'+item.name+'</span>'

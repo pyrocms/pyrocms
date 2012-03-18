@@ -14,7 +14,7 @@ section.two_third .no_data { margin: 20px; }
 .folders-sidebar li.current { background: url(../img/current.png) no-repeat 98% 6px; }
 
 .folders-center { height: 450px; overflow-y: auto; overflow-x: hidden; }
-.folders-center li:hover { background-color: #f7f7f7; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; }
+.folders-center li:hover { background-color: #ededed; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; }
 .folders-center .folder { width: 100px; height: 112px; margin: 10px; overflow: hidden; float: left; background: url(../img/folder.png) no-repeat; }
 .folders-center li .name-text { display: block; margin: 0 4px 0 4px; color: #515151; font-size: 11px; height: 15px; overflow: hidden; margin-top: 80px; text-align: center; }
 .folders-center li .name-text input { width: 92px; margin: 0; padding: 0; background: transparent; border: none; margin: 0; padding: 0; text-align: center; }

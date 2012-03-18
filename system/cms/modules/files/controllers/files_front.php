@@ -21,7 +21,6 @@ class Files_front extends Public_Controller
 	
 	public function download($id = 0)
 	{
-		$this->load->model('file_m');
 		$this->load->helper('download');
 
 		$file = $this->file_m->select('files.*, file_folders.location')
@@ -45,8 +44,6 @@ class Files_front extends Public_Controller
 
 	public function thumb($id = 0, $width = 100, $height = 100, $mode = NULL)
 	{
-		$this->load->model('file_m');
-
 		if (is_numeric($id))
 		{
 			$file = $this->file_m->get($id);
@@ -225,6 +222,41 @@ class Files_front extends Public_Controller
 	public function large($id, $width = NULL, $height = NULL, $mode = NULL)
 	{
 		return $this->thumb($id, $width, $height, $mode);
+	}
+
+	public function cloud_thumb($id = 0, $width = 75, $height = 50, $mode = 'fit')
+	{
+		$file = $this->file_m->select('files.*, file_folders.location')
+			->join('file_folders', 'file_folders.id = files.folder_id')
+			->get_by('files.id', $id);
+
+		// it is a cloud file, we will return the thumbnail made when it was uploaded
+		if ($file AND $file->location !== 'local')
+		{
+			$image_thumb = config_item('cache_dir').'/cloud_cache/'.$file->filename;
+
+			if ( ! file_exists($image_thumb))
+			{
+				$image_thumb = APPPATH.'modules/files/img/no-image.jpg';
+			}
+
+			if (isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) &&
+			(strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE']) == filemtime($image_thumb)))
+			{
+				// Send 304 back to browser if file has not been changed
+				header('Last-Modified: '.gmdate('D, d M Y H:i:s', filemtime($image_thumb)).' GMT', true, 304);
+				exit();
+			}
+
+			header('Content-type: ' . $file->mimetype);
+			header('Last-Modified: ' . gmdate('D, d M Y H:i:s', filemtime($image_thumb)) . ' GMT');
+			readfile($image_thumb);
+		}
+		// it's a local file, output a thumbnail like we normally do
+		elseif ($file)
+		{
+			return $this->thumb($id, $width, $height, $mode);
+		}
 	}
 }
 

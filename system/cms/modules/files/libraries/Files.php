@@ -12,6 +12,7 @@ class Files
 {
 	public		static $providers;
 	public 		static $path;
+	protected	static $_cache_path;
 	protected 	static $_ext;
 	protected	static $_type = '';
 	protected	static $_filename = NULL;
@@ -24,6 +25,7 @@ class Files
 		ci()->load->config('files/files');
 
 		self::$path = config_item('files:path');
+		self::$_cache_path = config_item('cache_dir').'cloud_cache/';
 		self::$providers = explode(',', Settings::get('files_enabled_providers'));
 
 		set_exception_handler(array($this, 'exception_handler'));
@@ -296,7 +298,9 @@ class Files
 	**/
 	public static function upload($folder_id, $name = FALSE, $field = 'userfile', $width = FALSE, $height = FALSE, $ratio = FALSE)
 	{
-		if ( ! $check_dir = self::_check_dir()) return $check_dir;
+		if ( ! $check_dir = self::_check_dir(self::$path)) return $check_dir;
+
+		if ( ! $check_cache_dir = self::_check_dir(self::$_cache_path)) return $check_cache_dir;
 
 		if ( ! $check_ext = self::_check_ext($field)) return $check_ext;
 
@@ -341,10 +345,11 @@ class Files
 					$config['source_image']     = self::$path.$data['filename'];
 					$config['new_image']        = self::$path.$data['filename'];
 					$config['maintain_ratio']   = $ratio;
-					$config['height']           = $height;
 					$config['width']            = $width;
+					$config['height']           = $height;
 					ci()->image_lib->initialize($config);
 					ci()->image_lib->resize();
+					$this->image_lib->clear();
 				}
 
 				$file_id = ci()->file_m->insert($data);
@@ -452,6 +457,21 @@ class Files
 				$data = array('filename' => $object, 'path' => $path);
 				// save its location
 				ci()->file_m->update($file->id, $data);
+
+				// now we create a thumbnail of the image for the admin panel to display
+				if ($file->type == 'i')
+				{
+					ci()->load->library('image_lib');
+
+					$config['image_library']    = 'gd2';
+					$config['source_image']     = self::$path.$file->filename;
+					$config['new_image']        = self::$_cache_path.$data['filename'];
+					$config['maintain_ratio']	= FALSE;
+					$config['width']            = 75;
+					$config['height']           = 50;
+					ci()->image_lib->initialize($config);
+					ci()->image_lib->resize();				
+				}
 
 				// get rid of the "temp" file
 				@unlink(self::$path.$file->filename);
@@ -768,6 +788,8 @@ class Files
 			{
 				ci()->storage->load_driver($file->location);
 				ci()->storage->delete_file($file->remote_container, $file->filename);
+
+				@unlink(self::$_cache_path.$file->filename);
 			}
 
 			return self::result(TRUE, lang('files:item_deleted'), $file->name);
@@ -953,28 +975,28 @@ class Files
 	 * @return	bool
 	 *
 	**/
-	private static function _check_dir()
+	private static function _check_dir($path)
 	{
-		if (is_dir(self::$path) AND is_really_writable(self::$path))
+		if (is_dir($path) AND is_really_writable($path))
 		{
 			return self::result(TRUE);
 		}
-		elseif ( ! is_dir(self::$path))
+		elseif ( ! is_dir($path))
 		{
-			if ( ! @mkdir(self::$path, 0777, TRUE))
+			if ( ! @mkdir($path, 0777, TRUE))
 			{
 				return self::result(FALSE, lang('files:mkdir_error'));
 			}
 			else
 			{
 				// create a catch all html file for safety
-				$uph = fopen(self::$path . 'index.html', 'w');
+				$uph = fopen($path . 'index.html', 'w');
 				fclose($uph);
 			}
 		}
 		else
 		{
-			if ( ! chmod(self::$path, 0777))
+			if ( ! chmod($path, 0777))
 			{
 				return self::result(FALSE, lang('files:chmod_error'));
 			}

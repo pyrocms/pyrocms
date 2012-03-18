@@ -64,7 +64,7 @@ $lang['files:details']						= 'Details';
 
 // Folders
 
-$lang['files:no_folders']					= 'Files and folders are managed much like they would be on your desktop. Use your mouse\'s right click in the area below this message to create, edit, and delete files and folders.';
+$lang['files:no_folders']					= 'Files and folders are managed much like they would be on your desktop. Right click in the area below this message to create, edit, and delete files and folders.';
 $lang['files:no_folders_wysiwyg']			= 'No folders have been created yet';
 $lang['files:new_folder_name']				= 'Untitled Folder';
 $lang['files:folder']						= 'Folder';
