@@ -250,7 +250,8 @@ class Users extends Public_Controller
 		{
 			if ($this->form_validation->run())
 			{	
-				// maybe it's a bot?
+				// Check for a bot usin' the old fashioned
+				// don't fill this input in trick.
 				if ($this->input->post('d0ntf1llth1s1n') !== ' ')
 				{
 					$this->session->set_flashdata('error', lang('user_register_error'));
@@ -259,18 +260,35 @@ class Users extends Public_Controller
 
 				$email				= $this->input->post('email');
 				$password			= $this->input->post('password');	
-			
-				// Let's do some crazy shit and make a username!
+
+				// --------------------------------
+				// Auto-Username
+				// --------------------------------
+				// There are no guarantees that we 
+				// will have a first/last name to
+				// work with, so if we don't, use
+				// an alternate method.
+				// --------------------------------
+					
 				if (Settings::get('auto_username'))
 				{
-					// We don't know what fields we have to create a username from,
-					// so we are going to use the string before their email address
-					// since we know they have at least an email address.
-					$email_parts = explode('@', $email);
-					$username = $email_parts[0];
+					if ($this->input->post('first_name') and $this->input->post('last_name'))
+					{
+						$this->load->helper('url');
+						$username = url_title($this->input->post('first_name').'.'.$this->input->post('last_name'), '-', true);
+					}
+					else
+					{
+						// If there is no first name/last name combo specified, let's
+						// user the identifier string from their email address
+						$email_parts = explode('@', $email);
+						$username = $email_parts[0];
+					}
 
+					// Usernames absolutely need to be unique, so let's keep
+					// trying until we get a unieque one
 					$i = 1;
-
+					
 					do
 					{
 						$i > 1 and $username .= $i;
@@ -284,6 +302,8 @@ class Users extends Public_Controller
 					// The user specified a username, so let's use that.
 					$username = $this->input->post('username');
 				}
+
+				// --------------------------------
 
 				// Do we have a display name? If so, let's use that.
 				// Othwerise we can use the username.
@@ -314,12 +334,12 @@ class Users extends Public_Controller
 						$this->load->library('user_agent');
 
 						Events::trigger('email', array(
-							'name' => $user->display_name,
-							'sender_ip' => $this->input->ip_address(),
-							'sender_agent' => $this->agent->browser().' '.$this->agent->version(),
-							'sender_os' => $this->agent->platform(),
-							'slug' => 'registered',
-							'email' => Settings::get('contact_email'),
+							'name'			=> $user->display_name,
+							'sender_ip' 	=> $this->input->ip_address(),
+							'sender_agent' 	=> $this->agent->browser().' '.$this->agent->version(),
+							'sender_os' 	=> $this->agent->platform(),
+							'slug' 			=> 'registered',
+							'email' 		=> Settings::get('contact_email'),
 						), 'array');
 					}
 
