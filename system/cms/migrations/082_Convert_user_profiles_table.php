@@ -93,7 +93,7 @@ class Migration_Convert_user_profiles_table extends CI_Migration {
     		),
      		'website' => array(
     			'field_name' => 'lang:profile_website',
-    			'field_type' => 'text'
+    			'field_type' => 'url'
     		)
         );
 
