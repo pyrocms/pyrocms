@@ -11,7 +11,7 @@ class Upload extends WYSIWYG_Controller
 	{
 		parent::__construct();
         $this->config->load('files/files');
-        $this->_path = FCPATH . '/' . $this->config->item('files_folder') . '/';
+        $this->_path = FCPATH . '/' . $this->config->item('files:path') . '/';
 		
 		// If the folder hasn't been created by the files module create it now
 		is_dir($this->_path) OR mkdir($this->_path, 0777, TRUE);
@@ -24,23 +24,18 @@ class Upload extends WYSIWYG_Controller
 		$rules = array(
 			array(
 				'field'   => 'name',
-				'label'   => 'lang:files.folders.name',
-				'rules'   => 'trim|required'
+				'label'   => 'lang:files:name',
+				'rules'   => 'trim'
 			),
 			array(
 				'field'   => 'description',
-				'label'   => 'lang:files.description',
+				'label'   => 'lang:files:description',
 				'rules'   => ''
 			),
 			array(
 				'field'   => 'folder_id',
-				'label'   => 'lang:files.labels.parent',
-				'rules'   => ''
-			),
-			array(
-				'field'   => 'type',
-				'label'   => 'lang:files.type',
-				'rules'   => 'trim|required'
+				'label'   => 'lang:files:folder',
+				'rules'   => 'required'
 			),
 		);
 
@@ -48,44 +43,26 @@ class Upload extends WYSIWYG_Controller
 
 		if ($this->form_validation->run())
 		{
-			// Setup upload config
-			$type		= $this->input->post('type');
-			$allowed	= $this->config->item('files_allowed_file_ext');
+			$input = $this->input->post();
 
-			$config['upload_path']		= $this->_path;
-			$config['allowed_types']	= implode('|', $allowed[$type]);
-			
-			
-			$this->load->library('upload', $config);
+			$results = Files::upload($input['folder_id'], $input['name'], 'userfile');
 
-			if ( ! $this->upload->do_upload('userfile'))
+			// if the upload was successful then we'll add the description too
+			if ($results['status'])
 			{
-                $this->session->set_flashdata('notice', $this->upload->display_errors());
-			}
-			else
-			{
-				$img = array('upload_data' => $this->upload->data());
-
-				$this->file_m->insert(array(
-					'folder_id'		=> $this->input->post('folder_id'),
-					'user_id'		=> $this->current_user->id,
-					'type'			=> $type,
-					'name'			=> $this->input->post('name'),
-					'description'	=> $this->input->post('description') ? $this->input->post('description') : '',
-					'filename'		=> $img['upload_data']['file_name'],
-					'extension'		=> $img['upload_data']['file_ext'],
-					'mimetype'		=> $img['upload_data']['file_type'],
-					'filesize'		=> $img['upload_data']['file_size'],
-					'width'			=> (int) $img['upload_data']['image_width'],
-					'height'		=> (int) $img['upload_data']['image_height'],
-					'date_added'	=> time(),
-				));
-
-                $this->session->set_flashdata('success',  sprintf(lang('files.create_success'), $img['upload_data']['file_name']));
+				$data = $results['data'];
+				$this->file_m->update($data->id, array('description' => $input['description']));
 			}
 
-			redirect("admin/wysiwyg/{$this->input->post('redirect_to')}/index/{$this->input->post('folder_id')}");
+			// upload has a message to share... good or bad?
+			$this->session->set_flashdata($results['status'] ? 'success' : 'notice', $results['message']);
 		}
+		else
+		{
+			$this->session->set_flashdata('error', validation_errors());
+		}
+
+		redirect("admin/wysiwyg/{$this->input->post('redirect_to')}/index/{$this->input->post('folder_id')}");
 	}
 
 }

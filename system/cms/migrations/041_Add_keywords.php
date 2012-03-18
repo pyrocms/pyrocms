@@ -20,7 +20,7 @@ class Migration_Add_keywords extends CI_Migration {
 			  `hash` char(32) NOT NULL,
 			  `keyword_id` int unsigned COLLATE utf8_unicode_ci NOT NULL,
 			  PRIMARY KEY (`id`)
-			) ENGINE=InnoDB;
+			) ENGINE=InnoDB CHARSET=utf8 COLLATE=utf8_unicode_ci;
 		";
 
 		if ($this->db->query($keywords) && $this->db->query($keywords_applied))

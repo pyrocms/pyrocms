@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['global:control-panel'] 			= 'Control Panel';
-$lang['global:profile']					= 'Profile'; #translate
+$lang['global:profile']					= 'Profile';
 
 $lang['title_label'] 					= 'Title';
 $lang['name_label'] 					= 'Name';
@@ -10,6 +10,7 @@ $lang['version_label'] 					= 'Version';
 $lang['global:author'] 					= 'Author';
 $lang['global:action'] 					= 'Action';
 $lang['global:slug'] 					= 'Slug';
+$lang['global:user'] 					= 'User';
 
 $lang['global:dialog:delete_message'] 	= 'Are you sure you want to delete this? It cannot be undone.';
 $lang['global:dialog:confirm'] 			= 'Confirm';

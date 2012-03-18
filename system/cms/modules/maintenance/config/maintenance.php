@@ -8,7 +8,7 @@
  * @package		PyroCMS\Core\Modules\Maintenance\Config
  */
 
-$config['maintenance.cache_protected_folders'] 	= array('simplepie');
+$config['maintenance.cache_protected_folders'] 	= array('simplepie', 'cloud_cache');
 $config['maintenance.cannot_remove_folders'] 	= array('codeigniter','theme_m');
 
 // An array of database tables that are eligible to be exported.
