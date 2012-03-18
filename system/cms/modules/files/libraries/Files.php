@@ -962,6 +962,8 @@ class Files
 	**/
 	protected static function create_slug($name)
 	{
+		$name = convert_accented_characters($name);
+
 		return strtolower(preg_replace('/-+/', '-', preg_replace('/[^a-zA-Z0-9]/', '-', $name)));
 	}
 
