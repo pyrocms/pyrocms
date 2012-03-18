@@ -12,9 +12,16 @@
 
 	<?php echo form_open('', array('id'=>'user_edit'));?>
 
-	<fieldset id="user_names">
+	<fieldset id="profile_fields">
 		<legend><?php echo lang('user_details_section') ?></legend>
 		<ul>
+			<li>
+				<label for="display_name"><?php echo lang('profile_display_name'); ?></label>
+				<div class="input">
+				<?php echo form_input(array('name' => 'display_name', 'id' => 'display_name', 'value' => set_value('display_name', $display_name))); ?>
+				</div>
+			</li>
+
 			<?php foreach($profile_fields as $field) { if($field['input']) { ?>
 			<li>
 				<label for="<?php echo $field['field_slug']; ?>">
@@ -50,7 +57,6 @@
 			</li>
 		</ul>
 	</fieldset>
-	
 
 	<?php if (Settings::get('api_enabled') and Settings::get('api_user_keys')): ?>
 		

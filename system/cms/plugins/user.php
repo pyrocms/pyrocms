@@ -173,21 +173,37 @@ class Plugin_User extends Plugin
 							'slug'		=> 'registered_on'
 						);
 
+		$plugin_data[] = array(
+							'value'		=> date($this->settings->item('date_format'), $user->created_on),
+							'name'		=> lang('profile_registred_on_label'),
+							'slug'		=> 'registered_on'
+						);
+
+		// Display name and updated on
+		$plugin_data[] = array(
+						'value'		=> $profile_data['display_name'],
+						'name'		=> lang('profile_display_name'),
+						'slug'		=> 'display_name'
+					);
+		$plugin_data[] = array(
+						'value'		=> date($this->settings->item('date_format'), $profile_data['updated_on']),
+						'name'		=> lang('profile_updated_on'),
+						'slug'		=> 'updated_on'
+					);
+
 		foreach($this->user_stream_fields as $key => $field)
 		{
-			if($field->field_slug != 'updated_on')
-			{
-				$name = (lang($field->field_name)) ? $this->lang->line($field->field_name) : $field->field_name;
+			$name = (lang($field->field_name)) ? $this->lang->line($field->field_name) : $field->field_name;
 
-				$plugin_data[] = array(
-									'value'		=> $profile_data[$key],
-									'name'		=> $name,
-									'slug'		=> $field->field_slug
-								);
-			
-				unset($name);
-			}
+			$plugin_data[] = array(
+								'value'		=> $profile_data[$key],
+								'name'		=> $name,
+								'slug'		=> $field->field_slug
+							);
+		
+			unset($name);
 		}
+
 
 		return $plugin_data;
 	}
@@ -251,6 +267,10 @@ class Plugin_User extends Plugin
 		{
 			$row = $this->db->limit(1)->where('user_id', $this->current_user->id)->get('profiles')->row_array();
 			$profile_data = $this->row_m->format_row($row, $this->user_stream_fields, $this->user_stream, false, $plugin_call, array('created_by'));
+
+			// Display name and updated_on go manually
+			$profile_data['display_name'] 	= $row['display_name'];
+			$profile_data['updated_on'] 	= $row['updated_on'];
 		}
 
 		return $profile_data;

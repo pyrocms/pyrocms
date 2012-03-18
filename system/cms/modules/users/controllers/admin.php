@@ -44,6 +44,11 @@ class Admin extends Admin_Controller {
 			'field' => 'active',
 			'label' => 'lang:user_active_label',
 			'rules' => ''
+		),
+		array(
+			'field' => 'display_name',
+			'label' => 'lang:profile_display_name',
+			'rules' => 'required'
 		)
 	);
 
@@ -234,6 +239,7 @@ class Admin extends Admin_Controller {
 		$this->template
 			->title($this->module_details['name'], lang('user_add_title'))
 			->set('member', $member)
+			->set('display_name', set_value('display_name', $this->input->post('display_name')))
 			->set('profile_fields', $this->streams->fields->get_stream_fields('profiles', 'users', $profile_data))
 			->build('admin/form', $this->data);
 	}
@@ -315,6 +321,9 @@ class Admin extends Admin_Controller {
 				$profile_data[$assign->field_slug] 	= $this->input->post($assign->field_slug);
 			}	
 
+			// We need to manually do display_name
+			$profile_data['display_name'] = $this->input->post('display_name');
+
 			// Password provided, hash it for storage
 			if ($this->input->post('password'))
 			{
@@ -355,6 +364,7 @@ class Admin extends Admin_Controller {
 
 		$this->template
 			->title($this->module_details['name'], sprintf(lang('user_edit_title'), $member->username))
+			->set('display_name', $profile_row->display_name)
 			->set('profile_fields', $this->streams->fields->get_stream_fields('profiles', 'users', $profile_data))
 			->set('member', $member)
 			->build('admin/form', $this->data);

@@ -66,17 +66,26 @@
 
 			<fieldset>
 				<ul>
-				<?php foreach($profile_fields as $field) { ?>
-				<li>
-					<label for="<?php echo $field['field_slug']; ?>">
-						<?php echo (lang($field['field_name'])) ? lang($field['field_name']) : $field['field_name'];  ?>
-						<?php if ($field['required']){ ?> <span>*</span><?php } ?>
-					</label>
-					<div class="input">
-						<?php echo $field['input']; ?>
-					</div>
-				</li>
-				<?php } ?>
+
+					<li>
+						<label for="display_name"><?php echo lang('profile_display_name');?> <span>*</span></label>
+						<div class="input">
+						<?php echo form_input('display_name', $display_name, 'id="display_name"'); ?>
+						</div>
+					</li>
+
+					<?php foreach($profile_fields as $field) { ?>
+					<li>
+						<label for="<?php echo $field['field_slug']; ?>">
+							<?php echo (lang($field['field_name'])) ? lang($field['field_name']) : $field['field_name'];  ?>
+							<?php if ($field['required']){ ?> <span>*</span><?php } ?>
+						</label>
+						<div class="input">
+							<?php echo $field['input']; ?>
+						</div>
+					</li>
+					<?php } ?>
+
 				</ul>
 			</fieldset>
 		</div>

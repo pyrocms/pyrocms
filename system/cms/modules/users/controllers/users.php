@@ -594,7 +594,12 @@ class Users extends Public_Controller
 			array(
 				'field' => 'email',
 				'label' => lang('user_email'),
-				'rules' => 'xss_clean|valid_email'
+				'rules' => 'required|xss_clean|valid_email'
+			),
+			array(
+				'field' => 'display_name',
+				'label' => lang('profile_display_name'),
+				'rules' => 'required|xss_clean'
 			)
 		);
 
@@ -710,9 +715,10 @@ class Users extends Public_Controller
 
 		// Render the view
 		$this->template->build('profile/edit', array(
-			'_user' => $user,
-			'profile_fields' => $this->streams->fields->get_stream_fields('profiles', 'users', $profile_data),
-			'api_key' => isset($api_key) ? $api_key : null,
+			'_user' 			=> $user,
+			'display_name'		=> $profile_row->display_name,
+			'profile_fields' 	=> $this->streams->fields->get_stream_fields('profiles', 'users', $profile_data),
+			'api_key' 			=> isset($api_key) ? $api_key : null,
 		));
 	}
 

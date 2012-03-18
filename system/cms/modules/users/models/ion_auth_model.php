@@ -562,13 +562,19 @@ class Ion_auth_model extends CI_Model
 			$this->load->driver('Streams');
 		}
 
-		if ($this->streams->entries->insert_entry($additional_data, 'profiles', 'users', array(), array('user_id' => $id)))
+		// This is the profile data that we are not running through streams
+		$extra = array(
+			'user_id'			=> $id,
+			'display_name' 		=> $additional_data['display_name']
+		);
+
+		if ($this->streams->entries->insert_entry($additional_data, 'profiles', 'users', array(), $extra))
 		{
 			return $id;
 		}
 		else
 		{
-			false;
+			return false;
 		}
 	}
 
@@ -1016,7 +1022,7 @@ class Ion_auth_model extends CI_Model
 	    $this->load->driver('streams');
 
 	    // Get the row id for the profile. Probably the same as
-	    // the user_id by not necessarilt
+	    // the user_id by not necessarily
 	    $profile = $this->db->limit(1)->where('user_id', $id)->get($this->tables['meta'])->row();
 	    if ( ! $profile) return false;
 
@@ -1028,7 +1034,11 @@ class Ion_auth_model extends CI_Model
 	
 	    $profile_parsed_data = $this->row_m->run_field_pre_processes($stream_fields, $stream, $profile->id, $profile_data);
 
-	    // Hey look at me I'm Phil Sturgeon I'm using transactions I'm so fancyyyy
+	    // Special provision for our non-stream controlled fields
+	    $profile_parsed_data['display_name'] 	= $profile_data['display_name'];
+	    $profile_parsed_data['updated_on']		= now();
+
+	    // Hey look at me I'm Phil Sturgeon I'm using transactions I'm so fancy!
 		$this->db->where($this->meta_join, $id);
 		$this->db->set($profile_parsed_data);
 		$this->db->update($this->tables['meta']);
