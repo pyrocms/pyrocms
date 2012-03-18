@@ -15,7 +15,7 @@ section.two_third .no_data { margin: 20px; }
 .folders-center { height: 450px; overflow-y: auto; overflow-x: hidden; }
 .folders-center li:hover { background-color: #f7f7f7; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; }
 .folders-center .folder { width: 100px; height: 112px; margin: 10px; overflow: hidden; float: left; background: url(../img/folder.png) no-repeat; }
-.folders-center li .name-text { display: block; margin: 0 4px 0 4px; font-size: 11px; height: 15px; overflow: hidden; margin-top: 80px; text-align: center; }
+.folders-center li .name-text { display: block; margin: 0 4px 0 4px; color: #515151; font-size: 11px; height: 15px; overflow: hidden; margin-top: 80px; text-align: center; }
 .folders-center li .name-text input { width: 92px; margin: 0; padding: 0; background: transparent; border: none; margin: 0; padding: 0; text-align: center; }
 
 .folders-center .file { width: 100px; height: 112px; margin: 10px; overflow: hidden; float: left; }
@@ -36,9 +36,12 @@ section.two_third .no_data { margin: 20px; }
 
 .console { height: 450px; border-left: 1px solid #d8d8d8; }
 .console li { padding: 10px 0 10px 20px; border-bottom: 1px solid #d8d8d8; }
-.console li .success { width: 20px; height: 20px; margin-right: 5px; float: left; background: url(../img/glyphicons-halflings-gray.png) no-repeat -71px -95px; }
-.console li .failure { width: 20px; height: 20px; margin-right: 5px; float: left; background: url(../img/glyphicons-halflings-gray.png) no-repeat -47px -94px; }
-.console li .info { width: 20px; height: 20px; margin-right: 5px; float: left; background: url(../img/glyphicons-halflings-gray.png) no-repeat -119px -95px; }
+.console .success { color: #52914D }
+.console .failure { color: #B72C2C; }
+.console .info { color: #354F68; }
+.console li div.success { width: 20px; height: 20px; margin-right: 5px; float: left; background: url(../img/glyphicons-halflings-gray.png) no-repeat -71px -95px; }
+.console li div.failure { width: 20px; height: 20px; margin-right: 5px; float: left; background: url(../img/glyphicons-halflings-gray.png) no-repeat -47px -94px; }
+.console li div.info { width: 20px; height: 20px; margin-right: 5px; float: left; background: url(../img/glyphicons-halflings-gray.png) no-repeat -119px -95px; }
 li.right-title { padding-left: 0; }
 li.right-title label { padding-left: 10px; }
 li.right-title input { margin-left: 20px; width: 83%; }

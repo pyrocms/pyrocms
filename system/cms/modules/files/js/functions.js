@@ -23,7 +23,9 @@ jQuery(function($){
  				break;
  			}
 
-	 		$('.console-title').after('<li><div class="'+status_class+'"></div>'+results.message+'</li>');
+	 		$('.console-title').after('<li class="'+status_class+'">'+
+	 										'<div class="'+status_class+'"></div>'+results.message+
+	 								  '</li>');
  		}
  	});
 
