@@ -395,8 +395,17 @@ class Fields
 			{
 				$rules = array();
 
-				$type = $this->CI->type->types->{$stream_field->field_type};	
-			
+				$type = $this->CI->type->types->{$stream_field->field_type};
+
+				// -------------------------------------
+				// Pre Validation Event
+				// -------------------------------------
+
+				if (method_exists($type, 'pre_validation_compile'))
+				{
+					$type->pre_validation_compile($stream_field);
+				}
+
 				// -------------------------------------
 				// Set required if necessary
 				// -------------------------------------
@@ -421,7 +430,7 @@ class Fields
 				{
 					$rules[] = 'streams_unique['.$stream_field->field_slug.':'.$method.':'.$stream_field->stream_id.']';
 				}
-				
+
 				// -------------------------------------
 				// Set extra validation
 				// -------------------------------------
@@ -436,7 +445,7 @@ class Fields
 					}
 					elseif (is_array($type->extra_validation))
 					{
-						$rules = array_merge($rules, $this->extra_validation);
+						$rules = array_merge($rules, $type->extra_validation);
 					}
 				}
 
