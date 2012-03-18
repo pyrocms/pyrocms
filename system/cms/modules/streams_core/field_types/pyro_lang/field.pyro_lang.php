@@ -92,4 +92,24 @@ class Field_pyro_lang
 		
 		return $form;
 	}	
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Pre-Ouput
+	 *
+	 * @param	array
+	 * @param	array
+	 * @return	string
+	 */
+	public function pre_output($input)
+	{
+		$langs = $this->CI->config->item('supported_languages');
+
+		if (isset($langs[$input]))
+		{
+			return $langs[$input]['name'];
+		}
+	}
+
 }
