@@ -95,8 +95,8 @@ class Admin extends Admin_Controller {
 
 				<li class="folder"
 					data-id="<?php echo $folder['id']?>" 
-					data-name="<?php echo $folder['name']?>"
-						<?php echo (strlen($folder['name']) > 20 ? 'title="'.$folder['name'].'"><a href="#">'.substr($folder['name'], 0, 20).'...</a>' : '><a href="#">'.$folder['name']); ?></a>
+					data-name="<?php echo $folder['name']?>">
+						<div></div><a href="#"><?php echo $folder['name']; ?></a>
 
 				<?php if(isset($folder['children'])): ?>
 						<ul style="display:none" >

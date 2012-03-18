@@ -94,8 +94,8 @@ jQuery(function($){
 	 		pyro.files.$last_r_click = $clicked.parent('li');
 	 		$('.context-menu-source [data-menu="open"]').trigger('click');
  		} else {
- 			$clicked.children('ul').slideToggle();
- 			$clicked.toggleClass('open close');
+ 			$clicked.parent('li').children('ul').slideToggle(50);
+ 			$clicked.parent('li').toggleClass('open close');
  		}
  	});
 
@@ -433,7 +433,7 @@ jQuery(function($){
 					.removeClass('folder-' + new_class);
 
 				$parent_li = $('.folders-sidebar [data-id="'+parent+'"]');
-				if (parent === 0) {
+				if (parent === 0 || $parent_li.hasClass('places')) {
 					// this is a top level folder, we'll insert it after Places. Not really its parent
 					$parent_li.after('<li class="folder" data-id="'+results.data.id+'" data-name="'+results.data.name+'"><a href="#">'+results.data.name+'</a></li>');
 				} else if ($parent_li.has('ul').length > 0) {
@@ -525,7 +525,11 @@ jQuery(function($){
 				pyro.files.current_level = folder_id;
 
 				// show the children in the left sidebar
-				$('.folders-sidebar [data-id="'+folder_id+'"] > ul:hidden').parent().trigger('click');
+				$('.folders-sidebar [data-id="'+folder_id+'"] > ul:hidden').parent('li').children('div').trigger('click');
+
+				// add the current indicator to the correct folder
+				$('.folders-sidebar li').removeClass('current');
+				$('.folders-sidebar [data-id="'+folder_id+'"]:not(.places)').addClass('current');
 
 				// and we succeeded
 				results.message = pyro.lang.fetch_completed;
@@ -695,7 +699,7 @@ jQuery(function($){
 				inline		: true,
 				href		: 'div.item-details',
 				width		: '500',
-				height		: type == 'file' ? '530' : '380',
+				height		: type == 'file' ? '570' : '380',
 				opacity		: 0
 			});
 
