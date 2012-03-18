@@ -62,6 +62,28 @@ class MY_Form_validation extends CI_Form_validation
 	}
 
 	// --------------------------------------------------------------------
+
+	/**
+	 * Valid URL
+	 *
+	 * @access 	public
+	 * @param	string
+	 * @return	void
+	 */
+	public function valid_url($str)
+	{
+		if (filter_var($str, FILTER_VALIDATE_URL))
+		{
+			return true;
+		}
+		else
+		{
+			$this->set_message('valid_url', $this->CI->lang->line('valid_url'));
+			return false;
+		}
+	}
+
+	// --------------------------------------------------------------------
 	
 	// NOTE: This was done because HMVC is not happy with $this->CI being used as a callback, instead it wants to look at CI::APP->controller
 	// -- Phil
