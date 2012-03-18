@@ -26,7 +26,7 @@ $lang['files:sort_saved']					= 'Η σειρά ταξινόμησης αποθη
 $lang['files:no_permissions']				= 'Δεν έχετε τα απαραίτητα δικαιώματα';
 
 // Labels
-$lang['files:activity']						= 'Δραστηριότητα';
+$lang['files:activity']						= 'Ενέργειες';
 $lang['files:places']						= 'Τοποθεσίες';
 $lang['files:back']							= 'Πίσω';
 $lang['files:forward']						= 'Εμπρός';
@@ -49,7 +49,7 @@ $lang['files:description']					= 'Περιγραφή';
 $lang['files:container']					= 'Container';
 $lang['files:bucket']						= 'Bucket';
 $lang['files:check_container']				= 'Έλεγχος Εγκυρότητας';
-$lang['files:search_message']				= 'Πληκτρολογήστε και πατήστε Enter';
+$lang['files:search_message']				= 'Εισάγετε όρο & Enter';
 $lang['files:search']						= 'Αναζήτηση';
 $lang['files:synchronize']					= 'Συγχρονισμός';
 
@@ -64,13 +64,15 @@ $lang['files:details']						= 'Λεπτομέρειες';
 
 // Folders
 
-$lang['files:no_folders']					= 'Η διαχείρηση των αρχείων και των φακέλων γίνεται περίπου όπως και στον υπολογιστή σας. Με δεξί κλικ στην περιοχή κάτω από αυτό το μήνυμα μπορείτε να δημιουργήσετε, να επεξεργαστείτε και να διαγράψετε αρχεία και φακέλους.';
-$lang['files:no_folders_wysiwyg']			= 'Δεν έχουν δημιουργηθεί ακόμη φακέλοι';
+$lang['files:no_folders']					= 'Η διαχείριση αρχείων και φακέλων γίνεται περίπου όπως και στον υπολογιστή σας. Κάντε δεξί κλικ στην περιοχή κάτω από αυτό το μήνυμα για να δημιουργήσετε τον πρώτο σας φάκελο. Στην συνέχεια μπορείτε να τον μετονομάσετε, αν ανεβάσετε σε αυτόν αρχεία ή και να τροποποιήσετε τις λεπτομέρειές του όπως για παράδειγμα να τον συνδέσετε με μια τοποθεσία στο cloud.';
+$lang['files:no_folders_places']			= 'Folders that you create will show up here in a tree that can be expanded and collapsed. Click on "Places" to view the root folder.';
+$lang['files:no_folders_places']			= 'Οι φάκελοι που θα δημιουργήσετε θα εμφανίζονται εδώ σε διάταξη δένδρου που μπορείτε να αναπτύξετε ή να συμπτύξετε. Κάντε κλικ στο "Τοποθεσίες" για να δείτε το αρχικό επίπεδο.';
+$lang['files:no_folders_wysiwyg']			= 'Δεν έχουν δημιουργηθεί ακόμη φάκελοι';
 $lang['files:new_folder_name']				= 'Φάκελος Χωρίς Όνομα';
 $lang['files:folder']						= 'Φάκελος';
-$lang['files:folders']						= 'Φακέλοι';
+$lang['files:folders']						= 'Φάκελοι';
 $lang['files:select_folder']				= 'Επιλέξτε έναν φάκελο';
-$lang['files:subfolders']					= 'Υποφακέλοι';
+$lang['files:subfolders']					= 'Υποφάκελοι';
 $lang['files:root']							= 'Αρχικός';
 $lang['files:no_subfolders']				= 'Χωρίς υποφακέλους';
 $lang['files:folder_not_empty']				= 'Πρέπει πρώτα να διαγράψετε τα περιεχόμενα του "%s"';
