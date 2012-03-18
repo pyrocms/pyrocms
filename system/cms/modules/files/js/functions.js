@@ -699,7 +699,7 @@ jQuery(function($){
 				inline		: true,
 				href		: 'div.item-details',
 				width		: '500',
-				height		: type == 'file' ? '570' : '380',
+				height		: type == 'file' ? '575' : '380',
 				opacity		: 0
 			});
 
