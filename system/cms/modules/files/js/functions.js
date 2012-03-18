@@ -564,6 +564,10 @@ jQuery(function($){
 	 	$input.keyup(function(e){
 	 		if(e.which == 13) {
 	 			$input.trigger('blur');
+	 		} else {
+	 			if ($(this).val().length > 49) {
+	 				$(this).val($(this).val().slice(0, 50));
+	 			}
 	 		}
 	 	})
 
