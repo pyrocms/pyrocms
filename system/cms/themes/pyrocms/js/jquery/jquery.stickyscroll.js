@@ -1,182 +1,162 @@
 /*
- * StickyScroll
- * written by Rick Harris - @iamrickharris
- * edited by George Petsagourakis
- * 
- * Requires jQuery 1.4+
- * 
- * Make elements stick to the top of your page as you scroll
- *
- * Usage: 
- *   
- *   $('selector').stickyScroll({ container: $(container-element) })
- * 
- *  The above is 'auto' mode. The sticky element will never cross the boundaries of 
- * the specified container.
- * 
- *   $('selector').stickyScroll()
- * 
- *  The above is also 'auto' mode, but the container will be the <body> tag.
- *
- *   $('selector').stickyScroll({ topBoundary: '100px', bottomBoundary: '200px' })
- *
- *  The above is "manual" mode. The boundaries are relative to the top and bottom of 
- * the document, and the sticky element will never cross those boundaries. So, 
- * in the example given, the top of the sticky element(s) will never be above 
- * 100 pixels from the top of the document and the bottom of the sticky 
- * element(s) will never be below 200 pixels from the bottom of the document.
- * 
- * $('selector').stickyScroll('reset')
- * 
- * Use the command above to rid an element of any stickiness
+ * StickyScroll - originally written by Rick Harris @iamrickharris
+ * heavily edited by George Petsagourakis
  */
 
-(function($) {
-  $.fn.stickyScroll = function(options) {
-    var methods = {
-      init : function(options) {
+;(function ( $, window, document, undefined ) {
 
-        var settings;
-        
-        if (options.autoBottomBoundary != true && options.autoBottomBoundary != false) {
-          if (options.container) {
+    // Create the defaults once
+    var pluginName = 'stickyScroll',
+        defaults = {
+          autoBottomBoundary: true, // Whether the bottom boundary should be determined automatically.
+          container: 'body',        // The container for the object, usually the <body>.
+          topBoundary: null,        // The top boundary, scroll will not be followed above this.
+          bottomBoundary: null,     // The bottom boundary, scroll will not be followed below this.
+          minimumWidth: null,       // The minimum width that 
+        };
+
+    // The actual plugin constructor
+    function Plugin( element, options ) {
+        this.element = element;
+        this.$element = $(element);
+
+        // Auto set the autoBottomBoundary.
+        if ( options.autoBottomBoundary != true && options.autoBottomBoundary != false ) {
+          if ( options.container ) {
             options.autoBottomBoundary = true;
           }
-          if (options.bottomBoundary) {
+          if ( options.bottomBoundary ) {
             options.autoBottomBoundary = false;
           }
         }
-        
-        settings = $.extend({
-          autoBottomBoundary: true,
-          container: $('body'),
-          topBoundary: null,
-          bottomBoundary: null,
-          minimumWidth: null,
-        }, options);
-        
-        function bottomBoundary() {
-          return $(document).height() - settings.container.offset().top - settings.container.attr('offsetHeight');
-        }
 
-        function topBoundary() {
-          return settings.container.offset().top
-        }
+        this.options = $.extend( {}, defaults, options ) ;
 
-        function elHeight(el) {
-          var height = $(el).outerHeight();
-          return height;
-        }
-        
-        // make sure user input is a jQuery object
-        settings.container = $(settings.container);
-        if(!settings.container.length) {
-          if(console) {
-            console.log('StickyScroll: the element ' + options.container + ' does not exist, we\'re throwing in the towel');
+        // Make sure user input is a jQuery object.
+        this.options.container = $( this.options.container );
+        if ( this.options.container === undefined || !this.options.container.length ) {
+          if ( console ) {
+            console.log( 'StickyScroll: the element ' + this.options.container + ' does not exist, we\'re throwing in the towel' );
           }
           return;
         }
 
-        function autoCalculateBottomBoundary()
-        {
-          if(settings.autoBottomBoundary) {
-            settings.topBoundary = topBoundary();
-            settings.bottomBoundary = bottomBoundary();
-          }
-        }
-        
-        autoCalculateBottomBoundary();
+        this._defaults = defaults;
+        this._name = pluginName;
 
-        return this.each(function(index) {
+        this.init();
+    }
 
-          var el = $(this),
-            win = $(window),
-            id = Date.parse(new Date()) + index,
-            height = elHeight(el);
-            
-          el.data('sticky-id', id);
-          
-          win.bind('scroll.stickyscroll-' + id, function() {
-            var top = $(document).scrollTop() + settings.topBoundary,
-            bottom = $(document).height() - top - elHeight(el);
-            if( $(window).width() > settings.minimumWidth) {
-              if(bottom <= settings.bottomBoundary) {
-                el.offset({
-                  top: $(document).height() - settings.bottomBoundary - elHeight(el)
-                })
-                .removeClass('sticky-active sticky-inactive')
-                .addClass('sticky-stopped');
+    Plugin.prototype = {
+    
+      init: function () {
+        // Lets cache some vars, these are safe to cache globally
+        var options = this.options,
+            $win = $(window),
+            $doc = $(document)
+            plugin = this;
+
+        // Adjust the top and bottom boundaries
+        _adjustBoundaries( options );
+
+        // Chainable
+        return this.$element.each(function (index) {
+
+          // Cache some vars, these are individual to every element passed.
+          var $el = $(this),                      // The element
+            id = Date.parse(new Date()) + index,  // The unique id of the element
+            height = $el.outerHeight(true),           // The elements height
+            namespace = '.stickyscroll-' + id;
+
+          // Tag the element.
+          $el.data('sticky-id', id);
+
+          // Bind the scroll event using the element id in the namespace to allow the removal of the bind.
+          $win.bind('scroll' + namespace, function () {
+            // Cache some vars here too, these change on every event trigger.
+            // top: push the object down where the document has been scrolled, and then some more for the topBoundary
+            // bottom: the remaining space from the bottom of the element to the documents end
+            var top = $doc.scrollTop() + options.topBoundary,
+              bottom = $doc.height() - (top + height);
+
+            // Only if this window width allows for us
+            if ($win.width() > options.minimumWidth) {
+
+              // If we are not on the top of the document.
+              if ($doc.scrollTop() > 0) {
+                // If the elements bottom is below the bottom boundary
+                if (bottom < options.bottomBoundary) {
+                  // we are setting the css top: to the document height without the bottom boundary we've set and the height of the element.
+
+                  $el.offset({
+                    top: $doc.height() - (height + options.bottomBoundary)
+                  });
+                } else {
+                  // we are setting the css to point to the value of the `top` variable.
+                  $el.offset({
+                    top: top
+                  });
+                }
               }
-            
-              else if(top > settings.topBoundary) {
-                el.offset({
-                  top: $(window).scrollTop() + settings.topBoundary
-                })
-                .removeClass('sticky-stopped sticky-inactive')
-                .addClass('sticky-active');
+              // So the window has scrolled to the top
+              else if ($doc.scrollTop() === 0) {
+                // forget about the css top: property, it will be handled via the css
+                $el.css( { top: '' } );
               }
-            
-              else if(top < settings.topBoundary || $(document).scrollTop() === 0) {
-                el.css({
-                  position: '', 
-                  top: '',
-                })
-                .removeClass('sticky-stopped sticky-active')
-                .addClass('sticky-inactive');
-              }
-            } else {
-              methods.reset.apply(this);
             }
-          });
-          
-          win.bind('resize.stickyscroll-' + id, function() {
-            autoCalculateBottomBoundary();
-            height = elHeight(el);
-            $(this).scroll();
-          })
-          
-          el.addClass('sticky-processed');
-          
-          // start it off
-          win.scroll();
+            else {
+              plugin.reset($el, false);
+            }
 
-        });
-        
-      },
-      
-      reset : function() {
-        return this.each(function() {
-          var el = $(this),
-          id = el.data('sticky-id');
-            
-          el.css({
-            position: '',
-            top: '',
-            bottom: ''
+          });
+
+          $win.bind('resize' + namespace, function () {
+            _adjustBoundaries( options );
+            $(window).scroll();
           })
-          .removeClass('sticky-stopped')
-          .removeClass('sticky-active')
-          .removeClass('sticky-inactive')
-          .removeClass('sticky-processed');
-          
-          $(window).unbind('.stickyscroll-' + id);
+
+          // start it off
+          $(window).scroll();
         });
-      }
-      
+      },
+
+      reset : function (el) {
+        $(el).css( { top: '' } );
+        $(window).unbind( '.stickyscroll-' + $(el).data('sticky-id') );
+      },
+    
     };
     
-    // if options is a valid method, execute it
-    if (methods[options]) {
-      return methods[options].apply(this, Array.prototype.slice.call(arguments, 1));
-    }
-    // or, if options is a config object, or no options are passed, init
-    else if (typeof options === 'object' || !options) {
-      return methods.init.apply(this, arguments);
-    }
+    var _adjustBoundaries = function ( options ) {
+      if ( options.autoBottomBoundary ) {
+        options.topBoundary = options.container.offset().top;
+        options.bottomBoundary = $(document).height() - (options.container.offset().top + (options.container.offsetHeight || 0));
+      }
+    };
     
-    else if(console) {
-      console.log('Method' + options + ' does not exist on jQuery.stickyScroll');
+    // A really lightweight plugin wrapper around the constructor,
+    // preventing against multiple instantiations
+    $.fn[pluginName] = function ( options ) {
+
+      return this.each( function () {
+
+        if ( options === 'reset' ) {
+
+          if ( $.data(this, 'plugin_' + pluginName) ) {
+            $.data( this, 'plugin_' + pluginName ).reset(this);
+            $.removeData( this, 'plugin_' + pluginName );
+          }
+          return this;
+
+        }
+
+        if ( !$.data( this, 'plugin_' + pluginName ) ) {
+          $.data( this, 'plugin_' + pluginName, new Plugin( this, options ) );
+          //console.log($.data( this, 'plugin_' + pluginName ).options);
+        }
+
+      });
+
     }
 
-  };
-})(jQuery);
+})( jQuery, window, document );
