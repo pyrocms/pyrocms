@@ -622,7 +622,7 @@ jQuery(function($){
 	 			if (results.status && type == 'file') {
 		 			// delete locally
 		 			$(window).removeData('file_'+id);
-	 				$('[data-id="'+id+'"]').remove();
+	 				$('.folders-center [data-id="'+id+'"]').remove();
 	 			}
 	 			if (results.status && type == 'folder') {
 		 			// delete locally
