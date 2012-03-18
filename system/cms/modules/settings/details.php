@@ -224,7 +224,7 @@ class Module_Settings extends Module {
 				'type' => 'text',
 				'default' => 'http://feeds.feedburner.com/pyrocms-installed',
 				'value' => '',
-				'options' => '10=10|25=25|50=50|100=100',
+				'options' => '',
 				'is_required' => 0,
 				'is_gui' => 1,
 				'module' => '',
@@ -236,7 +236,7 @@ class Module_Settings extends Module {
 				'type' => 'text',
 				'default' => '5',
 				'value' => '5',
-				'options' => '10=10|25=25|50=50|100=100',
+				'options' => '',
 				'is_required' => 1,
 				'is_gui' => 1,
 				'module' => '',
@@ -260,7 +260,7 @@ class Module_Settings extends Module {
 				'type' => 'textarea',
 				'default' => 'Sorry, this website is currently unavailable.',
 				'value' => '',
-				'options' => '1=Open|0=Closed',
+				'options' => '',
 				'is_required' => 0,
 				'is_gui' => 1,
 				'module' => '',
@@ -757,6 +757,18 @@ class Module_Settings extends Module {
 				'module' => 'api',
 				'order' => 0,
 			),
+			'cdn_domain' => array(
+				'title' => 'CDN Domain',
+				'description' => 'CDN domains allow you to offload static content to various edge servers, like Amazon CloudFront or MaxCDN.',
+				'type' => 'text',
+				'default' => '',
+				'value' => '',
+				'options' => '',
+				'is_required' => false,
+				'is_gui' => true,
+				'module' => 'integration',
+				'order' => 1000,
+			)
 		);
 
 		// Lets add the settings for this module.

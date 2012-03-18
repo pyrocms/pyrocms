@@ -13,12 +13,14 @@ class Widget_Blog_categories extends Widgets
 	public $title		= array(
 		'en' => 'Blog Categories',
 		'br' => 'Categorias do Blog',
+		'el' => 'Κατηγορίες Ιστολογίου',
 		'ru' => 'Категории Блога',
 		'id' => 'Kateori Blog',
 	);
 	public $description	= array(
 		'en' => 'Show a list of blog categories',
 		'br' => 'Mostra uma lista de navegação com as categorias do Blog',
+		'el' => 'Προβάλει την λίστα των κατηγοριών του ιστολογίου σας',
 		'ru' => 'Выводит список категорий блога',
 		'id' => 'Menampilkan daftar kategori tulisan',
 	);
