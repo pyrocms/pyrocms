@@ -1,0 +1,19 @@
+# This is the spark-sdk specification. It's in a magical format without a name.
+#  Use this format while developing your own sparks!
+
+# This is the spark name. This should be the registered name of the spark.
+name: payments
+
+# This is the current version of this spark. All sparks should be in
+#  x.x.x format. Validation will fail otherwise.
+version: 0.0.5
+
+# This is the version of CodeIgniter this spark is compatible up to. It should
+#  be in x.x.x format
+compatibility: 2.0.0
+
+# These are other sparks which this spark needs in order to work correctly.
+#  Dependencies should be in NAME: VERSION format, where NAME is an existing
+#  spark name, and VERSION is a version in x.x.x format. 
+#dependencies:
+curl: 1.2.1

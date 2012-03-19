@@ -4,10 +4,9 @@
  *
  * Create a list of files
  *
- * @package		PyroCMS
- * @author		Marcos Coelho - PyroCMS Dev Team
- * @copyright	Copyright (c) 2008 - 2011, PyroCMS
- *
+ * @author		Marcos Coelho
+ * @author		PyroCMS Dev Team
+ * @package		PyroCMS\Core\Modules\Files\Plugins
  */
 class Plugin_Files extends Plugin
 {
@@ -86,11 +85,15 @@ class Plugin_Files extends Plugin
 			))
 		{
 			$ids = array_merge(array((int) $folder->id), array_keys($subfolders));
-			$this->file_m->where_in('folder_id', $ids);
+			$this->file_m->select('files.*, file_folders.location')
+				->join('file_folders', 'file_folders.id = files.folder_id')
+				->where_in('folder_id', $ids);
 		}
 		else
 		{
-			$this->file_m->where('folder_id', $folder->id);
+			$this->file_m->select('files.*, file_folders.location')
+				->join('file_folders', 'file_folders.id = files.folder_id')
+				->where('folder_id', $folder->id);
 		}
 
 		$type AND $this->file_m->where('type', $type);
@@ -98,7 +101,7 @@ class Plugin_Files extends Plugin
 		$offset AND $this->file_m->limit($offset);
 
 		$files = $this->file_m->get_all();
-		$files AND array_merge($this->_files, assoc_array_prop($files));
+		$files AND array_merge($this->_files, $files);
 
 		return $files;
 	}
@@ -122,7 +125,9 @@ class Plugin_Files extends Plugin
 		}
 		else
 		{
-			$type AND $this->file_m->where('type', $type);
+			$type AND $this->file_m->select('files.*, file_folders.location')
+						->join('file_folders', 'file_folders.id = files.folder_id')
+						->where('type', $type);
 
 			$file = $this->file_m->get($id);
 		}
@@ -168,16 +173,22 @@ class Plugin_Files extends Plugin
 				$dimension = trim($width . '/' . $height . '/' . $mode, '/');
 			}
 
-			$uri = $dimension ? sprintf('files/thumb/%s/%s', $file->id, $dimension) : sprintf('files/large/%s', $file->id);
+			$uri = $dimension AND $file->location == 'local' ? sprintf('files/thumb/%s/%s', $file->filename, $dimension) : $file->path;
 		}
 		else
 		{
-			$uri = 'files/download/' . $file->id;
+			$uri = $file->location == 'local' ? 'files/download/' . $file->id : $file->path;
 		}
 
 		// return string
 		if ($return)
 		{
+			// if it isn't local then they are getting a url regardless what they ask for
+			if ($file->location !== 'local')
+			{
+				return $file->path;
+			}
+
 			return $return === 'url' ? site_url($uri) : BASE_URI . $uri;
 		}
 

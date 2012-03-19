@@ -1,20 +1,18 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
- * @author 		Zack Kitzmiller - PyroCMS development team
- * @package		PyroCMS
- * @subpackage	Installer
- * @category	Application
- * @since 		v0.9.9.2
- *
  * Installer's Ajax controller.
+ * 
+ * @author 		Zack Kitzmiller
+ * @author		PyroCMS Dev Team
+ * @package		PyroCMS\Installer\Controllers
  */
 class Ajax extends CI_Controller {
 
 	/**
 	 * Array of languages supported by the installer
 	 */
-	private $languages = array('arabic', 'english', 'dutch', 'brazilian', 'polish', 'chinese_traditional', 'french', 'slovenian', 'spanish', 'lithuanian','danish');
+	private $languages	= array ('arabic', 'brazilian', 'english', 'dutch', 'french', 'german', 'polish', 'chinese_traditional', 'slovenian', 'spanish', 'russian', 'greek', 'lithuanian','danish','vietnamese', 'indonesian', 'hungarian', 'finnish', 'swedish');
 
 	public function __construct()
 	{
@@ -112,7 +110,7 @@ class Ajax extends CI_Controller {
 			'curl' => $this->installer_lib->curl_enabled(),
 		);
 
-		include '../system/cms/libraries/Curl.php';
+		include '../system/sparks/curl/1.2.1/libraries/Curl.php';
 		$url = 'http://www.pyrocms.com/statistics/add ';
 		$curl = new Curl;
 		$curl->simple_post($url, $data);
@@ -122,7 +120,7 @@ class Ajax extends CI_Controller {
 	 * Check if apache's mod_rewrite is enabled
 	 *
 	 * @access	public
-	 * @author	Jerel Unruh - PyroCMS Dev Team
+	 * @author	PyroCMS Dev Team
 	 * @return	string
 	 */
 	public function check_rewrite()

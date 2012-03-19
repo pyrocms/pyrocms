@@ -1,0 +1,535 @@
+/*
+ * ==================================
+ *     Workless 2.0 ❖ by @iKreativ
+ * ==================================
+ *
+ * Workless is a mixup of HTML5 Boilerplate and Twitters Bootstrap with some added extras!
+ *
+ * Credits:
+ * - HTML5 Boilerplate: Nicolas Gallagher, Jonathan Neal, Kroc Camen, and the H5BP dev team.
+ * - Twitter Bootstrap: @twitter, @mdo and @fat.
+ */
+
+/* ----------------------------------
+ *   Responsivness
+ * ----------------------------------
+ * @media queries for responsive design.
+ * These override the primary('mobile first') styles.
+ *
+ * ! Ensure your main styling comes before this !
+ *
+ * ---------------------------------- */
+
+@media only screen and (min-width: 281px) {
+
+	#logo {
+		display: none;
+	}
+
+	.topbar {
+		height: 100px;
+	}
+
+	.topbar ul li a {
+  		padding: 15px 5px 15px 5px;
+	}
+
+	.subbar {
+		margin-top: 70px;
+	}
+
+	.sections_bar {
+		margin-top: 55px;
+	}
+
+	#content-body {
+		top: 30px;
+	}
+
+}
+
+@media only screen and (min-width: 481px) {
+
+	.wrapper {
+		width: 480px;
+		margin: 0 auto;
+	}
+
+	#container {
+		width: 480px;
+		height: 100%;
+		min-height: 100%;
+		margin: 0 auto;
+		padding: 0;
+	}
+
+	section.title, section.item {width: 450px;}
+
+	#logo {
+		display: none;
+	}
+
+	.topbar {
+		height: 100px;
+	}
+	.topbar ul {
+		margin-left: -15px;
+		padding-left: 0px!important;
+	}
+
+	.topbar ul li a {
+  		padding: 15px 5px 15px 5px;
+	}
+
+	.subbar {
+		margin-top: 70px;
+	}
+	.subbar h2, .subbar h2 a {
+		padding: 0;
+	}
+	.sections_bar {
+		margin-top: 55px;
+	}
+
+	#content-body {
+		top: 30px;
+	}
+
+	#analyticsWrapper, #analytics {
+		width: 432px;
+	}
+
+	section#content {
+		width: 450px;
+		padding: 0;
+		margin: 150px 0 150px 0;
+		float: left;
+	}
+
+	.one_full {
+		width: 450px;
+		margin: 0;
+		float: left;
+	}
+
+	.one_half {
+		width: 450px;
+		float: left;
+	}
+
+	td.one_half {
+		width: 430px;
+	}
+
+	/*.one_third {
+		width: 450px;
+		float: left;
+	}
+
+	.two_third {
+		width: 450px;
+		float: left;
+	}*/
+
+	.one_quarter {
+		width: 100px;
+		float: left;
+		margin-right: 15px;
+	}
+
+	.three_quarter {
+		width: 310px;
+		float: left;
+	}
+
+	#quick_links ul li {
+		width: 75px;
+		float: left;
+		margin: 3px 15px 0 15px;
+	}
+
+	footer p {
+		padding: 0;
+	}
+
+	#shortcuts {
+		right: 0;
+	}
+
+	.alert {
+		width: 450px;
+	}
+
+	.form_inputs fieldset > ul > li > label,
+	.form_inputs fieldset > ul > div > li > label,
+	.form_inputs > ul > div > li > label,
+	.form_inputs > ul > li > label,
+	.form_inputs fieldset > ul > li .label,
+	.form_inputs > ul > li .label {
+		width: 27%!important;
+		float: left;
+	}
+
+	.form_inputs label small {
+		margin-left: 0;
+		margin-bottom: 0;
+	}
+
+	.form_inputs fieldset {
+		width: auto;
+	}
+
+	table {
+		width: 100%;
+		margin: 0;
+		font-size: 13px;
+	}
+
+}
+
+@media only screen and (min-width: 768px) {
+
+	.topbar, .subbar, .sections_bar {position: fixed;}
+
+	.wrapper {
+		width: 750px;
+		margin: 0 auto;
+	}
+
+	#container {
+		width: 750px;
+		height: 100%;
+		min-height: 100%;
+		margin: 0 auto;
+		padding: 0;
+	}
+
+	section.title, section.item {width: 720px;}
+
+	#logo {
+		display: inherit;
+	}
+
+	.topbar {
+		height: 50px;
+	}
+
+	.topbar ul li a {
+  		padding: 15px 5px 15px 5px;
+	}
+
+	.subbar {
+		margin-top: 25px;
+	}
+	.subbar small {
+		display: block;
+	}
+
+	.sections_bar {
+		margin-top: 9px;
+	}
+
+	#content-body {
+		top: 0px;
+	}
+
+	#analyticsWrapper, #analytics {
+		width: 750px;
+	}
+
+	section#content {
+		width: 750px;
+		padding: 0;
+		margin: 150px 0 150px 0;
+		float: left;
+	}
+
+	.one_full {
+		width: 750px;
+		margin: 0;
+		float: left;
+	}
+
+	.one_half {
+		width: 365px;
+		margin-right: 15px;
+		float: left;
+	}
+
+	td.one_half {
+		width: 325px;
+	}
+
+	.one_half section.title, .one_half section.item {width: 335px;}
+
+	/*.one_third {
+		width: 250px;
+		margin-right: 15px;
+		float: left;
+	}
+	.one_third section.title, .one_third section.item {width: 220px;}
+
+	.two_third {
+		width: 500px;
+		margin-right: 15px;
+		float: left;
+	}
+	.two_third section.title, .two_third section.item {width: 470px;}
+	*/
+
+	.one_quarter {
+		width: 200px;
+		margin-right: 15px;
+		float: left;
+	}
+
+	.three_quarter {
+		width: 500px;
+		float: left;
+	}
+
+	#quick_links ul li {
+		width: 75px;
+		float: left;
+		margin: 3px 5px 0 5px;
+	}
+
+	footer p {
+		float: left;
+		padding: 10px 0 0 0;
+		width: 60%;
+	}
+
+	ul#lang {
+		float: right;
+		margin-right: 0;
+	}
+
+	.move-handle {display: block;}
+	fieldset {padding: 25px; margin: 5px 0 15px 0;}
+	.form_inputs .input > input {min-width: 210px!important;}
+	table th.collapse, table td.collapse {display: table-cell;}
+	table .actions a {
+		display: inline;
+		margin-bottom: 0;
+	}
+	.subbar h2, .subbar h2 a {font-size: 28px;}
+
+	.alert {
+		width: 720px;
+	}
+
+}
+
+@media only screen and (min-width: 1025px) {
+
+	.wrapper {
+		width: 1024px;
+		margin: 0 auto;
+	}
+
+	#container {
+		width: 1024px;
+		height: 100%;
+		min-height: 100%;
+		margin: 0 auto;
+		padding: 0;
+	}
+
+	section.title, section.item {width: 994px;}
+
+	.topbar {
+		height: 50px;
+		text-align: center;
+	}
+
+	.topbar ul li {
+  		min-width: 70px;
+	}
+
+	.subbar {
+		top: 25px;
+	}
+
+	.sections_bar {
+		top: 95px;
+	}
+
+	#content-body {
+		top: 0px;
+	}
+
+	#analyticsWrapper, #analytics {
+		width: 976px;
+	}
+
+	section#content {
+		width: 1024px;
+		padding: 0;
+		margin: 150px 0 150px 0;
+		float: left;
+	}
+
+	.one_full {
+		width: 1000px;
+		margin: 0;
+		float: left;
+	}
+
+	.one_half {
+		width: 500px;
+		margin-right: 10px;
+		float: left;
+	}
+
+	td.one_half {
+		width: 465px;
+	}
+
+	.one_half section.title, .one_half section.item {width: 470px;}
+
+	/*.one_third {
+		width: 350px;
+		margin-right: 15px;
+		float: left;
+	}
+
+	.two_third {
+		width: 786px;
+		margin-right: 15px;
+		float: left;
+	}*/
+
+	.one_quarter {
+		width: 230px;
+		margin-right: 15px;
+		float: left;
+	}
+
+	.three_quarter {
+		width: 730px;
+		float: left;
+	}
+
+	#quick_links ul li {
+		width: 75px;
+		float: left;
+		margin: 3px 18px 0 18px;
+	}
+
+	footer p {
+		padding: 0px;
+		margin: 0px;
+		line-height: 60px;
+		width: 60%;
+		vertical-align: middle;
+	}
+
+	.alert {
+		width: 995px;
+	}
+
+}
+
+@media only screen and (min-width: 1281px) {
+
+	.wrapper {
+		width: 1280px;
+		margin: 0 auto;
+	}
+
+	#container {
+		width: 1280px;
+		height: 100%;
+		min-height: 100%;
+		margin: 0 auto;
+		padding: 0;
+	}
+
+	section.title, section.item {width: 1250px;}
+
+	.topbar {
+		height: 50px;
+		text-align: center;
+	}
+
+	.topbar ul li {
+  		min-width: 80px;
+	}
+
+	.subbar {
+		top: 25px;
+	}
+
+	.sections_bar {
+		top: 95px;
+	}
+
+	#content-body {
+		top: 0px;
+	}
+
+	#analyticsWrapper, #analytics {
+		width: 1280px;
+	}
+
+	section#content {
+		width: 1280px;
+		padding: 0;
+		margin: 170px 0 150px 0;
+		float: left;
+	}
+
+	.one_full {
+		width: 1280px;
+		margin: 0;
+		float: left;
+	}
+	.one_full section.title, .one_full section.item {width: 1250px;}
+
+	.one_half {
+		width: 625px;
+		margin-right: 10px;
+		float: left;
+	}
+
+	td.one_half {
+		width: 595px;
+	}
+
+	.one_half section.title, .one_half section.item {width: 595px;}
+
+	/*.one_third {
+		width: 350px;
+		margin-right: 15px;
+		float: left;
+	}
+
+	.two_third {
+		width: 786px;
+		margin-right: 15px;
+		float: left;
+	}*/
+
+	.one_quarter {
+		width: 230px;
+		margin-right: 15px;
+		float: left;
+	}
+
+	.three_quarter {
+		width: 975px;
+		float: left;
+	}
+
+	#quick_links ul li {
+		width: 75px;
+		float: left;
+		margin: 3px 35px 0 35px;
+	}
+
+	.alert {
+		width: 1250px;
+	}
+
+}

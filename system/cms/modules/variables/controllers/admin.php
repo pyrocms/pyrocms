@@ -3,10 +3,7 @@
  * Admin controller for the variables module
  *
  * @author		PyroCMS Dev Team
- * @package		PyroCMS
- * @subpackage 	Variables Module
- * @category	Modules
- * @copyright	Copyright (c) 2008 - 2011, PyroCMS
+ * @package 	PyroCMS\Core\Modules\Variables\Controllers
  */
 class Admin extends Admin_Controller
 {	
@@ -72,7 +69,7 @@ class Admin extends Admin_Controller
 	 */
 	public function index()
 	{
-		$this->template->append_metadata(js('variables.js', 'variables'));
+		$this->template->append_js('module::variables.js');
 
        // Create pagination links
 		$this->data->pagination = create_pagination('admin/variables/index', $this->variables_m->count_all());
@@ -118,13 +115,12 @@ class Admin extends Admin_Controller
 				$data['messages'][$status] = $message;
 				$message = $this->load->view('admin/partials/notices', $data, TRUE);
 
-				return print ( json_encode((object) array(
+				return print (json_encode((object) array(
 					'status'	=> $status,
 					'message'	=> $message
 				)) );
 			}
 
-			// Redirect
 			$this->session->set_flashdata($status, $message);
 			redirect('admin/variables' . ($status === 'error' ? '/create': ''));
 		}
@@ -199,7 +195,6 @@ class Admin extends Admin_Controller
 				));
 			}
 
-			// Redirect
 			$this->session->set_flashdata($status, $message);
 			redirect('admin/variables' . ($status === 'error' ? '/edit': ''));
 		}
@@ -245,7 +240,7 @@ class Admin extends Admin_Controller
 	public function delete($id = 0)
 	{
 		$ids		= $id ? array($id): $this->input->post('action_to');
-		$total		= sizeof($ids);
+		$total		= count($ids);
 		$deleted	= array();
 
 		// Try do deletion

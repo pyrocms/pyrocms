@@ -5,6 +5,11 @@ $lang['redirects.from'] 				= '來源網址';
 $lang['redirects.to']					= '目標網址';
 $lang['redirects.edit']					= '編輯';
 $lang['redirects.delete']				= '刪除';
+$lang['redirects.type']					= 'Type'; #translate
+
+// redirect types
+$lang['redirects.301']					= '301 - Moved Permanently'; #translate
+$lang['redirects.302']					= '302 - Moved Temporarily'; #translate
 
 // titles
 $lang['redirects.add_title'] 			= '新增轉址';

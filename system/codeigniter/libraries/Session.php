@@ -1,19 +1,29 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
  * CodeIgniter
  *
- * An open source application development framework for PHP 5.1.6 or newer
+ * An open source application development framework for PHP 5.2.4 or newer
+ *
+ * NOTICE OF LICENSE
+ *
+ * Licensed under the Open Software License version 3.0
+ *
+ * This source file is subject to the Open Software License (OSL 3.0) that is
+ * bundled with this package in the files license.txt / license.rst.  It is
+ * also available through the world wide web at this URL:
+ * http://opensource.org/licenses/OSL-3.0
+ * If you did not receive a copy of the license and are unable to obtain it
+ * through the world wide web, please send an email to
+ * licensing@ellislab.com so we can send you a copy immediately.
  *
  * @package		CodeIgniter
- * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008 - 2011, EllisLab, Inc.
- * @license		http://codeigniter.com/user_guide/license.html
+ * @author		EllisLab Dev Team
+ * @copyright	Copyright (c) 2008 - 2012, EllisLab, Inc. (http://ellislab.com/)
+ * @license		http://opensource.org/licenses/OSL-3.0 Open Software License (OSL 3.0)
  * @link		http://codeigniter.com
  * @since		Version 1.0
  * @filesource
  */
-
-// ------------------------------------------------------------------------
 
 /**
  * Session Class
@@ -21,7 +31,7 @@
  * @package		CodeIgniter
  * @subpackage	Libraries
  * @category	Sessions
- * @author		ExpressionEngine Dev Team
+ * @author		EllisLab Dev Team
  * @link		http://codeigniter.com/user_guide/libraries/sessions.html
  */
 class CI_Session {
@@ -209,7 +219,7 @@ class CI_Session {
 				$this->CI->db->where('user_agent', $session['user_agent']);
 			}
 
-			$query = $this->CI->db->get($this->sess_table_name);
+			$query = $this->CI->db->limit(1)->get($this->sess_table_name);
 
 			// No result? Kill it!
 			if ($query->num_rows() === 0)
@@ -444,7 +454,7 @@ class CI_Session {
 	 */
 	public function userdata($item)
 	{
-		return ( ! isset($this->userdata[$item])) ? FALSE : $this->userdata[$item];
+		return isset($this->userdata[$item]) ? $this->userdata[$item] : FALSE;
 	}
 
 	// --------------------------------------------------------------------
@@ -719,7 +729,7 @@ class CI_Session {
 	 */
 	protected function _unserialize($data)
 	{
-		$data = @unserialize(strip_slashes($data));
+		$data = @unserialize(strip_slashes(trim($data)));
 
 		if (is_array($data))
 		{
@@ -727,8 +737,10 @@ class CI_Session {
 			return $data;
 		}
 
-		return (is_string($data)) ? str_replace('{{slash}}', '\\', $data) : $data;
+		return is_string($data) ? str_replace('{{slash}}', '\\', $data) : $data;
 	}
+
+	// --------------------------------------------------------------------
 
 	/**
 	 * Unescape slashes
@@ -769,7 +781,7 @@ class CI_Session {
 		{
 			$expire = $this->now - $this->sess_expiration;
 
-			$this->CI->db->where("last_activity < {$expire}");
+			$this->CI->db->where('last_activity < '.$expire);
 			$this->CI->db->delete($this->sess_table_name);
 
 			log_message('debug', 'Session garbage collection performed.');

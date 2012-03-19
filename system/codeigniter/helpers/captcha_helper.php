@@ -2,12 +2,24 @@
 /**
  * CodeIgniter
  *
- * An open source application development framework for PHP 5.1.6 or newer
+ * An open source application development framework for PHP 5.2.4 or newer
+ *
+ * NOTICE OF LICENSE
+ *
+ * Licensed under the Open Software License version 3.0
+ *
+ * This source file is subject to the Open Software License (OSL 3.0) that is
+ * bundled with this package in the files license.txt / license.rst.  It is
+ * also available through the world wide web at this URL:
+ * http://opensource.org/licenses/OSL-3.0
+ * If you did not receive a copy of the license and are unable to obtain it
+ * through the world wide web, please send an email to
+ * licensing@ellislab.com so we can send you a copy immediately.
  *
  * @package		CodeIgniter
- * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008 - 2011, EllisLab, Inc.
- * @license		http://codeigniter.com/user_guide/license.html
+ * @author		EllisLab Dev Team
+ * @copyright	Copyright (c) 2008 - 2012, EllisLab, Inc. (http://ellislab.com/)
+ * @license		http://opensource.org/licenses/OSL-3.0 Open Software License (OSL 3.0)
  * @link		http://codeigniter.com
  * @since		Version 1.0
  * @filesource
@@ -21,7 +33,7 @@
  * @package		CodeIgniter
  * @subpackage	Helpers
  * @category	Helpers
- * @author		ExpressionEngine Dev Team
+ * @author		EllisLab Dev Team
  * @link		http://codeigniter.com/user_guide/helpers/xml_helper.html
  */
 
@@ -82,16 +94,15 @@ if ( ! function_exists('create_captcha'))
 		// Remove old images
 		// -----------------------------------
 
-		list($usec, $sec) = explode(" ", microtime());
-		$now = ((float)$usec + (float)$sec);
+		$now = microtime(TRUE);
 
 		$current_dir = @opendir($img_path);
 
 		while ($filename = @readdir($current_dir))
 		{
-			if ($filename != "." and $filename != ".." and $filename != "index.html")
+			if ($filename != '.' && $filename != '..' && $filename != 'index.html')
 			{
-				$name = str_replace(".jpg", "", $filename);
+				$name = str_replace('.jpg', '', $filename);
 
 				if (($name + $expiration) < $now)
 				{
@@ -186,7 +197,7 @@ if ( ! function_exists('create_captcha'))
 		//  Write the text
 		// -----------------------------------
 
-		$use_font = ($font_path != '' AND file_exists($font_path) AND function_exists('imagettftext')) ? TRUE : FALSE;
+		$use_font = ($font_path != '' && file_exists($font_path) && function_exists('imagettftext')) ? TRUE : FALSE;
 
 		if ($use_font == FALSE)
 		{
@@ -243,4 +254,4 @@ if ( ! function_exists('create_captcha'))
 // ------------------------------------------------------------------------
 
 /* End of file captcha_helper.php */
-/* Location: ./system/heleprs/captcha_helper.php */
+/* Location: ./system/helpers/captcha_helper.php */

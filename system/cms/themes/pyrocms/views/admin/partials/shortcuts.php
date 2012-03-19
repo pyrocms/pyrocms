@@ -1,3 +1,4 @@
+<?php if ( ! empty($module_details['sections'][$active_section]['shortcuts']) ||  ! empty($module_details['shortcuts'])): ?>
 <nav id="shortcuts">
 	<ul>
 		<?php if ( ! empty($module_details['sections'][$active_section]['shortcuts'])): ?>
@@ -6,7 +7,7 @@
 				$uri	= $shortcut['uri'];
 				unset($shortcut['name']);
 				unset($shortcut['uri']); ?>
-			<li><a <?php foreach($shortcut AS $attr => $value) echo $attr.'="'.$value.'"'; echo 'href="' . site_url($uri) . '">' . lang($name) . '</a>'; ?></li>
+			<li><a <?php foreach ($shortcut as $attr => $value) echo $attr.'="'.$value.'"'; echo 'href="' . site_url($uri) . '">' . lang($name) . '</a>'; ?></li>
 			<?php endforeach; ?>
 		<?php endif; ?>
 		
@@ -16,8 +17,9 @@
 				$uri	= $shortcut['uri'];
 				unset($shortcut['name']);
 				unset($shortcut['uri']); ?>
-			<li><a <?php foreach($shortcut AS $attr => $value) echo $attr.'="'.$value.'"'; echo 'href="' . site_url($uri) . '">' . lang($name) . '</a>'; ?></li>
+			<li><a <?php foreach ($shortcut as $attr => $value) echo $attr.'="'.$value.'"'; echo 'href="' . site_url($uri) . '">' . lang($name) . '</a>'; ?></li>
 			<?php endforeach; ?>
 		<?php endif; ?>
 	</ul>
 </nav>
+<?php endif; ?>

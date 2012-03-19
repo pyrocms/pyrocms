@@ -1,0 +1,42 @@
+	<footer>
+		{{ widgets:area slug="footer" }}
+		
+		<ul>
+			{{ navigation:links group="footer" }}
+		</ul>
+		
+		<!--
+		- You can modify these social links to suit. 
+		- Add your username and links, add or remove items.
+		-->
+		<div class="widget social">
+			<h3>Socialise</h3>
+			<ul>
+				<li><a class="tooltip-s" href="http://twitter.com/iKreativ" title="Follow on Twitter" target="_blank">{{ theme:image file="twitter.png" }}</a></li>
+				<li><a class="tooltip-s" href="#" title="Follow on Facebook" target="_blank">{{ theme:image file="facebook.png" }}</a></li>
+				<li><a class="tooltip-s" href="http://forrst.com/people/iKreativ" title="Follow on Forrst" target="_blank">{{ theme:image file="forrst.png" }}</a></li>
+				<li><a class="tooltip-s" href="http://dribbble.com/iKreativ" title="Follow on Dribbble" target="_blank">{{ theme:image file="dribbble.png" }}</a></li>
+				<li><a class="tooltip-s" href="#" title="Follow on Vimeo" target="_blank">{{ theme:image file="vimeo.png" }}</a></li>
+				<li><a class="tooltip-s" href="#" title="Follow on YouTube" target="_blank">{{ theme:image file="youtube.png" }}</a></li>
+			</ul>
+		</div>	
+	</footer>
+	
+	</div>
+	<!-- /container -->
+
+  	<!-- JavaScript at the bottom for fast page loading -->
+
+  	<!-- Scripts -->
+  	{{ theme:js file="plugins.js" }}
+  	{{ theme:js file="script.js" }}
+  	<!-- End Scripts -->
+
+  	<!-- Prompt IE 6 users to install Chrome Frame. Remove this if you want to support IE 6. chromium.org/developers/how-tos/chrome-frame-getting-started -->
+  	<!--[if lt IE 7 ]>
+    	<script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
+    	<script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
+  	<![endif]-->
+  
+</body>
+</html>

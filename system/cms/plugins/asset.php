@@ -1,16 +1,16 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
+
 /**
  * Asset Plugin
  *
  * Load asset data
  *
- * @package		PyroCMS
  * @author		PyroCMS Dev Team
- * @copyright	Copyright (c) 2008 - 2011, PyroCMS
- *
+ * @package		PyroCMS\Core\Plugins
  */
 class Plugin_Asset extends Plugin
 {
+
 	/**
 	 * Asset CSS
 	 *
@@ -18,24 +18,18 @@ class Plugin_Asset extends Plugin
 	 *
 	 * Usage:
 	 *
-	 * {{ asset:css file="" module="" }}
+	 * <code>{{ asset:css file="" group="" }}</code>
 	 *
-	 * @param	array
-	 * @return	array
+	 * @return string Full url to css asset
 	 */
 	public function css()
 	{
-		$this->load->library('asset');
-		
 		$file = $this->attribute('file');
-		$module = $this->attribute('module');
-		$attributes = $this->attributes();
-		unset($attributes['file']);
-		unset($attributes['module']);
+		$group = $this->attribute('group');
 
-		return $this->asset->css($file, $module, $attributes);
+		return Asset::css($file, NULL, $group);
 	}
-	
+
 	/**
 	 * Asset CSS URL
 	 *
@@ -43,21 +37,17 @@ class Plugin_Asset extends Plugin
 	 *
 	 * Usage:
 	 *
-	 * {{ asset:css_url file="" module="" }}
+	 * {{ asset:css_url file="" }}
 	 *
-	 * @param	array
-	 * @return	string    full url to css asset
+	 * @return string Full url to CSS asset
 	 */
 	public function css_url()
 	{
-		$this->load->library('asset');
-		
 		$file = $this->attribute('file');
-		$module = $this->attribute('module');
 
-		return $this->asset->css_url($file, $module);
+		return Asset::get_filepath_js($file, true);
 	}
-	
+
 	/**
 	 * Asset CSS Path
 	 *
@@ -67,17 +57,13 @@ class Plugin_Asset extends Plugin
 	 *
 	 * {{ asset:css_path file="" module="" }}
 	 *
-	 * @param	array
-	 * @return	string    full url to css asset
+	 * @return string Path to the CSS asset relative to web root
 	 */
 	public function css_path()
 	{
-		$this->load->library('asset');
-		
 		$file = $this->attribute('file');
-		$module = $this->attribute('module');
 
-		return $this->asset->css_path($file, $module);
+		return BASE_URI.Asset::get_filepath_js($file, FALSE);
 	}
 
 	/**
@@ -87,24 +73,22 @@ class Plugin_Asset extends Plugin
 	 *
 	 * Usage:
 	 *
-	 * {{ asset:image file="" module="" }}
+	 * {{ asset:image file="" alt="" }}
 	 *
-	 * @param	array
-	 * @return	array
+	 * @return array Full url to image asset
 	 */
 	public function image()
 	{
-		$this->load->library('asset');
-
 		$file = $this->attribute('file');
-		$module = $this->attribute('module');
+		$alt = $this->attribute('alt');
+
 		$attributes = $this->attributes();
 		unset($attributes['file']);
-		unset($attributes['module']);
+		unset($attributes['alt']);
 
-		return $this->asset->image($file, $module, $attributes);
+		return Asset::img($file, $alt, $attributes);
 	}
-	
+
 	/**
 	 * Asset Image URL
 	 *
@@ -112,21 +96,17 @@ class Plugin_Asset extends Plugin
 	 *
 	 * Usage:
 	 *
-	 * {{ asset:image_url file="" module="" }}
+	 * {{ asset:image_url file="" }}
 	 *
-	 * @param	array
-	 * @return	string    full url to image asset
+	 * @return string Full url to image asset
 	 */
 	public function image_url()
 	{
-		$this->load->library('asset');
-
 		$file = $this->attribute('file');
-		$module = $this->attribute('module');
 
-		return $this->asset->image_url($file, $module);
+		return Asset::get_filepath_img($file, true);
 	}
-	
+
 	/**
 	 * Asset Image Path
 	 *
@@ -134,19 +114,15 @@ class Plugin_Asset extends Plugin
 	 *
 	 * Usage:
 	 *
-	 * {{ asset:image_path file="" module="" }}
+	 * {{ asset:image_path file="" }}
 	 *
-	 * @param	array
-	 * @return	array
+	 * @return string Path to the image asset relative to web root
 	 */
 	public function image_path()
 	{
-		$this->load->library('asset');
-
 		$file = $this->attribute('file');
-		$module = $this->attribute('module');
 
-		return $this->asset->image_path($file, $module);
+		return BASE_URI.Asset::get_filepath_img($file, false);
 	}
 
 	/**
@@ -156,21 +132,18 @@ class Plugin_Asset extends Plugin
 	 *
 	 * Usage:
 	 *
-	 * {{ asset:js file="" module="" }}
+	 * {{ asset:js file="" group="" }}
 	 *
-	 * @param	array
-	 * @return	array
+	 * @return string
 	 */
 	public function js()
 	{
-		$this->load->library('asset');
-
 		$file = $this->attribute('file');
-		$module = $this->attribute('module');
+		$group = $this->attribute('group');
 
-		return $this->asset->js($file, $module);
+		return Asset::js($file, NULL, $group);
 	}
-	
+
 	/**
 	 * Asset JS URL
 	 *
@@ -178,21 +151,17 @@ class Plugin_Asset extends Plugin
 	 *
 	 * Usage:
 	 *
-	 * {{ asset:js_url file="" module="" }}
+	 * {{ asset:js_url file="" }}
 	 *
-	 * @param	array
-	 * @return	string    full url to JavaScript asset
+	 * @return string Full url to the Javascript asset
 	 */
 	public function js_url()
 	{
-		$this->load->library('asset');
-
 		$file = $this->attribute('file');
-		$module = $this->attribute('module');
 
-		return $this->asset->js_url($file, $module);
+		return Asset::get_filepath_js($file, true);
 	}
-	
+
 	/**
 	 * Asset JS Path
 	 *
@@ -200,20 +169,33 @@ class Plugin_Asset extends Plugin
 	 *
 	 * Usage:
 	 *
-	 * {{ asset:js_path file="" module="" }}
+	 * {{ asset:js_path file="" }}
 	 *
-	 * @param	array
-	 * @return	string    web root path to JavaScript asset
+	 * @return string Path to the JavaScript asset relative to web root
 	 */
 	public function js_path()
 	{
-		$this->load->library('asset');
-
 		$file = $this->attribute('file');
-		$module = $this->attribute('module');
 
-		return $this->asset->js_path($file, $module);
+		return BASE_URI.Asset::get_filepath_js($file, false);
 	}
-}
 
-/* End of file asset.php */
+	/**
+	 * Asset Render
+	 *
+	 * Render an asset group (of JS and/or CSS).
+	 *
+	 * Usage:
+	 *
+	 * {{ asset:render group="" }}
+	 *
+	 * @return string Style and script tags for CSS and Javascript
+	 */
+	public function render()
+	{
+		$group = $this->attribute('group', false);
+
+		return Asset::render($group);
+	}
+
+}

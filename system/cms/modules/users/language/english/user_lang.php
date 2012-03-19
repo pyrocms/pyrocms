@@ -71,6 +71,7 @@ $lang['user_reset_password_link']              = 'Forgot your password?';
 
 $lang['user_activation_code_sent_notice']      = 'An email has been sent to you with your activation code.';
 $lang['user_activation_by_admin_notice']       = 'Your registration is awaiting approval by an administrator.';
+$lang['user_registration_disabled']            = 'Sorry, but the user registration is disabled.';
 
 // -- Settings ---------------------------------------------------------------------------------------------
 
@@ -185,11 +186,11 @@ $lang['profile_mobile']               = 'Mobile';
 $lang['profile_address']              = 'Address';
 $lang['profile_address_line1']        = 'Line #1';
 $lang['profile_address_line2']        = 'Line #2';
-$lang['profile_address_line3']        = 'Line #3';
+$lang['profile_address_line3']        = 'Town/City';
 $lang['profile_address_postcode']     = 'Post/Zip Code';
 $lang['profile_website']              = 'Website';
 
-$lang['profile_avatar_section']       = 'Avatar';
+$lang['profile_api_section']     	  = 'API Access';
 
 $lang['profile_edit_success']         = 'Your profile has been saved.';
 $lang['profile_edit_error']           = 'An error occurred.';

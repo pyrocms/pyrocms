@@ -71,6 +71,7 @@ $lang['user_reset_password_link'] 		= 'Wachtwoord vergeten?';
 
 $lang['user_activation_code_sent_notice']	= 'Er is een email naar u gestuurd met daarin uw activeringscode.';
 $lang['user_activation_by_admin_notice'] 	= 'Uw registratie wacht op goedkeuring door een beheerder.';
+$lang['user_registration_disabled']            = 'Sorry, but the user registration is disabled.'; #translate
 
 // -- Settings ---------------------------------------------------------------------------------------------
 

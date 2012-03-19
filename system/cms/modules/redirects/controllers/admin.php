@@ -3,9 +3,7 @@
  * Cms controller for the redirects module
  *
  * @author 		PyroCMS Dev Team
- * @package 	PyroCMS
- * @subpackage 	Variables Module
- * @category	Modules
+ * @package 	PyroCMS\Core\Modules\Redirects\Controllers
  */
 class Admin extends Admin_Controller
 {
@@ -14,6 +12,11 @@ class Admin extends Admin_Controller
 	 * @var array
 	 */
 	protected $validation_rules = array(
+		array(
+			'field' => 'type',
+			'label' => 'lang:redirects.type',
+			'rules' => 'trim|required|integer'
+		),
 		array(
 			'field' => 'from',
 			'label' => 'lang:redirects.from',
@@ -25,7 +28,7 @@ class Admin extends Admin_Controller
 			'rules' => 'trim|required|max_length[250]'
 		)
 	);
-	
+
 	/**
 	 * Constructor method
 	 * @access public
@@ -34,7 +37,7 @@ class Admin extends Admin_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		
+
 		// Load the required classes
 		$this->load->library('form_validation');
 		$this->load->model('redirect_m');
@@ -42,7 +45,7 @@ class Admin extends Admin_Controller
 
 		$this->form_validation->set_rules($this->validation_rules);
 	}
-	
+
 	/**
 	 * List all redirects
 	 * @access public
@@ -53,19 +56,19 @@ class Admin extends Admin_Controller
         // Create pagination links
 		$total_rows = $this->redirect_m->count_all();
 		$this->data->pagination = create_pagination('admin/redirects/index', $total_rows);
-		
+
 		// Using this data, get the relevant results
 		$this->data->redirects = $this->redirect_m->order_by('`from`')->limit($this->data->pagination['limit'])->get_all();
 		$this->template->build('admin/index', $this->data);
 	}
-	
+
 	/**
 	 * Create a new redirect
 	 * @access public
 	 * @return void
 	 */
 	public function add()
-	{		
+	{
 		// Got validation?
 		if ($this->form_validation->run())
 		{
@@ -73,10 +76,9 @@ class Admin extends Admin_Controller
 			{
 				$this->session->set_flashdata('success', lang('redirects.add_success'));
 
-				// Redirect
 				redirect('admin/redirects');
 			}
-			
+
 			$this->data->messages['error'] = lang('redirects.add_error');
 		}
 
@@ -85,11 +87,11 @@ class Admin extends Admin_Controller
 		{
 			$redirect->{$rule['field']} = set_value($rule['field']);
 		}
-		
+
 		$this->data->redirect =& $redirect;
 		$this->template->build('admin/form', $this->data);
 	}
-	
+
 	/**
 	 * Edit an existing redirect
 	 * @access public
@@ -97,29 +99,28 @@ class Admin extends Admin_Controller
 	 * @return void
 	 */
 	public function edit($id = 0)
-	{	
+	{
 		// Got ID?
 		$id or redirect('admin/redirects');
-		
+
 		// Get the redirect
 		$redirect = $this->redirect_m->get($id);
-		
+
 		if ($this->form_validation->run())
-		{		
+		{
 			if ($this->redirect_m->update($id, $_POST))
 			{
 				$this->session->set_flashdata('success', $this->lang->line('redirects.edit_success'));
 
 				redirect('admin/redirects');
 			}
-			
+
 			$this->data->messages['error'] = lang('redirects.edit_error');
 		}
-	
 		$this->data->redirect =& $redirect;
 		$this->template->build('admin/form', $this->data);
-	}	
-	
+	}
+
 	/**
 	 * Delete an existing redirect
 	 * @access public
@@ -127,9 +128,9 @@ class Admin extends Admin_Controller
 	 * @return void
 	 */
 	public function delete($id = 0)
-	{	
+	{
 		$id_array = ( ! empty($id)) ? array($id) : $this->input->post('action_to');
-		
+
 		// Delete multiple
 		if( ! empty($id_array))
 		{
@@ -147,21 +148,20 @@ class Admin extends Admin_Controller
 				}
 				$to_delete++;
 			}
-			
+
 			if ($deleted > 0)
 			{
 				$this->session->set_flashdata('success', sprintf($this->lang->line('redirects.mass_delete_success'), $deleted, $to_delete));
 			}
-		}		
+		}
 		else
 		{
 			$this->session->set_flashdata('error', $this->lang->line('redirects.no_select_error'));
 		}		
 		
-		// Redirect
 		redirect('admin/redirects');
 	}
-	
+
 	/**
 	 * Callback method for validating the redirect's name
 	 * @access public

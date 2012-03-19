@@ -3,11 +3,9 @@
  * Blog Plugin
  *
  * Create lists of posts
- *
- * @package		PyroCMS
+ * 
  * @author		PyroCMS Dev Team
- * @copyright	Copyright (c) 2008 - 2011, PyroCMS
- *
+ * @package		PyroCMS\Core\Modules\Blog\Plugins
  */
 class Plugin_Blog extends Plugin
 {
@@ -57,6 +55,30 @@ class Plugin_Blog extends Plugin
 		}
 		
 		return $posts;
+	}
+
+	/**
+	 * Count Posts By Column
+	 *
+	 * Usage:
+	 * {{ blog:count_posts author_id="1" }}
+	 *
+	 * The attribute name is the database column and 
+	 * the attribute value is the where value
+	 */
+	public function count_posts()
+	{
+		$wheres = $this->attributes();
+
+		// make sure they provided a where clause
+		if (count($wheres) == 0) return FALSE;
+
+		foreach ($wheres AS $column => $value)
+		{
+			$this->db->where($column, $value);
+		}
+
+		return $this->db->count_all_results('blog');
 	}
 }
 

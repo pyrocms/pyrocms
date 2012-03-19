@@ -4,7 +4,7 @@
 					lang('profile_edit') ?>
 </h2>
 <div>
-	<?php if(validation_errors()):?>
+	<?php if (validation_errors()):?>
 	<div class="error-box">
 		<?php echo validation_errors();?>
 	</div>
@@ -37,16 +37,6 @@
 			<li class="float-left spacer-right">
 				<label for="password"><?php echo lang('user_password') ?></label><br/>
 				<?php echo form_password('password', '', 'autocomplete="off"'); ?>
-			</li>
-		</ul>
-	</fieldset>
-
-	<fieldset>
-		<legend><?php echo lang('user_other_settings_section') ?></legend>
-		<ul>
-			<li>
-				<label for="lang"><?php echo lang('user_lang') ?></label><br/>
-				<?php echo form_dropdown('lang', $languages, $_user->lang); ?>
 			</li>
 		</ul>
 	</fieldset>
@@ -121,6 +111,49 @@
 			</li>
 		</ul>
 	</fieldset>
+
+	<fieldset>
+		<legend><?php echo lang('user_other_settings_section') ?></legend>
+		<ul>
+			<li>
+				<label for="lang"><?php echo lang('user_lang') ?></label><br/>
+				<?php echo form_dropdown('lang', $languages, $_user->lang); ?>
+			</li>
+		</ul>
+	</fieldset>
+
+	<?php if (Settings::get('api_enabled') and Settings::get('api_user_keys')): ?>
+		
+	<script>
+	jQuery(function($) {
+		
+		$('input#generate_api_key').click(function(){
+			
+			var url = "<?php echo site_url('api/ajax/generate_key') ?>",
+				$button = $(this);
+			
+			$.post(url, function(data) {
+				$button.prop('disabled', true);
+				$('span#api_key').text(data.api_key).parent('li').show();
+			}, 'json');
+			
+		});
+		
+	});
+	</script>
+		
+	<fieldset>
+		<legend><?php echo lang('profile_api_section') ?></legend>
+		
+		<ul>
+			<li <?php $api_key or print('style="display:none"') ?>><?php echo sprintf(lang('api:key_message'), '<span id="api_key">'.$api_key.'</span>'); ?></li>
+			<li>
+				<input type="button" id="generate_api_key" value="<?php echo lang('api:generate_key') ?>" />
+			</li>
+		</ul>
+	
+	</fieldset>
+	<?php endif; ?>
 
 	<?php echo form_submit('', lang('profile_save_btn')); ?>
 	<?php echo form_close(); ?>

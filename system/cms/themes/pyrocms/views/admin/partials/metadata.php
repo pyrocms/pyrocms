@@ -1,16 +1,23 @@
-<?php if (isset($analytic_visits) OR isset($analytic_views)): ?>
-	<?php echo js('jquery/jquery.excanvas.min.js'); ?>
-	<?php echo js('jquery/jquery.flot.js'); ?>
-<?php endif; ?>
+<?php
+Asset::js('jquery/jquery.js');
+Asset::js_inline('jQuery.noConflict();');
+Asset::js('jquery/jquery-ui.min.js', 'jquery/jquery-ui.min.js');
+Asset::js('jquery/jquery.colorbox.js');
+Asset::js('jquery/jquery.cooki.js');
 
-<?php echo js('jquery/jquery-ui.min.js'); ?>
-<?php echo js('jquery/jquery.colorbox.min.js'); ?>
-<?php echo js('codemirror/codemirror.js'); ?>
-<?php echo js('codemirror/mode/css/css.js'); ?>
-<?php echo js('codemirror/mode/htmlmixed/htmlmixed.js'); ?>
-<?php echo js('codemirror/mode/javascript/javascript.js'); ?>
-<?php echo js('codemirror/mode/markdown/markdown.js'); ?>
-<?php echo js('plugins.js'); ?>
+Asset::js(array('codemirror/codemirror.js',
+	'codemirror/mode/css/css.js',
+	'codemirror/mode/htmlmixed/htmlmixed.js',
+	'codemirror/mode/javascript/javascript.js',
+	'codemirror/mode/markdown/markdown.js',
+	'plugins.js',
+	'scripts.js'
+)); ?>
+
+<?php if (isset($analytic_visits) OR isset($analytic_views)): ?>
+	<?php Asset::js('jquery/jquery.excanvas.min.js'); ?>
+	<?php Asset::js('jquery/jquery.flot.js'); ?>
+<?php endif; ?>
 
 <script type="text/javascript">
 	pyro = { 'lang' : {} };
@@ -20,24 +27,22 @@
 	var BASE_URI					= "<?php echo BASE_URI;?>";
 	var UPLOAD_PATH					= "<?php echo UPLOAD_PATH;?>";
 	var DEFAULT_TITLE				= "<?php echo addslashes($this->settings->site_name); ?>";
-	// Deprecated
-	var DIALOG_MESSAGE				= "<?php echo lang('global:dialog:delete_message'); ?>";
 	pyro.admin_theme_url			= "<?php echo BASE_URL . $this->admin_theme->path; ?>";
 	pyro.apppath_uri				= "<?php echo APPPATH_URI; ?>";
 	pyro.base_uri					= "<?php echo BASE_URI; ?>";
 	pyro.lang.remove				= "<?php echo lang('global:remove'); ?>";
 	pyro.lang.delete				= "<?php echo lang('global:delete'); ?>";
-	pyro.lang.dialog_message 		= DIALOG_MESSAGE;
+	pyro.lang.dialog_message 		= "<?php echo lang('global:dialog:delete_message'); ?>";
 	pyro.foreign_characters			= <?php echo json_encode(accented_characters()); ?>
 </script>
 
-<?php echo js('scripts.js'); ?>
-<?php echo css('plugins.css'); ?>
-<?php echo css('jquery/colorbox.css'); ?>
-<?php echo css('codemirror.css'); ?>
+<?php Asset::css(array('plugins.css', 'jquery/colorbox.css', 'codemirror.css')); ?>
+
+<?php echo Asset::render(); ?>
 
 <!--[if lt IE 9]>
-<?php echo css('ie8.css'); ?>
+<?php echo Asset::css('ie8.css', null, 'ie8'); ?>
+<?php echo Asset::render_css('ie8'); ?>
 <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 

@@ -3,23 +3,21 @@
 /**
  * Admin controller for the settings module
  *
- * @author 		Phil Sturgeon - PyroCMS Dev Team
- * @package 	PyroCMS
- * @subpackage 	Settings module
- * @category	Modules
+ * @author 		PyroCMS Dev Team
+ * @package 	PyroCMS\Core\Modules\Settings\Controllers
  */
 class Admin extends Admin_Controller {
 
 	/**
 	 * Validation array
-	 * @access private
+	 * 
 	 * @var array
 	 */
 	private $validation_rules = array();
 
 	/**
 	 * Constructor method
-	 * @access public
+	 * 
 	 * @return void
 	 */
 	public function __construct()
@@ -30,21 +28,20 @@ class Admin extends Admin_Controller {
 		$this->load->library('settings');
 		$this->load->library('form_validation');
 		$this->lang->load('settings');
-		$this->template->append_metadata(js('settings.js', 'settings'));
-		$this->template->append_metadata(css('settings.css', 'settings'));
+		$this->template->append_js('module::settings.js');
+		$this->template->append_css('module::settings.css');
 	}
 
 	/**
 	 * Index method, lists all generic settings
 	 *
-	 * @access public
 	 * @return void
 	 */
 	public function index()
 	{
 		$setting_language = array();
 		$setting_sections = array();
-		$settings = $this->settings_m->get_many_by(array('is_gui' => 1 ));
+		$settings = $this->settings_m->get_many_by(array('is_gui' => 1));
 
 		// Loop through each setting
 		foreach ($settings as $key => $setting)
@@ -123,7 +120,6 @@ class Admin extends Admin_Controller {
 	/**
 	 * Edit an existing settings item
 	 *
-	 * @access public
 	 * @return void
 	 */
 	public function edit()
@@ -131,7 +127,7 @@ class Admin extends Admin_Controller {
 		if (PYRO_DEMO)
 		{
 			$this->session->set_flashdata('notice', lang('global:demo_restrictions'));
-		    redirect('admin/settings');
+			redirect('admin/settings');
 		}
 		
 		$settings = $this->settings_m->get_many_by(array('is_gui'=>1));
@@ -171,6 +167,9 @@ class Admin extends Admin_Controller {
 					$this->settings->set_item($slug, $input_value);
 				}
 			}
+			
+			// Fire an event. Yay! We know when settings are updated. 
+			Events::trigger('settings_updated', $settings_stored);
 
 			// Success...
 			$this->session->set_flashdata('success', $this->lang->line('settings_save_success'));
@@ -187,8 +186,7 @@ class Admin extends Admin_Controller {
 	/**
 	 * Sort settings items
 	 *
-	 * @author Jerel Unruh - PyroCMS Dev Team
-	 * @access public
+	 * @return void
 	 */
 	public function ajax_update_order()
 	{
@@ -198,9 +196,8 @@ class Admin extends Admin_Controller {
 		foreach ($slugs as $slug)
 		{
 			$this->settings_m->update($slug, array(
-				'order' => $i
+				'order' => $i--,
 			));
-			$i--;
 		}
 	}
 }

@@ -15,7 +15,7 @@
 		</thead>
 		<tbody>
 	
-		<?php foreach ($permisison_modules as $module): ?>
+		<?php foreach ($permission_modules as $module): ?>
 			<tr>
 				<td style="width: 30px"><?php echo form_checkbox('modules[' . $module['slug'] . ']', TRUE, array_key_exists($module['slug'], $edit_permissions), 'id="'.$module['slug'].'"'); ?></td>
 				<td>

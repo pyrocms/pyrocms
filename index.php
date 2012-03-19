@@ -88,7 +88,6 @@ define('ENVIRONMENT', (isset($_SERVER['PYRO_ENV']) ? $_SERVER['PYRO_ENV'] : PYRO
 		date_default_timezone_set('GMT');
 	}
 
-
 /*
 |---------------------------------------------------------------
 | SYSTEM FOLDER NAME

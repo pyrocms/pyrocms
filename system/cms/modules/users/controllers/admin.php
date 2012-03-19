@@ -3,10 +3,8 @@
 /**
  * Admin controller for the users module
  *
- * @author 		Phil Sturgeon - PyroCMS Dev Team
- * @package 	PyroCMS
- * @subpackage 	Users module
- * @category	Modules
+ * @author 		PyroCMS Dev Team
+ * @package 	PyroCMS\Core\Modules\Users\Controllers
  */
 class Admin extends Admin_Controller {
 
@@ -108,15 +106,18 @@ class Admin extends Admin_Controller {
 			->get_many_by($base_where);
 
 		//unset the layout if we have an ajax request
-		if ($this->input->is_ajax_request()) $this->template->set_layout(FALSE);
-
+		if ($this->input->is_ajax_request())
+		{
+			$this->template->set_layout(FALSE);
+		}
+		
 		// Render the view
 		$this->template
 			->title($this->module_details['name'])
 			->set('pagination', $pagination)
 			->set('users', $users)
 			->set_partial('filters', 'admin/partials/filters')
-			->append_metadata(js('admin/filter.js'));
+			->append_js('admin/filter.js');
 				
 		$this->input->is_ajax_request() ? $this->template->build('admin/tables/users', $this->data) : $this->template->build('admin/index', $this->data);
 	}
@@ -189,6 +190,9 @@ class Admin extends Admin_Controller {
 			// Try to register the user
 			if ($user_id = $this->ion_auth->register($username, $password, $email, $user_data, $group->name))
 			{
+				// Fire an event. A new user has been created. 
+				Events::trigger('user_created', $user_id);
+		
 				// Set the flashdata message and redirect
 				$this->session->set_flashdata('success', $this->ion_auth->messages());
 				redirect('admin/users');
@@ -213,11 +217,10 @@ class Admin extends Admin_Controller {
 			$member->{$rule['field']} = set_value($rule['field']);
 		}
 
-		// Render the view
-		$this->data->member = & $member;
 		$this->template
-				->title($this->module_details['name'], lang('user_add_title'))
-				->build('admin/form', $this->data);
+			->title($this->module_details['name'], lang('user_add_title'))
+			->set('member', $member)
+			->build('admin/form', $this->data);
 	}
 
 	/**
@@ -230,12 +233,9 @@ class Admin extends Admin_Controller {
 	public function edit($id = 0)
 	{
 		// Get the user's data
-		$member = $this->ion_auth->get_user($id);
-
-		// Got user?
-		if (!$member)
+		if ( ! ($member = $this->ion_auth->get_user($id)))
 		{
-			$this->session->set_flashdata('error', $this->lang->line('user_edit_user_not_found_error'));
+			$this->session->set_flashdata('error', lang('user_edit_user_not_found_error'));
 			redirect('admin/users');
 		}
 
@@ -257,8 +257,8 @@ class Admin extends Admin_Controller {
 		{
 			if (PYRO_DEMO)
 			{
-			    $this->session->set_flashdata('notice', lang('global:demo_restrictions'));
-			    redirect('admin/users');
+				$this->session->set_flashdata('notice', lang('global:demo_restrictions'));
+				redirect('admin/users');
 			}
 			
 			// Get the POST data
@@ -278,6 +278,9 @@ class Admin extends Admin_Controller {
 
 			if ($this->ion_auth->update_user($id, $update_data))
 			{
+				// Fire an event. A user has been updated. 
+				Events::trigger('user_updated', $id);
+				
 				$this->session->set_flashdata('success', $this->ion_auth->messages());
 			}
 			else
@@ -285,7 +288,6 @@ class Admin extends Admin_Controller {
 				$this->session->set_flashdata('error', $this->ion_auth->errors());
 			}
 
-			// Redirect the user
 			redirect('admin/users');
 		}
 		else
@@ -306,10 +308,9 @@ class Admin extends Admin_Controller {
 			}
 		}
 
-		// Render the view
-		$this->data->member = & $member;
 		$this->template
 			->title($this->module_details['name'], sprintf(lang('user_edit_title'), $member->full_name))
+			->set('member', $member)
 			->build('admin/form', $this->data);
 	}
 
@@ -321,11 +322,12 @@ class Admin extends Admin_Controller {
 	 */
 	public function preview($id = 0)
 	{
-		$data->user = $this->ion_auth->get_user($id);
+		$user = $this->ion_auth->get_user($id);
 
 		$this->template
 			->set_layout('modal', 'admin')
-			->build('admin/preview', $data);
+			->set('user', $user)
+			->build('admin/preview');
 	}
 
 	/**
@@ -339,7 +341,7 @@ class Admin extends Admin_Controller {
 		// Activate multiple
 		if ( ! ($ids = $this->input->post('action_to')))
 		{
-			$this->session->set_flashdata('error', $this->lang->line('user_activate_error'));
+			$this->session->set_flashdata('error', lang('user_activate_error'));
 			redirect('admin/users');
 		}
 
@@ -353,7 +355,7 @@ class Admin extends Admin_Controller {
 			}
 			$to_activate++;
 		}
-		$this->session->set_flashdata('success', sprintf($this->lang->line('user_activate_success'), $activated, $to_activate));
+		$this->session->set_flashdata('success', sprintf(lang('user_activate_success'), $activated, $to_activate));
 
 		redirect('admin/users');
 	}
@@ -369,27 +371,29 @@ class Admin extends Admin_Controller {
 	{
 		if (PYRO_DEMO)
 		{
-		    $this->session->set_flashdata('notice', lang('global:demo_restrictions'));
-		    redirect('admin/users');
+			$this->session->set_flashdata('notice', lang('global:demo_restrictions'));
+			redirect('admin/users');
 		}
 		
 		$ids = ($id > 0) ? array($id) : $this->input->post('action_to');
 
-		if (!empty($ids))
+		if ( ! empty($ids))
 		{
 			$deleted = 0;
 			$to_delete = 0;
+			$deleted_ids = array();
 			foreach ($ids as $id)
 			{
 				// Make sure the admin is not trying to delete themself
 				if ($this->ion_auth->get_user()->id == $id)
 				{
-					$this->session->set_flashdata('notice', $this->lang->line('user_delete_self_error'));
+					$this->session->set_flashdata('notice', lang('user_delete_self_error'));
 					continue;
 				}
 
 				if ($this->ion_auth->delete_user($id))
 				{
+					$deleted_ids[] = $id;
 					$deleted++;
 				}
 				$to_delete++;
@@ -397,14 +401,18 @@ class Admin extends Admin_Controller {
 
 			if ($to_delete > 0)
 			{
-				$this->session->set_flashdata('success', sprintf($this->lang->line('user_mass_delete_success'), $deleted, $to_delete));
+				// Fire an event. One or more users have been deleted. 
+				Events::trigger('user_deleted', $deleted_ids);
+				
+				$this->session->set_flashdata('success', sprintf(lang('user_mass_delete_success'), $deleted, $to_delete));
 			}
 		}
 		// The array of id's to delete is empty
 		else
-			$this->session->set_flashdata('error', $this->lang->line('user_mass_delete_error'));
-
-		// Redirect
+		{
+			$this->session->set_flashdata('error', lang('user_mass_delete_error'));
+		}
+		
 		redirect('admin/users');
 	}
 
@@ -418,13 +426,10 @@ class Admin extends Admin_Controller {
 	{
 		if ($this->ion_auth->username_check($username))
 		{
-			$this->form_validation->set_message('_username_check', $this->lang->line('user_error_username'));
+			$this->form_validation->set_message('_username_check', lang('user_error_username'));
 			return FALSE;
 		}
-		else
-		{
-			return TRUE;
-		}
+		return TRUE;
 	}
 
 	/**
@@ -437,13 +442,10 @@ class Admin extends Admin_Controller {
 	{
 		if ($this->ion_auth->email_check($email))
 		{
-			$this->form_validation->set_message('_email_check', $this->lang->line('user_error_email'));
+			$this->form_validation->set_message('_email_check', lang('user_error_email'));
 			return FALSE;
 		}
-		else
-		{
-			return TRUE;
-		}
+		return TRUE;
 	}
 
 	/**
@@ -456,7 +458,7 @@ class Admin extends Admin_Controller {
 	{
 		if ( ! $this->group_m->get($group))
 		{
-			$this->form_validation->set_message('_group_check', $this->lang->line('regex_match'));
+			$this->form_validation->set_message('_group_check', lang('regex_match'));
 			return FALSE;
 		}
 		return TRUE;

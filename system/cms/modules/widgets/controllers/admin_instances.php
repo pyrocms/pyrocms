@@ -3,10 +3,8 @@
 /**
  * Admin controller for widgets instances.
  *
- * @package 		PyroCMS
- * @subpackage 		Modules
- * @category		Widgets
- * @author			PyroCMS Development Team
+ * @author		PyroCMS Dev Team
+ * @package 	PyroCMS\Core\Modules\Widgets\Controllers
  *
  */
 class Admin_instances extends Admin_Controller {
@@ -53,8 +51,8 @@ class Admin_instances extends Admin_Controller {
 
 		$this->template
 			->set_partial('shortcuts', 'admin/partials/shortcuts')
-			->append_metadata(js('widgets.js', 'widgets'))
-			->append_metadata(css('widgets.css', 'widgets'));
+			->append_js('module::widgets.js')
+			->append_css('module::widgets.css');
 	}
 
 	/**
@@ -102,6 +100,9 @@ class Admin_instances extends Admin_Controller {
 
 			if ($result['status'] === 'success')
 			{
+				// Fire an event. A widget instance has been created. pass the widget id 
+				Events::trigger('widget_instance_created', $widget_id);
+				
 				$status		= 'success';
 				$message	= lang('success_label');
 
@@ -176,6 +177,9 @@ class Admin_instances extends Admin_Controller {
 
 			if ($result['status'] === 'success')
 			{
+				// Fire an event. A widget instance has been updated pass the widget instance id.
+				Events::trigger('widget_instance_updated', $instance_id);
+				
 				$status		= 'success';
 				$message	= lang('success_label');
 
@@ -231,6 +235,9 @@ class Admin_instances extends Admin_Controller {
 	{
 		if ($this->widgets->delete_instance($id))
 		{
+			// Fire an event. A widget instance has been deleted. 
+			Events::trigger('widget_instance_deleted', $id);
+				
 			$status = 'success';
 			$message = lang('success_label');
 		}

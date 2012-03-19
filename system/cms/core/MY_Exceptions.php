@@ -1,35 +1,23 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-/**
- * CodeIgniter
- *
- * An open source application development framework for PHP 4.3.2 or newer
- *
- * @package		CodeIgniter
- * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008, EllisLab, Inc.
- * @license		http://codeigniter.com/user_guide/license.html
- * @link		http://codeigniter.com
- * @since		Version 1.0
- * @filesource
- */
-
-// ------------------------------------------------------------------------
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
- * Exceptions Class
+ * PyroCMS' Exceptions handler.
+ * 
+ * Override Codeigniter's exceptions for managing our 404 errors.
  *
- * @package		CodeIgniter
- * @subpackage	Libraries
- * @category	Exceptions
+ * @package		PyroCMS\Core\Libraries\Exceptions
+ * @author		PyroCMS Dev Team
  */
-class MY_Exceptions extends CI_Exceptions {
+class MY_Exceptions extends CI_Exceptions
+{
 
 	/**
 	 * 404 Not Found Handler
+	 * 
+	 * @todo Maybe actually do some logging here about 404s?
 	 *
-	 * @access	private
-	 * @param	string
-	 * @return	string
+	 * @param string $page The URL of the page that is returning 404.
+	 * @param bool $log_error Whether the error should be logged or not.
 	 */
 	function show_404($page = '', $log_error = TRUE)
 	{
@@ -40,5 +28,3 @@ class MY_Exceptions extends CI_Exceptions {
 	}
 
 }
-
-/* End of file Exceptions.php */
