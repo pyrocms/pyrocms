@@ -16,7 +16,7 @@ $lang['widgets.widget_short_name']      = 'Kortnamn';
 $lang['widgets.widget_version']         = 'Version';
 $lang['widgets.status_label']			= 'Status';
 
-$lang['widgets.inactive_title'] 		= 'Widget avaktiverad';
+$lang['widgets.inactive_title'] 		= 'Widget inaktiverad';
 $lang['widgets.active_title'] 			= 'Widget aktiverad';
 
 // Widget area titles
