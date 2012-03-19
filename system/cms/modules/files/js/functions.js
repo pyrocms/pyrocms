@@ -267,18 +267,19 @@ jQuery(function($){
 			$.post(SITE_URL + 'admin/files/order', { order : order }, function(data){
 				var results = $.parseJSON(data);
 				if (results.status) {
-					// synchronize the left sidebar
-					var after_id = $(e.target).prev('li').attr('data-id');
-					var moved_id = $(e.target).attr('data-id');
-					if (after_id === undefined && $(moved_id).parent('.folders-sidebar')) {
+					// synchronize the folders in the left sidebar
+					var after_id = $(e.target).prevAll('li.folder').attr('data-id');
+					var moved    = '[data-id="'+$(e.target).attr('data-id')+'"]';
+
+					if (after_id === undefined && $(moved).parent().is('.folders-sidebar')) {
 						$('.folders-sidebar [data-id="0"]')
-							.after($('.folders-sidebar [data-id="'+moved_id+'"]'));
-					} else if (after_id === undefined && $(moved_id).parent('ul')) {
-						$(moved_id).parent('ul')
-							.prepend($('.folders-sidebar [data-id="'+moved_id+'"]'));
+							.after($('.folders-sidebar '+moved));
+					} else if (after_id === undefined && $(moved).parent().is('ul')) {
+						$('.folders-sidebar '+moved).parent('ul')
+							.prepend($('.folders-sidebar '+moved));
 					} else {
 						$('.folders-sidebar [data-id="'+after_id+'"]')
-							.after($('.folders-sidebar [data-id="'+moved_id+'"]'));
+							.after($('.folders-sidebar '+moved));
 					}
 
 				}
