@@ -349,7 +349,7 @@ class Files
 					$config['height']           = $height;
 					ci()->image_lib->initialize($config);
 					ci()->image_lib->resize();
-					$this->image_lib->clear();
+					ci()->image_lib->clear();
 				}
 
 				$file_id = ci()->file_m->insert($data);

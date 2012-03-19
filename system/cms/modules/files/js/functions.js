@@ -429,7 +429,7 @@ jQuery(function($){
 					.html(results.data.name)
 					.removeClass('folder-' + new_class);
 
-				$parent_li = $('.folders-sidebar [data-id="'+parent+'"]');
+				$parent_li = $('.folders-sidebar .folder[data-id="'+parent+'"]');
 				if (parent === 0 || $parent_li.hasClass('places')) {
 					// this is a top level folder, we'll insert it after Places. Not really its parent
 					$parent_li.after('<li class="folder" data-id="'+results.data.id+'" data-name="'+results.data.name+'"><div></div><a href="#">'+results.data.name+'</a></li>');
@@ -447,7 +447,7 @@ jQuery(function($){
 				$(window).data('folder_'+results.data.id, results.data);
 
 				// now they will want to rename it
-		 		pyro.files.$last_r_click = $('[data-id="'+results.data.id+'"]');
+		 		pyro.files.$last_r_click = $('.folder[data-id="'+results.data.id+'"]');
 		 		$('.context-menu-source [data-menu="rename"]').trigger('click');
 
 		 		$(window).trigger('show-message', results);
@@ -623,16 +623,16 @@ jQuery(function($){
 	 			if (results.status && type == 'file') {
 		 			// delete locally
 		 			$(window).removeData('file_'+id);
-	 				$('.folders-center [data-id="'+id+'"]').remove();
+	 				$('.folders-center .file[data-id="'+id+'"]').remove();
 	 			}
 	 			if (results.status && type == 'folder') {
 		 			// delete locally
 		 			$(window).removeData('folder_'+id);
 		 			// remove it from the left and right panes
-	 				$('[data-id="'+id+'"]').remove();
+	 				$('.folder[data-id="'+id+'"]').remove();
 	 				// adjust the parents
-					$('[data-id="'+current_level+'"] ul:empty').remove();
-					$('[data-id="'+current_level+'"]').removeClass('open close');
+					$('.folder[data-id="'+current_level+'"] ul:empty').remove();
+					$('.folder[data-id="'+current_level+'"]').removeClass('open close');
 
 					// if they are trying it out and created a folder and then removed it
 					// then we show the no data messages again
