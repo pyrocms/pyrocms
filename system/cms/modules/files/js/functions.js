@@ -568,22 +568,30 @@ jQuery(function($){
 	 		var item_data;
 	 		post[type+'_id'] = $item.parent('li').attr('data-id');
  			post['name'] = $input.val();
+ 			var item_data = $(window).data(type+'_'+post['folder_id']);
 
-	 		$.post(SITE_URL + 'admin/files/rename_'+type, post, function(data){
-	 			var results = $.parseJSON(data);
-	 			$(window).trigger('show-message', results);
+ 			if (item_data == undefined || item_data.name !== post['name']) {
+ 				if (item_data == undefined) {
+ 					var item_data = {};
+ 				}
 
-	 			// update the local data
-	 			item_data = $(window).data('folder_'+post['folder_id']);
-	 			item_data.name = results.data.name;
-	 			item_data.slug = results.data.slug;
-	 			$(window).data('folder_'+item_data.id, item_data);
+		 		$.post(SITE_URL + 'admin/files/rename_'+type, post, function(data){
+		 			var results = $.parseJSON(data);
+		 			$(window).trigger('show-message', results);
 
-	 			// remove the input and place the text back in the span
-	 			$('[name="rename"]').parent().html(results.data.name);
-	 			$('.folders-sidebar [data-id="'+post.folder_id+'"] > a').html(results.data.name);
-	 			$('.folder[data-id="'+post[type+'_id']+'"]').attr('data-name', results.data.name);
-	 		})
+		 			// update the local data
+		 			item_data.name = results.data.name;
+		 			item_data.slug = results.data.slug;
+		 			$(window).data(type+'_'+item_data.id, item_data);
+
+		 			// remove the input and place the text back in the span
+		 			$('[name="rename"]').parent().html(results.data.name);
+		 			$('.folders-sidebar').find('[data-id="'+post.folder_id+'"] > a').html(results.data.name);
+		 			$('.'+type+'[data-id="'+post[type+'_id']+'"]').attr('data-name', results.data.name);
+		 		})
+	 		}
+
+	 		$('[name="rename"]').parent().html($('[name="rename"]').val());
 	 	})
 	 }
 
