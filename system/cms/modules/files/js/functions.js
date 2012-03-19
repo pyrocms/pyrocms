@@ -84,7 +84,7 @@ jQuery(function($){
 	 ***************************************************************************/
  	$('.folders-center').on('dblclick', '.folder', function(e){
  		// store element so it can be accessed the same as if it was right clicked
- 		pyro.files.$last_r_click = $(e.target);
+ 		pyro.files.$last_r_click = $(e.target).closest('li');
 
  		$('.context-menu-source [data-menu="open"]').trigger('click');
  	});
