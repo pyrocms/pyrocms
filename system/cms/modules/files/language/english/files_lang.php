@@ -30,7 +30,7 @@ $lang['files:activity']						= 'Activity';
 $lang['files:places']						= 'Places';
 $lang['files:back']							= 'Back';
 $lang['files:forward']						= 'Forward';
-$lang['files:start']						= 'Start';
+$lang['files:start']						= 'Start Upload';
 $lang['files:details']						= 'Details';
 $lang['files:name']							= 'Name';
 $lang['files:slug']							= 'Slug';
@@ -52,6 +52,7 @@ $lang['files:check_container']				= 'Check Validity';
 $lang['files:search_message']				= 'Type and hit Enter';
 $lang['files:search']						= 'Search';
 $lang['files:synchronize']					= 'Synchronize';
+$lang['files:uploader']						= 'Drop files here <br />or<br />Click to select files';
 
 // Context Menu
 $lang['files:open']							= 'Open';

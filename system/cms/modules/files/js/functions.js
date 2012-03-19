@@ -329,7 +329,7 @@ jQuery(function($){
 			uploadTable     : $('#files-uploader-queue'),
 			downloadTable   : $('#files-uploader-queue'),
 			previewSelector : '.file_upload_preview div',
-	        cancelSelector  : '.file_upload_cancel button.cancel',
+	        cancelSelector  : '.file_upload_cancel div.cancel-icon',
 			buildUploadRow	: function(files, index, handler){
 				var resize = '';
 				var type = files[index]['type'];
@@ -343,16 +343,17 @@ jQuery(function($){
 								'<input name="ratio" type="checkbox" value="1"/>';
 				}
 				// build the upload html for this file
-				return $('<li><div class="file_upload_preview ui-corner-all"><div class="ui-corner-all preview-container"></div></div>' +
-						'<div class="filename"><label for="file-name">' + files[index].name + '</label>' +
-						'<input class="file-name" type="hidden" name="name" value="'+files[index].name+'" />' +
-						'</div>' +
-						'<div class="file_upload_progress"><div></div></div>' +
-						'<div class="file_upload_cancel buttons buttons-small">' +
-						resize+
-						'<button class="button start ui-helper-hidden-accessible"><span>' + pyro.lang.start + '</span></button>'+
-						'<button class="button cancel"><span>' + pyro.lang.cancel + '</span></button>' +
-						'</div>' +
+				return $('<li>'+
+							'<div class="file_upload_preview ui-corner-all"><div class="ui-corner-all preview-container"></div></div>' +
+							'<div class="filename"><label for="file-name">' + files[index].name + '</label>' +
+								'<input class="file-name" type="hidden" name="name" value="'+files[index].name+'" />' +
+							'</div>' +
+							'<div class="file_upload_progress"><div></div></div>' +
+							'<div class="file_upload_cancel">' +
+								resize+
+								'<div title="'+pyro.lang.start+'" class="start-icon ui-helper-hidden-accessible"></div>'+
+								'<div title="'+pyro.lang.cancel+'" class="cancel-icon"></div>' +
+							'</div>' +
 						'</li>');
 			},
 			buildDownloadRow: function(results){
@@ -362,7 +363,7 @@ jQuery(function($){
 				}
 			},
 			beforeSend: function(event, files, index, xhr, handler, callBack){
-				handler.uploadRow.find('button.start').click(function(){
+				handler.uploadRow.find('div.start-icon').click(function(){
 					handler.formData = {
 						name: handler.uploadRow.find('input.file-name').val(),
 						width: handler.uploadRow.find('[name="width"]').val(),
@@ -375,20 +376,7 @@ jQuery(function($){
 				});
 			},
 			onComplete: function (event, files, index, xhr, handler){
-				handler.onCompleteAll(files);
-			},
-			onCompleteAll: function (files){
-				if ( ! files.uploadCounter)
-				{
-					files.uploadCounter = 1;  
-				}
-				else
-				{
-					files.uploadCounter = files.uploadCounter + 1;
-				}
-
-				if (files.uploadCounter === files.length)
-				{
+				if (files.length == index + 1) {
 					$('#files-uploader a.cancel-upload').click();
 				}
 			}
@@ -396,12 +384,12 @@ jQuery(function($){
 
 		$form.on('click', '.start-upload', function(e){
 			e.preventDefault();
-			$('#files-uploader-queue button.start').click();
+			$('#files-uploader-queue div.start-icon').click();
 		});
 
 		$form.on('click', '.cancel-upload', function(e){
 			e.preventDefault();
-			$('#files-uploader-queue button.cancel').click();
+			$('#files-uploader-queue div.cancel-icon').click();
 			$.colorbox.close();
 		});
 

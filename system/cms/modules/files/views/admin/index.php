@@ -64,7 +64,7 @@
 			
 			<div class="files-uploader-browser">
 				<?php echo form_open_multipart('admin/files/upload'); ?>
-					<label for="file" class="upload"><?php echo lang('files:upload'); ?></label>
+					<label for="file" class="upload"><?php echo lang('files:uploader'); ?></label>
 					<?php echo form_upload('file', NULL, 'multiple="multiple"'); ?>
 				<?php echo form_close(); ?>
 				<ul id="files-uploader-queue" class="ui-corner-all"></ul>

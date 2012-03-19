@@ -52,6 +52,7 @@ $lang['files:check_container']				= 'Έλεγχος Εγκυρότητας';
 $lang['files:search_message']				= 'Εισάγετε όρο & Enter';
 $lang['files:search']						= 'Αναζήτηση';
 $lang['files:synchronize']					= 'Συγχρονισμός';
+$lang['files:uploader']						= 'Drop files here <br />or<br />Click to select files'; #translate
 
 // Context Menu
 $lang['files:open']							= 'Άνοιγμα';

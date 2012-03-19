@@ -65,11 +65,13 @@ li.right-title, li.right-title label { font-size: 14px; font-weight: bold; font-
 	border: 2px dashed #d0d0d0;
 	margin: 20px auto 30px;
 	min-height: 100px;
+    color: #585858;
+    width: 99%;
 }
 #files-uploader label.upload {
     position: absolute;
     left: 50%;
-    top: 50%;
+    top: 20%;
     display: block;
     width: 200px;
     height: 30px;
@@ -96,18 +98,21 @@ li.right-title, li.right-title label { font-size: 14px; font-weight: bold; font-
     display: inline-block;
     vertical-align: top;
 }
+#files-uploader-queue li > div * {
+    vertical-align: middle;
+}
 #files-uploader-queue .file_upload_preview {
     border: 1px solid #ccc;
 }
 #files-uploader-queue .file_upload_preview div {
-    width: 80px;
+    width: 50px;
     height: 30px;
     border: 5px solid #fff;
     overflow: hidden;
     background: #fff;
 }
 #files-uploader-queue .file_upload_preview img {
-    width: 80px;
+    width: 50px;
 }
 #files-uploader-queue .filename {
     width: 100px;
@@ -128,10 +133,22 @@ li.right-title, li.right-title label { font-size: 14px; font-weight: bold; font-
 }
 #files-uploader-queue .file_upload_cancel select {
     margin-right: 10px;
+    max-width: 90px;
 }
 #files-uploader-queue .file_upload_cancel input {
     margin-right: 10px;
 }
-#files-uploader-queue .file_upload_cancel .button {
+.file_upload_cancel div.start-icon {
 	margin-left: 5px;
+    width: 30px;
+    height: 30px;
+    background: url(../img/upload.png) no-repeat 0 0;
+    display: inline-block;
+}
+.file_upload_cancel div.cancel-icon {
+    margin-left: 5px;
+    width: 30px;
+    height: 30px;
+    background: url(../img/cancel.png) no-repeat 0 0;
+    display: inline-block;
 }
