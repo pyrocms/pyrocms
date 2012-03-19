@@ -41,9 +41,7 @@ section.two_third .no_data { margin: 40px 20px 20px 20px; }
 .console .success { color: #52914D }
 .console .failure { color: #B72C2C; }
 .console .info { color: #354F68; }
-.console li div.success { width: 20px; height: 20px; margin-right: 5px; float: left; background: url(../img/glyphicons-halflings-gray.png) no-repeat -71px -95px; }
-.console li div.failure { width: 20px; height: 20px; margin-right: 5px; float: left; background: url(../img/glyphicons-halflings-gray.png) no-repeat -47px -94px; }
-.console li div.info { width: 20px; height: 20px; margin-right: 5px; float: left; background: url(../img/glyphicons-halflings-gray.png) no-repeat -119px -95px; }
+.console li i { margin-right: 5px; float: left; }
 li.right-title { padding-left: 0; }
 li.right-title label { padding-left: 10px; }
 li.right-title input { margin-left: 20px; width: 83%; }

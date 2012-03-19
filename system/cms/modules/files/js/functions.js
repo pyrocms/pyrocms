@@ -13,18 +13,21 @@ jQuery(function($){
  		if (results.message > '') {
  			switch (results.status) {
  				case true:
- 					status_class = 'success'
+					li_status_class = 'success';
+ 					status_class = 'icon-ok-sign';
  				break;
  				case false:
- 					status_class = 'failure';
+					li_status_class = 'failure';
+ 					status_class = 'icon-remove-sign';
  				break;
  				default:
- 					status_class = 'info';
+					li_status_class = 'info';
+ 					status_class = 'icon-info-sign';
  				break;
  			}
 
-	 		$('.console-title').after('<li class="'+status_class+'">'+
-	 										'<div class="'+status_class+'"></div>'+results.message+
+	 		$('.console-title').after('<li class="'+li_status_class+'">'+
+	 										'<i class="'+status_class+'"></i>'+results.message+
 	 								  '</li>');
  		}
  	});
