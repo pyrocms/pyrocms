@@ -581,7 +581,7 @@ jQuery(function($){
 
 	 			// remove the input and place the text back in the span
 	 			$('[name="rename"]').parent().html(results.data.name);
-	 			$('.folders-sidebar [data-id="'+post.folder_id+'"] a').html(results.data.name);
+	 			$('.folders-sidebar [data-id="'+post.folder_id+'"] > a').html(results.data.name);
 	 			$('.folder[data-id="'+post[type+'_id']+'"]').attr('data-name', results.data.name);
 	 		})
 	 	})
