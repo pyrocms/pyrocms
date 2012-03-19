@@ -18,10 +18,12 @@ class WYSIWYG_Controller extends MY_Controller
 		parent::__construct();
 
 		// Not an admin and not allowed to see files
-		if ($this->current_user->group !== 'admin' AND ! array_key_exists('files', $this->permissions))
+		if ($this->current_user->group !== 'admin' AND 
+			isset($this->permissions['files']) AND
+			 ! $this->permissions['files']->wysiwyg)
 		{
 			$this->load->language('files/files');
-			show_error(lang('files.no_permissions'));
+			show_error(lang('files:no_permissions'));
 		}
 
 		ci()->admin_theme = $this->theme_m->get_admin();
@@ -39,8 +41,7 @@ class WYSIWYG_Controller extends MY_Controller
 		Asset::add_path('theme', $this->admin_theme->web_path.'/');
 		Asset::set_path('theme');
 
-		$this->load->model('files/file_folders_m');
-		$this->load->model('files/file_m');
+		$this->load->library('files/files');
 		$this->lang->load('files/files');
 		$this->lang->load('wysiwyg');
 		$this->lang->load('buttons');

@@ -520,6 +520,7 @@ class Admin extends Admin_Controller {
 
 			// Load WYSIWYG Editor
 			->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
+			->append_css('module::page-edit.css')
 			->build('admin/form', $this->data);
 	}
 

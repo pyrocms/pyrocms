@@ -324,7 +324,7 @@ jQuery(function($) {
 	pyro.chosen = function()
 	{
 		// Chosen
-		$('select').livequery(function(){
+		$('select:not(.skip)').livequery(function(){
 			$(this).addClass('chzn');
 			$(".chzn").chosen();
 

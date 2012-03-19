@@ -6,93 +6,102 @@
  * An open source CMS based on CodeIgniter
  *
  * @package		PyroCMS
- * @author		PyroCMS Dev Team
+ * @author		Jerel Unruh - PyroCMS Dev Team
  * @license		Apache License v2.0
  * @link		http://pyrocms.com
  * @since		Version 1.0-dev
  * @filesource
  */
 
+// General
+$lang['files:fetching']						= 'Ανάκτηση δεδομένων...';
+$lang['files:fetch_completed']				= 'Ολοκληρώθηκε';
+$lang['files:save_failed']					= 'Οι αλλαγές δεν ήταν δυνατό να αποθηκευτούν';
+$lang['files:item_created']					= 'Το "%s" δημιουργήθηκε';
+$lang['files:item_updated']					= 'Το "%s" ενημερώθηκε';
+$lang['files:item_deleted']					= 'Το "%s" διαγράφηκε';
+$lang['files:item_not_deleted']				= 'Το "%s" δεν ήταν δυνατό να διαγραφεί';
+$lang['files:item_not_found']				= 'Το "%s" δεν βρέθηκε';
+$lang['files:sort_saved']					= 'Η σειρά ταξινόμησης αποθηκεύτηκε';
+$lang['files:no_permissions']				= 'Δεν έχετε τα απαραίτητα δικαιώματα';
+
+// Labels
+$lang['files:activity']						= 'Ενέργειες';
+$lang['files:places']						= 'Τοποθεσίες';
+$lang['files:back']							= 'Πίσω';
+$lang['files:forward']						= 'Εμπρός';
+$lang['files:start']						= 'Εκκίνηση';
+$lang['files:details']						= 'Λεπτομέρειες';
+$lang['files:name']							= 'Όνομα';
+$lang['files:slug']							= 'Σύντομο όνομα';
+$lang['files:path']							= 'Διαδρομή';
+$lang['files:added']						= 'Ημερομηνία προσθήκης';
+$lang['files:width']						= 'Πλάτος';
+$lang['files:height']						= 'Ύψος';
+$lang['files:ratio']						= 'Αναλογία';
+$lang['files:full_size']					= 'Πλήρες Μέγεθος';
+$lang['files:filename']						= 'Όνομα αρχείου';
+$lang['files:filesize']						= 'Μέγεθος αρχείου';
+$lang['files:download_count']				= 'Αριθμός μεταφορτώσεων';
+$lang['files:download']						= 'Λήψη';
+$lang['files:location']						= 'Τοποθεσία';
+$lang['files:description']					= 'Περιγραφή';
+$lang['files:container']					= 'Container';
+$lang['files:bucket']						= 'Bucket';
+$lang['files:check_container']				= 'Έλεγχος Εγκυρότητας';
+$lang['files:search_message']				= 'Εισάγετε όρο & Enter';
+$lang['files:search']						= 'Αναζήτηση';
+$lang['files:synchronize']					= 'Συγχρονισμός';
+$lang['files:uploader']						= 'Drop files here <br />or<br />Click to select files'; #translate
+
+// Context Menu
+$lang['files:open']							= 'Άνοιγμα';
+$lang['files:new_folder']					= 'Νέος Φάκελος';
+$lang['files:upload']						= 'Ανέβασμα';
+$lang['files:rename']						= 'Μετονομασία';
+$lang['files:delete']						= 'Διαγραφή';
+$lang['files:edit']							= 'Επεξεργασία';
+$lang['files:details']						= 'Λεπτομέρειες';
+
+// Folders
+
+$lang['files:no_folders']					= 'Η διαχείριση αρχείων και φακέλων γίνεται περίπου όπως και στον υπολογιστή σας. Κάντε δεξί κλικ στην περιοχή κάτω από αυτό το μήνυμα για να δημιουργήσετε τον πρώτο σας φάκελο. Στην συνέχεια μπορείτε να τον μετονομάσετε, αν ανεβάσετε σε αυτόν αρχεία ή και να τροποποιήσετε τις λεπτομέρειές του όπως για παράδειγμα να τον συνδέσετε με μια τοποθεσία στο cloud.';
+$lang['files:no_folders_places']			= 'Folders that you create will show up here in a tree that can be expanded and collapsed. Click on "Places" to view the root folder.';
+$lang['files:no_folders_places']			= 'Οι φάκελοι που θα δημιουργήσετε θα εμφανίζονται εδώ σε διάταξη δένδρου που μπορείτε να αναπτύξετε ή να συμπτύξετε. Κάντε κλικ στο "Τοποθεσίες" για να δείτε το αρχικό επίπεδο.';
+$lang['files:no_folders_wysiwyg']			= 'Δεν έχουν δημιουργηθεί ακόμη φάκελοι';
+$lang['files:new_folder_name']				= 'Φάκελος Χωρίς Όνομα';
+$lang['files:folder']						= 'Φάκελος';
+$lang['files:folders']						= 'Φάκελοι';
+$lang['files:select_folder']				= 'Επιλέξτε έναν φάκελο';
+$lang['files:subfolders']					= 'Υποφάκελοι';
+$lang['files:root']							= 'Αρχικός';
+$lang['files:no_subfolders']				= 'Χωρίς υποφακέλους';
+$lang['files:folder_not_empty']				= 'Πρέπει πρώτα να διαγράψετε τα περιεχόμενα του "%s"';
+$lang['files:mkdir_error']					= 'Δεν ήταν δυνατό να δημιουργηθεί ο φάκελος που θα αποθηκεύονται οι μεταφορτώσεις. Πρέπει να τον δημιουργήσετε χειρονακτικά';
+$lang['files:chmod_error']					= 'Ο φάκελος αποθήκευσης των μεταφορτώσεων δεν είναι εγγράψιμος. Πρέπει να έχει δικαιώματα 0777';
+$lang['files:location_saved']				= 'Η τοποθεσία του φακέλου σας αποθηκεύτηκε';
+$lang['files:container_exists']				= 'Το "%s" υπάρχει. Αποθηκεύστε για να συνδεθούν τα περιεχόμενά του με αυτόν τον φάκελο';
+$lang['files:container_not_exists']			= 'Το "%s" δεν υπάρχει στον λογαριασμό σας. Αποθηκεύστε και θα προσπαθήσουμε να το δημιουργήσουμε';
+$lang['files:error_container']				= 'Το "%s" δεν ήταν δυνατό να δημιουργηθεί και ο λόγος δεν μπορεί να προσδιοριστεί';
+$lang['files:container_created']			= 'Το "%s" δημιουργήθηκε και πλέον είναι συνδεδεμένο με αυτόν τον φάκελο';
+$lang['files:unwritable']					= 'Το "%s" δεν είναι εγγράψιμο, ορίστε τα δικαιώματά του σε 0777';
+$lang['files:specify_valid_folder']			= 'Πρέπει να ορίσετε έναν έγκυρο φάκελο όπου θα ανέβει και το αρχείο';
+$lang['files:enable_cdn']					= 'Πρέπει να ενεργοποιήσετε το CDN για "%s" μέσα από την περιοχή ελέγχου του Rackspace προτού να μπορείτε να συγχρονίσετε';
+$lang['files:synchronization_started']		= 'Εκκίνηση συγχρονισμού';
+$lang['files:synchronization_complete']		= 'Ο συγχρονισμός του φακέλου "%s" ολοκληρώθηκε';
+
 // Files
-
-// Titles
-$lang['files.files_title']			= 'Αρχεία';
-$lang['files.upload_title']			= 'Ανέβασμα Αρχείων';
-$lang['files.edit_title']			= 'Επεξεργασία αρχείου "%s"';
-
-// Labels
-$lang['files.download_label']			= 'Μεταφόρτωση';
-$lang['files.upload_label']			= 'Ανέβασμα';
-$lang['files.description_label']		= 'Περιγραφή';
-$lang['files.type_label']			= 'Τύπος';
-$lang['files.file_label']			= 'Αρχείο';
-$lang['files.filename_label']			= 'Όνομα Αρχείου';
-$lang['files.filter_label']			= 'Φίλτρο';
-$lang['files.loading_label']			= 'Φορτώνει...';
-$lang['files.name_label']			= 'Όνομα';
-
-$lang['files.dropdown_select']			= '-- Επιλογή φακέλου μεταφόροτωσης --';
-$lang['files.dropdown_no_subfolders']		= '-- Κανένας --';
-$lang['files.dropdown_root']			= '-- Αρχικός --';
-
-$lang['files.type_a']				= 'Ηχητικό';
-$lang['files.type_v']				= 'Βίντεο';
-$lang['files.type_d']				= 'Έγγραφο';
-$lang['files.type_i']				= 'Εικόνα';
-$lang['files.type_o']				= 'Άλλο';
-
-$lang['files.display_grid']			= 'Κάνναβος';
-$lang['files.display_list']			= 'Λίστα';
-
-// Messages
-$lang['files.create_success']			= 'Το αρχείο αποθηκεύτηκε.';
-$lang['files.create_error']			= 'Συνέβη κάποιο σφάλμα.';
-$lang['files.edit_success']			= 'Το αρχείο αποθηκεύτηκε επιτυχώς.';
-$lang['files.edit_error']			= 'Συνέβη κάποιο σφάλμα κατά την αποθήκευση του αρχείου.';
-$lang['files.delete_success']			= 'Το αρχείο διαγράφηκε.';
-$lang['files.delete_error']			= 'Δεν ήταν δυνατό να διαγραφεί το αρχείο.';
-$lang['files.mass_delete_success']		= '%d από τα %d αρχεία διαγράφηκαν, ήταν "%s και %s"';
-$lang['files.mass_delete_error']		= 'Συνέβη κάποιο σφάλμα κατά την διαγραφή %d από %d αρχείων, είναι "%s και %s".';
-$lang['files.upload_error']			= 'Πρέπει να μεταφορτωθεί ένα αρχείο.';
-$lang['files.invalid_extension']		= 'Το αρχείο πρέπει να έχει μια επέκταση.';
-$lang['files.not_exists']			= 'Επιλέχθηκε μη έγκυρος φάκελος.';
-$lang['files.no_files']				= 'Προς το παρόν δεν υπάρχουν αρχεία.';
-$lang['files.no_permissions']			= 'Δεν έχετε δικαίωμα να δείτε το πρόσθετο Αρχεία.';
-$lang['files.no_select_error']			= 'Πρέπει να επιλέξετε ένα αρχείο πρώτα, αυτή η αίτηση διεκόπει.';
-
-// File folders
-
-// Titles
-$lang['file_folders.folders_title']		= 'Φάκελοι Αρχείων';
-$lang['file_folders.manage_title']		= 'Διαχείριση Φακέλων';
-$lang['file_folders.create_title']		= 'Νέος Φάκελος';
-$lang['file_folders.delete_title']		= 'Επιβεβαίωση Διαγραφής';
-$lang['file_folders.edit_title']		= 'Επεξεργασία φακέλου "%s"';
-
-// Labels
-$lang['file_folders.folders_label']		= 'Φάκελοι';
-$lang['file_folders.folder_label']		= 'Φάκελος';
-$lang['file_folders.subfolders_label']		= 'Υποφακέλοι';
-$lang['file_folders.parent_label']		= 'Γονέας';
-$lang['file_folders.name_label']		= 'Όνομα';
-$lang['file_folders.slug_label']		= 'Σύντομη ονομασία URL';
-$lang['file_folders.created_label']		= 'Δημιουργήθηκε στις';
-
-// Messages
-$lang['file_folders.create_success']		= 'Ο φάκελος αποθηκεύτηκε.';
-$lang['file_folders.create_error']		= 'Συνέβη κάποιο σφάλμα κατά την προσπάθεια να δημιουργηθεί ο φάκελος.';
-$lang['file_folders.duplicate_error']		= 'Ο φάκελος "%s" υπάρχει ήδη.';
-$lang['file_folders.edit_success']		= 'Οι αλλαγές στο φάκελο αποθηκεύτηκαν επιτυχώς.';
-$lang['file_folders.edit_error']		= 'Συνέβη κάποιο σφάλμα κατά την προσπάθεια να αποθηκευτούν οι αλλαγές.';
-$lang['file_folders.confirm_delete']		= 'Είσαστε σίγουροι ότι θέλετε να διαγράψετε τους παρακάτω φακέλους μαζί με τα αρχεία που υπάρχουν μέσα σε αυτούς;';
-$lang['file_folders.delete_mass_success']	= '%d από τους %d φακέλους διαγράφηκαν επιτυχώς, ήταν "%s και %s".';
-$lang['file_folders.delete_mass_error']		= 'Συνέβη κάποιο σφάλμα κατά την προσπάθεια να διαγραφούν %d από %d φάκελοι, είναι "%s και %s".';
-$lang['file_folders.delete_success']		= 'Ο φάκελος "%s" διαγράφηκε.';
-$lang['file_folders.delete_error']		= 'Συνέβη κάποιο σφάλμα κατά την πρόσπαθεια διαγραφής του φακέλου "%s".';
-$lang['file_folders.not_exists']		= 'Επιλέχθηκε ένας μη έγκυρος φάκελος.';
-$lang['file_folders.no_subfolders']		= 'Κανένας';
-$lang['file_folders.no_folders']		= 'Τα αρχεία σας ταξινομούνται κατά φακέλους, προς το παρόν δεν έχετε ορίσει κανέναν φάκελο.';
-$lang['file_folders.mkdir_error']		= 'Δεν ήταν δυνατό να δημιουργηθεί ο φάκελος uploads/files';
-$lang['file_folders.chmod_error']		= 'Δεν ήταν δυνατό να αλλαχτούν τα δικαιώματα (chmod) του φακέλου uploads/files';
-
-/* End of file files_lang.php */
+$lang['files:no_files']						= 'Δεν βρέθηκαν αρχεία';
+$lang['files:file_uploaded']				= 'Το "%s" ανέβηκε';
+$lang['files:unsuccessful_fetch']			= 'Δεν ήταν δυνατό να πάρουμε το "%s". Είσαστε σίγουροι ότι είναι ένα δημόσια προσβάσιμο αρχείο;';
+$lang['files:invalid_container']			= 'Το "%s" δεν φαίνεται να είναι ένα έγκυρο container.';
+$lang['files:no_records_found']				= 'Δεν ήταν δυνατό να βρεθούν εγγραφές';
+$lang['files:invalid_extension']			= 'Το "%s" έχει μια μη αποδεκτή επέκταση αρχείου';
+$lang['files:upload_error']					= 'Η μεταφόρτωση του αρχείου απέτυχε';
+$lang['files:description_saved']			= 'Η περιγραφή του αρχείο αποθηκεύτηκε';
+$lang['files:file_moved']					= 'Το "%s" μεταφέρθηκε με επιτυχία';
+$lang['files:type_a']						= 'Ήχος';
+$lang['files:type_v']						= 'Video';
+$lang['files:type_d']						= 'Έγγραφο';
+$lang['files:type_i']						= 'Εικόνα';
+$lang['files:type_o']						= 'Άλλο';

@@ -177,7 +177,7 @@ $config['directory_trigger']	= 'd'; // experimental not currently in use
 |	4 = All Messages
 |
 | You can also pass in a array with threshold levels to show individual error types
-| 
+|
 | 	array(2) = Debug Messages, without Error Messages
 |
 | For a live site you'll usually only enable Errors (1) to be logged otherwise
@@ -325,6 +325,18 @@ $config['csrf_exclude_uris'] 	= array();
 |
 */
 $config['compress_output'] = FALSE;
+
+/*
+|--------------------------------------------------------------------------
+| Minify
+|--------------------------------------------------------------------------
+|
+| Removes extra characters (usually unnecessary spaces) from your
+| output for faster page load speeds.  Makes your outputted HTML source
+| code less readable.
+|
+*/
+$config['minify_output'] = (ENVIRONMENT !== PYRO_DEVELOPMENT); // only do this on
 
 /*
 |--------------------------------------------------------------------------

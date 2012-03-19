@@ -113,11 +113,11 @@ class MY_Controller extends MX_Controller {
 		{
 			$this->config->set_item('language', $langs[CURRENT_LANGUAGE]['folder']);
 			$this->lang->is_loaded = array();
-			$this->lang->load(array('errors', 'global', 'users/user', 'settings/settings'));
+			$this->lang->load(array('errors', 'global', 'users/user', 'settings/settings', 'files/files'));
 		}
 		else
 		{
-			$this->lang->load(array('global', 'users/user'));
+			$this->lang->load(array('global', 'users/user', 'files/files'));
 		}
 
 		$this->load->library(array('events', 'users/ion_auth'));
