@@ -12,7 +12,7 @@ class Module_Users extends Module {
 
 	public function info()
 	{
-		return array(
+		$info = array(
 			'name' => array(
 				'en' => 'Users',
 				'ar' => 'المستخدمون',
@@ -57,10 +57,15 @@ class Module_Users extends Module {
 				'zh' => '讓用戶可以註冊並登入網站，並且管理者可在控制台內進行管理。',
                                 'hu' => 'Hogy a felhasználók tudjanak az oldalra regisztrálni és belépni, valamint lehessen őket kezelni a vezérlőpulton.'
 			),
-			'frontend' => false,
-			'backend'  => true,
-			'menu'	  => false,
-			'sections' => array(
+			'frontend' 	=> false,
+			'backend'  	=> true,
+			'menu'	  	=> false,
+			'roles'		=> array('admin_profile_fields')
+			);
+
+		if(group_has_role('users', 'admin_profile_fields'))
+		{
+			$info['sections'] = array(
 				'users' => array(
 						'name' 	=> 'user_list_title',
 						'uri' 	=> 'admin/users',
@@ -83,8 +88,10 @@ class Module_Users extends Module {
 									)
 								)
 							)
-					)
-			);
+					);
+		}
+
+		return $info;
 	}
 
 	/**

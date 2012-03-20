@@ -19,6 +19,10 @@ class Admin_fields extends Admin_Controller {
 		parent::__construct();
 
 		$this->load->driver('streams');
+
+		// If they cannot administer profile fields,
+		// then they can't access anythere here.
+		role_or_die('users', 'admin_profile_fields');
 	}
 
 	// --------------------------------------------------------------------------
