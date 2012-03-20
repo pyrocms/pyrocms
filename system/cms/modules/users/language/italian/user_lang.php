@@ -6,6 +6,7 @@ $lang['user_profile_delete_failure']            = 'There was a problem with dele
 $lang['profile_user_basic_data_label']  		= 'Basic Data'; #translate
 $lang['profile_company']         	  			= 'Company'; #translate
 $lang['profile_updated_on']           			= 'Updated On'; #translate
+$lang['user_profile_fields_label']	 		 	= 'Profile Fields'; #translate`
 
 $lang['user_register_header'] 			= 'Registrazione';
 $lang['user_register_step1'] 			= '<strong>Passo 1:</strong> Registrazione';
