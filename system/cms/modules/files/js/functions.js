@@ -13,18 +13,21 @@ jQuery(function($){
  		if (results.message > '') {
  			switch (results.status) {
  				case true:
- 					status_class = 'success'
+					li_status_class = 'success';
+ 					status_class = 'icon-ok-sign';
  				break;
  				case false:
- 					status_class = 'failure';
+					li_status_class = 'failure';
+ 					status_class = 'icon-remove-sign';
  				break;
  				default:
- 					status_class = 'info';
+					li_status_class = 'info';
+ 					status_class = 'icon-info-sign';
  				break;
  			}
 
-	 		$('.console-title').after('<li class="'+status_class+'">'+
-	 										'<div class="'+status_class+'"></div>'+results.message+
+	 		$('.console-title').after('<li class="'+li_status_class+'">'+
+	 										'<i class="'+status_class+'"></i>'+results.message+
 	 								  '</li>');
  		}
  	});
@@ -51,7 +54,13 @@ jQuery(function($){
  							});
  						}
  					});
- 				}
+ 				} else {
+					$('.console .search-results').append(
+						'<li>'+
+							'<div class="info"></div>'+
+							results.message+
+						'</li>'); 							
+				}
  			})
 	 	} else {
 	 		$('.console .search-results').empty();
@@ -75,7 +84,7 @@ jQuery(function($){
 	 ***************************************************************************/
  	$('.folders-center').on('dblclick', '.folder', function(e){
  		// store element so it can be accessed the same as if it was right clicked
- 		pyro.files.$last_r_click = $(e.target);
+ 		pyro.files.$last_r_click = $(e.target).closest('li');
 
  		$('.context-menu-source [data-menu="open"]').trigger('click');
  	});
@@ -177,7 +186,11 @@ jQuery(function($){
 			break;
 
 			case 'new-folder':
-				pyro.files.new_folder(pyro.files.current_level);
+				$('.no_data').fadeOut(100);
+				// jQuery insists on adding the folder before no_data is removed. So we force it to wait
+				setTimeout(function(){
+					pyro.files.new_folder(pyro.files.current_level)
+				}, 150);
 			break;
 
 			case 'rename':
@@ -257,18 +270,19 @@ jQuery(function($){
 			$.post(SITE_URL + 'admin/files/order', { order : order }, function(data){
 				var results = $.parseJSON(data);
 				if (results.status) {
-					// synchronize the left sidebar
-					var after_id = $(e.target).prev('li').attr('data-id');
-					var moved_id = $(e.target).attr('data-id');
-					if (after_id === undefined && $(moved_id).parent('.folders-sidebar')) {
+					// synchronize the folders in the left sidebar
+					var after_id = $(e.target).prevAll('li.folder').attr('data-id');
+					var moved    = '[data-id="'+$(e.target).attr('data-id')+'"]';
+
+					if (after_id === undefined && $(moved).parent().is('.folders-sidebar')) {
 						$('.folders-sidebar [data-id="0"]')
-							.after($('.folders-sidebar [data-id="'+moved_id+'"]'));
-					} else if (after_id === undefined && $(moved_id).parent('ul')) {
-						$(moved_id).parent('ul')
-							.prepend($('.folders-sidebar [data-id="'+moved_id+'"]'));
+							.after($('.folders-sidebar '+moved));
+					} else if (after_id === undefined && $(moved).parent().is('ul')) {
+						$('.folders-sidebar '+moved).parent('ul')
+							.prepend($('.folders-sidebar '+moved));
 					} else {
 						$('.folders-sidebar [data-id="'+after_id+'"]')
-							.after($('.folders-sidebar [data-id="'+moved_id+'"]'));
+							.after($('.folders-sidebar '+moved));
 					}
 
 				}
@@ -319,7 +333,7 @@ jQuery(function($){
 			uploadTable     : $('#files-uploader-queue'),
 			downloadTable   : $('#files-uploader-queue'),
 			previewSelector : '.file_upload_preview div',
-	        cancelSelector  : '.file_upload_cancel button.cancel',
+	        cancelSelector  : '.file_upload_cancel div.cancel-icon',
 			buildUploadRow	: function(files, index, handler){
 				var resize = '';
 				var type = files[index]['type'];
@@ -333,16 +347,17 @@ jQuery(function($){
 								'<input name="ratio" type="checkbox" value="1"/>';
 				}
 				// build the upload html for this file
-				return $('<li><div class="file_upload_preview ui-corner-all"><div class="ui-corner-all preview-container"></div></div>' +
-						'<div class="filename"><label for="file-name">' + files[index].name + '</label>' +
-						'<input class="file-name" type="hidden" name="name" value="'+files[index].name+'" />' +
-						'</div>' +
-						'<div class="file_upload_progress"><div></div></div>' +
-						'<div class="file_upload_cancel buttons buttons-small">' +
-						resize+
-						'<button class="button start ui-helper-hidden-accessible"><span>' + pyro.lang.start + '</span></button>'+
-						'<button class="button cancel"><span>' + pyro.lang.cancel + '</span></button>' +
-						'</div>' +
+				return $('<li>'+
+							'<div class="file_upload_preview ui-corner-all"><div class="ui-corner-all preview-container"></div></div>' +
+							'<div class="filename"><label for="file-name">' + files[index].name + '</label>' +
+								'<input class="file-name" type="hidden" name="name" value="'+files[index].name+'" />' +
+							'</div>' +
+							'<div class="file_upload_progress"><div></div></div>' +
+							'<div class="file_upload_cancel">' +
+								resize+
+								'<div title="'+pyro.lang.start+'" class="start-icon ui-helper-hidden-accessible"></div>'+
+								'<div title="'+pyro.lang.cancel+'" class="cancel-icon"></div>' +
+							'</div>' +
 						'</li>');
 			},
 			buildDownloadRow: function(results){
@@ -352,7 +367,7 @@ jQuery(function($){
 				}
 			},
 			beforeSend: function(event, files, index, xhr, handler, callBack){
-				handler.uploadRow.find('button.start').click(function(){
+				handler.uploadRow.find('div.start-icon').click(function(){
 					handler.formData = {
 						name: handler.uploadRow.find('input.file-name').val(),
 						width: handler.uploadRow.find('[name="width"]').val(),
@@ -365,20 +380,7 @@ jQuery(function($){
 				});
 			},
 			onComplete: function (event, files, index, xhr, handler){
-				handler.onCompleteAll(files);
-			},
-			onCompleteAll: function (files){
-				if ( ! files.uploadCounter)
-				{
-					files.uploadCounter = 1;  
-				}
-				else
-				{
-					files.uploadCounter = files.uploadCounter + 1;
-				}
-
-				if (files.uploadCounter === files.length)
-				{
+				if (files.length == index + 1) {
 					$('#files-uploader a.cancel-upload').click();
 				}
 			}
@@ -386,12 +388,12 @@ jQuery(function($){
 
 		$form.on('click', '.start-upload', function(e){
 			e.preventDefault();
-			$('#files-uploader-queue button.start').click();
+			$('#files-uploader-queue div.start-icon').click();
 		});
 
 		$form.on('click', '.cancel-upload', function(e){
 			e.preventDefault();
-			$('#files-uploader-queue button.cancel').click();
+			$('#files-uploader-queue div.cancel-icon').click();
 			$.colorbox.close();
 		});
 
@@ -405,7 +407,7 @@ jQuery(function($){
 	 ***************************************************************************/
 	 pyro.files.new_folder = function(parent, name)
 	 {
-	 	if (typeof(name) === 'undefined') name = 'Untitled Folder';
+	 	if (typeof(name) === 'undefined') name = pyro.lang.untitled_folder;
 	 	var new_class = Math.floor(Math.random() * 1000);
 
 		// add an editable one to the right pane
@@ -413,8 +415,6 @@ jQuery(function($){
 			.appendTo('.folders-center')
 			.removeClass('new-folder')
 			.addClass('folder folder-' + new_class);
-
-		$('.no_data').fadeOut('fast');
 
 		var data
 		var post = { parent : parent, name : name };
@@ -432,17 +432,17 @@ jQuery(function($){
 					.html(results.data.name)
 					.removeClass('folder-' + new_class);
 
-				$parent_li = $('.folders-sidebar [data-id="'+parent+'"]');
+				$parent_li = $('.folders-sidebar .folder[data-id="'+parent+'"]');
 				if (parent === 0 || $parent_li.hasClass('places')) {
 					// this is a top level folder, we'll insert it after Places. Not really its parent
-					$parent_li.after('<li class="folder" data-id="'+results.data.id+'" data-name="'+results.data.name+'"><a href="#">'+results.data.name+'</a></li>');
+					$parent_li.after('<li class="folder" data-id="'+results.data.id+'" data-name="'+results.data.name+'"><div></div><a href="#">'+results.data.name+'</a></li>');
 				} else if ($parent_li.has('ul').length > 0) {
 					// it already has children so we'll just append this li to its ul
 					$parent_li.children('ul')
-						.append('<li class="folder" data-id="'+results.data.id+'" data-name="'+results.data.name+'"><a href="#">'+results.data.name+'</a></li>');
+						.append('<li class="folder" data-id="'+results.data.id+'" data-name="'+results.data.name+'"><div></div><a href="#">'+results.data.name+'</a></li>');
 				} else {
 					// it had no children, we'll have to add the <ul> and the icon class also
-					$parent_li.append('<ul><li class="folder" data-id="'+results.data.id+'" data-name="'+results.data.name+'"><a href="#">'+results.data.name+'</a></li></ul>');
+					$parent_li.append('<ul><li class="folder" data-id="'+results.data.id+'" data-name="'+results.data.name+'"><div></div><a href="#">'+results.data.name+'</a></li></ul>');
 					$parent_li.addClass('close');			
 				}
 
@@ -450,7 +450,7 @@ jQuery(function($){
 				$(window).data('folder_'+results.data.id, results.data);
 
 				// now they will want to rename it
-		 		pyro.files.$last_r_click = $('[data-id="'+results.data.id+'"]');
+		 		pyro.files.$last_r_click = $('.folder[data-id="'+results.data.id+'"]');
 		 		$('.context-menu-source [data-menu="rename"]').trigger('click');
 
 		 		$(window).trigger('show-message', results);
@@ -556,6 +556,10 @@ jQuery(function($){
 	 	$input.keyup(function(e){
 	 		if(e.which == 13) {
 	 			$input.trigger('blur');
+	 		} else {
+	 			if ($(this).val().length > 49) {
+	 				$(this).val($(this).val().slice(0, 50));
+	 			}
 	 		}
 	 	})
 
@@ -564,22 +568,30 @@ jQuery(function($){
 	 		var item_data;
 	 		post[type+'_id'] = $item.parent('li').attr('data-id');
  			post['name'] = $input.val();
+ 			var item_data = $(window).data(type+'_'+post['folder_id']);
 
-	 		$.post(SITE_URL + 'admin/files/rename_'+type, post, function(data){
-	 			var results = $.parseJSON(data);
-	 			$(window).trigger('show-message', results);
+ 			if (item_data == undefined || item_data.name !== post['name']) {
+ 				if (item_data == undefined) {
+ 					var item_data = {};
+ 				}
 
-	 			// update the local data
-	 			item_data = $(window).data('folder_'+post['folder_id']);
-	 			item_data.name = results.data.name;
-	 			item_data.slug = results.data.slug;
-	 			$(window).data('folder_'+item_data.id, item_data);
+		 		$.post(SITE_URL + 'admin/files/rename_'+type, post, function(data){
+		 			var results = $.parseJSON(data);
+		 			$(window).trigger('show-message', results);
 
-	 			// remove the input and place the text back in the span
-	 			$('[name="rename"]').parent().html(results.data.name);
-	 			$('.folders-sidebar [data-id="'+post.folder_id+'"] a').html(results.data.name);
-	 			$('.folder[data-id="'+post[type+'_id']+'"]').attr('data-name', results.data.name);
-	 		})
+		 			// update the local data
+		 			item_data.name = results.data.name;
+		 			item_data.slug = results.data.slug;
+		 			$(window).data(type+'_'+item_data.id, item_data);
+
+		 			// remove the input and place the text back in the span
+		 			$('[name="rename"]').parent().html(results.data.name);
+		 			$('.folders-sidebar').find('[data-id="'+post.folder_id+'"] > a').html(results.data.name);
+		 			$('.'+type+'[data-id="'+post[type+'_id']+'"]').attr('data-name', results.data.name);
+		 		})
+	 		}
+
+	 		$('[name="rename"]').parent().html($('[name="rename"]').val());
 	 	})
 	 }
 
@@ -622,16 +634,22 @@ jQuery(function($){
 	 			if (results.status && type == 'file') {
 		 			// delete locally
 		 			$(window).removeData('file_'+id);
-	 				$('.folders-center [data-id="'+id+'"]').remove();
+	 				$('.folders-center .file[data-id="'+id+'"]').remove();
 	 			}
 	 			if (results.status && type == 'folder') {
 		 			// delete locally
 		 			$(window).removeData('folder_'+id);
 		 			// remove it from the left and right panes
-	 				$('[data-id="'+id+'"]').remove();
+	 				$('.folder[data-id="'+id+'"]').remove();
 	 				// adjust the parents
-					$('[data-id="'+current_level+'"] ul:empty').remove();
-					$('[data-id="'+current_level+'"]').removeClass('open close');
+					$('.folder[data-id="'+current_level+'"] ul:empty').remove();
+					$('.folder[data-id="'+current_level+'"]').removeClass('open close');
+
+					// if they are trying it out and created a folder and then removed it
+					// then we show the no data messages again
+					if ($('.folders-center li').length == 0) {
+						$('.no_data').fadeIn('fast');
+					}
 	 			}
 	 		});
 		}

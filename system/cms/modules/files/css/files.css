@@ -2,8 +2,9 @@
 .item { height: 450px; overflow: hidden; }
 .sidebar { width: 20%; }
 section.two_third { width: 60%; }
-section.two_third .no_data { margin: 20px; }
+section.two_third .no_data { margin: 40px 20px 20px 20px; }
 
+.folders-sidebar .no_data { margin-right: 20px; }
 .folders-sidebar { height: 450px; border-right: 1px solid #d8d8d8; overflow-x: hidden; overflow-y: auto; }
 .folders-sidebar ul { padding-left: 15px !important; }
 .folders-sidebar li a { width: 80%; padding: 6px 3px 6px 3px; cursor: pointer; font-size: 14px; display: inline-block; }
@@ -40,9 +41,7 @@ section.two_third .no_data { margin: 20px; }
 .console .success { color: #52914D }
 .console .failure { color: #B72C2C; }
 .console .info { color: #354F68; }
-.console li div.success { width: 20px; height: 20px; margin-right: 5px; float: left; background: url(../img/glyphicons-halflings-gray.png) no-repeat -71px -95px; }
-.console li div.failure { width: 20px; height: 20px; margin-right: 5px; float: left; background: url(../img/glyphicons-halflings-gray.png) no-repeat -47px -94px; }
-.console li div.info { width: 20px; height: 20px; margin-right: 5px; float: left; background: url(../img/glyphicons-halflings-gray.png) no-repeat -119px -95px; }
+.console li i { margin-right: 5px; float: left; }
 li.right-title { padding-left: 0; }
 li.right-title label { padding-left: 10px; }
 li.right-title input { margin-left: 20px; width: 83%; }
@@ -64,11 +63,13 @@ li.right-title, li.right-title label { font-size: 14px; font-weight: bold; font-
 	border: 2px dashed #d0d0d0;
 	margin: 20px auto 30px;
 	min-height: 100px;
+    color: #585858;
+    width: 99%;
 }
 #files-uploader label.upload {
     position: absolute;
     left: 50%;
-    top: 50%;
+    top: 20%;
     display: block;
     width: 200px;
     height: 30px;
@@ -95,18 +96,21 @@ li.right-title, li.right-title label { font-size: 14px; font-weight: bold; font-
     display: inline-block;
     vertical-align: top;
 }
+#files-uploader-queue li > div * {
+    vertical-align: middle;
+}
 #files-uploader-queue .file_upload_preview {
     border: 1px solid #ccc;
 }
 #files-uploader-queue .file_upload_preview div {
-    width: 80px;
+    width: 50px;
     height: 30px;
     border: 5px solid #fff;
     overflow: hidden;
     background: #fff;
 }
 #files-uploader-queue .file_upload_preview img {
-    width: 80px;
+    width: 50px;
 }
 #files-uploader-queue .filename {
     width: 100px;
@@ -127,10 +131,22 @@ li.right-title, li.right-title label { font-size: 14px; font-weight: bold; font-
 }
 #files-uploader-queue .file_upload_cancel select {
     margin-right: 10px;
+    max-width: 90px;
 }
 #files-uploader-queue .file_upload_cancel input {
     margin-right: 10px;
 }
-#files-uploader-queue .file_upload_cancel .button {
+.file_upload_cancel div.start-icon {
 	margin-left: 5px;
+    width: 30px;
+    height: 30px;
+    background: url(../img/upload.png) no-repeat 0 0;
+    display: inline-block;
+}
+.file_upload_cancel div.cancel-icon {
+    margin-left: 5px;
+    width: 30px;
+    height: 30px;
+    background: url(../img/cancel.png) no-repeat 0 0;
+    display: inline-block;
 }

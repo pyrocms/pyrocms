@@ -52,6 +52,37 @@ class Migration_Add_cloud_files extends CI_Migration {
 			),
 		));
 
+		// change some constraints
+		$this->dbforge->modify_column('files', array(
+			'name' => array(
+				'type' => 'VARCHAR',
+				'constraint' => 100,
+				'default' => ''
+			),
+		));
+
+		$this->dbforge->modify_column('files', array(
+			'description' => array(
+				'type' => 'TEXT'
+			),
+		));
+
+		$this->dbforge->modify_column('files', array(
+			'mimetype' => array(
+				'type' => 'VARCHAR',
+				'constraint' => 100,
+				'default' => ''
+			),
+		));
+
+		$this->dbforge->modify_column('file_folders', array(
+			'name' => array(
+				'type' => 'VARCHAR',
+				'constraint' => 100,
+				'default' => ''
+			),
+		));
+
 		$files = $this->file_m->select('id, filename')->get_all();
 
 		foreach ($files as $file) 
@@ -66,10 +97,13 @@ class Migration_Add_cloud_files extends CI_Migration {
 		$this->db->where('slug', 'files_enabled_providers')->delete('settings');
 		$this->db->where('slug', 'files_s3_access_key')->delete('settings');
 		$this->db->where('slug', 'files_s3_secret_key')->delete('settings');
+		$this->db->where('slug', 'files_s3_url')->delete('settings');
 		$this->db->where('slug', 'files_cf_username')->delete('settings');
 		$this->db->where('slug', 'files_cf_api_key')->delete('settings');
 
 		$this->dbforge->drop_column('file_folders', 'location');
+		$this->dbforge->drop_column('file_folders', 'remote_container');
 		$this->dbforge->drop_column('files', 'path');
+		$this->dbforge->drop_column('files', 'download_count');
 	}
 }

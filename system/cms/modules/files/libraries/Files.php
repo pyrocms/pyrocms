@@ -349,7 +349,7 @@ class Files
 					$config['height']           = $height;
 					ci()->image_lib->initialize($config);
 					ci()->image_lib->resize();
-					$this->image_lib->clear();
+					ci()->image_lib->clear();
 				}
 
 				$file_id = ci()->file_m->insert($data);
@@ -848,7 +848,7 @@ class Files
 			return self::result(TRUE, NULL, NULL, $results);
 		}
 
-		return self::result(FALSE, NULL, NULL, $results);
+		return self::result(FALSE, lang('files:no_records_found'));
 	}
 
 	// ------------------------------------------------------------------------
@@ -962,6 +962,8 @@ class Files
 	**/
 	protected static function create_slug($name)
 	{
+		$name = convert_accented_characters($name);
+
 		return strtolower(preg_replace('/-+/', '-', preg_replace('/[^a-zA-Z0-9]/', '-', $name)));
 	}
 

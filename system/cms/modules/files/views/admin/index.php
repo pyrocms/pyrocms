@@ -6,6 +6,10 @@
 	<section class="sidebar">
 			<ul class="folders-sidebar">
 				<li class="folder places" data-id="0"><a href="#"><?php echo lang('files:places') ?></a></li>
+				<?php if ( ! $folders) : ?>
+					<li class="no_data"><?php echo lang('files:no_folders_places'); ?></li>
+				<?php endif; ?>
+
 				<?php if ($folder_tree) : ?>
 					<?php foreach ($folder_tree as $folder): ?>
 					<li class="folder"
@@ -24,11 +28,11 @@
 	</section>
 
 	<section class="two_third">
-			<ul class="folders-center pane">
-				<?php if ( ! $folders) : ?>
-					<div class="no_data"><?php echo lang('files:no_folders'); ?></div>
-				<?php endif; ?>
-			</ul>
+			<?php if ( ! $folders) : ?>
+				<div class="no_data"><?php echo lang('files:no_folders'); ?></div>
+			<?php endif; ?>
+
+			<ul class="folders-center pane"></ul>
 
 			<ul class="context-menu-source">
 				<li 							data-applies-to="folder" 			data-menu="open"><?php echo lang('files:open'); ?></li>
@@ -60,7 +64,7 @@
 			
 			<div class="files-uploader-browser">
 				<?php echo form_open_multipart('admin/files/upload'); ?>
-					<label for="file" class="upload"><?php echo lang('files:upload'); ?></label>
+					<label for="file" class="upload"><?php echo lang('files:uploader'); ?></label>
 					<?php echo form_upload('file', NULL, 'multiple="multiple"'); ?>
 				<?php echo form_close(); ?>
 				<ul id="files-uploader-queue" class="ui-corner-all"></ul>
