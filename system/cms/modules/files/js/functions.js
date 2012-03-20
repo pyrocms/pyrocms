@@ -626,17 +626,15 @@ jQuery(function($){
 	 	})
 	 };
 
-	 pyro.files.delete_item = function(current_level) {
+	pyro.files.delete_item = function(current_level) {
 
 	 	// only files can be multi-selected
-	 	var items = $('.selected[data-id]');
-	 	// folder until proven innocent
-		var	type = 'folder';
+	 	var items = $('.selected[data-id]'),
+	 	    // if there are selected items then they have to be files
+			type = items.length > 0 ? 'file' : 'folder';
 
 		// multiple files or a single file
-		if (items.length > 0 || pyro.files.$last_r_click.hasClass('file')) {
-			type = 'file';
-
+	 	if (type === 'file' || pyro.files.$last_r_click.hasClass('file')) {
 			// nothing multi-selected so we use the item clicked on
 			if (items.length === 0) {
 				items = pyro.files.$last_r_click;
@@ -648,14 +646,12 @@ jQuery(function($){
 
 		items.each(function (index, item) {
 
-			var id 			= $(item).attr('data-id');
-			var post_data 	= {};
-			
+			var id = $(item).attr('data-id'),
+				post_data = {};
 			post_data[type + '_id'] = id;
 
 			$.post(SITE_URL + 'admin/files/delete_' + type, post_data, function (data) {
 				var results = $.parseJSON(data);
-				$(window).trigger('show-message', results);
 
 				if (results.status) {
 					// delete locally
@@ -673,13 +669,16 @@ jQuery(function($){
 							$('.folder[data-id="' + current_level + '"] ul:empty').remove();
 							$('.folder[data-id="' + current_level + '"]').removeClass('open close');
 
-							// if they are trying it out and created a folder and then removed it
-							// then we show the no data messages again
-							if ($folders_center.find('li').length == 0) {
-								$('.no_data').fadeIn('fast');
-							}
 						break;
 					}
+
+					// if they are trying it out and created a folder and then removed it
+					// then we show the no data messages again
+					if ($folders_center.find('li').length == 0) {
+						$('.no_data').fadeIn('fast');
+					}
+
+					$(window).trigger('show-message', results);
 				}
 			});
 		});
