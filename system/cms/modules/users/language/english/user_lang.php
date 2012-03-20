@@ -1,5 +1,12 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
+$lang['user_add_field']                        	= 'Add User Profile Field';
+$lang['user_profile_delete_success']           	= 'User profile field deleted successfully';
+$lang['user_profile_delete_failure']            = 'There was a problem with deleting your user profile field';
+$lang['profile_user_basic_data_label']  		= 'Basic Data';
+$lang['profile_company']         	  			= 'Company'; 
+$lang['profile_updated_on']           			= 'Updated On';
+
 $lang['user_register_header']                  = 'Registration';
 $lang['user_register_step1']                   = '<strong>Step 1:</strong> Register';
 $lang['user_register_step2']                   = '<strong>Step 2:</strong> Activate';
@@ -12,7 +19,6 @@ $lang['user_list_title'] 					   = 'Users';
 $lang['user_inactive_title']                   = 'Inactive Users';
 $lang['user_active_title']                     = 'Active Users';
 $lang['user_registred_title']                  = 'Registered Users';
-$lang['user_add_field']                        = 'Add User Profile Field'; // @new
 
 // labels
 $lang['user_edit_title']                       = 'Edit User "%s"';
@@ -139,10 +145,6 @@ $lang['user_forgot_incorrect']                 = "No account was found with thes
 $lang['user_password_reset_message']           = "Your password has been reset. You should recieve the email within the next 2 hours. If you don't, it might have gone into your junk mail by accident.";
 
 
-$lang['user_profile_delete_success']            = 'User profile field deleted successfully'; // @new
-$lang['user_profile_delete_failure']            = 'There was a problem with deleting your user profile field'; // @new
-
-
 // Emails ----------------------------------------------------------------------------------------------------
 
 // Activation
@@ -162,7 +164,6 @@ $lang['user_reset_pass_email_body']            = 'Your password at %s has been r
 $lang['profile_of_title']             = '%s\'s Profile';
 
 $lang['profile_user_details_label']   = 'User Details';
-$lang['profile_user_basic_data_label']   = 'Basic Data'; // @new
 $lang['profile_role_label']           = 'Role';
 $lang['profile_registred_on_label']   = 'Registered on';
 $lang['profile_last_login_label']     = 'Last login';
@@ -176,7 +177,6 @@ $lang['profile_edit']                 = 'Edit your profile';
 
 $lang['profile_personal_section']     = 'Personal';
 
-$lang['profile_company']         	  = 'Company'; // @new
 $lang['profile_display_name']         = 'Display Name';
 $lang['profile_dob']                  = 'Date of Birth';
 $lang['profile_dob_day']              = 'Day';
@@ -198,8 +198,6 @@ $lang['profile_address_line2']        = 'Line #2';
 $lang['profile_address_line3']        = 'Town/City';
 $lang['profile_address_postcode']     = 'Post/Zip Code';
 $lang['profile_website']              = 'Website';
-
-$lang['profile_updated_on']           = 'Updated On'; // @new
 
 $lang['profile_api_section']     	  = 'API Access';
 
