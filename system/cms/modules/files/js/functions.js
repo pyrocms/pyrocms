@@ -26,27 +26,30 @@ jQuery(function($){
  				break;
  			}
 
-	 		$('.console-title').after('<li class="'+li_status_class+'">'+
-	 										'<i class="'+status_class+'"></i>'+results.message+
-	 								  '</li>');
+	 		$('.console-title').after('<li class="'+li_status_class+'"><i class="'+status_class+'"></i>'+results.message+'</li>');
  		}
  	});
 
  	/***************************************************************************
 	 * Sidebar search functionality                           			       *
 	 ***************************************************************************/
- 	$('.console #file-search').keyup(function(e){
- 		// sumit on Enter
- 		if (e.which == 13) {
- 			$('.console .search-results').empty();
+	var $console = $('.console'),
+		$search_results = $console.find('.search-results');
 
- 			$.post(SITE_URL+'admin/files/search', { search : $('.console #file-search').val() }, function(data){
+	$console.find('#file-search').keyup(function(e){
+
+		$search_results.empty();
+
+ 		// submit on Enter
+ 		if (e.which == 13) {
+
+			 $.post(SITE_URL+'admin/files/search', { search : $(e.target).val() }, function(data){
  				var results = $.parseJSON(data);
  				if (results.status) {
  					$.each(results.data, function(type, item){
  						if (item.length > 0){
  							$.each(item, function(i, result){
- 								$('.console .search-results').append(
+								 $search_results.append(
  									'<li>'+
  										'<div class="'+type+'"></div>'+
  										'<a data-parent="'+(type == 'folder' ? result.parent_id : result.folder_id)+'" href="'+SITE_URL+'admin/files#">'+result.name+'</a>'+
@@ -55,22 +58,24 @@ jQuery(function($){
  						}
  					});
  				} else {
-					$('.console .search-results').append(
+					 $search_results.append(
 						'<li>'+
 							'<div class="info"></div>'+
 							results.message+
-						'</li>'); 							
+						'</li>');
 				}
  			})
-	 	} else {
-	 		$('.console .search-results').empty();
 	 	}
+
  	});
 
- 	$('.console .search-results').on('click', 'a', function(e){
+	$search_results.on('click', 'a', function(e){
  		e.preventDefault();
- 		var id = $(this).attr('data-parent');
- 		var text = $(this).html();
+
+		var $el = $(this),
+			id = $(this).attr('data-parent'),
+			text = $(this).html();
+
  		pyro.files.folder_contents(id);
 
  		// after the folder contents have loaded highlight the results
@@ -82,14 +87,16 @@ jQuery(function($){
  	/***************************************************************************
 	 * Open folders                                                            *
 	 ***************************************************************************/
- 	$('.folders-center').on('dblclick', '.folder', function(e){
+	var $folders_center = $('.folders-center');
+
+	$folders_center.on('dblclick', '.folder', function(e){
  		// store element so it can be accessed the same as if it was right clicked
  		pyro.files.$last_r_click = $(e.target).closest('li');
 
  		$('.context-menu-source [data-menu="open"]').trigger('click');
  	});
 
- 	$('.folders-sidebar li:has(ul)').addClass('open');
+ 	$('.folders-sidebar').find('li').has('ul').addClass('open');
 
  	// use a single left click in the left sidebar
  	$('.folders-sidebar').on('click', '.folder', function(e){
@@ -103,8 +110,9 @@ jQuery(function($){
 	 		pyro.files.$last_r_click = $clicked.parent('li');
 	 		$('.context-menu-source [data-menu="open"]').trigger('click');
  		} else {
- 			$clicked.parent('li').children('ul').slideToggle(50);
- 			$clicked.parent('li').toggleClass('open close');
+ 			$clicked
+				.parent('li').toggleClass('open close')
+				.children('ul').slideToggle(50);
  		}
  	});
 
@@ -120,53 +128,58 @@ jQuery(function($){
 		// make the right clicked element easily accessible
 		pyro.files.$last_r_click = $(this);
 
-		// reset in case they've right clicked before
-		$('.context-menu-source li').show();
+		var $context_menu_source = $('.context-menu-source');
+		
+		
+		$context_menu_source.find('li')
+			// reset in case they've right clicked before
+			.show()
+			// what did the user click on? folder, pane, or file
+			.filter(function(index){
+				
+				var folder,
+					pattern = new RegExp('pane');
+				// make an exception cause the image thumbnail itself may be the target
+				if ($(e.target).hasClass('file') || $(e.target).is('img')){
+					pattern = new RegExp('file');
+				} else if ($(e.target).hasClass('folder')){
+					pattern = new RegExp('folder');
+					folder = true;
+				} else if ($(e.target).hasClass('pane') && pyro.files.current_level == 0){
+					pattern = new RegExp('root-pane');
+				}
 
-		// what did the user click on? folder, pane, or file
-		$('.context-menu-source li').filter(function(index){
-			// make an exception cause the image thumbnail itself may be the target
-			if ($(e.target).hasClass('file') || $(e.target).is('img')){
-				var pattern = new RegExp('file');
-			} else if ($(e.target).hasClass('folder')){
-				var pattern = new RegExp('folder');
-				var folder = true;
-			} else if ($(e.target).hasClass('pane') && pyro.files.current_level == 0){
-				var pattern = new RegExp('root-pane');
-			} else {
-				var pattern = new RegExp('pane');
-			}
-
-			// now hide this item if it's not allowed for that type
-			if ( ! pattern.test($(this).attr('data-applies-to'))){
-				$(this).hide();
-			}
-
-			// and hide it if they don't have permission for it
-			if ($(this).attr('data-role') && $.inArray($(this).attr('data-role'), pyro.files.permissions) < 0) {
-				$(this).hide();
-			}
-
-			// one final check for the oddball "synchronize". If it's a local folder we hide it anyway
-			if (folder && $(this).attr('data-role') == 'synchronize') {
-				// fetch the item's data so we can check what its location is
-				$item = $(window).data('folder_'+pyro.files.$last_r_click.attr('data-id'));
-				// sorry buddy, no cloud for you
-				if ($item.location == 'local') {
+				// now hide this item if it's not allowed for that type
+				if ( ! pattern.test($(this).attr('data-applies-to'))){
 					$(this).hide();
 				}
-			}
-			
-		});
 
-		$('.context-menu-source').fadeIn('fast');
-		// jquery UI position the context menu by the mouse
-		$('.context-menu-source').position({
-			my:			'left top',
-			at:			'left bottom',
-			of:			e,
-			collision:	'fit'
-		});
+				// and hide it if they don't have permission for it
+				if ($(this).attr('data-role') && pyro.files.permissions.indexOf($(this).attr('data-role')) < 0) {
+					$(this).hide();
+				}
+
+				// one final check for the oddball "synchronize". If it's a local folder we hide it anyway
+				if (folder && $(this).attr('data-role') == 'synchronize') {
+					// fetch the item's data so we can check what its location is
+					$item = $(window).data('folder_'+pyro.files.$last_r_click.attr('data-id'));
+					// sorry buddy, no cloud for you
+					if ($item.location == 'local') {
+						$(this).hide();
+					}
+				}
+				
+			});
+
+		$context_menu_source
+			.fadeIn('fast')
+			// jquery UI position the context menu by the mouse
+			.position({
+				my:			'left top',
+				at:			'left bottom',
+				of:			e,
+				collision:	'fit'
+			});
 	});
 
 	// call the correct function for the menu item they have clicked
@@ -176,9 +189,7 @@ jQuery(function($){
 
 		switch (menu){
 			case 'open':
-				pyro.files.folder_contents(
-					pyro.files.$last_r_click.attr('data-id')
-				)
+				pyro.files.folder_contents( pyro.files.$last_r_click.attr('data-id') );
 			break;
 
 			case 'upload':
@@ -212,7 +223,9 @@ jQuery(function($){
 			break;
 
 			case 'delete':
-				if ( ! confirm(pyro.lang.dialog_message)) return;
+				if ( ! confirm(pyro.lang.dialog_message)) {
+					return;
+				}
 				pyro.files.delete_item(pyro.files.current_level);
 			break;
 
@@ -226,30 +239,30 @@ jQuery(function($){
 	 * Select files including with the control and shift keys                  *
 	 ***************************************************************************/
 
-	$('.folders-center').on('click', '.file[data-id]', function(e){
+	$folders_center.on('click', '.file[data-id]', function(e){
 		e.stopPropagation();
-		var first;
-		var last;
 
-		var selected = $('.folders-center').find('.selected').length;
+		var first, last,
+			$selected_folders = $folders_center.find('.selected');
+
 		if ( ! e.ctrlKey && ! e.shiftKey) {
-			if(selected > 0) {
+			if($selected_folders.length > 0) {
 				$('[data-id]').removeClass('selected');
 			}
 		}
 		$(this).toggleClass('selected');
 
 		// select 
-		if (e.shiftKey){
-			$('.folders-center .selected:last')
-				.prevAll('.folders-center .selected:first ~ *')
+		if (e.shiftKey) {
+			$selected_folders.last()
+				.prevAll('.selected:first ~ *')
 				.addClass('selected');
 		}
 	});
 
 	// if they left click in the main area reset selected items or hide the context menu
-	$('html').click(function(e){
-		$('.folders-center li').removeClass('selected');
+	$('html').on('click', function(e){
+		$folders_center.find('li').removeClass('selected');
 		$('.context-menu-source').fadeOut('fast');
 	});
 
@@ -257,7 +270,7 @@ jQuery(function($){
 	 * File and folder sorting                                                 *
 	 ***************************************************************************/
 
-	$('.folders-center').sortable({
+	$folders_center.sortable({
 		cursor: 'move',
 		delay: 100,
 		update: function(e) {
@@ -271,8 +284,8 @@ jQuery(function($){
 				var results = $.parseJSON(data);
 				if (results.status) {
 					// synchronize the folders in the left sidebar
-					var after_id = $(e.target).prevAll('li.folder').attr('data-id');
-					var moved    = '[data-id="'+$(e.target).attr('data-id')+'"]';
+					var after_id = $(e.target).prevAll('li.folder').attr('data-id'),
+						moved    = '[data-id="'+$(e.target).attr('data-id')+'"]';
 
 					if (after_id === undefined && $(moved).parent().is('.folders-sidebar')) {
 						$('.folders-sidebar [data-id="0"]')
@@ -367,7 +380,7 @@ jQuery(function($){
 				}
 			},
 			beforeSend: function(event, files, index, xhr, handler, callBack){
-				handler.uploadRow.find('div.start-icon').click(function(){
+				handler.uploadRow.find('div.start-icon').on('click', (function() {
 					handler.formData = {
 						name: handler.uploadRow.find('input.file-name').val(),
 						width: handler.uploadRow.find('[name="width"]').val(),
@@ -377,8 +390,9 @@ jQuery(function($){
 						csrf_hash_name: $.cookie('csrf_cookie_name')
 					};
 					callBack();
-				});
+				}));
 			},
+
 			onComplete: function (event, files, index, xhr, handler){
 				if (files.length == index + 1) {
 					$('#files-uploader a.cancel-upload').click();
@@ -397,7 +411,7 @@ jQuery(function($){
 			$.colorbox.close();
 		});
 
-	}
+	};
 
 	pyro.init_upload($('#files-uploader'));
 
@@ -416,10 +430,9 @@ jQuery(function($){
 			.removeClass('new-folder')
 			.addClass('folder folder-' + new_class);
 
-		var data
-		var post = { parent : parent, name : name };
+		var post_data = { parent : parent, name : name };
 
-		$.post(SITE_URL + 'admin/files/new_folder', post, function(data){
+		$.post(SITE_URL + 'admin/files/new_folder', post_data, function(data){
 			var results = $.parseJSON(data);
 
 			if (results.status) {
@@ -456,27 +469,26 @@ jQuery(function($){
 		 		$(window).trigger('show-message', results);
 			}
 		});
-	 }
+	 };
 
-	 pyro.files.folder_contents = function(folder_id)
-	 {
-	 	var post = { parent : folder_id };
-	 	var level = pyro.files.current_level;
-	 	var folders = [];
-	 	var files = [];
+	 pyro.files.folder_contents = function(folder_id) {
 
-		// let them know we're getting the stuff, it may take a second
-		var results = {};
-		results.message = pyro.lang.fetching;
-		$(window).trigger('show-message', results);
+	 	var level = pyro.files.current_level,
+			folders = [],
+			files = [],
+			results = {};
+		
+		// let them know we're getting the stuff, it may take a second		
+		$(window).trigger('show-message', {message: pyro.lang.fetching});
 
-		$.post(SITE_URL + 'admin/files/folder_contents', post, function(data){
+		var post_data = { parent : folder_id }
+		$.post(SITE_URL + 'admin/files/folder_contents', post_data, function(data){
 			var results = $.parseJSON(data);
 
 			if (results.status) {
 
 				// iterate over all items so we can build a cache
-				$('.folders-center li').each(function(index){
+				$folders_center.find('li').each(function(index){
 					var folder = {}
 					var file = {}
 
@@ -492,10 +504,13 @@ jQuery(function($){
 				});
 
 				// ok now we have a copy of what *was* there
-				pyro.files.history[level] = { 'folder' : folders, 'file' : files }
+				pyro.files.history[level] = {
+					folder : folders,
+					file : files
+				};
 
 				// so let's wipe it clean...
-				$('.folders-center li').fadeOut('fast').remove();
+				$('.folders-center ').find('li').fadeOut('fast').remove();
 
 				// iterate over array('folder' => $folders, 'file' => $files)
 				$.each(results.data, function(type, data){
@@ -503,18 +518,17 @@ jQuery(function($){
 					$.each(data, function(index, item){
 
 						// if it's an image then we set the thumbnail as the content
+						var li_content = '<span class="name-text">'+item.name+'</span>';
 						if (item.type && item.type == 'i') {
-							var li_content = '<img src="'+SITE_URL+'files/cloud_thumb/'+item.id+'" alt="'+item.name+'"/>'+
-												'<span class="name-text">'+item.name+'</span>';
-						} else {
-							var li_content = '<span class="name-text">'+item.name+'</span>'
+							li_content = '<img src="'+SITE_URL+'files/cloud_thumb/'+item.id+'" alt="'+item.name+'"/>'+li_content;
 						}
 
-						$('.folders-center').append(
+						$folders_center.append(
 							'<li class="'+type+' '+(type == 'file' ? 'type-'+item.type : '')+'" data-id="'+item.id+'" data-name="'+item.name+'">'+
 								li_content+
 							'</li>'
 						);
+
 						// save all its details for other uses. The Details window for example
 						$(window).data(type+'_'+item.id, item);
 					})
@@ -528,8 +542,8 @@ jQuery(function($){
 				$('.folders-sidebar [data-id="'+folder_id+'"] > ul:hidden').parent('li').children('div').trigger('click');
 
 				// add the current indicator to the correct folder
-				$('.folders-sidebar li').removeClass('current');
-				$('.folders-sidebar [data-id="'+folder_id+'"]:not(.places)').addClass('current');
+				$('.folders-sidebar').find('li').removeClass('current');
+				$('.folders-sidebar [data-id="'+folder_id+'"]').not('.places').addClass('current');
 
 				// and we succeeded
 				results.message = pyro.lang.fetch_completed;
@@ -537,10 +551,10 @@ jQuery(function($){
 				$(window).trigger('load-completed');
 			}
 		});
-	 }
+	 };
 
-	 pyro.files.rename = function()
-	 {
+	 pyro.files.rename = function() {
+
 	 	// what type of item are we renaming?
 	 	var type = pyro.files.$last_r_click.hasClass('folder') ? 'folder' : 'file';
 
@@ -561,152 +575,150 @@ jQuery(function($){
 	 				$(this).val($(this).val().slice(0, 50));
 	 			}
 	 		}
-	 	})
+	 	});
 
 	 	$input.blur(function(){
-	 		var post = {}
-	 		var item_data;
-	 		post[type+'_id'] = $item.parent('li').attr('data-id');
- 			post['name'] = $input.val();
- 			var item_data = $(window).data(type+'_'+post['folder_id']);
+	 		var item_data,
+				post = { name: $input.val() };
 
- 			if (item_data == undefined || item_data.name !== post['name']) {
- 				if (item_data == undefined) {
- 					var item_data = {};
- 				}
+			post[type+'_id'] = $item.parent('li').attr('data-id');
 
-		 		$.post(SITE_URL + 'admin/files/rename_'+type, post, function(data){
-		 			var results = $.parseJSON(data);
-		 			$(window).trigger('show-message', results);
+			item_data = ($(window).data(type+'_'+post[type+'_id']) || {});
+
+ 			if ( $.isEmptyObject(item_data) || item_data.name !== post['name']) {
+
+				$.post(SITE_URL + 'admin/files/rename_'+type, post, function(data){
+
+					var results = $.parseJSON(data);
+					$(window).trigger('show-message', results);
 
 		 			// update the local data
-		 			item_data.name = results.data.name;
-		 			item_data.slug = results.data.slug;
-		 			$(window).data(type+'_'+item_data.id, item_data);
+					$.extend(item_data, results.data);
+
+					$(window).data(type+'_'+item_data.id, item_data);
 
 		 			// remove the input and place the text back in the span
-		 			$('[name="rename"]').parent().html(results.data.name);
+		 			$('input[name="rename"]').parent().html(results.data.name);
 		 			$('.folders-sidebar').find('[data-id="'+post.folder_id+'"] > a').html(results.data.name);
 		 			$('.'+type+'[data-id="'+post[type+'_id']+'"]').attr('data-name', results.data.name);
 		 		})
 	 		}
 
-	 		$('[name="rename"]').parent().html($('[name="rename"]').val());
+	 		$('input[name="rename"]').parent().html($('input[name="rename"]').val());
 	 	})
-	 }
+	 };
 
-	 pyro.files.delete_item = function(current_level)
-	 {
-	 	var post = {};
-	 	var items = $('.selected[data-id]');
-	 	// if there are selected items then they have to be files
-	 	var type = items.length > 0 ? 'file' : 'folder';
+	 pyro.files.delete_item = function(current_level) {
+
+	 	var items = $('.selected[data-id]'),
+	 	    // if there are selected items then they have to be files
+			type = items.length > 0 ? 'file' : 'folder';
 
 	 	// file or folder?
-	 	if (items.length > 0 || pyro.files.$last_r_click.hasClass('file')){
-	 		type = 'file';
+	 	if (type === 'file' || pyro.files.$last_r_click.hasClass('file')) {
 
 	 		// they've clicked on a file but it isn't selected. Grab it and stuff it into "items"
-	 		if (items.length === 0){
+	 		if (items.length === 0) {
 		 		items = pyro.files.$last_r_click;
 		 	}
 
-	 		items.each(function(index, item){
-	 			post.file_id = $(item).attr('data-id');
-	 			// delete remotely
-	 			do_delete(post.file_id, 'file');
-	 		})
 	 	} else {
 	 		items = pyro.files.$last_r_click;
-	 		// gotta be a folder
-	 		type = 'folder';
-	 		items.each(function(index, item){
-	 			post.folder_id = $(item).attr('data-id');
-	 			// delete remotely
-	 			do_delete(post.folder_id, 'folder');
-	 		})
 	 	}
 
- 		function do_delete(id, type){
-	 		$.post(SITE_URL + 'admin/files/delete_'+type, post, function(data){
-	 			var results = $.parseJSON(data);
-	 			$(window).trigger('show-message', results);
-	 			if (results.status && type == 'file') {
-		 			// delete locally
-		 			$(window).removeData('file_'+id);
-	 				$('.folders-center .file[data-id="'+id+'"]').remove();
-	 			}
-	 			if (results.status && type == 'folder') {
-		 			// delete locally
-		 			$(window).removeData('folder_'+id);
-		 			// remove it from the left and right panes
-	 				$('.folder[data-id="'+id+'"]').remove();
-	 				// adjust the parents
-					$('.folder[data-id="'+current_level+'"] ul:empty').remove();
-					$('.folder[data-id="'+current_level+'"]').removeClass('open close');
+		items.each(function (index, item) {
 
-					// if they are trying it out and created a folder and then removed it
-					// then we show the no data messages again
-					if ($('.folders-center li').length == 0) {
-						$('.no_data').fadeIn('fast');
+			var id = $(item).attr('data-id'),
+				post_data = {};
+			post_data[type + '_id'] = id;
+
+			$.post(SITE_URL + 'admin/files/delete_' + type, post_data, function (data) {
+				var results = $.parseJSON(data);
+				$(window).trigger('show-message', results);
+
+				if (results.status) {
+					// delete locally
+					$(window).removeData(type + '_' + id);
+
+					switch (type) {
+						case 'file':
+							$('.folders-center .file[data-id="' + id + '"]').remove();
+						break;
+
+						case 'folder':
+							// remove it from the left and right panes
+							$('.folder[data-id="' + id + '"]').remove();
+							// adjust the parents
+							$('.folder[data-id="' + current_level + '"] ul:empty').remove();
+							$('.folder[data-id="' + current_level + '"]').removeClass('open close');
+
+							// if they are trying it out and created a folder and then removed it
+							// then we show the no data messages again
+							if ($folders_center.find('li').length == 0) {
+								$('.no_data').fadeIn('fast');
+							}
+						break;
 					}
-	 			}
-	 		});
-		}
-	 }
+				}
+			});
+		});
+	 };
 
-	 pyro.files.details = function()
-	 {
-	 	var timer;
-	 	var location;
-	 	// file or folder?
-	 	var type = pyro.files.$last_r_click.hasClass('file') ? 'file' : 'folder';
-	 	// figure out the ID from the last clicked item
-	 	var $item_id = pyro.files.$last_r_click.attr('data-id') > 0 ? pyro.files.$last_r_click.attr('data-id') : 0;
-	 	// retrieve all the data that was stored when the item was initially loaded
-	 	var $item = $(window).data(type+'_'+$item_id);
-	 	var $select = $('.item-details .location');
+	 pyro.files.details = function() {
+
+	 	var timer, location,
+			// file or folder?
+			type = pyro.files.$last_r_click.hasClass('file') ? 'file' : 'folder',
+			// figure out the ID from the last clicked item
+			$item_id = pyro.files.$last_r_click.attr('data-id') > 0 ? pyro.files.$last_r_click.attr('data-id') : 0, 
+			// retrieve all the data that was stored when the item was initially loaded
+			$item = $(window).data(type+'_'+$item_id),
+			$item_details = $('.item-details'),
+			$select = $item_details.find('.location');
 
 	 	// hide all the unused elements
-	 	$('.item-details li').hide();
+	 	$item_details.find('li').hide();
 
 	 	if ($item) {
-		 	if ($item.name) 			$('.item-details .name')			.html($item.name).parent().show();
-		 	if ($item.slug) 			$('.item-details .slug')			.html($item.slug).parent().show();
-		 	if ($item.path) 			$('.item-details .path')			.val($item.path).parent().show();
-		 	if ($item.formatted_date) 	$('.item-details .added')			.html($item.formatted_date).parent().show();
-		 	if ($item.width > 0) 		$('.item-details .width')			.html($item.width+'px').parent().show();
-		 	if ($item.height > 0) 		$('.item-details .height')			.html($item.height+'px').parent().show();
-		 	if ($item.filesize) 		$('.item-details .filesize')		.html(($item.filesize < 1000 ? $item.filesize+'Kb' : $item.filesize / 1000+'MB')).parent().show();
-		 	if ($item.download_count) 	$('.item-details .download_count')	.html($item.download_count).parent().show();
-		 	if ($item.filename) 		$('.item-details .filename')		.html($item.filename).parent().show();
-		 	if (type == 'file') 		$('.item-details .description')		.val($item.description).parent().show();
+		 	if ($item.name) 			$item_details.find('.name')				.html($item.name).parent().show();
+		 	if ($item.slug) 			$item_details.find('.slug')				.html($item.slug).parent().show();
+		 	if ($item.path) 			$item_details.find('.path')				.val($item.path).parent().show();
+		 	if ($item.formatted_date) 	$item_details.find('.added')			.html($item.formatted_date).parent().show();
+		 	if ($item.width > 0) 		$item_details.find('.width')			.html($item.width+'px').parent().show();
+		 	if ($item.height > 0) 		$item_details.find('.height')			.html($item.height+'px').parent().show();
+		 	if ($item.filesize) 		$item_details.find('.filesize')			.html(($item.filesize < 1000 ? $item.filesize+'Kb' : $item.filesize / 1000+'MB')).parent().show();
+		 	if ($item.download_count) 	$item_details.find('.download_count')	.html($item.download_count).parent().show();
+		 	if ($item.filename) 		$item_details.find('.filename')			.html($item.filename).parent().show();
+		 	if (type == 'file') 		$item_details.find('.description')		.val($item.description).parent().show();
 
 		 	// they can only change the cloud provider if the folder is empty and they have permission
-		 	if (type == 'folder' && $item.file_count == 0 && $.inArray('set_location', pyro.files.permissions) >= 0){
+		 	if (type == 'folder' && $item.file_count == 0 && pyro.files.permissions.indexOf('set_location') > -1){
 		 		// update the value and trigger an update on Chosen
 		 		$select.val($item.location).find('option[value="'+$item.location+'"]').attr('selected', true);
 		 		$select.trigger('liszt:updated').parents().show();
 		 	} else if (type == 'folder') {
 		 		// show the location
-		 		$('.item-details .location-static').html($item.location).parent().show();
+		 		$item_details.find('.location-static').html($item.location).parent().show();
 		 		// show the bucket/container also if it has one
 		 		if ($item.remote_container > '') {
-			 		$('.item-details .container-static').html($item.remote_container).parent().show();		 		
+			 		$item_details.find('.container-static').html($item.remote_container).parent().show();		 		
 				}
 		 	}
 
 		 	// show/hide the bucket/container name field on change
 		 	$select.change(function(e){
 		 		location = $(e.target).val();
-		 		$('.item-details .container').parent().hide();
+		 		$item_details.find('.container').parent().hide();
 		 		$('.'+location).parent().show();
 		 	});
 
 		 	// check if a container with that name exists
 		 	$('.container-button').on('click', function(e){
-	 			var post = { 'name' : $(this).siblings('.container').val(), 'location' : location };
-	 			$.post(SITE_URL + 'admin/files/check_container', post, function(data){
+	 			var post_data = {
+					name : 		$(this).siblings('.container').val(), 
+					location : 	location 
+				};
+				$.post(SITE_URL + 'admin/files/check_container', post_data, function(data) {
 		 			var results = $.parseJSON(data);
 		 			$(window).trigger('show-message', results);
 	 			});
@@ -722,7 +734,7 @@ jQuery(function($){
 			});
 
 			// save on click, then close the modal
-			$('.item-details .buttons').on('click', function(){
+			$item_details.find('.buttons').on('click', function() {
 				if (type == 'file'){
 					pyro.files.save_description($item);
 				} else {
@@ -733,18 +745,21 @@ jQuery(function($){
 				$(this).off('click');
 			});
 		}
-	 }
+	 };
 
-	 pyro.files.save_description = function(item)
-	 {
-	 	var new_description = $('.item-details textarea.description').val();
+	 pyro.files.save_description = function(item) {
+
+	 	var new_description = $('.item-details').find('textarea.description').val(),
+			post_data = {
+				file_id : item.id,
+				description : new_description
+			};
 
 	 	// only save it if it's different than the old one
 	 	if (item.description != new_description){
 
-		 	post = { 'file_id' : item.id, 'description' : new_description };
+	 		$.post(SITE_URL + 'admin/files/save_description', post_data, function(data){
 
-	 		$.post(SITE_URL + 'admin/files/save_description', post, function(data){
 	 			var results = $.parseJSON(data);
 	 			$(window).trigger('show-message', results);
 
@@ -753,16 +768,19 @@ jQuery(function($){
 	 			$(window).data('file_'+item.id, item);
 	 		});
 	 	}
-	 }
+	 };
 
-	 pyro.files.save_location = function(item)
-	 {
-	 	var new_location = $('.item-details .location').val();
-	 	var container = $('.item-details .'+new_location).val();
+	 pyro.files.save_location = function(item) {
 
-	 	post = { 'folder_id' : item.id, 'location' : new_location, 'container' : container };
+	 	var new_location = $('.item-details').find('.location').val(),
+			container = $('.item-details .'+new_location).val(),
+			post_data = {
+				folder_id: 	item.id,
+				location:  	new_location,
+				container: 	container
+			};
 
- 		$.post(SITE_URL + 'admin/files/save_location', post, function(data){
+ 		$.post(SITE_URL + 'admin/files/save_location', post_data, function(data) {
 			var results = $.parseJSON(data);
 			$(window).trigger('show-message', results);
 			if (results.status) {
@@ -772,24 +790,24 @@ jQuery(function($){
 		 		$(window).data('folder_'+item.id, item);
 			}
  		});
- 	}
+ 	};
 
- 	pyro.files.synchronize = function()
- 	{
+ 	pyro.files.synchronize = function() {
+
  		$(window).trigger('show-message', { status : null, message : pyro.lang.synchronization_started });
 
- 		folder_id = pyro.files.$last_r_click.attr('data-id');
+ 		var folder_id = pyro.files.$last_r_click.attr('data-id'),
+			post_data = { folder_id: folder_id };
 
- 	 	post = { 'folder_id' : folder_id };
-
- 		$.post(SITE_URL + 'admin/files/synchronize', post, function(data){
+ 		$.post(SITE_URL + 'admin/files/synchronize', post_data, function(data){
  			var results = $.parseJSON(data);
  			$(window).trigger('show-message', results);
  			if (results.status) {
  				pyro.files.folder_contents(folder_id);
  			}
- 		});		
- 	}
+ 		});
+
+ 	};
 
  	/***************************************************************************
 	 * And off we go... load the root folder                                   *
