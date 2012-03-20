@@ -94,6 +94,9 @@ class Field_datetime
 			return false;
 		}
 
+		if ( ! isset($field_data['start_date'])) $field_data['start_date'] = null;
+		if ( ! isset($field_data['end_date'])) $field_data['end_date'] = null;
+
 		$start_restrict = $this->parse_single_restrict($field_data['start_date'], 'start');
 		$end_restrict 	= $this->parse_single_restrict($field_data['end_date'], 'end');
 
@@ -183,6 +186,9 @@ class Field_datetime
 		// functions, figure out the unix values
 		// of the date range.
 		// -------------------------------------
+
+		if ( ! isset($data['custom']['start_date'])) $data['custom']['start_date'] = null;
+		if ( ! isset($data['custom']['end_date'])) $data['custom']['end_date'] = null;
 
 		$start_restrict 	= $this->parse_single_restrict($data['custom']['start_date'], 'start', false);
 		$end_restrict 		= $this->parse_single_restrict($data['custom']['end_date'], 'end', false);
