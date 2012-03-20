@@ -194,6 +194,8 @@ class Admin extends Admin_Controller {
 			$profile_data[$assign->field_slug] = $this->input->post($assign->field_slug);
 		}
 
+		$profile_data['display_name'] = $this->input->post('display_name');
+
 		if ($this->form_validation->run() !== false)
 		{
 			// Hack to activate immediately
