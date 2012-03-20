@@ -1,4 +1,3 @@
-// TODO: creation of folders rename message.
 jQuery(function($){
 
 	pyro.files.cache = {};
@@ -486,10 +485,8 @@ jQuery(function($){
 				// now they will want to rename it
 		 		pyro.files.$last_r_click = $('.folder[data-id="'+results.data.id+'"]');
 		 		$('.context-menu-source [data-menu="rename"]').trigger('click');
-				// Don't show the message on folder creation (the folder doesn't have a name yet).
-				if (results.message.indexOf('%') < 0) {
-		 		    $(window).trigger('show-message', results);
-				}
+
+		 		$(window).trigger('show-message', results);
 			}
 		});
 	 };
