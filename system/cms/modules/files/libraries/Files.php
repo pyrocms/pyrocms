@@ -12,6 +12,8 @@ class Files
 {
 	public		static $providers;
 	public 		static $path;
+	public		static $max_size_possible;
+	public		static $max_size_allowed;
 	protected	static $_cache_path;
 	protected 	static $_ext;
 	protected	static $_type = '';
@@ -27,6 +29,13 @@ class Files
 		self::$path = config_item('files:path');
 		self::$_cache_path = config_item('cache_dir').'cloud_cache/';
 		self::$providers = explode(',', Settings::get('files_enabled_providers'));
+
+		// work out the most restrictive ini setting
+		$post_max = str_replace('M', '', ini_get('post_max_size'));
+		$file_max = str_replace('M', '', ini_get('upload_max_filesize'));
+		// set the largest size the server can handle and the largest the admin set
+		self::$max_size_possible = ($file_max > $post_max ? $post_max : $file_max) * 1048576; // convert to bytes
+		self::$max_size_allowed = Settings::get('files_upload_limit') * 1048576; // convert this to bytes also
 
 		set_exception_handler(array($this, 'exception_handler'));
 		set_error_handler(array($this, 'error_handler'));

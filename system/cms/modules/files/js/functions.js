@@ -380,6 +380,26 @@ jQuery(function($){
 				}
 			},
 			beforeSend: function(event, files, index, xhr, handler, callBack){
+				var $progress_div = handler.uploadRow.find('.file_upload_progress');
+
+				// check if the server can handle it
+				if (files[index].size > pyro.files.max_size_possible) {
+					$progress_div.html(pyro.lang.exceeds_server_setting);
+					return false;
+				} else if (files[index].size > pyro.files.max_size_allowed) {
+					$progress_div.html(pyro.lang.exceeds_allowed);
+					return false;
+				}
+
+				// is it an allowed type?
+		        var regexp = new RegExp(pyro.files.valid_extensions);
+		        // Using the filename extension for our test,
+		        // as legacy browsers don't report the mime type
+		        if ( ! regexp.test(files[index].name)) {
+		            $progress_div.html(pyro.lang.file_type_not_allowed);
+		            return false;
+		        }
+
 				handler.uploadRow.find('div.start-icon').on('click', (function() {
 					handler.formData = {
 						name: handler.uploadRow.find('input.file-name').val(),

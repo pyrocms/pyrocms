@@ -24,6 +24,13 @@ class Admin extends Admin_Controller {
 		$this->lang->load('files');
 		$this->load->library('files/files');
 
+		$allowed_extensions = '';
+
+		foreach (config_item('files:allowed_file_ext') as $type) 
+		{
+			$allowed_extensions .= implode('|', $type).'|';
+		}
+
 		$this->template->append_metadata(
 			"<script>
 				pyro.lang.fetching = '".lang('files:fetching')."';
@@ -36,7 +43,13 @@ class Admin extends Admin_Controller {
 				pyro.lang.cancel = '".lang('buttons.cancel')."';
 				pyro.lang.synchronization_started = '".lang('files:synchronization_started')."';
 				pyro.lang.untitled_folder = '".lang('files:untitled_folder')."';
+				pyro.lang.exceeds_server_setting = '".lang('files:exceeds_server_setting')."';
+				pyro.lang.exceeds_allowed = '".lang('files:exceeds_allowed')."';
 				pyro.files = { permissions : ".json_encode(Files::allowed_actions())." };
+				pyro.files.max_size_possible = '".Files::$max_size_possible."';
+				pyro.files.max_size_allowed = '".Files::$max_size_allowed."';
+				pyro.files.valid_extensions = '/".trim($allowed_extensions, '|')."$/i';
+				pyro.lang.file_type_not_allowed = '".lang('files:file_type_not_allowed')."';
 			</script>");
 	}
 

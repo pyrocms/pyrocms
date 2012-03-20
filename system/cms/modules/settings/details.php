@@ -267,6 +267,19 @@ class Module_Settings extends Module {
 				'order' => 987,
 			),
 			// @todo Move this to the respective module
+			'files_upload_limit' => array(
+				'title' => 'Filesize Limit',
+				'description' => 'Maximum filesize to allow when uploading. Specify the size in MB. Example: 5',
+				'type' => 'text',
+				'default' => '5',
+				'value' => '5',
+				'options' => '',
+				'is_required' => 1,
+				'is_gui' => 1,
+				'module' => 'files',
+				'order' => 987,
+			),
+			// @todo Move this to the respective module
 			'files_cache' => array(
 				'title' => 'Files Cache',
 				'description' => 'When outputting an image via site.com/files what shall we set the cache expiration for?',
