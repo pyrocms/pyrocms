@@ -14,6 +14,7 @@
  */
 
 // General
+$lang['files:files_title']					= 'Files';
 $lang['files:fetching']						= 'Retrieving data...';
 $lang['files:fetch_completed']				= 'Completed';
 $lang['files:save_failed']					= 'Sorry. The changes could not be saved';

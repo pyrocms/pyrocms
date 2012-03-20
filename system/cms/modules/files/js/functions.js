@@ -26,17 +26,17 @@ jQuery(function($){
  				break;
  			}
 
-	 		$('.console-title').after('<li class="'+li_status_class+'"><i class="'+status_class+'"></i>'+results.message+'</li>');
+	 		$('<li class="'+li_status_class+'"><i class="'+status_class+'"></i>'+results.message+'</li>').prependTo('#console');
  		}
  	});
 
  	/***************************************************************************
 	 * Sidebar search functionality                           			       *
 	 ***************************************************************************/
-	var $console = $('.console'),
-		$search_results = $console.find('.search-results');
+	var $console = $('ul#console'),
+		$search_results = $('ul#search-results');
 
-	$console.find('#file-search').keyup(function(e){
+	$('input#file-search').keyup(function(e){
 
 		$search_results.empty();
 
@@ -49,20 +49,16 @@ jQuery(function($){
  					$.each(results.data, function(type, item){
  						if (item.length > 0){
  							$.each(item, function(i, result){
-								 $search_results.append(
- 									'<li>'+
- 										'<div class="'+type+'"></div>'+
- 										'<a data-parent="'+(type == 'folder' ? result.parent_id : result.folder_id)+'" href="'+SITE_URL+'admin/files#">'+result.name+'</a>'+
- 									'</li>');
+								 console.log(result);
+								 $('<li>'+
+										 '<div class="'+type+'"></div>'+
+										 '<a data-parent="'+(type == 'folder' ? result.parent_id : result.folder_id)+'" href="'+SITE_URL+'admin/files#">'+result.name+'</a>'+
+									'</li>').appendTo('ul#search-results');
  							});
  						}
  					});
  				} else {
-					 $search_results.append(
-						'<li>'+
-							'<div class="info"></div>'+
-							results.message+
-						'</li>');
+					 $('<li><div class="info"></div>' + results.message + '</li>').appendTo('ul#search-results');
 				}
  			})
 	 	}
@@ -96,10 +92,10 @@ jQuery(function($){
  		$('.context-menu-source [data-menu="open"]').trigger('click');
  	});
 
- 	$('.folders-sidebar').find('li').has('ul').addClass('open');
+ 	$('ul#folders-sidebar').find('li').has('ul').addClass('open');
 
  	// use a single left click in the left sidebar
- 	$('.folders-sidebar').on('click', '.folder', function(e){
+ 	$('ul#folders-sidebar').on('click', '.folder', function(e){
  		e.preventDefault();
  		e.stopPropagation();
  		var $clicked = $(e.target);
@@ -290,14 +286,14 @@ jQuery(function($){
 						moved    = '[data-id="'+$(e.target).attr('data-id')+'"]';
 
 					if (after_id === undefined && $(moved).parent().is('.folders-sidebar')) {
-						$('.folders-sidebar [data-id="0"]')
-							.after($('.folders-sidebar '+moved));
+						$('ul#folders-sidebar [data-id="0"]')
+							.after($('ul#folders-sidebar '+moved));
 					} else if (after_id === undefined && $(moved).parent().is('ul')) {
-						$('.folders-sidebar '+moved).parent('ul')
-							.prepend($('.folders-sidebar '+moved));
+						$('ul#folders-sidebar '+moved).parent('ul')
+							.prepend($('ul#folders-sidebar '+moved));
 					} else {
-						$('.folders-sidebar [data-id="'+after_id+'"]')
-							.after($('.folders-sidebar '+moved));
+						$('ul#folders-sidebar [data-id="'+after_id+'"]')
+							.after($('ul#folders-sidebar '+moved));
 					}
 
 				}
@@ -467,7 +463,7 @@ jQuery(function($){
 					.html(results.data.name)
 					.removeClass('folder-' + new_class);
 
-				$parent_li = $('.folders-sidebar .folder[data-id="'+parent+'"]');
+				$parent_li = $('ul#folders-sidebar .folder[data-id="'+parent+'"]');
 				if (parent === 0 || $parent_li.hasClass('places')) {
 					// this is a top level folder, we'll insert it after Places. Not really its parent
 					$parent_li.after('<li class="folder" data-id="'+results.data.id+'" data-name="'+results.data.name+'"><div></div><a href="#">'+results.data.name+'</a></li>');
@@ -561,11 +557,11 @@ jQuery(function($){
 				pyro.files.current_level = folder_id;
 
 				// show the children in the left sidebar
-				$('.folders-sidebar [data-id="'+folder_id+'"] > ul:hidden').parent('li').children('div').trigger('click');
+				$('ul#folders-sidebar [data-id="'+folder_id+'"] > ul:hidden').parent('li').children('div').trigger('click');
 
 				// add the current indicator to the correct folder
-				$('.folders-sidebar').find('li').removeClass('current');
-				$('.folders-sidebar [data-id="'+folder_id+'"]').not('.places').addClass('current');
+				$('ul#folders-sidebar').find('li').removeClass('current');
+				$('ul#folders-sidebar [data-id="'+folder_id+'"]').not('.places').addClass('current');
 
 				// and we succeeded
 				results.message = pyro.lang.fetch_completed;
@@ -621,7 +617,7 @@ jQuery(function($){
 
 		 			// remove the input and place the text back in the span
 		 			$('input[name="rename"]').parent().html(results.data.name);
-		 			$('.folders-sidebar').find('[data-id="'+post.folder_id+'"] > a').html(results.data.name);
+		 			$('ul#folders-sidebar').find('[data-id="'+post.folder_id+'"] > a').html(results.data.name);
 		 			$('.'+type+'[data-id="'+post[type+'_id']+'"]').attr('data-name', results.data.name);
 		 		})
 	 		}
@@ -689,7 +685,9 @@ jQuery(function($){
 		});
 	 };
 
-	 pyro.files.details = function() {
+	var $item_details = $('div#item-details');
+
+	pyro.files.details = function() {
 
 	 	var timer, location,
 			// file or folder?
@@ -698,7 +696,6 @@ jQuery(function($){
 			$item_id = pyro.files.$last_r_click.attr('data-id') > 0 ? pyro.files.$last_r_click.attr('data-id') : 0, 
 			// retrieve all the data that was stored when the item was initially loaded
 			$item = $(window).data(type+'_'+$item_id),
-			$item_details = $('.item-details'),
 			$select = $item_details.find('.location');
 
 	 	// hide all the unused elements
@@ -752,7 +749,7 @@ jQuery(function($){
 			$.colorbox({
 				scrolling	: false,
 				inline		: true,
-				href		: 'div.item-details',
+				href		: 'div#item-details',
 				width		: '500',
 				height		: type == 'file' ? '575' : '380',
 				opacity		: 0
@@ -774,7 +771,7 @@ jQuery(function($){
 
 	 pyro.files.save_description = function(item) {
 
-	 	var new_description = $('.item-details').find('textarea.description').val(),
+	 	var new_description = $item_details.find('textarea.description').val(),
 			post_data = {
 				file_id : item.id,
 				description : new_description
@@ -797,8 +794,8 @@ jQuery(function($){
 
 	 pyro.files.save_location = function(item) {
 
-	 	var new_location = $('.item-details').find('.location').val(),
-			container = $('.item-details .'+new_location).val(),
+	 	var new_location = $item_details.find('.location').val(),
+			container = $('div#item-details .'+new_location).val(),
 			post_data = {
 				folder_id: 	item.id,
 				location:  	new_location,
