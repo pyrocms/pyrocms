@@ -57,7 +57,12 @@ class Migration_Convert_user_profiles_table extends CI_Migration {
 			'dob' => array(
     			'field_name' => 'lang:profile_dob',
     			'field_type' => 'datetime',
-    			'extra'		 => array('use_time' => 'no', 'storage' => 'unix')
+    			'extra'		 => array(
+                                    'use_time'      => 'no',
+                                    'storage'       => 'unix',
+                                    'input_type'    => 'dropdown',
+                                    'start_date'    => '-100Y'
+                )
     		),
     		'gender' => array(
     			'field_name' => 'lang:profile_gender',

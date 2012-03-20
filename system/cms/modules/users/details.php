@@ -8,7 +8,7 @@
  */
 class Module_Users extends Module {
 
-	public $version = '0.8';
+	public $version = '0.9';
 
 	public function info()
 	{
@@ -96,16 +96,14 @@ class Module_Users extends Module {
 	 */
 	public function install()
 	{
-        if (defined('PYROPATH'))
-        {
-        	$this->load->add_package_path(PYROPATH);
-        }
-
     	// Load up the streams driver and convert the profiles table
     	// into a stream.
     	$this->load->driver('Streams');
 
-    	$this->streams->utilities->convert_table_to_stream('profiles', 'users', null, 'lang:user_profile_fields_label', 'Profiles for users module', 'display_name', array('display_name'));
+    	if ( ! $this->streams->utilities->convert_table_to_stream('profiles', 'users', null, 'lang:user_profile_fields_label', 'Profiles for users module', 'display_name', array('display_name')))
+    	{
+    		return false;
+    	}
 
     	// Go ahead and convert our standard user fields:
     	$columns = array(
@@ -143,7 +141,12 @@ class Module_Users extends Module {
 			'dob' => array(
     			'field_name' => 'lang:profile_dob',
     			'field_type' => 'datetime',
-    			'extra'		 => array('use_time' => 'no', 'storage' => 'unix')
+    			'extra'		 => array(
+    								'use_time' 		=> 'no',
+    								'storage' 		=> 'unix',
+    								'input_type'	=> 'dropdown',
+    								'start_date'	=> '-100Y'
+    							)
     		),
     		'gender' => array(
     			'field_name' => 'lang:profile_gender',
@@ -211,7 +214,7 @@ class Module_Users extends Module {
     		}
     	}
 
-        $this->load->remove_package_path(PYROPATH);
+    	return true;
 	}
 
 	public function uninstall()
