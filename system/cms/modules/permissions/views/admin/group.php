@@ -2,7 +2,7 @@
 	<h4><?php echo $group->description; ?></h4>
 </section>
 <section class="item">
-<?php echo form_open(uri_string(), 'class="crud"'); ?>
+<?php echo form_open(uri_string(), array('class'=> 'crud', 'id'=>'edit-permissions',)); ?>
 <table>
 	<thead>
 		<tr>
@@ -34,7 +34,12 @@
 			<?php if ( ! empty($module['roles'])): ?>
 				<?php foreach ($module['roles'] as $role): ?>
 				<label class="inline">
-					<?php echo form_checkbox('module_roles[' . $module['slug'] . ']['.$role.']', TRUE, isset($edit_permissions[$module['slug']]) AND array_key_exists($role, (array) $edit_permissions[$module['slug']])); ?>
+					<?php echo form_checkbox(array(
+						'class' => 'select-rule',
+						'name' => 'module_roles[' . $module['slug'] . ']['.$role.']',
+						'value' => true,
+						'checked' => isset($edit_permissions[$module['slug']]) AND array_key_exists($role, (array) $edit_permissions[$module['slug']])
+					)); ?>
 					<?php echo lang($module['slug'].'.role_'.$role); ?>
 				</label>
 				<?php endforeach; ?>
