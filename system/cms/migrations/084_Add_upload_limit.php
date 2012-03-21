@@ -23,6 +23,6 @@ class Migration_Add_upload_limit extends CI_Migration {
 
     public function down()
     {
-		$this->db->where('slug', 'files_upload_limit')->delete();
+		$this->db->where('slug', 'files_upload_limit')->delete('settings');
     }
 }
