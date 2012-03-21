@@ -994,6 +994,19 @@ class Row_m extends MY_Model {
 		}
 		else
 		{
+			// -------------------------------------
+			// Event: Post Update Entry
+			// -------------------------------------
+
+			$trigger_data = array(
+				'entry_id'		=> $row_id,
+				'stream'		=> $stream
+			);
+
+			Events::trigger('streams_post_update_entry', $trigger_data);
+
+			// -------------------------------------
+
 			return $row_id;
 		}
 	}
@@ -1210,6 +1223,19 @@ class Row_m extends MY_Model {
 				$this->type->types->{$fields->$field_slug->field_type}->pre_save($data[$field_slug], $fields->{$field_slug}, $stream, $id, $data);
 			}
 			
+			// -------------------------------------
+			// Event: Post Insert Entry
+			// -------------------------------------
+
+			$trigger_data = array(
+				'entry_id'		=> $id,
+				'stream'		=> $stream
+			);
+
+			Events::trigger('streams_post_insert_entry', $trigger_data);
+
+			// -------------------------------------
+
 			return $id;
 		}
 	}
@@ -1350,6 +1376,19 @@ class Row_m extends MY_Model {
 					$update_data = array();
 				}
 			}
+
+			// -------------------------------------
+			// Event: Post Delete Entry
+			// -------------------------------------
+
+			$trigger_data = array(
+				'entry_id'		=> $row_id,
+				'stream'		=> $stream
+			);
+
+			Events::trigger('streams_post_delete_entry', $trigger_data);
+
+			// -------------------------------------
 			
 			return true;
 		}

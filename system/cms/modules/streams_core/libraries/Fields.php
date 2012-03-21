@@ -223,18 +223,6 @@ class Fields
 				}
 				else
 				{
-
-					// -------------------------------------
-					// Event: Post Insert Entry
-					// -------------------------------------
-
-					$trigger_data = array(
-						'entry_id'		=> $result_id,
-						'stream'		=> $stream
-					);
-
-					Events::trigger('streams_post_insert_entry', $trigger_data);
-
 					// -------------------------------------
 					// Send Emails
 					// -------------------------------------
@@ -266,18 +254,6 @@ class Fields
 				}
 				else
 				{
-
-					// -------------------------------------
-					// Event: Post Update Entry
-					// -------------------------------------
-
-					$trigger_data = array(
-						'entry_id'		=> $result_id,
-						'stream'		=> $stream
-					);
-
-					Events::trigger('streams_post_update_entry', $trigger_data);
-
 					// -------------------------------------
 					// Send Emails
 					// -------------------------------------
@@ -304,7 +280,7 @@ class Fields
 		// Set Fields & Return Them
 		// -------------------------------------
 
-		return $this->build_fields($stream_fields, $values, $method, $skips, $extra['required']);
+		return $this->build_fields($stream_fields, $values, $row, $method, $skips, $extra['required']);
 	}
 
 	// --------------------------------------------------------------------------
@@ -315,7 +291,7 @@ class Fields
 	 * Builds fields (no validation)
 	 *
 	 */
-	public function build_fields($stream_fields, $values = array(), $method = 'new', $skips = array(), $required = '<span>*</span>')
+	public function build_fields($stream_fields, $values = array(), $row = null, $method = 'new', $skips = array(), $required = '<span>*</span>')
 	{
 		$fields = array();
 
