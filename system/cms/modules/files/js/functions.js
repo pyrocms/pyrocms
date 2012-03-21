@@ -243,10 +243,10 @@ jQuery(function($){
 		e.stopPropagation();
 
 		var first, last,
-			$selected_folders = $folders_center.find('.selected');
+			$selected_files = $folders_center.find('.selected');
 
 		if ( ! e.ctrlKey && ! e.shiftKey) {
-			if($selected_folders.length > 0) {
+			if($selected_files.length > 0) {
 				$('[data-id]').removeClass('selected');
 			}
 		}
@@ -632,26 +632,29 @@ jQuery(function($){
 
 	 pyro.files.delete_item = function(current_level) {
 
-	 	var items = $('.selected[data-id]'),
-	 	    // if there are selected items then they have to be files
-			type = items.length > 0 ? 'file' : 'folder';
+	 	// only files can be multi-selected
+	 	var items = $('.selected[data-id]');
+	 	// folder until proven innocent
+		var	type = 'folder';
 
-	 	// file or folder?
-	 	if (type === 'file' || pyro.files.$last_r_click.hasClass('file')) {
+		// multiple files or a single file
+		if (items.length > 0 || pyro.files.$last_r_click.hasClass('file')) {
+			type = 'file';
 
-	 		// they've clicked on a file but it isn't selected. Grab it and stuff it into "items"
-	 		if (items.length === 0) {
-		 		items = pyro.files.$last_r_click;
-		 	}
-
-	 	} else {
-	 		items = pyro.files.$last_r_click;
-	 	}
+			// nothing multi-selected so we use the item clicked on
+			if (items.length === 0) {
+				items = pyro.files.$last_r_click;
+			}
+		} else {
+			// it's a folder so we use the item clicked
+			items = pyro.files.$last_r_click;
+		}
 
 		items.each(function (index, item) {
 
-			var id = $(item).attr('data-id'),
-				post_data = {};
+			var id 			= $(item).attr('data-id');
+			var post_data 	= {};
+			
 			post_data[type + '_id'] = id;
 
 			$.post(SITE_URL + 'admin/files/delete_' + type, post_data, function (data) {
