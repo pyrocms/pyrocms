@@ -388,24 +388,13 @@ class Field_image
 			$image_config['src']	= $this->CI->config->item('files:path').'/'.$image->name;
 		}
 		
-		if( $use_link )
+		if($use_link)
 		{
-			return '<a href="'.$this->CI->config->item('files:path').$image->name.'" target="_blank">'.img( $image_config ).'</a>'.br();
+			return '<a href="'.$this->CI->config->item('files:path').$image->name.'" target="_blank">'.img($image_config).'</a>'.br();
 		}
 		else
 		{
-		
-			return img( $image_config ).br();
-		
-		}
-		
-		if ($use_link)
-		{
-			return '<a href="'.$this->CI->config->item('files_folder').$image->name.'" target="_blank">'.img($image_config).'</a>'.br();
-		}
-		else
-		{
-			return img($image_config ).br();
+			return img($image_config).br();
 		}
 	}
 
