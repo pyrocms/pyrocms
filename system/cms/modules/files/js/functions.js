@@ -254,7 +254,9 @@ jQuery(function($){
 
 		// select 
 		if (e.shiftKey) {
-			$selected_folders.last()
+			$folders_center
+				.find('.selected')
+				.last()
 				.prevAll('.selected:first ~ *')
 				.addClass('selected');
 		}
