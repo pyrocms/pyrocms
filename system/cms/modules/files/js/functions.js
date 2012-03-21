@@ -636,8 +636,10 @@ jQuery(function($){
 		// multiple files or a single file
 	 	if (type === 'file' || pyro.files.$last_r_click.hasClass('file')) {
 			// nothing multi-selected so we use the item clicked on
+			// and make sure the `type` is file
 			if (items.length === 0) {
 				items = pyro.files.$last_r_click;
+				type = 'file';
 			}
 		} else {
 			// it's a folder so we use the item clicked
@@ -677,7 +679,7 @@ jQuery(function($){
 					if ($folders_center.find('li').length == 0) {
 						$('.no_data').fadeIn('fast');
 					}
-
+					
 					$(window).trigger('show-message', results);
 				}
 			});
