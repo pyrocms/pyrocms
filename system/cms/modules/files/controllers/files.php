@@ -47,6 +47,8 @@ class Files extends Public_Controller
 		
 		// Path to image thumbnail
 		$image_thumb = $cache_dir . ($mode ? $mode : 'normal');
+		$image_thumb .= '_' . ($width === NULL ? 'a' : ($width > $file->width ? 'b' : $width));
+		$image_thumb .= '_' . ($height === NULL ? 'a' : ($height > $file->height ? 'b' : $height));
 		$image_thumb .= '_' . md5($file->filename) . $file->extension;
 
 		if ( ! file_exists($image_thumb) OR (filemtime($image_thumb) < filemtime($this->_path . $file->filename)))
@@ -173,23 +175,40 @@ class Files extends Public_Controller
 
 			// LOAD LIBRARY
 			$this->load->library('image_moo');
-
+			
+			//If not the full sized imaage
+			if($width != NULL AND $height != NULL){
 			// CONFIGURE IMAGE LIBRARY
 			$this->image_moo
 					->load($this->_path . $file->filename)
 					->set_background_colour($color)
 					->resize($width, $height, TRUE)
 					->save($image_thumb, TRUE);
+			}
+			else{
+			//if it is the full sized image, grab the original and save in cache with nothing but a file rename.
+			//Fixes imaage load issues.
+			$this->image_moo
+					->load($this->_path . $file->filename)
+					->save($image_thumb, TRUE);	
+			}
 
 			if ($mode === $modes[1] && ($crop_width !== NULL && $crop_height !== NULL))
 			{
 				// CONFIGURE IMAGE LIBRARY
 				$this->image_moo
 					->load($image_thumb)
-					->set_background_colour($color)
 					->resize_crop($crop_width, $crop_height)
 					->save($image_thumb, TRUE);
 			}
+		}
+		else if (isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) &&
+			(strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE']) == filemtime($image_thumb)) &&
+				$expire )
+		{
+			// Send 304 back to browser if file has not beeb changed
+			header('Last-Modified: '.gmdate('D, d M Y H:i:s', filemtime($image_thumb)).' GMT', true, 304);
+			exit();
 		}
 
 		header('Content-type: ' . $file->mimetype);
