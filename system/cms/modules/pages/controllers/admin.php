@@ -81,6 +81,11 @@ class Admin extends Admin_Controller {
 			'rules'	=> 'trim|numeric'
 		),
 		array(
+			'field' => 'strict_uri',
+			'label'	=> 'lang:pages.strict_uri_label',
+			'rules'	=> 'trim|numeric'
+		),
+		array(
 			'field' => 'is_home',
 			'label'	=> 'lang:pages.is_home_label',
 			'rules'	=> 'trim|numeric'

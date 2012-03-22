@@ -29,6 +29,7 @@ $lang['pages.js_label']                    = 'JavaScript';
 $lang['pages.access_label']                = 'Dostop';
 $lang['pages.rss_enabled_label']           = 'RSS omogočen';
 $lang['pages.comments_enabled_label']      = 'Komentarji omogočeni';
+$lang['pages.strict_uri_label']			   = 'Require an exact uri match?'; #translate
 
 $lang['pages.status_label']                = 'Stanje';
 $lang['pages.draft_label']                 = 'Osnutek';

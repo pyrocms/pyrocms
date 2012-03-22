@@ -84,9 +84,6 @@ class Pages extends Public_Controller
 
 			: $this->pyrocache->model('page_m', 'get_home');
 
-		// the home page won't have a base uri
-		isset($page->base_uri) OR $page->base_uri = $url_segments;
-
 		// If page is missing or not live (and not an admin) show 404
 		if ( ! $page OR ($page->status == 'draft' AND ( ! isset($this->current_user->group) OR $this->current_user->group != 'admin')))
 		{
@@ -97,6 +94,9 @@ class Pages extends Public_Controller
 			}
 		}
 		
+		// the home page won't have a base uri
+		isset($page->base_uri) OR $page->base_uri = $url_segments;
+
 		// If this is a homepage, do not show the slug in the URL
 		if ($page->is_home and $url_segments)
 		{

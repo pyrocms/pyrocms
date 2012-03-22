@@ -30,6 +30,7 @@ $lang['pages.access_label']			= 'Hozzáférés';
 $lang['pages.rss_enabled_label']		= 'RSS engedélyezése';
 $lang['pages.comments_enabled_label']		= 'Hozzászólások engedélyezése';
 $lang['pages.is_home_label']			= 'Beállítás kezdőlapnak';
+$lang['pages.strict_uri_label']						= 'Require an exact uri match?'; #translate
 
 $lang['pages.status_label']			= 'Státusz';
 $lang['pages.draft_label']			= 'Piszkozat';

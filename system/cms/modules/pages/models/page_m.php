@@ -79,12 +79,15 @@ class Page_m extends MY_Model
 	 */
 	public function get_by_uri($uri, $is_request = FALSE)
 	{
-		$page = FALSE;
-
 		// If the URI has been passed as a array, implode to create a string of uri segments
 		is_array($uri) && $uri = trim(implode('/', $uri), '/');
 
-		while ( ! $page AND $uri)
+		// $uri gets shortened so we save the original
+		$original_uri = $uri;
+		$page = FALSE;
+		$i = 0;
+
+		while ( ! $page AND $uri AND $i < 15) /* max of 15 in case it all goes wrong (this shouldn't ever be used) */
 		{
 			$page = $this->db
 				->where('uri', $uri)
@@ -92,7 +95,7 @@ class Page_m extends MY_Model
 				->get('pages')
 				->row();
 
-			// if it's not a normal page load (plugin or etc. that is not be cached)
+			// if it's not a normal page load (plugin or etc. that is not cached)
 			// then we won't do our recursive search
 			if ( ! $is_request)
 			{
@@ -105,11 +108,24 @@ class Page_m extends MY_Model
 				// pop the last segment off and we'll try again
 				$uri = preg_replace('@^(.+)/(.*?)$@', '$1', $uri);
 			}
+			// we didn't find a page and there's only one segment; it's going to 404
+			elseif ( ! $page)
+			{
+				break;
+			}
+			$i++;
 		}
 
-		// things like breadcrumbs need to know the actual uri, not the uri with params
 		if ($page)
 		{
+			// so we found a page but if strict uri matching is required and the unmodified
+			// uri doesn't match the page we fetched then we pretend it didn't happen
+			if ($is_request AND (bool) $page->strict_uri AND $original_uri !== $uri)
+			{
+				return FALSE;
+			}
+
+			// things like breadcrumbs need to know the actual uri, not the uri with extra segments
 			$page->base_uri = $uri;
 		}
 
@@ -342,6 +358,7 @@ class Page_m extends MY_Model
 			'comments_enabled'	=> (int) ! empty($input['comments_enabled']),
 			'status'		=> $input['status'],
 			'created_on'		=> now(),
+			'strict_uri'	=> (int) ! empty($input['strict_uri']),
 			'is_home'		=> (int) ! empty($input['is_home']),
 			'order'		=> now()
 		));
@@ -406,6 +423,7 @@ class Page_m extends MY_Model
 			'restricted_to'		=> $input['restricted_to'],
 			'rss_enabled'		=> (int) ! empty($input['rss_enabled']),
 			'comments_enabled'	=> (int) ! empty($input['comments_enabled']),
+			'strict_uri'		=> (int) ! empty($input['strict_uri']),
 			'is_home'			=> (int) ! empty($input['is_home']),
 			'status'			=> $input['status'],
 			'updated_on'		=> now()
