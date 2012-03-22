@@ -29,6 +29,7 @@ $lang['files.upload_label']					= 'Upload';
 $lang['files.description_label']			= 'Description';
 $lang['files.type_label']					= 'Type';
 $lang['files.file_label']					= 'File';
+$lang['files.i_color_label']				= 'Image Padding Color';
 $lang['files.filename_label']				= 'File Name';
 $lang['files.filter_label']					= 'Filter';
 $lang['files.loading_label']				= 'Loading...';
