@@ -17,6 +17,10 @@
 				'cols'	=> '50'
 			)); ?>
 		</li>
+        <li class="even">
+			<?php echo form_label(lang('files.i_color_label'), 'i_color'); ?>
+			<?php echo form_input('i_color', $file->i_color, 'class="crud"'); ?>
+		</li>
 		<li class="even">
 			<?php echo form_label(lang('file_folders.folder_label'), 'folder_id'); ?>
 			<?php echo form_dropdown('folder_id', array(0 => lang('files.dropdown_no_subfolders')) + $folders_tree, $file->folder_id, 'id="folder_id" class="crud"');
