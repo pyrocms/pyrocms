@@ -19,7 +19,14 @@ class Field_choice
 
 	public $author					= array('name'=>'Parse19', 'url'=>'http://parse19.com');
 
-	public $custom_parameters		= array('choice_data', 'choice_type', 'default_value');
+	public $custom_parameters		= array(
+										'choice_data',
+										'choice_type',
+										'default_value',
+										'min_choices',
+										'max_choices',
+										'show_other'
+									);
 	
 	public $plugin_return			= 'merge';
 		
@@ -245,9 +252,10 @@ class Field_choice
 	 */	
 	public function param_choice_data($value = null)
 	{
-		$instructions = '<p class="note">'.$this->CI->lang->line('streams.choice.instructions').'</p>';
-	
-		return '<div style="float: left;">'.form_textarea('choice_data', $value).$instructions.'</div>';
+		return array(
+				'input' 		=> form_textarea('choice_data', $value),
+				'instructions'	=> $this->CI->lang->line('streams.choice.instructions')
+			);
 	}
 
 	// --------------------------------------------------------------------------
@@ -268,6 +276,62 @@ class Field_choice
 		);
 		
 		return form_dropdown('choice_type', $choices, $value);
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Minimum Number of Choices
+	 *
+	 * @access	public
+	 * @param	[string - value]
+	 * @return	string
+	 */	
+	public function param_min_choices($value = null)
+	{
+		return array(
+				'input' 		=> form_input('min_choices', $value),
+				'instructions'	=> $this->CI->lang->line('streams.choice.checkboxes_only')
+			);
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Minimum Number of Choices
+	 *
+	 * @access	public
+	 * @param	[string - value]
+	 * @return	string
+	 */	
+	public function param_max_choices($value = null)
+	{
+		return array(
+				'input' 		=> form_input('max_choices', $value),
+				'instructions'	=> $this->CI->lang->line('streams.choice.checkboxes_only')
+			);
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Display as Dropdown
+	 *
+	 * @access	public
+	 * @param	[string - value]
+	 * @return	string
+	 */	
+	public function param_show_other($value = null)
+	{
+		$choices = array(
+			'n' 	=> $this->CI->lang->line('global:no'),
+			'y' 	=> $this->CI->lang->line('global:yes')
+		);
+		
+		return array(
+				'input' 		=> form_dropdown('show_other', $choices, $value),
+				'instructions'	=> $this->CI->lang->line('streams.choice.checkboxes_only')
+			);
 	}
 
 	// --------------------------------------------------------------------------
@@ -292,19 +356,37 @@ class Field_choice
 		
 		foreach ($lines as $line)
 		{
-			$bits = explode(":", $line);
-			
+			$bits = explode(' : ', $line);
+
+			$key_bit = trim($bits[0]);
+		
 			if (count($bits) == 1)
 			{
-				$choices[trim($bits[0])] = trim($bits[0]);
+				$key_bit = $this->replace_lang($key_bit);
+
+				$choices[$key_bit] = $key_bit;
 			}
 			else
 			{
-				$choices[trim($bits[0])] = trim($bits[1]);
+				$choices[$key_bit] = $this->replace_lang(trim($bits[1]));
 			}
 		}
 		
 		return $choices;
 	}
+
+	// --------------------------------------------------------------------------
 	
+	private function replace_lang($string)
+	{
+		// lang:?
+		if (preg_match('/^lang:/', $string) > 0)
+		{
+			return lang(preg_replace('/^lang:/', null, $string));
+		}
+		else
+		{
+			return $string;
+		}
+	}
 }

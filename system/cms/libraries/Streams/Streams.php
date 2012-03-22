@@ -64,10 +64,8 @@ class Streams extends CI_Driver_Library {
 		$this->CI = get_instance();
 
 		$this->CI->load->language('streams_core/pyrostreams');
-
 		$this->CI->load->config('streams_core/streams');
-        
-		$this->CI->load->library('streams_core/Type');
+		$this->CI->load->library(array('streams_core/Type', 'streams_core/Fields', 'Form_validation'));
 	
 		$this->CI->load->model(array('streams_core/row_m', 'streams_core/streams_m', 'streams_core/fields_m'));
 		

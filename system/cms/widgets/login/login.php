@@ -21,6 +21,7 @@ class Widget_Login extends Widgets
 		'br' => 'Login',
 		'ru' => 'Вход на сайт',
 		'id' => 'Login',
+		'fi' => 'Kirjautuminen',
 	);
 
 	/**
@@ -35,6 +36,7 @@ class Widget_Login extends Widgets
 		'nl' => 'Toon overal een simpele loginbox',
 		'ru' => 'Выводит простую форму для входа на сайт',
 		'id' => 'Menampilkan form login sederhana',
+		'fi' => 'Näytä yksinkertainen kirjautumislomake missä vain',
 	);
 
 	/**

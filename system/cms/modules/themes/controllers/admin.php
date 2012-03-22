@@ -136,24 +136,10 @@ class Admin extends Admin_Controller
 				Events::trigger('theme_options_updated', $options_array);
 					
 				// Success...
-				$data = array();
-				$data['messages']['success'] = lang('themes.save_success');
-				$message = $this->load->view('admin/partials/notices', $data, TRUE);
-
-				return $this->template->build_json(array(
-					'status'	=> 'success',
-					'message'	=> $message
-				));
-
-			}
-			elseif (validation_errors())
-			{
-				$data = array();
-				$message = $this->load->view('admin/partials/notices', $data, TRUE);
-
 				$this->session->set_flashdata('success', lang('themes.save_success'));
 				
 				redirect('admin/themes/options/'.$slug);
+
 			}
 		}
 		

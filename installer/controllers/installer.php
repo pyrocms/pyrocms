@@ -1,4 +1,14 @@
 <?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+
+// This is for using the the settings
+// library in PyroCMS when installing. This is a
+// copy of the function that exists in
+// system/cms/core/My_Controller.php
+function ci()
+{
+	return get_instance();
+}
+
 /**
  * Installer controller.
  * 
@@ -11,7 +21,7 @@ class Installer extends CI_Controller
 	/**
 	 * Array of languages supported by the installer
 	 */
-	private $languages	= array ('arabic', 'brazilian', 'english', 'dutch', 'french', 'german', 'polish', 'chinese_traditional', 'slovenian', 'spanish', 'russian', 'greek', 'lithuanian','danish','vietnamese', 'indonesian');
+	private $languages	= array ('arabic', 'brazilian', 'english', 'dutch', 'french', 'german', 'polish', 'chinese_traditional', 'slovenian', 'spanish', 'russian', 'greek', 'lithuanian','danish','vietnamese', 'indonesian', 'hungarian', 'finnish');
 
 	/**
 	 * Array containing the directories that need to be writeable

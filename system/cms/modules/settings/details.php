@@ -1,5 +1,11 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
+/**
+ * Settings module
+ *
+ * @author PyroCMS Dev Team
+ * @package PyroCMS\Core\Modules\Settings
+ */
 class Module_Settings extends Module {
 
 	public $version = '1.0';
@@ -8,58 +14,62 @@ class Module_Settings extends Module {
 	{
 		return array(
 			'name' => array(
-				'sl' => 'Nastavitve',
 				'en' => 'Settings',
-				'nl' => 'Instellingen',
-				'es' => 'Configuraciones',
-				'fr' => 'Paramètres',
-				'de' => 'Einstellungen',
-				'pl' => 'Ustawienia',
-				'br' => 'Configurações',
-				'zh' => '網站設定',
-				'it' => 'Impostazioni',
-				'ru' => 'Настройки',
-				'cs' => 'Nastavení',
 				'ar' => 'الإعدادات',
-				'fi' => 'Asetukset',
-				'el' => 'Ρυθμίσεις',
-				'he' => 'הגדרות',
-				'lt' => 'Nustatymai',
+				'br' => 'Configurações',
+				'cs' => 'Nastavení',
 				'da' => 'Indstillinger',
-				'id' => 'Pengaturan'
+				'de' => 'Einstellungen',
+				'el' => 'Ρυθμίσεις',
+				'es' => 'Configuraciones',
+				'fi' => 'Asetukset',
+				'fr' => 'Paramètres',
+				'he' => 'הגדרות',
+				'id' => 'Pengaturan',
+				'it' => 'Impostazioni',
+				'lt' => 'Nustatymai',
+				'nl' => 'Instellingen',
+				'pl' => 'Ustawienia',
+				'ru' => 'Настройки',
+				'sl' => 'Nastavitve',
+				'zh' => '網站設定',
+				'hu' => 'Beállítások'
 			),
 			'description' => array(
-				'sl' => 'Dovoljuje administratorjem posodobitev nastavitev kot je Ime strani, sporočil, email naslova itd.',
 				'en' => 'Allows administrators to update settings like Site Name, messages and email address, etc.',
-				'nl' => 'Maakt het administratoren en medewerkers mogelijk om websiteinstellingen zoals naam en beschrijving te veranderen.',
-				'es' => 'Permite a los administradores y al personal configurar los detalles del sitio como el nombre del sitio y la descripción del mismo.',
-				'fr' => 'Permet aux admistrateurs et au personnel de modifier les paramètres du site : nom du site et description',
-				'de' => 'Erlaubt es Administratoren die Einstellungen der Seite wie Name und Beschreibung zu ändern.',
-				'pl' => 'Umożliwia administratorom zmianę ustawień strony jak nazwa strony, opis, e-mail administratora, itd.',
-				'br' => 'Permite com que administradores e a equipe consigam trocar as configurações do website incluindo o nome e descrição.',
-				'zh' => '網站管理者可更新的重要網站設定。例如：網站名稱、訊息、電子郵件等。',
-				'it' => 'Permette agli amministratori di aggiornare impostazioni quali Nome del Sito, messaggi e indirizzo email, etc.',
-				'ru' => 'Управление настройками сайта - Имя сайта, сообщения, почтовые адреса и т.п.',
-				'cs' => 'Umožňuje administrátorům měnit nastavení webu jako jeho jméno, zprávy a emailovou adresu apod.',
 				'ar' => 'تمكن المدراء من تحديث الإعدادات كإسم الموقع، والرسائل وعناوين البريد الإلكتروني، .. إلخ.',
-				'fi' => 'Mahdollistaa sivuston asetusten muokkaamisen, kuten sivuston nimen, viestit ja sähköpostiosoitteet yms.',
-				'el' => 'Επιτρέπει στους διαχειριστές να τροποποιήσουν ρυθμίσεις όπως το Όνομα του Ιστοτόπου, τα μηνύματα και τις διευθύνσεις email, κ.α.',
-				'he' => 'ניהול הגדרות שונות של האתר כגון: שם האתר, הודעות, כתובות דואר וכו',
-				'lt' => 'Leidžia administratoriams keisti puslapio vavadinimą, žinutes, administratoriaus el. pašta ir kitą.',
+				'br' => 'Permite com que administradores e a equipe consigam trocar as configurações do website incluindo o nome e descrição.',
+				'cs' => 'Umožňuje administrátorům měnit nastavení webu jako jeho jméno, zprávy a emailovou adresu apod.',
 				'da' => 'Lader administratorer opdatere indstillinger som sidenavn, beskeder og email adresse, etc.',
-				'id' => 'Memungkinkan administrator untuk dapat memperbaharui pengaturan seperti nama situs, pesan dan alamat email, dsb.'
+				'de' => 'Erlaubt es Administratoren die Einstellungen der Seite wie Name und Beschreibung zu ändern.',
+				'el' => 'Επιτρέπει στους διαχειριστές να τροποποιήσουν ρυθμίσεις όπως το Όνομα του Ιστοτόπου, τα μηνύματα και τις διευθύνσεις email, κ.α.',
+				'es' => 'Permite a los administradores y al personal configurar los detalles del sitio como el nombre del sitio y la descripción del mismo.',
+				'fi' => 'Mahdollistaa sivuston asetusten muokkaamisen, kuten sivuston nimen, viestit ja sähköpostiosoitteet yms.',
+				'fr' => 'Permet aux admistrateurs et au personnel de modifier les paramètres du site : nom du site et description',
+				'he' => 'ניהול הגדרות שונות של האתר כגון: שם האתר, הודעות, כתובות דואר וכו',
+				'id' => 'Memungkinkan administrator untuk dapat memperbaharui pengaturan seperti nama situs, pesan dan alamat email, dsb.',
+				'it' => 'Permette agli amministratori di aggiornare impostazioni quali Nome del Sito, messaggi e indirizzo email, etc.',
+				'lt' => 'Leidžia administratoriams keisti puslapio vavadinimą, žinutes, administratoriaus el. pašta ir kitą.',
+				'nl' => 'Maakt het administratoren en medewerkers mogelijk om websiteinstellingen zoals naam en beschrijving te veranderen.',
+				'pl' => 'Umożliwia administratorom zmianę ustawień strony jak nazwa strony, opis, e-mail administratora, itd.',
+				'ru' => 'Управление настройками сайта - Имя сайта, сообщения, почтовые адреса и т.п.',
+				'sl' => 'Dovoljuje administratorjem posodobitev nastavitev kot je Ime strani, sporočil, email naslova itd.',
+				'zh' => '網站管理者可更新的重要網站設定。例如：網站名稱、訊息、電子郵件等。',
+				'hu' => 'Lehetővé teszi az adminok számára a beállítások frissítését, mint a weboldal neve, üzenetek, e-mail címek, stb...'
 			),
-			'frontend' => FALSE,
-			'backend'  => TRUE,
-			'skip_xss' => TRUE,
-			'menu'	  => FALSE,
+			'frontend' => false,
+			'backend'  => true,
+			'skip_xss' => true,
+			'menu'	  => false,
 		);
 	}
 
 	public function install()
 	{
 		$this->dbforge->drop_table('settings');
-		$tables = array(	
+
+		log_message('debug', '-- Settings: going to install the settings table');
+		$tables = array(
 			'settings' => array(
 				'slug' => array('type' => 'VARCHAR', 'constraint' => 30, 'primary' => true, 'unique' => true, 'key' => 'index_slug'),
 				'title' => array('type' => 'VARCHAR', 'constraint' => 100,),
@@ -75,10 +85,15 @@ class Module_Settings extends Module {
 			),
 		);
 
-		$this->install_tables($tables);
-		
-		// Regarding ordering: any additions to this table can have an order 
-		// value the same as a sibling in the same section. For example if you 
+		if ( ! $this->install_tables($tables))
+		{
+			return false;
+		}
+		log_message('debug', '-- -- ok settings table');
+
+		log_message('debug', '-- Settings: going to install the default settings');
+		// Regarding ordering: any additions to this table can have an order
+		// value the same as a sibling in the same section. For example if you
 		// add to the Email tab give it a value in the range of 983 to 975.
 		// Third-party modules should use lower numbers or 0.
 		$settings = array(
@@ -209,7 +224,7 @@ class Module_Settings extends Module {
 				'type' => 'text',
 				'default' => 'http://feeds.feedburner.com/pyrocms-installed',
 				'value' => '',
-				'options' => '10=10|25=25|50=50|100=100',
+				'options' => '',
 				'is_required' => 0,
 				'is_gui' => 1,
 				'module' => '',
@@ -221,7 +236,7 @@ class Module_Settings extends Module {
 				'type' => 'text',
 				'default' => '5',
 				'value' => '5',
-				'options' => '10=10|25=25|50=50|100=100',
+				'options' => '',
 				'is_required' => 1,
 				'is_gui' => 1,
 				'module' => '',
@@ -245,10 +260,23 @@ class Module_Settings extends Module {
 				'type' => 'textarea',
 				'default' => 'Sorry, this website is currently unavailable.',
 				'value' => '',
-				'options' => '1=Open|0=Closed',
+				'options' => '',
 				'is_required' => 0,
 				'is_gui' => 1,
 				'module' => '',
+				'order' => 987,
+			),
+			// @todo Move this to the respective module
+			'files_upload_limit' => array(
+				'title' => 'Filesize Limit',
+				'description' => 'Maximum filesize to allow when uploading. Specify the size in MB. Example: 5',
+				'type' => 'text',
+				'default' => '5',
+				'value' => '5',
+				'options' => '',
+				'is_required' => 1,
+				'is_gui' => 1,
+				'module' => 'files',
 				'order' => 987,
 			),
 			// @todo Move this to the respective module
@@ -263,6 +291,78 @@ class Module_Settings extends Module {
 				'is_gui' => 1,
 				'module' => 'files',
 				'order' => 986,
+			),
+			'files_enabled_providers' => array(
+				'title' => 'Enabled File Storage Providers',
+				'description' => 'Which file storage providers do you want to enable? (If you enable a cloud provider you must provide valid auth keys below',
+				'type' => 'checkbox',
+				'default' => 'local',
+				'value' => 'local',
+				'options' => 'local=Local Filesystem|amazon-s3=Amazon S3|rackspace-cf=Rackspace Cloud Files',
+				'is_required' => 1,
+				'is_gui' => 1,
+				'module' => 'files',
+				'order' => 994,
+			),
+			'files_s3_access_key' => array(
+				'title' => 'Amazon S3 Access Key',
+				'description' => 'To enable cloud file storage in your Amazon S3 account provide your Access Key. <a href=\"https://aws-portal.amazon.com/gp/aws/securityCredentials#access_credentials\">Find your credentials</a>',
+				'type' => 'text',
+				'default' => '',
+				'value' => '',
+				'options' => '',
+				'is_required' => 0,
+				'is_gui' => 1,
+				'module' => 'files',
+				'order' => 993,
+			),
+			'files_s3_secret_key' => array(
+				'title' => 'Amazon S3 Secret Key',
+				'description' => 'You also must provide your Amazon S3 Secret Key. You will find it at the same location as your Access Key in your Amazon account.',
+				'type' => 'text',
+				'default' => '',
+				'value' => '',
+				'options' => '',
+				'is_required' => 0,
+				'is_gui' => 1,
+				'module' => 'files',
+				'order' => 992,
+			),
+			'files_s3_url' => array(
+				'title' => 'Amazon S3 URL',
+				'description' => 'You may need to change this if using one of Amazon\'s UK locations.',
+				'type' => 'text',
+				'default' => 'http://{{ bucket }}.s3.amazonaws.com/',
+				'value' => 'http://{{ bucket }}.s3.amazonaws.com/',
+				'options' => '',
+				'is_required' => 0,
+				'is_gui' => 1,
+				'module' => 'files',
+				'order' => 991,
+			),
+			'files_cf_username' => array(
+				'title' => 'Rackspace Cloud Files Username',
+				'description' => 'To enable cloud file storage in your Rackspace Cloud Files account please enter your Cloud Files Username. <a href=\"https://manage.rackspacecloud.com/APIAccess.do\">Find your credentials</a>',
+				'type' => 'text',
+				'default' => '',
+				'value' => '',
+				'options' => '',
+				'is_required' => 0,
+				'is_gui' => 1,
+				'module' => 'files',
+				'order' => 990,
+			),
+			'files_cf_api_key' => array(
+				'title' => 'Rackspace Cloud Files API Key',
+				'description' => 'You also must provide your Cloud Files API Key. You will find it at the same location as your Username in your Rackspace account.',
+				'type' => 'text',
+				'default' => '',
+				'value' => '',
+				'options' => '',
+				'is_required' => 0,
+				'is_gui' => 1,
+				'module' => 'files',
+				'order' => 989,
 			),
 			// @todo Move this to the respective module
 			'ga_tracking' => array(
@@ -670,34 +770,45 @@ class Module_Settings extends Module {
 				'module' => 'api',
 				'order' => 0,
 			),
+			'cdn_domain' => array(
+				'title' => 'CDN Domain',
+				'description' => 'CDN domains allow you to offload static content to various edge servers, like Amazon CloudFront or MaxCDN.',
+				'type' => 'text',
+				'default' => '',
+				'value' => '',
+				'options' => '',
+				'is_required' => false,
+				'is_gui' => true,
+				'module' => 'integration',
+				'order' => 1000,
+			)
 		);
-		
+
 		// Lets add the settings for this module.
-		foreach ($settings as $slug=>$setting_info)
+		foreach ($settings as $slug => $setting_info)
 		{
+			log_message('debug', '-- Settings: installing '.$slug);
 			$setting_info['slug'] = $slug;
-			$this->db->insert('settings',$setting_info);
+			if ( ! $this->db->insert('settings', $setting_info))
+			{
+				log_message('debug', '-- -- could not install '.$slug);
+				return false;
+			}
 		}
+
+		return true;
 
 	}
 
 	public function uninstall()
 	{
-		//it's a core module, lets keep it around
-		return FALSE;
+		// This is a core module, lets keep it around.
+		return false;
 	}
 
 	public function upgrade($old_version)
 	{
-		// Your Upgrade Logic
-		return TRUE;
+		return true;
 	}
 
-	public function help()
-	{
-		// Return a string containing help info
-		// You could include a file and return it here.
-		return "No documentation has been added for this module.";
-	}
 }
-/* End of file details.php */

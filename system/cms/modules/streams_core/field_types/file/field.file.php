@@ -103,7 +103,7 @@ class Field_file
 		$this->CI->load->config('files/files');
 
 		// Set upload data
-		$upload_config['upload_path'] 		= FCPATH.$this->CI->config->item('files_folder').'/';
+		$upload_config['upload_path'] 		= FCPATH . $this->CI->config->item('files:path') . '/';
 		$upload_config['allowed_types'] 	= $field->field_data['allowed_types'];
 
 		// Do the upload
@@ -192,7 +192,7 @@ class Field_file
 			$file = $db_obj->row();
 					
 			$file_data['filename']		= $file->name;
-			$file_data['file']			= base_url().$this->CI->config->item('files_folder').'/'.$file->filename;
+			$file_data['file']			= base_url().$this->CI->config->item('files:path').'/'.$file->filename;
 			$file_data['ext']			= $file->extension;
 			$file_data['mimetype']		= $file->mimetype;
 		}
@@ -219,7 +219,7 @@ class Field_file
 	 */
 	private function _output_link($file)
 	{	
-		return '<a href="'.$this->CI->config->item('files_folder').$file->filename.'" target="_blank">'.$file->filename.'</a><br />';
+		return '<a href="'.$this->CI->config->item('files:path').$file->filename.'" target="_blank">'.$file->filename.'</a><br />';
 	}
 
 	// --------------------------------------------------------------------------

@@ -19,7 +19,7 @@ $lang['global:no'] 			= 'Όχι';
 
 $lang['global:select-none'] 		= '-- Κανένα --';
 $lang['global:select-all'] 		= '-- Όλα --';
-$lang['global:select-any'] 		= '-- Όποιο νά \'ναι --';
+$lang['global:select-any'] 		= '-- Άπαντες --';
 $lang['global:select-pick'] 		= '-- Επιλογή --';
 
 $lang['global:check-all']		= 'Όλα';

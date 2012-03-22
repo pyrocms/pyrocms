@@ -1,5 +1,11 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
+/**
+ * Blog module
+ *
+ * @author PyroCMS Dev Team
+ * @package PyroCMS\Core\Modules\Blog
+ */
 class Module_Blog extends Module {
 
 	public $version = '2.0';
@@ -10,45 +16,50 @@ class Module_Blog extends Module {
 			'name' => array(
 				'en' => 'Blog',
 				'ar' => 'المدوّنة',
-				'el' => 'Ιστολόγιο',
 				'br' => 'Blog',
-				'pl' => 'Blog',
+				'el' => 'Ιστολόγιο',
 				'he' => 'בלוג',
+				'id' => 'Blog',
 				'lt' => 'Blogas',
+				'pl' => 'Blog',
 				'ru' => 'Блог',
 				'zh' => '文章',
-				'id' => 'Blog'
+				'hu' => 'Blog',
+				'fi' => 'Blogi'
 			),
 			'description' => array(
 				'en' => 'Post blog entries.',
-				'nl' => 'Post nieuwsartikelen en blogs op uw site.',
-				'es' => 'Escribe entradas para los artículos y blog (web log).', #update translation
-				'fr' => 'Envoyez de nouveaux posts et messages de blog.', #update translation
-				'de' => 'Veröffentliche neue Artikel und Blog-Einträge', #update translation
-				'pl' => 'Dodawaj nowe wpisy na blogu',
-				'br' => 'Escrever publicações de blog',
-				'zh' => '發表新聞訊息、部落格等文章。',
-				'it' => 'Pubblica notizie e post per il blog.', #update translation
-				'ru' => 'Управление записями блога.',
 				'ar' => 'أنشر المقالات على مدوّنتك.',
+				'br' => 'Escrever publicações de blog',
 				'cs' => 'Publikujte nové články a příspěvky na blog.', #update translation
-				'sl' => 'Objavite blog prispevke',
-				'fi' => 'Kirjoita uutisartikkeleita tai blogi artikkeleita.', #update translation
-				'el' => 'Δημιουργήστε άρθρα και εγγραφές στο ιστολόγιο σας.',
-				'he' => 'ניהול בלוג',
-				'lt' => 'Rašykite naujienas bei blog\'o įrašus.',
 				'da' => 'Skriv blogindlæg',
-				'id' => 'Post entri blog'
+				'de' => 'Veröffentliche neue Artikel und Blog-Einträge', #update translation
+				'sl' => 'Objavite blog prispevke',
+				'fi' => 'Kirjoita blogi artikkeleita.',
+				'el' => 'Δημιουργήστε άρθρα και εγγραφές στο ιστολόγιο σας.',
+				'es' => 'Escribe entradas para los artículos y blog (web log).', #update translation
+				'fi' => 'Kirjoita blogi artikkeleita.',
+				'fr' => 'Envoyez de nouveaux posts et messages de blog.', #update translation
+				'he' => 'ניהול בלוג',
+				'id' => 'Post entri blog',
+				'it' => 'Pubblica notizie e post per il blog.', #update translation
+				'lt' => 'Rašykite naujienas bei blog\'o įrašus.',
+				'nl' => 'Post nieuwsartikelen en blogs op uw site.',
+				'pl' => 'Dodawaj nowe wpisy na blogu',
+				'ru' => 'Управление записями блога.',
+				'sl' => 'Objavite blog prispevke',
+				'zh' => '發表新聞訊息、部落格等文章。',
+                                'hu' => 'Blog bejegyzések létrehozása.'
 			),
-			'frontend'	=> TRUE,
-			'backend'	=> TRUE,
-			'skip_xss'	=> TRUE,
+			'frontend'	=> true,
+			'backend'	=> true,
+			'skip_xss'	=> true,
 			'menu'		=> 'content',
 
 			'roles' => array(
 				'put_live', 'edit_live', 'delete_live'
 			),
-			
+
 			'sections' => array(
 			    'posts' => array(
 				    'name' => 'blog_posts_title',
@@ -80,7 +91,7 @@ class Module_Blog extends Module {
 	{
 		$this->dbforge->drop_table('blog_categories');
 		$this->dbforge->drop_table('blog');
-		
+
 		$tables = array(
 			'blog_categories' => array(
 				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
@@ -106,37 +117,22 @@ class Module_Blog extends Module {
 			),
 		);
 
-		$this->install_tables($tables);
+		if ( ! $this->install_tables($tables))
+		{
+			return false;
+		}
 
-		return TRUE;
+		return true;
 	}
 
 	public function uninstall()
 	{
-		//it's a core module, lets keep it around
-		return FALSE;
+		// This is a core module, lets keep it around.
+		return false;
 	}
 
 	public function upgrade($old_version)
 	{
-		// Your Upgrade Logic
-		return TRUE;
-	}
-
-	public function help()
-	{
-		/**
-		 * Either return a string containing help info
-		 * return "Some help info";
-		 *
-		 * Or add a language/help_lang.php file and
-		 * return TRUE;
-		 *
-		 * help_lang.php contents
-		 * $lang['help_body'] = "Some help info";
-		*/
-		return TRUE;
+		return true;
 	}
 }
-
-/* End of file details.php */
