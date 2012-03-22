@@ -347,11 +347,14 @@ class Streams_utilities extends CI_Driver {
 			return 'array()';
 		}
 
-		$array = trim(print_r($array, true));
-	
-		$array{0} = strtolower($array{0});
+		$out = 'array(';
 
-		return $array;
+		foreach($array as $key => $value)
+		{
+			$out .= "'".$key."' => '".$value."',\n";
+		}
+
+		return $out .= '),';
 	}
 
 	// --------------------------------------------------------------------------
