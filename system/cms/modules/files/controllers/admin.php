@@ -431,7 +431,7 @@ class Admin extends Admin_Controller {
 						'filesize'		=> $file['file_size'],
 						'width'			=> (int) $file['image_width'],
 						'height'		=> (int) $file['image_height'],
-						'i_color'			=> $this->input->post('i_color'),
+						'i_color'			=> $this->input->post('i_color')
 					);
 
 					if ($this->file_m->update($id, $data))
@@ -473,7 +473,8 @@ class Admin extends Admin_Controller {
 					'folder_id'		=> $this->input->post('folder_id'),
 					'user_id'		=> $this->current_user->id,
 					'name'			=> $this->input->post('name'),
-					'description'	=> $this->input->post('description')
+					'description'	=> $this->input->post('description'),
+					'i_color'			=> $this->input->post('i_color'),
 				);
 
 				if ($this->file_m->update($id, $data))
