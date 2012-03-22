@@ -30,8 +30,41 @@ class Files extends Public_Controller
 
 		force_download($file->name . $file->extension , $data);
 	}
+	//Attempting to use imagemoo to auto fill the pictures to a set size and set the background to a colour
+	public function thumb($id, $width = 100, $height = 100, $color = '#fffff')
+	{
+		$this->load->model('file_m');
 
-	public function thumb($id, $width = 100, $height = 100, $mode = NULL)
+		$file = $this->file_m->get($id) OR show_404();
+		$cache_dir = $this->config->item('cache_dir') . 'image_files/';
+
+		if ( ! is_dir($cache_dir))
+		{
+			mkdir($cache_dir, 0777, TRUE);
+		}
+
+		
+		// Path to image thumbnail
+		$image_thumb = $cache_dir . ($mode ? $mode : 'normal');
+		$image_thumb .= '_' . md5($file->filename) . $file->extension;
+
+		if ( ! file_exists($image_thumb) OR (filemtime($image_thumb) < filemtime($this->_path . $file->filename)))
+		{
+			// LOAD LIBRARY
+			$this->load->library('image_moo');
+
+			// CONFIGURE IMAGE LIBRARY
+			$this->image_moo
+					->load($this->_path . $file->filename)
+					->set_background_colour($color)
+					->resize_crop($width, $height, TRUE)
+					->save_dynamic();
+		}
+
+		header('Content-type: ' . $file->mimetype);
+		readfile($image_thumb);
+	}
+/*	public function thumb($id, $width = 100, $height = 100, $mode = NULL)
 	{
 		$this->load->model('file_m');
 
@@ -173,7 +206,7 @@ class Files extends Public_Controller
 		header('Content-type: ' . $file->mimetype);
 		readfile($image_thumb);
 	}
-
+*/
 	public function large($id)
 	{
 		return $this->thumb($id, NULL, NULL);
