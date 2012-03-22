@@ -30,6 +30,7 @@ class Files extends Public_Controller
 
 		force_download($file->name . $file->extension , $data);
 	}
+	/*
 	//Attempting to use imagemoo to auto fill the pictures to a set size and set the background to a colour
 	public function thumb($id, $width = 100, $height = 100, $color = '#fffff')
 	{
@@ -64,7 +65,8 @@ class Files extends Public_Controller
 		header('Content-type: ' . $file->mimetype);
 		readfile($image_thumb);
 	}
-/*	public function thumb($id, $width = 100, $height = 100, $mode = NULL)
+	*/
+	public function thumb($id, $width = 100, $height = 100, $mode = NULL, $color = '#000000')
 	{
 		$this->load->model('file_m');
 
@@ -170,43 +172,30 @@ class Files extends Public_Controller
 			}
 
 			// LOAD LIBRARY
-			$this->load->library('image_lib');
+			$this->load->library('image_moo');
 
 			// CONFIGURE IMAGE LIBRARY
-			$config['image_library']    = 'gd2';
-			$config['source_image']     = $this->_path . $file->filename;
-			$config['new_image']        = $image_thumb;
-			$config['maintain_ratio']   = is_null($mode);;
-			$config['height']           = $height;
-			$config['width']            = $width;
-			$this->image_lib->initialize($config);
-			$this->image_lib->resize();
-			$this->image_lib->clear();
+			$this->image_moo
+					->load($this->_path . $file->filename)
+					->set_background_colour($color)
+					->resize($width, $height, TRUE)
+					->save($image_thumb, TRUE);
 
 			if ($mode === $modes[1] && ($crop_width !== NULL && $crop_height !== NULL))
 			{
-				$x_axis = floor(($width - $crop_width) / 2);
-				$y_axis = floor(($height - $crop_height) / 2);
-
 				// CONFIGURE IMAGE LIBRARY
-				$config['image_library']    = 'gd2';
-				$config['source_image']     = $image_thumb;
-				$config['new_image']        = $image_thumb;
-				$config['maintain_ratio']   = FALSE;
-				$config['width']			= $crop_width;
-				$config['height']			= $crop_height;
-				$config['x_axis']			= $x_axis;
-				$config['y_axis']			= $y_axis;
-				$this->image_lib->initialize($config);
-				$this->image_lib->crop();
-				$this->image_lib->clear();
+				$this->image_moo
+					->load($image_thumb)
+					->set_background_colour($color)
+					->resize_crop($crop_width, $crop_height)
+					->save($image_thumb, TRUE);
 			}
 		}
 
 		header('Content-type: ' . $file->mimetype);
 		readfile($image_thumb);
 	}
-*/
+
 	public function large($id)
 	{
 		return $this->thumb($id, NULL, NULL);
