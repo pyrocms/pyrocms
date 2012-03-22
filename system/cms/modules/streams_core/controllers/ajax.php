@@ -79,7 +79,19 @@ class Ajax extends Admin_Controller {
 			{
 				$call = 'param_'.$field;
 
-				$data['input'] 			= $field_type->$call();
+				$input = $field_type->$call();
+
+				if (is_array($input))
+				{
+					$data['input'] 			= $input['input'];
+					$data['instructions']	= $input['instructions'];
+				}
+				else
+				{
+					$data['input'] 			= $input;
+					$data['instructions']	= null;
+				}
+
 				$data['input_name']		= $this->lang->line('streams.'.$field_type->field_type_slug.'.'.$field);
 			}
 			else
