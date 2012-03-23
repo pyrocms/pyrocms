@@ -227,7 +227,7 @@ class Fields
 					// Send Emails
 					// -------------------------------------
 					
-					if ($plugin and $email_notifications)
+					if ($plugin and (isset($email_notifications) and $email_notifications))
 					{
 						foreach ($data->email_notifications as $notify)
 						{
