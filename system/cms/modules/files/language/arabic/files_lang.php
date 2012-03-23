@@ -30,6 +30,7 @@ $lang['files.description_label']			= 'الوصف';
 $lang['files.type_label']					= 'النوع';
 $lang['files.file_label']					= 'الملف';
 $lang['files.filename_label']				= 'إسم الملف';
+$lang['files.i_color_label']				= 'صورة الحشو اللون';
 $lang['files.filter_label']					= 'انتقاء';
 $lang['files.loading_label']				= 'جاري التحميل...';
 $lang['files.name_label']					= 'الاسم';

@@ -30,6 +30,7 @@ $lang['files.description_label']			= 'Περιγραφή';
 $lang['files.type_label']					= 'Τύπος';
 $lang['files.file_label']					= 'Αρχείο';
 $lang['files.filename_label']				= 'Όνομα Αρχείου';
+$lang['files.i_color_label']				= 'Έγχρωμη εικόνα Επένδυση';
 $lang['files.filter_label']					= 'Φίλτρο';
 $lang['files.loading_label']				= 'Φορτώνει...';
 $lang['files.name_label']					= 'Όνομα';

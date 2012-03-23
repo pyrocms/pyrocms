@@ -30,6 +30,7 @@ $lang['files.description_label']                        = 'תיאור';
 $lang['files.type_label']                               = 'סוג';
 $lang['files.file_label']                               = 'קובץ';
 $lang['files.filename_label']                           = 'שם קובץ';
+$lang['files.i_color_label']				= 'ריפוד תמונה צבעונית';
 $lang['files.filter_label']                             = 'מסנן';
 $lang['files.loading_label']                            = 'בטעינה...';
 $lang['files.name_label']                               = 'שם';

@@ -31,6 +31,7 @@ $lang['files.description_label']			= 'Opis';
 $lang['files.type_label']					= 'Tip';
 $lang['files.file_label']					= 'Datoteka';
 $lang['files.filename_label']				= 'Naziv datoteke';
+$lang['files.i_color_label']				= 'Image Color oblazinjenje';
 $lang['files.filter_label']					= 'Razvrstitev';
 $lang['files.loading_label']				= 'Nalagam...';
 $lang['files.name_label']					= 'Ime';

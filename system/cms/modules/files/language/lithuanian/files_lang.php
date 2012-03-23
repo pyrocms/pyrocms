@@ -49,6 +49,7 @@ $lang['files.description']					= 'Aprašymas';
 $lang['files.type']							= 'Tipas';
 $lang['files.file']							= 'Failas';
 $lang['files.file_name']					= 'Failo vardas';
+$lang['files.i_color_label']				= 'Nuotraukos Užpildymas spalva';
 $lang['files.success']						= 'Failas išsaugotas.';
 $lang['files.file.no_upload']				= 'Failas turi būti įkeltas.';
 $lang['files.file.no_extension']			= 'Failams būtinas plėtinys.';

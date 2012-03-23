@@ -26,6 +26,7 @@ $lang['files.description_label']					= 'Описание';
 $lang['files.type_label']									= 'Тип';
 $lang['files.file_label']									= 'Файл';
 $lang['files.filename_label']							= 'Имя файла';
+$lang['files.i_color_label']				= 'Цветное изображение заполнения';
 $lang['files.filter_label']								= 'Фильтр';
 $lang['files.loading_label']							= 'Зарузка&hellip;';
 $lang['files.name_label']									= 'Имя';

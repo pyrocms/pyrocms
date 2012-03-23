@@ -25,6 +25,7 @@ $lang['files.description_label']			= 'Kuvaus';
 $lang['files.type_label']					= 'Tyyppi';
 $lang['files.file_label']					= 'Tiedosto';
 $lang['files.filename_label']				= 'Tiedostonimi';
+$lang['files.i_color_label']				= 'Image Padding Color';#Translate
 $lang['files.filter_label']					= 'Suodata';
 $lang['files.loading_label']				= 'Ladataan...';
 $lang['files.name_label']					= 'Nimi';

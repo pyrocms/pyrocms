@@ -30,6 +30,7 @@ $lang['files.description_label']			= 'Descripcioó';
 $lang['files.type_label']					= 'Tipo';
 $lang['files.file_label']					= 'Archivo';
 $lang['files.filename_label']				= 'Nombre';
+$lang['files.i_color_label']				= 'Color Relleno';
 $lang['files.filter_label']					= 'Filtrar';
 $lang['files.loading_label']				= 'Cargando...';
 $lang['files.name_label']					= 'Nombre';

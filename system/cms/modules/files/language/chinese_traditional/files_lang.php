@@ -30,6 +30,7 @@ $lang['files.description_label']			= '說明';
 $lang['files.type_label']					= '種類';
 $lang['files.file_label']					= '檔案';
 $lang['files.filename_label']				= '檔案名稱';
+$lang['files.i_color_label']				= '圖片填充顏色';
 $lang['files.filter_label']					= 'Filter'; #translate
 $lang['files.loading_label']				= 'Loading...'; #translate
 $lang['files.name_label']					= 'Name'; #translate
