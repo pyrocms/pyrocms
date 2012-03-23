@@ -18,7 +18,7 @@
 			)); ?>
 		</li>
         <li class="even">
-			<?php echo form_label(lang('files.i_color_label'), 'i_color'); ?>
+			<?php echo form_label(lang('files.i_color_label'), 'i_color'); ?>#
 			<?php echo form_input('i_color', $file->i_color, 'class="crud"'); ?>
 		</li>
 		<li class="even">
