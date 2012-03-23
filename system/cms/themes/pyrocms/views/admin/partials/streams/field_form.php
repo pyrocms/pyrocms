@@ -46,7 +46,7 @@
 
 		<li>
 			<label for="field_instructions"><?php echo lang('streams.label.field_instructions');?><br /><small><?php echo lang('streams.instr.field_instructions');?></small></label>
-			<div class="input"><?php echo form_input('instructions', $field->instructions, 'id="field_instructions"');?></div>
+			<div class="input"><?php echo form_textarea('instructions', $field->instructions, 'id="field_instructions"');?></div>
 		</li>
 
 		<!--<li>

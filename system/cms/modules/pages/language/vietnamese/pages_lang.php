@@ -40,6 +40,7 @@ $lang['pages.access_label']							= 'Access';
 $lang['pages.rss_enabled_label']					= 'Kích hoạt RSS?';
 $lang['pages.comments_enabled_label']				= 'Cho phép phản hồi?';
 $lang['pages.is_home_label']						= 'Là trang chủ mặc định (homepage)?';
+$lang['pages.strict_uri_label']						= 'Require an exact uri match?'; #translate
 
 $lang['pages.status_label']							= 'Trạng thái';
 $lang['pages.draft_label']							= 'Nháp';

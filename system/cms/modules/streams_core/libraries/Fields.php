@@ -33,30 +33,30 @@ class Fields
 	 * @param	bool
 	 * @return	string
 	 */
-	public function build_form_input($field, $value = false, $row_id = null)
+	public function build_form_input($field, $value = null, $row_id = null, $plugin = false)
 	{
-		$type = $this->CI->type->types->{$field->field_type};
-		
 		$form_data['form_slug']		= $field->field_slug;
-		
-		if ( ! isset($field->field_data['default_value']))
-		{
-			$field->field_data['default_value'] = null;
-		}
-				
-		// Set the value
-		$value ? $form_data['value'] = $value : $form_data['value'] = $field->field_data['default_value'];
+		$form_data['custom'] 		= $field->field_data;
+		$form_data['value']			= $value;
+		$form_data['max_length']	= (isset($field->field_data['max_length'])) ? $field->field_data['max_length'] : null;
 
-		$form_data['custom'] = $field->field_data;
-		
-		// Set the max_length
-		if (isset($field->field_data['max_length']))
+		// If this is for a plugin, this relies on a function that
+		// many field types will not have
+		if ($plugin)
 		{
-			$form_data['max_length'] = $field->field_data['max_length'];
+			if (method_exists($this->CI->type->types->{$field->field_type}, 'form_output_plugin'))
+			{
+				return $this->CI->type->types->{$field->field_type}->form_output_plugin($form_data, $row_id, $field);
+			}
+			else
+			{
+				return false;
+			}
 		}
-
-		// Get form output
-		return $type->form_output($form_data, $row_id, $field);
+		else
+		{
+			return $this->CI->type->types->{$field->field_type}->form_output($form_data, $row_id, $field);
+		}
 	}
 
 	// --------------------------------------------------------------------------
@@ -305,16 +305,29 @@ class Fields
 				$fields[$count]['input_slug'] 		= $field->field_slug;
 				$fields[$count]['instructions'] 	= $field->instructions;
 
-				// Set the value
+				// The default default value is null.
+				if ( ! isset($field->field_data['default_value']))
+				{
+					$field->field_data['default_value'] = null;
+				}
+						
+				// Set the value. The passed value or
+				// the default value?
+				$value = ($values[$field->field_slug]) ? $values[$field->field_slug] : $field->field_data['default_value'];
+
+				// Return the raw value as well - can be useful
+				$fields[$count]['value'] 			= $value;
 
 				// Get the acutal form input
 				if ($method == 'edit')
 				{
-					$fields[$count]['input'] 		= $this->build_form_input($field, $values[$field->field_slug], $row->id);
+					$fields[$count]['input'] 		= $this->build_form_input($field, $value, $row->id);
+					$fields[$count]['input_parts'] 	= $this->build_form_input($field, $value, $row->id, true);
 				}
 				else
 				{
-					$fields[$count]['input'] 		= $this->build_form_input($field, $values[$field->field_slug]);			
+					$fields[$count]['input'] 		= $this->build_form_input($field, $value, null);			
+					$fields[$count]['input_parts'] 	= $this->build_form_input($field, $value, null, true);
 				}
 
 				// Set the error if there is one

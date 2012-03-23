@@ -30,6 +30,7 @@ $lang['pages.access_label'] 					= '存取';
 $lang['pages.rss_enabled_label'] 				= 'RSS 功能開啟';
 $lang['pages.comments_enabled_label']			= '回應功能開啟';
 $lang['pages.is_home_label']      				= '這是預設頁面（首頁）嗎？';
+$lang['pages.strict_uri_label']						= 'Require an exact uri match?'; #translate
 
 $lang['pages.status_label'] 					= '狀態';
 $lang['pages.draft_label'] 						= '草稿';
