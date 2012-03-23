@@ -1,7 +1,7 @@
 
 .item { height: 450px; overflow: hidden; }
 .sidebar { width: 20%; }
-.sidebar-left { border-left: 1px solid #d8d8d8; padding-left: 1%; width: 19%; min-height: 100%; }
+.sidebar-left { border-left: 1px solid #d8d8d8; padding-left: 1%; width: 18%; min-height: 100%; }
 section.two_third { width: 60%; }
 section.two_third .no_data { margin: 40px 20px 20px 20px; }
 
