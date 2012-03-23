@@ -36,7 +36,7 @@ class Files extends Public_Controller
 		$this->load->model('file_m');
 
 		$file = $this->file_m->get($id) OR show_404();
-		$color = ($file->i_color === NULL ? '#ffffff' : $file->i_color);
+		$color = ($file->i_color === NULL ? '#ffffff' : '#'.$file->i_color);
 		$cache_dir = $this->config->item('cache_dir') . 'image_files/';
 		
 		if ( ! is_dir($cache_dir))
@@ -151,7 +151,7 @@ class Files extends Public_Controller
 					->save($image_thumb, TRUE);
 			}
 			else{
-			//if it is the full sized image, grab the original and save in cache with nothing but a file rename.
+			//If it is the full sized image, grab the original and save in cache with nothing but a file rename.
 			//Fixes imaage load issues.
 			$this->image_moo
 					->load($this->_path . $file->filename)
