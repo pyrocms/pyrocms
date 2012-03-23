@@ -70,6 +70,7 @@ class Module_Files extends Module {
 			  `mimetype` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
 			  `width` int(5) DEFAULT NULL,
 			  `height` int(5) DEFAULT NULL,
+			  'i_color' varchar(6) DEFAULT NULL,
 			  `filesize` int(11) NOT NULL DEFAULT 0,
 			  `date_added` int(11) NOT NULL DEFAULT 0,
 			  PRIMARY KEY (`id`)
