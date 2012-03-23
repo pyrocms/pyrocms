@@ -94,8 +94,20 @@
 				
 					$call = 'param_'.$param;
 					
-					$data['input'] 			= $current_type->$call($value);
-					$data['input_name']		= $this->lang->line('streams.'.$this->type->types->{$current_field->field_type}->field_type_slug.'.'.$param);				
+					$input = $current_type->$call($value);
+
+					if (is_array($input))
+					{
+						$data['input'] 			= $input['input'];
+						$data['instructions']	= $input['instructions'];
+					}
+					else
+					{
+						$data['input'] 			= $input;
+						$data['instructions']	= null;
+					}
+
+					$data['input_name']		= $this->lang->line('streams.'.$this->type->types->{$current_field->field_type}->field_type_slug.'.'.$param);
 					
 				else:
 		
