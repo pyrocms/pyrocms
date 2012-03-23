@@ -2,9 +2,10 @@
 /**
  * Regular pages model
  *
- * @author		Phil Sturgeon
- * @author		PyroCMS Dev Team
- * @package		PyroCMS\Core\Modules\Pages\Models
+ * @author Phil Sturgeon
+ * @author Jerel Unruh
+ * @author PyroCMS Dev Team
+ * @package PyroCMS\Core\Modules\Pages\Models
  *
  */
 class Page_m extends MY_Model
@@ -70,10 +71,9 @@ class Page_m extends MY_Model
 	*/
 
 	/**
-	 * Get a page by it's URI
+	 * Get a page by its URI
 	 *
-	 * @access public
-	 * @param string	The uri of the page
+	 * @param string $uri The uri of the page.
 	 * @return object
 	 */
 	public function get_by_uri($uri)
@@ -89,12 +89,10 @@ class Page_m extends MY_Model
 	}
 
 	/**
-	* Get the home page
-	*
-	* @access public
-	* @param string  The uri of the page
-	* @return object
-	*/
+	 * Get the home page
+	 *
+	 * @return object
+	 */
 	public function get_home()
 	{
 		return $this->db
@@ -106,9 +104,7 @@ class Page_m extends MY_Model
 	/**
 	 * Build a multi-array of parent > children.
 	 *
-	 * @author Jerel Unruh - PyroCMS Dev Team
-	 * @access public
-	 * @return array An array representing the page tree
+	 * @return array An array representing the page tree.
 	 */
 	public function get_page_tree()
 	{
@@ -118,7 +114,7 @@ class Page_m extends MY_Model
 			 ->get('pages')
 			 ->result_array();
 
-		// we must reindex the array first
+		// First, re-index the array.
 		foreach ($all_pages as $row)
 		{
 			$pages[$row['id']] = $row;
@@ -126,16 +122,16 @@ class Page_m extends MY_Model
 
 		unset($all_pages);
 
-		// build a multidimensional array of parent > children
+		// Build a multidimensional array of parent > children.
 		foreach ($pages as $row)
 		{
 			if (array_key_exists($row['parent_id'], $pages))
 			{
-				// add this page to the children array of the parent page
+				// Add this page to the children array of the parent page.
 				$pages[$row['parent_id']]['children'][] =& $pages[$row['id']];
 			}
 
-			// this is a root page
+			// This is a root page.
 			if ($row['parent_id'] == 0)
 			{
 				$page_array[] =& $pages[$row['id']];
@@ -145,12 +141,11 @@ class Page_m extends MY_Model
 		return $page_array;
 	}
 
+
 	/**
 	 * Set the parent > child relations and child order
 	 *
-	 * @author Jerel Unruh - PyroCMS Dev Team
 	 * @param array $page
-	 * @return void
 	 */
 	public function _set_children($page)
 	{
@@ -170,12 +165,12 @@ class Page_m extends MY_Model
 		}
 	}
 
+
 	/**
 	 * Does the page have children?
 	 *
-	 * @access public
 	 * @param int $parent_id The ID of the parent page
-	 * @return mixed
+	 * @return bool
 	 */
 	public function has_children($parent_id)
 	{
@@ -187,6 +182,7 @@ class Page_m extends MY_Model
 	 *
 	 * @param int $id The ID of the page?
 	 * @param array $id_array ?
+	 *
 	 * @return array
 	 */
 	public function get_descendant_ids($id, $id_array = array())
@@ -214,8 +210,8 @@ class Page_m extends MY_Model
 	/**
 	 * Build a lookup
 	 *
-	 * @access public
-	 * @param int $id
+	 * @param int $id The id of the page to build the lookup for.
+	 *
 	 * @return array
 	 */
 	public function build_lookup($id)
@@ -234,7 +230,7 @@ class Page_m extends MY_Model
 			$current_id = $page->parent_id;
 			array_unshift($segments, $page->slug);
 		}
-		while( $page->parent_id > 0 );
+		while ($page->parent_id > 0);
 
 		// If the URI has been passed as a string, explode to create an array of segments
 		return parent::update($id, array(
@@ -242,12 +238,11 @@ class Page_m extends MY_Model
 		));
 	}
 
+
 	/**
 	 * Reindex child items
 	 *
-	 * @access public
 	 * @param int $id The ID of the parent item
-	 * @return void
 	 */
 	public function reindex_descendants($id)
 	{
@@ -259,12 +254,12 @@ class Page_m extends MY_Model
 	}
 
 	/**
-	 * Update lookup for entire page tree
-	 * used to update page uri after ajax sort
+	 * Update lookup.
 	 *
-	 * @access public
+	 * Updates lookup for entire page tree used to update
+	 * page uri after ajax sort.
+	 *
 	 * @param array $root_pages An array of top level pages
-	 * @return void
 	 */
 	public function update_lookup($root_pages)
 	{
@@ -283,9 +278,9 @@ class Page_m extends MY_Model
 	/**
 	 * Create a new page
 	 *
-	 * @access public
-	 * @param array $input The data to insert
-	 * @return bool
+	 * @param array $input The page data to insert.
+	 * @param array $chunks The page chunks to insert.
+	 * @return bool `true` on success, `false` on failure.
 	 */
 	public function insert(array $input = array(), $chunks = array())
 	{
@@ -344,14 +339,16 @@ class Page_m extends MY_Model
 		return ($this->db->trans_status() === FALSE) ? FALSE : $id;
 	}
 
+
 	/**
-	* Update a Page
+	 * Update a Page
 	 *
-	 * @access public
-	 * @param int $id The ID of the page to update
-	 * @param array $input The data to update
-	 * @return void
-	*/
+	 * @param int $id The ID of the page to update.
+	 * @param array $input The new page data.
+	 * @param array $chunks The new chunk data.
+	 *
+	 * @return bool `true` on success, `false` on failure.
+	 */
 	public function update($id = 0, $input = array(), $chunks = array())
 	{
 		$this->db->trans_start();
@@ -365,22 +362,22 @@ class Page_m extends MY_Model
 		}
 
 		parent::update($id, array(
-			'title'				=> $input['title'],
-			'slug'				=> $input['slug'],
-			'uri'				=> NULL,
-			'parent_id'			=> $input['parent_id'],
-			'layout_id'			=> $input['layout_id'],
-			'css'				=> $input['css'],
-			'js'				=> $input['js'],
-			'meta_title'		=> $input['meta_title'],
-			'meta_keywords'		=> $input['meta_keywords'],
-			'meta_description'	=> $input['meta_description'],
-			'restricted_to'		=> $input['restricted_to'],
-			'rss_enabled'		=> (int) ! empty($input['rss_enabled']),
-			'comments_enabled'	=> (int) ! empty($input['comments_enabled']),
-			'is_home'			=> (int) ! empty($input['is_home']),
-			'status'			=> $input['status'],
-			'updated_on'		=> now()
+			'title' => $input['title'],
+			'slug' => $input['slug'],
+			'uri' => NULL,
+			'parent_id' => $input['parent_id'],
+			'layout_id' => $input['layout_id'],
+			'css' => $input['css'],
+			'js' => $input['js'],
+			'meta_title' => $input['meta_title'],
+			'meta_keywords' => $input['meta_keywords'],
+			'meta_description' => $input['meta_description'],
+			'restricted_to' => $input['restricted_to'],
+			'rss_enabled' => (int)!empty($input['rss_enabled']),
+			'comments_enabled' => (int)!empty($input['comments_enabled']),
+			'is_home' => (int)!empty($input['is_home']),
+			'status' => $input['status'],
+			'updated_on' => now()
 		));
 
 		$this->build_lookup($id);
@@ -395,12 +392,12 @@ class Page_m extends MY_Model
 			foreach ($chunks as $chunk)
 			{
 				$this->db->insert('page_chunks', array(
-					'page_id' 	=> $id,
-					'sort' 		=> $i++,
-					'slug' 		=> preg_replace('/[^a-zA-Z0-9_-\s]/', '', $chunk->slug),
-					'body' 		=> $chunk->body,
-					'type' 		=> $chunk->type,
-					'parsed'	=> ($chunk->type == 'markdown') ? parse_markdown($chunk->body) : ''
+					'page_id' => $id,
+					'sort' => $i++,
+					'slug' => preg_replace('/[^a-zA-Z0-9_-\s]/', '', $chunk->slug),
+					'body' => $chunk->body,
+					'type' => $chunk->type,
+					'parsed' => ($chunk->type == 'markdown') ? parse_markdown($chunk->body) : ''
 				));
 			}
 		}
@@ -413,13 +410,14 @@ class Page_m extends MY_Model
 		return ($this->db->trans_status() === FALSE) ? FALSE : TRUE;
 	}
 
+
 	/**
-	* Delete a Page
+	 * Delete a Page
 	 *
-	 * @access public
 	 * @param int $id The ID of the page to delete
-	 * @return bool
-	*/
+	 *
+	 * @return array|bool
+	 */
 	public function delete($id = 0)
 	{
 		$this->db->trans_start();
@@ -439,16 +437,21 @@ class Page_m extends MY_Model
 
 	/**
 	 * Check Slug for Uniqueness
-	 * @access public
-	 * @param slug, parent id, this records id
+	 *
+	 * Slugs should be unique among sibling pages.
+	 *
+	 * @param string $slug The slug to check for.
+	 * @param int $parent_id The parent_id if any.
+	 * @param int $id The id of the page.
+	 *
 	 * @return bool
-	*/
+	 */
 	public function check_slug($slug, $parent_id, $id = 0)
 	{
-		return (int) parent::count_by(array('id !='	=>	$id,
-											'slug'	=>	$slug,
-											'parent_id' => $parent_id
-											)
-									  ) > 0;
+		return (int)parent::count_by(array(
+			'id !=' => $id,
+			'slug' => $slug,
+			'parent_id' => $parent_id
+		)) > 0;
 	}
 }

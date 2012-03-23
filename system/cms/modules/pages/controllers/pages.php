@@ -106,10 +106,10 @@ class Pages extends Public_Controller
 			$this->output->set_status_header(404);
 		}
 
-		// Nope, it's a page but do they have access?
+		// Nope, it is a page, but do they have access?
 		elseif ($page->restricted_to)
 		{
-			$page->restricted_to = (array) explode(',', $page->restricted_to);
+			$page->restricted_to = (array)explode(',', $page->restricted_to);
 
 			// Are they logged in and an admin or a member of the correct group?
 			if ( ! $this->current_user OR (isset($this->current_user->group) AND $this->current_user->group != 'admin' AND ! in_array($this->current_user->group_id, $page->restricted_to)))
@@ -145,26 +145,26 @@ class Pages extends Public_Controller
 				$this->template->set_breadcrumb($parent_page->title, $parent_page->uri);
 			}
 		}
-			
+
 		// Not got a meta title? Use slogan for homepage or the normal page title for other pages
 		if ($page->meta_title == '')
 		{
 			$page->meta_title = $page->is_home ? $this->settings->site_slogan : $page->title;
 		}
-		
+
 		// If this page has an RSS feed, show it
 		if ($page->rss_enabled)
 		{
-			    $this->template->append_metadata('<link rel="alternate" type="application/rss+xml" title="'.$page->meta_title.'" href="'.site_url(uri_string(). '.rss').'" />');
+			$this->template->append_metadata('<link rel="alternate" type="application/rss+xml" title="'.$page->meta_title.'" href="'.site_url(uri_string().'.rss').'" />');
 		}
-		
+
 		// Wrap the page with a page layout, otherwise use the default 'Home' layout
 		if ( ! $page->layout = $this->page_layouts_m->get($page->layout_id))
 		{
-		    // Some pillock deleted the page layout, use the default and pray to god they didnt delete that too
-		    $page->layout = $this->page_layouts_m->get(1);
+			// Some pillock deleted the page layout, use the default and pray to god they didnt delete that too
+			$page->layout = $this->page_layouts_m->get(1);
 		}
-	
+
 		// Set pages layout files in your theme folder
 		if ($this->template->layout_exists($page->uri.'.html'))
 		{
@@ -174,37 +174,39 @@ class Pages extends Public_Controller
 		// If a Page Layout has a Theme Layout that exists, use it
 		if ( ! empty($page->layout->theme_layout) AND $this->template->layout_exists($page->layout->theme_layout)
 			// But Allow that you use layout files of you theme folder without override the defined by you in your control panel
-			AND ($this->template->layout_is('default.html') OR $page->layout->theme_layout !== 'default.html'))
+			AND ($this->template->layout_is('default.html') OR $page->layout->theme_layout !== 'default.html')
+		)
 		{
 			$this->template->set_layout($page->layout->theme_layout);
 		}
 
 		// Grab all the chunks that make up the body
-		$page->chunks = $this->db->order_by('sort')
+		$page->chunks = $this->db
+			->order_by('sort')
 			->get_where('page_chunks', array('page_id' => $page->id))
 			->result();
-		
+
 		$chunk_html = '';
 		foreach ($page->chunks as $chunk)
 		{
-			$chunk_html .= 	'<div class="page-chunk '.$chunk->slug.'">' .
-						'<div class="page-chunk-pad">' .
-								(($chunk->type == 'markdown') ? $chunk->parsed : $chunk->body) .
-						'</div>' .
-					'</div>'.PHP_EOL;
+			$chunk_html .= '<div class="page-chunk '.$chunk->slug.'">'.
+				'<div class="page-chunk-pad">'.
+				(($chunk->type == 'markdown') ? $chunk->parsed : $chunk->body).
+				'</div>'.
+				'</div>'.PHP_EOL;
 		}
-		
-		// Parse it so the content is parsed. We pass along $page so that {{ page:id }} and friends work in page content
+
+		// Parse it so the content is parsed. We pass along $page so that {{ page:id }} and friends work in page content.
 		$page->body = $this->parser->parse_string(str_replace(array('&#39;', '&quot;'), array("'", '"'), $chunk_html), array('theme' => $this->theme, 'page' => $page), TRUE);
-		
+
 		// Create page output
 		$this->template->title($page->meta_title)
-			
+
 			->set_metadata('keywords', $page->meta_keywords)
 			->set_metadata('description', $page->meta_description)
-			
+
 			->set('page', $page)
-			
+
 			// Most likely the other breadcrumbs are set above, set this one
 			->set_breadcrumb($page->title);
 
