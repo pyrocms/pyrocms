@@ -38,6 +38,11 @@ class Admin extends Admin_Controller {
 			'rules' => 'trim|max_length[250]'
 		),
 		array(
+			'field' => 'i_color',
+			'label' => 'lang:files.i_color_label',
+			'rules' => 'trim|exact_length[6]|callback_hex_check'
+		),
+		array(
 			'field' => 'type',
 			'label' => 'lang:files.type_label',
 			'rules' => 'trim|max_length[1]'
@@ -48,6 +53,19 @@ class Admin extends Admin_Controller {
 			'rules' => 'trim|is_numeric'
 		)
 	);
+	/**
+	 * Hexadecimal validation function
+	 *
+	 * Useful for validating hexadecimal value
+	 *
+	 * @access    public
+	 * @param    string     input string.
+	 * @return    Boolean
+	 */
+	public function hex_check($entry)
+	{
+	  return (bool) preg_match ('/^[a-f0-9]{1,}$/is', $entry);
+	}
 
 	/**
 	 * Constructor
@@ -380,7 +398,7 @@ class Admin extends Admin_Controller {
 
 		$this->load->library('form_validation');
 		$this->form_validation->set_rules($this->_validation_rules);
-
+		$this->form_validation->set_message('hex_check', 'The %s field must be a 6 digit HEX number.');
 		if ($this->form_validation->run())
 		{
 			// We are uploading a new file
