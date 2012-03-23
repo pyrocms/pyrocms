@@ -106,17 +106,17 @@ $lang['settings_comment_order_desc']			= 'Sorteervolgorde om reacties te tonen.'
 $lang['settings_moderate_comments'] 			= 'Valideer Reacties';
 $lang['settings_moderate_comments_desc']		= 'Forceer dat reacties eerst moeten geaccepteerd worden voordat ze worden getoond op de website.';
 
-$lang['settings_comment_markdown']				= 'Markdown toestaan'; #translate
-$lang['settings_comment_markdown_desc']			= 'Wilt u de bezoekers de mogelijkheid hebben om een ​​reactie te plaatsen met behulp van Markdown?'; #translate
+$lang['settings_comment_markdown']				= 'Markdown toestaan';
+$lang['settings_comment_markdown_desc']			= 'Wilt u de bezoekers de mogelijkheid hebben om een ​​reactie te plaatsen met behulp van Markdown?';
 
 $lang['settings_version'] 						= 'Versie';
 $lang['settings_version_desc'] 					= '';
 
-$lang['settings_site_public_lang']				= 'Openbare Talen'; #translate
-$lang['settings_site_public_lang_desc']			= 'Wat zijn de talen die echt ondersteund en worden aangeboden op de front-end van uw website?'; #translate
+$lang['settings_site_public_lang']				= 'Openbare Talen';
+$lang['settings_site_public_lang_desc']			= 'Wat zijn de talen die echt ondersteund en worden aangeboden op de front-end van uw website?';
 
-$lang['settings_admin_force_https']				= 'Forceer HTTPS voor het Control Panel?'; #translate
-$lang['settings_admin_force_https_desc']		= 'Laat alleen het HTTPS-protocol toe bij het gebruik van het Control Panel?'; #translate
+$lang['settings_admin_force_https']				= 'Forceer HTTPS voor het Control Panel?';
+$lang['settings_admin_force_https_desc']		= 'Laat alleen het HTTPS-protocol toe bij het gebruik van het Control Panel?';
 
 $lang['settings_files_cache']					= 'Bestanden Cache';
 $lang['settings_files_cache_desc']				= 'Wat is de verlooptijd';
@@ -124,8 +124,17 @@ $lang['settings_files_cache_desc']				= 'Wat is de verlooptijd';
 $lang['settings_auto_username']         		= "Automatische loginnaam";
 $lang['settings_auto_username_desc']    	 	= "Genereer automatisch een gebruikersnaam zodat gebruikers deze stap kunnen overslaan.";
 
-$lang['settings_registered_email']				= 'Geregistreerde gebruikers E-mail'; #translate
-$lang['settings_registered_email_desc']			= 'Stuur een notificatie e-mail naar het contact e-mail als iemand zich registreert.'; #translate
+$lang['settings_registered_email']				= 'Geregistreerde gebruikers E-mail';
+$lang['settings_registered_email_desc']			= 'Stuur een notificatie e-mail naar het contact e-mail als iemand zich registreert.';
+
+$lang['settings_ckeditor_config']               = 'CKEditor Config'; #translate
+$lang['settings_ckeditor_config_desc']          = 'You can find a list of valid configuration items in <a target=\"_blank\" href=\"http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.config.html\">CKEditor\'s documentation.</a>'; #translate
+
+$lang['settings_enable_registration']           = 'Enable user registration'; #translate
+$lang['settings_enable_registration_desc']      = 'Allow users to register in your site.'; #translate
+
+$lang['settings_cdn_domain']                    = 'CDN Domain'; #translate
+$lang['settings_cdn_domain_desc']               = 'CDN domains allow you to offload static content to various edge servers, like Amazon CloudFront or MaxCDN.'; #translate
 
 #section titles
 $lang['settings_section_general']				= 'Algemeen';
@@ -134,7 +143,7 @@ $lang['settings_section_comments']				= 'Reacties';
 $lang['settings_section_users']					= 'Gebruikers';
 $lang['settings_section_statistics']			= 'Statistieken';
 $lang['settings_section_twitter']				= 'Twitter';
-$lang['settings_section_files']					= 'Bestanden'; #translate
+$lang['settings_section_files']					= 'Bestanden';
 
 #checkbox and radio options
 $lang['settings_form_option_Open']				= 'Online';
@@ -145,16 +154,16 @@ $lang['settings_form_option_Required']			= 'Verplicht';
 $lang['settings_form_option_Optional']			= 'Optioneel';
 $lang['settings_form_option_Oldest First']		= 'Oudste eerst';
 $lang['settings_form_option_Newest First']		= 'Nieuwste eerst';
-$lang['settings_form_option_Text Only']			= 'Alleen Text'; #translate
-$lang['settings_form_option_Allow Markdown']	= 'Markdown Toestaan'; #translate
-$lang['settings_form_option_Yes']				= 'Ja'; #translate
-$lang['settings_form_option_No']				= 'Nee'; #translate
+$lang['settings_form_option_Text Only']			= 'Alleen Text';
+$lang['settings_form_option_Allow Markdown']	= 'Markdown Toestaan';
+$lang['settings_form_option_Yes']				= 'Ja';
+$lang['settings_form_option_No']				= 'Nee';
 
 // titles
 $lang['settings_edit_title'] 					= 'Wijzig instellingen';
 
 // messages
-$lang['settings_no_settings']					= 'Er zijn op dit moment geen instellingen.'; #translate
+$lang['settings_no_settings']					= 'Er zijn op dit moment geen instellingen.';
 $lang['settings_save_success'] 					= 'Uw instellingen zijn opgeslagen!';
 
 /* End of file settings_lang.php */

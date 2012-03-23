@@ -108,17 +108,17 @@ form.file_upload button,
 
 .file_upload_progress div {
   width: 150px;
-  height: 17px;
+  height: 22px;
 }
 
 .file_upload_overall_progress div {
   width: 350px;
-  height: 17px;
+  height: 22px;
 }
 
 .file_upload_progress div div,
 .file_upload_overall_progress div div {
-	height: 15px;
+	height: 22px;
 }
 
 .file_upload .file_name {

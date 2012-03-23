@@ -39,7 +39,7 @@ class Field_user
 	{
 		$this->CI->db->select('username, id');
 	
-		if (is_numeric($params['custom']['restrict_group']))
+		if (isset($params['custom']['restrict_group']) and is_numeric($params['custom']['restrict_group']))
 		{
 			$this->CI->db->where('group_id', $params['custom']['restrict_group']);
 		}
@@ -105,7 +105,7 @@ class Field_user
 	public function pre_output_plugin($input, $params)
 	{
 		// Can't do anything without an input
-		if ( ! is_numeric($input))
+		if ( ! is_numeric($input) OR $input < 1)
 		{
 			return null;
 		}

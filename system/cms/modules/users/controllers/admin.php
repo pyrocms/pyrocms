@@ -8,22 +8,18 @@
  */
 class Admin extends Admin_Controller {
 
+	protected $section = 'users';
+
+	// --------------------------------------------------------------------------
 	/**
-	 * Validation array
+	 * Validation for basic profile
+	 * data. The rest of the validation is
+	 * built by streams.
+	 *
 	 * @access private
 	 * @var array
 	 */
 	private $validation_rules = array(
-		array(
-			'field' => 'first_name',
-			'label' => 'lang:user_first_name_label',
-			'rules' => 'required|utf8'
-		),
-		array(
-			'field' => 'last_name',
-			'label' => 'lang:user_last_name_label',
-			'rules' => 'utf8'
-		),
 		array(
 			'field' => 'email',
 			'label' => 'lang:user_email_label',
@@ -40,11 +36,6 @@ class Admin extends Admin_Controller {
 			'rules' => 'required|alpha_dot_dash|min_length[3]|max_length[20]'
 		),
 		array(
-			'field' => 'display_name',
-			'label' => 'lang:user_display_name',
-			'rules' => 'min_length[3]|max_length[50]'
-		),
-		array(
 			'field' => 'group_id',
 			'label' => 'lang:user_group_label',
 			'rules' => 'required|callback__group_check'
@@ -53,8 +44,15 @@ class Admin extends Admin_Controller {
 			'field' => 'active',
 			'label' => 'lang:user_active_label',
 			'rules' => ''
+		),
+		array(
+			'field' => 'display_name',
+			'label' => 'lang:profile_display_name',
+			'rules' => 'required'
 		)
 	);
+
+	// --------------------------------------------------------------------------
 
 	/**
 	 * Constructor method
@@ -76,28 +74,33 @@ class Admin extends Admin_Controller {
 		$this->data->groups_select = array_for_select($this->data->groups, 'id', 'description');
 	}
 
+	// --------------------------------------------------------------------------
+
 	/**
 	 * List all users
+	 *
 	 * @access public
 	 * @return void
 	 */
 	public function index()
 	{
-		//base where clause
 		$base_where = array('active' => 0);
 
-		//determine active param
+		// ---------------------------
+		// User Filters
+		// ---------------------------
+
+		// Determine active param
 		$base_where['active'] = $this->input->post('f_module') ? (int) $this->input->post('f_active') : $base_where['active'];
 
-		//determine group param
+		// Determine group param
 		$base_where = $this->input->post('f_group') ? $base_where + array('group_id' => (int) $this->input->post('f_group')) : $base_where;
 
-		//keyphrase param
+		// Keyphrase param
 		$base_where = $this->input->post('f_keywords') ? $base_where + array('name' => $this->input->post('f_keywords')) : $base_where;
 
 		// Create pagination links
 		$pagination = create_pagination('admin/users/index', $this->user_m->count_by($base_where));
-
 
 		// Using this data, get the relevant results
 		$users = $this->user_m
@@ -105,7 +108,7 @@ class Admin extends Admin_Controller {
 			->limit($pagination['limit'])
 			->get_many_by($base_where);
 
-		//unset the layout if we have an ajax request
+		// Unset the layout if we have an ajax request
 		if ($this->input->is_ajax_request())
 		{
 			$this->template->set_layout(FALSE);
@@ -122,13 +125,17 @@ class Admin extends Admin_Controller {
 		$this->input->is_ajax_request() ? $this->template->build('admin/tables/users', $this->data) : $this->template->build('admin/index', $this->data);
 	}
 
+	// --------------------------------------------------------------------------
+
 	/**
 	 * Method for handling different form actions
+	 *
 	 * @access public
 	 * @return void
 	 */
 	public function action()
 	{
+		// Pyro demo version restrction
 		if (PYRO_DEMO)
 		{
 		    $this->session->set_flashdata('notice', lang('global:demo_restrictions'));
@@ -150,6 +157,8 @@ class Admin extends Admin_Controller {
 		}
 	}
 
+	// --------------------------------------------------------------------------
+
 	/**
 	 * Create a new user
 	 *
@@ -158,37 +167,47 @@ class Admin extends Admin_Controller {
 	 */
 	public function create()
 	{
-		// We need a password don't you think?
-		$this->validation_rules[2]['rules'] .= '|callback__email_check';
-		$this->validation_rules[3]['rules'] .= '|required';
-		$this->validation_rules[5]['rules'] .= '|callback__username_check';
+		// Extra validation for basic data
+		$this->validation_rules[1]['rules'] .= '|callback__email_check';
+		$this->validation_rules[2]['rules'] .= '|required';
+		$this->validation_rules[3]['rules'] .= '|callback__username_check';
+
+		// Get the profile fields validation array from streams
+		$this->load->driver('Streams');
+		$profile_validation = $this->streams->streams->validation_array('profiles', 'users');
 
 		// Set the validation rules
-		$this->form_validation->set_rules($this->validation_rules);
+		$this->form_validation->set_rules(array_merge($this->validation_rules, $profile_validation));
 
-		$email = $this->input->post('email');
-		$password = $this->input->post('password');
-		$username = $this->input->post('username');
+		$email 		= $this->input->post('email');
+		$password 	= $this->input->post('password');
+		$username 	= $this->input->post('username');
+		$group_id	= $this->input->post('group_id');
 
-		$user_data = array(
-			'first_name' => $this->input->post('first_name'),
-			'last_name' => $this->input->post('last_name'),
-			'display_name' => $this->input->post('display_name'),
-			'group_id' => $this->input->post('group_id')
-		);
+		// Get user profile data. This will be passed to our
+		// streams insert_entry data in the model.
+		$assignments = $this->streams->streams->get_assignments('profiles', 'users');
+		$profile_data = array();
 
-		if ($this->form_validation->run() !== FALSE)
+		foreach($assignments as $assign)
+		{
+			$profile_data[$assign->field_slug] = $this->input->post($assign->field_slug);
+		}
+
+		$profile_data['display_name'] = $this->input->post('display_name');
+
+		if ($this->form_validation->run() !== false)
 		{
 			// Hack to activate immediately
 			if ($this->input->post('active'))
 			{
-				$this->config->config['ion_auth']['email_activation'] = FALSE;
+				$this->config->config['ion_auth']['email_activation'] = false;
 			}
 
 			$group = $this->group_m->get($this->input->post('group_id'));
 
 			// Try to register the user
-			if ($user_id = $this->ion_auth->register($username, $password, $email, $user_data, $group->name))
+			if ($user_id = $this->ion_auth->register($username, $password, $email, $group_id, $profile_data, $group->name))
 			{
 				// Fire an event. A new user has been created. 
 				Events::trigger('user_created', $user_id);
@@ -205,12 +224,14 @@ class Admin extends Admin_Controller {
 		}
 		else
 		{
-			// Dirty hack that fixes the issue of having to re-add all data upon an error
+			// Dirty hack that fixes the issue of having to
+			// re-add all data upon an error
 			if ($_POST)
 			{
 				$member = (object) $_POST;
 			}
 		}
+
 		// Loop through each validation rule
 		foreach ($this->validation_rules as $rule)
 		{
@@ -220,6 +241,8 @@ class Admin extends Admin_Controller {
 		$this->template
 			->title($this->module_details['name'], lang('user_add_title'))
 			->set('member', $member)
+			->set('display_name', set_value('display_name', $this->input->post('display_name')))
+			->set('profile_fields', $this->streams->fields->get_stream_fields('profiles', 'users', $profile_data))
 			->build('admin/form', $this->data);
 	}
 
@@ -242,17 +265,42 @@ class Admin extends Admin_Controller {
 		// Check to see if we are changing usernames
 		if ($member->username != $this->input->post('username'))
 		{
-			$this->validation_rules[6]['rules'] .= '|callback__username_check';
+			$this->validation_rules[3]['rules'] .= '|callback__username_check';
 		}
 
 		// Check to see if we are changing emails
 		if ($member->email != $this->input->post('email'))
 		{
-			$this->validation_rules[5]['rules'] .= '|callback__email_check';
+			$this->validation_rules[1]['rules'] .= '|callback__email_check';
 		}
 
-		// Run the validation
-		$this->form_validation->set_rules($this->validation_rules);
+		// Get the profile fields validation array from streams
+		$this->load->driver('Streams');
+		$profile_validation = $this->streams->streams->validation_array('profiles', 'users');
+
+		// Set the validation rules
+		$this->form_validation->set_rules(array_merge($this->validation_rules, $profile_validation));
+
+		// Get user profile data. This will be passed to our
+		// streams insert_entry data in the model.
+		$assignments = $this->streams->streams->get_assignments('profiles', 'users');
+		$profile_data = array();
+
+		// Get the profile data
+		$profile_row = $this->db->limit(1)->get('profiles')->row();
+
+		foreach($assignments as $assign)
+		{	
+			if (isset($_POST[$assign->field_slug]))
+			{
+				$profile_data[$assign->field_slug] = $this->input->post($assign->field_slug);
+			}
+			else
+			{
+				$profile_data[$assign->field_slug] = $profile_row->{$assign->field_slug};
+			}
+		}
+
 		if ($this->form_validation->run() === TRUE)
 		{
 			if (PYRO_DEMO)
@@ -262,13 +310,21 @@ class Admin extends Admin_Controller {
 			}
 			
 			// Get the POST data
-			$update_data['first_name'] = $this->input->post('first_name');
-			$update_data['last_name'] = $this->input->post('last_name');
-			$update_data['email'] = $this->input->post('email');
-			$update_data['active'] = $this->input->post('active');
-			$update_data['username'] = $this->input->post('username');
-			$update_data['display_name'] = $this->input->post('display_name');
-			$update_data['group_id'] = $this->input->post('group_id');
+			$update_data['email'] 			= $this->input->post('email');
+			$update_data['active'] 			= $this->input->post('active');
+			$update_data['username'] 		= $this->input->post('username');
+			$update_data['group_id'] 		= $this->input->post('group_id');
+
+			$profile_data = array();
+
+			// Grab the profile data
+			foreach($assignments as $assign)
+			{
+				$profile_data[$assign->field_slug] 	= $this->input->post($assign->field_slug);
+			}	
+
+			// We need to manually do display_name
+			$profile_data['display_name'] = $this->input->post('display_name');
 
 			// Password provided, hash it for storage
 			if ($this->input->post('password'))
@@ -276,7 +332,7 @@ class Admin extends Admin_Controller {
 				$update_data['password'] = $this->input->post('password');
 			}
 
-			if ($this->ion_auth->update_user($id, $update_data))
+			if ($this->ion_auth->update_user($id, $update_data, $profile_data))
 			{
 				// Fire an event. A user has been updated. 
 				Events::trigger('user_updated', $id);
@@ -296,9 +352,9 @@ class Admin extends Admin_Controller {
 			if ($_POST)
 			{
 				$member = (object) $_POST;
-				$member->full_name = $member->first_name . ' ' . $member->last_name;
 			}
 		}
+
 		// Loop through each validation rule
 		foreach ($this->validation_rules as $rule)
 		{
@@ -309,7 +365,9 @@ class Admin extends Admin_Controller {
 		}
 
 		$this->template
-			->title($this->module_details['name'], sprintf(lang('user_edit_title'), $member->full_name))
+			->title($this->module_details['name'], sprintf(lang('user_edit_title'), $member->username))
+			->set('display_name', $profile_row->display_name)
+			->set('profile_fields', $this->streams->fields->get_stream_fields('profiles', 'users', $profile_data))
 			->set('member', $member)
 			->build('admin/form', $this->data);
 	}

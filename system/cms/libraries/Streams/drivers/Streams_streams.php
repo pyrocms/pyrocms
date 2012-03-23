@@ -173,4 +173,27 @@ class Streams_streams extends CI_Driver {
 		return $this->CI->streams_m->get_streams($namespace);
 	}
 	
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Validation Array
+	 *
+	 * Get a validation array for a stream. Takes
+	 * the format of an array of arrays like this:
+	 *
+	 * array(
+	 * 'field' => 'email',
+	 * 'label' => 'Email',
+	 * 'rules' => 'required|valid_email'
+	 */
+	public function validation_array($stream, $namespace, $method = 'new', $skips = array())
+	{
+		$str_id = $this->stream_id($stream, $namespace);
+		
+		if ( ! $str_id) $this->log_error('invalid_stream', 'validation_array');
+
+		$stream_fields = $this->CI->streams_m->get_stream_fields($str_id);
+
+		return $this->CI->fields->set_rules($stream_fields, $method, $skips, true);
+	}	
 }

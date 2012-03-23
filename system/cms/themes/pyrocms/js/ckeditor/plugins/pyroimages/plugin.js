@@ -27,7 +27,37 @@ CKEDITOR.plugins.add('pyroimages',
 				command.setState(CKEDITOR.TRISTATE_DISABLED);
 			}
 		});
-    }
+	},
+
+	// Create a filter which re-writes {{ url:site }} and {{ url:base }} to the JS constants SITE_URL and BASE_URL when rendering a wysiwyg preview
+	// This means that img src values can contain the above template variables, and ckeditor will render the image correctly.
+	// Having {{url:site }} in image src values allows the site to change URL without all images breaking
+	afterInit : function( editor )
+	{
+		var dataProcessor = editor.dataProcessor,
+			dataFilter = dataProcessor && dataProcessor.dataFilter;
+
+		if ( !dataFilter )
+			return;
+
+		dataFilter.addRules(
+		{
+			elements:
+			{
+				'img': function(element)
+				{
+					// Replace both url-encoded and non-url-encoded forms of {{ url:site }} and {{ url: base }} with their corresponding JS constants
+					// (FF produces a urlencoded version, chrome and IE don't)
+					var src = element.attributes.src;
+					src = src.replace("{{ url:site }}", SITE_URL).replace("%7B%7B%20url:site%20%7D%7D", SITE_URL);
+					src = src.replace("{{ url:base }}", BASE_URL).replace("%7B%7B%20url:base%20%7D%7D", BASE_URL);
+					element.attributes.src = src;
+
+					return element;
+				}
+			}
+		})
+	}
 });
 
 function pyroimage_onclick(e)

@@ -14,6 +14,19 @@ class Module_import {
 	public function __construct()
 	{
 		$this->ci =& get_instance();
+
+		// Getting our model and MY_Model class set up
+		class_exists('CI_Model', FALSE) OR load_class('Model', 'core');
+		include(PYROPATH.'/core/MY_Model.php');
+
+		// Include some constants that modules may be looking for
+		define('SITE_REF', 'default');
+
+		// Now we can use stuff from our system/cms directory, hooray!
+		// Any dupes are generic so we shouldn't run into any 
+		// meaningful conflicts.
+		$this->ci->load->add_package_path(PYROPATH);
+
 		$db['hostname'] = $this->ci->session->userdata('hostname');
 		$db['username'] = $this->ci->session->userdata('username');
 		$db['password'] = $this->ci->session->userdata('password');
@@ -35,6 +48,7 @@ class Module_import {
 		is_dir(ADDONPATH.'modules') OR mkdir(ADDONPATH.'modules', DIR_READ_MODE, TRUE);
 		is_dir(ADDONPATH.'themes') OR mkdir(ADDONPATH.'themes', DIR_READ_MODE, TRUE);
 		is_dir(ADDONPATH.'widgets') OR mkdir(ADDONPATH.'widgets', DIR_READ_MODE, TRUE);
+		is_dir(ADDONPATH.'field_types') OR mkdir(ADDONPATH.'field_types', DIR_READ_MODE, TRUE);
 
 		// create the site specific upload folder
 		is_dir(dirname(FCPATH).'/uploads/default') OR mkdir(dirname(FCPATH).'/uploads/default', DIR_WRITE_MODE, TRUE);

@@ -2,18 +2,16 @@
 /**
  * Finnish translation.
  *
- * @author Mikael Kundert <mikael@kundert.fi>
- * @date 07.02.2011
- * @version 1.0.3
+ * @author Mikael Kundert
  */
 
 // labels
 $lang['blog_posted_label']                   = 'Lähetetty';
 $lang['blog_posted_label_alt']               = 'Lähetettiin';
-$lang['blog_written_by_label']				= 'Written by'; #translate
-$lang['blog_author_unknown']				= 'Unknown'; #translate
-$lang['blog_keywords_label']				= 'Keywords'; #translate
-$lang['blog_tagged_label']					= 'Tagged'; #translate
+$lang['blog_written_by_label']				= 'Kirjoittanut';
+$lang['blog_author_unknown']				= 'Tuntematon';
+$lang['blog_keywords_label']				= 'Avainsanat';
+$lang['blog_tagged_label']					= 'Merkitty';
 $lang['blog_category_label']                 = 'Kategoria';
 $lang['blog_post_label']                     = 'Merkintä';
 $lang['blog_date_label']                     = 'Päivä';

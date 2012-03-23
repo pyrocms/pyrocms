@@ -27,7 +27,7 @@
 							<td class="align-center"><?php echo form_checkbox('action_to[]', $member->id); ?></td>
 							<td>
 							<?php if ($link_profiles) : ?>
-								<?php echo anchor('admin/users/preview/' . $member->id, $member->full_name, 'target="_blank" class="modal-large"'); ?>
+								<?php echo anchor('admin/users/preview/' . $member->id, $member->display_name, 'target="_blank" class="modal-large"'); ?>
 							<?php else: ?>
 								<?php echo $member->full_name; ?>
 							<?php endif; ?>
