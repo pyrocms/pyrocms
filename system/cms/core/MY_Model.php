@@ -605,11 +605,6 @@ class MY_Model extends CI_Model
 			return TRUE;
 		}
 
-		foreach ($data as $key => $val)
-		{
-			$_POST[$key] = $val;
-		}
-
 		$this->load->library('form_validation');
 
 		// only set the model if it can be used for callbacks
@@ -621,6 +616,8 @@ class MY_Model extends CI_Model
 				$this->form_validation->set_model($class);
 			}
 		}
+
+		$this->form_validation->set_data($data);
 
 		if (is_array($this->validate))
 		{
