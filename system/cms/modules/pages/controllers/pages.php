@@ -6,17 +6,16 @@
  */
 class Pages extends Public_Controller
 {
+
 	/**
 	 * Constructor method
-	 * @access public
-	 * @return void
 	 */
 	public function __construct()
 	{
 		parent::__construct();
 		$this->load->model('page_m');
 		$this->load->model('page_layouts_m');
-		
+
 		// This basically keeps links to /home always pointing to the actual homepage even when the default_controller is changed
 		// No page is mentioned and we aren't using pages as default (eg blog on homepage)
 		if ( ! $this->uri->segment(1) AND $this->router->default_controller != 'pages')
@@ -26,10 +25,9 @@ class Pages extends Public_Controller
 	}
 
 	/**
-	 * Catch all requests to this page in one mega-function
-	 * @access public
-	 * @param string $method The method to call
-	 * @return void
+	 * Catch all requests to this page in one mega-function.
+	 *
+	 * @param string $method The method to call.
 	 */
 	public function _remap($method)
 	{
@@ -38,7 +36,7 @@ class Pages extends Public_Controller
 		{
 			$url_segments = $this->uri->total_rsegments() > 0 ? array_slice($this->uri->rsegment_array(), 2) : null;
 		}
-		
+
 		// not routed, so use the actual URI segments
 		else
 		{
@@ -62,7 +60,7 @@ class Pages extends Public_Controller
 
 			$url_segments = $this->uri->total_segments() > 0 ? $this->uri->segment_array() : null;
 		}
-		
+
 		// If it has .rss on the end then parse the RSS feed
 		$url_segments && preg_match('/.rss$/', end($url_segments))
 			? $this->_rss($url_segments)
@@ -71,14 +69,13 @@ class Pages extends Public_Controller
 
 	/**
 	 * Page method
-	 * @access public
-	 * @param array $url_segments The URL segments
-	 * @return void
+	 *
+	 * @param array $url_segments The URL segments.
 	 */
 	public function _page($url_segments)
 	{
-		$page = $url_segments !== NULL
-		
+		$page = ($url_segments !== NULL)
+
 			// Fetch this page from the database via cache
 			? $this->pyrocache->model('page_m', 'get_by_uri', array($url_segments))
 
@@ -88,12 +85,12 @@ class Pages extends Public_Controller
 		if ( ! $page OR ($page->status == 'draft' AND ( ! isset($this->current_user->group) OR $this->current_user->group != 'admin')))
 		{
 			// Load the '404' page. If the actual 404 page is missing (oh the irony) bitch and quit to prevent an infinite loop.
-			if ( ! ($page = $this->pyrocache->model('page_m', 'get_by_uri', array('404'))))
+			if ( ! ($page = $this->pyrocache->model('page_m', 'get_by_uri', array('404'))) )
 			{
 				show_error('The page you are trying to view does not exist and it also appears as if the 404 page has been deleted.');
 			}
 		}
-		
+
 		// If this is a homepage, do not show the slug in the URL
 		if ($page->is_home and $url_segments)
 		{
@@ -218,7 +215,7 @@ class Pages extends Public_Controller
 					'.$page->css.'
 				</style>');
 		}
-		
+
 		if ($page->layout->js OR $page->js)
 		{
 			$this->template->append_metadata('
@@ -238,58 +235,79 @@ class Pages extends Public_Controller
 
 	/**
 	 * RSS method
-	 * @access public
-	 * @param array $url_segments The URL segments
-	 * @return void
+	 *
+	 * @param array $url_segments The URL segments.
+	 *
+	 * @return null|void
 	 */
 	public function _rss($url_segments)
 	{
 		// Remove the .rss suffix
 		$url_segments += array(preg_replace('/.rss$/', '', array_pop($url_segments)));
-		
+
+
 		// Fetch this page from the database via cache
 		$page = $this->pyrocache->model('page_m', 'get_by_uri', array($url_segments));
-		
+
+		// We will need to know if we should include draft pages in the feed later on too, so save it.
+		$include_draft = ! empty($this->current_user) AND $this->current_user->group !== 'admin';
+
 		// If page is missing or not live (and not an admin) show 404
-		if (empty($page) OR ($page->status == 'draft' AND $this->current_user->group !== 'admin') OR ! $page->rss_enabled)
+		if (empty($page) OR ($page->status == 'draft' AND $include_draft) OR ! $page->rss_enabled)
 		{
 			// Will try the page then try 404 eventually
 			$this->_page('404');
 			return;
 		}
-		
-		$children = $this->pyrocache->model('page_m', 'get_many_by', array(array(
+
+		// We need to get all the children of this page.
+		$query_options = array(
 			'parent_id' => $page->id,
-			'status' => 'live'
-		)));
-    	
-		$data->rss->title = ($page->meta_title ? $page->meta_title : $page->title).' | '. $this->settings->site_name;
-		$data->rss->description = $page->meta_description;
-		$data->rss->link = site_url($url_segments);
-		$data->rss->creator_email = $this->settings->contact_email;
+		);
+
+		// If the feed should only show live pages
+		if ( ! $include_draft)
+		{
+			// add the query where criteria
+			$query_options['status'] = 'live';
+		}
+		// Hit the query through PyroCache.
+		$children = $this->pyrocache->model('page_m', 'get_many_by', array($query_options));
+
+		//var_dump($children);
 		
+		$data = array(
+			'rss' => array(
+				'title' => ($page->meta_title ? $page->meta_title : $page->title).' | '.$this->settings->site_name,
+				'description' => $page->meta_description,
+				'link' => site_url($url_segments),
+				'creator_email' => $this->settings->contact_email,
+				'items' => array(),
+			),
+		);
+
 		if ( ! empty($children))
 		{
 			$this->load->helper(array('date', 'xml'));
-			
-			foreach($children as &$row)
+
+
+			foreach ($children as &$row)
 			{
 				$row->link = $row->uri ? $row->uri : $row->slug;
 				$row->created_on = standard_date('DATE_RSS', $row->created_on);
-				
-				$item = array(
+
+				$data['rss']['items'][] = array(
 					//'author' => $row->author,
 					'title' => xml_convert($row->title),
 					'link' => $row->link,
 					'guid' => $row->link,
-					'description'  => $row->meta_description,
+					'description' => $row->meta_description,
 					'date' => $row->created_on
 				);
-						
-				$data->rss->items[] = (object) $item;
 			}
 		}
-		
+		// We are outputing RSS/Atom here... let them know.
+		$this->output->set_header('Content-Type: application/rss+xml');
 		$this->load->view('rss', $data);
 	}
 }
