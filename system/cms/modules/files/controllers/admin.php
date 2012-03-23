@@ -50,6 +50,7 @@ class Admin extends Admin_Controller {
 				pyro.files.max_size_allowed = '".Files::$max_size_allowed."';
 				pyro.files.valid_extensions = '/".trim($allowed_extensions, '|')."$/i';
 				pyro.lang.file_type_not_allowed = '".lang('files:file_type_not_allowed')."';
+				pyro.lang.new_folder_name = '".lang('files:new_folder_name')."';
 			</script>");
 	}
 
