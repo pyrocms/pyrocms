@@ -3,6 +3,7 @@
  * @package 		PyroCMS
  * @subpackage 		Files
  * @author			Phil Sturgeon
+ * @modified		Edi Mange
  *
  * Frontend controller for files and stuffs
  */
@@ -30,51 +31,14 @@ class Files extends Public_Controller
 
 		force_download($file->name . $file->extension , $data);
 	}
-	/*
-	//Attempting to use imagemoo to auto fill the pictures to a set size and set the background to a colour
-	public function thumb($id, $width = 100, $height = 100, $color = '#fffff')
+	public function thumb($id, $width = 100, $height = 100, $mode = NULL)
 	{
 		$this->load->model('file_m');
 
 		$file = $this->file_m->get($id) OR show_404();
+		$color = ($file->i_color === NULL ? '#ffffff' : $file->i_color);
 		$cache_dir = $this->config->item('cache_dir') . 'image_files/';
-
-		if ( ! is_dir($cache_dir))
-		{
-			mkdir($cache_dir, 0777, TRUE);
-		}
-
 		
-		// Path to image thumbnail
-		$image_thumb = $cache_dir . ($mode ? $mode : 'normal');
-		$image_thumb .= '_' . ($width === NULL ? 'a' : ($width > $file->width ? 'b' : $width));
-		$image_thumb .= '_' . ($height === NULL ? 'a' : ($height > $file->height ? 'b' : $height));
-		$image_thumb .= '_' . md5($file->filename) . $file->extension;
-
-		if ( ! file_exists($image_thumb) OR (filemtime($image_thumb) < filemtime($this->_path . $file->filename)))
-		{
-			// LOAD LIBRARY
-			$this->load->library('image_moo');
-
-			// CONFIGURE IMAGE LIBRARY
-			$this->image_moo
-					->load($this->_path . $file->filename)
-					->set_background_colour($color)
-					->resize_crop($width, $height, TRUE)
-					->save_dynamic();
-		}
-
-		header('Content-type: ' . $file->mimetype);
-		readfile($image_thumb);
-	}
-	*/
-	public function thumb($id, $width = 100, $height = 100, $mode = NULL, $color = '#000000')
-	{
-		$this->load->model('file_m');
-
-		$file = $this->file_m->get($id) OR show_404();
-		$cache_dir = $this->config->item('cache_dir') . 'image_files/';
-
 		if ( ! is_dir($cache_dir))
 		{
 			mkdir($cache_dir, 0777, TRUE);
@@ -147,6 +111,7 @@ class Files extends Public_Controller
 		$image_thumb = $cache_dir . ($mode ? $mode : 'normal');
 		$image_thumb .= '_' . ($width === NULL ? 'a' : ($width > $file->width ? 'b' : $width));
 		$image_thumb .= '_' . ($height === NULL ? 'a' : ($height > $file->height ? 'b' : $height));
+		$image_thumb .= '_' . $color;
 		$image_thumb .= '_' . md5($file->filename) . $file->extension;
 
 		if ( ! file_exists($image_thumb) OR (filemtime($image_thumb) < filemtime($this->_path . $file->filename)))
@@ -173,7 +138,7 @@ class Files extends Public_Controller
 				$height	= ceil($height);
 			}
 
-			// LOAD LIBRARY
+			// LOAD Image_Moo LIBRARY. Created by Matthew at http://www.matmoo.com/digital-dribble/codeigniter/image_moo/
 			$this->load->library('image_moo');
 			
 			//If not the full sized imaage
