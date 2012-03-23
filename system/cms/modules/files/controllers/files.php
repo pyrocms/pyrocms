@@ -36,7 +36,7 @@ class Files extends Public_Controller
 		$this->load->model('file_m');
 
 		$file = $this->file_m->get($id) OR show_404();
-		$color = ($file->i_color === NULL ? '#ffffff' : '#'.$file->i_color);
+		$color = ($file->i_color === NULL ? NULL : '#'.$file->i_color);
 		$cache_dir = $this->config->item('cache_dir') . 'image_files/';
 		
 		if ( ! is_dir($cache_dir))
@@ -140,9 +140,15 @@ class Files extends Public_Controller
 
 			// LOAD Image_Moo LIBRARY. Created by Matthew at http://www.matmoo.com/digital-dribble/codeigniter/image_moo/
 			$this->load->library('image_moo');
-			
+			//If color is null, crop without padding.
+			if ($color == NULL && $width != NULL && $height != NULL){
+				$this->image_moo
+					->load($this->_path . $file->filename)
+					->resize($width, $height, FALSE)
+					->save($image_thumb, TRUE);
+			}
 			//If not the full sized imaage
-			if($width != NULL AND $height != NULL){
+			else if($width != NULL && $height != NULL){
 			// CONFIGURE IMAGE LIBRARY
 			$this->image_moo
 					->load($this->_path . $file->filename)
