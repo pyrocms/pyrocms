@@ -64,7 +64,9 @@ class Admin extends Admin_Controller {
 	 */
 	public function hex_check($entry)
 	{
-	  return (bool) preg_match ('/^[a-f0-9]{1,}$/is', $entry);
+		$pass = TRUE;
+		preg_match ('/^[a-f0-9]{1,}$/is', $entry)? $pass = TRUE : ($entry == NULL ? $pass = TRUE : $pass = FALSE);
+	  return ($pass);
 	}
 
 	/**
