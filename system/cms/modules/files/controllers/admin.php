@@ -375,6 +375,9 @@ class Admin extends Admin_Controller {
 	 */
 	public function edit($id = '')
 	{
+		//If i_color is empty, mark the update as NULL instead of an empty string
+		$i_color = strlen($this->input->post('i_color')) < 6 ? NULL : $this->input->post('i_color');
+		
 		if ( ! ($id && ($file = $this->file_m->get($id))))
 		{
 			$status		= 'error';
@@ -451,7 +454,7 @@ class Admin extends Admin_Controller {
 						'filesize'		=> $file['file_size'],
 						'width'			=> (int) $file['image_width'],
 						'height'		=> (int) $file['image_height'],
-						'i_color'			=> $this->input->post('i_color')
+						'i_color'		=> $i_color
 					);
 
 					if ($this->file_m->update($id, $data))
@@ -494,7 +497,7 @@ class Admin extends Admin_Controller {
 					'user_id'		=> $this->current_user->id,
 					'name'			=> $this->input->post('name'),
 					'description'	=> $this->input->post('description'),
-					'i_color'			=> $this->input->post('i_color'),
+					'i_color'		=> $i_color
 				);
 
 				if ($this->file_m->update($id, $data))
