@@ -42,14 +42,13 @@ class Pages extends Public_Controller
 		{
 			if (($url_segments = $this->uri->uri_string()) === 'favicon.ico')
 			{
-				$favicon = $this->asset->image_path('favicon.ico', '_theme_');
+				$favicon = Asset::get_filepath_img('theme::favicon.ico');
 
 				if (file_exists(FCPATH.$favicon) && is_file(FCPATH.$favicon))
 				{
 					header('Content-type: image/x-icon');
 					readfile(FCPATH.$favicon);
 				}
-				
 				else
 				{
 					set_status_header(404);
