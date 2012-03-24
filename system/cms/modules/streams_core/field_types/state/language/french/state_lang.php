@@ -1,4 +1,4 @@
-﻿<?php defined('BASEPATH') or exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 $lang['streams.state.name'] 			= "État américain";
 $lang['streams.state.full']				= "Nom complet";
