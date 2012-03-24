@@ -27,6 +27,8 @@ class Plugin_User extends Plugin
 	{
 		$this->load->driver('Streams');
 
+		// @todo - this info is already in the users model, so this can be pared down.
+
 		$this->user_stream = $this->streams_m->get_stream('profiles', true, 'users');
 		$this->user_stream_fields = $this->streams_m->get_stream_fields($this->user_stream->id);
 

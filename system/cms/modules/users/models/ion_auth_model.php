@@ -75,6 +75,11 @@ class Ion_auth_model extends CI_Model
 	    $this->store_salt      = $this->config->item('store_salt', 'ion_auth');
 	    $this->salt_length     = $this->config->item('salt_length', 'ion_auth');
 	    $this->meta_join       = $this->config->item('join', 'ion_auth');
+
+		$this->load->driver('Streams');
+
+		$this->user_stream 			= $this->streams_m->get_stream('profiles', true, 'users');
+		$this->user_stream_fields 	= $this->streams_m->get_stream_fields($this->user_stream->id);
 	}
 
 	// --------------------------------------------------------------------------
@@ -691,11 +696,12 @@ class Ion_auth_model extends CI_Model
 			$this->tables['groups'].'.description AS '. $this->db->protect_identifiers('group_description')
 		));
 
-		if (!empty($this->columns))
+		// Add our user stream fields to the join
+		if ( ! empty($this->user_stream_fields))
 		{
-			foreach ($this->columns as $field)
+			foreach ($this->user_stream_fields as $field_key => $field_data)
 			{
-				$this->db->select($this->tables['meta'].'.'. $field);
+				$this->db->select($this->tables['meta'].'.'. $field_key);
 			}
 		}
 
