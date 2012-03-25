@@ -1,3 +1,4 @@
+<?php if ( ! empty($module_details['sections'][$active_section]['shortcuts']) ||  ! empty($module_details['shortcuts'])): ?>
 <nav id="shortcuts">
 	<ul>
 		<?php if ( ! empty($module_details['sections'][$active_section]['shortcuts'])): ?>
@@ -21,3 +22,4 @@
 		<?php endif; ?>
 	</ul>
 </nav>
+<?php endif; ?>

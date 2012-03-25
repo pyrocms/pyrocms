@@ -121,6 +121,7 @@ $lang['streams.size']									= "Size";
 $lang['streams.num_of_entries']							= "Number of Entries";
 $lang['streams.num_of_fields']							= "Number of Fields";
 $lang['streams.last_updated']							= "Last Updated";
+$lang['streams.export_schema']							= "Export Schema";
 
 /* Startup */
 

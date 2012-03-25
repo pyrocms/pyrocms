@@ -30,6 +30,7 @@ $lang['pages.access_label'] 					= 'Accès';
 $lang['pages.rss_enabled_label'] 				= 'RSS activé';
 $lang['pages.comments_enabled_label'] 			= 'Commentaires activés';
 $lang['pages.is_home_label']      				= 'Est ce la page par défaut (accueil) ?';
+$lang['pages.strict_uri_label']					= 'Require an exact uri match?'; #translate
 
 $lang['pages.status_label'] 					= 'Statut';
 $lang['pages.draft_label'] 						= 'Brouillon';
@@ -66,6 +67,7 @@ $lang['pages_parent_not_exist_error'] 			= 'La page parente que vous avez sélec
 $lang['pages_chunk_slug_length']					= 'Page Chunk slugs may be no more than 30 characters in length.'; #translate
 $lang['pages_root_folder']                = 'le top level';
 
+$lang['pages.tree_explanation_title']	        = 'Explanation'; #translate
 $lang['pages.tree_explanation'] 				= 'La liste de gauche affiche les pages de votre site web.
 Cliquez sur l\'icône "+" à côté de la page pour afficher les pages incluses. En cliquant sur une page vous verrez toutes sortes d\'informations utiles dans cette boîte.';
 

@@ -30,6 +30,7 @@ $lang['pages.access_label']				= 'Acceder';
 $lang['pages.rss_enabled_label']		= 'RSS habilitado';
 $lang['pages.comments_enabled_label']	= 'Comentarios habilitados';
 $lang['pages.is_home_label']			= 'Es la página pricipal? (Homepage)';
+$lang['pages.strict_uri_label']			= 'Require an exact uri match?'; #translate
 
 $lang['pages.status_label']				= 'Estado';
 $lang['pages.draft_label'] 				= 'Borrador';
@@ -63,6 +64,7 @@ $lang['pages_parent_not_exist_error'] 	= 'La página padre que has seleccionado 
 $lang['pages_chunk_slug_length']					= 'Page Chunk slugs may be no more than 30 characters in length.'; #translate
 $lang['pages_root_folder']                = 'the top level'; #translate
 
+$lang['pages.tree_explanation_title']	        = 'Explanation'; #translate
 $lang['pages.tree_explanation'] 		= 'La lista a la izquierda representa las páginas en tu sitio.
 Has click en el icono de "+" a un lado de la página para mostrar las páginas dentro de ella. Al hacer click en una página verás toda clase de información útil en está caja.';
 

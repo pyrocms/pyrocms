@@ -102,10 +102,14 @@ class Fields_m extends CI_Model {
      * @access	public
      * @return	int
      */
-	public function count_fields()
+	public function count_fields($namespace)
 	{
-		// @todo - add namespace
-		return $this->db->count_all($this->table);
+		if ( ! $namespace) return 0;
+
+		return $this->db
+				->where('field_namespace', $namespace)
+				->from($this->table)
+				->count_all_results();
 	}
 
     // --------------------------------------------------------------------------
@@ -314,7 +318,7 @@ class Fields_m extends CI_Model {
 						// Run the regular column renaming
 						$fields[$field->field_slug] = $this->field_data_to_col_data($type, $data, 'edit');
 					
-						if ( ! $this->dbforge->modify_column(STR_PRE.$assignment->stream_slug, $fields))
+						if ( ! $this->dbforge->modify_column($assignment->stream_prefix.$assignment->stream_slug, $fields))
 						{
 							return false;
 						}
@@ -356,10 +360,10 @@ class Fields_m extends CI_Model {
 		}
 			
 		// Update field information		
-		$update_data['field_name']		= $data['field_name'];
-		$update_data['field_slug']		= $data['field_slug'];
-		$update_data['field_namespace']	= $data['field_namespace'];
-		$update_data['field_type']		= $data['field_type'];
+		if (isset($data['field_name']))			$update_data['field_name']		= $data['field_name'];
+		if (isset($data['field_slug'])) 		$update_data['field_slug']		= $data['field_slug'];
+		if (isset($data['field_namespace'])) 	$update_data['field_namespace']	= $data['field_namespace'];
+		if (isset($data['field_type']))			$update_data['field_type']		= $data['field_type'];
 		
 		// Gather extra data		
 		if ( ! isset($type->custom_parameters) or $type->custom_parameters == '')
@@ -439,11 +443,12 @@ class Fields_m extends CI_Model {
 	 */
 	public function get_assignments_for_stream($stream_id)
 	{
-		$this->db->select(STREAMS_TABLE.'.*, '.STREAMS_TABLE.'.view_options as stream_view_options, '.STREAMS_TABLE.'.id as stream_id, '.FIELDS_TABLE.'.id as field_id, '.FIELDS_TABLE.'.*, '.FIELDS_TABLE.'.view_options as field_view_options, '.ASSIGN_TABLE.'.instructions, '.ASSIGN_TABLE.'.is_required, '.ASSIGN_TABLE.'.is_unique');
+		$this->db->select(STREAMS_TABLE.'.*, '.STREAMS_TABLE.'.view_options as stream_view_options, '.ASSIGN_TABLE.'.id as assign_id, '.STREAMS_TABLE.'.id as stream_id, '.FIELDS_TABLE.'.id as field_id, '.FIELDS_TABLE.'.*, '.FIELDS_TABLE.'.view_options as field_view_options, '.ASSIGN_TABLE.'.instructions, '.ASSIGN_TABLE.'.is_required, '.ASSIGN_TABLE.'.is_unique');
 		$this->db->from(STREAMS_TABLE.', '.ASSIGN_TABLE.', '.FIELDS_TABLE);
 		$this->db->where($this->db->dbprefix(STREAMS_TABLE).'.id', $this->db->dbprefix(ASSIGN_TABLE).'.stream_id', FALSE);
 		$this->db->where($this->db->dbprefix(FIELDS_TABLE).'.id', $this->db->dbprefix(ASSIGN_TABLE).'.field_id', FALSE);
 		$this->db->where($this->db->dbprefix(ASSIGN_TABLE).'.stream_id', $stream_id, FALSE);
+		$this->db->order_by('sort_order', 'ASC');
 		
 		$obj = $this->db->get();
 			
@@ -625,7 +630,7 @@ class Fields_m extends CI_Model {
 	}
 
 	// --------------------------------------------------------------------------
-	
+
 	/**
 	 * Edit Assignment
 	 *
@@ -639,42 +644,62 @@ class Fields_m extends CI_Model {
 	public function edit_assignment($assignment_id, $stream, $field, $data)
 	{
 		// -------------------------------------
-		// Check for title column
-		// -------------------------------------
-		// See if this should be made the title column
+		// Title Column
 		// -------------------------------------
 
-		if (isset($data['title_column']) and $data['title_column'] == 'yes')
+		// Scenario A: The title column is the field slug, and we 
+		// have it unchecked.
+		if (
+			$stream->title_column == $field->field_slug and
+			( ! isset($data['title_column']) or $data['title_column'] == 'no' or ! $data['title_column'])
+		)
 		{
-			$title_update_data['title_column'] = $field->field_slug;
-		
-			$this->db->where('id', $stream->id );
-			$this->db->update('data_streams', $title_update_data);
+			// In this case, they don't want this to
+			// be the title column anymore, so we wipe it out
+			$this->db
+				->limit(1)
+				->where('id', $stream->id)
+				->update('data_streams', array('title_column' => null));
+		}
+		elseif (
+			isset($data['title_column']) and
+			($data['title_column'] == 'yes' or $data['title_column'] === true) and
+			$stream->title_column != $field->field_slug
+		)
+		{
+			// Scenario B: They have checked the title column
+			// and this field it not the current field.
+			$this->db
+					->limit(1)
+					->where('id', $stream->id)
+					->update('data_streams', array('title_column' => $field->field_slug));
 		}
 
 		// Is required	
-		if (isset($data['is_required']) and $data['is_required'] == 'yes')
-		{
+		if( isset($data['is_required']) and $data['is_required'] == 'yes' ):
+
 			$update_data['is_required'] = 'yes';
-		}	
-		else
-		{
+
+		else:
+
 			$update_data['is_required'] = 'no';
-		}
-		
+
+		endif;
+
 		// Is unique
-		if (isset($data['is_unique']) and $data['is_unique'] == 'yes')
-		{
+		if( isset($data['is_unique']) and $data['is_unique'] == 'yes' ):
+
 			$update_data['is_unique'] = 'yes';
-		}	
-		else
-		{
+
+		else:
+
 			$update_data['is_unique'] = 'no';
-		}
-			
+
+		endif;
+
 		// Add in instructions		
 		$update_data['instructions'] = $data['instructions'];
-		
+
 		$this->db->where('id', $assignment_id);
 		return $this->db->update(ASSIGN_TABLE, $update_data);
 	}

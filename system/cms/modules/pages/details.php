@@ -1,8 +1,10 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
+
 /**
- * 
- * @author		PyroCMS Dev Team
- * @package		PyroCMS\Core\Modules\Pages
+ * Pages Module
+ *
+ * @author PyroCMS Dev Team
+ * @package PyroCMS\Core\Modules\Pages
  */
 class Module_Pages extends Module {
 
@@ -12,50 +14,52 @@ class Module_Pages extends Module {
 	{
 		return array(
 			'name' => array(
-				'sl' => 'Strani',
 				'en' => 'Pages',
-				'nl' => 'Pagina&apos;s',
-				'es' => 'Páginas',
-				'fr' => 'Pages',
-				'de' => 'Seiten',
-				'pl' => 'Strony',
-				'br' => 'Páginas',
-				'zh' => '頁面',
-				'it' => 'Pagine',
-				'ru' => 'Страницы',
 				'ar' => 'الصفحات',
+				'br' => 'Páginas',
 				'cs' => 'Stránky',
-				'fi' => 'Sivut',
-				'el' => 'Σελίδες',
-				'he' => 'דפים',
-				'lt' => 'Puslapiai',
 				'da' => 'Sider',
-				'id' => 'Halaman'
+				'de' => 'Seiten',
+				'el' => 'Σελίδες',
+				'es' => 'Páginas',
+				'fi' => 'Sivut',
+				'fr' => 'Pages',
+				'he' => 'דפים',
+				'id' => 'Halaman',
+				'it' => 'Pagine',
+				'lt' => 'Puslapiai',
+				'nl' => 'Pagina&apos;s',
+				'pl' => 'Strony',
+				'ru' => 'Страницы',
+				'sl' => 'Strani',
+				'zh' => '頁面',
+				'hu' => 'Oldalak'
 			),
 			'description' => array(
-				'sl' => 'Dodaj stran s kakršno koli vsebino želite.',
 				'en' => 'Add custom pages to the site with any content you want.',
+				'ar' => 'إضافة صفحات مُخصّصة إلى الموقع تحتوي أية مُحتوى تريده.',
+				'br' => 'Adicionar páginas personalizadas ao site com qualquer conteúdo que você queira.',
+				'cs' => 'Přidávejte vlastní stránky na web s jakýmkoliv obsahem budete chtít.',
+				'da' => 'Tilføj brugerdefinerede sider til dit site med det indhold du ønsker.',
+				'de' => 'Füge eigene Seiten mit anpassbaren Inhalt hinzu.',
+				'el' => 'Προσθέστε και επεξεργαστείτε σελίδες στον ιστότοπό σας με ό,τι περιεχόμενο θέλετε.',
+				'es' => 'Agrega páginas customizadas al sitio con cualquier contenido que tu quieras.',
+				'fi' => 'Lisää mitä tahansa sisältöä sivustollesi.',
+				'fr' => "Permet d'ajouter sur le site des pages personalisées avec le contenu que vous souhaitez.",
+				'he' => 'ניהול דפי תוכן האתר',
+				'id' => 'Menambahkan halaman ke dalam situs dengan konten apapun yang Anda perlukan.',
+				'it' => 'Aggiungi pagine personalizzate al sito con qualsiesi contenuto tu voglia.',
+				'lt' => 'Pridėkite nuosavus puslapius betkokio turinio',
 				'nl' => "Voeg aangepaste pagina&apos;s met willekeurige inhoud aan de site toe.",
 				'pl' => 'Dodaj własne strony z dowolną treścią do witryny.',
-				'es' => 'Agrega páginas customizadas al sitio con cualquier contenido que tu quieras.',
-				'fr' => "Permet d'ajouter sur le site des pages personalisées avec le contenu que vous souhaitez.",
-				'de' => 'Füge eigene Seiten mit anpassbaren Inhalt hinzu.',
-				'br' => 'Adicionar páginas personalizadas ao site com qualquer conteúdo que você queira.',
-				'zh' => '為您的網站新增自定的頁面。',
-				'it' => 'Aggiungi pagine personalizzate al sito con qualsiesi contenuto tu voglia.',
 				'ru' => 'Управление информационными страницами сайта, с произвольным содержимым.',
-				'ar' => 'إضافة صفحات مُخصّصة إلى الموقع تحتوي أية مُحتوى تريده.',
-				'cs' => 'Přidávejte vlastní stránky na web s jakýmkoliv obsahem budete chtít.',
-				'fi' => 'Lisää mitä tahansa sisältöä sivustollesi.',
-				'el' => 'Προσθέστε και επεξεργαστείτε σελίδες στον ιστότοπό σας με ό,τι περιεχόμενο θέλετε.',
-				'he' => 'ניהול דפי תוכן האתר',
-				'lt' => 'Pridėkite nuosavus puslapius betkokio turinio',
-				'da' => 'Tilføj brugerdefinerede sider til dit site med det indhold du ønsker.',
-				'id' => 'Menambahkan halaman ke dalam situs dengan konten apapun yang Anda perlukan.'
+				'sl' => 'Dodaj stran s kakršno koli vsebino želite.',
+				'zh' => '為您的網站新增自定的頁面。',
+				'hu' => 'Saját oldalak hozzáadása a weboldalhoz, akármilyen tartalommal.'
 			),
-			'frontend' => TRUE,
-			'backend'  => TRUE,
-			'skip_xss' => TRUE,
+			'frontend' => true,
+			'backend'  => true,
+			'skip_xss' => true,
 			'menu'	  => 'content',
 
 			'roles' => array(
@@ -126,6 +130,7 @@ class Module_Pages extends Module {
 				'updated_on' => array('type' => 'INT', 'constraint' => 11, 'default' => 0),
 				'restricted_to' => array('type' => 'VARCHAR', 'constraint' => 255, 'null' => true,),
 				'is_home' => array('type' => 'INT', 'constraint' => 1, 'default' => 0,),
+				'strict_uri' => array('type' => 'TINYINT', 'constraint' => 1, 'default' => 1,),
 				'order' => array('type' => 'INT', 'constraint' => 11, 'default' => 0),
 			),
 			'page_chunks' => array(
@@ -138,155 +143,136 @@ class Module_Pages extends Module {
 				'sort' => array('type' => 'INT', 'constraint' => 11,),
 			),
 		);
-		$this->install_tables($tables);
+		if ( ! $this->install_tables($tables))
+		{
+			return false;
+		}
 
 		// We will need to get now() later on.
 		$this->load->helper('date');
-		
-		//$this->load->model('pages/page_layouts_m');
-		$this->db->insert('page_layouts', array(
+
+		$default_page_layout = array(
 			'id' => 1,
 			'title' => 'Default',
-			'body' => '<h2>{{ page:title }}</h2>\n\n\n{{ page:body }}',
+			'body' => '<h2>{{ page:title }}</h2>{{ page:body }}',
 			'css' => '',
 			'js' => '',
 			'updated_on' => now(),
-		));
+		);
 
-		// The home page.
-		$this->db->insert('pages', array(
-			'slug' => 'home',
-			'title' => 'Home',
-			'uri' => 'home',
-			'revision_id' => 1,
-			'parent_id' => 0,
-			'layout_id' => 1,
-			'status' => 'live',
-			'restricted_to' => '',
-			'created_on' => now(),
-			'is_home' => 1,
-			'order' => now()
-		));
-		$this->db->insert('page_chunks', array(
-			'slug' => 'default',
-			'page_id' => 1,
-			'body' => '<p>Welcome to our homepage. We have not quite finished setting up our website yet, but please add us to your bookmarks and come back soon.</p>',
-			'parsed' => '',
-			'type' => 'wysiwyg-advanced',
-			'sort' => 1,
-		));
-		
-		// The 404 page.
-		$this->db->insert('pages', array(
-			'slug' => '404',
-			'title' => 'Page missing',
-			'uri' => '404',
-			'revision_id' => 1,
-			'parent_id' => 0,
-			'layout_id' => 1,
-			'status' => 'live',
-			'restricted_to' => '',
-			'created_on' => now(),
-			'is_home' => 1,
-			'order' => now()
-		));
-		$this->db->insert('page_chunks', array(
-			'slug' => 'default',
-			'page_id' => 2,
-			'body' => '<p>We cannot find the page you are looking for, please click <a title=\"Home\" href=\"{{ pages:url id=\'1\' }}\">here</a> to go to the homepage.</p>',
-			'parsed' => '',
-			'type' => 'wysiwyg-advanced',
-			'sort' => 1,
-		));
-		
-		// The 404 page.
-		$this->db->insert('pages', array(
-			'slug' => 'contact',
-			'title' => 'Contact',
-			'uri' => 'contact',
-			'revision_id' => 1,
-			'parent_id' => 0,
-			'layout_id' => 1,
-			'status' => 'live',
-			'restricted_to' => '',
-			'created_on' => now(),
-			'is_home' => 1,
-			'order' => now()
-		));
-		$this->db->insert('page_chunks', array(
-			'slug' => 'default',
-			'page_id' => 3,
-			'body' => '<p>To contact us please fill out the form below.</p>
-				{{ contact:form name=\"text|required\" email=\"text|required|valid_email\" subject=\"dropdown|Support|Sales|Feedback|Other\" message=\"textarea\" attachment=\"file|zip\" }}
-					<div><label for=\"name\">Name:</label>{{ name }}</div>
-					<div><label for=\"email\">Email:</label>{{ email }}</div>
-					<div><label for=\"subject\">Subject:</label>{{ subject }}</div>
-					<div><label for=\"message\">Message:</label>{{ message }}</div>
-					<div><label for=\"attachment\">Attach  a zip file:</label>{{ attachment }}</div>
-				{{ /contact:form }}',
-			'parsed' => '',
-			'type' => 'wysiwyg-advanced',
-			'sort' => 1,
-		));
+		if ( ! $this->db->insert('page_layouts', $default_page_layout))
+		{
+			return false;
+		}
 
-		return TRUE;
+		$default_pages = array(
+			/* The home page. */
+			array(
+				'slug' => 'home',
+				'title' => 'Home',
+				'uri' => 'home',
+				'revision_id' => 1,
+				'parent_id' => 0,
+				'layout_id' => 1,
+				'status' => 'live',
+				'restricted_to' => '',
+				'created_on' => now(),
+				'is_home' => 1,
+				'order' => now()
+			),
+			/* The 404 page. */
+			array(
+				'slug' => '404',
+				'title' => 'Page missing',
+				'uri' => '404',
+				'revision_id' => 1,
+				'parent_id' => 0,
+				'layout_id' => 1,
+				'status' => 'live',
+				'restricted_to' => '',
+				'created_on' => now(),
+				'is_home' => 0,
+				'order' => now()
+			),
+			/* The contact page. */
+			array(
+				'slug' => 'contact',
+				'title' => 'Contact',
+				'uri' => 'contact',
+				'revision_id' => 1,
+				'parent_id' => 0,
+				'layout_id' => 1,
+				'status' => 'live',
+				'restricted_to' => '',
+				'created_on' => now(),
+				'is_home' => 0,
+				'order' => now()
+			),
+		);
+
+		foreach($default_pages as $page_chunk)
+		{
+			if ( ! $this->db->insert('pages', $page_chunk))
+			{
+				return false;
+			}
+		}
+
+		$default_page_chunks = array(
+			/* The home page chunk. */
+			array(
+				'slug' => 'default',
+				'page_id' => 1,
+				'body' => '<p>Welcome to our homepage. We have not quite finished setting up our website yet, but please add us to your bookmarks and come back soon.</p>',
+				'parsed' => '',
+				'type' => 'wysiwyg-advanced',
+				'sort' => 1,
+			),
+			/* The 404 page chunk. */
+			array(
+				'slug' => 'default',
+				'page_id' => 2,
+				'body' => '<p>We cannot find the page you are looking for, please click <a title="Home" href="{{ pages:url id="1" }}">here</a> to go to the homepage.</p>',
+				'parsed' => '',
+				'type' => 'html',
+				'sort' => 1,
+			),
+			/* The contact page chunk. */
+			array(
+				'slug' => 'default',
+				'page_id' => 3,
+				'body' => '<p>To contact us please fill out the form below.</p>
+					{{ contact:form name="text|required" email="text|required|valid_email" subject="dropdown|Support|Sales|Feedback|Other" message="textarea" attachment="file|zip" }}
+						<div><label for="name">Name:</label>{{ name }}</div>
+						<div><label for="email">Email:</label>{{ email }}</div>
+						<div><label for="subject">Subject:</label>{{ subject }}</div>
+						<div><label for="message">Message:</label>{{ message }}</div>
+						<div><label for="attachment">Attach  a zip file:</label>{{ attachment }}</div>
+					{{ /contact:form }}',
+				'parsed' => '',
+				'type' => 'html',
+				'sort' => 1,
+			),
+		);
+		foreach($default_page_chunks as $page_chunk)
+		{
+			if ( ! $this->db->insert('page_chunks', $page_chunk))
+			{
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 	public function uninstall()
 	{
-		//it's a core module, lets keep it around
-		return FALSE;
+		// This is a core module, lets keep it around.
+		return false;
 	}
 
 	public function upgrade($old_version)
 	{
-		// Your Upgrade Logic
-		return TRUE;
-	}
-
-	public function help()
-	{
-		// Return a string containing help info
-		// You could include a file and return it here.
-		return "<h4>Overview</h4>
-		<p>The pages module is a simple but powerful way to manage static content on your site.
-		Page layouts can be managed and widgets embedded without ever editing the template files.</p>
-		<h4>Managing Pages</h4><hr>
-		<h6>Page Content</h6>
-		<p>When choosing your page title remember that the default page layout will display the page title
-		above the page content. Now create your page content
-		using the WYSIWYG editor. When you are ready for the page to be visible to visitors set the
-		status to Live and it will be accessible at the URL shown. <strong>You must also go to Design -> Navigation and create a new
-		navigation link if you want your page to show up in the menu.</strong></p>
-		<h6>Meta data</h6>
-		<p>The meta title is generally used as the title in search results and is believed to carry significant weight in page rank.<br />
-		Meta keywords are words that describe your site content and are for the benefit of search engines only.<br />
-		The meta description is a short description of this page and may be used as the search snippet if the search engine deems it relevant to the search.</p>
-		<h6>Design</h6>
-		<p>The design tab allows you to select a custom page layout and optionally apply different css styles to it on this page only. Refer to the Page Layouts
-		section below for instructions on how to best use Page Layouts.</p>
-		<h6>Script</h6>
-		<p>You may place javascript here that you would like appended to the < head > of the page.</p>
-		<h6>Options</h6>
-		<p>Allows you to turn on comments and an rss feed for this page. If the rss feed is enabled a visitor can subscribe to this page and they
-		will receive each child page in their rss reader.</p>
-		<h6>Revisions</h6>
-		<p>Revisions is a very powerful and handy feature for editing an existing page. Let's say a new employee really messes up a page edit. Just select a date that you would
-		like to revert the page to and click Save! You can even compare revisions to see what has changed.</p>
-		<h4>Page Layouts</h4><hr>
-		<p>Page layouts allows you to control the layout of the page without modifying the theme files. You can embed tags into the page layout
-		instead of placing them in every page. For example: If you have a twitter feed widget that you want to display at the bottom of every page you can just place
-		the widget tag in the page layout:
-<pre><code>
-{{ page:title }}
-{{ page:body }}
-
-< div class=\"my-twitter-widget\" >
-	{{ widgets:instance id=\"1\" }}
-< /div >
-</code></pre>
-		Now you can apply css styling to the \"my-twitter-widget\" class in the CSS tab.</p>";
+		return true;
 	}
 }
-
-/* End of file details.php */

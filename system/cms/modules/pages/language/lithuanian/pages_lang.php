@@ -30,6 +30,7 @@ $lang['pages.access_label']                = 'Access';
 $lang['pages.rss_enabled_label']           = 'RSS enabled?';
 $lang['pages.comments_enabled_label']      = 'Comments enabled?';
 $lang['pages.is_home_label']      = 'Is default (home) page?';
+$lang['pages.strict_uri_label']						= 'Require an exact uri match?'; #translate
 
 $lang['pages.status_label']                = 'Statusas';
 $lang['pages.draft_label']                 = 'Projektas';
@@ -63,6 +64,7 @@ $lang['pages_parent_not_exist_error']      = 'Tėvo puslapis, kurį pažymėjote
 $lang['pages_chunk_slug_length']					= 'Page Chunk slugs may be no more than 30 characters in length.'; #translate
 $lang['pages_root_folder']                = 'the top level'; #translate
 
+$lang['pages.tree_explanation_title']	        = 'Explanation'; #translate
 $lang['pages.tree_explanation']            = 'Paspauskite ant puslapio pavadimo, kad pamatyti vidinius puslapius. Taip pat galite tampydami (aukštyn/žemyn/ vertikaliai) keisti puslapio poziciją; tampydami horizontaliai - galite jį padaryti vidiniu puslapiu. Paspaudę ant puslapio pavadinimo, gausite daugiau informacijos.';
 
 $lang['pages.rss_explanation']             = 'Enabling RSS for this page will give users a chance to subscribe to an RSS feed which shows each immediate page child as a new entry.';

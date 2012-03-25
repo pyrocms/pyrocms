@@ -37,7 +37,7 @@
 	/**
 	 * Default group, use name
 	 */
-	$config['default_group']       = 'user';
+	$config['default_group']       = 'users';
 
 	/**
 	 * Default administrators group, use name
@@ -53,8 +53,11 @@
 	/**
 	 * Columns in your meta table,
 	 * id not required.
+	 *
+	 * This has been taken over by streams and
+	 * should remain blank.
 	 **/
-	$config['columns']             = array('display_name', 'first_name', 'last_name', 'company', 'lang', 'bio', 'dob', 'gender', 'phone', 'mobile', 'address_line1', 'address_line2', 'address_line3', 'postcode', 'website', 'updated_on');
+	$config['columns']             = array();
 
 	/**
 	 * A database column which is used to

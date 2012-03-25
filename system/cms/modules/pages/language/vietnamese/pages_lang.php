@@ -40,6 +40,7 @@ $lang['pages.access_label']							= 'Access';
 $lang['pages.rss_enabled_label']					= 'Kích hoạt RSS?';
 $lang['pages.comments_enabled_label']				= 'Cho phép phản hồi?';
 $lang['pages.is_home_label']						= 'Là trang chủ mặc định (homepage)?';
+$lang['pages.strict_uri_label']						= 'Require an exact uri match?'; #translate
 
 $lang['pages.status_label']							= 'Trạng thái';
 $lang['pages.draft_label']							= 'Nháp';
@@ -75,6 +76,7 @@ $lang['pages_parent_not_exist_error']				= 'Trang cha được lựa chọn khô
 $lang['pages_chunk_slug_length']					= 'Page Chunk slugs may be no more than 30 characters in length.'; #translate
 $lang['pages_root_folder']                = 'cấp cao nhất';
 
+$lang['pages.tree_explanation_title']	        = 'Explanation'; #translate
 $lang['pages.tree_explanation']						= 'Danh sách bên trái hiển thị trang trên website của bạn. Bấm vào trang để hiển thị các trang con. Bạn có thể kéo thả để sắp xếp; rê ngang để tạo trang con. Khi bấm vào trang bạn sẽ xem được các thông tin về trang tại đây.';
 
 $lang['pages.rss_explanation']						= 'Kích hoạt RSS cho trang này sẽ cho phép người dùng xem RSS feed hiển thị các trang con.';

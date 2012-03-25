@@ -14,15 +14,6 @@
 
 <?php echo form_open('register', array('id' => 'register')); ?>
 <ul>
-	<li>
-		<label for="first_name"><?php echo lang('user_first_name') ?></label>
-		<input type="text" name="first_name" maxlength="40" value="<?php echo $_user->first_name; ?>" />
-	</li>
-	
-	<li>
-		<label for="last_name"><?php echo lang('user_last_name') ?></label>
-		<input type="text" name="last_name" maxlength="40" value="<?php echo $_user->last_name; ?>" />
-	</li>
 	
 	<?php if ( ! Settings::get('auto_username')): ?>
 	<li>
@@ -41,6 +32,14 @@
 		<label for="password"><?php echo lang('user_password') ?></label>
 		<input type="password" name="password" maxlength="100" />
 	</li>
+
+	<?php foreach($profile_fields as $field) { if($field['required'] and $field['field_slug'] != 'display_name') { ?>
+	<li>
+		<label for="<?php echo $field['field_slug']; ?>"><?php echo (lang($field['field_name'])) ? lang($field['field_name']) : $field['field_name'];  ?></label>
+		<div class="input"><?php echo $field['input']; ?></div>
+	</li>
+	<?php } } ?>
+
 	
 	<li>
 		<?php echo form_submit('btnSubmit', lang('user_register_btn')) ?>

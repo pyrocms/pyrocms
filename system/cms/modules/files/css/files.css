@@ -1,55 +1,63 @@
-#files-browser {
-	margin-bottom: 20px;
-	border-right: 1px solid #eeeeee;
-}
 
-#files-browser-nav > ul,
-#files-browser-nav > ul > li,
-#files-toolbar > ul,
-#files-toolbar > ul > li {
-	list-style: none;
-	padding: 0px;
-	margin: 0px;
-}
+.item { height: 450px; overflow: hidden; }
+.sidebar { width: 20%; }
+.sidebar-left { border-left: 1px solid #d8d8d8; padding-left: 1%; width: 18%; min-height: 100%; }
+section.two_third { width: 60%; }
+section.two_third .no_data { margin: 40px 20px 20px 20px; }
 
-#files-browser-nav {
-	float: none;
-}
+.subsection-title { color: #808080; margin-bottom: 10px; font-size: 14px; font-weight: bold; font-style: italic; }
 
-#files-browser-contents form {
-	position: relative;
-}
+#folders-sidebar .no_data { margin-right: 20px; }
+#folders-sidebar { height: 450px; border-right: 1px solid #d8d8d8; overflow-x: hidden; overflow-y: auto; }
+#folders-sidebar ul { padding-left: 15px !important; }
+#folders-sidebar li a { width: 80%; padding: 6px 3px 6px 3px; cursor: pointer; font-size: 14px; display: inline-block; }
+#folders-sidebar li.places a { color: #808080; margin-bottom: 10px; font-size: 14px; font-weight: bold; font-style: italic; }
+#folders-sidebar li div { width: 14px; height: 15px; float: left; margin-top: 4px; cursor: pointer; }
+#folders-sidebar li.open > div { background: url(../img/glyphicons-halflings-gray.png) no-repeat -457px -70px; }
+#folders-sidebar li.close > div { background: url(../img/glyphicons-halflings-gray.png) no-repeat -313px -117px; }
+#folders-sidebar li.current { background: url(../img/current.png) no-repeat 98% 6px; }
 
-#files-browser-nav li a {
-	padding: 10px;
-	background: transparent;
-	display: block;
-	text-decoration: none;
-	color: #666666;
-}
-#files-browser-nav li a:hover {
-	background-color: #F4F4F4;
-	color: #333333;
-}
-#files-browser-nav li.current a {
-	background-color: #3a4043;
-	color: #FFFFFF;
-}
+.folders-center { height: 450px; overflow-y: auto; overflow-x: hidden; }
+.folders-center li:hover { background-color: #ededed; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; }
+.folders-center .folder { width: 100px; height: 112px; margin: 10px; overflow: hidden; float: left; background: url(../img/folder.png) no-repeat; }
+.folders-center li .name-text { display: block; margin: 0 4px 0 4px; color: #515151; font-size: 11px; height: 15px; overflow: hidden; margin-top: 80px; text-align: center; }
+.folders-center li .name-text input { width: 92px; margin: 0; padding: 0; background: transparent; border: none; margin: 0; padding: 0; text-align: center; }
 
-#files-toolbar { margin: 5px -10px 10px; border: 1px solid #ccc; border-right: 0; border-left: 0; padding: 5px; background: #f9f9f9; }
-#files-toolbar > ul > li {
-	display: inline-block;
-	padding-left: 5px;
-	vertical-align: middle;
-}
-#files-toolbar li.buttons { border-left: 1px solid #ccc; }
-#files-toolbar label {
-	font-weight: bold;
-}
-#files-toolbar a.button {
-	padding-top: 2px;
-	padding-bottom: 2px;
-}
+.folders-center .file { width: 100px; height: 112px; margin: 10px; overflow: hidden; float: left; }
+.folders-center .selected { background-color: #e0e0e0; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; }
+.folders-center .file .name-text { margin-top: 83px; }
+.folders-center .file.type-a { background-image: url(../img/a.png); }
+.folders-center .file.type-d { background-image: url(../img/d.png); }
+.folders-center .file.type-o { background-image: url(../img/o.png); }
+.folders-center .file.type-v { background-image: url(../img/v.png); }
+.folders-center .file.type-i .name-text { margin-top: 7px; }
+.folders-center .file.type-i img { padding: 25px 13px 0 13px; }
+
+#item-details li { font-size: 14px; list-style: none; line-height: 26px; }
+#item-details label { font-size: 14px; width: 130px; display: inline-block; }
+#item-details span { padding-left: 5px; }
+#item-details input.path { width: 250px; margin-left: 6px; }
+#item-details textarea { width: 390px; min-height: 0; height: 75px; }
+
+#console { margin-top: 5px !important; border-top: 1px solid #d8d8d8; }
+#console li { padding: 10px 0 10px 10px; border-bottom: 1px solid #d8d8d8; }
+#console .success { color: #52914D }
+#console .failure { color: #B72C2C; }
+#console .info { color: #354F68; }
+#console li i { margin-right: 5px; float: left; }
+li.right-title { padding-left: 0; }
+li.right-title label { padding-left: 10px; }
+li.right-title input { margin-left: 20px; width: 83%; }
+li.right-title, li.right-title label { font-size: 14px; font-weight: bold; font-style: italic; border: none; }
+
+#file-search { width: 170px; }
+#search-results li { padding: 10px 0 10px 10px; border-bottom: 1px solid #d8d8d8; font-size: 13px; }
+#search-results .folder { width: 20px; height: 20px; margin-right: 5px; float: left; background: url(../img/glyphicons-halflings-gray.png) no-repeat -405px -120px; }
+#search-results .file { width: 20px; height: 20px; margin-right: 5px; float: left; background: url(../img/glyphicons-halflings-gray.png) no-repeat -19px -23px; }
+#search-area { margin-bottom: 15px; }
+.context-menu-source { display: none; position: absolute; width: 150px; background-color: #ededed; border: 1px solid #b7b7b7; border-radius: 2px; }
+.context-menu-source li { height: 15px; cursor: pointer; color: #585858; font-size: 14px; padding: 7px 25px 7px 25px; border-bottom: 1px solid #e0e0e0; }
+.context-menu-source li:hover { background-color: #e8e8e8; }
 
 #files-uploader { position: relative; margin: 0 5px; }
 #files-uploader .files-uploader-browser { padding-bottom: 75px; }
@@ -59,11 +67,13 @@
 	border: 2px dashed #d0d0d0;
 	margin: 20px auto 30px;
 	min-height: 100px;
+    color: #585858;
+    width: 99%;
 }
 #files-uploader label.upload {
     position: absolute;
     left: 50%;
-    top: 50%;
+    top: 20%;
     display: block;
     width: 200px;
     height: 30px;
@@ -90,21 +100,25 @@
     display: inline-block;
     vertical-align: top;
 }
+#files-uploader-queue li > div * {
+    vertical-align: middle;
+}
 #files-uploader-queue .file_upload_preview {
     border: 1px solid #ccc;
 }
 #files-uploader-queue .file_upload_preview div {
-    width: 80px;
+    width: 50px;
     height: 30px;
     border: 5px solid #fff;
     overflow: hidden;
     background: #fff;
 }
 #files-uploader-queue .file_upload_preview img {
-    width: 80px;
+    width: 50px;
 }
 #files-uploader-queue .filename {
-    width: 290px;
+    width: 100px;
+    overflow: hidden;
     color: #666666;
     margin-top: 10px;
 }
@@ -116,71 +130,27 @@
     float: right;
     margin-right: 0;
 }
-#files-uploader-queue .file_upload_cancel .button {
+#files-uploader-queue .file_upload_cancel label {
+    margin-right: 5px;
+}
+#files-uploader-queue .file_upload_cancel select {
+    margin-right: 10px;
+    max-width: 90px;
+}
+#files-uploader-queue .file_upload_cancel input {
+    margin-right: 10px;
+}
+.file_upload_cancel div.start-icon {
 	margin-left: 5px;
+    width: 30px;
+    height: 30px;
+    background: url(../img/upload.png) no-repeat 0 0;
+    display: inline-block;
 }
-
-
-#grid { display: none; }
-
-#grid ul {
-	list-style-type: none;
-	margin-top: 10px;
-}
-#grid li {
-	float: left;
-	margin: 0 5px 5px 0;
-	height: 100px;
-	width: 190px;
-	background-color: #f5f5f5;
-	-webkit-border-radius: 8px;
-	-moz-border-radius: 8px;
-	border-radius: 8px;
-	overflow: hidden;
-}
-#grid img {
-	display: block;
-	margin: 0 auto;
-	margin-bottom: 5px;
-}
-#grid .actions,
-#grid .actions a,
-#grid .actions input {
-	vertical-align: middle;
-}
-#grid .actions {
-	padding: 5px 0;
-}
-#grid .actions a {
-	border-left: 1px solid #c2c2c2;
-	vertical-align: middle;
-	padding-left: 2px;
-}
-#grid .actions a.download_file {
-	border-left: none;
-	padding: 0;
-}
-
-#files-display { position: absolute; right: 0; top: -42px; }
-#files-display a { font-weight: bold; display: inline-block; }
-#files-display a.toggle-view {
-	display: inline-block;
-	padding: 3px 7px;
-	text-decoration: none;
-	font-size: 14px;
-	font-weight: bold;
-}
-#files-display a.active-view {
-	background-color: #f2f2f2;
-	-webkit-border-radius: 4px;
-	-moz-border-radius: 4px;
-	border-radius: 4px;
-}
-
-#folders_crud fieldset,
-#files_crud fieldset { margin-bottom: 0; }
-
-.blank-slate.files,
-.blank-slate.file-folders {
-	margin: 20% auto;
+.file_upload_cancel div.cancel-icon {
+    margin-left: 5px;
+    width: 30px;
+    height: 30px;
+    background: url(../img/cancel.png) no-repeat 0 0;
+    display: inline-block;
 }

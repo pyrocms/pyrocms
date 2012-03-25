@@ -22,6 +22,7 @@ class Widget_Twitter_feed extends Widgets
 		'br' => 'Feed do Twitter',
 		'ru' => 'Лента Twitter\'а',
 		'id' => 'Twitter Feed',
+		'fi' => 'Twitter Syöte'
 	);
 
 	/**
@@ -35,7 +36,8 @@ class Widget_Twitter_feed extends Widgets
 		'nl' => 'Toon Twitterfeeds op uw website',
 		'br' => 'Mostra os últimos tweets de um usuário do Twitter no seu site.',
 		'ru' => 'Выводит ленту новостей Twitter на страницах вашего сайта',
-		'id' => 'Menampilkan koleksi Tweet di situs Anda'
+		'id' => 'Menampilkan koleksi Tweet di situs Anda',
+		'fi' => 'Näytä Twitter syöte sivustollasi',
 	);
 
 	/**

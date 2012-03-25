@@ -16,7 +16,6 @@ section.title .form-title { margin-left: 20px; }
 /* Sortable CSS */
 .ui-nestedSortable-error { background:#fbe3e4; color:#8a1f11; }
 
-ul { margin: 0; padding: 0; }
 ul.sortable, ul.sortable ul { margin: 0 0 0 25px; padding: 0; list-style-type: none; cursor: default; }
 ul.sortable { margin: 2em; }
 

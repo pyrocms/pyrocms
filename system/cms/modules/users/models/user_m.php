@@ -13,7 +13,15 @@ class User_m extends MY_Model
 		$this->profile_table = $this->db->dbprefix('profiles');
     }
 
-    // Get a specified (single) user
+	// --------------------------------------------------------------------------
+
+    /**
+     * Get a specified (single) user
+     *
+     * @access 	public
+     * @param 	array
+     * @return 	obj
+     */
     public function get($params)
     {
     	if (isset($params['id']))
@@ -33,13 +41,21 @@ class User_m extends MY_Model
 
     	$this->db
 			->select($this->profile_table.'.*, users.*')
-			->select('IF('.$this->profile_table.'.last_name = "", '.$this->profile_table.'.first_name, CONCAT('.$this->profile_table.'.first_name, " ", '.$this->profile_table.'.last_name)) as full_name', FALSE)
 			->limit(1)
 			->join('profiles', 'profiles.user_id = users.id', 'left');
 
     	return $this->db->get('users')->row();
     }
 
+	// --------------------------------------------------------------------------
+
+    /**
+     * Get recent users
+     *
+     * @acces 	public
+     * @param 	int - limit - defaults to 10
+     * @return 	obj
+     */
     public function get_recent($limit = 10)
     {
 		$this->db->order_by('users.created_on', 'desc');
@@ -47,11 +63,12 @@ class User_m extends MY_Model
 		return $this->get_all();
     }
 
+	// --------------------------------------------------------------------------
+
     public function get_all()
     {
     	$this->db
 			->select($this->profile_table.'.*, g.description as group_name, users.*')
-			->select('IF('.$this->profile_table.'.last_name = "", '.$this->profile_table.'.first_name, CONCAT('.$this->profile_table.'.first_name, " ", '.$this->profile_table.'.last_name)) as full_name', FALSE)
 			->join('groups g', 'g.id = users.group_id')
 			->join('profiles', 'profiles.user_id = users.id', 'left')
 			->group_by('users.id');
@@ -59,7 +76,11 @@ class User_m extends MY_Model
     	return parent::get_all();
     }
 
-    // Create a new user
+	// --------------------------------------------------------------------------
+
+    /**
+     * Create a new user
+     */
     public function add($input = array())
     {
 		$this->load->helper('date');
@@ -68,8 +89,6 @@ class User_m extends MY_Model
 			'email'				=> $input->email,
 			'password'			=> $input->password,
 			'salt'				=> $input->salt,
-			'first_name' 		=> ucwords(strtolower($input->first_name)),
-			'last_name' 		=> ucwords(strtolower($input->last_name)),
 			'role' 				=> empty($input->role) ? 'user' : $input->role,
 			'is_active' 		=> 0,
 			'lang'				=> $this->config->item('default_language'),
@@ -80,18 +99,31 @@ class User_m extends MY_Model
         ));
     }
 
-    // Update the last login time
+	// --------------------------------------------------------------------------
+
+    /**
+     * Update the last login time
+     */
     public function update_last_login($id)
     {
         $this->db->update('users', array('last_login' => now()), array('id' => $id));
     }
 
-    // Activate a newly created user
+	// --------------------------------------------------------------------------
+
+    /**
+     * Activate a newly created user
+     */
     function activate($id)
     {
         return parent::update($id, array('is_active' => 1, 'activation_code' => ''));
     }
 
+	// --------------------------------------------------------------------------
+
+    /**
+     * Count by
+     */
     public function count_by($params = array())
     {
 		$this->db->from($this->_table)->join('profiles', 'users.id = profiles.user_id', 'left');
@@ -119,6 +151,11 @@ class User_m extends MY_Model
 		return $this->db->count_all_results();
     }
 
+	// --------------------------------------------------------------------------
+
+    /**
+     * Get by many
+     */
     public function get_many_by($params = array())
     {
 		if ( ! empty($params['active']))
@@ -136,9 +173,7 @@ class User_m extends MY_Model
 		{
 		    $this->db
 			->or_like('users.username', trim($params['name']))
-			->or_like('users.email', trim($params['name']))
-			->or_like('profiles.first_name', trim($params['name']))
-			->or_like('profiles.last_name', trim($params['name']));
+			->or_like('users.email', trim($params['name']));
 		}
 
 		return $this->get_all();
