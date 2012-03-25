@@ -50,7 +50,7 @@ class Plugin_User extends Plugin
 	 * Usage:
 	 *   {{ user:logged_in group="admin" }}
 	 *     <p>Hello admin!</p>
-	 *   {{ /user:logged_in }}
+	 *   {{ endif }}
 	 *
 	 * @return boolean State indicator.
 	 */
@@ -81,7 +81,7 @@ class Plugin_User extends Plugin
 	 * Usage:
 	 * {{ user:not_logged_in group="admin" }}
 	 * 	<p>Hello not an admin</p>
-	 * {{ /user:not_logged_in }}
+	 * {{ endif }}
 	 *
 	 * @return boolean State indicator.
 	 */
@@ -108,7 +108,7 @@ class Plugin_User extends Plugin
 	 * Usage:
 	 * {{ user:has_cp_permissions}}
 	 * 	<a href="/admin">Access the Control Panel</a>
-	 * {{ /user:has_cp_permissions }}
+	 * 3{{ endif }}
 	 * 
 	 * @return boolean State indicator.
 	 */
@@ -241,7 +241,6 @@ class Plugin_User extends Plugin
 	/**
 	 * Current uri string
 	 * 
-	 * @return string The current URI string.
 	 */
 	private function get_user_profile($plugin_call = true)
 	{
