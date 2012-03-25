@@ -126,7 +126,8 @@ class Module_Users extends Module {
 			'last_name' => array(
     			'field_name' => 'lang:user_last_name',
     			'field_type' => 'text',
-    			'extra'		 => array('max_length' => 50, 'required' => true)
+    			'extra'		 => array('max_length' => 50),
+				'assign'	 => array('required' => true)
     		),
     		'company' => array(
     			'field_name' => 'lang:profile_company',
