@@ -54,6 +54,13 @@ class Ion_auth_model extends CI_Model
 	public $new_password;
 
 	/**
+	 * Array of user data called
+	 *
+	 * @var string
+	 **/
+	public $users = array();
+
+	/**
 	 * Identity
 	 *
 	 * @var string
@@ -705,6 +712,16 @@ class Ion_auth_model extends CI_Model
 			}
 		}
 
+		// Profile columns that are not under streams control, but we 
+		// want to have access to anyways.
+		$this->db->select($this->tables['meta'].'.display_name as display_name');
+		$this->db->select($this->tables['meta'].'.updated_on as updated_on');
+		$this->db->select($this->tables['meta'].'.user_id as user_id');
+		
+		// Just in case this is different than the user_id, it's good
+		// to have this on hand.
+		$this->db->select($this->tables['meta'].'.id as profile_id');
+
 		$this->db->join($this->tables['meta'], $this->tables['users'].'.id = '.$this->tables['meta'].'.'.$this->meta_join, 'left');
 		$this->db->join($this->tables['groups'], $this->tables['users'].'.group_id = '.$this->tables['groups'].'.id', 'left');
 
@@ -722,7 +739,6 @@ class Ion_auth_model extends CI_Model
 		{
 			$this->db->where($this->ion_auth->_extra_where);
 		}
-
 
 		if (isset($limit) && isset($offset))
 		{
@@ -801,6 +817,13 @@ class Ion_auth_model extends CI_Model
 	 **/
 	public function get_user($id = NULL)
 	{
+		// Don't grab the user data again if we
+		// already have it
+		if (is_numeric($id) and isset($this->users[$id]))
+		{
+			return $this->users[$id];
+		}
+
 		$_user_is_current = FALSE;
 
 		//if no id was passed use the current users id
@@ -830,6 +853,9 @@ class Ion_auth_model extends CI_Model
 		$this->db->limit(1);
 
 		$user = $this->get_users();
+
+		// Save for later use
+		$this->users[$id] = $user;
 
 		//the user disappeared for a moment?
 		if ($user->num_rows() === 0 && $_user_is_current)
