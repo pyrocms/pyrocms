@@ -246,7 +246,7 @@ class Admin extends Admin_Controller {
 
 		$chunks = $this->db->get_where('page_chunks', array('page_id' => $page['id']))->result();
 
-		$new_page_id = $this->page_m->insert((array) $page, $chunks);
+		$new_page_id = $this->page_m->insert($page, $chunks);
 
 		foreach ($children as $child)
 		{
@@ -286,7 +286,7 @@ class Admin extends Admin_Controller {
 
 			for ($i = 0; $i < $chunk_bodies_count; $i++)
 			{
-				$page['chunks'][] = (object)array(
+				$page['chunks'][] = array(
 					'id' => $i,
 					'slug' => ( ! empty($chunk_slugs[$i])) ? $chunk_slugs[$i] : '',
 					'type' => ( ! empty($chunk_types[$i])) ? $chunk_types[$i] : '',
