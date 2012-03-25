@@ -264,9 +264,6 @@ class Admin extends Admin_Controller
 		$assignments = $this->streams->streams->get_assignments('profiles', 'users');
 		$profile_data = array();
 
-		// Get the profile data
-		$profile_row = $this->db->limit(1)->get('profiles')->row();
-
 		foreach ($assignments as $assign)
 		{
 			if (isset($_POST[$assign->field_slug]))
@@ -275,7 +272,7 @@ class Admin extends Admin_Controller
 			}
 			else
 			{
-				$profile_data[$assign->field_slug] = $profile_row->{$assign->field_slug};
+				$profile_data[$assign->field_slug] = $member->{$assign->field_slug};
 			}
 		}
 
@@ -344,7 +341,7 @@ class Admin extends Admin_Controller
 
 		$this->template
 			->title($this->module_details['name'], sprintf(lang('user_edit_title'), $member->username))
-			->set('display_name', $profile_row->display_name)
+			->set('display_name', $member->display_name)
 			->set('profile_fields', $this->streams->fields->get_stream_fields('profiles', 'users', $profile_data))
 			->set('member', $member)
 			->build('admin/form');
