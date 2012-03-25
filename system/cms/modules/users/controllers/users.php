@@ -3,7 +3,7 @@
 /**
  * User controller for the users module (frontend)
  *
- * @author 		Phil Sturgeon
+ * @author		 Phil Sturgeon
  * @author		PyroCMS Dev Team
  * @package		PyroCMS\Core\Modules\Users\Controllers
  */
@@ -12,7 +12,7 @@ class Users extends Public_Controller
 	/**
 	 * Constructor method
 	 *
-	 * @return void
+	 * @return \Users
 	 */
 	public function __construct()
 	{
@@ -25,12 +25,8 @@ class Users extends Public_Controller
 		$this->load->library('form_validation');
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Show the current user's profile
-	 *
-	 * @return void
 	 */
 	public function index()
 	{
@@ -44,37 +40,30 @@ class Users extends Public_Controller
 		}
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * View a user profile based on the ID
 	 *
-	 * @param	mixed $id The Username or ID of the user
-	 * @return	void
+	 * @param int|string $id The Username or ID of the user
 	 */
-	public function view($id = NULL)
+	public function view($id = null)
 	{
 		$user = ($this->current_user && $id == $this->current_user->id) ? $this->current_user : $this->ion_auth->get_user($id);
-		
+
 		// No user? Show a 404 error. Easy way for now, instead should show a custom error message
 		$user or show_404();
-		
+
 		$this->template->build('profile/view', array(
 			'_user' => $user,
 		));
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Let's login, shall we?
-	 *
-	 * @return void
 	 */
 	public function login()
 	{
 		// Check post and session for the redirect place
-		$redirect_to = $this->input->post('redirect_to') ? $this->input->post('redirect_to') : $this->session->userdata('redirect_to');
+		$redirect_to = ($this->input->post('redirect_to')) ? $this->input->post('redirect_to') : $this->session->userdata('redirect_to');
 
 		// Any idea where we are heading after login?
 		if ( ! $_POST AND $args = func_get_args())
@@ -83,9 +72,9 @@ class Users extends Public_Controller
 		}
 
 		// Get the user data
-		$user = (object) array(
-			'email'		=> $this->input->post('email'),
-			'password'	=> $this->input->post('password')
+		$user = (object)array(
+			'email' => $this->input->post('email'),
+			'password' => $this->input->post('password')
 		);
 
 		$validation = array(
@@ -121,18 +110,15 @@ class Users extends Public_Controller
 			redirect($redirect_to ? $redirect_to : '');
 		}
 
-		$this->template->build('login', array(
-			'_user' => $user,
-			'redirect_to' => $redirect_to,
-		));
+		$this->template
+			->build('login', array(
+				'_user' => $user,
+				'redirect_to' => $redirect_to,
+			));
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Method to log the user out of the system
-	 *
-	 * @return void
 	 */
 	public function logout()
 	{
@@ -144,12 +130,8 @@ class Users extends Public_Controller
 		redirect('');
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Method to register a new user
-	 *
-	 * @return void
 	 */
 	public function register()
 	{
@@ -159,14 +141,14 @@ class Users extends Public_Controller
 			redirect();
 		}
 
-        /* show the disabled registration message */
-        if ( ! Settings::get('enable_registration'))
-        {
-            $this->template
-                ->title(lang('user_register_title'))
-                ->build('disabled');
-            return;
-        }
+		/* show the disabled registration message */
+		if ( ! Settings::get('enable_registration'))
+		{
+			$this->template
+				->title(lang('user_register_title'))
+				->build('disabled');
+			return;
+		}
 
 		// Validation rules
 		$validation = array(
@@ -203,7 +185,7 @@ class Users extends Public_Controller
 		// Remove display_name
 		foreach ($profile_validation as $key => $values)
 		{
-			if($values['field'] == 'display_name')
+			if ($values['field'] == 'display_name')
 			{
 				unset($profile_validation[$key]);
 				break;
@@ -223,8 +205,8 @@ class Users extends Public_Controller
 
 		// Get the profile data to pass to the register function.
 		foreach ($assignments as $assign)
-		{	
-			if($assign->is_required == 'yes' and $assign->field_slug != 'display_name')
+		{
+			if ($assign->is_required == 'yes' and $assign->field_slug != 'display_name')
 			{
 				if (isset($_POST[$assign->field_slug]))
 				{
@@ -237,19 +219,18 @@ class Users extends Public_Controller
 
 		// Set the validation rules
 		$this->form_validation->set_rules($validation);
-	
+
 		// Set default values as empty or POST values
 		foreach ($validation as $rule)
 		{
-			$user->{$rule['field'
-			]} = $this->input->post($rule['field']) ? $this->input->post($rule['field']) : null;
+			$user->{$rule['field']} = $this->input->post($rule['field']) ? $this->input->post($rule['field']) : null;
 		}
-		
+
 		// Are they TRYing to submit?
 		if ($_POST)
 		{
 			if ($this->form_validation->run())
-			{	
+			{
 				// Check for a bot usin' the old fashioned
 				// don't fill this input in trick.
 				if ($this->input->post('d0ntf1llth1s1n') !== ' ')
@@ -258,8 +239,8 @@ class Users extends Public_Controller
 					redirect(current_url());
 				}
 
-				$email				= $this->input->post('email');
-				$password			= $this->input->post('password');	
+				$email = $this->input->post('email');
+				$password = $this->input->post('password');
 
 				// --------------------------------
 				// Auto-Username
@@ -269,7 +250,7 @@ class Users extends Public_Controller
 				// work with, so if we don't, use
 				// an alternate method.
 				// --------------------------------
-					
+
 				if (Settings::get('auto_username'))
 				{
 					if ($this->input->post('first_name') and $this->input->post('last_name'))
@@ -288,14 +269,15 @@ class Users extends Public_Controller
 					// Usernames absolutely need to be unique, so let's keep
 					// trying until we get a unieque one
 					$i = 1;
-					
+
 					do
 					{
 						$i > 1 and $username .= $i;
 
 						++$i;
 					}
-					while ($this->db->where('username', $username)->count_all_results('users') > 0);
+					while ($this->db->where('username', $username)
+						->count_all_results('users') > 0);
 				}
 				else
 				{
@@ -320,11 +302,11 @@ class Users extends Public_Controller
 				if ($id > 0)
 				{
 					// Convert the array to an object
-					$user->username			= $username;
-					$user->display_name		= $username;
-					$user->email			= $email;
-					$user->password 		= $password;
-				
+					$user->username = $username;
+					$user->display_name = $username;
+					$user->email = $email;
+					$user->password = $password;
+
 					// trigger an event for third party devs
 					Events::trigger('post_user_register', $id);
 
@@ -334,12 +316,12 @@ class Users extends Public_Controller
 						$this->load->library('user_agent');
 
 						Events::trigger('email', array(
-							'name'			=> $user->display_name,
-							'sender_ip' 	=> $this->input->ip_address(),
-							'sender_agent' 	=> $this->agent->browser().' '.$this->agent->version(),
-							'sender_os' 	=> $this->agent->platform(),
-							'slug' 			=> 'registered',
-							'email' 		=> Settings::get('contact_email'),
+							'name' => $user->display_name,
+							'sender_ip' => $this->input->ip_address(),
+							'sender_agent' => $this->agent->browser().' '.$this->agent->version(),
+							'sender_os' => $this->agent->platform(),
+							'slug' => 'registered',
+							'email' => Settings::get('contact_email'),
 						), 'array');
 					}
 
@@ -349,15 +331,16 @@ class Users extends Public_Controller
 						$this->session->set_flashdata('notice', $this->ion_auth->messages());
 						redirect('users/activate');
 					}
-				
-					elseif (Settings::get('registered_email'))
-					/* show the admin needs to activate you email */
+
+					elseif (Settings::get('registered_email')
+					)
+						/* show the admin needs to activate you email */
 					{
 						$this->session->set_flashdata('notice', lang('user_activation_by_admin_notice'));
 						redirect('users/register'); /* bump it to show the flash data */
 					}
 				}
-			
+
 				// Can't create the user, show why
 				else
 				{
@@ -370,13 +353,15 @@ class Users extends Public_Controller
 				$this->template->error_string = $this->form_validation->error_string();
 			}
 		}
-		
+
 		// Is there a user hash?
-		else if (($user_hash = $this->session->userdata('user_hash')))
-		{
-			// Convert the array to an object
-			$user->email 			= ( ! empty($user_hash['email'])) ? $user_hash['email']: '';
-			$user->username			= $user_hash['nickname'];
+		else {
+			if (($user_hash = $this->session->userdata('user_hash')))
+			{
+				// Convert the array to an object
+				$user->email = ( ! empty($user_hash['email'])) ? $user_hash['email'] : '';
+				$user->username = $user_hash['nickname'];
+			}
 		}
 
 		// --------------------------------
@@ -388,7 +373,7 @@ class Users extends Public_Controller
 		$this->template->set('profile_fields', $this->streams->fields->get_stream_fields('profiles', 'users', $profile_data));
 
 		// --------------------------------
-		
+
 		$this->template
 			->title(lang('user_register_title'))
 			->set('_user', $user)
@@ -401,7 +386,8 @@ class Users extends Public_Controller
 	 * Activate a user
 	 *
 	 * @param int $id The ID of the user
-	 * @param str $code The activation code
+	 * @param string $code The activation code
+	 *
 	 * @return void
 	 */
 	public function activate($id = 0, $code = NULL)
@@ -409,8 +395,8 @@ class Users extends Public_Controller
 		// Get info from email
 		if ($this->input->post('email'))
 		{
-			$this->data->activate_user = $this->ion_auth->get_user_by_email($this->input->post('email'));
-			$id = $this->data->activate_user->id;
+			$this->template->activate_user = $this->ion_auth->get_user_by_email($this->input->post('email'));
+			$id = $this->template->activate_user->id;
 		}
 
 		$code = ($this->input->post('activation_code')) ? $this->input->post('activation_code') : $code;
@@ -433,23 +419,20 @@ class Users extends Public_Controller
 			}
 			else
 			{
-				$this->data->error_string = $this->ion_auth->errors();
+				$this->template->error_string = $this->ion_auth->errors();
 			}
 		}
 
-		$this->template->title(lang('user_activate_account_title'));
-		$this->template->set_breadcrumb(lang('user_activate_label'), 'users/activate');
-		$this->template->build('activate', $this->data);
+		$this->template
+			->title(lang('user_activate_account_title'))
+			->set_breadcrumb(lang('user_activate_label'), 'users/activate')
+			->build('activate');
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Activated page.
 	 *
 	 * Shows an activated messages and a login form.
-	 *
-	 * @return void
 	 */
 	public function activated()
 	{
@@ -459,18 +442,17 @@ class Users extends Public_Controller
 			redirect(base_url());
 		}
 
-		$this->data->activated_email = ($email = $this->session->flashdata('activated_email')) ? $email : '';
+		$this->template->activated_email = ($email = $this->session->flashdata('activated_email')) ? $email : '';
 
-		$this->template->title(lang('user_activated_account_title'));
-		$this->template->build('activated', $this->data);
+		$this->template
+			->title(lang('user_activated_account_title'))
+			->build('activated');
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Reset a user's password
 	 *
-	 * @return void
+	 * @param bool $code
 	 */
 	public function reset_pass($code = FALSE)
 	{
@@ -478,7 +460,7 @@ class Users extends Public_Controller
 		{
 			show_error(lang('global:demo_restrictions'));
 		}
-		
+
 		//if user is logged in they don't need to be here. and should use profile options
 		if ($this->current_user)
 		{
@@ -504,18 +486,18 @@ class Users extends Public_Controller
 				if ($new_password)
 				{
 					//set success message
-					$this->data->success_string = lang('forgot_password_successful');
+					$this->template->success_string = lang('forgot_password_successful');
 				}
 				else
 				{
 					// Set an error message explaining the reset failed
-					$this->data->error_string = $this->ion_auth->errors();
+					$this->template->error_string = $this->ion_auth->errors();
 				}
 			}
 			else
 			{
 				//wrong username / email combination
-				$this->data->error_string = lang('user_forgot_incorrect');
+				$this->template->error_string = lang('user_forgot_incorrect');
 			}
 		}
 
@@ -533,26 +515,22 @@ class Users extends Public_Controller
 			else
 			{
 				// nope, set error message
-				$this->data->error_string = $this->ion_auth->errors();
+				$this->template->error_string = $this->ion_auth->errors();
 			}
 		}
 
-		$this->template->title(lang('user_reset_password_title'));
-		$this->template->build('reset_pass', $this->data);
+		$this->template
+			->title(lang('user_reset_password_title'))
+			->build('reset_pass');
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Password reset is finished
-	 *
-	 * @param string $code Optional parameter the reset_password_code
-	 * @return void
 	 */
 	public function reset_complete()
 	{
 		PYRO_DEMO and show_error(lang('global:demo_restrictions'));
-		
+
 		//if user is logged in they don't need to be here. and should use profile options
 		if ($this->current_user)
 		{
@@ -562,13 +540,13 @@ class Users extends Public_Controller
 
 		$this->template
 			->title(lang('user_password_reset_title'))
-			->build('reset_pass_complete', $this->data);
+			->build('reset_pass_complete');
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Edit Profile
+	 *
+	 * @param int $id
 	 */
 	public function edit($id = 0)
 	{
@@ -586,7 +564,7 @@ class Users extends Public_Controller
 		{
 			$this->load->model('api/api_key_m');
 			$this->load->language('api/api');
-			
+
 			$api_key = $this->api_key_m->get_active_key($user->id);
 		}
 
@@ -627,9 +605,9 @@ class Users extends Public_Controller
 
 			// Loop through each POST item and add it to the secure_post array
 			$secure_post = $this->input->post();
-			
-			$user_data 			= array();		// Data for our user table
-			$profile_data 		= array();		// Data for our profile table
+
+			$user_data = array(); // Data for our user table
+			$profile_data = array(); // Data for our profile table
 
 			// --------------------------------
 			// Deal with non-profile fields
@@ -655,7 +633,7 @@ class Users extends Public_Controller
 
 			if (isset($secure_post['lang']) and $secure_post['lang'])
 			{
-				$this->ion_auth->set_lang( $secure_post['lang'] );
+				$this->ion_auth->set_lang($secure_post['lang']);
 				$_SESSION['lang_code'] = $secure_post['lang'];
 			}
 
@@ -699,10 +677,11 @@ class Users extends Public_Controller
 		$profile_data = array(); // For our form
 
 		// Get the profile data
-		$profile_row = $this->db->limit(1)->where('user_id', $this->current_user->id)->get('profiles')->row();
+		$profile_row = $this->db->limit(1)
+			->where('user_id', $this->current_user->id)->get('profiles')->row();
 
-		foreach($assignments as $assign)
-		{	
+		foreach ($assignments as $assign)
+		{
 			if (isset($_POST[$assign->field_slug]))
 			{
 				$profile_data[$assign->field_slug] = $this->input->post($assign->field_slug);
@@ -715,10 +694,10 @@ class Users extends Public_Controller
 
 		// Render the view
 		$this->template->build('profile/edit', array(
-			'_user' 			=> $user,
-			'display_name'		=> $profile_row->display_name,
-			'profile_fields' 	=> $this->streams->fields->get_stream_fields('profiles', 'users', $profile_data),
-			'api_key' 			=> isset($api_key) ? $api_key : null,
+			'_user' => $user,
+			'display_name' => $profile_row->display_name,
+			'profile_fields' => $this->streams->fields->get_stream_fields('profiles', 'users', $profile_data),
+			'api_key' => isset($api_key) ? $api_key : null,
 		));
 	}
 
@@ -726,57 +705,64 @@ class Users extends Public_Controller
 	 * Callback method used during login
 	 *
 	 * @param str $email The Email address
+	 *
 	 * @return bool
 	 */
 	public function _check_login($email)
 	{
-		$remember = FALSE;
+		$remember = false;
 		if ($this->input->post('remember') == 1)
 		{
-			$remember = TRUE;
+			$remember = true;
 		}
 
 		if ($this->ion_auth->login($email, $this->input->post('password'), $remember))
 		{
-			return TRUE;
+			return true;
 		}
 
 		$this->form_validation->set_message('_check_login', $this->ion_auth->errors());
-		return FALSE;
+		return false;
 	}
 
 	/**
 	 * Username check
 	 *
-	 * @return bool
 	 * @author Ben Edmunds
+	 *
+	 * @param string $username The username to check.
+	 *
+	 * @return bool
 	 */
 	public function _username_check($username)
 	{
-	    if ($this->ion_auth->username_check($username))
-	    {
-	        $this->form_validation->set_message('_username_check', lang('user_error_username'));
-	        return FALSE;
-	    }
-	
-        return TRUE;
+		if ($this->ion_auth->username_check($username))
+		{
+			$this->form_validation->set_message('_username_check', lang('user_error_username'));
+			return false;
+		}
+
+		return true;
 	}
 
 	/**
 	 * Email check
 	 *
-	 * @return bool
 	 * @author Ben Edmunds
+	 *
+	 * @param string $email The email to check.
+	 *
+	 * @return bool
 	 */
 	public function _email_check($email)
 	{
 		if ($this->ion_auth->email_check($email))
 		{
 			$this->form_validation->set_message('_email_check', lang('user_error_email'));
-			return FALSE;
+			return false;
 		}
-		
-		return TRUE;
+
+		return true;
 	}
 
 }

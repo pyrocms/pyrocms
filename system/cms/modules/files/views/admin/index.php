@@ -11,19 +11,9 @@
 			<?php endif; ?>
 
 			<?php if ($folder_tree) : ?>
-				<?php foreach ($folder_tree as $folder): ?>
-			<li class="folder" data-id="<?php echo $folder['id']?>" data-name="<?php echo $folder['name']?>">
-				<div></div>
-				<a href="#"><?php echo $folder['name']; ?></a>
-				<?php if (isset($folder['children'])): ?>
-				<ul style="display:none" >
-					<?php $admin->sidebar($folder); ?>
-				</ul>
-				<?php endif; ?>
-			</li>
-				<?php endforeach; ?>
+			<?php echo $admin->sidebar($folder_tree, true); ?>
 			<?php endif; ?>
-			</ul>
+		</ul>
 	</section>
 
 	<section class="two_third">

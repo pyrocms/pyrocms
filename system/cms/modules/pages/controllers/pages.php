@@ -1,6 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
- * 
+ * The public controller for the Pages module.
+ *
  * @author		PyroCMS Dev Team
  * @package		PyroCMS\Core\Modules\Pages\Controllers
  */
@@ -13,11 +14,16 @@ class Pages extends Public_Controller
 	public function __construct()
 	{
 		parent::__construct();
+
 		$this->load->model('page_m');
 		$this->load->model('page_layouts_m');
 
-		// This basically keeps links to /home always pointing to the actual homepage even when the default_controller is changed
-		// No page is mentioned and we aren't using pages as default (eg blog on homepage)
+		// This basically keeps links to /home always pointing to
+		// the actual homepage even when the default_controller is
+		// changed
+
+		//No page is mentioned and we are not using pages as default
+		// (eg blog on homepage)
 		if ( ! $this->uri->segment(1) AND $this->router->default_controller != 'pages')
 		{
 			redirect('');

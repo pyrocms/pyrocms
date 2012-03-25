@@ -4,24 +4,24 @@
  *
  * @author		Phil Sturgeon
  * @author		PyroCMS Dev Team
- * @package 	PyroCMS\Core\Modules\Groups\Controllers
+ * @package	 PyroCMS\Core\Modules\Groups\Controllers
  *
  */
 class Admin extends Admin_Controller
 {
+
 	/**
 	 * Constructor method
-	 *
-	 * @access public
-	 * @return void
 	 */
 	public function __construct()
 	{
 		parent::__construct();
 
 		// Load the required classes
-		$this->load->model('group_m');
 		$this->load->library('form_validation');
+
+		$this->load->model('group_m');
+
 		$this->lang->load('group');
 		$this->lang->load('permissions/permissions');
 
@@ -42,25 +42,19 @@ class Admin extends Admin_Controller
 
 	/**
 	 * Create a new group role
-	 *
-	 * @access public
-	 * @return void
 	 */
 	public function index()
 	{
-    	$groups = $this->group_m->get_all();
+		$groups = $this->group_m->get_all();
 
-    	$this->template
-    		->title($this->module_details['name'])
+		$this->template
+			->title($this->module_details['name'])
 			->set('groups', $groups)
-    		->build('admin/index', $this->data);
+			->build('admin/index');
 	}
 
 	/**
 	 * Create a new group role
-	 *
-	 * @access public
-	 * @return void
 	 */
 	public function add()
 	{
@@ -74,14 +68,14 @@ class Admin extends Admin_Controller
 				{
 					// Fire an event. A new group has been created.
 					Events::trigger('group_created', $id);
-					
+
 					$this->session->set_flashdata('success', sprintf(lang('groups.add_success'), $this->input->post('name')));
 				}
 				else
 				{
 					$this->session->set_flashdata('error', sprintf(lang('groups.add_error'), $this->input->post('name')));
 				}
-				
+
 				redirect('admin/groups');
 			}
 		}
@@ -95,16 +89,14 @@ class Admin extends Admin_Controller
 		$this->template
 			->title($this->module_details['name'], lang('groups.add_title'))
 			->set('group', $group)
-			->build('admin/form', $this->data);
+			->build('admin/form');
 	}
 
 
 	/**
 	 * Edit a group role
 	 *
-	 * @access public
-	 * @param int $id The ID of the group to edit
-	 * @return void
+	 * @param int $id The id of the group.
 	 */
 	public function edit($id = 0)
 	{
@@ -126,20 +118,20 @@ class Admin extends Admin_Controller
 			{
 				$this->form_validation->set_rules($this->validation_rules);
 			}
-			
+
 			if ($this->form_validation->run())
 			{
-				$success = $this->group_m->update($id, $this->input->post())
-					? $this->session->set_flashdata('success', sprintf(lang('groups.edit_success'), $this->input->post('name')))
-					: $this->session->set_flashdata('error', sprintf(lang('groups.edit_error'), $this->input->post('name')));
-
-				if ($success)
+				if ($success = $this->group_m->update($id, $this->input->post()))
 				{
 					// Fire an event. A group has been updated.
 					Events::trigger('group_updated', $id);
+					$this->session->set_flashdata('success', sprintf(lang('groups.edit_success'), $this->input->post('name')));
 				}
-				
-				// Redirect
+				else
+				{
+					$this->session->set_flashdata('error', sprintf(lang('groups.edit_error'), $this->input->post('name')));
+				}
+
 				redirect('admin/groups');
 			}
 		}
@@ -147,28 +139,28 @@ class Admin extends Admin_Controller
 		$this->template
 			->title($this->module_details['name'], sprintf(lang('groups.edit_title'), $group->name))
 			->set('group', $group)
-			->build('admin/form', $this->data);
+			->build('admin/form');
 	}
 
 	/**
 	 * Delete group role(s)
 	 *
-	 * @access public
-	 * @param int $id The ID of the group to delete
-	 * @return void
+	 * @param int $id The id of the group.
 	 */
 	public function delete($id = 0)
 	{
-		$success = $this->group_m->delete($id)
-			? $this->session->set_flashdata('success', lang('groups.delete_success'))
-			: $this->session->set_flashdata('error', lang('groups.delete_error'));
-
-		if ($success)
+		if ($success = $this->group_m->delete($id))
 		{
 			// Fire an event. A group has been deleted.
 			Events::trigger('group_deleted', $id);
+
+			$this->session->set_flashdata('success', lang('groups.delete_success'));
 		}
-				
+		else
+		{
+			$this->session->set_flashdata('error', lang('groups.delete_error'));
+		}
+
 		redirect('admin/groups');
 	}
 }

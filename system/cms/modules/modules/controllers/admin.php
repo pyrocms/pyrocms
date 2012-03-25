@@ -1,4 +1,4 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * Modules controller, lists all installed modules
  *
@@ -112,7 +112,7 @@ class Admin extends Admin_Controller
 
 		$this->template
 			->title($this->module_details['name'], lang('modules.upload_title'))
-			->build('admin/upload', $this->data);
+			->build('admin/upload');
 	}
 	
 	/**
