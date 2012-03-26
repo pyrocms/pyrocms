@@ -816,7 +816,7 @@ class Row_m extends MY_Model {
 				if ($return_object)
 				{
 					$row->$row_slug = $this->format_column($row_slug,
-						$row->row_slug, $row->id, $this->all_fields[$row_slug]['field_type'], $this->all_fields[$row_slug]['field_data'], $stream, $plugin_call);
+						$row->$row_slug, $row->id, $this->all_fields[$row_slug]['field_type'], $this->all_fields[$row_slug]['field_data'], $stream, $plugin_call);
 				}
 				else
 				{
