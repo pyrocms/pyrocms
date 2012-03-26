@@ -10,7 +10,7 @@
 	</div>
 	<?php endif;?>
 
-	<?php echo form_open('', array('id'=>'user_edit'));?>
+	<?php echo form_open_multipart('', array('id'=>'user_edit'));?>
 
 	<fieldset id="profile_fields">
 		<legend><?php echo lang('user_details_section') ?></legend>
