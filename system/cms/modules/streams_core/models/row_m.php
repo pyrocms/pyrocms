@@ -813,6 +813,7 @@ class Row_m extends MY_Model {
 
 			if (array_key_exists($row_slug, $this->all_fields))
 			{
+
 				if ($return_object)
 				{
 					$row->$row_slug = $this->format_column($row_slug,
@@ -898,8 +899,9 @@ class Row_m extends MY_Model {
 			{
 				return $this->type->types->{$type_slug}->pre_output($column_data, $field_data);
 			}
-		}				
+		}
 
+		return $column_data;
 	}
 
 	// --------------------------------------------------------------------------	
