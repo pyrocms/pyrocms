@@ -28,6 +28,7 @@
 					<?php echo (lang($field['field_name'])) ? lang($field['field_name']) : $field['field_name'];  ?>
 					<?php if ($field['required']){ ?> <span>*</span><?php } ?>
 				</label>
+				<?php if($field['instructions']) { echo '<p class="instructions">'.$field['instructions'].'</p>'; } ?>
 				<div class="input">
 					<?php echo $field['input']; ?>
 				</div>
