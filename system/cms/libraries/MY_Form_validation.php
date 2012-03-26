@@ -411,7 +411,7 @@ class MY_Form_validation extends CI_Form_validation
 			}
 		}
 
-		$this->set_message('unique', lang('streams.field_unique'));
+		$this->set_message('streams_unique', lang('streams.field_unique'));
 	
 		return FALSE;
 	}
