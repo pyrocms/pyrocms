@@ -229,7 +229,7 @@ class Row_m extends MY_Model {
 			// but setting it here is a last resort
 			if ( ! isset($sort) or $sort == '')
 			{
-				$sort = 'ASC';
+				$sort = 'DESC';
 			}
 	
 			// Other sorting options
@@ -304,7 +304,7 @@ class Row_m extends MY_Model {
 			
 			if (count($vals) == 2)
 			{
-				$this->sql['where'][] = $this->select_prefix.$this->db->protect_identifiers($vals[0]).' !='.$this->db->escape($vals[1]);
+				$this->sql['where'][] = $this->select_prefix.$this->db->protect_identifiers($vals[0]).' ='.$this->db->escape($vals[1]);
 			}
 		}
 
