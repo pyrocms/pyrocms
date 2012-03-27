@@ -360,6 +360,7 @@ class Admin extends Admin_Controller {
 			$page[$rule['field']] = set_value($rule['field']);
 		}
 
+		$parent_page = array();
 		// If a parent id was passed, fetch the parent details
 		if ($parent_id > 0)
 		{
@@ -378,8 +379,8 @@ class Admin extends Admin_Controller {
 			->append_metadata($this->load->view('fragments/wysiwyg', array(), true))
 
 			// Assign data for display
-			->set('page', &$page)
-			->set('parent_page', &$parent_page)
+			->set('page', $page)
+			->set('parent_page', $parent_page)
 
 			->build('admin/form');
 	}
@@ -535,8 +536,8 @@ class Admin extends Admin_Controller {
 			->append_metadata( $this->load->view('fragments/wysiwyg', array() , true) )
 			->append_css('module::page-edit.css')
 
-			->set('page', &$page)
-			->set('parent_page', &$parent_page)
+			->set('page', $page)
+			->set('parent_page', $parent_page)
 
 			->build('admin/form');
 	}
@@ -636,25 +637,22 @@ class Admin extends Admin_Controller {
 	 */
 	public function tree_builder($page)
 	{
-		if (isset($page['children'])):
+		if (isset($page['children']))
+		{
 
-			foreach($page['children'] as $page): ?>
+			foreach($page['children'] as $page)
+			{ ?>
 
 				<li id="page_<?php echo $page['id']; ?>">
-					<div>
-						<a href="#" rel="<?php echo $page['id'] . '">' . $page['title']; ?></a>
-					</div>
-
-			<?php if(isset($page['children'])): ?>
+					<div><a href="#" rel="<?php echo $page['id'] . '">' . $page['title']; ?></a></div>
+					<?php if(isset($page['children'])): ?>
 					<ul>
-							<?php $this->tree_builder($page); ?>
+						<?php $this->tree_builder($page); ?>
 					</ul>
+					<?php endif; ?>
 				</li>
-			<?php else: ?>
-				</li>
-			<?php endif;
-			endforeach;
-		endif;
+			<?php }
+		}
 	}
 
 	/**
