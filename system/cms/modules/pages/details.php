@@ -130,6 +130,7 @@ class Module_Pages extends Module {
 				'updated_on' => array('type' => 'INT', 'constraint' => 11, 'default' => 0),
 				'restricted_to' => array('type' => 'VARCHAR', 'constraint' => 255, 'null' => true,),
 				'is_home' => array('type' => 'INT', 'constraint' => 1, 'default' => 0,),
+				'strict_uri' => array('type' => 'TINYINT', 'constraint' => 1, 'default' => 1,),
 				'order' => array('type' => 'INT', 'constraint' => 11, 'default' => 0),
 			),
 			'page_chunks' => array(

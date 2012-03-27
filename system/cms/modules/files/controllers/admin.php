@@ -10,9 +10,9 @@
 class Admin extends Admin_Controller {
 
 	private $_folders	= array();
-	private $_type 		= NULL;
-	private $_ext 		= NULL;
-	private $_filename	= NULL;
+	private $_type 		= null;
+	private $_ext 		= null;
+	private $_filename	= null;
 
 	// ------------------------------------------------------------------------
 
@@ -50,90 +50,95 @@ class Admin extends Admin_Controller {
 				pyro.files.max_size_allowed = '".Files::$max_size_allowed."';
 				pyro.files.valid_extensions = '/".trim($allowed_extensions, '|')."$/i';
 				pyro.lang.file_type_not_allowed = '".lang('files:file_type_not_allowed')."';
+				pyro.lang.new_folder_name = '".lang('files:new_folder_name')."';
 			</script>");
 	}
 
-	// ------------------------------------------------------------------------
-
 	/**
 	 * Folder Listing
-	 *
-	 * @access	public
-	 * @return	void
 	 */
 	public function index()
 	{
-		// should we show the "no data" message to them?
-		$data->folders = $this->file_folders_m->count_by('parent_id', 0);
-
 		$parts = explode(',', Settings::get('files_enabled_providers'));
-		foreach ($parts as $location)
-		{
-			$data->locations[$location] = $location;
-		}
-
-		$data->folder_tree = Files::folder_tree();
-
-		$data->admin =& $this;
-
-		is_really_writable(Files::$path) OR $data->messages['error'] = sprintf(lang('files:unwritable'), Files::$path);
 
 		$this->template
+
+			// The title
 			->title($this->module_details['name'])
-			
+
+			// The CSS files
 			->append_css('module::jquery.fileupload-ui.css')
 			->append_css('module::files.css')
+
+			// The Javascript files
 			->append_js('module::jquery.fileupload.js')
 			->append_js('module::jquery.fileupload-ui.js')
 			->append_js('module::functions.js')
-		
-			->build('admin/index', $data);
-	}
 
-	// ------------------------------------------------------------------------
+			// should we show the "no data" message to them?
+			->set('folders', $this->file_folders_m->count_by('parent_id', 0))
+			->set('locations', array_combine($parts, $parts))
+			->set('folder_tree', Files::folder_tree())
+			->set('admin', &$this);
+
+		$files_path = Files::$path;
+		if (!is_really_writable($files_path))
+		{
+			$this->template->set('messages', array('error' => sprintf(lang('files:unwritable'), $files_path)));
+		}
+
+		$this->template->build('admin/index');
+	}
 
 	/**
 	 * Folder Sidebar
 	 *
-	 * @access	public
-	 * @return	void
+	 * @param array $folder The array of the folder structure.
+	 * @param null|bool $is_root Due to the root folder not having the 'children' element.
+	 *
+	 * @return string
 	 */
-	public function sidebar($folder)
+	public function sidebar($folder, $is_root = null)
 	{
-		if (isset($folder['children'])):
 
-			foreach($folder['children'] as $folder): ?>
+		if ($is_root || (isset($folder['children']) && is_array($folder['children'])))
+		{
+			$items = ($is_root) ? $folder : $folder['children'];
+			$list_items = '';
 
-				<li class="folder"
-					data-id="<?php echo $folder['id']?>" 
-					data-name="<?php echo $folder['name']?>">
-						<div></div><a href="#"><?php echo $folder['name']; ?></a>
+			foreach ($items as $item)
+			{
+				$list_items .= '<li class="folder" data-id="'.$item['id'].'" data-name="'.$item['name'].'">
+					<div></div>
+					<a href="#">'.$item['name'].'</a>';
 
-				<?php if(isset($folder['children'])): ?>
-						<ul style="display:none" >
-								<?php $this->sidebar($folder); ?>
-						</ul>
-					</li>
-				<?php else: ?>
-					</li>
-				<?php endif;
-			endforeach;
-		endif;
+				$children_items = $this->sidebar($item);
+				if ( ! empty($children_items))
+				{
+					$list_items .= '<ul style="display:none" >'.$children_items.'</ul>';
+				}
+
+				$list_items .= '</li>';
+			}
+
+			return $list_items;
+		}
+
+		return '';
 	}
-
-	// ------------------------------------------------------------------------
 
 	/**
 	 * Create a new folder
 	 *
-	 * @access	public
-	 * @param	int		$parent	The parent folder's id
-	 * @return	string
+	 * Grabs the parent id and the name of the folder from POST data.
 	 */
 	public function new_folder()
 	{
-		// this is just a safeguard if they circumvent the JS permissions
-		if ( ! in_array('create_folder', Files::allowed_actions())) show_error(lang('files:no_permissions'));
+		// This is just a safeguard if they circumvent the JS permissions
+		if ( ! in_array('create_folder', Files::allowed_actions()))
+		{
+			show_error(lang('files:no_permissions'));
+		}
 
 		$parent_id = $this->input->post('parent');
 		$name = $this->input->post('name');
@@ -141,14 +146,10 @@ class Admin extends Admin_Controller {
 		echo json_encode(Files::create_folder($parent_id, $name));
 	}
 
-	// ------------------------------------------------------------------------
-
 	/**
 	 * Get all files and folders within a folder
 	 *
-	 * @access	public
-	 * @param	int		$parent	The folder id
-	 * @return	string
+	 * Grabs the parent id from the POST data.
 	 */
 	public function folder_contents()
 	{
@@ -157,16 +158,11 @@ class Admin extends Admin_Controller {
 		echo json_encode(Files::folder_contents($parent));
 	}
 
-	// ------------------------------------------------------------------------
-
 	/**
-	 * See if a container exists with that name. This is different than
-	 * folder_exists() as this checks for unindexed containers
+	 * See if a container exists with that name.
 	 *
-	 * @access	public
-	 * @param	int		$name 		The container/bucket name
-	 * @param	string	$location	The cloud provider
-	 * @return	string
+	 * This is different than folder_exists() as this checks for unindexed containers.
+	 * Grabs the name of the container and the location from the POST data.
 	 */
 	public function check_container()
 	{
@@ -176,13 +172,8 @@ class Admin extends Admin_Controller {
 		echo json_encode(Files::check_container($name, $location));
 	}
 
-	// ------------------------------------------------------------------------
-
 	/**
 	 * Set the order of files and folders
-	 *
-	 * @access	public
-	 * @return	void
 	 */
 	public function order()
 	{
@@ -195,7 +186,7 @@ class Admin extends Admin_Controller {
 
 				foreach ($item as $id) 
 				{
-					$model = $type == 'folder' ? 'file_folders_m' : 'file_m';
+					$model = ($type == 'folder') ? 'file_folders_m' : 'file_m';
 
 					$this->{$model}->update_by('id', $id, array('sort' => $i));
 					$i++;
@@ -211,18 +202,16 @@ class Admin extends Admin_Controller {
 		}
 	}
 
-	// ------------------------------------------------------------------------
-
 	/**
 	 * Rename a folder
-	 *
-	 * @access	public
-	 * @return	void
 	 */
 	public function rename_folder()
 	{
 		// this is just a safeguard if they circumvent the JS permissions
-		if ( ! in_array('edit_folder', Files::allowed_actions())) show_error(lang('files:no_permissions'));
+		if ( ! in_array('edit_folder', Files::allowed_actions()))
+		{
+			show_error(lang('files:no_permissions'));
+		}
 
 		if ($id = $this->input->post('folder_id') AND $name = $this->input->post('name'))
 		{
@@ -230,18 +219,16 @@ class Admin extends Admin_Controller {
 		}
 	}
 
-	// ------------------------------------------------------------------------
-
 	/**
 	 * Delete an empty folder
-	 *
-	 * @access	public
-	 * @return	void
 	 */
 	public function delete_folder()
 	{
 		// this is just a safeguard if they circumvent the JS permissions
-		if ( ! in_array('delete_folder', Files::allowed_actions())) show_error(lang('files:no_permissions'));
+		if ( ! in_array('delete_folder', Files::allowed_actions()))
+		{
+			show_error(lang('files:no_permissions'));
+		}
 
 		if ($id = $this->input->post('folder_id'))
 		{
@@ -249,18 +236,16 @@ class Admin extends Admin_Controller {
 		}
 	}
 
-	// ------------------------------------------------------------------------
-
 	/**
 	 * Upload files
-	 *
-	 * @access	public
-	 * @return	void
 	 */
 	public function upload()
 	{
 		// this is just a safeguard if they circumvent the JS permissions
-		if ( ! in_array('upload', Files::allowed_actions())) show_error(lang('files:no_permissions'));
+		if ( ! in_array('upload', Files::allowed_actions()))
+		{
+			show_error(lang('files:no_permissions'));
+		}
 
 		$input = $this->input->post();
 
@@ -270,18 +255,16 @@ class Admin extends Admin_Controller {
 		}
 	}
 
-	// ------------------------------------------------------------------------
-
 	/**
 	 * Rename a file
-	 *
-	 * @access	public
-	 * @return	void
 	 */
 	public function rename_file()
 	{
 		// this is just a safeguard if they circumvent the JS permissions
-		if ( ! in_array('edit_file', Files::allowed_actions())) show_error(lang('files:no_permissions'));
+		if ( ! in_array('edit_file', Files::allowed_actions()))
+		{
+			show_error(lang('files:no_permissions'));
+		}
 
 		if ($id = $this->input->post('file_id') AND $name = $this->input->post('name'))
 		{
@@ -289,13 +272,8 @@ class Admin extends Admin_Controller {
 		}
 	}
 
-	// ------------------------------------------------------------------------
-
 	/**
 	 * Edit description of a file
-	 *
-	 * @access	public
-	 * @return	void
 	 */
 	public function save_description()
 	{
@@ -307,22 +285,18 @@ class Admin extends Admin_Controller {
 		}
 	}
 
-	// ------------------------------------------------------------------------
-
 	/**
 	 * Edit location of a folder (S3/Cloud Files/Local)
-	 *
-	 * @access	public
-	 * @return	void
 	 */
 	public function save_location()
 	{
 		// this is just a safeguard if they circumvent the JS permissions
-		if ( ! in_array('set_location', Files::allowed_actions())) show_error(lang('files:no_permissions'));
+		if ( ! in_array('set_location', Files::allowed_actions()))
+		{
+			show_error(lang('files:no_permissions'));
+		}
 
-		if ($id = $this->input->post('folder_id') AND 
-			$location = $this->input->post('location') AND
-			$container = $this->input->post('container'))
+		if ($id = $this->input->post('folder_id') AND $location = $this->input->post('location') AND $container = $this->input->post('container'))
 		{
 			$this->file_folders_m->update($id, array('location' => $location));
 
@@ -330,18 +304,16 @@ class Admin extends Admin_Controller {
 		}
 	}
 
-	// ------------------------------------------------------------------------
-
 	/**
 	 * Pull new files down from the cloud location
-	 *
-	 * @access	public
-	 * @return	void
 	 */
 	public function synchronize()
 	{
 		// this is just a safeguard if they circumvent the JS permissions
-		if ( ! in_array('synchronize', Files::allowed_actions())) show_error(lang('files:no_permissions'));
+		if ( ! in_array('synchronize', Files::allowed_actions()))
+		{
+			show_error(lang('files:no_permissions'));
+		}
 
 		if ($id = $this->input->post('folder_id'))
 		{
@@ -360,7 +332,10 @@ class Admin extends Admin_Controller {
 	public function delete_file()
 	{
 		// this is just a safeguard if they circumvent the JS permissions
-		if ( ! in_array('delete_file', Files::allowed_actions())) show_error(lang('files:no_permissions'));
+		if ( ! in_array('delete_file', Files::allowed_actions()))
+		{
+			show_error(lang('files:no_permissions'));
+		}
 
 		if ($id = $this->input->post('file_id'))
 		{
@@ -368,20 +343,12 @@ class Admin extends Admin_Controller {
 		}
 	}
 
-	// ------------------------------------------------------------------------
-
 	/**
 	 * Search for files and folders
-	 *
-	 * @access	public
-	 * @return	void
 	 */
 	public function search()
 	{
 		echo json_encode(Files::search($this->input->post('search')));
 	}
 
-	// ------------------------------------------------------------------------
 }
-
-/* End of file admin.php */

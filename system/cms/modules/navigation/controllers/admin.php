@@ -2,23 +2,23 @@
 /**
  * Admin controller for the navigation module. Handles actions such as editing links or creating new ones.
  *
- * @author		PyroCMS Development Team
- * @package 	PyroCMS\Core\Modules\Navigation\Controllers
+ * @author PyroCMS Development Team
+ * @package PyroCMS\Core\Modules\Navigation\Controllers
  *
  */
 class Admin extends Admin_Controller {
 	
 	/**
-	 * The current active section
-	 * @access protected
+	 * The current active section.
+	 *
 	 * @var int
 	 */
 	protected $section = 'links';
 	
 	/**
-	 * The array containing the rules for the navigation items
+	 * The array containing the rules for the navigation items.
+	 *
 	 * @var array
-	 * @access private
 	 */
 	private $validation_rules 	= array(
 		array(
@@ -80,8 +80,6 @@ class Admin extends Admin_Controller {
 
 	/**
 	 * Constructor method
-	 * @access public
-	 * @return void
 	 */
 	public function __construct()
 	{
@@ -93,12 +91,13 @@ class Admin extends Admin_Controller {
 		$this->load->model('pages/page_m');
 		$this->lang->load('navigation');
 
-	    $this->template->append_js('module::navigation.js');
-		$this->template->append_css('module::navigation.css');
+	    $this->template
+		    ->append_js('module::navigation.js')
+		    ->append_css('module::navigation.css');
 
 		// Get Navigation Groups
-		$this->data->groups 		= $this->navigation_m->get_groups();
-		$this->data->groups_select 	= array_for_select($this->data->groups, 'id', 'title');
+		$this->template->groups 		= $this->navigation_m->get_groups();
+		$this->template->groups_select 	= array_for_select($this->template->groups, 'id', 'title');
 		$all_modules				= $this->module_m->get_all(array('is_frontend'=>true));
 
 		//only allow modules that user has permissions for
@@ -107,7 +106,7 @@ class Admin extends Admin_Controller {
 			if(in_array($module['slug'], $this->permissions) OR $this->current_user->group == 'admin') $modules[] = $module;
 		}
 		
-		$this->data->modules_select = array_for_select($modules, 'slug', 'name');
+		$this->template->modules_select = array_for_select($modules, 'slug', 'name');
 
 		// Get Pages and create pages tree
 		$tree = array();
@@ -121,7 +120,7 @@ class Admin extends Admin_Controller {
 		}
 
 		unset($pages);
-		$this->data->pages_select = $tree;
+		$this->template->pages_select = $tree;
 
 		// Set the validation rules for the navigation items
 		$this->form_validation->set_rules($this->validation_rules);
@@ -129,33 +128,29 @@ class Admin extends Admin_Controller {
 
 	/**
 	 * List all navigation elements
-	 * @access public
-	 * @return void
 	 */
 	public function index()
 	{
+		$navigation = array();
 		// Go through all the groups
-		foreach ($this->data->groups as $group)
+		foreach ($this->template->groups as $group)
 		{
 			//... and get navigation links for each one
-			$this->data->navigation[$group->id] = $this->navigation_m->get_link_tree($group->id);
+			$navigation[$group->id] = $this->navigation_m->get_link_tree($group->id);
 		}
-		
-		$this->data->controller =& $this;
-		
+
 		// Create the layout
 		$this->template
 			->append_js('jquery/jquery.ui.nestedSortable.js')
 			->append_js('jquery/jquery.cooki.js')
 			->title($this->module_details['name'])
-			->build('admin/index', $this->data);
+			->set('navigation', $navigation)
+			->set('controller', &$this)
+			->build('admin/index');
 	}
 	
 	/**
 	 * Order the links and record their children
-	 *
-	 * @access public
-	 * @return string json message
 	 */
 	public function order()
 	{
@@ -184,9 +179,8 @@ class Admin extends Admin_Controller {
 
 	/**
 	 * Get the details of a link using Ajax
-	 * @access public
+	 *
 	 * @param int $link_id The ID of the link
-	 * @return void
 	 */
 	public function ajax_link_details($link_id)
 	{
@@ -204,8 +198,12 @@ class Admin extends Admin_Controller {
 
 	/**
 	 * Create a new navigation item
-	 * @access public
-	 * @return void
+	 *
+	 * @todo This should use the template system too.
+	 *
+	 * @param string $group_id
+	 *
+	 * @return
 	 */
 	public function create($group_id = '')
 	{
@@ -216,7 +214,7 @@ class Admin extends Admin_Controller {
 		{
 			$group_options[$group->id] = $group->name;
 		}
-		$this->data->group_options = $group_options;
+		$this->template->group_options = $group_options;
 
 		// Run if valid
 		if ($this->form_validation->run())
@@ -239,9 +237,9 @@ class Admin extends Admin_Controller {
 			}
 			else
 			{
-				$this->data->messages['error'] = lang('nav_link_add_error');
+				$this->template->messages['error'] = lang('nav_link_add_error');
 				
-				echo $this->load->view('admin/partials/notices', $this->data);
+				echo $this->load->view('admin/partials/notices', $this->template);
 				return;
 			}
 		}
@@ -249,29 +247,35 @@ class Admin extends Admin_Controller {
 		// check for errors
 		if (validation_errors())
 		{
-			echo $this->load->view('admin/partials/notices', $this->data);
+			echo $this->load->view('admin/partials/notices');
 			return;
 		}
+
+		$navigation_link = (object)array();
 
 		// Loop through each validation rule
 		foreach ($this->validation_rules as $rule)
 		{
-			$this->data->navigation_link->{$rule['field']} = set_value($rule['field']);
+			$navigation_link->{$rule['field']} = set_value($rule['field']);
 		}
-		
-		$this->data->navigation_link->navigation_group_id = $group_id;
+
+		$navigation_link->navigation_group_id = $group_id;
+
+		$this->template
+			->set('navigation_link',$navigation_link);
 
 		// Get Pages and create pages tree
-		$this->data->tree_select = $this->_build_tree_select(array('current_parent' => $this->data->navigation_link->page_id));
+		$this->template->tree_select = $this->_build_tree_select(array('current_parent' => $this->template->navigation_link->page_id));
 
-		$this->load->view('admin/ajax/form', $this->data);
+		$this->template
+			->set_layout(false)
+			->build('admin/ajax/form');
 	}
 
 	/**
 	 * Edit a navigation item
-	 * @access public
-	 * @param int $id The ID of the navigation item
-	 * @return void
+	 *
+	 * @param int $id The ID of the navigation item.
 	 */
 	public function edit($id = 0)
 	{
@@ -282,7 +286,7 @@ class Admin extends Admin_Controller {
 		}
 
 		// Get the navigation item based on the ID
-		$this->data->navigation_link = $this->navigation_m->get_link($id);
+		$this->template->navigation_link = $this->navigation_m->get_link($id);
 		
 		// Set the options for restricted to
 		$this->load->model('groups/group_m');
@@ -291,13 +295,13 @@ class Admin extends Admin_Controller {
 		{
 			$group_options[$group->id] = $group->name;
 		}
-		$this->data->group_options = $group_options;
+		$this->template->group_options = $group_options;
 
-		if ( ! $this->data->navigation_link)
+		if ( ! $this->template->navigation_link)
 		{
-			$this->data->messages['error'] = lang('nav_link_not_exist_error');
+			$this->template->messages['error'] = lang('nav_link_not_exist_error');
 			
-			echo $this->load->view('admin/partials/notices', $this->data);
+			echo $this->load->view('admin/partials/notices', $this->template);
 			return;
 		}
 
@@ -323,7 +327,7 @@ class Admin extends Admin_Controller {
 		// check for errors
 		if (validation_errors())
 		{	
-			echo $this->load->view('admin/partials/notices', $this->data);
+			echo $this->load->view('admin/partials/notices', $this->template);
 			return;
 		}
 
@@ -332,22 +336,23 @@ class Admin extends Admin_Controller {
 		{
 			if($this->input->post($rule['field']) !== FALSE)
 			{
-				$this->data->navigation_link->{$rule['field']} = $this->input->post($rule['field']);
+				$this->template->navigation_link->{$rule['field']} = $this->input->post($rule['field']);
 			}
 		}
 
 		// Get Pages and create pages tree
-		$this->data->tree_select = $this->_build_tree_select(array('current_parent' => $this->data->navigation_link->page_id));
+		$this->template->tree_select = $this->_build_tree_select(array('current_parent' => $this->template->navigation_link->page_id));
 
 		// Render the view
-		$this->load->view('admin/ajax/form', $this->data);
+		$this->template
+			->set_layout(false)
+			->build('admin/ajax/form');
 	}
 
 	/**
 	 * Delete an existing navigation link
-	 * @access public
+	 *
 	 * @param int $id The ID of the navigation link
-	 * @return void
 	 */
 	public function delete($id = 0)
 	{
@@ -368,14 +373,15 @@ class Admin extends Admin_Controller {
 		$this->session->set_flashdata('success', $this->lang->line('nav_link_delete_success'));
 		redirect('admin/navigation');
 	}
-	
+
 	/**
 	 * Tree select function
 	 *
 	 * Creates a tree to form select
 	 *
-	 * @param	array
-	 * @return	array
+	 * @param $params
+	 *
+	 * @return string
 	 */
 	function _build_tree_select($params)
 	{
@@ -444,40 +450,37 @@ class Admin extends Admin_Controller {
 	/**
 	 * Build the html for the admin link tree view
 	 *
-	 * @author Jerel Unruh - PyroCMS Dev Team
-	 * @access public
+	 * @author Jerel Unruh
+	 *
 	 * @param array $link Current navigation link
+	 * @param $group_id
 	 */
 	public function tree_builder($link, $group_id)
 	{
-		if ($link['children']):
+		if ($link['children']){
 		
-				foreach($link['children'] as $link): ?>
-			
-					<li id="link_<?php echo $link['id']; ?>">
-						<div>
-							<a href="#" rel="<?php echo $group_id . '" alt="' . $link['id'] .'">' . $link['title']; ?></a>
-						</div>
-					
-				<?php if ($link['children']): ?>
-						<ul>
-								<?php $this->tree_builder($link, $group_id); ?>
-						</ul>
-					</li>
-				<?php else: ?>
-					</li>
-				<?php endif; ?>
-				
-			<?php endforeach; ?>
-			
-		<?php endif;
+			foreach($link['children'] as $link)
+			{
+				?><li id="link_<?php echo $link['id']; ?>">
+					<div>
+						<a href="#" rel="<?php echo $group_id . '" alt="' . $link['id'] .'">' . $link['title']; ?></a>
+					</div>
+					<?php if ($link['children']): ?>
+					<ul>
+						<?php $this->tree_builder($link, $group_id); ?>
+					</ul>
+					<?php endif; ?>
+				</li><?php
+			}
+		}
 	}
 	
 	/**
-	 * Validate the link value
-	 * Only the URI field may be submitted blank
+	 * Validate the link value.
 	 *
-	 * @param	string	$link	The link value
+	 * Only the URI field may be submitted blank.
+	 *
+	 * @param string $link The link value
 	 */
 	public function _link_check($link)
 	{
@@ -486,23 +489,23 @@ class Admin extends Admin_Controller {
 		switch ($link) {
 			
 			case 'url':
-				$status = ($this->input->post('url') > '' AND $this->input->post('url') !== 'http://') ? TRUE : FALSE;
+				$status = ($this->input->post('url') > '' AND $this->input->post('url') !== 'http://');
 			break;
 		
 			case 'module':
-				$status = ($this->input->post('module_name') > '') ? TRUE : FALSE;
+				$status = ($this->input->post('module_name') > '');
 			break;
 		
 			case 'page':
-				$status = ($this->input->post('page_id') > '') ? TRUE : FALSE;
+				$status = ($this->input->post('page_id') > '');
 			break;
 		}
 		
 		if ( ! $status)
 		{
 			$this->form_validation->set_message('_link_check', sprintf(lang('nav_choose_value'), lang('nav_'.$link.'_label')));
-			return FALSE;
+			return false;
 		}
-		return TRUE;
+		return true;
 	}
 }

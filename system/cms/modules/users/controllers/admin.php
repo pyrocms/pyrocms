@@ -3,20 +3,19 @@
 /**
  * Admin controller for the users module
  *
- * @author 		PyroCMS Dev Team
- * @package 	PyroCMS\Core\Modules\Users\Controllers
+ * @author		 PyroCMS Dev Team
+ * @package	 PyroCMS\Core\Modules\Users\Controllers
  */
-class Admin extends Admin_Controller {
+class Admin extends Admin_Controller
+{
 
 	protected $section = 'users';
 
-	// --------------------------------------------------------------------------
 	/**
 	 * Validation for basic profile
 	 * data. The rest of the validation is
 	 * built by streams.
 	 *
-	 * @access private
 	 * @var array
 	 */
 	private $validation_rules = array(
@@ -52,12 +51,8 @@ class Admin extends Admin_Controller {
 		)
 	);
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Constructor method
-	 * @access public
-	 * @return void
 	 */
 	public function __construct()
 	{
@@ -70,17 +65,12 @@ class Admin extends Admin_Controller {
 		$this->load->library('form_validation');
 		$this->lang->load('user');
 
-		$this->data->groups = $this->group_m->get_all();
-		$this->data->groups_select = array_for_select($this->data->groups, 'id', 'description');
+		$this->template->groups = $this->group_m->get_all();
+		$this->template->groups_select = array_for_select($this->template->groups, 'id', 'description');
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * List all users
-	 *
-	 * @access public
-	 * @return void
 	 */
 	public function index()
 	{
@@ -91,10 +81,10 @@ class Admin extends Admin_Controller {
 		// ---------------------------
 
 		// Determine active param
-		$base_where['active'] = $this->input->post('f_module') ? (int) $this->input->post('f_active') : $base_where['active'];
+		$base_where['active'] = $this->input->post('f_module') ? (int)$this->input->post('f_active') : $base_where['active'];
 
 		// Determine group param
-		$base_where = $this->input->post('f_group') ? $base_where + array('group_id' => (int) $this->input->post('f_group')) : $base_where;
+		$base_where = $this->input->post('f_group') ? $base_where + array('group_id' => (int)$this->input->post('f_group')) : $base_where;
 
 		// Keyphrase param
 		$base_where = $this->input->post('f_keywords') ? $base_where + array('name' => $this->input->post('f_keywords')) : $base_where;
@@ -113,7 +103,7 @@ class Admin extends Admin_Controller {
 		{
 			$this->template->set_layout(FALSE);
 		}
-		
+
 		// Render the view
 		$this->template
 			->title($this->module_details['name'])
@@ -121,27 +111,22 @@ class Admin extends Admin_Controller {
 			->set('users', $users)
 			->set_partial('filters', 'admin/partials/filters')
 			->append_js('admin/filter.js');
-				
-		$this->input->is_ajax_request() ? $this->template->build('admin/tables/users', $this->data) : $this->template->build('admin/index', $this->data);
-	}
 
-	// --------------------------------------------------------------------------
+		$this->input->is_ajax_request() ? $this->template->build('admin/tables/users') : $this->template->build('admin/index');
+	}
 
 	/**
 	 * Method for handling different form actions
-	 *
-	 * @access public
-	 * @return void
 	 */
 	public function action()
 	{
 		// Pyro demo version restrction
 		if (PYRO_DEMO)
 		{
-		    $this->session->set_flashdata('notice', lang('global:demo_restrictions'));
-		    redirect('admin/users');
+			$this->session->set_flashdata('notice', lang('global:demo_restrictions'));
+			redirect('admin/users');
 		}
-		
+
 		// Determine the type of action
 		switch ($this->input->post('btnAction'))
 		{
@@ -157,13 +142,8 @@ class Admin extends Admin_Controller {
 		}
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Create a new user
-	 *
-	 * @access public
-	 * @return void
 	 */
 	public function create()
 	{
@@ -179,17 +159,17 @@ class Admin extends Admin_Controller {
 		// Set the validation rules
 		$this->form_validation->set_rules(array_merge($this->validation_rules, $profile_validation));
 
-		$email 		= $this->input->post('email');
-		$password 	= $this->input->post('password');
-		$username 	= $this->input->post('username');
-		$group_id	= $this->input->post('group_id');
+		$email = $this->input->post('email');
+		$password = $this->input->post('password');
+		$username = $this->input->post('username');
+		$group_id = $this->input->post('group_id');
 
 		// Get user profile data. This will be passed to our
 		// streams insert_entry data in the model.
 		$assignments = $this->streams->streams->get_assignments('profiles', 'users');
 		$profile_data = array();
 
-		foreach($assignments as $assign)
+		foreach ($assignments as $assign)
 		{
 			$profile_data[$assign->field_slug] = $this->input->post($assign->field_slug);
 		}
@@ -211,7 +191,7 @@ class Admin extends Admin_Controller {
 			{
 				// Fire an event. A new user has been created. 
 				Events::trigger('user_created', $user_id);
-		
+
 				// Set the flashdata message and redirect
 				$this->session->set_flashdata('success', $this->ion_auth->messages());
 				redirect('admin/users');
@@ -219,7 +199,7 @@ class Admin extends Admin_Controller {
 			// Error
 			else
 			{
-				$this->data->error_string = $this->ion_auth->errors();
+				$this->template->error_string = $this->ion_auth->errors();
 			}
 		}
 		else
@@ -228,7 +208,7 @@ class Admin extends Admin_Controller {
 			// re-add all data upon an error
 			if ($_POST)
 			{
-				$member = (object) $_POST;
+				$member = (object)$_POST;
 			}
 		}
 
@@ -243,15 +223,13 @@ class Admin extends Admin_Controller {
 			->set('member', $member)
 			->set('display_name', set_value('display_name', $this->input->post('display_name')))
 			->set('profile_fields', $this->streams->fields->get_stream_fields('profiles', 'users', $profile_data))
-			->build('admin/form', $this->data);
+			->build('admin/form');
 	}
 
 	/**
 	 * Edit an existing user
 	 *
-	 * @access public
-	 * @param int $id The ID of the user to edit
-	 * @return void
+	 * @param int $id The id of the user.
 	 */
 	public function edit($id = 0)
 	{
@@ -286,42 +264,39 @@ class Admin extends Admin_Controller {
 		$assignments = $this->streams->streams->get_assignments('profiles', 'users');
 		$profile_data = array();
 
-		// Get the profile data
-		$profile_row = $this->db->limit(1)->get('profiles')->row();
-
-		foreach($assignments as $assign)
-		{	
+		foreach ($assignments as $assign)
+		{
 			if (isset($_POST[$assign->field_slug]))
 			{
 				$profile_data[$assign->field_slug] = $this->input->post($assign->field_slug);
 			}
 			else
 			{
-				$profile_data[$assign->field_slug] = $profile_row->{$assign->field_slug};
+				$profile_data[$assign->field_slug] = $member->{$assign->field_slug};
 			}
 		}
 
-		if ($this->form_validation->run() === TRUE)
+		if ($this->form_validation->run() === true)
 		{
 			if (PYRO_DEMO)
 			{
 				$this->session->set_flashdata('notice', lang('global:demo_restrictions'));
 				redirect('admin/users');
 			}
-			
+
 			// Get the POST data
-			$update_data['email'] 			= $this->input->post('email');
-			$update_data['active'] 			= $this->input->post('active');
-			$update_data['username'] 		= $this->input->post('username');
-			$update_data['group_id'] 		= $this->input->post('group_id');
+			$update_data['email'] = $this->input->post('email');
+			$update_data['active'] = $this->input->post('active');
+			$update_data['username'] = $this->input->post('username');
+			$update_data['group_id'] = $this->input->post('group_id');
 
 			$profile_data = array();
 
 			// Grab the profile data
-			foreach($assignments as $assign)
+			foreach ($assignments as $assign)
 			{
-				$profile_data[$assign->field_slug] 	= $this->input->post($assign->field_slug);
-			}	
+				$profile_data[$assign->field_slug] = $this->input->post($assign->field_slug);
+			}
 
 			// We need to manually do display_name
 			$profile_data['display_name'] = $this->input->post('display_name');
@@ -336,7 +311,7 @@ class Admin extends Admin_Controller {
 			{
 				// Fire an event. A user has been updated. 
 				Events::trigger('user_updated', $id);
-				
+
 				$this->session->set_flashdata('success', $this->ion_auth->messages());
 			}
 			else
@@ -351,14 +326,14 @@ class Admin extends Admin_Controller {
 			// Dirty hack that fixes the issue of having to re-add all data upon an error
 			if ($_POST)
 			{
-				$member = (object) $_POST;
+				$member = (object)$_POST;
 			}
 		}
 
 		// Loop through each validation rule
 		foreach ($this->validation_rules as $rule)
 		{
-			if ($this->input->post($rule['field']) !== FALSE)
+			if ($this->input->post($rule['field']) !== false)
 			{
 				$member->{$rule['field']} = set_value($rule['field']);
 			}
@@ -366,17 +341,16 @@ class Admin extends Admin_Controller {
 
 		$this->template
 			->title($this->module_details['name'], sprintf(lang('user_edit_title'), $member->username))
-			->set('display_name', $profile_row->display_name)
+			->set('display_name', $member->display_name)
 			->set('profile_fields', $this->streams->fields->get_stream_fields('profiles', 'users', $profile_data))
 			->set('member', $member)
-			->build('admin/form', $this->data);
+			->build('admin/form');
 	}
 
 	/**
 	 * Show a user preview
-	 * @access	public
-	 * @param	int $id The ID of the user
-	 * @return	void
+	 *
+	 * @param	int $id The ID of the user.
 	 */
 	public function preview($id = 0)
 	{
@@ -389,10 +363,9 @@ class Admin extends Admin_Controller {
 	}
 
 	/**
-	 * Activate a user
-	 * @access public
-	 * @param int $id The ID of the user to activate
-	 * @return void
+	 * Activate users
+	 *
+	 * Grabs the ids from the POST data (key: action_to).
 	 */
 	public function activate()
 	{
@@ -421,9 +394,7 @@ class Admin extends Admin_Controller {
 	/**
 	 * Delete an existing user
 	 *
-	 * @access public
 	 * @param int $id The ID of the user to delete
-	 * @return void
 	 */
 	public function delete($id = 0)
 	{
@@ -432,7 +403,7 @@ class Admin extends Admin_Controller {
 			$this->session->set_flashdata('notice', lang('global:demo_restrictions'));
 			redirect('admin/users');
 		}
-		
+
 		$ids = ($id > 0) ? array($id) : $this->input->post('action_to');
 
 		if ( ! empty($ids))
@@ -461,7 +432,7 @@ class Admin extends Admin_Controller {
 			{
 				// Fire an event. One or more users have been deleted. 
 				Events::trigger('user_deleted', $deleted_ids);
-				
+
 				$this->session->set_flashdata('success', sprintf(lang('user_mass_delete_success'), $deleted, $to_delete));
 			}
 		}
@@ -470,58 +441,65 @@ class Admin extends Admin_Controller {
 		{
 			$this->session->set_flashdata('error', lang('user_mass_delete_error'));
 		}
-		
+
 		redirect('admin/users');
 	}
 
 	/**
 	 * Username check
 	 *
-	 * @return bool
 	 * @author Ben Edmunds
-	 * */
+	 *
+	 * @param string $username The username.
+	 *
+	 * @return bool
+	 */
 	public function _username_check($username)
 	{
 		if ($this->ion_auth->username_check($username))
 		{
 			$this->form_validation->set_message('_username_check', lang('user_error_username'));
-			return FALSE;
+			return false;
 		}
-		return TRUE;
+		return true;
 	}
 
 	/**
 	 * Email check
 	 *
-	 * @return bool
 	 * @author Ben Edmunds
-	 * */
+	 *
+	 * @param string $email The email.
+	 *
+	 * @return bool
+	 */
 	public function _email_check($email)
 	{
 		if ($this->ion_auth->email_check($email))
 		{
 			$this->form_validation->set_message('_email_check', lang('user_error_email'));
-			return FALSE;
+			return false;
 		}
-		return TRUE;
+		return true;
 	}
 
 	/**
 	 * Check that a proper group has been selected
 	 *
-	 * @return bool
 	 * @author Stephen Cozart
+	 *
+	 * @param int $group
+	 *
+	 * @return bool
 	 */
 	public function _group_check($group)
 	{
 		if ( ! $this->group_m->get($group))
 		{
 			$this->form_validation->set_message('_group_check', lang('regex_match'));
-			return FALSE;
+			return false;
 		}
-		return TRUE;
+		return true;
 	}
 
 }
-
-/* End of file admin.php */

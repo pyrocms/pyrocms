@@ -95,7 +95,7 @@ class Field_image
 	 * @return	string
 	 */
 	public function pre_save($input, $field)
-	{	
+	{
 		// Only go through the pre_save upload if there is a file ready to go
 		if (isset($_FILES[$field->field_slug.'_file']['name']) && $_FILES[$field->field_slug.'_file']['name'] != '')
 		{
@@ -388,24 +388,13 @@ class Field_image
 			$image_config['src']	= $this->CI->config->item('files:path').'/'.$image->name;
 		}
 		
-		if( $use_link )
+		if($use_link)
 		{
-			return '<a href="'.$this->CI->config->item('files:path').$image->name.'" target="_blank">'.img( $image_config ).'</a>'.br();
+			return '<a href="'.$this->CI->config->item('files:path').$image->name.'" target="_blank">'.img($image_config).'</a>'.br();
 		}
 		else
 		{
-		
-			return img( $image_config ).br();
-		
-		}
-		
-		if ($use_link)
-		{
-			return '<a href="'.$this->CI->config->item('files_folder').$image->name.'" target="_blank">'.img($image_config).'</a>'.br();
-		}
-		else
-		{
-			return img($image_config ).br();
+			return img($image_config).br();
 		}
 	}
 
@@ -506,7 +495,7 @@ class Field_image
 	 */
 	private function custom_clear()
 	{
-		$props = array('library_path', 'source_image', 'new_image', 'width', 'height', 'rotation_angle', 'x_axis', 'y_axis', 'wm_text', 'wm_overlay_path', 'wm_font_path', 'wm_shadow_color', 'source_folder', 'dest_folder', 'mime_type', 'orig_width', 'orig_height', 'image_type', 'size_str', 'full_src_path', 'full_dst_path');
+		$props = array('library_path', 'source_image', 'new_image', 'width', 'height', 'rotation_angle', 'x_axis', 'y_axis', 'wm_text', 'wm_overlay_path', 'wm_font_path', 'source_folder', 'dest_folder', 'mime_type', 'orig_width', 'orig_height', 'image_type', 'size_str', 'full_src_path', 'full_dst_path');
 
 		foreach ($props as $val)
 		{
@@ -529,13 +518,11 @@ class Field_image
 		$this->CI->image_lib->wm_padding 			= 0;
 		$this->CI->image_lib->wm_hor_offset 		= 0;
 		$this->CI->image_lib->wm_vrt_offset 		= 0;
-		$this->CI->image_lib->wm_font_color			= '#ffffff';
 		$this->CI->image_lib->wm_shadow_distance 	= 2;
 		$this->CI->image_lib->wm_opacity 			= 50;
 		$this->CI->image_lib->create_fnc 			= 'imagecreatetruecolor';
 		$this->CI->image_lib->copy_fnc 				= 'imagecopyresampled';
 		$this->CI->image_lib->error_msg 			= array();
-		$this->CI->image_lib->wm_use_drop_shadow 	= FALSE;
 		$this->CI->image_lib->wm_use_truetype 		= FALSE;
 	}
 	

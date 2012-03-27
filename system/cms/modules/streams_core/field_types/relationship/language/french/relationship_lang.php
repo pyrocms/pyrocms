@@ -1,4 +1,4 @@
-﻿<?php defined('BASEPATH') or exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 $lang['streams.relationship.name'] 				= "Relation";
 $lang['streams.relationship.choose_stream'] 	= "Stream en relation";

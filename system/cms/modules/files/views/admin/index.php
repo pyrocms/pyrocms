@@ -4,27 +4,16 @@
 
 <section class="item one_full">
 	<section class="sidebar">
-			<ul class="folders-sidebar">
-				<li class="folder places" data-id="0"><a href="#"><?php echo lang('files:places') ?></a></li>
-				<?php if ( ! $folders) : ?>
-					<li class="no_data"><?php echo lang('files:no_folders_places'); ?></li>
-				<?php endif; ?>
+		<ul id="folders-sidebar">
+			<li class="folder places" data-id="0"><a href="#"><?php echo lang('files:places') ?></a></li>
+			<?php if ( ! $folders) : ?>
+			<li class="no_data"><?php echo lang('files:no_folders_places'); ?></li>
+			<?php endif; ?>
 
-				<?php if ($folder_tree) : ?>
-					<?php foreach ($folder_tree as $folder): ?>
-					<li class="folder"
-						data-id="<?php echo $folder['id']?>" 
-						data-name="<?php echo $folder['name']?>">
-							<div></div><a href="#"><?php echo $folder['name']; ?></a>
-							<?php if (isset($folder['children'])): ?>
-								<ul style="display:none" >
-									<?php $admin->sidebar($folder); ?>
-								</ul>
-							<?php endif; ?>
-						</li>
-					<?php endforeach; ?>
-				<?php endif; ?>
-			</ul>
+			<?php if ($folder_tree) : ?>
+			<?php echo $admin->sidebar($folder_tree, true); ?>
+			<?php endif; ?>
+		</ul>
 	</section>
 
 	<section class="two_third">
@@ -49,14 +38,17 @@
 			</ul>
 	</section>
 
-	<section class="right sidebar">
-		<ul class="console">
-			<li class="right-title"><label for="file-search"><?php echo lang('files:search'); ?></label></li>
-			<li class="right-title"><input type="text" id="file-search" name="file-search" value="" placeholder="<?php echo lang('files:search_message'); ?>"/>
-				<ul class="search-results"></ul>
-			</li>
-			<li class="right-title console-title"><label><?php echo lang('files:activity'); ?></label></li>
-		</ul>
+	<section class="right sidebar sidebar-left">
+		<div id="search-area">
+			<span class="subsection-title"><?php echo lang('files:search'); ?></span>
+			<input type="text" id="file-search" name="file-search" value="" placeholder="<?php echo lang('files:search_message'); ?>"/>
+			<ul id="search-results"></ul>
+		</div>
+		<div id="console-area">
+			<span class="subsection-title"><?php echo lang('files:activity'); ?></span>
+			<ul id="console"></ul>
+		</div>
+
 	</section>
 
 	<div class="hidden">
@@ -77,7 +69,7 @@
 			
 		</div>
 
-		<div class="item-details">
+		<div id="item-details">
 			<h4><?php echo lang('files:details'); ?></h4>
 			<ul>
 				<li><label><?php echo lang('files:name'); ?>:</label> 

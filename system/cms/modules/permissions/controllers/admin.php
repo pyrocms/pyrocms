@@ -9,10 +9,13 @@
  */
 class Admin extends Admin_Controller
 {
+
 	/**
-	 * Constructor method
-	 * @access public
-	 * @return void
+	 * Constructor method.
+	 *
+	 * As well as everything in the Admin_Controller::__construct(),
+	 * this additionally loads the models and language strings for
+	 * permission and group.
 	 */
 	public function __construct()
 	{
@@ -25,21 +28,29 @@ class Admin extends Admin_Controller
 	}
 
 	/**
-	* Index methods, lists all permissions
-	* @access public
-	* @return void
-	*/
+	 * The main index page in the administration.
+	 *
+	 * Shows a list of the groups.
+	 */
 	public function index()
 	{
-		$this->template->groups = $this->group_m->get_all();
+		//$this->template->groups = $this->group_m->get_all();
 	
 		$this->template
+			->set('admin_group', $this->config->item('admin_group', 'ion_auth'))
+			->set('groups', $this->group_m->get_all())
 			->title($this->module_details['name'])
-			->build('admin/index', $this->data);
+			->build('admin/index');
 	}
 
+	/**
+	 * Shows the permissions for a specific user group.
+	 *
+	 * @param int $group_id The id of the group to show permissions for.
+	 */
 	public function group($group_id)
 	{
+
 		$this->load->library('form_validation');
 
 		if ($_POST)
@@ -47,30 +58,49 @@ class Admin extends Admin_Controller
 			$modules = $this->input->post('modules');
 			$roles = $this->input->post('module_roles');
 
-			// save the permissions
-			$this->permission_m->save($group_id, $modules, $roles);
+			// Save the permissions.
+			if ( $this->permission_m->save($group_id, $modules, $roles)){
 
-			// Fire an event. Permissions have been saved.
-			Events::trigger('permissions_saved', array($group_id, $modules, $roles));
+				// Fire an event. Permissions have been saved.
+				Events::trigger('permissions_saved', array($group_id, $modules, $roles));
 
-			$this->session->set_flashdata('success', lang('permissions.message_group_saved'));
+				$this->session->set_flashdata('success', lang('permissions:message_group_saved_success'));
+			}
+			else
+			{
+				$this->session->set_flashdata('error', lang('permissions:message_group_saved_error'));
+			}
 
 			redirect('admin/permissions/group/'.$group_id);
 		}
-
+		// Get the group data
 		$group = $this->group_m->get($group_id);
-		$edit_permissions = $this->permission_m->get_group($group_id);
-		$permission_modules = $this->module_m->get_all(array('is_backend' => TRUE));
+		// If the group data could not be retrieved
+		if ( ! $group ) {
+			// Set a message to notify the user.
+			$this->session->set_flashdata('error', lang('permissions:message_no_group_id_provided'));
+			// Send him to the main index to select a proper group.
+			redirect('admin/permissions');
+		}
 
-		foreach ($permission_modules as &$module)
+		// See if this is the admin group
+		$group_is_admin = (bool) ($this->config->item('admin_group', 'ion_auth') == $group->name);
+		// Get the groups permission rules (no need if this is the admin group)
+		$edit_permissions = ($group_is_admin) ? array() : $this->permission_m->get_group($group_id);
+		// Get all the possible permission rules from the installed modules
+		$permission_modules = $this->module_m->get_all(array('is_backend' => true, 'installed' => true));
+
+		foreach ($permission_modules as &$permission_module)
 		{
-			$module['roles'] = $this->module_m->roles($module['slug']);
+			$permission_module['roles'] = $this->module_m->roles($permission_module['slug']);
 		}
 
 		$this->template
+			->append_js('module::group.js')
 			->set('edit_permissions', $edit_permissions)
+			->set('group_is_admin', $group_is_admin)
 			->set('permission_modules', $permission_modules)
 			->set('group', $group)
-			->build('admin/group', $this->data);
+			->build('admin/group');
 	}
 }

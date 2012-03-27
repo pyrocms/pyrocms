@@ -54,6 +54,13 @@ class Ion_auth_model extends CI_Model
 	public $new_password;
 
 	/**
+	 * Array of user data called
+	 *
+	 * @var string
+	 **/
+	public $users = array();
+
+	/**
 	 * Identity
 	 *
 	 * @var string
@@ -75,6 +82,11 @@ class Ion_auth_model extends CI_Model
 	    $this->store_salt      = $this->config->item('store_salt', 'ion_auth');
 	    $this->salt_length     = $this->config->item('salt_length', 'ion_auth');
 	    $this->meta_join       = $this->config->item('join', 'ion_auth');
+
+		$this->load->driver('Streams');
+
+		$this->user_stream 			= $this->streams_m->get_stream('profiles', true, 'users');
+		$this->user_stream_fields 	= $this->streams_m->get_stream_fields($this->user_stream->id);
 	}
 
 	// --------------------------------------------------------------------------
@@ -691,13 +703,24 @@ class Ion_auth_model extends CI_Model
 			$this->tables['groups'].'.description AS '. $this->db->protect_identifiers('group_description')
 		));
 
-		if (!empty($this->columns))
+		// Add our user stream fields to the join
+		if ( ! empty($this->user_stream_fields))
 		{
-			foreach ($this->columns as $field)
+			foreach ($this->user_stream_fields as $field_key => $field_data)
 			{
-				$this->db->select($this->tables['meta'].'.'. $field);
+				$this->db->select($this->tables['meta'].'.'. $field_key);
 			}
 		}
+
+		// Profile columns that are not under streams control, but we 
+		// want to have access to anyways.
+		$this->db->select($this->tables['meta'].'.display_name as display_name');
+		$this->db->select($this->tables['meta'].'.updated_on as updated_on');
+		$this->db->select($this->tables['meta'].'.user_id as user_id');
+		
+		// Just in case this is different than the user_id, it's good
+		// to have this on hand.
+		$this->db->select($this->tables['meta'].'.id as profile_id');
 
 		$this->db->join($this->tables['meta'], $this->tables['users'].'.id = '.$this->tables['meta'].'.'.$this->meta_join, 'left');
 		$this->db->join($this->tables['groups'], $this->tables['users'].'.group_id = '.$this->tables['groups'].'.id', 'left');
@@ -716,7 +739,6 @@ class Ion_auth_model extends CI_Model
 		{
 			$this->db->where($this->ion_auth->_extra_where);
 		}
-
 
 		if (isset($limit) && isset($offset))
 		{
@@ -795,6 +817,13 @@ class Ion_auth_model extends CI_Model
 	 **/
 	public function get_user($id = NULL)
 	{
+		// Don't grab the user data again if we
+		// already have it
+		if (is_numeric($id) and isset($this->users[$id]))
+		{
+			return $this->users[$id];
+		}
+
 		$_user_is_current = FALSE;
 
 		//if no id was passed use the current users id
@@ -824,6 +853,9 @@ class Ion_auth_model extends CI_Model
 		$this->db->limit(1);
 
 		$user = $this->get_users();
+
+		// Save for later use
+		$this->users[$id] = $user;
 
 		//the user disappeared for a moment?
 		if ($user->num_rows() === 0 && $_user_is_current)

@@ -8,14 +8,14 @@ class Admin extends Admin_Controller
 {
 	/**
 	 * The current active section
-	 * @access protected
+	 *
 	 * @var string
 	 */
 	protected $section = 'posts';
 
 	/**
 	 * Array that contains the validation rules
-	 * @access protected
+	 *
 	 * @var array
 	 */
 	protected $validation_rules = array(
@@ -82,8 +82,6 @@ class Admin extends Admin_Controller
 
 	/**
 	 * The constructor
-	 * @access public
-	 * @return void
 	 */
 	public function __construct()
 	{
@@ -95,17 +93,20 @@ class Admin extends Admin_Controller
 		$this->load->library(array('keywords/keywords', 'form_validation'));
 
 		// Date ranges for select boxes
-		$this->data->hours = array_combine($hours = range(0, 23), $hours);
-		$this->data->minutes = array_combine($minutes = range(0, 59), $minutes);
+		$this->template
+			->set('hours', array_combine($hours = range(0, 23), $hours))
+			->set('minutes', array_combine($minutes = range(0, 59), $minutes))
+		;
 
-		$this->data->categories = array();
+		$_categories = array();
 		if ($categories = $this->blog_categories_m->order_by('title')->get_all())
 		{
 			foreach ($categories as $category)
 			{
-				$this->data->categories[$category->id] = $category->title;
+				$_categories[$category->id] = $category->title;
 			}
 		}
+		$this->template->set('categories', $_categories);
 	}
 
 	/**
@@ -141,13 +142,15 @@ class Admin extends Admin_Controller
 			->set('pagination', $pagination)
 			->set('blog', $blog);
 
-		$this->input->is_ajax_request() ? $this->template->build('admin/tables/posts', $this->data) : $this->template->build('admin/index', $this->data);
+		$this->input->is_ajax_request()
+			? $this->template->build('admin/tables/posts')
+			: $this->template->build('admin/index');
 
 	}
 
 	/**
 	 * Create new post
-	 * @access public
+	 *
 	 * @return void
 	 */
 	public function create()

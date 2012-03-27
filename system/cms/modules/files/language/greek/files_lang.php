@@ -14,6 +14,7 @@
  */
 
 // General
+$lang['files:files_title']					= 'Αρχεία';
 $lang['files:fetching']						= 'Ανάκτηση δεδομένων...';
 $lang['files:fetch_completed']				= 'Ολοκληρώθηκε';
 $lang['files:save_failed']					= 'Οι αλλαγές δεν ήταν δυνατό να αποθηκευτούν';

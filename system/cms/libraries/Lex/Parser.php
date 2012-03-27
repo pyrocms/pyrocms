@@ -683,12 +683,19 @@ class Lex_Parser
 		{
 			$parts = explode($this->scope_glue, $key);
 		}
+
 		foreach ($parts as $key_part)
 		{
 			if (is_array($data))
 			{
 				if ( ! array_key_exists($key_part, $data))
 				{
+					// the variable doesn't exist in the array so it is undefined
+					if ($default === '__process_condition_var__' and ! defined("'".$key_part."'"))
+					{
+						return null;
+					}
+
 					return $default;
 				}
 
@@ -698,6 +705,12 @@ class Lex_Parser
 			{
 				if ( ! isset($data->{$key_part}))
 				{
+					// the variable doesn't exist in the array so it is undefined
+					if ($default === '__process_condition_var__' and ! defined("'".$key_part."'"))
+					{
+						return null;
+					}
+
 					return $default;
 				}
 
