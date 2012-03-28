@@ -1057,6 +1057,8 @@ class Row_m extends MY_Model {
 		
 		foreach ($fields as $field)
 		{
+			if ( ! isset($form_data[$field->field_slug])) continue;
+
 			if ( ! in_array($field->field_slug, $skips))
 			{
 				$type_call = $field->field_type;
