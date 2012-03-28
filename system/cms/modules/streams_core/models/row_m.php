@@ -291,16 +291,16 @@ class Row_m extends MY_Model {
 		// Where (Legacy)
 		// -------------------------------------
 
-		if (isset($where) and $where)
+		if (isset($where_legacy) and $where_legacy)
 		{
 			// Replace the segs
 			
 			$seg_markers 	= array('seg_1', 'seg_2', 'seg_3', 'seg_4', 'seg_5', 'seg_6', 'seg_7');
 			$seg_values		= array($this->uri->segment(1), $this->uri->segment(2), $this->uri->segment(3), $this->uri->segment(4), $this->uri->segment(5), $this->uri->segment(6), $this->uri->segment(7));
 		
-			$where = str_replace($seg_markers, $seg_values, $where);
+			$where_legacy = str_replace($seg_markers, $seg_values, $where_legacy);
 			
-			$vals = explode('==', trim($where));
+			$vals = explode('==', trim($where_legacy));
 			
 			if (count($vals) == 2)
 			{
@@ -312,7 +312,20 @@ class Row_m extends MY_Model {
 		// Where (Current)
 		// -------------------------------------
 
-		// @todo
+		if (isset($where) and $where)
+		{
+			if (is_string($where))
+			{
+				$this->sql['where'][] = $this->process_where($where);
+			}
+			else
+			{
+				foreach($where as $where_item)
+				{
+					$this->sql['where'][] = $this->process_where($where_item);
+				}
+			}
+		}
 		
 		// -------------------------------------
 		// Show Upcoming
@@ -627,6 +640,29 @@ class Row_m extends MY_Model {
 		{$where}
 		{$misc}
 		{$order_by} ";
+	}
+
+	// --------------------------------------------------------------------------
+
+	private function process_where($where)
+	{
+		// Remove ()
+		$where = trim($where, '()');
+
+		// Find the fields between the backticks
+		preg_match_all('/`[a-zA-Z0-9_]+`/', $where, $matches);
+
+		if (isset($matches[0]) and is_array($matches[0]))
+		{
+			$matches[0] = array_unique($matches[0]);
+
+			foreach ($matches[0] as $match)
+			{
+				$where = preg_replace('/(^.|)'.$match.'/', $this->select_prefix.$match, $where);
+			}
+		}
+
+		return $where;
 	}
 
 	// --------------------------------------------------------------------------
