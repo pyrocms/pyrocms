@@ -125,31 +125,13 @@ class Fields
 		$stream_fields = $this->CI->streams_m->get_stream_fields($stream->id);
 		
 		// Can't do nothing if we don't have any fields		
-		if ($stream_fields === FALSE) return FALSE;
+		if ($stream_fields === false) return false;
 			
 		// -------------------------------------
 		// Run Type Events
 		// -------------------------------------
 
-		$events_called = array();
-		
-		foreach ($stream_fields as $field)
-		{
-			if ( ! in_array($field->field_slug, $skips))
-			{
-				// If we haven't called it (for dupes),
-				// then call it already.
-				if ( ! in_array($field->field_type, $events_called))
-				{
-					if(method_exists($this->CI->type->types->{$field->field_type}, 'event'))
-					{
-						$this->CI->type->types->{$field->field_type}->event($field);
-					}
-					
-					$events_called[] = $field->field_type;
-				}		
-			}
-		}
+		$events_called = $this->run_field_events($stream_fields, $skips);
 				
 		// -------------------------------------
 		// Set Validation Rules
@@ -255,6 +237,45 @@ class Fields
 		// -------------------------------------
 
 		return $this->build_fields($stream_fields, $values, $row, $method, $skips, $extra['required']);
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Run Field Events
+	 *
+	 * Runs all the event() functions for some
+	 * stream fields. The event() functions usually
+	 * have field asset loads.
+	 *
+	 * @access 	public
+	 * @param 	obj - stream fields
+	 * @param 	array - skips
+	 * @return 	array
+	 */
+	public function run_field_events($stream_fields, $skips)
+	{
+		$events_called = array();
+		
+		foreach ($stream_fields as $field)
+		{
+			if ( ! in_array($field->field_slug, $skips))
+			{
+				// If we haven't called it (for dupes),
+				// then call it already.
+				if ( ! in_array($field->field_type, $events_called))
+				{
+					if(method_exists($this->CI->type->types->{$field->field_type}, 'event'))
+					{
+						$this->CI->type->types->{$field->field_type}->event($field);
+					}
+					
+					$events_called[] = $field->field_type;
+				}		
+			}
+		}
+
+		return $events_called;
 	}
 
 	// --------------------------------------------------------------------------
