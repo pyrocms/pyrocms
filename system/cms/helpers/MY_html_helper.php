@@ -10,16 +10,9 @@ if (!function_exists('tree_builder'))
 	/**
 	 * Build the html for a tree view
 	 *
-	 * The second parameter can have
-	 *
-	 * @param array $items An array of items that may or may not have children.
+	 * @param array $items An array of items that may or may not have children (under a key named `children` for each appropriate array entry).
 	 * @param array $extra Attributes for the <li /> and the <a /> elements of the tree.
 	 *
-	 * @internal param array $item An item that may or may not have children.
-	 * @internal param $options
-	 *
-	 * @internal param string $id_prefix A prefix for the <li /> id attribute.
-	 * @internal param string $group_id The
 	 */
 	function tree_builder($items, $extra)
 	{
@@ -50,16 +43,22 @@ if( ! function_exists('_attributes'))
 	 * Note: This function does nothing to protect you from XSS.
 	 *
 	 * Example:
+	 * If this funtion is provided with:
 	 * <code>
 	 *  $attrs = array( 'id' => 'prefix_:id:' );
 	 *  $extra = array( 'id' => 1, 'rel' => 'cool-link' );
 	 * </code>
 	 * outputs:
-	 * <code> id="prefix_1" rel="cool-link"</code>
+	 * <code>
+	 *   id="prefix_1"
+	 * </code>
+	 * Notice two things:
+	 *  - The `:id:` part of the `id` key in the $attrs array has been replaced by the value in the $extra array.
+	 *  - The `rel` is not in the $attrs array and thus the value from the $extra array is not used.
 	 *
-	 * @param array $attrs
-	 * @param array $extra
-	 * @return string The attributes
+	 * @param array $attrs An array with the templates for each of the attribute values, see the function documentation for explanation.
+	 * @param array $extra The actual data to put in the respective attributes.
+	 * @return string The attributes as a string ready for use in a tag.
 	 */
 	function _attributes($attrs = array(), $extra = array())
 	{
