@@ -14,6 +14,7 @@
  */
 
 // General
+$lang['files:files_title']					= 'Αρχεία';
 $lang['files:fetching']						= 'Ανάκτηση δεδομένων...';
 $lang['files:fetch_completed']				= 'Ολοκληρώθηκε';
 $lang['files:save_failed']					= 'Οι αλλαγές δεν ήταν δυνατό να αποθηκευτούν';
@@ -100,6 +101,9 @@ $lang['files:invalid_extension']			= 'Το "%s" έχει μια μη αποδε�
 $lang['files:upload_error']					= 'Η μεταφόρτωση του αρχείου απέτυχε';
 $lang['files:description_saved']			= 'Η περιγραφή του αρχείο αποθηκεύτηκε';
 $lang['files:file_moved']					= 'Το "%s" μεταφέρθηκε με επιτυχία';
+$lang['files:exceeds_server_setting']		= 'The server cannot handle this large of a file'; #translate
+$lang['files:exceeds_allowed']				= 'File exceeds the max size allowed'; #translate
+$lang['files:file_type_not_allowed']		= 'This type of file is not allowed'; #translate
 $lang['files:type_a']						= 'Ήχος';
 $lang['files:type_v']						= 'Video';
 $lang['files:type_d']						= 'Έγγραφο';

@@ -30,6 +30,7 @@ $lang['pages.access_label']		= 'Πρόσβαση';
 $lang['pages.rss_enabled_label']	= 'RSS ενεργό;';
 $lang['pages.comments_enabled_label']	= 'Σχόλια Ενεργά;';
 $lang['pages.is_home_label']		= 'Είναι η αρχική σελίδα;';
+$lang['pages.strict_uri_label']						= 'Να απαιτείται το ακριβές URI;';
 
 $lang['pages.status_label']		= 'Κατάσταση';
 $lang['pages.draft_label']		= 'Πρόχειρο';

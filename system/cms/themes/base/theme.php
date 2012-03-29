@@ -33,6 +33,14 @@ class Theme_Base extends Theme
 			'options'       => 'red=Red | orange=Orange | yellow=Yellow | green=Green | blue=Blue | pink=Pink',
 			'is_required'   => TRUE
 		),
+		'show_breadcrumbs' 	=> array(
+			'title'         => 'Do you want to show breadcrumbs?',
+			'description'   => 'If selected it shows a string of breadcrumbs at the top of the page.',
+			'default'       => 'yes',
+			'type'          => 'radio',
+			'options'       => 'yes=Yes | no=No',
+			'is_required'   => TRUE
+		),
 	);
 }
 

@@ -30,6 +30,7 @@ $lang['pages.access_label']							= 'Access';
 $lang['pages.rss_enabled_label']					= 'RSS enabled?';
 $lang['pages.comments_enabled_label']				= 'Comments enabled?';
 $lang['pages.is_home_label']						= 'Is default (home) page?';
+$lang['pages.strict_uri_label']						= 'Require an exact uri match?';
 
 $lang['pages.status_label']							= 'Status';
 $lang['pages.draft_label']							= 'Draft';

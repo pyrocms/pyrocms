@@ -14,6 +14,7 @@
  */
 
 // General
+$lang['files:files_title']					= 'Files';
 $lang['files:fetching']						= 'Retrieving data...';
 $lang['files:fetch_completed']				= 'Completed';
 $lang['files:save_failed']					= 'Sorry. The changes could not be saved';
@@ -100,6 +101,9 @@ $lang['files:invalid_extension']			= '"%s" has a file extension that is not allo
 $lang['files:upload_error']					= 'The file upload failed';
 $lang['files:description_saved']			= 'The file description has been saved';
 $lang['files:file_moved']					= '"%s" has been moved successfully';
+$lang['files:exceeds_server_setting']		= 'The server cannot handle this large of a file';
+$lang['files:exceeds_allowed']				= 'File exceeds the max size allowed';
+$lang['files:file_type_not_allowed']		= 'This type of file is not allowed';
 $lang['files:type_a']						= 'Audio';
 $lang['files:type_v']						= 'Video';
 $lang['files:type_d']						= 'Document';

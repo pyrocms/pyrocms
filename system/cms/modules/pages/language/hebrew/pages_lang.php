@@ -30,6 +30,7 @@ $lang['pages.access_label']                = 'גישה';
 $lang['pages.rss_enabled_label']           = 'RSS מופעלת?';
 $lang['pages.comments_enabled_label']      = 'תגובות מופעלות?';
 $lang['pages.is_home_label']      = 'האם (דף הבית) דף ברירת המחדל?';
+$lang['pages.strict_uri_label']						= 'Require an exact uri match?'; #translate
 
 $lang['pages.status_label']                = 'סטטוס';
 $lang['pages.draft_label']                 = 'טיוטה';

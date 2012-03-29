@@ -35,6 +35,7 @@ $lang['pages.access_label']                = 'Pääsy';
 $lang['pages.rss_enabled_label']           = 'RSS käytössä';
 $lang['pages.comments_enabled_label']      = 'Kommentit päällä';
 $lang['pages.is_home_label']               = 'Onko etusivu?';
+$lang['pages.strict_uri_label']				= 'Require an exact uri match?'; #translate
 
 $lang['pages.status_label']                = 'Status';
 $lang['pages.draft_label']                 = 'Luonnos';

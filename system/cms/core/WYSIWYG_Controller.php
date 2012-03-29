@@ -38,6 +38,7 @@ class WYSIWYG_Controller extends MY_Controller
 		defined('ADMIN_THEME') or define('ADMIN_THEME', $this->admin_theme->slug);
 
 		// Set the location of assets
+		Asset::add_path('module', APPPATH.'modules/wysiwyg/');
 		Asset::add_path('theme', $this->admin_theme->web_path.'/');
 		Asset::set_path('theme');
 

@@ -30,6 +30,7 @@ $lang['pages.access_label']							= 'Akses';
 $lang['pages.rss_enabled_label']					= 'Aktifkan RSS?';
 $lang['pages.comments_enabled_label']				= 'Aktifkan Komentar?';
 $lang['pages.is_home_label']						= 'Jadikan Halaman Beranda?';
+$lang['pages.strict_uri_label']						= 'Require an exact uri match?'; #translate
 
 $lang['pages.status_label']							= 'Status';
 $lang['pages.draft_label']							= 'Draft';

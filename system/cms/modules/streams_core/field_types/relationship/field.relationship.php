@@ -182,7 +182,13 @@ class Field_relationship
 	{
 		// Okay good to go
 		$stream = $this->CI->streams_m->get_stream($custom['choose_stream']);
-		
+
+		// Do it gracefully
+		if ( ! $stream)
+		{
+			return null;
+		}
+
 		$obj = $this->CI->db->where('id', $row)->get($stream->stream_prefix.$stream->stream_slug);
 		
 		if ($obj->num_rows() == 0)

@@ -8,6 +8,8 @@ class MY_Form_validation extends CI_Form_validation
 		$this->CI->load->language('extra_validation');
 	}
 
+	// --------------------------------------------------------------------
+
 	/**
 	 * Alpha-numeric with underscores dots and dashes
 	 *
@@ -19,6 +21,8 @@ class MY_Form_validation extends CI_Form_validation
 	{
 		return ( ! preg_match("/^([-a-z0-9_\-\.])+$/i", $str)) ? FALSE : TRUE;
 	}
+
+	// --------------------------------------------------------------------
 
 	/**
 	 * Formats an UTF-8 string and removes potential harmful characters
@@ -42,6 +46,44 @@ class MY_Form_validation extends CI_Form_validation
 
 		return htmlentities($str, ENT_QUOTES, 'UTF-8');
 	}
+
+	// --------------------------------------------------------------------
+
+	/**
+	 * Format an error in the set error delimiters
+	 *
+	 * @access 	public
+	 * @param	string
+	 * @return	void
+	 */
+	public function format_error($error)
+	{
+		return $this->_error_prefix.$error.$this->_error_suffix;
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
+	 * Valid URL
+	 *
+	 * @access 	public
+	 * @param	string
+	 * @return	void
+	 */
+	public function valid_url($str)
+	{
+		if (filter_var($str, FILTER_VALIDATE_URL))
+		{
+			return true;
+		}
+		else
+		{
+			$this->set_message('valid_url', $this->CI->lang->line('valid_url'));
+			return false;
+		}
+	}
+
+	// --------------------------------------------------------------------
 	
 	// NOTE: This was done because HMVC is not happy with $this->CI being used as a callback, instead it wants to look at CI::APP->controller
 	// -- Phil
@@ -243,7 +285,7 @@ class MY_Form_validation extends CI_Form_validation
 				{
 					if (FALSE === ($line = $this->CI->lang->line($rule)))
 					{
-						$line = 'Unable to access an error message corresponding to your field name.';
+						$line = 'Unable to access an error message corresponding to your field name.'.$rule;
 					}
 				}
 				else
@@ -273,6 +315,340 @@ class MY_Form_validation extends CI_Form_validation
 			}
 		}
 	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Check Recaptcha callback
+	 *
+	 * Used for streams but can be used in other
+	 * recaptcha situations.
+	 *
+	 * @access	public
+	 * @param	string
+	 * @return	bool
+	 */
+	function check_recaptcha($val)
+	{
+		if ($this->CI->recaptcha->check_answer(
+						$this->CI->input->ip_address(),
+						$this->CI->input->post('recaptcha_challenge_field'),
+						$val))
+		{
+	    	return true;
+		}
+		else
+		{
+			$this->set_message(
+						'check_captcha',
+						$this->CI->lang->line('recaptcha_incorrect_response'));
+			
+			return false;
+	    }
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Is unique
+	 *
+	 * Used by streams_core.
+	 *
+	 * @access	public
+	 * @param	string
+	 * @param	string
+	 * @param	obj
+	 * @return	bool
+	 */
+	public function streams_unique($string, $data)
+	{
+		// Split the data
+		$items = explode(":", $data);
+		
+		$column 	= trim($items[0]);
+
+		if ( ! isset($items[0]) or ! isset($items[1]))
+		{
+			return true;
+		}
+
+		$mode 		= $items[1];
+		$stream_id	= $items[2];
+
+		// Get the stream
+		$stream = $this->CI->streams_m->get_stream($stream_id);
+			
+		$this->CI->db->where(trim($column), trim($string));
+		
+		$obj = $this->CI->db->get($stream->stream_prefix.$stream->stream_slug);
+		
+		if ($mode == 'new')
+		{
+			if ($obj->num_rows() == 0)
+			{
+				return true;
+			}
+		}
+		elseif ($mode == 'edit')
+		{
+			// We need to see if the new value is different.
+			$existing = $this->CI->db
+				->select($column)
+				->limit(1)
+				->where( 'id', $this->CI->input->post('row_edit_id'))
+				->get($stream->stream_prefix.$stream->stream_slug)
+				->row();
+			
+			if ($existing->$column == $string)
+			{
+				// No change
+				if ($obj->num_rows() >= 1) return true;
+			}
+			else
+			{
+				// There was a change. We treat it as new now.
+				if($obj->num_rows() == 0) return true;
+			}
+		}
+
+		$this->set_message('streams_unique', lang('streams.field_unique'));
+	
+		return FALSE;
+	}
+
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * Streams Field Type Validation Callback
+	 *
+	 * Used by streams as conduit to call custom
+	 * callback functions.
+	 *
+	 * @access	public
+	 * @param	string
+	 * @param	string
+	 * @return	bool
+	 */
+	public function streams_field_validation($value, $data)
+	{
+		// Data is in the form of field_id|mode
+		// Mode is edit or new.
+		$pieces = explode(':', $data);
+
+		if (count($pieces) != 2) return false;
+
+		$field_id 	= $pieces[0];
+		$mode 		= $pieces[1];
+
+		// Lets get the field
+		$field = $this->CI->fields_m->get_field($field_id);
+
+		// Check for the type
+		if ( ! isset($this->CI->type->types->{$field->field_type}) or 
+			 ! method_exists($this->CI->type->types->{$field->field_type}, 'validate'))
+		{
+			return false;
+		}
+
+		// Call the type. It will either return a string or true
+		if (($result = $this->CI->type->types->{$field->field_type}->validate($value, $mode, $field)) === true)
+		{
+			return true;
+		}
+		else
+		{
+			$this->set_message('streams_field_validation', $result);
+			return false;
+		}
+	}
+	
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * File is Required
+	 *
+	 * Checks various inputs needed for files
+	 * to see if one is indeed added.
+	 *
+	 * Used by Streams.
+	 *
+	 * @access	public
+	 * @param	string
+	 * @param	string
+	 * @return	bool
+	 */
+	public function streams_file_required($string, $field)
+	{
+		// Do we already have something? If we are editing the row,
+		// the file may already be there. We know that if the ID has a
+		// numerical value, since it is hooked up with the PyroCMS
+		// file system.
+		if (is_numeric($this->CI->input->post($field)))
+		{
+			return true;
+		}
+		
+		// OK. Now we really need to make sure there is a file here.
+		// The method of choice here is checking for a file name		
+		if (isset($_FILES[$field.'_file']['name']) and $_FILES[$field.'_file']['name'] != '')
+		{
+			// Don't do shit.
+		}			
+		else
+		{
+			$this->set_message('file_required', lang('streams.field_is_required'));
+			return false;
+		}
+
+		return null;
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Unique field slug
+	 *
+	 * Checks to see if the slug is unique based on the 
+	 * circumstances
+	 *
+	 * Used by Streams.
+	 *
+	 * @access	public
+	 * @param	string
+	 * @param	string
+	 * @return	void
+	 */
+	public function streams_unique_field_slug($field_slug, $mode)
+	{
+		$db_obj = $this->CI->db
+						->select('id')
+						->where('field_slug', trim($field_slug))
+						->get(FIELDS_TABLE);
+		
+		if ($mode == 'new')
+		{
+			if( $db_obj->num_rows() > 0)
+			{
+				$this->set_message('unique_field_slug', lang('streams.field_slug_not_unique'));
+				return false;
+			}	
+		}
+		else
+		{
+			// Mode should be the existing slug
+			if ($field_slug != $mode)
+			{
+				// We're changing the slug?
+				// Better make sure it doesn't exist.
+				if ($db_obj->num_rows() != 0)
+				{
+					$this->set_message('unique_field_slug', lang('streams.field_slug_not_unique'));
+					return false;
+				}			
+			}
+		}
+
+		return true;		
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Unique Stream Slug
+	 *
+	 * Checks to see if the stream is unique based on the 
+	 * stream_slug
+	 *
+	 * @access	public
+	 * @param	string
+	 * @param	string
+	 * @return	bool
+	 */
+	public function stream_unique($stream_slug, $mode)
+	{
+		$this->CI->db->select('id')->where('stream_slug', trim($stream_slug));
+		$db_obj = $this->CI->db->get(STREAMS_TABLE);
+		
+		if ($mode == 'new')
+		{
+			if ($db_obj->num_rows() > 0)
+			{
+				$this->set_message('stream_unique', lang('streams.stream_slug_not_unique'));
+				return false;	
+			}
+		}	
+		else
+		{
+			// Mode should be the existing slug
+			// We check the two to see if the slug is changing.
+			// If it is changing we of course need to make sure
+			// it is unique.
+			if ($stream_slug != $mode)
+			{
+				if ($db_obj->num_rows() != 0)
+				{
+					$this->set_message('stream_unique', lang('streams.stream_slug_not_unique'));
+					return false;
+				}
+			}
+		}
+
+		return true;
+	}
+
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * Slug Safe
+	 *
+	 * Sees if a word is safe for the DB. Used for
+	 * stream_fields, etc.
+	 *
+	 * Used by Streams.
+	 *
+	 * @access 	public
+	 * @param 	string
+	 * @return 	bool
+	 */
+	public function stream_slug_safe($string)
+	{	
+		// See if word is MySQL Reserved Word
+		if (in_array(strtoupper($string), $this->CI->config->item('streams:reserved')))
+		{
+			$this->set_message('slug_safe', lang('streams.not_mysql_safe_word'));
+			return false;
+		}
+				
+		// See if there are no-no characters
+		if ( ! preg_match("/^([-a-z0-9_-])+$/i", $string))
+		{
+			$this->set_message('slug_safe', lang('streams.not_mysql_safe_characters'));
+			return false;
+		}
+		
+		return true;
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Make sure a type is valid
+	 *
+	 * @access	public
+	 * @param	string
+	 * @return	bool
+	 */	
+	public function streams_type_valid($string)
+	{
+		if ($string == '-')
+		{
+			$this->set_message('type_valid', lang('streams.type_not_valid'));
+			return false;
+		}	
+		
+		return true;
+	}
+
 }
 
 /* End of file MY_Form_validation.php */

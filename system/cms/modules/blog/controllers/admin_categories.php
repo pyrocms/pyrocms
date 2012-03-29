@@ -1,5 +1,6 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
+ * Admin Page Layouts controller for the Pages module
  *
  * @author		PyroCMS Dev Team
  * @package 	PyroCMS\Core\Modules\Blog\Controllers
@@ -64,12 +65,12 @@ class Admin_Categories extends Admin_Controller {
 			->title($this->module_details['name'], lang('cat_list_title'))
 			->set('categories', $categories)
 			->set('pagination', $pagination)
-			->build('admin/categories/index', $this->data);
+			->build('admin/categories/index');
 	}
 	
 	/**
 	 * Create method, creates a new category
-	 * @access public
+	 *
 	 * @return void
 	 */
 	public function create()

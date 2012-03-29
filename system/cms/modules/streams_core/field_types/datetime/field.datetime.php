@@ -15,7 +15,10 @@ class Field_datetime
 	
 	public $db_col_type				= 'datetime';
 
-	public $custom_parameters		= array('use_time', 'start_date', 'end_date', 'storage');
+	public $custom_parameters		= array('use_time', 'start_date', 'end_date', 'storage', 'input_type');
+
+	// We can add to this in the event
+	public $extra_validation 		= array('streams_date_format');
 
 	public $version					= '2.0';
 
@@ -23,8 +26,148 @@ class Field_datetime
 
 	// --------------------------------------------------------------------------
 	
-	public $date_formats = array('DATE_ATOM', 'DATE_COOKIE', 'DATE_ISO8601', 'DATE_RFC822', 'DATE_RFC850', 'DATE_RFC1036', 'DATE_RFC1123', 'DATE_RFC2822', 'DATE_RSS', 'DATE_W3C');
+	/** 
+	 * These are the pre-formatted
+	 * date formats
+	 */
+	public $date_formats = array(
+							'DATE_ATOM',
+							'DATE_COOKIE',
+							'DATE_ISO8601',
+							'DATE_RFC822',
+							'DATE_RFC850', 
+							'DATE_RFC1036',
+							'DATE_RFC1123',
+							'DATE_RFC2822',
+							'DATE_RSS',
+							'DATE_W3C'
+						);
 		
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Event
+	 *
+	 * @access 	public
+	 * @param 	obj
+	 * @return 	void
+	 */
+	public function event($field)
+	{
+		// We need the JS file for the front-end. 
+		if ( ! defined('ADMIN_THEME'))
+		{
+			$this->CI->type->add_js('datetime', 'jquery.datepicker.js');
+		}
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Special event called before
+	 * validation rules are compiled
+	 */
+	public function pre_validation_compile($field)
+	{
+		// Add the restrict range validation if it is needed.
+		if (is_array($restrict = $this->parse_restrict($field->field_data)))
+		{
+			$this->extra_validation[] = 'streams_date_range['.$restrict['start_stamp'].'|'.$restrict['end_stamp'].']';
+		}
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Check out the start and ending restrictions
+	 *
+	 * @param 	array
+	 * @return 	array or false
+	 */
+	private function parse_restrict($field_data)
+	{
+		if (
+			(isset($field_data['start_date']) and is_null($field_data['start_date'])) and 
+			(isset($field_data['end_date']) and is_null($field_data['end_date']))
+		)
+		{
+			return false;
+		}
+
+		if ( ! isset($field_data['start_date'])) $field_data['start_date'] = null;
+		if ( ! isset($field_data['end_date'])) $field_data['end_date'] = null;
+
+		$start_restrict = $this->parse_single_restrict($field_data['start_date'], 'start');
+		$end_restrict 	= $this->parse_single_restrict($field_data['end_date'], 'end');
+
+		return array_merge($start_restrict, $end_restrict);
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Check out and parse a single
+	 * date string restriction.
+	 *
+	 * @param 	string - the start/end string
+	 * @param 	string - 'start' or 'end'
+	 * @return 	array or false
+	 */
+	private function parse_single_restrict($string, $start_or_end, $prefix_vars = true)
+	{
+		// No matter what we need to return an array
+		if ( ! trim($string))
+		{
+			if ($prefix_vars)
+			{
+				return array(
+					$start_or_end.'_stamp' 		=> null,
+					$start_or_end.'_jquery' 	=> null,
+					$start_or_end.'_strtotime' 	=> null
+				);
+			}
+			else
+			{
+				return array(
+					'stamp' 					=> null,
+					'jquery' 					=> null,
+					'strtotime' 				=> null
+				);
+			}
+		}
+
+		$strtotime = null;
+
+		if (is_numeric($string))
+		{
+			$strtotime = $string.' days';
+		}
+		else
+		{
+			$find 		= array('Y', 'M', 'W', 'D');
+			$replace 	= array('years', 'months', 'weeks', 'days');
+
+			$strtotime = str_replace($find, $replace, $string);
+		}
+
+		if ($prefix_vars)
+		{
+			return array(
+						$start_or_end.'_stamp' 		=> strtotime($strtotime),
+						$start_or_end.'_jquery' 	=> $string,
+						$start_or_end.'_strtotime' 	=> $strtotime
+					);
+		}
+		else
+		{
+			return array(
+						'stamp' 		=> strtotime($strtotime),
+						'jquery' 		=> $string,
+						'strtotime' 	=> $strtotime
+					);
+		}
+	}
+
 	// --------------------------------------------------------------------------
 	
 	/**
@@ -36,52 +179,138 @@ class Field_datetime
 	 */
 	public function form_output($data)
 	{
+		// -------------------------------------
+		// Parse Date Range
+		// -------------------------------------
+		// Using the start_date and end_date
+		// functions, figure out the unix values
+		// of the date range.
+		// -------------------------------------
+
+		if ( ! isset($data['custom']['start_date'])) $data['custom']['start_date'] = null;
+		if ( ! isset($data['custom']['end_date'])) $data['custom']['end_date'] = null;
+
+		$start_restrict 	= $this->parse_single_restrict($data['custom']['start_date'], 'start', false);
+		$end_restrict 		= $this->parse_single_restrict($data['custom']['end_date'], 'end', false);
+
+		// -------------------------------------
+		// Get/Parse Current Date
+		// -------------------------------------
+
 		// Update the value to datetime format if it is UNIX.
 		// The rest of the function expects datetime.
 		if (isset($data['custom']['storage']) and $data['custom']['storage'] == 'unix')
 		{
-			$data['value'] = date('Y-m-d H:i:s', $data['value']);
+			if (is_numeric($data['value']))
+			{
+				$data['value'] = date('Y-m-d H:i:s', $data['value']);
+			}
 		}
 		
-		$date = $this->_break_date(trim($data['value']), $data['form_slug'], $data['custom']['use_time']);
+		$date = $this->get_date(trim($data['value']), $data['form_slug'], $data['custom']['use_time']);
+
+		// Form input type. Defaults to datepicker
+		$input_type = ( ! isset($data['custom']['input_type'])) ? 'datepicker' : $data['custom']['input_type'];
+
+		// This is our form output type
+		$date_input = null;
 
 		// -------------------------------------
 		// Date
 		// -------------------------------------
+		// We can either choose the date via
+		// the jQuery datepicker or a series
+		// of drop down menus.
+		// -------------------------------------
 	
-		// jQuery datepicker options
-		$dp_mods = array('dateFormat: "yy-mm-dd"');
-	
-		$current_year = date('Y');
-		
-		// Start Date
-		if (isset($data['custom']['start_date']) and $data['custom']['start_date'])
+		if ($input_type == 'datepicker')
 		{
-			$dp_mods[] = 'minDate: "'.$data['custom']['start_date'].'"';
-		}
-		
-		// End Date
-		if (isset($data['custom']['end_date']) and $data['custom']['end_date'])
-		{
-			$dp_mods[] = 'maxDate: "'.$data['custom']['end_date'].'"';	
-		}	
-			
-		$date_input = '
-		<script>
-		$(function() {
-			$( "#datepicker_'.$data['form_slug'].'" ).datepicker({ '.implode(', ', $dp_mods).' });
-		});
-		</script>';
+			// -------------------------------------
+			// jQuery Datepicker
+			// -------------------------------------
 
-		$options['name'] 	= $data['form_slug'];
-		$options['id']		= 'datepicker_'.$data['form_slug'];
+			$dp_mods = array('dateFormat: "yy-mm-dd"');
 		
-		if ($date['year'] and $date['month'] and $date['day'])
-		{
-			$options['value']	= $date['year'].'-'.$date['month'].'-'.$date['day'];
-		}	
+			$current_year = date('Y');
 			
-		$date_input .= form_input($options)."&nbsp;&nbsp;";
+			// Start Date
+			if ($start_restrict['jquery'])
+			{
+				$dp_mods[] = 'minDate: "'.$start_restrict['jquery'].'"';
+			}
+			
+			// End Date
+			if ($end_restrict['jquery'])
+			{
+				$dp_mods[] = 'maxDate: "'.$end_restrict['jquery'].'"';	
+			}	
+				
+			$date_input = '<script>$(function() {$("#datepicker_'.$data['form_slug'].'" ).datepicker({ '.implode(', ', $dp_mods).'});});</script>';
+
+			$options['name'] 	= $data['form_slug'];
+			$options['id']		= 'datepicker_'.$data['form_slug'];
+			
+			if ($date['year'] and $date['month'] and $date['day'])
+			{
+				$options['value']	= $date['year'].'-'.$date['month'].'-'.$date['day'];
+			}	
+				
+			$date_input .= form_input($options)."&nbsp;&nbsp;";
+		}
+		else
+		{
+			// -------------------------------------
+			// Drop down menu
+			// -------------------------------------
+
+			// Months
+			$this->CI->lang->load('calendar');
+
+			$month_names = array(
+				lang('cal_january'),
+				lang('cal_february'),
+				lang('cal_march'),
+				lang('cal_april'),
+				lang('cal_mayl'),
+				lang('cal_june'),
+				lang('cal_july'),
+				lang('cal_august'),
+				lang('cal_september'),
+				lang('cal_october'),
+				lang('cal_november'),
+				lang('cal_december'),
+			);
+
+			$months = array_combine($months = range(1, 12), $month_names);
+			$date_input .= form_dropdown($data['form_slug'].'_month', $months, $date['month']);
+
+			// Days
+	    	$days 	= array_combine($days 	= range(1, 31), $days);
+			$date_input .= form_dropdown($data['form_slug'].'_day', $days, $date['day']);
+
+			// Years. The defauly is 120 years
+			// ago to now.
+			$start_year = date('Y')-100;
+			$end_year	= date('Y');
+
+			// Do we have a start or end restrict? If it it does have just months
+			// or days (no years) those still might spill over into
+			// the previous or next year.
+			if ($start_restrict['strtotime'])
+			{
+				$start_year = date('Y', strtotime($start_restrict['strtotime']));
+			}
+
+			if ($end_restrict['strtotime'])
+			{
+				$end_year = date('Y', strtotime($end_restrict['strtotime']));
+			}
+
+			// Find the end year
+	    	$years 	= array_combine($years = range($start_year, $end_year), $years);
+	    	arsort($years, SORT_NUMERIC);
+			$date_input .= form_dropdown($data['form_slug'].'_year', $years, $date['year']);
+		}
 					
 		// -------------------------------------
 		// Time
@@ -132,7 +361,7 @@ class Field_datetime
 			$date_input .= form_dropdown($data['form_slug'].'_minute', $minutes, $date['minute']);
 		
 			// AM/PM
-			$am_pm = array('am'=>'am', 'pm'=>'pm');
+			$am_pm = array('am' => 'am', 'pm' => 'pm');
 			
 			// Is this AM or PM?
 			if ($this->CI->input->post($data['form_slug'].'_am_pm'))
@@ -156,26 +385,13 @@ class Field_datetime
 		
 		}
 
-		return $date_input;
-	}
-
-	// --------------------------------------------------------------------------
-
-	/**
-	 * Event
-	 *
-	 * Add datepicker CSS
-	 *
-	 * @access	public
-	 * @return	void
-	 */
-	public function event()
-	{
-		// We need the JS file for the front-end. 
-		if ( ! defined('ADMIN_THEME'))
+		// Add hidden value for drop downs
+		if ($input_type == 'dropdown')
 		{
-			$this->CI->type->add_js('datetime', 'jquery.datepicker.js');
+			$date_input .= form_hidden($data['form_slug'], $data['value']);
 		}
+
+		return $date_input;
 	}
 
 	// --------------------------------------------------------------------------
@@ -255,7 +471,28 @@ class Field_datetime
 	 */
 	public function pre_save($input, $field)
 	{
-		$date = $this->CI->input->post($field->field_slug);
+		// -------------------------------------
+		// Date
+		// -------------------------------------
+
+		$input_type = ( ! isset($field->field_data['input_type'])) ? 'datepicker' : $field->field_data['input_type'];
+
+		if ($input_type == 'datepicker')
+		{
+			// No collecting data necessary
+			$date = $this->CI->input->post($field->field_slug);
+		}
+		else
+		{
+			// Get from post data
+			$date = $this->CI->input->post($field->field_slug.'_year').
+				'-'.$this->two_digit_number($this->CI->input->post($field->field_slug.'_month')).
+				'-'.$this->two_digit_number($this->CI->input->post($field->field_slug.'_day'));
+		}
+
+		// -------------------------------------
+		// Time
+		// -------------------------------------
 
 		if ($field->field_data['use_time'] == 'yes')
 		{
@@ -306,6 +543,35 @@ class Field_datetime
 	// --------------------------------------------------------------------------
 
 	/**
+	 * Turns a single digit number into a
+	 * two digit number
+	 *
+	 * @access 	public
+	 * @param 	string
+	 * @return 	string
+	 */
+	public function two_digit_number($num)
+	{
+		$num = trim($num);
+
+		if ($num == '')
+		{
+			return '00';
+		}
+
+		if (strlen($num) == 1)
+		{
+			return '0'.$num;
+		}
+		else
+		{
+			return $num;
+		}
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
 	 * Process Year Input
 	 *
 	 * Make sense of user input field. It accepts:
@@ -318,7 +584,7 @@ class Field_datetime
 	 * @param	string
 	 * @return	string
 	 */
-	private function _process_year_input($years_data)
+	private function process_year_input($years_data)
 	{
 		// Blank value or current year.
 		if (trim($years_data) == '' or $years_data == 'current' )
@@ -367,14 +633,14 @@ class Field_datetime
 	 * @param	string
 	 * @return	array
 	 */
-	private function _break_date($date, $slug, $use_time)
+	private function get_date($date, $slug, $use_time)
 	{
 		$out['year'] 	= '';
 		$out['month']	= '';
 		$out['day']		= '';
 		$out['hour']	= '';
 		$out['minute']	= '';
-		
+
 		if ($date == '')
 		{
 			return $out;
@@ -411,9 +677,9 @@ class Field_datetime
 		
 		if ($use_time == 'yes')
 		{
-			$out['hour']		= $times[0];
-			$out['minute']		= $times[1];
-			$out['pre_hour']	= $out['hour'];
+			$out['hour']		= $this->two_digit_number($times[0]);
+			$out['minute']		= $this->two_digit_number($times[1]);
+			$out['pre_hour']	= $this->two_digit_number($out['hour']);
 			
 			// Format hour for our drop down since we are using am/pm
 			if( $out['hour'] > 12 ) $out['hour'] = $out['hour']-12;
@@ -507,6 +773,24 @@ class Field_datetime
 	}
 
 	// --------------------------------------------------------------------------
+	
+	/**
+	 * How should we store this in the DB?
+	 *
+	 * @access	public
+	 * @param	string
+	 * @return	string
+	 */
+	public function param_input_type($value = null)
+	{
+		$options = array(
+					'datepicker'	=> 'Datepicker',
+					'dropdown'		=> 'Dropdown'
+		);
+			
+		return form_dropdown('input_type', $options, $value);
+	}
+	// --------------------------------------------------------------------------
 
 	/**
 	 * Process before outputting
@@ -546,47 +830,6 @@ class Field_datetime
 	// --------------------------------------------------------------------------
 
 	/**
-	 * Process before outputting to the backend
-	 *
-	 * @access	public
-	 * @param	array
-	 * @return	string
-	 */
-	/*public function alt_process_plugin($data)
-	{
-		$this->CI = get_instance();
-		
-		// No input value? Then just blank it:
-		if ( ! isset($data['input_value']))
-		{
-			return null;
-		}
-		
-		$input = $data['input_value'];
-
-		// Get the format string
-		if (isset($data['attributes']['format']))
-		{
-			// Is this a preset format?
-			if (in_array($data['attributes']['format'], $this->date_formats))
-			{
-				$this->CI->load->helper('date');
-			
-				return standard_date($data['attributes']['format'], strtotime($input));
-			}
-			else
-			{
-				return date($data['attributes']['format'], strtotime($input));
-			}
-		}
-		
-		// Return raw date input if there is no format:
-		return $input;
-	}*/
-
-	// --------------------------------------------------------------------------
-
-	/**
 	 * Formats the date so things don't get screwed up
 	 * by blank entries in the database
 	 *
@@ -596,7 +839,7 @@ class Field_datetime
 	 * @param	[bool]
 	 * @return	string
 	 */	
-	private function _format_date($format, $unix_date, $standard = FALSE)
+	private function format_date($format, $unix_date, $standard = FALSE)
 	{
 		if ( ! $unix_date)
 		{

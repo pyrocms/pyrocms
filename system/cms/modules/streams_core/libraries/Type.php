@@ -58,10 +58,16 @@ class Type
 		// Get Lang (full name for language file)
 		// This defaults to english.
 		$langs = $this->CI->config->item('supported_languages');
-		
-		if (isset($langs[CURRENT_LANGUAGE]))
+
+		// Needed for installer
+		if ( ! class_exists('Settings'))
 		{
-			$this->current_lang = $langs[CURRENT_LANGUAGE]['folder'];
+			$this->CI->load->library('settings/Settings');
+		}
+
+		if (isset($langs[$this->CI->settings->get('site_lang')]))
+		{
+			$this->current_lang = $langs[$this->CI->settings->get('site_lang')]['folder'];
 		}
 		
 		// Obj to hold all our field types
@@ -74,8 +80,18 @@ class Type
 		
 		// Since this is PyroStreams core we know where
 		// PyroStreams is, but we set this for backwards
-		// compatability for anyone using this constant
-		define('PYROSTEAMS_DIR', APPPATH.'modules/streams_core/');
+		// compatability for anyone using this constant.
+		// Also, now that the Streams API is around, we need to
+		// check if we need to change this based on the
+		// install situation. 
+		if(defined('PYROPATH'))
+		{
+			define('PYROSTEAMS_DIR', PYROPATH.'modules/streams_core/');
+		}
+		else
+		{
+			define('PYROSTEAMS_DIR', APPPATH.'modules/streams_core/');
+		}
 
 		// Set our addon paths
 		$this->addon_paths = array(

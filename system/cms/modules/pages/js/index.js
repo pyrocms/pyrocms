@@ -1,5 +1,4 @@
 (function($) {
-
 	$(function() {
 
 		// set values for pyro.sort_tree (we'll use them below also)

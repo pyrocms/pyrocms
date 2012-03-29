@@ -1,4 +1,4 @@
-﻿<?php defined('BASEPATH') or exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 $lang['streams.choice.name'] 				= "Choix";
 $lang['streams.choice.instructions'] 		= "Saisissez un choix par ligne. Si vous souhaitez une valeur distincte du choix affiché, vous pouvez les séparer par le signe deux-points (:), sous la forme valeur : choix. Exemple : pyro : PyroCMS.";
