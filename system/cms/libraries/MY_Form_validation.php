@@ -411,9 +411,55 @@ class MY_Form_validation extends CI_Form_validation
 			}
 		}
 
-		$this->set_message('unique', lang('streams.field_unique'));
+		$this->set_message('streams_unique', lang('streams.field_unique'));
 	
 		return FALSE;
+	}
+
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * Streams Field Type Validation Callback
+	 *
+	 * Used by streams as conduit to call custom
+	 * callback functions.
+	 *
+	 * @access	public
+	 * @param	string
+	 * @param	string
+	 * @return	bool
+	 */
+	public function streams_field_validation($value, $data)
+	{
+		// Data is in the form of field_id|mode
+		// Mode is edit or new.
+		$pieces = explode(':', $data);
+
+		if (count($pieces) != 2) return false;
+
+		$field_id 	= $pieces[0];
+		$mode 		= $pieces[1];
+
+		// Lets get the field
+		$field = $this->CI->fields_m->get_field($field_id);
+
+		// Check for the type
+		if ( ! isset($this->CI->type->types->{$field->field_type}) or 
+			 ! method_exists($this->CI->type->types->{$field->field_type}, 'validate'))
+		{
+			return false;
+		}
+
+		// Call the type. It will either return a string or true
+		if (($result = $this->CI->type->types->{$field->field_type}->validate($value, $mode, $field)) === true)
+		{
+			return true;
+		}
+		else
+		{
+			$this->set_message('streams_field_validation', $result);
+			return false;
+		}
 	}
 	
 	// --------------------------------------------------------------------------

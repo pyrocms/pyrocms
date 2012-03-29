@@ -229,7 +229,7 @@ class Row_m extends MY_Model {
 			// but setting it here is a last resort
 			if ( ! isset($sort) or $sort == '')
 			{
-				$sort = 'ASC';
+				$sort = 'DESC';
 			}
 	
 			// Other sorting options
@@ -291,20 +291,20 @@ class Row_m extends MY_Model {
 		// Where (Legacy)
 		// -------------------------------------
 
-		if (isset($where) and $where)
+		if (isset($where_legacy) and $where_legacy)
 		{
 			// Replace the segs
 			
 			$seg_markers 	= array('seg_1', 'seg_2', 'seg_3', 'seg_4', 'seg_5', 'seg_6', 'seg_7');
 			$seg_values		= array($this->uri->segment(1), $this->uri->segment(2), $this->uri->segment(3), $this->uri->segment(4), $this->uri->segment(5), $this->uri->segment(6), $this->uri->segment(7));
 		
-			$where = str_replace($seg_markers, $seg_values, $where);
+			$where_legacy = str_replace($seg_markers, $seg_values, $where_legacy);
 			
-			$vals = explode('==', trim($where));
+			$vals = explode('==', trim($where_legacy));
 			
 			if (count($vals) == 2)
 			{
-				$this->sql['where'][] = $this->select_prefix.$this->db->protect_identifiers($vals[0]).' !='.$this->db->escape($vals[1]);
+				$this->sql['where'][] = $this->select_prefix.$this->db->protect_identifiers($vals[0]).' ='.$this->db->escape($vals[1]);
 			}
 		}
 
@@ -312,7 +312,20 @@ class Row_m extends MY_Model {
 		// Where (Current)
 		// -------------------------------------
 
-		// @todo
+		if (isset($where) and $where)
+		{
+			if (is_string($where))
+			{
+				$this->sql['where'][] = $this->process_where($where);
+			}
+			else
+			{
+				foreach($where as $where_item)
+				{
+					$this->sql['where'][] = $this->process_where($where_item);
+				}
+			}
+		}
 		
 		// -------------------------------------
 		// Show Upcoming
@@ -630,6 +643,29 @@ class Row_m extends MY_Model {
 	}
 
 	// --------------------------------------------------------------------------
+
+	private function process_where($where)
+	{
+		// Remove ()
+		$where = trim($where, '()');
+
+		// Find the fields between the backticks
+		preg_match_all('/`[a-zA-Z0-9_]+`/', $where, $matches);
+
+		if (isset($matches[0]) and is_array($matches[0]))
+		{
+			$matches[0] = array_unique($matches[0]);
+
+			foreach ($matches[0] as $match)
+			{
+				$where = preg_replace('/(^.|)'.$match.'/', $this->select_prefix.$match, $where);
+			}
+		}
+
+		return $where;
+	}
+
+	// --------------------------------------------------------------------------
 	
 	/**
 	 * Format Rows
@@ -677,7 +713,8 @@ class Row_m extends MY_Model {
 	// --------------------------------------------------------------------------
 	
 	/**
-	 * Get a row
+	 * Get a row. Also has the option
+	 * to format that data before returning it.
 	 *
 	 * @access	public
 	 * @param	int
@@ -812,72 +849,17 @@ class Row_m extends MY_Model {
 
 			if (array_key_exists($row_slug, $this->all_fields))
 			{
-				$format_data = $this->all_fields[$row_slug];
-						
-				$type = $this->type->types->{$format_data['field_type']};
-							
-				// First off, is this an alt process type?
-				if (isset($type->alt_process) and $type->alt_process === true)
+
+				if ($return_object)
 				{
-					$out = null;
-				
-					if ( ! $plugin_call and method_exists($type, 'alt_pre_output'))
-					{
-						$out = $type->alt_pre_output($row->id, $format_data['field_data'], $type, $stream);
-					}
-					
-					($return_object) ? $row->$row_slug = $out : $row[$row_slug] = $out;
-				}	
+					$row->$row_slug = $this->format_column($row_slug,
+						$row->$row_slug, $row->id, $this->all_fields[$row_slug]['field_type'], $this->all_fields[$row_slug]['field_data'], $stream, $plugin_call);
+				}
 				else
 				{
-					// If not, check and see if there is a method
-					// for pre output or pre_output_plugin
-					if ($plugin_call and method_exists($type, 'pre_output_plugin'))
-					{
-						$plugin_output = $type->pre_output_plugin($row[$row_slug], $format_data['field_data'], $row_slug);
-					
-						// Do we get an array or a string?
-						if (is_array($plugin_output))
-						{
-							// For arrays we replace the node with a new array
-							// of data merged into the current array
-							if (is_array($row))
-							{
-								if (isset($type->plugin_return) and $type->plugin_return == 'array')
-								{
-									$row[$row_slug] = $plugin_output;
-								}
-								elseif (isset($type->plugin_return) and $type->plugin_return == 'cycle')
-								{
-									// Don't do shit
-								}
-								else
-								{
-									($return_object) ? $row->{$row_slug} = $plugin_output : $row[$row_slug] = $plugin_output;
-								}
-							}
-						}
-						else
-						{
-							// Else it was just a special plugin output and we just need 
-							// to use that string output.
-							$row[$row_slug] = $plugin_output;
-						}
-					}
-					elseif (method_exists($type, 'pre_output'))
-					{
-						if (is_array($row))
-						{
-							$out = $type->pre_output($row[$row_slug], $format_data['field_data']);
-						}
-						else
-						{
-							$out = $type->pre_output($row->$row_slug, $format_data['field_data']);
-						}
-						
-						($return_object) ? $row->{$row_slug} = $out : $row[$row_slug] = $out;
-					}
-				}				
+					$row[$row_slug] = $this->format_column($row_slug,
+						$row[$row_slug], $row['id'], $this->all_fields[$row_slug]['field_type'], $this->all_fields[$row_slug]['field_data'], $stream, $plugin_call);
+				}
 			}
 		}		
 
@@ -913,6 +895,49 @@ class Row_m extends MY_Model {
 		}
 		
 		return $row;			
+	}
+
+	// --------------------------------------------------------------------------	
+
+	/**
+	 * Format a single column
+	 *
+	 * @access 	public
+	 * @params	
+	 */
+	public function format_column($column_slug, $column_data, $row_id, $type_slug, $field_data, $stream, $plugin = true)
+	{
+		// Does our type exist?
+		if ( ! isset($this->type->types->{$type_slug}))
+		{
+			return null;
+		}
+
+		// Is this an alt process type?
+		if (isset($this->type->types->{$type_slug}->alt_process) and $this->type->types->{$type_slug}->alt_process === true)
+		{
+			if ( ! $plugin_call and method_exists($this->type->types->{$type_slug}, 'alt_pre_output'))
+			{
+				$this->type->types->{$type_slug}->alt_pre_output($row_id, $field_data, $this->type->types->{$type_slug}, $stream);
+			}
+			
+			return $column_data;
+		}	
+		else
+		{
+			// If not, check and see if there is a method
+			// for pre output or pre_output_plugin
+			if ($plugin and method_exists($this->type->types->{$type_slug}, 'pre_output_plugin'))
+			{
+				return $this->type->types->{$type_slug}->pre_output_plugin($column_data, $field_data, $column_slug);
+			}
+			elseif (method_exists($this->type->types->{$type_slug}, 'pre_output'))
+			{
+				return $this->type->types->{$type_slug}->pre_output($column_data, $field_data);
+			}
+		}
+
+		return $column_data;
 	}
 
 	// --------------------------------------------------------------------------	
@@ -1032,6 +1057,8 @@ class Row_m extends MY_Model {
 		
 		foreach ($fields as $field)
 		{
+			if ( ! isset($form_data[$field->field_slug])) continue;
+
 			if ( ! in_array($field->field_slug, $skips))
 			{
 				$type_call = $field->field_type;

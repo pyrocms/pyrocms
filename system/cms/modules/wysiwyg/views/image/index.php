@@ -92,7 +92,7 @@
 				<tbody>
 					<?php foreach ($current_folder->items as $image): ?>
 					<tr class="<?php echo alternator('', 'alt'); ?>">
-						<td class="image"><img class="pyro-image" src="<?php echo base_url(); ?>files/thumb/<?php echo $image->id; ?>/50/50" alt="<?php echo $image->name; ?>" width="50" onclick="javascript:insertImage('<?php echo $image->id."', '".htmlentities($image->name)."', '".$image->location."', '".$image->path; ?>');" /></td>
+						<td class="image"><img class="pyro-image" src="<?php echo base_url($image->location === 'local' ? 'files/thumb/'.$image->id.'/50/50' : 'files/cloud_thumb/'.$image->id); ?>" alt="<?php echo $image->name; ?>" width="50" onclick="javascript:insertImage('<?php echo $image->id."', '".htmlentities($image->name)."', '".$image->location."', '".$image->path; ?>');" /></td>
 						<td class="name-description">
 							<p><?php echo $image->name; ?><p>
 							<p><?php echo $image->description; ?></p>

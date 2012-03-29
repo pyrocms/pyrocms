@@ -101,6 +101,6 @@ class Admin extends Admin_Controller
 			->set('group_is_admin', $group_is_admin)
 			->set('permission_modules', $permission_modules)
 			->set('group', $group)
-			->build('admin/group', $this->data);
+			->build('admin/group');
 	}
 }

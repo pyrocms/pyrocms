@@ -173,9 +173,9 @@ class Admin extends Admin_Controller {
 
 		$this->template
 			->title($this->module_details['name'], sprintf(lang('comments.edit_title'), $comment->id))
-			->append_metadata($this->load->view('fragments/wysiwyg', $this->data, TRUE))
+			->append_metadata($this->load->view('fragments/wysiwyg', array(), TRUE))
 			->set('comment', $comment)
-			->build('admin/form', $this->data);
+			->build('admin/form');
 	}
 
 	// Admin: Delete a comment
@@ -289,9 +289,10 @@ class Admin extends Admin_Controller {
 
 	public function preview($id = 0)
 	{
-		$this->data->comment = $this->comments_m->get($id);
-		$this->template->set_layout(FALSE);
-		$this->template->build('admin/preview', $this->data);
+		$this->template
+			->set_layout(false)
+			->set('comment', $this->comments_m->get($id))
+			->build('admin/preview');
 	}
 
 }

@@ -56,36 +56,42 @@ class Api extends API_Controller
 			'count' => $count,
 		));
 	}
-	
+
+	/**
+	 * Get data for a page.
+	 *
+	 * @param int $id The page id.
+	 */
 	public function details_get($id)
 	{
 		$this->load->model('page_m');
-		
+
+		// Get the page along with its chunks.
 		$page = $this->page_m->get($id);
-		
-		// Grab all the chunks that make up the body
-		$page->chunks = $this->db
-			->order_by('sort')
-			->get_where('page_chunks', array('page_id' => $page->id))
-			->result();
-		
-		$this->response(array(
-			'page' => array(
-				'id'               => (int) $page->id,
-				'slug'             => $page->slug,
-				'title'            => $page->title,
-				'uri'              => $page->uri,
-				'css'              => $page->css,
-				'js'               => $page->js,
-				'meta_title'       => $page->meta_title,
-				'meta_keywords'    => $page->meta_keywords,
-				'meta_description' => $page->meta_description,
-				'rss_enabled'      => (bool) $page->rss_enabled,
-				'comments_enabled' => (bool) $page->comments_enabled,
-				'is_home'          => (bool) $page->is_home,
-				'status'           => $page->status,
-				'chunks'           => $page->chunks,
-			),
-		));
+
+		if( $page AND ! empty($page))
+		{
+			// We only require certain columns.
+			$fields = array(
+				'id', 'slug', 'title', 'uri', 'css', 'js', 'meta_title',
+				'meta_keywords', 'meta_description', 'rss_enabled',
+				'comments_enabled', 'is_home', 'status', 'chunks'
+			);
+
+			// Just so that we do not redeclare it for every loop.
+			$page_keys = array_keys($page);
+
+			foreach ($page_keys as $key)
+			{
+				// If the key is not something we are interested in including in our response.
+				if (!in_array($key, $fields))
+				{
+					// unset it.
+					unset($page[$key]);
+				}
+			}
+		}
+		// Sent the response out.
+		$this->response(array('page' => $page));
 	}
 }

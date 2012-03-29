@@ -12,12 +12,14 @@ class Page_m extends MY_Model
 {
 
 	/**
-	* Get a page by it's path
-	*
-	* @access public
-	* @param array $segments The path segments
-	* @return array
-	*/
+	 * Get a page by it's path
+	 *
+	 * @access public
+	 *
+	 * @param array $segments The path segments
+	 *
+	 * @return array
+	 */
 	/*
 	* Not in use right now but added back for a) historical purposes and b) it was f**king difficult to write and I dont want to have to do it again
 	*
@@ -75,6 +77,7 @@ class Page_m extends MY_Model
 	 *
 	 * @param string $uri The uri of the page.
 	 * @param bool $is_request Is this an http request or called from a plugin
+	 *
 	 * @return object
 	 */
 	public function get_by_uri($uri, $is_request = FALSE)
@@ -120,13 +123,46 @@ class Page_m extends MY_Model
 		{
 			// so we found a page but if strict uri matching is required and the unmodified
 			// uri doesn't match the page we fetched then we pretend it didn't happen
-			if ($is_request AND (bool) $page->strict_uri AND $original_uri !== $uri)
+			if ($is_request AND (bool)$page->strict_uri AND $original_uri !== $uri)
 			{
 				return FALSE;
 			}
 
 			// things like breadcrumbs need to know the actual uri, not the uri with extra segments
 			$page->base_uri = $uri;
+		}
+
+		return $page;
+	}
+
+	/**
+	 * Get a page from the database.
+	 *
+	 * Also retrieves the chunks for that page.
+	 *
+	 * @param int $id The page id.
+	 * @param bool $get_chunks Whether to retrieve the chunks for this page or not. Defaults to true.
+	 *
+	 * @return array The page data.
+	 */
+	public function get($id, $get_chunks = true)
+	{
+		$page = $this->db
+			->where($this->primary_key, $id)
+			->get($this->_table)
+			->row(0, 'array');
+
+		if ( ! $page)
+		{
+			return;
+		}
+
+		if ($get_chunks)
+		{
+			$page['chunks'] = $this->db
+				->order_by('sort')
+				->get_where('page_chunks', array('page_id' => $id))
+				->result('array');
 		}
 
 		return $page;
@@ -154,9 +190,9 @@ class Page_m extends MY_Model
 	{
 		$all_pages = $this->db
 			->select('id, parent_id, title')
-			 ->order_by('`order`')
-			 ->get('pages')
-			 ->result_array();
+			->order_by('`order`')
+			->get('pages')
+			->result_array();
 
 		// First, re-index the array.
 		foreach ($all_pages as $row)
@@ -214,6 +250,7 @@ class Page_m extends MY_Model
 	 * Does the page have children?
 	 *
 	 * @param int $parent_id The ID of the parent page
+	 *
 	 * @return bool
 	 */
 	public function has_children($parent_id)
@@ -237,7 +274,7 @@ class Page_m extends MY_Model
 			->where('parent_id', $id)
 			->get('pages')->result();
 
-		$has_children = !empty($children);
+		$has_children = ! empty($children);
 
 		if ($has_children)
 		{
@@ -324,6 +361,7 @@ class Page_m extends MY_Model
 	 *
 	 * @param array $input The page data to insert.
 	 * @param array $chunks The page chunks to insert.
+	 *
 	 * @return bool `true` on success, `false` on failure.
 	 */
 	public function insert(array $input = array(), $chunks = array())
@@ -339,23 +377,23 @@ class Page_m extends MY_Model
 		}
 
 		parent::insert(array(
-			'slug'			=> $input['slug'],
-			'title'			=> $input['title'],
-			'uri'			=> NULL,
-			'parent_id'		=> (int) $input['parent_id'],
-			'layout_id'		=> (int) $input['layout_id'],
-			'css'			=> isset($input['css']) ? $input['css'] : null,
-			'js'			=> isset($input['js']) ? $input['js'] : null,
-			'meta_title'    => isset($input['meta_title']) ? $input['meta_title'] : '',
+			'slug' => $input['slug'],
+			'title' => $input['title'],
+			'uri' => NULL,
+			'parent_id' => (int)$input['parent_id'],
+			'layout_id' => (int)$input['layout_id'],
+			'css' => isset($input['css']) ? $input['css'] : null,
+			'js' => isset($input['js']) ? $input['js'] : null,
+			'meta_title' => isset($input['meta_title']) ? $input['meta_title'] : '',
 			'meta_keywords' => isset($input['meta_keywords']) ? $input['meta_keywords'] : '',
 			'meta_description' => isset($input['meta_description']) ? $input['meta_description'] : '',
-			'rss_enabled'		=> (int) ! empty($input['rss_enabled']),
-			'comments_enabled'	=> (int) ! empty($input['comments_enabled']),
-			'status'		=> $input['status'],
-			'created_on'		=> now(),
-			'strict_uri'	=> (int) ! empty($input['strict_uri']),
-			'is_home'		=> (int) ! empty($input['is_home']),
-			'order'		=> now()
+			'rss_enabled' => (int) ! empty($input['rss_enabled']),
+			'comments_enabled' => (int) ! empty($input['comments_enabled']),
+			'status' => $input['status'],
+			'created_on' => now(),
+			'strict_uri' => (int) ! empty($input['strict_uri']),
+			'is_home' => (int) ! empty($input['is_home']),
+			'order' => now()
 		));
 
 		$id = $this->db->insert_id();
@@ -369,12 +407,12 @@ class Page_m extends MY_Model
 			foreach ($chunks as $chunk)
 			{
 				$this->db->insert('page_chunks', array(
-					'slug' 		=> preg_replace('/[^a-zA-Z0-9_-\s]/', '', $chunk->slug),
-					'page_id' 	=> $id,
-					'body' 		=> $chunk->body,
-					'parsed'	=> ($chunk->type == 'markdown') ? parse_markdown($chunk->body) : '',
-					'type' 		=> $chunk->type,
-					'sort' 		=> $i++,
+					'slug' => preg_replace('/[^a-zA-Z0-9_-\s]/', '', $chunk['slug']),
+					'page_id' => $id,
+					'body' => $chunk['body'],
+					'parsed' => ($chunk['type'] == 'markdown') ? parse_markdown($chunk['body']) : '',
+					'type' => $chunk['type'],
+					'sort' => $i++,
 				));
 			}
 		}
@@ -418,10 +456,10 @@ class Page_m extends MY_Model
 			'meta_keywords' => $input['meta_keywords'],
 			'meta_description' => $input['meta_description'],
 			'restricted_to' => $input['restricted_to'],
-			'rss_enabled' => (int)!empty($input['rss_enabled']),
-			'comments_enabled' => (int)!empty($input['comments_enabled']),
-			'strict_uri'		=> (int) ! empty($input['strict_uri']),
-			'is_home' => (int)!empty($input['is_home']),
+			'rss_enabled' => (int) ! empty($input['rss_enabled']),
+			'comments_enabled' => (int) ! empty($input['comments_enabled']),
+			'strict_uri' => (int) ! empty($input['strict_uri']),
+			'is_home' => (int) ! empty($input['is_home']),
 			'status' => $input['status'],
 			'updated_on' => now()
 		));
@@ -440,10 +478,10 @@ class Page_m extends MY_Model
 				$this->db->insert('page_chunks', array(
 					'page_id' => $id,
 					'sort' => $i++,
-					'slug' => preg_replace('/[^a-zA-Z0-9_-\s]/', '', $chunk->slug),
-					'body' => $chunk->body,
-					'type' => $chunk->type,
-					'parsed' => ($chunk->type == 'markdown') ? parse_markdown($chunk->body) : ''
+					'slug' => preg_replace('/[^a-zA-Z0-9_-\s]/', '', $chunk['slug']),
+					'body' => $chunk['body'],
+					'type' => $chunk['type'],
+					'parsed' => ($chunk['type'] == 'markdown') ? parse_markdown($chunk['body']) : ''
 				));
 			}
 		}
@@ -478,7 +516,7 @@ class Page_m extends MY_Model
 
 		$this->db->trans_complete();
 
-		return $this->db->trans_status() !== FALSE ? $ids : FALSE;
+		return ($this->db->trans_status() !== false) ? $ids : false;
 	}
 
 	/**
