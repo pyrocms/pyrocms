@@ -250,7 +250,7 @@ class Streams_entries extends CI_Driver {
 
 		$stream_fields = $CI->streams_m->get_stream_fields($str_obj->id);
 
-		return $CI->row_m->update_entry($stream_fields, $stream_obj, $entry_id, $entry_data, $skips = array());
+		return $CI->row_m->update_entry($stream_fields, $str_obj, $entry_id, $entry_data, $skips = array());
 	}
 	
 }

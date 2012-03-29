@@ -27,7 +27,7 @@ class Field_choice
 										'max_choices',
 										'show_other'
 									);
-	
+
 	public $plugin_return			= 'merge';
 		
 	// --------------------------------------------------------------------------
@@ -42,6 +42,8 @@ class Field_choice
 	public function form_output($params, $entry_id, $field)
 	{
 		$return = null;
+
+		//print_r($params);
 		
 		$choices = $this->_choices_to_array($params['custom']['choice_data'], $params['custom']['choice_type'], $field->is_required);
 		
@@ -66,9 +68,12 @@ class Field_choice
 					$vals = $params['value'];
 				}
 				
-				foreach($vals as $k => $v)
+				if (is_array($vals))
 				{
-					$vals[$k] = trim($v);
+					foreach($vals as $k => $v)
+					{
+						$vals[$k] = trim($v);
+					}
 				}
 			}
 				
@@ -82,7 +87,7 @@ class Field_choice
 				}
 				else
 				{
-					(in_array($choice_key, $vals)) ? $selected = true : $selected = false;
+					(is_array($vals) and in_array($choice_key, $vals)) ? $selected = true : $selected = false;
 				
 					$return .= '<label class="checkbox">'.form_checkbox($params['form_slug'].'[]', $this->format_choice($choice_key), $selected, 'id="'.$this->format_choice($choice_key).'" '.$this->active_state($choice)).'&nbsp;'.$this->format_choice($choice).'</label>';
 				}
@@ -124,7 +129,7 @@ class Field_choice
 	
 		if ($line{0} == '^')
 		{
-			return ' readonly checked="checked"';
+			return ' disabled="disabled" checked="checked"';
 		}
 	}
 
@@ -229,14 +234,94 @@ class Field_choice
 				}
 			}
 
+			// If we have any disabled checkboxes that have been diabled by
+			// a ^ before it, then we need to go and find those and make sure
+			// they are added in, because they will not be present in the post data
+			$choices = explode("\n", $field->field_data['choice_data']);
+
+			foreach($choices as $choice_line)
+			{
+				$choice_line = trim($choice_line);
+
+				if ($choice_line{0} == '^')
+				{
+					$input[] = substr($choice_line, 1);
+				}
+			}
+
 			// One per line
-			return implode("\n", $input);		
+			return implode("\n", array_unique($input));		
 		}
 		else
 		{
 			// Booooo
 			return $input;
 		}
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Validate input
+	 *
+	 * @access	public
+	 * @param	string
+	 * @param	string - mode: edit or new
+	 * @param	object
+	 * @return	mixed - true or error string
+	 */
+	public function validate($value, $mode, $field)
+	{
+		if ($field->field_data['choice_type'] == 'checkboxes' and is_array($value))
+		{
+			// Go through and count the number that are disabled
+			$choices = explode("\n", $field->field_data['choice_data']);
+
+			foreach($choices as $choice_line)
+			{
+				$choice_line = trim($choice_line);
+
+				if ($choice_line{0} == '^')
+				{
+					$value[] = substr($choice_line, 1);
+				}
+			}
+		
+			$value = array_unique($value);	
+
+			// Get the actual number of checked items
+			$total_selected = count($value);
+
+			// -------------------------------
+			// Min Choices
+			// -------------------------------
+
+			if (isset($field->field_data['min_choices']) and is_numeric($field->field_data['min_choices']))
+			{
+				if ($field->field_data['min_choices'] > $total_selected)
+				{
+					return 'You must select at least '.$field->field_data['min_choices'].' items from the %s list.';
+				}
+			}
+
+			// -------------------------------
+			// Max Choices
+			// -------------------------------
+
+			if (isset($field->field_data['max_choices']) and is_numeric($field->field_data['max_choices']))
+			{
+				if ($field->field_data['max_choices'] < $total_selected)
+				{
+					return 'You can only select '.$field->field_data['max_choices'].' items from the %s list.';
+				}
+			}
+
+			// -------------------------------
+			// Check Other
+			// -------------------------------
+		}
+
+		return true;
 	}
 	
 	// --------------------------------------------------------------------------
