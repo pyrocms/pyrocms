@@ -7,14 +7,14 @@
  *
  */
 class Admin extends Admin_Controller {
-	
+
 	/**
 	 * The current active section.
 	 *
 	 * @var int
 	 */
 	protected $section = 'links';
-	
+
 	/**
 	 * The array containing the rules for the navigation items.
 	 *
@@ -91,9 +91,9 @@ class Admin extends Admin_Controller {
 		$this->load->model('pages/page_m');
 		$this->lang->load('navigation');
 
-	    $this->template
-		    ->append_js('module::navigation.js')
-		    ->append_css('module::navigation.css');
+		$this->template
+			->append_js('module::navigation.js')
+			->append_css('module::navigation.css');
 
 		// Get Navigation Groups
 		$this->template->groups 		= $this->navigation_m->get_groups();
@@ -105,7 +105,7 @@ class Admin extends Admin_Controller {
 		{
 			if(in_array($module['slug'], $this->permissions) OR $this->current_user->group == 'admin') $modules[] = $module;
 		}
-		
+
 		$this->template->modules_select = array_for_select($modules, 'slug', 'name');
 
 		// Get Pages and create pages tree
@@ -145,10 +145,9 @@ class Admin extends Admin_Controller {
 			->append_js('jquery/jquery.cooki.js')
 			->title($this->module_details['name'])
 			->set('navigation', $navigation)
-			->set('controller', &$this)
 			->build('admin/index');
 	}
-	
+
 	/**
 	 * Order the links and record their children
 	 */
@@ -162,16 +161,16 @@ class Admin extends Admin_Controller {
 		{
 			//reset all parent > child relations
 			$this->navigation_m->update_by_group($group, array('parent' => 0));
-			
+
 			foreach ($order as $i => $link)
 			{
 				//set the order of the root links
 				$this->navigation_m->update_by('id', str_replace('link_', '', $link['id']), array('position' => $i));
-				
+
 				//iterate through children and set their order and parent
 				$this->navigation_m->_set_children($link);
 			}
-			
+
 			$this->pyrocache->delete_all('navigation_m');
 			Events::trigger('post_navigation_order', array($order, $group));
 		}
@@ -185,9 +184,9 @@ class Admin extends Admin_Controller {
 	public function ajax_link_details($link_id)
 	{
 		$link = $this->navigation_m->get_url($link_id);
-		
+
 		$ids = explode(',', $link[0]->restricted_to);
-		
+
 		$this->load->model('groups/group_m');
 		$groups = $this->group_m->where_in('id', $ids)->dropdown('id', 'name');
 
@@ -221,16 +220,16 @@ class Admin extends Admin_Controller {
 		{
 			$input = $this->input->post();
 			$input['restricted_to'] = isset($input['restricted_to']) ? implode(',', $input['restricted_to']) : '';
-			
+
 			// Got post?
 			if ($this->navigation_m->insert_link($input) > 0)
 			{
 				$this->pyrocache->delete_all('navigation_m');
-				
+
 				Events::trigger('post_navigation_create', $input);
 
 				$this->session->set_flashdata('success', lang('nav_link_add_success'));
-				
+
 				// echo success to let the js refresh the page
 				echo 'success';
 				return;
@@ -238,12 +237,12 @@ class Admin extends Admin_Controller {
 			else
 			{
 				$this->template->messages['error'] = lang('nav_link_add_error');
-				
+
 				echo $this->load->view('admin/partials/notices', $this->template);
 				return;
 			}
 		}
-		
+
 		// check for errors
 		if (validation_errors())
 		{
@@ -287,7 +286,7 @@ class Admin extends Admin_Controller {
 
 		// Get the navigation item based on the ID
 		$this->template->navigation_link = $this->navigation_m->get_link($id);
-		
+
 		// Set the options for restricted to
 		$this->load->model('groups/group_m');
 		$groups = $this->group_m->get_all();
@@ -300,7 +299,7 @@ class Admin extends Admin_Controller {
 		if ( ! $this->template->navigation_link)
 		{
 			$this->template->messages['error'] = lang('nav_link_not_exist_error');
-			
+
 			echo $this->load->view('admin/partials/notices', $this->template);
 			return;
 		}
@@ -310,23 +309,23 @@ class Admin extends Admin_Controller {
 		{
 			$input = $this->input->post();
 			$input['restricted_to'] = isset($input['restricted_to']) ? implode(',', $input['restricted_to']) : '';
-			
+
 			// Update the link and flush the cache
 			$this->navigation_m->update_link($id, $input);
 			$this->pyrocache->delete_all('navigation_m');
 
 			Events::trigger('post_navigation_edit', $input);
-			
+
 			$this->session->set_flashdata('success', lang('nav_link_edit_success'));
-				
+
 			// echo success to let the js refresh the page
 			echo 'success';
 			return;
 		}
-		
+
 		// check for errors
 		if (validation_errors())
-		{	
+		{
 			echo $this->load->view('admin/partials/notices', $this->template);
 			return;
 		}
@@ -448,34 +447,6 @@ class Admin extends Admin_Controller {
 	}
 
 	/**
-	 * Build the html for the admin link tree view
-	 *
-	 * @author Jerel Unruh
-	 *
-	 * @param array $link Current navigation link
-	 * @param $group_id
-	 */
-	public function tree_builder($link, $group_id)
-	{
-		if ($link['children']){
-		
-			foreach($link['children'] as $link)
-			{
-				?><li id="link_<?php echo $link['id']; ?>">
-					<div>
-						<a href="#" rel="<?php echo $group_id . '" alt="' . $link['id'] .'">' . $link['title']; ?></a>
-					</div>
-					<?php if ($link['children']): ?>
-					<ul>
-						<?php $this->tree_builder($link, $group_id); ?>
-					</ul>
-					<?php endif; ?>
-				</li><?php
-			}
-		}
-	}
-	
-	/**
 	 * Validate the link value.
 	 *
 	 * Only the URI field may be submitted blank.
@@ -487,20 +458,20 @@ class Admin extends Admin_Controller {
 		$status = TRUE;
 
 		switch ($link) {
-			
+
 			case 'url':
 				$status = ($this->input->post('url') > '' AND $this->input->post('url') !== 'http://');
 			break;
-		
+
 			case 'module':
 				$status = ($this->input->post('module_name') > '');
 			break;
-		
+
 			case 'page':
 				$status = ($this->input->post('page_id') > '');
 			break;
 		}
-		
+
 		if ( ! $status)
 		{
 			$this->form_validation->set_message('_link_check', sprintf(lang('nav_choose_value'), lang('nav_'.$link.'_label')));
