@@ -6,27 +6,7 @@
 	<section class="item">
 		<div id="page-list">
 		<ul class="sortable">
-
-			<?php foreach($pages as $page): ?>
-	
-					<li id="page_<?php echo $page['id']; ?>">
-						<div>
-							<a href="#" rel="<?php echo $page['id']; ?>"><?php echo $page['title']; ?></a>
-						</div>
-				
-					<?php if(isset($page['children'])): ?>
-						<ul>
-							<?php $controller->tree_builder($page); ?>
-						</ul>
-					</li>
-				
-					<?php else: ?>
-					
-					</li>
-				
-				<?php endif; ?>
-			<?php endforeach; ?>
-
+			<?php echo tree_builder($pages, array('li' => array('id' => 'page_:id:'), 'a' => array('href' => '#', 'rel' => ':id:'))); ?>
 		</ul>
 		</div>
 	</section>

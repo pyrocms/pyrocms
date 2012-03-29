@@ -140,7 +140,6 @@ class Admin extends Admin_Controller {
 			->append_css('module::index.css')
 
 			->set('pages', $this->page_m->get_page_tree())
-			->set('controller', &$this)
 			->build('admin/index');
 	}
 
@@ -564,7 +563,7 @@ class Admin extends Admin_Controller {
 			$group->name !== 'admin' && $group_options[$group->id] = $group->name;
 		}
 		$this->template->group_options = $group_options;
-		
+
 		$this->template
 			->append_js('jquery/jquery.tagsinput.js')
 			->append_js('jquery/jquery.cooki.js')
@@ -628,31 +627,6 @@ class Admin extends Admin_Controller {
 		}
 
 		redirect('admin/pages');
-	}
-
-	/**
-	 * Build the html for the admin page tree view
-	 *
-	 * @param array $page Current page
-	 */
-	public function tree_builder($page)
-	{
-		if (isset($page['children']))
-		{
-
-			foreach($page['children'] as $page)
-			{ ?>
-
-				<li id="page_<?php echo $page['id']; ?>">
-					<div><a href="#" rel="<?php echo $page['id'] . '">' . $page['title']; ?></a></div>
-					<?php if(isset($page['children'])): ?>
-					<ul>
-						<?php $this->tree_builder($page); ?>
-					</ul>
-					<?php endif; ?>
-				</li>
-			<?php }
-		}
 	}
 
 	/**
