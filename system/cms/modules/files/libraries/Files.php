@@ -196,6 +196,9 @@ class Files
 		// build a multidimensional array of parent > children
 		foreach ($folders as $row)
 		{
+			// Add title to the array because tree_builder() expects one.
+			$folders[$row['id']]['title'] = $folders[$row['id']]['name'];
+
 			if (array_key_exists($row['parent_id'], $folders))
 			{
 				// add this folder to the children array of the parent folder

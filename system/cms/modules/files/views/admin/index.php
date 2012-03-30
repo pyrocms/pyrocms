@@ -9,7 +9,16 @@
 			<?php if ( ! $folders) : ?>
 			<li class="no_data"><?php echo lang('files:no_folders_places'); ?></li>
 			<?php elseif ($folder_tree) : ?>
-			<?php echo tree_builder($folder_tree, array('li' => array('id' => 'page_:id:'), 'a' => array('href' => '#', 'rel' => ':id:'))); ?>
+			<?php echo tree_builder($folder_tree, array(
+				'li' => array(
+					'class' => 'folder',
+					'data-id' => ':id:',
+					'data-name' => ':name:'
+				),
+				'a' => array(
+					'href' => '#',
+				)
+			)); ?>
 			<?php endif; ?>
 		</ul>
 	</section>
