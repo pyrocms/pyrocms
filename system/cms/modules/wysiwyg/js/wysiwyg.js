@@ -13,7 +13,7 @@ function insertImage(file, alt, location, path)
 		path = '{{ url:site }}files/thumb/' + file + '/' + img_width;
 	}
 	
-	window.parent.instance.insertHtml('<img class="pyro-image" width="'+img_width+'" style="float: '+get_float()+';" src="'+path+'" alt="' + alt + '" />');
+	window.parent.instance.insertHtml('<img class="pyro-image" width="'+img_width+'" '+get_float()+' src="'+path+'" alt="' + alt + '" />');
     windowClose();
 }
 
@@ -34,7 +34,8 @@ function insertFile(id, title, location, path)
 function get_float()
 {
     img_float = jQuery('input[name=insert_float]:checked').val();
-    return img_float;
+
+    return img_float !== 'none' ? 'style="float:'+img_float+'"' : '';
 }
 
 // By default, insert (which will also replace)
