@@ -83,7 +83,7 @@
 						), $chunk['type']); ?>
 						<div class="alignright">
 							<a href="javascript:void(0)" class="remove-chunk btn red"><?php echo lang('global:remove') ?></a>
-								<span class="sort-handle"></span>
+							<span class="sort-handle"></span>
 						</div>
 					</div>
 					<br style="clear:both" />

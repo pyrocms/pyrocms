@@ -14,10 +14,8 @@
 		});
 		
 		// Hide the huge textarea
-		$('.sort-handle').live('mousedown',function(e){
-			e.preventDefault();
+		$('#page-chunks').on('mousedown', '.sort-handle', function(e){
 			$('.chunky').hide();
-			return false;
 		});
 		
 		// Attach sortable to the page chunks ul
