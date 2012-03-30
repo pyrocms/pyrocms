@@ -524,6 +524,10 @@ class Admin extends Admin_Controller {
 			// Get only the details for the parent, no chunks.
 			$parent_page = $this->page_m->get($page['parent_id'], false);
 		}
+		else
+		{
+			$parent_page = false;
+		}
 
 		$this->_form_data();
 
