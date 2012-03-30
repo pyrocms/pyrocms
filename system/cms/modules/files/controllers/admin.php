@@ -78,8 +78,7 @@ class Admin extends Admin_Controller {
 			// should we show the "no data" message to them?
 			->set('folders', $this->file_folders_m->count_by('parent_id', 0))
 			->set('locations', array_combine($parts, $parts))
-			->set('folder_tree', Files::folder_tree())
-			->set('admin', &$this);
+			->set('folder_tree', Files::folder_tree());
 
 		$files_path = Files::$path;
 		if (!is_really_writable($files_path))
@@ -88,43 +87,6 @@ class Admin extends Admin_Controller {
 		}
 
 		$this->template->build('admin/index');
-	}
-
-	/**
-	 * Folder Sidebar
-	 *
-	 * @param array $folder The array of the folder structure.
-	 * @param null|bool $is_root Due to the root folder not having the 'children' element.
-	 *
-	 * @return string
-	 */
-	public function sidebar($folder, $is_root = null)
-	{
-
-		if ($is_root || (isset($folder['children']) && is_array($folder['children'])))
-		{
-			$items = ($is_root) ? $folder : $folder['children'];
-			$list_items = '';
-
-			foreach ($items as $item)
-			{
-				$list_items .= '<li class="folder" data-id="'.$item['id'].'" data-name="'.$item['name'].'">
-					<div></div>
-					<a href="#">'.$item['name'].'</a>';
-
-				$children_items = $this->sidebar($item);
-				if ( ! empty($children_items))
-				{
-					$list_items .= '<ul style="display:none" >'.$children_items.'</ul>';
-				}
-
-				$list_items .= '</li>';
-			}
-
-			return $list_items;
-		}
-
-		return '';
 	}
 
 	/**
