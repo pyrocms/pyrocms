@@ -9,7 +9,7 @@
 			<?php if ( ! $folders) : ?>
 				<li class="no_data"><?php echo lang('files:no_folders_places'); ?></li>
 			<?php elseif ($folder_tree) : ?>
-				<?php echo tree_builder($folder_tree, '<li class="folder" data-id="{{ id }}" data-name="name"><div></div><a href="#">{{ title }}</a>{{ children }}</li>'); ?>
+				<?php echo tree_builder($folder_tree, '<li class="folder" data-id="{{ id }}" data-name="{{ name }}"><div></div><a href="#">{{ name }}</a>{{ children }}</li>'); ?>
 			<?php endif; ?>
 		</ul>
 	</section>
