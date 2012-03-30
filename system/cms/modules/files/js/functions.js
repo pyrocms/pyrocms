@@ -438,12 +438,11 @@ jQuery(function($){
 	/***************************************************************************
 	 * All functions that are part of the pyro.files namespace                 *
 	 ***************************************************************************/
+
+	// todo: maybe we should not save the folder until the user has put a name, fake the folder creation until then?
 	pyro.files.new_folder = function(parent, name) {
 
-		// todo: maybe we should not save the folder until the user has put a name, fake the folder creation until then?
-
-		if (typeof(name) === 'undefined')
-		{
+		if (typeof(name) === 'undefined') {
 			name = pyro.lang.new_folder_name;
 		}
 
