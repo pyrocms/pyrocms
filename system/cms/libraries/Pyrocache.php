@@ -156,7 +156,7 @@ class Pyrocache
 		// Clean given arguments to a 0-index array
 		$arguments = array_values($arguments);
 
-		$cache_file = $property.DIRECTORY_SEPARATOR.do_hash($method.serialize($arguments), 'sha1');
+		$cache_file = $property.DIRECTORY_SEPARATOR.do_hash($_SERVER['SERVER_NAME'].$method.serialize($arguments), 'sha1');
 
 		// Delete if expires is negative
 		if ($expires < 0)
