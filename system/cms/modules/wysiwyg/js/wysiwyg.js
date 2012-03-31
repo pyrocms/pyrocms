@@ -8,12 +8,18 @@ function insertImage(file, alt, location, path)
 		replace_html.remove();
 	}
 	var img_width = document.getElementById('insert_width').value;
+		img_width = ! isNaN(img_width) ? img_width : 0;
 
 	if (location == 'local') {
 		path = '{{ url:site }}files/thumb/' + file + '/' + img_width;
 	}
 	
-	window.parent.instance.insertHtml('<img class="pyro-image" width="'+img_width+'" style="float: '+get_float()+';" src="'+path+'" alt="' + alt + '" />');
+	// don't display a width="0" tag
+	var width_tag	= (img_width > 0 ? 'width="'+img_width+'"' : '');
+	var img_float 	= $('input[name=insert_float]:checked').val();
+	var float_tag 	= (img_float !== 'none' ? 'style="float:'+img_float+'"' : '');
+
+	window.parent.instance.insertHtml('<img class="pyro-image alignment-'+img_float+'" '+width_tag+' '+float_tag+' src="'+path+'" alt="' + alt + '" />');
     windowClose();
 }
 
@@ -29,12 +35,6 @@ function insertFile(id, title, location, path)
 	}
 	window.parent.instance.insertHtml('<a class="pyro-file" href="'+path+'">' + title + '</a>');
     windowClose();
-}
-
-function get_float()
-{
-    img_float = jQuery('input[name=insert_float]:checked').val();
-    return img_float;
 }
 
 // By default, insert (which will also replace)
@@ -157,18 +157,23 @@ $(function()
     
     //slider
    
-    $( "#slider" ).livequery(function() {
+    $('#slider').livequery(function() {
 		$(this).fadeIn('slow');
 		$(this).slider({
-			value: 200,
+			value: 0,
 			min: 0,
 			max: 1000,
 			step: 1,
 			slide: function( event, ui ) {
-				$( "#insert_width" ).val( ui.value );
+				if (ui.value > 0) {
+					$('#insert_width').val(ui.value);
+				} else {
+					$('#insert_width').val( $('#insert_width').attr('data-name') );
+				}
 			}
 		});
-		$( "#insert_width" ).val( $( "#slider" ).slider( "value" ) );
+
+		$('#insert_width').val( $('#insert_width').attr('data-name') );
     });
     
 	$('#radio-group').livequery(function(){

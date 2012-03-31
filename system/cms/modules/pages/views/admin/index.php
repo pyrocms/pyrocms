@@ -6,7 +6,7 @@
 	<section class="item">
 		<div id="page-list">
 		<ul class="sortable">
-			<?php echo tree_builder($pages, array('li' => array('id' => 'page_:id:'), 'a' => array('href' => '#', 'rel' => ':id:'))); ?>
+			<?php echo tree_builder($pages, '<li id="page_{{ id }}"><div><a href="#" rel="{{ id }}">{{ title }}</a></div>{{ children }}</li>'); ?>
 		</ul>
 		</div>
 	</section>

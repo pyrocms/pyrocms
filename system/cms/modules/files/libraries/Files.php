@@ -24,8 +24,7 @@ class Files
 
 	public function __construct()
 	{
-		$ci = ci();
-		$ci->load->config('files/files');
+		ci()->load->config('files/files');
 
 		self::$path = config_item('files:path');
 		self::$_cache_path = config_item('cache_dir').'cloud_cache/';
@@ -41,9 +40,9 @@ class Files
 		set_exception_handler(array($this, 'exception_handler'));
 		set_error_handler(array($this, 'error_handler'));
 
-		$ci->load->model('files/file_m');
-		$ci->load->model('files/file_folders_m');
-		$ci->load->spark('cloudmanic-storage/1.0.4');
+		ci()->load->model('files/file_m');
+		ci()->load->model('files/file_folders_m');
+		ci()->load->spark('cloudmanic-storage/1.0.4');
 	}
 
 	// ------------------------------------------------------------------------
@@ -58,14 +57,13 @@ class Files
 	**/
 	public static function create_folder($parent = 0, $name = 'Untitled Folder')
 	{
-		$ci = ci();
 		$i = '';
 		$original_slug = self::create_slug($name);
 		$original_name = $name;
 
 		$slug = $original_slug;
 
-		while ($ci->file_folders_m->count_by('slug', $slug))
+		while (ci()->file_folders_m->count_by('slug', $slug))
 		{
 			$i++;
 			$slug = $original_slug.'-'.$i;
@@ -79,7 +77,7 @@ class Files
 						'sort' => now()
 						);
 
-		$id = $ci->file_folders_m->insert($insert);
+		$id = ci()->file_folders_m->insert($insert);
 
 		$insert['id'] = $id;
 		$insert['file_count'] = 0;
@@ -100,15 +98,14 @@ class Files
 	**/
 	public static function create_container($container, $location, $id = 0)
 	{
-		$ci = ci();
-		$ci->storage->load_driver($location);
+		ci()->storage->load_driver($location);
 
-		$result = $ci->storage->create_container($container, 'public');
+		$result = ci()->storage->create_container($container, 'public');
 
 		// if they are also linking a local folder then we save that
 		if ($id)
 		{
-			$ci->db->where('id', $id)->update('file_folders', array('remote_container' => $container));
+			ci()->db->where('id', $id)->update('file_folders', array('remote_container' => $container));
 		}
 
 		if ($result)
@@ -130,13 +127,11 @@ class Files
 	**/
 	public static function folder_contents($parent = 0)
 	{
-		$ci = ci();
-
-		$folders = $ci->file_folders_m->where('parent_id', $parent)
+		$folders = ci()->file_folders_m->where('parent_id', $parent)
 			->order_by('sort')
 			->get_all();
 
-		$files = $ci->file_m->where('folder_id', $parent)
+		$files = ci()->file_m->where('folder_id', $parent)
 			->order_by('sort')
 			->get_all();
 
@@ -147,7 +142,7 @@ class Files
 			{
 				$folder->formatted_date = format_date($folder->date_added);
 
-				$folder->file_count = $ci->file_m->count_by('folder_id', $folder->id);
+				$folder->file_count = ci()->file_m->count_by('folder_id', $folder->id);
 			}
 		}
 
@@ -327,24 +322,22 @@ class Files
 		// this keeps a long running upload from stalling the site
 		session_write_close();
 
-		$ci = ci();
-
-		$folder = $ci->file_folders_m->get($folder_id);
+		$folder = ci()->file_folders_m->get($folder_id);
 
 		if ($folder)
 		{
-			$ci->load->library('upload', array(
+			ci()->load->library('upload', array(
 				'upload_path'	=> self::$path,
 				'allowed_types'	=> self::$_ext,
 				'file_name'		=> self::$_filename
 			));
 
-			if ($ci->upload->do_upload($field))
+			if (ci()->upload->do_upload($field))
 			{
-				$file = $ci->upload->data();
+				$file = ci()->upload->data();
 				$data = array(
 					'folder_id'		=> (int) $folder_id,
-					'user_id'		=> (int) $ci->current_user->id,
+					'user_id'		=> (int) ci()->current_user->id,
 					'type'			=> self::$_type,
 					'name'			=> $name ? $name : $file['file_name'],
 					'path'			=> '{{ url:site }}files/large/'.$file['file_name'],
@@ -361,7 +354,7 @@ class Files
 				// perhaps they want to resize it a bit as they upload
 				if ($file['is_image'] AND $width OR $height)
 				{
-					$ci->load->library('image_lib');
+					ci()->load->library('image_lib');
 
 					$config['image_library']    = 'gd2';
 					$config['source_image']     = self::$path.$data['filename'];
@@ -369,12 +362,12 @@ class Files
 					$config['maintain_ratio']   = $ratio;
 					$config['width']            = $width;
 					$config['height']           = $height;
-					$ci->image_lib->initialize($config);
-					$ci->image_lib->resize();
-					$ci->image_lib->clear();
+					ci()->image_lib->initialize($config);
+					ci()->image_lib->resize();
+					ci()->image_lib->clear();
 				}
 
-				$file_id = $ci->file_m->insert($data);
+				$file_id = ci()->file_m->insert($data);
 
 				if ($folder->location !== 'local')
 				{
@@ -385,7 +378,7 @@ class Files
 			}
 			else
 			{
-				$errors = $ci->upload->display_errors();
+				$errors = ci()->upload->display_errors();
 
 				return self::result(FALSE, $errors);
 			}
@@ -722,8 +715,7 @@ class Files
 	**/
 	public static function synchronize($folder_id)
 	{
-		$ci = ci();
-		$folder = $ci->file_folders_m->get_by('id', $folder_id);
+		$folder = ci()->file_folders_m->get_by('id', $folder_id);
 
 		$files = Files::list_files($folder->location, $folder->remote_container);
 
@@ -732,7 +724,7 @@ class Files
 		{
 			$valid_records = array();
 			$known = array();
-			$known_files = $ci->file_m->where('folder_id', $folder_id)->get_all();
+			$known_files = ci()->file_m->where('folder_id', $folder_id)->get_all();
 
 			// now we build an array with the database filenames as the keys so we can compare with the cloud list
 			foreach ($known_files as $item)
@@ -747,7 +739,7 @@ class Files
 				{
 					$insert = array(
 						'folder_id' 	=> $folder_id,
-						'user_id'		=> $ci->current_user->id,
+						'user_id'		=> ci()->current_user->id,
 						'type'			=> $file['type'],
 						'name'			=> $file['filename'],
 						'filename'		=> $file['filename'],
@@ -760,13 +752,13 @@ class Files
 					);
 
 					// we add the id to the list of records that have existing files to match them
-					$valid_records[] = $ci->file_m->insert($insert);
+					$valid_records[] = ci()->file_m->insert($insert);
 				}
 				// it's totally not a new file
 				else
 				{
 					// update with the details we got from the cloud
-					$ci->file_m->update($known[$file['filename']]->id, $file);
+					ci()->file_m->update($known[$file['filename']]->id, $file);
 
 					// we add the id to the list of records that have existing files to match them
 					$valid_records[] = $known[$file['filename']]->id;
@@ -774,7 +766,7 @@ class Files
 			}
 
 			// Ok then. Let's clean up the records with no files and get out of here
-			$ci->db->where('folder_id', $folder_id)
+			ci()->db->where('folder_id', $folder_id)
 				->where_not_in('id', $valid_records)
 				->delete('files');
 
@@ -797,12 +789,11 @@ class Files
 	**/
 	public static function delete_file($id = 0)
 	{
-		$ci = ci();
-		if ($file = $ci->file_m->select('files.*, file_folders.name foldername, file_folders.slug, file_folders.location, file_folders.remote_container')
+		if ($file = ci()->file_m->select('files.*, file_folders.name foldername, file_folders.slug, file_folders.location, file_folders.remote_container')
 			->join('file_folders', 'files.folder_id = file_folders.id')
 			->get_by('files.id', $id))
 		{
-			$ci->file_m->delete($id);
+			ci()->file_m->delete($id);
 
 			if ($file->location === 'local')
 			{
@@ -810,8 +801,8 @@ class Files
 			}
 			else
 			{
-				$ci->storage->load_driver($file->location);
-				$ci->storage->delete_file($file->remote_container, $file->filename);
+				ci()->storage->load_driver($file->location);
+				ci()->storage->delete_file($file->remote_container, $file->filename);
 
 				@unlink(self::$_cache_path.$file->filename);
 			}
@@ -833,39 +824,38 @@ class Files
 	**/
 	public static function search($search, $limit = 5)
 	{
-		$ci = ci();
 		$results = array();
 		$search = explode(' ', $search);
 
 		// first we search folders
-		$ci->file_folders_m->select('name, parent_id');
+		ci()->file_folders_m->select('name, parent_id');
 		
 		foreach ($search as $match) 
 		{
 			$match = trim($match);
 
-			$ci->file_folders_m->like('name', $match)
+			ci()->file_folders_m->like('name', $match)
 				->or_like('location', $match)
 				->or_like('remote_container', $match);
 		}
 
-		$results['folder'] = $ci->file_folders_m->limit($limit)
+		$results['folder'] = ci()->file_folders_m->limit($limit)
 			->get_all();
 
 
 		// search the file records
-		$ci->file_m->select('name, folder_id');
+		ci()->file_m->select('name, folder_id');
 
 		foreach ($search as $match) 
 		{
 			$match = trim($match);
 
-			$ci->file_m->like('name', $match)
+			ci()->file_m->like('name', $match)
 			->or_like('filename', $match)
 			->or_like('extension', $match);
 		}
 
-		$results['file'] = 	$ci->file_m->limit($limit)
+		$results['file'] = 	ci()->file_m->limit($limit)
 			->get_all();
 
 		if ($results['file'] OR $results['folder'])
@@ -910,14 +900,13 @@ class Files
 	**/
 	public static function allowed_actions()
 	{
-		$ci = ci();
 		$allowed_actions = array();
 
-		foreach ($ci->module_m->roles('files') as $value)
+		foreach (ci()->module_m->roles('files') as $value)
 		{
 			// build a simplified permission list for use in this module
-			if (isset($ci->permissions['files']) AND
-				array_key_exists($value, $ci->permissions['files']) OR $ci->current_user->group == 'admin')
+			if (isset(ci()->permissions['files']) AND
+				array_key_exists($value, ci()->permissions['files']) OR ci()->current_user->group == 'admin')
 			{
 				$allowed_actions[] = $value;
 			}

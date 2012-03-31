@@ -57,7 +57,7 @@ class Admin extends Admin_Controller
 		{
 			$this->form_validation->set_rules($this->validation_rules);
 
-			$name = strtolower($this->input->post('name'));
+			$name = $this->input->post('name');
 
 			if ($this->form_validation->run())
 			{

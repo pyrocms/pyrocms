@@ -53,7 +53,7 @@ $lang['files:check_container']				= 'Έλεγχος Εγκυρότητας';
 $lang['files:search_message']				= 'Εισάγετε όρο & Enter';
 $lang['files:search']						= 'Αναζήτηση';
 $lang['files:synchronize']					= 'Συγχρονισμός';
-$lang['files:uploader']						= 'Drop files here <br />or<br />Click to select files'; #translate
+$lang['files:uploader']						= 'Σύρτε και αφήστε τα αρχεία εδώ <br />ή<br />Κάντε κλικ για να επιλέξετε αρχεία';
 
 // Context Menu
 $lang['files:open']							= 'Άνοιγμα';
@@ -101,9 +101,9 @@ $lang['files:invalid_extension']			= 'Το "%s" έχει μια μη αποδε�
 $lang['files:upload_error']					= 'Η μεταφόρτωση του αρχείου απέτυχε';
 $lang['files:description_saved']			= 'Η περιγραφή του αρχείο αποθηκεύτηκε';
 $lang['files:file_moved']					= 'Το "%s" μεταφέρθηκε με επιτυχία';
-$lang['files:exceeds_server_setting']		= 'The server cannot handle this large of a file'; #translate
-$lang['files:exceeds_allowed']				= 'File exceeds the max size allowed'; #translate
-$lang['files:file_type_not_allowed']		= 'This type of file is not allowed'; #translate
+$lang['files:exceeds_server_setting']		= 'Ο διακομιστής δεν μπορεί να διαχειριστεί τόσο μεγάλα αρχεία';
+$lang['files:exceeds_allowed']				= 'Το μέγεθος του αρχείου είναι μεγαλύτερο από το επιτρεπόμενο';
+$lang['files:file_type_not_allowed']		= 'Αυτός ο τύπος αρχείου δεν μπορεί να γίνει αποδεκτός';
 $lang['files:type_a']						= 'Ήχος';
 $lang['files:type_v']						= 'Video';
 $lang['files:type_d']						= 'Έγγραφο';

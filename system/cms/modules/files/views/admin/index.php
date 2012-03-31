@@ -7,11 +7,9 @@
 		<ul id="folders-sidebar">
 			<li class="folder places" data-id="0"><a href="#"><?php echo lang('files:places') ?></a></li>
 			<?php if ( ! $folders) : ?>
-			<li class="no_data"><?php echo lang('files:no_folders_places'); ?></li>
-			<?php endif; ?>
-
-			<?php if ($folder_tree) : ?>
-			<?php echo $admin->sidebar($folder_tree, true); ?>
+				<li class="no_data"><?php echo lang('files:no_folders_places'); ?></li>
+			<?php elseif ($folder_tree) : ?>
+				<?php echo tree_builder($folder_tree, '<li class="folder" data-id="{{ id }}" data-name="{{ name }}"><div></div><a href="#">{{ name }}</a>{{ children }}</li>'); ?>
 			<?php endif; ?>
 		</ul>
 	</section>

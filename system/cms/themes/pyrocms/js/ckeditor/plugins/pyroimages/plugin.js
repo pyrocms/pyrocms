@@ -27,6 +27,18 @@ CKEDITOR.plugins.add('pyroimages',
 				command.setState(CKEDITOR.TRISTATE_DISABLED);
 			}
 		});
+
+		// When the "Image Properties" dialog windows is closed with the OK button, ckeditor inserts the updated element into the editor
+		// without calling the dataProcessor on it.
+		// This results in the image appearing as broken, as the {{ url:site }} isn't filtered out.
+		// We overcome this by hooking into the dialogHide event for the "Image Properties" dialog, and triggering an event
+		// which causes the newly-updated element (and everything else) to be processed by the dataProcessor.
+		editor.on('dialogHide', function(e) {
+			if (e.data.getName() != 'image')
+				return;
+
+			editor.getMode().loadData( editor.getData() );
+		});
 	},
 
 	// Create a filter which re-writes {{ url:site }} and {{ url:base }} to the JS constants SITE_URL and BASE_URL when rendering a wysiwyg preview
@@ -34,8 +46,8 @@ CKEDITOR.plugins.add('pyroimages',
 	// Having {{url:site }} in image src values allows the site to change URL without all images breaking
 	afterInit : function( editor )
 	{
-		var dataProcessor = editor.dataProcessor,
-			dataFilter = dataProcessor && dataProcessor.dataFilter;
+		var dataProcessor = editor.dataProcessor;
+		var dataFilter = dataProcessor && dataProcessor.dataFilter;
 
 		if ( !dataFilter )
 			return;

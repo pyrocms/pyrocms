@@ -33,7 +33,8 @@ class Module_Comments extends Module {
 				'ru' => 'Комментарии',
 				'sl' => 'Komentarji',
 				'zh' => '回應',
-				'hu' => 'Hozzászólások'
+				'hu' => 'Hozzászólások',
+                                'se' => 'Kommentarer'
 			),
 			'description' => array(
 				'en' => 'Users and guests can write comments for content like blog, pages and photos.',
@@ -55,7 +56,8 @@ class Module_Comments extends Module {
 				'ru' => 'Пользователи и гости могут добавлять комментарии к новостям, информационным страницам и фотографиям.',
 				'sl' => 'Uporabniki in obiskovalci lahko vnesejo komentarje na vsebino kot je blok, stra ali slike',
 				'zh' => '用戶和訪客可以針對新聞、頁面與照片等內容發表回應。',
-				'hu' => 'A felhasználók és a vendégek hozzászólásokat írhatnak a tartalomhoz (bejegyzésekhez, oldalakhoz, fotókhoz).'
+				'hu' => 'A felhasználók és a vendégek hozzászólásokat írhatnak a tartalomhoz (bejegyzésekhez, oldalakhoz, fotókhoz).',
+                                'se' => 'Användare och besökare kan skriva kommentarer till innehåll som blogginlägg, sidor och bilder.'
 			),
 			'frontend' => false,
 			'backend'  => true,

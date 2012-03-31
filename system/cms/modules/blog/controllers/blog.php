@@ -43,7 +43,7 @@ class Blog extends Public_Controller
 			->set_metadata('keywords', $meta['keywords'])
 			->set('pagination', $pagination)
 			->set('blog', $_blog)
-			->build('index');
+			->build('posts');
 	}
 
 	/**
@@ -87,7 +87,7 @@ class Blog extends Public_Controller
 			->set('blog', $blog)
 			->set('category', $category)
 			->set('pagination', $pagination)
-			->build('category');
+			->build('posts');
 	}
 
 	/**
@@ -189,7 +189,8 @@ class Blog extends Public_Controller
 	 */
 	public function tagged($tag = '')
 	{
-		$tag OR redirect('blog');
+		// decode encoded cyrillic characters
+		$tag = rawurldecode($tag) OR redirect('blog');
 
 		// Count total blog posts and work out how many pages exist
 		$pagination = create_pagination('blog/tagged/'.$tag, $this->blog_m->count_tagged_by($tag, array('status' => 'live')), NULL, 4);

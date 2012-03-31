@@ -85,6 +85,7 @@ class Admin extends Admin_Controller
 		}
 
 		$all_options = $this->theme_m->get_options_by(array('theme' => $slug));
+
 		$options_array = array();
 
 		if ($all_options)
@@ -124,7 +125,7 @@ class Admin extends Admin_Controller
 					}
 				}
 
-				// Fire an event. Theme options have been updated. 
+				// Fire an event. Theme options have been updated.
 				Events::trigger('theme_options_updated', $options_array);
 
 				// Success...
@@ -153,7 +154,7 @@ class Admin extends Admin_Controller
 		// Set the theme
 		if ($this->theme_m->set_default($this->input->post()))
 		{
-			// Fire an event. A default theme has been set. 
+			// Fire an event. A default theme has been set.
 			Events::trigger('theme_set_default', $theme);
 
 			$this->session->set_flashdata('success', sprintf(lang('themes.set_default_success'), $theme));
@@ -288,7 +289,7 @@ class Admin extends Admin_Controller
 
 			if ($deleted == $to_delete)
 			{
-				// Fire an event. One or more themes have been deleted. 
+				// Fire an event. One or more themes have been deleted.
 				Events::trigger('theme_deleted', $deleted_names);
 
 				$this->session->set_flashdata('success', sprintf(lang('themes.mass_delete_success'), $deleted, $to_delete));
@@ -307,6 +308,7 @@ class Admin extends Admin_Controller
 	 * Form Control
 	 *
 	 * Returns the form control for the theme option
+	 * @todo: Code duplication, see modules/settings/libraries/Settings.php @ form_control().
 	 *
 	 * @param	object	$option
 	 *
@@ -436,8 +438,10 @@ class Admin extends Admin_Controller
 		foreach ($options as $option)
 		{
 			list($value, $name) = explode('=', $option);
-
-			$select_array[$value] = $name;
+			// todo: Maybe we should remove the trim()'s
+			// since this will affect only people who have had the base
+			// theme installed in the past.
+			$select_array[trim($value)] = trim($name);
 		}
 
 		return $select_array;

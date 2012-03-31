@@ -436,6 +436,8 @@ class Admin extends Admin_Controller
 	 */
 	public function delete($id = 0)
 	{
+		$this->load->model('comments/comments_m');
+
 		role_or_die('blog', 'delete_live');
 
 		// Delete one
@@ -453,6 +455,8 @@ class Admin extends Admin_Controller
 				{
 					if ($this->blog_m->delete($id))
 					{
+						$this->comments_m->where('module', 'blog')->delete_by('module_id', $id);
+
 						// Wipe cache for this model, the content has changed
 						$this->pyrocache->delete('blog_m');
 						$post_titles[] = $post->title;

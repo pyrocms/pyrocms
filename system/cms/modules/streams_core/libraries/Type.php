@@ -28,16 +28,6 @@ class Type
 	 * @var		array
 	 */
 	public $addon_paths = array();
-	
-	// --------------------------------------------------------------------------
-	
-	/**
-	 * Current language (folder name)
-	 *
-	 * @access	public
-	 * @var		string
-	 */
-	public $current_lang = 'english';
 
 	// --------------------------------------------------------------------------
 
@@ -65,11 +55,6 @@ class Type
 			$this->CI->load->library('settings/Settings');
 		}
 
-		if (isset($langs[$this->CI->settings->get('site_lang')]))
-		{
-			$this->current_lang = $langs[$this->CI->settings->get('site_lang')]['folder'];
-		}
-		
 		// Obj to hold all our field types
 		$this->types = new stdClass;
 		
@@ -214,11 +199,11 @@ class Type
 
 		if (is_dir($path.$type.'/language'))
 		{
-			$lang = $this->current_lang;
-		
+			$lang = $this->CI->config->item('language');
+
 			// Fallback on English
 			if ( ! is_dir($path.$type.'/language/'.$lang)) $lang = 'english';
-						
+
 			$this->CI->lang->load($type, $lang, false, true, $path.$type.'/');
 			
 			unset($lang);

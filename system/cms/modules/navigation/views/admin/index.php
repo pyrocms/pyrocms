@@ -23,7 +23,7 @@
 					
 					<div style="background:#eeeeee;padding:15px 15px 0 0;" id="link-list">
 						<ul class="sortable">
-							<?php echo tree_builder($navigation[$group->id], array('li' => array('id' => 'link_:id:'), 'a' => array('href' => '#', 'rel' => $group->id, 'alt'=>':id:'))); ?>
+							<?php echo tree_builder($navigation[$group->id], '<li id="link_{{ id }}"><div><a href="#" rel="'.$group->id.'" alt="{{ id }}">{{ title }}</a></div>{{ children }}</li>'); ?>
 						</ul>
 					</div>
 					
