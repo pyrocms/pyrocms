@@ -153,6 +153,8 @@ class Blog extends Public_Controller
 	public function tagged($tag = '')
 	{
 		$tag OR redirect('blog');
+		
+		$tag = rawurldecode($tag); //Decode url encoded strings
 
 		// Count total blog posts and work out how many pages exist
 		$pagination = create_pagination('blog/tagged/'.$tag, $this->blog_m->count_tagged_by($tag, array(
