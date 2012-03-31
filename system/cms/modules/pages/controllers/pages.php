@@ -125,8 +125,8 @@ class Pages extends Public_Controller
 		}
 
 		// We want to use the valid uri from here on. Don't worry about segments passed by Streams or 
-		// similar. Also we don't worry about breadcrumbs for 404 or restricted
-		elseif ($url_segments = explode('/', $page->base_uri) AND count($url_segments) > 1)
+		// similar. Also we don't worry about breadcrumbs for 404
+		if ($url_segments = explode('/', $page->base_uri) AND count($url_segments) > 1)
 		{
 			// we dont care about the last one
 			array_pop($url_segments);
