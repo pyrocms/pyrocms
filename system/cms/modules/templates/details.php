@@ -80,6 +80,7 @@ class Module_Templates extends Module {
 				'body' => array('type' => 'TEXT'),
 				'lang' => array('type' => 'VARCHAR', 'constraint' => 2, 'null' => true, 'unique' => 'slug_lang',),
 				'is_default' => array('type' => 'INT', 'constraint' => 1, 'default' => 0,),
+				'module' => array('type' => 'VARCHAR', 'constraint' => 50, 'default' => '',),
 			),
 		);
 
@@ -104,6 +105,7 @@ class Module_Templates extends Module {
 				<div>View Comment:{{ redirect_url }}</div>',
 			'lang' => 'en',
 			'is_default' => 1,
+			'module' => 'comments'
 		));
 
 		// @todo move this to the contact module
@@ -124,6 +126,7 @@ class Module_Templates extends Module {
 				{{ email }}',
 			'lang' => 'en',
 			'is_default' => 1,
+			'module' => 'pages'
 		));
 
 		// @todo move this to the users module
@@ -139,6 +142,7 @@ class Module_Templates extends Module {
 				</p>',
 			'lang' => 'en',
 			'is_default' => 1,
+			'module' => 'users'
 		));
 
 		// @todo move this to the users module
@@ -156,6 +160,7 @@ class Module_Templates extends Module {
 				<p><strong>Activation Code:</strong> {{ activation_code }}</p>',
 			'lang' => 'en',
 			'is_default' => 1,
+			'module' => 'users'
 		));
 
 		// @todo move this to the users module
@@ -169,6 +174,7 @@ class Module_Templates extends Module {
 				<p>If you did not request a password reset please disregard this message. No further action is necessary.</p>',
 			'lang' => 'en',
 			'is_default' => 1,
+			'module' => 'users'
 		));
 
 		// @todo move this to the users module
@@ -182,6 +188,7 @@ class Module_Templates extends Module {
 				<p>After logging in you may change your password by visiting <a href="{{ url:site }}edit-profile">{{ url:site }}edit-profile</a></p>',
 			'lang' => 'en',
 			'is_default' => 1,
+			'module' => 'users'
 		));
 
 		return TRUE;
