@@ -37,7 +37,7 @@ CKEDITOR.plugins.add('pyroimages',
 			if (e.data.getName() != 'image')
 				return;
 
-			editor.fire('afterSetData');
+			editor.getMode().loadData( editor.getData() );
 		});
 	},
 
@@ -46,8 +46,8 @@ CKEDITOR.plugins.add('pyroimages',
 	// Having {{url:site }} in image src values allows the site to change URL without all images breaking
 	afterInit : function( editor )
 	{
-		var dataProcessor = editor.dataProcessor,
-			dataFilter = dataProcessor && dataProcessor.dataFilter;
+		var dataProcessor = editor.dataProcessor;
+		var dataFilter = dataProcessor && dataProcessor.dataFilter;
 
 		if ( !dataFilter )
 			return;
