@@ -123,6 +123,7 @@ class Module_Templates extends Module {
 				{{ message }}
 
 				{{ name }},
+
 				{{ email }}',
 			'lang' => 'en',
 			'is_default' => 1,
