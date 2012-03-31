@@ -54,7 +54,7 @@ class Files_wysiwyg extends WYSIWYG_Controller {
 			->build('files/index', $data);
 	}
 
-	public function ajax_get_files()
+	public function ajax_get_file()
 	{
 		$file = $this->file_m->get($this->input->post('file_id'));
 

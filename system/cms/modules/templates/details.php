@@ -29,7 +29,8 @@ class Module_Templates extends Module {
 				'sl' => 'Email predloge',
 				'zh' => '郵件範本',
 				'hu' => 'E-mail sablonok',
-				'fi' => 'Sähköposti viestipohjat'
+				'fi' => 'Sähköposti viestipohjat',
+                                'se' => 'E-postmallar'
 			),
 			'description' => array(
 				'en' => 'Create, edit, and save dynamic email templates',
@@ -46,8 +47,9 @@ class Module_Templates extends Module {
 				'ru' => 'Создавайте, редактируйте и сохраняйте динамические почтовые шаблоны',
 				'sl' => 'Ustvari, uredi in shrani spremenljive email predloge',
 				'zh' => '新增、編輯與儲存可顯示動態資料的 email 範本',
-                'hu' => 'Csináld, szerkeszd és mentsd el a dinamikus e-mail sablonokat',
-				'fi' => 'Lisää, muokkaa ja tallenna dynaamisia sähköposti viestipohjia.'
+                                'hu' => 'Csináld, szerkeszd és mentsd el a dinamikus e-mail sablonokat',
+				'fi' => 'Lisää, muokkaa ja tallenna dynaamisia sähköposti viestipohjia.',
+                                'se' => 'Skapa, redigera och spara dynamiska E-postmallar.'
 			),
 			'frontend' => false,
 			'backend' => true,
@@ -78,6 +80,7 @@ class Module_Templates extends Module {
 				'body' => array('type' => 'TEXT'),
 				'lang' => array('type' => 'VARCHAR', 'constraint' => 2, 'null' => true, 'unique' => 'slug_lang',),
 				'is_default' => array('type' => 'INT', 'constraint' => 1, 'default' => 0,),
+				'module' => array('type' => 'VARCHAR', 'constraint' => 50, 'default' => '',),
 			),
 		);
 
@@ -102,6 +105,7 @@ class Module_Templates extends Module {
 				<div>View Comment:{{ redirect_url }}</div>',
 			'lang' => 'en',
 			'is_default' => 1,
+			'module' => 'comments'
 		));
 
 		// @todo move this to the contact module
@@ -122,6 +126,7 @@ class Module_Templates extends Module {
 				{{ email }}',
 			'lang' => 'en',
 			'is_default' => 1,
+			'module' => 'pages'
 		));
 
 		// @todo move this to the users module
@@ -137,6 +142,7 @@ class Module_Templates extends Module {
 				</p>',
 			'lang' => 'en',
 			'is_default' => 1,
+			'module' => 'users'
 		));
 
 		// @todo move this to the users module
@@ -154,6 +160,7 @@ class Module_Templates extends Module {
 				<p><strong>Activation Code:</strong> {{ activation_code }}</p>',
 			'lang' => 'en',
 			'is_default' => 1,
+			'module' => 'users'
 		));
 
 		// @todo move this to the users module
@@ -167,6 +174,7 @@ class Module_Templates extends Module {
 				<p>If you did not request a password reset please disregard this message. No further action is necessary.</p>',
 			'lang' => 'en',
 			'is_default' => 1,
+			'module' => 'users'
 		));
 
 		// @todo move this to the users module
@@ -180,6 +188,7 @@ class Module_Templates extends Module {
 				<p>After logging in you may change your password by visiting <a href="{{ url:site }}edit-profile">{{ url:site }}edit-profile</a></p>',
 			'lang' => 'en',
 			'is_default' => 1,
+			'module' => 'users'
 		));
 
 		return TRUE;

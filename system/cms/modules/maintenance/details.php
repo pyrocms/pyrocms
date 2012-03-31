@@ -21,7 +21,8 @@ class Module_Maintenance extends Module
 				'id' => 'Pemeliharaan',
 				'zh' => '維護',
 				'hu' => 'Karbantartás',
-				'fi' => 'Ylläpito'
+				'fi' => 'Ylläpito',
+                                'se' => 'Underhåll'
 			),
 			'description' => array(
 				'en' => 'Manage the site cache and export information from the database.',
@@ -31,7 +32,8 @@ class Module_Maintenance extends Module
 				'id' => 'Mengatur cache situs dan mengexport informasi dari database.',
 				'zh' => '經由管理介面手動刪除暫存資料。',
 				'hu' => 'Az oldal gyorsítótár kezelése és az adatbázis exportálása.',
-				'fi' => 'Hallinoi sivuston välimuistia ja vie tietoa tietokannasta.'
+				'fi' => 'Hallinoi sivuston välimuistia ja vie tietoa tietokannasta.',
+                                'se' => 'Underhåll webbplatsens cache och exportera data från webbplatsens databas.'
 			),
 			'frontend' => false,
 			'backend' => true,

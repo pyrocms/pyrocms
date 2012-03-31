@@ -72,7 +72,7 @@
 			<!-- image size -->
 			<div id="options-bar">
 				<label for="insert_width"><?php echo lang('wysiwyg.label.insert_width'); ?></label>
-				<input id="insert_width" type="text" name="insert_width" value="200" />
+				<input id="insert_width" type="text" name="insert_width" value="0" />
 				<span class="insert-no-limit"><?php echo lang('wysiwyg.label.no_limit'); ?></span>
 			</div>
 			<div id="slider"></div>

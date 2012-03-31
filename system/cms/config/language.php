@@ -79,6 +79,13 @@ $config['supported_languages'] = array(
         'codes'        => array('dutch', 'nld', 'nl-NL'),
         'ckeditor'    => NULL
     ),
+    'se' => array(
+        'name'        => 'Svenska',
+        'folder'    => 'swedish',
+        'direction'    => 'ltr',
+        'codes'        => array('se', 'swedish', 'se_SE'),
+        'ckeditor'    => NULL
+    ),
     'sl' => array(
         'name'        => 'Slovensko',
         'folder'    => 'slovenian',

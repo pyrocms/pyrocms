@@ -13,7 +13,9 @@ function insertImage(file, alt, location, path)
 		path = '{{ url:site }}files/thumb/' + file + '/' + img_width;
 	}
 	
-	window.parent.instance.insertHtml('<img class="pyro-image" width="'+img_width+'" style="float: '+get_float()+';" src="'+path+'" alt="' + alt + '" />');
+	var width = img_width > 0 ? 'width="'+img_width+'"' : '';
+
+	window.parent.instance.insertHtml('<img class="pyro-image" '+width+' '+get_float()+' src="'+path+'" alt="' + alt + '" />');
     windowClose();
 }
 
@@ -33,8 +35,9 @@ function insertFile(id, title, location, path)
 
 function get_float()
 {
-    img_float = jQuery('input[name=insert_float]:checked').val();
-    return img_float;
+    var img_float = jQuery('input[name=insert_float]:checked').val();
+
+    return img_float !== 'none' ? 'style="float:'+img_float+'"' : '';
 }
 
 // By default, insert (which will also replace)
@@ -160,7 +163,7 @@ $(function()
     $( "#slider" ).livequery(function() {
 		$(this).fadeIn('slow');
 		$(this).slider({
-			value: 200,
+			value: 0,
 			min: 0,
 			max: 1000,
 			step: 1,

@@ -1,4 +1,7 @@
-<h2 id="page_title"><?php echo $category->title; ?></h2>
+<?php if (isset($category->title)): ?>
+	<h2 id="page_title"><?php echo $category->title; ?></h2>
+<?php endif; ?>
+
 <?php if (!empty($blog)): ?>
 <?php foreach ($blog as $post): ?>
 	<div class="blog_post">
