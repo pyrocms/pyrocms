@@ -33,7 +33,8 @@
 				'ru' => 'Группы',
 				'sl' => 'Skupine',
 				'zh' => '群組',
-				'hu' => 'Csoportok'
+				'hu' => 'Csoportok',
+                                'se' => 'Grupper'
 			),
 			'description' => array(
 				'en' => 'Users can be placed into groups to manage permissions.',
@@ -54,7 +55,8 @@
 				'ru' => 'Пользователей можно объединять в группы, для управления правами доступа.',
 				'sl' => 'Uporabniki so lahko razvrščeni v skupine za urejanje dovoljenj',
 				'zh' => '用戶可以依群組分類並管理其權限',
-				'hu' => 'A felhasználók csoportokba rendezhetőek a jogosultságok kezelésére.'
+				'hu' => 'A felhasználók csoportokba rendezhetőek a jogosultságok kezelésére.',
+                                'se' => 'Användare kan delas in i grupper för att hantera roller och behörigheter.'
 			),
 			'frontend' => false,
 			'backend' => true,

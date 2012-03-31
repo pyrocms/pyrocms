@@ -26,7 +26,8 @@ class Module_Keywords extends Module {
 				'nl' => 'Sleutelwoorden',
 				'zh' => '鍵詞',
 				'hu' => 'Kulcsszavak',
-				'fi' => 'Avainsanat'
+				'fi' => 'Avainsanat',
+                                'se' => 'Nyckelord'
 			),
 			'description' => array(
 				'en' => 'Maintain a central list of keywords to label and organize your content.',
@@ -39,7 +40,8 @@ class Module_Keywords extends Module {
 				'nl' => 'Beheer een centrale lijst van sleutelwoorden om uw content te categoriseren en organiseren.',
 				'zh' => '集中管理可用於標題與內容的鍵詞(keywords)列表。',
 				'hu' => 'Ez egy központi kulcsszó lista a cimkékhez és a tartalmakhoz.',
-				'fi' => 'Hallinnoi keskitettyä listaa avainsanoista merkitäksesi ja järjestelläksesi sisältöä.'
+				'fi' => 'Hallinnoi keskitettyä listaa avainsanoista merkitäksesi ja järjestelläksesi sisältöä.',
+                                'se' => 'Hantera nyckelord för att organisera webbplatsens innehåll.'
 			),
 			'frontend' => false,
 			'backend'  => true,

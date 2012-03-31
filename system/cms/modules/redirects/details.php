@@ -31,7 +31,8 @@ class Module_Redirects extends Module {
 				'ru' => 'Перенаправления',
 				'sl' => 'Preusmeritve',
 				'zh' => '轉址',
-				'hu' => 'Átirányítások'
+				'hu' => 'Átirányítások',
+                                'se' => 'Omdirigeringar'
 			),
 			'description' => array(
 				'en' => 'Redirect from one URL to another.',
@@ -51,7 +52,8 @@ class Module_Redirects extends Module {
 				'ru' => 'Перенаправления с одного адреса на другой.',
 				'sl' => 'Preusmeritev iz enega URL naslova na drugega',
 				'zh' => '將網址轉址、重新定向。',
-				'hu' => 'Egy URL átirányítása egy másikra.'
+				'hu' => 'Egy URL átirányítása egy másikra.',
+                                'se' => 'Omdirigera från en URL till en annan.'
 			),
 			'frontend' => false,
 			'backend'  => true,
