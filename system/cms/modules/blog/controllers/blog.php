@@ -31,6 +31,7 @@ class Blog extends Public_Controller
 			->set_breadcrumb( lang('blog_blog_title'))
 			->set_metadata('description', $meta['description'])
 			->set_metadata('keywords', $meta['keywords'])
+			->set('posts', $this->load->view('posts', $this->data, true))
 			->build('index', $this->data);
 	}
 
@@ -68,6 +69,7 @@ class Blog extends Public_Controller
 			->set_breadcrumb( lang('blog_blog_title'), 'blog')
 			->set_breadcrumb( $category->title )
 			->set('blog', $blog)
+			->set('posts', $this->load->view('posts', $this->data, true))
 			->set('category', $category)
 			->set('pagination', $pagination)
 			->build('category', $this->data );
