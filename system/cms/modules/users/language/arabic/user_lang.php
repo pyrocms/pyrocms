@@ -1,12 +1,12 @@
 <?php
 
-$lang['user_add_field']                        	= 'Add User Profile Field'; #translate
-$lang['user_profile_delete_success']           	= 'User profile field deleted successfully'; #translate
-$lang['user_profile_delete_failure']            = 'There was a problem with deleting your user profile field'; #translate
-$lang['profile_user_basic_data_label']  		= 'Basic Data'; #translate
-$lang['profile_company']         	  			= 'Company'; #translate
-$lang['profile_updated_on']           			= 'Updated On'; #translate
-$lang['user_profile_fields_label']	 		 	= 'Profile Fields'; #translate`
+$lang['user_add_field']                        	= 'إضافة حقل لملف المستخدم الشخصي';
+$lang['user_profile_delete_success']           	= 'تم حذف حقل ملف المستخدم الشخصي بنجاح';
+$lang['user_profile_delete_failure']            = 'حدث خطأ أثناء حذف حقل ملف المستخدم الشخصي بنجاح';
+$lang['profile_user_basic_data_label']  		= 'بيانات أساسية';
+$lang['profile_company']         	  			= 'الشركة';
+$lang['profile_updated_on']           			= 'آخر تحديث';
+$lang['user_profile_fields_label']	 		 	= 'حقول الملف الشخصي';
 
 $lang['user_register_header'] 			= 'الإشتراك';
 $lang['user_register_step1'] 			= '<strong>الخطوة الأولى:</strong> الإشتراك';

@@ -30,7 +30,7 @@ $lang['pages.access_label'] 					= 'الصلاحيات';
 $lang['pages.rss_enabled_label'] 				= 'تمكين خُلاصات RSS';
 $lang['pages.comments_enabled_label']			= 'تمكين التعليقات';
 $lang['pages.is_home_label']      = 'هي الصفحة (الرئيسية) الافتراضية؟';
-$lang['pages.strict_uri_label']						= 'Require an exact uri match?'; #translate
+$lang['pages.strict_uri_label']						= 'يتطلب عنوان uri مطابق تماماً؟';
 
 $lang['pages.status_label'] 					= 'الحالة';
 $lang['pages.draft_label'] 						= 'مسودّة';
@@ -66,8 +66,8 @@ $lang['pages_parent_not_exist_error'] 			= 'الصفحة الحاوية التي
 $lang['pages_chunk_slug_length']					= 'مُختصر عنوان قصاصة الصفحة يجب أن يتكون من 30 حرف كحد أقصى.';
 $lang['pages_root_folder']                = 'المستوى الأعلى';
 
-$lang['pages.tree_explanation_title']	        = 'Explanation'; #translate
-$lang['pages.tree_explanation'] 				= 'القائمة التي على اليمين تمثّل صفحات موقعك.
+$lang['pages.tree_explanation_title']	        = 'المساعدة';
+$lang['pages.tree_explanation'] 				= 'القائمة الجانبية تمثّل صفحات موقعك.
 اضغط علامة "+" المقابلة للصفحة التي تريد عرض صفحاتها الفرعيّة. وعندما تضغط على أحد الصفحات ستظهر لك جميع المعلومات المفيدة في هذا المربّع.';
 
 $lang['pages.rss_explanation']					= 'تمكين خدمة RSS لهذه الصفحة سيمكّن المستخدمين من الإشتراك بتغذية RSS التي تظهر كل صفحة تابعة لهذه الصفحة.';
