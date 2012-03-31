@@ -43,7 +43,7 @@ class Blog extends Public_Controller
 			->set_metadata('keywords', $meta['keywords'])
 			->set('pagination', $pagination)
 			->set('blog', $_blog)
-			->build('index');
+			->build('posts');
 	}
 
 	/**
@@ -87,7 +87,7 @@ class Blog extends Public_Controller
 			->set('blog', $blog)
 			->set('category', $category)
 			->set('pagination', $pagination)
-			->build('category');
+			->build('posts');
 	}
 
 	/**
