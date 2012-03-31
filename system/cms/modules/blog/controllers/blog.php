@@ -73,14 +73,25 @@ class Blog extends Public_Controller
 			->build('category', $this->data );
 	}
 
-	public function archive($year = NULL, $month = '01')
+	public function archive($year = NULL, $month = NULL)
 	{
-		$year OR $year = date('Y');
-		$month_date = new DateTime($year.'-'.$month.'-01');
-		$this->data->pagination = create_pagination('blog/archive/'.$year.'/'.$month, $this->blog_m->count_by(array('year'=>$year,'month'=>$month)), NULL, 5);
-		$this->data->blog = $this->blog_m->limit($this->data->pagination['limit'])->get_many_by(array('year'=> $year,'month'=> $month));
-		$this->data->month_year = format_date($month_date->format('U'), lang('blog_archive_date_format'));
-
+		// Redirect to current year. 
+		$year OR $year = redirect('blog/archive/' .date('Y'));
+		
+		// If month is passed
+		if( $month ) {
+			$month_date = new DateTime($year.'-'.$month.'-01');
+			$this->data->pagination = create_pagination('blog/archive/'.$year.'/'.$month, $this->blog_m->count_by(array('year'=>$year,'month'=>$month)), NULL, 5);
+			$this->data->blog = $this->blog_m->limit($this->data->pagination['limit'])->get_many_by(array('year'=> $year,'month'=> $month));
+			$this->data->month_year = format_date($month_date->format('U'), lang('blog_archive_date_format'));
+			$month_date = format_date($month_date->format('U'), lang('blog_archive_date_format'));
+		} else {
+		// Else display by year
+			$month_date = $year;
+			$this->data->month_year = $year;
+			$this->data->pagination = create_pagination('blog/archive/'.$year, $this->blog_m->count_by(array('year'=>$year)), NULL, 5);
+			$this->data->blog = $this->blog_m->limit($this->data->pagination['limit'])->get_many_by(array('year'=> $year));
+		}
 		// Set meta description based on post titles
 		$meta = $this->_posts_metadata($this->data->blog);
 		
@@ -93,7 +104,7 @@ class Blog extends Public_Controller
 			->set_metadata('description', $this->data->month_year.'. '.$meta['description'])
 			->set_metadata('keywords', $this->data->month_year.', '.$meta['keywords'])
 			->set_breadcrumb($this->lang->line('blog_blog_title'), 'blog')
-			->set_breadcrumb($this->lang->line('blog_archive_title').': '.format_date($month_date->format('U'), lang('blog_archive_date_format')))
+			->set_breadcrumb($this->lang->line('blog_archive_title').': '.$month_date)
 			->build('archive', $this->data);
 	}
 
@@ -184,6 +195,40 @@ class Blog extends Public_Controller
 			->set('tag', $tag)
 			->set('pagination', $pagination)
 			->build('tagged', $this->data );
+	}
+	
+	public function search()
+	{		
+		// Get query data
+		$query = $this->input->post('b_keywords');
+		
+		$query OR redirect('blog');
+		
+		// Construct search data
+		$post_data = array(
+			'status'	=>	'live',
+			'keywords'	=>	$query
+			);
+
+		$this->data->blog = $this->blog_m->search($post_data);		
+		
+		// Set meta data
+		$meta = $this->_posts_metadata($this->data->blog);
+		
+		foreach ($this->data->blog AS &$post)
+		{
+			$post->keywords = Keywords::get_links($post->keywords, 'blog/tagged');
+		}
+		
+		// Build search page
+		$this->template
+			->title($this->module_details['name'], lang( 'blog_search_results_label' ) .': ' .$query)
+			->set_breadcrumb( lang('blog_blog_title'), 'blog')
+			->set_breadcrumb( lang( 'blog_search_results_label' ) .': ' .$query)
+			->set_metadata('description', $meta['description'])
+			->set_metadata('keywords', $meta['keywords'])
+			->set('blog', $this->data->blog)
+			->build('search', $this->data);
 	}
 
 	// Private methods not used for display

@@ -32,6 +32,7 @@ $lang['blog_read_more_label']                = 'Read More&nbsp;&raquo;';
 $lang['blog_created_hour']                   = 'Created on Hour';
 $lang['blog_created_minute']                 = 'Created on Minute';
 $lang['blog_comments_enabled_label']         = 'Comments Enabled';
+$lang['blog_search_results_label']			 = 'Search Results';
 
 // titles
 $lang['blog_create_title']                   = 'Add Post';
@@ -41,6 +42,7 @@ $lang['blog_posts_title']					= 'Posts';
 $lang['blog_rss_posts_title']				= 'Blog posts for %s';
 $lang['blog_blog_title']					= 'Blog';
 $lang['blog_list_title']					= 'List Posts';
+
 
 // messages
 $lang['blog_no_posts']                    = 'There are no posts.';
@@ -57,6 +59,8 @@ $lang['blog_delete_success']                 = 'The post "%s" has been deleted.'
 $lang['blog_mass_delete_success']            = 'The posts "%s" have been deleted.';
 $lang['blog_delete_error']                   = 'No posts were deleted.';
 $lang['blog_already_exist_error']            = 'An post with this URL already exists.';
+$lang['blog_search_no_posts_found']			 = 'No posts were found matching your criteria.';
+
 
 $lang['blog_twitter_posted']                 = 'Posted "%s" %s';
 $lang['blog_twitter_error']                  = 'Twitter Error';

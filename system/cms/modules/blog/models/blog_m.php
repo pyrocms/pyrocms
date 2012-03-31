@@ -196,6 +196,25 @@ class Blog_m extends MY_Model {
 
 		return $query->result();
 	}
+	
+	function get_archive_years()
+	{
+		$this->db->select('DATE_FORMAT(FROM_UNIXTIME(t1.created_on), "%Y") AS `date`', FALSE);
+		$this->db->from('blog t1');
+		$this->db->distinct();
+		$this->db->select('(SELECT count(id) FROM ' . $this->db->dbprefix('blog') . ' t2
+								WHERE YEAR(FROM_UNIXTIME(t1.created_on)) = YEAR(FROM_UNIXTIME(t2.created_on))
+								AND status = "live"
+								AND created_on <= ' . now() . '
+						   ) as post_count');	
+		$this->db->where('status', 'live');
+		$this->db->where('created_on <=', now());
+		$this->db->having('post_count >', 0);
+		$this->db->order_by('t1.created_on DESC');
+		$query = $this->db->get();
+	
+		return $query->result();
+	}
 
 	// DIRTY frontend functions. Move to views
 	function get_blog_fragment($params = array())
