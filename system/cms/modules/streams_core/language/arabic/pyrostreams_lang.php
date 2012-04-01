@@ -10,7 +10,7 @@ $lang['streams.field_delete_error']						= "حدث خطأ أثناء حذف هذ
 $lang['streams.field_delete_success']					= "تم حذف الحقل بنجاح.";
 $lang['streams.view_options_update_error']				= "حدث خطأ أثناء تحديث خيارات العرض.";
 $lang['streams.view_options_update_success']			= "تم تعديل خيارات العرض بنجاح.";
-$lang['streams.remove_field_error']						= "There was a problem removing this field.";
+$lang['streams.remove_field_error']						= "حدث خطأ أثناء إزالة هذا الحقل.";
 $lang['streams.remove_field_success']					= "تم إزالة الحقل بنجاح.";
 $lang['streams.create_stream_error']					= "There was a problem creating your stream.";
 $lang['streams.create_stream_success']					= "Stream created successfully.";
@@ -42,19 +42,19 @@ $lang['streams.cannot_find_assign']						= "Cannot find field assignment.";
 $lang['streams.cannot_find_pyrostreams']				= "Cannot find PyroStreams.";
 $lang['streams.table_exists']							= "A table with the slug %s already exists.";
 $lang['streams.no_results']								= "لا يوجد نتائج";
-$lang['streams.no_entry']								= "Unable to find entry.";
+$lang['streams.no_entry']								= "تعذر العثور على ما تبحث عنه";
 $lang['streams.invalid_search_type']					= "is not a valid search type.";
 $lang['streams.search_not_found']						= "Search not found.";
 
 /* Validation Messages */
 
-$lang['streams.field_slug_not_unique']					= "This field slug is already in use.";
-$lang['streams.not_mysql_safe_word']					= "The %s field is a MySQL reserved word.";
-$lang['streams.not_mysql_safe_characters']				= "The %s field contains disallowed characters.";
-$lang['streams.type_not_valid']							= "Please select a valid field type.";
+$lang['streams.field_slug_not_unique']					= "مختصر هذا الحقل مستخدم مسبقاً.";
+$lang['streams.not_mysql_safe_word']					= "اسم الحقل %s هو كلمة محفوظة لخدمة MySQL";
+$lang['streams.not_mysql_safe_characters']				= "الحقل %s يحتوي حروفاً ممنوعة.";
+$lang['streams.type_not_valid']							= "رجاءً اختر نوع حقل صحيح.";
 $lang['streams.stream_slug_not_unique']					= "This stream slug is already in use.";
-$lang['streams.field_unique']							= "The %s field must be unique.";
-$lang['streams.field_is_required']						= "The %s field is required.";
+$lang['streams.field_unique']							= "قيمة الحقل %s يجب أن تكون مميّزة.";
+$lang['streams.field_is_required']						= "الحقل %s مطلوب.";
 
 /* Field Labels */
 
@@ -158,16 +158,16 @@ $lang['streams.reset']									= "استرجاع";
 
 /* Misc */
 
-$lang['streams.field_singular']							= "field";
-$lang['streams.field_plural']							= "fields";
-$lang['streams.by_title_column']						= "By Title Column";
-$lang['streams.manual_order']							= "Manual Order";
+$lang['streams.field_singular']							= "حقل";
+$lang['streams.field_plural']							= "حقول";
+$lang['streams.by_title_column']						= "بحسب عمود العنوان";
+$lang['streams.manual_order']							= "ترتيب يدوي";
 $lang['streams.stream_data_line']						= "Edit basic stream data.";
 $lang['streams.view_options_line'] 						= "Choose which columns should be visible on the list data page.";
 $lang['streams.backup_line']							= "Backup and download stream table into a zip file.";
 $lang['streams.permanent_delete_line']					= "Permanently delete a stream and all stream data.";
-$lang['streams.choose_a_field_type']					= "Choose a field type";
-$lang['streams.choose_a_field']							= "Choose a field";
+$lang['streams.choose_a_field_type']					= "اختر نوع الحقل";
+$lang['streams.choose_a_field']							= "اختر الحقل";
 
 /* reCAPTCHA */
 
