@@ -91,11 +91,11 @@ class Admin extends Admin_Controller
 
 				if ($this->delete_files($apath, $andfolder))
 				{
-					$this->session->set_flashdata('success', sprintf(lang('maintenance.'.$which.'_msg'), $item_count, $name));
+					$this->session->set_flashdata('success', sprintf(lang('maintenance:'.$which.'_msg'), $item_count, $name));
 				}
 				else
 				{
-					$this->session->set_flashdata('error', sprintf(lang('maintenance.'.$which.'_msg_err'), $name));
+					$this->session->set_flashdata('error', sprintf(lang('maintenance:'.$which.'_msg_err'), $name));
 				}
 			}
 		}
