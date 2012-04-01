@@ -293,79 +293,48 @@ class Admin extends Admin_Controller {
 			redirect('admin/pages/create');
 		}
 
-		// Set the page ID and get the current page
-		$this->page_id = $page->id;
-
 		// It's stored as a CSV list
 		$page->restricted_to = explode(',', $page->restricted_to);
 
-		if ($_POST)
+		// did they even submit?
+		if ($input = $this->input->post())
 		{
-			$chunk_slugs = $this->input->post('chunk_slug') ? array_values($this->input->post('chunk_slug')) : array();
-			$chunk_bodies = $this->input->post('chunk_body') ? array_values($this->input->post('chunk_body')) : array();
-			$chunk_types = $this->input->post('chunk_type') ? array_values($this->input->post('chunk_type')) : array();
-
-			$chunk_slugs_count = count($chunk_slugs);
-
-			$page->chunks = array();
-			for ($i = 0; $i < $chunk_slugs_count; $i++)
+			// do they have permission to proceed?
+			if ($input['status'] == 'live')
 			{
-				// Nothing in here?
-				if (empty($chunk_slugs[$i]) and ! strip_tags($chunk_bodies[$i])) continue;
-
-				// Strip PHP from chunks
-				$chunk_bodies[$i] = str_replace(array(
-					'<?', '?>'
-				), array(
-					'&lt;?', '?&gt;'
-				), $chunk_bodies[$i]);
-
-				$page->chunks[] = (object) array(
-					'id' => $i,
-					'slug' => ! empty($chunk_slugs[$i]) ? $chunk_slugs[$i] : '',
-					'type' => ! empty($chunk_types[$i]) ? $chunk_types[$i] : '',
-					'body' => ! empty($chunk_bodies[$i]) ? $chunk_bodies[$i] : '',
-				);
+				role_or_die('pages', 'put_live');
 			}
 
-			$this->form_validation->set_rules(array_merge($this->validation_rules, array(
-				'slug' => array(
-					'field' => 'slug',
-					'label'	=> 'lang:pages.slug_label',
-					'rules'	=> 'trim|required|alpha_dot_dash|max_length[250]|callback__check_slug['.$id.']'
-				)
-			)));
-
-			if ($this->form_validation->run())
+			// validate and insert
+			if ($data = $this->page_m->edit($id, $input))
 			{
-				$input = $this->input->post();
+				$this->session->set_flashdata('success', lang('pages_edit_success'));
 
-				if ($page->status != 'live' and $input['status'] == 'live')
-				{
-					role_or_die('pages', 'put_live');
-				}
+				Events::trigger('post_page_edit', $data);
 
-				$input['restricted_to'] = isset($input['restricted_to']) ? implode(',', $input['restricted_to']) : '0';
-
-				// Run the update code with the POST data
-				$this->page_m->update($id, $input, $page->chunks);
-
-				// The slug has changed
-				if ($this->input->post('slug') != $this->input->post('old_slug'))
-				{
-					$this->page_m->reindex_descendants($id);
-				}
-
-				Events::trigger('post_page_edit', $input);
-
-				// Set the flashdata message and redirect the user
-				$link = anchor('admin/pages/preview/'.$id, $this->input->post('title'), 'class="modal-large"');
-				$this->session->set_flashdata('success', sprintf(lang('pages_edit_success'), $link));
-
-				// Redirect back to the form or main page
-				$this->input->post('btnAction') == 'save_exit'
+				// Mission accomplished!
+				$input['btnAction'] == 'save_exit'
 					? redirect('admin/pages')
-					: redirect('admin/pages/edit/'.$id);
+					: redirect('admin/pages/edit/'.$data['id']);
+			}
+			else
+			{
+				// validation failed, we must repopulate the chunks form
+				$chunk_slugs 	= $this->input->post('chunk_slug') ? array_values($this->input->post('chunk_slug')) : array();
+				$chunk_bodies 	= $this->input->post('chunk_body') ? array_values($this->input->post('chunk_body')) : array();
+				$chunk_types 	= $this->input->post('chunk_type') ? array_values($this->input->post('chunk_type')) : array();
+
+				$page->chunks 		= array();
+				$chunk_bodies_count = count($input['chunk_body']);
+				for ($i = 0; $i < $chunk_bodies_count; $i++)
+				{
+					$page->chunks[] = (object) array(
+						'id' 	=> $i,
+						'slug' 	=> ! empty($chunk_slugs[$i]) 	? $chunk_slugs[$i] 	: '',
+						'type' 	=> ! empty($chunk_types[$i]) 	? $chunk_types[$i] 	: '',
+						'body' 	=> ! empty($chunk_bodies[$i]) 	? $chunk_bodies[$i] : '',
+					);
+				}
 			}
 		}
 
@@ -387,7 +356,6 @@ class Admin extends Admin_Controller {
 			$page->{$rule['field']} = set_value($rule['field'], $page->{$rule['field']});
 		}
 
-		// If a parent id was passed, fetch the parent details
 		if ($page->parent_id > 0)
 		{
 			$parent_page = $this->page_m->get($page->parent_id);
@@ -400,10 +368,7 @@ class Admin extends Admin_Controller {
 		self::_form_data();
 
 		$this->template
-
 			->title($this->module_details['name'], sprintf(lang('pages.edit_title'), $page->title))
-
-			// Load WYSIWYG Editor
 			->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
 			->append_css('module::page-edit.css')
 			->build('admin/form', $this->data);

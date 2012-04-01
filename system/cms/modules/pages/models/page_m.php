@@ -422,7 +422,7 @@ class Page_m extends MY_Model
 		{
 			// Remove other homepages so this one can have the spot
 			$this->where('is_home', 1)
-				->update('pages', array('is_home' => 0));
+				->update($this->_table, array('is_home' => 0));
 		}
 
 		// validate the data and insert it if it passes
@@ -480,66 +480,52 @@ class Page_m extends MY_Model
 	 * @param array $input The data to update
 	 * @return void
 	*/
-	public function update($id = 0, $input = array(), $chunks = array())
+	public function edit($id, $input)
 	{
 		$this->db->trans_start();
 
 		if ( ! empty($input['is_home']))
 		{
-			// Remove other homepages
-			$this->db
-				->where('is_home', 1)
-				->update($this->_table, array('is_home' => 0));
+			// Remove other homepages so this one can have the spot
+			$this->where('is_home', 1)
+				->update($this->_table, array('is_home' => 0), TRUE);
 		}
 
-		parent::update($id, array(
-			'title'				=> $input['title'],
+		// validate the data and update
+		$result = $this->update($id, array(
 			'slug'				=> $input['slug'],
+			'title'				=> $input['title'],
 			'uri'				=> NULL,
-			'parent_id'			=> $input['parent_id'],
-			'layout_id'			=> $input['layout_id'],
-			'css'				=> $input['css'],
-			'js'				=> $input['js'],
-			'meta_title'		=> $input['meta_title'],
-			'meta_keywords'		=> $input['meta_keywords'],
-			'meta_description'	=> $input['meta_description'],
-			'restricted_to'		=> $input['restricted_to'],
+			'parent_id'			=> (int) $input['parent_id'],
+			'layout_id'			=> (int) $input['layout_id'],
+			'css'				=> isset($input['css']) ? $input['css'] : null,
+			'js'				=> isset($input['js']) ? $input['js'] : null,
+			'meta_title'    	=> isset($input['meta_title']) ? $input['meta_title'] : '',
+			'meta_keywords' 	=> isset($input['meta_keywords']) ? $input['meta_keywords'] : '',
+			'meta_description' 	=> isset($input['meta_description']) ? $input['meta_description'] : '',
 			'rss_enabled'		=> (int) ! empty($input['rss_enabled']),
 			'comments_enabled'	=> (int) ! empty($input['comments_enabled']),
+			'status'			=> $input['status'],
+			'created_on'		=> now(),
+			'restricted_to'		=> isset($input['restricted_to']) ? implode(',', $input['restricted_to']) : '0',
 			'strict_uri'		=> (int) ! empty($input['strict_uri']),
 			'is_home'			=> (int) ! empty($input['is_home']),
-			'status'			=> $input['status'],
-			'updated_on'		=> now()
+			'order'				=> now()
 		));
 
-		$this->build_lookup($id);
+		// did it pass validation?
+		if ( ! $result) return FALSE;
 
-		if ($chunks)
-		{
-			// Remove the old chunks
-			$this->db->delete('page_chunks', array('page_id' => $id));
+		$result['id'] = $id;
 
-			// And add the new ones
-			$i = 1;
-			foreach ($chunks as $chunk)
-			{
-				$this->db->insert('page_chunks', array(
-					'page_id' 	=> $id,
-					'sort' 		=> $i++,
-					'slug' 		=> preg_replace('/[^a-zA-Z0-9_-\s]/', '', $chunk->slug),
-					'body' 		=> $chunk->body,
-					'type' 		=> $chunk->type,
-					'parsed'	=> ($chunk->type == 'markdown') ? parse_markdown($chunk->body) : ''
-				));
-			}
-		}
-		// Wipe cache for this model, the content has changd
-		$this->pyrocache->delete_all('page_m');
-		$this->pyrocache->delete_all('navigation_m');
+		$this->build_lookup($input['id']);
+
+		// now insert this page's chunks
+		$this->page_chunk_m->create($input);
 
 		$this->db->trans_complete();
 
-		return ($this->db->trans_status() === FALSE) ? FALSE : TRUE;
+		return ($this->db->trans_status() === FALSE) ? FALSE : $input;
 	}
 
 	/**
@@ -572,7 +558,7 @@ class Page_m extends MY_Model
 	 * @param slug, parent id, this records id
 	 * @return bool
 	*/
-	public function check_slug($slug, $parent_id, $id = 0)
+	public function _unique_slug($slug, $parent_id, $id = 0)
 	{
 		return (int) parent::count_by(array('id !='	=>	$id,
 											'slug'	=>	$slug,
@@ -588,9 +574,11 @@ class Page_m extends MY_Model
 	 * @param $slug slug to check
 	 * @return bool
 	 */
-	 public function _check_slug($slug, $page_id = null)
+	 public function _check_slug($slug)
 	 {
-		if ($this->check_slug($slug, $this->input->post('parent_id'), (int) $page_id))
+	 	$page_id = $this->uri->segment(4);
+
+		if ($this->_unique_slug($slug, $this->input->post('parent_id'), (int) $page_id))
 		{
 			if ($this->input->post('parent_id') == 0)
 			{
