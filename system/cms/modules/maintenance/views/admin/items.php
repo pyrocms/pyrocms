@@ -13,23 +13,16 @@
 					<th></th>
 				</tr>
 			</thead>
-			<tfoot>
-				<tr>
-					<td colspan="3">
-						<div class="inner"><?php $this->load->view('admin/partials/pagination'); ?></div>
-					</td>
-				</tr>
-			</tfoot>
 			<tbody>
 				<?php foreach ($tables as $table): ?>
 				<tr>
-					<td><?php echo $table->name; ?></td>
-					<td class="align-center"><?php echo $table->count; ?></td>
+					<td><?php echo $table['name']; ?></td>
+					<td class="align-center"><?php echo $table['count']; ?></td>
 					<td class="buttons buttons-small align-center actions">
-						<?php if ($table->count > 0):
-							echo anchor('admin/maintenance/export/'.$table->name.'/xml', lang('maintenance.export_xml'), array('class'=>'button')).' ';
-							echo anchor('admin/maintenance/export/'.$table->name.'/csv', lang('maintenance.export_csv'), array('class'=>'button')).' ';
-							echo anchor('admin/maintenance/export/'.$table->name.'/json', lang('maintenance.export_json'), array('class'=>'button')).' ';
+						<?php if ($table['count'] > 0):
+							echo anchor('admin/maintenance/export/'.$table['name'].'/xml', lang('maintenance.export_xml'), array('class'=>'button')).' ';
+							echo anchor('admin/maintenance/export/'.$table['name'].'/csv', lang('maintenance.export_csv'), array('class'=>'button')).' ';
+							echo anchor('admin/maintenance/export/'.$table['name'].'/json', lang('maintenance.export_json'), array('class'=>'button')).' ';
 						endif; ?>
 					</td>
 				</tr>
@@ -56,21 +49,14 @@
 					<th></th>
 				</tr>
 			</thead>
-			<tfoot>
-				<tr>
-					<td colspan="3">
-						<div class="inner"><?php $this->load->view('admin/partials/pagination'); ?></div>
-					</td>
-				</tr>
-			</tfoot>
 			<tbody>
 				<?php foreach ($folders as $folder): ?>
 				<tr>
-					<td><?php echo $folder->name; ?></td>
-					<td class="align-center"><?php echo $folder->count; ?></td>
+					<td><?php echo $folder['name']; ?></td>
+					<td class="align-center"><?php echo $folder['count']; ?></td>
 					<td class="buttons buttons-small align-center actions">
-						<?php if ($folder->count > 0) echo anchor('admin/maintenance/cleanup/'.$folder->name, lang('global:empty'), array('class'=>'button empty')) ?>
-						<?php if ( ! $folder->cannot_remove) echo anchor('admin/maintenance/cleanup/'.$folder->name.'/1', lang('global:remove'), array('class'=>'button remove')) ?>
+						<?php if ($folder['count'] > 0) echo anchor('admin/maintenance/cleanup/'.$folder['name'], lang('global:empty'), array('class'=>'button empty')) ?>
+						<?php if ( ! $folder['cannot_remove']) echo anchor('admin/maintenance/cleanup/'.$folder['name'].'/1', lang('global:remove'), array('class'=>'button remove')) ?>
 					</td>
 				</tr>
 				<?php endforeach; ?>
