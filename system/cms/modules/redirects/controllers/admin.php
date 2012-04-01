@@ -8,7 +8,8 @@
 class Admin extends Admin_Controller
 {
 	/**
-	 * Array containing the validation rules
+	 * Array containing the validation rules.
+	 *
 	 * @var array
 	 */
 	protected $validation_rules = array(
@@ -31,8 +32,6 @@ class Admin extends Admin_Controller
 
 	/**
 	 * Constructor method
-	 * @access public
-	 * @return void
 	 */
 	public function __construct()
 	{
@@ -48,8 +47,6 @@ class Admin extends Admin_Controller
 
 	/**
 	 * List all redirects
-	 * @access public
-	 * @return void
 	 */
 	public function index()
 	{
@@ -64,11 +61,10 @@ class Admin extends Admin_Controller
 
 	/**
 	 * Create a new redirect
-	 * @access public
-	 * @return void
 	 */
 	public function add()
 	{
+		$messages = array();
 		// Got validation?
 		if ($this->form_validation->run())
 		{
@@ -83,25 +79,28 @@ class Admin extends Admin_Controller
 		}
 
 		// Loop through each validation rule
+		$redirect = array();
 		foreach($this->validation_rules as $rule)
 		{
-			$redirect->{$rule['field']} = set_value($rule['field']);
+			$redirect[$rule['field']] = set_value($rule['field']);
 		}
 
-		$this->template->redirect =& $redirect;
 		$this->template
+			->set('redirect', $redirect)
 			->set('messages', $messages)
 			->build('admin/form');
 	}
 
 	/**
 	 * Edit an existing redirect
-	 * @access public
+	 *
 	 * @param int $id The ID of the redirect
+	 *
 	 * @return void
 	 */
 	public function edit($id = 0)
 	{
+		$messages = array();
 		// Got ID?
 		$id or redirect('admin/redirects');
 
@@ -119,16 +118,18 @@ class Admin extends Admin_Controller
 
 			$messages['error'] = lang('redirects.edit_error');
 		}
-		$this->template->redirect =& $redirect;
+
 		$this->template
+			->set('redirect', $redirect)
 			->set('messages', $messages)
 			->build('admin/form');
 	}
 
 	/**
 	 * Delete an existing redirect
-	 * @access public
+	 *
 	 * @param int $id The ID of the redirect
+	 *
 	 * @return void
 	 */
 	public function delete($id = 0)
@@ -168,9 +169,9 @@ class Admin extends Admin_Controller
 
 	/**
 	 * Callback method for validating the redirect's name
-	 * @access public
-	 * @param str $name The name of the redirect
-	 * @param int $id the ID of the redirect
+	 *
+	 * @param string $from
+
 	 * @return bool
 	 */
 	public function _check_unique($from)
