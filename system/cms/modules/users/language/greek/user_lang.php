@@ -1,12 +1,12 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-$lang['user_add_field']                        	= 'Add User Profile Field'; #translate
-$lang['user_profile_delete_success']           	= 'User profile field deleted successfully'; #translate
-$lang['user_profile_delete_failure']            = 'There was a problem with deleting your user profile field'; #translate
-$lang['profile_user_basic_data_label']  		= 'Basic Data'; #translate
-$lang['profile_company']         	  			= 'Company'; #translate
-$lang['profile_updated_on']           			= 'Updated On'; #translate
-$lang['user_profile_fields_label']	 		 	= 'Profile Fields'; #translate`
+$lang['user_add_field']                        	= 'Προσθήκη Πεδίων Προφίλ Χρηστών';
+$lang['user_profile_delete_success']           	= 'Το πεδίο προφίλ διαγράφηκε με επιτυχία';
+$lang['user_profile_delete_failure']            = 'Υπήρξε κάποιο σφάλμα κατά την διαγραφή του πεδίου προφίλ';
+$lang['profile_user_basic_data_label']  		= 'Βασικά Δεδομένα';
+$lang['profile_company']         	  			= 'Εταιρία';
+$lang['profile_updated_on']           			= 'Ενημερώθηκε Στις';
+$lang['user_profile_fields_label']	 		 	= 'Πεδία Προφίλ';
 
 $lang['user_register_header']   = 'Εγγραφή';
 $lang['user_register_step1']    = '<strong>Βήμα 1:</strong> Εγγραφή';

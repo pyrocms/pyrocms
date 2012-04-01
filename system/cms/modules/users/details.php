@@ -33,7 +33,8 @@ class Module_Users extends Module {
 				'ru' => 'Пользователи',
 				'sl' => 'Uporabniki',
 				'zh' => '用戶',
-				'hu' => 'Felhasználók'
+				'hu' => 'Felhasználók',
+                                'se' => 'Användare'
 			),
 			'description' => array(
 				'en' => 'Let users register and log in to the site, and manage them via the control panel.',
@@ -55,7 +56,8 @@ class Module_Users extends Module {
 				'ru' => 'Управление зарегистрированными пользователями, активирование новых пользователей.',
 				'sl' => 'Dovoli uporabnikom za registracijo in prijavo na strani, urejanje le teh preko nadzorne plošče',
 				'zh' => '讓用戶可以註冊並登入網站，並且管理者可在控制台內進行管理。',
-                                'hu' => 'Hogy a felhasználók tudjanak az oldalra regisztrálni és belépni, valamint lehessen őket kezelni a vezérlőpulton.'
+                                'hu' => 'Hogy a felhasználók tudjanak az oldalra regisztrálni és belépni, valamint lehessen őket kezelni a vezérlőpulton.',
+                                'se' => 'Låt dina besökare registrera sig och logga in på webbplatsen. Hantera sedan användarna via kontrollpanelen.'
 			),
 			'frontend' 	=> false,
 			'backend'  	=> true,
@@ -63,32 +65,35 @@ class Module_Users extends Module {
 			'roles'		=> array('admin_profile_fields')
 			);
 
-		if(group_has_role('users', 'admin_profile_fields'))
+		if (function_exists('group_has_role'))
 		{
-			$info['sections'] = array(
-				'users' => array(
-						'name' 	=> 'user_list_title',
-						'uri' 	=> 'admin/users',
-							'shortcuts' => array(
-								'create' => array(
-									'name' 	=> 'user_add_title',
-									'uri' 	=> 'admin/users/create',
-									'class' => 'add'
+			if(group_has_role('users', 'admin_profile_fields'))
+			{
+				$info['sections'] = array(
+					'users' => array(
+							'name' 	=> 'user_list_title',
+							'uri' 	=> 'admin/users',
+								'shortcuts' => array(
+									'create' => array(
+										'name' 	=> 'user_add_title',
+										'uri' 	=> 'admin/users/create',
+										'class' => 'add'
+										)
+									)
+								),
+					'fields' => array(
+							'name' 	=> 'user_profile_fields_label',
+							'uri' 	=> 'admin/users/fields',
+								'shortcuts' => array(
+									'create' => array(
+										'name' 	=> 'user_add_field',
+										'uri' 	=> 'admin/users/fields/create',
+										'class' => 'add'
+										)
 									)
 								)
-							),
-				'fields' => array(
-						'name' 	=> 'user_profile_fields_label',
-						'uri' 	=> 'admin/users/fields',
-							'shortcuts' => array(
-								'create' => array(
-									'name' 	=> 'user_add_field',
-									'uri' 	=> 'admin/users/fields/create',
-									'class' => 'add'
-									)
-								)
-							)
-					);
+						);
+			}
 		}
 
 		return $info;
@@ -123,7 +128,8 @@ class Module_Users extends Module {
 			'last_name' => array(
     			'field_name' => 'lang:user_last_name',
     			'field_type' => 'text',
-    			'extra'		 => array('max_length' => 50, 'required' => true)
+    			'extra'		 => array('max_length' => 50),
+				'assign'	 => array('required' => true)
     		),
     		'company' => array(
     			'field_name' => 'lang:profile_company',

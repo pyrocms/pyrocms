@@ -55,11 +55,11 @@ class Admin extends Admin_Controller
 	{
         // Create pagination links
 		$total_rows = $this->redirect_m->count_all();
-		$this->data->pagination = create_pagination('admin/redirects/index', $total_rows);
+		$this->template->pagination = create_pagination('admin/redirects/index', $total_rows);
 
 		// Using this data, get the relevant results
-		$this->data->redirects = $this->redirect_m->order_by('`from`')->limit($this->data->pagination['limit'])->get_all();
-		$this->template->build('admin/index', $this->data);
+		$this->template->redirects = $this->redirect_m->order_by('`from`')->limit($this->template->pagination['limit'])->get_all();
+		$this->template->build('admin/index');
 	}
 
 	/**
@@ -79,7 +79,7 @@ class Admin extends Admin_Controller
 				redirect('admin/redirects');
 			}
 
-			$this->data->messages['error'] = lang('redirects.add_error');
+			$messages['error'] = lang('redirects.add_error');
 		}
 
 		// Loop through each validation rule
@@ -88,8 +88,10 @@ class Admin extends Admin_Controller
 			$redirect->{$rule['field']} = set_value($rule['field']);
 		}
 
-		$this->data->redirect =& $redirect;
-		$this->template->build('admin/form', $this->data);
+		$this->template->redirect =& $redirect;
+		$this->template
+			->set('messages', $messages)
+			->build('admin/form');
 	}
 
 	/**
@@ -115,10 +117,12 @@ class Admin extends Admin_Controller
 				redirect('admin/redirects');
 			}
 
-			$this->data->messages['error'] = lang('redirects.edit_error');
+			$messages['error'] = lang('redirects.edit_error');
 		}
-		$this->data->redirect =& $redirect;
-		$this->template->build('admin/form', $this->data);
+		$this->template->redirect =& $redirect;
+		$this->template
+			->set('messages', $messages)
+			->build('admin/form');
 	}
 
 	/**

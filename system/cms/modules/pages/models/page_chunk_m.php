@@ -37,11 +37,14 @@ class Page_chunk_m extends MY_Model
 
 		if ($page->chunks)
 		{
+			// get rid of the old
+			$this->delete_by('page_id', $input['id']);
+
 			// And add the new ones
 			$i = 1;
 			foreach ($page->chunks as $chunk)
 			{
-				$this->db->insert('page_chunks', array(
+				$this->insert(array(
 					'slug' 		=> preg_replace('/[^a-zA-Z0-9_-\s]/', '', $chunk->slug),
 					'page_id' 	=> $input['id'],
 					'body' 		=> $chunk->body,

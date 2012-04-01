@@ -11,32 +11,11 @@
 class Plugin_User extends Plugin
 {
 
-	public $current_user_profile_data = array();
-
-	// --------------------------------------------------------------------------
-
-	public $user_stream;
-
-	// --------------------------------------------------------------------------
-
-	public $user_stream_fields;
-
-	// --------------------------------------------------------------------------
-
-	public function __construct()
-	{
-		$this->load->driver('Streams');
-
-		$this->user_stream = $this->streams_m->get_stream('profiles', true, 'users');
-		$this->user_stream_fields = $this->streams_m->get_stream_fields($this->user_stream->id);
-
-		if (isset($this->current_user->id))
-		{
-			$row = $this->db->limit(1)->where('user_id', $this->current_user->id)->get('profiles')->row_array();
-
-			$this->current_user_profile_data = $this->row_m->format_row($row, $this->user_stream_fields, $this->user_stream, false, true);
-		}
-	}
+	/**
+	 * Array of data for the currently
+	 * logged in user.
+	 */
+	public $user_profile_data = array();
 
 	// --------------------------------------------------------------------------
 
@@ -48,13 +27,13 @@ class Plugin_User extends Plugin
 	 * Usage:
 	 *   {{ user:logged_in group="admin" }}
 	 *     <p>Hello admin!</p>
-	 *   {{ /user:logged_in }}
+	 *   {{ endif }}
 	 *
 	 * @return boolean State indicator.
 	 */
 	public function logged_in()
 	{
-		$group = $this->attribute('group', NULL);
+		$group = $this->attribute('group', null);
 
 		if ($this->current_user)
 		{
@@ -63,7 +42,7 @@ class Plugin_User extends Plugin
 				return '';
 			}
 
-			return $this->content() ? $this->content() : TRUE;
+			return $this->content() ? $this->content() : true;
 		}
 
 		return '';
@@ -79,18 +58,18 @@ class Plugin_User extends Plugin
 	 * Usage:
 	 * {{ user:not_logged_in group="admin" }}
 	 * 	<p>Hello not an admin</p>
-	 * {{ /user:not_logged_in }}
+	 * {{ endif }}
 	 *
 	 * @return boolean State indicator.
 	 */
 	public function not_logged_in()
 	{
-		$group = $this->attribute('group', NULL);
+		$group = $this->attribute('group', null);
 
 		// Logged out or not the right user
-		if (!$this->current_user OR ($group AND $group !== $this->current_user->group))
+		if ( ! $this->current_user OR ($group AND $group !== $this->current_user->group))
 		{
-			return $this->content() ? $this->content() : TRUE;
+			return $this->content() ? $this->content() : true;
 		}
 
 		return '';
@@ -106,7 +85,7 @@ class Plugin_User extends Plugin
 	 * Usage:
 	 * {{ user:has_cp_permissions}}
 	 * 	<a href="/admin">Access the Control Panel</a>
-	 * {{ /user:has_cp_permissions }}
+	 * 3{{ endif }}
 	 * 
 	 * @return boolean State indicator.
 	 */
@@ -119,7 +98,7 @@ class Plugin_User extends Plugin
 				return '';
 			}
 
-			return $this->content() ? $this->content() : TRUE;
+			return $this->content() ? $this->content() : true;
 		}
 
 		return '';
@@ -133,7 +112,7 @@ class Plugin_User extends Plugin
 
 		if (is_null($profile_data))
 		{
-			return 'null';
+			return null;
 		}
 
 		$this->lang->load('streams_core/pyrostreams');
@@ -141,40 +120,32 @@ class Plugin_User extends Plugin
 
 		$plugin_data = array();
 
-		$user = $this->ion_auth->get_user($profile_data['user_id']);
-
 		$plugin_data[] = array(
-							'value'		=> $user->email,
+							'value'		=> $profile_data['email'],
 							'name'		=> lang('user_email'),
 							'slug'		=> 'email'
 						);
 
 		$plugin_data[] = array(
-							'value'		=> $user->username,
+							'value'		=> $profile_data['username'],
 							'name'		=> lang('user_username'),
 							'slug'		=> 'username'
 						);
 
 		$plugin_data[] = array(
-							'value'		=> $user->group_description,
+							'value'		=> $profile_data['group_description'],
 							'name'		=> lang('user_group_label'),
 							'slug'		=> 'group_name'
 						);		
 
 		$plugin_data[] = array(
-							'value'		=> date($this->settings->item('date_format'), $user->last_login),
+							'value'		=> date($this->settings->item('date_format'), $profile_data['last_login']),
 							'name'		=> lang('profile_last_login_label'),
 							'slug'		=> 'email'
 						);
 
 		$plugin_data[] = array(
-							'value'		=> date($this->settings->item('date_format'), $user->created_on),
-							'name'		=> lang('profile_registred_on_label'),
-							'slug'		=> 'registered_on'
-						);
-
-		$plugin_data[] = array(
-							'value'		=> date($this->settings->item('date_format'), $user->created_on),
+							'value'		=> date($this->settings->item('date_format'), $profile_data['created_on']),
 							'name'		=> lang('profile_registred_on_label'),
 							'slug'		=> 'registered_on'
 						);
@@ -191,7 +162,7 @@ class Plugin_User extends Plugin
 						'slug'		=> 'updated_on'
 					);
 
-		foreach($this->user_stream_fields as $key => $field)
+		foreach($this->ion_auth_model->user_stream_fields as $key => $field)
 		{
 			$name = (lang($field->field_name)) ? $this->lang->line($field->field_name) : $field->field_name;
 
@@ -203,7 +174,6 @@ class Plugin_User extends Plugin
 		
 			unset($name);
 		}
-
 
 		return $plugin_data;
 	}
@@ -219,34 +189,21 @@ class Plugin_User extends Plugin
 			return null;
 		}
 
-		// We don't want the ID - it's pretty useless
-		unset($profile_data['id']);
-
-		// Get the rest of the fields
-		$user = $this->ion_auth->get_user($profile_data['user_id']);
-
-		$profile_data['email'] 			= $user->email;
-		$profile_data['username'] 		= $user->username;
-		$profile_data['id'] 			= $user->id;
-		$profile_data['group'] 			= $user->group_name;
-		$profile_data['last_login'] 	= $user->last_login;
-
-		return $profile_data;
+		return array($profile_data);
 	}
 
 	// --------------------------------------------------------------------------
 
 	/**
-	 * Current uri string
+	 * Get a user's profile data.
 	 * 
-	 * @return string The current URI string.
 	 */
 	private function get_user_profile($plugin_call = true)
 	{
 		$user_id = $this->attribute('user_id', null);
 
 		// If we do not have a user id and there is
-		// no currently logge in user, there's nothing we can do
+		// no currently logged in user, there is nothing to display.
 		if (is_null($user_id) and ! isset($this->current_user->id))
 		{
 			return null;
@@ -257,47 +214,99 @@ class Plugin_User extends Plugin
 			$user_id = $this->current_user->id;
 		}
 
-		// Does the stuff we got in the construct?
-		// If so, we are almost there
-		if ($this->current_user_profile_data['user_id'] == $user_id and $plugin_call === true)
-		{
-			$profile_data = $this->current_user_profile_data;
-		}
-		else
-		{
-			$row = $this->db->limit(1)->where('user_id', $this->current_user->id)->get('profiles')->row_array();
-			$profile_data = $this->row_m->format_row($row, $this->user_stream_fields, $this->user_stream, false, $plugin_call, array('created_by'));
+		$user = $this->ion_auth_model->get_user($user_id)->row_array();
 
-			// Display name and updated_on go manually
-			$profile_data['display_name'] 	= $row['display_name'];
-			$profile_data['updated_on'] 	= $row['updated_on'];
+		// Nobody needs these as profile fields.
+		unset($user['password']);
+		unset($user['salt']);
+
+		// Got through each stream field and see if we need to format it
+		// for plugin return (ie if we haven't already done that).
+		foreach ($this->ion_auth_model->user_stream_fields as $field_key => $field_data)
+		{
+			if($plugin_call)
+			{
+				if ( ! isset($this->user_profile_data[$user_id]['plugin'][$field_key]))
+				{
+					$this->user_profile_data[$user_id]['plugin'][$field_key] = $this->row_m->format_column(
+																			$field_key,
+																			$user[$field_key],
+																			$user['profile_id'],
+																			$field_data->field_type,
+																			$field_data->field_data,
+																			$this->ion_auth_model->user_stream,
+																			true);
+				}
+				
+				$user[$field_key] = $this->user_profile_data[$user_id]['plugin'][$field_key];
+			}
+			else
+			{
+				if ( ! isset($this->user_profile_data[$user_id]['pre_formatted'][$field_key]))
+				{
+					$this->user_profile_data[$user_id]['pre_formatted'][$field_key] = $this->row_m->format_column(
+																			$field_key,
+																			$user[$field_key],
+																			$user['profile_id'],
+																			$field_data->field_type,
+																			$field_data->field_data,
+																			$this->ion_auth_model->user_stream,
+																			false);
+				}
+				
+				$user[$field_key] = $this->user_profile_data[$user_id]['pre_formatted'][$field_key];
+			}
+
 		}
 
-		return $profile_data;
+		return $user;
 	}
 
 	// --------------------------------------------------------------------------
 
 	/**
 	 * Get a single user variable
+	 *
+	 * @param 	string - the variable to get
+	 * @param 	int - the is of the user
+	 * @return 	string - the formatted column
 	 */
 	private function get_user_var($var, $user_id)
 	{
-		if ($this->current_user_profile_data['user_id'] == $user_id)
+		if (isset($this->user_profile_data[$user_id]['plugin'][$var]))
 		{
-			if(isset($this->current_user_profile_data[$var]))
-			{
-				return $this->current_user_profile_data[$var];
-			}
+			return $this->user_profile_data[$user_id]['plugin'][$var];
+		}
+		
+		$user = $this->ion_auth_model->get_user($user_id)->row_array();
+
+		// Is this a user stream field?
+		if(array_key_exists($var, $this->ion_auth_model->user_stream_fields))
+		{
+			$formatted_column = $this->row_m->format_column(
+												$var,
+												$user[$var],
+												$user['profile_id'],
+												$this->ion_auth_model->user_stream_fields->{$var}->field_type,
+												$this->ion_auth_model->user_stream_fields->{$var}->field_data,
+												$this->ion_auth_model->user_stream,
+												true);
 		}
 		else
 		{
-			// Sigh - we need to grab this.
-			// @todo - we need a function that just grabs one field.
-			$row = $this->db->limit(1)->where('user_id', $this->current_user->id)->get('profiles')->row_array();
-			$profile_data = $this->row_m->format_row($row, $this->user_stream_fields, $this->user_stream, false, true, array('created_by'));
+			$formatted_column = $user[$var];
+		}
 
-			return $profile_data[$var];
+		// Save for later user
+		$this->user_profile_data[$user_id]['plugin'][$var] = $formatted_column;
+
+		if (is_array($formatted_column))
+		{
+			return array($formatted_column);
+		}
+		else
+		{
+			return $formatted_column;
 		}
 	}
 
@@ -306,7 +315,9 @@ class Plugin_User extends Plugin
 	/**
 	 * Load a variable
 	 *
-	 * Magic method to get the setting.
+	 * Magic method to get a user variable. This is where
+	 * the user_id gets set to the current user if none
+	 * is specified.
 	 *
 	 * @param	string
 	 * @param	string

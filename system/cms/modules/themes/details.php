@@ -33,7 +33,8 @@ class Module_Themes extends Module {
 				'ru' => 'Темы',
 				'sl' => 'Predloge',
 				'zh' => '佈景主題',
-				'hu' => 'Sablonok'
+				'hu' => 'Sablonok',
+                                'se' => 'Teman'
 			),
 			'description' => array(
 				'en' => 'Allows admins and staff to switch themes, upload new themes, and manage theme options.',
@@ -55,7 +56,8 @@ class Module_Themes extends Module {
 				'ru' => 'Управление темами оформления сайта, загрузка новых тем.',
 				'sl' => 'Dovoljuje adminom in osebju spremembo izgleda spletne strani, namestitev novega izgleda in urejanja le tega v bolj vizualnem pristopu',
 				'zh' => '讓管理者可以更改網站顯示風貌，以視覺化的操作上傳並管理這些網站佈景主題。',
-                                'hu' => 'Az adminok megváltoztathatják az oldal kinézetét, feltölthetnek új kinézeteket és kezelhetik őket.'
+                                'hu' => 'Az adminok megváltoztathatják az oldal kinézetét, feltölthetnek új kinézeteket és kezelhetik őket.',
+                                'se' => 'Hantera webbplatsens utseende genom teman, ladda upp nya teman och hantera temainställningar.'
 			),
 			'frontend' => false,
 			'backend'  => true,

@@ -28,7 +28,8 @@ class Module_Sitemap extends Module {
 				'nl' => 'Sitemap',
 				'ru' => 'Карта сайта',
 				'zh' => '網站地圖',
-                                'hu' => 'Oldaltérkép'
+                                'hu' => 'Oldaltérkép',
+                                'se' => 'Sajtkarta'
 			),
 			'description' => array(
 				'en' => 'The sitemap module creates an index of all pages and an XML sitemap for search engines.',
@@ -46,7 +47,8 @@ class Module_Sitemap extends Module {
 				'nl' => 'De sitemap module maakt een index van alle pagina\'s en een XML sitemap voor zoekmachines.',
 				'ru' => 'Карта модуль создает индекс всех страниц и карта сайта XML для поисковых систем.',
 				'zh' => '站點地圖模塊創建一個索引的所有網頁和XML網站地圖搜索引擎。',
-                                'hu' => 'Ez a modul indexeli az összes oldalt és egy XML oldaltéképet generál a keresőmotoroknak.'
+                                'hu' => 'Ez a modul indexeli az összes oldalt és egy XML oldaltéképet generál a keresőmotoroknak.',
+                                'se' => 'Sajtkarta, modulen skapar ett index av alla sidor och en XML-sitemap för sökmotorer.'
 			),
 			'frontend' => true,
 			'backend' => false,

@@ -1,4 +1,4 @@
-﻿<?php defined('BASEPATH') or exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 $lang['streams.datetime.name'] 					= "Date/heure";
 $lang['streams.datetime.use_time'] 				= "Utiliser l'heure";

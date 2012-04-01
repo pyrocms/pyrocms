@@ -2,9 +2,10 @@
 /**
  * Regular pages model
  *
- * @author		Phil Sturgeon
- * @author		PyroCMS Dev Team
- * @package		PyroCMS\Core\Modules\Pages\Models
+ * @author Phil Sturgeon
+ * @author Jerel Unruh
+ * @author PyroCMS Dev Team
+ * @package PyroCMS\Core\Modules\Pages\Models
  *
  */
 class Page_m extends MY_Model
@@ -100,6 +101,7 @@ class Page_m extends MY_Model
 	* @param array $segments The path segments
 	* @return array
 	*/
+
 	/*
 	* Not in use right now but added back for a) historical purposes and b) it was f**king difficult to write and I dont want to have to do it again
 	*
@@ -153,11 +155,11 @@ class Page_m extends MY_Model
 	*/
 
 	/**
-	 * Get a page by it's URI
+	 * Get a page by its URI
 	 *
-	 * @access public
-	 * @param string	The uri of the page
-	 * @param bool		Is this an http request or called from a plugin
+	 * @param string $uri The uri of the page.
+	 * @param bool $is_request Is this an http request or called from a plugin
+	 *
 	 * @return object
 	 */
 	public function get_by_uri($uri, $is_request = FALSE)
@@ -203,7 +205,7 @@ class Page_m extends MY_Model
 		{
 			// so we found a page but if strict uri matching is required and the unmodified
 			// uri doesn't match the page we fetched then we pretend it didn't happen
-			if ($is_request AND (bool) $page->strict_uri AND $original_uri !== $uri)
+			if ($is_request AND (bool)$page->strict_uri AND $original_uri !== $uri)
 			{
 				return FALSE;
 			}
@@ -216,12 +218,43 @@ class Page_m extends MY_Model
 	}
 
 	/**
-	* Get the home page
-	*
-	* @access public
-	* @param string  The uri of the page
-	* @return object
-	*/
+	 * Get a page from the database.
+	 *
+	 * Also retrieves the chunks for that page.
+	 *
+	 * @param int $id The page id.
+	 * @param bool $get_chunks Whether to retrieve the chunks for this page or not. Defaults to true.
+	 *
+	 * @return array The page data.
+	 */
+	public function get($id, $get_chunks = true)
+	{
+		$page = $this->db
+			->where($this->primary_key, $id)
+			->get($this->_table)
+			->row(0, 'array');
+
+		if ( ! $page)
+		{
+			return;
+		}
+
+		if ($get_chunks)
+		{
+			$page['chunks'] = $this->db
+				->order_by('sort')
+				->get_where('page_chunks', array('page_id' => $id))
+				->result('array');
+		}
+
+		return $page;
+	}
+
+	/**
+	 * Get the home page
+	 *
+	 * @return object
+	 */
 	public function get_home()
 	{
 		return $this->db
@@ -233,19 +266,17 @@ class Page_m extends MY_Model
 	/**
 	 * Build a multi-array of parent > children.
 	 *
-	 * @author Jerel Unruh - PyroCMS Dev Team
-	 * @access public
-	 * @return array An array representing the page tree
+	 * @return array An array representing the page tree.
 	 */
 	public function get_page_tree()
 	{
 		$all_pages = $this->db
 			->select('id, parent_id, title')
-			 ->order_by('`order`')
-			 ->get('pages')
-			 ->result_array();
+			->order_by('`order`')
+			->get('pages')
+			->result_array();
 
-		// we must reindex the array first
+		// First, re-index the array.
 		foreach ($all_pages as $row)
 		{
 			$pages[$row['id']] = $row;
@@ -253,16 +284,16 @@ class Page_m extends MY_Model
 
 		unset($all_pages);
 
-		// build a multidimensional array of parent > children
+		// Build a multidimensional array of parent > children.
 		foreach ($pages as $row)
 		{
 			if (array_key_exists($row['parent_id'], $pages))
 			{
-				// add this page to the children array of the parent page
+				// Add this page to the children array of the parent page.
 				$pages[$row['parent_id']]['children'][] =& $pages[$row['id']];
 			}
 
-			// this is a root page
+			// This is a root page.
 			if ($row['parent_id'] == 0)
 			{
 				$page_array[] =& $pages[$row['id']];
@@ -272,12 +303,11 @@ class Page_m extends MY_Model
 		return $page_array;
 	}
 
+
 	/**
 	 * Set the parent > child relations and child order
 	 *
-	 * @author Jerel Unruh - PyroCMS Dev Team
 	 * @param array $page
-	 * @return void
 	 */
 	public function _set_children($page)
 	{
@@ -297,12 +327,13 @@ class Page_m extends MY_Model
 		}
 	}
 
+
 	/**
 	 * Does the page have children?
 	 *
-	 * @access public
 	 * @param int $parent_id The ID of the parent page
-	 * @return mixed
+	 *
+	 * @return bool
 	 */
 	public function has_children($parent_id)
 	{
@@ -314,6 +345,7 @@ class Page_m extends MY_Model
 	 *
 	 * @param int $id The ID of the page?
 	 * @param array $id_array ?
+	 *
 	 * @return array
 	 */
 	public function get_descendant_ids($id, $id_array = array())
@@ -324,7 +356,7 @@ class Page_m extends MY_Model
 			->where('parent_id', $id)
 			->get('pages')->result();
 
-		$has_children = !empty($children);
+		$has_children = ! empty($children);
 
 		if ($has_children)
 		{
@@ -341,8 +373,8 @@ class Page_m extends MY_Model
 	/**
 	 * Build a lookup
 	 *
-	 * @access public
-	 * @param int $id
+	 * @param int $id The id of the page to build the lookup for.
+	 *
 	 * @return array
 	 */
 	public function build_lookup($id)
@@ -361,7 +393,7 @@ class Page_m extends MY_Model
 			$current_id = $page->parent_id;
 			array_unshift($segments, $page->slug);
 		}
-		while( $page->parent_id > 0 );
+		while ($page->parent_id > 0);
 
 		// If the URI has been passed as a string, explode to create an array of segments
 		return parent::update($id, array(
@@ -369,12 +401,11 @@ class Page_m extends MY_Model
 		));
 	}
 
+
 	/**
 	 * Reindex child items
 	 *
-	 * @access public
 	 * @param int $id The ID of the parent item
-	 * @return void
 	 */
 	public function reindex_descendants($id)
 	{
@@ -386,12 +417,12 @@ class Page_m extends MY_Model
 	}
 
 	/**
-	 * Update lookup for entire page tree
-	 * used to update page uri after ajax sort
+	 * Update lookup.
 	 *
-	 * @access public
+	 * Updates lookup for entire page tree used to update
+	 * page uri after ajax sort.
+	 *
 	 * @param array $root_pages An array of top level pages
-	 * @return void
 	 */
 	public function update_lookup($root_pages)
 	{
@@ -410,9 +441,10 @@ class Page_m extends MY_Model
 	/**
 	 * Create a new page
 	 *
-	 * @access 	public
-	 * @param 	array 	$input The sanitized $_POST
-	 * @return 	bool
+	 * @param array $input The page data to insert.
+	 * @param array $chunks The page chunks to insert.
+	 *
+	 * @return bool `true` on success, `false` on failure.
 	 */
 	public function create($input)
 	{
@@ -472,8 +504,9 @@ class Page_m extends MY_Model
 		return ($this->db->trans_status() === FALSE) ? FALSE : $input;
 	}
 
+
 	/**
-	* Update a Page
+	 * Update a Page
 	 *
 	 * @access public
 	 * @param int $id The ID of the page to update
@@ -487,8 +520,7 @@ class Page_m extends MY_Model
 		if ( ! empty($input['is_home']))
 		{
 			// Remove other homepages so this one can have the spot
-			$this->where('is_home', 1)
-				->update($this->_table, array('is_home' => 0), TRUE);
+			$this->update_by('is_home', 1, array('is_home' => 0), TRUE);
 		}
 
 		// validate the data and update
@@ -516,7 +548,7 @@ class Page_m extends MY_Model
 		// did it pass validation?
 		if ( ! $result) return FALSE;
 
-		$result['id'] = $id;
+		$input['id'] = $id;
 
 		$this->build_lookup($input['id']);
 
@@ -528,13 +560,14 @@ class Page_m extends MY_Model
 		return ($this->db->trans_status() === FALSE) ? FALSE : $input;
 	}
 
+
 	/**
-	* Delete a Page
+	 * Delete a Page
 	 *
-	 * @access public
 	 * @param int $id The ID of the page to delete
-	 * @return bool
-	*/
+	 *
+	 * @return array|bool
+	 */
 	public function delete($id = 0)
 	{
 		$this->db->trans_start();
@@ -549,22 +582,27 @@ class Page_m extends MY_Model
 
 		$this->db->trans_complete();
 
-		return $this->db->trans_status() !== FALSE ? $ids : FALSE;
+		return ($this->db->trans_status() !== false) ? $ids : false;
 	}
 
 	/**
 	 * Check Slug for Uniqueness
-	 * @access public
-	 * @param slug, parent id, this records id
+	 *
+	 * Slugs should be unique among sibling pages.
+	 *
+	 * @param string $slug The slug to check for.
+	 * @param int $parent_id The parent_id if any.
+	 * @param int $id The id of the page.
+	 *
 	 * @return bool
 	*/
 	public function _unique_slug($slug, $parent_id, $id = 0)
 	{
-		return (int) parent::count_by(array('id !='	=>	$id,
-											'slug'	=>	$slug,
-											'parent_id' => $parent_id
-											)
-									  ) > 0;
+		return (int)parent::count_by(array(
+			'id !=' => $id,
+			'slug' => $slug,
+			'parent_id' => $parent_id
+		)) > 0;
 	}
 
 	/**

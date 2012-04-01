@@ -13,11 +13,18 @@
 					order.push( $(this).find('input[name="action_to[]"]').val() );
 				});
 				order = order.join(',');
-				
-				$.post(BASE_URI + 'index.php/streams_core/ajax/update_field_order', { order: order, offset: fields_offset }, function(data) {					
-					$('tr').removeClass('alt');
-					$('tr:even').addClass('alt');
+	
+				$.ajax({
+					dataType: 'text',
+					type: 'POST',
+					data: 'order='+order+'&offset='+fields_offset+'&csrf_hash_name='+$.cookie('csrf_cookie_name'),
+					url:  BASE_URL+'index.php/streams_core/ajax/update_field_order',
+					success: function() {
+						$('tr').removeClass('alt');
+						$('tr:even').addClass('alt');
+					}
 				});
+
 			},
 			stop: function(event, ui) {
 				$("tbody tr:nth-child(even)").livequery(function () {

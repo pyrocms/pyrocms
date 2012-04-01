@@ -10,7 +10,7 @@
 	</div>
 	<?php endif;?>
 
-	<?php echo form_open('', array('id'=>'user_edit'));?>
+	<?php echo form_open_multipart('', array('id'=>'user_edit'));?>
 
 	<fieldset id="profile_fields">
 		<legend><?php echo lang('user_details_section') ?></legend>
@@ -28,6 +28,7 @@
 					<?php echo (lang($field['field_name'])) ? lang($field['field_name']) : $field['field_name'];  ?>
 					<?php if ($field['required']){ ?> <span>*</span><?php } ?>
 				</label>
+				<?php if($field['instructions']) { echo '<p class="instructions">'.$field['instructions'].'</p>'; } ?>
 				<div class="input">
 					<?php echo $field['input']; ?>
 				</div>

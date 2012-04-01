@@ -112,10 +112,8 @@ class Files
 		{
 			return self::result(TRUE, lang('files:container_created'), $container);
 		}
-		else
-		{
-			return self::result(FALSE, lang('files:error_container'), $container);
-		}
+
+		return self::result(FALSE, lang('files:error_container'), $container);
 	}
 
 	// ------------------------------------------------------------------------
@@ -129,7 +127,6 @@ class Files
 	**/
 	public static function folder_contents($parent = 0)
 	{
-
 		$folders = ci()->file_folders_m->where('parent_id', $parent)
 			->order_by('sort')
 			->get_all();
@@ -163,12 +160,16 @@ class Files
 	// ------------------------------------------------------------------------
 
 	/**
-	 * Get all folders in a tree
-	 *
 	 * @param	int		$parent	The id of this folder
 	 * @return	array
 	 *
 	**/
+
+	/**
+	 * Get all folders in a tree
+	 *
+	 * @return array
+	 */
 	public static function folder_tree()
 	{
 		$folders = array();
@@ -176,17 +177,17 @@ class Files
 
 		$all_folders = ci()->file_folders_m
 			->select('id, parent_id, slug, name')
-			 ->order_by('sort')
-			 ->get_all();
-	
+			->order_by('sort')
+			->get_all();
+
 		// we must reindex the array first
 		foreach ($all_folders as $row)
 		{
-			$folders[$row->id] = (array) $row;
+			$folders[$row->id] = (array)$row;
 		}
-		
-		unset($all_folders);
-	
+
+		unset($tree);
+
 		// build a multidimensional array of parent > children
 		foreach ($folders as $row)
 		{
@@ -195,14 +196,13 @@ class Files
 				// add this folder to the children array of the parent folder
 				$folders[$row['parent_id']]['children'][] =& $folders[$row['id']];
 			}
-			
+
 			// this is a root folder
 			if ($row['parent_id'] == 0)
 			{
 				$folder_array[] =& $folders[$row['id']];
 			}
 		}
-	
 		return $folder_array;
 	}
 
@@ -291,27 +291,33 @@ class Files
 		}
 	}
 
-	// ------------------------------------------------------------------------
-
 	/**
 	 * Upload a file
 	 *
-	 * @param	int		$folder_id	The folder to upload it to
-	 * @param	string	$name		The filename
-	 * @param	string	$field		Like CI this defaults to "userfile"
-	 * @param	int		$width		The width to resize the image to
-	 * @param	int		$height		The height to resize the image to
-	 * @param	bool	$ratio		Keep the aspect ratio or not?
-	 * @return	array
-	 *
-	**/
+	 * @param int $folder_id The folder to upload it to
+	 * @param bool $name The filename
+	 * @param string $field Like CI this defaults to "userfile"
+	 * @param bool $width The width to resize the image to
+	 * @param bool $height The height to resize the image to
+	 * @param bool $ratio Keep the aspect ratio or not?
+	 * @return array|bool
+	 */
 	public static function upload($folder_id, $name = FALSE, $field = 'userfile', $width = FALSE, $height = FALSE, $ratio = FALSE)
 	{
-		if ( ! $check_dir = self::_check_dir(self::$path)) return $check_dir;
+		if ( ! $check_dir = self::_check_dir(self::$path))
+		{
+			return $check_dir;
+		}
 
-		if ( ! $check_cache_dir = self::_check_dir(self::$_cache_path)) return $check_cache_dir;
+		if ( ! $check_cache_dir = self::_check_dir(self::$_cache_path))
+		{
+			return $check_cache_dir;
+		}
 
-		if ( ! $check_ext = self::_check_ext($field)) return $check_ext;
+		if ( ! $check_ext = self::_check_ext($field))
+		{
+			return $check_ext;
+		}
 
 		// this keeps a long running upload from stalling the site
 		session_write_close();
@@ -362,6 +368,12 @@ class Files
 				}
 
 				$file_id = ci()->file_m->insert($data);
+
+				if ($data['type'] !== 'i')
+				{
+					// so it wasn't an image. Now that we know the id we need to set the path as a download
+					ci()->file_m->update($file_id, array('path' => '{{ url:site }}files/download/'.$file_id));
+				}
 
 				if ($folder->location !== 'local')
 				{
@@ -899,7 +911,7 @@ class Files
 		foreach (ci()->module_m->roles('files') as $value)
 		{
 			// build a simplified permission list for use in this module
-			if (isset(ci()->permissions['files']) AND 
+			if (isset(ci()->permissions['files']) AND
 				array_key_exists($value, ci()->permissions['files']) OR ci()->current_user->group == 'admin')
 			{
 				$allowed_actions[] = $value;
@@ -921,7 +933,7 @@ class Files
 	**/
 	public static function exception_handler($e)
 	{
-		log_message('debug', $error);
+		log_message('debug', $e->getMessage());
 
 		echo json_encode( 
 			array('status' 	=> FALSE, 

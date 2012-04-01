@@ -160,7 +160,7 @@ class MY_Controller extends MX_Controller {
 			$_POST = $this->security->xss_clean($_POST);
 		}
 
-		if ($this->module AND isset($this->module_details['path']))
+		if ($this->module and isset($this->module_details['path']))
 		{
 			Asset::add_path('module', $this->module_details['path'].'/');
 		}

@@ -9,10 +9,13 @@
  */
 class Plugin_Pages extends Plugin
 {
+
 	/**
-	 * Get a page's URL
+	 * Get the URL of a page
 	 *
-	 * @param int $id The ID of the page
+	 * Attributes:
+	 *  - (int) id : The id of the page to get the URL for.
+	 *
 	 * @return string
 	 */
 	public function url()
@@ -20,16 +23,16 @@ class Plugin_Pages extends Plugin
 		$id		= $this->attribute('id');
 		$page	= $this->pyrocache->model('page_m', 'get', array($id));
 
-		return site_url($page ? $page->uri : '');
+		return site_url($page ? $page['uri'] : '');
 	}
 
-	// --------------------------------------------------------------------------
-	
 	/**
 	 * Get a page by ID or slug
 	 *
-	 * @param int 		$id The ID of the page
-	 * @param string 	$slug The uri of the page
+	 * Attributes:
+	 * - (int) id: The id of the page.
+	 * - (string) slug: The slug of the page.
+	 *
 	 * @return array
 	 */
 	public function display()
@@ -47,8 +50,8 @@ class Plugin_Pages extends Plugin
 		$page['body'] = '';
 		foreach ($page['chunks'] as $chunk)
 		{
-			$page['body'] .= 	'<div class="page-chunk ' . $chunk->slug . '">' .
-									(($chunk->type == 'markdown') ? $chunk->parsed : $chunk->body) .
+			$page['body'] .= 	'<div class="page-chunk ' . $chunk['slug'] . '">' .
+									(($chunk['type'] == 'markdown') ? $chunk['parsed'] : $chunk['body']) .
 								'</div>'.PHP_EOL;
 		}
 
@@ -58,14 +61,14 @@ class Plugin_Pages extends Plugin
 		return $this->content() ? array($page) : $page['body'];
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Get a page chunk by page ID and chunk name
 	 *
-	 * @param int 		$id The ID of the page
-	 * @param string 	$slug The name of the chunk
-	 * @return array
+	 * Attributes:
+	 * - (int) id : The id of the page.
+	 * - (string) slug : The name of the chunk.
+	 *
+	 * @return string|bool
 	 */
 	function chunk()
 	{
@@ -79,12 +82,15 @@ class Plugin_Pages extends Plugin
 		return ($chunk ? ($this->content() ? $chunk : $chunk['body']) : false);
 	}
 
-	// --------------------------------------------------------------------------
-	
 	/**
 	 * Children list
 	 *
 	 * Creates a list of child pages
+	 *
+	 * Attributes:
+	 * - (int) limit: How many pages to show.
+	 * - (string) order-by: One of the column names from the `pages` table.
+	 * - (string) order-dir: Either `asc` or `desc`
 	 *
 	 * Usage:
 	 * {{ pages:children id="1" limit="5" }}
@@ -92,15 +98,15 @@ class Plugin_Pages extends Plugin
 	 *	    {body}
 	 * {{ /pages:children }}
 	 *
-	 * @return	array
+	 * @return array
 	 */
 	public function children()
 	{
 
 		$limit = $this->attribute('limit', 10);
-		$order_by 	= $this->attribute('order-by', 'title');
-		$order_dir	= $this->attribute('order-dir', 'ASC');
-		
+		$order_by = $this->attribute('order-by', 'title');
+		$order_dir = $this->attribute('order-dir', 'ASC');
+
 		$pages = $this->db->select('pages.*')
 			->where('pages.parent_id', $this->attribute('id'))
 			->where('status', 'live')
@@ -114,14 +120,16 @@ class Plugin_Pages extends Plugin
 			foreach ($pages AS &$page)
 			{
 				// Grab all the chunks that make up the body for this page
-				$page['chunks'] = $this->db->get_where('page_chunks', array('page_id' => $page['id']))->result();
-				
+				$page['chunks'] = $this->db
+					->get_where('page_chunks', array('page_id' => $page['id']))
+					->result();
+
 				$page['body'] = '';
 				foreach ($page['chunks'] as $chunk)
 				{
-					$page['body'] .= 	'<div class="page-chunk ' . $chunk->slug . '">' .
-											(($chunk->type == 'markdown') ? $chunk->parsed : $chunk->body) .
-										'</div>'.PHP_EOL;
+					$page['body'] .= '<div class="page-chunk '.$chunk['slug'].'">'.
+						(($chunk['type'] == 'markdown') ? $chunk['parsed'] : $chunk['body']).
+						'</div>'.PHP_EOL;
 				}
 			}
 		}
@@ -329,7 +337,8 @@ class Plugin_Pages extends Plugin
 
 		if ( ! $tree)
 		{
-			$this->db->select('id, parent_id, slug, uri, title')
+			$this->db
+				->select('id, parent_id, slug, uri, title')
 				->where_not_in('slug', $this->disable);
 			
 			// check if they're logged in
@@ -340,7 +349,8 @@ class Plugin_Pages extends Plugin
 				{
 					$id_list = array();
 					
-					$page_list = $this->db->select('id, restricted_to')
+					$page_list = $this->db
+						->select('id, restricted_to')
 						->get('pages')
 						->result();
 
@@ -370,12 +380,14 @@ class Plugin_Pages extends Plugin
 			else
 			{
 				//they aren't logged in, show them all live, unrestricted pages
-				$this->db->where('status', 'live')
+				$this->db
+					->where('status', 'live')
 					->where('restricted_to <', 1)
 					->or_where('restricted_to', null);
 			}
 			
-			$pages = $this->db->order_by($order_by, $order_dir)
+			$pages = $this->db
+				->order_by($order_by, $order_dir)
 				->get('pages')
 				->result();
 
@@ -421,5 +433,3 @@ class Plugin_Pages extends Plugin
 		return $html;
 	}
 }
-
-/* End of file plugin.php */

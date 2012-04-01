@@ -84,6 +84,11 @@ class Streams_utilities extends CI_Driver {
 		// Table data checks
 		// ----------------------------
 
+		// Thanks to CodeIgniter's results caching any tables created after 
+		// table_exists() or list_tables() are called will not be included in 
+		// subsequent calls to table_exists() or list_tables() unless we clear the cache
+		$this->CI->db->data_cache = array();
+
 		// Does the table w/ the prefix exist?
 		// If not, then forget it. We can't make a stream
 		// out of a table that doesn't exist.
@@ -253,140 +258,6 @@ class Streams_utilities extends CI_Driver {
 		// The 4th parameter is to stop the column from being
 		// created, since we already did that.
 		return $this->CI->streams_m->add_field_to_stream($field_id, $stream->id, $data, false);
-	}
-
-	// --------------------------------------------------------------------------
-
-	/**
-	 * Streams Config Export
-	 *
-	 * Builds and downloads a php config
-	 * with your stream info.
-	 *
-	 * Useful when you want to build a structure
-	 * that you want to run through Streams API and you'd rather
-	 * build it somewhere and then export it. Or, you know,
-	 * other uses
-	 *
-	 * @access 	public
-	 * @param 	the stream
-	 * @return  void
-	 */
-	public function config_export($stream_slug, $namespace)
-	{
-		$stream = $this->stream_obj($stream_slug, $namespace);
-		
-		if ( ! $stream) $this->log_error('invalid_stream', 'config_export');
-
-		$CI = get_instance();
-
-		$parser_data = array(
-			'namespace'		=> $stream->stream_namespace,
-			'stream_name'	=> $stream->stream_name,
-			'stream_slug'	=> $stream->stream_slug,
-			'about'			=> $stream->about,
-			'prefix'		=> $stream->stream_prefix,
-			'view_options'	=> $this->array_string($stream->view_options)
-		);
-	
-		$assignments = $CI->fields_m->get_assignments_for_stream($stream->id);
-
-		$array_string = null;
-
-		foreach($assignments as $assign)
-		{
-			$array_string .= "
-			array(
-				'name'			=> '{$assign->field_name}',
-				'slug'			=> '{$assign->field_slug}',
-				'namespace'		=> '{$stream->stream_namespace}',
-				'type'			=> '{$assign->field_type}',
-				'extra'			=> {$this->array_string($assign->field_data)},
-				'assign'		=> '{$stream->stream_slug}',
-				'title_column'	=> '{$this->title_column($assign->field_slug, $stream->title_column)}',
-				'required'		=> '{$this->true_false($assign->is_required)}',
-				'unique'		=> '{$this->true_false($assign->is_unique)}'
-			),
-			";
-		}
-
-		$parser_data['fields'] = $array_string;
-
-		$config_template = @file_get_contents(APPPATH.'modules/streams_core/views/fields_template.txt');
-
-		if ( ! $config_template)
-		{
-			show_error('Count not find config template');
-		}
-
-		foreach($parser_data as $key => $value)
-		{
-			$config_template = str_replace('{'.$key.'}', $value, $config_template);
-		}
-
-		$CI->load->helper('download');
-		force_download($stream->stream_slug.'_schema.php', $config_template);		
-	}
-
-	// --------------------------------------------------------------------------
-
-	/**
-	 * Convert an array to a PHP
-	 * representation of an array
-	 *
-	 * @access 	private
-	 * @param 	array
-	 * @return 	string
-	 */
-	private function array_string($array)
-	{
-		$array = @unserialize($array);
-
-		if ( ! is_array($array))
-		{
-			return 'array()';
-		}
-
-		$out = 'array(';
-
-		foreach($array as $key => $value)
-		{
-			$out .= "'".$key."' => '".$value."',\n";
-		}
-
-		return $out .= '),';
-	}
-
-	// --------------------------------------------------------------------------
-
-	/**
-	 * Convert an array to a PHP
-	 * representation of an array
-	 *
-	 * @access 	private
-	 * @param 	array
-	 * @return 	string
-	 */
-	private function title_column($field_slug, $title_column)
-	{
-		return ($field_slug == $title_column) ? 'true' : 'false';
-	}
-
-	// --------------------------------------------------------------------------
-
-	/**
-	 * Turns a yes/no string into a true/false
-	 * string (not the boolean).
-	 *
-	 * Used for the config export.
-	 *
-	 * @access 	private
-	 * @param 	array
-	 * @return 	string
-	 */
-	private function true_false($var)
-	{
-		return ($var == 'yes') ? 'true' : 'false';
 	}
 
 }

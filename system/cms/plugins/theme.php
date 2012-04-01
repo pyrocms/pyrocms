@@ -140,7 +140,7 @@ class Plugin_Theme extends Plugin
 
 		try
 		{
-			return Asset::img($file, $alt);
+			return Asset::img($file, $alt, $attributes);
 		}
 		catch (Asset_Exception $e)
 		{
