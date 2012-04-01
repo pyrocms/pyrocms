@@ -84,6 +84,11 @@ class Streams_utilities extends CI_Driver {
 		// Table data checks
 		// ----------------------------
 
+		// Thanks to CodeIgniter's results caching any tables created after 
+		// table_exists() or list_tables() are called will not be included in 
+		// subsequent calls to table_exists() or list_tables() unless we clear the cache
+		$this->CI->db->data_cache = array();
+
 		// Does the table w/ the prefix exist?
 		// If not, then forget it. We can't make a stream
 		// out of a table that doesn't exist.
