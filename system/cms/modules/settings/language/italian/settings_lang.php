@@ -7,7 +7,7 @@ $lang['settings_site_name_desc'] 				= 'Il nome del sito per i titoli della pagi
 $lang['settings_site_slogan'] 					= 'Slogan del sito';
 $lang['settings_site_slogan_desc'] 				= 'Lo slogan del sito per i titoli della pagina e per essere usato in giro per il sito.';
 
-$lang['settings_site_lang']						= 'Site Language'; #translate
+$lang['settings_site_lang']						= 'Lingua del sito';
 $lang['settings_site_lang_desc']				= 'The native language of the website, used to choose templates of e-mail internal notifications and receiving visitors contact and other features that should not bend the language of a user.'; #translate
 
 $lang['settings_contact_email'] 				= 'Email per contatti';
@@ -28,7 +28,7 @@ $lang['settings_dashboard_rss_desc'] 			= 'Collegamento ad un feed RSS che verr√
 $lang['settings_dashboard_rss_count'] 			= 'Post RSS della Dashboard';
 $lang['settings_dashboard_rss_count_desc'] 		= 'Quanti post RSS vuoi mostrare nella dashboard ?';
 
-$lang['settings_date_format'] 					= 'Date Format'; #translate
+$lang['settings_date_format'] 					= 'Formato data';
 $lang['settings_date_format_desc']				= 'How should dates be displayed accross the website and control panel? ' .
 													'Using the <a href="http://php.net/manual/en/function.date.php" target="_black">date format</a> from PHP - OR - ' .
 													'Using the format of <a href="http://php.net/manual/en/function.strftime.php" target="_black">strings formated as date</a> from PHP.'; #translate
