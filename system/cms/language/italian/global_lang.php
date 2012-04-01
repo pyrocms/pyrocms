@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['global:control-panel'] 						= 'Pannello di Controllo';
-$lang['global:profile']					= 'Profile'; #translate
+$lang['global:profile']					= 'Profilo';
 
 $lang['title_label'] 					= 'Titolo';
 $lang['name_label'] 					= 'Nome';
@@ -20,8 +20,8 @@ $lang['global:select-all'] 					= '-- Tutti --';
 $lang['global:select-any'] 					= '-- Ognuno --';
 $lang['global:select-pick'] 					= '-- Seleziona --';
 
-$lang['global:check-none'] 					= 'None'; #translate
-$lang['global:check-all']						= 'All'; #translate
+$lang['global:check-none'] 					= 'Nessuno';
+$lang['global:check-all']						= 'Tutti';
 
 $lang['operators.equal'] 				= 'Uguale a';
 $lang['operators.not_equal'] 			= 'Diverso da';
@@ -44,7 +44,7 @@ $lang['success_label'] 					= 'Successo';
 
 $lang['login_title'] 					= 'Entra';
 $lang['cms_fatal_error'] 				= 'Errore fatale, il CMS $eacute; installato?';
-$lang['global:demo_restrictions']       = 'Some features on this page have been disabled for the demo.'; #translate
+$lang['global:demo_restrictions']       = 'Alcune funzionalit&agrave; sono state disabilitate per la demo.';
 
 $lang['login_error_label'] 				= 'Errore di accesso';
 $lang['forgot_password_label'] 			= 'Password dimenticata?';
@@ -68,22 +68,22 @@ $lang['global:enable']					= 'Abilita';
 $lang['global:disable'] 					= 'Disabilita';
 $lang['global:upgrade'] 					= 'Aggiorna';
 
-$lang['all_right_reserved']				= 'All Rights Reserved.';  #translate
-$lang['powered_by_pyrocms']				= 'Powered by PyroCMS';  #translate
-$lang['top_page']						= 'Top';  #translate
-$lang['back_to_top']					= 'Back to Top';  #translate
+$lang['all_right_reserved']				= 'Tutti i diritti riservati.';
+$lang['powered_by_pyrocms']				= 'Sviluppato con PyroCMS';
+$lang['top_page']						= 'Su';
+$lang['back_to_top']					= 'Torna all\'inizio';
 
 $lang['global:shortcuts'] 				= 'Collegamenti';
 $lang['global:description'] 		    = 'Descrizione';
 $lang['global:actions']					= 'Azioni';
-$lang['global:view']					= 'View'; #translate
-$lang['global:preview']					= 'Preview'; #translate
-$lang['global:add']						= 'Add'; #translate
+$lang['global:view']					= 'Vedi';
+$lang['global:preview']					= 'Anteprima';
+$lang['global:add']						= 'Aggiungi';
 $lang['global:edit']					= 'Modifica';
-$lang['global:empty']					= 'Empty'; #translate
+$lang['global:empty']					= 'Vuoto';
 $lang['global:delete']					= 'Elimina';
 $lang['global:remove']					= 'Elimina';
 
-$lang['global:keywords']				= 'Keywords'; #translate
+$lang['global:keywords']				= 'Parole chiave';
 
 /* End of file main_lang.php */
