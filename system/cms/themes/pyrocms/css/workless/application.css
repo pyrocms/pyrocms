@@ -380,6 +380,7 @@ section.title h4 a {
 section.item {
 	background: #ffffff;
 	width: 100%;
+	min-height: 100px;
 	margin: 0;
 	padding: 16px;
 	float: left;

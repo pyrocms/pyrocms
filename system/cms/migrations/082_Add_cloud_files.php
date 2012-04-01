@@ -88,7 +88,13 @@ class Migration_Add_cloud_files extends CI_Migration {
 		foreach ($files as $file) 
 		{
 			// build local paths so that we have a uniform style between local, amazon, and rackspace
-			$this->file_m->update($file->id, array('path' => '{{ url:site }}files/large/'.$file->filename));
+			$this->file_m
+				->where('type', 'i')
+				->update($file->id, array('path' => '{{ url:site }}files/large/'.$file->filename));
+
+			$this->file_m
+				->where('type !=', 'i')
+				->update($file->id, array('path' => '{{ url:site }}files/download/'.$file->id));
 		}
 	}
 
