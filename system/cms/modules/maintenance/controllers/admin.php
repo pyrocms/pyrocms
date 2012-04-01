@@ -28,24 +28,26 @@ class Admin extends Admin_Controller
 	 */
 	public function index()
 	{
+		// Discover all the directories in the cache path.
 		$folders = glob($this->cache_path.'*', GLOB_ONLYDIR);
 
-		// get protected cache folders from module config file
-		$protected = (array)$this->config->item('maintenance.cache_protected_folders');
-		$cannot_remove = (array)$this->config->item('maintenance.cannot_remove_folders');
+		// Get protected cache folders from module config file
+		$protected = $this->config->item('maintenance.cache_protected_folders');
+		$cannot_remove = $this->config->item('maintenance.cannot_remove_folders');
 
-		// remove protected
 		foreach ($folders as $key => $folder)
 		{
 			$basename = basename($folder);
-
+			// If the folder is protected
 			if (in_array($basename, $protected))
 			{
+				// Remove it from the array, we will not be doing anything with it.
 				unset($folders[$key]);
 			}
 			else
 			{
-				// we just use the filename on the front end to not expose complete paths
+				// Store it in the array of the folders we will be doing something with.
+				// Just use the filename on the front end to not expose complete paths
 				$folder_ary[] = (object)array(
 					'name' => $basename,
 					'count' => count(glob($folder.'/*')),
@@ -68,16 +70,18 @@ class Admin extends Admin_Controller
 		$this->template
 			->title($this->module_details['name'])
 			->set('tables', $tables)
-			->set('folders', &$folder_ary)
+			->set('folders', $folder_ary)
 			->build('admin/items');
 	}
 
 
 	public function cleanup($name = '', $andfolder = 0)
 	{
-		$andfolder = ($andfolder) ? true : false;
 		if ( ! empty($name))
 		{
+
+			$andfolder = ($andfolder) ? true : false;
+
 			$apath = $this->_refind_apath($name);
 
 			if ( ! empty($apath))
