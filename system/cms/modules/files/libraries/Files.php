@@ -369,6 +369,12 @@ class Files
 
 				$file_id = ci()->file_m->insert($data);
 
+				if ($data['type'] !== 'i')
+				{
+					// so it wasn't an image. Now that we know the id we need to set the path as a download
+					ci()->file_m->update($file_id, array('path' => '{{ url:site }}files/download/'.$file_id));
+				}
+
 				if ($folder->location !== 'local')
 				{
 					return Files::move($file_id, $data['filename'], 'local', $folder->location, $folder->remote_container);
