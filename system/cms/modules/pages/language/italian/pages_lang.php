@@ -20,7 +20,7 @@ $lang['pages.updated_label'] 					= 'Modificato';
 $lang['pages.unknown_label'] 					= 'Sconosciuto';
 $lang['pages.title_label'] 						= 'Titolo';
 $lang['pages.slug_label'] 						= 'URL Slug (Friendly URL)';
-$lang['pages.navigation_label']                  = 'Add to Navigation'; #translate
+$lang['pages.navigation_label']                  = 'Aggiungi al menu di navigazione';
 $lang['pages.body_label'] 						= 'Corpo della pagina';
 $lang['pages.meta_title_label'] 				= 'Meta title';
 $lang['pages.meta_keywords_label'] 				= 'Meta keywords';
@@ -31,7 +31,7 @@ $lang['pages.js_label'] 						= 'JavaScript';
 $lang['pages.access_label'] 					= 'Accesso';
 $lang['pages.rss_enabled_label'] 				= 'RSS abilitato';
 $lang['pages.comments_enabled_label']			= 'Commenti abilitati';
-$lang['pages.is_home_label']      = 'Is default (home) page?'; #translate
+$lang['pages.is_home_label']      = 'E\' la home page?'; 
 $lang['pages.strict_uri_label']						= 'Require an exact uri match?'; #translate
 
 $lang['pages.status_label'] 					= 'Stato';
@@ -64,7 +64,7 @@ $lang['pages_delete_none_notice'] 				= 'Nessuna pagina è stata eliminata.';
 $lang['pages_page_already_exist_error'] 		= 'Una pagina con questo URL "%s" esiste già in %s.';
 $lang['pages_parent_not_exist_error'] 			= 'La pagina di livello superiore che hai scelto non esiste.';
 
-$lang['pages.tree_explanation_title']	        = 'Explanation'; #translate
+$lang['pages.tree_explanation_title']	        = 'Spiegazione';
 $lang['pages.tree_explanation'] 				= 'La lista a sinistra mostra le pagine del tuo sito.
 Clicca sull\' icona "+" vicina alla pagina per vedere le pagine dipendenti da essa. Quando cliccherai su una pagina vedrai ogni tipo di informazione utile in questo box.';
 
