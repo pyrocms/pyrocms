@@ -124,13 +124,13 @@ class PayPal_PaymentsStandard
 		
 		if(isset($params['amt']) OR isset($params['billing_period']) OR isset($params['billing_frequency']) OR isset($params['total_billing_cycles']))
 		{
-			if(!isset($params['amt'], $params['billing_period'], $params['billing_frequency'], $params['total_billing_cycles'])
+			if(!isset($params['amt'], $params['billing_period'], $params['billing_frequency'], $params['total_billing_cycles']))
 			{
 				@unset($params['amt'], $params['billing_period'], $params['billing_frequency'], $params['total_billing_cycles']);
 			}
 			else
 			{
-				$this->_request['a3'] = $params['amt';  
+				$this->_request['a3'] = $params['amt'];  
 				$this->_request['t3'] = $this->_set_recurring_f($params['billing_frequency']);
 				$this->_request['p3'] = $this->_set_recurring_f($params['total_billing_cycles']);
 				
