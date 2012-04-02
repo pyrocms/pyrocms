@@ -24,6 +24,7 @@ class Module_Templates extends Module {
 				'es' => 'Plantillas de email',
 				'ar' => 'قوالب الرسائل الإلكترونية',
 				'br' => 'Modelos de e-mail',
+				'pt' => 'Modelos de e-mail',
 				'el' => 'Δυναμικά email',
 				'he' => 'תבניות',
 				'lt' => 'El. laiškų šablonai',
@@ -40,6 +41,7 @@ class Module_Templates extends Module {
 				'es' => 'Crear, editar y guardar plantillas de email dinámicas',
 				'ar' => 'أنشئ، عدّل واحفظ قوالب البريد الإلكترني الديناميكية.',
 				'br' => 'Criar, editar e salvar modelos de e-mail dinâmicos',
+				'pt' => 'Criar, editar e salvar modelos de e-mail dinâmicos',
 				'el' => 'Δημιουργήστε, επεξεργαστείτε και αποθηκεύστε δυναμικά email.',
 				'he' => 'ניהול של תבניות דואר אלקטרוני',
 				'lt' => 'Kurk, tvarkyk ir saugok dinaminius el. laiškų šablonus.',
@@ -117,6 +119,15 @@ class Module_Templates extends Module {
 				<strong>User Agent: {{ sender_agent }}</strong>', 'en', '1');
 		";
 		
+		$newsletters_opt_in_template = "
+			INSERT INTO " . $this->db->dbprefix('email_templates') . " (`slug`, `name`, `description`, `subject`, `body`, `lang`, `is_default`) VALUES ('newsletters_opt_in', 'Newsletters Opt In', 'Template for the email that\'s sent when a user subscribes.', '{{ settings:site_name }} :: Newsletter Activation',
+			'<h3>You have recently subscribed to the newsletter at {{ settings:site_name }}</h3>
+			<p><strong>To verify that you wish to have your email address added to our list you must click the activation link below.</strong><strong> </strong></p>
+			<p><strong>If you did not sign up at our website please disregard this email. No further action is necessary.</strong></p>
+			<p><span>Complete signup: <a href=\"{{ newsletter_activation }}\">{{ newsletter_activation }}</a></span></p>
+			', 'en', '1');
+		";
+		
 		$activation_template = array(
 			'slug'				=> 'activation',
 			'name'				=> 'Activation Email',
@@ -160,6 +171,7 @@ class Module_Templates extends Module {
 			$this->db->query($comment_template); //sent when a user posts a comment to something
 			$this->db->query($contact_template); //sent when a user uses the contact form
 			$this->db->query($registered_template); // sent to the site contact email when a new user registers
+			$this->db->query($newsletters_opt_in_template); //required by the newsletters module.
 			$this->db->insert('email_templates', $activation_template); // when user registers this is used to send his activation code
 			$this->db->insert('email_templates', $forgotten_password_template); // sent when user requests a password reset
 			$this->db->insert('email_templates', $new_password); // this is used to send the new password

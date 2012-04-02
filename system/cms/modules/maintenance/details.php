@@ -17,7 +17,8 @@ class Module_Maintenance extends Module
 		return array(
 			'name' => array(
 				'en' => 'Maintenance',
-                                'fr' => 'Maintenance',
+                'fr' => 'Maintenance',
+				'pt' => 'Manutenção',
 				'el' => 'Συντήρηση',
 				'ar' => 'الصيانة',
 				'zh' => '維護',
@@ -25,7 +26,8 @@ class Module_Maintenance extends Module
 			),
 			'description' => array(
 				'en' => 'Manage the site cache and export information from the database.',
-                                'fr' => 'Gérer le cache du site et exporter les contenus de la base de données',
+                'fr' => 'Gérer le cache du site et exporter les contenus de la base de données',
+				'pt' => 'Gerir o cache do seu site e informações de exportação da base de dados.',
 				'el' => 'Διαγραφή αντικειμένων προσωρινής αποθήκευσης μέσω της σελίδας διαχείρισης.',
 				'ar' => 'حذف عناصر الذاكرة المخبأة عبر واجهة الإدارة.',
 				'zh' => '經由管理介面手動刪除暫存資料。',
@@ -59,7 +61,7 @@ class Module_Maintenance extends Module
 	public function help()
 	{
 		return "This module will clean up and/or remove cache files and folders
-				and also allows admins to export information from the database.";
+			and also allows admins to export information from the database.";
 	}
 
 

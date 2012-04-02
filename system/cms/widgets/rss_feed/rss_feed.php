@@ -14,6 +14,7 @@ class Widget_Rss_feed extends Widgets {
 		'el' => 'Τροφοδοσία RSS',
 		'nl' => 'RSS Feed',
 		'br' => 'Feed RSS',
+		'pt' => 'Feed RSS',
 		'ru' => 'Лента новостей RSS',
 		'id' => 'RSS Feed',
 	);
@@ -22,6 +23,7 @@ class Widget_Rss_feed extends Widgets {
 		'el' => 'Προβάλετε τα περιεχόμενα μιας τροφοδοσίας RSS',
 		'nl' => 'Toon RSS feeds op uw website',
 		'br' => 'Interpreta e exibe qualquer feed RSS no seu site',
+		'pt' => 'Interpreta e exibe qualquer feed RSS no seu site',
 		'ru' => 'Выводит обработанную ленту новостей на вашем сайте',
 		'id' => 'Menampilkan kutipan RSS feed di situs Anda',
 	);

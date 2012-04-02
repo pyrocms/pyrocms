@@ -16,6 +16,7 @@ class Widget_Google_maps extends Widgets
 			'el' => 'Χάρτης Google',
 			'nl' => 'Google Maps',
 			'br' => 'Google Maps',
+			'pt' => 'Google Maps',
 			'ru' => 'Карты Google',
 			'id' => 'Google Maps',
 		);
@@ -24,6 +25,7 @@ class Widget_Google_maps extends Widgets
 		'el' => 'Προβάλετε έναν Χάρτη Google στον ιστότοπό σας',
 		'nl' => 'Toon Google Maps in uw site',
 		'br' => 'Mostra mapas do Google no seu site',
+		'pt' => 'Mostra mapas do Google no seu site',
 		'ru' => 'Выводит карты Google на страницах вашего сайта',
 		'id' => 'Menampilkan Google Maps di Situs Anda',
 	);

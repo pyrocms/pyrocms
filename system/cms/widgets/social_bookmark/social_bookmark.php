@@ -15,6 +15,7 @@ class Widget_Social_bookmark extends Widgets
 		'el' => 'Κοινωνική δικτύωση',
 		'nl' => 'Sociale Bladwijzers',
 		'br' => 'Social Bookmark',
+		'pt' => 'Social Bookmark',
 		'ru' => 'Социальные закладки',
 		'id' => 'Social Bookmark',
 		);
@@ -23,6 +24,7 @@ class Widget_Social_bookmark extends Widgets
 		'el' => 'Παραμετροποιήσιμα στοιχεία κοινωνικής δικτυώσης από το AddThis',
 		'nl' => 'Voeg sociale bladwijzers toe vanuit AddThis',
 		'br' => 'Adiciona links de redes sociais usando o AddThis, podendo fazer algumas configurações',
+		'pt' => 'Adiciona links de redes sociais usando o AddThis, podendo fazer algumas configurações',
 		'ru' => 'Конфигурируемые социальные закладки с сайта AddThis',
 		'id' => 'Tautan social bookmark yang dapat dikonfigurasi dari AddThis',
 	);

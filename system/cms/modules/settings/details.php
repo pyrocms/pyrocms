@@ -16,6 +16,7 @@ class Module_Settings extends Module {
 				'de' => 'Einstellungen',
 				'pl' => 'Ustawienia',
 				'br' => 'Configurações',
+				'pt' => 'Configurações',
 				'zh' => '網站設定',
 				'it' => 'Impostazioni',
 				'ru' => 'Настройки',
@@ -37,6 +38,7 @@ class Module_Settings extends Module {
 				'de' => 'Erlaubt es Administratoren die Einstellungen der Seite wie Name und Beschreibung zu ändern.',
 				'pl' => 'Umożliwia administratorom zmianę ustawień strony jak nazwa strony, opis, e-mail administratora, itd.',
 				'br' => 'Permite com que administradores e a equipe consigam trocar as configurações do website incluindo o nome e descrição.',
+				'pt' => 'Permite com que os administradores consigam alterar as configurações do website incluindo o nome e descrição.',
 				'zh' => '網站管理者可更新的重要網站設定。例如：網站名稱、訊息、電子郵件等。',
 				'it' => 'Permette agli amministratori di aggiornare impostazioni quali Nome del Sito, messaggi e indirizzo email, etc.',
 				'ru' => 'Управление настройками сайта - Имя сайта, сообщения, почтовые адреса и т.п.',
@@ -127,7 +129,13 @@ class Module_Settings extends Module {
 			 ('admin_theme','Control Panel Theme','Select the theme for the control panel.','','pyrocms','','func:get_themes','1','0','','0'),
 			 ('admin_force_https','Force HTTPS for Control Panel?','Allow only the HTTPS protocol when using the Control Panel?','radio','0','','1=Yes|0=No','1','1','','0'),
 			 ('version', 'Version', '', 'text', '1.0', '".CMS_VERSION."', '', '0', '0', '','0'),
-			 ('addons_upload', 'Addons Upload Permissions', 'Keeps mere admins from uploading addons by default', 'text', '0', '0', '', '1', '0', '','0');
+			 ('addons_upload', 'Addons Upload Permissions', 'Keeps mere admins from uploading addons by default', 'text', '0', '0', '', '1', '0', '','0'),
+			 ('newsletter_opt_in', 'Require Opt In', 'Subscribers will receive an activation email with a link that they must click to complete the sign up. Edit the email format in Email Templates.', 'select', '0', '0', '0=Disabled|1=Enabled', '1', '1', 'newsletters', '970'),
+			 ('newsletter_from', '\"From\" Email Address', 'This is the address that your recipients will see in the From field.', 'text', 'do.not.reply@example.com', '', '', '1', '1', 'newsletters', '971'),
+			 ('newsletter_reply_to', '\"Reply To\" Email Address', 'This is the address that your recipients will respond to.', 'text', 'sales@example.com', '', '', '1', '1', 'newsletters', '972'),
+			 ('newsletter_email_limit', 'Limit', 'If your host limits the number of outgoing emails per hour/day set it here. Otherwise set it to 0 for automatic send', 'text', '0', '', '', '1', '1', 'newsletters', '973'),
+			 ('newsletter_cron_enabled', 'Cron', 'Send with Cron. If enabled you must have a cron job to send newsletters.', 'select', '0', '0', '0=Disabled|1=Enabled', '1', '1', 'newsletters', '974'),
+			 ('newsletter_cron_key', 'Cron Key', 'Set a key to prevent visitors from triggering a cron send. example.com/newsletters/cron/gy84kn', 'text', 'gy84kn', 'gy84kn', '', '0', '1', 'newsletters', '975');
 		";
 
 		if ($this->db->query($settings) && $this->db->query($default_settings))
