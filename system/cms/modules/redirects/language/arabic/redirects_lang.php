@@ -5,11 +5,11 @@ $lang['redirects.from'] 			    = 'من';
 $lang['redirects.to']					= 'إلى';
 $lang['redirects.edit']					= 'تعديل';
 $lang['redirects.delete']				= 'حذف';
-$lang['redirects.type']					= 'Type'; #translate
+$lang['redirects.type']					= 'الطريقة';
 
 // redirect types
-$lang['redirects.301']					= '301 - Moved Permanently'; #translate
-$lang['redirects.302']					= '302 - Moved Temporarily'; #translate
+$lang['redirects.301']					= '301 - Moved Permanently';
+$lang['redirects.302']					= '302 - Moved Temporarily';
 
 // titles
 $lang['redirects.add_title'] 			= 'إضافة توجيه';

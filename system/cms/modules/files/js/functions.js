@@ -394,7 +394,7 @@ jQuery(function($){
 				var regexp = new RegExp(pyro.files.valid_extensions);
 				// Using the filename extension for our test,
 				// as legacy browsers don't report the mime type
-				if (!regexp.test(files[index].name)) {
+				if (!regexp.test(files[index].name.toLowerCase())) {
 					$progress_div.html(pyro.lang.file_type_not_allowed);
 					return false;
 				}
