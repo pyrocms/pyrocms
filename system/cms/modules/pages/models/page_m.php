@@ -65,7 +65,7 @@ class Page_m extends MY_Model
 		array(
 			'field' => 'restricted_to[]',
 			'label'	=> 'lang:pages.access_label',
-			'rules'	=> 'trim|numeric|required'
+			'rules'	=> 'trim|required'
 		),
 		array(
 			'field' => 'rss_enabled',
@@ -80,6 +80,11 @@ class Page_m extends MY_Model
 		array(
 			'field' => 'is_home',
 			'label'	=> 'lang:pages.is_home_label',
+			'rules'	=> 'trim|numeric'
+		),
+		array(
+			'field' => 'strict_uri',
+			'label'	=> 'lang:pages.strict_uri_label',
 			'rules'	=> 'trim|numeric'
 		),
 		array(
@@ -162,14 +167,14 @@ class Page_m extends MY_Model
 	 *
 	 * @return object
 	 */
-	public function get_by_uri($uri, $is_request = FALSE)
+	public function get_by_uri($uri, $is_request = false)
 	{
 		// If the URI has been passed as a array, implode to create a string of uri segments
 		is_array($uri) && $uri = trim(implode('/', $uri), '/');
 
 		// $uri gets shortened so we save the original
 		$original_uri = $uri;
-		$page = FALSE;
+		$page = false;
 		$i = 0;
 
 		while ( ! $page AND $uri AND $i < 15) /* max of 15 in case it all goes wrong (this shouldn't ever be used) */
@@ -188,7 +193,7 @@ class Page_m extends MY_Model
 			}
 
 			// if we didn't find a page with that exact uri AND there's more than one segment
-			if ( ! $page AND strpos($uri, '/') !== FALSE)
+			if ( ! $page AND strpos($uri, '/') !== false)
 			{
 				// pop the last segment off and we'll try again
 				$uri = preg_replace('@^(.+)/(.*?)$@', '$1', $uri);
@@ -207,7 +212,7 @@ class Page_m extends MY_Model
 			// uri doesn't match the page we fetched then we pretend it didn't happen
 			if ($is_request AND (bool)$page->strict_uri AND $original_uri !== $uri)
 			{
-				return FALSE;
+				return false;
 			}
 
 			// things like breadcrumbs need to know the actual uri, not the uri with extra segments
@@ -232,7 +237,7 @@ class Page_m extends MY_Model
 		$page = $this->db
 			->where($this->primary_key, $id)
 			->get($this->_table)
-			->row(0, 'array');
+			->row_array();
 
 		if ( ! $page)
 		{
@@ -244,7 +249,7 @@ class Page_m extends MY_Model
 			$page['chunks'] = $this->db
 				->order_by('sort')
 				->get_where('page_chunks', array('page_id' => $id))
-				->result('array');
+				->result_array();
 		}
 
 		return $page;
@@ -315,8 +320,10 @@ class Page_m extends MY_Model
 		{
 			foreach ($page['children'] as $i => $child)
 			{
-				$this->db->where('id', str_replace('page_', '', $child['id']));
-				$this->db->update('pages', array('parent_id' => str_replace('page_', '', $page['id']), '`order`' => $i));
+				$child_id = (int) str_replace('page_', '', $child['id']);
+				$page_id = (int) str_replace('page_', '', $page['id']);
+
+				$this->update($child_id, array('parent_id' => $page_id, '`order`' => $i), true);
 
 				//repeat as long as there are children
 				if (isset($child['children']))
@@ -354,11 +361,10 @@ class Page_m extends MY_Model
 
 		$children = $this->db->select('id, title')
 			->where('parent_id', $id)
-			->get('pages')->result();
+			->get('pages')
+			->result();
 
-		$has_children = ! empty($children);
-
-		if ($has_children)
+		if ($children)
 		{
 			// Loop through all of the children and run this function again
 			foreach ($children as $child)
@@ -395,10 +401,7 @@ class Page_m extends MY_Model
 		}
 		while ($page->parent_id > 0);
 
-		// If the URI has been passed as a string, explode to create an array of segments
-		return parent::update($id, array(
-			'uri' => implode('/', $segments)
-		));
+		return $this->update($id, array('uri' => implode('/', $segments)), true);
 	}
 
 
@@ -429,7 +432,7 @@ class Page_m extends MY_Model
 		// first reset the URI of all root pages
 		$this->db
 			->where('parent_id', 0)
-			->set('uri', 'slug', FALSE)
+			->set('uri', 'slug', false)
 			->update('pages');
 
 		foreach ($root_pages as $page)
@@ -453,15 +456,15 @@ class Page_m extends MY_Model
 		if ( ! empty($input['is_home']))
 		{
 			// Remove other homepages so this one can have the spot
-			$this->where('is_home', 1)
-				->update($this->_table, array('is_home' => 0));
+			$this->skip_validation = true;
+			$this->update_by('is_home', 1, array('is_home' => 0));
 		}
 
 		// validate the data and insert it if it passes
 		$input['id'] = $this->insert(array(
 			'slug'				=> $input['slug'],
 			'title'				=> $input['title'],
-			'uri'				=> NULL,
+			'uri'				=> null,
 			'parent_id'			=> (int) $input['parent_id'],
 			'layout_id'			=> (int) $input['layout_id'],
 			'css'				=> isset($input['css']) ? $input['css'] : null,
@@ -480,7 +483,7 @@ class Page_m extends MY_Model
 		));
 
 		// did it pass validation?
-		if ( ! $input['id']) return FALSE;
+		if ( ! $input['id']) return false;
 
 		$this->build_lookup($input['id']);
 
@@ -501,7 +504,7 @@ class Page_m extends MY_Model
 
 		$this->db->trans_complete();
 
-		return ($this->db->trans_status() === FALSE) ? FALSE : $input;
+		return ($this->db->trans_status() === false) ? false : $input;
 	}
 
 
@@ -520,14 +523,15 @@ class Page_m extends MY_Model
 		if ( ! empty($input['is_home']))
 		{
 			// Remove other homepages so this one can have the spot
-			$this->update_by('is_home', 1, array('is_home' => 0), TRUE);
+			$this->skip_validation = true;
+			$this->update_by('is_home', 1, array('is_home' => 0));
 		}
 
 		// validate the data and update
 		$result = $this->update($id, array(
 			'slug'				=> $input['slug'],
 			'title'				=> $input['title'],
-			'uri'				=> NULL,
+			'uri'				=> null,
 			'parent_id'			=> (int) $input['parent_id'],
 			'layout_id'			=> (int) $input['layout_id'],
 			'css'				=> isset($input['css']) ? $input['css'] : null,
@@ -546,7 +550,7 @@ class Page_m extends MY_Model
 		));
 
 		// did it pass validation?
-		if ( ! $result) return FALSE;
+		if ( ! $result) return false;
 
 		$input['id'] = $id;
 
@@ -557,7 +561,7 @@ class Page_m extends MY_Model
 
 		$this->db->trans_complete();
 
-		return ($this->db->trans_status() === FALSE) ? FALSE : $input;
+		return ($this->db->trans_status() === false) ? false : $input;
 	}
 
 
@@ -632,7 +636,7 @@ class Page_m extends MY_Model
 			}
 
 			$this->form_validation->set_message('_check_slug',sprintf(lang('pages_page_already_exist_error'),$url, $parent_folder));
-			return FALSE;
+			return false;
 		}
 
 		// We check the page chunk slug length here too
@@ -643,10 +647,10 @@ class Page_m extends MY_Model
 				if (strlen($chunk) > 30)
 				{
 					$this->form_validation->set_message('_check_slug', lang('pages_chunk_slug_length'));
-					return FALSE;
+					return false;
 				}
 			}
-			return TRUE;
+			return true;
 		}
 	}
 }

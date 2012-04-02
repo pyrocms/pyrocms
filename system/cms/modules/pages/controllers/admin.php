@@ -63,7 +63,7 @@ class Admin extends Admin_Controller {
 	{
 		$order	= $this->input->post('order');
 		$data	= $this->input->post('data');
-		$root_pages	= (isset($data['root_pages'])) ? $data['root_pages'] : array();
+		$root_pages	= isset($data['root_pages']) ? $data['root_pages'] : array();
 
 		if (is_array($order))
 		{
@@ -72,8 +72,10 @@ class Admin extends Admin_Controller {
 
 			foreach ($order as $i => $page)
 			{
+				$id = str_replace('page_', '', $page['id']);
+				
 				//set the order of the root pages
-				$this->page_m->update_by('id', str_replace('page_', '', $page['id']), array('order' => $i));
+				$this->page_m->update($id, array('order' => $i), true);
 
 				//iterate through children and set their order and parent
 				$this->page_m->_set_children($page);
@@ -188,47 +190,11 @@ class Admin extends Admin_Controller {
 			// validate and insert
 			if ($data = $this->page_m->create($input))
 			{
-				$input = $this->input->post();
+				Events::trigger('post_page_create', $data);
 
-				if ($input['status'] == 'live')
-				{
-					role_or_die('pages', 'put_live');
-				}
+				$this->session->set_flashdata('success', lang('pages_create_success'));
 
-				// First create the page
-				$nav_group_id = $input['navigation_group_id'];
-				unset($input['navigation_group_id']);
-
-				if ($id = $this->page_m->insert($input, $page['chunks']))
-				{
-					$input['restricted_to'] = isset($input['restricted_to']) ? implode(',', $input['restricted_to']) : '0';
-
-					// Add a Navigation Link
-					if ($nav_group_id)
-					{
-						$this->load->model('navigation/navigation_m');
-						$this->navigation_m->insert_link(array(
-							'title' => $input['title'],
-							'link_type' => 'page',
-							'page_id' => $id,
-							'navigation_group_id' => (int)$nav_group_id
-						));
-					}
-
-					if ($this->page_m->update($id, $input))
-					{
-						Events::trigger('post_page_create', $input);
-
-						$this->session->set_flashdata('success', lang('pages_create_success'));
-
-						// Redirect back to the form or main page
-						$this->input->post('btnAction') == 'save_exit'
-							? redirect('admin/pages')
-							: redirect('admin/pages/edit/'.$id);
-					}
-				}
-
-				// Mission accomplished!
+				// Redirect back to the form or main page
 				$input['btnAction'] == 'save_exit'
 					? redirect('admin/pages')
 					: redirect('admin/pages/edit/'.$data['id']);
@@ -240,11 +206,11 @@ class Admin extends Admin_Controller {
 				$chunk_bodies 	= $this->input->post('chunk_body') ? array_values($this->input->post('chunk_body')) : array();
 				$chunk_types 	= $this->input->post('chunk_type') ? array_values($this->input->post('chunk_type')) : array();
 
-				$page->chunks 		= array();
+				$page = array();
 				$chunk_bodies_count = count($input['chunk_body']);
 				for ($i = 0; $i < $chunk_bodies_count; $i++)
 				{
-					$page->chunks[] = (object) array(
+					$page['chunks'][] = array(
 						'id' 	=> $i,
 						'slug' 	=> ! empty($chunk_slugs[$i]) 	? $chunk_slugs[$i] 	: '',
 						'type' 	=> ! empty($chunk_types[$i]) 	? $chunk_types[$i] 	: '',
@@ -253,13 +219,25 @@ class Admin extends Admin_Controller {
 				}
 			}
 		}
+		else
+		{
+			$page = array();
+			$page['chunks'] = array(array(
+				'id' => 'NEW',
+				'slug' => 'default',
+				'body' => '',
+				'type' => 'wysiwyg-advanced',
+			));
+		}
 
 		// Loop through each rule
-		foreach ($this->validation_rules as $rule)
+		foreach ($this->page_m->validate as $rule)
 		{
-			if ($rule['field'] === 'restricted_to[]')
+			if ($rule['field'] === 'restricted_to[]' or $rule['field'] === 'strict_uri')
 			{
 				$page['restricted_to'] = set_value($rule['field'], array('0'));
+				// we'll set the default for strict URIs here also
+				$page['strict_uri'] = 1;
 
 				continue;
 			}
@@ -277,8 +255,6 @@ class Admin extends Admin_Controller {
 
 		// Set some data that both create and edit forms will need
 		$this->_form_data();
-
-		$data->page = $page;
 
 		// Load WYSIWYG editor
 		$this->template
@@ -305,6 +281,9 @@ class Admin extends Admin_Controller {
 		// Retrieve the page data along with its chunk data as an array.
 		$page = $this->page_m->get($id);
 
+		// Turn the CSV list back to an array
+		$page['restricted_to'] = explode(',', $page['restricted_to']);
+
 		// Got page?
 		if ( ! $page OR empty($page))
 		{
@@ -312,12 +291,6 @@ class Admin extends Admin_Controller {
 			$this->session->set_flashdata('error', lang('pages_page_not_found_error'));
 			redirect('admin/pages/create');
 		}
-
-		// Set the page ID and get the current page
-		$this->page_id = $page['id'];
-
-		// It's stored as a CSV list
-		$page['restricted_to'] = explode(',', $page['restricted_to']);
 
 		// did they even submit?
 		if ($input = $this->input->post())
@@ -350,29 +323,17 @@ class Admin extends Admin_Controller {
 				$chunk_bodies 	= $this->input->post('chunk_body') ? array_values($this->input->post('chunk_body')) : array();
 				$chunk_types 	= $this->input->post('chunk_type') ? array_values($this->input->post('chunk_type')) : array();
 
-				$page->chunks 		= array();
+				$page['chunks'] = array();
 				$chunk_bodies_count = count($input['chunk_body']);
 				for ($i = 0; $i < $chunk_bodies_count; $i++)
 				{
-					$page->chunks[] = (object) array(
+					$page['chunks'][] = array(
 						'id' 	=> $i,
 						'slug' 	=> ! empty($chunk_slugs[$i]) 	? $chunk_slugs[$i] 	: '',
 						'type' 	=> ! empty($chunk_types[$i]) 	? $chunk_types[$i] 	: '',
 						'body' 	=> ! empty($chunk_bodies[$i]) 	? $chunk_bodies[$i] : '',
 					);
 				}
-
-				// The page has been edited. Tell everybody.
-				Events::trigger('post_page_edit', $input);
-
-				// Set the flashdata message and redirect the user
-				$link = anchor('admin/pages/preview/'.$id, $this->input->post('title'), 'class="modal-large"');
-				$this->session->set_flashdata('success', sprintf(lang('pages_edit_success'), $link));
-
-				// Redirect back to the form or main page
-				$this->input->post('btnAction') == 'save_exit'
-					? redirect('admin/pages')
-					: redirect('admin/pages/edit/'.$id);
 			}
 		}
 

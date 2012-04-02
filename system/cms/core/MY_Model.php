@@ -259,16 +259,12 @@ class MY_Model extends CI_Model
 	 */
 	public function insert($data, $skip_validation = FALSE)
 	{
-		$valid = TRUE;
-
 		if ($skip_validation === FALSE)
 		{
-			$valid = $this->_run_validation($data);
-		}
-
-		if (!$valid)
-		{
-			return FALSE;
+			if ( ! $this->_run_validation($data))
+			{
+				return FALSE;
+			}
 		}
 
 		$data = $this->_run_before_create($data);
@@ -297,24 +293,21 @@ class MY_Model extends CI_Model
 
 		foreach ($data as $row)
 		{
-			$valid = TRUE;
 			if ($skip_validation === FALSE)
 			{
-				$valid = $this->_run_validation($data);
+				if ( ! $this->_run_validation($data))
+				{
+					$ids[] = FALSE;
+
+					continue;
+				}
 			}
 
-			if ($valid)
-			{
-				$data = $this->_run_before_create($row);
-				$this->db->insert($this->_table, $row);
-				$this->_run_after_create($row, $this->db->insert_id());
+			$data = $this->_run_before_create($row);
+			$this->db->insert($this->_table, $row);
+			$this->_run_after_create($row, $this->db->insert_id());
 
-				$ids[] = $this->db->insert_id();
-			}
-			else
-			{
-				$ids[] = FALSE;
-			}
+			$ids[] = $this->db->insert_id();
 		}
 
 		$this->skip_validation = FALSE;
@@ -332,16 +325,12 @@ class MY_Model extends CI_Model
 	 */
 	public function update($primary_value, $data, $skip_validation = FALSE)
 	{
-		$valid = TRUE;
-
 		if ($skip_validation === FALSE)
 		{
-			$valid = $this->_run_validation($data);
-		}
-
-		if (!$valid)
-		{
-			return FALSE;
+			if ( ! $this->_run_validation($data))
+			{
+				return FALSE;
+			}
 		}
 
 		$this->skip_validation = FALSE;
@@ -391,18 +380,14 @@ class MY_Model extends CI_Model
 	 * @param boolean $skip_validation Whether we should skip the validation of the data.
 	 * @return boolean
 	 */
-	public function update_many($primary_values, $data, $skip_validation)
+	public function update_many($primary_values, $data, $skip_validation = FALSE)
 	{
-		$valid = TRUE;
-
 		if ($skip_validation === FALSE)
 		{
-			$valid = $this->_run_validation($data);
-		}
-
-		if (!$valid)
-		{
-			return FALSE;
+			if ( ! $this->_run_validation($data))
+			{
+				return FALSE;
+			}
 		}
 
 		$this->skip_validation = FALSE;
