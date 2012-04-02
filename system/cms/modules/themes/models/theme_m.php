@@ -137,6 +137,7 @@ class Theme_m extends MY_Model
             //path to theme
             $web_path = $location . $slug;
 
+            $theme                  = new stdClass();
             $theme->slug			= $slug;
             $theme->is_core         = $is_core;
             $theme->path			= $path;

@@ -30,6 +30,7 @@ $lang['pages.access_label'] 					= 'Přístup';
 $lang['pages.rss_enabled_label'] 				= 'RSS povoleno';
 $lang['pages.comments_enabled_label']			= 'Komentáře povoleny';
 $lang['pages.is_home_label']      = 'Je výchozí (domovskou) stránkou?';
+$lang['pages.strict_uri_label']						= 'Require an exact uri match?'; #translate
 
 $lang['pages.status_label'] 					= 'Stav';
 $lang['pages.draft_label'] 						= 'Koncept';

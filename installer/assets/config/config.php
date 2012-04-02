@@ -177,7 +177,7 @@ $config['directory_trigger']	= 'd'; // experimental not currently in use
 |	4 = All Messages
 |
 | You can also pass in a array with threshold levels to show individual error types
-| 
+|
 | 	array(2) = Debug Messages, without Error Messages
 |
 | For a live site you'll usually only enable Errors (1) to be logged otherwise
@@ -301,11 +301,11 @@ $config['global_xss_filtering'] = FALSE;
 | 'csrf_expire' = The number in seconds the token should expire.
 | 'csrf_exclude_uris' = Array of URIs which ignore CSRF checks
 */
-$config['csrf_protection'] = FALSE;
-$config['csrf_token_name'] = 'csrf_test_name';
-$config['csrf_cookie_name'] = 'csrf_cookie_name';
-$config['csrf_expire'] = 7200;
-$config['csrf_exclude_uris'] = array();
+$config['csrf_protection'] 		= (bool) preg_match('@admin(\/.+)?$@', $_SERVER['REQUEST_URI']); // only turn it on for admin panel
+$config['csrf_token_name'] 		= 'csrf_hash_name';
+$config['csrf_cookie_name'] 	= 'csrf_cookie_name';
+$config['csrf_expire'] 			= 7200;
+$config['csrf_exclude_uris'] 	= array();
 
 /*
 |--------------------------------------------------------------------------
@@ -325,6 +325,18 @@ $config['csrf_exclude_uris'] = array();
 |
 */
 $config['compress_output'] = FALSE;
+
+/*
+|--------------------------------------------------------------------------
+| Minify
+|--------------------------------------------------------------------------
+|
+| Removes extra characters (usually unnecessary spaces) from your
+| output for faster page load speeds.  Makes your outputted HTML source
+| code less readable.
+|
+*/
+$config['minify_output'] = (ENVIRONMENT !== PYRO_DEVELOPMENT); // only do this on
 
 /*
 |--------------------------------------------------------------------------

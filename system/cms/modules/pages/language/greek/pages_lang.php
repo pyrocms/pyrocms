@@ -30,6 +30,7 @@ $lang['pages.access_label']		= 'Πρόσβαση';
 $lang['pages.rss_enabled_label']	= 'RSS ενεργό;';
 $lang['pages.comments_enabled_label']	= 'Σχόλια Ενεργά;';
 $lang['pages.is_home_label']		= 'Είναι η αρχική σελίδα;';
+$lang['pages.strict_uri_label']						= 'Να απαιτείται το ακριβές URI;';
 
 $lang['pages.status_label']		= 'Κατάσταση';
 $lang['pages.draft_label']		= 'Πρόχειρο';
@@ -65,7 +66,7 @@ $lang['pages_parent_not_exist_error']	= 'Η σελίδα γονέας που έ�
 $lang['pages_chunk_slug_length']	= 'Τα Page Chunk slugs δεν μπορεί να είναι μεγαλύτερα από 30 χαρακτήρες.';
 $lang['pages_root_folder']		= 'το ανώτερο επίπεδο';
 
-$lang['pages.tree_explanation_title']	= 'Explanation'; #translate
+$lang['pages.tree_explanation_title']	= 'Επεξήγηση';
 $lang['pages.tree_explanation']		= 'Η λίστα στα αριστερά αναπαριστά τις σελίδες στον ιστότοπό σας. Κάντε κλικ στο εικονίδιο "+" δίπλα από την κάθε σελίδα για να δείξετε σελίδες κάτω από αυτήν. Όταν κάνετε κλικ σε μια σελίδα θα μπορείτε να δείτε πληροφορίες για αυτήν σε αυτήν την περιοχή.';
 
 $lang['pages.rss_explanation']		= 'Ενεργοποιόντας την τροοφοδοσία RSS για αυτή την σελίδα, οι χρήστες σας θα έχουν την ευκαιρία να εγγραφούν σε ανανεώσεις των άμεσων υποσελίδων που προστίθενται σε αυτή την σελίδα.';

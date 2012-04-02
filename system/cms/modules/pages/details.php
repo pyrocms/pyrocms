@@ -33,7 +33,8 @@ class Module_Pages extends Module {
 				'ru' => 'Страницы',
 				'sl' => 'Strani',
 				'zh' => '頁面',
-				'hu' => 'Oldalak'
+				'hu' => 'Oldalak',
+                                'se' => 'Sidor'
 			),
 			'description' => array(
 				'en' => 'Add custom pages to the site with any content you want.',
@@ -55,7 +56,8 @@ class Module_Pages extends Module {
 				'ru' => 'Управление информационными страницами сайта, с произвольным содержимым.',
 				'sl' => 'Dodaj stran s kakršno koli vsebino želite.',
 				'zh' => '為您的網站新增自定的頁面。',
-				'hu' => 'Saját oldalak hozzáadása a weboldalhoz, akármilyen tartalommal.'
+				'hu' => 'Saját oldalak hozzáadása a weboldalhoz, akármilyen tartalommal.',
+                                'se' => 'Lägg till egna sidor till webbplatsen.'
 			),
 			'frontend' => true,
 			'backend'  => true,
@@ -130,6 +132,7 @@ class Module_Pages extends Module {
 				'updated_on' => array('type' => 'INT', 'constraint' => 11, 'default' => 0),
 				'restricted_to' => array('type' => 'VARCHAR', 'constraint' => 255, 'null' => true,),
 				'is_home' => array('type' => 'INT', 'constraint' => 1, 'default' => 0,),
+				'strict_uri' => array('type' => 'TINYINT', 'constraint' => 1, 'default' => 1,),
 				'order' => array('type' => 'INT', 'constraint' => 11, 'default' => 0),
 			),
 			'page_chunks' => array(

@@ -6,93 +6,108 @@
  * An open source CMS based on CodeIgniter
  *
  * @package		PyroCMS
- * @author		PyroCMS Dev Team
+ * @author		Jerel Unruh - PyroCMS Dev Team
  * @license		Apache License v2.0
  * @link		http://pyrocms.com
  * @since		Version 1.0-dev
  * @filesource
  */
 
+// General
+$lang['files:files_title']					= 'Files';
+$lang['files:fetching']						= 'Retrieving data...';
+$lang['files:fetch_completed']				= 'Completed';
+$lang['files:save_failed']					= 'Sorry. The changes could not be saved';
+$lang['files:item_created']					= '"%s" was created';
+$lang['files:item_updated']					= '"%s" was updated';
+$lang['files:item_deleted']					= '"%s" was deleted';
+$lang['files:item_not_deleted']				= '"%s" could not be deleted';
+$lang['files:item_not_found']				= 'Sorry. "%s" could not be found';
+$lang['files:sort_saved']					= 'Sort order saved';
+$lang['files:no_permissions']				= 'You do not have sufficient permissions';
+
+// Labels
+$lang['files:activity']						= 'Activity';
+$lang['files:places']						= 'Places';
+$lang['files:back']							= 'Back';
+$lang['files:forward']						= 'Forward';
+$lang['files:start']						= 'Start Upload';
+$lang['files:details']						= 'Details';
+$lang['files:name']							= 'Name';
+$lang['files:slug']							= 'Slug';
+$lang['files:path']							= 'Path';
+$lang['files:added']						= 'Date Added';
+$lang['files:width']						= 'Width';
+$lang['files:height']						= 'Height';
+$lang['files:ratio']						= 'Ratio';
+$lang['files:full_size']					= 'Full Size';
+$lang['files:filename']						= 'Filename';
+$lang['files:filesize']						= 'Filesize';
+$lang['files:download_count']				= 'Download Count';
+$lang['files:download']						= 'Download';
+$lang['files:location']						= 'Location';
+$lang['files:description']					= 'Description';
+$lang['files:container']					= 'Container';
+$lang['files:bucket']						= 'Bucket';
+$lang['files:check_container']				= 'Check Validity';
+$lang['files:search_message']				= 'Type and hit Enter';
+$lang['files:search']						= 'Search';
+$lang['files:synchronize']					= 'Synchronize';
+$lang['files:uploader']						= 'Drop files here <br />or<br />Click to select files';
+
+// Context Menu
+$lang['files:open']							= 'Open';
+$lang['files:new_folder']					= 'New Folder';
+$lang['files:upload']						= 'Upload';
+$lang['files:rename']						= 'Rename';
+$lang['files:delete']						= 'Delete';
+$lang['files:edit']							= 'Edit';
+$lang['files:details']						= 'Details';
+
+// Folders
+
+$lang['files:no_folders']					= 'Files and folders are managed much like they would be on your desktop. Right click in the area below this message to create your first folder. Then right click on the folder to rename, delete, upload files to it, or change details such as linking it to a cloud location.';
+$lang['files:no_folders_places']			= 'Folders that you create will show up here in a tree that can be expanded and collapsed. Click on "Places" to view the root folder.';
+$lang['files:no_folders_wysiwyg']			= 'No folders have been created yet';
+$lang['files:new_folder_name']				= 'Untitled Folder';
+$lang['files:folder']						= 'Folder';
+$lang['files:folders']						= 'Folders';
+$lang['files:select_folder']				= 'Select a Folder';
+$lang['files:subfolders']					= 'Subfolders';
+$lang['files:root']							= 'Root';
+$lang['files:no_subfolders']				= 'No Subfolders';
+$lang['files:folder_not_empty']				= 'You must delete the contents of "%s" first';
+$lang['files:mkdir_error']					= 'We are unable to create the upload folder. You must create it manually';
+$lang['files:chmod_error']					= 'The upload directory is unwriteable. It must be 0777';
+$lang['files:location_saved']				= 'The folder location has been saved';
+$lang['files:container_exists']				= '"%s" exists. Save to link its contents to this folder';
+$lang['files:container_not_exists']			= '"%s" does not exist in your account. Save and we will try to create it';
+$lang['files:error_container']				= '"%s" could not be created and we could not determine the reason';
+$lang['files:container_created']			= '"%s" has been created and is now linked to this folder';
+$lang['files:unwritable']					= '"%s" is unwritable, please set its permissions to 0777';
+$lang['files:specify_valid_folder']			= 'You must specify a valid folder to upload the file to';
+$lang['files:enable_cdn']					= 'You must enable CDN for "%s" via your Rackspace control panel before we can synchronize';
+$lang['files:synchronization_started']		= 'Starting synchronization';
+$lang['files:synchronization_complete']		= 'Synchronization for "%s" has been completed';
+$lang['files:untitled_folder']				= 'Untitled Folder';
+
 // Files
-
-// Titles
-$lang['files.files_title']					= 'Files';
-$lang['files.upload_title']					= 'Upload Files';
-$lang['files.edit_title']					= 'Edit file "%s"';
-
-// Labels
-$lang['files.download_label']				= 'Download';
-$lang['files.upload_label']					= 'Upload';
-$lang['files.description_label']			= 'Description';
-$lang['files.type_label']					= 'Type';
-$lang['files.file_label']					= 'File';
-$lang['files.filename_label']				= 'File Name';
-$lang['files.filter_label']					= 'Filter';
-$lang['files.loading_label']				= 'Loading...';
-$lang['files.name_label']					= 'Name';
-
-$lang['files.dropdown_select']				= '-- Select Folder For Upload --';
-$lang['files.dropdown_no_subfolders']		= '-- None --';
-$lang['files.dropdown_root']				= '-- Root --';
-
-$lang['files.type_a']						= 'Audio';
-$lang['files.type_v']						= 'Video';
-$lang['files.type_d']						= 'Document';
-$lang['files.type_i']						= 'Image';
-$lang['files.type_o']						= 'Other';
-
-$lang['files.display_grid']					= 'Grid';
-$lang['files.display_list']					= 'List';
-
-// Messages
-$lang['files.create_success']				= '"%s" has been uploaded successfully.';
-$lang['files.create_error']					= 'An error as occourred.';
-$lang['files.edit_success']					= 'The file was successfully saved.';
-$lang['files.edit_error']					= 'An error occurred while trying to save the file.';
-$lang['files.delete_success']				= 'The file was deleted.';
-$lang['files.delete_error']					= 'The file could not be deleted.';
-$lang['files.mass_delete_success']			= '%d of %d files were successfully deleted. They were "%s and %s"';
-$lang['files.mass_delete_error']			= 'An error occurred while trying to delete %d of %d files, they are "%s and %s".';
-$lang['files.upload_error']					= 'A file must be uploaded.';
-$lang['files.invalid_extension']			= 'File must have a valid extension.';
-$lang['files.not_exists']					= 'An invalid folder has been selected.';
-$lang['files.no_files']						= 'There are currently no files.';
-$lang['files.no_permissions']				= 'You do not have permissions to see the files module.';
-$lang['files.no_select_error'] 				= 'You must select a file first, his request was interrupted.';
-
-// File folders
-
-// Titles
-$lang['file_folders.folders_title']			= 'File Folders';
-$lang['file_folders.manage_title']			= 'Manage Folders';
-$lang['file_folders.create_title']			= 'New Folder';
-$lang['file_folders.delete_title']			= 'Confirm Delete';
-$lang['file_folders.edit_title']			= 'Edit folder "%s"';
-
-// Labels
-$lang['file_folders.folders_label']			= 'Folders';
-$lang['file_folders.folder_label']			= 'Folder';
-$lang['file_folders.subfolders_label']		= 'Sub-Folders';
-$lang['file_folders.parent_label']			= 'Parent';
-$lang['file_folders.name_label']			= 'Name';
-$lang['file_folders.slug_label']			= 'URL Slug';
-$lang['file_folders.created_label']			= 'Created On';
-
-// Messages
-$lang['file_folders.create_success']		= 'The folder has now been saved.';
-$lang['file_folders.create_error']			= 'An error occurred while attempting to create your folder.';
-$lang['file_folders.duplicate_error']		= 'A folder named "%s" already exists.';
-$lang['file_folders.edit_success']			= 'The folder was successfully saved.';
-$lang['file_folders.edit_error']			= 'An error occurred while trying to save the changes.';
-$lang['file_folders.confirm_delete']		= 'Are you sure you want to delete the folders below, including all files and subfolders inside them?';
-$lang['file_folders.delete_mass_success']	= '%d of %d folders have been successfully deleted, they were "%s and %s.';
-$lang['file_folders.delete_mass_error']		= 'An error occurred while trying to delete %d of %d folders, they are "%s and %s".';
-$lang['file_folders.delete_success']		= 'The folder "%s" was deleted.';
-$lang['file_folders.delete_error']			= 'An error occurred while trying to delete the folder "%s".';
-$lang['file_folders.not_exists']			= 'An invalid folder has been selected.';
-$lang['file_folders.no_subfolders']			= 'None';
-$lang['file_folders.no_folders']			= 'Your files are sorted by folders, currently you do not have any folders setup.';
-$lang['file_folders.mkdir_error']			= 'Could not make the uploads/files directory';
-$lang['file_folders.chmod_error']			= 'Could not chmod the uploads/files directory';
+$lang['files:no_files']						= 'No files found';
+$lang['files:file_uploaded']				= '"%s" has been uploaded';
+$lang['files:unsuccessful_fetch']			= 'We were unable to fetch "%s". Are you sure it is a public file?';
+$lang['files:invalid_container']			= '"%s" does not appear to be a valid container.';
+$lang['files:no_records_found']				= 'No records could be found';
+$lang['files:invalid_extension']			= '"%s" has a file extension that is not allowed';
+$lang['files:upload_error']					= 'The file upload failed';
+$lang['files:description_saved']			= 'The file description has been saved';
+$lang['files:file_moved']					= '"%s" has been moved successfully';
+$lang['files:exceeds_server_setting']		= 'The server cannot handle this large of a file';
+$lang['files:exceeds_allowed']				= 'File exceeds the max size allowed';
+$lang['files:file_type_not_allowed']		= 'This type of file is not allowed';
+$lang['files:type_a']						= 'Audio';
+$lang['files:type_v']						= 'Video';
+$lang['files:type_d']						= 'Document';
+$lang['files:type_i']						= 'Image';
+$lang['files:type_o']						= 'Other';
 
 /* End of file files_lang.php */

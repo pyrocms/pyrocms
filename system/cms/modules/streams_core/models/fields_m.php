@@ -36,8 +36,12 @@ class Fields_m extends CI_Model {
 		)
 	);
 
-    // --------------------------------------------------------------------------
-	
+	// --------------------------------------------------------------------------
+
+	public $fields_cache;
+
+	// --------------------------------------------------------------------------
+
 	function __construct()
 	{
 		$this->table = FIELDS_TABLE;
@@ -102,10 +106,14 @@ class Fields_m extends CI_Model {
      * @access	public
      * @return	int
      */
-	public function count_fields()
+	public function count_fields($namespace)
 	{
-		// @todo - add namespace
-		return $this->db->count_all($this->table);
+		if ( ! $namespace) return 0;
+
+		return $this->db
+				->where('field_namespace', $namespace)
+				->from($this->table)
+				->count_all_results();
 	}
 
     // --------------------------------------------------------------------------
@@ -167,11 +175,10 @@ class Fields_m extends CI_Model {
 		// Name
 		// -------------------------------------
 		
-		if($method == 'edit'):		
-
-			$col_data['name'] 				= $field_data['field_slug'];
-		
-		endif;
+		if ($method == 'edit')
+		{
+			$col_data['name'] 			= $field_data['field_slug'];
+		}
 		
 		// -------------------------------------		
 		// Col Type
@@ -184,7 +191,7 @@ class Fields_m extends CI_Model {
 		// -------------------------------------
 		
 		// First we check and see if a constraint has been added
-		if (isset($type->col_constraint) and $type->col_constraint!='')
+		if (isset($type->col_constraint) and $type->col_constraint)
 		{
 			$col_data['constraint']		= $type->col_constraint;
 		}	
@@ -439,11 +446,12 @@ class Fields_m extends CI_Model {
 	 */
 	public function get_assignments_for_stream($stream_id)
 	{
-		$this->db->select(STREAMS_TABLE.'.*, '.STREAMS_TABLE.'.view_options as stream_view_options, '.STREAMS_TABLE.'.id as stream_id, '.FIELDS_TABLE.'.id as field_id, '.FIELDS_TABLE.'.*, '.FIELDS_TABLE.'.view_options as field_view_options, '.ASSIGN_TABLE.'.instructions, '.ASSIGN_TABLE.'.is_required, '.ASSIGN_TABLE.'.is_unique');
+		$this->db->select(STREAMS_TABLE.'.*, '.STREAMS_TABLE.'.view_options as stream_view_options, '.ASSIGN_TABLE.'.id as assign_id, '.STREAMS_TABLE.'.id as stream_id, '.FIELDS_TABLE.'.id as field_id, '.FIELDS_TABLE.'.*, '.FIELDS_TABLE.'.view_options as field_view_options, '.ASSIGN_TABLE.'.instructions, '.ASSIGN_TABLE.'.is_required, '.ASSIGN_TABLE.'.is_unique');
 		$this->db->from(STREAMS_TABLE.', '.ASSIGN_TABLE.', '.FIELDS_TABLE);
 		$this->db->where($this->db->dbprefix(STREAMS_TABLE).'.id', $this->db->dbprefix(ASSIGN_TABLE).'.stream_id', FALSE);
 		$this->db->where($this->db->dbprefix(FIELDS_TABLE).'.id', $this->db->dbprefix(ASSIGN_TABLE).'.field_id', FALSE);
 		$this->db->where($this->db->dbprefix(ASSIGN_TABLE).'.stream_id', $stream_id, FALSE);
+		$this->db->order_by('sort_order', 'ASC');
 		
 		$obj = $this->db->get();
 			
@@ -578,6 +586,12 @@ class Fields_m extends CI_Model {
 	 */
 	public function get_field($field_id)
 	{
+		// Check for already cached value
+		if (isset($this->fields_cache['by_id'][$field_id]))
+		{
+			return $this->fields_cache['by_id'][$field_id];
+		}
+
 		$this->db->limit(1)->where('id', $field_id);
 		
 		$obj = $this->db->get($this->table);
@@ -590,6 +604,9 @@ class Fields_m extends CI_Model {
 		$field = $obj->row();
 		
 		$field->field_data = unserialize($field->field_data);
+
+		// Save for later use
+		$this->fields_cache['by_id'][$field_id] = $field;
 		
 		return $field;
 	}
@@ -606,6 +623,12 @@ class Fields_m extends CI_Model {
 	 */
 	public function get_field_by_slug($field_slug, $field_namespace)
 	{
+		// Check for already cached value
+		if (isset($this->fields_cache['by_slug'][$field_slug]))
+		{
+			return $this->fields_cache['by_slug'][$field_slug];
+		}
+
 		$obj = $this->db
 				->limit(1)
 				->where('field_namespace', $field_namespace)
@@ -620,6 +643,9 @@ class Fields_m extends CI_Model {
 		$field = $obj->row();
 		
 		$field->field_data = unserialize($field->field_data);
+
+		// Save for later use
+		$this->fields_cache['by_slug'][$field_slug] = $field;
 		
 		return $field;
 	}

@@ -325,4 +325,18 @@ $config['rewrite_short_tags'] = FALSE;
 $config['proxy_ips'] = '';
 
 
+/*
+|--------------------------------------------------------------------------
+| Module Locations
+|--------------------------------------------------------------------------
+|
+| We have modular extensions installed so we can use module assets in core
+| modules during the install process, so the path we are providing is the
+| path to PyroCMS's module folder
+|
+*/
+$config['modules_locations'] = array(
+        dirname(FCPATH).'/system/cms/modules/' => '../../system/cms/modules/',
+    );
+
 /* End of file config.php */

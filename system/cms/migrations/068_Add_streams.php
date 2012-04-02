@@ -104,7 +104,7 @@ class Migration_Add_streams extends CI_Migration {
 			  `field_id` int(11) NOT NULL,
 			  `is_required` enum('yes','no') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'no',
 			  `is_unique` enum('yes','no') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'no',
-			  `instructions` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+			  `instructions` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
 			  `field_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
 			  PRIMARY KEY (`id`)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;");

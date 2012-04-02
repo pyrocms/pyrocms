@@ -7,13 +7,21 @@
  */
 class Redirect_m extends MY_Model
 {
-	function get_all()
+
+	public function get($id)
+	{
+		return $this->db->where($this->primary_key, $id)
+			->get($this->_table)
+			->row_array();
+	}
+
+	public function get_all()
 	{
 		//$this->db->where('site_id', $this->site->id);
 		return $this->db->get('redirects')->result();
 	}
 
-	function get_from($from)
+	public function get_from($from)
 	{
 		//$this->db->where('site_id', $this->site->id);
 		// Reverse like query
@@ -32,13 +40,13 @@ class Redirect_m extends MY_Model
 		return $data;
 	}
 
-	function count_all()
+	public function count_all()
 	{
 		//$this->db->where('site_id', $this->site->id);
 		return $this->db->count_all_results('redirects');
 	}
 
-	function insert($input = array())
+	public function insert($input = array())
 	{
 		return $this->db->insert('redirects', array(
 			'`type`' => $input['type'],
@@ -48,7 +56,7 @@ class Redirect_m extends MY_Model
 		));
 	}
 
-	function update($id, $input = array())
+	public function update($id, $input = array())
 	{
 		$this->db->where(array(
 			'id' => $id,
@@ -62,7 +70,7 @@ class Redirect_m extends MY_Model
 		));
 	}
 
-	function delete($id)
+	public function delete($id)
 	{
 		return $this->db->delete('redirects', array(
 			'id' => $id,
@@ -71,7 +79,7 @@ class Redirect_m extends MY_Model
 	}
 
 	// Callbacks
-	function check_from($from, $id = 0)
+	public function check_from($from, $id = 0)
 	{
 		if($id > 0)
 		{

@@ -1,36 +1,45 @@
 <div id="upload-box">
-	<h2><?php echo lang('files.upload_title'); ?><span class="close ui-icon ui-icon-closethick"><?php echo lang('buttons.close'); ?></span></h2>
+	<h2><?php echo lang('files:upload'); ?><span class="close ui-icon ui-icon-closethick"><?php echo lang('buttons.close'); ?></span></h2>
 	<?php echo form_open_multipart('admin/wysiwyg/upload'); ?>
-		<?php echo form_hidden('redirect_to', 'files'); ?>
-		<p>
-			<?php echo form_input('name', set_value('name',lang('file_folders.name_label'))); ?>
-			<?php echo form_upload('userfile'); ?>
-		</p>
-		<p>
-			<?php echo form_dropdown('type', $file_types, array($this->input->post('type'))); ?>
-		</p>
-		<p>
-			<?php echo form_dropdown('folder_id', array(0 => lang('files.dropdown_select')) + $folders_tree); ?>
-		</p>
-		<p>
-			<?php echo form_submit('button_action', lang('buttons.save'), 'class="button"'); ?>
-		</p>
+		<?php echo form_hidden('redirect_to', 'files_wysiwyg'); ?>
+		<ul>
+			<li>
+				<label for="name"><?php echo lang('files:name'); ?></label>
+				<?php echo form_input('name', set_value('name'), 'id="name"'); ?>
+			</li>
+			<li>
+				<label for="file">&nbsp;</label>
+				<?php echo form_upload('userfile', 'id="file"'); ?>
+			</li>
+			<li>
+				<label for="folder_id">&nbsp;</label>
+				<?php echo form_dropdown('folder_id', array(0 => lang('files:select_folder')) + $folders_tree, 'id="folder"'); ?>
+			</li>
+			<li>
+				<label for="description"><?php echo lang('files:description'); ?></label>
+				<?php echo form_textarea('description', set_value('description'), 'id="description"'); ?>
+			</li>
+			<li>
+				<?php echo form_submit('button_action', lang('buttons.save'), 'class="button"'); ?>
+				<a href="<?php echo current_url(); ?>#" class="btn cancel"><?php echo lang('buttons.cancel'); ?></a>
+			</li>
+		</ul>
 	<?php echo form_close(); ?>
 </div>
 <div id="files_browser">
     <div id="files_left_pane">
-        <h3><?php echo lang('file_folders.folders_label'); ?></h3>
+        <h3><?php echo lang('files:folders'); ?></h3>
 		<ul id="files-nav">
 		<?php foreach ($folders as $folder): ?>
 		<?php if ( ! $folder->parent_id): ?>
 			<li id="folder-id-<?php echo $folder->id; ?>" class="<?php echo $current_folder && $current_folder->id == $folder->id ? 'current' : ''; ?>">
-				<?php echo anchor("admin/wysiwyg/files/index/{$folder->id}", $folder->name, 'title="'.$folder->slug.'"'); ?>
+				<?php echo anchor("admin/wysiwyg/files_wysiwyg/index/{$folder->id}", $folder->name, 'title="'.$folder->slug.'"'); ?>
 			</li>
 		<?php endif; ?>
 		<?php endforeach; ?>
 		<?php if ($folders): ?>
 			<li class="upload">
-				<?php echo anchor("admin/wysiwyg/files/upload", lang('files.upload_title'), 'title="upload"'); ?>
+				<?php echo anchor("admin/wysiwyg/files_wysiwyg/upload", lang('files:upload'), 'title="upload"'); ?>
 			</li>
 		<?php endif; ?>
 		</ul>
@@ -43,7 +52,7 @@
 			<div id="files_toolbar">
 				<ul>
 					<li>
-						<label for="folder"><?php echo lang('file_folders.subfolders_label'); ?>:</label>
+						<label for="folder"><?php echo lang('files:subfolders'); ?>:</label>
 						<?php echo form_dropdown('parent_id', $subfolders, $current_folder->id, 'id="parent_id" title="files"'); ?>
 					</li>
 				</ul>
@@ -53,8 +62,8 @@
 				<thead>
 					<tr>
 						<th><?php echo lang('global:actions'); ?></th>
-						<th><?php echo lang('files.name_label') . '/' . lang('files.description_label'); ?></th>
-						<th><?php echo lang('files.file_name') . '/' . lang('file_folders.created_label'); ?></th>
+						<th><?php echo lang('files:name') . '/' . lang('files:description'); ?></th>
+						<th><?php echo lang('files:filename') . '/' . lang('files:added'); ?></th>
 						<th><?php echo lang('wysiwyg.meta.mime'); ?></th>
 					</tr>
 				</thead>
@@ -62,7 +71,7 @@
 					<?php foreach ($current_folder->items as $file): ?>
 					<tr class="<?php echo alternator('', 'alt'); ?>">
 						<td class="image">
-							<button onclick="javascript:insertFile('<?php echo $file->id; ?>', '<?php echo htmlentities($file->name); ?>');">
+							<button onclick="javascript:insertFile('<?php echo $file->id."', '".htmlentities($file->name)."', '".$file->location."', '".$file->path; ?>');">
 								Insert
 							</button>
 						</td>
@@ -80,11 +89,11 @@
 				</tbody>
 			</table>
 			<?php else: ?>
-			<p><?php echo lang('files.no_files'); ?></p>
+			<p><?php echo lang('files:no_files'); ?></p>
 			<?php endif; ?>
 		<?php else: ?>
 			<div class="blank-slate file-folders">
-				<h2><?php echo lang('file_folders.no_folders');?></h2>
+				<h2><?php echo lang('files:no_folders_wysiwyg');?></h2>
 			</div>
 		<?php endif; ?>
 		</div>

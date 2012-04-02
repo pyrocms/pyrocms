@@ -1,4 +1,4 @@
-﻿<?php defined('BASEPATH') or exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 $lang['streams.image.name'] 			= "Image";
 $lang['streams.image.folder'] 			= "Dossier de réception";

@@ -365,13 +365,16 @@ section.title {
   	-webkit-box-shadow: 0px 0px 1px #aaaaaa;
 }
 
-section.title h4, section.title h4 a {
+section.title h4 {
   	color: #555555;
 	font-size: 16px;
   	text-shadow: 1px 1px 0 #ffffff;
 	margin: 0;
 	padding: 0;
 	float: left;
+}
+section.title h4 a {
+  	color: #555555;	
 }
 
 section.item {
@@ -478,9 +481,9 @@ footer {
 	background: #333333;
 	border-top: 1px solid #ececec;
 	width: 100%;
-	height: 140px;
+	min-height: 60px;
 	color: #eeeeee;
-	margin-top: -100px;
+	margin-top: -61px;
 	padding: 0;
 	float: left;
 	text-shadow: 0 -1px 0 #000000;
@@ -558,3 +561,10 @@ section.draggable { cursor:grabbing; cursor:-moz-grabbing; cursor:-webkit-grabbi
 
 /* Toggle button */
 a.toggle { width: 21px; height: 22px; background: url("../../img/toggle.png") no-repeat; float: right; cursor: pointer; margin: 7px 0 0 0; }
+
+table > thead > tr {
+	border-bottom: 2px solid #ddd;
+}
+table > tbody > tr {
+	border-bottom: 1px solid #ddd;
+}

@@ -22,7 +22,7 @@ class Public_ajax extends Public_Controller {
         // Only AJAX gets through!
        	if ( ! $this->input->is_ajax_request())
        	{
-       		die('Invalid request.');
+       		die('Must be an ajax request.');
        	}
     }
 	
@@ -38,13 +38,16 @@ class Public_ajax extends Public_Controller {
 	 */
 	public function field()
 	{	
-		$field_type 	= $this->uri->segment(4);
-		$method 		= $this->uri->segment(5);
-		
-		if ( ! $field_type or ! $method)
+		$segments = $this->uri->segment_array();
+
+		if ( ! isset($segments[4]) or ! isset($segments[5]))
 		{
-			exit('No data.');
+			exit('Field class or method not found.');
 		}
+
+		$field_type 	= $segments[4];
+		$method 		= $segments[5];
+		$params			= array_slice($segments, 5);
 		
 		// Is this a valid field type?
 		if ( ! isset($this->type->types->$field_type))
@@ -58,7 +61,7 @@ class Public_ajax extends Public_Controller {
 		// Does the method exist?		
 		if ( method_exists($this->type->types->$field_type, $method))
 		{
-			exit($this->type->types->$field_type->$method());
+			exit(call_user_func_array(array($this->type->types->$field_type, $method), $params));
 		}
 		
 		exit("Method '{$method}' not found.");

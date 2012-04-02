@@ -54,8 +54,8 @@ class Migration_Add_streams_core extends CI_Migration {
 		// streams namespace. They'll be blank if we are upgrading
 		// for the first time.
 		
-		$this->db->where('stream_namespace', '')->update($this->config->item('streams:streams_table'), array('stream_namespace' => 'streams', 'stream_prefix' => 'str_'));
-		$this->db->where('field_namespace', '')->update($this->config->item('streams:fields_table'), array('field_namespace' => 'streams'));
+		$this->db->where("`stream_namespace`=''", null, false)->update($this->config->item('streams:streams_table'), array('stream_namespace' => 'streams', 'stream_prefix' => 'str_'));
+		$this->db->where("`field_namespace`=''", null, false)->update($this->config->item('streams:fields_table'), array('field_namespace' => 'streams'));
 	}
 
 	public function down()

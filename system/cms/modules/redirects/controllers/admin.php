@@ -8,7 +8,8 @@
 class Admin extends Admin_Controller
 {
 	/**
-	 * Array containing the validation rules
+	 * Array containing the validation rules.
+	 *
 	 * @var array
 	 */
 	protected $validation_rules = array(
@@ -31,8 +32,6 @@ class Admin extends Admin_Controller
 
 	/**
 	 * Constructor method
-	 * @access public
-	 * @return void
 	 */
 	public function __construct()
 	{
@@ -48,27 +47,24 @@ class Admin extends Admin_Controller
 
 	/**
 	 * List all redirects
-	 * @access public
-	 * @return void
 	 */
 	public function index()
 	{
         // Create pagination links
 		$total_rows = $this->redirect_m->count_all();
-		$this->data->pagination = create_pagination('admin/redirects/index', $total_rows);
+		$this->template->pagination = create_pagination('admin/redirects/index', $total_rows);
 
 		// Using this data, get the relevant results
-		$this->data->redirects = $this->redirect_m->order_by('`from`')->limit($this->data->pagination['limit'])->get_all();
-		$this->template->build('admin/index', $this->data);
+		$this->template->redirects = $this->redirect_m->order_by('`from`')->limit($this->template->pagination['limit'])->get_all();
+		$this->template->build('admin/index');
 	}
 
 	/**
 	 * Create a new redirect
-	 * @access public
-	 * @return void
 	 */
 	public function add()
 	{
+		$messages = array();
 		// Got validation?
 		if ($this->form_validation->run())
 		{
@@ -79,27 +75,32 @@ class Admin extends Admin_Controller
 				redirect('admin/redirects');
 			}
 
-			$this->data->messages['error'] = lang('redirects.add_error');
+			$messages['error'] = lang('redirects.add_error');
 		}
 
 		// Loop through each validation rule
+		$redirect = array();
 		foreach($this->validation_rules as $rule)
 		{
-			$redirect->{$rule['field']} = set_value($rule['field']);
+			$redirect[$rule['field']] = set_value($rule['field']);
 		}
 
-		$this->data->redirect =& $redirect;
-		$this->template->build('admin/form', $this->data);
+		$this->template
+			->set('redirect', $redirect)
+			->set('messages', $messages)
+			->build('admin/form');
 	}
 
 	/**
 	 * Edit an existing redirect
-	 * @access public
+	 *
 	 * @param int $id The ID of the redirect
+	 *
 	 * @return void
 	 */
 	public function edit($id = 0)
 	{
+		$messages = array();
 		// Got ID?
 		$id or redirect('admin/redirects');
 
@@ -115,16 +116,20 @@ class Admin extends Admin_Controller
 				redirect('admin/redirects');
 			}
 
-			$this->data->messages['error'] = lang('redirects.edit_error');
+			$messages['error'] = lang('redirects.edit_error');
 		}
-		$this->data->redirect =& $redirect;
-		$this->template->build('admin/form', $this->data);
+
+		$this->template
+			->set('redirect', $redirect)
+			->set('messages', $messages)
+			->build('admin/form');
 	}
 
 	/**
 	 * Delete an existing redirect
-	 * @access public
+	 *
 	 * @param int $id The ID of the redirect
+	 *
 	 * @return void
 	 */
 	public function delete($id = 0)
@@ -164,9 +169,9 @@ class Admin extends Admin_Controller
 
 	/**
 	 * Callback method for validating the redirect's name
-	 * @access public
-	 * @param str $name The name of the redirect
-	 * @param int $id the ID of the redirect
+	 *
+	 * @param string $from
+
 	 * @return bool
 	 */
 	public function _check_unique($from)

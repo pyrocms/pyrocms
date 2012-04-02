@@ -33,32 +33,30 @@ class Fields
 	 * @param	bool
 	 * @return	string
 	 */
-	public function build_form_input($field, $value = FALSE, $row_id = NULL)
+	public function build_form_input($field, $value = null, $row_id = null, $plugin = false)
 	{
-		$tmp = $field->field_type;
-		
-		$type = $this->CI->type->types->$tmp;
-		
 		$form_data['form_slug']		= $field->field_slug;
-		
-		if ( ! isset($field->field_data['default_value']))
-		{
-			$field->field_data['default_value'] = '';
-		}
-		
-		// Set the value
-		$value ? $form_data['value'] = $value : $form_data['value'] = $field->field_data['default_value'];
-		
-		$form_data['custom'] = $field->field_data;
-		
-		// Set the max_length
-		if (isset($field->field_data['max_length']))
-		{
-			$form_data['max_length'] = $field->field_data['max_length'];
-		}
+		$form_data['custom'] 		= $field->field_data;
+		$form_data['value']			= $value;
+		$form_data['max_length']	= (isset($field->field_data['max_length'])) ? $field->field_data['max_length'] : null;
 
-		// Get form output
-		return $type->form_output($form_data, $row_id, $field);
+		// If this is for a plugin, this relies on a function that
+		// many field types will not have
+		if ($plugin)
+		{
+			if (method_exists($this->CI->type->types->{$field->field_type}, 'form_output_plugin'))
+			{
+				return $this->CI->type->types->{$field->field_type}->form_output_plugin($form_data, $row_id, $field);
+			}
+			else
+			{
+				return false;
+			}
+		}
+		else
+		{
+			return $this->CI->type->types->{$field->field_type}->form_output($form_data, $row_id, $field);
+		}
 	}
 
 	// --------------------------------------------------------------------------
@@ -86,9 +84,9 @@ class Fields
      * - error_end
      * - required
      *
-     * @return	mixed
+     * @return	array - fields
      */
- 	public function build_form($stream, $method, $row = FALSE, $plugin = false, $recaptcha = false, $skips = array(), $extra = array())
+ 	public function build_form($stream, $method, $row = false, $plugin = false, $recaptcha = false, $skips = array(), $extra = array())
  	{
  		$this->CI->load->helper(array('form', 'url'));
  	
@@ -127,38 +125,26 @@ class Fields
 		$stream_fields = $this->CI->streams_m->get_stream_fields($stream->id);
 		
 		// Can't do nothing if we don't have any fields		
-		if ($stream_fields === FALSE) return FALSE;
+		if ($stream_fields === false) return false;
 			
 		// -------------------------------------
 		// Run Type Events
 		// -------------------------------------
 
-		$events_called = array();
-		
-		foreach ($stream_fields as $field)
-		{
-			if ( ! in_array($field->field_slug, $skips))
-			{
-				// If we haven't called it (for dupes),
-				// then call it already.
-				if ( ! in_array($field->field_type, $events_called))
-				{
-					if(method_exists($this->CI->type->types->{$field->field_type}, 'event'))
-					{
-						$this->CI->type->types->{$field->field_type}->event($field);
-					}
-					
-					$events_called[] = $field->field_type;
-				}		
-			}
-		}
+		$events_called = $this->run_field_events($stream_fields, $skips);
 				
 		// -------------------------------------
 		// Set Validation Rules
 		// -------------------------------------
 
 		$this->set_rules($stream_fields, $method, $skips);
-		
+
+		// -------------------------------------
+		// Set Error Delimns
+		// -------------------------------------
+
+		$this->CI->form_validation->set_error_delimiters($extra['error_start'], $extra['error_end']);
+
 		// -------------------------------------
 		// Set reCAPTCHA
 		// -------------------------------------
@@ -168,40 +154,14 @@ class Fields
 			$this->CI->config->load('streams_core/recaptcha');
 			$this->CI->load->library('streams_core/Recaptcha');
 			
-			$this->CI->streams_validation->set_rules('recaptcha_response_field', 'lang:recaptcha_field_name', 'required|check_captcha');
+			$this->CI->validation->set_rules('recaptcha_response_field', 'lang:recaptcha_field_name', 'required|check_captcha');
 		}
 		
 		// -------------------------------------
 		// Set Values
 		// -------------------------------------
 
-		$values = array();
-		
-		foreach ($stream_fields as $stream_field)
-		{
-			if( ! in_array($stream_field->field_slug, $skips))
-			{
-				if ($method == "new")
-				{
-					$values[$stream_field->field_slug] = $this->CI->input->post($stream_field->field_slug);
-				}
-				else
-				{
-					$node = $stream_field->field_slug;
-					
-					if (isset($row->$node))
-					{
-						$values[$stream_field->field_slug] = $row->$node;
-					}
-					else
-					{
-						$values[$stream_field->field_slug] = NULL;
-					}
-					
-					$node = NULL;
-				}
-			}
-		}
+		$values = $this->set_values($stream_fields, $row, $method, $skips);
 
 		// -------------------------------------
 		// Validation
@@ -209,7 +169,7 @@ class Fields
 		
 		$result_id = '';
 
-		if ($this->CI->streams_validation->run() === TRUE)
+		if ($this->CI->form_validation->run() === TRUE)
 		{
 			if($method == 'new')
 			{
@@ -219,23 +179,11 @@ class Fields
 				}
 				else
 				{
-
-					// -------------------------------------
-					// Event: Post Insert Entry
-					// -------------------------------------
-
-					$trigger_data = array(
-						'entry_id'		=> $result_id,
-						'stream'		=> $stream
-					);
-
-					Events::trigger('streams_post_insert_entry', $trigger_data);
-
 					// -------------------------------------
 					// Send Emails
 					// -------------------------------------
 					
-					if ($plugin and $email_notifications)
+					if ($plugin and (isset($email_notifications) and $email_notifications))
 					{
 						foreach ($data->email_notifications as $notify)
 						{
@@ -262,18 +210,6 @@ class Fields
 				}
 				else
 				{
-
-					// -------------------------------------
-					// Event: Post Update Entry
-					// -------------------------------------
-
-					$trigger_data = array(
-						'entry_id'		=> $result_id,
-						'stream'		=> $stream
-					);
-
-					Events::trigger('streams_post_update_entry', $trigger_data);
-
 					// -------------------------------------
 					// Send Emails
 					// -------------------------------------
@@ -300,6 +236,100 @@ class Fields
 		// Set Fields & Return Them
 		// -------------------------------------
 
+		return $this->build_fields($stream_fields, $values, $row, $method, $skips, $extra['required']);
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Run Field Events
+	 *
+	 * Runs all the event() functions for some
+	 * stream fields. The event() functions usually
+	 * have field asset loads.
+	 *
+	 * @access 	public
+	 * @param 	obj - stream fields
+	 * @param 	array - skips
+	 * @return 	array
+	 */
+	public function run_field_events($stream_fields, $skips)
+	{
+		$events_called = array();
+		
+		foreach ($stream_fields as $field)
+		{
+			if ( ! in_array($field->field_slug, $skips))
+			{
+				// If we haven't called it (for dupes),
+				// then call it already.
+				if ( ! in_array($field->field_type, $events_called))
+				{
+					if(method_exists($this->CI->type->types->{$field->field_type}, 'event'))
+					{
+						$this->CI->type->types->{$field->field_type}->event($field);
+					}
+					
+					$events_called[] = $field->field_type;
+				}		
+			}
+		}
+
+		return $events_called;
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Gather values into an array
+	 * for a form
+	 *
+	 * @access 	public
+	 * @param 	object - stream_fields
+	 * @param 	object - row
+	 * @param 	string - edit or new
+	 * @param 	array
+	 * @return 	array
+	 */
+	public function set_values($stream_fields, $row, $mode, $skips)
+	{
+		$values = array();
+		
+		foreach ($stream_fields as $stream_field)
+		{
+			if ( ! in_array($stream_field->field_slug, $skips))
+			{
+				if ($mode == "new")
+				{
+					$values[$stream_field->field_slug] = $this->CI->input->post($stream_field->field_slug);
+				}
+				else
+				{
+					if (isset($row->{$stream_field->field_slug}))
+					{
+						$values[$stream_field->field_slug] = $row->{$stream_field->field_slug};
+					}
+					else
+					{
+						$values[$stream_field->field_slug] = null;
+					}
+				}
+			}
+		}
+
+		return $values;		
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Build Fields
+	 *
+	 * Builds fields (no validation)
+	 *
+	 */
+	public function build_fields($stream_fields, $values = array(), $row = null, $method = 'new', $skips = array(), $required = '<span>*</span>')
+	{
 		$fields = array();
 
 		$count = 0;
@@ -312,27 +342,46 @@ class Fields
 				$fields[$count]['input_slug'] 		= $field->field_slug;
 				$fields[$count]['instructions'] 	= $field->instructions;
 
+				// The default default value is null.
+				if ( ! isset($field->field_data['default_value']))
+				{
+					$field->field_data['default_value'] = null;
+				}
+						
+				// Set the value. The passed value or
+				// the default value?
+				$value = (isset($values[$field->field_slug])) ? $values[$field->field_slug] : $field->field_data['default_value'];
+
+				// Return the raw value as well - can be useful
+				$fields[$count]['value'] 			= $value;
+
 				// Get the acutal form input
 				if ($method == 'edit')
 				{
-					$fields[$count]['input'] 		= $this->build_form_input($field, $values[$field->field_slug], $row->id);
+					$fields[$count]['input'] 		= $this->build_form_input($field, $value, $row->id);
+					$fields[$count]['input_parts'] 	= $this->build_form_input($field, $value, $row->id, true);
 				}
 				else
 				{
-					$fields[$count]['input'] 		= $this->build_form_input($field, $values[$field->field_slug]);			
+					$fields[$count]['input'] 		= $this->build_form_input($field, $value, null);			
+					$fields[$count]['input_parts'] 	= $this->build_form_input($field, $value, null, true);
 				}
 
 				// Set the error if there is one
-				$fields[$count]['error']			= $this->CI->streams_validation->error($field->field_slug, $extra['error_start'], $extra['error_end']);
+				$fields[$count]['error_raw']		= $this->CI->form_validation->error($field->field_slug);
 
 				// Format tht error
-				if ($fields[$count]['error']) 
+				if ($fields[$count]['error_raw']) 
 				{
-					$fields[$count]['error']		= $extra['error_start'].$fields[$count]['error'].$extra['error_end'];
+					$fields[$count]['error']		= $this->CI->form_validation->format_error($fields[$count]['error_raw']);
+				}
+				else
+				{
+					$fields[$count]['error']		= null;
 				}
 
 				// Set the required string
-				$fields[$count]['required'] = ($field->is_required == 'yes') ? $extra['required'] : NULL;
+				$fields[$count]['required'] = ($field->is_required == 'yes') ? $required : null;
 
 				// Set even/odd
 				$fields[$count]['odd_even'] = (($count+1)%2 == 0) ? 'even' : 'odd';
@@ -350,27 +399,39 @@ class Fields
 	 * Set Rules
 	 *
 	 * Set the rules from the stream fields
+	 *
+	 * @access 	public
+	 * @param 	obj - fields to set rules for
+	 * @param 	string - method - edit or new
+	 * @param 	array - fields to skip
+	 * @param 	bool - return the array or set the validation
+	 * @param 	mixed - array or true
 	 */	
-	public function set_rules($stream_fields, $method, $skips)
+	public function set_rules($stream_fields, $method, $skips = array(), $return_array = false)
 	{
+		$validation_rules = array();
+
 		// -------------------------------------
 		// Loop through and set the rules
 		// -------------------------------------
-	
+
 		foreach ($stream_fields  as $stream_field)
 		{
 			if ( ! in_array($stream_field->field_slug, $skips))
 			{
-				// Get the type object
-				$type_call = $stream_field->field_type;	
-				$type = $this->CI->type->types->$type_call;	
-			
-				$rules = array(
-					'field'	=> $stream_field->field_slug,
-					'label' => $stream_field->field_name,
-					'rules'	=> ''				
-				);
-				
+				$rules = array();
+
+				$type = $this->CI->type->types->{$stream_field->field_type};
+
+				// -------------------------------------
+				// Pre Validation Event
+				// -------------------------------------
+
+				if (method_exists($type, 'pre_validation_compile'))
+				{
+					$type->pre_validation_compile($stream_field);
+				}
+
 				// -------------------------------------
 				// Set required if necessary
 				// -------------------------------------
@@ -379,42 +440,120 @@ class Fields
 				{
 					if (isset($type->input_is_file) && $type->input_is_file === TRUE)
 					{
-						$rules['rules'] .= '|file_required['.$stream_field->field_slug.']';
+						$rules[] = 'streams_file_required['.$stream_field->field_slug.']';
 					}
 					else
 					{
-						$rules['rules'] .= '|required';
+						$rules[] = 'required';
 					}
 				}
-				
+
+				// -------------------------------------
+				// Validation Function
+				// -------------------------------------
+				// We are using a generic streams validation
+				// function to use a validate() function
+				// in the field type itself.
+				// -------------------------------------
+
+				if (method_exists($type, 'validate'))
+				{
+					$rules[] = "streams_field_validation[{$stream_field->field_id}:{$method}]";
+				}
+
 				// -------------------------------------
 				// Set unique if necessary
 				// -------------------------------------
 	
 				if ($stream_field->is_unique == 'yes')
 				{
-					$rules['rules'] .= '|unique['.$stream_field->field_slug.':'.$method.':'.$stream_field->stream_id.']';
+					$rules[] = 'streams_unique['.$stream_field->field_slug.':'.$method.':'.$stream_field->stream_id.']';
 				}
-				
+
 				// -------------------------------------
 				// Set extra validation
 				// -------------------------------------
 				
 				if (isset($type->extra_validation))
 				{
-					$rules['rules'] .= '|'.$type->extra_validation;
+					if (is_string($type->extra_validation))
+					{
+						$extra_rules = explode('|', $type->extra_validation);
+						$rules = array_merge($rules, $extra_rules);
+						unset($extra_rules);
+					}
+					elseif (is_array($type->extra_validation))
+					{
+						$rules = array_merge($rules, $type->extra_validation);
+					}
 				}
-	
+
 				// -------------------------------------
-				// Set them rules
+				// Remove duplicate rule values
 				// -------------------------------------
 	
-				$this->CI->streams_validation->set_rules($rules['field'], $rules['label'], $rules['rules']);
-				
-				// Reset this baby!
-				$rules = array();
+				$rules = array_unique($rules);
+
+				// -------------------------------------
+				// Add to validation rules array
+				// and unset $rules
+				// -------------------------------------
+
+				$validation_rules[] = array(
+					'field'	=> $stream_field->field_slug,
+					'label' => $stream_field->field_name,
+					'rules'	=> implode('|', $rules)				
+				);
+
+				unset($rules);
 			}
 		}
+
+		// -------------------------------------
+		// Set the rules or return them
+		// -------------------------------------
+
+		if ($return_array)
+		{
+			return $validation_rules;
+		}
+		else
+		{
+			$this->CI->form_validation->set_rules($validation_rules);
+			return true;		
+		}
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Translate a label.
+	 *
+	 * If it has the label: before it, then we can
+	 * look for a language line.
+	 *
+	 * This is partially from the CodeIgniter Form Validation
+	 * library but it protected so we need to replicate the
+	 * functionality here.
+	 *
+	 * @access 	public
+	 * @param 	string - the field label
+	 * @return 	string - translated or original label
+	 */
+	public function translate_label($label)
+	{
+		// Look for lang
+		if (substr($label, 0, 5) === 'lang:')
+		{
+			$line = substr($label, 5);
+
+			if (($label = $this->CI->lang->line($line)) === false)
+			{
+				return $line;
+			}
+		}
+
+		return $label;		
 	}
 
 	// --------------------------------------------------------------------------
