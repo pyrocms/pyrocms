@@ -366,7 +366,7 @@ table {
   margin: -16px;
   margin-bottom: 18px;
   padding: 0;
-  border-collapse: separate;
+  border-collapse: collapse;
   font-size: 11px;
 }
 
@@ -375,7 +375,6 @@ table th, table td {
   line-height: 13.5px;
   text-align: left;
   vertical-align: middle;
-  border-bottom: 1px solid #ddd;
 }
 
 table th.collapse, table td.collapse {

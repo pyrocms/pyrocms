@@ -28,25 +28,24 @@ class Admin extends Admin_Controller
 	 */
 	public function index()
 	{
-		$folders = glob($this->cache_path.'*', GLOB_ONLYDIR);
+		// Discover all the directories in the cache path.
+		$cache_folders = glob($this->cache_path.'*', GLOB_ONLYDIR);
 
-		// get protected cache folders from module config file
-		$protected = (array)$this->config->item('maintenance.cache_protected_folders');
-		$cannot_remove = (array)$this->config->item('maintenance.cannot_remove_folders');
+		// Get protected cache folders from module config file
+		$protected = $this->config->item('maintenance.cache_protected_folders');
+		$cannot_remove = $this->config->item('maintenance.cannot_remove_folders');
 
-		// remove protected
-		foreach ($folders as $key => $folder)
+		$folders = array();
+
+		foreach ($cache_folders as $key => $folder)
 		{
 			$basename = basename($folder);
-
-			if (in_array($basename, $protected))
+			// If the folder is not protected
+			if( ! in_array($basename, $protected))
 			{
-				unset($folders[$key]);
-			}
-			else
-			{
-				// we just use the filename on the front end to not expose complete paths
-				$folder_ary[] = (object)array(
+				// Store it in the array of the folders we will be doing something with.
+				// Just use the filename on the front end to not expose complete paths
+				$folders[] = array(
 					'name' => $basename,
 					'count' => count(glob($folder.'/*')),
 					'cannot_remove' => in_array($basename, $cannot_remove)
@@ -54,30 +53,34 @@ class Admin extends Admin_Controller
 			}
 		}
 
-		$i = 0;
 		$table_list = config_item('maintenance.export_tables');
+
 		asort($table_list);
 
+		$tables = array();
 		foreach ($table_list as $table)
 		{
-			$tables->{$i}->{'name'} = $table;
-			$tables->{$i}->{'count'} = $this->db->count_all($table);
-			$i++;
+			$tables[] = array(
+				'name' => $table,
+				'count' => $this->db->count_all($table),
+			);
 		}
 
 		$this->template
 			->title($this->module_details['name'])
 			->set('tables', $tables)
-			->set('folders', &$folder_ary)
+			->set('folders', $folders)
 			->build('admin/items');
 	}
 
 
 	public function cleanup($name = '', $andfolder = 0)
 	{
-		$andfolder = ($andfolder) ? true : false;
 		if ( ! empty($name))
 		{
+
+			$andfolder = ($andfolder) ? true : false;
+
 			$apath = $this->_refind_apath($name);
 
 			if ( ! empty($apath))
@@ -88,11 +91,11 @@ class Admin extends Admin_Controller
 
 				if ($this->delete_files($apath, $andfolder))
 				{
-					$this->session->set_flashdata('success', sprintf(lang('maintenance.'.$which.'_msg'), $item_count, $name));
+					$this->session->set_flashdata('success', sprintf(lang('maintenance:'.$which.'_msg'), $item_count, $name));
 				}
 				else
 				{
-					$this->session->set_flashdata('error', sprintf(lang('maintenance.'.$which.'_msg_err'), $name));
+					$this->session->set_flashdata('error', sprintf(lang('maintenance:'.$which.'_msg_err'), $name));
 				}
 			}
 		}
