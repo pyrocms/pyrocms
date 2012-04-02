@@ -13,8 +13,8 @@ $lang['pages.detail_label'] 					= 'Dettagli';
 
 // labels
 $lang['pages.page_label'] 						= 'Pagina';
-$lang['pages.add_page_chunk']						= 'Add Page Chunk'; #translate
-$lang['pages.page_chunk']							= 'Page Chunk'; #translate
+$lang['pages.add_page_chunk']						= 'Aggiungi un pezzo di pagina'; 
+$lang['pages.page_chunk']							= 'Pezzi di pagina';
 $lang['pages.language_label'] 					= 'Lingua';
 $lang['pages.updated_label'] 					= 'Modificato';
 $lang['pages.unknown_label'] 					= 'Sconosciuto';
@@ -32,7 +32,7 @@ $lang['pages.access_label'] 					= 'Accesso';
 $lang['pages.rss_enabled_label'] 				= 'RSS abilitato';
 $lang['pages.comments_enabled_label']			= 'Commenti abilitati';
 $lang['pages.is_home_label']      = 'E\' la home page?'; 
-$lang['pages.strict_uri_label']						= 'Require an exact uri match?'; #translate
+$lang['pages.strict_uri_label']						= 'Richiede una esatta corrispondenza dell\'url?';
 
 $lang['pages.status_label'] 					= 'Stato';
 $lang['pages.draft_label'] 						= 'Bozza';
@@ -42,7 +42,7 @@ $lang['pages.current_label']                    = 'Corrente';
 
 $lang['pages.view_label'] 						= 'Visualizza';
 $lang['pages.create_label'] 					= 'Aggiungi figlio';
-$lang['pages.duplicate_label']					= 'Duplicate'; #translate
+$lang['pages.duplicate_label']					= 'Duplica';
 
 // titles
 $lang['pages.create_title'] 					= 'Aggiungi pagina';
