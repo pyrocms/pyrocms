@@ -1,0 +1,56 @@
+<!-- Begin header -->
+<header>
+	<!-- Begin logo -->
+	<div id="logo">
+		<h1><a href="{{ url:site  }}" title="Home">{{ settings:site_name }}</a></h1>
+		<h2 class="slogan">{{ settings:site_slogan }}</h2>
+	</div>
+	<!-- End logo -->
+
+	<!-- Begin user meta -->
+	<div id="user-meta">
+	{{ if user:logged_in }}
+		<div class="avatar-name">
+		{{ if settings:enable_profiles }}
+			<a href="{{ url:site uri='my-profile' }}">{{ helper:gravatar email=user:email size="16" }} {{ user:display_name }}</a>
+		{{ else }}
+			{{ helper:gravatar email=user:email size="20" }} {{ user:display_name }}
+		{{ endif }}
+		</div>
+
+		{{ if settings:enable_profiles }}
+		<span class="nav-splitter">&nbsp;&bull;&nbsp;</span>
+		<a href="{{ url:site uri='edit-profile' }}">{{ helper:lang line="edit_profile_label" }}</a>
+		{{ endif }}
+
+		{{ if user:has_cp_permissions }}
+		<span class="nav-splitter">&nbsp;&bull;&nbsp;</span>
+		<a href="{{ url:site uri='admin' }}" target="_blank">{{ helper:lang line="global:control-panel" }}</a>
+		{{ endif }}
+
+		<span class="nav-splitter">&nbsp;&bull;&nbsp;</span>
+		<a href="{{ url:site uri='users/logout' }}">{{ helper:lang line="logout_label" }}</a>
+
+	{{ else }}
+		<form action="{{ url:site uri='users/login' }}" method="post" accept-charset="utf-8" id="login-small">
+			<input type="hidden" name="redirect_to" value="{{ url:current }}" />
+			<ul>
+				<li class="email">
+					<input type="text" id="email" name="email" maxlength="120" placeholder="{{ helper:lang line="user_email" }}" />
+				</li>
+
+				<li class="pword">
+					<input type="password" id="password" name="password" maxlength="20" placeholder="{{ helper:lang line="user_password" }}" />
+				</li>
+
+				<li class="form-buttons">
+					<input type="submit" value="{{ helper:lang line='user_login_btn' }}" name="btnLogin" /> | &nbsp;<a href="{{ url:site }}register">{{ helper:lang line="user_register_btn" }}</a>
+					<label><input type="checkbox" id="remember-checksidebar" name="remember" value="1"  /> {{ helper:lang line="user_remember" }}</label>
+				</li>
+			</ul>
+		</form>
+	{{ endif }}
+</div>
+<!-- End user meta -->
+</header>
+<!-- End header -->

@@ -538,6 +538,26 @@ class MY_Model extends CI_Model
         return $this->_run_validation($data);
     }
 
+    /**
+     * Return only the keys from the validation array
+     *
+     * @return array
+     */
+    public function fields()
+    {
+        $keys = array();
+
+        if ($this->validate)
+        {
+        	foreach ($this->validate as $key)
+        	{
+        		$keys[] = $key['field'];
+        	}
+        }
+
+        return $keys;
+    }
+
 	/**
 	 * Runs the before create actions.
 	 *
