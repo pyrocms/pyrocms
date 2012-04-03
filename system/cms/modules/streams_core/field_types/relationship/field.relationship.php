@@ -23,11 +23,10 @@ class Field_relationship
 
 	// --------------------------------------------------------------------------
 	
-	public function event()
-	{
-		// Add autocomplete CSS just in case
-		// $this->CI->type->add_css('relationship', 'autocomplete.css');	
-	}
+	/**
+	 * Run time cache
+	 */
+	private $cache;
 
 	// --------------------------------------------------------------------------
 
@@ -180,6 +179,11 @@ class Field_relationship
 	 */
 	function pre_output_plugin($row, $custom)
 	{
+		if (isset($this->cache[$custom['choose_stream']][$row]))
+		{
+			return $this->cache[$custom['choose_stream']][$row];
+		}
+
 		// Okay good to go
 		$stream = $this->CI->streams_m->get_stream($custom['choose_stream']);
 
@@ -205,39 +209,11 @@ class Field_relationship
 		
 		$stream_fields = $this->CI->streams_m->get_stream_fields($stream->id);
 
-		return $this->CI->row_m->format_row($return, $stream_fields, $stream, false, true);
-	}
+		$return_row = $this->CI->row_m->format_row($return, $stream_fields, $stream, false, true);
 
-	// --------------------------------------------------------------------------
-
-	/**
-	 * Search a field and stream
- 	 *
-	 * Accessed via AJAX
-	 *
-	 * @access    public
-	 * @return    void
-	 */
-	public function ajax_rel_search()
-	{
-		/*$stream_slug = $this->CI->input->post('stream_slug');
-		$title_column = $this->CI->input->post('title_column');
-
-		$results = $this->CI->db->limit(6)
-			->select("id, {$title_column}")
-			->like($title_column, $this->CI->input->post('search_term'))
-			->get($this->CI->config->item('stream_prefix').$stream_slug)
-			->result();
-
-		echo '<ul class="streams_dropdown">';
-
-		foreach($results as $result):
-
-		echo '<li><a class="'.$stream_slug.'_autocomplete_item" id="'.$result->id.'" name="'.$result->$title_column.'">'.$result->$title_column.'</a></li>';
-
-		endforeach;
-
-		echo '<ul>';*/
+		$this->cache[$custom['choose_stream']][$row] = $return_row;
+		
+		return $return_row;
 	}
 
 }
