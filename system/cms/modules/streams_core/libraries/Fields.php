@@ -137,7 +137,9 @@ class Fields
 		// Set Validation Rules
 		// -------------------------------------
 
-		$this->set_rules($stream_fields, $method, $skips);
+		$row_id = ($method == 'edit') ? $row->id : null;
+
+		$this->set_rules($stream_fields, $method, $skips, false, $row_id);
 
 		// -------------------------------------
 		// Set Error Delimns
@@ -171,7 +173,7 @@ class Fields
 
 		if ($this->CI->form_validation->run() === TRUE)
 		{
-			if($method == 'new')
+			if ($method == 'new')
 			{
 				if ( ! $result_id = $this->CI->row_m->insert_entry($_POST, $stream_fields, $stream, $skips))
 				{
@@ -407,7 +409,7 @@ class Fields
 	 * @param 	bool - return the array or set the validation
 	 * @param 	mixed - array or true
 	 */	
-	public function set_rules($stream_fields, $method, $skips = array(), $return_array = false)
+	public function set_rules($stream_fields, $method, $skips = array(), $return_array = false, $row_id = null)
 	{
 		$validation_rules = array();
 
@@ -467,7 +469,7 @@ class Fields
 	
 				if ($stream_field->is_unique == 'yes')
 				{
-					$rules[] = 'streams_unique['.$stream_field->field_slug.':'.$method.':'.$stream_field->stream_id.']';
+					$rules[] = 'streams_unique['.$stream_field->field_slug.':'.$method.':'.$stream_field->stream_id.':'.$row_id.']';
 				}
 
 				// -------------------------------------

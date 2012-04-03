@@ -1,0 +1,16 @@
+h1, h2, h3, h4, h5, h6 { font-family: "Helvetica Neue", Helvetica, Tahoma, sans-serif; color: #ffffff; font-weight: bold; }
+h1 { font-size: 28px; }
+h2 { font-size: 24px; }
+h3 { font-size: 22px; }
+h4 { font-size: 20px; }
+h5 { font-size: 18px; }
+h6 { font-size: 16px; }
+
+
+a, a:link, p, .post, ul, ol, dl, dd, li { font-family: Tahoma, "Helvetica Neue", Helvetica, sans-serif; letter-spacing: 0.2px; }
+a, a:link { color: #ff6900; text-decoration: none; }
+a:active, a:visited:active { color: #ffffff; }
+a:hover, a:visited:hover { color: #212328; text-shadow: 1px 1px 0px #ffffff; }
+p { padding: 0 0 15px 0; }
+code { display: block; white-space: pre; background-color: #fbfbfd; border: 1px solid #dae0e4; font-size: 11px; color: #7d7d7d; margin: 10px 4px; overflow: auto; padding: 8px; font-family: Consolas, "Courier new", monospace; }
+ul li { list-style: url(../img/bullet.png); padding: 8px 0 8px 0; }

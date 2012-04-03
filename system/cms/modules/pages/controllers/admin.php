@@ -231,18 +231,18 @@ class Admin extends Admin_Controller {
 		}
 
 		// Loop through each rule
-		foreach ($this->page_m->validate as $rule)
+		foreach ($this->page_m->fields() as $field)
 		{
-			if ($rule['field'] === 'restricted_to[]' or $rule['field'] === 'strict_uri')
+			if ($field === 'restricted_to[]' or $field === 'strict_uri')
 			{
-				$page['restricted_to'] = set_value($rule['field'], array('0'));
+				$page['restricted_to'] = set_value($field, array('0'));
 				// we'll set the default for strict URIs here also
 				$page['strict_uri'] = 1;
 
 				continue;
 			}
 
-			$page[$rule['field']] = set_value($rule['field']);
+			$page[$field] = set_value($field);
 		}
 
 		$parent_page = array();
@@ -338,24 +338,24 @@ class Admin extends Admin_Controller {
 		}
 
 		// Loop through each validation rule
-		foreach ($this->page_m->validate as $rule)
+		foreach ($this->page_m->fields() as $field)
 		{
 			// Nothing to do for these two fields.
-			if (in_array($rule['field'], array('navigation_group_id', 'chunk_body[]')))
+			if (in_array($field, array('navigation_group_id', 'chunk_body[]')))
 			{
 				continue;
 			}
 
 			// Translate the data of restricted_to to something we can use in the form.
-			if ($rule['field'] === 'restricted_to[]')
+			if ($field === 'restricted_to[]')
 			{
-				$page['restricted_to'] = set_value($rule['field'], $page['restricted_to']);
+				$page['restricted_to'] = set_value($field, $page['restricted_to']);
 				$page['restricted_to'][0] = ($page['restricted_to'][0] == '') ? '0' : $page['restricted_to'][0];
 				continue;
 			}
 
-			// Pour in everything else.
-			$page[$rule['field']] = set_value($rule['field'], $page[$rule['field']]);
+			// Set all the other fields
+			$page[$field] = set_value($field, $page[$field]);
 		}
 
 		// If this page has a parent.
