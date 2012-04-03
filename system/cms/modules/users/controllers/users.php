@@ -559,6 +559,12 @@ class Users extends Public_Controller
 			$user = $this->current_user or redirect('users/login/users/edit'.(($id > 0) ? '/'.$id : ''));
 		}
 
+		$profile_data = array(); // For our form
+
+		// Get the profile data
+		$profile_row = $this->db->limit(1)
+			->where('user_id', $this->current_user->id)->get('profiles')->row();
+
 		// If we have API's enabled, load stuff
 		if (Settings::get('api_enabled') and Settings::get('api_user_keys'))
 		{
@@ -587,7 +593,7 @@ class Users extends Public_Controller
 
 		// Get the profile fields validation array from streams
 		$this->load->driver('Streams');
-		$profile_validation = $this->streams->streams->validation_array('profiles', 'users');
+		$profile_validation = $this->streams->streams->validation_array('profiles', 'users', 'edit', array(), $profile_row->id);
 
 		// Set the validation rules
 		$this->form_validation->set_rules(array_merge($this->validation_rules, $profile_validation));
@@ -673,12 +679,6 @@ class Users extends Public_Controller
 		// --------------------------------
 		// Grab user profile data
 		// --------------------------------
-
-		$profile_data = array(); // For our form
-
-		// Get the profile data
-		$profile_row = $this->db->limit(1)
-			->where('user_id', $this->current_user->id)->get('profiles')->row();
 
 		foreach ($assignments as $assign)
 		{
