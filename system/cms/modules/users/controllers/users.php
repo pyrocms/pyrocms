@@ -609,7 +609,7 @@ class Users extends Public_Controller
 		{
 			PYRO_DEMO and show_error(lang('global:demo_restrictions'));
 
-			// Loop through each POST item and add it to the secure_post array
+			// Get our secure post
 			$secure_post = $this->input->post();
 
 			$user_data = array(); // Data for our user table
@@ -627,7 +627,7 @@ class Users extends Public_Controller
 			$user_data['email'] = $secure_post['email'];
 
 			// If password is being changed (and matches)
-			if ( ! $secure_post['password'])
+			if ($secure_post['password'])
 			{
 				$user_data['password'] = $secure_post['password'];
 				unset($secure_post['password']);
