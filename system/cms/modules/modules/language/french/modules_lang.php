@@ -3,7 +3,7 @@
 $lang['modules.core_list']				= 'Modules système';
 $lang['modules.addon_list']				= 'Modules additionels';
 $lang['modules.introduction']			= 'Ci-desous la liste des modules installés et leur rôle, description et version.';
-$lang['modules.core_introduction']		 = 'Below is a list of core modules and their information. You may disable them but do so with extreme care. Disabling modules such as Users will render your site inoperable.'; #translate
+$lang['modules.core_introduction']		 = 'Voici une liste des modules de base et leurs informations. Vous pouvez les désactivermais faites le en connaissance de cause. Désactiver des modules comme le module Utilisateurs peut rendre votre site inutilisable.';
 $lang['modules.disable_error'] 			= 'Impossible de désactiver le module "%s".';
 $lang['modules.disable_success']		= 'Le module "%s" a été désactivé.';
 $lang['modules.enable_error']			= 'Le module "%s" n\'a pu être activé.';
@@ -24,9 +24,9 @@ $lang['modules.manually_remove']		= 'Vous devez supprimer "%s" manuellement pour
 $lang['modules.upload_title']			= 'Uploader le module';
 $lang['modules.upload_desc']			= 'Sélectionner un fichier et cliquer sur "Uploader le module"';
 
-$lang['modules.confirm_enable']         = 'Voulez-vous vraiment activer ce module ?';
-$lang['modules.confirm_disable']        = 'Voulez-vous vraiment désactiver ce module ?';
-$lang['modules.confirm_install']        = 'Voulez-vous vraiment installer ce module ?';
-$lang['modules.confirm_uninstall']      = 'Tout les enregistrements en base de données seront supprimés ! Êtes vous sur de vouloir supprimer ce module ?';
+$lang['modules.confirm_enable']         = 'Voulez-vous vraiment activer ce module&nbsp;?';
+$lang['modules.confirm_disable']        = 'Voulez-vous vraiment désactiver ce module&nbsp;?';
+$lang['modules.confirm_install']        = 'Voulez-vous vraiment installer ce module&nbsp;?';
+$lang['modules.confirm_uninstall']      = 'Tout les enregistrements en base de données seront supprimés ! Êtes vous sur de vouloir supprimer ce module&nbsp;?';
 $lang['modules.confirm_delete']         = 'Voulez-vous vraiment désinstaller ce module?';
-$lang['modules.confirm_upgrade'] 		 = 'Etes vous sur de vouloir mettre à jour ce module ?';
+$lang['modules.confirm_upgrade'] 		 = 'Etes vous sur de vouloir mettre à jour ce module&nbsp;?';
