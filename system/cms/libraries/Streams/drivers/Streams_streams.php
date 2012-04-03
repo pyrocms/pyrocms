@@ -186,7 +186,7 @@ class Streams_streams extends CI_Driver {
 	 * 'label' => 'Email',
 	 * 'rules' => 'required|valid_email'
 	 */
-	public function validation_array($stream, $namespace, $method = 'new', $skips = array())
+	public function validation_array($stream, $namespace, $method = 'new', $skips = array(), $row_id = null)
 	{
 		$str_id = $this->stream_id($stream, $namespace);
 		
@@ -194,6 +194,6 @@ class Streams_streams extends CI_Driver {
 
 		$stream_fields = $this->CI->streams_m->get_stream_fields($str_id);
 
-		return $this->CI->fields->set_rules($stream_fields, $method, $skips, true);
+		return $this->CI->fields->set_rules($stream_fields, $method, $skips, true, $row_id);
 	}	
 }
