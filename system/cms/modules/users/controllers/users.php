@@ -289,7 +289,7 @@ class Users extends Public_Controller
 
 				// Do we have a display name? If so, let's use that.
 				// Othwerise we can use the username.
-				if ( ! isset($profile_data['display_name']))
+				if ( ! isset($profile_data['display_name']) or ! $profile_data['display_name'])
 				{
 					$profile_data['display_name'] = $username;
 				}
