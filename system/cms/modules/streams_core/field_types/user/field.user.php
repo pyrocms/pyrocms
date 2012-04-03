@@ -123,10 +123,6 @@ class Field_user
 		$return = array(
 			'user_id'			=> $user->user_id,
 			'display_name'		=> $user->display_name,
-			'first_name'		=> $user->first_name,
-			'last_name'			=> $user->last_name,
-			'company'			=> $user->company,
-			'lang'				=> $user->lang,
 			'email'				=> $user->email,
 			'username'			=> $user->username,
 		);
