@@ -1,0 +1,111 @@
+<!doctype html>
+
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if gt IE 8]> <html class="no-js" lang="en"> 		   <![endif]-->
+
+<head>
+	<meta charset="utf-8">
+
+  	<!-- You can use .htaccess and remove these lines to avoid edge case issues. -->
+  	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  	<title>{{ settings:site_name }} &raquo; {{ template:title }}</title>
+
+  	<meta name="author" content="Scott Parry - iKreativ">
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+
+  	<!-- Mobile viewport optimized -->
+  	<meta name="viewport" content="width=device-width,initial-scale=1">
+	
+	<!-- Set a base location for assets -->
+	<base href="{{ url:base }}"/>
+	<!-- End base -->
+
+  	<!-- CSS. No need to specify the media attribute unless specifically targeting a media type, leaving blank implies media=all -->
+  	{{ theme:css file="plugins.css" }}
+	{{ theme:css file="workless.css" }}
+  	<!-- End CSS-->
+
+	<!-- Googlelicious -->
+	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Droid+Sans:regular,bold" type="text/css" />
+	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Droid+Serif:regular,bold" type="text/css" />
+
+	<!-- Load up some favicons -->
+  	{{ theme:favicon }}
+
+  	<!-- All JavaScript at the bottom, except for Modernizr. -->
+  	{{ theme:js file="libs/modernizr.js" }}
+  	{{ theme:js file="libs/jquery.js" }}
+
+	
+	{{ template:metadata }}
+	
+	<!-- Google Analytics -->
+	{{ integration:analytics }}
+	
+	<!-- Add some theme option variables for styling -->
+	<style type="text/css">
+		/* Background */
+		{{ if theme:options:background == 'black' }}
+			body { background: url({{ theme:path }}/img/bg_black.jpg) fixed repeat; }
+		{{ elseif theme:options:background == 'fabric' }}
+			body { background: url({{ theme:path }}/img/bg_fabric.jpg) fixed repeat; }
+		{{ elseif theme:options:background == 'graph' }}
+			body { background: url({{ theme:path }}/img/bg_graph.jpg) fixed repeat; }
+		{{ elseif theme:options:background == 'leather' }}
+			body { background: url({{ theme:path }}/img/bg_leather.jpg) fixed repeat; }
+		{{ elseif theme:options:background == 'noise' }}
+			body { background: url({{ theme:path }}/img/bg_noise.jpg) fixed repeat; }
+		{{ elseif theme:options:background == 'texture' }}
+			body { background: url({{ theme:path }}/img/bg_texture.jpg) fixed repeat; }
+		{{ elseif theme:options:background == 'fabric' }}
+			body { background: url({{ theme:path }}/img/bg_fabric.jpg) fixed repeat; }
+		{{ endif }}
+		/* Colors */
+		{{ if theme:options:color == 'red' }}
+			.pagination ul li a:hover, .pagination ul li.active a, nav#primary ul li.current { background:#ff0000; }
+			a:hover, .single_post h5 small a:hover, nav#primary ul li a:hover { color:#ff0000; }
+		{{ elseif theme:options:color == 'orange' }}
+			.pagination ul li a:hover, .pagination ul li.active a, nav#primary ul li.current { background:#EF770E; }
+			a:hover, .single_post h5 small a:hover, nav#primary ul li a:hover { color:#EF770E; }
+		{{ elseif theme:options:color == 'yellow' }}
+			.pagination ul li a:hover, .pagination ul li.active a, nav#primary ul li.current { background:#EDBB1C; }
+			a:hover, .single_post h5 small a:hover, nav#primary ul li a:hover { color:#EDBB1C; }
+		{{ elseif theme:options:color == 'green' }}
+			.pagination ul li a:hover, .pagination ul li.active a, nav#primary ul li.current { background:#bada55; }
+			a:hover, .single_post h5 small a:hover, nav#primary ul li a:hover { color:#bada55; }
+		{{ elseif theme:options:color == 'blue' }}
+		 	.pagination ul li a:hover, .pagination ul li.active a, nav#primary ul li.current { background:#0087C2; }
+			a:hover, .single_post h5 small a:hover, nav#primary ul li a:hover { color:#0087C2; }
+		{{ elseif theme:options:color == 'pink' }}
+			.pagination ul li a:hover, .pagination ul li.active a, nav#primary ul li.current { background:#DD1251; }
+			a:hover, .single_post h5 small a:hover, nav#primary ul li a:hover { color:#DD1251; }
+		{{ endif }}
+	</style>
+</head>
+
+<body class="{{ url:segments segment="1" default="home" }}" onload="prettyPrint()">
+	
+	<!-- container -->
+	<div class="container">	
+
+		<header>
+			<div id="logo">
+				<a href="{{ url:base }}">
+					<h1>{{ settings:site_name }}</h1>
+				</a>
+		
+				<span class="slogan">
+					{{ settings:site_slogan }}
+				</span>
+			</div>
+		
+			<nav id="primary">
+				<ul>
+					{{ navigation:links group="header" }}
+				</ul>
+			</nav>
+		</header>

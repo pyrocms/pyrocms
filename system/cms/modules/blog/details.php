@@ -17,6 +17,7 @@ class Module_Blog extends Module {
 				'en' => 'Blog',
 				'ar' => 'المدوّنة',
 				'br' => 'Blog',
+				'pt' => 'Blog',
 				'el' => 'Ιστολόγιο',
 				'he' => 'בלוג',
 				'id' => 'Blog',
@@ -32,6 +33,7 @@ class Module_Blog extends Module {
 				'en' => 'Post blog entries.',
 				'ar' => 'أنشر المقالات على مدوّنتك.',
 				'br' => 'Escrever publicações de blog',
+				'pt' => 'Escrever e editar publicações no blog',
 				'cs' => 'Publikujte nové články a příspěvky na blog.', #update translation
 				'da' => 'Skriv blogindlæg',
 				'de' => 'Veröffentliche neue Artikel und Blog-Einträge', #update translation

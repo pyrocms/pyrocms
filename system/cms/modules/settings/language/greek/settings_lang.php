@@ -128,7 +128,7 @@ $lang['settings_registered_email']		= 'Ειδοποίηση Email Για Νέα 
 $lang['settings_registered_email_desc']		= 'Να αποστέλεται μια ειδοποιήση μέσω email στην διεύθυνση email για επικοινωνία όταν υπάρχει μια νέα εγγραφή χρήστη.';
 
 $lang['settings_ckeditor_config']           = 'Παραμετροποίηση του CKEditor';
-$lang['settings_ckeditor_config_desc']      = 'Υπάρχει λίστα με έγκυρα στοιχεία παραμετροποίησης του CKEditor στην <a target=\"_blank\" href=\"http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.config.html\">σελίδα τεκμηριωσής του.</a>';
+$lang['settings_ckeditor_config_desc']      = 'Υπάρχει λίστα με έγκυρα στοιχεία παραμετροποίησης του CKEditor στην <a target="_blank" href="http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.config.html">σελίδα τεκμηριωσής του.</a>';
 
 $lang['settings_enable_registration']           = 'Ενεργοποίηση εγγραφών νέων χρηστών';
 $lang['settings_enable_registration_desc']      = 'Να επιτρέπεται η εγγραφή νέων χρηστών στον ιστότοπο.';
