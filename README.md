@@ -71,6 +71,7 @@ Think you should be on this list? Add yourself in the next pull request you subm
 * [okhayat](http://webymaster.com/) Arabic
 * [DarkPreacher](http://darklab.ru) Russian
 * [Marcos Coelho](http://marcoscoelho.com/) Portuguese Brazilian
+* [Miguel Justo](http://migueljusto.net/) Portuguese Portugal
 * [imamo](http://www.imamo.si/) Slovenian
 * [Petsagourakis George](https://github.com/petsagouris) Greek
 * [Mikael Kundert](https://github.com/mikaelkundert) Finnish
