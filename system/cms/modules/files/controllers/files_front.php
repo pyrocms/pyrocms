@@ -39,7 +39,10 @@ class Files_front extends Public_Controller
 		// Read the file's contents
 		$data = file_get_contents($this->_path . $file->filename);
 
-		force_download($file->name . $file->extension , $data);
+		// if it's the default name it will contain the extension. Otherwise we need to add the extension
+		$name = (strpos($file->name, $file->extension) !== FALSE ? $file->name : $file->name . $file->extension);
+
+		force_download($name , $data);
 	}
 
 	public function thumb($id = 0, $width = 100, $height = 100, $mode = NULL)
