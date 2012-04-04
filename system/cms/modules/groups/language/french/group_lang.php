@@ -17,7 +17,7 @@ $lang['groups.add_error'] 				= 'Le groupe "%s" n\'a pu être ajouté.';
 $lang['groups.edit_success'] 			= 'Le groupe "%s" a été enregistré.';
 $lang['groups.edit_error'] 				= 'Le groupe "%s" n\'a pu être enregistré.';
 $lang['groups.delete_success'] 			= 'Le groupe a été supprimé';
-$lang['groups.delete_error']            = 'There was an error deleting this group. You must delete all users associated with this group before deleting the group.';
+$lang['groups.delete_error']            = 'Une erreur a été rencontrée lors de la suppression de ce groupe. Vous devez supprimer tout les utilisateurs associés à ce groupe avant de pouvoir le supprimer.';
 $lang['groups.already_exist_error']		= 'Un groupe avec le nom "%s" existe déjà.';
 
 /* End of file group_lang.php */

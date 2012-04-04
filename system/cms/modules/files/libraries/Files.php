@@ -304,12 +304,12 @@ class Files
 	 */
 	public static function upload($folder_id, $name = FALSE, $field = 'userfile', $width = FALSE, $height = FALSE, $ratio = FALSE)
 	{
-		if ( ! $check_dir = self::_check_dir(self::$path))
+		if ( ! $check_dir = self::check_dir(self::$path))
 		{
 			return $check_dir;
 		}
 
-		if ( ! $check_cache_dir = self::_check_dir(self::$_cache_path))
+		if ( ! $check_cache_dir = self::check_dir(self::$_cache_path))
 		{
 			return $check_cache_dir;
 		}
@@ -998,7 +998,7 @@ class Files
 	 * @return	bool
 	 *
 	**/
-	private static function _check_dir($path)
+	public static function check_dir($path)
 	{
 		if (is_dir($path) AND is_really_writable($path))
 		{
@@ -1008,7 +1008,7 @@ class Files
 		{
 			if ( ! @mkdir($path, 0777, TRUE))
 			{
-				return self::result(FALSE, lang('files:mkdir_error'));
+				return self::result(FALSE, lang('files:mkdir_error'), $path);
 			}
 			else
 			{

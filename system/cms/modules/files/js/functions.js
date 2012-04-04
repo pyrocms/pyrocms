@@ -134,14 +134,16 @@ jQuery(function($){
 				
 				var folder;
 				var pattern = new RegExp('pane');
+				// if they happen to click right on the name span then we need to shift to the parent
+				var $target = $(e.target).is('span') ? $(e.target).parent('li') : $(e.target);
 
 				// make an exception cause the image thumbnail itself may be the target
-				if ($(e.target).hasClass('file') || $(e.target).is('img')){
+				if ($target.hasClass('file') || $target.is('img')){
 					pattern = new RegExp('file');
-				} else if ($(e.target).hasClass('folder')){
+				} else if ($target.hasClass('folder')){
 					pattern = new RegExp('folder');
 					folder = true;
-				} else if ($(e.target).hasClass('pane') && pyro.files.current_level == 0){
+				} else if ($target.hasClass('pane') && pyro.files.current_level == 0){
 					pattern = new RegExp('root-pane');
 				}
 

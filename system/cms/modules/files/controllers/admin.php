@@ -80,10 +80,11 @@ class Admin extends Admin_Controller {
 			->set('locations', array_combine($parts, $parts))
 			->set('folder_tree', Files::folder_tree());
 
-		$files_path = Files::$path;
-		if (!is_really_writable($files_path))
+		$path_check = Files::check_dir(Files::$path);
+
+		if ( ! $path_check['status'])
 		{
-			$this->template->set('messages', array('error' => sprintf(lang('files:unwritable'), $files_path)));
+			$this->template->set('messages', array('error' => $path_check['message']));
 		}
 
 		$this->template->build('admin/index');

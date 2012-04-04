@@ -43,7 +43,7 @@ $lang['comments.approve_error'] 			= 'Un problème est survenu lors de l\'approb
 $lang['comments.approve_error_multiple'] 	= 'Une erreur s\'est produite lors de l\'approbation des commentaires sélectionnés.';
 
 $lang['comments.unapprove_success'] 		= 'Le commentaire a été refusé et n\'apparaîtra plus sur le site.';
-$lang['comments.unapprove_success_multiple'] = 'The selected comments have been unapproved and will no longer show on the live site.';
+$lang['comments.unapprove_success_multiple'] = 'Le commentaire sélectionné a été désaprouvé et ne s\'affichera plus sur le site en ligne.';
 $lang['comments.unapprove_error'] 			= 'Un problème est survenu lors du refus de ce commentaire. Essayez alors de le supprimer ?';
 $lang['comments.unapprove_error_multiple']	= 'Une erreur est survenue lors de la désapprobation des commentaires sélectionnés. Les effacer pourrait-il résoudre le problème ?';
 
