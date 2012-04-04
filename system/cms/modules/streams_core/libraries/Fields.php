@@ -189,7 +189,7 @@ class Fields
 					{
 						foreach ($data->email_notifications as $notify)
 						{
-							$this->_send_email($notify, $result_id, $method = 'new', $stream);
+							$this->send_email($notify, $result_id, $method = 'new', $stream);
 						}
 					}
 	
@@ -220,7 +220,7 @@ class Fields
 					{
 						foreach($data->email_notifications as $notify)
 						{
-							$this->_send_email($notify, $result_id, $method = 'update', $stream);
+							$this->send_email($notify, $result_id, $method = 'update', $stream);
 						}
 					}
 	
@@ -565,14 +565,14 @@ class Fields
 	 *
 	 * Sends emails for a notify group
 	 *
-	 * @access	private
+	 * @access	public
 	 * @param	string - a or b
 	 * @param	int - the entry id
 	 * @param	string - method - update or new
 	 * @param	obj - the stream
 	 * @return	void
 	 */
-	private function _send_email($notify, $entry_id, $method, $stream)
+	public function send_email($notify, $entry_id, $method, $stream)
 	{
 		extract($notify);
 
@@ -608,7 +608,7 @@ class Fields
 							->get('email_templates')
 							->row();
 							
-		if ( ! $layout) return NULL;
+		if ( ! $layout) return null;
 		
 		// -------------------------------------
 		// Get some basic sender data
