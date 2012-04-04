@@ -1,0 +1,20 @@
+{{ theme:partial name="header" }}
+	
+	<!-- slider -->
+	{{ if { url:segments segment="1" } == '' AND theme:options:slider == 'yes' }}
+		{{ theme:partial name="slider" }}
+	{{ endif }}
+	<!-- /slider -->
+	
+	<!-- slogan -->
+	{{ if { url:segments segment="1" } == '' AND theme:options:slogan == 'yes' }}
+		{{ theme:options:slogan }}
+	{{ endif }}
+	<!-- content -->
+	<section id="content">
+		{{ theme:partial name="breadcrumbs" }}
+		{{ template:body }}
+	</section>
+	<!-- /content -->
+
+{{ theme:partial name="footer" }}
