@@ -670,6 +670,15 @@ class Row_m extends MY_Model {
 
 	// --------------------------------------------------------------------------
 
+	/**
+	 * Process the where string. Anything in backticks 
+	 * is considered a table name and has a table prefix
+	 * added onto it.
+	 *
+	 * @access 	private
+	 * @param 	string - where string
+	 * @return 	string
+	 */
 	private function process_where($where)
 	{
 		// Remove ()
@@ -688,7 +697,7 @@ class Row_m extends MY_Model {
 			}
 		}
 
-		return $where;
+		return '('.$where.')';
 	}
 
 	// --------------------------------------------------------------------------
