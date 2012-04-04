@@ -109,7 +109,7 @@ $lang['settings_version'] 						= 'النسخة';
 $lang['settings_version_desc'] 					= '';
 
 $lang['settings_ckeditor_config']               = 'تهيئة CKEditor';
-$lang['settings_ckeditor_config_desc']          = 'تجد قائمة بعناصر التهيئة الصحيح في موقع <a target=\"_blank\" href=\"http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.config.html\">وثائق CKEditor\'s.</a>';
+$lang['settings_ckeditor_config_desc']          = 'تجد قائمة بعناصر التهيئة الصحيح في موقع <a target="_blank" href="http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.config.html">وثائق CKEditor\'s.</a>';
 
 $lang['settings_enable_registration']           = 'تمكين تسجيل المستخدمين';
 $lang['settings_enable_registration_desc']      = 'اسمح للمستخدمين التسجيل في موقعك.';

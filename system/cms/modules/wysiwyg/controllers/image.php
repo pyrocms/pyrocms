@@ -52,6 +52,7 @@ class Image extends WYSIWYG_Controller {
 
 		$this->template
 			->title('Images')
+			->append_css('admin/basic_layout.css')
 			->build('image/index', $data);
 	}
 
