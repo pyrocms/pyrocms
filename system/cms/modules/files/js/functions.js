@@ -75,6 +75,7 @@ jQuery(function($){
 
 		// after the folder contents have loaded highlight the results
 		$(window).on('load-completed', function(e, results){
+			$('.folders-center').find('li').removeClass('selected');
 			$('.folders-center :contains('+text+')').parent('li').addClass('selected');
 		});
 	});
