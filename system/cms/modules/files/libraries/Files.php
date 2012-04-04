@@ -429,19 +429,28 @@ class Files
 		if ($file->location === 'local' AND $new_location === 'local')
 		{
 			// if they were helpful enough to provide an extension then remove it
-			$filename = str_replace($file->extension, '', $new_name);
+			$file_slug = self::create_slug(str_replace($file->extension, '', $new_name));
+			$filename = $file_slug.$file->extension;
 
-			// force the correct extension
-			$filename = self::create_slug($filename).$file->extension;
-
-			$data = array('id' => $file_id,
-						  'name' => $new_name,
-						  'filename' => $filename,
-						  'location' => $new_location,
-						  'container' => $container);
-
+			// does the source exist?
 			if (file_exists(self::$path.$file->filename))
 			{
+				$i = 1;
+
+				// create a unique filename if the target already exists
+				while (file_exists(self::$path.$filename)) 
+				{
+					// Example: test-image2.jpg
+					$filename = $file_slug.$i.$file->extension;
+					$i++;
+				}
+
+				$data = array('id' => $file_id,
+							  'name' => $new_name,
+							  'filename' => $filename,
+							  'location' => $new_location,
+							  'container' => $container);
+
 				ci()->file_m->update($file_id, array('filename' => $filename, 'name' => $new_name));
 
 				@rename(self::$path.$file->filename, self::$path.$filename);
@@ -450,7 +459,7 @@ class Files
 			}
 			else
 			{
-				return self::result(FALSE, lang('files:item_not_found'), $file->name, $data);
+				return self::result(FALSE, lang('files:item_not_found'), $file->name);
 			}
 		}
 		// we'll be pushing the file from here to the cloud
@@ -513,8 +522,20 @@ class Files
 
 			if ($curl_result)
 			{
-				// ...and save it
-				write_file(self::$path.$new_name, $curl_result, 'wb');
+				// if they were helpful enough to provide an extension then remove it
+				$file_slug = self::create_slug(str_replace($file->extension, '', $new_name));
+				$filename = $file_slug.$file->extension;
+
+				// create a unique filename if the target already exists
+				while (file_exists(self::$path.$filename)) 
+				{
+					// Example: test-image2.jpg
+					$filename = $file_slug.$i.$file->extension;
+					$i++;
+				}
+
+				// ...now save it
+				write_file(self::$path.$filename, $curl_result, 'wb');
 			}
 			else
 			{
@@ -782,6 +803,36 @@ class Files
 		{
 			return self::result(NULL, lang('files:no_records_found'));
 		}
+	}
+
+	// ------------------------------------------------------------------------
+
+	/**
+	 * Rename a file
+	 *
+	 * @param	int		$id		The id of the file
+	 * @param	string	$name	The new name
+	 * @return	array
+	 *
+	**/
+	public static function rename_file($id = 0, $name)
+	{
+		$data = array('name' => $name);
+		$file = ci()->file_m->select('files.*, file_folders.location')
+			->join('file_folders', 'file_folders.id = files.folder_id')
+			->get_by('files.id', $id);
+
+		// if it's a local file we can rename the actual file
+		if ($file AND $file->location === 'local')
+		{
+			Files::move($id, $name);
+		}
+		else
+		{
+			ci()->file_m->update($id, $data);
+		}
+
+		return self::result(TRUE, lang('files:item_updated'), $name, $data);
 	}
 
 	// ------------------------------------------------------------------------

@@ -231,7 +231,7 @@ class Admin extends Admin_Controller {
 
 		if ($id = $this->input->post('file_id') AND $name = $this->input->post('name'))
 		{
-			echo json_encode(Files::move($id, $name));
+			echo json_encode(Files::rename_file($id, $name));
 		}
 	}
 
