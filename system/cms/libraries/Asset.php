@@ -140,6 +140,8 @@ class Asset {
 
 		$paths = $ci->config->item('asset_paths') ? $ci->config->item('asset_paths') : self::$asset_paths;
 
+		self::$symlinks = $ci->config->item('symlinks') ? $ci->config->item('symlinks') : array();
+
 		foreach ($paths as $key => $path)
 		{
 			self::add_path($key, $path);
