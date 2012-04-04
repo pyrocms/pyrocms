@@ -22,6 +22,7 @@ class Widget_Latest_posts extends Widgets
 	public $title		= array(
 		'en' => 'Latest posts',
 		'br' => 'Artigos recentes do Blog',
+		'pt' => 'Artigos recentes do Blog',
 		'el' => 'Τελευταίες αναρτήσεις ιστολογίου',
 		'ru' => 'Последние записи',
 		'id' => 'Post Terbaru',
@@ -29,6 +30,7 @@ class Widget_Latest_posts extends Widgets
 	public $description	= array(
 		'en' => 'Display latest blog posts with a widget',
 		'br' => 'Mostra uma lista de navegação para abrir os últimos artigos publicados no Blog',
+		'pt' => 'Mostra uma lista de navegação para abrir os últimos artigos publicados no Blog',
 		'el' => 'Προβάλει τις πιο πρόσφατες αναρτήσεις στο ιστολόγιό σας',
 		'ru' => 'Выводит список последних записей блога внутри виджета',
 		'id' => 'Menampilkan posting blog terbaru menggunakan widget',
