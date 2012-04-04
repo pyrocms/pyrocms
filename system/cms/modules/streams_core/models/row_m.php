@@ -283,7 +283,7 @@ class Row_m extends MY_Model {
 			
 			foreach ($inclusions as $include_id)
 			{
-				$this->sql['where'][] = $this->select_prefix.$this->db->protect_identifiers($include_by).' !='.$this->db->escape($include_id);
+				$this->sql['where'][] = $this->select_prefix.$this->db->protect_identifiers($include_by).'='.$this->db->escape($include_id);
 			}
 		}
 
