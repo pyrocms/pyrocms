@@ -130,7 +130,7 @@ $lang['settings_registered_email']				= 'Email de registo de Utilizador';
 $lang['settings_registered_email_desc']			= 'Enviar um e-mail de notificação para o contacto de e-mail quando alguém se regista.';
 
 $lang['settings_ckeditor_config']               = 'Config CKEditor';
-$lang['settings_ckeditor_config_desc']          = 'Pode encontrar uma lista de itens de configuração válidos em <a target=\"_blank\" href=\"http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.config.html\">CKEditor\'s documentação</a>.';
+$lang['settings_ckeditor_config_desc']          = 'Pode encontrar uma lista de itens de configuração válidos em <a target="_blank" href="http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.config.html">CKEditor\'s documentação</a>.';
 
 $lang['settings_enable_registration']           = 'Habilitar o registro de utilizadores';
 $lang['settings_enable_registration_desc']      = 'Permitir que os utilizadores se registem no seu site.';
