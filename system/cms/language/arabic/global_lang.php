@@ -45,7 +45,7 @@ $lang['success_label'] 					= 'نجاح';
 
 $lang['login_title'] 					= 'تسجيل الدخول';
 $lang['cms_fatal_error'] 				= 'خطأ جسيم، هل النظام مثبّت؟';
-$lang['global:demo_restrictions']       = 'Some features on this page have been disabled for the demo.'; #translate
+$lang['global:demo_restrictions']       = 'بعض الخواص في هذه الصفحة مُعطّلة لغرض العرض فقط.';
 
 $lang['login_error_label'] 				= 'خطأ في تسجيل الدخول';
 $lang['forgot_password_label'] 			= 'نسيت كلمة السرّ؟';

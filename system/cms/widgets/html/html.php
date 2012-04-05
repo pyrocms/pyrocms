@@ -27,6 +27,7 @@ class Widget_Html extends Widgets
 		'en' => 'Create blocks of custom HTML',
 		'el' => 'Δημιουργήστε περιοχές με δικό σας κώδικα HTML',
 		'br' => 'Permite criar blocos de HTML customizados',
+		'pt' => 'Permite criar blocos de HTML customizados',
 		'nl' => 'Maak blokken met maatwerk HTML',
 		'ru' => 'Создание HTML-блоков с произвольным содержимым',
 		'id' => 'Membuat blok HTML apapun',

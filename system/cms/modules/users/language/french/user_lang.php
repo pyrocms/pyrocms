@@ -1,12 +1,12 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-$lang['user_add_field']                        	= 'Add User Profile Field'; #translate
-$lang['user_profile_delete_success']           	= 'User profile field deleted successfully'; #translate
-$lang['user_profile_delete_failure']            = 'There was a problem with deleting your user profile field'; #translate
-$lang['profile_user_basic_data_label']  		= 'Basic Data'; #translate
-$lang['profile_company']         	  			= 'Company'; #translate
-$lang['profile_updated_on']           			= 'Updated On'; #translate
-$lang['user_profile_fields_label']	 		 	= 'Profile Fields'; #translate`
+$lang['user_add_field']                        	= 'Ajouter un champ de profil utilisateur';
+$lang['user_profile_delete_success']           	= 'Champ de profil utilisateur supprimé avec succès';
+$lang['user_profile_delete_failure']            = 'Il y a eu un problème lors de la suppresion du champ de profil utilisateur';
+$lang['profile_user_basic_data_label']  		= 'Données basiques';
+$lang['profile_company']         	  			= 'Entreprise';
+$lang['profile_updated_on']           			= 'Mis à jour le';
+$lang['user_profile_fields_label']	 		 	= 'Champ de profil';
 
 $lang['user_register_header'] 	= 'Enregistrement';
 $lang['user_register_step1'] 	= '<strong>Etape 1&nbsp;:</strong> Enregistrez-vous';

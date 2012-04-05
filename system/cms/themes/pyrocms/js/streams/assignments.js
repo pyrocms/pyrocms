@@ -18,7 +18,7 @@
 					dataType: 'text',
 					type: 'POST',
 					data: 'order='+order+'&offset='+fields_offset+'&csrf_hash_name='+$.cookie('csrf_cookie_name'),
-					url:  BASE_URL+'index.php/streams_core/ajax/update_field_order',
+					url:  SITE_URL+'streams_core/ajax/update_field_order',
 					success: function() {
 						$('tr').removeClass('alt');
 						$('tr:even').addClass('alt');

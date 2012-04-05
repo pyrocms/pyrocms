@@ -127,14 +127,14 @@ $lang['settings_auto_username_desc']			= 'Créer le nom d\'utilisateur automatiq
 $lang['settings_registered_email']				= 'Email de notification d\'inscription';
 $lang['settings_registered_email_desc']			= 'Envoi un email de notification à l\'adresse email de contact de l\'utilisateur quand il s\'enregistre.';
 
-$lang['settings_ckeditor_config']               = 'CKEditor Config'; #translate
-$lang['settings_ckeditor_config_desc']          = 'You can find a list of valid configuration items in <a target=\"_blank\" href=\"http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.config.html\">CKEditor\'s documentation.</a>'; #translate
+$lang['settings_ckeditor_config']               = 'Cnfiguration CKEditor';
+$lang['settings_ckeditor_config_desc']          = 'You can find a list of valid configuration items in <a target="_blank" href="http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.config.html">CKEditor\'s documentation.</a>'; #translate
 
-$lang['settings_enable_registration']           = 'Enable user registration'; #translate
-$lang['settings_enable_registration_desc']      = 'Allow users to register in your site.'; #translate
+$lang['settings_enable_registration']           = 'Activer l\'enregistrement des utilisateurs';
+$lang['settings_enable_registration_desc']      = 'Autoriser les utilisateurs à s\'inscrire sur votre siteAllow .';
 
-$lang['settings_cdn_domain']                    = 'CDN Domain'; #translate
-$lang['settings_cdn_domain_desc']               = 'CDN domains allow you to offload static content to various edge servers, like Amazon CloudFront or MaxCDN.'; #translate
+$lang['settings_cdn_domain']                    = 'Domaine CDN';
+$lang['settings_cdn_domain_desc']               = 'Domaines CDN autorisant de décharger des contenus statiques sur différents serveurs comme Amazon CloudFront ou MaxCDN';  // todo : check translation
 
 #section titles
 $lang['settings_section_general']				= 'Général';

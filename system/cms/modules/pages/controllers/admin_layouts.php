@@ -88,6 +88,8 @@ class Admin_layouts extends Admin_Controller
 	 */
 	public function create()
 	{
+		$data = new stdClass();
+
 		// Got validation?
 		if ($this->form_validation->run())
 		{
@@ -117,7 +119,7 @@ class Admin_layouts extends Admin_Controller
 		$theme_layouts = $this->template->get_theme_layouts($this->settings->default_theme);
 		foreach ($theme_layouts as $theme_layout)
 		{
-			$this->template->theme_layouts[$theme_layout] = basename($theme_layout, '.html');
+			$data->theme_layouts[$theme_layout] = basename($theme_layout, '.html');
 		}
 
 		// Assign data for display
@@ -128,7 +130,7 @@ class Admin_layouts extends Admin_Controller
 		// Load WYSIWYG editor
 		$this->template
 			->title($this->module_details['name'], lang('pages.layout_id_label'), lang('page_layouts.create_title'))
-			->build('admin/layouts/form');
+			->build('admin/layouts/form', $data);
 	}
 
 	/**

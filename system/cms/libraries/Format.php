@@ -53,7 +53,7 @@ class Format
 	 * @param type $from_type
 	 * @throws Exception 
 	 */
-	protected function __construct($data = null, $from_type = null)
+	public function __construct($data = null, $from_type = null)
 	{
 		get_instance()->load->helper('inflector');
 
@@ -107,12 +107,12 @@ class Format
 
 	/**
 	 * Format XML for output
-	 * 
+	 *
 	 * @todo Document this please.
-	 * 
+	 *
 	 * @param mixed $data
-	 * @param type $structure
-	 * @param type $basenode
+	 * @param SimpleXMLElement $structure
+	 * @param string $basenode
 	 * @return string The data as XML string.
 	 */
 	public function to_xml($data = null, $structure = null, $basenode = 'xml')
