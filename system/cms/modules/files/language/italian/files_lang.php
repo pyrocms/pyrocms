@@ -16,7 +16,7 @@
 // General
 $lang['files:files_title']					= 'File';
 $lang['files:fetching']						= 'Racuperando i dati...';
-$lang['files:fetch_completed']				= 'Complatato';
+$lang['files:fetch_completed']				= 'Completato';
 $lang['files:save_failed']					= 'Spiacenti. I cambiamenti non possono essere salvati';
 $lang['files:item_created']					= '"%s" è stato creato';
 $lang['files:item_updated']					= '"%s" è stato aggiornato';
