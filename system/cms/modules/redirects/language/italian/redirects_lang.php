@@ -1,17 +1,17 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
-/* Translation made Nicola Tudino */
-/* Date 09/11/2010 */
+/* Translation made Nicola Tudino and Christian Giupponi */
+/* Date 09/11/2010 updated 05/04/2012 */
 
 // labels
 $lang['redirects.from'] 			    = 'Da';
 $lang['redirects.to']					= 'A';
 $lang['redirects.edit']					= 'Modifica';
 $lang['redirects.delete']				= 'Elimina';
-$lang['redirects.type']					= 'Type'; #translate
+$lang['redirects.type']					= 'Scrivi';
 
 // redirect types
-$lang['redirects.301']					= '301 - Moved Permanently'; #translate
-$lang['redirects.302']					= '302 - Moved Temporarily'; #translate
+$lang['redirects.301']					= '301 - Spostato permanentemente';
+$lang['redirects.302']					= '302 - Spostato temporaneamente'; 
 
 // titles
 $lang['redirects.add_title'] 			= 'Aggiungi Reindirizzo';
@@ -20,7 +20,7 @@ $lang['redirects.list_title'] 			= 'Reindirizzi';
 
 // messages
 $lang['redirects.no_redirects']			= 'Attualmente non ci sono reindirizzi.';
-$lang['redirects.add_success'] 			= 'Il nuovo reindirizzo &esgrave; stato salvato.';
+$lang['redirects.add_success'] 			= 'Il nuovo reindirizzo è stato salvato.';
 $lang['redirects.add_error'] 			= 'Il nuovo reindirizzo non può essere salvato, riprova più tardi.';
 $lang['redirects.edit_success'] 		= 'Le modifiche a questo reindirizzo sono state salvate.';
 $lang['redirects.edit_error'] 			= 'Le modifiche a questo reindirizzo non possono essere salvate, riprova più tardi.';
