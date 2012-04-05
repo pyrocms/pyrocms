@@ -293,32 +293,60 @@ class Field_choice
 			$total_selected = count($value);
 
 			// -------------------------------
-			// Min Choices
+			// Min/Max Choices
+			// -------------------------------
+			// Checks the total selected
 			// -------------------------------
 
-			if (isset($field->field_data['min_choices']) and is_numeric($field->field_data['min_choices']))
+			$min = (
+				isset($field->field_data['min_choices'])
+				and is_numeric($field->field_data['min_choices']))
+				? $field->field_data['min_choices'] : false;
+
+			$max = (
+				isset($field->field_data['max_choices'])
+				and is_numeric($field->field_data['max_choices']))
+				? $field->field_data['max_choices'] : false;
+
+			// Special case: are min/max the same? If so, let's just
+			// match the number.
+			if ($max and $min and ($max == $min))
 			{
-				if ($field->field_data['min_choices'] > $total_selected)
+				if ($total_selected != $max)
 				{
-					return 'You must select at least '.$field->field_data['min_choices'].' items from the %s list.';
+					return 'You must select '.$max.' items from the %s list.';
 				}
 			}
-
-			// -------------------------------
-			// Max Choices
-			// -------------------------------
-
-			if (isset($field->field_data['max_choices']) and is_numeric($field->field_data['max_choices']))
+			else
 			{
-				if ($field->field_data['max_choices'] < $total_selected)
+				// Min Choice
+				if (is_numeric($min))
 				{
-					return 'You can only select '.$field->field_data['max_choices'].' items from the %s list.';
+					if ($min > $total_selected)
+					{
+						return 'You must select at least '.$min.' items from the %s list.';
+					}
 				}
+
+				// Max Choice
+				if (is_numeric($max))
+				{
+					if ($max < $total_selected)
+					{
+						return 'You can only select '.$max.' items from the %s list.';
+					}
+				}
+
 			}
 
 			// -------------------------------
 			// Check Other
 			// -------------------------------
+
+			$use_other = (
+				isset($field->field_data['max_choices'])
+				and is_numeric($field->field_data['max_choices']))
+				? true : false;
 		}
 
 		return true;

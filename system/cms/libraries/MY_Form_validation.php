@@ -412,45 +412,77 @@ class MY_Form_validation extends CI_Form_validation
 		$mode 		= $items[1];
 		$stream_id	= $items[2];
 
+		if ($mode == 'edit' and isset($items[3]) and is_numeric($items[3]))
+		{
+			$row_id = $items[3];
+		}
+		elseif ($mode == 'edit' and $this->CI->input->post('row_edit_id'))
+		{
+			$row_id = $this->CI->input->post('row_edit_id');
+		}
+		else
+		{
+			$row_id = null;
+		}
+
 		// Get the stream
 		$stream = $this->CI->streams_m->get_stream($stream_id);
 			
-		$this->CI->db->where(trim($column), trim($string));
+		$obj = $this->CI->db
+					->select('id')
+					->where(trim($column), trim($string))
+					->get($stream->stream_prefix.$stream->stream_slug);
 		
-		$obj = $this->CI->db->get($stream->stream_prefix.$stream->stream_slug);
-		
+		// If this is new, we just need to make sure the
+		// value doesn't exist already.
 		if ($mode == 'new')
 		{
 			if ($obj->num_rows() == 0)
 			{
 				return true;
 			}
+			else
+			{
+				$this->set_message('streams_unique', lang('streams.field_unique'));
+				return false;
+			}
 		}
-		elseif ($mode == 'edit')
+		else
 		{
-			// We need to see if the new value is different.
+			if ( ! $row_id) return true;
+
+			// Is this new value the same as what we had before?
+			// If it is, then we're cool
 			$existing = $this->CI->db
 				->select($column)
 				->limit(1)
-				->where( 'id', $this->CI->input->post('row_edit_id'))
+				->where('id', $row_id)
 				->get($stream->stream_prefix.$stream->stream_slug)
 				->row();
-			
+
+			// Is this the same value? If so, we are
+			// all in the clear. They did not change the value
+			// so we don't need to worry.
 			if ($existing->$column == $string)
 			{
-				// No change
-				if ($obj->num_rows() >= 1) return true;
+				return true;
+			}
+
+			// Now we know there was a change. We treat it as new now.
+			// and do the regular old routine.
+			if ($obj->num_rows() == 0)
+			{
+				return true;
 			}
 			else
 			{
-				// There was a change. We treat it as new now.
-				if($obj->num_rows() == 0) return true;
+				// Looks like the end of the road.
+				$this->set_message('streams_unique', lang('streams.field_unique'));
+				return false;
 			}
 		}
 
-		$this->set_message('streams_unique', lang('streams.field_unique'));
-	
-		return FALSE;
+		return true;
 	}
 
 	// --------------------------------------------------------------------------

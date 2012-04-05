@@ -790,6 +790,7 @@ class Field_datetime
 			
 		return form_dropdown('input_type', $options, $value);
 	}
+
 	// --------------------------------------------------------------------------
 
 	/**
@@ -809,17 +810,36 @@ class Field_datetime
 			$input = mysql_to_unix($input);
 		}
 		
-		if ($this->CI->uri->segment(1) == 'admin')
+		// Format for admin
+		if ($params['use_time'] == 'no')
 		{
-			// Format for admin
-			if ($params['use_time'] == 'no')
-			{
-				return(date($this->CI->settings->get('date_format'), $input));
-			}	
-			else
-			{
-				return(date($this->CI->settings->get('date_format').' g:i a', $input));
-			}
+			return(date($this->CI->settings->get('date_format'), $input));
+		}	
+		else
+		{
+			return(date($this->CI->settings->get('date_format').' g:i a', $input));
+		}
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Pre Ouput Plugin
+	 *
+	 * Ouput the UNIX time.
+	 * 
+	 * @access	public
+	 * @param	array
+	 * @return	string
+	 */
+	public function pre_output_plugin($input, $params, $row_slug)
+	{
+		if ( ! $input) return null;
+
+		if (is_numeric($input))
+		{
+			$this->CI->load->helper('date');
+			return mysql_to_unix($input);
 		}
 		else
 		{

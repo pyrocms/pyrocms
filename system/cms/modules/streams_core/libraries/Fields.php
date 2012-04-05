@@ -137,7 +137,9 @@ class Fields
 		// Set Validation Rules
 		// -------------------------------------
 
-		$this->set_rules($stream_fields, $method, $skips);
+		$row_id = ($method == 'edit') ? $row->id : null;
+
+		$this->set_rules($stream_fields, $method, $skips, false, $row_id);
 
 		// -------------------------------------
 		// Set Error Delimns
@@ -171,7 +173,7 @@ class Fields
 
 		if ($this->CI->form_validation->run() === TRUE)
 		{
-			if($method == 'new')
+			if ($method == 'new')
 			{
 				if ( ! $result_id = $this->CI->row_m->insert_entry($_POST, $stream_fields, $stream, $skips))
 				{
@@ -187,7 +189,7 @@ class Fields
 					{
 						foreach ($data->email_notifications as $notify)
 						{
-							$this->_send_email($notify, $result_id, $method = 'new', $stream);
+							$this->send_email($notify, $result_id, $method = 'new', $stream);
 						}
 					}
 	
@@ -218,7 +220,7 @@ class Fields
 					{
 						foreach($data->email_notifications as $notify)
 						{
-							$this->_send_email($notify, $result_id, $method = 'update', $stream);
+							$this->send_email($notify, $result_id, $method = 'update', $stream);
 						}
 					}
 	
@@ -407,7 +409,7 @@ class Fields
 	 * @param 	bool - return the array or set the validation
 	 * @param 	mixed - array or true
 	 */	
-	public function set_rules($stream_fields, $method, $skips = array(), $return_array = false)
+	public function set_rules($stream_fields, $method, $skips = array(), $return_array = false, $row_id = null)
 	{
 		$validation_rules = array();
 
@@ -467,7 +469,7 @@ class Fields
 	
 				if ($stream_field->is_unique == 'yes')
 				{
-					$rules[] = 'streams_unique['.$stream_field->field_slug.':'.$method.':'.$stream_field->stream_id.']';
+					$rules[] = 'streams_unique['.$stream_field->field_slug.':'.$method.':'.$stream_field->stream_id.':'.$row_id.']';
 				}
 
 				// -------------------------------------
@@ -563,14 +565,14 @@ class Fields
 	 *
 	 * Sends emails for a notify group
 	 *
-	 * @access	private
+	 * @access	public
 	 * @param	string - a or b
 	 * @param	int - the entry id
 	 * @param	string - method - update or new
 	 * @param	obj - the stream
 	 * @return	void
 	 */
-	private function _send_email($notify, $entry_id, $method, $stream)
+	public function send_email($notify, $entry_id, $method, $stream)
 	{
 		extract($notify);
 
@@ -606,7 +608,7 @@ class Fields
 							->get('email_templates')
 							->row();
 							
-		if ( ! $layout) return NULL;
+		if ( ! $layout) return null;
 		
 		// -------------------------------------
 		// Get some basic sender data
