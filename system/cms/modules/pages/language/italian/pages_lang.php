@@ -42,7 +42,7 @@ $lang['pages.current_label']                    = 'Corrente';
 
 $lang['pages.view_label'] 						= 'Visualizza';
 $lang['pages.create_label'] 					= 'Aggiungi figlio';
-$lang['pages.duplicate_label']					= 'Dubplica';
+$lang['pages.duplicate_label']					= 'Duplica';
 
 // titles
 $lang['pages.create_title'] 					= 'Aggiungi pagina';
