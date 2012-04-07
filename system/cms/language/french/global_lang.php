@@ -9,7 +9,7 @@ $lang['desc_label'] 					        = 'Description';
 $lang['version_label'] 					        = 'Version';
 $lang['global:author'] 					        = 'Auteur';
 $lang['global:action'] 					        = 'Action';
-$lang['global:slug'] 					= 'Slug'; #translate
+$lang['global:slug'] 					= 'Slug';
 
 $lang['global:dialog:delete_message'] 	= 'Etes-vous sûr de vouloir supprimer ce fichier? Il ne peut pas être annulée.';
 $lang['global:dialog:confirm'] 				        = 'Confirmez';
@@ -46,7 +46,7 @@ $lang['success_label'] 					        = 'Succès';
 
 $lang['login_title'] 					        = 'Connexion';
 $lang['cms_fatal_error'] 				        = 'Erreur Fatale, CMS déjà installé ?';
-$lang['global:demo_restrictions']       = 'Some features on this page have been disabled for the demo.'; #translate
+$lang['global:demo_restrictions']       = 'Certaines fonctionnalités de cette page ont été désactivées pour la démonstration.';
 
 $lang['login_error_label'] 				        = 'Erreur de Connexion';
 $lang['forgot_password_label'] 			        = 'Mot de passe oublié ?';
@@ -60,8 +60,8 @@ $lang['cancel_label'] 					        = 'Annuler';
 $lang['update_label'] 					        = 'Mettre à jour la légende';
 $lang['global:delete'] 					        = 'Supprimer';
 $lang['activate_label'] 				        = 'Activer';
-$lang['approve_label']							= 'Approve'; #translate
-$lang['unapprove_label']						= 'Unapprove'; #translate
+$lang['approve_label']							= 'Approuver';
+$lang['unapprove_label']						= 'Désaprouver';
 $lang['publish_label'] 					        = 'Publier';
 $lang['upload_label'] 					        = 'Uploader';
 $lang['global:uninstall'] 				        = 'Désinstaller';
@@ -71,8 +71,8 @@ $lang['global:disable'] 					        = 'Désactiver';
 $lang['global:upgrade'] 							= 'Mise à jour';
 
 $lang['all_right_reserved']				= 'Tous droits réservés.';
-$lang['powered_by_pyrocms']				= 'Powered by PyroCMS';  #translate
-$lang['top_page']						= 'Top';  #translate
+$lang['powered_by_pyrocms']				= 'Propulsé par PyroCMS';
+$lang['top_page']						= 'Haut';
 $lang['back_to_top']					= 'Retour en haut';
 
 $lang['global:filters'] 				= 'Filters';
