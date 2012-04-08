@@ -86,22 +86,19 @@ $(function() {
 		init:function(){
 			var self=this;
 			this.el.doubletap(function() {
-				if(self.state('state') == 'edit') return false;
-				
+				if(self.state('state') == 'edit') return false;				
 				self.act = self.el.busy({hide : false});
-				//self.startEdit();
 				self.remoteGet();
 			});
 		},
 		
 		startEdit:function(){
-			
 			this.state('edit');
 			this.showActions();
 		},
 		
 		stopEdit:function(is_cancel) {
-			if(this.is_wysiwyg) {
+			if (this.is_wysiwyg) {
 				this.obj.textarea.removeClass('wysiwyg-simple wysiwyg-advanced');
 				CKEDITOR.instances['chunk-' + this.id] && CKEDITOR.instances['chunk-' + this.id].destroy();
 			}
@@ -120,8 +117,8 @@ $(function() {
 			
 			
 			if ($.isEmptyObject(CKEDITOR.instances)) {
-				$('html').animate({'marginTop':'-=58px'}, 'fast');
-				$('html').data('pad',false);
+				var html=$('html');
+				this.adjustMargin('up');
 			} else {
 				// Hack to focus on the next editor
 				for (var i in CKEDITOR.instances) {
@@ -131,6 +128,7 @@ $(function() {
 			}
 
 			if ($.isEmptyObject(instances)) {
+				this.adjustMargin('up');
 				toolbar.actions.hide();
 			} else {
 				for (var i in instances) {
@@ -144,7 +142,19 @@ $(function() {
 			if (st) this.el.data('state', st);
 			else return this.el.data('state');
 		},
-
+		adjustMargin:function(dir){
+			var html=$('html');
+			
+			if (dir == 'up' && html.data('pad')) {
+				html.animate({'marginTop':'-=58px'}, 'fast');
+				html.data('pad',false);
+			}
+			if (dir == 'down' && !html.data('pad')) {
+				html.animate({'marginTop':'+=58px'}, 'fast');
+				html.data('pad',true);				
+			}
+		},
+		
 		remoteGet: function(){
 			var self = this;
 			this.data.csrf_hash_name = $.cookie('csrf_cookie_name');
@@ -199,12 +209,7 @@ $(function() {
 						self.editor.focus();	
 					});
 					// Push the page down 
-					var html=$('html');
-					if (!html.data('pad')) {
-						html.animate({'marginTop':'+=58px'},'slow');
-						html.data('pad', $('body').css('margin-top'));
-					}
-					
+					self.adjustMargin('down');					
 					
 				} else {
 					// Html or Markdown just show the textarea
@@ -276,7 +281,9 @@ $(function() {
 			if(this.is_wysiwyg) {
 				toolbar.body.show();
 				CKEDITOR.instances['chunk-' + this.id].focus();
+				this.adjustMargin('down');
 			} else {
+				this.adjustMargin('up');
 				toolbar.body.fadeOut();
 			}
 			if (toolbar.actions.is(':hidden')) toolbar.actions.show('fast');
