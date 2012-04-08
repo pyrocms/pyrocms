@@ -235,7 +235,7 @@ $(function() {
 				alert('Error: Please try to refresh page or login again.');
 				self.act.busy('hide');
 				self.el.fadeIn();
-				self.data('state', 'view');
+				self.state('view');
 				return false;
 	
 			});
