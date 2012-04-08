@@ -36,7 +36,7 @@ class Module_Maintenance extends Module
 				'fi' => 'Hallinoi sivuston välimuistia ja vie tietoa tietokannasta.',
 				'hu' => 'Az oldal gyorsítótár kezelése és az adatbázis exportálása.',
 				'se' => 'Underhåll webbplatsens cache och exportera data från webbplatsens databas.',
-				'sl' => 'Upravljaj z predpomnilnikom strani (cache) in izvozi podatke iz baze.',
+				'sl' => 'Upravljaj s predpomnilnikom strani (cache) in izvozi podatke iz baze.',
 				'zh' => '經由管理介面手動刪除暫存資料。',
 			),
 			'frontend' => false,
