@@ -28,6 +28,7 @@ class Module_Keywords extends Module {
 				'zh' => '鍵詞',
 				'hu' => 'Kulcsszavak',
 				'fi' => 'Avainsanat',
+				'sl' => 'Ključne besede',
                                 'se' => 'Nyckelord'
 			),
 			'description' => array(
@@ -43,6 +44,7 @@ class Module_Keywords extends Module {
 				'zh' => '集中管理可用於標題與內容的鍵詞(keywords)列表。',
 				'hu' => 'Ez egy központi kulcsszó lista a cimkékhez és a tartalmakhoz.',
 				'fi' => 'Hallinnoi keskitettyä listaa avainsanoista merkitäksesi ja järjestelläksesi sisältöä.',
+				'sl' => 'Vzdržuj centralni seznam ključnih besed za označevanje in ogranizacijo vsebine.',
                                 'se' => 'Hantera nyckelord för att organisera webbplatsens innehåll.'
 			),
 			'frontend' => false,
