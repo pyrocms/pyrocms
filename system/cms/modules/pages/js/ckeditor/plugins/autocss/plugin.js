@@ -36,7 +36,7 @@ CKEDITOR.plugins.add('autocss', {
 			if(!e)
 				break;
 		}
-		editor.addCss("html,body { background: " + bgColor + "; width:100%; }");
+		editor.addCss("html,body { background: " + bgColor + "; width:auto; padding:5px!important;}");
 	}
 });
 

@@ -209,6 +209,7 @@ class Pages extends Public_Controller
 			$this->template
 				->append_metadata('<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>')
 				//->append_js('module::load.js')
+				->append_css('module::inline.css')
 				->append_js('module::ckeditor/ckeditor.js')
 				->append_js('module::ckeditor/adapters/jquery.js')
 				->append_js('module::jquery.cooki.js')

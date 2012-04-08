@@ -1,5 +1,6 @@
 CKEDITOR.plugins.add('pyrofiles',
 {
+	requires: ['iframedialog'],
 	init : function(editor)
 	{
 		// Add the link and unlink buttons.
