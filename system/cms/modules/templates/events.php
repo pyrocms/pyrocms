@@ -40,10 +40,14 @@ class Events_Templates {
         //make sure we have something to work with
         if ( ! empty($templates))
         {
-			$lang	  = isset($data['lang']) ? $data['lang'] : Settings::get('site_lang');
-			$from	  = isset($data['from']) ? $data['from'] : Settings::get('server_email');
-			$reply_to = isset($data['reply-to']) ? $data['reply-to'] : $from;
-			$to		  = isset($data['to']) ? $data['to'] : Settings::get('contact_email');
+			$lang	   = isset($data['lang']) ? $data['lang'] : Settings::get('site_lang');
+			$from	   = isset($data['from']) ? $data['from'] : Settings::get('server_email');
+            $from_name = isset($data['name']) ? $data['name'] : NULL;
+			$reply_to  = isset($data['reply-to']) ? $data['reply-to'] : $from;
+			$to		   = isset($data['to']) ? $data['to'] : Settings::get('contact_email');
+
+            // perhaps they've passed a pipe separated string, let's switch it to commas for CodeIgniter
+            if ( ! is_array($to)) $to = str_replace('|', ',', $to);
 
             $subject = array_key_exists($lang, $templates) ? $templates[$lang]->subject : $templates['en']->subject ;
             $subject = $this->ci->parser->parse_string($subject, $data, TRUE);
@@ -51,7 +55,7 @@ class Events_Templates {
             $body = array_key_exists($lang, $templates) ? $templates[$lang]->body : $templates['en']->body ;
             $body = $this->ci->parser->parse_string($body, $data, TRUE);
 
-            $this->ci->email->from($from, $data['name']);
+            $this->ci->email->from($from, $from_name);
             $this->ci->email->reply_to($reply_to);
             $this->ci->email->to($to);
             $this->ci->email->subject($subject);

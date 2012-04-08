@@ -254,7 +254,7 @@ class Admin extends Admin_Controller
 
 		// Get the profile fields validation array from streams
 		$this->load->driver('Streams');
-		$profile_validation = $this->streams->streams->validation_array('profiles', 'users');
+		$profile_validation = $this->streams->streams->validation_array('profiles', 'users', 'edit', array(), $id);
 
 		// Set the validation rules
 		$this->form_validation->set_rules(array_merge($this->validation_rules, $profile_validation));

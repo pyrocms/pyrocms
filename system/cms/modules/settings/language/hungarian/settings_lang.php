@@ -128,7 +128,7 @@ $lang['settings_registered_email']                  = 'Felhásználó regisztrá
 $lang['settings_registered_email_desc']             = 'Emlékeztető e-mail küldése a kapcsolati címre, mikor valaki regisztrál.';
 
 $lang['settings_ckeditor_config']                   = 'CKEditor Config'; #translate
-$lang['settings_ckeditor_config_desc']              = 'You can find a list of valid configuration items in <a target=\"_blank\" href=\"http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.config.html\">CKEditor\'s documentation.</a>'; #translate
+$lang['settings_ckeditor_config_desc']              = 'You can find a list of valid configuration items in <a target="_blank" href="http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.config.html">CKEditor\'s documentation.</a>'; #translate
 
 $lang['settings_enable_registration']               = 'Enable user registration'; #translate
 $lang['settings_enable_registration_desc']          = 'Allow users to register in your site.'; #translate

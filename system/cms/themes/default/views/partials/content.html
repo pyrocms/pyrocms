@@ -1,0 +1,21 @@
+{{ if theme:options:layout == 'full-width' OR ( theme:options:layout == 'full-width-home' AND page:is_home == TRUE ) }}
+	<!-- Begin full width content -->
+	<div id="full-content">
+{{ else }}
+	<!-- Begin 2 column content -->
+	<div id="content">
+{{ endif }}
+
+	{{ theme:partial name="breadcrumbs" }}
+	{{ session:messages success="success-box" notice="notice-box" error="error-box" }}
+	<section class="post clearfix">
+		{{ template:body }}
+	</section>
+</div>
+
+{{ if theme:options:layout == 'full-width' OR ( theme:options:layout == 'full-width-home' AND page:is_home == TRUE ) }}
+<!-- End full width content -->
+{{ else }}
+	<!-- End 2 column content -->
+	{{ theme:partial name="sidebar" }}
+{{ endif }}

@@ -75,6 +75,7 @@ jQuery(function($){
 
 		// after the folder contents have loaded highlight the results
 		$(window).on('load-completed', function(e, results){
+			$('.folders-center').find('li').removeClass('selected');
 			$('.folders-center :contains('+text+')').parent('li').addClass('selected');
 		});
 	});
@@ -134,14 +135,16 @@ jQuery(function($){
 				
 				var folder;
 				var pattern = new RegExp('pane');
+				// if they happen to click right on the name span then we need to shift to the parent
+				var $target = $(e.target).is('span') ? $(e.target).parent('li') : $(e.target);
 
 				// make an exception cause the image thumbnail itself may be the target
-				if ($(e.target).hasClass('file') || $(e.target).is('img')){
+				if ($target.hasClass('file') || $target.is('img')){
 					pattern = new RegExp('file');
-				} else if ($(e.target).hasClass('folder')){
+				} else if ($target.hasClass('folder')){
 					pattern = new RegExp('folder');
 					folder = true;
-				} else if ($(e.target).hasClass('pane') && pyro.files.current_level == 0){
+				} else if ($target.hasClass('pane') && pyro.files.current_level == 0){
 					pattern = new RegExp('root-pane');
 				}
 
@@ -394,7 +397,7 @@ jQuery(function($){
 				var regexp = new RegExp(pyro.files.valid_extensions);
 				// Using the filename extension for our test,
 				// as legacy browsers don't report the mime type
-				if (!regexp.test(files[index].name)) {
+				if (!regexp.test(files[index].name.toLowerCase())) {
 					$progress_div.html(pyro.lang.file_type_not_allowed);
 					return false;
 				}
