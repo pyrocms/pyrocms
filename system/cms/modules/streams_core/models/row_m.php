@@ -446,7 +446,7 @@ class Row_m extends MY_Model {
 		{
 			if (method_exists($this->get_rows_hook[0], $this->get_rows_hook[1]))
 			{
-				$this->get_rows_hook[0]->{$this->get_rows_hook[1]}($this->get_rows_hook_data);
+				$this->get_rows_hook[0]->{$this->get_rows_hook[1]}($this->get_rows_hook_data, $this);
 			}
 		}
 		
@@ -606,6 +606,19 @@ class Row_m extends MY_Model {
 		}
 
 		// -------------------------------------
+		// Join
+		// -------------------------------------
+
+		if (isset($this->sql['join']) && is_string($this->sql['join']))
+		{
+			$join = $this->sql['join'];
+		}
+		else
+		{
+			(isset($this->sql['join'])) ? $join = implode(' ', $this->sql['join']) : $join = NULL;
+		}
+
+		// -------------------------------------
 		// Where
 		// -------------------------------------
 
@@ -663,6 +676,7 @@ class Row_m extends MY_Model {
 
 		return "SELECT {$select}
 		FROM {$from}
+		{$join}
 		{$where}
 		{$misc}
 		{$order_by} ";
