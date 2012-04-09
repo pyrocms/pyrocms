@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['user_add_field']                        	= 'Dodaj Polje Uporabnikovemu Profilu';
-$lang['user_profile_delete_success']           	= 'Polje uporabnikovega profila uspešno izbrisan'; #translate
+$lang['user_profile_delete_success']           	= 'Polje uporabnikovega profila uspešno izbrisan';
 $lang['user_profile_delete_failure']            = 'Pri odstranjevanju polja iz uporabnikovega profila je prišlo do napake';
 $lang['profile_user_basic_data_label']  		= 'Osnovni Podatki';
 $lang['profile_company']         	  			= 'Podjetje';
