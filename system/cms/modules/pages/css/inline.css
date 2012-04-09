@@ -1,9 +1,9 @@
 .cke_shared .cke_skin_pyroeditor {
-  border-width: 0 0 1px 1px;
-  float: left;
-  min-width: 100%;
-  outline: 0;
-  height:36px;
+	border-width: 0 0 1px 1px;
+	float: left;
+	min-width: 100%;
+	outline: 0;
+	min-height: 36px;
 }
 
 #inline-toolbar-wraper{
@@ -17,14 +17,14 @@
 
 #inline-actions {
 	float: right;
-line-height: 27px;
-min-height: 37px;
-width: 11.5%;
-background-color: #F5F5F5;
-border: 1px solid rgba(150, 150, 150, 0.2);
-outline:0;
-padding: 9px;
-display:none;
+	line-height: 27px;
+	min-height: 37px;
+	width: 11.5%;
+	background-color: #F5F5F5;
+	border: 1px solid rgba(150, 150, 150, 0.2);
+	outline:0;
+	padding: 9px;
+	display:none;
 }
 #inline-actions input {
 	-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
