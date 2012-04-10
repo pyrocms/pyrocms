@@ -181,6 +181,11 @@ class Installer extends CI_Controller
 	 */
 	public function test_db_connection()
 	{
+		if ( ! $this->installer_lib->mysql_available()) 
+		{
+			$this->form_validation->set_message('test_db_connection', lang('db_missing'));
+			return false;
+		}
 		if ( ! $this->installer_lib->test_db_connection())
 		{
 			$this->form_validation->set_message('test_db_connection', lang('db_failure') . mysql_error());

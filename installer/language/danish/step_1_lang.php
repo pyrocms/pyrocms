@@ -6,6 +6,7 @@ $lang['intro_text']		=	'Før vi kan tjekke databasen, skal vi vide hvor den er o
 
 $lang['db_settings']	=	'Database Indstillinger';
 $lang['db_text']		=	'For at installeren skal kunne tjekke din MySQL server version er det påkrævet at du indtaster hostnavn, brugernavn og kodeord i formularen nedenfor. Disse instillinger vil også blive brugt til installering af databasen.';
+$lang['db_missing']		=	'The mysql database driver for PHP were not found, installation cannot continue. Ask your host or server administrator to install it.'; #translate
 
 $lang['server']			=	'Server';
 $lang['username']		=	'Brugernavn';
