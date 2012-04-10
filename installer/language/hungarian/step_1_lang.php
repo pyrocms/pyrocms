@@ -6,6 +6,7 @@ $lang['intro_text']              = 'A PyroCMS-t nagyon egyszerű telepíteni és
 
 $lang['db_settings']             = 'Adatbázis beállítások';
 $lang['db_text']                 = 'PyroCMS-hez szükség van egy adatbázisra (MySQL), ami tárolja az összes tartalmat és beállítást. Tehát elsőként ezt kell ellenőriznünk, hogy minden adatbázis beállitás rendben van-e. Ha nem tudod, hogy mit kell megadni, akkor kérd el az adatokat a tárhelyszolgáltatódtól vagy a szerver adminisztrátorától!';
+$lang['db_missing']              = 'The mysql database driver for PHP were not found, installation cannot continue. Ask your host or server administrator to install it.'; #translate
 
 $lang['server']                  = 'MySQL Szerver név (hostname)';
 $lang['username']                = 'MySQL Felhasználónév';

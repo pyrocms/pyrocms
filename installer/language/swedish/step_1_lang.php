@@ -16,6 +16,7 @@ $lang['header']		= 'Steg 1: Konfigurera Databas';
 $lang['intro_text']		= 'PyroCMS är mycket lätt att installera och bör bara ta några minuter, men det finns några frågor som kan verka förvirrande om du inte har en teknisk bakgrund. Om du vid något tillfälle du fastnar vänd dig till din webbhotellsleverantör eller <a href="http://www.pyrocms.com/contact" target="_blank"> kontakta oss </a> för support.';
 $lang['db_settings']		= 'Inställningar';
 $lang['db_text']		= 'PyroCMS kräver en databas (MySQL) för att lagra sidor och inställningar, det första vi gör är att se till att databaskopplingen fungerar. Ifall du inte förstå vad vi frågar efter så kontakta ditt webbhotell eller serveradministratör.';
+$lang['db_missing']		=	'The mysql database driver for PHP were not found, installation cannot continue. Ask your host or server administrator to install it.'; #translate
 $lang['server']		= 'MySQL Värdnamn';
 $lang['username']		= 'MySQL Användarnamn';
 $lang['password']		= 'MySQL Lösenord';

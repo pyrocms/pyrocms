@@ -6,6 +6,7 @@ $lang['intro_text']		=	'在開始檢查資料庫之前，我們需要知道它�
 
 $lang['db_settings']	=	'資料庫設定';
 $lang['db_text']		=	'為了讓安裝程式能夠檢查您的 MySQL 伺服器版本，需要您輸入下列資料，這些資料稍後也會用來安裝資料庫。';
+$lang['db_missing']		=	'The mysql database driver for PHP were not found, installation cannot continue. Ask your host or server administrator to install it.'; #translate
 
 $lang['server']			=	'MySQL 伺服器';
 $lang['username']		=	'帳號';
