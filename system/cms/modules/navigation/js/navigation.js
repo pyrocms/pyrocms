@@ -104,6 +104,9 @@
 			$('div#link-details.group-'+ id +'').load(SITE_URL + 'admin/navigation/ajax_link_details/' + link_id, '', function(){
 				$('div#link-details.group-'+ id +'').fadeIn();
 			});
+			// Remove the title from the form pane.
+			$('section.box .title h4.group-title-'+id).html('');
+
 			return false;
 		});
 		

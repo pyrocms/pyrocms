@@ -3,8 +3,11 @@
 // labels
 $lang['header']             = 'Schritt 1: Server- und Datenbank-Konfiguration';
 $lang['intro_text']         = 'Bevor die Verbindung zur Datenbank getestet werden kann, werden einige genauere Details ben&ouml;tigt.';
+
 $lang['db_settings']        = 'Einstellung der Datenbank';
 $lang['db_text']            = 'Um die Version der mySQL-Datenbank zu &uuml;berpr&uuml;ffen, geben Sie bitte im nachfolgenden Formular den Hostnamen, den Benutzernamen und das Passwort des MySQL-Servers an. Diese Einstellungen werden ebenfalls zur Installation vom PyroCMS ben&ouml;tigt.';
+$lang['db_missing']         = 'The mysql database driver for PHP were not found, installation cannot continue. Ask your host or server administrator to install it.'; #translate
+
 $lang['server']             = 'Host';
 $lang['username']           = 'Benutzername';
 $lang['password']           = 'Passwort';

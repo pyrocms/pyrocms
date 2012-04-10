@@ -6,6 +6,7 @@ $lang['intro_text']		=	'Cài đặt PyroCMS rất dễ dàng và chỉ mất và
 
 $lang['db_settings']	=	'Thiết lập cơ sở dữ liệu';
 $lang['db_text']		=	'PyroCMS yêu cầu một cơ sở dư liệu (MySQL) để lưu các thiết lập và nội dung website của bạn, do vậy điều đầu tiên là kiểm tra kết nối đến cơ sở dữ liệu hoạt động tốt. Hãy yêu cầu nhà cung cấp hoặc quản trị viên hỗ trợ trong trường hợp bạn không trả lời được các câu hỏi của hệ thống';
+$lang['db_missing']		=	'The mysql database driver for PHP were not found, installation cannot continue. Ask your host or server administrator to install it.'; #translate
 
 $lang['server']			=	'MySQL Hostname';
 $lang['username']		=	'MySQL Username';
