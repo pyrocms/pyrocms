@@ -120,7 +120,7 @@ class MY_Controller extends MX_Controller {
 			$this->lang->load(array('global', 'users/user', 'files/files'));
 		}
 
-		$this->load->library(array('events', 'users/ion_auth'));
+		$this->load->library('events');
 
 		// Use this to define hooks with a nicer syntax
 		ci()->hooks =& $GLOBALS['EXT'];
