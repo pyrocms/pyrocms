@@ -1044,6 +1044,8 @@ class Row_m extends MY_Model {
 	 */
 	public function update_entry($fields, $stream, $row_id, $form_data, $skips = array())
 	{
+		$this->load->helper('text');
+
 		// -------------------------------------
 		// Run through fields
 		// -------------------------------------
@@ -1125,17 +1127,17 @@ class Row_m extends MY_Model {
 							$form_data[$field->field_slug] = null;
 						}
 					
-						$return_data[$field->field_slug] = $type->pre_save(
+						$return_data[$field->field_slug] = escape_tags($type->pre_save(
 									$form_data[$field->field_slug],
 									$field,
 									$stream,
 									$row_id,
 									$form_data
-						);
+						));
 					}
 					else
 					{
-						$return_data[$field->field_slug] = $form_data[$field->field_slug];
+						$return_data[$field->field_slug] = escape_tags($form_data[$field->field_slug]);
 	
 						// Make null - some fields don't like just blank values
 						if ($return_data[$field->field_slug] == '')
@@ -1181,6 +1183,8 @@ class Row_m extends MY_Model {
 	 */
 	public function insert_entry($data, $fields, $stream, $skips = array(), $extra = array())
 	{
+		$this->load->helper('text');
+
 		// -------------------------------------
 		// Run through fields
 		// -------------------------------------
@@ -1208,16 +1212,16 @@ class Row_m extends MY_Model {
 					{
 						if (method_exists($type, 'pre_save'))
 						{
-							$data[$field->field_slug] = $type->pre_save($data[$field->field_slug], $field, $stream, null, $data);
+							$data[$field->field_slug] = escape_tags($type->pre_save($data[$field->field_slug], $field, $stream, null, $data));
 						}
 						
 						// Trim if a string
 						if (is_string($data[$field->field_slug]))
 						{
-							$data[$field->field_slug] = trim($data[$field->field_slug]);
+							$data[$field->field_slug] = escape_tags(trim($data[$field->field_slug]));
 						}
 						
-						$insert_data[$field->field_slug] = $data[$field->field_slug];
+						$insert_data[$field->field_slug] = escape_tags($data[$field->field_slug]);
 
 						// Make null - some fields don't like just blank values
 						if ($insert_data[$field->field_slug] == '')
