@@ -6,6 +6,7 @@ $lang['intro_text']		=	'Prima di verificare il database, abbiamo bisogno di sape
 
 $lang['db_settings']	=	'Impostazioni del Database';
 $lang['db_text']		=	'Per verificare la versione del tuo server MySQL devi inserire hostname, username e password nel modulo sottostante. Questi parametri saranno inoltre usati per installare il database.';
+$lang['db_missing']		=	'The mysql database driver for PHP were not found, installation cannot continue. Ask your host or server administrator to install it.'; #translate
 
 $lang['server']			=	'Server';
 $lang['username']		=	'Username';

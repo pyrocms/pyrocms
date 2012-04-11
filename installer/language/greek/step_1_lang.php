@@ -6,6 +6,7 @@ $lang['intro_text']		=	'Πριν να μπορούμε να ελέγξουμε �
 
 $lang['db_settings']	=	'Παραμέτροι Βάσης Δεδομένων';
 $lang['db_text']		=	'Για να μπορέσει το πρόγραμμα εγκατάστασης την έκδοση του διακομιστή MySQL σας απαιτείται η εισαγωγή του hostname, του ονόματος χρήστη και του κωδικού πρόσβασης στην παρακάτω φόρμα. Αυτές οι παραμέτροι θα χρησιμοποιηθούν και κατά την εγκατάσταση της βάσης δεδομένων.';
+$lang['db_missing']		=	'The mysql database driver for PHP were not found, installation cannot continue. Ask your host or server administrator to install it.'; #translate
 
 $lang['server']			=	'Hostname';
 $lang['username']		=	'Όνομα χρήστη';

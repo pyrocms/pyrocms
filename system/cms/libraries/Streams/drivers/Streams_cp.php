@@ -367,7 +367,7 @@ class Streams_cp extends CI_Driver {
 					}
 					else
 					{
-						$CI->session->set_flashdata('success', lang('streams.field_add_success'));
+						$CI->session->set_flashdata('success', lang('streams.field_update_success'));
 					}
 				}
 

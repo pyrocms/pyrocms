@@ -1,7 +1,10 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 $lang['global:control-panel']		= 'Panel de Control';
-$lang['global:profile']					= 'Perfil'; 
+$lang['global:profile']					= 'Perfil';
+
+$lang['global:yes'] = 'Si';
+$lang['global:no'] = 'No';
 
 $lang['title_label']		= 'Título';
 $lang['name_label']		= 'Nombre';
