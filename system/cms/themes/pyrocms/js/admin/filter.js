@@ -16,7 +16,7 @@
 			$('a.cancel').button();
 
 			//listener for select elements
-			$('select', pyro.filter.$filter_form).live('change', function(){
+			$('select', pyro.filter.$filter_form).on('change', function(){
 
 				//build the form data
 				form_data = pyro.filter.$filter_form.serialize();
@@ -26,7 +26,7 @@
 			});
 
 			//listener for keywords
-			$('input[type="text"]', pyro.filter.$filter_form).live('keyup', $.debounce(500, function(){
+			$('input[type="text"]', pyro.filter.$filter_form).on('keyup', $.debounce(500, function(){
 
 				//build the form data
 				form_data = pyro.filter.$filter_form.serialize();
@@ -36,7 +36,7 @@
 			}));
 	
 			//listener for pagination
-			$('.pagination a').live('click', function(e){
+			$('.pagination').on('click', 'a', function(e){
 				e.preventDefault();
 				url = $(this).attr('href');
 				form_data = pyro.filter.$filter_form.serialize();
@@ -63,6 +63,9 @@
 			pyro.filter.$filter_form.submit(function(e){
 				e.preventDefault(); 
 			});
+
+			// trigger an event to submit immediately after page load
+			pyro.filter.$filter_form.find('select').trigger('change');
 		},
 	
 		//launch the query based on module
