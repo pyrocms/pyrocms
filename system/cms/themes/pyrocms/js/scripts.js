@@ -167,8 +167,10 @@ jQuery(function($) {
 			$(this).addClass("alt");
 		});
 
+
 		$('#main, .tabs').livequery(function () {
 			$(this).tabs();
+			$(this).tabs('paging', { cycle: true, follow: false } );
 		});
 
 		$('#tabs').livequery(function () {
