@@ -155,10 +155,19 @@ class Admin extends Admin_Controller {
 		{
 			$page['parent_id'] = $parent_id;
 		}
+		
+        	$page['restricted_to'] = null;
+        	$page['navigation_group_id'] = 0;
+        	$page['is_home'] = 0;
+        
+        	foreach($page['chunks'] as $chunk)
+        	{
+            		$page['chunk_slug'][] = $chunk['slug'];
+            		$page['chunk_type'][] = $chunk['type'];
+            		$page['chunk_body'][] = $chunk['body'];
+        	}
 
-		$chunks = $this->db->get_where('page_chunks', array('page_id' => $page['id']))->result();
-
-		$new_page_id = $this->page_m->insert($page, $chunks);
+		$new_page = $this->page_m->create($page);
 
 		foreach ($children as $child)
 		{
