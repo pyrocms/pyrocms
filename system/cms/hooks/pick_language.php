@@ -35,6 +35,10 @@ function pick_language()
     {
         // Turn en-gb into en
         $lang = strtolower(substr($_GET['lang'], 0, 2));
+        	// Update the language in the profile
+	$ci = & get_instance();
+	$ci->load->library('session');
+	$ci->db->where('user_id', $ci->session->userdata('user_id'))->update($ci->db->dbprefix(SITE_REF.'_profiles'), array('lang' => $lang));
 
     	log_message('debug', 'Set language in URL via GET: '.$lang);
     }
