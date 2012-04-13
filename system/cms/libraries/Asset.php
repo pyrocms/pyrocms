@@ -123,6 +123,13 @@ class Asset {
 	protected static $rendered_groups = array('js' => array(), 'css' => array());
 
 	/**
+	 * @var array Symlink-ed directories and their targets. Since the paths to assets and
+	 * paths inside the assets get rewritten, we have to provide the symlink-ed directories
+	 * and their targets
+	*/
+	protected static $symlinks = array();
+
+	/**
 	 * Loads in the config and sets the variables
 	 */
 	public function __construct()
@@ -132,6 +139,8 @@ class Asset {
 		$ci->config->load('asset');
 
 		$paths = $ci->config->item('asset_paths') ? $ci->config->item('asset_paths') : self::$asset_paths;
+
+		self::$symlinks = $ci->config->item('asset_symlinks') ? $ci->config->item('asset_symlinks') : array();
 
 		foreach ($paths as $key => $path)
 		{
@@ -1341,7 +1350,7 @@ class Asset {
 
 					if ($type == 'css')
 					{
-						$content .= Asset_Cssurirewriter::rewrite($content_temp, dirname($file['file']));
+						$content .= Asset_Cssurirewriter::rewrite($content_temp, dirname($file['file']), null, self::$symlinks);
 					}
 					else
 					{
@@ -1364,7 +1373,7 @@ class Asset {
 					elseif ($type == 'css')
 					{
 						$css = Asset_Csscompressor::process($file_content).PHP_EOL;
-						$content .= Asset_Cssurirewriter::rewrite($css, dirname($file['file']));
+						$content .= Asset_Cssurirewriter::rewrite($css, dirname($file['file']), null, self::$symlinks);
 					}
 				}
 			}
