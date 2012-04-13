@@ -30,7 +30,7 @@ function group_has_role($module, $role)
 
 	$permissions = ci()->permission_m->get_group(ci()->current_user->group_id);
 
-	if (empty($permissions[$module]) or empty($permissions[$module]->$role))
+	if (empty($permissions[$module]) or empty($permissions[$module][$role]))
 	{
 		return FALSE;
 	}
