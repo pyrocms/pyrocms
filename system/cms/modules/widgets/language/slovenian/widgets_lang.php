@@ -5,6 +5,9 @@ $lang['widgets.available_title']        = 'Vtičniki ki so na voljo';
 $lang['widgets.widget_area_wrapper']    = 'Področja na voljo';
 $lang['widgets.instructions']           = 'Primi & spusti za namestitev';
 
+$lang['widgets.instances']            	= 'Urejanje vtičnikov';
+$lang['widgets.areas']            		= 'Področja';
+
 // Widgets
 $lang['widgets.widget']                 = 'Vtičnik';
 $lang['widgets.widget_author']          = 'Avtor';
