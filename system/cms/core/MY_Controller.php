@@ -128,9 +128,7 @@ class MY_Controller extends MX_Controller {
 		// Create a hook point with access to instance but before custom code
 		$this->hooks->_call_hook('post_core_controller_constructor');
 
-		// Load the user model and get user data
-		$this->load->library('users/ion_auth');
-
+		// Get user data
 		$this->template->current_user = ci()->current_user = $this->current_user = $this->ion_auth->get_user();
 
 		// Work out module, controller and method and make them accessable throught the CI instance
