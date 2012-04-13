@@ -192,15 +192,28 @@ class Pages extends Public_Controller
 			->order_by('sort')
 			->get_where('page_chunks', array('page_id' => $page->id))
 			->result();
-
-		$chunk_html = '';
+																																																																		
+		$chunk_html = '<div id="page-chunks" data-pid="'.$page->id.'">';
 		foreach ($page->chunks as $chunk)
 		{
-			$chunk_html .= '<div class="page-chunk '.$chunk->slug.'">'.
+			$chunk_html .= '<div class="page-chunk '.$chunk->slug.'" id="chunk_'.$chunk->id.'">'.
 				'<div class="page-chunk-pad">'.
 				(($chunk->type == 'markdown') ? $chunk->parsed : $chunk->body).
 				'</div>'.
 				'</div>'.PHP_EOL;
+		}
+		$chunk_html .= '</div>';
+		
+		if ($this->input->get_post('edit') && group_has_role('pages', 'edit_live'))
+		{
+			$this->template
+				->append_metadata('<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>')
+				//->append_js('module::load.js')
+				->append_js('module::ckeditor/ckeditor.js')
+				->append_js('module::ckeditor/adapters/jquery.js')
+				->append_js('module::jquery.cooki.js')
+				->append_js('module::inline.js')
+				->set('edit_mode', true);
 		}
 
 		// Parse it so the content is parsed. We pass along $page so that {{ page:id }} and friends work in page content.
@@ -211,7 +224,6 @@ class Pages extends Public_Controller
 
 			->set_metadata('keywords', $page->meta_keywords)
 			->set_metadata('description', $page->meta_description)
-
 			->set('page', $page)
 
 			// Most likely the other breadcrumbs are set above, set this one
@@ -240,7 +252,8 @@ class Pages extends Public_Controller
 			log_message('error', 'Page Missing: '.$this->uri->uri_string());
 		}
 
-		$this->template->build('pages/page', NULL, FALSE, FALSE);
+		$this->template
+			->build('pages/page', NULL, FALSE, FALSE);
 	}
 
 	/**
