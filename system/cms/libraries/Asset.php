@@ -140,7 +140,7 @@ class Asset {
 
 		$paths = $ci->config->item('asset_paths') ? $ci->config->item('asset_paths') : self::$asset_paths;
 
-		self::$symlinks = $ci->config->item('symlinks') ? $ci->config->item('symlinks') : array();
+		self::$symlinks = $ci->config->item('asset_symlinks') ? $ci->config->item('asset_symlinks') : array();
 
 		foreach ($paths as $key => $path)
 		{
