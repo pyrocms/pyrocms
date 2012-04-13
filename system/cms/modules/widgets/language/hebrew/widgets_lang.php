@@ -28,6 +28,7 @@ $lang['widgets.widget_area_slug']       = 'שם קצר לאיזור';
 $lang['widgets.view_code']				= 'View Code'; #translate
 
 $lang['widgets.instance_title']         = 'כותרת';
+$lang['widgets.show_title']				= 'Display Widget Title?'; #translate
 $lang['widgets.tag_title']              = 'Tag'; #translate
 
 $lang['widgets.no_available_widgets']		= 'אין ויג\'טים זמינים.';

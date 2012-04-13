@@ -32,6 +32,7 @@ $lang['widgets.widget_area_slug']       = 'Nama Singkat Area';
 $lang['widgets.view_code']				= 'Lihat Kode'; #translate
 
 $lang['widgets.instance_title']         = 'Judul';
+$lang['widgets.show_title']				= 'Display Widget Title?'; #translate
 $lang['widgets.tag_title']              = 'Tag';
 
 $lang['widgets.no_available_widgets']	= 'Tidak tersedia widget.';

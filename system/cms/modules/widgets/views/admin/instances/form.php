@@ -13,6 +13,11 @@
 			<span class="required-icon tooltip"><?php echo lang('required_label'); ?></span>
 		</li>
 
+		<li>
+			<label><?php echo lang('widgets.show_title'); ?>:</label>
+			<?php echo form_checkbox('show_title', TRUE, set_value('show_title')); ?>
+		</li>
+
 		<?php if (isset($widget_areas)): ?>
 		<li>
 			<label><?php echo lang('widgets.widget_area'); ?>:</label>

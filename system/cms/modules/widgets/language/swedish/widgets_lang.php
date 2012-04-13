@@ -32,6 +32,7 @@ $lang['widgets.widget_area_title']		= 'Fältnamn';
 $lang['widgets.widget_area_slug']		= 'Fält kortnamn';
 $lang['widgets.view_code']		= 'Visa kod';
 $lang['widgets.instance_title']		= 'Titel';
+$lang['widgets.show_title']				= 'Display Widget Title?'; #translate
 $lang['widgets.tag_title']		= 'Tagg';
 $lang['widgets.no_available_widgets']		= 'Det finns inga widgetar tillgängliga.';
 
