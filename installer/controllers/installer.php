@@ -90,6 +90,8 @@ class Installer extends CI_Controller
 	 */
 	public function step_1()
 	{
+		$data = new stdClass();
+
 		// Save this junk for later
 		$this->session->set_userdata(array(
 			'hostname' => $this->input->post('hostname'),
@@ -203,6 +205,8 @@ class Installer extends CI_Controller
 	 */
 	public function step_2()
 	{
+		$data = new stdClass();
+
 		// Did the user enter the DB settings ?
 		if ( ! $this->session->userdata('step_1_passed'))
 		{
@@ -267,6 +271,8 @@ class Installer extends CI_Controller
 	 */
 	public function step_3()
 	{
+		$data = new stdClass();
+		
 		if ( ! $this->session->userdata('step_1_passed') OR ! $this->session->userdata('step_2_passed'))
 		{
 			// Redirect the user back to step 1
