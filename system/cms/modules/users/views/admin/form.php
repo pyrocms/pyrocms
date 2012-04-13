@@ -1,11 +1,11 @@
 <section class="title">
 	<?php if ($this->method == 'create'): ?>
 		<h4><?php echo lang('user_add_title');?></h4>
-		<?php echo form_open(uri_string(), 'class="crud" autocomplete="off"'); ?>
+		<?php echo form_open_multipart(uri_string(), 'class="crud" autocomplete="off"'); ?>
 	
 	<?php else: ?>
 		<h4><?php echo sprintf(lang('user_edit_title'), $member->username);?></h4>
-		<?php echo form_open(uri_string(), 'class="crud"'); ?>
+		<?php echo form_open_multipart(uri_string(), 'class="crud"'); ?>
 	<?php endif; ?>
 </section>
 
