@@ -190,6 +190,11 @@ class Streams_cp extends CI_Driver {
 		{
 			$data['title'] = $extra['title'];
 		}
+		// Set return uri
+		if (isset($extra['return']))
+		{
+			$data['return'] = $extra['return'];
+		}
 		
 		$form = $CI->load->view('admin/partials/streams/form', $data, true);
 		
