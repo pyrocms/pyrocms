@@ -189,6 +189,7 @@ class Streams_cp extends CI_Driver {
 		if (isset($extra['title']))
 		{
 			$data['title'] = $extra['title'];
+			$CI->template->title($extra['title']);
 		}
 		// Set return uri
 		if (isset($extra['return']))
