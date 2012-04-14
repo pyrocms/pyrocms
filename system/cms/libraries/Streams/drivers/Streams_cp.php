@@ -203,6 +203,8 @@ class Streams_cp extends CI_Driver {
 			$data['return'] = $extra['return'];
 		}
 		
+		$CI->template->append_js('streams/form.js');
+		
 		$form = $CI->load->view('admin/partials/streams/form', $data, true);
 		
 		if ($view_override === false) return $form;
