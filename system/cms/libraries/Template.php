@@ -37,6 +37,8 @@ class Template
 	private $_parser_body_enabled = TRUE;
 	private $_minify_enabled = FALSE;
 
+	private $_navigation_group = NULL;
+
 	private $_theme_locations = array();
 
 	private $_is_mobile = FALSE;
@@ -621,6 +623,19 @@ class Template
 		}
 
 		return FALSE;
+	}
+
+	/**
+	 * Setter/Getter for _navigation_group
+	 * 
+	 * @param  mixed $group The value for the navigation group [optional]
+	 * @return mixed        The value for the navigation group or $this
+	 */
+	public function navigation_group( & $group = NULL)
+	{
+		is_null($group) OR $this->_navigation_group = $group;
+
+		return ( is_null($group) ? $this->_navigation_group : $this );
 	}
 
 	/**

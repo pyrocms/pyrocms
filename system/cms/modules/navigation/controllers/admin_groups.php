@@ -2,16 +2,15 @@
 /**
  * Admin_groups controller
  *
- * @author		PyroCMS Dev Team
- * @package	 PyroCMS\Core\Modules\Navigation\Controllers
+ * @author   PyroCMS Dev Team
+ * @package  PyroCMS\Core\Modules\Navigation\Controllers
  */
 class Admin_groups extends Admin_Controller
 {
-
 	/**
 	 * The current active section.
 	 *
-	 * @var int
+	 * @var string
 	 */
 	protected $section = 'groups';
 
@@ -89,8 +88,8 @@ class Admin_groups extends Admin_Controller
 		}
 
 		// Render the view
-		$this->template->navigation_group =& $navigation_group;
 		$this->template
+			->navigation_group($navigation_group)
 			->title($this->module_details['name'], lang('nav_group_label'), lang('nav_group_create_title'))
 			->build('admin/groups/create');
 	}
