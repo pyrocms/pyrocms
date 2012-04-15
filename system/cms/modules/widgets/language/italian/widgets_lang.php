@@ -28,6 +28,7 @@ $lang['widgets.widget_area_slug'] 			= 'Nome breve area';
 $lang['widgets.view_code']				= 'Vedi codice';
 
 $lang['widgets.instance_title'] 			= 'Titolo';
+$lang['widgets.show_title']				= 'Display Widget Title?'; #translate
 $lang['widgets.tag_title']					= 'Tag';
 
 $lang['widgets.no_available_widgets']		= 'Non ci sono widget disponibili.';

@@ -179,4 +179,17 @@ $config['asset_post_load_callback'] = null;
  */
 $config['asset_groups'] = array();
 
+/*
+ * If a CSS/JS file or images (and other ressources) used inside an CSS/JS
+ * file is stored in a symlink-ed directory,
+ * you have to provide an array of link paths to target paths, where the link
+ * paths are within the document root.
+ * Because paths need to be normalized for this to work, use "//" to substitute the
+ * doc root in the link paths (the array keys). E.g.:
+ * array('//symlink' => '/real/target/path') // unix
+ * array('//static' => 'D:\\staticStorage')  // Windows
+*/
+$config['asset_symlinks'] = array();
+
+
 /* End of file config/asset.php */

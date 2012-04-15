@@ -33,6 +33,7 @@ $lang['widgets.widget_area_slug']       = 'Alueen polkutunnus';
 $lang['widgets.view_code']				= 'Näytä koodi';
 
 $lang['widgets.instance_title']         = 'Otsikko';
+$lang['widgets.show_title']				= 'Display Widget Title?'; #translate
 $lang['widgets.tag_title']              = 'Tag';
 
 $lang['widgets.no_available_widgets']	= 'Widgettejä ei ole saatavilla.';

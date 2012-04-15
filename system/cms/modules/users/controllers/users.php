@@ -96,8 +96,6 @@ class Users extends Public_Controller
 		// If the validation worked, or the user is already logged in
 		if ($this->form_validation->run() or $this->current_user)
 		{
-			$this->session->set_flashdata('success', lang('user_logged_in'));
-
 			// Kill the session
 			$this->session->unset_userdata('redirect_to');
 
@@ -107,7 +105,21 @@ class Users extends Public_Controller
 			// trigger a post login event for third party devs
 			Events::trigger('post_user_login');
 
+			if ($this->input->is_ajax_request())
+			{
+				exit(json_encode(array('status' => true, 'message' => lang('user_logged_in'))));
+			}
+			else
+			{
+				$this->session->set_flashdata('success', lang('user_logged_in'));
+			}
+
 			redirect($redirect_to ? $redirect_to : '');
+		}
+
+		if ($_POST and $this->input->is_ajax_request())
+		{
+			exit(json_encode(array('status' => false, 'message' => validation_errors())));
 		}
 
 		$this->template
@@ -126,8 +138,16 @@ class Users extends Public_Controller
 		Events::trigger('pre_user_logout');
 
 		$this->ion_auth->logout();
-		$this->session->set_flashdata('success', lang('user_logged_out'));
-		redirect('');
+
+		if ($this->input->is_ajax_request())
+		{
+			exit(json_encode(array('status' => true, 'message' => lang('user_logged_out'))));
+		}
+		else
+		{
+			$this->session->set_flashdata('success', lang('user_logged_out'));
+			redirect('');
+		}
 	}
 
 	/**

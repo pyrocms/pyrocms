@@ -36,6 +36,7 @@ $lang['widgets.widget_area_slug']			= 'Короткое имя области';
 $lang['widgets.view_code']				    = 'View Code'; #translate
 
 $lang['widgets.instance_title']				= 'Заголовок';
+$lang['widgets.show_title']				= 'Display Widget Title?'; #translate
 $lang['widgets.tag_title']					= 'Тэг';
 
 $lang['widgets.no_available_widgets']		= 'Отсутствуют доступные для установки виджеты.';

@@ -32,6 +32,7 @@ $lang['widgets.widget_area_slug']       = 'Σύντομο όνομα περιο�
 $lang['widgets.view_code']				= 'Προβολή Κώδικα';
 
 $lang['widgets.instance_title']         = 'Τίτλος';
+$lang['widgets.show_title']				= 'Να εμφανίζεται ο τίτλος του Widget;';
 $lang['widgets.tag_title']              = 'Ετικέτα';
 
 $lang['widgets.no_available_widgets']		= 'Δεν υπάρχουν διαθέσιμα widgets.';
