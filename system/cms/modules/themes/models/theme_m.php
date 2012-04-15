@@ -349,6 +349,8 @@ class Theme_m extends MY_Model
 	 */
 	public function get_values_by($params = array())
 	{
+        $options = new stdClass();
+
 		$query = $this->db
 			->select('slug, value')
 			->where($params)

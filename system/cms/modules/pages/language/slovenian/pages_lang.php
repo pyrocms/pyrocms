@@ -29,7 +29,8 @@ $lang['pages.js_label']                    = 'JavaScript';
 $lang['pages.access_label']                = 'Dostop';
 $lang['pages.rss_enabled_label']           = 'RSS omogočen';
 $lang['pages.comments_enabled_label']      = 'Komentarji omogočeni';
-$lang['pages.strict_uri_label']			   = 'Require an exact uri match?'; #translate
+$lang['pages.is_home_label']			   = 'Je privzeta (domov) stran?';
+$lang['pages.strict_uri_label']			   = 'Zahtevaj točno URI ujemanje?';
 
 $lang['pages.status_label']                = 'Stanje';
 $lang['pages.draft_label']                 = 'Osnutek';
@@ -63,7 +64,7 @@ $lang['pages_parent_not_exist_error']      = 'Glavna stran katero ste izbrali ne
 $lang['pages_chunk_slug_length']					= 'kratko ime Koščka strani ne more biti daljše od 30 zankov.';
 $lang['pages_root_folder']                = 'glavna mapa';
 
-$lang['pages.tree_explanation_title']	        = 'Explanation'; #translate
+$lang['pages.tree_explanation_title']	        = 'Pojasnitev';
 $lang['pages.tree_explanation']            = 'Seznam na levi predstavlja strani na vaši spletni strani.
 Kliknite "+" ikono zraven strani da se prikaže seznam podstrani. Če kliknete na stran se vam bo tukaj prikazal seznam vse uporabnih informacij in možnosti.';
 

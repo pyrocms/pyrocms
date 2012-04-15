@@ -167,8 +167,10 @@ jQuery(function($) {
 			$(this).addClass("alt");
 		});
 
+
 		$('#main, .tabs').livequery(function () {
 			$(this).tabs();
+			$(this).tabs('paging', { cycle: true, follow: false } );
 		});
 
 		$('#tabs').livequery(function () {
@@ -343,7 +345,7 @@ jQuery(function($) {
 	}
 
 	// Create a clean slug from whatever garbage is in the title field
-	pyro.generate_slug = function(input_form, output_form)
+	pyro.generate_slug = function(input_form, output_form, space_character)
 	{
 		var slug, value;
 
@@ -351,11 +353,15 @@ jQuery(function($) {
 			value = $(input_form).val();
 
 			if ( ! value.length ) return;
-
+			
+			space_character = space_character || '-';
 			var rx = /[a-z]|[A-Z]|[0-9]|[áàâąбćčцдđďéèêëęěфгѓíîïийкłлмñńňóôóпúùûůřšśťтвýыžżźзäæœчöøüшщßåяюжαβγδεέζηήθιίϊκλμνξοόπρστυύϋφχψωώ]/,
 				value = value.toLowerCase(),
 				chars = pyro.foreign_characters,
+				space_regex = new RegExp('[' + space_character + ']+','g'),
+				space_regex_trim = new RegExp('^[' + space_character + ']+|[' + space_character + ']+$','g'),
 				search, replace;
+			
 
 			// If already a slug then no need to process any further
 		    if (!rx.test(value)) {
@@ -373,8 +379,9 @@ jQuery(function($) {
 		        };
 
 		        slug = value.replace(/[^-a-z0-9~\s\.:;+=_]/g, '')
-		        			.replace(/[\s\.:;=+]+/g, '-')
-		        			.replace(/[-]+/g, '-');
+		        			.replace(/[\s\.:;=+]+/g, space_character)
+		        			.replace(space_regex, space_character)
+		        			.replace(space_regex_trim, '');
 		    }
 
 			$(output_form).val(slug);

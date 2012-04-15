@@ -21,7 +21,7 @@
 				
 				<section class="item collapsed">
 					
-					<div style="background:#eeeeee;padding:15px 15px 0 0;" id="link-list">
+					<div id="link-list">
 						<ul class="sortable">
 							<?php echo tree_builder($navigation[$group->id], '<li id="link_{{ id }}"><div><a href="#" rel="'.$group->id.'" alt="{{ id }}">{{ title }}</a></div>{{ children }}</li>'); ?>
 						</ul>
@@ -41,7 +41,7 @@
 
 				<section class="item collapsed">
 					
-					<div style="background:#eeeeee;padding:15px 15px 0 0;" id="link-list" class="empty">
+					<div id="link-list" class="empty">
 						<ul class="sortable">
 					
 							<p><?php echo lang('nav_group_no_links');?></p>

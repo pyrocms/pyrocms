@@ -103,7 +103,7 @@ jQuery(function($){
 			$('a.create-area, .widget-area-content > .buttons > a.edit').livequery(function(){
 				$(this).colorbox({
 					scrolling	: false,
-					width		:'600',
+					width		:'700',
 					height		:'400',
 
 					onComplete	: function(){

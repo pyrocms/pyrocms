@@ -2,7 +2,7 @@
 
 // labels
 $lang['header']			=	'Korak 1: Vnesite dostopne podatke za podatkovno bazo in strežnik';
-$lang['intro_text']		=	'Pred preveritivjo podatkovne baze, potrebujemo podatke za prijavo za podatkovno bazo';
+$lang['intro_text']		=	'Pred preveritvijo podatkovne baze, potrebujemo podatke za prijavo za podatkovno bazo';
 
 $lang['db_settings']	=	'Namestitev podatkovne baze (MYSQL DB)';
 $lang['db_text']		=	'Da bo lahko Installer preveril verzijo MYSQL strežnika je potrebno, da vnesete pot do MYSQL strežnika (ponavadi: localhost) MYSQL uporabnika ter geslo uporabnika. Ti podatki bodo uporabljeni tudi pri namestitvi podatkov v podatkovno bazo.';
@@ -14,7 +14,7 @@ $lang['password']		=	'Geslo';
 $lang['portnr']			=	'Port';
 $lang['server_settings']=	'Podatki strežnika';
 $lang['httpserver']		=	'HTTP Strežnik';
-$lang['httpserver_text']=	'PyroCMS requires a HTTP Server to display dynamic content when a user goes to your website. It looks like you already have one by the fact that you can see this page, but if know exactly which type then PyroCMS can configure itself even better. If you do not know what any of this means just ignore it and carry on with the installation.'; #translate
+$lang['httpserver_text']=	'PyroCMS potrebuje za prikaz dinamičnih vsebin obiskovalcem vaše spletne strani HTTP strežnik. Glede na to da vidite trenutno stran, imate takšen strežnik že nameščen, če pa veste kakšnega, potem bo PyroCMS znal izbrati strežniku bolj primerne nastavitve. V primeru, da ne veste kaj izbrati v spodnjem obrazcu, lahko izbiro preskočite in nadaljujete na naslednji korak.';
 $lang['rewrite_fail']	=	'Izbrali ste "(Apache z mod_rewrite)" ampak ne moremo določiti če je mod_rewrite omogočen na vašem strežniku. Vprašajte vašega gostitelja če mod_rewrite deluje ali pa preposto namesite na vašo lastno odgovornost.';
 $lang['mod_rewrite']	=	'Izbrali ste "(Apache z mod_rewrite)" vendar pa ga vaš strežnik nima omogočenega.Vprašajte vašega gostitelja če ga lahko omogoči ali pa namesite PyroCMS z uporabo "Apache (brez mod_rewrite)" opcije.';
 $lang['step2']			=	'Korak 2';

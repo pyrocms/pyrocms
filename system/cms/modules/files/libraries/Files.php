@@ -55,7 +55,7 @@ class Files
 	 * @return	array
 	 *
 	**/
-	public static function create_folder($parent = 0, $name = 'Untitled Folder')
+	public static function create_folder($parent = 0, $name = 'Untitled Folder', $location = 'local', $remote_container = '')
 	{
 		$i = '';
 		$original_slug = self::create_slug($name);
@@ -72,7 +72,9 @@ class Files
 
 		$insert = array('parent_id' => $parent, 
 						'slug' => $slug, 
-						'name' => $name, 
+						'name' => $name,
+						'location' => $location,
+						'remote_container' => $remote_container,
 						'date_added' => now(), 
 						'sort' => now()
 						);
@@ -81,7 +83,6 @@ class Files
 
 		$insert['id'] = $id;
 		$insert['file_count'] = 0;
-		$insert['location']	= 'local';
 
 		return self::result(TRUE, lang('files:item_created'), $insert['name'], $insert);
 	}

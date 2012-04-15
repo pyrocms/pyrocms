@@ -492,6 +492,10 @@ class Widgets {
 
 	private function _unserialize_options($options)
 	{
-		return (array) unserialize($options);
+		$options = (array) unserialize($options);
+
+		isset($options['show_title']) OR $options['show_title'] = FALSE;
+
+		return $options;
 	}
 }

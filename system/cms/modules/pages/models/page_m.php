@@ -545,8 +545,7 @@ class Page_m extends MY_Model
 			'created_on'		=> now(),
 			'restricted_to'		=> isset($input['restricted_to']) ? implode(',', $input['restricted_to']) : '0',
 			'strict_uri'		=> (int) ! empty($input['strict_uri']),
-			'is_home'			=> (int) ! empty($input['is_home']),
-			'order'				=> now()
+			'is_home'			=> (int) ! empty($input['is_home'])
 		));
 
 		// did it pass validation?
@@ -583,6 +582,9 @@ class Page_m extends MY_Model
 
 		$this->db->where_in('page_id', $ids);
 		$this->db->delete('navigation_links');
+		
+        	$this->db->where_in('page_id', $ids);
+        	$this->db->delete('page_chunks');		
 
 		$this->db->trans_complete();
 
