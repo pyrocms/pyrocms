@@ -50,7 +50,7 @@ $lang['files:description']					= 'Description';
 $lang['files:container']					= 'Conteneur';
 $lang['files:bucket']						= 'Bucket';
 $lang['files:check_container']				= 'Vérifier la validité';
-$lang['files:search_message']				= 'Type and hit Enter';
+$lang['files:search_message']				= 'Appuyez sur la touche Entrée';
 $lang['files:search']						= 'Chercher';
 $lang['files:synchronize']					= 'Synchroniser';
 $lang['files:uploader']						= 'Déposez les fichiers ici <br />ou<br /> Cliquez-ici pour sélectionner les fichiers';
@@ -67,8 +67,8 @@ $lang['files:details']						= 'Détails';
 // Folders
 
 $lang['files:no_folders']					= 'Les fichiers et dossiers sont gérés comme ils le sont sur votre ordinateur. Faites un clic droit dans la zone sous ce message pour créer votre premier dossier. Puis faite un clic droit sur le dossier pour le renommer, le supprimer, uploader des fichiers ou modifier les détails le concernant comme par exemple le relier à un dossier in Cloud.'; // todo : check french translation
-$lang['files:no_folders_places']			= 'Folders that you create will show up here in a tree that can be expanded and collapsed. Click on "Places" to view the root folder.';
-$lang['files:no_folders_wysiwyg']			= 'No folders have been created yet';
+$lang['files:no_folders_places']			= 'Les dossiers que vous créez s\'affiche dans un arbre de données qui peut être affiché ou masqué. Cliquez sur "Places" pour voir le dossier racine.';
+$lang['files:no_folders_wysiwyg']			= 'Aucun dossier n\'a été créé pour le moment';
 $lang['files:new_folder_name']				= 'Dossier sans nom';
 $lang['files:folder']						= 'Dossier';
 $lang['files:folders']						= 'Dossiers';
