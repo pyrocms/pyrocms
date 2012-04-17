@@ -270,7 +270,7 @@ class Streams_fields extends CI_Driver {
 	{
 		if ( ! trim($field_slug)) return false;
 	
-		if ( ! $field = $this->CI->fields_m->get_field_by_slug($field_slug)) return false;
+		if ( ! $field = $this->CI->fields_m->get_field_by_slug($field_slug, $namespace)) return false;
 	
 		return $this->CI->fields_m->delete_field($field->id);
 	}
