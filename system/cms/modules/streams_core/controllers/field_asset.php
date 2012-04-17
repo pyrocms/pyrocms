@@ -77,7 +77,7 @@ class Field_asset extends Public_Controller {
     {
     	header("Content-Type: text/css");
     	
-    	echo $file = FCPATH.$this->field_type->ft_path.'css/'.$file;
+    	$file = FCPATH.$this->field_type->ft_path.'css/'.$file;
     	
    	 	if ( ! is_file($file)) return null;
    	 	
