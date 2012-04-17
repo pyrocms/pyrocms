@@ -11,7 +11,8 @@ Page layouts can be managed and widgets embedded without ever editing the templa
 <p>When choosing your page title remember that the default page layout will display the page title above the page content. 
 Now create your page content using the WYSIWYG editor. 
 When you are ready for the page to be visible to visitors set the status to Live and it will be accessible at the URL shown. 
-<strong>You must also go to Design -> Navigation and create a new navigation link if you want your page to show up in the menu.</strong></p>
+You must also go to Design -> Navigation and create a new navigation link if you want your page to 
+show up in the menu or select a Navigation area from the dropdown if you want it created automatically.</p>
 
 <h6>Meta data</h6>
 <p>The meta title is generally used as the title in search results and is believed to carry significant weight in page rank.<br />
@@ -23,28 +24,33 @@ The meta description is a short description of this page and may be used as the 
 Refer to the Page Layouts section below for instructions on how to best use Page Layouts.</p>
 
 <h6>Script</h6>
-<p>You may place javascript here that you would like appended to the < head > of the page.</p>
+<p>You may place javascript here that you would like appended to the &lt;head&gt; of the page.</p>
 
 <h6>Options</h6>
-<p>Allows you to turn on comments and an rss feed for this page. 
+<p>Allows you to turn on comments and an rss feed for this page. You can also restrict a page to specific logged in user groups by setting the Access field. 
 If the RSS feed is enabled a visitor can subscribe to this page and they will receive each child page in their rss reader.</p>
-
-<h6>Revisions</h6>
-<p>Revisions is a very powerful and handy feature for editing an existing page. 
-Let's say a new employee really messes up a page edit. 
-Just select a date that you would like to revert the page to and click Save! 
-You can even compare revisions to see what has changed.</p>
+<p>The \"Require an exact uri match\" field is a clever little tool that allows you to pass parameters in the url. By default PyroCMS looks for a page with 
+the slug of \"acme-widgets\" that is the child of \"products\" when you visit ".site_url('products/acme-widgets').". By checking this box in the Products 
+page you are telling PyroCMS that it is now okay if there isn't a page named Acme Widgets. It will now load Products and 'acme-widgets' will just be a parameter.
+This makes it easy to pass parameters to embedded tags. An example using the Streams add-on to display the 'acme-widgets' stream on the Products page: 
+<pre><code>{{ streams:cycle stream={url:segments segment=\"2\"} }}
+    {{ entries }}
+        {{ company_intro }}
+        {{ owner_name }}
+        {{ owner_phone }}
+    {{ /entries }}
+{{ /streams:cycle }}</code></pre></p>
 
 <h4>Page Layouts</h4><hr>
-<p>Page layouts allows you to control the layout of the page without modifying the theme files. 
+<p>Page layouts allows you to control the layout of the page without modifying the theme files. You can also select theme layout files when creating Page Layouts. 
 You can embed tags into the page layout instead of placing them in every page. 
-For example: If you have a twitter feed widget that you want to display at the bottom of every page you can just place the widget tag in the page layout:
+For example: If you have a twitter feed widget that you want to display at the bottom of every page you can just place the widget tag in the page layout:</p><br />
 <pre><code>
 {{ page:title }}
 {{ page:body }}
 
-< div class=\"my-twitter-widget\" >
+&lt;div class=\"my-twitter-widget\"&gt;
 	{{ widgets:instance id=\"1\" }}
-< /div >
+&lt;/div&gt;
 </code></pre>
-Now you can apply css styling to the \"my-twitter-widget\" class in the CSS tab.</p>";
+<p>Now you can apply css styling to the \"my-twitter-widget\" class in the CSS tab.</p>";
