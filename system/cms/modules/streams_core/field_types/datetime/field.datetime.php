@@ -703,7 +703,10 @@ class Field_datetime
 		$options['id']		= 'start_date';
 		$options['value']	= $value;
 		
-		return form_input($options).'<p class="note">'.$this->CI->lang->line('streams.datetime.rest_instructions').'</p>';
+		return array(
+			'input' 		=> form_input($options),
+			'instructions'	=> $this->CI->lang->line('streams.datetime.rest_instructions')
+		);
 	}
 
 	// --------------------------------------------------------------------------
@@ -721,7 +724,10 @@ class Field_datetime
 		$options['id']		= 'end_date';
 		$options['value']	= $value;
 		
-		return form_input($options).'<p class="note">'.$this->CI->lang->line('streams.datetime.rest_instructions').'</p>';
+		return array(
+			'input' 		=> form_input($options),
+			'instructions'	=> $this->CI->lang->line('streams.datetime.rest_instructions')
+		);
 	}
 
 	// --------------------------------------------------------------------------
