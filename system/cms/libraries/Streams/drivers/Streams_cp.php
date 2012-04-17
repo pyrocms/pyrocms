@@ -79,7 +79,7 @@ class Streams_cp extends CI_Driver {
   		$data = array(
   			'stream'		=> $stream,
   			'stream_fields'	=> $stream_fields,
-  			'buttons'		=> $extra['buttons']
+  			'buttons'		=> isset($extra['buttons']) ? $extra['buttons'] : NULL,
   		);
   
  		// -------------------------------------
