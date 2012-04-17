@@ -115,7 +115,7 @@ class Streams_fields extends CI_Driver {
 			}
 		
 			// Add actual assignment
-			$this->CI->streams_m->add_field_to_stream($field_id, $stream->id, $data);
+			return $this->CI->streams_m->add_field_to_stream($field_id, $stream->id, $data);
 		}
 		
 		return $field_id;
@@ -151,7 +151,7 @@ class Streams_fields extends CI_Driver {
 	 * @param	string - stream slug
 	 * @param	string - field slug
 	 * @param	array - assign data
-	 * @return	bool
+	 * @return	mixed - false or assignment ID
 	 */
 	public function assign_field($namespace, $stream_slug, $field_slug, $assign_data = array())
 	{
@@ -200,7 +200,7 @@ class Streams_fields extends CI_Driver {
 		}
 	
 		// Add actual assignment
-		$this->CI->streams_m->add_field_to_stream($field->id, $stream->id, $data);
+		return $this->CI->streams_m->add_field_to_stream($field->id, $stream->id, $data);
 	}
 
 	// --------------------------------------------------------------------------
