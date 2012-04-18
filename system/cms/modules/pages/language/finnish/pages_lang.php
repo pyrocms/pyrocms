@@ -7,17 +7,17 @@
 
 // tabs
 $lang['pages.content_label']               = 'Sivun sisältö';
-$lang['pages.meta_label']                  = 'Meta data';
-$lang['pages.design_label']                = 'Design';
-$lang['pages.script_label']                = 'Script';
+$lang['pages.meta_label']                  = 'Meta-tiedot';
+$lang['pages.design_label']                = 'Muotoilu';
+$lang['pages.script_label']                = 'Skriptit';
 $lang['pages.options_label']               = 'Valinnat';
 
-$lang['pages.detail_label']                = 'Details';
+$lang['pages.detail_label']                = 'Tiedot';
 
 // labels
 $lang['pages.page_label']                  = 'Sivu';
-$lang['pages.add_page_chunk']						= 'Add Page Chunk'; #translate
-$lang['pages.page_chunk']							= 'Page Chunk'; #translate
+$lang['pages.add_page_chunk']              = 'Lisää Sivun Pala';
+$lang['pages.page_chunk']                  = 'Sivun Pala';
 $lang['pages.language_label']              = 'Kieli';
 $lang['pages.updated_label']               = 'Päivitetty';
 $lang['pages.unknown_label']               = 'Tuntematon';
@@ -35,7 +35,7 @@ $lang['pages.access_label']                = 'Pääsy';
 $lang['pages.rss_enabled_label']           = 'RSS käytössä';
 $lang['pages.comments_enabled_label']      = 'Kommentit päällä';
 $lang['pages.is_home_label']               = 'Onko etusivu?';
-$lang['pages.strict_uri_label']				= 'Require an exact uri match?'; #translate
+$lang['pages.strict_uri_label']            = 'Vaadi tarkkaa uri-osoitetta?';
 
 $lang['pages.status_label']                = 'Status';
 $lang['pages.draft_label']                 = 'Luonnos';
@@ -47,7 +47,7 @@ $lang['pages.current_label']               = 'Nykyinen';
 
 $lang['pages.view_label']                  = 'Katso';
 $lang['pages.create_label']                = 'Lisää alakohta';
-$lang['pages.duplicate_label']			   = 'Duplicate'; #translate
+$lang['pages.duplicate_label']             = 'Monista';
 
 // titles
 $lang['pages.create_title']                = 'Lisää sivu';
@@ -68,10 +68,10 @@ $lang['pages_mass_delete_success']         = '%s sivua poistettiin.';
 $lang['pages_delete_none_notice']          = 'Yhtään sivua ei poistettu.';
 $lang['pages_page_already_exist_error']    = 'Sivu, jolla on URL osoite "%s" on jo olemassa paikassa %s.';
 $lang['pages_parent_not_exist_error']      = 'Yläkohdan sivua ei ole olemassa.';
-$lang['pages_chunk_slug_length']					= 'Page Chunk slugs may be no more than 30 characters in length.'; #translate
-$lang['pages_root_folder']                = 'the top level'; #translate
+$lang['pages_chunk_slug_length']           = 'Sivun palojen polkutunnukset eivät voi olla yli 30 merkkiä pitkiä.';
+$lang['pages_root_folder']                 = 'ylätaso';
 
-$lang['pages.tree_explanation_title']	   = 'Explanation'; #translate
+$lang['pages.tree_explanation_title']      = 'Selitys';
 $lang['pages.tree_explanation']            = 'Vasemmalla oleva lista näyttää sivustosi sivut.
 Klikkaa "+" ikonia, niin näet sen alasivut. Kun klikkaat sivua, näet sivuun liittyen käteviä toimintoja.';
 
