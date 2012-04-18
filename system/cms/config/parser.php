@@ -27,6 +27,8 @@ $config['allowed_functions']	=	array(
 	'md5',
 	'money_format',
 	'number_format',
+	'preg_match',
+	'preg_replace',
 	'rtrim',
 	'sprintf',
 	'str_replace',
