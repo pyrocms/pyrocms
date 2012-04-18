@@ -120,6 +120,23 @@ class Template
 	// --------------------------------------------------------------------
 
 	/**
+	 * Set the module manually. Used when getting results from
+	 * another module with Modules::run('foo/bar')
+	 *
+	 * @access	public
+	 * @param	string	$module The module slug
+	 * @return	mixed
+	 */
+	public function set_module($module)
+	{
+		$this->_module = $module;
+
+		return $this;
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
 	 * Magic Get function to get data
 	 *
 	 * @access	public
