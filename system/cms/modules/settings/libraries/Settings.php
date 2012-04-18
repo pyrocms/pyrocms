@@ -116,6 +116,22 @@ class Settings {
 	}
 
 	/**
+	 * Temp
+	 *
+	 * Changes a setting for this request only. Does not modify the database
+	 *
+	 * @param	string	$name
+	 * @param	string	$value
+	 * @return	bool
+	 */
+	public static function temp($name, $value)
+	{
+		// store the temp value in the cache so that all subsequent calls
+		// for this request will use it instead of the database value
+		self::$cache[$name] = $value;
+	}
+
+	/**
 	 * Item
 	 *
 	 * Old way of getting an item.
