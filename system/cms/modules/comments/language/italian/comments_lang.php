@@ -29,7 +29,7 @@ $lang['comments.send_label'] 				= 'Commento';
 $lang['comments.inactive_title'] 			= 'Commenti in attesa di accettazione';
 $lang['comments.active_title'] 				= 'Commenti accettati';
 $lang['comments.edit_title'] 				= 'Modifica il commento';
-$lang['comments.list_title'] 				= 'List comments'; #translate
+$lang['comments.list_title'] 				= 'Elenco commenti';
 
 // messages
 $lang['comments.add_success'] 				= 'Il commento è stato salvato.';
@@ -55,8 +55,8 @@ $lang['comments.delete_multi_success'] 		= 'I commenti #%s sono stati cancellati
 $lang['comments.no_comments'] 				= 'Non ci sono commenti';
 
 // Helper counter comments
-$lang['comments.counter_none_label']		= 'No comment'; #translate
-$lang['comments.counter_singular_label']	= '%d comment'; #translate
-$lang['comments.counter_plural_label']		= '%d comments'; #translate
+$lang['comments.counter_none_label']		= 'Nessun commento';
+$lang['comments.counter_singular_label']	= '%d commento';
+$lang['comments.counter_plural_label']		= '%d commenti';
 
 /* End of file comments_lang.php */

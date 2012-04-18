@@ -8,7 +8,7 @@ $lang['user_login_header'] 				= 'Entra';
 
 // titles
 $lang['user_add_title'] 				= 'Aggiungi utente';
-$lang['user_list_title'] 				= 'List users'; #translate
+$lang['user_list_title'] 				= 'Elenco utenti';
 $lang['user_inactive_title'] 			= 'Utenti disattivati';
 $lang['user_active_title'] 				= 'Utenti attivati';
 $lang['user_registred_title'] 			= 'Utenti registrati';
@@ -187,7 +187,7 @@ $lang['profile_address_line1'] 			= 'Linea #1';
 $lang['profile_address_line2'] 			= 'Linea #2';
 $lang['profile_address_line3'] 			= 'Linea #3';
 $lang['profile_address_postcode'] 		= 'CAP';
-$lang['profile_website']				= 'Sito'; #translate
+$lang['profile_website']				= 'Sito';
 
 $lang['profile_messenger_section'] 		= 'Messagistica istantanea';
 

@@ -5,10 +5,10 @@
 // labels
 $lang['blog_posted_label'] 			= 'Pubblicato';
 $lang['blog_posted_label_alt']			= 'Pubblicato alle';
-$lang['blog_written_by_label']				= 'Written by'; #translate
-$lang['blog_author_unknown']				= 'Unknown'; #translate
+$lang['blog_written_by_label']				= 'Autore';
+$lang['blog_author_unknown']				= 'Sconosciuto';
 $lang['blog_keywords_label']				= 'Keywords'; #translate
-$lang['blog_tagged_label']					= 'Tagged'; #translate
+$lang['blog_tagged_label']					= 'Tagged';
 $lang['blog_category_label'] 			= 'Categoria';
 $lang['blog_post_label'] 			= 'Articolo';
 $lang['blog_date_label'] 			= 'Data';
@@ -31,9 +31,9 @@ $lang['blog_rss_name_suffix'] 			= ' Notizie';
 $lang['blog_rss_category_suffix'] 		= ' Notizie';
 $lang['blog_author_name_label'] 		= 'Nome autore';
 $lang['blog_read_more_label'] 			= 'Leggi tutto&nbsp;&raquo;';
-$lang['blog_created_hour']                  = 'Time (Hour)'; #translate
-$lang['blog_created_minute']                = 'Time (Minute)'; #translate
-$lang['blog_comments_enabled_label']         = 'Comments Enabled'; #translate
+$lang['blog_created_hour']                  = 'Data (Ora)';
+$lang['blog_created_minute']                = 'Data (Minuto)';
+$lang['blog_comments_enabled_label']         = 'Comments Enabled';
 
 // titles
 $lang['blog_create_title'] 			= 'Aggiungi un articolo';
