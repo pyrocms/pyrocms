@@ -10,6 +10,9 @@ $lang['widgets.available_title']        = 'Widgetit';
 $lang['widgets.widget_area_wrapper']    = 'Alueet';
 $lang['widgets.instructions']           = 'Asenna viemällä widgetti alueeseen';
 
+$lang['widgets.instances']            	= 'Widgetit';
+$lang['widgets.areas']            		= 'Alueet';
+
 // Widgets
 $lang['widgets.widget']                 = 'Widget';
 $lang['widgets.widget_author']          = 'Tekijä';
