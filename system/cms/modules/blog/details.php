@@ -27,6 +27,7 @@ class Module_Blog extends Module {
 				'zh' => '文章',
 				'hu' => 'Blog',
 				'fi' => 'Blogi',
+				'th' => 'บล็อก',
                                 'se' => 'Blogg'
 			),
 			'description' => array(
@@ -52,6 +53,7 @@ class Module_Blog extends Module {
 				'ru' => 'Управление записями блога.',
 				'sl' => 'Objavite blog prispevke',
 				'zh' => '發表新聞訊息、部落格等文章。',
+				'th' => 'โพสต์รายการบล็อก',
                                 'hu' => 'Blog bejegyzések létrehozása.',
                                 'se' => 'Inlägg i bloggen.'
 			),

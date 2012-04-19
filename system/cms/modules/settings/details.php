@@ -35,6 +35,7 @@ class Module_Settings extends Module {
 				'sl' => 'Nastavitve',
 				'zh' => '網站設定',
 				'hu' => 'Beállítások',
+				'th' => 'ตั้งค่า',
                                 'se' => 'Inställningar'
 			),
 			'description' => array(
@@ -59,6 +60,7 @@ class Module_Settings extends Module {
 				'sl' => 'Dovoljuje administratorjem posodobitev nastavitev kot je Ime strani, sporočil, email naslova itd.',
 				'zh' => '網站管理者可更新的重要網站設定。例如：網站名稱、訊息、電子郵件等。',
 				'hu' => 'Lehetővé teszi az adminok számára a beállítások frissítését, mint a weboldal neve, üzenetek, e-mail címek, stb...',
+				'th' => 'ให้ผู้ดูแลระบบสามารถปรับปรุงการตั้งค่าเช่นชื่อเว็บไซต์ ข้อความและอีเมล์เป็นต้น',
                                 'se' => 'Administratören kan uppdatera webbplatsens titel, meddelanden och E-postadress etc.'
 			),
 			'frontend' => false,

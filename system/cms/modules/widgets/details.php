@@ -32,6 +32,7 @@ class Module_Widgets extends Module {
 				'sl' => 'Vtičniki',
 				'zh' => '小組件',
 				'hu' => 'Widget-ek',
+				'th' => 'วิดเจ็ต',
                                 'se' => 'Widgetar'
 			),
 			'description' => array(
@@ -54,6 +55,7 @@ class Module_Widgets extends Module {
 				'sl' => 'Urejanje manjših delov blokov strani ti. Vtičniki (Widgets)',
 				'zh' => '可將小段的程式碼透過小組件來管理。即所謂 "Widgets"，或稱為小工具、部件。',
 				'hu' => 'Önálló kis logikai tömbök vagy widget-ek kezelése.',
+				'th' => 'จัดการส่วนเล็ก ๆ ในรูปแบบของตัวเองในบล็อกหรือวิดเจ็ต',
                                 'se' => 'Hantera små sektioner med egen logik och innehåll på olika delar av webbplatsen.'
 			),
 			'frontend' => false,
