@@ -107,7 +107,11 @@ class Users extends Public_Controller
 
 			if ($this->input->is_ajax_request())
 			{
-				exit(json_encode(array('status' => true, 'message' => lang('user_logged_in'))));
+				$user = $this->ion_auth->get_user_by_email($user->email);
+				$user->password = '';
+				$user->salt = '';
+
+				exit(json_encode(array('status' => true, 'message' => lang('user_logged_in'), 'data' => $user)));
 			}
 			else
 			{
