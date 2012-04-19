@@ -35,6 +35,7 @@
 				'sl' => 'Skupine',
 				'zh' => '群組',
 				'hu' => 'Csoportok',
+				'th' => 'กลุ่ม',
                                 'se' => 'Grupper'
 			),
 			'description' => array(
@@ -58,6 +59,7 @@
 				'sl' => 'Uporabniki so lahko razvrščeni v skupine za urejanje dovoljenj',
 				'zh' => '用戶可以依群組分類並管理其權限',
 				'hu' => 'A felhasználók csoportokba rendezhetőek a jogosultságok kezelésére.',
+				'en' => 'สามารถวางผู้ใช้ลงในกลุ่มเพื่อการจัดการสิทธิ์',
                                 'se' => 'Användare kan delas in i grupper för att hantera roller och behörigheter.'
 			),
 			'frontend' => false,

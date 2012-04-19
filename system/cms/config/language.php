@@ -169,6 +169,13 @@ $config['supported_languages'] = array(
         'direction'     => 'ltr',
         'codes'         => array('hu', 'hu_HU'),
         'ckeditor'      => NULL
+    ),
+    'th' => array(
+        'name'        => 'ไทย',
+        'folder'    => 'thai',
+        'direction'    => 'ltr',
+        'codes'        => array('th', 'thai', 'th_TH'),
+        'ckeditor'    => NULL
     )
 );
 

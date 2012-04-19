@@ -35,6 +35,7 @@ class Module_Comments extends Module {
 				'sl' => 'Komentarji',
 				'zh' => '回應',
 				'hu' => 'Hozzászólások',
+				'th' => 'ความคิดเห็น',
                                 'se' => 'Kommentarer'
 			),
 			'description' => array(
@@ -59,6 +60,7 @@ class Module_Comments extends Module {
 				'sl' => 'Uporabniki in obiskovalci lahko vnesejo komentarje na vsebino kot je blok, stra ali slike',
 				'zh' => '用戶和訪客可以針對新聞、頁面與照片等內容發表回應。',
 				'hu' => 'A felhasználók és a vendégek hozzászólásokat írhatnak a tartalomhoz (bejegyzésekhez, oldalakhoz, fotókhoz).',
+				'th' => 'ผู้ใช้งานและผู้เยี่ยมชมสามารถเขียนความคิดเห็นในเนื้อหาของหน้าเว็บบล็อกและภาพถ่าย',
                                 'se' => 'Användare och besökare kan skriva kommentarer till innehåll som blogginlägg, sidor och bilder.'
 			),
 			'frontend' => false,
