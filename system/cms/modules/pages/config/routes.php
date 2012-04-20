@@ -21,3 +21,4 @@
 */
 
 $route['pages/admin/layouts(:any)?'] = 'admin_layouts$1';
+$route['pages/admin/inline(:any)?'] = 'admin_inline$1';
