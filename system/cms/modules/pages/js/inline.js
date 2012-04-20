@@ -4,7 +4,7 @@ if( typeof pyro === 'undefined') var pyro = {};
 (function(c){function b(a){this.options=c.extend({},b.defaults,a)}b.instances=[];b.repositionAll=function(){for(var a=0;a<b.instances.length;a++)if(b.instances[a]){var e=b.instances[a].options;(new b(e)).positionImg(c(b.instances[a].target),c.data(b.instances[a].target,"busy"),e.position)}};b.prototype.hide=function(a){a.each(function(){var a=c.data(this,"busy");a&&a.remove();c(this).css("visibility","");c.data(this,"busy",null);for(a=0;a<b.instances.length;a++)null!=b.instances[a]&&b.instances[a].target==
 this&&(b.instances[a]=null)})};b.prototype.show=function(a){var e=this;a.each(function(){if(!c.data(this,"busy")){var a=c(this),d=e.buildImg();d.css("visibility","hidden");d.load(function(){e.positionImg(a,d,e.options.position);d.css("visibility","")});c("body").append(d);e.options.hide&&a.css("visibility","hidden");c.data(this,"busy",d);b.instances.push({target:this,options:e.options})}})};b.prototype.preload=function(){var a=this.buildImg();a.css("visibility","hidden");a.load(function(){c(this).remove()});
 c("body").append(a)};b.prototype.buildImg=function(){var a="<img src='"+this.options.img+"' alt='"+this.options.alt+"' title='"+this.options.title+"'";this.options.width&&(a+=" width='"+this.options.width+"'");this.options.height&&(a+=" height='"+this.options.height+"'");return c(a+" />")};b.prototype.positionImg=function(a,b,c){var d=a.offset(),f=a.outerWidth(),a=a.outerHeight(),g=b.outerWidth(),h=b.outerHeight(),c="left"==c?d.left-g-this.options.offset:"right"==c?d.left+f+this.options.offset:d.left+
-(f-g)/2,d=d.top+(a-h)/2;b.css("position","absolute");b.css("left",c+"px");b.css("top",d+"px")};b.defaults={img:"busy.gif",alt:"Please wait...",title:"Please wait...",hide:!0,position:"center",zIndex:1001,width:null,height:null,offset:10};c.fn.busy=function(a,e){if(-1!=c.inArray(a,["clear","hide","remove"]))(new b(a)).hide(c(this));else if("defaults"==a)c.extend(b.defaults,e||{});else if("preload"==a)(new b(a)).preload();else if("reposition"==a)b.repositionAll();
+(f-g)/2,d=d.top+(a-h)/2;b.css("position","absolute");b.css("left",c+"px");b.css("top",d+"px")};b.defaults={img:"system/cms/modules/pages/img/busy.gif",alt:"Please wait...",title:"Please wait...",hide:!0,position:"center",zIndex:1001,width:null,height:null,offset:10};c.fn.busy=function(a,e){if(-1!=c.inArray(a,["clear","hide","remove"]))(new b(a)).hide(c(this));else if("defaults"==a)c.extend(b.defaults,e||{});else if("preload"==a)(new b(a)).preload();else if("reposition"==a)b.repositionAll();
 else return(new b(a)).show(c(this)),c(this)}})(jQuery);
 
 // Mobile friendly double tap/click
@@ -66,7 +66,6 @@ $(function() {
 	function PyroEditor(el, config) {
 		this.el = el;
 		this.id = this.el.attr('id').replace(/[^0-9\.]+/g, '');
-		//this.config = $.extend( {}, defaults, config) ;
 		this.config = config||{};
 		this.wraper = $('.page-chunk-pad', this.el);
 		this.height = this.wraper.height() == 0 ? this.el.height() : this.wraper.height();
