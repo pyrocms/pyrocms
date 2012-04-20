@@ -24,8 +24,7 @@ class Field_choice
 										'choice_type',
 										'default_value',
 										'min_choices',
-										'max_choices',
-										'show_other'
+										'max_choices'
 									);
 
 	public $plugin_return			= 'merge';
@@ -40,34 +39,52 @@ class Field_choice
 	 * @return	string
 	 */
 	public function form_output($params, $entry_id, $field)
-	{
-		$return = null;
-
-		//print_r($params);
-		
+	{		
 		$choices = $this->_choices_to_array($params['custom']['choice_data'], $params['custom']['choice_type'], $field->is_required);
+
+		// Only put in our brs for the admin
+		$line_end = (defined('ADMIN_THEME')) ? '<br />' : null;
 		
-		// Put it into a drop down
 		if ($params['custom']['choice_type'] == 'dropdown')
 		{
-			$return = form_dropdown($params['form_slug'], $choices, $params['value'], 'id="'.$params['form_slug'].'"');
+			// -------------------------------
+			// Dropdown
+			// -------------------------------
+			// Drop downs are easy - the value is
+			// always a string, and the choices
+			// are just in an array from the field.
+			// -------------------------------
+
+			return form_dropdown($params['form_slug'], $choices, $params['value'], 'id="'.$params['form_slug'].'"');
 		}	
 		else
 		{
-			// If these are checkboxes, then break up the vals
+			// -------------------------------
+			// Checkboxes and Radio buttons
+			// -------------------------------
+
+			// Parse the value coming in.
+			// If these are checkboxes, we need to put
+			// the incoming data through some special processes
 			if($params['custom']['choice_type'] == 'checkboxes')
 			{
 				// We may have an array from $_POST or a string
-				// from the data
-				if( is_string($params['value']))
+				// from the saved form data in the case
+				// or checkboxes
+				if (is_string($params['value']))
 				{
 					$vals = explode("\n", $params['value']);
 				}
-				else
+				elseif (is_array($params['value']))
 				{
 					$vals = $params['value'];
 				}
+				else
+				{
+					$vals = array();
+				}
 				
+				// If we have an array of values, trim each one
 				if (is_array($vals))
 				{
 					foreach($vals as $k => $v)
@@ -76,31 +93,26 @@ class Field_choice
 					}
 				}
 			}
-				
+
+			// Go through each choice and create
+			// a input element.
+			$return = null;
+
 			foreach ($choices as $choice_key => $choice)
 			{
 				if ($params['custom']['choice_type'] == 'radio')
 				{
-					($params['value'] == $choice_key) ? $selected = true : $selected = false;
+					$selected = ($params['value'] == $choice_key) ? true : false;
 			
-					$return .= '<label class="checkbox">'.form_radio($params['form_slug'], $this->format_choice($choice_key), $selected, $this->active_state($choice)).'&nbsp;'.$this->format_choice($choice).'</label>';
+					$return .= '<label class="checkbox">'.form_radio($params['form_slug'], $this->format_choice($choice_key), $selected, $this->active_state($choice)).'&nbsp;'.$this->format_choice($choice).'</label>'.$line_end ;
 				}
 				else
 				{
-					(is_array($vals) and in_array($choice_key, $vals)) ? $selected = true : $selected = false;
+					$selected = (in_array($choice_key, $vals)) ? true : false;
 				
-					$return .= '<label class="checkbox">'.form_checkbox($params['form_slug'].'[]', $this->format_choice($choice_key), $selected, 'id="'.$this->format_choice($choice_key).'" '.$this->active_state($choice)).'&nbsp;'.$this->format_choice($choice).'</label>';
+					$return .= '<label class="checkbox">'.form_checkbox($params['form_slug'].'[]', $this->format_choice($choice_key), $selected, 'id="'.$this->format_choice($choice_key).'" '.$this->active_state($choice)).'&nbsp;'.$this->format_choice($choice).'</label>'.$line_end ;
 				}
 			}
-
-			// Other
-			if ($params['custom']['choice_type'] == 'checkboxes' and
-				(isset($params['custom']['show_other']) and $params['custom']['show_other']=='y'))
-			{
-				$return .= '<label class="checkbox">'.form_checkbox($params['form_slug'].'[]', $params['form_slug'].'_other_dummy_marker', $selected, 'class="toggle_other"').' Other</label>';
-				$return .= '<p><input type="text" name="'.$params['form_slug'].'_other_dummy_option" value="'.set_value($params['form_slug'].'_other_dummy_option', $this->CI->input->post($params['form_slug'].'_other_dummy_option')).'" /></p>';
-			}
-
 		}
 		
 		return $return;
@@ -174,28 +186,26 @@ class Field_choice
 		if ($data['choice_type'] == 'checkboxes')
 		{
 			$vals = explode("\n", $input);
-			
-			$html = '<ul>';
 
+			$this->CI->load->helper('html');
+
+			$selected = array();
+			
 			foreach ($vals as $v)
 			{
 				if (isset($choices[$v]))
 				{
-					$html .= '<li>'.$choices[$v].'</li>';
+					$selected[] = $choices[$v];
 				}			
-			}	
-					
-			return $html .= '</ul>';
+			}
+
+			return ul($selected);
 		}
 		
 		if (isset($choices[$input]) and $input != '')
 		{
 			return $choices[$input];
 		}	
-		elseif (isset($choices[$input]) and $input == '')
-		{
-			return null;
-		}
 		else
 		{
 			return null;
@@ -212,28 +222,6 @@ class Field_choice
 		// We only need to do this for checkboxes
 		if ($field->field_data['choice_type'] == 'checkboxes' and is_array($input))
 		{
-			// Did this have an other box?
-			if ($field->field_data['choice_type'] == 'checkboxes' and
-				(isset($field->field_data['show_other']) and $field->field_data['show_other']=='y'))
-			{
-				// Did they select the "Other" option?
-				// We need replace the other slug with the value from
-				// the input text box.
-				if(	in_array($field->field_slug.'_other_dummy_marker', $input) and 
-					$key = array_search($field->field_slug.'_other_dummy_marker', $input) and
-					$this->CI->input->post($field->field_slug.'_other_dummy_option')
-				)
-				{
-					$input[$key] = $this->CI->input->post($field->field_slug.'_other_dummy_option');
-				}
-				elseif($key = array_search($field->field_slug.'_other_dummy_marker', $input))
-				{
-					// If there is no other provided, we need to get
-					// rid of the value
-					unset($key);
-				}
-			}
-
 			// If we have any disabled checkboxes that have been diabled by
 			// a ^ before it, then we need to go and find those and make sure
 			// they are added in, because they will not be present in the post data
@@ -254,7 +242,8 @@ class Field_choice
 		}
 		else
 		{
-			// Booooo
+			// If this is not a checkbox field, we are
+			// just returning the value.
 			return $input;
 		}
 	}
@@ -314,7 +303,7 @@ class Field_choice
 			{
 				if ($total_selected != $max)
 				{
-					return 'You must select '.$max.' items from the %s list.';
+					return str_replace('{val}', $max, lang('streams.choice.must_select_num'));
 				}
 			}
 			else
@@ -324,7 +313,7 @@ class Field_choice
 				{
 					if ($min > $total_selected)
 					{
-						return 'You must select at least '.$min.' items from the %s list.';
+						return str_replace('{val}', $max, lang('streams.choice.must_at_least'));
 					}
 				}
 
@@ -333,20 +322,12 @@ class Field_choice
 				{
 					if ($max < $total_selected)
 					{
-						return 'You can only select '.$max.' items from the %s list.';
+						return str_replace('{val}', $max, lang('streams.choice.must_max_num'));
 					}
 				}
 
 			}
 
-			// -------------------------------
-			// Check Other
-			// -------------------------------
-
-			$use_other = (
-				isset($field->field_data['max_choices'])
-				and is_numeric($field->field_data['max_choices']))
-				? true : false;
 		}
 
 		return true;
@@ -420,8 +401,8 @@ class Field_choice
 	
 		if (isset($options[$input]) and $input != '')
 		{
-			$choices['key']	= $input;
-			$choices['val']	= $options[$input]; // @legacy
+			$choices['key']		= $input;
+			$choices['val']		= $options[$input]; // legacy
 			$choices['value']	= $options[$input];
 			
 			return $choices;
@@ -504,28 +485,6 @@ class Field_choice
 	}
 
 	// --------------------------------------------------------------------------
-
-	/**
-	 * Display as Dropdown
-	 *
-	 * @access	public
-	 * @param	[string - value]
-	 * @return	string
-	 */	
-	public function param_show_other($value = null)
-	{
-		$choices = array(
-			'n' 	=> $this->CI->lang->line('global:no'),
-			'y' 	=> $this->CI->lang->line('global:yes')
-		);
-		
-		return array(
-				'input' 		=> form_dropdown('show_other', $choices, $value),
-				'instructions'	=> $this->CI->lang->line('streams.choice.checkboxes_only')
-			);
-	}
-
-	// --------------------------------------------------------------------------
 	
 	/**
 	 * Take a string of choices and make them into an array
@@ -547,37 +506,21 @@ class Field_choice
 		
 		foreach ($lines as $line)
 		{
-			$bits = explode(' : ', $line);
+			$bits = explode(' : ', $line, 2);
 
 			$key_bit = trim($bits[0]);
 		
 			if (count($bits) == 1)
 			{
-				$key_bit = $this->replace_lang($key_bit);
-
-				$choices[$key_bit] = $key_bit;
+				$choices[$key_bit] = $this->CI->fields->translate_label($key_bit);
 			}
 			else
 			{
-				$choices[$key_bit] = $this->replace_lang(trim($bits[1]));
+				$choices[$key_bit] = $this->CI->fields->translate_label(trim($bits[1]));
 			}
 		}
 		
 		return $choices;
 	}
 
-	// --------------------------------------------------------------------------
-	
-	private function replace_lang($string)
-	{
-		// lang:?
-		if (preg_match('/^lang:/', $string) > 0)
-		{
-			return lang(preg_replace('/^lang:/', null, $string));
-		}
-		else
-		{
-			return $string;
-		}
-	}
 }

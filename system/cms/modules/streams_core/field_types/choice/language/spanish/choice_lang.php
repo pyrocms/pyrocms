@@ -7,3 +7,6 @@ $lang['streams.choice.choice_type'] 		= 'Tipo de Selección';
 $lang['streams.choice.dropdown'] 			= 'Desplegable';
 $lang['streams.choice.radio_buttons'] 		= 'Botones Radio';
 $lang['streams.choice.checkboxes'] 			= 'Casilla de Verificación';
+$lang['streams.choice.must_select_num'] 	= 'You must select {val} items from the %s list.';				#translate
+$lang['streams.choice.must_at_least'] 		= 'You must select at least {val} items from the %s list.';		#translate
+$lang['streams.choice.must_max_num'] 		= 'You can only select {val} items from the %s list.';			#translate

@@ -7,3 +7,6 @@ $lang['streams.choice.choice_type'] 		= 'Typ výběru';
 $lang['streams.choice.dropdown'] 			= 'Rozbalovací výběr';
 $lang['streams.choice.radio_buttons'] 		= 'Jedna možnost (radio button)';
 $lang['streams.choice.checkboxes'] 			= 'Více možností (checkbox)';
+$lang['streams.choice.must_select_num'] 	= 'You must select {val} items from the %s list.';				#translate
+$lang['streams.choice.must_at_least'] 		= 'You must select at least {val} items from the %s list.';		#translate
+$lang['streams.choice.must_max_num'] 		= 'You can only select {val} items from the %s list.';			#translate
