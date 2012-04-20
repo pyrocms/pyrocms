@@ -565,7 +565,7 @@ class MY_Form_validation extends CI_Form_validation
 		}			
 		else
 		{
-			$this->set_message('file_required', lang('streams.field_is_required'));
+			$this->set_message('streams_file_required', lang('streams.field_is_required'));
 			return false;
 		}
 
