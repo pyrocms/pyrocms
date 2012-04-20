@@ -1,0 +1,9 @@
+/**************************************
+    Webutler V2.1 - www.webutler.de
+    Copyright (c) 2008 - 2011
+    Autor: Sven Zinke
+    Free for any use
+    Lizenz: GPL
+**************************************/
+
+.infowin{width:250px;height:160px;background-image:url('infowin.png');background-repeat:no-repeat;background-position:center center;position:absolute;margin:-230px 0 0 100px;}.infobutton{float:left;position:absolute;margin:15px 0 0 10px;cursor:pointer;cursor:hand;}.infoeditor{width:193px;height:80px;margin:20px 0 0 20px;border:0;background-color:#FFF;font-family:'Courier New',Monospace;font-size:12px!important;color:#000!important;resize:none;}
