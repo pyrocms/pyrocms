@@ -55,6 +55,7 @@ $lang['streams.type_not_valid']							= "Por favor selecione um tipo de campo v�
 $lang['streams.stream_slug_not_unique']					= "Este apelido do fluxo já está em uso.";
 $lang['streams.field_unique']							= "O campo %s tem que ser único.";
 $lang['streams.field_is_required']						= "O campo %s é obrigatório"; 
+$lang['streams.date_out_or_range']						= "The date you have chosen is out of the acceptable range."; #translate
 
 /* Field Labels */
 

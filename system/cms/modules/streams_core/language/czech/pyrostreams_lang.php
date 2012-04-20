@@ -55,6 +55,7 @@ $lang['streams.type_not_valid']							= "Vyberte prosím platný typ pole.";
 $lang['streams.stream_slug_not_unique']					= "Klíč streamu se již používá.";
 $lang['streams.field_unique']							= "Pole %s musí být jedinečné.";
 $lang['streams.field_is_required']						= "Pole %s je povinné.";
+$lang['streams.date_out_or_range']						= "The date you have chosen is out of the acceptable range."; #translate
 
 /* Field Labels */
 

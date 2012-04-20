@@ -55,6 +55,7 @@ $lang['streams.type_not_valid']							= "رجاءً اختر نوع حقل صح�
 $lang['streams.stream_slug_not_unique']					= "الاسم المختصر لهذا الجدول مستخدم مسبقاً.";
 $lang['streams.field_unique']							= "قيمة الحقل %s يجب أن تكون مميّزة.";
 $lang['streams.field_is_required']						= "الحقل %s مطلوب.";
+$lang['streams.date_out_or_range']						= "The date you have chosen is out of the acceptable range."; #translate
 
 /* Field Labels */
 
