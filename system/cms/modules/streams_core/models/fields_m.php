@@ -311,17 +311,9 @@ class Fields_m extends CI_Model {
 				
 				foreach ($assignments as $assignment)
 				{				
-					if (method_exists($type, 'alt_rename_column'))
+					if ( ! method_exists($type, 'alt_rename_column'))
 					{
-						// We run a different function for alt_process
-						$type->alt_rename_column($field, $this->streams_m->get_stream($assignment->stream_slug));
-					}
-					else
-					{
-						// Run the regular column renaming
-						$fields[$field->field_slug] = $this->field_data_to_col_data($type, $data, 'edit');
-					
-						if ( ! $this->dbforge->modify_column($assignment->stream_prefix.$assignment->stream_slug, $fields))
+						if ( ! $this->dbforge->modify_column($assignment->stream_prefix.$assignment->stream_slug, array($field->field_slug => $this->field_data_to_col_data($type, $data, 'edit'))))
 						{
 							return false;
 						}
@@ -355,7 +347,17 @@ class Fields_m extends CI_Model {
 				}
 			}
 		}
-		
+
+		// Run though alt rename column routines
+		foreach ($assignments as $assignment)
+		{
+			if (method_exists($type, 'alt_rename_column'))
+			{
+				// We run a different function for alt_process
+				$type->alt_rename_column($field, $this->streams_m->get_stream($assignment->stream_slug), $assignment);
+			}
+		}
+
 		// Run edit field update hook
 		if (method_exists($type, 'update_field'))					
 		{
