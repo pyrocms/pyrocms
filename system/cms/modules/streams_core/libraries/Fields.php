@@ -101,22 +101,26 @@ class Fields
 			'error_end'					=> NULL,
 			'required'					=> '<span>*</span>'
 		);
+
+		$this->CI->load->language('streams_core/pyrostreams');
 		
 		if ($method == 'new')
 		{
-			$default_extras['success_message']	 = 'streams.new_entry_success';
-			$default_extras['success_message']	 = 'streams.new_entry_error';
+			$default_extras['success_message']	 = 'lang:streams.new_entry_success';
+			$default_extras['failure_message']	 = 'lang:streams.new_entry_error';
 		}
 		else
 		{
-			$default_extras['success_message']	 = 'streams.edit_entry_success';
-			$default_extras['success_message']	 = 'streams.edit_entry_error';
+			$default_extras['success_message']	 = 'lang:streams.edit_entry_success';
+			$default_extras['failure_message']	 = 'lang:streams.edit_entry_error';
 		}
 		
 		foreach($default_extras as $key => $value)
 		{
 			if( ! isset($extra[$key])) $extra[$key] = $value;
 		}
+		
+		extract($extra);
 
  		// -------------------------------------
 		// Get Stream Fields
@@ -177,7 +181,7 @@ class Fields
 			{
 				if ( ! $result_id = $this->CI->row_m->insert_entry($_POST, $stream_fields, $stream, $skips))
 				{
-					$this->CI->session->set_flashdata('notice', $failure_message);	
+					$this->CI->session->set_flashdata('notice', $this->CI->fields->translate_label($failure_message));
 				}
 				else
 				{
@@ -187,7 +191,7 @@ class Fields
 					
 					if ($plugin and (isset($email_notifications) and $email_notifications))
 					{
-						foreach ($data->email_notifications as $notify)
+						foreach ($email_notifications as $notify)
 						{
 							$this->send_email($notify, $result_id, $method = 'new', $stream);
 						}
@@ -195,7 +199,7 @@ class Fields
 	
 					// -------------------------------------
 				
-					$this->CI->session->set_flashdata('success', $extra['success_message']);	
+					$this->CI->session->set_flashdata('success', $this->CI->fields->translate_label($extra['success_message']));
 				}
 			}
 			else
@@ -208,7 +212,7 @@ class Fields
 													$skips
 												))
 				{
-					$this->CI->session->set_flashdata('notice', $extra['failure_message']);	
+					$this->CI->session->set_flashdata('notice', $this->CI->fields->translate_label($extra['failure_message']));	
 				}
 				else
 				{
@@ -226,7 +230,7 @@ class Fields
 	
 					// -------------------------------------
 				
-					$this->CI->session->set_flashdata('success', $extra['success_message']);	
+					$this->CI->session->set_flashdata('success', $this->CI->fields->translate_label($extra['success_message']));
 				}
 			}
 			
