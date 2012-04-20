@@ -17,9 +17,6 @@ class Field_datetime
 
 	public $custom_parameters		= array('use_time', 'start_date', 'end_date', 'storage', 'input_type');
 
-	// We can add to this in the event
-	public $extra_validation 		= array('streams_date_format');
-
 	public $version					= '2.0';
 
 	public $author					= array('name'=>'Parse19', 'url'=>'http://parse19.com');
@@ -55,7 +52,7 @@ class Field_datetime
 	public function event($field)
 	{
 		// We need the JS file for the front-end. 
-		if ( ! defined('ADMIN_THEME'))
+		if ( ! defined('ADMIN_THEME') and isset($field->field_data['input_type']) and $field->field_data['input_type'] == 'datepicker')
 		{
 			$this->CI->type->add_js('datetime', 'jquery.datepicker.js');
 		}
@@ -64,16 +61,56 @@ class Field_datetime
 	// --------------------------------------------------------------------------
 
 	/**
-	 * Special event called before
-	 * validation rules are compiled
+	 * Validate input
+	 *
+	 * @access	public
+	 * @param	string
+	 * @param	string - mode: edit or new
+	 * @param	object
+	 * @return	mixed - true or error string
 	 */
-	public function pre_validation_compile($field)
+	public function validate($value, $mode, $field)
 	{
-		// Add the restrict range validation if it is needed.
 		if (is_array($restrict = $this->parse_restrict($field->field_data)))
 		{
-			$this->extra_validation[] = 'streams_date_range['.$restrict['start_stamp'].'|'.$restrict['end_stamp'].']';
+			$this->CI->load->helper('date');
+
+			// Make sure input is in unix time
+			if ( ! is_numeric($value))
+			{
+				$value = mysql_to_unix($value);
+			}
+
+			// Is either one blank? If so, we handle these
+			// special.
+			if ( ! $restrict['start_stamp'] and $restrict['end_stamp'])
+			{
+				// Is now after the future point
+				if ($value > $pieces[1])
+				{
+					return lang('streams.date_out_or_range');
+				}
+			}
+			elseif ( ! $restrict['end_stamp'] and $restrict['start_stamp'])
+			{
+				// Is now before the past point
+				if ($value < $restrict['start_stamp'])
+				{
+					return lang('streams.date_out_or_range');
+				}
+			}
+			else
+			{
+				// Is the point before the start or
+				// after the end?
+				if ($value < $restrict['start_stamp'] or $value > $restrict['end_stamp'])
+				{ 
+					return lang('streams.date_out_or_range');
+				}
+			}
 		}
+
+		return true;
 	}
 
 	// --------------------------------------------------------------------------
@@ -414,48 +451,58 @@ class Field_datetime
 			$this->db_col_type = 'int';
 			return true;
 		}
-		
-		// We need more room for checkboxes
-		if ($field->field_data['use_time'] == 'no')
+		else
 		{
-			$this->db_col_type = 'date';
+			// If not unix, let's see if we can need the
+			// time part in our MySQL date/time
+			if ($field->field_data['use_time'] == 'no')
+			{
+				$this->db_col_type = 'date';
+			}
 		}
-		
-		return true;
 	}
 
 	// --------------------------------------------------------------------------
 
-	/**
-	 * Update field
-	 *
-	 * We just need to change the date or datetime if it changed
-	 */
-	function update_field($field, $assignments)
+	public function alt_rename_column($field, $stream, $assignment)
 	{
-		// Check to see if this WAS date/datetime and is now UNIX
+		// What do we need to switch to?
+		if ($this->CI->input->post('storage') == 'unix')
+		{
+			$switch_to = 'int';
+		}
+		else
+		{
+			$switch_to = ($this->CI->input->post('use_time') == 'yes') ? 'datetime' : 'date';
+		}
+
+		$this->CI->load->dbforge();
+
+		$table = $this->CI->db->dbprefix($assignment->stream_prefix.$assignment->stream_slug);
+		
+		$old_col_name = $field->field_slug;
+
+		$col_data = $this->CI->fields_m->field_data_to_col_data($this->CI->type->types->{$field->field_type}, $this->CI->input->post(), 'edit');
+		
+		$col_data['type'] = strtoupper($switch_to);
+
+		// UNIX -> Datetime
 		if ($field->field_data['storage'] == 'unix' and $this->CI->input->post('storage') == 'datetime')
 		{
-			// @todo: Go through all the fields and update them to 
+			$this->CI->db->query("ALTER TABLE `{$table}` CHANGE `{$old_col_name}` `tmp_unix_time_column` int(11) NOT NULL");
+			$this->CI->db->query("ALTER TABLE `{$table}` ADD `{$old_col_name}` {strtoupper($switch_to)} NOT NULL");
+			$this->CI->db->query("UPDATE `{$table}` SET `{$old_col_name}`=FROM_UNIXTIME(unix_time)");
+			$this->CI->db->query("ALTER TABLE `{$old_col_name}` DROP `tmp_unix_time_column`");
 		}
-		
-		// Check to see if they are the same.
-		// What happens below doesn't matter if they are.
-		if( ($this->CI->input->post('use_time') == $field->field_data['use_time']) and 
-			($this->CI->input->post('storage') == $field->field_data['storage']) )
+		// Datetime -> UNIX
+		elseif ($field->field_data['storage'] == 'datetime' and $this->CI->input->post('storage') == 'unix')
 		{
-			return null;
+
 		}
-	
-		// We need more room for checkboxes
-		$switch_to = ($this->CI->input->post('use_time') == 'yes') ? 'datetime' : 'date';
-		
-		$this->CI->load->dbforge();
-		
-		// Run through assignments to change the col type
-		foreach ($assignments as $assign)
+		// No change in type
+		elseif ($field->field_data['storage'] == $this->CI->input->post('storage'))
 		{
-			$this->CI->db->query("ALTER TABLE ".$this->CI->db->dbprefix(STR_PRE.$assign->stream_slug)." CHANGE {$this->CI->input->post('field_slug')} {$this->CI->input->post('field_slug')} $switch_to");
+			$this->CI->dbforge->modify_column($assignment->stream_prefix.$assignment->stream_slug, array($field->field_slug => $col_data));
 		}
 	}
 
