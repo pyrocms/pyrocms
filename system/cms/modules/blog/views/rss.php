@@ -10,7 +10,7 @@ echo '<?xml version="1.0" encoding="utf-8"?>' . "
 		<dc:language><?php echo $rss->page_language; ?></dc:language>
 		<dc:creator><?php echo $rss->creator_email; ?></dc:creator>
 		<dc:rights>Copyright <?php echo gmdate("Y", time()); ?></dc:rights>
-		<admin:generatorAgent rdf:resource="http://www.styledna.net/" />
+		<admin:generatorAgent rdf:resource="http://www.pyrocms.com/" />
 
 		<?php if ( ! empty($rss->items)): ?>
 		<?php foreach($rss->items as $item): ?>

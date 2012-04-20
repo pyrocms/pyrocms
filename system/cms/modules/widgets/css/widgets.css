@@ -151,6 +151,7 @@
 .widget-instance ol {
 	margin-bottom: 0;
 }
+.widget-list { overflow: auto; }
 .widget-list textarea.uniform {
 	width: 97% !important;
 	resize: none;

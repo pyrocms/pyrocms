@@ -6,6 +6,7 @@ $lang['intro_text']		= 	'Voordat we de database kunnen gebruiken, moet u eerst d
 
 $lang['db_settings']	=	'Database Instellingen';
 $lang['db_text']		=	'Om de MySQL versie te controleren is het nodig om de naam, de gebruikersnaam en het password van de server in te vullen in het onderstaande formulier. Deze instellingen zullen ook gebruikt worden voor het installeren van de database.';
+$lang['db_missing']		=	'The mysql database driver for PHP were not found, installation cannot continue. Ask your host or server administrator to install it.'; #translate
 
 $lang['server']			=	'Server naam';
 $lang['username']		=	'Gebruikersnaam';

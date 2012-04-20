@@ -1044,6 +1044,8 @@ class Row_m extends MY_Model {
 	 */
 	public function update_entry($fields, $stream, $row_id, $form_data, $skips = array())
 	{
+		$this->load->helper('text');
+
 		// -------------------------------------
 		// Run through fields
 		// -------------------------------------
@@ -1130,12 +1132,20 @@ class Row_m extends MY_Model {
 									$field,
 									$stream,
 									$row_id,
-									$form_data
-						);
+									$form_data);
+
+						if (is_null($return_data[$field->field_slug]))
+						{
+							unset($return_data[$field->field_slug]);
+						}
+						else
+						{
+							$return_data[$field->field_slug] = escape_tags($return_data[$field->field_slug]);
+						}
 					}
 					else
 					{
-						$return_data[$field->field_slug] = $form_data[$field->field_slug];
+						$return_data[$field->field_slug] = escape_tags($form_data[$field->field_slug]);
 	
 						// Make null - some fields don't like just blank values
 						if ($return_data[$field->field_slug] == '')
@@ -1176,11 +1186,14 @@ class Row_m extends MY_Model {
 	 * @param	obj - our stream fields
 	 * @param	obj - our stream
 	 * @param	array - optional skipping fields
-	 * @param 	array - optional assoc array of data to exclude from processing
+	 * @param 	array - optional assoc array of data to exclude from processing, but to
+	 * 						include in saving to the database.
 	 * @return	mixed
 	 */
 	public function insert_entry($data, $fields, $stream, $skips = array(), $extra = array())
 	{
+		$this->load->helper('text');
+
 		// -------------------------------------
 		// Run through fields
 		// -------------------------------------
@@ -1208,21 +1221,20 @@ class Row_m extends MY_Model {
 					{
 						if (method_exists($type, 'pre_save'))
 						{
-							$data[$field->field_slug] = $type->pre_save($data[$field->field_slug], $field, $stream, null, $data);
+							$insert_data[$field->field_slug] = $type->pre_save($data[$field->field_slug], $field, $stream, null, $data);
 						}
-						
-						// Trim if a string
-						if (is_string($data[$field->field_slug]))
+						else
 						{
-							$data[$field->field_slug] = trim($data[$field->field_slug]);
+							$insert_data[$field->field_slug] = $data[$field->field_slug];
 						}
-						
-						$insert_data[$field->field_slug] = $data[$field->field_slug];
 
-						// Make null - some fields don't like just blank values
-						if ($insert_data[$field->field_slug] == '')
+						if (is_null($insert_data[$field->field_slug]))
 						{
-							$insert_data[$field->field_slug] = null;
+							unset($insert_data[$field->field_slug]);
+						}
+						elseif(is_string($insert_data[$field->field_slug]))
+						{
+							$insert_data[$field->field_slug] = escape_tags(trim($insert_data[$field->field_slug]));
 						}
 					}
 				}

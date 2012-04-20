@@ -10,6 +10,9 @@ $lang['widgets.available_title']        = 'Widgetit';
 $lang['widgets.widget_area_wrapper']    = 'Alueet';
 $lang['widgets.instructions']           = 'Asenna viemällä widgetti alueeseen';
 
+$lang['widgets.instances']            	= 'Widgetit';
+$lang['widgets.areas']            		= 'Alueet';
+
 // Widgets
 $lang['widgets.widget']                 = 'Widget';
 $lang['widgets.widget_author']          = 'Tekijä';
@@ -33,6 +36,7 @@ $lang['widgets.widget_area_slug']       = 'Alueen polkutunnus';
 $lang['widgets.view_code']				= 'Näytä koodi';
 
 $lang['widgets.instance_title']         = 'Otsikko';
+$lang['widgets.show_title']				= 'Display Widget Title?'; #translate
 $lang['widgets.tag_title']              = 'Tag';
 
 $lang['widgets.no_available_widgets']	= 'Widgettejä ei ole saatavilla.';

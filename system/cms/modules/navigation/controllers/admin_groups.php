@@ -85,13 +85,13 @@ class Admin_groups extends Admin_Controller
 		// Loop through each rule
 		foreach ($this->validation_rules as $rule)
 		{
-			$navigation_group->{$rule['field']} = $this->input->post($rule['field']);
+			$navigation_group[$rule['field']] = $this->input->post($rule['field']);
 		}
 
 		// Render the view
-		$this->template->navigation_group =& $navigation_group;
 		$this->template
 			->title($this->module_details['name'], lang('nav_group_label'), lang('nav_group_create_title'))
+			->set('navigation_group', $navigation_group)
 			->build('admin/groups/create');
 	}
 

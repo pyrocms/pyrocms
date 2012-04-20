@@ -189,4 +189,23 @@ class Plugin_Helper extends Plugin
 		return self::count();
 	}
 
+	/**
+	 * Execute whitelisted php functions
+	 *
+	 * {{ helper:foo parameter1="bar" parameter2="bar" }}
+	 * NOTE: the attribute name is irrelevant as only 
+	 * the values are concatenated and passed as arguments
+	 *
+	 */
+	public function __call($name, $args)
+	{
+		$this->config->load('parser');
+
+		if (function_exists($name) and in_array($name, config_item('allowed_functions')))
+		{
+			return call_user_func_array($name, $this->attributes());
+		}
+
+		return 'Function not found or is not allowed';
+	}
 }

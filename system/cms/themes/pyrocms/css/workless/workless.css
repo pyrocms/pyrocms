@@ -70,6 +70,7 @@ pre, code { white-space: pre; white-space: pre-wrap; word-wrap: break-word; }
 code, pre {
 	display: block;
 	overflow: hidden;
+  width: 96%;
 	background: #111111;
 	color: #eeeeee;
 	margin-top: 15px;

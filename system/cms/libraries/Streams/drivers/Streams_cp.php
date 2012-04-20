@@ -32,7 +32,7 @@ class Streams_cp extends CI_Driver {
 	 * @param	[bool - setting this to true will take care of the $this->template business
 	 * @return	mixed - void or string
 	 */
-	function entries_table($stream_slug, $namespace_slug, $pagination = null, $pagination_uri = null, $buttons = array(), $view_override = false)
+	function entries_table($stream_slug, $namespace_slug, $pagination = null, $pagination_uri = null, $view_override = false, $extra = array())
 	{
 		$CI = get_instance();
 		
@@ -79,7 +79,7 @@ class Streams_cp extends CI_Driver {
   		$data = array(
   			'stream'		=> $stream,
   			'stream_fields'	=> $stream_fields,
-  			'buttons'		=> $buttons
+  			'buttons'		=> isset($extra['buttons']) ? $extra['buttons'] : NULL,
   		);
   
  		// -------------------------------------
@@ -108,6 +108,12 @@ class Streams_cp extends CI_Driver {
 		// -------------------------------------
 		// Build Pages
 		// -------------------------------------
+		
+		// Set title
+		if (isset($extra['title']))
+		{
+			$CI->template->title($extra['title']);
+		}
 		
 		$table = $CI->load->view('admin/partials/streams/entries', $data, true);
 		
@@ -189,7 +195,15 @@ class Streams_cp extends CI_Driver {
 		if (isset($extra['title']))
 		{
 			$data['title'] = $extra['title'];
+			$CI->template->title($extra['title']);
 		}
+		// Set return uri
+		if (isset($extra['return']))
+		{
+			$data['return'] = $extra['return'];
+		}
+		
+		$CI->template->append_js('streams/form.js');
 		
 		$form = $CI->load->view('admin/partials/streams/form', $data, true);
 		
@@ -367,7 +381,7 @@ class Streams_cp extends CI_Driver {
 					}
 					else
 					{
-						$CI->session->set_flashdata('success', lang('streams.field_add_success'));
+						$CI->session->set_flashdata('success', lang('streams.field_update_success'));
 					}
 				}
 

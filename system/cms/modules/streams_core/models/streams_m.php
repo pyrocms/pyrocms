@@ -610,7 +610,7 @@ class Streams_m extends MY_Model {
 	 * @param	int
 	 * @param	array - data
 	 * @param	[bool - should we create the column?]
-	 * @return	bool
+	 * @return	mixed - false or assignment ID
 	 */
 	public function add_field_to_stream($field_id, $stream_id, $data, $create_column = true)
 	{
@@ -735,8 +735,10 @@ class Streams_m extends MY_Model {
 		{
 			return false;
 		}
-		
-		return true;
+		else
+		{
+			return $this->db->insert_id();
+		}
 	}
 
 	// --------------------------------------------------------------------------
