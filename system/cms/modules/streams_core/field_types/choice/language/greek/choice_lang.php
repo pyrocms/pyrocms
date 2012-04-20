@@ -7,3 +7,6 @@ $lang['streams.choice.choice_type'] 		= 'Τύπος Επιλογών';
 $lang['streams.choice.dropdown'] 			= 'Αναδυόμενο μενού';
 $lang['streams.choice.radio_buttons'] 		= 'Στοιχείο Radio';
 $lang['streams.choice.checkboxes'] 			= 'Checkboxes';
+$lang['streams.choice.must_select_num'] 	= 'You must select {val} items from the %s list.';				#translate
+$lang['streams.choice.must_at_least'] 		= 'You must select at least {val} items from the %s list.';		#translate
+$lang['streams.choice.must_max_num'] 		= 'You can only select {val} items from the %s list.';			#translate
