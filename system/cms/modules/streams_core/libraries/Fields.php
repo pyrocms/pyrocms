@@ -372,10 +372,10 @@ class Fields
 				{
 					$field->field_data['default_value'] = null;
 				}
-						
-				// Set the value. The passed value or
-				// the default value?
-				$value = (isset($values[$field->field_slug])) ? $values[$field->field_slug] : $field->field_data['default_value'];
+				
+				// Set the value. In the odd case it isn't set,
+				// jst set it to null.
+				$value = (isset($values[$field->field_slug])) ? $values[$field->field_slug] : null;
 
 				// Return the raw value as well - can be useful
 				$fields[$count]['value'] 			= $value;
