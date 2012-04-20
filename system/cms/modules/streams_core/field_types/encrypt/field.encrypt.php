@@ -15,9 +15,9 @@ class Field_encrypt
 	
 	public $db_col_type				= 'blob';
 
-	public $custom_parameters		= array( 'hide_typing' );
+	public $custom_parameters		= array('hide_typing');
 
-	public $version					= '1.0';
+	public $version					= '1.1';
 
 	public $author					= array('name'=>'Parse19', 'url'=>'http://parse19.com');
 	

@@ -30,7 +30,7 @@ class Field_text
 	 * @param	array
 	 * @return	string
 	 */
-	public function form_output( $data )
+	public function form_output($data)
 	{
 		$options['name'] 	= $data['form_slug'];
 		$options['id']		= $data['form_slug'];
