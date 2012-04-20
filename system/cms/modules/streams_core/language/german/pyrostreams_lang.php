@@ -55,6 +55,7 @@ $lang['streams.type_not_valid']							= "Bitte wähle einen gültigen Feldtypen.
 $lang['streams.stream_slug_not_unique']					= "Dieser Streamslug wird bereits verwendet.";
 $lang['streams.field_unique']							= "Das %s Feld muss eindeutig sein.";
 $lang['streams.field_is_required']						= "Das %s Feld ist erforderlich.";
+$lang['streams.date_out_or_range']						= "The date you have chosen is out of the acceptable range."; #translate
 
 /* Field Labels */
 

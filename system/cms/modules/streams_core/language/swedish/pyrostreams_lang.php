@@ -55,6 +55,7 @@ $lang['streams.type_not_valid']							= "Vänligen, ange en giltig fälttyp.";
 $lang['streams.stream_slug_not_unique']					= "Denna stream slugg används redan.";
 $lang['streams.field_unique']							= "%s fältet måste vara unikt.";
 $lang['streams.field_is_required']						= "%s fältet är obligatoriskt.";
+$lang['streams.date_out_or_range']						= "The date you have chosen is out of the acceptable range."; #translate
 
 /* Field Labels */
 
