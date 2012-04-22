@@ -5,21 +5,21 @@ $lang['help_body'] = "
 
 <h4>Overview</h4>
 <p>
-	The Blog module is a simple tool for publishing blog entries.
+	De blog module is een simpele tool om berichten te plaatsen.
 </p>
 
-<h4>Categories</h4>
+<h4>Categorie&euml;n</h4>
 <p>
-	You may create as many categories as you like to organize your posts. If you would like your visitors to
-	be able to browse by category simply embed the Blog Categories widget on the front-end.
+	U kunt zo veel Categorie&euml;n maken als u wilt om uw berichten te organiseren. 
+	Om uw bezoekers door categorieen te laten browsen kunt u het Blog Categories Widget gebruiken.
 </p>
 
-<h4>Posts</h4>
+<h4>Berichten</h4>
 <p>
-	Choose a good title for your posts as they will be displayed on the main Blog page (along with the introduction)
-	and will also be used as the title in search engine results. After creating a post you may either save it as Live to publish it or
-	you may save it as a Draft if you want to come back and edit it later. You may also save it as Live but set the date
-	in the future and your post will not show until that date is reached.
+	Kies een goede titel voor je berichten omdat ze worden weergegeven op de hoofd blog pagina (samen met de inleiding)
+	ook zal de titel worden gebruikt in de zoekmachine resultaten. Nadat u een bericht heeft gemaakt kunt u deze opslaan als Live
+ 	om het te publiceren of als Draft om deze later te bewerken. U kunt ook opslaan als Live, maar de datum
+	in de toekomst zetten en uw bericht zal niet worden getoont tot die datum bereikt is.
 </p>
 
 ";
