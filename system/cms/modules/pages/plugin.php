@@ -164,7 +164,7 @@ class Plugin_Pages extends Plugin
 		$disable_levels = $this->attribute('disable-levels');
 		$order_by 		= $this->attribute('order-by', 'title');
 		$order_dir		= $this->attribute('order-dir', 'ASC');
-		$list_tag		= $this->attribute('list-tab', 'ul');
+		$list_tag		= $this->attribute('list-tag', 'ul');
 		$link			= $this->attribute('link', true);
 		
 		// If we have a start URI, let's try and
