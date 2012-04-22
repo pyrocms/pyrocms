@@ -48,7 +48,7 @@ $lang['success_label'] 					= 'Succes';
 
 $lang['login_title'] 					= 'Inloggen';
 $lang['cms_fatal_error'] 				= 'Fatale fout, is het CMS geinstalleerd?';
-$lang['global:demo_restrictions']       = 'Some features on this page have been disabled for the demo.'; #translate
+$lang['global:demo_restrictions']       = 'Sommige functionaliteiten zijn uitgeschakelt voor de demo.';
 
 $lang['login_error_label'] 				= 'Login Fout';
 $lang['forgot_password_label'] 			= 'Wachtwoord vergeten?';
