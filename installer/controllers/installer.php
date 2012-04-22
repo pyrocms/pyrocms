@@ -205,7 +205,9 @@ class Installer extends CI_Controller
 	 */
 	public function step_2()
 	{
-		$data = new stdClass();
+		$data              = new stdClass();
+		$data->mysql       = new stdClass();
+		$data->http_server = new stdClass();
 
 		// Did the user enter the DB settings ?
 		if ( ! $this->session->userdata('step_1_passed'))
@@ -501,9 +503,10 @@ class Installer extends CI_Controller
 
 		// set the supported languages to be saved in Settings for emails and .etc
 		// modules > settings > details.php uses this
-		require_once(dirname(FCPATH).'/system/cms/config/language.php');
+		$this->config->_config_paths = array(dirname(FCPATH).'/system/cms/');
+		$this->config->load('language');
 
-		define('DEFAULT_LANG', $config['default_language']);
+		define('DEFAULT_LANG', $this->config->item('default_language'));
 	}
 }
 
