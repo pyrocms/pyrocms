@@ -28,4 +28,4 @@ $lang['page_layouts.already_exist_error']            = 'Maketas su tokiu vardu "
 
 $lang['page_layouts.variable_introduction']          = 'Šiame įvedimo lauke yra du prieinami kintamieji';
 $lang['page_layouts.variable_title']                 = 'Sudėtyje yra šio puslapio pavadinimas.';
-$lang['page_layouts.variable_body']                  = 'Contains the HTML body of the page.';
+$lang['page_layouts.variable_body']                  = 'Tūri visą HTML body savyje';
