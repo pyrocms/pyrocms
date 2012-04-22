@@ -45,14 +45,17 @@ class Plugin_Pages extends Plugin
 			->row_array();
 
 		// Grab all the chunks that make up the body
-		$page['chunks'] = $this->db->get_where('page_chunks', array('page_id' => $page['id']))->result();
+		$page['chunks'] = $this->db->get_where('page_chunks', array('page_id' => $page['id']))->result_array();
 		
 		$page['body'] = '';
-		foreach ($page['chunks'] as $chunk)
+		if ($page['chunks'])
 		{
-			$page['body'] .= 	'<div class="page-chunk ' . $chunk['slug'] . '">' .
-									(($chunk['type'] == 'markdown') ? $chunk['parsed'] : $chunk['body']) .
-								'</div>'.PHP_EOL;
+			foreach ($page['chunks'] as $chunk)
+			{
+				$page['body'] .= 	'<div class="page-chunk ' . $chunk['slug'] . '">' .
+										(($chunk['type'] == 'markdown') ? $chunk['parsed'] : $chunk['body']) .
+									'</div>'.PHP_EOL;
+			}
 		}
 
 		// we'll unset the chunks array as Lex is grouchy about mixed data at the moment
@@ -125,11 +128,14 @@ class Plugin_Pages extends Plugin
 					->result_array();
 
 				$page['body'] = '';
-				foreach ($page['chunks'] as $chunk)
+				if ($page['chunks'])
 				{
-					$page['body'] .= '<div class="page-chunk '.$chunk['slug'].'">'.
-						(($chunk['type'] == 'markdown') ? $chunk['parsed'] : $chunk['body']).
-						'</div>'.PHP_EOL;
+					foreach ($page['chunks'] as $chunk)
+					{
+						$page['body'] .= '<div class="page-chunk '.$chunk['slug'].'">'.
+							(($chunk['type'] == 'markdown') ? $chunk['parsed'] : $chunk['body']).
+							'</div>'.PHP_EOL;
+					}
 				}
 			}
 		}
