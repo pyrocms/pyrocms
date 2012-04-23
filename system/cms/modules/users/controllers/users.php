@@ -230,7 +230,7 @@ class Users extends Public_Controller
 		// Get the profile data to pass to the register function.
 		foreach ($assignments as $assign)
 		{
-			if ($assign->is_required == 'yes' and $assign->field_slug != 'display_name')
+			if ($assign->field_slug != 'display_name')
 			{
 				if (isset($_POST[$assign->field_slug]))
 				{
