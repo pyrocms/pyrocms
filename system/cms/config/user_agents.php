@@ -94,7 +94,6 @@ $mobiles = array(
 					'nokia'				=> "Nokia",
 					'palm'				=> "Palm",
 					'iphone'			=> "Apple iPhone",
-					'ipad'				=> "iPad",
 					'ipod'				=> "Apple iPod Touch",
 					'sony'				=> "Sony Ericsson",
 					'ericsson'			=> "Sony Ericsson",
