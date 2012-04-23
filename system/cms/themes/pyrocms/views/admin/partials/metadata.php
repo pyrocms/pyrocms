@@ -31,10 +31,15 @@ Asset::js(array('codemirror/codemirror.js',
 	pyro.apppath_uri				= "<?php echo APPPATH_URI; ?>";
 	pyro.base_uri					= "<?php echo BASE_URI; ?>";
 	pyro.lang.remove				= "<?php echo lang('global:remove'); ?>";
-	pyro.lang.delete				= "<?php echo lang('global:delete'); ?>";
+	//pyro.lang.delete				= "<?php echo lang('global:delete'); ?>"; // Moved to (if not IE) to prevent errors
 	pyro.lang.dialog_message 		= "<?php echo lang('global:dialog:delete_message'); ?>";
 	pyro.foreign_characters			= <?php echo json_encode(accented_characters()); ?>
 </script>
+<!--[if !IE]> -->
+<script type="text/javascript">
+	pyro.lang.delete				= "<?php echo lang('global:delete'); ?>";
+</script>
+<!-- <![endif]-->
 
 <?php Asset::css(array('plugins.css', 'jquery/colorbox.css', 'codemirror.css')); ?>
 
