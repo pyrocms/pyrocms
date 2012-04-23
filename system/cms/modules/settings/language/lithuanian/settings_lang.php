@@ -105,14 +105,14 @@ $lang['settings_moderate_comments_desc']        = 'Priverčia komentarus būti p
 $lang['settings_version']                        = 'Versija';
 $lang['settings_version_desc']                    = '';
 
-$lang['settings_ckeditor_config']               = 'CKEditor Config'; #translate
-$lang['settings_ckeditor_config_desc']          = 'You can find a list of valid configuration items in <a target="_blank" href="http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.config.html">CKEditor\'s documentation.</a>'; #translate
+$lang['settings_ckeditor_config']               = 'CKEditor nustatymai';
+$lang['settings_ckeditor_config_desc']          = 'Pamatuti ivairius konfiguravimo nustatymus galie pažiūrėti <a target="_blank" href="http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.config.html">CKEditorio dokumentacija.</a>';
 
-$lang['settings_enable_registration']           = 'Enable user registration'; #translate
-$lang['settings_enable_registration_desc']      = 'Allow users to register in your site.'; #translate
+$lang['settings_enable_registration']           = 'Įjungti vartotojų registraciją';
+$lang['settings_enable_registration_desc']      = 'Leidžia vartotojų registraciją jūsų puslapyje.';
 
-$lang['settings_cdn_domain']                    = 'CDN Domain'; #translate
-$lang['settings_cdn_domain_desc']               = 'CDN domains allow you to offload static content to various edge servers, like Amazon CloudFront or MaxCDN.'; #translate
+$lang['settings_cdn_domain']                    = 'CDN domenas';
+$lang['settings_cdn_domain_desc']               = 'CDN domenas leidžia jums nuimti (statinių nuotraukų, css, js skriptų) apkrovimą nuo pagrindinio serverio. Pvz naudojant providerius tokius kaip Amazon CloudFront arba MaxCDN.';
 
 #section titles
 $lang['settings_section_general']                = 'Bendri';
@@ -136,7 +136,7 @@ $lang['settings_form_option_Newest First']        = 'Naujesni pirmiau';
 $lang['settings_edit_title']                    = 'Redaguoti parametrus';
 
 // messages
-$lang['settings_no_settings']					= 'There are currently no settings.'; #translate
+$lang['settings_no_settings']					= 'Šiuo metu jokių nustatymų nėra.';
 $lang['settings_save_success']                    = 'Jūsų parametrai išsaugoti!';
 
 /* End of file settings_lang.php */
