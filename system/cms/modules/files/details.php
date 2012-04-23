@@ -34,6 +34,7 @@ class Module_Files extends Module {
 				'sl' => 'Datoteke',
 				'zh' => '檔案',
 				'hu' => 'Fájlok',
+				'th' => 'ไฟล์',
                                 'se' => 'Filer'
 			),
 			'description' => array(
@@ -57,6 +58,7 @@ class Module_Files extends Module {
 				'sl' => 'Uredi datoteke in mape na vaši strani',
 				'zh' => '管理網站中的檔案與目錄',
 				'hu' => 'Fájlok és mappák kezelése az oldalon.',
+				'th' => 'บริหารจัดการไฟล์และโฟลเดอร์สำหรับเว็บไซต์ของคุณ',
                                 'se' => 'Hanterar filer och mappar för din webbplats.'
 			),
 			'frontend' => FALSE,
