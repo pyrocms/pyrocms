@@ -7,26 +7,29 @@ require APPPATH."libraries/MX/Controller.php";
  * 
  * @package PyroCMS\Core\Controllers 
  */
-class MY_Controller extends MX_Controller {
-
+class MY_Controller extends MX_Controller
+{
 	/**
 	 * No longer used globally
 	 * 
 	 * @deprecated remove in 2.2
 	 */
 	protected $data;
+
 	/**
 	 * The name of the module that this controller instance actually belongs to.
 	 *
 	 * @var string 
 	 */
 	public $module;
+
 	/**
 	 * The name of the controller class for the current class instance.
 	 *
 	 * @var string
 	 */
 	public $controller;
+
 	/**
 	 * The name of the method for the current request.
 	 *
@@ -46,7 +49,7 @@ class MY_Controller extends MX_Controller {
 		// No record? Probably DNS'ed but not added to multisite
 		if ( ! defined('SITE_REF'))
 		{
-			show_error('This domain is not set up correctly. Please go to '.anchor('sites') .' and log in to add this new site.');
+			show_error('This domain is not set up correctly. Please go to '.anchor('sites') .' and log in to add this site.');
 		}
 
 		// By changing the prefix we are essentially "namespacing" each site
