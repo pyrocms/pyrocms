@@ -1,89 +1,89 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-$lang['global:control-panel'] 						= 'Control Panel';
-$lang['global:profile']					= 'Profile'; #translate
+$lang['global:control-panel'] 			= 'Turinio valdymas';
+$lang['global:profile']					= 'Profilis';
 
-$lang['title_label'] 					= 'Title';
-$lang['name_label'] 					= 'Name';
-$lang['desc_label'] 					= 'Description';
-$lang['version_label'] 					= 'Version';
-$lang['global:author'] 					= 'Author';
-$lang['global:action'] 					= 'Action';
+$lang['title_label'] 					= 'Antraštė';
+$lang['name_label'] 					= 'Vardas';
+$lang['desc_label'] 					= 'Aprašymas';
+$lang['version_label'] 					= 'Versija';
+$lang['global:author'] 					= 'Autorius';
+$lang['global:action'] 					= 'Veiksmas';
 
-$lang['dialog.delete_message'] 			= 'Are you sure you want to delete this? It cannot be undone.';
-$lang['dialog.confirm'] 				= 'Confirm';
-$lang['dialog.yes'] 					= 'Yes';
-$lang['dialog.no'] 						= 'No';
+$lang['dialog.delete_message'] 			= 'Ar tikrai norite tai išstrinti? Atstatymas negalimas.';
+$lang['dialog.confirm'] 				= 'Patvirtinti';
+$lang['dialog.yes'] 					= 'Taip';
+$lang['dialog.no'] 						= 'Ne';
 
-$lang['global:select-none'] 					= '-- None --';
-$lang['global:select-all'] 					= '-- All --';
-$lang['global:select-any'] 					= '-- Any --';
-$lang['global:select-pick'] 					= '-- Select --';
+$lang['global:select-none'] 			= '-- Nieko --';
+$lang['global:select-all'] 				= '-- Visi --';
+$lang['global:select-any'] 				= '-- Betkurie --';
+$lang['global:select-pick'] 			= '-- Išrinkti --';
 
-$lang['global:check-none'] 					= 'None'; #translate
-$lang['global:check-all']						= 'All'; #translate
+$lang['global:check-none'] 				= 'Nieko';
+$lang['global:check-all']				= 'Visi';
 
-$lang['operators.equal'] 				= 'Equal to';
-$lang['operators.not_equal'] 			= 'Not equal to';
-$lang['operators.less_than'] 			= 'Less than';
-$lang['operators.greater_than'] 		= 'Greater than';
+$lang['operators.equal'] 				= 'Lygiai';
+$lang['operators.not_equal'] 			= 'Nelygu ';
+$lang['operators.less_than'] 			= 'Mažiau negu';
+$lang['operators.greater_than'] 		= 'Daugiau negu';
 
-$lang['navigation_headline'] 			= 'Navigation';
-$lang['breadcrumb_base_label'] 			= 'Home';
+$lang['navigation_headline'] 			= 'Navigacija';
+$lang['breadcrumb_base_label'] 			= 'Pradžia';
 
-$lang['logged_in_welcome']				= 'Welcome %s, you are logged in.';
-$lang['logout_label'] 					= 'Log out';
-$lang['edit_profile_label'] 			= 'Edit Profile';
-$lang['settings_label'] 				= 'Settings';
+$lang['logged_in_welcome']				= 'Sveiki prisijungus, %s.';
+$lang['logout_label'] 					= 'Atsijungti';
+$lang['edit_profile_label'] 			= 'Tvarkyti profili';
+$lang['settings_label'] 				= 'Nustatymai';
 
-$lang['close_message'] 					= 'Close this message';
-$lang['general_error_label'] 			= 'Error';
-$lang['required_error_label'] 			= 'Required field missing';
-$lang['note_label'] 					= 'Note';
-$lang['success_label'] 					= 'Success';
+$lang['close_message'] 					= 'Išjungti šia žinutę';
+$lang['general_error_label'] 			= 'Klaida';
+$lang['required_error_label'] 			= 'Reikalingas laukas yra tuščias.';
+$lang['note_label'] 					= 'Užrašai';
+$lang['success_label'] 					= 'Sėkmingai';
 
-$lang['login_title'] 					= 'Log In';
-$lang['cms_fatal_error'] 				= 'Fatal error, is CMS installed?';
-$lang['global:demo_restrictions']       = 'Some features on this page have been disabled for the demo.'; #translate
+$lang['login_title'] 					= 'Prisijungti';
+$lang['cms_fatal_error'] 				= 'Klaida. Ar TVS yra instaliuotas?';
+$lang['global:demo_restrictions']       = 'Kaikurios funkcijos buvo atjungtos demonstracinėje versijoje.';
 
-$lang['login_error_label'] 				= 'Login Error';
-$lang['forgot_password_label'] 			= 'Forgot your password ?';
-$lang['email_label'] 					= 'E-mail';
-$lang['password_label'] 				= 'Password';
-$lang['login_label'] 					= 'Log In';
+$lang['login_error_label'] 				= 'Prisijungimo klaida';
+$lang['forgot_password_label'] 			= 'Užmiršote slaptažodį?';
+$lang['email_label'] 					= 'El. paštas';
+$lang['password_label'] 				= 'Slaptažodis';
+$lang['login_label'] 					= 'Prisijungti';
 
-$lang['help_label'] 					= 'Help';
-$lang['save_label'] 					= 'Save';
-$lang['cancel_label'] 					= 'Cancel';
-$lang['update_label'] 					= 'Update Caption';
-$lang['global:delete'] 					= 'Delete';
-$lang['activate_label'] 				= 'Activate';
-$lang['approve_label']					= 'Approve';
-$lang['unapprove_label']				= 'Unapprove';
-$lang['publish_label'] 					= 'Publish';
-$lang['upload_label'] 					= 'Upload';
-$lang['global:uninstall'] 				= 'Uninstall';
-$lang['global:install'] 					= 'Install';
-$lang['global:enable']					= 'Enable';
-$lang['global:disable'] 					= 'Disable';
-$lang['global:upgrade'] 					= 'Upgrade';
+$lang['help_label'] 					= 'Pagalba';
+$lang['save_label'] 					= 'Išsaugoti';
+$lang['cancel_label'] 					= 'Atšaukti';
+$lang['update_label'] 					= 'Atnaujinti antraštę';
+$lang['global:delete'] 					= 'Ištrinti';
+$lang['activate_label'] 				= 'Aktyvuoti';
+$lang['approve_label']					= 'Patvirtinti';
+$lang['unapprove_label']				= 'Atmesti';
+$lang['publish_label'] 					= 'Publikuoti';
+$lang['upload_label'] 					= 'Įkelti';
+$lang['global:uninstall'] 				= 'Išinstaliuoti';
+$lang['global:install'] 				= 'Instlaiuoti';
+$lang['global:enable']					= 'Įjungti';
+$lang['global:disable'] 				= 'Atjungti';
+$lang['global:upgrade'] 				= 'Atnaujinti';
 
-$lang['all_right_reserved']				= 'All Rights Reserved.';  #translate
-$lang['powered_by_pyrocms']				= 'Powered by PyroCMS';  #translate
-$lang['top_page']						= 'Top';  #translate
-$lang['back_to_top']					= 'Back to Top';  #translate
+$lang['all_right_reserved']				= 'Visos teisės saugomos.';
+$lang['powered_by_pyrocms']				= 'Veikia ant PyroCMS';
+$lang['top_page']						= 'Viršus';
+$lang['back_to_top']					= 'Grižti į viršų';
 
 $lang['global:shortcuts']	 			= 'Nuoroda';
 $lang['global:description'] 		    = 'Aprašymas';
 $lang['global:actions']					= 'Veiksmai';
-$lang['global:view']					= 'View'; #translate
-$lang['global:preview']					= 'Preview'; #translate
-$lang['global:add']						= 'Add'; #translate
+$lang['global:view']					= 'Žiūrėti';
+$lang['global:preview']					= 'Peržiūręti';
+$lang['global:add']						= 'Pridėti';
 $lang['global:edit']					= 'Redaguoti';
-$lang['global:empty']					= 'Empty'; #translate
+$lang['global:empty']					= 'Tuščias';
 $lang['global:delete']					= 'Ištrinti';
 $lang['global:remove']					= 'Ištrinti';
 
-$lang['global:keywords']				= 'Keywords'; #translate
+$lang['global:keywords']				= 'Raktažodžiai';
 
 /* End of file main_lang.php */
