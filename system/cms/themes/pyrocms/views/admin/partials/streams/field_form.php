@@ -137,7 +137,7 @@
 		
 		<div class="float-right buttons">
 		<button type="submit" name="btnAction" value="save" class="btn blue"><span><?php echo lang('buttons.save'); ?></span></button>	
-		<a href="<?php echo site_url('admin/streams/fields'); ?>" class="btn gray cancel"><?php echo lang('buttons.cancel'); ?></a>
+		<a href="<?php echo site_url('admin/users/fields'); ?>" class="btn gray cancel"><?php echo lang('buttons.cancel'); ?></a>
 	</div>
 	
 <?php echo form_close();?>
