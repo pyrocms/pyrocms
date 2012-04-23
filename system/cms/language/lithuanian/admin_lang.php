@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['cp_admin_title'] 				= 'Valdymo skydas';
-$lang['global:dashboard'] 			= 'Įrankių skydas';
+$lang['global:dashboard'] 			    = 'Įrankių skydas';
 $lang['cp_admin_quick_links']			= 'Greitosios nuorodos';
 
 $lang['cp_welcome_title'] 				= 'Sveiki';
