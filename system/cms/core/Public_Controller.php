@@ -68,6 +68,16 @@ class Public_Controller extends MY_Controller
 		Asset::add_path('theme', $this->theme->path.'/');
 		Asset::set_path('theme');
 
+		// Support CDN URL's like Amazon CloudFront 
+		if (Settings::get('cdn_domain'))
+		{
+			$protocol = (! empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off')
+				? 'https' : 'http';
+
+			// Make cdn.pyrocms.com into https://cdn.pyrocms.com/
+			Asset::set_url($protocol.'://'.rtrim(Settings::get('cdn_domain'), '/').'/');
+		}
+
 	    // Set the theme view folder
 	    $this->template
 			->set_theme($this->theme->slug)
