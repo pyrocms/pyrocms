@@ -23,11 +23,14 @@
 					<?php
 					
 						$all_buttons = array();
-						
-						foreach($buttons as $button)
+
+						if (isset($buttons))
 						{
-							$class = (isset($button['confirm']) and $button['confirm']) ? 'button confirm' : 'button';
-							$all_buttons[] = anchor(str_replace('-assign_id-', $assignment->assign_id, $button['url']), $button['label'], 'class="'.$class.'"');
+							foreach($buttons as $button)
+							{
+								$class = (isset($button['confirm']) and $button['confirm']) ? 'button confirm' : 'button';
+								$all_buttons[] = anchor(str_replace('-assign_id-', $assignment->assign_id, $button['url']), $button['label'], 'class="'.$class.'"');
+							}
 						}
 					
 						echo implode('&nbsp;', $all_buttons);

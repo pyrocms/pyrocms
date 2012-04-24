@@ -54,8 +54,8 @@ class Admin_fields extends Admin_Controller {
 								'users',
 								$this->settings->item('records_per_page'),
 								'admin/users/fields/index',
-								$buttons,
-								true);
+								true,
+								array('buttons' => $buttons));
 	}
 
 	// --------------------------------------------------------------------------
