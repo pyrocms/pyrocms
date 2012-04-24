@@ -58,8 +58,10 @@ class Fields_m extends CI_Model {
      * @param	[int offset]
      * @return	obj
      */
-    public function get_fields($namespace = NULL, $limit = FALSE, $offset = 0)
+    public function get_fields($namespace = NULL, $limit = FALSE, $offset = 0, $skips = array())
 	{
+		if (!empty($skips)) $this->db->or_where_not_in('field_slug', $skips);
+		
 		if ($namespace) $this->db->where('field_namespace', $namespace);
 	
 		if ($offset) $this->db->offset($offset);
