@@ -22,15 +22,23 @@ class Streams_cp extends CI_Driver {
 	 * @param	string - the stream namespace slug
 	 * @param	[mixed - pagination, either null for no pagination or a number for per page]
 	 * @param	[null - pagination uri without offset]
-	 * @param	[array - buttons to show for each row]
-	 *				arrray = 
-	 *					array = (
-	 *						'label'		=> 'Delete',
-	 *						'url'		=> 'admin/streams_sample/delete/-entry_id-',
-	 *						'confirm'	= true
-	 *				));
 	 * @param	[bool - setting this to true will take care of the $this->template business
+	 * @param	[array - extra params (see below)]
 	 * @return	mixed - void or string
+	 *
+	 * Extra parameters to pass in $extra array:
+	 *
+	 * title	- Title of the page header (if using view override)
+	 *			$extra['title'] = 'Streams Sample';
+	 * 
+	 * buttons	- an array of buttons (if using view override)
+	 *			$extra['buttons'] = array(
+	 *				'label' 	=> 'Delete',
+	 *				'url'		=> 'admin/streams_sample/delete/-entry_id-',
+	 *				'confirm'	= true
+	 *			);
+	 *
+	 * see docs for more explanation
 	 */
 	function entries_table($stream_slug, $namespace_slug, $pagination = null, $pagination_uri = null, $view_override = false, $extra = array())
 	{
@@ -148,16 +156,16 @@ class Streams_cp extends CI_Driver {
 	 *
 	 * Extra parameters to pass in $extra array:
 	 *
-     * email_notifications 	- see docs for more explanaiton
-     * return				- URL to return to after submission
-     *							defaults to current URL.
-     * success_message		- Flash message to show after successful submission
-     *							defaults to generic successful entry submission message
-     * failure_message		- Flash message to show after failed submission,
-     *							defaults to generic failed entry submission message
-     * required				- String to show as required - this defaults to the
-     *							standard * for the PyroCMS CP
-     * title				- Title of the form header (if using view override)
+	 * email_notifications 	- see docs for more explanation
+	 * return				- URL to return to after submission
+	 * 							defaults to current URL.
+	 * success_message		- Flash message to show after successful submission
+	 * 							defaults to generic successful entry submission message
+	 * failure_message		- Flash message to show after failed submission,
+	 * 							defaults to generic failed entry submission message
+	 * required				- String to show as required - this defaults to the
+	 * 							standard * for the PyroCMS CP
+	 * title				- Title of the form header (if using view override)
 	 */
 	function form($stream_slug, $namespace_slug, $mode = 'new', $entry_id = null, $view_override = false, $extra = array(), $skips = array())
 	{
@@ -194,7 +202,6 @@ class Streams_cp extends CI_Driver {
 		// Set title
 		if (isset($extra['title']))
 		{
-			$data['title'] = $extra['title'];
 			$CI->template->title($extra['title']);
 		}
 		// Set return uri
@@ -233,9 +240,17 @@ class Streams_cp extends CI_Driver {
 	 * @param 	[int - the assignment id if we are editing]
 	 * @param	[array - field types to include]
 	 * @param	[bool - view override - setting this to true will build template]
+	 * @param	[array - extra params (see below)]
 	 * @return	mixed - void or string
+	 *
+	 * Extra parameters to pass in $extra array:
+	 *
+	 * title	- Title of the form header (if using view override)
+	 *			$extra['title'] = 'Streams Sample';
+	 * 
+	 * see docs for more explanation
 	 */
-	public function field_form($stream_slug, $namespace, $method = 'new', $return, $assign_id = null, $include_types = array(), $view_override = false)
+	public function field_form($stream_slug, $namespace, $method = 'new', $return, $assign_id = null, $include_types = array(), $view_override = false, $extra = array())
 	{
 		$CI = get_instance();
 		$data = array();
@@ -472,6 +487,12 @@ class Streams_cp extends CI_Driver {
 		// Build page
 		// -------------------------------------
 
+		// Set title
+		if (isset($extra['title']))
+		{
+			$CI->template->title($extra['title']);
+		}
+
 		$table = $CI->load->view('admin/partials/streams/field_form', $data, true);
 		
 		if ($view_override)
@@ -491,19 +512,33 @@ class Streams_cp extends CI_Driver {
 	/**
 	 * Fields Table
 	 *
-	 * Easily create a table of fields in a certain namesapce
+	 * Easily create a table of fields in a certain namespace
 	 *
 	 * @param	string - the stream slug
 	 * @param	string - the stream namespace slug
 	 * @param	[mixed - pagination, either null for no pagination or a number for per page]
 	 * @param	[null - pagination uri without offset]
-	 * @param	[array - buttons to show for each row]
 	 * @param	[bool - setting this to true will take care of the $this->template business
+	 * @param	[array - extra params (see below)]
+	 *
+	 * Extra parameters to pass in $extra array:
+	 *
+	 * title	- Title of the page header (if using view override)
+	 *			$extra['title'] = 'Streams Sample';
+	 * 
+	 * buttons	- an array of buttons (if using view override)
+	 *			$extra['buttons'] = array(
+	 *				'label' 	=> 'Delete',
+	 *				'url'		=> 'admin/streams_sample/delete/-entry_id-',
+	 *				'confirm'	= true
+	 *			);
+	 *
+	 * see docs for more explanation
 	 */
-	public function fields_table($stream_slug, $namespace, $pagination = null, $pagination_uri = null, $buttons = array(), $view_override = false)
+	public function fields_table($stream_slug, $namespace, $pagination = null, $pagination_uri = null, $view_override = false, $extra = array())
 	{
 		$CI = get_instance();
-		$data['buttons'] = $buttons;
+		$data['buttons'] = isset($extra['buttons']) ? $extra['buttons'] : NULL;
 
 		if (is_numeric($pagination))
 		{
@@ -544,6 +579,12 @@ class Streams_cp extends CI_Driver {
 		// Build Pages
 		// -------------------------------------
 
+		// Set title
+		if (isset($extra['title']))
+		{
+			$CI->template->title($extra['title']);
+		}
+
 		$table = $CI->load->view('admin/partials/streams/fields', $data, true);
 		
 		if ($view_override)
@@ -563,19 +604,33 @@ class Streams_cp extends CI_Driver {
 	/**
 	 * Field Assignments Table
 	 *
-	 * Easily create a table of fields in a certain namesapce
+	 * Easily create a table of fields in a certain namespace
 	 *
 	 * @param	string - the stream slug
 	 * @param	string - the stream namespace slug
 	 * @param	[mixed - pagination, either null for no pagination or a number for per page]
 	 * @param	[null - pagination uri without offset]
-	 * @param	[array - buttons to show for each row]
 	 * @param	[bool - setting this to true will take care of the $this->template business
+	 * @param	[array - extra params (see below)]
+	 *
+	 * Extra parameters to pass in $extra array:
+	 *
+	 * title	- Title of the page header (if using view override)
+	 *			$extra['title'] = 'Streams Sample';
+	 * 
+	 * buttons	- an array of buttons (if using view override)
+	 *			$extra['buttons'] = array(
+	 *				'label' 	=> 'Delete',
+	 *				'url'		=> 'admin/streams_sample/delete/-entry_id-',
+	 *				'confirm'	= true
+	 *			);
+	 *
+	 * see docs for more explanation
 	 */
-	public function assignments_table($stream_slug, $namespace, $pagination = null, $pagination_uri = null, $buttons = array(), $view_override = false)
+	public function assignments_table($stream_slug, $namespace, $pagination = null, $pagination_uri = null, $view_override = false, $extra = array())
 	{
 		$CI = get_instance();
-		$data['buttons'] = $buttons;
+		$data['buttons'] = $extra['buttons'];
 
 		// Get stream
 		$stream = $this->stream_obj($stream_slug, $namespace);
@@ -626,6 +681,12 @@ class Streams_cp extends CI_Driver {
 		// Build Pages
 		// -------------------------------------
 
+		// Set title
+		if (isset($extra['title']))
+		{
+			$CI->template->title($extra['title']);
+		}
+		
 		$CI->template->append_metadata('<script>var fields_offset='.$offset.';</script>');
 		$CI->template->append_js('streams/assignments.js');
 
@@ -648,8 +709,8 @@ class Streams_cp extends CI_Driver {
 	/**
 	 * Tear down assignment + field combo
 	 *
-	 * Usually we'd just delete the assignment, but in
-	 * this can we need to delete the field as well since
+	 * Usually we'd just delete the assignment,
+	 * but we need to delete the field as well since
 	 * there is a 1-1 relationship here.
 	 *
 	 * @access 	public

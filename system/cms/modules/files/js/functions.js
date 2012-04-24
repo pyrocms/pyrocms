@@ -209,7 +209,7 @@ jQuery(function($){
 
 			case 'download':
 				var $item = $(window).data('file_'+pyro.files.$last_r_click.attr('data-id'));
-				log($item);
+
 				if ($item.type === 'i' && $item.location !== 'local') {
 					window.open(SITE_URL+'files/download/'+$item.id);
 				} else {
@@ -442,7 +442,6 @@ jQuery(function($){
 	 * All functions that are part of the pyro.files namespace                 *
 	 ***************************************************************************/
 
-	// todo: maybe we should not save the folder until the user has put a name, fake the folder creation until then?
 	pyro.files.new_folder = function(parent, name) {
 
 		if (typeof(name) === 'undefined') {
@@ -483,7 +482,7 @@ jQuery(function($){
 						.append('<li class="folder" data-id="'+results.data.id+'" data-name="'+results.data.name+'"><div></div><a href="#">'+results.data.name+'</a></li>');
 				} else {
 					// it had no children, we'll have to add the <ul> and the icon class also
-					$parent_li.append('<ul><li class="folder" data-id="'+results.data.id+'" data-name="'+results.data.name+'"><div></div><a href="#">'+results.data.name+'</a></li></ul>');
+					$parent_li.append('<ul style="display:block"><li class="folder" data-id="'+results.data.id+'" data-name="'+results.data.name+'"><div></div><a href="#">'+results.data.name+'</a></li></ul>');
 					$parent_li.addClass('close');			
 				}
 
@@ -704,7 +703,7 @@ jQuery(function($){
 			// file or folder?
 		var type = pyro.files.$last_r_click.hasClass('file') ? 'file' : 'folder';
 			// figure out the ID from the last clicked item
-		var $item_id = pyro.files.$last_r_click.attr('data-id') > 0 ? pyro.files.$last_r_click.attr('data-id') : 0;
+		var $item_id = pyro.files.$last_r_click.attr('data-id') > 0 ? pyro.files.$last_r_click.attr('data-id') : pyro.files.current_level;
 			// retrieve all the data that was stored when the item was initially loaded
 		var $item = $(window).data(type+'_'+$item_id);
 		var $select = $item_details.find('.location');
@@ -762,7 +761,7 @@ jQuery(function($){
 				inline		: true,
 				href		: 'div#item-details',
 				width		: '500',
-				height		: (type === 'file') ? '575' : '380',
+				height		: (type === 'file') ? '575' : '425',
 				opacity		: 0
 			});
 
