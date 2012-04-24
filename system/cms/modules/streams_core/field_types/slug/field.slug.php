@@ -94,7 +94,7 @@ class Field_slug
 			// We don't want no slugs.
 			if($field['field_type'] != 'slug')
 			{
-				$drop[$field['field_slug']] = $field['field_name'];
+				$drop[$field['field_slug']] = $this->CI->fields->translate_label($field['field_name']);
 			}
 		}
 		
