@@ -130,7 +130,7 @@ class Fields_m extends CI_Model {
 	 * @param	[array - any extra data]
 	 * @return	bool
 	 */
-	public function insert_field($field_name, $field_slug, $field_type, $field_namespace, $locked = 'no', $extra = array())
+	public function insert_field($field_name, $field_slug, $field_type, $field_namespace, $extra = array(), $locked = 'no')
 	{
 		$insert_data = array(
 			'field_name' 		=> $field_name,

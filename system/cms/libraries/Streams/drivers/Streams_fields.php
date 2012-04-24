@@ -84,7 +84,7 @@ class Streams_fields extends CI_Driver {
 		// Create Field
 		// -------------------------------------
 
-		if ( ! $this->CI->fields_m->insert_field($name, $slug, $type, $namespace, $locked, $extra)) return false;
+		if ( ! $this->CI->fields_m->insert_field($name, $slug, $type, $namespace, $extra, $locked)) return false;
 		
 		$field_id = $this->CI->db->insert_id();
 
