@@ -28,7 +28,21 @@ class Files
 
 		self::$path = config_item('files:path');
 		self::$_cache_path = config_item('cache_dir').'cloud_cache/';
-		self::$providers = explode(',', Settings::get('files_enabled_providers'));
+
+		if ($providers = Settings::get('files_enabled_providers'))
+		{
+			self::$providers = explode(',', $providers);
+
+			// make 'local' mandatory. We search for the value because of backwards compatibility
+			if ( ! in_array('local', self::$providers))
+			{
+				array_unshift(self::$providers, 'local');
+			}
+		}
+		else
+		{
+			self::$providers = array('local');
+		}
 
 		// work out the most restrictive ini setting
 		$post_max = str_replace('M', '', ini_get('post_max_size'));
