@@ -548,6 +548,10 @@ class Streams_cp extends CI_Driver {
 	
 	 		$offset = $CI->uri->segment($offset_uri, 0);
   		}
+		else
+		{
+			$offset = 0;
+		}
 
 		// -------------------------------------
 		// Get fields
@@ -574,6 +578,10 @@ class Streams_cp extends CI_Driver {
 											$pagination,
 											$offset
 										);
+		}
+		else
+		{ 
+			$data['pagination'] = FALSE;
 		}
 
 		// Allow view to inherit custom 'Add Field' uri
@@ -648,6 +656,10 @@ class Streams_cp extends CI_Driver {
 	
 	 		$offset = $CI->uri->segment($offset_uri, 0);
   		}
+		else
+		{
+			$offset = 0;
+		}
 
 		// -------------------------------------
 		// Get assignments
@@ -681,6 +693,11 @@ class Streams_cp extends CI_Driver {
 											$offset
 										);
 		}
+		else
+		{ 
+			$data['pagination'] = FALSE;
+		}
+
 		// Allow view to inherit custom 'Add Field' uri
 		$data['add_uri'] = isset($extra['add_uri']) ? $extra['add_uri'] : NULL;
 
