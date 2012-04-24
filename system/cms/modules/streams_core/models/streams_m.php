@@ -521,7 +521,7 @@ class Streams_m extends MY_Model {
 	 * @param	int
 	 * @return	mixed
 	 */
-	public function get_stream_fields($stream_id, $limit = false, $offset = false)
+	public function get_stream_fields($stream_id, $limit = false, $offset = false, $skips = array())
 	{	
 		// Check and see if there is a cache
 		if (isset($this->stream_fields_cache[$stream_id]) and ! $limit and ! $offset)
@@ -548,6 +548,8 @@ class Streams_m extends MY_Model {
 				$this->db->limit($limit);
 			}
 		}
+		
+		if (!empty($skips)) $this->db->or_where_not_in('field_slug', $skips);
 		
 		$this->db->where(STREAMS_TABLE.'.id', $stream_id);
 		$this->db->join(ASSIGN_TABLE, STREAMS_TABLE.'.id='.ASSIGN_TABLE.'.stream_id');

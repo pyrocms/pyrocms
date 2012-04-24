@@ -520,6 +520,7 @@ class Streams_cp extends CI_Driver {
 	 * @param	[null - pagination uri without offset]
 	 * @param	[bool - setting this to true will take care of the $this->template business
 	 * @param	[array - extra params (see below)]
+	 * @param	[array - fields to skip]
 	 *
 	 * Extra parameters to pass in $extra array:
 	 *
@@ -535,7 +536,7 @@ class Streams_cp extends CI_Driver {
 	 *
 	 * see docs for more explanation
 	 */
-	public function fields_table($stream_slug, $namespace, $pagination = null, $pagination_uri = null, $view_override = false, $extra = array())
+	public function fields_table($namespace, $pagination = null, $pagination_uri = null, $view_override = false, $extra = array(), $skips = array())
 	{
 		$CI = get_instance();
 		$data['buttons'] = isset($extra['buttons']) ? $extra['buttons'] : NULL;
@@ -554,11 +555,11 @@ class Streams_cp extends CI_Driver {
 
 		if (is_numeric($pagination))
 		{	
-			$data['fields'] = $CI->fields_m->get_fields($namespace, $pagination, $offset);
+			$data['fields'] = $CI->fields_m->get_fields($namespace, $pagination, $offset, $skips);
 		}
 		else
 		{
-			$data['fields'] = $CI->fields_m->get_fields($namespace);
+			$data['fields'] = $CI->fields_m->get_fields($namespace, FALSE, 0, $skips);
 		}
 
 		// -------------------------------------
@@ -612,6 +613,7 @@ class Streams_cp extends CI_Driver {
 	 * @param	[null - pagination uri without offset]
 	 * @param	[bool - setting this to true will take care of the $this->template business
 	 * @param	[array - extra params (see below)]
+	 * @param	[array - fields to skip]
 	 *
 	 * Extra parameters to pass in $extra array:
 	 *
@@ -627,7 +629,7 @@ class Streams_cp extends CI_Driver {
 	 *
 	 * see docs for more explanation
 	 */
-	public function assignments_table($stream_slug, $namespace, $pagination = null, $pagination_uri = null, $view_override = false, $extra = array())
+	public function assignments_table($stream_slug, $namespace, $pagination = null, $pagination_uri = null, $view_override = false, $extra = array(), $skips = array())
 	{
 		$CI = get_instance();
 		$data['buttons'] = $extra['buttons'];
@@ -650,11 +652,11 @@ class Streams_cp extends CI_Driver {
 
 		if (is_numeric($pagination))
 		{	
-			$data['assignments'] = $CI->streams_m->get_stream_fields($stream->id, $pagination, $offset);
+			$data['assignments'] = $CI->streams_m->get_stream_fields($stream->id, $pagination, $offset, $skips);
 		}
 		else
 		{
-			$data['assignments'] = $CI->streams_m->get_stream_fields($stream->id);
+			$data['assignments'] = $CI->streams_m->get_stream_fields($stream->id, null, 0, $skips);
 		}
 
 		// -------------------------------------
