@@ -576,6 +576,9 @@ class Streams_cp extends CI_Driver {
 										);
 		}
 
+		// Allow view to inherit custom 'Add Field' uri
+		$data['add_uri'] = isset($extra['add_uri']) ? $extra['add_uri'] : NULL;
+		
 		// -------------------------------------
 		// Build Pages
 		// -------------------------------------
@@ -678,6 +681,8 @@ class Streams_cp extends CI_Driver {
 											$offset
 										);
 		}
+		// Allow view to inherit custom 'Add Field' uri
+		$data['add_uri'] = isset($extra['add_uri']) ? $extra['add_uri'] : NULL;
 
 		// -------------------------------------
 		// Build Pages
