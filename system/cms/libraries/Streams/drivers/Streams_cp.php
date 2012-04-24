@@ -715,9 +715,10 @@ class Streams_cp extends CI_Driver {
 	 *
 	 * @access 	public
 	 * @param 	int - assignment id
+	 * @param 	bool - force delete field, even if it is shared with multiple streams
 	 * @return 	bool - success/fail
 	 */
-	public function teardown_assignment_field($assign_id)
+	public function teardown_assignment_field($assign_id, $force_delete = FALSE)
 	{
 		$CI = get_instance();
 
@@ -728,7 +729,7 @@ class Streams_cp extends CI_Driver {
 		{
 			$this->log_error('invalid_assignment', 'teardown_assignment_field');
 		}
-
+		
 		// Get stream
 		$stream = $CI->streams_m->get_stream($assignment->stream_id);
 
@@ -740,9 +741,19 @@ class Streams_cp extends CI_Driver {
 		{
 			$this->log_error('invalid_assignment', 'teardown_assignment_field');
 		}
+		
+		// Remove the field only if unlocked and assigned once
+		if($field->is_locked == 'no' and $CI->fields_m->count_assignments($assignment->field_id) > 1)
+		{
+			// Remove the field
+			return $CI->fields_m->delete_field($field->id);
+		}
+		elseif($force_delete)
+		{
+			// Force delete field regardless of previous checks
+			return $CI->fields_m->delete_field($field->id);
+		}
 
-		// Remove the field
-		return $CI->fields_m->delete_field($field->id);
 	}
 
 }
