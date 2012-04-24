@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<docblox>
+<phpdoc>
 	<title>PyroCMS v2.1.0 API</title>
     <parser>
         <default-package-name>No Package</default-package-name>
@@ -21,11 +21,6 @@
         <ignore>*/errors/*</ignore>
         <ignore>*/config/*.php</ignore>
     </files>
-    <plugins>
-        <plugin path="Core">
-            <option name="a">value</option>
-        </plugin>
-    </plugins>
     <logging>
         <level>warn</level>
         <paths>
@@ -33,4 +28,4 @@
             <errors>../docs.pyrocms.com/2.1/api/{DATE}.errors.log</errors>
         </paths>
     </logging>
-</docblox>
+</phpdoc>
