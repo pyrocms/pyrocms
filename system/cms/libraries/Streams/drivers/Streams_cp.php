@@ -167,7 +167,7 @@ class Streams_cp extends CI_Driver {
 	 * 							standard * for the PyroCMS CP
 	 * title				- Title of the form header (if using view override)
 	 */
-	function form($stream_slug, $namespace_slug, $mode = 'new', $entry_id = null, $view_override = false, $extra = array(), $skips = array())
+	function entry_form($stream_slug, $namespace_slug, $mode = 'new', $entry_id = null, $view_override = false, $extra = array(), $skips = array())
 	{
 		$CI = get_instance();
 	
@@ -210,7 +210,7 @@ class Streams_cp extends CI_Driver {
 			$data['return'] = $extra['return'];
 		}
 		
-		$CI->template->append_js('streams/form.js');
+		$CI->template->append_js('streams/entry_form.js');
 		
 		$form = $CI->load->view('admin/partials/streams/form', $data, true);
 		
