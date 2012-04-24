@@ -889,7 +889,7 @@ class Field_datetime
 	{
 		if ( ! $input) return null;
 
-		if (is_numeric($input))
+		if ( ! is_numeric($input))
 		{
 			$this->CI->load->helper('date');
 			return mysql_to_unix($input);
