@@ -569,7 +569,7 @@ class Streams_cp extends CI_Driver {
 		{	
 			$data['pagination'] = create_pagination(
 											$pagination_uri,
-											$CI->fields_m->count_fields('users'),
+											$CI->fields_m->count_fields($namespace),
 											$pagination,
 											$offset
 										);
@@ -661,7 +661,7 @@ class Streams_cp extends CI_Driver {
 		// Get number of fields total
 		// -------------------------------------
 		
-		$data['total_existing_fields'] = $CI->fields_m->count_fields('users');
+		$data['total_existing_fields'] = $CI->fields_m->count_fields($namespace);
 
 		// -------------------------------------
 		// Pagination
@@ -671,7 +671,7 @@ class Streams_cp extends CI_Driver {
 		{	
 			$data['pagination'] = create_pagination(
 											$pagination_uri,
-											$CI->fields_m->count_fields('users'),
+											$CI->fields_m->count_fields($namespace),
 											$pagination,
 											$offset
 										);
