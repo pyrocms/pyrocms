@@ -41,22 +41,22 @@ class Streams_m extends MY_Model {
 	public $streams_validation = array(
 		array(
 			'field'	=> 'stream_name',
-			'label' => 'Steam Name',
+			'label' => 'lang:streams.stream_name',
 			'rules'	=> 'trim|required|max_length[60]'
 		),
 		array(
 			'field'	=> 'stream_slug',
-			'label' => 'Steam Slug',
+			'label' => 'lang:streams.stream_slug',
 			'rules'	=> 'trim|required|max_length[60]|slug_safe'
 		),
 		array(
 			'field'	=> 'stream_prefix',
-			'label' => 'streams:stream_prefix',
+			'label' => 'lang:streams:stream_prefix',
 			'rules'	=> 'trim|max_length[60]'
 		),
 		array(
 			'field'	=> 'about',
-			'label' => 'About This Stream',
+			'label' => 'lang:streams.about_stream',
 			'rules'	=> 'trim|max_length[255]'
 		)
 	);
@@ -521,7 +521,7 @@ class Streams_m extends MY_Model {
 	 * @param	int
 	 * @return	mixed
 	 */
-	public function get_stream_fields($stream_id, $limit = false, $offset = false)
+	public function get_stream_fields($stream_id, $limit = false, $offset = false, $skips = array())
 	{	
 		// Check and see if there is a cache
 		if (isset($this->stream_fields_cache[$stream_id]) and ! $limit and ! $offset)
@@ -548,6 +548,8 @@ class Streams_m extends MY_Model {
 				$this->db->limit($limit);
 			}
 		}
+		
+		if (!empty($skips)) $this->db->or_where_not_in('field_slug', $skips);
 		
 		$this->db->where(STREAMS_TABLE.'.id', $stream_id);
 		$this->db->join(ASSIGN_TABLE, STREAMS_TABLE.'.id='.ASSIGN_TABLE.'.stream_id');
