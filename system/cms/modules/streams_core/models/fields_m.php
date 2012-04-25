@@ -58,8 +58,10 @@ class Fields_m extends CI_Model {
      * @param	[int offset]
      * @return	obj
      */
-    public function get_fields($namespace = NULL, $limit = FALSE, $offset = 0)
+    public function get_fields($namespace = NULL, $limit = FALSE, $offset = 0, $skips = array())
 	{
+		if (!empty($skips)) $this->db->or_where_not_in('field_slug', $skips);
+		
 		if ($namespace) $this->db->where('field_namespace', $namespace);
 	
 		if ($offset) $this->db->offset($offset);
@@ -128,13 +130,14 @@ class Fields_m extends CI_Model {
 	 * @param	[array - any extra data]
 	 * @return	bool
 	 */
-	public function insert_field($field_name, $field_slug, $field_type, $field_namespace, $extra = array())
+	public function insert_field($field_name, $field_slug, $field_type, $field_namespace, $extra = array(), $locked = 'no')
 	{
 		$insert_data = array(
 			'field_name' 		=> $field_name,
 			'field_slug'		=> $field_slug,
 			'field_namespace'	=> $field_namespace,
-			'field_type'		=> $field_type
+			'field_type'		=> $field_type,
+			'is_locked'			=> $locked
 		);
 	
 		// Load the type to see if there are other fields
@@ -408,6 +411,24 @@ class Fields_m extends CI_Model {
 			// Boo.
 			return false;
 		}
+	}
+
+	// --------------------------------------------------------------------------
+
+    /**
+     * Count assignments
+     *
+     * @access	public
+     * @return	int
+     */
+	public function count_assignments($field_id)
+	{
+		if ( ! $field_id) return 0;
+
+		return $this->db
+				->where('field_id', $field_id)
+				->from($this->db->dbprefix(ASSIGN_TABLE))
+				->count_all_results();
 	}
 
 	// --------------------------------------------------------------------------

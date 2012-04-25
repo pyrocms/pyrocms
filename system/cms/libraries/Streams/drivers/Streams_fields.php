@@ -73,6 +73,9 @@ class Streams_fields extends CI_Driver {
 			$this->log_error('invalid_fieldtype', 'add_field');
 			return false;
 		}
+
+		// Set locked 
+		$locked = isset($locked) and $locked === true ? 'yes' : 'no';
 		
 		// Set extra
 		if ( ! isset($extra) or ! is_array($extra)) $extra = array();
@@ -81,7 +84,7 @@ class Streams_fields extends CI_Driver {
 		// Create Field
 		// -------------------------------------
 
-		if ( ! $this->CI->fields_m->insert_field($name, $slug, $type, $namespace, $extra)) return false;
+		if ( ! $this->CI->fields_m->insert_field($name, $slug, $type, $namespace, $extra, $locked)) return false;
 		
 		$field_id = $this->CI->db->insert_id();
 
@@ -197,6 +200,12 @@ class Streams_fields extends CI_Driver {
 		if (isset($required) and $required === true)
 		{
 			$data['is_required'] = 'yes';
+		}
+	
+		// Is Locked
+		if (isset($locked) and $locked === true)
+		{
+			$data['is_locked'] = 'yes';
 		}
 	
 		// Add actual assignment
