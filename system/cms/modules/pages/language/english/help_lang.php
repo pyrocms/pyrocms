@@ -30,7 +30,7 @@ Refer to the Page Layouts section below for instructions on how to best use Page
 <p>Allows you to turn on comments and an rss feed for this page. You can also restrict a page to specific logged in user groups by setting the Access field. 
 If the RSS feed is enabled a visitor can subscribe to this page and they will receive each child page in their rss reader.</p>
 <p>The \"Require an exact uri match\" field is a clever little tool that allows you to pass parameters in the url. By default PyroCMS looks for a page with 
-the slug of \"acme-widgets\" that is the child of \"products\" when you visit ".site_url('products/acme-widgets').". By checking this box in the Products 
+the slug of \"acme-widgets\" that is the child of \"products\" when you visit \".site_url('products/acme-widgets').\". By checking this box in the Products 
 page you are telling PyroCMS that it is now okay if there isn't a page named Acme Widgets. It will now load Products and 'acme-widgets' will just be a parameter.
 This makes it easy to pass parameters to embedded tags. An example using the Streams add-on to display the 'acme-widgets' stream on the Products page: 
 <pre><code>{{ streams:cycle stream={url:segments segment=\"2\"} }}
