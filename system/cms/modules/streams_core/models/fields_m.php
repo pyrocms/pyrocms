@@ -149,7 +149,14 @@ class Fields_m extends CI_Model {
 		
 			foreach ($field_type->custom_parameters as $param)
 			{
-				if(isset($extra[$param])) $extra_data[$param] = $extra[$param];
+				if (method_exists($field_type, 'param_'.$param.'_pre_save'))
+				{
+					$extra_data[$param] = $field_type->{'param_'.$param.'_pre_save'}($insert_data);
+				}
+				elseif(isset($extra[$param]))
+				{
+					$extra_data[$param] = $extra[$param];
+				}
 			}
 		
 			$insert_data['field_data'] = serialize($extra_data);
@@ -383,13 +390,13 @@ class Fields_m extends CI_Model {
 		{
 			foreach ($type->custom_parameters as $param)
 			{
-				if (isset($data[$param]))
+				if (method_exists($type, 'param_'.$param.'_pre_save'))
+				{
+					$custom_params[$param] = $type->{'param_'.$param.'_pre_save'}($update_data);
+				}
+				elseif(isset($data[$param]))
 				{
 					$custom_params[$param] = $data[$param];
-				}	
-				else
-				{
-					$custom_params[$param] = null;
 				}
 			}
 
