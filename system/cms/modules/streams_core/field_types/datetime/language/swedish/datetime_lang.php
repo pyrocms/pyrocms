@@ -19,7 +19,7 @@ $lang['streams.datetime.start_date']		= 'Begränsa starttid';
 $lang['streams.datetime.end_date']		= 'Begränsa sluttid';
 $lang['streams.datetime.rest_instructions']		= 'Använder en del av dagens datum (Ex: -20) eller dag (D), månad(M), och år (Y). Ex: +1D +2Y<';
 $lang['streams.datetime.storage']		= 'Lagringsformat';
-
+$lang['streams.invalid_input_for_date_range_check'] = 'Invalid date input for data range check.'; #translate
 
 
 /* End of file datetime_lang.php */  

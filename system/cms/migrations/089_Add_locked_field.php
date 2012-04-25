@@ -9,13 +9,16 @@ class Migration_Add_locked_field extends CI_Migration {
     {
     	$this->load->config('streams_core/streams');
 
-        $this->dbforge->add_column($this->config->item('streams:fields_table'), array(
-            'is_locked' => array(
-				'type' => 'ENUM',
-				'constraint' => array('yes', 'no'),
-				'default' => 'no'
-			)
-        ));
+        if ( ! $this->db->field_exists('is_locked', $this->config->item('streams:fields_table')))
+        {
+            $this->dbforge->add_column($this->config->item('streams:fields_table'), array(
+                'is_locked' => array(
+    				'type' => 'ENUM',
+    				'constraint' => array('yes', 'no'),
+    				'default' => 'no'
+    			)
+            ));
+        }
     }
 
     public function down()
