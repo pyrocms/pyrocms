@@ -145,6 +145,12 @@ class Field_datetime
 					return lang('streams.date_out_or_range');
 				}
 			}
+			elseif ( ! $restrict['end_stamp'] and ! $restrict['start_stamp'])
+			{
+				// Two blank ranges means we don't need
+				// to check any range.
+				return true;
+			}
 			else
 			{
 				// Is the point before the start or
@@ -534,46 +540,33 @@ class Field_datetime
 
 	// --------------------------------------------------------------------------
 
+	/**
+	 * Since we are not converting datetime/unix values right now,
+	 * this just ensures that we do not change the type.
+	 *
+	 * @access 	public
+	 * @param 	obj - field
+	 * @param 	obj - stream
+	 * @param 	obj - assignment
+	 * @return 	void
+	 */
 	public function alt_rename_column($field, $stream, $assignment)
 	{
 		// What do we need to switch to?
 		if ($this->CI->input->post('storage') == 'unix')
 		{
-			$switch_to = 'int';
+			$type = 'int';
 		}
 		else
 		{
-			$switch_to = ($this->CI->input->post('use_time') == 'yes') ? 'datetime' : 'date';
+			$type = ($this->CI->input->post('use_time') == 'yes') ? 'datetime' : 'date';
 		}
-
-		$this->CI->load->dbforge();
-
-		$table = $this->CI->db->dbprefix($assignment->stream_prefix.$assignment->stream_slug);
-		
-		$old_col_name = $field->field_slug;
 
 		$col_data = $this->CI->fields_m->field_data_to_col_data($this->CI->type->types->{$field->field_type}, $this->CI->input->post(), 'edit');
-		
-		$col_data['type'] = strtoupper($switch_to);
 
-		// UNIX -> Datetime
-		if ($field->field_data['storage'] == 'unix' and $this->CI->input->post('storage') == 'datetime')
-		{
-			$this->CI->db->query("ALTER TABLE `{$table}` CHANGE `{$old_col_name}` `tmp_unix_time_column` int(11) NOT NULL");
-			$this->CI->db->query("ALTER TABLE `{$table}` ADD `{$old_col_name}` {strtoupper($switch_to)} NOT NULL");
-			$this->CI->db->query("UPDATE `{$table}` SET `{$old_col_name}`=FROM_UNIXTIME(unix_time)");
-			$this->CI->db->query("ALTER TABLE `{$old_col_name}` DROP `tmp_unix_time_column`");
-		}
-		// Datetime -> UNIX
-		elseif ($field->field_data['storage'] == 'datetime' and $this->CI->input->post('storage') == 'unix')
-		{
+		$col_data['type'] = strtoupper($type);
 
-		}
-		// No change in type
-		elseif ($field->field_data['storage'] == $this->CI->input->post('storage'))
-		{
-			$this->CI->dbforge->modify_column($assignment->stream_prefix.$assignment->stream_slug, array($field->field_slug => $col_data));
-		}
+		$this->CI->dbforge->modify_column($assignment->stream_prefix.$assignment->stream_slug, array($field->field_slug => $col_data));
 	}
 
 	// --------------------------------------------------------------------------
@@ -891,8 +884,15 @@ class Field_datetime
 					'datetime'	=> 'MySQL Datetime',
 					'unix'		=> 'Unix Time'			
 		);
-			
-		return form_dropdown('storage', $options, $value);
+
+		if ($value)
+		{
+			return form_hidden('storage', $value).'<p>'.$options[$value].'</p>';
+		}
+		else
+		{
+			return form_dropdown('storage', $options, $value);
+		}
 	}
 
 	// --------------------------------------------------------------------------
