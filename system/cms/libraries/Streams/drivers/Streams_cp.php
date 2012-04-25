@@ -773,17 +773,11 @@ class Streams_cp extends CI_Driver {
 		}
 		
 		// Remove the field only if unlocked and assigned once
-		if($field->is_locked == 'no' and $CI->fields_m->count_assignments($assignment->field_id) > 1)
+		if ($field->is_locked == 'no' or $CI->fields_m->count_assignments($assignment->field_id) == 1 or $force_delete)
 		{
 			// Remove the field
 			return $CI->fields_m->delete_field($field->id);
 		}
-		elseif($force_delete)
-		{
-			// Force delete field regardless of previous checks
-			return $CI->fields_m->delete_field($field->id);
-		}
-
 	}
 
 }
