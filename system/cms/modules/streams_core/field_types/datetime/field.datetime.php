@@ -71,8 +71,54 @@ class Field_datetime
 	 */
 	public function validate($value, $mode, $field)
 	{
+		// -------------------------------
+		// Drop Down Required
+		// -------------------------------
+		// Since drop down requires three
+		// separte fields, we do required
+		// here. A dummy field is already
+		// set up in the form to pass
+		// required validation.
+		// -------------------------------
+
+		if ($field->field_data['input_type'] == 'dropdown')
+		{
+			// Get the rules
+			$field_data = $this->CI->form_validation->field_data($field->field_slug);
+		
+			// Get rules
+			$rules = $field_data['rules'];
+		
+			$rules_array = explode('|', $rules);
+
+			// Is this required?
+			if (in_array('required', $rules_array))
+			{
+				// Are all three fields available?
+				if ( ! $_POST[$field->field_slug.'_month'] or ! $_POST[$field->field_slug.'_day'] or ! $_POST[$field->field_slug.'_year'])
+				{
+					return lang('required');
+				}
+			}
+		}
+
+		// -------------------------------
+		// Date Range Validation
+		// -------------------------------
+
 		if (is_array($restrict = $this->parse_restrict($field->field_data)))
 		{
+			// Man we gotta convert this now if it's.
+			if ($field->field_data['input_type'] == 'dropdown')
+			{
+				if ( ! $_POST[$field->field_slug.'_month'] or ! $_POST[$field->field_slug.'_day'] or ! $_POST[$field->field_slug.'_year'])
+				{
+					return lang('streams.invalid_input_for_date_range_check');
+				}
+
+				$value = $this->CI->input->post($field->field_slug.'_year').'-'.$this->CI->input->post($field->field_slug.'_month').'-'.$this->CI->input->post($field->field_slug.'_day');
+			}
+
 			$this->CI->load->helper('date');
 
 			// Make sure input is in unix time
@@ -182,7 +228,7 @@ class Field_datetime
 		else
 		{
 			$find 		= array('Y', 'M', 'W', 'D');
-			$replace 	= array('years', 'months', 'weeks', 'days');
+			$replace 	= array(' years', ' months', ' weeks', ' days');
 
 			$strtotime = str_replace($find, $replace, $string);
 		}
@@ -214,7 +260,7 @@ class Field_datetime
 	 * @param	array
 	 * @return	string
 	 */
-	public function form_output($data)
+	public function form_output($data, $entry_id, $field)
 	{
 		// -------------------------------------
 		// Parse Date Range
@@ -259,6 +305,10 @@ class Field_datetime
 		// the jQuery datepicker or a series
 		// of drop down menus.
 		// -------------------------------------
+		
+		$current_month = (isset($_POST[$data['form_slug'].'_month'])) ? $_POST[$data['form_slug'].'_month'] : $date['month'];
+		$current_day = (isset($_POST[$data['form_slug'].'_day'])) ? $_POST[$data['form_slug'].'_day'] : $date['day'];
+		$current_year = (isset($_POST[$data['form_slug'].'_year'])) ? $_POST[$data['form_slug'].'_year'] : $date['year'];
 	
 		if ($input_type == 'datepicker')
 		{
@@ -319,13 +369,25 @@ class Field_datetime
 			);
 
 			$months = array_combine($months = range(1, 12), $month_names);
-			$date_input .= form_dropdown($data['form_slug'].'_month', $months, $date['month']);
+
+			if ($field->is_required == 'no')
+			{
+				$months = array('' => '---')+$months;
+			}
+
+			$date_input .= form_dropdown($data['form_slug'].'_month', $months, $current_month);
 
 			// Days
-	    	$days 	= array_combine($days 	= range(1, 31), $days);
-			$date_input .= form_dropdown($data['form_slug'].'_day', $days, $date['day']);
+			$days = array_combine($days = range(1, 31), $days);
 
-			// Years. The defauly is 120 years
+			if ($field->is_required == 'no')
+			{
+				$days = array('' => '---')+$days;
+			}
+
+			$date_input .= form_dropdown($data['form_slug'].'_day', $days, $current_day);
+
+			// Years. The defauly is 100 years
 			// ago to now.
 			$start_year = date('Y')-100;
 			$end_year	= date('Y');
@@ -344,9 +406,15 @@ class Field_datetime
 			}
 
 			// Find the end year
-	    	$years 	= array_combine($years = range($start_year, $end_year), $years);
+			$years = array_combine($years = range($start_year, $end_year), $years);
 	    	arsort($years, SORT_NUMERIC);
-			$date_input .= form_dropdown($data['form_slug'].'_year', $years, $date['year']);
+
+			if ($field->is_required == 'no')
+			{
+				$years = array('' => '---')+$years;
+			}
+
+			$date_input .= form_dropdown($data['form_slug'].'_year', $years, $current_year);
 		}
 					
 		// -------------------------------------
@@ -425,7 +493,9 @@ class Field_datetime
 		// Add hidden value for drop downs
 		if ($input_type == 'dropdown')
 		{
-			$date_input .= form_hidden($data['form_slug'], $data['value']);
+			// We always set this to 1 because we are performing
+			// the required check in the validate function.
+			$date_input .= form_hidden($data['form_slug'], '1');
 		}
 
 		return $date_input;
@@ -693,7 +763,7 @@ class Field_datetime
 			return $out;
 		}
 		
-		if ($date == 'dummy')
+		if ($date == 'dummy' or $date == '1')
 		{
 			$date = $_POST[$slug.'_year'].'-'.$_POST[$slug.'_month'].'-'.$_POST[$slug.'_day'];
 			
@@ -731,7 +801,7 @@ class Field_datetime
 			// Format hour for our drop down since we are using am/pm
 			if( $out['hour'] > 12 ) $out['hour'] = $out['hour']-12;
 		}
-	
+
 		return $out;
 	}
 
