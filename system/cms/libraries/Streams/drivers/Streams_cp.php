@@ -167,7 +167,7 @@ class Streams_cp extends CI_Driver {
 	 * 							standard * for the PyroCMS CP
 	 * title				- Title of the form header (if using view override)
 	 */
-	function form($stream_slug, $namespace_slug, $mode = 'new', $entry_id = null, $view_override = false, $extra = array(), $skips = array())
+	function entry_form($stream_slug, $namespace_slug, $mode = 'new', $entry_id = null, $view_override = false, $extra = array(), $skips = array())
 	{
 		$CI = get_instance();
 	
@@ -210,7 +210,7 @@ class Streams_cp extends CI_Driver {
 			$data['return'] = $extra['return'];
 		}
 		
-		$CI->template->append_js('streams/form.js');
+		$CI->template->append_js('streams/entry_form.js');
 		
 		$form = $CI->load->view('admin/partials/streams/form', $data, true);
 		
@@ -520,6 +520,7 @@ class Streams_cp extends CI_Driver {
 	 * @param	[null - pagination uri without offset]
 	 * @param	[bool - setting this to true will take care of the $this->template business
 	 * @param	[array - extra params (see below)]
+	 * @param	[array - fields to skip]
 	 *
 	 * Extra parameters to pass in $extra array:
 	 *
@@ -535,7 +536,7 @@ class Streams_cp extends CI_Driver {
 	 *
 	 * see docs for more explanation
 	 */
-	public function fields_table($stream_slug, $namespace, $pagination = null, $pagination_uri = null, $view_override = false, $extra = array())
+	public function fields_table($namespace, $pagination = null, $pagination_uri = null, $view_override = false, $extra = array(), $skips = array())
 	{
 		$CI = get_instance();
 		$data['buttons'] = isset($extra['buttons']) ? $extra['buttons'] : NULL;
@@ -547,6 +548,10 @@ class Streams_cp extends CI_Driver {
 	
 	 		$offset = $CI->uri->segment($offset_uri, 0);
   		}
+		else
+		{
+			$offset = 0;
+		}
 
 		// -------------------------------------
 		// Get fields
@@ -554,11 +559,11 @@ class Streams_cp extends CI_Driver {
 
 		if (is_numeric($pagination))
 		{	
-			$data['fields'] = $CI->fields_m->get_fields($namespace, $pagination, $offset);
+			$data['fields'] = $CI->fields_m->get_fields($namespace, $pagination, $offset, $skips);
 		}
 		else
 		{
-			$data['fields'] = $CI->fields_m->get_fields($namespace);
+			$data['fields'] = $CI->fields_m->get_fields($namespace, FALSE, 0, $skips);
 		}
 
 		// -------------------------------------
@@ -574,7 +579,14 @@ class Streams_cp extends CI_Driver {
 											$offset
 										);
 		}
+		else
+		{ 
+			$data['pagination'] = FALSE;
+		}
 
+		// Allow view to inherit custom 'Add Field' uri
+		$data['add_uri'] = isset($extra['add_uri']) ? $extra['add_uri'] : NULL;
+		
 		// -------------------------------------
 		// Build Pages
 		// -------------------------------------
@@ -612,6 +624,7 @@ class Streams_cp extends CI_Driver {
 	 * @param	[null - pagination uri without offset]
 	 * @param	[bool - setting this to true will take care of the $this->template business
 	 * @param	[array - extra params (see below)]
+	 * @param	[array - fields to skip]
 	 *
 	 * Extra parameters to pass in $extra array:
 	 *
@@ -627,7 +640,7 @@ class Streams_cp extends CI_Driver {
 	 *
 	 * see docs for more explanation
 	 */
-	public function assignments_table($stream_slug, $namespace, $pagination = null, $pagination_uri = null, $view_override = false, $extra = array())
+	public function assignments_table($stream_slug, $namespace, $pagination = null, $pagination_uri = null, $view_override = false, $extra = array(), $skips = array())
 	{
 		$CI = get_instance();
 		$data['buttons'] = $extra['buttons'];
@@ -643,6 +656,10 @@ class Streams_cp extends CI_Driver {
 	
 	 		$offset = $CI->uri->segment($offset_uri, 0);
   		}
+		else
+		{
+			$offset = 0;
+		}
 
 		// -------------------------------------
 		// Get assignments
@@ -650,11 +667,11 @@ class Streams_cp extends CI_Driver {
 
 		if (is_numeric($pagination))
 		{	
-			$data['assignments'] = $CI->streams_m->get_stream_fields($stream->id, $pagination, $offset);
+			$data['assignments'] = $CI->streams_m->get_stream_fields($stream->id, $pagination, $offset, $skips);
 		}
 		else
 		{
-			$data['assignments'] = $CI->streams_m->get_stream_fields($stream->id);
+			$data['assignments'] = $CI->streams_m->get_stream_fields($stream->id, null, 0, $skips);
 		}
 
 		// -------------------------------------
@@ -676,6 +693,13 @@ class Streams_cp extends CI_Driver {
 											$offset
 										);
 		}
+		else
+		{ 
+			$data['pagination'] = FALSE;
+		}
+
+		// Allow view to inherit custom 'Add Field' uri
+		$data['add_uri'] = isset($extra['add_uri']) ? $extra['add_uri'] : NULL;
 
 		// -------------------------------------
 		// Build Pages
@@ -715,9 +739,10 @@ class Streams_cp extends CI_Driver {
 	 *
 	 * @access 	public
 	 * @param 	int - assignment id
+	 * @param 	bool - force delete field, even if it is shared with multiple streams
 	 * @return 	bool - success/fail
 	 */
-	public function teardown_assignment_field($assign_id)
+	public function teardown_assignment_field($assign_id, $force_delete = FALSE)
 	{
 		$CI = get_instance();
 
@@ -728,7 +753,7 @@ class Streams_cp extends CI_Driver {
 		{
 			$this->log_error('invalid_assignment', 'teardown_assignment_field');
 		}
-
+		
 		// Get stream
 		$stream = $CI->streams_m->get_stream($assignment->stream_id);
 
@@ -740,9 +765,19 @@ class Streams_cp extends CI_Driver {
 		{
 			$this->log_error('invalid_assignment', 'teardown_assignment_field');
 		}
+		
+		// Remove the field only if unlocked and assigned once
+		if($field->is_locked == 'no' and $CI->fields_m->count_assignments($assignment->field_id) > 1)
+		{
+			// Remove the field
+			return $CI->fields_m->delete_field($field->id);
+		}
+		elseif($force_delete)
+		{
+			// Force delete field regardless of previous checks
+			return $CI->fields_m->delete_field($field->id);
+		}
 
-		// Remove the field
-		return $CI->fields_m->delete_field($field->id);
 	}
 
 }

@@ -28,6 +28,8 @@
 						{
 							foreach($buttons as $button)
 							{
+								// don't render button if field is locked and $button['locked'] is set to TRUE
+								if($assignment->is_locked == 'yes' and isset($button['locked']) and $button['locked']) continue;
 								$class = (isset($button['confirm']) and $button['confirm']) ? 'button confirm' : 'button';
 								$all_buttons[] = anchor(str_replace('-assign_id-', $assignment->assign_id, $button['url']), $button['label'], 'class="'.$class.'"');
 							}
@@ -46,7 +48,5 @@
 <?php echo $pagination['links']; ?>
 
 <?php else: ?>
-
-	<div class="no_data">No data.</div>
-   
+	<div class="no_data"><?php echo lang('streams.start.no_fields');?> <?php echo anchor(isset($add_uri) ? $add_uri : 'admin/streams/fields/add', lang('streams.start.add_one'), 'class="add"'); ?>.</div>
 <?php endif;?>

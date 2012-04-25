@@ -117,7 +117,12 @@ $config['streams:schema'] = array(
 	        		),
 	        	'view_options' => array(
 	        			'type' => 'BLOB',
-	        			'null' => TRUE)
+	        			'null' => TRUE),
+				'is_locked' => array(
+						'type' => 'ENUM',
+						'constraint' => array('yes', 'no'),
+						'default' => 'no'
+					),
 	     ),
         'primary_key' => 'id'),
     $config['streams:assignments_table'] => array(
