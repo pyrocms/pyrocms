@@ -154,7 +154,7 @@ jQuery(function($){
 				}
 
 				// and hide it if they don't have permission for it
-				if ($(this).attr('data-role') && pyro.files.permissions.indexOf($(this).attr('data-role')) < 0) {
+				if ($(this).attr('data-role') && $.inArray($(this).attr('data-role'), pyro.files.permissions) < 0) {
 					$(this).hide();
 				}
 
@@ -353,7 +353,7 @@ jQuery(function($){
 				var resize = '';
 				var type = files[index]['type'];
 				// if it isn't an image then they can't resize it
-				if (type.search('image') >= 0) {
+				if (type && type.search('image') >= 0) {
 					resize = 	'<label>'+pyro.lang.width+'</label>'+
 								'<select name="width" class="skip"><option value="0">'+pyro.lang.full_size+'</option><option value="100">100px</option><option value="200">200px</option><option value="300">300px</option><option value="400">400px</option><option value="500">500px</option><option value="600">600px</option><option value="700">700px</option><option value="800">800px</option><option value="900">900px</option><option value="1000">1000px</option><option value="1100">1100px</option><option value="1200">1200px</option><option value="1300">1300px</option><option value="1400">1400px</option><option value="1500">1500px</option><option value="1600">1600px</option><option value="1700">1700px</option><option value="1800">1800px</option><option value="1900">1900px</option><option value="2000">2000px</option></select>'+
 								'<label>'+pyro.lang.height+'</label>'+
