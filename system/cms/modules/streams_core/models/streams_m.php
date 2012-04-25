@@ -41,22 +41,22 @@ class Streams_m extends MY_Model {
 	public $streams_validation = array(
 		array(
 			'field'	=> 'stream_name',
-			'label' => 'Steam Name',
+			'label' => 'lang:streams.stream_name',
 			'rules'	=> 'trim|required|max_length[60]'
 		),
 		array(
 			'field'	=> 'stream_slug',
-			'label' => 'Steam Slug',
+			'label' => 'lang:streams.stream_slug',
 			'rules'	=> 'trim|required|max_length[60]|slug_safe'
 		),
 		array(
 			'field'	=> 'stream_prefix',
-			'label' => 'streams:stream_prefix',
+			'label' => 'lang:streams:stream_prefix',
 			'rules'	=> 'trim|max_length[60]'
 		),
 		array(
 			'field'	=> 'about',
-			'label' => 'About This Stream',
+			'label' => 'lang:streams.about_stream',
 			'rules'	=> 'trim|max_length[255]'
 		)
 	);
