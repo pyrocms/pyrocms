@@ -481,11 +481,17 @@ class Streams_cp extends CI_Driver {
 			}
 		}
 
-		$CI->template->append_js('streams/fields.js');
+		// -------------------------------------
+		// Run field setup events
+		// -------------------------------------
+
+		$CI->fields->run_field_setup_events($stream, $method, $data['current_field']);
 
 		// -------------------------------------
 		// Build page
 		// -------------------------------------
+
+		$CI->template->append_js('streams/fields.js');
 
 		// Set title
 		if (isset($extra['title']))
