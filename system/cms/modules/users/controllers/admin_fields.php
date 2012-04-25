@@ -68,7 +68,9 @@ class Admin_fields extends Admin_Controller {
 	 */
 	function create()
 	{
-		$this->streams->cp->field_form('profiles', 'users', 'new', 'admin/users/fields', null, array(), true);
+		$extra['title'] = lang('streams.new_field');
+
+		$this->streams->cp->field_form('profiles', 'users', 'new', 'admin/users/fields', null, array(), true, $extra);
 	}
 
 	// --------------------------------------------------------------------------
@@ -114,6 +116,8 @@ class Admin_fields extends Admin_Controller {
 			show_error(lang('streams.cannot_find_assign'));
 		}
 
-		$this->streams->cp->field_form('profiles', 'users', 'edit', 'admin/users/fields', $assign_id, array(), true);
+		$extra['title'] = lang('streams.edit_field');
+
+		$this->streams->cp->field_form('profiles', 'users', 'edit', 'admin/users/fields', $assign_id, array(), true, $extra);
 	}
 }
