@@ -164,7 +164,7 @@ class Admin extends Admin_Controller {
 				// Dont update if its the same value
 				if ($input_value !== $stored_value)
 				{
-					$this->settings->set_item($slug, $input_value);
+					$this->settings->set($slug, $input_value);
 				}
 			}
 			
