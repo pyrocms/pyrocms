@@ -719,7 +719,7 @@ class Fields
 		else
 		{
 			// Hmm. No from address. We'll just use the site setting.
-			$this->CI->email->from($this->CI->settings->item('server_email'), $this->CI->settings->item('site_name'));
+			$this->CI->email->from($this->CI->settings->get('server_email'), $this->CI->settings->get('site_name'));
 		}
 
 		// -------------------------------------
