@@ -30,6 +30,20 @@ class MY_Form_validation extends CI_Form_validation
 	// --------------------------------------------------------------------
 
 	/**
+	 * Sneaky function to get field data from
+	 * the form validation libraru
+	 *
+	 * @access	public
+	 * @param	string
+	 * @return	bool
+	 */
+	function field_data($field)
+	{
+		return (isset($this->_field_data[$field])) ? $this->_field_data[$field] : null;
+	}
+	// --------------------------------------------------------------------
+
+	/**
 	 * Formats an UTF-8 string and removes potential harmful characters
 	 *
 	 * @access	public
