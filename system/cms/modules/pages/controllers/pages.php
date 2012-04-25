@@ -22,8 +22,8 @@ class Pages extends Public_Controller
 		// the actual homepage even when the default_controller is
 		// changed
 
-		//No page is mentioned and we are not using pages as default
-		// (eg blog on homepage)
+		// No page is mentioned and we are not using pages as default
+		//  (eg blog on homepage)
 		if ( ! $this->uri->segment(1) AND $this->router->default_controller != 'pages')
 		{
 			redirect('');
@@ -196,11 +196,11 @@ class Pages extends Public_Controller
 		$chunk_html = '';
 		foreach ($page->chunks as $chunk)
 		{
-			$chunk_html .= '<div class="page-chunk '.$chunk->slug.'">'.
+			$chunk_html .= '<section id="'.$chunk->slug.'" class="page-chunk '.$chunk->class.'">'.
 				'<div class="page-chunk-pad">'.
 				(($chunk->type == 'markdown') ? $chunk->parsed : $chunk->body).
 				'</div>'.
-				'</div>'.PHP_EOL;
+				'</section>'.PHP_EOL;
 		}
 
 		// Create page output. We do this before parsing the page contents so that 

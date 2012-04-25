@@ -163,6 +163,7 @@ class Admin extends Admin_Controller {
         	foreach($page['chunks'] as $chunk)
         	{
             		$page['chunk_slug'][] = $chunk['slug'];
+            		$page['chunk_class'][] = $chunk['class'];
             		$page['chunk_type'][] = $chunk['type'];
             		$page['chunk_body'][] = $chunk['body'];
         	}
@@ -212,6 +213,7 @@ class Admin extends Admin_Controller {
 			{
 				// validation failed, we must repopulate the chunks form
 				$chunk_slugs 	= $this->input->post('chunk_slug') ? array_values($this->input->post('chunk_slug')) : array();
+				$chunk_classes 	= $this->input->post('chunk_class') ? array_values($this->input->post('chunk_class')) : array();
 				$chunk_bodies 	= $this->input->post('chunk_body') ? array_values($this->input->post('chunk_body')) : array();
 				$chunk_types 	= $this->input->post('chunk_type') ? array_values($this->input->post('chunk_type')) : array();
 
@@ -222,6 +224,7 @@ class Admin extends Admin_Controller {
 					$page['chunks'][] = array(
 						'id' 	=> $i,
 						'slug' 	=> ! empty($chunk_slugs[$i]) 	? $chunk_slugs[$i] 	: '',
+						'class' => ! empty($chunk_classes[$i]) 	? $chunk_classes[$i] 	: '',
 						'type' 	=> ! empty($chunk_types[$i]) 	? $chunk_types[$i] 	: '',
 						'body' 	=> ! empty($chunk_bodies[$i]) 	? $chunk_bodies[$i] : '',
 					);
@@ -234,6 +237,7 @@ class Admin extends Admin_Controller {
 			$page['chunks'] = array(array(
 				'id' => 'NEW',
 				'slug' => 'default',
+				'class' => '',
 				'body' => '',
 				'type' => 'wysiwyg-advanced',
 			));
@@ -329,6 +333,7 @@ class Admin extends Admin_Controller {
 			{
 				// validation failed, we must repopulate the chunks form
 				$chunk_slugs 	= $this->input->post('chunk_slug') ? array_values($this->input->post('chunk_slug')) : array();
+				$chunk_classes 	= $this->input->post('chunk_class') ? array_values($this->input->post('chunk_class')) : array();
 				$chunk_bodies 	= $this->input->post('chunk_body') ? array_values($this->input->post('chunk_body')) : array();
 				$chunk_types 	= $this->input->post('chunk_type') ? array_values($this->input->post('chunk_type')) : array();
 
@@ -339,6 +344,7 @@ class Admin extends Admin_Controller {
 					$page['chunks'][] = array(
 						'id' 	=> $i,
 						'slug' 	=> ! empty($chunk_slugs[$i]) 	? $chunk_slugs[$i] 	: '',
+						'class' => ! empty($chunk_classes[$i]) 	? $chunk_classes[$i] 	: '',
 						'type' 	=> ! empty($chunk_types[$i]) 	? $chunk_types[$i] 	: '',
 						'body' 	=> ! empty($chunk_bodies[$i]) 	? $chunk_bodies[$i] : '',
 					);
