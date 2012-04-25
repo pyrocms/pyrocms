@@ -28,8 +28,7 @@ class Plugin_Blog extends Plugin
 		$limit		= $this->attribute('limit', 10);
 		$category	= $this->attribute('category');
 		$order_by 	= $this->attribute('order-by', 'created_on');
-													//deprecated
-		$order_dir	= $this->attribute('order-dir', $this->attribute('order', 'ASC'));
+		$order_dir	= $this->attribute('order-dir', 'ASC');
 
 		if ($category)
 		{
