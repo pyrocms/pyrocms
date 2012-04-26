@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<docblox>
+<phpdoc>
 	<title>PyroCMS v2.1.0 API</title>
     <parser>
         <default-package-name>No Package</default-package-name>
@@ -33,4 +33,4 @@
             <errors>~/Sites/docs.pyrocms.com/2.1/api/{DATE}.errors.log</errors>
         </paths>
     </logging>
-</docblox>
+</phpdoc>
