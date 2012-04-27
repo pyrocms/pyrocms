@@ -3,10 +3,10 @@
 	<title>PyroCMS v2.1.0 API</title>
     <parser>
         <default-package-name>No Package</default-package-name>
-        <target>../docs.pyrocms.com/2.1/api/</target>
+        <target>~/Sites/docs.pyrocms.com/2.1/api/</target>
     </parser>
     <transformer>
-        <target>../docs.pyrocms.com/2.1/api/</target>
+        <target>~/Sites/docs.pyrocms.com/2.1/api/</target>
     </transformer>
     <files>
         <directory>.</directory>
@@ -29,8 +29,8 @@
     <logging>
         <level>warn</level>
         <paths>
-            <default>../docs.pyrocms.com/2.1/api/log/{DATE}.log</default>
-            <errors>../docs.pyrocms.com/2.1/api/{DATE}.errors.log</errors>
+            <default>~/Sites/docs.pyrocms.com/2.1/api/log/{DATE}.log</default>
+            <errors>~/Sites/docs.pyrocms.com/2.1/api/{DATE}.errors.log</errors>
         </paths>
     </logging>
 </phpdoc>
