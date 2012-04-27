@@ -132,6 +132,16 @@ class Fields_m extends CI_Model {
 	 */
 	public function insert_field($field_name, $field_slug, $field_type, $field_namespace, $extra = array(), $locked = 'no')
 	{
+		if ( ! $locked)
+		{
+			$locked = 'no';
+		}
+
+		if ($locked != 'yes' and $locked != 'no')
+		{
+			$locked = 'no';
+		}
+
 		$insert_data = array(
 			'field_name' 		=> $field_name,
 			'field_slug'		=> $field_slug,
@@ -379,6 +389,19 @@ class Fields_m extends CI_Model {
 		if (isset($data['field_slug'])) 		$update_data['field_slug']		= $data['field_slug'];
 		if (isset($data['field_namespace'])) 	$update_data['field_namespace']	= $data['field_namespace'];
 		if (isset($data['field_type']))			$update_data['field_type']		= $data['field_type'];
+
+		if (isset($data['is_locked']))
+		{
+			if ( ! $data['is_locked'])
+			{
+				$data['is_locked'] = 'no';
+			}
+
+			if ($data['is_locked'] != 'yes' and $data['is_locked']!= 'no')
+			{
+				$data['is_locked'] = 'no';
+			}
+		}
 		
 		// Gather extra data		
 		if ( ! isset($type->custom_parameters) or $type->custom_parameters == '')
