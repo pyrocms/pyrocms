@@ -71,7 +71,7 @@ class Admin extends Admin_Controller
 				$this->session->set_flashdata('error', lang('permissions:message_group_saved_error'));
 			}
 
-			redirect('admin/permissions/group/'.$group_id);
+			$this->input->post('btnAction') == 'save_exit' ? redirect('admin/permissions') : redirect('admin/permissions/group/' . $group_id);
 		}
 		// Get the group data
 		$group = $this->group_m->get($group_id);
