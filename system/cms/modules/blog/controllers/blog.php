@@ -144,8 +144,6 @@ class Blog extends Public_Controller
 
 		$this->_singleView($post);
 
-        $this->template
-            ->set_metadata('index','nofollow');
 	}
 
     /**
