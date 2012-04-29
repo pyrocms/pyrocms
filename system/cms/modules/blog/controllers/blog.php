@@ -163,7 +163,13 @@ class Blog extends Public_Controller
             redirect('blog/' . date('Y/m',$post->created_on) . '/' . $post->slug);
         }
 
+
+        //set index nofollow to attempt to avoid search engine indexing
+        $this->template
+            ->set_metadata('index','nofollow');
+
         $this->_singleView($post);
+
     }
 	/**
 	 * @todo Document this.
