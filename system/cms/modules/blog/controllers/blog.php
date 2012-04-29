@@ -142,46 +142,31 @@ class Blog extends Public_Controller
 			redirect('blog');
 		}
 
-		// if it uses markdown then display the parsed version
-		if ($post->type == 'markdown')
-		{
-			$post->body = $post->parsed;
-		}
+		$this->_singleView($post);
 
-		// IF this post uses a category, grab it
-		if ($post->category_id && ($category = $this->blog_categories_m->get($post->category_id)))
-		{
-			$post->category = $category;
-		}
-
-		// Set some defaults
-		else
-		{
-			$post->category->id = 0;
-			$post->category->slug = '';
-			$post->category->title = '';
-		}
-
-		$this->session->set_flashdata(array('referrer' => $this->uri->uri_string));
-
-		$this->template->title($post->title, lang('blog_blog_title'))
-			->set_metadata('description', $post->intro)
-			->set_metadata('keywords', implode(', ', Keywords::get_array($post->keywords)))
-			->set_breadcrumb(lang('blog_blog_title'), 'blog');
-
-		if ($post->category->id > 0)
-		{
-			$this->template->set_breadcrumb($post->category->title, 'blog/category/'.$post->category->slug);
-		}
-
-		$post->keywords = Keywords::get_links($post->keywords, 'blog/tagged');
-
-		$this->template
-			->set_breadcrumb($post->title)
-			->set('post', $post)
-			->build('view');
+        $this->template
+            ->set_metadata('index','nofollow');
 	}
 
+    /**
+     * View a post
+     *
+     * @param string $slug The slug of the blog post.
+     */
+    public function preview($slug = '')
+    {
+        if ( ! $slug or ! $post = $this->blog_m->get_by('slug', $slug))
+        {
+            redirect('blog');
+        }
+
+        if ($post->status != 'draft')
+        {
+            redirect('blog/' . date('Y/m',$post->created_on) . '/' . $post->slug);
+        }
+
+        $this->_singleView($post);
+    }
 	/**
 	 * @todo Document this.
 	 *
@@ -253,4 +238,46 @@ class Blog extends Public_Controller
 			'description' => implode(', ', $description)
 		);
 	}
+
+    private function _singleView($post,$build='view') {
+
+        // if it uses markdown then display the parsed version
+        if ($post->type == 'markdown')
+        {
+            $post->body = $post->parsed;
+        }
+
+        // IF this post uses a category, grab it
+        if ($post->category_id && ($category = $this->blog_categories_m->get($post->category_id)))
+        {
+            $post->category = $category;
+        }
+
+        // Set some defaults
+        else
+        {
+            $post->category->id = 0;
+            $post->category->slug = '';
+            $post->category->title = '';
+        }
+
+        $this->session->set_flashdata(array('referrer' => $this->uri->uri_string));
+
+        $this->template->title($post->title, lang('blog_blog_title'))
+            ->set_metadata('description', $post->intro)
+            ->set_metadata('keywords', implode(', ', Keywords::get_array($post->keywords)))
+            ->set_breadcrumb(lang('blog_blog_title'), 'blog');
+
+        if ($post->category->id > 0)
+        {
+            $this->template->set_breadcrumb($post->category->title, 'blog/category/'.$post->category->slug);
+        }
+
+        $post->keywords = Keywords::get_links($post->keywords, 'blog/tagged');
+
+        $this->template
+            ->set_breadcrumb($post->title)
+            ->set('post', $post)
+            ->build($build);
+    }
 }
