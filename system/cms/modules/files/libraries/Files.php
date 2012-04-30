@@ -28,7 +28,21 @@ class Files
 
 		self::$path = config_item('files:path');
 		self::$_cache_path = config_item('cache_dir').'cloud_cache/';
-		self::$providers = explode(',', Settings::get('files_enabled_providers'));
+
+		if ($providers = Settings::get('files_enabled_providers'))
+		{
+			self::$providers = explode(',', $providers);
+
+			// make 'local' mandatory. We search for the value because of backwards compatibility
+			if ( ! in_array('local', self::$providers))
+			{
+				array_unshift(self::$providers, 'local');
+			}
+		}
+		else
+		{
+			self::$providers = array('local');
+		}
 
 		// work out the most restrictive ini setting
 		$post_max = str_replace('M', '', ini_get('post_max_size'));
@@ -55,7 +69,7 @@ class Files
 	 * @return	array
 	 *
 	**/
-	public static function create_folder($parent = 0, $name = 'Untitled Folder')
+	public static function create_folder($parent = 0, $name = 'Untitled Folder', $location = 'local', $remote_container = '')
 	{
 		$i = '';
 		$original_slug = self::create_slug($name);
@@ -72,7 +86,9 @@ class Files
 
 		$insert = array('parent_id' => $parent, 
 						'slug' => $slug, 
-						'name' => $name, 
+						'name' => $name,
+						'location' => $location,
+						'remote_container' => $remote_container,
 						'date_added' => now(), 
 						'sort' => now()
 						);
@@ -81,7 +97,6 @@ class Files
 
 		$insert['id'] = $id;
 		$insert['file_count'] = 0;
-		$insert['location']	= 'local';
 
 		return self::result(TRUE, lang('files:item_created'), $insert['name'], $insert);
 	}

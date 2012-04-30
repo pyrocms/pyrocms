@@ -32,6 +32,7 @@ $lang['widgets.widget_area_slug'] 			= '區塊簡稱';
 $lang['widgets.view_code']				= 'View Code'; #translate
 
 $lang['widgets.instance_title'] 			= '標題';
+$lang['widgets.show_title']				= 'Display Widget Title?'; #translate
 $lang['widgets.tag_title']					= '標籤';
 
 $lang['widgets.no_available_widgets']		= '目前沒有可用的小組件。';

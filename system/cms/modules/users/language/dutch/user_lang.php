@@ -1,12 +1,12 @@
 <?php
 
-$lang['user_add_field']                        	= 'Add User Profile Field'; #translate
-$lang['user_profile_delete_success']           	= 'User profile field deleted successfully'; #translate
-$lang['user_profile_delete_failure']            = 'There was a problem with deleting your user profile field'; #translate
-$lang['profile_user_basic_data_label']  		= 'Basic Data'; #translate
-$lang['profile_company']         	  			= 'Company'; #translate
-$lang['profile_updated_on']           			= 'Updated On'; #translate
-$lang['user_profile_fields_label']	 		 	= 'Profile Fields'; #translate`
+$lang['user_add_field']                        	= 'Voeg Gebruiker profiel veld toe';
+$lang['user_profile_delete_success']           	= 'Gebruiker profiel veld is verwijderd';
+$lang['user_profile_delete_failure']            = 'Er was een probleem met het verwijderen van uw gebruiker profiel veld';
+$lang['profile_user_basic_data_label']  		= 'Basis gegevens';
+$lang['profile_company']         	  			= 'Bedrijf';
+$lang['profile_updated_on']           			= 'Gewijzigd op';
+$lang['user_profile_fields_label']	 		 	= 'Profiel velden';
 
 $lang['user_register_header'] 			= 'Registratie';
 $lang['user_register_step1'] 			= '<b>Stap 1:</b> Registreren';
@@ -74,12 +74,12 @@ $lang['user_lang']						= 'Taal';
 
 $lang['user_activation_code'] 			= 'Activeringscode';
 
-$lang['user_reset_instructions']			   = 'Enter your email address or username'; #translate
+$lang['user_reset_instructions']		= 'Vul uw e-mailadres of gebruikersnaam in a.u.b.';
 $lang['user_reset_password_link'] 		= 'Wachtwoord vergeten?';
 
 $lang['user_activation_code_sent_notice']	= 'Er is een email naar u gestuurd met daarin uw activeringscode.';
 $lang['user_activation_by_admin_notice'] 	= 'Uw registratie wacht op goedkeuring door een beheerder.';
-$lang['user_registration_disabled']            = 'Sorry, but the user registration is disabled.'; #translate
+$lang['user_registration_disabled']            = 'Sorry, maar u kunt zich niet registreren.';
 
 // -- Settings ---------------------------------------------------------------------------------------------
 
@@ -121,7 +121,7 @@ $lang['user_mass_delete_error'] 				= 'U moet eerst gebruikers selecteren.';
 // Register
 $lang['user_email_pass_missing'] 				= 'Email of Wachtwoord zijn niet compleet.';
 $lang['user_email_exists'] 						= 'Het emailadres dat u ingevoerd heeft is al in gebruik bij een andere gebruiker.';
-$lang['user_register_error']				   = 'We think you are a bot. If we are mistaken please accept our apologies.'; #translate
+$lang['user_register_error']				   = 'Wij denken dat u een bot bent. Als wij het mis hebben, sorry.';
 $lang['user_register_reasons'] 					= 'Registreer om afgeschermde gebieden te kunnen bezoeken. Ook worden uw instellingen onthouden. En bedenk: meer content, minder advertenties!';
 
 

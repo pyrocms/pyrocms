@@ -73,6 +73,9 @@ class Streams_fields extends CI_Driver {
 			$this->log_error('invalid_fieldtype', 'add_field');
 			return false;
 		}
+
+		// Set locked 
+		$locked = isset($locked) and $locked === true ? 'yes' : 'no';
 		
 		// Set extra
 		if ( ! isset($extra) or ! is_array($extra)) $extra = array();
@@ -81,7 +84,7 @@ class Streams_fields extends CI_Driver {
 		// Create Field
 		// -------------------------------------
 
-		if ( ! $this->CI->fields_m->insert_field($name, $slug, $type, $namespace, $extra)) return false;
+		if ( ! $this->CI->fields_m->insert_field($name, $slug, $type, $namespace, $extra, $locked)) return false;
 		
 		$field_id = $this->CI->db->insert_id();
 
@@ -115,7 +118,7 @@ class Streams_fields extends CI_Driver {
 			}
 		
 			// Add actual assignment
-			$this->CI->streams_m->add_field_to_stream($field_id, $stream->id, $data);
+			return $this->CI->streams_m->add_field_to_stream($field_id, $stream->id, $data);
 		}
 		
 		return $field_id;
@@ -151,7 +154,7 @@ class Streams_fields extends CI_Driver {
 	 * @param	string - stream slug
 	 * @param	string - field slug
 	 * @param	array - assign data
-	 * @return	bool
+	 * @return	mixed - false or assignment ID
 	 */
 	public function assign_field($namespace, $stream_slug, $field_slug, $assign_data = array())
 	{
@@ -199,8 +202,14 @@ class Streams_fields extends CI_Driver {
 			$data['is_required'] = 'yes';
 		}
 	
+		// Is Locked
+		if (isset($locked) and $locked === true)
+		{
+			$data['is_locked'] = 'yes';
+		}
+	
 		// Add actual assignment
-		$this->CI->streams_m->add_field_to_stream($field->id, $stream->id, $data);
+		return $this->CI->streams_m->add_field_to_stream($field->id, $stream->id, $data);
 	}
 
 	// --------------------------------------------------------------------------
@@ -270,7 +279,7 @@ class Streams_fields extends CI_Driver {
 	{
 		if ( ! trim($field_slug)) return false;
 	
-		if ( ! $field = $this->CI->fields_m->get_field_by_slug($field_slug)) return false;
+		if ( ! $field = $this->CI->fields_m->get_field_by_slug($field_slug, $namespace)) return false;
 	
 		return $this->CI->fields_m->delete_field($field->id);
 	}

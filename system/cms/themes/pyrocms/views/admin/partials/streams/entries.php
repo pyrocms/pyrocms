@@ -40,17 +40,20 @@
 				<td class="actions">
 				
 					<?php
-					
-						$all_buttons = array();
+				
+						if (isset($buttons))
+						{						
+							$all_buttons = array();
+
+							foreach($buttons as $button)
+							{
+								$class = (isset($button['confirm']) and $button['confirm']) ? 'button confirm' : 'button';
+								$all_buttons[] = anchor(str_replace('-entry_id-', $data_item->id, $button['url']), $button['label'], 'class="'.$class.'"');
+							}
 						
-						foreach($buttons as $button)
-						{
-							$class = (isset($button['confirm']) and $button['confirm']) ? 'button confirm' : 'button';
-							$all_buttons[] = anchor(str_replace('-entry_id-', $data_item->id, $button['url']), $button['label'], 'class="'.$class.'"');
+							echo implode('&nbsp;', $all_buttons);
+							unset($all_buttons);
 						}
-					
-						echo implode('&nbsp;', $all_buttons);
-						unset($all_buttons);
 						
 					?>			
 				</td>

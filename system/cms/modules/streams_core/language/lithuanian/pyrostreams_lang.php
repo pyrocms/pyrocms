@@ -55,6 +55,7 @@ $lang['streams.type_not_valid']							= "Pasirinkite tinkamą lauko tipą.";
 $lang['streams.stream_slug_not_unique']					= "Toks srauto šūkis jau užimtas.";
 $lang['streams.field_unique']							= "Laukas %s turi būti unikalus.";
 $lang['streams.field_is_required']						= "Laukas %s yra privalomas.";
+$lang['streams.date_out_or_range']						= "Pasirinkta data yra neleistina.";
 
 /* Field Labels */
 

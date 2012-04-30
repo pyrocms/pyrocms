@@ -101,22 +101,26 @@ class Fields
 			'error_end'					=> NULL,
 			'required'					=> '<span>*</span>'
 		);
+
+		$this->CI->load->language('streams_core/pyrostreams');
 		
 		if ($method == 'new')
 		{
-			$default_extras['success_message']	 = 'streams.new_entry_success';
-			$default_extras['success_message']	 = 'streams.new_entry_error';
+			$default_extras['success_message']	 = 'lang:streams.new_entry_success';
+			$default_extras['failure_message']	 = 'lang:streams.new_entry_error';
 		}
 		else
 		{
-			$default_extras['success_message']	 = 'streams.edit_entry_success';
-			$default_extras['success_message']	 = 'streams.edit_entry_error';
+			$default_extras['success_message']	 = 'lang:streams.edit_entry_success';
+			$default_extras['failure_message']	 = 'lang:streams.edit_entry_error';
 		}
 		
 		foreach($default_extras as $key => $value)
 		{
 			if( ! isset($extra[$key])) $extra[$key] = $value;
 		}
+		
+		extract($extra);
 
  		// -------------------------------------
 		// Get Stream Fields
@@ -177,7 +181,7 @@ class Fields
 			{
 				if ( ! $result_id = $this->CI->row_m->insert_entry($_POST, $stream_fields, $stream, $skips))
 				{
-					$this->CI->session->set_flashdata('notice', $failure_message);	
+					$this->CI->session->set_flashdata('notice', $this->CI->fields->translate_label($failure_message));
 				}
 				else
 				{
@@ -187,7 +191,7 @@ class Fields
 					
 					if ($plugin and (isset($email_notifications) and $email_notifications))
 					{
-						foreach ($data->email_notifications as $notify)
+						foreach ($email_notifications as $notify)
 						{
 							$this->send_email($notify, $result_id, $method = 'new', $stream);
 						}
@@ -195,7 +199,7 @@ class Fields
 	
 					// -------------------------------------
 				
-					$this->CI->session->set_flashdata('success', $extra['success_message']);	
+					$this->CI->session->set_flashdata('success', $this->CI->fields->translate_label($extra['success_message']));
 				}
 			}
 			else
@@ -208,7 +212,7 @@ class Fields
 													$skips
 												))
 				{
-					$this->CI->session->set_flashdata('notice', $extra['failure_message']);	
+					$this->CI->session->set_flashdata('notice', $this->CI->fields->translate_label($extra['failure_message']));	
 				}
 				else
 				{
@@ -226,7 +230,7 @@ class Fields
 	
 					// -------------------------------------
 				
-					$this->CI->session->set_flashdata('success', $extra['success_message']);	
+					$this->CI->session->set_flashdata('success', $this->CI->fields->translate_label($extra['success_message']));
 				}
 			}
 			
@@ -301,18 +305,41 @@ class Fields
 		{
 			if ( ! in_array($stream_field->field_slug, $skips))
 			{
-				if ($mode == "new")
+				if ( ! isset($_POST[$stream_field->field_slug]) and ! isset($_POST[$stream_field->field_slug.'[]']))
 				{
-					$values[$stream_field->field_slug] = $this->CI->input->post($stream_field->field_slug);
-				}
-				else
-				{
+					// If this is a new entry and there is no post data,
+					// we see if:
+					// a - there is data from the DB to show
+					// b - there is a default value to show
+					// Otherwise, it's just null
 					if (isset($row->{$stream_field->field_slug}))
 					{
 						$values[$stream_field->field_slug] = $row->{$stream_field->field_slug};
 					}
 					else
 					{
+						$values[$stream_field->field_slug] = (isset($stream_field->field_data['default_value'])) ? $stream_field->field_data['default_value'] : null;
+					}
+				}
+				else
+				{
+					// Post Data - we always show
+					// post data above any other data that
+					// might be sitting around.
+
+					// There is the possibility that this could be an array
+					// post value, so we check for that as well.
+					if (isset($_POST[$stream_field->field_slug]))
+					{
+						$values[$stream_field->field_slug] = $this->CI->input->post($stream_field->field_slug);
+					}
+					elseif (isset($_POST[$stream_field->field_slug.'[]']))
+					{
+						$values[$stream_field->field_slug] = $this->CI->input->post($stream_field->field_slug.'[]');
+					}
+					else
+					{
+						// Last ditch.
 						$values[$stream_field->field_slug] = null;
 					}
 				}
@@ -349,10 +376,10 @@ class Fields
 				{
 					$field->field_data['default_value'] = null;
 				}
-						
-				// Set the value. The passed value or
-				// the default value?
-				$value = (isset($values[$field->field_slug])) ? $values[$field->field_slug] : $field->field_data['default_value'];
+				
+				// Set the value. In the odd case it isn't set,
+				// jst set it to null.
+				$value = (isset($values[$field->field_slug])) ? $values[$field->field_slug] : null;
 
 				// Return the raw value as well - can be useful
 				$fields[$count]['value'] 			= $value;
@@ -529,6 +556,31 @@ class Fields
 	// --------------------------------------------------------------------------
 
 	/**
+	 * Run Field Setup Event Functions
+	 *
+	 * This allows field types to add custom CSS/JS
+	 * to the field setup (edit/delete screen).
+	 *
+	 * @access 	public
+	 * @param 	obj - stream
+	 * @param 	string - method - new or edit
+	 * @param 	obj or null (for new fields) - field
+	 * @return 	
+	 */
+	public function run_field_setup_events($stream, $method, $field)
+	{
+		foreach($this->CI->type->types as $ft)
+		{
+			if (method_exists($ft, 'field_setup_event'))
+			{
+				$ft->field_setup_event($stream, $method, $field);
+			}
+		}
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
 	 * Translate a label.
 	 *
 	 * If it has the label: before it, then we can
@@ -667,7 +719,7 @@ class Fields
 		else
 		{
 			// Hmm. No from address. We'll just use the site setting.
-			$this->CI->email->from($this->CI->settings->item('server_email'), $this->CI->settings->item('site_name'));
+			$this->CI->email->from($this->CI->settings->get('server_email'), $this->CI->settings->get('site_name'));
 		}
 
 		// -------------------------------------

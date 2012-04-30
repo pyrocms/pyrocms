@@ -156,18 +156,28 @@ class Admin extends Admin_Controller {
 			$page['parent_id'] = $parent_id;
 		}
 
-		$chunks = $this->db->get_where('page_chunks', array('page_id' => $page['id']))->result();
+        	$page['restricted_to'] = null;
+        	$page['navigation_group_id'] = 0;
+	        $page['is_home'] = 0;
+        
+        	foreach($page['chunks'] as $chunk)
+        	{
+            		$page['chunk_slug'][] = $chunk['slug'];
+            		$page['chunk_class'][] = $chunk['class'];
+            		$page['chunk_type'][] = $chunk['type'];
+            		$page['chunk_body'][] = $chunk['body'];
+        	}
 
-		$new_page_id = $this->page_m->insert($page, $chunks);
+		$new_page = $this->page_m->create($page);
 
 		foreach ($children as $child)
 		{
-			$this->duplicate($child->id, $new_page_id);
+			$this->duplicate($child->id, $new_page['id']);
 		}
 
 		if ($parent_id === NULL)
 		{
-			redirect('admin/pages/edit/'.$new_page_id);
+			redirect('admin/pages/edit/'.$new_page['id']);
 		}
 	}
 
@@ -203,6 +213,7 @@ class Admin extends Admin_Controller {
 			{
 				// validation failed, we must repopulate the chunks form
 				$chunk_slugs 	= $this->input->post('chunk_slug') ? array_values($this->input->post('chunk_slug')) : array();
+				$chunk_classes 	= $this->input->post('chunk_class') ? array_values($this->input->post('chunk_class')) : array();
 				$chunk_bodies 	= $this->input->post('chunk_body') ? array_values($this->input->post('chunk_body')) : array();
 				$chunk_types 	= $this->input->post('chunk_type') ? array_values($this->input->post('chunk_type')) : array();
 
@@ -213,6 +224,7 @@ class Admin extends Admin_Controller {
 					$page['chunks'][] = array(
 						'id' 	=> $i,
 						'slug' 	=> ! empty($chunk_slugs[$i]) 	? $chunk_slugs[$i] 	: '',
+						'class' => ! empty($chunk_classes[$i]) 	? $chunk_classes[$i] 	: '',
 						'type' 	=> ! empty($chunk_types[$i]) 	? $chunk_types[$i] 	: '',
 						'body' 	=> ! empty($chunk_bodies[$i]) 	? $chunk_bodies[$i] : '',
 					);
@@ -225,6 +237,7 @@ class Admin extends Admin_Controller {
 			$page['chunks'] = array(array(
 				'id' => 'NEW',
 				'slug' => 'default',
+				'class' => '',
 				'body' => '',
 				'type' => 'wysiwyg-advanced',
 			));
@@ -320,6 +333,7 @@ class Admin extends Admin_Controller {
 			{
 				// validation failed, we must repopulate the chunks form
 				$chunk_slugs 	= $this->input->post('chunk_slug') ? array_values($this->input->post('chunk_slug')) : array();
+				$chunk_classes 	= $this->input->post('chunk_class') ? array_values($this->input->post('chunk_class')) : array();
 				$chunk_bodies 	= $this->input->post('chunk_body') ? array_values($this->input->post('chunk_body')) : array();
 				$chunk_types 	= $this->input->post('chunk_type') ? array_values($this->input->post('chunk_type')) : array();
 
@@ -330,6 +344,7 @@ class Admin extends Admin_Controller {
 					$page['chunks'][] = array(
 						'id' 	=> $i,
 						'slug' 	=> ! empty($chunk_slugs[$i]) 	? $chunk_slugs[$i] 	: '',
+						'class' => ! empty($chunk_classes[$i]) 	? $chunk_classes[$i] 	: '',
 						'type' 	=> ! empty($chunk_types[$i]) 	? $chunk_types[$i] 	: '',
 						'body' 	=> ! empty($chunk_bodies[$i]) 	? $chunk_bodies[$i] : '',
 					);

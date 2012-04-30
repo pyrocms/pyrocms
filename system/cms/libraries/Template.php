@@ -120,6 +120,23 @@ class Template
 	// --------------------------------------------------------------------
 
 	/**
+	 * Set the module manually. Used when getting results from
+	 * another module with Modules::run('foo/bar')
+	 *
+	 * @access	public
+	 * @param	string	$module The module slug
+	 * @return	mixed
+	 */
+	public function set_module($module)
+	{
+		$this->_module = $module;
+
+		return $this;
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
 	 * Magic Get function to get data
 	 *
 	 * @access	public
@@ -512,8 +529,14 @@ class Template
 	 * @param	string	$uri	The URL segment
 	 * @return	object	$this
 	 */
-	public function set_breadcrumb($name, $uri = '')
+	public function set_breadcrumb($name, $uri = '', $reset = FALSE)
 	{
+		// perhaps they want to start over
+		if ($reset)
+		{
+			$this->_breadcrumbs = array();
+		}
+
 		$this->_breadcrumbs[] = array('name' => $name, 'uri' => $uri );
 		return $this;
 	}

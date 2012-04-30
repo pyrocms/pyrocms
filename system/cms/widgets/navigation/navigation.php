@@ -112,7 +112,7 @@ class Widget_Navigation extends Widgets
 		// Load the navigation model from the navigation module.
 		$this->load->model('navigation/navigation_m');
 
-		$links = $this->pyrocache->model('navigation_m', 'get_link_tree', $options['group'], $this->settings->item('navigation_cache'));
+		$links = $this->pyrocache->model('navigation_m', 'get_link_tree', $options['group'], $this->settings->get('navigation_cache'));
 
 		// Shorter alias
 		$widget = & $options['widget'];

@@ -59,25 +59,16 @@ class Admin extends Admin_Controller {
 	 */
 	public function index()
 	{
-		$parts = explode(',', Settings::get('files_enabled_providers'));
-
 		$this->template
-
-			// The title
 			->title($this->module_details['name'])
-
-			// The CSS files
 			->append_css('module::jquery.fileupload-ui.css')
 			->append_css('module::files.css')
-
-			// The Javascript files
 			->append_js('module::jquery.fileupload.js')
 			->append_js('module::jquery.fileupload-ui.js')
 			->append_js('module::functions.js')
-
 			// should we show the "no data" message to them?
 			->set('folders', $this->file_folders_m->count_by('parent_id', 0))
-			->set('locations', array_combine($parts, $parts))
+			->set('locations', array_combine(Files::$providers, Files::$providers))
 			->set('folder_tree', Files::folder_tree());
 
 		$path_check = Files::check_dir(Files::$path);

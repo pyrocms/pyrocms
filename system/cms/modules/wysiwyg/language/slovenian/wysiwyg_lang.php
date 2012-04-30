@@ -1,17 +1,12 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-$lang = array(
-    'wysiwyg.meta.width'    =>  'Širina',
-    'wysiwyg.meta.height'   =>  'Višina',
-    'wysiwyg.meta.size'     =>  'Velikost',
-    'wysiwyg.label.insert_width'    => 'Vnesite širino slike:',
-	'wysiwyg.label.no_limit' =>	'(0 za brez omejitve)', 
-    'wysiwyg.label.float'   =>  'Postavitev',
-    'wysiwyg.label.left'    =>  'Levo',
-    'wysiwyg.label.right'   =>  'Desno',
-    'wysiwyg.label.none'    =>  'Brez',
-    'wysiwyg.meta.mime'     =>  'Mime Type'
-
-);
-
-/* end of file wysiwyg_lang.php */
+$lang['wysiwyg.meta.width'] = 'Širina';
+$lang['wysiwyg.meta.height'] = 'Višina';
+$lang['wysiwyg.meta.size'] = 'Velikost';
+$lang['wysiwyg.label.insert_width'] = 'Vnesite širino slike:';
+$lang['wysiwyg.label.no_limit'] = '(0 za brez omejitve)';
+$lang['wysiwyg.label.float'] = 'Postavitev';
+$lang['wysiwyg.label.left'] = 'Levo';
+$lang['wysiwyg.label.right'] = 'Desno';
+$lang['wysiwyg.label.none'] = 'Brez';
+$lang['wysiwyg.meta.mime'] = 'Mime Type';

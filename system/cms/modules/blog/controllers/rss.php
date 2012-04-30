@@ -15,8 +15,8 @@ class Rss extends Public_Controller
 	{
 		$posts = $this->pyrocache->model('blog_m', 'get_many_by', array(array(
 			'status' => 'live',
-			'limit' => $this->settings->item('rss_feed_items'))
-		), $this->settings->item('rss_cache'));
+			'limit' => $this->settings->get('rss_feed_items'))
+		), $this->settings->get('rss_cache'));
 		
 		$this->_build_feed( $posts );		
 		$this->data->rss->feed_name .= $this->lang->line('blog_rss_name_suffix');		
@@ -26,18 +26,18 @@ class Rss extends Public_Controller
 	
 	function category( $slug = '')
 	{
-		$this->load->model('categories/categories_m');
+		$this->load->model('blog_categories_m');
 		
-		if(!$category = $this->categories_m->get_by('slug', $slug))
+		if(!$category = $this->blog_categories_m->get_by('slug', $slug))
 		{
-			redirect('blog/rss/index');
+			redirect('blog/rss/all.rss');
 		}
 		
 		$posts = $this->pyrocache->model('blog_m', 'get_many_by', array(array(
 			'status' => 'live',
 			'category' => $slug,
-			'limit' => $this->settings->item('rss_feed_items') )
-		), $this->settings->item('rss_cache'));
+			'limit' => $this->settings->get('rss_feed_items') )
+		), $this->settings->get('rss_cache'));
 		
 		$this->_build_feed( $posts );		
 		$this->data->rss->feed_name .= ' '. $category->title . $this->lang->line('blog_rss_category_suffix');		
@@ -48,11 +48,11 @@ class Rss extends Public_Controller
 	function _build_feed( $posts = array() )
 	{
 		$this->data->rss->encoding = $this->config->item('charset');
-		$this->data->rss->feed_name = $this->settings->item('site_name');
+		$this->data->rss->feed_name = $this->settings->get('site_name');
 		$this->data->rss->feed_url = base_url();
-		$this->data->rss->page_description = sprintf($this->lang->line('blog_rss_posts_title'), $this->settings->item('site_name'));
+		$this->data->rss->page_description = sprintf($this->lang->line('blog_rss_posts_title'), $this->settings->get('site_name'));
 		$this->data->rss->page_language = 'en-gb';
-		$this->data->rss->creator_email = $this->settings->item('contact_email');
+		$this->data->rss->creator_email = $this->settings->get('contact_email');
 		
 		if(!empty($posts))
 		{

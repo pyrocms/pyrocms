@@ -27,12 +27,12 @@
 			<fieldset>
 		
 			<ul>
-				<li class="<?php echo alternator('even', ''); ?>">
+				<li>
 					<label for="title"><?php echo lang('pages.title_label');?> <span>*</span></label>
 					<div class="input"><?php echo form_input('title', $page['title'], 'id="title" maxlength="60"'); ?></div>
 				</li>
 				
-				<li class="<?php echo alternator('even', ''); ?>">
+				<li>
 					<label for="slug"><?php echo lang('pages.slug_label');?>  <span>*</span></label>
 					
 					<div class="input">
@@ -58,13 +58,13 @@
 					</div>
 				</li>
 				
-				<li class="<?php echo alternator('even', ''); ?>">
+				<li>
 					<label for="category_id"><?php echo lang('pages.status_label'); ?></label>
 					<div class="input"><?php echo form_dropdown('status', array('draft'=>lang('pages.draft_label'), 'live'=>lang('pages.live_label')), $page['status'], 'id="category_id"'); ?></div>
 				</li>
 				
 				<?php if ($this->method == 'create'): ?>
-				<li class="<?php echo alternator('even', ''); ?>">
+				<li>
 					<label for="navigation_group_id"><?php echo lang('pages.navigation_label');?></label>
 					<div class="input"><?php echo form_dropdown('navigation_group_id', array(lang('global:select-none')) + $navigation_groups, $page['navigation_group_id']); ?></div>
 				</li>
@@ -72,8 +72,9 @@
 			</ul>
 			<ul id="page-chunks">
 				<?php foreach ($page['chunks'] as $chunk): ?>
-				<li class="<?php echo alternator('even', ''); ?> page-chunk">
+				<li class="page-chunk">
 					<?php echo form_input('chunk_slug['.$chunk['id'].']', $chunk['slug'], 'class="label"'); ?>
+					<?php echo form_input('chunk_class['.$chunk['id'].']', $chunk['class'], 'class="label"'); ?>
 					<div class="input">
 						<?php echo form_dropdown('chunk_type['.$chunk['id'].']', array(
 							'html' => 'html',
@@ -103,17 +104,17 @@
 			<fieldset>
 		
 			<ul>
-				<li class="<?php echo alternator('even', ''); ?>">
+				<li>
 					<label for="meta_title"><?php echo lang('pages.meta_title_label');?></label>
 					<div class="input"><input type="text" id="meta_title" name="meta_title" maxlength="255" value="<?php echo $page['meta_title']; ?>" /></div>
 				</li>
 								
-				<li class="<?php echo alternator('even', ''); ?>">
+				<li>
 					<label for="meta_keywords"><?php echo lang('pages.meta_keywords_label');?></label>
 					<div class="input"><input type="text" id="meta_keywords" name="meta_keywords" maxlength="255" value="<?php echo $page['meta_keywords']; ?>" /></div>
 				</li>
 				
-				<li class="<?php echo alternator('even', ''); ?>">
+				<li>
 					<label for="meta_description"><?php echo lang('pages.meta_desc_label');?></label>
 					<?php echo form_textarea(array('name' => 'meta_description', 'value' => $page['meta_description'], 'rows' => 5)); ?>
 				</li>
@@ -129,12 +130,12 @@
 			<fieldset>
 			
 			<ul>
-				<li class="<?php echo alternator('even', ''); ?>">
+				<li>
 					<label for="layout_id"><?php echo lang('pages.layout_id_label');?></label>
 					<div class="input"><?php echo form_dropdown('layout_id', $page_layouts, $page['layout_id']); ?></div>
 				</li>
 				
-				<li class="<?php echo alternator('even', ''); ?>">
+				<li>
 					<label for="css"><?php echo lang('pages.css_label');?></label><br />
 					<div>
 						<?php echo form_textarea('css', $page['css'], 'class="css_editor"'); ?>
@@ -170,27 +171,27 @@
 			<fieldset>
 
 			<ul>
-				<li class="<?php echo alternator('even', ''); ?>">
+				<li>
 					<label for="restricted_to[]"><?php echo lang('pages.access_label');?></label>
 					<div class="input"><?php echo form_multiselect('restricted_to[]', array(0 => lang('global:select-any')) + $group_options, $page['restricted_to'], 'size="'.(($count = count($group_options)) > 1 ? $count : 2).'"'); ?></div>
 				</li>
 								
-				<li class="<?php echo alternator('even', ''); ?>">
+				<li>
 					<label for="comments_enabled"><?php echo lang('pages.comments_enabled_label');?></label>
 					<div class="input"><?php echo form_checkbox('comments_enabled', 1, $page['comments_enabled'] == 1, 'id="comments_enabled"'); ?></div>
 				</li>
 								
-				<li class="<?php echo alternator('even', ''); ?>">
+				<li>
 					<label for="rss_enabled"><?php echo lang('pages.rss_enabled_label');?></label>
 					<div class="input"><?php echo form_checkbox('rss_enabled', 1, $page['rss_enabled'] == 1, 'id="rss_enabled"'); ?></div>
 				</li>
 								
-				<li class="<?php echo alternator('even', ''); ?>">
+				<li>
 					<label for="is_home"><?php echo lang('pages.is_home_label');?></label>
 					<div class="input"><?php echo form_checkbox('is_home', 1, $page['is_home'] == 1, 'id="is_home"'); ?></div>
 				</li>
 
-				<li class="<?php echo alternator('even', ''); ?>">
+				<li>
 					<label for="strict_uri"><?php echo lang('pages.strict_uri_label');?></label>
 					<div class="input"><?php echo form_checkbox('strict_uri', 1, $page['strict_uri'] == 1, 'id="strict_uri"'); ?></div>
 				</li>

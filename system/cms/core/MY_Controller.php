@@ -7,26 +7,29 @@ require APPPATH."libraries/MX/Controller.php";
  * 
  * @package PyroCMS\Core\Controllers 
  */
-class MY_Controller extends MX_Controller {
-
+class MY_Controller extends MX_Controller
+{
 	/**
 	 * No longer used globally
 	 * 
 	 * @deprecated remove in 2.2
 	 */
 	protected $data;
+
 	/**
 	 * The name of the module that this controller instance actually belongs to.
 	 *
 	 * @var string 
 	 */
 	public $module;
+
 	/**
 	 * The name of the controller class for the current class instance.
 	 *
 	 * @var string
 	 */
 	public $controller;
+
 	/**
 	 * The name of the method for the current request.
 	 *
@@ -46,7 +49,7 @@ class MY_Controller extends MX_Controller {
 		// No record? Probably DNS'ed but not added to multisite
 		if ( ! defined('SITE_REF'))
 		{
-			show_error('This domain is not set up correctly. Please go to '.anchor('sites') .' and log in to add this new site.');
+			show_error('This domain is not set up correctly. Please go to '.anchor('sites') .' and log in to add this site.');
 		}
 
 		// By changing the prefix we are essentially "namespacing" each site
@@ -128,9 +131,7 @@ class MY_Controller extends MX_Controller {
 		// Create a hook point with access to instance but before custom code
 		$this->hooks->_call_hook('post_core_controller_constructor');
 
-		// Load the user model and get user data
-		$this->load->library('users/ion_auth');
-
+		// Get user data
 		$this->template->current_user = ci()->current_user = $this->current_user = $this->ion_auth->get_user();
 
 		// Work out module, controller and method and make them accessable throught the CI instance

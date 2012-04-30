@@ -7,7 +7,7 @@
 	<ul>
 		<li>
 			<?php echo lang('user_active', 'f_active'); ?>
-			<?php echo form_dropdown('f_active', array(0 => lang('global:select-all'), 1 => lang('global:yes'), 2 => lang('global:no') ), array(2)); ?>
+			<?php echo form_dropdown('f_active', array(0 => lang('global:select-all'), 1 => lang('global:yes'), 2 => lang('global:no') ), array(0)); ?>
 		</li>
 		<li>
 			<?php echo lang('user_group_label', 'f_group'); ?>

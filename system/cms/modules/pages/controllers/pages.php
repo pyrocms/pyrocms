@@ -22,8 +22,8 @@ class Pages extends Public_Controller
 		// the actual homepage even when the default_controller is
 		// changed
 
-		//No page is mentioned and we are not using pages as default
-		// (eg blog on homepage)
+		// No page is mentioned and we are not using pages as default
+		//  (eg blog on homepage)
 		if ( ! $this->uri->segment(1) AND $this->router->default_controller != 'pages')
 		{
 			redirect('');
@@ -196,11 +196,15 @@ class Pages extends Public_Controller
 		$chunk_html = '<div id="page-chunks" data-pid="'.$page->id.'">';
 		foreach ($page->chunks as $chunk)
 		{
+<<<<<<< HEAD
 			$chunk_html .= '<div class="page-chunk '.$chunk->slug.'" id="chunk_'.$chunk->id.'">'.
+=======
+			$chunk_html .= '<section id="'.$chunk->slug.'" class="page-chunk '.$chunk->class.'">'.
+>>>>>>> 9314486eaf8b26b0d2ded9eead86c0938b648e8b
 				'<div class="page-chunk-pad">'.
 				(($chunk->type == 'markdown') ? $chunk->parsed : $chunk->body).
 				'</div>'.
-				'</div>'.PHP_EOL;
+				'</section>'.PHP_EOL;
 		}
 		$chunk_html .= '</div>';
 		
@@ -216,18 +220,21 @@ class Pages extends Public_Controller
 				->set('edit_mode', true);
 		}
 
-		// Parse it so the content is parsed. We pass along $page so that {{ page:id }} and friends work in page content.
-		$page->body = $this->parser->parse_string(str_replace(array('&#39;', '&quot;'), array("'", '"'), $chunk_html), array('theme' => $this->theme, 'page' => $page), TRUE);
-
-		// Create page output
+		// Create page output. We do this before parsing the page contents so that 
+		// title, meta, & breadcrumbs can be overridden with tags in the page content
 		$this->template->title($page->meta_title)
-
 			->set_metadata('keywords', $page->meta_keywords)
 			->set_metadata('description', $page->meta_description)
+<<<<<<< HEAD
 			->set('page', $page)
 
 			// Most likely the other breadcrumbs are set above, set this one
+=======
+>>>>>>> 9314486eaf8b26b0d2ded9eead86c0938b648e8b
 			->set_breadcrumb($page->title);
+
+		// Parse it so the embedded tags are parsed. We pass along $page so that {{ page:id }} and friends work in page content.
+		$page->body = $this->parser->parse_string(str_replace(array('&#39;', '&quot;'), array("'", '"'), $chunk_html), array('theme' => $this->theme, 'page' => $page), TRUE);
 
 		if ($page->layout->css OR $page->css)
 		{
@@ -252,7 +259,11 @@ class Pages extends Public_Controller
 			log_message('error', 'Page Missing: '.$this->uri->uri_string());
 		}
 
+<<<<<<< HEAD
 		$this->template
+=======
+		$this->template->set('page', $page)
+>>>>>>> 9314486eaf8b26b0d2ded9eead86c0938b648e8b
 			->build('pages/page', NULL, FALSE, FALSE);
 	}
 

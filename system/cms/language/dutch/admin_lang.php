@@ -5,7 +5,7 @@ $lang['global:dashboard'] 				= 'Dashboard';
 $lang['cp_admin_quick_links']			= 'Snelkoppelingen';
 
 $lang['cp_welcome_title'] 				= 'Welkom';
-$lang['cp_welcome_message'] 			= 'Welkom in het %s Controlepaneel. Door de opties boven en links te gebruiken kunt u bijna ieder aspect van uw website instellen. Als u problemen ondervindt met dit systeem, plaats dan een issue op onze bugtracker..';
+$lang['cp_welcome_message'] 			= 'Welkom in het %s Controlepaneel. Door de opties boven en links te gebruiken kunt u bijna ieder aspect van uw website instellen. Als u problemen ondervindt met dit systeem, plaats dan een issue op onze bugtracker.';
 
 $lang['cp_news_feed_title'] 			= 'Nieuwsfeed';
 

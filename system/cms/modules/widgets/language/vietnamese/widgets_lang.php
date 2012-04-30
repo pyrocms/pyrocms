@@ -42,6 +42,7 @@ $lang['widgets.widget_area_slug']       = 'Tên viết tắt vùng';
 $lang['widgets.view_code']				= 'View Code'; #translate
 
 $lang['widgets.instance_title']         = 'Tiêu đề';
+$lang['widgets.show_title']				= 'Display Widget Title?'; #translate
 $lang['widgets.tag_title']              = 'Thẻ';
 
 $lang['widgets.no_available_widgets']	= 'Không có widgets nào.';

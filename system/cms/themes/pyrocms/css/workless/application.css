@@ -568,3 +568,11 @@ table > thead > tr {
 table > tbody > tr {
 	border-bottom: 1px solid #ddd;
 }
+
+/* Streams Core Styles */
+
+.streams_param_input pre {
+	background: #E3ECEE;
+	color: #5D7F88;
+	font-size: 11px;
+}

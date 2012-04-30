@@ -19,6 +19,7 @@ $lang['themes.mass_delete_success']     = '%s teemaa %s teemasta poistettiin onn
 $lang['themes.mass_delete_error']       = 'Vain %s teemaa %s teemasta poistettiin.';
 $lang['themes.delete_select_error']     = 'Valitse teemat, jotka haluat poistaa.';
 $lang['themes.upload_title']            = 'Lataa teema';
+$lang['themes.admin_list']				= 'Ylläpidon teemat';
 $lang['themes.list_title']              = 'Teemat';
 $lang['themes.upload_desc']             = 'Valitse tiedosto ja paina "Lataa" nappia';
 

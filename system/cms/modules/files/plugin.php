@@ -98,7 +98,7 @@ class Plugin_Files extends Plugin
 
 		$type AND $this->file_m->where('type', $type);
 		$limit AND $this->file_m->limit($limit);
-		$offset AND $this->file_m->limit($offset);
+		$offset AND $this->file_m->offset($offset);
 
 		$files = $this->file_m->get_all();
 		$files AND array_merge($this->_files, $files);

@@ -17,12 +17,12 @@ class Plugin_Theme extends Plugin
 	 * Loads a theme partial
 	 *
 	 * Usage:
-	 * {{ theme:partial file="header" }}
+	 * {{ theme:partial name="header" }}
 	 *
 	 * @return string The final rendered partial view.
 	 */
 	public function partial()
-	{
+	{	
 		$name = $this->attribute('name');
 
 		$path = $this->load->get_var('template_views');

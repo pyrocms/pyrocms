@@ -23,6 +23,8 @@ class Module_Maintenance extends Module
 				'fr' => 'Maintenance',
 				'id' => 'Pemeliharaan',
 				'se' => 'Underhåll',
+				'sl' => 'Vzdrževanje',
+				'th' => 'การบำรุงรักษา',
 				'zh' => '維護',
 			),
 			'description' => array(
@@ -35,6 +37,8 @@ class Module_Maintenance extends Module
 				'fi' => 'Hallinoi sivuston välimuistia ja vie tietoa tietokannasta.',
 				'hu' => 'Az oldal gyorsítótár kezelése és az adatbázis exportálása.',
 				'se' => 'Underhåll webbplatsens cache och exportera data från webbplatsens databas.',
+				'sl' => 'Upravljaj s predpomnilnikom strani (cache) in izvozi podatke iz baze.',
+				'th' => 'การจัดการแคชเว็บไซต์และข้อมูลการส่งออกจากฐานข้อมูล',
 				'zh' => '經由管理介面手動刪除暫存資料。',
 			),
 			'frontend' => false,

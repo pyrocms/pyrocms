@@ -15,9 +15,9 @@ class Field_encrypt
 	
 	public $db_col_type				= 'blob';
 
-	public $custom_parameters		= array( 'hide_typing' );
+	public $custom_parameters		= array('hide_typing');
 
-	public $version					= '1.0';
+	public $version					= '1.1';
 
 	public $author					= array('name'=>'Parse19', 'url'=>'http://parse19.com');
 	
@@ -68,7 +68,11 @@ class Field_encrypt
 
 		$options['name'] 	= $params['form_slug'];
 		$options['id']		= $params['form_slug'];
-		$options['value']	= $this->CI->encrypt->decode( $params['value'] );
+
+		// If we have post data and are returning form
+		// values (because of most likely a form validation error),
+		// we will just have the posted plain text value
+		$options['value'] = ($_POST) ? $params['value'] : $this->CI->encrypt->decode($params['value']);
 		
 		if ($params['custom']['hide_typing'] == 'yes')
 		{
@@ -91,13 +95,8 @@ class Field_encrypt
 	 */	
 	public function param_hide_typing($params = FALSE)
 	{
-		$selected = 'yes';
-	
-		if ($params == 'no')
-		{
-			$selected = 'no';
-		}
-		
+		$selected 		= ($params == 'no') ? 'no' : 'yes';
+
 		$yes_select 	= ($selected == 'yes') ? true : false;
 		$no_select 		= ($selected == 'no') ? true : false;
 	

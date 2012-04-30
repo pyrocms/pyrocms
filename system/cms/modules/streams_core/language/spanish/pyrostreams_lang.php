@@ -55,6 +55,7 @@ $lang['streams.type_not_valid']							= "Por favor seleccione un tipo de campo v
 $lang['streams.stream_slug_not_unique']					= "Este slug de stream ya esta utilizado.";
 $lang['streams.field_unique']							= "El campo %s tiene que ser único."; // @done
 $lang['streams.field_is_required']						= "El campo %s es requerido."; // @done
+$lang['streams.date_out_or_range']						= "The date you have chosen is out of the acceptable range."; #translate
 
 /* Field Labels */
 

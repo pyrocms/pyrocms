@@ -116,30 +116,19 @@ class Settings {
 	}
 
 	/**
-	 * Item
+	 * Temp
 	 *
-	 * Old way of getting an item.
-	 * @deprecated	v1.0	Use either __get or Settings::get() instead
-	 * @param	string	$name
-	 * @return	bool
-	 */
-	public function item($name)
-	{
-		return $this->__get($name);
-	}
-
-	/**
-	 * Set Item
+	 * Changes a setting for this request only. Does not modify the database
 	 *
-	 * Old way of getting an item.
-	 * @deprecated	v1.0	Use either __set or Settings::set() instead
 	 * @param	string	$name
 	 * @param	string	$value
 	 * @return	bool
 	 */
-	public function set_item($name, $value)
+	public static function temp($name, $value)
 	{
-		return $this->__set($name, $value);
+		// store the temp value in the cache so that all subsequent calls
+		// for this request will use it instead of the database value
+		self::$cache[$name] = $value;
 	}
 
 	/**
