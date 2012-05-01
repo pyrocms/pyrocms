@@ -290,6 +290,7 @@ input:invalid, textarea:invalid { background-color: #f0dddd; }
 
 .form_inputs {
 	width: 100%;
+	overflow: hidden;
 }
 .move-handle {display: none;}
 .form_inputs fieldset {

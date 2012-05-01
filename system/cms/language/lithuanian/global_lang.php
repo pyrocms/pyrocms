@@ -9,6 +9,8 @@ $lang['desc_label'] 					= 'Aprašymas';
 $lang['version_label'] 					= 'Versija';
 $lang['global:author'] 					= 'Autorius';
 $lang['global:action'] 					= 'Veiksmas';
+$lang['global:slug'] 					= 'Nuoroda';
+$lang['global:user'] 					= 'Vartotojas';
 
 $lang['dialog.delete_message'] 			= 'Ar tikrai norite tai ištrinti? Atstatymas negalimas.';
 $lang['dialog.confirm'] 				= 'Patvirtinti';
