@@ -513,6 +513,9 @@ table .actions a {
  * ---------------------------------- */
 
 /* Buttons */
+.buttons {
+	white-space: nowrap;
+}
 .btn {
   cursor: pointer;
   display: inline-block;
