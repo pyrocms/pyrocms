@@ -33,7 +33,7 @@ class Blog extends Public_Controller
 
 		foreach ($_blog as &$post)
 		{
-			$post->keywords = Keywords::get_links($post->keywords, 'blog/tagged');
+			$post->keywords = Keywords::get($post->keywords);
 		}
 
 		$this->template
@@ -75,7 +75,7 @@ class Blog extends Public_Controller
 
 		foreach ($blog AS &$post)
 		{
-			$post->keywords = Keywords::get_links($post->keywords, 'blog/tagged');
+			$post->keywords = Keywords::get($post->keywords);
 		}
 
 		// Build the page
@@ -110,7 +110,7 @@ class Blog extends Public_Controller
 
 		foreach ($_blog AS &$post)
 		{
-			$post->keywords = Keywords::get_links($post->keywords, 'blog/tagged');
+			$post->keywords = Keywords::get($post->keywords, 'blog/tagged');
 		}
 
 		$this->template
@@ -174,7 +174,7 @@ class Blog extends Public_Controller
 			$this->template->set_breadcrumb($post->category->title, 'blog/category/'.$post->category->slug);
 		}
 
-		$post->keywords = Keywords::get_links($post->keywords, 'blog/tagged');
+		$post->keywords = Keywords::get($post->keywords);
 
 		$this->template
 			->set_breadcrumb($post->title)
@@ -202,7 +202,7 @@ class Blog extends Public_Controller
 
 		foreach ($blog AS &$post)
 		{
-			$post->keywords = Keywords::get_links($post->keywords, 'blog/tagged');
+			$post->keywords = Keywords::get($post->keywords, 'blog/tagged');
 		}
 
 		// Set meta description based on post titles

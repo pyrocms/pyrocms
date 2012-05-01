@@ -6,27 +6,29 @@ class Blog_m extends MY_Model
 
 	function get_all()
 	{
-		$this->db->select('blog.*, blog_categories.title AS category_title, blog_categories.slug AS category_slug, profiles.display_name')
+		$this->db
+			->select('blog.*, blog_categories.title AS category_title, blog_categories.slug AS category_slug, profiles.display_name')
 			->join('blog_categories', 'blog.category_id = blog_categories.id', 'left')
-			->join('profiles', 'profiles.user_id = blog.author_id', 'left');
-
-		$this->db->order_by('created_on', 'DESC');
+			->join('profiles', 'profiles.user_id = blog.author_id', 'left')
+			->order_by('created_on', 'DESC');
 
 		return $this->db->get('blog')->result();
 	}
 
-	function get($id)
+	public function get($id)
 	{
-		return $this->db->select('blog.*, profiles.display_name')
-					->join('profiles', 'profiles.user_id = blog.author_id', 'left')
-					->where(array('blog.id' => $id))
-					->get('blog')
-					->row();
+		return $this->db
+			->select('blog.*, profiles.display_name')
+			->join('profiles', 'profiles.user_id = blog.author_id', 'left')
+			->where(array('blog.id' => $id))
+			->get('blog')
+			->row();
 	}
 	
 	public function get_by($key, $value = '')
 	{
-		$this->db->select('blog.*, profiles.display_name')
+		$this->db
+			->select('blog.*, profiles.display_name')
 			->join('profiles', 'profiles.user_id = blog.author_id', 'left');
 			
 		if (is_array($key))

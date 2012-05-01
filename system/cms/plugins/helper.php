@@ -66,9 +66,9 @@ class Plugin_Helper extends Plugin
 		$this->load->helper('date');
 
 		$format = $this->attribute('format');
-		$timestamp = $this->attribute('timestamp');
+		$timestamp = $this->attribute('timestamp', now());
 
-		return $timestamp ? format_date($timestamp, $format) : format_date(now(), $format);
+		return format_date($timestamp, $format);
 	}
 
 	/**
@@ -86,7 +86,7 @@ class Plugin_Helper extends Plugin
 		$email = $this->attribute('email', '');
 		$size = $this->attribute('size', '50');
 		$rating = $this->attribute('rating', 'g');
-
+		
 		$url_only = (bool) in_array($this->attribute('url-only', 'false'), array('1', 'y', 'yes', 'true'));
 
 		return gravatar($email, $size, $rating, $url_only);
