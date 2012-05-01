@@ -302,6 +302,7 @@ input:invalid, textarea:invalid { background-color: #f0dddd; }
 	height: 100%;
 	margin-bottom: 0;
 	padding-bottom: 0;
+	overflow: hidden;
 }
 .form_inputs fieldset > ul > li,
 .form_inputs > ul > div > li,
