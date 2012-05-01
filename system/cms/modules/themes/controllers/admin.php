@@ -70,6 +70,8 @@ class Admin extends Admin_Controller
 	 */
 	public function options($slug = '')
 	{
+		$data = new stdClass();
+
 		if ($this->input->post('btnAction') == 're-index')
 		{
 			$this->theme_m->delete_options($this->input->post('slug'));
