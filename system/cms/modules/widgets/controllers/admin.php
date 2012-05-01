@@ -15,11 +15,11 @@ class Admin extends Admin_Controller {
 	 * @var string
 	 */
 	protected $section = 'instances';
-	
+
 	/**
 	 * Constructor method
 	 * @access public
-	 * @return void
+	 * @return \Admin
 	 */
 	public function __construct()
 	{

@@ -89,6 +89,7 @@ class Admin_layouts extends Admin_Controller
 	public function create()
 	{
 		$data = new stdClass();
+		$page_layout = new stdClass();
 
 		// Got validation?
 		if ($this->form_validation->run())

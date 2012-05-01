@@ -112,6 +112,8 @@ class Admin extends Admin_Controller {
      */
     public function create()
     {
+		$email_template = new stdClass();
+
         $this->load->library('form_validation');
         $this->form_validation->set_rules($this->_validation_rules);
 
