@@ -75,7 +75,7 @@ class Streams_fields extends CI_Driver {
 		}
 
 		// Set locked 
-		$locked = isset($locked) and $locked === true ? 'yes' : 'no';
+		$locked = (isset($locked) and $locked === true) ? 'yes' : 'no';
 		
 		// Set extra
 		if ( ! isset($extra) or ! is_array($extra)) $extra = array();

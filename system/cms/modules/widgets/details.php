@@ -58,9 +58,10 @@ class Module_Widgets extends Module {
 				'th' => 'จัดการส่วนเล็ก ๆ ในรูปแบบของตัวเองในบล็อกหรือวิดเจ็ต',
                                 'se' => 'Hantera små sektioner med egen logik och innehåll på olika delar av webbplatsen.'
 			),
-			'frontend' => false,
-			'backend'  => true,
-			'menu'	  => 'content',
+			'frontend' 	=> false,
+			'backend'  	=> true,
+			'menu'	  	=> 'content',
+			'skip_xss'	=> true,
 
 			'sections' => array(
 			    'instances' => array(
