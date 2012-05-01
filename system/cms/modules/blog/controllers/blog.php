@@ -157,6 +157,7 @@ class Blog extends Public_Controller
 		// Set some defaults
 		else
 		{
+			$post->category = new stdClass();
 			$post->category->id = 0;
 			$post->category->slug = '';
 			$post->category->title = '';

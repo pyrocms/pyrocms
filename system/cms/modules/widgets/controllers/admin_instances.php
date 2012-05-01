@@ -37,8 +37,8 @@ class Admin_instances extends Admin_Controller {
 
 	/**
 	 * Constructor method
-	 * @access	public
-	 * @return	void
+	 * @access    public
+	 * @return \Admin_instances
 	 */
 	public function __construct()
 	{
@@ -58,10 +58,10 @@ class Admin_instances extends Admin_Controller {
 	/**
 	 * List all available widgets
 	 * @access public
-	 * @param str $slug The slug of the widget
+	 * @param string $slug The slug of the widget
 	 * @return void
 	 */
-	public function index()
+	public function index($slug = '')
 	{
 		$widgets = $this->widgets->list_area_instances($slug);
 
@@ -76,7 +76,8 @@ class Admin_instances extends Admin_Controller {
 	/**
 	 * Add a new widget instance
 	 * @access public
-	 * @return void
+	 * @param string $slug
+	 * @return bool
 	 */
 	public function create($slug = '')
 	{
@@ -152,7 +153,8 @@ class Admin_instances extends Admin_Controller {
 	/**
 	 * Edit a widget instance
 	 * @access public
-	 * @return void
+	 * @param int $id
+	 * @return bool
 	 */
 	public function edit($id = 0)
 	{
@@ -229,7 +231,8 @@ class Admin_instances extends Admin_Controller {
 	/**
 	 * Delete a widget instance
 	 * @access public
-	 * @return void
+	 * @param int $id
+	 * @return bool
 	 */
 	public function delete($id = 0)
 	{

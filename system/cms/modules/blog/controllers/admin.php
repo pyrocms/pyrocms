@@ -155,6 +155,8 @@ class Admin extends Admin_Controller
 	 */
 	public function create()
 	{
+		$post = new stdClass();
+
 		$this->form_validation->set_rules($this->validation_rules);
 
 		if ($this->input->post('created_on'))
