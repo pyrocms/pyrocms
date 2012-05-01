@@ -206,6 +206,8 @@ class Installer extends CI_Controller
 	public function step_2()
 	{
 		$data = new stdClass();
+		$data->mysql = new stdClass();
+		$data->http_server = new stdClass();
 
 		// Did the user enter the DB settings ?
 		if ( ! $this->session->userdata('step_1_passed'))
