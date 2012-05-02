@@ -12,6 +12,63 @@ class Plugin_Template extends Plugin
 {
 
 	/**
+	 * Set Template Title
+	 *
+	 * Set your own custom page titles from within page content. 
+	 * Separate multiple segments with a comma
+	 *
+	 * Usage:
+	 *   {{ template:set_title value="My Custom Page Title, Another Segment" }}
+	 *
+	 * @return void
+	 */
+	public function set_title()
+	{
+		$value = $this->attribute('value');
+
+		call_user_func_array(array($this->template, 'title'), explode(',', $value));
+	}
+
+	/**
+	 * Set Metadata
+	 *
+	 * Metadata can be set from inside page content. If meta info 
+	 * with the same name exists it will be replaced
+	 *
+	 * Usage:
+	 *   {{ template:set_metadata name="description" value="My Description" type="meta" }}
+	 *
+	 * @return void
+	 */
+	public function set_metadata()
+	{
+		$name 	= $this->attribute('name');
+		$value 	= $this->attribute('value');
+		$type 	= $this->attribute('type', 'meta');
+
+		$this->template->set_metadata($name, $value, $type);
+	}
+
+	/**
+	 * Set Breadcrumb
+	 *
+	 * Breadcrumbs can be overridden by using this tag inside page content
+	 *
+	 * Usage:
+	 *   {{ template:set_breadcrumb name="My Page" uri="some-page" reset="true" }}
+	 *
+	 * @return void
+	 */
+	public function set_breadcrumb()
+	{
+		$name 	= $this->attribute('name');
+		$uri 	= $this->attribute('uri');
+		$reset	= (strtolower($this->attribute('reset')) === 'true') ? TRUE : FALSE;
+
+		$this->template->set_breadcrumb($name, $uri, $reset);
+	}
+
+	/**
 	 * Data
 	 *
 	 * Loads a template partial
@@ -91,7 +148,8 @@ class Plugin_Template extends Plugin
 	}
 
 	/**
-	 * @todo Document this... I don't have any idea of what is the purpose?
+	 * Return template variables
+	 * Example: {{ template:title }}
 	 * 
 	 * @param type $foo
 	 * @param type $arguments

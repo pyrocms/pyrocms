@@ -203,19 +203,15 @@ class Pages extends Public_Controller
 				'</div>'.PHP_EOL;
 		}
 
-		// Parse it so the content is parsed. We pass along $page so that {{ page:id }} and friends work in page content.
-		$page->body = $this->parser->parse_string(str_replace(array('&#39;', '&quot;'), array("'", '"'), $chunk_html), array('theme' => $this->theme, 'page' => $page), TRUE);
-
-		// Create page output
+		// Create page output. We do this before parsing the page contents so that 
+		// title, meta, & breadcrumbs can be overridden with tags in the page content
 		$this->template->title($page->meta_title)
-
 			->set_metadata('keywords', $page->meta_keywords)
 			->set_metadata('description', $page->meta_description)
-
-			->set('page', $page)
-
-			// Most likely the other breadcrumbs are set above, set this one
 			->set_breadcrumb($page->title);
+
+		// Parse it so the embedded tags are parsed. We pass along $page so that {{ page:id }} and friends work in page content.
+		$page->body = $this->parser->parse_string(str_replace(array('&#39;', '&quot;'), array("'", '"'), $chunk_html), array('theme' => $this->theme, 'page' => $page), TRUE);
 
 		if ($page->layout->css OR $page->css)
 		{
@@ -240,7 +236,8 @@ class Pages extends Public_Controller
 			log_message('error', 'Page Missing: '.$this->uri->uri_string());
 		}
 
-		$this->template->build('pages/page', NULL, FALSE, FALSE);
+		$this->template->set('page', $page)
+			->build('pages/page', NULL, FALSE, FALSE);
 	}
 
 	/**

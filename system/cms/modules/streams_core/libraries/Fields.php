@@ -556,6 +556,31 @@ class Fields
 	// --------------------------------------------------------------------------
 
 	/**
+	 * Run Field Setup Event Functions
+	 *
+	 * This allows field types to add custom CSS/JS
+	 * to the field setup (edit/delete screen).
+	 *
+	 * @access 	public
+	 * @param 	obj - stream
+	 * @param 	string - method - new or edit
+	 * @param 	obj or null (for new fields) - field
+	 * @return 	
+	 */
+	public function run_field_setup_events($stream, $method, $field)
+	{
+		foreach($this->CI->type->types as $ft)
+		{
+			if (method_exists($ft, 'field_setup_event'))
+			{
+				$ft->field_setup_event($stream, $method, $field);
+			}
+		}
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
 	 * Translate a label.
 	 *
 	 * If it has the label: before it, then we can

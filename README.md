@@ -4,7 +4,7 @@
 * [Documentation](http://pyrocms.com/docs)
 * [License](http://pyrocms.com/legal/license)
 * [Forums](http://pyrocms.com/forums)
-* Version: 2.1.0-beta
+* Version: 2.1.0
 
 ## Team
 
@@ -77,3 +77,4 @@ Think you should be on this list? Add yourself in the next pull request you subm
 * [Mikael Kundert](https://github.com/mikaelkundert) Finnish
 * [Jack Sun](http://www.o-matic.com.tw/) Chinese Traditional
 * [Toni Haryanto](http://toniharyanto.cs.upi.edu/) Indonesian
+* [Nateetorn Lertkhonsan](http://twitter.com/ikwannnnn) Thai

@@ -3,7 +3,7 @@
 $lang['modules.core_list']				= 'Basis Modules';
 $lang['modules.addon_list']				= 'Add-on Modules';
 $lang['modules.introduction']			= 'Onderstaande lijst geeft de geinstalleerde modules weer, inclusief hun beschrijving en versie.';
-$lang['modules.core_introduction']		= 'Below is a list of core modules and their information. You may disable them but do so with extreme care. Disabling modules such as Users will render your site inoperable.'; #translate
+$lang['modules.core_introduction']		= 'Onderstaande lijst geeft de core modules weer, inclusief hun beschrijving en versie. U kunt deze uitschakelen maar wees voorzichtig. Het uitschakelen van bijvoorbeeld Gebruikers kan uw website problemen opleveren.';
 $lang['modules.disable_error'] 			= 'De module "%s" kon niet worden uitgeschakeld.';
 $lang['modules.disable_success']		= 'De module "%s" is uitgeschakeld.';
 $lang['modules.enable_error']			= 'De module "%s" kon niet worden ingeschakeld.';

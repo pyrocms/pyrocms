@@ -33,6 +33,7 @@ class Module_Redirects extends Module {
 				'sl' => 'Preusmeritve',
 				'zh' => '轉址',
 				'hu' => 'Átirányítások',
+				'th' => 'เปลี่ยนเส้นทาง',
                                 'se' => 'Omdirigeringar'
 			),
 			'description' => array(
@@ -55,6 +56,7 @@ class Module_Redirects extends Module {
 				'sl' => 'Preusmeritev iz enega URL naslova na drugega',
 				'zh' => '將網址轉址、重新定向。',
 				'hu' => 'Egy URL átirányítása egy másikra.',
+				'th' => 'เปลี่ยนเส้นทางจากที่หนึ่งไปยังอีกที่หนึ่ง',
                                 'se' => 'Omdirigera från en URL till en annan.'
 			),
 			'frontend' => false,

@@ -35,6 +35,7 @@ class Module_Pages extends Module {
 				'sl' => 'Strani',
 				'zh' => '頁面',
 				'hu' => 'Oldalak',
+				'th' => 'หน้าเพจ',
                                 'se' => 'Sidor'
 			),
 			'description' => array(
@@ -58,6 +59,7 @@ class Module_Pages extends Module {
 				'ru' => 'Управление информационными страницами сайта, с произвольным содержимым.',
 				'sl' => 'Dodaj stran s kakršno koli vsebino želite.',
 				'zh' => '為您的網站新增自定的頁面。',
+				'th' => 'เพิ่มหน้าเว็บที่กำหนดเองไปยังเว็บไซต์ของคุณตามที่ต้องการ',
 				'hu' => 'Saját oldalak hozzáadása a weboldalhoz, akármilyen tartalommal.',
                                 'se' => 'Lägg till egna sidor till webbplatsen.'
 			),

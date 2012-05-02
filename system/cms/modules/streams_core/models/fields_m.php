@@ -21,17 +21,17 @@ class Fields_m extends CI_Model {
 	public $fields_validation = array(
 		array(
 			'field'	=> 'field_name',
-			'label' => 'Field Name',
+			'label' => 'lang:streams.label.field_name',
 			'rules'	=> 'trim|required|max_length[60]'
 		),
 		array(
 			'field'	=> 'field_slug',
-			'label' => 'Field Slug',
+			'label' => 'lang:streams.label.field_slug',
 			'rules'	=> 'trim|required|max_length[60]|slug_safe'
 		),
 		array(
 			'field'	=> 'field_type',
-			'label' => 'Field Type',
+			'label' => 'lang:streams.label.field_type',
 			'rules'	=> 'trim|required|max_length[50]|type_valid'
 		)
 	);
@@ -58,8 +58,10 @@ class Fields_m extends CI_Model {
      * @param	[int offset]
      * @return	obj
      */
-    public function get_fields($namespace = NULL, $limit = FALSE, $offset = 0)
+    public function get_fields($namespace = NULL, $limit = FALSE, $offset = 0, $skips = array())
 	{
+		if (!empty($skips)) $this->db->or_where_not_in('field_slug', $skips);
+		
 		if ($namespace) $this->db->where('field_namespace', $namespace);
 	
 		if ($offset) $this->db->offset($offset);
@@ -128,13 +130,24 @@ class Fields_m extends CI_Model {
 	 * @param	[array - any extra data]
 	 * @return	bool
 	 */
-	public function insert_field($field_name, $field_slug, $field_type, $field_namespace, $extra = array())
+	public function insert_field($field_name, $field_slug, $field_type, $field_namespace, $extra = array(), $locked = 'no')
 	{
+		if ( ! $locked)
+		{
+			$locked = 'no';
+		}
+
+		if ($locked != 'yes' and $locked != 'no')
+		{
+			$locked = 'no';
+		}
+
 		$insert_data = array(
 			'field_name' 		=> $field_name,
 			'field_slug'		=> $field_slug,
 			'field_namespace'	=> $field_namespace,
-			'field_type'		=> $field_type
+			'field_type'		=> $field_type,
+			'is_locked'			=> $locked
 		);
 	
 		// Load the type to see if there are other fields
@@ -146,7 +159,14 @@ class Fields_m extends CI_Model {
 		
 			foreach ($field_type->custom_parameters as $param)
 			{
-				if(isset($extra[$param])) $extra_data[$param] = $extra[$param];
+				if (method_exists($field_type, 'param_'.$param.'_pre_save'))
+				{
+					$extra_data[$param] = $field_type->{'param_'.$param.'_pre_save'}($insert_data);
+				}
+				elseif(isset($extra[$param]))
+				{
+					$extra_data[$param] = $extra[$param];
+				}
 			}
 		
 			$insert_data['field_data'] = serialize($extra_data);
@@ -369,6 +389,19 @@ class Fields_m extends CI_Model {
 		if (isset($data['field_slug'])) 		$update_data['field_slug']		= $data['field_slug'];
 		if (isset($data['field_namespace'])) 	$update_data['field_namespace']	= $data['field_namespace'];
 		if (isset($data['field_type']))			$update_data['field_type']		= $data['field_type'];
+
+		if (isset($data['is_locked']))
+		{
+			if ( ! $data['is_locked'])
+			{
+				$data['is_locked'] = 'no';
+			}
+
+			if ($data['is_locked'] != 'yes' and $data['is_locked']!= 'no')
+			{
+				$data['is_locked'] = 'no';
+			}
+		}
 		
 		// Gather extra data		
 		if ( ! isset($type->custom_parameters) or $type->custom_parameters == '')
@@ -380,13 +413,13 @@ class Fields_m extends CI_Model {
 		{
 			foreach ($type->custom_parameters as $param)
 			{
-				if (isset($data[$param]))
+				if (method_exists($type, 'param_'.$param.'_pre_save'))
+				{
+					$custom_params[$param] = $type->{'param_'.$param.'_pre_save'}($update_data);
+				}
+				elseif(isset($data[$param]))
 				{
 					$custom_params[$param] = $data[$param];
-				}	
-				else
-				{
-					$custom_params[$param] = null;
 				}
 			}
 
@@ -408,6 +441,24 @@ class Fields_m extends CI_Model {
 			// Boo.
 			return false;
 		}
+	}
+
+	// --------------------------------------------------------------------------
+
+    /**
+     * Count assignments
+     *
+     * @access	public
+     * @return	int
+     */
+	public function count_assignments($field_id)
+	{
+		if ( ! $field_id) return 0;
+
+		return $this->db
+				->where('field_id', $field_id)
+				->from($this->db->dbprefix(ASSIGN_TABLE))
+				->count_all_results();
 	}
 
 	// --------------------------------------------------------------------------

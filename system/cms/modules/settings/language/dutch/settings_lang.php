@@ -127,14 +127,14 @@ $lang['settings_auto_username_desc']    	 	= "Genereer automatisch een gebruiker
 $lang['settings_registered_email']				= 'Geregistreerde gebruikers E-mail';
 $lang['settings_registered_email_desc']			= 'Stuur een notificatie e-mail naar het contact e-mail als iemand zich registreert.';
 
-$lang['settings_ckeditor_config']               = 'CKEditor Config'; #translate
-$lang['settings_ckeditor_config_desc']          = 'You can find a list of valid configuration items in <a target="_blank" href="http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.config.html">CKEditor\'s documentation.</a>'; #translate
+$lang['settings_ckeditor_config']               = 'Configureer CKEditor';
+$lang['settings_ckeditor_config_desc']          = 'U kunt een lijst van configuratie vinden op <a target="_blank" href="http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.config.html">CKEditor\'s documentatie.</a>';
 
-$lang['settings_enable_registration']           = 'Enable user registration'; #translate
-$lang['settings_enable_registration_desc']      = 'Allow users to register in your site.'; #translate
+$lang['settings_enable_registration']           = 'Schakel gebruikersregistratie in';
+$lang['settings_enable_registration_desc']      = 'Sta gebruikers toe zich in te schrijven op uw site.';
 
-$lang['settings_cdn_domain']                    = 'CDN Domain'; #translate
-$lang['settings_cdn_domain_desc']               = 'CDN domains allow you to offload static content to various edge servers, like Amazon CloudFront or MaxCDN.'; #translate
+$lang['settings_cdn_domain']                    = 'CDN Domein';
+$lang['settings_cdn_domain_desc']               = 'CDN domain kan bestanden plaatsen naar verschillende servers, zoals Amazon CloudFront or MaxCDN.';
 
 #section titles
 $lang['settings_section_general']				= 'Algemeen';

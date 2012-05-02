@@ -31,7 +31,6 @@ Asset::js(array('codemirror/codemirror.js',
 	pyro.apppath_uri				= "<?php echo APPPATH_URI; ?>";
 	pyro.base_uri					= "<?php echo BASE_URI; ?>";
 	pyro.lang.remove				= "<?php echo lang('global:remove'); ?>";
-	pyro.lang.delete				= "<?php echo lang('global:delete'); ?>";
 	pyro.lang.dialog_message 		= "<?php echo lang('global:dialog:delete_message'); ?>";
 	pyro.foreign_characters			= <?php echo json_encode(accented_characters()); ?>
 </script>

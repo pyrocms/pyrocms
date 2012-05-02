@@ -29,6 +29,7 @@ class Module_Keywords extends Module {
 				'hu' => 'Kulcsszavak',
 				'fi' => 'Avainsanat',
 				'sl' => 'Ključne besede',
+				'th' => 'คำค้น',
                                 'se' => 'Nyckelord'
 			),
 			'description' => array(
@@ -45,6 +46,7 @@ class Module_Keywords extends Module {
 				'hu' => 'Ez egy központi kulcsszó lista a cimkékhez és a tartalmakhoz.',
 				'fi' => 'Hallinnoi keskitettyä listaa avainsanoista merkitäksesi ja järjestelläksesi sisältöä.',
 				'sl' => 'Vzdržuj centralni seznam ključnih besed za označevanje in ogranizacijo vsebine.',
+				'th' => 'ศูนย์กลางการปรับปรุงคำค้นในการติดฉลากและจัดระเบียบเนื้อหาของคุณ',
                                 'se' => 'Hantera nyckelord för att organisera webbplatsens innehåll.'
 			),
 			'frontend' => false,

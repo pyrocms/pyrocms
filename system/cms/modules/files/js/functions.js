@@ -154,7 +154,7 @@ jQuery(function($){
 				}
 
 				// and hide it if they don't have permission for it
-				if ($(this).attr('data-role') && pyro.files.permissions.indexOf($(this).attr('data-role')) < 0) {
+				if ($(this).attr('data-role') && $.inArray($(this).attr('data-role'), pyro.files.permissions) < 0) {
 					$(this).hide();
 				}
 
@@ -209,7 +209,7 @@ jQuery(function($){
 
 			case 'download':
 				var $item = $(window).data('file_'+pyro.files.$last_r_click.attr('data-id'));
-				log($item);
+
 				if ($item.type === 'i' && $item.location !== 'local') {
 					window.open(SITE_URL+'files/download/'+$item.id);
 				} else {
@@ -353,7 +353,7 @@ jQuery(function($){
 				var resize = '';
 				var type = files[index]['type'];
 				// if it isn't an image then they can't resize it
-				if (type.search('image') >= 0) {
+				if (type && type.search('image') >= 0) {
 					resize = 	'<label>'+pyro.lang.width+'</label>'+
 								'<select name="width" class="skip"><option value="0">'+pyro.lang.full_size+'</option><option value="100">100px</option><option value="200">200px</option><option value="300">300px</option><option value="400">400px</option><option value="500">500px</option><option value="600">600px</option><option value="700">700px</option><option value="800">800px</option><option value="900">900px</option><option value="1000">1000px</option><option value="1100">1100px</option><option value="1200">1200px</option><option value="1300">1300px</option><option value="1400">1400px</option><option value="1500">1500px</option><option value="1600">1600px</option><option value="1700">1700px</option><option value="1800">1800px</option><option value="1900">1900px</option><option value="2000">2000px</option></select>'+
 								'<label>'+pyro.lang.height+'</label>'+
@@ -442,7 +442,6 @@ jQuery(function($){
 	 * All functions that are part of the pyro.files namespace                 *
 	 ***************************************************************************/
 
-	// todo: maybe we should not save the folder until the user has put a name, fake the folder creation until then?
 	pyro.files.new_folder = function(parent, name) {
 
 		if (typeof(name) === 'undefined') {
@@ -483,7 +482,7 @@ jQuery(function($){
 						.append('<li class="folder" data-id="'+results.data.id+'" data-name="'+results.data.name+'"><div></div><a href="#">'+results.data.name+'</a></li>');
 				} else {
 					// it had no children, we'll have to add the <ul> and the icon class also
-					$parent_li.append('<ul><li class="folder" data-id="'+results.data.id+'" data-name="'+results.data.name+'"><div></div><a href="#">'+results.data.name+'</a></li></ul>');
+					$parent_li.append('<ul style="display:block"><li class="folder" data-id="'+results.data.id+'" data-name="'+results.data.name+'"><div></div><a href="#">'+results.data.name+'</a></li></ul>');
 					$parent_li.addClass('close');			
 				}
 
@@ -704,7 +703,7 @@ jQuery(function($){
 			// file or folder?
 		var type = pyro.files.$last_r_click.hasClass('file') ? 'file' : 'folder';
 			// figure out the ID from the last clicked item
-		var $item_id = pyro.files.$last_r_click.attr('data-id') > 0 ? pyro.files.$last_r_click.attr('data-id') : 0;
+		var $item_id = pyro.files.$last_r_click.attr('data-id') > 0 ? pyro.files.$last_r_click.attr('data-id') : pyro.files.current_level;
 			// retrieve all the data that was stored when the item was initially loaded
 		var $item = $(window).data(type+'_'+$item_id);
 		var $select = $item_details.find('.location');
@@ -762,7 +761,7 @@ jQuery(function($){
 				inline		: true,
 				href		: 'div#item-details',
 				width		: '500',
-				height		: (type === 'file') ? '575' : '380',
+				height		: (type === 'file') ? '575' : '425',
 				opacity		: 0
 			});
 

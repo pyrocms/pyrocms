@@ -22,8 +22,8 @@ class Admin_Categories extends Admin_Controller {
 	protected $validation_rules = array(
 		array(
 			'field' => 'title',
-			'label' => 'lang:categories.title_label',
-			'rules' => 'trim|required|max_length[20]|callback__check_title'
+			'label' => 'lang:cat_title_label',
+			'rules' => 'trim|required|max_length[100]|callback__check_title'
 		),
 	);
 	
