@@ -466,7 +466,7 @@ class Files
 							  'location' => $new_location,
 							  'container' => $container);
 
-				ci()->file_m->update($file_id, array('filename' => $filename, 'name' => $new_name));
+				ci()->file_m->update($file_id, array('filename' => $filename, 'name' => $new_name, 'path' => '{{ url:site }}files/large/'.$filename));
 
 				@rename(self::$path.$file->filename, self::$path.$filename);
 
