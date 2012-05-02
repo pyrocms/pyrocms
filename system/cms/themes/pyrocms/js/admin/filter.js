@@ -8,21 +8,33 @@
 		//lets get the current module,  we will need to know where to post the search criteria
 		f_module		: $('input[name="f_module"]').val(),
 
+		//array of instances for first run
+		first_run: Array(),
+
 		/**
 		 * Constructor
 		 */
 		init: function(){
 
 			$('a.cancel').button();
+			
+			// a var we can use in events
+			var me = this;
 
 			//listener for select elements
 			$('select', pyro.filter.$filter_form).on('change', function(){
 
-				//build the form data
-				form_data = pyro.filter.$filter_form.serialize();
-
-				//fire the query
-				pyro.filter.do_filter(pyro.filter.f_module, form_data);
+				if (me.first_run[$(this).attr('id')] != undefined){
+					//build the form data
+					form_data = pyro.filter.$filter_form.serialize();
+	
+					//fire the query
+					pyro.filter.do_filter(pyro.filter.f_module, form_data);
+				}
+				else{
+		                	//add the event to the array so the next event will be executed
+		                	me.first_run[$(this).attr('id')] = '';
+				}
 			});
 
 			//listener for keywords
