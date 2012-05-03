@@ -161,6 +161,8 @@ class Blog extends Public_Controller
         {
             redirect('blog/' . date('Y/m',$post->created_on) . '/' . $post->slug);
         }
+        $this->template
+            ->set_metadata('index','nofollow');
 
         $this->_singleView($post);
     }
