@@ -17,6 +17,7 @@ class Migration_Add_blog_preview_hash extends CI_Migration {
         $this->dbforge->remove_column('blog','preview_hash');
 
     }
+
 }
 
 ?>
