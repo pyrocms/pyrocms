@@ -146,18 +146,18 @@ class Blog extends Public_Controller
 	}
 
     /**
-     * View a post
+     * preview a post
      *
-     * @param string $slug The slug of the blog post.
+     * @param string $hash the preview_hash of post
      */
-    public function preview($slug = '')
+    public function preview($hash = '')
     {
-        if ( ! $slug or ! $post = $this->blog_m->get_by('slug', $slug))
+        if ( ! $hash or ! $post = $this->blog_m->get_by('preview_hash', $hash))
         {
             redirect('blog');
         }
 
-        if ($post->status != 'draft')
+        if ($post->status == 'live')
         {
             redirect('blog/' . date('Y/m',$post->created_on) . '/' . $post->slug);
         }

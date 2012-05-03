@@ -165,13 +165,13 @@ class Blog_m extends MY_Model
 	function update($id, $input)
 	{
 		$input['updated_on'] = now();
-
+        if($input['status'] == "live" and $input['preview_hash'] !='') $input['preview_hash'] = '';
 		return parent::update($id, $input);
 	}
 
 	function publish($id = 0)
 	{
-		return parent::update($id, array('status' => 'live'));
+		return parent::update($id, array('status' => 'live','preview_hash'=>''));
 	}
 
 	// -- Archive ---------------------------------------------
