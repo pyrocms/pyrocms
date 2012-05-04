@@ -1,4 +1,4 @@
-(function($){$(function(){
+$(function(){
 
 	pyro.filter = {
 		$content		: $('#filter-stage'),
@@ -65,7 +65,7 @@
 			});
 
 			// trigger an event to submit immediately after page load
-			pyro.filter.$filter_form.find('select').trigger('change');
+			pyro.filter.$filter_form.find('select').first().trigger('change');
 		},
 	
 		//launch the query based on module
@@ -138,4 +138,4 @@
 
 	pyro.filter.init();
 
-});})(jQuery);
+});
