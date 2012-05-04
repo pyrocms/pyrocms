@@ -94,7 +94,7 @@
 
 		$groups = array(
 			array('name' => 'admin', 'description' => 'Administrators',),
-			array('name' => 'users', 'description' => 'Users',),
+			array('name' => 'user', 'description' => 'Users',),
 		);
 
 		foreach ($groups as $group)
