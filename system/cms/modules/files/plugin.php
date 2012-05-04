@@ -61,6 +61,7 @@ class Plugin_Files extends Plugin
 		$offset		= $this->attribute('offset', '');
 		$type		= $this->attribute('type', '');
 		$fetch		= $this->attribute('fetch');
+        $order_by   = $this->attribute('order-by');
 
 		if ( ! empty($folder_id) && (empty($type) || in_array($type, array('a','v','d','i','o'))))
 		{
@@ -99,6 +100,7 @@ class Plugin_Files extends Plugin
 		$type AND $this->file_m->where('type', $type);
 		$limit AND $this->file_m->limit($limit);
 		$offset AND $this->file_m->offset($offset);
+        $order_by AND $this->file_m->order_by($order_by);
 
 		$files = $this->file_m->get_all();
 		$files AND array_merge($this->_files, $files);
