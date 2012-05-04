@@ -3,7 +3,7 @@
 $lang['global:control-panel'] 				= 'لوحة التحكم';
 $lang['global:profile']					= 'الملف الشخصي';
 
-$lang['title_label'] 					= 'العنوان';
+$lang['global:title'] 					= 'العنوان';
 $lang['name_label'] 					= 'الإسم';
 $lang['desc_label'] 					= 'الوصف';
 $lang['version_label'] 					= 'النسخة';

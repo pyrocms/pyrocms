@@ -3,7 +3,6 @@
 /* Date 07/11/2010 */
 
 // labels
-$lang['cat_title_label'] 				= 'Titolo';
 $lang['cat_category_label'] 			= 'Categoria';
 
 // titles

@@ -3,7 +3,7 @@
 $lang['global:control-panel'] 			= 'Quản trị hệ thống';
 $lang['global:profile']					= 'Profile'; #translate
 
-$lang['title_label'] 					= 'Tiêu đề';
+$lang['global:title'] 					= 'Tiêu đề';
 $lang['name_label'] 					= 'Tên';
 $lang['desc_label'] 					= 'Mô tả';
 $lang['version_label'] 					= 'Phiên bản';

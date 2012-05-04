@@ -11,7 +11,6 @@
 **/
 
 // labels
-$lang['nav_title_label']                        = 'ชื่อ';
 $lang['nav_parent_label']						= 'Parent';
 $lang['nav_target_label']                       = 'เป้าหมาย';
 $lang['nav_class_label']                        = 'ชั้น';

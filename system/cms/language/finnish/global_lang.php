@@ -3,7 +3,7 @@
 $lang['global:control-panel'] 						= 'Hallintapaneeli';
 $lang['global:profile']					= 'Profiili';
 
-$lang['title_label'] 					= 'Otsikko';
+$lang['global:title'] 					= 'Otsikko';
 $lang['name_label'] 					= 'Nimi';
 $lang['desc_label'] 					= 'Kuvaus';
 $lang['version_label'] 					= 'Versio';

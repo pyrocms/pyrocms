@@ -3,7 +3,7 @@
 $lang['global:control-panel'] 			= 'Control Panel';
 $lang['global:profile']					= 'Profile';
 
-$lang['title_label'] 					= 'Title';
+$lang['global:title'] 					= 'Title';
 $lang['name_label'] 					= 'Name';
 $lang['desc_label'] 					= 'Description';
 $lang['version_label'] 					= 'Version';

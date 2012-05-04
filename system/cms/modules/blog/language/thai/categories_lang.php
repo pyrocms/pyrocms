@@ -11,7 +11,6 @@
 **/
 
 // labels
-$lang['cat_title_label']            = 'ชื่อหัวข้อ';
 $lang['cat_category_label']         = 'หมวดหมู่';
 
 // titles

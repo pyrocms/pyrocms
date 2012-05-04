@@ -19,7 +19,7 @@
 			<?php echo form_hidden('current_group_id', $navigation_link->navigation_group_id) ?>
 			
 			<li class="<?php echo alternator('', 'even'); ?>">
-				<label for="title"><?php echo lang('nav_title_label');?> <span>*</span></label>
+				<label for="title"><?php echo lang('global:title');?> <span>*</span></label>
 				<?php echo form_input('title', $navigation_link->title, 'maxlength="50" class="text"'); ?>
 			</li>
 			

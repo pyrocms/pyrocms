@@ -3,7 +3,7 @@
 $lang['global:control-panel'] 			= 'Turinio valdymas';
 $lang['global:profile']					= 'Profilis';
 
-$lang['title_label'] 					= 'Antraštė';
+$lang['global:title'] 					= 'Antraštė';
 $lang['name_label'] 					= 'Vardas';
 $lang['desc_label'] 					= 'Aprašymas';
 $lang['version_label'] 					= 'Versija';

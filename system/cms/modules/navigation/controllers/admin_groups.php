@@ -23,7 +23,7 @@ class Admin_groups extends Admin_Controller
 	private $validation_rules = array(
 		array(
 			'field' => 'title',
-			'label' => 'lang:nav_title_label',
+			'label' => 'lang:global:title',
 			'rules' => 'trim|required|max_length[50]'
 		),
 		array(

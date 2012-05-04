@@ -3,7 +3,7 @@
 $lang['global:control-panel'] 						= '控制台'; 		//'Control Panel';
 $lang['global:profile']					= 'Profile'; #translate
 
-$lang['title_label'] 					= '標題'; 		//'Title';
+$lang['global:title'] 					= '標題'; 		//'Title';
 $lang['name_label'] 					= '名稱'; 		//'Name';
 $lang['desc_label'] 					= '說明'; 		//'Description';
 $lang['version_label'] 					= '版本'; 		//'Version';

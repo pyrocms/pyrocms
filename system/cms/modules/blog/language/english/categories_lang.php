@@ -1,7 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 // labels
-$lang['cat_title_label']            = 'Title';
 $lang['cat_category_label']         = 'Category';
 
 // titles

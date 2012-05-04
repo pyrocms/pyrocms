@@ -8,7 +8,7 @@
 
 <section class="item">
 	
-<?php echo form_open(uri_string(), 'class="crud"'); ?>
+<?php echo form_open_multipart(uri_string(), 'class="crud"'); ?>
 
 <div class="tabs">
 
@@ -23,19 +23,28 @@
 		<fieldset>
 	
 		<ul>
-			<li class="even">
-				<label for="title"><?php echo lang('blog_title_label'); ?> <span>*</span></label>
+			<li>
+				<label for="title"><?php echo lang('global:title'); ?> <span>*</span></label>
 				<div class="input"><?php echo form_input('title', htmlspecialchars_decode($post->title), 'maxlength="100" id="title"'); ?></div>				
 			</li>
 			
 			<li>
-				<label for="slug"><?php echo lang('blog_slug_label'); ?> <span>*</span></label>
+				<label for="slug"><?php echo lang('global:slug'); ?> <span>*</span></label>
 				<div class="input"><?php echo form_input('slug', $post->slug, 'maxlength="100" class="width-20"'); ?></div>
 			</li>
 			
-			<li class="even">
+			<li>
 				<label for="status"><?php echo lang('blog_status_label'); ?></label>
 				<div class="input"><?php echo form_dropdown('status', array('draft' => lang('blog_draft_label'), 'live' => lang('blog_live_label')), $post->status) ?></div>
+			</li>
+			
+			<li>
+				<label for="image"><?php echo lang('global:image'); ?></label>
+				<div class="input"><?php echo form_upload('image'); ?></div>
+
+				<?php if ( ! empty($post->image)): ?>
+					<br /><img src="<?php echo base_url().UPLOAD_PATH.'blog/'.$post->image ?>" />
+				<?php endif; ?>
 			</li>
 			
 			<li>
@@ -81,7 +90,7 @@
 				</div>
 			</li>
 			
-			<li class="even">
+			<li>
 				<label for="keywords"><?php echo lang('global:keywords'); ?></label>
 				<div class="input"><?php echo form_input('keywords', $post->keywords, 'id="keywords"') ?></div>
 			</li>
@@ -97,7 +106,7 @@
 				</div>
 			</li>
 			
-			<li class="even">
+			<li>
 				<label for="comments_enabled"><?php echo lang('blog_comments_enabled_label');?></label>
 				<div class="input"><?php echo form_checkbox('comments_enabled', 1, ($this->method == 'create' && ! $_POST) or $post->comments_enabled == 1, 'id="comments_enabled"'); ?></div>
 			</li>

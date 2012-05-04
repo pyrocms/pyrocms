@@ -21,12 +21,12 @@ class Admin extends Admin_Controller
 	protected $validation_rules = array(
 		'title' => array(
 			'field' => 'title',
-			'label' => 'lang:blog_title_label',
+			'label' => 'lang:global:title',
 			'rules' => 'trim|htmlspecialchars|required|max_length[100]|callback__check_title'
 		),
 		'slug' => array(
 			'field' => 'slug',
-			'label' => 'lang:blog_slug_label',
+			'label' => 'lang:global:slug',
 			'rules' => 'trim|required|alpha_dot_dash|max_length[100]|callback__check_slug'
 		),
 		array(
@@ -111,7 +111,7 @@ class Admin extends Admin_Controller
 
 	/**
 	 * Show all created blog posts
-	 * @access public
+	 * 
 	 * @return void
 	 */
 	public function index()
@@ -120,11 +120,11 @@ class Admin extends Admin_Controller
 		$base_where = array('show_future' => TRUE, 'status' => 'all');
 
 		//add post values to base_where if f_module is posted
-		$base_where = $this->input->post('f_category') ? $base_where + array('category' => $this->input->post('f_category')) : $base_where;
+		$this->input->post('f_category') and $base_where + array('category' => $this->input->post('f_category'));
 
 		$base_where['status'] = $this->input->post('f_status') ? $this->input->post('f_status') : $base_where['status'];
 
-		$base_where = $this->input->post('f_keywords') ? $base_where + array('keywords' => $this->input->post('f_keywords')) : $base_where;
+		$this->input->post('f_keywords') and $base_where + array('keywords' => $this->input->post('f_keywords'));
 
 		// Create pagination links
 		$total_rows = $this->blog_m->count_by($base_where);
@@ -134,7 +134,7 @@ class Admin extends Admin_Controller
 		$blog = $this->blog_m->limit($pagination['limit'])->get_many_by($base_where);
 
 		//do we need to unset the layout because the request is ajax?
-		$this->input->is_ajax_request() ? $this->template->set_layout(FALSE) : '';
+		$this->input->is_ajax_request() and $this->template->set_layout(FALSE);
 
 		$this->template
 			->title($this->module_details['name'])
@@ -217,7 +217,7 @@ class Admin extends Admin_Controller
 			}
 			$post->created_on = $created_on;
 			// if it's a fresh new article lets show them the advanced editor
-			if ($post->type == '') $post->type = 'wysiwyg-advanced';
+			$post->type or $post->type = 'wysiwyg-advanced';
 		}
 
 		$this->template
@@ -233,7 +233,7 @@ class Admin extends Admin_Controller
 	/**
 	 * Edit blog post
 	 *
-	 * @access public
+	 * 
 	 * @param int $id the ID of the blog post to edit
 	 * @return void
 	 */
@@ -258,12 +258,12 @@ class Admin extends Admin_Controller
 		$this->form_validation->set_rules(array_merge($this->validation_rules, array(
 			'title' => array(
 				'field' => 'title',
-				'label' => 'lang:blog_title_label',
+				'label' => 'lang:global:title',
 				'rules' => 'trim|htmlspecialchars|required|max_length[100]|callback__check_title['.$id.']'
 			),
 			'slug' => array(
 				'field' => 'slug',
-				'label' => 'lang:blog_slug_label',
+				'label' => 'lang:global:slug',
 				'rules' => 'trim|required|alpha_dot_dash|max_length[100]|callback__check_slug['.$id.']'
 			),
 		)));
@@ -327,7 +327,7 @@ class Admin extends Admin_Controller
 		
 		$this->template
 			->title($this->module_details['name'], sprintf(lang('blog_edit_title'), $post->title))
-			->append_metadata($this->load->view('fragments/wysiwyg', $this->data, TRUE))
+			->append_metadata($this->load->view('fragments/wysiwyg', array(), TRUE))
 			->append_js('jquery/jquery.tagsinput.js')
 			->append_js('module::blog_form.js')
 			->append_css('jquery/jquery.tagsinput.css')
@@ -337,7 +337,7 @@ class Admin extends Admin_Controller
 
 	/**
 	 * Preview blog post
-	 * @access public
+	 * 
 	 * @param int $id the ID of the blog post to preview
 	 * @return void
 	 */
@@ -353,7 +353,7 @@ class Admin extends Admin_Controller
 
 	/**
 	 * Helper method to determine what to do with selected items from form post
-	 * @access public
+	 * 
 	 * @return void
 	 */
 	public function action()
@@ -376,7 +376,7 @@ class Admin extends Admin_Controller
 
 	/**
 	 * Publish blog post
-	 * @access public
+	 * 
 	 * @param int $id the ID of the blog post to make public
 	 * @return void
 	 */
@@ -430,7 +430,7 @@ class Admin extends Admin_Controller
 
 	/**
 	 * Delete blog post
-	 * @access public
+	 * 
 	 * @param int $id the ID of the blog post to delete
 	 * @return void
 	 */
@@ -494,31 +494,31 @@ class Admin extends Admin_Controller
 
 	/**
 	 * Callback method that checks the title of an post
-	 * @access public
+	 * 
 	 * @param string title The Title to check
 	 * @return bool
 	 */
 	public function _check_title($title, $id = null)
 	{
-		$this->form_validation->set_message('_check_title', sprintf(lang('blog_already_exist_error'), lang('blog_title_label')));
+		$this->form_validation->set_message('_check_title', sprintf(lang('blog_already_exist_error'), lang('global:title')));
 		return $this->blog_m->check_exists('title', $title, $id);			
 	}
 	
 	/**
 	 * Callback method that checks the slug of an post
-	 * @access public
+	 * 
 	 * @param string slug The Slug to check
 	 * @return bool
 	 */
 	public function _check_slug($slug, $id = null)
 	{
-		$this->form_validation->set_message('_check_slug', sprintf(lang('blog_already_exist_error'), lang('blog_slug_label')));
+		$this->form_validation->set_message('_check_slug', sprintf(lang('blog_already_exist_error'), lang('global:slug')));
 		return $this->blog_m->check_exists('slug', $slug, $id);
 	}
 
 	/**
 	 * method to fetch filtered results for blog list
-	 * @access public
+	 * 
 	 * @return void
 	 */
 	public function ajax_filter()

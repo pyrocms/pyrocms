@@ -3,7 +3,7 @@
 $lang['global:control-panel'] 		= 'Πίνακας Ελέγχου';
 $lang['global:profile'] 		= 'Προφίλ';
 
-$lang['title_label'] 			= 'Τίτλος';
+$lang['global:title'] 			= 'Τίτλος';
 $lang['name_label'] 			= 'Όνομα';
 $lang['desc_label'] 			= 'Περιγραφή';
 $lang['version_label'] 			= 'Έκδοση';

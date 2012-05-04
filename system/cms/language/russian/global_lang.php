@@ -11,7 +11,7 @@
 $lang['global:control-panel']								= 'Администрирование';
 $lang['global:profile']					= 'Profile'; #translate
 
-$lang['title_label']						= 'Заголовок';
+$lang['global:title']						= 'Заголовок';
 $lang['name_label']							= 'Название';
 $lang['desc_label']							= 'Описание';
 $lang['version_label']					= 'Версия';

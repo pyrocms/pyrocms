@@ -28,7 +28,7 @@
 		
 			<ul>
 				<li>
-					<label for="title"><?php echo lang('pages.title_label');?> <span>*</span></label>
+					<label for="title"><?php echo lang('global:title');?> <span>*</span></label>
 					<div class="input"><?php echo form_input('title', $page['title'], 'id="title" maxlength="60"'); ?></div>
 				</li>
 				

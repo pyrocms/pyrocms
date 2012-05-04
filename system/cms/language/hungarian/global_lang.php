@@ -3,7 +3,7 @@
 $lang['global:control-panel'] 			= 'Vezérlőpult';
 $lang['global:profile']				= 'Profil';
 
-$lang['title_label'] 				= 'Cím';
+$lang['global:title'] 				= 'Cím';
 $lang['name_label'] 				= 'Név';
 $lang['desc_label'] 				= 'Leírás';
 $lang['version_label'] 				= 'Verzió';

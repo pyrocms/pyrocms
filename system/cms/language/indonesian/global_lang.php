@@ -3,7 +3,7 @@
 $lang['global:control-panel'] 			= 'Control Panel';
 $lang['global:profile']					= 'Profil'; #translate
 
-$lang['title_label'] 					= 'Judul';
+$lang['global:title'] 					= 'Judul';
 $lang['name_label'] 					= 'Nama';
 $lang['desc_label'] 					= 'Deskripsi';
 $lang['version_label'] 					= 'Versi';

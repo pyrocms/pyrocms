@@ -1,6 +1,11 @@
 <?php if (isset($category->title)): ?>
 	<h2 id="page_title"><?php echo $category->title; ?></h2>
+
+<?php elseif (isset($tag)): ?>
+	<h2 id="page_title"><?php echo lang('blog_tagged_label').': '.$tag; ?></h2>
+
 <?php endif; ?>
+
 
 <?php if (!empty($blog)): ?>
 <?php foreach ($blog as $post): ?>

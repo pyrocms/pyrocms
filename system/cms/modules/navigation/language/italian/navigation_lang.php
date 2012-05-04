@@ -3,7 +3,6 @@
 /* Date 04/11/2010 updated 05/04/2012 */
 
 // labels
-$lang['nav_title_label'] 						= 'Titolo';
 $lang['nav_target_label']						= 'Target';
 $lang['nav_url_label'] 							= 'URL';
 $lang['nav_details_label'] 						= 'Dettagli';
@@ -42,5 +41,3 @@ $lang['nav_link_delete_success'] 				= 'Il collegamento è stato eliminato.';
 
 $lang['nav_choose_value']						= 'Il campo %s non può essere vuoto.';
 $lang['nav_link_type_desc'] 					= 'Seleziona il tipo di link per avere più parametri per creare il tuo collegamento.';
-
-?>

@@ -13,18 +13,18 @@ class Page_m extends MY_Model
 
 	/**
 	 * Array containing the validation rules
-	 * @access public
+	 * 
 	 * @var array
 	 */
 	public $validate = array(
 		array(
 			'field' => 'title',
-			'label'	=> 'lang:pages.title_label',
+			'label'	=> 'lang:global:title',
 			'rules'	=> 'trim|required|max_length[250]'
 		),
 		'slug' => array(
 			'field' => 'slug',
-			'label'	=> 'lang:pages.slug_label',
+			'label'	=> 'lang:global:slug',
 			'rules'	=> 'trim|required|alpha_dot_dash|max_length[250]|callback__check_slug'
 		),
 		array(
@@ -102,7 +102,7 @@ class Page_m extends MY_Model
 	/**
 	* Get a page by it's path
 	*
-	* @access public
+	* 
 	* @param array $segments The path segments
 	* @return array
 	*/
@@ -511,7 +511,7 @@ class Page_m extends MY_Model
 	/**
 	 * Update a Page
 	 *
-	 * @access public
+	 * 
 	 * @param int $id The ID of the page to update
 	 * @param array $input The data to update
 	 * @return void
@@ -614,7 +614,7 @@ class Page_m extends MY_Model
 	/**
 	 * Callback to check uniqueness of slug + parent
 	 *
-	 * @access public
+	 * 
 	 * @param $slug slug to check
 	 * @return bool
 	 */

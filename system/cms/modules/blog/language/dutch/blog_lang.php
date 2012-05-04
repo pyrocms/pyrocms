@@ -17,7 +17,6 @@ $lang['blog_draft_label'] 				= 'Concept';
 $lang['blog_live_label'] 				= 'Live';
 $lang['blog_content_label'] 			= 'Content';
 $lang['blog_options_label'] 			= 'Opties';
-$lang['blog_title_label'] 				= 'Titel';
 $lang['blog_slug_label'] 				= 'URL';
 $lang['blog_intro_label'] 				= 'Introductie';
 $lang['blog_no_category_select_label'] 	= '-- Geen --';

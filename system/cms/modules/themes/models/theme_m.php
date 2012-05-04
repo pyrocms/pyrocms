@@ -31,22 +31,22 @@ class Theme_m extends MY_Model
 	/**
 	 * Sets the current default theme
 	 */
-	public function __construct()
-	{
-		parent::__construct();
-		$this->_theme = $this->settings->default_theme;
+    public function __construct()
+    {
+        parent::__construct();
+        $this->_theme = $this->settings->default_theme;
 		$this->_admin_theme = $this->settings->admin_theme;
-	}
+    }
 
-	/**
-	 * Get all available themes
-	 *
-	 * @return array
-	 */
-	public function get_all()
-	{
-		foreach ($this->template->theme_locations() as $location)
-		{
+    /**
+     * Get all available themes
+     *
+     * @return <array>
+     */
+    public function get_all()
+    {
+        foreach ($this->template->theme_locations() as $location)
+        {
 			if ( ! $themes = glob($location.'*', GLOB_ONLYDIR))
 			{
 				continue;

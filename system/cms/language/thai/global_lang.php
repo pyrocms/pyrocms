@@ -13,7 +13,7 @@
 $lang['global:control-panel'] 			= 'แผงควบคุม';
 $lang['global:profile']					= 'ข้อมูลส่วนตัว';
 
-$lang['title_label'] 					= 'หัวข้อ';
+$lang['global:title'] 					= 'หัวข้อ';
 $lang['name_label'] 					= 'ชื่อ';
 $lang['desc_label'] 					= 'รายละเอียด';
 $lang['version_label'] 					= 'รุ่น';

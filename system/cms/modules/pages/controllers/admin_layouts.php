@@ -24,7 +24,7 @@ class Admin_layouts extends Admin_Controller
 	private $validation_rules = array(
 		array(
 			'field' => 'title',
-			'label' => 'lang:page_layouts.title_label',
+			'label' => 'lang:global:title',
 			'rules' => 'trim|required|max_length[60]'
 		),
 		array(

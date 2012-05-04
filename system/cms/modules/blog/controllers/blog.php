@@ -220,7 +220,7 @@ class Blog extends Public_Controller
 			->set('blog', $blog)
 			->set('tag', $tag)
 			->set('pagination', $pagination)
-			->build('tagged');
+			->build('posts');
 	}
 
 	/**

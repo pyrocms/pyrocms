@@ -12,7 +12,7 @@ class Group_m extends MY_Model
 	/**
 	 * Check a rule based on it's role
 	 *
-	 * @access public
+	 * 
 	 * @param string $role The role
 	 * @param array $location
 	 * @return mixed
@@ -55,7 +55,7 @@ class Group_m extends MY_Model
 	/**
 	 * Return an array of groups
 	 *
-	 * @access public
+	 * 
 	 * @param array $params Optional parameters
 	 * @return array
 	 */
@@ -72,7 +72,7 @@ class Group_m extends MY_Model
 	/**
 	 * Add a group
 	 *
-	 * @access public
+	 * 
 	 * @param array $input The data to insert
 	 * @return array
 	 */
@@ -87,7 +87,7 @@ class Group_m extends MY_Model
 	/**
 	 * Update a group
 	 *
-	 * @access public
+	 * 
 	 * @param int $id The ID of the role
 	 * @param array $input The data to update
 	 * @return array
@@ -103,7 +103,7 @@ class Group_m extends MY_Model
 	/**
 	 * Delete a group
 	 *
-	 * @access public
+	 * 
 	 * @param int $id The ID of the group to delete
 	 * @return
 	 */
