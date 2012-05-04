@@ -327,7 +327,7 @@ jQuery(function($) {
 	{
 		// Chosen
 		$('select:not(.skip)').livequery(function(){
-			$(this).addClass('chzn');
+			$(this).addClass('chzn').trigger("liszt:updated");
 			$(".chzn").chosen();
 
 			// This is a workaround for Chosen's visibility bug. In short if a select
