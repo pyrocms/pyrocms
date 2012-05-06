@@ -356,9 +356,13 @@ class Streams_m extends MY_Model {
 	 * @param	string
 	 * @return	mixed
 	 */	
-	public function get_stream_id_from_slug($slug)
+	public function get_stream_id_from_slug($slug, $namespace)
 	{
-		$db = $this->db->limit(1)->where('stream_slug', $slug)->get($this->table);
+		$db = $this->db
+					->limit(1)
+					->where('stream_slug', $slug)
+					->where('stream_namespace', $namespace)
+					->get($this->table);
 		
 		if ($db->num_rows() == 0)
 		{
