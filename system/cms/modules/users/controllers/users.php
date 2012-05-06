@@ -47,6 +47,11 @@ class Users extends Public_Controller
 	 */
 	public function view($id = null)
 	{
+		if(! $this->current_user)
+ 		{
+ 			redirect('users/login');
+ 		}
+		 
 		$user = ($this->current_user && $id == $this->current_user->id) ? $this->current_user : $this->ion_auth->get_user($id);
 
 		// No user? Show a 404 error. Easy way for now, instead should show a custom error message
