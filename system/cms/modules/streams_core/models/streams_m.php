@@ -353,7 +353,8 @@ class Streams_m extends MY_Model {
 	 * Get the ID for a stream from the slug
 	 *
 	 * @access	public
-	 * @param	string
+	 * @param	string - stream slug
+	 * @param 	string - stream namespace
 	 * @return	mixed
 	 */	
 	public function get_stream_id_from_slug($slug, $namespace)
