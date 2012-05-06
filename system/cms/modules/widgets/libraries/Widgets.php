@@ -258,7 +258,15 @@ class Widgets {
 
 		$output = '';
 
-		$view = 'widget_wrapper';
+		if ($area == 'dashboard')
+		{
+			$view = 'admin/widget_wrapper';
+		}
+		else
+		{
+			$view = 'widget_wrapper';
+		}
+
 		$path = $this->template->get_views_path() . 'modules/widgets/';
 
 		if ( ! file_exists($path . $view . EXT))
