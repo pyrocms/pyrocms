@@ -99,7 +99,7 @@ class Streams extends CI_Driver_Library {
 		// Check for slug
 		if (is_string($stream))
 		{
-			return $this->CI->streams_m->get_stream_id_from_slug($stream);
+			return $this->CI->streams_m->get_stream_id_from_slug($stream, $namespace);
 		}
 
 		// Check for object
