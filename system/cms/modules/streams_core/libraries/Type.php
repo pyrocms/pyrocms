@@ -293,10 +293,15 @@ class Type
 	 */
 	public function load_view($type, $view_name, $data = array())
 	{	
-		// Thanks MY_Loader!
-		$this->CI->load->set_view_path($this->types->$type->ft_path.'views/');		
-				
-		return $view_data = $this->CI->load->_ci_load(array('_ci_view' => $view_name, '_ci_vars' => $this->object_to_array($data), '_ci_return' => true));
+		$paths = $this->CI->load->get_view_paths();
+
+		$this->CI->load->set_view_path($this->types->$type->ft_path.'views/');
+
+		$view_data = $this->CI->load->_ci_load(array('_ci_view' => $view_name, '_ci_vars' => $this->object_to_array($data), '_ci_return' => true));
+
+		$this->CI->load->set_view_path($paths);
+
+		return $view_data;
 	}
 
 	// --------------------------------------------------------------------
