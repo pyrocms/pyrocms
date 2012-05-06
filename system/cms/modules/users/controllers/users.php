@@ -716,6 +716,15 @@ class Users extends Public_Controller
 			}
 		}
 
+		// --------------------------------
+		// Run Stream Events
+		// --------------------------------
+
+		$profile_stream_id = $this->streams_m->get_stream_id_from_slug('profiles', 'users');
+		$this->fields->run_field_events($this->streams_m->get_stream_fields($profile_stream_id), array());
+
+		// --------------------------------
+
 		// Render the view
 		$this->template->build('profile/edit', array(
 			'_user' => $user,
