@@ -55,6 +55,7 @@ class Field_datetime
 		if ( ! defined('ADMIN_THEME') and isset($field->field_data['input_type']) and $field->field_data['input_type'] == 'datepicker')
 		{
 			$this->CI->type->add_js('datetime', 'jquery.datepicker.js');
+			$this->CI->type->add_css('datetime', 'datepicker.css');
 		}
 	}
 
