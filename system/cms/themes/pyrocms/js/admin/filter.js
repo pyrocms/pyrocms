@@ -36,7 +36,7 @@ $(function(){
 			}));
 	
 			//listener for pagination
-			$('.pagination').on('click', 'a', function(e){
+			$('body').on('click', '.pagination a', function(e){
 				e.preventDefault();
 				url = $(this).attr('href');
 				form_data = pyro.filter.$filter_form.serialize();
