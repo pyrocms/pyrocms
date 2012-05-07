@@ -1,141 +1,177 @@
-$(function(){
+(function($){
 
-	pyro.filter = {
-		$content		: $('#filter-stage'),
-		// filter form object
-		$filter_form	: $('#filters form'),
+    function Filter(form, opts)
+    {
+		this._opts = $.extend({}, filterDefaults, opts || {});
+        
+		this.form = form;
+        this.$form = $(form);
+		this.$content = (typeof this._opts.content === "string") ? $(this._opts.content) : this._opts.content;
+        this.module = this.module || $(this.module_query).val(); // get the current module name
+        this.init();
+    }
 
-		//lets get the current module,  we will need to know where to post the search criteria
-		f_module		: $('input[name="f_module"]').val(),
+    
+    Filter.prototype.init = function(){
+        var self = this;
 
-		/**
-		 * Constructor
-		 */
-		init: function(){
+        $('a.cancel').button();
 
-			$('a.cancel').button();
+        //listener for select elements
+        $('select', this.$form).on('change', function(){
+            self.do_filter();
+        });
 
-			//listener for select elements
-			$('select', pyro.filter.$filter_form).on('change', function(){
+        //listener for keywords
+        $('input[type="text"]', this.$form).on('keyup', $.debounce(500, function(){
+            self.do_filter();
 
-				//build the form data
-				form_data = pyro.filter.$filter_form.serialize();
+        }));
 
-				//fire the query
-				pyro.filter.do_filter(pyro.filter.f_module, form_data);
-			});
-
-			//listener for keywords
-			$('input[type="text"]', pyro.filter.$filter_form).on('keyup', $.debounce(500, function(){
-
-				//build the form data
-				form_data = pyro.filter.$filter_form.serialize();
-
-				pyro.filter.do_filter(pyro.filter.f_module, form_data);
-			
-			}));
-	
-			//listener for pagination
-			$('body').on('click', '.pagination a', function(e){
-				e.preventDefault();
-				url = $(this).attr('href');
-				form_data = pyro.filter.$filter_form.serialize();
-				pyro.filter.do_filter(pyro.filter.f_module, form_data, url);
-			});
-			
-			//clear filters
-			$('a.cancel', pyro.filter.$filter_form).click(function() {
-			
-					//reset the defaults
-					//$('select', filter_form).children('option:first').addAttribute('selected', 'selected');
-					$('select', pyro.filter.$filter_form).val('0');
-					
-					//clear text inputs
-					$('input[type="text"]').val('');
-			
-					//build the form data
-					form_data = pyro.filter.$filter_form.serialize();
-			
-					pyro.filter.do_filter(pyro.filter.f_module, form_data);
-			});
-			
-			//prevent default form submission
-			pyro.filter.$filter_form.submit(function(e){
-				e.preventDefault(); 
-			});
-
-			// trigger an event to submit immediately after page load
-			pyro.filter.$filter_form.find('select').first().trigger('change');
-		},
-	
-		//launch the query based on module
-		do_filter: function(module, form_data, url){
-			form_action	= pyro.filter.$filter_form.attr('action');
-			post_url	= form_action ? form_action : SITE_URL + 'admin/' + module;
-
-			if (typeof url !== 'undefined'){
-				post_url = url;
-			}
-
-			pyro.clear_notifications();
-
-			pyro.filter.$content.fadeOut('fast', function(){
-				//send the request to the server
-				$.post(post_url, form_data, function(data, response, xhr) {
-					
-					var ct		= xhr.getResponseHeader('content-type') || '',
-						html	= '';
-
-					if (ct.indexOf('application/json') > -1 && typeof data == 'object')
-					{
-						html = 'html' in data ? data.html : '';
-
-						pyro.filter.handler_response_json(data);
-					}
-					else {
-						html = data;
-					}
-
-					//success stuff here
-					pyro.chosen();
-					pyro.filter.$content.html(html).fadeIn('fast');
-				});
-			});
-		},
-
-		handler_response_json: function(json)
-		{
-			if ('update_filter_field' in json && typeof json.update_filter_field == 'object')
-			{
-				$.each(json.update_filter_field, pyro.filter.update_filter_field);
-			}
-		},
-
-		update_filter_field: function(field, data)
-		{
-			var $field = pyro.filter.$filter_form.find('[name='+field+']');
-
-			if ($field.is('select'))
-			{
-				if (typeof data == 'object')
-				{
-					if ('options' in data)
-					{
-						var selected, value;
-
-						selected = $field.val();
-						$field.children('option').remove();
-
-						for (value in data.options)
-						{
-							$field.append('<option value="' + value + '"' + (value == selected ? ' selected="selected"': '') + '>' + data.options[value] + '</option>');
-						}
-					}
-				}
-			}
+        //listener for pagination
+        $('body').on('click', '.pagination a', function(e){
+            e.preventDefault();
+            url = $(this).attr('href');
+            self.do_filter(self.$form.serialize(), url);
+        });
+            
+        //clear filters
+        $('a.cancel', this.$form).click(function() {
+        
+                //reset the defaults
+                $('select', this.$form).val('0');
+                
+                //clear text inputs
+                $('input[type="text"]', this.$form).val('');
+        
+                self.do_filter();
+        });
+        
+        //prevent default form submission
+        this.$form.submit(function(e){
+            e.preventDefault(); 
+        });
+        
+		// trigger an event to submit immediately after page load
+		if (this._opts.filter_onload)
+        {
+			this.refresh();
 		}
+    };
+    
+	Filter.prototype.getInstance = function(){
+		return this;
 	};
+	
+	Filter.prototype.refresh = function(){
+		this.do_filter();
+	};
+    //launch the query based on module
+    Filter.prototype.do_filter = function(form_data, url) {
+        var self = this,
+			form_action = this.$form.attr('action'),
+            post_url = url;
+			
+		// No data, serialize form
+		if (!form_data) form_data = self.$form.serialize();
+		
+		// No url? then use the form action or build one from module name
+		if (!post_url) post_url = form_action ? form_action : SITE_URL + 'admin/' + this.module;
 
-	pyro.filter.init();
+        // clear notifications
+		pyro.clear_notifications();
 
-});
+		// hide content
+        this.$content.fadeOut('fast', function(){
+
+            //send the request to the server
+            $.post(post_url, form_data, function(data, response, xhr) {
+                var ct      = xhr.getResponseHeader('content-type') || '',
+                    html    = '';
+
+                if (ct.indexOf('application/json') > -1 && typeof data == 'object')
+                {
+                    html = 'html' in data ? data.html : '';
+
+                    self.handler_response_json(data);
+                }
+                else {
+                    html = data;
+                }
+
+                //success stuff here
+                pyro.chosen();
+                self.$content.html(html).fadeIn('fast');
+            });
+        });
+    };
+
+    Filter.prototype.handler_response_json = function(json)
+    {
+        var self = this;
+        if ('update_filter_field' in json && typeof json.update_filter_field == 'object')
+        {
+            $.each(json.update_filter_field, self.update_filter_field);
+        }
+    };
+    
+    Filter.prototype.update_filter_field = function(field, data)
+    {
+        var $field = $('[name='+field+']', this.$form);
+    
+        if ($field.is('select'))
+        {
+            if ($.isPlainObject(data))
+            {
+                if ('options' in data)
+                {
+                    var selected, value;
+    
+                    selected = $field.val();
+                    $field.children('option').remove();
+    
+                    for (value in data.options)
+                    {
+                        $field.append('<option value="' + value + '"' + (value == selected ? ' selected="selected"': '') + '>' + data.options[value] + '</option>');
+                    }
+                }
+            }
+        }
+    };
+
+    $.fn.pyroFilter = function (method) {
+
+            var $fn = this.data('pyrofilter');
+            
+			// if we have a object and method exists
+            if ($fn && $fn[method]) {
+                // call the respective method
+				return $fn[method].apply($fn, Array.prototype.slice.call(arguments, 1));
+            
+			
+			// if an object is given as method OR nothing is given as argument
+            } else if (typeof method === 'object' || !method) {
+                return this.each(function() {
+                    var $el = $(this);
+                    if (!$el.data('pyrofilter')) {
+						// create and store filter instance
+                        $el.data('pyrofilter', new Filter(this, method));
+                    }
+                });
+            } else {
+                // trigger an error
+                $.error( 'Method "' + method + '" does not exist in pyroFilter plugin!');
+            }    
+
+    };
+
+	//defaults for the filter plugin
+    $.fn.pyroFilter.filterDefaults = {
+        filter_onload: true,
+        content: '#filter-stage',
+        module: '', // get the current module name
+		module_query: 'input[name="f_module"]'
+    };
+
+    
+})(jQuery);
