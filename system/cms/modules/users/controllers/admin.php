@@ -101,7 +101,7 @@ class Admin extends Admin_Controller
 		$pagination = create_pagination('admin/users/index', $this->user_m->count_by($base_where));
 		
 		//Skip admin
-		$skip_admin = $this->current_user->group != 'admin' ? 'admin' : '';
+		$skip_admin = ( $this->current_user->group != 'admin' ) ? 'admin' : '';
 
 		// Using this data, get the relevant results
 		$users = $this->user_m
