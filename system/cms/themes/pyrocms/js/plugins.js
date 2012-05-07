@@ -1376,3 +1376,222 @@ b.element).css({paddingRight:buttonPadding+"px"});q=!0}else p();$(window).bind("
 1)&&b.select(g),!e.cycle&&a>=b.length()&&o("next"))}function o(d){$(".ui-tabs-paging-"+d,b.element).addClass("ui-tabs-paging-disabled")}function t(d){$(".ui-tabs-paging-"+d,b.element).removeClass("ui-tabs-paging-disabled")}function w(){u&&clearTimeout(u);if(x!=$(window).height()||y!=$(window).width())u=setTimeout(A,100)}function A(){x=$(window).height();y=$(window).width();r()}function p(){$(".ui-tabs-paging-next",b.element).remove();$(".ui-tabs-paging-prev",b.element).remove();b.lis.show();q=!1;
 $(window).unbind("resize",w)}var e={tabsPerPage:0,nextButton:"&#187;",prevButton:"&#171;",follow:!1,cycle:!1,selectOnAdd:!1,followOnSelect:!1},e=$.extend(e,z),b=this,q=!1,c,k,s,l,j,m,f,u=null,x=$(window).height(),y=$(window).width(),B=b.add;b.add=function(b,c,a){q&&p();B.apply(this,[b,c,a]);e.selectOnAdd&&(void 0==a&&(a=this.lis.length-1),this.select(a));r()};var C=b.remove;b.remove=function(b){q&&p();C.apply(this,[b]);r()};var D=b.select;b.select=function(d){D.apply(this,[d]);if(q&&e.followOnSelect)for(i in f){var g=
 f[i].start,a=f[i].end;if(d>=g&&d<a){i!=c&&(b.lis.hide().slice(g,a).show(),c=parseInt(i),0==c?(t("next"),!e.cycle&&0>=g&&o("prev")):(t("prev"),!e.cycle&&a>=b.length()&&o("next")));break}}};$.extend($.ui.tabs.prototype,{pagingDestroy:function(){p()}});r()}});
+
+/* =========================================================
+ * bootstrap-modal.js v2.0.3
+ * http://twitter.github.com/bootstrap/javascript.html#modals
+ * =========================================================
+ * Copyright 2012 Twitter, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * ========================================================= */
+
+
+!function ($) {
+
+  "use strict"; // jshint ;_;
+
+
+ /* MODAL CLASS DEFINITION
+  * ====================== */
+
+  var Modal = function (content, options) {
+    this.options = options
+    this.$element = $(content)
+      .delegate('[data-dismiss="modal"]', 'click.dismiss.modal', $.proxy(this.hide, this))
+  }
+
+  Modal.prototype = {
+
+      constructor: Modal
+
+    , toggle: function () {
+        return this[!this.isShown ? 'show' : 'hide']()
+      }
+
+    , show: function () {
+        var that = this
+          , e = $.Event('show')
+
+        this.$element.trigger(e)
+
+        if (this.isShown || e.isDefaultPrevented()) return
+
+        $('body').addClass('modal-open')
+
+        this.isShown = true
+
+        escape.call(this)
+        backdrop.call(this, function () {
+          var transition = $.support.transition && that.$element.hasClass('fade')
+
+          if (!that.$element.parent().length) {
+            that.$element.appendTo(document.body) //don't move modals dom position
+          }
+
+          that.$element
+            .show()
+
+          if (transition) {
+            that.$element[0].offsetWidth // force reflow
+          }
+
+          that.$element.addClass('in')
+
+          transition ?
+            that.$element.one($.support.transition.end, function () { that.$element.trigger('shown') }) :
+            that.$element.trigger('shown')
+
+        })
+      }
+
+    , hide: function (e) {
+        e && e.preventDefault()
+
+        var that = this
+
+        e = $.Event('hide')
+
+        this.$element.trigger(e)
+
+        if (!this.isShown || e.isDefaultPrevented()) return
+
+        this.isShown = false
+
+        $('body').removeClass('modal-open')
+
+        escape.call(this)
+
+        this.$element.removeClass('in')
+
+        $.support.transition && this.$element.hasClass('fade') ?
+          hideWithTransition.call(this) :
+          hideModal.call(this)
+      }
+
+  }
+
+
+ /* MODAL PRIVATE METHODS
+  * ===================== */
+
+  function hideWithTransition() {
+    var that = this
+      , timeout = setTimeout(function () {
+          that.$element.off($.support.transition.end)
+          hideModal.call(that)
+        }, 500)
+
+    this.$element.one($.support.transition.end, function () {
+      clearTimeout(timeout)
+      hideModal.call(that)
+    })
+  }
+
+  function hideModal(that) {
+    this.$element
+      .hide()
+      .trigger('hidden')
+
+    backdrop.call(this)
+  }
+
+  function backdrop(callback) {
+    var that = this
+      , animate = this.$element.hasClass('fade') ? 'fade' : ''
+
+    if (this.isShown && this.options.backdrop) {
+      var doAnimate = $.support.transition && animate
+
+      this.$backdrop = $('<div class="modal-backdrop ' + animate + '" />')
+        .appendTo(document.body)
+
+      if (this.options.backdrop != 'static') {
+        this.$backdrop.click($.proxy(this.hide, this))
+      }
+
+      if (doAnimate) this.$backdrop[0].offsetWidth // force reflow
+
+      this.$backdrop.addClass('in')
+
+      doAnimate ?
+        this.$backdrop.one($.support.transition.end, callback) :
+        callback()
+
+    } else if (!this.isShown && this.$backdrop) {
+      this.$backdrop.removeClass('in')
+
+      $.support.transition && this.$element.hasClass('fade')?
+        this.$backdrop.one($.support.transition.end, $.proxy(removeBackdrop, this)) :
+        removeBackdrop.call(this)
+
+    } else if (callback) {
+      callback()
+    }
+  }
+
+  function removeBackdrop() {
+    this.$backdrop.remove()
+    this.$backdrop = null
+  }
+
+  function escape() {
+    var that = this
+    if (this.isShown && this.options.keyboard) {
+      $(document).on('keyup.dismiss.modal', function ( e ) {
+        e.which == 27 && that.hide()
+      })
+    } else if (!this.isShown) {
+      $(document).off('keyup.dismiss.modal')
+    }
+  }
+
+
+ /* MODAL PLUGIN DEFINITION
+  * ======================= */
+
+  $.fn.modal = function (option) {
+    return this.each(function () {
+      var $this = $(this)
+        , data = $this.data('modal')
+        , options = $.extend({}, $.fn.modal.defaults, $this.data(), typeof option == 'object' && option)
+      if (!data) $this.data('modal', (data = new Modal(this, options)))
+      if (typeof option == 'string') data[option]()
+      else if (options.show) data.show()
+    })
+  }
+
+  $.fn.modal.defaults = {
+      backdrop: true
+    , keyboard: true
+    , show: true
+  }
+
+  $.fn.modal.Constructor = Modal
+
+
+ /* MODAL DATA-API
+  * ============== */
+
+  $(function () {
+    $('body').on('click.modal.data-api', '[data-toggle="modal"]', function ( e ) {
+      var $this = $(this), href
+        , $target = $($this.attr('data-target') || (href = $this.attr('href')) && href.replace(/.*(?=#[^\s]+$)/, '')) //strip for ie7
+        , option = $target.data('modal') ? 'toggle' : $.extend({}, $target.data(), $this.data())
+
+      e.preventDefault()
+      $target.modal(option)
+    })
+  })
+
+}(window.jQuery);
