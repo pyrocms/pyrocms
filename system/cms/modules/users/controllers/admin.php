@@ -65,7 +65,15 @@ class Admin extends Admin_Controller
 		$this->load->library('form_validation');
 		$this->lang->load('user');
 
-		$this->template->groups = $this->group_m->get_all();
+		if($this->current_user->group != 'admin') 
+		{
+			$this->template->groups = $this->group_m->where_not_in('name', 'admin')->get_all();
+		} 
+		else 
+		{
+			$this->template->groups = $this->group_m->get_all();
+		}
+		
 		$this->template->groups_select = array_for_select($this->template->groups, 'id', 'description');
 	}
 
@@ -91,10 +99,14 @@ class Admin extends Admin_Controller
 
 		// Create pagination links
 		$pagination = create_pagination('admin/users/index', $this->user_m->count_by($base_where));
+		
+		//Skip admin
+		$skip_admin = ( $this->current_user->group != 'admin' ) ? 'admin' : '';
 
 		// Using this data, get the relevant results
 		$users = $this->user_m
 			->order_by('active', 'desc')
+			->where_not_in('name', $skip_admin)
 			->limit($pagination['limit'])
 			->get_many_by($base_where);
 
