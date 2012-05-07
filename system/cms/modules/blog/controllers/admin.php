@@ -144,7 +144,7 @@ class Admin extends Admin_Controller
 
 		$this->input->is_ajax_request()
 			? $this->template->build('admin/tables/posts')
-			: $this->template->build('admin/index');
+			: $this->template->set_partial('blog_list', 'admin/tables/posts')->build('admin/index');
 
 	}
 

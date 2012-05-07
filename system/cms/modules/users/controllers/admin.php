@@ -112,7 +112,7 @@ class Admin extends Admin_Controller
 			->set_partial('filters', 'admin/partials/filters')
 			->append_js('admin/filter.js');
 
-		$this->input->is_ajax_request() ? $this->template->build('admin/tables/users') : $this->template->build('admin/index');
+		$this->input->is_ajax_request() ? $this->template->build('admin/tables/users') : $this->template->set_partial('user_list', 'admin/tables/users')->build('admin/index');
 	}
 
 	/**

@@ -9,7 +9,7 @@
 	<?php echo form_open('admin/users/action'); ?>
 	
 		<div id="filter-stage">
-			<?php template_partial('tables/users'); ?>
+			<?php template_partial('user_list'); ?>
 		</div>
 	
 		<div class="table_action_buttons">
@@ -19,3 +19,8 @@
 	<?php echo form_close(); ?>
 
 </section>
+<script>
+	$(function(){
+		$('#filters form').pyroFilter({filter_onload:false});
+	});
+</script>

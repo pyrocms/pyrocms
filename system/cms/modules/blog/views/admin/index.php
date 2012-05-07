@@ -13,7 +13,7 @@
 
 	<?php echo form_open('admin/blog/action'); ?>
 
-		<?php echo $this->load->view('admin/tables/posts'); ?>
+		<?php template_partial('blog_list'); ?>
 
 	<?php echo form_close(); ?>
 	
@@ -24,3 +24,8 @@
 <?php endif; ?>
 
 </section>
+<script>
+	$(function(){
+		$('#filters form').pyroFilter({filter_onload:false});
+	});
+</script>
