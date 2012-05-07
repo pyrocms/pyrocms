@@ -72,6 +72,15 @@ class Field_datetime
 	 */
 	public function validate($value, $mode, $field)
 	{
+		// Up front, let's determine if this 
+		// a required field.
+		$field_data = $this->CI->form_validation->field_data($field->field_slug);
+	
+		// Determine required
+		$rules = $field_data['rules'];
+		$rules_array = explode('|', $rules);
+		$required = (in_array('required', $rules_array)) ? true : false;
+
 		// -------------------------------
 		// Drop Down Required
 		// -------------------------------
@@ -82,24 +91,12 @@ class Field_datetime
 		// required validation.
 		// -------------------------------
 
-		if ($field->field_data['input_type'] == 'dropdown')
+		if ($field->field_data['input_type'] == 'dropdown' and $required)
 		{
-			// Get the rules
-			$field_data = $this->CI->form_validation->field_data($field->field_slug);
-		
-			// Get rules
-			$rules = $field_data['rules'];
-		
-			$rules_array = explode('|', $rules);
-
-			// Is this required?
-			if (in_array('required', $rules_array))
+			// Are all three fields available?
+			if ( ! $_POST[$field->field_slug.'_month'] or ! $_POST[$field->field_slug.'_day'] or ! $_POST[$field->field_slug.'_year'])
 			{
-				// Are all three fields available?
-				if ( ! $_POST[$field->field_slug.'_month'] or ! $_POST[$field->field_slug.'_day'] or ! $_POST[$field->field_slug.'_year'])
-				{
-					return lang('required');
-				}
+				return lang('required');
 			}
 		}
 
@@ -107,18 +104,20 @@ class Field_datetime
 		// Date Range Validation
 		// -------------------------------
 
+
 		if (is_array($restrict = $this->parse_restrict($field->field_data)))
 		{
-			// Man we gotta convert this now if it's.
+			// Man we gotta convert this now if it's the dropdown format
 			if ($field->field_data['input_type'] == 'dropdown')
 			{
-				if ( ! $_POST[$field->field_slug.'_month'] or ! $_POST[$field->field_slug.'_day'] or ! $_POST[$field->field_slug.'_year'])
+				if (( ! $_POST[$field->field_slug.'_month'] or ! $_POST[$field->field_slug.'_day'] or ! $_POST[$field->field_slug.'_year']) and $required)
 				{
 					return lang('streams.invalid_input_for_date_range_check');
 				}
 
 				$value = $this->CI->input->post($field->field_slug.'_year').'-'.$this->CI->input->post($field->field_slug.'_month').'-'.$this->CI->input->post($field->field_slug.'_day');
 			}
+
 
 			$this->CI->load->helper('date');
 
@@ -599,6 +598,29 @@ class Field_datetime
 			$date = $this->CI->input->post($field->field_slug.'_year').
 				'-'.$this->two_digit_number($this->CI->input->post($field->field_slug.'_month')).
 				'-'.$this->two_digit_number($this->CI->input->post($field->field_slug.'_day'));
+		}
+
+		// -------------------------------------
+		// Null value check
+		// -------------------------------------
+		// We need some special logic to recognize
+		// a completely null value 
+		// -------------------------------------
+
+		if ( ! $input or $date == '-00-00' or $date == '0000-00-00')
+		{
+			if (isset($field->field_data['storage']) and $field->field_data['storage'] == 'unix')
+			{
+				return '0';
+			}
+			elseif (isset($field->field_data['storage']) and $field->field_data['storage'] == 'date')
+			{
+				return '0000-00-00';
+			}
+			else
+			{
+				return '0000-00-00 00:00:00';
+			}
 		}
 
 		// -------------------------------------
