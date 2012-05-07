@@ -685,7 +685,7 @@ jQuery(function($){
 
 					// if they are trying it out and created a folder and then removed it
 					// then we show the no data messages again
-					if ($folders_center.find('li').length === 0) {
+					if ($folders_center.find('li').length === 0 && pyro.files.current_level === 0) {
 						$('.no_data').fadeIn('fast');
 					}
 					
