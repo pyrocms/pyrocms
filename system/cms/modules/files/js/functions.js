@@ -760,8 +760,8 @@ jQuery(function($){
 				scrolling	: false,
 				inline		: true,
 				href		: 'div#item-details',
-				width		: '500',
-				height		: (type === 'file') ? '575' : '425',
+				width		: '520',
+				height		: (type === 'file') ? '575' : '450',
 				opacity		: 0
 			});
 
