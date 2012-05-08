@@ -69,6 +69,7 @@
 	padding: 0 0 1px 0!important;
 	background: #F1F1F1;
 	margin-bottom: 10px;
+	cursor: pointer;
 }
 #widget-areas .widget-area-box {
 	border: 1px solid #F1F1F1;
