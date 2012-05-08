@@ -2,7 +2,7 @@
 
     function Filter(form, opts)
     {
-		this._opts = $.extend({}, filterDefaults, opts || {});
+		this._opts = $.extend({}, $.fn.pyroFilter.filterDefaults, opts || {});
         
 		this.form = form;
         this.$form = $(form);
@@ -165,13 +165,13 @@
 
     };
 
-	//defaults for the filter plugin
-    $.fn.pyroFilter.filterDefaults = {
-        filter_onload: true,
-        content: '#filter-stage',
-        module: '', // get the current module name
-		module_query: 'input[name="f_module"]'
-    };
+//defaults for the filter plugin
+$.fn.pyroFilter.filterDefaults = {
+	filter_onload: true,
+	content: '#filter-stage',
+	module: '', // get the current module name
+	module_query: 'input[name="f_module"]'
+};
 
     
 })(jQuery);
