@@ -409,7 +409,7 @@ jQuery(function($){
 						height: handler.uploadRow.find('[name="height"]').val(),
 						ratio: handler.uploadRow.find('[name="ratio"]').val(),
 						folder_id: pyro.files.upload_to,
-						csrf_hash_name: $.cookie('csrf_cookie_name')
+						csrf_hash_name: $.cookie(pyro.csrf_cookie_name)
 					};
 					callBack();
 				}));
