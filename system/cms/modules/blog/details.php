@@ -120,6 +120,7 @@ class Module_Blog extends Module {
 				'comments_enabled' => array('type' => 'INT', 'constraint' => 1, 'default' => 1),
 				'status' => array('type' => 'ENUM', 'constraint' => array('draft', 'live'), 'default' => 'draft'),
 				'type' => array('type' => 'SET', 'constraint' => array('html', 'markdown', 'wysiwyg-advanced', 'wysiwyg-simple')),
+                'preview_hash' => array('type'=>'VARCHAR', 'constraint' => 32,'default'=>''),
 			),
 		);
 
