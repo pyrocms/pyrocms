@@ -172,7 +172,7 @@ class Admin extends Admin_Controller
 		{
 			$created_on = now();
 		}
-        $hash = $this->_previewHash();
+        $hash = $this->_preview_hash();
 
 		if ($this->form_validation->run())
 		{
@@ -281,7 +281,7 @@ class Admin extends Admin_Controller
 
         if($this->input->post('status') == 'draft' and $this->input->post('preview_hash') == '') {
 
-            $hash = $this->_previewHash();
+            $hash = $this->_preview_hash();
         }
 		
 		if ($this->form_validation->run())
@@ -570,7 +570,7 @@ class Admin extends Admin_Controller
 			->build('admin/tables/posts');
 	}
 
-    private function _previewHash() {
+    private function _preview_hash() {
 
         return md5(microtime() + mt_rand(0,1000));
 

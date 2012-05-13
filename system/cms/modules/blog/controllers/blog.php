@@ -162,14 +162,10 @@ class Blog extends Public_Controller
         {
             redirect('blog/' . date('Y/m',$post->created_on) . '/' . $post->slug);
         }
-        $this->template
-            ->set_metadata('index','nofollow');
 
         //set index nofollow to attempt to avoid search engine indexing
         $this->template
             ->set_metadata('index','nofollow');
-
-		$post->keywords = Keywords::get($post->keywords);
 
         $this->_single_view($post);
 
@@ -280,7 +276,7 @@ class Blog extends Public_Controller
             $this->template->set_breadcrumb($post->category->title, 'blog/category/'.$post->category->slug);
         }
 
-        $post->keywords = Keywords::get_links($post->keywords, 'blog/tagged');
+        $post->keywords = Keywords::get($post->keywords);
 
         $this->template
             ->set_breadcrumb($post->title)

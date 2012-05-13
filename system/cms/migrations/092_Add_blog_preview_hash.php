@@ -5,16 +5,17 @@ class Migration_Add_blog_preview_hash extends CI_Migration {
     public function up() {
 
         $this->dbforge->add_column('blog',array(
-            'name'=>'preview_hash',
+            'preview_hash' => array(
             'type'=>'varchar',
             'constraint'=>32,
             'default'=>''
+             )
         ));
     }
 
     public function down() {
 
-        $this->dbforge->remove_column('blog','preview_hash');
+        $this->dbforge->drop_column('blog','preview_hash');
 
     }
 
