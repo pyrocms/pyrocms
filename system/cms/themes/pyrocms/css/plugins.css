@@ -610,7 +610,7 @@ select.chzn-select {
 
 /* Bootstrap Modal */
 
-.modal-backdrop {
+.pyro_modal-backdrop {
   position: fixed;
   top: 0;
   right: 0;
@@ -620,17 +620,17 @@ select.chzn-select {
   background-color: #000000;
 }
 
-.modal-backdrop.fade {
+.pyro_modal-backdrop.fade {
   opacity: 0;
 }
 
-.modal-backdrop,
-.modal-backdrop.fade.in {
+.pyro_modal-backdrop,
+.pyro_modal-backdrop.fade.in {
   opacity: 0.8;
   filter: alpha(opacity=80);
 }
 
-.modal {
+.pyro_modal {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -653,7 +653,7 @@ select.chzn-select {
           background-clip: padding-box;
 }
 
-.modal.fade {
+.pyro_modal.fade {
   top: -25%;
   -webkit-transition: opacity 0.3s linear, top 0.3s ease-out;
      -moz-transition: opacity 0.3s linear, top 0.3s ease-out;
@@ -662,7 +662,7 @@ select.chzn-select {
           transition: opacity 0.3s linear, top 0.3s ease-out;
 }
 
-.modal.fade.in {
+.pyro_modal.fade.in {
   top: 50%;
 }
 
@@ -725,4 +725,3 @@ select.chzn-select {
 .modal-footer .btn-group .btn + .btn {
   margin-left: -1px;
 }
-
