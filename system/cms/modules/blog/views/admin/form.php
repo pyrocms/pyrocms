@@ -62,7 +62,7 @@
 				
 			</li>
 		</ul>
-        <div class="input"><?php echo form_hidden('preview_hash',$post->preview_hash)?></div>
+        <?php echo form_hidden('preview_hash',$post->preview_hash)?>
 		</fieldset>
 		
 	</div>
