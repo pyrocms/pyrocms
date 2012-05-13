@@ -142,7 +142,7 @@ class Blog extends Public_Controller
 			redirect('blog');
 		}
 
-		$this->_singleView($post);
+		$this->_single_view($post);
 
 	}
 
@@ -169,7 +169,7 @@ class Blog extends Public_Controller
 
 		$post->keywords = Keywords::get($post->keywords);
 
-        $this->_singleView($post);
+        $this->_single_view($post);
 
     }
 	/**
@@ -244,7 +244,7 @@ class Blog extends Public_Controller
 		);
 	}
 
-    private function _singleView($post,$build='view') {
+    private function _single_view($post,$build='view') {
 
         // if it uses markdown then display the parsed version
         if ($post->type == 'markdown')
