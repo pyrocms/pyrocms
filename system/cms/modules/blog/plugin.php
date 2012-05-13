@@ -57,6 +57,40 @@ class Plugin_Blog extends Plugin
 	}
 
 	/**
+	 * Categories
+	 *
+	 * Creates a list of blog categories
+	 *
+	 * Usage:
+	 * {{ blog:categories order-by="title" limit="5" }}
+	 *		<a href="{{ url }}" class="{{ slug }}">{{ title }}</a>
+	 * {{ /blog:categories }}
+	 *
+	 * @param	array
+	 * @return	array
+	 */
+	public function categories()
+	{
+		$limit		= $this->attribute('limit', 10);
+		$order_by 	= $this->attribute('order-by', 'title');
+		$order_dir	= $this->attribute('order-dir', 'ASC');
+
+		$categories = $this->db
+			->select('title, slug')
+			->order_by($order_by, $order_dir)
+			->limit($limit)
+			->get('blog_categories')
+			->result();
+
+		foreach ($categories as &$category)
+		{
+			$category->url = site_url('blog/category/'.$category->slug);
+		}
+		
+		return $categories;
+	}
+
+	/**
 	 * Count Posts By Column
 	 *
 	 * Usage:

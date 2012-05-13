@@ -14,10 +14,12 @@
 				<?php echo lang('blog_category_label');?>: <?php echo anchor('blog/category/'.$post->category_slug, $post->category_title);?>
 			</p>
 			<?php endif; ?>
-			<?php if($post->keywords): ?>
+			<?php if ($post->keywords): ?>
 			<p class="post_keywords">
 				<?php echo lang('blog_tagged_label');?>:
-				<?php echo $post->keywords; ?>
+				<?php foreach ($post->keywords as $keyword): ?>
+					<?php echo anchor('blog/tagged/'.$keyword->name, $keyword->name, 'class="keyword"') ?>
+				<?php endforeach; ?>
 			</p>
 			<?php endif; ?>
 		</div>

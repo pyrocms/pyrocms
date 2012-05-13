@@ -395,7 +395,7 @@ class Files
 					return Files::move($file_id, $data['filename'], 'local', $folder->location, $folder->remote_container);
 				}
 
-				return self::result(TRUE, lang('files:file_uploaded'), $name);
+				return self::result(TRUE, lang('files:file_uploaded'), $data['name'], $data);
 			}
 			else
 			{
