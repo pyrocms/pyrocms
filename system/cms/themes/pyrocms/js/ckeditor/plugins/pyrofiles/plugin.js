@@ -34,7 +34,13 @@ CKEDITOR.plugins.add('pyrofiles',
 
 function pyrofiles_onclick(e)
 {
-	update_instance();
+	setTimeout(alternativafiles, 100);
+}
+
+function alternativafiles(){
+    yepnope.injectJs("system/cms/themes/pyrocms/js/ckeditor/ckeditor.js", function () {
+  update_instance();
     // run when pyro button is clicked]
     CKEDITOR.currentInstance.openDialog('pyrofiles_dialog')
+});
 }
