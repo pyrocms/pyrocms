@@ -50,11 +50,11 @@ class Admin extends Admin_Controller
 	public function index()
 	{
         // Create pagination links
-		$total_rows = $this->domain_m->count_all();
+		$total_rows = $this->domain_m->where('site_id', $this->domain_m->_site_id)->count_all();
 		$this->template->pagination = create_pagination('admin/domains/index', $total_rows);
 
 		// Using this data, get the relevant results
-		$this->template->domains = $this->domain_m->order_by('domain')->limit($this->template->pagination['limit'])->get_all();
+		$this->template->domains = $this->domain_m->where('site_id', $this->domain_m->_site_id)->order_by('domain')->limit($this->template->pagination['limit'])->get_all();
 		$this->template->build('admin/index');
 	}
 
