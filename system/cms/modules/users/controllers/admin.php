@@ -22,7 +22,7 @@ class Admin extends Admin_Controller
 		array(
 			'field' => 'email',
 			'label' => 'lang:user_email_label',
-			'rules' => 'required|valid_email'
+			'rules' => 'required|max_length[60]|valid_email'
 		),
 		array(
 			'field' => 'password',

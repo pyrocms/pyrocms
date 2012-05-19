@@ -184,7 +184,7 @@ class Users extends Public_Controller
 			array(
 				'field' => 'email',
 				'label' => lang('user_email'),
-				'rules' => 'required|valid_email|callback__email_check',
+				'rules' => 'required|max_length[60]|valid_email|callback__email_check',
 			),
 			array(
 				'field' => 'username',
