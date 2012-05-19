@@ -313,6 +313,7 @@ class Field_image
 			$image_data['mimetype']		= $image->mimetype;
 			$image_data['width']		= $image->width;
 			$image_data['height']		= $image->height;
+			$image_data['id']			= $image->id;
 
 			//If there is a thumb, add it.
 			$path 			= FCPATH . $this->CI->config->item('files:path');
