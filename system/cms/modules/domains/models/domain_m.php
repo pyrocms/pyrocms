@@ -62,11 +62,11 @@ class Domain_m extends MY_Model
 		*/
 		if($id > 0)
 		{
-			return $this->db->query("SELECT id from core_domains WHERE id != ".$this->db->escape($id)." AND domain = '".$this->db->escape_str($domain)."")->num_rows();
+			return $this->db->query("SELECT id from core_domains WHERE id != ".$this->db->escape($id)." AND domain = '".$this->db->escape_str($domain)."' AND site_id = '".$this->db->escape_str($this->_site_id)."'")->num_rows();
 		}
 		else
 		{
-			return $this->db->query("SELECT id from core_domains WHERE domain = '".$this->db->escape_str($domain)."'")->num_rows();
+			return $this->db->query("SELECT id from core_domains WHERE domain = '".$this->db->escape_str($domain)."' AND site_id = '".$this->db->escape_str($this->_site_id)."'")->num_rows();
 		}
 	}
 }
