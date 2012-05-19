@@ -55,8 +55,8 @@ class WYSIWYG_Controller extends MY_Controller
 			->append_css('module::wysiwyg.css')
 			->append_css('jquery/ui-lightness/jquery-ui.css')
 			->append_js('jquery/jquery.js')
-			->append_js('plugins.js')
 			->append_js('jquery/jquery-ui.min.js')
+			->append_js('plugins.js')
 			->append_js('module::wysiwyg.js');
 	}
 
