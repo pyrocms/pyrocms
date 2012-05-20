@@ -12,7 +12,7 @@
 		
 			<div id="filter-stage">
 			
-				<?php echo $this->load->view('admin/tables/comments'); ?>
+				<?php template_partial('comments_list'); ?>
 			
 			</div>
 
@@ -32,3 +32,9 @@
 			<?php echo form_close();?>
 
 </section>
+
+<script>
+	$(function(){
+		$('#filters form').pyroFilter({filter_onload:false});
+	});
+</script>

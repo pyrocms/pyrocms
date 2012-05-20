@@ -94,7 +94,10 @@ class Admin extends Admin_Controller {
 			->set('comments_active',	$base_where['comments.is_active'])
 			->set('pagination',			$pagination);
 			
-		$this->input->is_ajax_request() ? $this->template->build('admin/tables/comments') : $this->template->build('admin/index');
+		$this->input->is_ajax_request()
+			? $this->template->build('admin/tables/comments')
+			: $this->template->set_partial('comments_list', 'admin/tables/comments')->build('admin/index');
+		
 	}
 
 	/**
