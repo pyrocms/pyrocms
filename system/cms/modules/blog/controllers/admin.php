@@ -279,7 +279,8 @@ class Admin extends Admin_Controller
 		)));
         $hash = $this->input->post('preview_hash');
 
-        if($this->input->post('status') == 'draft' and $this->input->post('preview_hash') == '') {
+        if($this->input->post('status') == 'draft' and $this->input->post('preview_hash') == '')
+        {
 
             $hash = $this->_preview_hash();
         }
@@ -570,7 +571,8 @@ class Admin extends Admin_Controller
 			->build('admin/tables/posts');
 	}
 
-    private function _preview_hash() {
+    private function _preview_hash()
+    {
 
         return md5(microtime() + mt_rand(0,1000));
 
