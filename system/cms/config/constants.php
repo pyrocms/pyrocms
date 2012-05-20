@@ -36,6 +36,8 @@ define('FOPEN_READ_WRITE_CREATE',				'a+b');
 define('FOPEN_WRITE_CREATE_STRICT',				'xb');
 define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 
+define('IS_SECURE', (string) (isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) == 'on'));
+
 /*
 |--------------------------------------------------------------------------
 | Docment root folders
@@ -48,9 +50,9 @@ define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 // Base URL (keeps this crazy sh*t out of the config.php
 if (isset($_SERVER['HTTP_HOST']))
 {
-	$base_url = isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) == 'on' ? 'https' : 'http';
-	$base_url .= '://' . $_SERVER['HTTP_HOST'];
-	$base_url .= str_replace(basename($_SERVER['SCRIPT_NAME']), '', $_SERVER['SCRIPT_NAME']);
+	$base_url = IS_SECURE ? 'https' : 'http'
+			  . '://' . $_SERVER['HTTP_HOST']
+			  . str_replace(basename($_SERVER['SCRIPT_NAME']), '', $_SERVER['SCRIPT_NAME']);
 
 	// Base URI (It's different to base URL!)
 	$base_uri = parse_url($base_url, PHP_URL_PATH);
