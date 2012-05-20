@@ -1297,6 +1297,9 @@ class Row_m extends MY_Model {
 		// Insert data
 		// -------------------------------------
 		
+		// Is there any logic to complete before inserting?
+		if ( Events::trigger('streams_pre_insert_entry', array('stream' => $stream, 'insert_data' => $insert_data)) === false ) return false;
+		
 		if ( ! $this->db->insert($stream->stream_prefix.$stream->stream_slug, $insert_data))
 		{
 			return false;
