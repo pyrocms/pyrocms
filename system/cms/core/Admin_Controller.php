@@ -64,6 +64,8 @@ class Admin_Controller extends MY_Controller {
 		// Active Admin Section (might be null, but who cares)
 		$this->template->active_section = $this->section;
 		
+		Events::trigger('admin_controller');
+		
 		// Template configuration
 		$this->template
 			->enable_parser(FALSE)

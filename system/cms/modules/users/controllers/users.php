@@ -184,7 +184,7 @@ class Users extends Public_Controller
 			array(
 				'field' => 'email',
 				'label' => lang('user_email'),
-				'rules' => 'required|valid_email|callback__email_check',
+				'rules' => 'required|max_length[60]|valid_email|callback__email_check',
 			),
 			array(
 				'field' => 'username',
@@ -715,6 +715,15 @@ class Users extends Public_Controller
 				$profile_data[$assign->field_slug] = $profile_row->{$assign->field_slug};
 			}
 		}
+
+		// --------------------------------
+		// Run Stream Events
+		// --------------------------------
+
+		$profile_stream_id = $this->streams_m->get_stream_id_from_slug('profiles', 'users');
+		$this->fields->run_field_events($this->streams_m->get_stream_fields($profile_stream_id), array());
+
+		// --------------------------------
 
 		// Render the view
 		$this->template->build('profile/edit', array(

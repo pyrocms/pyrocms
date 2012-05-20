@@ -51,11 +51,45 @@ class Field_slug
 		$options['id']		= $params['form_slug'];
 		$options['value']	= $params['value'];
 		
-		$jquery = "<script>$('#{$params['custom']['slug_field']}').keyup(function() {
-  
- 	 	$('#{$params['form_slug']}').val( slugify_field($('#{$params['custom']['slug_field']}').val(), '{$params['custom']['space_type']}') );
+		$jquery = "<script>
+				// Check if the field is a text field or undefined (select)
+				if ($('#{$params['custom']['slug_field']}').attr('type') == 'text')
+				{
+					// For text fields
+					$('#{$params['custom']['slug_field']}').keyup(function() {
 
-		});	</script>";
+						$('#{$params['form_slug']}').val( slugify_field($('#{$params['custom']['slug_field']}').val(), '{$params['custom']['space_type']}') );
+
+					});
+
+					$(document).ready(function()
+					{
+						// Check if it's empty first and populate if so
+						if ($('#{$params['form_slug']}').val() == '')
+						{
+							$('#{$params['form_slug']}').val( slugify_field($('#{$params['custom']['slug_field']}').val(), '{$params['custom']['space_type']}') );
+						}
+					});
+				}
+				else
+				{
+					// For dropdown fields
+					$('#{$params['custom']['slug_field']}').chosen().change(function() {
+
+						$('#{$params['form_slug']}').val( slugify_field($('#{$params['custom']['slug_field']} > option:selected').val(), '{$params['custom']['space_type']}') );
+
+					});
+
+					$(document).ready(function()
+					{
+						// Check if it's empty first and populate if so
+						if ($('#{$params['form_slug']}').val() == '')
+						{
+							$('#{$params['form_slug']}').val( slugify_field($('#{$params['custom']['slug_field']} > option:selected').val(), '{$params['custom']['space_type']}') );
+						}
+					});
+				}
+			</script>";
 		
 		return form_input($options)."\n".$jquery;
 	}
