@@ -20,8 +20,10 @@ class Widget_Twitter_feed extends Widgets
 		'el' => 'Ροή Twitter',
 		'nl' => 'Twitterfeed',
 		'br' => 'Feed do Twitter',
+		'pt' => 'Feed do Twitter',
 		'ru' => 'Лента Twitter\'а',
 		'id' => 'Twitter Feed',
+		'fi' => 'Twitter Syöte'
 	);
 
 	/**
@@ -34,8 +36,10 @@ class Widget_Twitter_feed extends Widgets
 		'el' => 'Προβολή των τελευταίων tweets από το Twitter',
 		'nl' => 'Toon Twitterfeeds op uw website',
 		'br' => 'Mostra os últimos tweets de um usuário do Twitter no seu site.',
+		'pt' => 'Mostra os últimos tweets de um utilizador do Twitter no seu site.',
 		'ru' => 'Выводит ленту новостей Twitter на страницах вашего сайта',
-		'id' => 'Menampilkan koleksi Tweet di situs Anda'
+		'id' => 'Menampilkan koleksi Tweet di situs Anda',
+		'fi' => 'Näytä Twitter syöte sivustollasi',
 	);
 
 	/**

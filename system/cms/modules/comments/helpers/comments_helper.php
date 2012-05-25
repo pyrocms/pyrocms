@@ -172,7 +172,7 @@ function process_comment_items($comments)
 				$ci->load->model($comment->module.'/'.$model_name);
 			}
 
-			if ($item = $ci->{$model_name}->get($comment->module_id))
+			if ($item = (object) $ci->{$model_name}->get($comment->module_id))
 			{
 				$comment->item = anchor('admin/'.$comment->module.'/preview/'.$item->id, $item->title, 'class="modal-large"');
 			}

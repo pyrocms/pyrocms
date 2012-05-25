@@ -1,57 +1,63 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
+
 /**
- * Templates Details.php
+ * Templates Module
  *
- * Create and store dynamic email templates in the database
- *
- * @author		PyroCMS Dev Team
- * @package		PyroCMS\Core\Modules\Templates
+ * @author PyroCMS Dev Team
+ * @package PyroCMS\Core\Modules\Templates
  */
 class Module_Templates extends Module {
 
-	public $version = '1.0';
+	public $version = '1.1.0';
 
 	public function info()
 	{
 		return array(
 			'name' => array(
-				'sl' => 'Email predloge',
 				'en' => 'Email Templates',
-				'fr' => 'Modèles d\'emails',
-				'nl' => 'Email sjablonen',
-				'es' => 'Plantillas de email',
 				'ar' => 'قوالب الرسائل الإلكترونية',
 				'br' => 'Modelos de e-mail',
-				'el' => 'Δυναμικά email',
-				'he' => 'תבניות',
-				'lt' => 'El. laiškų šablonai',
-				'ru' => 'Шаблоны почты',
+				'pt' => 'Modelos de e-mail',
 				'da' => 'Email skabeloner',
+				'el' => 'Δυναμικά email',
+				'es' => 'Plantillas de email',
+				'fr' => 'Modèles d\'emails',
+				'he' => 'תבניות',
+				'id' => 'Template Email',
+				'lt' => 'El. laiškų šablonai',
+				'nl' => 'Email sjablonen',
+				'ru' => 'Шаблоны почты',
+				'sl' => 'Email predloge',
 				'zh' => '郵件範本',
-				'id' => 'Template Email'
+				'hu' => 'E-mail sablonok',
+				'fi' => 'Sähköposti viestipohjat',
+                                'se' => 'E-postmallar'
 			),
 			'description' => array(
-				'sl' => 'Ustvari, uredi in shrani spremenljive email predloge',
 				'en' => 'Create, edit, and save dynamic email templates',
-				'fr' => 'Créer, éditer et sauver dynamiquement des modèles d\'emails',
-				'nl' => 'Maak, bewerk, en beheer dynamische emailsjablonen',
-				'es' => 'Crear, editar y guardar plantillas de email dinámicas',
 				'ar' => 'أنشئ، عدّل واحفظ قوالب البريد الإلكترني الديناميكية.',
 				'br' => 'Criar, editar e salvar modelos de e-mail dinâmicos',
-				'el' => 'Δημιουργήστε, επεξεργαστείτε και αποθηκεύστε δυναμικά email.',
-				'he' => 'ניהול של תבניות דואר אלקטרוני',
-				'lt' => 'Kurk, tvarkyk ir saugok dinaminius el. laiškų šablonus.',
-				'ru' => 'Создавайте, редактируйте и сохраняйте динамические почтовые шаблоны',
+				'pt' => 'Criar, editar e salvar modelos de e-mail dinâmicos',
 				'da' => 'Opret, redigér og gem dynamiske emailskabeloner.',
+				'el' => 'Δημιουργήστε, επεξεργαστείτε και αποθηκεύστε δυναμικά email.',
+				'es' => 'Crear, editar y guardar plantillas de email dinámicas',
+				'fr' => 'Créer, éditer et sauver dynamiquement des modèles d\'emails',
+				'he' => 'ניהול של תבניות דואר אלקטרוני',
+				'id' => 'Membuat, mengedit, dan menyimpan template email dinamis',
+				'lt' => 'Kurk, tvarkyk ir saugok dinaminius el. laiškų šablonus.',
+				'nl' => 'Maak, bewerk, en beheer dynamische emailsjablonen',
+				'ru' => 'Создавайте, редактируйте и сохраняйте динамические почтовые шаблоны',
+				'sl' => 'Ustvari, uredi in shrani spremenljive email predloge',
 				'zh' => '新增、編輯與儲存可顯示動態資料的 email 範本',
-				'id' => 'Membuat, mengedit, dan menyimpan template email dinamis'
+                                'hu' => 'Csináld, szerkeszd és mentsd el a dinamikus e-mail sablonokat',
+				'fi' => 'Lisää, muokkaa ja tallenna dynaamisia sähköposti viestipohjia.',
+                                'se' => 'Skapa, redigera och spara dynamiska E-postmallar.'
 			),
-			'frontend' => FALSE,
-			'backend' => TRUE,
+			'frontend' => false,
+			'backend' => true,
 			'menu' => 'design',
 			'author' => 'Stephen Cozart',
-			'skip_xss' => TRUE,
-			
+			'skip_xss' => true,
 			'shortcuts' => array(
 				array(
 				    'name' => 'templates.create_title',
@@ -76,10 +82,14 @@ class Module_Templates extends Module {
 				'body' => array('type' => 'TEXT'),
 				'lang' => array('type' => 'VARCHAR', 'constraint' => 2, 'null' => true, 'unique' => 'slug_lang',),
 				'is_default' => array('type' => 'INT', 'constraint' => 1, 'default' => 0,),
+				'module' => array('type' => 'VARCHAR', 'constraint' => 50, 'default' => '',),
 			),
 		);
 
-		$this->install_tables($tables);
+		if ( !$this->install_tables($tables))
+		{
+			return false;
+		}
 
 		// Insert the default email templates
 
@@ -97,6 +107,7 @@ class Module_Templates extends Module {
 				<div>View Comment:{{ redirect_url }}</div>',
 			'lang' => 'en',
 			'is_default' => 1,
+			'module' => 'comments'
 		));
 
 		// @todo move this to the contact module
@@ -114,9 +125,11 @@ class Module_Templates extends Module {
 				{{ message }}
 
 				{{ name }},
+
 				{{ email }}',
 			'lang' => 'en',
 			'is_default' => 1,
+			'module' => 'pages'
 		));
 
 		// @todo move this to the users module
@@ -132,6 +145,7 @@ class Module_Templates extends Module {
 				</p>',
 			'lang' => 'en',
 			'is_default' => 1,
+			'module' => 'users'
 		));
 
 		// @todo move this to the users module
@@ -149,6 +163,7 @@ class Module_Templates extends Module {
 				<p><strong>Activation Code:</strong> {{ activation_code }}</p>',
 			'lang' => 'en',
 			'is_default' => 1,
+			'module' => 'users'
 		));
 
 		// @todo move this to the users module
@@ -162,6 +177,7 @@ class Module_Templates extends Module {
 				<p>If you did not request a password reset please disregard this message. No further action is necessary.</p>',
 			'lang' => 'en',
 			'is_default' => 1,
+			'module' => 'users'
 		));
 
 		// @todo move this to the users module
@@ -175,6 +191,7 @@ class Module_Templates extends Module {
 				<p>After logging in you may change your password by visiting <a href="{{ url:site }}edit-profile">{{ url:site }}edit-profile</a></p>',
 			'lang' => 'en',
 			'is_default' => 1,
+			'module' => 'users'
 		));
 
 		return TRUE;
@@ -182,22 +199,13 @@ class Module_Templates extends Module {
 
 	public function uninstall()
 	{
-		//it's a core module, lets keep it around
+		// This is a core module, lets keep it around.
 		return FALSE;
 	}
 
 	public function upgrade($old_version)
 	{
-		// Your Upgrade Logic
 		return TRUE;
 	}
 
-	public function help()
-	{
-		// Return a string containing help info
-		// You could include a file and return it here.
-		return "No documentation has been added for this module.<br/>Contact the module developer for assistance.";
-	}
 }
-
-/* End of file details.php */

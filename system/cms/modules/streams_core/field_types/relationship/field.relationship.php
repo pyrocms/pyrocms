@@ -23,11 +23,10 @@ class Field_relationship
 
 	// --------------------------------------------------------------------------
 	
-	public function event()
-	{
-		// Add autocomplete CSS just in case
-		// $this->CI->type->add_css('relationship', 'autocomplete.css');	
-	}
+	/**
+	 * Run time cache
+	 */
+	private $cache;
 
 	// --------------------------------------------------------------------------
 
@@ -45,8 +44,7 @@ class Field_relationship
 		
 		if ( ! $stream)
 		{
-			// @todo - languagize
-			return '<em>Related stream does not exist.</em>';
+			return '<em>'.$this->CI->lang->line('streams.relationship.doesnt_exist').'</em>';
 		}
 
 		$title_column = $stream->title_column;
@@ -61,6 +59,13 @@ class Field_relationship
 		$obj = $this->CI->db->get($stream->stream_prefix.$stream->stream_slug);
 		
 		$choices = array();
+
+		// If this is not required, then
+		// let's allow a null option
+		if ($field->is_required == 'no')
+		{
+			$choices[null] = $this->CI->config->item('dropdown_choose_null');
+		}
 		
 		foreach ($obj->result() as $row)
 		{
@@ -80,15 +85,20 @@ class Field_relationship
 	 * @access	public
 	 * @return	string
 	 */
-	public function param_choose_stream($stream_id = FALSE)
+	public function param_choose_stream($stream_id = false)
 	{
-		$this->CI = get_instance();
-		
-		$streams = $this->CI->db->select('id, stream_name')->get('data_streams')->result();
+		$choices = array();
+
+		// Now get our streams and add them
+		// under their namespace
+		$streams = $this->CI->db->select('id, stream_name, stream_namespace')->get(STREAMS_TABLE)->result();
 		
 		foreach ($streams as $stream)
 		{
-			$choices[$stream->id] = $stream->stream_name;
+			if ($stream->stream_namespace)
+			{
+				$choices[$stream->stream_namespace][$stream->id] = $stream->stream_name;
+			}
 		}
 		
 		return form_dropdown('choose_stream', $choices, $stream_id);
@@ -169,9 +179,20 @@ class Field_relationship
 	 */
 	function pre_output_plugin($row, $custom)
 	{
+		if (isset($this->cache[$custom['choose_stream']][$row]))
+		{
+			return $this->cache[$custom['choose_stream']][$row];
+		}
+
 		// Okay good to go
 		$stream = $this->CI->streams_m->get_stream($custom['choose_stream']);
-		
+
+		// Do it gracefully
+		if ( ! $stream)
+		{
+			return null;
+		}
+
 		$obj = $this->CI->db->where('id', $row)->get($stream->stream_prefix.$stream->stream_slug);
 		
 		if ($obj->num_rows() == 0)
@@ -188,39 +209,11 @@ class Field_relationship
 		
 		$stream_fields = $this->CI->streams_m->get_stream_fields($stream->id);
 
-		return $this->CI->row_m->format_row($return, $stream_fields, $stream, false, true);
-	}
+		$return_row = $this->CI->row_m->format_row($return, $stream_fields, $stream, false, true);
 
-	// --------------------------------------------------------------------------
-
-	/**
-	 * Search a field and stream
- 	 *
-	 * Accessed via AJAX
-	 *
-	 * @access    public
-	 * @return    void
-	 */
-	public function ajax_rel_search()
-	{
-		/*$stream_slug = $this->CI->input->post('stream_slug');
-		$title_column = $this->CI->input->post('title_column');
-
-		$results = $this->CI->db->limit(6)
-			->select("id, {$title_column}")
-			->like($title_column, $this->CI->input->post('search_term'))
-			->get($this->CI->config->item('stream_prefix').$stream_slug)
-			->result();
-
-		echo '<ul class="streams_dropdown">';
-
-		foreach($results as $result):
-
-		echo '<li><a class="'.$stream_slug.'_autocomplete_item" id="'.$result->id.'" name="'.$result->$title_column.'">'.$result->$title_column.'</a></li>';
-
-		endforeach;
-
-		echo '<ul>';*/
+		$this->cache[$custom['choose_stream']][$row] = $return_row;
+		
+		return $return_row;
 	}
 
 }

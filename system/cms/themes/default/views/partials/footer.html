@@ -1,0 +1,26 @@
+<!-- Begin footer -->
+<div id="footerWrapper">
+<footer>
+	<div id="poweredby"><a target="_blank" href="http://pyrocms.com/">{{ theme:image file="logo.png" alt="Powered by PyroCMS" }} {{ helper:lang line="powered_by_pyrocms" }}</a></div>
+	<ul id="foot-nav">
+		{{ navigation:links group="footer" }}
+		<li><a class="last" href="{{ url:current }}#top" title="{{ helper:lang line="back_to_top" }}">{{ helper:lang line="top_page" }} &uarr;</a></li>
+		<li>&copy;{{ helper:date format="Y" }} {{ settings:site_name }}. {{ helper:lang line="all_right_reserved" }}</li>
+	</ul>
+</footer>
+</div>
+<!-- End footer -->
+<!-- Begin scripts -->
+{{ theme:js file="localscroll.js" }}
+{{ theme:js file="scrollto.js" }}
+{{ theme:js file="easing.js" }}
+{{ if theme:options:cufon_enabled == 'yes' and settings:theme_default:cufon_enabled }}
+	{{ theme:js file="cufon.js" }}
+	{{ theme:js file=settings:theme_default:cufon_font }}
+{{ endif }}
+{{ theme:js file="global.js" }}
+<!-- End scripts -->
+
+{{ if theme:options:cufon_enabled == 'yes' and settings:theme_default:cufon_enabled }}
+	<script type="text/javascript">Cufon.now();</script>
+{{ endif }}

@@ -38,6 +38,7 @@ $lang['pages.access_label']							= 'Доступ';
 $lang['pages.rss_enabled_label']				= 'Включить RSS';
 $lang['pages.comments_enabled_label']		= 'Разрешить комментарии';
 $lang['pages.is_home_label']						= 'Это страница по-умолчанию (главная)?';
+$lang['pages.strict_uri_label']						= 'Require an exact uri match?'; #translate
 
 $lang['pages.status_label']							= 'Статус';
 $lang['pages.draft_label']							= 'Черновик';
@@ -71,6 +72,7 @@ $lang['pages_parent_not_exist_error']		= 'Выбранная родительс�
 $lang['pages_chunk_slug_length']					= 'Page Chunk slugs may be no more than 30 characters in length.'; #translate
 $lang['pages_root_folder']                = 'the top level'; #translate
 
+$lang['pages.tree_explanation_title']	        = 'Explanation'; #translate
 $lang['pages.tree_explanation']					= 'Список слева содержит все страницы вашего сайта. Нажмите знак "+" для отображения потомков выбранной страницы. При нажатии на страницу - в этом блоке будет выведена полезная информация.';
 
 $lang['pages.rss_explanation']					= 'При активировании RSS для этой страницы у пользователей появится возможность подписаться на все страницы-потомки, добавляемые к этой странице.';

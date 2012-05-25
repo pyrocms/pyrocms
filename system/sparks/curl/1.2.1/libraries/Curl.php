@@ -177,6 +177,7 @@ class Curl {
 	public function http_header($header, $content = NULL)
 	{
 		$this->headers[] = $content ? $header . ': ' . $content : $header;
+		return $this;
 	}
 
 	public function http_method($method)
@@ -306,6 +307,7 @@ class Curl {
 			$error = curl_error($this->session);
 			
 			curl_close($this->session);
+			$this->last_response = $this->response;
 			$this->set_defaults();
 			
 			$this->error_code = $errno;
@@ -320,6 +322,7 @@ class Curl {
 			curl_close($this->session);
 			$this->last_response = $this->response;
 			$this->set_defaults();
+			
 			return $this->last_response;
 		}
 	}

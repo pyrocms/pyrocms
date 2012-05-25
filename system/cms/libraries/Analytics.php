@@ -420,11 +420,10 @@ class Analytics {
 			));
 			$rContext = stream_context_create($aContext);
 
-			$sOutput = @file_get_contents($sUrl, 0, $rContext);
-			if (strpos($http_response_header[0], '200') === false)
+			if (($sOutput = @file_get_contents($sUrl, 0, $rContext)) === false)
 			{
 				// not a valid response from GA
-				throw new Exception('Not a valid response (' . $http_response_header[0] . ') url: ' . $sUrl);
+				throw new Exception('Not a valid response url: ' . $sUrl);
 			}
 		}
 		return $sOutput;

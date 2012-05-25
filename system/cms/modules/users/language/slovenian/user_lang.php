@@ -1,5 +1,13 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
+$lang['user_add_field']                        	= 'Dodaj Polje Uporabnikovemu Profilu';
+$lang['user_profile_delete_success']           	= 'Polje uporabnikovega profila uspešno izbrisan';
+$lang['user_profile_delete_failure']            = 'Pri odstranjevanju polja iz uporabnikovega profila je prišlo do napake';
+$lang['profile_user_basic_data_label']  		= 'Osnovni Podatki';
+$lang['profile_company']         	  			= 'Podjetje';
+$lang['profile_updated_on']           			= 'Posodobljeno';
+$lang['user_profile_fields_label']	 		 	= 'Polja profila';
+
 $lang['user_register_header']                  = 'Registracija';
 $lang['user_register_step1']                   = '<strong>Korak 1:</strong> Registracija';
 $lang['user_register_step2']                   = '<strong>Korak 2:</strong> Aktivacija';

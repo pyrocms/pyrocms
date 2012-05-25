@@ -17,13 +17,14 @@ class Plugin_Theme extends Plugin
 	 * Loads a theme partial
 	 *
 	 * Usage:
-	 * {{ theme:partial file="header" }}
+	 * {{ theme:partial name="header" }}
 	 *
 	 * @return string The final rendered partial view.
 	 */
 	public function partial()
-	{
-		$name = $this->attribute('name');
+	{	
+		// file="foo" is deprecated. Use name="foo"
+		$name = $this->attribute('name', $this->attribute('file'));
 
 		$path = $this->load->get_var('template_views');
 		$data = $this->load->get_vars();
@@ -79,7 +80,7 @@ class Plugin_Theme extends Plugin
 		$title = $this->attribute('title');
 		$media = $this->attribute('media');
 
-		return link_tag($this->css_path($file), 'stylesheet', 'text/css', $title, $media);
+		return link_tag($this->css_url($file), 'stylesheet', 'text/css', $title, $media);
 	}
 
 	/**
@@ -140,7 +141,7 @@ class Plugin_Theme extends Plugin
 
 		try
 		{
-			return Asset::img($file, $alt);
+			return Asset::img($file, $alt, $attributes);
 		}
 		catch (Asset_Exception $e)
 		{
@@ -191,7 +192,7 @@ class Plugin_Theme extends Plugin
 	public function js($return = '')
 	{
 		$file = $this->attribute('file');
-		return '<script src="'.$this->js_path($file).'" type="text/javascript"></script>';
+		return '<script src="'.$this->js_url($file).'" type="text/javascript"></script>';
 	}
 
 	/**

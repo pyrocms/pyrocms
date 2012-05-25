@@ -32,11 +32,11 @@ if (!function_exists('create_pagination'))
 		$config['base_url'] = $config['suffix'] !== FALSE ? rtrim(site_url($uri), $config['suffix']) : site_url($uri);
 		// Count all records
 		$config['total_rows'] = $total_rows;
-		$config['per_page'] = $limit === NULL ? $ci->settings->records_per_page : $limit;
+		$config['per_page'] = $limit === NULL ? Settings::get('records_per_page') : $limit;
 		$config['uri_segment'] = $uri_segment;
 		$config['page_query_string'] = FALSE;
 
-		$config['num_links'] = 4;
+		$config['num_links'] = 8;
 
 		$config['full_tag_open'] = '<div class="pagination"><ul>';
 		$config['full_tag_close'] = '</ul></div>';
@@ -49,8 +49,8 @@ if (!function_exists('create_pagination'))
 		$config['prev_tag_open'] = '<li class="prev">';
 		$config['prev_tag_close'] = '</li>';
 
-		$config['cur_tag_open'] = '<li class="active">';
-		$config['cur_tag_close'] = '</li>';
+		$config['cur_tag_open'] = '<li class="active"><span>';
+		$config['cur_tag_close'] = '</span></li>';
 
 		$config['num_tag_open'] = '<li>';
 		$config['num_tag_close'] = '</li>';

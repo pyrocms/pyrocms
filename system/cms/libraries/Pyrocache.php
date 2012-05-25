@@ -5,7 +5,7 @@
  *
  * Partial Caching library for CodeIgniter
  *
- * @category	Libraries
+ * @category	PyroCMS\Core\Libraries\PyroCache
  * @author		Phil Sturgeon
  * @link		http://philsturgeon.co.uk/code/codeigniter-cache
  * @license		MIT
@@ -14,17 +14,48 @@
 
 class Pyrocache
 {
+	/**
+	 * @var CI_Controller The Codeigniter instance object.
+	 */
 	private $_ci;
+	/**
+	 * .@var string The cache path
+	 */
 	private $_path;
+	/**
+	 * @todo Document this.
+	 * @var
+	 */
 	private $_contents;
+	/**
+	 * @var string The name of the cache file.
+	 */
 	private $_filename;
+	/**
+	 * @todo Document this.
+	 * @var
+	 */
 	private $_expires;
+	/**
+	 * @todo Document this.
+	 * @var
+	 */
 	private $_default_expires;
+	/**
+	 * @todo Document this.
+	 * @var
+	 */
 	private $_created;
+	/**
+	 * @todo Document this.
+	 * @var array
+	 */
 	private $_dependencies;
 
 	/**
-	 * Constructor - Initializes and references CI
+	 * Constructor
+	 *
+	 * Initializes and references Codeigniter object.
 	 */
 	function __construct()
 	{
@@ -39,18 +70,15 @@ class Pyrocache
 		$this->_default_expires = $this->_ci->config->item('cache_default_expires');
 		if ( ! is_dir($this->_path))
 		{
-			if ( ! mkdir($this->_path, 0777, TRUE) )
-			{			
-				show_error('Cache Path was not found and could not be created: ' . $this->_path);
+			if ( ! mkdir($this->_path, 0777, TRUE))
+			{
+				show_error('Cache Path was not found and could not be created: '.$this->_path);
 			}
 		}
 	}
 
 	/**
 	 * Initialize Cache object to empty
-	 *
-	 * @access	private
-	 * @return	void
 	 */
 	private function _reset()
 	{
@@ -61,12 +89,17 @@ class Pyrocache
 		$this->_dependencies = array();
 	}
 
+
 	/**
 	 * Call a library's cached result or create new cache
 	 *
-	 * @access	public
-	 * @param	string
-	 * @return	array
+	 * @todo Document this function
+	 *
+	 * @param string $library
+	 * @param string $method
+	 * @param array $arguments
+	 * @param null $expires
+	 * @return mixed
 	 */
 	public function library($library, $method, $arguments = array(), $expires = NULL)
 	{
@@ -78,11 +111,15 @@ class Pyrocache
 		return $this->_call($library, $method, $arguments, $expires);
 	}
 
+
 	/**
 	 * Call a model's cached result or create new cache
-	 *
-	 * @access	public
-	 * @return	array
+	 * @todo Document this function's parameters.
+	 * @param $model
+	 * @param $method
+	 * @param array $arguments
+	 * @param null $expires
+	 * @return mixed
 	 */
 	public function model($model, $method, $arguments = array(), $expires = NULL)
 	{
@@ -94,88 +131,132 @@ class Pyrocache
 		return $this->_call($model, $method, $arguments, $expires);
 	}
 
-	// Depreciated, use model() or library()
+
+	/**
+	 * Use PyroCache::model() or PyroCache::library() instead of this.
+	 *
+	 * @see PyroCache::model(), PyroCache::library()
+	 * @todo Document this function's parameters.
+	 * @param $property
+	 * @param $method
+	 * @param array $arguments
+	 * @param null $expires
+	 *
+	 * @return mixed
+	 */
 	private function _call($property, $method, $arguments = array(), $expires = NULL)
 	{
 		$this->_ci->load->helper('security');
 
-		if(!is_array($arguments))
+		if ( ! is_array($arguments))
 		{
-			$arguments = (array) $arguments;
+			$arguments = (array)$arguments;
 		}
 
 		// Clean given arguments to a 0-index array
 		$arguments = array_values($arguments);
 
-		$cache_file = $property.DIRECTORY_SEPARATOR.do_hash($method.serialize($arguments), 'sha1');
+		$cache_file = $property.DIRECTORY_SEPARATOR.do_hash($_SERVER['SERVER_NAME'].$method.serialize($arguments), 'sha1');
 
-		// See if we have this cached or delete if $expires is negative
-		if($expires >= 0)
-		{
-			$cached_response = $this->get($cache_file);
-		}
-		else
+		// Delete if expires is negative
+		if ($expires < 0)
 		{
 			$this->delete($cache_file);
 			return;
 		}
 
+		// See if we have this cached
+		$cached_response = $this->get($cache_file);
+
 		// Not FALSE? Return it
-		if($cached_response !== FALSE && $cached_response !== NULL)
+		if ($cached_response !== FALSE && $cached_response !== NULL)
 		{
 			return $cached_response;
 		}
 
-		else
-		{
-			// Call the model or library with the method provided and the same arguments
-			$new_response = call_user_func_array(array($this->_ci->$property, $method), $arguments);
-			$this->write($new_response, $cache_file, $expires);
-
-			return $new_response;
-		}
+		// Call the model or library with the method provided and the same arguments
+		$new_response = call_user_func_array(array($this->_ci->$property, $method), $arguments);
+		$this->write($new_response, $cache_file, $expires);
+		return $new_response;
 	}
 
 	/**
-	 * Helper functions for the dependencies property
+	 * Set the dependencies
+	 *
+	 * Overwrites existing ones.
+	 * @todo Document this function's parameters.
+	 * @param $dependencies
+	 *
+	 * @return Pyrocache
 	 */
 	function set_dependencies($dependencies)
 	{
 		if (is_array($dependencies))
+		{
 			$this->_dependencies = $dependencies;
+		}
 		else
+		{
 			$this->_dependencies = array($dependencies);
+		}
 
 		// Return $this to support chaining
 		return $this;
 	}
 
+	/**
+	 * Adds dependencies.
+	 * @todo Document this function's parameters.
+	 * @param $dependencies
+	 *
+	 * @return Pyrocache
+	 */
 	function add_dependencies($dependencies)
 	{
 		if (is_array($dependencies))
+		{
 			$this->_dependencies = array_merge($this->_dependencies, $dependencies);
+		}
 		else
+		{
 			$this->_dependencies[] = $dependencies;
+		}
 
 		// Return $this to support chaining
 		return $this;
 	}
 
-	function get_dependencies() { return $this->_dependencies; }
+	/**
+	 * Getter for the dependencies
+	 *
+	 * @return mixed
+	 */
+	function get_dependencies()
+	{
+		return $this->_dependencies;
+	}
+
 
 	/**
 	 * Helper function to get the cache creation date
+	 *
+	 * @param $created @todo Not used.
+	 *
+	 * @return mixed
 	 */
-	function get_created($created) { return $this->_created; }
-
+	function get_created($created)
+	{
+		return $this->_created;
+	}
 
 	/**
 	 * Retrieve Cache File
 	 *
-	 * @access	public
-	 * @param	string
-	 * @param	boolean
-	 * @return	mixed
+	 * @todo Document this function's parameters.
+	 * @param string|null $filename
+	 * @param bool $use_expires
+	 *
+	 * @return bool
 	 */
 	function get($filename = NULL, $use_expires = true)
 	{
@@ -232,14 +313,14 @@ class Pyrocache
 		}
 
 		// Check Cache dependencies
-		if(isset($this->_contents['__cache_dependencies']))
+		if (isset($this->_contents['__cache_dependencies']))
 		{
 			foreach ($this->_contents['__cache_dependencies'] as $dep)
 			{
 				$cache_created = filemtime($this->_path.$this->_filename.'.cache');
 
 				// If dependency doesn't exist or is newer than this cache, delete and return FALSE
-				if (! file_exists($this->_path.$dep.'.cache') or filemtime($this->_path.$dep.'.cache') > $cache_created)
+				if ( ! file_exists($this->_path.$dep.'.cache') or filemtime($this->_path.$dep.'.cache') > $cache_created)
 				{
 					$this->delete($filename);
 					return FALSE;
@@ -248,9 +329,9 @@ class Pyrocache
 		}
 
 		// Instantiate the object variables
-		$this->_expires		= isset($this->_contents['__cache_expires']) ? $this->_contents['__cache_expires'] : NULL;
+		$this->_expires = isset($this->_contents['__cache_expires']) ? $this->_contents['__cache_expires'] : NULL;
 		$this->_dependencies = isset($this->_contents['__cache_dependencies']) ? $this->_contents['__cache_dependencies'] : NULL;
-		$this->_created		= isset($this->_contents['__cache_created']) ? $this->_contents['__cache_created'] : NULL;
+		$this->_created = isset($this->_contents['__cache_created']) ? $this->_contents['__cache_created'] : NULL;
 
 		// Cleanup the meta variables from the contents
 		$this->_contents = @$this->_contents['__cache_contents'];
@@ -263,12 +344,14 @@ class Pyrocache
 	/**
 	 * Write Cache File
 	 *
-	 * @access	public
-	 * @param	mixed
-	 * @param	string
-	 * @param	int
-	 * @param	array
-	 * @return	void
+	 * @todo Document this function's parameters.
+	 *
+	 * @param null $contents
+	 * @param null $filename
+	 * @param null $expires
+	 * @param array $dependencies
+	 *
+	 * @return bool|void
 	 */
 	function write($contents = NULL, $filename = NULL, $expires = NULL, $dependencies = array())
 	{
@@ -303,7 +386,9 @@ class Pyrocache
 			if ( ! @file_exists($test_path))
 			{
 				// create non existing dirs, asumes PHP5
-				if ( ! @mkdir($test_path, DIR_WRITE_MODE, TRUE)) return FALSE;
+				if ( ! @mkdir($test_path, DIR_WRITE_MODE, TRUE)) {
+					return FALSE;
+				}
 			}
 		}
 
@@ -322,12 +407,12 @@ class Pyrocache
 		$this->_contents['__cache_dependencies'] = $this->_dependencies;
 
 		// Add expires variable if its set...
-		if (! empty($this->_expires))
+		if ( ! empty($this->_expires))
 		{
 			$this->_contents['__cache_expires'] = $this->_expires + time();
 		}
 		// ...or add default expiration if its set
-		elseif (! empty($this->_default_expires) )
+		elseif ( ! empty($this->_default_expires))
 		{
 			$this->_contents['__cache_expires'] = $this->_default_expires + time();
 		}
@@ -353,27 +438,31 @@ class Pyrocache
 		$this->_reset();
 	}
 
+
 	/**
-	 * Delete Cache File
+	 * Delete Cache File.
 	 *
-	 * @access	public
-	 * @param	string
-	 * @return	void
+	 * @param string|null $filename The filename to delete.
 	 */
 	function delete($filename = NULL)
 	{
-		if ($filename !== NULL) $this->_filename = $filename;
+		if ($filename !== NULL) {
+			$this->_filename = $filename;
+		}
 
 		$file_path = $this->_path.$this->_filename.'.cache';
 
-		if (file_exists($file_path)) unlink($file_path);
+		if (file_exists($file_path)) {
+			unlink($file_path);
+		}
 
 		// Reset values
 		$this->_reset();
 	}
 
+
 	/**
-	 * Delete a group of cached files
+	 * Delete a group of cached files.
 	 *
 	 * Allows you to pass a group to delete cache. Example:
 	 *
@@ -383,8 +472,9 @@ class Pyrocache
 	 * $this->pyrocache->delete_group('nav_');
 	 * </code>
 	 *
-	 * @param 	string $group
-	 * @return 	void
+	 * @param string|null $group The name (or part of it) of the group of cache files to delete.
+	 *
+	 * @return bool
 	 */
 	public function delete_group($group = null)
 	{
@@ -398,7 +488,7 @@ class Pyrocache
 
 		foreach ($map AS $file)
 		{
-			if (strpos($file, $group)  !== FALSE)
+			if (strpos($file, $group) !== FALSE)
 			{
 				unlink($this->_path.$file);
 			}
@@ -408,12 +498,13 @@ class Pyrocache
 		$this->_reset();
 	}
 
+
 	/**
-	 * Delete Full Cache or Cache subdir
+	 * Delete Full Cache or Cache subdirectory.
 	 *
-	 * @access	public
-	 * @param	string
-	 * @return	void
+	 * @param string $dirname The directory name.
+	 *
+	 * @return bool
 	 */
 	function delete_all($dirname = '')
 	{
@@ -423,11 +514,11 @@ class Pyrocache
 		}
 
 		$this->_ci->load->helper('file');
-		if (file_exists($this->_path.$dirname)) delete_files($this->_path.$dirname, TRUE);
+		if (file_exists($this->_path.$dirname)) {
+			delete_files($this->_path.$dirname, TRUE);
+		}
 
 		// Reset values
 		$this->_reset();
 	}
 }
-
-/* End of file Pyrocache.php */

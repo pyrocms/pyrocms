@@ -28,6 +28,7 @@ $lang['widgets.widget_area_slug'] 			= 'Krátké jméno oblasti';
 $lang['widgets.view_code']				= 'View Code'; #translate
 
 $lang['widgets.instance_title'] 			= 'Titulek';
+$lang['widgets.show_title']				= 'Display Widget Title?'; #translate
 $lang['widgets.tag_title']					= 'Štítek';
 
 $lang['widgets.no_available_widgets']		= 'Nejsou dostupné žádné widgety.';

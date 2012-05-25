@@ -6,35 +6,15 @@
 	<section class="item">
 		<div id="page-list">
 		<ul class="sortable">
-
-			<?php foreach($pages as $page): ?>
-	
-					<li id="page_<?php echo $page['id']; ?>">
-						<div>
-							<a href="#" rel="<?php echo $page['id']; ?>"><?php echo $page['title']; ?></a>
-						</div>
-				
-					<?php if(isset($page['children'])): ?>
-						<ul>
-							<?php $controller->tree_builder($page); ?>
-						</ul>
-					</li>
-				
-					<?php else: ?>
-					
-					</li>
-				
-				<?php endif; ?>
-			<?php endforeach; ?>
-
+			<?php echo tree_builder($pages, '<li id="page_{{ id }}"><div><a href="#" rel="{{ id }}">{{ title }}</a></div>{{ children }}</li>'); ?>
 		</ul>
 		</div>
 	</section>
 </div>
 
-<div class="one_half last">	
+<div class="one_half last scroll-follow">	
 	<section class="title">
-		<h4>Explanation</h4>
+		<h4><?php echo lang('pages.tree_explanation_title'); ?></h4>
 	</section>
 	
 	<section class="item">

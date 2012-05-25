@@ -10,18 +10,18 @@ $lang['version_label'] 					= 'Različica';
 $lang['global:author'] 					= 'Avtor';
 $lang['global:action'] 					= 'Dejanje';
 
-$lang['dialog.delete_message'] 			= 'Ali ste prepričani da želite izbrisati to? Obnovitev ni mogoča';
-$lang['dialog.confirm'] 				= 'Potrdi';
-$lang['dialog.yes'] 					= 'Da';
-$lang['dialog.no'] 						= 'Ne';
+$lang['global:dialog:delete_message'] 	= 'Ali ste prepričani da želite izbrisati to? Obnovitev ni mogoča';
+$lang['global:dialog:confirm'] 			= 'Potrdi';
+$lang['global:dialog:yes'] 				= 'Da';
+$lang['global:dialog:no'] 				= 'Ne';
 
-$lang['global:select-none'] 					= '-- Brez --';
-$lang['global:select-all'] 					= '-- Vse --';
-$lang['global:select-any'] 					= '-- Izbrano --';
-$lang['global:select-pick'] 					= '-- Izberi --';
+$lang['global:select-none'] 			= '-- Brez --';
+$lang['global:select-all'] 				= '-- Vse --';
+$lang['global:select-any'] 				= '-- Izbrano --';
+$lang['global:select-pick'] 			= '-- Izberi --';
 
-$lang['global:check-none'] 					= 'Nič';
-$lang['global:check-all']						= 'Vse';
+$lang['global:check-none'] 				= 'Nič';
+$lang['global:check-all']				= 'Vse';
 
 $lang['operators.equal'] 				= 'Enako kot';
 $lang['operators.not_equal'] 			= 'Ni enako kot';

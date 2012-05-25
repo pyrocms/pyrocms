@@ -6,6 +6,7 @@ $lang['intro_text']		=	'قبل أن نتمكن من التحقق من قاعدة
 
 $lang['db_settings']	=	'إعدادات قاعدة البيانات';
 $lang['db_text']		=	'كي يتمكن برنامج التثبيت من التحقق من إصدار خادم MySQL يجب عليك إدخال بيانات اسم المضيف، وإسم المستخدم وكلمة السرّ في الاستمارة أدناه. ستستخدم هذه الإعدادات عند تثبيت قاعدة البيانات.';
+$lang['db_missing']		=	'The mysql database driver for PHP were not found, installation cannot continue. Ask your host or server administrator to install it.'; #translate
 
 $lang['server']			=	'الخادم';
 $lang['username']		=	'إسم المستخدم';

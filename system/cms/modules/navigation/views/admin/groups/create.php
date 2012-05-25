@@ -13,12 +13,12 @@
 	    <ul>
 		    <li class="even">
 			    <label for="title"><?php echo lang('nav_title_label');?> <span>*</span></label>
-			    <div class="input"><?php echo form_input('title', $navigation_group->title, 'class="text"'); ?></div>
+			    <div class="input"><?php echo form_input('title', $navigation_group['title'], 'class="text"'); ?></div>
 		    </li>
 	    
 		    <li>
 			    <label for="url"><?php echo lang('global:slug');?> <span>*</span></label>
-			    <div class="input"><?php echo form_input('abbrev', $navigation_group->abbrev, 'class="text"'); ?></div>
+			    <div class="input"><?php echo form_input('abbrev', $navigation_group['abbrev'], 'class="text"'); ?></div>
 		    </li>
 	    </ul>
 	

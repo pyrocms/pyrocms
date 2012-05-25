@@ -38,7 +38,8 @@ class Streams_entries extends CI_Driver {
 			'sort'				=> 'asc',
 			'exclude_called'	=> 'no',
 			'paginate'			=> 'no',
-			'pag_segment'		=> 2
+			'pag_segment'		=> 2,
+			'site_ref'      	=> SITE_REF
 	);
 
 	// --------------------------------------------------------------------------
@@ -200,15 +201,56 @@ class Streams_entries extends CI_Driver {
 	// --------------------------------------------------------------------------
 
 	/**
+	 * Insert an entry
+	 *
+	 * This will be run through the streams data
+	 * processing.
+	 *
+	 * @access	public
+	 * @param	array - entry data
+	 * @param	stream - int, slug, or obj
+	 * @param 	string - namespace
+	 * @param 	array - field slugs to skip
+	 * @param 	array - extra data to add in
+	 * @return	object
+	 */
+	function insert_entry($entry_data, $stream, $namespace, $skips = array(), $extra = array())
+	{
+		$str_obj = $this->stream_obj($stream, $namespace);
+		
+		if ( ! $str_obj) $this->log_error('invalid_stream', 'delete_stream');
+
+		$CI = get_instance();
+
+		$stream_fields = $CI->streams_m->get_stream_fields($str_obj->id);
+
+		return $CI->row_m->insert_entry($entry_data, $stream_fields, $str_obj, $skips, $extra);
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
 	 * Update an entry
 	 *
 	 * @access	public
 	 * @param	int - entry id
+	 * @param	array - entry data
+	 * @param	stream - int, slug, or obj
+	 * @param 	string - namespace
+	 * @param 	array - field slugs to skip
 	 * @return	object
 	 */
-	function update_entry($entry_id, $data)
+	function update_entry($entry_id, $entry_data, $stream, $namespace, $skips = array())
 	{
-		// @todo
+		$str_obj = $this->stream_obj($stream, $namespace);
+		
+		if ( ! $str_obj) $this->log_error('invalid_stream', 'delete_stream');
+
+		$CI = get_instance();
+
+		$stream_fields = $CI->streams_m->get_stream_fields($str_obj->id);
+
+		return $CI->row_m->update_entry($stream_fields, $str_obj, $entry_id, $entry_data, $skips = array());
 	}
 	
 }

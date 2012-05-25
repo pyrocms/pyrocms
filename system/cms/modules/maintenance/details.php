@@ -1,11 +1,11 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 /**
  * Maintenance Module
- * 
- * @author		PyroCMS Dev Team
- * @package		PyroCMS\Core\Modules\Maintenance
+ *
+ * @author PyroCMS Dev Team
+ * @package PyroCMS\Core\Modules\Maintenance
  */
-class Module_Maintenance extends Module 
+class Module_Maintenance extends Module
 {
 
 	public $version = '1.0';
@@ -15,22 +15,32 @@ class Module_Maintenance extends Module
 		return array(
 			'name' => array(
 				'en' => 'Maintenance',
-				'fr' => 'Maintenance',
-				'el' => 'Συντήρηση',
+				'pt' => 'Manutenção',
 				'ar' => 'الصيانة',
+				'el' => 'Συντήρηση',
+				'hu' => 'Karbantartás',
+				'fi' => 'Ylläpito',
+				'fr' => 'Maintenance',
+				'id' => 'Pemeliharaan',
+				'se' => 'Underhåll',
+				'sl' => 'Vzdrževanje',
 				'zh' => '維護',
-				'id' => 'Pemeliharaan'
 			),
 			'description' => array(
 				'en' => 'Manage the site cache and export information from the database.',
-				'fr' => 'Gérer le cache du site et exporter les contenus de la base de données',
-				'el' => 'Διαγραφή αντικειμένων προσωρινής αποθήκευσης μέσω της περιοχής διαχείρισης.',
+				'pt' => 'Gerir o cache do seu site e exportar informações da base de dados.',
 				'ar' => 'حذف عناصر الذاكرة المخبأة عبر واجهة الإدارة.',
+				'el' => 'Διαγραφή αντικειμένων προσωρινής αποθήκευσης μέσω της περιοχής διαχείρισης.',
+				'id' => 'Mengatur cache situs dan mengexport informasi dari database.',
+				'fr' => 'Gérer le cache du site et exporter les contenus de la base de données',
+				'fi' => 'Hallinoi sivuston välimuistia ja vie tietoa tietokannasta.',
+				'hu' => 'Az oldal gyorsítótár kezelése és az adatbázis exportálása.',
+				'se' => 'Underhåll webbplatsens cache och exportera data från webbplatsens databas.',
+				'sl' => 'Upravljaj s predpomnilnikom strani (cache) in izvozi podatke iz baze.',
 				'zh' => '經由管理介面手動刪除暫存資料。',
-				'id' => 'Mengatur cache situs dan mengexport informasi dari database.'
 			),
-			'frontend' => FALSE,
-			'backend' => TRUE,
+			'frontend' => false,
+			'backend' => true,
 			'menu' => 'utilities'
 		);
 	}
@@ -38,29 +48,20 @@ class Module_Maintenance extends Module
 
 	public function install()
 	{
-		return TRUE;
+		return true;
 	}
 
 
 	public function uninstall()
 	{
-		return TRUE;
+		// This is a core module, lets keep it around.
+		return false;
 	}
 
 
 	public function upgrade($old_version)
 	{
-		return TRUE;
+		return true;
 	}
-
-
-	public function help()
-	{
-		return "This module will clean up and/or remove cache files and folders
-				and also allows admins to export information from the database.";
-	}
-
 
 }
-
-/* End of file details.php */

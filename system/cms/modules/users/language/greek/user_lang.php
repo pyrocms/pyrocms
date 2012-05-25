@@ -1,5 +1,13 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
+$lang['user_add_field']                        	= 'Προσθήκη Πεδίων Προφίλ Χρηστών';
+$lang['user_profile_delete_success']           	= 'Το πεδίο προφίλ διαγράφηκε με επιτυχία';
+$lang['user_profile_delete_failure']            = 'Υπήρξε κάποιο σφάλμα κατά την διαγραφή του πεδίου προφίλ';
+$lang['profile_user_basic_data_label']  		= 'Βασικά Δεδομένα';
+$lang['profile_company']         	  			= 'Εταιρία';
+$lang['profile_updated_on']           			= 'Ενημερώθηκε Στις';
+$lang['user_profile_fields_label']	 		 	= 'Πεδία Προφίλ';
+
 $lang['user_register_header']   = 'Εγγραφή';
 $lang['user_register_step1']    = '<strong>Βήμα 1:</strong> Εγγραφή';
 $lang['user_register_step2']    = '<strong>Βήμα 2:</strong> Ενεργοποίηση';

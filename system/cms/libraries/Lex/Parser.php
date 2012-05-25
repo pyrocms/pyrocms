@@ -683,6 +683,7 @@ class Lex_Parser
 		{
 			$parts = explode($this->scope_glue, $key);
 		}
+
 		foreach ($parts as $key_part)
 		{
 			if (is_array($data))

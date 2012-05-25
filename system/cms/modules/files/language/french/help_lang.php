@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-//TODO : translate help file
+// todo : translate
 
 // inline help html. Only 'help_body' is used.
 $lang['help_body'] = "

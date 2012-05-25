@@ -1,0 +1,9 @@
+name: cloudmanic-storage
+
+# This is the current version of this spark. All sparks should be in
+#  x.x.x format. Validation will fail otherwise.
+version: 1.0.4
+
+# This is the version of CodeIgniter this spark is compatible up to. It should
+#  be in x.x.x format
+compatibility: 2.0.0

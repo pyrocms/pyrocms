@@ -4,7 +4,7 @@
 
 <section class="item">
 
-<?php echo form_open(uri_string(), 'class="box-container crud"'); ?>
+<?php echo form_open(uri_string(), 'class="box-container form_inputs"'); ?>
 
 <ul>
 	<li>

@@ -1,4 +1,4 @@
-<h1><?php echo $user->full_name; ?></h1>
+<h1><?php echo $user->first_name . ' ' . $user->last_name; ?></h1>
 
 <p style="float:left; width: 40%;">
 	<?php echo anchor('user/' . $user->username, NULL, 'target="_blank"'); ?>

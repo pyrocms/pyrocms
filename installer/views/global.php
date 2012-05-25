@@ -50,6 +50,11 @@
 			<img src="<?php echo base_url(); ?>assets/images/flags/br.gif" alt="Brazilian Portuguese" />
 		</a>
 	</li>
+    <li>
+		<a href="<?php echo site_url('installer/change/portuguese'); ?>" title="Portuguese Portugal">
+			<img src="<?php echo base_url(); ?>assets/images/flags/pt.gif" alt="Portuguese Portugal" />
+		</a>
+	</li>
 	<li>
 		<a href="<?php echo site_url('installer/change/dutch'); ?>" title="Dutch">
 			<img src="<?php echo base_url(); ?>assets/images/flags/nl.gif" alt="Dutch" />
@@ -61,6 +66,16 @@
 		</a>
 	</li>
 	<li>
+		<a href="<?php echo site_url('installer/change/finnish'); ?>" title="Finnish">
+			<img src="<?php echo base_url(); ?>assets/images/flags/fi.gif" alt="Finnish" />
+		</a>
+	</li>
+	<li>
+		<a href="<?php echo site_url('installer/change/swedish'); ?>" title="Swedish">
+			<img src="<?php echo base_url(); ?>assets/images/flags/se.gif" alt="Swedish" />
+		</a>
+	</li>
+        <li>
 		<a href="<?php echo site_url('installer/change/polish'); ?>" title="Polish">
 			<img src="<?php echo base_url(); ?>assets/images/flags/pl.gif" alt="Polish" />
 		</a>
@@ -120,6 +135,11 @@
 			<img src="<?php echo base_url(); ?>assets/images/flags/id.gif" alt="Indonesian" />
 		</a>
 	</li>
+	<li>
+		<a href="<?php echo site_url('installer/change/hungarian'); ?>" title="Magyar">
+			<img src="<?php echo base_url(); ?>assets/images/flags/hu.gif" alt="Magyar" />
+		</a>
+	</li>        
 </ul>
 		</div>		
 		</div>

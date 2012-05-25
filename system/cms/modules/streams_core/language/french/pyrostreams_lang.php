@@ -125,7 +125,7 @@ $lang['streams.last_updated']							= "Dernière mise à jour";
 
 $lang['streams.start.add_one']							= "ajouter un ici";
 $lang['streams.start.no_fields']						= "Vous n'avez pas encore créé de champs. Pour commencer, vous pouvez";
-$lang['streams.start.no_assign'] 						= "Looks like there are no fields yet for this stream. To start, you can";
+$lang['streams.start.no_assign'] 						= "On dirait qu\'il n\'y a aucun champ pour ce Flux. Pour commencer, vous pouvez";
 $lang['streams.start.add_field_here']					= "ajouter un Chmap ici";
 $lang['streams.start.create_field_here']				= "créer un champ ici";
 $lang['streams.start.no_streams']						= "Il n'y a aucun flux pour le moment, vous pouvez commencer par";

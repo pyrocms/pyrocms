@@ -1,5 +1,13 @@
 <?php
 
+$lang['user_add_field']                        	= 'Add User Profile Field'; #translate
+$lang['user_profile_delete_success']           	= 'User profile field deleted successfully'; #translate
+$lang['user_profile_delete_failure']            = 'There was a problem with deleting your user profile field'; #translate
+$lang['profile_user_basic_data_label']  		= 'Basic Data'; #translate
+$lang['profile_company']         	  			= 'Company'; #translate
+$lang['profile_updated_on']           			= 'Updated On'; #translate
+$lang['user_profile_fields_label']	 		 	= 'Profile Fields'; #translate`
+
 $lang['user_register_header'] 			= 'Registratie';
 $lang['user_register_step1'] 			= '<b>Stap 1:</b> Registreren';
 $lang['user_register_step2'] 			= '<b>Stap 2:</b> Activeren';

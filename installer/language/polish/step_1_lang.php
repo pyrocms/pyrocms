@@ -6,6 +6,7 @@ $lang['intro_text']		=	'Zanim sprawdzimy bazę danych, musimy wiedzieć gdzie on
 
 $lang['db_settings']		=	'Konfiguracja bazy danych';
 $lang['db_text']		=	'Instalator potrzebuje nazwy serwera bazy danych MySQL, nazwę użytkownika i hasło. Dane te będą wykorzystane do zainstalowania PyroCMS.';
+$lang['db_missing']		=	'The mysql database driver for PHP were not found, installation cannot continue. Ask your host or server administrator to install it.'; #translate
 
 $lang['server']			=	'Serwer';
 $lang['username']		=	'Użytkownik';

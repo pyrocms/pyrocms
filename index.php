@@ -7,7 +7,7 @@ if ( ! file_exists('system/cms/config/database.php'))
 	if (strpos($_SERVER['REQUEST_URI'], 'installer/'))
 	{
 		header('Status: 404');
-		exit('PyroCMS is missing system/cms/config/database.php and cannot find installer.');
+		exit('PyroCMS is missing system/cms/config/database.php and cannot find the installer folder. Does your server have permission to access these files?');
 	}
 	
 	// Otherwise go to installer
@@ -85,7 +85,7 @@ define('ENVIRONMENT', (isset($_SERVER['PYRO_ENV']) ? $_SERVER['PYRO_ENV'] : PYRO
 	// PHP 5.3 will BITCH without this
 	if(ini_get('date.timezone') == '')
 	{
-		date_default_timezone_set('GMT');
+		date_default_timezone_set('UTC');
 	}
 
 /*

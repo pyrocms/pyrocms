@@ -28,16 +28,6 @@ class Type
 	 * @var		array
 	 */
 	public $addon_paths = array();
-	
-	// --------------------------------------------------------------------------
-	
-	/**
-	 * Current language (folder name)
-	 *
-	 * @access	public
-	 * @var		string
-	 */
-	public $current_lang = 'english';
 
 	// --------------------------------------------------------------------------
 
@@ -46,7 +36,7 @@ class Type
 		$this->CI =& get_instance();
 		
 		$this->CI->load->helper('directory');
-		$this->CI->load->config('language');
+		$this->CI->load->config('streams_core/streams');
 
 		// These constants are used throughout the models.
 		// They should be removed at some point in the future.
@@ -58,12 +48,13 @@ class Type
 		// Get Lang (full name for language file)
 		// This defaults to english.
 		$langs = $this->CI->config->item('supported_languages');
-		
-		if (isset($langs[CURRENT_LANGUAGE]))
+
+		// Needed for installer
+		if ( ! class_exists('Settings'))
 		{
-			$this->current_lang = $langs[CURRENT_LANGUAGE]['folder'];
+			$this->CI->load->library('settings/Settings');
 		}
-		
+
 		// Obj to hold all our field types
 		$this->types = new stdClass;
 		
@@ -74,8 +65,18 @@ class Type
 		
 		// Since this is PyroStreams core we know where
 		// PyroStreams is, but we set this for backwards
-		// compatability for anyone using this constant
-		define('PYROSTEAMS_DIR', APPPATH.'modules/streams_core/');
+		// compatability for anyone using this constant.
+		// Also, now that the Streams API is around, we need to
+		// check if we need to change this based on the
+		// install situation. 
+		if(defined('PYROPATH'))
+		{
+			define('PYROSTEAMS_DIR', PYROPATH.'modules/streams_core/');
+		}
+		else
+		{
+			define('PYROSTEAMS_DIR', APPPATH.'modules/streams_core/');
+		}
 
 		// Set our addon paths
 		$this->addon_paths = array(
@@ -198,11 +199,11 @@ class Type
 
 		if (is_dir($path.$type.'/language'))
 		{
-			$lang = $this->current_lang;
-		
+			$lang = $this->CI->config->item('language');
+
 			// Fallback on English
 			if ( ! is_dir($path.$type.'/language/'.$lang)) $lang = 'english';
-						
+
 			$this->CI->lang->load($type, $lang, false, true, $path.$type.'/');
 			
 			unset($lang);

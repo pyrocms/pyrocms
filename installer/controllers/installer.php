@@ -1,4 +1,14 @@
 <?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+
+// This is for using the the settings
+// library in PyroCMS when installing. This is a
+// copy of the function that exists in
+// system/cms/core/My_Controller.php
+function ci()
+{
+	return get_instance();
+}
+
 /**
  * Installer controller.
  * 
@@ -11,7 +21,7 @@ class Installer extends CI_Controller
 	/**
 	 * Array of languages supported by the installer
 	 */
-	private $languages	= array ('arabic', 'brazilian', 'english', 'dutch', 'french', 'german', 'polish', 'chinese_traditional', 'slovenian', 'spanish', 'russian', 'greek', 'lithuanian','danish','vietnamese', 'indonesian');
+	private $languages	= array ('arabic', 'brazilian', 'english', 'dutch', 'french', 'german', 'portuguese', 'polish', 'chinese_traditional', 'slovenian', 'spanish', 'russian', 'greek', 'lithuanian','danish','vietnamese', 'indonesian', 'hungarian', 'finnish', 'swedish');
 
 	/**
 	 * Array containing the directories that need to be writeable
@@ -80,6 +90,8 @@ class Installer extends CI_Controller
 	 */
 	public function step_1()
 	{
+		$data = new stdClass();
+
 		// Save this junk for later
 		$this->session->set_userdata(array(
 			'hostname' => $this->input->post('hostname'),
@@ -171,6 +183,11 @@ class Installer extends CI_Controller
 	 */
 	public function test_db_connection()
 	{
+		if ( ! $this->installer_lib->mysql_available()) 
+		{
+			$this->form_validation->set_message('test_db_connection', lang('db_missing'));
+			return false;
+		}
 		if ( ! $this->installer_lib->test_db_connection())
 		{
 			$this->form_validation->set_message('test_db_connection', lang('db_failure') . mysql_error());
@@ -188,6 +205,8 @@ class Installer extends CI_Controller
 	 */
 	public function step_2()
 	{
+		$data = new stdClass();
+
 		// Did the user enter the DB settings ?
 		if ( ! $this->session->userdata('step_1_passed'))
 		{
@@ -252,6 +271,8 @@ class Installer extends CI_Controller
 	 */
 	public function step_3()
 	{
+		$data = new stdClass();
+		
 		if ( ! $this->session->userdata('step_1_passed') OR ! $this->session->userdata('step_2_passed'))
 		{
 			// Redirect the user back to step 1
