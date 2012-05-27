@@ -76,7 +76,9 @@ class Users extends Public_Controller
 	public function login()
 	{
 		// Check post and session for the redirect place
-		$redirect_to = $this->input->post('redirect_to') ? $this->input->post('redirect_to') : $this->session->userdata('redirect_to');
+		$redirect_to = ($this->input->post('redirect_to')) 
+			? trim(urldecode($this->input->post('redirect_to')))
+			: $this->session->userdata('redirect_to');
 
 		// Any idea where we are heading after login?
 		if ( ! $_POST AND $args = func_get_args())
@@ -120,7 +122,31 @@ class Users extends Public_Controller
 			// trigger a post login event for third party devs
 			Events::trigger('post_user_login');
 
-			redirect($redirect_to ? $redirect_to : '');
+			if ($this->input->is_ajax_request())
+			{
+				$user = $this->ion_auth->get_user_by_email($user->email);
+				$user->password = '';
+				$user->salt = '';
+
+				exit(json_encode(array('status' => true, 'message' => lang('user_logged_in'), 'data' => $user)));
+			}
+			else
+			{
+				$this->session->set_flashdata('success', lang('user_logged_in'));
+			}
+
+			// Don't allow protocols or cheeky requests
+			if (strpos($redirect_to, ':') !== FALSE)
+			{
+				// Just login to the homepage
+				redirect('');
+			}
+
+			// Passes muster, on your way
+			else
+			{
+				redirect($redirect_to ? $redirect_to : '');
+			}
 		}
 
 		$this->template->build('login', array(

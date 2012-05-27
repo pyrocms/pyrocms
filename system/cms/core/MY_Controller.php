@@ -158,11 +158,6 @@ class MY_Controller extends MX_Controller {
 			$_POST = $this->security->xss_clean($_POST);
 		}
 
-		if ($this->module)
-		{
-			Asset::add_path('module', $this->module_details['path'].'/');
-		}
-
 		$this->load->vars($pyro);
 		
 		$this->benchmark->mark('my_controller_end');
