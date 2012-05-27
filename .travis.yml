@@ -1,0 +1,3 @@
+branches:
+  except:
+    - 2.1/develop
