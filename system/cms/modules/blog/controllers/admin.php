@@ -77,7 +77,12 @@ class Admin extends Admin_Controller
 			'field' => 'comments_enabled',
 			'label'	=> 'lang:blog_comments_enabled_label',
 			'rules'	=> 'trim|numeric'
-		)
+		),
+        array(
+            'field' => 'preview_hash',
+            'label' => '',
+            'rules' => 'trim'
+        )
 	);
 
 	/**
@@ -157,6 +162,7 @@ class Admin extends Admin_Controller
 	{
 		$this->form_validation->set_rules($this->validation_rules);
 
+
 		if ($this->input->post('created_on'))
 		{
 			$created_on = strtotime(sprintf('%s %s:%s', $this->input->post('created_on'), $this->input->post('created_on_hour'), $this->input->post('created_on_minute')));
@@ -166,6 +172,7 @@ class Admin extends Admin_Controller
 		{
 			$created_on = now();
 		}
+        $hash = $this->_preview_hash();
 
 		if ($this->form_validation->run())
 		{
@@ -173,6 +180,8 @@ class Admin extends Admin_Controller
 			if ($this->input->post('status') == 'live')
 			{
 				role_or_die('blog', 'put_live');
+
+                $hash = "";
 			}
 
 			if ($id = $this->blog_m->insert(array(
@@ -188,6 +197,7 @@ class Admin extends Admin_Controller
 				'author_id'			=> $this->current_user->id,
 				'type'				=> $this->input->post('type'),
 				'parsed'			=> ($this->input->post('type') == 'markdown') ? parse_markdown($this->input->post('body')) : '',
+                'preview_hash'      => $hash
 			)))
 			{
 				$this->pyrocache->delete_all('blog_m');
@@ -267,6 +277,13 @@ class Admin extends Admin_Controller
 				'rules' => 'trim|required|alpha_dot_dash|max_length[100]|callback__check_slug['.$id.']'
 			),
 		)));
+        $hash = $this->input->post('preview_hash');
+
+        if($this->input->post('status') == 'draft' and $this->input->post('preview_hash') == '')
+        {
+
+            $hash = $this->_preview_hash();
+        }
 		
 		if ($this->form_validation->run())
 		{
@@ -290,7 +307,8 @@ class Admin extends Admin_Controller
 				'comments_enabled'	=> $this->input->post('comments_enabled'),
 				'author_id'			=> $author_id,
 				'type'				=> $this->input->post('type'),
-				'parsed'			=> ($this->input->post('type') == 'markdown') ? parse_markdown($this->input->post('body')) : ''
+				'parsed'			=> ($this->input->post('type') == 'markdown') ? parse_markdown($this->input->post('body')) : '',
+                'preview_hash'      => $hash,
 			));
 			
 			if ($result)
@@ -552,4 +570,11 @@ class Admin extends Admin_Controller
 			->set('blog', $results)
 			->build('admin/tables/posts');
 	}
+
+    private function _preview_hash()
+    {
+
+        return md5(microtime() + mt_rand(0,1000));
+
+    }
 }

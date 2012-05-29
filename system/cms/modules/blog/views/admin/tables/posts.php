@@ -33,7 +33,12 @@
 					</td>
 					<td><?php echo lang('blog_'.$post->status.'_label'); ?></td>
 					<td>
-						<?php echo anchor('admin/blog/preview/' . $post->id, lang($post->status == 'live' ? 'global:view' : 'global:preview'), 'rel="modal-large" class="iframe btn green" target="_blank"'); ?>
+
+                        <?php if($post->status=='live') : ?>
+                            <?php echo anchor('blog/' . date('Y/m',$post->created_on). '/'. $post->slug, lang('global:view'), 'class="btn green" target="_blank"');?>
+                        <?php else: ?>
+                            <?php echo anchor('blog/preview/' . $post->preview_hash, lang('global:preview'), 'class="btn green" target="_blank"');?>
+                        <?php endif; ?>
 						<?php echo anchor('admin/blog/edit/' . $post->id, lang('global:edit'), 'class="btn orange edit"'); ?>
 						<?php echo anchor('admin/blog/delete/' . $post->id, lang('global:delete'), array('class'=>'confirm btn red delete')); ?>
 					</td>

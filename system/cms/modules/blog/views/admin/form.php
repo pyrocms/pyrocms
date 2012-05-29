@@ -71,7 +71,7 @@
 				
 			</li>
 		</ul>
-		
+        <?php echo form_hidden('preview_hash',$post->preview_hash)?>
 		</fieldset>
 		
 	</div>
@@ -111,7 +111,7 @@
 				<div class="input"><?php echo form_checkbox('comments_enabled', 1, ($this->method == 'create' && ! $_POST) or $post->comments_enabled == 1, 'id="comments_enabled"'); ?></div>
 			</li>
 		</ul>
-		
+
 		</fieldset>
 		
 	</div>
