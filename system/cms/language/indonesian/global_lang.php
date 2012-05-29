@@ -78,7 +78,7 @@ $lang['top_page']						= 'Atas';
 $lang['back_to_top']					= 'Kembali ke Atas';
 
 $lang['global:filters'] 				= 'Saring';
-$lang['global:shortcuts'] 				= 'Pintas';
+$lang['global:image'] 					= 'Image'; #translate
 $lang['global:description']				= 'Deskripsi';
 $lang['global:actions']					= 'Aksi';
 $lang['global:view']					= 'Tinjau';

@@ -73,7 +73,7 @@ $lang['powered_by_pyrocms']				= 'Pyörii PyroCMS:llä';
 $lang['top_page']						= 'Ylös';
 $lang['back_to_top']					= 'Takaisin ylös';
 
-$lang['global:shortcuts']	 			= 'Pikavalinnat';
+$lang['global:image'] 					= 'Image'; #translate
 $lang['global:description']             = 'Kuvaus';
 $lang['global:actions']                 = 'Toiminnot';
 $lang['global:view']					= 'Katso';

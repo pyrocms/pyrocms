@@ -73,7 +73,7 @@ $lang['powered_by_pyrocms']				= 'Powered by PyroCMS';  #translate
 $lang['top_page']						= 'Top';  #translate
 $lang['back_to_top']					= 'Back to Top';  #translate
 
-$lang['global:shortcuts']	 			= 'קיצורי דרך';
+$lang['global:image'] 					= 'Image'; #translate
 $lang['global:description'] 		    = 'תיאור';
 $lang['global:actions']					= 'פעולות';
 $lang['global:view']					= 'View'; #translate

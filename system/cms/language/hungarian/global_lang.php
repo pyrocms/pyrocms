@@ -78,7 +78,7 @@ $lang['top_page']				= 'Oldal teteje';
 $lang['back_to_top']				= 'Ugrás az oldal tetejére';
 
 $lang['global:filters'] 			= 'Szűrők';
-$lang['global:shortcuts'] 			= 'Parancsikonok';
+$lang['global:image'] 					= 'Image'; #translate
 $lang['global:description']			= 'Leírás';
 $lang['global:actions']				= 'Műveletek';
 $lang['global:view']				= 'Nézet';

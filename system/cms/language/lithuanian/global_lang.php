@@ -73,7 +73,7 @@ $lang['powered_by_pyrocms']				= 'Veikia ant PyroCMS';
 $lang['top_page']						= 'Viršus';
 $lang['back_to_top']					= 'Grižti į viršų';
 
-$lang['global:shortcuts']	 			= 'Nuoroda';
+$lang['global:image'] 					= 'Image'; #translate
 $lang['global:description'] 		    = 'Aprašymas';
 $lang['global:actions']					= 'Veiksmai';
 $lang['global:view']					= 'Žiūrėti';

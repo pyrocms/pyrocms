@@ -74,7 +74,7 @@ $lang['top_page']						= 'Top';  #translate
 $lang['back_to_top']					= 'Back to Top';  #translate
 
 $lang['global:filters'] 				= 'Lọc';
-$lang['global:shortcuts'] 				= 'Shortcuts';
+$lang['global:image'] 					= 'Image'; #translate
 $lang['global:description']				= 'Mô tả';
 $lang['global:actions']					= 'Thao tác';
 $lang['global:view']					= 'Xem';

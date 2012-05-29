@@ -78,7 +78,7 @@ $lang['top_page']			= 'Κορυφή';
 $lang['back_to_top']			= 'Πίσω στην Κορυφή';
 
 $lang['global:filters'] 		= 'Φίλτρα';
-$lang['global:shortcuts'] 		= 'Συντομέυσεις';
+$lang['global:image'] 					= 'Image'; #translate
 $lang['global:description'] 		= 'Περιγραφή';
 $lang['global:actions']			= 'Ενέργειες';
 $lang['global:view']			= 'Προβολή';

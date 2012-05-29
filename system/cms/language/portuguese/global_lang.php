@@ -79,7 +79,7 @@ $lang['top_page']						= 'Topo';
 $lang['back_to_top']					= 'Voltar para o Topo';
 
 $lang['global:filters'] 				= 'Filtros';
-$lang['global:shortcuts'] 				= 'Atalhos';
+$lang['global:image'] 					= 'Image'; #translate
 $lang['global:description'] 		    = 'Descrição';
 $lang['global:actions']					= 'Acções';
 $lang['global:view']					= 'Ver'; 

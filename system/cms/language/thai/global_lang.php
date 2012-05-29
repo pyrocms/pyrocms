@@ -89,7 +89,7 @@ $lang['top_page']						= 'ด้านบน';
 $lang['back_to_top']					= 'กลับด้านบน';
 
 $lang['global:filters'] 				= 'กรองข้อมูล';
-$lang['global:shortcuts'] 				= 'ทางลัด';
+$lang['global:image'] 					= 'Image'; #translate
 $lang['global:description']				= 'คำอธิบาย';
 $lang['global:actions']					= 'การกระทำ';
 $lang['global:view']					= 'ดู';

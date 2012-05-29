@@ -53,7 +53,7 @@
 				<?php echo form_textarea(array('id' => 'intro', 'name' => 'intro', 'value' => $post->intro, 'rows' => 5, 'class' => 'blog wysiwyg-simple')); ?>
 			</li>
 			
-			<li class="even editor">
+			<li class="editor">
 				<label for="body"><?php echo lang('blog_content_label'); ?></label>
 				
 				<div class="input">

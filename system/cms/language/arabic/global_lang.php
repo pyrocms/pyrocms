@@ -75,7 +75,7 @@ $lang['top_page']						= 'اعلى الصفحة';
 $lang['back_to_top']					= 'رجوع الى اعلى الصفحة';
 
 $lang['global:filters'] 				= 'تصفية';
-$lang['global:shortcuts'] 				= 'الاختصارات';
+$lang['global:image'] 					= 'Image'; #translate
 $lang['global:description']				= 'الوصف';
 $lang['global:actions']					= 'الإجراءات';
 $lang['global:view']					= 'عرض';
