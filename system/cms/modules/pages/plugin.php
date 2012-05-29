@@ -82,7 +82,17 @@ class Plugin_Pages extends Plugin
 			->get('page_chunks')
 			->row_array();
 
-		return ($chunk ? ($this->content() ? $chunk : $chunk['body']) : false);
+		if ($chunk)
+		{
+			if ($this->content())
+			{
+				return $chunk;
+			}
+			else
+			{
+				return ($chunk['type'] == 'markdown') ? $chunk['parsed'] : $chunk['body'];
+			}
+		}
 	}
 
 	/**

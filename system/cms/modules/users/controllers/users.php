@@ -63,7 +63,9 @@ class Users extends Public_Controller
 	public function login()
 	{
 		// Check post and session for the redirect place
-		$redirect_to = ($this->input->post('redirect_to')) ? $this->input->post('redirect_to') : $this->session->userdata('redirect_to');
+		$redirect_to = ($this->input->post('redirect_to')) 
+			? trim(urldecode($this->input->post('redirect_to')))
+			: $this->session->userdata('redirect_to');
 
 		// Any idea where we are heading after login?
 		if ( ! $_POST AND $args = func_get_args())
@@ -118,7 +120,18 @@ class Users extends Public_Controller
 				$this->session->set_flashdata('success', lang('user_logged_in'));
 			}
 
-			redirect($redirect_to ? $redirect_to : '');
+			// Don't allow protocols or cheeky requests
+			if (strpos($redirect_to, ':') !== FALSE)
+			{
+				// Just login to the homepage
+				redirect('');
+			}
+
+			// Passes muster, on your way
+			else
+			{
+				redirect($redirect_to ? $redirect_to : '');
+			}
 		}
 
 		if ($_POST and $this->input->is_ajax_request())
@@ -184,7 +197,7 @@ class Users extends Public_Controller
 			array(
 				'field' => 'email',
 				'label' => lang('user_email'),
-				'rules' => 'required|valid_email|callback__email_check',
+				'rules' => 'required|max_length[60]|valid_email|callback__email_check',
 			),
 			array(
 				'field' => 'username',
@@ -715,6 +728,15 @@ class Users extends Public_Controller
 				$profile_data[$assign->field_slug] = $profile_row->{$assign->field_slug};
 			}
 		}
+
+		// --------------------------------
+		// Run Stream Events
+		// --------------------------------
+
+		$profile_stream_id = $this->streams_m->get_stream_id_from_slug('profiles', 'users');
+		$this->fields->run_field_events($this->streams_m->get_stream_fields($profile_stream_id), array());
+
+		// --------------------------------
 
 		// Render the view
 		$this->template->build('profile/edit', array(

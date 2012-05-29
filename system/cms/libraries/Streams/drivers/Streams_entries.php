@@ -148,10 +148,16 @@ class Streams_entries extends CI_Driver {
 			// override varaibles.
 			foreach ($this->pagination_config as $key => $var)
 			{
-				if (isset($pagination_config[$key])) $this->pagination_config = $pagination_config[$key];
-				
+				if (isset($pagination_config[$key]))
+				{
+					$this->pagination_config[$key] = $pagination_config[$key];
+				}
+
 				// Make sure we set the FALSE params to boolean
-				if ($this->pagination_config[$key] == 'FALSE') $this->pagination_config[$key] = FALSE;
+				if ($this->pagination_config[$key] == 'FALSE')
+				{
+					$this->pagination_config[$key] = FALSE;
+				}
 			}
 			
 			$return['pagination'] = $CI->row_m->build_pagination($params['pag_segment'], $params['limit'], $return['total'], $this->pagination_config);

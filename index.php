@@ -49,16 +49,17 @@ define('ENVIRONMENT', (isset($_SERVER['PYRO_ENV']) ? $_SERVER['PYRO_ENV'] : PYRO
  * By default development will show errors but testing and live will hide them.
  */
 
+	error_reporting(E_ALL);
+
 	switch (ENVIRONMENT)
 	{
 		case PYRO_DEVELOPMENT:
-			error_reporting(E_ALL);
-			ini_set('display_errors', 1);
+			ini_set('display_errors', true);
 		break;
 
 		case PYRO_STAGING:
 		case PYRO_PRODUCTION:
-			error_reporting(0);
+			ini_set('display_errors', false);
 		break;
 
 		default:
@@ -83,7 +84,7 @@ define('ENVIRONMENT', (isset($_SERVER['PYRO_ENV']) ? $_SERVER['PYRO_ENV'] : PYRO
 	@ini_set('cgi.fix_pathinfo', 0);
 	
 	// PHP 5.3 will BITCH without this
-	if(ini_get('date.timezone') == '')
+	if (ini_get('date.timezone') == '')
 	{
 		date_default_timezone_set('UTC');
 	}

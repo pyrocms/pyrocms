@@ -21,7 +21,7 @@ class WYSIWYG_Controller extends MY_Controller
 		if ($this->current_user AND
 			$this->current_user->group !== 'admin' AND 
 			isset($this->permissions['files']) AND
-			 ! $this->permissions['files']->wysiwyg)
+			 ! isset($this->permissions['files']['wysiwyg']))
 		{
 			$this->load->language('files/files');
 			show_error(lang('files:no_permissions'));
@@ -55,8 +55,8 @@ class WYSIWYG_Controller extends MY_Controller
 			->append_css('module::wysiwyg.css')
 			->append_css('jquery/ui-lightness/jquery-ui.css')
 			->append_js('jquery/jquery.js')
-			->append_js('plugins.js')
 			->append_js('jquery/jquery-ui.min.js')
+			->append_js('plugins.js')
 			->append_js('module::wysiwyg.js');
 	}
 

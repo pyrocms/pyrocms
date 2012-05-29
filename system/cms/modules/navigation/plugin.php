@@ -23,31 +23,34 @@ class Plugin_Navigation extends Plugin
 		$group			= $this->attribute('group');
 		$group_segment	= $this->attribute('group_segment');
 
-		is_numeric($group_segment) ? $group = $this->uri->segment($group_segment) : NULL;
+		is_numeric($group_segment) and $group = $this->uri->segment($group_segment);
 
 		// We must pass the user group from here so that we can cache the results and still always return the links with the proper permissions
 		$params = array(
 			$group,
-			array('user_group' => ($this->current_user AND isset($this->current_user->group)) ? $this->current_user->group : FALSE,
-				  'front_end' => TRUE
-				  )
-			);
-
-		$this->load->model('navigation/navigation_m');
+			array(
+				'user_group' => ($this->current_user AND isset($this->current_user->group)) ? $this->current_user->group : false,
+				'front_end' => true,
+				'is_secure' => IS_SECURE,
+			)
+		);
+		
 		$links = $this->pyrocache->model('navigation_m', 'get_link_tree', $params, Settings::get('navigation_cache'));
 
 		return $this->_build_links($links, $this->content());
 	}
 
-	private function _build_links($links = array(), $return_arr = TRUE)
+	private function _build_links($links = array(), $return_arr = true)
 	{
-		static $current_link	= FALSE;
+		static $current_link	= false;
 		static $level		= 0;
 
-		$top			= $this->attribute('top', FALSE);
+		$top			= $this->attribute('top', false);
 		$separator		= $this->attribute('separator', '');
-		$link_class		= $this->attribute('link-class', '');
-		$more_class		= $this->attribute('more-class', 'has_children');
+															//deprecated
+		$link_class		= $this->attribute('link-class', $this->attribute('link_class', ''));
+															//deprecated
+		$more_class		= $this->attribute('more-class', $this->attribute('more_class', 'has_children'));
 		$current_class	= $this->attribute('class', 'current');
 		$first_class	= $this->attribute('first-class', 'first');
 		$last_class		= $this->attribute('last-class', 'last');
@@ -59,7 +62,8 @@ class Plugin_Navigation extends Plugin
 		if ( ! $return_arr)
 		{
 			$tag		= $this->attribute('tag', 'li');
-			$list_tag	= $this->attribute('list-tag', 'ul');
+														//deprecated
+			$list_tag	= $this->attribute('list-tag', $this->attribute('list_tag', 'ul'));
 
 			switch ($this->attribute('indent'))
 			{
@@ -74,7 +78,7 @@ class Plugin_Navigation extends Plugin
 					$indent = "    ";
 					break;
 				default:
-					$indent = FALSE;
+					$indent = false;
 					break;
 			}
 
@@ -94,17 +98,17 @@ class Plugin_Navigation extends Plugin
 			// attributes of anchor
 			$item['url']					= $link['url'];
 			$item['title']					= $link['title'];
-			if ($wrap)
+			if($wrap)
 			{
 				$item['title']  = '<'.$wrap.'>'.$item['title'].'</'.$wrap.'>';
 			}
 			
-			$item['attributes']['target']	= $link['target'] ? 'target="' . $link['target'] . '"' : NULL;
+			$item['attributes']['target']	= $link['target'] ? 'target="' . $link['target'] . '"' : null;
 			$item['attributes']['class']	= $link_class ? 'class="' . $link_class . '"' : '';
 
 			// attributes of anchor wrapper
 			$wrapper['class']		= $link['class'] ? explode(' ', $link['class']) : array();
-			$wrapper['children']	= $return_arr ? array() : NULL;
+			$wrapper['children']	= $return_arr ? array() : null;
 			$wrapper['separator']	= $separator;
 
 			// is single ?
@@ -180,7 +184,8 @@ class Plugin_Navigation extends Plugin
 			}
 			else
 			{
-				$add_first_tag = $level === 0 && ! in_array($this->attribute('items-only', 'true'), array('1','y','yes','true'));
+																							//deprecated
+				$add_first_tag = $level === 0 && ! in_array($this->attribute('items-only', $this->attribute('items_only', 'true')), array('1','y','yes','true'));
 
 				// render and indent or only render inline?
 				if ($indent)

@@ -78,7 +78,7 @@ input#insert_width {
 	padding: 10px;
 }
 #files_right_pane > * {
-	display: none;
+/*	display: none;*/
 }
 #files_left_pane li a {
 	padding: 10px;

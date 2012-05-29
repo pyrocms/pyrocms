@@ -33,11 +33,14 @@ class Field_wysiwyg
 	 */
 	public function event()
 	{
-		$CI = get_instance();
-		
-		$html = $CI->type->load_view('wysiwyg', 'wysiwyg_js_code', '', true);
-		
-		$CI->type->add_misc($html);
+		if (defined('ADMIN_THEME'))
+		{
+			$this->CI->type->add_misc($this->CI->type->load_view('wysiwyg', 'wysiwyg_admin', null));
+		}
+		else
+		{
+			$this->CI->type->add_misc($this->CI->type->load_view('wysiwyg', 'wysiwyg_entry_form', null));
+		}
 	}
 
 	// --------------------------------------------------------------------------

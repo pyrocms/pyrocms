@@ -222,7 +222,7 @@ class Fields
 					
 					if ($plugin AND (isset($extra['email_notifications']) AND is_array($extra['email_notifications'])))
 					{
-						foreach($data->email_notifications as $notify)
+						foreach($extra['email_notifications'] as $notify)
 						{
 							$this->send_email($notify, $result_id, $method = 'update', $stream);
 						}

@@ -166,6 +166,8 @@ class MY_Controller extends MX_Controller
 			Asset::add_path('module', $this->module_details['path'].'/');
 		}
 
+		$this->load->vars($pyro);
+		
 		$this->benchmark->mark('my_controller_end');
 		
 		// Enable profiler on local box

@@ -366,15 +366,16 @@ class Fields_m extends CI_Model {
 					$view_options 		= array();
 				}
 			}
-		}
 
-		// Run though alt rename column routines
-		foreach ($assignments as $assignment)
-		{
-			if (method_exists($type, 'alt_rename_column'))
+			// Run though alt rename column routines. Needs to be done
+			// after the above loop through assignments.
+			foreach ($assignments as $assignment)
 			{
-				// We run a different function for alt_process
-				$type->alt_rename_column($field, $this->streams_m->get_stream($assignment->stream_slug), $assignment);
+				if (method_exists($type, 'alt_rename_column'))
+				{
+					// We run a different function for alt_process
+					$type->alt_rename_column($field, $this->streams_m->get_stream($assignment->stream_slug), $assignment);
+				}
 			}
 		}
 
@@ -402,15 +403,16 @@ class Fields_m extends CI_Model {
 				$data['is_locked'] = 'no';
 			}
 		}
-		
+
 		// Gather extra data		
 		if ( ! isset($type->custom_parameters) or $type->custom_parameters == '')
 		{
-			$custom_params = array();
 			$update_data['field_data'] = null;
 		}
 		else
 		{
+			$custom_params = array();
+
 			foreach ($type->custom_parameters as $param)
 			{
 				if (method_exists($type, 'param_'.$param.'_pre_save'))
@@ -423,7 +425,10 @@ class Fields_m extends CI_Model {
 				}
 			}
 
-			$update_data['field_data'] = serialize($custom_params);
+			if ( ! empty($custom_params))
+			{
+				$update_data['field_data'] = serialize($custom_params);
+			}
 		}
 		
 		$this->db->where('id', $field->id);
