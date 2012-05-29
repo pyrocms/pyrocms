@@ -21,11 +21,6 @@
         <ignore>*/errors/*</ignore>
         <ignore>*/config/*.php</ignore>
     </files>
-    <plugins>
-        <plugin path="Core">
-            <option name="a">value</option>
-        </plugin>
-    </plugins>
     <logging>
         <level>warn</level>
         <paths>
