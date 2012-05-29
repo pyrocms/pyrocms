@@ -34,6 +34,7 @@ class Blog extends Public_Controller
 		foreach ($_blog as &$post)
 		{
 			$post->keywords = Keywords::get($post->keywords);
+			$post->url = site_url('blog/'.date('Y', $post->created_on).'/'.date('m', $post->created_on).'/'.$post->slug);
 		}
 
 		$this->template
@@ -76,6 +77,7 @@ class Blog extends Public_Controller
 		foreach ($blog AS &$post)
 		{
 			$post->keywords = Keywords::get($post->keywords);
+			$post->url = site_url('blog/'.date('Y', $post->created_on).'/'.date('m', $post->created_on).'/'.$post->slug);
 		}
 
 		// Build the page
@@ -111,6 +113,7 @@ class Blog extends Public_Controller
 		foreach ($_blog AS &$post)
 		{
 			$post->keywords = Keywords::get($post->keywords, 'blog/tagged');
+			$post->url = site_url('blog/'.date('Y', $post->created_on).'/'.date('m', $post->created_on).'/'.$post->slug);
 		}
 
 		$this->template
@@ -191,6 +194,7 @@ class Blog extends Public_Controller
 		foreach ($blog AS &$post)
 		{
 			$post->keywords = Keywords::get($post->keywords, 'blog/tagged');
+			$post->url = site_url('blog/'.date('Y', $post->created_on).'/'.date('m', $post->created_on).'/'.$post->slug);
 		}
 
 		// Set meta description based on post titles
