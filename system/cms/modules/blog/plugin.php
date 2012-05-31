@@ -80,6 +80,89 @@ class Plugin_Blog extends Plugin
 
 		return $this->db->count_all_results('blog');
 	}
+	
+	/**
+	 * Category List
+	 *
+	 * Create a list of blog categories
+	 *
+	 * Usage:
+	 * {{ blog:categories limit="10" }}
+	 *		<span><a href="{{ url }}" title="{{ title }}">{{ title }}</a></span>
+	 * {{ /blog:categories }}
+	 *
+	 * @param	array
+	 * @return	array
+	 */	
+	public function categories()
+	{
+		$limit = $this->attribute('limit', 10);	
+
+		$this->db->select('*');
+		$this->db->limit($limit);
+		
+		$categories = $this->db->get('blog_categories')->result();
+		
+		foreach($categories as &$c)
+		{
+			$c->url = site_url('blog/category/'.$c->slug);
+		}
+		
+		return $categories;	
+	}	
+	
+	/**
+	 * Tag/Keyword List
+	 *
+	 * Create a list of blog keywords/tags
+	 *
+	 * Usage:
+	 * {{ blog:tags limit="10" }}
+	 *		<span><a href="{{ url }}" title="{{ title }}">{{ title }}</a></span>
+	 * {{ /blog:tags }}
+	 *
+	 * @param	array
+	 * @return	array
+	 */	
+	public function tags()
+	{
+		$limit = $this->attribute('limit', 10);
+		
+		$this->load->library(array('keywords/keywords'));
+
+		$posts = $this->db->select('keywords')->get('blog')->result();
+
+		$buffer = array(); // stores already added keywords
+		$tags   = array();
+
+		foreach($posts as $p)
+		{
+			$kw = Keywords::get_array($p->keywords);
+
+			foreach($kw as $k)
+			{
+				$k = trim(strtolower($k));
+
+				if(!in_array($k, $buffer)) // let's force a unique list
+				{
+					$buffer[] = $k;
+
+					$tags[] = array(
+						'title' => ucfirst($k),
+						'url'   => site_url('blog/tagged/'.$k)
+					);
+				}
+			}
+		}
+		
+		if(count($tags) > $limit) // Enforce the limit
+		{
+			return array_slice($tags, 0, $limit);
+		}
+	
+		return $tags;
+	}
+		
 }
 
 /* End of file plugin.php */
