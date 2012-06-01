@@ -33,13 +33,16 @@ class Streams_entries extends CI_Driver {
 			'where'				=> null,
 			'exclude'			=> null,
 			'exclude_by'		=> 'id',
+			'include'			=> null,
+			'include_by'		=> 'id',
 			'disable'			=> null,
 			'order_by'			=> null,
 			'sort'				=> 'asc',
 			'exclude_called'	=> 'no',
 			'paginate'			=> 'no',
 			'pag_segment'		=> 2,
-			'site_ref'      	=> SITE_REF
+			'partial'			=> null,
+			'site_ref'			=> SITE_REF
 	);
 
 	// --------------------------------------------------------------------------
