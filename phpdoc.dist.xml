@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <phpdoc>
-    <title>PyroCMS v2.0.3 API</title>
+    <title>PyroCMS v2.0.4 API</title>
     <parser>
         <default-package-name>No Package</default-package-name>
         <target>../docs.pyrocms.com/2.0/api/</target>
