@@ -1,158 +1,465 @@
-/*
- * ==================================
- *     Workless 2.0 ❖ by @iKreativ
- * ==================================
+/**
+ * Workless by @iKreativ is a CSS base framework to get your 
+ * project of the ground as fast as possible.
+ * 
+ * It is split into a number of seperate CSS files which allows
+ * you to use as much, or as little as you please.
  *
- * Workless is a mixup of HTML5 Boilerplate and Twitters Bootstrap with some added extras!
- *
- * Credits:
- * - HTML5 Boilerplate: Nicolas Gallagher, Jonathan Neal, Kroc Camen, and the H5BP dev team.
- * - Twitter Bootstrap: @twitter, @mdo and @fat.
+ * You'll notice that this file contains the Base styles only 
+ * then all other CSS is loaded seperately. This is not 
+ * recommended. Once you've decided which parts of Workless you 
+ * are going to use, then simply copy/paste them all into a 
+ * single CSS file to reduce HTTP requests!
  */
 
-/* ----------------------------------
- *   HTML5 display definitions
- * ---------------------------------- */
-article, aside, details, figcaption, figure, footer, header, hgroup, nav, section { display: block; float: left; }
-audio, canvas, video { display: inline-block; *display: inline; *zoom: 1; }
-audio:not([controls]) { display: none; }
-[hidden] { display: none; }
 
-/* ----------------------------------
- *   Base
- * ----------------------------------
- * 1. Correct text resizing oddly in IE6/7 when body font-size is set using em units
- * 2. Force vertical scrollbar in non-IE
- * 3. Prevent iOS text size adjust on device orientation change, without disabling user zoom: h5bp.com/g
- * ---------------------------------- */
-* { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; line-height: 1.231; text-rendering: optimizeLegibility; font-size: 100%; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
-html, body { width: 100%; height: 100%; background: #e0dbdb; }
-body { font-size: 13px; margin: 0; overflow-x: hidden; }
-body, button, input, select, textarea { color: #333333; }
 
-::-moz-selection { background: #F2C741; color: #ffffff; text-shadow: none; }
-::selection { background: #F2C741; color: #ffffff; text-shadow: none; }
+/**
+ * HTML5 display definitions
+ */
+article, 
+aside, 
+details, 
+figcaption, 
+figure, 
+footer, 
+header, 
+hgroup, 
+nav, 
+section 
+{ 
+  display: block; 
+  margin: 0 auto;
+}
+audio, 
+canvas, 
+video 
+{ 
+  display: inline-block; 
+  *display: inline; 
+  *zoom: 1; 
+}
+audio:not([controls]) 
+{ 
+  display: none; 
+}
+[hidden] 
+{ 
+  display: none; 
+}
+figure 
+{ 
+  margin: 0; 
+}
+/* @end HTML5 display definitions */
 
-/* ----------------------------------
- *   Links
- * ---------------------------------- */
-a { color: #ed8e28; text-decoration: none; -webkit-transition: 250ms linear all; -moz-transition: 250ms linear all; transition: 250ms linear all; }
-a:visited {}
-a:hover { color: #efa92e; }
-a:focus { outline: 0; }
 
-/* Improve readability when focused/hovered in all bgridsers */
-a:hover, a:active { outline: 0; }
+/**
+ * Base
+ */
+ * 
+{ 
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; 
+}
+html, 
+body 
+{ 
+  background: #e0dbdb;
+  height: 100%; 
+}
+body 
+{  
+  font-size: 13px;
+  margin: 0; 
+  padding: 0; 
+  width: 100%; 
+  overflow-x: hidden; 
+}
+body, 
+button, 
+input, 
+select, 
+textarea 
+{ 
+  color: #333333; 
+}
+::-moz-selection 
+{ 
+  background: #34ade8; 
+  color: #ffffff; 
+  text-shadow: none; 
+}
+::selection 
+{ 
+  background: #34ade8; 
+  color: #ffffff; 
+  text-shadow: none; 
+}
+/* @end Base */
 
-/* ----------------------------------
- *   Typography
- * ---------------------------------- */
-abbr[title] { border-bottom: 1px dotted; }
-b, strong { font-weight: bold; }
-blockquote { margin-bottom: 18px; border-left: 5px solid #eeeeee; padding-left: 15px; }
-blockquote p { font-size: 14px; font-weight: 300; line-height: 18px; margin-bottom: 0; }
-blockquote small { display: block; font-size: 12px; font-weight: 300; line-height: 18px; color: #bfbfbf; }
-blockquote small:before { content: '\2014 \00A0'; }
-dfn { font-style: italic; }
-hr { display: block; height: 1px; width: 100%; border: 0; border-top: 1px solid #eeeeee; margin: 25px 0 25px 0; padding: 0; float: left; }
-.hr.top { display: block; height: 1px; width: 100%; border: 0; border-top: 1px solid #eeeeee; margin: 25px 0 25px 0; padding: 0; float: left; }
-.hr.top a { float: right; font-size: 9px; text-transform: uppercase; position: relative; top: 5px; }
-ins { background: #ff9; color: #333333; text-decoration: none; }
-mark { background: #ff0; color: #333333; font-style: italic; font-weight: bold; }
-address { display: block; line-height: 18px; margin-bottom: 18px; }
 
-/* Redeclare monospace font family, */
-pre, code, kbd, samp { font-family: monospace, monospace; _font-family: 'courier new', monospace; font-size: 13px; float: left;}
 
-/* Improve readability of pre-formatted text in all bgridsers */
-pre, code { white-space: pre; white-space: pre-wrap; word-wrap: break-word; }
+/**
+ * Embedded Content
+ */
+img 
+{ 
+  -ms-interpolation-mode: bicubic; 
+  vertical-align: middle; 
+  border: 0; 
+  outline: 0; 
+}
+/** 
+ * Correct overflow not hidden in IE9 
+*/
+svg:not(:root) 
+{ 
+  overflow: hidden; 
+}
+/* @end Embedded content */
 
-code, pre {
-	display: block;
-	overflow: hidden;
-  width: 96%;
-	background: #111111;
-	color: #eeeeee;
-	margin-top: 15px;
-	margin-bottom: 15px;
-	padding: 5px 10px;
-    border: 1px solid rgba(0,0,0,.2);
-    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.1);
-    -moz-box-shadow: 0 1px 2px rgba(0,0,0,.1);
-    box-shadow: 0 1px 2px rgba(0,0,0,.1);
-	border-radius: 5px;
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;
+
+/**
+ * Typography
+ */
+a 
+{ 
+  color: #ed8e28;
+  font-weight: inherit; 
+  font-size: inherit; 
+  text-decoration: none; 
+  -webkit-transition: 250ms linear all; 
+  -moz-transition: 250ms linear all; 
+  transition: 250ms linear all; 
+}
+a:hover 
+{ 
+  color: #efa92e;
+}
+a:active 
+{ 
+  color: #000000;
+}
+a:focus 
+{ 
+  outline: 0; 
+}
+a:hover, 
+a:active 
+{ 
+  outline: 0; 
+}
+abbr[title] 
+{ 
+  border-bottom: 1px dotted; 
+}
+b, 
+strong 
+{ 
+  color: inherit;
+  font-weight: bold; 
+}
+blockquote { 
+  margin: 0; 
+  padding: 0 0 0 5px; 
+  float: left; 
+}
+blockquote p 
+{ 
+  font-size: 16px; 
+  font-weight: 300; 
+  line-height: 18px; 
+  padding: 25px 0 0 45px; 
+}
+blockquote:before 
+{ 
+  content: '\201C'; 
+  font-size: 76px; 
+  position: absolute; 
+  color: #c7c7c7; 
 }
 
-q { quotes: none; }
-q:before, q:after { content: ""; content: none; }
+dfn 
+{ 
+  font-style: italic; 
+}
+hr 
+{ 
+  display: block; 
+  height: 0px; 
+  width: 100%; 
+  border: 0; 
+  border-bottom: 1px solid #ffffff; 
+  border-top: 1px solid #dedede; 
+  margin: 25px 0 25px 0; 
+  padding: 0; 
+  float: left; 
+}
+ins 
+{ 
+  background: #ff9; 
+  color: #333333; 
+  text-decoration: none; 
+}
+mark 
+{ 
+  background: #ff0; 
+  color: #333333; 
+  font-style: italic; 
+  font-weight: bold; 
+}
+address 
+{ 
+  display: block; 
+  line-height: 18px; 
+  margin-bottom: 18px; 
+}
+pre, 
+code, 
+kbd, 
+samp 
+{ 
+  font-family: monospace; 
+}
+code, 
+pre 
+{
+  display: block;
+  overflow: hidden;
+  background: #fefefe;
+  color: #333333;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+  border-radius: 2px;
+  -webkit-box-shadow: 0 2px 0 rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: 0 2px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.05);
+  white-space: pre; 
+  white-space: pre-wrap; 
+  word-wrap: break-word;
+  font-family: monospace; 
+}
+q 
+{ 
+  quotes: none; 
+}
+q:before, 
+q:after 
+{ 
+  content: ""; 
+  content: none; 
+}
+small 
+{ 
+  font-size: 85%;
+}
 
-small { font-size: 85%; }
+/**
+ * Position subscript and superscript 
+ * content without affecting line-height. 
+ */
+sub, 
+sup 
+{ 
+  font-size: 75%; 
+  line-height: 0; 
+  position: relative; 
+  vertical-align: baseline; 
+}
+sup 
+{ 
+  top: -0.5em; 
+}
+sub 
+{ 
+  bottom: -0.25em; 
+}
 
-/* Position subscript and superscript content without affecting line-height. */
-sub, sup { font-size: 75%; line-height: 0; position: relative; vertical-align: baseline; }
-sup { top: -0.5em; }
-sub { bottom: -0.25em; }
+/** 
+ * Give paragraphs some default styling. 
+ */
+p 
+{ 
+  color: #333333;
+  font-size: 14px;
+  line-height: 1.125em;
+  margin: 0 0 1.125em 0;
+}
+p small 
+{ 
+  color: #666666;
+  font-size: 12px; 
+}
 
-/* Give paragraphs some default styling. */
-p { font-size: 13px; font-weight: normal; line-height: 20px; margin-bottom: 12px; }
-p small { font-size: 11px; color: #bfbfbf; }
+/** 
+ * Give headings some default styling. 
+*/
+h1, 
+h2, 
+h3, 
+h4, 
+h5, 
+h6
+{ 
+  color: #333333; 
+  font-weight: normal;
+}
+h1 small, 
+h2 small, 
+h3 small, 
+h4 small, 
+h5 small, 
+h6 small 
+{ 
+  color: #666666; 
+  font-weight: normal;
+}
+/** 
+ * Set individual heading styles 
+*/
+h1
+{ 
+  font-size: 2em;
+  line-height: 1.5em;
+  margin-top: 0.75em; 
+  margin-bottom: 0.7em; 
+}
+h1 small
+{
+  font-size: 0.5em;
+}
+h2
+{ 
+  font-size: 1.375em;
+  line-height: 1.6364em;
+  margin-top: 0.8182em; 
+  margin-bottom: 0.7em; 
+}
+h2 small
+{
+  font-size: 1.125em;
+}
+h3
+{ 
+  font-size: 1.25em; 
+  line-height: 1.8em; 
+  margin-top: 0.9em; 
+  margin-bottom: 0.7em; 
+}
+h3 small
+{
+  font-size: 1em; 
+}
+h4
+{ 
+  font-size: 1.125em; 
+  line-height: 1em; 
+  margin-top: 1em; 
+  margin-bottom: 0.6em; 
+}
+h4 small 
+{
+  font-size: 0.875em; 
+}
+h5
+{ 
+  font-size: 1em; 
+  line-height: 1.125em; 
+  margin-top: 1.125em; 
+  margin-bottom: 0.6em; 
+}
+h5 small 
+{
+  font-size: 0.75em; 
+}
+h6
+{ 
+  font-size: 0.875em; 
+  line-height: 1.2857em; 
+  margin-top: 1.2857em; 
+  margin-bottom: 0.5em; 
+}
+h6 small
+{
+  font-size: 0.75em; 
+}
 
-/* Give headings some default styling. */
-h1, h2, h3, h4, h5, h6 { font-weight: normal; color: #555555; line-height: 36px; }
-h1 small, h2 small, h3 small, h4 small, h5 small, h6 small { color: #bfbfbf; }
+/**
+ * Lists
+ */
+ul, 
+ol 
+{ 
+  margin: 0 0 15px 0; 
+  padding: 0; 
+}
+ul ul, 
+ul ol, 
+ol ol, 
+ol ul 
+{ 
+  margin-bottom: 0; 
+}
+ul 
+{ 
+  list-style: disc; 
+}
+ol 
+{ 
+  list-style: decimal; 
+}
+li 
+{ 
+  font-size: 1em;
+  line-height: 1.4em;
+}
+dl 
+{ 
+  margin-bottom: 15px; 
+}
+dl dt, 
+dl dd 
+{ 
+  font-size: 1em;
+}
+dl dt 
+{ 
+  font-weight: bold; 
+}
+dl dd 
+{ 
+  margin-left: 9px; 
+}
+ul, ol 
+{ 
+  margin: 0 0 10px 20px; 
+  padding: 0; 
+}
+dd { 
+  margin: 0 0 0 20px; 
+}
 
-/* Set individual heading styles */
-h1 { margin-bottom: 18px; font-size: 30px; }
-h1 small { font-size: 18px; }
+/** 
+ * We probably don't want list-styles if it's in a navigation. 
+ */
+nav ul, 
+nav ol, 
+#nav ul, 
+#nav ol, 
+#navigation ul, 
+#navigation ol, 
+.nav 
+{ 
+  list-style: none; 
+  list-style-image: none; 
+  margin: 0; 
+  padding: 0; 
+}
+/* @end Typography */
 
-h2 { font-size: 28px; }
-h2 small { font-size: 14px; }
 
-h3 { font-size: 24px; }
-h3 small { font-size: 14px; }
-
-h4 { font-size: 20px; }
-h4 small { font-size: 12px; }
-
-h5 { font-size: 16px; }
-h6 { font-size: 14px; }
-
-/* ----------------------------------
- *   Lists
- * ---------------------------------- */
-ul, ol { margin: 0 0 15px 15px; }
-ul ul, ul ol, ol ol, ol ul { margin-bottom: 0; }
-ul { list-style: disc; }
-ol { list-style: decimal; }
-li { line-height: 15px; color: #808080; }
-
-/* Add a simple class for removing list style */
-ul.unstyled { list-style: none; margin-left: 0; }
-
-dl { margin-bottom: 15px; }
-dl dt, dl dd { line-height: 15px; }
-dl dt { font-weight: bold; }
-dl dd { margin-left: 9px; }
-ul, ol { margin: 15px 0; padding: 0 0 0 25px; }
-dd { margin: 0 0 0 25px; }
-
-/* We probably don't want list-styles showing if it's in a navigation. */
-nav ul, nav ol, #nav ul, #nav ol, #navigation ul, #navigation ol { list-style: none; list-style-image: none; margin: 0; padding: 0; }
-
-/* ----------------------------------
- *   Embedded Content
- * ---------------------------------- */
-img { border: 0; -ms-interpolation-mode: bicubic; vertical-align: middle; }
-
-/* Correct overflow not hidden in IE9 */
-svg:not(:root) { overflow: hidden; }
-
-/* ----------------------------------
- *   Figures
- * ---------------------------------- */
-figure { margin: 0; }
 
 /* ----------------------------------
  *   Forms
@@ -345,15 +652,22 @@ input:invalid, textarea:invalid { background-color: #f0dddd; }
 .form_inputs label small {
 	display: block;
 	font-weight: normal;
-	font-style: italic;
 	font-size: 11px;
-	color: #aaa;
+	color: #666666;
 }
+.form_inputs input,
+.form_inputs textarea {
+-webkit-transition: 250ms linear all; 
+  -moz-transition: 250ms linear all; 
+  transition: 250ms linear all;
+}
+
 .form_inputs input:focus,
 .form_inputs textarea:focus {
 	color: #4D4D4D;
 	outline: none;
 	border-color: #ed8e28;
+  box-shadow: 0 0 5px #ed8e28;
 }
 .form_inputs .datetime_input select {
 	width:  100px;
@@ -385,7 +699,7 @@ table th.collapse, table td.collapse {
 table th {
   padding-top: 9px;
   font-weight: bold;
-  border-bottom-width: 2px;
+  border-bottom: none;
 }
 
 .zebra-striped tbody tr:nth-child(odd) td {
@@ -1102,174 +1416,173 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
 
 /* Alerts */
 .alert {
-  width: 250px;
-  background-color: rgba(0, 0, 0, 0.15);
-  background-repeat: repeat-x;
-  background-image: -khtml-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 0, 0, 0.15)));
-  background-image: -moz-linear-gradient(transparent, rgba(0, 0, 0, 0.15));
-  background-image: -ms-linear-gradient(transparent, rgba(0, 0, 0, 0.15));
-  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, transparent), color-stop(100%, rgba(0, 0, 0, 0.15)));
-  background-image: -webkit-linear-gradient(transparent, rgba(0, 0, 0, 0.15));
-  background-image: -o-linear-gradient(transparent, rgba(0, 0, 0, 0.15));
-  background-image: linear-gradient(transparent, rgba(0, 0, 0, 0.15));
-  filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#15000000')";
-  background-color: #e6e6e6;
-  margin-bottom: 18px;
-  padding: 8px 15px;
-  color: #333333;
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
+    font-size: 13px;
+    background-color: rgba(0, 0, 0, 0.15);
+    background-repeat: repeat-x;
+    background-image: -khtml-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 0, 0, 0.15)));
+    background-image: -moz-linear-gradient(transparent, rgba(0, 0, 0, 0.15));
+    background-image: -ms-linear-gradient(transparent, rgba(0, 0, 0, 0.15));
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, transparent), color-stop(100%, rgba(0, 0, 0, 0.15)));
+    background-image: -webkit-linear-gradient(transparent, rgba(0, 0, 0, 0.15));
+    background-image: -o-linear-gradient(transparent, rgba(0, 0, 0, 0.15));
+    background-image: linear-gradient(transparent, rgba(0, 0, 0, 0.15));
+    filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#15000000')";
+    background-color: #e6e6e6;
+    margin-bottom: 18px;
+    padding: 8px 15px;
+    color: #333333;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
 }
 
-.alert p {
-  color: #ffffff;
-  margin: 0;
-}
-
-.alert p + p {
-  margin-top: 5px;
+.alert p 
+{
+    font-size: 13px;
+    color: #ffffff;
+    margin-bottom: 0;
 }
 
 .alert.error {
-  background-color: #d83a2e;
-  background-repeat: repeat-x;
-  background-image: -khtml-gradient(linear, left top, left bottom, from(#e4776f), to(#d83a2e));
-  background-image: -moz-linear-gradient(#e4776f, #d83a2e);
-  background-image: -ms-linear-gradient(#e4776f, #d83a2e);
-  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #e4776f), color-stop(100%, #d83a2e));
-  background-image: -webkit-linear-gradient(#e4776f, #d83a2e);
-  background-image: -o-linear-gradient(#e4776f, #d83a2e);
-  background-image: linear-gradient(#e4776f, #d83a2e);
-  border-bottom-color: #b32b21;
+    background-color: #d83a2e;
+    background-repeat: repeat-x;
+    background-image: -khtml-gradient(linear, left top, left bottom, from(#e4776f), to(#d83a2e));
+    background-image: -moz-linear-gradient(#e4776f, #d83a2e);
+    background-image: -ms-linear-gradient(#e4776f, #d83a2e);
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #e4776f), color-stop(100%, #d83a2e));
+    background-image: -webkit-linear-gradient(#e4776f, #d83a2e);
+    background-image: -o-linear-gradient(#e4776f, #d83a2e);
+    background-image: linear-gradient(#e4776f, #d83a2e);
+    border-bottom-color: #b32b21;
 }
 
 .alert.warning {
-  background-color: #ffd040;
-  background-repeat: repeat-x;
-  background-image: -khtml-gradient(linear, left top, left bottom, from(#ffe38d), to(#ffd040));
-  background-image: -moz-linear-gradient(#ffe38d, #ffd040);
-  background-image: -ms-linear-gradient(#ffe38d, #ffd040);
-  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffe38d), color-stop(100%, #ffd040));
-  background-image: -webkit-linear-gradient(#ffe38d, #ffd040);
-  background-image: -o-linear-gradient(#ffe38d, #ffd040);
-  background-image: linear-gradient(#ffe38d, #ffd040);
-  border-bottom-color: #ffc40d;
+    background-color: #ffd040;
+    background-repeat: repeat-x;
+    background-image: -khtml-gradient(linear, left top, left bottom, from(#ffe38d), to(#ffd040));
+    background-image: -moz-linear-gradient(#ffe38d, #ffd040);
+    background-image: -ms-linear-gradient(#ffe38d, #ffd040);
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffe38d), color-stop(100%, #ffd040));
+    background-image: -webkit-linear-gradient(#ffe38d, #ffd040);
+    background-image: -o-linear-gradient(#ffe38d, #ffd040);
+    background-image: linear-gradient(#ffe38d, #ffd040);
+    border-bottom-color: #ffc40d;
 }
 
 .alert.success {
-  background-color: #62bc62;
-  background-repeat: repeat-x;
-  background-image: -khtml-gradient(linear, left top, left bottom, from(#97d397), to(#62bc62));
-  background-image: -moz-linear-gradient(#97d397, #62bc62);
-  background-image: -ms-linear-gradient(#97d397, #62bc62);
-  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #97d397), color-stop(100%, #62bc62));
-  background-image: -webkit-linear-gradient(#97d397, #62bc62);
-  background-image: -o-linear-gradient(#97d397, #62bc62);
-  background-image: linear-gradient(#97d397, #62bc62);
-  border-bottom-color: #46a546;
+    background-color: #62bc62;
+    background-repeat: repeat-x;
+    background-image: -khtml-gradient(linear, left top, left bottom, from(#97d397), to(#62bc62));
+    background-image: -moz-linear-gradient(#97d397, #62bc62);
+    background-image: -ms-linear-gradient(#97d397, #62bc62);
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #97d397), color-stop(100%, #62bc62));
+    background-image: -webkit-linear-gradient(#97d397, #62bc62);
+    background-image: -o-linear-gradient(#97d397, #62bc62);
+    background-image: linear-gradient(#97d397, #62bc62);
+    border-bottom-color: #46a546;
 }
 
 .alert.info {
-  background-color: #04aef4;
-  background-repeat: repeat-x;
-  background-image: -khtml-gradient(linear, left top, left bottom, from(#62cffc), to(#04aef4));
-  background-image: -moz-linear-gradient(#62cffc, #04aef4);
-  background-image: -ms-linear-gradient(#62cffc, #04aef4);
-  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #62cffc), color-stop(100%, #04aef4));
-  background-image: -webkit-linear-gradient(#62cffc, #04aef4);
-  background-image: -o-linear-gradient(#62cffc, #04aef4);
-  background-image: linear-gradient(#62cffc, #04aef4);
-  border-bottom-color: #049cdb;
+    background-color: #04aef4;
+    background-repeat: repeat-x;
+    background-image: -khtml-gradient(linear, left top, left bottom, from(#62cffc), to(#04aef4));
+    background-image: -moz-linear-gradient(#62cffc, #04aef4);
+    background-image: -ms-linear-gradient(#62cffc, #04aef4);
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #62cffc), color-stop(100%, #04aef4));
+    background-image: -webkit-linear-gradient(#62cffc, #04aef4);
+    background-image: -o-linear-gradient(#62cffc, #04aef4);
+    background-image: linear-gradient(#62cffc, #04aef4);
+    border-bottom-color: #049cdb;
 }
 
 .alert .close {
   float: right;
-  margin-top: -4px;
+  margin-top: -5px;
   color: #333333;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: bold;
   text-shadow: 0 1px 0 #ffffff;
-  filter: alpha(opacity=20);
-  -khtml-opacity: 0.2;
-  -moz-opacity: 0.2;
-  opacity: 0.2;
+  filter: alpha(opacity=40);
+  -khtml-opacity: 0.4;
+  -moz-opacity: 0.4;
+  opacity: 0.4;
 }
 
 .alert .close:hover {
   text-decoration: none;
-  filter: alpha(opacity=40);
-  -khtml-opacity: 0.4;
-  -moz-opacity: 0.4;
-  opacity: 0.4;
-}
-
-.block-message {
-  margin-bottom: 18px;
-  padding: 14px;
-  color: #333333;
-  color: #333333
-  text-shadow: 0 1px 0 #ffffff;
-  -webkit-border-radius: 6px;
-  -moz-border-radius: 6px;
-  border-radius: 6px;
-}
-
-.block-message p {
-  color: #333333;
-  margin-right: 30px;
-  margin-bottom: 0;
-}
-
-.block-message ul {
-  margin-bottom: 0;
-}
-
-.block-message strong {
-  display: block;
-}
-
-.block-message.error {
-  background: #f8dcda;
-  border: 1px solid #f4c8c5;
-}
-
-.block-message.warning {
-  background: #fff0c0;
-  border: 1px solid #ffe38d;
-}
-
-.block-message.success {
-  background: #dff1df;
-  border: 1px solid #bbe2bb;
-}
-
-.block-message.info {
-  background: #c7eefe;
-  border: 1px solid #ade6fe;
-}
-
-.block-message .close {
-  float: right;
-  margin-top: -4px;
-  color: #333333;
-  font-size: 20px;
-  font-weight: bold;
-  text-shadow: 0 1px 0 #ffffff;
   filter: alpha(opacity=20);
   -khtml-opacity: 0.2;
   -moz-opacity: 0.2;
   opacity: 0.2;
 }
 
-.block-message .close:hover {
-  text-decoration: none;
+.block-message {
+    font-size: 13px;
+    margin-bottom: 18px;
+    padding: 14px;
+    color: #313131;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+.block-message p {
+    color: #313131;
+    margin-right: 30px;
+    margin-bottom: 0;
+    font-size: 13px;
+}
+
+.block-message ul {
+    margin-bottom: 0;
+}
+
+.block-message strong {
+    display: block;
+}
+
+.block-message.error {
+    background: #f8dcda;
+    border: 1px solid #f4c8c5;
+}
+
+.block-message.warning {
+    background: #fff0c0;
+    border: 1px solid #ffe38d;
+}
+
+.block-message.success {
+    background: #dff1df;
+    border: 1px solid #bbe2bb;
+}
+
+.block-message.info {
+    background: #c7eefe;
+    border: 1px solid #ade6fe;
+}
+
+.block-message .close {
+  float: right;
+  margin-top: -5px;
+  color: #333333;
+  font-size: 18px;
+  font-weight: bold;
+  text-shadow: 0 1px 0 #ffffff;
   filter: alpha(opacity=40);
   -khtml-opacity: 0.4;
   -moz-opacity: 0.4;
   opacity: 0.4;
+}
+
+.block-message .close:hover {
+  text-decoration: none;
+  filter: alpha(opacity=20);
+  -khtml-opacity: 0.2;
+  -moz-opacity: 0.2;
+  opacity: 0.2;
 }
 
 /* Tabs */

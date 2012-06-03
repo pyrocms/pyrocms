@@ -61,6 +61,51 @@ $(function($) {
 	});
 </script>
 
+	<!-- Begin Quick Links -->
+	<?php if ($theme_options->pyrocms_quick_links == 'yes') : ?>
+	<div class="one_full">
+		
+		<section id="quick_links" class="<?php echo isset($rss_items); ?>">
+			<h4><?php //echo lang('cp_admin_quick_links') ?></h4>
+			<ul>
+				<?php if(array_key_exists('comments', $this->permissions) OR $this->current_user->group == 'admin'): ?>
+				<li>
+					<a class="tooltip-s" title="<?php echo lang('cp_manage_comments') ?>" href="<?php echo site_url('admin/comments') ?>">
+						<?php echo Asset::img('icons/comments.png', lang('cp_manage_comments')); ?>
+					</a>
+				</li>
+				<?php endif; ?>
+				
+				<?php if(array_key_exists('pages', $this->permissions) OR $this->current_user->group == 'admin'): ?>
+				<li>
+					<a class="tooltip-s" title="<?php echo lang('cp_manage_pages'); ?>" href="<?php echo site_url('admin/pages') ?>">
+						<?php echo Asset::img('icons/pages.png', lang('cp_manage_pages')); ?>
+					</a>
+				</li>
+				<?php endif; ?>
+				
+				<?php if(array_key_exists('files', $this->permissions) OR $this->current_user->group == 'admin'): ?>
+				<li>
+					<a class="tooltip-s" title="<?php echo lang('cp_manage_files'); ?>" href="<?php echo site_url('admin/files') ?>">
+						<?php echo Asset::img('icons/files.png', lang('cp_manage_files')); ?>
+					</a>
+				</li>
+				<?php endif; ?>
+				
+				<?php if(array_key_exists('users', $this->permissions) OR $this->current_user->group == 'admin'): ?>
+				<li>
+					<a class="tooltip-s" title="<?php echo lang('cp_manage_users'); ?>" href="<?php echo site_url('admin/users') ?>">
+						<?php echo Asset::img('icons/users.png', lang('cp_manage_users')); ?>
+					</a>
+				</li>
+				<?php endif; ?>
+			</ul>
+		</section>
+
+	</div>		
+	<?php endif; ?>
+	<!-- End Quick Links -->
+
 <section class="title">
 	<h4>Statistics</h4>
 </section>
@@ -80,7 +125,7 @@ $(function($) {
 
 	<!-- Begin Recent Comments -->
 	<?php if (isset($recent_comments) AND is_array($recent_comments) AND $theme_options->pyrocms_recent_comments == 'yes') : ?>
-	<div class="one_half">
+	<div class="one_full">
 		
 		<section class="draggable title">
 			<h4><?php echo lang('comments.recent_comments') ?></h4>
@@ -104,47 +149,6 @@ $(function($) {
 	</div>		
 	<?php endif; ?>
 	<!-- End Recent Comments -->
-	
-	<!-- Begin Quick Links -->
-	<?php if ($theme_options->pyrocms_quick_links == 'yes') : ?>
-	<div class="one_half last">
-		
-		<section class="draggable title">
-			<h4><?php echo lang('cp_admin_quick_links') ?></h4>
-			<a class="tooltip-s toggle" title="Toggle this element"></a>
-		</section>
-		
-		<section id="quick_links" class="item <?php echo isset($rss_items); ?>">
-			<ul>
-				<?php if(array_key_exists('comments', $this->permissions) OR $this->current_user->group == 'admin'): ?>
-				<li>
-					<a class="tooltip-s" title="<?php echo lang('cp_manage_comments') ?>" href="<?php echo site_url('admin/comments') ?>"><?php echo Asset::img('icons/comments.png', lang('cp_manage_comments')); ?></a>
-				</li>
-				<?php endif; ?>
-				
-				<?php if(array_key_exists('pages', $this->permissions) OR $this->current_user->group == 'admin'): ?>
-				<li>
-					<a class="tooltip-s" title="<?php echo lang('cp_manage_pages'); ?>" href="<?php echo site_url('admin/pages') ?>"><?php echo Asset::img('icons/pages.png', lang('cp_manage_pages')); ?></a>
-				</li>
-				<?php endif; ?>
-				
-				<?php if(array_key_exists('files', $this->permissions) OR $this->current_user->group == 'admin'): ?>
-				<li>
-					<a class="tooltip-s" title="<?php echo lang('cp_manage_files'); ?>" href="<?php echo site_url('admin/files') ?>"><?php echo Asset::img('icons/files.png', lang('cp_manage_files')); ?></a>
-				</li>
-				<?php endif; ?>
-				
-				<?php if(array_key_exists('users', $this->permissions) OR $this->current_user->group == 'admin'): ?>
-				<li>
-					<a class="tooltip-s" title="<?php echo lang('cp_manage_users'); ?>" href="<?php echo site_url('admin/users') ?>"><?php echo Asset::img('icons/users.png', lang('cp_manage_users')); ?></a>
-				</li>
-				<?php endif; ?>
-			</ul>
-		</section>
-
-	</div>		
-	<?php endif; ?>
-	<!-- End Quick Links -->
 
 	<!-- Begin RSS Feed -->
 	<?php if ( isset($rss_items) AND $theme_options->pyrocms_news_feed == 'yes') : ?>
