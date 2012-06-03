@@ -73,7 +73,8 @@ function display_comments($ref_id = '', $reference = NULL)
 	$ci->load->set_view_path($path);
 
 	// output the comments html
-	$comment_view = $ci->load->_ci_load(array('_ci_view' => $view, '_ci_vars' => ( $data )));
+	$ci->load->vars($data);
+	$comment_view = $this->load->file($view);
 
 	// Put the old array back
 	$ci->load->set_view_path($save_path);
@@ -89,28 +90,22 @@ function display_comments($ref_id = '', $reference = NULL)
  */
 function count_comments($module_item_id = '', $module_slug = NULL, $return_as_number = FALSE)
 {
-	return counter_comments($module_item_id, $module_slug, $return_as_number);
-}
-
-// Deprecated due to confusing grammar
-function counter_comments($ref_id = '', $reference = NULL, $return_number = FALSE)
-{
 	$ci =& get_instance();
 
 	// Set ref to module if none provided
-	$reference OR $reference = $ci->router->fetch_module();
+	$module_slug OR $module_slug = $ci->router->fetch_module();
 
 	$ci->lang->load('comments/comments');
 
 	$where = array(
-		'module'	=> $reference,
-		'module_id'	=> ($ref_id ? $ref_id : NULL),
-		'is_active'	=> 1
+		'module'	=> $module_slug,
+		'module_id'	=> ($module_item_id ? $module_item_id : NULL),
+		'is_active'	=> true
 	);
 
 	$total = (int) $ci->db->where($where)->count_all_results('comments');
 
-	if ($return_number)
+	if ($return_as_number)
 	{
 		return $total;
 	}
@@ -135,10 +130,10 @@ function process_comment_items($comments)
 {
 	$ci =& get_instance();
 
-	foreach($comments as &$comment)
+	foreach ($comments as &$comment)
 	{
 		// work out who did the commenting
-		if($comment->user_id > 0)
+		if ($comment->user_id > 0)
 		{
 			$comment->name = anchor('admin/users/edit/'.$comment->user_id, $comment->name);
 		}
@@ -180,12 +175,6 @@ function process_comment_items($comments)
 		else
 		{
 			$comment->item = $comment->module .' #'. $comment->module_id;
-		}
-		
-		// Link to the comment
-		if (strlen($comment->comment) > 30)
-		{
-			$comment->comment = character_limiter($comment->comment, 30);
 		}
 	}
 	

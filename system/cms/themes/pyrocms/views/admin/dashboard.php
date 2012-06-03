@@ -136,11 +136,11 @@ jQuery(function($) {
 		<section class="item">
 			<ul>
 				<?php if (count($recent_comments)): ?>
-						<?php foreach ($recent_comments AS $rant) : ?>
-							<li>
-								<p><?php echo sprintf(lang('comments.list_comment'), $rant->name, $rant->item); ?> <em><?php echo (Settings::get('comment_markdown') AND $rant->parsed > '') ? strip_tags($rant->parsed) : $rant->comment; ?></em></p>
-							</li>
-						<?php endforeach; ?>
+					<?php foreach ($recent_comments as $rant) : ?>
+						<li>
+							<p><?php echo sprintf(lang('comments.list_comment'), $rant->name, $rant->item); ?> <em><?php echo (Settings::get('comment_markdown') AND $rant->parsed > '') ? strip_tags($rant->parsed) : $rant->comment; ?></em></p>
+						</li>
+					<?php endforeach; ?>
 				<?php else: ?>
 						<?php echo lang('comments.no_comments');?>
 				<?php endif; ?>
