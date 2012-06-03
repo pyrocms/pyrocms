@@ -59,16 +59,6 @@
 	height: 200px;
 }
 
-.topbar ul li#dashboard-link {
-	margin: 8px 10px 8px 5px;
-}
-
-.topbar ul li#dashboard-link a {
-	padding: 6px 12px;
-	color: #ffffff;
-	float: left;
-}
-
 #logo {
 	font-size: 16px;
 	color: #ffffff;
