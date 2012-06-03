@@ -1,5 +1,13 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
+$lang['user_add_field']                        	= 'Ajouter un champ de profil utilisateur';
+$lang['user_profile_delete_success']           	= 'Champ de profil utilisateur supprimé avec succès';
+$lang['user_profile_delete_failure']            = 'Il y a eu un problème lors de la suppresion du champ de profil utilisateur';
+$lang['profile_user_basic_data_label']  		= 'Données basiques';
+$lang['profile_company']         	  			= 'Entreprise';
+$lang['profile_updated_on']           			= 'Mis à jour le';
+$lang['user_profile_fields_label']	 		 	= 'Champ de profil';
+
 $lang['user_register_header'] 	= 'Enregistrement';
 $lang['user_register_step1'] 	= '<strong>Etape 1&nbsp;:</strong> Enregistrez-vous';
 $lang['user_register_step2'] 	= '<strong>Etape 2&nbsp;:</strong> Activation';
@@ -71,6 +79,7 @@ $lang['user_reset_password_link'] = 'Mot de passe oublié ?';
 
 $lang['user_activation_code_sent_notice'] = 'Un e-mail vous a été envoyé avec votre code d\'activation.';
 $lang['user_activation_by_admin_notice'] = 'Votre enregistrement est en attente d\'approbation par l\'administrateur.';
+$lang['user_registration_disabled']            = 'Sorry, but the user registration is disabled.'; #translate
 
 // -- Settings ---------------------------------------------------------------------------------------------
 

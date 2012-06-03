@@ -1,10 +1,9 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
+ * Admin Page Layouts controller for the Pages module
  *
- * @package  	PyroCMS
- * @subpackage  Categories
- * @category  	Module
- * @author  	PyroCMS Dev Team
+ * @author		PyroCMS Dev Team
+ * @package 	PyroCMS\Core\Modules\Blog\Controllers
  */
 class Admin_Categories extends Admin_Controller {
 
@@ -23,8 +22,8 @@ class Admin_Categories extends Admin_Controller {
 	protected $validation_rules = array(
 		array(
 			'field' => 'title',
-			'label' => 'lang:categories.title_label',
-			'rules' => 'trim|required|max_length[20]|callback__check_title'
+			'label' => 'lang:cat_title_label',
+			'rules' => 'trim|required|max_length[100]|callback__check_title'
 		),
 	);
 	
@@ -66,12 +65,12 @@ class Admin_Categories extends Admin_Controller {
 			->title($this->module_details['name'], lang('cat_list_title'))
 			->set('categories', $categories)
 			->set('pagination', $pagination)
-			->build('admin/categories/index', $this->data);
+			->build('admin/categories/index');
 	}
 	
 	/**
 	 * Create method, creates a new category
-	 * @access public
+	 *
 	 * @return void
 	 */
 	public function create()
@@ -79,10 +78,18 @@ class Admin_Categories extends Admin_Controller {
 		// Validate the data
 		if ($this->form_validation->run())
 		{
-			$this->blog_categories_m->insert($_POST)
-				? $this->session->set_flashdata('success', sprintf( lang('cat_add_success'), $this->input->post('title')) )
-				: $this->session->set_flashdata('error', lang('cat_add_error'));
+			if ($id = $this->blog_categories_m->insert($_POST))
+			{
+				// Fire an event. A new blog category has been created.
+				Events::trigger('blog_category_created', $id);
 
+				$this->session->set_flashdata('success', sprintf( lang('cat_add_success'), $this->input->post('title')) );
+			}
+			else
+			{
+				$this->session->set_flashdata('error', lang('cat_add_error'));
+			}
+			
 			redirect('admin/blog/categories');
 		}
 		
@@ -119,6 +126,9 @@ class Admin_Categories extends Admin_Controller {
 				? $this->session->set_flashdata('success', sprintf( lang('cat_edit_success'), $this->input->post('title')) )
 				: $this->session->set_flashdata('error', lang('cat_edit_error'));
 			
+			// Fire an event. A blog category is being updated.
+			Events::trigger('blog_category_updated', $id);
+			
 			redirect('admin/blog/categories/index');
 		}
 		
@@ -152,11 +162,13 @@ class Admin_Categories extends Admin_Controller {
 		{
 			$deleted = 0;
 			$to_delete = 0;
+			$deleted_ids = array();
 			foreach ($id_array as $id)
 			{
 				if ($this->blog_categories_m->delete($id))
 				{
 					$deleted++;
+					$deleted_ids[] = $id;
 				}
 				else
 				{
@@ -169,6 +181,9 @@ class Admin_Categories extends Admin_Controller {
 			{
 				$this->session->set_flashdata('success', sprintf(lang('cat_mass_delete_success'), $deleted, $to_delete));
 			}
+			
+			// Fire an event. One or more categories have been deleted.
+			Events::trigger('blog_category_deleted', $deleted_ids);
 		}		
 		else
 		{

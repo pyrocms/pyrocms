@@ -1,6 +1,14 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-$lang['user_register_header']                  = 'Registration';
+$lang['user_add_field']                        	= 'Pridėti lauką prie vartotojo profilio';
+$lang['user_profile_delete_success']           	= 'Vartotojo profilio laukas sėkmingai ištrintas';
+$lang['user_profile_delete_failure']            = 'Buvo kalida trinant vartotojo profilio lauką';
+$lang['profile_user_basic_data_label']  		= 'Pagrindinė informacija';
+$lang['profile_company']         	  			= 'Įmonė';
+$lang['profile_updated_on']           			= 'Atnaujinta';
+$lang['user_profile_fields_label']	 		 	= 'Profilio laukai';
+
+$lang['user_register_header']                  = 'Registracija';
 $lang['user_register_step1']                   = '<strong>Žingsnis 1:</strong> Registracija';
 $lang['user_register_step2']                   = '<strong>Žingsnis 2:</strong> Aktyvacija';
 
@@ -8,7 +16,7 @@ $lang['user_login_header']                     = 'Prisijungimas';
 
 // titles
 $lang['user_add_title']                        = 'Prideti vartotoją';
-$lang['user_list_title'] 				= 'Vartotojų sąrašas';
+$lang['user_list_title'] 				       = 'Vartotojų sąrašas';
 $lang['user_inactive_title']                   = 'Neaktyvuoti vartotojai';
 $lang['user_active_title']                     = 'Aktyvuoti vartotojai';
 $lang['user_registred_title']                  = 'Registruoti vartotojai';
@@ -53,12 +61,12 @@ $lang['user_first_name']                       = 'Vardas';
 $lang['user_last_name']                        = 'Pavardė';
 $lang['user_username']                         = 'Vartotojo vardas';
 $lang['user_display_name']                     = 'Rodomas vardas';
-$lang['user_email_use'] 					   = 'used to login'; #translate
+$lang['user_email_use'] 					   = 'buvo prisijungęs';
 $lang['user_email']                            = 'E-paštas';
 $lang['user_confirm_email']                    = 'Patvirtinti E-paštą';
 $lang['user_password']                         = 'Slaptažodis';
 $lang['user_remember']                         = 'Prisiminti mane';
-$lang['user_group_id_label']                   = 'Grupės ID'; // #TRANSLATE #TODO: Translate this into Spanish
+$lang['user_group_id_label']                   = 'Grupės ID';
 
 $lang['user_level']                            = 'Vartotojo vaidmuo';
 $lang['user_active']                           = 'Aktyvus';
@@ -66,11 +74,12 @@ $lang['user_lang']                             = 'Kalba';
 
 $lang['user_activation_code']                  = 'Aktyvacijos kodas';
 
-$lang['user_reset_instructions']			   = 'Enter your email address or username'; #translate
+$lang['user_reset_instructions']			   = 'Irašykite jūsų vartotojo vardą arba el. pašto adresą';
 $lang['user_reset_password_link']              = 'Pamiršote slaptažodį?';
 
 $lang['user_activation_code_sent_notice']      = 'Laiškas buvo išsiųsta su jūsų aktyvacijos kodu.';
 $lang['user_activation_by_admin_notice']       = 'Jūsų registracija laukia patvirtinimo administratoriaus.';
+$lang['user_registration_disabled']            = 'Atsiprašome, bet vartotojų registracija yra atjungta.';
 
 // -- Settings ---------------------------------------------------------------------------------------------
 
@@ -112,8 +121,8 @@ $lang['user_mass_delete_error']                = 'Pirmiau reikia pasirinkti vart
 // Register
 $lang['user_email_pass_missing']               = 'Elektroninio pašto ar slaptažodžio laukai nėra užpildyti.';
 $lang['user_email_exists']                     = 'Pašto adresas, kurį pasirinkote jau naudojamas kito vartotojo.';
-$lang['user_register_error']				   = 'We think you are a bot. If we are mistaken please accept our apologies.'; #translate
-$lang['user_register_reasons']                 = 'Join up to access special areas normally restricted. This means your settings will be remembered, more content and less ads.';
+$lang['user_register_error']				   = 'Mes galvojome kad jus esate spam robotas. Jeigu suklydome - atleiskite.';
+$lang['user_register_reasons']                 = 'Prisijunkite tam, kad kauti prieimą prie skilčių, kurios yra neprieinamos paprastiems vartotojams. Daugiau turinio, mažiau reklamos.';
 
 
 // Activation
@@ -122,7 +131,7 @@ $lang['user_activated_message']                = 'Jūsų paskyra buvo aktyvuota,
 
 
 // Login
-$lang['user_logged_in']                        = 'Prisijungėte sėkmingai.'; # TODO: Translate this in spanish
+$lang['user_logged_in']                        = 'Prisijungėte sėkmingai.';
 $lang['user_already_logged_in']                = 'Jūs jau esate prisijungęs. Prašome atsijungti prieš bandant iš naujo.';
 $lang['user_login_incorrect']                  = 'E-paštas arba slaptažodis nesutampa. Prašome patikrinti savo prisijungimo vardą ir įsitikinkite ar nėra įjungtas CAPS LOCK.';
 $lang['user_inactive']                         = 'Paskyra kurią bandote pasiekti šiuo mety neaktyvi.<br/>Patikrinkite savo el.paštą, kuriame bus instrukcija kaip aktyvuoti paskyrą.<em>Laiškas gali patekti į nepageidaujamų laiškų katalogą</em>.';
@@ -173,10 +182,10 @@ $lang['profile_dob_day']              = 'Diena';
 $lang['profile_dob_month']            = 'Mėnuo';
 $lang['profile_dob_year']             = 'Metai';
 $lang['profile_gender']               = 'Lytis';
-$lang['profile_gender_nt']            = 'Not Telling'; #translate
-$lang['profile_gender_male']          = 'Male'; #translate
-$lang['profile_gender_female']        = 'Female'; #translate
-$lang['profile_bio']                  = 'Aapie mane';
+$lang['profile_gender_nt']            = 'Nesakysiu';
+$lang['profile_gender_male']          = 'Vyras';
+$lang['profile_gender_female']        = 'Moteris';
+$lang['profile_bio']                  = 'Apie mane';
 
 $lang['profile_contact_section']      = 'Kontaktai';
 

@@ -2,10 +2,8 @@
 /**
  * Theme model
  *
- * @author          PyroCMS Development Team
- * @package         PyroCMS
- * @subpackage      Themes
- * @category        Model
+ * @author		PyroCMS Dev Team
+ * @package  	PyroCMS\Core\Modules\Themes\Model
  */
 class Theme_m extends MY_Model
 {
@@ -139,6 +137,7 @@ class Theme_m extends MY_Model
             //path to theme
             $web_path = $location . $slug;
 
+            $theme                  = new stdClass();
             $theme->slug			= $slug;
             $theme->is_core         = $is_core;
             $theme->path			= $path;
@@ -350,6 +349,8 @@ class Theme_m extends MY_Model
 	 */
 	public function get_values_by($params = array())
 	{
+        $options = new stdClass();
+
 		$query = $this->db
 			->select('slug, value')
 			->where($params)

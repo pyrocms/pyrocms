@@ -42,7 +42,7 @@ DROP TABLE IF EXISTS `{PREFIX}users`;
 
 CREATE TABLE IF NOT EXISTS `{PREFIX}users` (
   `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
-  `email` varchar(40) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `email` varchar(60) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `password` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `salt` varchar(6) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `group_id` int(11) DEFAULT NULL,
@@ -112,7 +112,8 @@ CREATE TABLE IF NOT EXISTS `{PREFIX}profiles` (
   `postcode` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
   `website` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `updated_on` int(11) unsigned DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  INDEX `user_id` (`user_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ;
 
 -- command split --

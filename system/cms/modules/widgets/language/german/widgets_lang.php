@@ -28,6 +28,7 @@ $lang['widgets.widget_area_slug']     = 'Bereichskurzname';
 $lang['widgets.view_code']                = 'Code ansehen';
 
 $lang['widgets.instance_title']       = 'Titel';
+$lang['widgets.show_title']				= 'Display Widget Title?'; #translate
 $lang['widgets.tag_title']            = 'Tag';
 
 $lang['widgets.no_available_widgets']        = 'Es sind keine Widgets verf&uuml;gbar.';

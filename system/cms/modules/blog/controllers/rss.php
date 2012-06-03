@@ -26,11 +26,11 @@ class Rss extends Public_Controller
 	
 	function category( $slug = '')
 	{
-		$this->load->model('categories/categories_m');
+		$this->load->model('blog_categories_m');
 		
-		if(!$category = $this->categories_m->get_by('slug', $slug))
+		if(!$category = $this->blog_categories_m->get_by('slug', $slug))
 		{
-			redirect('blog/rss/index');
+			redirect('blog/rss/all.rss');
 		}
 		
 		$posts = $this->pyrocache->model('blog_m', 'get_many_by', array(array(

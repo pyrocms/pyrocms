@@ -29,9 +29,10 @@ $lang['widgets.widget_area'] 			= 'Gebied';
 $lang['widgets.widget_area_title'] 		= 'Gebiedsnaam';
 $lang['widgets.widget_area_slug'] 		= 'Gebiedsafkorting';
 
-$lang['widgets.view_code']				= 'View Code'; #translate
+$lang['widgets.view_code']				= 'Bekijk Code';
 
 $lang['widgets.instance_title'] 		= 'Titel';
+$lang['widgets.show_title']				= 'Widget Titel weergeven?';
 $lang['widgets.tag_title']				= 'Tag';
 
 $lang['widgets.no_available_widgets']	= 'Er zijn momenteel geen beschikbare widgets.';

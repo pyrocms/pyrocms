@@ -6,69 +6,108 @@
  * An open source CMS based on CodeIgniter
  *
  * @package		PyroCMS
- * @author		PyroCMS Dev Team
+ * @author		Jerel Unruh - PyroCMS Dev Team
  * @license		Apache License v2.0
  * @link		http://pyrocms.com
  * @since		Version 1.0-dev
  * @filesource
  */
 
-$lang['files.title']						= 'Failai';
-$lang['files.upload.title']					= 'Įkelti failus';
-$lang['files.labels.action']				= 'Veiksmai';
-$lang['files.labels.download']				= 'Parsisiųsti';
-$lang['files.labels.edit']					= 'Redaguoti';
-$lang['files.labels.delete']				= 'Ištrinti';
-$lang['files.labels.upload']				= 'Įkelti';
-$lang['files.labels.parent']				= 'Šaltinis';
-$lang['files.no_files']						= 'Šiuo metu nėra jokių failų.';
+// General
+$lang['files:files_title']					= 'Failai';
+$lang['files:fetching']						= 'Siunčiama informacija...';
+$lang['files:fetch_completed']				= 'Baigta';
+$lang['files:save_failed']					= 'Dėje nustatymai nebuvo išsaugoti';
+$lang['files:item_created']					= '"%s" sukurtas';
+$lang['files:item_updated']					= '"%s" atnaujinas';
+$lang['files:item_deleted']					= '"%s" ištrintas';
+$lang['files:item_not_deleted']				= '"%s" nebuvo ištrintas';
+$lang['files:item_not_found']				= 'Atleiskite, tačiau "%s" nebuvo rastas';
+$lang['files:sort_saved']					= 'Rušiavimo eileškumas išsaugotas';
+$lang['files:no_permissions']				= 'Neturite teisių šimtam veiksmui atlikti';
 
-$lang['files.folders.title']				= 'Failų katalogas';
-$lang['files.folders.manage_title']			= 'Valdyti katalogus';
-$lang['files.folders.label']				= 'Katalogai';
-$lang['files.folder.label']					= 'Katalogas';
-$lang['files.subfolders.label']				= 'Pakatalogiai';
-$lang['files.folders.name']					= 'Vardas';
-$lang['files.folders.slug']					= 'URL Slug';
-$lang['files.folders.created']				= 'Sukurta';
-$lang['files.folders.create']				= 'Naujas katalogas';
-$lang['files.folders.success']				= 'Katalogas buvo išsaugotas.';
-$lang['files.folders.not_exists']			= 'Pasirinktas katalogas negalimas.';
-$lang['files.folders.no_subfolders']		= 'Nieko';
-$lang['files.folders.no_folders']			= 'Jūsų failai rūšiuojami pagal katalogus, šiuo metu jūs neturite jokių katalogų nustatymų.';
-$lang['files.folders.delete_success']		= 'Katalogas "%s" buvo ištrintas.';
-$lang['files.folders.delete_title']			= 'Trynimo patvirtinimas';
-$lang['files.folders.confirm_delete']		= 'Are tikrai ištrinti "%s"?<br /><br />Patvirtinus bus ištrintas ir katalogas ir jame esantys failai.';
-$lang['files.folders.mkdir']				= 'Nepavyko padaryti nuotraukų/failų katalogo';
-$lang['files.folders.chmod']				= 'Could not chmod the uploads/files directory';
+// Labels
+$lang['files:activity']						= 'Aktyvumas';
+$lang['files:places']						= 'Vietos';
+$lang['files:back']							= 'Atgal';
+$lang['files:forward']						= 'Pirmyn';
+$lang['files:start']						= 'Pradėti įkęlimą';
+$lang['files:details']						= 'Informacija';
+$lang['files:name']							= 'Pavadinimas';
+$lang['files:slug']							= 'Slug';
+$lang['files:path']							= 'Kelias (path)';
+$lang['files:added']						= 'Įkėlimo data';
+$lang['files:width']						= 'Plotis';
+$lang['files:height']						= 'Aukštis';
+$lang['files:ratio']						= 'Ratio';
+$lang['files:full_size']					= 'Failo pilnas dydis';
+$lang['files:filename']						= 'Failo pavadinimas';
+$lang['files:filesize']						= 'Failo dydis';
+$lang['files:download_count']				= 'Atsiuntimų kiekis';
+$lang['files:download']						= 'Atsiūsti';
+$lang['files:location']						= 'Vieta';
+$lang['files:description']					= 'Aprašymas';
+$lang['files:container']					= 'Konteineris';
+$lang['files:bucket']						= 'Bucketas';
+$lang['files:check_container']				= 'Patikrinti';
+$lang['files:search_message']				= 'Įrašyk ir spasuk ENTER';
+$lang['files:search']						= 'Ieškok';
+$lang['files:synchronize']					= 'Sinchronizuok';
+$lang['files:uploader']						= 'Imesk čia failus <br />arba<br />spausk, kad išsirinkti failą';
 
-$lang['files.dropdown.no_subfolders']		= '-- Nieko --';
-$lang['files.dropdown.root']				= '-- Pagrindas --';
+// Context Menu
+$lang['files:open']							= 'Atidaryti';
+$lang['files:new_folder']					= 'Naujas katalogas';
+$lang['files:upload']						= 'Įkelti';
+$lang['files:rename']						= 'Pervadinti';
+$lang['files:delete']						= 'Ištrinti';
+$lang['files:edit']							= 'Tvarkyti';
+$lang['files:details']						= 'Informacija';
 
-$lang['files.description']					= 'Aprašymas';
-$lang['files.type']							= 'Tipas';
-$lang['files.file']							= 'Failas';
-$lang['files.file_name']					= 'Failo vardas';
-$lang['files.success']						= 'Failas išsaugotas.';
-$lang['files.file.no_upload']				= 'Failas turi būti įkeltas.';
-$lang['files.file.no_extension']			= 'Failams būtinas plėtinys.';
-$lang['files.not_exists']					= 'Pasirinktas katalogas netinkamas.';
-$lang['files.delete.error']					= 'Failas negali būti ištrintas.';
-$lang['files.delete.success']				= 'Failas ištrintas.';
-$lang['files.filter']						= 'Filtruoti';
-$lang['files.loading']						= 'Įkraunama...'; #translate
+// Folders
 
-// Types
-$lang['files.i'] = 'Vaizdas';
-$lang['files.a'] = 'Audio';
-$lang['files.v'] = 'Video';
-$lang['files.d'] = 'Dokumentai';
-$lang['files.o'] = 'Kita';
+$lang['files:no_folders']					= 'Failai ir aplankai tvarkomi panašių principu kaip jųsu darbastalyje. Dešinių peles paspaudimu sukuriate aplanką. Vėliau dešinių pėlės paspaudimu ant aplanko, tam kad jį pervadinti, ištrinti arba įkelti failus į jį.';
+$lang['files:no_folders_places']			= 'Sukurti aplankai bus rodomi čia. Juos galima atverti ir užverti.';
+$lang['files:no_folders_wysiwyg']			= 'Dar nebuvo sukurta aplankų';
+$lang['files:new_folder_name']				= 'Neužvadintas aplankas';
+$lang['files:folder']						= 'Aplankas';
+$lang['files:folders']						= 'Aplankai';
+$lang['files:select_folder']				= 'Išsirink aplanką';
+$lang['files:subfolders']					= 'Subaplankai';
+$lang['files:root']							= 'Pagrindinis';
+$lang['files:no_subfolders']				= 'Nėra subalankų';
+$lang['files:folder_not_empty']				= 'Turite iš pradžiu išrtinti viską iš "%s"';
+$lang['files:mkdir_error']					= 'Negalėjome sukurti %s. Turite padaryti tai patys';
+$lang['files:chmod_error']					= 'Įkėlimų direktorijos įrašymas negalimas. Atribūtai turi buti 0777';
+$lang['files:location_saved']				= 'Aplanko kelias išsaugotas';
+$lang['files:container_exists']				= '"%s" egzistuoja. Išsaugok, tam kad sujungti jo turinį su šiuo katalogų';
+$lang['files:container_not_exists']			= '"%s" nėra sukurtas tavo paskyroje. Išsaugos, ir mes pabandysime jį sukurti';
+$lang['files:error_container']				= '"%s" negalėjo būti sukrutas, tačiau ir klaidą nėra žinoma';
+$lang['files:container_created']			= '"%s" buvo sukurtas ir sijungtas su šituo katalogu';
+$lang['files:unwritable']					= '"%s" neturi įrašymo teisiu, pakeiskite teises į 0777';
+$lang['files:specify_valid_folder']			= 'Privalote nurodyti aplanką į kūrį įkelti failus';
+$lang['files:enable_cdn']					= 'Privalai įjungti CDS palaikyma "%s" per tavo Rackspace valdymo panele prieš sinchronizuojant';
+$lang['files:synchronization_started']		= 'Sinchronizacija pradėta';
+$lang['files:synchronization_complete']		= 'Sinchronizacija "%s" baigta';
+$lang['files:untitled_folder']				= 'Neužvadintas aplankas';
 
-$lang['files.no_permissions'] = 'Jūs neturite leidimo pamatyti šį failų modulį.';
-$lang['files.grid'] = 'Tinklelis';
-$lang['files.list'] = 'Sąrašas';
-
-$lang['file_folders.duplicate_error']		= 'A folder named "%s" already exists.'; #translate
+// Files
+$lang['files:no_files']						= 'Failų nerasta';
+$lang['files:file_uploaded']				= '"%s" buvo įkeltas';
+$lang['files:unsuccessful_fetch']			= 'Negalėjome atsiūsti "%s". Ar esate tiktas kad tai viešai pasiekiamas failas?';
+$lang['files:invalid_container']			= '"%s" pasirodo yra kalidingas containeris.';
+$lang['files:no_records_found']				= 'Nerasta įrašų';
+$lang['files:invalid_extension']			= '"%s" turi neleistina failo išplėtimą';
+$lang['files:upload_error']					= 'Failo įkelimas nesėkmingas';
+$lang['files:description_saved']			= 'Failo aprašymas išsaugotas';
+$lang['files:file_moved']					= '"%s" buvo sėkmingai perkeltas';
+$lang['files:exceeds_server_setting']		= 'Sėrveris negali apdoroti tokio didelio failo';
+$lang['files:exceeds_allowed']				= 'Failas viršija maksimalų failo dydį';
+$lang['files:file_type_not_allowed']		= 'Šis failo tipas nėra leistinas';
+$lang['files:type_a']						= 'Audio';
+$lang['files:type_v']						= 'Video';
+$lang['files:type_d']						= 'Dokumentai';
+$lang['files:type_i']						= 'Nuotraukos';
+$lang['files:type_o']						= 'Kiti';
 
 /* End of file files_lang.php */

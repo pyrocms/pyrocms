@@ -2,10 +2,9 @@
 /**
  * Email Templates Model
  *
- * @author      Stephen Cozart - PyroCMS Dev Team
- * @package 	PyroCMS
- * @subpackage  Templates Module
- * @category	Module
+ * @author      Stephen Cozart
+ * @author		PyroCMS Dev Team
+ * @package		PyroCMS\Core\Modules\Templates\Models
  */
 class Email_templates_m extends MY_Model {
 

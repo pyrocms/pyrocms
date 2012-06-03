@@ -594,6 +594,7 @@ body#login #login-box ul li input#remember {
 	margin: 0;
 	outline: none!important;
 	border: none!important;
+	padding: 0;
 }
 #login-box .error {
 	background: #ef8385;

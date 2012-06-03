@@ -3,30 +3,25 @@
  * Admin controller for the variables module
  *
  * @author		PyroCMS Dev Team
- * @package		PyroCMS
- * @subpackage 	Variables Module
- * @category	Modules
- * @copyright	Copyright (c) 2008 - 2011, PyroCMS
+ * @package	 PyroCMS\Core\Modules\Variables\Controllers
  */
 class Admin extends Admin_Controller
-{	
+{
 	/**
 	 * Variable's ID
 	 *
-	 * @access	public
 	 * @var		int
 	 */
-	public	$id = 0;
-	
+	public $id = 0;
+
 	public $temp;
 
 	/**
 	 * Array containing the validation rules
 	 *
-	 * @access	private
 	 * @var		array
 	 */
-	private	$_validation_rules = array(
+	private $_validation_rules = array(
 		array(
 			'field' => 'name',
 			'label' => 'lang:global:name',
@@ -41,9 +36,6 @@ class Admin extends Admin_Controller
 
 	/**
 	 * Constructor method
-	 *
-	 * @access	public
-	 * @return	void
 	 */
 	public function __construct()
 	{
@@ -66,32 +58,26 @@ class Admin extends Admin_Controller
 
 	/**
 	 * List all variables
-	 *
-	 * @access	public
-	 * @return	void
 	 */
 	public function index()
 	{
-		$this->template->append_metadata(js('variables.js', 'variables'));
 
-       // Create pagination links
-		$this->data->pagination = create_pagination('admin/variables/index', $this->variables_m->count_all());
+		// Create pagination links
+		$this->template->pagination = create_pagination('admin/variables/index', $this->variables_m->count_all());
 
 		// Using this data, get the relevant results
-		$this->data->variables = $this->variables_m
-			->limit( $this->data->pagination['limit'] )
+		$this->template->variables = $this->variables_m
+			->limit($this->template->pagination['limit'])
 			->get_all();
-	
+
 		$this->template
 			->title($this->module_details['name'])
-			->build('admin/index', $this->data);
+			->append_js('module::variables.js')
+			->build('admin/index');
 	}
 
 	/**
 	 * Create a new variable
-	 *
-	 * @access	public
-	 * @return	void
 	 */
 	public function create()
 	{
@@ -102,13 +88,13 @@ class Admin extends Admin_Controller
 
 			if ($this->variables_m->insert($this->input->post()))
 			{
-				$message	= sprintf(lang('variables.add_success'), $name);
-				$status		= 'success';
+				$message = sprintf(lang('variables.add_success'), $name);
+				$status = 'success';
 			}
 			else
 			{
-				$message	= sprintf(lang('variables.add_error'), $name);
-				$status		= 'error';
+				$message = sprintf(lang('variables.add_error'), $name);
+				$status = 'error';
 			}
 
 			// If request is ajax return json data, otherwise do normal stuff
@@ -118,15 +104,14 @@ class Admin extends Admin_Controller
 				$data['messages'][$status] = $message;
 				$message = $this->load->view('admin/partials/notices', $data, TRUE);
 
-				return print ( json_encode((object) array(
-					'status'	=> $status,
-					'message'	=> $message
-				)) );
+				return print (json_encode((object)array(
+					'status' => $status,
+					'message' => $message
+				)));
 			}
 
-			// Redirect
 			$this->session->set_flashdata($status, $message);
-			redirect('admin/variables' . ($status === 'error' ? '/create': ''));
+			redirect('admin/variables'.($status === 'error' ? '/create' : ''));
 		}
 		elseif (validation_errors())
 		{
@@ -136,8 +121,8 @@ class Admin extends Admin_Controller
 				$message = $this->load->view('admin/partials/notices', array(), TRUE);
 
 				return $this->template->build_json(array(
-					'status'	=> 'error',
-					'message'	=> $message
+					'status' => 'error',
+					'message' => $message
 				));
 			}
 		}
@@ -151,15 +136,13 @@ class Admin extends Admin_Controller
 		$this->template
 			->title($this->module_details['name'], lang('variables.create_title'))
 			->set('variable', $variable)
-			->build('admin/form', $this->data);
+			->build('admin/form');
 	}
 
 	/**
 	 * Edit an existing variable
 	 *
-	 * @access	public
-	 * @param	int $id The ID of the variable
-	 * @return	void
+	 * @param int $id The ID of the variable
 	 */
 	public function edit($id = 0)
 	{
@@ -167,8 +150,8 @@ class Admin extends Admin_Controller
 		$id OR redirect('admin/variables');
 
 		// Get the variable
-		$this->data->variable = $this->variables_m->get($id);
-		$this->data->variable OR redirect('admin/variables');
+		$this->template->variable = $this->variables_m->get($id);
+		$this->template->variable OR redirect('admin/variables');
 
 		if ($this->form_validation->run())
 		{
@@ -176,15 +159,15 @@ class Admin extends Admin_Controller
 
 			if ($this->variables_m->update($id, $this->input->post()))
 			{
-				$message	= sprintf(lang('variables.edit_success'), $name);
-				$status		= 'success';
+				$message = sprintf(lang('variables.edit_success'), $name);
+				$status = 'success';
 			}
 			else
 			{
-				$message	= sprintf(lang('variables.edit_error'), $name);
-				$status		= 'error';
+				$message = sprintf(lang('variables.edit_error'), $name);
+				$status = 'error';
 			}
-			
+
 			// If request is ajax return json data, otherwise do normal stuff
 			if ($this->input->is_ajax_request())
 			{
@@ -193,15 +176,14 @@ class Admin extends Admin_Controller
 				$message = $this->load->view('admin/partials/notices', $data, TRUE);
 
 				return $this->template->build_json(array(
-					'status'	=> $status,
-					'message'	=> $message,
-					'title'		=> sprintf(lang('variables.edit_title'), $name)
+					'status' => $status,
+					'message' => $message,
+					'title' => sprintf(lang('variables.edit_title'), $name)
 				));
 			}
 
-			// Redirect
 			$this->session->set_flashdata($status, $message);
-			redirect('admin/variables' . ($status === 'error' ? '/edit': ''));
+			redirect('admin/variables'.($status === 'error' ? '/edit' : ''));
 		}
 		elseif (validation_errors())
 		{
@@ -210,8 +192,8 @@ class Admin extends Admin_Controller
 				$message = $this->load->view('admin/partials/notices', array(), TRUE);
 
 				return $this->template->build_json(array(
-					'status'	=> 'error',
-					'message'	=> $message
+					'status' => 'error',
+					'message' => $message
 				));
 			}
 		}
@@ -227,26 +209,24 @@ class Admin extends Admin_Controller
 
 		if ($this->input->is_ajax_request())
 		{
-			return $this->template->build('admin/form_inline', $this->data);
+			return $this->template->build('admin/form_inline');
 		}
 
 		$this->template
-			->title($this->module_details['name'], sprintf(lang('variables.edit_title'), $this->data->variable->name))
-			->build('admin/form', $this->data);
+			->title($this->module_details['name'], sprintf(lang('variables.edit_title'), $this->template->variable->name))
+			->build('admin/form');
 	}
 
 	/**
 	 * Delete an existing variable
 	 *
-	 * @access	public
 	 * @param	int $id The ID of the variable
-	 * @return	void
 	 */
 	public function delete($id = 0)
 	{
-		$ids		= $id ? array($id): $this->input->post('action_to');
-		$total		= sizeof($ids);
-		$deleted	= array();
+		$ids = $id ? array($id) : $this->input->post('action_to');
+		$total = count($ids);
+		$deleted = array();
 
 		// Try do deletion
 		foreach ($ids as $id)
@@ -255,7 +235,7 @@ class Admin extends Admin_Controller
 			if ($variable = $this->variables_m->get($id))
 			{
 				// Make deletion retrieving an status and store an value to display in the messages
-				$deleted[($this->variables_m->delete($id) ? 'success': 'error')][] = $variable->name;
+				$deleted[($this->variables_m->delete($id) ? 'success' : 'error')][] = $variable->name;
 			}
 		}
 
@@ -265,18 +245,18 @@ class Admin extends Admin_Controller
 			// Mass deletion
 			if (($status_total = sizeof($values)) > 1)
 			{
-				$last_value		= array_pop($values);
-				$first_values	= implode(', ', $values);
+				$last_value = array_pop($values);
+				$first_values = implode(', ', $values);
 
 				// Success / Error message
-				$this->session->set_flashdata($status, sprintf(lang('variables.mass_delete_' . $status), $status_total, $total, $first_values, $last_value));
+				$this->session->set_flashdata($status, sprintf(lang('variables.mass_delete_'.$status), $status_total, $total, $first_values, $last_value));
 			}
 
 			// Single deletion
 			else
 			{
 				// Success / Error messages
-				$this->session->set_flashdata($status, sprintf(lang('variables.delete_' . $status), $values[0]));
+				$this->session->set_flashdata($status, sprintf(lang('variables.delete_'.$status), $values[0]));
 			}
 		}
 
@@ -292,16 +272,14 @@ class Admin extends Admin_Controller
 	/**
 	 * Callback method for validating the variable's name
 	 *
-	 * @access	public
-	 * @param	str $name The name of the variable
+	 * @param str|string $name The name of the variable
+	 *
 	 * @return	bool
 	 */
 	public function _check_name($name = '')
 	{
 		$this->form_validation->set_message('_check_name', sprintf(lang('variables.already_exist_error'), $name));
-		
-		return ! $this->variables_m->check_name($name, (int) $this->input->post('variable_id'));
+
+		return ! $this->variables_m->check_name($name, (int)$this->input->post('variable_id'));
 	}
 }
-
-/* End of file admin.php */

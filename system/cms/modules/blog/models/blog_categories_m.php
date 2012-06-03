@@ -1,11 +1,10 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 /**
  * Categories model
- *
- * @package		PyroCMS
- * @subpackage	Categories Module
- * @category	Modules
- * @author		Phil Sturgeon - PyroCMS Dev Team
+ * 
+ * @author		Phil Sturgeon
+ * @author		PyroCMS Dev Team
+ * @package		PyroCMS\Core\Modules\Blog\Models
  */
 class Blog_categories_m extends MY_Model
 {

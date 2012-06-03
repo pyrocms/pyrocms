@@ -15,6 +15,9 @@
 	
 	<section class="item">
 		<p>{db_text}</p>
+		<?php if ( !$this->installer_lib->mysql_available() ): ?>
+			<p class="result fail">{db_missing}</p>
+		<?php endif; ?>
 		
 		<div class="input">
 			<label for="hostname">{server}</label>

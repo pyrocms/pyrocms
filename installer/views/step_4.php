@@ -21,7 +21,7 @@
 
 	<div class="input">
 		<label for="create_db"><?php echo lang('db_create'); ?></label><br>
-		<input type="checkbox" name="create_db" value="true" id="create_db" />
+		<input type="checkbox" name="create_db" value="true" id="create_db" <?php if($this->input->post('create_db') == 'true') { echo ' checked="checked"'; } ?> />
 		<small>(<?php echo lang('db_notice'); ?>)</small>
 	</div>
 

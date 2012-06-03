@@ -10,10 +10,10 @@ $lang['widgets.widget']                 = 'Papildinys';
 $lang['widgets.widget_author']          = 'Autorius';
 $lang['widgets.widget_short_name']      = 'Trumpasis vardas';
 $lang['widgets.widget_version']         = 'Versija';
-$lang['widgets.status_label']			= 'Status'; #translate
+$lang['widgets.status_label']			= 'Statusas';
 
-$lang['widgets.inactive_title'] 		= 'Widgets disabled'; #translate
-$lang['widgets.active_title'] 			= 'Widgets enabled'; #translate
+$lang['widgets.inactive_title'] 		= 'Papildinys atjungtas';
+$lang['widgets.active_title'] 			= 'Papildinys įjungtas';
 
 // Widget area titles
 $lang['widgets.add_area']               = 'Pridėti papildinio sritį';
@@ -25,9 +25,10 @@ $lang['widgets.widget_area']            = 'Sritis';
 $lang['widgets.widget_area_title']      = 'Srities vardas';
 $lang['widgets.widget_area_slug']       = 'Srities trumpasis vardas';
 
-$lang['widgets.view_code']				= 'View Code'; #translate
+$lang['widgets.view_code']				= 'Parodyti kodą';
 
 $lang['widgets.instance_title']         = 'Pavadinimas';
-$lang['widgets.tag_title']              = 'Tag';
+$lang['widgets.show_title']				= 'Rodyti papildinio pavadinimą?';
+$lang['widgets.tag_title']              = 'Tagai';
 
-$lang['widgets.no_available_widgets']		= 'Nėra prieinamų papildinių.';
+$lang['widgets.no_available_widgets']	= 'Nėra prieinamų papildinių.';

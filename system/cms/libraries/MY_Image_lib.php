@@ -1,13 +1,12 @@
 <?php
 /**
-*
-* Fix for losing image transparency
-*
-* @author Yorick Peterse - PyroCMS Dev Team
-* @package PyroCMS
-* @subpackage Libraries
-* @category Libraries
-*/
+ *
+ * Fix for losing image transparency
+ *
+ * @author Yorick Peterse
+ * @author PyroCMS Dev Team
+ * @package PyroCMS\Core\Libraries
+ */
 class MY_Image_lib extends CI_Image_lib
 {
 	/**

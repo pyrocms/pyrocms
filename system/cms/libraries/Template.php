@@ -120,6 +120,23 @@ class Template
 	// --------------------------------------------------------------------
 
 	/**
+	 * Set the module manually. Used when getting results from
+	 * another module with Modules::run('foo/bar')
+	 *
+	 * @access	public
+	 * @param	string	$module The module slug
+	 * @return	mixed
+	 */
+	public function set_module($module)
+	{
+		$this->_module = $module;
+
+		return $this;
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
 	 * Magic Get function to get data
 	 *
 	 * @access	public
@@ -207,7 +224,7 @@ class Template
 		// Output template variables to the template
 		$template['title']			= $this->_title;
 		$template['breadcrumbs']	= $this->_breadcrumbs;
-		$template['metadata']		= $this->get_metadata();
+		$template['metadata']		= $this->get_metadata() . Asset::render('extra');
 		$template['partials']		= array();
 
 		// Assign by reference, as all loaded views will need access to partials
@@ -353,6 +370,27 @@ class Template
 
 		return $this;
 	}
+	
+	/**
+	 * Put extra javascipt, css, meta tags, etc after other head data
+	 *
+	 * @access	public
+	 * @param	string	$line	The line being added to head
+	 * @return	object	$this
+	 */
+	public function append_css($files, $min_file = null, $group = 'extra')
+	{
+		Asset::css($files, $min_file, $group);
+		
+		return $this;
+	}
+	
+	public function append_js($files, $min_file = null, $group = 'extra')
+	{
+		Asset::js($files, $min_file, $group);
+		
+		return $this;
+	}
 
 
 	/**
@@ -491,8 +529,14 @@ class Template
 	 * @param	string	$uri	The URL segment
 	 * @return	object	$this
 	 */
-	public function set_breadcrumb($name, $uri = '')
+	public function set_breadcrumb($name, $uri = '', $reset = FALSE)
 	{
+		// perhaps they want to start over
+		if ($reset)
+		{
+			$this->_breadcrumbs = array();
+		}
+
 		$this->_breadcrumbs[] = array('name' => $name, 'uri' => $uri );
 		return $this;
 	}

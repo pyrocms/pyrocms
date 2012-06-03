@@ -1,25 +1,12 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 /**
- * PyroCMS
- *
- * An open source CMS based on CodeIgniter
- *
- * @package		PyroCMS
- * @author		PyroCMS Dev Team
- * @license		http://pyrocms.com/legal/license
- * @link		http://pyrocms.com
- * @since		Version 1.0-dev
- * @filesource
- */
-
-/**
  * PyroCMS Settings Library
  *
  * Allows for an easy interface for site settings
  *
  * @author		Dan Horrigan <dan@dhorrigan.com>
- * @package		PyroCMS
- * @subpackage	Settings
+ * @author		PyroCMS Dev Team
+ * @package		PyroCMS\Core\Modules\Settings\Libraries
  */
 class Settings {
 
@@ -129,6 +116,22 @@ class Settings {
 	}
 
 	/**
+	 * Temp
+	 *
+	 * Changes a setting for this request only. Does not modify the database
+	 *
+	 * @param	string	$name
+	 * @param	string	$value
+	 * @return	bool
+	 */
+	public static function temp($name, $value)
+	{
+		// store the temp value in the cache so that all subsequent calls
+		// for this request will use it instead of the database value
+		self::$cache[$name] = $value;
+	}
+
+	/**
 	 * Item
 	 *
 	 * Old way of getting an item.
@@ -213,6 +216,8 @@ class Settings {
 	 * Form Control
 	 *
 	 * Returns the form control for the setting.
+	 *
+	 * @todo: Code duplication, see modules/themes/controllers/admin.php @ form_control().
 	 *
 	 * @param	object	$setting
 	 * @return	string

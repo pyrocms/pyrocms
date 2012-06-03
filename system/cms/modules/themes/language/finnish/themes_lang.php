@@ -2,14 +2,12 @@
 /**
  * Finnish translation.
  *
- * @author Mikael Kundert <mikael@kundert.fi>
- * @date 07.02.2011
- * @version 1.0.3
+ * @author Mikael Kundert
  */
 
-$lang['themes.save_success']			= 'The theme options have been saved successfully.'; #translate
-$lang['themes.re-index_success']		= 'The theme options have been re-indexed successfully'; #translate
-$lang['themes.no_options']				= 'This theme has no options.'; #translate
+$lang['themes.save_success']			= 'Teeman valinnat on tallennettu onnistuneesti.';
+$lang['themes.re-index_success']		= 'Teeman valinnat on indeksoitu uudelleen onnistuneesti.';
+$lang['themes.no_options']				= 'Tällä teemalla ei ole asetuksia.';
 $lang['themes.set_default_success']     = 'Teema "%s" on nyt valittu oletusteemaksi.';
 $lang['themes.set_default_error']       = 'Teemaa "%s" ei voitu määrittää oletusteemaksi.';
 $lang['themes.already_exists_error']    = 'Saman niminen teema on jo olemassa.';
@@ -21,10 +19,11 @@ $lang['themes.mass_delete_success']     = '%s teemaa %s teemasta poistettiin onn
 $lang['themes.mass_delete_error']       = 'Vain %s teemaa %s teemasta poistettiin.';
 $lang['themes.delete_select_error']     = 'Valitse teemat, jotka haluat poistaa.';
 $lang['themes.upload_title']            = 'Lataa teema';
+$lang['themes.admin_list']				= 'Ylläpidon teemat';
 $lang['themes.list_title']              = 'Teemat';
 $lang['themes.upload_desc']             = 'Valitse tiedosto ja paina "Lataa" nappia';
 
-$lang['themes.options']					= 'Options'; #translate
+$lang['themes.options']					= 'Valinnat';
 $lang['themes.theme_label']             = 'Teema';
 $lang['themes.make_default']            = 'Aseta oletusteemaksi';
 $lang['themes.version_label']			= 'Versio';

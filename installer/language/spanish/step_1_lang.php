@@ -6,6 +6,7 @@ $lang['intro_text']      = 'Antes de configurar la base de datos, es necesario s
 
 $lang['db_settings']     = 'Configuración de la Base de datos';
 $lang['db_text']         = 'Para que el instalador compruebe su versión del servidor MySQL necesita que ingrese el nombre de host, nombre de usuario y contraseña en el siguiente formulario. Estos datos serán usados cuando se instale la base de datos.';
+$lang['db_missing']		=	'The mysql database driver for PHP were not found, installation cannot continue. Ask your host or server administrator to install it.'; #translate
 
 $lang['server']          = 'Servidor';
 $lang['username']        = 'Usuario';

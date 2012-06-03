@@ -2,10 +2,16 @@
 /**
  * Finnish translation.
  *
- * @author Mikael Kundert <mikael@kundert.fi>
- * @date 07.02.2011
- * @version 1.0.3
+ * @author Mikael Kundert
  */
+
+$lang['user_add_field']                        	= 'Lisää Käyttäjäprofiilikenttä';
+$lang['user_profile_delete_success']           	= 'Käyttäjäprofiilikenttä poistettiin onnistuneesti';
+$lang['user_profile_delete_failure']            = 'Ongelma käyttäjäprofiilikentän poistamisessa';
+$lang['profile_user_basic_data_label']  		= 'Perustiedot';
+$lang['profile_company']         	  			= 'Yritys';
+$lang['profile_updated_on']           			= 'Updated On'; #translate
+$lang['user_profile_fields_label']	 		 	= 'Profiilikentät';
 
 $lang['user_register_header']                  = 'Rekisteröityminen';
 $lang['user_register_step1']                   = '<strong>Vaihe 1:</strong> Rekisteröityminen';
@@ -44,7 +50,7 @@ $lang['indicates_required']                    = 'Merkitsee pakolliset kentät';
 
 // -- Registration / Activation / Reset Password ----------------------------------------------------------
 
-$lang['user_register_title']                   = 'Rekisteöityminen';
+$lang['user_register_title']                   = 'Rekisteröityminen';
 $lang['user_activate_account_title']           = 'Aktivoi tili';
 $lang['user_activate_label']                   = 'Aktivoi';
 $lang['user_activated_account_title']          = 'Tili aktivointiin';
@@ -73,11 +79,12 @@ $lang['user_lang']                             = 'Kieli';
 
 $lang['user_activation_code']                  = 'Aktivointi koodi';
 
-$lang['user_reset_instructions']			   = 'Enter your email address or username'; #translate
+$lang['user_reset_instructions']			   = 'Kirjoita sähköpostiosoitteesi tai käyttäjätunnuksesi';
 $lang['user_reset_password_link']              = 'Unohditko salasanan?';
 
 $lang['user_activation_code_sent_notice']      = 'Aktivointi koodi lähetettiin sähköpostiisi.';
 $lang['user_activation_by_admin_notice']       = 'Rekisteröityminen vaatii ylläpidon hyväksymisen.';
+$lang['user_registration_disabled']            = 'Valitettavasti rekisteröityminen ei ole nyt käytössä.';
 
 // -- Settings ---------------------------------------------------------------------------------------------
 
@@ -119,7 +126,7 @@ $lang['user_mass_delete_error']                = 'Sinun tulee valita käyttäjä
 // Register
 $lang['user_email_pass_missing']               = 'Sähköposti tai salasaa puuttuvat.';
 $lang['user_email_exists']                     = 'Kirjoittamasi sähköpostiosoite on jo käytössä.';
-$lang['user_register_error']				   = 'We think you are a bot. If we are mistaken please accept our apologies.'; #translate
+$lang['user_register_error']				   = 'Taidat olla botti. Jos näin ei ole, niin pahoittelemme.';
 $lang['user_register_reasons']                 = 'Rekisteröidy, niin voit päästä sivuille johon et normaalisti pääse.';
 
 
@@ -180,9 +187,9 @@ $lang['profile_dob_day']              = 'Päivä';
 $lang['profile_dob_month']            = 'Kuukausi';
 $lang['profile_dob_year']             = 'Vuosi';
 $lang['profile_gender']               = 'Sukupuoli';
-$lang['profile_gender_nt']            = 'Not Telling'; #translate
-$lang['profile_gender_male']          = 'Male'; #translate
-$lang['profile_gender_female']        = 'Female'; #translate
+$lang['profile_gender_nt']            = 'Ei kerrota';
+$lang['profile_gender_male']          = 'Mies';
+$lang['profile_gender_female']        = 'Nainen';
 $lang['profile_bio']                  = 'Minä';
 
 $lang['profile_contact_section']      = 'Yhteydenotto';

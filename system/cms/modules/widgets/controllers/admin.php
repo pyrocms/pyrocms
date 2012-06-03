@@ -2,11 +2,9 @@
 
 /**
  * Admin controller for the widgets module.
- *
- * @package 		PyroCMS
- * @subpackage 		Modules
- * @category		Widgets
- * @author			PyroCMS Development Team
+ * 
+ * @author 		PyroCMS Dev Team
+ * @package 	PyroCMS\Core\Modules\Widgets\Controllers
  *
  */
 class Admin extends Admin_Controller {
@@ -39,8 +37,8 @@ class Admin extends Admin_Controller {
 		}
 
 		$this->template
-			->append_metadata(js('widgets.js', 'widgets'))
-			->append_metadata(css('widgets.css', 'widgets'));
+			->append_js('module::widgets.js')
+			->append_css('module::widgets.css');
 	}
 
 	/**
@@ -55,7 +53,7 @@ class Admin extends Admin_Controller {
 		// Get Widgets
 		$data['available_widgets'] = $this->widget_m
 			->where('enabled', 1)
-			->order_by('`order`')
+			->order_by('order')
 			->get_all();
 
 		// Get Areas
@@ -124,7 +122,7 @@ class Admin extends Admin_Controller {
 		$this->template
 			->title($this->module_details['name'])
 			->set_partial('filters', 'admin/partials/filters')
-			->append_metadata( js('admin/filter.js') )
+			->append_js('admin/filter.js')
 			->build('admin/manage', $data);
 	}
 
@@ -183,6 +181,20 @@ class Admin extends Admin_Controller {
 			{
 				$status = 'error';
 				break;
+			}
+			else
+			{
+				// Fire an Event. A widget has been enabled or disabled. 
+				switch ($action)
+				{
+					case 'enable':		
+						Events::trigger('widget_enabled', $ids);
+						break;
+					
+					case 'disable':		
+						Events::trigger('widget_disabled', $ids);
+						break;
+				}
 			}
 		}
 

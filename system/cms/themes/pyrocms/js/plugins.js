@@ -1365,3 +1365,233 @@ $(function() { $.livequery.play(); });
 * @author    Brian Cherne brian(at)cherne(dot)net
 */
 (function($){$.fn.hoverIntent=function(f,g){var cfg={sensitivity:7,interval:100,timeout:0};cfg=$.extend(cfg,g?{over:f,out:g}:f);var cX,cY,pX,pY;var track=function(ev){cX=ev.pageX;cY=ev.pageY};var compare=function(ev,ob){ob.hoverIntent_t=clearTimeout(ob.hoverIntent_t);if((Math.abs(pX-cX)+Math.abs(pY-cY))<cfg.sensitivity){$(ob).unbind("mousemove",track);ob.hoverIntent_s=1;return cfg.over.apply(ob,[ev])}else{pX=cX;pY=cY;ob.hoverIntent_t=setTimeout(function(){compare(ev,ob)},cfg.interval)}};var delay=function(ev,ob){ob.hoverIntent_t=clearTimeout(ob.hoverIntent_t);ob.hoverIntent_s=0;return cfg.out.apply(ob,[ev])};var handleHover=function(e){var ev=jQuery.extend({},e);var ob=this;if(ob.hoverIntent_t){ob.hoverIntent_t=clearTimeout(ob.hoverIntent_t)}if(e.type=="mouseenter"){pX=ev.pageX;pY=ev.pageY;$(ob).bind("mousemove",track);if(ob.hoverIntent_s!=1){ob.hoverIntent_t=setTimeout(function(){compare(ev,ob)},cfg.interval)}}else{$(ob).unbind("mousemove",track);if(ob.hoverIntent_s==1){ob.hoverIntent_t=setTimeout(function(){delay(ev,ob)},cfg.timeout)}}};return this.bind('mouseenter',handleHover).bind('mouseleave',handleHover)}})(jQuery);
+
+/*
+ * jQuery UI Tab Pagination
+ */
+$.extend($.ui.tabs.prototype,{paging:function(z){function r(){p();l=0;c=0;m=0;k=0;f=[];j=[];selectedTabWidths=[];s=b.element.width();var d=0;b.lis.each(function(a){a==b.options.selected?(selectedTabWidths[a]=$(this).outerWidth({margin:!0}),j[a]=b.lis.eq(a).removeClass("ui-tabs-selected").outerWidth({margin:!0}),b.lis.eq(a).addClass("ui-tabs-selected"),d=Math.min(d,Math.abs(selectedTabWidths[a]-j[a]))):(j[a]=$(this).outerWidth({margin:!0}),selectedTabWidths[a]=b.lis.eq(a).addClass("ui-tabs-selected").outerWidth({margin:!0}),
+b.lis.eq(a).removeClass("ui-tabs-selected"),d=Math.max(d,Math.abs(selectedTabWidths[a]-j[a])));l+=j[a]});l+=d+($.browser.msie?4:0)+9;if(l>s){li=$("<li></li>").addClass("ui-state-default ui-tabs-paging-next").append($('<a href="#"></a>').click(function(){v("next");return!1}).html(e.nextButton));b.lis.eq(b.length()-1).after(li);k=li.outerWidth({margin:!0});li=$("<li></li>").addClass("ui-state-default ui-tabs-paging-prev").append($('<a href="#"></a>').click(function(){v("prev");return!1}).html(e.prevButton));
+b.lis.eq(0).before(li);k+=li.outerWidth({margin:!0});k+=19;for(var g=0,a=0,n=0,h=0;h<j.length;h++){if(0==a||selectedTabWidths[h]-j[h]>n)n=selectedTabWidths[h]-j[h];if(null==f[g])f[g]={start:h};else if(0<h&&0==h%e.tabsPerPage||j[h]+a+k+12>s)a+n>m&&(m=a+n),g++,f[g]={start:h},a=0;f[g].end=h+1;a+=j[h];h==b.options.selected&&(c=g)}a+n>m&&(m=a+n);b.lis.hide().slice(f[c].start,f[c].end).show();c==f.length-1&&!e.cycle&&o("next");0==c&&!e.cycle&&o("prev");buttonPadding=s-m-k;0<buttonPadding&&$(".ui-tabs-paging-next",
+b.element).css({paddingRight:buttonPadding+"px"});q=!0}else p();$(window).bind("resize",w)}function v(d){c+="prev"==d?-1:1;if("prev"==d&&0>c&&e.cycle||"next"==d&&c>=f.length&&!e.cycle)c=f.length-1;else if("prev"==d&&0>c||"next"==d&&c>=f.length&&e.cycle)c=0;var g=f[c].start,a=f[c].end;b.lis.hide().slice(g,a).show();"prev"==d?(t("next"),e.follow&&(b.options.selected<g||b.options.selected>a-1)&&b.select(a-1),!e.cycle&&0>=g&&o("prev")):(t("prev"),e.follow&&(b.options.selected<g||b.options.selected>a-
+1)&&b.select(g),!e.cycle&&a>=b.length()&&o("next"))}function o(d){$(".ui-tabs-paging-"+d,b.element).addClass("ui-tabs-paging-disabled")}function t(d){$(".ui-tabs-paging-"+d,b.element).removeClass("ui-tabs-paging-disabled")}function w(){u&&clearTimeout(u);if(x!=$(window).height()||y!=$(window).width())u=setTimeout(A,100)}function A(){x=$(window).height();y=$(window).width();r()}function p(){$(".ui-tabs-paging-next",b.element).remove();$(".ui-tabs-paging-prev",b.element).remove();b.lis.show();q=!1;
+$(window).unbind("resize",w)}var e={tabsPerPage:0,nextButton:"&#187;",prevButton:"&#171;",follow:!1,cycle:!1,selectOnAdd:!1,followOnSelect:!1},e=$.extend(e,z),b=this,q=!1,c,k,s,l,j,m,f,u=null,x=$(window).height(),y=$(window).width(),B=b.add;b.add=function(b,c,a){q&&p();B.apply(this,[b,c,a]);e.selectOnAdd&&(void 0==a&&(a=this.lis.length-1),this.select(a));r()};var C=b.remove;b.remove=function(b){q&&p();C.apply(this,[b]);r()};var D=b.select;b.select=function(d){D.apply(this,[d]);if(q&&e.followOnSelect)for(i in f){var g=
+f[i].start,a=f[i].end;if(d>=g&&d<a){i!=c&&(b.lis.hide().slice(g,a).show(),c=parseInt(i),0==c?(t("next"),!e.cycle&&0>=g&&o("prev")):(t("prev"),!e.cycle&&a>=b.length()&&o("next")));break}}};$.extend($.ui.tabs.prototype,{pagingDestroy:function(){p()}});r()}});
+
+/* =========================================================
+ * bootstrap-modal.js v2.0.3
+ * http://twitter.github.com/bootstrap/javascript.html#modals
+ * =========================================================
+ * Copyright 2012 Twitter, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * ========================================================= */
+
+
+!function ($) {
+
+  "use strict"; // jshint ;_;
+
+
+ /* MODAL CLASS DEFINITION
+  * ====================== */
+
+  var Modal = function (content, options) {
+    this.options = options
+    this.$element = $(content)
+      .delegate('[data-dismiss="modal"]', 'click.dismiss.modal', $.proxy(this.hide, this))
+  }
+
+  Modal.prototype = {
+
+      constructor: Modal
+
+    , toggle: function () {
+        return this[!this.isShown ? 'show' : 'hide']()
+      }
+
+    , show: function () {
+        var that = this
+          , e = $.Event('show')
+
+        this.$element.trigger(e)
+
+        if (this.isShown || e.isDefaultPrevented()) return
+
+        $('body').addClass('modal-open')
+
+        this.isShown = true
+
+        escape.call(this)
+        backdrop.call(this, function () {
+          var transition = $.support.transition && that.$element.hasClass('fade')
+
+          if (!that.$element.parent().length) {
+            that.$element.appendTo(document.body) //don't move modals dom position
+          }
+
+          that.$element
+            .show()
+
+          if (transition) {
+            that.$element[0].offsetWidth // force reflow
+          }
+
+          that.$element.addClass('in')
+
+          transition ?
+            that.$element.one($.support.transition.end, function () { that.$element.trigger('shown') }) :
+            that.$element.trigger('shown')
+
+        })
+      }
+
+    , hide: function (e) {
+        e && e.preventDefault()
+
+        var that = this
+
+        e = $.Event('hide')
+
+        this.$element.trigger(e)
+
+        if (!this.isShown || e.isDefaultPrevented()) return
+
+        this.isShown = false
+
+        $('body').removeClass('modal-open')
+
+        escape.call(this)
+
+        this.$element.removeClass('in')
+
+        $.support.transition && this.$element.hasClass('fade') ?
+          hideWithTransition.call(this) :
+          hideModal.call(this)
+      }
+
+  }
+
+
+ /* MODAL PRIVATE METHODS
+  * ===================== */
+
+  function hideWithTransition() {
+    var that = this
+      , timeout = setTimeout(function () {
+          that.$element.off($.support.transition.end)
+          hideModal.call(that)
+        }, 500)
+
+    this.$element.one($.support.transition.end, function () {
+      clearTimeout(timeout)
+      hideModal.call(that)
+    })
+  }
+
+  function hideModal(that) {
+    this.$element
+      .hide()
+      .trigger('hidden')
+
+    backdrop.call(this)
+  }
+
+  function backdrop(callback) {
+    var that = this
+      , animate = this.$element.hasClass('fade') ? 'fade' : ''
+
+    if (this.isShown && this.options.backdrop) {
+      var doAnimate = $.support.transition && animate
+
+      this.$backdrop = $('<div class="modal-backdrop ' + animate + '" />')
+        .appendTo(document.body)
+
+      if (this.options.backdrop != 'static') {
+        this.$backdrop.click($.proxy(this.hide, this))
+      }
+
+      if (doAnimate) this.$backdrop[0].offsetWidth // force reflow
+
+      this.$backdrop.addClass('in')
+
+      doAnimate ?
+        this.$backdrop.one($.support.transition.end, callback) :
+        callback()
+
+    } else if (!this.isShown && this.$backdrop) {
+      this.$backdrop.removeClass('in')
+
+      $.support.transition && this.$element.hasClass('fade')?
+        this.$backdrop.one($.support.transition.end, $.proxy(removeBackdrop, this)) :
+        removeBackdrop.call(this)
+
+    } else if (callback) {
+      callback()
+    }
+  }
+
+  function removeBackdrop() {
+    this.$backdrop.remove()
+    this.$backdrop = null
+  }
+
+  function escape() {
+    var that = this
+    if (this.isShown && this.options.keyboard) {
+      $(document).on('keyup.dismiss.modal', function ( e ) {
+        e.which == 27 && that.hide()
+      })
+    } else if (!this.isShown) {
+      $(document).off('keyup.dismiss.modal')
+    }
+  }
+
+
+ /* MODAL PLUGIN DEFINITION
+  * ======================= */
+
+  $.fn.modal = function (option) {
+    return this.each(function () {
+      var $this = $(this)
+        , data = $this.data('modal')
+        , options = $.extend({}, $.fn.modal.defaults, $this.data(), typeof option == 'object' && option)
+      if (!data) $this.data('modal', (data = new Modal(this, options)))
+      if (typeof option == 'string') data[option]()
+      else if (options.show) data.show()
+    })
+  }
+
+  $.fn.modal.defaults = {
+      backdrop: true
+    , keyboard: true
+    , show: true
+  }
+
+  $.fn.modal.Constructor = Modal
+
+
+ /* MODAL DATA-API
+  * ============== */
+
+  $(function () {
+    $('body').on('click.modal.data-api', '[data-toggle="modal"]', function ( e ) {
+      var $this = $(this), href
+        , $target = $($this.attr('data-target') || (href = $this.attr('href')) && href.replace(/.*(?=#[^\s]+$)/, '')) //strip for ie7
+        , option = $target.data('modal') ? 'toggle' : $.extend({}, $target.data(), $this.data())
+
+      e.preventDefault()
+      $target.modal(option)
+    })
+  })
+
+}(window.jQuery);

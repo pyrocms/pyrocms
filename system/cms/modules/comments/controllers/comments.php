@@ -3,16 +3,16 @@
 /**
  * Comments controller (frontend)
  *
- * @author 		Phil Sturgeon, Yorick Peterse - PyroCMS Dev Team
- * @package 	PyroCMS
- * @subpackage 	Comments module
- * @category 	Modules
+ * @author 		Phil Sturgeon
+ * @author		PyroCMS Dev Team
+ * @package		PyroCMS\Core\Modules\Comments\Controllers
  */
-class Comments extends Public_Controller {
+class Comments extends Public_Controller
+{
 
 	/**
 	 * An array containing the validation rules
-	 * @access private
+	 * 
 	 * @var array
 	 */
 	private $validation_rules = array(
@@ -40,7 +40,7 @@ class Comments extends Public_Controller {
 
 	/**
 	 * Constructor method
-	 * @access public
+	 * 
 	 * @return void
 	 */
 	public function __construct()
@@ -55,10 +55,9 @@ class Comments extends Public_Controller {
 
 	/**
 	 * Create a new comment
-	 * @access public
-	 * @param string $module The module (what module?)
-	 * @param int $id The ID (what ID?)
-	 * @return void
+	 *
+	 * @param type $module The module that has a comment-able model.
+	 * @param int $id The id for the respective comment-able model of a module.
 	 */
 	public function create($module = 'home', $id = 0)
 	{
@@ -68,10 +67,10 @@ class Comments extends Public_Controller {
 		// Logged in? in which case, we already know their name and email
 		if ($this->ion_auth->logged_in())
 		{
-			$comment['user_id']	= $this->current_user->id;
-			$comment['name']	= $this->current_user->display_name;
-			$comment['email']	= $this->current_user->email;
-			$comment['website']	= $this->current_user->website;
+			$comment['user_id'] = $this->current_user->id;
+			$comment['name'] = $this->current_user->display_name;
+			$comment['email'] = $this->current_user->email;
+			$comment['website'] = $this->current_user->website;
 		}
 		else
 		{
@@ -82,19 +81,19 @@ class Comments extends Public_Controller {
 		// Set the validation rules
 		$this->form_validation->set_rules($this->validation_rules);
 
-		$comment['module']		= $module;
-		$comment['module_id']	= $id;
-		$comment['is_active']	= (bool) ((isset($this->current_user->group) && $this->current_user->group == 'admin') OR ! $this->settings->moderate_comments);
+		$comment['module'] = $module;
+		$comment['module_id'] = $id;
+		$comment['is_active'] = (bool) ((isset($this->current_user->group) && $this->current_user->group == 'admin') OR !$this->settings->moderate_comments);
 
 		// Validate the results
 		if ($this->form_validation->run())
 		{
 			// ALLOW ZEH COMMENTS!? >:D
 			$result = $this->_allow_comment();
-			
+
 			foreach ($comment as &$data)
 			{
-				// remove {pyro} tags and html
+				// Remove {pyro} tags and html
 				$data = escape_tags($data);
 			}
 
@@ -110,11 +109,11 @@ class Comments extends Public_Controller {
 				if ($comment_id = $this->comments_m->insert($comment))
 				{
 					// Approve the comment straight away
-					if ( ! $this->settings->moderate_comments OR (isset($this->current_user->group) && $this->current_user->group == 'admin'))
+					if (!$this->settings->moderate_comments OR (isset($this->current_user->group) && $this->current_user->group == 'admin'))
 					{
 						$this->session->set_flashdata('success', lang('comments.add_success'));
-						
-						// add an event so third-party devs can hook on
+
+						// Add an event so third-party devs can hook on
 						Events::trigger('comment_approved', $comment);
 					}
 
@@ -125,14 +124,14 @@ class Comments extends Public_Controller {
 					}
 
 					$comment['comment_id'] = $comment_id;
-					
-					// if markdown is allowed we'll parse the body for the email
+
+					// If markdown is allowed we will parse the body for the email
 					if (Settings::get('comment_markdown'))
 					{
 						$comment['comment'] = parse_markdown($comment['comment']);
 					}
 
-					//send the notification email
+					// Send the notification email
 					$this->_send_email($comment);
 				}
 
@@ -144,7 +143,7 @@ class Comments extends Public_Controller {
 			}
 		}
 
-		// MEINE FREUHER, ZEH VALIDATION HAZ FAILED. BACK TO ZEH BUNKERZ!!!
+		// The validation has failed
 		else
 		{
 			$this->session->set_flashdata('error', validation_errors());
@@ -173,8 +172,7 @@ class Comments extends Public_Controller {
 
 	/**
 	 * Method to check whether we want to allow the comment or not
-	 *
-	 * @access private
+	 * 
 	 * @return array
 	 */
 	private function _allow_comment()
@@ -194,16 +192,16 @@ class Comments extends Public_Controller {
 			$this->load->library('akismet');
 
 			$comment = array(
-				'author'	=> $this->current_user ? $this->current_user->first_name . ' ' . $this->current_user->last_name : $this->input->post('name'),
-				'email'		=> $this->current_user ? $this->current_user->email : $this->input->post('email'),
-				'website'	=> $this->current_user ? $this->current_user->website : $this->input->post('website'),
-				'body'		=> $this->input->post('body')
+				'author' => $this->current_user ? $this->current_user->first_name.' '.$this->current_user->last_name : $this->input->post('name'),
+				'email' => $this->current_user ? $this->current_user->email : $this->input->post('email'),
+				'website' => $this->current_user ? $this->current_user->website : $this->input->post('website'),
+				'body' => $this->input->post('body')
 			);
 
 			$config = array(
-				'blog_url'	=> BASE_URL,
-				'api_key'	=> $this->settings->item('akismet_api_key'),
-				'comment'	=> $comment
+				'blog_url' => BASE_URL,
+				'api_key' => $this->settings->item('akismet_api_key'),
+				'comment' => $comment
 			);
 
 			$this->akismet->init($config);
@@ -226,8 +224,8 @@ class Comments extends Public_Controller {
 	/**
 	 * Send an email
 	 *
-	 * @access private
-	 * @return void
+	 * @param array $comment The comment data.
+	 * @return boolean 
 	 */
 	private function _send_email($comment = array())
 	{
@@ -235,12 +233,12 @@ class Comments extends Public_Controller {
 		$this->load->library('user_agent');
 
 		// Add in some extra details
-		$comment['slug']			= 'comments';
-		$comment['sender_agent']	= $this->agent->browser() . ' ' . $this->agent->version();
-		$comment['sender_ip']		= $this->input->ip_address();
-		$comment['sender_os']		= $this->agent->platform();
-		$comment['redirect_url']	= anchor(ltrim($comment['redirect_to'], '/') . '#' . $comment['comment_id']);
-		$comment['reply-to']		= $comment['email'];
+		$comment['slug'] = 'comments';
+		$comment['sender_agent'] = $this->agent->browser().' '.$this->agent->version();
+		$comment['sender_ip'] = $this->input->ip_address();
+		$comment['sender_os'] = $this->agent->platform();
+		$comment['redirect_url'] = anchor(ltrim($comment['redirect_to'], '/').'#'.$comment['comment_id']);
+		$comment['reply-to'] = $comment['email'];
 
 		//trigger the event
 		return (bool) Events::trigger('email', $comment);

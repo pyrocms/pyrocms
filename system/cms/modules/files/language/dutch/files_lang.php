@@ -6,93 +6,107 @@
  * An open source CMS based on CodeIgniter
  *
  * @package		PyroCMS
- * @author		PyroCMS Dev Team
+ * @author		Jerel Unruh - PyroCMS Dev Team
  * @license		Apache License v2.0
  * @link		http://pyrocms.com
  * @since		Version 1.0-dev
  * @filesource
  */
 
+// General
+$lang['files:files_title']					= 'Bestanden';
+$lang['files:fetching']						= 'Gegevens ophalen...';
+$lang['files:fetch_completed']				= 'Gereed';
+$lang['files:save_failed']					= 'Sorry. De veranderingen konden niet worden opgeslagen';
+$lang['files:item_created']					= '"%s" is aangemaakt';
+$lang['files:item_updated']					= '"%s" is gewijzigd';
+$lang['files:item_deleted']					= '"%s" is verwijderd';
+$lang['files:item_not_deleted']				= '"%s" kon niet worden verwijderd';
+$lang['files:item_not_found']				= 'Sorry. "%s" kan niet worden gevonden';
+$lang['files:sort_saved']					= 'Sorteer volgorde opgeslagen';
+$lang['files:no_permissions']				= 'U heeft niet de juiste rechten';
+
+// Labels
+$lang['files:activity']						= 'Activiteit';
+$lang['files:places']						= 'Plaatsen';
+$lang['files:back']							= 'Terug';
+$lang['files:forward']						= 'Volgende';
+$lang['files:start']						= 'Start Upload';
+$lang['files:details']						= 'Details';
+$lang['files:name']							= 'Naam';
+$lang['files:slug']							= 'Slug';
+$lang['files:path']							= 'Pad';
+$lang['files:added']						= 'Datum toegevoegd';
+$lang['files:width']						= 'Breedte';
+$lang['files:height']						= 'Hoogte';
+$lang['files:ratio']						= 'Ratio';
+$lang['files:full_size']					= 'Vollig formaat';
+$lang['files:filename']						= 'Bestandsnaam';
+$lang['files:filesize']						= 'Bestandsgrootte';
+$lang['files:download_count']				= 'Keren gedownload';
+$lang['files:download']						= 'Download';
+$lang['files:location']						= 'Locatie';
+$lang['files:description']					= 'Omschrijving';
+$lang['files:container']					= 'Container';
+$lang['files:bucket']						= 'Bucket';
+$lang['files:check_container']				= 'Controleer geldigheid';
+$lang['files:search_message']				= 'Type en druk op Enter';
+$lang['files:search']						= 'Zoeken';
+$lang['files:synchronize']					= 'Synchroniseren';
+$lang['files:uploader']						= 'Plaats bestanden hier <br />of<br />Selecteer bestanden';
+
+// Context Menu
+$lang['files:open']							= 'Open';
+$lang['files:new_folder']					= 'Nieuwe map';
+$lang['files:upload']						= 'Upload';
+$lang['files:rename']						= 'Hernoem';
+$lang['files:delete']						= 'Verwijder';
+$lang['files:edit']							= 'Wijzig';
+$lang['files:details']						= 'Details';
+
+// Folders
+$lang['files:no_folders']					= 'Bestanden en mappen werken net als op uw desktop. Klik met uw rechtermuisknop in het gebied onder dit bericht. Klik dan met uw rechtermuisknop op een folder om deze te hernoemen, verwijderen, bestanden in te uploaden of gegevens te veranderen zoals het linken met een cloud locatie.';
+$lang['files:no_folders_places']			= 'Mappen die u aanmaakt worden hier weergeven in een boomstructuur die u kunt inklappen en uitklappen. Klik op "Locaties" om de root map te bekijken.';
+$lang['files:no_folders_wysiwyg']			= 'Er zijn nog geen mappen gemaakt';
+$lang['files:new_folder_name']				= 'Naamloze map';
+$lang['files:folder']						= 'Map';
+$lang['files:folders']						= 'Mappen';
+$lang['files:select_folder']				= 'Selecteer een map';
+$lang['files:subfolders']					= 'Submap';
+$lang['files:root']							= 'Root';
+$lang['files:no_subfolders']				= 'Geen Submappen';
+$lang['files:folder_not_empty']				= 'U moet eerst de map "%s" leegmaken';
+$lang['files:mkdir_error']					= 'De map %s kan niet worden gemaakt. U moet deze handmatig maken.';
+$lang['files:chmod_error']					= 'De upload locatie is niet schrijfbaar. Het moet 0777 zijn';
+$lang['files:location_saved']				= 'De map locatie is opgeslagen';
+$lang['files:container_exists']				= '"%s" bestaat. Sla op om de inhoud te linken naar deze folder';
+$lang['files:container_not_exists']			= '"%s" bestaat niet in uw account. Sla op en wij proberen deze aan te maken';
+$lang['files:error_container']				= '"%s" kan niet worden gemaakt en er is niet duidelijk waarom niet';
+$lang['files:container_created']			= '"%s" is gemaakt en gelinkt naar deze map';
+$lang['files:unwritable']					= '"%s" is niet schrijfbaar, verander de rechten naar 0777 a.u.b.';
+$lang['files:specify_valid_folder']			= 'U moet een folder defineren om het bestand naar te uploaden';
+$lang['files:enable_cdn']					= 'U moet CDN inschakelen voor "%s" via uw Rackspace control panel voordat we kunnen synchroniseren';
+$lang['files:synchronization_started']		= 'Starten met synchroniseren';
+$lang['files:synchronization_complete']		= 'synchroniseren voor "%s" is gereed';
+$lang['files:untitled_folder']				= 'Naamloze map';
+
 // Files
-
-// Titles
-$lang['files.files_title']					= 'Bestanden';
-$lang['files.upload_title']					= 'Upload Bestanden';
-$lang['files.edit_title']					= 'Bewerk bestand "%s"';
-
-// Labels
-$lang['files.download_label']				= 'Download';
-$lang['files.upload_label']					= 'Upload';
-$lang['files.description_label']			= 'Beschrijving';
-$lang['files.type_label']					= 'Type';
-$lang['files.file_label']					= 'Bestand';
-$lang['files.filename_label']				= 'Bestandsnaam';
-$lang['files.filter_label']					= 'Filter';
-$lang['files.loading_label']				= 'Laden...';
-$lang['files.name_label']					= 'Naam';
-
-$lang['files.dropdown_select']				= '-- Select Folder For Upload --'; #translate
-$lang['files.dropdown_no_subfolders']		= '-- Geen --';
-$lang['files.dropdown_root']				= '-- Root --';
-
-$lang['files.type_a']						= 'Audio';
-$lang['files.type_v']						= 'Video';
-$lang['files.type_d']						= 'Document';
-$lang['files.type_i']						= 'Afbeelding';
-$lang['files.type_o']						= 'Anders';
-
-$lang['files.display_grid']					= 'Rooster';
-$lang['files.display_list']					= 'Lijst';
-
-// Messages
-$lang['files.create_success']				= 'Het bestand is nu opgeslagen.';
-$lang['files.create_error']					= 'Een fout is opgetreden.';
-$lang['files.edit_success']					= 'Het bestand is opgeslagen.';
-$lang['files.edit_error']					= 'Er is een fout opgetreden bij het opslaan van het ​​bestand.';
-$lang['files.delete_success']				= 'Het bestand is verwijderd.';
-$lang['files.delete_error']					= 'Het bestand kon niet worden verwijderd.';
-$lang['files.mass_delete_success']			= '%d van de %d bestanden werden met succes verwijderd, ze waren "%s en %s"';
-$lang['files.mass_delete_error']			= 'Er is een fout opgetreden bij het verwijderen van %d van de %d bestanden, ze waren "%s en %s".';
-$lang['files.upload_error']					= 'Een bestand moet worden geüpload.';
-$lang['files.invalid_extension']			= 'Het bestand moet een geldige extensie hebben.';
-$lang['files.not_exists']					= 'Een ongeldige map is geselecteerd.';
-$lang['files.no_files']						= 'Er zijn momenteel geen bestanden.';
-$lang['files.no_permissions']				= 'U heeft geen rechten om de bestanden-module te zien.';
-$lang['files.no_select_error'] 				= 'U moet eerst een bestand selecteren.';
-
-// File folders
-
-// Titles
-$lang['file_folders.folders_title']			= 'Bestandsmappen';
-$lang['file_folders.manage_title']			= 'Beheer mappen';
-$lang['file_folders.create_title']			= 'Nieuwe map';
-$lang['file_folders.delete_title']			= 'Bevestig verwijderen';
-$lang['file_folders.edit_title']			= 'Bewerk map "%s"';
-
-// Labels
-$lang['file_folders.folders_label']			= 'Mappen';
-$lang['file_folders.folder_label']			= 'Map';
-$lang['file_folders.subfolders_label']		= 'Submappen';
-$lang['file_folders.parent_label']			= 'Bovenliggend';
-$lang['file_folders.name_label']			= 'Naam';
-$lang['file_folders.slug_label']			= 'URI';
-$lang['file_folders.created_label']			= 'Gemaakt Op';
-
-// Messages
-$lang['file_folders.create_success']		= 'De map is opgeslagen.';
-$lang['file_folders.create_error']			= 'Een fout is opgetreden tijdens een poging om de map te maken.';
-$lang['file_folders.duplicate_error']		= 'De map genaamd "%s" bestaat al.';
-$lang['file_folders.edit_success']			= 'De map is opgeslagen.';
-$lang['file_folders.edit_error']			= 'Er is een fout opgetreden tijdens het proberen om de wijzigingen op te slaan.';
-$lang['file_folders.confirm_delete']		= 'Weet u zeker dat u de mappen hieronder wilt verwijderen, inclusief alle bestanden en submappen erin?';
-$lang['file_folders.delete_mass_success']	= '%d van de %d mappen zijn verwijderd ze waren "%s en %s.';
-$lang['file_folders.delete_mass_error']		= 'Er is een fout opgetreden bij het verwijderen van %d van de %d mappen, ze zijn "%s en %s".';
-$lang['file_folders.delete_success']		= 'De folder "%s" is verwijderd.';
-$lang['file_folders.delete_error']			= 'Er is een fout opgetreden tijdens het proberen om de map "%s" te verwijderen.';
-$lang['file_folders.not_exists']			= 'Deze map bestaat niet.';
-$lang['file_folders.no_subfolders']			= 'Geen';
-$lang['file_folders.no_folders']			= 'Er zijn geen mappen.';
-$lang['file_folders.mkdir_error']			= 'Kon geen upload/bestandmap aanmaken';
-$lang['file_folders.chmod_error']			= 'Kon de machtigingen op de upload/bestandmap niet toepassen';
+$lang['files:no_files']						= 'Geen bestanden gevonden';
+$lang['files:file_uploaded']				= '"%s" is geupload';
+$lang['files:unsuccessful_fetch']			= 'We konden "%s niet ophalen". Weet u zeker dat dit een publieke map is?';
+$lang['files:invalid_container']			= '"%s" blijkt geen goede container te zijn.';
+$lang['files:no_records_found']				= 'Geen resultaten gevonden';
+$lang['files:invalid_extension']			= '"%s" heeft een ongeldige bestandsextensie';
+$lang['files:upload_error']					= 'Het uploaden is mislukt';
+$lang['files:description_saved']			= 'De bestandomschrijving is opgeslagen';
+$lang['files:file_moved']					= '"%s" is verplaatst';
+$lang['files:exceeds_server_setting']		= 'De server kan deze bestandsgrootte niet aan';
+$lang['files:exceeds_allowed']				= 'Bestandsgrootte is te groot';
+$lang['files:file_type_not_allowed']		= 'Dit type bestand is niet toegestaan';
+$lang['files:type_a']						= 'Audio';
+$lang['files:type_v']						= 'Video';
+$lang['files:type_d']						= 'Document';
+$lang['files:type_i']						= 'Afbeelding';
+$lang['files:type_o']						= 'Anders';
 
 /* End of file files_lang.php */

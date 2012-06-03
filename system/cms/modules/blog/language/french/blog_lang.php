@@ -1,7 +1,7 @@
 <?php
 
 // labels
-$lang['blog_posted_label'] 							= 'Envoyé vers';
+$lang['blog_posted_label'] 							= 'Posté le';
 $lang['blog_posted_label_alt']						= 'Envoyé à';
 $lang['blog_written_by_label']				= 'Écrit par';
 $lang['blog_author_unknown']				= 'Inconnu';
@@ -62,6 +62,6 @@ $lang['blog_twitter_posted'] 						= 'Envoyé "%s" %s';
 $lang['blog_twitter_error'] 						= 'Erreur Twitter';
 
 // date
-$lang['blog_archive_date_format']		= "%B' %Y"; #translate format - see php strftime documentation
+$lang['blog_archive_date_format']		= "%B' %Y";
 
 ?>

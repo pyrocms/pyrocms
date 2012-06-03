@@ -2,10 +2,9 @@
 /**
  * Permission model
  *
- * @author Phil Sturgeon - PyroCMS Dev Team
- * @package PyroCMS
- * @subpackage Permissions module
- * @category Modules
+ * @author Phil Sturgeon
+ * @author		PyroCMS Dev Team
+ * @package		PyroCMS\Core\Modules\Permissions\Models
  *
  */
 class Permission_m extends CI_Model
@@ -13,11 +12,10 @@ class Permission_m extends CI_Model
 	private $_groups = array();
 
 	/**
-	 * Get a rule based on the ID
+	 * Get the permission rules for a group.
 	 *
-	 * @access public
-	 * @param int $id The ID
-	 * @return mixed
+	 * @param int $group_id The id for the group.
+	 * @return array
 	 */
 	public function get_group($group_id)
 	{
@@ -27,30 +25,33 @@ class Permission_m extends CI_Model
 			return $this->_groups[$group_id];
 		}
 
+		// Execute the query
 		$result = $this->db
 			->where('group_id', $group_id)
 			->get('permissions')
 			->result();
 
-		$permissions = array();
+		// Store the final rules here
+		$rules = array();
+
 		foreach ($result as $row)
 		{
 			// Either pass roles or just TRUE
-			$permissions[$row->module] = $row->roles ? json_decode($row->roles) : TRUE;
+			$rules[$row->module] = $row->roles ? json_decode($row->roles, true) : TRUE;
 		}
 
 		// Save this result for later
-		$this->_groups[$group_id] = $permissions;
+		$this->_groups[$group_id] = $rules;
 
-		return $permissions;
+		return $rules;
 	}
-	
+
 	/**
 	 * Get a rule based on the ID
 	 *
-	 * @access public
-	 * @param int $id The ID
-	 * @return mixed
+	 * @param int $group_id The id for the group to get the rule for.
+	 * @param null|string $module The module to check access against
+	 * @return bool
 	 */
 	public function check_access($group_id, $module = NULL)
 	{
@@ -66,41 +67,44 @@ class Permission_m extends CI_Model
 	}
 
 	/**
-	 * Get a rule based on the ID
+	 * Save the permissions passed
 	 *
-	 * @access public
-	 * @param int $id The ID
-	 * @return mixed
+	 * @param int $group_id
+	 * @param array $modules
+	 * @param array $module_roles
+	 * @return bool
 	 */
-	function save($group_id, $modules, $module_roles)
+	public function save($group_id, $modules, $module_roles)
 	{
 		// Clear out the old permissions
 		$this->db->where('group_id', $group_id)->delete('permissions');
 
 		if ($modules)
 		{
-			// For each module mentioned (with a value of 1 for most browser compatibility
+			// For each module mentioned (with a value of 1 for most browser compatibility).
 			foreach ($modules as $module => $permission)
 			{
 				if ( ! empty($permission))
 				{
-					// Save this module in the list of "allowed modules"
-					$result = $this->db->insert('permissions', array(
+					$data = array(
 						'module' => $module,
 						'group_id' => $group_id,
 						'roles' => ! empty($module_roles[$module]) ? json_encode($module_roles[$module]) : NULL,
-					));
+					);
 
-					// Fail, give up trying
-					if ( ! $result)
+					// Save this module in the list of "allowed modules"
+					if ( ! $result = $this->db->insert('permissions', $data))
 					{
+						// Fail, give up trying
 						return FALSE;
 					}
 				}
 			}
+			// All done!
+			return TRUE;
 		}
 
-		return TRUE;
+		return FALSE;
 	}
 
 }

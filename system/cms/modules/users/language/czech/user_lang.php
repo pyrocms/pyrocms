@@ -1,5 +1,13 @@
 <?php
 
+$lang['user_add_field']                        	= 'Add User Profile Field'; #translate
+$lang['user_profile_delete_success']           	= 'User profile field deleted successfully'; #translate
+$lang['user_profile_delete_failure']            = 'There was a problem with deleting your user profile field'; #translate
+$lang['profile_user_basic_data_label']  		= 'Basic Data'; #translate
+$lang['profile_company']         	  			= 'Company'; #translate
+$lang['profile_updated_on']           			= 'Updated On'; #translate
+$lang['user_profile_fields_label']	 		 	= 'Profile Fields'; #translate`
+
 $lang['user_register_header'] 			= 'Registrace';
 $lang['user_register_step1'] 			= '<strong>Krok 1:</strong> Registrace';
 $lang['user_register_step2'] 			= '<strong>Krok 2:</strong> Aktivace';
@@ -71,6 +79,7 @@ $lang['user_reset_password_link'] 		= 'Zapomněl/a jste heslo?';
 
 $lang['user_activation_code_sent_notice']	= 'E-mail s odkazem na obnovení hesla byl odeslán';
 $lang['user_activation_by_admin_notice'] 	= 'Vaše registrace čeká na schválení administrátorem.';
+$lang['user_registration_disabled']            = 'Sorry, but the user registration is disabled.'; #translate
 
 // -- Settings ---------------------------------------------------------------------------------------------
 

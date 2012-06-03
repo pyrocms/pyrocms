@@ -5,6 +5,11 @@ $lang['redirects.from']                      = 'Fra';
 $lang['redirects.to']                        = 'til';
 $lang['redirects.edit']                      = 'Redigér';
 $lang['redirects.delete']                    = 'Slet';
+$lang['redirects.type']						= 'Type'; #translate
+
+// redirect types
+$lang['redirects.301']						= '301 - Moved Permanently'; #translate
+$lang['redirects.302']						= '302 - Moved Temporarily'; #translate
 
 // titles
 $lang['redirects.add_title']                 = 'Tilføj omadressering';

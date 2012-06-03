@@ -2,32 +2,27 @@
 /**
  * Admin controller for the themes module
  *
- * @author 		PyroCMS Dev Team
- * @package 	PyroCMS
- * @subpackage 	Themes module
- * @category	Modules
+ * @author PyroCMS Dev Team
+ * @package PyroCMS\Core\Modules\Themes\Controllers
  */
 class Admin extends Admin_Controller
 {
 	/**
 	 * The current active section
-	 * @access protected
+	 *
 	 * @var string
 	 */
 	protected $section = 'themes';
 
 	/**
 	 * Validation array
-	 * @access private
+	 *
 	 * @var array
 	 */
 	private $validation_rules = array();
-	
+
 	/**
 	 * Constructor method
-	 *
-	 * @access public
-	 * @return void
 	 */
 	public function __construct()
 	{
@@ -37,23 +32,18 @@ class Admin extends Admin_Controller
 		$this->lang->load('themes');
 		$this->load->library('form_validation');
 
-		$this->template
-			->append_metadata(css('themes.css', 'themes'))
-			->append_metadata(js('admin.js', 'themes'));
+		$this->template->append_css('module::themes.css');
 	}
 
 	/**
 	 * List all themes
-	 *
-	 * @access public
-	 * @return void
 	 */
 	public function index()
 	{
 		$themes = $this->theme_m->get_all();
-		
+
 		$data = array();
-		
+
 		foreach ($themes as $theme)
 		{
 			if ( ! isset($theme->type) OR $theme->type != 'admin')
@@ -62,7 +52,7 @@ class Admin extends Admin_Controller
 				{
 					$theme->is_default = TRUE;
 				}
-				
+
 				$data['themes'][] = $theme;
 			}
 		}
@@ -72,88 +62,89 @@ class Admin extends Admin_Controller
 			->title($this->module_details['name'])
 			->build('admin/index', $data);
 	}
-	
+
 	/**
 	 * Save the option settings
 	 *
-	 * @param 	string	$slug	The theme slug
-	 * @access public
-	 * @return void
+	 * @param string $slug The theme slug
 	 */
 	public function options($slug = '')
 	{
 		if ($this->input->post('btnAction') == 're-index')
 		{
 			$this->theme_m->delete_options($this->input->post('slug'));
-			
+
 			// now re-index all themes that don't have saved options
 			if ($this->theme_m->get_all())
 			{
 				// Success...
 				$this->session->set_flashdata('success', lang('themes.re-index_success'));
-				
+
 				redirect('admin/themes/options/'.$slug);
 			}
 		}
-		
-		$all_options 	= $this->theme_m->get_options_by(array('theme'=> $slug));
-		$options_array 	= array();
+
+		$all_options = $this->theme_m->get_options_by(array('theme' => $slug));
+
+		$options_array = array();
 
 		if ($all_options)
 		{
 			// Create dynamic validation rules
-			foreach($all_options as $option)
+			foreach ($all_options as $option)
 			{
 				$this->validation_rules[] = array(
-					'field' => $option->slug . (in_array($option->type, array('select-multiple', 'checkbox')) ? '[]' : ''),
+					'field' => $option->slug.(in_array($option->type, array('select-multiple', 'checkbox')) ? '[]' : ''),
 					'label' => $option->title,
-					'rules' => 'trim' . ($option->is_required ? '|required' : '') . '|max_length[255]'
+					'rules' => 'trim'.($option->is_required ? '|required' : '').'|max_length[255]'
 				);
-	
+
 				$options_array[$option->slug] = $option->value;
 			}
 
 			// Set the validation rules
 			$this->form_validation->set_rules($this->validation_rules);
-	
+
 			// Got valid data?
 			if ($this->form_validation->run())
 			{
 				// Loop through again now we know it worked
-				foreach($options_array as $option_slug => $stored_value)
+				foreach ($options_array as $option_slug => $stored_value)
 				{
 					$input_value = $this->input->post($option_slug, FALSE);
-	
+
 					if (is_array($input_value))
 					{
 						$input_value = implode(',', $input_value);
 					}
-	
+
 					// Dont update if its the same value
 					if ($input_value !== $stored_value)
 					{
 						$this->theme_m->update_options($option_slug, array('value' => $input_value));
 					}
 				}
-	
+
+				// Fire an event. Theme options have been updated.
+				Events::trigger('theme_options_updated', $options_array);
+
+				// Success...
 				$this->session->set_flashdata('success', lang('themes.save_success'));
-				
+
 				redirect('admin/themes/options/'.$slug);
+
 			}
 		}
-		
-		$data->slug			= $slug;
-		$data->options_array 	= $all_options;
-		$data->controller		= &$this;
+
+		$data->slug = $slug;
+		$data->options_array = $all_options;
+		$data->controller = &$this;
 
 		$this->template->build('admin/options', $data);
 	}
 
 	/**
 	 * Set the default theme to theme X
-	 *
-	 * @access public
-	 * @return void
 	 */
 	public function set_default()
 	{
@@ -163,27 +154,27 @@ class Admin extends Admin_Controller
 		// Set the theme
 		if ($this->theme_m->set_default($this->input->post()))
 		{
+			// Fire an event. A default theme has been set.
+			Events::trigger('theme_set_default', $theme);
+
 			$this->session->set_flashdata('success', sprintf(lang('themes.set_default_success'), $theme));
 		}
 
 		else
 		{
-			$this->session->set_flashdata('error', sprintf( lang('themes.set_default_error'), $theme));
+			$this->session->set_flashdata('error', sprintf(lang('themes.set_default_error'), $theme));
 		}
 
 		if ($this->input->post('method') == 'admin_themes')
 		{
 			redirect('admin/themes/admin_themes');
 		}
-		
+
 		redirect('admin/themes');
 	}
 
 	/**
 	 * Upload a theme to the server
-	 *
-	 * @access public
-	 * @return void
 	 */
 	public function upload()
 	{
@@ -192,12 +183,12 @@ class Admin extends Admin_Controller
 			show_error('Uploading add-ons has been disabled for this site. Please contact your administrator');
 		}
 
-		if($this->input->post('btnAction') == 'upload')
+		if ($this->input->post('btnAction') == 'upload')
 		{
-			$config['upload_path'] 		= FCPATH.UPLOAD_PATH;
-			$config['allowed_types'] 	= 'zip';
-			$config['max_size']			= '2048';
-			$config['overwrite'] 		= TRUE;
+			$config['upload_path'] = FCPATH.UPLOAD_PATH;
+			$config['allowed_types'] = 'zip';
+			$config['max_size'] = '2048';
+			$config['overwrite'] = TRUE;
 
 			$this->load->library('upload', $config);
 
@@ -206,7 +197,7 @@ class Admin extends Admin_Controller
 				$upload_data = $this->upload->data();
 
 				// Check if we already have a dir with same name
-				if($this->template->theme_exists($upload_data['raw_name']))
+				if ($this->template->theme_exists($upload_data['raw_name']))
 				{
 					$this->session->set_flashdata('error', lang('themes.already_exists_error'));
 				}
@@ -215,12 +206,12 @@ class Admin extends Admin_Controller
 				{
 					// Now try to unzip
 					$this->load->library('unzip');
-					
+
 					// TODO: Work out a better security plan, adding .php back for now (2.0)
 					$this->unzip->allow(array('php', 'xml', 'html', 'css', 'js', 'png', 'gif', 'jpeg', 'jpg', 'swf', 'ico', 'txt', 'eot', 'svg', 'ttf', 'woff'));
 
 					// Try and extract
-					$this->unzip->extract($upload_data['full_path'], ADDONPATH . 'themes/' )
+					$this->unzip->extract($upload_data['full_path'], ADDONPATH.'themes/')
 						? $this->session->set_flashdata('success', lang('themes.upload_success'))
 						: $this->session->set_flashdata('error', $this->unzip->error_string());
 				}
@@ -240,14 +231,16 @@ class Admin extends Admin_Controller
 		$this->template
 			->set_layout('modal')
 			->title($this->module_details['name'], lang('themes.upload_title'))
-			->build('admin/upload', $this->data);
+			->build('admin/upload');
 	}
 
 	/**
 	 * Delete an existing theme
 	 *
 	 * @access public
+	 *
 	 * @param string $theme_name The name of the theme to delete
+	 *
 	 * @return void
 	 */
 	public function delete($theme_name = '')
@@ -260,12 +253,14 @@ class Admin extends Admin_Controller
 		{
 			$deleted = 0;
 			$to_delete = 0;
+			$deleted_names = array();
+
 			foreach ($name_array as $theme_name)
 			{
 				$theme_name = urldecode($theme_name);
 				$to_delete++;
 
-				if($this->settings->default_theme == $theme_name)
+				if ($this->settings->default_theme == $theme_name)
 				{
 					$this->session->set_flashdata('error', lang('themes.default_delete_error'));
 				}
@@ -274,26 +269,30 @@ class Admin extends Admin_Controller
 				{
 					$theme_dir = ADDONPATH.'themes/'.$theme_name;
 
-					if( is_really_writable($theme_dir) )
+					if (is_really_writable($theme_dir))
 					{
 						delete_files($theme_dir, TRUE);
 
-						if(@rmdir($theme_dir))
+						if (@rmdir($theme_dir))
 						{
 							$deleted++;
+							$deleted_names[] = $theme_name;
 						}
 					}
 
 					else
 					{
-						$this->session->set_flashdata('error', sprintf(lang('themes.delete_error'), $theme_dir) );
+						$this->session->set_flashdata('error', sprintf(lang('themes.delete_error'), $theme_dir));
 					}
 				}
 			}
 
-			if( $deleted == $to_delete)
+			if ($deleted == $to_delete)
 			{
-				$this->session->set_flashdata('success', sprintf(lang('themes.mass_delete_success'), $deleted, $to_delete) );
+				// Fire an event. One or more themes have been deleted.
+				Events::trigger('theme_deleted', $deleted_names);
+
+				$this->session->set_flashdata('success', sprintf(lang('themes.mass_delete_success'), $deleted, $to_delete));
 			}
 		}
 
@@ -304,13 +303,15 @@ class Admin extends Admin_Controller
 
 		redirect('admin/themes');
 	}
-	
+
 	/**
 	 * Form Control
 	 *
 	 * Returns the form control for the theme option
+	 * @todo: Code duplication, see modules/settings/libraries/Settings.php @ form_control().
 	 *
 	 * @param	object	$option
+	 *
 	 * @return	string
 	 */
 	public function form_control(&$option)
@@ -325,7 +326,7 @@ class Admin extends Admin_Controller
 				}
 				else
 				{
-					$option->options = array('=' . lang('global:select-none'));
+					$option->options = array('='.lang('global:select-none'));
 				}
 			}
 
@@ -340,28 +341,28 @@ class Admin extends Admin_Controller
 			default:
 			case 'text':
 				$form_control = form_input(array(
-					'id'	=> $option->slug,
-					'name'	=> $option->slug,
-					'value'	=> $option->value,
-					'class'	=> 'text width-20'
+					'id' => $option->slug,
+					'name' => $option->slug,
+					'value' => $option->value,
+					'class' => 'text width-20'
 				));
 				break;
 
 			case 'textarea':
 				$form_control = form_textarea(array(
-					'id'	=> $option->slug,
-					'name'	=> $option->slug,
-					'value'	=> $option->value,
-					'class'	=> 'width-20'
+					'id' => $option->slug,
+					'name' => $option->slug,
+					'value' => $option->value,
+					'class' => 'width-20'
 				));
 				break;
 
 			case 'password':
 				$form_control = form_password(array(
-					'id'	=> $option->slug,
-					'name'	=> $option->slug,
-					'value'	=> $option->value,
-					'class'	=> 'text width-20',
+					'id' => $option->slug,
+					'name' => $option->slug,
+					'value' => $option->value,
+					'class' => 'text width-20',
 					'autocomplete' => 'off',
 				));
 				break;
@@ -373,7 +374,7 @@ class Admin extends Admin_Controller
 			case 'select-multiple':
 				$options = $this->_format_options($option->options);
 				$size = sizeof($options) > 10 ? ' size="10"' : '';
-				$form_control = form_multiselect($option->slug . '[]', $options, explode(',', $option->value), 'class="width-20"' . $size);
+				$form_control = form_multiselect($option->slug.'[]', $options, explode(',', $option->value), 'class="width-20"'.$size);
 				break;
 
 			case 'checkbox':
@@ -393,13 +394,13 @@ class Admin extends Admin_Controller
 					}
 
 					$form_control .= '<label>';
-					$form_control .= '' . form_checkbox(array(
-						'id'		=> $option->slug . '_' . $value,
-						'name'		=> $option->slug . '[]',
-						'checked'	=> $checked,
-						'value'		=> $value
+					$form_control .= ''.form_checkbox(array(
+						'id' => $option->slug.'_'.$value,
+						'name' => $option->slug.'[]',
+						'checked' => $checked,
+						'value' => $value
 					));
-					$form_control .= ' ' . $label . '</label>';
+					$form_control .= ' '.$label.'</label>';
 				}
 				break;
 
@@ -408,26 +409,27 @@ class Admin extends Admin_Controller
 				$form_control = '';
 				foreach ($this->_format_options($option->options) as $value => $label)
 				{
-					$form_control .= '' . form_radio(array(
-						'id'		=> $option->slug,
-						'name'		=> $option->slug,
-						'checked'	=> $option->value == $value,
-						'value'		=> $value
-					)) . ' ' . $label . '';
+					$form_control .= ''.form_radio(array(
+						'id' => $option->slug,
+						'name' => $option->slug,
+						'checked' => $option->value == $value,
+						'value' => $value
+					)).' '.$label.'';
 				}
 				break;
 		}
 
 		return $form_control;
 	}
-	
+
 	/**
 	 * Format Options
 	 *
 	 * Formats the options for a theme option into an associative array.
 	 *
-	 * @param	array	$options
-	 * @return	array
+	 * @param array $options
+	 *
+	 * @return array
 	 */
 	private function _format_options($options = array())
 	{
@@ -436,8 +438,10 @@ class Admin extends Admin_Controller
 		foreach ($options as $option)
 		{
 			list($value, $name) = explode('=', $option);
-
-			$select_array[$value] = $name;
+			// todo: Maybe we should remove the trim()'s
+			// since this will affect only people who have had the base
+			// theme installed in the past.
+			$select_array[trim($value)] = trim($name);
 		}
 
 		return $select_array;

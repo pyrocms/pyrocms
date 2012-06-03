@@ -1,32 +1,32 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // Labels
-$lang['templates.language_label']			= 'Language'; #translate
-$lang['templates.choose_lang_label']		= 'Choose language'; #translate
-$lang['templates.subject_label']			= 'Subject'; #translate
-$lang['templates.body_label']				= 'Body'; #translate
-$lang['templates.slug_label']				= 'Slug'; #translate
+$lang['templates.language_label']			= 'Lingua';
+$lang['templates.choose_lang_label']		= 'Scegli lingua';
+$lang['templates.subject_label']			= 'Oggetto';
+$lang['templates.body_label']				= 'Corpo del messaggio';
+$lang['templates.slug_label']				= 'Slug';
 
 // Titles
-$lang['templates.create_title']				= 'Create template'; #translate
-$lang['templates.edit_title']				= 'Editing template "%s"'; #translate
-$lang['templates.clone_title']				= 'Coping template "%s"'; #translate
-$lang['templates.list_title']				= 'List templates'; #translate
-$lang['templates.default_title']			= 'Default templates'; #translate
-$lang['templates.user_defined_title']		= 'User defined templates'; #translate
+$lang['templates.create_title']				= 'Crea template';
+$lang['templates.edit_title']				= 'Modifica template "%s"';
+$lang['templates.clone_title']				= 'Copia template "%s"'; 
+$lang['templates.list_title']				= 'Lista template';
+$lang['templates.default_title']			= 'Template di default';
+$lang['templates.user_defined_title']		= 'Template definiti dall\'utente';
 
 // Messages
-$lang['templates.tmpl_create_success']		= 'Email template "%s" has been saved.'; #translate
-$lang['templates.tmpl_create_error']		= 'Email template "%s" was not saved.'; #translate
-$lang['templates.tmpl_edit_success']		= 'Changes made to email template "%s" has been saved.'; #translate
-$lang['templates.tmpl_edit_error']			= 'Changes made to email template "%s" was not saved.'; #translate
-$lang['templates.tmpl_clone_success']		= '"%s" has been cloned. You may now edit the template to your liking.'; #translate
-$lang['templates.tmpl_clone_error']			= '"%s" was unable to be cloned.  Please try again.'; #translate
-$lang['templates.single_delete_success']	= 'The email template has been deleted.'; #translate
-$lang['templates.mass_delete_success']		= '%s email templates out of %s successfully deleted.'; #translate
-$lang['templates.mass_delete_error'] 		= 'Error occurred while trying to delete email template "%s".'; #translate
-$lang['templates.default_delete_error'] 	= 'Error occurred, default email templates can not be removed.'; #translate
-$lang['templates.no_select_error'] 			= 'You need to select email templates first.'; #translate
-$lang['templates.already_exist_error']		= 'A email template with the name "%s" already exists.'; #translate
+$lang['templates.tmpl_create_success']		= 'Il template email "%s" &eacuta; stato salvato.';
+$lang['templates.tmpl_create_error']		= 'Il template email "%s" non &eacuta; stato salvato.';
+$lang['templates.tmpl_edit_success']		= 'Le modifiche effettuate al template email "%s" sono state salvate.';
+$lang['templates.tmpl_edit_error']			= 'Le modifiche effettuate al template email "%s" non sono state salvate.'; 
+$lang['templates.tmpl_clone_success']		= '"%s" &eacuta; stato clonato. Ora puoi modificarlo come preferisci.';
+$lang['templates.tmpl_clone_error']			= '"%s" non &acuta; stato possibile clonarlo. Per favore riprova.';
+$lang['templates.single_delete_success']	= 'Il template email &eacuta; stato cancellato.';
+$lang['templates.mass_delete_success']		= 'Cancellati con successo %s template email su %s.';
+$lang['templates.mass_delete_error'] 		= 'Si &eacuta; verificato un errore nel tentativo di cancellare il template "%s".';
+$lang['templates.default_delete_error'] 	= 'Si &eacuta; verificato un errore. Il template di default non pu&ograve; essere eliminato.';
+$lang['templates.no_select_error'] 			= 'Devi prima selezionare un template.'; 
+$lang['templates.already_exist_error']		= 'Un email template dal nome "%s" esiste di gi&agrave;.';
 
 /* End of file templates_lang.php */

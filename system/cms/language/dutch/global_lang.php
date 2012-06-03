@@ -48,7 +48,7 @@ $lang['success_label'] 					= 'Succes';
 
 $lang['login_title'] 					= 'Inloggen';
 $lang['cms_fatal_error'] 				= 'Fatale fout, is het CMS geinstalleerd?';
-$lang['global:demo_restrictions']       = 'Some features on this page have been disabled for the demo.'; #translate
+$lang['global:demo_restrictions']       = 'Sommige functionaliteiten zijn uitgeschakelt voor de demo.';
 
 $lang['login_error_label'] 				= 'Login Fout';
 $lang['forgot_password_label'] 			= 'Wachtwoord vergeten?';
@@ -66,11 +66,12 @@ $lang['approve_label']					= 'Goedkeuren';
 $lang['unapprove_label']				= 'Afkeuren';
 $lang['publish_label'] 					= 'Publiceren';
 $lang['upload_label'] 					= 'Uploaden';
-$lang['uninstall_label'] 				= 'Deinstalleren';
-$lang['install_label'] 					= 'Installeren';
-$lang['enable_label']					= 'Inschakelen';
-$lang['disable_label']					= 'Uitschakelen';
-$lang['upgrade_label'] 					= 'Upgraden';
+
+$lang['global:uninstall'] 				= 'Deinstalleren';
+$lang['global:install'] 				= 'Installeren';
+$lang['global:enable']					= 'Inschakelen';
+$lang['global:disable']					= 'Uitschakelen';
+$lang['global:upgrade'] 				= 'Upgraden';
 
 $lang['all_right_reserved']				= 'Alle rechten voorbehouden.';
 $lang['powered_by_pyrocms']				= 'Mogelijk gemaakt door PyroCMS';

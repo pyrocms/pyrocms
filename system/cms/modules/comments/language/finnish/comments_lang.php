@@ -2,9 +2,7 @@
 /**
  * Finnish translation.
  *
- * @author Mikael Kundert <mikael@kundert.fi>
- * @date 07.02.2011
- * @version 1.0.3
+ * @author Mikael Kundert
  */
 
 $lang['comments.title'] 					= 'Kommentit';
@@ -60,8 +58,8 @@ $lang['comments.delete_multi_success'] 		= 'Kommentit #%s poistettiin eikä niit
 $lang['comments.no_comments'] 				= 'Ei kommentteja';
 
 // Helper counter comments
-$lang['comments.counter_none_label']		= 'No comment'; #translate
-$lang['comments.counter_singular_label']	= '%d comment'; #translate
-$lang['comments.counter_plural_label']		= '%d comments'; #translate
+$lang['comments.counter_none_label']		= 'Ei kommentteja';
+$lang['comments.counter_singular_label']	= '%d kommentti';
+$lang['comments.counter_plural_label']		= '%d kommenttia';
 
 /* End of file comments_lang.php */

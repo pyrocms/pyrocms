@@ -6,6 +6,7 @@ $lang['intro_text']		=	'Než budeme moci zkontrolovat databázi, potřebujeme zn
 
 $lang['db_settings']	=	'Nastavení databáze';
 $lang['db_text']		=	'Aby mohl instalátor zkontrolovat váš MySQL server, musíte vložit adresu serveru, uživatelské jméno a heslo. Toto nastavení bude použito i při instalaci databáze.';
+$lang['db_missing']		=	'The mysql database driver for PHP were not found, installation cannot continue. Ask your host or server administrator to install it.'; #translate
 
 $lang['server']			=	'Server';
 $lang['username']		=	'Uživatelské jméno';

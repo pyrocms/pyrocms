@@ -62,11 +62,11 @@ $lang['approve_label']					= 'Chấp thuận';
 $lang['unapprove_label']				= 'Không chấp thuận';
 $lang['publish_label'] 					= 'Xuất bản';
 $lang['upload_label'] 					= 'Tải lên';
-$lang['uninstall_label'] 				= 'Gỡ cài đặt';
-$lang['install_label'] 					= 'Cài đặt';
-$lang['enable_label']					= 'Hoạt động';
-$lang['disable_label'] 					= 'Ngừng hoạt động';
-$lang['upgrade_label'] 					= 'Nâng cấp';
+$lang['global:uninstall'] 				= 'Gỡ cài đặt';
+$lang['global:install'] 					= 'Cài đặt';
+$lang['global:enable']					= 'Hoạt động';
+$lang['global:disable'] 					= 'Ngừng hoạt động';
+$lang['global:upgrade'] 					= 'Nâng cấp';
 
 $lang['all_right_reserved']				= 'All Rights Reserved.';  #translate
 $lang['powered_by_pyrocms']				= 'Powered by PyroCMS';  #translate

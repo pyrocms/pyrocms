@@ -1,12 +1,9 @@
 <?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
 /**
- * @author 		Phil Sturgeon - PyroCMS development team
+ * @author 		Phil Sturgeon
  * @author 		Victor Michnowicz
- * @package 	PyroCMS
- * @subpackage 	Installer
- *
- * @since 		v0.9.8
- *
+ * @author		PyroCMS Dev Team
+ * @package 	PyroCMS\Installer\Libraries
  */
 class Installer_lib {
 
@@ -38,6 +35,15 @@ class Installer_lib {
 	}
 
 
+	/**
+	 * @return 	bool
+	 *
+	 * Function to check that MySQL and its PHP module is installed properly
+	 */
+	public function mysql_available()
+	{
+		return function_exists('mysql_connect');
+	}
 	/**
 	 * @param 	string $type The MySQL type, client or server
 	 * @return 	string The MySQL version of either the server or the client
@@ -203,7 +209,7 @@ class Installer_lib {
 		$password = $this->ci->session->userdata('password');
 		$port	  = $this->ci->session->userdata('port');
 
-		return @mysql_connect("$hostname:$port", $username, $password);
+		return $this->mysql_available() && @mysql_connect("$hostname:$port", $username, $password);
 	}
 
 	/**
@@ -418,9 +424,9 @@ class Installer_lib {
 	}
 
 	public function curl_enabled()
-    {
+	{
 		return (bool) function_exists('curl_init');
-    }
+	}
 }
 
 /* End of file installer_lib.php */

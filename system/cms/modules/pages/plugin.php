@@ -4,17 +4,18 @@
  *
  * Create links and whatnot.
  *
- * @package		PyroCMS
  * @author		PyroCMS Dev Team
- * @copyright	Copyright (c) 2008 - 2011, PyroCMS
- *
+ * @package		PyroCMS\Core\Modules\Pages\Plugins
  */
 class Plugin_Pages extends Plugin
 {
+
 	/**
-	 * Get a page's URL
+	 * Get the URL of a page
 	 *
-	 * @param int $id The ID of the page
+	 * Attributes:
+	 *  - (int) id : The id of the page to get the URL for.
+	 *
 	 * @return string
 	 */
 	public function url()
@@ -22,35 +23,39 @@ class Plugin_Pages extends Plugin
 		$id		= $this->attribute('id');
 		$page	= $this->pyrocache->model('page_m', 'get', array($id));
 
-		return site_url($page ? $page->uri : '');
+		return site_url($page ? $page['uri'] : '');
 	}
 
-	// --------------------------------------------------------------------------
-	
 	/**
 	 * Get a page by ID or slug
 	 *
-	 * @param int 		$id The ID of the page
-	 * @param string 	$slug The uri of the page
+	 * Attributes:
+	 * - (int) id: The id of the page.
+	 * - (string) slug: The slug of the page.
+	 *
 	 * @return array
 	 */
 	public function display()
 	{
-		$page = $this->db->where('pages.id', $this->attribute('id'))
-					->or_where('pages.slug', $this->attribute('slug'))
-					->where('status', 'live')
-					->get('pages')
-					->row_array();
+		$page = $this->db
+			->where('pages.id', $this->attribute('id'))
+			->or_where('pages.slug', $this->attribute('slug'))
+			->where('status', 'live')
+			->get('pages')
+			->row_array();
 
 		// Grab all the chunks that make up the body
-		$page['chunks'] = $this->db->get_where('page_chunks', array('page_id' => $page['id']))->result();
+		$page['chunks'] = $this->db->get_where('page_chunks', array('page_id' => $page['id']))->result_array();
 		
 		$page['body'] = '';
-		foreach ($page['chunks'] as $chunk)
+		if ($page['chunks'])
 		{
-			$page['body'] .= 	'<div class="page-chunk ' . $chunk->slug . '">' .
-									(($chunk->type == 'markdown') ? $chunk->parsed : $chunk->body) .
-								'</div>'.PHP_EOL;
+			foreach ($page['chunks'] as $chunk)
+			{
+				$page['body'] .= 	'<div class="page-chunk ' . $chunk['slug'] . '">' .
+										(($chunk['type'] == 'markdown') ? $chunk['parsed'] : $chunk['body']) .
+									'</div>'.PHP_EOL;
+			}
 		}
 
 		// we'll unset the chunks array as Lex is grouchy about mixed data at the moment
@@ -59,32 +64,46 @@ class Plugin_Pages extends Plugin
 		return $this->content() ? array($page) : $page['body'];
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Get a page chunk by page ID and chunk name
 	 *
-	 * @param int 		$id The ID of the page
-	 * @param string 	$slug The name of the chunk
-	 * @return array
+	 * Attributes:
+	 * - (int) id : The id of the page.
+	 * - (string) slug : The name of the chunk.
+	 *
+	 * @return string|bool
 	 */
 	function chunk()
 	{
-		$chunk = $this->db->select('*')
-					->where('page_id', $this->attribute('id'))
-					->where('slug', $this->attribute('name'))
-					->get('page_chunks')
-					->row_array();
+		$chunk = $this->db
+			->select('*')
+			->where('page_id', $this->attribute('id'))
+			->where('slug', $this->attribute('name'))
+			->get('page_chunks')
+			->row_array();
 
-		return ($chunk ? ($this->content() ? $chunk : $chunk['body']) : FALSE);
+		if ($chunk)
+		{
+			if ($this->content())
+			{
+				return $chunk;
+			}
+			else
+			{
+				return ($chunk['type'] == 'markdown') ? $chunk['parsed'] : $chunk['body'];
+			}
+		}
 	}
 
-	// --------------------------------------------------------------------------
-	
 	/**
 	 * Children list
 	 *
 	 * Creates a list of child pages
+	 *
+	 * Attributes:
+	 * - (int) limit: How many pages to show.
+	 * - (string) order-by: One of the column names from the `pages` table.
+	 * - (string) order-dir: Either `asc` or `desc`
 	 *
 	 * Usage:
 	 * {{ pages:children id="1" limit="5" }}
@@ -92,15 +111,19 @@ class Plugin_Pages extends Plugin
 	 *	    {body}
 	 * {{ /pages:children }}
 	 *
-	 * @return	array
+	 * @return array
 	 */
 	public function children()
 	{
+
 		$limit = $this->attribute('limit', 10);
-		
+		$order_by = $this->attribute('order-by', 'title');
+		$order_dir = $this->attribute('order-dir', 'ASC');
+
 		$pages = $this->db->select('pages.*')
 			->where('pages.parent_id', $this->attribute('id'))
 			->where('status', 'live')
+			->order_by($order_by, $order_dir)
 			->limit($limit)
 			->get('pages')
 			->result_array();
@@ -110,14 +133,19 @@ class Plugin_Pages extends Plugin
 			foreach ($pages AS &$page)
 			{
 				// Grab all the chunks that make up the body for this page
-				$page['chunks'] = $this->db->get_where('page_chunks', array('page_id' => $page['id']))->result();
-				
+				$page['chunks'] = $this->db
+					->get_where('page_chunks', array('page_id' => $page['id']))
+					->result_array();
+
 				$page['body'] = '';
-				foreach ($page['chunks'] as $chunk)
+				if ($page['chunks'])
 				{
-					$page['body'] .= 	'<div class="page-chunk ' . $chunk->slug . '">' .
-											(($chunk->type == 'markdown') ? $chunk->parsed : $chunk->body) .
-										'</div>'.PHP_EOL;
+					foreach ($page['chunks'] as $chunk)
+					{
+						$page['body'] .= '<div class="page-chunk '.$chunk['slug'].'">'.
+							(($chunk['type'] == 'markdown') ? $chunk['parsed'] : $chunk['body']).
+							'</div>'.PHP_EOL;
+					}
 				}
 			}
 		}
@@ -152,23 +180,23 @@ class Plugin_Pages extends Plugin
 		$disable_levels = $this->attribute('disable-levels');
 		$order_by 		= $this->attribute('order-by', 'title');
 		$order_dir		= $this->attribute('order-dir', 'ASC');
-		$list_tag		= $this->attribute('list-tab', 'ul');
-		$link			= $this->attribute('link', TRUE);
+		$list_tag		= $this->attribute('list-tag', 'ul');
+		$link			= $this->attribute('link', true);
 		
 		// If we have a start URI, let's try and
 		// find that ID.
-		if($start)
+		if ($start)
 		{
 			$page = $this->page_m->get_by_uri($start);
 		
-			if(!$page) return NULL;
+			if ( ! $page) return null;
 			
 			$start_id = $page->id;
 		}
 		
 		// If our start doesn't exist, then
 		// what are we going to do? Nothing.
-		if(!$start_id) return NULL;
+		if(!$start_id) return null;
 		
 		// Disable individual pages or parent pages by submitting their slug
 		$this->disable = explode("|", $disable_levels);
@@ -190,10 +218,10 @@ class Plugin_Pages extends Plugin
 	 * Check the pages parent or descendent relation
 	 *
 	 * Usage:
-	 * {{ pages:is child="7" parent="cookbook" }} // return 1 (TRUE)
-	 * {{ pages:is child="recipes" descendent="books" }} // return 1 (TRUE)
-	 * {{ pages:is children="7,8,literature" parent="6" }} // return 0 (FALSE)
-	 * {{ pages:is children="recipes,ingredients,9" descendent="4" }} // return 1 (TRUE)
+	 * {{ pages:is child="7" parent="cookbook" }} // return 1 (true)
+	 * {{ pages:is child="recipes" descendent="books" }} // return 1 (true)
+	 * {{ pages:is children="7,8,literature" parent="6" }} // return 0 (false)
+	 * {{ pages:is children="recipes,ingredients,9" descendent="4" }} // return 1 (true)
 	 *
 	 * Use Id or Slug as param, following usage data reference
 	 * Id: 4 = Slug: books
@@ -227,11 +255,11 @@ class Plugin_Pages extends Plugin
 		{
 			if ( ! $this->_check_page_is($child_id))
 			{
-				return (int) FALSE;
+				return (int) false;
 			}
 		}
 
-		return (int) TRUE;
+		return (int) true;
 	}
 
 	// --------------------------------------------------------------------------
@@ -282,7 +310,7 @@ class Plugin_Pages extends Plugin
 
 			if ( ! ($child_id && $descendent_id))
 			{
-				return FALSE;
+				return false;
 			}
 
 			$descendent_ids	= $this->page_m->get_descendant_ids($descendent_id);
@@ -300,7 +328,7 @@ class Plugin_Pages extends Plugin
 			return $parent_id ? (int) $this->page_m->count_by(array(
 				(is_numeric($child_id) ? 'id' : 'slug') => $child_id,
 				'parent_id'	=> $parent_id
-			)) > 0 : FALSE;
+			)) > 0 : false;
 		}
 	}
 
@@ -314,7 +342,7 @@ class Plugin_Pages extends Plugin
 	 * @param	array
 	 * @return	array
 	 */
-	function _build_tree_html($params)
+	private function _build_tree_html($params)
 	{
 		$params = array_merge(array(
 			'tree'			=> array(),
@@ -325,7 +353,8 @@ class Plugin_Pages extends Plugin
 
 		if ( ! $tree)
 		{
-			$this->db->select('id, parent_id, slug, uri, title')
+			$this->db
+				->select('id, parent_id, slug, uri, title')
 				->where_not_in('slug', $this->disable);
 			
 			// check if they're logged in
@@ -336,7 +365,8 @@ class Plugin_Pages extends Plugin
 				{
 					$id_list = array();
 					
-					$page_list = $this->db->select('id, restricted_to')
+					$page_list = $this->db
+						->select('id, restricted_to')
 						->get('pages')
 						->result();
 
@@ -366,12 +396,14 @@ class Plugin_Pages extends Plugin
 			else
 			{
 				//they aren't logged in, show them all live, unrestricted pages
-				$this->db->where('status', 'live')
+				$this->db
+					->where('status', 'live')
 					->where('restricted_to <', 1)
-					->or_where('restricted_to', NULL);
+					->or_where('restricted_to', null);
 			}
 			
-			$pages = $this->db->order_by($order_by, $order_dir)
+			$pages = $this->db
+				->order_by($order_by, $order_dir)
 				->get('pages')
 				->result();
 
@@ -395,7 +427,7 @@ class Plugin_Pages extends Plugin
 		{
 			$html .= '<li';
 			$html .= (current_url() == site_url($item->uri)) ? ' class="current">' : '>';
-			$html .= ($link === TRUE) ? '<a href="' . site_url($item->uri) . '">' . $item->title . '</a>' : $item->title;
+			$html .= ($link === true) ? '<a href="' . site_url($item->uri) . '">' . $item->title . '</a>' : $item->title;
 			
 			
 			
@@ -417,5 +449,3 @@ class Plugin_Pages extends Plugin
 		return $html;
 	}
 }
-
-/* End of file plugin.php */

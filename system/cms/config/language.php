@@ -79,6 +79,13 @@ $config['supported_languages'] = array(
         'codes'        => array('dutch', 'nld', 'nl-NL'),
         'ckeditor'    => NULL
     ),
+    'se' => array(
+        'name'        => 'Svenska',
+        'folder'    => 'swedish',
+        'direction'    => 'ltr',
+        'codes'        => array('se', 'swedish', 'se_SE'),
+        'ckeditor'    => NULL
+    ),
     'sl' => array(
         'name'        => 'Slovensko',
         'folder'    => 'slovenian',
@@ -93,6 +100,13 @@ $config['supported_languages'] = array(
         'codes'        => array('plk', 'polish', 'pl_PL'),
         'ckeditor'    => NULL
     ),
+	'pt' => array(
+		'name'		=> 'Portugu&ecirc;s de Portugal',
+		'folder'	=> 'portuguese',
+		'direction'	=> 'ltr',
+		'codes'		=> array('ptb', 'portuguese-portugal', 'pt_PT'),
+		'ckeditor'	=> 'pt-pt'
+	),
     'br' => array(
         'name'        => 'Portugu&ecirc;s do Brasil',
         'folder'    => 'brazilian',
@@ -143,12 +157,26 @@ $config['supported_languages'] = array(
         'ckeditor'    => NULL
     ),
     'id' => array(
-        'name'        => 'Indonesian',
+        'name'        => 'Bahasa Indonesia',
         'folder'    => 'indonesian',
         'direction'    => 'ltr',
-        'codes'        => array('id', 'id_ID'),
+        'codes'        => array('id', 'indonesian' ,'id_ID'),
         'ckeditor'    => NULL
     ),
+    'hu' => array(
+        'name'          => 'Magyar',
+        'folder'        => 'hungarian',
+        'direction'     => 'ltr',
+        'codes'         => array('hu', 'hu_HU'),
+        'ckeditor'      => NULL
+    ),
+    'th' => array(
+        'name'        => 'ไทย',
+        'folder'    => 'thai',
+        'direction'    => 'ltr',
+        'codes'        => array('th', 'thai', 'th_TH'),
+        'ckeditor'    => NULL
+    )
 );
 
 /*

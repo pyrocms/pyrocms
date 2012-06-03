@@ -28,6 +28,7 @@ $lang['widgets.widget_area_slug']       = 'Område - forkortelse';
 $lang['widgets.view_code']				= 'View Code'; #translate
 
 $lang['widgets.instance_title']         = 'Titel';
+$lang['widgets.show_title']				= 'Display Widget Title?'; #translate
 $lang['widgets.tag_title']              = 'Tag';
 
 $lang['widgets.no_available_widgets']		= 'Der er ingen tilgængelige widgets.';

@@ -1,4 +1,12 @@
-<?php
+<?php  defined('BASEPATH') OR exit('No direct script access allowed');
+
+$lang['user_add_field']                        	= 'Aggiungi un campo per il profilo Utente';
+$lang['user_profile_delete_success']           	= 'Campo per il profilo utente eliminato con successo';
+$lang['user_profile_delete_failure']            = 'Si è verificato un problema nel cancellare il campo per il profilo utente';
+$lang['profile_user_basic_data_label']  		= 'Dati di base';
+$lang['profile_company']         	  			= 'Società'; 
+$lang['profile_updated_on']           			= 'Aggiornato il';
+$lang['user_profile_fields_label']	 		 	= 'Campo del profilo';
 
 $lang['user_register_header'] 			= 'Registrazione';
 $lang['user_register_step1'] 			= '<strong>Passo 1:</strong> Registrazione';
@@ -8,13 +16,13 @@ $lang['user_login_header'] 				= 'Entra';
 
 // titles
 $lang['user_add_title'] 				= 'Aggiungi utente';
-$lang['user_list_title'] 				= 'List users'; #translate
+$lang['user_list_title'] 				= 'Elenco utenti';
 $lang['user_inactive_title'] 			= 'Utenti disattivati';
 $lang['user_active_title'] 				= 'Utenti attivati';
 $lang['user_registred_title'] 			= 'Utenti registrati';
 
 // labels
-$lang['user_edit_title'] 				= 'Modifica l\' utente "%s"';
+$lang['user_edit_title'] 				= 'Modifica l\'utente "%s"';
 $lang['user_details_label'] 			= 'Dettagli';
 $lang['user_first_name_label'] 			= 'Nome';
 $lang['user_last_name_label'] 			= 'Cognome';
@@ -45,19 +53,19 @@ $lang['user_reset_password_title'] 		= 'Reset Password';
 $lang['user_password_reset_title'] 		= 'Password Reset';
 
 
-$lang['user_error_username'] 			= 'La username scelta � gi� in uso'; // #TRANSLATE #TODO: Translate this into French, German, Polish and Spanish
-$lang['user_error_email'] 				= 'L\' indirizzo email fornito � gi� in uso'; // #TRANSLATE #TODO: Translate this into French, German, Polish and Spanish
+$lang['user_error_username'] 			= 'La username scelto è già in uso'; 
+$lang['user_error_email'] 				= 'L\'indirizzo email fornito è già in uso'; 
 
 $lang['user_full_name'] 				= 'Nome completo';
 $lang['user_first_name'] 				= 'Nome';
 $lang['user_last_name'] 				= 'Cognome';
 $lang['user_username'] 					= 'Username';
 $lang['user_display_name']				= 'Nome visualizzato';
-$lang['user_email_use'] 				= 'used to login'; #translate
+$lang['user_email_use'] 				= 'usato per il login';
 $lang['user_email'] 					= 'Email';
 $lang['user_password'] 					= 'Password';
 $lang['user_remember'] 					= 'Ricordami';
-$lang['user_group_id_label']			= 'ID del Gruppo'; // #TRANSLATE #TODO: Translate this into French, German, Polish and Spanish
+$lang['user_group_id_label']			= 'ID del Gruppo'; 
 
 $lang['user_level']						= 'Ruolo utente';
 $lang['user_active']					= 'Attiva';
@@ -65,11 +73,12 @@ $lang['user_lang']						= 'Lingua';
 
 $lang['user_activation_code'] 			= 'Codice di attivazione';
 
-$lang['user_reset_instructions']			   = 'Enter your email address or username'; #translate
+$lang['user_reset_instructions']			   = 'Inserisci il nome utente o l\'indirizzo email';
 $lang['user_reset_password_link'] 		= 'Password dimenticata?';
 
-$lang['user_activation_code_sent_notice']	= 'Ti � stata inviata una email con il tuo codice di attivazione.';
-$lang['user_activation_by_admin_notice'] 	= 'La tua registrazione � in attesa di essere approvata da un amministratore.';
+$lang['user_activation_code_sent_notice']	= 'Ti è stata inviata una email con il tuo codice di attivazione.';
+$lang['user_activation_by_admin_notice'] 	= 'La tua registrazione è in attesa di essere approvata da un amministratore.';
+$lang['user_registration_disabled']            = 'Spiacenti ma la registrazione è disabilitata.';
 
 // -- Settings ---------------------------------------------------------------------------------------------
 
@@ -78,7 +87,7 @@ $lang['user_password_section'] 			= 'Modifica password';
 $lang['user_other_settings_section'] 	= 'Altre impostazioni';
 
 $lang['user_settings_saved_success'] 	= 'Le impostazioni del tuo profilo sono state salvate.';
-$lang['user_settings_saved_error'] 		= 'C\' � stato un errore.';
+$lang['user_settings_saved_error'] 		= 'Si è verificato un errore.';
 
 // -- Buttons ----------------------------------------------------------------------------------------------
 
@@ -91,13 +100,13 @@ $lang['user_settings_btn'] 				= 'Salva Impostazioni';
 // -- Errors & Messages ------------------------------------------------------------------------------------
 
 // Create
-$lang['user_added_and_activated_success'] 		= 'Il nuovo utente � stato creato ed attivato.';
-$lang['user_added_not_activated_success'] 		= 'Il nuovo utente � stato creato, necessita di essere attivato.';
+$lang['user_added_and_activated_success'] 		= 'Il nuovo utente è stato creato ed attivato.';
+$lang['user_added_not_activated_success'] 		= 'Il nuovo utente è stato creato, necessita di essere attivato.';
 
 // Edit
 $lang['user_edit_user_not_found_error'] 		= 'Utente non trovato.';
 $lang['user_edit_success'] 						= 'Utente aggiornato con successo.';
-$lang['user_edit_error'] 						= 'Errore durante il tentativo di aggiornare l\' utente.';
+$lang['user_edit_error'] 						= 'Errore durante il tentativo di aggiornare l\'utente.';
 
 // Activate
 $lang['user_activate_success'] 					= '%s utenti su %s attivati con successo.';
@@ -110,30 +119,30 @@ $lang['user_mass_delete_error'] 				= 'Devi prima selezionare gli utenti.';
 
 // Register
 $lang['user_email_pass_missing'] 				= 'I campi email o password sono incompleti';
-$lang['user_email_exists'] 						= 'L\' indirizzo email che hai scelto � gi� in uso da un altro utente.';
-$lang['user_register_error']				   = 'We think you are a bot. If we are mistaken please accept our apologies.'; #translate
-$lang['user_register_reasons'] 					= 'Unisciti per accedere ad aree speciali normalmente riservate. Questo significa che le tue impostazioni saranno salvate, pi� contenuti e minore pubblicit�.';
+$lang['user_email_exists'] 						= 'L\'indirizzo email che hai scelto è già in uso da un altro utente.';
+$lang['user_register_error']				   = 'Crediamo tu sia un bot. Se ci sbagliamo ti chiediamo di accettare le nostre scuse.';
+$lang['user_register_reasons'] 					= 'Unisciti per accedere ad aree speciali normalmente riservate. Questo significa che le tue impostazioni saranno salvate, più contenuti e minore pubblicità.';
 
 
 // Activation
 $lang['user_activation_incorrect']   			= 'Attivazione fallita. Verifica i tuoi dettagli e che non sia attivo il BLOCCO MAIUSCOLE.';
-$lang['user_activated_message']   				= 'Il tuo profilo � stato attivato, ora puoi accedere.';
+$lang['user_activated_message']   				= 'Il tuo profilo è stato attivato, ora puoi accedere.';
 
 
 // Login
-$lang['user_logged_in']							= 'You have logged in successfully.'; #translate
-$lang['user_already_logged_in'] 				= 'Accesso gi� effettuato. Per favore disconnettiti e rieffettua l\' accesso.';
+$lang['user_logged_in']							= 'Il login è avvenuto con successo.';
+$lang['user_already_logged_in'] 				= 'Accesso già effettuato. Per favore disconnettiti e rieffettua l\'accesso.';
 $lang['user_login_incorrect'] 					= 'Email o password non corrispondono. Verifica i tuoi dati e che non sia attivo il BLOCCO MAIUSCOLE.';
-$lang['user_inactive']   						= 'Il profilo a cui stai cercando di accedere � disattivato.<br />Verifica la tua email per le istruzioni su come attivarlo - <em>potrebbero essere finite tra lo spam</em>.';
+$lang['user_inactive']   						= 'Il profilo a cui stai cercando di accedere è disattivato.<br />Verifica la tua email per le istruzioni su come attivarlo - <em>potrebbero essere finite tra lo spam</em>.';
 
 
 // Logged Out
 $lang['user_logged_out']   						= 'Uscito con successo.';
 
 // Forgot Pass
-$lang['user_forgot_incorrect']   				= "Non � stato trovato nessun profilo con questi dettagli.";
+$lang['user_forgot_incorrect']   				= "Non è stato trovato nessun profilo con questi dettagli.";
 
-$lang['user_password_reset_message']   			= "La tua password � stata resettata. Dovresti ricevere una email nelle prossime 2 ore. Se no la trovi, controlla che non sia finita per sbaglio fra la posta indesiderata.";
+$lang['user_password_reset_message']   			= "La tua password è stata resettata. Dovresti ricevere una email nelle prossime 2 ore. Se no la trovi, controlla che non sia finita per sbaglio fra la posta indesiderata.";
 
 // Emails ----------------------------------------------------------------------------------------------------
 
@@ -144,11 +153,11 @@ $lang['user_activation_email_body'] 			= 'Grazie di aver attivato il tuo profilo
 
 $lang['user_activated_email_subject'] 			= 'Attivazione Completata';
 $lang['user_activated_email_content_line1'] 	= 'Grazie per esserti registrato con %s. Prima di attivare il tuo profilo, per favore completa la procedura di attivazione cliccando sul collegamento qui di seguito:';
-$lang['user_activated_email_content_line2'] 	= 'Nel c aso il tuo programma per le email non riconoscesse il collegamento quale tale, per favore vai con il tuo browser al segurnte indirizzo ed inserisci il codice di attivazione:';
+$lang['user_activated_email_content_line2'] 	= 'Nel caso il tuo programma per le email non riconoscesse il collegamento quale tale, per favore vai con il tuo browser al segurnte indirizzo ed inserisci il codice di attivazione:';
 
 // Reset Pass
 $lang['user_reset_pass_email_subject'] 			= 'Password Reset';
-$lang['user_reset_pass_email_body'] 			= 'La tua password di %s � stata resettata. Se non hai richiesto questa modifica inviaci per favore una email a %s e risolveremo il problema.';
+$lang['user_reset_pass_email_body'] 			= 'La tua password di %s è stata resettata. Se non hai richiesto questa modifica inviaci per favore una email a %s e risolveremo il problema.';
 
 // Profile
 $lang['profile_of_title'] 				= 'Profilo di %s';
@@ -172,9 +181,9 @@ $lang['profile_dob_day']				= 'Giorno';
 $lang['profile_dob_month']				= 'Mese';
 $lang['profile_dob_year']				= 'Anno';
 $lang['profile_gender']					= 'Sesso';
-$lang['profile_gender_nt']            = 'Not Telling'; #translate
-$lang['profile_gender_male']          = 'Male'; #translate
-$lang['profile_gender_female']        = 'Female'; #translate
+$lang['profile_gender_nt']            = 'Non specificato'; 
+$lang['profile_gender_male']          = 'Maschio'; 
+$lang['profile_gender_female']        = 'Femmina'; 
 $lang['profile_bio']					= 'Biografia';
 
 $lang['profile_contact_section'] 		= 'Contatti';
@@ -186,7 +195,7 @@ $lang['profile_address_line1'] 			= 'Linea #1';
 $lang['profile_address_line2'] 			= 'Linea #2';
 $lang['profile_address_line3'] 			= 'Linea #3';
 $lang['profile_address_postcode'] 		= 'CAP';
-$lang['profile_website']				= 'Sito'; #translate
+$lang['profile_website']				= 'Sito'; 
 
 $lang['profile_messenger_section'] 		= 'Messagistica istantanea';
 
@@ -202,7 +211,7 @@ $lang['profile_gravatar'] 				= 'Gravatar';
 $lang['profile_twitter'] 				= 'Twitter';
 
 $lang['profile_edit_success'] 			= 'Il tuo profilo è stato salvato.';
-$lang['profile_edit_error'] 			= 'C\' è stato un errore.';
+$lang['profile_edit_error'] 			= 'Si è verificato un errore.';
 
 // -- Buttons ------------------------------------------------------------------------------------------------
 

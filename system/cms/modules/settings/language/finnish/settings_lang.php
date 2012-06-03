@@ -2,9 +2,7 @@
 /**
  * Finnish translation.
  *
- * @author Mikael Kundert <mikael@kundert.fi>
- * @date 07.02.2011
- * @version 1.0.3
+ * @author Mikael Kundert
  */
 
 #section settings
@@ -108,12 +106,42 @@ $lang['settings_akismet_api_key_desc']			= 'Akismet on roskapostin suodattaja Wo
 
 $lang['settings_comment_order']					= 'Kommenttien järjestys';
 $lang['settings_comment_order_desc']			= 'Määritä kommenttien järjestys.';
+
+$lang['settings_enable_comments'] 				= 'Aktivoi Kommentit';
+$lang['settings_enable_comments_desc']			= 'Salli kävijöiden jättää kommentteja?';
 	
 $lang['settings_moderate_comments']				= 'Moderoi kommentteja';
 $lang['settings_moderate_comments_desc']		= 'Valitse tämä, jos haluat takistaa kommentit ennen julkaisua.';
 
+$lang['settings_comment_markdown']				= 'Salli Markdown';
+$lang['settings_comment_markdown_desc']			= 'Haluatko sallia käyttien jättää Markdown-muotoiltuja kommentteja?';
+
 $lang['settings_version']						= 'Versio';
 $lang['settings_version_desc']					= '';
+
+$lang['settings_site_public_lang']				= 'Julkiset kielet';
+$lang['settings_site_public_lang_desc']			= 'Mitkä kielet ovat tuettuna ja tarjotaa kävijöille?';
+
+$lang['settings_admin_force_https']				= 'Pakota HTTPS salaus päälle?';
+$lang['settings_admin_force_https_desc']		= 'Salli vain HTTPS protokollan käyttö ylläpidon puolella?';
+
+$lang['settings_files_cache']					= 'Tiedostojen välimuisti';
+$lang['settings_files_cache_desc']				= 'Kun kuva jaetaan site.com/files hakemistosta, kuinka pitkä välimuistin expiroitumis aika asetetaan?';
+
+$lang['settings_auto_username']					= 'Automaattinen käyttäjätunnus';
+$lang['settings_auto_username_desc']			= 'Luo käyttäjätunnus automaattiseti, niin että käyttäjät voivat jättää sen kentän täyttämättä.';
+
+$lang['settings_registered_email']				= 'Ilmoitus rekisteröitymisestä';
+$lang['settings_registered_email_desc']			= 'Lähetä sähköposti-ilmoitus kun joku rekisteröityy sivustolle.';
+
+$lang['settings_ckeditor_config']               = 'CKEditor Asetukset';
+$lang['settings_ckeditor_config_desc']          = 'Löydät listan CKEDitorin kentistä <a target="_blank" href="http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.config.html">CKEditorin ohjeista.</a>';
+
+$lang['settings_enable_registration']           = 'Käyttäjien rekisteröityminen';
+$lang['settings_enable_registration_desc']      = 'Salli käyttäjien rekisteröityä sivustolle.';
+
+$lang['settings_cdn_domain']                    = 'CDN Domain'; #translate
+$lang['settings_cdn_domain_desc']               = 'CDN domains allow you to offload static content to various edge servers, like Amazon CloudFront or MaxCDN.'; #translate
 
 #section titles
 $lang['settings_section_general']				= 'Yleistä';
@@ -122,6 +150,7 @@ $lang['settings_section_comments']				= 'Kommentit';
 $lang['settings_section_users']					= 'Käyttäjät';
 $lang['settings_section_statistics']			= 'Statistiikat';
 $lang['settings_section_twitter']				= 'Twitter';
+$lang['settings_section_files']					= 'Tiedostot';
 
 #checkbox and radio options
 $lang['settings_form_option_Open']				= 'Avaa';
@@ -132,12 +161,16 @@ $lang['settings_form_option_Required']			= 'Pakollinen';
 $lang['settings_form_option_Optional']			= 'Vaihtoehtoinen';
 $lang['settings_form_option_Oldest First']		= 'Vanhin ensin';
 $lang['settings_form_option_Newest First']		= 'Uusin ensin';
+$lang['settings_form_option_Text Only']			= 'Vain Teksti';
+$lang['settings_form_option_Allow Markdown']	= 'Salli Markdown';
+$lang['settings_form_option_Yes']				= 'Kyllä';
+$lang['settings_form_option_No']				= 'Ei';
 
 // titles
 $lang['settings_edit_title']					= 'Muokkaa asetuksia';
 
 // messages
-$lang['settings_no_settings']					= 'There are currently no settings.'; #translate
+$lang['settings_no_settings']					= 'Asetuksia ei ole määritetty.';
 $lang['settings_save_success']					= 'Asetukset tallennettiin!';
 
 /* End of file settings_lang.php */

@@ -4,10 +4,9 @@
  *
  * Quick plugin to demonstrate how things work
  *
- * @package		PyroCMS
  * @author		PyroCMS Dev Team
+ * @package		PyroCMS\Addon\Plugins
  * @copyright	Copyright (c) 2009 - 2010, PyroCMS
- *
  */
 class Plugin_Example extends Plugin
 {
@@ -17,8 +16,7 @@ class Plugin_Example extends Plugin
 	 * Usage:
 	 * {{ example:hello }}
 	 *
-	 * @param	array
-	 * @return	array
+	 * @return string
 	 */
 	function hello()
 	{

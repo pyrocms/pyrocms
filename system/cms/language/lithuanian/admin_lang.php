@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['cp_admin_title'] 				= 'Valdymo skydas';
-$lang['global:dashboard'] 			= 'Įrankių skydas';
+$lang['global:dashboard'] 			    = 'Įrankių skydas';
 $lang['cp_admin_quick_links']			= 'Greitosios nuorodos';
 
 $lang['cp_welcome_title'] 				= 'Sveiki';
@@ -31,7 +31,7 @@ $lang['cp_contact_support'] 			= 'Pagalba';
 $lang['cp_nav_settings']				= 'Nustatymai';
 $lang['cp_nav_addons']					= 'Priedai';
 $lang['cp_nav_modules']					= 'Moduliai';
-$lang['cp_nav_widgets']					= 'Atsiliepimai';
+$lang['cp_nav_widgets']					= 'Papildiniai';
 $lang['cp_nav_users']					= 'Vartotojai';
 $lang['cp_nav_design']					= 'Dizainas';
 $lang['cp_nav_content']					= 'Turinys';

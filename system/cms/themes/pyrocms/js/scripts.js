@@ -36,6 +36,9 @@ jQuery(function($) {
 				}
 				return json;
 			}
+		},
+		data: {
+			csrf_hash_name: $.cookie(pyro.csrf_cookie_name)
 		}
 	});
 
@@ -99,19 +102,19 @@ jQuery(function($) {
 			});
 
 			// Check all?
-			$(".table_action_buttons .btn").removeAttr('disabled');
+			$(".table_action_buttons .btn").prop('disabled', false);
 		});
 
 		// Table action buttons start out as disabled
-		$(".table_action_buttons .btn").attr('disabled', 'disabled');
+		$(".table_action_buttons .btn").prop('disabled', true);
 
 		// Enable/Disable table action buttons
 		$('input[name="action_to[]"], .check-all').live('click', function () {
 
 			if( $('input[name="action_to[]"]:checked, .check-all:checked').length >= 1 ){
-				$(".table_action_buttons .btn").removeAttr('disabled');
+				$(".table_action_buttons .btn").prop('disabled', false);
 			} else {
-				$(".table_action_buttons .btn").attr('disabled', 'disabled');
+				$(".table_action_buttons .btn").prop('disabled', true);
 			}
 		});
 
@@ -122,7 +125,7 @@ jQuery(function($) {
 			var href		= $(this).attr('href'),
 				removemsg	= $(this).attr('title');
 
-			if (confirm(removemsg || DIALOG_MESSAGE))
+			if (confirm(removemsg || pyro.lang.dialog_message))
 			{
 				$(this).trigger('click-confirmed');
 
@@ -146,7 +149,7 @@ jQuery(function($) {
 
 			var removemsg = $(this).attr('title');
 
-			if (confirm(removemsg || DIALOG_MESSAGE))
+			if (confirm(removemsg || pyro.lang.dialog_message))
 			{
 				$(this).trigger('click-confirmed');
 
@@ -164,8 +167,10 @@ jQuery(function($) {
 			$(this).addClass("alt");
 		});
 
+
 		$('#main, .tabs').livequery(function () {
 			$(this).tabs();
+			$(this).tabs('paging', { cycle: true, follow: false } );
 		});
 
 		$('#tabs').livequery(function () {
@@ -321,8 +326,8 @@ jQuery(function($) {
 	pyro.chosen = function()
 	{
 		// Chosen
-		$('select').livequery(function(){
-			$(this).addClass('chzn');
+		$('select:not(.skip)').livequery(function(){
+			$(this).addClass('chzn').trigger("liszt:updated");
 			$(".chzn").chosen();
 
 			// This is a workaround for Chosen's visibility bug. In short if a select
@@ -340,7 +345,7 @@ jQuery(function($) {
 	}
 
 	// Create a clean slug from whatever garbage is in the title field
-	pyro.generate_slug = function(input_form, output_form)
+	pyro.generate_slug = function(input_form, output_form, space_character)
 	{
 		var slug, value;
 
@@ -348,11 +353,15 @@ jQuery(function($) {
 			value = $(input_form).val();
 
 			if ( ! value.length ) return;
-
-			var rx = /[a-z]|[A-Z]|[0-9]|[áàâąбćčцдđďéèêëęěфгѓíîïийкłлмñńňóôóпúùûůřšśťтвýыžżźзäæœчöøüшщßåяюж]/,
+			
+			space_character = space_character || '-';
+			var rx = /[a-z]|[A-Z]|[0-9]|[áàâąбćčцдđďéèêëęěфгѓíîïийкłлмñńňóôóпúùûůřšśťтвýыžżźзäæœчöøüшщßåяюжαβγδεέζηήθιίϊκλμνξοόπρστυύϋφχψωώ]/,
 				value = value.toLowerCase(),
 				chars = pyro.foreign_characters,
+				space_regex = new RegExp('[' + space_character + ']+','g'),
+				space_regex_trim = new RegExp('^[' + space_character + ']+|[' + space_character + ']+$','g'),
 				search, replace;
+			
 
 			// If already a slug then no need to process any further
 		    if (!rx.test(value)) {
@@ -370,8 +379,9 @@ jQuery(function($) {
 		        };
 
 		        slug = value.replace(/[^-a-z0-9~\s\.:;+=_]/g, '')
-		        			.replace(/[\s\.:;=+]+/g, '-')
-		        			.replace(/[-]+/g, '-');
+		        			.replace(/[\s\.:;=+]+/g, space_character)
+		        			.replace(space_regex, space_character)
+		        			.replace(space_regex_trim, '');
 		    }
 
 			$(output_form).val(slug);

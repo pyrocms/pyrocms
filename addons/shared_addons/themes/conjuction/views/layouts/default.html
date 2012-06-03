@@ -20,7 +20,7 @@
 			<div id="sidebar">
 				<ul>
 					<li>
-						<h2>{{ helper:lang line="navigation_headline') }}</h2>
+						<h2>{{ helper:lang line="navigation_headline" }}</h2>
 						<ul>
 							{{ navigation:links group="header" }}
 						</ul>
@@ -42,7 +42,7 @@
 												
 					{{ else }}
 						
-						<form method="{{ url:site }}/users/login" id="login-small">
+						<form method="{{ url:site }}/users/login" id="login-small" method="post">
 							<ul>
 								<li class="email">
 									<label for="email">{{ helper:lang line="user_email" }}</label>
@@ -57,7 +57,7 @@
 									<a href="{{ url:site }}/register">{{ helper:lang line="user_register_btn" }}</a>
 								</li>
 								<li class="remember-me">
-									<label><input type="checkbox" name="remember" value="1" /> {pyro:helper:lang line="user_remember"}</label>
+									<label><input type="checkbox" name="remember" value="1" /> {{ helper:lang line="user_remember" }}</label>
 								</li>
 							</ul>
 						</form>

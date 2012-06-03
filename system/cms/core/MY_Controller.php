@@ -7,26 +7,29 @@ require APPPATH."libraries/MX/Controller.php";
  * 
  * @package PyroCMS\Core\Controllers 
  */
-class MY_Controller extends MX_Controller {
-
+class MY_Controller extends MX_Controller
+{
 	/**
 	 * No longer used globally
 	 * 
-	 * @deprecated
+	 * @deprecated remove in 2.2
 	 */
 	protected $data;
+
 	/**
 	 * The name of the module that this controller instance actually belongs to.
 	 *
 	 * @var string 
 	 */
 	public $module;
+
 	/**
 	 * The name of the controller class for the current class instance.
 	 *
 	 * @var string
 	 */
 	public $controller;
+
 	/**
 	 * The name of the method for the current request.
 	 *
@@ -46,7 +49,7 @@ class MY_Controller extends MX_Controller {
 		// No record? Probably DNS'ed but not added to multisite
 		if ( ! defined('SITE_REF'))
 		{
-			show_error('This domain is not set up correctly. Please go to '.anchor('sites') .' and log in to add this new site.');
+			show_error('This domain is not set up correctly. Please go to '.anchor('sites') .' and log in to add this site.');
 		}
 
 		// By changing the prefix we are essentially "namespacing" each site
@@ -98,6 +101,8 @@ class MY_Controller extends MX_Controller {
 		$pyro['lang'] = $langs[CURRENT_LANGUAGE];
 		$pyro['lang']['code'] = CURRENT_LANGUAGE;
 
+		$this->load->vars($pyro);
+
 		// Set php locale time
 		if (isset($langs[CURRENT_LANGUAGE]['codes']) && sizeof($locale = (array) $langs[CURRENT_LANGUAGE]['codes']) > 1)
 		{
@@ -111,11 +116,11 @@ class MY_Controller extends MX_Controller {
 		{
 			$this->config->set_item('language', $langs[CURRENT_LANGUAGE]['folder']);
 			$this->lang->is_loaded = array();
-			$this->lang->load(array('errors', 'global', 'users/user', 'settings/settings'));
+			$this->lang->load(array('errors', 'global', 'users/user', 'settings/settings', 'files/files'));
 		}
 		else
 		{
-			$this->lang->load(array('global', 'users/user'));
+			$this->lang->load(array('global', 'users/user', 'files/files'));
 		}
 
 		$this->load->library(array('events', 'users/ion_auth'));
@@ -126,9 +131,7 @@ class MY_Controller extends MX_Controller {
 		// Create a hook point with access to instance but before custom code
 		$this->hooks->_call_hook('post_core_controller_constructor');
 
-		// Load the user model and get user data
-		$this->load->library('users/ion_auth');
-
+		// Get user data
 		$this->template->current_user = ci()->current_user = $this->current_user = $this->ion_auth->get_user();
 
 		// Work out module, controller and method and make them accessable throught the CI instance
@@ -158,12 +161,17 @@ class MY_Controller extends MX_Controller {
 			$_POST = $this->security->xss_clean($_POST);
 		}
 
+		if ($this->module and isset($this->module_details['path']))
+		{
+			Asset::add_path('module', $this->module_details['path'].'/');
+		}
+
 		$this->load->vars($pyro);
 		
 		$this->benchmark->mark('my_controller_end');
 		
-		// Enable profiler if local or admin
-	    if ((ENVIRONMENT === PYRO_DEVELOPMENT OR $this->ion_auth->is_admin()) AND is_array($_GET) AND array_key_exists('_debug', $_GET) )
+		// Enable profiler on local box
+	    if ((isset($this->current_user->group) AND $this->current_user->group == 'admin') AND is_array($_GET) AND array_key_exists('_debug', $_GET) )
 	    {
 			unset($_GET['_debug']);
 	    	$this->output->enable_profiler(TRUE);

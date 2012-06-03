@@ -1,78 +1,54 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed.');
+
 /**
- * CodeIgniter
+ * PyroCMS Inflector Helpers
+ * 
+ * This overrides Codeigniter's helpers/inflector_helper.php file.
  *
- * An open source application development framework for PHP 4.3.2 or newer
- *
- * @package		CodeIgniter
- * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008 - 2009, EllisLab, Inc.
- * @license		http://codeigniter.com/user_guide/license.html
- * @link		http://codeigniter.com
- * @since		Version 1.0
- * @filesource
+ * @author		PyroCMS Dev Team
+ * @package		PyroCMS\Core\Helpers
  */
+if (!function_exists('humanize'))
+{
 
-// ------------------------------------------------------------------------
-
-/**
- * CodeIgniter Inflector Helpers
- *
- * @package		CodeIgniter
- * @subpackage	Helpers
- * @category	Helpers
- * @author		ExpressionEngine Dev Team
- * @link		http://codeigniter.com/user_guide/helpers/directory_helper.html
- */
-
-
-// --------------------------------------------------------------------
-
-/**
- * Humanize - Cyrillic character support
- *
- * Takes multiple words separated by underscores and changes them to spaces
- *
- * @access	public
- * @param	string
- * @return	str
- */	
-if ( ! function_exists('humanize'))
-{	
+	/**
+	 * Humanize - Cyrillic character support
+	 *
+	 * Takes multiple words separated by underscores and changes them to spaces
+	 *
+	 * @access	public
+	 * @param	string
+	 * @return	str
+	 */
 	function humanize($str)
 	{
 		$str = preg_replace('/[_]+/', ' ', trim($str));
-		
-		if( function_exists('mb_convert_case') )
+
+		if (function_exists('mb_convert_case'))
 		{
 			return mb_convert_case($str, MB_CASE_TITLE, "UTF-8");
 		}
-		
-		else
-		{
-			return ucwords(strtolower($str));
-		}
+
+		return ucwords(strtolower($str));
 	}
+
 }
-	
 
-// --------------------------------------------------------------------
+if (!function_exists('keywords'))
+{
 
-/**
- * Keywords
- *
- * Takes multiple words separated by spaces and changes them to keywords
- *
- * @access	public
- * @param	string
- * @return	str
- */	
-if ( ! function_exists('keywords'))
-{	
+	/**
+	 * Keywords
+	 *
+	 * Takes multiple words separated by spaces and changes them to keywords
+	 * Makes sure the keywords are separated by a comma followed by a space.
+	 *
+	 * @param string $str The keywords as a string, separated by whitespace.
+	 * @return string The list of keywords in a comma separated string form.
+	 */
 	function keywords($str)
 	{
 		return preg_replace('/[\s]+/', ', ', trim($str));
 	}
-}
 
-/* End of file inflector_helper.php */
+}

@@ -1,12 +1,9 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * Modules controller, lists all installed modules
  *
- * @author 		Phil Sturgeon - PyroCMS Development Team
- * @package 	PyroCMS
- * @subpackage 	Core modules
- * @category 	Modules
- * @since 		v1.0
+ * @author 		PyroCMS Dev Team
+ * @package 	PyroCMS\Core\Modules\Modules\Controllers
  */
 class Admin extends Admin_Controller
 {
@@ -84,6 +81,9 @@ class Admin extends Admin_Controller
 					{
 						if ($this->module_m->install($slug, FALSE, TRUE))
 						{
+							// Fire an event. A module has been enabled when uploaded. 
+							Events::trigger('module_enabled', $slug);
+		
 							$this->session->set_flashdata('success', sprintf(lang('modules.install_success'), $slug));
 						}
 						else
@@ -112,7 +112,7 @@ class Admin extends Admin_Controller
 
 		$this->template
 			->title($this->module_details['name'], lang('modules.upload_title'))
-			->build('admin/upload', $this->data);
+			->build('admin/upload');
 	}
 	
 	/**
@@ -130,6 +130,9 @@ class Admin extends Admin_Controller
 		if ($this->module_m->uninstall($slug))
 		{
 			$this->session->set_flashdata('success', sprintf(lang('modules.uninstall_success'), $slug));
+			
+			// Fire an event. A module has been disabled when uninstalled. 
+			Events::trigger('module_disabled', $slug);
 
 			redirect('admin/modules');
 		}
@@ -171,6 +174,9 @@ class Admin extends Admin_Controller
 				}
 			}
 
+			// Fire an event. A module has been disabled when deleted. 
+			Events::trigger('module_disabled', $slug);
+			
 			redirect('admin/modules');
 		}
 
@@ -191,6 +197,9 @@ class Admin extends Admin_Controller
 	{
 		if ($this->module_m->install($slug))
 		{
+			// Fire an event. A module has been enabled when installed. 
+			Events::trigger('module_enabled', $slug);
+							
 			// Clear the module cache
 			$this->pyrocache->delete_all('module_m');
 			$this->session->set_flashdata('success', sprintf(lang('modules.install_success'), $slug));
@@ -216,6 +225,9 @@ class Admin extends Admin_Controller
 	{
 		if ($this->module_m->enable($slug))
 		{
+			// Fire an event. A module has been enabled. 
+			Events::trigger('module_enabled', $slug);
+			
 			// Clear the module cache
 			$this->pyrocache->delete_all('module_m');
 			$this->session->set_flashdata('success', sprintf(lang('modules.enable_success'), $slug));
@@ -241,6 +253,9 @@ class Admin extends Admin_Controller
 	{
 		if ($this->module_m->disable($slug))
 		{
+			// Fire an event. A module has been disabled. 
+			Events::trigger('module_disabled', $slug);
+			
 			// Clear the module cache
 			$this->pyrocache->delete_all('module_m');
 			$this->session->set_flashdata('success', sprintf(lang('modules.disable_success'), $slug));
@@ -267,6 +282,9 @@ class Admin extends Admin_Controller
 		// If upgrade succeeded
 		if ($this->module_m->upgrade($slug))
 		{
+			// Fire an event. A module has been upgraded. 
+			Events::trigger('module_upgraded', $slug);
+			
 			$this->session->set_flashdata('success', sprintf(lang('modules.upgrade_success'), $slug));
 		}
 		// If upgrade failed

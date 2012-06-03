@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['global:control-panel'] 			= 'Control Panel';
-$lang['global:profile']					= 'Profile'; #translate
+$lang['global:profile']					= 'Profile';
 
 $lang['title_label'] 					= 'Title';
 $lang['name_label'] 					= 'Name';
@@ -10,6 +10,7 @@ $lang['version_label'] 					= 'Version';
 $lang['global:author'] 					= 'Author';
 $lang['global:action'] 					= 'Action';
 $lang['global:slug'] 					= 'Slug';
+$lang['global:user'] 					= 'User';
 
 $lang['global:dialog:delete_message'] 	= 'Are you sure you want to delete this? It cannot be undone.';
 $lang['global:dialog:confirm'] 			= 'Confirm';
@@ -45,8 +46,8 @@ $lang['note_label'] 					= 'Note';
 $lang['success_label'] 					= 'Success';
 
 $lang['login_title'] 					= 'Log In';
-$lang['cms_fatal_error'] 				= 'Fatal error, is CMS installed?';
-$lang['global:demo_restrictions']       = 'Some features on this page have been disabled for the demo.';
+$lang['global:fatal_error'] 			= 'Fatal error, is CMS installed?';
+$lang['global:demo_restrictions'] 		= 'Some features on this page have been disabled for the demo.';
 
 $lang['login_error_label'] 				= 'Login Error';
 $lang['forgot_password_label'] 			= 'Forgot your password ?';
@@ -64,11 +65,13 @@ $lang['approve_label']					= 'Approve';
 $lang['unapprove_label']				= 'Unapprove';
 $lang['publish_label'] 					= 'Publish';
 $lang['upload_label'] 					= 'Upload';
-$lang['uninstall_label'] 				= 'Uninstall';
-$lang['install_label'] 					= 'Install';
-$lang['enable_label']					= 'Enable';
-$lang['disable_label'] 					= 'Disable';
-$lang['upgrade_label'] 					= 'Upgrade';
+$lang['global:uninstall'] 				= 'Uninstall';
+$lang['global:install'] 				= 'Install';
+$lang['global:upgrade'] 				= 'Upgrade';
+$lang['global:enable']					= 'Enable';
+$lang['global:disable'] 				= 'Disable';
+$lang['global:enabled']					= 'Enabled';
+$lang['global:disabled'] 				= 'Disabled';
 
 $lang['all_right_reserved']				= 'All Rights Reserved.';
 $lang['powered_by_pyrocms']				= 'Powered by PyroCMS';

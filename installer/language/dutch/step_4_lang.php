@@ -19,7 +19,7 @@ $lang['password']		= 	'Wachtwoord';
 $lang['conf_password']	=	'Herhaal Wachtwoord';
 $lang['finish']			=	'Installeren';
 
-$lang['invalid_db_name'] = 'The database name you entered is invalid. Please use only alphanumeric characters and underscores.'; #translate
+$lang['invalid_db_name'] = 'De database naam die u heeft ingevoerd in ongeldig. Gebruik a.u.b. aleen alphanumerieke characters en underscores.';
 $lang['error_101']		=	'De database werd niet aangetroffen. Als u de installer gevraagd heeft deze aan te maken, kan dit door ontbrekende rechten mislukt zijn.';
 $lang['error_102']		=	'De installer kon geen tabellen in de database aanmaken.<br/><br/>';
 $lang['error_103']		=	'De installer kon geen data in de tabellen toevoegen.<br/><br/>';
