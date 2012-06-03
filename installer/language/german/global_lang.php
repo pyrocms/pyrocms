@@ -7,5 +7,5 @@ $lang['step3']	=	'Schritt #3';
 $lang['step4']	=	'Schritt #4';
 $lang['final']	=	'Letzer Schritt';
 
-$lang['installer.passwords_match']		= "Passwort stimmt &uuml;berein.";
-$lang['installer.passwords_dont_match']	= "Passwort stimmt nicht &uuml;berein.";
+$lang['installer.passwords_match']		= "Das Passwort stimmt &uuml;berein.";
+$lang['installer.passwords_dont_match']	= "Das Passwort stimmt nicht &uuml;berein.";

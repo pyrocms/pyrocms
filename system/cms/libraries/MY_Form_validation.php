@@ -33,7 +33,7 @@ class MY_Form_validation extends CI_Form_validation
 	function utf8($str)
 	{
 		// If they don't have mbstring enabled (suckers) then we'll have to do with what we got
-		if ( ! function_exists($str))
+		if ( ! function_exists('mb_convert_encoding'))
 		{
 			return $str;
 		}
@@ -175,7 +175,7 @@ class MY_Form_validation extends CI_Form_validation
 			{
 				if ( ! method_exists(CI::$APP->controller, $rule))
 				{
-					throw new Exception('Undefined callback "$rule" in '.CI::$APP->controller);
+					throw new Exception('Undefined callback "'.$rule.'" in '.CI::$APP->controller);
 				}
 
 				// Run the function and grab the result

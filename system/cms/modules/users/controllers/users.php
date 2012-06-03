@@ -649,7 +649,7 @@ class Users extends Public_Controller
 				$this->session->set_flashdata('error', $this->ion_auth->errors());
 			}
 
-			redirect('users/login/users/edit'.(($id > 0) ? '/'.$id : ''));
+			redirect('users/edit'.(($id > 0) ? '/'.$id : ''));
 		}
 		else
 		{

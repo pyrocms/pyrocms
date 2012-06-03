@@ -168,11 +168,11 @@ class Module_Pages extends Module {
 			  ('2', 'default', '2', '<p>We cannot find the page you are looking for, please click <a title=\"Home\" href=\"{{ pages:url id=\'1\' }}\">here</a> to go to the homepage.</p>', '', 'wysiwyg-advanced', '0'),
 			  ('3', 'default', '3', '<p>To contact us please fill out the form below.</p>
 				{{ contact:form name=\"text|required\" email=\"text|required|valid_email\" subject=\"dropdown|Support|Sales|Feedback|Other\" message=\"textarea\" attachment=\"file|zip\" }}
-					<div><label for=\"name\">Name:</label>{{ name }}</div>
-					<div><label for=\"email\">Email:</label>{{ email }}</div>
-					<div><label for=\"subject\">Subject:</label>{{ subject }}</div>
-					<div><label for=\"message\">Message:</label>{{ message }}</div>
-					<div><label for=\"attachment\">Attach  a zip file:</label>{{ attachment }}</div>
+					<div><label for=\"contact_name\">Name:</label>{{ name }}</div>
+					<div><label for=\"contact_email\">Email:</label>{{ email }}</div>
+					<div><label for=\"contact_subject\">Subject:</label>{{ subject }}</div>
+					<div><label for=\"contact_message\">Message:</label>{{ message }}</div>
+					<div><label for=\"contact_attachment\">Attach  a zip file:</label>{{ attachment }}</div>
 				{{ /contact:form }}', '', 'wysiwyg-advanced', '0');
 		";
 
