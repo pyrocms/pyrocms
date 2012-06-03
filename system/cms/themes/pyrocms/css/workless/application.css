@@ -16,8 +16,6 @@
  * Mobile first, everything else is overridden in responsive.css
  * ---------------------------------- */
 
-* { font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif; }
-
 #container {
 	width: 280px;
 	height: 100%;
@@ -65,8 +63,7 @@
 	font-size: 16px;
 	color: #ffffff;
 	margin: 0 12px 0 3px;
-	padding: 15px 15px 15px 0;
-	border-right: 1px solid #383838;
+	padding: 12px 15px 15px 0;
 	float: left;
 }
 
@@ -348,8 +345,9 @@ section.title {
   	background-image: linear-gradient(#f7f7f7, #f3f3f3);
   	border: 1px solid #ffffff;
   	border-bottom: 1px solid #eeeeee;
-  	padding: 0 15px 0 15px;
+  	padding: 13px 15px 8px 15px;
   	margin-top: 15px;
+  	margin-bottom: 0;
   	border-top-right-radius: 5px;
   	-moz-border-radius-topright: 5px;
   	-webkit-border-top-right-radius: 5px;
@@ -359,6 +357,7 @@ section.title {
   	box-shadow: 0px 0px 1px #aaaaaa;
   	-moz-box-shadow: 0px 0px 1px #aaaaaa;
   	-webkit-box-shadow: 0px 0px 1px #aaaaaa;
+  	float: left;
 }
 
 section.title h4 {
@@ -377,7 +376,7 @@ section.item {
 	background: #ffffff;
 	width: 100%;
 	min-height: 100px;
-	margin: 0;
+	margin: -3px 0 0 0;
 	padding: 16px;
 	float: left;
 	border-bottom-right-radius: 5px;
@@ -407,8 +406,7 @@ section.box {
   	background-image: linear-gradient(#f7f7f7, #f3f3f3);
   	border: 1px solid #ffffff;
   	border-bottom: 1px solid #eeeeee;
-  	padding: 2px 0 15px 0;
-  	margin-bottom: 15px !important;
+  	padding: 10px 0 15px 0;
   	border-radius: 5px;
   	-moz-border-radius: 5px;
   	-webkit-border-radius: 5px;
@@ -530,9 +528,11 @@ footer p {
 	font-size: 12px;
 	margin: 5px 0 15px 0;
 	padding: 0 10px;
+	color: #ffffff;
 }
 
 ul#lang {
+	margin-top: 15px;
 	margin-right: 24px;
 	text-align: center;
 	text-shadow: 0 -1px 0 #ffffff;
@@ -596,7 +596,7 @@ ul#lang .highlighted {
 section.draggable { cursor:grabbing; cursor:-moz-grabbing; cursor:-webkit-grabbing; }
 
 /* Toggle button */
-a.toggle { width: 21px; height: 22px; background: url("../../img/toggle.png") no-repeat; float: right; cursor: pointer; margin: 7px 0 0 0; }
+a.toggle { width: 21px; height: 22px; background: url("../../img/toggle.png") no-repeat; float: right; cursor: pointer; margin: 0; }
 
 table > thead > tr {
 	border-bottom: 2px solid #ddd;

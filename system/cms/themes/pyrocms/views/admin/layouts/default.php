@@ -18,9 +18,6 @@
 	<!-- Mobile viewport optimized -->
 	<meta name="viewport" content="width=device-width,user-scalable=no">
 
-	<!-- Googlelicious -->
-	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open Sans:regular,bold" type="text/css" />
-
 	<!-- CSS. No need to specify the media attribute unless specifically targeting a media type, leaving blank implies media=all -->
 	<?php echo Asset::css('plugins.css'); ?>
 	<?php echo Asset::css('workless/workless.css'); ?>
