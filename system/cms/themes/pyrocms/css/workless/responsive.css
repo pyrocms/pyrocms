@@ -142,12 +142,6 @@
 		float: left;
 	}
 
-	#quick_links ul li {
-		width: 75px;
-		float: left;
-		margin: 3px 15px 0 15px;
-	}
-
 	footer p {
 		padding: 0;
 	}
@@ -288,12 +282,6 @@
 		float: left;
 	}
 
-	#quick_links ul li {
-		width: 75px;
-		float: left;
-		margin: 3px 5px 0 5px;
-	}
-
 	footer p {
 		float: left;
 		padding: 10px 0 0 0;
@@ -410,12 +398,6 @@
 		float: left;
 	}
 
-	#quick_links ul li {
-		width: 75px;
-		float: left;
-		margin: 3px 18px 0 18px;
-	}
-
 	footer p {
 		padding: 0px;
 		margin: 0px;
@@ -519,12 +501,6 @@
 	.three_quarter {
 		width: 975px;
 		float: left;
-	}
-
-	#quick_links ul li {
-		width: 75px;
-		float: left;
-		margin: 3px 35px 0 35px;
 	}
 
 	.alert {

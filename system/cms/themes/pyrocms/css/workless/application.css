@@ -393,20 +393,57 @@ section.box {
 	width: 100%;
 }
 
+#quick_links {
+	width: 100%;
+  	background: #f7f7f7;
+  	background-repeat: repeat-x;
+  	background-image: -khtml-gradient(linear, left top, left bottom, from(#f7f7f7), to(#f3f3f3));
+  	background-image: -moz-linear-gradient(#f7f7f7, #f3f3f3);
+  	background-image: -ms-linear-gradient(#f7f7f7, #f3f3f3);
+  	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f7f7f7), color-stop(100%, #f3f3f3));
+  	background-image: -webkit-linear-gradient(#f7f7f7, #f3f3f3);
+  	background-image: -o-linear-gradient(#f7f7f7, #f3f3f3);
+  	background-image: linear-gradient(#f7f7f7, #f3f3f3);
+  	border: 1px solid #ffffff;
+  	border-bottom: 1px solid #eeeeee;
+  	padding: 2px 0 15px 0;
+  	border-radius: 5px;
+  	-moz-border-radius: 5px;
+  	-webkit-border-radius: 5px;
+  	box-shadow: 0px 0px 1px #aaaaaa;
+  	-moz-box-shadow: 0px 0px 1px #aaaaaa;
+  	-webkit-box-shadow: 0px 0px 1px #aaaaaa;
+}
+
 #quick_links ul {
+	margin: 0;
+	margin-top: -15px!important;
+	padding: 0;
 	float: left;
 }
 
 #quick_links ul li {
-	width: 75px;
+	margin: 0 25px 0 25px;
+	width: 16px;
+	height: 16px;
 	float: left;
-	margin: 3px 15px 10px 15px;
 }
 
 #quick_links ul li a {
-	width: 77px;
-	height: 91px;
-	float: left;
+	filter: alpha(opacity=80);
+  	-khtml-opacity: 0.8;
+  	-moz-opacity: 0.8;
+  	opacity: 0.8;
+  	-webkit-transition: 250ms linear all; 
+	-moz-transition: 250ms linear all; 
+	transition: 250ms linear all;
+}
+
+#quick_links ul li a:hover {
+	filter: alpha(opacity=100);
+  	-khtml-opacity: 1;
+  	-moz-opacity: 1;
+  	opacity: 1;
 }
 
 #feed ul li {
