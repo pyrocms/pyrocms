@@ -10,6 +10,7 @@
 				<li>
 					<a class="tooltip-s" title="<?php echo lang('cp_manage_comments') ?>" href="<?php echo site_url('admin/comments') ?>">
 						<?php echo Asset::img('icons/comments.png', lang('cp_manage_comments')); ?>
+						<?php echo lang('cp_manage_comments') ?>
 					</a>
 				</li>
 				<?php endif; ?>
@@ -18,6 +19,7 @@
 				<li>
 					<a class="tooltip-s" title="<?php echo lang('cp_manage_pages'); ?>" href="<?php echo site_url('admin/pages') ?>">
 						<?php echo Asset::img('icons/pages.png', lang('cp_manage_pages')); ?>
+						<?php echo lang('cp_manage_pages'); ?>
 					</a>
 				</li>
 				<?php endif; ?>
@@ -26,6 +28,7 @@
 				<li>
 					<a class="tooltip-s" title="<?php echo lang('cp_manage_files'); ?>" href="<?php echo site_url('admin/files') ?>">
 						<?php echo Asset::img('icons/files.png', lang('cp_manage_files')); ?>
+						<?php echo lang('cp_manage_files'); ?>
 					</a>
 				</li>
 				<?php endif; ?>
@@ -34,6 +37,7 @@
 				<li>
 					<a class="tooltip-s" title="<?php echo lang('cp_manage_users'); ?>" href="<?php echo site_url('admin/users') ?>">
 						<?php echo Asset::img('icons/users.png', lang('cp_manage_users')); ?>
+						<?php echo lang('cp_manage_users'); ?>
 					</a>
 				</li>
 				<?php endif; ?>

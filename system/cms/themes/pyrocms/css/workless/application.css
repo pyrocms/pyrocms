@@ -423,13 +423,14 @@ section.box {
 }
 
 #quick_links ul li {
-	margin: 0 25px 0 25px;
-	width: 16px;
-	height: 16px;
-	float: left;
+	margin: 0 10px 0 15px;
+	display: inline;
 }
 
 #quick_links ul li a {
+	font-size: 12px;
+	text-align: center;
+	color: #333333;
 	filter: alpha(opacity=80);
   	-khtml-opacity: 0.8;
   	-moz-opacity: 0.8;
