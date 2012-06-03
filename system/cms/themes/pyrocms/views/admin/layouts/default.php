@@ -18,20 +18,15 @@
 	<!-- Mobile viewport optimized -->
 	<meta name="viewport" content="width=device-width,user-scalable=no">
 
+	<!-- Googlelicious -->
+	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open Sans:regular,bold" type="text/css" />
+
 	<!-- CSS. No need to specify the media attribute unless specifically targeting a media type, leaving blank implies media=all -->
 	<?php echo Asset::css('plugins.css'); ?>
 	<?php echo Asset::css('workless/workless.css'); ?>
 	<?php echo Asset::css('workless/application.css'); ?>
 	<?php echo Asset::css('workless/responsive.css'); ?>
 	<!-- End CSS-->
-
-	<!-- Load up some favicons -->
-	<link rel="shortcut icon" href="favicon.ico">
-	<link rel="apple-touch-icon" href="apple-touch-icon.png">
-	<link rel="apple-touch-icon" href="apple-touch-icon-precomposed.png">
-	<link rel="apple-touch-icon" href="apple-touch-icon-57x57-precomposed.png">
-	<link rel="apple-touch-icon" href="apple-touch-icon-72x72-precomposed.png">
-	<link rel="apple-touch-icon" href="apple-touch-icon-114x114-precomposed.png">
 
 	<!-- metadata needs to load before some stuff -->
 	<?php file_partial('metadata'); ?>

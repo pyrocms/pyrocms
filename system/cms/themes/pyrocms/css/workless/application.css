@@ -16,6 +16,8 @@
  * Mobile first, everything else is overridden in responsive.css
  * ---------------------------------- */
 
+* { font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif; }
+
 #container {
 	width: 280px;
 	height: 100%;
