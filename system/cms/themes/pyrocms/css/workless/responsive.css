@@ -22,6 +22,10 @@
 
 @media only screen and (min-width: 281px) {
 
+	#quick_links {
+		width: 280px;
+	}
+	
 	#logo {
 		display: none;
 	}
@@ -50,7 +54,7 @@
 
 @media only screen and (min-width: 481px) {
 
-	.wrapper {
+	.wrapper, #quick_links {
 		width: 480px;
 		margin: 0 auto;
 	}
@@ -185,7 +189,7 @@
 
 	.topbar, .subbar, .sections_bar {position: fixed;}
 
-	.wrapper {
+	.wrapper, #quick_links {
 		width: 750px;
 		margin: 0 auto;
 	}
@@ -310,7 +314,7 @@
 
 @media only screen and (min-width: 1025px) {
 
-	.wrapper {
+	.wrapper, #quick_links {
 		width: 1024px;
 		margin: 0 auto;
 	}
@@ -414,7 +418,7 @@
 
 @media only screen and (min-width: 1281px) {
 
-	.wrapper {
+	.wrapper, #quick_links {
 		width: 1280px;
 		margin: 0 auto;
 	}

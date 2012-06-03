@@ -394,7 +394,6 @@ section.box {
 }
 
 #quick_links {
-	width: 100%;
   	background: #f7f7f7;
   	background-repeat: repeat-x;
   	background-image: -khtml-gradient(linear, left top, left bottom, from(#f7f7f7), to(#f3f3f3));
