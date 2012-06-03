@@ -345,9 +345,8 @@ input:invalid, textarea:invalid { background-color: #f0dddd; }
 .form_inputs label small {
 	display: block;
 	font-weight: normal;
-	font-style: italic;
 	font-size: 11px;
-	color: #aaa;
+	color: #666666;
 }
 .form_inputs input,
 .form_inputs textarea {
