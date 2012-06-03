@@ -62,7 +62,7 @@
 #logo {
 	font-size: 16px;
 	color: #ffffff;
-	margin: 0 10px 0 3px;
+	margin: 0 15px 0 3px;
 	padding: 10px 0 15px 0;
 	float: left;
 }
@@ -70,6 +70,10 @@
 #logo a {
 	font-size: 16px;
 	color: #ffffff;
+}
+
+#dashboard-link {
+	margin-right: 10px;
 }
 
 .subbar {
@@ -447,6 +451,22 @@ section.box {
   	opacity: 1;
 }
 
+ul#recent_comments li {
+	padding: 15px 0 15px 0;
+	margin: 0 0 15px 0;
+	border-bottom: 1px solid #eeeeee;
+}
+
+ul#recent_comments li img {
+	width: 50px;
+	height: 50px;
+	margin: 0 15px 0 0;
+	padding: 3px;
+	border: 1px solid #dddddd;
+	box-shadow: 0 1px 1px #dddddd;
+	float: left;
+}
+
 #feed ul li {
 	padding: 0 25px 15px 20px;
 	margin: 0 0 25px -15px;
@@ -469,6 +489,7 @@ section.box {
 
 #feed ul li, #feed ul li p {
 	color: #333333;
+	line-height: 20px;
 }
 
 #feed ul li p {

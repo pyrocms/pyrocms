@@ -130,69 +130,69 @@ jQuery(function($) {
 
 	<!-- Begin Recent Comments -->
 	<?php if (isset($recent_comments) AND is_array($recent_comments) AND $theme_options->pyrocms_recent_comments == 'yes') : ?>
-	<div class="one_full">
+		<div class="one_full">
+			<section class="draggable title">
+				<h4><?php echo lang('comments.recent_comments') ?></h4>
+				<a class="tooltip-s toggle" title="Toggle this element"></a>
+			</section>
 		
-		<section class="draggable title">
-			<h4><?php echo lang('comments.recent_comments') ?></h4>
-			<a class="tooltip-s toggle" title="Toggle this element"></a>
-		</section>
-		
-		<section class="item">
-			<ul>
-				<?php if (count($recent_comments)): ?>
-						<?php foreach ($recent_comments AS $rant) : ?>
-							<li>
-								<p><?php echo sprintf(lang('comments.list_comment'), $rant->name, $rant->item); ?> <em><?php echo (Settings::get('comment_markdown') AND $rant->parsed > '') ? strip_tags($rant->parsed) : $rant->comment; ?></em></p>
-							</li>
-						<?php endforeach; ?>
-				<?php else: ?>
+			<section class="item">
+				<ul id="recent_comments">
+					<?php if (count($recent_comments)): ?>
+							<?php foreach ($recent_comments AS $rant) : ?>
+								<li>
+									<?php echo gravatar($rant->email, 50); ?>
+									<p class="truncate">
+										<?php echo sprintf(lang('comments.list_comment'), $rant->name, $rant->item); ?>
+										<?php echo (Settings::get('comment_markdown') AND $rant->parsed > '') ? strip_tags($rant->parsed) : $rant->comment; ?>
+									</p>
+								</li>
+							<?php endforeach; ?>
+					<?php else: ?>
 						<?php echo lang('comments.no_comments');?>
-				<?php endif; ?>
-			</ul>
-		</section>
-
-	</div>		
+					<?php endif; ?>
+				</ul>
+			</section>
+		</div>		
 	<?php endif; ?>
 	<!-- End Recent Comments -->
 
 	<!-- Begin RSS Feed -->
 	<?php if ( isset($rss_items) AND $theme_options->pyrocms_news_feed == 'yes') : ?>
-	<div id="feed" class="one_full">
+		<div id="feed" class="one_full">
 		
-		<section class="draggable title">
-			<h4><?php echo lang('cp_news_feed_title'); ?></h4>
-			<a class="tooltip-s toggle" title="Toggle this element"></a>
-		</section>
+			<section class="draggable title">
+				<h4><?php echo lang('cp_news_feed_title'); ?></h4>
+				<a class="tooltip-s toggle" title="Toggle this element"></a>
+			</section>
 		
-		<section class="item">
-			<ul>
-				<?php foreach($rss_items as $rss_item): ?>
-				<li>
+			<section class="item">
+				<ul>
+					<?php foreach($rss_items as $rss_item): ?>
+						<li>
 						
-					<?php
-						$item_date	= strtotime($rss_item->get_date());
-						$item_month = date('M', $item_date);
-						$item_day	= date('j', $item_date);
-					?>
+							<?php
+								$item_date	= strtotime($rss_item->get_date());
+								$item_month = date('M', $item_date);
+								$item_day	= date('j', $item_date);
+							?>
 						
-					<div class="date">
-						<span class="month">
-							<?php echo $item_month ?>
-						</span>
-						<span class="day">
-							<?php echo $item_day; ?>
-						</span>
-					</div>
+						<div class="date">
+							<span class="month">
+								<?php echo $item_month ?>
+							</span>
+							<span class="day">
+								<?php echo $item_day; ?>
+							</span>
+						</div>
 					
-					<h4><?php echo anchor($rss_item->get_permalink(), $rss_item->get_title(), 'target="_blank"'); ?></h4>
-											
-					<p class='item_body'><?php echo $rss_item->get_description(); ?></p>
-				</li>
-				<?php endforeach; ?>
-			</ul>
-		</section>
-
-	</div>		
+							<h4><?php echo anchor($rss_item->get_permalink(), $rss_item->get_title(), 'target="_blank"'); ?></h4>				
+							<p class='item_body'><?php echo $rss_item->get_description(); ?></p>
+						</li>
+					<?php endforeach; ?>
+				</ul>
+			</section>
+		</div>		
 	<?php endif; ?>
 	<!-- End RSS Feed -->
 
