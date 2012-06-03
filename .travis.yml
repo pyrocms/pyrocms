@@ -1,4 +1,3 @@
 branches:
-  except:
-    - 2.0/master    
-    - 2.0/develop
+  only:
+    - feature/unit-tests
