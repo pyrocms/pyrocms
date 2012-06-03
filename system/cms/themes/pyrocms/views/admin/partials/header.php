@@ -9,7 +9,7 @@
 			<?php echo anchor('', $this->settings->site_name, 'target="_blank"'); ?>
 		</div>
 	
-		<nav>
+		<nav id="primary">
 			<?php file_partial('navigation'); ?>
 		</nav>
 	</div>
