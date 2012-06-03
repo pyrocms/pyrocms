@@ -9,7 +9,7 @@ function insertImage(file, alt)
 	}
 	var img_width = document.getElementById('insert_width').value;
 	
-	window.parent.instance.insertHtml('<img class="pyro-image" style="float: '+get_float()+';" src="' + SITE_URL + 'files/thumb/' + file + '/' + img_width + '" alt="' + alt + '" />');
+	window.parent.instance.insertHtml('<img class="pyro-image" style="float: '+get_float()+';" src="{{ url:site }}files/thumb/' + file + '/' + img_width + '" alt="' + alt + '" />');
     windowClose();
 }
 
@@ -19,7 +19,7 @@ function insertFile(id, title)
 	{
 		replace_html.remove();
 	}
-	window.parent.instance.insertHtml('<a class="pyro-file" href="' + SITE_URL + 'files/download/' + id + '">' + title + '</a>');
+	window.parent.instance.insertHtml('<a class="pyro-file" href="{{ url:site }}files/download/' + id + '">' + title + '</a>');
     windowClose();
 }
 

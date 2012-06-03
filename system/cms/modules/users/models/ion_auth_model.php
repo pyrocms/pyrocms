@@ -146,7 +146,7 @@ class Ion_auth_model extends CI_Model
 		}
 		else
 		{
-			$salt = substr($result->password, 0, $this->salt_length);
+			$salt = substr($hash_password_db->password, 0, $this->salt_length);
 
 			return $salt . substr(sha1($salt . $password), 0, -$this->salt_length);
 		}

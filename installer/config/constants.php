@@ -56,7 +56,7 @@ define('ENV', ENVIRONMENT);
 */
 
 // Base URL (keeps this crazy sh*t out of the config.php
-if(isset($_SERVER['HTTP_HOST']))
+if (isset($_SERVER['HTTP_HOST']))
 {
 	$base_url = isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) == 'on' ? 'https' : 'http';
 	$base_url .= '://'. $_SERVER['HTTP_HOST'];
@@ -91,4 +91,4 @@ unset($base_uri, $base_url);
 |
 */
 
-define('CMS_VERSION', '2.0.2');
+define('CMS_VERSION', '2.0.4');

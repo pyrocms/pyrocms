@@ -18,7 +18,7 @@ class Module_import {
 		$db['username'] = $this->ci->session->userdata('username');
 		$db['password'] = $this->ci->session->userdata('password');
 		$db['database'] = $this->ci->input->post('database');
-		$db['port'] = $this->ci->input->post('port');
+		$db['port'] 	= $this->ci->input->post('port');
 		$db['dbdriver'] = "mysql";
 		$db['dbprefix'] = 'default_';
 		$db['pconnect'] = TRUE;
