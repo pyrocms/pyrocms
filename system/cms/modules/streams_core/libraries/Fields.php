@@ -562,14 +562,14 @@ class Fields
 	 * to the field setup (edit/delete screen).
 	 *
 	 * @access 	public
-	 * @param 	obj - stream
-	 * @param 	string - method - new or edit
-	 * @param 	obj or null (for new fields) - field
+	 * @param 	[obj - stream]
+	 * @param 	[string - method - new or edit]
+	 * @param 	[obj or null (for new fields) - field]
 	 * @return 	
 	 */
-	public function run_field_setup_events($stream, $method, $field)
+	public function run_field_setup_events($stream = null, $method = 'new', $field = null)
 	{
-		foreach($this->CI->type->types as $ft)
+		foreach ($this->CI->type->types as $ft)
 		{
 			if (method_exists($ft, 'field_setup_event'))
 			{
