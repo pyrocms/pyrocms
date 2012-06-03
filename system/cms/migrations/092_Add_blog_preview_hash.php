@@ -6,7 +6,7 @@ class Migration_Add_blog_preview_hash extends CI_Migration {
     {
         $this->dbforge->add_column('blog', array(
             'preview_hash' => array(
-            	'type'		=> 'varchar',
+            	'type'		=> 'char',
             	'constraint'=> 32,
             	'default'	=> ''
             )
