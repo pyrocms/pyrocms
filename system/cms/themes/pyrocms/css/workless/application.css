@@ -467,6 +467,10 @@ ul#recent_comments li img {
 	float: left;
 }
 
+ul#recent_comments li p {
+	line-height: 20px;
+}
+
 #feed ul li {
 	padding: 0 25px 15px 20px;
 	margin: 0 0 25px -15px;
