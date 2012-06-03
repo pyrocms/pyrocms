@@ -349,11 +349,19 @@ input:invalid, textarea:invalid { background-color: #f0dddd; }
 	font-size: 11px;
 	color: #aaa;
 }
+.form_inputs input,
+.form_inputs textarea {
+-webkit-transition: 250ms linear all; 
+  -moz-transition: 250ms linear all; 
+  transition: 250ms linear all;
+}
+
 .form_inputs input:focus,
 .form_inputs textarea:focus {
 	color: #4D4D4D;
 	outline: none;
 	border-color: #ed8e28;
+  box-shadow: 0 0 5px #ed8e28;
 }
 .form_inputs .datetime_input select {
 	width:  100px;
