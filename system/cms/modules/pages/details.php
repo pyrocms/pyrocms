@@ -119,6 +119,7 @@ class Module_Pages extends Module
 			'pages' => array(
 				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true),
 				'slug' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '', 'key' => 'slug'),
+				'class' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => ''),
 				'title' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => ''),
 				'uri' => array('type' => 'TEXT', 'null' => true),
 				'parent_id' => array('type' => 'INT', 'constraint' => 11, 'default' => 0, 'key' => 'parent_id'),
