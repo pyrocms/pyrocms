@@ -699,7 +699,7 @@ table th.collapse, table td.collapse {
 table th {
   padding-top: 9px;
   font-weight: bold;
-  border-bottom-width: 2px;
+  border-bottom: none;
 }
 
 .zebra-striped tbody tr:nth-child(odd) td {
