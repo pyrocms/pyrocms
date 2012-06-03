@@ -61,23 +61,6 @@ $(function($) {
 	});
 </script>
 
-<section class="title">
-	<h4>Statistics</h4>
-</section>
-	
-<div id="analyticsWrapper">
-	<div id="analytics"></div>
-</div>
-
-<?php endif; ?>
-<!-- End Analytics -->
-	
-<!-- Add an extra div to allow the elements within it to be sortable! -->
-<div id="sortable">
-
-	<!-- Dashboard Widgets -->
-	{{ widgets:area slug="dashboard" }}
-
 	<!-- Begin Quick Links -->
 	<?php if ($theme_options->pyrocms_quick_links == 'yes') : ?>
 	<div class="one_full">
@@ -122,6 +105,23 @@ $(function($) {
 	</div>		
 	<?php endif; ?>
 	<!-- End Quick Links -->
+
+<section class="title">
+	<h4>Statistics</h4>
+</section>
+	
+<div id="analyticsWrapper">
+	<div id="analytics"></div>
+</div>
+
+<?php endif; ?>
+<!-- End Analytics -->
+	
+<!-- Add an extra div to allow the elements within it to be sortable! -->
+<div id="sortable">
+
+	<!-- Dashboard Widgets -->
+	{{ widgets:area slug="dashboard" }}
 
 	<!-- Begin Recent Comments -->
 	<?php if (isset($recent_comments) AND is_array($recent_comments) AND $theme_options->pyrocms_recent_comments == 'yes') : ?>

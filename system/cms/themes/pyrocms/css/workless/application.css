@@ -406,6 +406,7 @@ section.box {
   	border: 1px solid #ffffff;
   	border-bottom: 1px solid #eeeeee;
   	padding: 2px 0 15px 0;
+  	margin-bottom: 15px !important;
   	border-radius: 5px;
   	-moz-border-radius: 5px;
   	-webkit-border-radius: 5px;
