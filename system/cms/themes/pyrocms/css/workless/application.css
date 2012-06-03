@@ -91,7 +91,7 @@
   	background-image: linear-gradient(#f7f7f7, #f3f3f3);
   	border: 1px solid #ffffff;
   	border-bottom: 1px solid #eeeeee;
-  	padding: 15px 15px 13px 0;
+  	padding: 10px 15px 15px 0;
   	margin-top: 15px;
   	border-top-right-radius: 5px;
   	-moz-border-radius-topright: 5px;
@@ -109,14 +109,18 @@
 	position: relative;
 }
 
-.subbar .wrapper {position: relative;}
-.subbar h2, .subbar h2 a {
+.subbar .wrapper {
+	position: relative;
+}
+
+.subbar h2, 
+.subbar h2 a {
   	color: #555555;
   	text-shadow: 1px 1px 0 #ffffff;
 	margin: 0 0 0 5px;
 	padding: 0;
 	float: left;
-	font-size: 20px;
+	font-size: 22px;
 }
 
 .subbar small {
