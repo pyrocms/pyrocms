@@ -135,14 +135,14 @@ jQuery(function($) {
 				<h4><?php echo lang('comments.recent_comments') ?></h4>
 				<a class="tooltip-s toggle" title="Toggle this element"></a>
 			</section>
-		
+
 			<section class="item">
 				<ul id="recent_comments">
 					<?php if (count($recent_comments)): ?>
 							<?php foreach ($recent_comments AS $rant) : ?>
 								<li>
 									<?php echo gravatar($rant->email, 50); ?>
-									<p class="truncate">
+									<p>
 										<?php echo sprintf(lang('comments.list_comment'), $rant->name, $rant->item); ?>
 										<?php echo (Settings::get('comment_markdown') AND $rant->parsed > '') ? strip_tags($rant->parsed) : $rant->comment; ?>
 									</p>
