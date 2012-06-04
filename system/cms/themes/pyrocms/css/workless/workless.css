@@ -283,14 +283,14 @@ sub
 p 
 { 
   color: #333333;
-  font-size: 14px;
+  font-size: 13px;
   line-height: 1.125em;
   margin: 0 0 1.125em 0;
 }
 p small 
 { 
   color: #666666;
-  font-size: 12px; 
+  font-size: 11px; 
 }
 
 /** 
@@ -412,7 +412,7 @@ ol
 }
 li 
 { 
-  font-size: 1em;
+  font-size: 13px;
   line-height: 1.4em;
 }
 dl 
@@ -422,7 +422,7 @@ dl
 dl dt, 
 dl dd 
 { 
-  font-size: 1em;
+  font-size: 13px;
 }
 dl dt 
 { 
