@@ -56,6 +56,17 @@
 	nav#primary ul.primary-nav { display: none; }
 	nav#primary .chzn-container { display: inherit; }
 
+	input[type="text"], 
+	input[type="password"], 
+	input[type="password"],
+	textarea {
+		width: 200px;
+	}
+
+	select { 
+		width: 245px; 
+	}
+
 @media only screen and (min-width: 481px) {
 
 	.wrapper, #quick_links {
@@ -190,6 +201,17 @@
 	nav#primary ul.primary-nav { display: none; }
 	nav#primary .chzn-container { display: inherit; }
 
+	input[type="text"], 
+	input[type="password"], 
+	input[type="password"],
+	textarea {
+		width: 400px;
+	}
+
+	select { 
+		width: 445px; 
+	}
+
 }
 
 @media only screen and (min-width: 768px) {
@@ -323,6 +345,17 @@
 	nav#primary ul.primary-nav { display: inherit; }
 	nav#primary .chzn-container { display: none; }
 
+	input[type="text"], 
+	input[type="password"], 
+	input[type="password"],
+	textarea {
+		width: 500px;
+	}
+
+	select { 
+		width: 545px; 
+	}
+
 }
 
 @media only screen and (min-width: 1025px) {
@@ -430,6 +463,17 @@
 	nav#primary ul.primary-nav { display: inherit; }
 	nav#primary .chzn-container { display: none; }
 
+	input[type="text"], 
+	input[type="password"], 
+	input[type="password"],
+	textarea {
+		width: 500px;
+	}
+
+	select { 
+		width: 545px; 
+	}
+
 }
 
 @media only screen and (min-width: 1281px) {
@@ -529,5 +573,16 @@
 
 	nav#primary ul.primary-nav { display: inherit; }
 	nav#primary .chzn-container { display: none; }
+
+	input[type="text"], 
+	input[type="password"], 
+	input[type="password"],
+	textarea {
+		width: 500px;
+	}
+
+	select { 
+		width: 545px; 
+	}
 
 }
