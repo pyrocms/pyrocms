@@ -141,7 +141,7 @@ jQuery(function($) {
 					<?php if (count($recent_comments)): ?>
 							<?php foreach ($recent_comments AS $rant) : ?>
 								<li>
-									<?php echo gravatar($rant->email, 50); ?>
+									<?php echo gravatar($rant->email, 100); ?>
 									<p>
 										<?php echo sprintf(lang('comments.list_comment'), $rant->name, $rant->item); ?>
 										<?php echo (Settings::get('comment_markdown') AND $rant->parsed > '') ? strip_tags($rant->parsed) : $rant->comment; ?>
