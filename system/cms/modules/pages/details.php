@@ -74,22 +74,22 @@ class Module_Pages extends Module
 
 			'sections' => array(
 			    'pages' => array(
-				    'name' => 'pages.list_title',
+				    'name' => 'pages:list_title',
 				    'uri' => 'admin/pages',
 				    'shortcuts' => array(
 						array(
-						    'name' => 'pages.create_title',
+						    'name' => 'pages:create_title',
 						    'uri' => 'admin/pages/create',
 						    'class' => 'add'
 						),
 				    ),
 				),
 				'layouts' => array(
-				    'name' => 'pages.layouts_list_title',
+				    'name' => 'pages:layouts_list_title',
 				    'uri' => 'admin/pages/layouts',
 				    'shortcuts' => array(
 						array(
-						    'name' => 'pages.layouts_create_title',
+						    'name' => 'pages:layouts_create_title',
 						    'uri' => 'admin/pages/layouts/create',
 						    'class' => 'add'
 						),

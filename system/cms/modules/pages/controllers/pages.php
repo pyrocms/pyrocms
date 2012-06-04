@@ -188,10 +188,7 @@ class Pages extends Public_Controller
 		}
 
 		// Grab all the chunks that make up the body
-		$page->chunks = $this->db
-			->order_by('sort')
-			->get_where('page_chunks', array('page_id' => $page->id))
-			->result();
+		$page->chunks = $this->page_m->get_chunks($page->id);
 
 		$chunk_html = '';
 		foreach ($page->chunks as $chunk)

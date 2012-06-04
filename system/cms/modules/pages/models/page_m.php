@@ -237,7 +237,7 @@ class Page_m extends MY_Model
 		$page = $this->db
 			->where($this->primary_key, $id)
 			->get($this->_table)
-			->row_array();
+			->row();
 
 		if ( ! $page)
 		{
@@ -246,7 +246,7 @@ class Page_m extends MY_Model
 
 		if ($get_chunks)
 		{
-			$page['chunks'] = $this->db
+			$page->chunks = $this->db
 				->order_by('sort')
 				->get_where('page_chunks', array('page_id' => $id))
 				->result_array();
@@ -263,7 +263,7 @@ class Page_m extends MY_Model
 	public function get_home()
 	{
 		return $this->db
-			->where('is_home', 1)
+			->where('is_home', true)
 			->get('pages')
 			->row();
 	}
@@ -308,6 +308,18 @@ class Page_m extends MY_Model
 		return $page_array;
 	}
 
+	/**
+	 * Return page chunks
+	 *
+	 * @return array An array containing all chunks for a page
+	 */
+	public function get_chunks($id)
+	{
+		return $this->db
+			->order_by('sort')
+			->get_where('page_chunks', array('page_id' => $id))
+			->result();
+	}
 
 	/**
 	 * Set the parent > child relations and child order
@@ -461,7 +473,7 @@ class Page_m extends MY_Model
 		}
 
 		// validate the data and insert it if it passes
-		$input['id'] = $this->insert(array(
+		$id = $this->insert(array(
 			'slug'				=> $input['slug'],
 			'title'				=> $input['title'],
 			'uri'				=> null,
@@ -483,11 +495,12 @@ class Page_m extends MY_Model
 		));
 
 		// did it pass validation?
-		if ( ! $input['id']) return false;
+		if ( ! $id) return false;
 
-		$this->build_lookup($input['id']);
+		$this->build_lookup($id);
 
 		// now insert this page's chunks
+		$input['page_id'] = $id;
 		$this->page_chunk_m->create($input);
 
 		// Add a Navigation Link
@@ -497,14 +510,14 @@ class Page_m extends MY_Model
 			$this->navigation_m->insert_link(array(
 				'title'					=> $input['title'],
 				'link_type'				=> 'page',
-				'page_id'				=> $input['id'],
+				'page_id'				=> $id,
 				'navigation_group_id'	=> (int) $input['navigation_group_id']
 			));
 		}
 
 		$this->db->trans_complete();
 
-		return ($this->db->trans_status() === false) ? false : $input;
+		return ($this->db->trans_status() === false) ? false : $id;
 	}
 
 
@@ -551,16 +564,15 @@ class Page_m extends MY_Model
 		// did it pass validation?
 		if ( ! $result) return false;
 
-		$input['id'] = $id;
-
-		$this->build_lookup($input['id']);
+		$this->build_lookup($id);
 
 		// now insert this page's chunks
+		$input['page_id'] = $id;
 		$this->page_chunk_m->create($input);
 
 		$this->db->trans_complete();
 
-		return ($this->db->trans_status() === false) ? false : $input;
+		return (bool) $this->db->trans_status();
 	}
 
 

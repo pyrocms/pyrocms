@@ -31,7 +31,7 @@ class Admin extends Admin_Controller
 		),
 		array(
 			'field' => 'category_id',
-			'label' => 'lang:blog_category_label',
+			'label' => 'lang:blog:category_label',
 			'rules' => 'trim|numeric'
 		),
 		array(
@@ -41,12 +41,12 @@ class Admin extends Admin_Controller
 		),
 		array(
 			'field' => 'intro',
-			'label' => 'lang:blog_intro_label',
+			'label' => 'lang:blog:intro_label',
 			'rules' => 'trim|required'
 		),
 		array(
 			'field' => 'body',
-			'label' => 'lang:blog_content_label',
+			'label' => 'lang:blog:content_label',
 			'rules' => 'trim|required'
 		),
 		array(
@@ -55,27 +55,27 @@ class Admin extends Admin_Controller
 		),
 		array(
 			'field' => 'status',
-			'label' => 'lang:blog_status_label',
+			'label' => 'lang:blog:status_label',
 			'rules' => 'trim|alpha'
 		),
 		array(
 			'field' => 'created_on',
-			'label' => 'lang:blog_date_label',
+			'label' => 'lang:blog:date_label',
 			'rules' => 'trim|required'
 		),
 		array(
 			'field' => 'created_on_hour',
-			'label' => 'lang:blog_created_hour',
+			'label' => 'lang:blog:created_hour',
 			'rules' => 'trim|numeric|required'
 		),
 		array(
 			'field' => 'created_on_minute',
-			'label' => 'lang:blog_created_minute',
+			'label' => 'lang:blog:created_minute',
 			'rules' => 'trim|numeric|required'
 		),
         array(
 			'field' => 'comments_enabled',
-			'label'	=> 'lang:blog_comments_enabled_label',
+			'label'	=> 'lang:blog:comments_enabled_label',
 			'rules'	=> 'trim|numeric'
 		),
         array(
@@ -201,18 +201,21 @@ class Admin extends Admin_Controller
 			)))
 			{
 				$this->pyrocache->delete_all('blog_m');
-				$this->session->set_flashdata('success', sprintf($this->lang->line('blog_post_add_success'), $this->input->post('title')));
+				$this->session->set_flashdata('success', sprintf($this->lang->line('blog:post_add_success'), $this->input->post('title')));
 				
+				// Blog article has been updated, may not be anything to do with publishing though
+				Events::trigger('post_created', $id);
+
 				// They are trying to put this live
 				if ($this->input->post('status') == 'live')
 				{
 					// Fire an event, we're posting a new blog!
-					Events::trigger('blog_article_published', $id);
+					Events::trigger('post_published', $id);
 				}
 			}
 			else
 			{
-				$this->session->set_flashdata('error', $this->lang->line('blog_post_add_error'));
+				$this->session->set_flashdata('error', lang('blog:post_add_error'));
 			}
 
 			// Redirect back to the form or main page
@@ -231,7 +234,7 @@ class Admin extends Admin_Controller
 		}
 
 		$this->template
-			->title($this->module_details['name'], lang('blog_create_title'))
+			->title($this->module_details['name'], lang('blog:create_title'))
 			->append_metadata($this->load->view('fragments/wysiwyg', $this->data, TRUE))
 			->append_js('jquery/jquery.tagsinput.js')
 			->append_js('module::blog_form.js')
@@ -279,7 +282,7 @@ class Admin extends Admin_Controller
 		)));
         $hash = $this->input->post('preview_hash');
 
-        if($this->input->post('status') == 'draft' and $this->input->post('preview_hash') == '')
+        if ($this->input->post('status') == 'draft' and $this->input->post('preview_hash') == '')
         {
 
             $hash = $this->_preview_hash();
@@ -313,19 +316,22 @@ class Admin extends Admin_Controller
 			
 			if ($result)
 			{
-				$this->session->set_flashdata(array('success' => sprintf(lang('blog_edit_success'), $this->input->post('title'))));
+				$this->session->set_flashdata(array('success' => sprintf(lang('blog:edit_success'), $this->input->post('title'))));
+
+				// Blog article has been updated, may not be anything to do with publishing though
+				Events::trigger('post_updated', $id);
 
 				// They are trying to put this live
 				if ($post->status != 'live' and $this->input->post('status') == 'live')
 				{
 					// Fire an event, we're posting a new blog!
-					Events::trigger('blog_article_published', $id);
+					Events::trigger('post_published', $id);
 				}
 			}
 			
 			else
 			{
-				$this->session->set_flashdata('error', $this->lang->line('blog_edit_error'));
+				$this->session->set_flashdata('error', lang('blog:edit_error'));
 			}
 
 			// Redirect back to the form or main page
@@ -344,7 +350,7 @@ class Admin extends Admin_Controller
 		$post->created_on = $created_on;
 		
 		$this->template
-			->title($this->module_details['name'], sprintf(lang('blog_edit_title'), $post->title))
+			->title($this->module_details['name'], sprintf(lang('blog:edit_title'), $post->title))
 			->append_metadata($this->load->view('fragments/wysiwyg', array(), TRUE))
 			->append_js('jquery/jquery.tagsinput.js')
 			->append_js('module::blog_form.js')
@@ -429,18 +435,18 @@ class Admin extends Admin_Controller
 			// Only publishing one post
 			if (count($post_titles) == 1)
 			{
-				$this->session->set_flashdata('success', sprintf($this->lang->line('blog_publish_success'), $post_titles[0]));
+				$this->session->set_flashdata('success', sprintf($this->lang->line('blog:publish_success'), $post_titles[0]));
 			}
 			// Publishing multiple posts
 			else
 			{
-				$this->session->set_flashdata('success', sprintf($this->lang->line('blog_mass_publish_success'), implode('", "', $post_titles)));
+				$this->session->set_flashdata('success', sprintf($this->lang->line('blog:mass_publish_success'), implode('", "', $post_titles)));
 			}
 		}
 		// For some reason, none of them were published
 		else
 		{
-			$this->session->set_flashdata('notice', $this->lang->line('blog_publish_error'));
+			$this->session->set_flashdata('notice', $this->lang->line('blog:publish_error'));
 		}
 
 		redirect('admin/blog');
@@ -484,7 +490,7 @@ class Admin extends Admin_Controller
 			}
 			
 			// Fire an event. We've deleted one or more blog posts.
-			Events::trigger('blog_article_deleted', $deleted_ids);
+			Events::trigger('post_deleted', $deleted_ids);
 		}
 
 		// Some pages have been deleted
@@ -493,18 +499,18 @@ class Admin extends Admin_Controller
 			// Only deleting one page
 			if (count($post_titles) == 1)
 			{
-				$this->session->set_flashdata('success', sprintf($this->lang->line('blog_delete_success'), $post_titles[0]));
+				$this->session->set_flashdata('success', sprintf($this->lang->line('blog:delete_success'), $post_titles[0]));
 			}
 			// Deleting multiple pages
 			else
 			{
-				$this->session->set_flashdata('success', sprintf($this->lang->line('blog_mass_delete_success'), implode('", "', $post_titles)));
+				$this->session->set_flashdata('success', sprintf($this->lang->line('blog:mass_delete_success'), implode('", "', $post_titles)));
 			}
 		}
 		// For some reason, none of them were deleted
 		else
 		{
-			$this->session->set_flashdata('notice', lang('blog_delete_error'));
+			$this->session->set_flashdata('notice', lang('blog:delete_error'));
 		}
 
 		redirect('admin/blog');
@@ -518,7 +524,7 @@ class Admin extends Admin_Controller
 	 */
 	public function _check_title($title, $id = null)
 	{
-		$this->form_validation->set_message('_check_title', sprintf(lang('blog_already_exist_error'), lang('global:title')));
+		$this->form_validation->set_message('_check_title', sprintf(lang('blog:already_exist_error'), lang('global:title')));
 		return $this->blog_m->check_exists('title', $title, $id);			
 	}
 	
@@ -530,7 +536,7 @@ class Admin extends Admin_Controller
 	 */
 	public function _check_slug($slug, $id = null)
 	{
-		$this->form_validation->set_message('_check_slug', sprintf(lang('blog_already_exist_error'), lang('global:slug')));
+		$this->form_validation->set_message('_check_slug', sprintf(lang('blog:already_exist_error'), lang('global:slug')));
 		return $this->blog_m->check_exists('slug', $slug, $id);
 	}
 

@@ -8,14 +8,14 @@
 
 <section class="item">
 	
-<?php echo form_open(uri_string(), 'class="crud"'); ?>
+<?php echo form_open(); ?>
 
 	<div class="tabs">
 	
 		<ul class="tab-menu">
 			<li><a href="#page-layout-html"><span><?php echo lang('page_layouts.html_label');?></span></a></li>
 			<li><a href="#page-layout-css"><span><?php echo lang('page_layouts.css_label');?></span></a></li>
-			<li><a href="#page-layout-script"><span><?php echo lang('pages.js_label');?></span></a></li>
+			<li><a href="#page-layout-script"><span><?php echo lang('pages:js_label');?></span></a></li>
 		</ul>
 		
 		<div class="form_inputs" id="page-layout-html">
