@@ -1,12 +1,8 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
- * Domains Helper
- *
- * @package		Domains Helper
- * @subpackage	Domains Module
- * @category	Helper
- * @author		Ryan Thompson - AI Web Systems, Inc.
+ * @author 		Ryan Thompson - AI Web Systems, Inc.
+ * @package		PyroCMS\Core\Modules\Domains\Helpers
  */
 
 /**
@@ -20,8 +16,8 @@ if(!function_exists('site_id'))
 		$CI = get_instance();
 
 		// Run query
-		$r = $CI->db->query("SELECT id FROM core_sites WHERE ref = '".$CI->db->escape_str(SITE_REF)."'")->result();
+		$r = $CI->db->query("SELECT id FROM core_sites WHERE ref = '".$CI->db->escape_str(SITE_REF)."' LIMIT 1")->row(0);
 
-		return $r[0]->id;
+		return $r->id;
 	}
 }
