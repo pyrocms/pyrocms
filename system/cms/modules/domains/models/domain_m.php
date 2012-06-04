@@ -1,9 +1,9 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
- * Domains model
+ * PyroCMS Domains Model
  *
- * @author 		Ryan Thompson - AI Web Systems, Inc.
- * @package 	cms/core/modules/domains/models
+ * @author		Ryan Thompson - AI Web Systems, Inc.
+ * @package		PyroCMS\Core\Modules\Domains\Models
  */
 class Domain_m extends MY_Model
 {
@@ -14,28 +14,17 @@ class Domain_m extends MY_Model
 
 	public function get($id)
 	{
-		$this->_table = 'domains';
-		$this->db->set_dbprefix('core_');
-
-		return $this->db->where($this->primary_key, $id)
-			->get('domains')
-			->row_array();
+		return $this->db->query("SELECT * FROM core_domains WHERE id = ".$this->db->escape($id)." AND site_id = ".$this->db->escape($this->_site_id))->row(0);
 	}
 
 	public function get_all()
 	{
-		$this->_table = 'domains';
-		$this->db->set_dbprefix('core_');
-
-		return $this->db->get('domains')->result();
+		return $this->db->query("SELECT * FROM core_domains WHERE site_id = ".$this->db->escape($this->_site_id)." ORDER BY domain ASC")->result();
 	}
 
 	public function count_all()
 	{
-		$this->_table = 'domains';
-		$this->db->set_dbprefix('core_');
-
-		return $this->db->count_all_results('domains');
+		return $this->db->query("SELECT id FROM core_domains WHERE site_id = ".$this->db->escape($this->_site_id))->num_rows();
 	}
 
 	public function insert($input = array())
@@ -62,11 +51,11 @@ class Domain_m extends MY_Model
 		*/
 		if($id > 0)
 		{
-			return $this->db->query("SELECT id from core_domains WHERE id != ".$this->db->escape($id)." AND domain = '".$this->db->escape_str($domain)."")->num_rows();
+			return $this->db->query("SELECT id FROM core_domains WHERE id != ".$this->db->escape($id)." AND domain = '".$this->db->escape_str($domain)."'")->num_rows();
 		}
 		else
 		{
-			return $this->db->query("SELECT id from core_domains WHERE domain = '".$this->db->escape_str($domain)."'")->num_rows();
+			return $this->db->query("SELECT id FROM core_domains WHERE domain = '".$this->db->escape_str($domain)."'")->num_rows();
 		}
 	}
 }

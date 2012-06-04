@@ -78,10 +78,9 @@ class Admin extends Admin_Controller
 		}
 
 		// Loop through each validation rule
-		$domain = array();
 		foreach($this->validation_rules as $rule)
 		{
-			$domain[$rule['field']] = set_value($rule['field']);
+			$domain->$rule['field'] = set_value($rule['field']);
 		}
 
 		$this->template

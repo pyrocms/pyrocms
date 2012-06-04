@@ -13,13 +13,13 @@
 			<li>
 				<label for="from"><?php echo lang('domains:domain');?><small><?php echo lang('domains:domain_helper');?></small></label>
 				<div class="input text">
-					<?php echo form_input('domain', $domain['domain']);?>
+					<?php echo form_input('domain', $domain->domain);?>
 				</div>
 			</li>
 			<li>
 				<label for="type"><?php echo lang('domains:type');?></label>
 				<div class="input text">
-					<?php echo form_dropdown('type', array('park' => lang('domains:park'), 'redirect' => lang('domains:redirect')), !empty($domain['type']) ? $domain['type'] : 'park');?>
+					<?php echo form_dropdown('type', array('park' => lang('domains:park'), 'redirect' => lang('domains:redirect')), !empty($domain->type) ? $domain->type : 'park');?>
 				</div>
 			</li>
 		</ul>
