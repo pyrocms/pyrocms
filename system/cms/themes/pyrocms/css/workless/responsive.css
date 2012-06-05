@@ -56,6 +56,25 @@
 	nav#primary ul.primary-nav { display: none; }
 	nav#primary .chzn-container { display: inherit; }
 
+	input[type="text"], 
+	input[type="password"], 
+	input[type="password"],
+	textarea {
+		width: 200px;
+	}
+
+	select { 
+		width: 245px; 
+	}
+
+	#quick_links ul {
+		margin-top: -20px!important;
+	}
+	
+	#quick_links ul li a {
+		font-size: 0px;
+	}
+
 @media only screen and (min-width: 481px) {
 
 	.wrapper, #quick_links {
@@ -190,6 +209,24 @@
 	nav#primary ul.primary-nav { display: none; }
 	nav#primary .chzn-container { display: inherit; }
 
+	input[type="text"], 
+	input[type="password"], 
+	input[type="password"],
+	textarea {
+		width: 400px;
+	}
+
+	select { 
+		width: 445px; 
+	}
+
+	#quick_links ul {
+		margin-top: -20px!important;
+	}
+
+	#quick_links ul li a {
+		font-size: 0px;
+	}
 }
 
 @media only screen and (min-width: 768px) {
@@ -323,6 +360,25 @@
 	nav#primary ul.primary-nav { display: inherit; }
 	nav#primary .chzn-container { display: none; }
 
+	input[type="text"], 
+	input[type="password"], 
+	input[type="password"],
+	textarea {
+		width: 500px;
+	}
+
+	select { 
+		width: 545px; 
+	}
+
+	#quick_links ul {
+		margin-top: -15px!important;
+	}
+
+	#quick_links ul li a {
+		font-size: 12px;
+	}
+
 }
 
 @media only screen and (min-width: 1025px) {
@@ -430,6 +486,25 @@
 	nav#primary ul.primary-nav { display: inherit; }
 	nav#primary .chzn-container { display: none; }
 
+	input[type="text"], 
+	input[type="password"], 
+	input[type="password"],
+	textarea {
+		width: 500px;
+	}
+
+	select { 
+		width: 545px; 
+	}
+
+	#quick_links ul {
+		margin-top: -15px!important;
+	}
+
+	#quick_links ul li a {
+		font-size: 12px;
+	}
+
 }
 
 @media only screen and (min-width: 1281px) {
@@ -529,5 +604,24 @@
 
 	nav#primary ul.primary-nav { display: inherit; }
 	nav#primary .chzn-container { display: none; }
+
+	input[type="text"], 
+	input[type="password"], 
+	input[type="password"],
+	textarea {
+		width: 500px;
+	}
+
+	select { 
+		width: 545px; 
+	}
+
+	#quick_links ul {
+		margin-top: -15px!important;
+	}
+
+	#quick_links ul li a {
+		font-size: 12px;
+	}
 
 }

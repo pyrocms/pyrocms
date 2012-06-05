@@ -73,8 +73,7 @@ function display_comments($ref_id = '', $reference = NULL)
 	$ci->load->set_view_path($path);
 
 	// output the comments html
-	$ci->load->vars($data);
-	$comment_view = $this->load->file($view);
+	$comment_view = $ci->load->_ci_load(array('_ci_view' => $view, '_ci_vars' => ( $data )));
 
 	// Put the old array back
 	$ci->load->set_view_path($save_path);
