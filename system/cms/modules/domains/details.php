@@ -3,7 +3,7 @@
 /**
  * Domains module
  *
- * @author PyroCMS Dev Team
+ * @author Ryan Thompson - AI Web Systems, Inc.
  * @package PyroCMS\Core\Modules\Domains
  */
 class Module_Domains extends Module {

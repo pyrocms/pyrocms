@@ -1,9 +1,11 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
- * Cms controller for the domains module
+ * PyroCMS domain Admin Controller
  *
- * @author 		Ryan Thompson - AI Web Systems, Inc.
- * @package 	cms\core\modules\domains\controllers
+ * Provides an admin for the domain module.
+ *
+ * @author		Ryan Thompson - AI Web Systems, Inc.
+ * @package		PyroCMS\Core\Modules\Domains\Controllers
  */
 class Admin extends Admin_Controller
 {
