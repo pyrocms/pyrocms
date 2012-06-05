@@ -283,14 +283,14 @@ sub
 p 
 { 
   color: #333333;
-  font-size: 14px;
+  font-size: 13px;
   line-height: 1.125em;
   margin: 0 0 1.125em 0;
 }
 p small 
 { 
   color: #666666;
-  font-size: 12px; 
+  font-size: 11px; 
 }
 
 /** 
@@ -412,7 +412,7 @@ ol
 }
 li 
 { 
-  font-size: 1em;
+  font-size: 13px;
   line-height: 1.4em;
 }
 dl 
@@ -422,7 +422,7 @@ dl
 dl dt, 
 dl dd 
 { 
-  font-size: 1em;
+  font-size: 13px;
 }
 dl dt 
 { 
@@ -566,12 +566,13 @@ input[type="text"],
 input[type="password"],
 input[type="file"],
 textarea {
-	background: #f1f1f1;
+	background: #ffffff;
 	padding: 8px;
-	border: 1px solid #d9d9d9;
-	border-radius: 5px;
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;
+	border: 1px solid #aaaaaa;
+	border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
 }
 
 textarea {
@@ -664,6 +665,7 @@ input:invalid, textarea:invalid { background-color: #f0dddd; }
 
 .form_inputs input:focus,
 .form_inputs textarea:focus {
+  background: #ffffff;
 	color: #4D4D4D;
 	outline: none;
 	border-color: #ed8e28;
@@ -1619,9 +1621,9 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
 }
 
 .tab-menu li a {
-  background: #efefef;
-  color: #636363;
-  margin-right: 2px;
+  background: #eeeeee;
+  color: #333333;
+  font-weight: bold;
   margin-bottom: -6px;
   padding: 0 15px;
   line-height: 35px;

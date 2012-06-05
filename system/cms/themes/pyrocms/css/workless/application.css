@@ -128,7 +128,7 @@
 
 .subbar small {
 	color: #888888;
-	margin: 8px 0 0 0;
+	margin: 10px 0 0 0;
 	float: left;
 	text-shadow: 0 1px 1px #ffffff;
 	font-size: 13px;
@@ -421,7 +421,6 @@ section.box {
 
 #quick_links ul {
 	margin: 0;
-	margin-top: -15px!important;
 	padding: 0;
 	float: left;
 }
@@ -452,15 +451,15 @@ section.box {
 }
 
 ul#recent_comments li {
-	padding: 15px 0 15px 0;
+	padding: 0 0 40px 0;
 	margin: 0 0 15px 0;
-	border-bottom: 1px solid #eeeeee;
+	border-bottom: 1px solid #eeeeee
 }
 
 ul#recent_comments li img {
-	width: 50px;
-	height: 50px;
-	margin: 0 10px 0 0;
+	width: 55px;
+	height: 55px;
+	margin: 0 10px 0 3px;
 	padding: 3px;
 	border: 1px solid #dddddd;
 	box-shadow: 0 1px 1px #dddddd;
@@ -469,6 +468,9 @@ ul#recent_comments li img {
 
 ul#recent_comments li p {
 	line-height: 20px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 #feed ul li {
@@ -514,7 +516,7 @@ ul#recent_comments li p {
   	border-top-left-radius: 2px;
   	-moz-border-radius-topleft: 2px;
   	-webkit-border-top-left-radius: 2px;
-	padding: 3px 10px 3px 10px;
+	padding: 3px 13px 3px 13px;
 	text-align: center;
 	color: #ffffff;
 	font-weight: bold;
@@ -530,11 +532,11 @@ ul#recent_comments li p {
   	border-bottom-left-radius: 2px;
   	-moz-border-radius-bottomleft: 2px;
   	-webkit-border-bottom-left-radius: 2px;
-	padding: 8px 10px 10px 10px;
+	padding: 7px 13px 12px 13px;
 	text-align: center;
-	color: #333333;
+	color: #747171;
 	font-weight: bold;
-	font-size: 16px;
+	font-size: 18px;
 }
 
 footer {
