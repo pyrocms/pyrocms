@@ -31,6 +31,7 @@ $lang['blog_author_name_label']             = 'Autoriaus vardas';
 $lang['blog_read_more_label']               = 'Plačiau&nbsp;&raquo;';
 $lang['blog_created_hour']                  = 'Sukurta valandą';
 $lang['blog_created_minute']                = 'Sukurta minutę';
+$lang['blog_comments_enabled_label']        = 'Įjungti komentarus?';
 
 // titles
 $lang['blog_create_title']                  = 'Pridėti įrašą';
