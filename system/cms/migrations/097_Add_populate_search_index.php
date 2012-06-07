@@ -15,6 +15,13 @@ class Migration_Add_populate_search_index extends CI_Migration
 			// Only index live articles
 	    	if ($page->status === 'live')
 	    	{
+	    		$hash = Keywords::process($page->meta_keywords);
+
+	    		$this->db
+	    			->set('keywords', $hash)
+	    			->where('id', $page->id)
+	    			->update('pages');
+
 	    		$this->search_index_m->index(
 	    			'pages',
 	    			'pages:page', 
@@ -26,7 +33,7 @@ class Migration_Add_populate_search_index extends CI_Migration
 	    			array(
 	    				'cp_edit_uri' 	=> 'admin/pages/edit/'.$page->id,
 	    				'cp_delete_uri' => 'admin/pages/delete/'.$page->id,
-	    				'keywords' 		=> Keywords::process($page->meta_keywords),
+	    				'keywords' 		=> $hash,
 	    			)
 	    		);
 	    	}
