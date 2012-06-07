@@ -2,26 +2,26 @@
 	<h2 id="page_title"><?php echo $category->title; ?></h2>
 
 <?php elseif (isset($tag)): ?>
-	<h2 id="page_title"><?php echo lang('blog_tagged_label').': '.$tag; ?></h2>
+	<h2 id="page_title"><?php echo lang('blog:tagged_label').': '.$tag; ?></h2>
 
 <?php endif; ?>
 
 
-<?php if (!empty($blog)): ?>
+<?php if ( ! empty($blog)): ?>
 <?php foreach ($blog as $post): ?>
 	<div class="blog_post">
 		<!-- Post heading -->
 		<div class="post_heading">
-			<h2><?php echo  anchor('blog/' .date('Y/m', $post->created_on) .'/'. $post->slug, $post->title); ?></h2>
-			<p class="post_date"><?php echo lang('blog_posted_label');?>: <?php echo format_date($post->created_on); ?></p>
-			<?php if($post->category_slug): ?>
+			<h2><?php echo  anchor('blog/'.date('Y/m/', $post->created_on).$post->slug, $post->title); ?></h2>
+			<p class="post_date"><?php echo lang('blog:posted_label');?>: <?php echo format_date($post->created_on); ?></p>
+			<?php if ($post->category_slug): ?>
 			<p class="post_category">
-				<?php echo lang('blog_category_label');?>: <?php echo anchor('blog/category/'.$post->category_slug, $post->category_title);?>
+				<?php echo lang('blog:category_label');?>: <?php echo anchor('blog/category/'.$post->category_slug, $post->category_title);?>
 			</p>
 			<?php endif; ?>
 			<?php if ($post->keywords): ?>
 			<p class="post_keywords">
-				<?php echo lang('blog_tagged_label');?>:
+				<?php echo lang('blog:tagged_label');?>:
 				<?php foreach ($post->keywords as $keyword): ?>
 					<?php echo anchor('blog/tagged/'.$keyword->name, $keyword->name, 'class="keyword"') ?>
 				<?php endforeach; ?>
@@ -37,5 +37,5 @@
 <?php echo $pagination['links']; ?>
 
 <?php else: ?>
-	<p><?php echo lang('blog_currently_no_posts');?></p>
+	<p><?php echo lang('blog:currently_no_posts');?></p>
 <?php endif; ?>

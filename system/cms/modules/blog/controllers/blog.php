@@ -39,7 +39,7 @@ class Blog extends Public_Controller
 
 		$this->template
 			->title($this->module_details['name'])
-			->set_breadcrumb(lang('blog_blog_title'))
+			->set_breadcrumb(lang('blog:blog_title'))
 			->set_metadata('description', $meta['description'])
 			->set_metadata('keywords', $meta['keywords'])
 			->set('pagination', $pagination)
@@ -84,7 +84,7 @@ class Blog extends Public_Controller
 		$this->template->title($this->module_details['name'], $category->title)
 			->set_metadata('description', $category->title.'. '.$meta['description'])
 			->set_metadata('keywords', $category->title)
-			->set_breadcrumb(lang('blog_blog_title'), 'blog')
+			->set_breadcrumb(lang('blog:blog_title'), 'blog')
 			->set_breadcrumb($category->title)
 			->set('blog', $blog)
 			->set('category', $category)
@@ -103,9 +103,10 @@ class Blog extends Public_Controller
 		$year OR $year = date('Y');
 		$month_date = new DateTime($year.'-'.$month.'-01');
 		$pagination = create_pagination('blog/archive/'.$year.'/'.$month, $this->blog_m->count_by(array('year' => $year, 'month' => $month)), NULL, 5);
-		$_blog = $this->blog_m->limit($pagination['limit'])
+		$_blog = $this->blog_m
+			->limit($pagination['limit'])
 			->get_many_by(array('year' => $year, 'month' => $month));
-		$month_year = format_date($month_date->format('U'), lang('blog_archive_date_format'));
+		$month_year = format_date($month_date->format('U'), lang('blog:archive_date_format'));
 
 		// Set meta description based on post titles
 		$meta = $this->_posts_metadata($_blog);
@@ -117,11 +118,11 @@ class Blog extends Public_Controller
 		}
 
 		$this->template
-			->title($month_year, $this->lang->line('blog_archive_title'), $this->lang->line('blog_blog_title'))
+			->title($month_year, $this->lang->line('blog:archive_title'), lang('blog:blog_title'))
 			->set_metadata('description', $month_year.'. '.$meta['description'])
 			->set_metadata('keywords', $month_year.', '.$meta['keywords'])
-			->set_breadcrumb($this->lang->line('blog_blog_title'), 'blog')
-			->set_breadcrumb($this->lang->line('blog_archive_title').': '.format_date($month_date->format('U'), lang('blog_archive_date_format')))
+			->set_breadcrumb(lang('blog:blog_title'), 'blog')
+			->set_breadcrumb(lang('blog:archive_title').': '.format_date($month_date->format('U'), lang('blog:archive_date_format')))
 			->set('pagination', $pagination)
 			->set('blog', $_blog)
 			->set('month_year', $month_year)
@@ -204,11 +205,11 @@ class Blog extends Public_Controller
 
 		// Build the page
 		$this->template
-			->title($this->module_details['name'], lang('blog_tagged_label').': '.$name)
-			->set_metadata('description', lang('blog_tagged_label').': '.$name.'. '.$meta['description'])
+			->title($this->module_details['name'], lang('blog:tagged_label').': '.$name)
+			->set_metadata('description', lang('blog:tagged_label').': '.$name.'. '.$meta['description'])
 			->set_metadata('keywords', $name)
-			->set_breadcrumb(lang('blog_blog_title'), 'blog')
-			->set_breadcrumb(lang('blog_tagged_label').': '.$name)
+			->set_breadcrumb(lang('blog:blog_title'), 'blog')
+			->set_breadcrumb(lang('blog:tagged_label').': '.$name)
 			->set('blog', $blog)
 			->set('tag', $tag)
 			->set('pagination', $pagination)
@@ -271,10 +272,10 @@ class Blog extends Public_Controller
 
         $this->session->set_flashdata(array('referrer' => $this->uri->uri_string));
 
-        $this->template->title($post->title, lang('blog_blog_title'))
+        $this->template->title($post->title, lang('blog:blog_title'))
             ->set_metadata('description', $post->intro)
             ->set_metadata('keywords', implode(', ', Keywords::get_array($post->keywords)))
-            ->set_breadcrumb(lang('blog_blog_title'), 'blog');
+            ->set_breadcrumb(lang('blog:blog_title'), 'blog');
 
         if ($post->category->id > 0)
         {

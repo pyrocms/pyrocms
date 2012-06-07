@@ -73,6 +73,8 @@ class Plugin_Search extends Plugin
 
 			$row->singular = lang($row->entry_key);
 			$row->plural = lang($row->entry_plural);
+
+			$row->url = site_url($row->uri);
 		}
 
 		return array(
