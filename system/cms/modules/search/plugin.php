@@ -57,9 +57,28 @@ class Plugin_Search extends Plugin
 			->limit($pagination['limit'])
 			->search($query);
 
+		// Remember which modules have been loaded
+		static $modules = array();
+
+		// Loop through found results to find extra information
+		foreach ($results as &$row)
+		{
+			// We only want to load a lang file once
+			if ( ! isset($modules[$row->module]))
+			{
+				$this->lang->load("{$row->module}/{$row->module}");
+
+				$modules[$row->module] = true;
+			}
+
+			$row->singular = lang($row->entry_key);
+			$row->plural = lang($row->entry_plural);
+		}
+
 		return array(
 			array(
 				'total' => $total,
+				'query' => $query,
 				'entries' => $results,
 				'pagination' => $pagination['links'],
 			)

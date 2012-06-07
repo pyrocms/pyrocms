@@ -19,18 +19,11 @@ class Module_Search extends Module {
 				'en' => 'Search',
 			),
 			'description' => array(
-				'en' => 'Maintain a central list of keywords to label and organize your content.',
+				'en' => 'Search through various types of content with this modular search system.',
 			),
 			'frontend' => false,
 			'backend'  => true,
 			'menu'     => 'content',
-			'shortcuts' => array(
-				array(
-			 	   'name' => 'keywords:add_title',
-				   'uri' => 'admin/keywords/add',
-				   'class' => 'add',
-				),
-			),
 		);
 	}
 
@@ -38,17 +31,25 @@ class Module_Search extends Module {
 	{
 		$this->dbforge->drop_table('search_index');
 
-		return true; $this->install_tables(array(
-			'keywords' => array(
-				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
-				'name' => array('type' => 'VARCHAR', 'constraint' => 50,),
-			),
-			'keywords_applied' => array(
-				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
-				'hash' => array('type' => 'CHAR', 'constraint' => 32, 'default' => '',),
-				'keyword_id' => array('type' => 'INT', 'constraint' => 11,),
-			),
-		));
+		$this->db->query("
+		CREATE TABLE ".$this->db->dbprefix('search_index')." (
+		  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+		  `title` char(255) COLLATE utf8_unicode_ci NOT NULL,
+		  `description` text COLLATE utf8_unicode_ci,
+		  `keywords` text COLLATE utf8_unicode_ci,
+		  `keyword_hash` char(32) COLLATE utf8_unicode_ci DEFAULT NULL,
+		  `module` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
+		  `entry_key` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+		  `entry_plural` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+		  `entry_id` int(10) unsigned DEFAULT NULL,
+		  `uri` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+		  `cp_edit_uri` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+		  `cp_delete_uri` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+		  PRIMARY KEY (`id`),
+		  UNIQUE KEY `unique` (`module`,`entry_key`,`entry_id`) USING BTREE,
+		  FULLTEXT KEY `full search` (`title`,`description`,`keywords`)
+		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+		");
 	}
 
 	public function uninstall()

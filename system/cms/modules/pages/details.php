@@ -127,8 +127,8 @@ class Module_Pages extends Module
 				'layout_id' => array('type' => 'VARCHAR', 'constraint' => 255),
 				'css' => array('type' => 'TEXT', 'null' => true),
 				'js' => array('type' => 'TEXT', 'null' => true),
-				'meta_title' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => ''),
-				'meta_keywords' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => ''),
+				'meta_title' => array('type' => 'VARCHAR', 'constraint' => 255, 'null' => true),
+				'meta_keywords' => array('type' => 'VARCHAR', 'constraint' => 255, 'null' => true),
 				'meta_description' => array('type' => 'TEXT', 'null' => true),
 				'rss_enabled' => array('type' => 'INT', 'constraint' => 1, 'default' => 0),
 				'comments_enabled' => array('type' => 'INT', 'constraint' => 1, 'default' => 0),
@@ -146,7 +146,7 @@ class Module_Pages extends Module
 				'class' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => ''),
 				'page_id' => array('type' => 'INT', 'constraint' => 11),
 				'body' => array('type' => 'TEXT'),
-				'parsed' => array('type' => 'TEXT'),
+				'parsed' => array('type' => 'TEXT', 'null' => true),
 				'type' => array('type' => 'SET', 'constraint' => array('html', 'markdown', 'wysiwyg-advanced', 'wysiwyg-simple')),
 				'sort' => array('type' => 'INT', 'constraint' => 11),
 			),
@@ -219,7 +219,7 @@ class Module_Pages extends Module
 			),
 		);
 
-		foreach($default_pages as $page_chunk)
+		foreach ($default_pages as $page_chunk)
 		{
 			if ( ! $this->db->insert('pages', $page_chunk))
 			{

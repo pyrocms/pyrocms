@@ -203,7 +203,7 @@ class Page_m extends MY_Model
 			{
 				break;
 			}
-			$i++;
+			++$i;
 		}
 
 		if ($page)
@@ -484,13 +484,13 @@ class Page_m extends MY_Model
 			'meta_title'    	=> isset($input['meta_title']) ? $input['meta_title'] : '',
 			'meta_keywords' 	=> isset($input['meta_keywords']) ? $input['meta_keywords'] : '',
 			'meta_description' 	=> isset($input['meta_description']) ? $input['meta_description'] : '',
-			'rss_enabled'		=> (int) ! empty($input['rss_enabled']),
-			'comments_enabled'	=> (int) ! empty($input['comments_enabled']),
+			'rss_enabled'		=> ! empty($input['rss_enabled']),
+			'comments_enabled'	=> ! empty($input['comments_enabled']),
 			'status'			=> $input['status'],
 			'created_on'		=> now(),
 			'restricted_to'		=> isset($input['restricted_to']) ? implode(',', $input['restricted_to']) : '0',
-			'strict_uri'		=> (int) ! empty($input['strict_uri']),
-			'is_home'			=> (int) ! empty($input['is_home']),
+			'strict_uri'		=> ! empty($input['strict_uri']),
+			'is_home'			=> ! empty($input['is_home']),
 			'order'				=> now()
 		));
 
