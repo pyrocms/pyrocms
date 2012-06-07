@@ -18,7 +18,7 @@ class Migration_Add_populate_search_index extends CI_Migration
 	    		$hash = Keywords::process($page->meta_keywords);
 
 	    		$this->db
-	    			->set('keywords', $hash)
+	    			->set('meta_keywords', $hash)
 	    			->where('id', $page->id)
 	    			->update('pages');
 
