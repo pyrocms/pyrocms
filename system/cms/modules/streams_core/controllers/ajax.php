@@ -48,6 +48,7 @@ class Ajax extends Admin_Controller {
 		$this->load->language('streams_core/pyrostreams');
 	
 		$type = $this->input->post('data');
+		$namespace = $this->input->post('namespace');
 		
 		// Load paramaters
 		require_once(APPPATH.'modules/streams_core/libraries/Parameter_fields.php');
@@ -79,7 +80,7 @@ class Ajax extends Admin_Controller {
 			{
 				$call = 'param_'.$field;
 
-				$input = $field_type->$call();
+				$input = $field_type->$call(null, $namespace);
 
 				if (is_array($input))
 				{

@@ -1,0 +1,127 @@
+<?php defined('BASEPATH') or exit('No direct script access allowed');
+
+/**
+ * Streams Parse Driver
+ *
+ * The Streams Parse provides special functionality
+ * for tag parsing for PyroStreams. Central to this is the
+ * parse_tag_content function which takes care of all sorts of special
+ * tag tomfoolery which allows Streams to do some interesting
+ * things while keeping the tag structure nice and clean.
+ * 
+ * @author  	Adam Fairholm - PyroCMS Dev Team
+ * @package  	PyroCMS\Core\Libraries\Streams\Drivers
+ */ 
+class Streams_parse extends CI_Driver {
+
+	/**
+	 * The CodeIgniter instance
+	 *
+	 * @access 	private
+	 * @var 	object 
+	 */
+	private $CI;
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Constructor
+	 *
+	 * @access	public
+	 * @return	void
+	 */
+	public function __construct()
+	{
+		$this->CI = get_instance();
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Streams content parse
+	 *
+	 * Special content parser for streams. This accomplishes the following
+	 * important functions:
+	 *
+	 * a. Takes care of legacy multiple relationship parsing
+	 * b. Finds and formats special plugin fields
+	 *
+	 * @access	public
+	 * @param	string - the tag content
+	 * @param	array - the return data
+	 * @param	string - stream slug
+	 * @param 	string - stream namespace
+	 * @param 	[bool - whether or not to loop through the results or not]
+	 * @param 	[mixed - null or obj - stream fields. If they are availble, it will
+	 * 				save a mysql query.]
+	 * @return 	string - the parsed data
+	 */
+	public function parse_tag_content($content, $data, $stream_slug, $stream_namespace, $loop = false, $fields = null)
+	{
+		// -------------------------------------
+		// Legacy multiple relationship provision
+		// -------------------------------------
+		// We should respect our elders. This makes
+		// sure older instances of multiple
+		// relationships won't break. We can probably
+		// remove this after PyroCMS 2.2
+		// -------------------------------------
+
+		$rep = array('{{ streams:related', '{{streams:related');
+		$content = str_replace($rep, '{{ streams:related stream="'.$stream_slug.'" entry=id ', $content);
+
+		$rep = array('{{ streams:multiple', '{{streams:multiple');
+		$content = str_replace($rep, '{{ streams:multiple stream="'.$stream_slug.'" entry=id ', $content);
+
+		// -------------------------------------
+		// Make sure we have our stream fields
+		// -------------------------------------
+
+		if (is_null($fields))
+		{
+			$stream = $this->stream_obj($stream_slug);
+			$fields = $this->CI->streams_m->get_stream_fields($stream->id);
+		}
+
+		// -------------------------------------
+		// Custom Call Provision
+		// -------------------------------------
+		// Go through the fields for this stream, and
+		// see if any of them have the magic 'plugin_override'
+		// function. This will allow us to call functions
+		// from within the field type itself.
+		// -------------------------------------
+
+		foreach ($fields as $field)
+		{
+			if (method_exists($this->CI->type->types->{$field->field_type}, 'plugin_override'))
+			{
+				$content = preg_replace('/\{\{\s?'.$field->field_slug.'\s?/', '{{ streams_core:field row_id=id stream_slug="'.$stream_slug.'" field_slug="'.$field->field_slug.'" namespace="'.$stream_namespace.'" field_type="'.$field->field_type.'" ', $content);
+
+				$content = preg_replace('/\{\{\s?\/'.$field->field_slug.'\s?\}\}/', '{{ /streams_core:field }}', $content);
+			}
+		}
+
+		// -------------------------------------
+		// Parse
+		// -------------------------------------
+
+		$parser = new Lex_Parser();
+		$parser->scope_glue(':');
+
+		if ( ! $loop)
+		{
+			return $parser->parse($content, $data, array($this->CI->parser, 'parser_callback'));
+		}
+
+		$out = '';
+
+		foreach ($data as $item)
+		{
+			$out .= $parser->parse($content, $item, array($this->CI->parser, 'parser_callback'));
+		}
+
+		return $out;
+	}
+
+}

@@ -711,6 +711,28 @@ class Fields_m extends CI_Model {
 	// --------------------------------------------------------------------------
 
 	/**
+	 * Assignment Exists
+	 *
+	 * @access 	public
+	 * @param 	int - stream ID
+	 * @param 	int - field ID
+	 * @return 	bool
+	 */
+	public function assignment_exists($stream_id, $field_id)
+	{
+		if ($this->db->select('id')->where('stream_id', $stream_id)->where('field_id', $field_id)->get(ASSIGN_TABLE)->num_rows() > 0)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
 	 * Edit Assignment
 	 *
 	 * @access	public
