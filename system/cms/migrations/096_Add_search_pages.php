@@ -29,7 +29,7 @@ class Migration_Add_search_pages extends CI_Migration
  		$this->dbforge->modify_column('pages', array(
        		'js' => array('type' => 'TEXT', 'null' => true),
 			'meta_title' => array('type' => 'VARCHAR', 'constraint' => 255, 'null' => true),
-			'meta_keywords' => array('type' => 'VARCHAR', 'constraint' => 255, 'null' => true),
+			'meta_keywords' => array('type' => 'CHAR', 'constraint' => 32, 'null' => true),
 			'meta_description' => array('type' => 'TEXT', 'null' => true),        ));
 
         $this->dbforge->modify_column('page_chunks', array(
@@ -108,6 +108,6 @@ class Migration_Add_search_pages extends CI_Migration
 	{
 		$this->dbforge->drop_table('search_index');
 
-		$this->db->delete('modules', array('slug' => 'search'))
+		$this->db->delete('modules', array('slug' => 'search'));
 	}
 }

@@ -203,7 +203,7 @@ class Pages extends Public_Controller
 		// Create page output. We do this before parsing the page contents so that 
 		// title, meta, & breadcrumbs can be overridden with tags in the page content
 		$this->template->title($page->meta_title)
-			->set_metadata('keywords', $page->meta_keywords)
+			->set_metadata('keywords', Keywords::get_string($page->meta_keywords))
 			->set_metadata('description', $page->meta_description)
 			->set_breadcrumb($page->title);
 

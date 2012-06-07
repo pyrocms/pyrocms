@@ -482,7 +482,7 @@ class Page_m extends MY_Model
 			'css'				=> isset($input['css']) ? $input['css'] : null,
 			'js'				=> isset($input['js']) ? $input['js'] : null,
 			'meta_title'    	=> isset($input['meta_title']) ? $input['meta_title'] : '',
-			'meta_keywords' 	=> isset($input['meta_keywords']) ? $input['meta_keywords'] : '',
+			'meta_keywords' 	=> isset($input['meta_keywords']) ? Keywords::process($input['meta_keywords']) : '',
 			'meta_description' 	=> isset($input['meta_description']) ? $input['meta_description'] : '',
 			'rss_enabled'		=> ! empty($input['rss_enabled']),
 			'comments_enabled'	=> ! empty($input['comments_enabled']),
@@ -550,15 +550,15 @@ class Page_m extends MY_Model
 			'css'				=> isset($input['css']) ? $input['css'] : null,
 			'js'				=> isset($input['js']) ? $input['js'] : null,
 			'meta_title'    	=> isset($input['meta_title']) ? $input['meta_title'] : '',
-			'meta_keywords' 	=> isset($input['meta_keywords']) ? $input['meta_keywords'] : '',
+			'meta_keywords' 	=> isset($input['meta_keywords']) ? Keywords::process($input['meta_keywords']) : '',
 			'meta_description' 	=> isset($input['meta_description']) ? $input['meta_description'] : '',
-			'rss_enabled'		=> (int) ! empty($input['rss_enabled']),
-			'comments_enabled'	=> (int) ! empty($input['comments_enabled']),
+			'rss_enabled'		=> ! empty($input['rss_enabled']),
+			'comments_enabled'	=> ! empty($input['comments_enabled']),
 			'status'			=> $input['status'],
 			'created_on'		=> now(),
 			'restricted_to'		=> isset($input['restricted_to']) ? implode(',', $input['restricted_to']) : '0',
-			'strict_uri'		=> (int) ! empty($input['strict_uri']),
-			'is_home'			=> (int) ! empty($input['is_home'])
+			'strict_uri'		=> ! empty($input['strict_uri']),
+			'is_home'			=> ! empty($input['is_home'])
 		));
 
 		// did it pass validation?
@@ -595,8 +595,8 @@ class Page_m extends MY_Model
 		$this->db->where_in('page_id', $ids);
 		$this->db->delete('navigation_links');
 		
-        	$this->db->where_in('page_id', $ids);
-        	$this->db->delete('page_chunks');		
+        $this->db->where_in('page_id', $ids);
+        $this->db->delete('page_chunks');		
 
 		$this->db->trans_complete();
 
@@ -616,7 +616,7 @@ class Page_m extends MY_Model
 	*/
 	public function _unique_slug($slug, $parent_id, $id = 0)
 	{
-		return (int)parent::count_by(array(
+		return (int) parent::count_by(array(
 			'id !=' => $id,
 			'slug' => $slug,
 			'parent_id' => $parent_id
