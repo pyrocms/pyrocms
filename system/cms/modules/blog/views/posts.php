@@ -6,29 +6,34 @@
 
 <?php endif; ?>
 
-
 <?php if ( ! empty($blog)): ?>
 <?php foreach ($blog as $post): ?>
-	<div class="blog_post">
+	<div class="post">
 		<!-- Post heading -->
-		<div class="post_heading">
-			<h2><?php echo  anchor('blog/'.date('Y/m/', $post->created_on).$post->slug, $post->title); ?></h2>
-			<p class="post_date"><?php echo lang('blog:posted_label');?>: <?php echo format_date($post->created_on); ?></p>
+		<h3><?php echo  anchor('blog/'.date('Y/m/', $post->created_on).$post->slug, $post->title); ?></h3>
+		
+		<div class="meta">
+			<div class="date">
+				<?php echo lang('blog:posted_label');?>: 
+				<span><?php echo format_date($post->created_on); ?></span>
+			</div>
+			
 			<?php if ($post->category_slug): ?>
-			<p class="post_category">
-				<?php echo lang('blog:category_label');?>: <?php echo anchor('blog/category/'.$post->category_slug, $post->category_title);?>
-			</p>
+			<div class="category">
+				<?php echo lang('blog:category_label');?>: 
+				<span><?php echo anchor('blog/category/'.$post->category_slug, $post->category_title);?></span>
+			</div>
 			<?php endif; ?>
 			<?php if ($post->keywords): ?>
-			<p class="post_keywords">
+			<div class="keywords">
 				<?php echo lang('blog:tagged_label');?>:
 				<?php foreach ($post->keywords as $keyword): ?>
-					<?php echo anchor('blog/tagged/'.$keyword->name, $keyword->name, 'class="keyword"') ?>
+					<span><?php echo anchor('blog/tagged/'.$keyword->name, $keyword->name, 'class="keyword"') ?></span>
 				<?php endforeach; ?>
-			</p>
+			</div>
 			<?php endif; ?>
 		</div>
-		<div class="post_body">
+		<div class="intro">
 			<?php echo $post->intro; ?>
 		</div>
 	</div>
