@@ -562,22 +562,40 @@ input[type="button"]:hover {
   color: #000;
 }
 
+input[type="text"], 
+input[type="password"], 
+textarea 
+{
+  background: #f9f9f9;
+  margin-bottom: 5px;
+  padding: 8px 5px;
+  border-radius: 2px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1) inset;
+}
+input[type="file"] 
+{
+  padding: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 2px;
+}
 input[type="text"],
 input[type="password"],
 input[type="file"],
-textarea {
-	background: #ffffff;
-	padding: 8px;
-	border: 1px solid #aaaaaa;
-	border-radius: 2px;
-	-moz-border-radius: 2px;
-	-webkit-border-radius: 2px;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+textarea
+{
+  -webkit-transition: 250ms linear all; 
+  -moz-transition: 250ms linear all; 
+  transition: 250ms linear all; 
 }
-
-textarea {
-	width: 98%;
-	min-height: 100px;
+input[type="text"]:focus, 
+input[type="password"]:focus, 
+input[type="file"]:focus,
+textarea:focus
+{
+  background: #ffffff;
+  border: 1px solid #2daebf;
+  box-shadow: 0 0 5px #2daebf;
 }
 
 input.error {
@@ -675,144 +693,42 @@ input:invalid, textarea:invalid { background-color: #f0dddd; }
 	width:  100px;
 }
 
-/* ----------------------------------
- *   Tables
- * ---------------------------------- */
-table {
-  width: 113%;
-  margin: -16px;
-  margin-bottom: 18px;
-  padding: 0;
-  border-collapse: collapse;
-  font-size: 11px;
+/**
+ * Tables
+ */
+table 
+{
+    width: 100%;
+    margin-bottom: 18px;
+    padding: 0;
+    border-collapse: separate;
+    font-size: 13px;
+    border: 1px solid #dddddd;
+    border-radius: 3px;
+}
+table th, 
+table td 
+{
+    padding: 10px;
+    line-height: 13.5px;
+    text-align: left;
+    vertical-align: middle;
+    border-top: 1px solid #dddddd;
+}
+table th 
+{
+    font-weight: bold;
+    border-top: none;
 }
 
-table th, table td {
-  padding: 10px 10px 9px;
-  line-height: 13.5px;
-  text-align: left;
-  vertical-align: middle;
+/* Added alt tables globally. To remove just chnage table to .table */
+table tbody tr:nth-child(odd) td 
+{
+    background-color: #f9f9f9;
 }
-
-table th.collapse, table td.collapse {
-	display: none;
-}
-
-table th {
-  padding-top: 9px;
-  font-weight: bold;
-  border-bottom: none;
-}
-
-.zebra-striped tbody tr:nth-child(odd) td {
-  background-color: #f9f9f9;
-}
-
-.zebra-striped tbody tr:hover td {
-  background-color: #f5f5f5;
-}
-
-.zebra-striped .header {
-  cursor: pointer;
-}
-
-.zebra-striped .header:after {
-  content: "";
-  float: right;
-  margin-top: 7px;
-  border-width: 0 4px 4px;
-  border-style: solid;
-  border-color: #000 transparent;
-  visibility: hidden;
-}
-
-.zebra-striped .headerSortUp, .zebra-striped .headerSortDown {
-  background-color: rgba(141, 192, 219, 0.25);
-  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
-  -webkit-border-radius: 3px 3px 0 0;
-  -moz-border-radius: 3px 3px 0 0;
-  border-radius: 3px 3px 0 0;
-}
-
-.zebra-striped .header:hover:after {
-  visibility: visible;
-}
-
-.zebra-striped .headerSortDown:after, .zebra-striped .headerSortDown:hover:after {
-  visibility: visible;
-  filter: alpha(opacity=60);
-  -khtml-opacity: 0.6;
-  -moz-opacity: 0.6;
-  opacity: 0.6;
-}
-
-.zebra-striped .headerSortUp:after {
-  border-bottom: none;
-  border-left: 4px solid transparent;
-  border-right: 4px solid transparent;
-  border-top: 4px solid #000;
-  visibility: visible;
-  -webkit-grid-shadow: none;
-  -moz-grid-shadow: none;
-  grid-shadow: none;
-  filter: alpha(opacity=60);
-  -khtml-opacity: 0.6;
-  -moz-opacity: 0.6;
-  opacity: 0.6;
-}
-
-table .blue {
-  color: #049cdb;
-  border-bottom-color: #049cdb;
-}
-
-table .headerSortUp.blue, table .headerSortDown.blue {
-  background-color: #ade6fe;
-}
-
-table .green {
-  color: #46a546;
-  border-bottom-color: #46a546;
-}
-
-table .headerSortUp.green, table .headerSortDown.green {
-  background-color: #cdeacd;
-}
-
-table .red {
-  color: #9d261d;
-  border-bottom-color: #9d261d;
-}
-
-table .headerSortUp.red, table .headerSortDown.red {
-  background-color: #f4c8c5;
-}
-
-table .yellow {
-  color: #ffc40d;
-  border-bottom-color: #ffc40d;
-}
-
-table .headerSortUp.yellow, table .headerSortDown.yellow {
-  background-color: #fff6d9;
-}
-
-table .orange {
-  color: #f89406;
-  border-bottom-color: #f89406;
-}
-
-table .headerSortUp.orange, table .headerSortDown.orange {
-  background-color: #fee9cc;
-}
-
-table .purple {
-  color: #7a43b6;
-  border-bottom-color: #7a43b6;
-}
-
-table .headerSortUp.purple, table .headerSortDown.purple {
-  background-color: #e2d5f0;
+table tbody tr:hover td 
+{
+    background-color: #f5f5f5;
 }
 
 table .actions {
