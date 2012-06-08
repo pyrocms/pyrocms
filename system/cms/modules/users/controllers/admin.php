@@ -106,7 +106,8 @@ class Admin extends Admin_Controller
 		// Using this data, get the relevant results
 		$users = $this->user_m
 			->order_by('active', 'desc')
-			->where_not_in('name', $skip_admin)
+			->join('groups', 'groups.id = users.group_id')
+			->where_not_in('groups.name', $skip_admin)
 			->limit($pagination['limit'])
 			->get_many_by($base_where);
 
