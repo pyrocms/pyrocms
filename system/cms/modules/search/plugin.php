@@ -66,13 +66,21 @@ class Plugin_Search extends Plugin
 			// We only want to load a lang file once
 			if ( ! isset($modules[$row->module]))
 			{
-				$this->lang->load("{$row->module}/{$row->module}");
+				if ($this->module_m->exists($row->module))
+				{
+					$this->lang->load("{$row->module}/{$row->module}");
 
-				$modules[$row->module] = true;
+					$modules[$row->module] = true;
+				}
+				// If module doesn't exist (for whatever reason) then sssh!
+				else
+				{
+					$modules[$row->module] = false;
+				}
 			}
 
-			$row->singular = lang($row->entry_key);
-			$row->plural = lang($row->entry_plural);
+			$row->singular = lang($row->entry_key) ? lang($row->entry_key) : $row->entry_key;
+			$row->plural = lang($row->entry_plural) ? lang($row->entry_plural) : $row->entry_plural;
 
 			$row->url = site_url($row->uri);
 		}
