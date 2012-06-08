@@ -1,26 +1,37 @@
-<div class="blog_post">
-	<!-- Post heading -->
-	<div class="post_heading">
-		<h4><?php echo $post->title; ?></h4>
+<div class="post">
+
+	<h3><?php echo $post->title; ?></h3>
+
+	<div class="meta">
+		<div class="date"><?php echo lang('blog:posted_label');?>: <span><?php echo format_date($post->created_on); ?></span></div>
+		
 		<?php if (isset($post->display_name)): ?>
-		<p class="author"><?php echo lang('blog_written_by_label'); ?>: <?php echo anchor('user/' . $post->author_id, $post->display_name); ?></p>
+		<div class="author">
+			<?php echo lang('blog:written_by_label'); ?>: 
+			<span><?php echo anchor('user/' . $post->author_id, $post->display_name); ?></span>
+		</div>
 		<?php endif; ?>
-		<p class="post_date"><span class="post_date_label"><?php echo lang('blog_posted_label');?>: </span><?php echo format_date($post->created_on); ?></p>
-		<?php if($post->category->slug): ?>
-		<p class="post_category">
-			<?php echo lang('blog_category_label');?>: <?php echo anchor('blog/category/'.$post->category->slug, $post->category->title);?>
-		</p>
+
+		<?php if ($post->category->slug): ?>
+		<div class="category">
+			<?php echo lang('blog:category_label');?>: 
+			<span><?php echo anchor('blog/category/'.$post->category->slug, $post->category->title);?></span>
+		</div>
+		<?php endif; ?>
+		<?php if ($post->keywords): ?>
+		<div class="keywords">
+			<?php echo lang('blog:tagged_label');?>:
+			<?php foreach ($post->keywords as $keyword): ?>
+				<span><?php echo anchor('blog/tagged/'.$keyword->name, $keyword->name, 'class="keyword"') ?></span>
+			<?php endforeach; ?>
+		</div>
 		<?php endif; ?>
 	</div>
-	<?php if($post->keywords): ?>
-	<p class="post_keywords">
-		<?php echo lang('blog_tagged_label');?>:
-		<?php echo $post->keywords; ?>
-	</p>
-	<?php endif; ?>
-	<div class="post_body">
+
+	<div class="body">
 		<?php echo $post->body; ?>
 	</div>
+	
 </div>
 
 <?php if ($post->comments_enabled): ?>

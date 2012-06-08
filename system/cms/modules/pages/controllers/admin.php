@@ -87,7 +87,7 @@ class Admin extends Admin_Controller {
 			$this->pyrocache->delete_all('navigation_m');
 			$this->pyrocache->delete_all('page_m');
 
-			Events::trigger('post_page_order', array($order, $root_pages));
+			Events::trigger('page_ordered', array($order, $root_pages));
 		}
 	}
 
@@ -158,7 +158,7 @@ class Admin extends Admin_Controller {
 
         	$page['restricted_to'] = null;
         	$page['navigation_group_id'] = 0;
-	        $page['is_home'] = 0;
+	        $page['is_home'] = true;
         
         	foreach($page['chunks'] as $chunk)
         	{
@@ -188,6 +188,8 @@ class Admin extends Admin_Controller {
 	 */
 	public function create($parent_id = 0)
 	{
+		$page = new stdClass;
+
 		// did they even submit?
 		if ($input = $this->input->post())
 		{
@@ -198,16 +200,16 @@ class Admin extends Admin_Controller {
 			}
 
 			// validate and insert
-			if ($data = $this->page_m->create($input))
+			if ($id = $this->page_m->create($input))
 			{
-				Events::trigger('post_page_create', $data);
+				Events::trigger('page_created', $id);
 
 				$this->session->set_flashdata('success', lang('pages_create_success'));
 
 				// Redirect back to the form or main page
 				$input['btnAction'] == 'save_exit'
 					? redirect('admin/pages')
-					: redirect('admin/pages/edit/'.$data['id']);
+					: redirect('admin/pages/edit/'.$id);
 			}
 			else
 			{
@@ -217,11 +219,10 @@ class Admin extends Admin_Controller {
 				$chunk_bodies 	= $this->input->post('chunk_body') ? array_values($this->input->post('chunk_body')) : array();
 				$chunk_types 	= $this->input->post('chunk_type') ? array_values($this->input->post('chunk_type')) : array();
 
-				$page = array();
 				$chunk_bodies_count = count($input['chunk_body']);
 				for ($i = 0; $i < $chunk_bodies_count; $i++)
 				{
-					$page['chunks'][] = array(
+					$page->chunks[] = array(
 						'id' 	=> $i,
 						'slug' 	=> ! empty($chunk_slugs[$i]) 	? $chunk_slugs[$i] 	: '',
 						'class' => ! empty($chunk_classes[$i]) 	? $chunk_classes[$i] 	: '',
@@ -233,8 +234,7 @@ class Admin extends Admin_Controller {
 		}
 		else
 		{
-			$page = array();
-			$page['chunks'] = array(array(
+			$page->chunks = array(array(
 				'id' => 'NEW',
 				'slug' => 'default',
 				'class' => '',
@@ -248,21 +248,23 @@ class Admin extends Admin_Controller {
 		{
 			if ($field === 'restricted_to[]' or $field === 'strict_uri')
 			{
-				$page['restricted_to'] = set_value($field, array('0'));
+				$page->restricted_to = set_value($field, array('0'));
+
 				// we'll set the default for strict URIs here also
-				$page['strict_uri'] = 1;
+				$page->strict_uri = true;
 
 				continue;
 			}
 
-			$page[$field] = set_value($field);
+			$page->{$field} = set_value($field);
 		}
 
-		$parent_page = array();
+		$parent_page = new stdClass;
+
 		// If a parent id was passed, fetch the parent details
 		if ($parent_id > 0)
 		{
-			$page['parent_id'] = $parent_id;
+			$page->parent_id = $parent_id;
 			$parent_page = $this->page_m->get($parent_id);
 		}
 
@@ -271,7 +273,7 @@ class Admin extends Admin_Controller {
 
 		// Load WYSIWYG editor
 		$this->template
-			->title($this->module_details['name'], lang('pages.create_title'))
+			->title($this->module_details['name'], lang('pages:create_title'))
 			->append_metadata($this->load->view('fragments/wysiwyg', array(), true))
 			->set('page', $page)
 			->set('parent_page', $parent_page)
@@ -295,7 +297,7 @@ class Admin extends Admin_Controller {
 		$page = $this->page_m->get($id);
 
 		// Turn the CSV list back to an array
-		$page['restricted_to'] = explode(',', $page['restricted_to']);
+		$page->restricted_to = explode(',', $page->restricted_to);
 
 		// Got page?
 		if ( ! $page OR empty($page))
@@ -315,11 +317,11 @@ class Admin extends Admin_Controller {
 			}
 
 			// validate and insert
-			if ($data = $this->page_m->edit($id, $input))
+			if ($this->page_m->edit($id, $input))
 			{
 				$this->session->set_flashdata('success', sprintf(lang('pages_edit_success'), $input['title']));
 
-				Events::trigger('post_page_edit', $data);
+				Events::trigger('page_updated', $id);
 
 				$this->pyrocache->delete_all('page_m');
 				$this->pyrocache->delete_all('navigation_m');
@@ -327,7 +329,7 @@ class Admin extends Admin_Controller {
 				// Mission accomplished!
 				$input['btnAction'] == 'save_exit'
 					? redirect('admin/pages')
-					: redirect('admin/pages/edit/'.$data['id']);
+					: redirect('admin/pages/edit/'.$id);
 			}
 			else
 			{
@@ -337,11 +339,11 @@ class Admin extends Admin_Controller {
 				$chunk_bodies 	= $this->input->post('chunk_body') ? array_values($this->input->post('chunk_body')) : array();
 				$chunk_types 	= $this->input->post('chunk_type') ? array_values($this->input->post('chunk_type')) : array();
 
-				$page['chunks'] = array();
+				$page->chunks = array();
 				$chunk_bodies_count = count($input['chunk_body']);
 				for ($i = 0; $i < $chunk_bodies_count; $i++)
 				{
-					$page['chunks'][] = array(
+					$page->chunks[] = array(
 						'id' 	=> $i,
 						'slug' 	=> ! empty($chunk_slugs[$i]) 	? $chunk_slugs[$i] 	: '',
 						'class' => ! empty($chunk_classes[$i]) 	? $chunk_classes[$i] 	: '',
@@ -364,20 +366,20 @@ class Admin extends Admin_Controller {
 			// Translate the data of restricted_to to something we can use in the form.
 			if ($field === 'restricted_to[]')
 			{
-				$page['restricted_to'] = set_value($field, $page['restricted_to']);
-				$page['restricted_to'][0] = ($page['restricted_to'][0] == '') ? '0' : $page['restricted_to'][0];
+				$page->restricted_to = set_value($field, $page->restricted_to);
+				$page->restricted_to[0] = ($page->restricted_to[0] == '') ? '0' : $page->restricted_to[0];
 				continue;
 			}
 
 			// Set all the other fields
-			$page[$field] = set_value($field, $page[$field]);
+			$page->{$field} = set_value($field, $page->{$field});
 		}
 
 		// If this page has a parent.
-		if ($page['parent_id'] > 0)
+		if ($page->parent_id > 0)
 		{
 			// Get only the details for the parent, no chunks.
-			$parent_page = $this->page_m->get($page['parent_id'], false);
+			$parent_page = $this->page_m->get($page->parent_id, false);
 		}
 		else
 		{
@@ -387,7 +389,7 @@ class Admin extends Admin_Controller {
 		$this->_form_data();
 
 		$this->template
-			->title($this->module_details['name'], sprintf(lang('pages.edit_title'), $page['title']))
+			->title($this->module_details['name'], sprintf(lang('pages:edit_title'), $page->title))
 			// Load WYSIWYG Editor
 			->append_metadata( $this->load->view('fragments/wysiwyg', array() , true) )
 			->append_css('module::page-edit.css')
@@ -465,7 +467,7 @@ class Admin extends Admin_Controller {
 			// Some pages have been deleted
 			if ( ! empty($deleted_ids))
 			{
-				Events::trigger('post_page_delete', $deleted_ids);
+				Events::trigger('page_deleted', $deleted_ids);
 
 				// Only deleting one page
 				if ( count($deleted_ids) == 1 )

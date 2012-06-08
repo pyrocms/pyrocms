@@ -19,10 +19,10 @@ class MY_Loader extends MX_Loader
 		{
 			define('SPARKPATH', 'system/sparks/');
 		}
-
-		$this->add_package_path(SHARED_ADDONPATH);
-
+		
 		parent::__construct();
+		
+		$this->add_package_path(SHARED_ADDONPATH);
 	}
 
 	/**

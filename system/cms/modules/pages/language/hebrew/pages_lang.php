@@ -1,54 +1,56 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-// tabs
-$lang['pages.content_label']               = 'תוכן דף';
-$lang['pages.meta_label']                  = 'Meta data';
-$lang['pages.design_label']                = 'עיצוב';
-$lang['pages.script_label']                = 'Script';
-$lang['pages.options_label']               = 'אפשרויות';
+$lang['pages:page']            		      = 'דף';
+$lang['pages:pages']         		      = 'דפים';
 
-$lang['pages.detail_label']                = 'פרטים';
+// tabs
+$lang['pages:content_label']               = 'תוכן דף';
+$lang['pages:meta_label']                  = 'Meta data';
+$lang['pages:design_label']                = 'עיצוב';
+$lang['pages:script_label']                = 'Script';
+$lang['pages:options_label']               = 'אפשרויות';
+
+$lang['pages:detail_label']                = 'פרטים';
 
 // labels
-$lang['pages.page_label']                  = 'דף';
-$lang['pages.add_page_chunk']				= 'Add Page Chunk'; #translate
-$lang['pages.page_chunk']					= 'Page Chunk'; #translate
-$lang['pages.language_label']              = 'שפה';
-$lang['pages.updated_label']               = 'עודכן';
-$lang['pages.unknown_label']               = 'לא ידוע';
-$lang['pages.navigation_label']                  = 'הוסף לניווט';
-$lang['pages.body_label']                  = 'גוף הדף';
-$lang['pages.meta_title_label']            = 'Meta title';
-$lang['pages.meta_keywords_label']         = 'Meta keywords';
-$lang['pages.meta_desc_label']             = 'Meta description';
-$lang['pages.layout_id_label']             = 'Page Layout';
-$lang['pages.css_label']                   = 'CSS';
-$lang['pages.js_label']                    = 'JavaScript';
-$lang['pages.access_label']                = 'גישה';
-$lang['pages.rss_enabled_label']           = 'RSS מופעלת?';
-$lang['pages.comments_enabled_label']      = 'תגובות מופעלות?';
-$lang['pages.is_home_label']      = 'האם (דף הבית) דף ברירת המחדל?';
-$lang['pages.strict_uri_label']						= 'Require an exact uri match?'; #translate
+$lang['pages:add_page_chunk']				= 'Add Page Chunk'; #translate
+$lang['pages:page_chunk']					= 'Page Chunk'; #translate
+$lang['pages:language_label']              = 'שפה';
+$lang['pages:updated_label']               = 'עודכן';
+$lang['pages:unknown_label']               = 'לא ידוע';
+$lang['pages:navigation_label']                  = 'הוסף לניווט';
+$lang['pages:body_label']                  = 'גוף הדף';
+$lang['pages:meta_title_label']            = 'Meta title';
+$lang['pages:meta_keywords_label']         = 'Meta keywords';
+$lang['pages:meta_desc_label']             = 'Meta description';
+$lang['pages:layout_id_label']             = 'Page Layout';
+$lang['pages:css_label']                   = 'CSS';
+$lang['pages:js_label']                    = 'JavaScript';
+$lang['pages:access_label']                = 'גישה';
+$lang['pages:rss_enabled_label']           = 'RSS מופעלת?';
+$lang['pages:comments_enabled_label']      = 'תגובות מופעלות?';
+$lang['pages:is_home_label']      = 'האם (דף הבית) דף ברירת המחדל?';
+$lang['pages:strict_uri_label']						= 'Require an exact uri match?'; #translate
 
-$lang['pages.status_label']                = 'סטטוס';
-$lang['pages.draft_label']                 = 'טיוטה';
-$lang['pages.live_label']                  = 'מופיע';
-$lang['pages.preview_label']               = 'תצוגה מוקדמת';
-$lang['pages.current_label']               = 'הנוכחי';
+$lang['pages:status_label']                = 'סטטוס';
+$lang['pages:draft_label']                 = 'טיוטה';
+$lang['pages:live_label']                  = 'מופיע';
+$lang['pages:preview_label']               = 'תצוגה מוקדמת';
+$lang['pages:current_label']               = 'הנוכחי';
 
-$lang['pages.view_label']                  = 'הצג';
-$lang['pages.create_label']                = 'הוסף בן';
-$lang['pages.duplicate_label']			   = 'Duplicate'; #translate
+$lang['pages:view_label']                  = 'הצג';
+$lang['pages:create_label']                = 'הוסף בן';
+$lang['pages:duplicate_label']			   = 'Duplicate'; #translate
 
 // titles
-$lang['pages.create_title']                = 'הוסף דף';
-$lang['pages.edit_title']                  = 'ערוך דף "%s"';
-$lang['pages.list_title']                  = 'רשימת הדפים';
-$lang['pages.layouts_create_title']        = 'הוסף page layout';
-$lang['pages.layouts_list_title']          = 'רשימת page layouts';
+$lang['pages:create_title']                = 'הוסף דף';
+$lang['pages:edit_title']                  = 'ערוך דף "%s"';
+$lang['pages:list_title']                  = 'רשימת הדפים';
+$lang['pages:layouts_create_title']        = 'הוסף page layout';
+$lang['pages:layouts_list_title']          = 'רשימת page layouts';
 
 // messages
-$lang['pages.no_pages']                    = 'אין עמודים.';
+$lang['pages:no_pages']                    = 'אין עמודים.';
 $lang['pages_create_success']              = 'הדף נוצר בהצלחה.';
 $lang['pages_create_error']                = 'הדף לא נוצר.';
 $lang['pages_page_not_found_error']        = 'הדף לא קיים.';
@@ -62,8 +64,8 @@ $lang['pages_parent_not_exist_error']      = 'עמוד האב שבחרתם אי�
 $lang['pages_chunk_slug_length']					= 'Page Chunk slugs may be no more than 30 characters in length.'; #translate
 $lang['pages_root_folder']                = 'the top level'; #translate
 
-$lang['pages.tree_explanation_title']	        = 'Explanation'; #translate
-$lang['pages.tree_explanation']            = 'הרשימה בצד שמאל מייצגת דפים באתר האינטרנט שלך.
+$lang['pages:tree_explanation_title']	        = 'Explanation'; #translate
+$lang['pages:tree_explanation']            = 'הרשימה בצד שמאל מייצגת דפים באתר האינטרנט שלך.
 Click the page item to show its children. אתה יכול לגרור עמודים כדי לסדר אותם; גרור אופקית כדי להפוך אותו לילד. בעת לחיצה על הטקסט בדף תוכלו לראות כל מיני מידע שימושי בתיבה זו.';
 
-$lang['pages.rss_explanation']             = 'RSS הפעלת הדף זו ייתן למשתמשים הזדמנות להירשם להזנת RSS אשר מציגה כל ילד הדף המיידי כערך חדש.';
+$lang['pages:rss_explanation']             = 'RSS הפעלת הדף זו ייתן למשתמשים הזדמנות להירשם להזנת RSS אשר מציגה כל ילד הדף המיידי כערך חדש.';

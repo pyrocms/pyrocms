@@ -30,7 +30,7 @@ class Module_Keywords extends Module {
 				'fi' => 'Avainsanat',
 				'sl' => 'Ključne besede',
 				'th' => 'คำค้น',
-                                'se' => 'Nyckelord'
+				'se' => 'Nyckelord',
 			),
 			'description' => array(
 				'en' => 'Maintain a central list of keywords to label and organize your content.',
@@ -47,7 +47,7 @@ class Module_Keywords extends Module {
 				'fi' => 'Hallinnoi keskitettyä listaa avainsanoista merkitäksesi ja järjestelläksesi sisältöä.',
 				'sl' => 'Vzdržuj centralni seznam ključnih besed za označevanje in ogranizacijo vsebine.',
 				'th' => 'ศูนย์กลางการปรับปรุงคำค้นในการติดฉลากและจัดระเบียบเนื้อหาของคุณ',
-                                'se' => 'Hantera nyckelord för att organisera webbplatsens innehåll.'
+				'se' => 'Hantera nyckelord för att organisera webbplatsens innehåll.',
 			),
 			'frontend' => false,
 			'backend'  => true,
@@ -67,7 +67,7 @@ class Module_Keywords extends Module {
 		$this->dbforge->drop_table('keywords');
 		$this->dbforge->drop_table('keywords_applied');
 
-		$tables = array(
+		return $this->install_tables(array(
 			'keywords' => array(
 				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
 				'name' => array('type' => 'VARCHAR', 'constraint' => 50,),
@@ -77,14 +77,7 @@ class Module_Keywords extends Module {
 				'hash' => array('type' => 'CHAR', 'constraint' => 32, 'default' => '',),
 				'keyword_id' => array('type' => 'INT', 'constraint' => 11,),
 			),
-		);
-
-		if ( ! $this->install_tables($tables))
-		{
-			return false;
-		}
-
-		return true;
+		));
 	}
 
 	public function uninstall()

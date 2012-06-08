@@ -40,7 +40,7 @@ class Page_chunk_m extends MY_Model
 		if ($page->chunks)
 		{
 			// get rid of the old
-			$this->delete_by('page_id', $input['id']);
+			$this->delete_by('page_id', $input['page_id']);
 
 			// And add the new ones
 			$i = 1;
@@ -49,7 +49,7 @@ class Page_chunk_m extends MY_Model
 				$this->insert(array(
 					'slug' 		=> preg_replace('/[^a-zA-Z0-9_-]/', '', $chunk->slug),
 					'class' 	=> preg_replace('/[^a-zA-Z0-9_-\s]/', '', $chunk->class),
-					'page_id' 	=> $input['id'],
+					'page_id' 	=> $input['page_id'],
 					'body' 		=> $chunk->body,
 					'parsed'	=> ($chunk->type == 'markdown') ? parse_markdown($chunk->body) : '',
 					'type' 		=> $chunk->type,

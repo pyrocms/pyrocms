@@ -1,20 +1,20 @@
 <section class="title">
 <?php if ($this->method == 'create'): ?>
-	<h4><?php echo lang('blog_create_title'); ?></h4>
+	<h4><?php echo lang('blog:create_title'); ?></h4>
 <?php else: ?>
-	<h4><?php echo sprintf(lang('blog_edit_title'), $post->title); ?></h4>
+	<h4><?php echo sprintf(lang('blog:edit_title'), $post->title); ?></h4>
 <?php endif; ?>
 </section>
 
 <section class="item">
 	
-<?php echo form_open_multipart(uri_string(), 'class="crud"'); ?>
+<?php echo form_open_multipart(); ?>
 
 <div class="tabs">
 
 	<ul class="tab-menu">
-		<li><a href="#blog-content-tab"><span><?php echo lang('blog_content_label'); ?></span></a></li>
-		<li><a href="#blog-options-tab"><span><?php echo lang('blog_options_label'); ?></span></a></li>
+		<li><a href="#blog-content-tab"><span><?php echo lang('blog:content_label'); ?></span></a></li>
+		<li><a href="#blog-options-tab"><span><?php echo lang('blog:options_label'); ?></span></a></li>
 	</ul>
 	
 	<!-- Content tab -->
@@ -34,8 +34,8 @@
 			</li>
 			
 			<li>
-				<label for="status"><?php echo lang('blog_status_label'); ?></label>
-				<div class="input"><?php echo form_dropdown('status', array('draft' => lang('blog_draft_label'), 'live' => lang('blog_live_label')), $post->status) ?></div>
+				<label for="status"><?php echo lang('blog:status_label'); ?></label>
+				<div class="input"><?php echo form_dropdown('status', array('draft' => lang('blog:draft_label'), 'live' => lang('blog:live_label')), $post->status) ?></div>
 			</li>
 			
 			<li>
@@ -48,13 +48,13 @@
 			</li>
 			
 			<li>
-				<label for="intro"><?php echo lang('blog_intro_label'); ?></label>
+				<label for="intro"><?php echo lang('blog:intro_label'); ?></label>
 				<br style="clear: both;" />
 				<?php echo form_textarea(array('id' => 'intro', 'name' => 'intro', 'value' => $post->intro, 'rows' => 5, 'class' => 'blog wysiwyg-simple')); ?>
 			</li>
 			
 			<li class="editor">
-				<label for="body"><?php echo lang('blog_content_label'); ?></label>
+				<label for="body"><?php echo lang('blog:content_label'); ?></label>
 				
 				<div class="input">
 					<?php echo form_dropdown('type', array(
@@ -83,10 +83,10 @@
 		
 		<ul>
 			<li>
-				<label for="category_id"><?php echo lang('blog_category_label'); ?></label>
+				<label for="category_id"><?php echo lang('blog:category_label'); ?></label>
 				<div class="input">
-				<?php echo form_dropdown('category_id', array(lang('blog_no_category_select_label')) + $categories, @$post->category_id) ?>
-					[ <?php echo anchor('admin/blog/categories/create', lang('blog_new_category_label'), 'target="_blank"'); ?> ]
+				<?php echo form_dropdown('category_id', array(lang('blog:no_category_select_label')) + $categories, @$post->category_id) ?>
+					[ <?php echo anchor('admin/blog/categories/create', lang('blog:new_category_label'), 'target="_blank"'); ?> ]
 				</div>
 			</li>
 			
@@ -96,7 +96,7 @@
 			</li>
 						
 			<li class="date-meta">
-				<label><?php echo lang('blog_date_label'); ?></label>
+				<label><?php echo lang('blog:date_label'); ?></label>
 				
 				<div class="input datetime_input">
 				<?php echo form_input('created_on', date('Y-m-d', $post->created_on), 'maxlength="10" id="datepicker" class="text width-20"'); ?> &nbsp;
@@ -107,7 +107,7 @@
 			</li>
 			
 			<li>
-				<label for="comments_enabled"><?php echo lang('blog_comments_enabled_label');?></label>
+				<label for="comments_enabled"><?php echo lang('blog:comments_enabled_label');?></label>
 				<div class="input"><?php echo form_checkbox('comments_enabled', 1, ($this->method == 'create' && ! $_POST) or $post->comments_enabled == 1, 'id="comments_enabled"'); ?></div>
 			</li>
 		</ul>
