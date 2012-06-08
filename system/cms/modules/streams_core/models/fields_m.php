@@ -369,12 +369,15 @@ class Fields_m extends CI_Model {
 
 			// Run though alt rename column routines. Needs to be done
 			// after the above loop through assignments.
-			foreach ($assignments as $assignment)
+			if ($assignments)
 			{
-				if (method_exists($type, 'alt_rename_column'))
+				foreach ($assignments as $assignment)
 				{
-					// We run a different function for alt_process
-					$type->alt_rename_column($field, $this->streams_m->get_stream($assignment->stream_slug), $assignment);
+					if (method_exists($type, 'alt_rename_column'))
+					{
+						// We run a different function for alt_process
+						$type->alt_rename_column($field, $this->streams_m->get_stream($assignment->stream_slug), $assignment);
+					}
 				}
 			}
 		}
