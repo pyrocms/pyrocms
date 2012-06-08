@@ -230,6 +230,9 @@ class Admin extends Admin_Controller
 			$member->{$rule['field']} = set_value($rule['field']);
 		}
 
+		// Run stream field events
+		$this->fields->run_field_events($this->streams_m->get_stream_fields($this->streams_m->get_stream_id_from_slug('profiles', 'users')));
+
 		$this->template
 			->title($this->module_details['name'], lang('user_add_title'))
 			->set('member', $member)
@@ -350,6 +353,9 @@ class Admin extends Admin_Controller
 				$member->{$rule['field']} = set_value($rule['field']);
 			}
 		}
+
+		// Run stream field events
+		$this->fields->run_field_events($this->streams_m->get_stream_fields($this->streams_m->get_stream_id_from_slug('profiles', 'users')));
 
 		$this->template
 			->title($this->module_details['name'], sprintf(lang('user_edit_title'), $member->username))
