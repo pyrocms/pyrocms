@@ -521,7 +521,12 @@ class Files
 				// get rid of the "temp" file
 				@unlink(self::$path.$file->filename);
 
-				return self::result(TRUE, lang('files:file_uploaded'), $new_name, $data);
+				$extra_data = array('id' => $file_id,
+					'name' => $new_name,
+					'location' => $new_location,
+					'container' => $container);
+
+				return self::result(TRUE, lang('files:file_uploaded'), $new_name, $extra_data + $data);
 			}
 
 			return self::result(FALSE, lang('files:invalid_container'), $container);
@@ -551,6 +556,13 @@ class Files
 
 				// ...now save it
 				write_file(self::$path.$filename, $curl_result, 'wb');
+
+				$data = array('id' => $file_id,
+					'name' => $new_name,
+					'location' => $new_location,
+					'container' => $container);
+
+				return self::result(TRUE, lang('files:file_moved'), $file->name, $data);
 			}
 			else
 			{
@@ -598,7 +610,12 @@ class Files
 			// get rid of the "temp" file
 			@unlink($temp_file);
 
-			return self::result(TRUE, lang('files:file_moved'), $file->name, $data);
+			$extra_data = array('id' => $file_id,
+				'name' => $new_name,
+				'location' => $new_location,
+				'container' => $container);
+
+			return self::result(TRUE, lang('files:file_moved'), $file->name, $extra_data + $data);
 		}
 	}
 

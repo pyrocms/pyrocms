@@ -109,10 +109,17 @@ class Widget_Navigation extends Widgets
 	 */
 	public function run($options)
 	{
-		// Load the navigation model from the navigation module.
-		$this->load->model('navigation/navigation_m');
-
-		$links = $this->pyrocache->model('navigation_m', 'get_link_tree', $options['group'], $this->settings->item('navigation_cache'));
+		// We must pass the user group from here so that we can cache the results and still always return the links with the proper permissions
+		$params = array(
+			$group,
+			array(
+				'user_group' => ($this->current_user AND isset($this->current_user->group)) ? $this->current_user->group : false,
+				'front_end' => true,
+				'is_secure' => IS_SECURE,
+			)
+		);
+		
+		$links = $this->pyrocache->model('navigation_m', 'get_link_tree', $params, Settings::get('navigation_cache'));
 
 		// Shorter alias
 		$widget = & $options['widget'];

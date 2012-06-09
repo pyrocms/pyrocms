@@ -223,16 +223,18 @@ class Admin_Categories extends Admin_Controller {
 			$category->{$rule['field']} = set_value($rule['field']);
 		}
 		
-		$this->data->method = 'create';
-		$this->data->category =& $category;
+		$data = array(
+			'method' => 'create',
+			'category' => $category,
+		);
 		
 		if ($this->form_validation->run())
 		{
-			$id = $this->blog_categories_m->insert_ajax($_POST);
+			$id = $this->blog_categories_m->insert_ajax($this->input->post());
 			
 			if ($id > 0)
 			{
-				$message = sprintf( lang('cat_add_success'), $this->input->post('title'));
+				$message = sprintf(lang('cat_add_success'), $this->input->post('title', TRUE));
 			}
 			else
 			{
@@ -249,7 +251,7 @@ class Admin_Categories extends Admin_Controller {
 		else
 		{
 			// Render the view
-			$form = $this->load->view('admin/categories/form', $this->data, TRUE);
+			$form = $this->load->view('admin/categories/form', $data, TRUE);
 
 			if ($errors = validation_errors())
 			{

@@ -38,7 +38,7 @@ jQuery(function($) {
 			}
 		},
 		data: {
-			csrf_hash_name: $.cookie('csrf_cookie_name')
+			csrf_hash_name: $.cookie(pyro.csrf_cookie_name)
 		}
 	});
 

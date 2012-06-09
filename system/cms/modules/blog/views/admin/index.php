@@ -9,15 +9,11 @@
 
 <?php echo $this->load->view('admin/partials/filters'); ?>
 
-<div id="filter-stage">
-
-	<?php echo form_open('admin/blog/action'); ?>
-
+<?php echo form_open('admin/blog/action'); ?>
+	<div id="filter-stage">
 		<?php echo $this->load->view('admin/tables/posts'); ?>
-
-	<?php echo form_close(); ?>
-	
-</div>
+	</div>
+<?php echo form_close(); ?>
 
 <?php else : ?>
 	<div class="no_data"><?php echo lang('blog_currently_no_posts'); ?></div>

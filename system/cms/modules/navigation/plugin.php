@@ -23,27 +23,29 @@ class Plugin_Navigation extends Plugin
 		$group			= $this->attribute('group');
 		$group_segment	= $this->attribute('group_segment');
 
-		is_numeric($group_segment) ? $group = $this->uri->segment($group_segment) : NULL;
+		is_numeric($group_segment) and $group = $this->uri->segment($group_segment);
 
 		// We must pass the user group from here so that we can cache the results and still always return the links with the proper permissions
-		$params = array($group,
-						array('user_group' => ($this->current_user AND isset($this->current_user->group)) ? $this->current_user->group : FALSE,
-							  'front_end' => TRUE
-							  )
-						);
-
-		$this->load->model('navigation/navigation_m');
+		$params = array(
+			$group,
+			array(
+				'user_group' => ($this->current_user AND isset($this->current_user->group)) ? $this->current_user->group : false,
+				'front_end' => true,
+				'is_secure' => IS_SECURE,
+			)
+		);
+		
 		$links = $this->pyrocache->model('navigation_m', 'get_link_tree', $params, Settings::get('navigation_cache'));
 
 		return $this->_build_links($links, $this->content());
 	}
 
-	private function _build_links($links = array(), $return_arr = TRUE)
+	private function _build_links($links = array(), $return_arr = true)
 	{
-		static $current_link	= FALSE;
+		static $current_link	= false;
 		static $level		= 0;
 
-		$top			= $this->attribute('top', FALSE);
+		$top			= $this->attribute('top', false);
 		$separator		= $this->attribute('separator', '');
 															//deprecated
 		$link_class		= $this->attribute('link-class', $this->attribute('link_class', ''));
@@ -76,7 +78,7 @@ class Plugin_Navigation extends Plugin
 					$indent = "    ";
 					break;
 				default:
-					$indent = FALSE;
+					$indent = false;
 					break;
 			}
 
@@ -101,12 +103,12 @@ class Plugin_Navigation extends Plugin
 				$item['title']  = '<'.$wrap.'>'.$item['title'].'</'.$wrap.'>';
 			}
 			
-			$item['attributes']['target']	= $link['target'] ? 'target="' . $link['target'] . '"' : NULL;
+			$item['attributes']['target']	= $link['target'] ? 'target="' . $link['target'] . '"' : null;
 			$item['attributes']['class']	= $link_class ? 'class="' . $link_class . '"' : '';
 
 			// attributes of anchor wrapper
 			$wrapper['class']		= $link['class'] ? explode(' ', $link['class']) : array();
-			$wrapper['children']	= $return_arr ? array() : NULL;
+			$wrapper['children']	= $return_arr ? array() : null;
 			$wrapper['separator']	= $separator;
 
 			// is single ?

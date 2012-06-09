@@ -42,8 +42,8 @@ $config['allowed_functions']	=	array(
 	'ucfirst',
 	'ucwords',
 	'word_censor',
-	'word_limit',
-	'wordwrap',
+	'word_limiter',
+	'word_wrap',
 	);
 
 /* End of file parser.php */
