@@ -131,7 +131,7 @@ class Plugin_Files extends Plugin
 						->join('file_folders', 'file_folders.id = files.folder_id')
 						->where('type', $type);
 
-			$file = $this->file_m->get($id);
+			$file = $this->file_m->get_where('files',array('files.id'=>$id))->row();
 		}
 
 		// file not found
