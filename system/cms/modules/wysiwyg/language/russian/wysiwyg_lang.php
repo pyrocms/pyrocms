@@ -1,16 +1,11 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-$lang = array(
-	'wysiwyg.meta.width'    =>  'Ширина',
-	'wysiwyg.meta.height'   =>  'Высота',
-	'wysiwyg.meta.size'     =>  'Размер',
-	'wysiwyg.label.insert_width'    => 'Вставить ширину изображения',
-	'wysiwyg.label.float'   =>  'Положение',
-	'wysiwyg.label.left'    =>  'Слева',
-	'wysiwyg.label.right'   =>  'Справа',
-	'wysiwyg.label.none'    =>  'Нет',
-	'wysiwyg.meta.mime'     =>  'Тип Mime'
-
-);
-
-/* end of file wysiwyg_lang.php */
+$lang['wysiwyg.meta.width'] = 'Ширина';
+$lang['wysiwyg.meta.height'] = 'Высота';
+$lang['wysiwyg.meta.size'] = 'Размер';
+$lang['wysiwyg.label.insert_width'] = 'Вставить ширину изображения';
+$lang['wysiwyg.label.float'] = 'Положение';
+$lang['wysiwyg.label.left'] = 'Слева';
+$lang['wysiwyg.label.right'] = 'Справа';
+$lang['wysiwyg.label.none'] = 'Нет';
+$lang['wysiwyg.meta.mime'] = 'Тип Mime';

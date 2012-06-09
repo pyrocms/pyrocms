@@ -4,29 +4,31 @@ class Blog_m extends MY_Model
 {
 	protected $_table = 'blog';
 
-	function get_all()
+	public function get_all()
 	{
-		$this->db->select('blog.*, blog_categories.title AS category_title, blog_categories.slug AS category_slug, profiles.display_name')
+		$this->db
+			->select('blog.*, blog_categories.title AS category_title, blog_categories.slug AS category_slug, profiles.display_name')
 			->join('blog_categories', 'blog.category_id = blog_categories.id', 'left')
-			->join('profiles', 'profiles.user_id = blog.author_id', 'left');
-
-		$this->db->order_by('created_on', 'DESC');
+			->join('profiles', 'profiles.user_id = blog.author_id', 'left')
+			->order_by('created_on', 'DESC');
 
 		return $this->db->get('blog')->result();
 	}
 
-	function get($id)
+	public function get($id)
 	{
-		return $this->db->select('blog.*, profiles.display_name')
-					->join('profiles', 'profiles.user_id = blog.author_id', 'left')
-					->where(array('blog.id' => $id))
-					->get('blog')
-					->row();
+		return $this->db
+			->select('blog.*, profiles.display_name')
+			->join('profiles', 'profiles.user_id = blog.author_id', 'left')
+			->where(array('blog.id' => $id))
+			->get('blog')
+			->row();
 	}
 	
 	public function get_by($key, $value = '')
 	{
-		$this->db->select('blog.*, profiles.display_name')
+		$this->db
+			->select('blog.*, profiles.display_name')
 			->join('profiles', 'profiles.user_id = blog.author_id', 'left');
 			
 		if (is_array($key))
@@ -41,7 +43,7 @@ class Blog_m extends MY_Model
 		return $this->db->get($this->_table)->row();
 	}
 
-	function get_many_by($params = array())
+	public function get_many_by($params = array())
 	{
 		$this->load->helper('date');
 
@@ -120,7 +122,7 @@ class Blog_m extends MY_Model
 			->result();
 	}
 
-	function count_by($params = array())
+	public function count_by($params = array())
 	{
 		$this->db->join('blog_categories', 'blog.category_id = blog_categories.id', 'left');
 
@@ -162,21 +164,21 @@ class Blog_m extends MY_Model
 		return $this->db->count_all_results('blog');
 	}
 
-	function update($id, $input)
+	public function update($id, $input)
 	{
 		$input['updated_on'] = now();
-
+        if($input['status'] == "live" and $input['preview_hash'] !='') $input['preview_hash'] = '';
 		return parent::update($id, $input);
 	}
 
-	function publish($id = 0)
+	public function publish($id = 0)
 	{
-		return parent::update($id, array('status' => 'live'));
+		return parent::update($id, array('status' => 'live','preview_hash'=>''));
 	}
 
 	// -- Archive ---------------------------------------------
 
-	function get_archive_months()
+	public function get_archive_months()
 	{
 		$this->db->select('UNIX_TIMESTAMP(DATE_FORMAT(FROM_UNIXTIME(t1.created_on), "%Y-%m-02")) AS `date`', FALSE);
 		$this->db->from('blog t1');
@@ -198,7 +200,7 @@ class Blog_m extends MY_Model
 	}
 
 	// DIRTY frontend functions. Move to views
-	function get_blog_fragment($params = array())
+	public function get_blog_fragment($params = array())
 	{
 		$this->load->helper('date');
 
@@ -220,7 +222,7 @@ class Blog_m extends MY_Model
 		return $string;
 	}
 
-	function check_exists($field, $value = '', $id = 0)
+	public function check_exists($field, $value = '', $id = 0)
 	{
 		if (is_array($field))
 		{

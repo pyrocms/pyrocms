@@ -1,7 +1,6 @@
 <?php
 
 // labels
-$lang['nav_title_label'] 						= '標題';
 $lang['nav_target_label']						= '目的';
 $lang['nav_class_label']						= 'Class 樣式';
 $lang['nav_url_label'] 							= '網址';

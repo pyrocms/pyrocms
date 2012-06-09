@@ -10,7 +10,7 @@
 				<thead>
 					<tr>
 						<th><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all'));?></th>
-						<th><?php echo lang('page_layouts.title_label');?></th>
+						<th><?php echo lang('global:title');?></th>
 						<th></th>
 					</tr>
 				</thead>

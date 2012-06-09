@@ -3,9 +3,9 @@
  * Settings Plugin
  *
  * Allows settings to be used in content tags.
- * 
- * @author		PyroCMS Dev Team
- * @package		PyroCMS\Core\Modules\Settings\Plugins
+ *
+ * @author        PyroCMS Dev Team
+ * @package        PyroCMS\Core\Modules\Settings\Plugins
  */
 class Plugin_Settings extends Plugin
 {
@@ -14,14 +14,13 @@ class Plugin_Settings extends Plugin
 	 *
 	 * Magic method to get the setting.
 	 *
-	 * @param	string
-	 * @param	string
-	 * @return	string
+	 * @param string $name
+	 * @param array $data
+	 *
+	 * @return string
 	 */
 	function __call($name, $data)
 	{
-		return $this->settings->item($name);
+		return $this->settings->get($name);
 	}
 }
-
-/* End of file plugin.php */

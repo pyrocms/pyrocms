@@ -76,7 +76,7 @@ $lang['top_page'] 					= 'Góra';
 $lang['back_to_top'] 				= 'Do góry';
 
 $lang['global:filters'] 			= 'Filtry';
-$lang['global:shortcuts']	 		= 'Skróty klawiszowe';
+$lang['global:image'] 					= 'Image'; #translate
 $lang['global:description']			= 'Opis';
 $lang['global:actions']				= 'Akcje';
 $lang['global:view']				= 'Zobacz';

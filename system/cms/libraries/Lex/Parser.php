@@ -224,7 +224,7 @@ class Lex_Parser
 				$cb_data = $data;
 				if ( !empty(Lex_Parser::$callback_data))
 				{
-					$cb_data = array_merge(Lex_Parser::$callback_data, $data);
+					$cb_data = array_merge(Lex_Parser::$callback_data, (array) $data);
 				}
 				$raw_params = $this->inject_extractions($match[2][0], '__cond_str');
 				$parameters = $this->parse_parameters($raw_params, $cb_data, $callback);

@@ -14,7 +14,6 @@ $lang['page_layouts.css_label']											= 'CSS';
 
 // подписи
 $lang['page_layouts.updated_label']									= 'Обновлено';
-$lang['page_layouts.title_label']										= 'Название';
 $lang['page_layouts.theme_layout_label']						= 'Макет темы';
 
 // заголовки

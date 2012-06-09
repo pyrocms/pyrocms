@@ -783,7 +783,6 @@ ul.recent-comments {
 }
 ul.recent-comments li {
 	list-style: none;
-	width: 17%;
 	height: 55px;
 	margin: 0;
 	overflow: hidden;

@@ -44,14 +44,6 @@ $lang['cp_access_denied']                 = 'Du hast keine ausreichenden Zugriff
 $lang['cp_delete_installer_message']    = 'Bitte l&ouml;sche das Installationsverzeichnis (installer) auf deinem Server, da sich ansonsten Dritte unerlaubt administrativen Zugang verschaffen k&ouml;nnten.';
 $lang['cp_upgrade_message']                = 'Du benutzt aktuell Version %s, aber die Datenbank ist in der &auml;lteren Version %s. Bitte <a href="%s">aktualisiere deine Datenbank</a>.';
 
-// Admin-wide text
-$lang['global:shortcuts']                 = 'Shortcuts';
-$lang['global:description']             = 'Beschreibung';
-$lang['global:actions']                 = 'Aktionen';
-$lang['global:edit']                    = 'Bearbeiten';
-$lang['global:delete']                  = 'L&ouml;schen';
-$lang['global:remove']                  = 'L&ouml;schen';
-
 $lang['required_label']                 = 'Ben&ouml;tigt';
 $lang['sb_recent_users']                 = 'Neue Benutzer';
 

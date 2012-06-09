@@ -1,7 +1,6 @@
 <?php
 
 // labels
-$lang['nav_title_label'] 						= 'الإسم';
 $lang['nav_target_label']						= 'الرابط';
 $lang['nav_class_label']						= 'صنف';
 $lang['nav_url_label'] 							= 'عنوان URL';

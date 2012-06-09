@@ -10,7 +10,7 @@ class Blog_categories_m extends MY_Model
 {
 	/**
 	 * Insert a new category into the database
-	 * @access public
+	 * 
 	 * @param array $input The data to insert
 	 * @return string
 	 */
@@ -27,7 +27,7 @@ class Blog_categories_m extends MY_Model
 
 	/**
 	 * Update an existing category
-	 * @access public
+	 * 
 	 * @param int $id The ID of the category
 	 * @param array $input The data to update
 	 * @return bool
@@ -42,7 +42,7 @@ class Blog_categories_m extends MY_Model
 
 	/**
 	 * Callback method for validating the title
-	 * @access public
+	 * 
 	 * @param string $title The title to validate
 	 * @return mixed
 	 */
@@ -53,7 +53,7 @@ class Blog_categories_m extends MY_Model
 	
 	/**
 	 * Insert a new category into the database via ajax
-	 * @access public
+	 * 
 	 * @param array $input The data to insert
 	 * @return int
 	 */

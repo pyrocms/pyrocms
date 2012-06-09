@@ -14,7 +14,7 @@ class Sitemap extends Public_Controller {
 
 	/**
 	 * XML method - output sitemap in XML format for search engines
-	 * @access public
+	 * 
 	 * @return void
 	 */
 	public function xml()

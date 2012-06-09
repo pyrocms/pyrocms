@@ -1,7 +1,6 @@
 <?php
 
 // labels
-$lang['cat_title_label'] 				= 'Titre';
 $lang['cat_category_label'] 			= 'Catégorie';
 
 // titles

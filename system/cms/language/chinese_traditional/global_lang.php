@@ -3,7 +3,7 @@
 $lang['global:control-panel'] 						= '控制台'; 		//'Control Panel';
 $lang['global:profile']					= 'Profile'; #translate
 
-$lang['title_label'] 					= '標題'; 		//'Title';
+$lang['global:title'] 					= '標題'; 		//'Title';
 $lang['name_label'] 					= '名稱'; 		//'Name';
 $lang['desc_label'] 					= '說明'; 		//'Description';
 $lang['version_label'] 					= '版本'; 		//'Version';
@@ -72,7 +72,7 @@ $lang['powered_by_pyrocms']				= 'Powered by PyroCMS';  #translate
 $lang['top_page']						= 'Top';  #translate
 $lang['back_to_top']					= 'Back to Top';  #translate
 
-$lang['global:shortcuts'] 				= '捷徑';
+$lang['global:image'] 					= 'Image'; #translate
 $lang['global:description']				= '說明';
 $lang['global:actions']					= '操作';
 $lang['global:view']					= '檢視';

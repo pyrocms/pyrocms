@@ -70,38 +70,76 @@ class MX_Router extends CI_Router
 		{
 			require_once BASEPATH.'database/DB'.EXT;
 			
-			if (DB()->table_exists('core_sites'))
+			# deprecated Remove this for 2.3, as this was too early for a migration
+			if ( ! DB()->table_exists('core_domains'))
 			{
-				$site = DB()->where('domain', SITE_DOMAIN)
-					->get('core_sites')
-					->row();
-					
-				$locations = array();
-				
-				// Check to see if the site retrieval was successful. If not then
-				// we will let MY_Controller handle the errors.
-				if (isset($site->ref))
-				{
-					foreach (config_item('modules_locations') AS $location => $offset)
-					{
-						$locations[str_replace('__SITE_REF__', $site->ref, $location)] = str_replace('__SITE_REF__', $site->ref, $offset);
-					}
-					
-					// Set the session config to the correct table using the config name (but removing 'default_')
-					$this->config->set_item('sess_table_name', $site->ref.'_'.str_replace('default_', '', config_item('sess_table_name')));
+				// Create alias table
+				DB()->query('	
+					CREATE TABLE `core_domains` (
+					  `id` int NOT NULL AUTO_INCREMENT,
+					  `domain` varchar(100) NOT NULL,
+					  `site_id` int NOT NULL,
+					  `type` enum("park", "redirect") NOT NULL DEFAULT "park",
+					  PRIMARY KEY (`id`),
+					  KEY `domain` (`domain`),
+					  UNIQUE `unique` (`domain`)
+					) ENGINE=InnoDB DEFAULT CHARSET=utf8; ');
+			}
 
-					// The site ref. Used for building site specific paths
-					define('SITE_REF', $site->ref);
-					
-					// Path to uploaded files for this site
-					define('UPLOAD_PATH', 'uploads/'.SITE_REF.'/');
-					
-					// Path to the addon folder for this site
-					define('ADDONPATH', ADDON_FOLDER.SITE_REF.'/');
-					
-					Modules::$locations = $locations;
-					
+			$site = DB()
+				->select('site.name, site.ref, site.domain, alias.domain as alias_domain, alias.type as alias_type')
+				->where('site.domain', SITE_DOMAIN)
+				->or_where('alias.domain', SITE_DOMAIN)
+				->join('core_domains alias', 'alias.site_id = site.id', 'left')
+				->get('core_sites site')
+				->row();
+			
+			// If the site is disabled we set the message in a constant for MY_Controller to display
+			if (isset($site->active) AND ! $site->active)
+			{
+				$status = DB()->where('slug', 'status_message')
+					->get('core_settings')
+					->row();
+
+				define('STATUS', $status ? $status->value : 'This site has been disabled by a super-administrator');					
+			}
+
+			// If this domain is an alias and it is a redirect
+			if ($site->alias_domain !== NULL and $site->alias_type === 'redirect' and str_replace(array('http://', 'https://'), '', trim(strtolower(BASE_URL), '/')) !== $site->domain)
+			{
+				$protocol = ( ! empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off')
+					? 'https' : 'http';
+
+				// Send them off to the original domain
+				header("Location: {$protocol}://{$site->domain}{$_SERVER['REQUEST_URI']}");
+				exit;
+			}
+
+			$locations = array();
+			
+			// Check to see if the site retrieval was successful. If not then
+			// we will let MY_Controller handle the errors.
+			if (isset($site->ref))
+			{
+				foreach (config_item('modules_locations') AS $location => $offset)
+				{
+					$locations[str_replace('__SITE_REF__', $site->ref, $location)] = str_replace('__SITE_REF__', $site->ref, $offset);
 				}
+				
+				// Set the session config to the correct table using the config name (but removing 'default_')
+				$this->config->set_item('sess_table_name', $site->ref.'_'.str_replace('default_', '', config_item('sess_table_name')));
+
+				// The site ref. Used for building site specific paths
+				define('SITE_REF', $site->ref);
+				
+				// Path to uploaded files for this site
+				define('UPLOAD_PATH', 'uploads/'.SITE_REF.'/');
+				
+				// Path to the addon folder for this site
+				define('ADDONPATH', ADDON_FOLDER.SITE_REF.'/');
+				
+				Modules::$locations = $locations;
+				
 			}
 		}
 		

@@ -1,27 +1,12 @@
-<?php
-/**
-* Author: Thanh Nguyen
-* 		  nguyenhuuthanh@gmail.com
-*
-* Location: http://techmix.net
-*
-* Created:  10.26.2011
-*
-* Description:  Vietnamese language file
-*
-*/
-$lang = array(
-    'wysiwyg.meta.width'    =>  'Rộng',
-    'wysiwyg.meta.height'   =>  'Cao',
-    'wysiwyg.meta.size'     =>  'Cỡ',
-    'wysiwyg.label.insert_width'    => 'Chiều rộng hình ảnh:',
-	'wysiwyg.label.no_limit' =>	'(Điền 0 nếu không giới hạn)',
-    'wysiwyg.label.float'   =>  'Nổi',
-    'wysiwyg.label.left'    =>  'Trái',
-    'wysiwyg.label.right'   =>  'Phải',
-    'wysiwyg.label.none'    =>  'Không thiết lập',
-    'wysiwyg.meta.mime'     =>  'Mime Type'
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-);
-
-/* end of file wysiwyg_lang.php */
+$lang['wysiwyg.meta.width'] = 'Rộng';
+$lang['wysiwyg.meta.height'] = 'Cao';
+$lang['wysiwyg.meta.size'] = 'Cỡ';
+$lang['wysiwyg.label.insert_width'] = 'Chiều rộng hình ảnh:';
+$lang['wysiwyg.label.no_limit'] = '(Điền 0 nếu không giới hạn)';
+$lang['wysiwyg.label.float'] = 'Nổi';
+$lang['wysiwyg.label.left'] = 'Trái';
+$lang['wysiwyg.label.right'] = 'Phải';
+$lang['wysiwyg.label.none'] = 'Không thiết lập';
+$lang['wysiwyg.meta.mime'] = 'Mime Type';

@@ -17,7 +17,7 @@ class Streams_fields extends CI_Driver {
 	 * @access	public
 	 * @return	void
 	 */
-	function __construct()
+	public function __construct()
 	{
 		$this->CI =& get_instance();
 	}
@@ -31,7 +31,7 @@ class Streams_fields extends CI_Driver {
 	 * @param	array - field_data
 	 * @return	bool
 	 */
-	function add_field($field)
+	public function add_field($field)
 	{
 		extract($field);
 	
@@ -133,7 +133,7 @@ class Streams_fields extends CI_Driver {
 	 * @param	array - array of fields
 	 * @return	bool
 	 */
-	function add_fields($fields)
+	public function add_fields($fields)
 	{
 		if ( ! is_array($fields)) return false;
 		
@@ -314,7 +314,7 @@ class Streams_fields extends CI_Driver {
 	 * @param	string - namespace
 	 * @return	object
 	 */
-	function get_field_assignments($field_slug, $namespace)
+	public function get_field_assignments($field_slug, $namespace)
 	{
 		if ( ! trim($field_slug)) return false;
 	
@@ -336,7 +336,7 @@ class Streams_fields extends CI_Driver {
 	 * @param	[int - offset]
 	 * @return	object
 	 */
-	function get_stream_fields($stream, $stream_namespace, $current_data = array(), $entry_id = null)
+	public function get_stream_fields($stream, $stream_namespace, $current_data = array(), $entry_id = null)
 	{
 		$assignments = $this->CI->fields_m->get_assignments_for_stream($this->stream_id($stream, $stream_namespace));
 		

@@ -1,7 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 // labels
-$lang['nav_title_label'] 						= 'Titre';
 $lang['nav_parent_label']						= 'Parent';
 $lang['nav_target_label']						= 'Cible';
 $lang['nav_class_label']						= 'Classe CSS';

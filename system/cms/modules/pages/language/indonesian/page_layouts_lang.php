@@ -6,7 +6,6 @@ $lang['page_layouts.css_label']                      = 'CSS';
 
 // labels
 $lang['page_layouts.updated_label']                  = 'Terbaru';
-$lang['page_layouts.title_label']                    = 'Judul';
 $lang['page_layouts.theme_layout_label']             = 'Layout Tema';
 $lang['page_layouts.layout']             			= 'Layout';
 

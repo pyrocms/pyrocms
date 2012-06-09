@@ -31,7 +31,8 @@ class Streams extends CI_Driver_Library {
 			'streams_fields',
 			'streams_streams',
 			'streams_cp',
-			'streams_utilities'
+			'streams_utilities',
+			'streams_parse'
 	);
 
 	// --------------------------------------------------------------------------

@@ -8,7 +8,6 @@ $lang['page_layouts.css_label'] 					= 'CSS';
 
 // labels
 $lang['page_layouts.updated_label'] 				= 'Mis à jour';
-$lang['page_layouts.title_label'] 					= 'Titre';
 $lang['page_layouts.theme_layout_label'] 			= 'Gabarit du theme';
 
 // titles

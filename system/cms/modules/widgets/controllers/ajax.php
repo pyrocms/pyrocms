@@ -9,7 +9,7 @@ class Ajax extends MY_Controller
 {
 	/**
 	 * Constructor method
-	 * @access public
+	 * 
 	 * @return void
 	 */
 	public function __construct()
@@ -24,7 +24,7 @@ class Ajax extends MY_Controller
 
 	/**
 	 * Update the order of the widgets
-	 * @access public
+	 * 
 	 * @return void
 	 */
 	public function update_order($to = 'instance')

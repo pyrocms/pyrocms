@@ -1,7 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 // labels
-$lang['nav_title_label'] 						= 'Titulek';
 $lang['nav_parent_label']						= 'Rodič';
 $lang['nav_target_label']						= 'Cíl';
 $lang['nav_class_label']						= 'Třída';

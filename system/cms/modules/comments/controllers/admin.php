@@ -37,7 +37,7 @@ class Admin extends Admin_Controller {
 
 	/**
 	 * Constructor method
-	 * @access public
+	 * 
 	 * @return void
 	 */
 	public function __construct()
@@ -55,7 +55,7 @@ class Admin extends Admin_Controller {
 
 	/**
 	 * Index
-	 * @access public
+	 * 
 	 * @return void
 	 */
 	public function index()
@@ -99,7 +99,7 @@ class Admin extends Admin_Controller {
 
 	/**
 	 * Action method, called whenever the user submits the form
-	 * @access public
+	 * 
 	 * @return void
 	 */
 	public function action()
@@ -123,7 +123,7 @@ class Admin extends Admin_Controller {
 
 	/**
 	 * Edit an existing comment
-	 * @access public
+	 * 
 	 * @return void
 	 */
 	public function edit($id = 0)
@@ -221,7 +221,7 @@ class Admin extends Admin_Controller {
 
 	/**
 	 * Approve a comment
-	 * @access public
+	 * 
 	 * @param  mixed $ids		id or array of ids to process
 	 * @param  bool $redirect	optional if a redirect should be done
 	 * @return void
@@ -235,7 +235,7 @@ class Admin extends Admin_Controller {
 
 	/**
 	 * Unapprove a comment
-	 * @access public
+	 * 
 	 * @param  mixed $ids		id or array of ids to process
 	 * @param  bool $redirect	optional if a redirect should be done
 	 * @return void

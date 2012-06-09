@@ -11,7 +11,7 @@ class Email_templates_m extends MY_Model {
     /**
      * Constructor method
      *
-     * @access public
+     * 
      * @return void
      */
     function __construct()

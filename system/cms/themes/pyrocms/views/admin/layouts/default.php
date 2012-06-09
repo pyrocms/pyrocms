@@ -25,14 +25,6 @@
 	<?php echo Asset::css('workless/responsive.css'); ?>
 	<!-- End CSS-->
 
-	<!-- Load up some favicons -->
-	<link rel="shortcut icon" href="favicon.ico">
-	<link rel="apple-touch-icon" href="apple-touch-icon.png">
-	<link rel="apple-touch-icon" href="apple-touch-icon-precomposed.png">
-	<link rel="apple-touch-icon" href="apple-touch-icon-57x57-precomposed.png">
-	<link rel="apple-touch-icon" href="apple-touch-icon-72x72-precomposed.png">
-	<link rel="apple-touch-icon" href="apple-touch-icon-114x114-precomposed.png">
-
 	<!-- metadata needs to load before some stuff -->
 	<?php file_partial('metadata'); ?>
 
