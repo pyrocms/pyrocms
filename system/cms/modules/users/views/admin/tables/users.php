@@ -29,7 +29,7 @@
 							<?php if ($link_profiles) : ?>
 								<?php echo anchor('admin/users/preview/' . $member->id, $member->display_name, 'target="_blank" class="modal-large"'); ?>
 							<?php else: ?>
-								<?php echo $member->full_name; ?>
+								<?php echo $member->display_name; ?>
 							<?php endif; ?>
 							</td>
 							<td class="collapse"><?php echo mailto($member->email); ?></td>
