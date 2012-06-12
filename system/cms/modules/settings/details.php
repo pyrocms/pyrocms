@@ -413,7 +413,7 @@ class Module_Settings extends Module {
 			'ga_password' => array(
 				'title' => 'Google Analytic Password',
 				'description' => 'This is also needed this to show the graph on the dashboard.',
-				'type' => 'text',
+				'type' => 'password',
 				'default' => '',
 				'value' => '',
 				'options' => '',
