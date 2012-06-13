@@ -16,7 +16,7 @@
 <?php echo form_close(); ?>
 
 <?php else : ?>
-	<div class="no_data"><?php echo lang('blog_currently_no_posts'); ?></div>
+	<div class="no_data"><?php echo lang('blog:currently_no_posts'); ?></div>
 <?php endif; ?>
 
 </section>
