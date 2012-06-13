@@ -256,10 +256,10 @@ class Fields
 	 *
 	 * @access 	public
 	 * @param 	obj - stream fields
-	 * @param 	array - skips
+	 * @param 	[array - skips]
 	 * @return 	array
 	 */
-	public function run_field_events($stream_fields, $skips)
+	public function run_field_events($stream_fields, $skips = array())
 	{
 		$events_called = array();
 		

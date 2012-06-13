@@ -131,7 +131,7 @@ class Plugin_Files extends Plugin
 						->join('file_folders', 'file_folders.id = files.folder_id')
 						->where('type', $type);
 
-			$file = $this->file_m->get($id);
+			$file = $this->file_m->get_by('files.id', $id);
 		}
 
 		// file not found
@@ -175,11 +175,23 @@ class Plugin_Files extends Plugin
 				$dimension = trim($width . '/' . $height . '/' . $mode, '/');
 			}
 
-			$uri = $dimension AND $file->location == 'local' ? sprintf('files/thumb/%s/%s', $file->filename, $dimension) : $file->path;
+			if ($file->location === 'local' AND $dimension)
+			{
+				$uri = sprintf('files/thumb/%s/%s', $file->filename, $dimension);
+			}
+			// we can't just return the path on this because they may not want an absolute url
+			elseif ($file->location === 'local')
+			{
+				$uri = 'files/large/' . $file->filename;
+			}
+			else
+			{
+				$uri = $file->path;
+			}
 		}
 		else
 		{
-			$uri = $file->location == 'local' ? 'files/download/' . $file->id : $file->path;
+			$uri = ($file->location === 'local') ? 'files/download/' . $file->id : $file->path;
 		}
 
 		// return string
@@ -191,7 +203,7 @@ class Plugin_Files extends Plugin
 				return $file->path;
 			}
 
-			return $return === 'url' ? site_url($uri) : BASE_URI . $uri;
+			return ($return === 'url') ? site_url($uri) : BASE_URI . $uri;
 		}
 
 		$attributes	= $this->attributes();
