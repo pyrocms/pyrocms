@@ -25,8 +25,6 @@
  * @filesource
  */
 
-// ------------------------------------------------------------------------
-
 /**
  * Pagination Class
  *
@@ -38,49 +36,50 @@
  */
 class CI_Pagination {
 
-	protected $base_url				= ''; // The page we are linking to
-	protected $prefix				= ''; // A custom prefix added to the path.
-	protected $suffix				= ''; // A custom suffix added to the path.
-	protected $total_rows			= 0; // Total number of items (database results)
-	protected $per_page				= 10; // Max number of items you want shown per page
-	protected $num_links			= 2; // Number of "digit" links to show before/after the currently viewed page
-	protected $cur_page				= 0; // The current page being viewed
-	protected $use_page_numbers		= FALSE; // Use page number for segment instead of offset
-	protected $first_link			= '&lsaquo; First';
-	protected $next_link			= '&gt;';
-	protected $prev_link			= '&lt;';
-	protected $last_link			= 'Last &rsaquo;';
-	protected $uri_segment			= 3;
-	protected $full_tag_open		= '';
-	protected $full_tag_close		= '';
-	protected $first_tag_open		= '';
-	protected $first_tag_close		= '&nbsp;';
-	protected $last_tag_open		= '&nbsp;';
-	protected $last_tag_close		= '';
-	protected $first_url			= ''; // Alternative URL for the First Page.
-	protected $cur_tag_open			= '&nbsp;<strong>';
-	protected $cur_tag_close		= '</strong>';
-	protected $next_tag_open		= '&nbsp;';
-	protected $next_tag_close		= '&nbsp;';
-	protected $prev_tag_open		= '&nbsp;';
-	protected $prev_tag_close		= '';
-	protected $num_tag_open			= '&nbsp;';
-	protected $num_tag_close		= '';
-	protected $page_query_string	= FALSE;
-	protected $query_string_segment = 'per_page';
-	protected $display_pages		= TRUE;
-	protected $anchor_class			= '';
+	public $base_url				= ''; // The page we are linking to
+	public $prefix				= ''; // A custom prefix added to the path.
+	public $suffix				= ''; // A custom suffix added to the path.
+	public $total_rows			= 0; // Total number of items (database results)
+	public $per_page				= 10; // Max number of items you want shown per page
+	public $num_links			= 2; // Number of "digit" links to show before/after the currently viewed page
+	public $cur_page				= 0; // The current page being viewed
+	public $use_page_numbers		= FALSE; // Use page number for segment instead of offset
+	public $first_link			= '&lsaquo; First';
+	public $next_link			= '&gt;';
+	public $prev_link			= '&lt;';
+	public $last_link			= 'Last &rsaquo;';
+	public $uri_segment			= 3;
+	public $full_tag_open		= '';
+	public $full_tag_close		= '';
+	public $first_tag_open		= '';
+	public $first_tag_close		= '&nbsp;';
+	public $last_tag_open		= '&nbsp;';
+	public $last_tag_close		= '';
+	public $first_url			= ''; // Alternative URL for the First Page.
+	public $cur_tag_open			= '&nbsp;<strong>';
+	public $cur_tag_close		= '</strong>';
+	public $next_tag_open		= '&nbsp;';
+	public $next_tag_close		= '&nbsp;';
+	public $prev_tag_open		= '&nbsp;';
+	public $prev_tag_close		= '';
+	public $num_tag_open			= '&nbsp;';
+	public $num_tag_close		= '';
+	public $page_query_string	= FALSE;
+	public $query_string_segment = 'per_page';
+	public $display_pages		= TRUE;
+	public $anchor_class			= '';
+	public $attr_rel			= TRUE;
 
 	/**
 	 * Constructor
 	 *
-	 * @access	public
 	 * @param	array	initialization parameters
+	 * @return	void
 	 */
 	public function __construct($params = array())
 	{
 		$this->initialize($params);
-		log_message('debug', "Pagination Class Initialized");
+		log_message('debug', 'Pagination Class Initialized');
 	}
 
 	// --------------------------------------------------------------------
@@ -88,7 +87,6 @@ class CI_Pagination {
 	/**
 	 * Initialize Preferences
 	 *
-	 * @access	public
 	 * @param	array	initialization parameters
 	 * @return	void
 	 */
@@ -98,16 +96,15 @@ class CI_Pagination {
 		{
 			foreach ($params as $key => $val)
 			{
-				if (isset($this->$key))
+				if ($key === 'anchor_class')
+				{
+					$this->anchor_class = ($val) ? 'class="'.$val.'" ' : '';
+				}
+				elseif (isset($this->$key))
 				{
 					$this->$key = $val;
 				}
 			}
-		}
-
-		if ($this->anchor_class != '')
-		{
-			$this->anchor_class = 'class="'.$this->anchor_class.'" ';
 		}
 	}
 
@@ -116,13 +113,12 @@ class CI_Pagination {
 	/**
 	 * Generate the pagination links
 	 *
-	 * @access	public
 	 * @return	string
 	 */
 	public function create_links()
 	{
 		// If our item count or per-page total is zero there is no need to continue.
-		if ($this->total_rows == 0 OR $this->per_page == 0)
+		if ($this->total_rows === 0 OR $this->per_page === 0)
 		{
 			return '';
 		}
@@ -143,7 +139,7 @@ class CI_Pagination {
 		$CI =& get_instance();
 
 		// See if we are using a prefix or suffix on links
-		if ($this->prefix != '' OR $this->suffix != '')
+		if ($this->prefix !== '' OR $this->suffix !== '')
 		{
 			$this->cur_page = (int) str_replace(array($this->prefix, $this->suffix), '', $CI->uri->segment($this->uri_segment));
 		}
@@ -155,13 +151,13 @@ class CI_Pagination {
 				$this->cur_page = (int) $CI->input->get($this->query_string_segment);
 			}
 		}
-		elseif ( ! $this->cur_page AND $CI->uri->segment($this->uri_segment) != $base_page)
+		elseif ( ! $this->cur_page && $CI->uri->segment($this->uri_segment) !== $base_page)
 		{
 			$this->cur_page = (int) $CI->uri->segment($this->uri_segment);
 		}
 
 		// Set current page to 1 if it's not valid or if using page numbers instead of offset
-		if ( ! is_numeric($this->cur_page) OR ($this->use_page_numbers AND $this->cur_page == 0))
+		if ( ! is_numeric($this->cur_page) OR ($this->use_page_numbers && $this->cur_page === 0))
 		{
 			$this->cur_page = $base_page;
 		}
@@ -182,12 +178,9 @@ class CI_Pagination {
 				$this->cur_page = $num_pages;
 			}
 		}
-		else
+		elseif ($this->cur_page > $this->total_rows)
 		{
-			if ($this->cur_page > $this->total_rows)
-			{
-				$this->cur_page = ($num_pages - 1) * $this->per_page;
-			}
+			$this->cur_page = ($num_pages - 1) * $this->per_page;
 		}
 
 		$uri_page_number = $this->cur_page;
@@ -199,10 +192,10 @@ class CI_Pagination {
 
 		// Calculate the start and end numbers. These determine
 		// which number to start and end the digit links with
-		$start = (($this->cur_page - $this->num_links) > 0) ? $this->cur_page - ($this->num_links - 1) : 1;
-		$end   = (($this->cur_page + $this->num_links) < $num_pages) ? $this->cur_page + $this->num_links : $num_pages;
+		$start	= (($this->cur_page - $this->num_links) > 0) ? $this->cur_page - ($this->num_links - 1) : 1;
+		$end	= (($this->cur_page + $this->num_links) < $num_pages) ? $this->cur_page + $this->num_links : $num_pages;
 
-		// Is pagination being used over GET or POST?  If get, add a per_page query
+		// Is pagination being used over GET or POST? If get, add a per_page query
 		// string. If post, add a trailing slash to the base URL if needed
 		if ($CI->config->item('enable_query_strings') === TRUE OR $this->page_query_string === TRUE)
 		{
@@ -217,25 +210,28 @@ class CI_Pagination {
 		$output = '';
 
 		// Render the "First" link
-		if  ($this->first_link !== FALSE AND $this->cur_page > ($this->num_links + 1))
+		if ($this->first_link !== FALSE && $this->cur_page > ($this->num_links + 1))
 		{
-			$first_url = ($this->first_url == '') ? $this->base_url : $this->first_url;
-			$output .= $this->first_tag_open.'<a '.$this->anchor_class.'href="'.$first_url.'">'.$this->first_link.'</a>'.$this->first_tag_close;
+			$first_url = ($this->first_url === '') ? $this->base_url : $this->first_url;
+			$output .= $this->first_tag_open.'<a '.$this->anchor_class.'href="'.$first_url.'"'.$this->_attr_rel('start').'>'
+				.$this->first_link.'</a>'.$this->first_tag_close;
 		}
 
 		// Render the "previous" link
-		if  ($this->prev_link !== FALSE AND $this->cur_page != 1)
+		if  ($this->prev_link !== FALSE && $this->cur_page !== 1)
 		{
 			$i = ($this->use_page_numbers) ? $uri_page_number - 1 : $uri_page_number - $this->per_page;
 
-			if ($i == $base_page AND $this->first_url != '')
+			if ($i === $base_page && $this->first_url !== '')
 			{
-				$output .= $this->prev_tag_open.'<a '.$this->anchor_class.'href="'.$this->first_url.'">'.$this->prev_link.'</a>'.$this->prev_tag_close;
+				$output .= $this->prev_tag_open.'<a '.$this->anchor_class.'href="'.$this->first_url.'"'.$this->_attr_rel('prev').'>'
+					.$this->prev_link.'</a>'.$this->prev_tag_close;
 			}
 			else
 			{
-				$i = ($i == $base_page) ? '' : $this->prefix.$i.$this->suffix;
-				$output .= $this->prev_tag_open.'<a '.$this->anchor_class.'href="'.$this->base_url.$i.'">'.$this->prev_link.'</a>'.$this->prev_tag_close;
+				$i = ($i === $base_page) ? '' : $this->prefix.$i.$this->suffix;
+				$output .= $this->prev_tag_open.'<a '.$this->anchor_class.'href="'.$this->base_url.$i.'"'.$this->_attr_rel('prev').'>'
+					.$this->prev_link.'</a>'.$this->prev_tag_close;
 			}
 
 		}
@@ -250,23 +246,25 @@ class CI_Pagination {
 
 				if ($i >= $base_page)
 				{
-					if ($this->cur_page == $loop)
+					if ($this->cur_page === $loop)
 					{
 						$output .= $this->cur_tag_open.$loop.$this->cur_tag_close; // Current page
 					}
 					else
 					{
-						$n = ($i == $base_page) ? '' : $i;
+						$n = ($i === $base_page) ? '' : $i;
 
-						if ($n == '' && $this->first_url != '')
+						if ($n === '' && $this->first_url !== '')
 						{
-							$output .= $this->num_tag_open.'<a '.$this->anchor_class.'href="'.$this->first_url.'">'.$loop.'</a>'.$this->num_tag_close;
+							$output .= $this->num_tag_open.'<a '.$this->anchor_class.'href="'.$this->first_url.'"'.$this->_attr_rel('start').'>'
+								.$loop.'</a>'.$this->num_tag_close;
 						}
 						else
 						{
-							$n = ($n == '') ? '' : $this->prefix.$n.$this->suffix;
+							$n = ($n === '') ? '' : $this->prefix.$n.$this->suffix;
 
-							$output .= $this->num_tag_open.'<a '.$this->anchor_class.'href="'.$this->base_url.$n.'">'.$loop.'</a>'.$this->num_tag_close;
+							$output .= $this->num_tag_open.'<a '.$this->anchor_class.'href="'.$this->base_url.$n.'"'.$this->_attr_rel().'>'
+								.$loop.'</a>'.$this->num_tag_close;
 						}
 					}
 				}
@@ -274,32 +272,54 @@ class CI_Pagination {
 		}
 
 		// Render the "next" link
-		if ($this->next_link !== FALSE AND $this->cur_page < $num_pages)
+		if ($this->next_link !== FALSE && $this->cur_page < $num_pages)
 		{
 			$i = ($this->use_page_numbers) ? $this->cur_page + 1 : $this->cur_page * $this->per_page;
 
-			$output .= $this->next_tag_open.'<a '.$this->anchor_class.'href="'.$this->base_url.$this->prefix.$i.$this->suffix.'">'.$this->next_link.'</a>'.$this->next_tag_close;
+			$output .= $this->next_tag_open.'<a '.$this->anchor_class.'href="'.$this->base_url.$this->prefix.$i.$this->suffix.'"'.$this->_attr_rel('next').'>'
+				.$this->next_link.'</a>'.$this->next_tag_close;
 		}
 
 		// Render the "Last" link
-		if ($this->last_link !== FALSE AND ($this->cur_page + $this->num_links) < $num_pages)
+		if ($this->last_link !== FALSE && ($this->cur_page + $this->num_links) < $num_pages)
 		{
 			$i = ($this->use_page_numbers) ? $num_pages : ($num_pages * $this->per_page) - $this->per_page;
 
-			$output .= $this->last_tag_open.'<a '.$this->anchor_class.'href="'.$this->base_url.$this->prefix.$i.$this->suffix.'">'.$this->last_link.'</a>'.$this->last_tag_close;
+			$output .= $this->last_tag_open.'<a '.$this->anchor_class.'href="'.$this->base_url.$this->prefix.$i.$this->suffix.'"'.$this->_attr_rel().'>'
+				.$this->last_link.'</a>'.$this->last_tag_close;
 		}
 
 		// Kill double slashes. Note: Sometimes we can end up with a double slash
 		// in the penultimate link so we'll kill all double slashes.
-		$output = preg_replace("#([^:])//+#", "\\1/", $output);
+		$output = preg_replace('#([^:])//+#', '\\1/', $output);
 
 		// Add the wrapper HTML if exists
-		$output = $this->full_tag_open.$output.$this->full_tag_close;
-
-		return $output;
+		return $this->full_tag_open.$output.$this->full_tag_close;
 	}
+
+	// --------------------------------------------------------------------
+
+	/**
+	 * Add "rel" attribute
+	 *
+	 * @param	string
+	 * @return	string
+	 */
+	protected function _attr_rel($value = '')
+	{
+		if (empty($this->attr_rel) OR ($this->attr_rel === TRUE && empty($value)))
+		{
+			return '';
+		}
+		elseif ( ! is_bool($this->attr_rel))
+		{
+			$value = $this->attr_rel;
+		}
+
+		return ' rel="'.$value.'"';
+	}
+
 }
-// END Pagination Class
 
 /* End of file Pagination.php */
 /* Location: ./system/libraries/Pagination.php */

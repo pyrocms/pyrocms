@@ -116,7 +116,7 @@ class Search_index_m extends MY_Model
 			->select('title, description, module, entry_key, entry_plural, uri')
 			->select('MATCH(title, description, keywords) AGAINST ("'.$this->db->escape_str($query).'") AS relevance', FALSE)
 			->where('MATCH(title, description, keywords) AGAINST ("'.$this->db->escape_str($query).'" IN BOOLEAN MODE) > 0', NULL, FALSE)
-			->order_by('relevance')
+			->order_by('relevance', 'desc')
 			->get('search_index')
 			->result();
 	}
