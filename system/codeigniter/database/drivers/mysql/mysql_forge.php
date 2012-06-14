@@ -62,11 +62,11 @@ class CI_DB_mysql_forge extends CI_DB_forge {
 
 				$sql .= "\n\t".$this->db->escape_identifiers($field);
 
-				empty($attributes['NAME']) OR ' '.$this->db->escape_identifiers($attributes['NAME']).' ';
+				empty($attributes['NAME']) OR $sql .= ' '.$this->db->escape_identifiers($attributes['NAME']).' ';
 
 				if ( ! empty($attributes['TYPE']))
 				{
-					$sql .=  ' '.$attributes['TYPE'];
+					$sql .= ' '.$attributes['TYPE'];
 
 					if ( ! empty($attributes['CONSTRAINT']))
 					{
