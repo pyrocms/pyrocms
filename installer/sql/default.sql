@@ -67,7 +67,7 @@ INSERT INTO `{PREFIX}users` (`id`, `email`, `password`, `salt`, `group_id`, `ip_
 
 CREATE TABLE IF NOT EXISTS `core_users` (
   `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
-  `email` varchar(40) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `email` varchar(60) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `password` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `salt` varchar(6) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `group_id` int(11) DEFAULT NULL,
