@@ -78,3 +78,4 @@ Think you should be on this list? Add yourself in the next pull request you subm
 * [Jack Sun](http://www.o-matic.com.tw/) Chinese Traditional
 * [Toni Haryanto](http://toniharyanto.cs.upi.edu/) Indonesian
 * [Nateetorn Lertkhonsan](http://twitter.com/ikwannnnn) Thai
+* [Christian Giupponi](https://github.com/ChristianGiupponi) Italian
