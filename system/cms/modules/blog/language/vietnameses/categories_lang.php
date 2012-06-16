@@ -11,7 +11,6 @@
 *
 */
 // labels
-$lang['cat_title_label']            = 'Tiêu đề';
 $lang['cat_category_label']         = 'Danh mục';
 
 // titles

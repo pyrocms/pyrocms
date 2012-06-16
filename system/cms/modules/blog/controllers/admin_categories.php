@@ -22,14 +22,14 @@ class Admin_Categories extends Admin_Controller {
 	protected $validation_rules = array(
 		array(
 			'field' => 'title',
-			'label' => 'lang:cat_title_label',
+			'label' => 'lang:global:title',
 			'rules' => 'trim|required|max_length[100]|callback__check_title'
 		),
 	);
 	
 	/**
 	 * The constructor
-	 * @access public
+	 * 
 	 * @return void
 	 */
 	public function __construct()
@@ -47,7 +47,7 @@ class Admin_Categories extends Admin_Controller {
 	
 	/**
 	 * Index method, lists all categories
-	 * @access public
+	 * 
 	 * @return void
 	 */
 	public function index()
@@ -107,7 +107,7 @@ class Admin_Categories extends Admin_Controller {
 	
 	/**
 	 * Edit method, edits an existing category
-	 * @access public
+	 * 
 	 * @param int id The ID of the category to edit
 	 * @return void
 	 */
@@ -149,7 +149,7 @@ class Admin_Categories extends Admin_Controller {
 
 	/**
 	 * Delete method, deletes an existing category (obvious isn't it?)
-	 * @access public
+	 * 
 	 * @param int id The ID of the category to edit
 	 * @return void
 	 */
@@ -195,7 +195,7 @@ class Admin_Categories extends Admin_Controller {
 		
 	/**
 	 * Callback method that checks the title of the category
-	 * @access public
+	 * 
 	 * @param string title The title to check
 	 * @return bool
 	 */
@@ -212,7 +212,7 @@ class Admin_Categories extends Admin_Controller {
 	
 	/**
 	 * Create method, creates a new category via ajax
-	 * @access public
+	 * 
 	 * @return void
 	 */
 	public function create_ajax()

@@ -6,7 +6,6 @@
  */
 
 // labels
-$lang['nav_title_label']                        = 'Otsikko';
 $lang['nav_target_label']                       = 'Kohde';
 $lang['nav_class_label']                        = 'Luokka';
 $lang['nav_url_label']                          = 'URL';

@@ -6,7 +6,6 @@
  */
 
 // labels
-$lang['cat_title_label']            = 'Otsikko';
 $lang['cat_category_label']         = 'Kategoria';
 
 // titles

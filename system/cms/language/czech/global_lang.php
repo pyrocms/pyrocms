@@ -3,7 +3,7 @@
 $lang['global:control-panel'] 			= 'Kontrolní panel';
 $lang['global:profile']					= 'Profil';
 
-$lang['title_label'] 					= 'Titulek';
+$lang['global:title'] 					= 'Titulek';
 $lang['name_label'] 					= 'Jméno';
 $lang['desc_label'] 					= 'Popis';
 $lang['version_label'] 					= 'Verze';

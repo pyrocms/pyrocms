@@ -1,7 +1,6 @@
 <?php
 
 // labels
-$lang['cat_title_label'] 				= '標題';
 $lang['cat_category_label'] 			= '分類';
 
 // titles

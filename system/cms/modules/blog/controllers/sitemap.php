@@ -8,7 +8,7 @@ class Sitemap extends Public_Controller
 {
 	/**
 	 * XML
-	 * @access public
+	 * 
 	 * @return void
 	 */
 	public function xml()

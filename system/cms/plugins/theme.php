@@ -23,8 +23,7 @@ class Plugin_Theme extends Plugin
 	 */
 	public function partial()
 	{	
-		// file="foo" is deprecated. Use name="foo"
-		$name = $this->attribute('name', $this->attribute('file'));
+		$name = $this->attribute('name');
 
 		$path = $this->load->get_var('template_views');
 		$data = $this->load->get_vars();

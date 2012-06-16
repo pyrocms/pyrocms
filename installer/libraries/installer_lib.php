@@ -264,7 +264,7 @@ class Installer_lib {
 		}
 
 		// Select the database we created before
-		if ( !mysql_select_db($database, $this->db) )
+		if ( ! mysql_select_db($database, $this->db) )
 		{
 			return array(
 				'status'	=> FALSE,
@@ -296,20 +296,20 @@ class Installer_lib {
 		if ( ! $this->write_db_file($database) )
 		{
 			return array(
-						'status'	=> FALSE,
-						'message'	=> '',
-						'code'		=> 105
-					);
+				'status'	=> FALSE,
+				'message'	=> '',
+				'code'		=> 105
+			);
 		}
 
 		// Write the config file.
 		if ( ! $this->write_config_file() )
 		{
 			return array(
-						'status'	=> FALSE,
-						'message'	=> '',
-						'code'		=> 106
-					);
+				'status'	=> FALSE,
+				'message'	=> '',
+				'code'		=> 106
+			);
 		}
 
 		return array('status' => TRUE);

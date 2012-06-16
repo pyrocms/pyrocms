@@ -3,7 +3,7 @@
 $lang['global:control-panel'] 			= 'Turinio valdymas';
 $lang['global:profile']					= 'Profilis';
 
-$lang['title_label'] 					= 'Antraštė';
+$lang['global:title'] 					= 'Antraštė';
 $lang['name_label'] 					= 'Vardas';
 $lang['desc_label'] 					= 'Aprašymas';
 $lang['version_label'] 					= 'Versija';
@@ -73,7 +73,7 @@ $lang['powered_by_pyrocms']				= 'Veikia ant PyroCMS';
 $lang['top_page']						= 'Viršus';
 $lang['back_to_top']					= 'Grižti į viršų';
 
-$lang['global:shortcuts']	 			= 'Nuoroda';
+$lang['global:image'] 					= 'Image'; #translate
 $lang['global:description'] 		    = 'Aprašymas';
 $lang['global:actions']					= 'Veiksmai';
 $lang['global:view']					= 'Žiūrėti';

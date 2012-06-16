@@ -3,7 +3,7 @@
 $lang['global:control-panel'] 				= 'لوحة التحكم';
 $lang['global:profile']					= 'الملف الشخصي';
 
-$lang['title_label'] 					= 'العنوان';
+$lang['global:title'] 					= 'العنوان';
 $lang['name_label'] 					= 'الإسم';
 $lang['desc_label'] 					= 'الوصف';
 $lang['version_label'] 					= 'النسخة';
@@ -75,7 +75,7 @@ $lang['top_page']						= 'اعلى الصفحة';
 $lang['back_to_top']					= 'رجوع الى اعلى الصفحة';
 
 $lang['global:filters'] 				= 'تصفية';
-$lang['global:shortcuts'] 				= 'الاختصارات';
+$lang['global:image'] 					= 'Image'; #translate
 $lang['global:description']				= 'الوصف';
 $lang['global:actions']					= 'الإجراءات';
 $lang['global:view']					= 'عرض';

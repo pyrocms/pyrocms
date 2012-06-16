@@ -1,7 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 // labels
-$lang['nav_title_label']		= 'Τίτλος';
 $lang['nav_parent_label']		= 'Γονέας';
 $lang['nav_target_label']		= 'Προορισμός';
 $lang['nav_class_label']		= 'Class';

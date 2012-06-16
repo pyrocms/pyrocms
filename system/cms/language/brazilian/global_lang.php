@@ -3,7 +3,7 @@
 $lang['global:control-panel']						= 'Painel de Controle';
 $lang['global:profile']					= 'Profile'; #translate
 
-$lang['title_label'] 					= 'Título';
+$lang['global:title'] 					= 'Título';
 $lang['name_label'] 					= 'Nome';
 $lang['desc_label'] 					= 'Descrição';
 $lang['version_label'] 					= 'Versão';
@@ -72,7 +72,7 @@ $lang['powered_by_pyrocms']				= 'Powered by PyroCMS';  #translate
 $lang['top_page']						= 'Top';  #translate
 $lang['back_to_top']					= 'Back to Top';  #translate
 
-$lang['global:shortcuts'] 				= 'Atalhos';
+$lang['global:image'] 					= 'Image'; #translate
 $lang['global:description'] 		    = 'Descrição';
 $lang['global:actions']					= 'Ações';
 $lang['global:view']					= 'View'; #translate

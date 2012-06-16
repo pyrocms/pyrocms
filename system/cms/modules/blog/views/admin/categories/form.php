@@ -13,7 +13,7 @@
 
 	<ul>
 		<li class="even">
-		<label for="title"><?php echo lang('cat_title_label');?> <span>*</span></label>
+		<label for="title"><?php echo lang('global:title');?> <span>*</span></label>
 		<div class="input"><?php echo  form_input('title', $category->title); ?></div>
 		</li>
 	</ul>

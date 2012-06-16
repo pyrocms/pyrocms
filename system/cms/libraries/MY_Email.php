@@ -11,7 +11,7 @@ class MY_Email extends CI_Email {
     /**
      * Constructor method
      *
-     * @access public
+     * 
      * @return void
      */
     function __construct($config = array())

@@ -1,17 +1,12 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-$lang = array(
-    'wysiwyg.meta.width'    =>  'Leveys',
-    'wysiwyg.meta.height'   =>  'Korkeus',
-    'wysiwyg.meta.size'     =>  'Koko',
-    'wysiwyg.label.insert_width'    => 'Syötä kuvan leveys:',
-	'wysiwyg.label.no_limit' =>	'(0 ei rajoitettu)',
-    'wysiwyg.label.float'   =>  'Kelluva',
-    'wysiwyg.label.left'    =>  'Vasen',
-    'wysiwyg.label.right'   =>  'Oikea',
-    'wysiwyg.label.none'    =>  'Ei mikään',
-    'wysiwyg.meta.mime'     =>  'Mime Tyyppi'
-
-);
-
-/* end of file wysiwyg_lang.php */
+$lang['wysiwyg.meta.width'] = 'Leveys';
+$lang['wysiwyg.meta.height'] = 'Korkeus';
+$lang['wysiwyg.meta.size'] = 'Koko';
+$lang['wysiwyg.label.insert_width'] = 'Syötä kuvan leveys:';
+$lang['wysiwyg.label.no_limit'] = 'Full Size'; #translate
+$lang['wysiwyg.label.float'] = 'Kelluva';
+$lang['wysiwyg.label.left'] = 'Vasen';
+$lang['wysiwyg.label.right'] = 'Oikea';
+$lang['wysiwyg.label.none'] = 'Ei mikään';
+$lang['wysiwyg.meta.mime'] = 'Mime Tyyppi';

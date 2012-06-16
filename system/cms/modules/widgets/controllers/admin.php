@@ -18,7 +18,7 @@ class Admin extends Admin_Controller {
 	
 	/**
 	 * Constructor method
-	 * @access public
+	 * 
 	 * @return void
 	 */
 	public function __construct()
@@ -43,7 +43,7 @@ class Admin extends Admin_Controller {
 
 	/**
 	 * Index method, lists all active widgets
-	 * @access public
+	 * 
 	 * @return void
 	 */
 	public function index()
