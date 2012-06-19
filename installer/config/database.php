@@ -35,7 +35,7 @@
 */
 
 $active_group = "default";
-$active_record = TRUE;
+$query_builder = TRUE;
 
 $db['default']['hostname'] = "localhost";
 $db['default']['username'] = "";
