@@ -66,7 +66,7 @@ class CI_DB_mysql_forge extends CI_DB_forge {
 
 				if ( ! empty($attributes['TYPE']))
 				{
-					$sql .= ' '.$attributes['TYPE'];
+					$sql .=  ' '.$attributes['TYPE'];
 
 					if ( ! empty($attributes['CONSTRAINT']))
 					{
