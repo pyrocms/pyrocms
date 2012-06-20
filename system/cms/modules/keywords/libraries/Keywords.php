@@ -125,7 +125,7 @@ class Keywords {
 		// Remove the old keyword assignments if we're updating
 		if ($old_hash !== null)
 		{
-			ci()->db->where('hash', $old_hash)->get('keywords_applied');
+			ci()->db->where('hash', $old_hash)->delete('keywords_applied');
 		}
 		
 		$assignment_hash = md5(microtime().mt_rand());
