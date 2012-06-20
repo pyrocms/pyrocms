@@ -115,36 +115,6 @@ class Plugin_Blog extends Plugin
 	}
 	
 	/**
-	 * Category List
-	 *
-	 * Create a list of blog categories
-	 *
-	 * Usage:
-	 * {{ blog:categories limit="10" }}
-	 *		<span><a href="{{ url }}" title="{{ title }}">{{ title }}</a></span>
-	 * {{ /blog:categories }}
-	 *
-	 * @param	array
-	 * @return	array
-	 */	
-	public function categories()
-	{
-		$limit = $this->attribute('limit', 10);	
-
-		$this->db->select('*');
-		$this->db->limit($limit);
-		
-		$categories = $this->db->get('blog_categories')->result();
-		
-		foreach($categories as &$c)
-		{
-			$c->url = site_url('blog/category/'.$c->slug);
-		}
-		
-		return $categories;	
-	}	
-	
-	/**
 	 * Tag/Keyword List
 	 *
 	 * Create a list of blog keywords/tags
