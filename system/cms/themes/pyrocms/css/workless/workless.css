@@ -474,7 +474,7 @@ form .help-inline { font-size: 11px; }
 fieldset { border: 1px solid #eeeeee; margin: 5px 0 15px -5px; padding: 2px 6px 2px 2px; }
 
 /* Indicate that 'label' will shift focus to the associated form element */
-label { cursor: pointer; font-size: 12px; font-weight: bold; }
+label { cursor: pointer; font-size: 12px; font-weight: bold; margin: 0 3% 0 0; }
 legend { border: 0; padding: 0; margin-left: 5px; font-size: 18px; font-weight: bold; }
 label.inline {margin-right: 4px; font-weight: normal!important;}
 
@@ -616,6 +616,7 @@ input:invalid, textarea:invalid { background-color: #f0dddd; }
 
 .form_inputs {
 	width: 100%;
+	overflow: hidden;
 }
 .move-handle {display: none;}
 .form_inputs fieldset {
@@ -627,6 +628,7 @@ input:invalid, textarea:invalid { background-color: #f0dddd; }
 	height: 100%;
 	margin-bottom: 0;
 	padding-bottom: 0;
+	overflow: hidden;
 }
 .form_inputs fieldset > ul > li,
 .form_inputs > ul > div > li,
@@ -745,6 +747,9 @@ table .actions a {
  * ---------------------------------- */
 
 /* Buttons */
+.buttons {
+	white-space: nowrap;
+}
 .btn {
   cursor: pointer;
   display: inline-block;

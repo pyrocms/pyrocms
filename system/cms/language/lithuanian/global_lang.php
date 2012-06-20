@@ -9,8 +9,10 @@ $lang['desc_label'] 					= 'Aprašymas';
 $lang['version_label'] 					= 'Versija';
 $lang['global:author'] 					= 'Autorius';
 $lang['global:action'] 					= 'Veiksmas';
+$lang['global:slug'] 					= 'Nuoroda';
+$lang['global:user'] 					= 'Vartotojas';
 
-$lang['dialog.delete_message'] 			= 'Ar tikrai norite tai išstrinti? Atstatymas negalimas.';
+$lang['dialog.delete_message'] 			= 'Ar tikrai norite tai ištrinti? Atstatymas negalimas.';
 $lang['dialog.confirm'] 				= 'Patvirtinti';
 $lang['dialog.yes'] 					= 'Taip';
 $lang['dialog.no'] 						= 'Ne';
@@ -18,32 +20,32 @@ $lang['dialog.no'] 						= 'Ne';
 $lang['global:select-none'] 			= '-- Nieko --';
 $lang['global:select-all'] 				= '-- Visi --';
 $lang['global:select-any'] 				= '-- Betkurie --';
-$lang['global:select-pick'] 			= '-- Išrinkti --';
+$lang['global:select-pick'] 			= '-- Išrinti --';
 
 $lang['global:check-none'] 				= 'Nieko';
 $lang['global:check-all']				= 'Visi';
 
 $lang['operators.equal'] 				= 'Lygiai';
-$lang['operators.not_equal'] 			= 'Nelygu ';
+$lang['operators.not_equal'] 			= 'Nelygu';
 $lang['operators.less_than'] 			= 'Mažiau negu';
 $lang['operators.greater_than'] 		= 'Daugiau negu';
 
 $lang['navigation_headline'] 			= 'Navigacija';
 $lang['breadcrumb_base_label'] 			= 'Pradžia';
 
-$lang['logged_in_welcome']				= 'Sveiki prisijungus, %s.';
+$lang['logged_in_welcome']				= 'Sveiki prisijungę, %s.';
 $lang['logout_label'] 					= 'Atsijungti';
-$lang['edit_profile_label'] 			= 'Tvarkyti profili';
+$lang['edit_profile_label'] 			= 'Tvarkyti profilį';
 $lang['settings_label'] 				= 'Nustatymai';
 
-$lang['close_message'] 					= 'Išjungti šia žinutę';
+$lang['close_message'] 					= 'Išjungti šią žinutę';
 $lang['general_error_label'] 			= 'Klaida';
 $lang['required_error_label'] 			= 'Reikalingas laukas yra tuščias.';
 $lang['note_label'] 					= 'Užrašai';
 $lang['success_label'] 					= 'Sėkmingai';
 
 $lang['login_title'] 					= 'Prisijungti';
-$lang['cms_fatal_error'] 				= 'Klaida. Ar TVS yra instaliuotas?';
+$lang['cms_fatal_error'] 				= 'Klaida. Ar TVS yra įdiegtas?';
 $lang['global:demo_restrictions']       = 'Kaikurios funkcijos buvo atjungtos demonstracinėje versijoje.';
 
 $lang['login_error_label'] 				= 'Prisijungimo klaida';
@@ -62,8 +64,8 @@ $lang['approve_label']					= 'Patvirtinti';
 $lang['unapprove_label']				= 'Atmesti';
 $lang['publish_label'] 					= 'Publikuoti';
 $lang['upload_label'] 					= 'Įkelti';
-$lang['global:uninstall'] 				= 'Išinstaliuoti';
-$lang['global:install'] 				= 'Instlaiuoti';
+$lang['global:uninstall'] 				= 'Išdiegti';
+$lang['global:install'] 				= 'Įdiegti';
 $lang['global:enable']					= 'Įjungti';
 $lang['global:disable'] 				= 'Atjungti';
 $lang['global:upgrade'] 				= 'Atnaujinti';
@@ -77,12 +79,12 @@ $lang['global:image'] 					= 'Image'; #translate
 $lang['global:description'] 		    = 'Aprašymas';
 $lang['global:actions']					= 'Veiksmai';
 $lang['global:view']					= 'Žiūrėti';
-$lang['global:preview']					= 'Peržiūręti';
+$lang['global:preview']					= 'Peržiūrėti';
 $lang['global:add']						= 'Pridėti';
 $lang['global:edit']					= 'Redaguoti';
 $lang['global:empty']					= 'Tuščias';
 $lang['global:delete']					= 'Ištrinti';
-$lang['global:remove']					= 'Ištrinti';
+$lang['global:remove']					= 'Išimti';
 
 $lang['global:keywords']				= 'Raktažodžiai';
 
