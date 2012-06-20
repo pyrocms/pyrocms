@@ -134,6 +134,8 @@ $mimes = array('hqx'	=>	array('application/mac-binhex40', 'application/mac-binhe
 				'ac3'   =>	'audio/ac3',
 				'flac'  =>	'audio/x-flac',
 				'ogg'   =>	'audio/ogg',
+				'pages' =>      'application/zip',
+				'numbers' =>    'application/zip',
 			);
 
 
