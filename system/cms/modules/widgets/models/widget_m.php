@@ -276,8 +276,8 @@ class Widget_m extends MY_Model
 		return $this->db->update('widget_instances', array(
         	'title'				=> $input['title'],
 			'widget_area_id'	=> $input['widget_area_id'],
-			'options'			=> $input['options']
-			'updated_on'		=> now(),
+			'options'			=> $input['options'],
+			'updated_on'		=> now()
 		));
 	}
 
