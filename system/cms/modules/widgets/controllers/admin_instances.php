@@ -37,8 +37,8 @@ class Admin_instances extends Admin_Controller {
 
 	/**
 	 * Constructor method
-	 * @access	public
-	 * @return	void
+	 * @access    public
+	 * @return \Admin_instances
 	 */
 	public function __construct()
 	{
@@ -61,7 +61,7 @@ class Admin_instances extends Admin_Controller {
 	 * @param str $slug The slug of the widget
 	 * @return void
 	 */
-	public function index()
+	public function index($slug = '')
 	{
 		$widgets = $this->widgets->list_area_instances($slug);
 
@@ -70,11 +70,6 @@ class Admin_instances extends Admin_Controller {
 
 	/**
 	 * Create the form for a new widget instance
-	 * 
-	 * @return void
-	 */
-	/**
-	 * Add a new widget instance
 	 * 
 	 * @return void
 	 */
@@ -146,11 +141,6 @@ class Admin_instances extends Admin_Controller {
 
 	/**
 	 * Create the form for editing a widget instance
-	 * 
-	 * @return void
-	 */
-	/**
-	 * Edit a widget instance
 	 * 
 	 * @return void
 	 */

@@ -147,7 +147,6 @@ class Blog extends Public_Controller
 		}
 
 		$this->_single_view($post);
-
 	}
 
     /**
@@ -247,7 +246,7 @@ class Blog extends Public_Controller
 		);
 	}
 
-    private function _single_view($post,$build='view')
+    private function _single_view($post, $build = 'view')
     {
 
         // if it uses markdown then display the parsed version

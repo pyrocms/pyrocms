@@ -24,6 +24,7 @@ class Page_chunk_m extends MY_Model
 		$chunk_bodies 	= $input['chunk_body'] ? array_values($input['chunk_body']) : array();
 		$chunk_types 	= $input['chunk_type'] ? array_values($input['chunk_type']) : array();
 
+		$page = new stdClass();
 		$page->chunks = array();
 		$chunk_bodies_count = count($input['chunk_body']);
 		for ($i = 0; $i < $chunk_bodies_count; $i++)
