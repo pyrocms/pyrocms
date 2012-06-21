@@ -248,7 +248,10 @@ class Streams_cp extends CI_Driver {
 	 * title	- Title of the form header (if using view override)
 	 *			$extra['title'] = 'Streams Sample';
 	 * 
-	 * see docs for more explanation
+	 * show_cancel - bool. Show the cancel button or not?
+	 * cancel_url - url or uri to link to for cancel button
+	 *
+	 * see docs for more.
 	 */
 	public function field_form($stream_slug, $namespace, $method = 'new', $return, $assign_id = null, $include_types = array(), $view_override = false, $extra = array())
 	{
@@ -301,6 +304,13 @@ class Streams_cp extends CI_Driver {
 		{
 			$data['current_field'] = null;
 		}
+
+		// -------------------------------------
+		// Cancel Button
+		// -------------------------------------
+
+		$data['show_cancel'] = (isset($extra['show_cancel']) and $extra['show_cancel']) ? true : false;
+		$data['cancel_uri'] = (isset($extra['cancel_uri'])) ? $extra['cancel_uri'] : null;
 
 		// -------------------------------------
 		// Validation & Setup
