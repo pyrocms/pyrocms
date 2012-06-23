@@ -93,7 +93,7 @@ class Plugin_Search extends Plugin
 
 		return array(
 			array(
-				'total' => $total,
+				'total' => (int) $total,
 				'query' => $query,
 				'entries' => $results,
 				'pagination' => $pagination['links'],
