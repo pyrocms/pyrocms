@@ -26,11 +26,6 @@
 	#RewriteCond %{HTTP_HOST} (.+)$ [NC]
 	#RewriteRule ^(.*)$ http://www.%1/$1 [R=301,L]
 
-	# Remove index.php from URL
-	#RewriteCond %{HTTP:X-Requested-With}	!^XMLHttpRequest$
-	#RewriteCond %{THE_REQUEST}				^[^/]*/index\.php [NC]
-	#RewriteRule ^index\.php(.*)$			$1 [R=301,NS,L]
-
 	# Keep people out of codeigniter directory and Git/Mercurial data
 	RedirectMatch 403 ^/(system\/cms\/cache|system\/codeigniter|\.git|\.hg).*$
 

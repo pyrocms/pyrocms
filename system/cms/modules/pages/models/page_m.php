@@ -555,7 +555,7 @@ class Page_m extends MY_Model
 			'rss_enabled'		=> ! empty($input['rss_enabled']),
 			'comments_enabled'	=> ! empty($input['comments_enabled']),
 			'status'			=> $input['status'],
-			'created_on'		=> now(),
+			'updated_on'		=> now(),
 			'restricted_to'		=> isset($input['restricted_to']) ? implode(',', $input['restricted_to']) : '0',
 			'strict_uri'		=> ! empty($input['strict_uri']),
 			'is_home'			=> ! empty($input['is_home'])

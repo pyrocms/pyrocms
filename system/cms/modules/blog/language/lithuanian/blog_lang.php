@@ -20,6 +20,8 @@ $lang['blog:draft_label']                   = 'Projektas';
 $lang['blog:live_label']                    = 'Gyvai';
 $lang['blog:content_label']                 = 'Turinys';
 $lang['blog:options_label']                 = 'Funkcijos';
+$lang['blog:title_label']                   = 'Pavadinimas';
+$lang['blog:slug_label']                    = 'URL';
 $lang['blog:intro_label']                   = 'Įžanga';
 $lang['blog:no_category_select_label']      = '-- Nėra --';
 $lang['blog:new_category_label']            = 'Pridėti kategoriją';
@@ -32,6 +34,7 @@ $lang['blog:author_name_label']             = 'Autoriaus vardas';
 $lang['blog:read_more_label']               = 'Plačiau&nbsp;&raquo;';
 $lang['blog:created_hour']                  = 'Sukurta valandą';
 $lang['blog:created_minute']                = 'Sukurta minutę';
+$lang['blog:comments_enabled_label']        = 'Įjungti komentarus?';
 
 // titles
 $lang['blog:create_title']                  = 'Pridėti įrašą';
