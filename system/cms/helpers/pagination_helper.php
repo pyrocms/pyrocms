@@ -35,13 +35,14 @@ if ( ! function_exists('create_pagination'))
 			'total_rows' 			=> $total_rows,
 			'per_page' 				=> $limit === null ? Settings::get('records_per_page') : $limit,
 			'uri_segment' 			=> $uri_segment,
+			'use_page_numbers'		=> true,
 			'reuse_query_string' 	=> true,
 		));
 
 		return array(
 			'current_page' => $current_page,
 			'per_page' => $limit,
-			'limit' => array($limit, $current_page),
+			'limit' => array($limit, $limit * ($current_page - 1)),
 			'links' => $ci->pagination->create_links($full_tag_wrap)
 		);
 	}
