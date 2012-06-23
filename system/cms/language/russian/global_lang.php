@@ -11,7 +11,7 @@
 $lang['global:control-panel']								= 'Администрирование';
 $lang['global:profile']					= 'Profile'; #translate
 
-$lang['title_label']						= 'Заголовок';
+$lang['global:title']						= 'Заголовок';
 $lang['name_label']							= 'Название';
 $lang['desc_label']							= 'Описание';
 $lang['version_label']					= 'Версия';
@@ -80,7 +80,7 @@ $lang['powered_by_pyrocms']				= 'Powered by PyroCMS';  #translate
 $lang['top_page']						= 'Top';  #translate
 $lang['back_to_top']					= 'Back to Top';  #translate
 
-$lang['global:shortcuts']						= 'Ссылки';
+$lang['global:image'] 					= 'Image'; #translate
 $lang['global:description']						= 'Описание';
 $lang['global:actions']							= 'Действия';
 $lang['global:view']					= 'View'; #translate

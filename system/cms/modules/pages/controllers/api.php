@@ -69,7 +69,7 @@ class Api extends API_Controller
 		// Get the page along with its chunks.
 		$page = $this->page_m->get($id);
 
-		if( $page AND ! empty($page))
+		if ( $page AND ! empty($page))
 		{
 			// We only require certain columns.
 			$fields = array(
@@ -84,12 +84,14 @@ class Api extends API_Controller
 			foreach ($page_keys as $key)
 			{
 				// If the key is not something we are interested in including in our response.
-				if (!in_array($key, $fields))
+				if ( ! in_array($key, $fields))
 				{
 					// unset it.
 					unset($page[$key]);
 				}
 			}
+
+			$page->meta_keywords = Keywords::get_string($page->meta_keywords);
 		}
 		// Sent the response out.
 		$this->response(array('page' => $page));

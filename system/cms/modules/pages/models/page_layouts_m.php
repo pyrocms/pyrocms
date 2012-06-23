@@ -11,7 +11,7 @@ class Page_layouts_m extends MY_Model
     /**
      * Create a new page layout
 	 *
-	 * @access public
+	 * 
 	 * @param array $input The input to insert into the DB
 	 * @return mixed
 	 *

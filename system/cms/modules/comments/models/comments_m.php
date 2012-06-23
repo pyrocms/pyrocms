@@ -10,7 +10,7 @@ class Comments_m extends MY_Model
 {
     /**
      * Get a comment based on the ID
-	 * @access public
+	 * 
 	 * @param int $id The ID of the comment
 	 * @return array
      */
@@ -33,7 +33,7 @@ class Comments_m extends MY_Model
 	/**
 	 * Get recent comments
 	 *
-	 * @access public
+	 * 
 	 * @param int $limit The amount of comments to get
 	 * @return array
 	 */
@@ -54,7 +54,7 @@ class Comments_m extends MY_Model
 	/**
 	 * Get something based on a module item
 	 *
-	 * @access public
+	 * 
 	 * @param string $module The name of the module
 	 * @param int $ref_id The ID of the module
 	 * @param int $is_active Is the module active?
@@ -76,7 +76,7 @@ class Comments_m extends MY_Model
 	/**
 	 * Get all comments
 	 *
-	 * @access public
+	 * 
 	 * @return array
 	 */
   	public function get_all()
@@ -87,7 +87,7 @@ class Comments_m extends MY_Model
 	/**
 	 * Insert a new comment
 	 *
-	 * @access public
+	 * 
 	 * @param array $input The data to insert
 	 * @return void
 	 */
@@ -113,7 +113,7 @@ class Comments_m extends MY_Model
 	/**
 	 * Update an existing comment
 	 *
-	 * @access public
+	 * 
 	 * @param int $id The ID of the comment to update
 	 * @param array $input The array containing the data to update
 	 * @return void
@@ -134,7 +134,7 @@ class Comments_m extends MY_Model
 	/**
 	 * Approve a comment
 	 *
-	 * @access public
+	 * 
 	 * @param int $id The ID of the comment to approve
 	 * @return mixed
 	 */
@@ -146,7 +146,7 @@ class Comments_m extends MY_Model
 	/**
 	 * Unapprove a comment
 	 *
-	 * @access public
+	 * 
 	 * @param int $id The ID of the comment to unapprove
 	 * @return mixed
 	 */

@@ -187,7 +187,7 @@ class Comments extends Public_Controller
 		}
 
 		// Check Akismet if an API key exists
-		if ($this->settings->item('akismet_api_key'))
+		if ($this->settings->get('akismet_api_key'))
 		{
 			$this->load->library('akismet');
 
@@ -200,7 +200,7 @@ class Comments extends Public_Controller
 
 			$config = array(
 				'blog_url' => BASE_URL,
-				'api_key' => $this->settings->item('akismet_api_key'),
+				'api_key' => $this->settings->get('akismet_api_key'),
 				'comment' => $comment
 			);
 

@@ -3,7 +3,7 @@
 $lang['global:control-panel'] 			= 'Controle Paneel';
 $lang['global:profile']					= 'Profiel';
 
-$lang['title_label'] 					= 'Titel';
+$lang['global:title'] 					= 'Titel';
 $lang['name_label'] 					= 'Naam';
 $lang['desc_label'] 					= 'Omschrijving';
 $lang['version_label'] 					= 'Versie';
@@ -79,7 +79,7 @@ $lang['top_page']						= 'Boven';
 $lang['back_to_top']					= 'Terug naar Boven';
 
 $lang['global:filters'] 				= 'Filters';
-$lang['global:shortcuts'] 				= 'Snelkoppelingen';
+$lang['global:image'] 					= 'Image'; #translate
 $lang['global:description'] 		    = 'Beschrijving';
 $lang['global:actions']					= 'Acties';
 $lang['global:view']					= 'Bekijk';

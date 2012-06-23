@@ -1,17 +1,12 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-$lang = array(
-    'wysiwyg.meta.width'    =>  'Bredde',
-    'wysiwyg.meta.height'   =>  'Højde',
-    'wysiwyg.meta.size'     =>  'Størrelse',
-    'wysiwyg.label.insert_width'    => 'Indsæt bredde på billede:',
-	'wysiwyg.label.no_limit' =>	'Full Size', #translate
-    'wysiwyg.label.float'   =>  'Svæve',
-    'wysiwyg.label.left'    =>  'Venstre',
-    'wysiwyg.label.right'   =>  'Højre',
-    'wysiwyg.label.none'    =>  'Ingen',
-    'wysiwyg.meta.mime'     =>  'Mime Type'
-    
-);
-
-/* end of file wysiwyg_lang.php */
+$lang['wysiwyg.meta.width'] = 'Bredde';
+$lang['wysiwyg.meta.height'] = 'Højde';
+$lang['wysiwyg.meta.size'] = 'Størrelse';
+$lang['wysiwyg.label.insert_width'] = 'Indsæt bredde på billede:';
+$lang['wysiwyg.label.no_limit'] = 'Full Size'; #translate
+$lang['wysiwyg.label.float'] = 'Svæve';
+$lang['wysiwyg.label.left'] = 'Venstre';
+$lang['wysiwyg.label.right'] = 'Højre';
+$lang['wysiwyg.label.none'] = 'Ingen';
+$lang['wysiwyg.meta.mime'] = 'Mime Type';

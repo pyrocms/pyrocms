@@ -3,7 +3,7 @@
 $lang['global:control-panel'] 		= 'Πίνακας Ελέγχου';
 $lang['global:profile'] 		= 'Προφίλ';
 
-$lang['title_label'] 			= 'Τίτλος';
+$lang['global:title'] 			= 'Τίτλος';
 $lang['name_label'] 			= 'Όνομα';
 $lang['desc_label'] 			= 'Περιγραφή';
 $lang['version_label'] 			= 'Έκδοση';
@@ -78,7 +78,7 @@ $lang['top_page']			= 'Κορυφή';
 $lang['back_to_top']			= 'Πίσω στην Κορυφή';
 
 $lang['global:filters'] 		= 'Φίλτρα';
-$lang['global:shortcuts'] 		= 'Συντομέυσεις';
+$lang['global:image'] 					= 'Image'; #translate
 $lang['global:description'] 		= 'Περιγραφή';
 $lang['global:actions']			= 'Ενέργειες';
 $lang['global:view']			= 'Προβολή';

@@ -12,7 +12,6 @@
  */
 
 
-$lang['nav_title_label']		= 'Titel';
 $lang['nav_parent_label']		= 'Förälder';
 $lang['nav_target_label']		= 'Mål';
 $lang['nav_class_label']		= 'Klass';

@@ -1,17 +1,12 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-$lang = array(
-    'wysiwyg.meta.width'    =>  'العرض',
-    'wysiwyg.meta.height'   =>  'الإرتفاع',
-    'wysiwyg.meta.size'     =>  'الحجم',
-    'wysiwyg.label.insert_width'    => 'إدراج عرض الصورة:',
-	'wysiwyg.label.no_limit' =>	'(0 لغير المُحدّد)',
-    'wysiwyg.label.float'   =>  'محاذاة',
-    'wysiwyg.label.left'    =>  'يسار',
-    'wysiwyg.label.right'   =>  'يمين',
-    'wysiwyg.label.none'    =>  'غير محدد',
-    'wysiwyg.meta.mime'     =>  'نوع Mime'
-
-);
-
-/* end of file wysiwyg_lang.php */
+$lang['wysiwyg.meta.width'] = 'العرض';
+$lang['wysiwyg.meta.height'] = 'الإرتفاع';
+$lang['wysiwyg.meta.size'] = 'الحجم';
+$lang['wysiwyg.label.insert_width'] = 'إدراج عرض الصورة:';
+$lang['wysiwyg.label.no_limit'] = 'الحجم الكامل';
+$lang['wysiwyg.label.float'] = 'محاذاة';
+$lang['wysiwyg.label.left'] = 'يسار';
+$lang['wysiwyg.label.right'] = 'يمين';
+$lang['wysiwyg.label.none'] = 'غير محدد';
+$lang['wysiwyg.meta.mime'] = 'نوع Mime';

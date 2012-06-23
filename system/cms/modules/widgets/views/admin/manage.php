@@ -11,7 +11,7 @@
 		<tr>
 			<th width="30"></th>
 			<th width="30"><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all'));?></th>
-			<th width="20%"><?php echo lang('title_label'); ?></th>
+			<th width="20%"><?php echo lang('global:title'); ?></th>
 			<th><?php echo lang('desc_label'); ?></th>
 			<th width="130"><?php echo lang('global:author'); ?></th>
 			<th width="80" class="align-center"><?php echo lang('version_label'); ?></th>

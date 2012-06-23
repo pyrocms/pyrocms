@@ -106,7 +106,8 @@ class Admin extends Admin_Controller
 		// Using this data, get the relevant results
 		$users = $this->user_m
 			->order_by('active', 'desc')
-			->where_not_in('name', $skip_admin)
+			->join('groups', 'groups.id = users.group_id')
+			->where_not_in('groups.name', $skip_admin)
 			->limit($pagination['limit'])
 			->get_many_by($base_where);
 
@@ -230,6 +231,9 @@ class Admin extends Admin_Controller
 			$member->{$rule['field']} = set_value($rule['field']);
 		}
 
+		// Run stream field events
+		$this->fields->run_field_events($this->streams_m->get_stream_fields($this->streams_m->get_stream_id_from_slug('profiles', 'users')));
+
 		$this->template
 			->title($this->module_details['name'], lang('user_add_title'))
 			->set('member', $member)
@@ -350,6 +354,9 @@ class Admin extends Admin_Controller
 				$member->{$rule['field']} = set_value($rule['field']);
 			}
 		}
+
+		// Run stream field events
+		$this->fields->run_field_events($this->streams_m->get_stream_fields($this->streams_m->get_stream_id_from_slug('profiles', 'users')));
 
 		$this->template
 			->title($this->module_details['name'], sprintf(lang('user_edit_title'), $member->username))

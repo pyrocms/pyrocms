@@ -13,12 +13,13 @@
 			<tr>
 				<th width="20"><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all')); ?></th>
 				<th><?php echo lang('cat_category_label'); ?></th>
-				<th width="110"></th>
+				<th><?php echo lang('global:slug'); ?></th>
+				<th width="120"></th>
 			</tr>
 			</thead>
 			<tfoot>
 				<tr>
-					<td colspan="3">
+					<td colspan="4">
 						<div class="inner"><?php $this->load->view('admin/partials/pagination'); ?></div>
 					</td>
 				</tr>
@@ -28,9 +29,10 @@
 				<tr>
 					<td><?php echo form_checkbox('action_to[]', $category->id); ?></td>
 					<td><?php echo $category->title; ?></td>
+					<td><?php echo $category->slug; ?></td>
 					<td class="align-center buttons buttons-small">
-						<?php echo anchor('admin/blog/categories/edit/' . $category->id, lang('global:edit'), 'class="button edit"'); ?>
-						<?php echo anchor('admin/blog/categories/delete/' . $category->id, lang('global:delete'), 'class="confirm button delete"') ;?>
+						<?php echo anchor('admin/blog/categories/edit/'.$category->id, lang('global:edit'), 'class="button edit"'); ?>
+						<?php echo anchor('admin/blog/categories/delete/'.$category->id, lang('global:delete'), 'class="confirm button delete"') ;?>
 					</td>
 				</tr>
 				<?php endforeach; ?>

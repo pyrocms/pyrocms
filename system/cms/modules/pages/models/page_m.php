@@ -13,18 +13,18 @@ class Page_m extends MY_Model
 
 	/**
 	 * Array containing the validation rules
-	 * @access public
+	 * 
 	 * @var array
 	 */
 	public $validate = array(
 		array(
 			'field' => 'title',
-			'label'	=> 'lang:pages.title_label',
+			'label'	=> 'lang:global:title',
 			'rules'	=> 'trim|required|max_length[250]'
 		),
 		'slug' => array(
 			'field' => 'slug',
-			'label'	=> 'lang:pages.slug_label',
+			'label'	=> 'lang:global:slug',
 			'rules'	=> 'trim|required|alpha_dot_dash|max_length[250]|callback__check_slug'
 		),
 		array(
@@ -102,7 +102,7 @@ class Page_m extends MY_Model
 	/**
 	* Get a page by it's path
 	*
-	* @access public
+	* 
 	* @param array $segments The path segments
 	* @return array
 	*/
@@ -203,7 +203,7 @@ class Page_m extends MY_Model
 			{
 				break;
 			}
-			$i++;
+			++$i;
 		}
 
 		if ($page)
@@ -237,7 +237,7 @@ class Page_m extends MY_Model
 		$page = $this->db
 			->where($this->primary_key, $id)
 			->get($this->_table)
-			->row_array();
+			->row();
 
 		if ( ! $page)
 		{
@@ -246,7 +246,7 @@ class Page_m extends MY_Model
 
 		if ($get_chunks)
 		{
-			$page['chunks'] = $this->db
+			$page->chunks = $this->db
 				->order_by('sort')
 				->get_where('page_chunks', array('page_id' => $id))
 				->result_array();
@@ -263,7 +263,7 @@ class Page_m extends MY_Model
 	public function get_home()
 	{
 		return $this->db
-			->where('is_home', 1)
+			->where('is_home', true)
 			->get('pages')
 			->row();
 	}
@@ -308,6 +308,18 @@ class Page_m extends MY_Model
 		return $page_array;
 	}
 
+	/**
+	 * Return page chunks
+	 *
+	 * @return array An array containing all chunks for a page
+	 */
+	public function get_chunks($id)
+	{
+		return $this->db
+			->order_by('sort')
+			->get_where('page_chunks', array('page_id' => $id))
+			->result();
+	}
 
 	/**
 	 * Set the parent > child relations and child order
@@ -461,7 +473,7 @@ class Page_m extends MY_Model
 		}
 
 		// validate the data and insert it if it passes
-		$input['id'] = $this->insert(array(
+		$id = $this->insert(array(
 			'slug'				=> $input['slug'],
 			'title'				=> $input['title'],
 			'uri'				=> null,
@@ -470,24 +482,25 @@ class Page_m extends MY_Model
 			'css'				=> isset($input['css']) ? $input['css'] : null,
 			'js'				=> isset($input['js']) ? $input['js'] : null,
 			'meta_title'    	=> isset($input['meta_title']) ? $input['meta_title'] : '',
-			'meta_keywords' 	=> isset($input['meta_keywords']) ? $input['meta_keywords'] : '',
+			'meta_keywords' 	=> isset($input['meta_keywords']) ? Keywords::process($input['meta_keywords']) : '',
 			'meta_description' 	=> isset($input['meta_description']) ? $input['meta_description'] : '',
-			'rss_enabled'		=> (int) ! empty($input['rss_enabled']),
-			'comments_enabled'	=> (int) ! empty($input['comments_enabled']),
+			'rss_enabled'		=> ! empty($input['rss_enabled']),
+			'comments_enabled'	=> ! empty($input['comments_enabled']),
 			'status'			=> $input['status'],
 			'created_on'		=> now(),
 			'restricted_to'		=> isset($input['restricted_to']) ? implode(',', $input['restricted_to']) : '0',
-			'strict_uri'		=> (int) ! empty($input['strict_uri']),
-			'is_home'			=> (int) ! empty($input['is_home']),
+			'strict_uri'		=> ! empty($input['strict_uri']),
+			'is_home'			=> ! empty($input['is_home']),
 			'order'				=> now()
 		));
 
 		// did it pass validation?
-		if ( ! $input['id']) return false;
+		if ( ! $id) return false;
 
-		$this->build_lookup($input['id']);
+		$this->build_lookup($id);
 
 		// now insert this page's chunks
+		$input['page_id'] = $id;
 		$this->page_chunk_m->create($input);
 
 		// Add a Navigation Link
@@ -497,21 +510,21 @@ class Page_m extends MY_Model
 			$this->navigation_m->insert_link(array(
 				'title'					=> $input['title'],
 				'link_type'				=> 'page',
-				'page_id'				=> $input['id'],
+				'page_id'				=> $id,
 				'navigation_group_id'	=> (int) $input['navigation_group_id']
 			));
 		}
 
 		$this->db->trans_complete();
 
-		return ($this->db->trans_status() === false) ? false : $input;
+		return ($this->db->trans_status() === false) ? false : $id;
 	}
 
 
 	/**
 	 * Update a Page
 	 *
-	 * @access public
+	 * 
 	 * @param int $id The ID of the page to update
 	 * @param array $input The data to update
 	 * @return void
@@ -537,30 +550,29 @@ class Page_m extends MY_Model
 			'css'				=> isset($input['css']) ? $input['css'] : null,
 			'js'				=> isset($input['js']) ? $input['js'] : null,
 			'meta_title'    	=> isset($input['meta_title']) ? $input['meta_title'] : '',
-			'meta_keywords' 	=> isset($input['meta_keywords']) ? $input['meta_keywords'] : '',
+			'meta_keywords' 	=> isset($input['meta_keywords']) ? Keywords::process($input['meta_keywords']) : '',
 			'meta_description' 	=> isset($input['meta_description']) ? $input['meta_description'] : '',
-			'rss_enabled'		=> (int) ! empty($input['rss_enabled']),
-			'comments_enabled'	=> (int) ! empty($input['comments_enabled']),
+			'rss_enabled'		=> ! empty($input['rss_enabled']),
+			'comments_enabled'	=> ! empty($input['comments_enabled']),
 			'status'			=> $input['status'],
-			'created_on'		=> now(),
+			'updated_on'		=> now(),
 			'restricted_to'		=> isset($input['restricted_to']) ? implode(',', $input['restricted_to']) : '0',
-			'strict_uri'		=> (int) ! empty($input['strict_uri']),
-			'is_home'			=> (int) ! empty($input['is_home'])
+			'strict_uri'		=> ! empty($input['strict_uri']),
+			'is_home'			=> ! empty($input['is_home'])
 		));
 
 		// did it pass validation?
 		if ( ! $result) return false;
 
-		$input['id'] = $id;
-
-		$this->build_lookup($input['id']);
+		$this->build_lookup($id);
 
 		// now insert this page's chunks
+		$input['page_id'] = $id;
 		$this->page_chunk_m->create($input);
 
 		$this->db->trans_complete();
 
-		return ($this->db->trans_status() === false) ? false : $input;
+		return (bool) $this->db->trans_status();
 	}
 
 
@@ -583,8 +595,8 @@ class Page_m extends MY_Model
 		$this->db->where_in('page_id', $ids);
 		$this->db->delete('navigation_links');
 		
-        	$this->db->where_in('page_id', $ids);
-        	$this->db->delete('page_chunks');		
+        $this->db->where_in('page_id', $ids);
+        $this->db->delete('page_chunks');		
 
 		$this->db->trans_complete();
 
@@ -604,7 +616,7 @@ class Page_m extends MY_Model
 	*/
 	public function _unique_slug($slug, $parent_id, $id = 0)
 	{
-		return (int)parent::count_by(array(
+		return (int) parent::count_by(array(
 			'id !=' => $id,
 			'slug' => $slug,
 			'parent_id' => $parent_id
@@ -614,7 +626,7 @@ class Page_m extends MY_Model
 	/**
 	 * Callback to check uniqueness of slug + parent
 	 *
-	 * @access public
+	 * 
 	 * @param $slug slug to check
 	 * @return bool
 	 */

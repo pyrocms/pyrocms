@@ -12,7 +12,6 @@
  */
 
 
-$lang['cat_title_label']		= 'Titel';
 $lang['cat_category_label']		= 'Kategori';
 $lang['cat_create_title']		= 'Lägg till kategori';
 $lang['cat_edit_title']		= 'Redigera kategori "%s"';

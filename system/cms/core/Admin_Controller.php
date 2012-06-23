@@ -96,30 +96,29 @@ class Admin_Controller extends MY_Controller {
 		{
 			return TRUE;
 		}
-		else if ( ! $this->current_user)
+
+		if ( ! $this->current_user)
 		{
 			redirect('admin/login');
 		}
 
 		// Admins can go straight in
-		else if ($this->current_user->group === 'admin')
+		if ($this->current_user->group === 'admin')
 		{
 			return TRUE;
 		}
 
 		// Well they at least better have permissions!
-		else if ($this->current_user)
+		if ($this->current_user)
 		{
 			// We are looking at the index page. Show it if they have ANY admin access at all
 			if ($current_page == 'admin/index' && $this->permissions)
 			{
 				return TRUE;
 			}
-			else
-			{
-				// Check if the current user can view that page
-				return array_key_exists($this->module, $this->permissions);
-			}
+
+			// Check if the current user can view that page
+			return array_key_exists($this->module, $this->permissions);
 		}
 
 		// god knows what this is... erm...

@@ -64,6 +64,39 @@ class Admin extends Admin_Controller
 	}
 
 	/**
+	 * List all admin themes
+	 *
+	 * @access public
+	 * @return void
+	 */
+	public function admin_themes()
+	{
+		$themes = $this->theme_m->get_all();
+		
+		$data = array();
+		
+		foreach ($themes AS $theme)
+		{
+			if (isset($theme->type) AND $theme->type == 'admin')
+			{
+				if ($theme->slug == $this->settings->admin_theme)
+				{
+					$theme->is_default = TRUE;
+				}
+				
+				$data['themes'][] = $theme;
+			}
+		}
+
+		// Render the view
+		$this->template
+			// override the active section setting from above
+			->set('active_section', 'admin_themes')
+			->title($this->module_details['name'])
+			->build('admin/index', $data);
+	}
+	
+	/**
 	 * Save the option settings
 	 *
 	 * @param string $slug The theme slug

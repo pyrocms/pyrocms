@@ -47,6 +47,29 @@ jQuery(function($) {
 	 */
 	pyro.init = function() {
 
+		// Select menu for smaller screens
+		$("<select />").appendTo("nav#primary");
+
+		// Create default option "Menu"
+		$("<option />", {
+   			"selected": "selected",
+   			"value"   : "",
+   			"text"    : "Menu"
+		}).appendTo("nav#primary select");
+
+		// Populate dropdown with menu items
+		$("nav#primary a").each(function() {
+		 	var el = $(this);
+ 			$("<option />", {
+     			"value"   : el.attr("href"),
+     			"text"    : el.text()
+ 			}).appendTo("nav#primary select");
+		});
+
+		$("nav#primary select").change(function() {
+  			window.location = $(this).find("option:selected").val();
+		});
+
 		$('.topbar ul li:not(#dashboard-link)').hoverIntent({
 			sensitivity: 7,
 			interval: 75,
@@ -243,8 +266,11 @@ jQuery(function($) {
 
 	// Used by Pages and Navigation and is available for third-party add-ons.
 	// Module must load jquery/jquery.ui.nestedSortable.js and jquery/jquery.cooki.js
-	pyro.sort_tree = function($item_list, $url, $cookie, data_callback, post_sort_callback)
+	pyro.sort_tree = function($item_list, $url, $cookie, data_callback, post_sort_callback, sortable_opts)
 	{
+		// set options or create a empty object to merge with defaults
+		sortable_opts = sortable_opts || {};
+		
 		// collapse all ordered lists but the top level
 		$item_list.find('ul').children().hide();
 
@@ -252,13 +278,16 @@ jQuery(function($) {
 		var refresh_tree = function() {
 
 			// add the minus icon to all parent items that now have visible children
-			$item_list.parent().find('ul li:has(li:visible)').removeClass().addClass('minus');
+			$item_list.find('li:has(li:visible)').removeClass().addClass('minus');
 
 			// add the plus icon to all parent items with hidden children
-			$item_list.parent().find('ul li:has(li:hidden)').removeClass().addClass('plus');
-
+			$item_list.find('li:has(li:hidden)').removeClass().addClass('plus');
+			
+			// Remove any empty ul elements
+			$('.plus, .minus').find('ul').not(':has(li)').remove();
+			
 			// remove the class if the child was removed
-			$item_list.parent().find('ul li:not(:has(ul))').removeClass();
+			$item_list.find("li:not(:has(ul li))").removeClass();
 
 			// call the post sort callback
 			post_sort_callback && post_sort_callback();
@@ -288,8 +317,9 @@ jQuery(function($) {
 
 			 return false;
 		});
-
-		$item_list.nestedSortable({
+		
+		// Defaults for nestedSortable
+		var default_opts = {
 			delay: 100,
 			disableNesting: 'no-nest',
 			forcePlaceholderSize: true,
@@ -302,7 +332,7 @@ jQuery(function($) {
 			listType: 'ul',
 			tolerance: 'pointer',
 			toleranceElement: '> div',
-			stop: function(event, ui) {
+			update: function(event, ui) {
 
 				post = {};
 				// create the array using the toHierarchy method
@@ -313,14 +343,15 @@ jQuery(function($) {
 					post.data = data_callback(event, ui);
 				}
 
-				// refresh the tree icons - needs a timeout to allow nestedSort
-				// to remove unused elements before we check for their existence
-				setTimeout(refresh_tree, 5);
+				// Refresh UI (no more timeout needed)
+				refresh_tree();
 
 				$.post(SITE_URL + $url, post );
 			}
-		});
+		};
 
+		// init nestedSortable with options
+		$item_list.nestedSortable($.extend({}, default_opts, sortable_opts));
 	}
 
 	pyro.chosen = function()

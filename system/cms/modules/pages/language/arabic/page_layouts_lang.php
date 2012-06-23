@@ -6,7 +6,6 @@ $lang['page_layouts.css_label'] 					= 'CSS';
 
 // labels
 $lang['page_layouts.updated_label'] 				= 'آخر تحديث';
-$lang['page_layouts.title_label'] 					= 'العنوان';
 $lang['page_layouts.theme_layout_label'] 		= 'تخطيط السّمة';
 
 // titles

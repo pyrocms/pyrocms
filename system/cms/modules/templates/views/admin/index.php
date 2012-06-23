@@ -78,7 +78,7 @@
                 <td><?php echo $template->lang; ?></td>
                 <td class="actions">
 				<div class="buttons buttons-small align-center">
-					<?php echo anchor('admin/templates/preview/' . $template->id, lang('buttons.preview'), 'class="button preview"'); ?>
+					<?php echo anchor('admin/templates/preview/' . $template->id, lang('buttons.preview'), 'class="button preview modal"'); ?>
                     <?php echo anchor('admin/templates/edit/' . $template->id, lang('buttons.edit'), 'class="button edit"'); ?>
 					<?php echo anchor('admin/templates/delete/' . $template->id, lang('buttons.delete'), 'class="button delete"'); ?>
 				</div>

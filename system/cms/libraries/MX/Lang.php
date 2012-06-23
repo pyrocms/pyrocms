@@ -44,6 +44,11 @@ class MX_Lang extends CI_Lang
 			return $this->language;
 		}
 
+		if ( ! class_exists('CI'))
+		{
+			exit('An error has occured that cannot be reported correctly. Check your database settings.');
+		}
+
 		$deft_lang = CI::$APP->config->item('language');
 		$idiom = ($lang == '') ? $deft_lang : $lang;
 

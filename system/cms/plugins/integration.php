@@ -21,7 +21,7 @@ class Plugin_Integration extends Plugin
 	 *
 	 * @return string The analytics partial view.
 	 */
-	function analytics()
+	public function analytics()
 	{
 		return $this->load->view('fragments/google_analytics', NULL, TRUE);
 	}

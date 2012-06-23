@@ -68,11 +68,11 @@ class Module_Blog extends Module {
 
 			'sections' => array(
 			    'posts' => array(
-				    'name' => 'blog_posts_title',
+				    'name' => 'blog:posts_title',
 				    'uri' => 'admin/blog',
 				    'shortcuts' => array(
 						array(
-					 	   'name' => 'blog_create_title',
+					 	   'name' => 'blog:create_title',
 						    'uri' => 'admin/blog/create',
 						    'class' => 'add'
 						),
@@ -120,15 +120,11 @@ class Module_Blog extends Module {
 				'comments_enabled' => array('type' => 'INT', 'constraint' => 1, 'default' => 1),
 				'status' => array('type' => 'ENUM', 'constraint' => array('draft', 'live'), 'default' => 'draft'),
 				'type' => array('type' => 'SET', 'constraint' => array('html', 'markdown', 'wysiwyg-advanced', 'wysiwyg-simple')),
+                'preview_hash' => array('type' => 'CHAR', 'constraint' => 32,'default'=>''),
 			),
 		);
 
-		if ( ! $this->install_tables($tables))
-		{
-			return false;
-		}
-
-		return true;
+		return $this->install_tables($tables);
 	}
 
 	public function uninstall()

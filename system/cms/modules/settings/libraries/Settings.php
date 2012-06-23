@@ -132,33 +132,6 @@ class Settings {
 	}
 
 	/**
-	 * Item
-	 *
-	 * Old way of getting an item.
-	 * @deprecated	v1.0	Use either __get or Settings::get() instead
-	 * @param	string	$name
-	 * @return	bool
-	 */
-	public function item($name)
-	{
-		return $this->__get($name);
-	}
-
-	/**
-	 * Set Item
-	 *
-	 * Old way of getting an item.
-	 * @deprecated	v1.0	Use either __set or Settings::set() instead
-	 * @param	string	$name
-	 * @param	string	$value
-	 * @return	bool
-	 */
-	public function set_item($name, $value)
-	{
-		return $this->__set($name, $value);
-	}
-
-	/**
 	 * All
 	 *
 	 * Gets all the settings

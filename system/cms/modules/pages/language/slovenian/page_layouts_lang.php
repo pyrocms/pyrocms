@@ -6,7 +6,6 @@ $lang['page_layouts.css_label']                      = 'CSS';
 
 // labels
 $lang['page_layouts.updated_label']                  = 'Posodobljeno';
-$lang['page_layouts.title_label']                    = 'Naslov';
 $lang['page_layouts.theme_layout_label']             = 'Izgled postavitve';
 
 // titles
