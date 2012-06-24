@@ -405,7 +405,7 @@ class Template
 	public function set_metadata($name, $content, $type = 'meta')
 	{
 		$name = htmlspecialchars(strip_tags($name));
-		$content = htmlspecialchars(strip_tags($content));
+		$content = trim(htmlspecialchars(strip_tags($content)));
 
 		// Keywords with no comments? ARG! comment them
 		if ($name == 'keywords' AND ! strpos($content, ','))
