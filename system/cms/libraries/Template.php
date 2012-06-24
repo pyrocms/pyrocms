@@ -422,6 +422,10 @@ class Template
 			case 'link':
 				$this->_metadata['header'][$content] = '<link rel="'.$name.'" href="'.$content.'" />';
 			break;
+
+			case 'og':
+				$this->_metadata['header'][$name] = '<meta property="'.$name.'" content="'.$content.'" />';
+			break;
 		}
 
 		return $this;
