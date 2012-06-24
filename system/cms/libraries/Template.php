@@ -424,7 +424,7 @@ class Template
 			break;
 
 			case 'og':
-				$this->_metadata['header'][$name] = '<meta property="'.$name.'" content="'.$content.'" />';
+				$this->_metadata['header'][md5($name.$content)] = '<meta property="'.$name.'" content="'.$content.'" />';
 			break;
 		}
 
