@@ -195,6 +195,11 @@ class Users extends Public_Controller
 				'rules' => 'required|min_length[6]|max_length[20]'
 			),
 			array(
+				'field' => 'password1',
+				'label' => lang('user_password_confirm_label'),
+				'rules' => 'required|min_length[6]|max_length[20]|callback__password_check'
+			),
+			array(
 				'field' => 'email',
 				'label' => lang('user_email'),
 				'rules' => 'required|max_length[60]|valid_email|callback__email_check',
@@ -805,6 +810,26 @@ class Users extends Public_Controller
 		if ($this->ion_auth->email_check($email))
 		{
 			$this->form_validation->set_message('_email_check', lang('user_error_email'));
+			return false;
+		}
+
+		return true;
+	}
+	
+	/**
+	 * Password match check
+	 *
+	 * @author Gogula Krishnan
+	 *
+	 * @param string $conf_passwd The confirm password to check the actual password field
+	 *
+	 * @return bool
+	 */
+	public function _password_check($conf_passwd)
+	{
+		if ($conf_passwd != $this->input->post('password'))
+		{
+			$this->form_validation->set_message('_password_check', lang('user_password_match_error'));
 			return false;
 		}
 
