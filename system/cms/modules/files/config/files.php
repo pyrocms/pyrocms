@@ -1,6 +1,9 @@
 <?php
 
-$config['files:path'] = UPLOAD_PATH . 'files/';
+// Provision for the installer
+if ( ! defined('UPLOAD_PATH')) define('UPLOAD_PATH', null);
+
+$config['files:path'] = UPLOAD_PATH.'files/';
 
 $config['files:allowed_file_ext'] = array(
 	'a'	=> array('mpga', 'mp2', 'mp3', 'ra', 'rv', 'wav'),

@@ -40,6 +40,10 @@ class Blog extends Public_Controller
 		$this->template
 			->title($this->module_details['name'])
 			->set_breadcrumb(lang('blog:blog_title'))
+			->set_metadata('og:title', $this->module_details['name'], 'og')
+			->set_metadata('og:type', 'blog', 'og')
+			->set_metadata('og:url', current_url(), 'og')
+			->set_metadata('og:description', $meta['description'], 'og')
 			->set_metadata('description', $meta['description'])
 			->set_metadata('keywords', $meta['keywords'])
 			->set('pagination', $pagination)
@@ -271,21 +275,48 @@ class Blog extends Public_Controller
 
         $this->session->set_flashdata(array('referrer' => $this->uri->uri_string));
 
-        $this->template->title($post->title, lang('blog:blog_title'))
-            ->set_metadata('description', $post->intro)
-            ->set_metadata('keywords', implode(', ', Keywords::get_array($post->keywords)))
-            ->set_breadcrumb(lang('blog:blog_title'), 'blog');
-
-        if ($post->category->id > 0)
+        // Add category OG metadata
+        if ($post->category_id)
         {
-            $this->template->set_breadcrumb($post->category->title, 'blog/category/'.$post->category->slug);
         }
 
-        $post->keywords = Keywords::get($post->keywords);
+        // Add image OG metadata
+        if ($post->attachment)
+        {
+        	$this->template->set_metadata('og:image', null, 'og');
+        }
 
-        $this->template
-            ->set_breadcrumb($post->title)
-            ->set('post', $post)
-            ->build($build);
+        $this->template->title($post->title, lang('blog:blog_title'))
+			->set_metadata('og:type', 'article', 'og')
+			->set_metadata('og:url', current_url(), 'og')
+			->set_metadata('og:title', $post->title, 'og')
+			->set_metadata('og:site_name', Settings::get('site_name'), 'og')
+			->set_metadata('og:description', trim($post->intro), 'og')
+			->set_metadata('article:published_time', standard_date('DATE_ISO8601', $post->created_on), 'og')
+			->set_metadata('article:modified_time', standard_date('DATE_ISO8601', $post->updated_on), 'og')
+			->set_metadata('description', $post->intro)
+			->set_metadata('keywords', implode(', ', Keywords::get_array($post->keywords)))
+			->set_breadcrumb(lang('blog:blog_title'), 'blog');
+
+			if ($post->category->id > 0)
+			{
+				$this->template->set_breadcrumb($post->category->title, 'blog/category/'.$post->category->slug);
+
+				// Set category OG metadata			
+				$this->template->set_metadata('article:section', $post->category->title, 'og');
+			}
+
+			// Add in OG keywords
+			foreach (Keywords::get_array($post->keywords) as $keyword)
+			{
+				$this->template->set_metadata('article:tag', $keyword, 'og');
+			}
+
+			$post->keywords = Keywords::get($post->keywords);
+
+			$this->template
+				->set_breadcrumb($post->title)
+				->set('post', $post)
+				->build($build);
     }
 }
