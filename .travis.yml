@@ -1,0 +1,3 @@
+branches:
+  only:
+    - feature/unit-tests

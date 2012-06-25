@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<phpdoc>
+	<title>PyroCMS v2.2-dev API</title>
+    <parser>
+        <default-package-name>No Package</default-package-name>
+        <target>../docs.pyrocms.com/2.2/api/</target>
+    </parser>
+    <transformer>
+        <target>../docs.pyrocms.com/2.2/api/</target>
+    </transformer>
+    <files>
+        <directory>.</directory>
+        <ignore>*/language/*</ignore>
+        <ignore>*/codeigniter/*</ignore>
+        <ignore>*/installer/*</ignore>
+        <ignore>*/themes/*</ignore>
+        <ignore>*/views/*</ignore>
+        <ignore>*/migrations/*</ignore>
+        <ignore>*/sparks/*</ignore>
+        <ignore>*/logs/*</ignore>
+        <ignore>*/errors/*</ignore>
+        <ignore>*/config/*.php</ignore>
+    </files>
+    <plugins>
+        <plugin path="Core">
+            <option name="a">value</option>
+        </plugin>
+    </plugins>
+    <logging>
+        <level>warn</level>
+        <paths>
+            <default>../docs.pyrocms.com/2.2/api/log/{DATE}.log</default>
+            <errors>../docs.pyrocms.com/2.2/api/{DATE}.errors.log</errors>
+        </paths>
+    </logging>
+</phpdoc>

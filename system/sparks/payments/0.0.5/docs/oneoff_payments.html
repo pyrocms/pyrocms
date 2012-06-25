@@ -1,0 +1,272 @@
+<!doctype html>
+<head>
+</head>
+<body>
+	<h1>Oneoff Payments - Param Matchup</h1>
+	<p><strong>*</strong> indicates required field</p>
+	<p><strong>N/A</strong> indicates field does not apply to this gateway</p>
+	<table>
+		<thead>
+			<tr>
+				<th>&nbsp;</th>
+				<th><h2>PayPal Payments Pro</h2></th>
+				<th><h2>Authorize.net</h2></th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><strong>ip_address</strong>: IP address of the customer.</td>
+				<td><strong>IPADDRESS</strong></td>
+				<td><strong>x_customer_ip</strong>: This field is required when using the Advanced Fraud Detection Suite (AFDS) IP Address Blocking tool. For more information about AFDS, see the Merchant Integration Guide.</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><strong>cc_type</strong></td>
+				<td><strong>CREDITCARDTYPE</strong></td>
+				<td>N/A</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><strong>cc_number</strong>: : The customer's credit card number.  Between 13 and 16 digits without spaces</td>
+				<td><strong>ACCT</strong></td>
+				<td><strong>x_card_num</strong></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><strong>cc_exp</strong>: The customer's credit card expiration date.  Provided as MMYYYY</td>
+				<td><STRONG>EXPDATE</STRONG></td>
+				<td>x_exp_date</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><strong>cc_code</strong>: 	The customer's card code</td>
+				<td><STRONG>CVV2</STRONG></td>
+				<td><strong>x_card_code</strong></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><strong>email</strong> Email for customer receipt, customer billing address, etc.</td>
+				<td><STRONG>EMAIL</STRONG></td>
+				<td><strong>x_email</strong>: Up to 255 characters</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><strong>first_name</strong>: first name of the customer</td>
+				<td><STRONG>FIRSTNAME</STRONG></td>
+				<td><strong>x_first_name</strong>: up to 50 characters (no symbols).</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><strong>last_name</strong>: last name of the customer</td>
+				<td><STRONG>LASTNAME</STRONG></td>
+				<td><strong>x_last_name</strong>: Up to 50 characters (no symbols).</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><strong>business_name</strong>: name of business</td>
+				<td></td>
+				<td><strong>x_company</strong>: Up to 50 characters (no symbols)</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><strong>street</strong></td>
+				<td><STRONG>STREET</STRONG></td>
+				<td><strong>x_address</strong>: Up to 60 characters (no symbols).</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><strong>street2</strong></td>
+				<td><STRONG>STREET2</STRONG></td>
+				<td>N/A</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><strong>city</strong>: The city of the customer's billing address.</td>
+				<td><STRONG>CITY</STRONG></td>
+				<td><strong>x_city</strong>: Up to 40 characters (no symbols)</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><strong>state</strong>: The customer's state or province (for billing address).  </td>
+				<td><STRONG>STATE</STRONG></td>
+				<td><strong>x_state</strong>: Up to 40 characters (no symbols) or a valid two-character state code</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><strong>countrycode</strong>: Country abbreviation.</td>
+				<td><STRONG>COUNTRYCODE</STRONG></td>
+				<td><strong>x_country</strong>: Up to 60 characters </td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><strong>postal_code</strong>: Zip / postal code for customer's billing address.</td>
+				<td><STRONG>ZIP</STRONG></td>
+				<td><strong>x_zip</strong>: Up to 20 characters (no symbols)</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><strong>amt</strong></td>
+				<td><STRONG>AMT</STRONG></td>
+				<td><strong>x_amount</strong>: Up to 15 digits with a decimal point (no dollar symbol).  This is the total amount and must include tax, shipping, and any other charges.</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><strong>phone</strong>: Customer phone #</td>
+				<td><STRONG>SHIPTOPHONENUM</STRONG></td>
+				<td><strong>x_phone</strong>: Up to 25 digits (no letters)</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><strong>fax</strong>: Customer fax #.</td>
+				<td></td>
+				<td><strong>x_fax</strong>: Up to 25 digits </td>
+				<td></td>
+			</tr>		
+			<tr>
+				<td><strong>identifier</strong>: Merchant supplied identifier for the customer (ie a customer number)</td>
+				<td></td>
+				<td><strong>x_cust_id</strong>: Up to 20 characters </td>
+				<td></td>
+			</tr>				
+			<tr>
+				<td><strong>currency_code</strong>: Currency the transaction should be processed in.</td>
+				<td><STRONG>CURRENCYCODE</STRONG></td>
+				<td>N/A</td>
+				<td></td>
+			</tr>		
+			<tr>
+				<td><strong>item_amt</strong>: Amount for only item being purchased.</td>
+				<td><STRONG>ITEMAMT</STRONG></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><strong>insurance_amt</strong>: Amount for only insurance on item being purcahsed</td>
+				<td><STRONG>INSURANCEAMT</STRONG></td>
+				<td></td>
+				<td></td>
+			</tr>																															]
+			<tr>
+				<td><strong>shipping_disc_amt</strong>: Amount which shipping fee has been discounted</td>
+				<td><STRONG>SHIPDISCAMT</STRONG></td>
+				<td></td>
+				<td></td>
+			</tr>		
+			<tr>
+				<td><strong>desc</strong>: Description of transaction</td>
+				<td><STRONG>DESC</STRONG></td>
+				<td><strong>x_description</strong></td>
+				<td></td>
+			</tr>	
+			<tr>
+				<td><strong>custom</strong>: Any custom notes on the transaction</td>
+				<td><STRONG>CUSTOM</STRONG></td>
+				<td></td>
+				<td></td>
+			</tr>	
+			<tr>
+				<td><strong>inv_num</strong>:  Merchant assigned reference number (ie an invoice you sent to the customer)</td>
+				<td><STRONG>INVNUM</STRONG></td>
+				<td><strong>x_invoice_num</strong></td>
+				<td></td>
+			</tr>	
+			<tr>
+				<td><strong>notify_url</strong>: URL for receiving Instant Payment Notification (IPN) about this transaction. If you do not specify this value in the request, the notification URL from your Merchant Profile is used, if one exists.</td>
+				<td><STRONG>NOTIFYURL</STRONG></td>
+				<td></td>
+				<td></td>
+			</tr>	
+			<tr>
+				<td><strong>run_as_test</strong>: Run the transaction as a test.  Should be bool value.</td>
+				<td>N/A</td>
+				<td><strong>x_test_request</strong></td>
+				<td></td>
+			</tr>	
+			<tr>
+				<td><strong>duplicate_window</strong>: Time in seconds after a transaction is submitted which the gateway checks for duplicates.</td>
+				<td></td>
+				<td><strong>x_duplicate_window</strong></td>
+				<td></td>
+			</tr>	
+			<tr>
+				<td><strong>ship_to_first_name</strong>: First name to use for shipping address.</td>
+				<td></td>
+				<td><strong>x_ship_to_first_name</strong>: Up to 50 characters (no symbols)</td>
+				<td></td>
+			</tr>																															<tr>
+				<td><strong>ship_to_last_name</strong>: Last name for shipping address</td>
+				<td></td>
+				<td><strong>x_ship_to_last_name</strong>: Up to 50 characters (no symbols)</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><strong>ship_to_street</strong>: Address to ship to</td>
+				<td></td>
+				<td><strong>x_ship_to_address</strong>: Up to 60 characters (no symbols)</td>
+				<td></td>
+			</tr>	
+			<tr>
+				<td><strong>ship_to_city</strong>: City to ship to</td>
+				<td></td>
+				<td><strong>x_ship_to_city</strong>: Up to 40 characters (no symbols)</td>
+				<td></td>
+			</tr>	
+			<tr>
+				<td><strong>ship_to_state</strong>: State to ship to</td>
+				<td></td>
+				<td><strong>x_ship_to_state</strong>: Up to 40 characters (no symbols) or a valid two-character state code</td>
+				<td></td>
+			</tr>		
+			<tr>
+				<td><strong>ship_to_zip</strong>: Zip / postal code to ship to</td>
+				<td></td>
+				<td><strong>x_ship_to_zip</strong>: Up to 20 characters (no symbols)</td>
+				<td></td>		
+			</tr>
+			<tr>
+				<td><strong>ship_to_country</strong>: Country to ship to</td>
+				<td></td>
+				<td><strong>x_ship_to_country</strong>: Up to 60 characters (no symbols)</td>
+				<td></td>		
+			</tr>
+			<tr>
+				<td><strong>ship_to_company</strong>: Company to ship to</td>
+				<td></td>
+				<td><strong>x_ship_to_company</strong> Up to 50 characters (no symbols)</td>
+				<td></td>		
+			</tr>
+			<tr>
+				<td><strong>tax_amt</strong>: Total of tax charges.  If specified, The total amount of the transaction in x_amount must include this amount.</td>
+				<td><STRONG>TAXAMT</STRONG></td>
+				<td><strong>x_tax</strong> </td>
+				<td></td>		
+			</tr>
+			<tr>
+				<td><strong>shipping_amt</strong>: Total of shipping charges.  If specified, The total amount of the transaction in x_amount must include this amount.</td>
+				<td><STRONG>SHIPPINGAMT</STRONG></td>
+				<td><strong>x_freight</strong></td>
+				<td></td>		
+			</tr>
+			<tr>
+				<td><strong>duty_amt</strong>: Total of duty charges</td>
+				<td></td>
+				<td><strong>x_duty</strong>: The total amount of the transaction in x_amount must include this amount.</td>
+				<td></td>		
+			</tr>
+			<tr>
+				<td><strong>tax_exempt</strong>: Bool.  Whether or not the order was tax exempt.</td>
+				<td></td>
+				<td>x_tax_exempt</td>
+				<td></td>		
+			</tr>		
+			<tr>
+				<td><strong>handling_amt</strong>: .</td>
+				<td><STRONG>HANDLINGAMT</STRONG></td>
+				<td>N/A</td>
+				<td></td>		
+			</tr>																										
+		</tbody>
+	</table>
+</body>
+</html>

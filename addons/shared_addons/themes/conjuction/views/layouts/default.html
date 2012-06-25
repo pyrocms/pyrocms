@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		{{ theme:partial name="metadata" }}
+	</head>
+	<body>
+
+		{{ integration:analytics }}
+
+		{{ theme:partial name="header" }}
+
+		<div id="page">
+
+			{{ session:messages success="success-box" notice="notice-box" error="error-box" }}
+
+			<div id="content">
+				{{ template:body }}
+			</div>
+
+			<div id="sidebar">
+				<ul>
+					<li>
+						<h2>{{ helper:lang line="navigation_headline" }}</h2>
+						<ul>
+							{{ navigation:links group="header" }}
+						</ul>
+					</li>
+					<li>
+					{{ if user:logged_in }}
+						
+						<h2>{{ user:first_name }} {{ user:last_name }}</h2>
+						<ul>
+							<li><a href="{{ url:site }}/users/logout">{{ helper:lang line="logout_label" }}</a></li>
+
+						{{ if settings:enable_profiles }}
+							<li><a href="{pyro:url:site}/edit-profile" target="_blank">{{ helper:lang line="edit_profile_label" }}</a></li>
+						{{ endif }}
+
+						<li><a href="{pyro:url:site}/edit-settings" target="_blank">{{ helper:lang line="settings_label" }}</a></li>
+
+						</ul>
+												
+					{{ else }}
+						
+						<form method="{{ url:site }}/users/login" id="login-small" method="post">
+							<ul>
+								<li class="email">
+									<label for="email">{{ helper:lang line="user_email" }}</label>
+									<input type="text" id="email" name="email" maxlength="120" />
+								</li>
+								<li class="pword">
+									<label for="password">{{ helper:lang line="user_password" }}</label>
+									<input type="password" id="password" name="password" maxlength="20" />
+								</li>
+								<li class="form-buttons">
+									<input type="submit" value="{{ helper:lang line='user_login_btn' }}" name="btnLogin" /> or 
+									<a href="{{ url:site }}/register">{{ helper:lang line="user_register_btn" }}</a>
+								</li>
+								<li class="remember-me">
+									<label><input type="checkbox" name="remember" value="1" /> {{ helper:lang line="user_remember" }}</label>
+								</li>
+							</ul>
+						</form>
+
+					{{ endif }}
+					</li>
+				</ul>
+			</div>
+
+			<div style="clear: both;">&nbsp;</div>
+		</div>
+
+		<div id="footer">
+			{{ theme:partial name="footer" }}
+		</div>
+
+	</body>
+</html>

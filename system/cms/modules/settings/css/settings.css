@@ -1,0 +1,4 @@
+label { width: 23% !important; }
+span.move-handle { float: right; margin-right: 6px; width: 18px; height: 18px; cursor: move; background: url(../../../themes/pyrocms/img/icons/drag_handle.gif) no-repeat; }
+div.tabs fieldset ol li { cursor: default; }
+div.type-checkbox label { text-align: left; font-weight: normal; }

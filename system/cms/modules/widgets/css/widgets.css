@@ -1,0 +1,288 @@
+#available-widgets h5,
+#widget-areas h5 {
+	margin: 0;
+}
+
+/*--------------------------------------------------------------------
+// AVAILABLE WIDGETS LIST
+//-------------------------------------------------------------------*/
+
+#available-widgets  ul {
+	position: relative;
+	margin: 0;
+	list-style: none;
+}
+#available-widgets  ul li {
+	position: relative;
+	padding: 1px 10px 10px 10px;
+	margin: 0;
+	background-color: #f2f2f2;
+	border-color: #ddd;
+	margin-bottom: 5px;
+}
+#available-widgets  ul li p span {
+	color: #484848;
+	font-weight: bold;
+}
+#available-widgets  ul li:hover {
+	background-color: #e6e6e6;
+	cursor: move;
+}
+
+#available-widgets  ul h3 {
+}
+#available-widgets  ul p {
+	margin-bottom: 0;
+	line-height: 1.5;
+}
+
+#available-widgets  ul a {
+	color: #999;
+}
+#available-widgets  ul a:hover {
+	color: #ff6400;
+}
+
+/* Drag State for Available Widgets */
+#available-widgets  ul li.widget-drag {
+	opacity: 0.3;
+}
+#available-widgets  ul li.ui-draggable-dragging {
+	width: 90%;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-o-border-radius: 5px;
+	border-radius: 5px;
+	border: 1px solid #999;
+	background: #e6e6e6;
+	cursor: move;
+	z-index: 500;
+}
+
+/*--------------------------------------------------------------------
+// WIDGETS AREAS LIST
+//-------------------------------------------------------------------*/
+
+#widget-areas .widget-area-box > header {
+	display: block;
+	float: none;
+	padding: 0 0 1px 0!important;
+	background: #F1F1F1;
+	margin-bottom: 10px;
+	cursor: pointer;
+}
+#widget-areas .widget-area-box {
+	border: 1px solid #F1F1F1;
+	width: 100%;
+	padding: 0!important;
+	margin-bottom: 15px;
+}
+#widget-areas .widget-area-box > header h3 {
+	font-size: 16px;
+	display: block;
+	background: none;
+	color: #484848!important;
+}
+#widget-areas .widget-area-box > header h3 a {
+	color: #484848;
+}
+#widget-areas .widget-area-content {
+	display: block;
+	position: relative;
+}
+#widget-areas .area-buttons {
+	position: absolute;
+	right: 0;
+	top: -47px;
+	padding-right: 6px;
+}
+
+#widget-areas .widget-area-content > code.tag {
+	color: #999;
+}
+
+/* Widget Instance */
+
+.widget-instance {
+	position: relative;
+	background-color: #fafafa;
+	border: 1px solid #E6E6E6;
+	padding: 2px 10px;
+	margin-bottom: 5px;
+	min-height: 35px;
+}
+.widget-instance > h4 {
+	font-size: 13px;
+	line-height: 16px;
+	font-family: "Helvetica", Arial, sans-serif;
+	margin: 0;
+	padding-top: 10px;
+	float: left;
+	display: inline-block;
+	width: 45%;
+	margin-bottom: 5px;
+	text-overflow: ellipsis;
+	color: #666;
+}
+.widget-instance > h4 span {
+	font-weight: bold;
+	color: #797979;
+}
+.widget-actions {
+    float: right;
+    margin-top: 3px;
+}
+.widget-actions a.button {
+	font-size: 100%;
+}
+.widget-code {
+	background: #2c2c2c;
+	float: right;
+}
+.widget-section-code {
+	width: 90%;
+	float: none!important;
+	margin-left: 10px;
+}
+.no-sortable,
+.no-sortable li,
+.no-sortable header {
+	cursor: auto !important;
+}
+.widget-instance ol {
+	margin-bottom: 0;
+}
+.widget-list { overflow: auto; }
+.widget-list textarea.uniform {
+	width: 97% !important;
+	resize: none;
+}
+.widget-list textarea.inline {
+	width: 60% !important;
+	resize: none;
+}
+
+.widget-instance form.crud label{
+	text-align: left;
+}
+
+.widget-instance form.crud span.required-icon {
+	display: none;
+}
+
+#add-area-box,
+#edit-area-box {
+	border-bottom: 1px solid #e6e6e6;
+	padding: 0 10px 10px 10px;
+	margin-bottom: 20px;
+	-webkit-box-shadow: #DDD 0px 5px 5px;
+	-moz-box-shadow: #DDD 0px 5px 5px;
+	box-shadow: #DDD 0px 5px 5px;
+}
+#add-area-box h3,
+#edit-area-box h3 {
+	margin-bottom: 0; 
+}
+
+#add-instance-box {
+	padding: 0;
+	margin-bottom: 20px;
+	background-color: #fcfcfc;
+	position: static;
+}
+
+#edit-instance-box {
+	padding: 0;
+	margin-bottom: 20px;
+	background-color: #fcfcfc;
+	float:none;
+}
+
+.ui-accordion-header h3 a {
+	background: none!important;
+	padding: 0!important;
+}
+.ui-state-focus h3 a {
+	background: none!important;
+	padding: 0!important;
+}
+
+#widget-options {
+	padding: 0 10px;
+}
+#widget-options ul { margin-bottom: 0; }
+
+.widget-area .tag, .widget-area .button {
+	position: absolute;
+	left: 50%;
+	color: #666666;
+	padding: 0 15px 0 15px;
+	margin-top: 7px;
+}
+
+
+#widget-wrapper {
+	width: 32%;
+	min-width: 350px;
+	margin-left: 1%;
+	display: inline-block;
+	float: left;
+}
+.widget-list ol {	
+	list-style-type: none;
+	cursor: auto;
+	display: block;
+	padding: 0 10px;
+	margin-bottom: 0;
+	margin-top: 30px;
+}
+.widget-list fieldset ol {
+	padding: 0;
+}
+.widget-list fieldset li li {
+	padding-left: 0;
+	padding-rigth: 0;
+}
+.widget-list ol li {
+	margin: 0 0 10px;
+	cursor: move;
+}
+.widget-list ol input[type=text] {
+	width: 19em;
+}
+.widget-list ol li > label {
+	text-align: right;
+	color: #666;
+}
+li.empty-drop-item {
+	border: 3px dashed #E9E9E9;
+	height: 36px;
+}
+li.empty-drop-item.loading {
+	background-image: url(../../../themes/pyrocms/img/admin/loading.gif);
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	border: none;
+	padding: 15px 0;
+}
+.drop-hover li.empty-drop-item {
+	display: block !important;
+	border-color: #ADADAD;
+}
+.box-container {
+	padding: 5px 15px;
+}
+
+.box-container header h3 {
+	font-size: 16px;
+	line-height: 16px
+	padding: 0!important;
+	margin: 0!important;
+}
+.box-container header {
+	padding: 0!important;
+	margin: 0!important;
+}
+
+#widgets-list > tbody > tr { cursor: auto; }
+td span.move-handle { float: right; margin-right: 6px; width: 18px; height: 18px; cursor: move; background: url(../../../themes/pyrocms/img/icons/cursor_drag_arrow.png) no-repeat; }

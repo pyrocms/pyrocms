@@ -1,0 +1,30 @@
+<?php
+
+/**
+ * Namespace
+ *
+ * Change this if you are using this
+ * for a different namespace.
+ */
+$config['{stream_slug}:namespace'] = '{namespace}';
+
+/**
+ * Namespace
+ *
+ * Change this if you are using this
+ * for a different namespace.
+ */
+$config['{stream_slug}:stream'] = array(
+		'stream_name'		=> '{stream_name}',
+		'stream_slug'		=> '{stream_slug}',
+		'namespace'			=> '{namespace}',
+		'about'				=> '{about}',
+		'prefix'			=> '{prefix}',
+		'view_options'		=> {view_options}
+	);
+
+$config['{stream_slug}:fields'] = array(
+	{fields}
+);
+
+/* End of File */

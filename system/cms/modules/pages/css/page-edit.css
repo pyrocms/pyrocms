@@ -1,0 +1,6 @@
+.page-chunk > span { margin-top: 8px; }
+.page-chunk .btn { padding: 4px 7px; float: left; }
+.page-chunk input.label { padding: 5px 8px !important; }
+.page-chunk .input { margin-bottom: 10px; }
+span.sort-handle { width: 21px; height: 19px; background: url("../img/sort-handle.png") no-repeat; float: right; cursor: move; margin: 5px 0 0 5px; }
+.sort-placeholder {background-color: #eee;border:1px solid #DCDCDC; -webkit-border-radius: 4px; -moz-border-radius: 4px; -o-border-radius: 4px; border-radius: 4px;}
