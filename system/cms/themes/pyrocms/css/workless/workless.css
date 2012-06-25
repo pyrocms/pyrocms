@@ -763,7 +763,7 @@ table .actions a {
   background-image: linear-gradient(#ffffff, #ffffff 0.25, #e6e6e6);
   padding: 5px 10px 5px 10px;
   text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
-  color: #333333;
+  color: #333333 !important;
   font-size: 13px;
   line-height: 18px;
   border: 1px solid #ccc;
