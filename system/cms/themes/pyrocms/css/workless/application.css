@@ -226,6 +226,7 @@
 	float: left;
 }
 #filters legend {color: #888; font-size: 12px; padding: 0 6px;}
+
 #filters form > ul > li {
 	margin: 8px 0 5px 5px;
 	float: left;

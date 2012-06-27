@@ -67,6 +67,11 @@
 		width: 245px; 
 	}
 
+	#filters form > ul > li .chzn-container {
+		width: 250px!important;
+		float: left;
+	}
+
 	#quick_links ul {
 		margin-top: -20px!important;
 	}
@@ -181,13 +186,8 @@
 		width: 450px;
 	}
 
-	.form_inputs fieldset > ul > li > label,
-	.form_inputs fieldset > ul > div > li > label,
-	.form_inputs > ul > div > li > label,
-	.form_inputs > ul > li > label,
-	.form_inputs fieldset > ul > li .label,
-	.form_inputs > ul > li .label {
-		width: 27%!important;
+	#filters form > ul > li .chzn-container {
+		width: 425px!important;
 		float: left;
 	}
 
@@ -357,6 +357,11 @@
 		width: 720px;
 	}
 
+	#filters form > ul > li .chzn-container {
+		width: 300px!important;
+		float: left;
+	}
+
 	nav#primary ul.primary-nav { display: inherit; }
 	nav#primary .chzn-container { display: none; }
 
@@ -483,6 +488,11 @@
 		width: 995px;
 	}
 
+	#filters form > ul > li .chzn-container {
+		width: 450px!important;
+		float: left;
+	}
+
 	nav#primary ul.primary-nav { display: inherit; }
 	nav#primary .chzn-container { display: none; }
 
@@ -600,6 +610,11 @@
 
 	.alert {
 		width: 1250px;
+	}
+
+	#filters form > ul > li .chzn-container {
+		width: 550px!important;
+		float: left;
 	}
 
 	nav#primary ul.primary-nav { display: inherit; }
