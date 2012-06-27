@@ -1,5 +1,17 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
+/**
+ * Chinese Simpplified translation.
+ *
+ * @author		Kefeng DENG
+ * @package		PyroCMS
+ * @subpackage 	Settings Module
+ * @category	Modules
+ * @link		http://pyrocms.com
+ * @date		2012-06-27
+ * @version		1.1
+ */
+
 #section settings
 $lang['settings_site_name'] 					= '網站名稱';
 $lang['settings_site_name_desc'] 				= '在這裡設定的名稱會應用在 title 標籤以及整個網站。';
@@ -128,7 +140,7 @@ $lang['settings_registered_email']				= '發送註冊通知';
 $lang['settings_registered_email_desc']			= '當有人註冊時，寄送通知信到網站預設信箱。';
 
 $lang['settings_ckeditor_config']               = 'CKEditor 设置';
-$lang['settings_ckeditor_config_desc']          = 'You can find a list of valid configuration items in <a target="_blank" href="http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.config.html">CKEditor\'s documentation.</a>'; #translate
+$lang['settings_ckeditor_config_desc']          = '您可以从 <a target="_blank" href="http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.config.html">CKEditor\'s 文档.</a> 找到所有的设置选项'; #translate
 
 $lang['settings_enable_registration']           = '启动用户注册功能';
 $lang['settings_enable_registration_desc']      = '运行新用户在本网站注册.';

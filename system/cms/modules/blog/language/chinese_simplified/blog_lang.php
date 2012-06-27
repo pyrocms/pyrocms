@@ -10,8 +10,8 @@
  * @date		2012-06-22
  * @version		1.0
  */
-$lang['blog:post']                 = 'Post'; #translate
-$lang['blog:posts']                   = 'Posts'; #translate
+$lang['blog:post']                 = '帖子'; #translate
+$lang['blog:posts']                   = '帖子'; #translate
 
 // labels
 $lang['blog:posted_label'] 				= '已發佈';

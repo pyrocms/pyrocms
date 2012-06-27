@@ -11,17 +11,17 @@
  * @version		1.0
  */
 
-$lang['user_add_field']                        	= 'Add User Profile Field'; #translate
-$lang['user_profile_delete_success']           	= 'User profile field deleted successfully'; #translate
-$lang['user_profile_delete_failure']            = 'There was a problem with deleting your user profile field'; #translate
-$lang['profile_user_basic_data_label']  		= 'Basic Data'; #translate
-$lang['profile_company']         	  			= 'Company'; #translate
-$lang['profile_updated_on']           			= 'Updated On'; #translate
-$lang['user_profile_fields_label']	 		 	= 'Profile Fields'; #translate`
+$lang['user_add_field']                        	= '添加用户简介栏目'; #translate
+$lang['user_profile_delete_success']           	= '用户简介栏目删除成功'; #translate
+$lang['user_profile_delete_failure']            = '无法删除用户简介栏目'; #translate
+$lang['profile_user_basic_data_label']  		= '基本资料'; #translate
+$lang['profile_company']         	  			= '公司'; #translate
+$lang['profile_updated_on']           			= '最近更新'; #translate
+$lang['user_profile_fields_label']	 		 	= '简介栏目'; #translate`
 
 $lang['user_register_header'] 			= '註冊';
-$lang['user_register_step1'] 			= '<strong>步驟一：</strong> 註冊';
-$lang['user_register_step2'] 			= '<strong>步驟二：</strong> 啟動';
+$lang['user_register_step1'] 			= '<strong>步骤一：</strong> 注册';
+$lang['user_register_step2'] 			= '<strong>步骤二：</strong> 激活';
 
 $lang['user_login_header'] 				= '登入';
 
@@ -90,7 +90,7 @@ $lang['user_reset_password_link'] 		= '忘記密碼';
 
 $lang['user_activation_code_sent_notice']	= '內含啟動碼的電子郵件已經寄給您了。';
 $lang['user_activation_by_admin_notice'] 	= '您的註冊資料正在等候管理員的審核。';
-$lang['user_registration_disabled']            = 'Sorry, but the user registration is disabled.'; #translate
+$lang['user_registration_disabled']            = '不好意思，本网站不能注册用户。.'; #translate
 
 // -- Settings ---------------------------------------------------------------------------------------------
 
@@ -132,7 +132,7 @@ $lang['user_mass_delete_error'] 				= '請先選擇用戶';
 // Register
 $lang['user_email_pass_missing'] 				= 'Email 或密碼欄位尚未完成。';
 $lang['user_email_exists'] 						= '您選擇的電子郵件已經被另一個用戶所使用。';
-$lang['user_register_error']				   = 'We think you are a bot. If we are mistaken please accept our apologies.'; #translate
+$lang['user_register_error']				    = '检测到您在使用机器人注册！如果我们有错，请介绍我们的道歉.'; #translate
 $lang['user_register_reasons'] 					= '加入即可存取特定網站專區。這及表示網站將記住您的設定，更多的內容會提供給您。';
 
 

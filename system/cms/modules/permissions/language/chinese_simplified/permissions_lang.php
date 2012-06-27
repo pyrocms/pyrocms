@@ -1,5 +1,18 @@
 <?php
 
+/**
+ * Chinese Simpplified translation.
+ *
+ * @author		Kefeng DENG
+ * @package		PyroCMS
+ * @subpackage 	Permission Module
+ * @category	Modules
+ * @link		http://pyrocms.com
+ * @date		2012-06-27
+ * @version		1.0
+ */
+
+
 $lang['permissions:group']				= '群組';
 $lang['permissions:roles']                  = '角色';
 $lang['permissions:module']                      = '模组';
@@ -12,4 +25,4 @@ $lang['permissions:message_group_saved_error']    = '不能保存该组的权限
 $lang['permissions:message_no_group_id_provided'] = '未能发现该组 ID.';
 $lang['permissions:admin_has_all_permissions'] = '管理员组拥有全部权限';
 $lang['permissions:checkbox_tooltip_action_to_all'] = '设置全部权限'; #translate
-$lang['permissions:checkbox_tooltip_give_access_to_module'] = 'Check to give access permission to the &quot;%s&quot; module for this group.'; #translate
+$lang['permissions:checkbox_tooltip_give_access_to_module'] = '检查此组访问模块 &quot;%s&quot; 的权限';

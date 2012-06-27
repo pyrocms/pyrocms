@@ -1,7 +1,7 @@
 <?php
 
-$lang['scaff_view_records']		= '檢視紀錄';
-$lang['scaff_create_record']	= '新增紀錄';
+$lang['scaff_view_records']		= '檢視记录';
+$lang['scaff_create_record']	= '新增记录';
 $lang['scaff_add']				= '新增資料';
 $lang['scaff_view']				= '檢視資料';
 $lang['scaff_edit']				= '編輯';

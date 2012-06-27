@@ -11,14 +11,14 @@
  * @version		1.0
  */
 // Files Permissions
-$lang['files.role_wysiwyg']			= 'Manage Files From WYSIWYG';
-$lang['files.role_upload']			= 'Upload File';
-$lang['files.role_download_file']	= 'Download File';
-$lang['files.role_edit_file']		= 'Edit File';
-$lang['files.role_delete_file'] 	= 'Delete File';
+$lang['files.role_wysiwyg']			= '从WYSIWYG中管理文件';
+$lang['files.role_upload']			= '上传文件';
+$lang['files.role_download_file']	= '下载文件';
+$lang['files.role_edit_file']		= '编辑文件';
+$lang['files.role_delete_file'] 	= '删除文件';
 
-$lang['files.role_create_folder']	= 'Create Folder';
-$lang['files.role_set_location']	= 'Set Cloud Provider';
-$lang['files.role_synchronize']		= 'Synchronize With Cloud';
-$lang['files.role_edit_folder']		= 'Edit Folder';
-$lang['files.role_delete_folder'] 	= 'Delete Folder';
+$lang['files.role_create_folder']	= '创建文件夹';
+$lang['files.role_set_location']	= '设置云端的提供商';
+$lang['files.role_synchronize']		= '与云端同步';
+$lang['files.role_edit_folder']		= '编辑文件夹';
+$lang['files.role_delete_folder'] 	= '删除文件夹';

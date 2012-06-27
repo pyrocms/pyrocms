@@ -1,4 +1,15 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
+/**
+ * Chinese Simpplified translation.
+ *
+ * @author		Kefeng DENG
+ * @package		PyroCMS
+ * @subpackage 	Template Module
+ * @category	Modules
+ * @link		http://pyrocms.com
+ * @date		2012-06-27
+ * @version		1.1
+ */
 
 // Labels
 $lang['templates.language_label']			= '語言';

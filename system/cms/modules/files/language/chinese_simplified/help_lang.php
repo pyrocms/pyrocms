@@ -12,31 +12,32 @@
  */
 // inline help html. Only 'help_body' is used.
 $lang['help_body'] = "
-<h6>Overview</h6><hr>
-<p>The files module is an excellent way for the site admin to manage the files in use on the site. 
-All images or files that are inserted into pages, galleries, or blog posts are stored here. 
-For page content images you may upload them directly from the WYSIWYG editor or you can upload them here and just insert them via WYSIWYG.</p>
-<p>The files interface works much like a local file system: it uses the right click to show a context menu. Everything in the middle pane is clickable.</p>
+<h6>概观</h6><hr>
+<p>文件模块是一个很好的方式，为网站管理员在网站上使用的文件管理。
+页，画廊，博客文章中插入图像或文件都存储在这里。
+对于页面内容的图像，你可以上传他们的所见即所得的编辑器直接从他们在这里你可以上传，只需插入他们通过所见即所得.</p>
+<p>文件的界面很像一个本地文件系统，它使用右键显示上下文菜单。在中间窗格中的一切都是可点击的。</p>
 
-<h6>Managing Folders</h6>
-<p>After you create the top level folder or folders you may create as many subfolders as you need such as blog/images/screenshots/ or pages/audio/.
-The folder names are for your use only, the name is not displayed in the download link on the front end.
-To manage a folder either right click on it and select an action from the resulting menu or double click on the folder to open it. 
-You can also click on folders in the left column to open them.</p>
-<p>If cloud providers are enabled you will be able to set the location of the folder by right clicking on the folder and then selecting Details.
-You can then select a location (for example \"Amazon S3\") and put in the name of your remote bucket or container. If the bucket or container does 
-not exist it will be created when you click Save. Note that you can only change the location of an empty folder.</p>
+<h6>管理文件夹</h6>
+<p>在创建顶级文件夹或文件夹，你可以创建多个子文件夹，你需要，如博客/图片/截图/或网页/音频/。
+您使用的文件夹名称，名称不显示在前端的下载链接。
+管理文件夹右击它并选择从菜单或文件夹，双击打开它的行动。
+你也可以点击左栏中的文件夹，打开它们。</p>
+<p>如果启用了云提供商，您将可以设置文件夹的位置，右击文件夹，然后选择详情。
+然后，您可以选择一个位置（例如\“亚马逊S3\”）把远程桶或容器的名字。如果桶或容器
+不存在将创建当您单击保存。请注意，你只能改变一个空文件夹的位置。</p>
 
-<h6>Managing Files</h6>
-<p>To manage files navigate to the folder using the folder tree in the left column or by clicking on the folder in the center pane.
-Once you are viewing the files you may edit them by right clicking on them. You can also order them by dragging them into position. Note 
-that if you have folders and files in the same parent folder the folders will always be displayed first followed by the files.</p>
+<h6>管理文件</h6>
+<p>管理文件，浏览到的文件夹，在左侧立柱上的文件夹在中间窗格中点击文件夹树。
+一旦您正在查看的文件，通过右键点击它们，你可以编辑他们。你还可以订购他们拖入他们的位置。注意
+这如果你有相同的父文件夹的文件夹和文件夹将总是首先显示文件。</p>
 
-<h6>Uploading Files</h6>
-<p>After right clicking the desired folder an upload window will appear. 
-You may add files by either dropping them in the Upload Files box or by clicking in the box and choosing the files from your standard file dialog.
-You can select multiple files by holding your Control/Command or Shift key while clicking them. The selected files will display in a list at the bottom of the screen. 
-You may then either delete unnecessary files from the list or if satisfied click Upload to start the upload process.</p>
+<h6>上传文件</h6>
+<p>上传窗口，右键单击所需的文件夹后会出现。
+您可以通过拖放上传文件框，或在框中单击并选择您的标准文件对话框的文件添加文件。
+由持有控制/命令或Shift键的同时点击，您可以选择多个文件。选定的文件将显示在屏幕底部的列表。
+然后，您可以删除不必要的文件从列表或如果满意单击Upload开始上传过程。
+</p>
 <p>If you get a warning about the files size being too large be advised that many hosts do not allow file uploads over 2MB. 
 Many modern cameras produce images in exess of 5MB so it is very common to run into this issue. 
 To remedy this limitation you may either ask your host to change the upload limit or you may wish to resize your images before uploading. 

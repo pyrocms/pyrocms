@@ -1,4 +1,15 @@
 <?php
+/**
+ * Chinese Simpplified translation.
+ *
+ * @author		Kefeng DENG
+ * @package		PyroCMS
+ * @subpackage 	Page Module
+ * @category	Modules
+ * @link		http://pyrocms.com
+ * @date		2012-06-27
+ * @version		1.0
+ */
 
 // tabs
 $lang['page_layouts.html_label'] 					= 'HTML';

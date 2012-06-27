@@ -7,7 +7,7 @@
  * @subpackage 	Comment Module
  * @category	Modules
  * @link		http://pyrocms.com
- * @date		2012-06-22
+ * @date		2012-06-25
  * @version		1.0
  */
 
