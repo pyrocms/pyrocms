@@ -46,8 +46,21 @@ class Fields_m extends CI_Model {
 	{
 		$this->table = FIELDS_TABLE;
 	}
-    
+ 
     // --------------------------------------------------------------------------
+
+	public function populate_field_cache()
+	{
+		$fields = $this->db->get($this->table)->result();
+
+		foreach ($fields as $field)
+		{
+			$this->fields_cache['by_id'][$field->id] 			= $field;
+			$this->fields_cache['by_slug'][$field->field_slug]	= $field;
+		}
+	}
+
+	// --------------------------------------------------------------------------
     
     /**
      * Get some fields
@@ -60,7 +73,7 @@ class Fields_m extends CI_Model {
      */
     public function get_fields($namespace = NULL, $limit = FALSE, $offset = 0, $skips = array())
 	{
-		if (!empty($skips)) $this->db->or_where_not_in('field_slug', $skips);
+		if ( ! empty($skips)) $this->db->or_where_not_in('field_slug', $skips);
 		
 		if ($namespace) $this->db->where('field_namespace', $namespace);
 	
@@ -81,7 +94,7 @@ class Fields_m extends CI_Model {
      * @access	public
      * @param	int limit
      * @param	int offset
-     * @return	obj
+     * @return	array
      */
     public function get_all_fields()
 	{
@@ -558,6 +571,16 @@ class Fields_m extends CI_Model {
 			
 			if ( ! $outcome) return $outcome;
 		}
+		else
+		{
+			// If we have no assignments, let's call a special
+			// function (if it exists). This is for deleting
+			// fields that have no assignments.
+			if (method_exists($this->type->types->{$field->field_type}, 'field_no_assign_destruct'))
+			{
+				$this->type->types->{$field->field_type}->field_no_assign_destruct($field);
+			}
+		}
 		
 		// Delete field assignments		
 		$this->db->where('field_id', $field->id);
@@ -593,7 +616,7 @@ class Fields_m extends CI_Model {
 	 * @param	obj - the assignment
 	 * @return	void
 	 */
-	function cleanup_assignment($assignment)
+	public function cleanup_assignment($assignment)
 	{
 		// Drop the column if it exists
 		if ($this->db->field_exists($assignment->field_slug, $assignment->stream_prefix.$assignment->stream_slug))
