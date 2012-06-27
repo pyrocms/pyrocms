@@ -105,7 +105,7 @@ class MX_Router extends CI_Router
 			}
 
 			// If this domain is an alias and it is a redirect
-			if ($site->alias_domain !== NULL and $site->alias_type === 'redirect')
+			if ($site->alias_domain !== NULL and $site->alias_type === 'redirect' and str_replace(array('http://', 'https://'), '', trim(strtolower(BASE_URL), '/')) !== $site->domain)
 			{
 				$protocol = ( ! empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off')
 					? 'https' : 'http';
