@@ -15,7 +15,7 @@ class Admin extends Admin_Controller {
 	 * @var string
 	 */
 	protected $section = 'instances';
-	
+
 	/**
 	 * Constructor method
 	 * 

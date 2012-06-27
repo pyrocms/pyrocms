@@ -22,7 +22,6 @@
 |				 to the table name when using the  Active Record class
 |	['pconnect'] TRUE/FALSE - Whether to use a persistent connection
 |	['db_debug'] TRUE/FALSE - Whether database errors should be displayed.
-|	['active_r'] TRUE/FALSE - Whether to load the active record class
 |	['cache_on'] TRUE/FALSE - Enables/disables query caching
 |	['cachedir'] The path to the folder where cache files should be stored
 |
@@ -59,7 +58,6 @@ $db[PYRO_STAGING] = array(
 	'password'		=> 	'',
 	'database'		=> 	'pyrocms',
 	'dbdriver' 		=> 	'mysql',
-	'active_r' 		=>	TRUE,
 	'pconnect' 		=>	FALSE,
 	'db_debug' 		=>	FALSE,
 	'cache_on' 		=>	FALSE,
@@ -76,7 +74,6 @@ $db[PYRO_PRODUCTION] = array(
 	'password'		=> 	'',
 	'database'		=> 	'pyrocms',
 	'dbdriver' 		=> 	'mysql',
-	'active_r' 		=>	TRUE,
 	'pconnect' 		=>	FALSE,
 	'db_debug' 		=>	FALSE,
 	'cache_on' 		=>	FALSE,
@@ -94,5 +91,6 @@ if ( ! array_key_exists(ENVIRONMENT, $db))
 
 // Assign the group to be used
 $active_group = ENVIRONMENT;
+$query_builder = TRUE;
 
 /* End of file database.php */

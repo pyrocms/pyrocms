@@ -60,6 +60,11 @@ class Migration_Add_populate_search_index extends CI_Migration
 	    		);
 	    	}
 		}
+
+		// Now that pages have hashes instead of keywords set the keywords
+		$this->dbforge->modify_column('pages', array(
+			'meta_keywords' => array('type' => 'CHAR', 'constraint' => 32, 'null' => true),
+		));
 	}
 
 	public function down()

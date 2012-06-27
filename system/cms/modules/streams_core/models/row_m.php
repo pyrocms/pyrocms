@@ -1076,7 +1076,8 @@ class Row_m extends MY_Model {
 
 			$trigger_data = array(
 				'entry_id'		=> $row_id,
-				'stream'		=> $stream
+				'stream'		=> $stream,
+				'update_data'		=> $update_data,
 			);
 
 			Events::trigger('streams_post_update_entry', $trigger_data);

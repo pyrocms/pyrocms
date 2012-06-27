@@ -101,9 +101,6 @@ class Users extends Public_Controller
 			// Kill the session
 			$this->session->unset_userdata('redirect_to');
 
-			// Deprecated.
-			$this->hooks->_call_hook('post_user_login');
-
 			// trigger a post login event for third party devs
 			Events::trigger('post_user_login');
 
@@ -172,6 +169,8 @@ class Users extends Public_Controller
 	 */
 	public function register()
 	{
+		$user = new stdClass();
+
 		if (isset($this->current_user->id))
 		{
 			$this->session->set_flashdata('notice', lang('user_already_logged_in'));
@@ -445,9 +444,6 @@ class Users extends Public_Controller
 			if ($this->ion_auth->activate($id, $code))
 			{
 				$this->session->set_flashdata('activated_email', $this->ion_auth->messages());
-
-				// Deprecated
-				$this->hooks->_call_hook('post_user_activation');
 
 				// trigger an event for third party devs
 				Events::trigger('post_user_activation', $id);

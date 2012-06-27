@@ -103,6 +103,8 @@ class Admin extends Admin_Controller
 	 */
 	public function options($slug = '')
 	{
+		$data = new stdClass();
+
 		if ($this->input->post('btnAction') == 're-index')
 		{
 			$this->theme_m->delete_options($this->input->post('slug'));
@@ -442,12 +444,14 @@ class Admin extends Admin_Controller
 				$form_control = '';
 				foreach ($this->_format_options($option->options) as $value => $label)
 				{
+					$form_control .= '<label>';
 					$form_control .= ''.form_radio(array(
 						'id' => $option->slug,
 						'name' => $option->slug,
 						'checked' => $option->value == $value,
 						'value' => $value
-					)).' '.$label.'';
+					));
+					$form_control .= ' '.$label.'</label>';
 				}
 				break;
 		}

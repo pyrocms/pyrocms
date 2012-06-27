@@ -136,8 +136,12 @@
 	</ul>
 		
 		<div class="float-right buttons">
-		<button type="submit" name="btnAction" value="save" class="btn blue"><span><?php echo lang('buttons.save'); ?></span></button>	
-		<a href="<?php echo site_url('admin/users/fields'); ?>" class="btn gray cancel"><?php echo lang('buttons.cancel'); ?></a>
+		<button type="submit" name="btnAction" value="save" class="btn blue"><span><?php echo lang('buttons.save'); ?></span></button>
+
+		<?php if ($show_cancel and $cancel_uri): ?>
+		<a href="<?php echo site_url($cancel_uri); ?>" class="btn gray cancel"><?php echo lang('buttons.cancel'); ?></a>
+		<?php endif; ?>
+
 	</div>
 	
 <?php echo form_close();?>

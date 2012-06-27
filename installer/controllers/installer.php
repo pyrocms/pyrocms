@@ -15,6 +15,16 @@ function ci()
  * @author 		Yorick Peterse
  * @author		PyroCMS Dev Team
  * @package		PyroCMS\Installer\Controllers
+ * @property    CI_Loader $load
+ * @property    CI_Parser $parser
+ * @property    CI_Input $input
+ * @property    CI_Session $session
+ * @property    CI_Form_validation $form_validation
+ * @property    CI_Lang $lang
+ * @property    CI_Config $config
+ * @property    CI_Router $router
+ * @property    Module_import $module_import
+ * @property    Installer_lib $installer_lib
  */
 class Installer extends CI_Controller
 {
@@ -24,12 +34,12 @@ class Installer extends CI_Controller
 	private $languages	= array ('arabic', 'brazilian', 'english', 'dutch', 'french', 'german', 'portuguese', 'polish', 'chinese_traditional', 'slovenian', 'spanish', 'russian', 'greek', 'lithuanian','danish','vietnamese', 'indonesian', 'hungarian', 'finnish', 'swedish','thai');
 
 	/**
-	 * Array containing the directories that need to be writeable
+	 * Array containing the directories that need to be writable
 	 *
 	 * @access private
 	 * @var array
 	 */
-	private $writeable_directories = array(
+	private $writable_directories = array(
 		'system/cms/cache',
 		'system/cms/config',
 		'addons',
@@ -38,12 +48,12 @@ class Installer extends CI_Controller
 	);
 
 	/**
-	 * Array containing the files that need to be writeable
+	 * Array containing the files that need to be writable
 	 *
 	 * @access private
 	 * @var array
 	 */
-	private $writeable_files = array(
+	private $writable_files = array(
 		'system/cms/config/config.php'
 	);
 
@@ -51,7 +61,7 @@ class Installer extends CI_Controller
 	 * Constructor method
 	 *
 	 * @access public
-	 * @return void
+	 * @return \Installer
 	 */
 	public function __construct()
 	{
@@ -164,11 +174,12 @@ class Installer extends CI_Controller
 	}
 
 	/**
-	 *Function to validate the database name
+	 * Function to validate the database name
 	 *
 	 * @access public
+	 * @param $db_name
 	 * @return bool
-	*/
+	 */
 	public function validate_mysql_db_name($db_name)
 	{
 		$this->form_validation->set_message('validate_mysql_db_name', lang('invalid_db_name'));
@@ -206,6 +217,8 @@ class Installer extends CI_Controller
 	public function step_2()
 	{
 		$data = new stdClass();
+		$data->mysql = new stdClass();
+		$data->http_server = new stdClass();
 
 		// Did the user enter the DB settings ?
 		if ( ! $this->session->userdata('step_1_passed'))
@@ -272,6 +285,7 @@ class Installer extends CI_Controller
 	public function step_3()
 	{
 		$data = new stdClass();
+		$permissions = array();
 		
 		if ( ! $this->session->userdata('step_1_passed') OR ! $this->session->userdata('step_2_passed'))
 		{
@@ -283,13 +297,13 @@ class Installer extends CI_Controller
 		$this->load->helper('file');
 
 		// Get the write permissions for the folders
-		foreach($this->writeable_directories as $dir)
+		foreach($this->writable_directories as $dir)
 		{
 			@chmod('../'.$dir, 0777);
 			$permissions['directories'][$dir] = is_really_writable('../' . $dir);
 		}
 
-		foreach($this->writeable_files as $file)
+		foreach($this->writable_files as $file)
 		{
 			@chmod('../'.$file, 0666);
 			$permissions['files'][$file] = is_really_writable('../' . $file);

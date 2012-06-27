@@ -559,6 +559,10 @@ footer p {
 	color: #ffffff;
 }
 
+footer select {
+	width: 260px !important;
+}
+
 ul#lang {
 	margin-top: 15px;
 	margin-right: 24px;

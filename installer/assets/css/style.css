@@ -174,7 +174,7 @@ ul, ol { margin: 15px 0; padding: 0 0 0 25px; }
 dd { margin: 0 0 0 25px; }
 
 /* We probably don't want list-styles showing if it's in a navigation. */
-nav ul, nav ol, #nav ul, #nav ol, #navigation ul, #navigation ol { list-style: none; list-style-image: none; margin: 0; padding: 0; }
+nav ul, nav ol, #nav ul, #nav ol, #navigation ul, #navigation ol { list-style: none none; margin: 0; padding: 0; }
 
 /*
 -------------------------------------------------------------------------------------------------------
@@ -224,7 +224,7 @@ label { cursor: pointer; font-size: 12px; font-weight: bold; }
 legend { border: 0; padding: 0; margin-left: 5px; font-size: 18px; font-weight: bold; }
 label.inline {margin-right: 4px; font-weight: normal!important;}
 
-button, input, select, textarea { font-size: 100%; margin: 0; vertical-align: baseline; *vertical-align: middle; margin: 5px 0 5px 0; }
+button, input, select, textarea { font-size: 100%; margin: 5px 0; vertical-align: middle; }
 
 select { min-width: 260px; }
 
@@ -250,7 +250,6 @@ input[type="button"] {
   background-image: -o-linear-gradient(#ffffff, #dddddd);
   background-image: linear-gradient(#ffffff, #dddddd);
   border: 1px solid;
-  font-size: 13px;
   line-height: 14px;
   border-color: #dddddd #bbbbbb #999999;
   cursor: pointer;
@@ -341,7 +340,7 @@ input:valid, textarea:valid {  }
 input:invalid, textarea:invalid { background-color: #f0dddd; }
 
 form .required-icon {
-	background: url(../img/required.png) no-repeat;
+	background: url(../images/required.png) no-repeat;
 	width: 94px;
 	height: 28px;
 	text-indent: -9999px !important;
@@ -1013,12 +1012,11 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
 }
 
 .pagination ul li a {
-  float: left;
-  padding: 0 14px;
-  line-height: 34px;
-  border-right: 1px solid;
-  border-right-color: #dddddd;
-  text-decoration: none;
+	float: left;
+	padding: 0 14px;
+	line-height: 34px;
+	border-right: 1px solid #dddddd;
+	text-decoration: none;
 }
 
 .pagination ul li a:hover, .pagination ul li.active a {
@@ -1027,7 +1025,7 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
 }
 
 .pagination ul li.disabled a, .pagination ul li.disabled a:hover {
-  background-color: none;
+  background-color: inherit;
   color: #bfbfbf;
 }
 
@@ -1052,9 +1050,9 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   background-image: -webkit-linear-gradient(top, #333333, #222222);
   background-image: -o-linear-gradient(top, #333333, #222222);
   background-image: linear-gradient(top, #333333, #222222);
-  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
-  -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), inset 0 0 0 rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), inset 0 0 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), inset 0 0 0 rgba(0, 0, 0, 0.1);
 }
 
 .topbar nav {

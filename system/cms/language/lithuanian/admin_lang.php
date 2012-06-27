@@ -5,9 +5,9 @@ $lang['global:dashboard'] 			    = 'Įrankių skydas';
 $lang['cp_admin_quick_links']			= 'Greitosios nuorodos';
 
 $lang['cp_welcome_title'] 				= 'Sveiki';
-$lang['cp_welcome_message'] 			= 'Sveiki prisijungę prie %s Valdymo skydo. Naudodami apačioje, kairėje esančius meniu punktus galėsite valdyti praktiškai visą savo internetinio puslapio turinio informaciją. Jei turite kokių bėdų sistema, praneškite tai mums.';
+$lang['cp_welcome_message'] 			= 'Sveiki prisijungę prie %s Valdymo skydo. Naudodami apačioje, kairėje esančius meniu punktus galėsite valdyti praktiškai visą savo internetinio puslapio turinio informaciją. Jei turite kokių sisteminių bėdų, praneškite apie tai mums.';
 
-$lang['cp_news_feed_title'] 			= 'Naujienų padavimas';
+$lang['cp_news_feed_title'] 			= 'Naujienų srautas';
 
 // Shortcuts
 $lang['cp_manage_comments']				= 'Valdyti komentarus';
@@ -40,9 +40,9 @@ $lang['cp_nav_utilities']				= 'Šiukšlinė';
 $lang['cp_must_login']	 				= 'Jūs turite būti prisijungęs, kad matytumėte šį puslapį.';
 $lang['cp_access_denied'] 				= 'Jūs neturite leidimo peržiūrėti šį puslapį.';
 $lang['cp_delete_installer_message']	= 'Ištrinkite instaliavimo direktoriją, nes taip paliekate spragą jungtis kietiems.';
-$lang['cp_upgrade_message']				= 'Jūs naudojama versija %s, tačiau duombazės versija %s. Prašome <a href="%s" title="Atnaujinimai">spausti čia</a> kad atnaujinti duombazę.';
-$lang['cp_google_analytics_missing']	= 'Google Analytics nustatimai nerandami. Įdėkite juos į %s arba kreipkitės į sistemos administratorių.';
-$lang['cp_google_analytics_no_connect']	= 'Negali prisijungti prie Google Analytics. Patikrink %s.';
+$lang['cp_upgrade_message']				= 'Jūsų naudojama versija %s, tačiau duomenų bazės versija %s. Prašome <a href="%s" title="Atnaujinimai">spausti čia</a> kad atnaujinti duomenų bazę.';
+$lang['cp_google_analytics_missing']	= 'Google Analytics nustatymai nerandami. Įdėkite juos į %s arba kreipkitės į sistemos administratorių.';
+$lang['cp_google_analytics_no_connect']	= 'Negalime prisijungti prie Google Analytics. Patikrinkite %s.';
 
 $lang['required_label'] 				= 'Reikalavimai';
 $lang['sb_recent_users'] 				= 'Naujausi vartotojai';

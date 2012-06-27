@@ -129,7 +129,7 @@ class MY_Controller extends MX_Controller
 		ci()->hooks =& $GLOBALS['EXT'];
 
 		// Create a hook point with access to instance but before custom code
-		$this->hooks->_call_hook('post_core_controller_constructor');
+		$this->hooks->call_hook('post_core_controller_constructor');
 
 		// Get user data
 		$this->template->current_user = ci()->current_user = $this->current_user = $this->ion_auth->get_user();

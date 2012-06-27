@@ -317,7 +317,7 @@ class Files
 	 * @param bool $ratio Keep the aspect ratio or not?
 	 * @return array|bool
 	 */
-	public static function upload($folder_id, $name = FALSE, $field = 'userfile', $width = FALSE, $height = FALSE, $ratio = FALSE)
+	public static function upload($folder_id, $name = FALSE, $field = 'userfile', $width = FALSE, $height = FALSE, $ratio = FALSE, $allowed_types = FALSE)
 	{
 		if ( ! $check_dir = self::check_dir(self::$path))
 		{
@@ -341,11 +341,16 @@ class Files
 
 		if ($folder)
 		{
-			ci()->load->library('upload', array(
+			$upload_config = array(
 				'upload_path'	=> self::$path,
-				'allowed_types'	=> self::$_ext,
 				'file_name'		=> self::$_filename
-			));
+			);
+
+			// If we don't have allowed types set, we'll set it to the
+			// current file's type.
+			$upload_config['allowed_types'] = ($allowed_types) ? $allowed_types : self::$_ext;
+
+			ci()->load->library('upload', $upload_config);
 
 			if (ci()->upload->do_upload($field))
 			{
