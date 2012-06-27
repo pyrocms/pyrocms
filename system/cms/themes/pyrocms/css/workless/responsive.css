@@ -68,8 +68,23 @@
 	}
 
 	#filters form > ul > li .chzn-container {
-		width: 250px!important;
+		width: 225px!important;
 		float: left;
+	}
+
+	#filters form input[type="text"] {
+		width: 140px;
+		height: 12px;
+		float: left;
+	}
+
+	.chzn-drop {
+		width: 223px!important;
+		float: left;
+	}
+
+	.chzn-search input {
+		width: 180px!important;
 	}
 
 	#quick_links ul {
@@ -189,6 +204,21 @@
 	#filters form > ul > li .chzn-container {
 		width: 425px!important;
 		float: left;
+	}
+
+	#filters form input[type="text"] {
+		width: 340px;
+		height: 12px;
+		float: left;
+	}
+
+	.chzn-drop {
+		width: 423px!important;
+		float: left;
+	}
+
+	.chzn-search input {
+		width: 370px!important;
 	}
 
 	.form_inputs label small {
@@ -358,8 +388,23 @@
 	}
 
 	#filters form > ul > li .chzn-container {
-		width: 275px!important;
+		width: 152px!important;
 		float: left;
+	}
+
+	#filters form input[type="text"] {
+		width: 152px;
+		height: 12px;
+		float: left;
+	}
+
+	.chzn-drop {
+		width: 152px!important;
+		float: left;
+	}
+
+	.chzn-search input {
+		width: 110px!important;
 	}
 
 	nav#primary ul.primary-nav { display: inherit; }
@@ -489,8 +534,23 @@
 	}
 
 	#filters form > ul > li .chzn-container {
-		width: 425px!important;
+		width: 260px!important;
 		float: left;
+	}
+
+	#filters form input[type="text"] {
+		width: 220px;
+		height: 12px;
+		float: left;
+	}
+
+	.chzn-drop {
+		width: 258px!important;
+		float: left;
+	}
+
+	.chzn-search input {
+		width: 220px!important;
 	}
 
 	nav#primary ul.primary-nav { display: inherit; }
@@ -613,8 +673,23 @@
 	}
 
 	#filters form > ul > li .chzn-container {
-		width: 550px!important;
+		width: 360px!important;
 		float: left;
+	}
+
+	#filters form input[type="text"] {
+		width: 300px;
+		height: 12px;
+		float: left;
+	}
+
+	.chzn-drop {
+		width: 358px!important;
+		float: left;
+	}
+
+	.chzn-search input {
+		width: 320px!important;
 	}
 
 	nav#primary ul.primary-nav { display: inherit; }
