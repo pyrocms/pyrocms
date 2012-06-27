@@ -353,12 +353,17 @@ class Streams_m extends MY_Model {
 	 * Get the ID for a stream from the slug
 	 *
 	 * @access	public
-	 * @param	string
+	 * @param	string - stream slug
+	 * @param 	string - stream namespace
 	 * @return	mixed
 	 */	
-	public function get_stream_id_from_slug($slug)
+	public function get_stream_id_from_slug($slug, $namespace)
 	{
-		$db = $this->db->limit(1)->where('stream_slug', $slug)->get($this->table);
+		$db = $this->db
+					->limit(1)
+					->where('stream_slug', $slug)
+					->where('stream_namespace', $namespace)
+					->get($this->table);
 		
 		if ($db->num_rows() == 0)
 		{
@@ -444,7 +449,7 @@ class Streams_m extends MY_Model {
 	 * @param	int
 	 * @return 	obj
 	 */
-	public function get_stream_data($stream, $stream_fields, $limit = null, $offset = 0)
+	public function get_stream_data($stream, $stream_fields, $limit = null, $offset = 0, $filter_data = null)
 	{
 		$this->load->config('streams');
 
@@ -466,6 +471,20 @@ class Streams_m extends MY_Model {
 		else
 		{
 			$this->db->order_by('created', 'DESC');
+		}
+
+		// -------------------------------------
+		// Filter results
+		// -------------------------------------
+
+		if ( $filter_data != null )
+		{
+
+			// Loop through and apply the filters
+			foreach ( $filter_data['filters'] as $filter=>$value )
+			{
+				if ( !empty($value) ) $this->db->like(str_replace('f_', '', $filter), $value);
+			}
 		}
 
 		// -------------------------------------
