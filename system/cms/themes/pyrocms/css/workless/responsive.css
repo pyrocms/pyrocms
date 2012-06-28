@@ -59,8 +59,13 @@
 	input[type="text"], 
 	input[type="password"], 
 	input[type="password"],
-	textarea {
+	 {
 		width: 200px;
+	}
+
+	textarea, .cke_skin_kama .cke_wrapper
+	{
+		width: 230px;
 	}
 
 	select { 
@@ -242,8 +247,13 @@
 	input[type="text"], 
 	input[type="password"], 
 	input[type="password"],
-	textarea {
+	 {
 		width: 400px;
+	}
+
+	textarea, .cke_skin_kama .cke_wrapper
+	{
+		width: 430px;
 	}
 
 	select { 
@@ -413,8 +423,13 @@
 	input[type="text"], 
 	input[type="password"], 
 	input[type="password"],
-	textarea {
+	 {
 		width: 500px;
+	}
+
+	textarea, .cke_skin_kama .cke_wrapper
+	{
+		width: 675px;
 	}
 
 	select { 
@@ -559,8 +574,13 @@
 	input[type="text"], 
 	input[type="password"], 
 	input[type="password"],
-	textarea {
+	 {
 		width: 500px;
+	}
+
+	textarea, .cke_skin_kama .cke_wrapper
+	{
+		width: 950px;
 	}
 
 	select { 
@@ -698,8 +718,13 @@
 	input[type="text"], 
 	input[type="password"], 
 	input[type="password"],
-	textarea {
+	{
 		width: 500px;
+	}
+
+	textarea, .cke_skin_kama .cke_wrapper
+	{
+		width: 1200px;
 	}
 
 	select { 

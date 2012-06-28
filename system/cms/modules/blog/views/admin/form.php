@@ -67,8 +67,9 @@
 				
 				<br style="clear:both"/>
 				
+				<div class="one_full">
 				<?php echo form_textarea(array('id' => 'body', 'name' => 'body', 'value' => $post->body, 'rows' => 30, 'class' => $post->type)); ?>
-				
+				</div>
 			</li>
 		</ul>
         <?php echo form_hidden('preview_hash',$post->preview_hash)?>

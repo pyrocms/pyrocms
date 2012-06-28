@@ -566,7 +566,7 @@ input[type="text"],
 input[type="password"], 
 textarea 
 {
-  background: #f9f9f9;
+  background: #eeeeee;
   margin-bottom: 5px;
   padding: 8px 5px;
   border-radius: 2px;
@@ -685,7 +685,7 @@ input:invalid, textarea:invalid { background-color: #f0dddd; }
 
 .form_inputs input:focus,
 .form_inputs textarea:focus {
-  background: #ffffff;
+  background: #eeeeee;
 	color: #4D4D4D;
 	outline: none;
 	border-color: #ed8e28;
@@ -1896,6 +1896,9 @@ the rest of your CSS declarations! */
 	margin-bottom: 10px;
 }
 .no_data img {margin-right: 4px; margin-top: -3px;}
+
+span.cke_skin_kama { border: none!important;}
+.cke_skin_kama .cke_wrapper { background: none!important; border: 1px solid #aaaaaa;}
 
 /* ----------------------------------
  *   Print styles.
