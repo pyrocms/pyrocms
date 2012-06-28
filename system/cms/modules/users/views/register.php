@@ -32,11 +32,6 @@
 		<label for="password"><?php echo lang('user_password') ?></label>
 		<input type="password" name="password" maxlength="100" />
 	</li>
-	
-	<li>
-		<label for="password"><?php echo lang('user_password_confirm_label') ?></label>
-		<input type="password" name="password1" maxlength="100" />
-	</li>
 
 	<?php foreach($profile_fields as $field) { if($field['required'] and $field['field_slug'] != 'display_name') { ?>
 	<li>

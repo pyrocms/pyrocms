@@ -123,7 +123,6 @@ $lang['user_email_pass_missing']               = 'Email or password fields are n
 $lang['user_email_exists']                     = 'The email address you have chosen is already in use with a different user.';
 $lang['user_register_error']				   = 'We think you are a bot. If we are mistaken please accept our apologies.';
 $lang['user_register_reasons']                 = 'Join up to access special areas normally restricted. This means your settings will be remembered, more content and less ads.';
-$lang['user_password_match_error']			   = 'The two password fields didn\'t match.'; # TODO: Translate this for others
 
 // Activation
 $lang['user_activation_incorrect']             = 'Activation failed. Please check your details and make sure CAPS LOCK is not on.';
