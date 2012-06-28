@@ -101,6 +101,18 @@ class Admin extends Admin_Controller {
 	}
 
 	/**
+	 * Set the initial folder ID to load contents for
+	 *
+	 * Accepts the parent id and sets it as flash data
+	 */
+	public function initial_folder_contents($id)
+	{
+		$this->session->set_flashdata('initial_folder_contents', $id);
+
+		redirect(site_url('admin/files'));
+	}
+
+	/**
 	 * Get all files and folders within a folder
 	 *
 	 * Grabs the parent id from the POST data.
