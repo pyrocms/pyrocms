@@ -138,7 +138,7 @@
 	$(document).ready(function(){
 
 		// Load the flash data ID
-		pyro.files.folder_contents(<?php echo $this->session->flashdata('initial_folder_contents'); ?>);
+		setTimeout(function(){pyro.files.folder_contents(<?php echo $this->session->flashdata('initial_folder_contents'); ?>);}, '1000');
 	});
 </script>
 <?php endif; ?>
