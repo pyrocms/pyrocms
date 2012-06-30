@@ -1,6 +1,6 @@
 <?php if ( ! empty($comments)): ?>
 
-	<table border="0" class="table-list clear-both">
+	<table border="0" class="table-list" cellspacing="0">
 		<thead>
 			<tr>
 				<th width="20"><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all'));?></th>
