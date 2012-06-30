@@ -566,7 +566,7 @@ input[type="text"],
 input[type="password"], 
 textarea 
 {
-  background: #f9f9f9;
+  background: #eeeeee;
   margin-bottom: 5px;
   padding: 8px 5px;
   border-radius: 2px;
@@ -685,7 +685,7 @@ input:invalid, textarea:invalid { background-color: #f0dddd; }
 
 .form_inputs input:focus,
 .form_inputs textarea:focus {
-  background: #ffffff;
+  background: #eeeeee;
 	color: #4D4D4D;
 	outline: none;
 	border-color: #ed8e28;
@@ -721,6 +721,21 @@ table th
 {
     font-weight: bold;
     border-top: none;
+}
+
+table tr
+{
+    background: #f5f5f5;
+    background-repeat: repeat-x;
+    background-image: -khtml-gradient(linear, left top, left bottom, from(#f5f5f5), to(#f3f3f3));
+    background-image: -moz-linear-gradient(#f5f5f5, #f3f3f3);
+    background-image: -ms-linear-gradient(#f5f5f5, #f3f3f3);
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f5f5f5), color-stop(100%, #f3f3f3));
+    background-image: -webkit-linear-gradient(#f5f5f5, #f3f3f3);
+    background-image: -o-linear-gradient(#f5f5f5, #f3f3f3);
+    background-image: linear-gradient(#f5f5f5, #f3f3f3);
+    border: 1px solid #ffffff;
+    border-bottom: 1px solid #eeeeee;
 }
 
 /* Added alt tables globally. To remove just chnage table to .table */
@@ -1881,6 +1896,9 @@ the rest of your CSS declarations! */
 	margin-bottom: 10px;
 }
 .no_data img {margin-right: 4px; margin-top: -3px;}
+
+span.cke_skin_kama { border: none!important;}
+.cke_skin_kama .cke_wrapper { background: none!important; border: 1px solid #aaaaaa;}
 
 /* ----------------------------------
  *   Print styles.

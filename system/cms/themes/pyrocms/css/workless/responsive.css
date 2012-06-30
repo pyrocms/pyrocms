@@ -59,12 +59,37 @@
 	input[type="text"], 
 	input[type="password"], 
 	input[type="password"],
-	textarea {
+	 {
 		width: 200px;
+	}
+
+	textarea, .cke_skin_kama .cke_wrapper
+	{
+		width: 230px;
 	}
 
 	select { 
 		width: 245px; 
+	}
+
+	#filters form > ul > li .chzn-container {
+		width: 225px!important;
+		float: left;
+	}
+
+	#filters form input[type="text"] {
+		width: 140px;
+		height: 12px;
+		float: left;
+	}
+
+	.chzn-drop {
+		width: 223px!important;
+		float: left;
+	}
+
+	.chzn-search input {
+		width: 180px!important;
 	}
 
 	#quick_links ul {
@@ -181,14 +206,24 @@
 		width: 450px;
 	}
 
-	.form_inputs fieldset > ul > li > label,
-	.form_inputs fieldset > ul > div > li > label,
-	.form_inputs > ul > div > li > label,
-	.form_inputs > ul > li > label,
-	.form_inputs fieldset > ul > li .label,
-	.form_inputs > ul > li .label {
-		width: 27%!important;
+	#filters form > ul > li .chzn-container {
+		width: 425px!important;
 		float: left;
+	}
+
+	#filters form input[type="text"] {
+		width: 340px;
+		height: 12px;
+		float: left;
+	}
+
+	.chzn-drop {
+		width: 423px!important;
+		float: left;
+	}
+
+	.chzn-search input {
+		width: 370px!important;
 	}
 
 	.form_inputs label small {
@@ -212,8 +247,13 @@
 	input[type="text"], 
 	input[type="password"], 
 	input[type="password"],
-	textarea {
+	 {
 		width: 400px;
+	}
+
+	textarea, .cke_skin_kama .cke_wrapper
+	{
+		width: 430px;
 	}
 
 	select { 
@@ -357,14 +397,39 @@
 		width: 720px;
 	}
 
+	#filters form > ul > li .chzn-container {
+		width: 152px!important;
+		float: left;
+	}
+
+	#filters form input[type="text"] {
+		width: 152px;
+		height: 12px;
+		float: left;
+	}
+
+	.chzn-drop {
+		width: 152px!important;
+		float: left;
+	}
+
+	.chzn-search input {
+		width: 110px!important;
+	}
+
 	nav#primary ul.primary-nav { display: inherit; }
 	nav#primary .chzn-container { display: none; }
 
 	input[type="text"], 
 	input[type="password"], 
 	input[type="password"],
-	textarea {
+	 {
 		width: 500px;
+	}
+
+	textarea, .cke_skin_kama .cke_wrapper
+	{
+		width: 675px;
 	}
 
 	select { 
@@ -483,14 +548,39 @@
 		width: 995px;
 	}
 
+	#filters form > ul > li .chzn-container {
+		width: 260px!important;
+		float: left;
+	}
+
+	#filters form input[type="text"] {
+		width: 220px;
+		height: 12px;
+		float: left;
+	}
+
+	.chzn-drop {
+		width: 258px!important;
+		float: left;
+	}
+
+	.chzn-search input {
+		width: 220px!important;
+	}
+
 	nav#primary ul.primary-nav { display: inherit; }
 	nav#primary .chzn-container { display: none; }
 
 	input[type="text"], 
 	input[type="password"], 
 	input[type="password"],
-	textarea {
+	 {
 		width: 500px;
+	}
+
+	textarea, .cke_skin_kama .cke_wrapper
+	{
+		width: 950px;
 	}
 
 	select { 
@@ -602,14 +692,39 @@
 		width: 1250px;
 	}
 
+	#filters form > ul > li .chzn-container {
+		width: 360px!important;
+		float: left;
+	}
+
+	#filters form input[type="text"] {
+		width: 300px;
+		height: 12px;
+		float: left;
+	}
+
+	.chzn-drop {
+		width: 358px!important;
+		float: left;
+	}
+
+	.chzn-search input {
+		width: 320px!important;
+	}
+
 	nav#primary ul.primary-nav { display: inherit; }
 	nav#primary .chzn-container { display: none; }
 
 	input[type="text"], 
 	input[type="password"], 
 	input[type="password"],
-	textarea {
+	{
 		width: 500px;
+	}
+
+	textarea, .cke_skin_kama .cke_wrapper
+	{
+		width: 1200px;
 	}
 
 	select { 
