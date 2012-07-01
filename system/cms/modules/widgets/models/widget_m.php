@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * Model to handle widgets
- * 
+ *
  * @author		Phil Sturgeon
  * @author		PyroCMS Dev Team
  * @package		PyroCMS\Core\Modules\Widgets\Models
@@ -266,7 +266,6 @@ class Widget_m extends MY_Model
 			'options'			=> $input['options'],
 			'order'				=> $order,
 			'created_on'		=> now(),
-			'updated_on'		=> now()
 		));
 	}
 
@@ -277,7 +276,8 @@ class Widget_m extends MY_Model
 		return $this->db->update('widget_instances', array(
         	'title'				=> $input['title'],
 			'widget_area_id'	=> $input['widget_area_id'],
-			'options'			=> $input['options']
+			'options'			=> $input['options'],
+			'updated_on'		=> now()
 		));
 	}
 
