@@ -304,12 +304,14 @@ class Users extends Public_Controller
 					}
 
 					// Usernames absolutely need to be unique, so let's keep
-					// trying until we get a unieque one
+					// trying until we get a unique one
 					$i = 1;
+
+					$username_base = $username;
 
 					do
 					{
-						$i > 1 and $username .= $i;
+						$username = $username_base.$i;
 
 						++$i;
 					}
