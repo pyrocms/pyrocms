@@ -1361,8 +1361,6 @@ class Row_m extends MY_Model {
 		// -------------------------------------
 
 		$segments = array_slice($this->uri->segment_array(), 0, $pag_segment);
-
-		print_r($segments);
 		
 		$pagination_config['base_url'] 			= site_url(implode('/', $segments).'/');
 		
