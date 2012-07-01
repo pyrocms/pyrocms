@@ -313,7 +313,7 @@ class Field_choice
 				{
 					if ($min > $total_selected)
 					{
-						return str_replace('{val}', $max, lang('streams.choice.must_at_least'));
+						return str_replace('{val}', $min, lang('streams.choice.must_at_least'));
 					}
 				}
 
