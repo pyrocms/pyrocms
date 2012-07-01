@@ -406,7 +406,7 @@ class Admin extends Admin_Controller {
 	 */
 	private function _form_data()
 	{
-		$page_layouts = $this->page_layouts_m->get_all();
+		$page_layouts = $this->page_layouts_m->order_by('title')->get_all();
 		$this->template->page_layouts = array_for_select($page_layouts, 'id', 'title');
 
 		// Load navigation list
