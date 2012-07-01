@@ -7,7 +7,7 @@
 				<th width="25%"><?php echo lang('comments.message_label');?></th>
 				<th><?php echo lang('comments.item_label');?></th>
 				<th><?php echo lang('global:author');?></th>
-				<th><?php echo lang('comments.email_label');?></th>
+				<th><?php echo lang('global:email');?></th>
 				<th width="80"><?php echo lang('comments_active.date_label');?></th>
 				<th width="<?php echo Settings::get('moderate_comments') ? '200': '120'; ?>"></th>
 			</tr>

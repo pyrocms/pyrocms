@@ -52,8 +52,8 @@ $lang['global:demo_restrictions']       = 'Sommige functionaliteiten zijn uitges
 
 $lang['login_error_label'] 				= 'Login Fout';
 $lang['forgot_password_label'] 			= 'Wachtwoord vergeten?';
-$lang['email_label'] 					= 'E-mail';
-$lang['password_label'] 				= 'Wachtwoord';
+$lang['global:email'] 					= 'E-mail';
+$lang['global:password'] 				= 'Wachtwoord';
 $lang['login_label'] 					= 'Inloggen';
 
 $lang['help_label'] 					= 'Help';

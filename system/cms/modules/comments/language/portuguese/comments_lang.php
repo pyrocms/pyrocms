@@ -10,7 +10,6 @@ $lang['comments.view_more'] 				= 'Ver mais...';
 
 // labels
 $lang['comments.name_label'] 				= 'Seu Nome';
-$lang['comments.email_label'] 				= 'Endereço de Email';
 $lang['comments.website_label'] 			= 'Site';
 $lang['comments.message_label'] 			= 'Mensagem';
 $lang['comments.status_label'] 				= 'Situação';

@@ -45,12 +45,12 @@ class Admin extends Admin_Controller
 		$this->validation_rules = array(
 			array(
 				'field' => 'email',
-				'label' => lang('email_label'),
+				'label' => lang('global:email'),
 				'rules' => 'required|callback__check_login'
 			),
 			array(
 				'field' => 'password',
-				'label' => lang('password_label'),
+				'label' => lang('global:password'),
 				'rules' => 'required'
 			)
 		);

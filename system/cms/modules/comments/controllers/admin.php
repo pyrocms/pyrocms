@@ -20,7 +20,7 @@ class Admin extends Admin_Controller {
 		),
 		array(
 			'field' => 'email',
-			'label' => 'lang:comments.email_label',
+			'label' => 'lang:global:email',
 			'rules' => 'trim|valid_email'
 		),
 		array(

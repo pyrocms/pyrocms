@@ -50,8 +50,8 @@ $lang['global:demo_restrictions']       = 'Some features on this page have been 
 
 $lang['login_error_label'] 				= 'Chyba při přihlášení';
 $lang['forgot_password_label'] 			= 'Zapomenuté heslo?';
-$lang['email_label'] 					= 'E-mail';
-$lang['password_label'] 				= 'Heslo';
+$lang['global:email'] 					= 'E-mail';
+$lang['global:password'] 				= 'Heslo';
 $lang['login_label'] 					= 'Přihlásit';
 
 $lang['help_label'] 					= 'Nápověda';

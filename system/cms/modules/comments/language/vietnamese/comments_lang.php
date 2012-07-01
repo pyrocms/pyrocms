@@ -20,7 +20,6 @@ $lang['comments.view_more'] 				= 'Xem thêm...';
 
 // labels
 $lang['comments.name_label'] 				= 'Tên của bạn';
-$lang['comments.email_label'] 				= 'Địa chỉ Email';
 $lang['comments.website_label'] 			= 'Website';
 $lang['comments.message_label'] 			= 'Nội dung';
 $lang['comments.status_label'] 				= 'Trạng thái';
