@@ -308,14 +308,13 @@ class Users extends Public_Controller
 
 					$username_base = $username;
 
-					do
+					while ($this->db->where('username', $username)
+						->count_all_results('users') > 0)
 					{
 						$username = $username_base.$i;
 
 						++$i;
 					}
-					while ($this->db->where('username', $username)
-						->count_all_results('users') > 0);
 				}
 				else
 				{
