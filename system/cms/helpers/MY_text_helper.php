@@ -8,7 +8,7 @@
  * @author		PyroCMS Dev Team
  * @package		PyroCMS\Core\Helpers
  */
-if (!function_exists('nl2p'))
+if ( ! function_exists('nl2p'))
 {
 
 	/**
@@ -26,11 +26,12 @@ if (!function_exists('nl2p'))
 
 }
 
-if (!function_exists('escape_tags'))
+if ( !  function_exists('escape_tags'))
 {
-
 	/**
-	 * Replaces the < and > with their HTML character code equivalents.
+	 * Replaces the { and } with their HTML character code equivalents. This will take
+	 * care of double {{ }} PyroCMS tags as well as the single ones which are used
+	 * to pass plugin results as plugin parameters.
 	 *
 	 * @param string $string The string with tags.
 	 * @return string The string with the tags escaped
@@ -42,7 +43,7 @@ if (!function_exists('escape_tags'))
 
 }
 
-if (!function_exists('process_data_jmr1'))
+if ( ! function_exists('process_data_jmr1'))
 {
 
 	// Set PCRE recursion limit to sane value = STACKSIZE / 500 (256KB stack. Win32 Apache or  8MB stack. *nix)
