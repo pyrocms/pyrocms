@@ -186,7 +186,8 @@
 	define('FCPATH', str_replace(SELF, '', __FILE__));
 	
 	// Name of the "system folder"
-	define('SYSDIR', end(explode('/', trim(BASEPATH, '/'))));
+	$list_sysdir_parts = explode('/', trim(BASEPATH, '/'));
+	define('SYSDIR', end($list_sysdir_parts));
 
 	// The path to the "application" folder
 	define('APPPATH', $application_folder.'/');

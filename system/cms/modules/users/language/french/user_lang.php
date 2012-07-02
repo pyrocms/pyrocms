@@ -58,7 +58,7 @@ $lang['user_full_name'] 	= 'Nom Complet';
 $lang['user_first_name'] 	= 'Prénom';
 $lang['user_last_name'] 	= 'Nom';
 $lang['user_username']          = 'Nom Utilisateur';
-$lang['user_display_name']      = 'Nom Affiché';
+$lang['user_display_name']      = 'Pseudonyme';
 $lang['user_email_use'] 					   = 'utilisé pour se connecter';
 $lang['user_password'] 		= 'Mot de passe';
 $lang['user_remember']                         = 'Rester connecté';
@@ -160,6 +160,7 @@ $lang['user_reset_pass_email_body'] = 'Votre mot de passe à %s a été ré-init
 $lang['profile_of_title'] = 'Profil de %s';
 
 $lang['profile_user_details_label'] = 'Détails utilisateur';
+$lang['profile_display_name']         = 'Pseudonyme';
 $lang['profile_role_label'] = 'Rôle';
 $lang['profile_registred_on_label'] = 'Enregistré sur';
 $lang['profile_last_login_label'] = 'Dernière connexion';
