@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 // inline help html. Only 'help_body' is used.
-$lang['help_body'] = "
+$lang['help_body'] = " 
 <h6>Overview</6><hr>
 <p>The files module is an excellent way for the site admin to manage the files in use on the site. 
 All images or files that are inserted into pages, galleries, or blog posts are stored here. 

@@ -3,7 +3,7 @@
 // Files Permissions
 $lang['files.role_wysiwyg']			= 'Gestisci file tramite WYSIWYG';
 $lang['files.role_upload']			= 'Caricamento file';
-$lang['files.role_download_file']	= 'Download File';
+$lang['files.role_download_file']	= 'Download File'; 
 $lang['files.role_edit_file']		= 'Modifica File';
 $lang['files.role_delete_file'] 	= 'Cancella File';
 

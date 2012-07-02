@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 // General
-$lang['files:files_title']					= 'Files';
+$lang['files:files_title']					= 'Files'; 
 $lang['files:fetching']						= 'Recupero dati...';
 $lang['files:fetch_completed']				= 'Completato';
 $lang['files:save_failed']					= 'Spiacenti. I cambiamenti non possono essere salvati';
