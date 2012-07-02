@@ -448,7 +448,7 @@ class Field_datetime
 				$hour_count++;
 			}
 
-			$date_input .= 'at&nbsp;&nbsp;'.form_dropdown($data['form_slug'].'_hour', $hours, $date['hour'], 'style="min-width: 100px; width:100px;"');
+			$date_input .= lang('global:at').'&nbsp;&nbsp;'.form_dropdown($data['form_slug'].'_hour', $hours, $date['hour'], 'style="min-width: 100px; width:100px;"');
 			
 			// Minute
 			$minute_count = 0;
