@@ -47,4 +47,4 @@ the database also.</p>
 <p>You may search all of your files and folders by typing a search term in the right column and then hitting Enter. The first 
 5 folder matches and the first 5 file matches will be returned. When you click on an item its containing folder will be displayed 
 and the items that match your search will be highlighted. Items are searched using the folder name, file name, extension, 
-location, and remote container name.</p>";
+location, and remote container name.</p>"; 
