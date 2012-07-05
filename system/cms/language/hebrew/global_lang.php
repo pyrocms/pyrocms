@@ -48,8 +48,8 @@ $lang['global:demo_restrictions']       = 'Some features on this page have been 
 
 $lang['login_error_label'] 				= 'Login Error';
 $lang['forgot_password_label'] 			= 'שחחת סיסמה?';
-$lang['email_label'] 					= 'E-mail';
-$lang['password_label'] 				= 'סיסמה';
+$lang['global:email'] 					= 'E-mail';
+$lang['global:password'] 				= 'סיסמה';
 $lang['login_label'] 					= 'התחבר';
 
 $lang['help_label'] 					= 'עזרה';

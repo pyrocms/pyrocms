@@ -82,12 +82,12 @@ class Users extends Public_Controller
 		$validation = array(
 			array(
 				'field' => 'email',
-				'label' => lang('user_email_label'),
+				'label' => lang('global:email'),
 				'rules' => 'required|trim|callback__check_login'
 			),
 			array(
 				'field' => 'password',
-				'label' => lang('user_password_label'),
+				'label' => lang('global:password'),
 				'rules' => 'required|min_length[6]|max_length[20]'
 			),
 		);
@@ -303,17 +303,18 @@ class Users extends Public_Controller
 					}
 
 					// Usernames absolutely need to be unique, so let's keep
-					// trying until we get a unieque one
+					// trying until we get a unique one
 					$i = 1;
 
-					do
+					$username_base = $username;
+
+					while ($this->db->where('username', $username)
+						->count_all_results('users') > 0)
 					{
-						$i > 1 and $username .= $i;
+						$username = $username_base.$i;
 
 						++$i;
 					}
-					while ($this->db->where('username', $username)
-						->count_all_results('users') > 0);
 				}
 				else
 				{
@@ -487,28 +488,27 @@ class Users extends Public_Controller
 	 *
 	 * @param bool $code
 	 */
-	public function reset_pass($code = FALSE)
+	public function reset_pass($code = null)
 	{
 		if (PYRO_DEMO)
 		{
 			show_error(lang('global:demo_restrictions'));
 		}
 
-		//if user is logged in they don't need to be here. and should use profile options
+		//if user is logged in they don't need to be here
 		if ($this->current_user)
 		{
 			$this->session->set_flashdata('error', lang('user_already_logged_in'));
-			redirect('my-profile');
+			redirect('');
 		}
 
-		if ($this->input->post('btnSubmit'))
+		if ($this->input->post('email'))
 		{
-			$uname = $this->input->post('user_name');
 			$email = $this->input->post('email');
 
 			if ( ! ($user_meta = $this->ion_auth->get_user_by_email($email)))
 			{
-				$user_meta = $this->ion_auth->get_user_by_username($uname);
+				$user_meta = $this->ion_auth->get_user_by_username($email);
 			}
 
 			// have we found a user?

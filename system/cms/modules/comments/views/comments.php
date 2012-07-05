@@ -3,6 +3,7 @@
 	<div id="existing-comments">
 		
 	<h4><?php echo lang('comments.title'); ?></h4>
+	
 <?php if ($comments): ?>
 	
 	<?php foreach ($comments as $item): ?>
@@ -14,13 +15,7 @@
 			<div class="details">
 				<div class="name">
 					<p>
-					<?php if ($item->user_id): ?>
-						<?php echo anchor($item->website ? $item->website : 'user/'.$item->user_id, 
-											$this->ion_auth->get_user($item->user_id)->display_name, 
-											$item->website ? 'rel="external nofollow"' : ''); ?>
-					<?php else: ?>
-						<?php echo $item->website ? anchor($item->website, $item->name, 'rel="external nofollow"') : $item->name; ?>
-					<?php endif; ?>
+						<?php echo anchor($item->website, $item->name, 'rel="external nofollow"') : $item->name; ?>
 					</p>
 				</div>
 				<div class="date">
@@ -60,7 +55,7 @@
 			</div>
 
 			<div class="form_email">
-				<label for="email"><?php echo lang('comments.email_label'); ?>:</label>
+				<label for="email"><?php echo lang('global:email'); ?>:</label>
 				<input type="text" name="email" maxlength="40" value="<?php echo $comment['email'] ?>" />
 			</div>
 

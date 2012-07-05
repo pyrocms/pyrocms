@@ -10,7 +10,6 @@ $lang['comments.view_more'] 				= 'Tovább...';
 
 // labels
 $lang['comments.name_label'] 				= 'Név';
-$lang['comments.email_label'] 				= 'E-mail';
 $lang['comments.website_label'] 			= 'Weboldal';
 $lang['comments.message_label'] 			= 'Üzenet';
 $lang['comments.status_label'] 				= 'Állapot';

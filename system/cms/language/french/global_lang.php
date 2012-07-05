@@ -50,8 +50,8 @@ $lang['global:demo_restrictions']       = 'Certaines fonctionnalités de cette p
 
 $lang['login_error_label'] 				        = 'Erreur de Connexion';
 $lang['forgot_password_label'] 			        = 'Mot de passe oublié ?';
-$lang['email_label'] 					        = 'E-mail';
-$lang['password_label'] 				        = 'Mot de passe';
+$lang['global:email'] 					        = 'E-mail';
+$lang['global:password'] 				        = 'Mot de passe';
 $lang['login_label'] 					        = 'Connectez-vous';
 
 $lang['help_label']                             = 'Aide';

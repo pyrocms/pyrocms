@@ -38,10 +38,10 @@
 	</fieldset>
 
 	<fieldset id="user_names">
-		<legend><?php echo lang('user_email_label') ?></legend>
+		<legend><?php echo lang('global:email') ?></legend>
 		<ul>
 			<li>
-				<label for="email"><?php echo lang('user_email_label') ?></label>
+				<label for="email"><?php echo lang('global:email') ?></label>
 				<div class="input">
 					<?php echo form_input('email', $_user->email); ?>
 				</div>

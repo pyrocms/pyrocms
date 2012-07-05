@@ -19,9 +19,6 @@
 *
 */
 
-//  CI 2.0 Compatibility
-if(!class_exists('CI_Model')) { class CI_Model extends Model {} }
-
 
 class Ion_auth_model extends CI_Model
 {
@@ -471,7 +468,7 @@ class Ion_auth_model extends CI_Model
 
 		// @todo - run the profile fields through streams
 
-		return ($i->num_rows > 0) ? $i->row() : FALSE;
+		return ($i->num_rows() > 0) ? $i->row() : FALSE;
 	}
 
 	// --------------------------------------------------------------------------
