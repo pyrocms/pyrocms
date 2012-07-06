@@ -1,14 +1,4 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
-/*
-|--------------------------------------------------------------------------
-| Use Page Numbers
-|--------------------------------------------------------------------------
-|
-| By default CodeIgniter will set the offset in the URL, not the actual
-| page number. This means URLs will be 10, 20, 30 not 1, 2, 3.
-|
-*/
-$config['use_page_numbers'] = TRUE;
 
 /*
 |--------------------------------------------------------------------------
