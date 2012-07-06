@@ -330,9 +330,6 @@ class Row_m extends MY_Model {
 		// -------------------------------------
 		// Show Upcoming
 		// -------------------------------------
-		// @todo - check to see if this is a
-		// mysql date or a UNIX one.
-		// -------------------------------------
 
 		if (isset($show_upcoming) and $show_upcoming == 'no')
 		{
@@ -1343,26 +1340,26 @@ class Row_m extends MY_Model {
 	public function build_pagination($pag_segment, $limit, $total_rows, $pagination_vars)
 	{
 		$this->load->library('pagination');
+
+		// -------------------------------------
+		// Validate pag_segment
+		// -------------------------------------
+		// Needs to be a number. Let's
+		// default to 2.
+		// -------------------------------------
 	
+		if ( ! is_numeric($pag_segment))
+		{
+			$pag_segment = 2;
+		}
+
 		// -------------------------------------
 		// Find Pagination base_url
 		// -------------------------------------
 
-		$segments = $this->uri->segment_array();
+		$segments = array_slice($this->uri->segment_array(), 0, $pag_segment-1);
 		
-		if (isset($segments[count($segments)]) and is_numeric($segments[count($segments)]))
-		{
-			unset($segments[count($segments)]);
-		}
-		
-		$pag_uri = '';
-		
-		foreach ($segments as $segment)
-		{
-			$pag_uri .= $segment.'/';
-		}
-		
-		$pagination_config['base_url'] 			= site_url( $pag_uri );
+		$pagination_config['base_url'] 			= site_url(implode('/', $segments).'/');
 		
 		// -------------------------------------
 		// Set basic pagination data

@@ -205,7 +205,7 @@ class Plugin_Contact extends Plugin {
 
 		$this->form_validation->set_rules($validation);
 
-		if ($this->form_validation->run())
+		if ($this->input->post('contact-submit') && $this->form_validation->run())
 		{
 			// maybe it's a bot?
 			if ($this->input->post('d0ntf1llth1s1n') !== ' ')
@@ -343,7 +343,7 @@ class Plugin_Contact extends Plugin {
 		$output	 = form_open_multipart($action, 'class="contact-form"').PHP_EOL;
 		$output	.= form_input('d0ntf1llth1s1n', ' ', 'class="default-form" style="display:none"');
 		$output	.= $this->parser->parse_string($this->content(), str_replace('{{', '{ {', $parse_data), TRUE).PHP_EOL;
-		$output .= '<span class="contact-button">'.form_submit('submit-button', ucfirst($button)).'</span>'.PHP_EOL;
+		$output .= '<span class="contact-button">'.form_submit('contact-submit', ucfirst($button)).'</span>'.PHP_EOL;
 		$output .= form_close();
 
 		return $output;
