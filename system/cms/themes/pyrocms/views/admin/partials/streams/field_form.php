@@ -136,6 +136,7 @@
 	</ul>
 		
 		<div class="float-right buttons">
+
 		<button type="submit" name="btnAction" value="save" class="btn blue"><span><?php echo lang('buttons.save'); ?></span></button>
 
 		<?php if ($show_cancel and $cancel_uri): ?>
