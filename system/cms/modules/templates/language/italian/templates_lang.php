@@ -16,17 +16,17 @@ $lang['templates.default_title']			= 'Template di default';
 $lang['templates.user_defined_title']		= 'Template definiti dall\'utente';
 
 // Messages
-$lang['templates.tmpl_create_success']		= 'Il template email "%s" &eacuta; stato salvato.';
-$lang['templates.tmpl_create_error']		= 'Il template email "%s" non &eacuta; stato salvato.';
+$lang['templates.tmpl_create_success']		= 'Il template email "%s" é stato salvato.';
+$lang['templates.tmpl_create_error']		= 'Il template email "%s" non é stato salvato.';
 $lang['templates.tmpl_edit_success']		= 'Le modifiche effettuate al template email "%s" sono state salvate.';
 $lang['templates.tmpl_edit_error']			= 'Le modifiche effettuate al template email "%s" non sono state salvate.'; 
-$lang['templates.tmpl_clone_success']		= '"%s" &eacuta; stato clonato. Ora puoi modificarlo come preferisci.';
+$lang['templates.tmpl_clone_success']		= '"%s" é stato clonato. Ora puoi modificarlo come preferisci.';
 $lang['templates.tmpl_clone_error']			= '"%s" non &acuta; stato possibile clonarlo. Per favore riprova.';
-$lang['templates.single_delete_success']	= 'Il template email &eacuta; stato cancellato.';
+$lang['templates.single_delete_success']	= 'Il template email é stato cancellato.';
 $lang['templates.mass_delete_success']		= 'Cancellati con successo %s template email su %s.';
-$lang['templates.mass_delete_error'] 		= 'Si &eacuta; verificato un errore nel tentativo di cancellare il template "%s".';
-$lang['templates.default_delete_error'] 	= 'Si &eacuta; verificato un errore. Il template di default non pu&ograve; essere eliminato.';
+$lang['templates.mass_delete_error'] 		= 'Si é verificato un errore nel tentativo di cancellare il template "%s".';
+$lang['templates.default_delete_error'] 	= 'Si é verificato un errore. Il template di default non può essere eliminato.';
 $lang['templates.no_select_error'] 			= 'Devi prima selezionare un template.'; 
-$lang['templates.already_exist_error']		= 'Un email template dal nome "%s" esiste di gi&agrave;.';
+$lang['templates.already_exist_error']		= 'Un email template dal nome "%s" esiste di già.';
 
 /* End of file templates_lang.php */

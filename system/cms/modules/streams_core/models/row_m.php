@@ -330,9 +330,6 @@ class Row_m extends MY_Model {
 		// -------------------------------------
 		// Show Upcoming
 		// -------------------------------------
-		// @todo - check to see if this is a
-		// mysql date or a UNIX one.
-		// -------------------------------------
 
 		if (isset($show_upcoming) and $show_upcoming == 'no')
 		{

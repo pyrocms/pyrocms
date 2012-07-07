@@ -74,7 +74,7 @@ class Users extends Public_Controller
 		}
 
 		// Get the user data
-		$user = (object)array(
+		$user = (object) array(
 			'email' => $this->input->post('email'),
 			'password' => $this->input->post('password')
 		);
@@ -88,7 +88,7 @@ class Users extends Public_Controller
 			array(
 				'field' => 'password',
 				'label' => lang('global:password'),
-				'rules' => 'required|min_length[6]|max_length[20]'
+				'rules' => 'required|min_length['.config_item('min_password_length').']|max_length['.config_item('max_password_length').']'
 			),
 		);
 
@@ -191,7 +191,7 @@ class Users extends Public_Controller
 			array(
 				'field' => 'password',
 				'label' => lang('user_password'),
-				'rules' => 'required|min_length[6]|max_length[20]'
+				'rules' => 'required|min_length['.$this->config->item('min_password_length').']|max_length['.$this->config->item('max_password_length').']'
 			),
 			array(
 				'field' => 'email',
