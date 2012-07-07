@@ -18,8 +18,8 @@
 // Account Creation
 $lang['account_creation_successful'] 	  	 = 'Account creato con successo.';
 $lang['account_creation_unsuccessful'] 	 	 = 'Impossibile creare l\'account.';
-$lang['account_creation_duplicate_email'] 	 = 'Email gi&agrave; in uso o non valida.';
-$lang['account_creation_duplicate_username'] 	 = 'Nome utente gi&agrave; in uso o non valido.';
+$lang['account_creation_duplicate_email'] 	 = 'Email già in uso o non valida.';
+$lang['account_creation_duplicate_username'] 	 = 'Nome utente già in uso o non valido.';
 
 
 // Password

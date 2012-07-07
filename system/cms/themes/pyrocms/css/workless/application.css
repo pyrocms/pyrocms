@@ -59,21 +59,28 @@
 	height: 200px;
 }
 
+.topbar ul li#dashboard-link {
+	margin: 8px 10px 8px 5px;
+}
+
+.topbar ul li#dashboard-link a {
+	padding: 6px 12px;
+	color: #ffffff;
+	float: left;
+}
+
 #logo {
 	font-size: 16px;
 	color: #ffffff;
-	margin: 0 15px 0 3px;
-	padding: 10px 0 15px 0;
+	margin: 0 12px 0 3px;
+	padding: 15px 15px 15px 0;
+	border-right: 1px solid #383838;
 	float: left;
 }
 
 #logo a {
 	font-size: 16px;
 	color: #ffffff;
-}
-
-#dashboard-link {
-	margin-right: 10px;
 }
 
 .subbar {
@@ -94,7 +101,7 @@
   	background-image: linear-gradient(#f7f7f7, #f3f3f3);
   	border: 1px solid #ffffff;
   	border-bottom: 1px solid #eeeeee;
-  	padding: 10px 15px 15px 0;
+  	padding: 15px 15px 13px 0;
   	margin-top: 15px;
   	border-top-right-radius: 5px;
   	-moz-border-radius-topright: 5px;
@@ -112,23 +119,19 @@
 	position: relative;
 }
 
-.subbar .wrapper {
-	position: relative;
-}
-
-.subbar h2, 
-.subbar h2 a {
+.subbar .wrapper {position: relative;}
+.subbar h2, .subbar h2 a {
   	color: #555555;
   	text-shadow: 1px 1px 0 #ffffff;
-	margin: 0 0 0 8px;
+	margin: 0 0 0 5px;
 	padding: 0;
 	float: left;
-	font-size: 22px;
+	font-size: 20px;
 }
 
 .subbar small {
 	color: #888888;
-	margin: 10px 0 0 0;
+	margin: 12px 0 0 0;
 	float: left;
 	text-shadow: 0 1px 1px #ffffff;
 	font-size: 13px;
@@ -247,7 +250,7 @@
 .sections_bar {
 	position: absolute;
 	z-index: 9995;
-	top: 98px!important;
+	top: 101px!important;
 	right: 0;
 	left: 0;
 	width: 100%;
@@ -349,9 +352,8 @@ section.title {
   	background-image: linear-gradient(#f7f7f7, #f3f3f3);
   	border: 1px solid #ffffff;
   	border-bottom: 1px solid #eeeeee;
-  	padding: 13px 15px 8px 15px;
+  	padding: 0 15px 0 15px;
   	margin-top: 15px;
-  	margin-bottom: 0;
   	border-top-right-radius: 5px;
   	-moz-border-radius-topright: 5px;
   	-webkit-border-top-right-radius: 5px;
@@ -361,7 +363,6 @@ section.title {
   	box-shadow: 0px 0px 1px #aaaaaa;
   	-moz-box-shadow: 0px 0px 1px #aaaaaa;
   	-webkit-box-shadow: 0px 0px 1px #aaaaaa;
-  	float: left;
 }
 
 section.title h4 {
@@ -380,7 +381,7 @@ section.item {
 	background: #ffffff;
 	width: 100%;
 	min-height: 100px;
-	margin: -3px 0 0 0;
+	margin: 0;
 	padding: 16px;
 	float: left;
 	border-bottom-right-radius: 5px;
@@ -398,79 +399,20 @@ section.box {
 	width: 100%;
 }
 
-#quick_links {
-  	background: #f7f7f7;
-  	background-repeat: repeat-x;
-  	background-image: -khtml-gradient(linear, left top, left bottom, from(#f7f7f7), to(#f3f3f3));
-  	background-image: -moz-linear-gradient(#f7f7f7, #f3f3f3);
-  	background-image: -ms-linear-gradient(#f7f7f7, #f3f3f3);
-  	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f7f7f7), color-stop(100%, #f3f3f3));
-  	background-image: -webkit-linear-gradient(#f7f7f7, #f3f3f3);
-  	background-image: -o-linear-gradient(#f7f7f7, #f3f3f3);
-  	background-image: linear-gradient(#f7f7f7, #f3f3f3);
-  	border: 1px solid #ffffff;
-  	border-bottom: 1px solid #eeeeee;
-  	padding: 10px 0 15px 0;
-  	border-radius: 5px;
-  	-moz-border-radius: 5px;
-  	-webkit-border-radius: 5px;
-  	box-shadow: 0px 0px 1px #aaaaaa;
-  	-moz-box-shadow: 0px 0px 1px #aaaaaa;
-  	-webkit-box-shadow: 0px 0px 1px #aaaaaa;
-}
-
 #quick_links ul {
-	margin: 0;
-	padding: 0;
 	float: left;
 }
 
 #quick_links ul li {
-	margin: 0 10px 0 15px;
-	display: inline;
+	width: 75px;
+	float: left;
+	margin: 3px 15px 10px 15px;
 }
 
 #quick_links ul li a {
-	font-size: 12px;
-	text-align: center;
-	color: #333333;
-	filter: alpha(opacity=80);
-  	-khtml-opacity: 0.8;
-  	-moz-opacity: 0.8;
-  	opacity: 0.8;
-  	-webkit-transition: 250ms linear all; 
-	-moz-transition: 250ms linear all; 
-	transition: 250ms linear all;
-}
-
-#quick_links ul li a:hover {
-	filter: alpha(opacity=100);
-  	-khtml-opacity: 1;
-  	-moz-opacity: 1;
-  	opacity: 1;
-}
-
-ul#recent_comments li {
-	padding: 0 0 40px 0;
-	margin: 0 0 15px 0;
-	border-bottom: 1px solid #eeeeee
-}
-
-ul#recent_comments li img {
-	width: 55px;
-	height: 55px;
-	margin: 0 10px 0 3px;
-	padding: 3px;
-	border: 1px solid #dddddd;
-	box-shadow: 0 1px 1px #dddddd;
+	width: 77px;
+	height: 91px;
 	float: left;
-}
-
-ul#recent_comments li p {
-	line-height: 20px;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
 }
 
 #feed ul li {
@@ -478,7 +420,6 @@ ul#recent_comments li p {
 	margin: 0 0 25px -15px;
 	border-bottom: 1px solid #eeeeee;
 	float: left;
-	width: 99%;
 }
 
 #feed ul li:last-child {
@@ -495,7 +436,6 @@ ul#recent_comments li p {
 
 #feed ul li, #feed ul li p {
 	color: #333333;
-	line-height: 20px;
 }
 
 #feed ul li p {
@@ -516,7 +456,7 @@ ul#recent_comments li p {
   	border-top-left-radius: 2px;
   	-moz-border-radius-topleft: 2px;
   	-webkit-border-top-left-radius: 2px;
-	padding: 3px 13px 3px 13px;
+	padding: 3px 10px 3px 10px;
 	text-align: center;
 	color: #ffffff;
 	font-weight: bold;
@@ -532,11 +472,9 @@ ul#recent_comments li p {
   	border-bottom-left-radius: 2px;
   	-moz-border-radius-bottomleft: 2px;
   	-webkit-border-bottom-left-radius: 2px;
-	padding: 7px 13px 12px 13px;
+	padding: 8px 10px 10px 10px;
 	text-align: center;
-	color: #747171;
-	font-weight: bold;
-	font-size: 18px;
+	color: #333333;
 }
 
 footer {
@@ -556,11 +494,9 @@ footer p {
 	font-size: 12px;
 	margin: 5px 0 15px 0;
 	padding: 0 10px;
-	color: #ffffff;
 }
 
 ul#lang {
-	margin-top: 15px;
 	margin-right: 24px;
 	text-align: center;
 	text-shadow: 0 -1px 0 #ffffff;
@@ -624,7 +560,7 @@ ul#lang .highlighted {
 section.draggable { cursor:grabbing; cursor:-moz-grabbing; cursor:-webkit-grabbing; }
 
 /* Toggle button */
-a.toggle { width: 21px; height: 22px; background: url("../../img/toggle.png") no-repeat; float: right; cursor: pointer; margin: 0; }
+a.toggle { width: 21px; height: 22px; background: url("../../img/toggle.png") no-repeat; float: right; cursor: pointer; margin: 7px 0 0 0; }
 
 table > thead > tr {
 	border-bottom: 2px solid #ddd;

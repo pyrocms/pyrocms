@@ -11,7 +11,7 @@
  */
 
 /* ----------------------------------
- *   Responsiveness
+ *   Responsivness
  * ----------------------------------
  * @media queries for responsive design.
  * These override the primary('mobile first') styles.
@@ -20,16 +20,14 @@
  *
  * ---------------------------------- */
 
-	#quick_links {
-		width: 280px;
-	}
+@media only screen and (min-width: 281px) {
 
 	#logo {
 		display: none;
 	}
 
 	.topbar {
-		height: 50px;
+		height: 100px;
 	}
 
 	.topbar ul li a {
@@ -37,7 +35,7 @@
 	}
 
 	.subbar {
-		margin-top: 25px;
+		margin-top: 70px;
 	}
 
 	.sections_bar {
@@ -45,39 +43,14 @@
 	}
 
 	#content-body {
-		top: 0;
+		top: 30px;
 	}
 
-	nav#primary .chzn-container {
-		margin-top: 10px;
-	}
-
-
-	nav#primary ul.primary-nav { display: none; }
-	nav#primary .chzn-container { display: inherit; }
-
-	input[type="text"], 
-	input[type="password"], 
-	input[type="password"],
-	textarea {
-		width: 200px;
-	}
-
-	select { 
-		width: 245px; 
-	}
-
-	#quick_links ul {
-		margin-top: -20px!important;
-	}
-	
-	#quick_links ul li a {
-		font-size: 0px;
-	}
+}
 
 @media only screen and (min-width: 481px) {
 
-	.wrapper, #quick_links {
+	.wrapper {
 		width: 480px;
 		margin: 0 auto;
 	}
@@ -97,7 +70,7 @@
 	}
 
 	.topbar {
-		height: 50px;
+		height: 100px;
 	}
 	.topbar ul {
 		margin-left: -15px;
@@ -109,7 +82,7 @@
 	}
 
 	.subbar {
-		margin-top: 25px;
+		margin-top: 70px;
 	}
 	.subbar h2, .subbar h2 a {
 		padding: 0;
@@ -119,7 +92,7 @@
 	}
 
 	#content-body {
-		top: 0;
+		top: 30px;
 	}
 
 	#analyticsWrapper, #analytics {
@@ -169,6 +142,12 @@
 		float: left;
 	}
 
+	#quick_links ul li {
+		width: 75px;
+		float: left;
+		margin: 3px 15px 0 15px;
+	}
+
 	footer p {
 		padding: 0;
 	}
@@ -206,37 +185,13 @@
 		font-size: 13px;
 	}
 
-	nav#primary ul.primary-nav { display: none; }
-	nav#primary .chzn-container { display: inherit; }
-
-	input[type="text"], 
-	input[type="password"], 
-	input[type="password"],
-	textarea {
-		width: 400px;
-	}
-
-	select { 
-		width: 445px; 
-	}
-
-	#quick_links ul {
-		margin-top: -20px!important;
-	}
-
-	#quick_links ul li a {
-		font-size: 0px;
-	}
 }
 
 @media only screen and (min-width: 768px) {
 
-	nav#primary { display: inherit; }
-	nav#primary .chzn-container { display: none; }
-
 	.topbar, .subbar, .sections_bar {position: fixed;}
 
-	.wrapper, #quick_links {
+	.wrapper {
 		width: 750px;
 		margin: 0 auto;
 	}
@@ -333,6 +288,12 @@
 		float: left;
 	}
 
+	#quick_links ul li {
+		width: 75px;
+		float: left;
+		margin: 3px 5px 0 5px;
+	}
+
 	footer p {
 		float: left;
 		padding: 10px 0 0 0;
@@ -352,38 +313,17 @@
 		display: inline;
 		margin-bottom: 0;
 	}
+	.subbar h2, .subbar h2 a {font-size: 28px;}
 
 	.alert {
 		width: 720px;
-	}
-
-	nav#primary ul.primary-nav { display: inherit; }
-	nav#primary .chzn-container { display: none; }
-
-	input[type="text"], 
-	input[type="password"], 
-	input[type="password"],
-	textarea {
-		width: 500px;
-	}
-
-	select { 
-		width: 545px; 
-	}
-
-	#quick_links ul {
-		margin-top: -15px!important;
-	}
-
-	#quick_links ul li a {
-		font-size: 12px;
 	}
 
 }
 
 @media only screen and (min-width: 1025px) {
 
-	.wrapper, #quick_links {
+	.wrapper {
 		width: 1024px;
 		margin: 0 auto;
 	}
@@ -471,6 +411,12 @@
 		float: left;
 	}
 
+	#quick_links ul li {
+		width: 75px;
+		float: left;
+		margin: 3px 18px 0 18px;
+	}
+
 	footer p {
 		padding: 0px;
 		margin: 0px;
@@ -483,33 +429,11 @@
 		width: 995px;
 	}
 
-	nav#primary ul.primary-nav { display: inherit; }
-	nav#primary .chzn-container { display: none; }
-
-	input[type="text"], 
-	input[type="password"], 
-	input[type="password"],
-	textarea {
-		width: 500px;
-	}
-
-	select { 
-		width: 545px; 
-	}
-
-	#quick_links ul {
-		margin-top: -15px!important;
-	}
-
-	#quick_links ul li a {
-		font-size: 12px;
-	}
-
 }
 
 @media only screen and (min-width: 1281px) {
 
-	.wrapper, #quick_links {
+	.wrapper {
 		width: 1280px;
 		margin: 0 auto;
 	}
@@ -598,30 +522,14 @@
 		float: left;
 	}
 
+	#quick_links ul li {
+		width: 75px;
+		float: left;
+		margin: 3px 35px 0 35px;
+	}
+
 	.alert {
 		width: 1250px;
-	}
-
-	nav#primary ul.primary-nav { display: inherit; }
-	nav#primary .chzn-container { display: none; }
-
-	input[type="text"], 
-	input[type="password"], 
-	input[type="password"],
-	textarea {
-		width: 500px;
-	}
-
-	select { 
-		width: 545px; 
-	}
-
-	#quick_links ul {
-		margin-top: -15px!important;
-	}
-
-	#quick_links ul li a {
-		font-size: 12px;
 	}
 
 }

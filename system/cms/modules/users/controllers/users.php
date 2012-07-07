@@ -304,17 +304,18 @@ class Users extends Public_Controller
 					}
 
 					// Usernames absolutely need to be unique, so let's keep
-					// trying until we get a unieque one
+					// trying until we get a unique one
 					$i = 1;
 
-					do
+					$username_base = $username;
+
+					while ($this->db->where('username', $username)
+						->count_all_results('users') > 0)
 					{
-						$i > 1 and $username .= $i;
+						$username = $username_base.$i;
 
 						++$i;
 					}
-					while ($this->db->where('username', $username)
-						->count_all_results('users') > 0);
 				}
 				else
 				{

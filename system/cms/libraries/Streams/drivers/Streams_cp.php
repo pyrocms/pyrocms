@@ -254,7 +254,8 @@ class Streams_cp extends CI_Driver {
 	{
 		$CI = get_instance();
 		$data = array();
-
+		$data['field'] = stdClass();
+		
 		// We always need our stream
 		$stream = $this->stream_obj($stream_slug, $namespace);
 		if ( ! $stream) $this->log_error('invalid_stream', 'form');
@@ -270,10 +271,10 @@ class Streams_cp extends CI_Driver {
    		
    		// -------------------------------------
         
-        // Need this for the view
-        $data['method'] = $method;
+        	// Need this for the view
+        	$data['method'] = $method;
         
-        // Get our list of available fields
+        	// Get our list of available fields
 		$data['field_types'] = $CI->type->field_types_array(true);
 
 		// @todo - allow including/excluding some fields
