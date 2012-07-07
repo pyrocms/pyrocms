@@ -15,7 +15,7 @@
 			<div class="details">
 				<div class="name">
 					<p>
-						<?php echo anchor($item->website, $item->name, 'rel="external nofollow"') : $item->name; ?>
+						<?php echo $item->website ? anchor($item->website, $item->name, 'rel="external nofollow"') : $item->name; ?>
 					</p>
 				</div>
 				<div class="date">
