@@ -58,8 +58,8 @@ class Streams_entries extends CI_Driver {
 	 */
 	public $pagination_config = array(
 			'num_links'			=> 3,
-			'full_tag_open'		=> '<p>',
-			'full_tag_close'	=> '</p>',
+			'full_tag_open'		=> '<div>',
+			'full_tag_close'	=> '</div>',
 			'first_link'		=> 'First',
 			'first_tag_open'	=> '<div>',
 			'first_tag_close'	=> '</div>',
