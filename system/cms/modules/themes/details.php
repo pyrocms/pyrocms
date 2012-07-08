@@ -8,7 +8,7 @@
  */
 class Module_Themes extends Module {
 
-	public $version = '1.0';
+	public $version = '1.1.3';
 
 	public function info()
 	{
@@ -36,7 +36,7 @@ class Module_Themes extends Module {
 				'zh' => '佈景主題',
 				'hu' => 'Sablonok',
 				'th' => 'ธีม',
-                                'se' => 'Teman'
+				'se' => 'Teman',
 			),
 			'description' => array(
 				'en' => 'Allows admins and staff to switch themes, upload new themes, and manage theme options.',
@@ -60,8 +60,8 @@ class Module_Themes extends Module {
 				'sl' => 'Dovoljuje adminom in osebju spremembo izgleda spletne strani, namestitev novega izgleda in urejanja le tega v bolj vizualnem pristopu',
 				'zh' => '讓管理者可以更改網站顯示風貌，以視覺化的操作上傳並管理這些網站佈景主題。',
 				'th' => 'ช่วยให้ผู้ดูแลระบบสามารถอัปโหลดรูปแบบใหม่และการจัดการตัวเลือกชุดรูปแบบได้',
-                                'hu' => 'Az adminok megváltoztathatják az oldal kinézetét, feltölthetnek új kinézeteket és kezelhetik őket.',
-                                'se' => 'Hantera webbplatsens utseende genom teman, ladda upp nya teman och hantera temainställningar.'
+				'hu' => 'Az adminok megváltoztathatják az oldal kinézetét, feltölthetnek új kinézeteket és kezelhetik őket.',
+				'se' => 'Hantera webbplatsens utseende genom teman, ladda upp nya teman och hantera temainställningar.',
 			),
 			'frontend' => false,
 			'backend'  => true,
@@ -90,9 +90,9 @@ class Module_Themes extends Module {
 
 	public function install()
 	{
-		$this->dbforge->drop_table('theme_options');
+		$this->dbforge->drop_table('theme_options', true);
 
-		$tables = array(
+		return $this->install_tables(array(
 			'theme_options' => array(
 				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
 				'slug' => array('type' => 'VARCHAR', 'constraint' => 30,),
@@ -105,14 +105,7 @@ class Module_Themes extends Module {
 				'is_required' => array('type' => 'INT', 'constraint' => 1,),
 				'theme' => array('type' => 'VARCHAR', 'constraint' => 50,),
 			),
-		);
-
-		if ( ! $this->install_tables($tables))
-		{
-			return false;
-		}
-
-		return true;
+		));
 	}
 
 	public function uninstall()

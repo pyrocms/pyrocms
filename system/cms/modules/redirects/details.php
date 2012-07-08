@@ -34,7 +34,7 @@ class Module_Redirects extends Module {
 				'zh' => '轉址',
 				'hu' => 'Átirányítások',
 				'th' => 'เปลี่ยนเส้นทาง',
-                                'se' => 'Omdirigeringar'
+				'se' => 'Omdirigeringar',
 			),
 			'description' => array(
 				'en' => 'Redirect from one URL to another.',
@@ -57,7 +57,7 @@ class Module_Redirects extends Module {
 				'zh' => '將網址轉址、重新定向。',
 				'hu' => 'Egy URL átirányítása egy másikra.',
 				'th' => 'เปลี่ยนเส้นทางจากที่หนึ่งไปยังอีกที่หนึ่ง',
-                                'se' => 'Omdirigera från en URL till en annan.'
+				'se' => 'Omdirigera från en URL till en annan.',
 			),
 			'frontend' => false,
 			'backend'  => true,
@@ -75,7 +75,7 @@ class Module_Redirects extends Module {
 
 	public function install()
 	{
-		$this->dbforge->drop_table('redirects');
+		$this->dbforge->drop_table('redirects', true);
 
 		$tables = array(
 			'redirects' => array(
@@ -86,12 +86,7 @@ class Module_Redirects extends Module {
 			),
 		);
 
-		if ( ! $this->install_tables($tables))
-		{
-			return false;
-		}
-
-		return true;
+		return $this->install_tables($tables);
 	}
 
 	public function uninstall()

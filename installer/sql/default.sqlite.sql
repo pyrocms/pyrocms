@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS `{site_ref}_users` (
 );
 
 INSERT INTO `{site_ref}_users` (`id`, `email`, `password`, `salt`, `group_id`, `ip_address`, `active`, `activation_code`, `created_on`, `last_login`, `username`) 
-VALUES (1, :email, :password, :salt, 1, '', 1, '', :now, :now, :username);
+VALUES (1, :email, :password, :salt, 1, '', 1, '', :unix_now, :unix_now, :username);
   
 CREATE TABLE IF NOT EXISTS `core_users` (
   `id` INTEGER PRIMARY KEY AUTOINCREMENT,

@@ -33,7 +33,7 @@ class Module_Widgets extends Module {
 				'zh' => '小組件',
 				'hu' => 'Widget-ek',
 				'th' => 'วิดเจ็ต',
-                                'se' => 'Widgetar'
+				'se' => 'Widgetar',
 			),
 			'description' => array(
 				'en' => 'Manage small sections of self-contained logic in blocks or "Widgets".',
@@ -56,7 +56,7 @@ class Module_Widgets extends Module {
 				'zh' => '可將小段的程式碼透過小組件來管理。即所謂 "Widgets"，或稱為小工具、部件。',
 				'hu' => 'Önálló kis logikai tömbök vagy widget-ek kezelése.',
 				'th' => 'จัดการส่วนเล็ก ๆ ในรูปแบบของตัวเองในบล็อกหรือวิดเจ็ต',
-                                'se' => 'Hantera små sektioner med egen logik och innehåll på olika delar av webbplatsen.'
+				'se' => 'Hantera små sektioner med egen logik och innehåll på olika delar av webbplatsen.',
 			),
 			'frontend' 	=> false,
 			'backend'  	=> true,
@@ -84,9 +84,9 @@ class Module_Widgets extends Module {
 
 	public function install()
 	{
-		$this->dbforge->drop_table('widget_areas');
-		$this->dbforge->drop_table('widget_instances');
-		$this->dbforge->drop_table('widgets');
+		$this->dbforge->drop_table('widget_areas', true);
+		$this->dbforge->drop_table('widget_instances', true);
+		$this->dbforge->drop_table('widgets', true);
 
 		$tables = array(
 			'widget_areas' => array(
@@ -131,12 +131,7 @@ class Module_Widgets extends Module {
 			'slug' 	=> 'sidebar',
 		);
 
-		if ( ! $this->db->insert('widget_areas', $default_widget_areas))
-		{
-			return false;
-		}
-
-		return true;
+		return $this->db->insert('widget_areas', $default_widget_areas))
 	}
 
 	public function uninstall()

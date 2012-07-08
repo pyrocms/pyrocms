@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS `core_users`, `core_settings`, `core_sites`, `{site_ref}_modles`, `{site_ref}_schema_version`;
+DROP TABLE IF EXISTS `core_users`, `core_settings`, `core_sites`, `{site_ref}_modules`, `{site_ref}_schema_version`;
 	
 CREATE TABLE core_settings (
 	`slug` varchar( 30 ) COLLATE utf8_unicode_ci NOT NULL ,
@@ -50,8 +50,8 @@ CREATE TABLE IF NOT EXISTS `{site_ref}_users` (
   UNIQUE KEY `Unique username` (`username`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Registered User Information';
 
-INSERT INTO `{site_ref}_users` (`id`, `email`, `password`, `salt`, `group_id`, `ip_address`, `active`, `activation_code`, `created_on`, `last_login`, `username`,) 
-VALUES (1, :email, :password, :salt, 1, '', 1, '', :now, :now, :username);
+INSERT INTO `{site_ref}_users` (`id`, `email`, `password`, `salt`, `group_id`, `ip_address`, `active`, `activation_code`, `created_on`, `last_login`, `username`) 
+VALUES (1, :email, :password, :salt, 1, '', 1, '', :unix_now, :unix_now, :username);
 	
 CREATE TABLE IF NOT EXISTS `core_users` (
   `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
@@ -107,7 +107,7 @@ CREATE TABLE IF NOT EXISTS {site_ref}_migrations (
 
 INSERT INTO {site_ref}_migrations VALUES (:migration);
 
-CREATE TABLE `{site_ref}_modules` (
+CREATE TABLE IF NOT EXISTS `{site_ref}_modules` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` TEXT NOT NULL,
   `slug` varchar(50) NOT NULL,
@@ -125,9 +125,9 @@ CREATE TABLE `{site_ref}_modules` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `slug` (`slug`),
   INDEX `enabled` (`enabled`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-CREATE TABLE `{session_table}` (
+CREATE TABLE IF NOT EXISTS `{session_table}` (
  `session_id` varchar(40) DEFAULT '0' NOT NULL,
  `ip_address` varchar(16) DEFAULT '0' NOT NULL,
  `user_agent` varchar(120) NOT NULL,
@@ -135,4 +135,4 @@ CREATE TABLE `{session_table}` (
  `user_data` text NULL,
   PRIMARY KEY (`session_id`),
   KEY `last_activity_idx` (`last_activity`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

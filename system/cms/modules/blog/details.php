@@ -95,8 +95,8 @@ class Module_Blog extends Module {
 
 	public function install()
 	{
-		$this->dbforge->drop_table('blog_categories');
-		$this->dbforge->drop_table('blog');
+		$this->dbforge->drop_table('blog_categories', true);
+		$this->dbforge->drop_table('blog', true);
 
 		$tables = array(
 			'blog_categories' => array(

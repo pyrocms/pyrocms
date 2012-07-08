@@ -35,8 +35,8 @@ class Module_Navigation extends Module {
 				'sl' => 'Navigacija',
 				'zh' => '導航選單',
 				'th' => 'ตัวช่วยนำทาง',
-                                'hu' => 'Navigáció',
-                                'se' => 'Navigation'
+				'hu' => 'Navigáció',
+				'se' => 'Navigation',
 			),
 			'description' => array(
 				'en' => 'Manage links on navigation menus and all the navigation groups they belong to.',
@@ -61,7 +61,7 @@ class Module_Navigation extends Module {
 				'zh' => '管理導航選單中的連結，以及它們所隸屬的導航群組。',
 				'th' => 'จัดการการเชื่อมโยงนำทางและกลุ่มนำทาง',
 				'hu' => 'Linkek kezelése a navigációs menükben és a navigációs csoportok kezelése, amikhez tartoznak.',
-                                'se' => 'Hantera länkar och länkgrupper.'
+				'se' => 'Hantera länkar och länkgrupper.',
 			),
 			'frontend' => false,
 			'backend'  => true,
@@ -79,8 +79,8 @@ class Module_Navigation extends Module {
 
 	public function install()
 	{
-		$this->dbforge->drop_table('navigation_groups');
-		$this->dbforge->drop_table('navigation_links');
+		$this->dbforge->drop_table('navigation_groups', true);
+		$this->dbforge->drop_table('navigation_links', true);
 
 		$tables = array(
 			'navigation_groups' => array(
@@ -104,6 +104,7 @@ class Module_Navigation extends Module {
 				'class' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '',),
 			),
 		);
+
 		if ( ! $this->install_tables($tables))
 		{
 			return false;
@@ -114,6 +115,7 @@ class Module_Navigation extends Module {
 			array('title' => 'Sidebar', 'abbrev' => 'sidebar',),
 			array('title' => 'Footer', 'abbrev' => 'footer',),
 		);
+
 		foreach ($groups as $group)
 		{
 			if ( ! $this->db->insert('navigation_groups', $group))
@@ -127,6 +129,7 @@ class Module_Navigation extends Module {
 			array('title' => 'Blog', 'link_type' => 'module', 'page_id' => null, 'navigation_group_id' => 1, 'position' => 2, 'module_name' => 'blog'),
 			array('title' => 'Contact', 'link_type' => 'page', 'page_id' => 3, 'navigation_group_id' => 1, 'position' => 3,),
 		);
+
 		foreach ($links as $link)
 		{
 			if ( ! $this->db->insert('navigation_links', $link))

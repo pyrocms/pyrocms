@@ -412,6 +412,12 @@ class Installer extends CI_Controller
 		{
 			$user = $this->input->post('user');
 
+			// Store the default username and password in the session data
+			$this->session->set_userdata('user', $user);
+
+			//define the default user email to be used in the settings module install
+			define('DEFAULT_EMAIL', $user['email']);
+
 			$input = array(
 				'engine'   => $this->session->userdata('db.engine'), 
 				'database' => $this->session->userdata('db.database'),
@@ -435,12 +441,6 @@ class Installer extends CI_Controller
 			// Success!
 			$this->session->set_flashdata('message', lang('success'));
 			$this->session->set_flashdata('message_type', 'success');
-
-			// Store the default username and password in the session data
-			$this->session->set_userdata('user', $input);
-
-			//define the default user email to be used in the settings module install
-			define('DEFAULT_EMAIL', $this->input->post('user_email'));
 
 			// Import the modules
 			$this->load->library('module_import', array(

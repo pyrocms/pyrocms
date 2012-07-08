@@ -32,7 +32,7 @@ class Module_Templates extends Module {
 				'hu' => 'E-mail sablonok',
 				'fi' => 'Sähköposti viestipohjat',
 				'th' => 'แม่แบบอีเมล',
-                                'se' => 'E-postmallar'
+				'se' => 'E-postmallar',
 			),
 			'description' => array(
 				'en' => 'Create, edit, and save dynamic email templates',
@@ -53,7 +53,7 @@ class Module_Templates extends Module {
                 'hu' => 'Csináld, szerkeszd és mentsd el a dinamikus e-mail sablonokat',
 				'fi' => 'Lisää, muokkaa ja tallenna dynaamisia sähköposti viestipohjia.',
 				'th' => 'การสร้างแก้ไขและบันทึกแม่แบบอีเมลแบบไดนามิก',
-                                'se' => 'Skapa, redigera och spara dynamiska E-postmallar.'
+				'se' => 'Skapa, redigera och spara dynamiska E-postmallar.',
 			),
 			'frontend' => false,
 			'backend' => true,
@@ -72,7 +72,7 @@ class Module_Templates extends Module {
 
 	public function install()
 	{
-		$this->dbforge->drop_table('email_templates');
+		$this->dbforge->drop_table('email_templates', true);
 
 		$tables = array(
 			'email_templates' => array(

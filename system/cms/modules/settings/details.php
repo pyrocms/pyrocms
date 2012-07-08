@@ -36,7 +36,7 @@ class Module_Settings extends Module {
 				'zh' => '網站設定',
 				'hu' => 'Beállítások',
 				'th' => 'ตั้งค่า',
-                                'se' => 'Inställningar'
+				'se' => 'Inställningar',
 			),
 			'description' => array(
 				'en' => 'Allows administrators to update settings like Site Name, messages and email address, etc.',
@@ -61,7 +61,7 @@ class Module_Settings extends Module {
 				'zh' => '網站管理者可更新的重要網站設定。例如：網站名稱、訊息、電子郵件等。',
 				'hu' => 'Lehetővé teszi az adminok számára a beállítások frissítését, mint a weboldal neve, üzenetek, e-mail címek, stb...',
 				'th' => 'ให้ผู้ดูแลระบบสามารถปรับปรุงการตั้งค่าเช่นชื่อเว็บไซต์ ข้อความและอีเมล์เป็นต้น',
-                                'se' => 'Administratören kan uppdatera webbplatsens titel, meddelanden och E-postadress etc.'
+				'se' => 'Administratören kan uppdatera webbplatsens titel, meddelanden och E-postadress etc.',
 			),
 			'frontend' => false,
 			'backend'  => true,
@@ -72,7 +72,7 @@ class Module_Settings extends Module {
 
 	public function install()
 	{
-		$this->dbforge->drop_table('settings');
+		$this->dbforge->drop_table('settings', true);
 
 		log_message('debug', '-- Settings: going to install the settings table');
 		$tables = array(
@@ -745,8 +745,8 @@ class Module_Settings extends Module {
 				'default' => '0',
 				'value' => '0',
 				'options' => '',
-				'is_required' => 1,
-				'is_gui' => 0,
+				'is_required' => true,
+				'is_gui' => false,
 				'module' => '',
 				'order' => 0,
 			),
@@ -755,9 +755,9 @@ class Module_Settings extends Module {
 				'title' => 'API Enabled',
 				'description' => 'Allow API access to all modules which have an API controller.',
 				'type' => 'select',
-				'`default`' => false,
-				'value' => '0',
-				'`options`' => '0=Disabled|1=Enabled',
+				'default' => false,
+				'value' => false,
+				'options' => '0=Disabled|1=Enabled',
 				'is_required' => false,
 				'is_gui' => false,
 				'module' => 'api',
@@ -768,9 +768,9 @@ class Module_Settings extends Module {
 				'title' => 'API User Keys',
 				'description' => 'Allow users to sign up for API keys (if the API is Enabled).',
 				'type' => 'select',
-				'`default`' => false,
+				'default' => false,
 				'value' => '0',
-				'`options`' => '0=Disabled|1=Enabled',
+				'options' => '0=Disabled|1=Enabled',
 				'is_required' => false,
 				'is_gui' => false,
 				'module' => 'api',

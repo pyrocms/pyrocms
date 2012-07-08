@@ -35,7 +35,7 @@ class Module_Files extends Module {
 				'zh' => '檔案',
 				'hu' => 'Fájlok',
 				'th' => 'ไฟล์',
-                                'se' => 'Filer'
+				'se' => 'Filer',
 			),
 			'description' => array(
 				'en' => 'Manages files and folders for your site.',
@@ -59,7 +59,7 @@ class Module_Files extends Module {
 				'zh' => '管理網站中的檔案與目錄',
 				'hu' => 'Fájlok és mappák kezelése az oldalon.',
 				'th' => 'บริหารจัดการไฟล์และโฟลเดอร์สำหรับเว็บไซต์ของคุณ',
-                                'se' => 'Hanterar filer och mappar för din webbplats.'
+				'se' => 'Hanterar filer och mappar för din webbplats.',
 			),
 			'frontend' => FALSE,
 			'backend' => TRUE,
@@ -72,8 +72,8 @@ class Module_Files extends Module {
 
 	public function install()
 	{
-		$this->dbforge->drop_table('files');
-		$this->dbforge->drop_table('file_folders');
+		$this->dbforge->drop_table('files', true);
+		$this->dbforge->drop_table('file_folders', true);
 
 		$tables = array(
 			'files' => array(
@@ -106,12 +106,7 @@ class Module_Files extends Module {
 			),
 		);
 
-		if ( ! $this->install_tables($tables))
-		{
-			return false;
-		}
-
-		return true;
+		return $this->install_tables($tables);
 	}
 
 	public function uninstall()

@@ -8,7 +8,7 @@
  */
 class Module_Users extends Module {
 
-	public $version = '1.1.0';
+	public $version = '2.1.0';
 
 	public function info()
 	{
@@ -36,7 +36,7 @@ class Module_Users extends Module {
 				'zh' => '用戶',
 				'hu' => 'Felhasználók',
 				'th' => 'ผู้ใช้งาน',
-                                'se' => 'Användare'
+				'se' => 'Användare',
 			),
 			'description' => array(
 				'en' => 'Let users register and log in to the site, and manage them via the control panel.',
@@ -60,32 +60,32 @@ class Module_Users extends Module {
 				'sl' => 'Dovoli uporabnikom za registracijo in prijavo na strani, urejanje le teh preko nadzorne plošče',
 				'zh' => '讓用戶可以註冊並登入網站，並且管理者可在控制台內進行管理。',
 				'th' => 'ให้ผู้ใช้ลงทะเบียนและเข้าสู่เว็บไซต์และจัดการกับพวกเขาผ่านทางแผงควบคุม',
-                                'hu' => 'Hogy a felhasználók tudjanak az oldalra regisztrálni és belépni, valamint lehessen őket kezelni a vezérlőpulton.',
-                                'se' => 'Låt dina besökare registrera sig och logga in på webbplatsen. Hantera sedan användarna via kontrollpanelen.'
+				'hu' => 'Hogy a felhasználók tudjanak az oldalra regisztrálni és belépni, valamint lehessen őket kezelni a vezérlőpulton.',
+				'se' => 'Låt dina besökare registrera sig och logga in på webbplatsen. Hantera sedan användarna via kontrollpanelen.',
 			),
 			'frontend' 	=> false,
 			'backend'  	=> true,
 			'menu'	  	=> false,
 			'roles'		=> array('admin_profile_fields')
-			);
+		);
 
 		if (function_exists('group_has_role'))
 		{
-			if(group_has_role('users', 'admin_profile_fields'))
+			if (group_has_role('users', 'admin_profile_fields'))
 			{
 				$info['sections'] = array(
 					'users' => array(
-							'name' 	=> 'user_list_title',
-							'uri' 	=> 'admin/users',
-								'shortcuts' => array(
-									'create' => array(
-										'name' 	=> 'user_add_title',
-										'uri' 	=> 'admin/users/create',
-										'class' => 'add'
-										)
-									)
-								),
-					'fields' => array(
+						'name' 	=> 'user_list_title',
+						'uri' 	=> 'admin/users',
+							'shortcuts' => array(
+								'create' => array(
+									'name' 	=> 'user_add_title',
+									'uri' 	=> 'admin/users/create',
+									'class' => 'add'
+								)
+							)
+						),
+						'fields' => array(
 							'name' 	=> 'user_profile_fields_label',
 							'uri' 	=> 'admin/users/fields',
 								'shortcuts' => array(
@@ -93,9 +93,9 @@ class Module_Users extends Module {
 										'name' 	=> 'user_add_field',
 										'uri' 	=> 'admin/users/fields/create',
 										'class' => 'add'
-										)
 									)
 								)
+							)
 						);
 			}
 		}

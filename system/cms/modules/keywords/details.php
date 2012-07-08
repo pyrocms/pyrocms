@@ -8,7 +8,7 @@
  */
 class Module_Keywords extends Module {
 
-	public $version = '1.0';
+	public $version = '1.1.0';
 
 	public $_tables = array('keywords', 'keywords_applied');
 
@@ -64,8 +64,8 @@ class Module_Keywords extends Module {
 
 	public function install()
 	{
-		$this->dbforge->drop_table('keywords');
-		$this->dbforge->drop_table('keywords_applied');
+		$this->dbforge->drop_table('keywords', true);
+		$this->dbforge->drop_table('keywords_applied', true);
 
 		return $this->install_tables(array(
 			'keywords' => array(

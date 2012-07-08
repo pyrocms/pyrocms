@@ -101,10 +101,10 @@ class Module_Pages extends Module
 
 	public function install()
 	{
-		$this->dbforge->drop_table('page_chunks');
-		$this->dbforge->drop_table('page_layouts');
-		$this->dbforge->drop_table('pages');
-		$this->dbforge->drop_table('revisions');
+		$this->dbforge->drop_table('page_chunks', true);
+		$this->dbforge->drop_table('page_layouts', true);
+		$this->dbforge->drop_table('pages', true);
+		$this->dbforge->drop_table('revisions', true);
 
 		$tables = array(
 			'page_layouts' => array(

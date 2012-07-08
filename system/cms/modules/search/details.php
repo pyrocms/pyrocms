@@ -29,27 +29,31 @@ class Module_Search extends Module {
 
 	public function install()
 	{
-		$this->dbforge->drop_table('search_index');
+		$this->dbforge->drop_table('search_index', true);
 
-		$this->db->query("
-		CREATE TABLE ".$this->db->dbprefix('search_index')." (
-		  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-		  `title` char(255) COLLATE utf8_unicode_ci NOT NULL,
-		  `description` text COLLATE utf8_unicode_ci,
-		  `keywords` text COLLATE utf8_unicode_ci,
-		  `keyword_hash` char(32) COLLATE utf8_unicode_ci DEFAULT NULL,
-		  `module` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
-		  `entry_key` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-		  `entry_plural` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-		  `entry_id` int(10) unsigned DEFAULT NULL,
-		  `uri` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-		  `cp_edit_uri` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-		  `cp_delete_uri` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-		  PRIMARY KEY (`id`),
+		return $this->install_tables(array(
+			'search_index' => array(
+				'id' => array('type' => 'INT', 'unsigned' => true, 'auto_increment' => true, 'primary' => true,),
+				'title' => array('type' => 'VARCHAR', 'constraint' => 255, 'fulltext' => 'full search'),
+				'description' => array('type' => 'text', 'fulltext' => 'full search'),
+				'keywords' => array('type' => 'text', 'fulltext' => 'full search'),
+				'keyword_hash' => array('type' => 'text'),
+				'module' => array('type' => 'varchar', 'constraint' => 40, 'unique' => 'unique'),
+				'entry_key' => array('type' => 'varchar', 'constraint' => 100, 'unique' => 'unique'),
+				'entry_plural' => array('type' => 'varchar', 'constraint' => 100),
+				'entry_id' => array('type' => 'varchar', 'constraint' => 10, 'unique' => 'unique'),
+				'uri' => array('type' => 'varchar', 'constraint' => 255),
+				'cp_edit_uri' => array('type' => 'varchar', 'constraint' => 255),
+				'cp_delete_uri' => array('type' => 'varchar', 'constraint' => 255),
+			),
+		));
+
+		/*
+		TODO Work out how to enable this search stuff for other systems
 		  UNIQUE KEY `unique` (`module`,`entry_key`,`entry_id`) USING BTREE,
 		  FULLTEXT KEY `full search` (`title`,`description`,`keywords`)
-		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-		");
+		) ENGINE=MyISAM
+		*/
 	}
 
 	public function uninstall()

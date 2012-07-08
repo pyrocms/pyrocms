@@ -263,7 +263,7 @@ abstract class Module {
 			}
 			foreach ($keys as $key => $fields)
 			{
-				$sql = 'CREATE '.$type.' INDEX '.$key.' ON '.$this->db->dbprefix($table).'('.implode(', ', $fields).')';
+				$sql = 'CREATE '.$type.' INDEX `'.$key.'` ON '.$this->db->dbprefix($table).'('.implode(', ', $fields).')';
 				if ( ! $this->db->query($sql))
 				{
 					log_message('error', '-- -- Failed creating key '.$type.' for '.$table.': '. $sql);

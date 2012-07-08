@@ -36,7 +36,7 @@ class Module_Variables extends Module {
 				'zh' => '系統變數',
 				'hu' => 'Változók',
 				'th' => 'ตัวแปร',
-                                'se' => 'Variabler'
+				'se' => 'Variabler',
 			),
 			'description' => array(
 				'en' => 'Manage global variables that can be accessed from anywhere.',
@@ -60,8 +60,8 @@ class Module_Variables extends Module {
 				'sl' =>	'Urejanje globalnih spremenljivk za dostop od kjerkoli',
 				'th' => 'จัดการตัวแปรทั่วไปโดยที่สามารถเข้าถึงได้จากทุกที่.',
 				'zh' => '管理此網站內可存取的全局變數。',
-                                'hu' => 'Globális változók kezelése a hozzáféréshez, bárhonnan.',
-                                'se' => 'Hantera globala variabler som kan avändas över hela webbplatsen.'
+				'hu' => 'Globális változók kezelése a hozzáféréshez, bárhonnan.',
+				'se' => 'Hantera globala variabler som kan avändas över hela webbplatsen.',
 
 			),
 			'frontend'	=> false,
@@ -79,7 +79,7 @@ class Module_Variables extends Module {
 
 	public function install()
 	{
-		$this->dbforge->drop_table('variables');
+		$this->dbforge->drop_table('variables', true);
 
 		$tables = array(
 			'variables' => array(
@@ -89,12 +89,7 @@ class Module_Variables extends Module {
 			),
 		);
 
-		if ( ! $this->install_tables($tables))
-		{
-			return false;
-		}
-
-		return true;
+		return $this->install_tables($tables);
 	}
 
 	public function uninstall()

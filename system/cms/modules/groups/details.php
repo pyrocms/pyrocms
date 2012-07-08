@@ -9,7 +9,7 @@
  class Module_Groups extends Module
 {
 
-	public $version = '1.0';
+	public $version = '1.1.0';
 
 	public function info()
 	{
@@ -77,7 +77,7 @@
 
 	public function install()
 	{
-		$this->dbforge->drop_table('groups');
+		$this->dbforge->drop_table('groups', true);
 
 		$tables = array(
 			'groups' => array(

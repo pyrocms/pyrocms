@@ -46,7 +46,7 @@ class Install_m extends CI_Model
 		$stmt->bindValue(':firstname',    $input['firstname']);
 		$stmt->bindValue(':lastname',     $input['lastname']);
 		$stmt->bindValue(':salt',         $salt);
-		$stmt->bindValue(':now',          time(), PDO::PARAM_INT);
+		$stmt->bindValue(':unix_now',     time(), PDO::PARAM_INT);
 		$stmt->bindValue(':migration',    $config['migration_version'], PDO::PARAM_INT);
 
 		return $stmt->execute();
