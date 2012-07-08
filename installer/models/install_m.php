@@ -16,20 +16,26 @@ class Install_m extends CI_Model
 
 		// Include migration config to know which migration to start from
 		require '../system/cms/config/migration.php';
-
-		// Get the SQL for the default data and parse it
-
-		// Do we want to create the database using the installer ?
-		if ( ! empty($input['create_db']) and $input['engine'] == 'mysql')
+		
+		if ($input['engine'] === 'mysql')
 		{
-			$stmt = $db->prepare('CREATE DATABASE IF NOT EXISTS :database');
-			$stmt->bindValue('database', $input['database']);
-			$stmt->execute();
-			unset($stmt);
+			// Do we want to create the database using the installer?
+			empty($input['create_db']) or $db->exec("CREATE DATABASE IF NOT EXISTS {$input['database']}");
+
+			$db->exec("USE {$input['database']}");
+		}
+
+		if ($input['engine'] === 'pgsql')
+		{
+			// Do we want to create the database using the installer?
+			empty($input['create_db']) or $db->exec("CREATE DATABASE IF NOT EXISTS {$input['database']}");
+
+			$db->exec("USE {$input['database']}");
 		}
 
 		$sql = file_get_contents('./sql/default.'.$input['engine'].'.sql');
 		$sql = str_replace('{site_ref}', $input['site_ref'], $sql);
+		$sql = str_replace('{session_table}', config_item('sess_table_name'), $sql);
 
 		$stmt = $db->prepare($sql);
 		
@@ -43,9 +49,7 @@ class Install_m extends CI_Model
 		$stmt->bindValue(':now',          time(), PDO::PARAM_INT);
 		$stmt->bindValue(':migration',    $config['migration_version'], PDO::PARAM_INT);
 
-		$stmt->execute();
-
-		var_dump($stmt);
+		return $stmt->execute();
 	}
 
 }

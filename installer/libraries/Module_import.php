@@ -10,9 +10,10 @@ class Module_import {
 
 	private $ci;
 
-	public function __construct()
+	public function __construct($params)
 	{
 		$this->ci =& get_instance();
+		$this->ci->load->helper('file');
 
 		// Getting our model and MY_Model class set up
 		class_exists('CI_Model', FALSE) OR load_class('Model', 'core');
@@ -21,22 +22,17 @@ class Module_import {
 		// Include some constants that modules may be looking for
 		define('SITE_REF', 'default');
 
-		$db['hostname'] = $this->ci->session->userdata('db.hostname');
-		$db['username'] = $this->ci->session->userdata('db.username');
-		$db['password'] = $this->ci->session->userdata('db.password');
-		$db['database'] = $this->ci->input->post('db.database');
-		$db['port'] 	= $this->ci->input->post('db.port');
-		$db['dbdriver'] = "mysql";
-		$db['dbprefix'] = 'default_';
-		$db['pconnect'] = TRUE;
-		$db['db_debug'] = TRUE;
-		$db['cache_on'] = FALSE;
-		$db['cachedir'] = "";
-		$db['char_set'] = "utf8";
-		$db['dbcollat'] = "utf8_unicode_ci";
-
-		$this->ci->load->database($db);
-		$this->ci->load->helper('file');
+		$this->ci->load->database(array(
+			'dsn'		=> $params['dsn'],
+			'username'		=> $params['username'],
+			'password'		=> $params['password'],
+			'dbdriver'	=> "pdo",
+			'dbprefix'	=> 'default_',
+			'pconnect'	=> TRUE,
+			'db_debug'	=> TRUE,
+			'char_set'	=> "utf8",
+			'dbcollat'	=> "utf8_unicode_ci",
+		));
 
 		// create the site specific addon folder
 		is_dir(ADDONPATH.'modules') OR mkdir(ADDONPATH.'modules', DIR_READ_MODE, TRUE);
@@ -111,50 +107,6 @@ class Module_import {
 
 	public function import_all()
 	{
-		//drop the old modules table
-		$this->ci->load->dbforge();
-		$this->ci->dbforge->drop_table('modules');
-
-		$modules = "
-			CREATE TABLE IF NOT EXISTS ".$this->ci->db->dbprefix('modules')." (
-			  `id` int(11) NOT NULL AUTO_INCREMENT,
-			  `name` TEXT NOT NULL,
-			  `slug` varchar(50) NOT NULL,
-			  `version` varchar(20) NOT NULL,
-			  `type` varchar(20) DEFAULT NULL,
-			  `description` TEXT DEFAULT NULL,
-			  `skip_xss` tinyint(1) NOT NULL,
-			  `is_frontend` tinyint(1) NOT NULL,
-			  `is_backend` tinyint(1) NOT NULL,
-			  `menu` varchar(20) NOT NULL,
-			  `enabled` tinyint(1) NOT NULL,
-			  `installed` tinyint(1) NOT NULL,
-			  `is_core` tinyint(1) NOT NULL,
-			  `updated_on` int(11) NOT NULL DEFAULT '0',
-			  PRIMARY KEY (`id`),
-			  UNIQUE KEY `slug` (`slug`),
-			  INDEX `enabled` (`enabled`)
-			) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-		";
-
-		//create the modules table so that we can import all modules including the modules module
-		$this->ci->db->query($modules);
-
-		$session = "
-			CREATE TABLE IF NOT EXISTS ".$this->ci->db->dbprefix(str_replace('default_', '', config_item('sess_table_name')))." (
-			 `session_id` varchar(40) DEFAULT '0' NOT NULL,
-			 `ip_address` varchar(16) DEFAULT '0' NOT NULL,
-			 `user_agent` varchar(120) NOT NULL,
-			 `last_activity` int(10) unsigned DEFAULT 0 NOT NULL,
-			 `user_data` text NULL,
-			PRIMARY KEY (`session_id`),
-			KEY `last_activity_idx` (`last_activity`)
-			) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-		";
-
-		// create a session table so they can use it if they want
-		$this->ci->db->query($session);
-
 		// Loop through directories that hold modules
 		$is_core = TRUE;
 		foreach (array(PYROPATH, ADDONPATH, SHARED_ADDONPATH) as $directory)
@@ -204,12 +156,12 @@ class Module_import {
 		$path = $is_core ? PYROPATH : ADDONPATH;
 
 		// Before we can install anything we need to know some details about the module
-		$details_file = $path . 'modules/' . $slug . '/details'.EXT;
+		$details_file = $path . 'modules/'.$slug.'/details'.EXT;
 
 		// Check the details file exists
 		if ( ! is_file($details_file))
 		{
-			$details_file = SHARED_ADDONPATH . 'modules/' . $slug . '/details'.EXT;
+			$details_file = SHARED_ADDONPATH.'modules/'.$slug.'/details'.EXT;
 
 			if ( ! is_file($details_file))
 			{

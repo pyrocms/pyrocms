@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS `core_users`, `core_settings`, `core_sites`, `{site_ref}_schema_version`;
+DROP TABLE IF EXISTS `core_users`, `core_settings`, `core_sites`, `{site_ref}_modles`, `{site_ref}_schema_version`;
 	
 CREATE TABLE core_settings (
 	`slug` varchar( 30 ) COLLATE utf8_unicode_ci NOT NULL ,
@@ -75,7 +75,7 @@ INSERT INTO core_users SELECT * FROM {site_ref}_users;
 
 DROP TABLE IF EXISTS `{site_ref}_profiles`;
 
-CREATE TABLE IF NOT EXISTS `{site_ref}_profiles` (
+CREATE TABLE `{site_ref}_profiles` (
   `id` int(9) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) unsigned NOT NULL,
   `display_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
@@ -106,3 +106,33 @@ CREATE TABLE IF NOT EXISTS {site_ref}_migrations (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO {site_ref}_migrations VALUES (:migration);
+
+CREATE TABLE `{site_ref}_modules` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` TEXT NOT NULL,
+  `slug` varchar(50) NOT NULL,
+  `version` varchar(20) NOT NULL,
+  `type` varchar(20) DEFAULT NULL,
+  `description` TEXT DEFAULT NULL,
+  `skip_xss` tinyint(1) NOT NULL,
+  `is_frontend` tinyint(1) NOT NULL,
+  `is_backend` tinyint(1) NOT NULL,
+  `menu` varchar(20) NOT NULL,
+  `enabled` tinyint(1) NOT NULL,
+  `installed` tinyint(1) NOT NULL,
+  `is_core` tinyint(1) NOT NULL,
+  `updated_on` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `slug` (`slug`),
+  INDEX `enabled` (`enabled`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+CREATE TABLE `{session_table}` (
+ `session_id` varchar(40) DEFAULT '0' NOT NULL,
+ `ip_address` varchar(16) DEFAULT '0' NOT NULL,
+ `user_agent` varchar(120) NOT NULL,
+ `last_activity` int(10) unsigned DEFAULT 0 NOT NULL,
+ `user_data` text NULL,
+  PRIMARY KEY (`session_id`),
+  KEY `last_activity_idx` (`last_activity`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

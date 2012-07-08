@@ -14,12 +14,15 @@ $lang['use_sqlite']		= 	 'Use SQLite';
 
 $lang['not_available']		= 	 'Not Available';
 
-$lang['db_settings']		=	'Database Settings';
-$lang['db_server']			=	'Database Hostname';
-$lang['db_location']		=	'Database Location';
-$lang['db_username']		=	'Database Username';
-$lang['db_password']		=	'Database Password';
-$lang['db_portnr']			=	'Database Port';
+$lang['db_settings']		=	'Settings';
+$lang['db_server']			=	'Hostname';
+$lang['db_location']		=	'Location';
+$lang['db_username']		=	'Username';
+$lang['db_password']		=	'Password';
+$lang['db_portnr']			=	'Port';
+$lang['db_database']		=	'Database Name';
+$lang['db_create']			=	'Create Database';
+$lang['db_notice']			=	'You might need to do this yourself';
 
 $lang['server_settings']	=	'Server Settings';
 $lang['httpserver']			=	'HTTP Server';

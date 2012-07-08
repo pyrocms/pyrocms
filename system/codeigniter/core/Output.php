@@ -673,7 +673,7 @@ class CI_Output {
 					$output = str_replace($codes_messed[0], $codes_clean[0], $output);
 				}
 
-				if ( ! empty($textareas_messed))
+				if ( ! empty($codes_clean))
 				{
 					preg_match_all('{<textarea.+</textarea>}msU', $output, $textareas_messed);
 					$output = str_replace($textareas_messed[0], $textareas_clean[0], $output);

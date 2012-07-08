@@ -162,7 +162,7 @@ class Installer_lib {
 		{
 			case 'mysql':
 			case 'pgsql':
-				$dsn = "{$engine}:host={$hostname};port={$port};dbname={$database};charset=utf8;";
+				$dsn = "{$engine}:host={$hostname};port={$port};charset=utf8;";
 			break;
 			case 'sqlite':
 				$dsn = "sqlite:{$location}";
@@ -183,7 +183,11 @@ class Installer_lib {
 		    $this->_error_message = $e->getMessage();
 		    return false;
 		}
-		return $pdo;
+
+		return array(
+			'conn' => $pdo,
+			'dsn' => $dsn,
+		);
 	}
 
 	/**
@@ -198,12 +202,20 @@ class Installer_lib {
 
 		$pdo = $this->create_db_connection();
 
-		$this->ci->install_m->set_default_structure($pdo, $data);
+		// Basic installation done with this PDO connection
+		$this->ci->install_m->set_default_structure($pdo['conn'], $data);
 
-		exit('PDO GOT THIS FAR');
+		// We didn't neccessairily have the DB at connection time
+		if ($this->ci->session->userdata('db.database'))
+		{
+			$pdo['dsn'] .= 'dbname='.$this->ci->session->userdata('db.database').';';
+		}
+
+		$username = $this->ci->session->userdata('db.username');
+		$password = $this->ci->session->userdata('db.password');
 
 		// Write the database file
-		if ( ! $this->write_db_file() )
+		if ( ! $this->write_db_file($pdo['dsn'], $username, $password))
 		{
 			return array(
 				'status'	=> FALSE,
@@ -222,9 +234,13 @@ class Installer_lib {
 			);
 		}
 
-		return array('status' => TRUE);
+		return array(
+			'status' => TRUE,
+			'dsn' => $pdo['dsn'],
+			'username' => $username,
+			'password' => $password,
+		);
 	}
-
 	
 
 	/**
@@ -232,27 +248,27 @@ class Installer_lib {
 	 *
 	 * Writes the database file based on the provided database settings
 	 */
-	function write_db_file($database)
+	public function write_db_file($dsn, $username, $password)
 	{
-		// First retrieve all the required data from the session and the $database variable
-		$server 	= $this->ci->session->userdata('hostname');
-		$username 	= $this->ci->session->userdata('username');
-		$password 	= $this->ci->session->userdata('password');
-		$port		= $this->ci->session->userdata('port');
-
 		// Open the template file
 		$template 	= file_get_contents('./assets/config/database.php');
 
-		$replace = array(
-			'__HOSTNAME__' 	=> $server,
-			'__USERNAME__' 	=> $username,
-			'__PASSWORD__' 	=> $password,
-			'__DATABASE__' 	=> $database,
-			'__PORT__' 		=> $port ? $port : 3306
-		);
+		// We didn't neccessairily have the DB at connection time
+		if ($this->ci->session->userdata('db.database'))
+		{
+			$dsn .= 'dbname='.$this->ci->session->userdata('db.database').';';
+		}
 
 		// Replace the __ variables with the data specified by the user
-		$new_file  	= str_replace(array_keys($replace), $replace, $template);
+		$new_file  	= str_replace(array(
+			'{dsn}', 
+			'{username}', 
+			'{password}'
+		), array(
+			$dsn,
+			$username,
+			$password,
+		), $template);
 
 		// Open the database.php file, show an error message in case this returns false
 		$handle 	= @fopen('../system/cms/config/database.php','w+');
@@ -308,6 +324,11 @@ class Installer_lib {
 	public function curl_enabled()
 	{
 		return (bool) function_exists('curl_init');
+	}
+
+	public function get_error()
+	{
+		return $this->_error_message;
 	}
 }
 

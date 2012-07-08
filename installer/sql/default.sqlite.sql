@@ -101,3 +101,31 @@ CREATE TABLE IF NOT EXISTS {site_ref}_migrations (
 );
 
 INSERT INTO {site_ref}_migrations VALUES (:migration);
+
+CREATE TABLE `{site_ref}_modules` (
+  `id` INTEGER PRIMARY KEY AUTOINCREMENT,
+  `name` TEXT NOT NULL,
+  `slug` varchar(50) NOT NULL,
+  `version` varchar(20) NOT NULL,
+  `type` varchar(20) DEFAULT NULL,
+  `description` TEXT DEFAULT NULL,
+  `skip_xss` tinyint(1) NOT NULL,
+  `is_frontend` tinyint(1) NOT NULL,
+  `is_backend` tinyint(1) NOT NULL,
+  `menu` varchar(20) NOT NULL,
+  `enabled` tinyint(1) NOT NULL,
+  `installed` tinyint(1) NOT NULL,
+  `is_core` tinyint(1) NOT NULL,
+  `updated_on` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE (`slug`)
+);
+
+CREATE TABLE `{session_table}` (
+ `session_id` varchar(40) DEFAULT '0' NOT NULL,
+ `ip_address` varchar(16) DEFAULT '0' NOT NULL,
+ `user_agent` varchar(120) NOT NULL,
+ `last_activity` int(10) unsigned DEFAULT 0 NOT NULL,
+ `user_data` text NULL,
+  PRIMARY KEY (`session_id`)
+);

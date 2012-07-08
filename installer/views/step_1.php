@@ -58,9 +58,9 @@
 		<div class="input sqlite">
 			<label for="location">{db_location}</label>
 			<?php echo form_input(array(
-				'id' => 'hostname',
-				'name' => 'hostname',
-				'value' => set_value('hostname', '/var/lib/sqlite/pyrocms.db'),
+				'id' => 'location',
+				'name' => 'location',
+				'value' => set_value('location', '/var/lib/sqlite/pyrocms.db'),
 			)) ?>
 		</div>
 		
@@ -92,12 +92,12 @@
 			)) ?>
 		</div>
 
-		<div class="input">
-			<label for="database"><?php echo lang('database'); ?></label>
+		<div class="input mysql pgsql">
+			<label for="database"><?php echo lang('db_database'); ?></label>
 			<input type="text" id="database" class="input_text" name="database" value="<?php echo set_value('database'); ?>" />
 		</div>
 
-		<div class="input">
+		<div class="input mysql pgsql">
 			<label for="create_db"><?php echo lang('db_create'); ?></label><br>
 			<input type="checkbox" name="create_db" value="1" id="create_db" <?php if($this->input->post('create_db')) { echo ' checked'; } ?> />
 			<small>(<?php echo lang('db_notice'); ?>)</small>

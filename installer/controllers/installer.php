@@ -119,7 +119,7 @@ class Installer extends CI_Controller
 		$this->form_validation->set_rules(array(
 			array(
 				'field' => 'db_engine',
-				'label'	=> 'lang:server',
+				'label'	=> 'lang:db_engine',
 				'rules'	=> 'trim|required'
 			),
 			array(
@@ -143,10 +143,15 @@ class Installer extends CI_Controller
 				'rules'	=> 'trim|required'
 			),
 			array(
+				'field' => 'database',
+				'label'	=> 'lang:server_settings',
+				'rules'	=> 'trim'.(in_array($this->input->post('db_engine'), array('mysql', 'pgsql')) ? '|required' : ''),
+			),
+			array(
 				'field' => 'http_server',
 				'label'	=> 'lang:server_settings',
 				'rules'	=> 'trim|required'
-			)
+			),
 		));
 
 		// If the form validation passed
@@ -177,6 +182,8 @@ class Installer extends CI_Controller
 		$data->db_engines = $this->installer_lib->check_db_extensions();
 
 		// Work out which DB engine to show as selected
+		$data->selected_db_engine = null;
+
 		if ($this->input->post('db_engine') === null)
 		{
 			foreach (array('sqlite', 'pgsql', 'mysql') as $engine)
@@ -184,8 +191,8 @@ class Installer extends CI_Controller
 				if ($data->db_engines[$engine] === true)
 				{
 					$data->selected_db_engine = $engine;
+					break;
 				}
-				break;
 			}
 		}
 		else
@@ -408,8 +415,8 @@ class Installer extends CI_Controller
 			$input = array(
 				'engine'   => $this->session->userdata('db.engine'), 
 				'database' => $this->session->userdata('db.database'),
+				'create_db' => (bool) $this->session->userdata('db.create_db'),
 				'site_ref' => $this->input->post('site_ref'),
-				'create_db' => $this->input->post('create_db'),
 			);
 
 			// Let's try to install the system
@@ -436,7 +443,11 @@ class Installer extends CI_Controller
 			define('DEFAULT_EMAIL', $this->input->post('user_email'));
 
 			// Import the modules
-			$this->load->library('module_import');
+			$this->load->library('module_import', array(
+				'dsn' => $install['dsn'],
+				'username' => $install['username'],
+				'password' => $install['password'],
+			));
 			$this->module_import->import_all();
 
 			redirect('installer/complete');
