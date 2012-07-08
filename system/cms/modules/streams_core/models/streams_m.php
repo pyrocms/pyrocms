@@ -556,9 +556,9 @@ class Streams_m extends MY_Model {
 		
 		if (!empty($skips)) $this->db->or_where_not_in('field_slug', $skips);
 		
-		$this->db->where(STREAMS_TABLE.'.id', $stream_id);
 		$this->db->join(ASSIGN_TABLE, STREAMS_TABLE.'.id='.ASSIGN_TABLE.'.stream_id');
 		$this->db->join(FIELDS_TABLE, FIELDS_TABLE.'.id='.ASSIGN_TABLE.'.field_id');
+		$this->db->where(STREAMS_TABLE.'.id', $stream_id);
 		
 		$obj = $this->db->get(STREAMS_TABLE);
 		

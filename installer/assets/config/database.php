@@ -49,6 +49,8 @@
 // Development
 $db[PYRO_DEVELOPMENT] = array(
 	'dsn'		=> 	'{dsn}',
+	'username'	=> 	'{username}',
+	'password'	=> 	'{password}',
 	'dbdriver' 	=> 	'pdo',
 	'pconnect' 	=>	TRUE,
 	'db_debug' 	=>	TRUE,
@@ -66,6 +68,8 @@ $db[PYRO_DEVELOPMENT] = array(
 $db[PYRO_STAGING] = array(
 	'dsn'		=> 	'',
 	'dbdriver' 	=> 	'pdo',
+	'username'	=> 	'{username}',
+	'password'	=> 	'{password}',
 	'active_r' 	=>	TRUE,
 	'pconnect' 	=>	FALSE,
 	'db_debug' 	=>	FALSE,
@@ -79,6 +83,8 @@ $db[PYRO_STAGING] = array(
 // Production
 $db[PYRO_PRODUCTION] = array(
 	'dsn'		=> 	'{dsn}',
+	'username'	=> 	'{username}',
+	'password'	=> 	'{password}',
 	'dbdriver' 	=> 	'pdo',
 	'pconnect' 	=>	FALSE,
 	'db_debug' 	=>	FALSE,

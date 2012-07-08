@@ -131,7 +131,7 @@ class Module_Widgets extends Module {
 			'slug' 	=> 'sidebar',
 		);
 
-		return $this->db->insert('widget_areas', $default_widget_areas))
+		return $this->db->insert('widget_areas', $default_widget_areas);
 	}
 
 	public function uninstall()

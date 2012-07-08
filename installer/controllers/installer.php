@@ -14,7 +14,6 @@ define('PYROPATH', dirname(FCPATH).'/system/cms/');
 /**
  * Installer controller.
  * 
- * @author 		Yorick Peterse
  * @author		PyroCMS Dev Team
  * @package		PyroCMS\Installer\Controllers
  * @property    CI_Loader $load
@@ -482,10 +481,10 @@ class Installer extends CI_Controller
 		$data['control_panel_url'] = $data['website_url'] . ($supported_servers[$server_name]['rewrite_support'] === TRUE ? 'admin' : 'index.php/admin');
 
 		// Let's remove our session since it contains data we don't want anyone to see
-		$this->session->sess_destroy();
+		// $this->session->sess_destroy();
 
 		// Load the view files
-		$data['page_output'] = $this->parser->parse('complete',$data, TRUE);
+		$data['page_output'] = $this->parser->parse('complete', $data, TRUE);
 		$this->load->view('global',$data);
 	}
 
