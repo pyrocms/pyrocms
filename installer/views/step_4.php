@@ -8,29 +8,8 @@
 
 <?php echo form_open(uri_string(), 'id="install_frm"'); ?>
 	
-	<section class="title">
-		<h3><?php echo lang('db_settings'); ?></h3>
-	</section>
-	
-	<section class="item">
+	<input type="hidden" id="site_ref" name="site_ref" value="default" />
 
-	<div class="input">
-		<label for="database"><?php echo lang('database'); ?></label>
-		<input type="text" id="database" class="input_text" name="database" value="<?php echo set_value('database'); ?>" />
-	</div>
-
-	<div class="input">
-		<label for="create_db"><?php echo lang('db_create'); ?></label><br>
-		<input type="checkbox" name="create_db" value="true" id="create_db" <?php if($this->input->post('create_db') == 'true') { echo ' checked="checked"'; } ?> />
-		<small>(<?php echo lang('db_notice'); ?>)</small>
-	</div>
-
-	<br>
-
-		<input type="hidden" id="site_ref" name="site_ref" value="default" />
-
-	</section>
-	
 	<section class="title">
 		<h3><?php echo lang('default_user'); ?></h3>
 	</section>
@@ -38,49 +17,48 @@
 	<section class="item">
 
 	<div class="input">
-		<label for="user_name"><?php echo lang('user_name'); ?></label>
+		<label for="username"><?php echo lang('username'); ?></label>
 		<?php echo form_input(array(
-			'id' => 'user_name',
-			'name' => 'user_name',
-			'value' => set_value('user_name')
+			'id' => 'username',
+			'name' => 'user[username]',
+			'value' => set_value('user[username]')
 		)) ?>
 	</div>
 
 	<div class="input">
-		<label for="user_firstname"><?php echo lang('first_name'); ?></label>
+		<label for="firstname"><?php echo lang('firstname'); ?></label>
 		<?php echo form_input(array(
-			'id' => 'user_firstname',
-			'name' => 'user_firstname',
-			'value' => set_value('user_firstname')
+			'id' => 'firstname',
+			'name' => 'user[firstname]',
+			'value' => set_value('user[firstname]')
 		)) ?>
 	</div>
 
 	<div class="input">
-		<label for="user_lastname"><?php echo lang('last_name'); ?></label>
+		<label for="lastname"><?php echo lang('lastname'); ?></label>
 		<?php echo form_input(array(
-			'id' => 'user_lastname',
-			'name' => 'user_lastname',
-			'value' => set_value('user_lastname')
+			'id' => 'lastname',
+			'name' => 'user[lastname]',
+			'value' => set_value('user[lastname]')
 		)) ?>
 	</div>
 
 	<div class="input">
-		<label for="user_email"><?php echo lang('email'); ?></label>
+		<label for="email"><?php echo lang('email'); ?></label>
 		<?php echo form_input(array(
-			'id' => 'user_email',
-			'name' => 'user_email',
-			'value' => set_value('user_email')
+			'id' => 'email',
+			'name' => 'user[email]',
+			'value' => set_value('user[email]')
 		)) ?>
 	</div>
 
 	<div class="input">
-		<label for="user_password"><?php echo lang('password'); ?></label>
+		<label for="password"><?php echo lang('password'); ?></label>
 		
 		<div class="password-wrapper">
 			<?php echo form_password(array(
-				'id' => 'user_password',
-				'name' => 'user_password',
-				'value' => set_value('user_password')
+				'id' => 'password',
+				'name' => 'user[password]',
 			)) ?>
 
 			<div id="progressbar">

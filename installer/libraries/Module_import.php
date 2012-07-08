@@ -1,6 +1,5 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-define('PYROPATH', dirname(FCPATH).'/system/cms/');
 define('ADDONPATH', dirname(FCPATH).'/addons/default/');
 define('SHARED_ADDONPATH', dirname(FCPATH).'/addons/shared_addons/');
 
@@ -22,16 +21,11 @@ class Module_import {
 		// Include some constants that modules may be looking for
 		define('SITE_REF', 'default');
 
-		// Now we can use stuff from our system/cms directory, hooray!
-		// Any dupes are generic so we shouldn't run into any 
-		// meaningful conflicts.
-		$this->ci->load->add_package_path(PYROPATH);
-
-		$db['hostname'] = $this->ci->session->userdata('hostname');
-		$db['username'] = $this->ci->session->userdata('username');
-		$db['password'] = $this->ci->session->userdata('password');
-		$db['database'] = $this->ci->input->post('database');
-		$db['port'] 	= $this->ci->input->post('port');
+		$db['hostname'] = $this->ci->session->userdata('db.hostname');
+		$db['username'] = $this->ci->session->userdata('db.username');
+		$db['password'] = $this->ci->session->userdata('db.password');
+		$db['database'] = $this->ci->input->post('db.database');
+		$db['port'] 	= $this->ci->input->post('db.port');
 		$db['dbdriver'] = "mysql";
 		$db['dbprefix'] = 'default_';
 		$db['pconnect'] = TRUE;

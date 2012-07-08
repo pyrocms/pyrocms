@@ -5,7 +5,7 @@ $lang['header']			=	'Langkah 1: Konfigurasi Database dan Server';
 $lang['intro_text']		=	'PyroCMS sangat mudah untuk diinstall dan hanya memerlukan beberapa menit, tetapi ada sedikit pertanyaan yang nampaknya membingungkan jika Anda tidak memiliki latar belakang teknis. Jika ada suatu poin yang Anda dapati tidak dimengerti, silakan tanyakan penyedia layanan hosting Anda atau <a href="http://www.pyrocms.com/contact" target="_blank">kontak kami</a> untuk dukungan teknis.';
 
 $lang['db_settings']	=	'Pengaturan Database';
-$lang['db_text']		=	'PyroCMS memerlukan database (MySQL) untuk menyimpan semua konten dan pengaturan, jadi yang pertama kita butuhkan adalah mengecek apakah koneksi database berjalan lancar. Apabila Anda tidak mengerti apa yang kami minta Anda untuk mengisi silakan tanya kepada penyedia layanan hosting Anda atau server administrator untuk lebih detailnya.';
+$lang['db_text']		=	'PyroCMS memerlukan database (MySQL/SQLite) untuk menyimpan semua konten dan pengaturan, jadi yang pertama kita butuhkan adalah mengecek apakah koneksi database berjalan lancar. Apabila Anda tidak mengerti apa yang kami minta Anda untuk mengisi silakan tanya kepada penyedia layanan hosting Anda atau server administrator untuk lebih detailnya.';
 $lang['db_missing']		=	'The mysql database driver for PHP were not found, installation cannot continue. Ask your host or server administrator to install it.'; #translate
 
 $lang['server']			=	'MySQL Hostname';

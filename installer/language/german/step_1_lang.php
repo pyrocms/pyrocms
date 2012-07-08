@@ -5,7 +5,7 @@ $lang['header']             = 'Schritt 1: Server- und Datenbank-Konfiguration';
 $lang['intro_text']         = 'Bevor die Verbindung zur Datenbank getestet werden kann, werden einige genauere Details ben&ouml;tigt.';
 
 $lang['db_settings']        = 'Einstellung der Datenbank';
-$lang['db_text']            = 'Um die Version der mySQL-Datenbank zu &uuml;berpr&uuml;ffen, geben Sie bitte im nachfolgenden Formular den Hostnamen, den Benutzernamen und das Passwort des MySQL-Servers an. Diese Einstellungen werden ebenfalls zur Installation vom PyroCMS ben&ouml;tigt.';
+$lang['db_text']            = 'Um die Version der MySQL/SQLite Datenbank zu &uuml;berpr&uuml;ffen, geben Sie bitte im nachfolgenden Formular den Hostnamen, den Benutzernamen und das Passwort des MySQL-Servers an. Diese Einstellungen werden ebenfalls zur Installation vom PyroCMS ben&ouml;tigt.';
 $lang['db_missing']         = 'Der mySQL-Datenbanktreiber wurde nicht gefunden, die Installation kann nicht fortgeführt werden. Beauftragen Sie bitte Ihren Anbieter oder Server-Administrator, den mySQL-Datenbanktreiber zu installieren.';
 
 $lang['server']             = 'Host';

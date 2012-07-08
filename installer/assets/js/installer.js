@@ -196,6 +196,19 @@
 
 jQuery(document).ready(function($) {
 
+	// Show relevant input options for DB engine
+	$('section#db-engine input[name=db_engine]').change(function() {
+
+		var enabled_engine = this.value;
+		$('section#db-settings .input').each(function() {
+
+			$input = $(this);
+
+			if ($input.hasClass(enabled_engine)) $input.show();
+			else $input.hide();
+		});
+	}).change();
+
 	// Add that cool orange bkg to the input that has focus
 	$('input, select').bind({
 		focusin: function() {
@@ -261,8 +274,9 @@ jQuery(document).ready(function($) {
 		html: true
 	});
 
+
     // Password Complexity
-    $("#user_password").complexify({},function(
+    $("input#password").complexify({},function(
         valid, complexity) {
        if (!valid) {
            $('#progress').css({

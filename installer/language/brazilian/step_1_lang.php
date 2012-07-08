@@ -5,7 +5,7 @@ $lang['header']			=	'1ª Etapa: Banco de Dados e Servidor';
 $lang['intro_text']		=	'Antes de criar um banco de dados, nós precisamos saber onde ele está e quais são os dados de acesso.';
 
 $lang['db_settings']	=	'Banco de Dados';
-$lang['db_text']		=	'Em seguida vamos verificar a versão do seu MySQL e antes disso é necessário que você informe o nome do servidor, usuário e senha de acesso no formulário abaixo. Estas configurações também serão utilizadas para criar e instalar um novo banco de dados na 4ª etapa.';
+$lang['db_text']		=	'Em seguida vamos verificar a versão do seu MySQL/SQLite e antes disso é necessário que você informe o nome do servidor, usuário e senha de acesso no formulário abaixo. Estas configurações também serão utilizadas para criar e instalar um novo banco de dados na 4ª etapa.';
 $lang['db_missing']		=	'The mysql database driver for PHP were not found, installation cannot continue. Ask your host or server administrator to install it.'; #translate
 
 $lang['server']			=	'Host';

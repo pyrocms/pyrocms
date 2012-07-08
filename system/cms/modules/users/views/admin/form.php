@@ -44,7 +44,7 @@
 					</li>
 					
 					<li class="even">
-						<label for="active"><?php echo lang('user_activate_label');?></label>
+						<label for="active"><?php echo lang('global:active');?></label>
 						<div class="input">
 						<?php echo form_checkbox('active', 1, (isset($member->active) && $member->active == 1), 'id="active"'); ?>
 						</div>
