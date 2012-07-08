@@ -35,7 +35,25 @@
 class CI_DB_pdo_forge extends CI_DB_forge {
 
 	protected $_drop_database	= 'DROP DATABASE %s';
-	protected $_drop_table		= 'DROP TABLE %s';
+
+	/**
+	 * Drop Table
+	 *
+	 * @param	string	the table name
+	 * @param	bool	should 'IF NOT EXISTS' be added to the SQL
+	 * @return	bool
+	 */
+	protected function _drop_table($table, $if_exists = false)
+	{
+		$sql = 'DROP TABLE ';
+
+		if ($if_exists === TRUE)
+		{
+			$sql .= 'IF EXISTS ';
+		}
+
+		return $sql . $this->db->escape_identifiers($table);
+	}
 
 	/**
 	 * Create Table
@@ -77,8 +95,25 @@ class CI_DB_pdo_forge extends CI_DB_forge {
 
 				if ( ! empty($attributes['CONSTRAINT']))
 				{
+					if ($this->db->subdriver === 'mysql')
+					{
+						switch (strtolower($attributes['TYPE']))
+						{
+							case 'decimal':
+							case 'float':
+							case 'numeric':
+								$sql .= '('.implode(',', $attributes['CONSTRAINT']).')';
+								break;
+							case 'enum':
+							case 'set':
+								$sql .= '("'.implode('","', $attributes['CONSTRAINT']).'")';
+								break;
+							default:
+								$sql .= '('.$attributes['CONSTRAINT'].')';
+						}
+					}
 					// Exception for Postgre numeric which not too happy with constraint within those type
-					if ( ! ($this->db->subdriver === 'pgsql' && in_array($attributes['TYPE'], $numeric)))
+					elseif ( ! ($this->db->subdriver === 'pgsql' && in_array($attributes['TYPE'], $numeric)))
 					{
 						$sql .= '('.$attributes['CONSTRAINT'].')';
 					}
@@ -119,11 +154,18 @@ class CI_DB_pdo_forge extends CI_DB_forge {
 		{
 			foreach ($keys as $key)
 			{
-				$key = is_array($key)
-					? $this->db->escape_identifiers($key)
-					: array($this->db->escape_identifiers($key));
+				if (is_array($key))
+				{
+					$key_name = $this->db->escape_identifiers(implode('_', $key));
+					$key = $this->db->escape_identifiers($key);
+				}
+				else
+				{
+					$key_name = $this->db->escape_identifiers($key);
+					$key = array($key_name);
+				}
 
-				$sql .= ",\n\tFOREIGN KEY (".implode(', ', $key).')';
+				$sql .= ",\n\tKEY ".$key_name.' ('.implode(', ', $key).')';
 			}
 		}
 

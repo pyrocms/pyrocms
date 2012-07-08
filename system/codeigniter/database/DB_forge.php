@@ -55,6 +55,8 @@ abstract class CI_DB_forge {
 
 	// --------------------------------------------------------------------
 
+	protected abstract function _drop_table($table, $if_not_exists = false);
+
 	/**
 	 * Create database
 	 *
@@ -245,7 +247,7 @@ abstract class CI_DB_forge {
 	 * @param	string	the table name
 	 * @return	bool
 	 */
-	public function drop_table($table_name)
+	public function drop_table($table_name, $if_exists = FALSE)
 	{
 		if ($table_name === '')
 		{
@@ -256,7 +258,7 @@ abstract class CI_DB_forge {
 			return ($this->db->db_debug) ? $this->db->display_error('db_unsuported_feature') : FALSE;
 		}
 
-		$result = $this->db->query(sprintf($this->_drop_table, $this->db->escape_identifiers($this->db->dbprefix.$table_name)));
+		$result = $this->db->query($this->_drop_table($this->db->dbprefix.$table_name, $if_exists));
 
 		// Update table list cache
 		if ($result && ! empty($this->db->data_cache['table_names']))
