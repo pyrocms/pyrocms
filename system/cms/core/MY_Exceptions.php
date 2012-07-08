@@ -24,7 +24,7 @@ class MY_Exceptions extends CI_Exceptions
 		// Set the HTTP Status header
 		set_status_header(404);
 
-		echo Modules::run('pages/_remap', '404');
+		Modules::run('pages/_remap', '404');
 	}
 
 }
