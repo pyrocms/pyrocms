@@ -88,7 +88,7 @@ class Users extends Public_Controller
 			array(
 				'field' => 'password',
 				'label' => lang('user_password_label'),
-				'rules' => 'required|min_length['.$this->config->item('min_password_length').']|max_length['.$this->config->item('max_password_length').']'
+				'rules' => 'required|min_length['.$this->config->item('min_password_length', 'ion_auth').']|max_length['.$this->config->item('max_password_length', 'ion_auth').']'
 			),
 		);
 
@@ -192,7 +192,7 @@ class Users extends Public_Controller
 			array(
 				'field' => 'password',
 				'label' => lang('user_password'),
-				'rules' => 'required|min_length['.$this->config->item('min_password_length').']|max_length['.$this->config->item('max_password_length').']'
+				'rules' => 'required|min_length['.$this->config->item('min_password_length', 'ion_auth').']|max_length['.$this->config->item('max_password_length', 'ion_auth').']'
 			),
 			array(
 				'field' => 'email',
