@@ -21,11 +21,11 @@ if (!function_exists('gravatar'))
 	 */
 	function gravatar($email = '', $size = 50, $rating = 'g', $url_only = FALSE, $default = FALSE)
 	{
-		$base_url = 'http://www.gravatar.com/avatar/';
+		$base_url = (IS_SECURE ? 'https://secure.gravatar.com' : 'http://www.gravatar.com').'/avatar/';
 		$email = empty($email) ? '3b3be63a4c2a439b013787725dfce802' : md5(strtolower(trim($email)));
 		$size = '?s='.$size;
 		$rating = '&amp;r='.$rating;
-		$default = !$default ? '' : '&amp;d='.urlencode($default);
+		$default = ! $default ? '' : '&amp;d='.urlencode($default);
 
 		$gravatar_url = $base_url.$email.$size.$rating.$default;
 		// URL only or the entire block of HTML ?

@@ -39,10 +39,13 @@ if ( ! function_exists('create_pagination'))
 			'reuse_query_string' 	=> true,
 		));
 
+		$offset = $limit * ($current_page - 1);
+
 		return array(
 			'current_page' => $current_page,
 			'per_page' => $limit,
-			'limit' => array($limit, $limit * ($current_page - 1)),
+			'limit' => array($limit, $offset),
+			'offset' => $offset,
 			'links' => $ci->pagination->create_links($full_tag_wrap)
 		);
 	}
