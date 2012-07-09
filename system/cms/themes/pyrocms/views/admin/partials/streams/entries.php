@@ -26,7 +26,7 @@
 
 					// Text type fields
 					case 'text':
-					case 'textrea':
+					case 'textarea':
 					case 'email':
 					case 'choice';
 					case 'wysiwyg':
