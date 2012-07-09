@@ -2,16 +2,16 @@
 
 // inline help html. Only 'help_body' is used.
 $lang['help_body'] = "
-<h4>Overview</h4>
-<p>The Addons module allows admins to upload, install, and uninstall third-party modules.</p>
+<h4>概观</h4>
+<p>插件模块允许管理员上传，安装，卸载第三方模块。</p>
 
-<h4>Uploading</h4>
-<p>New modules must be in a zip file and the folder must be named the same as the module.
-For example if you are uploading the 'forums' module the folder must be named 'forums' not 'test_forums'.</p>
+<h4>上传</h4>
+<p>新模块必须是在一个zip文件和文件夹必须命名为模块相同。
+例如，如果你是“论坛”上传模块的文件夹必须命名为'论坛'而不是'test_forums“。</p>
 
-<h4>Disabling, Uninstalling, or Deleting a module</h4>
-<p>If you want to remove a module from the front-end and from the admin menus you may simply Disable the module.
-If you are done with the data but may want to re-install the module in the future you may Uninstall it.
-<font color=\"red\">Note: this removes all database records.</font> If you are finished with all database records and source files you may Delete it.
-<font color=\"red\">This removes all source files, uploaded files, and database records associated with the module.</font></p>
+<h4>禁用，卸载或删除一个模块</h4>
+<p如果你想从模块的前端，并从管理菜单，你可以简单地禁用模块。
+如果你做的数据，但可能需要重新安装在未来的模块，你可以卸载它。
+<font color=\"red\">附注：这将删除所有数据库记录</font>如果您完成所有数据库中的记录和源文件，你可以删除它。
+<font color=\"red\">这将删除所有源文件，上传文件，并与该模块相关的数据库记录。</font></p>
 ";

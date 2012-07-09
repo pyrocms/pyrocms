@@ -1,8 +1,8 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 // inline help html. Only 'help_body' is used.
-$lang['help_body'] = "<h2>Overview</h2>
-<p>The Permissions module works together with the User Manager and the Groups module to give PyroCMS access control.</p>
+$lang['help_body'] = "<h2>概观</h2>
+<p>一起与用户管理和组模块给PyroCMS访问控制权限模块。</p>
 
-<h2>Setting Permissions</h2>
-<p>New groups have no permissions at all by default. Simply check the box by each module that you want users in that group to be able to access.</p>"; #translate
+<h2>设置权限</h2>
+<p>新组默认情况下，都没有权限。只需检查每个模块的框，你想在该组中的用户能够访问。</p>"; #translate

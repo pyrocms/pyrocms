@@ -2,11 +2,11 @@
 
 // inline help html. Only 'help_body' is used.
 $lang['help_body'] = "
-<h4>Overview</h4>
-<p>The comments module allows visitors to comment on any part of your website that you enable comments for.</p>
+<h4>概要</h4>
+<p>评论模块允许访客评论您的网站的任何部分，您启用意见。</p>
 
-<h4>Enabling Comments</h4><hr>
-<p>Comments can be enabled in Pages, Galleries, and Blog. If you want to moderate comments you must enable comment moderation in Settings.</p>
+<h4>支持留言</h4><hr>
+<p>可以启用页，画廊，博客评论。如果你想中度意见，您必须启用设置评论审核。</p>
 
-<h4>Comment Moderation</h4><hr>
-<p>Comments may be Approved or Unapproved at any time from the admin panel. If you approve a comment and later want to unapprove it you may do so.</p>";
+<h4>评论审核</h4><hr>
+<p>评论可能会被批准或未经批准在任何时间，从管理面板。如果你批准一个评论，以后要取消审核它，你可以这样做。</p>";

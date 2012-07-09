@@ -1,18 +1,23 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 // labels
-$lang['header']			=	'步骤三：設定權限';
-$lang['intro_text']		= 	'在 PyroCMS 開始安裝之前，請您先確認特定檔案與目錄的「可寫入」權限。這些檔案與目錄的列表如下，請確認所有其下的子目錄與檔案也都有正確的權限。';
+$lang['header']			=	'步骤三：設定权限';
+$lang['intro_text']		= 	'在 PyroCMS 開始安裝之前，請您先確認特定文件與目录的「可写入」权限。這些文件與目录的列表如下，請確認所有其下的子目录與文件也都有正確的权限。';
 
-$lang['folder_perm']	= 	'目錄權限';
-$lang['folder_text']	=	'下列目錄 CHMOD 必須設定為 777（在某些情況下，設定 775 也可以）。';
+$lang['folder_perm']	= 	'目录权限';
+$lang['folder_text']	=	'下列目录 CHMOD 必須設定為 777（在某些情況下，設定 775 也可以）。';
 
-$lang['file_perm']		=	'檔案權限';
-$lang['file_text']		=	'下列檔案 CHMOD 必須設定為 666。設定「資料庫設定檔」的檔案權限必須在安裝 PyroCMS <em>之前</em>，這是很重要的。';
+$lang['file_perm']		=	'文档权限';
+$lang['file_text']		=	"下列文件 CHMOD 必須設定為 666。設定「資料庫設定檔」的文件权限必須在安裝 PyroCMS <em>之前</em>，這是很重要的。";
 
-$lang['writable']		=	'可寫入';
-$lang['not_writable']	=	'禁止寫入';
+$lang['writable']		=	'可写入';
+$lang['not_writable']	=	'禁止写入';
+
+$lang['show_commands']		= '显示留言';
+$lang['hide_commands']		= '隐藏留言';
 
 $lang['next_step']		=	'進行下一個步骤';
 $lang['step4']			=	'步骤四';
 $lang['retry']			=	'再試一次';
+
+/* End of file step_3_lang.php */
