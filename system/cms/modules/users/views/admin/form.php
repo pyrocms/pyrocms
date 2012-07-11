@@ -23,7 +23,7 @@
 			<fieldset>
 				<ul>
 					<li class="even">
-						<label for="email"><?php echo lang('user_email_label');?> <span>*</span></label>
+						<label for="email"><?php echo lang('global:email');?> <span>*</span></label>
 						<div class="input">
 							<?php echo form_input('email', $member->email, 'id="email"'); ?>
 						</div>
@@ -51,7 +51,7 @@
 					</li>
 					<li class="even">
 						<label for="password">
-							<?php echo lang('user_password_label');?>
+							<?php echo lang('global:password');?>
 							<?php if ($this->method == 'create'): ?> <span>*</span><?php endif; ?>
 						</label>
 						<div class="input">

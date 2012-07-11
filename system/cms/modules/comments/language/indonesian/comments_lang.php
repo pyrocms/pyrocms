@@ -10,7 +10,6 @@ $lang['comments.view_more'] 				= 'Lihat selengkapnya...';
 
 // labels
 $lang['comments.name_label'] 				= 'Nama Anda';
-$lang['comments.email_label'] 				= 'Alamat Email';
 $lang['comments.website_label'] 			= 'Website';
 $lang['comments.message_label'] 			= 'Pesan';
 $lang['comments.status_label'] 				= 'Status';

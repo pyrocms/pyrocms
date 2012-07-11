@@ -50,8 +50,8 @@ $lang['global:demo_restrictions'] 		= 'Ezen az oldalon néhány funkció tiltott
 
 $lang['login_error_label'] 			= 'Bejelentkezési hiba';
 $lang['forgot_password_label'] 			= 'Elfelejtett jelsző';
-$lang['email_label'] 				= 'E-mail';
-$lang['password_label'] 			= 'Jelszó';
+$lang['global:email'] 				= 'E-mail';
+$lang['global:password'] 			= 'Jelszó';
 $lang['login_label'] 				= 'Bejelentkezés';
 
 $lang['help_label'] 				= 'Segítség';

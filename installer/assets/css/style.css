@@ -1803,6 +1803,41 @@ ul.block-message { width: 100%; float: left; }
 .tipsy-e .tipsy-arrow { top: 50%; margin-top: -4px; right: 0; width: 5px; height: 9px; background-position: top right; }
 .tipsy-w .tipsy-arrow { top: 50%; margin-top: -4px; left: 0; width: 5px; height: 9px; }
 
+/* Password Strength */
+#progressbar {
+  width:388px;height:28px;
+  display:block;
+  border:1px solid #ccc;
+  border-radius:5px;
+  overflow:hidden;
+}
+#progress {
+  display:block;height:30px;width:0%;
+}
+
+.password-wrapper {
+  float: left;
+}
+
+.password-strong{ 
+  background-color:green;
+  background-image:-o-linear-gradient(-90deg,#8AD702 0%,#389100 100%);
+  background-image:-moz-linear-gradient(-90deg,#8AD702 0%,#389100 100%);
+  background-image:-webkit-linear-gradient(-90deg,#8AD702 0%,#389100 100%);
+  background-image:-ms-linear-gradient(-90deg,#8AD702 0%,#389100 100%);
+  background-image:linear-gradient(-90deg,#8AD702 0%,#389100 100%);
+}
+
+.password-weak{
+  background-color:red;
+  background-image:-o-linear-gradient(-90deg,#F94046 0%,#92080B 100%);
+  background-image:-moz-linear-gradient(-90deg,#F94046 0%,#92080B 100%);
+  background-image:-webkit-linear-gradient(-90deg,#F94046 0%,#92080B 100%);
+  background-image:-ms-linear-gradient(-90deg,#F94046 0%,#92080B 100%);
+  background-image:linear-gradient(-90deg,#F94046 0%,#92080B 100%);
+}
+
+
 /*
 -------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------

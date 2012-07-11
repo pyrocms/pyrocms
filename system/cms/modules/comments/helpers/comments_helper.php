@@ -32,11 +32,17 @@ function display_comments($ref_id = '', $reference = NULL)
 	$ci->lang->load('comments/comments');
 	$ci->load->model('comments/comments_m');
 
-	$comments	= $ci->comments_m->get_by_module_item($reference, $ref_id);
+	$comments = $ci->comments_m->get_by_module_item($reference, $ref_id);
 	
-	// loop through the comments and escape {pyro} and html tags
+	// loop through the comments and escape {{ foo }} and html tags
 	foreach ($comments as &$comment)
 	{
+		// Override specified website if they are a user
+		if ($item->user_id and Setting::get('enable_profiles'))
+		{
+			$comment->website = 'user/'.$item->user_id;
+		}
+
 		foreach ($comment as &$body)
 		{
 			$body = escape_tags($body);

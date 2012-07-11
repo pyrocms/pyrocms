@@ -54,8 +54,8 @@ $lang['global:demo_restrictions'] 		= 'Algunas de las funciones de esta página 
 
 $lang['login_error_label']	            = 'Error al iniciar sesión';
 $lang['forgot_password_label']	        = '¿Olvidó su contraseña?';
-$lang['email_label']		            = 'E-mail';
-$lang['password_label']		            = 'Contraseña';
+$lang['global:email']		            = 'E-mail';
+$lang['global:password']		            = 'Contraseña';
 $lang['login_label']		            = 'Iniciar sesión';
 
 $lang['help_label']		                = 'Ayuda';

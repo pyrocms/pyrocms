@@ -18,7 +18,6 @@ $lang['comments.view_more']										= 'Показать ещё...';
 
 // подписи
 $lang['comments.name_label']									= 'Имя';
-$lang['comments.email_label']									= 'Email';
 $lang['comments.website_label']								= 'Веб-сайт';
 $lang['comments.message_label']								= 'Комментарий';
 $lang['comments.status_label']								= 'Статус';

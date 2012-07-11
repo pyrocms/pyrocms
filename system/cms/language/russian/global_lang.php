@@ -56,8 +56,8 @@ $lang['global:demo_restrictions']       = 'Some features on this page have been 
 
 $lang['login_error_label']			= 'Ошибка входа';
 $lang['forgot_password_label']	= 'Забыли пароль?';
-$lang['email_label']						= 'E-mail';
-$lang['password_label']					= 'Пароль';
+$lang['global:email']						= 'E-mail';
+$lang['global:password']					= 'Пароль';
 $lang['login_label']						= 'Войти';
 
 $lang['help_label']							= 'Помощь';

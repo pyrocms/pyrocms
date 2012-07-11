@@ -1,6 +1,6 @@
 <?php if ($entries) { ?>
 
-    <table class="table-list">
+    <table class="table-list" cellspacing="0">
 		<thead>
 			<tr>
 				<?php if($stream->sorting == 'custom'): ?><th></th><?php endif; ?>

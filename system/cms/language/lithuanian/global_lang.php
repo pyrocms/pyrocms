@@ -50,8 +50,8 @@ $lang['global:demo_restrictions']       = 'Kaikurios funkcijos buvo atjungtos de
 
 $lang['login_error_label'] 				= 'Prisijungimo klaida';
 $lang['forgot_password_label'] 			= 'Užmiršote slaptažodį?';
-$lang['email_label'] 					= 'El. paštas';
-$lang['password_label'] 				= 'Slaptažodis';
+$lang['global:email'] 					= 'El. paštas';
+$lang['global:password'] 				= 'Slaptažodis';
 $lang['login_label'] 					= 'Prisijungti';
 
 $lang['help_label'] 					= 'Pagalba';
