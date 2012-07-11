@@ -1,5 +1,4 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
-
 /**
  * Show a list of blog categories.
  * 
@@ -9,7 +8,6 @@
  */
 class Widget_Blog_categories extends Widgets
 {
-
         public $title = array(
             'en' => 'Blog Categories',
             'br' => 'Categorias do Blog',
