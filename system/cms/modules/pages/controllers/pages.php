@@ -231,10 +231,12 @@ class Pages extends Public_Controller
 		if ($page->slug == '404')
 		{
 			log_message('error', 'Page Missing: '.$this->uri->uri_string());
+
+			// things behave a little differently when called by MX from MY_Exceptions' show_404()
+			exit($this->template->build('pages/page', array('page' => $page), FALSE, FALSE));
 		}
 
-		$this->template->set('page', $page)
-			->build('pages/page', NULL, FALSE, FALSE);
+		$this->template->build('page', array('page' => $page), FALSE, FALSE);
 	}
 
 	/**

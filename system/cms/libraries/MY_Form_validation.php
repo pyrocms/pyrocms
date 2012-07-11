@@ -31,7 +31,7 @@ class MY_Form_validation extends CI_Form_validation
 
 	/**
 	 * Sneaky function to get field data from
-	 * the form validation libraru
+	 * the form validation library
 	 *
 	 * @access	public
 	 * @param	string
