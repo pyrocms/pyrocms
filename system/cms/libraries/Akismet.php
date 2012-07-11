@@ -48,22 +48,22 @@ class Akismet {
 
 		$this->_connect();
 		
-		if($this->errors_exist())
+		if ($this->errors_exist())
 		{
 			$this->errors = array_merge($this->errors, $this->get_errors());
 		}
 		
 		// Check if the API key is valid
-		if(!$this->_is_valid_api_key($this->api_key))
+		if ($this->_is_valid_api_key($this->api_key) === false)
 		{
-			$this->set_error('AKISMET_INVALID_KEY', "Your Akismet API key is not valid.");
+			$this->set_error('AKISMET_INVALID_KEY', "The Akismet API key is not valid.");
 		}
 	}
 	
 	// Connect to the Akismet server and store that connection in the instance variable $con
 	private function _connect()
 	{
-		if(!($this->con = @fsockopen($this->akismet_server, $this->api_port)))
+		if ( ! ($this->con = @fsockopen($this->akismet_server, $this->api_port)))
 		{
 			$this->set_error('AKISMET_SERVER_NOT_FOUND', "Could not connect to akismet server.");
 		}
@@ -75,18 +75,18 @@ class Akismet {
 		@fclose($this->con);
 	}
 	
-	public function get_response($request, $path, $type = "post", $response_length = 1160)
+	public function get_response($request, $path, $type = "POST", $response_length = 1160)
 	{
 		$this->_connect();
 		
-		if($this->con && ! $this->is_error('AKISMET_SERVER_NOT_FOUND'))
+		if ($this->con && ! $this->is_error('AKISMET_SERVER_NOT_FOUND'))
 		{
 			$request  =
-					strToUpper($type)." /{$this->akismet_version}/$path HTTP/1.0\r\n" .
-					"Host: ".((!empty($this->api_key)) ? $this->api_key."." : null)."{$this->akismet_server}\r\n" .
+					strtoupper($type)." /{$this->akismet_version}/$path HTTP/1.1\r\n" .
+					"Host: ".$this->api_key.".{$this->akismet_server}\r\n" .
 					"Content-Type: application/x-www-form-urlencoded; charset=utf-8\r\n" .
 					"Content-Length: ".strlen($request)."\r\n" .
-					"User-Agent: PyroCMS ".CMS_VERSION."\r\n" .
+					"User-Agent: PyroCMS/".CMS_VERSION."\r\n" .
 					"\r\n" .
 					$request
 				;
@@ -94,7 +94,7 @@ class Akismet {
 	
 			@fwrite($this->con, $request);
 	
-			while(!feof($this->con))
+			while ( ! feof($this->con))
 			{
 				$response .= @fgets($this->con, $response_length);
 			}
@@ -117,19 +117,17 @@ class Akismet {
 	
 	public function get_error($name)
 	{
-		if($this->is_error($name))
+		if ($this->is_error($name))
 		{
 			return $this->errors[$name];
 		}
-		else
-			{
-			return false;
-		}
+		
+		return false;
 	}
 	
 	public function get_errors()
 	{
-		return (array)$this->errors;
+		return (array) $this->errors;
 	}
 	
 	public function is_error($name)
@@ -180,8 +178,7 @@ class Akismet {
 	private function _is_valid_api_key($key)
 	{
 		$key_check = $this->get_response("key=".$this->api_key."&blog=".$this->blog_url, 'verify-key');
-			
-		return ($key_check == "valid");
+		return ($key_check === "valid");
 	}
 	
 	private function _format_comment_array() {
@@ -194,9 +191,9 @@ class Akismet {
 			'body' => 'comment_content'
 		);
 		
-		foreach($format as $short => $long)
+		foreach ($format as $short => $long)
 		{
-			if(isset($this->comment[$short]))
+			if (isset($this->comment[$short]))
 			{
 				$this->comment[$long] = $this->comment[$short];
 				unset($this->comment[$short]);
