@@ -185,7 +185,7 @@ class Streams_cp extends CI_Driver {
 
 		$data['pagination'] = create_pagination(
 									$pagination_uri,
-									$CI->db->select('id')->get($stream->stream_prefix.$stream->stream_slug)->num_rows(),
+									$CI->db->select('id')->count_all_results($stream->stream_prefix.$stream->stream_slug),
 									$pagination,
 									$offset_uri
 								);
