@@ -20,6 +20,7 @@ $lang['files:back']							= 'Arrière';
 $lang['files:forward']						= 'Avant';
 $lang['files:start']						= 'Commencer le téléchargement';
 $lang['files:details']						= 'Details';
+$lang['files:id']							= 'ID'; #translate
 $lang['files:name']							= 'Nom';
 $lang['files:slug']							= 'Slug';
 $lang['files:path']							= 'Chemin';

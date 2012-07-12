@@ -268,9 +268,11 @@ class Blog extends Public_Controller
         // Set some defaults
         else
         {
-            $post->category->id = 0;
-            $post->category->slug = '';
-            $post->category->title = '';
+            $post->category = (object) array(
+            	'id' => 0,
+				'slug' => '',
+				'title' => '',
+			);
         }
 
         $this->session->set_flashdata(array('referrer' => $this->uri->uri_string));

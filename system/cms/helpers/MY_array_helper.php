@@ -111,7 +111,7 @@ if (!function_exists('html_to_assoc'))
 
 }
 
-if (!function_exists('html_to_assoc'))
+if (!function_exists('assoc_array_prop'))
 {
 	/**
 	 * Associative array property
