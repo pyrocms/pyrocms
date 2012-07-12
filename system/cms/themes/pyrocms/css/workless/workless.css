@@ -681,6 +681,7 @@ input:invalid, textarea:invalid { background-color: #f0dddd; }
 -webkit-transition: 250ms linear all; 
   -moz-transition: 250ms linear all; 
   transition: 250ms linear all;
+  width: 100%;
 }
 
 .form_inputs input:focus,
