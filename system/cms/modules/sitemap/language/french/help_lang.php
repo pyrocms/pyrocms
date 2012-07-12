@@ -1,9 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-// #translate
-
 // inline help html. Only 'help_body' is used.
-$lang['help_body'] = '<h4>Overview</h4>
-<p>The sitemap module automatically generates an index page and an XML file suitable for search crawlers. 
-See <a href="http://sitemaps.org">sitemaps.org</a> for more information.
-</p>'; #translate
+$lang['help_body'] = '<h4>Général</h4>
+<p>Le module Sitemap, génère automatiquement une page d\'index et un fichier XML optimisé pour les moteurs de recherche. 
+Vous référer à <a href="http://sitemaps.org">sitemaps.org</a> pour plus d\'informations.
+</p>';

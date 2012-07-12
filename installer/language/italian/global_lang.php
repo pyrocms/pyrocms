@@ -7,5 +7,5 @@ $lang['step3']	=	'Passo #3';
 $lang['step4']	=	'Passo #4';
 $lang['final']	=	'Passo Finale';
 
-$lang['installer.passwords_match']		= "Passwords Match."; #translate
-$lang['installer.passwords_dont_match']	= "Passwords Don\'t Match."; #translate
+$lang['installer.passwords_match']		= "Le password coincidono.";
+$lang['installer.passwords_dont_match']	= "Le password non coincidono.";

@@ -1,7 +1,7 @@
 <?php
 
-$lang['blog:post']                 = 'Post'; #translate
-$lang['blog:posts']                   = 'Posts'; #translate
+$lang['blog:post']                 = 'Post';
+$lang['blog:posts']                   = 'Posts';
 
 // labels
 $lang['blog:posted_label'] 							= 'Posté le';

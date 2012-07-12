@@ -92,4 +92,8 @@ $lang['global:remove']					= 'Remove';
 
 $lang['global:keywords']				= 'Keywords';
 
+$lang['global:or']						= 'or';
+$lang['global:and']						= 'and';
+$lang['global:at']						= 'at';
+
 /* End of file main_lang.php */

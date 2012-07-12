@@ -28,6 +28,7 @@ $lang['files:back']		= 'Bakåt';
 $lang['files:forward']		= 'Framåt';
 $lang['files:start']		= 'Starta uppladdning';
 $lang['files:details']		= 'Detaljer';
+$lang['files:id']							= 'ID'; #translate
 $lang['files:name']		= 'Namn';
 $lang['files:slug']		= 'Slugg';
 $lang['files:path']		= 'Sökväg';
