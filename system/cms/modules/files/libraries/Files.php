@@ -852,7 +852,7 @@ class Files
 		// physical filenames cannot be changed because of the risk of breaking embedded urls so we just change the db
 		ci()->file_m->update($id, array('name' => $name));
 
-		return self::result(TRUE, lang('files:item_updated'), $name, array('name' => $name));
+		return self::result(TRUE, lang('files:item_updated'), $name, array('id' => $id, 'name' => $name));
 	}
 
 	// ------------------------------------------------------------------------
