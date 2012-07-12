@@ -146,9 +146,6 @@ function process_comment_items($comments)
 		// What did they comment on
 		switch ($comment->module)
 		{
-			case 'news': # Deprecated v1.1.0
-				$comment->module = 'blog';
-				break;
 			case 'gallery':
 				$comment->module = plural($comment->module);
 				break;
