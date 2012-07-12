@@ -712,6 +712,7 @@ jQuery(function($){
 	 	$item_details.find('li').hide();
 
 	 	if ($item) {
+	 		if ($item.id) 				$item_details.find('.id')				.html($item.id).parent().show();
 		 	if ($item.name) 			$item_details.find('.name')				.html($item.name).parent().show();
 		 	if ($item.slug) 			$item_details.find('.slug')				.html($item.slug).parent().show();
 		 	if ($item.path) 			$item_details.find('.path')				.val($item.path).parent().show();
