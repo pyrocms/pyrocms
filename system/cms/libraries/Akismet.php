@@ -156,7 +156,7 @@
 		
 		function submit_spam()
 		{
-			$this->get_response($this->_get_querystring(), 'submit-spam');
+			$this->get_response($this->_get_query_string(), 'submit-spam');
 		}
 		
 		
