@@ -651,7 +651,7 @@ input:invalid, textarea:invalid { background-color: #f0dddd; }
 .form_inputs > ul > li > label,
 .form_inputs fieldset > ul > li .label,
 .form_inputs > ul > li .label {
-	width: 90%!important;
+	width: 90%;
 	float: left;
 	text-align: left;
 	margin: 0 3% 0 0;
@@ -664,7 +664,7 @@ input:invalid, textarea:invalid { background-color: #f0dddd; }
 .form_inputs .input {
 	float: left!important;
 	padding-left: 10px;
-	width: 67%;
+	width: 69%;
 }
 .form_inputs .input > input {
 	color: #666;
