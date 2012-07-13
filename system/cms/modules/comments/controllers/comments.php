@@ -179,7 +179,7 @@ class Comments extends Public_Controller
 	{
 		// Dumb-check
 		$this->load->library('user_agent');
-
+                $this->load->model('comment_blacklists_m');
 		// Sneaky bot-check
 		if ($this->agent->is_robot() OR $this->input->post('d0ntf1llth1s1n'))
 		{
@@ -203,7 +203,7 @@ class Comments extends Public_Controller
 				'api_key' => Settings::get('akismet_api_key'),
 				'comment' => $comment
 			);
-
+                        
 			$this->akismet->init($config);
 
 			if ($this->akismet->is_spam())
@@ -213,8 +213,18 @@ class Comments extends Public_Controller
 
 			if ($this->akismet->errors_exist())
 			{
-				return array('status' => FALSE, 'message' => implode('<br />', $this->akismet->get_errors()));
+			        return array('status' => FALSE, 'message' => implode('<br />', $this->akismet->get_errors()));
 			}
+			
+		}
+                $blacklist = array(
+                      	'email' => $this->input->post('email'),
+                        'website' => $this->input->post('website')
+                );
+
+	        if($this->comment_blacklists_m->is_blacklisted($blacklist))
+   		{
+		    	return array('status' => FALSE, 'message' => 'The website or email address posting this comment has been blacklisted.');
 		}
 
 		// F**k knows, its probably fine...
