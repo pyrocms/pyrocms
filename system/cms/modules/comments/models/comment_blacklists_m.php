@@ -27,7 +27,11 @@ class Comment_blacklists_m extends MY_Model {
     
     private function _get_count($data)
     {
-        $this->db->select('count(*) as count')->from('comment_blacklists')->where($data); 
+        foreach($data as $k => $v)
+        {
+            $where .= "`$k`='$v' OR "; 
+        }
+        $this->db->select('count(*) as count')->from('comment_blacklists')->where(substr($where,0,-4)); 
         return $this->db->get()->row();
     }
 
