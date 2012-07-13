@@ -19,7 +19,7 @@ class Comment_blacklists_m extends MY_Model {
     
     public function insert($data)
     {
-        if($this->_get_count($data)->count < 1)
+        if ($this->_get_count($data)->count < 1)
         {
             return parent::insert($data);
         }
@@ -37,7 +37,7 @@ class Comment_blacklists_m extends MY_Model {
 
     public function is_blacklisted($data)
     {
-        if($this->_get_count($data)->count > 0)
+        if ($this->_get_count($data)->count > 0)
         {
             return true;
         }

@@ -179,7 +179,7 @@ class Comments extends Public_Controller
 	{
 		// Dumb-check
 		$this->load->library('user_agent');
-                $this->load->model('comment_blacklists_m');
+		$this->load->model('comment_blacklists_m');
 		// Sneaky bot-check
 		if ($this->agent->is_robot() OR $this->input->post('d0ntf1llth1s1n'))
 		{
@@ -213,7 +213,7 @@ class Comments extends Public_Controller
 
 			if ($this->akismet->errors_exist())
 			{
-			        return array('status' => FALSE, 'message' => implode('<br />', $this->akismet->get_errors()));
+				return array('status' => FALSE, 'message' => implode('<br />', $this->akismet->get_errors()));
 			}
 			
 		}
@@ -222,7 +222,7 @@ class Comments extends Public_Controller
                         'website' => $this->input->post('website')
                 );
 
-	        if($this->comment_blacklists_m->is_blacklisted($blacklist))
+	        if ($this->comment_blacklists_m->is_blacklisted($blacklist))
    		{
 		    	return array('status' => FALSE, 'message' => 'The website or email address posting this comment has been blacklisted.');
 		}
