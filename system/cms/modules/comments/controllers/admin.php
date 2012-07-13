@@ -187,7 +187,7 @@ class Admin extends Admin_Controller {
             if(!empty($api_key))
             {
                 $akismet = $this->load->library('akismet');
-                $comment = array(
+                $comment_array = array(
                         'author' => $comment->name,
                         'website' => $comment->website,
                         'email' => $comment->email,
@@ -197,7 +197,7 @@ class Admin extends Admin_Controller {
                 $config = array(
                         'blog_url' => BASE_URL,
                         'api_key' => $api_key,
-                        'comment' => $comment
+                        'comment' => $comment_array
                 );
 
                 $akismet->init($config);
@@ -206,8 +206,8 @@ class Admin extends Admin_Controller {
             }
             
             $this->comment_blacklists_m->insert(array(
-                                          'website' => $comment['website'],
-                                          'email' => $comment['email']
+                                          'website' => $comment->website,
+                                          'email' => $comment->email
                                       ));
             $this->delete($id);
             redirect('admin/comments');
