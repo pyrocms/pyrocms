@@ -12,6 +12,16 @@
 		$('#keywords').tagsInput({
 			autocomplete_url:'admin/keywords/autocomplete'
 		});
+		// Featured image editor
+		CKEDITOR.replace( 'featured_image',
+		{
+			extraPlugins: 'pyroimages',
+			toolbar :
+				[
+					{ name: 'pyrofiles', items : [ 'pyroimages' ] },
+					{ name: 'tools', items : [ 'Maximize' ] }
+				]
+		});
 		
 		// editor switcher
 		$('select[name^=type]').live('change', function() {

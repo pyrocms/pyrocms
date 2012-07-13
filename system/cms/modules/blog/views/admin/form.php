@@ -32,25 +32,25 @@
 				<label for="slug"><?php echo lang('global:slug'); ?> <span>*</span></label>
 				<div class="input"><?php echo form_input('slug', $post->slug, 'maxlength="100" class="width-20"'); ?></div>
 			</li>
-			
 			<li>
-				<label for="status"><?php echo lang('blog:status_label'); ?></label>
-				<div class="input"><?php echo form_dropdown('status', array('draft' => lang('blog:draft_label'), 'live' => lang('blog:live_label')), $post->status) ?></div>
+				<label for="featured_image"><?php echo lang('blog:featured_image_label'); ?></label>
+				<div class="input">
+				<?php echo form_textarea(array('id' => 'featured_image', 'name' => 'featured_image', 'value' => $post->featured_image, 'rows' => 5, 'class' => 'blog pyroimages')); ?>
+				</div>
 			</li>
-			
-			<li>
-				<label for="image"><?php echo lang('global:image'); ?></label>
-				<div class="input"><?php echo form_upload('image'); ?></div>
+			<style type="text/css" media="screen">
+				#cke_featured_image {
+					
+					width: 79%;
+					
+				}
+			</style>
 
-				<?php if ( ! empty($post->image)): ?>
-					<br /><img src="<?php echo base_url().UPLOAD_PATH.'blog/'.$post->image ?>" />
-				<?php endif; ?>
-			</li>
-			
 			<li>
 				<label for="intro"><?php echo lang('blog:intro_label'); ?></label>
-				<br style="clear: both;" />
-				<?php echo form_textarea(array('id' => 'intro', 'name' => 'intro', 'value' => $post->intro, 'rows' => 5, 'class' => 'blog wysiwyg-simple')); ?>
+				<div class="input">
+				<?php echo form_textarea(array('id' => 'intro', 'name' => 'intro', 'value' => $post->intro, 'rows' => 5, 'class' => 'blog')); ?>
+				</div>
 			</li>
 			
 			<li class="editor">
@@ -82,10 +82,23 @@
 		<fieldset>
 		
 		<ul>
+			
+			<li>
+				<label for="status"><?php echo lang('blog:status_label'); ?></label>
+				<div class="input"><?php echo form_dropdown('status', array('draft' => lang('blog:draft_label'), 'live' => lang('blog:live_label')), $post->status) ?></div>
+			</li>
+			
+			
+			<li>
+				<label for="status"><?php echo lang('blog:relevance_label'); ?></label>
+				<div class="input"><?php echo form_dropdown('relevance', array('featured' => lang('blog:featured_label'), 'normal' => lang('blog:normal_label')), $post->relevance) ?>
+				
+			</li>		
 			<li>
 				<label for="category_id"><?php echo lang('blog:category_label'); ?></label>
 				<div class="input">
 				<?php echo form_dropdown('category_id', array(lang('blog:no_category_select_label')) + $categories, @$post->category_id) ?>
+				<br/>
 					[ <?php echo anchor('admin/blog/categories/create', lang('blog:new_category_label'), 'target="_blank"'); ?> ]
 				</div>
 			</li>
@@ -100,6 +113,7 @@
 				
 				<div class="input datetime_input">
 				<?php echo form_input('created_on', date('Y-m-d', $post->created_on), 'maxlength="10" id="datepicker" class="text width-20"'); ?> &nbsp;
+				<br/>
 				<?php echo form_dropdown('created_on_hour', $hours, date('H', $post->created_on)) ?> : 
 				<?php echo form_dropdown('created_on_minute', $minutes, date('i', ltrim($post->created_on, '0'))) ?>
 				

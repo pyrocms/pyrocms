@@ -1,29 +1,25 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
-/*
-| -------------------------------------------------------------------------
-| URI ROUTING
-| -------------------------------------------------------------------------
-| This file lets you re-map URI requests to specific controller functions.
-|
-| Typically there is a one-to-one relationship between a URL string
-| and its corresponding controller class/method. The segments in a
-| URL normally follow this pattern:
-|
-| 	www.your-site.com/class/method/id/
-|
-| In some instances, however, you may want to remap this relationship
-| so that a different class/function is called than the one
-| corresponding to the URL.
-|
-| Please see the user guide for complete details:
-|
-|	http://www.codeigniter.com/user_guide/general/routing.html
-*/
-
-// public
-$route['(blog)/(:num)/(:num)/(:any)']	= 'blog/view/$4';
-$route['(blog)/page(/:num)?']			    = 'blog/index$2';
-$route['(blog)/rss/all.rss']			    = 'rss/index';
-$route['(blog)/rss/(:any).rss']		    = 'rss/category/$2';
-// admin
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
+$route['blog/rss/all.rss']='blog/rss/index';
+$route['default_controller'] = 'blog';
+$route['positive/(:num)?']	= 'blog/category/positive/$2';
+$route['positive/(:any)?']	= 'blog/view/$1';
+$route['positive']= 'blog/category/positive';
+$route['beautiful/(:num)?']	= 'blog/category/beautiful/$2';
+$route['beautiful/(:any)?']	= 'blog/view/$1';
+$route['beautiful']= 'blog/category/beautiful';
+$route['animals/(:num)?']	= 'blog/category/animals/$2';
+$route['animals/(:any)?']	= 'blog/view/$1';
+$route['animals']= 'blog/category/animals';
+$route['environment/(:num)?']	= 'blog/category/environment/$2';
+$route['environment/(:any)?']	= 'blog/view/$1';
+$route['environment']= 'blog/category/environment';
+$route['food/(:num)?']	= 'blog/category/food/$2';
+$route['food/(:any)?']	= 'blog/view/$1';
+$route['food']= 'blog/category/food';
+$route['search']					= 'blog/search';
+$route['tagged/(:any)?']			= 'blog/tagged/$1';
+$route['rss/all.rss']			= 'blog/rss/index';
+$route['(:num)?']				= 'blog/index/$1';
+$route['rss/(:any).rss']		    = 'blog/rss/category/$1';
 $route['blog/admin/categories(/:any)?']		= 'admin_categories$1';
+/* End of file routes.php */

@@ -8,7 +8,7 @@
  */
 class Module_Blog extends Module {
 
-	public $version = '2.0';
+	public $version = '2.1';
 
 	public function info()
 	{
@@ -67,6 +67,7 @@ class Module_Blog extends Module {
 			),
 
 			'sections' => array(
+			    
 			    'posts' => array(
 				    'name' => 'blog:posts_title',
 				    'uri' => 'admin/blog',
@@ -109,7 +110,7 @@ class Module_Blog extends Module {
 				'title' => array('type' => 'VARCHAR', 'constraint' => 100, 'null' => false, 'unique' => true),
 				'slug' => array('type' => 'VARCHAR', 'constraint' => 100, 'null' => false),
 				'category_id' => array('type' => 'INT', 'constraint' => 11, 'key' => true),
-				'attachment' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => ''),
+				'featured_image' => array('type' => 'TEXT'),
 				'intro' => array('type' => 'TEXT'),
 				'body' => array('type' => 'TEXT'),
 				'parsed' => array('type' => 'TEXT'),
@@ -119,10 +120,55 @@ class Module_Blog extends Module {
 				'updated_on' => array('type' => 'INT', 'constraint' => 11, 'default' => 0),
 				'comments_enabled' => array('type' => 'INT', 'constraint' => 1, 'default' => 1),
 				'status' => array('type' => 'ENUM', 'constraint' => array('draft', 'live'), 'default' => 'draft'),
+				'relevance' => array('type' => 'ENUM', 'constraint' => array('normal', 'featured'), 'default' => 'featured'),
 				'type' => array('type' => 'SET', 'constraint' => array('html', 'markdown', 'wysiwyg-advanced', 'wysiwyg-simple')),
                 'preview_hash' => array('type' => 'CHAR', 'constraint' => 32,'default'=>''),
 			),
 		);
+		
+		
+		$setting = array(
+			
+			'blog_uri'=>array(
+				'title'=>'Blog Page',
+				'description'=>'The permalink of the blog page. Leave empty if you want the blog to be the default home page.',
+				'type'=>'text',
+				'default'=>'',
+				'value'=>'blog',
+				'options'=>null,
+				'is_required'=>0,
+				'is_gui'=>1,
+				'module'=>'blog',
+				'order'=>0,
+	
+			),
+			'blog_posts_per_page'=>array(
+				'title'=>'Blog Posts Per Page',
+				'description'=>'The number of blogs posts shown at one time.',
+				'type'=>'text',
+				'default'=>'',
+				'value'=>25,
+				'options'=>null,
+				'is_required'=>0,
+				'is_gui'=>1,
+				'module'=>'blog',
+				'order'=>0,
+	
+			)
+		);
+		
+		
+			// Lets add the settings for this module.
+		foreach ($settings as $slug => $setting_info)
+		{
+			log_message('debug', '-- Settings: installing '.$slug);
+			$setting_info['slug'] = $slug;
+			if ( ! $this->db->insert('settings', $setting_info))
+			{
+				log_message('debug', '-- -- could not install '.$slug);
+				return false;
+			}
+		}
 
 		return $this->install_tables($tables);
 	}

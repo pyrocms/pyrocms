@@ -1,39 +1,19 @@
-<div class="post">
-
-	<h3><?php echo $post->title; ?></h3>
-
-	<div class="meta">
-		<div class="date"><?php echo lang('blog:posted_label');?>: <span><?php echo format_date($post->created_on); ?></span></div>
-		
-		<?php if (isset($post->display_name)): ?>
-		<div class="author">
-			<?php echo lang('blog:written_by_label'); ?>: 
-			<span><?php echo anchor('user/' . $post->author_id, $post->display_name); ?></span>
-		</div>
-		<?php endif; ?>
-
-		<?php if ($post->category->slug): ?>
-		<div class="category">
-			<?php echo lang('blog:category_label');?>: 
-			<span><?php echo anchor('blog/category/'.$post->category->slug, $post->category->title);?></span>
-		</div>
-		<?php endif; ?>
-		<?php if ($post->keywords): ?>
-		<div class="keywords">
-			<?php echo lang('blog:tagged_label');?>:
-			<?php foreach ($post->keywords as $keyword): ?>
-				<span><?php echo anchor('blog/tagged/'.$keyword->name, $keyword->name, 'class="keyword"') ?></span>
-			<?php endforeach; ?>
-		</div>
-		<?php endif; ?>
+<article id="single_post">
+	<h2><?php echo $post->title; ?></h2>	
+	<div id="post_date">
+		<?php echo date('M d, Y',$post->created_on); ?> by <a href="/users/profile/<?php echo $post->author_id; ?>"><?php echo $post->display_name; ?></a>
 	</div>
-
-	<div class="body">
-		<?php echo $post->body; ?>
-	</div>
-	
-</div>
-
-<?php if ($post->comments_enabled): ?>
-	<?php echo display_comments($post->id); ?>
-<?php endif; ?>
+	<div id="post_body"><?php echo $post->body; ?></div>
+	<div id="post_meta">
+		<span class="tags">
+		    <?php if($post->keywords) : ?>
+		    	<?php foreach ($post->keywords as $keyword): if ($keyword->name!='featured'): ?>
+		    	<span><?php echo anchor(($this->config->item('blog_uri')!=null? $this->config->item('blog_uri').'/':null).'tagged/'.$keyword->name, $keyword->name, 'class="keyword"') ?></span>
+		    	<?php endif; endforeach; ?>
+		    <?php endif; ?>
+		</span>
+	</div>			
+	<?php if ($post->comments_enabled): ?>
+		<?php echo display_comments($post->id); ?>
+	<?php endif; ?>
+</article>
