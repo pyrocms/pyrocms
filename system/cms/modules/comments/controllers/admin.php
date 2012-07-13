@@ -47,7 +47,7 @@ class Admin extends Admin_Controller {
 		// Load the required libraries, models, etc
 		$this->load->library('form_validation');
 		$this->load->model('comments_m');
-                $this->load->model('comment_blacklists_m');
+		$this->load->model('comment_blacklists_m');
 		$this->lang->load('comments');
 
 		// Set the validation rules
