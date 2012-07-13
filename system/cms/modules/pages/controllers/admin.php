@@ -310,12 +310,6 @@ class Admin extends Admin_Controller {
 		// did they even submit?
 		if ($input = $this->input->post())
 		{
-			// do they have permission to proceed?
-			if ($input['status'] == 'live')
-			{
-				role_or_die('pages', 'put_live');
-			}
-
 			// validate and insert
 			if ($this->page_m->edit($id, $input))
 			{
