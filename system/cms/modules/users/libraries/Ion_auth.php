@@ -285,72 +285,75 @@ class Ion_auth
 	 * @return void
 	 * @author Mathew
 	 **/
-	public function register($username, $password, $email, $group_id = null, $additional_data = array(), $group_name = false) //need to test email activation
+	public function register($username, $password, $email, $group_id = null, $additional_data = array(), $group_name = false)
 	{
-	    $email_activation = $this->ci->config->item('email_activation', 'ion_auth');
+		$id = $this->ci->ion_auth_model->register($username, $password, $email, $group_id, $additional_data, $group_name);
 
-		if ( ! $email_activation)
+		if ($id !== FALSE)
 		{
-			$id = $this->ci->ion_auth_model->register($username, $password, $email, $group_id, $additional_data, $group_name);
-			if ($id !== FALSE)
+			$this->set_message('account_creation_successful');
+
+			if (Settings::get('activation_email'))
 			{
-				$this->set_message('account_creation_successful');
-				return $id;
+				return $this->activation_email($id);
 			}
-			else
-			{
-				$this->set_error('account_creation_unsuccessful');
-				return FALSE;
-			}
+
+			return $id;
 		}
 		else
 		{
-			$id = $this->ci->ion_auth_model->register($username, $password, $email, $group_id, $additional_data, $group_name);
-
-			if ( ! $id)
-			{
-				$this->set_error('account_creation_unsuccessful');
-				return FALSE;
-			}
-
-			$deactivate = $this->ci->ion_auth_model->deactivate($id);
-
-			if ( ! $deactivate)
-			{
-				$this->set_error('deactivate_unsuccessful');
-				return FALSE;
-			}
-
-			$activation_code 	= $this->ci->ion_auth_model->activation_code;
-			$user				= $this->ci->ion_auth_model->get_user($id)->row();
-
-			// Add in some extra details
-			$data['subject']			= $this->ci->settings->get('site_name') . ' - Account Activation'; // No translation needed as this is merely a fallback to Email Template subject
-			$data['slug'] 				= 'activation';
-			$data['to'] 				= $email;
-			$data['from'] 				= $this->ci->settings->get('server_email');
-			$data['name']				= $this->ci->settings->get('site_name');
-			$data['reply-to']			= $this->ci->settings->get('contact_email');
-			$data['activation_code']	= $activation_code;
-			$data['user']				= $user;
-			
-			// send the email using the template event found in system/cms/templates/
-			$results = Events::trigger('email', $data, 'array');
-
-			// check for errors from the email event
-			foreach ($results as $result)
-			{
-				if ( ! $result)
-				{
-					$this->set_error('activation_email_unsuccessful');
-					return FALSE;
-				}
-			}
-			
-			// email send was successful, let them know
-			$this->set_message('activation_email_successful');
-			return $id;
+			$this->set_error('account_creation_unsuccessful');
+			return FALSE;
 		}
+	}
+
+	/**
+	 * Send an activation email to a user
+	 * 
+	 * @return int|bool
+	 * @author Jerel Unruh
+	 */
+	public function activation_email($id = 0)
+	{
+		// deactivate them and generate the activation code
+		$this->ci->ion_auth_model->deactivate($id);
+
+		$activation_code 	= $this->ci->ion_auth_model->activation_code;
+		$user				= $this->ci->ion_auth_model->get_user($id)->row();
+
+		if ( ! $user)
+		{
+			$this->set_error('activation_email_unsuccessful');
+			return FALSE;
+		}
+
+		// Add in some extra details
+		$data['subject']			= $this->ci->settings->get('site_name') . ' - Account Activation'; // No translation needed as this is merely a fallback to Email Template subject
+		$data['slug'] 				= 'activation';
+		$data['to'] 				= $email;
+		$data['from'] 				= $this->ci->settings->get('server_email');
+		$data['name']				= $this->ci->settings->get('site_name');
+		$data['reply-to']			= $this->ci->settings->get('contact_email');
+		$data['activation_code']	= $activation_code;
+		$data['user']				= $user;
+		
+		// send the email using the template event found in system/cms/templates/
+		$results = Events::trigger('email', $data, 'array');
+
+		// check for errors from the email event
+		foreach ($results as $result)
+		{
+			if ( ! $result)
+			{
+				$this->set_error('activation_email_unsuccessful');
+				return FALSE;
+			}
+		}
+		
+		// email send was successful, let them know
+		$this->set_message('activation_email_successful');
+
+		return $id;
 	}
 
 	/**
