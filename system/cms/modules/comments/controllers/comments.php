@@ -222,7 +222,7 @@ class Comments extends Public_Controller
                         'website' => $this->input->post('website')
                 );
 
-	        if($this->comment_blacklists_m->is_blacklisted($blacklist))
+	        if ($this->comment_blacklists_m->is_blacklisted($blacklist))
    		{
 		    	return array('status' => FALSE, 'message' => 'The website or email address posting this comment has been blacklisted.');
 		}
