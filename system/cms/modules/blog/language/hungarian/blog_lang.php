@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-$lang['blog:post']                 = 'Post'; #translate
-$lang['blog:posts']                   = 'Posts'; #translate
+$lang['blog:post']                           = 'Bejegyzés';
+$lang['blog:posts']                          = 'Bejegyzések';
 
 // labels
 $lang['blog:posted_label']                   = 'Bejegyezve';
@@ -64,3 +64,5 @@ $lang['blog:twitter_error']                  = 'Twitter Hiba';
 
 // date
 $lang['blog:archive_date_format']            = "%B' %Y";
+
+/* End of file blog_lang.php */
