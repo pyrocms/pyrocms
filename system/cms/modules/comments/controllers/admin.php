@@ -47,6 +47,7 @@ class Admin extends Admin_Controller {
 		// Load the required libraries, models, etc
 		$this->load->library('form_validation');
 		$this->load->model('comments_m');
+		$this->load->model('comment_blacklists_m');
 		$this->lang->load('comments');
 
 		// Set the validation rules
@@ -178,7 +179,41 @@ class Admin extends Admin_Controller {
 			->build('admin/form');
 	}
 
-	// Admin: Delete a comment
+	// Admin: report a comment to local tables/Akismet as spam
+        public function report($id)
+        {
+            $api_key = Settings::get('akismet_api_key');
+            $comment = $this->comments_m->get($id);
+            if (!empty($api_key))
+            {
+                $akismet = $this->load->library('akismet');
+                $comment_array = array(
+                    'author' => $comment->name,
+                    'website' => $comment->website,
+                    'email' => $comment->email,
+                    'body' => $comment->comment
+                );
+      
+                $config = array(
+                    'blog_url' => BASE_URL,
+                    'api_key' => $api_key,
+                    'comment' => $comment_array
+                );
+
+                $akismet->init($config);
+                //expecting to see $comment as an array not an object...
+                $akismet->submit_spam();
+            }
+            
+            $this->comment_blacklists_m->insert(array(
+                'website' => $comment->website,
+                'email' => $comment->email
+            ));
+
+            $this->delete($id);
+            redirect('admin/comments');
+        }
+        // Admin: Delete a comment
 	public function delete($ids)
 	{
 		// Check for one
