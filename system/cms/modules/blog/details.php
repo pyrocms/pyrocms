@@ -127,7 +127,7 @@ class Module_Blog extends Module {
 		);
 		
 		
-		$setting = array(
+		$settings = array(
 			
 			'blog_uri'=>array(
 				'title'=>'Blog Page',
