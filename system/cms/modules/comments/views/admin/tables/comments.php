@@ -59,7 +59,7 @@
 					
 						<?php echo anchor('admin/comments/edit/' . $comment->id, lang('global:edit'), 'class="button edit"'); ?>
 						<?php echo anchor('admin/comments/delete/' . $comment->id, lang('global:delete'), array('class'=>'confirm button delete')); ?>
-                                                <?php echo anchor('admin/comments/report/' . $comment->id, 'Report', array('class'=>'button edit')); ?>
+						<?php echo anchor('admin/comments/report/' . $comment->id, 'Report', array('class'=>'button edit')); ?>
 					</td>
 				</tr>
 			<?php endforeach; ?>
