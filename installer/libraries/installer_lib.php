@@ -306,8 +306,8 @@ class Installer_lib {
 			$index_page = 'index.php';
 		}
 
-		// Replace the __INDEX__ with index.php or an empty string
-		$new_file = str_replace('__INDEX__', $index_page, $template);
+		// Replace the {index} with index.php or an empty string
+		$new_file = str_replace('{index}', $index_page, $template);
 
 		// Open the database.php file, show an error message in case this returns false
 		$handle = @fopen('../system/cms/config/config.php','w+');

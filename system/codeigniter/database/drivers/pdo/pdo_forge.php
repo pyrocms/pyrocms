@@ -75,7 +75,40 @@ class CI_DB_pdo_forge extends CI_DB_forge {
 		}
 
 		$sql .= $this->db->escape_identifiers($table).' (';
+
+		$sql .= $this->_process_fields($fields);
+
+		if (count($primary_keys) > 0)
+		{
+			$sql .= ",\n\tPRIMARY KEY (".implode(', ', $this->db->escape_identifiers($primary_keys)).')';
+		}
+
+		if (is_array($keys) && count($keys) > 0)
+		{
+			foreach ($keys as $key)
+			{
+				if (is_array($key))
+				{
+					$key_name = $this->db->escape_identifiers(implode('_', $key));
+					$key = $this->db->escape_identifiers($key);
+				}
+				else
+				{
+					$key_name = $this->db->escape_identifiers($key);
+					$key = array($key_name);
+				}
+
+				$sql .= ",\n\tKEY ".$key_name.' ('.implode(', ', $key).')';
+			}
+		}
+
+		return $sql."\n)";
+	}
+
+	protected function _process_fields(array $fields)
+	{
 		$current_field_count = 0;
+		$sql = '';
 
 		foreach ($fields as $field => $attributes)
 		{
@@ -90,6 +123,8 @@ class CI_DB_pdo_forge extends CI_DB_forge {
 			{
 				$attributes = array_change_key_case($attributes, CASE_UPPER);
 				$numeric = array('SERIAL', 'INTEGER');
+
+				empty($attributes['NAME']) OR $sql .= ' '.$this->db->escape_identifiers($attributes['NAME']).' ';
 
 				$sql .= "\n\t".$this->db->escape_identifiers($field).' '.$attributes['TYPE'];
 
@@ -144,32 +179,7 @@ class CI_DB_pdo_forge extends CI_DB_forge {
 				$sql .= ',';
 			}
 		}
-
-		if (count($primary_keys) > 0)
-		{
-			$sql .= ",\n\tPRIMARY KEY (".implode(', ', $this->db->escape_identifiers($primary_keys)).')';
-		}
-
-		if (is_array($keys) && count($keys) > 0)
-		{
-			foreach ($keys as $key)
-			{
-				if (is_array($key))
-				{
-					$key_name = $this->db->escape_identifiers(implode('_', $key));
-					$key = $this->db->escape_identifiers($key);
-				}
-				else
-				{
-					$key_name = $this->db->escape_identifiers($key);
-					$key = array($key_name);
-				}
-
-				$sql .= ",\n\tKEY ".$key_name.' ('.implode(', ', $key).')';
-			}
-		}
-
-		return $sql."\n)";
+		return $sql;
 	}
 
 	// --------------------------------------------------------------------
@@ -182,26 +192,21 @@ class CI_DB_pdo_forge extends CI_DB_forge {
 	 *
 	 * @param	string	the ALTER type (ADD, DROP, CHANGE)
 	 * @param	string	the column name
-	 * @param	string	the table name
-	 * @param	string	the column definition
-	 * @param	string	the default value
-	 * @param	bool	should 'NOT NULL' be added
+	 * @param	array	fields
 	 * @param	string	the field after which we should add the new field
 	 * @return	string
 	 */
-	protected function _alter_table($alter_type, $table, $column_name, $column_definition = '', $default_value = '', $null = '', $after_field = '')
+	protected function _alter_table($alter_type, $table, $fields, $after_field = '')
 	{
-		$sql = 'ALTER TABLE '.$this->db->escape_identifiers($table).' '.$alter_type.' '.$this->db->escape_identifiers($column_name);
+		$sql = 'ALTER TABLE '.$this->db->escape_identifiers($table).' '.$alter_type.' ';
 
 		// DROP has everything it needs now.
 		if ($alter_type === 'DROP')
 		{
-			return $sql;
+			return $sql.$this->db->escape_identifiers($fields);
 		}
 
-		return $sql .' '.$column_definition
-			.($default_value !== '' ? " DEFAULT '".$default_value."'" : '')
-			.($null === NULL ? ' NULL' : ' NOT NULL')
+		return $sql.$this->_process_fields($fields)
 			.($after_field !== '' ? ' AFTER '.$this->db->escape_identifiers($after_field) : '');
 	}
 

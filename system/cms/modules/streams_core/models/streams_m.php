@@ -556,11 +556,16 @@ class Streams_m extends MY_Model {
 		
 		if (!empty($skips)) $this->db->or_where_not_in('field_slug', $skips);
 		
-		$this->db->join(ASSIGN_TABLE, STREAMS_TABLE.'.id='.ASSIGN_TABLE.'.stream_id');
-		$this->db->join(FIELDS_TABLE, FIELDS_TABLE.'.id='.ASSIGN_TABLE.'.field_id');
-		$this->db->where(STREAMS_TABLE.'.id', $stream_id);
+		// TODO Remove hack once PDO drivers work
+		return array();
+
+		$this->db
+			->from(STREAMS_TABLE)
+			->join(ASSIGN_TABLE, STREAMS_TABLE.'.id='.ASSIGN_TABLE.'.stream_id')
+			->join(FIELDS_TABLE, FIELDS_TABLE.'.id='.ASSIGN_TABLE.'.field_id')
+			->where(STREAMS_TABLE.'.id', $stream_id);
 		
-		$obj = $this->db->get(STREAMS_TABLE);
+		$obj = $this->db->get();
 		
 		if ($obj->num_rows() == 0)
 		{

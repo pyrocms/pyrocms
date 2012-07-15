@@ -695,6 +695,8 @@ class Ion_auth_model extends CI_Model
 	 **/
 	public function get_users($group = false, $limit = null, $offset = null)
 	{
+		$this->db->reset_query();
+		
 		$this->db->select(array(
 			$this->tables['users'].'.*',
 			$this->tables['groups'].'.name AS '. $this->db->protect_identifiers('group'),
@@ -733,7 +735,7 @@ class Ion_auth_model extends CI_Model
 		}
 
 
-		if (isset($this->ion_auth, $this->ion_auth->_extra_where) && !empty($this->ion_auth->_extra_where))
+		if (isset($this->ion_auth, $this->ion_auth->_extra_where) && ! empty($this->ion_auth->_extra_where))
 		{
 			$this->db->where($this->ion_auth->_extra_where);
 		}
