@@ -344,7 +344,8 @@ class Files
 			ci()->load->library('upload', array(
 				'upload_path'	=> self::$path,
 				'allowed_types'	=> self::$_ext,
-				'file_name'		=> self::$_filename
+				'file_name'		=> self::$_filename,
+				'encrypt_name'	=> config_item('files:encrypt_filename')
 			));
 
 			if (ci()->upload->do_upload($field))
