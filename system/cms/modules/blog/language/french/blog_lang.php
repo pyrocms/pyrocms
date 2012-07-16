@@ -1,4 +1,4 @@
-<?php
+<?php<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['blog:post']                 = 'Post';
 $lang['blog:posts']                   = 'Posts';
@@ -16,11 +16,11 @@ $lang['blog:date_label'] 							= 'Date';
 $lang['blog:date_at']								= 'le';
 $lang['blog:time_label'] 							= 'Heure';
 $lang['blog:status_label'] 							= 'Statut';
+$lang['blog:draft_label'] 							= 'Brouillon';
+$lang['blog:live_label'] 							= 'Live';
 $lang['blog:content_label'] 						= 'Contenu';
 $lang['blog:options_label'] 						= 'Options';
 $lang['blog:intro_label'] 							= 'Introduction';
-$lang['blog:draft_label'] 							= 'Brouillon';
-$lang['blog:live_label'] 							= 'Live';
 $lang['blog:no_category_select_label'] 				= '-- Aucun --';
 $lang['blog:new_category_label'] 					= 'Ajouter une catégorie';
 $lang['blog:subscripe_to_rss_label'] 				= 'Souscrire au RSS';
@@ -64,5 +64,3 @@ $lang['blog:twitter_error'] 						= 'Erreur Twitter';
 
 // date
 $lang['blog:archive_date_format']		= "%B' %Y";
-
-?>
