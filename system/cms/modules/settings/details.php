@@ -224,6 +224,32 @@ class Module_Settings extends Module {
 				'module' => '',
 				'order' => 991,
 			),
+			'blog_uri'=>array(
+				'title'=>'Blog Page',
+				'description'=>'The permalink of the blog page. Leave empty if you want the blog to be the default home page.',
+				'type'=>'text',
+				'default'=>'',
+				'value'=>'blog',
+				'options'=>'',
+				'is_required'=>0,
+				'is_gui'=>1,
+				'module'=>'blog',
+				'order'=>980,
+	
+			),
+			'blog_posts_per_page'=>array(
+				'title'=>'Blog Posts Per Page',
+				'description'=>'The number of blogs posts shown at one time.',
+				'type'=>'text',
+				'default'=>'',
+				'value'=>25,
+				'options'=>'',
+				'is_required'=>0,
+				'is_gui'=>1,
+				'module'=>'blog',
+				'order'=>980,
+	
+			),
 			'dashboard_rss' => array(
 				'title' => 'Dashboard RSS Feed',
 				'description' => 'Link to an RSS feed that will be displayed on the dashboard.',

@@ -126,50 +126,6 @@ class Module_Blog extends Module {
 			),
 		);
 		
-		
-		$settings = array(
-			
-			'blog_uri'=>array(
-				'title'=>'Blog Page',
-				'description'=>'The permalink of the blog page. Leave empty if you want the blog to be the default home page.',
-				'type'=>'text',
-				'default'=>'',
-				'value'=>'blog',
-				'options'=>null,
-				'is_required'=>0,
-				'is_gui'=>1,
-				'module'=>'blog',
-				'order'=>0,
-	
-			),
-			'blog_posts_per_page'=>array(
-				'title'=>'Blog Posts Per Page',
-				'description'=>'The number of blogs posts shown at one time.',
-				'type'=>'text',
-				'default'=>'',
-				'value'=>25,
-				'options'=>null,
-				'is_required'=>0,
-				'is_gui'=>1,
-				'module'=>'blog',
-				'order'=>0,
-	
-			)
-		);
-		
-		
-			// Lets add the settings for this module.
-		foreach ($settings as $slug => $setting_info)
-		{
-			log_message('debug', '-- Settings: installing '.$slug);
-			$setting_info['slug'] = $slug;
-			if ( ! $this->db->insert('settings', $setting_info))
-			{
-				log_message('debug', '-- -- could not install '.$slug);
-				return false;
-			}
-		}
-
 		return $this->install_tables($tables);
 	}
 
