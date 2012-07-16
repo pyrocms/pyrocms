@@ -106,6 +106,7 @@ class Installer extends CI_Controller
 		$this->session->set_userdata(array(
 			'db.engine'   => $this->input->post('db_engine'),
 			'db.hostname' => $this->input->post('hostname'),
+			'db.location' => $this->input->post('location'),
 			'db.username' => $this->input->post('username'),
 			'db.password' => $this->input->post('password'),
 			'db.port'     => $this->input->post('port'),
@@ -125,6 +126,11 @@ class Installer extends CI_Controller
 				'field' => 'hostname',
 				'label'	=> 'lang:server',
 				'rules'	=> 'trim|required|callback_test_db_connection'
+			),
+			array(
+				'field' => 'location',
+				'label'	=> 'lang:location',
+				'rules'	=> 'trim'.(in_array($this->input->post('db_engine'), array('sqlite')) ? '|required' : ''),
 			),
 			array(
 				'field' => 'username',

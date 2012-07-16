@@ -162,7 +162,7 @@ abstract class Module {
 			$this->_add_keys('key', $key_types['key']);
 
 			// Then we create the table (if not exists).
-			if ( ! $this->dbforge->create_table($table_name, true))
+			if ( ! $this->dbforge->create_table($table_name))
 			{
 				log_message('error', '-- Table creation for '.$table_name.' failed.');
 				return false;
@@ -254,15 +254,18 @@ abstract class Module {
 			// @todo there is no checking whether the index exists already.
 
 			// FULLTEXT is only available on MyISAM.
-			if($type === 'FULLTEXT') {
+			if ($type === 'FULLTEXT')
+			{
 				$sql = 'ALTER TABLE '.$this->db->dbprefix($table).' ENGINE = MyISAM';
-				if ( ! $this->db->query($sql) ) {
+				if ( ! $this->db->query($sql) )
+				{
 					log_message('error', '-- -- Failed turning the engine for '.$table.' to MyISAM. SQL: '.$sql);
 					return false;
 				}
 			}
 			foreach ($keys as $key => $fields)
 			{
+				$key = "{$table}_{$key}";
 				$sql = 'CREATE '.$type.' INDEX `'.$key.'` ON '.$this->db->dbprefix($table).'('.implode(', ', $fields).')';
 				if ( ! $this->db->query($sql))
 				{
@@ -292,21 +295,22 @@ abstract class Module {
 	 */
 	protected function _add_to_array(&$arr, $index, $value, $type='')
 	{
-		if(is_array($value)) {
+		if (is_array($value))
+		{
 			foreach ($value as $v)
 			{
 				$this->_add_to_array($arr, $index, $v, $type);
 			}
 		}
 
-		if ( is_bool($index) and $index === true)
+		if (is_bool($index) and $index === true)
 		{
 			// The key/index takes the fields name.
 			$index = ( ! empty($type)) ? $type.'_'.$value : $value;
 		}
 
 		// If we dont have a key for this
-		if (!array_key_exists($index, $arr))
+		if ( ! array_key_exists($index, $arr))
 		{
 			// Go ahead and create it
 			$arr[$index] = array();

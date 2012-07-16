@@ -34,10 +34,13 @@ class Install_m extends CI_Model
 		}
 
 		$sql = file_get_contents('./sql/default.'.$input['engine'].'.sql');
-		$sql = str_replace('{site_ref}', $input['site_ref'], $sql);
-		$sql = str_replace('{session_table}', config_item('sess_table_name'), $sql);
 
-		$stmt = $db->prepare($sql);
+		/* 
+		TODO Binding parameters via the usual method produces the ever-so-helpful error:
+			 Uncaught exception 'PDOException' with message 'SQLSTATE[HY000]: General error: 25 bind or 
+			 column index out of range'
+	
+		$sql = $db->prepare($sql);
 		
 		$stmt->bindValue(':email',        $input['email']);
 		$stmt->bindValue(':username',     $input['username']);
@@ -49,7 +52,28 @@ class Install_m extends CI_Model
 		$stmt->bindValue(':unix_now',     time(), PDO::PARAM_INT);
 		$stmt->bindValue(':migration',    $config['migration_version'], PDO::PARAM_INT);
 
-		return $stmt->execute();
+		$sql = $db->prepare($sql);
+		*/
+
+		$replace = array(
+			'{site_ref}' => $input['site_ref'],
+			'{session_table}' => config_item('sess_table_name'),
+
+			':email'        => $db->quote($input['email']),
+			':username'     => $db->quote($input['username']),
+			':displayname'  => $db->quote($input['firstname'].' '.$input['lastname']),
+			':password'     => $db->quote($input['password']),
+			':firstname'    => $db->quote($input['firstname']),
+			':lastname'     => $db->quote($input['lastname']),
+			':salt'         => $db->quote($salt),
+			':unix_now'     => time(),
+			':migration'    => $config['migration_version'],
+		);
+
+
+		$sql = str_replace(array_keys($replace), array_values($replace), $sql);
+
+		$db->exec($sql);
 	}
 
 }

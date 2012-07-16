@@ -24,8 +24,8 @@ class Module_import {
 
 		$this->ci->load->database(array(
 			'dsn'		=> $params['dsn'],
-			'username'		=> $params['username'],
-			'password'		=> $params['password'],
+			'username'	=> $params['username'],
+			'password'	=> $params['password'],
 			'dbdriver'	=> "pdo",
 			'dbprefix'	=> 'default_',
 			'pconnect'	=> TRUE,
@@ -44,10 +44,10 @@ class Module_import {
 		is_dir(dirname(FCPATH).'/uploads/default') OR mkdir(dirname(FCPATH).'/uploads/default', DIR_WRITE_MODE, TRUE);
 
 		//insert empty html files
-		write_file(ADDONPATH.'modules/index.html','');
-		write_file(ADDONPATH.'themes/index.html','');
-		write_file(ADDONPATH.'widgets/index.html','');
-		write_file(PYROPATH.'uploads/index.html','');
+		write_file(ADDONPATH.'modules/index.html', '');
+		write_file(ADDONPATH.'themes/index.html', '');
+		write_file(ADDONPATH.'widgets/index.html', '');
+		write_file(PYROPATH.'uploads/index.html', '');
 	}
 
 
