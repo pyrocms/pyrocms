@@ -762,7 +762,7 @@ jQuery(function($){
 				inline		: true,
 				href		: 'div#item-details',
 				width		: '520',
-				height		: (type === 'file') ? '575' : '450',
+				height		: (type === 'file') ? '600' : '475',
 				opacity		: 0
 			});
 
