@@ -375,12 +375,14 @@ class Files
 					$config['image_library']    = 'gd2';
 					$config['source_image']     = self::$path.$data['filename'];
 					$config['new_image']        = self::$path.$data['filename'];
-					$config['maintain_ratio']   = $ratio;
-					$config['width']            = $width;
-					$config['height']           = $height;
+					$config['maintain_ratio']   = (bool) $ratio;
+					$config['width']            = $width ? $width : 0;
+					$config['height']           = $height ? $height : 0;
 					ci()->image_lib->initialize($config);
 					ci()->image_lib->resize();
-					ci()->image_lib->clear();
+
+					$data['width'] = ci()->image_lib->width;
+					$data['height'] = ci()->image_lib->height;
 				}
 
 				$file_id = ci()->file_m->insert($data);
