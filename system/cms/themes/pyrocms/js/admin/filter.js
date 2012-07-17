@@ -1,13 +1,23 @@
 (function($){
 
+    var filterDefaults = {
+        filter_onload: true,
+        content: '#filter-stage',
+        module: '', // the current module name
+		module_selector: 'input[name="f_module"]'
+    };
+ 
     function Filter(form, opts)
     {
-		this._opts = $.extend({}, $.fn.pyroFilter.filterDefaults, opts || {});
-        
+		this._opts = $.extend({}, filterDefaults, opts || {});
 		this.form = form;
         this.$form = $(form);
 		this.$content = (typeof this._opts.content === "string") ? $(this._opts.content) : this._opts.content;
-        this.module = this.module || $(this.module_query).val(); // get the current module name
+        
+        // get the current module name
+        this.module = this.module || $(this.module_selector).val();
+        
+        //and off we go!
         this.init();
     }
 
@@ -164,14 +174,8 @@
             }    
 
     };
-
-//defaults for the filter plugin
-$.fn.pyroFilter.filterDefaults = {
-	filter_onload: true,
-	content: '#filter-stage',
-	module: '', // get the current module name
-	module_query: 'input[name="f_module"]'
-};
-
-    
 })(jQuery);
+
+$(function(){
+    $('#filters form').pyroFilter();
+});
