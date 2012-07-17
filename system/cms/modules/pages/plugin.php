@@ -20,10 +20,10 @@ class Plugin_Pages extends Plugin
 	 */
 	public function url()
 	{
-		$id		= $this->attribute('id');
+		$id	= $this->attribute('id');
 		$page	= $this->pyrocache->model('page_m', 'get', array($id));
 
-		return site_url($page ? $page['uri'] : '');
+		return site_url($page ? $page->uri : '');
 	}
 
 	/**
@@ -42,7 +42,7 @@ class Plugin_Pages extends Plugin
 			->or_where('pages.slug', $this->attribute('slug'))
 			->where('status', 'live')
 			->get('pages')
-			->row_array();
+			->row();
 
 		// Grab all the chunks that make up the body
 		$page->chunks = $this->db->get_where('page_chunks', array('page_id' => $page->id))->result_array();
