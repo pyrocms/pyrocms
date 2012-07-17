@@ -19,7 +19,7 @@ class Comment_blacklists_m extends MY_Model {
 	
 	public function insert($data)
 	{
-		if ($this->_get_count($data)->count < 1)
+		if ($this->_get_count($data) < 1)
 		{
 			return parent::insert($data);
 		}
@@ -27,17 +27,12 @@ class Comment_blacklists_m extends MY_Model {
 	
 	private function _get_count($data)
 	{
-		foreach($data as $k => $v)
-		{
-			$where .= "`$k`='$v' OR "; 
-		}
-		$this->db->select('count(*) as count')->from('comment_blacklists')->where(substr($where,0,-4)); 
-		return $this->db->get()->row();
+		return $this->db->or_where($data)->count_all_results('comment_blacklists');
 	}
 
 	public function is_blacklisted($data)
 	{
-		if ($this->_get_count($data)->count > 0)
+		if ($this->_get_count($data) > 0)
 		{
 			return true;
 		}
