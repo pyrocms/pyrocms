@@ -205,7 +205,7 @@ class Admin extends Admin_Controller {
 			$akismet->submit_spam();          
 		}
             
-		$this->comment_blacklists_m->insert(array(
+		$this->comment_blacklists_m->save(array(
 			'website' => $comment->website,
 			'email' => $comment->email
 		));

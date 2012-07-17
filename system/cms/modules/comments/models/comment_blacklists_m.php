@@ -17,7 +17,7 @@ class Comment_blacklists_m extends MY_Model {
 	}
 
 	
-	public function insert($data)
+	public function save($data)
 	{
 		if ($this->_get_count($data) < 1)
 		{
