@@ -11,7 +11,7 @@ function insertImage(file, alt, location, path)
 		img_width = ! isNaN(img_width) ? img_width : 0;
 
 	if (location == 'local') {
-		path = '{{ url:site }}files/thumb/' + file + '/' + img_width;
+		path = '{{ url:site }}files/' + (img_width > 0 ? 'thumb/' + file + '/' + img_width : 'large/' + file);
 	}
 	
 	// don't display a width="0" tag

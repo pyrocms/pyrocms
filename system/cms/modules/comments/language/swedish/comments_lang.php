@@ -19,7 +19,6 @@ $lang['comments.list_comment']		= '%s kommenterade %s och säger:';
 $lang['comments.recent_comments']		= 'Senaste kommentarerna';
 $lang['comments.view_more']		= 'Visa fler...';
 $lang['comments.name_label']		= 'Ditt namn';
-$lang['comments.email_label']		= 'E-postadress';
 $lang['comments.website_label']		= 'Webbsida';
 $lang['comments.message_label']		= 'Meddelande';
 $lang['comments.status_label']		= 'Status';

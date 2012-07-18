@@ -51,8 +51,8 @@ $lang['global:demo_restrictions'] 		= 'Some features on this page have been disa
 
 $lang['login_error_label'] 				= 'Login Error';
 $lang['forgot_password_label'] 			= 'Forgot your password ?';
-$lang['email_label'] 					= 'E-mail';
-$lang['password_label'] 				= 'Password';
+$lang['global:email'] 					= 'E-mail';
+$lang['global:password'] 				= 'Password';
 $lang['login_label'] 					= 'Log In';
 
 $lang['help_label'] 					= 'Help';
@@ -91,5 +91,9 @@ $lang['global:delete']					= 'Delete';
 $lang['global:remove']					= 'Remove';
 
 $lang['global:keywords']				= 'Keywords';
+
+$lang['global:or']						= 'or';
+$lang['global:and']						= 'and';
+$lang['global:at']						= 'at';
 
 /* End of file main_lang.php */

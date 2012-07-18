@@ -49,8 +49,8 @@ $lang['global:demo_restrictions']       = 'بعض الخواص في هذه ال�
 
 $lang['login_error_label'] 				= 'خطأ في تسجيل الدخول';
 $lang['forgot_password_label'] 			= 'نسيت كلمة السرّ؟';
-$lang['email_label'] 					= 'البريد الإلكتروني';
-$lang['password_label'] 				= 'كلمة السرّ';
+$lang['global:email'] 					= 'البريد الإلكتروني';
+$lang['global:password'] 				= 'كلمة السرّ';
 $lang['login_label'] 					= 'تسجيل الدخول';
 
 $lang['help_label'] 					= 'مساعدة';
@@ -75,7 +75,7 @@ $lang['top_page']						= 'اعلى الصفحة';
 $lang['back_to_top']					= 'رجوع الى اعلى الصفحة';
 
 $lang['global:filters'] 				= 'تصفية';
-$lang['global:image'] 					= 'Image'; #translate
+$lang['global:image'] 					= 'صورة';
 $lang['global:description']				= 'الوصف';
 $lang['global:actions']					= 'الإجراءات';
 $lang['global:view']					= 'عرض';

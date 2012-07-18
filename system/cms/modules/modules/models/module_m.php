@@ -217,7 +217,7 @@ class Module_m extends MY_Model
 	 */
 	public function update($slug, $module)
 	{
-		$module['updated_on'] = now();
+		$module['updated_on'] = time();
 
 		return $this->db->where('slug', $slug)->update($this->_table, $module);
 	}

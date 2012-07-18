@@ -288,7 +288,7 @@ class Admin extends Admin_Controller {
 	public function edit($id = 0)
 	{
 		// We are lost without an id. Redirect to the pages index.
-		$id OR redirect('admin/pages');
+		$id or redirect('admin/pages');
 
 		// The user needs to be able to edit pages.
 		role_or_die('pages', 'edit_live');
@@ -298,9 +298,10 @@ class Admin extends Admin_Controller {
 
 		// Turn the CSV list back to an array
 		$page->restricted_to = explode(',', $page->restricted_to);
+		$page->meta_keywords = Keywords::get_string($page->meta_keywords);
 
 		// Got page?
-		if ( ! $page OR empty($page))
+		if ( ! $page or empty($page))
 		{
 			// Maybe you would like to create one?
 			$this->session->set_flashdata('error', lang('pages_page_not_found_error'));
@@ -405,7 +406,7 @@ class Admin extends Admin_Controller {
 	 */
 	private function _form_data()
 	{
-		$page_layouts = $this->page_layouts_m->get_all();
+		$page_layouts = $this->page_layouts_m->order_by('title')->get_all();
 		$this->template->page_layouts = array_for_select($page_layouts, 'id', 'title');
 
 		// Load navigation list

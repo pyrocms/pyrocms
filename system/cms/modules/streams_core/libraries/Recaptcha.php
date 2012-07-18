@@ -155,7 +155,7 @@ class Recaptcha
     );
     //load a view - more configurable than embedding HTML in the library
     
-    return $this->_CI->load->view('streams/recaptcha',$html_data,TRUE); 
+    return $this->_CI->load->view('streams_core/recaptcha', $html_data, true); 
   }
   
   /**

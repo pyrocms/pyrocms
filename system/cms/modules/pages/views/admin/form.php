@@ -73,8 +73,15 @@
 			<ul id="page-chunks">
 				<?php foreach ($page->chunks as $chunk): ?>
 				<li class="page-chunk">
-					<?php echo form_input('chunk_slug['.$chunk['id'].']', $chunk['slug'], 'class="label"'); ?>
-					<?php echo form_input('chunk_class['.$chunk['id'].']', $chunk['class'], 'class="label"'); ?>
+					<div class="one_half">
+						<label for="chunk_slug">Chunk ID</label>
+						<?php echo form_input('chunk_slug['.$chunk['id'].']', $chunk['slug'], 'class="label"'); ?>
+					</div>
+					<div class="one_half">
+						<label for="chunk_class">Chunk Class</label>
+						<?php echo form_input('chunk_class['.$chunk['id'].']', $chunk['class'], 'class="label"'); ?>
+					</div>
+					<hr>
 					<div class="input">
 						<?php echo form_dropdown('chunk_type['.$chunk['id'].']', array(
 							'html' => 'html',

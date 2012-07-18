@@ -10,7 +10,6 @@ $lang['comments.view_more'] 				= 'Rodyti daugiau...';
 
 // labels
 $lang['comments.name_label'] 				= 'Jūsų vardas';
-$lang['comments.email_label'] 				= 'El.pašto adresas';
 $lang['comments.website_label'] 			= 'Internetinis puslapis';
 $lang['comments.message_label'] 			= 'Žinutė';
 $lang['comments.status_label'] 				= 'Statusas';

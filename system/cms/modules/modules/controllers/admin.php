@@ -88,7 +88,7 @@ class Admin extends Admin_Controller
 						}
 						else
 						{
-							$this->session->set_flashdata('success', sprintf(lang('modules.install_error'), $slug));
+							$this->session->set_flashdata('notice', sprintf(lang('modules.install_error'), $slug));
 						}
 					}
 					else

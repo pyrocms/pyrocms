@@ -48,8 +48,8 @@ $lang['global:demo_restrictions']       = 'Some features on this page have been 
 
 $lang['login_error_label'] 				= '登入錯誤'; 		//'Login Error';
 $lang['forgot_password_label'] 			= '忘記密碼'; 		//'Forgot your password ?';
-$lang['email_label'] 					= '電子郵件'; 		//'E-mail';
-$lang['password_label'] 				= '密碼'; 			//'Password';
+$lang['global:email'] 					= '電子郵件'; 		//'E-mail';
+$lang['global:password'] 				= '密碼'; 			//'Password';
 $lang['login_label'] 					= '登入'; 			//'Log In';
 
 $lang['help_label'] 					= '幫助';

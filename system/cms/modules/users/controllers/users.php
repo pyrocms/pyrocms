@@ -74,7 +74,7 @@ class Users extends Public_Controller
 		}
 
 		// Get the user data
-		$user = (object)array(
+		$user = (object) array(
 			'email' => $this->input->post('email'),
 			'password' => $this->input->post('password')
 		);
@@ -82,13 +82,13 @@ class Users extends Public_Controller
 		$validation = array(
 			array(
 				'field' => 'email',
-				'label' => lang('user_email_label'),
+				'label' => lang('global:email'),
 				'rules' => 'required|trim|callback__check_login'
 			),
 			array(
 				'field' => 'password',
 				'label' => lang('user_password_label'),
-				'rules' => 'required|min_length[6]|max_length[20]'
+				'rules' => 'required|min_length['.$this->config->item('min_password_length', 'ion_auth').']|max_length['.$this->config->item('max_password_length', 'ion_auth').']'
 			),
 		);
 
@@ -100,9 +100,6 @@ class Users extends Public_Controller
 		{
 			// Kill the session
 			$this->session->unset_userdata('redirect_to');
-
-			// Deprecated.
-			$this->hooks->_call_hook('post_user_login');
 
 			// trigger a post login event for third party devs
 			Events::trigger('post_user_login');
@@ -172,6 +169,8 @@ class Users extends Public_Controller
 	 */
 	public function register()
 	{
+		$user = new stdClass();
+
 		if (isset($this->current_user->id))
 		{
 			$this->session->set_flashdata('notice', lang('user_already_logged_in'));
@@ -192,7 +191,7 @@ class Users extends Public_Controller
 			array(
 				'field' => 'password',
 				'label' => lang('user_password'),
-				'rules' => 'required|min_length[6]|max_length[20]'
+				'rules' => 'required|min_length['.$this->config->item('min_password_length', 'ion_auth').']|max_length['.$this->config->item('max_password_length', 'ion_auth').']'
 			),
 			array(
 				'field' => 'email',
@@ -304,17 +303,18 @@ class Users extends Public_Controller
 					}
 
 					// Usernames absolutely need to be unique, so let's keep
-					// trying until we get a unieque one
+					// trying until we get a unique one
 					$i = 1;
 
-					do
+					$username_base = $username;
+
+					while ($this->db->where('username', $username)
+						->count_all_results('users') > 0)
 					{
-						$i > 1 and $username .= $i;
+						$username = $username_base.$i;
 
 						++$i;
 					}
-					while ($this->db->where('username', $username)
-						->count_all_results('users') > 0);
 				}
 				else
 				{
@@ -446,9 +446,6 @@ class Users extends Public_Controller
 			{
 				$this->session->set_flashdata('activated_email', $this->ion_auth->messages());
 
-				// Deprecated
-				$this->hooks->_call_hook('post_user_activation');
-
 				// trigger an event for third party devs
 				Events::trigger('post_user_activation', $id);
 
@@ -491,28 +488,27 @@ class Users extends Public_Controller
 	 *
 	 * @param bool $code
 	 */
-	public function reset_pass($code = FALSE)
+	public function reset_pass($code = null)
 	{
 		if (PYRO_DEMO)
 		{
 			show_error(lang('global:demo_restrictions'));
 		}
 
-		//if user is logged in they don't need to be here. and should use profile options
+		//if user is logged in they don't need to be here
 		if ($this->current_user)
 		{
 			$this->session->set_flashdata('error', lang('user_already_logged_in'));
-			redirect('my-profile');
+			redirect('');
 		}
 
-		if ($this->input->post('btnSubmit'))
+		if ($this->input->post('email'))
 		{
-			$uname = $this->input->post('user_name');
 			$email = $this->input->post('email');
 
 			if ( ! ($user_meta = $this->ion_auth->get_user_by_email($email)))
 			{
-				$user_meta = $this->ion_auth->get_user_by_username($uname);
+				$user_meta = $this->ion_auth->get_user_by_username($email);
 			}
 
 			// have we found a user?
@@ -590,6 +586,9 @@ class Users extends Public_Controller
 		if ($this->current_user AND $this->current_user->group === 'admin' AND $id > 0)
 		{
 			$user = $this->user_m->get(array('id' => $id));
+
+			// invalide user? Show them their own profile
+			$user or redirect('edit-profile');
 		}
 		else
 		{
@@ -600,7 +599,7 @@ class Users extends Public_Controller
 
 		// Get the profile data
 		$profile_row = $this->db->limit(1)
-			->where('user_id', $this->current_user->id)->get('profiles')->row();
+			->where('user_id', $user->id)->get('profiles')->row();
 
 		// If we have API's enabled, load stuff
 		if (Settings::get('api_enabled') and Settings::get('api_user_keys'))

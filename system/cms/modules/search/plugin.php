@@ -39,8 +39,9 @@ class Plugin_Search extends Plugin
 	{
 		$this->load->model('search_index_m');
 
+		$limit = $this->attribute('limit', 5);
 		$uri = $this->attribute('uri', 'search/results');
-		$segment = $this->attribute('pag_segment', count(explode('/', $uri)));
+		$segment = $this->attribute('pag_segment', count(explode('/', $uri)) + 1);
 
 		// If it's POST, send it off to return as a GET
 		if ($this->input->post('q'))
@@ -49,12 +50,17 @@ class Plugin_Search extends Plugin
 		}
 
 		$query = $this->input->get('q');
-		$total = $this->search_index_m->count($query);
+		$filter = $this->input->get('filter');
 
-		$pagination = create_pagination($uri, $total, NULL, $segment);
+		$total = $this->search_index_m
+			->filter($filter)
+			->count($query, $filter);
+
+		$pagination = create_pagination($uri, $total, $limit, $segment);
 		
 		$results = $this->search_index_m
 			->limit($pagination['limit'])
+			->filter($this->input->get('filter'))
 			->search($query);
 
 		// Remember which modules have been loaded
@@ -87,7 +93,7 @@ class Plugin_Search extends Plugin
 
 		return array(
 			array(
-				'total' => $total,
+				'total' => (int) $total,
 				'query' => $query,
 				'entries' => $results,
 				'pagination' => $pagination['links'],

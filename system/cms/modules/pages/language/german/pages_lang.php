@@ -40,7 +40,7 @@ $lang['pages:current_label']         	= 'Aktuelle';
 
 $lang['pages:view_label']            	= 'Ansicht';
 $lang['pages:create_label']          	= 'Unterobjekt hinzuf&uuml;gen';
-$lang['pages:duplicate_label']       	= 'Dublizieren';
+$lang['pages:duplicate_label']       	= 'Duplizieren';
 
 // titles
 $lang['pages:create_title']                = 'Seite erstellen';

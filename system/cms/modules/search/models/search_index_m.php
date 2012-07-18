@@ -88,9 +88,41 @@ class Search_index_m extends MY_Model
 	}
 
 	/**
-	 * Search
+	 * Filter
 	 *
-	 * Delete an index for an entry
+	 * Breaks down a search result by module and entity
+	 *
+	 * @param	array	$filter	Modules will be the key and the values are entity_plural (string or array)
+	 * @return	array
+	 */
+	public function filter($filter)
+	{
+		// Filter Logic
+		if ( ! $filter)
+		{
+			return $this;
+		}
+		
+		$this->db->or_group_start();
+
+		foreach ($filter as $module => $plural)
+		{
+			$this->db
+				->group_start()
+				->where('module', $module)
+				->where_in('entry_plural', (array) $plural)
+				->group_end();
+		}
+
+		$this->db->group_end();
+
+		return $this;
+	}
+
+	/**
+	 * Count
+	 *
+	 * Count relevant search results for a specific term
 	 *
 	 * @param	string	$query	Query or terms to search for
 	 * @return	array
@@ -114,8 +146,9 @@ class Search_index_m extends MY_Model
 	{
 		return $this->db
 			->select('title, description, module, entry_key, entry_plural, uri')
+			->select('MATCH(title, description, keywords) AGAINST ("'.$this->db->escape_str($query).'" IN BOOLEAN MODE) as bool_relevance', FALSE)
 			->select('MATCH(title, description, keywords) AGAINST ("'.$this->db->escape_str($query).'") AS relevance', FALSE)
-			->where('MATCH(title, description, keywords) AGAINST ("'.$this->db->escape_str($query).'" IN BOOLEAN MODE) > 0', NULL, FALSE)
+			->having('bool_relevance > 0')
 			->order_by('relevance', 'desc')
 			->get('search_index')
 			->result();

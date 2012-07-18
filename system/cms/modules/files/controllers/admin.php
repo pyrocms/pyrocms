@@ -97,7 +97,11 @@ class Admin extends Admin_Controller {
 		$parent_id = $this->input->post('parent');
 		$name = $this->input->post('name');
 
-		echo json_encode(Files::create_folder($parent_id, $name));
+		$result = Files::create_folder($parent_id, $name);
+
+		$result['status'] AND Events::trigger('file_folder_created', $result['data']);
+
+		echo json_encode($result);
 	}
 
 	/**
@@ -169,7 +173,11 @@ class Admin extends Admin_Controller {
 
 		if ($id = $this->input->post('folder_id') AND $name = $this->input->post('name'))
 		{
-			echo json_encode(Files::rename_folder($id, $name));
+			$result = Files::rename_folder($id, $name);
+			
+			$result['status'] AND Events::trigger('file_folder_updated', $id);
+
+			echo json_encode($result);
 		}
 	}
 
@@ -186,7 +194,11 @@ class Admin extends Admin_Controller {
 
 		if ($id = $this->input->post('folder_id'))
 		{
-			echo json_encode(Files::delete_folder($id));
+			$result = Files::delete_folder($id);
+
+			$result['status'] AND Events::trigger('file_folder_deleted', $id);
+
+			echo json_encode($result);
 		}
 	}
 
@@ -205,7 +217,11 @@ class Admin extends Admin_Controller {
 
 		if ($input['folder_id'] AND $input['name'])
 		{
-			echo json_encode(Files::upload($input['folder_id'], $input['name'], 'file', $input['width'], $input['height'], $input['ratio']));
+			$result = Files::upload($input['folder_id'], $input['name'], 'file', $input['width'], $input['height'], $input['ratio']);
+
+			$result['status'] AND Events::trigger('file_uploaded', $result['data']);
+
+			echo json_encode($result);
 		}
 	}
 
@@ -222,7 +238,11 @@ class Admin extends Admin_Controller {
 
 		if ($id = $this->input->post('file_id') AND $name = $this->input->post('name'))
 		{
-			echo json_encode(Files::rename_file($id, $name));
+			$result = Files::rename_file($id, $name);
+
+			$result['status'] AND Events::trigger('file_updated', $result['data']);
+
+			echo json_encode($result);
 		}
 	}
 
@@ -293,7 +313,11 @@ class Admin extends Admin_Controller {
 
 		if ($id = $this->input->post('file_id'))
 		{
-			echo json_encode(Files::delete_file($id));
+			$result = Files::delete_file($id);
+
+			$result['status'] AND Events::trigger('file_deleted', $id);
+
+			echo json_encode($result);
 		}
 	}
 

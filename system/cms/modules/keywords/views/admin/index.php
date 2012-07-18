@@ -5,7 +5,7 @@
 <section class="item">
 
 <?php if ($keywords): ?>
-    <table class="table-list">
+    <table class="table-list" cellspacing="0">
 		<thead>
 			<tr>
 				<th width="40%"><?php echo lang('keywords:name');?></th>

@@ -21,12 +21,12 @@ class Admin extends Admin_Controller
 	private $validation_rules = array(
 		array(
 			'field' => 'email',
-			'label' => 'lang:user_email_label',
+			'label' => 'lang:global:email',
 			'rules' => 'required|max_length[60]|valid_email'
 		),
 		array(
 			'field' => 'password',
-			'label' => 'lang:user_password_label',
+			'label' => 'lang:global:password',
 			'rules' => 'min_length[6]|max_length[20]'
 		),
 		array(

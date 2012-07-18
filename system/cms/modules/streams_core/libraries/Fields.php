@@ -160,7 +160,7 @@ class Fields
 			$this->CI->config->load('streams_core/recaptcha');
 			$this->CI->load->library('streams_core/Recaptcha');
 			
-			$this->CI->validation->set_rules('recaptcha_response_field', 'lang:recaptcha_field_name', 'required|check_captcha');
+			$this->CI->form_validation->set_rules('recaptcha_response_field', 'lang:recaptcha_field_name', 'required|check_captcha');
 		}
 		
 		// -------------------------------------

@@ -10,7 +10,6 @@ $lang['comments.view_more'] 				= 'הצג עוד...';
 
 // labels
 $lang['comments.name_label'] 				= 'שם';
-$lang['comments.email_label'] 				= 'אימייל';
 $lang['comments.website_label'] 			= 'אתר';
 $lang['comments.message_label'] 			= 'הודעה';
 $lang['comments.status_label'] 				= 'סטטוס';

@@ -9,6 +9,9 @@ $lang['desc_label'] 					= 'Descrizione';
 $lang['version_label'] 					= 'Versione';
 $lang['global:author'] 					= 'Autore';
 $lang['global:action'] 					= 'Azione';
+$lang['global:slug']   				= 'Slug';
+$lang['global:user'] 					= 'User';
+
 
 $lang['dialog.delete_message'] 			= 'Sei sicuro di volerlo eliminare? L\'azione non pu&ograve; essere annullata.';
 $lang['dialog.confirm'] 				= 'Conferma';
@@ -48,8 +51,8 @@ $lang['global:demo_restrictions']       = 'Some features on this page have been 
 
 $lang['login_error_label'] 				= 'Errore di accesso';
 $lang['forgot_password_label'] 			= 'Password dimenticata?';
-$lang['email_label'] 					= 'E-mail';
-$lang['password_label'] 				= 'Password';
+$lang['global:email'] 					= 'E-mail';
+$lang['global:password'] 				= 'Password';
 $lang['login_label'] 					= 'Entra';
 
 $lang['help_label'] 					= 'Aiuto';
