@@ -616,7 +616,7 @@ input:invalid, textarea:invalid { background-color: #f0dddd; }
 
 .form_inputs {
 	width: 100%;
-	overflow: hidden;
+  overflow: visible;
 }
 .move-handle {display: none;}
 .form_inputs fieldset {
@@ -628,7 +628,13 @@ input:invalid, textarea:invalid { background-color: #f0dddd; }
 	height: 100%;
 	margin-bottom: 0;
 	padding-bottom: 0;
-	overflow: hidden;
+}
+.form_inputs > ul:after {
+  content: '.';
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
 }
 .form_inputs fieldset > ul > li,
 .form_inputs > ul > div > li,
@@ -651,7 +657,7 @@ input:invalid, textarea:invalid { background-color: #f0dddd; }
 .form_inputs > ul > li > label,
 .form_inputs fieldset > ul > li .label,
 .form_inputs > ul > li .label {
-	width: 90%!important;
+	width: 90%;
 	float: left;
 	text-align: left;
 	margin: 0 3% 0 0;
@@ -664,7 +670,7 @@ input:invalid, textarea:invalid { background-color: #f0dddd; }
 .form_inputs .input {
 	float: left!important;
 	padding-left: 10px;
-	width: 67%;
+	width: 69%;
 }
 .form_inputs .input > input {
 	color: #666;
@@ -676,18 +682,51 @@ input:invalid, textarea:invalid { background-color: #f0dddd; }
 	font-size: 11px;
 	color: #666666;
 }
-.form_inputs input,
-.form_inputs textarea {
+.form_inputs input[type="text"],
+.form_inputs input[type="password"] {
 -webkit-transition: 250ms linear all; 
   -moz-transition: 250ms linear all; 
   transition: 250ms linear all;
+  width: 100%;
 }
+
+.form_inputs textarea:focus {
+  outline: 0!important;
+}
+
+.cke_focus {
+  outline: 0!important;
+}
+.cke_toolgroup {
+  border-radius: 0!important;
+  -moz-border-radius: 0!important;
+  -webkit-border-radius: 0!important;
+}
+.cke_skin_kama .cke_wrapper {
+  border: 1px solid #ccc!important;
+  border-radius: 0!important;
+  -moz-border-radius: 0!important;
+  -webkit-border-radius: 0!important;
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.2);
+}
+.cke_toolbar {
+  background: #fff!important;
+}
+.cke_top {
+  background: #fff!important;
+  border-bottom: 1px dashed #cecece!important;
+}
+.cke_bottom {
+  background: #fff!important;
+  border-top: 1px dashed #cecece!important;
+}
+
 
 .form_inputs input:focus,
 .form_inputs textarea:focus {
   background: #eeeeee;
 	color: #4D4D4D;
-	outline: none;
+	outline: none!important;
 	border-color: #ed8e28;
   box-shadow: 0 0 5px #ed8e28;
 }
