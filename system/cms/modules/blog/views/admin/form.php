@@ -38,14 +38,6 @@
 				<?php echo form_textarea(array('id' => 'featured_image', 'name' => 'featured_image', 'value' => $post->featured_image, 'rows' => 5, 'class' => 'blog pyroimages')); ?>
 				</div>
 			</li>
-			<style type="text/css" media="screen">
-				#cke_featured_image {
-					
-					width: 79%;
-					
-				}
-			</style>
-
 			<li>
 				<label for="intro"><?php echo lang('blog:intro_label'); ?></label>
 				<div class="input">
@@ -139,8 +131,17 @@
 <?php echo form_close(); ?>
 
 </section>
-
 <style type="text/css">
+textarea#intro, .cke_skin_kama .cke_wrapper{
+					
+	width: 100% !important;
+}
+#cke_featured_image {
+    
+    width: 100%;
+    padding-left: 0;
+    
+}
 form.crudli.date-meta div.selector {
     float: left;
     width: 30px;

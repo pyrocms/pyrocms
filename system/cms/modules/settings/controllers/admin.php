@@ -165,6 +165,21 @@ class Admin extends Admin_Controller {
 				if ($input_value !== $stored_value)
 				{
 					$this->settings->set($slug, $input_value);
+					
+					if($slug=='blog_uri' || $slug=='blog_posts_per_page') {
+						
+						$this->load->model('blog/blog_settings_m');
+						
+						$this->blog_settings_m->set_config();
+						
+						if ($slug=='blog_uri') {
+							
+							$this->blog_settings_m->set_routes();
+							
+						}
+						
+						
+					}
 				}
 			}
 			
