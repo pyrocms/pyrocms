@@ -304,7 +304,7 @@ class Field_image
 		{
 			$image = $db_obj->row();
 			
-			$full = $this->CI->config->item('files:path') . '/' . $image->name;
+			$full = $this->CI->config->item('files:path').$image->name;
 		
 			$image_data['filename']		= $image->name;
 			$image_data['image']		= base_url().$full;
@@ -322,8 +322,8 @@ class Field_image
 			if( file_exists( $path . '/'.$plain_name.'_thumb'.$image->extension ) )
 			{
 			
-				$image_data['thumb']		= base_url().$this->CI->config->item('files:path') . '/' . $plain_name.'_thumb' . $image->extension;
-				$image_data['thumb_img']	= img( array('alt'=>$image->name, 'src'=> $this->CI->config->item('files:path') . '/' . $plain_name.'_thumb' . $image->extension) );
+				$image_data['thumb']		= base_url().$this->CI->config->item('files:path').$plain_name.'_thumb' . $image->extension;
+				$image_data['thumb_img']	= img( array('alt'=>$image->name, 'src'=> $this->CI->config->item('files:path').$plain_name.'_thumb' . $image->extension) );
 			}
 			else
 			{
