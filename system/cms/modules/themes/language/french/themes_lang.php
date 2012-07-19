@@ -1,4 +1,4 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['themes.save_success']			= 'Les options du thème ont été sauvegardées.';
 $lang['themes.re-index_success']		= 'Les options du thème ont été ré-indexées';
