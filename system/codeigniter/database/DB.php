@@ -95,13 +95,13 @@ function &DB($params = '', $query_builder_override = NULL)
 		}
 
 		$params = array(
-				'dbdriver'	=> $dsn['scheme'],
-				'hostname'	=> isset($dsn['host']) ? rawurldecode($dsn['host']) : '',
-				'port'		=> isset($dsn['port']) ? rawurldecode($dsn['port']) : '',
-				'username'	=> isset($dsn['user']) ? rawurldecode($dsn['user']) : '',
-				'password'	=> isset($dsn['pass']) ? rawurldecode($dsn['pass']) : '',
-				'database'	=> isset($dsn['path']) ? rawurldecode(substr($dsn['path'], 1)) : ''
-			);
+			'dbdriver'	=> $dsn['scheme'],
+			'hostname'	=> isset($dsn['host']) ? rawurldecode($dsn['host']) : '',
+			'port'		=> isset($dsn['port']) ? rawurldecode($dsn['port']) : '',
+			'username'	=> isset($dsn['user']) ? rawurldecode($dsn['user']) : '',
+			'password'	=> isset($dsn['pass']) ? rawurldecode($dsn['pass']) : '',
+			'database'	=> isset($dsn['path']) ? rawurldecode(substr($dsn['path'], 1)) : ''
+		);
 
 		// were additional config items set?
 		if (isset($dsn['query']))

@@ -57,6 +57,17 @@ class Installer extends CI_Controller
 	);
 
 	/**
+	 * Array containing the files that need to be writable
+	 *
+	 * @var array
+	 */
+	private $default_ports = array(
+		'mysql' => 3306,
+		'pgsql' => 5432,
+	);
+
+
+	/**
 	 * Constructor method
 	 *
 	 * @return \Installer
@@ -181,7 +192,8 @@ class Installer extends CI_Controller
 		}
 
 		// Get the port from the session or set it to the default value when it isn't specified
-		$data->port = $this->session->userdata('db.port') ? $this->session->userdata('db.port') : 3306;
+		$default_port = $this->default_ports[$this->input->post('db_engine')];
+		$data->port = $this->session->userdata('db.port') ? $this->session->userdata('db.port') : $default_port;
 
 		// Check what DB's are available
 		$data->db_engines = $this->installer_lib->check_db_extensions();

@@ -25,14 +25,6 @@ class Install_m extends CI_Model
 			$db->exec("USE {$input['database']}");
 		}
 
-		if ($input['engine'] === 'pgsql')
-		{
-			// Do we want to create the database using the installer?
-			empty($input['create_db']) or $db->exec("CREATE DATABASE IF NOT EXISTS {$input['database']}");
-
-			$db->exec("USE {$input['database']}");
-		}
-
 		$sql = file_get_contents('./sql/default.'.$input['engine'].'.sql');
 
 		/* 

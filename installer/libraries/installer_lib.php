@@ -161,8 +161,10 @@ class Installer_lib {
 		switch ($engine)
 		{
 			case 'mysql':
-			case 'pgsql':
 				$dsn = "{$engine}:host={$hostname};port={$port};charset=utf8;";
+			break;
+			case 'pgsql':
+				$dsn = "{$engine}:host={$hostname};port={$port};";
 			break;
 			case 'sqlite':
 				$dsn = "sqlite:{$location}";

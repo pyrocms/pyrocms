@@ -67,38 +67,68 @@ class CI_DB_pdo_forge extends CI_DB_forge {
 	 */
 	protected function _create_table($table, $fields, $primary_keys, $keys, $if_not_exists)
 	{
-		$sql = 'CREATE TABLE ';
-
-		if ($if_not_exists === TRUE)
+		// SQLite tables do fulltext differently
+		if ($this->db->subdriver === 'sqlite')
 		{
-			$sql .= 'IF NOT EXISTS ';
+			$has_fulltext = false;
+			foreach ($fields as $field)
+			{
+				if (array_key_exists('fulltext', $field))
+				{
+					$has_fulltext = true;
+					break;
+				}
+			}
+
+			$sql = $has_fulltext ? 'CREATE VIRTUAL TABLE ' : 'CREATE TABLE ';
+
+			if ($if_not_exists === TRUE)
+			{
+				$sql .= 'IF NOT EXISTS ';
+			}
+
+			$sql .= $this->db->escape_identifiers($table).' USING fts4(';
 		}
 
-		$sql .= $this->db->escape_identifiers($table).' (';
+		else
+		{
+			$sql = 'CREATE TABLE ';
+
+			if ($if_not_exists === TRUE)
+			{
+				$sql .= 'IF NOT EXISTS ';
+			}
+
+			$sql .= $this->db->escape_identifiers($table).' (';
+		}
 
 		$sql .= $this->_process_fields($fields);
 
-		if (count($primary_keys) > 0)
+		// TODO neaten up, but SQLite doesnt need any of this
+		if ($this->db->subdriver !== 'sqlite')
 		{
-			$sql .= ",\n\tPRIMARY KEY (".implode(', ', $this->db->escape_identifiers($primary_keys)).')';
-		}
-
-		if (is_array($keys) && count($keys) > 0)
-		{
-			foreach ($keys as $key)
+			if (count($primary_keys) > 0)
 			{
-				if (is_array($key))
-				{
-					$key_name = $this->db->escape_identifiers(implode('_', $key));
-					$key = $this->db->escape_identifiers($key);
-				}
-				else
-				{
-					$key_name = $this->db->escape_identifiers($key);
-					$key = array($key_name);
-				}
+				$sql .= ",\n\tPRIMARY KEY (".implode(', ', $this->db->escape_identifiers($primary_keys)).')';
+			}
 
-				$sql .= ",\n\tKEY ".$key_name.' ('.implode(', ', $key).')';
+			if (is_array($keys) && count($keys) > 0)
+			{
+				foreach ($keys as $key)
+				{
+					if (is_array($key))
+					{
+						$key_name = $this->db->escape_identifiers(implode('_', $key));
+						$key = $this->db->escape_identifiers($key);
+					}
+					else
+					{
+						$key_name = $this->db->escape_identifiers($key);
+						$key = array($key_name);
+					}
+
+					$sql .= ",\n\tKEY ".$key_name.' ('.implode(', ', $key).')';
+				}
 			}
 		}
 
@@ -126,6 +156,50 @@ class CI_DB_pdo_forge extends CI_DB_forge {
 
 				empty($attributes['NAME']) OR $sql .= ' '.$this->db->escape_identifiers($attributes['NAME']).' ';
 
+				// SQLite only supports a few data types
+				// https://www.sqlite.org/datatype3.html
+				if ($this->db->subdriver === 'sqlite')
+				{
+					switch (strtolower($attributes['TYPE']))
+					{
+						case 'int':
+							$attributes['TYPE'] = 'INTEGER';
+							break;
+						case 'float':
+						case 'decimal':
+						case 'numeric':
+							$attributes['TYPE'] = 'REAL';
+							break;
+						case 'char':
+						case 'varchar':
+							$attributes['TYPE'] = 'TEXT';
+							break;
+						case 'blob':
+						case 'null':
+							// Leave them as they are
+							break;
+						default:
+							$attributes['TYPE'] = 'TEXT';
+							break;
+					}
+
+					// Don't allow constraint or unsigned
+					unset($attributes['CONSTRAINT'], $attributes['UNSIGNED']);
+				}
+
+				// Postgres prefers INTEGER over INT
+				// https://www.sqlite.org/datatype3.html
+				elseif ($this->db->subdriver === 'pgsql')
+				{
+					switch (strtolower($attributes['TYPE']))
+					{
+						case 'int':
+							$attributes['TYPE'] = 'INTEGER';
+							unset($attributes['CONSTRAINT']);
+							break;
+					}
+				}
+				
 				$sql .= "\n\t".$this->db->escape_identifiers($field).' '.$attributes['TYPE'];
 
 				if ( ! empty($attributes['CONSTRAINT']))
@@ -169,7 +243,14 @@ class CI_DB_pdo_forge extends CI_DB_forge {
 
 				if ( ! empty($attributes['AUTO_INCREMENT']) && $attributes['AUTO_INCREMENT'] === TRUE)
 				{
-					$sql .= ' AUTO_INCREMENT';
+					if ($this->db->subdriver === 'sqlite')
+					{
+						$sql .= ' PRIMARY KEY AUTOINCREMENT';
+					}
+					else
+					{
+						$sql .= ' AUTO_INCREMENT';
+					}
 				}
 			}
 
