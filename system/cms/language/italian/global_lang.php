@@ -9,6 +9,9 @@ $lang['desc_label'] 					= 'Descrizione';
 $lang['version_label'] 					= 'Versione';
 $lang['global:author'] 					= 'Autore';
 $lang['global:action'] 					= 'Azione';
+$lang['global:slug']   				= 'Slug';
+$lang['global:user'] 					= 'User';
+
 
 $lang['dialog.delete_message'] 			= 'Sei sicuro di volerlo eliminare? L\'azione non pu&ograve; essere annullata.';
 $lang['dialog.confirm'] 				= 'Conferma';

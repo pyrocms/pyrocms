@@ -87,8 +87,8 @@ class Users extends Public_Controller
 			),
 			array(
 				'field' => 'password',
-				'label' => lang('global:password'),
-				'rules' => 'required|min_length['.config_item('min_password_length').']|max_length['.config_item('max_password_length').']'
+				'label' => lang('user_password_label'),
+				'rules' => 'required|min_length['.$this->config->item('min_password_length', 'ion_auth').']|max_length['.$this->config->item('max_password_length', 'ion_auth').']'
 			),
 		);
 
@@ -191,7 +191,7 @@ class Users extends Public_Controller
 			array(
 				'field' => 'password',
 				'label' => lang('user_password'),
-				'rules' => 'required|min_length['.$this->config->item('min_password_length').']|max_length['.$this->config->item('max_password_length').']'
+				'rules' => 'required|min_length['.$this->config->item('min_password_length', 'ion_auth').']|max_length['.$this->config->item('max_password_length', 'ion_auth').']'
 			),
 			array(
 				'field' => 'email',
@@ -586,6 +586,9 @@ class Users extends Public_Controller
 		if ($this->current_user AND $this->current_user->group === 'admin' AND $id > 0)
 		{
 			$user = $this->user_m->get(array('id' => $id));
+
+			// invalide user? Show them their own profile
+			$user or redirect('edit-profile');
 		}
 		else
 		{
@@ -596,7 +599,7 @@ class Users extends Public_Controller
 
 		// Get the profile data
 		$profile_row = $this->db->limit(1)
-			->where('user_id', $this->current_user->id)->get('profiles')->row();
+			->where('user_id', $user->id)->get('profiles')->row();
 
 		// If we have API's enabled, load stuff
 		if (Settings::get('api_enabled') and Settings::get('api_user_keys'))

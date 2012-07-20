@@ -92,6 +92,8 @@ class Admin extends Admin_Controller
 	{
 		if ($this->ion_auth->login($email, $this->input->post('password'), (bool)$this->input->post('remember')))
 		{
+			Events::trigger('post_admin_login');
+			
 			return true;
 		}
 

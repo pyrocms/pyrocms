@@ -1,6 +1,9 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Migration_Increase_file_extension_and_email_length extends CI_Migration
+/**
+ * This is a combo of two conflicting migrations.
+ */
+class Migration_Increase_mime_length extends CI_Migration
 {
 	public function up()
 	{
@@ -18,6 +21,11 @@ class Migration_Increase_file_extension_and_email_length extends CI_Migration
             )
         );
         $this->db->set_dbprefix(SITE_REF . '_');
+
+        // Increate mime type length in the files module
+        $this->dbforge->modify_column('files', array(
+            'mimetype' => array('type' => 'VARCHAR', 'constraint' => 100, 'null' => false),
+        ));
     }
 
 	public function down()
@@ -37,5 +45,9 @@ class Migration_Increase_file_extension_and_email_length extends CI_Migration
         );
 
         $this->db->set_dbprefix(SITE_REF . '_');
+ 
+        $this->dbforge->modify_column('files', array(
+            'mimetype' => array('type' => 'VARCHAR', 'constraint' => 50, 'null' => false),
+        ));
     }
 }
