@@ -9,6 +9,7 @@ class Rss extends Public_Controller
 		$this->load->helper('xml');
 		$this->load->helper('date');
 		$this->lang->load('blog');
+		$this->config->load('blog');
 	}
 	
 	function index()
@@ -30,7 +31,7 @@ class Rss extends Public_Controller
 		
 		if(!$category = $this->blog_categories_m->get_by('slug', $slug))
 		{
-			redirect('blog/rss/all.rss');
+			redirect(($this->config->item('blog_uri')!=null? $this->config->item('blog_uri').'/':null).'rss/all.rss');
 		}
 		
 		$posts = $this->pyrocache->model('blog_m', 'get_many_by', array(array(
@@ -59,7 +60,7 @@ class Rss extends Public_Controller
 			foreach($posts as $row)
 			{
 				//$row->created_on = human_to_unix($row->created_on);
-				$row->link = site_url('blog/' .date('Y/m', $row->created_on) .'/'. $row->slug);
+				$row->link = site_url(($this->config->item('blog_uri')!=null? $this->config->item('blog_uri').'/':null).$row->category_slug.'/'.$row->slug);
 				$row->created_on = standard_date('DATE_RSS', $row->created_on);
 				
 				$item = array(

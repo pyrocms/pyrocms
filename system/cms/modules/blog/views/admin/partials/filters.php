@@ -5,7 +5,7 @@
 	<?php echo form_open('admin/blog/ajax_filter'); ?>
 
 	<?php echo form_hidden('f_module', $module_details['slug']); ?>
-		<ul>  
+		<ul>   
 			<li>
         		<?php echo lang('blog_status_label', 'f_status'); ?>
         		<?php echo form_dropdown('f_status', array(0 => lang('global:select-all'), 'draft'=>lang('blog_draft_label'), 'live'=>lang('blog_live_label'))); ?>

@@ -1,46 +1,35 @@
-<?php if (isset($category->title)): ?>
-	<h2 id="page_title"><?php echo $category->title; ?></h2>
+<?php if ( !empty($blog) ): ?>
+	
+	<?php foreach ($blog as $post) : ?>
 
-<?php elseif (isset($tag)): ?>
-	<h2 id="page_title"><?php echo lang('blog:tagged_label').': '.$tag; ?></h2>
-
-<?php endif; ?>
-
-<?php if ( ! empty($blog)): ?>
-<?php foreach ($blog as $post): ?>
-	<div class="post">
-		<!-- Post heading -->
-		<h3><?php echo  anchor('blog/'.date('Y/m/', $post->created_on).$post->slug, $post->title); ?></h3>
-		
-		<div class="meta">
-			<div class="date">
-				<?php echo lang('blog:posted_label');?>: 
-				<span><?php echo format_date($post->created_on); ?></span>
+		<article class="post<?php echo ($post->relevance=='featured')? ' featured':null; ?>">
+			<a href="<?php echo $post->url; ?>" title="<?php echo $post->title; ?>">
+				<h5> <?php echo $post->title; ?></h5>
+			</a>
+			<div class="post_date">
+				<span class="date">
+					<?php echo date('M d, Y',$post->created_on); ?>
+				</span>
+			</div>		
+			<div class="post_intro">
+				<?php echo $post->featured_image; ?>
+				<?php echo $post->intro; ?>
 			</div>
-			
-			<?php if ($post->category_slug): ?>
-			<div class="category">
-				<?php echo lang('blog:category_label');?>: 
-				<span><?php echo anchor('blog/category/'.$post->category_slug, $post->category_title);?></span>
-			</div>
-			<?php endif; ?>
-			<?php if ($post->keywords): ?>
-			<div class="keywords">
-				<?php echo lang('blog:tagged_label');?>:
-				<?php foreach ($post->keywords as $keyword): ?>
-					<span><?php echo anchor('blog/tagged/'.$keyword->name, $keyword->name, 'class="keyword"') ?></span>
-				<?php endforeach; ?>
-			</div>
-			<?php endif; ?>
-		</div>
-		<div class="intro">
-			<?php echo $post->intro; ?>
-		</div>
-	</div>
-<?php endforeach; ?>
+			<div class="post_meta">
+			    <span class="tags">
+			        <?php if($post->keywords) : ?>
+			        	<?php foreach ($post->keywords as $keyword):  ?>
+			        	<span><?php echo anchor(($this->config->item('blog_uri')!=null? $this->config->item('blog_uri').'/':null).'tagged/'.$keyword->name, $keyword->name, 'class="keyword"') ?></span>
+			        	<?php endforeach; ?>
+			        <?php endif; ?>
+			    </span>
+			</div>	
+		</article>
 
-<?php echo $pagination['links']; ?>
+	<?php endforeach; ?>
+	
+	<?php  echo $pagination['links']; ?>
 
 <?php else: ?>
-	<p><?php echo lang('blog:currently_no_posts');?></p>
+	<p><?php echo lang('blog_currently_no_posts');?></p>
 <?php endif; ?>

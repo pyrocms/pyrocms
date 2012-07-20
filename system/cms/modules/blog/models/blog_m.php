@@ -257,6 +257,11 @@ class Blog_m extends MY_Model
 
 		if (array_key_exists('keywords', $data))
 		{
+
+			$this->db->join('keywords_applied', 'keywords_applied.hash = blog.keywords', 'left');
+			$this->db->join('keywords', 'keywords.id = keywords_applied.keyword_id', 'left');
+			$this->db->group_by('blog.id');
+			
 			$matches = array();
 			if (strstr($data['keywords'], '%'))
 			{
@@ -294,9 +299,25 @@ class Blog_m extends MY_Model
 				$this->db->or_like('blog.body', $phrase);
 				$this->db->or_like('blog.intro', $phrase);
 				$this->db->or_like('profiles.display_name', $phrase);
+				$this->db->or_like('blog_categories.title',$phrase);
+				$this->db->or_like('default_keywords.name',$phrase);
 				$counter++;
 			}
 		}
+				// By default, dont show future posts
+		if (!isset($params['show_future']) || (isset($params['show_future']) && $params['show_future'] == FALSE))
+		{
+			$this->db->where('created_on <=', now());
+		}
+		
+
+
+		// Limit the results based on 1 number or 2 (2nd is offset)
+		if (isset($params['limit']) && is_array($params['limit']))
+			$this->db->limit($params['limit'][0], $params['limit'][1]);
+		elseif (isset($params['limit']))
+			$this->db->limit($params['limit']);
+			
 		return $this->get_all();
 	}
 

@@ -2,14 +2,16 @@
 
 $lang['blog:post']                 = 'Post';
 $lang['blog:posts']                   = 'Posts';
+$lang['blog:search']                   = 'search';
+
 
 // labels
 $lang['blog:posted_label']                   = 'Posted';
 $lang['blog:posted_label_alt']               = 'Posted at';
-$lang['blog:written_by_label']				= 'Written by';
-$lang['blog:author_unknown']				= 'Unknown';
-$lang['blog:keywords_label']				= 'Keywords';
-$lang['blog:tagged_label']					= 'Tagged';
+$lang['blog:written_by_label']				 = 'Written by';
+$lang['blog:author_unknown']				 = 'Unknown';
+$lang['blog:keywords_label']				 = 'Keywords';
+$lang['blog:tagged_label']					 = 'Tagged';
 $lang['blog:category_label']                 = 'Category';
 $lang['blog:post_label']                     = 'Post';
 $lang['blog:date_label']                     = 'Date';
@@ -20,12 +22,16 @@ $lang['blog:draft_label']                    = 'Draft';
 $lang['blog:live_label']                     = 'Live';
 $lang['blog:content_label']                  = 'Content';
 $lang['blog:options_label']                  = 'Options';
+$lang['blog:relevance_label']            	 = 'Relevance';
+$lang['blog:featured_label']           		 = 'Featured';
+$lang['blog:normal_label']           		 = 'Normal';
+$lang['blog:featured_image_label']           = 'Featured Image';
 $lang['blog:intro_label']                    = 'Introduction';
 $lang['blog:no_category_select_label']       = '-- None --';
 $lang['blog:new_category_label']             = 'Add a category';
 $lang['blog:subscripe_to_rss_label']         = 'Subscribe to RSS';
-$lang['blog:all_posts_label']             = 'All posts';
-$lang['blog:posts_of_category_suffix']    = ' posts';
+$lang['blog:all_posts_label']          	     = 'All posts';
+$lang['blog:posts_of_category_suffix']       = ' posts';
 $lang['blog:rss_name_suffix']                = ' Blog';
 $lang['blog:rss_category_suffix']            = ' Blog';
 $lang['blog:author_name_label']              = 'Author name';

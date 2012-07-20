@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-$lang['blog:post']                 = 'تدوينة';
-$lang['blog:posts']                   = 'تدوينات';
+$lang['blog:post']                 = 'Post'; #translate
+$lang['blog:posts']                   = 'Posts'; #translate
 
 // labels
 $lang['blog:posted_label'] 			= 'تاريخ النشر';
