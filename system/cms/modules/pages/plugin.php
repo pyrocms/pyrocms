@@ -23,7 +23,7 @@ class Plugin_Pages extends Plugin
 		$id		= $this->attribute('id');
 		$page	= $this->pyrocache->model('page_m', 'get', array($id));
 
-		return site_url($page ? $page['uri'] : '');
+		return site_url($page ? $page->uri : '');
 	}
 
 	/**
