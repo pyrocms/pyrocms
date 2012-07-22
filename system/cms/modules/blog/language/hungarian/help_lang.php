@@ -10,8 +10,8 @@ $lang['help_body'] = "
 
 <h4>Kategóriák</h4>
 <p>
-	Számtalan kategóriát lehet létrehozni a bejegyzések rendezésére. Ha szeretnéd, hogy a vendégek
-	kategória alapján is tudjanak böngészni, egyszerüen építs be egy Blog-kategória widgetet az oldalba.
+	Számtalan kategóriát lehet létrehozni a bejegyzések rendezésére. Ha szeretnéd, hogy a látogatók
+	kategória alapján is tudjanak böngészni, egyszerűen építs be egy Blog-kategória widgetet az oldalba.
 </p>
 
 <h4>Bejegyzések</h4>
@@ -20,6 +20,6 @@ $lang['help_body'] = "
 	ami a keresőmotorok találatai között címként szerepeljen. Miután a bejegyzést létrehoztad, azonnal publikálhatod vagy
 	elmentheted piszkozatként is, ha később vissza akarnál jönni szerkeszteni. A bejegyzést élővé lehet tenni úgy is, hogy
         csak egy beállított időtől kezdve jelenjen meg - addig nem.
-</p>
+</p>";
 
-";
+/* End of file help_lang.php */

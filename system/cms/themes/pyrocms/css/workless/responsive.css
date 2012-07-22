@@ -444,6 +444,15 @@
 		font-size: 12px;
 	}
 
+	.form_inputs fieldset > ul > li > label,
+	.form_inputs fieldset > ul > div > li > label,
+	.form_inputs > ul > div > li > label,
+	.form_inputs > ul > li > label,
+	.form_inputs fieldset > ul > li .label,
+	.form_inputs > ul > li .label {
+		width: 25%!important;
+	}
+
 }
 
 @media only screen and (min-width: 1025px) {
