@@ -20,6 +20,7 @@ $lang['files:back']							= 'رجوع';
 $lang['files:forward']						= 'تقدم';
 $lang['files:start']						= 'ابدأ الرفع';
 $lang['files:details']						= 'التفاصيل';
+$lang['files:id']							= 'ID'; #translate
 $lang['files:name']							= 'الاسم';
 $lang['files:slug']							= 'المختصر';
 $lang['files:path']							= 'المسار';

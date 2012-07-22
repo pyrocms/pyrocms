@@ -14,10 +14,9 @@
  * @package    PyroCMS\Core\Libraries\Asset
  */
 class Asset_Exception extends Exception {}
-
-include('Asset/jsmin.php');
-include('Asset/csscompressor.php');
-include('Asset/cssurirewriter.php');
+include(dirname(__FILE__).'/Asset/jsmin.php');
+include(dirname(__FILE__).'/Asset/csscompressor.php');
+include(dirname(__FILE__).'/Asset/cssurirewriter.php');
 
 class Asset {
 

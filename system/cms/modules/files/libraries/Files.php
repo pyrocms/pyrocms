@@ -343,7 +343,9 @@ class Files
 		{
 			$upload_config = array(
 				'upload_path'	=> self::$path,
-				'file_name'		=> self::$_filename
+				'allowed_types'	=> self::$_ext,
+				'file_name'		=> self::$_filename,
+				'encrypt_name'	=> config_item('files:encrypt_filename')
 			);
 
 			// If we don't have allowed types set, we'll set it to the
@@ -379,12 +381,14 @@ class Files
 					$config['image_library']    = 'gd2';
 					$config['source_image']     = self::$path.$data['filename'];
 					$config['new_image']        = self::$path.$data['filename'];
-					$config['maintain_ratio']   = $ratio;
-					$config['width']            = $width;
-					$config['height']           = $height;
+					$config['maintain_ratio']   = (bool) $ratio;
+					$config['width']            = $width ? $width : 0;
+					$config['height']           = $height ? $height : 0;
 					ci()->image_lib->initialize($config);
 					ci()->image_lib->resize();
-					ci()->image_lib->clear();
+
+					$data['width'] = ci()->image_lib->width;
+					$data['height'] = ci()->image_lib->height;
 				}
 
 				$file_id = ci()->file_m->insert($data);
@@ -857,7 +861,7 @@ class Files
 		// physical filenames cannot be changed because of the risk of breaking embedded urls so we just change the db
 		ci()->file_m->update($id, array('name' => $name));
 
-		return self::result(TRUE, lang('files:item_updated'), $name, array('name' => $name));
+		return self::result(TRUE, lang('files:item_updated'), $name, array('id' => $id, 'name' => $name));
 	}
 
 	// ------------------------------------------------------------------------

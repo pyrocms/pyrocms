@@ -176,6 +176,7 @@ class Admin extends Admin_Controller
 		$password = $this->input->post('password');
 		$username = $this->input->post('username');
 		$group_id = $this->input->post('group_id');
+		$activate = $this->input->post('active');
 
 		// Get user profile data. This will be passed to our
 		// streams insert_entry data in the model.
@@ -191,17 +192,28 @@ class Admin extends Admin_Controller
 
 		if ($this->form_validation->run() !== false)
 		{
-			// Hack to activate immediately
-			if ($this->input->post('active'))
+			if ($activate === '2')
 			{
-				$this->config->config['ion_auth']['email_activation'] = false;
+				// we're sending an activation email regardless of settings
+				Settings::temp('activation_email', true);
+			}
+			else
+			{
+				// we're either not activating or we're activating instantly without an email
+				Settings::temp('activation_email', false);
 			}
 
-			$group = $this->group_m->get($this->input->post('group_id'));
+			$group = $this->group_m->get($group_id);
 
-			// Try to register the user
+			// Register the user (they are activated by default if an activation email isn't requested)
 			if ($user_id = $this->ion_auth->register($username, $password, $email, $group_id, $profile_data, $group->name))
 			{
+				if ($activate === '0')
+				{
+					// admin selected Inactive
+					$this->ion_auth_model->deactivate($user_id);
+				}
+
 				// Fire an event. A new user has been created. 
 				Events::trigger('user_created', $user_id);
 
@@ -305,6 +317,16 @@ class Admin extends Admin_Controller
 			$update_data['active'] = $this->input->post('active');
 			$update_data['username'] = $this->input->post('username');
 			$update_data['group_id'] = $this->input->post('group_id');
+
+			if ($update_data['active'] === '2')
+			{
+				$this->ion_auth->activation_email($id);
+				unset($update_data['active']);
+			}
+			else
+			{
+				$update_data['active'] = (bool) $update_data['active'];
+			}
 
 			$profile_data = array();
 

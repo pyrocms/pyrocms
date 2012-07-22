@@ -164,7 +164,6 @@ class Admin extends Admin_Controller
 
 		$this->form_validation->set_rules($this->validation_rules);
 
-
 		if ($this->input->post('created_on'))
 		{
 			$created_on = strtotime(sprintf('%s %s:%s', $this->input->post('created_on'), $this->input->post('created_on_hour'), $this->input->post('created_on_minute')));
@@ -226,6 +225,7 @@ class Admin extends Admin_Controller
 		else
 		{
 			// Go through all the known fields and get the post values
+			$post = new stdClass;
 			foreach ($this->validation_rules as $key => $field)
 			{
 				$post->$field['field'] = set_value($field['field']);

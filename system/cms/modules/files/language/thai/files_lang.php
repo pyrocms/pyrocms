@@ -30,6 +30,7 @@ $lang['files:back']							= 'ย้อนกลับ';
 $lang['files:forward']						= 'ถัดไป';
 $lang['files:start']						= 'เริ่มที่อัปโหลด';
 $lang['files:details']						= 'รายละเอียด';
+$lang['files:id']							= 'ID'; #translate
 $lang['files:name']							= 'ชื่อ';
 $lang['files:slug']							= 'Slug';
 $lang['files:path']							= 'ที่อยู่';
