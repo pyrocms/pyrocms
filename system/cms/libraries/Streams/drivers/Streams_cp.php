@@ -167,7 +167,7 @@ class Streams_cp extends CI_Driver {
 	 * 							standard * for the PyroCMS CP
 	 * title				- Title of the form header (if using view override)
 	 */
-	function entry_form($stream_slug, $namespace_slug, $mode = 'new', $entry_id = null, $view_override = false, $extra = array(), $skips = array())
+	function entry_form($stream_slug, $namespace_slug, $mode = 'new', $entry_id = null, $view_override = false, $extra = array(), $skips = array(), $tabs = false)
 	{
 		$CI = get_instance();
 	
@@ -195,6 +195,7 @@ class Streams_cp extends CI_Driver {
 		
 		$data = array(
 					'fields' 	=> $fields,
+					'tabs'		=> $tabs,
 					'stream'	=> $stream,
 					'entry'		=> $entry,
 					'mode'		=> $mode);
@@ -212,7 +213,21 @@ class Streams_cp extends CI_Driver {
 		
 		$CI->template->append_js('streams/entry_form.js');
 		
-		$form = $CI->load->view('admin/partials/streams/form', $data, true);
+		if ($data['tabs'] === false)
+		{
+			$form = $CI->load->view('admin/partials/streams/form', $data, true);
+		}
+		else
+		{
+
+			// Make the fields keys the input_slug. This will make it easier to build tabs. Less looping.
+			foreach ( $data['fields'] as $k => $v ){
+				$data['fields'][$v['input_slug']] = $v;
+				unset($data['fields'][$k]);
+			}
+
+			$form = $CI->load->view('admin/partials/streams/tabbed_form', $data, true);
+		}
 		
 		if ($view_override === false) return $form;
 		
@@ -248,7 +263,10 @@ class Streams_cp extends CI_Driver {
 	 * title	- Title of the form header (if using view override)
 	 *			$extra['title'] = 'Streams Sample';
 	 * 
-	 * see docs for more explanation
+	 * show_cancel - bool. Show the cancel button or not?
+	 * cancel_url - url or uri to link to for cancel button
+	 *
+	 * see docs for more.
 	 */
 	public function field_form($stream_slug, $namespace, $method = 'new', $return, $assign_id = null, $include_types = array(), $view_override = false, $extra = array())
 	{
@@ -302,6 +320,13 @@ class Streams_cp extends CI_Driver {
 		{
 			$data['current_field'] = null;
 		}
+
+		// -------------------------------------
+		// Cancel Button
+		// -------------------------------------
+
+		$data['show_cancel'] = (isset($extra['show_cancel']) and $extra['show_cancel']) ? true : false;
+		$data['cancel_uri'] = (isset($extra['cancel_uri'])) ? $extra['cancel_uri'] : null;
 
 		// -------------------------------------
 		// Validation & Setup

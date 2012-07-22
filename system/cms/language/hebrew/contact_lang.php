@@ -1,10 +1,9 @@
 <?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
-
+# TODO WTF is this? Phil
 
 // labels
 $lang['contact_details_label']				= 'פרטים';
 $lang['contact_name_label']					= 'שם מלא';
-$lang['contact_email_label']					= 'כתובת E-mail';
 $lang['contact_company_name_label']			= 'חברה או עסק';
 $lang['contact_subject_label']				= 'נושא';
 $lang['contact_other_label']					= 'אחר';

@@ -5,7 +5,7 @@
 <section class="item">		
 		<p><?php echo lang('modules.introduction'); ?></p>
 
-		<table class="table-list">
+		<table class="table-list" cellspacing="0">
 			<thead>
 				<tr>
 					<th><?php echo lang('name_label');?></th>
@@ -52,7 +52,7 @@
 <section class="item">
 		<p><?php echo lang('modules.core_introduction'); ?></p>
 
-		<table class="table-list">
+		<table class="table-list" cellspacing="0">
 			<thead>
 				<tr>
 					<th><?php echo lang('name_label');?></th>

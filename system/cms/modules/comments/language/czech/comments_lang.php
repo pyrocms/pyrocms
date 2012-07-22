@@ -10,7 +10,6 @@ $lang['comments.view_more'] 				= 'Zobrazit více...';
 
 // labels
 $lang['comments.name_label'] 				= 'Vaše jméno';
-$lang['comments.email_label'] 				= 'Email';
 $lang['comments.website_label'] 			= 'Web';
 $lang['comments.message_label'] 			= 'Zpráva';
 $lang['comments.status_label'] 				= 'Stav';

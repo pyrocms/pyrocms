@@ -3,7 +3,7 @@
 </section>
 <section class="item">
 	<p><?php echo lang('permissions:introduction'); ?></p>
-	<table border="0" class="table-list">
+	<table border="0" class="table-list" cellspacing="0">
 		<thead>
 			<tr>
 				<th><?php echo lang('permissions:group'); ?></th>

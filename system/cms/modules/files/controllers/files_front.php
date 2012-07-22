@@ -16,9 +16,13 @@ class Files_front extends Public_Controller
 		
 		$this->config->load('files');
 		$this->load->library('files/files');
-		$this->_path = FCPATH . $this->config->item('files:path') . DIRECTORY_SEPARATOR;
+
+		$this->_path = FCPATH.rtrim($this->config->item('files:path'), DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR;
 	}
 	
+	/**
+	 * Download a file
+	 */
 	public function download($id = 0)
 	{
 		$this->load->helper('download');
@@ -53,7 +57,7 @@ class Files_front extends Public_Controller
 		}
 		
 		// they've passed the filename itself
-		if( ! is_numeric($id) OR ! $file)
+		else
 		{
 			$data = getimagesize($this->_path.$id) OR show_404();
 			
@@ -66,12 +70,15 @@ class Files_front extends Public_Controller
 			$file->mimetype 	= $data['mime'];
 		}
 
+		if ( ! $file)
+		{
+			set_status_header(404);
+			exit;
+		}
+
 		$cache_dir = $this->config->item('cache_dir') . 'image_files/';
 
-		if ( ! is_dir($cache_dir))
-		{
-			mkdir($cache_dir, 0777, TRUE);
-		}
+		is_dir($cache_dir) or mkdir($cache_dir, 0777, TRUE);
 
 		$modes = array('fill', 'fit');
 
@@ -137,10 +144,10 @@ class Files_front extends Public_Controller
 		}
 
 		// Path to image thumbnail
-		$image_thumb = $cache_dir . ($mode ? $mode : 'normal');
-		$image_thumb .= '_' . ($width === NULL ? 'a' : ($width > $file->width ? 'b' : $width));
-		$image_thumb .= '_' . ($height === NULL ? 'a' : ($height > $file->height ? 'b' : $height));
-		$image_thumb .= '_' . md5($file->filename) . $file->extension;
+		$thumb_filename = $cache_dir . ($mode ? $mode : 'normal');
+		$thumb_filename .= '_' . ($width === NULL ? 'a' : ($width > $file->width ? 'b' : $width));
+		$thumb_filename .= '_' . ($height === NULL ? 'a' : ($height > $file->height ? 'b' : $height));
+		$thumb_filename .= '_' . md5($file->filename) . $file->extension;
 
 		$expire = 60 * Settings::get('files_cache');
 		if ($expire)
@@ -150,7 +157,10 @@ class Files_front extends Public_Controller
 			header('Expires: ' . gmdate('D, d M Y H:i:s', time()+$expire) . ' GMT');
 		}
 
-		if ( ! file_exists($image_thumb) OR (filemtime($image_thumb) < filemtime($this->_path . $file->filename)))
+		$source_modified = filemtime($this->_path . $file->filename);
+		$thumb_modified = filemtime($thumb_filename);
+
+		if ( ! file_exists($thumb_filename) OR ($thumb_modified < $source_modified))
 		{
 			if ($mode === $modes[1])
 			{
@@ -160,7 +170,7 @@ class Files_front extends Public_Controller
 				$ratio		= $file->width / $file->height;
 				$crop_ratio	= (empty($crop_height) OR empty($crop_width)) ? 0 : $crop_width / $crop_height;
 				
-				if ($ratio >= $crop_ratio AND $crop_height > 0)
+				if ($ratio >= $crop_ratio and $crop_height > 0)
 				{
 					$width	= $ratio * $crop_height;
 					$height	= $crop_height;
@@ -175,56 +185,65 @@ class Files_front extends Public_Controller
 				$height	= ceil($height);
 			}
 
-			// LOAD LIBRARY
-			$this->load->library('image_lib');
-
-			// CONFIGURE IMAGE LIBRARY
-			$config['image_library']    = 'gd2';
-			$config['source_image']     = $this->_path . $file->filename;
-			$config['new_image']        = $image_thumb;
-			$config['maintain_ratio']   = is_null($mode);;
-			$config['height']           = $height;
-			$config['width']            = $width;
-			$this->image_lib->initialize($config);
-			$this->image_lib->resize();
-			$this->image_lib->clear();
-
-			if ($mode === $modes[1] && ($crop_width !== NULL && $crop_height !== NULL))
+			if ($height or $width)
 			{
-				$x_axis = floor(($width - $crop_width) / 2);
-				$y_axis = floor(($height - $crop_height) / 2);
+				// LOAD LIBRARY
+				$this->load->library('image_lib');
 
 				// CONFIGURE IMAGE LIBRARY
 				$config['image_library']    = 'gd2';
-				$config['source_image']     = $image_thumb;
-				$config['new_image']        = $image_thumb;
-				$config['maintain_ratio']   = FALSE;
-				$config['width']			= $crop_width;
-				$config['height']			= $crop_height;
-				$config['x_axis']			= $x_axis;
-				$config['y_axis']			= $y_axis;
+				$config['source_image']     = $this->_path.$file->filename;
+				$config['new_image']        = $thumb_filename;
+				$config['maintain_ratio']   = is_null($mode);
+				$config['height']           = $height;
+				$config['width']            = $width;
 				$this->image_lib->initialize($config);
-				$this->image_lib->crop();
+				$this->image_lib->resize();
 				$this->image_lib->clear();
+
+				if ($mode === $modes[1] && ($crop_width !== NULL && $crop_height !== NULL))
+				{
+					$x_axis = floor(($width - $crop_width) / 2);
+					$y_axis = floor(($height - $crop_height) / 2);
+
+					// CONFIGURE IMAGE LIBRARY
+					$config['image_library']    = 'gd2';
+					$config['source_image']     = $thumb_filename;
+					$config['new_image']        = $thumb_filename;
+					$config['maintain_ratio']   = FALSE;
+					$config['width']			= $crop_width;
+					$config['height']			= $crop_height;
+					$config['x_axis']			= $x_axis;
+					$config['y_axis']			= $y_axis;
+					$this->image_lib->initialize($config);
+					$this->image_lib->crop();
+					$this->image_lib->clear();
+				}
+			}
+
+			else
+			{
+				$thumb_modified = $source_modified;
+				$thumb_filename = $this->_path.$file->filename;
 			}
 		}
 		else if (isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) &&
-			(strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE']) == filemtime($image_thumb)) &&
-				$expire )
+			(strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE']) == $thumb_modified) && $expire )
 		{
 			// Send 304 back to browser if file has not beeb changed
-			header('Last-Modified: '.gmdate('D, d M Y H:i:s', filemtime($image_thumb)).' GMT', true, 304);
-			exit();
+			header('Last-Modified: '.gmdate('D, d M Y H:i:s', $time).' GMT', true, 304);
+			exit;
 		}
 
 		header('Content-type: ' . $file->mimetype);
-		header('Last-Modified: ' . gmdate('D, d M Y H:i:s', filemtime($image_thumb)) . ' GMT');
-		readfile($image_thumb);
+		header('Last-Modified: ' . gmdate('D, d M Y H:i:s', $thumb_modified) . ' GMT');
+		readfile($thumb_filename);
+		exit;
 	}
 
-	public function large($id, $width = NULL, $height = NULL, $mode = NULL)
+	public function large($id)
 	{
-		return $this->thumb($id, $width, $height, $mode);
+		return $this->thumb($id, null, null);
 	}
 
 	public function cloud_thumb($id = 0, $width = 75, $height = 50, $mode = 'fit')
@@ -234,26 +253,26 @@ class Files_front extends Public_Controller
 			->get_by('files.id', $id);
 
 		// it is a cloud file, we will return the thumbnail made when it was uploaded
-		if ($file AND $file->location !== 'local')
+		if ($file and $file->location !== 'local')
 		{
-			$image_thumb = config_item('cache_dir').'/cloud_cache/'.$file->filename;
+			$thumb_filename = config_item('cache_dir').'/cloud_cache/'.$file->filename;
 
-			if ( ! file_exists($image_thumb))
+			if ( ! file_exists($thumb_filename))
 			{
-				$image_thumb = APPPATH.'modules/files/img/no-image.jpg';
+				$thumb_filename = APPPATH.'modules/files/img/no-image.jpg';
 			}
 
 			if (isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) &&
-			(strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE']) == filemtime($image_thumb)))
+			(strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE']) == filemtime($thumb_filename)))
 			{
 				// Send 304 back to browser if file has not been changed
-				header('Last-Modified: '.gmdate('D, d M Y H:i:s', filemtime($image_thumb)).' GMT', true, 304);
+				header('Last-Modified: '.gmdate('D, d M Y H:i:s', filemtime($thumb_filename)).' GMT', true, 304);
 				exit();
 			}
 
 			header('Content-type: ' . $file->mimetype);
-			header('Last-Modified: ' . gmdate('D, d M Y H:i:s', filemtime($image_thumb)) . ' GMT');
-			readfile($image_thumb);
+			header('Last-Modified: ' . gmdate('D, d M Y H:i:s', filemtime($thumb_filename)) . ' GMT');
+			readfile($thumb_filename);
 		}
 		// it's a local file, output a thumbnail like we normally do
 		elseif ($file)

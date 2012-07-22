@@ -10,7 +10,6 @@ $lang['comments.view_more'] 				= 'عرض المزيد...';
 
 // labels
 $lang['comments.name_label'] 				= 'إسمك';
-$lang['comments.email_label'] 				= 'عنوان بريدك الإلكتروني';
 $lang['comments.website_label'] 			= 'موقعك على الإنترنت';
 $lang['comments.message_label'] 			= 'الرسالة';
 $lang['comments.status_label'] 				= 'الحالة';

@@ -13,7 +13,7 @@
 		</li>
 
 		<li>
-			<label for="email"><?php echo lang('comments.email_label'); ?>:</label>
+			<label for="email"><?php echo lang('global:email'); ?>:</label>
 			<?php echo form_input('email', $comment->email, 'maxlength="100"'); ?>
 		</li>
 		<?php else: ?>
@@ -22,7 +22,7 @@
 			<p><?php echo $comment->name; ?></p>
 		</li>
 		<li>
-			<label><?php echo lang('comments.email_label'); ?>:</label>
+			<label><?php echo lang('global:email'); ?>:</label>
 			<p><?php echo $comment->email; ?></p>
 		</li>
 		<?php endif; ?>

@@ -1,6 +1,6 @@
 <ul class="primary-nav">
 	
-	<li id="dashboard-link"><?php echo anchor('admin', lang('global:dashboard'), 'class="btn orange' . (!$this->module > '' ? ' current' : '').'"');?></li>
+	<li id="dashboard-link"><?php echo anchor('admin', lang('global:dashboard'), (!$this->module > '' ? 'current' : '').'"');?></li>
 	
 		<?php
 		foreach ($menu_items as $menu_item)
@@ -113,13 +113,13 @@
 				<li><?php if ($this->settings->enable_profiles) echo anchor('edit-profile', lang('cp_edit_profile_label')) ?></li>
 				<li><?php echo anchor('', lang('cp_view_frontend'), 'target="_blank"'); ?></li>
 				<li><?php echo anchor('admin/logout', lang('cp_logout_label')); ?></li>
+            </ul>
+        </li>
 				
-				<?php if($module_details['slug']): ?>
-					<li id="help-link">
-						<?php echo anchor('admin/help/'.$module_details['slug'], lang('help_label'), array('title' => lang('help_label').'->'.$module_details['name'], 'class' => 'modal')); ?>
-					</li>
-				<?php endif; ?>
-			</ul>
-		</li>
+        <?php if($module_details['slug']): ?>
+            <li id="help-link">
+                <?php echo anchor('admin/help/'.$module_details['slug'], lang('help_label'), array('title' => lang('help_label').'->'.$module_details['name'], 'class' => 'modal')); ?>
+            </li>
+        <?php endif; ?>
 
 	</ul>

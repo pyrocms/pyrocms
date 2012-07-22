@@ -48,8 +48,8 @@ $lang['global:demo_restrictions']       = 'Jotkut ominaisuudet on otettu pois k�
 
 $lang['login_error_label'] 				= 'Kirjautumis virhe';
 $lang['forgot_password_label'] 			= 'Unohditko salasanasi?';
-$lang['email_label'] 					= 'Sähköposti';
-$lang['password_label'] 				= 'Salasana';
+$lang['global:email'] 					= 'Sähköposti';
+$lang['global:password'] 				= 'Salasana';
 $lang['login_label'] 					= 'Kirjaudu sisään';
 
 $lang['help_label'] 					= 'Apua';

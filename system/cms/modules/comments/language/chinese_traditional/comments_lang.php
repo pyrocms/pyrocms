@@ -10,7 +10,6 @@ $lang['comments.view_more'] 				= '更多回應...';
 
 // labels
 $lang['comments.name_label'] 				= '用戶名稱';
-$lang['comments.email_label'] 				= '電子郵件地址';
 $lang['comments.website_label'] 			= '網站';
 $lang['comments.message_label'] 			= '內容';
 $lang['comments.status_label'] 				= '狀態';

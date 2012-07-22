@@ -195,7 +195,8 @@ class Plugin_Navigation extends Plugin
 
 					$output .= $add_first_tag ? "<{$list_tag}>" . PHP_EOL : '';
 					$output .= $ident_b . '<' . $tag . ($classes > '' ? ' class="' . $classes . '">' : '>') . PHP_EOL;
-					$output .= $ident_c . ((($level == 0) AND $top == 'text' AND $wrapper['children']) ? $item['title'] : anchor($item['url'], $item['title'], trim(implode(' ', $item['attributes'])))) . PHP_EOL;
+					if (strstr($classes, 'current')) $output .= $ident_c . '<span>'.$item['title'].'</span>';
+					else $output .= $ident_c . ((($level == 0) AND $top == 'text' AND $wrapper['children']) ? $item['title'] : anchor($item['url'], $item['title'], trim(implode(' ', $item['attributes'])))) . PHP_EOL;
 
 					if ($wrapper['children'])
 					{
@@ -215,7 +216,9 @@ class Plugin_Navigation extends Plugin
 
 					$output .= $add_first_tag ? "<{$list_tag}>" : '';
 					$output .= '<' . $tag . ($classes > '' ? ' class="' . $classes . '">' : '>');
-					$output .= (($level == 0) AND $top == 'text' AND $wrapper['children']) ? $item['title'] : anchor($item['url'], $item['title'], trim(implode(' ', $item['attributes'])));
+
+					if (strstr($classes, 'current')) $output .= '<span>'.$item['title'].'</span>';
+					else $output .= (($level == 0) AND $top == 'text' AND $wrapper['children']) ? $item['title'] : anchor($item['url'], $item['title'], trim(implode(' ', $item['attributes'])));
 
 					if ($wrapper['children'])
 					{

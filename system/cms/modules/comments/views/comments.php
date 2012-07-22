@@ -55,7 +55,7 @@
 			</div>
 
 			<div class="form_email">
-				<label for="email"><?php echo lang('comments.email_label'); ?>:</label>
+				<label for="email"><?php echo lang('global:email'); ?>:</label>
 				<input type="text" name="email" maxlength="40" value="<?php echo $comment['email'] ?>" />
 			</div>
 
