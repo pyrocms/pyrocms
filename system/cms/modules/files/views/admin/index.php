@@ -135,3 +135,13 @@
 	</div>
 
 </section>
+
+<?php if ( $this->session->flashdata('initial_folder_contents') ): ?>
+<script type="text/javascript">
+	$(document).ready(function(){
+
+		// Load the flash data ID
+		setTimeout(function(){pyro.files.folder_contents(<?php echo $this->session->flashdata('initial_folder_contents'); ?>);}, '1000');
+	});
+</script>
+<?php endif; ?>
