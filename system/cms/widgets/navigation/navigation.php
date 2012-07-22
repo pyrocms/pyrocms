@@ -118,6 +118,9 @@ class Widget_Navigation extends Widgets
 				'is_secure' => IS_SECURE,
 			)
 		);
+
+		// Load the navigation model from the navigation module.
+		$this->load->model('navigation/navigation_m');
 		
 		$links = $this->pyrocache->model('navigation_m', 'get_link_tree', $params, Settings::get('navigation_cache'));
 
