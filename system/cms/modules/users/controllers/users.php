@@ -87,7 +87,7 @@ class Users extends Public_Controller
 			),
 			array(
 				'field' => 'password',
-				'label' => lang('user_password_label'),
+				'label' => lang('global:password'),
 				'rules' => 'required|min_length['.$this->config->item('min_password_length', 'ion_auth').']|max_length['.$this->config->item('max_password_length', 'ion_auth').']'
 			),
 		);
@@ -362,17 +362,17 @@ class Users extends Public_Controller
 						), 'array');
 					}
 
-					/* show the you need to activate page while they wait for there email */
+					// show the "you need to activate" page while they wait for their email
 					if (Settings::get('activation_email'))
 					{
 						$this->session->set_flashdata('notice', $this->ion_auth->messages());
 						redirect('users/activate');
 					}
-
-					elseif (Settings::get('registered_email')
-					)
-						/* show the admin needs to activate you email */
+					else
 					{
+						$this->ion_auth->deactivate($id);
+
+						/* show that admin needs to activate your account */
 						$this->session->set_flashdata('notice', lang('user_activation_by_admin_notice'));
 						redirect('users/register'); /* bump it to show the flash data */
 					}

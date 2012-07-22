@@ -38,6 +38,7 @@ $lang['user_first_name_label']                 = 'ชื่อ';
 $lang['user_last_name_label']                  = 'นามสกุล';
 $lang['user_group_label']                      = 'กลุ่ม';
 $lang['user_activate_label']                   = 'เปิดใช้งาน';
+$lang['user_password_label']                   = 'รหัสผ่าน';
 $lang['user_password_confirm_label']           = 'ยืนยันรหัสผ่าน';
 $lang['user_name_label']                       = 'ชื่อ';
 $lang['user_joined_label']                     = 'สมัครเมื่อ';
@@ -53,6 +54,8 @@ $lang['indicates_required']                    = 'หมายถึงฟิล
 
 // -- Registration / Activation / Reset Password ----------------------------------------------------------
 
+$lang['user_send_activation_email']            = 'Send Activation Email'; #translate
+$lang['user_do_not_activate']                  = 'Inactive'; #translate
 $lang['user_register_title']                   = 'สมัครสมาชิก';
 $lang['user_activate_account_title']           = 'เปิดใช้งานบัญชี';
 $lang['user_activate_label']                   = 'เปิดใช้งาน';

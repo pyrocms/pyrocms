@@ -28,6 +28,7 @@ $lang['user_first_name_label']                 = 'שם';
 $lang['user_last_name_label']                  = 'משפחה';
 $lang['user_group_label']                      = 'קבוצה';
 $lang['user_activate_label']                   = 'הפעל';
+$lang['user_password_label']                   = 'סיסמה';
 $lang['user_password_confirm_label']           = 'וידוי סיסמה';
 $lang['user_name_label']                       = 'שם';
 $lang['user_joined_label']                     = 'הצתרף';
@@ -43,6 +44,8 @@ $lang['indicates_required']                    = 'מציינת שדות חובה
 
 // -- Registration / Activation / Reset Password ----------------------------------------------------------
 
+$lang['user_send_activation_email']            = 'Send Activation Email'; #translate
+$lang['user_do_not_activate']                  = 'Inactive'; #translate
 $lang['user_register_title']                   = 'הרשם';
 $lang['user_activate_account_title']           = 'הפעל חשבון';
 $lang['user_activate_label']                   = 'הפעל';
