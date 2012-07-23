@@ -1,4 +1,4 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['global:control-panel']								= 'Panneau de Contrôle';
 $lang['global:profile']					= 'Profil';
@@ -10,6 +10,7 @@ $lang['version_label'] 					        = 'Version';
 $lang['global:author'] 					        = 'Auteur';
 $lang['global:action'] 					        = 'Action';
 $lang['global:slug'] 					= 'Slug';
+$lang['global:user'] 					= 'Utilisateur';
 
 $lang['global:dialog:delete_message'] 	= 'Etes-vous sûr de vouloir supprimer ce fichier? Il ne peut pas être annulée.';
 $lang['global:dialog:confirm'] 				        = 'Confirmez';
@@ -45,7 +46,7 @@ $lang['note_label'] 					        = 'Note';
 $lang['success_label'] 					        = 'Succès';
 
 $lang['login_title'] 					        = 'Connexion';
-$lang['cms_fatal_error'] 				        = 'Erreur Fatale, CMS déjà installé ?';
+$lang['global:fatal_error'] 				        = 'Erreur Fatale, CMS déjà installé ?';
 $lang['global:demo_restrictions']       = 'Certaines fonctionnalités de cette page ont été désactivées pour la démonstration.';
 
 $lang['login_error_label'] 				        = 'Erreur de Connexion';
@@ -88,3 +89,9 @@ $lang['global:delete']					= 'Supprimer';
 $lang['global:remove']					= 'Supprimer';
 
 $lang['global:keywords']				= 'Mots-clés';
+
+$lang['global:or']						= 'ou';
+$lang['global:and']						= 'et';
+$lang['global:at']						= 'à';
+
+/* End of file main_lang.php */
