@@ -40,8 +40,12 @@ class Streams_utilities extends CI_Driver {
 	 * @param	string - namespace
 	 * @return	bool
 	 */
-	function remove_namespace($namespace)
-	{		
+	public function remove_namespace($namespace)
+	{
+		// Some field destructs use stream data from the cache,
+		// so let's make sure that the slug cache has run.
+		$this->CI->streams_m->run_slug_cache();
+
 		// Get all the streams in this namespace and remove each one:
 		$streams = $this->CI->streams_m->get_streams($namespace);
 		
