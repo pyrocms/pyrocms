@@ -76,14 +76,14 @@ class Widget_Navigation extends Widgets
 		)
 	);
 	/**	
-   	 * Constructor method
+	 * Constructor method
 	 */	
-  	public function __construct()	
+	public function __construct()	
 	{
 		// Load the navigation model from the navigation module.	
 		$this->load->model('navigation/navigation_m');
 	}
-
+	
 	/**
 	 * Get the navigation groups.
 	 *
@@ -91,7 +91,6 @@ class Widget_Navigation extends Widgets
 	 */
 	public function form()
 	{
-
 		// Loop aroung them and add them in an array keyed by their abbreviated 
 		// title.
 		$groups = array();
