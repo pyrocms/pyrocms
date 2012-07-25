@@ -541,7 +541,7 @@ class Files
 			ci()->load->spark('curl/1.2.1');
 
 			// download the file... dum de dum
-			$curl_result = ci()->curl->simple_get($file);
+			$curl_result = ci()->curl->simple_get($file->path);
 
 			if ($curl_result)
 			{
