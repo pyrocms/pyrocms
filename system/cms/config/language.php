@@ -121,6 +121,13 @@ $config['supported_languages'] = array(
         'codes'        => array('rus', 'russian', 'ru_RU'),
         'ckeditor'    => NULL
     ),
+    'ch' => array(
+        'name'        => '简体中文',
+        'folder'    => 'chinese_simplified',
+        'direction'    => 'ltr',
+        'codes'        => array('chs', 'chinese-simplified', 'zh_CN'),
+        'ckeditor'    => NULL
+    ),
     'zh' => array(
         'name'        => '繁體中文',
         'folder'    => 'chinese_traditional',
