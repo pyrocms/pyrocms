@@ -40,6 +40,9 @@ if ( ! function_exists('create_pagination'))
 		));
 
 		$offset = $limit * ($current_page - 1);
+		
+		//avoid having a negative offset
+		if ($offset < 0) $offset = 0;
 
 		return array(
 			'current_page' => $current_page,
