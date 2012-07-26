@@ -662,7 +662,7 @@ class Module_Settings extends Module {
 			// @todo Move this to the respective module
 			'activation_email' => array(
 				'title' => 'Activation Email',
-				'description' => 'Send out an e-mail when a user signs up with an activation link. Disable this to let only admins activate accounts.',
+				'description' => 'Send out an e-mail with an activation link when a user signs up. Disable this so that admins must manually activate each account.',
 				'type' => 'radio',
 				'default' => true,
 				'value' => '',

@@ -343,7 +343,9 @@ class Files
 		{
 			$upload_config = array(
 				'upload_path'	=> self::$path,
-				'file_name'		=> self::$_filename
+				'allowed_types'	=> self::$_ext,
+				'file_name'		=> self::$_filename,
+				'encrypt_name'	=> config_item('files:encrypt_filename')
 			);
 
 			// If we don't have allowed types set, we'll set it to the
@@ -379,12 +381,14 @@ class Files
 					$config['image_library']    = 'gd2';
 					$config['source_image']     = self::$path.$data['filename'];
 					$config['new_image']        = self::$path.$data['filename'];
-					$config['maintain_ratio']   = $ratio;
-					$config['width']            = $width;
-					$config['height']           = $height;
+					$config['maintain_ratio']   = (bool) $ratio;
+					$config['width']            = $width ? $width : 0;
+					$config['height']           = $height ? $height : 0;
 					ci()->image_lib->initialize($config);
 					ci()->image_lib->resize();
-					ci()->image_lib->clear();
+
+					$data['width'] = ci()->image_lib->width;
+					$data['height'] = ci()->image_lib->height;
 				}
 
 				$file_id = ci()->file_m->insert($data);
@@ -543,7 +547,7 @@ class Files
 			ci()->load->spark('curl/1.2.1');
 
 			// download the file... dum de dum
-			$curl_result = ci()->curl->simple_get($file);
+			$curl_result = ci()->curl->simple_get($file->path);
 
 			if ($curl_result)
 			{

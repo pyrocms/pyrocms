@@ -28,6 +28,7 @@ $lang['user_first_name_label'] 			= 'Voornaam';
 $lang['user_last_name_label'] 			= 'Achternaam';
 $lang['user_group_label'] 				= 'Groep';
 $lang['user_activate_label'] 			= 'Activeer';
+$lang['user_password_label'] 			= 'Wachtwoord';
 $lang['user_password_confirm_label'] 	= 'Bevestig Wachtwoord';
 $lang['user_name_label'] 				= 'Naam';
 $lang['user_joined_label'] 				= 'Lid sinds';
@@ -43,6 +44,8 @@ $lang['indicates_required'] 			= 'Geeft verplichte velden aan';
 
 // -- Registration / Activation / Reset Password ----------------------------------------------------------
 
+$lang['user_send_activation_email']            = 'Send Activation Email'; #translate
+$lang['user_do_not_activate']                  = 'Inactive'; #translate
 $lang['user_register_title'] 			= 'Registreren';
 $lang['user_activate_account_title'] 	= 'Activeer Account';
 $lang['user_activate_label'] 			= 'Activeer';

@@ -28,6 +28,7 @@ $lang['user_first_name_label'] 			= 'الإسم الأول';
 $lang['user_last_name_label'] 			= 'الإسم الأخير';
 $lang['user_group_label'] 				= 'المجموعة';
 $lang['user_activate_label'] 			= 'تفعيل';
+$lang['user_password_label'] 			= 'كلمة السرّ';
 $lang['user_password_confirm_label'] 	= 'تأكيد كلمة السرّ';
 $lang['user_name_label'] 				= 'الإسم';
 $lang['user_joined_label'] 				= 'انضم في';
@@ -43,6 +44,8 @@ $lang['indicates_required'] 			= 'تشير إلى الحقول المطلوبة'
 
 // -- Registration / Activation / Reset Password ----------------------------------------------------------
 
+$lang['user_send_activation_email']            = 'Send Activation Email'; #translate
+$lang['user_do_not_activate']                  = 'Inactive'; #translate
 $lang['user_register_title'] 			= 'تسجيل';
 $lang['user_activate_account_title'] 	= 'تفعيل الحساب';
 $lang['user_activate_label'] 			= 'تفعيل';
