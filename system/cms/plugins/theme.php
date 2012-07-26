@@ -290,24 +290,26 @@ class Plugin_Theme extends Plugin
      */
     public function lang()
     {
-        $lang_file = $this->attribute('lang');
+        $lang_file = $this->attribute('lang','');
         $line = $this->attribute('line');
-        $default = $this->attribute('default');
+        $default = $this->attribute('default','');
         // Return an empty string as the attribute LINE is missing
         if ( !isset($line) ) {
             return "";
         }
-
-        $deft_lang = CI::$APP->config->item('language');
-        if ($lang = Modules::load_file($lang_file.'_lang', CI::$APP->template->get_theme_path().'/language/'.$deft_lang.'/', 'lang'))
-        {
-            CI::$APP->lang->language = array_merge(CI::$APP->lang->language, $lang);
-            CI::$APP->lang->is_loaded[] = $lang_file . '_lang'.EXT;
-            unset($lang);
-        }
+		
+		if ( ! empty($lang) ) {
+			$deft_lang = CI::$APP->config->item('language');
+			if ($lang = Modules::load_file($lang_file.'_lang', CI::$APP->template->get_theme_path().'/language/'.$deft_lang.'/', 'lang'))
+			{
+				CI::$APP->lang->language = array_merge(CI::$APP->lang->language, $lang);
+				CI::$APP->lang->is_loaded[] = $lang_file . '_lang'.EXT;
+				unset($lang);
+			}
+		}
         $value = $this->lang->line($line);
 
-        return $value?$value:$default;
+        return $value===FALSE?$default:$value;
     }
 
 }
