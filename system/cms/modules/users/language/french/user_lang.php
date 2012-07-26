@@ -44,8 +44,8 @@ $lang['indicates_required'] = 'Désignez les champs obligatoires';
 
 // -- Registration / Activation / Reset Password ----------------------------------------------------------
 
-$lang['user_send_activation_email']            = 'Send Activation Email'; #translate
-$lang['user_do_not_activate']                  = 'Inactive'; #translate
+$lang['user_send_activation_email']            = 'Envoyer un Email d\'activation';
+$lang['user_do_not_activate']                  = 'Inactif';
 $lang['user_register_title']          = 'Enregistrez-vous';
 $lang['user_activate_account_title']  = 'Activez le compte';
 $lang['user_activate_label']          = 'Activez';
