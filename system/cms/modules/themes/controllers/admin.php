@@ -103,7 +103,7 @@ class Admin extends Admin_Controller
 	 */
 	public function options($slug = '')
 	{
-		$data = new stdClass();
+		$data = new stdClass;
 
 		if ($this->input->post('btnAction') == 're-index')
 		{
@@ -114,6 +114,8 @@ class Admin extends Admin_Controller
 			{
 				// Success...
 				$this->session->set_flashdata('success', lang('themes.re-index_success'));
+
+				$this->pyrocache->delete_all('theme_m');
 
 				redirect('admin/themes/options/'.$slug);
 			}
@@ -166,8 +168,9 @@ class Admin extends Admin_Controller
 				// Success...
 				$this->session->set_flashdata('success', lang('themes.save_success'));
 
-				redirect('admin/themes/options/'.$slug);
+				$this->pyrocache->delete_all('theme_m');
 
+				redirect('admin/themes/options/'.$slug);
 			}
 		}
 
