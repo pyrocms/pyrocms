@@ -13,7 +13,7 @@
 <?php echo form_open('users/activate', 'id="activate-user"'); ?>
 <ul>
 	<li>
-		<label for="email"><?php echo lang('user_email') ?></label>
+		<label for="email"><?php echo lang('global:email') ?></label>
 		<?php echo form_input('email', isset($_user['email']) ? $_user['email'] : '', 'maxlength="40"');?>
 	</li>
 

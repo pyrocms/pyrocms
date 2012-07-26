@@ -190,12 +190,12 @@ class Users extends Public_Controller
 		$validation = array(
 			array(
 				'field' => 'password',
-				'label' => lang('user_password'),
+				'label' => lang('global:password'),
 				'rules' => 'required|min_length['.$this->config->item('min_password_length', 'ion_auth').']|max_length['.$this->config->item('max_password_length', 'ion_auth').']'
 			),
 			array(
 				'field' => 'email',
-				'label' => lang('user_email'),
+				'label' => lang('global:email'),
 				'rules' => 'required|max_length[60]|valid_email|callback__email_check',
 			),
 			array(

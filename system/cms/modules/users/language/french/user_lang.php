@@ -60,7 +60,6 @@ $lang['user_last_name']      = 'Nom';
 $lang['user_username']       = 'Nom Utilisateur';
 $lang['user_display_name']   = 'Pseudonyme';
 $lang['user_email_use']      = 'utilisé pour se connecter';
-$lang['user_password']       = 'Mot de passe';
 $lang['user_remember']       = 'Rester connecté';
 $lang['user_group_id_label'] = 'ID Groupe';
 
