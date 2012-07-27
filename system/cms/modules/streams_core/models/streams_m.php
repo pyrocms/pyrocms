@@ -505,7 +505,7 @@ class Streams_m extends MY_Model {
 	 * @param	int
 	 * @return 	obj
 	 */
-	public function get_stream_data($stream, $stream_fields, $limit = null, $offset = 0)
+	public function get_stream_data($stream, $stream_fields, $limit = null, $offset = 0, $filter_data = null)
 	{
 		$this->load->config('streams');
 
@@ -527,6 +527,20 @@ class Streams_m extends MY_Model {
 		else
 		{
 			$this->db->order_by('created', 'DESC');
+		}
+
+		// -------------------------------------
+		// Filter results
+		// -------------------------------------
+
+		if ( $filter_data != null )
+		{
+
+			// Loop through and apply the filters
+			foreach ( $filter_data['filters'] as $filter=>$value )
+			{
+				if ( !empty($value) ) $this->db->like(str_replace('f_', '', $filter), $value);
+			}
 		}
 
 		// -------------------------------------
