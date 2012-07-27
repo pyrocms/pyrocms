@@ -40,6 +40,11 @@ class Admin extends Admin_Controller
 			'rules' => 'trim'
 		),
 		array(
+			'field' => 'featured_image',
+			'label' => 'lang:blog:featured_image_label',
+			'rules' => 'trim'
+		),
+		array(
 			'field' => 'intro',
 			'label' => 'lang:blog:intro_label',
 			'rules' => 'trim|required'
@@ -162,6 +167,7 @@ class Admin extends Admin_Controller
 	{
 		$this->form_validation->set_rules($this->validation_rules);
 
+
 		if ($this->input->post('created_on'))
 		{
 			$created_on = strtotime(sprintf('%s %s:%s', $this->input->post('created_on'), $this->input->post('created_on_hour'), $this->input->post('created_on_minute')));
@@ -188,9 +194,11 @@ class Admin extends Admin_Controller
 				'slug'				=> $this->input->post('slug'),
 				'category_id'		=> $this->input->post('category_id'),
 				'keywords'			=> Keywords::process($this->input->post('keywords')),
+				'featured_image'	=> $this->input->post('featured_image'),
 				'intro'				=> $this->input->post('intro'),
 				'body'				=> $this->input->post('body'),
 				'status'			=> $this->input->post('status'),
+				'relevance'			=> $this->input->post('relevance'),
 				'created_on'		=> $created_on,
 				'comments_enabled'	=> $this->input->post('comments_enabled'),
 				'author_id'			=> $this->current_user->id,
@@ -223,7 +231,6 @@ class Admin extends Admin_Controller
 		else
 		{
 			// Go through all the known fields and get the post values
-			$post = new stdClass;
 			foreach ($this->validation_rules as $key => $field)
 			{
 				$post->$field['field'] = set_value($field['field']);
@@ -297,15 +304,21 @@ class Admin extends Admin_Controller
 			}
 
 			$author_id = empty($post->display_name) ? $this->current_user->id : $post->author_id;
-
+			
+			preg_match('/<img[^>]+\>/i', $this->input->post('featured_image'), $images);
+			
+			$featured_image = !empty($images) ? $images[0] : null;
+			
 			$result = $this->blog_m->update($id, array(
 				'title'				=> $this->input->post('title'),
 				'slug'				=> $this->input->post('slug'),
 				'category_id'		=> $this->input->post('category_id'),
 				'keywords'			=> Keywords::process($this->input->post('keywords')),
-				'intro'				=> $this->input->post('intro'),
+				'featured_image'	=> $featured_image,
+				'intro'				=> strip_tags($this->input->post('intro')),
 				'body'				=> $this->input->post('body'),
 				'status'			=> $this->input->post('status'),
+				'relevance'			=> $this->input->post('relevance'),
 				'created_on'		=> $created_on,
 				'comments_enabled'	=> $this->input->post('comments_enabled'),
 				'author_id'			=> $author_id,

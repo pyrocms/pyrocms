@@ -5,11 +5,11 @@
 	<div class="blog_post">
 		<!-- Post heading -->
 		<div class="post_heading">
-			<h2><?php echo  anchor('blog/' .date('Y/m', $post->created_on) .'/'. $post->slug, $post->title); ?></h2>
+			<h2><?php echo  anchor($post->url, $post->title); ?></h2>
 			<p class="post_date"><?php echo lang('blog_posted_label');?>: <?php echo format_date($post->created_on); ?></p>
 			<?php if($post->category_slug): ?>
 			<p class="post_category">
-				<?php echo lang('blog_category_label');?>: <?php echo anchor('blog/category/'.$post->category_slug, $post->category_title);?>
+				<?php echo lang('blog_category_label');?>: <?php echo anchor(($this->config->item('blog_uri')!=null? $this->config->item('blog_uri').'/':null).$post->category_slug, $post->category_title);?>
 			</p>
 			<?php endif; ?>
 			<?php if($post->keywords): ?>
