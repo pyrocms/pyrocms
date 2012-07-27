@@ -298,7 +298,7 @@ class Plugin_Theme extends Plugin
             return "";
         }
 		
-		if ( ! empty($lang) ) {
+		if ( ! empty($lang_file) ) {
 			$deft_lang = CI::$APP->config->item('language');
 			if ($lang = Modules::load_file($lang_file.'_lang', CI::$APP->template->get_theme_path().'/language/'.$deft_lang.'/', 'lang'))
 			{
