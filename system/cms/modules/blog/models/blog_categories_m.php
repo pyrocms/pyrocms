@@ -44,11 +44,18 @@ class Blog_categories_m extends MY_Model
 	 * Callback method for validating the title
 	 * 
 	 * @param string $title The title to validate
+	 * @param int $id The id to check
 	 * @return mixed
 	 */
-	public function check_title($title = '')
+	public function check_title($title = '', $id = 0)
 	{
-		return parent::count_by('slug', url_title($title)) > 0;
+		$this->db->where('slug', url_title($title));
+		$this->db->where('id != ', $id);
+		$this->db->from('blog_categories');
+		$result = $this->db->count_all_results();
+		if( $result > 0 )
+			return TRUE;
+		return FALSE;
 	}
 	
 	/**
