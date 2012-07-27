@@ -27,7 +27,7 @@ class Admin_Categories extends Admin_Controller {
 		),
 		array(
 			'field' => 'id',
-			'rules' => 'trim|required|is_numeric'			
+			'rules' => 'trim|is_numeric'			
 		),
 	);
 	
@@ -122,6 +122,8 @@ class Admin_Categories extends Admin_Controller {
 		
 		// ID specified?
 		$category or redirect('admin/blog/categories/index');
+
+		$this->form_validation->set_rules('id', 'ID', 'trim|required|is_numeric');
 		
 		// Validate the results
 		if ($this->form_validation->run())
