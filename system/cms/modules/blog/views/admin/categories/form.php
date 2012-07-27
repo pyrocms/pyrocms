@@ -13,8 +13,9 @@
 
 	<ul>
 		<li class="even">
-		<label for="title"><?php echo lang('global:title');?> <span>*</span></label>
-		<div class="input"><?php echo  form_input('title', $category->title); ?></div>
+			<label for="title"><?php echo lang('global:title');?> <span>*</span></label>
+			<div class="input"><?php echo  form_input('title', $category->title); ?></div>
+			<div class="input"><?php echo  form_hidden('id', $category->id); ?></div>
 		</li>
 	</ul>
 	
