@@ -63,7 +63,6 @@ $lang['user_last_name'] 				= '姓氏';
 $lang['user_username'] 					= '用戶名稱';
 $lang['user_display_name']				= '顯示名稱';
 $lang['user_email_use'] 				= '用來登入';
-$lang['user_password'] 					= '密碼';
 $lang['user_remember'] 					= '記住我';
 $lang['user_group_id_label']			= '群組 ID';
 

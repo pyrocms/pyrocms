@@ -63,7 +63,6 @@ $lang['user_last_name']                        = 'Efternavn';
 $lang['user_username']                         = 'Brugernavn';
 $lang['user_display_name']                     = 'Vist navn';
 $lang['user_email_use'] 					   = 'bruges til login';
-$lang['user_password']                         = 'Password';
 $lang['user_remember']                         = 'Husk mig';
 $lang['user_confirm_password']                 = 'Bekræft password';
 $lang['user_group_id_label']                   = 'Gruppe ID';

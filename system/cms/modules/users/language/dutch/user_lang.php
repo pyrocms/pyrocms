@@ -63,7 +63,6 @@ $lang['user_last_name'] 				= 'Achternaam';
 $lang['user_username'] 					= 'Gebruikersnaam';
 $lang['user_display_name']				= 'Schermnaam';
 $lang['user_email_use'] 				= 'om in te loggen';
-$lang['user_password'] 					= 'Wachtwoord';
 $lang['user_remember'] 					= 'Onthoud mij';
 $lang['user_group_id_label']			= 'Groep ID';
 

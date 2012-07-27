@@ -63,7 +63,6 @@ $lang['user_last_name']                        = 'Vezetéknéve';
 $lang['user_username']                         = 'Felhasználónév';
 $lang['user_display_name']                     = 'Látható név';
 $lang['user_email_use']                        = 'Bejelentkezéshez használt';
-$lang['user_password']                         = 'Jelszó';
 $lang['user_remember']                         = 'Emlékezzen rám';
 $lang['user_group_id_label']                   = 'Csoport azonosító';
 

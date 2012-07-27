@@ -63,7 +63,6 @@ $lang['user_last_name']                        = 'משפחה';
 $lang['user_username']                         = 'שם משתמש';
 $lang['user_display_name']                     = 'הצג שם';
 $lang['user_email_use'] 					   = 'used to login'; #translate
-$lang['user_password']                         = 'סיסמה';
 $lang['user_remember']                         = 'זכור אותי';
 $lang['user_group_id_label']                   = 'ID של הקבוצה'; // #TRANSLATE #TODO: Translate this into Spanish
 

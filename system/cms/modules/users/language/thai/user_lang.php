@@ -73,7 +73,6 @@ $lang['user_last_name']                        = 'นามสกุล';
 $lang['user_username']                         = 'ชื่อผู้ใช้งาน';
 $lang['user_display_name']                     = 'ชื่อที่ปรากฏ';
 $lang['user_email_use'] 					   = 'ที่ใช้ในการเข้าสู่ระบบ';
-$lang['user_password']                         = 'รหัสผ่าน';
 $lang['user_remember']                         = 'จดจำ';
 $lang['user_group_id_label']                   = 'รหัสของกลุ่ม';
 

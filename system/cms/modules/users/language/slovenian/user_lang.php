@@ -63,7 +63,6 @@ $lang['user_last_name']                        = 'Priimek';
 $lang['user_username']                         = 'Uporabniško ime';
 $lang['user_display_name']                     = 'Prikazno ime';
 $lang['user_email_use'] 					   = 'uporabljeno pri prijavi';
-$lang['user_password']                         = 'Geslo';
 $lang['user_remember']                         = 'Zapomni si me';
 $lang['user_group_id_label']                   = 'ID skupine';
 

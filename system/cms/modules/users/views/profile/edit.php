@@ -57,7 +57,7 @@
 		<legend><?php echo lang('user_password_section') ?></legend>
 		<ul>
 			<li class="float-left spacer-right">
-				<label for="password"><?php echo lang('user_password') ?></label><br/>
+				<label for="password"><?php echo lang('global:password') ?></label><br/>
 				<?php echo form_password('password', '', 'autocomplete="off"'); ?>
 			</li>
 		</ul>

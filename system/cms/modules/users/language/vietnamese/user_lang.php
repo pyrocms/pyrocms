@@ -74,7 +74,6 @@ $lang['user_last_name']                        = 'Họ';
 $lang['user_username']                         = 'Username';
 $lang['user_display_name']                     = 'Tên hiển thị';
 $lang['user_email_use'] 					   = 'được sử dụng để đăng nhập';
-$lang['user_password']                         = 'Mật khẩu';
 $lang['user_remember']                         = 'Ghi nhớ đăng nhập';
 $lang['user_group_id_label']                   = 'ID Nhóm';
 

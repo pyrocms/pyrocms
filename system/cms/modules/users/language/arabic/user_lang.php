@@ -63,7 +63,6 @@ $lang['user_last_name'] 				= 'إسم العائلة';
 $lang['user_username'] 					= 'إسم المستخدم';
 $lang['user_display_name']				= 'إسم العرض';
 $lang['user_email_use'] 					   = 'يُستخدم لتسجيل الدخول';
-$lang['user_password'] 					= 'كلمة السرّ';
 $lang['user_remember'] 					= 'تذكرني';
 $lang['user_group_id_label']			= 'مُعرف المجموعة';
 

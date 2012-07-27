@@ -63,7 +63,6 @@ $lang['user_last_name'] 				= 'Último nome';
 $lang['user_username'] 					= 'Nome de utilizador';
 $lang['user_display_name']				= 'Nome de exibição';
 $lang['user_email_use']					= 'usado para entrar';
-$lang['user_password'] 					= 'Senha';
 $lang['user_remember'] 					= 'Lembrar-me';
 $lang['user_group_id_label']			= 'ID de Grupo';
 

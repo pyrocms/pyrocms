@@ -63,7 +63,6 @@ $lang['user_last_name']           = 'Επίθετο';
 $lang['user_username']            = 'Όνομα χρήστη';
 $lang['user_display_name']        = 'Όνομα εμφάνισης';
 $lang['user_email_use']           = 'που χρησιμοποιείται για την σύνδεση';
-$lang['user_password']            = 'Συνθηματικό';
 $lang['user_remember']            = 'Απομνημόνευση';
 $lang['user_group_id_label']      = 'ID Ομάδας';
 

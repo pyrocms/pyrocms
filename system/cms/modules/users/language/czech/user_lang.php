@@ -63,7 +63,6 @@ $lang['user_last_name'] 				= 'Příjmení';
 $lang['user_username'] 					= 'Uživatelské jméno';
 $lang['user_display_name']				= 'Zobrazované jméno';
 $lang['user_email_use'] 				= 'used to login'; #translate
-$lang['user_password'] 					= 'Heslo';
 $lang['user_remember'] 					= 'Zapamatovat';
 $lang['user_group_id_label']			= 'ID skupiny';
 

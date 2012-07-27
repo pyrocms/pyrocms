@@ -4,11 +4,11 @@
 <?php endif; ?>
 	<ul>
 		<li>
-			<label for="email"><?php echo lang('user_email'); ?></label>
+			<label for="email"><?php echo lang('global:email'); ?></label>
 			<?php echo form_input('email', '', 'id="email" maxlength="120"'); ?>
 		</li>
 		<li>
-			<label for="password"><?php echo lang('user_password'); ?></label>
+			<label for="password"><?php echo lang('global:password'); ?></label>
 			<?php echo form_password('password', '', 'id="password" maxlength="20"'); ?>
 		</li>
     </ul>

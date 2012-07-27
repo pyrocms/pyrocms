@@ -55,7 +55,6 @@ $lang['user_last_name']                        = 'Efternamn';
 $lang['user_username']                         = 'Användarnamn';
 $lang['user_display_name']                     = 'Namn som visas';
 $lang['user_email_use'] 					   = 'används för inloggning';
-$lang['user_password']                         = 'Lösenord';
 $lang['user_remember']                         = 'Kom ihåg mig';
 $lang['user_group_id_label']                   = 'Grupp ID';
 

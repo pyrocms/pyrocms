@@ -63,7 +63,6 @@ $lang['user_last_name']                        = 'Nama Belakang';
 $lang['user_username']                         = 'Username';
 $lang['user_display_name']                     = 'Nama yang Tampil';
 $lang['user_email_use'] 					   = 'digunakan untuk masuk';
-$lang['user_password']                         = 'Password';
 $lang['user_remember']                         = 'Ingat Saya';
 $lang['user_group_id_label']                   = 'ID Grup';
 

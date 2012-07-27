@@ -70,7 +70,6 @@ $lang['user_last_name']											= 'Фамилия';
 $lang['user_username']											= 'Логин';
 $lang['user_display_name']									= 'Отображаемое имя';
 $lang['user_email_use']											= 'используется для входа на сайт';
-$lang['user_password']											= 'Пароль';
 $lang['user_remember']											= 'Запомнить меня';
 $lang['user_group_id_label']								= 'ID группы';
 
