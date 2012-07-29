@@ -15,7 +15,6 @@ $lang['comments.view_more'] 				= 'Katso lisää...';
 
 // labels
 $lang['comments.name_label'] 				= 'Nimesi';
-$lang['comments.email_label'] 				= 'Sähköpostiosoite';
 $lang['comments.website_label'] 			= 'Kotisivut';
 $lang['comments.message_label'] 			= 'Viesti';
 $lang['comments.status_label'] 				= 'Status';

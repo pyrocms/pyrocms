@@ -48,8 +48,8 @@ $lang['global:demo_restrictions']       = 'Einige Funktionen auf dieser Seite wu
 
 $lang['login_error_label'] 				= 'Anmeldefehler';
 $lang['forgot_password_label'] 			= 'Passwort vergessen ?';
-$lang['email_label'] 					= 'Email';
-$lang['password_label']					= 'Passwort';
+$lang['global:email'] 					= 'Email';
+$lang['global:password']					= 'Passwort';
 $lang['login_label'] 					= 'Anmelden';
 
 $lang['help_label'] 					= 'Hilfe';

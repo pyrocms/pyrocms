@@ -430,7 +430,7 @@ class Field_datetime
 		if ($data['custom']['use_time'] == 'yes')
 		{
 			// Hour	
-			$hour_count = 1;
+			$hour_count = 0;
 			
 			$hours = array();
 			

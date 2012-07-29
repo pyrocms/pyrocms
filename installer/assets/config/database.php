@@ -39,7 +39,6 @@ $db[PYRO_DEVELOPMENT] = array(
 	'database'		=> 	'__DATABASE__',
 	'dbdriver' 		=> 	'mysql',
 	'dbprefix' 		=>	'',
-	'active_r' 		=>	TRUE,
 	'pconnect' 		=>	FALSE,
 	'db_debug' 		=>	TRUE,
 	'cache_on' 		=>	FALSE,
@@ -76,7 +75,6 @@ $db[PYRO_PRODUCTION] = array(
 	'password'		=> 	'__PASSWORD__',
 	'database'		=> 	'__DATABASE__',
 	'dbdriver' 		=> 	'mysql',
-	'active_r' 		=>	TRUE,
 	'pconnect' 		=>	FALSE,
 	'db_debug' 		=>	FALSE,
 	'cache_on' 		=>	FALSE,
@@ -94,5 +92,6 @@ if ( ! array_key_exists(ENVIRONMENT, $db))
 
 // Assign the group to be used
 $active_group = ENVIRONMENT;
+$query_builder = TRUE;
 
 /* End of file database.php */

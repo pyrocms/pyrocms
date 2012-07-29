@@ -10,7 +10,6 @@ $lang['comments.view_more']		= 'Περισσότερα...';
 
 // labels
 $lang['comments.name_label']		= 'Το όνομά σας';
-$lang['comments.email_label']		= 'Διέυθυνση email';
 $lang['comments.website_label']		= 'Ιστότοπος';
 $lang['comments.message_label']		= 'Μήνυμα';
 $lang['comments.status_label']		= 'Κατάσταση';

@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 // Error 404
-$lang['error_404_title']            = 'A kért oldal vagy fájl nem található a megadott címen!g';
+$lang['error_404_title']            = 'A kért oldal vagy fájl nem található a megadott címen!';
 $lang['error_404_message']          = 'Lehetséges, hogy át lett helyezve vagy töröltük. A <a href="%s">Főoldal</a>-ról elindulva megtalálhatod, amit keresel.';
 
 // Database

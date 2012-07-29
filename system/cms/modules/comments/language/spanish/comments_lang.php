@@ -10,7 +10,6 @@ $lang['comments.view_more'] 			= 'Leer más';
 
 # labels
 $lang['comments.name_label'] 			= 'Nombre';
-$lang['comments.email_label'] 			= 'Correo electrónico';
 $lang['comments.website_label'] 		= 'Sitio web';
 $lang['comments.message_label'] 		= 'Mensaje';
 $lang['comments.status_label'] 			= 'Estado';
@@ -52,8 +51,8 @@ $lang['comments.delete_multi_success'] 			= 'Los comentarios #%s fueron eliminad
 $lang['comments.no_comments'] 					= 'No hay comentarios aún';
 
 // Helper counter comments
-$lang['comments.counter_none_label']		= 'No comment'; #translate
-$lang['comments.counter_singular_label']	= '%d comment'; #translate
-$lang['comments.counter_plural_label']		= '%d comments'; #translate
+$lang['comments.counter_none_label']		= 'Sin comentarios';
+$lang['comments.counter_singular_label']	= '%d comentario';
+$lang['comments.counter_plural_label']		= '%d comentarios';
 
 /* End of file comments_lang.php */

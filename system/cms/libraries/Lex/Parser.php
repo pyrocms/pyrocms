@@ -421,7 +421,7 @@ class Lex_Parser
 	 * @param	string	$text	Text to inject into
 	 * @return	string
 	 */
-	public function inject_noparse($text)
+	public static function inject_noparse($text)
 	{
 		if (isset(Lex_Parser::$extractions['noparse']))
 		{

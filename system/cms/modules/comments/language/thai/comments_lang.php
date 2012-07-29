@@ -20,7 +20,6 @@ $lang['comments.view_more'] 				= 'ดูเพิ่มเติม...';
 
 // labels
 $lang['comments.name_label'] 				= 'ชื่อของคุณ';
-$lang['comments.email_label'] 				= 'ที่อยู่อีเมล';
 $lang['comments.website_label'] 			= 'เว็บไซต์';
 $lang['comments.message_label'] 			= 'ข้อความ';
 $lang['comments.status_label'] 				= 'สถานะ';

@@ -12,18 +12,18 @@
  * @filesource
  */
 
-$lang['buttons.submit']		= 'Išsaugoti';
+$lang['buttons.submit']		= 'Pateikti';
 $lang['buttons.cancel']		= 'Atšaukti';
 $lang['buttons.upload']		= 'Įkelti';
-$lang['buttons.save']		= 'Išaugoti';
-$lang['buttons.save_exit']	= 'Išaugoti &amp; išeiti';
+$lang['buttons.save']		= 'Išsaugoti';
+$lang['buttons.save_exit']	= 'Išsaugoti ir išeiti';
 $lang['buttons.delete']		= 'Ištrinti';
 $lang['buttons.publish']	= 'Publikuoti';
 $lang['buttons.approve']	= 'Patvirtinti';
 $lang['buttons.unapprove']	= 'Nepatvirtinti';
-$lang['buttons.install']	= 'Instaliuoti';
-$lang['buttons.uninstall']	= 'Išinstaliuoti';
-$lang['buttons.enable']		= 'Ijungti';
+$lang['buttons.install']	= 'Įdiegti';
+$lang['buttons.uninstall']	= 'Išdiegti';
+$lang['buttons.enable']		= 'Įjungti';
 $lang['buttons.disable'] 	= 'Išjungti';
 $lang['buttons.yes']		= 'Taip';
 $lang['buttons.no']			= 'Ne';
@@ -33,7 +33,7 @@ $lang['buttons.preview']	= 'Peržiūra';
 $lang['buttons.close']		= 'Uždaryti';
 $lang['buttons.edit']		= 'Redaguoti';
 $lang['buttons.clone']		= 'Klonuoti';
-$lang['buttons.re-index']	= 'Re-index';
+$lang['buttons.re-index']	= 'Perindeksuoti';
 $lang['buttons.copy']		= 'Kopijuoti';
 
 /* End of file buttons_lang.php */

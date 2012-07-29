@@ -1,15 +1,15 @@
 <?php if ( ! empty($comments)): ?>
 
-	<table border="0" class="table-list clear-both">
+	<table border="0" class="table-list" cellspacing="0">
 		<thead>
 			<tr>
 				<th width="20"><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all'));?></th>
 				<th width="25%"><?php echo lang('comments.message_label');?></th>
 				<th><?php echo lang('comments.item_label');?></th>
 				<th><?php echo lang('global:author');?></th>
-				<th><?php echo lang('comments.email_label');?></th>
+				<th><?php echo lang('global:email');?></th>
 				<th width="80"><?php echo lang('comments_active.date_label');?></th>
-				<th width="<?php echo Settings::get('moderate_comments') ? '200': '120'; ?>"></th>
+				<th width="<?php echo Settings::get('moderate_comments') ? '265': '120'; ?>"></th>
 			</tr>
 		</thead>
 	
@@ -59,6 +59,7 @@
 					
 						<?php echo anchor('admin/comments/edit/' . $comment->id, lang('global:edit'), 'class="button edit"'); ?>
 						<?php echo anchor('admin/comments/delete/' . $comment->id, lang('global:delete'), array('class'=>'confirm button delete')); ?>
+						<?php echo anchor('admin/comments/report/' . $comment->id, 'Report', array('class'=>'button edit')); ?>
 					</td>
 				</tr>
 			<?php endforeach; ?>

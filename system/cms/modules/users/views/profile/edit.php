@@ -42,10 +42,10 @@
 	</fieldset>
 
 	<fieldset id="user_names">
-		<legend><?php echo lang('user_email_label') ?></legend>
+		<legend><?php echo lang('global:email') ?></legend>
 		<ul>
 			<li>
-				<label for="email"><?php echo lang('user_email_label') ?></label>
+				<label for="email"><?php echo lang('global:email') ?></label>
 				<div class="input">
 					<?php echo form_input('email', $_user->email); ?>
 				</div>
@@ -57,7 +57,7 @@
 		<legend><?php echo lang('user_password_section') ?></legend>
 		<ul>
 			<li class="float-left spacer-right">
-				<label for="password"><?php echo lang('user_password') ?></label><br/>
+				<label for="password"><?php echo lang('global:password') ?></label><br/>
 				<?php echo form_password('password', '', 'autocomplete="off"'); ?>
 			</li>
 		</ul>

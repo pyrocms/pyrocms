@@ -19,9 +19,22 @@ class Plugin_Url extends Plugin
 	 * 
 	 * @return string The current URI string.
 	 */
-	function current()
+	public function current()
 	{
 		return site_url($this->uri->uri_string());
+	}
+
+	/**
+	 * Current uri string
+	 *
+	 * Usage:
+	 *   {{ url:get key="foo" }}
+	 * 
+	 * @return string The key of the item in $_GET
+	 */
+	public function get()
+	{
+		return $this->input->get($this->attribute('key'));
 	}
 
 	/**
@@ -32,7 +45,7 @@ class Plugin_Url extends Plugin
 	 *
 	 * @return string Site URL of the install.
 	 */
-	function site()
+	public function site()
 	{
 		$uri = $this->attribute('uri');
 
@@ -47,7 +60,7 @@ class Plugin_Url extends Plugin
 	 *
 	 * @return string The base URL for the installation.
 	 */
-	function base()
+	public function base()
 	{
 		return base_url();
 	}
@@ -60,7 +73,7 @@ class Plugin_Url extends Plugin
 	 *
 	 * @return string The URI segment, or the provided default.
 	 */
-	function segments()
+	public function segments()
 	{
 		$default = $this->attribute('default');
 		$segment = $this->attribute('segment');
@@ -76,7 +89,7 @@ class Plugin_Url extends Plugin
 	 *
 	 * @return string The anchor HTML tag.
 	 */
-	function anchor()
+	public function anchor()
 	{
 		$segments = $this->attribute('segments');
 		$title = $this->attribute('title', '');

@@ -10,7 +10,6 @@ $lang['comments.view_more'] 				= 'Ogled vseh...';
 
 // labels
 $lang['comments.name_label'] 				= 'Vaše ime';
-$lang['comments.email_label'] 				= 'Email naslov';
 $lang['comments.website_label'] 			= 'Spletna stran';
 $lang['comments.message_label'] 			= 'Sporočilo';
 $lang['comments.status_label'] 				= 'Stanje';

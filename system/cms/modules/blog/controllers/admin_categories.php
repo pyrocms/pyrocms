@@ -79,6 +79,8 @@ class Admin_Categories extends Admin_Controller {
 	 */
 	public function create()
 	{
+		$category = new stdClass();
+
 		// Validate the data
 		if ($this->form_validation->run())
 		{
@@ -224,6 +226,8 @@ class Admin_Categories extends Admin_Controller {
 	 */
 	public function create_ajax()
 	{
+		$category = new stdClass();
+
 		// Loop through each validation rule
 		foreach ($this->validation_rules as $rule)
 		{
