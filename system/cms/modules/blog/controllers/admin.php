@@ -255,6 +255,10 @@ class Admin extends Admin_Controller
 		$id OR redirect('admin/blog');
 
 		$post = $this->blog_m->get($id);
+
+		// If we have keywords before the update, we'll want to remove them from keywords_applied
+		$old_keywords_hash = (trim($post->keywords) != '') ? $post->keywords : null;
+
 		$post->keywords = Keywords::get_string($post->keywords);
 
 		// If we have a useful date, use it
@@ -302,7 +306,7 @@ class Admin extends Admin_Controller
 				'title'				=> $this->input->post('title'),
 				'slug'				=> $this->input->post('slug'),
 				'category_id'		=> $this->input->post('category_id'),
-				'keywords'			=> Keywords::process($this->input->post('keywords')),
+				'keywords'			=> Keywords::process($this->input->post('keywords'), $old_keywords_hash),
 				'intro'				=> $this->input->post('intro'),
 				'body'				=> $this->input->post('body'),
 				'status'			=> $this->input->post('status'),
