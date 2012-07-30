@@ -1,6 +1,5 @@
-<script src="<?php echo Asset::get_filepath_js('ckeditor/ckeditor.js'); ?>"></script>
-<script src="<?php echo Asset::get_filepath_js('ckeditor/adapters/jquery.js'); ?>"></script>
-
+<script type="text/javascript" src="<?php echo BASE_URL?>system/cms/themes/pyrocms/js/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL?>system/cms/themes/pyrocms/js/ckeditor/adapters/jquery.js"></script>
 <script type="text/javascript">
 
 	var instance;
