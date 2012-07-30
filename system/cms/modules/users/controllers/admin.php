@@ -495,9 +495,9 @@ class Admin extends Admin_Controller
 	 *
 	 * @return bool
 	 */
-	public function _username_check($username)
+	public function _username_check()
 	{
-		if ($this->ion_auth->username_check($username))
+		if ($this->ion_auth->username_check($this->input->post('username')))
 		{
 			$this->form_validation->set_message('_username_check', lang('user_error_username'));
 			return false;
@@ -514,9 +514,9 @@ class Admin extends Admin_Controller
 	 *
 	 * @return bool
 	 */
-	public function _email_check($email)
+	public function _email_check()
 	{
-		if ($this->ion_auth->email_check($email))
+		if ($this->ion_auth->email_check($this->input->post('email')))
 		{
 			$this->form_validation->set_message('_email_check', lang('user_error_email'));
 			return false;

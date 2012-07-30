@@ -115,19 +115,19 @@ class Keywords {
 	 * @return	string
 	 */
 	public function process($keywords, $old_hash = null)
-	{	
+	{
+		// Remove the old keyword assignments if we're updating
+		if ($old_hash !== null)
+		{
+			ci()->db->delete('keywords_applied', array('hash' => $old_hash));
+		}
+
 		// No keywords? Let's not bother then
 		if ( ! ($keywords = trim($keywords)))
 		{
 			return '';
 		}
-		
-		// Remove the old keyword assignments if we're updating
-		if ($old_hash !== null)
-		{
-			ci()->db->where('hash', $old_hash)->get('keywords_applied');
-		}
-		
+
 		$assignment_hash = md5(microtime().mt_rand());
 		
 		// Split em up and prep away
