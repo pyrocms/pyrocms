@@ -827,7 +827,7 @@ class Row_m extends MY_Model {
 		// right. All of them.
 		if ( ! $this->all_fields)
 		{
-			$this->all_fields = $this->fields_m->get_all_fields();
+			$this->all_fields = $this->fields_m->get_all_fields($stream->stream_namespace);
 		}
 
 		// Now the structure. We will need this as well.
@@ -958,7 +958,7 @@ class Row_m extends MY_Model {
 		{
 			return null;
 		}
-
+		$plugin_call = null;
 		// Is this an alt process type?
 		if (isset($this->type->types->{$type_slug}->alt_process) and $this->type->types->{$type_slug}->alt_process === true)
 		{

@@ -39,7 +39,6 @@ $lang['user_first_name_label']                 = 'Tên';
 $lang['user_last_name_label']                  = 'Họ';
 $lang['user_email_label']                      = 'E-mail';
 $lang['user_group_label']                      = 'Nhóm';
-$lang['user_activate_label']                   = 'Kích hoạt';
 $lang['user_password_label']                   = 'Mật khẩu';
 $lang['user_password_confirm_label']           = 'Xác nhận mật khẩu';
 $lang['user_name_label']                       = 'Tên';
@@ -56,6 +55,8 @@ $lang['indicates_required']                    = 'Thể hiện những trường
 
 // -- Registration / Activation / Reset Password ----------------------------------------------------------
 
+$lang['user_send_activation_email']            = 'Send Activation Email'; #translate
+$lang['user_do_not_activate']                  = 'Inactive'; #translate
 $lang['user_register_title']                   = 'Đăng ký';
 $lang['user_activate_account_title']           = 'Kích hoạt tài khoản';
 $lang['user_activate_label']                   = 'Kích hoạt';

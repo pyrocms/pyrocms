@@ -20,7 +20,6 @@ $lang['user_first_name_label']                 = 'Förnamn';
 $lang['user_last_name_label']                  = 'Efternamn';
 $lang['user_email_label']                      = 'E-post';
 $lang['user_group_label']                      = 'Grupp';
-$lang['user_activate_label']                   = 'Aktivera';
 $lang['user_password_label']                   = 'Lösenord';
 $lang['user_password_confirm_label']           = 'Bekräfta lösenord';
 $lang['user_name_label']                       = 'Namn';
@@ -37,6 +36,8 @@ $lang['indicates_required']                    = 'Obligatoriska fält';
 
 // -- Registration / Activation / Reset Password ----------------------------------------------------------
 
+$lang['user_send_activation_email']            = 'Send Activation Email'; #translate
+$lang['user_do_not_activate']                  = 'Inactive'; #translate
 $lang['user_register_title']                   = 'Registrera';
 $lang['user_activate_account_title']           = 'Aktivera användarkonto';
 $lang['user_activate_label']                   = 'Aktivera';

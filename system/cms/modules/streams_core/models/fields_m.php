@@ -27,12 +27,12 @@ class Fields_m extends CI_Model {
 		array(
 			'field'	=> 'field_slug',
 			'label' => 'lang:streams.label.field_slug',
-			'rules'	=> 'trim|required|max_length[60]|slug_safe'
+			'rules'	=> 'trim|required|max_length[60]|streams_slug_safe'
 		),
 		array(
 			'field'	=> 'field_type',
 			'label' => 'lang:streams.label.field_type',
-			'rules'	=> 'trim|required|max_length[50]|type_valid'
+			'rules'	=> 'trim|required|max_length[50]|streams_type_valid'
 		)
 	);
 
@@ -83,8 +83,11 @@ class Fields_m extends CI_Model {
      * @param	int offset
      * @return	obj
      */
-    public function get_all_fields()
+    public function get_all_fields($namespace = false)
 	{
+		// Limit to namespace
+		if ( $namespace ) $this->db->where('field_namespace', $namespace);
+		
 		$obj = $this->db->order_by('field_name', 'asc')->get($this->table);
 		
 		$fields = $obj->result_array();

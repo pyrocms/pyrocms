@@ -28,7 +28,6 @@ $lang['user_first_name_label']                 = 'Fornavn og mellemnavn';
 $lang['user_last_name_label']                  = 'Efternavn';
 $lang['user_email_label']                      = 'E-mail';
 $lang['user_group_label']                      = 'Gruppe';
-$lang['user_activate_label']                   = 'Aktivér';
 $lang['user_password_label']                   = 'Password';
 $lang['user_password_confirm_label']           = 'Bekræft password';
 $lang['user_name_label']                       = 'Navn';
@@ -45,6 +44,8 @@ $lang['indicates_required']                    = 'Anfører påkrævede felter';
 
 // -- Registration / Activation / Reset Password ----------------------------------------------------------
 
+$lang['user_send_activation_email']            = 'Send Activation Email'; #translate
+$lang['user_do_not_activate']                  = 'Inactive'; #translate
 $lang['user_register_title']                   = 'Registrér';
 $lang['user_activate_account_title']           = 'Aktivér konto';
 $lang['user_activate_label']                   = 'Aktivér';

@@ -25,6 +25,10 @@ class Admin_Categories extends Admin_Controller {
 			'label' => 'lang:global:title',
 			'rules' => 'trim|required|max_length[100]|callback__check_title'
 		),
+		array(
+			'field' => 'id',
+			'rules' => 'trim|is_numeric'			
+		),
 	);
 	
 	/**
@@ -118,6 +122,8 @@ class Admin_Categories extends Admin_Controller {
 		
 		// ID specified?
 		$category or redirect('admin/blog/categories/index');
+
+		$this->form_validation->set_rules('id', 'ID', 'trim|required|is_numeric');
 		
 		// Validate the results
 		if ($this->form_validation->run())
@@ -201,7 +207,8 @@ class Admin_Categories extends Admin_Controller {
 	 */
 	public function _check_title($title = '')
 	{
-		if ($this->blog_categories_m->check_title($title))
+		$id = $this->input->post('id');
+		if ($this->blog_categories_m->check_title($title,$id))
 		{
 			$this->form_validation->set_message('_check_title', sprintf(lang('cat_already_exist_error'), $title));
 			return FALSE;

@@ -20,6 +20,7 @@ $lang['files:back']							= 'Kembali';
 $lang['files:forward']						= 'Maju';
 $lang['files:start']						= 'Mulai Mengunggah';
 $lang['files:details']						= 'Detail';
+$lang['files:id']							= 'ID'; #translate
 $lang['files:name']							= 'Nama';
 $lang['files:slug']							= 'Slug';
 $lang['files:path']							= 'Path';

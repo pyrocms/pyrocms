@@ -28,7 +28,6 @@ $lang['user_first_name_label']                 = 'Keresztnév';
 $lang['user_last_name_label']                  = 'Vezetéknév';
 $lang['user_email_label']                      = 'E-mail';
 $lang['user_group_label']                      = 'Csoport';
-$lang['user_activate_label']                   = 'Aktivál';
 $lang['user_password_label']                   = 'Jelszó';
 $lang['user_password_confirm_label']           = 'Jelszó megerősítése';
 $lang['user_name_label']                       = 'Név';
@@ -45,6 +44,8 @@ $lang['indicates_required']                    = 'Jelezze a kötelező mezőket'
 
 // -- Registration / Activation / Reset Password ----------------------------------------------------------
 
+$lang['user_send_activation_email']            = 'Send Activation Email'; #translate
+$lang['user_do_not_activate']                  = 'Inactive'; #translate
 $lang['user_register_title']                   = 'Register';
 $lang['user_activate_account_title']           = 'Activate Account';
 $lang['user_activate_label']                   = 'Aktiválás';
