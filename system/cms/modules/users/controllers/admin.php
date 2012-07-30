@@ -19,17 +19,17 @@ class Admin extends Admin_Controller
 	 * @var array
 	 */
 	private $validation_rules = array(
-		array(
+		'email' => array(
 			'field' => 'email',
 			'label' => 'lang:user_email_label',
 			'rules' => 'required|max_length[60]|valid_email'
 		),
-		array(
+		'password' => array(
 			'field' => 'password',
 			'label' => 'lang:user_password_label',
 			'rules' => 'min_length[6]|max_length[20]'
 		),
-		array(
+		'username' => array(
 			'field' => 'username',
 			'label' => 'lang:user_username',
 			'rules' => 'required|alpha_dot_dash|min_length[3]|max_length[20]'
@@ -161,9 +161,9 @@ class Admin extends Admin_Controller
 	public function create()
 	{
 		// Extra validation for basic data
-		$this->validation_rules[1]['rules'] .= '|callback__email_check';
-		$this->validation_rules[2]['rules'] .= '|required';
-		$this->validation_rules[3]['rules'] .= '|callback__username_check';
+		$this->validation_rules['email']['rules'] .= '|callback__email_check';
+		$this->validation_rules['password']['rules'] .= '|required';
+		$this->validation_rules['username']['rules'] .= '|callback__username_check';
 
 		// Get the profile fields validation array from streams
 		$this->load->driver('Streams');
@@ -271,13 +271,13 @@ class Admin extends Admin_Controller
 		// Check to see if we are changing usernames
 		if ($member->username != $this->input->post('username'))
 		{
-			$this->validation_rules[3]['rules'] .= '|callback__username_check';
+			$this->validation_rules['username']['rules'] .= '|callback__username_check';
 		}
 
 		// Check to see if we are changing emails
 		if ($member->email != $this->input->post('email'))
 		{
-			$this->validation_rules[1]['rules'] .= '|callback__email_check';
+			$this->validation_rules['email']['rules'] .= '|callback__email_check';
 		}
 
 		// Get the profile fields validation array from streams
@@ -521,6 +521,7 @@ class Admin extends Admin_Controller
 			$this->form_validation->set_message('_email_check', lang('user_error_email'));
 			return false;
 		}
+
 		return true;
 	}
 

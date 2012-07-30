@@ -342,11 +342,11 @@ class Ion_auth_model extends CI_Model
 	{
 	    if (empty($email))
 	    {
-		return FALSE;
+			return FALSE;
 	    }
 
 	    return $this->db->where('email', $email)
-		->where($this->ion_auth->_extra_where)
+			->where($this->ion_auth->_extra_where)
 			->count_all_results($this->tables['users']) > 0;
 	}
 
