@@ -143,7 +143,7 @@ $lang['user_logged_out']   						= 'تم تسجيل خروجك.';
 
 // Forgot Pass
 $lang['user_forgot_incorrect']   				= "لا يوجد أي حساب يطابق هذه البيانات.";
-
+$lang['user_forgot_empty']             = "You must insert email or username to procede."; #Translate
 $lang['user_password_reset_message']   			= "تم استعادة كلمة السرّ الخاصة بك. يجب أن تصلك رسالة خلال ساعتين، وإن لم يحدث، فقد تكون الرسالة وضعت في مجلد البريد الغير مرغوب عن طريق الخطأ.";
 
 // Emails ----------------------------------------------------------------------------------------------------
