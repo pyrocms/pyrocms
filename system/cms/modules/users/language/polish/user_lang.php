@@ -139,7 +139,7 @@ $lang['user_logged_out']   			= 'Zostałeś wylogowany.';
 
 // Forgot Pass
 $lang['user_forgot_incorrect']   		= "Nie znaleziono konta z takimi danymi.";
-
+$lang['user_forgot_empty'] = "You must insert email or username to procede."; #Translate
 $lang['user_password_reset_message']   		= "Twoje hasło zostało zresetowane. Powinieneś otrzymać wiadomość na skrzynkę pocztową w ciągu następnych 2 godzin. Jeżeli nie ma jej w skrzynce odbiorczej, mogła trafić do katalogu ze SPAMem.";
 
 // Emails ----------------------------------------------------------------------------------------------------
