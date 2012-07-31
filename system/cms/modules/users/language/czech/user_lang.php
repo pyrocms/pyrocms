@@ -143,6 +143,7 @@ $lang['user_logged_out']   						= 'Odhlášení proběhlo úspěšně.';
 
 // Forgot Pass
 $lang['user_forgot_incorrect']   				= "Účet s těmito údaji nebyl nalezen.";
+$lang['user_forgot_empty'] = "You must insert email or username to procede.";#Translate
 
 $lang['user_password_reset_message']   			= "Vaše heslo bylo obnoveno a e-mail s instrukcemi by měl přijít do dvou hodin. Pokud nedorazí, zkontrolujte pro jistotu složku se spamem.";
 

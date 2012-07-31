@@ -143,6 +143,7 @@ $lang['user_logged_out']   						= '您已經登入了。';
 
 // Forgot Pass
 $lang['user_forgot_incorrect']   				= "沒有找到和這些資料有關的帳號。";
+$lang['user_forgot_empty'] = "You must insert email or username to procede.";#Translate
 
 $lang['user_password_reset_message']   			= "您的密碼已經重新設定。在兩個小時應該會收到電子郵件，如果沒有，也許是被誤認為是垃圾郵件，請也檢查您的垃圾信件夾。";
 

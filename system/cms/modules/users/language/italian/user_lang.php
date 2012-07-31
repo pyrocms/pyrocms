@@ -142,7 +142,7 @@ $lang['user_logged_out']   						= 'Uscito con successo.';
 
 // Forgot Pass
 $lang['user_forgot_incorrect']   				= "Non è stato trovato nessun profilo con questi dettagli.";
-
+$lang['user_forgot_empty'] = "Devi inserire un username o una email per procedere.";
 $lang['user_password_reset_message']   			= "La tua password è stata resettata. Dovresti ricevere una email nelle prossime 2 ore. Se no la trovi, controlla che non sia finita per sbaglio fra la posta indesiderata.";
 
 // Emails ----------------------------------------------------------------------------------------------------

@@ -508,34 +508,43 @@ class Users extends Public_Controller
 
 		if ($this->input->post('btnSubmit'))
 		{
-			$uname = $this->input->post('user_name');
-			$email = $this->input->post('email');
-
-			if ( ! ($user_meta = $this->ion_auth->get_user_by_email($email)))
+			// If user_name or email are passed can check
+			if ($this->input->post('user_name')!="" || $this->input->post('email')!="")
 			{
-				$user_meta = $this->ion_auth->get_user_by_username($uname);
-			}
+				$uname = $this->input->post('user_name');
+				$email = $this->input->post('email');
 
-			// have we found a user?
-			if ($user_meta)
-			{
-				$new_password = $this->ion_auth->forgotten_password($user_meta->email);
-
-				if ($new_password)
+				if ( ! ($user_meta = $this->ion_auth->get_user_by_email($email)))
 				{
-					//set success message
-					$this->template->success_string = lang('forgot_password_successful');
+					$user_meta = $this->ion_auth->get_user_by_username($uname);
+				}
+
+				// have we found a user?
+				if ($user_meta)
+				{
+					$new_password = $this->ion_auth->forgotten_password($user_meta->email);
+
+					if ($new_password)
+					{
+						//set success message
+						$this->template->success_string = lang('forgot_password_successful');
+					}
+					else
+					{
+						// Set an error message explaining the reset failed
+						$this->template->error_string = $this->ion_auth->errors();
+					}
 				}
 				else
 				{
-					// Set an error message explaining the reset failed
-					$this->template->error_string = $this->ion_auth->errors();
+					//wrong username / email combination
+					$this->template->error_string = lang('user_forgot_incorrect');
 				}
 			}
 			else
 			{
-				//wrong username / email combination
-				$this->template->error_string = lang('user_forgot_incorrect');
+				//empty email and user_name fields
+				$this->template->error_string = lang('user_forgot_empty');
 			}
 		}
 

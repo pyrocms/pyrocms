@@ -143,7 +143,7 @@ $lang['user_logged_out']                       = 'Uspešno ste se odjavili.';
 
 // Forgot Pass
 $lang['user_forgot_incorrect']                 = "Račun s to prijavo ne obstaja.";
-
+$lang['user_forgot_empty'] = "You must insert email or username to procede."; #Translate
 $lang['user_password_reset_message']           = "Vaše geslo je bilo ponastavljeno. Prejeli boste email v naslednjih 2 urah. Če ga ne prjemete se pripričajte še da ni morda v SPAM/JUNK mapi.";
 
 // Emails ----------------------------------------------------------------------------------------------------
