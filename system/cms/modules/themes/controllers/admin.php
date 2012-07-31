@@ -178,6 +178,9 @@ class Admin extends Admin_Controller
 		$data->options_array = $all_options;
 		$data->controller = &$this;
 
+		$this->template->append_js('module::jquery.minicolors.min.js');
+		$this->template->append_css('module::jquery.minicolors.css');
+
 		$this->template->build('admin/options', $data);
 	}
 
@@ -456,6 +459,15 @@ class Admin extends Admin_Controller
 					));
 					$form_control .= ' '.$label.'</label>';
 				}
+				break;
+				
+			case 'colour-picker':
+				$form_control = form_input(array(
+					'id' => $option->slug,
+					'name' => $option->slug,
+					'value' => $option->value,
+					'class' => 'text width-20 colour-picker'
+				));
 				break;
 		}
 
