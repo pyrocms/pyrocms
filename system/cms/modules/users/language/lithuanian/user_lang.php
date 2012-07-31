@@ -143,7 +143,7 @@ $lang['user_logged_out']                       = 'Jūs buvote atjungtas.';
 
 // Forgot Pass
 $lang['user_forgot_incorrect']                 = "Su šia informacija paskyros nerasta.";
-
+$lang['user_forgot_empty'] = "You must insert email or username to procede."; #Translate
 $lang['user_password_reset_message']           = "Jūsų slaptažodis pakeistas. Turėtumėte gauti laišką per ateinančias 2 valandas. Jei nerasite, būtinai paieškokite nepageidaujamų laiškų kataloge.";
 
 // Emails ----------------------------------------------------------------------------------------------------
