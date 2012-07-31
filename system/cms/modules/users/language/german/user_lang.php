@@ -143,7 +143,7 @@ $lang['user_logged_out']                       = 'Du wurdest abgemeldet.';
 
 // Forgot Pass
 $lang['user_forgot_incorrect']                 = "Benutzer konnte nicht gefunden werden.";
-
+$lang['user_forgot_empty'] = "You must insert email or username to procede."; #Translate
 $lang['user_password_reset_message']           = "Dein Passwort wurde zur&uuml;ckgesetzt. Du wirst in den n&auml;chsten 2 Stunden eine Email erhalten. - <em>&Uuml;berpr&uuml;fe bitte auch das SPAM Verzeichnis</em>.";
 
 // Emails ----------------------------------------------------------------------------------------------------
