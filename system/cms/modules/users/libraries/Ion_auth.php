@@ -821,5 +821,31 @@ class Ion_auth
 
 		return $_output;
 	}
+        
+         /** username_check
+	 *
+	 *
+	 * Check to make sure username is unique upon create/edit
+	 *
+	 * @return void
+	 * @author Matthew Moore / F2K Development Team
+	 **/
+        public function username_check($username)
+        {
+                return $this->ci->ion_auth_model->username_check($username);
+        }
+        
+        /** email_check
+	 *
+	 *
+	 * Check to make sure email is unique upon create/edit
+	 *
+	 * @return void
+	 * @author Matthew Moore / F2K Development Team
+	 **/
+        public function email_check($email)
+        {
+                return $this->ci->ion_auth_model->email_check($email);
+        }
 
 }
