@@ -98,7 +98,7 @@ class Module_Themes extends Module {
 				'slug' => array('type' => 'VARCHAR', 'constraint' => 30,),
 				'title' => array('type' => 'VARCHAR', 'constraint' => 100,),
 				'description' => array('type' => 'TEXT', 'constraint' => 100,),
-				'type' => array('type' => 'set', 'constraint' => array('text', 'textarea', 'password', 'select', 'select-multiple', 'radio', 'checkbox')),
+				'type' => array('type' => 'set', 'constraint' => array('text', 'textarea', 'password', 'select', 'select-multiple', 'radio', 'checkbox', 'colour-picker')),
 				'default' => array('type' => 'VARCHAR', 'constraint' => 255,),
 				'value' => array('type' => 'VARCHAR', 'constraint' => 255,),
 				'options' => array('type' => 'VARCHAR', 'constraint' => 255,),
