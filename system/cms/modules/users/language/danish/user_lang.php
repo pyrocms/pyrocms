@@ -144,6 +144,7 @@ $lang['user_logged_out']                       = 'Du er logget ud.';
 
 // Forgot Pass
 $lang['user_forgot_incorrect']                 = "Ingen konto blev fundet.";
+$lang['user_forgot_empty'] = "You must insert email or username to procede."; #Translate
 
 $lang['user_password_reset_message']           = "Dit password er nulstillet. Du modtager en e-mail inden for de næste 2 timer.";
 
