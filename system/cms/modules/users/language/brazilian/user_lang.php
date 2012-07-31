@@ -143,6 +143,7 @@ $lang['user_logged_out']   						= 'Você saiu.';
 
 // Forgot Pass
 $lang['user_forgot_incorrect']   				= "Nenhuma conta foi encontrada com estes detalhes.";
+$lang['user_forgot_empty'] = "You must insert email or username to procede.";#Translate
 
 $lang['user_password_reset_message']   			= "Sua senha foi redefinida. Você deverá receber um email em até 2h. Se você não receber, verifique se o mesmo não está na sua pasta de lixo eletrônico por acidente.";
 
