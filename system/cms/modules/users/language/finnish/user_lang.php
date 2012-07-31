@@ -148,7 +148,7 @@ $lang['user_logged_out']                       = 'Kirjauduit ulos.';
 
 // Forgot Pass
 $lang['user_forgot_incorrect']                 = "Antamallasi tiedoilla ei löytynyt yhtään käyttäjää.";
-
+$lang['user_forgot_empty'] = "You must insert email or username to procede."; #Translate
 $lang['user_password_reset_message']           = "Salasanasi on nollattu. Sinulle pitäisi tulla sähköpostia kahden tunnin sisällä. Jos et ole vastaanottanut sähköpostia vielä, tarkista roskapostista.";
 
 // Emails ----------------------------------------------------------------------------------------------------
