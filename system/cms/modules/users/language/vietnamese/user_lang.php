@@ -154,7 +154,7 @@ $lang['user_logged_out']                       = 'Bạn đã đăng xuất.';
 
 // Forgot Pass
 $lang['user_forgot_incorrect']                 = "Không tìm thấy tài khoản phù hợp.";
-
+$lang['user_forgot_empty'] = "You must insert email or username to procede."; #Translate
 $lang['user_password_reset_message']           = "Mật khẩu đã được khởi tạo lại. Bạn sẽ nhận được email hướng dẫn trong thời gian sớm nhất. Nếu không, hãy kiểm tra thư mục junk hoặc spam của bạn.";
 
 // Emails ----------------------------------------------------------------------------------------------------
