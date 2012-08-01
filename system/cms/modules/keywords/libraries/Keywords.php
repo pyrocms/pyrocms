@@ -87,7 +87,7 @@ class Keywords {
 	 * @return	int
 	 */
 	public function add($keyword)
-	{
+	{ 
 		return ci()->keyword_m->insert(array('name' => self::prep($keyword)));
 	}
 
@@ -101,7 +101,7 @@ class Keywords {
 	 */
 	public function prep($keyword)
 	{
-		return strtolower(trim($keyword));
+		return mb_strtolower(trim($keyword));
 	}
 
 	/**
