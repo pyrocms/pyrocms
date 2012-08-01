@@ -135,7 +135,7 @@ $lang['user_logged_out']                       = 'Du har blivit utloggad.';
 
 // Forgot Pass
 $lang['user_forgot_incorrect']                 = "Inget användarkonto finns med dessa uppgifter finns registrerat.";
-
+$lang['user_forgot_empty'] = "You must insert email or username to procede."; #Translate
 $lang['user_password_reset_message']           = "Ditt lösenord har återställts. Du kommer att erhålla E-post inom 2h. I annat fall,kontrollera att E-postmeddelandet inte fastnat i ev spamfilter.";
 
 // Emails ----------------------------------------------------------------------------------------------------

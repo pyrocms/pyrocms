@@ -153,7 +153,7 @@ $lang['user_logged_out']                       = 'คุณออกจากร
 
 // Forgot Pass
 $lang['user_forgot_incorrect']                 = "ไม่พบบัญชีกับรายละเอียดเหล่านี้";
-
+$lang['user_forgot_empty'] = "You must insert email or username to procede."; #Translate
 $lang['user_password_reset_message']           = "รหัสผ่านของคุณได้ถูกตั้งค่าใหม่คุณควรจะได้รับอีเมลภายใน 2 ชั่วโมงถัดไปหากคุณไม่ได้รับลองตรวจในโฟลเดอร์ขยะ";
 
 

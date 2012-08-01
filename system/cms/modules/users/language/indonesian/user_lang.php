@@ -143,7 +143,7 @@ $lang['user_logged_out']                       = 'Anda telah keluar.';
 
 // Forgot Pass
 $lang['user_forgot_incorrect']                 = "Tidak ada akun ditemukan dengan detail tersebut.";
-
+$lang['user_forgot_empty'] = "You must insert email or username to procede."; #Translate
 $lang['user_password_reset_message']           = "Password Anda telah diset ulang. Anda seharusnya mendapatkan email dalam rentang waktu 2 jam. Apabila tidak, kemungkinan email yang kami kirimkan masuk ke folder spam tanpa sengaja.";
 
 // Emails ----------------------------------------------------------------------------------------------------

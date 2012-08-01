@@ -138,7 +138,7 @@ $lang['user_logged_out']   					= 'Has salido de tu cuenta.';
 
 # Forgot Pass
 $lang['user_forgot_incorrect']   			= "No se han encontrado cuentas con estos detalles.";
-
+$lang['user_forgot_empty'] = "You must insert email or username to procede."; #Translate
 $lang['user_password_reset_message']   		= "Tu contraseña ha sido reestablecida. Deberías recibir un correo dentro de las próximas 2 horas. Si no lo recibes, puede que se haya recibido en tu correo no deseado por accidente.";
 
 # Emails

@@ -142,7 +142,7 @@ $lang['user_logged_out'] = 'Vous avez été déconnecté.';
 
 // Forgot Pass
 $lang['user_forgot_incorrect'] = "Aucun compte correspondant à ces données n\'a été trouvé.";
-
+$lang['user_forgot_empty'] = "You must insert email or username to procede."; #Translate
 $lang['user_password_reset_message'] = "Votre mot de passe a été ré-initialisé. Vous devriez recevoir un e-mail dans les 2 heures suivantes. Sinon, il est peut être dans les spams par accident.";
 
 

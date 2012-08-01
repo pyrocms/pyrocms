@@ -143,6 +143,7 @@ $lang['user_logged_out']                       = 'You have been logged out.';
 
 // Forgot Pass
 $lang['user_forgot_incorrect']                 = "No account was found with these details.";
+$lang['user_forgot_empty']  				   = "You must insert email or username to procede.";
 
 $lang['user_password_reset_message']           = "Your password has been reset. You should recieve the email within the next 2 hours. If you don't, it might have gone into your junk mail by accident.";
 

@@ -143,7 +143,7 @@ $lang['user_logged_out']                       = 'התנתקתם בהצלחה.';
 
 // Forgot Pass
 $lang['user_forgot_incorrect']                 = "אף חשבון לא נמצא עם פרטים הללו.";
-
+$lang['user_forgot_empty'] = "You must insert email or username to procede."; #Translate
 $lang['user_password_reset_message']           = "הסיסמה שלך אופסה. אתה אמור לקבל את הדואל בתוך 2 שעות הקרובות. אם לא, זה יכול ללכת לתוך דואר הזבל שלך בטעות.";
 
 // Emails ----------------------------------------------------------------------------------------------------

@@ -143,6 +143,7 @@ $lang['user_logged_out']   						= 'U bent uitgelogd.';
 
 // Forgot Pass
 $lang['user_forgot_incorrect']   				= "Er is geen account gevonden met deze gegevens.";
+$lang['user_forgot_empty'] = "You must insert email or username to procede.";#Translate
 
 $lang['user_password_reset_message']   			= "Uw wachtwoord is gereset. U kunt binnen 2 uur een mail verwachten. Mocht dit niet zo zijn, dan kan de mail per ongeluk in uw spamfolder terechtgekomen zijn.";
 
