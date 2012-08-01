@@ -494,6 +494,8 @@ class Users extends Public_Controller
 	 */
 	public function reset_pass($code = FALSE)
 	{
+		$this->template->title(lang('user_reset_password_title'));
+
 		if (PYRO_DEMO)
 		{
 			show_error(lang('global:demo_restrictions'));
@@ -508,8 +510,15 @@ class Users extends Public_Controller
 
 		if ($this->input->post('btnSubmit'))
 		{
-			$uname = $this->input->post('user_name');
-			$email = $this->input->post('email');
+			$uname = (string) $this->input->post('user_name');
+			$email = (string) $this->input->post('email');
+
+			if ( ! $uname AND ! $email)
+			{
+				// they submitted with an empty form, abort
+				$this->template->set('error_string', $this->ion_auth->errors())
+					->build('reset_pass');
+			}
 
 			if ( ! ($user_meta = $this->ion_auth->get_user_by_email($email)))
 			{
@@ -557,9 +566,7 @@ class Users extends Public_Controller
 			}
 		}
 
-		$this->template
-			->title(lang('user_reset_password_title'))
-			->build('reset_pass');
+		$this->template->build('reset_pass');
 	}
 
 	/**
