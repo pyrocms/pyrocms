@@ -59,11 +59,22 @@
 	height: 200px;
 }
 
+.topbar ul li#dashboard-link {
+	margin: 8px 10px 8px 5px;
+}
+
+.topbar ul li#dashboard-link a {
+	padding: 6px 12px;
+	color: #ffffff;
+	float: left;
+}
+
 #logo {
 	font-size: 16px;
 	color: #ffffff;
-	margin: 0 15px 0 3px;
-	padding: 10px 0 15px 0;
+	margin: 0 12px 0 3px;
+	padding: 15px 15px 15px 0;
+	border-right: 1px solid #383838;
 	float: left;
 }
 
@@ -72,14 +83,10 @@
 	color: #ffffff;
 }
 
-#dashboard-link {
-	margin-right: 10px;
-}
-
 .subbar {
 	position: absolute;
 	z-index: 9997;
-	top: 25px!important;
+	top: 25px !important;
 	right: 0;
 	left: 0;
 	height: 30px;
