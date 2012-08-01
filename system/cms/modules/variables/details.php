@@ -34,9 +34,9 @@ class Module_Variables extends Module {
 				'ru' => 'Переменные',
 				'sl' => 'Spremenljivke',
 				'zh' => '系統變數',
-				'hu' => 'Változók',
 				'th' => 'ตัวแปร',
-                                'se' => 'Variabler'
+				'se' => 'Variabler',
+				'hu' => 'Változók',
 			),
 			'description' => array(
 				'en' => 'Manage global variables that can be accessed from anywhere.',
@@ -60,13 +60,13 @@ class Module_Variables extends Module {
 				'sl' =>	'Urejanje globalnih spremenljivk za dostop od kjerkoli',
 				'th' => 'จัดการตัวแปรทั่วไปโดยที่สามารถเข้าถึงได้จากทุกที่.',
 				'zh' => '管理此網站內可存取的全局變數。',
-                                'hu' => 'Globális változók kezelése a hozzáféréshez, bárhonnan.',
-                                'se' => 'Hantera globala variabler som kan avändas över hela webbplatsen.'
+				'hu' => 'Globális változók kezelése a hozzáféréshez, bárhonnan.',
+				'se' => 'Hantera globala variabler som kan avändas över hela webbplatsen.',
 
 			),
 			'frontend'	=> false,
 			'backend'	=> true,
-			'menu'		=> 'content',
+			'menu'		=> 'data',
 			'shortcuts' => array(
 				array(
 				    'name' => 'variables.create_title',

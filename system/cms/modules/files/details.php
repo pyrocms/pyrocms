@@ -35,7 +35,7 @@ class Module_Files extends Module {
 				'zh' => '檔案',
 				'hu' => 'Fájlok',
 				'th' => 'ไฟล์',
-                                'se' => 'Filer'
+				'se' => 'Filer',
 			),
 			'description' => array(
 				'en' => 'Manages files and folders for your site.',
@@ -59,10 +59,10 @@ class Module_Files extends Module {
 				'zh' => '管理網站中的檔案與目錄',
 				'hu' => 'Fájlok és mappák kezelése az oldalon.',
 				'th' => 'บริหารจัดการไฟล์และโฟลเดอร์สำหรับเว็บไซต์ของคุณ',
-                                'se' => 'Hanterar filer och mappar för din webbplats.'
+				'se' => 'Hanterar filer och mappar för din webbplats.',
 			),
-			'frontend' => FALSE,
-			'backend' => TRUE,
+			'frontend' => false,
+			'backend' => true,
 			'menu' => 'content',
 			'roles' => array(
 				'wysiwyg', 'upload', 'download_file', 'edit_file', 'delete_file', 'create_folder', 'set_location', 'synchronize', 'edit_folder', 'delete_folder'

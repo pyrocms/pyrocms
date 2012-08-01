@@ -31,11 +31,11 @@ $lang['cp_contact_support'] 			= '協助支援'; 		//'Support';
 $lang['cp_nav_settings']				= '網站設定'; 			//'Settings';
 $lang['cp_nav_addons']					= '附加模組'; 		//'Add-ons';
 $lang['cp_nav_modules']					= '模組'; 			//'Modules';
-$lang['cp_nav_widgets']					= '小組件'; 			//'Widgets';
 $lang['cp_nav_users']					= '網站用戶'; 			//'Users';
-$lang['cp_nav_design']					= '網站設計'; 			//'Design';
 $lang['cp_nav_content']					= '網站內容'; 			//'Content';
-$lang['cp_nav_utilities']               = '公用程式'; 		//'Utilities';
+$lang['cp_nav_data']					= 'Data'; #translate
+$lang['cp_nav_structure']				= 'Structure'; #translate
+$lang['cp_nav_misc']					= 'Miscellaneous'; #translate
 
 $lang['global:keywords']				= '關鍵字';
 

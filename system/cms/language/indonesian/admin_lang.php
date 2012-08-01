@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['cp_admin_title'] 				= 'Control Panel';
-$lang['global:dashboard'] 			= 'Dasbor';
+$lang['global:dashboard'] 				= 'Dasbor';
 $lang['cp_admin_quick_links']			= 'Tautan Cepat';
 
 $lang['cp_welcome_title'] 				= 'Selamat Datang';
@@ -31,11 +31,11 @@ $lang['cp_contact_support'] 			= 'Dukung';
 $lang['cp_nav_settings']				= 'Pengaturan';
 $lang['cp_nav_addons']					= 'Pengaya';
 $lang['cp_nav_modules']					= 'Modul';
-$lang['cp_nav_widgets']					= 'Widget';
 $lang['cp_nav_users']					= 'Pengguna';
-$lang['cp_nav_design']					= 'Desain';
 $lang['cp_nav_content']					= 'Konten';
-$lang['cp_nav_utilities']				= 'Utilitas';
+$lang['cp_nav_data']					= 'Data'; #translate
+$lang['cp_nav_structure']				= 'Structure'; #translate
+$lang['cp_nav_misc']					= 'Miscellaneous'; #translate
 
 $lang['cp_must_login']	 				= 'Anda harus masuk terlebih dahulu untuk melihat halaman ini.';
 $lang['cp_access_denied'] 				= 'Anda tidak memiliki izin untuk dapat mengakses halaman ini.';

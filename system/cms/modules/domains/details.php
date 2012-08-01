@@ -1,5 +1,4 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
-
 /**
  * Domains module
  *
@@ -8,39 +7,37 @@
  */
 class Module_Domains extends Module
 {
+	public $version = '1.0.0';
 
-        public $version = '1.0';
+	public function info()
+	{
+		return array(
+		    'name' => array(
+		        'en' => 'Domains',
+		        'fr' => 'Domaines'
+		    ),
+		    'description' => array(
+		        'en' => 'Create domain aliases for your website.',
+		        'fr' => 'Créer des alias de domaine pour votre site web'
+		    ),
+		    'frontend' => false,
+		    'backend'  => true,
+		    'menu'     => 'structure',
+		    'shortcuts' => array(
+		        array(
+		            'name'  => 'domains:add_domain',
+		            'uri'   => 'admin/domains/add',
+		            'class' => 'add'
+		        ),
+		    ),
+		);
+	}
 
-        public function info()
-        {
-                return array(
-                    'name' => array(
-                        'en'          => 'Domains',
-                        'fr'          => 'Domaines'
-                    ),
-                    'description' => array(
-                        'en'       => 'Create domain aliases for your website.',
-                        'fr'       => 'Créer des alias de domaine pour votre site web'
-                    ),
-                    'frontend' => false,
-                    'backend'  => true,
-                    'menu'     => 'utilities',
-                    'shortcuts' => array(
-                        array(
-                            'name'  => 'domains:add_domain',
-                            'uri'   => 'admin/domains/add',
-                            'class' => 'add'
-                        ),
-                    ),
-                );
-        }
-
-        public function install()
-        {
-                if (!$this->db->table_exists('core_domains'))
-                {
-                        // Create alias table
-                        if (!$this->db->query('	
+	public function install()
+	{
+		if ( ! $this->db->table_exists('core_domains'))
+		{
+			$result = $this->db->query('	
 				CREATE TABLE `core_domains` (
 				  `id` int NOT NULL AUTO_INCREMENT,
 				  `domain` varchar(100) NOT NULL,
@@ -49,24 +46,27 @@ class Module_Domains extends Module
 				  PRIMARY KEY (`id`),
 				  KEY `domain` (`domain`),
 				  UNIQUE `unique` (`domain`)
-				) ENGINE=InnoDB DEFAULT CHARSET=utf8; '))
-                        {
-                                return false;
-                        }
-                }
+				) ENGINE=InnoDB DEFAULT CHARSET=utf8; ');
 
-                return true;
-        }
+			// Create alias table
+			if ( ! $result)
+			{
+				return false;
+			}
+		}
 
-        public function uninstall()
-        {
-                // This is a core module, lets keep it around.
-                return false;
-        }
+		return true;
+	}
 
-        public function upgrade($old_version)
-        {
-                return true;
-        }
+	public function uninstall()
+	{
+		// This is a core module, lets keep it around.
+		return false;
+	}
+
+	public function upgrade($old_version)
+	{
+		return true;
+	}
 
 }

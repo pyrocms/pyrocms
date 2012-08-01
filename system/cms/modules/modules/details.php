@@ -37,7 +37,7 @@ class Module_Modules extends Module
 				'zh' => '模組',
 				'hu' => 'Modulok',
 				'th' => 'โมดูล',
-                                'se' => 'Moduler'
+				'se' => 'Moduler',
 			),
 			'description' => array(
 				'en' => 'Allows admins to see a list of currently installed modules.',
@@ -62,7 +62,7 @@ class Module_Modules extends Module
 				'zh' => '管理員可以檢視目前已經安裝模組的列表',
 				'hu' => 'Lehetővé teszi az adminoknak, hogy lássák a telepített modulok listáját.',
 				'th' => 'ช่วยให้ผู้ดูแลระบบดูรายการของโมดูลที่ติดตั้งในปัจจุบัน',
-                                'se' => 'Gör det möjligt för administratören att se installerade mouler.'
+				'se' => 'Gör det möjligt för administratören att se installerade mouler.',
 			),
 			'frontend' => false,
 			'backend' => true,

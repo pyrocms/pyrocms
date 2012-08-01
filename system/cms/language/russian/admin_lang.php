@@ -39,11 +39,11 @@ $lang['cp_contact_support']						= 'Поддержка';
 $lang['cp_nav_settings']						= 'Настройки';
 $lang['cp_nav_addons']							= 'Дополнения';
 $lang['cp_nav_modules']							= 'Модули';
-$lang['cp_nav_widgets']							= 'Виджеты';
 $lang['cp_nav_users']							= 'Пользователи';
-$lang['cp_nav_design']							= 'Оформление';
 $lang['cp_nav_content']							= 'Содержимое';
-$lang['cp_nav_utilities']						= 'Утилиты';
+$lang['cp_nav_data']							= 'Data'; #translate
+$lang['cp_nav_structure']						= 'Structure'; #translate
+$lang['cp_nav_misc']							= 'Miscellaneous'; #translate
 
 $lang['cp_must_login']							= 'Вы должны войти для просмотра этой страницы.';
 $lang['cp_access_denied']						= 'У вас нет прав для просмотра этой страницы.';
