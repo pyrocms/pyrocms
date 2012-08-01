@@ -341,6 +341,8 @@ class Files
 
 		if ($folder)
 		{
+			ci()->load->library('upload');
+
 			$upload_config = array(
 				'upload_path'	=> self::$path,
 				'file_name'		=> self::$_filename,
@@ -351,7 +353,7 @@ class Files
 			// current file's type if allowed in the config file.
 			$upload_config['allowed_types'] = ($allowed_types) ? $allowed_types : self::$_ext;
 
-			ci()->load->library('upload', $upload_config);
+			ci()->upload->initialize($upload_config);
 
 			if (ci()->upload->do_upload($field))
 			{
