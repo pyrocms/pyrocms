@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['cp_admin_title'] 				= 'Pannello di Controllo';
-$lang['global:dashboard'] 			= 'Dashboard';
+$lang['global:dashboard'] 				= 'Dashboard';
 $lang['cp_admin_quick_links']			= 'Collegamenti veloci';
 
 $lang['cp_welcome_title'] 				= 'Benvenuto';
@@ -31,11 +31,11 @@ $lang['cp_contact_support'] 			= 'Supporto';
 $lang['cp_nav_settings']				= 'Impostazioni';
 $lang['cp_nav_addons']					= 'Add-ons';
 $lang['cp_nav_modules']					= 'Moduli';
-$lang['cp_nav_widgets']					= 'Widgets';
 $lang['cp_nav_users']					= 'Utenti';
-$lang['cp_nav_design']					= 'Grafica';
 $lang['cp_nav_content']					= 'Contenuti';
-$lang['cp_nav_utilities']               = 'Accessori';
+$lang['cp_nav_data']					= 'Data'; #translate
+$lang['cp_nav_structure']				= 'Structure'; #translate
+$lang['cp_nav_misc']					= 'Miscellaneous'; #translate
 
 $lang['cp_must_login']	 				= 'Devi effettuare il login per vedere questa pagina.';
 $lang['cp_access_denied'] 				= 'Non hai privilegi sufficienti per vedere questa pagina.';

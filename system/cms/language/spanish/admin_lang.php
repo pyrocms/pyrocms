@@ -31,11 +31,11 @@ $lang['cp_contact_support']		        = 'Soporte';
 $lang['cp_nav_settings']		        = 'Configuraciones';
 $lang['cp_nav_addons']			        = 'Agregados';
 $lang['cp_nav_modules']			        = 'Módulos';
-$lang['cp_nav_widgets']			        = 'Widgets';
 $lang['cp_nav_users']			        = 'Usuarios';
-$lang['cp_nav_design']			        = 'Diseño';
 $lang['cp_nav_content']			        = 'Contenido';
-$lang['cp_nav_utilities']		        = 'Utilidades';
+$lang['cp_nav_data']					= 'Data'; #translate
+$lang['cp_nav_structure']				= 'Structure'; #translate
+$lang['cp_nav_misc']					= 'Miscellaneous'; #translate
 
 $lang['cp_must_login']			        = 'Debes estar logueado para ver esta página.';
 $lang['cp_access_denied']		        = 'No tienes el permiso suficiente para ver esta página.';

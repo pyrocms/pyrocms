@@ -1,6 +1,6 @@
 <ul class="primary-nav">
 	
-	<li id="dashboard-link"><?php echo anchor('admin', lang('global:dashboard'), (!$this->module > '' ? 'current' : '').'"');?></li>
+	<li id="dashboard-link"><?php echo anchor('admin', lang('global:dashboard'), 'class="btn orange"');?></li>
 	
 		<?php
 		foreach ($menu_items as $menu_item)
@@ -10,7 +10,7 @@
 			//Let's see how many menu items they have access to
 			if ($this->current_user->group == 'admin')
 			{
-				$count = count($modules[$menu_item]);
+				$count = isset($modules[$menu_item]) ? count($modules[$menu_item]) : 0;
 			}
 			else
 			{

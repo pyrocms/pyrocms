@@ -8,7 +8,7 @@
  */
 class Module_Sitemap extends Module {
 
-	public $version = '1.2';
+	public $version = '1.3.0';
 
 	public function info()
 	{
@@ -30,8 +30,8 @@ class Module_Sitemap extends Module {
 				'ru' => 'Карта сайта',
 				'zh' => '網站地圖',
 				'th' => 'ไซต์แมพ',
-                                'hu' => 'Oldaltérkép',
-                                'se' => 'Sajtkarta'
+				'hu' => 'Oldaltérkép',
+				'se' => 'Sajtkarta',
 			),
 			'description' => array(
 				'en' => 'The sitemap module creates an index of all pages and an XML sitemap for search engines.',
@@ -51,8 +51,8 @@ class Module_Sitemap extends Module {
 				'ru' => 'Карта модуль создает индекс всех страниц и карта сайта XML для поисковых систем.',
 				'zh' => '站點地圖模塊創建一個索引的所有網頁和XML網站地圖搜索引擎。',
 				'th' => 'โมดูลไซต์แมพสามารถสร้างดัชนีของหน้าเว็บทั้งหมดสำหรับเครื่องมือค้นหา.',
-                                'hu' => 'Ez a modul indexeli az összes oldalt és egy XML oldaltéképet generál a keresőmotoroknak.',
-                                'se' => 'Sajtkarta, modulen skapar ett index av alla sidor och en XML-sitemap för sökmotorer.'
+				'hu' => 'Ez a modul indexeli az összes oldalt és egy XML oldaltéképet generál a keresőmotoroknak.',
+				'se' => 'Sajtkarta, modulen skapar ett index av alla sidor och en XML-sitemap för sökmotorer.'
 			),
 			'frontend' => true,
 			'backend' => false,

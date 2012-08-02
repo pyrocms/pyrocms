@@ -27,12 +27,12 @@ class Fields_m extends CI_Model {
 		array(
 			'field'	=> 'field_slug',
 			'label' => 'lang:streams.label.field_slug',
-			'rules'	=> 'trim|required|max_length[60]|slug_safe'
+			'rules'	=> 'trim|required|max_length[60]|streams_slug_safe'
 		),
 		array(
 			'field'	=> 'field_type',
 			'label' => 'lang:streams.label.field_type',
-			'rules'	=> 'trim|required|max_length[50]|type_valid'
+			'rules'	=> 'trim|required|max_length[50]|streams_type_valid'
 		)
 	);
 

@@ -16,7 +16,6 @@ class Blog_categories_m extends MY_Model
 	 */
 	public function insert($input = array())
 	{
-		$this->load->helper('text');
 		parent::insert(array(
 			'title'=>$input['title'],
 			'slug'=>url_title(strtolower(convert_accented_characters($input['title'])))
@@ -44,11 +43,15 @@ class Blog_categories_m extends MY_Model
 	 * Callback method for validating the title
 	 * 
 	 * @param string $title The title to validate
+	 * @param int $id The id to check
 	 * @return mixed
 	 */
-	public function check_title($title = '')
+	public function check_title($title = '', $id = 0)
 	{
-		return parent::count_by('slug', url_title($title)) > 0;
+		return (bool) $this->db->where('slug', url_title($title))
+			->where('id != ', $id)
+			->from('blog_categories')
+			->count_all_results();
 	}
 	
 	/**
@@ -59,7 +62,6 @@ class Blog_categories_m extends MY_Model
 	 */
 	public function insert_ajax($input = array())
 	{
-		$this->load->helper('text');
 		return parent::insert(array(
 			'title'=>$input['title'],
 			//is something wrong with convert_accented_characters?

@@ -958,7 +958,7 @@ class Row_m extends MY_Model {
 		{
 			return null;
 		}
-
+		$plugin_call = null;
 		// Is this an alt process type?
 		if (isset($this->type->types->{$type_slug}->alt_process) and $this->type->types->{$type_slug}->alt_process === true)
 		{

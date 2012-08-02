@@ -8,7 +8,7 @@
  */
 class Module_Search extends Module {
 
-	public $version = '1.0';
+	public $version = '1.0.0';
 
 	public $_tables = array('search_index');
 
@@ -24,7 +24,7 @@ class Module_Search extends Module {
                             'fr' => 'Rechercher parmi différents types de contenus avec système de recherche modulaire.'
 			),
 			'frontend' => false,
-			'backend'  => true,
+			'backend'  => false,
 			'menu'     => 'content',
 		);
 	}

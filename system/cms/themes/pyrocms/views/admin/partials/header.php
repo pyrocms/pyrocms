@@ -2,12 +2,11 @@
 	<span>PyroCMS requires that JavaScript be turned on for many of the functions to work correctly. Please turn JavaScript on and reload the page.</span>
 </noscript>
 
-<div class="topbar" dir=<?php $vars = $this->load->_ci_cached_vars; echo $vars['lang']['direction']; ?>>
+<div class="topbar" dir=<?php $vars = $this->load->get_vars(); echo $vars['lang']['direction']; ?>>
 	
 	<div class="wrapper">
 		<div id="logo">
-			<?php //echo anchor('', $this->settings->site_name, 'target="_blank"'); ?>
-			<?php echo Asset::img('logo.png', ''); ?>
+			<?php echo anchor('admin', $this->settings->site_name, 'target="_blank"'); ?>
 		</div>
 	
 		<nav id="primary">

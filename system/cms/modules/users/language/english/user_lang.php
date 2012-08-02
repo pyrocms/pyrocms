@@ -54,8 +54,8 @@ $lang['user_reset_password_title']             = 'Reset Password';
 $lang['user_password_reset_title']             = 'Password Reset';
 
 
-$lang['user_error_username']                   = 'The username you selected is already in use';
-$lang['user_error_email']                      = 'The email address you entered is already in use';
+$lang['user_error_username']                   = 'The username you selected is already in use.';
+$lang['user_error_email']                      = 'The email address you entered is already in use.';
 
 $lang['user_full_name']                        = 'Full Name';
 $lang['user_first_name']                       = 'First Name';

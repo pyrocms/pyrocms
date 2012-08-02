@@ -115,19 +115,19 @@ class Keywords {
 	 * @return	string
 	 */
 	public function process($keywords, $old_hash = null)
-	{	
+	{
+		// Remove the old keyword assignments if we're updating
+		if ($old_hash !== null)
+		{
+			ci()->db->delete('keywords_applied', array('hash' => $old_hash));
+		}
+
 		// No keywords? Let's not bother then
 		if ( ! ($keywords = trim($keywords)))
 		{
 			return '';
 		}
-		
-		// Remove the old keyword assignments if we're updating
-		if ($old_hash !== null)
-		{
-			ci()->db->where('hash', $old_hash)->delete('keywords_applied');
-		}
-		
+
 		$assignment_hash = md5(microtime().mt_rand());
 		
 		// Split em up and prep away
@@ -135,13 +135,7 @@ class Keywords {
 		foreach ($keywords as &$keyword)
 		{
 			$keyword = self::prep($keyword);
-		/*
-		// Find out which keywords are already being used	
-		$matched = array_map(function($row) {
-			if ($row) return ($row->name;
-		}, ci()->db->where_in('name', $keywords)->get('keywords')->result());
-		
-		*/
+
 			// Keyword already exists
 			if (($row = ci()->db->where('name', $keyword)->get('keywords')->row()))
 			{

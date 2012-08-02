@@ -31,11 +31,11 @@ $lang['cp_contact_support']				= 'Podpora';
 $lang['cp_nav_settings']				= 'Nastavení';
 $lang['cp_nav_addons']					= 'Doplňky';
 $lang['cp_nav_modules']					= 'Moduly';
-$lang['cp_nav_widgets']					= 'Widgety';
 $lang['cp_nav_users']					= 'Uživatelé';
-$lang['cp_nav_design']					= 'Vzhled';
 $lang['cp_nav_content']					= 'Obsah';
-$lang['cp_nav_utilities']				= 'Nástroje';
+$lang['cp_nav_data']					= 'Data'; #translate
+$lang['cp_nav_structure']				= 'Structure'; #translate
+$lang['cp_nav_misc']					= 'Miscellaneous'; #translate
 
 $lang['cp_must_login']					= 'Pro prohlížení této stránky musíte být přihlášen/a.';
 $lang['cp_access_denied']				= 'nemáte oprávnění k prohlížení této stránky.';

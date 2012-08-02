@@ -19,17 +19,17 @@ class Admin extends Admin_Controller
 	 * @var array
 	 */
 	private $validation_rules = array(
-		array(
+		'email' => array(
 			'field' => 'email',
 			'label' => 'lang:global:email',
 			'rules' => 'required|max_length[60]|valid_email'
 		),
-		array(
+		'password' => array(
 			'field' => 'password',
 			'label' => 'lang:global:password',
 			'rules' => 'min_length[6]|max_length[20]'
 		),
-		array(
+		'username' => array(
 			'field' => 'username',
 			'label' => 'lang:user_username',
 			'rules' => 'required|alpha_dot_dash|min_length[3]|max_length[20]'
@@ -161,9 +161,9 @@ class Admin extends Admin_Controller
 	public function create()
 	{
 		// Extra validation for basic data
-		$this->validation_rules[1]['rules'] .= '|callback__email_check';
-		$this->validation_rules[2]['rules'] .= '|required';
-		$this->validation_rules[3]['rules'] .= '|callback__username_check';
+		$this->validation_rules['email']['rules'] .= '|callback__email_check';
+		$this->validation_rules['password']['rules'] .= '|required';
+		$this->validation_rules['username']['rules'] .= '|callback__username_check';
 
 		// Get the profile fields validation array from streams
 		$this->load->driver('Streams');
@@ -271,13 +271,13 @@ class Admin extends Admin_Controller
 		// Check to see if we are changing usernames
 		if ($member->username != $this->input->post('username'))
 		{
-			$this->validation_rules[3]['rules'] .= '|callback__username_check';
+			$this->validation_rules['username']['rules'] .= '|callback__username_check';
 		}
 
 		// Check to see if we are changing emails
 		if ($member->email != $this->input->post('email'))
 		{
-			$this->validation_rules[1]['rules'] .= '|callback__email_check';
+			$this->validation_rules['email']['rules'] .= '|callback__email_check';
 		}
 
 		// Get the profile fields validation array from streams
@@ -495,9 +495,9 @@ class Admin extends Admin_Controller
 	 *
 	 * @return bool
 	 */
-	public function _username_check($username)
+	public function _username_check()
 	{
-		if ($this->ion_auth->username_check($username))
+		if ($this->ion_auth->username_check($this->input->post('username')))
 		{
 			$this->form_validation->set_message('_username_check', lang('user_error_username'));
 			return false;
@@ -514,13 +514,14 @@ class Admin extends Admin_Controller
 	 *
 	 * @return bool
 	 */
-	public function _email_check($email)
+	public function _email_check()
 	{
-		if ($this->ion_auth->email_check($email))
+		if ($this->ion_auth->email_check($this->input->post('email')))
 		{
 			$this->form_validation->set_message('_email_check', lang('user_error_email'));
 			return false;
 		}
+
 		return true;
 	}
 

@@ -77,13 +77,13 @@ class Theme_PyroCMS extends Theme {
 
 			foreach ($modules as $module)
 			{
-				if ($module['menu'] != 'content' && $module['menu'] != 'design' && $module['menu'] != 'users' && $module['menu'] != 'utilities' && $module['menu'] != '0')
+				if ($module['menu'] != 'content' && $module['menu'] != 'data' && $module['menu'] != 'users' && $module['menu'] != 'misc' && $module['menu'] != '0')
 				{
 					$grouped_menu[] = $module['menu'];
 				}
 			}
 
-			array_push($grouped_menu, 'design', 'users', 'utilities');
+			array_push($grouped_menu, 'data', 'users', 'misc');
 
 			$grouped_menu = array_unique($grouped_menu);
 
