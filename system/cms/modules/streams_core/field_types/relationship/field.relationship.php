@@ -115,14 +115,7 @@ class Field_relationship
 	 */
 	public function pre_output($input, $data)
 	{	
-		// We only need this in the admin.
-		// Relationships are taken care of by a join
-		// on the front end
-		if ($this->CI->uri->segment(1) != 'admin')
-		{
-			return null;
-		}
-	
+			
 		$stream = $this->CI->streams_m->get_stream($data['choose_stream']);
 
 		$title_column = $stream->title_column;
