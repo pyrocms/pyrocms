@@ -33,7 +33,7 @@ class Migration_Move_modules_around extends CI_Migration {
 
 	public function down()
 	{
-		$this->dbforge->drop_table('comment_blacklists');
+		
 	}
 
 }
