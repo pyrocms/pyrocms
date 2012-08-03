@@ -81,6 +81,12 @@
 					[ <?php echo anchor('admin/blog/categories/create', lang('blog:new_category_label'), 'target="_blank"'); ?> ]
 				</div>
 			</li>
+			<li>
+				<label for="category_id"><?php echo lang('blog:author_name_label'); ?></label>
+				<div class="input">
+				<?php echo form_dropdown('authur_id', array(lang('blog:author_name_label')) + $authors, @$this->current_user->id) ?>
+				</div>
+			</li>
 			
 			<li>
 				<label for="keywords"><?php echo lang('global:keywords'); ?></label>
