@@ -17,6 +17,7 @@ $lang['blog:posted_label_alt']							= 'Дата добавления';
 $lang['blog:written_by_label']							= 'Автор';
 $lang['blog:author_unknown']								= 'Неизвестно';
 $lang['blog:keywords_label']				= 'Keywords'; #translate
+$lang['blog:keywords_hash_label']			= 'Keywords hash'; #translate
 $lang['blog:tagged_label']					= 'Tagged'; #translate
 $lang['blog:category_label']								= 'Категория';
 $lang['blog:post_label']										= 'Заголовок';

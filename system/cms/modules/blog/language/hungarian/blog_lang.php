@@ -9,6 +9,7 @@ $lang['blog:posted_label_alt']               = 'Bejegyezve';
 $lang['blog:written_by_label']               = 'Írta';
 $lang['blog:author_unknown']                 = 'Ismeretlen';
 $lang['blog:keywords_label']                 = 'Kulcsszavak';
+$lang['blog:keywords_hash_label']			= 'Keywords hash'; #translate
 $lang['blog:tagged_label']                   = 'Tagged';
 $lang['blog:category_label']                 = 'Kategória';
 $lang['blog:post_label']                     = 'Bejegyzés';

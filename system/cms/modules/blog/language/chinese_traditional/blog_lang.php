@@ -9,6 +9,7 @@ $lang['blog:posted_label_alt']			= '發表於';
 $lang['blog:written_by_label']				= '撰文者';
 $lang['blog:author_unknown']				= '未知';
 $lang['blog:keywords_label']				= '關鍵字';
+$lang['blog:keywords_hash_label']			= 'Keywords hash';
 $lang['blog:tagged_label']					= '標籤';
 $lang['blog:category_label'] 			= '分類';
 $lang['blog:post_label'] 				= '發表';

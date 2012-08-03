@@ -20,6 +20,7 @@ $lang['blog:posted_label_alt']               = 'Gửi lúc at';
 $lang['blog:written_by_label']				= 'Viết bởi';
 $lang['blog:author_unknown']				= 'Chưa rõ';
 $lang['blog:keywords_label']				= 'Keywords'; #translate
+$lang['blog:keywords_hash_label']			= 'Keywords hash'; #translate
 $lang['blog:tagged_label']					= 'Tagged'; #translate
 $lang['blog:category_label']                 = 'Danh mục';
 $lang['blog:post_label']                     = 'Bài viết';

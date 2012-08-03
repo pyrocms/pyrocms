@@ -9,6 +9,7 @@ $lang['blog:posted_label_alt'] 		= 'Δημοσιεύτηκε στις';
 $lang['blog:written_by_label'] 		= 'Γράφτηκε από';
 $lang['blog:author_unknown'] 		= 'Άγνωστο';
 $lang['blog:keywords_label'] 		= 'Λέξεις κλειδιά';
+$lang['blog:keywords_hash_label']			= 'Keywords hash'; #translate
 $lang['blog:tagged_label'] 		= 'Ετικέτες';
 $lang['blog:category_label'] 		= 'Κατηγορία';
 $lang['blog:post_label'] 		= 'Δημοσίευση';

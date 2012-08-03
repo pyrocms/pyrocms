@@ -19,6 +19,9 @@ $lang['blog:posted_label_alt']               = 'โพสต์แล้วท�
 $lang['blog:written_by_label']				= 'เขียนโดย';
 $lang['blog:author_unknown']				= 'ไม่ทราบ';
 $lang['blog:keywords_label']				= 'คำหลัก';
+
+$lang['blog:keywords_hash_label']			= 'Keywords hash'; #translate
+
 $lang['blog:tagged_label']					= 'แท็ก';
 $lang['blog:category_label']                 = 'หมวดหมู่';
 $lang['blog:post_label']                     = 'โพสต์';

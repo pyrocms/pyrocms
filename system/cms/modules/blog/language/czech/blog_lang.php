@@ -9,6 +9,7 @@ $lang['blog:posted_label_alt']			= 'Odesláno';
 $lang['blog:written_by_label']				= 'Written by'; #translate
 $lang['blog:author_unknown']				= 'Unknown'; #translate
 $lang['blog:keywords_label']				= 'Keywords'; #translate
+$lang['blog:keywords_hash_label']			= 'Keywords hash';
 $lang['blog:tagged_label']					= 'Tagged'; #translate
 $lang['blog:category_label'] 			= 'Kategorie';
 $lang['blog:post_label'] 			= 'Odeslat';

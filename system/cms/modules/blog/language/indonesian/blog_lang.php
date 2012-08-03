@@ -9,6 +9,7 @@ $lang['blog:posted_label_alt']               = 'Dipostkan pada';
 $lang['blog:written_by_label']				= 'Ditulis oleh';
 $lang['blog:author_unknown']				= 'Tidak dikenal';
 $lang['blog:keywords_label']				= 'Kata Kunci';
+$lang['blog:keywords_hash_label']			= 'Keywords hash'; #translate
 $lang['blog:tagged_label']					= 'Label';
 $lang['blog:category_label']                 = 'Kategori';
 $lang['blog:post_label']                     = 'Post';

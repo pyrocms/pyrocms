@@ -9,6 +9,7 @@ $lang['blog:posted_label_alt']			= 'نشر في';
 $lang['blog:written_by_label']				= 'كتبها';
 $lang['blog:author_unknown']				= 'مجهول';
 $lang['blog:keywords_label']				= 'كلمات البحث';
+$lang['blog:keywords_hash_label']			= 'Keywords hash';
 $lang['blog:tagged_label']					= 'موسومة';
 $lang['blog:category_label'] 			= 'التصنيف';
 $lang['blog:post_label'] 			= 'إرسال';

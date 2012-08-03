@@ -6,6 +6,7 @@ $lang['blog:posts']                   = 'Posts'; #translate
 // labels
 $lang['blog:posted_label']					= 'Escrito';
 $lang['blog:keywords_label']				= 'Keywords'; #translate
+$lang['blog:keywords_hash_label']			= 'Keywords hash'; #translate
 $lang['blog:tagged_label']					= 'Tagged'; #translate
 $lang['blog:category_label'] 				= 'Categoría';
 $lang['blog:written_by_label']				= 'Written by'; #translate

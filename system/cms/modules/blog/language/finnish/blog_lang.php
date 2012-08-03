@@ -14,6 +14,7 @@ $lang['blog:posted_label_alt']               = 'Lähetettiin';
 $lang['blog:written_by_label']				= 'Kirjoittanut';
 $lang['blog:author_unknown']				= 'Tuntematon';
 $lang['blog:keywords_label']				= 'Avainsanat';
+$lang['blog:keywords_hash_label']			= 'Keywords hash'; #translate
 $lang['blog:tagged_label']					= 'Merkitty';
 $lang['blog:category_label']                 = 'Kategoria';
 $lang['blog:post_label']                     = 'Merkintä';

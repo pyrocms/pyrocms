@@ -9,6 +9,7 @@ $lang['blog:posted_label_alt']						= 'Envoyé à';
 $lang['blog:written_by_label']				= 'Écrit par';
 $lang['blog:author_unknown']				= 'Inconnu';
 $lang['blog:keywords_label']				= 'Mots-clés';
+$lang['blog:keywords_hash_label']			= 'Hash des mots-clés';
 $lang['blog:tagged_label']					= 'Taggé';
 $lang['blog:category_label'] 						= 'Catégorie';
 $lang['blog:post_label'] 							= 'Envoi';

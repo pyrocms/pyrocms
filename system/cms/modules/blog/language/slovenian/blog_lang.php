@@ -9,6 +9,7 @@ $lang['blog:posted_label_alt']               = 'Objavljeno ob';
 $lang['blog:written_by_label']				= 'Objavil';
 $lang['blog:author_unknown']				= 'Neznan';
 $lang['blog:keywords_label']				= 'Klj. besede';
+$lang['blog:keywords_hash_label']			= 'Keywords hash'; #translate
 $lang['blog:tagged_label']					= 'Označen';
 $lang['blog:category_label']                 = 'Kategorija';
 $lang['blog:post_label']                     = 'Objava';

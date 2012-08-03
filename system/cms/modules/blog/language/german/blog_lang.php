@@ -9,6 +9,7 @@ $lang['blog:postet_label_alt']               = 'Ver&ouml;ffentlicht in';
 $lang['blog:written_by_label']				 = 'Geschrieben von';
 $lang['blog:author_unknown']				 = 'Unbekannt';
 $lang['blog:keywords_label']				 = 'Stichw&ouml;rter';
+$lang['blog:keywords_hash_label']			= 'Keywords hash'; #translate
 $lang['blog:tagged_label']					 = 'Gekennzeichnet';
 $lang['blog:category_label']                 = 'Kategorie';
 $lang['blog:post_label']                     = 'Artikel';

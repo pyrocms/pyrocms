@@ -8,6 +8,7 @@ $lang['blog:posted_label_alt'] = 'Skriven den';
 $lang['blog:written_by_label'] = 'Skriven av';
 $lang['blog:author_unknown'] = 'Okänd';
 $lang['blog:keywords_label'] = 'Nyckelord';
+$lang['blog:keywords_hash_label']			= 'Keywords hash'; #translate
 $lang['blog:tagged_label'] = 'Taggad';
 $lang['blog:category_label'] = 'Kategori';
 $lang['blog:post_label'] = 'Inlägg';

@@ -9,6 +9,7 @@ $lang['blog:posted_label_alt']			= 'Geplaatst op';
 $lang['blog:written_by_label']			= 'Geschreven door';
 $lang['blog:author_unknown']			= 'Onbekend';
 $lang['blog:keywords_label']			= 'Sleutelwoorden';
+$lang['blog:keywords_hash_label']			= 'Keywords hash'; #translate
 $lang['blog:tagged_label']				= 'Etiket';
 $lang['blog:category_label'] 			= 'Categorie';
 $lang['blog:post_label'] 				= 'Post';

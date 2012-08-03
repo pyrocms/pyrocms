@@ -11,6 +11,7 @@ $lang['blog:posted_label_alt']			= 'Pubblicato alle';
 $lang['blog:written_by_label']				= 'Scritto da';
 $lang['blog:author_unknown']				= 'Sconosciuto';
 $lang['blog:keywords_label']				= 'Parole chiave'; 
+$lang['blog:keywords_hash_label']			= 'Keywords hash'; #translate
 $lang['blog:tagged_label']					= 'Taggato';
 $lang['blog:category_label'] 			= 'Categoria';
 $lang['blog:post_label'] 			= 'Articolo';

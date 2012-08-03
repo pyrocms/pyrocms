@@ -9,6 +9,7 @@ $lang['blog_posted_label_alt']              = 'Paskelbta...';
 $lang['blog_written_by_label']              = 'Autorius';
 $lang['blog_author_unknown']				= 'Nežinomas';
 $lang['blog_keywords_label']				= 'Raktažodžiai';
+$lang['blog:keywords_hash_label']			= 'Keywords hash'; #translate
 $lang['blog_tagged_label']					= 'Žymėtas';
 $lang['blog_category_label']                = 'Kategorija';
 $lang['blog_post_label']                    = 'Įrašas';
