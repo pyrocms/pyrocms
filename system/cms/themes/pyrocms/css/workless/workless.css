@@ -670,7 +670,7 @@ input:invalid, textarea:invalid { background-color: #f0dddd; }
 .form_inputs .input {
 	float: left!important;
 	padding-left: 10px;
-	width: 69%;
+	width: 64%;
 }
 .form_inputs .input > input {
 	color: #666;
