@@ -123,12 +123,11 @@ class Row_m extends MY_Model {
 	 *
 	 * @return 	array 
 	 * @param	array
-	 * @param	obj
-	 * @param	obj
+	 * @param	obj - @todo - not used, so needs to be removed
 	 * @param	obj
 	 * @return	array
 	 */
-	public function get_rows($params, $fields, $stream)
+	public function get_rows($params, $field = null, $stream)
 	{
 		$return = array();
 
