@@ -195,7 +195,7 @@ class Admin extends Admin_Controller
 				'status'			=> $this->input->post('status'),
 				'created_on'		=> $created_on,
 				'comments_enabled'	=> $this->input->post('comments_enabled'),
-				'author_id'			=> $this->current_user->id,
+				'author_id'		=> $this->input->post('authur_id'),
 				'type'				=> $this->input->post('type'),
 				'parsed'			=> ($this->input->post('type') == 'markdown') ? parse_markdown($this->input->post('body')) : '',
                 'preview_hash'      => $hash
