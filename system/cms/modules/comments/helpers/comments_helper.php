@@ -38,7 +38,7 @@ function display_comments($ref_id = '', $reference = NULL)
 	foreach ($comments as &$comment)
 	{
 		// Override specified website if they are a user
-		if ($item->user_id and Setting::get('enable_profiles'))
+		if ($comment->website and $comment->user_id and Setting::get('enable_profiles'))
 		{
 			$comment->website = 'user/'.$item->user_id;
 		}
