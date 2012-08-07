@@ -96,8 +96,13 @@ class Plugin_Navigation extends Plugin
 			$wrapper	= array();
 
 			// attributes of anchor
-			$item['url']					= $link['url'];
+            if($link['link_type'] == 'section')
+                $item['url']				= current_url() . '#';
+            else
+                $item['url']				= $link['url'];
+
 			$item['title']					= $link['title'];
+
 			if($wrap)
 			{
 				$item['title']  = '<'.$wrap.'>'.$item['title'].'</'.$wrap.'>';

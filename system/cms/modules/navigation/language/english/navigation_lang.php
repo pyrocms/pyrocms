@@ -12,6 +12,7 @@ $lang['nav_location_label']                     = 'Location';
 $lang['nav_type_label']                         = 'Link type';
 $lang['nav_uri_label']                          = 'Site Link (URI)';
 $lang['nav_page_label']                         = 'Page';
+$lang['nav_section_label']                      = 'Section';
 $lang['nav_module_label']                       = 'Module';
 $lang['nav_restricted_to']						= 'Restricted To';
 $lang['nav_abbrev_label']                       = 'Abbreviation';
