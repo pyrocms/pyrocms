@@ -126,7 +126,7 @@ class Streams_m extends MY_Model {
 			}
 			elseif ($type == 'slug')
 			{
-				$this->stream_cache[$stream->stream_namespace][$stream->stream_slug] = $stream;
+				$this->streams_cache[$stream->stream_namespace][$stream->stream_slug] = $stream;
 			}
 		}
 
