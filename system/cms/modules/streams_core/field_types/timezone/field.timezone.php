@@ -1,13 +1,10 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
- * PyroStreams US State Field Type
+ * PyroStreams Timezone Field Type
  *
  * @package		PyroCMS\Core\Modules\Streams Core\Field Types
- * @author		Parse19
- * @license		http://parse19.com/pyrostreams/docs/license
- * @license		http://parse19.com/pyrostreams/license
- * @link		http://parse19.com/pyrostreams
+ * @author		Ryun Shofner
  */
 class Field_timezone
 {
