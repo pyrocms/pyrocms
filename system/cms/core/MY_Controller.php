@@ -134,6 +134,12 @@ class MY_Controller extends MX_Controller
 		// Get user data
 		$this->template->current_user = ci()->current_user = $this->current_user = $this->ion_auth->get_user();
 
+		//Set user timezone
+		if (!empty($this->current_user->timezone))
+		{
+			date_default_timezone_set($this->current_user->timezone);
+		}
+
 		// Work out module, controller and method and make them accessable throught the CI instance
 		ci()->module = $this->module = $this->router->fetch_module();
 		ci()->controller = $this->controller = $this->router->fetch_class();
@@ -169,7 +175,7 @@ class MY_Controller extends MX_Controller
 		$this->load->vars($pyro);
 		
 		$this->benchmark->mark('my_controller_end');
-		
+
 		// Enable profiler on local box
 	    if ((isset($this->current_user->group) AND $this->current_user->group == 'admin') AND is_array($_GET) AND array_key_exists('_debug', $_GET) )
 	    {
