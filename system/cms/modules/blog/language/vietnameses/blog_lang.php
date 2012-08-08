@@ -73,4 +73,4 @@ $lang['blog:twitter_posted']                 = 'Đã gửi "%s" %s';
 $lang['blog:twitter_error']                  = 'Lỗi Twitter';
 
 // date
-$lang['blog:archive_date_format']		= "%B' %Y";
+$lang['blog:archive_date_format']		= "%B %Y";
