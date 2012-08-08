@@ -295,7 +295,7 @@ class MY_Model extends CI_Model
 		{
 			if ($skip_validation === FALSE)
 			{
-				if ( ! $this->_run_validation($data))
+				if ( ! $this->_run_validation($row))
 				{
 					$ids[] = FALSE;
 
