@@ -24,6 +24,9 @@ class Admin_Controller extends MY_Controller {
 	{
 		parent::__construct();
 
+		// Load resources
+		$this->load->model('groups/group_m');
+
 		// Load the Language files ready for output
 		$this->lang->load('admin');
 		$this->lang->load('buttons');
@@ -108,21 +111,22 @@ class Admin_Controller extends MY_Controller {
 			return TRUE;
 		}
 
-		// Well they at least better have permissions!
-		if ($this->current_user)
-		{
-			// We are looking at the index page. Show it if they have ANY admin access at all
-			if ($current_page == 'admin/index' && $this->permissions)
-			{
-				return TRUE;
-			}
+		$group = $this->group_m->get_by('id', $this->current_user->group_id);
 
-			// Check if the current user can view that page
-			return array_key_exists($this->module, $this->permissions);
+		// If group control panel access is not given, deny access
+		if (!$group->has_cp_access) 
+		{
+			return FALSE;
 		}
 
-		// god knows what this is... erm...
-		return FALSE;
+		// We are looking at the index page. Show it if their group has admin access and if they have ANY permissions at all
+		if ($current_page == 'admin/index' && $this->permissions)
+		{
+			return TRUE;
+		}
+
+		// Check if the current user can view that page
+		return  array_key_exists($this->module, $this->permissions);
 	}
 
 }

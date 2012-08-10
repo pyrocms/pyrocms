@@ -80,7 +80,8 @@ class Group_m extends MY_Model
 	{
 		return parent::insert(array(
 			'name'			=> $input['name'],
-			'description'	=> $input['description']
+			'description'	=> $input['description'],
+			'has_cp_access' => $input['has_cp_access']
 		));
 	}
 
@@ -96,7 +97,8 @@ class Group_m extends MY_Model
 	{
 		return parent::update($id, array(
 			'name'			=> $input['name'],
-			'description'	=> $input['description']
+			'description'	=> $input['description'],
+			'has_cp_access' => $input['has_cp_access']
 		));
 	}
 

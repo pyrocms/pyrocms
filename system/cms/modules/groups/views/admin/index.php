@@ -4,11 +4,12 @@
 
 <section class="item">
 	<?php if ($groups): ?>
-		<table class="table-list" cellspacing="0">
+		<table class="table-list">
 			<thead>
 				<tr>
 					<th width="40%"><?php echo lang('groups.name');?></th>
-					<th><?php echo lang('groups.short_name');?></th>
+					<th width="20%"><?php echo lang('groups.short_name');?></th>
+					<th width="16%"><?php echo lang('groups.cp_access');?></th>
 					<th width="300"></th>
 				</tr>
 			</thead>
@@ -24,6 +25,7 @@
 				<tr>
 					<td><?php echo $group->description; ?></td>
 					<td><?php echo $group->name; ?></td>
+					<td><?php echo $group->has_cp_access ? 'Yes' : 'No'; ?></td>
 					<td class="actions">
 					<?php echo anchor('admin/groups/edit/'.$group->id, lang('buttons.edit'), 'class="button edit"'); ?>
 					<?php if ( ! in_array($group->name, array('user', 'admin'))): ?>

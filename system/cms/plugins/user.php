@@ -91,10 +91,13 @@ class Plugin_User extends Plugin
 	 */
 	public function has_cp_permissions()
 	{
+		$this->load->model('groups/group_m');
+
 		if ($this->current_user)
 		{
-			if (!(($this->current_user->group == 'admin') OR $this->permission_m->get_group($this->current_user->group_id)))
-			{
+			$group = $this->group_m->get_by('id', $this->current_user->group_id);
+			if (!($this->current_user->group == 'admin' OR ($group->has_cp_access AND $this->permission_m->get_group($this->current_user->group_id))))
+			{				
 				return '';
 			}
 
