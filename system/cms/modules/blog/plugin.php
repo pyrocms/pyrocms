@@ -23,16 +23,57 @@ class Plugin_Blog extends Plugin
 	 * @param	array
 	 * @return	array
 	 */
+	 
+	public function __construct()
+	{
+		 
+		 $settings = $this->db->get_where('default_settings', array('module' => 'blog'))->result();
+
+		$this->settings=array();
+		
+		foreach ($settings as $setting) {
+			
+			$this->settings[$setting->slug]=$setting->value;
+			
+		}	
+		 
+	 }
 	public function posts()
 	{
 		$limit		= $this->attribute('limit', 10);
 		$category	= $this->attribute('category');
 		$order_by 	= $this->attribute('order-by', 'created_on');
 		$order_dir	= $this->attribute('order-dir', 'ASC');
+		$related_to	= $this->attribute('related_to');
+		$keywords	= $this->attribute('keywords');
 
 		if ($category)
 		{
 			$this->db->where('blog_categories.' . (is_numeric($category) ? 'id' : 'slug'), $category);
+		}
+		
+		if ($related_to)
+		{
+			
+			$this->db->where('blog.id !=', $related_to);
+			
+			if ($keywords) {
+				
+				if (is_array($keywords)) {
+					
+						
+					foreach ($keywords as $keyword){ 
+						
+						$this->db->where(' default_keywords.name', $keyword->name);
+					
+					}
+				}
+
+			}
+			
+			$this->db->join('default_keywords_applied', 'blog.keywords = default_keywords_applied.hash');
+			$this->db->join('default_keywords', 'default_keywords_applied.keyword_id = default_keywords.id');
+			$this->db->group_by('blog.id');
 		}
 
 		$posts = $this->db
@@ -47,10 +88,12 @@ class Plugin_Blog extends Plugin
 			->limit($limit)
 			->get('blog')
 			->result();
+			
+	
 
 		foreach ($posts as &$post)
 		{
-			$post->url = site_url('blog/'.date('Y', $post->created_on).'/'.date('m', $post->created_on).'/'.$post->slug);
+			$post->url = site_url($this->settings['blog_uri'].'/'.$post->category_slug.'/'.$post->slug);
 		}
 		
 		return $posts;
@@ -84,7 +127,7 @@ class Plugin_Blog extends Plugin
 
 		foreach ($categories as &$category)
 		{
-			$category->url = site_url('blog/category/'.$category->slug);
+			$category->url = site_url($this->settings['blog_uri'].'/'.$category->slug);
 		}
 		
 		return $categories;
@@ -113,59 +156,6 @@ class Plugin_Blog extends Plugin
 
 		return $this->db->count_all_results('blog');
 	}
-	
-	/**
-	 * Tag/Keyword List
-	 *
-	 * Create a list of blog keywords/tags
-	 *
-	 * Usage:
-	 * {{ blog:tags limit="10" }}
-	 *		<span><a href="{{ url }}" title="{{ title }}">{{ title }}</a></span>
-	 * {{ /blog:tags }}
-	 *
-	 * @param	array
-	 * @return	array
-	 */	
-	public function tags()
-	{
-		$limit = $this->attribute('limit', 10);
-		
-		$this->load->library(array('keywords/keywords'));
-
-		$posts = $this->db->select('keywords')->get('blog')->result();
-
-		$buffer = array(); // stores already added keywords
-		$tags   = array();
-
-		foreach($posts as $p)
-		{
-			$kw = Keywords::get_array($p->keywords);
-
-			foreach($kw as $k)
-			{
-				$k = trim(strtolower($k));
-
-				if(!in_array($k, $buffer)) // let's force a unique list
-				{
-					$buffer[] = $k;
-
-					$tags[] = array(
-						'title' => ucfirst($k),
-						'url'   => site_url('blog/tagged/'.$k)
-					);
-				}
-			}
-		}
-		
-		if(count($tags) > $limit) // Enforce the limit
-		{
-			return array_slice($tags, 0, $limit);
-		}
-	
-		return $tags;
-	}
-		
 }
 
 /* End of file plugin.php */

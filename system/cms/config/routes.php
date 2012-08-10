@@ -57,4 +57,6 @@ $route['edit-profile']	                    = 'users/edit';
 
 $route['sitemap.xml']                       = 'sitemap/xml';
 
+require_once( 'system/cms/modules/blog/config/routes.php' );
+
 /* End of file routes.php */

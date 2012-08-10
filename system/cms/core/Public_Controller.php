@@ -104,7 +104,8 @@ class Public_Controller extends MY_Controller
 		// If there is a blog module, link to its RSS feed in the head
 		if (module_exists('blog'))
 		{
-			$this->template->append_metadata('<link rel="alternate" type="application/rss+xml" title="'.$this->settings->site_name.'" href="'.site_url('blog/rss/all.rss').'" />');
+			$this->config->load('blog');
+			$this->template->append_metadata('<link rel="alternate" type="application/rss+xml" title="'.$this->settings->site_name.'" href="'.site_url(($this->config->item('blog_uri')!=null? $this->config->item('blog_uri').'/':null).'rss/all.rss').'" />');
 		}
 
 		// Frontend data
