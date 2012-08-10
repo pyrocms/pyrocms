@@ -157,7 +157,7 @@ class Field_relationship
 		
 		if (isset($row->$title_column))
 		{
-			return '<a href="'.site_url('admin/streams/entries/view/'.$stream->id.'/'.$row->id).'">'.$row->$title_column.'</a>';
+			return $row->$title_column;
 		}
 		
 		return null;
