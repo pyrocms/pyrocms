@@ -63,4 +63,4 @@ $lang['blog:twitter_posted']                 = 'Bejegyezve "%s" %s';
 $lang['blog:twitter_error']                  = 'Twitter Hiba';
 
 // date
-$lang['blog:archive_date_format']            = "%B' %Y";
+$lang['blog:archive_date_format']            = "%B %Y";

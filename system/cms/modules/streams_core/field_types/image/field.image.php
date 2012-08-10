@@ -382,14 +382,14 @@ class Field_image
 
 			$image_config['src']	= $this->CI->config->item('files:path').'/'.$plain_name.'_thumb'.$image->extension;
 		}	
-		elseif( file_exists( $path . '/'.$image->name ) )
+		elseif (file_exists( $path . '/'.$image->name ) )
 		{
-			$use_link = FALSE;
+			$use_link = false;
 
 			$image_config['src']	= $this->CI->config->item('files:path').'/'.$image->name;
 		}
 		
-		if($use_link)
+		if (isset($use_link) and $use_link)
 		{
 			return '<a href="'.$this->CI->config->item('files:path').$image->name.'" target="_blank">'.img($image_config).'</a>'.br();
 		}

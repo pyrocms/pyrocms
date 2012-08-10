@@ -1557,6 +1557,22 @@ class Asset {
 	}
 
 	/**
+	 * Reset assets that have already been added in this request.
+	 * This is useful when one module is planning to handle the 
+	 * output but another then takes over (such as a 404 handler)
+	 */
+	public static function reset()
+	{
+		foreach (self::$groups as $type => $groups)
+		{
+			foreach ($groups as $group => $meta)
+			{
+				unset(self::$groups[$type][$group]);
+			}
+		}
+	}
+
+	/**
 	 * Create a XHTML tag
 	 *
 	 * @param string $tag The tag name.
