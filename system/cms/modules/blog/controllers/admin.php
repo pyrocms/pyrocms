@@ -64,6 +64,11 @@ class Admin extends Admin_Controller
 			'rules' => 'trim|alpha'
 		),
 		array(
+			'field' => 'relevance',
+			'label' => 'lang:blog:relevance_label',
+			'rules' => 'trim|alpha'
+		),
+		array(
 			'field' => 'created_on',
 			'label' => 'lang:blog:date_label',
 			'rules' => 'trim|required'

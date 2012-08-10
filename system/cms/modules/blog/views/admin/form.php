@@ -32,16 +32,18 @@
 				<label for="slug"><?php echo lang('global:slug'); ?> <span>*</span></label>
 				<div class="input"><?php echo form_input('slug', $post->slug, 'maxlength="100" class="width-20"'); ?></div>
 			</li>
-			
 			<li>
-				<label for="status"><?php echo lang('blog:status_label'); ?></label>
-				<div class="input"><?php echo form_dropdown('status', array('draft' => lang('blog:draft_label'), 'live' => lang('blog:live_label')), $post->status) ?></div>
+				<label for="featured_image"><?php echo lang('blog:featured_image_label'); ?></label>
+				<div class="input">
+				<?php echo form_textarea(array('id' => 'featured_image', 'name' => 'featured_image', 'value' => $post->featured_image, 'rows' => 5, 'class' => 'blog pyroimages')); ?>
+				</div>
 			</li>
-			
+
 			<li>
 				<label for="intro"><?php echo lang('blog:intro_label'); ?></label>
-				<br style="clear: both;" />
-				<?php echo form_textarea(array('id' => 'intro', 'name' => 'intro', 'value' => $post->intro, 'rows' => 5, 'class' => 'blog wysiwyg-simple')); ?>
+				<div class="input">
+				<?php echo form_textarea(array('id' => 'intro', 'name' => 'intro', 'value' => $post->intro, 'rows' => 5, 'class' => 'blog')); ?>
+				</div>
 			</li>
 			
 			<li class="editor">
@@ -58,9 +60,8 @@
 				
 				<br style="clear:both"/>
 				
-				<div class="one_full">
 				<?php echo form_textarea(array('id' => 'body', 'name' => 'body', 'value' => $post->body, 'rows' => 30, 'class' => $post->type)); ?>
-				</div>
+				
 			</li>
 		</ul>
         <?php echo form_hidden('preview_hash',$post->preview_hash)?>
@@ -74,10 +75,23 @@
 		<fieldset>
 		
 		<ul>
+			
+			<li>
+				<label for="status"><?php echo lang('blog:status_label'); ?></label>
+				<div class="input"><?php echo form_dropdown('status', array('draft' => lang('blog:draft_label'), 'live' => lang('blog:live_label')), $post->status) ?></div>
+			</li>
+			
+			
+			<li>
+				<label for="relevance"><?php echo lang('blog:relevance_label'); ?></label>
+				<div class="input"><?php echo form_dropdown('relevance', array('featured' => lang('blog:featured_label'), 'normal' => lang('blog:normal_label')), $post->relevance) ?>
+				
+			</li>		
 			<li>
 				<label for="category_id"><?php echo lang('blog:category_label'); ?></label>
 				<div class="input">
 				<?php echo form_dropdown('category_id', array(lang('blog:no_category_select_label')) + $categories, @$post->category_id) ?>
+				<br/>
 					[ <?php echo anchor('admin/blog/categories/create', lang('blog:new_category_label'), 'target="_blank"'); ?> ]
 				</div>
 			</li>
@@ -92,6 +106,7 @@
 				
 				<div class="input datetime_input">
 				<?php echo form_input('created_on', date('Y-m-d', $post->created_on), 'maxlength="10" id="datepicker" class="text width-20"'); ?> &nbsp;
+				<br/>
 				<?php echo form_dropdown('created_on_hour', $hours, date('H', $post->created_on)) ?> : 
 				<?php echo form_dropdown('created_on_minute', $minutes, date('i', ltrim($post->created_on, '0'))) ?>
 				
@@ -119,6 +134,11 @@
 </section>
 
 <style type="text/css">
+#cke_featured_image , .cke_skin_kama .cke_wrapper, #intro{
+    			
+    width: 100%;
+    
+}
 form.crudli.date-meta div.selector {
     float: left;
     width: 30px;
