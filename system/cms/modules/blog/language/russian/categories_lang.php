@@ -9,7 +9,6 @@
  */
 
 // подписи
-$lang['cat_title_label'] 					= 'Заголовок';
 $lang['cat_category_label'] 			= 'Категория';
 
 // заголовки

@@ -48,7 +48,7 @@ class Keywords {
 	/**
 	 * Get keywords
 	 *
-	 * Gets all the keywords as an array
+	 * Gets just the keywords, no other data
 	 *
 	 * @param	string	$hash	The unique hash stored for a entry
 	 * @return	array
@@ -66,31 +66,16 @@ class Keywords {
 	}
 	
 	/**
-	 * Get keywords as links
+	 * Get full array of keywords
 	 *
-	 * Returns keyword list as processed links
+	 * Returns keywords with all data
 	 *
 	 * @param	string	$hash	The unique hash stored for a entry
 	 * @return	array
 	 */
-	public function get_links($hash, $path = '')
+	public function get($hash)
 	{
-		$keywords = ci()->keyword_m->get_applied($hash);
-		$i = 1;
-		
-		if (is_array($keywords))
-		{
-			$links = '';
-
-			foreach ($keywords as $keyword)
-			{
-				$links .= anchor(trim($path, '/').'/'.str_replace(' ', '-', $keyword->name), $keyword->name) . ($i < count($keywords) ? ', ' : '');
-				$i++;
-			}
-			return $links;
-		}
-		
-		return $keywords;
+		return ci()->keyword_m->get_applied($hash);
 	}
 
 	/**
@@ -116,7 +101,14 @@ class Keywords {
 	 */
 	public function prep($keyword)
 	{
-		return strtolower(trim($keyword));
+		if (function_exists('mb_strtolower'))
+		{
+			return mb_strtolower(trim($keyword));
+		}
+		else
+		{
+			return strtolower(trim($keyword));
+		}
 	}
 
 	/**
@@ -130,19 +122,19 @@ class Keywords {
 	 * @return	string
 	 */
 	public function process($keywords, $old_hash = null)
-	{	
+	{
+		// Remove the old keyword assignments if we're updating
+		if ($old_hash !== null)
+		{
+			ci()->db->delete('keywords_applied', array('hash' => $old_hash));
+		}
+
 		// No keywords? Let's not bother then
 		if ( ! ($keywords = trim($keywords)))
 		{
 			return '';
 		}
-		
-		// Remove the old keyword assignments if we're updating
-		if ($old_hash !== null)
-		{
-			ci()->db->where('hash', $old_hash)->get('keywords_applied');
-		}
-		
+
 		$assignment_hash = md5(microtime().mt_rand());
 		
 		// Split em up and prep away

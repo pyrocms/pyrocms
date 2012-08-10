@@ -32,11 +32,17 @@ function display_comments($ref_id = '', $reference = NULL)
 	$ci->lang->load('comments/comments');
 	$ci->load->model('comments/comments_m');
 
-	$comments	= $ci->comments_m->get_by_module_item($reference, $ref_id);
+	$comments = $ci->comments_m->get_by_module_item($reference, $ref_id);
 	
-	// loop through the comments and escape {pyro} and html tags
+	// loop through the comments and escape {{ foo }} and html tags
 	foreach ($comments as &$comment)
 	{
+		// Override specified website if they are a user
+		if ($comment->website and $comment->user_id and Setting::get('enable_profiles'))
+		{
+			$comment->website = 'user/'.$comment->user_id;
+		}
+
 		foreach ($comment as &$body)
 		{
 			$body = escape_tags($body);
@@ -89,28 +95,22 @@ function display_comments($ref_id = '', $reference = NULL)
  */
 function count_comments($module_item_id = '', $module_slug = NULL, $return_as_number = FALSE)
 {
-	return counter_comments($module_item_id, $module_slug, $return_as_number);
-}
-
-// Deprecated due to confusing grammar
-function counter_comments($ref_id = '', $reference = NULL, $return_number = FALSE)
-{
 	$ci =& get_instance();
 
 	// Set ref to module if none provided
-	$reference OR $reference = $ci->router->fetch_module();
+	$module_slug OR $module_slug = $ci->router->fetch_module();
 
 	$ci->lang->load('comments/comments');
 
 	$where = array(
-		'module'	=> $reference,
-		'module_id'	=> ($ref_id ? $ref_id : NULL),
-		'is_active'	=> 1
+		'module'	=> $module_slug,
+		'module_id'	=> ($module_item_id ? $module_item_id : NULL),
+		'is_active'	=> true
 	);
 
 	$total = (int) $ci->db->where($where)->count_all_results('comments');
 
-	if ($return_number)
+	if ($return_as_number)
 	{
 		return $total;
 	}
@@ -135,10 +135,10 @@ function process_comment_items($comments)
 {
 	$ci =& get_instance();
 
-	foreach($comments as &$comment)
+	foreach ($comments as &$comment)
 	{
 		// work out who did the commenting
-		if($comment->user_id > 0)
+		if ($comment->user_id > 0)
 		{
 			$comment->name = anchor('admin/users/edit/'.$comment->user_id, $comment->name);
 		}
@@ -172,7 +172,7 @@ function process_comment_items($comments)
 				$ci->load->model($comment->module.'/'.$model_name);
 			}
 
-			if ($item = (object) $ci->{$model_name}->get($comment->module_id))
+			if ($item = (object) $ci->{$model_name}->get($comment->module_id) AND isset($item->id))
 			{
 				$comment->item = anchor('admin/'.$comment->module.'/preview/'.$item->id, $item->title, 'class="modal-large"');
 			}
@@ -180,12 +180,6 @@ function process_comment_items($comments)
 		else
 		{
 			$comment->item = $comment->module .' #'. $comment->module_id;
-		}
-		
-		// Link to the comment
-		if (strlen($comment->comment) > 30)
-		{
-			$comment->comment = character_limiter($comment->comment, 30);
 		}
 	}
 	

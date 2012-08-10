@@ -27,12 +27,12 @@ class Fields_m extends CI_Model {
 		array(
 			'field'	=> 'field_slug',
 			'label' => 'lang:streams.label.field_slug',
-			'rules'	=> 'trim|required|max_length[60]|slug_safe'
+			'rules'	=> 'trim|required|max_length[60]|streams_slug_safe'
 		),
 		array(
 			'field'	=> 'field_type',
 			'label' => 'lang:streams.label.field_type',
-			'rules'	=> 'trim|required|max_length[50]|type_valid'
+			'rules'	=> 'trim|required|max_length[50]|streams_type_valid'
 		)
 	);
 
@@ -83,8 +83,11 @@ class Fields_m extends CI_Model {
      * @param	int offset
      * @return	obj
      */
-    public function get_all_fields()
+    public function get_all_fields($namespace = false)
 	{
+		// Limit to namespace
+		if ( $namespace ) $this->db->where('field_namespace', $namespace);
+		
 		$obj = $this->db->order_by('field_name', 'asc')->get($this->table);
 		
 		$fields = $obj->result_array();
@@ -369,12 +372,15 @@ class Fields_m extends CI_Model {
 
 			// Run though alt rename column routines. Needs to be done
 			// after the above loop through assignments.
-			foreach ($assignments as $assignment)
+			if ($assignments)
 			{
-				if (method_exists($type, 'alt_rename_column'))
+				foreach ($assignments as $assignment)
 				{
-					// We run a different function for alt_process
-					$type->alt_rename_column($field, $this->streams_m->get_stream($assignment->stream_slug), $assignment);
+					if (method_exists($type, 'alt_rename_column'))
+					{
+						// We run a different function for alt_process
+						$type->alt_rename_column($field, $this->streams_m->get_stream($assignment->stream_slug), $assignment);
+					}
 				}
 			}
 		}
@@ -706,6 +712,28 @@ class Fields_m extends CI_Model {
 		$this->fields_cache['by_slug'][$field_slug] = $field;
 		
 		return $field;
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Assignment Exists
+	 *
+	 * @access 	public
+	 * @param 	int - stream ID
+	 * @param 	int - field ID
+	 * @return 	bool
+	 */
+	public function assignment_exists($stream_id, $field_id)
+	{
+		if ($this->db->select('id')->where('stream_id', $stream_id)->where('field_id', $field_id)->get(ASSIGN_TABLE)->num_rows() > 0)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 
 	// --------------------------------------------------------------------------

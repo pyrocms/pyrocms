@@ -74,7 +74,7 @@ class Users extends Public_Controller
 		}
 
 		// Get the user data
-		$user = (object)array(
+		$user = (object) array(
 			'email' => $this->input->post('email'),
 			'password' => $this->input->post('password')
 		);
@@ -88,7 +88,7 @@ class Users extends Public_Controller
 			array(
 				'field' => 'password',
 				'label' => lang('user_password_label'),
-				'rules' => 'required|min_length[6]|max_length[20]'
+				'rules' => 'required|min_length['.$this->config->item('min_password_length', 'ion_auth').']|max_length['.$this->config->item('max_password_length', 'ion_auth').']'
 			),
 		);
 
@@ -121,7 +121,7 @@ class Users extends Public_Controller
 			}
 
 			// Don't allow protocols or cheeky requests
-			if (strpos($redirect_to, ':') !== FALSE)
+			if (strpos($redirect_to, ':') !== FALSE and strpos($redirect_to, site_url()) !== 0)
 			{
 				// Just login to the homepage
 				redirect('');
@@ -192,7 +192,7 @@ class Users extends Public_Controller
 			array(
 				'field' => 'password',
 				'label' => lang('user_password'),
-				'rules' => 'required|min_length[6]|max_length[20]'
+				'rules' => 'required|min_length['.$this->config->item('min_password_length', 'ion_auth').']|max_length['.$this->config->item('max_password_length', 'ion_auth').']'
 			),
 			array(
 				'field' => 'email',
@@ -304,17 +304,18 @@ class Users extends Public_Controller
 					}
 
 					// Usernames absolutely need to be unique, so let's keep
-					// trying until we get a unieque one
+					// trying until we get a unique one
 					$i = 1;
 
-					do
+					$username_base = $username;
+
+					while ($this->db->where('username', $username)
+						->count_all_results('users') > 0)
 					{
-						$i > 1 and $username .= $i;
+						$username = $username_base.$i;
 
 						++$i;
 					}
-					while ($this->db->where('username', $username)
-						->count_all_results('users') > 0);
 				}
 				else
 				{
@@ -362,17 +363,17 @@ class Users extends Public_Controller
 						), 'array');
 					}
 
-					/* show the you need to activate page while they wait for there email */
+					// show the "you need to activate" page while they wait for their email
 					if (Settings::get('activation_email'))
 					{
 						$this->session->set_flashdata('notice', $this->ion_auth->messages());
 						redirect('users/activate');
 					}
-
-					elseif (Settings::get('registered_email')
-					)
-						/* show the admin needs to activate you email */
+					else
 					{
+						$this->ion_auth->deactivate($id);
+
+						/* show that admin needs to activate your account */
 						$this->session->set_flashdata('notice', lang('user_activation_by_admin_notice'));
 						redirect('users/register'); /* bump it to show the flash data */
 					}
@@ -493,6 +494,8 @@ class Users extends Public_Controller
 	 */
 	public function reset_pass($code = FALSE)
 	{
+		$this->template->title(lang('user_reset_password_title'));
+
 		if (PYRO_DEMO)
 		{
 			show_error(lang('global:demo_restrictions'));
@@ -507,8 +510,15 @@ class Users extends Public_Controller
 
 		if ($this->input->post('btnSubmit'))
 		{
-			$uname = $this->input->post('user_name');
-			$email = $this->input->post('email');
+			$uname = (string) $this->input->post('user_name');
+			$email = (string) $this->input->post('email');
+
+			if ( ! $uname AND ! $email)
+			{
+				// they submitted with an empty form, abort
+				$this->template->set('error_string', $this->ion_auth->errors())
+					->build('reset_pass');
+			}
 
 			if ( ! ($user_meta = $this->ion_auth->get_user_by_email($email)))
 			{
@@ -556,9 +566,7 @@ class Users extends Public_Controller
 			}
 		}
 
-		$this->template
-			->title(lang('user_reset_password_title'))
-			->build('reset_pass');
+		$this->template->build('reset_pass');
 	}
 
 	/**
@@ -590,6 +598,9 @@ class Users extends Public_Controller
 		if ($this->current_user AND $this->current_user->group === 'admin' AND $id > 0)
 		{
 			$user = $this->user_m->get(array('id' => $id));
+
+			// invalide user? Show them their own profile
+			$user or redirect('edit-profile');
 		}
 		else
 		{
@@ -600,7 +611,7 @@ class Users extends Public_Controller
 
 		// Get the profile data
 		$profile_row = $this->db->limit(1)
-			->where('user_id', $this->current_user->id)->get('profiles')->row();
+			->where('user_id', $user->id)->get('profiles')->row();
 
 		// If we have API's enabled, load stuff
 		if (Settings::get('api_enabled') and Settings::get('api_user_keys'))

@@ -46,6 +46,7 @@
 
 			$('#page-chunks').append('<li class="page-chunk">' +
 				'<input class="label" type="text" name="chunk_slug[' + key + ']" value="' + key + '"/>' +
+				'<input class="label" type="text" name="chunk_class[' + key + ']" />' +
 				'<div class="input">'+
 				'<select name="chunk_type[' + key + ']">' +
 				'<option value="html">html</option>' +

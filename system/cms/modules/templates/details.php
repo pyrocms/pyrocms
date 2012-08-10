@@ -101,12 +101,14 @@ class Module_Templates extends Module {
 			'name' => 'Comment Notification',
 			'description' => 'Email that is sent to admin when someone creates a comment',
 			'subject' => 'You have just received a comment from {{ name }}',
-			'body' => '<h3>You have received a comment from {{ name }}</h3>
-				<strong>IP Address: {{ sender_ip }}</strong>\n
-				<strong>Operating System: {{ sender_os }}\n
-				<strong>User Agent: {{ sender_agent }}</strong>\n
-				<div>{{ comment }}</div>\n
-				<div>View Comment:{{ redirect_url }}</div>',
+			'body' => "<h3>You have received a comment from {{ name }}</h3>
+				<p>
+				<strong>IP Address: {{ sender_ip }}</strong><br/>
+				<strong>Operating System: {{ sender_os }}<br/>
+				<strong>User Agent: {{ sender_agent }}</strong>
+				</p>
+				<p>{{ comment }}</p>
+				<p>View Comment: {{ redirect_url }}</p>",
 			'lang' => 'en',
 			'is_default' => 1,
 			'module' => 'comments'

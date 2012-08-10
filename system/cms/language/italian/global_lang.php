@@ -3,12 +3,15 @@
 $lang['global:control-panel'] 						= 'Pannello di Controllo';
 $lang['global:profile']					= 'Profile'; #translate
 
-$lang['title_label'] 					= 'Titolo';
+$lang['global:title'] 					= 'Titolo';
 $lang['name_label'] 					= 'Nome';
 $lang['desc_label'] 					= 'Descrizione';
 $lang['version_label'] 					= 'Versione';
 $lang['global:author'] 					= 'Autore';
 $lang['global:action'] 					= 'Azione';
+$lang['global:slug']   				= 'Slug';
+$lang['global:user'] 					= 'User';
+
 
 $lang['dialog.delete_message'] 			= 'Sei sicuro di volerlo eliminare? L\'azione non pu&ograve; essere annullata.';
 $lang['dialog.confirm'] 				= 'Conferma';
@@ -73,7 +76,7 @@ $lang['powered_by_pyrocms']				= 'Powered by PyroCMS';  #translate
 $lang['top_page']						= 'Top';  #translate
 $lang['back_to_top']					= 'Back to Top';  #translate
 
-$lang['global:shortcuts'] 				= 'Collegamenti';
+$lang['global:image'] 					= 'Image'; #translate
 $lang['global:description'] 		    = 'Descrizione';
 $lang['global:actions']					= 'Azioni';
 $lang['global:view']					= 'View'; #translate

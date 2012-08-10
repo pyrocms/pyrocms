@@ -28,7 +28,6 @@ $lang['user_first_name_label']                 = 'Vardas';
 $lang['user_last_name_label']                  = 'Pavardė';
 $lang['user_email_label']                      = 'E-paštas';
 $lang['user_group_label']                      = 'Grupė';
-$lang['user_activate_label']                   = 'Aktyvinti';
 $lang['user_password_label']                   = 'Slaptažodis';
 $lang['user_password_confirm_label']           = 'Patvortinti spaltažodį';
 $lang['user_name_label']                       = 'Vardas';
@@ -45,6 +44,8 @@ $lang['indicates_required']                    = 'Rodomi privalomi laukai';
 
 // -- Registration / Activation / Reset Password ----------------------------------------------------------
 
+$lang['user_send_activation_email']            = 'Send Activation Email'; #translate
+$lang['user_do_not_activate']                  = 'Inactive'; #translate
 $lang['user_register_title']                   = 'Registruotis';
 $lang['user_activate_account_title']           = 'Aktyvios paskyros';
 $lang['user_activate_label']                   = 'Aktyvinti';

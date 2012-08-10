@@ -70,6 +70,9 @@
 		<div id="item-details">
 			<h4><?php echo lang('files:details'); ?></h4>
 			<ul>
+				<li><label><?php echo lang('files:id'); ?>:</label> 
+					<span class="id"></span>
+				</li>
 				<li><label><?php echo lang('files:name'); ?>:</label> 
 					<span class="name"></span>
 				</li>

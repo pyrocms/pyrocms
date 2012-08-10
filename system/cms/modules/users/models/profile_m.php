@@ -8,7 +8,7 @@ class Profile_m extends MY_Model
 	/**
 	 * Get a user profile
 	 *
-	 * @access public
+	 * 
 	 * @param array $params Parameters used to retrieve the profile
 	 * @return object
 	 */
@@ -22,7 +22,7 @@ class Profile_m extends MY_Model
 	/**
 	 * Update a user's profile
 	 *
-	 * @access public
+	 * 
 	 * @param array $input A mirror of $_POST
 	 * @param int $id The ID of the profile to update
 	 * @return bool

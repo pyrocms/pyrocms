@@ -28,7 +28,6 @@ $lang['user_first_name_label']                 = 'Ime';
 $lang['user_last_name_label']                  = 'Priimek';
 $lang['user_email_label']                      = 'E-mail';
 $lang['user_group_label']                      = 'Skupina';
-$lang['user_activate_label']                   = 'Akiviraj';
 $lang['user_password_label']                   = 'Geslo';
 $lang['user_password_confirm_label']           = 'Potrdi geslo';
 $lang['user_name_label']                       = 'Uporabniško Ime';
@@ -45,6 +44,8 @@ $lang['indicates_required']                    = 'Označuje obvezno polje';
 
 // -- Registration / Activation / Reset Password ----------------------------------------------------------
 
+$lang['user_send_activation_email']            = 'Send Activation Email'; #translate
+$lang['user_do_not_activate']                  = 'Inactive'; #translate
 $lang['user_register_title']                   = 'Registracija';
 $lang['user_activate_account_title']           = 'Aktiviraj račun';
 $lang['user_activate_label']                   = 'Aktiviran';

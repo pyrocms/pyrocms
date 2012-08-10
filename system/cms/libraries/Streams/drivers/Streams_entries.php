@@ -33,13 +33,16 @@ class Streams_entries extends CI_Driver {
 			'where'				=> null,
 			'exclude'			=> null,
 			'exclude_by'		=> 'id',
+			'include'			=> null,
+			'include_by'		=> 'id',
 			'disable'			=> null,
-			'order_by'			=> null,
-			'sort'				=> 'asc',
+			'order_by'			=> 'created',
+			'sort'				=> 'desc',
 			'exclude_called'	=> 'no',
 			'paginate'			=> 'no',
 			'pag_segment'		=> 2,
-			'site_ref'      	=> SITE_REF
+			'partial'			=> null,
+			'site_ref'			=> SITE_REF
 	);
 
 	// --------------------------------------------------------------------------
@@ -54,25 +57,26 @@ class Streams_entries extends CI_Driver {
 	 * @var		array
 	 */
 	public $pagination_config = array(
-			'num_links'			=> 3,
+			'num_links'		=> 3,
 			'full_tag_open'		=> '<p>',
 			'full_tag_close'	=> '</p>',
 			'first_link'		=> 'First',
 			'first_tag_open'	=> '<div>',
 			'first_tag_close'	=> '</div>',
-			'last_link'			=> 'Last',
+			'last_link'		=> 'Last',
 			'last_tag_open'		=> '<div>',
 			'last_tag_close'	=> '</div>',
-			'next_link'			=> '&gt;',
+			'next_link'		=> '&gt;',
 			'next_tag_open'		=> '<div>',
 			'next_tag_close'	=> '</div>',
-			'prev_link'			=> '&lt;',
+			'prev_link'		=> '&lt;',
 			'prev_tag_open'		=> '<div>',
 			'prev_tag_close'	=> '</div>',
 			'cur_tag_open'		=> '<span>',
 			'cur_tag_close'		=> '</span>',
 			'num_tag_open'		=> '<div>',
-			'num_tag_close'		=> '</div>'
+			'num_tag_close'		=> '</div>',
+			'display_pages'		=> true
 	);
 
 	// --------------------------------------------------------------------------
@@ -122,17 +126,12 @@ class Streams_entries extends CI_Driver {
 
 		if ($params['paginate'] == 'yes' and ( ! isset($params['limit']) or ! is_numeric($params['limit']))) $params['limit'] = 25;
 				
-		// -------------------------------------
-		// Get Stream Fields
-		// -------------------------------------
-				
-		$this->fields =$CI->streams_m->get_stream_fields($stream->id);
 
 		// -------------------------------------
 		// Get Rows
 		// -------------------------------------
 
-		$rows = $CI->row_m->get_rows($params, $this->fields, $stream);
+		$rows = $CI->row_m->get_rows($params, null, $stream);
 		
 		$return['entries'] = $rows['rows'];
 				

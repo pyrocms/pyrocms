@@ -295,7 +295,7 @@ class MY_Model extends CI_Model
 		{
 			if ($skip_validation === FALSE)
 			{
-				if ( ! $this->_run_validation($data))
+				if ( ! $this->_run_validation($row))
 				{
 					$ids[] = FALSE;
 
@@ -527,12 +527,14 @@ class MY_Model extends CI_Model
 		return $this;
 	}
 
-    /**
-     * Run validation only using the
-     * same rules as insert/update will
-     *
-     * @return bool
-     */
+	/**
+	 * Run validation only using the
+	 * same rules as insert/update will
+	 *
+	 * @param array $data
+	 *
+	 * @return bool
+	 */
     public function validate($data)
     {
         return $this->_run_validation($data);

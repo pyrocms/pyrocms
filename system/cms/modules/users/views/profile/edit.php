@@ -22,18 +22,22 @@
 				</div>
 			</li>
 
-			<?php foreach($profile_fields as $field) { if($field['input']) { ?>
-			<li>
-				<label for="<?php echo $field['field_slug']; ?>">
-					<?php echo (lang($field['field_name'])) ? lang($field['field_name']) : $field['field_name'];  ?>
-					<?php if ($field['required']){ ?> <span>*</span><?php } ?>
-				</label>
-				<?php if($field['instructions']) { echo '<p class="instructions">'.$field['instructions'].'</p>'; } ?>
-				<div class="input">
-					<?php echo $field['input']; ?>
-				</div>
-			</li>
-			<?php } } ?>
+			<?php foreach($profile_fields as $field): ?>
+				<?php if($field['input']): ?>
+					<li>
+						<label for="<?php echo $field['field_slug']; ?>">
+							<?php echo (lang($field['field_name'])) ? lang($field['field_name']) : $field['field_name'];  ?>
+							<?php if ($field['required']) echo '<span>*</span>'; ?>
+						</label>
+
+						<?php if($field['instructions']) echo '<p class="instructions">'.$field['instructions'].'</p>'; ?>
+						
+						<div class="input">
+							<?php echo $field['input']; ?>
+						</div>
+					</li>
+				<?php endif; ?>
+			<?php endforeach; ?>
 		</ul>
 	</fieldset>
 

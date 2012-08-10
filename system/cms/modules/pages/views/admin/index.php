@@ -1,6 +1,6 @@
 <div class="one_half">
 	<section class="title">
-		<h4><?php echo lang('pages.list_title'); ?></h4>
+		<h4><?php echo lang('pages:list_title'); ?></h4>
 	</section>
 	
 	<section class="item">
@@ -14,13 +14,13 @@
 
 <div class="one_half last scroll-follow">	
 	<section class="title">
-		<h4><?php echo lang('pages.tree_explanation_title'); ?></h4>
+		<h4><?php echo lang('pages:tree_explanation_title'); ?></h4>
 	</section>
 	
 	<section class="item">
 		<div id="page-details">
 		<p>
-			<?php echo lang('pages.tree_explanation'); ?>
+			<?php echo lang('pages:tree_explanation'); ?>
 		</p>
 		</div>
 	</section>

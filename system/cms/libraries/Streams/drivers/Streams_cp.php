@@ -254,7 +254,8 @@ class Streams_cp extends CI_Driver {
 	{
 		$CI = get_instance();
 		$data = array();
-
+		$data['field'] = new stdClass();
+		
 		// We always need our stream
 		$stream = $this->stream_obj($stream_slug, $namespace);
 		if ( ! $stream) $this->log_error('invalid_stream', 'form');
@@ -270,10 +271,10 @@ class Streams_cp extends CI_Driver {
    		
    		// -------------------------------------
         
-        // Need this for the view
-        $data['method'] = $method;
+        	// Need this for the view
+        	$data['method'] = $method;
         
-        // Get our list of available fields
+        	// Get our list of available fields
 		$data['field_types'] = $CI->type->field_types_array(true);
 
 		// @todo - allow including/excluding some fields
@@ -309,12 +310,12 @@ class Streams_cp extends CI_Driver {
 		// Add in the unique callback
 		if ($method == 'new')
 		{
-			$CI->fields_m->fields_validation[1]['rules'] .= '|unique_field_slug[new]';
+			$CI->fields_m->fields_validation[1]['rules'] .= '|streams_unique_field_slug[new:'.$namespace.']';
 		}
 		else
 		{
 			// @todo edit version of this.
-			$CI->fields_m->fields_validation[1]['rules'] .= '|unique_field_slug['.$data['current_field']->field_slug.']';
+			$CI->fields_m->fields_validation[1]['rules'] .= '|streams_unique_field_slug['.$data['current_field']->field_slug.':'.$namespace.']';
 		}
 
 		$assign_validation = array(

@@ -22,9 +22,8 @@ class Plugin_Theme extends Plugin
 	 * @return string The final rendered partial view.
 	 */
 	public function partial()
-	{	
-		// file="foo" is deprecated. Use name="foo"
-		$name = $this->attribute('name', $this->attribute('file'));
+	{
+		$name = $this->attribute('name');
 
 		$path = $this->load->get_var('template_views');
 		$data = $this->load->get_vars();
@@ -80,8 +79,9 @@ class Plugin_Theme extends Plugin
 		$title = $this->attribute('title');
 		$media = $this->attribute('media');
 		$type = $this->attribute('type', 'text/css');
+        $rel = $this->attribute('rel', 'stylesheet');
 
-		return link_tag($this->css_url($file), 'stylesheet', $type, $title, $media);
+		return link_tag($this->css_url($file), $rel, $type, $title, $media);
 	}
 
 	/**
@@ -278,5 +278,37 @@ class Plugin_Theme extends Plugin
 
 		return $link;
 	}
+
+    /**
+     * Theme Language line
+     *
+     * Fetch a single line of text from the language array
+     *
+     * Usage:
+     *   {{ theme:lang lang="theme" line="theme_title" [default="PyroCMS"] }}
+     *
+     * @return string.
+     */
+    public function lang()
+    {
+        $lang_file = $this->attribute('lang');
+        $line = $this->attribute('line');
+        $default = $this->attribute('default');
+        // Return an empty string as the attribute LINE is missing
+        if ( !isset($line) ) {
+            return "";
+        }
+
+        $deft_lang = CI::$APP->config->item('language');
+        if ($lang = Modules::load_file($lang_file.'_lang', CI::$APP->template->get_theme_path().'/language/'.$deft_lang.'/', 'lang'))
+        {
+            CI::$APP->lang->language = array_merge(CI::$APP->lang->language, $lang);
+            CI::$APP->lang->is_loaded[] = $lang_file . '_lang'.EXT;
+            unset($lang);
+        }
+        $value = $this->lang->line($line);
+
+        return $value?$value:$default;
+    }
 
 }

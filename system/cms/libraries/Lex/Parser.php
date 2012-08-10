@@ -224,7 +224,7 @@ class Lex_Parser
 				$cb_data = $data;
 				if ( !empty(Lex_Parser::$callback_data))
 				{
-					$cb_data = array_merge(Lex_Parser::$callback_data, $data);
+					$cb_data = array_merge(Lex_Parser::$callback_data, (array) $data);
 				}
 				$raw_params = $this->inject_extractions($match[2][0], '__cond_str');
 				$parameters = $this->parse_parameters($raw_params, $cb_data, $callback);
@@ -774,12 +774,12 @@ class Lex_Parser
 		$parameters = $this->inject_extractions($parameters, '__param_str');
 		$this->in_condition = false;
 
-		if (preg_match_all('/(.*?)\s*=\s*(\'|"|&#?\w+;)(.*?)\2/s', trim($parameters), $matches))
+		if (preg_match_all('/(.*?)\s*=\s*(\'|"|&#?\w+;)(.*?)(?<!\\\\)\2/s', trim($parameters), $matches))
 		{
 			$return = array();
 			foreach ($matches[1] as $i => $attr)
 			{
-				$return[trim($matches[1][$i])] = $matches[3][$i];
+				$return[trim($matches[1][$i])] = stripslashes($matches[3][$i]);
 			}
 
 			return $return;

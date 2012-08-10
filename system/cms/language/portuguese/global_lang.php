@@ -3,7 +3,7 @@
 $lang['global:control-panel']			= 'Painel de Controlo';
 $lang['global:profile']					= 'Perfil';
 
-$lang['title_label'] 					= 'Título';
+$lang['global:title'] 					= 'Título';
 $lang['name_label'] 					= 'Nome';
 $lang['desc_label'] 					= 'Descrição';
 $lang['version_label'] 					= 'Versão';
@@ -79,7 +79,7 @@ $lang['top_page']						= 'Topo';
 $lang['back_to_top']					= 'Voltar para o Topo';
 
 $lang['global:filters'] 				= 'Filtros';
-$lang['global:shortcuts'] 				= 'Atalhos';
+$lang['global:image'] 					= 'Image'; #translate
 $lang['global:description'] 		    = 'Descrição';
 $lang['global:actions']					= 'Acções';
 $lang['global:view']					= 'Ver'; 

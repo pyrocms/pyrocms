@@ -11,7 +11,7 @@
 		</p>
 
 		<p>
-			<strong><?php echo lang('nav_title_label');?>:</strong> <?php echo $link->title; ?>
+			<strong><?php echo lang('global:title');?>:</strong> <?php echo $link->title; ?>
 		</p>
 		
 		<p>

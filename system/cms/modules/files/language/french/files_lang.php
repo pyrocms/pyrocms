@@ -1,18 +1,5 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-/**
- * PyroCMS
- *
- * An open source CMS based on CodeIgniter
- *
- * @package		PyroCMS
- * @author		Jerel Unruh - PyroCMS Dev Team
- * @license		Apache License v2.0
- * @link		http://pyrocms.com
- * @since		Version 1.0-dev
- * @filesource
- */
-
 // General
 $lang['files:files_title']					= 'Fichiers';
 $lang['files:fetching']						= 'Récupère les données ...';
@@ -33,6 +20,7 @@ $lang['files:back']							= 'Arrière';
 $lang['files:forward']						= 'Avant';
 $lang['files:start']						= 'Commencer le téléchargement';
 $lang['files:details']						= 'Details';
+$lang['files:id']							= 'ID'; #translate
 $lang['files:name']							= 'Nom';
 $lang['files:slug']							= 'Slug';
 $lang['files:path']							= 'Chemin';
@@ -66,7 +54,7 @@ $lang['files:details']						= 'Détails';
 
 // Folders
 
-$lang['files:no_folders']					= 'Les fichiers et dossiers sont gérés comme ils le sont sur votre ordinateur. Faites un clic droit dans la zone sous ce message pour créer votre premier dossier. Puis faite un clic droit sur le dossier pour le renommer, le supprimer, uploader des fichiers ou modifier les détails le concernant comme par exemple le relier à un dossier in Cloud.'; // todo : check french translation
+$lang['files:no_folders']					= 'Les fichiers et dossiers sont gérés comme ils le sont sur votre ordinateur. Faites un clic droit dans la zone sous ce message pour créer votre premier dossier. Puis faite un clic droit sur le dossier pour le renommer, le supprimer, uploader des fichiers ou modifier les détails le concernant comme par exemple le relier à un dossier sur un espace de stockage à distance.';
 $lang['files:no_folders_places']			= 'Les dossiers que vous créez s\'affiche dans un arbre de données qui peut être affiché ou masqué. Cliquez sur "Places" pour voir le dossier racine.';
 $lang['files:no_folders_wysiwyg']			= 'Aucun dossier n\'a été créé pour le moment';
 $lang['files:new_folder_name']				= 'Dossier sans nom';

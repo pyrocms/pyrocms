@@ -70,7 +70,11 @@ class Comments extends Public_Controller
 			$comment['user_id'] = $this->current_user->id;
 			$comment['name'] = $this->current_user->display_name;
 			$comment['email'] = $this->current_user->email;
-			$comment['website'] = $this->current_user->website;
+
+			if (isset($this->current_user->website))
+			{
+				$comment['website'] = $this->current_user->website;
+			}
 		}
 		else
 		{
@@ -98,7 +102,7 @@ class Comments extends Public_Controller
 			}
 
 			// Run Akismet or the crazy CSS bot checker
-			if ($result['status'] == FALSE)
+			if ($result['status'] !== true)
 			{
 				$this->session->set_flashdata('comment', $comment);
 				$this->session->set_flashdata('error', $result['message']);
@@ -187,20 +191,20 @@ class Comments extends Public_Controller
 		}
 
 		// Check Akismet if an API key exists
-		if ($this->settings->item('akismet_api_key'))
+		if ($this->settings->get('akismet_api_key'))
 		{
 			$this->load->library('akismet');
 
 			$comment = array(
-				'author' => $this->current_user ? $this->current_user->first_name.' '.$this->current_user->last_name : $this->input->post('name'),
+				'author' => $this->current_user ? $this->current_user->display_name : $this->input->post('name'),
 				'email' => $this->current_user ? $this->current_user->email : $this->input->post('email'),
-				'website' => $this->current_user ? $this->current_user->website : $this->input->post('website'),
+				'website' => (isset($this->current_user->website)) ? $this->current_user->website : $this->input->post('website'),
 				'body' => $this->input->post('body')
 			);
 
 			$config = array(
 				'blog_url' => BASE_URL,
-				'api_key' => $this->settings->item('akismet_api_key'),
+				'api_key' => Settings::get('akismet_api_key'),
 				'comment' => $comment
 			);
 

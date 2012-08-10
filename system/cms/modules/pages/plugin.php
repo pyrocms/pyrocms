@@ -23,7 +23,7 @@ class Plugin_Pages extends Plugin
 		$id		= $this->attribute('id');
 		$page	= $this->pyrocache->model('page_m', 'get', array($id));
 
-		return site_url($page ? $page['uri'] : '');
+		return site_url($page ? $page->uri : '');
 	}
 
 	/**
@@ -45,9 +45,9 @@ class Plugin_Pages extends Plugin
 			->row_array();
 
 		// Grab all the chunks that make up the body
-		$page['chunks'] = $this->db->get_where('page_chunks', array('page_id' => $page['id']))->result_array();
+		$page->chunks = $this->db->get_where('page_chunks', array('page_id' => $page->id))->result_array();
 		
-		$page['body'] = '';
+		$page->body = '';
 		if ($page['chunks'])
 		{
 			foreach ($page['chunks'] as $chunk)
@@ -59,7 +59,7 @@ class Plugin_Pages extends Plugin
 		}
 
 		// we'll unset the chunks array as Lex is grouchy about mixed data at the moment
-		unset($page['chunks']);
+		unset($page->chunks);
 
 		return $this->content() ? array($page) : $page['body'];
 	}
@@ -73,10 +73,9 @@ class Plugin_Pages extends Plugin
 	 *
 	 * @return string|bool
 	 */
-	function chunk()
+	public function chunk()
 	{
 		$chunk = $this->db
-			->select('*')
 			->where('page_id', $this->attribute('id'))
 			->where('slug', $this->attribute('name'))
 			->get('page_chunks')
@@ -130,7 +129,7 @@ class Plugin_Pages extends Plugin
 
 		if ($pages)
 		{
-			foreach ($pages AS &$page)
+			foreach ($pages as &$page)
 			{
 				// Grab all the chunks that make up the body for this page
 				$page['chunks'] = $this->db

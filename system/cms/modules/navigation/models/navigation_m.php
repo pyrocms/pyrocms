@@ -18,7 +18,7 @@ class Navigation_m extends MY_Model
 	/**
 	 * Get a navigation link
 	 *
-	 * @access public
+	 * 
 	 * @param int $id The ID of the item
 	 * @return mixed
 	 */
@@ -39,7 +39,7 @@ class Navigation_m extends MY_Model
 	/**
 	 * Get a navigation link with all the trimmings
 	 *
-	 * @access public
+	 * 
 	 * @param int $id The ID of the item
 	 * @return mixed
 	 */
@@ -60,7 +60,7 @@ class Navigation_m extends MY_Model
 	/**
 	 * Create a new Navigation Link
 	 *
-	 * @access public
+	 * 
 	 * @param array $input The data to insert
 	 * @return int
 	 */
@@ -95,7 +95,7 @@ class Navigation_m extends MY_Model
 	/**
 	 * Update a Navigation Link
 	 *
-	 * @access public
+	 * 
 	 * @param int $id The ID of the link to update
 	 * @param array $input The data to update
 	 * @return bool
@@ -134,7 +134,7 @@ class Navigation_m extends MY_Model
 	 * Update links by group
 	 *
 	 * @author Jerel Unruh - PyroCMS Dev Team
-	 * @access public
+	 * 
 	 * @param int $group
 	 * @param array $data
 	 * @return boolean
@@ -151,7 +151,7 @@ class Navigation_m extends MY_Model
 	 * Build a multi-array of parent > children.
 	 *
 	 * @author Jerel Unruh - PyroCMS Dev Team
-	 * @access public
+	 * 
 	 * @param  string $group Either the group abbrev or the group id
 	 * @return array An array representing the link tree
 	 */
@@ -262,7 +262,7 @@ class Navigation_m extends MY_Model
 	/**
 	 * Format an array
 	 *
-	 * @access public
+	 * 
 	 * @param array $input The data to format
 	 * @return array
 	 */
@@ -305,7 +305,7 @@ class Navigation_m extends MY_Model
 	/**
 	 * Delete a Navigation Link
 	 *
-	 * @access public
+	 * 
 	 * @param int $id The ID of the link to delete
 	 * @return array
 	 */
@@ -319,7 +319,7 @@ class Navigation_m extends MY_Model
 	/**
 	 * Make URL
 	 *
-	 * @access public
+	 * 
 	 * @param array $row Navigation record
 	 * @return mixed Valid url
 	 */
@@ -361,7 +361,7 @@ class Navigation_m extends MY_Model
 	/**
 	 * Make a URL array
 	 *
-	 * @access public
+	 * 
 	 * @param array $row Array of links
 	 * @return mixed Array of links with valid urls
 	 */
@@ -435,7 +435,7 @@ class Navigation_m extends MY_Model
 	/**
 	 * Get group by..
 	 *
-	 * @access public
+	 * 
 	 * @param string $what What to get
 	 * @param string $value The value
 	 * @return mixed
@@ -448,7 +448,7 @@ class Navigation_m extends MY_Model
 	/**
 	 * Return an array of Navigation Groups
 	 *
-	 * @access public
+	 * 
 	 * @return void
 	 */
 	public function get_groups()
@@ -476,7 +476,7 @@ class Navigation_m extends MY_Model
 	/**
 	 * Delete a Navigation Group
 	 *
-	 * @access public
+	 * 
 	 * @param int $id The ID of the group to delete
 	 * @return array
 	 */

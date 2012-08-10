@@ -22,8 +22,8 @@ class Pages extends Public_Controller
 		// the actual homepage even when the default_controller is
 		// changed
 
-		//No page is mentioned and we are not using pages as default
-		// (eg blog on homepage)
+		// No page is mentioned and we are not using pages as default
+		//  (eg blog on homepage)
 		if ( ! $this->uri->segment(1) AND $this->router->default_controller != 'pages')
 		{
 			redirect('');
@@ -188,25 +188,22 @@ class Pages extends Public_Controller
 		}
 
 		// Grab all the chunks that make up the body
-		$page->chunks = $this->db
-			->order_by('sort')
-			->get_where('page_chunks', array('page_id' => $page->id))
-			->result();
+		$page->chunks = $this->page_m->get_chunks($page->id);
 
 		$chunk_html = '';
 		foreach ($page->chunks as $chunk)
 		{
-			$chunk_html .= '<div class="page-chunk '.$chunk->slug.'">'.
+			$chunk_html .= '<section id="'.$chunk->slug.'" class="page-chunk '.$chunk->class.'">'.
 				'<div class="page-chunk-pad">'.
 				(($chunk->type == 'markdown') ? $chunk->parsed : $chunk->body).
 				'</div>'.
-				'</div>'.PHP_EOL;
+				'</section>'.PHP_EOL;
 		}
 
 		// Create page output. We do this before parsing the page contents so that 
 		// title, meta, & breadcrumbs can be overridden with tags in the page content
 		$this->template->title($page->meta_title)
-			->set_metadata('keywords', $page->meta_keywords)
+			->set_metadata('keywords', Keywords::get_string($page->meta_keywords))
 			->set_metadata('description', $page->meta_description)
 			->set_breadcrumb($page->title);
 
@@ -234,10 +231,12 @@ class Pages extends Public_Controller
 		if ($page->slug == '404')
 		{
 			log_message('error', 'Page Missing: '.$this->uri->uri_string());
+
+			// things behave a little differently when called by MX from MY_Exceptions' show_404()
+			exit($this->template->build('pages/page', array('page' => $page), FALSE, FALSE));
 		}
 
-		$this->template->set('page', $page)
-			->build('pages/page', NULL, FALSE, FALSE);
+		$this->template->build('page', array('page' => $page), FALSE, FALSE);
 	}
 
 	/**

@@ -1,9 +1,9 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['global:control-panel'] 			= 'Admin-Oberfläche';
-$lang['global:profile']					= 'Profile'; #translate
+$lang['global:profile']					= 'Profil'; 
 
-$lang['title_label'] 					= 'Titel';
+$lang['global:title'] 					= 'Titel';
 $lang['name_label'] 					= 'Name';
 $lang['desc_label'] 					= 'Beschreibung';
 $lang['version_label'] 					= 'Version';
@@ -44,7 +44,7 @@ $lang['success_label'] 					= 'Erfolgreich';
 
 $lang['login_title'] 					= 'Anmelden';
 $lang['cms_fatal_error'] 				= 'Schwerwiegender Fehler! Ist das CMS installiert?';
-$lang['global:demo_restrictions']       = 'Some features on this page have been disabled for the demo.'; #translate
+$lang['global:demo_restrictions']       = 'Einige Funktionen auf dieser Seite wurden für die Demo deaktiviert.'; 
 
 $lang['login_error_label'] 				= 'Anmeldefehler';
 $lang['forgot_password_label'] 			= 'Passwort vergessen ?';
@@ -67,12 +67,12 @@ $lang['global:install'] 					= 'Installieren';
 $lang['global:enable']					= 'Aktivieren';
 $lang['global:disable'] 				= 'Deaktivieren';
 
-$lang['all_right_reserved']				= 'All Rights Reserved.';  #translate
+$lang['all_right_reserved']				= 'Alle Rechte vorbehalten.';
 $lang['powered_by_pyrocms']				= 'Powered by PyroCMS';  #translate
-$lang['top_page']						= 'Top';  #translate
-$lang['back_to_top']					= 'Back to Top';  #translate
+$lang['top_page']						= 'Seitenanfang'; 
+$lang['back_to_top']					= 'Zum Seitenanfang'; 
 
-$lang['global:shortcuts'] 				= 'Shortcuts'; #translate 
+$lang['global:image'] 					= 'Bild';
 $lang['global:description']				= 'Beschreibung'; 
 $lang['global:actions']					= 'Aktion';
 $lang['global:view']					= 'Ansicht'; 

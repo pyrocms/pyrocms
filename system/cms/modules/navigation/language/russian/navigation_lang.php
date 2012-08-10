@@ -9,7 +9,6 @@
  */
 
 // подписи
-$lang['nav_title_label'] 									= 'Заголовок';
 $lang['nav_target_label']									= 'Цель';
 $lang['nav_class_label']									= 'Класс';
 $lang['nav_url_label'] 										= 'URL';

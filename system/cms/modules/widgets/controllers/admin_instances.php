@@ -57,7 +57,7 @@ class Admin_instances extends Admin_Controller {
 
 	/**
 	 * List all available widgets
-	 * @access public
+	 * 
 	 * @param str $slug The slug of the widget
 	 * @return void
 	 */
@@ -70,12 +70,12 @@ class Admin_instances extends Admin_Controller {
 
 	/**
 	 * Create the form for a new widget instance
-	 * @access public
+	 * 
 	 * @return void
 	 */
 	/**
 	 * Add a new widget instance
-	 * @access public
+	 * 
 	 * @return void
 	 */
 	public function create($slug = '')
@@ -146,12 +146,12 @@ class Admin_instances extends Admin_Controller {
 
 	/**
 	 * Create the form for editing a widget instance
-	 * @access public
+	 * 
 	 * @return void
 	 */
 	/**
 	 * Edit a widget instance
-	 * @access public
+	 * 
 	 * @return void
 	 */
 	public function edit($id = 0)
@@ -228,7 +228,7 @@ class Admin_instances extends Admin_Controller {
 
 	/**
 	 * Delete a widget instance
-	 * @access public
+	 * 
 	 * @return void
 	 */
 	public function delete($id = 0)

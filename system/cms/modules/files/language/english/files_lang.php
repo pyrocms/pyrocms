@@ -1,18 +1,5 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-/**
- * PyroCMS
- *
- * An open source CMS based on CodeIgniter
- *
- * @package		PyroCMS
- * @author		Jerel Unruh - PyroCMS Dev Team
- * @license		Apache License v2.0
- * @link		http://pyrocms.com
- * @since		Version 1.0-dev
- * @filesource
- */
-
 // General
 $lang['files:files_title']					= 'Files';
 $lang['files:fetching']						= 'Retrieving data...';
@@ -33,6 +20,7 @@ $lang['files:back']							= 'Back';
 $lang['files:forward']						= 'Forward';
 $lang['files:start']						= 'Start Upload';
 $lang['files:details']						= 'Details';
+$lang['files:id']							= 'ID';
 $lang['files:name']							= 'Name';
 $lang['files:slug']							= 'Slug';
 $lang['files:path']							= 'Path';

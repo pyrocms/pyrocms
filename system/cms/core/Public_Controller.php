@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * Code here is run before frontend controllers
- * 
+ *
  * @author PyroCMS Dev Team
  * @package PyroCMS\Core\Controllers
  */
@@ -28,7 +28,7 @@ class Public_Controller extends MY_Controller
 				// Check if it was direct match
 				if ($redirect->from == $uri)
 				{
-					redirect($redirect->to,'location',$redirect->type);
+					redirect($redirect->to, 'location', $redirect->type);
 				}
 
 				// If it has back reference
@@ -38,7 +38,7 @@ class Public_Controller extends MY_Controller
 					$redirect->to = preg_replace('#^'.$from.'$#', $redirect->to, $uri);
 				}
 				// Redirect with wanted redirect header type
-				redirect($redirect->to,'location',$redirect->type);
+				redirect($redirect->to, 'location', $redirect->type);
 			}
 		}
 
@@ -48,7 +48,7 @@ class Public_Controller extends MY_Controller
 		if ( ! $this->settings->frontend_enabled && (empty($this->current_user) OR $this->current_user->group != 'admin'))
 		{
 			header('Retry-After: 600');
-			
+
 			$error = $this->settings->unavailable_message ? $this->settings->unavailable_message : lang('cms_fatal_error');
 			show_error($error, 503);
 		}
@@ -71,21 +71,20 @@ class Public_Controller extends MY_Controller
 		// Support CDN URL's like Amazon CloudFront 
 		if (Settings::get('cdn_domain'))
 		{
-			$protocol = (! empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off')
-				? 'https' : 'http';
+			$protocol = ( ! empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off') ? 'https' : 'http';
 
 			// Make cdn.pyrocms.com into https://cdn.pyrocms.com/
 			Asset::set_url($protocol.'://'.rtrim(Settings::get('cdn_domain'), '/').'/');
 		}
 
-	    // Set the theme view folder
-	    $this->template
+		// Set the theme view folder
+		$this->template
 			->set_theme($this->theme->slug)
-			->append_metadata( '
+			->append_metadata('
 				<script type="text/javascript">
 					var APPPATH_URI = "'.APPPATH_URI.'";
 					var BASE_URI = "'.BASE_URI.'";
-				</script>' );
+				</script>');
 
 		// Is there a layout file for this module?
 		if ($this->template->layout_exists($this->module.'.html'))
@@ -99,23 +98,23 @@ class Public_Controller extends MY_Controller
 			$this->template->set_layout('default.html');
 		}
 
-	    // Make sure whatever page the user loads it by, its telling search robots the correct formatted URL
-	    $this->template->set_metadata('canonical', site_url($this->uri->uri_string()), 'link');
+		// Make sure whatever page the user loads it by, its telling search robots the correct formatted URL
+		$this->template->set_metadata('canonical', site_url($this->uri->uri_string()), 'link');
 
-	    // If there is a blog module, link to its RSS feed in the head
-	    if (module_exists('blog'))
-	    {
+		// If there is a blog module, link to its RSS feed in the head
+		if (module_exists('blog'))
+		{
 			$this->template->append_metadata('<link rel="alternate" type="application/rss+xml" title="'.$this->settings->site_name.'" href="'.site_url('blog/rss/all.rss').'" />');
-	    }
+		}
 
-	    // Frontend data
-	    $this->load->library('variables/variables');
-		
+		// Frontend data
+		$this->load->library('variables/variables');
+
 		// grab the theme options if there are any
-		$this->theme->options = $this->pyrocache->model('theme_m', 'get_values_by', array(array('theme' => $this->theme->slug) ));
+		$this->theme->options = $this->pyrocache->model('theme_m', 'get_values_by', array(array('theme' => $this->theme->slug)));
 
-        // Assign segments to the template the new way
-	    $this->template->variables = $this->variables->get_all();
+		// Assign segments to the template the new way
+		$this->template->variables = $this->variables->get_all();
 		$this->template->settings = $this->settings->get_all();
 		$this->template->server = $_SERVER;
 		$this->template->theme = $this->theme;

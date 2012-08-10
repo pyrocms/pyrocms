@@ -304,7 +304,7 @@ class Field_image
 		{
 			$image = $db_obj->row();
 			
-			$full = $this->CI->config->item('files:path') . '/' . $image->name;
+			$full = $this->CI->config->item('files:path').$image->name;
 		
 			$image_data['filename']		= $image->name;
 			$image_data['image']		= base_url().$full;
@@ -322,8 +322,8 @@ class Field_image
 			if( file_exists( $path . '/'.$plain_name.'_thumb'.$image->extension ) )
 			{
 			
-				$image_data['thumb']		= base_url().$this->CI->config->item('files:path') . '/' . $plain_name.'_thumb' . $image->extension;
-				$image_data['thumb_img']	= img( array('alt'=>$image->name, 'src'=> $this->CI->config->item('files:path') . '/' . $plain_name.'_thumb' . $image->extension) );
+				$image_data['thumb']		= base_url().$this->CI->config->item('files:path').$plain_name.'_thumb' . $image->extension;
+				$image_data['thumb_img']	= img( array('alt'=>$image->name, 'src'=> $this->CI->config->item('files:path').$plain_name.'_thumb' . $image->extension) );
 			}
 			else
 			{
@@ -382,14 +382,14 @@ class Field_image
 
 			$image_config['src']	= $this->CI->config->item('files:path').'/'.$plain_name.'_thumb'.$image->extension;
 		}	
-		elseif( file_exists( $path . '/'.$image->name ) )
+		elseif (file_exists( $path . '/'.$image->name ) )
 		{
-			$use_link = FALSE;
+			$use_link = false;
 
 			$image_config['src']	= $this->CI->config->item('files:path').'/'.$image->name;
 		}
 		
-		if($use_link)
+		if (isset($use_link) and $use_link)
 		{
 			return '<a href="'.$this->CI->config->item('files:path').$image->name.'" target="_blank">'.img($image_config).'</a>'.br();
 		}

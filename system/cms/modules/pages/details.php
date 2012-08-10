@@ -6,9 +6,9 @@
  * @author PyroCMS Dev Team
  * @package PyroCMS\Core\Modules\Pages
  */
-class Module_Pages extends Module {
-
-	public $version = '2.0';
+class Module_Pages extends Module
+{
+	public $version = '2.2.0';
 
 	public function info()
 	{
@@ -36,7 +36,7 @@ class Module_Pages extends Module {
 				'zh' => '頁面',
 				'hu' => 'Oldalak',
 				'th' => 'หน้าเพจ',
-                                'se' => 'Sidor'
+            	'se' => 'Sidor',
 			),
 			'description' => array(
 				'en' => 'Add custom pages to the site with any content you want.',
@@ -61,7 +61,7 @@ class Module_Pages extends Module {
 				'zh' => '為您的網站新增自定的頁面。',
 				'th' => 'เพิ่มหน้าเว็บที่กำหนดเองไปยังเว็บไซต์ของคุณตามที่ต้องการ',
 				'hu' => 'Saját oldalak hozzáadása a weboldalhoz, akármilyen tartalommal.',
-                                'se' => 'Lägg till egna sidor till webbplatsen.'
+            	'se' => 'Lägg till egna sidor till webbplatsen.',
 			),
 			'frontend' => true,
 			'backend'  => true,
@@ -74,22 +74,22 @@ class Module_Pages extends Module {
 
 			'sections' => array(
 			    'pages' => array(
-				    'name' => 'pages.list_title',
+				    'name' => 'pages:list_title',
 				    'uri' => 'admin/pages',
 				    'shortcuts' => array(
 						array(
-						    'name' => 'pages.create_title',
+						    'name' => 'pages:create_title',
 						    'uri' => 'admin/pages/create',
 						    'class' => 'add'
 						),
 				    ),
 				),
 				'layouts' => array(
-				    'name' => 'pages.layouts_list_title',
+				    'name' => 'pages:layouts_list_title',
 				    'uri' => 'admin/pages/layouts',
 				    'shortcuts' => array(
 						array(
-						    'name' => 'pages.layouts_create_title',
+						    'name' => 'pages:layouts_create_title',
 						    'uri' => 'admin/pages/layouts/create',
 						    'class' => 'add'
 						),
@@ -108,47 +108,50 @@ class Module_Pages extends Module {
 
 		$tables = array(
 			'page_layouts' => array(
-				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
-				'title' => array('type' => 'VARCHAR', 'constraint' => 60,),
-				'body' => array('type' => 'TEXT',),
-				'css' => array('type' => 'TEXT', 'null' => true,),
-				'js' => array('type' => 'TEXT', 'null' => true,),
-				'theme_layout' => array('type' => 'VARCHAR', 'constraint' => 100, 'default' => 'default',),
-				'updated_on' => array('type' => 'INT', 'constraint' => 11,),
+				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true),
+				'title' => array('type' => 'VARCHAR', 'constraint' => 60),
+				'body' => array('type' => 'TEXT'),
+				'css' => array('type' => 'TEXT', 'null' => true),
+				'js' => array('type' => 'TEXT', 'null' => true),
+				'theme_layout' => array('type' => 'VARCHAR', 'constraint' => 100, 'default' => 'default'),
+				'updated_on' => array('type' => 'INT', 'constraint' => 11),
 			),
 			'pages' => array(
-				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
-				'slug' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '', 'key' => 'slug',),
-				'title' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '',),
-				'uri' => array('type' => 'TEXT', 'null' => true,),
-				'parent_id' => array('type' => 'INT', 'constraint' => 11, 'default' => 0, 'key' => 'parent_id',),
-				'revision_id' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '1',),
-				'layout_id' => array('type' => 'VARCHAR', 'constraint' => 255,),
-				'css' => array('type' => 'TEXT', 'null' => true,),
-				'js' => array('type' => 'TEXT', 'null' => true,),
-				'meta_title' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '',),
-				'meta_keywords' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '',),
-				'meta_description' => array('type' => 'TEXT', 'null' => true,),
-				'rss_enabled' => array('type' => 'INT', 'constraint' => 1, 'default' => 0,),
-				'comments_enabled' => array('type' => 'INT', 'constraint' => 1, 'default' => 0,),
-				'status' => array('type' => 'ENUM', 'constraint' => array('draft', 'live'), 'default' => 'draft',),
+				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true),
+				'slug' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '', 'key' => 'slug'),
+				'class' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => ''),
+				'title' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => ''),
+				'uri' => array('type' => 'TEXT', 'null' => true),
+				'parent_id' => array('type' => 'INT', 'constraint' => 11, 'default' => 0, 'key' => 'parent_id'),
+				'revision_id' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '1'),
+				'layout_id' => array('type' => 'VARCHAR', 'constraint' => 255),
+				'css' => array('type' => 'TEXT', 'null' => true),
+				'js' => array('type' => 'TEXT', 'null' => true),
+				'meta_title' => array('type' => 'VARCHAR', 'constraint' => 255, 'null' => true),
+				'meta_keywords' => array('type' => 'CHAR', 'constraint' => 32, 'null' => true),
+				'meta_description' => array('type' => 'TEXT', 'null' => true),
+				'rss_enabled' => array('type' => 'INT', 'constraint' => 1, 'default' => 0),
+				'comments_enabled' => array('type' => 'INT', 'constraint' => 1, 'default' => 0),
+				'status' => array('type' => 'ENUM', 'constraint' => array('draft', 'live'), 'default' => 'draft'),
 				'created_on' => array('type' => 'INT', 'constraint' => 11, 'default' => 0),
 				'updated_on' => array('type' => 'INT', 'constraint' => 11, 'default' => 0),
-				'restricted_to' => array('type' => 'VARCHAR', 'constraint' => 255, 'null' => true,),
-				'is_home' => array('type' => 'INT', 'constraint' => 1, 'default' => 0,),
-				'strict_uri' => array('type' => 'TINYINT', 'constraint' => 1, 'default' => 1,),
+				'restricted_to' => array('type' => 'VARCHAR', 'constraint' => 255, 'null' => true),
+				'is_home' => array('type' => 'INT', 'constraint' => 1, 'default' => 0),
+				'strict_uri' => array('type' => 'TINYINT', 'constraint' => 1, 'default' => 1),
 				'order' => array('type' => 'INT', 'constraint' => 11, 'default' => 0),
 			),
 			'page_chunks' => array(
-				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
-				'slug' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '',),
-				'page_id' => array('type' => 'INT', 'constraint' => 11,),
-				'body' => array('type' => 'TEXT',),
-				'parsed' => array('type' => 'TEXT',),
-				'type' => array('type' => 'SET', 'constraint' => array('html', 'markdown', 'wysiwyg-advanced', 'wysiwyg-simple'),),
-				'sort' => array('type' => 'INT', 'constraint' => 11,),
+				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true),
+				'slug' => array('type' => 'VARCHAR', 'constraint' => 255, 'null' => false),
+				'class' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => ''),
+				'page_id' => array('type' => 'INT', 'constraint' => 11),
+				'body' => array('type' => 'TEXT'),
+				'parsed' => array('type' => 'TEXT', 'null' => true),
+				'type' => array('type' => 'SET', 'constraint' => array('html', 'markdown', 'wysiwyg-advanced', 'wysiwyg-simple')),
+				'sort' => array('type' => 'INT', 'constraint' => 11),
 			),
 		);
+
 		if ( ! $this->install_tables($tables))
 		{
 			return false;
@@ -160,7 +163,7 @@ class Module_Pages extends Module {
 		$default_page_layout = array(
 			'id' => 1,
 			'title' => 'Default',
-			'body' => '<h2>{{ page:title }}</h2>{{ page:body }}',
+			'body' => '<h2>{{ page:title }}</h2>'.PHP_EOL.'{{ page:body }}',
 			'css' => '',
 			'js' => '',
 			'updated_on' => now(),
@@ -216,7 +219,7 @@ class Module_Pages extends Module {
 			),
 		);
 
-		foreach($default_pages as $page_chunk)
+		foreach ($default_pages as $page_chunk)
 		{
 			if ( ! $this->db->insert('pages', $page_chunk))
 			{
@@ -260,7 +263,7 @@ class Module_Pages extends Module {
 				'sort' => 1,
 			),
 		);
-		foreach($default_page_chunks as $page_chunk)
+		foreach ($default_page_chunks as $page_chunk)
 		{
 			if ( ! $this->db->insert('page_chunks', $page_chunk))
 			{

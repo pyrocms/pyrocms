@@ -52,7 +52,7 @@ class Admin_fields extends Admin_Controller {
 		$this->streams->cp->assignments_table(
 								'profiles',
 								'users',
-								$this->settings->item('records_per_page'),
+								$this->settings->get('records_per_page'),
 								'admin/users/fields/index',
 								true,
 								array('buttons' => $buttons));

@@ -160,7 +160,7 @@ class Fields
 			$this->CI->config->load('streams_core/recaptcha');
 			$this->CI->load->library('streams_core/Recaptcha');
 			
-			$this->CI->validation->set_rules('recaptcha_response_field', 'lang:recaptcha_field_name', 'required|check_captcha');
+			$this->CI->form_validation->set_rules('recaptcha_response_field', 'lang:recaptcha_field_name', 'required|check_captcha');
 		}
 		
 		// -------------------------------------
@@ -256,10 +256,10 @@ class Fields
 	 *
 	 * @access 	public
 	 * @param 	obj - stream fields
-	 * @param 	array - skips
+	 * @param 	[array - skips]
 	 * @return 	array
 	 */
-	public function run_field_events($stream_fields, $skips)
+	public function run_field_events($stream_fields, $skips = array())
 	{
 		$events_called = array();
 		
@@ -562,14 +562,14 @@ class Fields
 	 * to the field setup (edit/delete screen).
 	 *
 	 * @access 	public
-	 * @param 	obj - stream
-	 * @param 	string - method - new or edit
-	 * @param 	obj or null (for new fields) - field
+	 * @param 	[obj - stream]
+	 * @param 	[string - method - new or edit]
+	 * @param 	[obj or null (for new fields) - field]
 	 * @return 	
 	 */
-	public function run_field_setup_events($stream, $method, $field)
+	public function run_field_setup_events($stream = null, $method = 'new', $field = null)
 	{
-		foreach($this->CI->type->types as $ft)
+		foreach ($this->CI->type->types as $ft)
 		{
 			if (method_exists($ft, 'field_setup_event'))
 			{
@@ -719,7 +719,7 @@ class Fields
 		else
 		{
 			// Hmm. No from address. We'll just use the site setting.
-			$this->CI->email->from($this->CI->settings->item('server_email'), $this->CI->settings->item('site_name'));
+			$this->CI->email->from($this->CI->settings->get('server_email'), $this->CI->settings->get('site_name'));
 		}
 
 		// -------------------------------------

@@ -3,7 +3,7 @@
 $lang['global:control-panel'] 						= 'Nadzorna plošča';
 $lang['global:profile']					= 'Profil';
 
-$lang['title_label'] 					= 'Naslov';
+$lang['global:title'] 					= 'Naslov';
 $lang['name_label'] 					= 'Ime';
 $lang['desc_label'] 					= 'Opis';
 $lang['version_label'] 					= 'Različica';
