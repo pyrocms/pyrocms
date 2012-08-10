@@ -4,7 +4,7 @@
 * [Documentation](http://pyrocms.com/docs)
 * [License](http://pyrocms.com/legal/license)
 * [Forums](http://pyrocms.com/forums)
-* Version: 2.1.3-dev
+* Version: 2.1.3
 
 ## Team
 
