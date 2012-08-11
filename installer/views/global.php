@@ -96,6 +96,11 @@
 		</a>
 	</li>
 	<li>
+		<a href="<?php echo site_url('installer/change/turkish'); ?>" title="Turkish">
+			<img src="<?php echo base_url(); ?>assets/images/flags/tr.gif" alt="Turkish" />
+		</a>
+	</li>	
+	<li>
 		<a href="<?php echo site_url('installer/change/russian'); ?>" title="Русский">
 			<img src="<?php echo base_url(); ?>assets/images/flags/ru.gif" alt="Русский" />
 		</a>

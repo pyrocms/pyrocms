@@ -17,7 +17,7 @@ $lang['portnr']			=	'MySQL Portu';
 $lang['server_settings']=	'Server Ayarları';
 $lang['httpserver']		=	'HTTP Server';
 
-$lang['httpserver_text']=	'PyroCMS kullanıcıya dinamik içerikleri ulaştırabilmek için HTTP Server\'a ihtiyaç duyar. Bu sayfayı görüntüleyebiliyorsanız buna zaten sahipsiniz anlamına gelir ama PyroCMS\'in tip HTTP Server üzerinde daha iyi performans vereceğini biliyoruz. Eğer bunların ne anlama geldiğini bilmiyorsanız burayı geçip, kuruluma devam ediniz.';
+$lang['httpserver_text']=	'PyroCMS kullanıcıya dinamik içerikleri ulaştırabilmek için HTTP Server\'a ihtiyaç duyar. Bu sayfayı görüntüleyebiliyorsanız buna zaten sahipsiniz anlamına gelir ama PyroCMS\'in hangi tip HTTP Server üzerinde daha iyi performans vereceğini biliyoruz. Eğer bunların ne anlama geldiğini bilmiyorsanız burayı geçip, kuruluma devam ediniz.';
 
 $lang['rewrite_fail']	=	'"(Apache with mod_rewrite)" özelliğinin sunucunuzda aktif olup olmadığı bilgisine ulaşamadık. Hosting sağlayıcınız ile görüşerek mod_rewrite özelliğini açtırabilir veya kendiniz kurabilirsiniz';
 $lang['mod_rewrite']	=	'"(Apache with mod_rewrite)" özelliği sunucunuda aktif değildir. Hosting sağlayınız ile görüşüp aktifleştirebilir veya PyroCMS\'i "Apache (without mod_rewrite)" seçeneğinde kullanabilirsiniz.';
