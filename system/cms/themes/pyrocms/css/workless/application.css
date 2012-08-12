@@ -597,7 +597,8 @@ table > tbody > tr {
 
 #existing-comments .comment .name p {
 	font-weight: bold;
-	margin-bottom: 3px;
+	margin-bottom: 0px;
+	margin-top: 0px;
 }
 
 #existing-comments .comment .date {
@@ -607,6 +608,7 @@ table > tbody > tr {
 #existing-comments .comment .date p {
 	font-size: 11px;
 	color: #777;
+	margin-top: 0px;
 }
 
 #existing-comments .comment .content {
