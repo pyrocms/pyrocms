@@ -446,9 +446,9 @@ class Streams_m extends MY_Model {
 		}
 		elseif ($by_slug and $namespace)
 		{
-			if (isset($this->streams_cache[$namespace][$stream_id]))
+			if (isset($this->streams_cache[$namespace]->$stream_id))
 			{
-				return $this->streams_cache[$namespace][$stream_id];
+				return $this->streams_cache[$namespace]->$stream_id;
 			}
 		}
 
