@@ -87,7 +87,7 @@
 				<div id="progress"></div>
 			</div>
 			<div id="status">
-				<div><span id="complexity">0%</span> Complex</div>
+				<div><span id="complexity">0% Complex</span></div>
 			</div>
 
 		</div>
