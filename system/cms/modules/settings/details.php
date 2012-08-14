@@ -228,7 +228,7 @@ class Module_Settings extends Module {
 				'title' => 'Dashboard RSS Feed',
 				'description' => 'Link to an RSS feed that will be displayed on the dashboard.',
 				'type' => 'text',
-				'default' => 'http://feeds.feedburner.com/pyrocms-installed',
+				'default' => 'https://www.pyrocms.com/blog/rss/all.rss',
 				'value' => '',
 				'options' => '',
 				'is_required' => 0,
