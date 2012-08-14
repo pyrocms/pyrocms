@@ -123,7 +123,7 @@ class Admin extends Admin_Controller {
 	 */
 	public function duplicate($id, $parent_id = null)
 	{
-		$page  = $this->page_m->get($id);
+		$page  = (array)$this->page_m->get($id);
 
 		// Steal their children
 		$children = $this->page_m->get_many_by('parent_id', $id);
