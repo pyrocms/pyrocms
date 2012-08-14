@@ -33,6 +33,23 @@
 			
 			</div>
 		</li>
+
+		<li>
+			<label for="has_cp_access"><?php echo lang('groups.cp_access');?></label>
+
+			<div class="input type-radio">
+				<?php if ( ! in_array($group->name, array('user', 'admin'))): ?>
+				<label class="inline">
+					<?php echo form_radio('has_cp_access', '1', $group->has_cp_access);?><?php echo lang('global:enabled'); ?>
+				</label> 
+				<label class="inline">
+					<?php echo form_radio('has_cp_access', '0', !$group->has_cp_access);?><?php echo lang('global:disabled'); ?>
+				</label> 							
+				<?php else: ?>
+				<?php echo lang('global:enabled'); ?>
+				<?php endif; ?>
+			</div>
+		</li>
     </ul>
 
 </div>
