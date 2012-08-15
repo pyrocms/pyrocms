@@ -72,7 +72,10 @@
 					<tr class="<?php echo alternator('', 'alt'); ?>">
 						<td class="image">
 							<button onclick="javascript:insertFile('<?php echo $file->id."', '".htmlentities($file->name)."', '".$file->location."', '".$file->path; ?>');">
-								Insert
+							Download
+							</button>
+							<button onclick="javascript:insertFileLink('<?php echo $file->id."', '".htmlentities($file->name)."', '".$file->filename."', '".$file->location."', '".$file->path; ?>');">
+							Link
 							</button>
 						</td>
 						<td class="name-description">
