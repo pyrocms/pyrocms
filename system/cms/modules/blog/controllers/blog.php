@@ -15,6 +15,8 @@ class Blog extends Public_Controller
 		$this->load->model('comments/comments_m');
 		$this->load->library(array('keywords/keywords'));
 		$this->lang->load('blog');
+		$this->lang->load('categories');
+		$this->config->load('blog');
 	}
 
 	/**
@@ -23,8 +25,11 @@ class Blog extends Public_Controller
 	 * blog/page/x also routes here
 	 */
 	public function index()
-	{
-		$pagination = create_pagination('blog/page', $this->blog_m->count_by(array('status' => 'live')), NULL, 3);
+	{	
+		
+		$pagination = create_pagination(($this->config->item('blog_uri')!=null? $this->config->item('blog_uri').'/':null), $this->blog_m->count_by(array('status' => 'live')), ($this->config->item('blog_posts_per_page')!=null? $this->config->item('blog_posts_per_page') : NULL), ($this->config->item('blog_uri')!=null? 2:1), $full_tag_wrap = TRUE);
+
+		
 		$_blog = $this->blog_m->limit($pagination['limit'])
 			->get_many_by(array('status' => 'live'));
 
@@ -34,16 +39,12 @@ class Blog extends Public_Controller
 		foreach ($_blog as &$post)
 		{
 			$post->keywords = Keywords::get($post->keywords);
-			$post->url = site_url('blog/'.date('Y', $post->created_on).'/'.date('m', $post->created_on).'/'.$post->slug);
+			$post->url = site_url(($this->config->item('blog_uri')!=null? $this->config->item('blog_uri').'/':null).$post->category_slug.'/'.$post->slug);
 		}
-
+		
 		$this->template
 			->title($this->module_details['name'])
 			->set_breadcrumb(lang('blog:blog_title'))
-			->set_metadata('og:title', $this->module_details['name'], 'og')
-			->set_metadata('og:type', 'blog', 'og')
-			->set_metadata('og:url', current_url(), 'og')
-			->set_metadata('og:description', $meta['description'], 'og')
 			->set_metadata('description', $meta['description'])
 			->set_metadata('keywords', $meta['keywords'])
 			->set('pagination', $pagination)
@@ -64,10 +65,10 @@ class Blog extends Public_Controller
 		$category = $this->blog_categories_m->get_by('slug', $slug) OR show_404();
 
 		// Count total blog posts and work out how many pages exist
-		$pagination = create_pagination('blog/category/'.$slug, $this->blog_m->count_by(array(
+		$pagination = create_pagination(($this->config->item('blog_uri')!=null? $this->config->item('blog_uri').'/':null).$slug, $this->blog_m->count_by(array(
 			'category' => $slug,
 			'status' => 'live'
-		)), NULL, 4);
+		)), ($this->config->item('blog_posts_per_page')!=null? $this->config->item('blog_posts_per_page') : NULL), ($this->config->item('blog_uri')!=null? 3:2));
 
 		// Get the current page of blog posts
 		$blog = $this->blog_m->limit($pagination['limit'])->get_many_by(array(
@@ -81,7 +82,7 @@ class Blog extends Public_Controller
 		foreach ($blog AS &$post)
 		{
 			$post->keywords = Keywords::get($post->keywords);
-			$post->url = site_url('blog/'.date('Y', $post->created_on).'/'.date('m', $post->created_on).'/'.$post->slug);
+			$post->url = site_url(($this->config->item('blog_uri')!=null? $this->config->item('blog_uri').'/':null).$post->category_slug.'/'.$post->slug);
 		}
 
 		// Build the page
@@ -106,7 +107,7 @@ class Blog extends Public_Controller
 	{
 		$year OR $year = date('Y');
 		$month_date = new DateTime($year.'-'.$month.'-01');
-		$pagination = create_pagination('blog/archive/'.$year.'/'.$month, $this->blog_m->count_by(array('year' => $year, 'month' => $month)), NULL, 5);
+		$pagination = create_pagination(($this->config->item('blog_uri')!=null? $this->config->item('blog_uri').'/':null).'archive/'.$year.'/'.$month, $this->blog_m->count_by(array('year' => $year, 'month' => $month)), ($this->config->item('blog_posts_per_page')!=null? $this->config->item('blog_posts_per_page') : NULL),  ($this->config->item('blog_uri')!=null? 5:4));
 		$_blog = $this->blog_m
 			->limit($pagination['limit'])
 			->get_many_by(array('year' => $year, 'month' => $month));
@@ -117,8 +118,8 @@ class Blog extends Public_Controller
 
 		foreach ($_blog AS &$post)
 		{
-			$post->keywords = Keywords::get($post->keywords, 'blog/tagged');
-			$post->url = site_url('blog/'.date('Y', $post->created_on).'/'.date('m', $post->created_on).'/'.$post->slug);
+			$post->keywords = Keywords::get($post->keywords, ($this->config->item('blog_uri')!=null? $this->config->item('blog_uri').'/':null).'tagged');
+			$post->url = site_url(($this->config->item('blog_uri')!=null? $this->config->item('blog_uri').'/':null).$post->category_slug.'/'.$post->slug);
 		}
 
 		$this->template
@@ -151,6 +152,7 @@ class Blog extends Public_Controller
 		}
 
 		$this->_single_view($post);
+
 	}
 
     /**
@@ -167,7 +169,7 @@ class Blog extends Public_Controller
 
         if ($post->status == 'live')
         {
-            redirect('blog/' . date('Y/m',$post->created_on) . '/' . $post->slug);
+            redirect(($this->config->item('blog_uri')!=null? $this->config->item('blog_uri').'/':null). $post->category_slug . '/' . $post->slug);
         }
 
         //set index nofollow to attempt to avoid search engine indexing
@@ -188,7 +190,7 @@ class Blog extends Public_Controller
 		$tag = rawurldecode($tag) OR redirect('blog');
 
 		// Count total blog posts and work out how many pages exist
-		$pagination = create_pagination('blog/tagged/'.$tag, $this->blog_m->count_tagged_by($tag, array('status' => 'live')), NULL, 4);
+		$pagination = create_pagination(($this->config->item('blog_uri')!=null? $this->config->item('blog_uri').'/':null).'tagged/'.$tag, $this->blog_m->count_tagged_by($tag, array('status' => 'live')), ($this->config->item('blog_posts_per_page')!=null? $this->config->item('blog_posts_per_page') : NULL),  ($this->config->item('blog_uri')!=null? 3:2));
 
 		// Get the current page of blog posts
 		$blog = $this->blog_m
@@ -197,8 +199,8 @@ class Blog extends Public_Controller
 
 		foreach ($blog AS &$post)
 		{
-			$post->keywords = Keywords::get($post->keywords, 'blog/tagged');
-			$post->url = site_url('blog/'.date('Y', $post->created_on).'/'.date('m', $post->created_on).'/'.$post->slug);
+			$post->keywords = Keywords::get($post->keywords, ($this->config->item('blog_uri')!=null? $this->config->item('blog_uri').'/':null).'tagged');
+			$post->url = site_url(($this->config->item('blog_uri')!=null? $this->config->item('blog_uri').'/':null).$post->category_slug.'/'.$post->slug);
 		}
 
 		// Set meta description based on post titles
@@ -219,6 +221,46 @@ class Blog extends Public_Controller
 			->build('posts');
 	}
 
+	/**
+	 * @todo Document this.
+	 *
+	 * @param array $query
+	 *
+	 * @return array
+	 */
+	public function search()
+	{
+	
+		$data=array('status' => 'live');
+
+		$data['keywords']= isset($_GET['keywords']) ?urldecode($_GET['keywords']):null;
+
+		$pagination = create_pagination(($this->config->item('blog_uri')!=null? $this->config->item('blog_uri').'/':null).'search', $this->blog_m->count_by($data), ($this->config->item('blog_posts_per_page')!=null? $this->config->item('blog_posts_per_page') : NULL),  ($this->config->item('blog_uri')!=null? 3:2));
+		
+		$_blog = $this->blog_m->limit($pagination['limit'])->search($data);
+
+		// Set meta description based on post titles
+		$meta = $this->_posts_metadata($_blog);
+
+		foreach ($_blog as &$post)
+		{
+			$post->keywords = Keywords::get($post->keywords);
+			$post->url = site_url(($this->config->item('blog_uri')!=null? $this->config->item('blog_uri').'/':null).$post->category_slug.'/'.$post->slug);
+		}
+
+		$this->template
+			->title($this->module_details['name'])
+			->set_breadcrumb(lang('blog:blog_title'))
+			->set_metadata('description', $meta['description'])
+			->set_metadata('keywords', $meta['keywords'])
+			->set('pagination', $pagination)
+			->set('blog', $_blog)
+			->build('posts');
+	
+
+
+
+	}
 	/**
 	 * @todo Document this.
 	 *
@@ -250,7 +292,7 @@ class Blog extends Public_Controller
 		);
 	}
 
-    private function _single_view($post, $build = 'view')
+    private function _single_view($post,$build='view')
     {
 
         // if it uses markdown then display the parsed version
@@ -268,7 +310,7 @@ class Blog extends Public_Controller
         // Set some defaults
         else
         {
-            $post->category = (object) array(
+             $post->category = (object) array(
             	'id' => 0,
 				'slug' => '',
 				'title' => '',
@@ -277,48 +319,23 @@ class Blog extends Public_Controller
 
         $this->session->set_flashdata(array('referrer' => $this->uri->uri_string));
 
-        // Add category OG metadata
-        if ($post->category_id)
-        {
-        }
-
-        // Add image OG metadata
-        if ($post->attachment)
-        {
-        	$this->template->set_metadata('og:image', null, 'og');
-        }
-
         $this->template->title($post->title, lang('blog:blog_title'))
-			->set_metadata('og:type', 'article', 'og')
-			->set_metadata('og:url', current_url(), 'og')
-			->set_metadata('og:title', $post->title, 'og')
-			->set_metadata('og:site_name', Settings::get('site_name'), 'og')
-			->set_metadata('og:description', trim($post->intro), 'og')
-			->set_metadata('article:published_time', standard_date('DATE_ISO8601', $post->created_on), 'og')
-			->set_metadata('article:modified_time', standard_date('DATE_ISO8601', $post->updated_on), 'og')
-			->set_metadata('description', $post->intro)
-			->set_metadata('keywords', implode(', ', Keywords::get_array($post->keywords)))
-			->set_breadcrumb(lang('blog:blog_title'), 'blog');
+            ->set_metadata('description', $post->intro)
+            ->set_metadata('keywords', implode(', ', Keywords::get_array($post->keywords)))
+            ->set_breadcrumb(lang('blog:blog_title'), 'blog');
 
-			if ($post->category->id > 0)
-			{
-				$this->template->set_breadcrumb($post->category->title, 'blog/category/'.$post->category->slug);
+        if ($post->category->id > 0)
+        {
+            $this->template->set_breadcrumb($post->category->title, ($this->config->item('blog_uri')!=null? $this->config->item('blog_uri').'/':null).$post->category->slug);
+        }
 
-				// Set category OG metadata			
-				$this->template->set_metadata('article:section', $post->category->title, 'og');
-			}
+        $post->keywords = Keywords::get($post->keywords);
+        
+        $post->url = site_url(($this->config->item('blog_uri')!=null? $this->config->item('blog_uri').'/':null).$post->category->slug.'/'.$post->slug);
 
-			// Add in OG keywords
-			foreach (Keywords::get_array($post->keywords) as $keyword)
-			{
-				$this->template->set_metadata('article:tag', $keyword, 'og');
-			}
-
-			$post->keywords = Keywords::get($post->keywords);
-
-			$this->template
-				->set_breadcrumb($post->title)
-				->set('post', $post)
-				->build($build);
+        $this->template
+            ->set_breadcrumb($post->title)
+            ->set('post', $post)
+            ->build($build);
     }
 }

@@ -14,6 +14,8 @@ class Sitemap extends Public_Controller
 	public function xml()
 	{
 		$this->load->model('blog_m');
+		
+		$this->config->load('blog');
 
 		$doc = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" />');
 
@@ -25,7 +27,7 @@ class Sitemap extends Public_Controller
 		{			
 			$node = $doc->addChild('url');
 
-			$loc = site_url('blog/'.date('Y/m/', $article->created_on).$article->slug);
+			$loc = site_url( ($this->config->item('blog_uri')!=null? $this->config->item('blog_uri').'/':null).$article->category_slug.$article->slug);
 
 			$node->addChild('loc', $loc);
 

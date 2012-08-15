@@ -79,8 +79,6 @@ class Admin_Categories extends Admin_Controller {
 	 */
 	public function create()
 	{
-		$category = new stdClass();
-
 		// Validate the data
 		if ($this->form_validation->run())
 		{
@@ -136,17 +134,17 @@ class Admin_Categories extends Admin_Controller {
 			
 			// Fire an event. A blog category is being updated.
 			Events::trigger('blog_category_updated', $id);
-			
-			redirect('admin/blog/categories/index');
-		}
-		
-		// Loop through each rule
-		foreach ($this->validation_rules as $rule)
-		{
-			if ($this->input->post($rule['field']) !== FALSE)
+
+			// Loop through each rule
+			foreach ($this->validation_rules as $rule)
 			{
-				$category->{$rule['field']} = $this->input->post($rule['field']);
+			    if ($this->input->post($rule['field']) !== FALSE)
+			    {
+			    	$category->{$rule['field']} = $this->input->post($rule['field']);
+			    }
 			}
+		
+			redirect('admin/blog/categories/index');
 		}
 
 		$this->template
@@ -226,8 +224,6 @@ class Admin_Categories extends Admin_Controller {
 	 */
 	public function create_ajax()
 	{
-		$category = new stdClass();
-
 		// Loop through each validation rule
 		foreach ($this->validation_rules as $rule)
 		{
