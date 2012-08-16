@@ -34,6 +34,8 @@
 	
 </div>
 
-<?php if ($post->comments_enabled): ?>
-	<?php echo display_comments($post->id); ?>
-<?php endif; ?>
+<?php if (Settings::get('enable_comments')): ?>
+
+	<?php echo $this->comments->display(); ?>
+
+<?php endif ?>

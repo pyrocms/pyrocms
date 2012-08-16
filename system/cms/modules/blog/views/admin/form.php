@@ -101,15 +101,15 @@
 			<li>
 				<label for="comments_enabled"><?php echo lang('blog:comments_enabled_label');?></label>
 				<div class="input">
-					<?php echo form_dropdown('type', array(
+					<?php echo form_dropdown('comments_enabled', array(
 						'no' => lang('global:no'),
-						'1 day' => lang('global:duration-1d'),
-						'1 week' => lang('global:duration-1w'),
-						'2 weeks' => lang('global:duration-2w'),
-						'1 month' => lang('global:duration-1m'),
-						'3 months' => lang('global:duration-3m'),
-						'always' => lang('global:duration-always'),
-					), $post->comments_enabled ? $post->comments_enabled : 'always'); ?>
+						'1 day' => lang('global:duration:1d'),
+						'1 week' => lang('global:duration:1w'),
+						'2 weeks' => lang('global:duration:2w'),
+						'1 month' => lang('global:duration:1m'),
+						'3 months' => lang('global:duration:3m'),
+						'always' => lang('global:duration:always'),
+					), $post->comments_enabled ? $post->comments_enabled : '3 months'); ?>
 				</div>
 			</li>
 		</ul>
@@ -129,7 +129,7 @@
 </section>
 
 <style type="text/css">
-form.crudli.date-meta div.selector {
+form.crud li.date-meta div.selector {
     float: left;
     width: 30px;
 }

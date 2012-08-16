@@ -42,8 +42,6 @@
 
 		<h4><?php echo lang('comments.your_comment'); ?></h4>
 
-		
-
 			<?php echo form_hidden('redirect_to', uri_string()); ?>
 			<noscript><?php echo form_input('d0ntf1llth1s1n', '', 'style="display:none"'); ?></noscript>
 

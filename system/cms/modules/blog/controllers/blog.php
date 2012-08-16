@@ -12,7 +12,6 @@ class Blog extends Public_Controller
 		parent::__construct();
 		$this->load->model('blog_m');
 		$this->load->model('blog_categories_m');
-		$this->load->model('comments/comments_m');
 		$this->load->library(array('keywords/keywords'));
 		$this->lang->load('blog');
 	}
@@ -252,7 +251,6 @@ class Blog extends Public_Controller
 
     private function _single_view($post, $build = 'view')
     {
-
         // if it uses markdown then display the parsed version
         if ($post->type == 'markdown')
         {
@@ -275,7 +273,7 @@ class Blog extends Public_Controller
 			);
         }
 
-        $this->session->set_flashdata(array('referrer' => $this->uri->uri_string));
+        $this->session->set_flashdata(array('referrer' => $this->uri->uri_string()));
 
         // Add category OG metadata
         if ($post->category_id)
@@ -288,37 +286,59 @@ class Blog extends Public_Controller
         	$this->template->set_metadata('og:image', null, 'og');
         }
 
-        $this->template->title($post->title, lang('blog:blog_title'))
+		if ($post->category->id > 0)
+		{
+			$this->template->set_breadcrumb($post->category->title, 'blog/category/'.$post->category->slug);
+
+			// Set category OG metadata			
+			$this->template->set_metadata('article:section', $post->category->title, 'og');
+		}
+
+		// Replace a MD5 hash with an array
+		$post->keywords = Keywords::get_array($post->keywords);
+
+		// Add in OG keywords
+		foreach ($post->keywords as $keyword)
+		{
+			$this->template->set_metadata('article:tag', $keyword, 'og');
+		}
+
+		// If comments are enabled, go fetch them all
+		if (Settings::get('enable_comments'))
+		{
+			// Load Comments so we can work out what to do with them
+			$this->load->library('comments/comments', array(
+				'module' 		=> 'blog',
+				'singular' 	=> 'blog:post',
+				'plural' 	=> 'blog:posts',
+				'entry_id' 		=> $post->id,
+			));
+
+			// Comments enabled can be 'no', 'always', or a strtotime compatable difference string, so "2 weeks"
+			$this->comments->set_form_display(
+				$post->comments_enabled === 'always' or
+				($post->comments_enabled !== 'no' and time() < strtotime('+'.$post->comments_enabled, $post->created_on))
+			);
+		}
+
+		$this->template
+			->title($post->title, lang('blog:blog_title'))
+			
 			->set_metadata('og:type', 'article', 'og')
 			->set_metadata('og:url', current_url(), 'og')
 			->set_metadata('og:title', $post->title, 'og')
 			->set_metadata('og:site_name', Settings::get('site_name'), 'og')
 			->set_metadata('og:description', trim($post->intro), 'og')
-			->set_metadata('article:published_time', standard_date('DATE_ISO8601', $post->created_on), 'og')
-			->set_metadata('article:modified_time', standard_date('DATE_ISO8601', $post->updated_on), 'og')
+			->set_metadata('article:published_time', date(DATE_ISO8601, $post->created_on), 'og')
+			->set_metadata('article:modified_time', date(DATE_ISO8601, $post->updated_on), 'og')
 			->set_metadata('description', $post->intro)
-			->set_metadata('keywords', implode(', ', Keywords::get_array($post->keywords)))
-			->set_breadcrumb(lang('blog:blog_title'), 'blog');
+			->set_metadata('keywords', implode(', ', $post->keywords))
 
-			if ($post->category->id > 0)
-			{
-				$this->template->set_breadcrumb($post->category->title, 'blog/category/'.$post->category->slug);
+			->set_breadcrumb(lang('blog:blog_title'), 'blog')
+			->set_breadcrumb($post->title)
 
-				// Set category OG metadata			
-				$this->template->set_metadata('article:section', $post->category->title, 'og');
-			}
+			->set('post', $post)
 
-			// Add in OG keywords
-			foreach (Keywords::get_array($post->keywords) as $keyword)
-			{
-				$this->template->set_metadata('article:tag', $keyword, 'og');
-			}
-
-			$post->keywords = Keywords::get($post->keywords);
-
-			$this->template
-				->set_breadcrumb($post->title)
-				->set('post', $post)
-				->build($build);
-    }
+			->build($build);
+	}
 }

@@ -9,7 +9,6 @@
  */
 class Comments extends Public_Controller
 {
-
 	/**
 	 * An array containing the validation rules
 	 * 
@@ -49,7 +48,7 @@ class Comments extends Public_Controller
 
 		// Load the required classes
 		$this->load->library('form_validation');
-		$this->load->model('comments_m');
+		$this->load->model('comment_m');
 		$this->lang->load('comments');
 	}
 
@@ -106,7 +105,7 @@ class Comments extends Public_Controller
 			else
 			{
 				// Save the comment
-				if ($comment_id = $this->comments_m->insert($comment))
+				if ($comment_id = $this->comment_m->insert($comment))
 				{
 					// Approve the comment straight away
 					if (!$this->settings->moderate_comments OR (isset($this->current_user->group) && $this->current_user->group == 'admin'))

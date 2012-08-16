@@ -31,6 +31,13 @@ $lang['global:operators:not-equal'] 	= 'Not equal to';
 $lang['global:operators:less-than'] 	= 'Less than';
 $lang['global:operators:greater-than'] 	= 'Greater than';
 
+$lang['global:duration:1d']				= 'One day';
+$lang['global:duration:1w']				= 'One week';
+$lang['global:duration:2w']				= 'Two weeks';
+$lang['global:duration:1m']				= 'One month';
+$lang['global:duration:3m']				= 'Three Months';
+$lang['global:duration:always']			= 'Always';
+
 $lang['navigation_headline'] 			= 'Navigation';
 $lang['breadcrumb_base_label'] 			= 'Home';
 

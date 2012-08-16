@@ -6,10 +6,8 @@
  * @package		PyroCMS\Core\Modules\Keywords\Libraries
  */
 
-class Keywords {
-
-	protected $ci;
-
+class Keywords
+{
 	/**
 	 * The Keywords Construct
 	 */

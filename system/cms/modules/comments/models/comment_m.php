@@ -1,12 +1,11 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
- * Comments model
+ * Comment model
  * 
- * @author		Phil Sturgeon
  * @author		PyroCMS Dev Team
  * @package		PyroCMS\Core\Modules\Comments\Models
  */
-class Comments_m extends MY_Model
+class Comment_m extends MY_Model
 {
     /**
      * Get a comment based on the ID
@@ -56,32 +55,23 @@ class Comments_m extends MY_Model
 	 *
 	 * 
 	 * @param string $module The name of the module
-	 * @param int $ref_id The ID of the module
-	 * @param int $is_active Is the module active?
+	 * @param int $entry_id The ID of the entry
+	 * @param int $entry_key The singular key of the entry (E.g: blog:post or pages:page)
+	 * @param bool $is_active Is the comment active?
 	 * @return array
 	 */
-  	public function get_by_module_item($module, $ref_id, $is_active = 1)
+  	public function get_by_entry($module, $entry_id, $entry_key, $is_active = true)
   	{
 		$this->_get_all_setup();
 		
     	$this->db
     		->where('c.module', $module)
-    		->where('c.module_id', $ref_id)
+    		->where('c.entry_id', $entry_id)
+    		->where('c.entry_key', $entry_key)
     		->where('c.is_active', $is_active)
     		->order_by('c.created_on', $this->settings->comment_order);
     	
 	    return $this->get_all();
-  	}
-  	
-	/**
-	 * Get all comments
-	 *
-	 * 
-	 * @return array
-	 */
-  	public function get_all()
-  	{
-    	return parent::get_all();
   	}
 	
 	/**
@@ -97,12 +87,12 @@ class Comments_m extends MY_Model
 		
 		return parent::insert(array(
 			'user_id'		=> isset($input['user_id']) 	? 	$input['user_id'] 									:  0,
-			'is_active'		=> ! empty($input['is_active']) ? 	1	 												:  0,
+			'is_active'		=> ! empty($input['is_active']) ? 	true	 											:  false,
 			'name'			=> isset($input['name']) 		? 	ucwords(strtolower(strip_tags($input['name']))) 	: '',
 			'email'			=> isset($input['email']) 		? 	strtolower($input['email']) 						: '',
 			'website'		=> isset($input['website']) 	? 	prep_url(strip_tags($input['website'])) 			: '',
-			'comment'		=> htmlspecialchars($input['comment'], NULL, FALSE),
-			'parsed'		=> parse_markdown(htmlspecialchars($input['comment'], NULL, FALSE)),
+			'comment'		=> htmlspecialchars($input['comment'], NULL, false),
+			'parsed'		=> parse_markdown(htmlspecialchars($input['comment'], NULL, false)),
 			'module'		=> $input['module'],
 			'module_id'		=> $input['module_id'],
 			'created_on' 	=> now(),
@@ -126,8 +116,8 @@ class Comments_m extends MY_Model
 			'name'			=> isset($input['name']) 		? 	ucwords(strtolower(strip_tags($input['name']))) 	: '',
 			'email'			=> isset($input['email']) 		? 	strtolower($input['email']) 						: '',
 			'website'		=> isset($input['website']) 	? 	prep_url(strip_tags($input['website'])) 			: '',
-			'comment'		=> htmlspecialchars($input['comment'], NULL, FALSE),
-			'parsed'		=> parse_markdown(htmlspecialchars($input['comment'], NULL, FALSE)),
+			'comment'		=> htmlspecialchars($input['comment'], NULL, false),
+			'parsed'		=> parse_markdown(htmlspecialchars($input['comment'], NULL, false)),
 		));
 	}
 	
@@ -157,9 +147,11 @@ class Comments_m extends MY_Model
 
 	public function get_slugs()
 	{
-		$this->db->select('comments.module, modules.name')
-						->distinct()
-						->join('modules', 'comments.module = modules.slug', 'left');
+		$this->db
+			->select('comments.module, modules.name')
+			->distinct()
+			->join('modules', 'comments.module = modules.slug', 'left');
+
 		$slugs = parent::get_all();
 
 		$options = array();
@@ -168,7 +160,7 @@ class Comments_m extends MY_Model
 		{
 			foreach($slugs as $slug)
 			{
-				if ( ! $slug->name && ($pos = strpos($slug->module, '-')) !== FALSE)
+				if ( ! $slug->name && ($pos = strpos($slug->module, '-')) !== false)
 				{
 					$slug->ori_module	= $slug->module;
 					$slug->module		= substr($slug->module, 0, $pos);

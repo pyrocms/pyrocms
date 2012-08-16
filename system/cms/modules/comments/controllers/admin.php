@@ -46,8 +46,7 @@ class Admin extends Admin_Controller {
 
 		// Load the required libraries, models, etc
 		$this->load->library('form_validation');
-		$this->load->model('comments_m');
-		$this->load->model('comment_blacklists_m');
+		$this->load->model(aray('comment_m', 'comment_blacklists_m'));
 		$this->lang->load('comments');
 
 		// Set the validation rules
@@ -72,10 +71,10 @@ class Admin extends Admin_Controller {
 		$base_where = $this->input->post('module_slug') ? $base_where + array('module' => $this->input->post('module_slug')) : $base_where;
 
 		// Create pagination links
-		$total_rows = $this->comments_m->count_by($base_where);
+		$total_rows = $this->comment_m->count_by($base_where);
 		$pagination = create_pagination('admin/comments/index', $total_rows);
 
-		$comments = $this->comments_m
+		$comments = $this->comment_m
 			->limit($pagination['limit'])
 			->order_by('comments.created_on', 'desc')
 			->get_many_by($base_where);
@@ -84,7 +83,7 @@ class Admin extends Admin_Controller {
 
 		$this->input->is_ajax_request() && $this->template->set_layout(FALSE);
 
-		$module_list = $this->comments_m->get_slugs();
+		$module_list = $this->comment_m->get_slugs();
 
 		$this->template
 			->title($this->module_details['name'])
@@ -132,7 +131,7 @@ class Admin extends Admin_Controller {
 		$id OR redirect('admin/comments');
 
 		// Get the comment based on the ID
-		$comment = $this->comments_m->get($id);
+		$comment = $this->comment_m->get($id);
 
 		// Validate the results
 		if ($this->form_validation->run())
@@ -153,7 +152,7 @@ class Admin extends Admin_Controller {
 			));
 
 			// Update the comment
-			$this->comments_m->update($id, $comment)
+			$this->comment_m->update($id, $comment)
 				? $this->session->set_flashdata('success', lang('comments.edit_success'))
 				: $this->session->set_flashdata('error', lang('comments.edit_error'));
 
@@ -183,7 +182,7 @@ class Admin extends Admin_Controller {
 	public function report($id)
 	{
 		$api_key = Settings::get('akismet_api_key');
-		$comment = $this->comments_m->get($id);
+		$comment = $this->comment_m->get($id);
 		if (!empty($api_key))
 		{	
 			$akismet = $this->load->library('akismet');
@@ -224,9 +223,9 @@ class Admin extends Admin_Controller {
 		foreach ($ids as $id)
 		{
 			// Get the current comment so we can grab the id too
-			if ($comment = $this->comments_m->get($id))
+			if ($comment = $this->comment_m->get($id))
 			{
-				$this->comments_m->delete((int) $id);
+				$this->comment_m->delete((int) $id);
 
 				// Wipe cache for this model, the content has changed
 				$this->pyrocache->delete('comment_m');
@@ -302,7 +301,7 @@ class Admin extends Admin_Controller {
 
 		foreach ($ids as $id)
 		{
-			if ( ! $this->comments_m->{$action}($id))
+			if ( ! $this->comment_m->{$action}($id))
 			{
 				$status = 'error';
 				break;
@@ -311,7 +310,7 @@ class Admin extends Admin_Controller {
 			if ($action == 'approve')
 			{
 				// add an event so third-party devs can hook on
-				Events::trigger('comment_approved', $this->comments_m->get($id));
+				Events::trigger('comment_approved', $this->comment_m->get($id));
 			}
 			else
 			{
@@ -326,7 +325,7 @@ class Admin extends Admin_Controller {
 	{
 		$this->template
 			->set_layout(false)
-			->set('comment', $this->comments_m->get($id))
+			->set('comment', $this->comment_m->get($id))
 			->build('admin/preview');
 	}
 
