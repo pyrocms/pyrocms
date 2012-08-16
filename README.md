@@ -8,9 +8,10 @@
 
 ## Team
 
-* [Phil Sturgeon](http://philsturgeon.co.uk/)
-* [Jerel Unruh](http://unruhdesigns.com/)
 * [Adam Fairholm](http://parse19.com/)
+* [Jerel Unruh](http://unruhdesigns.com/)
+* [Phil Sturgeon](http://philsturgeon.co.uk/)
+* [Scott Parry](http://ikreativ.com/)
 
 ## Description
 
