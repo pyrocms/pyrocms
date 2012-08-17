@@ -10,5 +10,7 @@ $lang['wysiwyg.label.left'] = 'Links';
 $lang['wysiwyg.label.right'] = 'Rechts';
 $lang['wysiwyg.label.none'] 	= 'Geen';
 $lang['wysiwyg.meta.mime'] = 'Mime-type';
+$lang['wysiwyg.action.download']      = 'Download'; #translate
+$lang['wysiwyg.action.open_file']      = 'Open File'; #translate
 
 /* end of file wysiwyg_lang.php */

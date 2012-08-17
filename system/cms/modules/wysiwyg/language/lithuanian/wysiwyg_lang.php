@@ -10,5 +10,7 @@ $lang['wysiwyg.label.left'] = 'Kairė';
 $lang['wysiwyg.label.right'] = 'Dešinė';
 $lang['wysiwyg.label.none'] = 'Nėra';
 $lang['wysiwyg.meta.mime'] = 'Mime Tipas';
+$lang['wysiwyg.action.download']      = 'Download'; #translate
+$lang['wysiwyg.action.open_file']      = 'Open File'; #translate
 
 /* end of file wysiwyg_lang.php */

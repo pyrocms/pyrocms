@@ -10,5 +10,7 @@ $lang['wysiwyg.label.left'] = 'Trái';
 $lang['wysiwyg.label.right'] = 'Phải';
 $lang['wysiwyg.label.none'] = 'Không thiết lập';
 $lang['wysiwyg.meta.mime'] = 'Mime Type';
+$lang['wysiwyg.action.download']      = 'Download'; #translate
+$lang['wysiwyg.action.open_file']      = 'Open File'; #translate
 
 /* end of file wysiwyg_lang.php */

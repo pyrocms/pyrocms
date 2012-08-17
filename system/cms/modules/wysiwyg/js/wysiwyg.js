@@ -37,6 +37,23 @@ function insertFile(id, title, location, path)
     windowClose();
 }
 
+function insertFileLink(id, title, filename, location, path)
+{
+    
+    if (location == 'local') { 	
+		var path = '{{ url:site }}{{ global:UPLOAD_PATH }}files/' + filename ;
+	}
+
+	if(replace_html)
+	{
+		replace_html.remove();
+	}
+
+	window.parent.instance.insertHtml('<a href="'+path+'" title="'+title+'" target="_blank">' + title + '</a>');
+    windowClose();
+   
+}
+
 // By default, insert (which will also replace)
 var replace_html = null;
 
