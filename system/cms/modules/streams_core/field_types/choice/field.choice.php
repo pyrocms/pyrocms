@@ -24,7 +24,8 @@ class Field_choice
 										'choice_type',
 										'default_value',
 										'min_choices',
-										'max_choices'
+										'max_choices',
+										'class'
 									);
 
 	public $plugin_return			= 'merge';
@@ -55,7 +56,14 @@ class Field_choice
 			// are just in an array from the field.
 			// -------------------------------
 
-			return form_dropdown($params['form_slug'], $choices, $params['value'], 'id="'.$params['form_slug'].'"');
+			if(isset($params['custom']['class']))
+			{
+				return form_dropdown($params['form_slug'], $choices, $params['value'], 'id="'.$params['form_slug'].'" class="' . $params['custom']['class'] . '"');
+			}
+			else
+			{
+				return form_dropdown($params['form_slug'], $choices, $params['value'], 'id="'.$params['form_slug'].'"');
+			}
 		}	
 		else
 		{
@@ -103,14 +111,27 @@ class Field_choice
 				if ($params['custom']['choice_type'] == 'radio')
 				{
 					$selected = ($params['value'] == $choice_key) ? true : false;
-			
-					$return .= '<label class="checkbox">'.form_radio($params['form_slug'], $this->format_choice($choice_key), $selected, $this->active_state($choice)).'&nbsp;'.$this->format_choice($choice).'</label>'.$line_end ;
+					if(isset($params['custom']['class']))
+					{
+						$return .= '<label class="radio ' . $params['custom']['class'] . '">'.form_radio($params['form_slug'], $this->format_choice($choice_key), $selected, $this->active_state($choice)).'&nbsp;'.$this->format_choice($choice).'</label>'.$line_end ;
+					}
+					else
+					{
+						$return .= '<label class="radio">'.form_radio($params['form_slug'], $this->format_choice($choice_key), $selected, $this->active_state($choice)).'&nbsp;'.$this->format_choice($choice).'</label>'.$line_end ;
+					}
 				}
 				else
 				{
 					$selected = (in_array($choice_key, $vals)) ? true : false;
-				
-					$return .= '<label class="checkbox">'.form_checkbox($params['form_slug'].'[]', $this->format_choice($choice_key), $selected, 'id="'.$this->format_choice($choice_key).'" '.$this->active_state($choice)).'&nbsp;'.$this->format_choice($choice).'</label>'.$line_end ;
+
+					if(isset($params['custom']['class']))
+					{
+						$return .= '<label class="checkbox ' . $params['custom']['class'] . '">'.form_checkbox($params['form_slug'].'[]', $this->format_choice($choice_key), $selected, 'id="'.$this->format_choice($choice_key).'" '.$this->active_state($choice)).'&nbsp;'.$this->format_choice($choice).'</label>'.$line_end ;
+					}
+					else
+					{
+						$return .= '<label class="checkbox">'.form_checkbox($params['form_slug'].'[]', $this->format_choice($choice_key), $selected, 'id="'.$this->format_choice($choice_key).'" '.$this->active_state($choice)).'&nbsp;'.$this->format_choice($choice).'</label>'.$line_end ;
+					}
 				}
 			}
 		}
@@ -481,6 +502,14 @@ class Field_choice
 		return array(
 				'input' 		=> form_input('max_choices', $value),
 				'instructions'	=> $this->CI->lang->line('streams.choice.checkboxes_only')
+			);
+	}
+
+	public function param_class($value = null)
+	{
+		return array(
+				'input' 		=> form_input('class', $value),
+				'instructions'	=> $this->CI->lang->line('streams.choice.class')
 			);
 	}
 

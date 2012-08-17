@@ -3,6 +3,7 @@
 $lang['streams.choice.name'] 				= 'Choices';
 $lang['streams.choice.instructions'] 		= "Put each choice on one line. If you want a separate value for each choice, you can separate them by a colon (:).<pre>PyroCMS\npyro : PyroCMS</pre>";
 $lang['streams.choice.choice_data'] 		= 'Choice Data';
+$lang['streams.choice.class'] 				= 'Class';
 $lang['streams.choice.choice_type'] 		= 'Choice Type';
 $lang['streams.choice.dropdown'] 			= 'Dropdown';
 $lang['streams.choice.radio_buttons'] 		= 'Radio Buttons';
