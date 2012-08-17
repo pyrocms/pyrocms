@@ -11,7 +11,7 @@ function insertImage(file, alt, location, path)
 		img_width = ! isNaN(img_width) ? img_width : 0;
 
 	if (location == 'local') {
-		path = '{{ url:site }}files/' + (img_width > 0 ? 'thumb/' + file + '/' + img_width : 'large/' + file);
+		path = '{{ url:site }}files/thumb/' + file + '/' + img_width;
 	}
 	
 	// don't display a width="0" tag
@@ -35,23 +35,6 @@ function insertFile(id, title, location, path)
 	}
 	window.parent.instance.insertHtml('<a class="pyro-file" href="'+path+'">' + title + '</a>');
     windowClose();
-}
-
-function insertFileLink(id, title, filename, location, path)
-{
-    
-    if (location == 'local') { 	
-	var path = '{{ url:site }}{{ global:UPLOAD_PATH }}files/' + filename ;
-	}
-
-	if(replace_html)
-	{
-	replace_html.remove();
-	}
-
-	window.parent.instance.insertHtml('<a href="'+path+'" title="'+title+'" target="_blank">' + title + '</a>');
-    windowClose();
-   
 }
 
 // By default, insert (which will also replace)

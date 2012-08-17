@@ -1,14 +1,17 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php
 
-$lang['wysiwyg.meta.width'] = 'Šířka';
-$lang['wysiwyg.meta.height'] = 'Výška';
-$lang['wysiwyg.meta.size'] = 'Velikost';
-$lang['wysiwyg.label.insert_width'] = 'Vložte šířku obrázku:';
-$lang['wysiwyg.label.no_limit'] = 'Full Size'; #translate
-$lang['wysiwyg.label.float'] = 'Plovoucí';
-$lang['wysiwyg.label.left'] = 'Vlevo';
-$lang['wysiwyg.label.right'] = 'Vpravo';
-$lang['wysiwyg.label.none'] = 'Nic';
-$lang['wysiwyg.meta.mime'] = 'Mime Type';
-$lang['wysiwyg.action.download']      = 'Download'; #translate
-$lang['wysiwyg.action.open_file']      = 'Open File'; #translate
+$lang = array(
+    'wysiwyg.meta.width'    =>  'Šířka',
+    'wysiwyg.meta.height'   =>  'Výška',
+    'wysiwyg.meta.size'     =>  'Velikost',
+    'wysiwyg.label.insert_width'    => 'Vložte šířku obrázku:',
+	'wysiwyg.label.no_limit' =>	'Full Size', #translate
+    'wysiwyg.label.float'   =>  'Plovoucí',
+    'wysiwyg.label.left'    =>  'Vlevo',
+    'wysiwyg.label.right'   =>  'Vpravo',
+    'wysiwyg.label.none'    =>  'Nic',
+    'wysiwyg.meta.mime'     =>  'Mime Type'
+
+);
+
+/* end of file wysiwyg_lang.php */

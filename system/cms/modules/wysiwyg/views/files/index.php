@@ -58,7 +58,7 @@
 				</ul>
 			</div>
 			<?php  if ($current_folder->items): ?>
-			<table class="table-list" border="0" cellspacing="0">
+			<table class="table-list" border="0">
 				<thead>
 					<tr>
 						<th><?php echo lang('global:actions'); ?></th>
@@ -72,10 +72,7 @@
 					<tr class="<?php echo alternator('', 'alt'); ?>">
 						<td class="image">
 							<button onclick="javascript:insertFile('<?php echo $file->id."', '".htmlentities($file->name)."', '".$file->location."', '".$file->path; ?>');">
-								<?php echo lang('wysiwyg.action.download'); ?>
-							</button>
-							<button onclick="javascript:insertFileLink('<?php echo $file->id."', '".htmlentities($file->name)."', '".$file->filename."', '".$file->location."', '".$file->path; ?>');">
-								<?php echo lang('wysiwyg.action.open_file'); ?>
+								Insert
 							</button>
 						</td>
 						<td class="name-description">
