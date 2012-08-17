@@ -33,7 +33,7 @@ class Blog extends Public_Controller
 		foreach ($_blog as &$post)
 		{
 			$post->keywords = Keywords::get($post->keywords);
-			$post->url = site_url('blog/'.date('Y', $post->created_on).'/'.date('m', $post->created_on).'/'.$post->slug);
+			$post->url = site_url('blog/'.date('Y/m', $post->created_on).'/'.$post->slug);
 		}
 
 		$this->template
@@ -57,7 +57,7 @@ class Blog extends Public_Controller
 	 */
 	public function category($slug = '')
 	{
-		$slug OR redirect('blog');
+		$slug or redirect('blog');
 
 		// Get category data
 		$category = $this->blog_categories_m->get_by('slug', $slug) OR show_404();
@@ -66,7 +66,7 @@ class Blog extends Public_Controller
 		$pagination = create_pagination('blog/category/'.$slug, $this->blog_m->count_by(array(
 			'category' => $slug,
 			'status' => 'live'
-		)), NULL, 4);
+		)), null, 4);
 
 		// Get the current page of blog posts
 		$blog = $this->blog_m->limit($pagination['limit'])->get_many_by(array(
@@ -80,7 +80,7 @@ class Blog extends Public_Controller
 		foreach ($blog AS &$post)
 		{
 			$post->keywords = Keywords::get($post->keywords);
-			$post->url = site_url('blog/'.date('Y', $post->created_on).'/'.date('m', $post->created_on).'/'.$post->slug);
+			$post->url = site_url('blog/'.date('Y/m', $post->created_on).'/'.$post->slug);
 		}
 
 		// Build the page
@@ -117,11 +117,11 @@ class Blog extends Public_Controller
 		foreach ($_blog AS &$post)
 		{
 			$post->keywords = Keywords::get($post->keywords, 'blog/tagged');
-			$post->url = site_url('blog/'.date('Y', $post->created_on).'/'.date('m', $post->created_on).'/'.$post->slug);
+			$post->url = site_url('blog/'.date('Y/m', $post->created_on).'/'.$post->slug);
 		}
 
 		$this->template
-			->title($month_year, $this->lang->line('blog:archive_title'), lang('blog:blog_title'))
+			->title($month_year, lang('blog:archive_title'), lang('blog:blog_title'))
 			->set_metadata('description', $month_year.'. '.$meta['description'])
 			->set_metadata('keywords', $month_year.', '.$meta['keywords'])
 			->set_breadcrumb(lang('blog:blog_title'), 'blog')
@@ -166,12 +166,11 @@ class Blog extends Public_Controller
 
         if ($post->status == 'live')
         {
-            redirect('blog/' . date('Y/m',$post->created_on) . '/' . $post->slug);
+            redirect('blog/'.date('Y/m',$post->created_on).'/'.$post->slug);
         }
 
         //set index nofollow to attempt to avoid search engine indexing
-        $this->template
-            ->set_metadata('index','nofollow');
+        $this->template->set_metadata('index','nofollow');
 
         $this->_single_view($post);
 
@@ -184,7 +183,7 @@ class Blog extends Public_Controller
 	public function tagged($tag = '')
 	{
 		// decode encoded cyrillic characters
-		$tag = rawurldecode($tag) OR redirect('blog');
+		$tag = rawurldecode($tag) or redirect('blog');
 
 		// Count total blog posts and work out how many pages exist
 		$pagination = create_pagination('blog/tagged/'.$tag, $this->blog_m->count_tagged_by($tag, array('status' => 'live')), NULL, 4);
@@ -194,10 +193,10 @@ class Blog extends Public_Controller
 			->limit($pagination['limit'])
 			->get_tagged_by($tag, array('status' => 'live'));
 
-		foreach ($blog AS &$post)
+		foreach ($blog as &$post)
 		{
 			$post->keywords = Keywords::get($post->keywords, 'blog/tagged');
-			$post->url = site_url('blog/'.date('Y', $post->created_on).'/'.date('m', $post->created_on).'/'.$post->slug);
+			$post->url = site_url('blog/'.date('Y/m', $post->created_on).'/'.$post->slug);
 		}
 
 		// Set meta description based on post titles
@@ -258,7 +257,7 @@ class Blog extends Public_Controller
         }
 
         // IF this post uses a category, grab it
-        if ($post->category_id && ($category = $this->blog_categories_m->get($post->category_id)))
+        if ($post->category_id and ($category = $this->blog_categories_m->get($post->category_id)))
         {
             $post->category = $category;
         }
@@ -308,10 +307,11 @@ class Blog extends Public_Controller
 		{
 			// Load Comments so we can work out what to do with them
 			$this->load->library('comments/comments', array(
-				'module' 		=> 'blog',
-				'singular' 	=> 'blog:post',
-				'plural' 	=> 'blog:posts',
 				'entry_id' 		=> $post->id,
+				'entry_title' 	=> $post->title,
+				'module' 		=> 'blog',
+				'singular' 		=> 'blog:post',
+				'plural' 		=> 'blog:posts',
 			));
 
 			// Comments enabled can be 'no', 'always', or a strtotime compatable difference string, so "2 weeks"

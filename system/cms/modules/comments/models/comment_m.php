@@ -15,18 +15,18 @@ class Comment_m extends MY_Model
      */
   	public function get($id)
   	{
-    	$this->db->select('c.*')
-    		->select('IF(c.user_id > 0, m.display_name, c.name) as name', false)
-    		->select('IF(c.user_id > 0, u.email, c.email) as email', false)
+		return $this->db->select('c.*')
+    		->select('IF(c.user_id > 0, m.display_name, c.user_name) as user_name', false)
+    		->select('IF(c.user_id > 0, u.email, c.user_email) as user_email', false)
     		->from('comments c')
     		->join('users u', 'c.user_id = u.id', 'left')
     		->join('profiles m', 'm.user_id = u.id', 'left')
     	
 			// If there is a comment user id, make sure the user still exists
 			->where('IF(c.user_id > 0, c.user_id = u.id, 1)')
-    		->where('c.id', $id);
-    	
-    	return $this->db->get()->row();
+    		->where('c.id', $id)
+    		->get()
+    		->row();
   	}
   	
 	/**
@@ -82,21 +82,24 @@ class Comment_m extends MY_Model
 	 * @return void
 	 */
 	public function insert($input)
-	{
-		$this->load->helper('date');
-		
+	{	
 		return parent::insert(array(
 			'user_id'		=> isset($input['user_id']) 	? 	$input['user_id'] 									:  0,
 			'is_active'		=> ! empty($input['is_active']) ? 	true	 											:  false,
-			'name'			=> isset($input['name']) 		? 	ucwords(strtolower(strip_tags($input['name']))) 	: '',
-			'email'			=> isset($input['email']) 		? 	strtolower($input['email']) 						: '',
-			'website'		=> isset($input['website']) 	? 	prep_url(strip_tags($input['website'])) 			: '',
-			'comment'		=> htmlspecialchars($input['comment'], NULL, false),
-			'parsed'		=> parse_markdown(htmlspecialchars($input['comment'], NULL, false)),
+			'user_name'		=> isset($input['user_name']) 	? 	ucwords(strtolower(strip_tags($input['user_name']))) : '',
+			'user_email'	=> isset($input['user_email']) 	? 	strtolower($input['user_email']) 					: '',
+			'user_website'	=> isset($input['user_website']) ? 	prep_url(strip_tags($input['user_website'])) 		: '',
+			'comment'		=> htmlspecialchars($input['comment'], null, false),
+			'parsed'		=> parse_markdown(htmlspecialchars($input['comment'], null, false)),
 			'module'		=> $input['module'],
-			'module_id'		=> $input['module_id'],
+			'entry_id'		=> $input['entry_id'],
+			'entry_title'	=> $input['entry_title'],
+			'entry_key'		=> $input['entry_key'],
+			'entry_plural'	=> $input['entry_plural'],
+			'uri'			=> ! empty($input['uri']) ? $input['uri'] : null,
+			'cp_uri'		=> ! empty($input['cp_uri']) ? $input['cp_uri'] : null,
 			'created_on' 	=> now(),
-			'ip_address'	=> $this->input->ip_address()
+			'ip_address'	=> $this->input->ip_address(),
 		));
 	}
 	
@@ -113,9 +116,9 @@ class Comment_m extends MY_Model
   		$this->load->helper('date');
 		
 		return parent::update($id, array(
-			'name'			=> isset($input['name']) 		? 	ucwords(strtolower(strip_tags($input['name']))) 	: '',
-			'email'			=> isset($input['email']) 		? 	strtolower($input['email']) 						: '',
-			'website'		=> isset($input['website']) 	? 	prep_url(strip_tags($input['website'])) 			: '',
+			'user_name'		=> isset($input['user_name']) 	? 	ucwords(strtolower(strip_tags($input['user_name']))) : '',
+			'user_email'	=> isset($input['user_email']) 	? 	strtolower($input['user_email']) 					 : '',
+			'user_website'	=> isset($input['user_website']) ? 	prep_url(strip_tags($input['user_website'])) 		 : '',
 			'comment'		=> htmlspecialchars($input['comment'], NULL, false),
 			'parsed'		=> parse_markdown(htmlspecialchars($input['comment'], NULL, false)),
 		));
@@ -130,7 +133,7 @@ class Comment_m extends MY_Model
 	 */
 	public function approve($id)
 	{
-		return parent::update($id, array('is_active' => 1));
+		return parent::update($id, array('is_active' => true));
 	}
 	
 	/**
@@ -142,7 +145,7 @@ class Comment_m extends MY_Model
 	 */
 	public function unapprove($id)
 	{
-		return parent::update($id, array('is_active' => 0));
+		return parent::update($id, array('is_active' => false));
 	}
 
 	public function get_slugs()
@@ -158,21 +161,21 @@ class Comment_m extends MY_Model
 		
 		if ( ! empty($slugs))
 		{
-			foreach($slugs as $slug)
+			foreach ($slugs as $slug)
 			{
-				if ( ! $slug->name && ($pos = strpos($slug->module, '-')) !== false)
+				if ( ! $slug->name and ($pos = strpos($slug->module, '-')) !== false)
 				{
 					$slug->ori_module	= $slug->module;
 					$slug->module		= substr($slug->module, 0, $pos);
 				}
 
-				if ( ! $slug->name && $module = $this->module_m->get_by('slug', plural($slug->module)))
+				if ( ! $slug->name and $module = $this->module_m->get_by('slug', plural($slug->module)))
 				{
 					$slug->name = $module->name;
 				}
 
 				//get the module name
-				if ($slug->name AND $module_names = unserialize($slug->name))
+				if ($slug->name and $module_names = unserialize($slug->name))
 				{
 					if (array_key_exists(CURRENT_LANGUAGE, $module_names))
 					{
@@ -219,8 +222,8 @@ class Comment_m extends MY_Model
 		$this->_table = NULL;
     	$this->db->select('c.*');
 		$this->db->from('comments c');
-    	$this->db->select('IF(c.user_id > 0, m.display_name, c.name) as name', false);
-    	$this->db->select('IF(c.user_id > 0, u.email, c.email) as email', false);
+    	$this->db->select('IF(c.user_id > 0, m.display_name, c.user_name) as user_name', false);
+    	$this->db->select('IF(c.user_id > 0, u.email, c.user_email) as user_email', false);
 
     	$this->db->join('users u', 'c.user_id = u.id', 'left');
     	$this->db->join('profiles m', 'm.user_id = u.id', 'left');

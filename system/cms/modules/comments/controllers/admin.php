@@ -1,5 +1,4 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
-
 /**
  *
  * @author 		PyroCMS Dev Team
@@ -14,17 +13,17 @@ class Admin extends Admin_Controller {
 	 */
 	private $validation_rules = array(
 		array(
-			'field' => 'name',
+			'field' => 'user_name',
 			'label' => 'lang:comments.name_label',
 			'rules' => 'trim'
 		),
 		array(
-			'field' => 'email',
+			'field' => 'user_email',
 			'label' => 'lang:global:email',
 			'rules' => 'trim|valid_email'
 		),
 		array(
-			'field' => 'website',
+			'field' => 'user_website',
 			'label' => 'lang:comments.website_label',
 			'rules' => 'trim'
 		),
@@ -46,7 +45,8 @@ class Admin extends Admin_Controller {
 
 		// Load the required libraries, models, etc
 		$this->load->library('form_validation');
-		$this->load->model(aray('comment_m', 'comment_blacklists_m'));
+		$this->load->library('comments');
+		$this->load->model(array('comment_m', 'comment_blacklists_m'));
 		$this->lang->load('comments');
 
 		// Set the validation rules
@@ -90,7 +90,7 @@ class Admin extends Admin_Controller {
 			->append_js('admin/filter.js')
 			->set('module_list',		$module_list)
 			->set('content_title',		$content_title)
-			->set('comments',			process_comment_items($comments))
+			->set('comments',			$this->comments->process($comments))
 			->set('comments_active',	$base_where['comments.is_active'])
 			->set('pagination',			$pagination);
 			
@@ -128,7 +128,7 @@ class Admin extends Admin_Controller {
 	 */
 	public function edit($id = 0)
 	{
-		$id OR redirect('admin/comments');
+		$id or redirect('admin/comments');
 
 		// Get the comment based on the ID
 		$comment = $this->comment_m->get($id);
@@ -142,13 +142,13 @@ class Admin extends Admin_Controller {
 			}
 			else
 			{
-				$commenter['name']	= $this->input->post('name');
-				$commenter['email']	= $this->input->post('email');
+				$commenter['user_name']	= $this->input->post('user_name');
+				$commenter['user_email'] = $this->input->post('user_email');
 			}
 
 			$comment = array_merge($commenter, array(
+				'user_website' => $this->input->post('user_website'),
 				'comment' => $this->input->post('comment'),
-				'website' => $this->input->post('website')
 			));
 
 			// Update the comment
@@ -165,7 +165,7 @@ class Admin extends Admin_Controller {
 		// Loop through each rule
 		foreach ($this->validation_rules as $rule)
 		{
-			if ($this->input->post($rule['field']) !== FALSE)
+			if ($this->input->post($rule['field']) !== null)
 			{
 				$comment->{$rule['field']} = $this->input->post($rule['field']);
 			}
@@ -173,7 +173,7 @@ class Admin extends Admin_Controller {
 
 		$this->template
 			->title($this->module_details['name'], sprintf(lang('comments.edit_title'), $comment->id))
-			->append_metadata($this->load->view('fragments/wysiwyg', array(), TRUE))
+			->append_metadata($this->load->view('fragments/wysiwyg', array(), true))
 			->set('comment', $comment)
 			->build('admin/form');
 	}
@@ -183,13 +183,13 @@ class Admin extends Admin_Controller {
 	{
 		$api_key = Settings::get('akismet_api_key');
 		$comment = $this->comment_m->get($id);
-		if (!empty($api_key))
+		if ( ! empty($api_key))
 		{	
 			$akismet = $this->load->library('akismet');
 			$comment_array = array(
-				'author' => $comment->name,
-				'website' => $comment->website,
-				'email' => $comment->email,
+				'user_name' => $comment->user_name,
+				'user_website' => $comment->user_website,
+				'user_email' => $comment->user_email,
 				'body' => $comment->comment
 			);
       
@@ -200,15 +200,18 @@ class Admin extends Admin_Controller {
 			);
 
 			$akismet->init($config);
+
 			//expecting to see $comment as an array not an object...
 			$akismet->submit_spam();          
 		}
             
 		$this->comment_blacklists_m->save(array(
-			'website' => $comment->website,
-			'email' => $comment->email
+			'website' => $comment->user_website,
+			'email' => $comment->user_email
 		));
+
 		$this->delete($id);
+
 		redirect('admin/comments');	
 	}
 

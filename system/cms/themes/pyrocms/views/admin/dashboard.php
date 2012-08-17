@@ -139,12 +139,15 @@ jQuery(function($) {
 			<section class="item">
 				<ul id="recent_comments">
 					<?php if (count($recent_comments)): ?>
-							<?php foreach ($recent_comments AS $rant) : ?>
+							<?php foreach ($recent_comments as $rant) : ?>
 								<li>
-									<?php echo gravatar($rant->email, 100); ?>
+									<?php echo gravatar($rant->user_email, 100); ?>
 									<p>
-										<?php echo sprintf(lang('comments.list_comment'), $rant->name, $rant->item); ?>
-										<?php echo (Settings::get('comment_markdown') AND $rant->parsed > '') ? strip_tags($rant->parsed) : $rant->comment; ?>
+										<?php
+											$title = $rant->uri ? anchor($rant->uri, $rant->entry_title) : $rant->entry_title;
+											echo sprintf(lang('comments.list_comment'), $rant->user_name, $title);
+										?>
+										<?php echo (Settings::get('comment_markdown') and $rant->parsed > '') ? strip_tags($rant->parsed) : $rant->comment; ?>
 									</p>
 								</li>
 							<?php endforeach; ?>
