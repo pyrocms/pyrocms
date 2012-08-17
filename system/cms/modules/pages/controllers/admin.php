@@ -158,7 +158,6 @@ class Admin extends Admin_Controller {
 
         	$page['restricted_to'] = null;
         	$page['navigation_group_id'] = 0;
-	        $page['is_home'] = true;
         
         	foreach($page['chunks'] as $chunk)
         	{
@@ -172,13 +171,10 @@ class Admin extends Admin_Controller {
 
 		foreach ($children as $child)
 		{
-			$this->duplicate($child->id, $new_page['id']);
+			$this->duplicate($child->id, $new_page);
 		}
 
-		if ($parent_id === NULL)
-		{
-			redirect('admin/pages/edit/'.$new_page['id']);
-		}
+		redirect('admin/pages');
 	}
 
 	/**
