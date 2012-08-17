@@ -10,3 +10,5 @@ $lang['wysiwyg.label.left'] = 'Vänster';
 $lang['wysiwyg.label.right'] = 'Höger';
 $lang['wysiwyg.label.none'] = 'Ingen';
 $lang['wysiwyg.meta.mime'] = 'Mime Typ';
+$lang['wysiwyg.action.download']      = 'Download'; #translate
+$lang['wysiwyg.action.open_file']      = 'Open File'; #translate

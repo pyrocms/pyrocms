@@ -72,10 +72,10 @@
 					<tr class="<?php echo alternator('', 'alt'); ?>">
 						<td class="image">
 							<button onclick="javascript:insertFile('<?php echo $file->id."', '".htmlentities($file->name)."', '".$file->location."', '".$file->path; ?>');">
-							Download
+								<?php echo lang('wysiwyg.action.download'); ?>
 							</button>
 							<button onclick="javascript:insertFileLink('<?php echo $file->id."', '".htmlentities($file->name)."', '".$file->filename."', '".$file->location."', '".$file->path; ?>');">
-							Link
+								<?php echo lang('wysiwyg.action.open_file'); ?>
 							</button>
 						</td>
 						<td class="name-description">

@@ -10,3 +10,5 @@ $lang['wysiwyg.label.left'] = 'Kiri';
 $lang['wysiwyg.label.right'] = 'Kanan';
 $lang['wysiwyg.label.none'] = 'None';
 $lang['wysiwyg.meta.mime'] = 'Mime Type';
+$lang['wysiwyg.action.download']      = 'Download'; #translate
+$lang['wysiwyg.action.open_file']      = 'Open File'; #translate

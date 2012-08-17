@@ -10,3 +10,5 @@ $lang['wysiwyg.label.left'] = 'Αριστερά';
 $lang['wysiwyg.label.right'] = 'Δεξιά';
 $lang['wysiwyg.label.none'] = 'Καμία';
 $lang['wysiwyg.meta.mime'] = 'Τύπος Mime';
+$lang['wysiwyg.action.download']      = 'Download'; #translate
+$lang['wysiwyg.action.open_file']      = 'Open File'; #translate
