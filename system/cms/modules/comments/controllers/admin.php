@@ -14,7 +14,7 @@ class Admin extends Admin_Controller {
 	private $validation_rules = array(
 		array(
 			'field' => 'user_name',
-			'label' => 'lang:comments.name_label',
+			'label' => 'lang:comments:name_label',
 			'rules' => 'trim'
 		),
 		array(
@@ -24,12 +24,12 @@ class Admin extends Admin_Controller {
 		),
 		array(
 			'field' => 'user_website',
-			'label' => 'lang:comments.website_label',
+			'label' => 'lang:comments:website_label',
 			'rules' => 'trim'
 		),
 		array(
 			'field' => 'comment',
-			'label' => 'lang:comments.send_label',
+			'label' => 'lang:comments:send_label',
 			'rules' => 'trim|required'
 		),
 	);
@@ -76,10 +76,10 @@ class Admin extends Admin_Controller {
 
 		$comments = $this->comment_m
 			->limit($pagination['limit'])
-			->order_by('comments.created_on', 'desc')
+			->order_by('comments:created_on', 'desc')
 			->get_many_by($base_where);
 
-		$content_title = $base_where['comments.is_active'] ? lang('comments.active_title') : lang('comments.inactive_title');
+		$content_title = $base_where['comments.is_active'] ? lang('comments:active_title') : lang('comments:inactive_title');
 
 		$this->input->is_ajax_request() && $this->template->set_layout(FALSE);
 
@@ -153,8 +153,8 @@ class Admin extends Admin_Controller {
 
 			// Update the comment
 			$this->comment_m->update($id, $comment)
-				? $this->session->set_flashdata('success', lang('comments.edit_success'))
-				: $this->session->set_flashdata('error', lang('comments.edit_error'));
+				? $this->session->set_flashdata('success', lang('comments:edit_success'))
+				: $this->session->set_flashdata('error', lang('comments:edit_error'));
 
 			// Fire an event. A comment has been updated.
 			Events::trigger('comment_updated', $id);
@@ -172,7 +172,7 @@ class Admin extends Admin_Controller {
 		}
 
 		$this->template
-			->title($this->module_details['name'], sprintf(lang('comments.edit_title'), $comment->id))
+			->title($this->module_details['name'], sprintf(lang('comments:edit_title'), $comment->id))
 			->append_metadata($this->load->view('fragments/wysiwyg', array(), true))
 			->set('comment', $comment)
 			->build('admin/form');
@@ -240,8 +240,8 @@ class Admin extends Admin_Controller {
 		if ( ! empty($comments))
 		{
 			(count($comments) == 1)
-				? $this->session->set_flashdata('success', sprintf(lang('comments.delete_single_success'), $comments[0]))				/* Only deleting one comment */
-				: $this->session->set_flashdata('success', sprintf(lang('comments.delete_multi_success'), implode(', #', $comments )));	/* Deleting multiple comments */
+				? $this->session->set_flashdata('success', sprintf(lang('comments:delete_single_success'), $comments[0]))				/* Only deleting one comment */
+				: $this->session->set_flashdata('success', sprintf(lang('comments:delete_multi_success'), implode(', #', $comments )));	/* Deleting multiple comments */
 		
 			// Fire an event. One or more comments were deleted.
 			Events::trigger('comment_deleted', $comments);
@@ -250,7 +250,7 @@ class Admin extends Admin_Controller {
 		// For some reason, none of them were deleted
 		else
 		{
-			$this->session->set_flashdata('error', lang('comments.delete_error'));
+			$this->session->set_flashdata('error', lang('comments:delete_error'));
 		}
 
 		redirect('admin/comments');
@@ -321,7 +321,7 @@ class Admin extends Admin_Controller {
 			}
 		}
 
-		$this->session->set_flashdata(array($status => lang('comments.' . $action . '_' . $status . $multiple)));
+		$this->session->set_flashdata(array($status => lang('comments:' . $action . '_' . $status . $multiple)));
 	}
 
 	public function preview($id = 0)

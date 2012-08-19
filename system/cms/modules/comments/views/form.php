@@ -1,45 +1,37 @@
-<h3><?php echo sprintf(lang('comments.edit_title'), $comment->id); ?></h3>
+<?php echo form_open("comments/create/{$module}", 'id="create-comment"'); ?>
 
-<?php echo form_open($this->uri->uri_string(), 'class="crud"'); ?>
+	<noscript><?php echo form_input('d0ntf1llth1s1n', '', 'style="display:none"'); ?></noscript>
 
-	<?php echo form_hidden('user_id', $comment->user_id); ?>
-	<?php echo form_hidden('active', $comment->is_active); ?>
+	<h4><?php echo lang('comments:your_comment'); ?></h4>
 
-	<ul class="fields">
-		<?php if ( ! $comment->user_id > 0): ?>
-		<li class="even">
-			<label for="name"><?php echo lang('comments.name_label'); ?>:</label>
-			<?php echo form_input('name', $comment->name, 'maxlength="100"'); ?>
-		</li>
+	<?php echo form_hidden('entry', $entry_hash); ?>
 
-		<li>
-			<label for="email"><?php echo lang('global:email'); ?>:</label>
-			<?php echo form_input('email', $comment->email, 'maxlength="100"'); ?>
-		</li>
-		<?php else: ?>
-		<li class="even">
-			<label><?php echo lang('comments.name_label'); ?>:</label>
-			<p><?php echo $comment->name; ?></p>
-		</li>
-		<li>
-			<label><?php echo lang('global:email'); ?>:</label>
-			<p><?php echo $comment->email; ?></p>
-		</li>
-		<?php endif; ?>
+	<?php if ( ! $current_user): ?>
 
-		<li class="even">
-			<label for="body"><?php echo lang('comments.message_label'); ?>:</label><br />
-			<?php echo form_textarea(array('name'=>'comment', 'value' => $comment->comment, 'rows' => 5, 'class'=>'comments wysiwyg-simple')); ?>
-		</li>
+	<div class="form_name">
+		<label for="name"><?php echo lang('comments:name_label'); ?>:</label>
+		<input type="text" name="name" id="name" maxlength="40" value="<?php echo $comment['name'] ?>" />
+	</div>
 
-		<li>
-			<label for="website"><?php echo lang('comments.website_label'); ?>:</label>
-			<?php echo form_input('website', $comment->website); ?>
-		</li>
-	</ul>
+	<div class="form_email">
+		<label for="email"><?php echo lang('global:email'); ?>:</label>
+		<input type="text" name="email" maxlength="40" value="<?php echo $comment['email'] ?>" />
+	</div>
 
-	<div class="buttons float-right padding-top">
-		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )); ?>
+	<div class="form_url">
+		<label for="website"><?php echo lang('comments:website_label'); ?>:</label>
+		<input type="text" name="website" maxlength="40" value="<?php echo $comment['website'] ?>" />
+	</div>
+
+	<?php endif; ?>
+
+	<div class="form_textarea">
+		<label for="comment"><?php echo lang('comments:message_label'); ?>:</label>
+		<textarea name="comment" id="comment" rows="5" cols="30" class="width-full"><?php echo $comment['comment'] ?></textarea>
+	</div>
+
+	<div class="form_submit">
+		<?php echo form_submit('submit', lang('comments:send_label')); ?>
 	</div>
 
 <?php echo form_close(); ?>

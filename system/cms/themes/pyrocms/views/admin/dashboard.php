@@ -132,7 +132,7 @@ jQuery(function($) {
 	<?php if (isset($recent_comments) AND is_array($recent_comments) AND $theme_options->pyrocms_recent_comments == 'yes') : ?>
 		<div class="one_full">
 			<section class="draggable title">
-				<h4><?php echo lang('comments.recent_comments') ?></h4>
+				<h4><?php echo lang('comments:recent_comments') ?></h4>
 				<a class="tooltip-s toggle" title="Toggle this element"></a>
 			</section>
 
@@ -145,14 +145,14 @@ jQuery(function($) {
 									<p>
 										<?php
 											$title = $rant->uri ? anchor($rant->uri, $rant->entry_title) : $rant->entry_title;
-											echo sprintf(lang('comments.list_comment'), $rant->user_name, $title);
+											echo sprintf(lang('comments:list_comment'), $rant->user_name, $title);
 										?>
 										<?php echo (Settings::get('comment_markdown') and $rant->parsed > '') ? strip_tags($rant->parsed) : $rant->comment; ?>
 									</p>
 								</li>
 							<?php endforeach; ?>
 					<?php else: ?>
-						<?php echo lang('comments.no_comments');?>
+						<?php echo lang('comments:no_comments');?>
 					<?php endif; ?>
 				</ul>
 			</section>

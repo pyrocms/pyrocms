@@ -111,7 +111,7 @@ class Migration_Add_comment_expiry extends CI_Migration
 					$this->load->model($comment->module.'/'.$model_name);
 				}
 
-				if ($item = (object) $this->{$model_name}->get($comment->entry_id) AND isset($item->id))
+				if (($item = (object) $this->{$model_name}->get($comment->entry_id)) and isset($item->id))
 				{
 					// Only do this for blog or pages, otherwise we dont know!
 					switch ($comment->module)

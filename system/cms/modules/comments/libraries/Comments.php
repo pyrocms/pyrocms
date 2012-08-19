@@ -52,13 +52,6 @@ class Comments
 	protected $entry_uri;
 
 	/**
-	 * Should the form be displayed along with anything else?
-	 * 
-	 * @var	bool
-	 */
-	protected $form_display = true;
-
-	/**
 	 * Encrypted hash containing title, singular and plural keys
 	 * 
 	 * @var	bool
@@ -99,9 +92,9 @@ class Comments
 	}
 	
 	/**
-	 * Count comments
+	 * Display comments
 	 *
-	 * @return	string	Returns the HTML for any existing comments, and optionally a form
+	 * @return	string	Returns the HTML for any existing comments
 	 */
 	public function display()
 	{
@@ -109,12 +102,21 @@ class Comments
 		$comments = $this->process(ci()->comment_m->get_by_entry($this->module, $this->singular, $this->entry_id));
 		
 		// Return the awesome comments view
-		return $this->load_view('comments', array(
-			'comments'		=>	$comments,
+		return $this->load_view('display', compact(array('comments')));
+	}
+	
+	/**
+	 * Display form
+	 *
+	 * @return	string	Returns the HTML for the comment submission form
+	 */
+	public function form()
+	{
+		// Return the awesome comments view
+		return $this->load_view('form', array(
 			'module'		=>	$this->module,
 			'entry_hash'	=>	$this->encode_entry(),
 			'comment'		=>  ci()->session->flashdata('comment'),
-			'form_display' 	=>	$this->form_display,
 		));
 	}
 
@@ -142,7 +144,7 @@ class Comments
 	{
 		$total = $this->count();
 
-		return sprintf(lang('comments.counter_'.$line.'_label'), $total);
+		return sprintf(lang('comments:counter_'.$line.'_label'), $total);
 	}
 
 	/**
@@ -224,18 +226,6 @@ class Comments
 		ci()->load->vars($data);
 
 		return ci()->load->_ci_load(array('_ci_view' => $view, '_ci_return' => true));
-	}
-
-	/**
-	 * Set Form Display
- 	 * Modules can have all sorts of reasons for disabling the form, but still displaying comments. 
-	 *
-	 * @param bool $is_enabled
-	 * @return	int	Return the number of comments for this entry item
-	 */
-	public function set_form_display($is_enabled = true)
-	{
-		$this->form_display = $is_enabled;
 	}
 
 	/**

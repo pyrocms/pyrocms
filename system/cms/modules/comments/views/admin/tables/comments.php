@@ -4,8 +4,8 @@
 		<thead>
 			<tr>
 				<th width="20"><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all'));?></th>
-				<th width="25%"><?php echo lang('comments.message_label');?></th>
-				<th width="25%"><?php echo lang('comments.item_label');?></th>
+				<th width="25%"><?php echo lang('comments:message_label');?></th>
+				<th width="25%"><?php echo lang('comments:item_label');?></th>
 				<th><?php echo lang('global:author');?></th>
 				<th><?php echo lang('global:email');?></th>
 				<th width="80"><?php echo lang('comments_active.date_label');?></th>
@@ -71,6 +71,6 @@
 	
 <?php else: ?>
 
-	<div class="no_data"><?php echo lang('comments.no_comments');?></div>
+	<div class="no_data"><?php echo lang('comments:no_comments');?></div>
 
 <?php endif; ?>

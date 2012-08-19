@@ -17,7 +17,7 @@ class Comments extends Public_Controller
 	private $validation_rules = array(
 		array(
 			'field' => 'name',
-			'label' => 'lang:comments.name_label',
+			'label' => 'lang:comments:name_label',
 			'rules' => 'trim'
 		),
 		array(
@@ -27,12 +27,12 @@ class Comments extends Public_Controller
 		),
 		array(
 			'field' => 'website',
-			'label' => 'lang:comments.website_label',
+			'label' => 'lang:comments:website_label',
 			'rules' => 'trim|max_length[255]'
 		),
 		array(
 			'field' => 'comment',
-			'label' => 'lang:comments.message_label',
+			'label' => 'lang:comments:message_label',
 			'rules' => 'trim|required'
 		),
 	);
@@ -60,9 +60,13 @@ class Comments extends Public_Controller
 	 */
 	public function create($module = null)
 	{
-		$module or show_404();
+		if ( ! $module or ! $this->input->post('entry')) 
+		{
+			show_404();
+		}
 
 		// Get information back from the entry hash
+		// @HACK This should be part of the controllers lib, but controllers & libs cannot share a name
 		$entry = unserialize($this->encrypt->decode($this->input->post('entry')));
 
 		$comment = array(
@@ -121,9 +125,9 @@ class Comments extends Public_Controller
 				if ($comment_id = $this->comment_m->insert($comment))
 				{
 					// Approve the comment straight away
-					if (!$this->settings->moderate_comments OR (isset($this->current_user->group) && $this->current_user->group == 'admin'))
+					if (!$this->settings->moderate_comments or (isset($this->current_user->group) and $this->current_user->group == 'admin'))
 					{
-						$this->session->set_flashdata('success', lang('comments.add_success'));
+						$this->session->set_flashdata('success', lang('comments:add_success'));
 
 						// Add an event so third-party devs can hook on
 						Events::trigger('comment_approved', $comment);
@@ -132,7 +136,7 @@ class Comments extends Public_Controller
 					// Do we need to approve the comment?
 					else
 					{
-						$this->session->set_flashdata('success', lang('comments.add_approve'));
+						$this->session->set_flashdata('success', lang('comments:add_approve'));
 					}
 
 					$comment['comment_id'] = $comment_id;
@@ -150,7 +154,7 @@ class Comments extends Public_Controller
 				// Failed to add the comment
 				else
 				{
-					$this->session->set_flashdata('error', lang('comments.add_error'));
+					$this->session->set_flashdata('error', lang('comments:add_error'));
 				}
 			}
 		}

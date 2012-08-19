@@ -103,11 +103,11 @@
 				<div class="input">
 					<?php echo form_dropdown('comments_enabled', array(
 						'no' => lang('global:no'),
-						'1 day' => lang('global:duration:1d'),
-						'1 week' => lang('global:duration:1w'),
-						'2 weeks' => lang('global:duration:2w'),
-						'1 month' => lang('global:duration:1m'),
-						'3 months' => lang('global:duration:3m'),
+						'1 day' => lang('global:duration:1-day'),
+						'1 week' => lang('global:duration:1-week'),
+						'2 weeks' => lang('global:duration:2-weeks'),
+						'1 month' => lang('global:duration:1-month'),
+						'3 months' => lang('global:duration:3-months'),
 						'always' => lang('global:duration:always'),
 					), $post->comments_enabled ? $post->comments_enabled : '3 months'); ?>
 				</div>

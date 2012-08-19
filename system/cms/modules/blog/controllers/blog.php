@@ -77,7 +77,7 @@ class Blog extends Public_Controller
 		// Set meta description based on post titles
 		$meta = $this->_posts_metadata($blog);
 
-		foreach ($blog AS &$post)
+		foreach ($blog as &$post)
 		{
 			$post->keywords = Keywords::get($post->keywords);
 			$post->url = site_url('blog/'.date('Y/m', $post->created_on).'/'.$post->slug);
@@ -103,7 +103,7 @@ class Blog extends Public_Controller
 	 */
 	public function archive($year = NULL, $month = '01')
 	{
-		$year OR $year = date('Y');
+		$year or $year = date('Y');
 		$month_date = new DateTime($year.'-'.$month.'-01');
 		$pagination = create_pagination('blog/archive/'.$year.'/'.$month, $this->blog_m->count_by(array('year' => $year, 'month' => $month)), NULL, 5);
 		$_blog = $this->blog_m
@@ -114,7 +114,7 @@ class Blog extends Public_Controller
 		// Set meta description based on post titles
 		$meta = $this->_posts_metadata($_blog);
 
-		foreach ($_blog AS &$post)
+		foreach ($_blog as &$post)
 		{
 			$post->keywords = Keywords::get($post->keywords, 'blog/tagged');
 			$post->url = site_url('blog/'.date('Y/m', $post->created_on).'/'.$post->slug);
@@ -144,7 +144,7 @@ class Blog extends Public_Controller
 			redirect('blog');
 		}
 
-		if ($post->status != 'live' && ! $this->ion_auth->is_admin())
+		if ($post->status !== 'live' and ! $this->ion_auth->is_admin())
 		{
 			redirect('blog');
 		}
@@ -164,7 +164,7 @@ class Blog extends Public_Controller
             redirect('blog');
         }
 
-        if ($post->status == 'live')
+        if ($post->status === 'live')
         {
             redirect('blog/'.date('Y/m',$post->created_on).'/'.$post->slug);
         }
@@ -251,7 +251,7 @@ class Blog extends Public_Controller
     private function _single_view($post, $build = 'view')
     {
         // if it uses markdown then display the parsed version
-        if ($post->type == 'markdown')
+        if ($post->type === 'markdown')
         {
             $post->body = $post->parsed;
         }
@@ -315,10 +315,10 @@ class Blog extends Public_Controller
 			));
 
 			// Comments enabled can be 'no', 'always', or a strtotime compatable difference string, so "2 weeks"
-			$this->comments->set_form_display(
+			$this->template->set('form_display', (
 				$post->comments_enabled === 'always' or
 				($post->comments_enabled !== 'no' and time() < strtotime('+'.$post->comments_enabled, $post->created_on))
-			);
+			));
 		}
 
 		$this->template

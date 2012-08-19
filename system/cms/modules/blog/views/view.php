@@ -36,6 +36,26 @@
 
 <?php if (Settings::get('enable_comments')): ?>
 
-	<?php echo $this->comments->display(); ?>
+<div id="comments">
+	
+	<div id="existing-comments">
+		
+		<h4><?php echo lang('comments:title'); ?></h4>
+
+		<?php echo $this->comments->display(); ?>
+
+	</div>
+
+	<?php if ($form_display): ?>
+
+		<?php echo $this->comments->form(); ?>
+
+	<?php else: ?>
+
+		<?php echo sprintf(lang('blog:disabled_after'), strtolower(lang('global:duration:'.str_replace(' ', '-', $post->comments_enabled)))) ?>
+
+	<?php endif ?>
+
+</div>
 
 <?php endif ?>

@@ -1,5 +1,5 @@
 <section class="title">
-	<h4><?php echo sprintf(lang('comments.edit_title'), $comment->id); ?></h4>
+	<h4><?php echo sprintf(lang('comments:edit_title'), $comment->id); ?></h4>
 </section>
 
 	<section class="item">
@@ -11,7 +11,7 @@
 		<ul class="fields">
 			<?php if ( ! $comment->user_id): ?>
 			<li>
-				<label for="user_name"><?php echo lang('comments.name_label'); ?>:</label>
+				<label for="user_name"><?php echo lang('comments:name_label'); ?>:</label>
 				<div class="input">
 					<?php dump($comment) ?>
 					<?php echo form_input('user_name', $comment->user_name, 'maxlength="100"'); ?>
@@ -26,7 +26,7 @@
 			</li>
 			<?php else: ?>
 			<li>
-				<label for="user_name"><?php echo lang('comments.name_label'); ?>:</label>
+				<label for="user_name"><?php echo lang('comments:name_label'); ?>:</label>
 				<p><?php echo $comment->user_name; ?></p>
 			</li>
 			<li>
@@ -36,14 +36,14 @@
 			<?php endif; ?>
 
 			<li>
-				<label for="user_website"><?php echo lang('comments.website_label'); ?>:</label>
+				<label for="user_website"><?php echo lang('comments:website_label'); ?>:</label>
 				<div class="input">
 					<?php echo form_input('user_website', $comment->user_website); ?>
 				</div>
 			</li>
 
 			<li>
-				<label for="comment"><?php echo lang('comments.message_label'); ?>:</label><br />
+				<label for="comment"><?php echo lang('comments:message_label'); ?>:</label><br />
 				<?php echo form_textarea(array('name'=>'comment', 'value' => $comment->comment, 'rows' => 5)); ?>
 			</li>
 		</ul>
