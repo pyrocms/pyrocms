@@ -44,6 +44,7 @@ $lang['blog:blog_title'] 			= 'Novinky';
 $lang['blog:list_title'] 			= 'Seznam článků';
 
 // messages
+$lang['blog:disabled_after'] 				= 'Posting comments after %s has been disabled.'; #translate
 $lang['blog:no_posts'] 			= 'Nejsou zde žádné články.';
 $lang['blog:subscripe_to_rss_desc'] 		= 'Dostávejte články rovnou pomocí RSS. Můžete použít populární e-mailové klienty nebo zkuste <a href="http://reader.google.cz/">Google Reader</a>.';
 $lang['blog:currently_no_posts'] 		= 'Nejsou zde žádné články.';

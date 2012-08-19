@@ -36,6 +36,7 @@ $lang['blog:created_minute']       		= 'Tijd (Minuten)';
 $lang['blog:comments_enabled_label']	= 'Reacties ingeschakeld';
 
 // titles
+$lang['blog:disabled_after'] 			= 'Posting comments after %s has been disabled.'; #translate
 $lang['blog:create_title'] 				= 'Voeg artikel toe';
 $lang['blog:edit_title'] 				= 'Wijzig artikel "%s"';
 $lang['blog:archive_title'] 			= 'Archief';

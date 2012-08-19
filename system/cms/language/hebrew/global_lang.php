@@ -11,9 +11,9 @@ $lang['global:author'] 					= 'Author'; #translate
 $lang['global:action'] 					= 'Action'; #translate
 
 $lang['dialog.delete_message'] 			= 'Are you sure you want to delete this? It cannot be undone.'; #translate
-$lang['dialog.confirm'] 					= 'Confirm'; #translate
-$lang['dialog.yes'] 					= 'כן';
-$lang['dialog.no'] 					= 'לא';
+$lang['global:dialog:confirm'] 					= 'Confirm'; #translate
+$lang['global:yes'] 					= 'כן';
+$lang['global:no'] 					= 'לא';
 
 $lang['global:select-none'] 					= '-- כלום --';
 $lang['global:select-all'] 					= '-- הכל --';
@@ -23,10 +23,17 @@ $lang['global:select-pick'] 					= '-- בחר --';
 $lang['global:check-none'] 					= 'None'; #translate
 $lang['global:check-all']						= 'All'; #translate
 
-$lang['operators.equal'] 				= 'שווה ל';
-$lang['operators.not_equal'] 			= 'לא שווה ל';
-$lang['operators.less_than'] 			= 'פחות מ';
-$lang['operators.greater_than'] 			= 'גדול מ';
+$lang['global:operators:equal'] 				= 'שווה ל';
+$lang['global:operators:not-equal'] 			= 'לא שווה ל';
+$lang['global:operators:less-than'] 			= 'פחות מ';
+$lang['global:operators:greater-than'] 			= 'גדול מ';
+
+$lang['global:duration:1-day']			= 'One day'; #translate
+$lang['global:duration:1-week']			= 'One week'; #translate
+$lang['global:duration:2-weeks']		= 'Two weeks'; #translate
+$lang['global:duration:1-month']		= 'One month'; #translate
+$lang['global:duration:3-months']		= 'Three Months'; #translate
+$lang['global:duration:always']			= 'Always'; #translate
 
 $lang['navigation_headline'] 				= 'ניווט';
 $lang['breadcrumb_base_label'] 			= 'ראשי';

@@ -52,6 +52,7 @@ $lang['blog:blog_title']										= 'Блог';
 $lang['blog:list_title']										= 'Список статей';
 
 // сообщения
+$lang['blog:disabled_after'] 				= 'Posting comments after %s has been disabled.'; #translate
 $lang['blog:no_posts']											= 'Статьи отсутствуют.';
 $lang['blog:subscripe_to_rss_desc']					= 'Получайте статьи сразу после их публикации, подпишитесь на нашу ленту новостей. Вы можете сделать это с помощью самых популярных программ для чтения электронных писем, или попробуйте <a href="http://reader.google.ru/">Google Reader</a>.';
 $lang['blog:currently_no_posts']						= 'В данный момент новости отсутствуют.';
