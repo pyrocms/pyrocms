@@ -161,7 +161,7 @@ class Comments
 		foreach ($comments as &$comment)
 		{
 			// Override specified website if they are a user
-			if ($comment->user_id and Setting::get('enable_profiles'))
+			if ($comment->user_id and Settings::get('enable_profiles'))
 			{
 				$comment->website = 'user/'.$comment->user_id;
 			}
@@ -188,7 +188,7 @@ class Comments
 			// work out who did the commenting
 			if ($comment->user_id > 0)
 			{
-				$comment->name = anchor('admin/users/edit/'.$comment->user_id, $comment->name);
+				$comment->user_name = anchor('admin/users/edit/'.$comment->user_id, $comment->user_name);
 			}
 
 			// Security: Escape any Lex tags

@@ -1804,15 +1804,31 @@ ul.block-message { width: 100%; float: left; }
 .tipsy-w .tipsy-arrow { top: 50%; margin-top: -4px; left: 0; width: 5px; height: 9px; }
 
 /* Password Strength */
+input#user_password { float: left; }
+
 #progressbar {
-  width:388px;height:28px;
-  display:block;
-  border:1px solid #ccc;
-  border-radius:5px;
+  background: #f1f1f1;
+  width: 388px;
+  height: 30px;
+  display: block;
+  border: 1px solid #d9d9d9;
+  border-radius: 5px;
   overflow:hidden;
+  float: left;
+  margin: 10px 0 0 5px;
 }
 #progress {
-  display:block;height:30px;width:0%;
+  display: block;
+  height: 30px;
+  width: 0%;
+}
+#complexity {
+  position: relative;
+  margin-left: 15px;
+  margin-top: -24px;
+  float: left;
+  color: #333333;
+  font-weight: 600;
 }
 
 .password-wrapper {
