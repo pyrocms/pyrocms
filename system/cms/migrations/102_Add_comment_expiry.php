@@ -15,68 +15,59 @@ class Migration_Add_comment_expiry extends CI_Migration
 
 		$this->db->update('blog', array('comments_enabled' => '3 months'));
 
-		// TODO Search should never have been int
-		// $this->dbforge->modify_column('search_index', array(
-		// 	'entry_id' => array(
-		// 		'type' => 'varchar',
-		// 		'constraint' => 255,
-		// 		'null' => true,
-		// 	),
-		// ));
-
 		// Lets update the comments table with these new awesome fields
-		// $this->dbforge->modify_column('comments', array(
-		// 	// 'module_id' => array(
-		// 	// 	'name' => 'entry_id',
-		// 	// 	'type' => 'varchar',
-		// 	// 	'constraint' => 255,
-		// 	// 	'null' => true,
-		// 	// ),
-		// 	'name' => array(
-		// 		'name' => 'user_name',
-		// 		'type' => 'varchar',
-		// 		'constraint' => 255,
-		// 	),
-		// 	'email' => array(
-		// 		'name' => 'user_email',
-		// 		'type' => 'varchar',
-		// 		'constraint' => 255,
-		// 	),
-		// 	'website' => array(
-		// 		'name' => 'user_website',
-		// 		'type' => 'varchar',
-		// 		'constraint' => 255,
-		// 		'null' => true,
-		// 	),
-		// ));
+		$this->dbforge->modify_column('comments', array(
+			'module_id' => array(
+				'name' => 'entry_id',
+				'type' => 'varchar',
+				'constraint' => 255,
+				'null' => true,
+			),
+			'name' => array(
+				'name' => 'user_name',
+				'type' => 'varchar',
+				'constraint' => 255,
+			),
+			'email' => array(
+				'name' => 'user_email',
+				'type' => 'varchar',
+				'constraint' => 255,
+			),
+			'website' => array(
+				'name' => 'user_website',
+				'type' => 'varchar',
+				'constraint' => 255,
+				'null' => true,
+			),
+		));
 
-		// $this->dbforge->add_column('comments', array(
-		// 	'entry_title' => array(
-		// 		'type' => 'char',
-		// 		'constraint' => 255,
-		// 		'null' => false,
-		// 	),
-		// 	'entry_key' => array(
-		// 		'type' => 'varchar',
-		// 		'constraint' => 100,
-		// 		'null' => false,
-		// 	),
-		// 	'entry_plural' => array(
-		// 		'type' => 'varchar',
-		// 		'constraint' => 100,
-		// 		'null' => false,
-		// 	),
-		// 	'uri' => array(
-		// 		'type' => 'varchar',
-		// 		'constraint' => 255,
-		// 		'null' => true,
-		// 	),
-		// 	'cp_uri' => array(
-		// 		'type' => 'varchar',
-		// 		'constraint' => 255,
-		// 		'null' => true,
-		// 	),
-		// ));
+		$this->dbforge->add_column('comments', array(
+			'entry_title' => array(
+				'type' => 'char',
+				'constraint' => 255,
+				'null' => false,
+			),
+			'entry_key' => array(
+				'type' => 'varchar',
+				'constraint' => 100,
+				'null' => false,
+			),
+			'entry_plural' => array(
+				'type' => 'varchar',
+				'constraint' => 100,
+				'null' => false,
+			),
+			'uri' => array(
+				'type' => 'varchar',
+				'constraint' => 255,
+				'null' => true,
+			),
+			'cp_uri' => array(
+				'type' => 'varchar',
+				'constraint' => 255,
+				'null' => true,
+			),
+		));
 
 		$comments = $this->db->get('comments')->result();
 
