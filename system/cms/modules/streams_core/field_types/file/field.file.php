@@ -21,7 +21,7 @@ class Field_file
 
 	public $author					= array('name'=>'Parse19', 'url'=>'http://parse19.com');
 	
-	public $input_is_file			= TRUE;
+	public $input_is_file			= true;
 	
 	// --------------------------------------------------------------------------
 
@@ -32,25 +32,29 @@ class Field_file
 	 * @param	array
 	 * @return	string
 	 */
-	function form_output($params)
+	public function form_output($params)
 	{
 		$this->CI->load->config('files/files');
 		
 		// Get the file
-		$db_obj = $this->CI->db
+		if ($params['value'])
+		{
+			$current_file = $this->CI->db
 							->where('id', $params['value'])
 							->limit(1)
-							->get('files');
-		
-		$out = '';
-		
-		if ($db_obj->num_rows() != 0)
-		{
-			$out .= $this->_output_link($db_obj->row()).'<br />';
+							->get('files')
+							->row();
 		}
 		else
 		{
-			$out .= '';
+			$current_file = null;
+		}
+
+		$out = '';
+		
+		if ($current_file)
+		{
+			$out .= $this->_output_link($current_file).'<br />';
 		}
 		
 		// Output the actual used value
@@ -149,10 +153,12 @@ class Field_file
 	 *
 	 * @access	public
 	 * @param	array
-	 * @return	string
+	 * @return	mixed - null or string
 	 */	
-	function pre_output($input, $params)
+	public function pre_output($input, $params)
 	{
+		if ( ! $input) return null;
+
 		$this->CI->load->config('files/files');
 		
 		$db_obj = $this->CI->db->limit(1)->where('id', $input)->get('files');
@@ -176,10 +182,12 @@ class Field_file
 	 * @param	string
 	 * @param	string
 	 * @param	array
-	 * @return	array
+	 * @return	mixed - null or array
 	 */
-	function pre_output_plugin($input, $params)
+	public function pre_output_plugin($input, $params)
 	{
+		if ( ! $input) return null;
+
 		$image_data = array();
 	
 		$this->CI->load->config('files/files');
