@@ -174,8 +174,16 @@ class Fields
 		// -------------------------------------
 		
 		$result_id = '';
-
-		if ($this->CI->form_validation->run() === TRUE)
+		$post = $this->CI->input->post();
+		$stream_check = true;
+		if(isset($post['stream_id']))
+		{
+			if($post['stream_id'] !=$stream->id )
+			{
+				$stream_check=false;
+			}
+		}
+		if (($this->CI->form_validation->run() === TRUE) && ($stream_check))
 		{
 			if ($method == 'new')
 			{
