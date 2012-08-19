@@ -17,8 +17,8 @@ class Blog_categories_m extends MY_Model
 	public function insert($input = array())
 	{
 		parent::insert(array(
-			'title'=>$input['title'],
-			'slug'=>url_title(strtolower(convert_accented_characters($input['title'])))
+			'title' => $input['title'],
+			'slug' => $input['slug'],
 		));
 		
 		return $input['title'];
@@ -35,7 +35,7 @@ class Blog_categories_m extends MY_Model
 	{
 		return parent::update($id, array(
 			'title'	=> $input['title'],
-		        'slug'	=> url_title(strtolower(convert_accented_characters($input['title'])))
+		    'slug'	=> $input['slug'],
 		));
 	}
 
@@ -48,7 +48,22 @@ class Blog_categories_m extends MY_Model
 	 */
 	public function check_title($title = '', $id = 0)
 	{
-		return (bool) $this->db->where('slug', url_title($title))
+		return (bool) $this->db->where('title', $title)
+			->where('id != ', $id)
+			->from('blog_categories')
+			->count_all_results();
+	}
+
+	/**
+	 * Callback method for validating the slug
+	 * 
+	 * @param string $slug The slug to validate
+	 * @param int $id The id to check
+	 * @return mixed
+	 */
+	public function check_slug($title = '', $id = 0)
+	{
+		return (bool) $this->db->where('slug', $slug)
 			->where('id != ', $id)
 			->from('blog_categories')
 			->count_all_results();
