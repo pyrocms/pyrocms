@@ -1,4 +1,3 @@
-
 <!-- Begin Quick Links -->
 	<?php if ($theme_options->pyrocms_quick_links == 'yes') : ?>
 	<div class="one_full">
@@ -137,15 +136,32 @@ jQuery(function($) {
 			</section>
 
 			<section class="item">
-				<ul id="recent_comments">
+				<ul id="existing-comments">
 					<?php if (count($recent_comments)): ?>
 							<?php foreach ($recent_comments AS $rant) : ?>
 								<li>
-									<?php echo gravatar($rant->email, 100); ?>
-									<p>
-										<?php echo sprintf(lang('comments.list_comment'), $rant->name, $rant->item); ?>
-										<?php echo (Settings::get('comment_markdown') AND $rant->parsed > '') ? strip_tags($rant->parsed) : $rant->comment; ?>
-									</p>
+									<div class="comment">
+										<div class="image">
+											<?php echo gravatar($rant->email, 60); ?>
+										</div>
+										<div class="details">
+											<div class="name">
+												<p>
+													<?php echo $rant->website ? anchor($rant->website, $rant->name, 'rel="external nofollow"') : $rant->name; ?>
+												</p>
+											</div>
+											<div class="date">
+												<p><?php echo format_date($rant->created_on); ?></p>
+											</div>
+											<div class="content">
+												<?php if (Settings::get('comment_markdown') AND $rant->parsed > ''): ?>
+													<?php echo $rant->parsed; ?>
+												<?php else: ?>
+													<p><?php echo nl2br($rant->comment); ?></p>
+												<?php endif; ?>
+											</div>
+										</div>
+									</div><!-- close .comment -->
 								</li>
 							<?php endforeach; ?>
 					<?php else: ?>
