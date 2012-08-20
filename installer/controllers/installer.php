@@ -21,7 +21,7 @@ class Installer extends CI_Controller
 	/**
 	 * Array of languages supported by the installer
 	 */
-	private $languages	= array ('arabic', 'brazilian', 'english', 'dutch', 'french', 'german', 'portuguese', 'polish', 'chinese_traditional', 'slovenian', 'spanish', 'russian', 'greek', 'lithuanian','danish','vietnamese', 'indonesian', 'hungarian', 'finnish', 'swedish','thai');
+	private $languages	= array ('arabic', 'brazilian', 'english', 'dutch', 'french', 'german', 'portuguese', 'polish', 'chinese_traditional', 'slovenian', 'spanish', 'russian', 'greek', 'lithuanian','danish','vietnamese', 'indonesian', 'hungarian', 'finnish', 'swedish','thai','italian');
 
 	/**
 	 * Array containing the directories that need to be writeable
@@ -221,6 +221,9 @@ class Installer extends CI_Controller
 		$data->php_min_version	= '5.2';
 		$data->php_acceptable	= $this->installer_lib->php_acceptable($data->php_min_version);
 		$data->php_version		= $this->installer_lib->php_version;
+
+		$data->mysql = new stdClass();
+		$data->http_server = new stdClass();
 
 		// Check the MySQL data
 		$data->mysql->server_version_acceptable = $this->installer_lib->mysql_acceptable('server');

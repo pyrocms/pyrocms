@@ -165,6 +165,7 @@ class Row_m extends MY_Model {
 		// Convenience Vars
 		// -------------------------------------
 		
+		$this->data = new stdClass();
 		$this->data->stream = $stream;
 
 		$this->select_prefix 	= $this->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug, true).'.';
