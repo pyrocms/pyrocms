@@ -15,6 +15,16 @@ function ci()
  * @author 		Yorick Peterse
  * @author		PyroCMS Dev Team
  * @package		PyroCMS\Installer\Controllers
+ * @property    CI_Loader $load  	
+ * @property    CI_Parser $parser
+ * @property    CI_Input $input
+ * @property    CI_Session $session
+ * @property    CI_Form_validation $form_validation
+ * @property    CI_Lang $lang
+ * @property    CI_Config $config
+ * @property    CI_Router $router
+ * @property    Module_import $module_import
+ * @property    Installer_lib $installer_lib
  */
 class Installer extends CI_Controller
 {
@@ -54,7 +64,7 @@ class Installer extends CI_Controller
 	 * Constructor method
 	 *
 	 * @access public
-	 * @return void
+	 * @return \Installer
 	 */
 	public function __construct()
 	{
@@ -209,6 +219,8 @@ class Installer extends CI_Controller
 	public function step_2()
 	{
 		$data = new stdClass();
+		$data->mysql = new stdClass();
+		$data->http_server = new stdClass();
 
 		// Did the user enter the DB settings ?
 		if ( ! $this->session->userdata('step_1_passed'))
@@ -275,6 +287,7 @@ class Installer extends CI_Controller
 	public function step_3()
 	{
 		$data = new stdClass();
+		$permissions = array();
 		
 		if ( ! $this->session->userdata('step_1_passed') OR ! $this->session->userdata('step_2_passed'))
 		{
