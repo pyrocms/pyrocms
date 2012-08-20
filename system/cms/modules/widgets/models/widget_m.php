@@ -8,6 +8,8 @@
  */
 class Widget_m extends MY_Model
 {
+	private $_widget_exists = array();
+
 	public function __construct()
 	{
 		parent::__construct();
@@ -328,5 +330,23 @@ class Widget_m extends MY_Model
 	public function delete_instance($id)
 	{
 		return $this->db->delete('widget_instances', array('id' => $id));
+	}
+
+	public function exists($widget)
+	{
+		if ( ! $widget)
+		{
+			return FALSE;
+		}
+
+		// We already know about this widget
+		if (isset($this->_widget_exists[$widget]))
+		{
+			return $this->_widget_exists[$widget];
+		}
+
+		return $this->_widget_exists[$widget] = $this->db
+			->where('slug', $widget)
+			->count_all_results($this->_table) > 0;
 	}
 }

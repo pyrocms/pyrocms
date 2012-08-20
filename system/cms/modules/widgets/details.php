@@ -8,7 +8,7 @@
  */
 class Module_Widgets extends Module {
 
-	public $version = '1.1';
+	public $version = '1.2';
 
 	public function info()
 	{
@@ -67,6 +67,13 @@ class Module_Widgets extends Module {
 			    'instances' => array(
 				    'name' => 'widgets.instances',
 				    'uri' => 'admin/widgets',
+				    'shortcuts' => array(
+						array(
+						    'name' => 'upload_label',
+						    'uri' => 'admin/widgets/upload',
+						    'class' => 'add modal'
+						),
+				    ),
 				),
 				'areas' => array(
 				    'name' => 'widgets.areas',
