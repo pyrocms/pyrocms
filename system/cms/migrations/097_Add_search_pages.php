@@ -93,7 +93,7 @@ class Migration_Add_search_pages extends CI_Migration
 		  `module` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
 		  `entry_key` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
 		  `entry_plural` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-		  `entry_id` int(10) unsigned DEFAULT NULL,
+		  `entry_id` varchar(255) DEFAULT NULL,
 		  `uri` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
 		  `cp_edit_uri` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
 		  `cp_delete_uri` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
