@@ -9,7 +9,7 @@ class Migration_View_user_profile_setting extends CI_Migration {
                 'title' => 'View user profile',
                 'description' => 'Allow anyone to view registered user\'s profile',
                 'type' => 'radio',
-                'default' => false,
+                'default' => 0,
                 'value' => '',
                 'options' => '1=Yes|0=No',
                 'is_required' => 0,
