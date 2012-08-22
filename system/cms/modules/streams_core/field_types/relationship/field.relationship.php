@@ -15,7 +15,7 @@ class Field_relationship
 	
 	public $db_col_type				= 'int';
 
-	public $custom_parameters		= array( 'choose_stream' );
+	public $custom_parameters		= array( 'choose_stream', 'link_uri' );
 
 	public $version					= '1.1';
 
@@ -157,7 +157,19 @@ class Field_relationship
 		
 		if (isset($row->$title_column))
 		{
-			return '<a href="'.site_url('admin/streams/entries/view/'.$stream->id.'/'.$row->id).'">'.$row->$title_column.'</a>';
+			// Is there a custom link URI to use?
+			if ( ! empty($data['link_uri']) )
+			{
+
+				// Yes, replace ID and go!
+				return '<a href="'.site_url(str_replace('-entry_id-', $row->id, $data['link_uri'])).'">'.$row->$title_column.'</a>';
+			}
+			else
+			{
+
+				// Nope, assume we are in streams module
+				return '<a href="'.site_url('admin/streams/entries/view/'.$stream->id.'/'.$row->id).'">'.$row->$title_column.'</a>';
+			}
 		}
 		
 		return null;
