@@ -55,6 +55,26 @@ function module_exists($module = '')
 
 
 /**
+ * Module Installed
+ *
+ * Returns true/false if the module is installed
+ *
+ * @param	string	$module		The name of the module we are testing
+ * @return	string
+ */
+
+function module_installed($module = '')
+{
+	// Start looking
+	$ci =& get_instance();
+
+	$module = $ci->db->select('installed')->where('slug', $module)->limit(1)->get('modules')->row(0);
+
+	if ( isset($module->installed) AND $module->installed == 1 ) return true; else return false;
+}
+
+
+/**
  * Module Controller
  *
  * Returns true/false if the module has a controller with the name given
