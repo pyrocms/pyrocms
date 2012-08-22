@@ -8,7 +8,7 @@ $lang['widgets.instructions']           = 'Drag & drop to install';
 
 $lang['widgets.instances']            	= 'Instances';
 $lang['widgets.areas']            		= 'Areas';
-$lang['widgets.upload_title']           = 'Upload widget';
+$lang['widgets.upload_title']           = 'Upload Widget';
 $lang['widgets.upload_desc']            = 'Please select a file and click Upload button';
 $lang['widgets.already_exists_error']   = 'A widget with the name "%s" already exists.';
 $lang['widgets.upload_success']         = 'The widget "%s" has been uploaded.';

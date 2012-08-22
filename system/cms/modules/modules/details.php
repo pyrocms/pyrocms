@@ -9,7 +9,7 @@
 class Module_Modules extends Module
 {
 
-	public $version = '1.0';
+	public $version = '1.1';
 
 	public function info()
 	{
@@ -75,7 +75,7 @@ class Module_Modules extends Module
 			$info['shortcuts'][] = array(
 				'name' => 'upload_label',
 				'uri' => 'admin/modules/upload',
-				'class' => 'add',
+				'class' => 'add modal',
 			);
 		}
 

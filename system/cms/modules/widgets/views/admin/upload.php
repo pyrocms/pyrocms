@@ -6,14 +6,16 @@
 
 		<ul>
 			<li>
-				<label for="userfile"><?php echo lang('widgets.upload_desc');?></label><br/>
+				<h4><?php echo lang('widgets.upload_desc');?></h4>
+			</li>
+			
+			<li>
 				<input type="file" name="userfile" class="input" />
 			</li>
 		</ul>
 		
-		<div class="buttons float-right padding-top">
-			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('upload') )); ?>
-		</div>
+		<div><?php $this->load->view('admin/partials/buttons', array('buttons' => array('upload') )); ?></div>
+		
 	<?php echo form_close(); ?>
 	
 </fieldset>
