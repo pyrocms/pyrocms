@@ -699,6 +699,19 @@ class Module_Settings extends Module {
 				'order' => 961,
 			),
 			// @todo Move this to the respective module
+			'view_user_profile' => array(
+                'title' => 'View user profile',
+                'description' => 'Allow anyone to view registered user\'s profile',
+                'type' => 'radio',
+                'default' => false,
+                'value' => '',
+                'options' => '1=Yes|0=No',
+                'is_required' => 0,
+                'is_gui' => 1,
+                'module' => 'users',
+                'order' => 960,
+			),
+			// @todo Move this to the respective module
 			'default_theme' => array(
 				'title' => 'Default Theme',
 				'description' => 'Select the theme you want users to see by default.',
