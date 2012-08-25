@@ -70,7 +70,7 @@ function module_installed($module = '')
 
 	$module = $ci->db->select('installed')->where('slug', $module)->limit(1)->get('modules')->row(0);
 
-	if ( isset($module->installed) AND $module->installed == 1 ) return true; else return false;
+	return (isset($module->installed) and $module->installed == 1) ? true : false;
 }
 
 
