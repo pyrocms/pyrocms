@@ -9,3 +9,7 @@ $lang['wysiwyg.label.left'] = 'Слева';
 $lang['wysiwyg.label.right'] = 'Справа';
 $lang['wysiwyg.label.none'] = 'Нет';
 $lang['wysiwyg.meta.mime'] = 'Тип Mime';
+$lang['wysiwyg.action.download']      = 'Download'; #translate
+$lang['wysiwyg.action.open_file']      = 'Open File'; #translate
+
+/* end of file wysiwyg_lang.php */

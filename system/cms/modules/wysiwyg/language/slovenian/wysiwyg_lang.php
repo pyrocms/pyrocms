@@ -10,3 +10,7 @@ $lang['wysiwyg.label.left'] = 'Levo';
 $lang['wysiwyg.label.right'] = 'Desno';
 $lang['wysiwyg.label.none'] = 'Brez';
 $lang['wysiwyg.meta.mime'] = 'Mime Type';
+$lang['wysiwyg.action.download']      = 'Download'; #translate
+$lang['wysiwyg.action.open_file']      = 'Open File'; #translate
+
+/* end of file wysiwyg_lang.php */

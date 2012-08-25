@@ -10,3 +10,7 @@ $lang['wysiwyg.label.left'] = 'يسار';
 $lang['wysiwyg.label.right'] = 'يمين';
 $lang['wysiwyg.label.none'] = 'غير محدد';
 $lang['wysiwyg.meta.mime'] = 'نوع Mime';
+$lang['wysiwyg.action.download']      = 'Download'; #translate
+$lang['wysiwyg.action.open_file']      = 'Open File'; #translate
+
+/* end of file wysiwyg_lang.php */

@@ -10,3 +10,7 @@ $lang['wysiwyg.label.left'] = 'Vasen';
 $lang['wysiwyg.label.right'] = 'Oikea';
 $lang['wysiwyg.label.none'] = 'Ei mikään';
 $lang['wysiwyg.meta.mime'] = 'Mime Tyyppi';
+$lang['wysiwyg.action.download']      = 'Download'; #translate
+$lang['wysiwyg.action.open_file']      = 'Open File'; #translate
+
+/* end of file wysiwyg_lang.php */
