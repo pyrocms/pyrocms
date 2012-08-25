@@ -1,12 +1,12 @@
 <fieldset>
 
-	<legend><?php echo lang('themes.upload_title');?></legend>
+	<legend><?php echo lang('widgets.upload_title');?></legend>
 
-	<?php echo form_open_multipart('admin/themes/upload', array('class' => 'crud'));?>
+	<?php echo form_open_multipart('admin/widgets/upload', array('class' => 'crud'));?>
 
 		<ul>
 			<li>
-				<h4><?php echo lang('themes.upload_desc'); ?></h4>
+				<h4><?php echo lang('widgets.upload_desc');?></h4>
 			</li>
 			
 			<li>
@@ -17,5 +17,5 @@
 		<div><?php $this->load->view('admin/partials/buttons', array('buttons' => array('upload') )); ?></div>
 		
 	<?php echo form_close(); ?>
-
+	
 </fieldset>

@@ -199,4 +199,72 @@ class Admin extends Admin_Controller {
 		$this->session->set_flashdata( array($status=> lang('widgets.'.$action.'_'.$status.$multiple)));
 	}
 
+	/**
+	 * Upload
+	 *
+	 * Uploads a widget add-on
+	 *
+	 * @access	public
+	 * @return	void
+	 */
+	public function upload()
+	{
+		if ( ! $this->settings->addons_upload)
+		{
+			show_error('Uploading add-ons has been disabled for this site. Please contact your administrator');
+		}
+
+		if ($this->input->post('btnAction') == 'upload')
+		{
+			
+			$config['upload_path'] 		= UPLOAD_PATH;
+			$config['allowed_types'] 	= 'zip';
+			$config['max_size']			= '2048';
+			$config['overwrite'] 		= TRUE;
+
+			$this->load->library('upload', $config);
+
+			if ($this->upload->do_upload())
+			{
+				$upload_data = $this->upload->data();
+
+				// Check if we already have a dir with same name
+				if ($this->widget_m->exists($upload_data['raw_name']))
+				{
+					$this->session->set_flashdata('error', sprintf(lang('widgets.already_exists_error'), $upload_data['raw_name']));
+				}
+				else
+				{
+					// Now try to unzip
+					$this->load->library('unzip');
+					$this->unzip->allow(array('xml', 'html', 'css', 'js', 'png', 'gif', 'jpeg', 'jpg', 'swf', 'ico', 'php'));
+
+					// Try and extract
+					if ( is_string($slug = $this->unzip->extract($upload_data['full_path'], ADDONPATH . 'widgets/', TRUE, TRUE)) )
+					{
+						$this->session->set_flashdata('success', sprintf(lang('widgets.upload_success'), $slug));
+					}
+					else
+					{
+						$this->session->set_flashdata('error', $this->unzip->error_string());
+					}
+				}
+
+				// Delete uploaded file
+				@unlink($upload_data['full_path']);
+
+			}
+			else
+			{
+				$this->session->set_flashdata('error', $this->upload->display_errors());
+			}
+
+			redirect('admin/widgets');
+		}
+
+		$this->template
+			->title($this->module_details['name'], lang('widgets.upload_title'))
+			->build('admin/upload');
+	}
+
 }

@@ -8,11 +8,11 @@
  */
 class Module_Widgets extends Module {
 
-	public $version = '1.1';
+	public $version = '1.2';
 
 	public function info()
 	{
-		return array(
+		$info = array(
 			'name' => array(
 				'en' => 'Widgets',
 				'ar' => 'الودجت',
@@ -75,11 +75,23 @@ class Module_Widgets extends Module {
 						array(
 						    'name' => 'widgets.add_area',
 						    'uri' => 'admin/widgets/areas/create',
+							'class' => 'add'
 						),
 				    ),
 			    ),
 		    ),
 		);
+		
+		if ( ! class_exists('Module_import') AND Settings::get('addons_upload'))
+		{
+			$info['sections']['instances']['shortcuts'][] = array(
+				'name' => 'upload_label',
+				'uri' => 'admin/widgets/upload',
+				'class' => 'add modal'
+			);
+		}
+		
+		return $info;
 	}
 
 	public function install()

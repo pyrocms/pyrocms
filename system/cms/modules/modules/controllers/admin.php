@@ -18,6 +18,8 @@ class Admin extends Admin_Controller
 		parent::__construct();
 
 		$this->lang->load('modules');
+		
+		$this->input->is_ajax_request() AND $this->template->set_layout(FALSE);
 	}
 
 	/**
