@@ -31,6 +31,7 @@ class Module_Keywords extends Module {
 				'sl' => 'Ključne besede',
 				'th' => 'คำค้น',
 				'se' => 'Nyckelord',
+				'tr' => 'Etiketler',
 			),
 			'description' => array(
 				'en' => 'Maintain a central list of keywords to label and organize your content.',
@@ -48,6 +49,7 @@ class Module_Keywords extends Module {
 				'sl' => 'Vzdržuj centralni seznam ključnih besed za označevanje in ogranizacijo vsebine.',
 				'th' => 'ศูนย์กลางการปรับปรุงคำค้นในการติดฉลากและจัดระเบียบเนื้อหาของคุณ',
 				'se' => 'Hantera nyckelord för att organisera webbplatsens innehåll.',
+				'tr' => 'İçeriğinizi etiketlemek ve organize etmek için anahtar kelimeler'
 			),
 			'frontend' => false,
 			'backend'  => true,
@@ -71,6 +73,7 @@ class Module_Keywords extends Module {
 			'keywords' => array(
 				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
 				'name' => array('type' => 'VARCHAR', 'constraint' => 50,),
+				'slug' => array('type' => 'VARCHAR', 'constraint' => 50,),
 			),
 			'keywords_applied' => array(
 				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
