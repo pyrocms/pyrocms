@@ -369,8 +369,10 @@ class Admin extends Admin_Controller {
 		}
 
 		// Loop through each validation rule
-		foreach ($this->page_m->fields() as $field)
+		foreach ($this->page_m->validate as $field)
 		{
+			$field = $field['field'];
+
 			// Nothing to do for these two fields.
 			if (in_array($field, array('navigation_group_id', 'chunk_body[]')))
 			{

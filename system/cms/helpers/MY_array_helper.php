@@ -10,7 +10,7 @@
  */
 
 
-if (!function_exists('array_object_merge'))
+if ( ! function_exists('array_object_merge'))
 {
 	/**
 	 * Merge an array or an object into another object
@@ -40,7 +40,7 @@ if (!function_exists('array_for_select'))
 	 */
 	function array_for_select()
 	{
-		$args = & func_get_args();
+		$args = func_get_args();
 
 		$return = array();
 

@@ -215,7 +215,7 @@ class Module_m extends MY_Model
 	 * @param   array   $module Information about the module
 	 * @return  object
 	 */
-	public function update($slug, $module)
+	public function update($slug, $module, $skip_validation = false)
 	{
 		$module['updated_on'] = time();
 

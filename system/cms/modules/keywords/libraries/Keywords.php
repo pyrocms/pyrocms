@@ -33,7 +33,7 @@ class Keywords {
 	 * @param	string	$hash	The unique hash stored for a entry
 	 * @return	array
 	 */
-	public function get_string($hash)
+	static function get_string($hash)
 	{
 		$keywords = array();
 		

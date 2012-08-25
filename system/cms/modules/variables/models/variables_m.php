@@ -15,7 +15,7 @@ class Variables_m extends MY_Model
 	 * @param	array	$input
 	 * @return	mixed
 	 */
-    public function insert($input = array())
+    public function insert($input = array(), $skip_validation = false)
     {
     	return parent::insert(array(
     		'name' => $input['name'],
@@ -31,7 +31,7 @@ class Variables_m extends MY_Model
 	 * @param	array	$input
 	 * @return	mixed
 	 */
-    public function update($id, $input = array())
+    public function update($id, $input = array(), $skip_validation = false)
     {
         return parent::update($id, array(
 			'name'	=> $input['name'],

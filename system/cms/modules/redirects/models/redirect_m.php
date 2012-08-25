@@ -46,7 +46,7 @@ class Redirect_m extends MY_Model
 		return $this->db->count_all_results('redirects');
 	}
 
-	public function insert($input = array())
+	public function insert($input = array(), $skip_validation = false)
 	{
 		return $this->db->insert('redirects', array(
 			'`type`' => $input['type'],
@@ -56,7 +56,7 @@ class Redirect_m extends MY_Model
 		));
 	}
 
-	public function update($id, $input = array())
+	public function update($id, $input = array(), $skip_validation = false)
 	{
 		$this->db->where(array(
 			'id' => $id,

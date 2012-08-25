@@ -91,7 +91,7 @@ class Comments_m extends MY_Model
 	 * @param array $input The data to insert
 	 * @return void
 	 */
-	public function insert($input)
+	public function insert($input, $skip_validation = false)
 	{
 		$this->load->helper('date');
 		
@@ -118,7 +118,7 @@ class Comments_m extends MY_Model
 	 * @param array $input The array containing the data to update
 	 * @return void
 	 */
-	public function update($id, $input)
+	public function update($id, $input, $skip_validation = false)
 	{
   		$this->load->helper('date');
 		

@@ -190,10 +190,8 @@ class Files
 		$folders = array();
 		$folder_array = array();
 
-		$all_folders = ci()->file_folders_m
-			->select('id, parent_id, slug, name')
-			->order_by('sort')
-			->get_all();
+		ci()->db->select('id, parent_id, slug, name')->order_by('sort');
+		$all_folders = ci()->file_folders_m->get_all();
 
 		// we must reindex the array first
 		foreach ($all_folders as $row)
