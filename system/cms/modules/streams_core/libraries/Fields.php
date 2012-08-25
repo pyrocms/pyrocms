@@ -362,6 +362,8 @@ class Fields
 		$fields = array();
 
 		$count = 0;
+		
+		$events_called = $this->run_field_events($stream_fields, $skips);
 
 		foreach($stream_fields as $slug => $field)
 		{
