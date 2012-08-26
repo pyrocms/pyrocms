@@ -87,7 +87,7 @@ class Fields
      *
      * @return	array - fields
      */
- 	public function build_form($stream, $method, $row = false, $plugin = false, $recaptcha = false, $skips = array(), $extra = array(), $defaults)
+ 	public function build_form($stream, $method, $row = false, $plugin = false, $recaptcha = false, $skips = array(), $extra = array(), $defaults = array())
  	{
  		$this->CI->load->helper(array('form', 'url'));
  	
