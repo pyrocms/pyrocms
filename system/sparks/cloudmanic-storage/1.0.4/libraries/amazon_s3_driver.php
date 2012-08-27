@@ -25,6 +25,10 @@ class Amazon_S3_Driver extends Storage
 		// Load libraries
 		$this->_CI->load->library('s3');
 		$this->_CI->s3->start($this->_config['s3_access_key'], $this->_config['s3_secret_key'], true);
+
+		// S3 made no good way to change this properly so here ya go...
+		S3::$host = preg_replace('@http(.*?)\/\/@', '', rtrim(Settings::get('files_s3_url'), '/'));
+		S3::$geographic_location = (Settings::get('files_s3_geographic_location') === 'EU') ? 'EU' : false;
 	}
 
 	//

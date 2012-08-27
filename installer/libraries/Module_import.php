@@ -26,6 +26,7 @@ class Module_import {
 		// Any dupes are generic so we shouldn't run into any 
 		// meaningful conflicts.
 		$this->ci->load->add_package_path(PYROPATH);
+		$this->ci->load->add_package_path(SHARED_ADDONPATH);
 
 		$db['hostname'] = $this->ci->session->userdata('hostname');
 		$db['username'] = $this->ci->session->userdata('username');
@@ -34,7 +35,7 @@ class Module_import {
 		$db['port'] 	= $this->ci->input->post('port');
 		$db['dbdriver'] = "mysql";
 		$db['dbprefix'] = 'default_';
-		$db['pconnect'] = TRUE;
+		$db['pconnect'] = FALSE;
 		$db['db_debug'] = TRUE;
 		$db['cache_on'] = FALSE;
 		$db['cachedir'] = "";

@@ -70,7 +70,11 @@ class Comments extends Public_Controller
 			$comment['user_id'] = $this->current_user->id;
 			$comment['name'] = $this->current_user->display_name;
 			$comment['email'] = $this->current_user->email;
-			$comment['website'] = $this->current_user->website;
+
+			if (isset($this->current_user->website))
+			{
+				$comment['website'] = $this->current_user->website;
+			}
 		}
 		else
 		{
@@ -194,7 +198,7 @@ class Comments extends Public_Controller
 			$comment = array(
 				'author' => $this->current_user ? $this->current_user->display_name : $this->input->post('name'),
 				'email' => $this->current_user ? $this->current_user->email : $this->input->post('email'),
-				'website' => $this->current_user ? $this->current_user->website : $this->input->post('website'),
+				'website' => (isset($this->current_user->website)) ? $this->current_user->website : $this->input->post('website'),
 				'body' => $this->input->post('body')
 			);
 

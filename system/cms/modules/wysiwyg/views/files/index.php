@@ -53,7 +53,7 @@
 				<ul>
 					<li>
 						<label for="folder"><?php echo lang('files:subfolders'); ?>:</label>
-						<?php echo form_dropdown('parent_id', $subfolders, $current_folder->id, 'id="parent_id" title="files"'); ?>
+						<?php echo form_dropdown('parent_id', $subfolders, $current_folder->id, 'id="parent_id" title="files_wysiwyg"'); ?>
 					</li>
 				</ul>
 			</div>

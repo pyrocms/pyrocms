@@ -65,6 +65,6 @@ $lang['blog:twitter_posted']			= 'Inviato "%s" %s';
 $lang['blog:twitter_error'] 			= 'Errore per Twitter';
 
 // date
-$lang['blog:archive_date_format']		= "%B' %Y"; #translate format - see php strftime documentation
+$lang['blog:archive_date_format']		= "%B %Y"; #translate format - see php strftime documentation
 
 ?>

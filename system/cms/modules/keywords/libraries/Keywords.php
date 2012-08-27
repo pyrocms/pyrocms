@@ -101,7 +101,14 @@ class Keywords {
 	 */
 	public function prep($keyword)
 	{
-		return strtolower(trim($keyword));
+		if (function_exists('mb_strtolower'))
+		{
+			return mb_strtolower(trim($keyword));
+		}
+		else
+		{
+			return strtolower(trim($keyword));
+		}
 	}
 
 	/**
