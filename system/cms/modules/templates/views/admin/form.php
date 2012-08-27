@@ -38,12 +38,12 @@
 			
 			<?php endif; ?>
 			<li class="<?php echo alternator('even', ''); ?>">
-				<label for="subject"><?php echo lang('templates.subject_label'); ?></label>
+				<label for="subject"><?php echo lang('templates.subject_label'); ?> <span>*</span></label>
 				<div class="input"><?php echo form_input('subject', $email_template->subject); ?></div>
 			</li>
 		
 			<li class="<?php echo alternator('even', ''); ?>">
-				<label for="body"><?php echo lang('templates.body_label'); ?></label>
+				<label for="body"><?php echo lang('templates.body_label'); ?> <span>*</span></label>
 				<br style="clear:both" />
 				<?php echo form_textarea('body', $email_template->body, 'class="templates wysiwyg-advanced"'); ?>
 			</li>
