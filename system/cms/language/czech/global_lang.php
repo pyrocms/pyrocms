@@ -30,6 +30,13 @@ $lang['global:operators:not-equal'] 	= 'Rozdílné od';
 $lang['global:operators:less-than'] 	= 'Méně než';
 $lang['global:operators:greater-than'] 	= 'Více než';
 
+$lang['global:duration:1-day']			= 'One day'; #translate
+$lang['global:duration:1-week']			= 'One week'; #translate
+$lang['global:duration:2-weeks']		= 'Two weeks'; #translate
+$lang['global:duration:1-month']		= 'One month'; #translate
+$lang['global:duration:3-months']		= 'Three Months'; #translate
+$lang['global:duration:always']			= 'Always'; #translate
+
 $lang['navigation_headline'] 			= 'Navigace';
 $lang['breadcrumb_base_label'] 			= 'Domů';
 

@@ -31,6 +31,13 @@ $lang['global:operators:not-equal']    = 'Pas égal à';
 $lang['global:operators:less-than']    = 'Inférieur à';
 $lang['global:operators:greater-than'] = 'Supérieur à';
 
+$lang['global:duration:1-day']			= 'One day'; #translate
+$lang['global:duration:1-week']			= 'One week'; #translate
+$lang['global:duration:2-weeks']		= 'Two weeks'; #translate
+$lang['global:duration:1-month']		= 'One month'; #translate
+$lang['global:duration:3-months']		= 'Three Months'; #translate
+$lang['global:duration:always']			= 'Always'; #translate
+
 $lang['navigation_headline']   = 'Navigation';
 $lang['breadcrumb_base_label'] = 'Accueil';
 

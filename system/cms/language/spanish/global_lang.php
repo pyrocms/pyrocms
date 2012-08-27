@@ -16,10 +16,10 @@ $lang['global:slug'] 				    = 'Slug';
 $lang['global:user'] 				    = 'Usuario';
 
 $lang['global:dialog:delete_message'] 	= '¿Está seguro que desea eliminar esto? Esto no se puede deshacer.';
-$lang['dialog.confirm']		            = 'Confirmar';
+$lang['global:dialog:confirm']		    = 'Confirmar';
 
-$lang['dialog.yes']		                = 'Si';
-$lang['dialog.no']		                = 'No';
+$lang['global:yes']		                = 'Si';
+$lang['global:no']		                = 'No';
 
 $lang['global:select-none']		        = '-- Ninguno --';
 $lang['global:select-all']		        = '-- Todos --';
@@ -29,10 +29,17 @@ $lang['global:select-pick']		        = '-- Seleccionar --';
 $lang['global:check-all']			    = 'Todos';
 $lang['global:check-none'] 				= 'Ninguno';
 
-$lang['operators.equal']	            = 'Igual a';
-$lang['operators.not_equal']	        = 'Distinto a';
-$lang['operators.less_than']	        = 'Menor que';
-$lang['operators.greater_than']	        = 'Mayor que';
+$lang['global:operators:equal']	        = 'Igual a';
+$lang['global:operators:not-equal']	    = 'Distinto a';
+$lang['global:operators:less-than']	    = 'Menor que';
+$lang['global:operators:greater-than']	= 'Mayor que';
+
+$lang['global:duration:1-day']			= 'One day'; #translate
+$lang['global:duration:1-week']			= 'One week'; #translate
+$lang['global:duration:2-weeks']		= 'Two weeks'; #translate
+$lang['global:duration:1-month']		= 'One month'; #translate
+$lang['global:duration:3-months']		= 'Three Months'; #translate
+$lang['global:duration:always']			= 'Always'; #translate
 
 $lang['navigation_headline']	        = 'Navegación';
 $lang['breadcrumb_base_label']	        = 'Inicio';

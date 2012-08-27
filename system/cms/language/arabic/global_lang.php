@@ -29,6 +29,13 @@ $lang['global:operators:not-equal'] 	= 'لا يساوي';
 $lang['global:operators:less-than'] 	= 'أقل من';
 $lang['global:operators:greater-than'] 	= 'أكثر من';
 
+$lang['global:duration:1-day']			= 'One day'; #translate
+$lang['global:duration:1-week']			= 'One week'; #translate
+$lang['global:duration:2-weeks']		= 'Two weeks'; #translate
+$lang['global:duration:1-month']		= 'One month'; #translate
+$lang['global:duration:3-months']		= 'Three Months'; #translate
+$lang['global:duration:always']			= 'Always'; #translate
+
 $lang['navigation_headline'] 			= 'الروابط';
 $lang['breadcrumb_base_label'] 			= 'الرئيسية';
 

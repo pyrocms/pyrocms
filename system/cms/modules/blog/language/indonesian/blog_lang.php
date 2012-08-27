@@ -44,6 +44,7 @@ $lang['blog:blog_title']					= 'Blog';
 $lang['blog:list_title']					= 'Daftar Post';
 
 // messages
+$lang['blog:disabled_after'] 				= 'Posting comments after %s has been disabled.'; #translate
 $lang['blog:no_posts']                    = 'Tidak ada post.';
 $lang['blog:subscripe_to_rss_desc']          = 'Ambil post langsung dengan berlangganan melalui RSS feed kami. Anda dapat melakukannya menggunakan hampir semua e-mail client, atau coba <a href="http://reader.google.co.uk/">Google Reader</a>.';
 $lang['blog:currently_no_posts']          = 'Untuk sementara tidak ada post.';

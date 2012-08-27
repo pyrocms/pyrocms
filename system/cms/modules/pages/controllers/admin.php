@@ -449,7 +449,7 @@ class Admin extends Admin_Controller {
 	 */
 	public function delete($id = 0)
 	{
-		$this->load->model('comments/comments_m');
+		$this->load->model('comments/comment_m');
 
 		// The user needs to be able to delete pages.
 		role_or_die('pages', 'delete_live');
@@ -466,7 +466,11 @@ class Admin extends Admin_Controller {
 				{
 					$deleted_ids = $this->page_m->delete($id);
 
-					$this->comments_m->where('module', 'pages')->delete_by('module_id', $id);
+					// Delete any page comments for this entry
+					$this->comment_m->where('module', 'pages')->delete_by(array(
+						'entry_key' => 'page:page',
+						'entry_id' => $id
+					));
 
 					// Wipe cache for this model, the content has changd
 					$this->pyrocache->delete_all('page_m');

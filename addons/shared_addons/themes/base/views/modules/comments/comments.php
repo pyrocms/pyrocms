@@ -1,7 +1,7 @@
 <hr>
 
 <div id="comments">		
-	<h6><?php echo lang('comments.title'); ?></h6>
+	<h6><?php echo lang('comments:title'); ?></h6>
 	
 	<hr>
 
@@ -40,12 +40,12 @@
 		<?php endforeach; ?>
 		
 		<?php else: ?>
-			<p><?php echo lang('comments.no_comments'); ?></p>
+			<p><?php echo lang('comments:no_comments'); ?></p>
 			<hr>
 		<?php endif; ?>
 		
 		<?php echo form_open('comments/create/' . $module . '/' . $id, 'id="create-comment"'); ?>
-			<h6><?php echo lang('comments.your_comment'); ?></h6>
+			<h6><?php echo lang('comments:your_comment'); ?></h6>
 
 			<?php echo form_hidden('redirect_to', uri_string()); ?>
 				<noscript><?php echo form_input('d0ntf1llth1s1n', '', 'style="display:none"'); ?></noscript>
@@ -69,7 +69,7 @@
 				</div>
 
 				<div class="form_submit">
-					<?php echo form_submit('submit', lang('comments.send_label')); ?>
+					<?php echo form_submit('submit', lang('comments:send_label')); ?>
 				</div>
 		<?php echo form_close(); ?>
 </div>
