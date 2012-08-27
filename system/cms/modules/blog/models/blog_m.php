@@ -25,20 +25,20 @@ class Blog_m extends MY_Model
 			->row();
 	}
 	
-	public function get_by($key, $value = '')
+	public function get_by()
 	{
 		$this->db
 			->select('blog.*, profiles.display_name')
 			->join('profiles', 'profiles.user_id = blog.author_id', 'left');
 			
-		if (is_array($key))
+		/*if (is_array($key))
 		{
 			$this->db->where($key);
 		}
 		else
 		{
 			$this->db->where($key, $value);
-		}
+		}*/
 
 		return $this->db->get($this->_table)->row();
 	}
@@ -164,7 +164,7 @@ class Blog_m extends MY_Model
 		return $this->db->count_all_results('blog');
 	}
 
-	public function update($id, $input)
+	public function update($id, $input, $skip_validation = false)
 	{
 		$input['updated_on'] = now();
         if($input['status'] == "live" and $input['preview_hash'] !='') $input['preview_hash'] = '';

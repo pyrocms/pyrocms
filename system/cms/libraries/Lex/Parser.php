@@ -174,7 +174,7 @@ class Lex_Parser
 		{
 			foreach ($data_matches[1] as $index => $var)
 			{
-				if ($val = $this->get_variable($var, $data))
+				if (($val = $this->get_variable($var, $data, '__lex_no_value__')) !== '__lex_no_value__')
 				{
 					$text = str_replace($data_matches[0][$index], $val, $text);
 				}

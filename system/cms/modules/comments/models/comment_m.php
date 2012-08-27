@@ -81,14 +81,17 @@ class Comment_m extends MY_Model
 	 * @param array $input The data to insert
 	 * @return void
 	 */
-	public function insert($input)
-	{	
+
+	public function insert($input, $skip_validation = false)
+	{
+		$this->load->helper('date');
+		
 		return parent::insert(array(
 			'user_id'		=> isset($input['user_id']) 	? 	$input['user_id'] 									:  0,
-			'is_active'		=> ! empty($input['is_active']) ? 	true	 											:  false,
 			'user_name'		=> isset($input['user_name']) 	? 	ucwords(strtolower(strip_tags($input['user_name']))) : '',
 			'user_email'	=> isset($input['user_email']) 	? 	strtolower($input['user_email']) 					: '',
 			'user_website'	=> isset($input['user_website']) ? 	prep_url(strip_tags($input['user_website'])) 		: '',
+			'is_active'		=> ! empty($input['is_active']),
 			'comment'		=> htmlspecialchars($input['comment'], null, false),
 			'parsed'		=> parse_markdown(htmlspecialchars($input['comment'], null, false)),
 			'module'		=> $input['module'],
@@ -111,7 +114,7 @@ class Comment_m extends MY_Model
 	 * @param array $input The array containing the data to update
 	 * @return void
 	 */
-	public function update($id, $input)
+	public function update($id, $input, $skip_validation = false)
 	{
   		$this->load->helper('date');
 		
@@ -119,8 +122,8 @@ class Comment_m extends MY_Model
 			'user_name'		=> isset($input['user_name']) 	? 	ucwords(strtolower(strip_tags($input['user_name']))) : '',
 			'user_email'	=> isset($input['user_email']) 	? 	strtolower($input['user_email']) 					 : '',
 			'user_website'	=> isset($input['user_website']) ? 	prep_url(strip_tags($input['user_website'])) 		 : '',
-			'comment'		=> htmlspecialchars($input['comment'], NULL, false),
-			'parsed'		=> parse_markdown(htmlspecialchars($input['comment'], NULL, false)),
+			'comment'		=> htmlspecialchars($input['comment'], null, false),
+			'parsed'		=> parse_markdown(htmlspecialchars($input['comment'], null, false)),
 		));
 	}
 	

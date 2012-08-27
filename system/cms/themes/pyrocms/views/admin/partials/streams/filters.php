@@ -42,8 +42,12 @@
 		</li>
 		<?php endforeach; ?>
 
-		<li><?php echo form_submit('filter', lang('buttons.filter'), 'class="button btn"'); ?></li>
-		<li><?php echo form_submit('clear_filters', lang('buttons.clear'), 'class="button btn"'); ?></li>
+		<li>
+			<div class="buttons">
+				<?php echo form_submit('filter', lang('buttons.filter'), 'class="button btn"'); ?>
+				<?php echo form_submit('clear_filters', lang('buttons.clear'), 'class="button btn"'); ?>
+			</div>
+		</li>
 	</ul>
 	<?php echo form_close(); ?>
 </fieldset>

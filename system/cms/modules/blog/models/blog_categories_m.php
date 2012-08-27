@@ -14,7 +14,7 @@ class Blog_categories_m extends MY_Model
 	 * @param array $input The data to insert
 	 * @return string
 	 */
-	public function insert($input = array())
+	public function insert($input = array(), $skip_validation = false)
 	{
 		parent::insert(array(
 			'title' => $input['title'],
@@ -31,7 +31,7 @@ class Blog_categories_m extends MY_Model
 	 * @param array $input The data to update
 	 * @return bool
 	 */
-	public function update($id, $input)
+	public function update($id, $input, $skip_validation = false)
 	{
 		return parent::update($id, array(
 			'title'	=> $input['title'],

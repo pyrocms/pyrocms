@@ -190,10 +190,8 @@ class Files
 		$folders = array();
 		$folder_array = array();
 
-		$all_folders = ci()->file_folders_m
-			->select('id, parent_id, slug, name')
-			->order_by('sort')
-			->get_all();
+		ci()->db->select('id, parent_id, slug, name')->order_by('sort');
+		$all_folders = ci()->file_folders_m->get_all();
 
 		// we must reindex the array first
 		foreach ($all_folders as $row)
@@ -343,7 +341,6 @@ class Files
 		{
 			$upload_config = array(
 				'upload_path'	=> self::$path,
-				'allowed_types'	=> self::$_ext,
 				'file_name'		=> self::$_filename,
 				'encrypt_name'	=> config_item('files:encrypt_filename')
 			);

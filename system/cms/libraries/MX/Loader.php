@@ -99,40 +99,48 @@ class MX_Loader extends CI_Loader
 	}
 
 	/** Load a module helper **/
-	public function helper($helper) {
+	public function helper($helpers = array()) {
 		
-		if (is_array($helper)) return $this->helpers($helper);
+		if (is_array($helpers)) return $this->helpers($helpers);
 		
-		if (isset($this->_ci_helpers[$helper]))	return;
+		if (isset($this->_ci_helpers[$helpers]))	return;
 
-		list($path, $_helper) = Modules::find($helper.'_helper', $this->_module, 'helpers/');
+		list($path, $_helper) = Modules::find($helpers.'_helper', $this->_module, 'helpers/');
 
-		if ($path === FALSE) return parent::helper($helper);
+		if ($path === FALSE) return parent::helper($helpers);
 
 		Modules::load_file($_helper, $path);
 		$this->_ci_helpers[$_helper] = TRUE;
 	}
 
 	/** Load an array of helpers **/
-	public function helpers($helpers) {
+	public function helpers($helpers = array()) {
 		foreach ($helpers as $_helper) $this->helper($_helper);	
 	}
 
 	/** Load a module language file **/
-	public function language($langfile, $idiom = '', $return = FALSE, $add_suffix = TRUE, $alt_path = '') {
-		return CI::$APP->lang->load($langfile, $idiom, $return, $add_suffix, $alt_path, $this->_module);
+	public function language($file = array(), $lang = '')
+	{
+		if (is_array($file))
+		{
+			return $this->languages($file);
+		}
+
+		return CI::$APP->lang->load($file, $lang);
 	}
 	
-	public function languages($languages) {
-		foreach($languages as $_language) $this->language($language);
+	public function languages($languages)
+	{
+		foreach($languages as $_language) $this->language($_language);
 	}
 	
 	/** Load a module library **/
-	public function library($library, $params = NULL, $object_name = NULL) {
+	public function library($library = '', $params = NULL, $object_name = NULL) {
 		
-		if (is_array($library)) return $this->libraries($library);		
-		
-		$class = strtolower(end(explode('/', $library)));
+		if (is_array($library)) return $this->libraries($library);	
+
+		$library_pieces = explode('/', $library);
+		$class = strtolower(end($library_pieces));
 		
 		if (isset($this->_ci_classes[$class]) AND $_alias = $this->_ci_classes[$class])
 			return CI::$APP->$_alias;
@@ -175,7 +183,8 @@ class MX_Loader extends CI_Loader
 		
 		if (is_array($model)) return $this->models($model);
 
-		($_alias = $object_name) OR $_alias = end(explode('/', $model));
+		$model_pieces = explode('/', $model);
+		($_alias = $object_name) OR $_alias = end($model_pieces);
 
 		if (in_array($_alias, $this->_ci_models, TRUE)) 
 			return CI::$APP->$_alias;
@@ -258,7 +267,7 @@ class MX_Loader extends CI_Loader
 
 	public function _ci_is_instance() {}
 
-	public function _ci_get_component($component) {
+	public function &_ci_get_component($component) {
 		return CI::$APP->$component;
 	} 
 
@@ -289,7 +298,8 @@ class MX_Loader extends CI_Loader
 				}
 			}
 		} else {
-			$_ci_file = end(explode('/', $_ci_path));
+			$path_pieces = explode('/', $_ci_path);
+			$_ci_file = end($path_pieces);
 		}
 
 		if ( ! file_exists($_ci_path)) 

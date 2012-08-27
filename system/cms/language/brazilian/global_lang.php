@@ -1,7 +1,7 @@
 <?php
 
 $lang['global:control-panel']			= 'Painel de Controle';
-$lang['global:profile']					= 'Profile'; #translate
+$lang['global:profile']					= 'Perfil'; 
 
 $lang['global:title'] 					= 'Título';
 $lang['name_label'] 					= 'Nome';
@@ -75,17 +75,17 @@ $lang['global:install'] 				= 'Instalar';
 $lang['global:enable']					= 'Ativar';
 $lang['global:disable'] 				= 'Desativar';
 
-$lang['all_right_reserved']				= 'All Rights Reserved.';  #translate
+$lang['all_right_reserved']				= 'Todos os direitos reservados.';  
 $lang['powered_by_pyrocms']				= 'Powered by PyroCMS';  #translate
-$lang['top_page']						= 'Top';  #translate
-$lang['back_to_top']					= 'Back to Top';  #translate
+$lang['top_page']						= 'Topo';  
+$lang['back_to_top']					= 'Voltar ao Topo'; 
 
-$lang['global:image'] 					= 'Image'; #translate
+$lang['global:image'] 					= 'Imagem';
 $lang['global:description'] 		    = 'Descrição';
 $lang['global:actions']					= 'Ações';
-$lang['global:view']					= 'View'; #translate
+$lang['global:view']					= 'Visualizar'; 
 $lang['global:preview']					= 'Preview'; #translate
-$lang['global:add']						= 'Add'; #translate
+$lang['global:add']						= 'Adicionar'; 
 $lang['global:edit']					= 'Editar';
 $lang['global:empty']					= 'Empty'; #translate
 $lang['global:delete']					= 'Remover';

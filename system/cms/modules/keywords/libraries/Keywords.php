@@ -31,7 +31,7 @@ class Keywords
 	 * @param	string	$hash	The unique hash stored for a entry
 	 * @return	array
 	 */
-	public function get_string($hash)
+	static function get_string($hash)
 	{
 		$keywords = array();
 		
@@ -99,7 +99,14 @@ class Keywords
 	 */
 	public function prep($keyword)
 	{
-		return strtolower(trim($keyword));
+		if (function_exists('mb_strtolower'))
+		{
+			return mb_strtolower(trim($keyword));
+		}
+		else
+		{
+			return strtolower(trim($keyword));
+		}
 	}
 
 	/**
