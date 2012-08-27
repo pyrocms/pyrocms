@@ -2,8 +2,9 @@
 /**
  * Code here is run before frontend controllers
  *
- * @author PyroCMS Dev Team
- * @package PyroCMS\Core\Controllers
+ * @author      PyroCMS Dev Team
+ * @copyright   Copyright (c) 2012, PyroCMS LLC
+ * @package 	PyroCMS\Core\Controllers
  */
 class Public_Controller extends MY_Controller
 {

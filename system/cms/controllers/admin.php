@@ -2,8 +2,9 @@
 /**
  * The admin class is basically the main controller for the backend.
  *
- * @author PyroCMS Development Team
- * @package	 PyroCMS\Core\Controllers
+ * @author      PyroCMS Dev Team
+ * @copyright   Copyright (c) 2012, PyroCMS LLC
+ * @package	 	PyroCMS\Core\Controllers
  */
 class Admin extends Admin_Controller
 {

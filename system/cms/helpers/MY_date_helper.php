@@ -5,7 +5,8 @@
  * 
  * This overrides Codeigniter's helpers/date_helper.php
  *
- * @author		Philip Sturgeon
+ * @author      PyroCMS Dev Team
+ * @copyright   Copyright (c) 2012, PyroCMS LLC
  * @package		PyroCMS\Core\Helpers
  */
 

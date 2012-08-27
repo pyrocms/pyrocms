@@ -2,8 +2,9 @@
 /**
  * Implementation of custom PyroCMS hooks.
  *
- * @author PyroCMS Dev Team
  * @package PyroCMS\Core\Hooks
+ * @author      PyroCMS Dev Team
+ * @copyright   Copyright (c) 2012, PyroCMS LLC
  */
 
 /**
