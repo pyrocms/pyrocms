@@ -132,7 +132,7 @@ class Installer_lib {
 	public function check_server($data)
 	{
 		// Check PHP
-		if ( ! $this->php_acceptable() )
+		if ( ! $this->php_acceptable($data->php_min_version) )
 		{
 			return FALSE;
 		}
