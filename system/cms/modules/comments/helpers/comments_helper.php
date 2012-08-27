@@ -19,7 +19,7 @@
  */
 function display_comments($ref_id = '', $reference = NULL)
 {
-	if ( ! (Settings::get('enable_comments') && $ref_id))
+	if ( ! (Settings::get('enable_comments') && $ref_id) AND ! defined('ADMIN_THEME') )
 	{
 		return;
 	}
