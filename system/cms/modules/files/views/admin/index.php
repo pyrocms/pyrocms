@@ -2,8 +2,8 @@
 	<h4><?php echo lang('files:files_title'); ?></h4>
 </section>
 
-<section class="item one_full">
-	<section class="sidebar">
+<section class="item">
+	<section class="side">
 		<ul id="folders-sidebar">
 			<li class="folder places" data-id="0"><a href="#"><?php echo lang('files:places') ?></a></li>
 			<?php if ( ! $folders) : ?>
@@ -14,7 +14,7 @@
 		</ul>
 	</section>
 
-	<section class="two_third">
+	<section class="center">
 			<?php if ( ! $folders) : ?>
 				<div class="no_data"><?php echo lang('files:no_folders'); ?></div>
 			<?php endif; ?>
@@ -36,7 +36,7 @@
 			</ul>
 	</section>
 
-	<section class="right sidebar sidebar-left">
+	<section class="side sidebar-right">
 		<div id="search-area">
 			<span class="subsection-title"><?php echo lang('files:search'); ?></span>
 			<input type="text" id="file-search" name="file-search" value="" placeholder="<?php echo lang('files:search_message'); ?>"/>
@@ -135,3 +135,13 @@
 	</div>
 
 </section>
+
+<?php if ( $this->session->flashdata('initial_folder_contents') ): ?>
+<script type="text/javascript">
+	$(document).ready(function(){
+
+		// Load the flash data ID
+		setTimeout(function(){pyro.files.folder_contents(<?php echo $this->session->flashdata('initial_folder_contents'); ?>);}, '1000');
+	});
+</script>
+<?php endif; ?>

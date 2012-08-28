@@ -1,9 +1,9 @@
 
 .item { height: 450px; overflow: hidden; }
-.sidebar { width: 20%; }
-.sidebar-left { border-left: 1px solid #d8d8d8; padding-left: 1%; width: 18%; min-height: 100%; }
-section.two_third { width: 60%; }
-section.two_third .no_data { margin: 40px 20px 20px 20px; }
+.sidebar-right { border-left: 1px solid #d8d8d8; padding-left: 1%; min-height: 100%; }
+section.side { width: 19%; float: left; margin: 0; }
+section.center { width: 60%; float: left; margin: 0; }
+section.center .no_data { margin: 40px 20px 20px 20px; }
 
 .subsection-title { color: #808080; margin-bottom: 10px; font-size: 14px; font-weight: bold; font-style: italic; }
 

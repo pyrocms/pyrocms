@@ -1,8 +1,9 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
- * Code Igniter Debug Helpers
+ * CodeIgniter Debug Helpers
  *
- * @author       Philip Sturgeon <email@philsturgeon.co.uk>
+ * @author      PyroCMS Dev Team
+ * @copyright   Copyright (c) 2012, PyroCMS LLC
  * @package		PyroCMS\Core\Helpers
  */
 

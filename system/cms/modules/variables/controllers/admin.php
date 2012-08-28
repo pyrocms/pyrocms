@@ -81,6 +81,8 @@ class Admin extends Admin_Controller
 	 */
 	public function create()
 	{
+		$variable = new stdClass();
+
 		// Got validation?
 		if ($this->form_validation->run())
 		{
@@ -146,6 +148,8 @@ class Admin extends Admin_Controller
 	 */
 	public function edit($id = 0)
 	{
+		$variable = new stdClass();
+
 		// Got ID?
 		$id OR redirect('admin/variables');
 

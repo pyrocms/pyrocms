@@ -5,38 +5,13 @@
  * 
  * This overrides Codeigniter's helpers/inflector_helper.php file.
  *
- * @author		PyroCMS Dev Team
+ * @author      PyroCMS Dev Team
+ * @copyright   Copyright (c) 2012, PyroCMS LLC
  * @package		PyroCMS\Core\Helpers
  */
-if (!function_exists('humanize'))
+
+if ( ! function_exists('keywords'))
 {
-
-	/**
-	 * Humanize - Cyrillic character support
-	 *
-	 * Takes multiple words separated by underscores and changes them to spaces
-	 *
-	 * @access	public
-	 * @param	string
-	 * @return	str
-	 */
-	function humanize($str)
-	{
-		$str = preg_replace('/[_]+/', ' ', trim($str));
-
-		if (function_exists('mb_convert_case'))
-		{
-			return mb_convert_case($str, MB_CASE_TITLE, "UTF-8");
-		}
-
-		return ucwords(strtolower($str));
-	}
-
-}
-
-if (!function_exists('keywords'))
-{
-
 	/**
 	 * Keywords
 	 *
@@ -50,5 +25,4 @@ if (!function_exists('keywords'))
 	{
 		return preg_replace('/[\s]+/', ', ', trim($str));
 	}
-
 }

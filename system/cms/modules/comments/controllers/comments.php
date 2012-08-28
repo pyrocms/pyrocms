@@ -3,13 +3,12 @@
 /**
  * Comments controller (frontend)
  *
- * @author 		Phil Sturgeon
- * @author		PyroCMS Dev Team
  * @package		PyroCMS\Core\Modules\Comments\Controllers
+ * @author		PyroCMS Dev Team
+ * @copyright   Copyright (c) 2012, PyroCMS LLC
  */
 class Comments extends Public_Controller
 {
-
 	/**
 	 * An array containing the validation rules
 	 * 
@@ -18,22 +17,22 @@ class Comments extends Public_Controller
 	private $validation_rules = array(
 		array(
 			'field' => 'name',
-			'label' => 'lang:comments.name_label',
+			'label' => 'lang:comments:name_label',
 			'rules' => 'trim'
 		),
 		array(
 			'field' => 'email',
-			'label' => 'lang:comments.email_label',
+			'label' => 'lang:global:email',
 			'rules' => 'trim|valid_email'
 		),
 		array(
 			'field' => 'website',
-			'label' => 'lang:comments.website_label',
+			'label' => 'lang:comments:website_label',
 			'rules' => 'trim|max_length[255]'
 		),
 		array(
 			'field' => 'comment',
-			'label' => 'lang:comments.message_label',
+			'label' => 'lang:comments:message_label',
 			'rules' => 'trim|required'
 		),
 	);
@@ -49,7 +48,7 @@ class Comments extends Public_Controller
 
 		// Load the required classes
 		$this->load->library('form_validation');
-		$this->load->model('comments_m');
+		$this->load->model('comment_m');
 		$this->lang->load('comments');
 	}
 
@@ -59,17 +58,35 @@ class Comments extends Public_Controller
 	 * @param type $module The module that has a comment-able model.
 	 * @param int $id The id for the respective comment-able model of a module.
 	 */
-	public function create($module = 'home', $id = 0)
+	public function create($module = null)
 	{
-		// Set the comment data
-		$comment = $_POST;
+		if ( ! $module or ! $this->input->post('entry')) 
+		{
+			show_404();
+		}
+
+		// Get information back from the entry hash
+		// @HACK This should be part of the controllers lib, but controllers & libs cannot share a name
+		$entry = unserialize($this->encrypt->decode($this->input->post('entry')));
+
+		$comment = array(
+			'module' 		=> $module,
+			'entry_id' 		=> $entry['id'],
+			'entry_title' 	=> $entry['title'],
+			'entry_key' 	=> $entry['singular'],
+			'entry_plural' 	=> $entry['plural'],
+			'uri' 			=> $entry['uri'],
+			'comment' 		=> $this->input->post('comment'),
+			'is_active' 	=> (bool) ((isset($this->current_user->group) and $this->current_user->group == 'admin') or ! Settings::get('moderate_comments')),
+		);
 
 		// Logged in? in which case, we already know their name and email
-		if ($this->ion_auth->logged_in())
+		if ($this->current_user)
 		{
 			$comment['user_id'] = $this->current_user->id;
-			$comment['name'] = $this->current_user->display_name;
-			$comment['email'] = $this->current_user->email;
+			$comment['user_name'] = $this->current_user->display_name;
+			$comment['user_email'] = $this->current_user->email;
+			$comment['user_website'] = $this->current_user->website;
 
 			if (isset($this->current_user->website))
 			{
@@ -80,14 +97,14 @@ class Comments extends Public_Controller
 		{
 			$this->validation_rules[0]['rules'] .= '|required';
 			$this->validation_rules[1]['rules'] .= '|required';
+
+			$comment['user_name'] = $this->input->post('name');
+			$comment['user_email'] = $this->input->post('email');
+			$comment['user_website'] = $this->input->post('website');
 		}
 
 		// Set the validation rules
 		$this->form_validation->set_rules($this->validation_rules);
-
-		$comment['module'] = $module;
-		$comment['module_id'] = $id;
-		$comment['is_active'] = (bool) ((isset($this->current_user->group) && $this->current_user->group == 'admin') OR !$this->settings->moderate_comments);
 
 		// Validate the results
 		if ($this->form_validation->run())
@@ -110,12 +127,12 @@ class Comments extends Public_Controller
 			else
 			{
 				// Save the comment
-				if ($comment_id = $this->comments_m->insert($comment))
+				if ($comment_id = $this->comment_m->insert($comment))
 				{
 					// Approve the comment straight away
-					if (!$this->settings->moderate_comments OR (isset($this->current_user->group) && $this->current_user->group == 'admin'))
+					if (!$this->settings->moderate_comments or (isset($this->current_user->group) and $this->current_user->group == 'admin'))
 					{
-						$this->session->set_flashdata('success', lang('comments.add_success'));
+						$this->session->set_flashdata('success', lang('comments:add_success'));
 
 						// Add an event so third-party devs can hook on
 						Events::trigger('comment_approved', $comment);
@@ -124,7 +141,7 @@ class Comments extends Public_Controller
 					// Do we need to approve the comment?
 					else
 					{
-						$this->session->set_flashdata('success', lang('comments.add_approve'));
+						$this->session->set_flashdata('success', lang('comments:add_approve'));
 					}
 
 					$comment['comment_id'] = $comment_id;
@@ -136,13 +153,13 @@ class Comments extends Public_Controller
 					}
 
 					// Send the notification email
-					$this->_send_email($comment);
+					$this->_send_email($comment, $entry);
 				}
 
 				// Failed to add the comment
 				else
 				{
-					$this->session->set_flashdata('error', lang('comments.add_error'));
+					$this->session->set_flashdata('error', lang('comments:add_error'));
 				}
 			}
 		}
@@ -155,7 +172,7 @@ class Comments extends Public_Controller
 			// Loop through each rule
 			foreach ($this->validation_rules as $rule)
 			{
-				if ($this->input->post($rule['field']) !== FALSE)
+				if ($this->input->post($rule['field']) !== false)
 				{
 					$comment[$rule['field']] = escape_tags($this->input->post($rule['field']));
 				}
@@ -164,14 +181,12 @@ class Comments extends Public_Controller
 		}
 
 		// If for some reason the post variable doesnt exist, just send to module main page
-		$redirect_to = $this->input->post('redirect_to') ? $this->input->post('redirect_to') : $module;
+		$uri = ! empty($entry['uri']) ? $entry['uri'] : $module;
 
-		if ($redirect_to == 'pages')
-		{
-			$redirect_to = 'home';
-		}
+		// If this is default to pages then just send it home instead
+		$uri === 'pages' and $uri = '/';
 
-		redirect($redirect_to);
+		redirect($uri);
 	}
 
 	/**
@@ -183,11 +198,12 @@ class Comments extends Public_Controller
 	{
 		// Dumb-check
 		$this->load->library('user_agent');
+		$this->load->model('comment_blacklists_m');
 
 		// Sneaky bot-check
 		if ($this->agent->is_robot() OR $this->input->post('d0ntf1llth1s1n'))
 		{
-			return array('status' => FALSE, 'message' => 'You are probably a robot.');
+			return array('status' => false, 'message' => 'You are probably a robot.');
 		}
 
 		// Check Akismet if an API key exists
@@ -207,31 +223,43 @@ class Comments extends Public_Controller
 				'api_key' => Settings::get('akismet_api_key'),
 				'comment' => $comment
 			);
-
+                        
 			$this->akismet->init($config);
 
 			if ($this->akismet->is_spam())
 			{
-				return array('status' => FALSE, 'message' => 'Looks like this is spam. If you believe this is incorrect please contact the site administrator.');
+				return array('status' => false, 'message' => 'Looks like this is spam. If you believe this is incorrect please contact the site administrator.');
 			}
 
 			if ($this->akismet->errors_exist())
 			{
-				return array('status' => FALSE, 'message' => implode('<br />', $this->akismet->get_errors()));
+				return array('status' => false, 'message' => implode('<br />', $this->akismet->get_errors()));
 			}
+			
+		}
+	
+		$blacklist = array(
+			'email' => $this->input->post('email'),
+			'website' => $this->input->post('website')
+		);
+	
+		if ($this->comment_blacklists_m->is_blacklisted($blacklist))
+		{
+			return array('status' => false, 'message' => 'The website or email address posting this comment has been blacklisted.');
 		}
 
 		// F**k knows, its probably fine...
-		return array('status' => TRUE);
+		return array('status' => true);
 	}
 
 	/**
 	 * Send an email
 	 *
 	 * @param array $comment The comment data.
+	 * @param array $entry The entry data.
 	 * @return boolean 
 	 */
-	private function _send_email($comment = array())
+	private function _send_email($comment, $entry)
 	{
 		$this->load->library('email');
 		$this->load->library('user_agent');
@@ -241,8 +269,8 @@ class Comments extends Public_Controller
 		$comment['sender_agent'] = $this->agent->browser().' '.$this->agent->version();
 		$comment['sender_ip'] = $this->input->ip_address();
 		$comment['sender_os'] = $this->agent->platform();
-		$comment['redirect_url'] = anchor(ltrim($comment['redirect_to'], '/').'#'.$comment['comment_id']);
-		$comment['reply-to'] = $comment['email'];
+		$comment['redirect_url'] = anchor(ltrim($entry['uri'], '/').'#'.$comment['comment_id']);
+		$comment['reply-to'] = $comment['user_email'];
 
 		//trigger the event
 		return (bool) Events::trigger('email', $comment);

@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-$lang['blog:post']                 = 'Post'; #translate
-$lang['blog:posts']                   = 'Posts'; #translate
+$lang['blog:post']                           = 'Bejegyzés';
+$lang['blog:posts']                          = 'Bejegyzések';
 
 // labels
 $lang['blog:posted_label']                   = 'Bejegyezve';
@@ -44,6 +44,7 @@ $lang['blog:blog_title']                     = 'Blog';
 $lang['blog:list_title']                     = 'Bejegyzések listája';
 
 // messages
+$lang['blog:disabled_after'] 				= 'Posting comments after %s has been disabled.'; #translate
 $lang['blog:no_posts']                       = 'Nincs bejegyzés.';
 $lang['blog:subscripe_to_rss_desc']          = 'A bejegyzést jelentesd meg saját RSS-en. Ezt meg lehet tenni az ismertebb levelezőkkel vagy a <a href="http://reader.google.co.uk/">Google Reader</a>rel.';
 $lang['blog:currently_no_posts']             = 'Ebben a pillanatban még nincs bejegyzés.';

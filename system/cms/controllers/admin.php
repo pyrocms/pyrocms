@@ -2,8 +2,9 @@
 /**
  * The admin class is basically the main controller for the backend.
  *
- * @author PyroCMS Development Team
- * @package	 PyroCMS\Core\Controllers
+ * @author      PyroCMS Dev Team
+ * @copyright   Copyright (c) 2012, PyroCMS LLC
+ * @package	 	PyroCMS\Core\Controllers
  */
 class Admin extends Admin_Controller
 {
@@ -45,12 +46,12 @@ class Admin extends Admin_Controller
 		$this->validation_rules = array(
 			array(
 				'field' => 'email',
-				'label' => lang('email_label'),
+				'label' => lang('global:email'),
 				'rules' => 'required|callback__check_login'
 			),
 			array(
 				'field' => 'password',
-				'label' => lang('password_label'),
+				'label' => lang('global:password'),
 				'rules' => 'required'
 			)
 		);

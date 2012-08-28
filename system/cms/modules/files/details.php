@@ -35,7 +35,7 @@ class Module_Files extends Module {
 				'zh' => '檔案',
 				'hu' => 'Fájlok',
 				'th' => 'ไฟล์',
-                                'se' => 'Filer'
+				'se' => 'Filer',
 			),
 			'description' => array(
 				'en' => 'Manages files and folders for your site.',
@@ -59,10 +59,10 @@ class Module_Files extends Module {
 				'zh' => '管理網站中的檔案與目錄',
 				'hu' => 'Fájlok és mappák kezelése az oldalon.',
 				'th' => 'บริหารจัดการไฟล์และโฟลเดอร์สำหรับเว็บไซต์ของคุณ',
-                                'se' => 'Hanterar filer och mappar för din webbplats.'
+				'se' => 'Hanterar filer och mappar för din webbplats.',
 			),
-			'frontend' => FALSE,
-			'backend' => TRUE,
+			'frontend' => false,
+			'backend' => true,
 			'menu' => 'content',
 			'roles' => array(
 				'wysiwyg', 'upload', 'download_file', 'edit_file', 'delete_file', 'create_folder', 'set_location', 'synchronize', 'edit_folder', 'delete_folder'
@@ -85,7 +85,7 @@ class Module_Files extends Module {
 				'filename' => array('type' => 'VARCHAR', 'constraint' => 255,),
 				'path' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => ''),
 				'description' => array('type' => 'TEXT',),
-				'extension' => array('type' => 'VARCHAR', 'constraint' => 5,),
+				'extension' => array('type' => 'VARCHAR', 'constraint' => 10,),
 				'mimetype' => array('type' => 'VARCHAR', 'constraint' => 100,),
 				'width' => array('type' => 'INT', 'constraint' => 5, 'null' => true,),
 				'height' => array('type' => 'INT', 'constraint' => 5, 'null' => true,),

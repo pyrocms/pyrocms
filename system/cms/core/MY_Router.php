@@ -1,13 +1,12 @@
 <?php (defined('BASEPATH')) OR exit('No direct script access allowed');
-/**
- * The Router Handler Library.
- * 
- * @author PyroCMS Dev Team
- * @package PyroCMS\Core\Libraries 
- */
+
 require APPPATH."libraries/MX/Router.php";
 
 /**
- * Nothing to see here, move along.
+ * The Router Handler Library.
+ * 
+ * @author      PyroCMS Dev Team
+ * @copyright   Copyright (c) 2012, PyroCMS LLC
+ * @package 	PyroCMS\Core\Libraries 
  */
 class MY_Router extends MX_Router {}

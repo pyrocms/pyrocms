@@ -3,8 +3,8 @@
 /**
  * PyroCMS Admin Theme Helpers
  *
- * @author		Jerel Unruh
- * @author		PyroCMS Dev Team
+ * @author      PyroCMS Dev Team
+ * @copyright   Copyright (c) 2012, PyroCMS LLC
  * @package		PyroCMS\Core\Modules\Theme\Helpers
  */
 

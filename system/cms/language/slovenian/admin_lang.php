@@ -31,11 +31,11 @@ $lang['cp_contact_support'] 			= 'Podpora';
 $lang['cp_nav_settings']				= 'Nastavitve';
 $lang['cp_nav_addons']					= 'Razširitve';
 $lang['cp_nav_modules']					= 'Moduli';
-$lang['cp_nav_widgets']					= 'Vtičniki';
 $lang['cp_nav_users']					= 'Uporabniki';
-$lang['cp_nav_design']					= 'Izgled';
 $lang['cp_nav_content']					= 'Vsebina';
-$lang['cp_nav_utilities']				= 'Pripomočki';
+$lang['cp_nav_data']					= 'Data'; #translate
+$lang['cp_nav_structure']				= 'Structure'; #translate
+$lang['cp_nav_misc']					= 'Miscellaneous'; #translate
 
 $lang['cp_must_login']	 				= 'Morate biti prijavljeni za ogled te strani.';
 $lang['cp_access_denied'] 				= 'Nimate dovolj dovoljenj za ogled te strani';

@@ -28,6 +28,7 @@ class Migration_Add_hidden_stream_option extends CI_Migration
 	public function down()
 	{
 		$this->load->config('streams_core/streams');
+		if ( $this->db->field_exists('is_hidden', $this->config->item('streams:streams_table')))
 		$this->dbforge->drop_column($this->config->item('streams:streams_table'), 'is_hidden');
 	}
 }

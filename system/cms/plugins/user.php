@@ -122,7 +122,7 @@ class Plugin_User extends Plugin
 
 		$plugin_data[] = array(
 							'value'		=> $profile_data['email'],
-							'name'		=> lang('user_email'),
+							'name'		=> lang('global:email'),
 							'slug'		=> 'email'
 						);
 

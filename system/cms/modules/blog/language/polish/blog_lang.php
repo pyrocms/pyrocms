@@ -44,6 +44,7 @@ $lang['blog:blog_title'] 					= 'Blog';
 $lang['blog:list_title'] 					= 'Lista wpisów';
 
 // messages
+$lang['blog:disabled_after'] 				= 'Posting comments after %s has been disabled.'; #translate
 $lang['blog:no_posts'] 						= 'Nie ma żadnych wpisów.';
 $lang['blog:subscripe_to_rss_desc'] 				= 'Bądź na bieżąco subskrybując nasz kanał RSS. Możesz to zrobić za pomocą popularnych klientów pocztowych, lub skorzystać z <a href="http://reader.google.com/">Google Reader\'a</a>.';
 $lang['blog:currently_no_posts'] 				= 'W tym momencie nie ma żadnych wpisów.';

@@ -10,23 +10,31 @@ $lang['version_label'] 					= 'Versio';
 $lang['global:author'] 					= 'Tekijä';
 $lang['global:action'] 					= 'Toiminto';
 
-$lang['dialog.delete_message'] 			= 'Oletko varma, että haluat poista tämän? Tätä toimintoa ei voi peruuttaa.';
-$lang['dialog.confirm'] 				= 'Vahvista';
-$lang['dialog.yes'] 					= 'Kyllä';
-$lang['dialog.no'] 						= 'Ei';
+$lang['global:dialog:delete_message'] 	= 'Oletko varma, että haluat poista tämän? Tätä toimintoa ei voi peruuttaa.';
+$lang['global:dialog:confirm'] 			= 'Vahvista';
 
-$lang['global:select-none'] 					= '-- Ei mikään --';
-$lang['global:select-all'] 					= '-- Kaikki --';
-$lang['global:select-any'] 					= '-- Any --'; // @todo: Not yet sure in which context we're using this
-$lang['global:select-pick'] 					= '-- Valitse --';
+$lang['global:yes'] 					= 'Kyllä';
+$lang['global:no'] 						= 'Ei';
 
-$lang['global:check-none'] 					= 'Ei yhtään';
-$lang['global:check-all']						= 'Kaikki';
+$lang['global:select-none'] 			= '-- Ei mikään --';
+$lang['global:select-all'] 				= '-- Kaikki --';
+$lang['global:select-any'] 				= '-- Any --'; // @todo: Not yet sure in which context we're using this
+$lang['global:select-pick'] 			= '-- Valitse --';
 
-$lang['operators.equal'] 				= 'Täsmää';
-$lang['operators.not_equal'] 			= 'Ei täsmää';
-$lang['operators.less_than'] 			= 'Vähemmän kuin';
-$lang['operators.greater_than'] 		= 'Enemmän kuin';
+$lang['global:check-none'] 				= 'Ei yhtään';
+$lang['global:check-all']				= 'Kaikki';
+
+$lang['global:operators:equal'] 		= 'Täsmää';
+$lang['global:operators:not-equal'] 	= 'Ei täsmää';
+$lang['global:operators:less-than'] 	= 'Vähemmän kuin';
+$lang['global:operators:greater-than'] 	= 'Enemmän kuin';
+
+$lang['global:duration:1-day']			= 'One day'; #translate
+$lang['global:duration:1-week']			= 'One week'; #translate
+$lang['global:duration:2-weeks']		= 'Two weeks'; #translate
+$lang['global:duration:1-month']		= 'One month'; #translate
+$lang['global:duration:3-months']		= 'Three Months'; #translate
+$lang['global:duration:always']			= 'Always'; #translate
 
 $lang['navigation_headline'] 			= 'Navigointi';
 $lang['breadcrumb_base_label'] 			= 'Etusivu';
@@ -48,8 +56,8 @@ $lang['global:demo_restrictions']       = 'Jotkut ominaisuudet on otettu pois k�
 
 $lang['login_error_label'] 				= 'Kirjautumis virhe';
 $lang['forgot_password_label'] 			= 'Unohditko salasanasi?';
-$lang['email_label'] 					= 'Sähköposti';
-$lang['password_label'] 				= 'Salasana';
+$lang['global:email'] 					= 'Sähköposti';
+$lang['global:password'] 				= 'Salasana';
 $lang['login_label'] 					= 'Kirjaudu sisään';
 
 $lang['help_label'] 					= 'Apua';

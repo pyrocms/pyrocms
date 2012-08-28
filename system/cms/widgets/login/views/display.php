@@ -4,11 +4,11 @@
 <?php endif; ?>
 	<ul>
 		<li>
-			<label for="email"><?php echo lang('user_email'); ?></label>
+			<label for="email"><?php echo lang('global:email'); ?></label>
 			<?php echo form_input('email', '', 'id="email" maxlength="120"'); ?>
 		</li>
 		<li>
-			<label for="password"><?php echo lang('user_password'); ?></label>
+			<label for="password"><?php echo lang('global:password'); ?></label>
 			<?php echo form_password('password', '', 'id="password" maxlength="20"'); ?>
 		</li>
     </ul>
@@ -19,7 +19,8 @@
 			<?php echo lang('user_login_btn') ?>
 		</button>
 
-		<?php echo anchor('users/reset_pass', lang('user_reset_password_link'));?> | <?php echo anchor('register', lang('user_register_btn'));?>
+		<?php echo anchor('users/reset_pass', lang('user_reset_password_link'));?>
+		<?php if (Settings::get('enable_registration')) echo ' | '.anchor('register', lang('user_register_btn')); ?>
 	</div>
 
 <?php echo form_close();?>

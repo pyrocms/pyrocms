@@ -16,7 +16,7 @@ class Page_layouts_m extends MY_Model
 	 * @return mixed
 	 *
      */
-    public function insert($input = array())
+    public function insert($input = array(), $skip_validation = false)
     {
         $this->load->helper('date');
 
@@ -32,7 +32,7 @@ class Page_layouts_m extends MY_Model
 	 * @param array $input The data to update
 	 * @return mixed
      */
-    public function update($id = 0, $input = array())
+    public function update($id = 0, $input = array(), $skip_validation = false)
     {
         $this->load->helper('date');
 

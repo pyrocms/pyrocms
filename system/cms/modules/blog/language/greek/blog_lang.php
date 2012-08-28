@@ -44,6 +44,7 @@ $lang['blog:blog_title'] 		= 'Ιστολόγιο';
 $lang['blog:list_title'] 		= 'Λίστα δημοσιεύσεων';
 
 // messages
+$lang['blog:disabled_after'] 				= 'Posting comments after %s has been disabled.'; #translate
 $lang['blog:no_posts'] 			= 'Δεν υπάρχουν δημοσιεύσεις.';
 $lang['blog:subscripe_to_rss_desc'] 	= 'Μπορείτε να λαμβάνετε νεότερες δημοσιεύσεις με το να εγγραφείτε στην τροφοδοσία RSS μας. Μπορείτε να το κάνετε χρησιμοποιώντας τα δημοφιλή προγράμματα e-mail, ή με το <a href="http://reader.google.co.uk/">Google Reader</a>.';
 $lang['blog:currently_no_posts'] 	= 'Προς το παρόν δεν υπάρχουν δημοσιεύσεις.';

@@ -41,11 +41,11 @@ $lang['cp_contact_support'] 			= 'สนับสนุน';
 $lang['cp_nav_settings']				= 'ตั้งค่า';
 $lang['cp_nav_addons']					= 'ส่วนเสริม';
 $lang['cp_nav_modules']					= 'โมดูล';
-$lang['cp_nav_widgets']					= 'วิดเจ็ต';
 $lang['cp_nav_users']					= 'ผู้ใช้';
-$lang['cp_nav_design']					= 'ออกแบบ';
 $lang['cp_nav_content']					= 'เนื้อหา';
-$lang['cp_nav_utilities']				= 'ยูทิลิตี้';
+$lang['cp_nav_data']					= 'Data'; #translate
+$lang['cp_nav_structure']				= 'Structure'; #translate
+$lang['cp_nav_misc']					= 'Miscellaneous'; #translate
 
 $lang['cp_must_login']	 				= 'คุณต้องล็อกอินเพื่อดูหน้านี้.';
 $lang['cp_access_denied'] 				= 'คุณไม่ได้รับสิทธิ์เพียงพอที่จะดูหน้านี้.';

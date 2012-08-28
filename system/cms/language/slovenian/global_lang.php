@@ -23,10 +23,17 @@ $lang['global:select-pick'] 			= '-- Izberi --';
 $lang['global:check-none'] 				= 'Nič';
 $lang['global:check-all']				= 'Vse';
 
-$lang['operators.equal'] 				= 'Enako kot';
-$lang['operators.not_equal'] 			= 'Ni enako kot';
-$lang['operators.less_than'] 			= 'Manj kot';
-$lang['operators.greater_than'] 		= 'Več kot';
+$lang['global:operators:equal'] 				= 'Enako kot';
+$lang['global:operators:not-equal'] 			= 'Ni enako kot';
+$lang['global:operators:less-than'] 			= 'Manj kot';
+$lang['global:operators:greater-than'] 		= 'Več kot';
+
+$lang['global:duration:1-day']			= 'One day'; #translate
+$lang['global:duration:1-week']			= 'One week'; #translate
+$lang['global:duration:2-weeks']		= 'Two weeks'; #translate
+$lang['global:duration:1-month']		= 'One month'; #translate
+$lang['global:duration:3-months']		= 'Three Months'; #translate
+$lang['global:duration:always']			= 'Always'; #translate
 
 $lang['navigation_headline'] 			= 'Meni';
 $lang['breadcrumb_base_label'] 			= 'Domov';
@@ -48,8 +55,8 @@ $lang['global:demo_restrictions']       = 'Some features on this page have been 
 
 $lang['login_error_label'] 				= 'Napaka pri prijavi';
 $lang['forgot_password_label'] 			= 'Ali ste pozabili geslo ?';
-$lang['email_label'] 					= 'E-mail';
-$lang['password_label'] 				= 'Geslo';
+$lang['global:email'] 					= 'E-mail';
+$lang['global:password'] 				= 'Geslo';
 $lang['login_label'] 					= 'Prijava';
 
 $lang['help_label'] 					= 'Pomoč';

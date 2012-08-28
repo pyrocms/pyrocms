@@ -7,7 +7,7 @@
 		<strong>ID:</strong> #<?php echo $page->id; ?>
 	</p>
 	<p>
-		<strong><?php echo lang('pages:status_label'); ?>:</strong> <?php echo lang("pages.{$page->status}_label"); ?>
+		<strong><?php echo lang('pages:status_label'); ?>:</strong> <?php echo lang("pages:{$page->status}_label"); ?>
 	</p>
 	<p>
 		<strong><?php echo lang('global:slug');?>:</strong>
@@ -18,18 +18,26 @@
 </fieldset>
 
 <!-- Meta data tab -->
+<?php if ($page->meta_title or $page->meta_keywords or $page->meta_description): ?>
 <fieldset>
 	<legend><?php echo lang('pages:meta_label');?></legend>
+	<?php if ($page->meta_title): ?>
 	<p>
-		<strong><?php echo lang('pages:meta_title_label');?>:</strong> <?php echo !empty($page->meta_title) ? $page->meta_title : '&mdash;'; ?>
+		<strong><?php echo lang('pages:meta_title_label');?>:</strong> <?php echo $page->meta_title ?>
 	</p>
+	<?php endif ?>
+	<?php if ($page->meta_keywords): ?>
 	<p>
-		<strong><?php echo lang('pages:meta_keywords_label');?>:</strong> <?php echo !empty($page->meta_keywords) ? $page->meta_keywords : '&mdash;'; ?>
+		<strong><?php echo lang('pages:meta_keywords_label');?>:</strong> <?php echo Keywords::get_string($page->meta_keywords) ?>
 	</p>
+	<?php endif ?>
+	<?php if ($page->meta_description): ?>
 	<p>
-		<strong><?php echo lang('pages:meta_desc_label');?>:</strong> <?php echo !empty($page->meta_description) ? $page->meta_description : '&mdash;'; ?>
+		<strong><?php echo lang('pages:meta_desc_label');?>:</strong> <?php echo $page->meta_description ?>
 	</p>
+	<?php endif ?>
 </fieldset>	
+<?php endif ?>
 
 <div class="buttons">
 	<?php echo anchor('admin/pages/create/'.$page->id, lang('pages:create_label'), 'class="button"'); ?>

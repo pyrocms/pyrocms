@@ -11,7 +11,7 @@
  */
 
 /* ----------------------------------
- *   Responsivness
+ *   Responsiveness
  * ----------------------------------
  * @media queries for responsive design.
  * These override the primary('mobile first') styles.
@@ -20,14 +20,16 @@
  *
  * ---------------------------------- */
 
-@media only screen and (min-width: 281px) {
+	#quick_links {
+		width: 280px;
+	}
 
 	#logo {
 		display: none;
 	}
 
 	.topbar {
-		height: 100px;
+		height: 50px;
 	}
 
 	.topbar ul li a {
@@ -35,7 +37,7 @@
 	}
 
 	.subbar {
-		margin-top: 70px;
+		margin-top: 25px;
 	}
 
 	.sections_bar {
@@ -43,14 +45,64 @@
 	}
 
 	#content-body {
-		top: 30px;
+		top: 0;
 	}
 
-}
+	nav#primary .chzn-container {
+		margin-top: 10px;
+	}
+
+
+	nav#primary ul.primary-nav { display: none; }
+	nav#primary .chzn-container { display: inherit; }
+
+	input[type="text"], 
+	input[type="password"], 
+	input[type="password"],
+	 {
+		width: 200px;
+	}
+
+	textarea, .cke_skin_kama .cke_wrapper
+	{
+		width: 230px;
+	}
+
+	select { 
+		width: 245px; 
+	}
+
+	#filters form > ul > li .chzn-container {
+		width: 225px!important;
+		float: left;
+	}
+
+	#filters form input[type="text"] {
+		width: 140px;
+		height: 12px;
+		float: left;
+	}
+
+	.chzn-drop {
+		width: 223px!important;
+		float: left;
+	}
+
+	.chzn-search input {
+		width: 180px!important;
+	}
+
+	#quick_links ul {
+		margin-top: -20px!important;
+	}
+	
+	#quick_links ul li a {
+		font-size: 0px;
+	}
 
 @media only screen and (min-width: 481px) {
 
-	.wrapper {
+	.wrapper, #quick_links {
 		width: 480px;
 		margin: 0 auto;
 	}
@@ -70,7 +122,7 @@
 	}
 
 	.topbar {
-		height: 100px;
+		height: 50px;
 	}
 	.topbar ul {
 		margin-left: -15px;
@@ -82,7 +134,7 @@
 	}
 
 	.subbar {
-		margin-top: 70px;
+		margin-top: 25px;
 	}
 	.subbar h2, .subbar h2 a {
 		padding: 0;
@@ -92,7 +144,7 @@
 	}
 
 	#content-body {
-		top: 30px;
+		top: 0;
 	}
 
 	#analyticsWrapper, #analytics {
@@ -142,12 +194,6 @@
 		float: left;
 	}
 
-	#quick_links ul li {
-		width: 75px;
-		float: left;
-		margin: 3px 15px 0 15px;
-	}
-
 	footer p {
 		padding: 0;
 	}
@@ -160,14 +206,24 @@
 		width: 450px;
 	}
 
-	.form_inputs fieldset > ul > li > label,
-	.form_inputs fieldset > ul > div > li > label,
-	.form_inputs > ul > div > li > label,
-	.form_inputs > ul > li > label,
-	.form_inputs fieldset > ul > li .label,
-	.form_inputs > ul > li .label {
-		width: 27%!important;
+	#filters form > ul > li .chzn-container {
+		width: 425px!important;
 		float: left;
+	}
+
+	#filters form input[type="text"] {
+		width: 340px;
+		height: 12px;
+		float: left;
+	}
+
+	.chzn-drop {
+		width: 423px!important;
+		float: left;
+	}
+
+	.chzn-search input {
+		width: 370px!important;
 	}
 
 	.form_inputs label small {
@@ -185,13 +241,42 @@
 		font-size: 13px;
 	}
 
+	nav#primary ul.primary-nav { display: none; }
+	nav#primary .chzn-container { display: inherit; }
+
+	input[type="text"], 
+	input[type="password"], 
+	input[type="password"],
+	 {
+		width: 400px;
+	}
+
+	textarea, .cke_skin_kama .cke_wrapper
+	{
+		width: 430px;
+	}
+
+	select { 
+		width: 445px; 
+	}
+
+	#quick_links ul {
+		margin-top: -20px!important;
+	}
+
+	#quick_links ul li a {
+		font-size: 0px;
+	}
 }
 
 @media only screen and (min-width: 768px) {
 
+	nav#primary { display: inherit; }
+	nav#primary .chzn-container { display: none; }
+
 	.topbar, .subbar, .sections_bar {position: fixed;}
 
-	.wrapper {
+	.wrapper, #quick_links {
 		width: 750px;
 		margin: 0 auto;
 	}
@@ -288,12 +373,6 @@
 		float: left;
 	}
 
-	#quick_links ul li {
-		width: 75px;
-		float: left;
-		margin: 3px 5px 0 5px;
-	}
-
 	footer p {
 		float: left;
 		padding: 10px 0 0 0;
@@ -313,17 +392,72 @@
 		display: inline;
 		margin-bottom: 0;
 	}
-	.subbar h2, .subbar h2 a {font-size: 28px;}
 
 	.alert {
 		width: 720px;
+	}
+
+	#filters form > ul > li .chzn-container {
+		width: 152px!important;
+		float: left;
+	}
+
+	#filters form input[type="text"] {
+		width: 152px;
+		height: 12px;
+		float: left;
+	}
+
+	.chzn-drop {
+		width: 152px!important;
+		float: left;
+	}
+
+	.chzn-search input {
+		width: 110px!important;
+	}
+
+	nav#primary ul.primary-nav { display: inherit; }
+	nav#primary .chzn-container { display: none; }
+
+	input[type="text"], 
+	input[type="password"], 
+	input[type="password"],
+	 {
+		width: 500px;
+	}
+
+	textarea, .cke_skin_kama .cke_wrapper
+	{
+		width: 675px;
+	}
+
+	select { 
+		width: 545px; 
+	}
+
+	#quick_links ul {
+		margin-top: -15px!important;
+	}
+
+	#quick_links ul li a {
+		font-size: 12px;
+	}
+
+	.form_inputs fieldset > ul > li > label,
+	.form_inputs fieldset > ul > div > li > label,
+	.form_inputs > ul > div > li > label,
+	.form_inputs > ul > li > label,
+	.form_inputs fieldset > ul > li .label,
+	.form_inputs > ul > li .label {
+		width: 25%!important;
 	}
 
 }
 
 @media only screen and (min-width: 1025px) {
 
-	.wrapper {
+	.wrapper, #quick_links {
 		width: 1024px;
 		margin: 0 auto;
 	}
@@ -411,12 +545,6 @@
 		float: left;
 	}
 
-	#quick_links ul li {
-		width: 75px;
-		float: left;
-		margin: 3px 18px 0 18px;
-	}
-
 	footer p {
 		padding: 0px;
 		margin: 0px;
@@ -429,11 +557,58 @@
 		width: 995px;
 	}
 
+	#filters form > ul > li .chzn-container {
+		width: 260px!important;
+		float: left;
+	}
+
+	#filters form input[type="text"] {
+		width: 220px;
+		height: 12px;
+		float: left;
+	}
+
+	.chzn-drop {
+		width: 258px!important;
+		float: left;
+	}
+
+	.chzn-search input {
+		width: 220px!important;
+	}
+
+	nav#primary ul.primary-nav { display: inherit; }
+	nav#primary .chzn-container { display: none; }
+
+	input[type="text"], 
+	input[type="password"], 
+	input[type="password"],
+	 {
+		width: 500px;
+	}
+
+	textarea, .cke_skin_kama .cke_wrapper
+	{
+		width: 950px;
+	}
+
+	select { 
+		width: 545px; 
+	}
+
+	#quick_links ul {
+		margin-top: -15px!important;
+	}
+
+	#quick_links ul li a {
+		font-size: 12px;
+	}
+
 }
 
 @media only screen and (min-width: 1281px) {
 
-	.wrapper {
+	.wrapper, #quick_links {
 		width: 1280px;
 		margin: 0 auto;
 	}
@@ -522,14 +697,55 @@
 		float: left;
 	}
 
-	#quick_links ul li {
-		width: 75px;
-		float: left;
-		margin: 3px 35px 0 35px;
-	}
-
 	.alert {
 		width: 1250px;
+	}
+
+	#filters form > ul > li .chzn-container {
+		width: 360px!important;
+		float: left;
+	}
+
+	#filters form input[type="text"] {
+		width: 300px;
+		height: 12px;
+		float: left;
+	}
+
+	.chzn-drop {
+		width: 358px!important;
+		float: left;
+	}
+
+	.chzn-search input {
+		width: 320px!important;
+	}
+
+	nav#primary ul.primary-nav { display: inherit; }
+	nav#primary .chzn-container { display: none; }
+
+	input[type="text"], 
+	input[type="password"], 
+	input[type="password"],
+	{
+		width: 500px;
+	}
+
+	textarea, .cke_skin_kama .cke_wrapper
+	{
+		width: 1200px;
+	}
+
+	select { 
+		width: 545px; 
+	}
+
+	#quick_links ul {
+		margin-top: -15px!important;
+	}
+
+	#quick_links ul li a {
+		font-size: 12px;
 	}
 
 }

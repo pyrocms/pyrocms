@@ -5,7 +5,9 @@ require APPPATH."libraries/MX/Loader.php";
 /**
  * This is the loader class used throughout PyroCMS.
  *
- * @package PyroCMS\Core\Libraries
+ * @author      PyroCMS Dev Team
+ * @copyright   Copyright (c) 2012, PyroCMS LLC
+ * @package 	PyroCMS\Core\Libraries
  */
 class MY_Loader extends MX_Loader
 {

@@ -5,8 +5,9 @@
  * 
  * Override Codeigniter's exceptions for managing our 404 errors.
  *
+ * @author      PyroCMS Dev Team
+ * @copyright   Copyright (c) 2012, PyroCMS LLC
  * @package		PyroCMS\Core\Libraries\Exceptions
- * @author		PyroCMS Dev Team
  */
 class MY_Exceptions extends CI_Exceptions
 {

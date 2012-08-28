@@ -8,7 +8,7 @@ $lang['settings_site_slogan']                       = 'Az oldal mottója';
 $lang['settings_site_slogan_desc']                  = 'Pár szavas leírás, használatra kerül az oldalon.';
 
 $lang['settings_site_lang']                         = 'Az oldal nyelve';
-$lang['settings_site_lang_desc']                    = 'A natív nyelve a weboldalnak, e-mail sablonokhoz, kapcsolattartási űrlaphoz és más funkcióhoz, amiknek nem kéne függeni a felhasználó nyelvétől';
+$lang['settings_site_lang_desc']                    = 'A weboldal natív nyelve, e-mail sablonokhoz, kapcsolattartási űrlaphoz és más funkcióhoz, amiknek nem kell függenie a felhasználó nyelvétől';
 
 $lang['settings_contact_email']                     = 'Kapcsolattartásra szolgáló E-mail cím';
 $lang['settings_contact_email_desc']                = 'Az összes, felhasználók által küldött e-mail erre a címre érkezik majd meg.';
@@ -38,10 +38,10 @@ $lang['settings_mail_protocol']                     = 'Levelező Protokoll';
 $lang['settings_mail_protocol_desc']                = 'Szabadon kiválasztható a levelező protokoll.';
 
 $lang['settings_mail_sendmail_path']                = 'Sendmail útvonal';
-$lang['settings_mail_sendmail_path_desc']           = 'A sendmail szerver futtatható állománynak teljes útvonala.';
+$lang['settings_mail_sendmail_path_desc']           = 'A sendmail szerverprogram futtatható állományának teljes útvonala.';
 
-$lang['settings_mail_smtp_host']                    = 'SMTP Hoszt';
-$lang['settings_mail_smtp_host_desc']               = 'Az elérési címe az SMTP szervernek.';
+$lang['settings_mail_smtp_host']                    = 'SMTP hoszt';
+$lang['settings_mail_smtp_host_desc']               = 'Az SMTP szerver elérési címe.';
 
 $lang['settings_mail_smtp_pass']                    = 'SMTP jelszó';
 $lang['settings_mail_smtp_pass_desc']               = 'SMTP jelszó.';
@@ -106,8 +106,8 @@ $lang['settings_enable_comments_desc']              = 'Engedélyezve legyen a fe
 $lang['settings_moderate_comments']                 = 'Hozzászólások moderálása';
 $lang['settings_moderate_comments_desc']            = 'Mielőtt megjelenik egy hozzászólás a weboldalon, várjon a visszaigazolásra?';
 
-$lang['settings_comment_markdown']                  = 'Markdown engedélyezése'; #magyarosítani
-$lang['settings_comment_markdown_desc']             = 'Akarod a látogatóknak engedélyezni, hogy a hozzászólásokban Markdown-t használjanak?'; #magyarosítani
+$lang['settings_comment_markdown']                  = 'Markdown engedélyezése'; #magyarosítani  #nem célszerű
+$lang['settings_comment_markdown_desc']             = 'Akarod a látogatóknak engedélyezni, hogy a hozzászólásokban Markdown-t használjanak?';
 
 $lang['settings_version']                           = 'Verzió';
 $lang['settings_version_desc']                      = 'Verziószám';
@@ -127,14 +127,14 @@ $lang['settings_auto_username_desc']                = 'Létrehozhatunk automata 
 $lang['settings_registered_email']                  = 'Felhásználó regisztráció jelzése';
 $lang['settings_registered_email_desc']             = 'Emlékeztető e-mail küldése a kapcsolati címre, mikor valaki regisztrál.';
 
-$lang['settings_ckeditor_config']                   = 'CKEditor Config'; #translate
-$lang['settings_ckeditor_config_desc']              = 'You can find a list of valid configuration items in <a target="_blank" href="http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.config.html">CKEditor\'s documentation.</a>'; #translate
+$lang['settings_ckeditor_config']                   = 'CKEditor konfiguráció';
+$lang['settings_ckeditor_config_desc']              = 'Az érvényes koncigurációs paraméterekről a <a target="_blank" href="http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.config.html">CKEditor dokumentációjában</a> találhatsz egy listát.';
 
-$lang['settings_enable_registration']               = 'Enable user registration'; #translate
-$lang['settings_enable_registration_desc']          = 'Allow users to register in your site.'; #translate
+$lang['settings_enable_registration']               = 'Felhasználói regisztráció engefélyezése';
+$lang['settings_enable_registration_desc']          = 'Engedélyezi a felhasználóknak hogy regisztráljanak a weboldaladra.';
 
-$lang['settings_cdn_domain']                        = 'CDN Domain'; #translate
-$lang['settings_cdn_domain_desc']                   = 'CDN domains allow you to offload static content to various edge servers, like Amazon CloudFront or MaxCDN.'; #translate
+$lang['settings_cdn_domain']                        = 'CDN domain';
+$lang['settings_cdn_domain_desc']                   = 'A CDN domainek lehetővé teszik hogy kiszervezz statikus tartalmakat különböző "edge" szerverekre mint pl. Amazon, Cloudfront vagy MaxCDN.';
 
 # section titles
 $lang['settings_section_general']                   = 'Általános';
@@ -155,7 +155,7 @@ $lang['settings_form_option_Optional']              = 'Egyedi';
 $lang['settings_form_option_Oldest First']          = 'Régieket felülre';
 $lang['settings_form_option_Newest First']          = 'Újakat felülre';
 $lang['settings_form_option_Text Only']             = 'Csak szöveg';
-$lang['settings_form_option_Allow Markdown']        = 'Markdown engedélyezése'; #magyarosítani
+$lang['settings_form_option_Allow Markdown']        = 'Markdown engedélyezése';
 $lang['settings_form_option_Yes']                   = 'Igen';
 $lang['settings_form_option_No']                    = 'Nem';
 

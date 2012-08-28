@@ -1,5 +1,5 @@
 <section class="title">
-<?php if ($this->method == 'create'): ?>
+<?php if ($this->method === 'create'): ?>
 	<h4><?php echo lang('blog:create_title'); ?></h4>
 <?php else: ?>
 	<h4><?php echo sprintf(lang('blog:edit_title'), $post->title); ?></h4>
@@ -58,8 +58,9 @@
 				
 				<br style="clear:both"/>
 				
+				<div class="one_full">
 				<?php echo form_textarea(array('id' => 'body', 'name' => 'body', 'value' => $post->body, 'rows' => 30, 'class' => $post->type)); ?>
-				
+				</div>
 			</li>
 		</ul>
         <?php echo form_hidden('preview_hash',$post->preview_hash)?>
@@ -99,7 +100,17 @@
 			
 			<li>
 				<label for="comments_enabled"><?php echo lang('blog:comments_enabled_label');?></label>
-				<div class="input"><?php echo form_checkbox('comments_enabled', 1, ($this->method == 'create' && ! $_POST) or $post->comments_enabled == 1, 'id="comments_enabled"'); ?></div>
+				<div class="input">
+					<?php echo form_dropdown('comments_enabled', array(
+						'no' => lang('global:no'),
+						'1 day' => lang('global:duration:1-day'),
+						'1 week' => lang('global:duration:1-week'),
+						'2 weeks' => lang('global:duration:2-weeks'),
+						'1 month' => lang('global:duration:1-month'),
+						'3 months' => lang('global:duration:3-months'),
+						'always' => lang('global:duration:always'),
+					), $post->comments_enabled ? $post->comments_enabled : '3 months'); ?>
+				</div>
 			</li>
 		</ul>
 
@@ -118,7 +129,7 @@
 </section>
 
 <style type="text/css">
-form.crudli.date-meta div.selector {
+form.crud li.date-meta div.selector {
     float: left;
     width: 30px;
 }

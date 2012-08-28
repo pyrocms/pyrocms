@@ -233,6 +233,12 @@ class Installer_lib {
 		// Include migration config to know which migration to start from
 		include '../system/cms/config/migration.php';
 
+		// Create a connection
+		if ( ! $this->db = mysql_connect($server, $username, $password) )
+		{
+			return array('status' => FALSE,'message' => 'The installer could not connect to the MySQL server or the database, be sure to enter the correct information.');
+		}
+
 		// Get the SQL for the default data and parse it
 		$user_sql = file_get_contents('./sql/default.sql');
 		$user_sql = str_replace('{PREFIX}', $data['site_ref'].'_', $user_sql);
@@ -246,12 +252,6 @@ class Installer_lib {
 		$user_sql = str_replace('{NOW}', time(), $user_sql);
 		$user_sql = str_replace('{MIGRATION}', $config['migration_version'], $user_sql);
 
-		// Create a connection
-		if ( ! $this->db = mysql_connect($server, $username, $password) )
-		{
-			return array('status' => FALSE,'message' => 'The installer could not connect to the MySQL server or the database, be sure to enter the correct information.');
-		}
-		
 		if ($this->mysql_server_version >= '5.0.7')
 		{
 			@mysql_set_charset('utf8', $this->db);
@@ -264,7 +264,7 @@ class Installer_lib {
 		}
 
 		// Select the database we created before
-		if ( !mysql_select_db($database, $this->db) )
+		if ( ! mysql_select_db($database, $this->db) )
 		{
 			return array(
 				'status'	=> FALSE,
@@ -296,20 +296,20 @@ class Installer_lib {
 		if ( ! $this->write_db_file($database) )
 		{
 			return array(
-						'status'	=> FALSE,
-						'message'	=> '',
-						'code'		=> 105
-					);
+				'status'	=> FALSE,
+				'message'	=> '',
+				'code'		=> 105
+			);
 		}
 
 		// Write the config file.
 		if ( ! $this->write_config_file() )
 		{
 			return array(
-						'status'	=> FALSE,
-						'message'	=> '',
-						'code'		=> 106
-					);
+				'status'	=> FALSE,
+				'message'	=> '',
+				'code'		=> 106
+			);
 		}
 
 		return array('status' => TRUE);

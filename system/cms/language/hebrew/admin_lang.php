@@ -34,11 +34,11 @@ $lang['cp_contact_support'] 			= 'תמיכה';
 $lang['cp_nav_settings']				= 'הגדרות';
 $lang['cp_nav_addons']					= 'תוספות';
 $lang['cp_nav_modules']					= 'מודולים';
-$lang['cp_nav_widgets']					= 'ויג\'טים';
 $lang['cp_nav_users']					= 'משתמשים';
-$lang['cp_nav_design']					= 'עיצוב';
 $lang['cp_nav_content']					= 'קונטנט';
-$lang['cp_nav_utilities']				= 'כלי עזר';
+$lang['cp_nav_data']					= 'Data'; #translate
+$lang['cp_nav_structure']				= 'Structure'; #translate
+$lang['cp_nav_misc']					= 'Miscellaneous'; #translate
 
 $lang['cp_must_login']	 				= 'חייבים להיות מחוברים כדי לצפות בעמוד זה';
 $lang['cp_access_denied'] 				= 'אין לך הרשאות מתאימות כדי לצפות בעמוד זה.';

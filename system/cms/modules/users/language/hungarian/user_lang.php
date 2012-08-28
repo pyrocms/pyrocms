@@ -1,12 +1,12 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-$lang['user_add_field']                        	= 'Add User Profile Field'; #translate
-$lang['user_profile_delete_success']           	= 'User profile field deleted successfully'; #translate
-$lang['user_profile_delete_failure']            = 'There was a problem with deleting your user profile field'; #translate
-$lang['profile_user_basic_data_label']  		= 'Basic Data'; #translate
-$lang['profile_company']         	  			= 'Company'; #translate
-$lang['profile_updated_on']           			= 'Updated On'; #translate
-$lang['user_profile_fields_label']	 		 	= 'Profile Fields'; #translate`
+$lang['user_add_field']                        = 'Felhasználói profil mező hozzáadása';
+$lang['user_profile_delete_success']           = 'Felhasználói profil mező sikeresen törölve';
+$lang['user_profile_delete_failure']           = 'Probléma lépett fel a profil mező törlése közben';
+$lang['profile_user_basic_data_label']         = 'Alap adatok';
+$lang['profile_company']                       = 'Vállalat';
+$lang['profile_updated_on']                    = 'Frissítve';
+$lang['user_profile_fields_label']             = 'Profil mezők';
 
 $lang['user_register_header']                  = 'Regisztálás';
 $lang['user_register_step1']                   = '<strong>Első lépés:</strong> Regisztrálás';
@@ -16,7 +16,7 @@ $lang['user_login_header']                     = 'Bejelentkezés';
 
 // titles
 $lang['user_add_title']                        = 'Felhasználó hozzáadása';
-$lang['user_list_title'] 		       = 'Felhasználók listája';
+$lang['user_list_title']                       = 'Felhasználók listája';
 $lang['user_inactive_title']                   = 'Inaktív felhasználók';
 $lang['user_active_title']                     = 'Aktív felhasználók';
 $lang['user_registred_title']                  = 'Regisztrált felhasználók';
@@ -26,8 +26,8 @@ $lang['user_edit_title']                       = 'Felhasználó "%s" módosítá
 $lang['user_details_label']                    = 'Részletek';
 $lang['user_first_name_label']                 = 'Keresztnév';
 $lang['user_last_name_label']                  = 'Vezetéknév';
-$lang['user_email_label']                      = 'E-mail';
 $lang['user_group_label']                      = 'Csoport';
+$lang['user_activate_label']                   = 'Aktivál';
 $lang['user_password_label']                   = 'Jelszó';
 $lang['user_password_confirm_label']           = 'Jelszó megerősítése';
 $lang['user_name_label']                       = 'Név';
@@ -38,7 +38,7 @@ $lang['user_never_label']                      = 'Soha';
 $lang['user_no_inactives']                     = 'Nincsenek inaktív felhasználók.';
 $lang['user_no_registred']                     = 'Nincsenek regisztrált felhasználók.';
 
-$lang['account_changes_saved']                 = 'A felhasználói fiók módosításai siekresen el lettek mentve.';
+$lang['account_changes_saved']                 = 'A felhasználói fiók módosításai sikeresen el lettek mentve.';
 
 $lang['indicates_required']                    = 'Jelezze a kötelező mezőket';
 
@@ -46,8 +46,8 @@ $lang['indicates_required']                    = 'Jelezze a kötelező mezőket'
 
 $lang['user_send_activation_email']            = 'Send Activation Email'; #translate
 $lang['user_do_not_activate']                  = 'Inactive'; #translate
-$lang['user_register_title']                   = 'Register';
-$lang['user_activate_account_title']           = 'Activate Account';
+$lang['user_register_title']                   = 'Regisztráció';
+$lang['user_activate_account_title']           = 'Fiók aktiválása';
 $lang['user_activate_label']                   = 'Aktiválás';
 $lang['user_activated_account_title']          = 'Aktivált';
 $lang['user_reset_password_title']             = 'Jelszó törlése';
@@ -63,9 +63,6 @@ $lang['user_last_name']                        = 'Vezetéknéve';
 $lang['user_username']                         = 'Felhasználónév';
 $lang['user_display_name']                     = 'Látható név';
 $lang['user_email_use']                        = 'Bejelentkezéshez használt';
-$lang['user_email']                            = 'E-mail';
-$lang['user_confirm_email']                    = 'E-mail megerősítése';
-$lang['user_password']                         = 'Jelszó';
 $lang['user_remember']                         = 'Emlékezzen rám';
 $lang['user_group_id_label']                   = 'Csoport azonosító';
 
@@ -123,7 +120,7 @@ $lang['user_mass_delete_error']                = 'Előbb ki kell választani a f
 $lang['user_email_pass_missing']               = 'E-mail vagy a jelszó mezők nincsenek kitöltve.';
 $lang['user_email_exists']                     = 'A megadott e-mail cím már használatban van egy másik felhasználó által.';
 $lang['user_register_error']                   = 'Azt gondoljuk, hogy egy bot vagy. Ha tévednénk, fogadd bocsánatkérésünket!';
-$lang['user_register_reasons']                 = 'Join up to access special areas normally restricted. This means your settings will be remembered, more content and less ads.'; #translate
+$lang['user_register_reasons']                 = 'Csatlakozz hogy további funkciókat érhess el. Ez azt jelenti hogy a beállításaid el lesznek mentve. Több tartalom, kevesebb reklám.';
 
 
 // Activation
@@ -135,7 +132,7 @@ $lang['user_activated_message']                = 'A felhasználói fiók aktivá
 $lang['user_logged_in']                        = 'Sikeres bejelentkezés.'; 
 $lang['user_already_logged_in']                = 'Már be vagy jelentkezve. Mielőtt újra bejelentkezz, előtte ki kell jelentkezned';
 $lang['user_login_incorrect']                  = 'E-mail és jelszó nem egyeznek. Bizonyosodj meg arról hogy helyes adatokat írtál-e be és arról, hogy a CAPS LOCK ki van kapcsolva';
-$lang['user_inactive']                         = 'A felhasználói fiók, amibe be szeretnél jelentkezni, jelenleg inaktív.<br />Ellenőrizze az email-jeit további instrukciókért az aktiválással kapcsolatban - <em>lehet hogy a spam könyvtárba került</em>.';
+$lang['user_inactive']                         = 'A felhasználói fiók, amibe be szeretnél jelentkezni, jelenleg inaktív.<br />Ellenőrizd az email-jeidet további instrukciókért az aktiválással kapcsolatban - <em>lehet hogy a spam könyvtárba került</em>.';
 
 
 // Logged Out
@@ -161,49 +158,50 @@ $lang['user_reset_pass_email_subject']         = 'Új jelszó';
 $lang['user_reset_pass_email_body']            = 'A jelszavad a(z) "%s" weboldalon meg lett változtatva. Amennyiben nem te kezdeményezted a változást, kérjük írj egy levelet a %s címre és gondoskodunk a hiba javításáról.';
 
 // Profile
-$lang['profile_of_title']             = '%s profilja';
+$lang['profile_of_title']                      = '%s profilja';
 
-$lang['profile_user_details_label']   = 'Felhasználói adatok';
-$lang['profile_role_label']           = 'Beosztás';
-$lang['profile_registred_on_label']   = 'Regisztráció dátuma';
-$lang['profile_last_login_label']     = 'Utolsó bejelentkezés';
-$lang['profile_male_label']           = 'Férfi';
-$lang['profile_female_label']         = 'Nő';
+$lang['profile_user_details_label']            = 'Felhasználói adatok';
+$lang['profile_role_label']                    = 'Beosztás';
+$lang['profile_registred_on_label']            = 'Regisztráció dátuma';
+$lang['profile_last_login_label']              = 'Utolsó bejelentkezés';
+$lang['profile_male_label']                    = 'Férfi';
+$lang['profile_female_label']                  = 'Nő';
 
-$lang['profile_not_set_up']           = 'Ennek a felhaszálónak nincs profilja.';
+$lang['profile_not_set_up']                    = 'Ennek a felhaszálónak nincs profilja.';
 
-$lang['profile_edit']                 = 'Profil módosítása';
+$lang['profile_edit']                          = 'Profil módosítása';
 
-$lang['profile_personal_section']     = 'Személyes';
+$lang['profile_personal_section']              = 'Személyes';
 
-$lang['profile_display_name']         = 'Megjelenített név';  
-$lang['profile_dob']                  = 'Születési dátum';
-$lang['profile_dob_day']              = 'Nap';
-$lang['profile_dob_month']            = 'Hónap';
-$lang['profile_dob_year']             = 'Év';
-$lang['profile_gender']               = 'Nem';
-$lang['profile_gender_nt']            = 'Nincs megadva';
-$lang['profile_gender_male']          = 'Férfi';
-$lang['profile_gender_female']        = 'Nő';
-$lang['profile_bio']                  = 'Rólam';
+$lang['profile_display_name']                  = 'Megjelenített név';
+$lang['profile_dob']                           = 'Születési dátum';
+$lang['profile_dob_day']                       = 'Nap';
+$lang['profile_dob_month']                     = 'Hónap';
+$lang['profile_dob_year']                      = 'Év';
+$lang['profile_gender']                        = 'Nem';
+$lang['profile_gender_nt']                     = 'Nincs megadva';
+$lang['profile_gender_male']                   = 'Férfi';
+$lang['profile_gender_female']                 = 'Nő';
+$lang['profile_bio']                           = 'Rólam';
 
-$lang['profile_contact_section']      = 'Elérhetőség';
+$lang['profile_contact_section']               = 'Elérhetőség';
 
-$lang['profile_phone']                = 'Telefon';
-$lang['profile_mobile']               = 'Mobil';
-$lang['profile_address']              = 'Cím';
-$lang['profile_address_line1']        = 'Cím #1';
-$lang['profile_address_line2']        = 'Cím #2';
-$lang['profile_address_line3']        = 'Város';
-$lang['profile_address_postcode']     = 'Irányítószám';
-$lang['profile_website']              = 'Weboldal';
+$lang['profile_phone']                         = 'Telefon';
+$lang['profile_mobile']                        = 'Mobil';
+$lang['profile_address']                       = 'Cím';
+$lang['profile_address_line1']                 = 'Cím #1';
+$lang['profile_address_line2']                 = 'Cím #2';
+$lang['profile_address_line3']                 = 'Város';
+$lang['profile_address_postcode']              = 'Irányítószám';
+$lang['profile_website']                       = 'Weboldal';
 
-$lang['profile_api_section']          = 'API hozzáférés';
+$lang['profile_api_section']                   = 'API hozzáférés';
 
-$lang['profile_edit_success']         = 'A felhasználói fiók elmentve.';
-$lang['profile_edit_error']           = 'Hiba lépett fel.';
+$lang['profile_edit_success']                  = 'A felhasználói fiók elmentve.';
+$lang['profile_edit_error']                    = 'Hiba lépett fel.';
 
 // -- Buttons ------------------------------------------------------------------------------------------------
 
 $lang['profile_save_btn']             = 'Profil mentése';
+
 /* End of file user_lang.php */

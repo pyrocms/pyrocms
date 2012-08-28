@@ -6,10 +6,8 @@
  * @package		PyroCMS\Core\Modules\Keywords\Libraries
  */
 
-class Keywords {
-
-	protected $ci;
-
+class Keywords
+{
 	/**
 	 * The Keywords Construct
 	 */
@@ -33,7 +31,7 @@ class Keywords {
 	 * @param	string	$hash	The unique hash stored for a entry
 	 * @return	array
 	 */
-	public function get_string($hash)
+	static function get_string($hash)
 	{
 		$keywords = array();
 		
@@ -142,13 +140,7 @@ class Keywords {
 		foreach ($keywords as &$keyword)
 		{
 			$keyword = self::prep($keyword);
-		/*
-		// Find out which keywords are already being used	
-		$matched = array_map(function($row) {
-			if ($row) return ($row->name;
-		}, ci()->db->where_in('name', $keywords)->get('keywords')->result());
-		
-		*/
+
 			// Keyword already exists
 			if (($row = ci()->db->where('name', $keyword)->get('keywords')->row()))
 			{
