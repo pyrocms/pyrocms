@@ -20,7 +20,7 @@
 
 			<?php foreach( $tab['fields'] as $field ) { ?>
 
-				<li>
+				<li class="<?php echo in_array($fields[$field]['input_slug'], $hidden) ? 'hidden' : null; ?>">
 					<label for="<?php echo $fields[$field]['input_slug'];?>"><?php echo $this->fields->translate_label($fields[$field]['input_title']);?> <?php echo $fields[$field]['required'];?>
 					
 					<?php if( $fields[$field]['instructions'] != '' ): ?>
