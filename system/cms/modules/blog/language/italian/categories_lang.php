@@ -13,10 +13,10 @@ $lang['cat_list_title'] 				= 'Elenco categorie';
 // messages
 $lang['cat_no_categories'] 				= 'Non ci sono categorie.';
 $lang['cat_add_success'] 				= 'La categoria è stata salvata.';
-$lang['cat_add_error'] 					= 'Si &eacuta; verificato un errore.';
-$lang['cat_edit_success'] 				= 'La categoria &eacuta; stata salvata.';
-$lang['cat_edit_error'] 				= 'Si &eacuta; verificato un errore.';
-$lang['cat_mass_delete_error'] 			= 'Si &eacuta; verificato un errore cercando di eliminare la gategoria "%s".';
+$lang['cat_add_error'] 					= 'Si è verificato un errore.';
+$lang['cat_edit_success'] 				= 'La categoria è stata salvata.';
+$lang['cat_edit_error'] 				= 'Si è verificato un errore.';
+$lang['cat_mass_delete_error'] 			= 'Si è verificato un errore cercando di eliminare la gategoria "%s".';
 $lang['cat_mass_delete_success']		= '%s categorie su %s eliminate con successo.';
 $lang['cat_no_select_error'] 			= 'Devi prima selezionare le categorie.';
-$lang['cat_already_exist_error']		= 'La categoria"%s" esiste gi&agrave;.';
+$lang['cat_already_exist_error']		= 'La categoria"%s" esiste già;.';
