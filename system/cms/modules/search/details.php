@@ -50,7 +50,7 @@ class Module_Search extends Module {
 		  PRIMARY KEY (`id`),
 		  UNIQUE KEY `unique` (`module`,`entry_key`,`entry_id`) USING BTREE,
 		  FULLTEXT KEY `full search` (`title`,`description`,`keywords`)
-		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+		) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 		");
 	}
 
