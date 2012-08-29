@@ -14,6 +14,7 @@ $lang['themes.mass_delete_success'] 	= '%s temi di %s eliminati con successo.';
 $lang['themes.mass_delete_error']		= 'Solo %s temi di %s sono stati eliminati.';
 $lang['themes.delete_select_error'] 	= 'Devi prima selezionare i temi da eliminare.';
 $lang['themes.upload_title']			= 'Carica tema';
+$lang['themes.admin_list']				= 'Temi Admin';
 $lang['themes.list_title']				= 'Lista temi';
 $lang['themes.upload_desc']				= 'Seleziona un file e clicca sul tasto Carica';
 
