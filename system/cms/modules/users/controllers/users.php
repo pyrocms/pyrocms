@@ -363,11 +363,17 @@ class Users extends Public_Controller
 					}
 
 					// show the "you need to activate" page while they wait for their email
-					if (Settings::get('activation_email'))
+					if ((int)Settings::get('activation_email') == 0)
 					{
 						$this->session->set_flashdata('notice', $this->ion_auth->messages());
 						redirect('users/activate');
 					}
+                    			elseif ((int)Settings::get('activation_email') == 2)
+		                    	{
+			                    $this->ion_auth->activate($id, false);
+			                    $this->ion_auth->login($this->input->post('email'), $this->input->post('password'));
+			                    redirect($this->config->item('register_redirect', 'ion_auth'));
+			                }
 					else
 					{
 						$this->ion_auth->deactivate($id);
