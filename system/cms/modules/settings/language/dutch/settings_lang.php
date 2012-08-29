@@ -158,6 +158,9 @@ $lang['settings_form_option_Text Only']			= 'Alleen Text';
 $lang['settings_form_option_Allow Markdown']	= 'Markdown Toestaan';
 $lang['settings_form_option_Yes']				= 'Ja';
 $lang['settings_form_option_No']				= 'Nee';
+$lang['settings_form_option_activate_by_email']  			= 'Activatie middels email';
+$lang['settings_form_option_activate_by_admin']				= 'Activatie door een admin';
+$lang['settings_form_option_no_activation']				= 'Geen activatie';
 
 // titles
 $lang['settings_edit_title'] 					= 'Wijzig instellingen';
