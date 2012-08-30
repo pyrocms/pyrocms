@@ -47,7 +47,7 @@ class Plugin_Pages extends Plugin
 		// Grab all the chunks that make up the body
 		$page['chunks'] = $this->db->get_where('page_chunks', array('page_id' => $page['id']))->result_array();
 		
-		$page->body = '';
+		$page['body'] = '';
 		if ($page['chunks'])
 		{
 			foreach ($page['chunks'] as $chunk)

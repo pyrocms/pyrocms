@@ -241,7 +241,7 @@ class Module_Pages extends Module
 			array(
 				'slug' => 'default',
 				'page_id' => 2,
-				'body' => '<p>We cannot find the page you are looking for, please click <a title="Home" href="{{ pages:url id="1" }}">here</a> to go to the homepage.</p>',
+				'body' => '<p>We cannot find the page you are looking for, please click <a title="Home" href="{{ pages:url id=\'1\' }}">here</a> to go to the homepage.</p>',
 				'parsed' => '',
 				'type' => 'html',
 				'sort' => 1,
