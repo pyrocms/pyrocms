@@ -32,7 +32,15 @@ class Plugin_Blog extends Plugin
 
 		if ($category)
 		{
+			$categories = explode('|', $category);
+			$category = array_shift($categories);
+
 			$this->db->where('blog_categories.' . (is_numeric($category) ? 'id' : 'slug'), $category);
+
+			foreach($categories as $category)
+			{
+				$this->db->or_where('blog_categories.' . (is_numeric($category) ? 'id' : 'slug'), $category);
+			}
 		}
 
 		$posts = $this->db
