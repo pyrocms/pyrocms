@@ -12,7 +12,7 @@ $lang['global:action'] = 'Action';
 $lang['global:slug']   = 'Slug';
 $lang['global:user']   = 'Utilisateur';
 
-$lang['global:dialog:delete_message'] = 'Etes-vous sûr de vouloir supprimer ce fichier? Il ne peut pas être annulée.';
+$lang['global:dialog:delete_message'] = 'Etes-vous sûr de vouloir supprimer ce fichier&nbsp;? Cette action ne peut-être annulée.';
 $lang['global:dialog:confirm']        = 'Confirmez';
 
 $lang['global:yes'] = 'Oui';
@@ -23,8 +23,8 @@ $lang['global:select-all']  = '-- Tous --';
 $lang['global:select-any']  = '-- N\'importe quel --';
 $lang['global:select-pick'] = '-- Sélectionner --';
 
-$lang['global:check-none'] = 'Aucun';
 $lang['global:check-all']  = 'Tous';
+$lang['global:check-none'] = 'Aucun';
 
 $lang['global:operators:equal']        = 'Égal à';
 $lang['global:operators:not-equal']    = 'Pas égal à';
@@ -46,11 +46,11 @@ $lang['note_label']           = 'Note';
 $lang['success_label']        = 'Succès';
 
 $lang['login_title']              = 'Connexion';
-$lang['global:fatal_error']       = 'Erreur Fatale, CMS déjà installé ?';
+$lang['global:fatal_error']       = 'Erreur Fatale, CMS déjà installé&nbsp;?';
 $lang['global:demo_restrictions'] = 'Certaines fonctionnalités de cette page ont été désactivées pour la démonstration.';
 
 $lang['login_error_label']     = 'Erreur de Connexion';
-$lang['forgot_password_label'] = 'Mot de passe oublié ?';
+$lang['forgot_password_label'] = 'Mot de passe oublié&nbsp;?';
 $lang['email_label']           = 'E-mail';
 $lang['password_label']        = 'Mot de passe';
 $lang['login_label']           = 'Connectez-vous';
@@ -67,16 +67,18 @@ $lang['publish_label']    = 'Publier';
 $lang['upload_label']     = 'Uploader';
 $lang['global:uninstall'] = 'Désinstaller';
 $lang['global:install']   = 'Installer';
+$lang['global:upgrade']   = 'Mise à jour';
 $lang['global:enable']    = 'Activer';
 $lang['global:disable']   = 'Désactiver';
-$lang['global:upgrade']   = 'Mise à jour';
+$lang['global:enabled']   = 'Activé';
+$lang['global:disabled']  = 'Désactivé';
 
 $lang['all_right_reserved'] = 'Tous droits réservés.';
 $lang['powered_by_pyrocms'] = 'Propulsé par PyroCMS';
 $lang['top_page']           = 'Haut';
 $lang['back_to_top']        = 'Retour en haut';
 
-$lang['global:filters']     = 'Filters';
+$lang['global:filters']     = 'Filtres';
 $lang['global:image']       = 'Image';
 $lang['global:description'] = 'Description';
 $lang['global:actions']     = 'Actions';
