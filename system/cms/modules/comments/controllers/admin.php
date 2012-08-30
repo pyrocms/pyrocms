@@ -76,7 +76,7 @@ class Admin extends Admin_Controller {
 
 		$comments = $this->comment_m
 			->limit($pagination['limit'])
-			->order_by('comments:created_on', 'desc')
+			->order_by('comments.created_on', 'desc')
 			->get_many_by($base_where);
 
 		$content_title = $base_where['comments.is_active'] ? lang('comments:active_title') : lang('comments:inactive_title');
