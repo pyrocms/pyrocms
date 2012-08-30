@@ -75,6 +75,7 @@ class Fields
      * @param	bool - are we using reCAPTCHA?
      * @param	array - all the skips
      * @param	array - extra data:
+     * @param	array - default values: Only used during new method.
      *
      * - email_notifications
      * - return
@@ -86,7 +87,7 @@ class Fields
      *
      * @return	array - fields
      */
- 	public function build_form($stream, $method, $row = false, $plugin = false, $recaptcha = false, $skips = array(), $extra = array())
+ 	public function build_form($stream, $method, $row = false, $plugin = false, $recaptcha = false, $skips = array(), $extra = array(), $defaults = array())
  	{
  		$this->CI->load->helper(array('form', 'url'));
  	
@@ -167,7 +168,7 @@ class Fields
 		// Set Values
 		// -------------------------------------
 
-		$values = $this->set_values($stream_fields, $row, $method, $skips);
+		$values = $this->set_values($stream_fields, $row, $method, $skips, $defaults);
 
 		// -------------------------------------
 		// Validation
@@ -295,9 +296,10 @@ class Fields
 	 * @param 	object - row
 	 * @param 	string - edit or new
 	 * @param 	array
+	 * @param 	array
 	 * @return 	array
 	 */
-	public function set_values($stream_fields, $row, $mode, $skips)
+	public function set_values($stream_fields, $row, $mode, $skips, $defaults)
 	{
 		$values = array();
 		
@@ -310,7 +312,8 @@ class Fields
 					// If this is a new entry and there is no post data,
 					// we see if:
 					// a - there is data from the DB to show
-					// b - there is a default value to show
+					// b - 1. there is a defaults value sent to the form ($defaults)
+					// b - 2. there is a default value to show from the assignment
 					// Otherwise, it's just null
 					if (isset($row->{$stream_field->field_slug}))
 					{
@@ -318,7 +321,7 @@ class Fields
 					}
 					else
 					{
-						$values[$stream_field->field_slug] = (isset($stream_field->field_data['default_value'])) ? $stream_field->field_data['default_value'] : null;
+						$values[$stream_field->field_slug] = (isset($defaults[$stream_field->field_slug]) ? $defaults[$stream_field->field_slug] : (isset($stream_field->field_data['default_value']) ? $stream_field->field_data['default_value'] : null));
 					}
 				}
 				else
