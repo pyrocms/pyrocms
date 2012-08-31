@@ -132,6 +132,9 @@ $lang['settings_form_option_Required']			= 'Povinné';
 $lang['settings_form_option_Optional']			= 'Volitelné';
 $lang['settings_form_option_Oldest First']		= 'Od nejstarších';
 $lang['settings_form_option_Newest First']		= 'Od nejnovějších';
+$lang['settings_form_option_activate_by_email']          = 'Activate by email'; #translate
+$lang['settings_form_option_activate_by_admin']        	= 'Activate by admin'; #translate
+$lang['settings_form_option_no_activation']         	= 'No activation'; #translate
 
 // titles
 $lang['settings_edit_title'] 					= 'Upravit nastavení';
