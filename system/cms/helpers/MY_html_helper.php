@@ -27,6 +27,10 @@ if (!function_exists('tree_builder'))
 					// if there are children we build their html and set it up to be parsed as {{ children }}
 					$item['children'] = '<ul>'.tree_builder($item['children'], $html).'</ul>';
 				}
+				else
+				{
+					$item['children'] = null;
+				}
 
 				// now that the children html is sorted we parse the html that they passed
 				$output .= ci()->parser->parse_string($html, $item, true);

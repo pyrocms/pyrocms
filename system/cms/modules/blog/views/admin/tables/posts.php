@@ -1,4 +1,5 @@
-	<table>
+<?php if ($blog) : ?>
+	<table border="0" class="table-list">
 		<thead>
 			<tr>
 				<th width="20"><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all')); ?></th>
@@ -46,7 +47,6 @@
 			<?php endforeach; ?>
 		</tbody>
 	</table>
-
-	<div class="table_action_buttons">
-		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete', 'publish'))); ?>
-	</div>
+<?php else: ?>
+	<div class="no_data"><?php echo lang('blog:currently_no_posts'); ?></div>
+<?php endif; ?>

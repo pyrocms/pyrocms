@@ -4,13 +4,14 @@
 * [Documentation](http://pyrocms.com/docs)
 * [License](http://pyrocms.com/legal/license)
 * [Forums](http://pyrocms.com/forums)
-* Version: 2.1.3
+* Version: 2.1.4
 
 ## Team
 
-* [Phil Sturgeon](http://philsturgeon.co.uk/)
-* [Jerel Unruh](http://unruhdesigns.com/)
 * [Adam Fairholm](http://parse19.com/)
+* [Jerel Unruh](http://unruhdesigns.com/)
+* [Phil Sturgeon](http://philsturgeon.co.uk/)
+* [Scott Parry](http://ikreativ.com/)
 
 ## Description
 
@@ -56,6 +57,7 @@ It's strongly recommended that you download the [git-flow client](https://github
 * [Ben Edmunds](http://benedmunds.com/)
 * [Eric Barnes](http://ericlbarnes.com/)
 * [Stephen Cozart](http://twitter.com/stephencozart)
+* [Ryan Thompson](http://aiwebsystems.com)
 
 Think you should be on this list? Add yourself in the next pull request you submit.
 

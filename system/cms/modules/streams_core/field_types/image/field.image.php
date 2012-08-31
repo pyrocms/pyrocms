@@ -43,27 +43,25 @@ class Field_image
 	{
 		$this->CI->load->config('files/files');
 		
-		// Get the file		
-		$this->CI->db->limit(1);
-		$this->CI->db->where('id', $params['value']);
-		$db_obj = $this->CI->db->get('files');
-		
-		$out = '';
-		
-		if ($db_obj->num_rows() != 0)
+		if ($params['value'])
 		{
-			// Div for the PyroCMS admin
-			/*if( $this->CI->uri->segment(1) == 'admin' ):
-			
-				$out .= '<div style="float: left;">';
-				
-			endif;*/
-
-			$out .= $this->_output_thumb($db_obj->row(), true).br();
+			// Get the file		
+			$current_file = $this->CI->db
+						->limit(1)
+						->where('id', $params['value'])
+						->get('files')
+						->row();
 		}
 		else
 		{
-			$out .= '';
+			$current_file = null;
+		}
+		
+		$out = '';
+		
+		if ($current_file)
+		{
+			$out .= $this->_output_thumb($current_file, true).br();
 		}
 		
 		// Output the actual used value
@@ -78,8 +76,6 @@ class Field_image
 
 		$options['name'] 	= $params['form_slug'];
 		$options['name'] 	= $params['form_slug'].'_file';
-
-		//if( $this->CI->uri->segment(1) == 'admin' ): $out .= '</div>'; endif;
 		
 		return $out .= form_upload($options);
 	}
@@ -257,10 +253,12 @@ class Field_image
 	 *
 	 * @access	public
 	 * @param	array
-	 * @return	string
+	 * @return	mixed - null or string
 	 */	
 	public function pre_output($input, $params)
 	{
+		if ( ! $input) return null;
+
 		$this->CI->load->config('files/files');
 		
 		$db_obj = $this->CI->db
@@ -287,10 +285,12 @@ class Field_image
 	 * @param	string
 	 * @param	string
 	 * @param	array
-	 * @return	array
+	 * @return	mixed - string or array
 	 */
 	public function pre_output_plugin($input, $params)
 	{
+		if ( ! $input) return null;
+
 		$image_data = array();
 	
 		$this->CI->load->config('files/files');

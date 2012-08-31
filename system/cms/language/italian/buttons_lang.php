@@ -28,12 +28,12 @@ $lang['buttons.disable'] 	= 'Disabilita';
 $lang['buttons.yes']		= 'Si';
 $lang['buttons.no']			= 'No';
 $lang['buttons.activate']	= 'Attiva';
-$lang['buttons.deactivate']	= 'Deactivate'; #translate
+$lang['buttons.deactivate']	= 'Disattiva';
 $lang['buttons.preview']	= 'Anteprima';
 $lang['buttons.close']		= 'Chiudi';
 $lang['buttons.edit']		= 'Modifica';
 $lang['buttons.clone']		= 'Clona';
-$lang['buttons.re-index']	= 'Re-index'; #translate
+$lang['buttons.re-index']	= 'Indicizza di nuovo';
 $lang['buttons.copy']		= 'Copia';
 
 /* End of file buttons_lang.php */
