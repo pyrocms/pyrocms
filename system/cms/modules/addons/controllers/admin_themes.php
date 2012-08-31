@@ -2,10 +2,11 @@
 /**
  * Admin controller for the themes module
  *
- * @author PyroCMS Dev Team
- * @package PyroCMS\Core\Modules\Themes\Controllers
+ * @package 	PyroCMS\Core\Modules\Addons\Controllers
+ * @author      PyroCMS Dev Team
+ * @copyright   Copyright (c) 2012, PyroCMS LLC
  */
-class Admin extends Admin_Controller
+class Admin_themes extends Admin_Controller
 {
 	/**
 	 * The current active section
@@ -26,8 +27,8 @@ class Admin extends Admin_Controller
 	 */
 	public function __construct()
 	{
-		// Call the parent's constructor
 		parent::__construct();
+	
 		$this->load->model('theme_m');
 		$this->lang->load('themes');
 		$this->load->library('form_validation');
@@ -66,7 +67,6 @@ class Admin extends Admin_Controller
 	/**
 	 * List all admin themes
 	 *
-	 * @access public
 	 * @return void
 	 */
 	public function admin_themes()
@@ -278,10 +278,7 @@ class Admin extends Admin_Controller
 	/**
 	 * Delete an existing theme
 	 *
-	 * @access public
-	 *
 	 * @param string $theme_name The name of the theme to delete
-	 *
 	 * @return void
 	 */
 	public function delete($theme_name = '')
@@ -352,7 +349,6 @@ class Admin extends Admin_Controller
 	 * @todo: Code duplication, see modules/settings/libraries/Settings.php @ form_control().
 	 *
 	 * @param	object	$option
-	 *
 	 * @return	string
 	 */
 	public function form_control(&$option)
@@ -480,7 +476,6 @@ class Admin extends Admin_Controller
 	 * Formats the options for a theme option into an associative array.
 	 *
 	 * @param array $options
-	 *
 	 * @return array
 	 */
 	private function _format_options($options = array())

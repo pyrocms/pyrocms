@@ -81,7 +81,7 @@ class MY_Controller extends MX_Controller
 		$this->load->library(array('session', 'settings/settings'));
 
 		// Lock front-end language
-		if ( ! (is_a($this, 'Admin_Controller') && ($site_lang = AUTO_LANGUAGE)))
+		if ( ! (is_a($this, 'Admin_Controller') and ($site_lang = AUTO_LANGUAGE)))
 		{
 			$site_public_lang = explode(',', Settings::get('site_public_lang'));
 
@@ -106,7 +106,7 @@ class MY_Controller extends MX_Controller
 		$this->load->vars($pyro);
 
 		// Set php locale time
-		if (isset($langs[CURRENT_LANGUAGE]['codes']) && sizeof($locale = (array) $langs[CURRENT_LANGUAGE]['codes']) > 1)
+		if (isset($langs[CURRENT_LANGUAGE]['codes']) and sizeof($locale = (array) $langs[CURRENT_LANGUAGE]['codes']) > 1)
 		{
 			array_unshift($locale, LC_TIME);
 			call_user_func_array('setlocale', $locale);
@@ -144,9 +144,9 @@ class MY_Controller extends MX_Controller
 		// Loaded after $this->current_user is set so that data can be used everywhere
 		$this->load->model(array(
 			'permissions/permission_m',
-			'modules/module_m',
+			'addons/module_m',
+			'addons/theme_m',
 			'pages/page_m',
-			'themes/theme_m',
 		));
 
 		// List available module permissions for this user
@@ -165,6 +165,8 @@ class MY_Controller extends MX_Controller
 
 		if ($this->module and isset($this->module_details['path']))
 		{
+			var_dump( $this->module_details['path']);
+			exit;
 			Asset::add_path('module', $this->module_details['path'].'/');
 		}
 
@@ -173,7 +175,7 @@ class MY_Controller extends MX_Controller
 		$this->benchmark->mark('my_controller_end');
 		
 		// Enable profiler on local box
-	    if ((isset($this->current_user->group) AND $this->current_user->group == 'admin') AND is_array($_GET) AND array_key_exists('_debug', $_GET) )
+	    if ((isset($this->current_user->group) and $this->current_user->group === 'admin') and is_array($_GET) and array_key_exists('_debug', $_GET))
 	    {
 			unset($_GET['_debug']);
 	    	$this->output->enable_profiler(TRUE);
