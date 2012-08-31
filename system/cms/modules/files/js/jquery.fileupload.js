@@ -172,21 +172,26 @@
                 var event;
                 if (typeof document.createEvent === func && typeof ProgressEvent !== undef) {
                     event = document.createEvent('ProgressEvent');
-                    event.initProgressEvent(
-                        'progress',
-                        false,
-                        false,
-                        lengthComputable,
-                        loaded,
-                        total
-                    );
-                } else {
-                    event = {
-                        lengthComputable: true,
-                        loaded: loaded,
-                        total: total
-                    };
+                    if (typeof event.initProgressEvent === func) {
+                        event.initProgressEvent(
+                            'progress',
+                            false,
+                            false,
+                            lengthComputable,
+                            loaded,
+                            total
+                        );
+
+                        return event;
+                    }
                 }
+                
+                event = {
+                    lengthComputable: true,
+                    loaded: loaded,
+                    total: total
+                };
+
                 return event;
             },
 
