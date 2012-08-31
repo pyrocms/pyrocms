@@ -3,17 +3,39 @@
 /**
  * Widget library takes care of the logic for widgets
  * 
- * @author		Phil Sturgeon
- * @author		PyroCMS Dev Team
  * @package		PyroCMS\Core\Modules\Widgets\Libraries
+ * @author      PyroCMS Dev Team
+ * @copyright   Copyright (c) 2012, PyroCMS LLC
  */
-class Widgets {
+class Widgets 
+{
+	/**
+	 * Current widget in use (yay singletons!)
+	 * 
+	 * @var	object
+	 */
+	protected $_widget = NULL;
+	
+	/**
+	 * Cache of rendered widget areas (html)
+	 * 
+	 * @var	array
+	 */
+	protected $_rendered_areas = array();
+	
+	/**
+	 * Locations where widget files are located
+	 * 
+	 * @var	array
+	 */
+	protected $_widget_locations = array();
 
-	private $_widget = NULL;
-	private $_rendered_areas = array();
-	private $_widget_locations = array();
-
-	function __construct()
+	/**
+	 * Constructor
+	 *
+	 * @return void
+	 */
+	public function __construct()
 	{
 		$this->load->model('widgets/widget_m');
 		
@@ -61,17 +83,52 @@ class Widgets {
 		}
 	}
 
-	function list_areas()
+	/**
+	 * List available widget areas
+	 * 
+	 * <strong>Note:</strong> This method is used mainly for the Control Panel.
+	 *
+	 * <code>
+	 * echo $this->widgets->list_areas();
+	 * </code>
+	 * 
+	 * @return array
+	 */
+	public function list_areas()
 	{
 		return $this->widget_m->get_areas();
 	}
 
-	function list_area_instances($slug)
+	/**
+	 * List area instances
+	 * 
+	 * <strong>Note:</strong> This method is used mainly for the Control Panel.
+	 *
+	 * <code>
+	 * echo $this->widgets->list_area_instances();
+	 * </code>
+	 * 
+	 * @return array
+	 */
+	public function list_area_instances($slug)
 	{
 		return is_array($slug) ? $this->widget_m->get_by_areas($slug) : $this->widget_m->get_by_area($slug);
 	}
 
-	function list_available_widgets()
+	/**
+	 * List available widgets
+	 * 
+	 * These are all installed widgets that are available to be used by the system.
+	 * 
+	 * <strong>Note:</strong> This method is used mainly for the Control Panel.
+	 *
+	 * <code>
+	 * echo $this->widgets->list_available_widgets();
+	 * </code>
+	 * 
+	 * @return array
+	 */
+	public function list_available_widgets()
 	{
 		// Firstly, install any uninstalled widgets
 		$uninstalled_widgets = $this->list_uninstalled_widgets();
@@ -98,10 +155,8 @@ class Widgets {
 			// Finally, check if is need and update the widget info
 			$widget_file = FCPATH . $this->_widget_locations[$widget->slug] . $widget->slug . EXT;
 
-			if (file_exists($widget_file) &&
-				filemtime($widget_file) > $widget->updated_on)
+			if (file_exists($widget_file) and (filemtime($widget_file) > $widget->updated_on))
 			{
-
 				$this->reload_widget($widget->slug);
 
 				log_message('debug', sprintf('The information of the widget "%s" has been updated', $widget->slug));
@@ -113,7 +168,16 @@ class Widgets {
 		return $avaliable;
 	}
 
-	function list_uninstalled_widgets()
+	/**
+	 * List uninstalled widgets
+	 * 
+	 * Called by list_available_widgets() to automatically install any uninstalled widgets
+	 * 
+	 * <strong>Note:</strong> This method is used mainly for the Control Panel.
+	 *
+	 * @return array
+	 */
+	protected function list_uninstalled_widgets()
 	{
 		$available = $this->widget_m->order_by('slug')->get_all();
 		$available_slugs = array();
@@ -129,7 +193,7 @@ class Widgets {
 		{
 			$slug = basename($widget_path);
 
-			if ( ! in_array($slug, $available_slugs) AND $widget = $this->read_widget($slug))
+			if ( ! in_array($slug, $available_slugs) and ($widget = $this->read_widget($slug)))
 			{
 				$uninstalled[] = $widget;
 			}
@@ -138,7 +202,19 @@ class Widgets {
 		return $uninstalled;
 	}
 
-	function get_instance($instance_id)
+	/**
+	 * Get Instance
+	 * 
+	 * Nothing to do with the CodeIgniter get instance, this refers to Widget Instance data
+	 *
+	 * <code>
+	 * echo $this->widgets->get_instance($instance_id);
+	 * </code>
+	 * 
+	 * @param  int    $instance_id	Widget instance id number
+	 * @return array
+	 */
+	public function get_instance($instance_id)
 	{
 		$widget = $this->widget_m->get_instance($instance_id);
 
@@ -152,17 +228,34 @@ class Widgets {
 		return FALSE;
 	}
 
-	function get_area($id)
+	/**
+	 * Get Area
+	 *
+	 * <code>
+	 * echo $this->widgets->get_area($id);
+	 * </code>
+	 * 
+	 * @param  int    $id	Widget area id number
+	 * @return object stdObject
+	 */
+	public function get_area($id)
 	{
 		return is_numeric($id) ? $this->widget_m->get_area_by('id', $id) : $this->widget_m->get_area_by('slug', $id);
 	}
 
-	function get_widget($id)
-	{
-		return is_numeric($id) ? $this->widget_m->get_widget_by('id', $id) : $this->widget_m->get_widget_by('slug', $id);
-	}
-
-	function read_widget($slug)
+	/**
+	 * Read widget
+	 *
+	 * Spawn a widget and get some basic information back, such as the module and wether its an addon or not
+	 * 
+	 * <code>
+	 * echo $this->widgets->read_widget($id);
+	 * </code>
+	 * 
+	 * @param  int    $slug	
+	 * @return object stdObject
+	 */
+	public function read_widget($slug)
 	{
 		$this->_spawn_widget($slug);
 
@@ -174,14 +267,27 @@ class Widgets {
 		$widget = (object) get_object_vars($this->_widget);
 		$widget->slug = $slug;
 		$widget->module = strpos($this->_widget->path, 'modules/') ? basename(dirname($this->_widget->path)) : NULL;
-		$widget->is_addon = strpos($this->_widget->path, 'addons/') !== FALSE;
+		$widget->is_addon = strpos($this->_widget->path, 'system/') === FALSE;
 
 		return $widget;
 	}
 
-	function render($name, $options = array())
+	/**
+	 * Render
+	 *
+	 * Display the actual widget HTML based on slug and options provided
+	 * 
+	 * <code>
+	 * echo $this->widgets->render('rss_feed', array('feed_url' => 'http://philsturgeon.co.uk/blog/feed.rss'));
+	 * </code>
+	 * 
+	 * @param  int    $slug	    Widget slug
+	 * @param  array  $options	Options (data saved in the DB or provided on-the-fly)
+	 * @return string
+	 */
+	public function render($slug, array $options = array())
 	{
-		$this->_spawn_widget($name);
+		$this->_spawn_widget($slug);
 
 		$data = method_exists($this->_widget, 'run') ? call_user_func(array($this->_widget, 'run'), $options) : array();
 
@@ -202,9 +308,18 @@ class Widgets {
 		return $this->load_view('display', $data);
 	}
 
-	function render_backend($name, $saved_data = array())
+	/**
+	 * Render Backend
+	 *
+	 * Display the widget form for the Control Panel
+	 * 
+	 * @param  int    $slug	    	Widget slug
+	 * @param  array  $saved_data	Options (data saved in the DB or provided on-the-fly)
+	 * @return string
+	 */
+	public function render_backend($slug, array $saved_data = array())
 	{
-		$this->_spawn_widget($name);
+		$this->_spawn_widget($slug);
 
 		// No fields, no backend, no rendering
 		if (empty($this->_widget->fields))
@@ -218,7 +333,7 @@ class Widgets {
 		foreach ($this->_widget->fields as $field)
 		{
 			$field_name = &$field['field'];
-			if (($pos = strpos($field_name, '[')) !== FALSE)
+			if (($pos = strpos($field_name, '[')) !== false)
 			{
 				$key = substr($field_name, 0, $pos);
 
@@ -247,7 +362,20 @@ class Widgets {
 		return $this->load_view('form', $data);
 	}
 
-	function render_area($area)
+	/**
+	 * Render Area
+	 *
+	 * Display the widget area HTML
+	 * 
+	 * <code>
+	 * echo $this->widgets->read_widget('sidebar');
+	 * </code>
+	 * 
+	 * @param  int    $slug	    Widget slug
+	 * @param  array  $options	Options (data saved in the DB or provided on-the-fly)
+	 * @return string
+	 */
+	public function render_area($area)
 	{
 		if (isset($this->_rendered_areas[$area]))
 		{
@@ -299,7 +427,7 @@ class Widgets {
 		return $output;
 	}
 
-	function reload_widget($slug)
+	public function reload_widget($slug)
 	{
 		if (is_array($slug))
 		{
@@ -307,10 +435,10 @@ class Widgets {
 			{
 				if ( ! $this->reload_widget($_slug))
 				{
-					return FALSE;
+					return false;
 				}
 			}
-			return TRUE;
+			return true;
 		}
 
 		$widget = $this->read_widget($slug);
@@ -325,42 +453,42 @@ class Widgets {
 		));
 	}
 
-	function add_widget($input)
+	public function add_widget($input)
 	{
 		return $this->widget_m->insert_widget($input);
 	}
 
-	function edit_widget($input)
+	public function edit_widget($input)
 	{
 		return $this->widget_m->update_widget($input);
 	}
 
-	function update_widget_order($id, $position)
+	public function update_widget_order($id, $position)
 	{
 		return $this->widget_m->update_widget_order($id, $position);
 	}
 
-	function delete_widget($slug)
+	public function delete_widget($slug)
 	{
 		return $this->widget_m->delete_widget($slug);
 	}
 
-	function add_area($input)
+	public function add_area($input)
 	{
 		return $this->widget_m->insert_area((array) $input);
 	}
 
-	function edit_area($input)
+	public function edit_area($input)
 	{
 		return $this->widget_m->update_area((array) $input);
 	}
 
-	function delete_area($slug)
+	public function delete_area($slug)
 	{
 		return $this->widget_m->delete_area($slug);
 	}
 
-	function add_instance($title, $widget_id, $widget_area_id, $options = array(), $data = array())
+	public function add_instance($title, $widget_id, $widget_area_id, $options = array(), $data = array())
 	{
 		$slug = $this->get_widget($widget_id)->slug;
 
@@ -383,7 +511,7 @@ class Widgets {
 		return array('status' => 'success');
 	}
 
-	function edit_instance($instance_id, $title, $widget_area_id, $options = array(), $data = array())
+	public function edit_instance($instance_id, $title, $widget_area_id, $options = array(), $data = array())
 	{
 		$slug = $this->widget_m->get_instance($instance_id)->slug;
 
@@ -405,20 +533,18 @@ class Widgets {
 		return array('status' => 'success');
 	}
 
-	function update_instance_order($id, $position)
+	public function update_instance_order($id, $position)
 	{
 		return $this->widget_m->update_instance_order($id, $position);
 	}
 
-	function delete_instance($id)
+	public function delete_instance($id)
 	{
 		return $this->widget_m->delete_instance($id);
 	}
 
-	function validation_errors($name, $options)
+	public function validation_errors($name, $options)
 	{
-//		$_POST = $options;
-
 		$this->load->library('form_validation');
 		$this->form_validation->set_rules('title', lang('global:title'), 'trim|required|max_length[100]');
 
@@ -435,9 +561,9 @@ class Widgets {
 		}
 	}
 
-	function prepare_options($name, $options = array())
+	public function prepare_options($name, array $options = array())
 	{
-		$this->_widget OR $this->_spawn_widget($name);
+		$this->_widget or $this->_spawn_widget($name);
 
 		if (method_exists($this->_widget, 'save'))
 		{
@@ -447,7 +573,7 @@ class Widgets {
 		return $options;
 	}
 
-	private function _spawn_widget($name)
+	protected function _spawn_widget($name)
 	{
 		$widget_path = $this->_widget_locations[$name];
 		$widget_file = FCPATH . $widget_path . $name . EXT;
@@ -493,12 +619,12 @@ class Widgets {
 			));
 	}
 
-	private function _serialize_options($options)
+	protected function _serialize_options($options)
 	{
 		return serialize((array) $options);
 	}
 
-	private function _unserialize_options($options)
+	protected function _unserialize_options($options)
 	{
 		$options = (array) unserialize($options);
 

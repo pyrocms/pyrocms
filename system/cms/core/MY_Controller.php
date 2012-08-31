@@ -5,7 +5,7 @@ require APPPATH."libraries/MX/Controller.php";
 /**
  * Code here is run before ALL controllers
  * 
- * @package 	PyroCMS\Core\Controllers 
+ * @package 	PyroCMS\Core\Controllers
  * @author      PyroCMS Dev Team
  * @copyright   Copyright (c) 2012, PyroCMS LLC
  */
