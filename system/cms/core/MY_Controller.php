@@ -165,8 +165,6 @@ class MY_Controller extends MX_Controller
 
 		if ($this->module and isset($this->module_details['path']))
 		{
-			var_dump( $this->module_details['path']);
-			exit;
 			Asset::add_path('module', $this->module_details['path'].'/');
 		}
 

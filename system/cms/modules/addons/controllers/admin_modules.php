@@ -1,24 +1,16 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
-
 /**
- * Admin controller for the widgets module.
- * 
+ * Modules controller, lists all installed modules
+ *
  * @package 	PyroCMS\Core\Modules\Addons\Controllers
  * @author      PyroCMS Dev Team
  * @copyright   Copyright (c) 2012, PyroCMS LLC
- *
  */
-class Admin_modules extends Admin_Controller {
-
-	/**
-	 * The current active section
-	 * @access protected
-	 * @var string
-	 */
-	protected $section = 'instances';
-
+class Admin_modules extends Admin_Controller
+{
 	/**
 	 * Constructor method
+	 *
 	 * 
 	 * @return void
 	 */
@@ -26,178 +18,309 @@ class Admin_modules extends Admin_Controller {
 	{
 		parent::__construct();
 
-		$this->load->library('widgets');
-		$this->lang->load('widgets');
-
-		$this->input->is_ajax_request() AND $this->template->set_layout(FALSE);
-
-		if (in_array($this->method, array('index', 'manage')))
-		{
-			// requires to install and/or uninstall widgets
-			$this->widgets->list_available_widgets();
-		}
-
-		$this->template
-			->append_js('module::widgets.js')
-			->append_css('module::widgets.css');
+		$this->lang->load('modules');
 	}
 
 	/**
-	 * Index method, lists all active widgets
+	 * Index method
 	 * 
 	 * @return void
 	 */
 	public function index()
 	{
-		$data = array();
+		$this->module_m->import_unknown();
 
-		// Get Widgets
-		$this->db->where('enabled', 1)->order_by('order');
-		$data['available_widgets'] = $this->widget_m->get_all();
-
-		// Get Areas
-		$this->db->order_by('`title`');
-
-		$data['widget_areas'] = $this->widgets->list_areas();
-
-		// Go through all widget areas
-		$slugs = array();
-
-		foreach ($data['widget_areas'] as $key => $area)
-		{
-			$slugs[$area->id] = $area->slug;
-
-			$data['widget_areas'][$key]->widgets = array();
-		}
-
-		if ($data['widget_areas'])
-		{
-			$data['widget_areas'] = array_combine(array_keys($slugs), $data['widget_areas']);
-		}
-
-		$instances = $this->widgets->list_area_instances($slugs);
-
-		foreach ($instances as $instance)
-		{
-			$data['widget_areas'][$instance->widget_area_id]->widgets[$instance->id] = $instance;
-		}
-
-		// Create the layout
 		$this->template
 			->title($this->module_details['name'])
-			->build('admin/index', $data);
+			->set('all_modules', $this->module_m->get_all(NULL, TRUE))
+			->build('admin/modules/index');
 	}
 
 	/**
-	 * Manage method, lists all widgets to install, uninstall, etc..
+	 * Upload
+	 *
+	 * Uploads an addon module
 	 *
 	 * @access	public
 	 * @return	void
 	 */
-	public function manage()
+	public function upload()
 	{
-		$data = array();
-
-		$base_where = array('enabled' => 1);
-
-		//capture active
-		$base_where['enabled'] = is_int($this->session->flashdata('enabled')) ? $this->session->flashdata('enabled') : $base_where['enabled'];
-		$base_where['enabled'] = is_numeric($this->input->post('f_enabled')) ? $this->input->post('f_enabled') : $base_where['enabled'];
-
-		// Create pagination links
-		// @todo: fixes pagination and sort compatibility
-		//$total_rows = $this->widget_m->count_by($base_where);
-		//$data['pagination'] = create_pagination('admin/widgets/manage', $total_rows);
-
-		$data['widgets_active'] = $base_where['enabled'];
-
-		$data['widgets'] = $this->widget_m
-			//->limit($data['pagination']['limit'])
-			->order_by('`order`')
-			->get_many_by($base_where);
-
-
-		// Create the layout
-		$this->template
-			->title($this->module_details['name'])
-			->set_partial('filters', 'admin/partials/filters')
-			->append_js('admin/filter.js')
-			->build('admin/manage', $data);
-	}
-
-	/**
-	 * Enable widget
-	 *
-	 * @access	public
-	 * @param	string	$id			The id of the widget
-	 * @param	bool	$redirect	Optional if a redirect should be done
-	 * @return	void
-	 */
-	public function enable($id = '', $redirect = TRUE)
-	{
-		$id && $this->_do_action($id, 'enable');
-
-		if ($redirect)
+		if ( ! $this->settings->addons_upload)
 		{
-			$this->session->set_flashdata('enabled', 0);
-
-			redirect('admin/widgets/manage');
+			show_error('Uploading add-ons has been disabled for this site. Please contact your administrator');
 		}
-	}
 
-	/**
-	 * Disable widget
-	 *
-	 * @access	public
-	 * @param	string	$id			The id of the widget
-	 * @param	bool	$redirect	Optional if a redirect should be done
-	 * @return	void
-	 */
-	public function disable($id = '', $redirect = TRUE)
-	{
-		$id && $this->_do_action($id, 'disable');
-
-		$redirect AND redirect('admin/widgets/manage');
-	}
-
-	/**
-	 * Do the actual work for enable/disable
-	 *
-	 * @access	protected
-	 * @param	int|array	$ids	Id or array of Ids to process
-	 * @param	string		$action	Action to take: maps to model
-	 * @return	void
-	 */
-	protected function _do_action($ids = array(), $action = '')
-	{
-		$ids		= ( ! is_array($ids)) ? array($ids) : $ids;
-		$multiple	= (count($ids) > 1) ? '_mass' : NULL;
-		$status		= 'success';
-
-		foreach ($ids as $id)
+		if ($this->input->post('btnAction') == 'upload')
 		{
-			if ( ! $this->widget_m->{$action . '_widget'}($id))
+			
+			$config['upload_path'] 		= UPLOAD_PATH;
+			$config['allowed_types'] 	= 'zip';
+			$config['max_size']			= '2048';
+			$config['overwrite'] 		= TRUE;
+
+			$this->load->library('upload', $config);
+
+			if ($this->upload->do_upload())
 			{
-				$status = 'error';
-				break;
+				$upload_data = $this->upload->data();
+
+				// Check if we already have a dir with same name
+				if ($this->module_m->exists($upload_data['raw_name']))
+				{
+					$this->session->set_flashdata('error', sprintf(lang('modules.already_exists_error'), $upload_data['raw_name']));
+				}
+
+				else
+				{
+					// Now try to unzip
+					$this->load->library('unzip');
+					$this->unzip->allow(array('xml', 'html', 'css', 'js', 'png', 'gif', 'jpeg', 'jpg', 'swf', 'ico', 'php'));
+
+					// Try and extract
+					if ( is_string($slug = $this->unzip->extract($upload_data['full_path'], ADDONPATH.'modules/', TRUE, TRUE)) )
+					{
+						if ($this->module_m->install($slug, FALSE, TRUE))
+						{
+							// Fire an event. A module has been enabled when uploaded. 
+							Events::trigger('module_enabled', $slug);
+		
+							$this->session->set_flashdata('success', sprintf(lang('modules.install_success'), $slug));
+						}
+						else
+						{
+							$this->session->set_flashdata('notice', sprintf(lang('modules.install_error'), $slug));
+						}
+					}
+					else
+					{
+						$this->session->set_flashdata('error', $this->unzip->error_string());
+					}
+				}
+
+				// Delete uploaded file
+				@unlink($upload_data['full_path']);
 			}
 			else
 			{
-				// Fire an Event. A widget has been enabled or disabled. 
-				switch ($action)
-				{
-					case 'enable':		
-						Events::trigger('widget_enabled', $ids);
-						break;
-					
-					case 'disable':		
-						Events::trigger('widget_disabled', $ids);
-						break;
-				}
+				$this->session->set_flashdata('error', $this->upload->display_errors());
 			}
+
+			redirect('admin/addons/modules');
 		}
 
-		$this->session->set_flashdata( array($status=> lang('widgets.'.$action.'_'.$status.$multiple)));
+		$this->template
+			->title($this->module_details['name'], lang('modules.upload_title'))
+			->build('admin/modules/upload');
+	}
+	
+	/**
+	 * Uninstall
+	 *
+	 * Uninstalls an addon module
+	 *
+	 * @param	string	$slug	The slug of the module to uninstall
+	 * @access	public
+	 * @return	void
+	 */
+	public function uninstall($slug = '')
+	{
+
+		if ($this->module_m->uninstall($slug))
+		{
+			$this->session->set_flashdata('success', sprintf(lang('modules.uninstall_success'), $slug));
+			
+			// Fire an event. A module has been disabled when uninstalled. 
+			Events::trigger('module_disabled', $slug);
+		}
+		else
+		{
+			$this->session->set_flashdata('error', sprintf(lang('modules.uninstall_error'), $slug));
+		}
+
+		redirect('admin/addons/modules');
 	}
 
+	/**
+	 * Delete
+	 *
+	 * Completely deletes an addon module
+	 *
+	 * @param	string	$slug	The slug of the module to delete
+	 * @access	public
+	 * @return	void
+	 */
+	public function delete($slug = '')
+	{
+		// Don't allow user to delete the entire module folder
+		if ($slug === '/' or $slug === '*' or empty($slug))
+		{
+			show_error(lang('modules.module_not_specified'));
+		}
+
+		// lets kill this thing
+		if ($this->module_m->uninstall($slug) and $this->module_m->delete($slug))
+		{
+			$this->session->set_flashdata('success', sprintf(lang('modules.delete_success'), $slug));
+
+			$path = ADDONPATH.'modules/'.$slug;
+			
+			// they can only delete it if it's in the addons folder
+			if ( is_dir($path) )
+			{
+				if (!$this->_delete_recursive($path))
+				{
+					$this->session->set_flashdata('notice', sprintf(lang('modules.manually_remove'), $path));
+				}
+			}
+
+			// Fire an event. A module has been disabled when deleted. 
+			Events::trigger('module_disabled', $slug);
+		}
+		else
+		{
+			$this->session->set_flashdata('error', sprintf(lang('modules.delete_error'), $slug));
+		}
+
+		redirect('admin/addons/modules');
+	}
+
+	/**
+	 * Enable
+	 *
+	 * Enables an addon module
+	 *
+	 * @param	string	$slug	The slug of the module to enable
+	 * @access	public
+	 * @return	void
+	 */
+	public function install($slug)
+	{
+		if ($this->module_m->install($slug))
+		{
+			// Fire an event. A module has been enabled when installed. 
+			Events::trigger('module_enabled', $slug);
+							
+			// Clear the module cache
+			$this->pyrocache->delete_all('module_m');
+			$this->session->set_flashdata('success', sprintf(lang('modules.install_success'), $slug));
+		}
+		else
+		{
+			$this->session->set_flashdata('error', sprintf(lang('modules.install_error'), $slug));
+		}
+
+		redirect('admin/addons/modules');
+	}
+
+	/**
+	 * Enable
+	 *
+	 * Enables an addon module
+	 *
+	 * @param	string	$slug	The slug of the module to enable
+	 * @access	public
+	 * @return	void
+	 */
+	public function enable($slug)
+	{
+		if ($this->module_m->enable($slug))
+		{
+			// Fire an event. A module has been enabled. 
+			Events::trigger('module_enabled', $slug);
+			
+			// Clear the module cache
+			$this->pyrocache->delete_all('module_m');
+			$this->session->set_flashdata('success', sprintf(lang('modules.enable_success'), $slug));
+		}
+		else
+		{
+			$this->session->set_flashdata('error', sprintf(lang('modules.enable_error'), $slug));
+		}
+
+		redirect('admin/addons/modules');
+	}
+
+	/**
+	 * Disable
+	 *
+	 * Disables an addon module
+	 *
+	 * @param	string	$slug	The slug of the module to disable
+	 * @access	public
+	 * @return	void
+	 */
+	public function disable($slug)
+	{
+		if ($this->module_m->disable($slug))
+		{
+			// Fire an event. A module has been disabled. 
+			Events::trigger('module_disabled', $slug);
+			
+			// Clear the module cache
+			$this->pyrocache->delete_all('module_m');
+			$this->session->set_flashdata('success', sprintf(lang('modules.disable_success'), $slug));
+		}
+		else
+		{
+			$this->session->set_flashdata('error', sprintf(lang('modules.disable_error'), $slug));
+		}
+
+		redirect('admin/addons/modules');
+	}
+	
+	/**
+	 * Upgrade
+	 *
+	 * Upgrade an addon module
+	 *
+	 * @param	string	$slug	The slug of the module to disable
+	 * @access	public
+	 * @return	void
+	 */
+	public function upgrade($slug)
+	{
+		// If upgrade succeeded
+		if ($this->module_m->upgrade($slug))
+		{
+			// Fire an event. A module has been upgraded. 
+			Events::trigger('module_upgraded', $slug);
+			
+			$this->session->set_flashdata('success', sprintf(lang('modules.upgrade_success'), $slug));
+		}
+		// If upgrade failed
+		else
+		{
+			$this->session->set_flashdata('error', sprintf(lang('modules.upgrade_error'), $slug));
+		}
+		
+		redirect('admin/addons/modules');
+	}
+
+	/**
+	 * Delete Recursive
+	 *
+	 * Recursively delete a folder
+	 *
+	 * @param	string	$str	The path to delete
+	 * @return	bool
+	 */
+	private function _delete_recursive($str)
+	{
+        if (is_file($str))
+		{
+            return @unlink($str);
+        }
+		elseif (is_dir($str))
+		{
+            $scan = glob(rtrim($str,'/').'/*');
+
+			foreach($scan as $index => $path)
+			{
+                $this->_delete_recursive($path);
+            }
+
+            return @rmdir($str);
+        }
+    }
 }
