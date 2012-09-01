@@ -88,6 +88,11 @@ class Admin_Categories extends Admin_Controller {
 				Events::trigger('blog_category_created', $id);
 
 				$this->session->set_flashdata('success', sprintf( lang('cat_add_success'), $this->input->post('title')) );
+				
+				$this->load->model('blog/blog_settings_m');
+						
+				$this->blog_settings_m->set_routes();
+
 			}
 			else
 			{
@@ -143,6 +148,10 @@ class Admin_Categories extends Admin_Controller {
 			    	$category->{$rule['field']} = $this->input->post($rule['field']);
 			    }
 			}
+				
+			$this->load->model('blog/blog_settings_m');
+			    	
+			$this->blog_settings_m->set_routes();
 		
 			redirect('admin/blog/categories/index');
 		}
@@ -195,6 +204,10 @@ class Admin_Categories extends Admin_Controller {
 		{
 			$this->session->set_flashdata('error', lang('cat_no_select_error'));
 		}
+				
+		$this->load->model('blog/blog_settings_m');
+		    	
+		$this->blog_settings_m->set_routes();
 		
 		redirect('admin/blog/categories/index');
 	}
@@ -242,6 +255,11 @@ class Admin_Categories extends Admin_Controller {
 			if ($id > 0)
 			{
 				$message = sprintf(lang('cat_add_success'), $this->input->post('title', TRUE));
+								
+				$this->load->model('blog/blog_settings_m');
+				    	
+				$this->blog_settings_m->set_routes();
+				
 			}
 			else
 			{
