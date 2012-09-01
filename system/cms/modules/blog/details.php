@@ -107,7 +107,7 @@ class Module_Blog extends Module {
 			'blog' => array(
 				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true),
 				'title' => array('type' => 'VARCHAR', 'constraint' => 100, 'null' => false, 'unique' => true),
-				'slug' => array('type' => 'VARCHAR', 'constraint' => 100, 'null' => false),
+				'slug' => array('type' => 'VARCHAR', 'constraint' => 200, 'null' => false),
 				'category_id' => array('type' => 'INT', 'constraint' => 11, 'key' => true),
 				'attachment' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => ''),
 				'intro' => array('type' => 'TEXT'),
