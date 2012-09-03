@@ -46,7 +46,8 @@
 					<li class="even">
 						<label for="active"><?php echo lang('user_activate_label');?></label>
 						<div class="input">
-						<?php echo form_checkbox('active', 1, (isset($member->active) && $member->active == 1), 'id="active"'); ?>
+							<?php $options = array(0 => lang('user_do_not_activate'), 1 => lang('user_active'), 2 => lang('user_send_activation_email')); ?>
+							<?php echo form_dropdown('active', $options, $member->active, 'id="active"'); ?>
 						</div>
 					</li>
 					<li class="even">

@@ -359,7 +359,7 @@ jQuery(function($){
 								'<label>'+pyro.lang.height+'</label>'+
 								'<select name="height" class="skip"><option value="0">'+pyro.lang.full_size+'</option><option value="100">100px</option><option value="200">200px</option><option value="300">300px</option><option value="400">400px</option><option value="500">500px</option><option value="600">600px</option><option value="700">700px</option><option value="800">800px</option><option value="900">900px</option><option value="1000">1000px</option><option value="1100">1100px</option><option value="1200">1200px</option><option value="1300">1300px</option><option value="1400">1400px</option><option value="1500">1500px</option><option value="1600">1600px</option><option value="1700">1700px</option><option value="1800">1800px</option><option value="1900">1900px</option><option value="2000">2000px</option></select>'+
 								'<label>'+pyro.lang.ratio+'</label>'+
-								'<input name="ratio" type="checkbox" value="1"/>';
+								'<input name="ratio" type="checkbox" value="1" checked="checked"/>';
 				}
 				// build the upload html for this file
 				return $('<li>'+
@@ -407,7 +407,7 @@ jQuery(function($){
 						name: handler.uploadRow.find('input.file-name').val(),
 						width: handler.uploadRow.find('[name="width"]').val(),
 						height: handler.uploadRow.find('[name="height"]').val(),
-						ratio: handler.uploadRow.find('[name="ratio"]').val(),
+						ratio: handler.uploadRow.find('[name="ratio"]').is(':checked'),
 						folder_id: pyro.files.upload_to,
 						csrf_hash_name: $.cookie(pyro.csrf_cookie_name)
 					};
@@ -712,6 +712,7 @@ jQuery(function($){
 	 	$item_details.find('li').hide();
 
 	 	if ($item) {
+	 		if ($item.id) 				$item_details.find('.id')				.html($item.id).parent().show();
 		 	if ($item.name) 			$item_details.find('.name')				.html($item.name).parent().show();
 		 	if ($item.slug) 			$item_details.find('.slug')				.html($item.slug).parent().show();
 		 	if ($item.path) 			$item_details.find('.path')				.val($item.path).parent().show();
@@ -761,7 +762,7 @@ jQuery(function($){
 				inline		: true,
 				href		: 'div#item-details',
 				width		: '520',
-				height		: (type === 'file') ? '575' : '450',
+				height		: (type === 'file') ? '600' : '475',
 				opacity		: 0
 			});
 

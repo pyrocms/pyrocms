@@ -75,7 +75,15 @@ class Widget_Navigation extends Widgets
 			'rules' => 'required'
 		)
 	);
-
+	/**	
+	 * Constructor method
+	 */	
+	public function __construct()	
+	{
+		// Load the navigation model from the navigation module.	
+		$this->load->model('navigation/navigation_m');
+	}
+	
 	/**
 	 * Get the navigation groups.
 	 *
@@ -83,9 +91,6 @@ class Widget_Navigation extends Widgets
 	 */
 	public function form()
 	{
-		// Load the navigation model from the navigation module.
-		$this->load->model('navigation/navigation_m');
-
 		// Loop aroung them and add them in an array keyed by their abbreviated 
 		// title.
 		$groups = array();
@@ -118,6 +123,9 @@ class Widget_Navigation extends Widgets
 				'is_secure' => IS_SECURE,
 			)
 		);
+
+		// Load the navigation model from the navigation module.
+		$this->load->model('navigation/navigation_m');
 		
 		$links = $this->pyrocache->model('navigation_m', 'get_link_tree', $params, Settings::get('navigation_cache'));
 

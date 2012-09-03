@@ -36,6 +36,7 @@ $lang['user_first_name_label']							= 'Имя';
 $lang['user_last_name_label']								= 'Фамилия';
 $lang['user_group_label']										= 'Группа';
 $lang['user_activate_label']								= 'Активировать';
+$lang['user_password_label']								= 'Пароль';
 $lang['user_password_confirm_label']				= 'Подтверждение пароля';
 $lang['user_name_label']										= 'Имя';
 $lang['user_joined_label']									= 'Зарегистрировался';
@@ -51,6 +52,8 @@ $lang['indicates_required']									= 'указывают поля, необхо
 
 // -- Регистрация / Активация / Сброс пароля ----------------------------------------------------------
 
+$lang['user_send_activation_email']            = 'Send Activation Email'; #translate
+$lang['user_do_not_activate']                  = 'Inactive'; #translate
 $lang['user_register_title']								= 'Регистрация';
 $lang['user_activate_account_title']				= 'Активация учётной записи';
 $lang['user_activate_label']								= 'Активен';
@@ -67,7 +70,6 @@ $lang['user_last_name']											= 'Фамилия';
 $lang['user_username']											= 'Логин';
 $lang['user_display_name']									= 'Отображаемое имя';
 $lang['user_email_use']											= 'используется для входа на сайт';
-$lang['user_password']											= 'Пароль';
 $lang['user_remember']											= 'Запомнить меня';
 $lang['user_group_id_label']								= 'ID группы';
 

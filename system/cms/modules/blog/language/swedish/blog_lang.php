@@ -39,6 +39,8 @@ $lang['blog:posts_title'] = 'Inlägg';
 $lang['blog:rss_posts_title'] = 'Blogginlägg för %s';
 $lang['blog:blog_title'] = 'Blogg';
 $lang['blog:list_title'] = 'Lista inlägg';
+
+$lang['blog:disabled_after'] 				= 'Posting comments after %s has been disabled.'; #translate
 $lang['blog:no_posts'] = 'Det finns inga poster';
 $lang['blog:currently_no_posts'] = 'Det finns inga poster just nu';
 $lang['blog:post_add_success'] = 'Inlägget "%s" har lagts till.';

@@ -70,6 +70,9 @@
 		<div id="item-details">
 			<h4><?php echo lang('files:details'); ?></h4>
 			<ul>
+				<li><label><?php echo lang('files:id'); ?>:</label> 
+					<span class="id"></span>
+				</li>
 				<li><label><?php echo lang('files:name'); ?>:</label> 
 					<span class="name"></span>
 				</li>
@@ -132,3 +135,13 @@
 	</div>
 
 </section>
+
+<?php if ( $this->session->flashdata('initial_folder_contents') ): ?>
+<script type="text/javascript">
+	$(document).ready(function(){
+
+		// Load the flash data ID
+		setTimeout(function(){pyro.files.folder_contents(<?php echo $this->session->flashdata('initial_folder_contents'); ?>);}, '1000');
+	});
+</script>
+<?php endif; ?>

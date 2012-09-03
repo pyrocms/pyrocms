@@ -76,7 +76,7 @@ class Admin extends Admin_Controller
         array(
 			'field' => 'comments_enabled',
 			'label'	=> 'lang:blog:comments_enabled_label',
-			'rules'	=> 'trim|numeric'
+			'rules'	=> 'trim|required'
 		),
         array(
             'field' => 'preview_hash',
@@ -164,7 +164,6 @@ class Admin extends Admin_Controller
 
 		$this->form_validation->set_rules($this->validation_rules);
 
-
 		if ($this->input->post('created_on'))
 		{
 			$created_on = strtotime(sprintf('%s %s:%s', $this->input->post('created_on'), $this->input->post('created_on_hour'), $this->input->post('created_on_minute')));
@@ -226,6 +225,7 @@ class Admin extends Admin_Controller
 		else
 		{
 			// Go through all the known fields and get the post values
+			$post = new stdClass;
 			foreach ($this->validation_rules as $key => $field)
 			{
 				$post->$field['field'] = set_value($field['field']);
@@ -257,6 +257,10 @@ class Admin extends Admin_Controller
 		$id OR redirect('admin/blog');
 
 		$post = $this->blog_m->get($id);
+
+		// If we have keywords before the update, we'll want to remove them from keywords_applied
+		$old_keywords_hash = (trim($post->keywords) != '') ? $post->keywords : null;
+
 		$post->keywords = Keywords::get_string($post->keywords);
 
 		// If we have a useful date, use it
@@ -304,7 +308,7 @@ class Admin extends Admin_Controller
 				'title'				=> $this->input->post('title'),
 				'slug'				=> $this->input->post('slug'),
 				'category_id'		=> $this->input->post('category_id'),
-				'keywords'			=> Keywords::process($this->input->post('keywords')),
+				'keywords'			=> Keywords::process($this->input->post('keywords'), $old_keywords_hash),
 				'intro'				=> $this->input->post('intro'),
 				'body'				=> $this->input->post('body'),
 				'status'			=> $this->input->post('status'),
@@ -462,7 +466,7 @@ class Admin extends Admin_Controller
 	 */
 	public function delete($id = 0)
 	{
-		$this->load->model('comments/comments_m');
+		$this->load->model('comments/comment_m');
 
 		role_or_die('blog', 'delete_live');
 
@@ -481,7 +485,7 @@ class Admin extends Admin_Controller
 				{
 					if ($this->blog_m->delete($id))
 					{
-						$this->comments_m->where('module', 'blog')->delete_by('module_id', $id);
+						$this->comment_m->where('module', 'blog')->delete_by('module_id', $id);
 
 						// Wipe cache for this model, the content has changed
 						$this->pyrocache->delete('blog_m');

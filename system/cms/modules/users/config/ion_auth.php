@@ -78,7 +78,7 @@
 	/**
 	 * Email Activation for registration
 	 **/
-	$config['email_activation']    = Settings::get('activation_email');
+	$config['email_activation']    = ''; // the setting is retrieved in the library
 
 	/**
 	 * Allow users to be remembered and enable auto-login

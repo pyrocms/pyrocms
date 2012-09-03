@@ -20,6 +20,7 @@ $lang['files:back']							= 'Atgal';
 $lang['files:forward']						= 'Pirmyn';
 $lang['files:start']						= 'Pradėti įkęlimą';
 $lang['files:details']						= 'Informacija';
+$lang['files:id']							= 'ID'; #translate
 $lang['files:name']							= 'Pavadinimas';
 $lang['files:slug']							= 'Slug';
 $lang['files:path']							= 'Kelias (path)';

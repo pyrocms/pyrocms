@@ -54,6 +54,7 @@ $lang['blog:blog_title']					= 'บล็อก';
 $lang['blog:list_title']					= 'รายการโพสต์';
 
 // messages
+$lang['blog:disabled_after'] 				= 'Posting comments after %s has been disabled.'; #translate
 $lang['blog:no_posts']                    = 'ไม่มีโพสต์';
 $lang['blog:subscripe_to_rss_desc']          = 'Get posts straight away by subscribing to our RSS feed. You can do this via most popular e-mail clients, or try <a href="http://reader.google.co.uk/">Google Reader</a>.';
 $lang['blog:currently_no_posts']          = 'ไม่มีโพสต์ในขณะนี้';
@@ -73,4 +74,4 @@ $lang['blog:twitter_posted']                 = 'โพสต์ "%s" %s';
 $lang['blog:twitter_error']                  = 'Twitter มีข้อผิดพลาด';
 
 // date
-$lang['blog:archive_date_format']		= "%B' %Y";
+$lang['blog:archive_date_format']		= "%B %Y";

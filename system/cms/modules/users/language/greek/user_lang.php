@@ -28,6 +28,7 @@ $lang['user_first_name_label']                 = 'Όνομα';
 $lang['user_last_name_label']                  = 'Επώνυμο';
 $lang['user_group_label']                      = 'Ομάδα';
 $lang['user_activate_label']                   = 'Ενεργοποίηση';
+$lang['user_password_label']                   = 'Συνθηματικό';
 $lang['user_password_confirm_label']           = 'Επανάληψη Συνθηματικού';
 $lang['user_name_label']                       = 'Όνομα';
 $lang['user_joined_label']                     = 'Ημ/νια εγγραφής';
@@ -43,6 +44,8 @@ $lang['indicates_required']                    = 'Ενδειξη των απαι
 
 // -- Registration / Activation / Reset Password ----------------------------------------------------------
 
+$lang['user_send_activation_email']            = 'Send Activation Email'; #translate
+$lang['user_do_not_activate']                  = 'Inactive'; #translate
 $lang['user_register_title']                   = 'Εγγραφή';
 $lang['user_activate_account_title']           = 'Ενεργοποίηση Λογαριασμού';
 $lang['user_activate_label']                   = 'Ενεργοποίηση';
@@ -60,7 +63,6 @@ $lang['user_last_name']           = 'Επίθετο';
 $lang['user_username']            = 'Όνομα χρήστη';
 $lang['user_display_name']        = 'Όνομα εμφάνισης';
 $lang['user_email_use']           = 'που χρησιμοποιείται για την σύνδεση';
-$lang['user_password']            = 'Συνθηματικό';
 $lang['user_remember']            = 'Απομνημόνευση';
 $lang['user_group_id_label']      = 'ID Ομάδας';
 

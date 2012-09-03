@@ -14,10 +14,9 @@
  * @package    PyroCMS\Core\Libraries\Asset
  */
 class Asset_Exception extends Exception {}
-
-include('Asset/jsmin.php');
-include('Asset/csscompressor.php');
-include('Asset/cssurirewriter.php');
+include(dirname(__FILE__).'/Asset/jsmin.php');
+include(dirname(__FILE__).'/Asset/csscompressor.php');
+include(dirname(__FILE__).'/Asset/cssurirewriter.php');
 
 class Asset {
 
@@ -1553,6 +1552,22 @@ class Asset {
 			if (filemtime($file) < $before)
 			{
 				unlink($file);
+			}
+		}
+	}
+
+	/**
+	 * Reset assets that have already been added in this request.
+	 * This is useful when one module is planning to handle the 
+	 * output but another then takes over (such as a 404 handler)
+	 */
+	public static function reset()
+	{
+		foreach (self::$groups as $type => $groups)
+		{
+			foreach ($groups as $group => $meta)
+			{
+				unset(self::$groups[$type][$group]);
 			}
 		}
 	}

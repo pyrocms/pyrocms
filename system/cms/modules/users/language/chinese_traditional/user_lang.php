@@ -28,6 +28,7 @@ $lang['user_first_name_label'] 			= '大名';
 $lang['user_last_name_label'] 			= '姓氏';
 $lang['user_group_label'] 				= '群組';
 $lang['user_activate_label'] 			= '啟動';
+$lang['user_password_label'] 			= '密碼';
 $lang['user_password_confirm_label'] 	= '再次確認密碼';
 $lang['user_name_label'] 				= '名稱';
 $lang['user_joined_label'] 				= '已加入';
@@ -43,6 +44,8 @@ $lang['indicates_required'] 			= '代表必填欄位';
 
 // -- Registration / Activation / Reset Password ----------------------------------------------------------
 
+$lang['user_send_activation_email']            = 'Send Activation Email'; #translate
+$lang['user_do_not_activate']                  = 'Inactive'; #translate
 $lang['user_register_title'] 			= '註冊';
 $lang['user_activate_account_title'] 	= '啟動帳號';
 $lang['user_activate_label'] 			= '啟動';
@@ -60,7 +63,6 @@ $lang['user_last_name'] 				= '姓氏';
 $lang['user_username'] 					= '用戶名稱';
 $lang['user_display_name']				= '顯示名稱';
 $lang['user_email_use'] 				= '用來登入';
-$lang['user_password'] 					= '密碼';
 $lang['user_remember'] 					= '記住我';
 $lang['user_group_id_label']			= '群組 ID';
 

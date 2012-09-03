@@ -31,6 +31,13 @@ $lang['global:operators:not-equal'] 	= 'Not equal to';
 $lang['global:operators:less-than'] 	= 'Less than';
 $lang['global:operators:greater-than'] 	= 'Greater than';
 
+$lang['global:duration:1-day']			= 'One day';
+$lang['global:duration:1-week']			= 'One week';
+$lang['global:duration:2-weeks']		= 'Two weeks';
+$lang['global:duration:1-month']		= 'One month';
+$lang['global:duration:3-months']		= 'Three Months';
+$lang['global:duration:always']			= 'Always';
+
 $lang['navigation_headline'] 			= 'Navigation';
 $lang['breadcrumb_base_label'] 			= 'Home';
 
@@ -91,5 +98,9 @@ $lang['global:delete']					= 'Delete';
 $lang['global:remove']					= 'Remove';
 
 $lang['global:keywords']				= 'Keywords';
+
+$lang['global:or']						= 'or';
+$lang['global:and']						= 'and';
+$lang['global:at']						= 'at';
 
 /* End of file main_lang.php */

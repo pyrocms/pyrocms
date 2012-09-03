@@ -10,10 +10,11 @@ $lang['version_label'] 					= '版本'; 		//'Version';
 $lang['global:author'] 					= '作者'; 		//'Author';
 $lang['global:action'] 					= '操作'; 		//'Action';
 
-$lang['dialog.delete_message'] 			= '確定要刪除嗎？這將無法復原。'; //'Are you sure you want to delete this? It can not be undone.';
-$lang['dialog.confirm'] 				= '確認'; 		//'Confirm';
-$lang['dialog.yes'] 					= '是'; 			//'Yes';
-$lang['dialog.no'] 						= '否'; 			//'No';
+$lang['global:dialog:delete_message'] 	= '確定要刪除嗎？這將無法復原。'; //'Are you sure you want to delete this? It can not be undone.';
+$lang['global:dialog:confirm'] 			= '確認'; 		//'Confirm';
+
+$lang['global:yes'] 					= '是'; 			//'Yes';
+$lang['global:no'] 						= '否'; 			//'No';
 
 $lang['global:select-none'] 			= '-- 無 --';
 $lang['global:select-all'] 				= '-- 全部 --';
@@ -23,10 +24,17 @@ $lang['global:select-pick']				= '-- 請選擇 --';
 $lang['global:check-none'] 				= '沒有';
 $lang['global:check-all']				= '全部';
 
-$lang['operators.equal'] 				= '等於';
-$lang['operators.not_equal'] 			= '不等於';
-$lang['operators.less_than'] 			= '小於';
-$lang['operators.greater_than'] 		= '大於';
+$lang['global:operators:equal'] 		= '等於';
+$lang['global:operators:not-equal'] 	= '不等於';
+$lang['global:operators:less-than'] 	= '小於';
+$lang['global:operators:greater-than'] 	= '大於';
+
+$lang['global:duration:1-day']			= 'One day'; #translate
+$lang['global:duration:1-week']			= 'One week'; #translate
+$lang['global:duration:2-weeks']		= 'Two weeks'; #translate
+$lang['global:duration:1-month']		= 'One month'; #translate
+$lang['global:duration:3-months']		= 'Three Months'; #translate
+$lang['global:duration:always']			= 'Always'; #translate
 
 $lang['navigation_headline'] 			= '導覽'; 		//'Navigation';
 $lang['breadcrumb_base_label'] 			= '首頁'; 		//'Home';

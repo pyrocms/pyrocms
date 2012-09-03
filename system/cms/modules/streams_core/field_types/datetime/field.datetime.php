@@ -448,7 +448,7 @@ class Field_datetime
 				$hour_count++;
 			}
 
-			$date_input .= form_dropdown($data['form_slug'].'_hour', $hours, $date['hour']);
+			$date_input .= lang('global:at').'&nbsp;&nbsp;'.form_dropdown($data['form_slug'].'_hour', $hours, $date['hour'], 'style="min-width: 100px; width:100px;"');
 			
 			// Minute
 			$minute_count = 0;
@@ -469,7 +469,7 @@ class Field_datetime
 				$minute_count++;
 			}
 
-			$date_input .= form_dropdown($data['form_slug'].'_minute', $minutes, $date['minute']);
+			$date_input .= form_dropdown($data['form_slug'].'_minute', $minutes, $date['minute'], 'style="min-width: 100px; width:100px;"');
 		
 			// AM/PM
 			$am_pm = array('am' => 'am', 'pm' => 'pm');
@@ -492,7 +492,7 @@ class Field_datetime
 				}
 			}
 			
-			$date_input .= form_dropdown($data['form_slug'].'_am_pm', $am_pm, $am_pm_current, 'style="small_select"');
+			$date_input .= form_dropdown($data['form_slug'].'_am_pm', $am_pm, $am_pm_current, 'style="min-width: 100px; width:100px;"');
 		
 		}
 

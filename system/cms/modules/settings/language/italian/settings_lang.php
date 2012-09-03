@@ -105,11 +105,29 @@ $lang['settings_comment_order_desc']			= 'Orndine in cui mostrare i commenti.';
 $lang['settings_moderate_comments'] 			= 'Moderazione dei Commenti';
 $lang['settings_moderate_comments_desc']		= 'Obbliga che i commenti siano approvati prima di comparire sul sito.';
 
+$lang['settings_comment_markdown']				= 'Permetti Markdown';
+$lang['settings_comment_markdown_desc']			= 'Vuoi permettere ai visitatori di commentare utilizzando il Markdown?';
+
 $lang['settings_version'] 						= 'Versione';
 $lang['settings_version_desc'] 					= '';
 
+$lang['settings_site_public_lang']				= 'Lingue Publiche';
+$lang['settings_site_public_lang_desc']			= 'Quali solo le lingue realmente supportate nel front-end del tuo sito web?';
+
+$lang['settings_admin_force_https']				= 'Forzare HTTPS per il Pannello di Controllo?';
+$lang['settings_admin_force_https_desc']		= 'Permettere solo il protocollo HTTPS quando si utilizza il Pannello di Controllo?';
+
+$lang['settings_files_cache']					= 'Files Cache';
+$lang['settings_files_cache_desc']				= 'Quando si mostra una immagine via site.com/files quando deve essere eliminata dalla cache?';
+
+$lang['settings_auto_username']					= 'Auto Username';
+$lang['settings_auto_username_desc']			= 'Crea un Username in automatico, vuol dire che gli utenti salteranno questo passaggio durante la registrazione.';
+
+$lang['settings_registered_email']				= 'Email utente registrato';
+$lang['settings_registered_email_desc']			= 'Inviare una email all\'indirizzo impostato come contatto quando qualcuno si registra.';
+
 $lang['settings_ckeditor_config']               = 'Configurazione CKEditor';
-$lang['settings_ckeditor_config_desc']          = 'Puoi trovare una lista di configurazioni corrette nella <a target="_blank" href="http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.config.html">documentazione ufficiale.</a>'; #translate
+$lang['settings_ckeditor_config_desc']          = 'Puoi trovare una lista di configurazioni corrette nella <a target="_blank" href="http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.config.html">documentazione ufficiale.</a>'; 
 
 $lang['settings_enable_registration']           = 'Abilita registrazioni';
 $lang['settings_enable_registration_desc']      = 'Permetti agli utenti di registrarti al tuo sito.'; 
@@ -124,6 +142,7 @@ $lang['settings_section_comments']				= 'Commenti';
 $lang['settings_section_users']					= 'Utenti';
 $lang['settings_section_statistics']			= 'Statistiche';
 $lang['settings_section_twitter']				= 'Twitter';
+$lang['settings_section_files']					= 'Files';
 
 #checkbox and radio options
 $lang['settings_form_option_Open']				= 'Aperto';
@@ -134,6 +153,10 @@ $lang['settings_form_option_Required']			= 'Richiesto';
 $lang['settings_form_option_Optional']			= 'Opzionale';
 $lang['settings_form_option_Oldest First']		= 'Prima i più vecchi';
 $lang['settings_form_option_Newest First']		= 'Prima i più nuovi';
+$lang['settings_form_option_Text Only']			= 'Solo testo';
+$lang['settings_form_option_Allow Markdown']	= 'Consenti markdown';
+$lang['settings_form_option_Yes']				= 'Si';
+$lang['settings_form_option_No']				= 'No';
 
 // titles
 $lang['settings_edit_title'] 					= 'Modifica impostazioni';

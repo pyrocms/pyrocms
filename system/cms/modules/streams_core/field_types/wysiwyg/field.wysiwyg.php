@@ -46,6 +46,22 @@ class Field_wysiwyg
 	// --------------------------------------------------------------------------
 
 	/**
+	 * Pre-Ouput WYSUWYG content
+	 *
+	 * @access 	public
+	 * @param 	string
+	 * @return 	string
+	 */
+	public function pre_output($input)
+	{
+		// No matter what, we are going to replace {{ url:site }} with it's
+		// rightful value.
+		return str_replace('&#123;&#123; url:site &#125;&#125;', site_url().'/', $input);
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
 	 * Output form input
 	 *
 	 * @param	array

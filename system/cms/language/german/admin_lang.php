@@ -31,11 +31,11 @@ $lang['cp_contact_support']             = 'Support';
 $lang['cp_nav_settings']                = 'Einstellungen';
 $lang['cp_nav_addons']                    = 'Erweiterungen';
 $lang['cp_nav_modules']                    = 'Module';
-$lang['cp_nav_widgets']                    = 'Widgets';
 $lang['cp_nav_users']                    = 'Benutzer';
-$lang['cp_nav_design']                    = 'Design';
 $lang['cp_nav_content']                    = 'Inhalt';
-$lang['cp_nav_utilities']               = 'Dienstprogramme';
+$lang['cp_nav_data']					= 'Data'; #translate
+$lang['cp_nav_structure']				= 'Structure'; #translate
+$lang['cp_nav_misc']					= 'Miscellaneous'; #translate
 
 $lang['global:keywords']                = 'Keywords'; #translate
 

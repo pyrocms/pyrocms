@@ -210,7 +210,7 @@ class Pages extends Public_Controller
 		// Parse it so the embedded tags are parsed. We pass along $page so that {{ page:id }} and friends work in page content.
 		$page->body = $this->parser->parse_string(str_replace(array('&#39;', '&quot;'), array("'", '"'), $chunk_html), array('theme' => $this->theme, 'page' => $page), TRUE);
 
-		if ($page->layout->css OR $page->css)
+		if ($page->layout->css or $page->css)
 		{
 			$this->template->append_metadata('
 				<style type="text/css">
@@ -219,7 +219,7 @@ class Pages extends Public_Controller
 				</style>');
 		}
 
-		if ($page->layout->js OR $page->js)
+		if ($page->layout->js or $page->js)
 		{
 			$this->template->append_metadata('
 				<script type="text/javascript">
@@ -228,13 +228,28 @@ class Pages extends Public_Controller
 				</script>');
 		}
 
+		// If comments are enabled, go fetch them all
+		if (Settings::get('enable_comments'))
+		{
+			// Load Comments so we can work out what to do with them
+			$this->load->library('comments/comments', array(
+				'entry_id' 		=> $page->id,
+				'entry_title' 	=> $page->title,
+				'module' 		=> 'pages',
+				'singular' 		=> 'pages:page',
+				'plural' 		=> 'pages:pages',
+			));
+		}
+
 		if ($page->slug == '404')
 		{
 			log_message('error', 'Page Missing: '.$this->uri->uri_string());
+
+			// things behave a little differently when called by MX from MY_Exceptions' show_404()
+			exit($this->template->build('pages/page', array('page' => $page), FALSE, FALSE));
 		}
 
-		$this->template->set('page', $page)
-			->build('pages/page', NULL, FALSE, FALSE);
+		$this->template->build('page', array('page' => $page), FALSE, FALSE);
 	}
 
 	/**

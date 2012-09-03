@@ -40,6 +40,7 @@ class Migration_Add_page_chunk_class extends CI_Migration
 		));
 
 		// Remove the class field
+		if ( $this->db->field_exists('class', 'page_chunks'))
 		$this->dbforge->drop_column('page_chunks', 'class');
 	}
 }

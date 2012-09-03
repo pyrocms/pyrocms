@@ -28,6 +28,7 @@ $lang['user_first_name_label']                 = 'Nama Depan';
 $lang['user_last_name_label']                  = 'Nama Belakang';
 $lang['user_group_label']                      = 'Grup';
 $lang['user_activate_label']                   = 'Aktifkan';
+$lang['user_password_label']                   = 'Password';
 $lang['user_password_confirm_label']           = 'Ulangi Password';
 $lang['user_name_label']                       = 'Nama';
 $lang['user_joined_label']                     = 'Tergabung';
@@ -43,6 +44,8 @@ $lang['indicates_required']                    = 'Indikasi kolom harus diisi';
 
 // -- Registration / Activation / Reset Password ----------------------------------------------------------
 
+$lang['user_send_activation_email']            = 'Send Activation Email'; #translate
+$lang['user_do_not_activate']                  = 'Inactive'; #translate
 $lang['user_register_title']                   = 'Registrasi';
 $lang['user_activate_account_title']           = 'Aktifkan Akun';
 $lang['user_activate_label']                   = 'Aktifkan';
@@ -60,7 +63,6 @@ $lang['user_last_name']                        = 'Nama Belakang';
 $lang['user_username']                         = 'Username';
 $lang['user_display_name']                     = 'Nama yang Tampil';
 $lang['user_email_use'] 					   = 'digunakan untuk masuk';
-$lang['user_password']                         = 'Password';
 $lang['user_remember']                         = 'Ingat Saya';
 $lang['user_group_id_label']                   = 'ID Grup';
 

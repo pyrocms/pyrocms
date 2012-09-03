@@ -28,6 +28,7 @@ $lang['user_first_name_label']                 = 'First Name';
 $lang['user_last_name_label']                  = 'Last Name';
 $lang['user_group_label']                      = 'Group';
 $lang['user_activate_label']                   = 'Activate';
+$lang['user_password_label']                   = 'Password';
 $lang['user_password_confirm_label']           = 'Confirm Password';
 $lang['user_name_label']                       = 'Name';
 $lang['user_joined_label']                     = 'Joined';
@@ -43,6 +44,8 @@ $lang['indicates_required']                    = 'Indicates required fields';
 
 // -- Registration / Activation / Reset Password ----------------------------------------------------------
 
+$lang['user_send_activation_email']            = 'Send Activation Email';
+$lang['user_do_not_activate']                  = 'Inactive';
 $lang['user_register_title']                   = 'Register';
 $lang['user_activate_account_title']           = 'Activate Account';
 $lang['user_activate_label']                   = 'Activate';
@@ -51,8 +54,8 @@ $lang['user_reset_password_title']             = 'Reset Password';
 $lang['user_password_reset_title']             = 'Password Reset';
 
 
-$lang['user_error_username']                   = 'The username you selected is already in use';
-$lang['user_error_email']                      = 'The email address you entered is already in use';
+$lang['user_error_username']                   = 'The username you selected is already in use.';
+$lang['user_error_email']                      = 'The email address you entered is already in use.';
 
 $lang['user_full_name']                        = 'Full Name';
 $lang['user_first_name']                       = 'First Name';
@@ -60,7 +63,6 @@ $lang['user_last_name']                        = 'Last Name';
 $lang['user_username']                         = 'Username';
 $lang['user_display_name']                     = 'Display Name';
 $lang['user_email_use'] 					   = 'used to login';
-$lang['user_password']                         = 'Password';
 $lang['user_remember']                         = 'Remember Me';
 $lang['user_group_id_label']                   = 'Group ID';
 

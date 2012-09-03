@@ -8,7 +8,7 @@
  */
 class Module_Themes extends Module {
 
-	public $version = '1.0';
+	public $version = '1.1.0';
 
 	public function info()
 	{
@@ -34,9 +34,9 @@ class Module_Themes extends Module {
 				'ru' => 'Темы',
 				'sl' => 'Predloge',
 				'zh' => '佈景主題',
-				'hu' => 'Sablonok',
 				'th' => 'ธีม',
-                                'se' => 'Teman'
+				'hu' => 'Sablonok',
+				'se' => 'Teman',
 			),
 			'description' => array(
 				'en' => 'Allows admins and staff to switch themes, upload new themes, and manage theme options.',
@@ -60,12 +60,12 @@ class Module_Themes extends Module {
 				'sl' => 'Dovoljuje adminom in osebju spremembo izgleda spletne strani, namestitev novega izgleda in urejanja le tega v bolj vizualnem pristopu',
 				'zh' => '讓管理者可以更改網站顯示風貌，以視覺化的操作上傳並管理這些網站佈景主題。',
 				'th' => 'ช่วยให้ผู้ดูแลระบบสามารถอัปโหลดรูปแบบใหม่และการจัดการตัวเลือกชุดรูปแบบได้',
-                                'hu' => 'Az adminok megváltoztathatják az oldal kinézetét, feltölthetnek új kinézeteket és kezelhetik őket.',
-                                'se' => 'Hantera webbplatsens utseende genom teman, ladda upp nya teman och hantera temainställningar.'
+				'hu' => 'Az adminok megváltoztathatják az oldal kinézetét, feltölthetnek új kinézeteket és kezelhetik őket.',
+				'se' => 'Hantera webbplatsens utseende genom teman, ladda upp nya teman och hantera temainställningar.',
 			),
 			'frontend' => false,
 			'backend'  => true,
-			'menu'	  => 'design'
+			'menu'	  => 'structure'
 		);
 
 		// Check to make sure we're not running the installer or MSM. Then check perms
@@ -98,7 +98,7 @@ class Module_Themes extends Module {
 				'slug' => array('type' => 'VARCHAR', 'constraint' => 30,),
 				'title' => array('type' => 'VARCHAR', 'constraint' => 100,),
 				'description' => array('type' => 'TEXT', 'constraint' => 100,),
-				'type' => array('type' => 'set', 'constraint' => array('text', 'textarea', 'password', 'select', 'select-multiple', 'radio', 'checkbox')),
+				'type' => array('type' => 'set', 'constraint' => array('text', 'textarea', 'password', 'select', 'select-multiple', 'radio', 'checkbox', 'colour-picker')),
 				'default' => array('type' => 'VARCHAR', 'constraint' => 255,),
 				'value' => array('type' => 'VARCHAR', 'constraint' => 255,),
 				'options' => array('type' => 'VARCHAR', 'constraint' => 255,),

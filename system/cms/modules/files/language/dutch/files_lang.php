@@ -20,6 +20,7 @@ $lang['files:back']							= 'Terug';
 $lang['files:forward']						= 'Volgende';
 $lang['files:start']						= 'Start Upload';
 $lang['files:details']						= 'Details';
+$lang['files:id']							= 'ID'; #translate
 $lang['files:name']							= 'Naam';
 $lang['files:slug']							= 'Slug';
 $lang['files:path']							= 'Pad';

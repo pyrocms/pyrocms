@@ -100,7 +100,7 @@ class User_m extends MY_Model
 			'password' => $input->password,
 			'salt' => $input->salt,
 			'role' => empty($input->role) ? 'user' : $input->role,
-			'is_active' => 0,
+			'active' => 0,
 			'lang' => $this->config->item('default_language'),
 			'activation_code' => $input->activation_code,
 			'created_on' => now(),
@@ -132,7 +132,7 @@ class User_m extends MY_Model
 	 */
 	function activate($id)
 	{
-		return parent::update($id, array('is_active' => 1, 'activation_code' => ''));
+		return parent::update($id, array('active' => 1, 'activation_code' => ''));
 	}
 
 	// --------------------------------------------------------------------------

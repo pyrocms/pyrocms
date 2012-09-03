@@ -123,12 +123,11 @@ class Row_m extends MY_Model {
 	 *
 	 * @return 	array 
 	 * @param	array
-	 * @param	obj
-	 * @param	obj
+	 * @param	obj - @todo - not used, so needs to be removed
 	 * @param	obj
 	 * @return	array
 	 */
-	public function get_rows($params, $fields, $stream)
+	public function get_rows($params, $field = null, $stream)
 	{
 		$return = array();
 
@@ -166,6 +165,7 @@ class Row_m extends MY_Model {
 		// Convenience Vars
 		// -------------------------------------
 		
+		$this->data = new stdClass();
 		$this->data->stream = $stream;
 
 		$this->select_prefix 	= $this->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug, true).'.';
@@ -827,7 +827,7 @@ class Row_m extends MY_Model {
 		// right. All of them.
 		if ( ! $this->all_fields)
 		{
-			$this->all_fields = $this->fields_m->get_all_fields();
+			$this->all_fields = $this->fields_m->get_all_fields($stream->stream_namespace);
 		}
 
 		// Now the structure. We will need this as well.
@@ -958,7 +958,7 @@ class Row_m extends MY_Model {
 		{
 			return null;
 		}
-
+		$plugin_call = null;
 		// Is this an alt process type?
 		if (isset($this->type->types->{$type_slug}->alt_process) and $this->type->types->{$type_slug}->alt_process === true)
 		{
@@ -1321,7 +1321,8 @@ class Row_m extends MY_Model {
 
 			$trigger_data = array(
 				'entry_id'		=> $id,
-				'stream'		=> $stream
+				'stream'		=> $stream,
+				'insert_data'	=> $insert_data
 			);
 
 			Events::trigger('streams_post_insert_entry', $trigger_data);

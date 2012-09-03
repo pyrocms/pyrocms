@@ -43,6 +43,7 @@ $lang['blog_blog_title'] 					= 'Noticias';
 $lang['blog_list_title'] 					= 'Lista de artículos';
 
 // messages
+$lang['blog:disabled_after'] 				= 'Posting comments after %s has been disabled.'; #translate
 $lang['blog_no_posts'] 						= 'No hay artículos.';
 $lang['blog_subscripe_to_rss_desc'] 		= 'Recibe nuestros artículos inmediatamente suscribiendote a nuestros feeds RSS. Puedes hacer esto utilizando los más clientes de correo electrónico mas populares o utilizando <a href="http://reader.google.com/">Google Reader</a>.';
 $lang['blog_currently_no_posts'] 			= 'No hay artículos hasta el momento.';

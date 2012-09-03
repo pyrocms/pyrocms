@@ -3,8 +3,9 @@
 /**
  * PyroCMS Pagination Helpers
  *  
- * @author Philip Sturgeon
  * @package PyroCMS\Core\Helpers
+ * @author      PyroCMS Dev Team
+ * @copyright   Copyright (c) 2012, PyroCMS LLC
  */
 if ( ! function_exists('create_pagination'))
 {
@@ -40,6 +41,9 @@ if ( ! function_exists('create_pagination'))
 		));
 
 		$offset = $limit * ($current_page - 1);
+		
+		//avoid having a negative offset
+		if ($offset < 0) $offset = 0;
 
 		return array(
 			'current_page' => $current_page,

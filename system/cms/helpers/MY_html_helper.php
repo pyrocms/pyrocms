@@ -2,10 +2,11 @@
 /**
  * PyroCMS Tree Helpers
  *
- * @author 	PyroCMS Dev Team
+ * @author      PyroCMS Dev Team
+ * @copyright   Copyright (c) 2012, PyroCMS LLC
  * @package PyroCMS\Core\Helpers
  */
-if (!function_exists('tree_builder'))
+if ( ! function_exists('tree_builder'))
 {
 	/**
 	 * Build the html for a tree view

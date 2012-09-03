@@ -28,6 +28,7 @@ $lang['user_first_name_label']                  = 'Vorname';
 $lang['user_last_name_label']                   = 'Nachname';
 $lang['user_group_label']                       = 'Gruppe';
 $lang['user_activate_label']                    = 'Aktivieren';
+$lang['user_password_label']                    = 'Passwort';
 $lang['user_password_confirm_label']            = 'Passwort best&auml;tigen';
 $lang['user_name_label']                        = 'Name';
 $lang['user_joined_label']                      = 'Registriert';
@@ -43,6 +44,8 @@ $lang['indicates_required']                     = 'Kennzeichnet Pflichtfelder';
 
 // -- Registration / Activation / Reset Password ----------------------------------------------------------
 
+$lang['user_send_activation_email']            = 'Send Activation Email'; #translate
+$lang['user_do_not_activate']                  = 'Inactive'; #translate
 $lang['user_register_title']                    = 'Registrieren';
 $lang['user_activate_account_title']            = 'Benutzer aktivieren';
 $lang['user_activate_label']                    = 'Aktivieren';
@@ -60,7 +63,6 @@ $lang['user_last_name']                         = 'Nachname';
 $lang['user_username']                          = 'Benutzername';
 $lang['user_display_name']                      = 'Anzeigename';
 $lang['user_email_use']                         = 'F&uuml;&uuml;r Login ben&ouml;tigt';
-$lang['user_password']                          = 'Passwort';
 $lang['user_remember']                          = 'Angemeldet bleiben';
 $lang['user_group_id_label']                    = 'Gruppen ID';
 

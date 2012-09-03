@@ -32,7 +32,7 @@ class Module_Templates extends Module {
 				'hu' => 'E-mail sablonok',
 				'fi' => 'Sähköposti viestipohjat',
 				'th' => 'แม่แบบอีเมล',
-                                'se' => 'E-postmallar'
+				'se' => 'E-postmallar',
 			),
 			'description' => array(
 				'en' => 'Create, edit, and save dynamic email templates',
@@ -53,18 +53,17 @@ class Module_Templates extends Module {
                 'hu' => 'Csináld, szerkeszd és mentsd el a dinamikus e-mail sablonokat',
 				'fi' => 'Lisää, muokkaa ja tallenna dynaamisia sähköposti viestipohjia.',
 				'th' => 'การสร้างแก้ไขและบันทึกแม่แบบอีเมลแบบไดนามิก',
-                                'se' => 'Skapa, redigera och spara dynamiska E-postmallar.'
+				'se' => 'Skapa, redigera och spara dynamiska E-postmallar.',
 			),
 			'frontend' => false,
 			'backend' => true,
-			'menu' => 'design',
-			'author' => 'Stephen Cozart',
+			'menu' => 'structure',
 			'skip_xss' => true,
 			'shortcuts' => array(
 				array(
 				    'name' => 'templates.create_title',
 				    'uri' => 'admin/templates/create',
-				    'class' => 'add'
+				    'class' => 'add',
 				),
 		    ),
 		);
@@ -101,12 +100,14 @@ class Module_Templates extends Module {
 			'name' => 'Comment Notification',
 			'description' => 'Email that is sent to admin when someone creates a comment',
 			'subject' => 'You have just received a comment from {{ name }}',
-			'body' => '<h3>You have received a comment from {{ name }}</h3>
-				<strong>IP Address: {{ sender_ip }}</strong>\n
-				<strong>Operating System: {{ sender_os }}\n
-				<strong>User Agent: {{ sender_agent }}</strong>\n
-				<div>{{ comment }}</div>\n
-				<div>View Comment:{{ redirect_url }}</div>',
+			'body' => "<h3>You have received a comment from {{ name }}</h3>
+				<p>
+				<strong>IP Address: {{ sender_ip }}</strong><br/>
+				<strong>Operating System: {{ sender_os }}<br/>
+				<strong>User Agent: {{ sender_agent }}</strong>
+				</p>
+				<p>{{ comment }}</p>
+				<p>View Comment: {{ redirect_url }}</p>",
 			'lang' => 'en',
 			'is_default' => 1,
 			'module' => 'comments'

@@ -43,6 +43,7 @@ $lang['blog:blog_title']                     = 'בלוג';
 $lang['blog:list_title']                     = 'רשימת הפוסטים';
 
 // messages
+$lang['blog:disabled_after'] 				= 'Posting comments after %s has been disabled.'; #translate
 $lang['blog:no_posts']                    = 'אין פוסטים.';
 $lang['blog:subscripe_to_rss_desc']          = 'קבל פוסטי ישירות ע"י הרשמה לRSS שלנו. ניתןלעשות זאת בעזרת <a href="http://reader.google.co.uk/">Google Reader</a>.';
 $lang['blog:currently_no_posts']          = 'כרגע אין פוסטים.';
@@ -62,4 +63,4 @@ $lang['blog:twitter_posted']                 = 'Posted "%s" %s';
 $lang['blog:twitter_error']                  = 'Twitter Error';
 
 // date
-$lang['blog:archive_date_format']		= "%B' %Y";
+$lang['blog:archive_date_format']		= "%B %Y";

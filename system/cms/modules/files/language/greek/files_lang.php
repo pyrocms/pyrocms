@@ -20,6 +20,7 @@ $lang['files:back']							= 'Πίσω';
 $lang['files:forward']						= 'Εμπρός';
 $lang['files:start']						= 'Εκκίνηση';
 $lang['files:details']						= 'Λεπτομέρειες';
+$lang['files:id']							= 'ID'; #translate
 $lang['files:name']							= 'Όνομα';
 $lang['files:slug']							= 'Σύντομο όνομα';
 $lang['files:path']							= 'Διαδρομή';

@@ -5,6 +5,8 @@ if ( ! defined('UPLOAD_PATH')) define('UPLOAD_PATH', null);
 
 $config['files:path'] = UPLOAD_PATH.'files/';
 
+$config['files:encrypt_filename'] = TRUE;
+
 $config['files:allowed_file_ext'] = array(
 	'a'	=> array('mpga', 'mp2', 'mp3', 'ra', 'rv', 'wav'),
 	'v'	=> array('mpeg', 'mpg', 'mpe', 'mp4', 'flv', 'qt', 'mov', 'avi', 'movie'),
