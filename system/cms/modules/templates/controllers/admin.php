@@ -115,6 +115,8 @@ class Admin extends Admin_Controller {
         $this->load->library('form_validation');
         $this->form_validation->set_rules($this->_validation_rules);
 
+        $email_template = new stdClass();
+
         $email_template->is_default = 0;
 
         // Go through all the known fields and get the post values

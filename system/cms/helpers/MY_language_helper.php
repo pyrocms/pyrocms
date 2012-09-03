@@ -23,3 +23,12 @@ function get_supported_lang()
 
 	return $arr;
 }
+
+if (!function_exists('sprintf_lang'))
+{
+    function sprintf_lang($line, $variables = array())
+    {
+        array_unshift($variables, lang($line));
+        return call_user_func_array('sprintf', $variables);
+    }
+}

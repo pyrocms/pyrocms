@@ -123,7 +123,7 @@ class Admin extends Admin_Controller {
 	 */
 	public function duplicate($id, $parent_id = null)
 	{
-		$page  = $this->page_m->get($id);
+		$page  = (array)$this->page_m->get($id);
 
 		// Steal their children
 		$children = $this->page_m->get_many_by('parent_id', $id);
@@ -158,7 +158,6 @@ class Admin extends Admin_Controller {
 
         	$page['restricted_to'] = null;
         	$page['navigation_group_id'] = 0;
-	        $page['is_home'] = true;
         
         	foreach($page['chunks'] as $chunk)
         	{
@@ -172,13 +171,10 @@ class Admin extends Admin_Controller {
 
 		foreach ($children as $child)
 		{
-			$this->duplicate($child->id, $new_page['id']);
+			$this->duplicate($child->id, $new_page);
 		}
 
-		if ($parent_id === NULL)
-		{
-			redirect('admin/pages/edit/'.$new_page['id']);
-		}
+		redirect('admin/pages');
 	}
 
 	/**
@@ -296,6 +292,14 @@ class Admin extends Admin_Controller {
 		// Retrieve the page data along with its chunk data as an array.
 		$page = $this->page_m->get($id);
 
+		// If there's a keywords hash
+		if ($page->meta_keywords != '') {
+			// Get comma-separated meta_keywords based on keywords hash
+			$this->load->model('keywords/keyword_m');
+			$old_keywords_hash = $page->meta_keywords;
+			$page->meta_keywords = Keywords::get_string($page->meta_keywords);
+		}
+
 		// Turn the CSV list back to an array
 		$page->restricted_to = explode(',', $page->restricted_to);
 
@@ -314,6 +318,11 @@ class Admin extends Admin_Controller {
 			if ($input['status'] == 'live')
 			{
 				role_or_die('pages', 'put_live');
+			}
+
+			// were there keywords before this update?
+			if (isset($old_keywords_hash)) {
+				$input['old_keywords_hash'] = $old_keywords_hash;
 			}
 
 			// validate and insert

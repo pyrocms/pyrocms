@@ -25,7 +25,7 @@ audio:not([controls]) { display: none; }
  * 2. Force vertical scrollbar in non-IE
  * 3. Prevent iOS text size adjust on device orientation change, without disabling user zoom: h5bp.com/g
  * ---------------------------------- */
-* { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; line-height: 1.231; text-rendering: optimizeLegibility; font-size: 100%; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+* { font-family: Arial, Helvetica, sans-serif; line-height: 1.231; text-rendering: optimizeLegibility; font-size: 100%; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
 html, body { width: 100%; height: 100%; background: #e0dbdb; }
 body { font-size: 13px; margin: 0; overflow-x: hidden; }
 body, button, input, select, textarea { color: #333333; }

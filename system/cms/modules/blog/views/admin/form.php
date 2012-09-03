@@ -39,15 +39,6 @@
 			</li>
 			
 			<li>
-				<label for="image"><?php echo lang('global:image'); ?></label>
-				<div class="input"><?php echo form_upload('image'); ?></div>
-
-				<?php if ( ! empty($post->image)): ?>
-					<br /><img src="<?php echo base_url().UPLOAD_PATH.'blog/'.$post->image ?>" />
-				<?php endif; ?>
-			</li>
-			
-			<li>
 				<label for="intro"><?php echo lang('blog:intro_label'); ?></label>
 				<br style="clear: both;" />
 				<?php echo form_textarea(array('id' => 'intro', 'name' => 'intro', 'value' => $post->intro, 'rows' => 5, 'class' => 'blog wysiwyg-simple')); ?>

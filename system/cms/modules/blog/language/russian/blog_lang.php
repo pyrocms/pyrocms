@@ -71,6 +71,6 @@ $lang['blog:twitter_posted']								= 'Добавлен "%s" %s';
 $lang['blog:twitter_error']									= 'Ошибка Twitter\'а';
 
 // дата
-$lang['blog:archive_date_format']						= "%B' %Y"; #see php strftime documentation
+$lang['blog:archive_date_format']						= "%B %Y"; #see php strftime documentation
 
 /* End of file blog_lang.php */

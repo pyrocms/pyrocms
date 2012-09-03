@@ -219,6 +219,7 @@ class Files_front extends Public_Controller
 
 		header('Content-type: ' . $file->mimetype);
 		header('Last-Modified: ' . gmdate('D, d M Y H:i:s', filemtime($image_thumb)) . ' GMT');
+		ob_clean();
 		readfile($image_thumb);
 	}
 

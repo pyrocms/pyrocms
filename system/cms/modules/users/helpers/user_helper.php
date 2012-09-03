@@ -10,11 +10,14 @@
  */
 // ------------------------------------------------------------------------
 
+
 /**
- * Return a users display name based on settings
- *
- * @param int $user the users id
- * @return  string
+ * Checks if a group has access to module or role
+ * 
+ * @access public
+ * @param string $module sameple: pages
+ * @param string $role sample: put_live
+ * @return bool
  */
 function group_has_role($module, $role)
 {
@@ -29,7 +32,7 @@ function group_has_role($module, $role)
 	}
 
 	$permissions = ci()->permission_m->get_group(ci()->current_user->group_id);
-
+	
 	if (empty($permissions[$module]) or empty($permissions[$module][$role]))
 	{
 		return FALSE;
@@ -39,6 +42,16 @@ function group_has_role($module, $role)
 }
 
 
+/**
+ * Checks if role has access to module or returns error 
+ * 
+ * @access public
+ * @param string $module sample: pages
+ * @param string $role sample: edit_live
+ * @param string $redirect_to (default: 'admin') Url to redirect to if no access
+ * @param string $message (default: '') Message to display if no access
+ * @return mixed
+ */
 function role_or_die($module, $role, $redirect_to = 'admin', $message = '')
 {
 	ci()->lang->load('admin');

@@ -148,6 +148,8 @@ class Admin_areas extends Admin_Controller {
 			}
 		}
 
+		$area = new stdClass();
+
 		foreach ($this->_validation_rules as $rule)
 		{
 			$area->{$rule['field']} = set_value($rule['field']);

@@ -99,6 +99,8 @@ class Admin_Controller extends MY_Controller {
 
 		if ( ! $this->current_user)
 		{
+			// save the location they were trying to get to
+			$this->session->set_userdata('admin_redirect', $this->uri->uri_string());
 			redirect('admin/login');
 		}
 

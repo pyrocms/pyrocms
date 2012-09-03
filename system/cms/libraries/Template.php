@@ -351,6 +351,12 @@ class Template
 	 */
 	public function prepend_metadata($line, $place = 'header')
 	{
+		//we need to declare all new key's in _metadata as an array for the unshift function to work
+		if ( ! isset($this->_metadata[$place]))
+		{
+			$this->_metadata[$place] = array();
+		}
+
 		array_unshift($this->_metadata[$place], $line);
 
 		return $this;

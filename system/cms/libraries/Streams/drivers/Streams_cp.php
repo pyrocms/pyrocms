@@ -254,7 +254,7 @@ class Streams_cp extends CI_Driver {
 	{
 		$CI = get_instance();
 		$data = array();
-		$data['field'] = stdClass();
+		$data['field'] = new stdClass();
 		
 		// We always need our stream
 		$stream = $this->stream_obj($stream_slug, $namespace);
@@ -310,12 +310,12 @@ class Streams_cp extends CI_Driver {
 		// Add in the unique callback
 		if ($method == 'new')
 		{
-			$CI->fields_m->fields_validation[1]['rules'] .= '|unique_field_slug[new]';
+			$CI->fields_m->fields_validation[1]['rules'] .= '|streams_unique_field_slug[new:'.$namespace.']';
 		}
 		else
 		{
 			// @todo edit version of this.
-			$CI->fields_m->fields_validation[1]['rules'] .= '|unique_field_slug['.$data['current_field']->field_slug.']';
+			$CI->fields_m->fields_validation[1]['rules'] .= '|streams_unique_field_slug['.$data['current_field']->field_slug.':'.$namespace.']';
 		}
 
 		$assign_validation = array(

@@ -14,17 +14,17 @@ class MY_Exceptions extends CI_Exceptions
 	/**
 	 * 404 Not Found Handler
 	 * 
-	 * @todo Maybe actually do some logging here about 404s?
-	 *
-	 * @param string $page The URL of the page that is returning 404.
-	 * @param bool $log_error Whether the error should be logged or not.
+	 * @param string $page The slug of the Page Missing page. Since this is handled by the Page module it is immutable
+	 * @param bool $log_error All 404s are logged by the Page module as the page segments are not available here
 	 */
-	function show_404($page = '', $log_error = TRUE)
+	function show_404($page = 404, $log_error = TRUE)
 	{
 		// Set the HTTP Status header
 		set_status_header(404);
 
+		// clear out assets set by the first module before the 404 handler takes over
+		Asset::reset();
+
 		Modules::run('pages/_remap', '404');
 	}
-
 }

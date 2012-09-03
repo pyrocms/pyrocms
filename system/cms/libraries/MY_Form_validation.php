@@ -601,18 +601,37 @@ class MY_Form_validation extends CI_Form_validation
 	 * @param	string
 	 * @return	void
 	 */
-	public function streams_unique_field_slug($field_slug, $mode)
+	public function streams_unique_field_slug($field_slug, $data)
 	{
-		$db_obj = $this->CI->db
-						->select('id')
+		// Get our mode and namespace
+		$items = explode(':', $data);
+
+		if (count($items) != 2)
+		{
+			// @todo: Do we need an error message here?
+			return false;
+		}
+
+		// If the mode is not 'new', it is the current
+		// field slug so that we can check to see if a field
+		// Slug has changed - pretty tricky, eh?
+		$mode 		= $items[0];
+
+		// We check by namespace, because you can have 
+		// fields with the same slug in multiple namespaces.
+		$namespace 	= $items[1];
+
+		$existing = $this->CI->db
+						->where('field_namespace', $namespace)
 						->where('field_slug', trim($field_slug))
-						->get(FIELDS_TABLE);
+						->from(FIELDS_TABLE)
+						->count_all_results();
 		
 		if ($mode == 'new')
 		{
-			if( $db_obj->num_rows() > 0)
+			if ($existing > 0)
 			{
-				$this->set_message('unique_field_slug', lang('streams.field_slug_not_unique'));
+				$this->set_message('streams_unique_field_slug', lang('streams.field_slug_not_unique'));
 				return false;
 			}	
 		}
@@ -623,9 +642,9 @@ class MY_Form_validation extends CI_Form_validation
 			{
 				// We're changing the slug?
 				// Better make sure it doesn't exist.
-				if ($db_obj->num_rows() != 0)
+				if ($existing != 0)
 				{
-					$this->set_message('unique_field_slug', lang('streams.field_slug_not_unique'));
+					$this->set_message('streams_unique_field_slug', lang('streams.field_slug_not_unique'));
 					return false;
 				}			
 			}
@@ -693,8 +712,8 @@ class MY_Form_validation extends CI_Form_validation
 	 * @param 	string
 	 * @return 	bool
 	 */
-	public function stream_slug_safe($string)
-	{	
+	public function streams_slug_safe($string)
+	{
 		// See if word is MySQL Reserved Word
 		if (in_array(strtoupper($string), $this->CI->config->item('streams:reserved')))
 		{

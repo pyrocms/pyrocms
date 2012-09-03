@@ -63,4 +63,4 @@ $lang['blog:twitter_posted']                 = 'Gepostet "%s" %s';
 $lang['blog:twitter_error']                  = 'Twitter Fehler';
 
 // date
-$lang['blog:archive_date_format']		     = "%B' %Y";
+$lang['blog:archive_date_format']		     = "%B %Y";

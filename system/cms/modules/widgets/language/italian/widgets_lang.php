@@ -1,9 +1,13 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 // sidebar
 $lang['widgets.available_title'] 			= 'Widgets disponibili';
 $lang['widgets.widget_area_wrapper']		= 'Aree disponibili';
 $lang['widgets.instructions']	 			= 'Drag & drop per installare';
+
+
+$lang['widgets.instances']            	= 'Istanze';
+$lang['widgets.areas']            		= 'Aree';
 
 // Widgets
 $lang['widgets.widget'] 					= 'Widget';
