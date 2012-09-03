@@ -69,12 +69,16 @@ class Plugin_Pages extends Plugin
 	 *
 	 * Attributes:
 	 * - (int) id : The id of the page.
-	 * - (string) slug : The name of the chunk.
+	 * - (string) name : The name of the chunk.
+	 * - (string) parse_tags : yes/no - whether or not to parse
+	 *					tags within the 
 	 *
 	 * @return string|bool
 	 */
 	public function chunk()
 	{
+		$parse_tags = $this->attribute('parse_tags', 'yes');
+
 		$chunk = $this->db
 			->where('page_id', $this->attribute('id'))
 			->where('slug', $this->attribute('name'))
@@ -85,13 +89,41 @@ class Plugin_Pages extends Plugin
 		{
 			if ($this->content())
 			{
+				$chunk['parsed'] 	= $this->parse_chunk($chunk['parsed'], $parse_tags);
+				$chunk['body']		= $this->parse_chunk($chunk['body'], $parse_tags);
+
 				return $chunk;
 			}
 			else
 			{
-				return ($chunk['type'] == 'markdown') ? $chunk['parsed'] : $chunk['body'];
+				return $this->parse_chunk(($chunk['type'] == 'markdown') ? $chunk['parsed'] : $chunk['body'], $parse_tags);
 			}
 		}
+	}
+
+	/**
+	 * Parse chunk content
+	 *
+	 * @access 	private
+	 * @param 	string - the chunk content
+	 * @param 	string - parse Lex tags? - yes/no
+	 * @return 	string
+	 */
+	private function parse_chunk($content, $parse_tags)
+	{
+		// Lex tags are parsed by default. If you want to
+		// turn off parsing Lex tags, just set parse_tags to 'no'
+		if ($parse_tags == 'yes')
+		{
+			$parser = new Lex_Parser();
+			$parser->scope_glue(':');
+
+			return $parser->parse($content, array(), array($this->parser, 'parser_callback'));
+		}
+		else
+		{
+			return $content;
+		}	
 	}
 
 	/**
