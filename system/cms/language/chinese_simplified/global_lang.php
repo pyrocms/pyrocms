@@ -21,10 +21,10 @@ $lang['version_label'] 					= '版本'; 		//'Version';
 $lang['global:author'] 					= '作者'; 		//'Author';
 $lang['global:action'] 					= '操作'; 		//'Action';
 
-$lang['dialog.delete_message'] 			= '確定要刪除吗？这将无法复原。'; //'Are you sure you want to delete this? It can not be undone.';
-$lang['dialog.confirm'] 				= '确认'; 		//'Confirm';
-$lang['dialog.yes'] 					= '是'; 			//'Yes';
-$lang['dialog.no'] 						= '否'; 			//'No';
+$lang['global:dialog:delete_message']		= '確定要刪除吗？这将无法复原。'; //'Are you sure you want to delete this? It can not be undone.';
+$lang['global:dialog:confirm'] 				= '确认'; 		//'Confirm';
+$lang['dialog:yes'] 					= '是'; 			//'Yes';
+$lang['dialog:no'] 						= '否'; 			//'No';
 
 $lang['global:select-none'] 			= '-- 无 --';
 $lang['global:select-all'] 				= '-- 全部 --';
@@ -38,6 +38,13 @@ $lang['operators.equal'] 				= '等于';
 $lang['operators.not_equal'] 			= '不等于';
 $lang['operators.less_than'] 			= '小于';
 $lang['operators.greater_than'] 		= '大于';
+
+$lang['global:duration:1-day']			= '一天'; #translate
+$lang['global:duration:1-week']			= '一周'; #translate
+$lang['global:duration:2-weeks']		= '两周'; #translate
+$lang['global:duration:1-month']		= '一个月'; #translate
+$lang['global:duration:3-months']		= '三个月'; #translate
+$lang['global:duration:always']			= '永久'; #translate
 
 $lang['navigation_headline'] 			= '导航'; 		//'Navigation';
 $lang['breadcrumb_base_label'] 			= '首页'; 		//'Home';

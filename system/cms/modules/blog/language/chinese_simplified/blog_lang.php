@@ -54,6 +54,7 @@ $lang['blog:blog_title'] 				= '新聞';
 $lang['blog:list_title'] 				= '文章列表';
 
 // messages
+$lang['blog:disabled_after'] 				= '在%s之后，回复功能将会被关闭。'; #translate
 $lang['blog:no_posts'] 				= '沒有文章';
 $lang['blog:subscripe_to_rss_desc'] 	= '訂閱我們的 RSS 摘要可立即獲得最新的文章，您可以使用慣用的收件軟體，或試試看 <a href="http://reader.google.com.tw">Google 閱讀器</a>。';
 $lang['blog:currently_no_posts'] 	= '目前沒有文章';
