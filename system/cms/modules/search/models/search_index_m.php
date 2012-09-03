@@ -4,15 +4,31 @@
  *
  * @author		PyroCMS Dev Team
  * @package		PyroCMS\Core\Modules\Search\Models
+ * @copyright   Copyright (c) 2012, PyroCMS LLC
  */
 class Search_index_m extends MY_Model
-{	
-	protected $_table = 'search_index';
-
+{
 	/**
 	 * Index
 	 *
 	 * Store an entry in the search index.
+	 * 
+	 * <code>
+	 * $this->search_index_m->index(
+     *     'blog',
+     *     'blog:post',
+     *     'blog:posts',
+     *     $id,
+     *     'blog/'.date('Y/m/', $post->created_on).$post->slug,
+     *     $post->title,
+     *     $post->intro,
+     *     array(
+     *         'cp_edit_uri'    => 'admin/blog/edit/'.$id,
+     *         'cp_delete_uri'  => 'admin/blog/delete/'.$id,
+     *         'keywords'       => $post->keywords, 
+     *     )
+     * );
+     * </code>
 	 *
 	 * @param	string	$module		The module that owns this entry 
 	 * @param	string	$singular	The unique singular language key for this piece of data
@@ -57,7 +73,7 @@ class Search_index_m extends MY_Model
 			$this->db->set('cp_delete_uri', $options['cp_delete_uri']);
 		}
 
-		return parent::insert(array(
+		return $this->db->insert('search_index', array(
 			'title' 		=> $title,
 			'description' 	=> strip_tags($description),
 			'module' 		=> $module,
@@ -73,6 +89,10 @@ class Search_index_m extends MY_Model
 	 *
 	 * Delete an index for an entry
 	 *
+	 * <code>
+	 * $this->search_index_m->drop_index('blog', 'blog:post', $id);
+	 * </code>
+	 *
 	 * @param	string	$module		The module that owns this entry 
 	 * @param	string	$singular	The unique singular "key" for this piece of data
 	 * @param	int 	$entry_id	The id for this entry
@@ -80,11 +100,13 @@ class Search_index_m extends MY_Model
 	 */
 	public function drop_index($module, $singular, $entry_id)
 	{
-		parent::delete_by(array(
-			'module'     => $module,
-			'entry_key'  => $singular,
-			'entry_id'   => $entry_id,
-		));
+		return $this->db
+			->where(array(
+				'module'     => $module,
+				'entry_key'  => $singular,
+				'entry_id'   => $entry_id,
+			))
+			->delete('search_index');
 	}
 
 	/**

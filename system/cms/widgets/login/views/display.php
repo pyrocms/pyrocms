@@ -19,7 +19,8 @@
 			<?php echo lang('user_login_btn') ?>
 		</button>
 
-		<?php echo anchor('users/reset_pass', lang('user_reset_password_link'));?> | <?php echo anchor('register', lang('user_register_btn'));?>
+		<?php echo anchor('users/reset_pass', lang('user_reset_password_link'));?>
+		<?php if (Settings::get('enable_registration')) echo ' | '.anchor('register', lang('user_register_btn')); ?>
 	</div>
 
 <?php echo form_close();?>

@@ -44,6 +44,7 @@ $lang['blog:blog_title']                     = 'Blog';
 $lang['blog:list_title']                     = 'Artikel auflisten';
 
 // messages
+$lang['blog:disabled_after'] 				= 'Posting comments after %s has been disabled.'; #translate
 $lang['blog:no_posts']                       = 'Es existieren keine Artikel.';
 $lang['blog:subscripe_to_rss_desc']          = 'Abonnieren Sie unseren RSS Feed und erhalten Sie alle Artikel frei Haus. Sie k&ouml;nnen dies mit den meisten Email-Clients tun, oder z.B. mit <a href="http://reader.google.co.uk/">Google Reader</a>.';
 $lang['blog:currently_no_posts']             = 'Es existieren zur Zeit keine Artikel.';
@@ -63,4 +64,4 @@ $lang['blog:twitter_posted']                 = 'Gepostet "%s" %s';
 $lang['blog:twitter_error']                  = 'Twitter Fehler';
 
 // date
-$lang['blog:archive_date_format']		     = "%B' %Y";
+$lang['blog:archive_date_format']		     = "%B %Y";

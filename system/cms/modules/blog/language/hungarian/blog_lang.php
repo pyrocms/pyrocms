@@ -44,6 +44,7 @@ $lang['blog:blog_title']                     = 'Blog';
 $lang['blog:list_title']                     = 'Bejegyzések listája';
 
 // messages
+$lang['blog:disabled_after'] 				= 'Posting comments after %s has been disabled.'; #translate
 $lang['blog:no_posts']                       = 'Nincs bejegyzés.';
 $lang['blog:subscripe_to_rss_desc']          = 'A bejegyzést jelentesd meg saját RSS-en. Ezt meg lehet tenni az ismertebb levelezőkkel vagy a <a href="http://reader.google.co.uk/">Google Reader</a>rel.';
 $lang['blog:currently_no_posts']             = 'Ebben a pillanatban még nincs bejegyzés.';
@@ -63,6 +64,4 @@ $lang['blog:twitter_posted']                 = 'Bejegyezve "%s" %s';
 $lang['blog:twitter_error']                  = 'Twitter Hiba';
 
 // date
-$lang['blog:archive_date_format']            = "%B' %Y";
-
-/* End of file blog_lang.php */
+$lang['blog:archive_date_format']            = "%B %Y";

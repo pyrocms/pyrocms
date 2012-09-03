@@ -22,7 +22,7 @@ class Plugin_Theme extends Plugin
 	 * @return string The final rendered partial view.
 	 */
 	public function partial()
-	{	
+	{
 		$name = $this->attribute('name');
 
 		$path = $this->load->get_var('template_views');
@@ -79,8 +79,9 @@ class Plugin_Theme extends Plugin
 		$title = $this->attribute('title');
 		$media = $this->attribute('media');
 		$type = $this->attribute('type', 'text/css');
+        $rel = $this->attribute('rel', 'stylesheet');
 
-		return link_tag($this->css_url($file), 'stylesheet', $type, $title, $media);
+		return link_tag($this->css_url($file), $rel, $type, $title, $media);
 	}
 
 	/**

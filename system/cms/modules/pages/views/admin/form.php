@@ -73,26 +73,17 @@
 			<ul id="page-chunks">
 				<?php foreach ($page->chunks as $chunk): ?>
 				<li class="page-chunk">
-					<div class="one_half">
-						<label for="chunk_slug">Chunk ID</label>
-						<?php echo form_input('chunk_slug['.$chunk['id'].']', $chunk['slug'], 'class="label"'); ?>
-					</div>
-					<div class="one_half">
-						<label for="chunk_class">Chunk Class</label>
-						<?php echo form_input('chunk_class['.$chunk['id'].']', $chunk['class'], 'class="label"'); ?>
-					</div>
-					<hr>
-					<div class="input">
-						<?php echo form_dropdown('chunk_type['.$chunk['id'].']', array(
-							'html' => 'html',
-							'markdown' => 'markdown',
-							'wysiwyg-simple' => 'wysiwyg-simple',
-							'wysiwyg-advanced' => 'wysiwyg-advanced',
-						), $chunk['type']); ?>
-						<div class="alignright">
-							<a href="javascript:void(0)" class="remove-chunk btn red"><?php echo lang('global:remove') ?></a>
-							<span class="sort-handle"></span>
-						</div>
+					<?php echo form_input('chunk_slug['.$chunk['id'].']', $chunk['slug'], 'class="label" placeholder="id"'); ?>
+					<?php echo form_input('chunk_class['.$chunk['id'].']', $chunk['class'], 'class="label" placeholder="class"'); ?>
+					<?php echo form_dropdown('chunk_type['.$chunk['id'].']', array(
+						'html' => 'html',
+						'markdown' => 'markdown',
+						'wysiwyg-simple' => 'wysiwyg-simple',
+						'wysiwyg-advanced' => 'wysiwyg-advanced',
+					), $chunk['type']); ?>
+					<div class="alignright">
+						<a href="javascript:void(0)" class="remove-chunk btn red"><?php echo lang('global:remove') ?></a>
+						<span class="sort-handle"></span>
 					</div>
 					<br style="clear:both" />
 					<span class="chunky">

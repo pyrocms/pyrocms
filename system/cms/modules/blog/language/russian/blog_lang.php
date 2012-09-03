@@ -52,6 +52,7 @@ $lang['blog:blog_title']										= 'Блог';
 $lang['blog:list_title']										= 'Список статей';
 
 // сообщения
+$lang['blog:disabled_after'] 				= 'Posting comments after %s has been disabled.'; #translate
 $lang['blog:no_posts']											= 'Статьи отсутствуют.';
 $lang['blog:subscripe_to_rss_desc']					= 'Получайте статьи сразу после их публикации, подпишитесь на нашу ленту новостей. Вы можете сделать это с помощью самых популярных программ для чтения электронных писем, или попробуйте <a href="http://reader.google.ru/">Google Reader</a>.';
 $lang['blog:currently_no_posts']						= 'В данный момент новости отсутствуют.';
@@ -71,6 +72,6 @@ $lang['blog:twitter_posted']								= 'Добавлен "%s" %s';
 $lang['blog:twitter_error']									= 'Ошибка Twitter\'а';
 
 // дата
-$lang['blog:archive_date_format']						= "%B' %Y"; #see php strftime documentation
+$lang['blog:archive_date_format']						= "%B %Y"; #see php strftime documentation
 
 /* End of file blog_lang.php */

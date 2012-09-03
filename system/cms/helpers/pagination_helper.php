@@ -3,8 +3,9 @@
 /**
  * PyroCMS Pagination Helpers
  *  
- * @author Philip Sturgeon
  * @package PyroCMS\Core\Helpers
+ * @author      PyroCMS Dev Team
+ * @copyright   Copyright (c) 2012, PyroCMS LLC
  */
 if ( ! function_exists('create_pagination'))
 {

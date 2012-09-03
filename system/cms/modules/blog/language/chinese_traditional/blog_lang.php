@@ -44,6 +44,7 @@ $lang['blog:blog_title'] 				= '新聞';
 $lang['blog:list_title'] 				= '文章列表';
 
 // messages
+$lang['blog:disabled_after'] 				= 'Posting comments after %s has been disabled.'; #translate
 $lang['blog:no_posts'] 				= '沒有文章';
 $lang['blog:subscripe_to_rss_desc'] 	= '訂閱我們的 RSS 摘要可立即獲得最新的文章，您可以使用慣用的收件軟體，或試試看 <a href="http://reader.google.com.tw">Google 閱讀器</a>。';
 $lang['blog:currently_no_posts'] 	= '目前沒有文章';
@@ -63,4 +64,4 @@ $lang['blog:twitter_posted']			= '發佈 "%s" %s';
 $lang['blog:twitter_error'] 			= 'Twitter 錯誤';
 
 // date
-$lang['blog:archive_date_format']		= "%B' %Y"; #translate format - see php strftime documentation
+$lang['blog:archive_date_format']		= "%B %Y"; #translate format - see php strftime documentation

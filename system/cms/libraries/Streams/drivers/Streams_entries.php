@@ -126,17 +126,12 @@ class Streams_entries extends CI_Driver {
 
 		if ($params['paginate'] == 'yes' and ( ! isset($params['limit']) or ! is_numeric($params['limit']))) $params['limit'] = 25;
 				
-		// -------------------------------------
-		// Get Stream Fields
-		// -------------------------------------
-				
-		$this->fields =$CI->streams_m->get_stream_fields($stream->id);
 
 		// -------------------------------------
 		// Get Rows
 		// -------------------------------------
 
-		$rows = $CI->row_m->get_rows($params, $this->fields, $stream);
+		$rows = $CI->row_m->get_rows($params, null, $stream);
 		
 		$return['entries'] = $rows['rows'];
 				

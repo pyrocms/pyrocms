@@ -24,8 +24,8 @@ $lang['blog:intro_label']                    = 'Introduction';
 $lang['blog:no_category_select_label']       = '-- None --';
 $lang['blog:new_category_label']             = 'Add a category';
 $lang['blog:subscripe_to_rss_label']         = 'Subscribe to RSS';
-$lang['blog:all_posts_label']             = 'All posts';
-$lang['blog:posts_of_category_suffix']    = ' posts';
+$lang['blog:all_posts_label']                = 'All posts';
+$lang['blog:posts_of_category_suffix']       = ' posts';
 $lang['blog:rss_name_suffix']                = ' Blog';
 $lang['blog:rss_category_suffix']            = ' Blog';
 $lang['blog:author_name_label']              = 'Author name';
@@ -44,7 +44,8 @@ $lang['blog:blog_title']					= 'Blog';
 $lang['blog:list_title']					= 'List Posts';
 
 // messages
-$lang['blog:no_posts']                    = 'There are no posts.';
+$lang['blog:disabled_after'] 				= 'Posting comments after %s has been disabled.';
+$lang['blog:no_posts']                      = 'There are no posts.';
 $lang['blog:subscripe_to_rss_desc']          = 'Get posts straight away by subscribing to our RSS feed. You can do this via most popular e-mail clients, or try <a href="http://reader.google.co.uk/">Google Reader</a>.';
 $lang['blog:currently_no_posts']          = 'There are no posts at the moment.';
 $lang['blog:post_add_success']            = 'The post "%s" was added.';
@@ -63,4 +64,4 @@ $lang['blog:twitter_posted']                 = 'Posted "%s" %s';
 $lang['blog:twitter_error']                  = 'Twitter Error';
 
 // date
-$lang['blog:archive_date_format']		= "%B' %Y";
+$lang['blog:archive_date_format']		= "%B %Y";

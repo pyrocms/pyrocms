@@ -1,53 +1,52 @@
 <!-- Begin Quick Links -->
-	<?php if ($theme_options->pyrocms_quick_links == 'yes') : ?>
-	<div class="one_full">
-		
-		<section id="quick_links" class="<?php echo isset($rss_items); ?>">
-			<h4><?php //echo lang('cp_admin_quick_links') ?></h4>
-			<ul>
-				<?php if(array_key_exists('comments', $this->permissions) OR $this->current_user->group == 'admin'): ?>
-				<li>
-					<a class="tooltip-s" title="<?php echo lang('cp_manage_comments') ?>" href="<?php echo site_url('admin/comments') ?>">
-						<?php echo Asset::img('icons/comments.png', lang('cp_manage_comments')); ?>
-						<?php echo lang('cp_manage_comments') ?>
-					</a>
-				</li>
-				<?php endif; ?>
-				
-				<?php if(array_key_exists('pages', $this->permissions) OR $this->current_user->group == 'admin'): ?>
-				<li>
-					<a class="tooltip-s" title="<?php echo lang('cp_manage_pages'); ?>" href="<?php echo site_url('admin/pages') ?>">
-						<?php echo Asset::img('icons/pages.png', lang('cp_manage_pages')); ?>
-						<?php echo lang('cp_manage_pages'); ?>
-					</a>
-				</li>
-				<?php endif; ?>
-				
-				<?php if(array_key_exists('files', $this->permissions) OR $this->current_user->group == 'admin'): ?>
-				<li>
-					<a class="tooltip-s" title="<?php echo lang('cp_manage_files'); ?>" href="<?php echo site_url('admin/files') ?>">
-						<?php echo Asset::img('icons/files.png', lang('cp_manage_files')); ?>
-						<?php echo lang('cp_manage_files'); ?>
-					</a>
-				</li>
-				<?php endif; ?>
-				
-				<?php if(array_key_exists('users', $this->permissions) OR $this->current_user->group == 'admin'): ?>
-				<li>
-					<a class="tooltip-s" title="<?php echo lang('cp_manage_users'); ?>" href="<?php echo site_url('admin/users') ?>">
-						<?php echo Asset::img('icons/users.png', lang('cp_manage_users')); ?>
-						<?php echo lang('cp_manage_users'); ?>
-					</a>
-				</li>
-				<?php endif; ?>
-			</ul>
-		</section>
+<?php if ($theme_options->pyrocms_quick_links === 'yes') : ?>
+<div class="one_full">
+	
+	<section id="quick_links" class="<?php echo isset($rss_items); ?>">
+		<ul>
+			<?php if (isset($this->permissions['comments']) or $this->current_user->group == 'admin'): ?>
+			<li>
+				<a class="tooltip-s" title="<?php echo lang('cp_manage_comments') ?>" href="<?php echo site_url('admin/comments') ?>">
+					<?php echo Asset::img('icons/comments.png', lang('cp_manage_comments')); ?>
+					<?php echo lang('cp_manage_comments') ?>
+				</a>
+			</li>
+			<?php endif; ?>
+			
+			<?php if (isset($this->permissions['pages']) or $this->current_user->group == 'admin'): ?>
+			<li>
+				<a class="tooltip-s" title="<?php echo lang('cp_manage_pages'); ?>" href="<?php echo site_url('admin/pages') ?>">
+					<?php echo Asset::img('icons/pages.png', lang('cp_manage_pages')); ?>
+					<?php echo lang('cp_manage_pages'); ?>
+				</a>
+			</li>
+			<?php endif; ?>
+			
+			<?php if (isset($this->permissions['files']) or $this->current_user->group == 'admin'): ?>
+			<li>
+				<a class="tooltip-s" title="<?php echo lang('cp_manage_files'); ?>" href="<?php echo site_url('admin/files') ?>">
+					<?php echo Asset::img('icons/files.png', lang('cp_manage_files')); ?>
+					<?php echo lang('cp_manage_files'); ?>
+				</a>
+			</li>
+			<?php endif; ?>
+			
+			<?php if (isset($this->permissions['users']) or $this->current_user->group == 'admin'): ?>
+			<li>
+				<a class="tooltip-s" title="<?php echo lang('cp_manage_users'); ?>" href="<?php echo site_url('admin/users') ?>">
+					<?php echo Asset::img('icons/users.png', lang('cp_manage_users')); ?>
+					<?php echo lang('cp_manage_users'); ?>
+				</a>
+			</li>
+			<?php endif; ?>
+		</ul>
+	</section>
 
-	</div>		
-	<?php endif; ?>
-	<!-- End Quick Links -->
+</div>		
+<?php endif; ?>
+<!-- End Quick Links -->
 
-<?php if ((isset($analytic_visits) OR isset($analytic_views)) AND $theme_options->pyrocms_analytics_graph == 'yes'): ?>
+<?php if ((isset($analytic_visits) or isset($analytic_views)) AND $theme_options->pyrocms_analytics_graph == 'yes'): ?>
 <script type="text/javascript">
 
 jQuery(function($) {
@@ -131,41 +130,47 @@ jQuery(function($) {
 	<?php if (isset($recent_comments) AND is_array($recent_comments) AND $theme_options->pyrocms_recent_comments == 'yes') : ?>
 		<div class="one_full">
 			<section class="draggable title">
-				<h4><?php echo lang('comments.recent_comments') ?></h4>
+				<h4><?php echo lang('comments:recent_comments') ?></h4>
 				<a class="tooltip-s toggle" title="Toggle this element"></a>
 			</section>
 
 			<section class="item">
 				<ul id="existing-comments">
 					<?php if (count($recent_comments)): ?>
-							<?php foreach ($recent_comments AS $rant) : ?>
-								<li>
-									<div class="comment">
-										<div class="image">
-											<?php echo gravatar($rant->email, 60); ?>
+						<?php foreach ($recent_comments as $comment) : ?>
+							<li>
+								<div class="comment">
+									<div class="image">
+										<?php echo gravatar($comment->user_email, 60); ?>
+									</div>
+									<div class="details">
+										<div class="name">
+											<p>
+												<?php echo $comment->user_website ? anchor($comment->user_website, $comment->user_name, 'rel="external nofollow"') : $comment->user_name; ?>
+											</p>
 										</div>
-										<div class="details">
-											<div class="name">
-												<p>
-													<?php echo $rant->website ? anchor($rant->website, $rant->name, 'rel="external nofollow"') : $rant->name; ?>
-												</p>
-											</div>
-											<div class="date">
-												<p><?php echo format_date($rant->created_on); ?></p>
-											</div>
-											<div class="content">
-												<?php if (Settings::get('comment_markdown') AND $rant->parsed > ''): ?>
-													<?php echo $rant->parsed; ?>
-												<?php else: ?>
-													<p><?php echo nl2br($rant->comment); ?></p>
-												<?php endif; ?>
-											</div>
+										<div class="date">
+											<p><?php echo format_date($comment->created_on); ?></p>
 										</div>
-									</div><!-- close .comment -->
-								</li>
-							<?php endforeach; ?>
+										<div class="item">
+											<?php
+												$title = $comment->uri ? anchor($comment->uri, $comment->entry_title) : $comment->entry_title;
+												echo sprintf(lang('comments:list_comment'), $comment->user_name, $title);
+											?>
+										</div>
+										<div class="content">
+											<?php if (Settings::get('comment_markdown') and $comment->parsed): ?>
+												<?php echo $comment->parsed; ?>
+											<?php else: ?>
+												<p><?php echo nl2br($comment->comment); ?></p>
+											<?php endif; ?>
+										</div>
+									</div>
+								</div><!-- close .comment -->
+							</li>
+						<?php endforeach; ?>
 					<?php else: ?>
-						<?php echo lang('comments.no_comments');?>
+						<?php echo lang('comments:no_comments');?>
 					<?php endif; ?>
 				</ul>
 			</section>

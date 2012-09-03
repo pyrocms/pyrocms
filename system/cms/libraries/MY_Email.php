@@ -1,16 +1,16 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 /**
- * MY_Email - Allows for email config settings to be stored in the db.
+ * MY_Email
+ * Allows for email config settings to be stored in the db.
  *
- * @author      Stephen Cozart
- * @author		PyroCMS Dev Team
  * @package 	PyroCMS\Core\Libraries
+ * @author      PyroCMS Dev Team
+ * @copyright   Copyright (c) 2012, PyroCMS LLC
  */
 class MY_Email extends CI_Email {
 
     /**
      * Constructor method
-     *
      * 
      * @return void
      */

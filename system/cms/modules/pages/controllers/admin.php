@@ -123,7 +123,7 @@ class Admin extends Admin_Controller {
 	 */
 	public function duplicate($id, $parent_id = null)
 	{
-		$page  = $this->page_m->get($id);
+		$page  = (array)$this->page_m->get($id);
 
 		// Steal their children
 		$children = $this->page_m->get_many_by('parent_id', $id);
@@ -158,7 +158,6 @@ class Admin extends Admin_Controller {
 
         	$page['restricted_to'] = null;
         	$page['navigation_group_id'] = 0;
-	        $page['is_home'] = true;
         
         	foreach($page['chunks'] as $chunk)
         	{
@@ -172,13 +171,10 @@ class Admin extends Admin_Controller {
 
 		foreach ($children as $child)
 		{
-			$this->duplicate($child->id, $new_page['id']);
+			$this->duplicate($child->id, $new_page);
 		}
 
-		if ($parent_id === NULL)
-		{
-			redirect('admin/pages/edit/'.$new_page['id']);
-		}
+		redirect('admin/pages');
 	}
 
 	/**
@@ -369,8 +365,10 @@ class Admin extends Admin_Controller {
 		}
 
 		// Loop through each validation rule
-		foreach ($this->page_m->fields() as $field)
+		foreach ($this->page_m->validate as $field)
 		{
+			$field = $field['field'];
+
 			// Nothing to do for these two fields.
 			if (in_array($field, array('navigation_group_id', 'chunk_body[]')))
 			{
@@ -449,7 +447,7 @@ class Admin extends Admin_Controller {
 	 */
 	public function delete($id = 0)
 	{
-		$this->load->model('comments/comments_m');
+		$this->load->model('comments/comment_m');
 
 		// The user needs to be able to delete pages.
 		role_or_die('pages', 'delete_live');
@@ -466,7 +464,11 @@ class Admin extends Admin_Controller {
 				{
 					$deleted_ids = $this->page_m->delete($id);
 
-					$this->comments_m->where('module', 'pages')->delete_by('module_id', $id);
+					// Delete any page comments for this entry
+					$this->comment_m->where('module', 'pages')->delete_by(array(
+						'entry_key' => 'page:page',
+						'entry_id' => $id
+					));
 
 					// Wipe cache for this model, the content has changd
 					$this->pyrocache->delete_all('page_m');

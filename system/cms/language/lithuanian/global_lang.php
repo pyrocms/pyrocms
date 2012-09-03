@@ -13,9 +13,9 @@ $lang['global:slug'] 					= 'Nuoroda';
 $lang['global:user'] 					= 'Vartotojas';
 
 $lang['dialog.delete_message'] 			= 'Ar tikrai norite tai ištrinti? Atstatymas negalimas.';
-$lang['dialog.confirm'] 				= 'Patvirtinti';
-$lang['dialog.yes'] 					= 'Taip';
-$lang['dialog.no'] 						= 'Ne';
+$lang['global:dialog:confirm'] 				= 'Patvirtinti';
+$lang['global:yes'] 					= 'Taip';
+$lang['global:no'] 						= 'Ne';
 
 $lang['global:select-none'] 			= '-- Nieko --';
 $lang['global:select-all'] 				= '-- Visi --';
@@ -25,10 +25,17 @@ $lang['global:select-pick'] 			= '-- Išrinti --';
 $lang['global:check-none'] 				= 'Nieko';
 $lang['global:check-all']				= 'Visi';
 
-$lang['operators.equal'] 				= 'Lygiai';
-$lang['operators.not_equal'] 			= 'Nelygu';
-$lang['operators.less_than'] 			= 'Mažiau negu';
-$lang['operators.greater_than'] 		= 'Daugiau negu';
+$lang['global:operators:equal'] 				= 'Lygiai';
+$lang['global:operators:not-equal'] 			= 'Nelygu';
+$lang['global:operators:less-than'] 			= 'Mažiau negu';
+$lang['global:operators:greater-than'] 		= 'Daugiau negu';
+
+$lang['global:duration:1-day']			= 'One day'; #translate
+$lang['global:duration:1-week']			= 'One week'; #translate
+$lang['global:duration:2-weeks']		= 'Two weeks'; #translate
+$lang['global:duration:1-month']		= 'One month'; #translate
+$lang['global:duration:3-months']		= 'Three Months'; #translate
+$lang['global:duration:always']			= 'Always'; #translate
 
 $lang['navigation_headline'] 			= 'Navigacija';
 $lang['breadcrumb_base_label'] 			= 'Pradžia';

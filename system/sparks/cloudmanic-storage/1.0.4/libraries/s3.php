@@ -44,6 +44,8 @@ class S3 {
 	const ACL_AUTHENTICATED_READ = 'authenticated-read';
 
 	public static $useSSL = false;
+	public static $host = '{{ bucket }}.s3.amazonaws.com'; // this most likely will always be overridden with Settings::get('files_s3_url');
+	public static $geographic_location = false;
 
 	private static $__accessKey; // AWS Access key
 	private static $__secretKey; // AWS Secret key
@@ -205,6 +207,9 @@ class S3 {
 	* @return boolean
 	*/
 	public static function putBucket($bucket, $acl = self::ACL_PRIVATE, $location = false) {
+		if ($location === false) {
+			$location = S3::$geographic_location;
+		}
 		$rest = new S3Request('PUT', $bucket, '');
 		$rest->setAmzHeader('x-amz-acl', $acl);
 
@@ -824,7 +829,7 @@ class S3 {
 	public static function createDistribution($bucket, $enabled = true, $cnames = array(), $comment = '') {
 		self::$useSSL = true; // CloudFront requires SSL
 		$rest = new S3Request('POST', '', '2008-06-30/distribution', 'cloudfront.amazonaws.com');
-		$rest->data = self::__getCloudFrontDistributionConfigXML($bucket.'.s3.amazonaws.com', $enabled, $comment, (string)microtime(true), $cnames);
+		$rest->data = self::__getCloudFrontDistributionConfigXML(preg_replace('@\{\{.*?\}\}@', $bucket, S3::$host), $enabled, $comment, (string)microtime(true), $cnames);
 		$rest->size = strlen($rest->data);
 		$rest->setHeader('Content-Type', 'application/xml');
 		$rest = self::__getCloudFrontResponse($rest);
@@ -1132,16 +1137,17 @@ final class S3Request {
 	* @param string $uri Object URI
 	* @return mixed
 	*/
-	function __construct($verb, $bucket = '', $uri = '', $defaultHost = 's3.amazonaws.com') {
+	function __construct($verb, $bucket = '', $uri = '', $defaultHost = FALSE) {
 		$this->verb = $verb;
 		$this->bucket = strtolower($bucket);
 		$this->uri = $uri !== '' ? '/'.str_replace('%2F', '/', rawurlencode($uri)) : '/';
+		$defaultHost = ($defaultHost ? $defaultHost : S3::$host);
 
 		if ($this->bucket !== '') {
-			$this->headers['Host'] = $this->bucket.'.'.$defaultHost;
+			$this->headers['Host'] = preg_replace('@\{\{.*?\}\}@', $this->bucket, $defaultHost);
 			$this->resource = '/'.$this->bucket.$this->uri;
 		} else {
-			$this->headers['Host'] = $defaultHost;
+			$this->headers['Host'] = preg_replace('@\.?\{\{.*?\}\}\.?@', '', $defaultHost);
 			//$this->resource = strlen($this->uri) > 1 ? '/'.$this->bucket.$this->uri : $this->uri;
 			$this->resource = $this->uri;
 		}

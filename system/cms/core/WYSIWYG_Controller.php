@@ -3,8 +3,8 @@
 /**
  * Shared logic and data for all CMS controllers
  *
- * @author		Phil Sturgeon
- * @author		PyroCMS Dev Team
+ * @author      PyroCMS Dev Team
+ * @copyright   Copyright (c) 2012, PyroCMS LLC
  * @package		PyroCMS\Core\Controllers
  */
 class WYSIWYG_Controller extends MY_Controller

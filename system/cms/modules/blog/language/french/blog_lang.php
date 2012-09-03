@@ -35,13 +35,14 @@ $lang['blog:created_minute']           = 'Minute de création';
 $lang['blog:comments_enabled_label']   = 'Commentaires activés';
 
 // titles
-$lang['blog:create_title']    = 'Créer un post';
-$lang['blog:edit_title']      = 'Modifier le post "%s"';
-$lang['blog:archive_title']   = 'Archiver';
-$lang['blog:posts_title']     = 'Posts';
-$lang['blog:rss_posts_title'] = 'Post d\'actualité pour %s';
-$lang['blog:blog_title']      = 'Actualités';
-$lang['blog:list_title']      = 'Lister les posts';
+$lang['blog:disabled_after'] 			= 'Posting comments after %s has been disabled.'; #translate
+$lang['blog:create_title']    			= 'Créer un post';
+$lang['blog:edit_title']      			= 'Modifier le post "%s"';
+$lang['blog:archive_title']   			= 'Archiver';
+$lang['blog:posts_title']     			= 'Posts';
+$lang['blog:rss_posts_title'] 			= 'Post d\'actualité pour %s';
+$lang['blog:blog_title']      			= 'Actualités';
+$lang['blog:list_title']      			= 'Lister les posts';
 
 // messages
 $lang['blog:no_posts']              = 'Il n\'y a pas de posts.';
@@ -63,4 +64,4 @@ $lang['blog:twitter_posted'] = 'Envoyé "%s" %s';
 $lang['blog:twitter_error']  = 'Erreur Twitter';
 
 // date
-$lang['blog:archive_date_format'] = "%B' %Y";
+$lang['blog:archive_date_format'] = "%B %Y";

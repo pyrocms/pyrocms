@@ -6,6 +6,7 @@ class Migration_Move_modules_around extends CI_Migration {
 	public function up()
 	{
 		$modules = array(
+			'api'			=> 'data',
 			'keywords'		=> 'data',
 			'maintenance'	=> 'data',
 			'navigation'	=> 'structure',

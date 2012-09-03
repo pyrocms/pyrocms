@@ -54,6 +54,7 @@ $lang['blog:rss_posts_title']             = 'Các bài viết cho %s';
 $lang['blog:blog_title']                     = 'Blog';
 
 // messages
+$lang['blog:disabled_after'] 				= 'Posting comments after %s has been disabled.'; #translate
 $lang['blog:no_posts']                    = 'Không có bài viết nào.';
 $lang['blog:subscripe_to_rss_desc']          = 'Hãy sử dụng RSS Feed để nhận những bài viết mới nhất. Bạn có thể sử dụng nhiều chương trình khác nhau, hoặc sử dụng <a href="http://reader.google.co.uk/">Google Reader</a>.';
 $lang['blog:currently_no_posts']          = 'Không có bài viết nào.';
@@ -73,4 +74,4 @@ $lang['blog:twitter_posted']                 = 'Đã gửi "%s" %s';
 $lang['blog:twitter_error']                  = 'Lỗi Twitter';
 
 // date
-$lang['blog:archive_date_format']		= "%B' %Y";
+$lang['blog:archive_date_format']		= "%B %Y";
