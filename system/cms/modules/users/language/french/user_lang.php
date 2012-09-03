@@ -95,12 +95,11 @@ $lang['user_settings_saved_error']   = 'Une erreur est survenue.';
 
 $lang['user_register_btn']   = 'Enregistrement';
 $lang['user_activate_btn']   = 'Activation';
-$lang['user_reset_pass_btn'] = 'Réinitialiser le Mot de passe';
+$lang['user_reset_pass_btn'] = 'Réinit Mot de passe';
 $lang['user_login_btn']      = 'Connexion';
 $lang['user_settings_btn']   = 'Sauvegarder les paramètres';
 
 // -- Errors & Messages ------------------------------------------------------------------------------------
-
 // Create
 $lang['user_added_and_activated_success'] = 'Un nouvel utilisateur a été créé et activé.';
 $lang['user_added_not_activated_success'] = 'Un nouvel utilisateur a été créé, le compte a besoin d\'être activé.';
@@ -148,7 +147,6 @@ $lang['user_password_reset_message'] = "Votre mot de passe a été ré-initialis
 
 
 // Emails ----------------------------------------------------------------------------------------------------
-
 // Activation
 $lang['user_activation_email_subject'] = 'Activation requise';
 $lang['user_activation_email_body']    = 'Merci d\'avoir activé votre compte chez %s. Pour vous connecter au site, veuillez cliquer le lien ci-dessous:';
