@@ -3,7 +3,7 @@
 /**
  * Asset Plugin
  *
- * Load asset data
+ * Load and print asset data
  *
  * @author		PyroCMS Dev Team
  * @package		PyroCMS\Core\Plugins
@@ -18,7 +18,7 @@ class Plugin_Asset extends Plugin
 	 *
 	 * Usage:
 	 *
-	 * <code>{{ asset:css file="" group="" }}</code>
+	 * {{ asset:css file="" group="" }}
 	 *
 	 * @return string Full url to css asset
 	 */
@@ -196,6 +196,42 @@ class Plugin_Asset extends Plugin
 		$group = $this->attribute('group', false);
 
 		return Asset::render($group);
+	}
+	
+	/**
+	 * Asset Render CSS
+	 *
+	 * Render a CSS asset group.
+	 *
+	 * Usage:
+	 *
+	 * {{ asset:render_css group="" }}
+	 *
+	 * @return string Style tags for CSS
+	 */
+	public function render_css()
+	{
+		$group = $this->attribute('group', false);
+
+		return Asset::render_css($group);
+	}
+	
+	/**
+	 * Asset Render Javascript
+	 *
+	 * Render a Javascript asset group.
+	 *
+	 * Usage:
+	 *
+	 * {{ asset:render_js group="" }}
+	 *
+	 * @return string Script tags for Javascript
+	 */
+	public function render_js()
+	{
+		$group = $this->attribute('group', false);
+
+		return Asset::render_js($group);
 	}
 
 }
