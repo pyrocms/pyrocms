@@ -3,7 +3,8 @@
 /**
  * Gravatar helper for CodeIgniter.
  *
- * @author		Phil Sturgeon
+ * @author      PyroCMS Dev Team
+ * @copyright   Copyright (c) 2012, PyroCMS LLC
  * @package 	PyroCMS\Core\Helpers
  */
 if (!function_exists('gravatar'))

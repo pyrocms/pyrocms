@@ -1,5 +1,13 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed.');
-
+/**
+ * MY_Form_validation
+ * 
+ * Extending the Form Validation class to add extra rules and model validation
+ *
+ * @package 	PyroCMS\Core\Libraries
+ * @author      PyroCMS Dev Team
+ * @copyright   Copyright (c) 2012, PyroCMS LLC
+ */
 class MY_Form_validation extends CI_Form_validation
 {
 	/**
@@ -7,7 +15,7 @@ class MY_Form_validation extends CI_Form_validation
 	 */
 	private $_model;
 
-	function __construct($rules = array())
+	public function __construct($rules = array())
 	{
 		parent::__construct($rules);
 		$this->CI->load->language('extra_validation');
@@ -18,13 +26,12 @@ class MY_Form_validation extends CI_Form_validation
 	/**
 	 * Alpha-numeric with underscores dots and dashes
 	 *
-	 * @access	public
 	 * @param	string
 	 * @return	bool
 	 */
-	function alpha_dot_dash($str)
+	public function alpha_dot_dash($str)
 	{
-		return ( ! preg_match("/^([-a-z0-9_\-\.])+$/i", $str)) ? FALSE : TRUE;
+		return preg_match("/^([-a-z0-9_\-\.])+$/i", $str);
 	}
 
 	// --------------------------------------------------------------------
@@ -33,11 +40,10 @@ class MY_Form_validation extends CI_Form_validation
 	 * Sneaky function to get field data from
 	 * the form validation library
 	 *
-	 * @access	public
 	 * @param	string
 	 * @return	bool
 	 */
-	function field_data($field)
+	public function field_data($field)
 	{
 		return (isset($this->_field_data[$field])) ? $this->_field_data[$field] : null;
 	}
@@ -46,14 +52,11 @@ class MY_Form_validation extends CI_Form_validation
 	/**
 	 * Formats an UTF-8 string and removes potential harmful characters
 	 *
-	 * @access	public
 	 * @param	string
 	 * @return	string
-	 * @author	Jeroen v.d. Gulik
-	 * @since	v1.0-beta1
 	 * @todo	Find decent regex to check utf-8 strings for harmful characters
 	 */
-	function utf8($str)
+	public function utf8($str)
 	{
 		// If they don't have mbstring enabled (suckers) then we'll have to do with what we got
 		if ( ! function_exists('mb_convert_encoding'))
@@ -71,7 +74,6 @@ class MY_Form_validation extends CI_Form_validation
 	/**
 	 * Sets the model to be used for validation callbacks. It's set dynamically in MY_Model
 	 *
-	 * @access	private
 	 * @param	string	The model class name
 	 * @return	void
 	 */
@@ -88,7 +90,6 @@ class MY_Form_validation extends CI_Form_validation
 	/**
 	 * Format an error in the set error delimiters
 	 *
-	 * @access 	public
 	 * @param	string
 	 * @return	void
 	 */
@@ -102,7 +103,6 @@ class MY_Form_validation extends CI_Form_validation
 	/**
 	 * Valid URL
 	 *
-	 * @access 	public
 	 * @param	string
 	 * @return	void
 	 */
@@ -127,7 +127,6 @@ class MY_Form_validation extends CI_Form_validation
 	 * Modified to work with HMVC -- Phil Sturgeon
 	 * Modified to work with callbacks in the calling model -- Jerel Unruh
 	 *
-	 * @access	private
 	 * @param	array
 	 * @param	array
 	 * @param	mixed
@@ -375,11 +374,10 @@ class MY_Form_validation extends CI_Form_validation
 	 * Used for streams but can be used in other
 	 * recaptcha situations.
 	 *
-	 * @access	public
 	 * @param	string
 	 * @return	bool
 	 */
-	function check_recaptcha($val)
+	public function check_recaptcha($val)
 	{
 		if ($this->CI->recaptcha->check_answer(
 						$this->CI->input->ip_address(),
@@ -405,7 +403,6 @@ class MY_Form_validation extends CI_Form_validation
 	 *
 	 * Used by streams_core.
 	 *
-	 * @access	public
 	 * @param	string
 	 * @param	string
 	 * @param	obj
@@ -443,9 +440,9 @@ class MY_Form_validation extends CI_Form_validation
 		$stream = $this->CI->streams_m->get_stream($stream_id);
 			
 		$obj = $this->CI->db
-					->select('id')
-					->where(trim($column), trim($string))
-					->get($stream->stream_prefix.$stream->stream_slug);
+			->select('id')
+			->where(trim($column), trim($string))
+			->get($stream->stream_prefix.$stream->stream_slug);
 		
 		// If this is new, we just need to make sure the
 		// value doesn't exist already.
@@ -507,7 +504,6 @@ class MY_Form_validation extends CI_Form_validation
 	 * Used by streams as conduit to call custom
 	 * callback functions.
 	 *
-	 * @access	public
 	 * @param	string
 	 * @param	string
 	 * @return	bool
@@ -555,7 +551,6 @@ class MY_Form_validation extends CI_Form_validation
 	 *
 	 * Used by Streams.
 	 *
-	 * @access	public
 	 * @param	string
 	 * @param	string
 	 * @return	bool
@@ -596,7 +591,6 @@ class MY_Form_validation extends CI_Form_validation
 	 *
 	 * Used by Streams.
 	 *
-	 * @access	public
 	 * @param	string
 	 * @param	string
 	 * @return	void
@@ -661,7 +655,6 @@ class MY_Form_validation extends CI_Form_validation
 	 * Checks to see if the stream is unique based on the 
 	 * stream_slug
 	 *
-	 * @access	public
 	 * @param	string
 	 * @param	string
 	 * @return	bool
@@ -708,7 +701,6 @@ class MY_Form_validation extends CI_Form_validation
 	 *
 	 * Used by Streams.
 	 *
-	 * @access 	public
 	 * @param 	string
 	 * @return 	bool
 	 */
@@ -736,7 +728,6 @@ class MY_Form_validation extends CI_Form_validation
 	/**
 	 * Make sure a type is valid
 	 *
-	 * @access	public
 	 * @param	string
 	 * @return	bool
 	 */	

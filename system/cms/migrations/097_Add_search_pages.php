@@ -98,7 +98,7 @@ class Migration_Add_search_pages extends CI_Migration
 		  `cp_edit_uri` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
 		  `cp_delete_uri` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
 		  PRIMARY KEY (`id`),
-		  UNIQUE KEY `unique` (`module`,`entry_key`,`entry_id`) USING BTREE,
+		  UNIQUE KEY `unique` (`module`,`entry_key`,`entry_id`(190)) USING BTREE,
 		  FULLTEXT KEY `full search` (`title`,`description`,`keywords`)
 		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 		");
