@@ -12,6 +12,23 @@
  
 class Streams_cp extends CI_Driver {
 
+	private $CI;
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Constructor
+	 *
+	 * @access	public
+	 * @return	void
+	 */
+	function __construct()
+	{
+		$this->CI =& get_instance();
+	}
+
+	// --------------------------------------------------------------------------
+
 	/**
 	 * Entries Table
 	 *
@@ -40,7 +57,7 @@ class Streams_cp extends CI_Driver {
 	 *
 	 * see docs for more explanation
 	 */
-	function entries_table($stream_slug, $namespace_slug, $pagination = null, $pagination_uri = null, $view_override = false, $extra = array())
+	public function entries_table($stream_slug, $namespace_slug, $pagination = null, $pagination_uri = null, $view_override = false, $extra = array())
 	{
 		$CI = get_instance();
 		
@@ -77,17 +94,17 @@ class Streams_cp extends CI_Driver {
   		}
 
 		// Stuff below is not supported via the API yet
-		/*if ($stream->sorting == 'custom')
+		if ($stream->sorting == 'custom')
 		{
 			// We need some variables to use in the sort. I guess.
-			$this->template->append_metadata('<script type="text/javascript" language="javascript">var stream_id='.$this->data->stream->id.';var stream_offset='.$offset.';</script>');
+			$this->CI->template->append_metadata('<script type="text/javascript" language="javascript">var stream_id='.$stream->id.';var stream_offset='.$offset.';</script>');
 		
 			// We want to sort this
-		    //$this->template->append_js('module::entry_sorting.js');
+		    $this->CI->template->append_js('streams/entry_sorting.js');
 		    		      
 			// Comeon' Livequery! You're goin' in!
-			//$this->template->append_js('module::jquery.livequery.js');
-		}*/
+			$this->CI->template->append_js('jquery/jquery.livequery.js');
+		}
 
   		$data = array(
   			'stream'		=> $stream,
@@ -103,7 +120,6 @@ class Streams_cp extends CI_Driver {
 
 		if ( isset($_POST['filter']) )
 		{
-
 			// We don't need this
 			unset($_POST['filter']);
 
@@ -159,7 +175,6 @@ class Streams_cp extends CI_Driver {
 		}
 
 		$filter_data = isset($data['filter_data']) ? $data['filter_data'] : null;
-
 
  		// -------------------------------------
 		// Get Entries
@@ -249,7 +264,7 @@ class Streams_cp extends CI_Driver {
 	 * 							standard * for the PyroCMS CP
 	 * title				- Title of the form header (if using view override)
 	 */
-	function entry_form($stream_slug, $namespace_slug, $mode = 'new', $entry_id = null, $view_override = false, $extra = array(), $skips = array(), $tabs = false)
+	public function entry_form($stream_slug, $namespace_slug, $mode = 'new', $entry_id = null, $view_override = false, $extra = array(), $skips = array(), $tabs = false)
 	{
 		$CI = get_instance();
 	
@@ -313,9 +328,10 @@ class Streams_cp extends CI_Driver {
 		
 		if ($view_override === false) return $form;
 		
-		$CI->data->content = $form;
+		$data['content'] = $form;
+		//$CI->data->content = $form;
 		
-		$CI->template->build('admin/partials/blank_section', $CI->data);
+		$CI->template->build('admin/partials/blank_section', $data);
 	}
 
 	// --------------------------------------------------------------------------
