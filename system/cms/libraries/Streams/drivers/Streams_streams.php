@@ -167,13 +167,14 @@ class Streams_streams extends CI_Driver {
 	 * Get streams in a namespace
 	 *
 	 * @access	public
-	 * @param	stream - obj, id, or string
-	 * @param	[string - namespace]
+	 * @param	string - namespace
+	 * @param 	[int - limit]
+	 * @param 	[int - offset]
 	 * @return	object
 	 */
-	public function get_streams($namespace)
+	public function get_streams($namespace, $limit = null, $offset = 0)
 	{
-		return $this->CI->streams_m->get_streams($namespace);
+		return $this->CI->streams_m->get_streams($namespace, $limit, $offset);
 	}
 	
 	// --------------------------------------------------------------------------
