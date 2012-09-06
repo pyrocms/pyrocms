@@ -9,7 +9,6 @@ $lang['pages:meta_label'] 					= 'Méta données';
 $lang['pages:design_label'] 				= 'Design';
 $lang['pages:script_label'] 				= 'Script';
 $lang['pages:options_label'] 				= 'Options';
-
 $lang['pages:detail_label'] 				= 'Détails';
 
 // labels
@@ -39,8 +38,6 @@ $lang['pages:revisions_label']				= 'Révisions';
 $lang['pages:compare_label']              	= 'Comparer';
 $lang['pages:preview_label']              	= 'Previsualiser';
 $lang['pages:current_label']              	= 'Courant';
-
-
 $lang['pages:view_label'] 					= 'Visualiser';
 $lang['pages:create_label'] 				= 'Ajouter enfant';
 $lang['pages:duplicate_label']				= 'Dupliquer';
@@ -68,7 +65,5 @@ $lang['pages_chunk_slug_length']				= 'Les Slugs Page chunks ne doivent pas fair
 $lang['pages_root_folder']                = 'le top level';
 
 $lang['pages:tree_explanation_title']	        = 'Explication';
-$lang['pages:tree_explanation'] 				= 'La liste de gauche affiche les pages de votre site web.
-Cliquez sur l\'icône "+" à côté de la page pour afficher les pages incluses. En cliquant sur une page vous verrez toutes sortes d\'informations utiles dans cette boîte.';
-
+$lang['pages:tree_explanation'] 				= 'La liste de gauche affiche les pages de votre site web. Cliquez sur l\'icône "+" à côté de la page pour afficher les pages incluses. En cliquant sur une page vous verrez toutes sortes d\'informations utiles dans cette boîte.';
 $lang['pages:rss_explanation']					= 'Activer RSS pour cette page permettra à un utilisateur de souscrire au flux RSS contenant chacun des pages enfant.';
