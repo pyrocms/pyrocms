@@ -53,7 +53,12 @@ class Streams_cp extends CI_Driver {
 		// -------------------------------------
 		
  		$stream_fields = $CI->streams_m->get_stream_fields($stream->id);
- 		
+
+ 		$stream_fields->id = new stdClass();
+  		$stream_fields->created = new stdClass();
+ 		$stream_fields->updated = new stdClass();
+ 		$stream_fields->created_by = new stdClass();
+		
   		$stream_fields->id->field_name 				= lang('streams.id');
 		$stream_fields->created->field_name 		= lang('streams.created_date');
  		$stream_fields->updated->field_name 		= lang('streams.updated_date');
