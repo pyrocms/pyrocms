@@ -773,7 +773,7 @@ class Streams_cp extends CI_Driver {
 	public function assignments_table($stream_slug, $namespace, $pagination = null, $pagination_uri = null, $view_override = false, $extra = array(), $skips = array())
 	{
 		$CI = get_instance();
-		$data['buttons'] = $extra['buttons'];
+		$data['buttons'] = (isset($extra['buttons']) and is_array($extra['buttons'])) ? $extra['buttons'] : array();
 
 		// Get stream
 		$stream = $this->stream_obj($stream_slug, $namespace);
