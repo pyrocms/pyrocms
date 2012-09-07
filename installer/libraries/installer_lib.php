@@ -234,7 +234,7 @@ class Installer_lib {
 		include '../system/cms/config/migration.php';
 
 		// Create a connection
-		if ( ! $this->db = mysql_connect($server, $username, $password) )
+		if ( ! $this->db = @mysql_connect($server, $username, $password) )
 		{
 			return array('status' => FALSE,'message' => 'The installer could not connect to the MySQL server or the database, be sure to enter the correct information.');
 		}
