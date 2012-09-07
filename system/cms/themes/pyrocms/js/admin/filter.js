@@ -1,15 +1,9 @@
 (function($){
 
-    var filterDefaults = {
-        filter_onload: true,
-        content: '#filter-stage',
-        module: '', // the current module name
-		module_selector: 'input[name="f_module"]'
-    };
- 
+	//Filter Class Constructor
     function Filter(form, opts)
     {
-		this._opts = $.extend({}, filterDefaults, opts || {});
+		this._opts = $.extend({}, $.fn.pyroFilter.defaultsOptions, opts || {});
 		this.form = form;
         this.$form = $(form);
 		this.$content = (typeof this._opts.content === "string") ? $(this._opts.content) : this._opts.content;
@@ -149,6 +143,8 @@
         }
     };
 
+
+    //JQuery plugin
     $.fn.pyroFilter = function (method) {
 
             var $fn = this.data('pyrofilter');
@@ -174,6 +170,15 @@
             }    
 
     };
+
+    $.fn.pyroFilter.defaultsOptions = {
+        filter_onload: true,
+        content: '#filter-stage',
+        module: '', // the current module name
+		module_selector: 'input[name="f_module"]'
+    };
+ 
+
 })(jQuery);
 
 //Default init for core modules
