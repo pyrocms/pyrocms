@@ -107,8 +107,10 @@ class Pyrocache
 		{
 			$this->_ci->load->library($library);
 		}
+		
+		$library = explode("/", $library);
 
-		return $this->_call($library, $method, $arguments, $expires);
+		return $this->_call($library[0], $method, $arguments, $expires);
 	}
 
 
@@ -127,8 +129,9 @@ class Pyrocache
 		{
 			$this->_ci->load->model($model);
 		}
+		$model = explode("/", $model);
 
-		return $this->_call($model, $method, $arguments, $expires);
+		return $this->_call($model[0], $method, $arguments, $expires);
 	}
 
 
