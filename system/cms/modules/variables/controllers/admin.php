@@ -129,6 +129,8 @@ class Admin extends Admin_Controller
 			}
 		}
 
+		$variable = new stdClass();
+
 		// Loop through each validation rule
 		foreach ($this->_validation_rules as $rule)
 		{

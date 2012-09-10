@@ -237,6 +237,11 @@ class Admin extends Admin_Controller
 			}
 		}
 
+		if ( ! isset($member))
+		{
+			$member = new stdClass();
+		}
+
 		// Loop through each validation rule
 		foreach ($this->validation_rules as $rule)
 		{
