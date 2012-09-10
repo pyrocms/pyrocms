@@ -96,9 +96,21 @@ class Widget_Twitter_feed extends Widgets
 	 */
 	public function run($options)
 	{
-		if (!$tweets = $this->pyrocache->get('twitter-'.$options['username'].'-'.$options['number']))
+		if ( ! $tweets = $this->pyrocache->get('twitter-'.$options['username'].'-'.$options['number']))
 		{
-			$tweets = json_decode(@file_get_contents($this->feed_url.'&screen_name='.$options['username'].'&count='.$options['number']));
+			$url_segments = '&screen_name='.$options['username'].'&count='.$options['number'];
+
+			// set a timeout of 10 seconds in case twitter is down when the cache is expired
+			$opts = array(
+				'http' => array(
+					'method' => 'GET',
+					'timeout' => 10,
+					)
+				);
+
+			$context = stream_context_create($opts);
+
+			$tweets = json_decode(@file_get_contents($this->feed_url.$url_segments, FALSE, $context));
 
 			$this->pyrocache->write($tweets, 'twitter-'.$options['username'].'-'.$options['number'], $this->settings->twitter_cache);
 		}

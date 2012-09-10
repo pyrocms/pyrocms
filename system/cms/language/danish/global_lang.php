@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-$lang['global:control-panel'] 						= 'Kontrolpanel';
+$lang['global:control-panel'] 			= 'Kontrolpanel';
 $lang['global:profile']					= 'Profile'; #translate
 
 $lang['global:title'] 					= 'Titel';
@@ -10,23 +10,31 @@ $lang['version_label'] 					= 'Version';
 $lang['global:author'] 					= 'Forfatter';
 $lang['global:action'] 					= 'Handling';
 
-$lang['dialog.delete_message'] 			= 'Er du sikker på, at du vil slette dette? Det kan ikke ændres.';
-$lang['dialog.confirm'] 				= 'Bekræft';
-$lang['dialog.yes'] 					= 'Ja';
-$lang['dialog.no'] 						= 'Nej';
+$lang['global:dialog:delete_message'] 	= 'Er du sikker på, at du vil slette dette? Det kan ikke ændres.';
+$lang['global:dialog:confirm'] 			= 'Bekræft';
 
-$lang['global:select-none'] 					= '-- Ingen --';
-$lang['global:select-all'] 					= '-- Alt --';
-$lang['global:select-any'] 					= '-- Enhver --';
-$lang['global:select-pick'] 					= '-- Vælg --';
+$lang['global:yes'] 					= 'Ja';
+$lang['global:no'] 						= 'Nej';
 
-$lang['global:check-none'] 					= 'Ingen';
-$lang['global:check-all']						= 'Alt';
+$lang['global:select-none'] 			= '-- Ingen --';
+$lang['global:select-all'] 				= '-- Alt --';
+$lang['global:select-any'] 				= '-- Enhver --';
+$lang['global:select-pick'] 			= '-- Vælg --';
 
-$lang['operators.equal'] 				= 'Lig med';
-$lang['operators.not_equal'] 			= 'Ikke lig med';
-$lang['operators.less_than'] 			= 'Mindre end';
-$lang['operators.greater_than'] 		= 'Større end';
+$lang['global:check-none'] 				= 'Ingen';
+$lang['global:check-all']				= 'Alt';
+
+$lang['global:operators:equal'] 		= 'Lig med';
+$lang['global:operators:not-equal'] 	= 'Ikke lig med';
+$lang['global:operators:less-than'] 	= 'Mindre end';
+$lang['global:operators:greater-than'] 	= 'Større end';
+
+$lang['global:duration:1-day']			= 'One day'; #translate
+$lang['global:duration:1-week']			= 'One week'; #translate
+$lang['global:duration:2-weeks']		= 'Two weeks'; #translate
+$lang['global:duration:1-month']		= 'One month'; #translate
+$lang['global:duration:3-months']		= 'Three Months'; #translate
+$lang['global:duration:always']			= 'Always'; #translate
 
 $lang['navigation_headline'] 			= 'Navigation';
 $lang['breadcrumb_base_label'] 			= 'Hjem';
@@ -48,8 +56,8 @@ $lang['global:demo_restrictions']       = 'Some features on this page have been 
 
 $lang['login_error_label'] 				= 'Fejl ved log ind';
 $lang['forgot_password_label'] 			= 'Glemt password ?';
-$lang['email_label'] 					= 'E-mail';
-$lang['password_label'] 				= 'Password';
+$lang['global:email'] 					= 'E-mail';
+$lang['global:password'] 				= 'Password';
 $lang['login_label'] 					= 'Log ind';
 
 $lang['help_label'] 					= 'Hjælp';

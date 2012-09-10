@@ -7,12 +7,12 @@
 <?php echo form_open('users/login', array('id'=>'login')); ?>
 <ul>
 	<li>
-		<label for="email"><?php echo lang('user_email'); ?></label>
+		<label for="email"><?php echo lang('global:email'); ?></label>
 		<?php echo form_input('email') ?>
 	</li>
 	
 	<li>
-		<label for="password"><?php echo lang('user_password'); ?></label>
+		<label for="password"><?php echo lang('global:password'); ?></label>
 		<?php echo form_password('password') ?>
 	</li>
 	

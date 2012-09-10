@@ -21,12 +21,12 @@ class Admin extends Admin_Controller
 	private $validation_rules = array(
 		'email' => array(
 			'field' => 'email',
-			'label' => 'lang:user_email_label',
+			'label' => 'lang:global:email',
 			'rules' => 'required|max_length[60]|valid_email'
 		),
 		'password' => array(
 			'field' => 'password',
-			'label' => 'lang:user_password_label',
+			'label' => 'lang:global:password',
 			'rules' => 'min_length[6]|max_length[20]'
 		),
 		'username' => array(
@@ -104,12 +104,12 @@ class Admin extends Admin_Controller
 		$skip_admin = ( $this->current_user->group != 'admin' ) ? 'admin' : '';
 
 		// Using this data, get the relevant results
-		$users = $this->user_m
-			->order_by('active', 'desc')
+		$this->db->order_by('active', 'desc')
 			->join('groups', 'groups.id = users.group_id')
 			->where_not_in('groups.name', $skip_admin)
-			->limit($pagination['limit'])
-			->get_many_by($base_where);
+			->limit($pagination['limit']);
+			
+		$users = $this->user_m->get_many_by($base_where);
 
 		// Unset the layout if we have an ajax request
 		if ($this->input->is_ajax_request())

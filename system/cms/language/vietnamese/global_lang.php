@@ -48,8 +48,8 @@ $lang['cms_fatal_error'] 				= 'Lỗi nghiêm trọng, CMS đã được cài đ
 
 $lang['login_error_label'] 				= 'Lỗi đăng nhập';
 $lang['forgot_password_label'] 			= 'Quên mật khẩu ?';
-$lang['email_label'] 					= 'E-mail';
-$lang['password_label'] 				= 'Mật khẩu';
+$lang['global:email'] 					= 'E-mail';
+$lang['global:password'] 				= 'Mật khẩu';
 $lang['login_label'] 					= 'Đăng nhập';
 
 $lang['help_label'] 					= 'Trợ giúp';

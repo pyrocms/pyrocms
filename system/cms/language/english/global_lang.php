@@ -31,6 +31,13 @@ $lang['global:operators:not-equal'] 	= 'Not equal to';
 $lang['global:operators:less-than'] 	= 'Less than';
 $lang['global:operators:greater-than'] 	= 'Greater than';
 
+$lang['global:duration:1-day']			= 'One day';
+$lang['global:duration:1-week']			= 'One week';
+$lang['global:duration:2-weeks']		= 'Two weeks';
+$lang['global:duration:1-month']		= 'One month';
+$lang['global:duration:3-months']		= 'Three Months';
+$lang['global:duration:always']			= 'Always';
+
 $lang['navigation_headline'] 			= 'Navigation';
 $lang['breadcrumb_base_label'] 			= 'Home';
 
@@ -51,8 +58,8 @@ $lang['global:demo_restrictions'] 		= 'Some features on this page have been disa
 
 $lang['login_error_label'] 				= 'Login Error';
 $lang['forgot_password_label'] 			= 'Forgot your password ?';
-$lang['email_label'] 					= 'E-mail';
-$lang['password_label'] 				= 'Password';
+$lang['global:email'] 					= 'E-mail';
+$lang['global:password'] 				= 'Password';
 $lang['login_label'] 					= 'Log In';
 
 $lang['help_label'] 					= 'Help';

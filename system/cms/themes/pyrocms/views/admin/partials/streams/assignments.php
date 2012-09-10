@@ -1,6 +1,6 @@
 <?php if ( $assignments ): ?>
 
-    <table class="table-list">
+    <table class="table-list" cellspacing="0">
 		<thead>
 			<tr>	
 				<th></th>
@@ -24,15 +24,14 @@
 					
 						$all_buttons = array();
 
-						if (isset($buttons))
+						if ( ! is_array($buttons)) $buttons = array();
+						
+						foreach ($buttons as $button)
 						{
-							foreach($buttons as $button)
-							{
-								// don't render button if field is locked and $button['locked'] is set to TRUE
-								if($assignment->is_locked == 'yes' and isset($button['locked']) and $button['locked']) continue;
-								$class = (isset($button['confirm']) and $button['confirm']) ? 'button confirm' : 'button';
-								$all_buttons[] = anchor(str_replace('-assign_id-', $assignment->assign_id, $button['url']), $button['label'], 'class="'.$class.'"');
-							}
+							// don't render button if field is locked and $button['locked'] is set to TRUE
+							if($assignment->is_locked == 'yes' and isset($button['locked']) and $button['locked']) continue;
+							$class = (isset($button['confirm']) and $button['confirm']) ? 'button confirm' : 'button';
+							$all_buttons[] = anchor(str_replace('-assign_id-', $assignment->assign_id, $button['url']), $button['label'], 'class="'.$class.'"');
 						}
 					
 						echo implode('&nbsp;', $all_buttons);

@@ -13,8 +13,6 @@ $lang['global:slug'] 					= 'Slug';
 
 $lang['global:dialog:delete_message'] 	= 'Weet u zeker dat u dit wilt verwijderen? Dit kan niet ongedaan worden gemaakt.';
 $lang['global:dialog:confirm'] 			= 'Bevestigen';
-$lang['global:dialog:delete_message'] 	= 'Are you sure you want to delete this? It cannot be undone.';
-$lang['global:dialog:confirm'] 			= 'Confirm';
 
 $lang['global:yes'] 					= 'Ja';
 $lang['global:no'] 						= 'Nee';
@@ -28,9 +26,16 @@ $lang['global:check-all']				= 'Alles';
 $lang['global:check-none'] 				= 'Geen';
 
 $lang['global:operators:equal'] 		= 'Gelijk aan';
-$lang['global:operators:not_equal'] 	= 'Ongelijk aan';
-$lang['global:operators:less_than'] 	= 'Kleiner dan';
-$lang['global:operators:greater_than'] 	= 'Groter dan';
+$lang['global:operators:not-equal'] 	= 'Ongelijk aan';
+$lang['global:operators:less-than'] 	= 'Kleiner dan';
+$lang['global:operators:greater-than'] 	= 'Groter dan';
+
+$lang['global:duration:1-day']			= 'One day'; #translate
+$lang['global:duration:1-week']			= 'One week'; #translate
+$lang['global:duration:2-weeks']		= 'Two weeks'; #translate
+$lang['global:duration:1-month']		= 'One month'; #translate
+$lang['global:duration:3-months']		= 'Three Months'; #translate
+$lang['global:duration:always']			= 'Always'; #translate
 
 $lang['navigation_headline'] 			= 'Navigatie';
 $lang['breadcrumb_base_label'] 			= 'Home';
@@ -52,8 +57,8 @@ $lang['global:demo_restrictions']       = 'Sommige functionaliteiten zijn uitges
 
 $lang['login_error_label'] 				= 'Login Fout';
 $lang['forgot_password_label'] 			= 'Wachtwoord vergeten?';
-$lang['email_label'] 					= 'E-mail';
-$lang['password_label'] 				= 'Wachtwoord';
+$lang['global:email'] 					= 'E-mail';
+$lang['global:password'] 				= 'Wachtwoord';
 $lang['login_label'] 					= 'Inloggen';
 
 $lang['help_label'] 					= 'Help';

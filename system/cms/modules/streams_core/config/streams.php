@@ -45,7 +45,6 @@ $config['streams:schema'] = array(
         'fields' => array(
         		'id' => array(
         				'type' => 'INT',
-        				'constraint' => 11,
         				'unsigned' => TRUE,
         				'auto_increment' => TRUE
         			),

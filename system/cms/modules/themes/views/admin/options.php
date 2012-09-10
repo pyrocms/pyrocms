@@ -38,3 +38,14 @@
 
 	<?php endif; ?>
 </section>
+
+<script type="text/javascript">
+	(function($) {
+
+		$(function() {
+			$('.colour-picker').miniColors({
+				letterCase: 'uppercase',
+			});
+		});
+	})(jQuery);
+</script>

@@ -1,5 +1,5 @@
 <section class="title">
-	<h4><?php echo lang('blog_posts_title'); ?></h4>
+	<h4><?php echo lang('blog:posts_title'); ?></h4>
 </section>
 
 <section class="item">

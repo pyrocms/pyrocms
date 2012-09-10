@@ -5,7 +5,7 @@
 <section class="item">		
 		<p><?php echo lang('modules.introduction'); ?></p>
 
-		<table class="table-list">
+		<table class="table-list" cellspacing="0">
 			<thead>
 				<tr>
 					<th><?php echo lang('name_label');?></th>
@@ -18,7 +18,8 @@
 			<?php foreach($all_modules as $module): ?>
 			<?php if ($module['is_core']) continue; ?>
 				<tr>
-					<td class="collapse"><?php echo ($module['is_backend'] AND $module['installed']) ? anchor('admin/'.$module['slug'], $module['name']) : $module['name']; ?></td>
+					<td class="collapse"><?php echo ($module['is_backend'] and $module['installed']) ? anchor('admin/'.$module['slug'], $module['name']) : $module['name']; ?></td>
+
 					<td><?php echo $module['description']; ?></td>
 					<td class="align-center"><?php echo $module['version']; ?></td>
 					<td class="actions">
@@ -52,7 +53,7 @@
 <section class="item">
 		<p><?php echo lang('modules.core_introduction'); ?></p>
 
-		<table class="table-list">
+		<table class="table-list" cellspacing="0">
 			<thead>
 				<tr>
 					<th><?php echo lang('name_label');?></th>

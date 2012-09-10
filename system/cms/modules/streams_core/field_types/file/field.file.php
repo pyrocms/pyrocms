@@ -279,7 +279,7 @@ class Field_file
 	 */
 	public function param_allowed_types($value = null)
 	{
-		$instructions = '<p class="note">'.lang('streams.file.allowed_types_instrcutions').'</p>';
+		$instructions = '<p class="note">'.lang('streams.file.allowed_types_instructions').'</p>';
 		
 		return '<div style="float: left;">'.form_input('allowed_types', $value).$instructions.'</div>';
 	}

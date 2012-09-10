@@ -15,7 +15,7 @@ class Admin extends Admin_Controller {
 	 * @var string
 	 */
 	protected $section = 'instances';
-	
+
 	/**
 	 * Constructor method
 	 * 
@@ -51,10 +51,8 @@ class Admin extends Admin_Controller {
 		$data = array();
 
 		// Get Widgets
-		$data['available_widgets'] = $this->widget_m
-			->where('enabled', 1)
-			->order_by('order')
-			->get_all();
+		$this->db->where('enabled', 1)->order_by('order');
+		$data['available_widgets'] = $this->widget_m->get_all();
 
 		// Get Areas
 		$this->db->order_by('`title`');

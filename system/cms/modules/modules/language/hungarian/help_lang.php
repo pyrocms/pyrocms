@@ -2,16 +2,18 @@
 
 // inline help html. Only 'help_body' is used.
 $lang['help_body'] = "
-<h4>Overview</h4>
-<p>The Addons module allows admins to upload, install, and uninstall third-party modules.</p>
+<h4>Áttekintés</h4>
+<p>A Bővítmények modul lehetővé teszi az adminisztátoroknak harmadik féltől származó modulok feltöltését, telepítését és eltávolítását.</p>
 
-<h4>Uploading</h4>
-<p>New modules must be in a zip file and the folder must be named the same as the module.
-For example if you are uploading the 'forums' module the folder must be named 'forums' not 'test_forums'.</p>
+<h4>Feltöltés</h4>
+<p>Az új modulnak egy zip fájlban kell lennie és a könyvtár neve ugyanaz kell hogy legyen mint magának a modulnak.
+Például ha a 'forums' modult töltöd fel, a könyvtárnak 'forums' neve kell hogy legyen nem pedig 'test_forums'.</p>
 
-<h4>Disabling, Uninstalling, or Deleting a module</h4>
-<p>If you want to remove a module from the front-end and from the admin menus you may simply Disable the module.
-If you are done with the data but may want to re-install the module in the future you may Uninstall it.
-<font color=\"red\">Note: this removes all database records.</font> If you are finished with all database records and source files you may Delete it.
-<font color=\"red\">This removes all source files, uploaded files, and database records associated with the module.</font></p>
-";
+<h4>Modul kikapcsolása, eltávolítása vagy törlése</h4>
+<p>Ha el akarsz távolítani egy modult a front end-ről és az admin menükből, egyszerűen kikapcsolhatod.
+Ha az adatokat akarod törölni, de a modult később lehet hogy újratelepíted, eltávolíthatod.
+<span style=\"color: red;\">Megjegyzés: ez a művelet eltávolítja az összes adatbázis bejegyzést.</span>
+Ha végeztél az összes adattal és a forrásfájlokkal is, törölheted.
+<span style=\"color:red;\">Ez eltávolítja az összes forrásfájlt, feltöltött fájlokat és adatbátis bejegyzéseket amik a modulhoz tartoznak.</span></p>";
+
+/* End of file help_lang.php */

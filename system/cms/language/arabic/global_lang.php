@@ -29,6 +29,13 @@ $lang['global:operators:not-equal'] 	= 'لا يساوي';
 $lang['global:operators:less-than'] 	= 'أقل من';
 $lang['global:operators:greater-than'] 	= 'أكثر من';
 
+$lang['global:duration:1-day']			= 'One day'; #translate
+$lang['global:duration:1-week']			= 'One week'; #translate
+$lang['global:duration:2-weeks']		= 'Two weeks'; #translate
+$lang['global:duration:1-month']		= 'One month'; #translate
+$lang['global:duration:3-months']		= 'Three Months'; #translate
+$lang['global:duration:always']			= 'Always'; #translate
+
 $lang['navigation_headline'] 			= 'الروابط';
 $lang['breadcrumb_base_label'] 			= 'الرئيسية';
 
@@ -49,8 +56,8 @@ $lang['global:demo_restrictions']       = 'بعض الخواص في هذه ال�
 
 $lang['login_error_label'] 				= 'خطأ في تسجيل الدخول';
 $lang['forgot_password_label'] 			= 'نسيت كلمة السرّ؟';
-$lang['email_label'] 					= 'البريد الإلكتروني';
-$lang['password_label'] 				= 'كلمة السرّ';
+$lang['global:email'] 					= 'البريد الإلكتروني';
+$lang['global:password'] 				= 'كلمة السرّ';
 $lang['login_label'] 					= 'تسجيل الدخول';
 
 $lang['help_label'] 					= 'مساعدة';

@@ -11,9 +11,9 @@ $lang['global:author'] 					= 'Autor';
 $lang['global:action'] 					= 'Aktion';
 
 $lang['dialog.delete_message'] 			= 'Bist du sicher, dass du das löschen möchtest? Es gibt keine Möglichkeit das Löschen rückgängig zu machen.';
-$lang['dialog.confirm'] 				= 'Bestätigen';
-$lang['dialog.yes'] 					= 'Ja';
-$lang['dialog.no'] 						= 'Nein';
+$lang['global:dialog:confirm'] 				= 'Bestätigen';
+$lang['global:yes'] 					= 'Ja';
+$lang['global:no'] 						= 'Nein';
 
 $lang['global:select-none'] 			= '-- Keine --';
 $lang['global:select-all'] 				= '-- Alle --';
@@ -23,10 +23,17 @@ $lang['global:select-pick']			 	= '-- Auswählen --';
 $lang['global:check-none'] 				= 'Keine';
 $lang['global:check-all']				= 'Alle';
 
-$lang['operators.equal'] 				= 'Gleicht';
-$lang['operators.not_equal'] 			= 'Gleicht nicht';
-$lang['operators.less_than'] 			= 'Kleiner als';
-$lang['operators.greater_than'] 		= 'Größer als';
+$lang['global:operators:equal'] 				= 'Gleicht';
+$lang['global:operators:not-equal'] 			= 'Gleicht nicht';
+$lang['global:operators:less-than'] 			= 'Kleiner als';
+$lang['global:operators:greater-than'] 		= 'Größer als';
+
+$lang['global:duration:1-day']			= 'One day'; #translate
+$lang['global:duration:1-week']			= 'One week'; #translate
+$lang['global:duration:2-weeks']		= 'Two weeks'; #translate
+$lang['global:duration:1-month']		= 'One month'; #translate
+$lang['global:duration:3-months']		= 'Three Months'; #translate
+$lang['global:duration:always']			= 'Always'; #translate
 
 $lang['navigation_headline'] 			= 'Navigation';
 $lang['breadcrumb_base_label'] 			= 'Start';
@@ -48,8 +55,8 @@ $lang['global:demo_restrictions']       = 'Einige Funktionen auf dieser Seite wu
 
 $lang['login_error_label'] 				= 'Anmeldefehler';
 $lang['forgot_password_label'] 			= 'Passwort vergessen ?';
-$lang['email_label'] 					= 'Email';
-$lang['password_label']					= 'Passwort';
+$lang['global:email'] 					= 'Email';
+$lang['global:password']					= 'Passwort';
 $lang['login_label'] 					= 'Anmelden';
 
 $lang['help_label'] 					= 'Hilfe';

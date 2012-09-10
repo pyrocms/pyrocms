@@ -4,7 +4,7 @@
 
 <?php if (!empty($blog)): ?>
 
-	<table border="0" class="table-list">
+	<table border="0" class="table-list" cellspacing="0">
 		<thead>
 			<tr>
 				<th><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all'));?></th>

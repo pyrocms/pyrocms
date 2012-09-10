@@ -452,6 +452,7 @@ class Admin extends Admin_Controller {
 	 * Only the URI field may be submitted blank.
 	 *
 	 * @param string $link The link value
+	 * @return bool
 	 */
 	public function _link_check($link)
 	{

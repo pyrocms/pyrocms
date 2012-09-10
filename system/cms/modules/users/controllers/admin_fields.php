@@ -68,7 +68,9 @@ class Admin_fields extends Admin_Controller {
 	 */
 	function create()
 	{
-		$extra['title'] = lang('streams.new_field');
+		$extra['title'] 		= lang('streams.new_field');
+		$extra['show_cancel'] 	= true;
+		$extra['cancel_uri'] 	= 'admin/users/fields';
 
 		$this->streams->cp->field_form('profiles', 'users', 'new', 'admin/users/fields', null, array(), true, $extra);
 	}
@@ -116,7 +118,9 @@ class Admin_fields extends Admin_Controller {
 			show_error(lang('streams.cannot_find_assign'));
 		}
 
-		$extra['title'] = lang('streams.edit_field');
+		$extra['title'] 		= lang('streams.edit_field');
+		$extra['show_cancel'] 	= true;
+		$extra['cancel_uri'] 	= 'admin/users/fields';
 
 		$this->streams->cp->field_form('profiles', 'users', 'edit', 'admin/users/fields', $assign_id, array(), true, $extra);
 	}

@@ -50,8 +50,8 @@ $lang['global:demo_restrictions'] 	= 'Μερικές λειτουργίες σε
 
 $lang['login_error_label'] 		= 'Σφάλμα σύνδεσης';
 $lang['forgot_password_label'] 		= 'Ξεχάσατε το συνθηματικό σας;';
-$lang['email_label'] 			= 'E-mail';
-$lang['password_label'] 		= 'Συνθηματικό';
+$lang['global:email'] 			= 'E-mail';
+$lang['global:password'] 		= 'Συνθηματικό';
 $lang['login_label'] 			= 'Σύνδεση';
 
 $lang['help_label'] 			= 'Βοήθεια';

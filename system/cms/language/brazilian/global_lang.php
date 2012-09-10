@@ -1,7 +1,7 @@
 <?php
 
-$lang['global:control-panel']						= 'Painel de Controle';
-$lang['global:profile']					= 'Profile'; #translate
+$lang['global:control-panel']			= 'Painel de Controle';
+$lang['global:profile']					= 'Perfil'; 
 
 $lang['global:title'] 					= 'Título';
 $lang['name_label'] 					= 'Nome';
@@ -10,23 +10,31 @@ $lang['version_label'] 					= 'Versão';
 $lang['global:author'] 					= 'Autor';
 $lang['global:action'] 					= 'Ação';
 
-$lang['dialog.delete_message'] 			= 'Tem certeza de que deseja remover? Isto não pode ser desfeito.';
-$lang['dialog.confirm'] 				= 'Confirmar';
-$lang['dialog.yes'] 					= 'Sim';
-$lang['dialog.no'] 						= 'Não';
+$lang['global:dialog:delete_message'] 	= 'Tem certeza de que deseja remover? Isto não pode ser desfeito.';
+$lang['global:dialog:confirm'] 			= 'Confirmar';
 
-$lang['global:select-none'] 					= '-- Nenhum --';
-$lang['global:select-all'] 					= '-- Todos --';
-$lang['global:select-any'] 					= '-- Qualquer --';
-$lang['global:select-pick']					= '-- Selecione --';
+$lang['global:yes'] 					= 'Sim';
+$lang['global:no'] 						= 'Não';
 
-$lang['global:check-none'] 					= 'Nenhum';
-$lang['global:check-all']						= 'Todos';
+$lang['global:select-none'] 			= '-- Nenhum --';
+$lang['global:select-all'] 				= '-- Todos --';
+$lang['global:select-any'] 				= '-- Qualquer --';
+$lang['global:select-pick']				= '-- Selecione --';
 
-$lang['operators.equal'] 				= 'Igual a';
-$lang['operators.not_equal'] 			= 'Diferente de';
-$lang['operators.less_than'] 			= 'Menor que';
-$lang['operators.greater_than'] 		= 'Maior que';
+$lang['global:check-all']				= 'Todos';
+$lang['global:check-none'] 				= 'Nenhum';
+
+$lang['global:operators:equal'] 		= 'Igual a';
+$lang['global:operators:not-equal'] 	= 'Diferente de';
+$lang['global:operators:less-than'] 	= 'Menor que';
+$lang['global:operators:greater-than'] 	= 'Maior que';
+
+$lang['global:duration:1-day']			= 'One day'; #translate
+$lang['global:duration:1-week']			= 'One week'; #translate
+$lang['global:duration:2-weeks']		= 'Two weeks'; #translate
+$lang['global:duration:1-month']		= 'One month'; #translate
+$lang['global:duration:3-months']		= 'Three Months'; #translate
+$lang['global:duration:always']			= 'Always'; #translate
 
 $lang['navigation_headline'] 			= 'Navegação';
 $lang['breadcrumb_base_label'] 			= 'Início';
@@ -48,8 +56,8 @@ $lang['global:demo_restrictions']       = 'Some features on this page have been 
 
 $lang['login_error_label'] 				= 'Erro de login';
 $lang['forgot_password_label'] 			= 'Esqueceu sua senha ?';
-$lang['email_label'] 					= 'E-mail';
-$lang['password_label'] 				= 'Senha';
+$lang['global:email'] 					= 'E-mail';
+$lang['global:password'] 				= 'Senha';
 $lang['login_label'] 					= 'Entrar';
 
 $lang['help_label'] 					= 'Ajuda';
@@ -63,21 +71,21 @@ $lang['unapprove_label']				= 'Rejeitar';
 $lang['publish_label'] 					= 'Publicar';
 $lang['upload_label'] 					= 'Enviar';
 $lang['global:uninstall'] 				= 'Desinstalar';
-$lang['global:install'] 					= 'Instalar';
+$lang['global:install'] 				= 'Instalar';
 $lang['global:enable']					= 'Ativar';
-$lang['global:disable'] 					= 'Desativar';
+$lang['global:disable'] 				= 'Desativar';
 
-$lang['all_right_reserved']				= 'All Rights Reserved.';  #translate
+$lang['all_right_reserved']				= 'Todos os direitos reservados.';  
 $lang['powered_by_pyrocms']				= 'Powered by PyroCMS';  #translate
-$lang['top_page']						= 'Top';  #translate
-$lang['back_to_top']					= 'Back to Top';  #translate
+$lang['top_page']						= 'Topo';  
+$lang['back_to_top']					= 'Voltar ao Topo'; 
 
-$lang['global:image'] 					= 'Image'; #translate
+$lang['global:image'] 					= 'Imagem';
 $lang['global:description'] 		    = 'Descrição';
 $lang['global:actions']					= 'Ações';
-$lang['global:view']					= 'View'; #translate
+$lang['global:view']					= 'Visualizar'; 
 $lang['global:preview']					= 'Preview'; #translate
-$lang['global:add']						= 'Add'; #translate
+$lang['global:add']						= 'Adicionar'; 
 $lang['global:edit']					= 'Editar';
 $lang['global:empty']					= 'Empty'; #translate
 $lang['global:delete']					= 'Remover';
