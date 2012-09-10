@@ -1109,7 +1109,6 @@ class Row_m extends MY_Model {
 		
 		foreach ($fields as $field)
 		{
-			if ( ! isset($form_data[$field->field_slug])) continue;
 
 			if ( ! in_array($field->field_slug, $skips))
 			{
@@ -1135,14 +1134,6 @@ class Row_m extends MY_Model {
 									$row_id,
 									$form_data);
 
-						if (is_null($return_data[$field->field_slug]))
-						{
-							unset($return_data[$field->field_slug]);
-						}
-						else
-						{
-							$return_data[$field->field_slug] = escape_tags($return_data[$field->field_slug]);
-						}
 					}
 					else
 					{
