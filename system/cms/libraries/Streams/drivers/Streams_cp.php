@@ -22,7 +22,7 @@ class Streams_cp extends CI_Driver {
 	 * @access	public
 	 * @return	void
 	 */
-	function __construct()
+	public function __construct()
 	{
 		$this->CI =& get_instance();
 	}
@@ -785,11 +785,15 @@ class Streams_cp extends CI_Driver {
 		{
 			$segs = explode('/', $pagination_uri);
 			$offset_uri = count($segs)+1;
-	
-	 		$offset = $CI->uri->segment($offset_uri, 0);
+
+	 		$offset = $pagination*($CI->uri->segment($offset_uri, 0)-1);
+
+	 		// Negative value check
+	 		if ($offset < 0) $offset = 0;
   		}
 		else
 		{
+			$offset_uri = null;
 			$offset = 0;
 		}
 
@@ -822,16 +826,16 @@ class Streams_cp extends CI_Driver {
 											$pagination_uri,
 											$CI->fields_m->count_fields($namespace),
 											$pagination,
-											$offset
+											$offset_uri
 										);
 		}
 		else
 		{ 
-			$data['pagination'] = FALSE;
+			$data['pagination'] = false;
 		}
 
 		// Allow view to inherit custom 'Add Field' uri
-		$data['add_uri'] = isset($extra['add_uri']) ? $extra['add_uri'] : NULL;
+		$data['add_uri'] = isset($extra['add_uri']) ? $extra['add_uri'] : null;
 
 		// -------------------------------------
 		// Build Pages
