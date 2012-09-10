@@ -20,6 +20,8 @@ $lang['version_label'] 					= 'รุ่น';
 $lang['global:author'] 					= 'ผู้เขียน';
 $lang['global:action'] 					= 'Action';
 $lang['global:slug'] 					= 'Slug';
+$lang['global:slug_instructions']		= 'Lowercase characters and underscores only.'; #translate
+
 $lang['global:user'] 					= 'ผู้ใช้';
 
 $lang['global:dialog:delete_message'] 	= 'คุณแน่ใจหรือว่าต้องการลบรายการนี้? หากลบไปแล้วมันไม่สามารถยกเลิกได้';

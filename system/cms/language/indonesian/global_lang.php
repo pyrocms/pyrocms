@@ -10,6 +10,7 @@ $lang['version_label'] 					= 'Versi';
 $lang['global:author'] 					= 'Penulis';
 $lang['global:action'] 					= 'Aksi';
 $lang['global:slug'] 					= 'Slug';
+$lang['global:slug_instructions']		= 'Lowercase characters and underscores only.'; #translate
 
 $lang['global:dialog:delete_message'] 	= 'Anda yakin akan menghapus ini? Yang telah dihapus tidak dapat dikembalikan.';
 $lang['global:dialog:confirm'] 			= 'Konfirmasi';

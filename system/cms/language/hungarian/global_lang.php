@@ -10,6 +10,7 @@ $lang['version_label'] 				= 'Verzió';
 $lang['global:author'] 				= 'Szerző';
 $lang['global:action'] 				= 'Művelet';
 $lang['global:slug'] 				= 'Keresőbarát név (slug)';
+$lang['global:slug_instructions']		= 'Lowercase characters and underscores only.'; #translate
 
 $lang['global:dialog:delete_message']           = 'Valóban törölni szeretnéd? Ez a művelet nem visszavonható!';
 $lang['global:dialog:confirm'] 			= 'Megerősít';

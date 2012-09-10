@@ -12,6 +12,8 @@ $lang['desc_label']		= 'Descripción';
 $lang['version_label']		= 'Versión';
 $lang['global:author']		= 'Autor';
 $lang['global:action']		= 'Acción';
+$lang['global:slug'] 					= 'Slug'; #translate
+$lang['global:slug_instructions']		= 'Lowercase characters and underscores only.'; #translate
 
 $lang['dialog.confirm']		= 'Confirmar';
 $lang['dialog.yes']		= 'Si';
