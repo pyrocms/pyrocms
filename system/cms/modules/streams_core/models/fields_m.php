@@ -27,7 +27,7 @@ class Fields_m extends CI_Model {
 		array(
 			'field'	=> 'field_slug',
 			'label' => 'lang:streams.label.field_slug',
-			'rules'	=> 'trim|required|max_length[60]|streams_slug_safe'
+			'rules'	=> 'trim|required|max_length[60]|lex_slug_safe|mysql_slug_safe'
 		),
 		array(
 			'field'	=> 'field_type',
