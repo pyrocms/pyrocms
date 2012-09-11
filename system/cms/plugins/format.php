@@ -29,9 +29,9 @@ class Plugin_format extends Plugin
 	{
 		$this->load->helper('markdown');
 
-		$content = $this->attribute('content', $this->content());
+		$content = $this->content();
 
-		return parse_markdown(trim($content, "\n"));
+		return parse_markdown(trim($content));
 	}
 	
 	
@@ -53,9 +53,9 @@ class Plugin_format extends Plugin
 	{
 		$this->load->library('textile');
 
-		$content = $this->attribute('content', $this->content());
+		$content = $this->content();
 
-		return $this->textile->TextileThis(trim($content, "\n"));
+		return $this->textile->TextileThis(trim($content));
 	}
 
 
