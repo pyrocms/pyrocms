@@ -140,9 +140,10 @@ class Plugin_Asset extends Plugin
 	public function js()
 	{
 		$file = $this->attribute('file');
+		$file_min = $this->attribute('file_min');
 		$group = $this->attribute('group');
 
-		return Asset::js($file, NULL, $group);
+		return Asset::js($file, $file_min, $group);
 	}
 
 	/**
