@@ -56,7 +56,7 @@ class Plugin_Asset extends Plugin
 	 *
 	 * Usage:
 	 *
-	 * {{ asset:css_path file="" module="" }}
+	 * {{ asset:css_path file="" }}
 	 *
 	 * @return string Path to the CSS asset relative to web root
 	 */
@@ -64,7 +64,7 @@ class Plugin_Asset extends Plugin
 	{
 		$file = $this->attribute('file');
 
-		return BASE_URI.Asset::get_filepath_js($file, FALSE);
+		return BASE_URI.Asset::get_filepath_css($file, FALSE);
 	}
 
 	/**
