@@ -426,17 +426,18 @@ class Streams_cp extends CI_Driver {
 			{
 				// Get the type so we can use the custom params
 				$data['current_type'] = $CI->type->types->{$field_type};
+
+				if ( ! is_object($data['current_field']))
+				{
+					$data['current_field'] = new stdClass();
+					$data['current_field']->field_data = array();
+				}
 				
 				// Get our standard params
 				require_once(PYROSTEAMS_DIR.'libraries/Parameter_fields.php');
 				
 				$data['parameters'] = new Parameter_fields();
 				
-				if ( ! is_array($data['current_field']->field_data))
-				{
-					$data['current_field']->field_data = array();				
-				}
-
 				if (isset($data['current_type']->custom_parameters) and is_array($data['current_type']->custom_parameters))
 				{
 					// Build items out of post data
@@ -451,7 +452,7 @@ class Streams_cp extends CI_Driver {
 						}
 						else
 						{
-							$$data['current_field']->field_data[$param] = $CI->input->post($param);
+							$data['current_field']->field_data[$param] = $CI->input->post($param);
 						}
 					}
 				}
@@ -660,12 +661,13 @@ class Streams_cp extends CI_Driver {
 		{
 			$segs = explode('/', $pagination_uri);
 			$offset_uri = count($segs)+1;
-	
+
 	 		$offset = $CI->uri->segment($offset_uri, 0);
   		}
 		else
 		{
 			$offset = 0;
+			$offset_uri = null;
 		}
 
 		// -------------------------------------
@@ -697,16 +699,16 @@ class Streams_cp extends CI_Driver {
 											$pagination_uri,
 											$CI->fields_m->count_fields($namespace),
 											$pagination,
-											$offset
+											$offset_uri
 										);
 		}
 		else
 		{ 
-			$data['pagination'] = FALSE;
+			$data['pagination'] = false;
 		}
 
 		// Allow view to inherit custom 'Add Field' uri
-		$data['add_uri'] = isset($extra['add_uri']) ? $extra['add_uri'] : NULL;
+		$data['add_uri'] = isset($extra['add_uri']) ? $extra['add_uri'] : null;
 
 		// -------------------------------------
 		// Build Pages
