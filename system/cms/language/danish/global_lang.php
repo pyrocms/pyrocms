@@ -17,9 +17,6 @@ $lang['dialog.confirm'] 				= 'Bekræft';
 $lang['dialog.yes'] 					= 'Ja';
 $lang['dialog.no'] 						= 'Nej';
 
-$lang['global:yes'] 					= 'Ja';
-$lang['global:no'] 						= 'Nej';
-
 $lang['global:select-none'] 			= '-- Ingen --';
 $lang['global:select-all'] 				= '-- Alt --';
 $lang['global:select-any'] 				= '-- Enhver --';

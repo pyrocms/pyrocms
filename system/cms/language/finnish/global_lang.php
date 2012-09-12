@@ -16,9 +16,6 @@ $lang['dialog.confirm'] 				= 'Vahvista';
 $lang['dialog.yes'] 					= 'Kyllä';
 $lang['dialog.no'] 						= 'Ei';
 
-$lang['global:yes'] 					= 'Kyllä';
-$lang['global:no'] 						= 'Ei';
-
 $lang['global:select-none'] 			= '-- Ei mikään --';
 $lang['global:select-all'] 				= '-- Kaikki --';
 $lang['global:select-any'] 				= '-- Any --'; // @todo: Not yet sure in which context we're using this
