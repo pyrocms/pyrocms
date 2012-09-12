@@ -46,7 +46,7 @@ class Plugin_Asset extends Plugin
 	{
 		$file = $this->attribute('file');
 
-		return Asset::get_filepath_css($file, true);
+		return Asset::get_filepath_css($file, TRUE);
 	}
 
 	/**
@@ -105,7 +105,7 @@ class Plugin_Asset extends Plugin
 	{
 		$file = $this->attribute('file');
 
-		return Asset::get_filepath_img($file, true);
+		return Asset::get_filepath_img($file, TRUE);
 	}
 
 	/**
@@ -123,7 +123,7 @@ class Plugin_Asset extends Plugin
 	{
 		$file = $this->attribute('file');
 
-		return BASE_URI.Asset::get_filepath_img($file, false);
+		return BASE_URI.Asset::get_filepath_img($file, FALSE);
 	}
 
 	/**
@@ -161,7 +161,7 @@ class Plugin_Asset extends Plugin
 	{
 		$file = $this->attribute('file');
 
-		return Asset::get_filepath_js($file, true);
+		return Asset::get_filepath_js($file, TRUE);
 	}
 
 	/**
@@ -179,7 +179,7 @@ class Plugin_Asset extends Plugin
 	{
 		$file = $this->attribute('file');
 
-		return BASE_URI.Asset::get_filepath_js($file, false);
+		return BASE_URI.Asset::get_filepath_js($file, FALSE);
 	}
 
 	/**
@@ -195,7 +195,7 @@ class Plugin_Asset extends Plugin
 	 */
 	public function render()
 	{
-		$group = $this->attribute('group', false);
+		$group = $this->attribute('group', FALSE);
 
 		return Asset::render($group);
 	}
@@ -213,7 +213,7 @@ class Plugin_Asset extends Plugin
 	 */
 	public function render_css()
 	{
-		$group = $this->attribute('group', false);
+		$group = $this->attribute('group', FALSE);
 
 		return Asset::render_css($group);
 	}
@@ -231,7 +231,7 @@ class Plugin_Asset extends Plugin
 	 */
 	public function render_js()
 	{
-		$group = $this->attribute('group', false);
+		$group = $this->attribute('group', FALSE);
 
 		return Asset::render_js($group);
 	}
