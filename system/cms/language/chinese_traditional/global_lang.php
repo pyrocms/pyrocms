@@ -10,11 +10,12 @@ $lang['version_label'] 					= '版本'; 		//'Version';
 $lang['global:author'] 					= '作者'; 		//'Author';
 $lang['global:action'] 					= '操作'; 		//'Action';
 
-$lang['global:dialog:delete_message'] 	= '確定要刪除嗎？這將無法復原。'; //'Are you sure you want to delete this? It can not be undone.';
-$lang['global:dialog:confirm'] 			= '確認'; 		//'Confirm';
-
-$lang['global:yes'] 					= '是'; 			//'Yes';
-$lang['global:no'] 						= '否'; 			//'No';
+$lang['global:slug'] 					= 'Slug'; #translate
+$lang['global:slug_instructions']		= 'Lowercase characters and underscores only.'; #translate
+$lang['dialog.delete_message'] 			= '確定要刪除嗎？這將無法復原。'; //'Are you sure you want to delete this? It can not be undone.';
+$lang['dialog.confirm'] 				= '確認'; 		//'Confirm';
+$lang['dialog.yes'] 					= '是'; 			//'Yes';
+$lang['dialog.no'] 						= '否'; 			//'No';
 
 $lang['global:select-none'] 			= '-- 無 --';
 $lang['global:select-all'] 				= '-- 全部 --';

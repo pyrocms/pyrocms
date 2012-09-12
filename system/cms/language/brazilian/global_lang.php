@@ -9,12 +9,12 @@ $lang['desc_label'] 					= 'Descrição';
 $lang['version_label'] 					= 'Versão';
 $lang['global:author'] 					= 'Autor';
 $lang['global:action'] 					= 'Ação';
-
-$lang['global:dialog:delete_message'] 	= 'Tem certeza de que deseja remover? Isto não pode ser desfeito.';
-$lang['global:dialog:confirm'] 			= 'Confirmar';
-
-$lang['global:yes'] 					= 'Sim';
-$lang['global:no'] 						= 'Não';
+$lang['global:slug'] 					= 'Slug'; #translate
+$lang['global:slug_instructions']		= 'Lowercase characters and underscores only.'; #translate
+$lang['dialog.delete_message'] 			= 'Tem certeza de que deseja remover? Isto não pode ser desfeito.';
+$lang['dialog.confirm'] 				= 'Confirmar';
+$lang['dialog.yes'] 					= 'Sim';
+$lang['dialog.no'] 						= 'Não';
 
 $lang['global:select-none'] 			= '-- Nenhum --';
 $lang['global:select-all'] 				= '-- Todos --';

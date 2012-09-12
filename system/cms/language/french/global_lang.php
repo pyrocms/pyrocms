@@ -10,6 +10,8 @@ $lang['version_label'] = 'Version';
 $lang['global:author'] = 'Auteur';
 $lang['global:action'] = 'Action';
 $lang['global:slug']   = 'Slug';
+$lang['global:slug_instructions']		= 'Lowercase characters and underscores only.'; #translate
+
 $lang['global:user']   = 'Utilisateur';
 
 $lang['global:dialog:delete_message'] = 'Etes-vous sûr de vouloir supprimer ce fichier&nbsp;? Cette action ne peut-être annulée.';

@@ -9,7 +9,8 @@ $lang['desc_label'] 					= 'الوصف';
 $lang['version_label'] 					= 'النسخة';
 $lang['global:author'] 					= 'الناشر';
 $lang['global:action'] 					= 'الإجراء';
-
+$lang['global:slug'] 					= 'Slug'; #translate
+$lang['global:slug_instructions']		= 'Lowercase characters and underscores only.'; #translate
 $lang['global:dialog:delete_message'] 	= 'متأكد أنك تريد حذف هذا؟ لا يمكن التراجع عن هذا الأمر.';
 $lang['global:dialog:confirm'] 			= 'التأكيد';
 

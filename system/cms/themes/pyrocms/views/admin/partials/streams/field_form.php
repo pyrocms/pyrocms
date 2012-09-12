@@ -23,7 +23,7 @@
 
 		</li>
 		<li>
-			<label for="field_slug"><?php echo lang('streams.label.field_slug');?> <span>*</span></label>
+			<label for="field_slug"><?php echo lang('streams.label.field_slug');?> <span>*</span><br /><small><?php echo lang('global:slug_instructions'); ?></small></label>
 			<div class="input"><?php echo form_input('field_slug', $field->field_slug, 'maxlength="60" id="field_slug"'); ?></div>
 		</li>
 
