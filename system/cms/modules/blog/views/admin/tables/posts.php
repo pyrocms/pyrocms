@@ -32,7 +32,7 @@
 						<?php echo lang('blog_author_unknown'); ?>
 					<?php endif; ?>
 					</td>
-					<td><?php echo lang('blog_'.$post->status.'_label'); ?></td>
+					<td><?php echo lang('blog:'.$post->status.'_label'); ?></td>
 					<td>
 
                         <?php if($post->status=='live') : ?>
