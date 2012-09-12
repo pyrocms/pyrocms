@@ -33,9 +33,9 @@ $lang['cp_nav_addons']					= 'Add-ons';
 $lang['cp_nav_modules']					= 'Moduli';
 $lang['cp_nav_users']					= 'Utenti';
 $lang['cp_nav_content']					= 'Contenuti';
-$lang['cp_nav_data']					= 'Data'; #translate
-$lang['cp_nav_structure']				= 'Structure'; #translate
-$lang['cp_nav_misc']					= 'Miscellaneous'; #translate
+$lang['cp_nav_data']					= 'Gestione dati';
+$lang['cp_nav_structure']				= 'Struttura'; 
+$lang['cp_nav_misc']					= 'Vario';
 
 $lang['cp_must_login']	 				= 'Devi effettuare il login per vedere questa pagina.';
 $lang['cp_access_denied'] 				= 'Non hai privilegi sufficienti per vedere questa pagina.';
