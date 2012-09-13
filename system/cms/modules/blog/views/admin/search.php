@@ -1,6 +1,6 @@
 <?php echo form_open('admin/blog/action');?>
 
-<h3><?php echo lang('blog_list_title');?></h3>
+<h3><?php echo lang('blog:list_title');?></h3>
 
 <?php if (!empty($blog)): ?>
 
@@ -8,10 +8,10 @@
 		<thead>
 			<tr>
 				<th><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all'));?></th>
-				<th><?php echo lang('blog_post_label');?></th>
-				<th class="width-10"><?php echo lang('blog_category_label');?></th>
-				<th class="width-10"><?php echo lang('blog_date_label');?></th>
-				<th class="width-5"><?php echo lang('blog_status_label');?></th>
+				<th><?php echo lang('blog:post_label');?></th>
+				<th class="width-10"><?php echo lang('blog:category_label');?></th>
+				<th class="width-10"><?php echo lang('blog:date_label');?></th>
+				<th class="width-5"><?php echo lang('blog:status_label');?></th>
 				<th class="width-10"></th>
 			</tr>
 		</thead>
@@ -29,7 +29,7 @@
 					<td><?php echo $post->title;?></td>
 					<td><?php echo $post->category_title;?></td>
 					<td><?php echo format_date($post->created_on);?></td>
-					<td><?php echo lang('blog_'.$post->status.'_label');?></td>
+					<td><?php echo lang('blog:'.$post->status.'_label');?></td>
 					<td>
 						<?php echo anchor('admin/blog/preview/' . $post->id, lang($post->status == 'live' ? 'global:view' : 'global:preview'), 'rel="modal-large" class="iframe" target="_blank"') . ' | '; ?>
 						<?php echo anchor('admin/blog/edit/' . $post->id, lang('global:edit'));?> |
@@ -45,7 +45,7 @@
 	</div>
 
 <?php else: ?>
-	<p><?php echo lang('blog_no_posts');?></p>
+	<p><?php echo lang('blog:no_posts');?></p>
 <?php endif; ?>
 
 <?php echo form_close();?>

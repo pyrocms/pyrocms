@@ -29,7 +29,7 @@
 					<?php if (isset($post->display_name)): ?>
 						<?php echo anchor('user/' . $post->author_id, $post->display_name, 'target="_blank"'); ?>
 					<?php else: ?>
-						<?php echo lang('blog_author_unknown'); ?>
+						<?php echo lang('blog:author_unknown'); ?>
 					<?php endif; ?>
 					</td>
 					<td><?php echo lang('blog:'.$post->status.'_label'); ?></td>
