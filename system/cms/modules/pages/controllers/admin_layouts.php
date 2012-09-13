@@ -104,9 +104,15 @@ class Admin_layouts extends Admin_Controller
 			));
 
 			// Success or fail?
-			$id > 0
-				? $this->session->set_flashdata('success', lang('page_layouts.create_success'))
-				: $this->session->set_flashdata('notice', lang('page_layouts.create_error'));
+			if ($id > 0)
+			{
+				$this->session->set_flashdata('success', lang('page_layouts.create_success'));
+				
+				Events::trigger('page_layout_created', $id);
+			}
+			else {
+				$this->session->set_flashdata('notice', lang('page_layouts.create_error'));
+			}
 
 			redirect('admin/pages/layouts');
 		}
@@ -169,6 +175,8 @@ class Admin_layouts extends Admin_Controller
 			$this->pyrocache->delete_all('page_layouts_m');
 
 			$this->session->set_flashdata('success', sprintf(lang('page_layouts.edit_success'), $this->input->post('title')));
+			
+			Events::trigger('page_layout_updated', $id);
 
 			redirect('admin/pages/layouts');
 		}
@@ -235,6 +243,8 @@ class Admin_layouts extends Admin_Controller
 			{
 				$this->session->set_flashdata('success', sprintf(lang('page_layouts.mass_delete_success'), count($deleted_ids)));
 			}
+			
+			Events::trigger('page_layout_deleted', $ids);
 		}
 
 		else // For some reason, none of them were deleted
