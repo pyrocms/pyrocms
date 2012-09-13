@@ -71,6 +71,8 @@ class Admin extends Admin_Controller
 			if ($this->redirect_m->insert($_POST))
 			{
 				$this->session->set_flashdata('success', lang('redirects.add_success'));
+				
+				Events::trigger('redirect_created');
 
 				redirect('admin/redirects');
 			}
@@ -112,6 +114,8 @@ class Admin extends Admin_Controller
 			if ($this->redirect_m->update($id, $_POST))
 			{
 				$this->session->set_flashdata('success', $this->lang->line('redirects.edit_success'));
+				
+				Events::trigger('redirect_updated', $id);
 
 				redirect('admin/redirects');
 			}
@@ -158,6 +162,8 @@ class Admin extends Admin_Controller
 			{
 				$this->session->set_flashdata('success', sprintf($this->lang->line('redirects.mass_delete_success'), $deleted, $to_delete));
 			}
+			
+			Events::trigger('redirect_deleted', $id_array);
 		}
 		else
 		{
