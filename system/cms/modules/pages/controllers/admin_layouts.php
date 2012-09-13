@@ -235,13 +235,13 @@ class Admin_layouts extends Admin_Controller
 		if ( ! empty($deleted_ids))
 		{
 			// Only deleting one page
-			if (count($deleted_ids) == 1)
+			if (count($ids) == 1)
 			{
-				$this->session->set_flashdata('success', sprintf(lang('page_layouts.delete_success'), $deleted_ids[0]));
+				$this->session->set_flashdata('success', sprintf(lang('page_layouts.delete_success'), $ids[0]));
 			}
 			else // Deleting multiple pages
 			{
-				$this->session->set_flashdata('success', sprintf(lang('page_layouts.mass_delete_success'), count($deleted_ids)));
+				$this->session->set_flashdata('success', sprintf(lang('page_layouts.mass_delete_success'), count($ids)));
 			}
 			
 			Events::trigger('page_layout_deleted', $ids);
