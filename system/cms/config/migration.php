@@ -9,7 +9,7 @@
 | and disable it back when you're done.
 |
 */
-$config['migration_enabled'] = TRUE;
+$config['migration_enabled'] = true;
 
 
 /*
@@ -23,7 +23,7 @@ $config['migration_enabled'] = TRUE;
 |
 */
 
-$config['migration_version'] = 102;
+$config['migration_version'] = 103;
 
 /*
 |--------------------------------------------------------------------------
