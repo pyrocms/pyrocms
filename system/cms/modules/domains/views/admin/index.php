@@ -7,7 +7,7 @@
 	<section class="item">
 
     <?php echo form_open('admin/domains/delete'); ?>
-	<table border="0" class="table-list">
+	<table border="0" class="table-list" cellpadding="0" cellspacing="0">
 	    <thead>
 			<tr>
 				<th width="15"><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all'));?></th>
