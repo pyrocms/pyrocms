@@ -70,7 +70,7 @@ class Module_Addons extends Module
 			'sections' => array(
 				'modules' => array(
 					'name' => 'addons:modules',
-					'uri' => 'admin/addons',
+					'uri' => 'admin/addons/modules',
 				),
 				'themes' => array(
 					'name' => 'addons:themes',
@@ -82,7 +82,7 @@ class Module_Addons extends Module
 		// Add upload options to various modules
 		if ( ! class_exists('Module_import') AND Settings::get('addons_upload'))
 		{
-			$info['modules']['shortcuts'] = array(
+			$info['sections']['modules']['shortcuts'] = array(
 				array(
 					// @TODO
 					'name' => 'global:upload',
@@ -91,7 +91,7 @@ class Module_Addons extends Module
 				),
 			);
 
-			$info['themes']['shortcuts'] = array(
+			$info['sections']['themes']['shortcuts'] = array(
 				array(
 					// @TODO
 					'name' => 'global:upload',

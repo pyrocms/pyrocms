@@ -7,7 +7,7 @@
  * @copyright   Copyright (c) 2012, PyroCMS LLC
  */
 
-class Admin extends Admin_Controller
+class Admin_modules extends Admin_Controller
 {
 	/**
 	 * The current active section
