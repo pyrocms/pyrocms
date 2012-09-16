@@ -42,7 +42,7 @@ class Migration_Merge_modules_themes extends CI_Migration
 			'enabled'		=> true,
 			'installed'		=> true,
 			'is_core'		=> true,
-			'updated_on'	=> now()
+			'updated_on'	=> time()
 		));
 
 		$this->db
