@@ -25,12 +25,12 @@
 		<ul>
 			<li>
 				<label for="title"><?php echo lang('global:title'); ?> <span>*</span></label>
-				<div class="input"><?php echo form_input('title', htmlspecialchars_decode($post->title), 'maxlength="100" id="title"'); ?></div>				
+				<div class="input"><?php echo form_input('title', htmlspecialchars_decode($post->title), 'maxlength="200" id="title"'); ?></div>				
 			</li>
 			
 			<li>
 				<label for="slug"><?php echo lang('global:slug'); ?> <span>*</span></label>
-				<div class="input"><?php echo form_input('slug', $post->slug, 'maxlength="100" class="width-20"'); ?></div>
+				<div class="input"><?php echo form_input('slug', $post->slug, 'maxlength="200" class="width-20"'); ?></div>
 			</li>
 			
 			<li>

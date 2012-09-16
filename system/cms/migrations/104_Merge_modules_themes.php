@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Migration_Add_comment_expiry extends CI_Migration
+class Migration_Merge_modules_themes extends CI_Migration
 {
 	public function up()
 	{
@@ -44,6 +44,10 @@ class Migration_Add_comment_expiry extends CI_Migration
 			'is_core'		=> true,
 			'updated_on'	=> now()
 		));
+
+		$this->db
+			->where_in('slug', array('modules', 'themes'))
+			->delete('modules');
 	}
 	
 	public function down()
