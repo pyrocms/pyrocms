@@ -6,11 +6,11 @@
  * @author      PyroCMS Dev Team
  * @copyright   Copyright (c) 2012, PyroCMS LLC
  */
-class Admin_modules extends Admin_Controller
+
+class Admin extends Admin_Controller
 {
 	/**
 	 * Constructor method
-	 *
 	 * 
 	 * @return void
 	 */
@@ -41,7 +41,6 @@ class Admin_modules extends Admin_Controller
 	 *
 	 * Uploads an addon module
 	 *
-	 * @access	public
 	 * @return	void
 	 */
 	public function upload()
@@ -120,7 +119,6 @@ class Admin_modules extends Admin_Controller
 	 * Uninstalls an addon module
 	 *
 	 * @param	string	$slug	The slug of the module to uninstall
-	 * @access	public
 	 * @return	void
 	 */
 	public function uninstall($slug = '')
@@ -147,7 +145,6 @@ class Admin_modules extends Admin_Controller
 	 * Completely deletes an addon module
 	 *
 	 * @param	string	$slug	The slug of the module to delete
-	 * @access	public
 	 * @return	void
 	 */
 	public function delete($slug = '')
@@ -191,7 +188,6 @@ class Admin_modules extends Admin_Controller
 	 * Enables an addon module
 	 *
 	 * @param	string	$slug	The slug of the module to enable
-	 * @access	public
 	 * @return	void
 	 */
 	public function install($slug)
@@ -219,7 +215,6 @@ class Admin_modules extends Admin_Controller
 	 * Enables an addon module
 	 *
 	 * @param	string	$slug	The slug of the module to enable
-	 * @access	public
 	 * @return	void
 	 */
 	public function enable($slug)
@@ -247,7 +242,6 @@ class Admin_modules extends Admin_Controller
 	 * Disables an addon module
 	 *
 	 * @param	string	$slug	The slug of the module to disable
-	 * @access	public
 	 * @return	void
 	 */
 	public function disable($slug)
@@ -275,7 +269,6 @@ class Admin_modules extends Admin_Controller
 	 * Upgrade an addon module
 	 *
 	 * @param	string	$slug	The slug of the module to disable
-	 * @access	public
 	 * @return	void
 	 */
 	public function upgrade($slug)

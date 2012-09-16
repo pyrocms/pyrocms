@@ -3,9 +3,8 @@
 /**
  * Admin controller for adding and managing widget areas.
  *
+ * @author		PyroCMS Dev Team
  * @package 	PyroCMS\Core\Modules\Widgets\Controllers
- * @author      PyroCMS Dev Team
- * @copyright   Copyright (c) 2012, PyroCMS LLC
  *
  */
 class Admin_areas extends Admin_Controller {
@@ -148,6 +147,8 @@ class Admin_areas extends Admin_Controller {
 				));
 			}
 		}
+
+		$area = new stdClass();
 
 		foreach ($this->_validation_rules as $rule)
 		{

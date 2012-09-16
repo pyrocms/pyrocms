@@ -3,22 +3,23 @@
 /**
  * Admin controller for widgets instances.
  *
+ * @author		PyroCMS Dev Team
  * @package 	PyroCMS\Core\Modules\Widgets\Controllers
- * @author      PyroCMS Dev Team
- * @copyright   Copyright (c) 2012, PyroCMS LLC
  *
  */
-class Admin_widget_instances extends Admin_Controller 
-{
+class Admin_instances extends Admin_Controller {
+
 	/**
 	 * The current active section
+	 * @access protected
 	 * @var string
 	 */
-	protected $section = 'widget_instances';
+	protected $section = 'instances';
 	
 	/**
 	 * Array that contains the validation rules
 	 *
+	 * @access	protected
 	 * @var		array
 	 */
 	protected $_validation_rules = array(
@@ -36,7 +37,7 @@ class Admin_widget_instances extends Admin_Controller
 
 	/**
 	 * Constructor method
-	 *
+	 * @access    public
 	 * @return \Admin_instances
 	 */
 	public function __construct()
@@ -46,7 +47,7 @@ class Admin_widget_instances extends Admin_Controller
 		$this->load->library('widgets');
 		$this->lang->load('widgets');
 
-		$this->input->is_ajax_request() and $this->template->set_layout(FALSE);
+		$this->input->is_ajax_request() AND $this->template->set_layout(FALSE);
 
 		$this->template
 			->set_partial('shortcuts', 'admin/partials/shortcuts')
@@ -64,7 +65,7 @@ class Admin_widget_instances extends Admin_Controller
 	{
 		$widgets = $this->widgets->list_area_instances($slug);
 
-		$this->load->view('admin/widgets/ajax/instance_list', array('widgets' => $widgets));
+		$this->load->view('admin/ajax/instance_list', array('widgets' => $widgets));
 	}
 
 	/**
@@ -135,7 +136,7 @@ class Admin_widget_instances extends Admin_Controller
 		$data['widget']	= $widget;
 		$data['form']	= $this->widgets->render_backend($widget->slug, isset($widget->options) ? $widget->options : array());
 
-		$this->template->build('admin/widgets/instances/form', $data);
+		$this->template->build('admin/instances/form', $data);
 	}
 
 	/**
@@ -145,10 +146,10 @@ class Admin_widget_instances extends Admin_Controller
 	 */
 	public function edit($id = 0)
 	{
-		if ( ! ($id and $widget = $this->widgets->get_instance($id)))
+		if ( ! ($id && $widget = $this->widgets->get_instance($id)))
 		{
 			// @todo: set error
-			return false;
+			return FALSE;
 		}
 
 		$data = array();
@@ -197,7 +198,8 @@ class Admin_widget_instances extends Admin_Controller
 			if ($status === 'success')
 			{
 				$this->session->set_flashdata($status, $message);
-				redirect('admins/addons/widgets');
+				redirect('admins/widgets');
+				return;
 			}
 
 			$data['messages'][$status] = $message;
@@ -211,7 +213,7 @@ class Admin_widget_instances extends Admin_Controller
 		$data['widget']	= $widget;
 		$data['form']	= $this->widgets->render_backend($widget->slug, isset($widget->options) ? $widget->options : array());
 
-		$this->template->build('admin/widgets/instances/form', $data);
+		$this->template->build('admin/instances/form', $data);
 	}
 
 	/**
@@ -249,7 +251,7 @@ class Admin_widget_instances extends Admin_Controller
 		}
 
 		$this->session->set_flashdata($status, $message);
-		redirect('admin/addons/widgets');
+		redirect('admin/widgets');
 	}
 
 }

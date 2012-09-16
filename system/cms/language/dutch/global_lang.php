@@ -70,7 +70,7 @@ $lang['activate_label'] 				= 'Activeren';
 $lang['approve_label']					= 'Goedkeuren';
 $lang['unapprove_label']				= 'Afkeuren';
 $lang['publish_label'] 					= 'Publiceren';
-$lang['upload_label'] 					= 'Uploaden';
+$lang['global:upload'] 					= 'Uploaden';
 
 $lang['global:uninstall'] 				= 'Deinstalleren';
 $lang['global:install'] 				= 'Installeren';

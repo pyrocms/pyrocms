@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Theme_PyroCMS extends Theme {
-
+class Theme_PyroCMS extends Theme
+{
     public $name			= 'PyroCMS - Admin Theme';
     public $author			= 'PyroCMS Dev Team';
     public $author_website	= 'http://pyrocms.com/';
@@ -9,41 +9,50 @@ class Theme_PyroCMS extends Theme {
     public $description		= 'PyroCMS admin theme. HTML5 and CSS3 styling.';
     public $version			= '1.0';
 	public $type			= 'admin';
-	public $options 		= array('pyrocms_recent_comments' => array('title' 		=> 'Recent Comments',
-																'description'   => 'Would you like to display recent comments on the dashboard?',
-																'default'       => 'yes',
-																'type'          => 'radio',
-																'options'       => 'yes=Yes|no=No',
-																'is_required'   => TRUE),
-																
-									'pyrocms_news_feed' => 			array('title' => 'News Feed',
-																'description'   => 'Would you like to display the news feed on the dashboard?',
-																'default'       => 'yes',
-																'type'          => 'radio',
-																'options'       => 'yes=Yes|no=No',
-																'is_required'   => TRUE),
-																
-									'pyrocms_quick_links' => 		array('title' => 'Quick Links',
-																'description'   => 'Would you like to display quick links on the dashboard?',
-																'default'       => 'yes',
-																'type'          => 'radio',
-																'options'       => 'yes=Yes|no=No',
-																'is_required'   => TRUE),
-																
-									'pyrocms_analytics_graph' => 	array('title' => 'Analytics Graph',
-																'description'   => 'Would you like to display the graph on the dashboard?',
-																'default'       => 'yes',
-																'type'          => 'radio',
-																'options'       => 'yes=Yes|no=No',
-																'is_required'   => TRUE),
-								   );
+	public $options 		= array(
+
+		'pyrocms_recent_comments' => array(
+			'title' 		=> 'Recent Comments',
+			'description'   => 'Would you like to display recent comments on the dashboard?',
+			'default'       => 'yes',
+			'type'          => 'radio',
+			'options'       => 'yes=Yes|no=No',
+			'is_required'   => TRUE
+		),
+									
+		'pyrocms_news_feed' => array(
+			'title' => 'News Feed',
+			'description'   => 'Would you like to display the news feed on the dashboard?',
+			'default'       => 'yes',
+			'type'          => 'radio',
+			'options'       => 'yes=Yes|no=No',
+			'is_required'   => TRUE
+		),
+									
+		'pyrocms_quick_links' => array(
+			'title' => 'Quick Links',
+			'description'   => 'Would you like to display quick links on the dashboard?',
+			'default'       => 'yes',
+			'type'          => 'radio',
+			'options'       => 'yes=Yes|no=No',
+			'is_required'   => TRUE
+		),
+									
+		'pyrocms_analytics_graph' => array(
+			'title' => 'Analytics Graph',
+			'description'   => 'Would you like to display the graph on the dashboard?',
+			'default'       => 'yes',
+			'type'          => 'radio',
+			'options'       => 'yes=Yes|no=No',
+			'is_required'   => TRUE
+		),
+	);
 	
 	/**
 	 * Run() is triggered when the theme is loaded for use
 	 *
 	 * This should contain the main logic for the theme.
 	 *
-	 * @access	public
 	 * @return	void
 	 */
 	public function run()
@@ -54,12 +63,19 @@ class Theme_PyroCMS extends Theme {
 		if ($this->module == '' && $this->method != 'login' && $this->method != 'help')
 		{
 			// don't bother fetching the data if it's turned off in the theme
-			if ($this->theme_options->pyrocms_analytics_graph == 'yes')		self::get_analytics();
-			if ($this->theme_options->pyrocms_news_feed == 'yes')			self::get_rss_feed();
-			if ($this->theme_options->pyrocms_recent_comments == 'yes')		self::get_recent_comments();
+			if ($this->theme_options->pyrocms_analytics_graph === 'yes')	self::get_analytics();
+			if ($this->theme_options->pyrocms_news_feed === 'yes')			self::get_rss_feed();
+			if ($this->theme_options->pyrocms_recent_comments === 'yes')	self::get_recent_comments();
 		}
 	}
 	
+	/**
+	 * Generate menu
+	 *
+	 * Build the admin menu at the top
+	 *
+	 * @return	void
+	 */
 	private function generate_menu()
 	{
 		// Get a list of all modules available to this user/group
@@ -77,13 +93,13 @@ class Theme_PyroCMS extends Theme {
 
 			foreach ($modules as $module)
 			{
-				if ($module['menu'] != 'content' && $module['menu'] != 'data' && $module['menu'] != 'users' && $module['menu'] != 'misc' && $module['menu'] != '0')
+				if ( ! in_array($module['menu'], array('content', 'data', 'users', 'misc', 'addons', '0')))
 				{
 					$grouped_menu[] = $module['menu'];
 				}
 			}
 
-			array_push($grouped_menu, 'data', 'users', 'misc');
+			array_push($grouped_menu, 'data', 'users', 'misc', 'addons');
 
 			$grouped_menu = array_unique($grouped_menu);
 
@@ -100,7 +116,7 @@ class Theme_PyroCMS extends Theme {
 	
 	public function get_analytics()
 	{
-		if ($this->settings->ga_email AND $this->settings->ga_password AND $this->settings->ga_profile)
+		if ($this->settings->ga_email and $this->settings->ga_password and $this->settings->ga_profile)
 		{
 			// Not FALSE? Return it
 			if ($cached_response = $this->pyrocache->get('analytics'))
@@ -108,14 +124,13 @@ class Theme_PyroCMS extends Theme {
 				$data['analytic_visits'] = $cached_response['analytic_visits'];
 				$data['analytic_views'] = $cached_response['analytic_views'];
 			}
-
 			else
 			{
 				try
 				{
 					$this->load->library('analytics', array(
 						'username' => $this->settings->ga_email,
-						'password' => $this->settings->ga_password
+						'password' => $this->settings->ga_password,
 					));
 
 					// Set by GA Profile ID if provided, else try and use the current domain

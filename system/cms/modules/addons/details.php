@@ -1,43 +1,42 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
- * Modules Module
+ * Addons Module
  *
  * @author PyroCMS Dev Team
  * @package PyroCMS\Core\Modules\Modules
  */
-class Module_Modules extends Module
+class Module_Addons extends Module
 {
-
-	public $version = '1.0';
+	public $version = '2.0.0';
 
 	public function info()
 	{
 		$info = array(
 			'name' => array(
-				'en' => 'Modules',
-				'ar' => 'الوحدات',
-				'br' => 'Módulos',
-				'pt' => 'Módulos',
-				'cs' => 'Moduly',
-				'da' => 'Moduler',
-				'de' => 'Module',
+				'en' => 'Add-ons',
+				'ar' => 'الإضافات',
+				'br' => 'Complementos',
+				'pt' => 'Complementos',
+				'cs' => 'Doplňky',
+				'da' => 'Add-ons',
+				'de' => 'Erweiterungen',
 				'el' => 'Πρόσθετα',
-				'es' => 'Módulos',
-				'fi' => 'Moduulit',
-				'fr' => 'Modules',
-				'he' => 'מודולים',
-				'id' => 'Modul',
-				'it' => 'Moduli',
-				'lt' => 'Moduliai',
-				'nl' => 'Modules',
-				'pl' => 'Moduły',
-				'ru' => 'Модули',
-				'sl' => 'Moduli',
-				'zh' => '模組',
-				'hu' => 'Modulok',
-				'th' => 'โมดูล',
-				'se' => 'Moduler',
+				'es' => 'Agregados',
+				'fi' => 'Lisäosat',
+				'fr' => 'Extensions',
+				'he' => 'תוספות',
+				'id' => 'Pengaya',
+				'it' => 'Add-ons',
+				'lt' => 'Priedai',
+				'nl' => 'Add-ons',
+				'pl' => 'Rozszerzenia',
+				'ru' => 'Дополнения',
+				'sl' => 'Razširitve',
+				'zh' => '附加模組',
+				'hu' => 'Bővítmények',
+				'th' => 'ส่วนเสริม',
+            	'se' => 'Add-ons',
 			),
 			'description' => array(
 				'en' => 'Allows admins to see a list of currently installed modules.',
@@ -67,17 +66,54 @@ class Module_Modules extends Module
 			'frontend' => false,
 			'backend' => true,
 			'menu' => false,
+
+			'modules' => array(
+				'name' => 'addons:modules',
+				'uri' => 'admin/addons',
+				'shortcuts' => array(
+					array(
+						// @TODO
+						'name' => 'global:upload',
+						'uri' => 'admin/themes/upload',
+						'class' => 'add modal',
+					),
+				),
+			),
+			'themes' => array(
+				'name' => 'themes.list_title',
+				'uri' => 'admin/themes',
+				'shortcuts' => array(
+					array(
+						// @TODO
+						'name' => 'global:upload',
+						'uri' => 'admin/addons/themes/upload',
+						'class' => 'add modal',
+					),
+				),
+			),
 		);
 
-		// Check to make sure we're not running the installer or MSM. Then check perms
-		if ( ! class_exists('Module_import') AND Settings::get('addons_upload'))
-		{
-			$info['shortcuts'][] = array(
-				'name' => 'upload_label',
-				'uri' => 'admin/modules/upload',
-				'class' => 'add',
-			);
-		}
+		// 'br' => 'Módulos',
+		// 'pt' => 'Módulos',
+		// 'cs' => 'Moduly',
+		// 'da' => 'Moduler',
+		// 'de' => 'Module',
+		// 'el' => 'Πρόσθετα',
+		// 'es' => 'Módulos',
+		// 'fi' => 'Moduulit',
+		// 'fr' => 'Modules',
+		// 'he' => 'מודולים',
+		// 'id' => 'Modul',
+		// 'it' => 'Moduli',
+		// 'lt' => 'Moduliai',
+		// 'nl' => 'Modules',
+		// 'pl' => 'Moduły',
+		// 'ru' => 'Модули',
+		// 'sl' => 'Moduli',
+		// 'zh' => '模組',
+		// 'hu' => 'Modulok',
+		// 'th' => 'โมดูล',
+		// 'se' => 'Moduler',
 
 		return $info;
 	}

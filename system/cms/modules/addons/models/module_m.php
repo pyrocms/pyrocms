@@ -8,6 +8,7 @@
 class Module_m extends MY_Model
 {
 	protected $_table = 'modules';
+
 	private $_module_exists = array();
 
 	/**
@@ -15,7 +16,6 @@ class Module_m extends MY_Model
 	 *
 	 * Return an array containing module data
 	 *
-	 * @access	public
 	 * @param	string	$module		The name of the module to load
 	 * @return	array
 	 */
@@ -533,7 +533,6 @@ class Module_m extends MY_Model
 	 * Checks to see if a details.php exists and returns a class
 	 *
 	 * @param	string	$slug	The folder name of the module
-	 * @access	private
 	 * @return	array
 	 */
 	private function _spawn_class($slug, $is_core = FALSE)
@@ -550,7 +549,7 @@ class Module_m extends MY_Model
 			
 			if ( ! is_file($details_file))
 			{
-				return FALSE;
+				throw new Exception("Module $slug is missing a details.php file.");
 			}
 		}
 
@@ -561,7 +560,12 @@ class Module_m extends MY_Model
 		$class = 'Module_'.ucfirst(strtolower($slug));
 
 		// Now we need to talk to it
-		return class_exists($class) ? array(new $class, dirname($details_file)) : FALSE;
+		if ( ! class_exists($class))
+		{
+			throw new Exception("Module $slug has an incorrect details.php class. It should be called '$class'.");
+		}
+
+		return array(new $class, dirname($details_file));
 	}
 
 	/**

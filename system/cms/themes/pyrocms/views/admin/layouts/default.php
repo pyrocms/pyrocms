@@ -55,7 +55,7 @@
 				<form action="<?php echo current_url(); ?>" id="change_language" method="get">
 					<select class="chzn" name="lang" onchange="this.form.submit();">
 						<?php foreach($this->config->item('supported_languages') as $key => $lang): ?>
-						<option value="<?php echo $key; ?>" <?php echo CURRENT_LANGUAGE == $key ? 'selected="selected"' : ''; ?>>
+						<option value="<?php echo $key; ?>" <?php echo CURRENT_LANGUAGE === $key ? 'selected="selected"' : ''; ?>>
 								<?php echo $lang['name']; ?>
 							</option>
 					<?php endforeach; ?>
