@@ -1,3 +1,4 @@
+<?php if ( ! empty($blog)): ?>
 	<table border="0" class="table-list">
 		<thead>
 			<tr>
