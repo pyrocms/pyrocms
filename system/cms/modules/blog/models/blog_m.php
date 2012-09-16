@@ -65,6 +65,13 @@ class Blog_m extends MY_Model
 			$this->db->where('YEAR(FROM_UNIXTIME(created_on))', $params['year']);
 		}
 
+		if ( ! empty($params['keywords']))
+		{
+			$this->db
+				->like('blog.title', trim($params['keywords']))
+				->or_like('profiles.display_name', trim($params['keywords']));
+		}
+
 		// Is a status set?
 		if (!empty($params['status']))
 		{
@@ -124,7 +131,9 @@ class Blog_m extends MY_Model
 
 	public function count_by($params = array())
 	{
-		$this->db->join('blog_categories', 'blog.category_id = blog_categories.id', 'left');
+		$this->db->join('blog_categories', 'blog.category_id = blog_categories.id', 'left')
+			// we need the display name joined so we can get an accurate count when searching
+			->join('profiles', 'profiles.user_id = blog.author_id');
 
 		if (!empty($params['category']))
 		{
@@ -142,6 +151,13 @@ class Blog_m extends MY_Model
 		if (!empty($params['year']))
 		{
 			$this->db->where('YEAR(FROM_UNIXTIME(created_on))', $params['year']);
+		}
+
+		if ( ! empty($params['keywords']))
+		{
+			$this->db
+				->like('blog.title', trim($params['keywords']))
+				->or_like('profiles.display_name', trim($params['keywords']));
 		}
 
 		// Is a status set?

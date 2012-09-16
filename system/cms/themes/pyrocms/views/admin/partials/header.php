@@ -6,7 +6,7 @@
 	
 	<div class="wrapper">
 		<div id="logo">
-			<?php echo anchor('admin', $this->settings->site_name, 'target="_blank"'); ?>
+			<?php echo anchor('', $this->settings->site_name, 'target="_blank"'); ?>
 		</div>
 	
 		<nav id="primary">

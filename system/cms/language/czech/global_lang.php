@@ -10,7 +10,7 @@ $lang['version_label'] 					= 'Verze';
 $lang['global:author'] 					= 'Autor';
 $lang['global:action'] 					= 'Akce';
 $lang['global:slug'] 					= 'Slug';
-
+$lang['global:slug_instructions']		= 'Lowercase characters and underscores only.'; #translate
 $lang['global:dialog:delete_message'] 	= 'Opravdu chcete položku vymazat? Akci nebude možno vrátit.';
 $lang['global:dialog:confirm'] 			= 'Potvrdit';
 

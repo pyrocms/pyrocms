@@ -3,7 +3,7 @@
 /**
  * Asset Plugin
  *
- * Load asset data
+ * Load and print asset data
  *
  * @author		PyroCMS Dev Team
  * @package		PyroCMS\Core\Plugins
@@ -18,16 +18,17 @@ class Plugin_Asset extends Plugin
 	 *
 	 * Usage:
 	 *
-	 * <code>{{ asset:css file="" group="" }}</code>
+	 * {{ asset:css file="" group="" }}
 	 *
 	 * @return string Full url to css asset
 	 */
 	public function css()
 	{
 		$file = $this->attribute('file');
+		$file_min = $this->attribute('file_min');
 		$group = $this->attribute('group');
 
-		return Asset::css($file, NULL, $group);
+		return Asset::css($file, $file_min, $group);
 	}
 
 	/**
@@ -45,7 +46,7 @@ class Plugin_Asset extends Plugin
 	{
 		$file = $this->attribute('file');
 
-		return Asset::get_filepath_js($file, true);
+		return Asset::get_filepath_css($file, true);
 	}
 
 	/**
@@ -55,7 +56,7 @@ class Plugin_Asset extends Plugin
 	 *
 	 * Usage:
 	 *
-	 * {{ asset:css_path file="" module="" }}
+	 * {{ asset:css_path file="" }}
 	 *
 	 * @return string Path to the CSS asset relative to web root
 	 */
@@ -63,7 +64,7 @@ class Plugin_Asset extends Plugin
 	{
 		$file = $this->attribute('file');
 
-		return BASE_URI.Asset::get_filepath_js($file, FALSE);
+		return BASE_URI.Asset::get_filepath_css($file, FALSE);
 	}
 
 	/**
@@ -104,7 +105,7 @@ class Plugin_Asset extends Plugin
 	{
 		$file = $this->attribute('file');
 
-		return Asset::get_filepath_img($file, true);
+		return Asset::get_filepath_img($file, TRUE);
 	}
 
 	/**
@@ -122,7 +123,7 @@ class Plugin_Asset extends Plugin
 	{
 		$file = $this->attribute('file');
 
-		return BASE_URI.Asset::get_filepath_img($file, false);
+		return BASE_URI.Asset::get_filepath_img($file, FALSE);
 	}
 
 	/**
@@ -139,9 +140,10 @@ class Plugin_Asset extends Plugin
 	public function js()
 	{
 		$file = $this->attribute('file');
+		$file_min = $this->attribute('file_min');
 		$group = $this->attribute('group');
 
-		return Asset::js($file, NULL, $group);
+		return Asset::js($file, $file_min, $group);
 	}
 
 	/**
@@ -159,7 +161,7 @@ class Plugin_Asset extends Plugin
 	{
 		$file = $this->attribute('file');
 
-		return Asset::get_filepath_js($file, true);
+		return Asset::get_filepath_js($file, TRUE);
 	}
 
 	/**
@@ -177,7 +179,7 @@ class Plugin_Asset extends Plugin
 	{
 		$file = $this->attribute('file');
 
-		return BASE_URI.Asset::get_filepath_js($file, false);
+		return BASE_URI.Asset::get_filepath_js($file, FALSE);
 	}
 
 	/**
@@ -193,9 +195,45 @@ class Plugin_Asset extends Plugin
 	 */
 	public function render()
 	{
-		$group = $this->attribute('group', false);
+		$group = $this->attribute('group', FALSE);
 
 		return Asset::render($group);
+	}
+	
+	/**
+	 * Asset Render CSS
+	 *
+	 * Render a CSS asset group.
+	 *
+	 * Usage:
+	 *
+	 * {{ asset:render_css group="" }}
+	 *
+	 * @return string Style tags for CSS
+	 */
+	public function render_css()
+	{
+		$group = $this->attribute('group', FALSE);
+
+		return Asset::render_css($group);
+	}
+	
+	/**
+	 * Asset Render Javascript
+	 *
+	 * Render a Javascript asset group.
+	 *
+	 * Usage:
+	 *
+	 * {{ asset:render_js group="" }}
+	 *
+	 * @return string Script tags for Javascript
+	 */
+	public function render_js()
+	{
+		$group = $this->attribute('group', FALSE);
+
+		return Asset::render_js($group);
 	}
 
 }

@@ -177,7 +177,7 @@ class Streams_m extends MY_Model {
      * @param	[mixed - provide a namespace string to restrict total]
      * @return	int
      */
-	public function total_streams($namespace = FALSE)
+	public function total_streams($namespace = null)
 	{
 		$where = ($namespace) ? "WHERE stream_namespace='$namespace'" : null;
 	

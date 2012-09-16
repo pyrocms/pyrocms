@@ -27,12 +27,12 @@ class Domain_m extends MY_Model
 		return $this->db->query("SELECT id FROM core_domains WHERE site_id = ".$this->db->escape($this->_site_id))->num_rows();
 	}
 
-	public function insert($input = array())
+	public function insert($input = array(), $skip_validation = false)
 	{
 		return $this->db->query("INSERT INTO core_domains (type, domain, site_id) VALUES ('".$this->db->escape_str($input['type'])."', '".$this->db->escape_str($input['domain'])."', ".$this->db->escape($this->_site_id).")");
 	}
 
-	public function update($id, $input = array())
+	public function update($id, $input = array(), $skip_validation = false)
 	{
 		return $this->db->query("UPDATE core_domains SET type = '".$this->db->escape_str($input['type'])."', domain = '".$this->db->escape_str($input['domain'])."' WHERE id = ".$this->db->escape($id)." AND site_id = ".$this->db->escape($this->_site_id));
 	}

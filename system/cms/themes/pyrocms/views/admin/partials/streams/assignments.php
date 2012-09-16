@@ -23,8 +23,10 @@
 					<?php
 					
 						$all_buttons = array();
+
+						if ( ! is_array($buttons)) $buttons = array();
 						
-						foreach($buttons as $button)
+						foreach ($buttons as $button)
 						{
 							// don't render button if field is locked and $button['locked'] is set to TRUE
 							if($assignment->is_locked == 'yes' and isset($button['locked']) and $button['locked']) continue;
