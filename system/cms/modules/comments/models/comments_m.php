@@ -35,13 +35,16 @@ class Comments_m extends MY_Model
 	 *
 	 * 
 	 * @param int $limit The amount of comments to get
+	 * @param int $is_active set default to only return active comments
 	 * @return array
 	 */
-  	public function get_recent($limit = 10)
+  	public function get_recent($limit = 10, $is_active = 1)
   	{
 		$this->_get_all_setup();
 		
-    	$this->db->order_by('c.created_on', 'desc');
+    	$this->db
+    		->where('c.is_active', $is_active)
+    		->order_by('c.created_on', 'desc');
     	
     	if ($limit > 0)
     	{
