@@ -10,7 +10,12 @@
 |
 */
 
-// PRE CONTROLLER HOOKS
+$hook['pre_system'] = array(
+	'function' => 'load_exceptions',
+	'filename' => 'uhoh.php',
+	'filepath' => 'hooks',
+);
+
 $hook['pre_controller'][] = array(
 	'function' => 'pick_language',
 	'filename' => 'pick_language.php',

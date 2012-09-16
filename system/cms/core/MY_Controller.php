@@ -72,7 +72,7 @@ class MY_Controller extends MX_Controller
 		}
 
 		// Result of schema version migration
-		else if (is_numeric($schema_version))
+		elseif (is_numeric($schema_version))
 		{
 			log_message('debug', 'PyroCMS was migrated to version: ' . $schema_version);
 		}
