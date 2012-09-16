@@ -1,14 +1,14 @@
 <section class="title">
-	<h4><?php echo lang('themes.upload_title');?></h4>
+	<h4><?php echo lang('addons:themes:upload_title');?></h4>
 </section>
 
 <section class="item">
 
-<?php echo form_open_multipart('admin/themes/upload', array('class' => 'crud'));?>
+<?php echo form_open_multipart('admin/addons/themes/upload', array('class' => 'crud')); ?>
 
 	<ul>
 		<li>
-			<h4><?php echo lang('themes.upload_desc'); ?></h4>
+			<h4><?php echo lang('addons:themes:upload_desc'); ?></h4>
 		</li>
 		
 		<li>
@@ -16,7 +16,7 @@
 		</li>
 	</ul>
 	
-	<div><?php $this->load->view('admin/partials/buttons', array('buttons' => array('upload') )); ?></div>
+	<?php $this->load->view('admin/partials/buttons', array('buttons' => array('upload'))); ?>
 	
 <?php echo form_close(); ?>
 

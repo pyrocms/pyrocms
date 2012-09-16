@@ -1,20 +1,20 @@
 <section class="title">
-	<h4><?php echo $module_details['name']; ?></h4>
+	<h4><?php echo lang('addons:themes'); ?></h4>
 </section>
 
 <section class="item">
 	<?php if ($themes): ?>
 	
-		<?php echo form_open('admin/themes/set_default'); ?>
+		<?php echo form_open('admin/addons/themes/set_default'); ?>
 		<?php echo form_hidden('method', $this->method); ?>
-		<table>
+		<table cellspacing="0">
 			<thead>
 				<tr>
-					<th width="50px" class="align-center"><?php echo lang('themes.default_theme_label'); ?></th>
-					<th width="15%"><?php echo lang('themes.theme_label'); ?></th>
+					<th width="50px" class="align-center"><?php echo lang('addons:themes:default_theme_label'); ?></th>
+					<th width="15%"><?php echo lang('addons:themes:theme_label'); ?></th>
 					<th class="collapse"><?php echo lang('global:description'); ?></th>
 					<th class="collapse" width="15%"><?php echo lang('global:author'); ?></th>
-					<th width="50px" class="align-center"><?php echo lang('themes.version_label'); ?></th>
+					<th width="50px" class="align-center"><?php echo lang('addons:themes:version_label'); ?></th>
 					<th width="250px"></th>
 				</tr>
 			</thead>
@@ -49,9 +49,9 @@
 	
 					<td class="align-center"><?php echo $theme->version; ?></td>
 					<td class="actions">
-						<?php echo isset($theme->options) ? anchor('admin/themes/options/'.$theme->slug, lang('themes.options'), 'title="'.$theme->name.'" class="button options"') : ''; ?>
+						<?php echo isset($theme->options) ? anchor('admin/addons/themes/options/'.$theme->slug, lang('addons:themes:options'), 'title="'.$theme->name.'" class="button options"') : ''; ?>
 						<a href="<?php echo $theme->screenshot; ?>" rel="screenshots" title="<?php echo $theme->name; ?>" class="button modal"><?php echo lang('buttons.preview'); ?></a>
-						<?php if($theme->slug != 'admin_theme') { echo anchor('admin/themes/delete/' . $theme->slug, lang('buttons.delete'), 'class="confirm button delete"'); } ?>
+						<?php if($theme->slug != 'admin_theme') { echo anchor('admin/addons/themes/delete/'.$theme->slug, lang('buttons.delete'), 'class="confirm button delete"'); } ?>
 					</td>
 				</tr>
 				<?php endforeach; ?>
@@ -66,7 +66,7 @@
 	
 	<?php else: ?>
 		<div class="blank-slate">
-			<p><?php echo lang('themes.no_themes_installed'); ?></p>
+			<p><?php echo lang('addons:themes:no_themes_installed'); ?></p>
 		</div>
 	<?php endif; ?>
 </section>

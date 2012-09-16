@@ -67,32 +67,43 @@ class Module_Addons extends Module
 			'backend' => true,
 			'menu' => false,
 
-			'modules' => array(
-				'name' => 'addons:modules',
-				'uri' => 'admin/addons',
-				'shortcuts' => array(
-					array(
-						// @TODO
-						'name' => 'global:upload',
-						'uri' => 'admin/themes/upload',
-						'class' => 'add modal',
-					),
+			'sections' => array(
+				'modules' => array(
+					'name' => 'addons:modules',
+					'uri' => 'admin/addons',
 				),
-			),
-			'themes' => array(
-				'name' => 'themes.list_title',
-				'uri' => 'admin/themes',
-				'shortcuts' => array(
-					array(
-						// @TODO
-						'name' => 'global:upload',
-						'uri' => 'admin/addons/themes/upload',
-						'class' => 'add modal',
-					),
+				'themes' => array(
+					'name' => 'addons:themes',
+					'uri' => 'admin/addons/themes',
 				),
 			),
 		);
 
+		// Add upload options to various modules
+		if ( ! class_exists('Module_import') AND Settings::get('addons_upload'))
+		{
+			$info['modules']['shortcuts'] = array(
+				array(
+					// @TODO
+					'name' => 'global:upload',
+					'uri' => 'admin/addons/modules/upload',
+					'class' => 'add modal',
+				),
+			);
+
+			$info['themes']['shortcuts'] = array(
+				array(
+					// @TODO
+					'name' => 'global:upload',
+					'uri' => 'admin/addons/themes/upload',
+					'class' => 'add modal',
+				),
+			);
+		}
+
+		// @TODO Convert these remaining language files to match arabic / english
+
+		// Modules
 		// 'br' => 'Módulos',
 		// 'pt' => 'Módulos',
 		// 'cs' => 'Moduly',
@@ -115,12 +126,52 @@ class Module_Addons extends Module
 		// 'th' => 'โมดูล',
 		// 'se' => 'Moduler',
 
+		// Themes 
+		// 'br' => 'Temas',
+		// 'pt' => 'Temas',
+		// 'cs' => 'Motivy vzhledu',
+		// 'da' => 'Temaer',
+		// 'de' => 'Themen',
+		// 'el' => 'Θέματα Εμφάνισης',
+		// 'es' => 'Temas',
+		// 'fi' => 'Teemat',
+		// 'fr' => 'Thèmes',
+		// 'he' => 'ערכות נושאים',
+		// 'id' => 'Tema',
+		// 'it' => 'Temi',
+		// 'lt' => 'Temos',
+		// 'nl' => 'Thema\'s',
+		// 'pl' => 'Motywy',
+		// 'ru' => 'Темы',
+		// 'sl' => 'Predloge',
+		// 'zh' => '佈景主題',
+		// 'th' => 'ธีม',
+		// 'hu' => 'Sablonok',
+		// 'se' => 'Teman',
+
 		return $info;
 	}
 
 	public function install()
 	{
-		return true;
+		$this->dbforge->drop_table('theme_options');
+
+		$tables = array(
+			'theme_options' => array(
+				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true),
+				'slug' => array('type' => 'VARCHAR', 'constraint' => 30),
+				'title' => array('type' => 'VARCHAR', 'constraint' => 100),
+				'description' => array('type' => 'TEXT', 'constraint' => 100),
+				'type' => array('type' => 'set', 'constraint' => array('text', 'textarea', 'password', 'select', 'select-multiple', 'radio', 'checkbox', 'colour-picker')),
+				'default' => array('type' => 'VARCHAR', 'constraint' => 255),
+				'value' => array('type' => 'VARCHAR', 'constraint' => 255),
+				'options' => array('type' => 'VARCHAR', 'constraint' => 255),
+				'is_required' => array('type' => 'INT', 'constraint' => 1),
+				'theme' => array('type' => 'VARCHAR', 'constraint' => 50),
+			),
+		);
+
+		return $this->install_tables($tables);
 	}
 
 	public function uninstall()

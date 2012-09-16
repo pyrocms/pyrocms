@@ -30,7 +30,7 @@ class Admin_themes extends Admin_Controller
 		parent::__construct();
 	
 		$this->load->model('theme_m');
-		$this->lang->load('themes');
+		$this->lang->load('addons');
 		$this->load->library('form_validation');
 
 		$this->template->append_css('module::themes.css');

@@ -1,12 +1,12 @@
 <section class="title">
-	<h4><?php echo lang('themes.theme_label') . ' ' . lang('themes.options'); ?></h4>
+	<h4><?php echo lang('addons:themes:theme_label').' '.lang('addons:themes:options'); ?></h4>
 </section>
 
 <section class="item">
 	<?php if ($options_array): ?>
 
 		<div class="padding-top">
-			<?php echo form_open('admin/themes/options/' . $slug, 'class="form_inputs options-form"');?>
+			<?php echo form_open('admin/addons/themes/options/'.$slug, 'class="form_inputs options-form"');?>
 			
 				<?php echo form_hidden('slug', $slug); ?>
 			
@@ -17,7 +17,7 @@
 							<?php echo $option->title; ?>
 							<small><?php echo $option->description; ?></small>
 						</label>
-						<div class="form_input <?php echo 'type-' . $option->type; ?>">
+						<div class="form_input <?php echo 'type-'.$option->type; ?>">
 							<?php echo $controller->form_control($option); ?>
 						</div>
 						<br class="clear-both" />
@@ -41,7 +41,6 @@
 
 <script type="text/javascript">
 	(function($) {
-
 		$(function() {
 			$('.colour-picker').miniColors({
 				letterCase: 'uppercase',

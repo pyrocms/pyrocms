@@ -10,6 +10,13 @@
 class Admin extends Admin_Controller
 {
 	/**
+	 * The current active section
+	 *
+	 * @var string
+	 */
+	protected $section = 'modules';
+
+	/**
 	 * Constructor method
 	 * 
 	 * @return void
@@ -18,7 +25,7 @@ class Admin extends Admin_Controller
 	{
 		parent::__construct();
 
-		$this->lang->load('modules');
+		$this->lang->load('addons');
 	}
 
 	/**
@@ -55,7 +62,7 @@ class Admin extends Admin_Controller
 			
 			$config['upload_path'] 		= UPLOAD_PATH;
 			$config['allowed_types'] 	= 'zip';
-			$config['max_size']			= '2048';
+			$config['max_size']			= 2048;
 			$config['overwrite'] 		= TRUE;
 
 			$this->load->library('upload', $config);
@@ -67,7 +74,7 @@ class Admin extends Admin_Controller
 				// Check if we already have a dir with same name
 				if ($this->module_m->exists($upload_data['raw_name']))
 				{
-					$this->session->set_flashdata('error', sprintf(lang('modules.already_exists_error'), $upload_data['raw_name']));
+					$this->session->set_flashdata('error', sprintf(lang('addons:modules:already_exists_error'), $upload_data['raw_name']));
 				}
 
 				else
@@ -84,11 +91,11 @@ class Admin extends Admin_Controller
 							// Fire an event. A module has been enabled when uploaded. 
 							Events::trigger('module_enabled', $slug);
 		
-							$this->session->set_flashdata('success', sprintf(lang('modules.install_success'), $slug));
+							$this->session->set_flashdata('success', sprintf(lang('addons:modules:install_success'), $slug));
 						}
 						else
 						{
-							$this->session->set_flashdata('notice', sprintf(lang('modules.install_error'), $slug));
+							$this->session->set_flashdata('notice', sprintf(lang('addons:modules:install_error'), $slug));
 						}
 					}
 					else
@@ -109,7 +116,7 @@ class Admin extends Admin_Controller
 		}
 
 		$this->template
-			->title($this->module_details['name'], lang('modules.upload_title'))
+			->title($this->module_details['name'], lang('addons:modules:upload_title'))
 			->build('admin/modules/upload');
 	}
 	
@@ -126,14 +133,14 @@ class Admin extends Admin_Controller
 
 		if ($this->module_m->uninstall($slug))
 		{
-			$this->session->set_flashdata('success', sprintf(lang('modules.uninstall_success'), $slug));
+			$this->session->set_flashdata('success', sprintf(lang('addons:modules:uninstall_success'), $slug));
 			
 			// Fire an event. A module has been disabled when uninstalled. 
 			Events::trigger('module_disabled', $slug);
 		}
 		else
 		{
-			$this->session->set_flashdata('error', sprintf(lang('modules.uninstall_error'), $slug));
+			$this->session->set_flashdata('error', sprintf(lang('addons:modules:uninstall_error'), $slug));
 		}
 
 		redirect('admin/addons/modules');
@@ -152,13 +159,13 @@ class Admin extends Admin_Controller
 		// Don't allow user to delete the entire module folder
 		if ($slug === '/' or $slug === '*' or empty($slug))
 		{
-			show_error(lang('modules.module_not_specified'));
+			show_error(lang('addons:modules:module_not_specified'));
 		}
 
 		// lets kill this thing
 		if ($this->module_m->uninstall($slug) and $this->module_m->delete($slug))
 		{
-			$this->session->set_flashdata('success', sprintf(lang('modules.delete_success'), $slug));
+			$this->session->set_flashdata('success', sprintf(lang('addons:modules:delete_success'), $slug));
 
 			$path = ADDONPATH.'modules/'.$slug;
 			
@@ -167,7 +174,7 @@ class Admin extends Admin_Controller
 			{
 				if (!$this->_delete_recursive($path))
 				{
-					$this->session->set_flashdata('notice', sprintf(lang('modules.manually_remove'), $path));
+					$this->session->set_flashdata('notice', sprintf(lang('addons:modules:manually_remove'), $path));
 				}
 			}
 
@@ -176,7 +183,7 @@ class Admin extends Admin_Controller
 		}
 		else
 		{
-			$this->session->set_flashdata('error', sprintf(lang('modules.delete_error'), $slug));
+			$this->session->set_flashdata('error', sprintf(lang('addons:modules:delete_error'), $slug));
 		}
 
 		redirect('admin/addons/modules');
@@ -199,11 +206,11 @@ class Admin extends Admin_Controller
 							
 			// Clear the module cache
 			$this->pyrocache->delete_all('module_m');
-			$this->session->set_flashdata('success', sprintf(lang('modules.install_success'), $slug));
+			$this->session->set_flashdata('success', sprintf(lang('addons:modules:install_success'), $slug));
 		}
 		else
 		{
-			$this->session->set_flashdata('error', sprintf(lang('modules.install_error'), $slug));
+			$this->session->set_flashdata('error', sprintf(lang('addons:modules:install_error'), $slug));
 		}
 
 		redirect('admin/addons/modules');
@@ -226,11 +233,11 @@ class Admin extends Admin_Controller
 			
 			// Clear the module cache
 			$this->pyrocache->delete_all('module_m');
-			$this->session->set_flashdata('success', sprintf(lang('modules.enable_success'), $slug));
+			$this->session->set_flashdata('success', sprintf(lang('addons:modules:enable_success'), $slug));
 		}
 		else
 		{
-			$this->session->set_flashdata('error', sprintf(lang('modules.enable_error'), $slug));
+			$this->session->set_flashdata('error', sprintf(lang('addons:modules:enable_error'), $slug));
 		}
 
 		redirect('admin/addons/modules');
@@ -253,11 +260,11 @@ class Admin extends Admin_Controller
 			
 			// Clear the module cache
 			$this->pyrocache->delete_all('module_m');
-			$this->session->set_flashdata('success', sprintf(lang('modules.disable_success'), $slug));
+			$this->session->set_flashdata('success', sprintf(lang('addons:modules:disable_success'), $slug));
 		}
 		else
 		{
-			$this->session->set_flashdata('error', sprintf(lang('modules.disable_error'), $slug));
+			$this->session->set_flashdata('error', sprintf(lang('addons:modules:disable_error'), $slug));
 		}
 
 		redirect('admin/addons/modules');
@@ -279,12 +286,12 @@ class Admin extends Admin_Controller
 			// Fire an event. A module has been upgraded. 
 			Events::trigger('module_upgraded', $slug);
 			
-			$this->session->set_flashdata('success', sprintf(lang('modules.upgrade_success'), $slug));
+			$this->session->set_flashdata('success', sprintf(lang('addons:modules:upgrade_success'), $slug));
 		}
 		// If upgrade failed
 		else
 		{
-			$this->session->set_flashdata('error', sprintf(lang('modules.upgrade_error'), $slug));
+			$this->session->set_flashdata('error', sprintf(lang('addons:modules:upgrade_error'), $slug));
 		}
 		
 		redirect('admin/addons/modules');
