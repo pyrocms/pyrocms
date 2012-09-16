@@ -1,5 +1,5 @@
 <section class="title">
-	<?php if ($this->method == 'create'): ?>
+	<?php if ($this->method === 'create'): ?>
 		<h4><?php echo lang('user_add_title');?></h4>
 		<?php echo form_open_multipart(uri_string(), 'class="crud" autocomplete="off"'); ?>
 	
@@ -93,7 +93,7 @@
 	</div>
 
 	<div class="buttons float-right padding-top">
-		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )); ?>
+		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'save_exit', 'cancel') )); ?>
 	</div>
 
 <?php echo form_close(); ?>
