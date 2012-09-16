@@ -101,54 +101,6 @@ class Module_Addons extends Module
 			);
 		}
 
-		// @TODO Convert these remaining language files to match arabic / english
-
-		// Modules
-		// 'br' => 'Módulos',
-		// 'pt' => 'Módulos',
-		// 'cs' => 'Moduly',
-		// 'da' => 'Moduler',
-		// 'de' => 'Module',
-		// 'el' => 'Πρόσθετα',
-		// 'es' => 'Módulos',
-		// 'fi' => 'Moduulit',
-		// 'fr' => 'Modules',
-		// 'he' => 'מודולים',
-		// 'id' => 'Modul',
-		// 'it' => 'Moduli',
-		// 'lt' => 'Moduliai',
-		// 'nl' => 'Modules',
-		// 'pl' => 'Moduły',
-		// 'ru' => 'Модули',
-		// 'sl' => 'Moduli',
-		// 'zh' => '模組',
-		// 'hu' => 'Modulok',
-		// 'th' => 'โมดูล',
-		// 'se' => 'Moduler',
-
-		// Themes 
-		// 'br' => 'Temas',
-		// 'pt' => 'Temas',
-		// 'cs' => 'Motivy vzhledu',
-		// 'da' => 'Temaer',
-		// 'de' => 'Themen',
-		// 'el' => 'Θέματα Εμφάνισης',
-		// 'es' => 'Temas',
-		// 'fi' => 'Teemat',
-		// 'fr' => 'Thèmes',
-		// 'he' => 'ערכות נושאים',
-		// 'id' => 'Tema',
-		// 'it' => 'Temi',
-		// 'lt' => 'Temos',
-		// 'nl' => 'Thema\'s',
-		// 'pl' => 'Motywy',
-		// 'ru' => 'Темы',
-		// 'sl' => 'Predloge',
-		// 'zh' => '佈景主題',
-		// 'th' => 'ธีม',
-		// 'hu' => 'Sablonok',
-		// 'se' => 'Teman',
-
 		return $info;
 	}
 

@@ -14,10 +14,10 @@ class Module_Widgets extends Module {
 		return array(
 			'name' => array(
 				'en' => 'Widgets',
-				'ar' => 'الودجت',
 				'br' => 'Widgets',
 				'pt' => 'Widgets',
 				'cs' => 'Widgety',
+				'da' => 'Widgets',
 				'de' => 'Widgets',
 				'el' => 'Widgets',
 				'es' => 'Widgets',
@@ -64,15 +64,15 @@ class Module_Widgets extends Module {
 
 			'sections' => array(
 			    'instances' => array(
-				    'name' => 'widgets:instances',
+				    'name' => 'widgets.instances',
 				    'uri' => 'admin/widgets',
 				),
 				'areas' => array(
-				    'name' => 'widgets:areas',
+				    'name' => 'widgets.areas',
 				    'uri' => 'admin/widgets/areas',
 				    'shortcuts' => array(
 						array(
-						    'name' => 'widgets:add_area',
+						    'name' => 'widgets.add_area',
 						    'uri' => 'admin/widgets/areas/create',
 						),
 				    ),

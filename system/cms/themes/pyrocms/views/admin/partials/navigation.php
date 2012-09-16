@@ -90,8 +90,12 @@
 		}
 		?>
 
-		<?php if (array_key_exists('settings', $this->permissions) or $this->current_user->group == 'admin'): ?>
-			<li><?php echo anchor('admin/settings', lang('cp_nav_settings'), 'class="top-link no-submenu' . (($this->module == 'settings') ? ' current"' : '"'));?></li>
+		<?php if (array_key_exists('settings', $this->permissions) or $this->current_user->group === 'admin'): ?>
+			<li><?php echo anchor('admin/settings', lang('cp_nav_settings'), 'class="top-link no-submenu' . (($this->module === 'settings') ? ' current"' : '"'));?></li>
+		<?php endif; ?>
+
+		<?php if (array_key_exists('addons', $this->permissions) or $this->current_user->group === 'admin'): ?>
+			<li><?php echo anchor('admin/addons', lang('cp_nav_addons'), 'class="top-link no-submenu' . (($this->module === 'addons') ? ' current"' : '"'));?></li>
 		<?php endif; ?>
 		
 		<?php
