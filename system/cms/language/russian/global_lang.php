@@ -17,6 +17,8 @@ $lang['desc_label']							= 'Описание';
 $lang['version_label']					= 'Версия';
 $lang['global:author']						= 'Автор';
 $lang['global:action']						= 'Действие';
+$lang['global:slug'] 					= 'Slug'; #translate
+$lang['global:slug_instructions']		= 'Lowercase characters and underscores only.'; #translate
 
 $lang['dialog.delete_message']	= 'Вы уверены, что хотите удалить? Это действие нельзя отменить.';
 $lang['dialog.confirm']					= 'Подтверждение';

@@ -376,7 +376,7 @@ jQuery(function($) {
 	}
 
 	// Create a clean slug from whatever garbage is in the title field
-	pyro.generate_slug = function(input_form, output_form, space_character)
+	pyro.generate_slug = function(input_form, output_form, space_character, disallow_dashes)
 	{
 		var slug, value;
 
@@ -384,8 +384,8 @@ jQuery(function($) {
 			value = $(input_form).val();
 
 			if ( ! value.length ) return;
-			
 			space_character = space_character || '-';
+			disallow_dashes = disallow_dashes || false;
 			var rx = /[a-z]|[A-Z]|[0-9]|[áàâąбćčцдđďéèêëęěфгѓíîïийкłлмñńňóôóпúùûůřšśťтвýыžżźзäæœчöøüшщßåяюжαβγδεέζηήθιίϊκλμνξοόπρστυύϋφχψωώ]/,
 				value = value.toLowerCase(),
 				chars = pyro.foreign_characters,
@@ -409,10 +409,19 @@ jQuery(function($) {
 		        	value = value.replace(new RegExp(search, 'g'), replace);
 		        };
 
+
+
 		        slug = value.replace(/[^-a-z0-9~\s\.:;+=_]/g, '')
 		        			.replace(/[\s\.:;=+]+/g, space_character)
 		        			.replace(space_regex, space_character)
 		        			.replace(space_regex_trim, '');
+
+		        // Remove the dashes if they are
+		        // not allowed.
+		       	if (disallow_dashes)
+		        {
+					slug = slug.replace(/-+/g, '_');
+		        }
 		    }
 
 			$(output_form).val(slug);

@@ -701,12 +701,15 @@ class MY_Form_validation extends CI_Form_validation
 	// --------------------------------------------------------------------------
 	
 	/**
-	 * Slug Safe
+	 * Streams Slug Safe
 	 *
-	 * Sees if a word is safe for the DB. Used for
-	 * stream_fields, etc.
+	 * 1. Sees if a word is safe for the DB. Used for
+	 * stream_fields, etc. Basically, we are checking to see if
+	 * a word is going to conflict with MySQL
 	 *
-	 * Used by Streams.
+	 * 2. Sees if a word is safe the Lex parser to
+	 * be used as a variable. The same variable rules for
+	 * PHP variables apply to Lex.
 	 *
 	 * @access 	public
 	 * @param 	string
@@ -717,14 +720,15 @@ class MY_Form_validation extends CI_Form_validation
 		// See if word is MySQL Reserved Word
 		if (in_array(strtoupper($string), $this->CI->config->item('streams:reserved')))
 		{
-			$this->set_message('slug_safe', lang('streams.not_mysql_safe_word'));
+			$this->set_message('streams_slug_safe', lang('streams.not_mysql_safe_word'));
 			return false;
 		}
-				
-		// See if there are no-no characters
-		if ( ! preg_match("/^([-a-z0-9_-])+$/i", $string))
+
+		// See if there are no-no characters. We are basically validating
+		// the string to make sure it can be used as a PHP/Lex variable.
+		if ( ! preg_match('/^[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*$/', $string))
 		{
-			$this->set_message('slug_safe', lang('streams.not_mysql_safe_characters'));
+			$this->set_message('streams_slug_safe', lang('streams.not_mysql_safe_characters'));
 			return false;
 		}
 		

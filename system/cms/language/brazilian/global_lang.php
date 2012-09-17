@@ -9,7 +9,8 @@ $lang['desc_label'] 					= 'Descrição';
 $lang['version_label'] 					= 'Versão';
 $lang['global:author'] 					= 'Autor';
 $lang['global:action'] 					= 'Ação';
-
+$lang['global:slug'] 					= 'Slug'; #translate
+$lang['global:slug_instructions']		= 'Lowercase characters and underscores only.'; #translate
 $lang['dialog.delete_message'] 			= 'Tem certeza de que deseja remover? Isto não pode ser desfeito.';
 $lang['dialog.confirm'] 				= 'Confirmar';
 $lang['dialog.yes'] 					= 'Sim';
