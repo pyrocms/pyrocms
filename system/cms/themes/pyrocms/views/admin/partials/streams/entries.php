@@ -1,8 +1,6 @@
-<?php $this->load->view('admin/partials/streams/filters'); ?>
-
 <?php if ($entries) { ?>
 
-    <table class="table-list" cellspacing="0">
+    <table class="table-list">
 		<thead>
 			<tr>
 				<?php if($stream->sorting == 'custom'): ?><th></th><?php endif; ?>
@@ -16,8 +14,6 @@
 		<?php foreach ($entries as $field => $data_item) { ?>
 
 			<tr>
-				<?php if($stream->sorting == 'custom'): ?><td width="30" class="handle"><?php echo Asset::img('icons/drag_handle.gif', 'Drag Handle'); ?></td><?php endif; ?>
-
 				<?php if(is_array($stream->view_options)): foreach( $stream->view_options as $view_option ): ?>
 				<td>
 				
