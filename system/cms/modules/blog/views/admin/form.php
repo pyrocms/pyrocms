@@ -1,5 +1,5 @@
 <section class="title">
-<?php if ($this->method === 'create'): ?>
+<?php if ($this->method == 'create'): ?>
 	<h4><?php echo lang('blog:create_title'); ?></h4>
 <?php else: ?>
 	<h4><?php echo sprintf(lang('blog:edit_title'), $post->title); ?></h4>
@@ -19,34 +19,43 @@
 	
 	<!-- Content tab -->
 	<div class="form_inputs" id="blog-content-tab">
-		
-		<fieldset>
+		<hr style="margin-top:0;">
 	
 		<ul>
 			<li>
-				<label for="title"><?php echo lang('global:title'); ?> <span>*</span></label>
-				<div class="input"><?php echo form_input('title', htmlspecialchars_decode($post->title), 'maxlength="200" id="title"'); ?></div>				
+				<div class="input">
+					<label for="title"><?php echo lang('global:title'); ?></label>
+					<?php echo form_input('title', htmlspecialchars_decode($post->title), 'maxlength="100" id="title"'); ?>
+					<span class="req">This field is required.</span>
+				</div>				
 			</li>
 			
 			<li>
-				<label for="slug"><?php echo lang('global:slug'); ?> <span>*</span></label>
-				<div class="input"><?php echo form_input('slug', $post->slug, 'maxlength="200" class="width-20"'); ?></div>
+				<div class="input">
+					<label for="slug"><?php echo lang('global:slug'); ?></label>
+					<?php echo form_input('slug', $post->slug, 'maxlength="100" class="width-20"'); ?>
+					<span class="req">This field is required.</span>
+				</div>
 			</li>
 			
 			<li>
 				<label for="status"><?php echo lang('blog:status_label'); ?></label>
 				<div class="input"><?php echo form_dropdown('status', array('draft' => lang('blog:draft_label'), 'live' => lang('blog:live_label')), $post->status) ?></div>
 			</li>
+
+			<hr>
 			
 			<li>
 				<label for="intro"><?php echo lang('blog:intro_label'); ?></label>
-				<br style="clear: both;" />
-				<?php echo form_textarea(array('id' => 'intro', 'name' => 'intro', 'value' => $post->intro, 'rows' => 5, 'class' => 'blog wysiwyg-simple')); ?>
+				<div class="one_full">
+					<?php echo form_textarea(array('id' => 'intro', 'name' => 'intro', 'value' => $post->intro, 'rows' => 5, 'class' => 'blog wysiwyg-simple')); ?>
+				</div>
 			</li>
+
+			<hr>
 			
 			<li class="editor">
-				<label for="body"><?php echo lang('blog:content_label'); ?></label>
-				
+				<label for="body"><?php echo lang('blog:content_label'); ?></label><br>
 				<div class="input">
 					<?php echo form_dropdown('type', array(
 						'html' => 'html',
@@ -56,22 +65,18 @@
 					), $post->type); ?>
 				</div>
 				
-				<br style="clear:both"/>
-				
 				<div class="one_full">
-				<?php echo form_textarea(array('id' => 'body', 'name' => 'body', 'value' => $post->body, 'rows' => 30, 'class' => $post->type)); ?>
+					<?php echo form_textarea(array('id' => 'body', 'name' => 'body', 'value' => $post->body, 'rows' => 30, 'class' => $post->type)); ?>
 				</div>
 			</li>
 		</ul>
         <?php echo form_hidden('preview_hash',$post->preview_hash)?>
-		</fieldset>
 		
 	</div>
 
 	<!-- Options tab -->
 	<div class="form_inputs" id="blog-options-tab">
-	
-		<fieldset>
+		<hr style="margin-top:0;">
 		
 		<ul>
 			<li>
@@ -113,8 +118,6 @@
 				</div>
 			</li>
 		</ul>
-
-		</fieldset>
 		
 	</div>
 
