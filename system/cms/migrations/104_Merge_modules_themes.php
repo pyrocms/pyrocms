@@ -38,7 +38,7 @@ class Migration_Merge_modules_themes extends CI_Migration
 			'skip_xss'		=> true,
 			'is_frontend'	=> false,
 			'is_backend'	=> true,
-			'menu'			=> null,
+			'menu'			=> false,
 			'enabled'		=> true,
 			'installed'		=> true,
 			'is_core'		=> true,
