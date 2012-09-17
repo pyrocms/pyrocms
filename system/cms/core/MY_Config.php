@@ -3,7 +3,9 @@
 /**
  * Extends the CodeIgniter Config class
  *
- * @package   PyroCMS\Core\Libraries
+ * @author      PyroCMS Dev Team
+ * @copyright   Copyright (c) 2012, PyroCMS LLC
+ * @package   	PyroCMS\Core\Libraries
  */
 class MY_Config extends CI_Config
 {

@@ -5,6 +5,7 @@
  * 
  * Code here is run before admin controllers
  * 
+ * @copyright   Copyright (c) 2012, PyroCMS LLC
  * @package PyroCMS\Core\Controllers
  */
 class Admin_Controller extends MY_Controller {

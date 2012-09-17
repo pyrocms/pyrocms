@@ -2,8 +2,9 @@
 /**
  * Code here is run before frontend controllers
  *
- * @author PyroCMS Dev Team
- * @package PyroCMS\Core\Controllers
+ * @author      PyroCMS Dev Team
+ * @copyright   Copyright (c) 2012, PyroCMS LLC
+ * @package 	PyroCMS\Core\Controllers
  */
 class Public_Controller extends MY_Controller
 {
@@ -104,7 +105,7 @@ class Public_Controller extends MY_Controller
 		// If there is a blog module, link to its RSS feed in the head
 		if (module_exists('blog'))
 		{
-			$this->template->append_metadata('<link rel="alternate" type="application/rss+xml" title="'.$this->settings->site_name.'" href="'.site_url('blog/rss/all.rss').'" />');
+			$this->template->append_metadata('<link rel="alternate" type="application/rss+xml" title="'.Settings::get('site_name').'" href="'.site_url('blog/rss/all.rss').'" />');
 		}
 
 		// Frontend data

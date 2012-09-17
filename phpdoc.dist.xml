@@ -3,13 +3,10 @@
 	<title>PyroCMS v2.2-dev API</title>
     <parser>
         <default-package-name>No Package</default-package-name>
-        <target>../docs.pyrocms.com/2.2/api/</target>
     </parser>
-    <transformer>
-        <target>../docs.pyrocms.com/2.2/api/</target>
-    </transformer>
     <files>
         <directory>.</directory>
+        <ignore>addons/*</ignore>
         <ignore>*/language/*</ignore>
         <ignore>*/codeigniter/*</ignore>
         <ignore>*/installer/*</ignore>
@@ -28,9 +25,5 @@
     </plugins>
     <logging>
         <level>warn</level>
-        <paths>
-            <default>../docs.pyrocms.com/2.2/api/log/{DATE}.log</default>
-            <errors>../docs.pyrocms.com/2.2/api/{DATE}.errors.log</errors>
-        </paths>
     </logging>
 </phpdoc>

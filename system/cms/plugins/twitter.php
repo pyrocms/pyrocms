@@ -21,12 +21,15 @@ class Plugin_Twitter extends Plugin
 	 *
 	 * Magic method to get a constant or global variable
 	 * 
-	 * Usage:
-	 *   {{ twitter:feed username="twitterusername" limit="5" }}
+	 * <code>
+	 *   {{ twitter:feed username="twitterusername" limit="1" }}
+	 *      {{ text }}
+	 *   {{ /twitter:feed }}
+	 * </code>
 	 * 
 	 * @return array The tweet objects in an array.
 	 */
-	function feed()
+	public function feed()
 	{
 		$username = $this->attribute('username');
 		$limit = $this->attribute('limit', 5);

@@ -4,6 +4,7 @@
  * The basic Ajax controller class.
  * 
  * @author      PyroCMS Dev Team
+ * @copyright   Copyright (c) 2012, PyroCMS LLC
  * @package     PyroCMS\Core\Controllers
  */
 class Ajax extends MY_Controller

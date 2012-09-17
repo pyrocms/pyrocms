@@ -1,21 +1,19 @@
-<section class="title">
-	<h4><?php echo lang('blog:posts_title'); ?></h4>
-</section>
+<div class="one_full">
+	<section class="title">
+		<h4><?php echo lang('blog_posts_title'); ?></h4>
+	</section>
 
-<section class="item">
+	<section class="item">
+		<?php if ($blog) : ?>
+			<?php echo $this->load->view('admin/partials/filters'); ?>
 
-	<?php template_partial('filters'); ?>
-
-	<?php echo form_open('admin/blog/action'); ?>
-
-		<div id="filter-stage">
-			<?php template_partial('tables/posts'); ?>
-		</div>
-
-		<div class="table_action_buttons">
-			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete', 'publish'))); ?>
-		</div>
-
-	<?php echo form_close(); ?>
-
-</section>
+			<?php echo form_open('admin/blog/action'); ?>
+				<div id="filter-stage">
+					<?php echo $this->load->view('admin/tables/posts'); ?>
+				</div>
+			<?php echo form_close(); ?>
+		<?php else : ?>
+			<div class="no_data"><?php echo lang('blog:currently_no_posts'); ?></div>
+		<?php endif; ?>
+	</section>
+</div>

@@ -8,7 +8,7 @@
 |
 */
 
-$mimes = array('hqx'	=>	array('application/mac-binhex40', 'application/mac-binhex', 'application/x-binhex40', 'application/x-mac-binhex40'),
+return array('hqx'	=>	array('application/mac-binhex40', 'application/mac-binhex', 'application/x-binhex40', 'application/x-mac-binhex40'),
 				'cpt'	=>	'application/mac-compactpro',
 				'csv'	=>	array('text/x-comma-separated-values', 'text/comma-separated-values', 'application/octet-stream', 'application/vnd.ms-excel', 'application/x-csv', 'text/x-csv', 'text/csv', 'text/plain', 'application/csv', 'application/excel', 'application/vnd.msexcel'),
 				'bin'	=>	array('application/macbinary', 'application/mac-binary', 'application/octet-stream', 'application/x-binary', 'application/x-macbinary'),
@@ -29,8 +29,8 @@ $mimes = array('hqx'	=>	array('application/mac-binhex40', 'application/mac-binhe
 				'smi'	=>	'application/smil',
 				'smil'	=>	'application/smil',
 				'mif'	=>	'application/vnd.mif',
-				'xls'	=>	array('application/excel', 'application/vnd.ms-excel', 'application/msexcel'),
-				'ppt'	=>	array('application/powerpoint', 'application/vnd.ms-powerpoint'),
+				'xls'	=>	array('application/excel', 'application/vnd.ms-excel', 'application/msexcel', 'application/vnd.ms-office'),
+				'ppt'	=>	array('application/powerpoint', 'application/vnd.ms-powerpoint', 'application/vnd.ms-office'),
 				'pptx'	=>	'application/vnd.openxmlformats-officedocument.presentationml.presentation',
 				'wbxml'	=>	'application/wbxml',
 				'wmlc'	=>	'application/wmlc',
@@ -134,6 +134,8 @@ $mimes = array('hqx'	=>	array('application/mac-binhex40', 'application/mac-binhe
 				'ac3'   =>	'audio/ac3',
 				'flac'  =>	'audio/x-flac',
 				'ogg'   =>	'audio/ogg',
+				'pages' =>      'application/zip',
+				'numbers' =>    'application/zip',
 			);
 
 

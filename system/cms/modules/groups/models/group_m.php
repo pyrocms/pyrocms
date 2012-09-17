@@ -76,7 +76,7 @@ class Group_m extends MY_Model
 	 * @param array $input The data to insert
 	 * @return array
 	 */
-	public function insert($input = array())
+	public function insert($input = array(), $skip_validation = false)
 	{
 		return parent::insert(array(
 			'name'			=> $input['name'],
@@ -92,7 +92,7 @@ class Group_m extends MY_Model
 	 * @param array $input The data to update
 	 * @return array
 	 */
-	public function update($id = 0, $input = array())
+	public function update($id = 0, $input = array(), $skip_validation = false)
 	{
 		return parent::update($id, array(
 			'name'			=> $input['name'],

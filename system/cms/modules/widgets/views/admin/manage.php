@@ -6,7 +6,7 @@
 	<?php echo form_open(uri_string(), 'class="crud"'); ?>
 	<!-- Available Widget List -->
 
-	<table border="0" id="widgets-list" class="table-list">
+	<table border="0" id="widgets-list" class="table-list" cellspacing="0">
 		<thead>
 		<tr>
 			<th width="30"></th>

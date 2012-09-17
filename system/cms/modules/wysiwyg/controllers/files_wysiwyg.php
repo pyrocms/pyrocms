@@ -15,6 +15,8 @@ class Files_wysiwyg extends WYSIWYG_Controller {
 
 	public function index($id = 0)
 	{
+		$data = new stdClass();
+
 		$data->folders			= $this->file_folders_m->get_folders();
 		$data->subfolders		= array();
 		$data->current_folder	= $id && isset($data->folders[$id])

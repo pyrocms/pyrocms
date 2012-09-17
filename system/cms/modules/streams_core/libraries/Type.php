@@ -204,7 +204,7 @@ class Type
 			// Fallback on English
 			if ( ! is_dir($path.$type.'/language/'.$lang)) $lang = 'english';
 
-			$this->CI->lang->load($type, $lang, false, true, $path.$type.'/');
+			$this->CI->lang->load($type.'_lang', $lang, false, false, $path.$type.'/');
 			
 			unset($lang);
 		}

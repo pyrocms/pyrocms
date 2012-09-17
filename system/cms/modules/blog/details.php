@@ -74,7 +74,7 @@ class Module_Blog extends Module {
 						array(
 					 	   'name' => 'blog:create_title',
 						    'uri' => 'admin/blog/create',
-						    'class' => 'add'
+						    'class' => 'add',
 						),
 					),
 				),
@@ -85,7 +85,7 @@ class Module_Blog extends Module {
 						array(
 						    'name' => 'cat_create_title',
 						    'uri' => 'admin/blog/categories/create',
-						    'class' => 'add'
+						    'class' => 'add',
 						),
 				    ),
 			    ),
@@ -98,7 +98,7 @@ class Module_Blog extends Module {
 		$this->dbforge->drop_table('blog_categories');
 		$this->dbforge->drop_table('blog');
 
-		$tables = array(
+		return $this->install_tables(array(
 			'blog_categories' => array(
 				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true),
 				'slug' => array('type' => 'VARCHAR', 'constraint' => 100, 'null' => false, 'unique' => true, 'key' => true),
@@ -106,8 +106,8 @@ class Module_Blog extends Module {
 			),
 			'blog' => array(
 				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true),
-				'title' => array('type' => 'VARCHAR', 'constraint' => 100, 'null' => false, 'unique' => true),
-				'slug' => array('type' => 'VARCHAR', 'constraint' => 100, 'null' => false),
+				'title' => array('type' => 'VARCHAR', 'constraint' => 200, 'null' => false, 'unique' => true),
+				'slug' => array('type' => 'VARCHAR', 'constraint' => 200, 'null' => false),
 				'category_id' => array('type' => 'INT', 'constraint' => 11, 'key' => true),
 				'attachment' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => ''),
 				'intro' => array('type' => 'TEXT'),
@@ -122,9 +122,7 @@ class Module_Blog extends Module {
 				'type' => array('type' => 'SET', 'constraint' => array('html', 'markdown', 'wysiwyg-advanced', 'wysiwyg-simple')),
                 'preview_hash' => array('type' => 'CHAR', 'constraint' => 32,'default'=>''),
 			),
-		);
-
-		return $this->install_tables($tables);
+		));
 	}
 
 	public function uninstall()

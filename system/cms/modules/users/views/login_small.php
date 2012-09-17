@@ -4,11 +4,11 @@
 <?php endif; ?>
 <ul>
 	<li class="email">
-		<label for="email"><?php echo lang('user_email'); ?></label>
+		<label for="email"><?php echo lang('global:email'); ?></label>
 		<input type="text" id="email" name="email" maxlength="120" />
 	</li>
 	<li class="pword">
-		<label for="password"><?php echo lang('user_password'); ?></label>
+		<label for="password"><?php echo lang('global:password'); ?></label>
 		<input type="password" id="password" name="password" maxlength="20" />
 	</li>
 	<li class="form-buttons">

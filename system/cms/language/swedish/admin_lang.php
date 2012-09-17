@@ -31,11 +31,11 @@ $lang['cp_contact_support'] 			= 'Support';
 $lang['cp_nav_settings']				= 'Inställningar';
 $lang['cp_nav_addons']					= 'Add-ons';
 $lang['cp_nav_modules']					= 'Moduler';
-$lang['cp_nav_widgets']					= 'Widgetar';
 $lang['cp_nav_users']					= 'Användare';
-$lang['cp_nav_design']					= 'Design';
 $lang['cp_nav_content']					= 'Innehåll';
-$lang['cp_nav_utilities']				= 'Övrigt';
+$lang['cp_nav_data']					= 'Data'; #translate
+$lang['cp_nav_structure']				= 'Structure'; #translate
+$lang['cp_nav_misc']					= 'Miscellaneous'; #translate
 
 $lang['cp_must_login']	 				= 'Du måste vara inloggad för att kunna se sidan.';
 $lang['cp_access_denied'] 				= 'Du har inte rättigheter att se sidan.';

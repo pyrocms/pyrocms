@@ -81,7 +81,6 @@ class Ion_auth
 	 * __construct
 	 *
 	 * @return void
-	 * @author Mathew
 	 **/
 	public function __construct()
 	{
@@ -116,12 +115,12 @@ class Ion_auth
 	 **/
 	public function __call($method, $arguments)
 	{
-		if( !method_exists( $this->ci->ion_auth_model, $method) )
+		if ( ! method_exists( $this->ci->ion_auth_model, $method))
 		{
 			throw new Exception('Undefined method Ion_auth::' . $method . '() called');
 		}
 
-		return call_user_func_array( array($this->ci->ion_auth_model, $method), $arguments);
+		return call_user_func_array(array($this->ci->ion_auth_model, $method), $arguments);
 	}
 
 	/**

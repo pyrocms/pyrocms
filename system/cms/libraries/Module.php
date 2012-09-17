@@ -4,9 +4,9 @@
  *
  * This class should be extended to allow for module management.
  *
- * @author		Dan Horrigan <dan@dhorrigan.com>
- * @author		PyroCMS Dev Team
  * @package		PyroCMS\Core\Libraries
+ * @author		PyroCMS Dev Team
+ * @copyright   Copyright (c) 2012, PyroCMS LLC
  */
 abstract class Module {
 

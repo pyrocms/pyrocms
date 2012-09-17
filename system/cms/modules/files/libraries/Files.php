@@ -190,10 +190,8 @@ class Files
 		$folders = array();
 		$folder_array = array();
 
-		$all_folders = ci()->file_folders_m
-			->select('id, parent_id, slug, name')
-			->order_by('sort')
-			->get_all();
+		ci()->db->select('id, parent_id, slug, name')->order_by('sort');
+		$all_folders = ci()->file_folders_m->get_all();
 
 		// we must reindex the array first
 		foreach ($all_folders as $row)
@@ -341,8 +339,6 @@ class Files
 
 		if ($folder)
 		{
-			ci()->load->library('upload');
-
 			$upload_config = array(
 				'upload_path'	=> self::$path,
 				'file_name'		=> self::$_filename,
@@ -350,10 +346,10 @@ class Files
 			);
 
 			// If we don't have allowed types set, we'll set it to the
-			// current file's type if allowed in the config file.
+			// current file's type.
 			$upload_config['allowed_types'] = ($allowed_types) ? $allowed_types : self::$_ext;
 
-			ci()->upload->initialize($upload_config);
+			ci()->load->library('upload', $upload_config);
 
 			if (ci()->upload->do_upload($field))
 			{

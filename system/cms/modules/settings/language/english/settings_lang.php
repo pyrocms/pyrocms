@@ -98,7 +98,7 @@ $lang['settings_akismet_api_key']				= 'Akismet API Key';
 $lang['settings_akismet_api_key_desc']			= 'Akismet is a spam-blocker from the WordPress team. It keeps spam under control without forcing users to get past human-checking CAPTCHA forms.';
 
 $lang['settings_comment_order']					= 'Comment Order';
-$lang['settings_comment_order_desc']			= 'Sort order in which to display comments.';
+$lang['settings_comment_order_desc']			= 'Sort order in which to display comments:';
 
 $lang['settings_enable_comments'] 				= 'Enable Comments';
 $lang['settings_enable_comments_desc']			= 'Allow users to post comments?';

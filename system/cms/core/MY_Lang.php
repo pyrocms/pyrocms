@@ -2,8 +2,9 @@
 /**
  * The Language Handler Library.
  * 
- * @author PyroCMS Dev Team
- * @package PyroCMS\Core\Libraries 
+ * @author      PyroCMS Dev Team
+ * @copyright   Copyright (c) 2012, PyroCMS LLC
+ * @package 	PyroCMS\Core\Libraries 
  */
 require APPPATH."libraries/MX/Lang.php";
 
