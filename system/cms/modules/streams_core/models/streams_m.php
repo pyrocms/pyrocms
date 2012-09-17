@@ -268,7 +268,7 @@ class Streams_m extends MY_Model {
 		// See if the stream slug is different
 		$stream = $this->get_stream($stream_id);
 		
-		if ($stream->stream_slug != $data['stream_slug'] or $stream->stream_prefix != $data['stream_prefix'])
+		if ($stream->stream_slug != $data['stream_slug'] or (isset($data['stream_prefix']) and $stream->stream_prefix != $data['stream_prefix']))
 		{
 			// Use the right DB prefix
 			if (isset($data['stream_prefix']))
