@@ -545,10 +545,14 @@ class Admin extends Admin_Controller
 		return $this->blog_m->check_exists('slug', $slug, $id);
 	}
 
+	/**
+	 * Generate a preview hash
+	 * 
+	 * @param string slug The Slug to check
+	 * @return bool
+	 */
     private function _preview_hash()
     {
-
         return md5(microtime() + mt_rand(0,1000));
-
     }
 }
