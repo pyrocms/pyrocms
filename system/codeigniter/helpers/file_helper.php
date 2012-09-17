@@ -32,7 +32,7 @@
  * @subpackage	Helpers
  * @category	Helpers
  * @author		EllisLab Dev Team
- * @link		http://codeigniter.com/user_guide/helpers/file_helpers.html
+ * @link		http://codeigniter.com/user_guide/helpers/file_helper.html
  */
 
 // ------------------------------------------------------------------------
@@ -47,6 +47,7 @@ if ( ! function_exists('read_file'))
 	 * This function is DEPRECATED and should be removed in
 	 * CodeIgniter 3.1+. Use file_get_contents() instead.
 	 *
+	 * @deprecated
 	 * @param	string	path to file
 	 * @return	string
 	 */
@@ -123,7 +124,7 @@ if ( ! function_exists('delete_files'))
 				{
 					delete_files($path.DIRECTORY_SEPARATOR.$filename, $del_dir, $level + 1, $htdocs);
 				}
-				elseif ($htdocs === FALSE OR ($htdocs === TRUE && ! preg_match('/^(\.htaccess|index\.(html|htm|php)|web\.config)$/i', $filename)))
+				elseif ($htdocs !== TRUE OR ! preg_match('/^(\.htaccess|index\.(html|htm|php)|web\.config)$/i', $filename))
 				{
 					@unlink($path.DIRECTORY_SEPARATOR.$filename);
 				}
