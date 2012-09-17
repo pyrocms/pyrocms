@@ -44,6 +44,10 @@ class Admin extends Admin_Controller
 		// Set the validation rules
 		$this->validation_rules = array(
 			array(
+				'field' => 'redirect',
+				'label' => ''
+			),
+			array(
 				'field' => 'email',
 				'label' => lang('global:email'),
 				'rules' => 'required|callback__check_login'
@@ -62,12 +66,23 @@ class Admin extends Admin_Controller
 		// If the validation worked, or the user is already logged in
 		if ($this->form_validation->run() OR $this->ion_auth->logged_in())
 		{
-			redirect('admin');
+			// Go to the redirect if any
+			if ( $this->input->post('redirect') )
+			{
+				redirect($this->input->post('redirect'));
+			}
+			else
+			{
+				redirect('admin');
+			}
 		}
+
+		// Save this for the form
+		$data['redirect'] = $this->input->post('redirect');
 
 		$this->template
 			->set_layout(FALSE)
-			->build('admin/login');
+			->build('admin/login', $data);
 	}
 
 	/**

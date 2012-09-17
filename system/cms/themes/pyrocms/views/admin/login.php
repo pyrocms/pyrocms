@@ -42,6 +42,7 @@
 		</header>
 		
 		<?php echo form_open('admin/login'); ?>
+			<input type="hidden" name="redirect" value="<?php echo $this->session->flashdata('redirect') ? $this->session->flashdata('redirect') : $redirect; ?>" />
 			<ul>
 				<li>
 					<input type="text" name="email" placeholder="<?php echo lang('global:email'); ?>" />

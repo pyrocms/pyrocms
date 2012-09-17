@@ -99,6 +99,8 @@ class Admin_Controller extends MY_Controller {
 
 		if ( ! $this->current_user)
 		{
+			// Save where we were heading
+			$this->session->set_flashdata('redirect', $_SERVER['PATH_INFO']);
 			redirect('admin/login');
 		}
 
