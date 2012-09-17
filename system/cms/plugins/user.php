@@ -284,13 +284,14 @@ class Plugin_User extends Plugin
 		if(array_key_exists($var, $this->ion_auth_model->user_stream_fields))
 		{
 			$formatted_column = $this->row_m->format_column(
-												$var,
-												$user[$var],
-												$user['profile_id'],
-												$this->ion_auth_model->user_stream_fields->{$var}->field_type,
-												$this->ion_auth_model->user_stream_fields->{$var}->field_data,
-												$this->ion_auth_model->user_stream,
-												true);
+				$var,
+				$user[$var],
+				$user['profile_id'],
+				$this->ion_auth_model->user_stream_fields->{$var}->field_type,
+				$this->ion_auth_model->user_stream_fields->{$var}->field_data,
+				$this->ion_auth_model->user_stream,
+				true
+			);
 		}
 		else
 		{
@@ -323,8 +324,13 @@ class Plugin_User extends Plugin
 	 * @param	string
 	 * @return	string
 	 */
-	function __call($name, $data)
+	public function __call($name, $data)
 	{
+		if (in_array($name, array('password', 'salt')))
+		{
+			return;
+		}
+
 		$user_id = $this->attribute('user_id', null);
 
 		// If we do not have a user id and there is
