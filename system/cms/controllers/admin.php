@@ -77,12 +77,10 @@ class Admin extends Admin_Controller
 			}
 		}
 
-		// Save this for the form
-		$data['redirect'] = $this->input->post('redirect');
-
 		$this->template
 			->set_layout(FALSE)
-			->build('admin/login', $data);
+			->set('redirect', $this->input->post('redirect'))
+			->build('admin/login');
 	}
 
 	/**
