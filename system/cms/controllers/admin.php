@@ -69,7 +69,7 @@ class Admin extends Admin_Controller
 			// Go to the redirect if any
 			if ( $this->input->post('redirect') )
 			{
-				redirect($this->input->post('redirect'));
+				redirect(str_replace('://', '', $this->input->post('redirect')));
 			}
 			else
 			{
