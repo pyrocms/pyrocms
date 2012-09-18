@@ -174,10 +174,16 @@ class Fields
 		// -------------------------------------
 		
 		$result_id = '';
-				
+	
+		// If we have multiple forms with multiple streams, we can make sure
+		// we are addressing the correct form input by a stream_id hidden input.
 		$stream_check = (isset($_POST['stream_id']) and $_POST['stream_id'] != $stream->id) ? false : true;
 
-		if (($this->CI->form_validation->run() === true) and ($stream_check))
+		// If we have multiple edit forms of the same stream, we can specify
+		// the correct one by the row.
+		$row_check = ($method == 'edit' and isset($_POST['row_edit_id']) and $_POST['row_edit_id'] != $row->id) ? false : true;
+
+		if (($this->CI->form_validation->run() === true) and $stream_check and $row_check)
 		{
 			if ($method == 'new')
 			{
@@ -222,7 +228,7 @@ class Fields
 					// Send Emails
 					// -------------------------------------
 					
-					if ($plugin AND (isset($extra['email_notifications']) AND is_array($extra['email_notifications'])))
+					if ($plugin and (isset($extra['email_notifications']) and is_array($extra['email_notifications'])))
 					{
 						foreach($extra['email_notifications'] as $notify)
 						{
