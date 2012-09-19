@@ -307,7 +307,7 @@ class Pages extends Public_Controller
 
 		if ( ! empty($children))
 		{
-			$this->load->helper(array('date', 'xml'));
+			$this->load->helper('xml');
 
 
 			foreach ($children as &$row)

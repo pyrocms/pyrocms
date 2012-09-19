@@ -50,7 +50,7 @@ class Rss extends Public_Controller
 		$this->data->rss->encoding = $this->config->item('charset');
 		$this->data->rss->feed_name = $this->settings->get('site_name');
 		$this->data->rss->feed_url = base_url();
-		$this->data->rss->page_description = sprintf($this->lang->line('blog_rss_posts_title'), $this->settings->get('site_name'));
+		$this->data->rss->page_description = sprintf($this->lang->line('blog:rss_posts_title'), $this->settings->get('site_name'));
 		$this->data->rss->page_language = 'en-gb';
 		$this->data->rss->creator_email = $this->settings->get('contact_email');
 		

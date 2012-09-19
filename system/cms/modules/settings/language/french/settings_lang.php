@@ -100,7 +100,7 @@ $lang['settings_akismet_api_key_desc'] 			= 'Askimet est un anti-spam crée par 
 $lang['settings_comment_order'] 				= 'Ordre d\'affichage';
 $lang['settings_comment_order_desc']			= 'Ordre dans lequel afficher les commentaires.';
 
-$lang['settings_enable_comments'] 				= 'Activer les commentairesEnable Comments';
+$lang['settings_enable_comments'] 				= 'Activer les commentaires';
 $lang['settings_enable_comments_desc']			= 'Autoriser les utilisateurs à poster des commentaires&nbsp;?';
 
 $lang['settings_moderate_comments'] 			= 'Modérer les commentaires';
@@ -158,9 +158,6 @@ $lang['settings_form_option_Text Only']			= 'Texte seulement';
 $lang['settings_form_option_Allow Markdown']	= 'Autoriser Markdown';
 $lang['settings_form_option_Yes']				= 'Oui';
 $lang['settings_form_option_No']				= 'Non';
-
-// titles
-$lang['settings_edit_title'] 					= 'Modifier les paramètres';
 
 // messages
 $lang['settings_no_settings']					= 'Il n\'y a aucun paramétrages actuellement.';

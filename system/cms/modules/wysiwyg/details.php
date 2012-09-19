@@ -17,13 +17,13 @@ class Module_WYSIWYG extends Module
 			'name' => array(
 				'en' => 'WYSIWYG',
 				'pt' => 'WYSIWYG',
-                                'se' => 'HTML-redigerare'
+				'se' => 'HTML-redigerare'
 			),
 			'description' => array(
 				'en' => 'Provides the WYSIWYG editor for PyroCMS powered by CKEditor.',
 				'pt' => 'Fornece o editor WYSIWYG para o PyroCMS, powered by CKEditor.',
 				'el' => 'Παρέχει τον επεξεργαστή WYSIWYG για το PyroCMS, χρησιμοποιεί το CKEDitor.',
-                                'se' => 'Redigeringsmodul för HTML, CKEditor.'
+				'se' => 'Redigeringsmodul för HTML, CKEditor.'
 			),
 			'frontend' => false,
 			'backend' => false,

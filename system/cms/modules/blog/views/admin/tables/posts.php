@@ -1,4 +1,4 @@
-	<table border="0" class="table-list">
+	<table cellspacing="0">
 		<thead>
 			<tr>
 				<th width="20"><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all')); ?></th>
@@ -7,7 +7,7 @@
 				<th class="collapse"><?php echo lang('blog:date_label'); ?></th>
 				<th class="collapse"><?php echo lang('blog:written_by_label'); ?></th>
 				<th><?php echo lang('blog:status_label'); ?></th>
-				<th width="180"></th>
+				<th width="180">Actions</th>
 			</tr>
 		</thead>
 		<tfoot>
@@ -32,20 +32,20 @@
 					<?php endif; ?>
 					</td>
 					<td><?php echo lang('blog:'.$post->status.'_label'); ?></td>
-					<td>
-
+					<td style="padding-top:10px;">
                         <?php if($post->status=='live') : ?>
-                            <?php echo anchor('blog/' . date('Y/m',$post->created_on). '/'. $post->slug, lang('global:view'), 'class="btn green" target="_blank"');?>
+                            <?php echo anchor('blog/' . date('Y/m', $post->created_on). '/'. $post->slug, lang('global:view'), 'class="icon-search ti" target="_blank" style="margin-right:8px;"');?>
                         <?php else: ?>
-                            <?php echo anchor('blog/preview/' . $post->preview_hash, lang('global:preview'), 'class="btn green" target="_blank"');?>
+                            <?php echo anchor('blog/preview/' . $post->preview_hash, lang('global:preview'), 'class="icon-search ti" target="_blank" style="margin-right:8px;"');?>
                         <?php endif; ?>
-						<?php echo anchor('admin/blog/edit/' . $post->id, lang('global:edit'), 'class="btn orange edit"'); ?>
-						<?php echo anchor('admin/blog/delete/' . $post->id, lang('global:delete'), array('class'=>'confirm btn red delete')); ?>
+						<?php echo anchor('admin/blog/edit/' . $post->id, lang('global:edit'), 'class="icon-edit edit ti" style="margin-right:6px;"'); ?>
+						<?php echo anchor('admin/blog/delete/' . $post->id, lang('global:delete'), array('class'=>'icon-remove confirm delete ti')); ?>
 					</td>
 				</tr>
 			<?php endforeach; ?>
 		</tbody>
 	</table>
-<?php else: ?>
-	<div class="no_data"><?php echo lang('blog:currently_no_posts'); ?></div>
-<?php endif; ?>
+
+	<div class="table_action_buttons">
+		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete', 'publish'))); ?>
+	</div>

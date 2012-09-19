@@ -1,0 +1,190 @@
+/**
+ * Forms
+ */
+form 
+{ 
+	margin: 0; 
+}
+form ul 
+{ 
+	margin: 5px 0 5px 0; 
+	padding: 0; 
+}
+form ul li 
+{ 
+	list-style: none; 
+}
+fieldset 
+{ 
+	border: 1px solid rgba(0, 0, 0, 0.2); 
+	margin: 0 0 15px 0; 
+	padding: 25px;
+}
+fieldset ul 
+{ 
+	margin: 0; 
+	padding: 0;
+}
+fieldset ul li 
+{ 
+	list-style: none; 
+}
+/**
+ * Indicate that 'label' will shift focus 
+ * to the associated form element 
+ */
+label 
+{ 
+	cursor: pointer; 
+	font-size: 14px; 
+	font-weight: 200; 
+}
+legend 
+{ 
+	border: 0; 
+	padding: 0; 
+	margin-left: 5px; 
+	font-size: 18px; 
+	font-weight: bold; 
+}
+button, 
+input, 
+select, 
+textarea 
+{ 
+	font-size: 13px; 
+	margin: 5px 0; 
+	vertical-align: baseline; 
+	*vertical-align: middle;
+}
+button,
+input[type="reset"],
+input[type="submit"],
+input[type="button"] 
+{
+  	-webkit-appearance: none;
+  	border-radius: 3px;
+  	background: #dddddd;
+  	background-image: -khtml-gradient(linear, left top, left bottom, from(#ffffff), to(#dddddd));
+  	background-image: -moz-linear-gradient(#ffffff, #dddddd);
+  	background-image: -ms-linear-gradient(#ffffff, #dddddd);
+  	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(100%, #dddddd));
+  	background-image: -webkit-linear-gradient(#ffffff, #dddddd);
+  	background-image: -o-linear-gradient(#ffffff, #dddddd);
+  	background-image: linear-gradient(#ffffff, #dddddd);
+  	border: none;
+  	cursor: pointer;
+  	font-weight: bold;
+  	outline: 0;
+  	overflow: visible;
+  	padding: 3px 10px;
+  	width: auto;
+  	-webkit-transition: 250ms linear all;
+  	-moz-transition: 250ms linear all;
+  	transition: 250ms linear all;
+}
+input[type="text"], 
+input[type="password"], 
+textarea 
+{
+	background: #f9f9f9;
+	margin-top: 0;
+	margin-bottom: 5px;
+	padding: 6px 5px;
+	border-radius: 2px;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1) inset;
+}
+input[type="file"] 
+{
+	padding: 5px;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	border-radius: 2px;
+}
+input[type="text"],
+input[type="password"],
+input[type="file"],
+textarea
+{
+	-webkit-transition: 250ms linear all; 
+	-moz-transition: 250ms linear all; 
+	transition: 250ms linear all; 
+}
+input[type="text"]:focus, 
+input[type="password"]:focus, 
+input[type="file"]:focus,
+textarea:focus
+{
+	background: #ffffff;
+	border: 1px solid #ff5c00;
+	box-shadow: 0 0 5px #ff5c00;
+}
+textarea 
+{
+	min-height: 100px;
+	margin-bottom: 10px;
+}
+input.blue,
+textarea.blue
+{ 
+	border: 1px solid #2daebf;
+	box-shadow: 0 0 5px #2daebf;
+}
+input.orange,
+textarea.orange
+{ 
+	border: 1px solid #ff5c00;
+	box-shadow: 0 0 5px #ff5c00;
+}
+input.red,
+textarea.red
+{ 
+	border: 1px solid #ff2b25;
+	box-shadow: 0 0 5px #ff2b25;
+}
+input.green,
+textarea.green
+{ 
+	border: 1px solid #91bd09;
+	box-shadow: 0 0 5px #91bd09;
+}
+label.blue,
+label.orange,
+label.red,
+label.green
+{
+	width: 100%;
+	font-size: 12px;
+	font-weight: normal;
+	float: left;
+	margin: 0 0 5px 2px;
+}
+label.blue
+{
+	color: #2daebf;
+}
+label.orange
+{
+	color: #ff5c00;
+}
+label.red
+{
+	color: #ff2b25;
+}
+label.green
+{
+	color: #91bd09;
+}
+/** 
+ * Colors for form validity 
+ */
+input:valid, 
+textarea:valid 
+{  
+}
+input:invalid, 
+textarea:invalid 
+{ 
+	background-color: #f0dddd; 
+}
+/* @end Forms */

@@ -219,7 +219,9 @@ class Admin extends Admin_Controller
 
 				// Set the flashdata message and redirect
 				$this->session->set_flashdata('success', $this->ion_auth->messages());
-				redirect('admin/users');
+
+				// Redirect back to the form or main page
+				$this->input->post('btnAction') === 'save_exit' ? redirect('admin/users') : redirect('admin/users/edit/'.$user_id);
 			}
 			// Error
 			else
@@ -233,7 +235,7 @@ class Admin extends Admin_Controller
 			// re-add all data upon an error
 			if ($_POST)
 			{
-				$member = (object)$_POST;
+				$member = (object) $_POST;
 			}
 		}
 
@@ -272,7 +274,7 @@ class Admin extends Admin_Controller
 			$this->session->set_flashdata('error', lang('user_edit_user_not_found_error'));
 			redirect('admin/users');
 		}
-
+		
 		// Check to see if we are changing usernames
 		if ($member->username != $this->input->post('username'))
 		{
@@ -362,21 +364,22 @@ class Admin extends Admin_Controller
 				$this->session->set_flashdata('error', $this->ion_auth->errors());
 			}
 
-			redirect('admin/users');
+			// Redirect back to the form or main page
+			$this->input->post('btnAction') === 'save_exit' ? redirect('admin/users') : redirect('admin/users/edit/'.$id);
 		}
 		else
 		{
 			// Dirty hack that fixes the issue of having to re-add all data upon an error
 			if ($_POST)
 			{
-				$member = (object)$_POST;
+				$member = (object) $_POST;
 			}
 		}
 
 		// Loop through each validation rule
 		foreach ($this->validation_rules as $rule)
 		{
-			if ($this->input->post($rule['field']) !== false)
+			if ($this->input->post($rule['field']) !== null)
 			{
 				$member->{$rule['field']} = set_value($rule['field']);
 			}

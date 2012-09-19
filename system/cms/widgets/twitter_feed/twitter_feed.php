@@ -18,6 +18,7 @@ class Widget_Twitter_feed extends Widgets
 	public $title = array(
 		'en' => 'Twitter Feed',
 		'el' => 'Ροή Twitter',
+            'fr' => 'Flux Twitter',
 		'nl' => 'Twitterfeed',
 		'br' => 'Feed do Twitter',
 		'pt' => 'Feed do Twitter',
@@ -34,6 +35,7 @@ class Widget_Twitter_feed extends Widgets
 	public $description = array(
 		'en' => 'Display Twitter feeds on your website',
 		'el' => 'Προβολή των τελευταίων tweets από το Twitter',
+            'fr' => 'Afficher les flux Twitter sur votre site Internet',
 		'nl' => 'Toon Twitterfeeds op uw website',
 		'br' => 'Mostra os últimos tweets de um usuário do Twitter no seu site.',
 		'pt' => 'Mostra os últimos tweets de um utilizador do Twitter no seu site.',

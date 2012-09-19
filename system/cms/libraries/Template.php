@@ -53,7 +53,7 @@ class Template
 	 *
 	 * The constructor can be passed an array of config values
 	 */
-	function __construct($config = array())
+	public function __construct($config = array())
 	{
 		$this->_ci =& get_instance();
 
@@ -70,11 +70,10 @@ class Template
 	/**
 	 * Initialize preferences
 	 *
-	 * @access	public
 	 * @param	array	$config
 	 * @return	void
 	 */
-	function initialize($config = array())
+	public function initialize($config = array())
 	{
 		foreach ($config as $key => $val)
 		{
@@ -123,7 +122,6 @@ class Template
 	 * Set the module manually. Used when getting results from
 	 * another module with Modules::run('foo/bar')
 	 *
-	 * @access	public
 	 * @param	string	$module The module slug
 	 * @return	mixed
 	 */
@@ -139,7 +137,6 @@ class Template
 	/**
 	 * Magic Get function to get data
 	 *
-	 * @access	public
 	 * @param	string	$name
 	 * @return	mixed
 	 */
@@ -153,7 +150,6 @@ class Template
 	/**
 	 * Magic Set function to set data
 	 *
-	 * @access	public
 	 * @param	string	$name
 	 * @param	mixed	$value
 	 * @return	mixed
@@ -168,7 +164,6 @@ class Template
 	/**
 	 * Set data using a chainable metod. Provide two strings or an array of data.
 	 *
-	 * @access	public
 	 * @param	string	$name
 	 * @param	mixed	$value
 	 * @return	object	$this
@@ -198,7 +193,6 @@ class Template
 	/**
 	 * Build the entire HTML output combining partials, layouts and views.
 	 *
-	 * @access	public
 	 * @param	string	$view
 	 * @param	array	$data
 	 * @param	bool	$return
@@ -224,7 +218,7 @@ class Template
 		// Output template variables to the template
 		$template['title']			= $this->_title;
 		$template['breadcrumbs']	= $this->_breadcrumbs;
-		$template['metadata']		= $this->get_metadata() . Asset::render('extra');
+		$template['metadata']		= $this->get_metadata().Asset::render('extra');
 		$template['partials']		= array();
 
 		// Assign by reference, as all loaded views will need access to partials
@@ -265,10 +259,10 @@ class Template
 		}
 
 		// Let CI do the caching instead of the browser
-		$this->cache_lifetime > 0 && $this->_ci->output->cache( $this->cache_lifetime );
+		$this->cache_lifetime > 0 && $this->_ci->output->cache($this->cache_lifetime);
 
 		// Test to see if this file
-		$this->_body = $this->_find_view( $view, array(), $this->_parser_body_enabled );
+		$this->_body = $this->_find_view( $view, array(), $this->_parser_body_enabled);
 
 		// Want this file wrapped with a layout file?
 		if ($this->_layout)
@@ -314,7 +308,6 @@ class Template
 	/**
 	 * Build the entire JSON output, setting the headers for response.
 	 *
-	 * @access	public
 	 * @param	array	$data
 	 * @return	void
 	 */
@@ -327,7 +320,6 @@ class Template
 	/**
 	 * Set the title of the page
 	 *
-	 * @access	public
 	 * @return	object	$this
 	 */
 	public function title()
@@ -345,7 +337,6 @@ class Template
 	/**
 	 * Put extra javascipt, css, meta tags, etc before all other head data
 	 *
-	 * @access	public
 	 * @param	string	$line	The line being added to head
 	 * @return	object	$this
 	 */
@@ -366,7 +357,6 @@ class Template
 	/**
 	 * Put extra javascipt, css, meta tags, etc after other head data
 	 *
-	 * @access	public
 	 * @param	string	$line	The line being added to head
 	 * @return	object	$this
 	 */
@@ -380,7 +370,6 @@ class Template
 	/**
 	 * Put extra javascipt, css, meta tags, etc after other head data
 	 *
-	 * @access	public
 	 * @param	string	$line	The line being added to head
 	 * @return	object	$this
 	 */
@@ -402,7 +391,6 @@ class Template
 	/**
 	 * Set metadata for output later
 	 *
-	 * @access	public
 	 * @param	string	$name		keywords, description, etc
 	 * @param	string	$content	The content of meta data
 	 * @param	string	$type		Meta-data comes in a few types, links for example
@@ -441,7 +429,6 @@ class Template
 	/**
 	 * Which theme are we using here?
 	 *
-	 * @access	public
 	 * @param	string	$theme	Set a theme for the template library to use
 	 * @return	object	$this
 	 */
@@ -463,7 +450,6 @@ class Template
 	/**
 	 * Get the current theme path
 	 *
-	 * @access	public
 	 * @return	string The current theme path
 	 */
 	public function get_theme_path()
@@ -474,7 +460,6 @@ class Template
 	/**
 	 * Get the current view path
 	 *
-	 * @access	public
 	 * @param	bool	Set if should be returned the view path full (with theme path) or the view relative the theme path
 	 * @return	string	The current view path
 	 */
@@ -486,24 +471,25 @@ class Template
 	/**
 	 * Which theme layout should we using here?
 	 *
-	 * @access	public
 	 * @param	string	$view
 	 * @param	string	$layout_subdir
 	 * @return	object	$this
 	 */
-	public function set_layout($view, $layout_subdir = '')
+	public function set_layout($view, $layout_subdir = null)
 	{
 		$this->_layout = $view;
 
-		$layout_subdir AND $this->_layout_subdir = $layout_subdir;
-
+		if ($layout_subdir !== null)
+		{
+			$this->_layout_subdir = $layout_subdir;
+		}
+		
 		return $this;
 	}
 
 	/**
 	 * Set a view partial
 	 *
-	 * @access	public
 	 * @param	string	$name
 	 * @param	string	$view
 	 * @param	array	$data
@@ -518,7 +504,6 @@ class Template
 	/**
 	 * Set a view partial
 	 *
-	 * @access	public
 	 * @param	string	$name
 	 * @param	string	$string
 	 * @param	array	$data
@@ -534,7 +519,6 @@ class Template
 	/**
 	 * Helps build custom breadcrumb trails
 	 *
-	 * @access	public
 	 * @param	string	$name	What will appear as the link text
 	 * @param	string	$uri	The URL segment
 	 * @return	object	$this
@@ -554,7 +538,6 @@ class Template
 	/**
 	 * Set a the cache lifetime
 	 *
-	 * @access	public
 	 * @param	int		$seconds
 	 * @return	object	$this
 	 */
@@ -569,7 +552,6 @@ class Template
 	 * enable_minify
 	 * Should be minify used or the output html files just delivered normally?
 	 *
-	 * @access	public
 	 * @param	bool	$bool
 	 * @return	object	$this
 	 */
@@ -584,7 +566,6 @@ class Template
 	 * enable_parser
 	 * Should be parser be used or the view files just loaded normally?
 	 *
-	 * @access	public
 	 * @param	bool	$bool
 	 * @return	object	$this
 	 */
@@ -598,7 +579,6 @@ class Template
 	 * enable_parser_body
 	 * Should be parser be used or the body view files just loaded normally?
 	 *
-	 * @access	public
 	 * @param	bool	$bool
 	 * @return	object	$this
 	 */
@@ -612,7 +592,6 @@ class Template
 	 * theme_locations
 	 * List the locations where themes may be stored
 	 *
-	 * @access	public
 	 * @return	array
 	 */
 	public function theme_locations()
@@ -637,7 +616,6 @@ class Template
 	 * theme_exists
 	 * Check if a theme exists
 	 *
-	 * @access	public
 	 * @param	string	$theme
 	 * @return	bool
 	 */
@@ -660,7 +638,6 @@ class Template
 	 * get_layouts
 	 * Get all current layouts (if using a theme you'll get a list of theme layouts)
 	 *
-	 * @access	public
 	 * @return	array
 	 */
 	public function get_layouts()
@@ -685,7 +662,6 @@ class Template
 	 * get_layouts
 	 * Get all current layouts (if using a theme you'll get a list of theme layouts)
 	 *
-	 * @access	public
 	 * @param	string	$theme
 	 * @return	array
 	 */
@@ -725,7 +701,6 @@ class Template
 	 * layout_exists
 	 * Check if a theme layout exists
 	 *
-	 * @access	public
 	 * @param	string	$layout
 	 * @return	bool
 	 */
@@ -746,7 +721,6 @@ class Template
 	 * layout_is
 	 * Check if the current theme layout is equal the $layout argument
 	 *
-	 * @access	public
 	 * @param	string	$layout
 	 * @return	bool
 	 */

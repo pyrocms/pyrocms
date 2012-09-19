@@ -1,6 +1,6 @@
 <?php if (!empty($fields)): ?>
 
-    <table class="table-list" cellspacing="0">
+    <table class="table-list">
 		<thead>
 			<tr>
 			    <th><?php echo lang('streams.label.field_name');?></th>

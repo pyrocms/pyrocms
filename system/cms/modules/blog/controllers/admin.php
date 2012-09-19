@@ -22,12 +22,12 @@ class Admin extends Admin_Controller
 		'title' => array(
 			'field' => 'title',
 			'label' => 'lang:global:title',
-			'rules' => 'trim|htmlspecialchars|required|max_length[100]|callback__check_title'
+			'rules' => 'trim|htmlspecialchars|required|max_length[200]|callback__check_title'
 		),
 		'slug' => array(
 			'field' => 'slug',
 			'label' => 'lang:global:slug',
-			'rules' => 'trim|required|alpha_dot_dash|max_length[100]|callback__check_slug'
+			'rules' => 'trim|required|alpha_dot_dash|max_length[200]|callback__check_slug'
 		),
 		array(
 			'field' => 'category_id',
@@ -545,10 +545,14 @@ class Admin extends Admin_Controller
 		return $this->blog_m->check_exists('slug', $slug, $id);
 	}
 
+	/**
+	 * Generate a preview hash
+	 * 
+	 * @param string slug The Slug to check
+	 * @return bool
+	 */
     private function _preview_hash()
     {
-
         return md5(microtime() + mt_rand(0,1000));
-
     }
 }
