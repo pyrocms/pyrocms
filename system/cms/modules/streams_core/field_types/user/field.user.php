@@ -120,16 +120,23 @@ class Field_user
 		
 		$user = $this->CI->user_m->get(array('id' => $input));
 
-		$return = array(
-			'user_id'			=> $user->user_id,
-			'display_name'		=> $user->display_name,
-			'email'				=> $user->email,
-			'username'			=> $user->username,
-		);
-		
-		$this->cache[$input] = $return;
-		
-		return $return;
+		// Ensure the user was found
+		if ( ! empty($user) )
+		{
+
+			$return = array(
+				'user_id'			=> $user->user_id,
+				'display_name'		=> $user->display_name,
+				'email'				=> $user->email,
+				'username'			=> $user->username,
+			);
+			
+			$this->cache[$input] = $return;
+			
+			return $return;
+		}
+
+		return false;
 	}
 
 }

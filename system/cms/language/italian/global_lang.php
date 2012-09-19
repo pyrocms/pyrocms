@@ -33,12 +33,12 @@ $lang['global:operators:not-equal'] 			= 'Diverso da';
 $lang['global:operators:less-than'] 			= 'Minore di';
 $lang['global:operators:greater-than'] 		= 'Maggiore di';
 
-$lang['global:duration:1-day']			= 'One day'; #translate
-$lang['global:duration:1-week']			= 'One week'; #translate
-$lang['global:duration:2-weeks']		= 'Two weeks'; #translate
-$lang['global:duration:1-month']		= 'One month'; #translate
-$lang['global:duration:3-months']		= 'Three Months'; #translate
-$lang['global:duration:always']			= 'Always'; #translate
+$lang['global:duration:1-day']			= 'Un giorno';
+$lang['global:duration:1-week']			= 'Una settimana'; 
+$lang['global:duration:2-weeks']		= 'Due settimane';
+$lang['global:duration:1-month']		= 'Un mese';
+$lang['global:duration:3-months']		= 'Tre mesi';
+$lang['global:duration:always']			= 'Per sempre';
 
 $lang['navigation_headline'] 			= 'Navigazione';
 $lang['breadcrumb_base_label'] 			= 'Home';

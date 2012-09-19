@@ -166,7 +166,7 @@
 	<?php if (isset($recent_comments) and is_array($recent_comments) and $theme_options->pyrocms_recent_comments == 'yes') : ?>
 		<div id="existing-comments" class="one_half last">
 			<section class="title">
-				<h4><i class="icon-comment"></i> <?php echo lang('comments.recent_comments') ?></h4>
+				<h4><i class="icon-comment"></i> <?php echo lang('comments:recent_comments') ?></h4>
 			</section>
 
 			<section class="item">
@@ -186,7 +186,7 @@
 						<?php endforeach; ?>
 					</ul>
 				<?php else: ?>
-					<div class="block-message block-message-warning"><?php echo lang('comments.no_comments');?></div>
+					<div class="block-message block-message-warning"><?php echo lang('comments:no_comments');?></div>
 				<?php endif; ?>
 			</section>
 		</div>		
