@@ -188,7 +188,8 @@ class Admin extends Admin_Controller {
 		$ids = explode(',', $link[0]->restricted_to);
 
 		$this->load->model('groups/group_m');
-		$groups = $this->group_m->where_in('id', $ids)->dropdown('id', 'name');
+		$this->db->where_in('id', $ids);
+		$groups = $this->group_m->dropdown('id', 'name');
 
 		$link[0]->{'restricted_to'} = implode(', ', $groups);
 
@@ -452,6 +453,7 @@ class Admin extends Admin_Controller {
 	 * Only the URI field may be submitted blank.
 	 *
 	 * @param string $link The link value
+	 * @return bool
 	 */
 	public function _link_check($link)
 	{

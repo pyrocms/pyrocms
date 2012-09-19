@@ -8,7 +8,7 @@
  */
 class Module_Keywords extends Module {
 
-	public $version = '1.0';
+	public $version = '1.1.0';
 
 	public $_tables = array('keywords', 'keywords_applied');
 
@@ -51,7 +51,7 @@ class Module_Keywords extends Module {
 			),
 			'frontend' => false,
 			'backend'  => true,
-			'menu'     => 'content',
+			'menu'     => 'data',
 			'shortcuts' => array(
 				array(
 			 	   'name' => 'keywords:add_title',

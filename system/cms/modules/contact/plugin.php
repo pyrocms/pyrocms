@@ -261,7 +261,7 @@ class Plugin_Contact extends Plugin {
 			$results = Events::trigger('email', $data, 'array');
 
 			// If autoreply has been enabled then send the end user an autoreply response
-			if($autoreply_template)
+			if ($autoreply_template)
 			{
 				$data_autoreply = $data;
 				$data_autoreply['to']       = $data['email'];

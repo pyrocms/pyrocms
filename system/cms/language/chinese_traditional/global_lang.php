@@ -9,6 +9,7 @@ $lang['desc_label'] 					= '說明'; 		//'Description';
 $lang['version_label'] 					= '版本'; 		//'Version';
 $lang['global:author'] 					= '作者'; 		//'Author';
 $lang['global:action'] 					= '操作'; 		//'Action';
+
 $lang['global:slug'] 					= 'Slug'; #translate
 $lang['global:slug_instructions']		= 'Lowercase characters and underscores only.'; #translate
 $lang['dialog.delete_message'] 			= '確定要刪除嗎？這將無法復原。'; //'Are you sure you want to delete this? It can not be undone.';
@@ -24,10 +25,17 @@ $lang['global:select-pick']				= '-- 請選擇 --';
 $lang['global:check-none'] 				= '沒有';
 $lang['global:check-all']				= '全部';
 
-$lang['operators.equal'] 				= '等於';
-$lang['operators.not_equal'] 			= '不等於';
-$lang['operators.less_than'] 			= '小於';
-$lang['operators.greater_than'] 		= '大於';
+$lang['global:operators:equal'] 		= '等於';
+$lang['global:operators:not-equal'] 	= '不等於';
+$lang['global:operators:less-than'] 	= '小於';
+$lang['global:operators:greater-than'] 	= '大於';
+
+$lang['global:duration:1-day']			= 'One day'; #translate
+$lang['global:duration:1-week']			= 'One week'; #translate
+$lang['global:duration:2-weeks']		= 'Two weeks'; #translate
+$lang['global:duration:1-month']		= 'One month'; #translate
+$lang['global:duration:3-months']		= 'Three Months'; #translate
+$lang['global:duration:always']			= 'Always'; #translate
 
 $lang['navigation_headline'] 			= '導覽'; 		//'Navigation';
 $lang['breadcrumb_base_label'] 			= '首頁'; 		//'Home';
@@ -49,8 +57,8 @@ $lang['global:demo_restrictions']       = 'Some features on this page have been 
 
 $lang['login_error_label'] 				= '登入錯誤'; 		//'Login Error';
 $lang['forgot_password_label'] 			= '忘記密碼'; 		//'Forgot your password ?';
-$lang['email_label'] 					= '電子郵件'; 		//'E-mail';
-$lang['password_label'] 				= '密碼'; 			//'Password';
+$lang['global:email'] 					= '電子郵件'; 		//'E-mail';
+$lang['global:password'] 				= '密碼'; 			//'Password';
 $lang['login_label'] 					= '登入'; 			//'Log In';
 
 $lang['help_label'] 					= '幫助';
@@ -62,7 +70,7 @@ $lang['activate_label'] 				= '啟動'; 			//'Activate';
 $lang['approve_label']					= '核准'; 			//'Approve';
 $lang['unapprove_label']				= '取消核准'; 		//'Unapprove';
 $lang['publish_label'] 					= '發佈'; 			//'Publish';
-$lang['upload_label'] 					= '上傳'; 			//'Upload';
+$lang['global:upload'] 					= '上傳'; 			//'Upload';
 $lang['global:uninstall'] 				= '卸載'; 			//'Uninstall';
 $lang['global:install'] 					= '安裝'; 			//'Install';
 $lang['global:enable']					= '啟用'; 			//'Enable';

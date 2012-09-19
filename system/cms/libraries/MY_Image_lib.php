@@ -1,11 +1,12 @@
 <?php
 /**
- *
+ * MY_Image_lib
  * Fix for losing image transparency
+ * @TODO See if this needs to still be extended.
  *
- * @author Yorick Peterse
- * @author PyroCMS Dev Team
- * @package PyroCMS\Core\Libraries
+ * @package 	PyroCMS\Core\Libraries
+ * @author      PyroCMS Dev Team
+ * @copyright   Copyright (c) 2012, PyroCMS LLC
  */
 class MY_Image_lib extends CI_Image_lib
 {
@@ -14,11 +15,10 @@ class MY_Image_lib extends CI_Image_lib
 	 *
 	 * This function will resize or crop
 	 *
-	 * @access	public
 	 * @param	string
 	 * @return	bool
 	 */
-	function image_process_gd($action = 'resize')
+	public function image_process_gd($action = 'resize')
 	{
 		$v2_override = FALSE;
 
@@ -129,5 +129,3 @@ class MY_Image_lib extends CI_Image_lib
 		return TRUE;
 	}
 }
-
-?>

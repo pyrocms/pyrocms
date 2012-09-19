@@ -38,8 +38,8 @@ class Admin_areas extends Admin_Controller {
 	/**
 	 * Constructor method
 	 *
-	 * @access	public
-	 * @return	void
+	 * @access    public
+	 * @return \Admin_areas
 	 */
 	public function __construct()
 	{

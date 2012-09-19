@@ -5,9 +5,9 @@
  *
  * This overrides Codeigniter's helpers/url_helper.php file.
  *
- * @author		Philip Sturgeon
- * @author		PyroCMS Dev Team
  * @package		PyroCMS\Core\Helpers
+ * @author      PyroCMS Dev Team
+ * @copyright   Copyright (c) 2012, PyroCMS LLC
  */
 
 if (!function_exists('url_title'))

@@ -24,6 +24,7 @@
 	</script>
 
 	<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.js"></script>
+	<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.complexify.js"></script>
 	<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/installer.js"></script>
 
 </head>
