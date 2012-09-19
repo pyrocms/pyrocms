@@ -82,7 +82,7 @@ jQuery(function($) {
 
 		// Add the close link to all alert boxes
 		$('.alert').livequery(function(){
-			$(this).prepend('<a href="#" class="close">x</a>');
+			$(this).prepend('<a href="#" class="close">&times;</a>');
 		});
 
 		// Close the notifications when the close link is clicked
