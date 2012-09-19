@@ -294,7 +294,7 @@ class Module_m extends MY_Model
 		$widget_path = '';
 			foreach($widget_paths as $widegt_folder_check)
 			{
-				if(is_dir($widegt_folder_check.'modules/'.$slug))
+				if(is_dir($widegt_folder_check.'modules/'.$slug.'/widgets'))
 				{
 					$widget_path = $widegt_folder_check.'modules/'.$slug.'/widgets';
 				}
@@ -341,8 +341,10 @@ class Module_m extends MY_Model
 		$widget_path = '';
 			foreach($widget_paths as $widegt_folder_check)
 			{
-				if(is_dir($widegt_folder_check.'modules/'.$slug))
+				if(is_dir($widegt_folder_check.'modules/'.$slug.'/widgets'))
 				{
+					echo 'dir';
+					
 					$widget_path = $widegt_folder_check.'modules/'.$slug.'/widgets';
 				}
 			}
