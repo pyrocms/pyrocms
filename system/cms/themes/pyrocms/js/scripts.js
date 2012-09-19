@@ -49,9 +49,9 @@ jQuery(function($) {
 
 		// Drop Menu
 		$("nav#primary ul li").hover(function(){
-			$(this).find('ul:first').css({visibility: "visible",display: "none"}).stop(true, true).fadeIn('slow');
+			$(this).find('ul:first').css({visibility: "visible",display: "none"}).stop(true, true).fadeIn(250);
 		},function(){
-			$(this).find('ul:first').css({visibility: "visible"}).fadeOut('slow');
+			$(this).find('ul:first').css({visibility: "visible"}).fadeOut(250);
 		});
 
 		// Select menu for smaller screens
