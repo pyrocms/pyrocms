@@ -117,26 +117,37 @@ if ( ! function_exists('standard_date'))
 	 *
 	 * Returns a date formatted according to the submitted standard.
 	 *
+	 * As of PHP 5.2, the DateTime extension provides constants that
+	 * serve for the exact same purpose and are used with date().
+	 * Due to that, this function is DEPRECATED and should be removed
+	 * in CodeIgniter 3.1+.
+	 *
+	 * Here are two examples of how you should replace it:
+	 *
+	 *	date(DATE_RFC822, now()); // default
+	 *	date(DATE_W3C, $time); // a different format and time
+	 *
+	 * Reference: http://www.php.net/manual/en/class.datetime.php#datetime.constants.types
+	 *
+	 * @deprecated
 	 * @param	string	the chosen format
 	 * @param	int	Unix timestamp
 	 * @return	string
 	 */
-	function standard_date($fmt = 'DATE_RFC822', $time = '')
+	function standard_date($fmt = 'DATE_RFC822', $time = NULL)
 	{
-		$formats = array(
-				'DATE_ATOM'		=>	'%Y-%m-%dT%H:%i:%s%O',
-				'DATE_COOKIE'	=>	'%l, %d-%M-%y %H:%i:%s UTC',
-				'DATE_ISO8601'	=>	'%Y-%m-%dT%H:%i:%s%O',
-				'DATE_RFC822'	=>	'%D, %d %M %y %H:%i:%s %O',
-				'DATE_RFC850'	=>	'%l, %d-%M-%y %H:%i:%s UTC',
-				'DATE_RFC1036'	=>	'%D, %d %M %y %H:%i:%s %O',
-				'DATE_RFC1123'	=>	'%D, %d %M %Y %H:%i:%s %O',
-				'DATE_RFC2822'	=>	'%D, %d %M %Y %H:%i:%s %O',
-				'DATE_RSS'		=>	'%D, %d %M %Y %H:%i:%s %O',
-				'DATE_W3C'		=>	'%Y-%m-%dT%H:%i:%s%O'
-				);
+		if (empty($time))
+		{
+			$time = now();
+		}
 
-		return isset($formats[$fmt]) ? mdate($formats[$fmt], $time) : FALSE;
+		// Procedural style pre-defined constants from the DateTime extension
+		if (strpos($fmt, 'DATE_') !== 0 OR defined($fmt) === FALSE)
+		{
+			return FALSE;
+		}
+
+		return date(constant($fmt), $time);
 	}
 }
 
@@ -304,13 +315,13 @@ if ( ! function_exists('local_to_gmt'))
 			$time = time();
 		}
 
-		return gmmktime(
-			date('G', $time),
-			date('i', $time),
-			date('s', $time),
-			date('n', $time),
-			date('j', $time),
-			date('Y', $time)
+		return mktime(
+			gmdate('G', $time),
+			gmdate('i', $time),
+			gmdate('s', $time),
+			gmdate('n', $time),
+			gmdate('j', $time),
+			gmdate('Y', $time)
 		);
 	}
 }
@@ -488,6 +499,10 @@ if ( ! function_exists('nice_date'))
 		{
 			return 'Unknown';
 		}
+		elseif (empty($format))
+		{
+			$format = 'U';
+		}
 
 		// Date like: YYYYMM
 		if (preg_match('/^\d{6}$/i', $bad_date))
@@ -543,9 +558,10 @@ if ( ! function_exists('timezone_menu'))
 	 * @param	string	timezone
 	 * @param	string	classname
 	 * @param	string	menu name
+	 * @param	mixed	attributes
 	 * @return	string
 	 */
-	function timezone_menu($default = 'UTC', $class = '', $name = 'timezones')
+	function timezone_menu($default = 'UTC', $class = '', $name = 'timezones', $attributes = '')
 	{
 		$CI =& get_instance();
 		$CI->lang->load('date');
@@ -559,7 +575,7 @@ if ( ! function_exists('timezone_menu'))
 			$menu .= ' class="'.$class.'"';
 		}
 
-		$menu .= ">\n";
+		$menu .= _stringify_attributes($attributes).">\n";
 
 		foreach (timezones() as $key => $val)
 		{

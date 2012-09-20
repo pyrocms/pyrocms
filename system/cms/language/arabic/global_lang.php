@@ -9,7 +9,8 @@ $lang['desc_label'] 					= 'الوصف';
 $lang['version_label'] 					= 'النسخة';
 $lang['global:author'] 					= 'الناشر';
 $lang['global:action'] 					= 'الإجراء';
-
+$lang['global:slug'] 					= 'Slug'; #translate
+$lang['global:slug_instructions']		= 'Lowercase characters and underscores only.'; #translate
 $lang['global:dialog:delete_message'] 	= 'متأكد أنك تريد حذف هذا؟ لا يمكن التراجع عن هذا الأمر.';
 $lang['global:dialog:confirm'] 			= 'التأكيد';
 
@@ -69,7 +70,7 @@ $lang['activate_label'] 				= 'تنشيط';
 $lang['approve_label']					= 'اعتماد';
 $lang['unapprove_label']				= 'حجب';
 $lang['publish_label'] 					= 'نشر';
-$lang['upload_label'] 					= 'رفع';
+$lang['global:upload'] 					= 'رفع';
 $lang['global:uninstall'] 				= 'إزالة';
 $lang['global:install'] 					= 'تثبيت';
 $lang['global:enable']					= 'تمكين';

@@ -17,6 +17,8 @@ $lang['desc_label']							= 'Описание';
 $lang['version_label']					= 'Версия';
 $lang['global:author']						= 'Автор';
 $lang['global:action']						= 'Действие';
+$lang['global:slug'] 					= 'Slug'; #translate
+$lang['global:slug_instructions']		= 'Lowercase characters and underscores only.'; #translate
 
 $lang['dialog.delete_message']	= 'Вы уверены, что хотите удалить? Это действие нельзя отменить.';
 $lang['global:dialog:confirm']					= 'Подтверждение';
@@ -76,7 +78,7 @@ $lang['activate_label']					= 'Активировать';
 $lang['approve_label']					= 'Утвердить';
 $lang['unapprove_label']				= 'Отменить';
 $lang['publish_label']					= 'Опубликовать';
-$lang['upload_label']						= 'Загрузить';
+$lang['global:upload']						= 'Загрузить';
 $lang['global:uninstall']				= 'Удалить';
 $lang['global:install']					= 'Установить';
 $lang['global:enable']						= 'Включить';

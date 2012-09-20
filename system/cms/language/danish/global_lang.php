@@ -10,11 +10,12 @@ $lang['version_label'] 					= 'Version';
 $lang['global:author'] 					= 'Forfatter';
 $lang['global:action'] 					= 'Handling';
 
-$lang['global:dialog:delete_message'] 	= 'Er du sikker på, at du vil slette dette? Det kan ikke ændres.';
-$lang['global:dialog:confirm'] 			= 'Bekræft';
-
-$lang['global:yes'] 					= 'Ja';
-$lang['global:no'] 						= 'Nej';
+$lang['global:slug'] 					= 'Slug'; #translate
+$lang['global:slug_instructions']		= 'Lowercase characters and underscores only.'; #translate
+$lang['dialog.delete_message'] 			= 'Er du sikker på, at du vil slette dette? Det kan ikke ændres.';
+$lang['dialog.confirm'] 				= 'Bekræft';
+$lang['dialog.yes'] 					= 'Ja';
+$lang['dialog.no'] 						= 'Nej';
 
 $lang['global:select-none'] 			= '-- Ingen --';
 $lang['global:select-all'] 				= '-- Alt --';
@@ -69,7 +70,7 @@ $lang['activate_label'] 				= 'Aktivér';
 $lang['approve_label']					= 'Godkend';
 $lang['unapprove_label']				= 'Godkend ikke';
 $lang['publish_label'] 					= 'Publicér';
-$lang['upload_label'] 					= 'Upload';
+$lang['global:upload'] 					= 'Upload';
 $lang['global:uninstall'] 				= 'Afinstallér';
 $lang['global:install'] 					= 'Installér';
 $lang['global:enable']					= 'Aktivér';

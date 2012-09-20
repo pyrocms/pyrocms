@@ -9,6 +9,8 @@ $lang['desc_label'] 					= 'Beschreibung';
 $lang['version_label'] 					= 'Version';
 $lang['global:author'] 					= 'Autor';
 $lang['global:action'] 					= 'Aktion';
+$lang['global:slug'] 					= 'Slug'; #translate
+$lang['global:slug_instructions']		= 'Lowercase characters and underscores only.'; #translate
 
 $lang['dialog.delete_message'] 			= 'Bist du sicher, dass du das löschen möchtest? Es gibt keine Möglichkeit das Löschen rückgängig zu machen.';
 $lang['global:dialog:confirm'] 				= 'Bestätigen';
@@ -68,7 +70,7 @@ $lang['activate_label'] 				= 'Aktivieren';
 $lang['approve_label']					= 'Bestätigen';
 $lang['unapprove_label']				= 'Bestätigung aufheben';
 $lang['publish_label'] 					= 'Veröffentlichen';
-$lang['upload_label'] 					= 'Hochladen';
+$lang['global:upload'] 					= 'Hochladen';
 $lang['global:uninstall'] 				= 'Deinstallieren';
 $lang['global:install'] 					= 'Installieren';
 $lang['global:enable']					= 'Aktivieren';

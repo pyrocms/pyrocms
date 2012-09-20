@@ -29,7 +29,7 @@ $lang['cp_report_bug'] 					= 'Thông báo lỗi';
 $lang['cp_contact_support'] 			= 'Hỗ trợ';
 
 $lang['cp_nav_settings']				= 'Thiết lập';
-$lang['cp_nav_addons']					= 'Add-ons';
+$lang['cp_nav_addons']					= 'Add-ons'; #translate
 $lang['cp_nav_modules']					= 'Mô đun';
 $lang['cp_nav_users']					= 'Người dùng';
 $lang['cp_nav_content']					= 'Nội dung';

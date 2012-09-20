@@ -13,12 +13,8 @@
  * @package		PyroCMS\Core\Libraries
  */
 
-/**
- * Events Library
- */
 class Events
 {
-
 	/**
 	 * An array of listeners
 	 * 
@@ -47,7 +43,7 @@ class Events
 
 		$is_core = TRUE;
 
-		$_ci->load->model('modules/module_m');
+		$_ci->load->model('addons/module_m');
 
 		if (!$results = $_ci->module_m->get_all())
 		{

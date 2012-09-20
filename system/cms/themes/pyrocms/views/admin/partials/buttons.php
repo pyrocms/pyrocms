@@ -4,12 +4,12 @@
 	
 		// What type of buttons?
 		if(isset($button_type) && $button_type == 'primary'):
-			$btn_class = 'btn';
+			$btn_class = 'button';
 		elseif(isset($button_type) && $button_type == 'secondary'):
 			$btn_class = 'button';
 		else:
 			// Default to primary
-			$btn_class = 'btn';
+			$btn_class = 'button';
 		endif;
 	
 	?>
@@ -25,7 +25,7 @@
 
 		<?php switch ($button) :
 			case 'delete': 
-				if($btn_class == 'btn') $btn_class .= ' red';
+				if($btn_class == 'button') $btn_class .= ' red';
 			
 			?>
 				<button type="submit" name="btnAction" value="delete" class="<?php echo $btn_class; ?> confirm">
@@ -33,26 +33,31 @@
 				</button>
 				<?php break;
 			case 're-index': ?>
-				<button type="submit" name="btnAction" value="re-index" class="btn orange">
+				<button type="submit" name="btnAction" value="re-index" class="button orange">
 					<span><?php echo lang('buttons.re-index'); ?></span>
 				</button>
 				<?php break;
 			case 'activate':
-			case 'deactivate':
 			case 'approve':
 			case 'publish':
 			case 'save':
 			case 'save_exit':
-			case 'unapprove':
+			case 'preview':
 			case 'upload': ?>
-				<button type="submit" name="btnAction" value="<?php echo $button ?>" class="<?php echo $btn_class; ?> blue">
+				<button type="submit" name="btnAction" value="<?php echo $button ?>" class="button green">
+					<span><?php echo lang('buttons.' . $button); ?></span>
+				</button>
+
+			<?php break;
+			case 'deactivate':
+			case 'unapprove': ?>
+				<button type="submit" name="btnAction" value="<?php echo $button ?>" class="button red">
 					<span><?php echo lang('buttons.' . $button); ?></span>
 				</button>
 				<?php break;
 			case 'cancel':
 			case 'close':
-			case 'preview':
-				if($btn_class == 'btn') $btn_class .= ' gray';
+				if($btn_class == 'button') $btn_class .= ' red';
 				$uri = 'admin/' . $this->module_details['slug'];
 				$active_section = $this->load->get_var('active_section');
 
@@ -70,7 +75,7 @@
 			 */
 			case 'edit':
 				$id = is_array($extra) && array_key_exists('id', $extra) ? '/' . $button . '/' . $extra['id'] : NULL;
-				if($btn_class == 'btn') $btn_class .= ' gray';
+				if($btn_class == 'button') $btn_class .= ' gray';
 
 				echo anchor('admin/' . $this->module_details['slug'] . $id, lang('buttons.' . $button), 'class="'.$btn_class.' ' . $button . '"');
 				break; ?>

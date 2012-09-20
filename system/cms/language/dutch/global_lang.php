@@ -10,7 +10,7 @@ $lang['version_label'] 					= 'Versie';
 $lang['global:author'] 					= 'Auteur';
 $lang['global:action'] 					= 'Actie';
 $lang['global:slug'] 					= 'Slug';
-
+$lang['global:slug_instructions']		= 'Lowercase characters and underscores only.'; #translate
 $lang['global:dialog:delete_message'] 	= 'Weet u zeker dat u dit wilt verwijderen? Dit kan niet ongedaan worden gemaakt.';
 $lang['global:dialog:confirm'] 			= 'Bevestigen';
 
@@ -70,7 +70,7 @@ $lang['activate_label'] 				= 'Activeren';
 $lang['approve_label']					= 'Goedkeuren';
 $lang['unapprove_label']				= 'Afkeuren';
 $lang['publish_label'] 					= 'Publiceren';
-$lang['upload_label'] 					= 'Uploaden';
+$lang['global:upload'] 					= 'Uploaden';
 
 $lang['global:uninstall'] 				= 'Deinstalleren';
 $lang['global:install'] 				= 'Installeren';

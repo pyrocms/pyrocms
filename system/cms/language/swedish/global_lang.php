@@ -21,6 +21,8 @@ $lang['version_label']		= 'Version';
 $lang['global:author']		= 'Författare';
 $lang['global:action']		= 'Aktivitet';
 $lang['global:slug']		= 'Slug';
+$lang['global:slug_instructions']		= 'Lowercase characters and underscores only.'; #translate
+
 $lang['global:user']		= 'Användare';
 $lang['global:dialog:delete_message']		= 'Vill du verkligen radera? Denna åtgärd kan inte ångras.';
 $lang['global:dialog:confirm']		= 'Bekräfta';
@@ -64,7 +66,7 @@ $lang['activate_label']		= 'Aktivera';
 $lang['approve_label']		= 'Godkänn';
 $lang['unapprove_label']		= 'Godkänn ej';
 $lang['publish_label']		= 'Publicera';
-$lang['upload_label']		= 'Ladda upp';
+$lang['global:upload']		= 'Ladda upp';
 $lang['global:uninstall']		= 'Avinstallera';
 $lang['global:install']		= 'Installera';
 $lang['global:upgrade']		= 'Uppgradera';

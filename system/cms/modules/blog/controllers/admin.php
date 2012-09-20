@@ -22,12 +22,12 @@ class Admin extends Admin_Controller
 		'title' => array(
 			'field' => 'title',
 			'label' => 'lang:global:title',
-			'rules' => 'trim|htmlspecialchars|required|max_length[100]|callback__check_title'
+			'rules' => 'trim|htmlspecialchars|required|max_length[200]|callback__check_title'
 		),
 		'slug' => array(
 			'field' => 'slug',
 			'label' => 'lang:global:slug',
-			'rules' => 'trim|required|alpha_dot_dash|max_length[100]|callback__check_slug'
+			'rules' => 'trim|required|alpha_dot_dash|max_length[200]|callback__check_slug'
 		),
 		array(
 			'field' => 'category_id',
@@ -125,11 +125,9 @@ class Admin extends Admin_Controller
 		$base_where = array('show_future' => TRUE, 'status' => 'all');
 
 		//add post values to base_where if f_module is posted
-		$this->input->post('f_category') and $base_where + array('category' => $this->input->post('f_category'));
-
-		$base_where['status'] = $this->input->post('f_status') ? $this->input->post('f_status') : $base_where['status'];
-
-		$this->input->post('f_keywords') and $base_where + array('keywords' => $this->input->post('f_keywords'));
+		if ($this->input->post('f_category')) 	$base_where['category'] = $this->input->post('f_category');
+		if ($this->input->post('f_status')) 	$base_where['status'] 	= $this->input->post('f_status');
+		if ($this->input->post('f_keywords')) 	$base_where['keywords'] = $this->input->post('f_keywords');
 
 		// Create pagination links
 		$total_rows = $this->blog_m->count_by($base_where);
@@ -144,6 +142,7 @@ class Admin extends Admin_Controller
 		$this->template
 			->title($this->module_details['name'])
 			->append_js('admin/filter.js')
+			->set_partial('filters', 'admin/partials/filters')
 			->set('pagination', $pagination)
 			->set('blog', $blog);
 
@@ -547,46 +546,13 @@ class Admin extends Admin_Controller
 	}
 
 	/**
-	 * method to fetch filtered results for blog list
+	 * Generate a preview hash
 	 * 
-	 * @return void
+	 * @param string slug The Slug to check
+	 * @return bool
 	 */
-	public function ajax_filter()
-	{
-		$category = $this->input->post('f_category');
-		$status = $this->input->post('f_status');
-		$keywords = $this->input->post('f_keywords');
-
-		$post_data = array();
-
-		if ($status == 'live' OR $status == 'draft')
-		{
-			$post_data['status'] = $status;
-		}
-
-		if ($category != 0)
-		{
-			$post_data['category_id'] = $category;
-		}
-
-		//keywords, lets explode them out if they exist
-		if ($keywords)
-		{
-			$post_data['keywords'] = $keywords;
-		}
-		$results = $this->blog_m->search($post_data);
-
-		//set the layout to false and load the view
-		$this->template
-			->set_layout(FALSE)
-			->set('blog', $results)
-			->build('admin/tables/posts');
-	}
-
     private function _preview_hash()
     {
-
         return md5(microtime() + mt_rand(0,1000));
-
     }
 }

@@ -10,11 +10,12 @@ $lang['version_label'] 					= '版本'; 		//'Version';
 $lang['global:author'] 					= '作者'; 		//'Author';
 $lang['global:action'] 					= '操作'; 		//'Action';
 
-$lang['global:dialog:delete_message'] 	= '確定要刪除嗎？這將無法復原。'; //'Are you sure you want to delete this? It can not be undone.';
-$lang['global:dialog:confirm'] 			= '確認'; 		//'Confirm';
-
-$lang['global:yes'] 					= '是'; 			//'Yes';
-$lang['global:no'] 						= '否'; 			//'No';
+$lang['global:slug'] 					= 'Slug'; #translate
+$lang['global:slug_instructions']		= 'Lowercase characters and underscores only.'; #translate
+$lang['dialog.delete_message'] 			= '確定要刪除嗎？這將無法復原。'; //'Are you sure you want to delete this? It can not be undone.';
+$lang['dialog.confirm'] 				= '確認'; 		//'Confirm';
+$lang['dialog.yes'] 					= '是'; 			//'Yes';
+$lang['dialog.no'] 						= '否'; 			//'No';
 
 $lang['global:select-none'] 			= '-- 無 --';
 $lang['global:select-all'] 				= '-- 全部 --';
@@ -69,7 +70,7 @@ $lang['activate_label'] 				= '啟動'; 			//'Activate';
 $lang['approve_label']					= '核准'; 			//'Approve';
 $lang['unapprove_label']				= '取消核准'; 		//'Unapprove';
 $lang['publish_label'] 					= '發佈'; 			//'Publish';
-$lang['upload_label'] 					= '上傳'; 			//'Upload';
+$lang['global:upload'] 					= '上傳'; 			//'Upload';
 $lang['global:uninstall'] 				= '卸載'; 			//'Uninstall';
 $lang['global:install'] 					= '安裝'; 			//'Install';
 $lang['global:enable']					= '啟用'; 			//'Enable';

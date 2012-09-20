@@ -33,14 +33,14 @@ $lang['cp_nav_addons']					= 'Add-ons';
 $lang['cp_nav_modules']					= 'Moduli';
 $lang['cp_nav_users']					= 'Utenti';
 $lang['cp_nav_content']					= 'Contenuti';
-$lang['cp_nav_data']					= 'Data'; #translate
-$lang['cp_nav_structure']				= 'Structure'; #translate
-$lang['cp_nav_misc']					= 'Miscellaneous'; #translate
+$lang['cp_nav_data']					= 'Gestione dati';
+$lang['cp_nav_structure']				= 'Struttura'; 
+$lang['cp_nav_misc']					= 'Vario';
 
 $lang['cp_must_login']	 				= 'Devi effettuare il login per vedere questa pagina.';
 $lang['cp_access_denied'] 				= 'Non hai privilegi sufficienti per vedere questa pagina.';
-$lang['cp_delete_installer_message']	= 'Cancella la cartella Installer dal tuo server per favore. Non cancellarla potrebbe consentire a qualcuno di prendere il controllo del tuo sito.';
-$lang['cp_upgrade_message']				= 'Stai usando la versione %s, ma la versione del tuo database &eacute; la %s. Per favore <a href="%s" title="Upgrade">clicca qui</a> per aggiornare il database.';
+$lang['cp_delete_installer_message']	= 'Cancella la cartella Installer dal tuo server per favore. Non cancellarla potrebbe consentire a qualcuno di reinstallare il CMS senza il tuo permesso.';
+$lang['cp_upgrade_message']				= 'Stai usando la versione %s, ma la versione del tuo database è la %s. Per favore <a href="%s" title="Upgrade">clicca qui</a> per aggiornare il database.';
 $lang['cp_google_analytics_missing'] = 'Le impostazioni di Google Analytics sono mancanti. Aggiungile in %s o contatta il tuo amministratore.';
 $lang['cp_google_analytics_no_connect'] = 'Impossibile connettersi a Google Analytics. Controlla le %s.';
 

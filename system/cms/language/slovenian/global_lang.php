@@ -9,6 +9,8 @@ $lang['desc_label'] 					= 'Opis';
 $lang['version_label'] 					= 'Različica';
 $lang['global:author'] 					= 'Avtor';
 $lang['global:action'] 					= 'Dejanje';
+$lang['global:slug'] 					= 'Slug'; #translate
+$lang['global:slug_instructions']		= 'Lowercase characters and underscores only.'; #translate
 
 $lang['global:dialog:delete_message'] 	= 'Ali ste prepričani da želite izbrisati to? Obnovitev ni mogoča';
 $lang['global:dialog:confirm'] 			= 'Potrdi';
@@ -68,7 +70,7 @@ $lang['activate_label'] 				= 'Aktiviraj';
 $lang['approve_label']					= 'Oddobri';
 $lang['unapprove_label']				= 'Prekliči oddobritev';
 $lang['publish_label'] 					= 'Objavi';
-$lang['upload_label'] 					= 'Naloži';
+$lang['global:upload'] 					= 'Naloži';
 $lang['global:uninstall'] 				= 'Odstrani';
 $lang['global:install'] 					= 'Namesti';
 $lang['global:enable']					= 'Omogoči';
