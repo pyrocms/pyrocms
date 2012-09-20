@@ -549,7 +549,8 @@ class Module_m extends MY_Model
 			
 			if ( ! is_file($details_file))
 			{
-				throw new Exception("Module $slug is missing a details.php file.");
+				// we return false to let them know that the module isn't here, keep looking
+				return FALSE;
 			}
 		}
 

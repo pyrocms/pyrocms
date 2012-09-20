@@ -471,7 +471,7 @@ nav#shortcuts
 
 nav#shortcuts ul li a
 {
-	background: #ff9900 url(../img/button.png) repeat-x; 
+	background: #ff9900 url(../../img/button.png) repeat-x; 
 	display: inline-block; 
 	padding: 4px 7px 3px 7px;
 	color: #ffffff; 
