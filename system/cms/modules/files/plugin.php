@@ -86,24 +86,24 @@ class Plugin_Files extends Plugin
 			))
 		{
 			$ids = array_merge(array((int) $folder->id), array_keys($subfolders));
-			$this->file_m->select('files.*, file_folders.location')
+			$this->db->select('files.*, file_folders.location')
 				->join('file_folders', 'file_folders.id = files.folder_id')
 				->where_in('folder_id', $ids);
 		}
 		else
 		{
-			$this->file_m->select('files.*, file_folders.location')
+			$this->db->select('files.*, file_folders.location')
 				->join('file_folders', 'file_folders.id = files.folder_id')
 				->where('folder_id', $folder->id);
 		}
 
-		$type AND $this->file_m->where('type', $type);
-		$limit AND $this->file_m->limit($limit);
-		$offset AND $this->file_m->offset($offset);
-        $order_by AND $this->file_m->order_by($order_by);
+		$type and $this->db->where('type', $type);
+		$limit and $this->db->limit($limit);
+		$offset and $this->db->offset($offset);
+        $order_by and $this->db->order_by($order_by);
 
 		$files = $this->file_m->get_all();
-		$files AND array_merge($this->_files, $files);
+		$files and array_merge($this->_files, $files);
 
 		return $files;
 	}
