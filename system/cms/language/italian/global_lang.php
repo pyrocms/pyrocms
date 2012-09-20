@@ -10,6 +10,8 @@ $lang['version_label'] 					= 'Versione';
 $lang['global:author'] 					= 'Autore';
 $lang['global:action'] 					= 'Azione';
 $lang['global:slug']   					= 'Slug';
+$lang['global:slug_instructions']		= 'Sono ammessi solo caratteri minuscoli e underscore (trattini bassi).';
+
 $lang['global:user'] 					= 'User';
 
 
@@ -31,12 +33,12 @@ $lang['global:operators:not-equal'] 			= 'Diverso da';
 $lang['global:operators:less-than'] 			= 'Minore di';
 $lang['global:operators:greater-than'] 		= 'Maggiore di';
 
-$lang['global:duration:1-day']			= 'One day'; #translate
-$lang['global:duration:1-week']			= 'One week'; #translate
-$lang['global:duration:2-weeks']		= 'Two weeks'; #translate
-$lang['global:duration:1-month']		= 'One month'; #translate
-$lang['global:duration:3-months']		= 'Three Months'; #translate
-$lang['global:duration:always']			= 'Always'; #translate
+$lang['global:duration:1-day']			= 'Un giorno';
+$lang['global:duration:1-week']			= 'Una settimana'; 
+$lang['global:duration:2-weeks']		= 'Due settimane';
+$lang['global:duration:1-month']		= 'Un mese';
+$lang['global:duration:3-months']		= 'Tre mesi';
+$lang['global:duration:always']			= 'Per sempre';
 
 $lang['navigation_headline'] 			= 'Navigazione';
 $lang['breadcrumb_base_label'] 			= 'Home';
@@ -71,7 +73,7 @@ $lang['activate_label'] 				= 'Attiva';
 $lang['approve_label']					= 'Approva';
 $lang['unapprove_label']				= 'Rifiuta';
 $lang['publish_label'] 					= 'Pubblica';
-$lang['upload_label'] 					= 'Carica';
+$lang['global:upload'] 					= 'Carica';
 $lang['global:uninstall'] 				= 'Disinstalla';
 $lang['global:install'] 				= 'Installa';
 $lang['global:enable']					= 'Abilita';

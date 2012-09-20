@@ -46,7 +46,7 @@ if ( ! function_exists('force_download'))
 	 *
 	 * @param	string	filename
 	 * @param	mixed	the data to be downloaded
-	 * @param	bool	wether to try and send the actual file MIME type
+	 * @param	bool	whether to try and send the actual file MIME type
 	 * @return	void
 	 */
 	function force_download($filename = '', $data = '', $set_mime = FALSE)
@@ -95,7 +95,10 @@ if ( ! function_exists('force_download'))
 		}
 
 		// Clean output buffer
-		ob_clean();
+		if (ob_get_level() !== 0)
+		{
+			ob_clean();
+		}
 
 		// Generate the server headers
 		header('Content-Type: '.$mime);

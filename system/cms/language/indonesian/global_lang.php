@@ -10,6 +10,7 @@ $lang['version_label'] 					= 'Versi';
 $lang['global:author'] 					= 'Penulis';
 $lang['global:action'] 					= 'Aksi';
 $lang['global:slug'] 					= 'Slug';
+$lang['global:slug_instructions']		= 'Lowercase characters and underscores only.'; #translate
 
 $lang['global:dialog:delete_message'] 	= 'Anda yakin akan menghapus ini? Yang telah dihapus tidak dapat dikembalikan.';
 $lang['global:dialog:confirm'] 			= 'Konfirmasi';
@@ -63,7 +64,7 @@ $lang['activate_label'] 				= 'Aktifkan';
 $lang['approve_label']					= 'Setujui';
 $lang['unapprove_label']				= 'Tolak';
 $lang['publish_label'] 					= 'Publikasikan';
-$lang['upload_label'] 					= 'Unggah';
+$lang['global:upload'] 					= 'Unggah';
 $lang['global:uninstall'] 				= 'Uninstall';
 $lang['global:install'] 				= 'Install';
 $lang['global:upgrade'] 				= 'Upgrade';

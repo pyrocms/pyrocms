@@ -10,6 +10,7 @@ $lang['version_label'] 					= 'Version';
 $lang['global:author'] 					= 'Author';
 $lang['global:action'] 					= 'Action';
 $lang['global:slug'] 					= 'Slug';
+$lang['global:slug_instructions']		= 'Lowercase characters and underscores only.';
 $lang['global:user'] 					= 'User';
 
 $lang['global:dialog:delete_message'] 	= 'Are you sure you want to delete this? It cannot be undone.';
@@ -71,7 +72,7 @@ $lang['activate_label'] 				= 'Activate';
 $lang['approve_label']					= 'Approve';
 $lang['unapprove_label']				= 'Unapprove';
 $lang['publish_label'] 					= 'Publish';
-$lang['upload_label'] 					= 'Upload';
+$lang['global:upload'] 					= 'Upload';
 $lang['global:uninstall'] 				= 'Uninstall';
 $lang['global:install'] 				= 'Install';
 $lang['global:upgrade'] 				= 'Upgrade';

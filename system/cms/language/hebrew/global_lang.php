@@ -9,6 +9,8 @@ $lang['desc_label'] 					= 'Description'; #translate
 $lang['version_label'] 					= 'Version'; #translate
 $lang['global:author'] 					= 'Author'; #translate
 $lang['global:action'] 					= 'Action'; #translate
+$lang['global:slug'] 					= 'Slug'; #translate
+$lang['global:slug_instructions']		= 'Lowercase characters and underscores only.'; #translate
 
 $lang['dialog.delete_message'] 			= 'Are you sure you want to delete this? It cannot be undone.'; #translate
 $lang['global:dialog:confirm'] 					= 'Confirm'; #translate
@@ -68,7 +70,7 @@ $lang['activate_label'] 					= 'Activate'; #translate
 $lang['approve_label']					= 'Approve'; #translate
 $lang['unapprove_label']				= 'Unapprove'; #translate
 $lang['publish_label'] 					= 'פרסם';
-$lang['upload_label'] 					= 'Upload'; #translate
+$lang['global:upload'] 					= 'Upload'; #translate
 $lang['global:uninstall'] 				= 'Uninstall'; #translate
 $lang['global:install'] 					= 'התקן';
 $lang['global:enable']					= 'הפעל';

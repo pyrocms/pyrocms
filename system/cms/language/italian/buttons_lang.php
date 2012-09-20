@@ -13,7 +13,7 @@
  */
 
 $lang['buttons.submit']		= 'Salva';
-$lang['buttons.cancel']		= 'Cancella';
+$lang['buttons.cancel']		= 'Annulla';
 $lang['buttons.upload']		= 'Carica';
 $lang['buttons.save']		= 'Salva';
 $lang['buttons.save_exit']	= 'Salva &amp; Esci';

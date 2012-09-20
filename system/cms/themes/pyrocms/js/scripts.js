@@ -47,6 +47,13 @@ jQuery(function($) {
 	 */
 	pyro.init = function() {
 
+		// Drop Menu
+		$("nav#primary ul li").hover(function(){
+			$(this).find('ul:first').css({visibility: "visible",display: "none"}).stop(true, true).fadeIn(250);
+		},function(){
+			$(this).find('ul:first').css({visibility: "visible"}).fadeOut(250);
+		});
+
 		// Select menu for smaller screens
 		$("<select />").appendTo("nav#primary");
 
@@ -70,27 +77,19 @@ jQuery(function($) {
   			window.location = $(this).find("option:selected").val();
 		});
 
-		$('.topbar ul li:not(#dashboard-link)').hoverIntent({
-			sensitivity: 7,
-			interval: 75,
-			over: function(){ $(this).find('ul:first:hidden').css({visibility: "visible", display: "none"}).slideDown(400) },
-			timeout: 0,
-			out: function(){ $(this).parent().find('ul').slideUp(400) }
-		});
-
 		// Add class to dropdowns for styling
-		$(".topbar ul li:has(ul)").children("a").addClass("menu");
+		$("nav#primary ul li:has(ul)").children("a").addClass("menu");
 
 		// Add the close link to all alert boxes
 		$('.alert').livequery(function(){
-			$(this).prepend('<a href="#" class="close">x</a>');
+			$(this).prepend('<a href="#" class="close">&times;</a>');
 		});
 
 		// Close the notifications when the close link is clicked
 		$('a.close').live('click', function(e){
 			e.preventDefault();
-			$(this).fadeTo(200, 0); // This is a hack so that the close link fades out in IE
-			$(this).parent().fadeTo(200, 0);
+			$(this).slideUp(800); // This is a hack so that the close link fades out in IE
+			$(this).parent().slideUp(800);
 			$(this).parent().slideUp(400, function(){
 				$(window).trigger('notification-closed');
 				$(this).remove();
@@ -100,8 +99,8 @@ jQuery(function($) {
 		$("#datepicker").datepicker({dateFormat: 'yy-mm-dd'});
 
 		// Fade in the notifications
-		$('.alert').livequery(function(){
-			$(this).fadeIn('slow', function(){
+		$('.block-message').livequery(function(){
+			$(this).hide().delay(800).slideDown(800, function(){
 				$(window).trigger('notification-complete');
 			});
 		});
@@ -432,21 +431,6 @@ jQuery(function($) {
 	$('#cboxLoadedContent a.cancel').live('click', function(e) {
 		e.preventDefault();
 		$.colorbox.close();
-	});
-
-
-	// Title toggle
-	$('a.toggle').click(function() {
-	   $(this).parent().next('.item').slideToggle(500);
-	});
-
-	// Draggable / Droppable
-	$("#sortable").sortable({
-		placeholder : 'dropzone',
-	    handle : '.draggable',
-	    update : function () {
-	      var order = $('#sortable').sortable('serialize');
-	    }
 	});
 
 	// Pretty Photo

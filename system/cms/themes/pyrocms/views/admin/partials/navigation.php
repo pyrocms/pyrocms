@@ -1,6 +1,6 @@
 <ul class="primary-nav">
 	
-	<li id="dashboard-link"><?php echo anchor('admin', lang('global:dashboard'), 'class="btn orange"');?></li>
+	<li id="home"><?php echo anchor('admin', Asset::img('home.png', 'Home'), (!$this->module > '' ? 'class="current' : '').'"');?></li>
 	
 		<?php
 		foreach ($menu_items as $menu_item)
@@ -94,27 +94,12 @@
 		?>
 
 		<?php if (array_key_exists('settings', $this->permissions) OR $this->current_user->group == 'admin'): ?>
-			<li><?php echo anchor('admin/settings', lang('cp_nav_settings'), 'class="top-link no-submenu' . (($this->module == 'settings') ? ' current"' : '"'));?></li>
+			<li><?php echo anchor('admin/settings', lang('cp_nav_settings'), 'class="top-link' . (($this->module == 'settings') ? ' current"' : '"'));?></li>
 		<?php endif; ?>
 
 		<?php if (array_key_exists('modules', $this->permissions) OR $this->current_user->group == 'admin'): ?>
-			<li><?php echo anchor('admin/modules', lang('cp_nav_addons'), 'class="top-link no-submenu' . (($this->module == 'modules') ? ' current"' : '"'));?></li>
+			<li><?php echo anchor('admin/addons', lang('cp_nav_addons'), 'class="top-link' . (($this->module == 'modules') ? ' current"' : '"'));?></li>
 		<?php endif; ?>
-		
-		<?php
-		/* Do we really need to greet people?
-		<li id="user-greeting"><a href="#"><?php echo sprintf(lang('cp_logged_in_welcome'), $user->display_name); ?></a></li>
-		*/
-		?>
-			
-		<li>
-			<a href="<?php echo current_url().'#'; ?>"><?php echo lang('global:profile'); ?></a>
-			<ul>
-				<li><?php if ($this->settings->enable_profiles) echo anchor('edit-profile', lang('cp_edit_profile_label')) ?></li>
-				<li><?php echo anchor('', lang('cp_view_frontend'), 'target="_blank"'); ?></li>
-				<li><?php echo anchor('admin/logout', lang('cp_logout_label')); ?></li>
-            </ul>
-        </li>
 				
         <?php if($module_details['slug']): ?>
             <li id="help-link">

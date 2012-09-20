@@ -9,12 +9,12 @@ $lang['desc_label'] 					= 'Kuvaus';
 $lang['version_label'] 					= 'Versio';
 $lang['global:author'] 					= 'Tekijä';
 $lang['global:action'] 					= 'Toiminto';
-
-$lang['global:dialog:delete_message'] 	= 'Oletko varma, että haluat poista tämän? Tätä toimintoa ei voi peruuttaa.';
-$lang['global:dialog:confirm'] 			= 'Vahvista';
-
-$lang['global:yes'] 					= 'Kyllä';
-$lang['global:no'] 						= 'Ei';
+$lang['global:slug'] 					= 'Slug'; #translate
+$lang['global:slug_instructions']		= 'Lowercase characters and underscores only.'; #translate
+$lang['dialog.delete_message'] 			= 'Oletko varma, että haluat poista tämän? Tätä toimintoa ei voi peruuttaa.';
+$lang['dialog.confirm'] 				= 'Vahvista';
+$lang['dialog.yes'] 					= 'Kyllä';
+$lang['dialog.no'] 						= 'Ei';
 
 $lang['global:select-none'] 			= '-- Ei mikään --';
 $lang['global:select-all'] 				= '-- Kaikki --';
@@ -69,7 +69,7 @@ $lang['activate_label'] 				= 'Aktivoi';
 $lang['approve_label']					= 'Hyväksy';
 $lang['unapprove_label']				= 'Hylkää';
 $lang['publish_label'] 					= 'Julkaise';
-$lang['upload_label'] 					= 'Lataa';
+$lang['global:upload'] 					= 'Lataa';
 $lang['global:uninstall'] 				= 'Poista asennus';
 $lang['global:install'] 					= 'Asenna';
 $lang['global:enable']					= 'Pälle';

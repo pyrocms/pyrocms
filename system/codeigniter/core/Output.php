@@ -552,13 +552,13 @@ class CI_Output {
 		fclose($fp);
 
 		// Strip out the embedded timestamp
-		if ( ! preg_match('/(\d+TS--->)/', $cache, $match))
+		if ( ! preg_match('/\d+TS--->/', $cache, $match))
 		{
 			return FALSE;
 		}
 
 		$last_modified = filemtime($cache_path);
-		$expire = trim(str_replace('TS--->', '', $match[1]));
+		$expire = str_replace('TS--->', '', $match[0]);
 
 		// Has the file expired?
 		if ($_SERVER['REQUEST_TIME'] >= $expire && is_really_writable($cache_path))
@@ -575,7 +575,7 @@ class CI_Output {
 		}
 
 		// Display the cache
-		$this->_display(str_replace($match[0], '', $cache));
+		$this->_display(substr($cache, strlen($match[0])));
 		log_message('debug', 'Cache file is current. Sending it to browser.');
 		return TRUE;
 	}
@@ -673,7 +673,7 @@ class CI_Output {
 					$output = str_replace($codes_messed[0], $codes_clean[0], $output);
 				}
 
-				if ( ! empty($textareas_messed))
+				if ( ! empty($codes_clean))
 				{
 					preg_match_all('{<textarea.+</textarea>}msU', $output, $textareas_messed);
 					$output = str_replace($textareas_messed[0], $textareas_clean[0], $output);

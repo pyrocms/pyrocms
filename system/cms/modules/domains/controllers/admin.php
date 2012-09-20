@@ -52,11 +52,18 @@ class Admin extends Admin_Controller
 	public function index()
 	{
         // Create pagination links
-		$total_rows = $this->domain_m->where('site_id', $this->domain_m->_site_id)->count_all();
+        $this->db->where('site_id', $this->domain_m->_site_id);
+		$total_rows = $this->domain_m->count_all();
 		$this->template->pagination = create_pagination('admin/domains/index', $total_rows);
 
 		// Using this data, get the relevant results
-		$this->template->domains = $this->domain_m->where('site_id', $this->domain_m->_site_id)->order_by('domain')->limit($this->template->pagination['limit'])->get_all();
+        $this->db
+        		->where('site_id', $this->domain_m->_site_id)
+        		->order_by('domain')
+        		->limit($this->template->pagination['limit']);
+
+		$this->template->domains = $this->domain_m->get_all();
+
 		$this->template->build('admin/index');
 	}
 
@@ -78,6 +85,8 @@ class Admin extends Admin_Controller
 
 			$messages['error'] = lang('domains:add_error');
 		}
+
+		$domain = new stdClass();
 
 		// Loop through each validation rule
 		foreach($this->validation_rules as $rule)

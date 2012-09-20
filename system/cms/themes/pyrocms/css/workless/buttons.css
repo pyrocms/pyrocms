@@ -1,0 +1,156 @@
+/**
+ * Buttons 
+ */
+ button,
+.button, 
+.button a,
+.button:visited 
+{
+	background: #bbbbbb url(../../img/button.png) repeat-x; 
+	display: inline-block; 
+	padding: 5px 10px 4px 10px; 
+	margin-right: 3px;
+	margin-bottom: 10px;
+	color: #ffffff!important; 
+	font-size: 14px!important;
+	text-decoration: none;
+	border-radius: 3px;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+	text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.3);
+	border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+	position: relative;
+	cursor: pointer;
+}
+.button:hover
+{ 
+	background-color: #111111; 
+	color: #ffffff;
+	border-bottom: 2px solid inherit;
+}
+.button:active
+{ 
+	top: 1px; 
+}
+.small.button, 
+.small.button:visited 			
+{ 
+	font-size: 11px;
+}
+.medium.button, 
+.medium.button:visited 		
+{ 
+	font-size: 13px; 
+	line-height: 1; 
+	text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.3); 
+}
+.large.button, 
+.large.button:visited 			
+{ 
+	font-size: 16px; 
+	padding: 15px 20px; 
+}
+.rounded.button 
+{
+	border-radius: 25px;
+}
+.flat.button 
+{
+	border-bottom: none;
+	box-shadow: none;
+}
+/**
+ * Pink
+ */
+.pink.button, 
+.pink.button:visited		
+{ 
+	background-color: #fe57a1; 
+}
+.pink.button:hover	
+{ 
+	background-color: #d74b8a; 
+}
+/**
+ * Green
+ */
+.green.button, 
+.green.button:visited		
+{ 
+	background-color: #91bd09; 
+}
+.green.button:hover	
+{ 
+	background-color: #749a02; 
+}
+/** 
+ * Blue
+ */
+.blue.button, 
+.blue.button:visited		
+{ 
+	background-color: #2daebf; 
+}
+.blue.button:hover							
+{
+	background-color: #007d9a; 
+}
+/**
+ * Red
+ */
+.red.button, 
+.red.button:visited			
+{ 
+	background-color: #ff2b25; 
+}
+.red.button:hover							
+{ 
+	background-color: #ba1f1b; 
+}
+/** 
+ * Magenta
+ */
+.magenta.button, 
+.magenta.button:visited		
+{ 
+	background-color: #a9014b; 
+}
+.magenta.button:hover							
+{ 
+	background-color: #630030; 
+}
+/**
+ * Orange
+ */
+.orange.button, 
+.orange.button:visited		
+{ 
+	background-color: #ff9900; 
+}
+.orange.button:hover
+{ 
+	background-color: #ff8900; 
+}
+/** 
+ * Yellow
+ */
+.yellow.button,
+.yellow.button:visited		
+{ 
+	background-color: #ffb515; 
+}
+.yellow.button:hover { 
+	background-color: #fc9200; 
+}
+
+/**
+ * Gray
+ */
+.gray.button,
+.gray.button:visited		
+{ 
+	background-color: #cccccc; 
+}
+.yellow.button:hover { 
+	background-color: #aaaaaa; 
+}
+/* @end Buttons */

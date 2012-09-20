@@ -30,8 +30,9 @@ class Format
 	/**
 	 * Returns an instance of the Format object.
 	 *
-	 *     echo $this->format->factory(array('foo' => 'bar'))->to_xml();
-	 *
+	 * <code>
+	 * echo $this->format->factory(array('foo' => 'bar'))->to_xml();
+	 * </code>
 	 * @param mixed $data General date to be converted.
 	 * @param string $from_type Data format the file was provided in.
 	 * @return \Format 

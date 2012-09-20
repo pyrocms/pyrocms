@@ -9,7 +9,7 @@ $lang['desc_label'] 					= 'Mô tả';
 $lang['version_label'] 					= 'Phiên bản';
 $lang['global:author'] 					= 'Tác giả';
 $lang['global:action'] 					= 'Thao tác';
-
+$lang['global:slug_instructions']		= 'Lowercase characters and underscores only.'; #translate
 $lang['global:dialog:delete_message'] 	= 'Bạn có chắc chắn muốn xóa, bạn sẽ không thể phục hồi lại?.';
 $lang['global:dialog:confirm'] 			= 'Xác nhận';
 
@@ -61,7 +61,7 @@ $lang['activate_label'] 				= 'Kích hoạt';
 $lang['approve_label']					= 'Chấp thuận';
 $lang['unapprove_label']				= 'Không chấp thuận';
 $lang['publish_label'] 					= 'Xuất bản';
-$lang['upload_label'] 					= 'Tải lên';
+$lang['global:upload'] 					= 'Tải lên';
 $lang['global:uninstall'] 				= 'Gỡ cài đặt';
 $lang['global:install'] 					= 'Cài đặt';
 $lang['global:enable']					= 'Hoạt động';

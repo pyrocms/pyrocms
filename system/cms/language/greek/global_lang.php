@@ -10,6 +10,7 @@ $lang['version_label'] 			= 'Έκδοση';
 $lang['global:author'] 			= 'Συγγραφέας';
 $lang['global:action'] 			= 'Ενέργεια';
 $lang['global:slug'] 			= 'Slug';
+$lang['global:slug_instructions']		= 'Lowercase characters and underscores only.'; #translate
 
 $lang['global:dialog:delete_message'] 	= 'Είσαστε σίγουροι ότι θέλετε να το διαγράψετε; Δεν μπορεί να αναιρεθεί.';
 $lang['global:dialog:confirm'] 		= 'Επιβεβαίωση';
@@ -63,7 +64,7 @@ $lang['activate_label'] 		= 'Ενεργοποίηση';
 $lang['approve_label']			= 'Έγκριση';
 $lang['unapprove_label']		= 'Απόρριψη';
 $lang['publish_label'] 			= 'Δημοσίευση';
-$lang['upload_label'] 			= 'Ανέβασμα';
+$lang['global:upload'] 			= 'Ανέβασμα';
 $lang['global:uninstall'] 		= 'Απεγκατάσταση';
 $lang['global:install'] 		= 'Εγκατάσταση';
 $lang['global:upgrade'] 		= 'Ενημέρωση';
