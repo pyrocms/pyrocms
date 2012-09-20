@@ -628,7 +628,6 @@ nav#shortcuts ul li a:hover
  /* analytics */
 #analyticsWrapper,
 #analytics {
-	width: 565px;
 	height: 185px;
 	float: left;
 }
@@ -1038,6 +1037,123 @@ span.cke_skin_kama
  * Generic browser 
  */
 @media (min-width: 1280px) {
+	h1
+	{
+		font-size: 2.5em;
+	}
+
+	h2
+	{
+		font-size: 1.8em;
+	}
+
+	h3
+	{
+		font-size: 1.5em;
+	}
+
+	h4
+	{
+		font-size: 1.25em;
+	}
+
+	h5
+	{
+		font-size: 1em;
+	}
+
+	h6
+	{
+		font-size: 0.875em;
+	}
+
+	p,
+	li,
+	dl dd
+	{
+		font-size: 16px;
+	}
+
+	code,
+	footer p
+	{
+		font-size: 14px;
+	}
+
+	nav#primary .chzn-container
+	{
+		display: none;
+	}
+	
+	nav#primary ul,
+	{ 
+		display: inherit; 
+	}
+	
+	.wrapper
+	{
+		width: 1080px;
+	}
+
+	.one_full
+	{
+		width: 1065px;
+	}
+
+	.one_half
+	{
+		width: 517px;
+		margin-right: 25px; 
+	}
+
+	.one_third
+	{
+		width: 340px;
+		margin-right: 50px; 
+	}
+
+	.two_third
+	{
+		width: 730px;
+		margin-right: 50px; 
+	}
+
+	.one_quarter
+	{
+		width: 240px;
+		margin-right: 50px; 
+	}
+
+	hr
+	{
+		width: 1000px;
+	}
+
+	.tabs
+	{
+		width: 1000px;
+	}
+
+	#analyticsWrapper,
+	#analytics {
+		width: 465px;
+	}
+
+	#blog-content-tab li input
+	{
+		width: 440px;
+		margin-right: 15px;
+	}
+
+	#blog-content-tab li .chzn-search input
+	{
+		width: 220px;
+	}
+
+	span.cke_skin_kama 
+	{
+		max-width: 985px!important;
+	}
 }
 
 /** 
@@ -1139,6 +1255,11 @@ span.cke_skin_kama
 	.tabs
 	{
 		width: 1200px;
+	}
+
+	#analyticsWrapper,
+	#analytics {
+		width: 565px;
 	}
 
 	#blog-content-tab li input
