@@ -725,7 +725,8 @@ nav#shortcuts ul li a:hover
 #existing-comments ul li
 {
 	border-bottom: 1px solid #eeeeee;
-	margin-bottom: 25px;
+	margin-bottom: 15px;
+	min-height: 70px;
 }
 
 #existing-comments ul li img
