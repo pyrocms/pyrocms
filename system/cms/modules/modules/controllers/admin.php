@@ -201,7 +201,7 @@ class Admin extends Admin_Controller
 			Events::trigger('module_enabled', $slug);
 							
 			// Clear the module cache
-			$this->pyrocache->delete_all('module_m');
+			$this->cache->clear('module_m');
 			$this->session->set_flashdata('success', sprintf(lang('modules.install_success'), $slug));
 		}
 		else
@@ -229,7 +229,7 @@ class Admin extends Admin_Controller
 			Events::trigger('module_enabled', $slug);
 			
 			// Clear the module cache
-			$this->pyrocache->delete_all('module_m');
+			$this->cache->clear('module_m');
 			$this->session->set_flashdata('success', sprintf(lang('modules.enable_success'), $slug));
 		}
 		else
@@ -257,7 +257,7 @@ class Admin extends Admin_Controller
 			Events::trigger('module_disabled', $slug);
 			
 			// Clear the module cache
-			$this->pyrocache->delete_all('module_m');
+			$this->cache->clear('module_m');
 			$this->session->set_flashdata('success', sprintf(lang('modules.disable_success'), $slug));
 		}
 		else

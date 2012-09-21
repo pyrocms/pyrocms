@@ -165,7 +165,7 @@ class Admin_layouts extends Admin_Controller
 			));
 
 			// Wipe cache for this model as the data has changed
-			$this->pyrocache->delete_all('page_layouts_m');
+			$this->cache->clear('page_layouts_m');
 
 			$this->session->set_flashdata('success', sprintf(lang('page_layouts.edit_success'), $this->input->post('title')));
 
@@ -213,7 +213,7 @@ class Admin_layouts extends Admin_Controller
 				$deleted_ids = $this->page_layouts_m->delete($id);
 
 				// Wipe cache for this model, the content has changd
-				$this->pyrocache->delete_all('page_layouts_m');
+				$this->cache->clear('page_layouts_m');
 			}
 
 			else

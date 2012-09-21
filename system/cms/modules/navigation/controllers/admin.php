@@ -171,7 +171,7 @@ class Admin extends Admin_Controller {
 				$this->navigation_m->_set_children($link);
 			}
 
-			$this->pyrocache->delete_all('navigation_m');
+			$this->cache->clear('navigation_m');
 			Events::trigger('post_navigation_order', array($order, $group));
 		}
 	}
@@ -224,7 +224,7 @@ class Admin extends Admin_Controller {
 			// Got post?
 			if ($this->navigation_m->insert_link($input) > 0)
 			{
-				$this->pyrocache->delete_all('navigation_m');
+				$this->cache->clear('navigation_m');
 
 				Events::trigger('post_navigation_create', $input);
 
@@ -312,7 +312,7 @@ class Admin extends Admin_Controller {
 
 			// Update the link and flush the cache
 			$this->navigation_m->update_link($id, $input);
-			$this->pyrocache->delete_all('navigation_m');
+			$this->cache->clear('navigation_m');
 
 			Events::trigger('post_navigation_edit', $input);
 
@@ -368,7 +368,7 @@ class Admin extends Admin_Controller {
 			Events::trigger('post_navigation_delete', $id_array);
 		}
 		// Flush the cache and redirect
-		$this->pyrocache->delete_all('navigation_m');
+		$this->cache->clear('navigation_m');
 		$this->session->set_flashdata('success', $this->lang->line('nav_link_delete_success'));
 		redirect('admin/navigation');
 	}

@@ -98,11 +98,11 @@ class Widget_Twitter_feed extends Widgets
 	 */
 	public function run($options)
 	{
-		if (!$tweets = $this->pyrocache->get('twitter-'.$options['username'].'-'.$options['number']))
+		if (!$tweets = $this->cache->get('twitter-'.$options['username'].'-'.$options['number']))
 		{
 			$tweets = json_decode(@file_get_contents($this->feed_url.'&screen_name='.$options['username'].'&count='.$options['number']));
 
-			$this->pyrocache->write($tweets, 'twitter-'.$options['username'].'-'.$options['number'], $this->settings->twitter_cache);
+			$this->cache->set('twitter-'.$options['username'].'-'.$options['number'], $tweets, $this->settings->twitter_cache);
 		}
 
 		$patterns = array(

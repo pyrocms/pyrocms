@@ -271,6 +271,16 @@ define('ENVIRONMENT', (isset($_SERVER['PYRO_ENV']) ? $_SERVER['PYRO_ENV'] : PYRO
 
 /*
  * --------------------------------------------------------------------
+ * LOAD THE COMPOSER AUTOLOADER
+ * --------------------------------------------------------------------
+ *
+ * ...and it will take care of our classes
+ *
+ */
+require_once 'system/vendor/autoload'.EXT;
+
+/*
+ * --------------------------------------------------------------------
  * LOAD THE BOOTSTRAP FILE
  * --------------------------------------------------------------------
  *

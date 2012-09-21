@@ -59,7 +59,7 @@ class Admin_Controller extends MY_Controller {
 		Asset::set_path('theme');
 		
 		// grab the theme options if there are any
-		ci()->theme_options = $this->pyrocache->model('theme_m', 'get_values_by', array(array('theme' => ADMIN_THEME) ));
+		ci()->theme_options = $this->cache->method('theme_m', 'get_values_by', array(array('theme' => ADMIN_THEME) ));
 	
 		// Active Admin Section (might be null, but who cares)
 		$this->template->active_section = $this->section;

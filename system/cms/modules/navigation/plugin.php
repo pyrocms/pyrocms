@@ -35,7 +35,8 @@ class Plugin_Navigation extends Plugin
 			)
 		);
 		
-		$links = $this->pyrocache->model('navigation_m', 'get_link_tree', $params, Settings::get('navigation_cache'));
+		$class = $this->load->model('navigation_m');
+		$links = $this->cache->method($class, 'get_link_tree', $params, Settings::get('navigation_cache'));
 
 		return $this->_build_links($links, $this->content());
 	}

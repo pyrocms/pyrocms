@@ -194,7 +194,7 @@ class Admin extends Admin_Controller {
 				$this->comments_m->delete((int) $id);
 
 				// Wipe cache for this model, the content has changed
-				$this->pyrocache->delete('comment_m');
+				$this->cache->clear('comment_m');
 				$comments[] = $comment->id;
 			}
 		}

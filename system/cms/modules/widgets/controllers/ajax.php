@@ -51,6 +51,6 @@ class Ajax extends MY_Controller
 				break;
 		}
 
-		$this->pyrocache->delete_all('widget_m');
+		$this->cache->clear('widget_m');
 	}
 }

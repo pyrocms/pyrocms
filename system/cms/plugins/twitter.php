@@ -31,11 +31,11 @@ class Plugin_Twitter extends Plugin
 		$username = $this->attribute('username');
 		$limit = $this->attribute('limit', 5);
 		
-		if ( ! ($tweets = $this->pyrocache->get('twitter-' . $username)))
+		if ( ! ($tweets = $this->cache->get('twitter-' . $username)))
 		{
 			$tweets = json_decode(@file_get_contents($this->feed_url.'&screen_name='.$username. '&count='.$limit));
 
-			$this->pyrocache->write($tweets, 'twitter-' . $username, $this->settings->twitter_cache);
+			$this->cache->set('twitter-' . $username, $this->settings->twitter_cache, $tweets);
 		}
 		
 		$patterns = array(

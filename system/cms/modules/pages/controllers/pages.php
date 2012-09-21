@@ -82,15 +82,15 @@ class Pages extends Public_Controller
 		$page = ($url_segments !== NULL)
 
 			// Fetch this page from the database via cache
-			? $this->pyrocache->model('page_m', 'get_by_uri', array($url_segments, TRUE))
+			? $this->cache->method('page_m', 'get_by_uri', array($url_segments, TRUE))
 
-			: $this->pyrocache->model('page_m', 'get_home');
+			: $this->cache->method('page_m', 'get_home');
 
 		// If page is missing or not live (and not an admin) show 404
 		if ( ! $page OR ($page->status == 'draft' AND ( ! isset($this->current_user->group) OR $this->current_user->group != 'admin')))
 		{
 			// Load the '404' page. If the actual 404 page is missing (oh the irony) bitch and quit to prevent an infinite loop.
-			if ( ! ($page = $this->pyrocache->model('page_m', 'get_by_uri', array('404'))) )
+			if ( ! ($page = $this->cache->method('page_m', 'get_by_uri', array('404'))) )
 			{
 				show_error('The page you are trying to view does not exist and it also appears as if the 404 page has been deleted.');
 			}
@@ -132,7 +132,7 @@ class Pages extends Public_Controller
 			array_pop($url_segments);
 
 			// This array of parents in the cache?
-			if ( ! $parents = $this->pyrocache->get('page_m/'.md5(implode('/', $url_segments))))
+			if ( ! $parents = $this->cache->get('page_m/'.md5(implode('/', $url_segments))))
 			{
 				$parents = $breadcrumb_segments = array();
 
@@ -140,11 +140,11 @@ class Pages extends Public_Controller
 				{
 					$breadcrumb_segments[] = $segment;
 
-					$parents[] = $this->pyrocache->model('page_m', 'get_by_uri', array($breadcrumb_segments, TRUE));
+					$parents[] = $this->cache->method('page_m', 'get_by_uri', array($breadcrumb_segments, TRUE));
 				}
 
 				// Cache for next time
-				$this->pyrocache->write($parents, 'page_m/'.md5(implode('/', $url_segments)));
+				$this->cache->set('page_m/'.md5(implode('/', $url_segments)), $parents);
 			}
 
 			foreach ($parents as $parent_page)
@@ -253,7 +253,7 @@ class Pages extends Public_Controller
 
 
 		// Fetch this page from the database via cache
-		$page = $this->pyrocache->model('page_m', 'get_by_uri', array($url_segments, TRUE));
+		$page = $this->cache->method('page_m', 'get_by_uri', array($url_segments, TRUE));
 
 		// We will need to know if we should include draft pages in the feed later on too, so save it.
 		$include_draft = ! empty($this->current_user) AND $this->current_user->group !== 'admin';
@@ -277,8 +277,8 @@ class Pages extends Public_Controller
 			// add the query where criteria
 			$query_options['status'] = 'live';
 		}
-		// Hit the query through PyroCache.
-		$children = $this->pyrocache->model('page_m', 'get_many_by', array($query_options));
+		// Hit the query through the cache.
+		$children = $this->cache->method('page_m', 'get_many_by', array($query_options));
 
 		//var_dump($children);
 		

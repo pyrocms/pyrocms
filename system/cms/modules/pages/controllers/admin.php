@@ -84,8 +84,8 @@ class Admin extends Admin_Controller {
 			// rebuild page URIs
 			$this->page_m->update_lookup($root_pages);
 
-			$this->pyrocache->delete_all('navigation_m');
-			$this->pyrocache->delete_all('page_m');
+			$this->cache->clear('navigation_m');
+			$this->cache->clear('page_m');
 
 			Events::trigger('page_ordered', array($order, $root_pages));
 		}
@@ -332,8 +332,8 @@ class Admin extends Admin_Controller {
 
 				Events::trigger('page_updated', $id);
 
-				$this->pyrocache->delete_all('page_m');
-				$this->pyrocache->delete_all('navigation_m');
+				$this->cache->clear('page_m');
+				$this->cache->clear('navigation_m');
 
 				// Mission accomplished!
 				$input['btnAction'] == 'save_exit'
@@ -464,8 +464,8 @@ class Admin extends Admin_Controller {
 					$this->comments_m->where('module', 'pages')->delete_by('module_id', $id);
 
 					// Wipe cache for this model, the content has changd
-					$this->pyrocache->delete_all('page_m');
-					$this->pyrocache->delete_all('navigation_m');
+					$this->cache->clear('page_m');
+					$this->cache->clear('navigation_m');
 				}
 				else
 				{
