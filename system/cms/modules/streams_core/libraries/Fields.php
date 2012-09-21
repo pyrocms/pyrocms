@@ -174,78 +174,86 @@ class Fields
 		// -------------------------------------
 		
 		$result_id = '';
-	
-		// If we have multiple forms with multiple streams, we can make sure
-		// we are addressing the correct form input by a stream_id hidden input.
-		$stream_check = (isset($_POST['stream_id']) and $_POST['stream_id'] != $stream->id) ? false : true;
 
-		// If we have multiple edit forms of the same stream, we can specify
-		// the correct one by the row.
-		$row_check = ($method == 'edit' and isset($_POST['row_edit_id']) and $_POST['row_edit_id'] != $row->id) ? false : true;
+		// Find the form key
+		$form_key = (isset($extra['form_key'])) ? $extra['form_key'] : null;
 
-		if (($this->CI->form_validation->run() === true) and $stream_check and $row_check)
+		// Form key check. If no data, we must assume it is true.
+		if ($form_key and $this->CI->input->post('_streams_form_key'))
 		{
-			if ($method == 'new')
-			{
-				if ( ! $result_id = $this->CI->row_m->insert_entry($_POST, $stream_fields, $stream, $skips))
-				{
-					$this->CI->session->set_flashdata('notice', $this->CI->fields->translate_label($failure_message));
-				}
-				else
-				{
-					// -------------------------------------
-					// Send Emails
-					// -------------------------------------
-					
-					if ($plugin and (isset($email_notifications) and $email_notifications))
-					{
-						foreach ($email_notifications as $notify)
-						{
-							$this->send_email($notify, $result_id, $method = 'new', $stream);
-						}
-					}
-	
-					// -------------------------------------
-				
-					$this->CI->session->set_flashdata('success', $this->CI->fields->translate_label($extra['success_message']));
-				}
-			}
-			else
-			{
-				if ( ! $result_id = $this->CI->row_m->update_entry(
-													$stream_fields,
-													$stream,
-													$row->id,
-													$this->CI->input->post(),
-													$skips
-												))
-				{
-					$this->CI->session->set_flashdata('notice', $this->CI->fields->translate_label($extra['failure_message']));	
-				}
-				else
-				{
-					// -------------------------------------
-					// Send Emails
-					// -------------------------------------
-					
-					if ($plugin and (isset($extra['email_notifications']) and is_array($extra['email_notifications'])))
-					{
-						foreach($extra['email_notifications'] as $notify)
-						{
-							$this->send_email($notify, $result_id, $method = 'update', $stream);
-						}
-					}
-	
-					// -------------------------------------
-				
-					$this->CI->session->set_flashdata('success', $this->CI->fields->translate_label($extra['success_message']));
-				}
-			}
-			
-			// Redirect and replace -id- with the result ID
-			redirect(str_replace('-id-', $result_id, $extra['return']));
+			$key_check = ($form_key == $this->CI->input->post('_streams_form_key'));
 		}
+		else
+		{
+			$key_check = true;
+		}
+
+		if ($_POST and $key_check)
+		{
+			if ($this->CI->form_validation->run() === true)
+			{
+				if ($method == 'new')
+				{
+					if ( ! $result_id = $this->CI->row_m->insert_entry($_POST, $stream_fields, $stream, $skips))
+					{
+						$this->CI->session->set_flashdata('notice', $this->CI->fields->translate_label($failure_message));
+					}
+					else
+					{
+						// -------------------------------------
+						// Send Emails
+						// -------------------------------------
+						
+						if ($plugin and (isset($email_notifications) and $email_notifications))
+						{
+							foreach ($email_notifications as $notify)
+							{
+								$this->send_email($notify, $result_id, $method = 'new', $stream);
+							}
+						}
 		
+						// -------------------------------------
+					
+						$this->CI->session->set_flashdata('success', $this->CI->fields->translate_label($extra['success_message']));
+					}
+				}
+				else
+				{
+					if ( ! $result_id = $this->CI->row_m->update_entry(
+														$stream_fields,
+														$stream,
+														$row->id,
+														$this->CI->input->post(),
+														$skips
+													))
+					{
+						$this->CI->session->set_flashdata('notice', $this->CI->fields->translate_label($extra['failure_message']));	
+					}
+					else
+					{
+						// -------------------------------------
+						// Send Emails
+						// -------------------------------------
+						
+						if ($plugin and (isset($extra['email_notifications']) and is_array($extra['email_notifications'])))
+						{
+							foreach($extra['email_notifications'] as $notify)
+							{
+								$this->send_email($notify, $result_id, $method = 'update', $stream);
+							}
+						}
+		
+						// -------------------------------------
+					
+						$this->CI->session->set_flashdata('success', $this->CI->fields->translate_label($extra['success_message']));
+					}
+				}
+			
+				// Redirect and replace -id- with the result ID
+				redirect(str_replace('-id-', $result_id, $extra['return']));
+			}
+		}
+
 		// -------------------------------------
 		// Set Fields & Return Them
 		// -------------------------------------
