@@ -177,12 +177,13 @@ nav#usernav ul li.active a
 nav#primary ul
 {
 	float: left;
-	margin: 16px 0 0 0px;
+	margin: 0;
 }
 
 nav#primary ul li
 {
 	float: left;
+	padding: 16px 0 0 0;
 }
 
 nav#primary ul li a
@@ -286,7 +287,7 @@ nav#primary ul li ul
 nav#primary ul li ul li
 { 
 	background: #ffffff;
-	padding: 12px 20px; 
+	padding: 0; 
 	position: relative; 
 	z-index: 999;  
 	display: block;
@@ -300,7 +301,7 @@ nav#primary ul li ul li a
 	background: none;
 	text-shadow: none; 
 	border: none;
-	padding: 0;  
+	padding: 12px 20px;  
 	position: relative; 
 	z-index: 102; 
 	display: block;
