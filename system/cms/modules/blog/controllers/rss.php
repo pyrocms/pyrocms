@@ -68,7 +68,8 @@ class Rss extends Public_Controller
 					'link' => $row->link,
 					'guid' => $row->link,
 					'description'  => $row->intro,
-					'date' => $row->created_on
+					'date' => $row->created_on,
+					'category' => $row->category_title
 				);				
 				$this->data->rss->items[] = (object) $item;
 			}
