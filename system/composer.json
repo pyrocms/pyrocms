@@ -1,0 +1,15 @@
+{
+    "name": "pyrocms/pyrocms",
+    "description": "The PyroCMS Composer configuration",
+    "minimum-stability": "dev",
+    "require": {
+        "quick/cache": "v1.0.0",
+        "predis/predis": "v0.7.3"
+    },
+    "authors": [
+        {
+            "name": "jerel",
+            "email": "jerel@pyrocms.com"
+        }
+    ]
+}

@@ -1,0 +1,99 @@
+{
+    "hash": "f571bc88e80e78fa921cffe61512e251",
+    "packages": [
+        {
+            "name": "predis/predis",
+            "version": "v0.7.3",
+            "source": {
+                "type": "git",
+                "url": "git://github.com/nrk/predis.git",
+                "reference": "v0.7.3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/nrk/predis/zipball/v0.7.3",
+                "reference": "v0.7.3",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "time": "2012-06-01 09:17:31",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-0": {
+                    "Predis": "lib/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Daniele Alessandri",
+                    "email": "suppakilla@gmail.com",
+                    "homepage": "http://clorophilla.net"
+                }
+            ],
+            "description": "Flexible and feature-complete PHP client library for Redis",
+            "homepage": "http://github.com/nrk/predis",
+            "keywords": [
+                "nosql",
+                "redis",
+                "predis"
+            ]
+        },
+        {
+            "name": "quick/cache",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jerel/quick-cache",
+                "reference": "v1.0.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/jerel/quick-cache/zipball/v1.0.0",
+                "reference": "v1.0.0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "time": "2012-09-21 03:24:44",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-0": {
+                    "Quick": "core/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jerel Unruh",
+                    "email": "mail@unruhdesigns.com"
+                }
+            ],
+            "description": "This is a cache system that uses Redis for rapid caching.",
+            "homepage": "http://github.com/jerel/quick-cache",
+            "keywords": [
+                "nosql",
+                "redis",
+                "cache",
+                "predis"
+            ]
+        }
+    ],
+    "packages-dev": null,
+    "aliases": [
+
+    ],
+    "minimum-stability": "dev",
+    "stability-flags": [
+
+    ]
+}
