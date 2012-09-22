@@ -15,7 +15,7 @@
 
 		<li>
 			<label><?php echo lang('widgets.show_title'); ?>:</label>
-			<?php echo form_checkbox('show_title', TRUE, set_value('show_title')); ?>
+			<?php echo form_checkbox('show_title', TRUE, isset($widget->options['show_title']) ? $widget->options['show_title'] : FALSE); ?>
 		</li>
 
 		<?php if (isset($widget_areas)): ?>
