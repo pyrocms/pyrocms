@@ -199,7 +199,15 @@ class Widgets {
 
 		$data['options'] = $options;
 
+		// Check that the widget is enabled = 1 , if it's 1
+		// we go ahead and return it
+		$result = $this->db->select('enabled')
+		->where('slug', $name)
+		->get('widgets');
+		if($result->row()->enabled == 1)
+		{
 		return $this->load_view('display', $data);
+		} // if
 	}
 
 	function render_backend($name, $saved_data = array())
