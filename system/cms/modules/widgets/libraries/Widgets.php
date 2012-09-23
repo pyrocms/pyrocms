@@ -200,7 +200,7 @@ class Widgets {
 		$data['options'] = $options;
 
 		// Is there an overload view in the theme?
-		$overload = file_exists($this->template->get_views_path().'widgets/'.$name.EXT) ? $name : FALSE;
+		$overload = file_exists($this->template->get_views_path().'widgets/'.$name.'/display'.EXT) ? $name : FALSE;
 
 		return $this->load_view('display', $data, $overload);
 	}
@@ -483,7 +483,7 @@ class Widgets {
 		{
 			return $this->parser->parse_string($this->load->_ci_load(
 				array(
-					'_ci_path' => $this->template->get_views_path().'widgets/' . $overload . EXT,
+					'_ci_path' => $this->template->get_views_path().'widgets/' . $overload . '/display' . EXT,
 					'_ci_vars' => $data,
 					'_ci_return' => TRUE
 				)
