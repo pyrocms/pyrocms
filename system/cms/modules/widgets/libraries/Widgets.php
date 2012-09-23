@@ -481,13 +481,8 @@ class Widgets {
 	{
 		if ($overload !== FALSE)
 		{
-			return $this->parser->parse_string($this->load->_ci_load(
-				array(
-					'_ci_path' => $this->template->get_views_path().'widgets/' . $overload . '/display' . EXT,
-					'_ci_vars' => $data,
-					'_ci_return' => TRUE
-				)
-			), array(), TRUE);
+			$this->load->vars($data);
+			return $this->load->file($this->template->get_views_path().'widgets/' . $overload . '/display' . EXT, TRUE);
 		}
 
 		$path = isset($this->_widget->path) ? $this->_widget->path : $this->path;
