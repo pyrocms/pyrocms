@@ -1,7 +1,7 @@
 
 	$(document).ready(function() {
 		// Add the close link to all boxes with the closable class
-		$(".closable").append('<a href="#" class="close">x</a>');
+		$(".closable").append('<a href="#" class="close">&times;</a>');
 
 		// Close the notifications when the close link is clicked
 		$("a.close").click(function () {
@@ -11,6 +11,10 @@
 			return false;
 		});
 
-		// Fade in the notifications
+		// Fade in the notifications.
 		$(".notification").fadeIn("slow");
+		
+		// Set focus in E-mail field.
+		$('input:text').focus();
+
 	});
