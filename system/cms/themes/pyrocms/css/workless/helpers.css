@@ -3,19 +3,19 @@
  */
 .blueish 
 { 
-	background: url(../img/bg_blueish.jpg) repeat !important; 
+	background: url(../../img/bg_blueish.jpg) repeat !important; 
 }
 .noise 
 { 
-	background: url(../img/bg_noise.jpg) repeat !important; 
+	background: url(../../img/bg_noise.jpg) repeat !important; 
 }
 .noisedark 
 { 
-	background: url(../img/bg_noisedark.jpg) repeat !important; 
+	background: url(../../img/bg_noisedark.jpg) repeat !important; 
 }
 .classydark 
 { 
-	background: url(../img/bg_classydark.jpg) repeat !important; 
+	background: url(../../img/bg_classydark.jpg) repeat !important; 
 }
 /* @end Backgrounds */
 
