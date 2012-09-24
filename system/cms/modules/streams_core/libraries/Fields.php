@@ -13,7 +13,11 @@
  */
 class Fields
 {
-    function __construct()
+	public $field_type_events_run = array();
+
+	// --------------------------------------------------------------------------
+
+    public function __construct()
     {
     	$this->CI = get_instance();
     
@@ -135,7 +139,7 @@ class Fields
 		// Run Type Events
 		// -------------------------------------
 
-		$events_called = $this->run_field_events($stream_fields, $skips);
+		$this->run_field_events($stream_fields, $skips);
 				
 		// -------------------------------------
 		// Set Validation Rules
@@ -277,27 +281,23 @@ class Fields
 	 */
 	public function run_field_events($stream_fields, $skips = array())
 	{
-		$events_called = array();
-		
 		foreach ($stream_fields as $field)
 		{
 			if ( ! in_array($field->field_slug, $skips))
 			{
 				// If we haven't called it (for dupes),
 				// then call it already.
-				if ( ! in_array($field->field_type, $events_called))
+				if ( ! in_array($field->field_type, $this->field_type_events_run))
 				{
-					if(method_exists($this->CI->type->types->{$field->field_type}, 'event'))
+					if (method_exists($this->CI->type->types->{$field->field_type}, 'event'))
 					{
 						$this->CI->type->types->{$field->field_type}->event($field);
 					}
 					
-					$events_called[] = $field->field_type;
+					$this->field_type_events_run[] = $field->field_type;
 				}		
 			}
 		}
-
-		return $events_called;
 	}
 
 	// --------------------------------------------------------------------------
@@ -379,7 +379,7 @@ class Fields
 
 		$count = 0;
 		
-		$events_called = $this->run_field_events($stream_fields, $skips);
+		$this->run_field_events($stream_fields, $skips);
 
 		foreach($stream_fields as $slug => $field)
 		{
