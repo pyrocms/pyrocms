@@ -199,7 +199,10 @@ class Widgets {
 
 		$data['options'] = $options;
 
-		return $this->load_view('display', $data);
+		// Is there an overload view in the theme?
+		$overload = file_exists($this->template->get_views_path().'widgets/'.$name.'/display'.EXT) ? $name : FALSE;
+
+		return $this->load_view('display', $data, $overload);
 	}
 
 	function render_backend($name, $saved_data = array())
@@ -474,8 +477,17 @@ class Widgets {
 		}
 	}
 
-	protected function load_view($view, $data = array())
+	protected function load_view($view, $data = array(), $overload = FALSE)
 	{
+		if ($overload !== FALSE)
+		{
+			return $this->parser->parse_string($this->load->_ci_load(array(
+					'_ci_path' => $this->template->get_views_path().'widgets/' . $overload . '/display' . EXT,
+					'_ci_vars' => $data,
+					'_ci_return' => TRUE
+				)), array(), TRUE);
+		}
+
 		$path = isset($this->_widget->path) ? $this->_widget->path : $this->path;
 
 		return $view == 'display'
