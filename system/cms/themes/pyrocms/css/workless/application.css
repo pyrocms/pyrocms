@@ -385,7 +385,7 @@ nav#primary ul li ul li a.current:hover
 	font-weight: bold;
 }
 
-.ui-menu-item .tags
+.ui-menu-item .keywords
 {
 	font-size: 12px;
 	width: 200px!important;
@@ -394,7 +394,7 @@ nav#primary ul li ul li a.current:hover
 	text-overflow: ellipsis!important;
 }
 
-.ui-menu-item .loc
+.ui-menu-item .singular
 {
 	background: #eeeeee;
 	border-radius: 3px;
