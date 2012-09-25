@@ -275,10 +275,40 @@ class Module_m extends MY_Model
 		if ($this->exists($module))
 		{
 			$this->db->where('slug', $module)->update($this->_table, array('enabled' => 1));
+			$this->enable_module_widgets($module);
 			return TRUE;
 		}
 		return FALSE;
 	}
+	
+	/**
+	 * Enable module widgets
+	 *  @param : module name
+	 *  @return : null
+	 */
+	 
+	 private function enable_module_widgets($slug)
+	 {
+	 	$widget_paths = array(APPPATH, ADDONPATH, SHARED_ADDONPATH);
+		$widget_path = '';
+		foreach($widget_paths as $widegt_folder_check)
+			{
+				if(is_dir($widegt_folder_check.'modules/'.$slug.'/widgets'))
+				{
+					$widget_path = $widegt_folder_check.'modules/'.$slug.'/widgets';
+				}
+			} // foreach
+			
+		if($widget_path != ''){
+			$widgets = scandir($widget_path);
+			unset($widgets[0], $widgets[1]);
+			
+			foreach($widgets as $widget){
+			$this->db->where('slug', $widget)->where('enabled', 0);
+			$this->db->update('widgets', array('enabled' => 1)); 
+			} // foreach
+		} // if	
+	 }
 
 	/**
 	 * Disable
@@ -293,9 +323,38 @@ class Module_m extends MY_Model
 		if ($this->exists($slug))
 		{
 			$this->db->where('slug', $slug)->update($this->_table, array('enabled' => 0));
+			$this->disable_module_widgets($slug);
 			return TRUE;
 		}
 		return FALSE;
+	}
+	
+	/**
+	 * Disable module widgets
+	 *  @param : module name
+	 *  @return : null
+	 */
+	 
+	 private function disable_module_widgets($slug)
+	{
+		$widget_paths = array(APPPATH, ADDONPATH, SHARED_ADDONPATH);
+		$widget_path = '';
+			foreach($widget_paths as $widegt_folder_check)
+			{
+				if(is_dir($widegt_folder_check.'modules/'.$slug.'/widgets'))
+				{
+					$widget_path = $widegt_folder_check.'modules/'.$slug.'/widgets';
+				} // if
+			} // foreach
+		if($widget_path != ''){
+			$widgets = scandir($widget_path);
+			unset($widgets[0], $widgets[1]);
+			
+			foreach($widgets as $widget){
+			$this->db->where('slug', $widget)->where('enabled', 1);
+			$this->db->update('widgets', array('enabled' => 0)); 
+			} // foreach
+		}  // if
 	}
 
 	/**
