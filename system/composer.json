@@ -3,8 +3,7 @@
     "description": "The PyroCMS Composer configuration",
     "minimum-stability": "dev",
     "require": {
-        "quick/cache": "v1.0.0",
-        "predis/predis": "v0.7.3"
+        "quick/cache": "1.0.*"
     },
     "authors": [
         {

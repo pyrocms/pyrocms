@@ -5,9 +5,6 @@
     "keywords": ["redis", "nosql", "cache", "predis"],
     "homepage": "http://github.com/jerel/quick-cache",
     "license": "MIT",
-    "require": {
-        "predis/predis": "v0.7.3"
-    },
     "authors": [
         {
             "name": "Jerel Unruh",
@@ -15,7 +12,8 @@
         }
     ],
     "require": {
-        "php": ">=5.3.0"
+        "php": ">=5.3.0",
+        "predis/predis": "v0.7.3"
     },
     "autoload": {
         "psr-0": {"Quick": "core/"}

@@ -8,7 +8,12 @@
  * copyright 2012 -- Jerel Unruh -- http://unruhdesigns.com
  */
 
-require_once __DIR__.'/../../../../vendor/autoload.php';
+// travis-ci will have the vendor dir inside this packages folder
+if (is_file(__DIR__.'/../../../../vendor/autoload.php')) {
+	require_once __DIR__.'/../../../../vendor/autoload.php';
+} else {
+	require_once __DIR__.'/../vendor/autoload.php';
+}
 
 class QuickCacheException extends \Exception {};
 

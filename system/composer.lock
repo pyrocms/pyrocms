@@ -1,5 +1,5 @@
 {
-    "hash": "f571bc88e80e78fa921cffe61512e251",
+    "hash": "b534ce28643eebc41b1a05e55c5c4af2",
     "packages": [
         {
             "name": "predis/predis",
@@ -18,7 +18,7 @@
             "require": {
                 "php": ">=5.3.0"
             },
-            "time": "2012-06-01 09:17:31",
+            "time": "2012-06-01 14:17:31",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -46,22 +46,23 @@
         },
         {
             "name": "quick/cache",
-            "version": "v1.0.0",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jerel/quick-cache",
-                "reference": "v1.0.0"
+                "reference": "v1.0.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/jerel/quick-cache/zipball/v1.0.0",
-                "reference": "v1.0.0",
+                "url": "https://github.com/jerel/quick-cache/zipball/v1.0.1",
+                "reference": "v1.0.1",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.0"
+                "php": ">=5.3.0",
+                "predis/predis": "v0.7.3"
             },
-            "time": "2012-09-21 03:24:44",
+            "time": "2012-09-26 19:00:58",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
