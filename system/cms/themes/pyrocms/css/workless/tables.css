@@ -11,6 +11,10 @@ table
     border: 1px solid #dddddd;
     border-radius: 3px;
 }
+table thead
+{
+  background: #eeeeee;
+}
 table th, 
 table td 
 {
@@ -31,6 +35,6 @@ tbody tr td
 }
 tbody tr:nth-child(odd) td 
 {
-  	background-color: #eeeeee;
+  	background-color: #fefefe;
 }
 /* @end Tables */
