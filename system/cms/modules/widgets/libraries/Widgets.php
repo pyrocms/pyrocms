@@ -201,8 +201,15 @@ class Widgets {
 
 		// Is there an overload view in the theme?
 		$overload = file_exists($this->template->get_views_path().'widgets/'.$name.'/display'.EXT) ? $name : FALSE;
-
+		
+		// Queried that the widget is enabled , if it is we return it
+		$result = $this->db->select('enabled')
+		->where('slug', $name)
+		->get('widgets');
+		if($result->row()->enabled == 1)
+		{
 		return $this->load_view('display', $data, $overload);
+		} // if
 	}
 
 	function render_backend($name, $saved_data = array())
