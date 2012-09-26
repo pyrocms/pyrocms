@@ -51,7 +51,7 @@ $route['api/([a-zA-Z0-9_-]+)/(:any)']	    = '$1/api/$2';
 $route['api/([a-zA-Z0-9_-]+)']              = '$1/api/index';
 
 $route['register']                          = 'users/register';
-$route['user/([\w]+)']	                    = 'users/view/$1';
+$route['user/(:any)']	                    = 'users/view/$1';
 $route['my-profile']	                    = 'users/index';
 $route['edit-profile']	                    = 'users/edit';
 

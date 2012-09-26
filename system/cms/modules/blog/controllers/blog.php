@@ -248,7 +248,7 @@ class Blog extends Public_Controller
 		);
 	}
 
-    private function _single_view($post, $build = 'view')
+    private function _single_view($post)
     {
         // if it uses markdown then display the parsed version
         if ($post->type === 'markdown')
@@ -277,6 +277,7 @@ class Blog extends Public_Controller
         // Add category OG metadata
         if ($post->category_id)
         {
+        	// @TODO Add OG metadata for category
         }
 
         // Add image OG metadata
@@ -339,6 +340,6 @@ class Blog extends Public_Controller
 
 			->set('post', $post)
 
-			->build($build);
+			->build('view');
 	}
 }
