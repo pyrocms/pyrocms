@@ -55,9 +55,9 @@ $lang['addons:themes:upload_desc']				= 'Veuillez sélectionner un fichier et cl
 
 $lang['addons:themes:options']					= 'Options';
 $lang['addons:themes:theme_label']				= 'Thème';
-$lang['addons:themes:make_default'] 			= 'Rendre par défaut';
+$lang['addons:themes:make_default'] 			= 'Utiliser par défaut';
 $lang['addons:themes:version_label']			= 'Version';
 $lang['addons:themes:default_theme_label'] 		= 'Thème par défaut';
-$lang['addons:themes:no_themes_installed'] 		= 'Il n\'y a aucun thème addons:installé.';
+$lang['addons:themes:no_themes_installed'] 		= 'Il n\'y a aucun thème installé.';
 
 /* End of file addons_lang.php */
