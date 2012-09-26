@@ -414,23 +414,23 @@ nav#primary ul li ul li a.current:hover
 .subbar
 {
 	width: 100%;
-	background: #cccccc;
-	background-image: -moz-linear-gradient(top, #cccccc, #bbbbbb);
-	background-image: -ms-linear-gradient(top, #cccccc, #bbbbbb);
-	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#cccccc), to(#bbbbbb));
-	background-image: -webkit-linear-gradient(top, #cccccc, #bbbbbb);
-	background-image: -o-linear-gradient(top, #cccccc, #bbbbbb);
-	background-image: linear-gradient(top, #cccccc, #bbbbbb);
+	background: #dddddd;
+	background-image: -moz-linear-gradient(top, #dddddd, #cccccc);
+	background-image: -ms-linear-gradient(top, #dddddd, #cccccc);
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#dddddd), to(#cccccc));
+	background-image: -webkit-linear-gradient(top, #dddddd, #cccccc);
+	background-image: -o-linear-gradient(top, #dddddd, #cccccc);
+	background-image: linear-gradient(top, #dddddd, #cccccc);
 	background-repeat: repeat-x;
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#cccccc', endColorstr='#bbbbbb', GradientType=0);
-	border-top: 1px solid #eeeeee;
-	border-bottom: 1px solid #bbbbbb;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#dddddd', endColorstr='#cccccc', GradientType=0);
+	border-top: 1px solid #dddddd;
+	border-bottom: 1px solid #cccccc;
 	float: left;
 }
 
 .subbar h2
 {
-	margin-top: 9px;
+	margin-top: 10px;
 	margin-bottom: 12px;
 	font-size: 20px;
 	float: left;
@@ -450,9 +450,9 @@ nav#primary ul li ul li a.current:hover
 
 .subbar small
 {
-	margin-top: 18px;
+	margin-top: 17px;
 	float: left;
-	color: #444444;
+	color: #555555;
 	font-weight: 600;
 	font-size: 12px;
 }
