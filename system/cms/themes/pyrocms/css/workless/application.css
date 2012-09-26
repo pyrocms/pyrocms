@@ -342,25 +342,21 @@ nav#primary ul li ul li a.current:hover
  */
 #search input[type="text"]
 {
-	width: 180px;
-	border: 1px solid #000000;
+	background: #eeeeee;
+	width: 200px;
+	border: 1px solid #111111;
 	box-shadow: none;
 	padding: 7px 10px;
 	margin: 13px 18px 0 0;
-	filter: alpha(opacity=50);
-  	-khtml-opacity: 0.5;
-  	-moz-opacity: 0.5;
-  	opacity: 0.5;
   	float: right;
+  	color: #666666;
+  	border-radius: 15px;
 }
 
 #search input[type="text"]:focus
 {
-	width: 250px;
-	filter: alpha(opacity=100);
-  	-khtml-opacity: 1;
-  	-moz-opacity: 1;
-  	opacity: 1;
+	background: #ffffff;
+	color: #333333;
 }
 
 .ui-autocomplete
