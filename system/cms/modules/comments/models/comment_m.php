@@ -18,6 +18,7 @@ class Comment_m extends MY_Model
 		return $this->db->select('c.*')
     		->select('IF(c.user_id > 0, m.display_name, c.user_name) as user_name', false)
     		->select('IF(c.user_id > 0, u.email, c.user_email) as user_email', false)
+    		->select('u.username, p.display_name')
     		->from('comments c')
     		->join('users u', 'c.user_id = u.id', 'left')
     		->join('profiles m', 'm.user_id = u.id', 'left')
@@ -56,14 +57,13 @@ class Comment_m extends MY_Model
 	/**
 	 * Get something based on a module item
 	 *
-	 * 
 	 * @param string $module The name of the module
-	 * @param int $entry_id The ID of the entry
 	 * @param int $entry_key The singular key of the entry (E.g: blog:post or pages:page)
+	 * @param int $entry_id The ID of the entry
 	 * @param bool $is_active Is the comment active?
 	 * @return array
 	 */
-  	public function get_by_entry($module, $entry_id, $entry_key, $is_active = true)
+  	public function get_by_entry($module, $entry_key, $entry_id, $is_active = true)
   	{
 		$this->_get_all_setup();
 		
@@ -80,7 +80,6 @@ class Comment_m extends MY_Model
 	/**
 	 * Insert a new comment
 	 *
-	 * 
 	 * @param array $input The data to insert
 	 * @return void
 	 */
@@ -112,7 +111,6 @@ class Comment_m extends MY_Model
 	/**
 	 * Update an existing comment
 	 *
-	 * 
 	 * @param int $id The ID of the comment to update
 	 * @param array $input The array containing the data to update
 	 * @return void
@@ -133,7 +131,6 @@ class Comment_m extends MY_Model
 	/**
 	 * Approve a comment
 	 *
-	 * 
 	 * @param int $id The ID of the comment to approve
 	 * @return mixed
 	 */
@@ -145,7 +142,6 @@ class Comment_m extends MY_Model
 	/**
 	 * Unapprove a comment
 	 *
-	 * 
 	 * @param int $id The ID of the comment to unapprove
 	 * @return mixed
 	 */
@@ -226,12 +222,13 @@ class Comment_m extends MY_Model
 	private function _get_all_setup()
 	{
 		$this->_table = NULL;
-    	$this->db->select('c.*');
-		$this->db->from('comments c');
-    	$this->db->select('IF(c.user_id > 0, m.display_name, c.user_name) as user_name', false);
-    	$this->db->select('IF(c.user_id > 0, u.email, c.user_email) as user_email', false);
-
-    	$this->db->join('users u', 'c.user_id = u.id', 'left');
-    	$this->db->join('profiles m', 'm.user_id = u.id', 'left');
+    	$this->db
+    		->select('c.*')
+			->from('comments c')
+    		->select('IF(c.user_id > 0, m.display_name, c.user_name) as user_name', false)
+    		->select('IF(c.user_id > 0, u.email, c.user_email) as user_email', false)
+    		->select('u.username, m.display_name')
+    		->join('users u', 'c.user_id = u.id', 'left')
+    		->join('profiles m', 'm.user_id = u.id', 'left');
 	}
 }
