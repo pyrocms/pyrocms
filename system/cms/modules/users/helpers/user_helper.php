@@ -104,7 +104,7 @@ function user_displayname($user, $linked = TRUE)
 
 	if (ci()->settings->enable_profiles and $linked)
 	{
-		$user_name = anchor('user/'.$user['id'], $user_name);
+		$user_name = anchor('user/'.$user['username'], $user_name);
 	}
 	
 	$_users[$user['id']] = $user_name;

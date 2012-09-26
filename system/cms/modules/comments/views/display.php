@@ -4,13 +4,15 @@
 		
 		<div class="comment">
 			<div class="image">
-				<?php echo gravatar($item->email, 60) ?>
+				<?php echo gravatar($item->user_email, 60) ?>
 			</div>
 			<div class="details">
 				<div class="name">
-					<p>
-						<?php echo $item->website ? anchor($item->website, $item->name, 'rel="external nofollow"') : $item->name ?>
-					</p>
+					<?php if ($item->user_id): ?>
+						<?php echo anchor($item->website ? $item->website : 'user/'.$item->username, $item->display_name); ?>
+					<?php else: ?>
+						<?php echo $item->website ? anchor($item->website, $item->user_name, 'rel="external nofollow"') : $item->user_name ?>
+					<?php endif; ?>
 				</div>
 				<div class="date">
 					<p><?php echo format_date($item->created_on); ?></p>

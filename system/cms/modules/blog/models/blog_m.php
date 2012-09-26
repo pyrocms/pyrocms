@@ -7,9 +7,11 @@ class Blog_m extends MY_Model
 	public function get_all()
 	{
 		$this->db
-			->select('blog.*, blog_categories.title AS category_title, blog_categories.slug AS category_slug, profiles.display_name')
+			->select('blog.*, blog_categories.title AS category_title, blog_categories.slug AS category_slug')
+			->select('users.username, profiles.display_name')
 			->join('blog_categories', 'blog.category_id = blog_categories.id', 'left')
 			->join('profiles', 'profiles.user_id = blog.author_id', 'left')
+    		->join('users', 'blog.author_id = users.id', 'left')
 			->order_by('created_on', 'DESC');
 
 		return $this->db->get('blog')->result();
@@ -18,36 +20,36 @@ class Blog_m extends MY_Model
 	public function get($id)
 	{
 		return $this->db
-			->select('blog.*, profiles.display_name')
+			->select('blog.*, users.username, profiles.display_name')
 			->join('profiles', 'profiles.user_id = blog.author_id', 'left')
-			->where(array('blog.id' => $id))
+    		->join('users', 'blog.author_id = users.id', 'left')
+			->where('blog.id', $id)
 			->get('blog')
 			->row();
 	}
 	
-	public function get_by()
+	public function get_by($key, $value = null)
 	{
 		$this->db
-			->select('blog.*, profiles.display_name')
-			->join('profiles', 'profiles.user_id = blog.author_id', 'left');
+			->select('blog.*, users.username, profiles.display_name')
+			->join('profiles', 'profiles.user_id = blog.author_id', 'left')
+    		->join('users', 'blog.author_id = users.id', 'left');
 			
-		/*if (is_array($key))
+		if (is_array($key))
 		{
 			$this->db->where($key);
 		}
 		else
 		{
 			$this->db->where($key, $value);
-		}*/
+		}
 
 		return $this->db->get($this->_table)->row();
 	}
 
 	public function get_many_by($params = array())
 	{
-		$this->load->helper('date');
-
-		if (!empty($params['category']))
+		if ( ! empty($params['category']))
 		{
 			if (is_numeric($params['category']))
 				$this->db->where('blog_categories.id', $params['category']);
@@ -55,12 +57,12 @@ class Blog_m extends MY_Model
 				$this->db->where('blog_categories.slug', $params['category']);
 		}
 
-		if (!empty($params['month']))
+		if ( ! empty($params['month']))
 		{
 			$this->db->where('MONTH(FROM_UNIXTIME(created_on))', $params['month']);
 		}
 
-		if (!empty($params['year']))
+		if ( ! empty($params['year']))
 		{
 			$this->db->where('YEAR(FROM_UNIXTIME(created_on))', $params['year']);
 		}
@@ -73,7 +75,7 @@ class Blog_m extends MY_Model
 		}
 
 		// Is a status set?
-		if (!empty($params['status']))
+		if ( ! empty($params['status']))
 		{
 			// If it's all, then show whatever the status
 			if ($params['status'] != 'all')
@@ -90,7 +92,7 @@ class Blog_m extends MY_Model
 		}
 
 		// By default, dont show future posts
-		if (!isset($params['show_future']) || (isset($params['show_future']) && $params['show_future'] == FALSE))
+		if ( ! isset($params['show_future']) || (isset($params['show_future']) && $params['show_future'] == FALSE))
 		{
 			$this->db->where('created_on <=', now());
 		}
@@ -135,7 +137,7 @@ class Blog_m extends MY_Model
 			// we need the display name joined so we can get an accurate count when searching
 			->join('profiles', 'profiles.user_id = blog.author_id');
 
-		if (!empty($params['category']))
+		if ( ! empty($params['category']))
 		{
 			if (is_numeric($params['category']))
 				$this->db->where('blog_categories.id', $params['category']);
@@ -143,12 +145,12 @@ class Blog_m extends MY_Model
 				$this->db->where('blog_categories.slug', $params['category']);
 		}
 
-		if (!empty($params['month']))
+		if ( ! empty($params['month']))
 		{
 			$this->db->where('MONTH(FROM_UNIXTIME(created_on))', $params['month']);
 		}
 
-		if (!empty($params['year']))
+		if ( ! empty($params['year']))
 		{
 			$this->db->where('YEAR(FROM_UNIXTIME(created_on))', $params['year']);
 		}
@@ -161,7 +163,7 @@ class Blog_m extends MY_Model
 		}
 
 		// Is a status set?
-		if (!empty($params['status']))
+		if ( ! empty($params['status']))
 		{
 			// If it's all, then show whatever the status
 			if ($params['status'] != 'all')
@@ -279,7 +281,7 @@ class Blog_m extends MY_Model
 				preg_match_all('/%.*?%/i', $data['keywords'], $matches);
 			}
 
-			if (!empty($matches[0]))
+			if ( ! empty($matches[0]))
 			{
 				foreach ($matches[0] as $match)
 				{

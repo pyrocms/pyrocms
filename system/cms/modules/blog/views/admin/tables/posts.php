@@ -26,7 +26,7 @@
 					<td class="collapse"><?php echo format_date($post->created_on); ?></td>
 					<td class="collapse">
 					<?php if (isset($post->display_name)): ?>
-						<?php echo anchor('user/' . $post->author_id, $post->display_name, 'target="_blank"'); ?>
+						<?php echo anchor('user/'.$post->username, $post->display_name, 'target="_blank"'); ?>
 					<?php else: ?>
 						<?php echo lang('blog:author_unknown'); ?>
 					<?php endif; ?>

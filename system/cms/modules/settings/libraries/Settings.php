@@ -228,6 +228,7 @@ class Settings {
 				}
 			}
 
+			// If its an array un-CSV it
 			if (is_string($setting->options))
 			{
 				$setting->options = explode('|', $setting->options);
@@ -259,7 +260,7 @@ class Settings {
 				$form_control = form_password(array(
 					'id'	=> $setting->slug,
 					'name'	=> $setting->slug,
-					'value'	=> $setting->value,
+					'value'	=> 'XXXXXXXXXXXX',
 					'class'	=> 'text width-20',
 					'autocomplete' => 'off',
 				));

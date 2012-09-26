@@ -18,57 +18,51 @@
 	</div>
 </div>
 
-<div class="secondary_bar" dir=<?php $vars = $this->load->_ci_cached_vars; echo $vars['lang']['direction']; ?>>
+<div class="secondary_bar" dir="<?php $lang = $this->load->get_var('lang'); echo $lang['direction']; ?>">
 	<div class="wrapper">
 		<nav id="primary">
 			<?php file_partial('navigation'); ?>
 		</nav>
 		<div id="search">
 			<script type="text/javascript">
-				$(function() {
-					var projects = [
-						{
-							value: "pyrocms",
-							label: "PyroCMS",
-							tags: "kickass, content, management",
-							loc: "post"
-						},
-						{
-							value: "permissions",
-							label: "Permissions",
-							tags: "settings, users, roles",
-							loc: "settings"
-						},
-						{
-							value: "pages",
-							label: "Pages",
-							tags: "content, writing",
-							loc: "pages"
-						}
-					];
+				jQuery(function($) {
 
-					$("#searchform").autocomplete({
-						minLength: 0,
-						source: projects,
-						focus: function(event, ui){
-							$("#searchform").val( ui.item.label);
+					$(function() {
+						var cache = {}, lastXhr;
 
-						return false;
-						},
-						select: function(event, ui){
-							$("#searchform").val( ui.item.label);
-							$("#searchform-id").val(ui.item.value);
-							$("#searchform-description").html(ui.item.tags);
+						$("#searchform").autocomplete({
+							minLength: 0,
+							source: function( request, response ) {
+								var term = request.term;
+								if ( term in cache ) {
+									response( cache[ term ] );
+									return;
+								}
 
-						return false;
-						}
-					})
-					.data( "autocomplete" )._renderItem = function(ul, item){
-						return $("<li></li>")
-						.data("item.autocomplete", item)
-						.append('<a>' + item.label + '</a><div class="tags">' + item.tags + '</div><div class="loc">' + item.loc + '</div>')
-						.appendTo(ul);
-					};
+								lastXhr = $.getJSON(SITE_URL + 'admin/search/ajax_autocomplete', request, function( data, status, xhr ) {
+									cache[ term ] = data.results;
+									if ( xhr === lastXhr ) {
+										response( data.results );
+									}
+								});
+							},
+							focus: function(event, ui) {
+								// $("#searchform").val( ui.item.label);
+								return false;
+							},
+							select: function(event, ui) {
+								window.location.href = ui.item.url;
+								return false;
+							}
+						})
+						.data("autocomplete")._renderItem = function(ul, item){
+							return $("<li></li>")
+							.data("item.autocomplete", item)
+							.append('<a href="' + item.url + '">' + item.title + '</a><div class="keywords">' + item.keywords + '</div><div class="singular">' + item.singular + '</div>')
+							.appendTo(ul);
+						};
+					});
+
 				});
 			</script>
 			<input id="searchform" name="searchform" type="text" placeholder="Type something and hit enter..." />
@@ -81,7 +75,7 @@
 		<h2><?php echo $module_details['name'] ? anchor('admin/'.$module_details['slug'], $module_details['name']) : lang('global:dashboard'); ?></h2>
 	
 		<small>
-			<?php if ( $this->uri->segment(2) ) { echo '&nbsp; | &nbsp;'; } ?>
+			<?php if ( $this->uri->segment(2) ) { echo '&nbsp; &mdash;&nbsp;'; } ?>
 			<?php echo $module_details['description'] ? $module_details['description'] : ''; ?>
 		</small>
 

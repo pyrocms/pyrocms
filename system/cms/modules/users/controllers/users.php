@@ -41,15 +41,25 @@ class Users extends Public_Controller
 	}
 
 	/**
-	 * View a user profile based on the ID
+	 * View a user profile based on the username
 	 *
-	 * @param int|string $id The Username or ID of the user
+	 * @param string $username The Username or ID of the user
 	 */
-	public function view($id = null)
+	public function view($username = null)
 	{
-		$user = ($this->current_user && $id == $this->current_user->id) ? $this->current_user : $this->ion_auth->get_user($id);
+		// Don't make a 2nd db call if the user profile is the same as the logged in user
+		if ($this->current_user && $username === $this->current_user->username)
+		{
+			$user = $this->current_user;
+		}
 
-		// No user? Show a 404 error. Easy way for now, instead should show a custom error message
+		// Fine, just grab the user from the DB
+		else
+		{
+			$user = $this->ion_auth->get_user($username);
+		}
+
+		// No user? Show a 404 error
 		$user or show_404();
 
 		$this->template->build('profile/view', array(
@@ -68,7 +78,7 @@ class Users extends Public_Controller
 			: $this->session->userdata('redirect_to');
 
 		// Any idea where we are heading after login?
-		if ( ! $_POST AND $args = func_get_args())
+		if ( ! $_POST and $args = func_get_args())
 		{
 			$this->session->set_userdata('redirect_to', $redirect_to = implode('/', $args));
 		}
