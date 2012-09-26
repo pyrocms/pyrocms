@@ -75,7 +75,7 @@
 		<h2><?php echo $module_details['name'] ? anchor('admin/'.$module_details['slug'], $module_details['name']) : lang('global:dashboard'); ?></h2>
 	
 		<small>
-			<?php if ( $this->uri->segment(2) ) { echo '&nbsp; | &nbsp;'; } ?>
+			<?php if ( $this->uri->segment(2) ) { echo '&nbsp; &mdash;&nbsp;'; } ?>
 			<?php echo $module_details['description'] ? $module_details['description'] : ''; ?>
 		</small>
 

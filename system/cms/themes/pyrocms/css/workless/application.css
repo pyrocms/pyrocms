@@ -529,12 +529,19 @@ nav#shortcuts ul li a:hover
 .sections_bar ul li a
 {
 	font-size: 13px;
-	color: #444444;
+	color: #555555;
 }
 
 .sections_bar ul li a:hover
 {
 	color: #ff9900;
+}
+
+.sections_bar ul li.current a
+{
+	background: #cccccc;
+	padding: 3px 5px;
+	border-radius: 3px;
 }
 
 .sections_bar img
