@@ -18,6 +18,7 @@ class Widget_Twitter_feed extends Widgets
 	public $title = array(
 		'en' => 'Twitter Feed',
 		'el' => 'Ροή Twitter',
+            'fr' => 'Flux Twitter',
 		'nl' => 'Twitterfeed',
 		'br' => 'Feed do Twitter',
 		'pt' => 'Feed do Twitter',
@@ -34,6 +35,7 @@ class Widget_Twitter_feed extends Widgets
 	public $description = array(
 		'en' => 'Display Twitter feeds on your website',
 		'el' => 'Προβολή των τελευταίων tweets από το Twitter',
+            'fr' => 'Afficher les flux Twitter sur votre site Internet',
 		'nl' => 'Toon Twitterfeeds op uw website',
 		'br' => 'Mostra os últimos tweets de um usuário do Twitter no seu site.',
 		'pt' => 'Mostra os últimos tweets de um utilizador do Twitter no seu site.',
@@ -109,7 +111,7 @@ class Widget_Twitter_feed extends Widgets
 			// Detect Email
 			'|([a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,6})|i' => '<a href="mailto:$1">$1</a>',
 			// Detect Twitter @usernames
-			'| @([a-z0-9-_]+)|i' => '<a href="https://twitter.com/$1" target="_blank">$0</a>',
+			'/(^|\s)@([a-z0-9_]+)/i' => '$1<a href="http://www.twitter.com/$2">@$2</a>',
 			// Detect Twitter #tags
 			'|#([a-z0-9-_]+)|i' => '<a href="https://twitter.com/search?q=%23$1" target="_blank">$0</a>'
 		);

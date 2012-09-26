@@ -10,6 +10,8 @@ $lang['version_label'] 					= 'Versione';
 $lang['global:author'] 					= 'Autore';
 $lang['global:action'] 					= 'Azione';
 $lang['global:slug']   					= 'Slug';
+$lang['global:slug_instructions']		= 'Sono ammessi solo caratteri minuscoli e underscore (trattini bassi).';
+
 $lang['global:user'] 					= 'User';
 
 

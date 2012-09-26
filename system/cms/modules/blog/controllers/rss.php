@@ -47,10 +47,13 @@ class Rss extends Public_Controller
 	
 	function _build_feed( $posts = array() )
 	{
+		$this->data = new stdClass();
+		$this->data->rss = new stdClass();
+
 		$this->data->rss->encoding = $this->config->item('charset');
 		$this->data->rss->feed_name = $this->settings->get('site_name');
 		$this->data->rss->feed_url = base_url();
-		$this->data->rss->page_description = sprintf($this->lang->line('blog_rss_posts_title'), $this->settings->get('site_name'));
+		$this->data->rss->page_description = sprintf($this->lang->line('blog:rss_posts_title'), $this->settings->get('site_name'));
 		$this->data->rss->page_language = 'en-gb';
 		$this->data->rss->creator_email = $this->settings->get('contact_email');
 		
@@ -68,7 +71,8 @@ class Rss extends Public_Controller
 					'link' => $row->link,
 					'guid' => $row->link,
 					'description'  => $row->intro,
-					'date' => $row->created_on
+					'date' => $row->created_on,
+					'category' => $row->category_title
 				);				
 				$this->data->rss->items[] = (object) $item;
 			}

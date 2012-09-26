@@ -3,11 +3,11 @@
 		<thead>
 			<tr>
 				<th width="20"><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all')); ?></th>
-				<th><?php echo lang('blog_post_label'); ?></th>
-				<th class="collapse"><?php echo lang('blog_category_label'); ?></th>
-				<th class="collapse"><?php echo lang('blog_date_label'); ?></th>
-				<th class="collapse"><?php echo lang('blog_written_by_label'); ?></th>
-				<th><?php echo lang('blog_status_label'); ?></th>
+				<th><?php echo lang('blog:post_label'); ?></th>
+				<th class="collapse"><?php echo lang('blog:category_label'); ?></th>
+				<th class="collapse"><?php echo lang('blog:date_label'); ?></th>
+				<th class="collapse"><?php echo lang('blog:written_by_label'); ?></th>
+				<th><?php echo lang('blog:status_label'); ?></th>
 				<th width="180"></th>
 			</tr>
 		</thead>
@@ -29,10 +29,10 @@
 					<?php if (isset($post->display_name)): ?>
 						<?php echo anchor('user/' . $post->author_id, $post->display_name, 'target="_blank"'); ?>
 					<?php else: ?>
-						<?php echo lang('blog_author_unknown'); ?>
+						<?php echo lang('blog:author_unknown'); ?>
 					<?php endif; ?>
 					</td>
-					<td><?php echo lang('blog_'.$post->status.'_label'); ?></td>
+					<td><?php echo lang('blog:'.$post->status.'_label'); ?></td>
 					<td>
 
                         <?php if($post->status=='live') : ?>

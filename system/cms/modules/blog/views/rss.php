@@ -18,9 +18,10 @@ echo '<?xml version="1.0" encoding="utf-8"?>' . "
 				<title><?php echo $item->title;?></title>
 				<link><?php echo $item->link;?></link>
 				<description><![CDATA[<?php echo $item->description;?>]]></description>
-				<?php //'<author>< ? = lang('blog_author_name_label'); ? ></author>'; ?>
+				<?php //'<author>< ? = lang('blog:author_name_label'); ? ></author>'; ?>
 				<pubDate><?php echo $item->date;?></pubDate>
 				<guid><?php echo $item->guid;?></guid>
+				<category><?php echo $item->category;?></category>
 			</item>
 		<?php endforeach; ?>
 		<?php endif; ?>

@@ -233,24 +233,24 @@ class Installer_lib {
 		// Include migration config to know which migration to start from
 		include '../system/cms/config/migration.php';
 
+		// Create a connection
+		if ( ! $this->db = @mysql_connect($server, $username, $password) )
+		{
+			return array('status' => FALSE,'message' => 'The installer could not connect to the MySQL server or the database, be sure to enter the correct information.');
+		}
+
 		// Get the SQL for the default data and parse it
 		$user_sql = file_get_contents('./sql/default.sql');
 		$user_sql = str_replace('{PREFIX}', $data['site_ref'].'_', $user_sql);
 		$user_sql = str_replace('{EMAIL}', $data['user_email'], $user_sql);
-		$user_sql = str_replace('{USER-NAME}', mysql_real_escape_string($data['user_name']), $user_sql);
-		$user_sql = str_replace('{DISPLAY-NAME}', mysql_real_escape_string($data['user_firstname'] . ' ' . $data['user_lastname']), $user_sql);
-		$user_sql = str_replace('{PASSWORD}', mysql_real_escape_string($data['user_password']), $user_sql);
-		$user_sql = str_replace('{FIRST-NAME}', mysql_real_escape_string($data['user_firstname']), $user_sql);
-		$user_sql = str_replace('{LAST-NAME}', mysql_real_escape_string($data['user_lastname']) , $user_sql);
+		$user_sql = str_replace('{USER-NAME}', mysql_real_escape_string($data['user_name'], $this->db), $user_sql);
+		$user_sql = str_replace('{DISPLAY-NAME}', mysql_real_escape_string($data['user_firstname'] . ' ' . $data['user_lastname'], $this->db), $user_sql);
+		$user_sql = str_replace('{PASSWORD}', mysql_real_escape_string($data['user_password'], $this->db), $user_sql);
+		$user_sql = str_replace('{FIRST-NAME}', mysql_real_escape_string($data['user_firstname'], $this->db), $user_sql);
+		$user_sql = str_replace('{LAST-NAME}', mysql_real_escape_string($data['user_lastname'], $this->db) , $user_sql);
 		$user_sql = str_replace('{SALT}', $user_salt, $user_sql);
 		$user_sql = str_replace('{NOW}', time(), $user_sql);
 		$user_sql = str_replace('{MIGRATION}', $config['migration_version'], $user_sql);
-
-		// Create a connection
-		if ( ! $this->db = mysql_connect($server, $username, $password) )
-		{
-			return array('status' => FALSE,'message' => 'The installer could not connect to the MySQL server or the database, be sure to enter the correct information.');
-		}
 		
 		if ($this->mysql_server_version >= '5.0.7')
 		{

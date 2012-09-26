@@ -9,6 +9,8 @@ $lang['desc_label'] 					= 'Beschreibung';
 $lang['version_label'] 					= 'Version';
 $lang['global:author'] 					= 'Autor';
 $lang['global:action'] 					= 'Aktion';
+$lang['global:slug'] 					= 'Slug'; #translate
+$lang['global:slug_instructions']		= 'Lowercase characters and underscores only.'; #translate
 
 $lang['dialog.delete_message'] 			= 'Bist du sicher, dass du das löschen möchtest? Es gibt keine Möglichkeit das Löschen rückgängig zu machen.';
 $lang['dialog.confirm'] 				= 'Bestätigen';

@@ -39,8 +39,8 @@ $lang['cp_nav_utilities']               = 'Accessori';
 
 $lang['cp_must_login']	 				= 'Devi effettuare il login per vedere questa pagina.';
 $lang['cp_access_denied'] 				= 'Non hai privilegi sufficienti per vedere questa pagina.';
-$lang['cp_delete_installer_message']	= 'Cancella la cartella Installer dal tuo server per favore. Non cancellarla potrebbe consentire a qualcuno di prendere il controllo del tuo sito.';
-$lang['cp_upgrade_message']				= 'Stai usando la versione %s, ma la versione del tuo database &eacute; la %s. Per favore <a href="%s" title="Upgrade">clicca qui</a> per aggiornare il database.';
+$lang['cp_delete_installer_message']	= 'Cancella la cartella Installer dal tuo server per favore. Non cancellarla potrebbe consentire a qualcuno di reinstallare il CMS senza il tuo permesso.';
+$lang['cp_upgrade_message']				= 'Stai usando la versione %s, ma la versione del tuo database è la %s. Per favore <a href="%s" title="Upgrade">clicca qui</a> per aggiornare il database.';
 $lang['cp_google_analytics_missing'] = 'Le impostazioni di Google Analytics sono mancanti. Aggiungile in %s o contatta il tuo amministratore.';
 $lang['cp_google_analytics_no_connect'] = 'Impossibile connettersi a Google Analytics. Controlla le %s.';
 

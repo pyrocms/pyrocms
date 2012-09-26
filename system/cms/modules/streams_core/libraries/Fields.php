@@ -13,7 +13,11 @@
  */
 class Fields
 {
-    function __construct()
+	public $field_type_events_run = array();
+
+	// --------------------------------------------------------------------------
+
+    public function __construct()
     {
     	$this->CI = get_instance();
     
@@ -135,7 +139,7 @@ class Fields
 		// Run Type Events
 		// -------------------------------------
 
-		$events_called = $this->run_field_events($stream_fields, $skips);
+		$this->run_field_events($stream_fields, $skips);
 				
 		// -------------------------------------
 		// Set Validation Rules
@@ -175,69 +179,85 @@ class Fields
 		
 		$result_id = '';
 
-		if ($this->CI->form_validation->run() === TRUE)
+		// Find the form key
+		$form_key = (isset($extra['form_key'])) ? $extra['form_key'] : null;
+
+		// Form key check. If no data, we must assume it is true.
+		if ($form_key and $this->CI->input->post('_streams_form_key'))
 		{
-			if ($method == 'new')
-			{
-				if ( ! $result_id = $this->CI->row_m->insert_entry($_POST, $stream_fields, $stream, $skips))
-				{
-					$this->CI->session->set_flashdata('notice', $this->CI->fields->translate_label($failure_message));
-				}
-				else
-				{
-					// -------------------------------------
-					// Send Emails
-					// -------------------------------------
-					
-					if ($plugin and (isset($email_notifications) and $email_notifications))
-					{
-						foreach ($email_notifications as $notify)
-						{
-							$this->send_email($notify, $result_id, $method = 'new', $stream);
-						}
-					}
-	
-					// -------------------------------------
-				
-					$this->CI->session->set_flashdata('success', $this->CI->fields->translate_label($extra['success_message']));
-				}
-			}
-			else
-			{
-				if ( ! $result_id = $this->CI->row_m->update_entry(
-													$stream_fields,
-													$stream,
-													$row->id,
-													$this->CI->input->post(),
-													$skips
-												))
-				{
-					$this->CI->session->set_flashdata('notice', $this->CI->fields->translate_label($extra['failure_message']));	
-				}
-				else
-				{
-					// -------------------------------------
-					// Send Emails
-					// -------------------------------------
-					
-					if ($plugin AND (isset($extra['email_notifications']) AND is_array($extra['email_notifications'])))
-					{
-						foreach($extra['email_notifications'] as $notify)
-						{
-							$this->send_email($notify, $result_id, $method = 'update', $stream);
-						}
-					}
-	
-					// -------------------------------------
-				
-					$this->CI->session->set_flashdata('success', $this->CI->fields->translate_label($extra['success_message']));
-				}
-			}
-			
-			// Redirect and replace -id- with the result ID
-			redirect(str_replace('-id-', $result_id, $extra['return']));
+			$key_check = ($form_key == $this->CI->input->post('_streams_form_key'));
 		}
+		else
+		{
+			$key_check = true;
+		}
+
+		if ($_POST and $key_check)
+		{
+			if ($this->CI->form_validation->run() === true)
+			{
+				if ($method == 'new')
+				{
+					if ( ! $result_id = $this->CI->row_m->insert_entry($_POST, $stream_fields, $stream, $skips))
+					{
+						$this->CI->session->set_flashdata('notice', $this->CI->fields->translate_label($failure_message));
+					}
+					else
+					{
+						// -------------------------------------
+						// Send Emails
+						// -------------------------------------
+						
+						if ($plugin and (isset($email_notifications) and $email_notifications))
+						{
+							foreach ($email_notifications as $notify)
+							{
+								$this->send_email($notify, $result_id, $method = 'new', $stream);
+							}
+						}
 		
+						// -------------------------------------
+					
+						$this->CI->session->set_flashdata('success', $this->CI->fields->translate_label($extra['success_message']));
+					}
+				}
+				else
+				{
+					if ( ! $result_id = $this->CI->row_m->update_entry(
+														$stream_fields,
+														$stream,
+														$row->id,
+														$this->CI->input->post(),
+														$skips
+													))
+					{
+						$this->CI->session->set_flashdata('notice', $this->CI->fields->translate_label($extra['failure_message']));	
+					}
+					else
+					{
+						// -------------------------------------
+						// Send Emails
+						// -------------------------------------
+						
+						if ($plugin and (isset($extra['email_notifications']) and is_array($extra['email_notifications'])))
+						{
+							foreach($extra['email_notifications'] as $notify)
+							{
+								$this->send_email($notify, $result_id, $method = 'update', $stream);
+							}
+						}
+		
+						// -------------------------------------
+					
+						$this->CI->session->set_flashdata('success', $this->CI->fields->translate_label($extra['success_message']));
+					}
+				}
+			
+				// Redirect and replace -id- with the result ID
+				redirect(str_replace('-id-', $result_id, $extra['return']));
+			}
+		}
+
 		// -------------------------------------
 		// Set Fields & Return Them
 		// -------------------------------------
@@ -261,27 +281,23 @@ class Fields
 	 */
 	public function run_field_events($stream_fields, $skips = array())
 	{
-		$events_called = array();
-		
 		foreach ($stream_fields as $field)
 		{
 			if ( ! in_array($field->field_slug, $skips))
 			{
 				// If we haven't called it (for dupes),
 				// then call it already.
-				if ( ! in_array($field->field_type, $events_called))
+				if ( ! in_array($field->field_type, $this->field_type_events_run))
 				{
-					if(method_exists($this->CI->type->types->{$field->field_type}, 'event'))
+					if (method_exists($this->CI->type->types->{$field->field_type}, 'event'))
 					{
 						$this->CI->type->types->{$field->field_type}->event($field);
 					}
 					
-					$events_called[] = $field->field_type;
+					$this->field_type_events_run[] = $field->field_type;
 				}		
 			}
 		}
-
-		return $events_called;
 	}
 
 	// --------------------------------------------------------------------------
@@ -363,7 +379,7 @@ class Fields
 
 		$count = 0;
 		
-		$events_called = $this->run_field_events($stream_fields, $skips);
+		$this->run_field_events($stream_fields, $skips);
 
 		foreach($stream_fields as $slug => $field)
 		{

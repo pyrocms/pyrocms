@@ -9,6 +9,8 @@ $lang['desc_label'] 					= 'Description'; #translate
 $lang['version_label'] 					= 'Version'; #translate
 $lang['global:author'] 					= 'Author'; #translate
 $lang['global:action'] 					= 'Action'; #translate
+$lang['global:slug'] 					= 'Slug'; #translate
+$lang['global:slug_instructions']		= 'Lowercase characters and underscores only.'; #translate
 
 $lang['dialog.delete_message'] 			= 'Are you sure you want to delete this? It cannot be undone.'; #translate
 $lang['dialog.confirm'] 					= 'Confirm'; #translate

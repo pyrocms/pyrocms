@@ -45,7 +45,7 @@ class Plugin_Asset extends Plugin
 	{
 		$file = $this->attribute('file');
 
-		return Asset::get_filepath_js($file, true);
+		return Asset::get_filepath_css($file, true);
 	}
 
 	/**
@@ -63,7 +63,7 @@ class Plugin_Asset extends Plugin
 	{
 		$file = $this->attribute('file');
 
-		return BASE_URI.Asset::get_filepath_js($file, FALSE);
+		return BASE_URI.Asset::get_filepath_css($file, FALSE);
 	}
 
 	/**
