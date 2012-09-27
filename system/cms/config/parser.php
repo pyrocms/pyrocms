@@ -7,7 +7,7 @@
 */
 
 $config['allowed_functions']	=	array(
-	'character_limit',
+	'character_limiter',
 	'count',
 	'count_chars',
 	'empty',
