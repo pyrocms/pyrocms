@@ -39,7 +39,7 @@ $lang['cp_nav_misc']					= 'Miscellaneous'; #translate
 
 $lang['cp_must_login']	 				= 'Jūs turite būti prisijungęs, kad matytumėte šį puslapį.';
 $lang['cp_access_denied'] 				= 'Jūs neturite leidimo peržiūrėti šį puslapį.';
-$lang['cp_delete_installer_message']	= 'Ištrinkite instaliavimo direktoriją, nes taip paliekate spragą jungtis kietiems.';
+$lang['cp_delete_installer_message']	= 'Installer PyroCMS automatiškai ištrinami, kad būtų išvengta kontrolę, suteiktą kažkam kitam.';
 $lang['cp_upgrade_message']				= 'Jūsų naudojama versija %s, tačiau duomenų bazės versija %s. Prašome <a href="%s" title="Atnaujinimai">spausti čia</a> kad atnaujinti duomenų bazę.';
 $lang['cp_google_analytics_missing']	= 'Google Analytics nustatymai nerandami. Įdėkite juos į %s arba kreipkitės į sistemos administratorių.';
 $lang['cp_google_analytics_no_connect']	= 'Negalime prisijungti prie Google Analytics. Patikrinkite %s.';

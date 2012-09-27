@@ -39,7 +39,7 @@ $lang['cp_nav_misc']					= 'Miscellaneous'; #translate
 
 $lang['cp_must_login']	 				= 'Deve estar conectado para ver esta página.';
 $lang['cp_access_denied'] 				= 'Não possui privilégios suficientes para ver esta página.';
-$lang['cp_delete_installer_message']	= 'Por favor, remova a pasta de instalação do seu servidor. Deixa-la online significa permitir o controlo do seu site a qualquer outra pessoa.';
+$lang['cp_delete_installer_message']	= 'O instalador PyroCMS foi automaticamente eliminado para evitar controle possível de ser concedido a alguém.';
 $lang['cp_upgrade_message']				= 'Está a utilizar a versão %s, mas a sua base de dados é versão %s. Por favor, <a href="%s" title="Upgrade">clique aqui</a> para actualizar a sua base de dados.';
 $lang['cp_google_analytics_missing']	= 'Faltam as configurações para o Google Analytics. Adicione-as em %s ou entre em conctato com seu administrador.';
 $lang['cp_google_analytics_no_connect']	= 'Não foi possível conectar-se ao Google Analytics. Verifique suas %s.';
