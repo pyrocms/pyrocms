@@ -34,8 +34,12 @@ class Admin extends Admin_Controller
 			{
 				rmdir('./installer');
 				$this->template
-				->set('messages', array('success' => lang('cp_delete_installer_message')));
-			}
+				->set('messages', array('success' => lang('cp_auto_delete_installer_message')));
+			} else 
+				{
+					$this->template
+				->set('messages', array('notice' => lang('cp_delete_installer_message')));
+				}
 		} // if
 
 		$this->template

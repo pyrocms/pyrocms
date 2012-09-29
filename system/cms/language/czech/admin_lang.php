@@ -39,7 +39,8 @@ $lang['cp_nav_misc']					= 'Miscellaneous'; #translate
 
 $lang['cp_must_login']					= 'Pro prohlížení této stránky musíte být přihlášen/a.';
 $lang['cp_access_denied']				= 'nemáte oprávnění k prohlížení této stránky.';
-$lang['cp_delete_installer_message']	= 'Instalační PyroCMS byla automaticky odstraněny, aby se zabránilo možnému kontrolu, kterou poskytují na někoho jiného.';
+$lang['cp_auto_delete_installer_message']	= 'Instalační PyroCMS byla automaticky odstraněny, aby se zabránilo možnému kontrolu, kterou poskytují na někoho jiného.';
+$lang['cp_delete_installer_message']	= 'Prosím vymažte instalační složku ze serveru. Její přítomnost může být zneužita k získání kontroly nad vaším webem někým cizím.';
 $lang['cp_upgrade_message']				= 'Vaše verze systému je %s, ale verze vaší databáze je %s. <a href="%s" title="Aktualizace">Klikněte sem</a> pro aktualizaci vaší databáze.';
 $lang['cp_google_analytics_missing']	= 'Nastavení Google Analytics chybí. Zapište je do %s nebo kontaktujte svého administrátora.';
 $lang['cp_google_analytics_no_connect']	= 'Nepodařilo se připojit ke Google Analytics. Zkontrolujte na %s.';

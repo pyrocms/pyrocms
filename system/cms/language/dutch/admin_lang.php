@@ -43,7 +43,8 @@ $lang['cp_upgrade_message']				= 'U gebruikt momenteel versie %s, maar uw databa
 
 $lang['cp_must_login']	 				= 'U moet ingelogd zijn om deze pagina te kunnen bekijken.';
 $lang['cp_access_denied'] 				= 'U heeft geen toestemming om deze pagina te bekijken.';
-$lang['cp_delete_installer_message']	= 'Verwijder alstublieft de installer map van de server. Het online laten staan betekent dat controle van deze website gegeven kan worden aan iemand anders.';
+$lang['cp_auto_delete_installer_message']	= 'Verwijder alstublieft de installer map van de server. Het online laten staan betekent dat controle van deze website gegeven kan worden aan iemand anders.';
+$lang['cp_delete_installer_message']	= 'Verwijder alstublieft de installer-directory op uw server. Als u deze online laat kan deze misbruikt worden door een hacker.';
 $lang['cp_upgrade_message']				= 'U draait momenteel versie %s, maar uw database is versie %s. <a href="%s" title="Upgrade">Klik hier</a> om uw database te upgraden.';
 
 $lang['required_label'] 				= 'Vereist';
