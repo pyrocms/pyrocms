@@ -254,15 +254,16 @@ class Fields
 					}
 				}
 			
-			// If return url is set, redirect and replace -id- with the result ID
-			// Otherwise return id
-			if ($extra['return'])
-			{
-				redirect(str_replace('-id-', $result_id, $extra['return']));
-			}
-			else
-			{
-				return $result_id;
+				// If return url is set, redirect and replace -id- with the result ID
+				// Otherwise return id
+				if ($extra['return'])
+				{
+					redirect(str_replace('-id-', $result_id, $extra['return']));
+				}
+				else
+				{
+					return $result_id;
+				}
 			}
 		}
 
