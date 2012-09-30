@@ -108,17 +108,35 @@ $lang['settings_enable_comments_desc']			= 'Permite a escrita de comentários';
 $lang['settings_moderate_comments'] 			= 'Moderar comentários';
 $lang['settings_moderate_comments_desc']		= 'Forçar comentários a serem aprovados antes que apareçan no site.';
 
+$lang['settings_comment_markdown']				= 'Permitir Markdown';
+$lang['settings_comment_markdown_desc']			= 'Você quer permitir que os visitantes postem comentários usando Markdown?';
+
 $lang['settings_version'] 						= 'Versão';
 $lang['settings_version_desc'] 					= '';
 
-$lang['settings_ckeditor_config']               = 'CKEditor Config'; #translate
-$lang['settings_ckeditor_config_desc']          = 'You can find a list of valid configuration items in <a target="_blank" href="http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.config.html">CKEditor\'s documentation.</a>'; #translate
+$lang['settings_site_public_lang']				= 'Linguagens Públicas';
+$lang['settings_site_public_lang_desc']			= 'Quais são as linguagens realmente suportadas e oferecidas no front-end do seu site?';
 
-$lang['settings_enable_registration']           = 'Enable user registration'; #translate
-$lang['settings_enable_registration_desc']      = 'Allow users to register in your site.'; #translate
+$lang['settings_admin_force_https']				= 'Forçar HTTPS para o Painel de Controle?';
+$lang['settings_admin_force_https_desc']		= 'Permitir somente o protocolo HTTPS, quando usando o Painel de Controle?';
 
-$lang['settings_cdn_domain']                    = 'CDN Domain'; #translate
-$lang['settings_cdn_domain_desc']               = 'CDN domains allow you to offload static content to various edge servers, like Amazon CloudFront or MaxCDN.'; #translate
+$lang['settings_files_cache']					= 'Arquivos de Cache';
+$lang['settings_files_cache_desc']				= 'Ao enviar uma imagem via site.com/arquivos, para quem devemos definir a expiração de cache?';
+
+$lang['settings_auto_username']					= 'Nome de Usuário Automático';
+$lang['settings_auto_username_desc']			= 'Crie o nome de usuário automaticamente, ou seja, os usuários podem pular o sobre fazendo o registo.';
+
+$lang['settings_registered_email']				= 'E-mail ao Usuário Registrado';
+$lang['settings_registered_email_desc']			= 'Envia um e-mail de notificação para o contato de e-mail quando alguém se registra.';
+
+$lang['settings_ckeditor_config']               = 'Configuração do CKEditor';
+$lang['settings_ckeditor_config_desc']          = 'Você pode encontrar uma lista de itens de configuração válidas na <a target="_blank" href="http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.config.html">documentação do CKEditor.</a>';
+
+$lang['settings_enable_registration']           = 'Habilitar o registro de usuário';
+$lang['settings_enable_registration_desc']      = 'Permitir aos usuários registrar em seu site.';
+
+$lang['settings_cdn_domain']                    = 'Domínio CDN';
+$lang['settings_cdn_domain_desc']               = 'Domínios CDN permitem descarregar conteúdo estático para vários servidores de borda, como a Amazon CloudFront ou MaxCDN.';
 
 #section titles
 $lang['settings_section_general']				= 'Geral';
@@ -137,12 +155,16 @@ $lang['settings_form_option_Required']			= 'Obrigatório';
 $lang['settings_form_option_Optional']			= 'Opcional';
 $lang['settings_form_option_Oldest First']		= 'Antigos primeiro';
 $lang['settings_form_option_Newest First']		= 'Novos primeiro';
+$lang['settings_form_option_Text Only']			= 'Somente Texto';
+$lang['settings_form_option_Allow Markdown']	= 'Permitir Markdown';
+$lang['settings_form_option_Yes']				= 'Sim';
+$lang['settings_form_option_No']				= 'Não';
 
 // titles
 $lang['settings_edit_title']					= 'Editar configurações';
 
 // messages
-$lang['settings_no_settings']					= 'There are currently no settings.'; #translate
+$lang['settings_no_settings']					= 'Atualmente não existem definições.';
 $lang['settings_save_success']					= 'Suas configurações foram salvas!';
 
 /* End of file settings_lang.php */

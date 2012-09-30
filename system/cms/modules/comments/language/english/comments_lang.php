@@ -1,4 +1,4 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['comments.title'] 					= 'Comments';
 $lang['comments.your_comment'] 				= 'Post a comment';

@@ -14,6 +14,7 @@ $lang['themes.mass_delete_success'] 	= '%s temas de %s foram removidos com suces
 $lang['themes.mass_delete_error']		= 'Apenas %s temas de %s foram removidos.';
 $lang['themes.delete_select_error'] 	= 'Antes você precisa selecionar os temas para deletar';
 $lang['themes.upload_title']			= 'Envio de tema';
+$lang['themes.admin_list']				= 'Temas Admin';
 $lang['themes.list_title']				= 'Listar temas';
 $lang['themes.upload_desc']				= 'Selecione o arquivo e clique no botão Enviar';
 
