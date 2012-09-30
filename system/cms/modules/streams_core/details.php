@@ -24,6 +24,7 @@ class Module_Streams_core extends Module {
 			'name' => array(
 				'en' => 'Streams Core',
 				'pt' => 'Núcleo Fluxos',
+				'br' => 'Núcleo Fluxos',
 				'fr' => 'Noyau Flux',
 				'el' => 'Πυρήνας Ροών',
                                 'se' => 'Streams grundmodul'
@@ -31,6 +32,7 @@ class Module_Streams_core extends Module {
 			'description' => array(
 				'en' => 'Core data module for streams.',
 				'pt' => 'Módulo central de dados para fluxos.',
+				'br' => 'Módulo central de dados para fluxos.',
 				'fr' => 'Noyau de données pour les Flux.',
 				'el' => 'Προγραμματιστικός πυρήνας για την λειτουργία ροών δεδομένων.',
                                 'se' => 'Streams grundmodul för enklare hantering av data.'

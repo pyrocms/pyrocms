@@ -1,15 +1,15 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-$lang['blog:post']                 = 'Post'; #translate
-$lang['blog:posts']                   = 'Posts'; #translate
+$lang['blog:post']                 = 'Post';
+$lang['blog:posts']                   = 'Posts';
 
 // labels
 $lang['blog:posted_label']				= 'Escrito';
 $lang['blog:posted_label_alt']			= 'Escrito em';
 $lang['blog:written_by_label']			= 'Por';
 $lang['blog:author_unknown']			= 'Desconhecido';
-$lang['blog:keywords_label']				= 'Keywords'; #translate
-$lang['blog:tagged_label']					= 'Tagged'; #translate
+$lang['blog:keywords_label']			= 'Palavras-chave';
+$lang['blog:tagged_label']				= 'Marcadores';
 $lang['blog:category_label']			= 'Categoria';
 $lang['blog:post_label'] 				= 'Artigo';
 $lang['blog:date_label'] 				= 'Data';
