@@ -39,6 +39,7 @@ $lang['cp_nav_misc']					= 'Miscellaneous'; #translate
 
 $lang['cp_must_login']	 				= 'Du måste vara inloggad för att kunna se sidan.';
 $lang['cp_access_denied'] 				= 'Du har inte rättigheter att se sidan.';
+$lang['cp_auto_delete_installer_message']	= 'Den PyroCMS installationsprogrammet har automatiskt bort för att förhindra eventuell kontroll beviljas till någon annan.';
 $lang['cp_delete_installer_message']	= 'OBS, Radera mappen "installer" från din webbserver annars kan obehöriga få tillträde och administrera din webbplats.';
 $lang['cp_upgrade_message']				= 'Du använder version %s, men din databas använder %s. Vänligen <a href="%s" title="Uppgradera">klicka här</a> för att uppgradera databasen.';
 $lang['cp_google_analytics_missing']	= 'Inställningar för Google Analytics saknas. Lägg till dem till %s eller kontakta din administratör.';

@@ -39,6 +39,7 @@ $lang['cp_nav_misc']					= 'Miscellaneous'; #translate
 
 $lang['cp_must_login']	 			= 'Ennek az oldalnak a megtekintéséhez, be kell jelentkezned.';
 $lang['cp_access_denied'] 			= 'Nem rendelkezel elég jogosultsággal, hogy megtekinthesd az oldalt.';
+$lang['cp_auto_delete_installer_message']            = 'A PyroCMS telepítő automatikusan lett törölve, hogy megakadályozzák az esetleges ellenőrzés ítélték oda valaki mást.';
 $lang['cp_delete_installer_message']            = 'Töröld az "installer" könyvtárat! Megléte esetén át lehet venni az irányítást a weboldal felett.';
 $lang['cp_upgrade_message']			= 'Jelenleg a PyroCMS %s verziója fut, az adatbázis verziója pedig: %s. A következő linkre kattinva lehet <a href="%s" title="Upgrade">frissíteni</a> az adatbázist.';
 $lang['cp_google_analytics_missing']            = 'A Google Analytics nincs beállítva. Ad hozzá %s vagy szólj az adminnak!';

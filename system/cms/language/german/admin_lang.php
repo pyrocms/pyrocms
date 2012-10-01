@@ -41,6 +41,7 @@ $lang['global:keywords']                = 'Keywords'; #translate
 
 $lang['cp_must_login']                     = 'Du musst eingeloggt sein, um diese Seite sehen zu k&ouml;nnen.';
 $lang['cp_access_denied']                 = 'Du hast keine ausreichenden Zugriffsberechtigungen um diese Seite anzusehen.';
+$lang['cp_auto_delete_installer_message']    = 'Die PyroCMS Installer wurde automatisch gelöscht, um eine möglichst lückenlose Kontrolle an jemand anderen gewährt werden.';
 $lang['cp_delete_installer_message']    = 'Bitte l&ouml;sche das Installationsverzeichnis (installer) auf deinem Server, da sich ansonsten Dritte unerlaubt administrativen Zugang verschaffen k&ouml;nnten.';
 $lang['cp_upgrade_message']                = 'Du benutzt aktuell Version %s, aber die Datenbank ist in der &auml;lteren Version %s. Bitte <a href="%s">aktualisiere deine Datenbank</a>.';
 

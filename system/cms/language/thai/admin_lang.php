@@ -49,6 +49,7 @@ $lang['cp_nav_misc']					= 'Miscellaneous'; #translate
 
 $lang['cp_must_login']	 				= 'คุณต้องล็อกอินเพื่อดูหน้านี้.';
 $lang['cp_access_denied'] 				= 'คุณไม่ได้รับสิทธิ์เพียงพอที่จะดูหน้านี้.';
+$lang['cp_auto_delete_installer_message']	= 'ติดตั้ง PyroCMS ถูกลบโดยอัตโนมัติเพื่อป้องกันควบคุมเป็นไปได้ที่จะถูกจัดสรรให้แก่บุคคลอื่น';
 $lang['cp_delete_installer_message']	= 'โปรดลบไดเรกทอรี installer จากเซิร์ฟเวอร์ของคุณ. หากทิ้งไว้อาจทำให้ใครสักคนเข้าควบคุมระบบของคุณได้';
 $lang['cp_upgrade_message']				= 'คุณกำลังทำงานอยู่ในรุ่น %s, แต่ฐานข้อมูลของคุณเป็นรุ่นที่ %s. กรุณา <a href="%s" title="Upgrade">คลิกที่นี่</a> เพื่อปรับรุ่นฐานข้อมูล.';
 $lang['cp_google_analytics_missing']	= 'การตั้งค่า Google Analytics จะหายไป. กรุณาไปเพิ่มไว้ใน %s หรือติดต่อผู้ดูแลระบบของคุณ.';

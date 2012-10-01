@@ -43,6 +43,7 @@ $lang['cp_nav_misc']					= 'Miscellaneous'; #translate
 $lang['cp_must_login']	 				= 'חייבים להיות מחוברים כדי לצפות בעמוד זה';
 $lang['cp_access_denied'] 				= 'אין לך הרשאות מתאימות כדי לצפות בעמוד זה.';
 
+$lang['cp_auto_delete_installer_message'] = 'מתקין PyroCMS נמחק באופן אוטומטי כדי למנוע שליטה אפשרית להיות מובן מאליו למישהו אחר.';
 $lang['cp_delete_installer_message'] = '
 נא למחוק את ספריית ההתקנה מהשרת. השארתה באתר יכולה להעניק למישהו אחר שליטה על האתר.';
 

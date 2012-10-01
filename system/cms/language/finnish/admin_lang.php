@@ -39,6 +39,7 @@ $lang['cp_nav_misc']					= 'Miscellaneous'; #translate
 
 $lang['cp_must_login']	 				= 'Sinun tulee kirjautua sisään selataksesi tätä sivua.';
 $lang['cp_access_denied'] 				= 'Sinulla ei ole oikeuksia selataksesi tätä sivua.';
+$lang['cp_auto_delete_installer_message']	= 'PyroCMS asennin on automaattisesti poistettu estää mahdollinen ohjaus myönnettäisiin jollekulle muulle.';
 $lang['cp_delete_installer_message']	= 'Poista "installer" kansio palvelimeltasi. Mikäli et poista kansiota, annat pääsyn kävijöille uudelleen asennusta varten.';
 $lang['cp_upgrade_message']				= 'Käytät tällä hetkellä versiota %s, mutta tietokantasi versio on %s. <a href="%s" title="Upgrade">Klikkaa tästä</a> päivittääksesi tietokannan.';
 $lang['cp_google_analytics_missing']	= 'Google Analytics asetukset puuttuvat. Vaihda asetukset paikasta "%s" tai ota yhteyttä järjestelmänvalvojaan.';

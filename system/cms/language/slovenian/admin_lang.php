@@ -39,6 +39,7 @@ $lang['cp_nav_misc']					= 'Miscellaneous'; #translate
 
 $lang['cp_must_login']	 				= 'Morate biti prijavljeni za ogled te strani.';
 $lang['cp_access_denied'] 				= 'Nimate dovolj dovoljenj za ogled te strani';
+$lang['cp_auto_delete_installer_message']	= 'Monter PyroCMS je bila samodejno izbriše, da se prepreči morebitno kontrolo, ki se dodeli nekomu drugemu.';
 $lang['cp_delete_installer_message']	= 'Prosimo izbrišite installer mapo. Če jo pustite lahko nekdo drug prevzame nadzor nad to vašo spletno stranjo.';
 $lang['cp_upgrade_message']				= 'Trenutno imate verzijo %s, vaša podatkovna baza pa je verzije %s. Prosimo <a href="%s" title="Nadgradnja">kliknite tukaj</a> Za nadgradnjo vaše podatkovne baze.';
 $lang['cp_google_analytics_missing']	= 'Nastavitve za GAnalytics manjkajo. Dodajte jih na %s ali kontaktirajte administratorja.';

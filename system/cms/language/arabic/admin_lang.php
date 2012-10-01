@@ -39,6 +39,7 @@ $lang['cp_nav_misc']					= 'Miscellaneous'; #translate
 
 $lang['cp_must_login']	 				= 'يجب أن تكون مسجّل الدخول كي تعرض هذه الصفحة.';
 $lang['cp_access_denied'] 				= 'ليست لديك الصلاحيات الكافية لعرض هذه الصفحة.';
+$lang['cp_auto_delete_installer_message']	= 'تم حذف المثبت PyroCMS تلقائيا لمنع الرقابة الممكنة التي منحت لشخص آخر.';
 $lang['cp_delete_installer_message']	= 'رجاءً حذف مجلد التثبيت من خادمك، حيث أن تركه هناك قد يعني تحكم أحد آخر به.';
 $lang['cp_upgrade_message']				= 'أنت تستخدم النسخة %s حالياً، إلا أن نسخة قاعدة بياناتك هي %s. رجاءً <a href="%s" title="الترقية">اضغط هنا</a> لترقية قاعدة البيانات.';
 $lang['cp_google_analytics_missing']	= 'اعدادت Google Analytics غير موجودة، قم باضافتهم الى %1 او اتصل بمدير الموقع.';
