@@ -7,7 +7,7 @@
  */
 class Upload extends WYSIWYG_Controller
 {
-	function __construct()
+	public function __construct()
 	{
 		parent::__construct();
         $this->config->load('files/files');

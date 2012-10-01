@@ -2,7 +2,7 @@
 
 class Migration_Add_session_sql extends CI_Migration {
 
-	function up()
+	public function up()
 	{
 		$session = "
 			CREATE TABLE IF NOT EXISTS ".$this->db->dbprefix(str_replace('default_', '', config_item('sess_table_name')))." (
@@ -20,7 +20,7 @@ class Migration_Add_session_sql extends CI_Migration {
 		$this->db->query($session);
 	}
 
-	function down()
+	public function down()
 	{
 		$this->db->query("DROP TABLE IF EXISTS ".$this->db->dbprefix(str_replace('default_', '', config_item('sess_table_name'))));
 	}

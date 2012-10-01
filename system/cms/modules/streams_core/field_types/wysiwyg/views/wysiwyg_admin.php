@@ -5,7 +5,7 @@
 
 	var instance;
 
-	function update_instance()
+	public function update_instance()
 	{
 		instance = CKEDITOR.currentInstance;
 	}

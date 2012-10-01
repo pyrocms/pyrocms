@@ -383,7 +383,7 @@ class Admin extends Admin_Controller {
 	 *
 	 * @return string
 	 */
-	function _build_tree_select($params)
+	public function _build_tree_select($params)
 	{
 		$params = array_merge(array(
 			'tree'			=> array(),

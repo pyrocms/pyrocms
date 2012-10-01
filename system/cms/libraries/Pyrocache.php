@@ -57,7 +57,7 @@ class Pyrocache
 	 *
 	 * Initializes and references Codeigniter object.
 	 */
-	function __construct()
+	public function __construct()
 	{
 		log_message('debug', "Cache Class Initialized.");
 
@@ -189,7 +189,7 @@ class Pyrocache
 	 *
 	 * @return Pyrocache
 	 */
-	function set_dependencies($dependencies)
+	public function set_dependencies($dependencies)
 	{
 		if (is_array($dependencies))
 		{
@@ -211,7 +211,7 @@ class Pyrocache
 	 *
 	 * @return Pyrocache
 	 */
-	function add_dependencies($dependencies)
+	public function add_dependencies($dependencies)
 	{
 		if (is_array($dependencies))
 		{
@@ -231,7 +231,7 @@ class Pyrocache
 	 *
 	 * @return mixed
 	 */
-	function get_dependencies()
+	public function get_dependencies()
 	{
 		return $this->_dependencies;
 	}
@@ -244,7 +244,7 @@ class Pyrocache
 	 *
 	 * @return mixed
 	 */
-	function get_created($created)
+	public function get_created($created)
 	{
 		return $this->_created;
 	}
@@ -258,7 +258,7 @@ class Pyrocache
 	 *
 	 * @return bool
 	 */
-	function get($filename = null, $use_expires = true)
+	public function get($filename = null, $use_expires = true)
 	{
 		// Check if cache was requested with the function or uses this object
 		if ($filename !== null)
@@ -353,7 +353,7 @@ class Pyrocache
 	 *
 	 * @return bool|void
 	 */
-	function write($contents = null, $filename = null, $expires = null, $dependencies = array())
+	public function write($contents = null, $filename = null, $expires = null, $dependencies = array())
 	{
 		// Check if cache was passed with the function or uses this object
 		if ($contents !== null)
@@ -444,7 +444,7 @@ class Pyrocache
 	 *
 	 * @param string|null $filename The filename to delete.
 	 */
-	function delete($filename = null)
+	public function delete($filename = null)
 	{
 		if ($filename !== null) {
 			$this->_filename = $filename;
@@ -506,7 +506,7 @@ class Pyrocache
 	 *
 	 * @return bool
 	 */
-	function delete_all($dirname = '')
+	public function delete_all($dirname = '')
 	{
 		if (empty($this->_path))
 		{

@@ -39,7 +39,7 @@ class Field_asset extends Public_Controller {
 	/**
 	 * Remap based on URL call
 	 */
-	function _remap($method)
+	public function _remap($method)
 	{
 		// Check the type
 		$type = $this->uri->segment(4);

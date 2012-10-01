@@ -347,7 +347,7 @@ class MY_Model extends CI_Model
     /**
      * Retrieve and generate a form_dropdown friendly array
      */
-    function dropdown()
+    public function dropdown()
     {
         $args = func_get_args();
 

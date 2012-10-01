@@ -18,7 +18,7 @@ class Plugin_Global extends Plugin
 	 *
 	 * @return	null|string
 	 */
-	function __call($name, $data)
+	public function __call($name, $data)
 	{
 		// A constant
 		if (defined(strtoupper($name)))

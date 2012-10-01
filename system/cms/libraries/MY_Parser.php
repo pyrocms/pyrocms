@@ -14,7 +14,7 @@ class MY_Parser extends CI_Parser {
 
 	private $_ci;
 
-	function __construct($config = array())
+	public function __construct($config = array())
 	{
 		$this->_ci = & get_instance();
 		
@@ -78,7 +78,7 @@ class MY_Parser extends CI_Parser {
 	 * @param	bool
 	 * @return	string
 	 */
-	function _parse($string, $data, $return = false, $is_include = false)
+	protected function _parse($string, $data, $return = false, $is_include = false)
 	{
 		// Start benchmark
 		$this->_ci->benchmark->mark('parse_start');

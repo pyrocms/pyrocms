@@ -9,7 +9,7 @@
  */
 class Plugin_Widgets extends Plugin
 {
-	function __construct()
+	public function __construct()
 	{
 		$this->load->library('widgets/widgets');
 	}

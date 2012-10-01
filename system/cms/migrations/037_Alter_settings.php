@@ -2,7 +2,7 @@
 
 class Migration_Alter_settings extends CI_Migration {
 
-  function up()
+  public function up()
   {
    	 $this->dbforge->modify_column('settings', array(
 	      'default' => array(
@@ -18,7 +18,7 @@ class Migration_Alter_settings extends CI_Migration {
 		));
   }
 
-  function down()
+  public function down()
   {
     $this->dbforge->modify_column('settings', array(
       'default' => array(

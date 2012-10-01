@@ -63,7 +63,7 @@ class Streams_m extends MY_Model {
 	
     // --------------------------------------------------------------------------
 
-	function __construct()
+	public function __construct()
 	{
 		$this->table = STREAMS_TABLE;
 		

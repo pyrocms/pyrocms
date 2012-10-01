@@ -42,7 +42,7 @@ class Fields_m extends CI_Model {
 
 	// --------------------------------------------------------------------------
 
-	function __construct()
+	public function __construct()
 	{
 		$this->table = FIELDS_TABLE;
 	}

@@ -226,7 +226,7 @@ class Streams_fields extends CI_Driver {
 	 * @param	string - field slug
 	 * @return	bool
 	 */
-	function deassign_field($namespace, $stream_slug, $field_slug)
+	public function deassign_field($namespace, $stream_slug, $field_slug)
 	{
 		// -------------------------------------
 		// Validate Data
@@ -275,7 +275,7 @@ class Streams_fields extends CI_Driver {
 	 * @param	string - field namespace
 	 * @return	bool
 	 */
-	function delete_field($field_slug, $namespace)
+	public function delete_field($field_slug, $namespace)
 	{
 		if ( ! trim($field_slug)) return false;
 	
