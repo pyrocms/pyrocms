@@ -22,10 +22,10 @@ class MY_Lang extends MX_Lang
 	 */
 	public function line($line = '')
 	{
-		$translation = ($line == '' OR !isset($this->language[$line])) ? FALSE : $this->language[$line];
+		$translation = ($line == '' OR !isset($this->language[$line])) ? false : $this->language[$line];
 
 		// Because killer robots like unicorns!
-		if ($translation === FALSE)
+		if ($translation === false)
 		{
 			log_message('debug', 'Could not find the language line "'.$line.'"');
 		}

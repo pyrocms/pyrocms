@@ -612,7 +612,7 @@ class Row_m extends MY_Model {
 		}
 		else
 		{
-			(isset($this->sql['join'])) ? $join = implode(' ', $this->sql['join']) : $join = NULL;
+			(isset($this->sql['join'])) ? $join = implode(' ', $this->sql['join']) : $join = null;
 		}
 
 		// -------------------------------------
@@ -625,7 +625,7 @@ class Row_m extends MY_Model {
 		}
 		else
 		{
-			(isset($this->sql['where'])) ? $where = implode(' AND ', $this->sql['where']) : $where = NULL;
+			(isset($this->sql['where'])) ? $where = implode(' AND ', $this->sql['where']) : $where = null;
 		}
 
 		if ($where != '')
@@ -646,7 +646,7 @@ class Row_m extends MY_Model {
 		}
 		else
 		{
-			(isset($this->sql['order_by'])) ? $order_by = implode(', ', $this->sql['order_by']) : $order_by = NULL;
+			(isset($this->sql['order_by'])) ? $order_by = implode(', ', $this->sql['order_by']) : $order_by = null;
 		}
 
 		if ($order_by)
@@ -664,7 +664,7 @@ class Row_m extends MY_Model {
 		}
 		else
 		{
-			(isset($this->sql['misc'])) ? $misc = implode(' ', $this->sql['misc']) : $misc = NULL;
+			(isset($this->sql['misc'])) ? $misc = implode(' ', $this->sql['misc']) : $misc = null;
 		}
 
 		// -------------------------------------

@@ -18,7 +18,7 @@
 	</li>
 	<li id="remember_me">
 		<label><?php echo lang('user_remember'); ?></label>
-		<?php echo form_checkbox('remember', '1', FALSE); ?>
+		<?php echo form_checkbox('remember', '1', false); ?>
 	</li>
 	<li class="form_buttons">
 		<input type="submit" value="<?php echo lang('user_login_btn') ?>" name="btnLogin" /> <span class="register"> | <?php echo anchor('register', lang('user_register_btn'));?></span>

@@ -33,7 +33,7 @@ class Public_Controller extends MY_Controller
 				}
 
 				// If it has back reference
-				if (strpos($redirect->to, '$') !== FALSE)
+				if (strpos($redirect->to, '$') !== false)
 				{
 					$from = str_replace('%', '(.*?)', $redirect->from);
 					$redirect->to = preg_replace('#^'.$from.'$#', $redirect->to, $uri);

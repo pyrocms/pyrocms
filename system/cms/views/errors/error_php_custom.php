@@ -139,7 +139,7 @@ function koggle(elem)
 					<?php foreach ($step['args'] as $name => $arg): ?>
 						<tr>
 							<td><code><?php echo $name ?></code></td>
-							<td><pre><?php echo print_r($arg, TRUE) ?></pre></td>
+							<td><pre><?php echo print_r($arg, true) ?></pre></td>
 						</tr>
 					<?php endforeach ?>
 					</table>
@@ -189,7 +189,7 @@ function koggle(elem)
 			<?php foreach ($GLOBALS[$var] as $key => $value): ?>
 				<tr>
 					<td><code><?php echo $key ?></code></td>
-					<td><pre><?php echo print_r($value, TRUE) ?></pre></td>
+					<td><pre><?php echo print_r($value, true) ?></pre></td>
 				</tr>
 			<?php endforeach ?>
 			</table>

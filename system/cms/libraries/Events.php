@@ -41,13 +41,13 @@ class Events
 	{
 		$_ci = get_instance();
 
-		$is_core = TRUE;
+		$is_core = true;
 
 		$_ci->load->model('addons/module_m');
 
 		if (!$results = $_ci->module_m->get_all())
 		{
-			return FALSE;
+			return false;
 		}
 
 		foreach ($results as $row)
@@ -59,7 +59,7 @@ class Events
 			}
 		}
 
-		return TRUE;
+		return true;
 	}
 
 	/**
@@ -71,7 +71,7 @@ class Events
 	 * @param boolean $is_core Whether the module is a core module.
 	 * @return object|boolean 
 	 */
-	private static function _spawn_class($slug, $is_core = FALSE)
+	private static function _spawn_class($slug, $is_core = false)
 	{
 		$path = $is_core ? APPPATH : ADDONPATH;
 
@@ -85,7 +85,7 @@ class Events
 
 			if (!is_file($events_file))
 			{
-				return FALSE;
+				return false;
 			}
 		}
 
@@ -96,7 +96,7 @@ class Events
 		$class = 'Events_'.ucfirst(strtolower($slug));
 
 		// Now we need to talk to it
-		return class_exists($class) ? new $class : FALSE;
+		return class_exists($class) ? new $class : false;
 	}
 
 	/**
@@ -185,8 +185,8 @@ class Events
 				break;
 		}
 
-		// Does not do anything, so send NULL. FALSE would suggest an error
-		return NULL;
+		// Does not do anything, so send null. false would suggest an error
+		return null;
 	}
 
 	/**
@@ -208,10 +208,10 @@ class Events
 
 		if (isset(self::$_listeners[$event]) AND count(self::$_listeners[$event]) > 0)
 		{
-			return TRUE;
+			return true;
 		}
 
-		return FALSE;
+		return false;
 	}
 
 }

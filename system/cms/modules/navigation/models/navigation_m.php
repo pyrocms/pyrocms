@@ -28,7 +28,7 @@ class Navigation_m extends MY_Model
 
 		if ($query->num_rows() == 0)
 		{
-			return FALSE;
+			return false;
 		}
 		else
 		{
@@ -49,7 +49,7 @@ class Navigation_m extends MY_Model
 
 		if ($query->num_rows() == 0)
 		{
-			return FALSE;
+			return false;
 		}
 		else
 		{
@@ -175,11 +175,11 @@ class Navigation_m extends MY_Model
 		
 		if (isset($params['front_end']) AND $params['front_end'])
 		{
-			$front_end = TRUE;
+			$front_end = true;
 		}
 		else
 		{
-			$front_end = FALSE;
+			$front_end = false;
 		}
 		
 		if (isset($params['user_group']))
@@ -188,7 +188,7 @@ class Navigation_m extends MY_Model
 		}
 		else
 		{
-			$user_group = FALSE;
+			$user_group = false;
 		}
 
 		$all_links = $this->db->where('navigation_group_id', $group)
@@ -341,7 +341,7 @@ class Navigation_m extends MY_Model
 				case 'page':
 					if ($page = $this->page_m->get_by(array_filter(array(
 						'id'		=> $row->page_id,
-						'status'	=> (is_subclass_of(ci(), 'Public_Controller') ? 'live' : NULL)
+						'status'	=> (is_subclass_of(ci(), 'Public_Controller') ? 'live' : null)
 					))))
 					{
 						$row->url = site_url($page->uri);
@@ -365,7 +365,7 @@ class Navigation_m extends MY_Model
 	 * @param array $row Array of links
 	 * @return mixed Array of links with valid urls
 	 */
-	public function make_url_array($links, $user_group = FALSE, $front_end = FALSE)
+	public function make_url_array($links, $user_group = false, $front_end = false)
 	{
 		// We have to fetch it ourselves instead of just using $current_user because this
 		// will all be cached per user group
@@ -401,7 +401,7 @@ class Navigation_m extends MY_Model
 				case 'page':
 					if ($page = $this->page_m->get_by(array_filter(array(
 						'id'		=> $row['page_id'],
-						'status'	=> ($front_end ? 'live' : NULL)
+						'status'	=> ($front_end ? 'live' : null)
 					))))
 					{
 						$row['url'] = site_url($page->uri);

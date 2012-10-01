@@ -229,7 +229,7 @@ class Streams_m extends MY_Model {
 		// Add in our standard fields		
 		$standard_fields = array(
 	        'created' 			=> array('type' => 'DATETIME'),
-            'updated'	 		=> array('type' => 'DATETIME', 'null' => TRUE),
+            'updated'	 		=> array('type' => 'DATETIME', 'null' => true),
             'created_by'		=> array('type' => 'INT', 'constraint' => '11', 'null' => true),
             'ordering_count'	=> array('type' => 'INT', 'constraint' => '11')
 		);
@@ -244,7 +244,7 @@ class Streams_m extends MY_Model {
 		$insert_data['stream_prefix']		= $prefix;
 		$insert_data['stream_namespace']	= $namespace;
 		$insert_data['about']				= $about;
-		$insert_data['title_column']		= NULL;
+		$insert_data['title_column']		= null;
 		
 		// Since this is a new stream, we are going to add a basic view profile
 		// with data we know will be there.	

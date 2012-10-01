@@ -116,7 +116,7 @@ class Streams_entries extends CI_Driver {
 				
 		if ( ! isset($params['namespace'])) $this->log_error('no_namespace_provided', 'get_entries');
 	
-		$stream = $CI->streams_m->get_stream($params['stream'], TRUE, $params['namespace']);
+		$stream = $CI->streams_m->get_stream($params['stream'], true, $params['namespace']);
 				
 		if ( ! $stream) $this->log_error('invalid_stream', 'get_entries');
 
@@ -152,10 +152,10 @@ class Streams_entries extends CI_Driver {
 					$this->pagination_config[$key] = $pagination_config[$key];
 				}
 
-				// Make sure we set the FALSE params to boolean
-				if ($this->pagination_config[$key] == 'FALSE')
+				// Make sure we set the false params to boolean
+				if ($this->pagination_config[$key] == 'false')
 				{
-					$this->pagination_config[$key] = FALSE;
+					$this->pagination_config[$key] = false;
 				}
 			}
 			

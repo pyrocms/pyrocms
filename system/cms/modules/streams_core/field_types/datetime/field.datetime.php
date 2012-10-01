@@ -1005,7 +1005,7 @@ class Field_datetime
 	 * @param	[bool]
 	 * @return	string
 	 */	
-	private function format_date($format, $unix_date, $standard = FALSE)
+	private function format_date($format, $unix_date, $standard = false)
 	{
 		if ( ! $unix_date)
 		{

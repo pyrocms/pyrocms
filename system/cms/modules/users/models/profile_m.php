@@ -58,6 +58,6 @@ class Profile_m extends MY_Model
 			$this->db->insert('profiles', $set);
 		}
 		
-		return TRUE;
+		return true;
 	}
 }

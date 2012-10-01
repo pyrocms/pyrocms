@@ -164,11 +164,11 @@ class Admin extends Admin_Controller {
 			}
 
 			// let the files library format the return array like all the others
-			echo json_encode(Files::result(TRUE, lang('files:sort_saved')));
+			echo json_encode(Files::result(true, lang('files:sort_saved')));
 		}
 		else 
 		{
-			echo json_encode(Files::result(FALSE, lang('files:save_failed')));
+			echo json_encode(Files::result(false, lang('files:save_failed')));
 		}
 	}
 
@@ -267,7 +267,7 @@ class Admin extends Admin_Controller {
 		{
 			$this->file_m->update($id, array('description' => $description));
 
-			echo json_encode(Files::result(TRUE, lang('files:description_saved')));
+			echo json_encode(Files::result(true, lang('files:description_saved')));
 		}
 	}
 

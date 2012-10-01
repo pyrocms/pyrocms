@@ -21,23 +21,23 @@ class Module_m extends MY_Model
 	 */
 	public function get($slug = '')
 	{
-		// Have to return an associative array of NULL values for backwards compatibility.
+		// Have to return an associative array of null values for backwards compatibility.
 		$null_array = array(
-			'name' => NULL,
-			'slug' => NULL,
-			'version' => NULL,
-			'description' => NULL,
-			'skip_xss' => NULL,
-			'is_frontend' => NULL,
-			'is_backend' => NULL,
-			'menu' => FALSE,
+			'name' => null,
+			'slug' => null,
+			'version' => null,
+			'description' => null,
+			'skip_xss' => null,
+			'is_frontend' => null,
+			'is_backend' => null,
+			'menu' => false,
 			'enabled' => 1,
 			'sections' => array(),
 			'shortcuts' => array(),
-			'is_core' => NULL,
-			'is_current' => NULL,
-			'current_version' => NULL,
-			'updated_on' => NULL
+			'is_core' => null,
+			'is_current' => null,
+			'current_version' => null,
+			'updated_on' => null
 		);
 
 		if (is_array($slug) || empty($slug))
@@ -55,16 +55,16 @@ class Module_m extends MY_Model
 			// Let's get REAL
 			if ( ! $module = $this->_spawn_class($slug, $row->is_core))
 			{
-				return FALSE;
+				return false;
 			}
 			
 			list($class, $location) = $module;
 			$info = $class->info();
 			
-			// Return FALSE if the module is disabled
+			// Return false if the module is disabled
 			if ($row->enabled == 0)
 			{
-				return FALSE;
+				return false;
 			}
 
 			$name = ! isset($info['name'][CURRENT_LANGUAGE]) ? $info['name']['en'] : $info['name'][CURRENT_LANGUAGE];
@@ -103,7 +103,7 @@ class Module_m extends MY_Model
 	 * @access  public
 	 * @return  array
 	 */
-	public function get_all($params = array(), $return_disabled = FALSE)
+	public function get_all($params = array(), $return_disabled = false)
 	{
 		$modules = array();
 
@@ -120,7 +120,7 @@ class Module_m extends MY_Model
 		}
 
 		// Skip the disabled modules
-		if ($return_disabled === FALSE)
+		if ($return_disabled === false)
 		{
 			$this->db->where('enabled', 1);
 		}
@@ -197,7 +197,7 @@ class Module_m extends MY_Model
 			'skip_xss'		=> ! empty($module['skip_xss']),
 			'is_frontend'	=> ! empty($module['frontend']),
 			'is_backend'	=> ! empty($module['backend']),
-			'menu'			=> ! empty($module['menu']) ? $module['menu'] : FALSE,
+			'menu'			=> ! empty($module['menu']) ? $module['menu'] : false,
 			'enabled'		=> ! empty($module['enabled']),
 			'installed'		=> ! empty($module['installed']),
 			'is_core'		=> ! empty($module['is_core']),
@@ -248,7 +248,7 @@ class Module_m extends MY_Model
 	{
 		if ( ! $module)
 		{
-			return FALSE;
+			return false;
 		}
 
 		// We already know about this module
@@ -275,9 +275,9 @@ class Module_m extends MY_Model
 		if ($this->exists($module))
 		{
 			$this->db->where('slug', $module)->update($this->_table, array('enabled' => 1));
-			return TRUE;
+			return true;
 		}
-		return FALSE;
+		return false;
 	}
 
 	/**
@@ -293,9 +293,9 @@ class Module_m extends MY_Model
 		if ($this->exists($slug))
 		{
 			$this->db->where('slug', $slug)->update($this->_table, array('enabled' => 0));
-			return TRUE;
+			return true;
 		}
-		return FALSE;
+		return false;
 	}
 
 	/**
@@ -306,11 +306,11 @@ class Module_m extends MY_Model
 	 * @param	string	$slug	The module slug
 	 * @return	bool
 	 */
-	public function install($slug, $is_core = FALSE, $insert = FALSE)
+	public function install($slug, $is_core = false, $insert = false)
 	{
 		if ( ! $module = $this->_spawn_class($slug, $is_core))
 		{
-			return FALSE;
+			return false;
 		}
 		
 		list($class) = $module;
@@ -351,7 +351,7 @@ class Module_m extends MY_Model
 	 * @param	string	$module	The module slug
 	 * @return	bool
 	 */
-	public function uninstall($slug, $is_core = FALSE)
+	public function uninstall($slug, $is_core = false)
 	{
 		if ( ! $module = $this->_spawn_class($slug, $is_core))
 		{
@@ -368,7 +368,7 @@ class Module_m extends MY_Model
 		// Run the uninstall method to drop the module's tables
 		if ( ! $class->uninstall())
 		{
-			return FALSE;
+			return false;
 		}
 
 		if ($this->delete($slug))
@@ -386,7 +386,7 @@ class Module_m extends MY_Model
 			// We record it again here. If they really want to get rid of it they'll use Delete
 			return $this->add($input);
 		}
-		return FALSE;
+		return false;
 	}
 	
 	/**
@@ -400,15 +400,15 @@ class Module_m extends MY_Model
 	public function upgrade($slug)
 	{
 		// Get info on the new module
-		if ( ! ($module = $this->_spawn_class($slug, TRUE) OR $module = $this->_spawn_class($slug, FALSE)))
+		if ( ! ($module = $this->_spawn_class($slug, true) OR $module = $this->_spawn_class($slug, false)))
 		{
-			return FALSE;
+			return false;
 		}
 		
 		// Get info on the old module
 		if ( ! $old_module = $this->get($slug))
 		{
-			return FALSE;
+			return false;
 		}
 		
 		list($class) = $module;
@@ -426,20 +426,20 @@ class Module_m extends MY_Model
 			// Update version number
 			$this->db->where('slug', $slug)->update('modules', array('version' => $class->version));
 			
-			return TRUE;
+			return true;
 		}
 		
 		// The upgrade failed
-		return FALSE;
+		return false;
 	}
 	
 	public function import_unknown()
     {
     	$modules = array();
 
-		$is_core = TRUE;
+		$is_core = true;
 
-		$known = $this->get_all(array(), TRUE);
+		$known = $this->get_all(array(), true);
 		$known_array = array();
 		$known_mtime = array();
 
@@ -486,7 +486,7 @@ class Module_m extends MY_Model
 							'is_frontend'	=> ! empty($input['frontend']),
 							'is_backend'	=> ! empty($input['backend']),
 							'skip_xss'		=> ! empty($input['skip_xss']),
-							'menu'			=> ! empty($input['menu']) ? $input['menu'] : FALSE,
+							'menu'			=> ! empty($input['menu']) ? $input['menu'] : false,
 							'updated_on'	=> now()
 						));
 
@@ -520,10 +520,10 @@ class Module_m extends MY_Model
 			unset($temp_modules);
 
 			// Going back around, 2nd time is addons
-			$is_core = FALSE;
+			$is_core = false;
 		}
 
-		return TRUE;
+		return true;
 	}
 
 
@@ -535,7 +535,7 @@ class Module_m extends MY_Model
 	 * @param	string	$slug	The folder name of the module
 	 * @return	array
 	 */
-	private function _spawn_class($slug, $is_core = FALSE)
+	private function _spawn_class($slug, $is_core = false)
 	{
 		$path = $is_core ? APPPATH : ADDONPATH;
 
@@ -550,7 +550,7 @@ class Module_m extends MY_Model
 			if ( ! is_file($details_file))
 			{
 				// we return false to let them know that the module isn't here, keep looking
-				return FALSE;
+				return false;
 			}
 		}
 
@@ -606,7 +606,7 @@ class Module_m extends MY_Model
 			}
 		}
 
-		return FALSE;
+		return false;
 	}
 
 	/**
@@ -648,12 +648,12 @@ class Module_m extends MY_Model
 	 */
 	public function version($slug)
 	{
-		if ($module = $this->_spawn_class($slug, TRUE) OR $module = $this->_spawn_class($slug))
+		if ($module = $this->_spawn_class($slug, true) OR $module = $this->_spawn_class($slug))
 		{
 			list($class) = $module;
 			return $class->version;
 		}
 
-		return FALSE;
+		return false;
 	}
 }

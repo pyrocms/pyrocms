@@ -14,7 +14,7 @@
     </ul>
 
 	<div class="pyro-buttons">
-        <?php echo form_checkbox('remember', '1', FALSE); ?><?php echo lang('user_remember')?><br />
+        <?php echo form_checkbox('remember', '1', false); ?><?php echo lang('user_remember')?><br />
 		<button type="submit" class="login_submit">
 			<?php echo lang('user_login_btn') ?>
 		</button>

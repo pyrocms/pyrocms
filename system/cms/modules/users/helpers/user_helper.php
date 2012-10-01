@@ -23,22 +23,22 @@ function group_has_role($module, $role)
 {
 	if (empty(ci()->current_user))
 	{
-		return FALSE;
+		return false;
 	}
 
 	if (ci()->current_user->group == 'admin')
 	{
-		return TRUE;
+		return true;
 	}
 
 	$permissions = ci()->permission_m->get_group(ci()->current_user->group_id);
 	
 	if (empty($permissions[$module]) or empty($permissions[$module][$role]))
 	{
-		return FALSE;
+		return false;
 	}
 
-	return TRUE;
+	return true;
 }
 
 
@@ -59,14 +59,14 @@ function role_or_die($module, $role, $redirect_to = 'admin', $message = '')
 	if (ci()->input->is_ajax_request() AND ! group_has_role($module, $role))
 	{
 		echo json_encode(array('error' => ($message ? $message : lang('cp_access_denied')) ));
-		return FALSE;
+		return false;
 	}
 	elseif ( ! group_has_role($module, $role))
 	{
 		ci()->session->set_flashdata('error', ($message ? $message : lang('cp_access_denied')) );
 		redirect($redirect_to);
 	}
-	return TRUE;
+	return true;
 }
 
 // ------------------------------------------------------------------------

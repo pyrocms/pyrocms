@@ -9,7 +9,7 @@
  */
 class Widgets {
 
-	private $_widget = NULL;
+	private $_widget = null;
 	private $_rendered_areas = array();
 	private $_widget_locations = array();
 
@@ -149,7 +149,7 @@ class Widgets {
 			return $widget;
 		}
 
-		return FALSE;
+		return false;
 	}
 
 	function get_area($id)
@@ -166,15 +166,15 @@ class Widgets {
 	{
 		$this->_spawn_widget($slug);
 
-		if ($this->_widget === FALSE OR ! is_subclass_of($this->_widget, 'Widgets'))
+		if ($this->_widget === false OR ! is_subclass_of($this->_widget, 'Widgets'))
 		{
-			return FALSE;
+			return false;
 		}
 
 		$widget = (object) get_object_vars($this->_widget);
 		$widget->slug = $slug;
-		$widget->module = strpos($this->_widget->path, 'modules/') ? basename(dirname($this->_widget->path)) : NULL;
-		$widget->is_addon = strpos($this->_widget->path, 'addons/') !== FALSE;
+		$widget->module = strpos($this->_widget->path, 'modules/') ? basename(dirname($this->_widget->path)) : null;
+		$widget->is_addon = strpos($this->_widget->path, 'addons/') !== false;
 
 		return $widget;
 	}
@@ -186,13 +186,13 @@ class Widgets {
 		$data = method_exists($this->_widget, 'run') ? call_user_func(array($this->_widget, 'run'), $options) : array();
 
 		// Don't run this widget
-		if ($data === FALSE)
+		if ($data === false)
 		{
-			return FALSE;
+			return false;
 		}
 
-		// If we have TRUE, just make an empty array
-		$data !== TRUE OR $data = array();
+		// If we have true, just make an empty array
+		$data !== true OR $data = array();
 
 		// convert to array
 		is_array($data) OR $data = (array) $data;
@@ -200,7 +200,7 @@ class Widgets {
 		$data['options'] = $options;
 
 		// Is there an overload view in the theme?
-		$overload = file_exists($this->template->get_views_path().'widgets/'.$name.'/display'.EXT) ? $name : FALSE;
+		$overload = file_exists($this->template->get_views_path().'widgets/'.$name.'/display'.EXT) ? $name : false;
 
 		return $this->load_view('display', $data, $overload);
 	}
@@ -221,7 +221,7 @@ class Widgets {
 		foreach ($this->_widget->fields as $field)
 		{
 			$field_name = &$field['field'];
-			if (($pos = strpos($field_name, '[')) !== FALSE)
+			if (($pos = strpos($field_name, '[')) !== false)
 			{
 				$key = substr($field_name, 0, $pos);
 
@@ -285,12 +285,12 @@ class Widgets {
 			$widget->options = $this->_unserialize_options($widget->options);
 			$widget->body = $this->render($widget->slug, $widget->options);
 
-			if ($widget->body !== FALSE)
+			if ($widget->body !== false)
 			{
 				// add this view location to the array
 				$this->load->set_view_path($path);
 
-				$output .= $this->load->_ci_load(array('_ci_view' => $view, '_ci_vars' => array('widget' => $widget), '_ci_return' => TRUE)) . "\n";
+				$output .= $this->load->_ci_load(array('_ci_view' => $view, '_ci_vars' => array('widget' => $widget), '_ci_return' => true)) . "\n";
 
 				// Put the old array back
 				$this->load->set_view_path($save_path);
@@ -310,10 +310,10 @@ class Widgets {
 			{
 				if ( ! $this->reload_widget($_slug))
 				{
-					return FALSE;
+					return false;
 				}
 			}
-			return TRUE;
+			return true;
 		}
 
 		$widget = $this->read_widget($slug);
@@ -432,7 +432,7 @@ class Widgets {
 			$this->form_validation->set_rules($this->_widget->fields);
 		}
 
-		if ( ! $this->form_validation->run('', FALSE))
+		if ( ! $this->form_validation->run('', false))
 		{
 			return validation_errors();
 		}
@@ -466,7 +466,7 @@ class Widgets {
 			return;
 		}
 
-		$this->_widget = NULL;
+		$this->_widget = null;
 	}
 
 	public function __get($var)
@@ -477,15 +477,15 @@ class Widgets {
 		}
 	}
 
-	protected function load_view($view, $data = array(), $overload = FALSE)
+	protected function load_view($view, $data = array(), $overload = false)
 	{
-		if ($overload !== FALSE)
+		if ($overload !== false)
 		{
 			return $this->parser->parse_string($this->load->_ci_load(array(
 					'_ci_path' => $this->template->get_views_path().'widgets/' . $overload . '/display' . EXT,
 					'_ci_vars' => $data,
-					'_ci_return' => TRUE
-				)), array(), TRUE);
+					'_ci_return' => true
+				)), array(), true);
 		}
 
 		$path = isset($this->_widget->path) ? $this->_widget->path : $this->path;
@@ -495,13 +495,13 @@ class Widgets {
 			? $this->parser->parse_string($this->load->_ci_load(array(
 				'_ci_path'		=> $path . 'views/' . $view . EXT,
 				'_ci_vars'		=> $data,
-				'_ci_return'	=> TRUE
-			)), array(), TRUE)
+				'_ci_return'	=> true
+			)), array(), true)
 
 			: $this->load->_ci_load(array(
 				'_ci_path'		=> $path . 'views/' . $view . EXT,
 				'_ci_vars'		=> $data,
-				'_ci_return'	=> TRUE
+				'_ci_return'	=> true
 			));
 	}
 
@@ -514,7 +514,7 @@ class Widgets {
 	{
 		$options = (array) unserialize($options);
 
-		isset($options['show_title']) OR $options['show_title'] = FALSE;
+		isset($options['show_title']) OR $options['show_title'] = false;
 
 		return $options;
 	}

@@ -102,7 +102,7 @@ class Admin_groups extends Admin_Controller
 	 */
 	public function delete($id = 0)
 	{
-		$deleted_ids = FALSE;
+		$deleted_ids = false;
 
 		// Delete one
 		if ($id)

@@ -296,9 +296,9 @@ class Streams_fields extends CI_Driver {
 	 */
 	/*function update_field($field_name, $field_slug, $field_namespace, $field_type, $extra_data)
 	{
-		if ( ! trim($field_slug) ) return FALSE;
+		if ( ! trim($field_slug) ) return false;
 	
-		if ( ! $field = $this->CI->fields_m->get_field_by_slug($field_slug, $field_namespace)) return FALSE;
+		if ( ! $field = $this->CI->fields_m->get_field_by_slug($field_slug, $field_namespace)) return false;
 
 		return $this->CI->fields_m->update_field($field, $field_data);
 	}*/

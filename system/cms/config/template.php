@@ -7,13 +7,13 @@
 |
 | Should the Parser library be used for the entire page?
 |
-| Can be overridden with $this->template->enable_parser(TRUE/FALSE);
+| Can be overridden with $this->template->enable_parser(true/false);
 |
-|   Default: TRUE
+|   Default: true
 |
 */
 
-$config['parser_enabled'] = TRUE;
+$config['parser_enabled'] = true;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,13 +22,13 @@ $config['parser_enabled'] = TRUE;
 |
 | If the parser is enabled, do you want it to parse the body or not?
 |
-| Can be overridden with $this->template->enable_parser(TRUE/FALSE);
+| Can be overridden with $this->template->enable_parser(true/false);
 |
-|   Default: FALSE
+|   Default: false
 |
 */
 
-$config['parser_body_enabled'] = TRUE;
+$config['parser_body_enabled'] = true;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,7 +56,7 @@ $config['title_separator'] = ' | ';
 |
 */
 
-$config['theme'] = NULL;
+$config['theme'] = null;
 
 /*
 |--------------------------------------------------------------------------
@@ -81,10 +81,10 @@ $config['theme_locations'] = array(
 |
 | You want try remove unnecessary white spaces before send the HTML to browser?
 |
-| Can be overridden with $this->template->enable_minify(TRUE/FALSE);
+| Can be overridden with $this->template->enable_minify(true/false);
 |
-|   Default: FALSE
+|   Default: false
 |
 */
 
-$config['minify_enabled'] = FALSE;
+$config['minify_enabled'] = false;

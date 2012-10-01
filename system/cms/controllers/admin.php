@@ -24,7 +24,7 @@ class Admin extends Admin_Controller
 	public function index()
 	{
 		$this->template
-			->enable_parser(TRUE)
+			->enable_parser(true)
 			->title(lang('global:dashboard'));
 
 		if (is_dir('./installer'))
@@ -72,7 +72,7 @@ class Admin extends Admin_Controller
 		}
 
 		$this->template
-			->set_layout(FALSE)
+			->set_layout(false)
 			->build('admin/login');
 	}
 

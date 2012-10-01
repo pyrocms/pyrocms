@@ -334,7 +334,7 @@ class Admin extends Admin_Controller {
 		// Loop through each rule
 		foreach($this->validation_rules as $rule)
 		{
-			if($this->input->post($rule['field']) !== FALSE)
+			if($this->input->post($rule['field']) !== false)
 			{
 				$this->template->navigation_link->{$rule['field']} = $this->input->post($rule['field']);
 			}
@@ -457,7 +457,7 @@ class Admin extends Admin_Controller {
 	 */
 	public function _link_check($link)
 	{
-		$status = TRUE;
+		$status = true;
 
 		switch ($link) {
 

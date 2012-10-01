@@ -43,7 +43,7 @@ class MY_Loader extends MX_Loader
 		else
 		{
 			// otherwise we'll just add the specified one
-			$this->_ci_view_paths = array($path => TRUE);
+			$this->_ci_view_paths = array($path => true);
 		}
 	}
 
@@ -177,23 +177,23 @@ class MY_Loader extends MX_Loader
 	 *
 	 * @return void
 	 */
-	protected function ci_autoloader($basepath = NULL)
+	protected function ci_autoloader($basepath = null)
 	{
-		$autoload_path = (($basepath !== NULL) ? $basepath : APPPATH).'config/autoload'.EXT;
+		$autoload_path = (($basepath !== null) ? $basepath : APPPATH).'config/autoload'.EXT;
 
 		if ( ! file_exists($autoload_path))
 		{
-			return FALSE;
+			return false;
 		}
 
 		include($autoload_path);
 
 		if ( ! isset($autoload))
 		{
-			return FALSE;
+			return false;
 		}
 
-		if ($basepath !== NULL)
+		if ($basepath !== null)
 		{
 			// Autoload packages
 			if (isset($autoload['packages']))
@@ -214,7 +214,7 @@ class MY_Loader extends MX_Loader
 			}
 		}
 
-		if ($basepath !== NULL)
+		if ($basepath !== null)
 		{
 			if (isset($autoload['config']))
 			{

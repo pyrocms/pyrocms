@@ -81,10 +81,10 @@ class Format
 	 * @param mixed $data
 	 * @return array 
 	 */
-	public function to_array($data = NULL)
+	public function to_array($data = null)
 	{
 		// If not just null, but nothing is provided
-		if ($data === NULL and !func_num_args())
+		if ($data === null and !func_num_args())
 		{
 			$data = $this->_data;
 		}
@@ -266,7 +266,7 @@ class Format
 	 */
 	public function to_php()
 	{
-		return var_export($this->_data, TRUE);
+		return var_export($this->_data, true);
 	}
 
 	/**

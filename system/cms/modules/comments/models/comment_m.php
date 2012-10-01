@@ -221,7 +221,7 @@ class Comment_m extends MY_Model
 	 */
 	private function _get_all_setup()
 	{
-		$this->_table = NULL;
+		$this->_table = null;
     	$this->db
     		->select('c.*')
 			->from('comments c')

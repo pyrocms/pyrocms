@@ -100,10 +100,10 @@ class Fields
 		// -------------------------------------
 		
 		$default_extras = array(
-			'email_notifications'		=> NULL,
+			'email_notifications'		=> null,
 			'return'					=> current_url(),
-			'error_start'				=> NULL,
-			'error_end'					=> NULL,
+			'error_start'				=> null,
+			'error_end'					=> null,
 			'required'					=> '<span>*</span>'
 		);
 
@@ -496,7 +496,7 @@ class Fields
 							
 				if ($stream_field->is_required == 'yes')
 				{
-					if (isset($type->input_is_file) && $type->input_is_file === TRUE)
+					if (isset($type->input_is_file) && $type->input_is_file === true)
 					{
 						$rules[] = 'streams_file_required['.$stream_field->field_slug.']';
 					}
@@ -659,8 +659,8 @@ class Fields
 
 		// We accept a null to/from, as these can be
 		// created automatically.
-		if ( ! isset($notify) AND ! $notify) return NULL;
-		if ( ! isset($template) AND ! $template) return NULL;
+		if ( ! isset($notify) AND ! $notify) return null;
+		if ( ! isset($template) AND ! $template) return null;
 			
 		// -------------------------------------
 		// Get e-mails. Forget if there are none
@@ -668,7 +668,7 @@ class Fields
 
 		$emails = explode("|", $notify);
 
-		if (empty($emails)) return NULL;
+		if (empty($emails)) return null;
 
 		foreach($emails as $key => $piece)
 		{
@@ -782,7 +782,7 @@ class Fields
 	 */
 	private function _process_email_address($email)
 	{	
-		if (strpos($email, '@') === FALSE AND $this->CI->input->post($email))
+		if (strpos($email, '@') === false AND $this->CI->input->post($email))
 		{
 			return $this->CI->input->post($email);
 		}

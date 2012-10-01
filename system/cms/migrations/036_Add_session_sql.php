@@ -10,7 +10,7 @@ class Migration_Add_session_sql extends CI_Migration {
 			 `ip_address` varchar(16) DEFAULT '0' NOT NULL,
 			 `user_agent` varchar(120) NOT NULL,
 			 `last_activity` int(10) unsigned DEFAULT 0 NOT NULL,
-			 `user_data` text NULL,
+			 `user_data` text null,
 			PRIMARY KEY (`session_id`),
 			KEY `last_activity_idx` (`last_activity`)
 			);

@@ -51,7 +51,7 @@ class WYSIWYG_Controller extends MY_Controller
 		$this->template
 			->set_theme(ADMIN_THEME)
 			->set_layout('wysiwyg', 'admin')
-			->enable_parser(FALSE)
+			->enable_parser(false)
 			->append_css('module::wysiwyg.css')
 			->append_css('jquery/ui-lightness/jquery-ui.css')
 			->append_js('jquery/jquery.js')

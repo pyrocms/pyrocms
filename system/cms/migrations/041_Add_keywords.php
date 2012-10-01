@@ -25,7 +25,7 @@ class Migration_Add_keywords extends CI_Migration {
 
 		if ($this->db->query($keywords) && $this->db->query($keywords_applied))
 		{
-			return TRUE;
+			return true;
 		}
 	}
 

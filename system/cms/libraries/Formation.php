@@ -320,7 +320,7 @@ class Formation
 	 * @param	string	$form_name
 	 * @return	string
 	 */
-	public static function field($name, $properties = array(), $form_name = NULL)
+	public static function field($name, $properties = array(), $form_name = null)
 	{
 		$return = '';
 
@@ -328,14 +328,14 @@ class Formation
 		{
 			$properties['name'] = $name;
 		}
-		$required = FALSE;
+		$required = false;
 		if (isset(self::$_validation[$form_name]))
 		{
 			foreach (self::$_validation[$form_name] as $rule)
 			{
-				if ($rule['field'] == $properties['name'] AND $rule['rules'] AND strpos('required', $rule['rules']) !== FALSE)
+				if ($rule['field'] == $properties['name'] AND $rule['rules'] AND strpos('required', $rule['rules']) !== false)
 				{
-					$required = TRUE;
+					$required = true;
 				}
 			}
 		}
@@ -411,7 +411,7 @@ class Formation
 	 * @param	bool	$required
 	 * @return	string
 	 */
-	private static function _open_field($type, $required = FALSE)
+	private static function _open_field($type, $required = false)
 	{
 		if ($type == 'hidden')
 		{
@@ -438,7 +438,7 @@ class Formation
 	 * @param	bool	$required
 	 * @return	string
 	 */
-	private static function _close_field($type, $required = FALSE)
+	private static function _close_field($type, $required = false)
 	{
 		if ($type == 'hidden')
 		{
@@ -517,7 +517,7 @@ class Formation
 	 * @param	array	$options
 	 * @return	string
 	 */
-	public static function open($form_name = NULL, $options = array())
+	public static function open($form_name = null, $options = array())
 	{
 		// The form name does not exist, must be an action as its not set in options either
 		if (self::form_exists($form_name))
@@ -617,9 +617,9 @@ class Formation
 	 * @param	string	$for
 	 * @return	string
 	 */
-	public static function label($value, $for = NULL)
+	public static function label($value, $for = null)
 	{
-		if ($for === NULL)
+		if ($for === null)
 		{
 			return '<label>'.$value.'</label>';
 		}
@@ -773,7 +773,7 @@ class Formation
 	{
 		if (!isset(self::$_validation[$form_name]))
 		{
-			return TRUE;
+			return true;
 		}
 		self::load_validation();
 
@@ -828,7 +828,7 @@ class Formation
 	 * @param	mixed	$value
 	 * @return	void
 	 */
-	public static function set_value($form_name, $field_name, $default = NULL)
+	public static function set_value($form_name, $field_name, $default = null)
 	{
 		self::load_validation();
 
@@ -903,7 +903,7 @@ class Formation
 
 		foreach (self::$_forms[$form_name]['fields'] as $field_name => $attr)
 		{
-			self::set_value($form_name, $field_name, (isset($attr['value']) ? $attr['value'] : NULL));
+			self::set_value($form_name, $field_name, (isset($attr['value']) ? $attr['value'] : null));
 		}
 	}
 

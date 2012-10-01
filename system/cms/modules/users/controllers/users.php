@@ -128,7 +128,7 @@ class Users extends Public_Controller
 			}
 
 			// Don't allow protocols or cheeky requests
-			if (strpos($redirect_to, ':') !== FALSE and strpos($redirect_to, site_url()) !== 0)
+			if (strpos($redirect_to, ':') !== false and strpos($redirect_to, site_url()) !== 0)
 			{
 				// Just login to the homepage
 				redirect('');
@@ -439,7 +439,7 @@ class Users extends Public_Controller
 	 *
 	 * @return void
 	 */
-	public function activate($id = 0, $code = NULL)
+	public function activate($id = 0, $code = null)
 	{
 		// Get info from email
 		if ($this->input->post('email'))
@@ -706,7 +706,7 @@ class Users extends Public_Controller
 
 			$profile_data = $secure_post;
 
-			if ($this->ion_auth->update_user($user->id, $user_data, $profile_data) !== FALSE)
+			if ($this->ion_auth->update_user($user->id, $user_data, $profile_data) !== false)
 			{
 				Events::trigger('post_user_update');
 				$this->session->set_flashdata('success', $this->ion_auth->messages());

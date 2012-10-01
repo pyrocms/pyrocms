@@ -17,7 +17,7 @@ class Files
 	protected	static $_cache_path;
 	protected 	static $_ext;
 	protected	static $_type = '';
-	protected	static $_filename = NULL;
+	protected	static $_filename = null;
 	protected	static $_mimetype;
 
 	// ------------------------------------------------------------------------
@@ -98,7 +98,7 @@ class Files
 		$insert['id'] = $id;
 		$insert['file_count'] = 0;
 
-		return self::result(TRUE, lang('files:item_created'), $insert['name'], $insert);
+		return self::result(true, lang('files:item_created'), $insert['name'], $insert);
 	}
 
 	// ------------------------------------------------------------------------
@@ -125,10 +125,10 @@ class Files
 
 		if ($result)
 		{
-			return self::result(TRUE, lang('files:container_created'), $container);
+			return self::result(true, lang('files:container_created'), $container);
 		}
 
-		return self::result(FALSE, lang('files:error_container'), $container);
+		return self::result(false, lang('files:error_container'), $container);
 	}
 
 	// ------------------------------------------------------------------------
@@ -169,7 +169,7 @@ class Files
 			}
 		}
 
-		return self::result(TRUE, NULL, NULL, array('folder' => $folders, 'file' => $files));
+		return self::result(true, null, null, array('folder' => $folders, 'file' => $files));
 	}
 
 	// ------------------------------------------------------------------------
@@ -239,10 +239,10 @@ class Files
 		{
 			if ($name === $container)
 			{
-				return self::result(TRUE, lang('files:container_exists'), $name);
+				return self::result(true, lang('files:container_exists'), $name);
 			}
 		}
-		return self::result(TRUE, lang('files:container_not_exists'), $name);
+		return self::result(true, lang('files:container_not_exists'), $name);
 	}
 
 	// ------------------------------------------------------------------------
@@ -276,7 +276,7 @@ class Files
 
 		ci()->file_folders_m->update($id, $insert);
 
-		return self::result(TRUE, lang('files:item_updated'), $insert['name'], $insert);
+		return self::result(true, lang('files:item_updated'), $insert['name'], $insert);
 	}
 
 	// ------------------------------------------------------------------------
@@ -296,11 +296,11 @@ class Files
 		{
 			ci()->file_folders_m->delete($id);
 
-			return self::result(TRUE, lang('files:item_deleted'), $folder->name);
+			return self::result(true, lang('files:item_deleted'), $folder->name);
 		}
 		else
 		{
-			return self::result(FALSE, lang('files:folder_not_empty'), $folder->name);
+			return self::result(false, lang('files:folder_not_empty'), $folder->name);
 		}
 	}
 
@@ -315,7 +315,7 @@ class Files
 	 * @param bool $ratio Keep the aspect ratio or not?
 	 * @return array|bool
 	 */
-	public static function upload($folder_id, $name = FALSE, $field = 'userfile', $width = FALSE, $height = FALSE, $ratio = FALSE, $allowed_types = FALSE)
+	public static function upload($folder_id, $name = false, $field = 'userfile', $width = false, $height = false, $ratio = false, $allowed_types = false)
 	{
 		if ( ! $check_dir = self::check_dir(self::$path))
 		{
@@ -401,18 +401,18 @@ class Files
 					return Files::move($file_id, $data['filename'], 'local', $folder->location, $folder->remote_container);
 				}
 
-				return self::result(TRUE, lang('files:file_uploaded'), $data['name'], array('id' => $file_id) + $data);
+				return self::result(true, lang('files:file_uploaded'), $data['name'], array('id' => $file_id) + $data);
 			}
 			else
 			{
 				$errors = ci()->upload->display_errors();
 
-				return self::result(FALSE, $errors);
+				return self::result(false, $errors);
 			}
 		}
 		else
 		{
-			return self::result(FALSE, lang('files:specify_valid_folder'));
+			return self::result(false, lang('files:specify_valid_folder'));
 		}
 	}
 
@@ -428,7 +428,7 @@ class Files
 	 * @param	string	$container		The bucket, container, or folder to move the file to
 	 * @return	array
 	**/
-	public static function move($file_id, $new_name = FALSE, $location = FALSE, $new_location = 'local', $container = '')
+	public static function move($file_id, $new_name = false, $location = false, $new_location = 'local', $container = '')
 	{
 		$file = ci()->file_m->select('files.*, file_folders.name foldername, file_folders.slug, file_folders.location')
 			->join('file_folders', 'files.folder_id = file_folders.id')
@@ -436,7 +436,7 @@ class Files
 
 		if ( ! $file)
 		{
-			return self::result(FALSE, lang('files:item_not_found'), $new_name ? $new_name : $file_id);
+			return self::result(false, lang('files:item_not_found'), $new_name ? $new_name : $file_id);
 		}
 
 		// this keeps a long running transaction from stalling the site
@@ -476,11 +476,11 @@ class Files
 
 				@rename(self::$path.$file->filename, self::$path.$filename);
 
-				return self::result(TRUE, lang('files:item_updated'), $new_name, $data);
+				return self::result(true, lang('files:item_updated'), $new_name, $data);
 			}
 			else
 			{
-				return self::result(FALSE, lang('files:item_not_found'), $file->name);
+				return self::result(false, lang('files:item_not_found'), $file->name);
 			}
 		}
 		// we'll be pushing the file from here to the cloud
@@ -496,12 +496,12 @@ class Files
 				// make a unique object name
 				$object = now().'.'.$new_name;
 
-				$path = ci()->storage->upload_file($container, self::$path.$file->filename, $object, NULL, 'public');
+				$path = ci()->storage->upload_file($container, self::$path.$file->filename, $object, null, 'public');
 
 				if ($new_location === 'amazon-s3')
 				{
 					// if amazon didn't throw an error we'll create a path to store like rackspace does
-					$url = ci()->parser->parse_string(Settings::get('files_s3_url'), array('bucket'=> $container), TRUE);
+					$url = ci()->parser->parse_string(Settings::get('files_s3_url'), array('bucket'=> $container), true);
 					$path = rtrim($url, '/').'/'.$object;
 				}
 
@@ -517,7 +517,7 @@ class Files
 					$config['image_library']    = 'gd2';
 					$config['source_image']     = self::$path.$file->filename;
 					$config['new_image']        = self::$_cache_path.$data['filename'];
-					$config['maintain_ratio']	= FALSE;
+					$config['maintain_ratio']	= false;
 					$config['width']            = 75;
 					$config['height']           = 50;
 					ci()->image_lib->initialize($config);
@@ -532,10 +532,10 @@ class Files
 					'location' => $new_location,
 					'container' => $container);
 
-				return self::result(TRUE, lang('files:file_uploaded'), $new_name, $extra_data + $data);
+				return self::result(true, lang('files:file_uploaded'), $new_name, $extra_data + $data);
 			}
 
-			return self::result(FALSE, lang('files:invalid_container'), $container);
+			return self::result(false, lang('files:invalid_container'), $container);
 		}
 		// pull it from the cloud to our filesystem
 		elseif ($file->location AND $new_location === 'local')
@@ -568,11 +568,11 @@ class Files
 					'location' => $new_location,
 					'container' => $container);
 
-				return self::result(TRUE, lang('files:file_moved'), $file->name, $data);
+				return self::result(true, lang('files:file_moved'), $file->name, $data);
 			}
 			else
 			{
-				return self::result(FALSE, lang('files:unsuccessful_fetch'), $file);
+				return self::result(false, lang('files:unsuccessful_fetch'), $file);
 			}
 		}
 		// pulling from the cloud and then pushing to another part of the cloud :P
@@ -593,18 +593,18 @@ class Files
 			}
 			else
 			{
-				return self::result(FALSE, lang('files:unsuccessful_fetch'), $file);
+				return self::result(false, lang('files:unsuccessful_fetch'), $file);
 			}
 
 			// make a unique object name
 			$object = now().'.'.$new_name;
 
-			$path = ci()->storage->upload_file($container, $temp_file, $object, NULL, 'public');
+			$path = ci()->storage->upload_file($container, $temp_file, $object, null, 'public');
 
 			if ($new_location === 'amazon-s3')
 			{
 				// if amazon didn't throw an error we'll create a path to store like rackspace does
-				$url = ci()->parser->parse_string(Settings::get('files_s3_url'), array('bucket'=> $container), TRUE);
+				$url = ci()->parser->parse_string(Settings::get('files_s3_url'), array('bucket'=> $container), true);
 				$path = rtrim($url, '/').'/'.$object;
 			}
 
@@ -621,7 +621,7 @@ class Files
 				'location' => $new_location,
 				'container' => $container);
 
-			return self::result(TRUE, lang('files:file_moved'), $file->name, $extra_data + $data);
+			return self::result(true, lang('files:file_moved'), $file->name, $extra_data + $data);
 		}
 	}
 
@@ -643,9 +643,9 @@ class Files
 			->join('file_folders', 'file_folders.id = files.folder_id')
 			->get_by($column, $identifier);
 
-		$message = $results ? NULL : lang('files:no_records_found');
+		$message = $results ? null : lang('files:no_records_found');
 
-		return self::result( (bool) $results, $message, NULL, $results);
+		return self::result( (bool) $results, $message, null, $results);
 	}
 
 	// ------------------------------------------------------------------------
@@ -666,9 +666,9 @@ class Files
 			->where('slug', $container)
 			->get_all();
 
-		$message = $results ? NULL : lang('files:no_records_found');
+		$message = $results ? null : lang('files:no_records_found');
 
-		return self::result( (bool) $results, $message, NULL, $results);
+		return self::result( (bool) $results, $message, null, $results);
 	}
 
 	// ------------------------------------------------------------------------
@@ -704,7 +704,7 @@ class Files
 					if ($location === 'amazon-s3')
 					{
 						// we'll create a path to store like rackspace does
-						$url = ci()->parser->parse_string(Settings::get('files_s3_url'), array('bucket'=> $container), TRUE);
+						$url = ci()->parser->parse_string(Settings::get('files_s3_url'), array('bucket'=> $container), true);
 						$path = rtrim($url, '/').'/'.$value['name'];
 					}
 					elseif ($location === 'rackspace-cf')
@@ -720,7 +720,7 @@ class Files
 							if ( ! $path = ci()->storage->create_container($container, 'public'))
 							{
 								// epic fails all around!!
-								return self::result(FALSE, lang('files:enable_cdn'), $container);
+								return self::result(false, lang('files:enable_cdn'), $container);
 							}
 						}
 						$path = rtrim($path, '/').'/'.$value['name'];
@@ -764,9 +764,9 @@ class Files
 			}
 		}
 
-		$message = $files ? NULL : lang('files:no_records_found');
+		$message = $files ? null : lang('files:no_records_found');
 
-		return self::result( (bool) $files, $message, NULL, $files);
+		return self::result( (bool) $files, $message, null, $files);
 	}
 
 	// ------------------------------------------------------------------------
@@ -835,11 +835,11 @@ class Files
 				->where_not_in('id', $valid_records)
 				->delete('files');
 
-			return self::result(TRUE, lang('files:synchronization_complete'), $folder->name, $files['data']);
+			return self::result(true, lang('files:synchronization_complete'), $folder->name, $files['data']);
 		}
 		else
 		{
-			return self::result(NULL, lang('files:no_records_found'));
+			return self::result(null, lang('files:no_records_found'));
 		}
 	}
 
@@ -858,7 +858,7 @@ class Files
 		// physical filenames cannot be changed because of the risk of breaking embedded urls so we just change the db
 		ci()->file_m->update($id, array('name' => $name));
 
-		return self::result(TRUE, lang('files:item_updated'), $name, array('id' => $id, 'name' => $name));
+		return self::result(true, lang('files:item_updated'), $name, array('id' => $id, 'name' => $name));
 	}
 
 	// ------------------------------------------------------------------------
@@ -890,10 +890,10 @@ class Files
 				@unlink(self::$_cache_path.$file->filename);
 			}
 
-			return self::result(TRUE, lang('files:item_deleted'), $file->name);
+			return self::result(true, lang('files:item_deleted'), $file->name);
 		}
 
-		return self::result(FALSE, lang('files:item_not_found'), $id);
+		return self::result(false, lang('files:item_not_found'), $id);
 	}
 
 	// ------------------------------------------------------------------------
@@ -943,10 +943,10 @@ class Files
 
 		if ($results['file'] OR $results['folder'])
 		{
-			return self::result(TRUE, NULL, NULL, $results);
+			return self::result(true, null, null, $results);
 		}
 
-		return self::result(FALSE, lang('files:no_records_found'));
+		return self::result(false, lang('files:no_records_found'));
 	}
 
 	// ------------------------------------------------------------------------
@@ -963,7 +963,7 @@ class Files
 	 * @return	array
 	 *
 	**/
-	public static function result($status = TRUE, $message = '', $args = FALSE, $data = '')
+	public static function result($status = true, $message = '', $args = false, $data = '')
 	{
 		return array('status' 	=> $status, 
 					 'message' 	=> $args ? sprintf($message, $args) : $message, 
@@ -1013,7 +1013,7 @@ class Files
 		log_message('debug', $e->getMessage());
 
 		echo json_encode( 
-			array('status' 	=> FALSE, 
+			array('status' 	=> false, 
 				  'message' => $e->getMessage(),
 				  'data' 	=> ''
 				 )
@@ -1035,10 +1035,10 @@ class Files
 		log_message('debug', $error);
 
 		// only output the S3 error messages
-		if (strpos($error, 'S3') !== FALSE)
+		if (strpos($error, 'S3') !== false)
 		{
 			echo json_encode( 
-				array('status' 	=> FALSE, // clean up the error message to make it more readable
+				array('status' 	=> false, // clean up the error message to make it more readable
 					  'message' => preg_replace('@S3.*?\[.*?\](.*)$@ms', '$1', $error),
 					  'data' 	=> ''
 					 )
@@ -1079,13 +1079,13 @@ class Files
 	{
 		if (is_dir($path) AND is_really_writable($path))
 		{
-			return self::result(TRUE);
+			return self::result(true);
 		}
 		elseif ( ! is_dir($path))
 		{
-			if ( ! @mkdir($path, 0777, TRUE))
+			if ( ! @mkdir($path, 0777, true))
 			{
-				return self::result(FALSE, lang('files:mkdir_error'), $path);
+				return self::result(false, lang('files:mkdir_error'), $path);
 			}
 			else
 			{
@@ -1098,7 +1098,7 @@ class Files
 		{
 			if ( ! chmod($path, 0777))
 			{
-				return self::result(FALSE, lang('files:chmod_error'));
+				return self::result(false, lang('files:chmod_error'));
 			}
 		}
 	}
@@ -1125,7 +1125,7 @@ class Files
 				{
 					self::$_type		= $type;
 					self::$_ext			= implode('|', $ext_arr);
-					self::$_filename	= trim(url_title($_FILES[$field]['name'], 'dash', TRUE), '-');
+					self::$_filename	= trim(url_title($_FILES[$field]['name'], 'dash', true), '-');
 
 					break;
 				}
@@ -1133,15 +1133,15 @@ class Files
 
 			if ( ! self::$_ext)
 			{
-				return self::result(FALSE, lang('files:invalid_extension'), $_FILES[$field]['name']);
+				return self::result(false, lang('files:invalid_extension'), $_FILES[$field]['name']);
 			}
 		}		
 		elseif (ci()->method === 'upload')
 		{
-			return self::result(FALSE, lang('files:upload_error'));
+			return self::result(false, lang('files:upload_error'));
 		}
 
-		return self::result(TRUE);
+		return self::result(true);
 	}
 
 	// ------------------------------------------------------------------------

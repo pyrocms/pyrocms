@@ -79,10 +79,10 @@ class Pages extends Public_Controller
 	 */
 	public function _page($url_segments)
 	{
-		$page = ($url_segments !== NULL)
+		$page = ($url_segments !== null)
 
 			// Fetch this page from the database via cache
-			? $this->pyrocache->model('page_m', 'get_by_uri', array($url_segments, TRUE))
+			? $this->pyrocache->model('page_m', 'get_by_uri', array($url_segments, true))
 
 			: $this->pyrocache->model('page_m', 'get_home');
 
@@ -140,7 +140,7 @@ class Pages extends Public_Controller
 				{
 					$breadcrumb_segments[] = $segment;
 
-					$parents[] = $this->pyrocache->model('page_m', 'get_by_uri', array($breadcrumb_segments, TRUE));
+					$parents[] = $this->pyrocache->model('page_m', 'get_by_uri', array($breadcrumb_segments, true));
 				}
 
 				// Cache for next time
@@ -208,7 +208,7 @@ class Pages extends Public_Controller
 			->set_breadcrumb($page->title);
 
 		// Parse it so the embedded tags are parsed. We pass along $page so that {{ page:id }} and friends work in page content.
-		$page->body = $this->parser->parse_string(str_replace(array('&#39;', '&quot;'), array("'", '"'), $chunk_html), array('theme' => $this->theme, 'page' => $page), TRUE);
+		$page->body = $this->parser->parse_string(str_replace(array('&#39;', '&quot;'), array("'", '"'), $chunk_html), array('theme' => $this->theme, 'page' => $page), true);
 
 		if ($page->layout->css or $page->css)
 		{
@@ -246,10 +246,10 @@ class Pages extends Public_Controller
 			log_message('error', 'Page Missing: '.$this->uri->uri_string());
 
 			// things behave a little differently when called by MX from MY_Exceptions' show_404()
-			exit($this->template->build('pages/page', array('page' => $page), FALSE, FALSE));
+			exit($this->template->build('pages/page', array('page' => $page), false, false));
 		}
 
-		$this->template->build('page', array('page' => $page), FALSE, FALSE);
+		$this->template->build('page', array('page' => $page), false, false);
 	}
 
 	/**
@@ -266,7 +266,7 @@ class Pages extends Public_Controller
 
 
 		// Fetch this page from the database via cache
-		$page = $this->pyrocache->model('page_m', 'get_by_uri', array($url_segments, TRUE));
+		$page = $this->pyrocache->model('page_m', 'get_by_uri', array($url_segments, true));
 
 		// We will need to know if we should include draft pages in the feed later on too, so save it.
 		$include_draft = ! empty($this->current_user) AND $this->current_user->group !== 'admin';

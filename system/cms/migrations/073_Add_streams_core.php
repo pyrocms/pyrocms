@@ -25,7 +25,7 @@ class Migration_Add_streams_core extends CI_Migration {
 				// Add primary key
 				if(isset($schema['primary_key']))
 				{
-					$this->dbforge->add_key($schema['primary_key'], TRUE);
+					$this->dbforge->add_key($schema['primary_key'], true);
 				}
 	
 				$this->dbforge->create_table($table_name);

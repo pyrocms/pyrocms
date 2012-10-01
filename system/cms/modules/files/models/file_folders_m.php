@@ -82,7 +82,7 @@ class File_folders_m extends MY_Model {
 			return $arr;
 		}
 
-		static $root = NULL;
+		static $root = null;
 
 		foreach ($folders as $folder)
 		{

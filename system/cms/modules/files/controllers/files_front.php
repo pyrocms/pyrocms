@@ -44,12 +44,12 @@ class Files_front extends Public_Controller
 		$data = file_get_contents($this->_path . $file->filename);
 
 		// if it's the default name it will contain the extension. Otherwise we need to add the extension
-		$name = (strpos($file->name, $file->extension) !== FALSE ? $file->name : $file->name . $file->extension);
+		$name = (strpos($file->name, $file->extension) !== false ? $file->name : $file->name . $file->extension);
 
 		force_download($name , $data);
 	}
 
-	public function thumb($id = 0, $width = 100, $height = 100, $mode = NULL)
+	public function thumb($id = 0, $width = 100, $height = 100, $mode = null)
 	{
 		if (is_numeric($id))
 		{
@@ -78,7 +78,7 @@ class Files_front extends Public_Controller
 
 		$cache_dir = $this->config->item('cache_dir') . 'image_files/';
 
-		is_dir($cache_dir) or mkdir($cache_dir, 0777, TRUE);
+		is_dir($cache_dir) or mkdir($cache_dir, 0777, true);
 
 		$modes = array('fill', 'fit');
 
@@ -99,21 +99,21 @@ class Files_front extends Public_Controller
 				elseif (in_array($height, $modes))
 				{
 					$mode	= $height;
-					$height	= empty($width) ? NULL : $width;
+					$height	= empty($width) ? null : $width;
 				}
 				else
 				{
-					$height	= NULL;
+					$height	= null;
 				}
 
 				if ( ! empty($width))
 				{
-					if (($pos = strpos($width, 'x')) !== FALSE)
+					if (($pos = strpos($width, 'x')) !== false)
 					{
 						if ($pos === 0)
 						{
 							$height = substr($width, 1);
-							$width	= NULL;
+							$width	= null;
 						}
 						else
 						{
@@ -126,18 +126,18 @@ class Files_front extends Public_Controller
 				if (in_array($height, $modes))
 				{
 					$mode	= $height;
-					$height	= empty($width) ? NULL : $width;
+					$height	= empty($width) ? null : $width;
 				}
 
 				foreach (array('height' => 'width', 'width' => 'height') as $var1 => $var2)
 				{
 					if (${$var1} === 0 OR ${$var1} === '0')
 					{
-						${$var1} = NULL;
+						${$var1} = null;
 					}
 					elseif (empty(${$var1}) OR ${$var1} === 'auto')
 					{
-						${$var1} = (empty(${$var2}) OR ${$var2} === 'auto' OR ! is_null($mode)) ? NULL : 100000;
+						${$var1} = (empty(${$var2}) OR ${$var2} === 'auto' OR ! is_null($mode)) ? null : 100000;
 					}
 				}
 				break;
@@ -145,8 +145,8 @@ class Files_front extends Public_Controller
 
 		// Path to image thumbnail
 		$thumb_filename = $cache_dir . ($mode ? $mode : 'normal');
-		$thumb_filename .= '_' . ($width === NULL ? 'a' : ($width > $file->width ? 'b' : $width));
-		$thumb_filename .= '_' . ($height === NULL ? 'a' : ($height > $file->height ? 'b' : $height));
+		$thumb_filename .= '_' . ($width === null ? 'a' : ($width > $file->width ? 'b' : $width));
+		$thumb_filename .= '_' . ($height === null ? 'a' : ($height > $file->height ? 'b' : $height));
 		$thumb_filename .= '_' . md5($file->filename) . $file->extension;
 
 		$expire = 60 * Settings::get('files_cache');
@@ -201,7 +201,7 @@ class Files_front extends Public_Controller
 				$this->image_lib->resize();
 				$this->image_lib->clear();
 
-				if ($mode === $modes[1] && ($crop_width !== NULL && $crop_height !== NULL))
+				if ($mode === $modes[1] && ($crop_width !== null && $crop_height !== null))
 				{
 					$x_axis = floor(($width - $crop_width) / 2);
 					$y_axis = floor(($height - $crop_height) / 2);
@@ -210,7 +210,7 @@ class Files_front extends Public_Controller
 					$config['image_library']    = 'gd2';
 					$config['source_image']     = $thumb_filename;
 					$config['new_image']        = $thumb_filename;
-					$config['maintain_ratio']   = FALSE;
+					$config['maintain_ratio']   = false;
 					$config['width']			= $crop_width;
 					$config['height']			= $crop_height;
 					$config['x_axis']			= $x_axis;

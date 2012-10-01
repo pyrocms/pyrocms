@@ -21,7 +21,7 @@ class Field_image
 
 	public $author					= array('name' => 'Parse19', 'url' => 'http://parse19.com');
 
-	public $input_is_file			= TRUE;
+	public $input_is_file			= true;
 
 	// --------------------------------------------------------------------------
 	

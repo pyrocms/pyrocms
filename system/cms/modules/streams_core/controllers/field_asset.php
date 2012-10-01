@@ -99,7 +99,7 @@ class Field_asset extends Public_Controller {
     	
     	$file = $this->field_type->ft_path.'js/'.$file;
     	
-   	 	if ( ! is_file($file)) return NULL;
+   	 	if ( ! is_file($file)) return null;
    	 	
 		echo read_file($file);   	 	
     }

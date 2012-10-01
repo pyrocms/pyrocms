@@ -38,7 +38,7 @@
 				{
 					echo '<li>';
 
-					$name = lang('cp_nav_'.$menu_item)!=''&&lang('cp_nav_'.$menu_item)!=NULL ? lang('cp_nav_'.$menu_item) : $menu_item;
+					$name = lang('cp_nav_'.$menu_item)!=''&&lang('cp_nav_'.$menu_item)!=null ? lang('cp_nav_'.$menu_item) : $menu_item;
 					$current = (($this->module_details && $this->module_details['menu'] == $menu_item) or $menu_item == $this->module);
 					$class = $current ? "top-link current" : "top-link";
 					echo anchor(current_url() . '#', $name, array('class' => $class));
@@ -68,7 +68,7 @@
 						
 					foreach ($modules[$menu_item] as $module)
 					{
-						if (lang('cp_nav_'.$module['slug'])!=''&&lang('cp_nav_'.$module['slug'])!=NULL)
+						if (lang('cp_nav_'.$module['slug'])!=''&&lang('cp_nav_'.$module['slug'])!=null)
 						{
 							$module['name'] = lang('cp_nav_'.$module['slug']);
 						}

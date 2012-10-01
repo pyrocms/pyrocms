@@ -150,7 +150,7 @@ class Plugin_Files extends Plugin
 		{
 			if ($size = $this->attribute('size', ''))
 			{
-				strpos($size, 'x') === FALSE AND $size .= 'x';
+				strpos($size, 'x') === false AND $size .= 'x';
 
 				list($width, $height) = explode('/', strtr($size, 'x', '/'));
 			}
@@ -230,14 +230,14 @@ class Plugin_Files extends Plugin
 		{
 			$this->load->helper('html');
 
-			if (strpos($size, 'x') !== FALSE && ! isset($attributes['width'], $attributes['height']))
+			if (strpos($size, 'x') !== false && ! isset($attributes['width'], $attributes['height']))
 			{
 				list($attributes['width'], $attributes['height']) = explode('x', $size);
 			}
 
 			return $this->{'_build_tag_location_' . $base}($type, $uri, array(
 				'attributes' => $attributes,
-				'index_page' => TRUE
+				'index_page' => true
 			));
 		}
 
@@ -276,7 +276,7 @@ class Plugin_Files extends Plugin
 	{
 		$id = $this->attribute('id');
 
-		$exists = (bool) (isset($this->_files[$id]) ? TRUE : $this->file_m->exists($id));
+		$exists = (bool) (isset($this->_files[$id]) ? true : $this->file_m->exists($id));
 
 		return $exists && $this->content() ? $this->content() : $exists;
 	}

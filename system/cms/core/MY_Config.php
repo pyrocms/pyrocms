@@ -29,7 +29,7 @@ class MY_Config extends CI_Config
 		else
 		{
 			// -- Old busted shit
-			//$suffix = ($this->item('url_suffix') == FALSE) ? '' : $this->item('url_suffix');
+			//$suffix = ($this->item('url_suffix') == false) ? '' : $this->item('url_suffix');
 			// -- end old busted shit
 			
 			// -- Hot newness
@@ -44,7 +44,7 @@ class MY_Config extends CI_Config
 			
 			else
 			{
-				$suffix = ($this->item('url_suffix') == FALSE) ? '' : $this->item('url_suffix');
+				$suffix = ($this->item('url_suffix') == false) ? '' : $this->item('url_suffix');
 			}
 			// -- end host newness
 			

@@ -449,7 +449,7 @@ class Lex_Parser
 		{
 			foreach (Lex_Parser::$extractions['noparse'] AS $hash => $replacement)
 			{
-				if (strpos($text, "noparse_{$hash}") !== FALSE)
+				if (strpos($text, "noparse_{$hash}") !== false)
 				{
 					$text = str_replace("noparse_{$hash}", $replacement, $text);
 				}

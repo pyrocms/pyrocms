@@ -105,7 +105,7 @@ class MX_Router extends CI_Router
 			}
 
 			// If this domain is an alias and it is a redirect
-			if ($site->alias_domain !== NULL and $site->alias_type === 'redirect' and str_replace(array('http://', 'https://'), '', trim(strtolower(BASE_URL), '/')) !== $site->domain)
+			if ($site->alias_domain !== null and $site->alias_type === 'redirect' and str_replace(array('http://', 'https://'), '', trim(strtolower(BASE_URL), '/')) !== $site->domain)
 			{
 				$protocol = ( ! empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off')
 					? 'https' : 'http';
@@ -154,7 +154,7 @@ class MX_Router extends CI_Router
 		}
 	
 		/* get the segments array elements */
-		list($module, $directory, $controller) = array_pad($segments, 3, NULL);
+		list($module, $directory, $controller) = array_pad($segments, 3, null);
 
 		/* check modules */
 		foreach (Modules::$locations as $location => $offset) {

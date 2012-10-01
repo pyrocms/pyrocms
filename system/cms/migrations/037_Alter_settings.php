@@ -7,13 +7,13 @@ class Migration_Alter_settings extends CI_Migration {
    	 $this->dbforge->modify_column('settings', array(
 	      'default' => array(
 	        'type'  => 'TEXT',
-	        'null'  => FALSE
+	        'null'  => false
 	      )
 	    ));
 	    $this->dbforge->modify_column('settings', array(
 	      'value' => array(
 	        'type'  => 'TEXT',
-	        'null'  => FALSE
+	        'null'  => false
 	      )
 		));
   }
@@ -24,14 +24,14 @@ class Migration_Alter_settings extends CI_Migration {
       'default' => array(
         'type' => 'varchar',
         'constraint' => 255,
-        'null'  => FALSE
+        'null'  => false
       )
     ));
     $this->dbforge->modify_column('settings', array(
       'value' => array(
         'type' => 'varchar',
         'constraint' => 255,
-        'null'  => FALSE
+        'null'  => false
       )
     ));
   }

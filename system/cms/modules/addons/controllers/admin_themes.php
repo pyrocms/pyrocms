@@ -51,7 +51,7 @@ class Admin_themes extends Admin_Controller
 			{
 				if ($theme->slug == $this->settings->default_theme)
 				{
-					$theme->is_default = TRUE;
+					$theme->is_default = true;
 				}
 
 				$data['themes'][] = $theme;
@@ -81,7 +81,7 @@ class Admin_themes extends Admin_Controller
 			{
 				if ($theme->slug == $this->settings->admin_theme)
 				{
-					$theme->is_default = TRUE;
+					$theme->is_default = true;
 				}
 				
 				$data['themes'][] = $theme;
@@ -148,7 +148,7 @@ class Admin_themes extends Admin_Controller
 				// Loop through again now we know it worked
 				foreach ($options_array as $option_slug => $stored_value)
 				{
-					$input_value = $this->input->post($option_slug, FALSE);
+					$input_value = $this->input->post($option_slug, false);
 
 					if (is_array($input_value))
 					{
@@ -229,7 +229,7 @@ class Admin_themes extends Admin_Controller
 			$config['upload_path'] = FCPATH.UPLOAD_PATH;
 			$config['allowed_types'] = 'zip';
 			$config['max_size'] = '2048';
-			$config['overwrite'] = TRUE;
+			$config['overwrite'] = true;
 
 			$this->load->library('upload', $config);
 
@@ -309,7 +309,7 @@ class Admin_themes extends Admin_Controller
 
 					if (is_really_writable($theme_dir))
 					{
-						delete_files($theme_dir, TRUE);
+						delete_files($theme_dir, true);
 
 						if (@rmdir($theme_dir))
 						{
@@ -427,7 +427,7 @@ class Admin_themes extends Admin_Controller
 					}
 					else
 					{
-						$checked = FALSE;
+						$checked = false;
 					}
 
 					$form_control .= '<label>';

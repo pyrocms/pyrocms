@@ -14,7 +14,7 @@ class Upload extends WYSIWYG_Controller
         $this->_path = FCPATH . '/' . $this->config->item('files:path') . '/';
 		
 		// If the folder hasn't been created by the files module create it now
-		is_dir($this->_path) OR mkdir($this->_path, 0777, TRUE);
+		is_dir($this->_path) OR mkdir($this->_path, 0777, true);
 	}
 
 	public function index()

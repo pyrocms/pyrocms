@@ -197,18 +197,18 @@ class Module_Templates extends Module {
 			'module' => 'users'
 		));
 
-		return TRUE;
+		return true;
 	}
 
 	public function uninstall()
 	{
 		// This is a core module, lets keep it around.
-		return FALSE;
+		return false;
 	}
 
 	public function upgrade($old_version)
 	{
-		return TRUE;
+		return true;
 	}
 
 }

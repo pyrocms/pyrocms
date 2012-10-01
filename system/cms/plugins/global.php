@@ -32,7 +32,7 @@ class Plugin_Global extends Plugin
 			return $this->$name;
 		}
 
-		return NULL;
+		return null;
 	}
 
 }
