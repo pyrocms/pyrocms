@@ -268,7 +268,7 @@ class Pyrocache
 		}
 
 		// Check directory permissions
-		if ( ! is_dir($this->_path) OR ! is_really_writable($this->_path))
+		if ( ! is_dir($this->_path) or ! is_really_writable($this->_path))
 		{
 			return false;
 		}
@@ -370,7 +370,7 @@ class Pyrocache
 		$this->_contents = array('__cache_contents' => $this->_contents);
 
 		// Check directory permissions
-		if ( ! is_dir($this->_path) OR ! is_really_writable($this->_path))
+		if ( ! is_dir($this->_path) or ! is_really_writable($this->_path))
 		{
 			return;
 		}

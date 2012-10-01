@@ -451,7 +451,7 @@ class Users extends Public_Controller
 		$code = ($this->input->post('activation_code')) ? $this->input->post('activation_code') : $code;
 
 		// If user has supplied both bits of information
-		if ($id AND $code)
+		if ($id and $code)
 		{
 			// Try to activate this user
 			if ($this->ion_auth->activate($id, $code))
@@ -521,7 +521,7 @@ class Users extends Public_Controller
 			$uname = (string) $this->input->post('user_name');
 			$email = (string) $this->input->post('email');
 
-			if ( ! $uname AND ! $email)
+			if ( ! $uname and ! $email)
 			{
 				// they submitted with an empty form, abort
 				$this->template->set('error_string', $this->ion_auth->errors())
@@ -603,7 +603,7 @@ class Users extends Public_Controller
 	 */
 	public function edit($id = 0)
 	{
-		if ($this->current_user AND $this->current_user->group === 'admin' AND $id > 0)
+		if ($this->current_user and $this->current_user->group === 'admin' and $id > 0)
 		{
 			$user = $this->user_m->get(array('id' => $id));
 

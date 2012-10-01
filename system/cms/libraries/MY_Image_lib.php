@@ -26,7 +26,7 @@ class MY_Image_lib extends CI_Image_lib
 		// we'll simply make a copy of the original with the new name... assuming dynamic rendering is off.
 		if ($this->dynamic_output === false)
 		{
-			if ($this->orig_width == $this->width AND $this->orig_height == $this->height)
+			if ($this->orig_width == $this->width and $this->orig_height == $this->height)
 			{
  				if ($this->source_image != $this->new_image)
  				{
@@ -73,8 +73,8 @@ class MY_Image_lib extends CI_Image_lib
 		//  it appears that this is no longer the issue that it was in 2004, so we've removed it, retaining it in the comment
 		//  below should that ever prove inaccurate.
 		//
-		//  if ($this->image_library == 'gd2' AND function_exists('imagecreatetruecolor') AND $v2_override == false)		
- 		if ($this->image_library == 'gd2' AND function_exists('imagecreatetruecolor'))
+		//  if ($this->image_library == 'gd2' and function_exists('imagecreatetruecolor') and $v2_override == false)		
+ 		if ($this->image_library == 'gd2' and function_exists('imagecreatetruecolor'))
 		{
 			$create	= 'imagecreatetruecolor';
 			$copy	= 'imagecopyresampled';

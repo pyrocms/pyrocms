@@ -164,7 +164,7 @@ class Module_m extends MY_Model
 			if ( ! empty($params['is_backend']))
 			{
 				// This user has no permissions for this module
-				if ( $this->current_user->group !== 'admin' AND empty($this->permissions[$row->slug]) )
+				if ( $this->current_user->group !== 'admin' and empty($this->permissions[$row->slug]) )
 				{
 					continue;
 				}
@@ -400,7 +400,7 @@ class Module_m extends MY_Model
 	public function upgrade($slug)
 	{
 		// Get info on the new module
-		if ( ! ($module = $this->_spawn_class($slug, true) OR $module = $this->_spawn_class($slug, false)))
+		if ( ! ($module = $this->_spawn_class($slug, true) or $module = $this->_spawn_class($slug, false)))
 		{
 			return false;
 		}
@@ -648,7 +648,7 @@ class Module_m extends MY_Model
 	 */
 	public function version($slug)
 	{
-		if ($module = $this->_spawn_class($slug, true) OR $module = $this->_spawn_class($slug))
+		if ($module = $this->_spawn_class($slug, true) or $module = $this->_spawn_class($slug))
 		{
 			list($class) = $module;
 			return $class->version;

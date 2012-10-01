@@ -3,7 +3,7 @@
 
 	<!-- analytics -->
 	<div class="one_half">
-		<?php if ((isset($analytic_visits) OR isset($analytic_views)) AND $theme_options->pyrocms_analytics_graph == 'yes'): ?>
+		<?php if ((isset($analytic_visits) or isset($analytic_views)) and $theme_options->pyrocms_analytics_graph == 'yes'): ?>
 			<script type="text/javascript">
 				jQuery(function($) {
 					var visits = <?php echo isset($analytic_visits) ? $analytic_visits : 0; ?>;
@@ -75,7 +75,7 @@
 	<!-- /analytics -->
 
 	<!-- rss feed -->
-	<?php if ( isset($rss_items) AND $theme_options->pyrocms_news_feed == 'yes') : ?>
+	<?php if ( isset($rss_items) and $theme_options->pyrocms_news_feed == 'yes') : ?>
 		<div class="one_half" id="feed">
 			<section class="title">
 				<h4><i class="icon-list"></i> <?php echo lang('cp_news_feed_title'); ?></h4>

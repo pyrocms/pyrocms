@@ -135,7 +135,7 @@ class Plugin_Files extends Plugin
 		}
 
 		// file not found
-		if ( ! $file OR ($type && $file->type !== $type))
+		if ( ! $file or ($type && $file->type !== $type))
 		{
 			return '';
 		}
@@ -175,7 +175,7 @@ class Plugin_Files extends Plugin
 				$dimension = trim($width . '/' . $height . '/' . $mode, '/');
 			}
 
-			if ($file->location === 'local' AND $dimension)
+			if ($file->location === 'local' and $dimension)
 			{
 				$uri = sprintf('files/thumb/%s/%s', $file->filename, $dimension);
 			}
@@ -210,7 +210,7 @@ class Plugin_Files extends Plugin
 
 		foreach (array('base', 'size', 'id', 'title', 'type', 'mode', 'width', 'height') as $key)
 		{
-			if (isset($attributes[$key]) && ($type !== 'i' OR ! in_array($key, array('width', 'height'))))
+			if (isset($attributes[$key]) && ($type !== 'i' or ! in_array($key, array('width', 'height'))))
 			{
 				unset($attributes[$key]);
 			}

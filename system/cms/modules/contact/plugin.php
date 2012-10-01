@@ -78,7 +78,7 @@ class Plugin_Contact extends Plugin {
 		$field_list = $this->attributes();
 		
 		// If they try using the old form tag plugin give them an idea why it's failing.
-		if ( ! $this->content() OR count($field_list) == 0)
+		if ( ! $this->content() or count($field_list) == 0)
 		{
 			return 'The new contact plugin requires field parameters and it must be used as a double tag.';
 		}
@@ -351,7 +351,7 @@ class Plugin_Contact extends Plugin {
 	
 	public function _require_upload($field)
 	{
-		if ( isset($_FILES[$field]) AND $_FILES[$field]['name'] > '')
+		if ( isset($_FILES[$field]) and $_FILES[$field]['name'] > '')
 		{
 			return true;
 		}

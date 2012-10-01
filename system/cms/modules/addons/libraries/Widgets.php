@@ -259,7 +259,7 @@ class Widgets
 	{
 		$this->_spawn_widget($slug);
 
-		if ($this->_widget === false OR ! is_subclass_of($this->_widget, 'Widgets'))
+		if ($this->_widget === false or ! is_subclass_of($this->_widget, 'Widgets'))
 		{
 			return false;
 		}

@@ -61,7 +61,7 @@ class Admin extends Admin_Controller
 		$this->form_validation->set_rules($this->validation_rules);
 
 		// If the validation worked, or the user is already logged in
-		if ($this->form_validation->run() OR $this->ion_auth->logged_in())
+		if ($this->form_validation->run() or $this->ion_auth->logged_in())
 		{
 			// if they were trying to go someplace besides the 
 			// dashboard we'll have stored it in the session

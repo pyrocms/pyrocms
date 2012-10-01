@@ -216,7 +216,7 @@ class MY_Exceptions extends CI_Exceptions
     public static function shutdown_handler()
     {
         $error = error_get_last();
-        if ($error = error_get_last() AND in_array($error['type'], self::$shutdown_errors))
+        if ($error = error_get_last() and in_array($error['type'], self::$shutdown_errors))
         {
             // Clean the output buffer
             ob_get_level() and ob_clean();
@@ -259,7 +259,7 @@ class MY_Exceptions extends CI_Exceptions
      */
     public static function debug_source($file, $line_number, $padding = 5)
     {
-        if ( ! $file OR ! is_readable($file))
+        if ( ! $file or ! is_readable($file))
         {
             // Continuing will cause errors
             return false;
@@ -340,7 +340,7 @@ class MY_Exceptions extends CI_Exceptions
                 continue;
             }
 
-            if (isset($step['file']) AND isset($step['line']))
+            if (isset($step['file']) and isset($step['line']))
             {
                 // Include the source of this step
                 $source = self::debug_source($step['file'], $step['line']);
@@ -468,7 +468,7 @@ class MY_Exceptions extends CI_Exceptions
         $line = null;
         
         $is_from_app = false;
-        if(isset($trace[1]['file']) AND strpos($trace[1]['file'], APPPATH) === 0)
+        if (isset($trace[1]['file']) and strpos($trace[1]['file'], APPPATH) === 0)
         {
             $is_from_app = !self::is_extension($trace[1]['file']);
         }
@@ -494,7 +494,7 @@ class MY_Exceptions extends CI_Exceptions
         // If the system called show_error, so lets find the actual file and line in application/ that caused it.
         foreach($trace as $call)
         {
-            if(isset($call['file']) AND strpos($call['file'], APPPATH) === 0 AND !self::is_extension($call['file']))
+            if (isset($call['file']) and strpos($call['file'], APPPATH) === 0 and !self::is_extension($call['file']))
             {
                 $file = $call['file'];
                 $line = $call['line'];

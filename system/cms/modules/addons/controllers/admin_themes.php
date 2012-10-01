@@ -47,7 +47,7 @@ class Admin_themes extends Admin_Controller
 
 		foreach ($themes as $theme)
 		{
-			if ( ! isset($theme->type) OR $theme->type != 'admin')
+			if ( ! isset($theme->type) or $theme->type != 'admin')
 			{
 				if ($theme->slug == $this->settings->default_theme)
 				{
@@ -77,7 +77,7 @@ class Admin_themes extends Admin_Controller
 		
 		foreach ($themes AS $theme)
 		{
-			if (isset($theme->type) AND $theme->type == 'admin')
+			if (isset($theme->type) and $theme->type == 'admin')
 			{
 				if ($theme->slug == $this->settings->admin_theme)
 				{

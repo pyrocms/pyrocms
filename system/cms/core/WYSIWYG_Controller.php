@@ -18,7 +18,7 @@ class WYSIWYG_Controller extends MY_Controller
 		parent::__construct();
 
 		// Not logged in or not an admin and don't have permission to see files
-		if ( ! $this->current_user OR
+		if ( ! $this->current_user or
 			($this->current_user->group !== 'admin' AND 
 			( ! isset($this->permissions['files']) OR
 			  ! isset($this->permissions['files']['wysiwyg']))))

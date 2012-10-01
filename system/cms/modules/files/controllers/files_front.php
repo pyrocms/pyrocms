@@ -131,11 +131,11 @@ class Files_front extends Public_Controller
 
 				foreach (array('height' => 'width', 'width' => 'height') as $var1 => $var2)
 				{
-					if (${$var1} === 0 OR ${$var1} === '0')
+					if (${$var1} === 0 or ${$var1} === '0')
 					{
 						${$var1} = null;
 					}
-					elseif (empty(${$var1}) OR ${$var1} === 'auto')
+					elseif (empty(${$var1}) or ${$var1} === 'auto')
 					{
 						${$var1} = (empty(${$var2}) OR ${$var2} === 'auto' OR ! is_null($mode)) ? null : 100000;
 					}
@@ -160,7 +160,7 @@ class Files_front extends Public_Controller
 		$source_modified = filemtime($this->_path . $file->filename);
 		$thumb_modified = filemtime($thumb_filename);
 
-		if ( ! file_exists($thumb_filename) OR ($thumb_modified < $source_modified))
+		if ( ! file_exists($thumb_filename) or ($thumb_modified < $source_modified))
 		{
 			if ($mode === $modes[1])
 			{

@@ -51,7 +51,7 @@ class MX_Router extends CI_Router
 		if ($located = $this->locate($segments)) return $located;
 		
 		/* use a default 404_override controller */
-		if (isset($this->routes['404_override']) AND $this->routes['404_override']) {
+		if (isset($this->routes['404_override']) and $this->routes['404_override']) {
 			$segments = explode('/', $this->routes['404_override']);
 			if ($located = $this->locate($segments)) return $located;
 		}
@@ -95,7 +95,7 @@ class MX_Router extends CI_Router
 				->row();
 			
 			// If the site is disabled we set the message in a constant for MY_Controller to display
-			if (isset($site->active) AND ! $site->active)
+			if (isset($site->active) and ! $site->active)
 			{
 				$status = DB()->where('slug', 'status_message')
 					->get('core_settings')
@@ -148,7 +148,7 @@ class MX_Router extends CI_Router
 		$ext = $this->config->item('controller_suffix').EXT;
 		
 		/* use module route if available */
-		if (isset($segments[0]) AND $routes = Modules::parse_routes($segments[0], implode('/', $segments))) 	
+		if (isset($segments[0]) and $routes = Modules::parse_routes($segments[0], implode('/', $segments))) 	
 		{
 			$segments = $routes;
 		}
@@ -166,12 +166,12 @@ class MX_Router extends CI_Router
 				$this->directory = $offset.$module.'/controllers/';
 				
 				/* module sub-controller exists? */
-				if($directory AND is_file($source.$directory.$ext)) {
+				if ($directory and is_file($source.$directory.$ext)) {
 					return array_slice($segments, 1);
 				}
 					
 				/* module sub-directory exists? */
-				if($directory AND is_dir($source.$directory.'/')) {
+				if ($directory and is_dir($source.$directory.'/')) {
 
 					$source = $source.$directory.'/';
 					$this->directory .= $directory.'/';
@@ -182,7 +182,7 @@ class MX_Router extends CI_Router
 					}
 				
 					/* module sub-directory sub-controller exists? */
-					if($controller AND is_file($source.$controller.$ext))	{
+					if ($controller and is_file($source.$controller.$ext))	{
 						return array_slice($segments, 2);
 					}
 				}
@@ -200,7 +200,7 @@ class MX_Router extends CI_Router
 		}
 		
 		/* application sub-directory controller exists? */
-		if($directory AND is_file(APPPATH.'controllers/'.$module.'/'.$directory.$ext)) {
+		if ($directory and is_file(APPPATH.'controllers/'.$module.'/'.$directory.$ext)) {
 			$this->directory = $module.'/';
 			return array_slice($segments, 1);
 		}

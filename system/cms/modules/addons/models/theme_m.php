@@ -133,7 +133,7 @@ class Theme_m extends MY_Model
 			return $this->_themes[$slug];
 		}
 
-		if (is_dir($path = $location.$slug) AND is_file($path.'/theme.php'))
+		if (is_dir($path = $location.$slug) and is_file($path.'/theme.php'))
 		{
 			// Core theme or third party?
 			$is_core = trim($location, '/') === APPPATH.'themes';
@@ -164,7 +164,7 @@ class Theme_m extends MY_Model
 			{
 				foreach (get_object_vars($details) as $key => $val)
 				{
-					if ($key == 'options' AND is_array($val))
+					if ($key == 'options' and is_array($val))
 					{
 						// only save to the database if there are no options saved already
 						if ( ! $this->db->where('theme', $slug)->get('theme_options')->result())

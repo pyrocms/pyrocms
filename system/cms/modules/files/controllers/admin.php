@@ -183,7 +183,7 @@ class Admin extends Admin_Controller {
 			show_error(lang('files:no_permissions'));
 		}
 
-		if ($id = $this->input->post('folder_id') AND $name = $this->input->post('name'))
+		if ($id = $this->input->post('folder_id') and $name = $this->input->post('name'))
 		{
 			$result = Files::rename_folder($id, $name);
 			
@@ -227,7 +227,7 @@ class Admin extends Admin_Controller {
 
 		$input = $this->input->post();
 
-		if ($input['folder_id'] AND $input['name'])
+		if ($input['folder_id'] and $input['name'])
 		{
 			$result = Files::upload($input['folder_id'], $input['name'], 'file', $input['width'], $input['height'], $input['ratio']);
 
@@ -248,7 +248,7 @@ class Admin extends Admin_Controller {
 			show_error(lang('files:no_permissions'));
 		}
 
-		if ($id = $this->input->post('file_id') AND $name = $this->input->post('name'))
+		if ($id = $this->input->post('file_id') and $name = $this->input->post('name'))
 		{
 			$result = Files::rename_file($id, $name);
 
@@ -263,7 +263,7 @@ class Admin extends Admin_Controller {
 	 */
 	public function save_description()
 	{
-		if ($id = $this->input->post('file_id') AND $description = $this->input->post('description'))
+		if ($id = $this->input->post('file_id') and $description = $this->input->post('description'))
 		{
 			$this->file_m->update($id, array('description' => $description));
 
@@ -282,7 +282,7 @@ class Admin extends Admin_Controller {
 			show_error(lang('files:no_permissions'));
 		}
 
-		if ($id = $this->input->post('folder_id') AND $location = $this->input->post('location') AND $container = $this->input->post('container'))
+		if ($id = $this->input->post('folder_id') and $location = $this->input->post('location') and $container = $this->input->post('container'))
 		{
 			$this->file_folders_m->update($id, array('location' => $location));
 

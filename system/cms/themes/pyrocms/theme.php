@@ -100,7 +100,7 @@ class Theme_Pyrocms extends Theme {
 	
 	public function get_analytics()
 	{
-		if ($this->settings->ga_email AND $this->settings->ga_password AND $this->settings->ga_profile)
+		if ($this->settings->ga_email and $this->settings->ga_password and $this->settings->ga_profile)
 		{
 			// Not false? Return it
 			if ($cached_response = $this->pyrocache->get('analytics'))

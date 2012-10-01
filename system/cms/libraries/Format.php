@@ -136,7 +136,7 @@ class Format
 		}
 
 		// Force it to be something useful
-		if (!is_array($data) AND !is_object($data))
+		if (!is_array($data) and !is_object($data))
 		{
 			$data = (array) $data;
 		}

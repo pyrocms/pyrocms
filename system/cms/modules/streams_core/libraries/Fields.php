@@ -659,8 +659,8 @@ class Fields
 
 		// We accept a null to/from, as these can be
 		// created automatically.
-		if ( ! isset($notify) AND ! $notify) return null;
-		if ( ! isset($template) AND ! $template) return null;
+		if ( ! isset($notify) and ! $notify) return null;
+		if ( ! isset($template) and ! $template) return null;
 			
 		// -------------------------------------
 		// Get e-mails. Forget if there are none
@@ -732,7 +732,7 @@ class Fields
 
 		$this->CI->load->library('Email');
 		
-		if (isset($from) AND $from)
+		if (isset($from) and $from)
 		{
 			$email_pieces = explode("|", $from);
 		
@@ -782,7 +782,7 @@ class Fields
 	 */
 	private function _process_email_address($email)
 	{	
-		if (strpos($email, '@') === false AND $this->CI->input->post($email))
+		if (strpos($email, '@') === false and $this->CI->input->post($email))
 		{
 			return $this->CI->input->post($email);
 		}

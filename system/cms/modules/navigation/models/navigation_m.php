@@ -173,7 +173,7 @@ class Navigation_m extends MY_Model
 			$this->db->order_by('position');
 		}
 		
-		if (isset($params['front_end']) AND $params['front_end'])
+		if (isset($params['front_end']) and $params['front_end'])
 		{
 			$front_end = true;
 		}
@@ -374,12 +374,12 @@ class Navigation_m extends MY_Model
 		foreach($links as $key => &$row)
 		{				
 			// Looks like it's restricted. Let's find out who
-			if ($row['restricted_to'] AND $front_end)
+			if ($row['restricted_to'] and $front_end)
 			{
 				$row['restricted_to'] = (array) explode(',', $row['restricted_to']);
 
-				if ( ! $user_group OR
-					($user_group != 'admin' AND
+				if ( ! $user_group or
+					 ($user_group != 'admin' AND
 					 ! in_array($group->id, $row['restricted_to']))
 					)
 				{
@@ -408,13 +408,11 @@ class Navigation_m extends MY_Model
 						$row['is_home'] = $page->is_home;
 
 						// But wait. If we're on the front-end and they don't have access to the page then we'll remove it anyway.
-						if ($front_end AND $page->restricted_to)
+						if ($front_end and $page->restricted_to)
 						{
 							$page->restricted_to = (array) explode(',', $page->restricted_to);
 
-							if ( ! $user_group OR
-								($user_group != 'admin' AND
-								 ! in_array($group->id, $page->restricted_to))
+							if ( ! $user_group or 								($user_group != 'admin' and 								 ! in_array($group->id, $page->restricted_to))
 								)
 							{
 								unset($links[$key]);

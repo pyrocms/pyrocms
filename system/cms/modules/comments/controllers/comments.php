@@ -201,7 +201,7 @@ class Comments extends Public_Controller
 		$this->load->model('comment_blacklists_m');
 
 		// Sneaky bot-check
-		if ($this->agent->is_robot() OR $this->input->post('d0ntf1llth1s1n'))
+		if ($this->agent->is_robot() or $this->input->post('d0ntf1llth1s1n'))
 		{
 			return array('status' => false, 'message' => 'You are probably a robot.');
 		}

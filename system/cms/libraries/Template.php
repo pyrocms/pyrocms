@@ -77,7 +77,7 @@ class Template
 	{
 		foreach ($config as $key => $val)
 		{
-			if ($key == 'theme' AND $val != '')
+			if ($key == 'theme' and $val != '')
 			{
 				$this->set_theme($val);
 				continue;
@@ -171,7 +171,7 @@ class Template
 	public function set($name, $value = null)
 	{
 		// Lots of things! Set them all
-		if (is_array($name) OR is_object($name))
+		if (is_array($name) or is_object($name))
 		{
 			foreach ($name as $item => $value)
 			{
@@ -402,7 +402,7 @@ class Template
 		$content = trim(htmlspecialchars(strip_tags($content)));
 
 		// Keywords with no comments? ARG! comment them
-		if ($name == 'keywords' AND ! strpos($content, ','))
+		if ($name == 'keywords' and ! strpos($content, ','))
 		{
 			$content = preg_replace('/[\s]+/', ', ', trim($content));
 		}
@@ -437,7 +437,7 @@ class Template
 		$this->_theme = $theme;
 		foreach ($this->_theme_locations as $location)
 		{
-			if ($this->_theme AND file_exists($location.$this->_theme))
+			if ($this->_theme and file_exists($location.$this->_theme))
 			{
 				$this->_theme_path = rtrim($location.$this->_theme.'/');
 				break;
@@ -707,7 +707,7 @@ class Template
 	public function layout_exists($layout)
 	{
 		// If there is a theme, check it exists in there
-		if ( ! empty($this->_theme) AND in_array($layout, self::get_theme_layouts()))
+		if ( ! empty($this->_theme) and in_array($layout, self::get_theme_layouts()))
 		{
 			return true;
 		}
@@ -747,7 +747,7 @@ class Template
 		}
 
 		// Would they like the mobile version?
-		if ($this->_is_mobile === true AND is_dir($view_folder.'mobile/'))
+		if ($this->_is_mobile === true and is_dir($view_folder.'mobile/'))
 		{
 			// Use mobile as the base location for views
 			$view_folder .= 'mobile/';
@@ -801,7 +801,7 @@ class Template
 		// Sevear hackery to load views from custom places AND maintain compatibility with Modular Extensions
 		if ($override_view_path !== null)
 		{
-			if ($this->_parser_enabled === true AND $parse_view === true)
+			if ($this->_parser_enabled === true and $parse_view === true)
 			{
 				// Load content and pass through the parser
 				$content = $this->_ci->parser->parse_string($this->_ci->load->_ci_load(array(
@@ -858,7 +858,7 @@ class Template
 		}
 
 		// Is there a module? Make sure it is not named the same as the method or controller
-		if ( ! empty($this->_module) AND !in_array($this->_module, $title_parts))
+		if ( ! empty($this->_module) and !in_array($this->_module, $title_parts))
 		{
 			$title_parts[] = $this->_module;
 		}

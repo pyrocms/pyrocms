@@ -151,7 +151,7 @@ class MY_Form_validation extends CI_Form_validation
 
 		// If the field is blank, but NOT required, no further tests are necessary
 		$callback = false;
-		if ( ! in_array('required', $rules) AND is_null($postdata))
+		if ( ! in_array('required', $rules) and is_null($postdata))
 		{
 			// Before we bail out, does the rule contain a callback?
 			if (preg_match("/(callback_\w+(\[.*?\])?)/", implode(' ', $rules), $match))
@@ -168,9 +168,9 @@ class MY_Form_validation extends CI_Form_validation
 		// --------------------------------------------------------------------
 
 		// Isset Test. Typically this rule will only apply to checkboxes.
-		if (is_null($postdata) AND $callback == false)
+		if (is_null($postdata) and $callback == false)
 		{
-			if (in_array('isset', $rules, true) OR in_array('required', $rules))
+			if (in_array('isset', $rules, true) or in_array('required', $rules))
 			{
 				// Set the message type
 				$type = (in_array('required', $rules)) ? 'required' : 'isset';
@@ -211,7 +211,7 @@ class MY_Form_validation extends CI_Form_validation
 
 			// We set the $postdata variable with the current data in our master array so that
 			// each cycle of the loop is dealing with the processed data from the last cycle
-			if ($row['is_array'] == true AND is_array($this->_field_data[$row['field']]['postdata']))
+			if ($row['is_array'] == true and is_array($this->_field_data[$row['field']]['postdata']))
 			{
 				// We shouldn't need this safety, but just in case there isn't an array index
 				// associated with this cycle we'll bail out
@@ -284,7 +284,7 @@ class MY_Form_validation extends CI_Form_validation
 				}
 
 				// If the field isn't required and we just processed a callback we'll move on...
-				if ( ! in_array('required', $rules, true) AND $result !== false)
+				if ( ! in_array('required', $rules, true) and $result !== false)
 				{
 					continue;
 				}
@@ -345,7 +345,7 @@ class MY_Form_validation extends CI_Form_validation
 
 				// Is the parameter we are inserting into the error message the name
 				// of another field?  If so we need to grab its "field label"
-				if (isset($this->_field_data[$param]) AND isset($this->_field_data[$param]['label']))
+				if (isset($this->_field_data[$param]) and isset($this->_field_data[$param]['label']))
 				{
 					$param = $this->_translate_fieldname($this->_field_data[$param]['label']);
 				}

@@ -206,7 +206,7 @@ class Events
 	{
 		log_message('debug', 'Events::has_listeners() - Checking if event "'.$event.'" has listeners.');
 
-		if (isset(self::$_listeners[$event]) AND count(self::$_listeners[$event]) > 0)
+		if (isset(self::$_listeners[$event]) and count(self::$_listeners[$event]) > 0)
 		{
 			return true;
 		}

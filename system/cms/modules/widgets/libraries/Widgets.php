@@ -129,7 +129,7 @@ class Widgets {
 		{
 			$slug = basename($widget_path);
 
-			if ( ! in_array($slug, $available_slugs) AND $widget = $this->read_widget($slug))
+			if ( ! in_array($slug, $available_slugs) and $widget = $this->read_widget($slug))
 			{
 				$uninstalled[] = $widget;
 			}
@@ -166,7 +166,7 @@ class Widgets {
 	{
 		$this->_spawn_widget($slug);
 
-		if ($this->_widget === false OR ! is_subclass_of($this->_widget, 'Widgets'))
+		if ($this->_widget === false or ! is_subclass_of($this->_widget, 'Widgets'))
 		{
 			return false;
 		}

@@ -232,7 +232,7 @@ class MY_Loader extends MX_Loader
 			// Autoload helpers and languages
 			foreach (array('helper', 'language') as $type)
 			{
-				if (isset($autoload[$type]) AND count($autoload[$type]) > 0)
+				if (isset($autoload[$type]) and count($autoload[$type]) > 0)
 				{
 					$this->$type($autoload[$type]);
 				}
@@ -240,13 +240,13 @@ class MY_Loader extends MX_Loader
 
 			// A little tweak to remain backward compatible
 			// The $autoload['core'] item was deprecated
-			if ( ! isset($autoload['libraries']) AND isset($autoload['core']))
+			if ( ! isset($autoload['libraries']) and isset($autoload['core']))
 			{
 				$autoload['libraries'] = $autoload['core'];
 			}
 
 			// Load libraries
-			if (isset($autoload['libraries']) AND count($autoload['libraries']) > 0)
+			if (isset($autoload['libraries']) and count($autoload['libraries']) > 0)
 			{
 				// Load the database driver.
 				if (in_array('database', $autoload['libraries']))

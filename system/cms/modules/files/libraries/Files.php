@@ -292,7 +292,7 @@ class Files
 	{
 		$folder = ci()->file_folders_m->get($id);
 
-		if ( ! $files = ci()->file_m->get_by('folder_id', $id) AND ! ci()->file_folders_m->get_by('parent_id', $id))
+		if ( ! $files = ci()->file_m->get_by('folder_id', $id) and ! ci()->file_folders_m->get_by('parent_id', $id))
 		{
 			ci()->file_folders_m->delete($id);
 
@@ -371,7 +371,7 @@ class Files
 				);
 
 				// perhaps they want to resize it a bit as they upload
-				if ($file['is_image'] AND ($width OR $height))
+				if ($file['is_image'] and ($width or $height))
 				{
 					ci()->load->library('image_lib');
 
@@ -447,7 +447,7 @@ class Files
 		if ($location) $file->location = $location;
 
 		// if both locations are on the local filesystem then we just rename
-		if ($file->location === 'local' AND $new_location === 'local')
+		if ($file->location === 'local' and $new_location === 'local')
 		{
 			// if they were helpful enough to provide an extension then remove it
 			$file_slug = self::create_slug(str_replace($file->extension, '', $new_name));
@@ -484,7 +484,7 @@ class Files
 			}
 		}
 		// we'll be pushing the file from here to the cloud
-		elseif ($file->location === 'local' AND $new_location)
+		elseif ($file->location === 'local' and $new_location)
 		{
 			ci()->storage->load_driver($new_location);
 
@@ -538,7 +538,7 @@ class Files
 			return self::result(false, lang('files:invalid_container'), $container);
 		}
 		// pull it from the cloud to our filesystem
-		elseif ($file->location AND $new_location === 'local')
+		elseif ($file->location and $new_location === 'local')
 		{
 			ci()->load->helper('file');
 			ci()->load->spark('curl/1.2.1');
@@ -576,7 +576,7 @@ class Files
 			}
 		}
 		// pulling from the cloud and then pushing to another part of the cloud :P
-		elseif ($file->location AND $new_location)
+		elseif ($file->location and $new_location)
 		{
 			ci()->load->helper('file');
 			ci()->storage->load_driver($new_location);
@@ -689,7 +689,7 @@ class Files
 		$files = array();
 
 		// yup they want real live file names from the cloud
-		if ($location !== 'local' AND $container)
+		if ($location !== 'local' and $container)
 		{
 			ci()->storage->load_driver($location);
 
@@ -941,7 +941,7 @@ class Files
 		$results['file'] = 	ci()->file_m->limit($limit)
 			->get_all();
 
-		if ($results['file'] OR $results['folder'])
+		if ($results['file'] or $results['folder'])
 		{
 			return self::result(true, null, null, $results);
 		}
@@ -988,8 +988,7 @@ class Files
 		foreach (ci()->module_m->roles('files') as $value)
 		{
 			// build a simplified permission list for use in this module
-			if (isset(ci()->permissions['files']) AND
-				array_key_exists($value, ci()->permissions['files']) OR ci()->current_user->group == 'admin')
+			if (isset(ci()->permissions['files']) and 				array_key_exists($value, ci()->permissions['files']) or ci()->current_user->group == 'admin')
 			{
 				$allowed_actions[] = $value;
 			}
@@ -1077,7 +1076,7 @@ class Files
 	**/
 	public static function check_dir($path)
 	{
-		if (is_dir($path) AND is_really_writable($path))
+		if (is_dir($path) and is_really_writable($path))
 		{
 			return self::result(true);
 		}

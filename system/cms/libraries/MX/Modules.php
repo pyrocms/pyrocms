@@ -111,10 +111,10 @@ class Modules
 	public static function autoload($class) {
 		
 		/* don't autoload CI_ prefixed classes or those using the config subclass_prefix */
-		if (strstr($class, 'CI_') OR strstr($class, config_item('subclass_prefix'))) return;
+		if (strstr($class, 'CI_') or strstr($class, config_item('subclass_prefix'))) return;
 
 		/* autoload Modular Extensions MX core classes */
-		if (strstr($class, 'MX_') AND is_file($location = dirname(__FILE__).'/'.substr($class, 3).EXT)) {
+		if (strstr($class, 'MX_') and is_file($location = dirname(__FILE__).'/'.substr($class, 3).EXT)) {
 			include_once $location;
 			return;
 		}
@@ -149,7 +149,7 @@ class Modules
 			/* load config or language array */
 			include $location;
 
-			if ( ! isset($$type) OR ! is_array($$type))				
+			if ( ! isset($$type) or ! is_array($$type))				
 				show_error("{$location} does not contain a valid {$type} array");
 
 			$result = $$type;
@@ -184,7 +184,7 @@ class Modules
 				
 				if (is_file($fullpath.$file_ext)) return array($fullpath, $file);
 				
-				if ($base == 'libraries/' AND is_file($fullpath.ucfirst($file_ext)))
+				if ($base == 'libraries/' and is_file($fullpath.ucfirst($file_ext)))
 					return array($fullpath, ucfirst($file));
 			}
 		}
@@ -228,7 +228,7 @@ class Modules
 		
 		/* load the route file */
 		if ( ! isset(self::$routes[$module])) {
-			if (list($path) = self::find('routes', $module, 'config/') AND $path)
+			if (list($path) = self::find('routes', $module, 'config/') and $path)
 				self::$routes[$module] = self::load_file('routes', $path, 'route');
 		}
 
@@ -240,7 +240,7 @@ class Modules
 			$key = str_replace(array(':any', ':num'), array('.+', '[0-9]+'), $key);
 			
 			if (preg_match('#^'.$key.'$#', $uri)) {							
-				if (strpos($val, '$') !== false AND strpos($key, '(') !== false) {
+				if (strpos($val, '$') !== false and strpos($key, '(') !== false) {
 					$val = preg_replace('#^'.$key.'$#', $val, $uri);
 				}
 

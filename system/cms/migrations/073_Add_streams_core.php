@@ -17,7 +17,7 @@ class Migration_Add_streams_core extends CI_Migration {
 				$this->dbforge->add_field($schema['fields']);
 	
 				// Add keys
-				if(isset($schema['keys']) AND ! empty($schema['keys']))
+				if (isset($schema['keys']) and ! empty($schema['keys']))
 				{
 					$this->dbforge->add_key($schema['keys']);	
 				}

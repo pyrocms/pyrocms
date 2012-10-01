@@ -86,7 +86,7 @@ class MX_Loader extends CI_Loader
 	/** Load the database drivers **/
 	public function database($params = '', $return = false, $active_record = null) {
 		
-		if (class_exists('CI_DB', false) AND $return == false AND $active_record == null AND isset(CI::$APP->db) AND is_object(CI::$APP->db)) 
+		if (class_exists('CI_DB', false) and $return == false and $active_record == null AND isset(CI::$APP->db) AND is_object(CI::$APP->db)) 
 			return;
 
 		require_once BASEPATH.'database/DB'.EXT;
@@ -142,7 +142,7 @@ class MX_Loader extends CI_Loader
 		$library_pieces = explode('/', $library);
 		$class = strtolower(end($library_pieces));
 		
-		if (isset($this->_ci_classes[$class]) AND $_alias = $this->_ci_classes[$class])
+		if (isset($this->_ci_classes[$class]) and $_alias = $this->_ci_classes[$class])
 			return CI::$APP->$_alias;
 			
 		($_alias = strtolower($object_name)) OR $_alias = $class;
@@ -201,7 +201,7 @@ class MX_Loader extends CI_Loader
 			
 			class_exists('CI_Model', false) OR load_class('Model', 'core');
 			
-			if ($connect !== false AND ! class_exists('CI_DB', false)) {
+			if ($connect !== false and ! class_exists('CI_DB', false)) {
 				if ($connect === true) $connect = '';
 				$this->database($connect, false, true);
 			}
@@ -312,7 +312,7 @@ class MX_Loader extends CI_Loader
 
 		ob_start();
 
-		if ((bool) @ini_get('short_open_tag') === false AND CI::$APP->config->item('rewrite_short_tags') == true) {
+		if ((bool) @ini_get('short_open_tag') === false and CI::$APP->config->item('rewrite_short_tags') == true) {
 			echo eval('?>'.preg_replace("/;*\s*\?>/", "; ?>", str_replace('<?=', '<?php echo ', file_get_contents($_ci_path))));
 		} else {
 			include($_ci_path); 

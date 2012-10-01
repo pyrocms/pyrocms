@@ -56,7 +56,7 @@ function role_or_die($module, $role, $redirect_to = 'admin', $message = '')
 {
 	ci()->lang->load('admin');
 
-	if (ci()->input->is_ajax_request() AND ! group_has_role($module, $role))
+	if (ci()->input->is_ajax_request() and ! group_has_role($module, $role))
 	{
 		echo json_encode(array('error' => ($message ? $message : lang('cp_access_denied')) ));
 		return false;

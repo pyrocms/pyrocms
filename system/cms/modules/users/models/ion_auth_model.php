@@ -833,7 +833,7 @@ class Ion_auth_model extends CI_Model
 		$_user_is_current = false;
 
 		//if no id was passed use the current users id
-		if (is_null($id) OR is_bool($id))
+		if (is_null($id) or is_bool($id))
 		{
 			$identity	= $this->config->item('identity', 'ion_auth');
 			$id			= $this->session->userdata($identity);

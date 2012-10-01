@@ -214,7 +214,7 @@ abstract class REST_Controller extends MY_Controller
 
 		$this->rest = new StdClass();
 		// Load DB if its enabled
-		if (config_item('rest_database_group') AND (config_item('rest_enable_keys') OR config_item('rest_enable_logging')))
+		if (config_item('rest_database_group') and (config_item('rest_enable_keys') or config_item('rest_enable_logging')))
 		{
 			$this->rest->db = $this->load->database(config_item('rest_database_group'), true);
 		}
@@ -232,7 +232,7 @@ abstract class REST_Controller extends MY_Controller
 		}
 
 		// only allow ajax requests
-		if ( ! $this->input->is_ajax_request() AND config_item('rest_ajax_only'))
+		if ( ! $this->input->is_ajax_request() and config_item('rest_ajax_only'))
 		{
 			$this->response(array('status' => false, 'error' => 'Only AJAX requests are accepted.'), 505);
 		}
@@ -265,9 +265,9 @@ abstract class REST_Controller extends MY_Controller
 		$use_key = !(isset($this->methods[$controller_method]['key']) AND $this->methods[$controller_method]['key'] == false);
 
 		// Get that useless shitty key out of here
-		if (config_item('rest_enable_keys') AND $use_key AND $this->_allow === false)
+		if (config_item('rest_enable_keys') and $use_key and $this->_allow === false)
 		{
-			if (config_item('rest_enable_logging') AND $log_method)
+			if (config_item('rest_enable_logging') and $log_method)
 			{
 				$this->_log_request();
 			}
@@ -282,10 +282,10 @@ abstract class REST_Controller extends MY_Controller
 		}
 
 		// Doing key related stuff? Can only do it if they have a key right?
-		if (config_item('rest_enable_keys') AND !empty($this->rest->key))
+		if (config_item('rest_enable_keys') and !empty($this->rest->key))
 		{
 			// Check the limit
-			if (config_item('rest_enable_limits') AND !$this->_check_limit($controller_method))
+			if (config_item('rest_enable_limits') and !$this->_check_limit($controller_method))
 			{
 				$this->response(array('status' => false, 'error' => 'This API key has reached the hourly limit for this method.'), 401);
 			}
@@ -297,7 +297,7 @@ abstract class REST_Controller extends MY_Controller
 			$authorized = $level <= $this->rest->level;
 
 			// IM TELLIN!
-			if (config_item('rest_enable_logging') AND $log_method)
+			if (config_item('rest_enable_logging') and $log_method)
 			{
 				$this->_log_request($authorized);
 			}
@@ -307,7 +307,7 @@ abstract class REST_Controller extends MY_Controller
 		}
 
 		// No key stuff, but record that stuff is happening
-		else if (config_item('rest_enable_logging') AND $log_method)
+		else if (config_item('rest_enable_logging') and $log_method)
 		{
 			$this->_log_request($authorized = true);
 		}
@@ -358,7 +358,7 @@ abstract class REST_Controller extends MY_Controller
 			{
 				if (extension_loaded('zlib'))
 				{
-					if (isset($_SERVER['HTTP_ACCEPT_ENCODING']) AND strpos($_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip') !== false)
+					if (isset($_SERVER['HTTP_ACCEPT_ENCODING']) and strpos($_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip') !== false)
 					{
 						ob_start('ob_gzhandler');
 					}
@@ -452,7 +452,7 @@ abstract class REST_Controller extends MY_Controller
 		}
 
 		// Check if a file extension is used
-		elseif ($this->_get_args AND !is_array(end($this->_get_args)) AND preg_match($pattern, end($this->_get_args), $matches))
+		elseif ($this->_get_args and !is_array(end($this->_get_args)) and preg_match($pattern, end($this->_get_args), $matches))
 		{
 			// The key of the last argument
 			$last_key = end(array_keys($this->_get_args));
@@ -465,13 +465,13 @@ abstract class REST_Controller extends MY_Controller
 		}
 
 		// A format has been passed as an argument in the URL and it is supported
-		if (isset($this->_get_args['format']) AND array_key_exists($this->_get_args['format'], $this->_supported_formats))
+		if (isset($this->_get_args['format']) and array_key_exists($this->_get_args['format'], $this->_supported_formats))
 		{
 			return $this->_get_args['format'];
 		}
 
 		// Otherwise, check the HTTP_ACCEPT (if it exists and we are allowed)
-		if ($this->config->item('rest_ignore_http_accept') === false AND $this->input->server('HTTP_ACCEPT'))
+		if ($this->config->item('rest_ignore_http_accept') === false and $this->input->server('HTTP_ACCEPT'))
 		{
 			// Check all formats against the HTTP_ACCEPT header
 			foreach (array_keys($this->_supported_formats) as $format)
@@ -480,7 +480,7 @@ abstract class REST_Controller extends MY_Controller
 				if (strpos($this->input->server('HTTP_ACCEPT'), $format) !== false)
 				{
 					// If not HTML or XML assume its right and send it on its way
-					if ($format != 'html' AND $format != 'xml')
+					if ($format != 'html' and $format != 'xml')
 					{
 
 						return $format;
@@ -490,13 +490,13 @@ abstract class REST_Controller extends MY_Controller
 					else
 					{
 						// If it is truly HTML, it wont want any XML
-						if ($format == 'html' AND strpos($this->input->server('HTTP_ACCEPT'), 'xml') === false)
+						if ($format == 'html' and strpos($this->input->server('HTTP_ACCEPT'), 'xml') === false)
 						{
 							return $format;
 						}
 
 						// If it is truly XML, it wont want any HTML
-						elseif ($format == 'xml' AND strpos($this->input->server('HTTP_ACCEPT'), 'html') === false)
+						elseif ($format == 'xml' and strpos($this->input->server('HTTP_ACCEPT'), 'html') === false)
 						{
 							return $format;
 						}
@@ -654,7 +654,7 @@ abstract class REST_Controller extends MY_Controller
 	protected function _check_limit($controller_method)
 	{
 		// They are special, or it might not even have a limit
-		if ( ! empty($this->rest->ignore_limits) OR !isset($this->methods[$controller_method]['limit']))
+		if ( ! empty($this->rest->ignore_limits) or !isset($this->methods[$controller_method]['limit']))
 		{
 			// On your way sonny-jim.
 			return true;
@@ -671,7 +671,7 @@ abstract class REST_Controller extends MY_Controller
 				->row();
 
 		// No calls yet, or been an hour since they called
-		if ( ! $result OR $result->hour_started < time() - (60 * 60))
+		if ( ! $result or $result->hour_started < time() - (60 * 60))
 		{
 			// Right, set one up from scratch
 			$this->rest->db->insert(config_item('rest_limits_table'), array(
@@ -931,7 +931,7 @@ abstract class REST_Controller extends MY_Controller
 		}
 
 		// If actually null (not empty string) then do not check it
-		if ($password !== null AND $valid_logins[$username] != $password)
+		if ($password !== null and $valid_logins[$username] != $password)
 		{
 			return false;
 		}
@@ -1013,7 +1013,7 @@ abstract class REST_Controller extends MY_Controller
 		preg_match_all('@(username|nonce|uri|nc|cnonce|qop|response)=[\'"]?([^\'",]+)@', $digest_string, $matches);
 		$digest = array_combine($matches[1], $matches[2]);
 
-		if ( ! array_key_exists('username', $digest) OR !$this->_check_login($digest['username']))
+		if ( ! array_key_exists('username', $digest) or !$this->_check_login($digest['username']))
 		{
 			$this->_force_login($uniqid);
 		}
@@ -1082,7 +1082,7 @@ abstract class REST_Controller extends MY_Controller
 	protected function _force_loopable($data)
 	{
 		// Force it to be something useful
-		if ( ! is_array($data) AND !is_object($data))
+		if ( ! is_array($data) and !is_object($data))
 		{
 			$data = (array) $data;
 		}

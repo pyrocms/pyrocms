@@ -153,7 +153,7 @@ class Streams_cp extends CI_Driver {
 			$db_search = $CI->db->select('search_term, stream_slug, stream_namespace')->where('search_id', $data['search_id'])->limit(1)->get('data_stream_searches')->row(0);
 
 			// Is this the right search module / namespace?
-			if ( $db_search->stream_slug == $stream->stream_slug AND $db_search->stream_namespace == $stream->stream_namespace )
+			if ( $db_search->stream_slug == $stream->stream_slug and $db_search->stream_namespace == $stream->stream_namespace )
 			{
 
 				// Add it

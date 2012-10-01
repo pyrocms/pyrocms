@@ -51,7 +51,7 @@ function template_partial($name = '')
  */
 function accented_characters()
 {
-	if (defined('ENVIRONMENT') AND is_file(APPPATH.'config/'.ENVIRONMENT.'/foreign_chars.php'))
+	if (defined('ENVIRONMENT') and is_file(APPPATH.'config/'.ENVIRONMENT.'/foreign_chars.php'))
 	{
 		include(APPPATH.'config/'.ENVIRONMENT.'/foreign_chars.php');
 	}

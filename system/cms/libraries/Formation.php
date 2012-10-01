@@ -83,7 +83,7 @@ class Formation
 		if (file_exists(APPPATH.'config/formation.php'))
 		{
 			include(APPPATH.'config/formation.php');
-			if (!isset($formation) OR !is_array($formation))
+			if (!isset($formation) or !is_array($formation))
 			{
 				show_error('Formation config is not formatted correctly.');
 			}
@@ -115,7 +115,7 @@ class Formation
 		self::$_config = array_merge_recursive(self::$_config, $config);
 
 		// Add the forms from the config array
-		if (isset(self::$_config['forms']) AND is_array(self::$_config['forms']))
+		if (isset(self::$_config['forms']) and is_array(self::$_config['forms']))
 		{
 			foreach (self::$_config['forms'] as $form_name => $attributes)
 			{
@@ -333,7 +333,7 @@ class Formation
 		{
 			foreach (self::$_validation[$form_name] as $rule)
 			{
-				if ($rule['field'] == $properties['name'] AND $rule['rules'] AND strpos('required', $rule['rules']) !== false)
+				if ($rule['field'] == $properties['name'] and $rule['rules'] and strpos('required', $rule['rules']) !== false)
 				{
 					$required = true;
 				}
@@ -420,7 +420,7 @@ class Formation
 
 		$return = "\t\t".self::$_config['input_wrapper_open']."\n";
 
-		if ($required AND self::$_config['required_location'] == 'before')
+		if ($required and self::$_config['required_location'] == 'before')
 		{
 			$return .= "\t\t\t".self::$_config['required_tag']."\n";
 		}
@@ -447,7 +447,7 @@ class Formation
 
 		$return = "";
 
-		if ($required AND self::$_config['required_location'] == 'after')
+		if ($required and self::$_config['required_location'] == 'after')
 		{
 			$return .= "\t\t\t".self::$_config['required_tag']."\n";
 		}
@@ -469,7 +469,7 @@ class Formation
 	 */
 	public static function select($parameters, $indent_amount = 0)
 	{
-		if (!isset($parameters['options']) OR !is_array($parameters['options']))
+		if (!isset($parameters['options']) or !is_array($parameters['options']))
 		{
 			show_error(sprintf('Select element "%s" is either missing the "options" or "options" is not array.', $parameters['name']));
 		}
