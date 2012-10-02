@@ -12,21 +12,21 @@ class Theme_m extends MY_Model
 	 *
 	 * @var string
 	 */
-	public $_theme = NULL;
+	public $_theme = null;
 
 	/**
 	 * Default Admin Theme
 	 *
 	 * @var string
 	 */
-	public $_admin_theme = NULL;
+	public $_admin_theme = null;
 
 	/**
 	 * Available Themes
 	 *
 	 * @var array
 	 */
-	public $_themes = NULL;
+	public $_themes = null;
 
 	/**
 	 * Sets the current default theme
@@ -80,14 +80,14 @@ class Theme_m extends MY_Model
 			{
 				$theme = $this->_get_details($location, $slug);
 
-				if ($theme !== FALSE)
+				if ($theme !== false)
 				{
 					return $theme;
 				}
 			}
 		}
 
-		return FALSE;
+		return false;
 	}
 
 	/**
@@ -107,14 +107,14 @@ class Theme_m extends MY_Model
 			{
 				$theme = $this->_get_details($location, $slug);
 
-				if ($theme !== FALSE)
+				if ($theme !== false)
 				{
 					return $theme;
 				}
 			}
 		}
 
-		return FALSE;
+		return false;
 	}
 
 	/**
@@ -133,7 +133,7 @@ class Theme_m extends MY_Model
 			return $this->_themes[$slug];
 		}
 
-		if (is_dir($path = $location.$slug) AND is_file($path.'/theme.php'))
+		if (is_dir($path = $location.$slug) and is_file($path.'/theme.php'))
 		{
 			// Core theme or third party?
 			$is_core = trim($location, '/') === APPPATH.'themes';
@@ -151,8 +151,8 @@ class Theme_m extends MY_Model
 			//lets make some assumptions first just in case there is a typo in details class
 			$theme->name           = $slug;
 			$theme->author         = '????';
-			$theme->author_website = NULL;
-			$theme->website        = NULL;
+			$theme->author_website = null;
+			$theme->website        = null;
 			$theme->description    = '';
 			$theme->version        = '??';
 
@@ -164,7 +164,7 @@ class Theme_m extends MY_Model
 			{
 				foreach (get_object_vars($details) as $key => $val)
 				{
-					if ($key == 'options' AND is_array($val))
+					if ($key == 'options' and is_array($val))
 					{
 						// only save to the database if there are no options saved already
 						if ( ! $this->db->where('theme', $slug)->get('theme_options')->result())
@@ -182,7 +182,7 @@ class Theme_m extends MY_Model
 			return $theme;
 		}
 
-		return FALSE;
+		return false;
 	}
 
 	/**
@@ -215,7 +215,7 @@ class Theme_m extends MY_Model
 
 		$this->pyrocache->delete_all('theme_m');
 
-		return TRUE;
+		return true;
 	}
 
 	/**
@@ -225,7 +225,7 @@ class Theme_m extends MY_Model
 	 */
 	public function count()
 	{
-		return $this->theme_infos == NULL ? count($this->get_all()) : count($this->_themes);
+		return $this->theme_infos == null ? count($this->get_all()) : count($this->_themes);
 	}
 
 	/**
@@ -267,7 +267,7 @@ class Theme_m extends MY_Model
 	 *
 	 * @return array
 	 */
-	private function _spawn_class($slug, $is_core = FALSE)
+	private function _spawn_class($slug, $is_core = false)
 	{
 		$path = $is_core ? APPPATH : ADDONPATH;
 
@@ -281,7 +281,7 @@ class Theme_m extends MY_Model
 
 			if ( ! is_file($details_file))
 			{
-				return FALSE;
+				return false;
 			}
 		}
 
@@ -292,7 +292,7 @@ class Theme_m extends MY_Model
 		$class = 'Theme_'.ucfirst(strtolower($slug));
 
 		// Now we need to talk to it
-		return class_exists($class) ? new $class : FALSE;
+		return class_exists($class) ? new $class : false;
 	}
 
 	/**

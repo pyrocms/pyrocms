@@ -65,7 +65,7 @@ abstract class Plugin
 	 *
 	 * @return mixed The value.
 	 */
-	public function attribute($param, $default = NULL)
+	public function attribute($param, $default = null)
 	{
 		return isset($this->attributes[$param]) ? $this->attributes[$param] : $default;
 	}
@@ -98,7 +98,7 @@ abstract class Plugin
 		// add this view location to the array
 		$this->load->set_view_path($path);
 
-		$content = $this->load->_ci_load(array('_ci_view' => $view, '_ci_vars' => ((array)$vars), '_ci_return' => TRUE));
+		$content = $this->load->_ci_load(array('_ci_view' => $view, '_ci_vars' => ((array)$vars), '_ci_return' => true));
 
 		// Put the old array back
 		$this->load->set_view_path($save_path);
@@ -118,9 +118,9 @@ class Plugins
 
 	public function locate($plugin, $attributes, $content)
 	{
-		if (strpos($plugin, ':') === FALSE)
+		if (strpos($plugin, ':') === false)
 		{
-			return FALSE;
+			return false;
 		}
 		// Setup our paths from the data array
 		list($class, $method) = explode(':', $plugin);
@@ -192,7 +192,7 @@ class Plugins
 		if ( ! class_exists($class_name))
 		{
 			//throw new Exception('Plugin "' . $class_name . '" does not exist.');
-			//return FALSE;
+			//return false;
 
 			log_message('error', 'Plugin class "'.$class_name.'" does not exist.');
 
@@ -211,7 +211,7 @@ class Plugins
 			}
 
 			//throw new Exception('Method "' . $method . '" does not exist in plugin "' . $class_name . '".');
-			//return FALSE;
+			//return false;
 
 			log_message('error', 'Plugin method "'.$method.'" does not exist on class "'.$class_name.'".');
 

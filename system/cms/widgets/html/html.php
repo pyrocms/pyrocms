@@ -32,6 +32,7 @@ class Widget_Html extends Widgets
 		'ru' => 'Создание HTML-блоков с произвольным содержимым',
 		'id' => 'Membuat blok HTML apapun',
 		'fi' => 'Luo lohkoja omasta HTML koodista',
+		'fr' => 'Créez des blocs HTML personnalisés',
 	);
 	
 	/**
@@ -82,7 +83,7 @@ class Widget_Html extends Widgets
 		}
 
 		// Store the feed items
-		return array('output' => $this->parser->parse_string($options['html'], NULL, TRUE));
+		return array('output' => $this->parser->parse_string($options['html'], null, true));
 	}
 
 }

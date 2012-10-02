@@ -128,7 +128,7 @@ class Type
 		foreach ($types_files as $type)
 		{
 			// Is this a directory w/ a field type?
-			if (is_dir($addon_path.$type) AND is_file($addon_path.$type.'/field.'.$type.'.php'))
+			if (is_dir($addon_path.$type) and is_file($addon_path.$type.'/field.'.$type.'.php'))
 			{
 				$this->types->$type = $this->_load_type($addon_path, 
 									$addon_path.$type.'/field.'.$type.'.php',

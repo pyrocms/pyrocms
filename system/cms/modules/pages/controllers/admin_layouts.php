@@ -98,7 +98,7 @@ class Admin_layouts extends Admin_Controller
 			$id = $this->page_layouts_m->insert(array(
 				'title' => $this->input->post('title'),
 				'theme_layout' => $this->input->post('theme_layout'),
-				'body' => $this->input->post('body', FALSE),
+				'body' => $this->input->post('body', false),
 				'css' => $this->input->post('css'),
 				'js' => $this->input->post('js')
 			));
@@ -166,7 +166,7 @@ class Admin_layouts extends Admin_Controller
 			$this->page_layouts_m->update($id, array(
 				'title' => $this->input->post('title'),
 				'theme_layout' => $this->input->post('theme_layout'),
-				'body' => $this->input->post('body', FALSE),
+				'body' => $this->input->post('body', false),
 				'css' => $this->input->post('css'),
 				'js' => $this->input->post('js')
 			));

@@ -407,7 +407,7 @@ class Plugin_Pages extends Plugin
 						$group_array = explode(',', $list_item->restricted_to);
 
 						// if restricted_to is 0 or empty (unrestricted) or if the current user's group is allowed
-						if (($group_array[0] < 1) OR in_array($this->current_user->group_id, $group_array))
+						if (($group_array[0] < 1) or in_array($this->current_user->group_id, $group_array))
 						{
 							$id_list[] = $list_item->id;
 						}

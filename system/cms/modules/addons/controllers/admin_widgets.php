@@ -29,7 +29,7 @@ class Admin_modules extends Admin_Controller {
 		$this->load->library('widgets');
 		$this->lang->load('widgets');
 
-		$this->input->is_ajax_request() AND $this->template->set_layout(FALSE);
+		$this->input->is_ajax_request() AND $this->template->set_layout(false);
 
 		if (in_array($this->method, array('index', 'manage')))
 		{
@@ -133,7 +133,7 @@ class Admin_modules extends Admin_Controller {
 	 * @param	bool	$redirect	Optional if a redirect should be done
 	 * @return	void
 	 */
-	public function enable($id = '', $redirect = TRUE)
+	public function enable($id = '', $redirect = true)
 	{
 		$id && $this->_do_action($id, 'enable');
 
@@ -153,7 +153,7 @@ class Admin_modules extends Admin_Controller {
 	 * @param	bool	$redirect	Optional if a redirect should be done
 	 * @return	void
 	 */
-	public function disable($id = '', $redirect = TRUE)
+	public function disable($id = '', $redirect = true)
 	{
 		$id && $this->_do_action($id, 'disable');
 
@@ -171,7 +171,7 @@ class Admin_modules extends Admin_Controller {
 	protected function _do_action($ids = array(), $action = '')
 	{
 		$ids		= ( ! is_array($ids)) ? array($ids) : $ids;
-		$multiple	= (count($ids) > 1) ? '_mass' : NULL;
+		$multiple	= (count($ids) > 1) ? '_mass' : null;
 		$status		= 'success';
 
 		foreach ($ids as $id)

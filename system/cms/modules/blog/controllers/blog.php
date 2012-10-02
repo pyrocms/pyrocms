@@ -23,7 +23,7 @@ class Blog extends Public_Controller
 	 */
 	public function index()
 	{
-		$pagination = create_pagination('blog/page', $this->blog_m->count_by(array('status' => 'live')), NULL, 3);
+		$pagination = create_pagination('blog/page', $this->blog_m->count_by(array('status' => 'live')), null, 3);
 		$_blog = $this->blog_m->limit($pagination['limit'])
 			->get_many_by(array('status' => 'live'));
 
@@ -101,11 +101,11 @@ class Blog extends Public_Controller
 	 * @param null|string $year The year to show the posts for.
 	 * @param string $month The month to show the posts for.
 	 */
-	public function archive($year = NULL, $month = '01')
+	public function archive($year = null, $month = '01')
 	{
 		$year or $year = date('Y');
 		$month_date = new DateTime($year.'-'.$month.'-01');
-		$pagination = create_pagination('blog/archive/'.$year.'/'.$month, $this->blog_m->count_by(array('year' => $year, 'month' => $month)), NULL, 5);
+		$pagination = create_pagination('blog/archive/'.$year.'/'.$month, $this->blog_m->count_by(array('year' => $year, 'month' => $month)), null, 5);
 		$_blog = $this->blog_m
 			->limit($pagination['limit'])
 			->get_many_by(array('year' => $year, 'month' => $month));
@@ -186,7 +186,7 @@ class Blog extends Public_Controller
 		$tag = rawurldecode($tag) or redirect('blog');
 
 		// Count total blog posts and work out how many pages exist
-		$pagination = create_pagination('blog/tagged/'.$tag, $this->blog_m->count_tagged_by($tag, array('status' => 'live')), NULL, 4);
+		$pagination = create_pagination('blog/tagged/'.$tag, $this->blog_m->count_tagged_by($tag, array('status' => 'live')), null, 4);
 
 		// Get the current page of blog posts
 		$blog = $this->blog_m

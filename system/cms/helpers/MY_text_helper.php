@@ -83,7 +83,7 @@ if ( ! function_exists('process_data_jmr1'))
         )                                   # If we made it here, we are not in a blacklist tag.
         %Six';
 
-		if (($data = preg_replace($re, ' ', $text)) === NULL)
+		if (($data = preg_replace($re, ' ', $text)) === null)
 		{
 			log_message('error', 'PCRE Error! Output of the page "'.uri_string().'" is too big.');
 

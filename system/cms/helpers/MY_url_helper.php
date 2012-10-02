@@ -25,7 +25,7 @@ if (!function_exists('url_title'))
 	 * @param boolean $lowercase Whether it should be converted to lowercase.
 	 * @return string The URL slug
 	 */
-	function url_title($str, $separator = 'dash', $lowercase = FALSE)
+	function url_title($str, $separator = 'dash', $lowercase = false)
 	{
 		$CI = & get_instance();
 
@@ -126,7 +126,7 @@ if (!function_exists('url_title'))
 			$str = preg_replace("#".$key."#i", $val, $str);
 		}
 
-		if ($lowercase === TRUE)
+		if ($lowercase === true)
 		{
 			if (function_exists('mb_convert_case'))
 			{

@@ -14,7 +14,7 @@ Asset::js(array('codemirror/codemirror.js',
 	'scripts.js'
 )); ?>
 
-<?php if (isset($analytic_visits) OR isset($analytic_views)): ?>
+<?php if (isset($analytic_visits) or isset($analytic_views)): ?>
 	<?php Asset::js('jquery/jquery.excanvas.min.js'); ?>
 	<?php Asset::js('jquery/jquery.flot.js'); ?>
 <?php endif; ?>

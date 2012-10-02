@@ -122,7 +122,7 @@ class Admin extends Admin_Controller
 	public function index()
 	{
 		//set the base/default where clause
-		$base_where = array('show_future' => TRUE, 'status' => 'all');
+		$base_where = array('show_future' => true, 'status' => 'all');
 
 		//add post values to base_where if f_module is posted
 		if ($this->input->post('f_category')) 	$base_where['category'] = $this->input->post('f_category');
@@ -137,7 +137,7 @@ class Admin extends Admin_Controller
 		$blog = $this->blog_m->limit($pagination['limit'])->get_many_by($base_where);
 
 		//do we need to unset the layout because the request is ajax?
-		$this->input->is_ajax_request() and $this->template->set_layout(FALSE);
+		$this->input->is_ajax_request() and $this->template->set_layout(false);
 
 		$this->template
 			->title($this->module_details['name'])
@@ -236,7 +236,7 @@ class Admin extends Admin_Controller
 
 		$this->template
 			->title($this->module_details['name'], lang('blog:create_title'))
-			->append_metadata($this->load->view('fragments/wysiwyg', $this->data, TRUE))
+			->append_metadata($this->load->view('fragments/wysiwyg', $this->data, true))
 			->append_js('jquery/jquery.tagsinput.js')
 			->append_js('module::blog_form.js')
 			->append_css('jquery/jquery.tagsinput.css')
@@ -356,7 +356,7 @@ class Admin extends Admin_Controller
 		
 		$this->template
 			->title($this->module_details['name'], sprintf(lang('blog:edit_title'), $post->title))
-			->append_metadata($this->load->view('fragments/wysiwyg', array(), TRUE))
+			->append_metadata($this->load->view('fragments/wysiwyg', array(), true))
 			->append_js('jquery/jquery.tagsinput.js')
 			->append_js('module::blog_form.js')
 			->append_css('jquery/jquery.tagsinput.css')

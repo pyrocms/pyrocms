@@ -52,7 +52,7 @@ class Variables {
 			return $this->_vars[$name];
 		}
 
-		return NULL;
+		return null;
 	}
 	
 	// ------------------------------------------------------------------------

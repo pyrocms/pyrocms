@@ -17,7 +17,7 @@ class Ajax extends Admin_Controller {
         
         // No matter what we don't show the profiler
         // in our AJAX calls.
-        $this->output->enable_profiler(FALSE);
+        $this->output->enable_profiler(false);
  
         // We need this for all of the variable setups in
         // the Type library __construct

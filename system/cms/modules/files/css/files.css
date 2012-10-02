@@ -55,7 +55,7 @@ li.right-title, li.right-title label { font-size: 14px; font-weight: bold; font-
 #search-results .folder { width: 20px; height: 20px; margin-right: 5px; float: left; background: url(../img/glyphicons-halflings-gray.png) no-repeat -405px -120px; }
 #search-results .file { width: 20px; height: 20px; margin-right: 5px; float: left; background: url(../img/glyphicons-halflings-gray.png) no-repeat -19px -23px; }
 #search-area { margin-bottom: 15px; }
-.context-menu-source { display: none; position: absolute; width: 150px; background-color: #ededed; border: 1px solid #b7b7b7; border-radius: 2px; }
+.context-menu-source { display: none; position: absolute; min-width: 150px; background-color: #ededed; border: 1px solid #b7b7b7; border-radius: 2px; }
 .context-menu-source li { height: 15px; cursor: pointer; color: #585858; font-size: 14px; padding: 7px 25px 7px 25px; border-bottom: 1px solid #e0e0e0; }
 .context-menu-source li:hover { background-color: #e8e8e8; }
 

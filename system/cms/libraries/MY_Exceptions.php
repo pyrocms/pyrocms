@@ -114,7 +114,7 @@ class MY_Exceptions extends CI_Exceptions
      * @throws  ErrorException
      * @return  bool
      */
-    public static function error_handler($code, $error, $file = NULL, $line = NULL)
+    public static function error_handler($code, $error, $file = null, $line = null)
     {
         if (error_reporting() & $code)
         {
@@ -124,7 +124,7 @@ class MY_Exceptions extends CI_Exceptions
         }
 
         // Do not execute the PHP error handler
-        return TRUE;
+        return true;
     }
 
     /**
@@ -151,7 +151,7 @@ class MY_Exceptions extends CI_Exceptions
             $error = self::exception_text($e);
 
             // Log the error message
-            log_message('error', $error, TRUE);
+            log_message('error', $error, true);
 
             // Get the exception backtrace
             $trace = $e->getTrace();
@@ -190,7 +190,7 @@ class MY_Exceptions extends CI_Exceptions
             // Display the contents of the output buffer
             echo ob_get_clean();
 
-            return TRUE;
+            return true;
         }
         catch (Exception $e)
         {
@@ -216,7 +216,7 @@ class MY_Exceptions extends CI_Exceptions
     public static function shutdown_handler()
     {
         $error = error_get_last();
-        if ($error = error_get_last() AND in_array($error['type'], self::$shutdown_errors))
+        if ($error = error_get_last() and in_array($error['type'], self::$shutdown_errors))
         {
             // Clean the output buffer
             ob_get_level() and ob_clean();
@@ -255,14 +255,14 @@ class MY_Exceptions extends CI_Exceptions
      * @param   integer  line number to highlight
      * @param   integer  number of padding lines
      * @return  string   source of file
-     * @return  FALSE    file is unreadable
+     * @return  false    file is unreadable
      */
     public static function debug_source($file, $line_number, $padding = 5)
     {
-        if ( ! $file OR ! is_readable($file))
+        if ( ! $file or ! is_readable($file))
         {
             // Continuing will cause errors
-            return FALSE;
+            return false;
         }
 
         // Open the file and set the line position
@@ -276,7 +276,7 @@ class MY_Exceptions extends CI_Exceptions
         $format = '% '.strlen($range['end']).'d';
 
         $source = '';
-        while (($row = fgets($file)) !== FALSE)
+        while (($row = fgets($file)) !== false)
         {
             // Increment the line number
             if (++$line > $range['end'])
@@ -320,9 +320,9 @@ class MY_Exceptions extends CI_Exceptions
      * @param   string  path to debug
      * @return  string
      */
-    public static function trace(array $trace = NULL)
+    public static function trace(array $trace = null)
     {
-        if ($trace === NULL)
+        if ($trace === null)
         {
             // Start a new trace
             $trace = debug_backtrace();
@@ -340,7 +340,7 @@ class MY_Exceptions extends CI_Exceptions
                 continue;
             }
 
-            if (isset($step['file']) AND isset($step['line']))
+            if (isset($step['file']) and isset($step['line']))
             {
                 // Include the source of this step
                 $source = self::debug_source($step['file'], $step['line']);
@@ -374,10 +374,10 @@ class MY_Exceptions extends CI_Exceptions
             }
             elseif (isset($step['args']))
             {
-                if (strpos($step['function'], '{closure}') !== FALSE)
+                if (strpos($step['function'], '{closure}') !== false)
                 {
                     // Introspection on closures in a stack trace is impossible
-                    $params = NULL;
+                    $params = null;
                 }
                 else
                 {
@@ -426,10 +426,10 @@ class MY_Exceptions extends CI_Exceptions
 
             $output[] = array(
                 'function' => $function,
-                'args'     => isset($args)   ? $args : NULL,
-                'file'     => isset($file)   ? $file : NULL,
-                'line'     => isset($line)   ? $line : NULL,
-                'source'   => isset($source) ? $source : NULL,
+                'args'     => isset($args)   ? $args : null,
+                'file'     => isset($file)   ? $file : null,
+                'line'     => isset($line)   ? $line : null,
+                'source'   => isset($source) ? $source : null,
             );
 
             unset($function, $args, $file, $line, $source);
@@ -464,11 +464,11 @@ class MY_Exceptions extends CI_Exceptions
             set_status_header($status_code);
         }
         $trace = debug_backtrace();
-        $file = NULL;
-        $line = NULL;
+        $file = null;
+        $line = null;
         
-        $is_from_app = FALSE;
-        if(isset($trace[1]['file']) AND strpos($trace[1]['file'], APPPATH) === 0)
+        $is_from_app = false;
+        if (isset($trace[1]['file']) and strpos($trace[1]['file'], APPPATH) === 0)
         {
             $is_from_app = !self::is_extension($trace[1]['file']);
         }
@@ -494,7 +494,7 @@ class MY_Exceptions extends CI_Exceptions
         // If the system called show_error, so lets find the actual file and line in application/ that caused it.
         foreach($trace as $call)
         {
-            if(isset($call['file']) AND strpos($call['file'], APPPATH) === 0 AND !self::is_extension($call['file']))
+            if (isset($call['file']) and strpos($call['file'], APPPATH) === 0 and !self::is_extension($call['file']))
             {
                 $file = $call['file'];
                 $line = $call['line'];
@@ -522,10 +522,10 @@ class MY_Exceptions extends CI_Exceptions
         {
             if(strpos($file, APPPATH . $folder . config_item('subclass_prefix')) === 0)
             {
-                return TRUE;
+                return true;
             }
         }
-        return FALSE;
+        return false;
     }
 }
 

@@ -51,7 +51,7 @@ class Parameter_fields
 	 * @param	string
 	 * @return 	string
 	 */
-	function upload_location($value = '')
+	public function upload_location($value = '')
 	{
 		$data = array(
         	'name'        => 'upload_location',
@@ -72,7 +72,7 @@ class Parameter_fields
 	 * @param	string
 	 * @return 	string
 	 */
-	function default_value($value = '')
+	public function default_value($value = '')
 	{
 		$data = array(
         	'name'        => 'default_value',

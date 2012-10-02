@@ -128,7 +128,7 @@ class Users extends Public_Controller
 			}
 
 			// Don't allow protocols or cheeky requests
-			if (strpos($redirect_to, ':') !== FALSE and strpos($redirect_to, site_url()) !== 0)
+			if (strpos($redirect_to, ':') !== false and strpos($redirect_to, site_url()) !== 0)
 			{
 				// Just login to the homepage
 				redirect('');
@@ -439,7 +439,7 @@ class Users extends Public_Controller
 	 *
 	 * @return void
 	 */
-	public function activate($id = 0, $code = NULL)
+	public function activate($id = 0, $code = null)
 	{
 		// Get info from email
 		if ($this->input->post('email'))
@@ -451,7 +451,7 @@ class Users extends Public_Controller
 		$code = ($this->input->post('activation_code')) ? $this->input->post('activation_code') : $code;
 
 		// If user has supplied both bits of information
-		if ($id AND $code)
+		if ($id and $code)
 		{
 			// Try to activate this user
 			if ($this->ion_auth->activate($id, $code))
@@ -521,7 +521,7 @@ class Users extends Public_Controller
 			$uname = (string) $this->input->post('user_name');
 			$email = (string) $this->input->post('email');
 
-			if ( ! $uname AND ! $email)
+			if ( ! $uname and ! $email)
 			{
 				// they submitted with an empty form, abort
 				$this->template->set('error_string', $this->ion_auth->errors())
@@ -603,7 +603,7 @@ class Users extends Public_Controller
 	 */
 	public function edit($id = 0)
 	{
-		if ($this->current_user AND $this->current_user->group === 'admin' AND $id > 0)
+		if ($this->current_user and $this->current_user->group === 'admin' and $id > 0)
 		{
 			$user = $this->user_m->get(array('id' => $id));
 
@@ -706,7 +706,7 @@ class Users extends Public_Controller
 
 			$profile_data = $secure_post;
 
-			if ($this->ion_auth->update_user($user->id, $user_data, $profile_data) !== FALSE)
+			if ($this->ion_auth->update_user($user->id, $user_data, $profile_data) !== false)
 			{
 				Events::trigger('post_user_update');
 				$this->session->set_flashdata('success', $this->ion_auth->messages());

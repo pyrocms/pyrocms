@@ -70,7 +70,7 @@ if (!function_exists('array_for_select'))
 				break;
 
 			default:
-				return FALSE;
+				return false;
 		}
 
 		return $return;
@@ -128,7 +128,7 @@ if (!function_exists('assoc_array_prop'))
 	 * @param string $prop Should be a common property with value scalar, as id, slug, order.
 	 * @return array 
 	 */
-	function assoc_array_prop(array &$arr = NULL, $prop = 'id')
+	function assoc_array_prop(array &$arr = null, $prop = 'id')
 	{
 		$newarr = array();
 

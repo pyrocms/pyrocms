@@ -80,7 +80,7 @@ class Module_Addons extends Module
 		);
 
 		// Add upload options to various modules
-		if ( ! class_exists('Module_import') AND Settings::get('addons_upload'))
+		if ( ! class_exists('Module_import') and Settings::get('addons_upload'))
 		{
 			$info['sections']['modules']['shortcuts'] = array(
 				array(

@@ -103,7 +103,7 @@ class Admin extends Admin_Controller {
 		//only allow modules that user has permissions for
 		foreach($all_modules as $module)
 		{
-			if(in_array($module['slug'], $this->permissions) OR $this->current_user->group == 'admin') $modules[] = $module;
+			if (in_array($module['slug'], $this->permissions) or $this->current_user->group == 'admin') $modules[] = $module;
 		}
 
 		$this->template->modules_select = array_for_select($modules, 'slug', 'name');
@@ -334,7 +334,7 @@ class Admin extends Admin_Controller {
 		// Loop through each rule
 		foreach($this->validation_rules as $rule)
 		{
-			if($this->input->post($rule['field']) !== FALSE)
+			if($this->input->post($rule['field']) !== false)
 			{
 				$this->template->navigation_link->{$rule['field']} = $this->input->post($rule['field']);
 			}
@@ -383,7 +383,7 @@ class Admin extends Admin_Controller {
 	 *
 	 * @return string
 	 */
-	function _build_tree_select($params)
+	public function _build_tree_select($params)
 	{
 		$params = array_merge(array(
 			'tree'			=> array(),
@@ -457,7 +457,7 @@ class Admin extends Admin_Controller {
 	 */
 	public function _link_check($link)
 	{
-		$status = TRUE;
+		$status = true;
 
 		switch ($link) {
 

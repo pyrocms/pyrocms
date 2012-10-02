@@ -22,7 +22,7 @@ $config['rest_default_format'] = 'json';
 |	Default: false
 |
 */
-$config['enable_emulate_request'] = TRUE;
+$config['enable_emulate_request'] = true;
 
 
 /*
@@ -136,7 +136,7 @@ $config['rest_keys_table'] = 'api_keys';
 | When set to true REST_Controller will look for a key and match it to the DB.
 | If no key is provided, the request will return an error.
 |
-|	FALSE
+|	false
 
 	CREATE TABLE `keys` (
 	  `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -148,7 +148,7 @@ $config['rest_keys_table'] = 'api_keys';
 	) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 |
 */
-$config['rest_enable_keys'] = TRUE;
+$config['rest_enable_keys'] = true;
 
 /*
 |--------------------------------------------------------------------------
@@ -196,7 +196,7 @@ $config['rest_logs_table'] = 'api_logs';
 | time and IP address. This is a general rule that can be overridden in the
 | $this->method array in each controller.
 |
-|	FALSE
+|	false
 |
 	CREATE TABLE `logs` (
 	  `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -211,7 +211,7 @@ $config['rest_logs_table'] = 'api_logs';
 	) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 |
 */
-$config['rest_enable_logging'] = TRUE;
+$config['rest_enable_logging'] = true;
 
 /*
 |--------------------------------------------------------------------------
@@ -234,7 +234,7 @@ $config['rest_limits_table'] = 'limits';
 | by an API key each hour. This is a general rule that can be overridden in the
 | $this->method array in each controller.
 |
-|	FALSE
+|	false
 |
 	CREATE TABLE `limits` (
 	  `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -246,35 +246,35 @@ $config['rest_limits_table'] = 'limits';
 	) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 |
 */
-$config['rest_enable_limits'] = FALSE;
+$config['rest_enable_limits'] = false;
 
 /*
 |--------------------------------------------------------------------------
 | REST Ignore HTTP Accept
 |--------------------------------------------------------------------------
 |
-| Set to TRUE to ignore the HTTP Accept and speed up each request a little.
+| Set to true to ignore the HTTP Accept and speed up each request a little.
 | Only do this if you are using the $this->rest_format or /format/xml in URLs
 |
-|	FALSE
+|	false
 |
 */
-$config['rest_ignore_http_accept'] = FALSE;
+$config['rest_ignore_http_accept'] = false;
 
 /*
 |--------------------------------------------------------------------------
 | REST AJAX Only
 |--------------------------------------------------------------------------
 |
-| Set to TRUE to only allow AJAX requests. If TRUE and the request is not 
+| Set to true to only allow AJAX requests. If true and the request is not 
 | coming from AJAX, a 505 response with the error message "Only AJAX 
 | requests are accepted." will be returned. This is good for production 
-| environments. Set to FALSE to also accept HTTP requests. 
+| environments. Set to false to also accept HTTP requests. 
 |
-|	FALSE
+|	false
 |
 */
-$config['rest_ajax_only'] = FALSE;
+$config['rest_ajax_only'] = false;
 
 /* End of file config.php */
 /* Location: ./system/application/config/rest.php */

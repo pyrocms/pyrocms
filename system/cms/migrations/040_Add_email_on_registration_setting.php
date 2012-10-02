@@ -2,7 +2,7 @@
 
 class Migration_Add_email_on_registration_setting extends CI_Migration {
 
-	function up()
+	public function up()
 	{
 
 		/* insert settings */
@@ -34,7 +34,7 @@ class Migration_Add_email_on_registration_setting extends CI_Migration {
 		));
 	}
 
-	function down()
+	public function down()
 	{
 		$this->db->delete('settings', array('slug' => 'registered_email'));
 		$this->db->delete('email_templates', array('slug' => 'registered'));

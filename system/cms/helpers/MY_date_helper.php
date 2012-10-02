@@ -33,7 +33,7 @@ if (!function_exists('format_date'))
 			$format = Settings::get('date_format');
 		}
 
-		return strstr($format, '%') !== FALSE ? ucfirst(utf8_encode(strftime($format, $unix))) : date($format, $unix);
+		return strstr($format, '%') !== false ? ucfirst(utf8_encode(strftime($format, $unix))) : date($format, $unix);
 	}
 
 }

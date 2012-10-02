@@ -65,7 +65,7 @@ class Admin_Categories extends Admin_Controller {
 		
 		// Create pagination links
 		$total_rows = $this->blog_categories_m->count_all();
-		$pagination = create_pagination('admin/blog/categories/index', $total_rows, NULL, 5);
+		$pagination = create_pagination('admin/blog/categories/index', $total_rows, null, 5);
 			
 		// Using this data, get the relevant results
 		$categories = $this->blog_categories_m->order_by('title')->limit($pagination['limit'])->get_all();
@@ -151,7 +151,7 @@ class Admin_Categories extends Admin_Controller {
 		// Loop through each rule
 		foreach ($this->validation_rules as $rule)
 		{
-			if ($this->input->post($rule['field']) !== NULL)
+			if ($this->input->post($rule['field']) !== null)
 			{
 				$category->{$rule['field']} = $this->input->post($rule['field']);
 			}
@@ -272,7 +272,7 @@ class Admin_Categories extends Admin_Controller {
 			
 			if ($id > 0)
 			{
-				$message = sprintf(lang('cat_add_success'), $this->input->post('title', TRUE));
+				$message = sprintf(lang('cat_add_success'), $this->input->post('title', true));
 			}
 			else
 			{
@@ -289,7 +289,7 @@ class Admin_Categories extends Admin_Controller {
 		else
 		{
 			// Render the view
-			$form = $this->load->view('admin/categories/form', $data, TRUE);
+			$form = $this->load->view('admin/categories/form', $data, true);
 
 			if ($errors = validation_errors())
 			{

@@ -116,7 +116,7 @@ class Streams_entries extends CI_Driver {
 				
 		if ( ! isset($params['namespace'])) $this->log_error('no_namespace_provided', 'get_entries');
 	
-		$stream = $CI->streams_m->get_stream($params['stream'], TRUE, $params['namespace']);
+		$stream = $CI->streams_m->get_stream($params['stream'], true, $params['namespace']);
 				
 		if ( ! $stream) $this->log_error('invalid_stream', 'get_entries');
 
@@ -152,10 +152,10 @@ class Streams_entries extends CI_Driver {
 					$this->pagination_config[$key] = $pagination_config[$key];
 				}
 
-				// Make sure we set the FALSE params to boolean
-				if ($this->pagination_config[$key] == 'FALSE')
+				// Make sure we set the false params to boolean
+				if ($this->pagination_config[$key] == 'false')
 				{
-					$this->pagination_config[$key] = FALSE;
+					$this->pagination_config[$key] = false;
 				}
 			}
 			
@@ -183,7 +183,7 @@ class Streams_entries extends CI_Driver {
 	 * @param	bool - format results?
 	 * @return	object
 	 */
-	function get_entry($entry_id, $stream, $namespace, $format = true)
+	public function get_entry($entry_id, $stream, $namespace, $format = true)
 	{
 		return get_instance()->row_m->get_row($entry_id, $this->stream_obj($stream, $namespace), $format);
 	}
@@ -198,7 +198,7 @@ class Streams_entries extends CI_Driver {
 	 * @param	stream - int, slug, or obj
 	 * @return	object
 	 */
-	function delete_entry($entry_id, $stream, $namespace)
+	public function delete_entry($entry_id, $stream, $namespace)
 	{
 		return get_instance()->row_m->delete_row($entry_id, $this->stream_obj($stream, $namespace));
 	}
@@ -219,7 +219,7 @@ class Streams_entries extends CI_Driver {
 	 * @param 	array - extra data to add in
 	 * @return	object
 	 */
-	function insert_entry($entry_data, $stream, $namespace, $skips = array(), $extra = array())
+	public function insert_entry($entry_data, $stream, $namespace, $skips = array(), $extra = array())
 	{
 		$str_obj = $this->stream_obj($stream, $namespace);
 		
@@ -245,7 +245,7 @@ class Streams_entries extends CI_Driver {
 	 * @param 	array - field slugs to skip
 	 * @return	object
 	 */
-	function update_entry($entry_id, $entry_data, $stream, $namespace, $skips = array())
+	public function update_entry($entry_id, $entry_data, $stream, $namespace, $skips = array())
 	{
 		$str_obj = $this->stream_obj($stream, $namespace);
 		
