@@ -141,7 +141,6 @@ class Plugin_Navigation extends Plugin
 			// is this the link to the page that we're on?
 			if (preg_match('@^'.current_url().'/?$@', $link['url']) or ($link['link_type'] == 'page' and $link['is_home']) and site_url() == current_url())
 			{
-                var_dump('y');
 				$current_link = $link['url'];
 				$wrapper['class'][] = $current_class;
 			}
