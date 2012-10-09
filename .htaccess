@@ -6,6 +6,8 @@
 
     # Make sure directory listing is disabled
 	Options +FollowSymLinks -Indexes
+	# disable the Apache MultiViews directive if it is enabled on the server. It plays havoc with URL rewriting
+	Options -MultiViews
 	RewriteEngine on
 
 	# NOTICE: If you get a 404 play with combinations of the following commented out lines
