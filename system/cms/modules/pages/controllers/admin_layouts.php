@@ -118,6 +118,7 @@ class Admin_layouts extends Admin_Controller
 		}
 
 		$theme_layouts = $this->template->get_theme_layouts($this->settings->default_theme);
+		$theme_layout = array();
 		foreach ($theme_layouts as $theme_layout)
 		{
 			$data->theme_layouts[$theme_layout] = basename($theme_layout, '.html');
@@ -125,7 +126,8 @@ class Admin_layouts extends Admin_Controller
 
 		// Assign data for display
 		$this->load->vars(array(
-			'page_layout' => &$page_layout
+			'page_layout' => &$page_layout,
+			'theme_layouts' => &$theme_layout
 		));
 
 		// Load WYSIWYG editor
