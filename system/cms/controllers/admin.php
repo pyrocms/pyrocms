@@ -27,18 +27,19 @@ class Admin extends Admin_Controller
 			->enable_parser(true)
 			->title(lang('global:dashboard'));
 
-		if (is_dir('./installer')) {
-			
+		if (is_dir('./installer'))
+		{
 			$this->load->helper('file');			
 			if(delete_files('./installer', TRUE))
 			{
 				rmdir('./installer');
-			} else 
-				{
-					$this->template
-				->set('messages', array('notice' => lang('cp_delete_installer_message')));
-				}
-		} // if
+			}
+			else 
+			{
+				$this->template
+					->set('messages', array('notice' => lang('cp_delete_installer_message')));
+			} // if(delete_files
+		} // if (is_dir
 
 		$this->template
 			->build('admin/dashboard');
