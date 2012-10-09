@@ -87,6 +87,7 @@ class Module_Files extends Module {
 				'description' => array('type' => 'TEXT',),
 				'extension' => array('type' => 'VARCHAR', 'constraint' => 5,),
 				'mimetype' => array('type' => 'VARCHAR', 'constraint' => 100,),
+				'keywords' => array('type' => 'CHAR', 'constraint' => 32,),
 				'width' => array('type' => 'INT', 'constraint' => 5, 'null' => true,),
 				'height' => array('type' => 'INT', 'constraint' => 5, 'null' => true,),
 				'filesize' => array('type' => 'INT', 'constraint' => 11, 'default' => 0,),
