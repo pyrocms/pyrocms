@@ -130,14 +130,13 @@ class Streams_streams extends CI_Driver {
 	 * @param 	array - associative array of new data
 	 * @return	object
 	 */
-	function update_stream($stream, $namespace, $data)
+	public function update_stream($stream, $namespace, $data)
 	{	
 		$str_id = $this->stream_id($stream, $namespace);
 		
 		if ( ! $str_id) $this->log_error('invalid_stream', 'update_stream');
 		
 		$data['stream_slug'] = $stream;
-		$data['stream_prefix'] = isset($data['stream_prefix']) ? $data['stream_prefix'] : NULL;
 
 		return $this->CI->streams_m->update_stream($str_id, $data);
 	}

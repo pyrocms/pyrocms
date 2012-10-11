@@ -2,7 +2,7 @@
 
 class Rss extends Public_Controller
 {
-	function __construct()
+	public function __construct()
 	{
 		parent::__construct();	
 		$this->load->model('blog_m');
@@ -11,7 +11,7 @@ class Rss extends Public_Controller
 		$this->lang->load('blog');
 	}
 	
-	function index()
+	public function index()
 	{
 		$posts = $this->pyrocache->model('blog_m', 'get_many_by', array(array(
 			'status' => 'live',
@@ -24,7 +24,7 @@ class Rss extends Public_Controller
 		$this->load->view('rss', $this->data);
 	}
 	
-	function category( $slug = '')
+	public function category( $slug = '')
 	{
 		$this->load->model('blog_categories_m');
 		
@@ -45,8 +45,11 @@ class Rss extends Public_Controller
 		$this->load->view('rss', $this->data);
 	}
 	
-	function _build_feed( $posts = array() )
+	public function _build_feed( $posts = array() )
 	{
+		$this->data = new stdClass();
+		$this->data->rss = new stdClass();
+
 		$this->data->rss->encoding = $this->config->item('charset');
 		$this->data->rss->feed_name = $this->settings->get('site_name');
 		$this->data->rss->feed_url = base_url();
@@ -68,7 +71,8 @@ class Rss extends Public_Controller
 					'link' => $row->link,
 					'guid' => $row->link,
 					'description'  => $row->intro,
-					'date' => $row->created_on
+					'date' => $row->created_on,
+					'category' => $row->category_title
 				);				
 				$this->data->rss->items[] = (object) $item;
 			}

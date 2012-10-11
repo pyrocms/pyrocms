@@ -150,11 +150,11 @@ class Admin extends Admin_Controller {
 
         $this->template->set('email_template', $email_template)
 						->title(lang('templates.create_title'))
-                        ->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
+                        ->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, true) )
                         ->build('admin/form');
     }
 
-    public function edit($id = FALSE)
+    public function edit($id = false)
     {
         $email_template = $this->email_templates_m->get($id);
 
@@ -215,7 +215,7 @@ class Admin extends Admin_Controller {
 
         $this->template->set('email_template', $email_template)
 						->title(lang('templates.edit_title'))
-                        ->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
+                        ->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, true) )
                         ->build('admin/form');
     }
 
@@ -283,7 +283,7 @@ class Admin extends Admin_Controller {
      * @param   int $id
      * @return  void
      */
-    public function preview($id = FALSE)
+    public function preview($id = false)
     {
         $email_template = $this->email_templates_m->get($id);
 		
@@ -299,7 +299,7 @@ class Admin extends Admin_Controller {
      * @param   int $id
      * @return  void
      */
-    public function create_copy($id = FALSE)
+    public function create_copy($id = false)
     {
         $id = (int) $id;
 

@@ -58,9 +58,9 @@ class Page_chunk_m extends MY_Model
 				));
 			}
 
-			return TRUE;
+			return true;
 		}
 
-		return FALSE;
+		return false;
 	}
 }

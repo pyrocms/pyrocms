@@ -240,6 +240,10 @@ class Field_choice
 			// One per line
 			return implode("\n", array_unique($input));		
 		}
+		elseif ($field->field_data['choice_type'] == 'checkboxes' and ! $input)
+		{
+			return '';
+		}
 		else
 		{
 			// If this is not a checkbox field, we are

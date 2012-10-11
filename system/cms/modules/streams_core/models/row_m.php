@@ -612,7 +612,7 @@ class Row_m extends MY_Model {
 		}
 		else
 		{
-			(isset($this->sql['join'])) ? $join = implode(' ', $this->sql['join']) : $join = NULL;
+			(isset($this->sql['join'])) ? $join = implode(' ', $this->sql['join']) : $join = null;
 		}
 
 		// -------------------------------------
@@ -625,7 +625,7 @@ class Row_m extends MY_Model {
 		}
 		else
 		{
-			(isset($this->sql['where'])) ? $where = implode(' AND ', $this->sql['where']) : $where = NULL;
+			(isset($this->sql['where'])) ? $where = implode(' AND ', $this->sql['where']) : $where = null;
 		}
 
 		if ($where != '')
@@ -646,7 +646,7 @@ class Row_m extends MY_Model {
 		}
 		else
 		{
-			(isset($this->sql['order_by'])) ? $order_by = implode(', ', $this->sql['order_by']) : $order_by = NULL;
+			(isset($this->sql['order_by'])) ? $order_by = implode(', ', $this->sql['order_by']) : $order_by = null;
 		}
 
 		if ($order_by)
@@ -664,7 +664,7 @@ class Row_m extends MY_Model {
 		}
 		else
 		{
-			(isset($this->sql['misc'])) ? $misc = implode(' ', $this->sql['misc']) : $misc = NULL;
+			(isset($this->sql['misc'])) ? $misc = implode(' ', $this->sql['misc']) : $misc = null;
 		}
 
 		// -------------------------------------
@@ -1109,6 +1109,14 @@ class Row_m extends MY_Model {
 		
 		foreach ($fields as $field)
 		{
+			// If we don't have a post item for this field, 
+			// then simply set the value to null. This is necessary
+			// for fields that want to run a pre_save but may have
+			// a situation where no post data is sent (like a single checkbox)
+			if ( ! isset($form_data[$field->field_slug]))
+			{
+				$form_data[$field->field_slug] = null;
+			}
 
 			if ( ! in_array($field->field_slug, $skips))
 			{
@@ -1121,12 +1129,6 @@ class Row_m extends MY_Model {
 					// If a pre_save function exists, go ahead and run it
 					if (method_exists($type, 'pre_save'))
 					{
-						// Special case for data this is not there.
-						if ( ! isset($form_data[$field->field_slug]))
-						{
-							$form_data[$field->field_slug] = null;
-						}
-					
 						$return_data[$field->field_slug] = $type->pre_save(
 									$form_data[$field->field_slug],
 									$field,
@@ -1134,6 +1136,16 @@ class Row_m extends MY_Model {
 									$row_id,
 									$form_data);
 
+						// We are unsetting the null values to as to
+						// not upset db can be null rules.
+						if (is_null($return_data[$field->field_slug]))
+						{
+							unset($return_data[$field->field_slug]);
+						}
+						else
+						{
+							$return_data[$field->field_slug] = escape_tags($return_data[$field->field_slug]);
+						}
 					}
 					else
 					{

@@ -187,9 +187,9 @@ class Admin extends Admin_Controller
 		if ($this->redirect_m->check_from($from, $id))
 		{
 			$this->form_validation->set_message('_check_unique', sprintf(lang('redirects.request_conflict_error'), $from));
-			return FALSE;
+			return false;
 		}
 
-		return TRUE;
+		return true;
 	}
 }

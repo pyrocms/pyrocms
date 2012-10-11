@@ -30,7 +30,7 @@ class Settings_m extends MY_Model {
 		}
 
 		return $this->db
-			->select('*, IF(`value` = "", `default`, `value`) as `value`', FALSE)
+			->select('*, IF(`value` = "", `default`, `value`) as `value`', false)
 			->where($where)
 			->get($this->_table)
 			->row();
@@ -54,7 +54,7 @@ class Settings_m extends MY_Model {
 		}
 
 		$this->db
-			->select('*, IF(`value` = "", `default`, `value`) as `value`', FALSE)
+			->select('*, IF(`value` = "", `default`, `value`) as `value`', false)
 			->where($where)
 			->order_by('`order`', 'DESC');
 		

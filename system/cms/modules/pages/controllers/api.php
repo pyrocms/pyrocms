@@ -69,7 +69,7 @@ class Api extends API_Controller
 		// Get the page along with its chunks.
 		$page = $this->page_m->get($id);
 
-		if ( $page AND ! empty($page))
+		if ( $page and ! empty($page))
 		{
 			// We only require certain columns.
 			$fields = array(

@@ -24,6 +24,7 @@ class Widget_Rss_feed extends Widgets
 		'ru' => 'Лента новостей RSS',
 		'id' => 'RSS Feed',
 		'fi' => 'RSS Syöte',
+		'fr' => 'Flux RSS',
 	);
 
 	/**
@@ -40,6 +41,7 @@ class Widget_Rss_feed extends Widgets
 		'ru' => 'Выводит обработанную ленту новостей на вашем сайте',
 		'id' => 'Menampilkan kutipan RSS feed di situs Anda',
 		'fi' => 'Näytä purettu RSS syöte sivustollasi',
+		'fr' => 'Affichez un flux RSS sur votre site web',
 	);
 
 	/**

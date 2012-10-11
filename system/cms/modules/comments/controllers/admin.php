@@ -81,7 +81,7 @@ class Admin extends Admin_Controller {
 
 		$content_title = $base_where['comments.is_active'] ? lang('comments:active_title') : lang('comments:inactive_title');
 
-		$this->input->is_ajax_request() && $this->template->set_layout(FALSE);
+		$this->input->is_ajax_request() && $this->template->set_layout(false);
 
 		$module_list = $this->comment_m->get_slugs();
 
@@ -263,7 +263,7 @@ class Admin extends Admin_Controller {
 	 * @param  bool $redirect	optional if a redirect should be done
 	 * @return void
 	 */
-	public function approve($id = 0, $redirect = TRUE)
+	public function approve($id = 0, $redirect = true)
 	{
 		$id && $this->_do_action($id, 'approve');
 
@@ -277,7 +277,7 @@ class Admin extends Admin_Controller {
 	 * @param  bool $redirect	optional if a redirect should be done
 	 * @return void
 	 */
-	public function unapprove($id = 0, $redirect = TRUE)
+	public function unapprove($id = 0, $redirect = true)
 	{
 		$id && $this->_do_action($id, 'unapprove');
 
@@ -299,7 +299,7 @@ class Admin extends Admin_Controller {
 	protected function _do_action($ids, $action)
 	{
 		$ids		= ( ! is_array($ids)) ? array($ids) : $ids;
-		$multiple	= (count($ids) > 1) ? '_multiple' : NULL;
+		$multiple	= (count($ids) > 1) ? '_multiple' : null;
 		$status		= 'success';
 
 		foreach ($ids as $id)

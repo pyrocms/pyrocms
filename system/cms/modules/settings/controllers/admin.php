@@ -64,9 +64,9 @@ class Admin extends Admin_Controller {
 				{
 					list($path, $_langfile) = Modules::find('settings_lang', $setting->module, 'language/'.config_item('language').'/');
 
-					if ($path !== FALSE)
+					if ($path !== false)
 					{
-						$setting_language[$setting->module] = $this->lang->load($setting->module.'/settings', '', TRUE);
+						$setting_language[$setting->module] = $this->lang->load($setting->module.'/settings', '', true);
 
 						if (empty($section_name) && isset($setting_language[$setting->module]['settings_section_'.$setting->module]))
 						{
@@ -153,7 +153,7 @@ class Admin extends Admin_Controller {
 			// Loop through again now we know it worked
 			foreach ($settings as $setting)
 			{
-				$new_value = $this->input->post($setting->slug, FALSE);
+				$new_value = $this->input->post($setting->slug, false);
 
 				// Store arrays as CSV
 				if (is_array($new_value))

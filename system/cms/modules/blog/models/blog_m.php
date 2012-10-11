@@ -92,7 +92,7 @@ class Blog_m extends MY_Model
 		}
 
 		// By default, dont show future posts
-		if ( ! isset($params['show_future']) || (isset($params['show_future']) && $params['show_future'] == FALSE))
+		if ( ! isset($params['show_future']) || (isset($params['show_future']) && $params['show_future'] == false))
 		{
 			$this->db->where('created_on <=', now());
 		}
@@ -198,7 +198,7 @@ class Blog_m extends MY_Model
 
 	public function get_archive_months()
 	{
-		$this->db->select('UNIX_TIMESTAMP(DATE_FORMAT(FROM_UNIXTIME(t1.created_on), "%Y-%m-02")) AS `date`', FALSE);
+		$this->db->select('UNIX_TIMESTAMP(DATE_FORMAT(FROM_UNIXTIME(t1.created_on), "%Y-%m-02")) AS `date`', false);
 		$this->db->from('blog t1');
 		$this->db->distinct();
 		$this->db->select('(SELECT count(id) FROM ' . $this->db->dbprefix('blog') . ' t2

@@ -9,7 +9,7 @@ class Migration_Increase_page_chunk_slug extends CI_Migration {
 				'name' => 'slug',
 				'type' => 'varchar',
 				'constraint' => 255,
-				'null' => FALSE,
+				'null' => false,
 				'default' => '',
 			),
 		));
@@ -22,7 +22,7 @@ class Migration_Increase_page_chunk_slug extends CI_Migration {
 				'name' => 'slug',
 				'type' => 'varchar',
 				'constraint' => 30,
-				'null' => TRUE,
+				'null' => true,
 			),
 		));
 	}

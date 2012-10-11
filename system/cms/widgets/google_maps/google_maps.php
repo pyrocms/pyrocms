@@ -24,6 +24,7 @@ class Widget_Google_maps extends Widgets
 		'ru' => 'Карты Google',
 		'id' => 'Google Maps',
 		'fi' => 'Google Maps',
+		'fr' => 'Google Maps',
 	);
 
 	/**
@@ -40,6 +41,7 @@ class Widget_Google_maps extends Widgets
 		'ru' => 'Выводит карты Google на страницах вашего сайта',
 		'id' => 'Menampilkan Google Maps di Situs Anda',
 		'fi' => 'Näytä Google Maps kartta sivustollasi',
+		'fr' => 'Publiez un plan Google Maps sur votre site',
 	);
 
 	/**

@@ -21,6 +21,7 @@ echo '<?xml version="1.0" encoding="utf-8"?>' . "
 				<?php //'<author>< ? = lang('blog_author_name_label'); ? ></author>'; ?>
 				<pubDate><?php echo $item->date;?></pubDate>
 				<guid><?php echo $item->guid;?></guid>
+				<category><?php echo $item->category;?></category>
 			</item>
 		<?php endforeach; ?>
 		<?php endif; ?>

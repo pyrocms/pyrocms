@@ -112,7 +112,7 @@ class Widget_Twitter_feed extends Widgets
 
 			$context = stream_context_create($opts);
 
-			$tweets = json_decode(@file_get_contents($this->feed_url.$url_segments, FALSE, $context));
+			$tweets = json_decode(@file_get_contents($this->feed_url.$url_segments, false, $context));
 
 			$this->pyrocache->write($tweets, 'twitter-'.$options['username'].'-'.$options['number'], $this->settings->twitter_cache);
 		}

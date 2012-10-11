@@ -39,7 +39,7 @@ class Admin_modules extends Admin_Controller
 
 		$this->template
 			->title($this->module_details['name'])
-			->set('all_modules', $this->module_m->get_all(NULL, TRUE))
+			->set('all_modules', $this->module_m->get_all(null, true))
 			->build('admin/modules/index');
 	}
 
@@ -63,7 +63,7 @@ class Admin_modules extends Admin_Controller
 			$config['upload_path'] 		= UPLOAD_PATH;
 			$config['allowed_types'] 	= 'zip';
 			$config['max_size']			= 2048;
-			$config['overwrite'] 		= TRUE;
+			$config['overwrite'] 		= true;
 
 			$this->load->library('upload', $config);
 
@@ -84,9 +84,9 @@ class Admin_modules extends Admin_Controller
 					$this->unzip->allow(array('xml', 'html', 'css', 'js', 'png', 'gif', 'jpeg', 'jpg', 'swf', 'ico', 'php'));
 
 					// Try and extract
-					if ( is_string($slug = $this->unzip->extract($upload_data['full_path'], ADDONPATH.'modules/', TRUE, TRUE)) )
+					if ( is_string($slug = $this->unzip->extract($upload_data['full_path'], ADDONPATH.'modules/', true, true)) )
 					{
-						if ($this->module_m->install($slug, FALSE, TRUE))
+						if ($this->module_m->install($slug, false, true))
 						{
 							// Fire an event. A module has been enabled when uploaded. 
 							Events::trigger('module_enabled', $slug);

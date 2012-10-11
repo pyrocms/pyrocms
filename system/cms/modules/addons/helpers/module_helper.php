@@ -87,14 +87,14 @@ function module_controller($controller, $module)
 {
 	if(!$controller)
 	{
-		return FALSE;
+		return false;
 	}
 
 	$ci =& get_instance();
 
 	$controllers = $ci->module_m->get_module_controllers($module);
 
-	return isset($controllers[$controller]) ? TRUE : FALSE;
+	return isset($controllers[$controller]) ? true : false;
 }
 
 // will that your place is here? or maybe should it exists?
@@ -103,7 +103,7 @@ function reload_module_details($slug = '')
 {
 	if ( ! $slug)
 	{
-		return FALSE;
+		return false;
 	}
 
 	if (is_array($slug))
@@ -112,16 +112,16 @@ function reload_module_details($slug = '')
 		{
 			if ( ! reload_module_details($_slug))
 			{
-				return FALSE;
+				return false;
 			}
 		}
-		return TRUE;
+		return true;
 	}
 
 	$ci =& get_instance();
 
 	// Loop through directories that hold modules
-	$is_core = TRUE;
+	$is_core = true;
 
 	foreach (array(APPPATH, ADDONPATH, SHARED_ADDONPATH) as $directory)
 	{
@@ -173,16 +173,16 @@ function reload_module_details($slug = '')
 				'skip_xss'			=> ! empty($module['skip_xss']),
 				'is_frontend'		=> ! empty($module['frontend']),
 				'is_backend'		=> ! empty($module['backend']),
-				'menu'				=> ! empty($module['menu']) ? $module['menu'] : FALSE,
-				'enabled'			=> TRUE,
-				'installed'			=> TRUE,
+				'menu'				=> ! empty($module['menu']) ? $module['menu'] : false,
+				'enabled'			=> true,
+				'installed'			=> true,
 				'is_core'			=> $is_core
 			));
 		}
 
 		// Going back around, 2nd time is addons
-		$is_core = FALSE;
+		$is_core = false;
 	}
 
-	return TRUE;
+	return true;
 }

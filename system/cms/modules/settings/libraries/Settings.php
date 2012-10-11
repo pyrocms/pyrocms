@@ -109,10 +109,10 @@ class Settings {
 
 			self::$cache[$name] = $value;
 
-			return TRUE;
+			return true;
 		}
 
-		return FALSE;
+		return false;
 	}
 
 	/**
@@ -167,7 +167,7 @@ class Settings {
 	{
 		if ( ! $this->_check_format($setting))
 		{
-			return FALSE;
+			return false;
 		}
 		return ci()->settings_m->insert($setting);
 	}
@@ -206,7 +206,7 @@ class Settings {
 			{
 				$func = substr($setting->options, 5);
 
-				if (($pos = strrpos($func, '/')) !== FALSE)
+				if (($pos = strrpos($func, '/')) !== false)
 				{
 					$helper	= substr($func, 0, $pos);
 					$func	= substr($func, $pos + 1);
@@ -289,7 +289,7 @@ class Settings {
 					}
 					else
 					{
-						$checked = FALSE;
+						$checked = false;
 					}
 
 					$form_control .= '<label>';
@@ -337,7 +337,7 @@ class Settings {
 		{
 			list($value, $name) = explode('=', $option);
 
-			if ($this->ci->lang->line('settings_form_option_' . $name) !== FALSE)
+			if ($this->ci->lang->line('settings_form_option_' . $name) !== false)
 			{
 				$name = $this->ci->lang->line('settings_form_option_' . $name);
 			}
@@ -361,17 +361,17 @@ class Settings {
 	{
 		if ( ! isset($setting))
 		{
-			return FALSE;
+			return false;
 		}
 		foreach ($setting as $key => $value)
 		{
 			if ( ! in_array($key, $this->columns))
 			{
-				return FALSE;
+				return false;
 			}
 		}
 
-		return TRUE;
+		return true;
 	}
 
 }

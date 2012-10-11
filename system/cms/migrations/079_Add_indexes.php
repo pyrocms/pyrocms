@@ -45,7 +45,7 @@ class Migration_Add_indexes extends CI_Migration
         {
             if ($row->Key_name == $index)
             {
-                return TRUE;
+                return true;
             }
         }
 

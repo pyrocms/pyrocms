@@ -57,7 +57,7 @@ class Pyrocache
 	 *
 	 * Initializes and references Codeigniter object.
 	 */
-	function __construct()
+	public function __construct()
 	{
 		log_message('debug', "Cache Class Initialized.");
 
@@ -70,7 +70,7 @@ class Pyrocache
 		$this->_default_expires = $this->_ci->config->item('cache_default_expires');
 		if ( ! is_dir($this->_path))
 		{
-			if ( ! mkdir($this->_path, 0777, TRUE))
+			if ( ! mkdir($this->_path, 0777, true))
 			{
 				show_error('Cache Path was not found and could not be created: '.$this->_path);
 			}
@@ -82,10 +82,10 @@ class Pyrocache
 	 */
 	private function _reset()
 	{
-		$this->_contents = NULL;
-		$this->_filename = NULL;
-		$this->_expires = NULL;
-		$this->_created = NULL;
+		$this->_contents = null;
+		$this->_filename = null;
+		$this->_expires = null;
+		$this->_created = null;
 		$this->_dependencies = array();
 	}
 
@@ -101,7 +101,7 @@ class Pyrocache
 	 * @param null $expires
 	 * @return mixed
 	 */
-	public function library($library, $method, $arguments = array(), $expires = NULL)
+	public function library($library, $method, $arguments = array(), $expires = null)
 	{
 		if ( ! $this->_ci->load->is_loaded($library))
 		{
@@ -121,7 +121,7 @@ class Pyrocache
 	 * @param null $expires
 	 * @return mixed
 	 */
-	public function model($model, $method, $arguments = array(), $expires = NULL)
+	public function model($model, $method, $arguments = array(), $expires = null)
 	{
 		if ( ! $this->_ci->load->is_loaded($model))
 		{
@@ -144,7 +144,7 @@ class Pyrocache
 	 *
 	 * @return mixed
 	 */
-	private function _call($property, $method, $arguments = array(), $expires = NULL)
+	private function _call($property, $method, $arguments = array(), $expires = null)
 	{
 		$this->_ci->load->helper('security');
 
@@ -168,8 +168,8 @@ class Pyrocache
 		// See if we have this cached
 		$cached_response = $this->get($cache_file);
 
-		// Not FALSE? Return it
-		if ($cached_response !== FALSE && $cached_response !== NULL)
+		// Not false? Return it
+		if ($cached_response !== false && $cached_response !== null)
 		{
 			return $cached_response;
 		}
@@ -189,7 +189,7 @@ class Pyrocache
 	 *
 	 * @return Pyrocache
 	 */
-	function set_dependencies($dependencies)
+	public function set_dependencies($dependencies)
 	{
 		if (is_array($dependencies))
 		{
@@ -211,7 +211,7 @@ class Pyrocache
 	 *
 	 * @return Pyrocache
 	 */
-	function add_dependencies($dependencies)
+	public function add_dependencies($dependencies)
 	{
 		if (is_array($dependencies))
 		{
@@ -231,7 +231,7 @@ class Pyrocache
 	 *
 	 * @return mixed
 	 */
-	function get_dependencies()
+	public function get_dependencies()
 	{
 		return $this->_dependencies;
 	}
@@ -244,7 +244,7 @@ class Pyrocache
 	 *
 	 * @return mixed
 	 */
-	function get_created($created)
+	public function get_created($created)
 	{
 		return $this->_created;
 	}
@@ -258,58 +258,58 @@ class Pyrocache
 	 *
 	 * @return bool
 	 */
-	function get($filename = NULL, $use_expires = true)
+	public function get($filename = null, $use_expires = true)
 	{
 		// Check if cache was requested with the function or uses this object
-		if ($filename !== NULL)
+		if ($filename !== null)
 		{
 			$this->_reset();
 			$this->_filename = $filename;
 		}
 
 		// Check directory permissions
-		if ( ! is_dir($this->_path) OR ! is_really_writable($this->_path))
+		if ( ! is_dir($this->_path) or ! is_really_writable($this->_path))
 		{
-			return FALSE;
+			return false;
 		}
 
 		// Build the file path.
 		$filepath = $this->_path.$this->_filename.'.cache';
 
-		// Check if the cache exists, if not return FALSE
+		// Check if the cache exists, if not return false
 		if ( ! @file_exists($filepath))
 		{
-			return FALSE;
+			return false;
 		}
 
-		// Check if the cache can be opened, if not return FALSE
+		// Check if the cache can be opened, if not return false
 		if ( ! $fp = @fopen($filepath, FOPEN_READ))
 		{
-			return FALSE;
+			return false;
 		}
 
 		// Lock the cache
 		flock($fp, LOCK_SH);
 
-		// If the file contains data return it, otherwise return NULL
+		// If the file contains data return it, otherwise return null
 		if (filesize($filepath) > 0)
 		{
 			$this->_contents = unserialize(fread($fp, filesize($filepath)));
 		}
 		else
 		{
-			$this->_contents = NULL;
+			$this->_contents = null;
 		}
 
 		// Unlock the cache and close the file
 		flock($fp, LOCK_UN);
 		fclose($fp);
 
-		// Check cache expiration, delete and return FALSE when expired
+		// Check cache expiration, delete and return false when expired
 		if ($use_expires && ! empty($this->_contents['__cache_expires']) && $this->_contents['__cache_expires'] < time())
 		{
 			$this->delete($filename);
-			return FALSE;
+			return false;
 		}
 
 		// Check Cache dependencies
@@ -319,19 +319,19 @@ class Pyrocache
 			{
 				$cache_created = filemtime($this->_path.$this->_filename.'.cache');
 
-				// If dependency doesn't exist or is newer than this cache, delete and return FALSE
+				// If dependency doesn't exist or is newer than this cache, delete and return false
 				if ( ! file_exists($this->_path.$dep.'.cache') or filemtime($this->_path.$dep.'.cache') > $cache_created)
 				{
 					$this->delete($filename);
-					return FALSE;
+					return false;
 				}
 			}
 		}
 
 		// Instantiate the object variables
-		$this->_expires = isset($this->_contents['__cache_expires']) ? $this->_contents['__cache_expires'] : NULL;
-		$this->_dependencies = isset($this->_contents['__cache_dependencies']) ? $this->_contents['__cache_dependencies'] : NULL;
-		$this->_created = isset($this->_contents['__cache_created']) ? $this->_contents['__cache_created'] : NULL;
+		$this->_expires = isset($this->_contents['__cache_expires']) ? $this->_contents['__cache_expires'] : null;
+		$this->_dependencies = isset($this->_contents['__cache_dependencies']) ? $this->_contents['__cache_dependencies'] : null;
+		$this->_created = isset($this->_contents['__cache_created']) ? $this->_contents['__cache_created'] : null;
 
 		// Cleanup the meta variables from the contents
 		$this->_contents = @$this->_contents['__cache_contents'];
@@ -353,10 +353,10 @@ class Pyrocache
 	 *
 	 * @return bool|void
 	 */
-	function write($contents = NULL, $filename = NULL, $expires = NULL, $dependencies = array())
+	public function write($contents = null, $filename = null, $expires = null, $dependencies = array())
 	{
 		// Check if cache was passed with the function or uses this object
-		if ($contents !== NULL)
+		if ($contents !== null)
 		{
 			$this->_reset();
 			$this->_contents = $contents;
@@ -370,7 +370,7 @@ class Pyrocache
 		$this->_contents = array('__cache_contents' => $this->_contents);
 
 		// Check directory permissions
-		if ( ! is_dir($this->_path) OR ! is_really_writable($this->_path))
+		if ( ! is_dir($this->_path) or ! is_really_writable($this->_path))
 		{
 			return;
 		}
@@ -386,8 +386,8 @@ class Pyrocache
 			if ( ! @file_exists($test_path))
 			{
 				// create non existing dirs, asumes PHP5
-				if ( ! @mkdir($test_path, DIR_WRITE_MODE, TRUE)) {
-					return FALSE;
+				if ( ! @mkdir($test_path, DIR_WRITE_MODE, true)) {
+					return false;
 				}
 			}
 		}
@@ -444,9 +444,9 @@ class Pyrocache
 	 *
 	 * @param string|null $filename The filename to delete.
 	 */
-	function delete($filename = NULL)
+	public function delete($filename = null)
 	{
-		if ($filename !== NULL) {
+		if ($filename !== null) {
 			$this->_filename = $filename;
 		}
 
@@ -480,15 +480,15 @@ class Pyrocache
 	{
 		if ($group === null)
 		{
-			return FALSE;
+			return false;
 		}
 
 		$this->_ci->load->helper('directory');
-		$map = directory_map($this->_path, TRUE);
+		$map = directory_map($this->_path, true);
 
 		foreach ($map AS $file)
 		{
-			if (strpos($file, $group) !== FALSE)
+			if (strpos($file, $group) !== false)
 			{
 				unlink($this->_path.$file);
 			}
@@ -506,16 +506,16 @@ class Pyrocache
 	 *
 	 * @return bool
 	 */
-	function delete_all($dirname = '')
+	public function delete_all($dirname = '')
 	{
 		if (empty($this->_path))
 		{
-			return FALSE;
+			return false;
 		}
 
 		$this->_ci->load->helper('file');
 		if (file_exists($this->_path.$dirname)) {
-			delete_files($this->_path.$dirname, TRUE);
+			delete_files($this->_path.$dirname, true);
 		}
 
 		// Reset values

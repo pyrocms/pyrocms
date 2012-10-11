@@ -381,7 +381,7 @@ class SimplePie_Cache_MySQL extends SimplePie_Cache_DB
 							$database_ids[] = mysql_real_escape_string($id);
 						}
 
-						if ($query = mysql_unbuffered_query('SELECT `id` FROM `' . $this->options['prefix'][0] . 'items` WHERE `id` = \'' . implode('\' OR `id` = \'', $database_ids) . '\' AND `feed_id` = ' . $feed_id, $this->mysql))
+						if ($query = mysql_unbuffered_query('SELECT `id` FROM `' . $this->options['prefix'][0] . 'items` WHERE `id` = \'' . implode('\' or `id` = \'', $database_ids) . '\' and `feed_id` = ' . $feed_id, $this->mysql))
 						{
 							$existing_ids = array();
 							while ($row = mysql_fetch_row($query))

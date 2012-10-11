@@ -33,7 +33,7 @@ class Admin_fields extends Admin_Controller {
 	 * @access 	public
 	 * @return 	void
 	 */
-	function index()
+	public function index()
 	{
 		$buttons = array(
 			array(
@@ -66,7 +66,7 @@ class Admin_fields extends Admin_Controller {
 	 * @access 	public
 	 * @return 	void
 	 */
-	function create()
+	public function create()
 	{
 		$extra['title'] 		= lang('streams.new_field');
 		$extra['show_cancel'] 	= true;
@@ -83,7 +83,7 @@ class Admin_fields extends Admin_Controller {
 	 * @access 	public
 	 * @return 	void
 	 */
-	function delete()
+	public function delete()
 	{
 		if ( ! $assign_id = $this->uri->segment(5))
 		{
@@ -111,7 +111,7 @@ class Admin_fields extends Admin_Controller {
 	 * @access 	public
 	 * @return 	void
 	 */
-	function edit()
+	public function edit()
 	{
 		if ( ! $assign_id = $this->uri->segment(5))
 		{

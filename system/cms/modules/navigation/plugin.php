@@ -140,14 +140,14 @@ class Plugin_Navigation extends Plugin
 			}
 
 			// is this the link to the page that we're on?
-			if (preg_match('@^'.current_url().'/?$@', $link['url']) OR ($link['link_type'] == 'page' AND $link['is_home']) AND site_url() == current_url())
+			if (preg_match('@^'.current_url().'/?$@', $link['url']) or ($link['link_type'] == 'page' and $link['is_home']) and site_url() == current_url())
 			{
 				$current_link = $link['url'];
 				$wrapper['class'][] = $current_class;
 			}
 
 			// is the link we're currently working with found inside the children html?
-			if ( ! in_array($current_class, $wrapper['class']) AND 
+			if ( ! in_array($current_class, $wrapper['class']) and 
 				isset($wrapper['children']) AND 
 				$current_link AND 
 				((is_array($wrapper['children']) AND in_array($current_link, $wrapper['children'])) OR 

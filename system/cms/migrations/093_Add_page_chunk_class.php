@@ -4,7 +4,7 @@ class Migration_Add_page_chunk_class extends CI_Migration
 {
 	public function up()
 	{
-		// Make NULL false
+		// Make null false
 		$this->dbforge->modify_column('page_chunks', array(
 			'slug' => array('type' => 'VARCHAR', 'constraint' => 255, 'null' => false),
 		));

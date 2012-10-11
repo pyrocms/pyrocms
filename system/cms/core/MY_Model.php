@@ -49,14 +49,14 @@ class MY_Model extends CI_Model
      * Optionally skip the validation. Used in conjunction with
      * skip_validation() to skip data validation for any future calls.
      */
-    protected $skip_validation = FALSE;
+    protected $skip_validation = false;
 
     /**
      * By default we return our results as objects. If we need to override
      * this, we can, or, we could use the `as_array()` and `as_object()` scopes.
      */
     protected $return_type = 'object';
-    protected $_temporary_return_type = NULL;
+    protected $_temporary_return_type = null;
 
     /* --------------------------------------------------------------
      * GENERIC METHODS
@@ -162,11 +162,11 @@ class MY_Model extends CI_Model
      * Insert a new row into the table. $data should be an associative array
      * of data to be inserted. Returns newly created ID.
      */
-    public function insert($data, $skip_validation = FALSE)
+    public function insert($data, $skip_validation = false)
     {
-        $valid = TRUE;
+        $valid = true;
 
-        if ($skip_validation === FALSE)
+        if ($skip_validation === false)
         {
             $valid = $this->_run_validation($data);
         }
@@ -184,14 +184,14 @@ class MY_Model extends CI_Model
         } 
         else
         {
-            return FALSE;
+            return false;
         }
     }
 
     /**
      * Insert multiple rows into the table. Returns an array of multiple IDs.
      */
-    public function insert_many($data, $skip_validation = FALSE)
+    public function insert_many($data, $skip_validation = false)
     {
         $ids = array();
 
@@ -206,13 +206,13 @@ class MY_Model extends CI_Model
     /**
      * Updated a record based on the primary value.
      */
-    public function update($primary_value, $data, $skip_validation = FALSE)
+    public function update($primary_value, $data, $skip_validation = false)
     {
-        $valid = TRUE;
+        $valid = true;
 
         $data = $this->_run_before_callbacks('update', array( $data, $primary_value ));
 
-        if ($skip_validation === FALSE)
+        if ($skip_validation === false)
         {
             $valid = $this->_run_validation($data);
         }
@@ -228,20 +228,20 @@ class MY_Model extends CI_Model
         }
         else
         {
-            return FALSE;
+            return false;
         }
     }
 
     /**
      * Update many records, based on an array of primary values.
      */
-    public function update_many($primary_values, $data, $skip_validation = FALSE)
+    public function update_many($primary_values, $data, $skip_validation = false)
     {
-        $valid = TRUE;
+        $valid = true;
 
         $data = $this->_run_before_callbacks('update', array( $data, $primary_values ));
 
-        if ($skip_validation === FALSE)
+        if ($skip_validation === false)
         {
             $valid = $this->_run_validation($data);
         }
@@ -257,7 +257,7 @@ class MY_Model extends CI_Model
         }
         else
         {
-            return FALSE;
+            return false;
         }
     }
 
@@ -282,7 +282,7 @@ class MY_Model extends CI_Model
         }
         else
         {
-            return FALSE;
+            return false;
         }
     }
 
@@ -347,7 +347,7 @@ class MY_Model extends CI_Model
     /**
      * Retrieve and generate a form_dropdown friendly array
      */
-    function dropdown()
+    public function dropdown()
     {
         $args = func_get_args();
 
@@ -402,7 +402,7 @@ class MY_Model extends CI_Model
      */
     public function skip_validation()
     {
-        $this->skip_validation = TRUE;
+        $this->skip_validation = true;
         return $this;
     }
 
@@ -498,7 +498,7 @@ class MY_Model extends CI_Model
     private function _run_before_callbacks($type, $params = array())
     {
         $name = 'before_' . $type;
-        $data = (isset($params[0])) ? $params[0] : FALSE;
+        $data = (isset($params[0])) ? $params[0] : false;
 
         if (!empty($this->$name))
         {
@@ -518,7 +518,7 @@ class MY_Model extends CI_Model
     private function _run_after_callbacks($type, $params = array())
     {
         $name = 'after_' . $type;
-        $data = (isset($params[0])) ? $params[0] : FALSE;
+        $data = (isset($params[0])) ? $params[0] : false;
 
         if (!empty($this->$name))
         {
@@ -538,7 +538,7 @@ class MY_Model extends CI_Model
     {
         if($this->skip_validation)
         {
-            return TRUE;
+            return true;
         }
 
         if(!empty($this->validate))
@@ -563,7 +563,7 @@ class MY_Model extends CI_Model
         }
         else
         {
-            return TRUE;
+            return true;
         }
     }
 
@@ -572,7 +572,7 @@ class MY_Model extends CI_Model
      */
     private function _fetch_table()
     {
-        if ($this->_table == NULL)
+        if ($this->_table == null)
         {
             $this->_table = plural(preg_replace('/(_m|_model)?$/', '', strtolower(get_class($this))));
         }
@@ -596,7 +596,7 @@ class MY_Model extends CI_Model
     /**
      * Return the method name for the current return type
      */
-    private function _return_type($multi = FALSE)
+    private function _return_type($multi = false)
     {
         $method = ($multi) ? 'result' : 'row';
         return $this->_temporary_return_type == 'array' ? $method . '_array' : $method;

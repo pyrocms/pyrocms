@@ -86,13 +86,13 @@ class Plugin_Files extends Plugin
 			))
 		{
 			$ids = array_merge(array((int) $folder->id), array_keys($subfolders));
-			$this->db->select('files.*, file_folders.id as file_id, file_folders.location')
+			$this->db->select('files.*, files.id as file_id, file_folders.location')
 				->join('file_folders', 'file_folders.id = files.folder_id')
 				->where_in('folder_id', $ids);
 		}
 		else
 		{
-			$this->db->select('files.*, file_folders.id as file_id, file_folders.location')
+			$this->db->select('files.*, files.id as file_id, file_folders.location')
 				->join('file_folders', 'file_folders.id = files.folder_id')
 				->where('folder_id', $folder->id);
 		}
@@ -135,7 +135,7 @@ class Plugin_Files extends Plugin
 		}
 
 		// file not found
-		if ( ! $file OR ($type && $file->type !== $type))
+		if ( ! $file or ($type && $file->type !== $type))
 		{
 			return '';
 		}
@@ -150,7 +150,7 @@ class Plugin_Files extends Plugin
 		{
 			if ($size = $this->attribute('size', ''))
 			{
-				strpos($size, 'x') === FALSE AND $size .= 'x';
+				strpos($size, 'x') === false AND $size .= 'x';
 
 				list($width, $height) = explode('/', strtr($size, 'x', '/'));
 			}
@@ -175,7 +175,7 @@ class Plugin_Files extends Plugin
 				$dimension = trim($width . '/' . $height . '/' . $mode, '/');
 			}
 
-			if ($file->location === 'local' AND $dimension)
+			if ($file->location === 'local' and $dimension)
 			{
 				$uri = sprintf('files/thumb/%s/%s', $file->filename, $dimension);
 			}
@@ -210,7 +210,7 @@ class Plugin_Files extends Plugin
 
 		foreach (array('base', 'size', 'id', 'title', 'type', 'mode', 'width', 'height') as $key)
 		{
-			if (isset($attributes[$key]) && ($type !== 'i' OR ! in_array($key, array('width', 'height'))))
+			if (isset($attributes[$key]) && ($type !== 'i' or ! in_array($key, array('width', 'height'))))
 			{
 				unset($attributes[$key]);
 			}
@@ -230,14 +230,14 @@ class Plugin_Files extends Plugin
 		{
 			$this->load->helper('html');
 
-			if (strpos($size, 'x') !== FALSE && ! isset($attributes['width'], $attributes['height']))
+			if (strpos($size, 'x') !== false && ! isset($attributes['width'], $attributes['height']))
 			{
 				list($attributes['width'], $attributes['height']) = explode('x', $size);
 			}
 
 			return $this->{'_build_tag_location_' . $base}($type, $uri, array(
 				'attributes' => $attributes,
-				'index_page' => TRUE
+				'index_page' => true
 			));
 		}
 
@@ -276,7 +276,7 @@ class Plugin_Files extends Plugin
 	{
 		$id = $this->attribute('id');
 
-		$exists = (bool) (isset($this->_files[$id]) ? TRUE : $this->file_m->exists($id));
+		$exists = (bool) (isset($this->_files[$id]) ? true : $this->file_m->exists($id));
 
 		return $exists && $this->content() ? $this->content() : $exists;
 	}

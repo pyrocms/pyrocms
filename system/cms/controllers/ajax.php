@@ -21,7 +21,7 @@ class Ajax extends MY_Controller
     {
         $this->load->helper('text');
 
-        $slug = trim(url_title($this->input->post('title'), 'dash', TRUE), '-');
+        $slug = trim(url_title($this->input->post('title'), 'dash', true), '-');
 
         $this->output->set_output($slug);
     }
