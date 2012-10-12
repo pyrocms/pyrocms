@@ -91,6 +91,11 @@ class Field_datetime
 		// required validation.
 		// -------------------------------
 
+		if ( ! isset($field->field_data['input_type']))
+		{
+			$field->field_data['input_type'] = 'dropdown';
+		}
+
 		if ($field->field_data['input_type'] == 'dropdown' and $required)
 		{
 			// Are all three fields available?
