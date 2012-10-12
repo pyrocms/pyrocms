@@ -609,6 +609,11 @@ nav#shortcuts ul li a:hover
   	opacity: 0.8;
 }
 
+.title h4 .button
+{
+	margin-top: -5px;
+}
+
 .item
 {
 	background: #ffffff;
