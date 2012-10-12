@@ -16,14 +16,64 @@ class File_m extends MY_Model {
 	 *
 	 * Checks if a given file exists.
 	 * 
-	 * @author	Eric Barnes <eric@pyrocms.com>
-	 * @access	public
 	 * @param	int		The file id
 	 * @return	bool	If the file exists
 	 */
 	public function exists($file_id)
 	{
 		return (bool) (parent::count_by(array('id' => $file_id)) > 0);
+	}
+
+	// ------------------------------------------------------------------------
+
+	/**
+	 * Tagged
+	 *
+	 * Selects files with any of the specified tags
+	 * 
+	 * @param	array|string	The tags to search by
+	 * @return	array	
+	 */
+	public function get_tagged($tags)
+	{
+		$return_files = array();
+		$hashes = array();
+
+		// while not as nice as straight queries this allows devs to select
+		// files using their own complex where clauses and we then filter from there.
+		$files = $this->get_all();
+
+		if (is_string($tags))
+		{
+			$tags = array_map('trim', explode('|', $tags));
+		}
+
+		$this->db->select('keywords_applied.hash')
+			->join('keywords_applied', 'keywords.id = keywords_applied.keyword_id');
+
+		foreach ($tags as $tag)
+		{
+			$this->db->or_where('name', $tag);
+		}
+
+		$keywords = $this->db->get('keywords')
+			->result();
+
+		foreach ($keywords as $keyword)
+		{
+			$hashes[] = $keyword->hash;
+		}
+
+		// select the files
+		foreach ($files as $file)
+		{
+			if (in_array($file->keywords, $hashes))
+			{
+				$return_files[] = $file;
+			}
+		}
+
+		return $return_files;
 	}
 }
 

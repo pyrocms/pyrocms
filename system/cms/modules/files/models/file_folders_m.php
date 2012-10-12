@@ -74,7 +74,7 @@ class File_folders_m extends MY_Model {
 		}
 
 		$folders = $this
-			->order_by('name')
+			->order_by('file_folders.name')
 			->get_many_by(array('parent_id' => $parent_id));
 
 		if ( ! $folders)
