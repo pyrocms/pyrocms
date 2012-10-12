@@ -11,16 +11,14 @@
  */
 class Field_keywords
 {
-	public $field_type_slug				= 'keywords';
-
-	public $db_col_type					= 'varchar';
-
-	public $version						= '1.0';
-	
-	public $author						= array('name'=>'Osvaldo Brignoni', 'url'=>'http://obrignoni.com');
+	public $field_type_slug    = 'keywords';
+	public $db_col_type        = 'varchar';
+	public $version            = '1.1';
+	public $author             = array('name'=>'Osvaldo Brignoni', 'url'=>'http://obrignoni.com');
+	public $custom_parameters  = array('return_type');
 
 	// --------------------------------------------------------------------------
-	
+
 	public function __construct()
 	{
 		$this->CI =& get_instance();
@@ -46,13 +44,13 @@ class Field_keywords
 	}
 
 	public function event($field)
-	{  	
+	{
 		$this->CI->template->append_css('jquery/jquery.tagsinput.css');
 		$this->CI->template->append_js('jquery/jquery.tagsinput.js');
 		$this->CI->type->add_js('keywords', 'keywords.js');
 		$this->CI->type->add_misc(
 			'<script type="text/javascript">
-				$(document).ready(function(){pyro.field_tags_input("'.$field->field_slug.'");});
+				jQuery(document).ready(function(){pyro.field_tags_input("'.$field->field_slug.'");});
 			</script>'
 		);
 	}
@@ -63,8 +61,40 @@ class Field_keywords
 		return Keywords::process($input);
 	}
 
-	public function pre_output($input)
+
+	public function pre_output($input, $data)
 	{
+		// if we want an array, format it correctly
+		if ($data['return_type'] === 'array') {
+			$keyword_array = Keywords::get_array($input);
+			$keywords = array();
+			$total = count($keyword_array);
+
+			foreach ($keyword_array as $key => $value) {
+				$keywords[] = array(
+					'count' => $key,
+					'total' => $total,
+					'is_first' => $key == 0,
+					'is_last' => $key == ($total - 1),
+					'keyword' => $value
+				);
+			}
+
+			return $keywords;
+		}
+
+		// otherwise return it as a string
 		return Keywords::get_string($input);
+	}
+
+
+	public function param_return_type($value = 'array') {
+		return array(
+			'instructions' => $this->CI->lang->line('streams.keywords.return_type.instructions'),
+			'input' =>
+				'<label>' . form_radio('return_type', 'array', $value == 'array') . ' Array </label><br/>'
+				// String gets set as default for backwards compat
+				.'<label>' . form_radio('return_type', 'string', $value !== 'array') . ' String </label> '
+		);
 	}
 }
