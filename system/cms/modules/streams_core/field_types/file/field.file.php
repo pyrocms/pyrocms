@@ -17,7 +17,7 @@ class Field_file
 
 	public $custom_parameters		= array('folder', 'allowed_types');
 
-	public $version					= '1.0';
+	public $version					= '1.1';
 
 	public $author					= array('name'=>'Parse19', 'url'=>'http://parse19.com');
 	
