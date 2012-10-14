@@ -163,7 +163,7 @@ class Comments
 			// Override specified website if they are a user
 			if ($comment->user_id and Settings::get('enable_profiles'))
 			{
-				$comment->website = 'user/'.$comment->username;
+				$comment->website = 'user/'.$comment->user_name;
 			}
 
 			// We only want to load a lang file once
