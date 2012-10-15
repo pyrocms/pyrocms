@@ -20,22 +20,9 @@
 			else
 			{
 
-				// Switch for the normal ones
-				switch ( $stream_fields->{$filter}->field_type )
-				{
-
-					// Text type fields
-					case 'text':
-					case 'textarea':
-					case 'email':
-					case 'choice';
-					case 'wysiwyg':
-						echo '<label>'.$stream_fields->{$filter}->field_name.':&nbsp;</label>';
-						echo form_input('f_'.$stream_fields->{$filter}->field_slug, isset($filter_data['filters']['f_'.$stream_fields->{$filter}->field_slug]) ? $filter_data['filters']['f_'.$stream_fields->{$filter}->field_slug] : '');
-						break;
-
-					default: break;
-				}
+				// Normal text filtering
+				echo '<label>'.$stream_fields->{$filter}->field_name.':&nbsp;</label>';
+				echo form_input('f_'.$stream_fields->{$filter}->field_slug, isset($filter_data['filters']['f_'.$stream_fields->{$filter}->field_slug]) ? $filter_data['filters']['f_'.$stream_fields->{$filter}->field_slug] : '');
 			}
 
 		?>
