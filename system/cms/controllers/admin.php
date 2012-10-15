@@ -29,8 +29,16 @@ class Admin extends Admin_Controller
 
 		if (is_dir('./installer'))
 		{
-			$this->template
-				->set('messages', array('notice' => lang('cp_delete_installer_message')));
+			$this->load->helper('file');			
+			if(delete_files('./installer', TRUE))
+			{
+				rmdir('./installer');
+			}
+			else 
+			{
+				$this->template
+					->set('messages', array('notice' => lang('cp_delete_installer_message')));
+			}
 		}
 
 		$this->template
