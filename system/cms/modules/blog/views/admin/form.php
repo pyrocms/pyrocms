@@ -19,34 +19,43 @@
 	
 	<!-- Content tab -->
 	<div class="form_inputs" id="blog-content-tab">
-		
-		<fieldset>
+		<hr style="margin-top:0;">
 	
 		<ul>
 			<li>
-				<label for="title"><?php echo lang('global:title'); ?> <span>*</span></label>
-				<div class="input"><?php echo form_input('title', htmlspecialchars_decode($post->title), 'maxlength="100" id="title"'); ?></div>				
+				<div class="input">
+					<label for="title"><?php echo lang('global:title'); ?></label>
+					<?php echo form_input('title', htmlspecialchars_decode($post->title), 'maxlength="100" id="title"'); ?>
+					<span class="req"><?php echo lang('required_error_label'); ?></span>
+				</div>				
 			</li>
 			
 			<li>
-				<label for="slug"><?php echo lang('global:slug'); ?> <span>*</span></label>
-				<div class="input"><?php echo form_input('slug', $post->slug, 'maxlength="100" class="width-20"'); ?></div>
+				<div class="input">
+					<label for="slug"><?php echo lang('global:slug'); ?></label>
+					<?php echo form_input('slug', $post->slug, 'maxlength="100" class="width-20"'); ?>
+					<span class="req"><?php echo lang('required_error_label'); ?></span>
+				</div>
 			</li>
 			
 			<li>
 				<label for="status"><?php echo lang('blog:status_label'); ?></label>
 				<div class="input"><?php echo form_dropdown('status', array('draft' => lang('blog:draft_label'), 'live' => lang('blog:live_label')), $post->status) ?></div>
 			</li>
+
+			<hr>
 			
 			<li>
 				<label for="intro"><?php echo lang('blog:intro_label'); ?></label>
-				<br style="clear: both;" />
-				<?php echo form_textarea(array('id' => 'intro', 'name' => 'intro', 'value' => $post->intro, 'rows' => 5, 'class' => 'blog wysiwyg-simple')); ?>
+				<div class="one_full">
+					<?php echo form_textarea(array('id' => 'intro', 'name' => 'intro', 'value' => $post->intro, 'rows' => 5, 'class' => 'blog wysiwyg-simple')); ?>
+				</div>
 			</li>
+
+			<hr>
 			
 			<li class="editor">
-				<label for="body"><?php echo lang('blog:content_label'); ?></label>
-				
+				<label for="body"><?php echo lang('blog:content_label'); ?></label><br>
 				<div class="input">
 					<?php echo form_dropdown('type', array(
 						'html' => 'html',
@@ -56,21 +65,18 @@
 					), $post->type); ?>
 				</div>
 				
-				<br style="clear:both"/>
-				
-				<?php echo form_textarea(array('id' => 'body', 'name' => 'body', 'value' => $post->body, 'rows' => 30, 'class' => $post->type)); ?>
-				
+				<div class="one_full">
+					<?php echo form_textarea(array('id' => 'body', 'name' => 'body', 'value' => $post->body, 'rows' => 30, 'class' => $post->type)); ?>
+				</div>
 			</li>
 		</ul>
         <?php echo form_hidden('preview_hash',$post->preview_hash)?>
-		</fieldset>
 		
 	</div>
 
 	<!-- Options tab -->
 	<div class="form_inputs" id="blog-options-tab">
-	
-		<fieldset>
+		<hr style="margin-top:0;">
 		
 		<ul>
 			<li>
@@ -99,11 +105,19 @@
 			
 			<li>
 				<label for="comments_enabled"><?php echo lang('blog:comments_enabled_label');?></label>
-				<div class="input"><?php echo form_checkbox('comments_enabled', 1, ($this->method == 'create' && ! $_POST) or $post->comments_enabled == 1, 'id="comments_enabled"'); ?></div>
+				<div class="input">
+					<?php echo form_dropdown('comments_enabled', array(
+						'no' => lang('global:no'),
+						'1 day' => lang('global:duration:1-day'),
+						'1 week' => lang('global:duration:1-week'),
+						'2 weeks' => lang('global:duration:2-weeks'),
+						'1 month' => lang('global:duration:1-month'),
+						'3 months' => lang('global:duration:3-months'),
+						'always' => lang('global:duration:always'),
+					), $post->comments_enabled ? $post->comments_enabled : '3 months'); ?>
+				</div>
 			</li>
 		</ul>
-
-		</fieldset>
 		
 	</div>
 
@@ -118,7 +132,7 @@
 </section>
 
 <style type="text/css">
-form.crudli.date-meta div.selector {
+form.crud li.date-meta div.selector {
     float: left;
     width: 30px;
 }

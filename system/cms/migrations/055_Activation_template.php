@@ -2,7 +2,7 @@
 
 class Migration_Activation_template extends CI_Migration {
 
-	function up()
+	public function up()
 	{
 		$this->db->delete('email_templates', array('slug' => 'activation'));
 		$this->db->insert('email_templates', array(
@@ -22,7 +22,7 @@ class Migration_Activation_template extends CI_Migration {
 		));
 	}
 
-	function down()
+	public function down()
 	{
 		$this->db->delete('email_templates', array('slug' => 'activation'));
 	}

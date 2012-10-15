@@ -8,8 +8,8 @@ $lang['blog:posted_label']				= 'Escrito';
 $lang['blog:posted_label_alt']			= 'Escrito em';
 $lang['blog:written_by_label']			= 'Por';
 $lang['blog:author_unknown']			= 'Desconhecido';
-$lang['blog:keywords_label']				= 'Keywords'; #translate
-$lang['blog:tagged_label']					= 'Tagged'; #translate
+$lang['blog:keywords_label']			= 'Keywords'; #translate
+$lang['blog:tagged_label']				= 'Tagged'; #translate
 $lang['blog:category_label']			= 'Categoria';
 $lang['blog:post_label'] 				= 'Artigo';
 $lang['blog:date_label'] 				= 'Data';
@@ -44,6 +44,7 @@ $lang['blog:blog_title']				= 'Blog';
 $lang['blog:list_title']				= 'Listar artigos';
 
 // messages
+$lang['blog:disabled_after'] 			= 'Posting comments after %s has been disabled.'; #translate
 $lang['blog:no_posts']					= 'Nenhum artigo.';
 $lang['blog:subscripe_to_rss_desc']		= 'Fique por dentro das novidades do blog assinando nosso feed RSS. Você pode fazer isto pelos mais populares leitores de e-mail ou pode experimentar o <a rel="nofollow" href="http://reader.google.com/">Google Reader</a>.';
 $lang['blog:currently_no_posts']		= 'Não existem artigos no momento.';

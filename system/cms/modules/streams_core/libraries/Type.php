@@ -128,7 +128,7 @@ class Type
 		foreach ($types_files as $type)
 		{
 			// Is this a directory w/ a field type?
-			if (is_dir($addon_path.$type) AND is_file($addon_path.$type.'/field.'.$type.'.php'))
+			if (is_dir($addon_path.$type) and is_file($addon_path.$type.'/field.'.$type.'.php'))
 			{
 				$this->types->$type = $this->_load_type($addon_path, 
 									$addon_path.$type.'/field.'.$type.'.php',
@@ -204,7 +204,7 @@ class Type
 			// Fallback on English
 			if ( ! is_dir($path.$type.'/language/'.$lang)) $lang = 'english';
 
-			$this->CI->lang->load($type, $lang, false, true, $path.$type.'/');
+			$this->CI->lang->load($type.'_lang', $lang, false, false, $path.$type.'/');
 			
 			unset($lang);
 		}

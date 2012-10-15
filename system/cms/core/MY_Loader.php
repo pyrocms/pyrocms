@@ -5,7 +5,9 @@ require APPPATH."libraries/MX/Loader.php";
 /**
  * This is the loader class used throughout PyroCMS.
  *
- * @package PyroCMS\Core\Libraries
+ * @author      PyroCMS Dev Team
+ * @copyright   Copyright (c) 2012, PyroCMS LLC
+ * @package 	PyroCMS\Core\Libraries
  */
 class MY_Loader extends MX_Loader
 {
@@ -41,7 +43,7 @@ class MY_Loader extends MX_Loader
 		else
 		{
 			// otherwise we'll just add the specified one
-			$this->_ci_view_paths = array($path => TRUE);
+			$this->_ci_view_paths = array($path => true);
 		}
 	}
 
@@ -72,7 +74,7 @@ class MY_Loader extends MX_Loader
 	 *
 	 * @return \MY_Loader
 	 */
-	function initialize()
+	public function initialize()
 	{
 		parent::initialize();
 
@@ -175,23 +177,23 @@ class MY_Loader extends MX_Loader
 	 *
 	 * @return void
 	 */
-	protected function ci_autoloader($basepath = NULL)
+	protected function ci_autoloader($basepath = null)
 	{
-		$autoload_path = (($basepath !== NULL) ? $basepath : APPPATH).'config/autoload'.EXT;
+		$autoload_path = (($basepath !== null) ? $basepath : APPPATH).'config/autoload'.EXT;
 
 		if ( ! file_exists($autoload_path))
 		{
-			return FALSE;
+			return false;
 		}
 
 		include($autoload_path);
 
 		if ( ! isset($autoload))
 		{
-			return FALSE;
+			return false;
 		}
 
-		if ($basepath !== NULL)
+		if ($basepath !== null)
 		{
 			// Autoload packages
 			if (isset($autoload['packages']))
@@ -212,7 +214,7 @@ class MY_Loader extends MX_Loader
 			}
 		}
 
-		if ($basepath !== NULL)
+		if ($basepath !== null)
 		{
 			if (isset($autoload['config']))
 			{
@@ -230,7 +232,7 @@ class MY_Loader extends MX_Loader
 			// Autoload helpers and languages
 			foreach (array('helper', 'language') as $type)
 			{
-				if (isset($autoload[$type]) AND count($autoload[$type]) > 0)
+				if (isset($autoload[$type]) and count($autoload[$type]) > 0)
 				{
 					$this->$type($autoload[$type]);
 				}
@@ -238,13 +240,13 @@ class MY_Loader extends MX_Loader
 
 			// A little tweak to remain backward compatible
 			// The $autoload['core'] item was deprecated
-			if ( ! isset($autoload['libraries']) AND isset($autoload['core']))
+			if ( ! isset($autoload['libraries']) and isset($autoload['core']))
 			{
 				$autoload['libraries'] = $autoload['core'];
 			}
 
 			// Load libraries
-			if (isset($autoload['libraries']) AND count($autoload['libraries']) > 0)
+			if (isset($autoload['libraries']) and count($autoload['libraries']) > 0)
 			{
 				// Load the database driver.
 				if (in_array('database', $autoload['libraries']))

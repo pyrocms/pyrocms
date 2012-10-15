@@ -636,7 +636,7 @@ class Row_m extends MY_Model {
 		}
 		else
 		{
-			(isset($this->sql['join'])) ? $join = implode(' ', $this->sql['join']) : $join = NULL;
+			(isset($this->sql['join'])) ? $join = implode(' ', $this->sql['join']) : $join = null;
 		}
 
 		// -------------------------------------
@@ -649,7 +649,7 @@ class Row_m extends MY_Model {
 		}
 		else
 		{
-			(isset($this->sql['where'])) ? $where = implode(' AND ', $this->sql['where']) : $where = NULL;
+			(isset($this->sql['where'])) ? $where = implode(' AND ', $this->sql['where']) : $where = null;
 		}
 
 		if ($where != '')
@@ -670,7 +670,7 @@ class Row_m extends MY_Model {
 		}
 		else
 		{
-			(isset($this->sql['order_by'])) ? $order_by = implode(', ', $this->sql['order_by']) : $order_by = NULL;
+			(isset($this->sql['order_by'])) ? $order_by = implode(', ', $this->sql['order_by']) : $order_by = null;
 		}
 
 		if ($order_by)
@@ -688,7 +688,7 @@ class Row_m extends MY_Model {
 		}
 		else
 		{
-			(isset($this->sql['misc'])) ? $misc = implode(' ', $this->sql['misc']) : $misc = NULL;
+			(isset($this->sql['misc'])) ? $misc = implode(' ', $this->sql['misc']) : $misc = null;
 		}
 
 		// -------------------------------------
@@ -915,12 +915,12 @@ class Row_m extends MY_Model {
 				if ($return_object)
 				{
 					$row->$row_slug = $this->format_column($row_slug,
-						$row->$row_slug, $row->id, $all_fields[$row_slug]['field_type'], $all_fields[$row_slug]['field_data'], $stream, $plugin_call);
+						$row->$row_slug, $row->id, $stream_fields->$row_slug->field_type, $stream_fields->$row_slug->field_data, $stream, $plugin_call);
 				}
 				else
 				{
 					$row[$row_slug] = $this->format_column($row_slug,
-						$row[$row_slug], $row['id'], $all_fields[$row_slug]['field_type'], $all_fields[$row_slug]['field_data'], $stream, $plugin_call);
+						$row[$row_slug], $row['id'], $stream_fields->$row_slug->field_type, $stream_fields->$row_slug->field_data, $stream, $plugin_call);
 				}
 			}
 		}		
@@ -1072,9 +1072,12 @@ class Row_m extends MY_Model {
 		$update_data['updated'] = date('Y-m-d H:i:s');
 		
 		// -------------------------------------
-		// Insert data
+		// Update data
 		// -------------------------------------
 		
+		// Is there any logic to complete before updating?
+		if ( Events::trigger('streams_pre_update_entry', array('stream' => $stream, 'entry_id' => $row_id, 'update_data' => $update_data)) === false ) return false;
+
 		$this->db->where('id', $row_id);
 		
 		if ( ! $this->db->update($stream->stream_prefix.$stream->stream_slug, $update_data))
@@ -1089,7 +1092,8 @@ class Row_m extends MY_Model {
 
 			$trigger_data = array(
 				'entry_id'		=> $row_id,
-				'stream'		=> $stream
+				'stream'		=> $stream,
+				'update_data'		=> $update_data,
 			);
 
 			Events::trigger('streams_post_update_entry', $trigger_data);
@@ -1312,7 +1316,10 @@ class Row_m extends MY_Model {
 		// -------------------------------------
 		// Insert data
 		// -------------------------------------
-		
+
+		// Is there any logic to complete before inserting?
+		if ( Events::trigger('streams_pre_insert_entry', array('stream' => $stream, 'insert_data' => $insert_data)) === false ) return false;
+
 		if ( ! $this->db->insert($stream->stream_prefix.$stream->stream_slug, $insert_data))
 		{
 			return false;

@@ -1,6 +1,6 @@
 <ul class="primary-nav">
 	
-	<li id="dashboard-link"><?php echo anchor('admin', lang('global:dashboard'), 'class="btn orange' . (!$this->module > '' ? ' current' : '').'"');?></li>
+	<li id="home"><?php echo anchor('admin', Asset::img('home.png', 'Home'), (!$this->module > '' ? 'class="current' : '').'"');?></li>
 	
 		<?php
 		foreach ($menu_items as $menu_item)
@@ -10,7 +10,7 @@
 			//Let's see how many menu items they have access to
 			if ($this->current_user->group == 'admin')
 			{
-				$count = count($modules[$menu_item]);
+				$count = isset($modules[$menu_item]) ? count($modules[$menu_item]) : 0;
 			}
 			else
 			{
@@ -38,7 +38,7 @@
 				{
 					echo '<li>';
 
-					$name = lang('cp_nav_'.$menu_item)!=''&&lang('cp_nav_'.$menu_item)!=NULL ? lang('cp_nav_'.$menu_item) : $menu_item;
+					$name = lang('cp_nav_'.$menu_item)!=''&&lang('cp_nav_'.$menu_item)!=null ? lang('cp_nav_'.$menu_item) : $menu_item;
 					$current = (($this->module_details && $this->module_details['menu'] == $menu_item) or $menu_item == $this->module);
 					$class = $current ? "top-link current" : "top-link";
 					echo anchor(current_url() . '#', $name, array('class' => $class));
@@ -47,13 +47,13 @@
 					
 				// User has access to Users module only, no other users item
 				} 
-				elseif ($count == 1 AND $menu_item == 'users')
+				elseif ($count == 1 and $menu_item == 'users')
 				{
 					echo '<li>' . anchor('admin/users', lang('cp_manage_users'), array('class' => $this->module == 'users' ? 'top-link no-submenu  current' : 'top-link no-submenu ')) . '</li>';
 				}
 				
 				// Not a big fan of the following hack, if a module needs two navigation links, we should be able to define that
-				if ( (array_key_exists('users', $this->permissions) OR $this->current_user->group == 'admin') AND $menu_item == 'users' AND $count != 1)
+				if ( (array_key_exists('users', $this->permissions) or $this->current_user->group == 'admin') and $menu_item == 'users' and $count != 1)
 				{
 					echo '<li>' . anchor('admin/users', lang('cp_manage_users'), 'class="' . (($this->module == 'users') ? ' current"' : '"')) . '</li>';
 				} 
@@ -68,7 +68,7 @@
 						
 					foreach ($modules[$menu_item] as $module)
 					{
-						if (lang('cp_nav_'.$module['slug'])!=''&&lang('cp_nav_'.$module['slug'])!=NULL)
+						if (lang('cp_nav_'.$module['slug'])!=''&&lang('cp_nav_'.$module['slug'])!=null)
 						{
 							$module['name'] = lang('cp_nav_'.$module['slug']);
 						}
@@ -76,7 +76,7 @@
 						$class = $current ? "current " : "";
 						$class .= $count <= 1 ? "top-link no-submenu " : "";
 						
-						if (array_key_exists($module['slug'], $this->permissions) OR $this->current_user->group == 'admin')
+						if (array_key_exists($module['slug'], $this->permissions) or $this->current_user->group == 'admin')
 						{
 							echo '<li>' . anchor('admin/'.$module['slug'], $module['name'], array('class'=>$class)) . '</li>';
 						}
@@ -93,33 +93,18 @@
 		}
 		?>
 
-		<?php if (array_key_exists('settings', $this->permissions) OR $this->current_user->group == 'admin'): ?>
-			<li><?php echo anchor('admin/settings', lang('cp_nav_settings'), 'class="top-link no-submenu' . (($this->module == 'settings') ? ' current"' : '"'));?></li>
+		<?php if (array_key_exists('settings', $this->permissions) or $this->current_user->group == 'admin'): ?>
+			<li><?php echo anchor('admin/settings', lang('cp_nav_settings'), 'class="top-link' . (($this->module == 'settings') ? ' current"' : '"'));?></li>
 		<?php endif; ?>
 
-		<?php if (array_key_exists('modules', $this->permissions) OR $this->current_user->group == 'admin'): ?>
-			<li><?php echo anchor('admin/modules', lang('cp_nav_addons'), 'class="top-link no-submenu' . (($this->module == 'modules') ? ' current"' : '"'));?></li>
+		<?php if (array_key_exists('modules', $this->permissions) or $this->current_user->group == 'admin'): ?>
+			<li><?php echo anchor('admin/addons', lang('cp_nav_addons'), 'class="top-link' . (($this->module == 'addons') ? ' current"' : '"'));?></li>
 		<?php endif; ?>
-		
-		<?php
-		/* Do we really need to greet people?
-		<li id="user-greeting"><a href="#"><?php echo sprintf(lang('cp_logged_in_welcome'), $user->display_name); ?></a></li>
-		*/
-		?>
-			
-		<li>
-			<a href="<?php echo current_url().'#'; ?>"><?php echo lang('global:profile'); ?></a>
-			<ul>
-				<li><?php if ($this->settings->enable_profiles) echo anchor('edit-profile', lang('cp_edit_profile_label')) ?></li>
-				<li><?php echo anchor('', lang('cp_view_frontend'), 'target="_blank"'); ?></li>
-				<li><?php echo anchor('admin/logout', lang('cp_logout_label')); ?></li>
 				
-				<?php if($module_details['slug']): ?>
-					<li id="help-link">
-						<?php echo anchor('admin/help/'.$module_details['slug'], lang('help_label'), array('title' => lang('help_label').'->'.$module_details['name'], 'class' => 'modal')); ?>
-					</li>
-				<?php endif; ?>
-			</ul>
-		</li>
+        <?php if($module_details['slug']): ?>
+            <li id="help-link">
+                <?php echo anchor('admin/help/'.$module_details['slug'], lang('help_label'), array('title' => lang('help_label').'->'.$module_details['name'], 'class' => 'modal')); ?>
+            </li>
+        <?php endif; ?>
 
 	</ul>

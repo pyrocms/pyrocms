@@ -4,6 +4,7 @@
  * The basic Ajax controller class.
  * 
  * @author      PyroCMS Dev Team
+ * @copyright   Copyright (c) 2012, PyroCMS LLC
  * @package     PyroCMS\Core\Controllers
  */
 class Ajax extends MY_Controller
@@ -20,7 +21,7 @@ class Ajax extends MY_Controller
     {
         $this->load->helper('text');
 
-        $slug = trim(url_title($this->input->post('title'), 'dash', TRUE), '-');
+        $slug = trim(url_title($this->input->post('title'), 'dash', true), '-');
 
         $this->output->set_output($slug);
     }

@@ -22,12 +22,12 @@ class Admin extends Admin_Controller
 		'title' => array(
 			'field' => 'title',
 			'label' => 'lang:global:title',
-			'rules' => 'trim|htmlspecialchars|required|max_length[100]|callback__check_title'
+			'rules' => 'trim|htmlspecialchars|required|max_length[200]|callback__check_title'
 		),
 		'slug' => array(
 			'field' => 'slug',
 			'label' => 'lang:global:slug',
-			'rules' => 'trim|required|alpha_dot_dash|max_length[100]|callback__check_slug'
+			'rules' => 'trim|required|alpha_dot_dash|max_length[200]|callback__check_slug'
 		),
 		array(
 			'field' => 'category_id',
@@ -76,7 +76,7 @@ class Admin extends Admin_Controller
         array(
 			'field' => 'comments_enabled',
 			'label'	=> 'lang:blog:comments_enabled_label',
-			'rules'	=> 'trim|numeric'
+			'rules'	=> 'trim|required'
 		),
         array(
             'field' => 'preview_hash',
@@ -122,7 +122,7 @@ class Admin extends Admin_Controller
 	public function index()
 	{
 		//set the base/default where clause
-		$base_where = array('show_future' => TRUE, 'status' => 'all');
+		$base_where = array('show_future' => true, 'status' => 'all');
 
 		//add post values to base_where if f_module is posted
 		if ($this->input->post('f_category')) 	$base_where['category'] = $this->input->post('f_category');
@@ -137,7 +137,7 @@ class Admin extends Admin_Controller
 		$blog = $this->blog_m->limit($pagination['limit'])->get_many_by($base_where);
 
 		//do we need to unset the layout because the request is ajax?
-		$this->input->is_ajax_request() and $this->template->set_layout(FALSE);
+		$this->input->is_ajax_request() and $this->template->set_layout(false);
 
 		$this->template
 			->title($this->module_details['name'])
@@ -159,6 +159,8 @@ class Admin extends Admin_Controller
 	 */
 	public function create()
 	{
+		$post = new stdClass();
+
 		$this->form_validation->set_rules($this->validation_rules);
 
 		if ($this->input->post('created_on'))
@@ -234,7 +236,7 @@ class Admin extends Admin_Controller
 
 		$this->template
 			->title($this->module_details['name'], lang('blog:create_title'))
-			->append_metadata($this->load->view('fragments/wysiwyg', $this->data, TRUE))
+			->append_metadata($this->load->view('fragments/wysiwyg', $this->data, true))
 			->append_js('jquery/jquery.tagsinput.js')
 			->append_js('module::blog_form.js')
 			->append_css('jquery/jquery.tagsinput.css')
@@ -354,7 +356,7 @@ class Admin extends Admin_Controller
 		
 		$this->template
 			->title($this->module_details['name'], sprintf(lang('blog:edit_title'), $post->title))
-			->append_metadata($this->load->view('fragments/wysiwyg', array(), TRUE))
+			->append_metadata($this->load->view('fragments/wysiwyg', array(), true))
 			->append_js('jquery/jquery.tagsinput.js')
 			->append_js('module::blog_form.js')
 			->append_css('jquery/jquery.tagsinput.css')
@@ -463,7 +465,7 @@ class Admin extends Admin_Controller
 	 */
 	public function delete($id = 0)
 	{
-		$this->load->model('comments/comments_m');
+		$this->load->model('comments/comment_m');
 
 		role_or_die('blog', 'delete_live');
 
@@ -482,7 +484,7 @@ class Admin extends Admin_Controller
 				{
 					if ($this->blog_m->delete($id))
 					{
-						$this->comments_m->where('module', 'blog')->delete_by('module_id', $id);
+						$this->comment_m->where('module', 'blog')->delete_by('module_id', $id);
 
 						// Wipe cache for this model, the content has changed
 						$this->pyrocache->delete('blog_m');
@@ -543,10 +545,14 @@ class Admin extends Admin_Controller
 		return $this->blog_m->check_exists('slug', $slug, $id);
 	}
 
+	/**
+	 * Generate a preview hash
+	 * 
+	 * @param string slug The Slug to check
+	 * @return bool
+	 */
     private function _preview_hash()
     {
-
         return md5(microtime() + mt_rand(0,1000));
-
     }
 }

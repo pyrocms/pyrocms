@@ -41,15 +41,25 @@ class Users extends Public_Controller
 	}
 
 	/**
-	 * View a user profile based on the ID
+	 * View a user profile based on the username
 	 *
-	 * @param int|string $id The Username or ID of the user
+	 * @param string $username The Username or ID of the user
 	 */
-	public function view($id = null)
+	public function view($username = null)
 	{
-		$user = ($this->current_user && $id == $this->current_user->id) ? $this->current_user : $this->ion_auth->get_user($id);
+		// Don't make a 2nd db call if the user profile is the same as the logged in user
+		if ($this->current_user && $username === $this->current_user->username)
+		{
+			$user = $this->current_user;
+		}
 
-		// No user? Show a 404 error. Easy way for now, instead should show a custom error message
+		// Fine, just grab the user from the DB
+		else
+		{
+			$user = $this->ion_auth->get_user($username);
+		}
+
+		// No user? Show a 404 error
 		$user or show_404();
 
 		$this->template->build('profile/view', array(
@@ -68,7 +78,7 @@ class Users extends Public_Controller
 			: $this->session->userdata('redirect_to');
 
 		// Any idea where we are heading after login?
-		if ( ! $_POST AND $args = func_get_args())
+		if ( ! $_POST and $args = func_get_args())
 		{
 			$this->session->set_userdata('redirect_to', $redirect_to = implode('/', $args));
 		}
@@ -82,12 +92,12 @@ class Users extends Public_Controller
 		$validation = array(
 			array(
 				'field' => 'email',
-				'label' => lang('user_email_label'),
+				'label' => lang('global:email'),
 				'rules' => 'required|trim|callback__check_login'
 			),
 			array(
 				'field' => 'password',
-				'label' => lang('user_password_label'),
+				'label' => lang('global:password'),
 				'rules' => 'required|min_length['.$this->config->item('min_password_length', 'ion_auth').']|max_length['.$this->config->item('max_password_length', 'ion_auth').']'
 			),
 		);
@@ -100,9 +110,6 @@ class Users extends Public_Controller
 		{
 			// Kill the session
 			$this->session->unset_userdata('redirect_to');
-
-			// Deprecated.
-			$this->hooks->_call_hook('post_user_login');
 
 			// trigger a post login event for third party devs
 			Events::trigger('post_user_login');
@@ -121,7 +128,7 @@ class Users extends Public_Controller
 			}
 
 			// Don't allow protocols or cheeky requests
-			if (strpos($redirect_to, ':') !== FALSE and strpos($redirect_to, site_url()) !== 0)
+			if (strpos($redirect_to, ':') !== false and strpos($redirect_to, site_url()) !== 0)
 			{
 				// Just login to the homepage
 				redirect('');
@@ -172,6 +179,8 @@ class Users extends Public_Controller
 	 */
 	public function register()
 	{
+		$user = new stdClass();
+
 		if (isset($this->current_user->id))
 		{
 			$this->session->set_flashdata('notice', lang('user_already_logged_in'));
@@ -191,12 +200,12 @@ class Users extends Public_Controller
 		$validation = array(
 			array(
 				'field' => 'password',
-				'label' => lang('user_password'),
+				'label' => lang('global:password'),
 				'rules' => 'required|min_length['.$this->config->item('min_password_length', 'ion_auth').']|max_length['.$this->config->item('max_password_length', 'ion_auth').']'
 			),
 			array(
 				'field' => 'email',
-				'label' => lang('user_email'),
+				'label' => lang('global:email'),
 				'rules' => 'required|max_length[60]|valid_email|callback__email_check',
 			),
 			array(
@@ -430,7 +439,7 @@ class Users extends Public_Controller
 	 *
 	 * @return void
 	 */
-	public function activate($id = 0, $code = NULL)
+	public function activate($id = 0, $code = null)
 	{
 		// Get info from email
 		if ($this->input->post('email'))
@@ -442,15 +451,12 @@ class Users extends Public_Controller
 		$code = ($this->input->post('activation_code')) ? $this->input->post('activation_code') : $code;
 
 		// If user has supplied both bits of information
-		if ($id AND $code)
+		if ($id and $code)
 		{
 			// Try to activate this user
 			if ($this->ion_auth->activate($id, $code))
 			{
 				$this->session->set_flashdata('activated_email', $this->ion_auth->messages());
-
-				// Deprecated
-				$this->hooks->_call_hook('post_user_activation');
 
 				// trigger an event for third party devs
 				Events::trigger('post_user_activation', $id);
@@ -494,7 +500,7 @@ class Users extends Public_Controller
 	 *
 	 * @param bool $code
 	 */
-	public function reset_pass($code = FALSE)
+	public function reset_pass($code = null)
 	{
 		$this->template->title(lang('user_reset_password_title'));
 
@@ -503,19 +509,19 @@ class Users extends Public_Controller
 			show_error(lang('global:demo_restrictions'));
 		}
 
-		//if user is logged in they don't need to be here. and should use profile options
+		//if user is logged in they don't need to be here
 		if ($this->current_user)
 		{
 			$this->session->set_flashdata('error', lang('user_already_logged_in'));
-			redirect('my-profile');
+			redirect('');
 		}
 
-		if ($this->input->post('btnSubmit'))
+		if ($this->input->post('email'))
 		{
 			$uname = (string) $this->input->post('user_name');
 			$email = (string) $this->input->post('email');
 
-			if ( ! $uname AND ! $email)
+			if ( ! $uname and ! $email)
 			{
 				// they submitted with an empty form, abort
 				$this->template->set('error_string', $this->ion_auth->errors())
@@ -524,7 +530,7 @@ class Users extends Public_Controller
 
 			if ( ! ($user_meta = $this->ion_auth->get_user_by_email($email)))
 			{
-				$user_meta = $this->ion_auth->get_user_by_username($uname);
+				$user_meta = $this->ion_auth->get_user_by_username($email);
 			}
 
 			// have we found a user?
@@ -597,7 +603,7 @@ class Users extends Public_Controller
 	 */
 	public function edit($id = 0)
 	{
-		if ($this->current_user AND $this->current_user->group === 'admin' AND $id > 0)
+		if ($this->current_user and $this->current_user->group === 'admin' and $id > 0)
 		{
 			$user = $this->user_m->get(array('id' => $id));
 
@@ -700,7 +706,7 @@ class Users extends Public_Controller
 
 			$profile_data = $secure_post;
 
-			if ($this->ion_auth->update_user($user->id, $user_data, $profile_data) !== FALSE)
+			if ($this->ion_auth->update_user($user->id, $user_data, $profile_data) !== false)
 			{
 				Events::trigger('post_user_update');
 				$this->session->set_flashdata('success', $this->ion_auth->messages());

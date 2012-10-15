@@ -4,7 +4,7 @@
 
 <section class="item">
 	<?php if ($groups): ?>
-		<table class="table-list">
+		<table class="table-list" cellspacing="0">
 			<thead>
 				<tr>
 					<th width="40%"><?php echo lang('groups.name');?></th>

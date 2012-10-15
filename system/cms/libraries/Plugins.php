@@ -9,6 +9,7 @@
 abstract class Plugin
 {
 	private $attributes = array();
+
 	private $content = array();
 
 	/**
@@ -22,7 +23,24 @@ abstract class Plugin
 	public function set_data($content, $attributes)
 	{
 		$content AND $this->content = $content;
-		$attributes AND $this->attributes = $attributes;
+
+		if ($attributes)
+		{
+			// Let's get parse_params first since it
+			// dictates how we handle all tags
+			if ( ! isset($attributes['parse_params'])) $attributes['parse_params'] = 'yes';
+
+			// For each attribute, let's see if we need to parse it.
+			foreach ($attributes as $key => $attr)
+			{
+				if ($attributes['parse_params'] == 'yes')
+				{
+					$attributes[$key] = $this->parse_parameter($attr);
+				}
+			}
+		
+			$this->attributes = $attributes;
+		}
 	}
 
 	/**
@@ -65,9 +83,34 @@ abstract class Plugin
 	 *
 	 * @return mixed The value.
 	 */
-	public function attribute($param, $default = NULL)
+	public function attribute($param, $default = null)
 	{
 		return isset($this->attributes[$param]) ? $this->attributes[$param] : $default;
+	}
+
+	/**
+	 * Parse special variables in an attribute
+	 *
+	 * @param string $value The value of the attribute.
+	 *
+	 * @return string The value.
+	 */
+	public function parse_parameter($value)
+	{
+		// Parse for variables. Before we do anything crazy,
+		// let's check for a bracket.
+		if (strpos($value, '[') !== false)
+		{
+			// Change our [[ ]] to {{ }}. Sneaky.
+			$value = str_replace(array('[', ']'), array('{', '}'), $value);
+
+			$parser = new Lex_Parser();
+			$parser->scope_glue(':');
+
+			return $parser->parse($value, array(), array($this->parser, 'parser_callback'));
+		}
+
+		return $value;
 	}
 
 	/**
@@ -98,7 +141,7 @@ abstract class Plugin
 		// add this view location to the array
 		$this->load->set_view_path($path);
 
-		$content = $this->load->_ci_load(array('_ci_view' => $view, '_ci_vars' => ((array)$vars), '_ci_return' => TRUE));
+		$content = $this->load->_ci_load(array('_ci_view' => $view, '_ci_vars' => ((array)$vars), '_ci_return' => true));
 
 		// Put the old array back
 		$this->load->set_view_path($save_path);
@@ -118,9 +161,9 @@ class Plugins
 
 	public function locate($plugin, $attributes, $content)
 	{
-		if (strpos($plugin, ':') === FALSE)
+		if (strpos($plugin, ':') === false)
 		{
-			return FALSE;
+			return false;
 		}
 		// Setup our paths from the data array
 		list($class, $method) = explode(':', $plugin);
@@ -192,7 +235,7 @@ class Plugins
 		if ( ! class_exists($class_name))
 		{
 			//throw new Exception('Plugin "' . $class_name . '" does not exist.');
-			//return FALSE;
+			//return false;
 
 			log_message('error', 'Plugin class "'.$class_name.'" does not exist.');
 
@@ -211,7 +254,7 @@ class Plugins
 			}
 
 			//throw new Exception('Method "' . $method . '" does not exist in plugin "' . $class_name . '".');
-			//return FALSE;
+			//return false;
 
 			log_message('error', 'Plugin method "'.$method.'" does not exist on class "'.$class_name.'".');
 

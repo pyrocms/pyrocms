@@ -32,7 +32,7 @@ class Module_Templates extends Module {
 				'hu' => 'E-mail sablonok',
 				'fi' => 'Sähköposti viestipohjat',
 				'th' => 'แม่แบบอีเมล',
-                                'se' => 'E-postmallar'
+				'se' => 'E-postmallar',
 			),
 			'description' => array(
 				'en' => 'Create, edit, and save dynamic email templates',
@@ -53,18 +53,17 @@ class Module_Templates extends Module {
                 'hu' => 'Csináld, szerkeszd és mentsd el a dinamikus e-mail sablonokat',
 				'fi' => 'Lisää, muokkaa ja tallenna dynaamisia sähköposti viestipohjia.',
 				'th' => 'การสร้างแก้ไขและบันทึกแม่แบบอีเมลแบบไดนามิก',
-                                'se' => 'Skapa, redigera och spara dynamiska E-postmallar.'
+				'se' => 'Skapa, redigera och spara dynamiska E-postmallar.',
 			),
 			'frontend' => false,
 			'backend' => true,
-			'menu' => 'design',
-			'author' => 'Stephen Cozart',
+			'menu' => 'structure',
 			'skip_xss' => true,
 			'shortcuts' => array(
 				array(
 				    'name' => 'templates.create_title',
 				    'uri' => 'admin/templates/create',
-				    'class' => 'add'
+				    'class' => 'add',
 				),
 		    ),
 		);
@@ -198,18 +197,18 @@ class Module_Templates extends Module {
 			'module' => 'users'
 		));
 
-		return TRUE;
+		return true;
 	}
 
 	public function uninstall()
 	{
 		// This is a core module, lets keep it around.
-		return FALSE;
+		return false;
 	}
 
 	public function upgrade($old_version)
 	{
-		return TRUE;
+		return true;
 	}
 
 }

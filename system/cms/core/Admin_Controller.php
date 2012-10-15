@@ -5,6 +5,7 @@
  * 
  * Code here is run before admin controllers
  * 
+ * @copyright   Copyright (c) 2012, PyroCMS LLC
  * @package PyroCMS\Core\Controllers
  */
 class Admin_Controller extends MY_Controller {
@@ -14,7 +15,7 @@ class Admin_Controller extends MY_Controller {
 	 *
 	 * @var string 
 	 */
-	protected $section = NULL;
+	protected $section = null;
 
 	/**
 	 * Load language, check flashdata, define https, load and setup the data 
@@ -59,7 +60,7 @@ class Admin_Controller extends MY_Controller {
 		Asset::set_path('theme');
 		
 		// grab the theme options if there are any
-		ci()->theme_options = $this->pyrocache->model('theme_m', 'get_values_by', array(array('theme' => ADMIN_THEME) ));
+		ci()->theme_options = $this->pyrocache->model('theme_m', 'get_values_by', array(array('theme' => ADMIN_THEME)));
 	
 		// Active Admin Section (might be null, but who cares)
 		$this->template->active_section = $this->section;
@@ -68,7 +69,7 @@ class Admin_Controller extends MY_Controller {
 		
 		// Template configuration
 		$this->template
-			->enable_parser(FALSE)
+			->enable_parser(false)
 			->set('theme_options', $this->theme_options)
 			->set_theme(ADMIN_THEME)
 			->set_layout('default', 'admin');
@@ -94,7 +95,7 @@ class Admin_Controller extends MY_Controller {
 		// Dont need to log in, this is an open page
 		if (in_array($current_page, $ignored_pages))
 		{
-			return TRUE;
+			return true;
 		}
 
 		if ( ! $this->current_user)
@@ -107,7 +108,7 @@ class Admin_Controller extends MY_Controller {
 		// Admins can go straight in
 		if ($this->current_user->group === 'admin')
 		{
-			return TRUE;
+			return true;
 		}
 
 		// Well they at least better have permissions!
@@ -116,7 +117,7 @@ class Admin_Controller extends MY_Controller {
 			// We are looking at the index page. Show it if they have ANY admin access at all
 			if ($current_page == 'admin/index' && $this->permissions)
 			{
-				return TRUE;
+				return true;
 			}
 
 			// Check if the current user can view that page
@@ -124,7 +125,7 @@ class Admin_Controller extends MY_Controller {
 		}
 
 		// god knows what this is... erm...
-		return FALSE;
+		return false;
 	}
 
 }

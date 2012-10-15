@@ -3,8 +3,8 @@
 /**
  * PyroCMS Admin Theme Helpers
  *
- * @author		Jerel Unruh
- * @author		PyroCMS Dev Team
+ * @author      PyroCMS Dev Team
+ * @copyright   Copyright (c) 2012, PyroCMS LLC
  * @package		PyroCMS\Core\Modules\Theme\Helpers
  */
 
@@ -25,7 +25,7 @@ function file_partial($file = '', $ext = 'php')
 
 	echo $CI->load->_ci_load(array(
 		'_ci_path' => $data['template_views'].'partials/'.$file.'.'.$ext,
-		'_ci_return' => TRUE
+		'_ci_return' => true
 	));
 }
 
@@ -51,7 +51,7 @@ function template_partial($name = '')
  */
 function accented_characters()
 {
-	if (defined('ENVIRONMENT') AND is_file(APPPATH.'config/'.ENVIRONMENT.'/foreign_chars.php'))
+	if (defined('ENVIRONMENT') and is_file(APPPATH.'config/'.ENVIRONMENT.'/foreign_chars.php'))
 	{
 		include(APPPATH.'config/'.ENVIRONMENT.'/foreign_chars.php');
 	}

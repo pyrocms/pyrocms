@@ -5,11 +5,11 @@ class Migration_Install_newsletters extends CI_Migration {
 	public function up()
 	{
 		// Nothing to see here... move along... move along...
-		return TRUE;
+		return true;
 	}
 
 	public function down()
 	{
-		return TRUE;
+		return true;
 	}
 }

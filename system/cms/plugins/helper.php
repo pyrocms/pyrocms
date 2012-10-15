@@ -16,7 +16,7 @@ class Plugin_Helper extends Plugin
 	 *
 	 * @var boolean
 	 */
-	static $_counter_increment = TRUE;
+	static $_counter_increment = true;
 
 	/**
 	 * Data
@@ -184,7 +184,7 @@ class Plugin_Helper extends Plugin
 	 */
 	public function show_count()
 	{
-		self::$_counter_increment = FALSE;
+		self::$_counter_increment = false;
 
 		return self::count();
 	}

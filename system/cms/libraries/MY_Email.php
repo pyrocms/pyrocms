@@ -1,20 +1,20 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 /**
- * MY_Email - Allows for email config settings to be stored in the db.
+ * MY_Email
+ * Allows for email config settings to be stored in the db.
  *
- * @author      Stephen Cozart
- * @author		PyroCMS Dev Team
  * @package 	PyroCMS\Core\Libraries
+ * @author      PyroCMS Dev Team
+ * @copyright   Copyright (c) 2012, PyroCMS LLC
  */
 class MY_Email extends CI_Email {
 
     /**
      * Constructor method
-     *
      * 
      * @return void
      */
-    function __construct($config = array())
+    public function __construct($config = array())
     {
         parent::__construct($config);
 
@@ -24,8 +24,8 @@ class MY_Email extends CI_Email {
         //set a few config items (duh)
         $config['mailtype']	= "html";
         $config['charset']	= "utf-8";
-        $config['crlf']		= "\r\n";
-        $config['newline']	= "\r\n";
+        $config['crlf']		= PHP_EOL;
+        $config['newline']	= PHP_EOL;
 
         //sendmail options
         if (Settings::get('mail_protocol') == 'sendmail')

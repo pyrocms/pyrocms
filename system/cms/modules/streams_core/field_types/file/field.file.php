@@ -182,7 +182,7 @@ class Field_file
 		if ($file)
 		{					
 			$file_data['filename']		= $file->name;
-			$file_data['file']			= base_url().'files/download/'.$input;
+			$file_data['file']			= site_url('files/download/'.$input);
 			$file_data['ext']			= $file->extension;
 			$file_data['mimetype']		= $file->mimetype;
 		}

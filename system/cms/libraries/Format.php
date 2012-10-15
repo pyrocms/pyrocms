@@ -30,8 +30,9 @@ class Format
 	/**
 	 * Returns an instance of the Format object.
 	 *
-	 *     echo $this->format->factory(array('foo' => 'bar'))->to_xml();
-	 *
+	 * <code>
+	 * echo $this->format->factory(array('foo' => 'bar'))->to_xml();
+	 * </code>
 	 * @param mixed $data General date to be converted.
 	 * @param string $from_type Data format the file was provided in.
 	 * @return \Format 
@@ -80,10 +81,10 @@ class Format
 	 * @param mixed $data
 	 * @return array 
 	 */
-	public function to_array($data = NULL)
+	public function to_array($data = null)
 	{
 		// If not just null, but nothing is provided
-		if ($data === NULL and !func_num_args())
+		if ($data === null and !func_num_args())
 		{
 			$data = $this->_data;
 		}
@@ -135,7 +136,7 @@ class Format
 		}
 
 		// Force it to be something useful
-		if (!is_array($data) AND !is_object($data))
+		if (!is_array($data) and !is_object($data))
 		{
 			$data = (array) $data;
 		}
@@ -265,7 +266,7 @@ class Format
 	 */
 	public function to_php()
 	{
-		return var_export($this->_data, TRUE);
+		return var_export($this->_data, true);
 	}
 
 	/**

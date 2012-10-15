@@ -37,8 +37,8 @@ class Admin_instances extends Admin_Controller {
 
 	/**
 	 * Constructor method
-	 * @access	public
-	 * @return	void
+	 * @access    public
+	 * @return \Admin_instances
 	 */
 	public function __construct()
 	{
@@ -47,7 +47,7 @@ class Admin_instances extends Admin_Controller {
 		$this->load->library('widgets');
 		$this->lang->load('widgets');
 
-		$this->input->is_ajax_request() AND $this->template->set_layout(FALSE);
+		$this->input->is_ajax_request() AND $this->template->set_layout(false);
 
 		$this->template
 			->set_partial('shortcuts', 'admin/partials/shortcuts')
@@ -61,7 +61,7 @@ class Admin_instances extends Admin_Controller {
 	 * @param str $slug The slug of the widget
 	 * @return void
 	 */
-	public function index()
+	public function index($slug = '')
 	{
 		$widgets = $this->widgets->list_area_instances($slug);
 
@@ -73,17 +73,12 @@ class Admin_instances extends Admin_Controller {
 	 * 
 	 * @return void
 	 */
-	/**
-	 * Add a new widget instance
-	 * 
-	 * @return void
-	 */
 	public function create($slug = '')
 	{
 		if ( ! ($slug && $widget = $this->widgets->get_widget($slug)))
 		{
 			// @todo: set error
-			return FALSE;
+			return false;
 		}
 
 		$data = array();
@@ -119,12 +114,12 @@ class Admin_instances extends Admin_Controller {
 				$data = array();
 
 				$status === 'success' AND $data['messages'][$status] = $message;
-				$message = $this->load->view('admin/partials/notices', $data, TRUE);
+				$message = $this->load->view('admin/partials/notices', $data, true);
 
 				return $this->template->build_json(array(
 					'status'	=> $status,
 					'message'	=> $message,
-					'active'	=> (isset($area) && $area ? '#area-' . $area->slug . ' header' : FALSE)
+					'active'	=> (isset($area) && $area ? '#area-' . $area->slug . ' header' : false)
 				));
 			}
 
@@ -149,17 +144,12 @@ class Admin_instances extends Admin_Controller {
 	 * 
 	 * @return void
 	 */
-	/**
-	 * Edit a widget instance
-	 * 
-	 * @return void
-	 */
 	public function edit($id = 0)
 	{
 		if ( ! ($id && $widget = $this->widgets->get_instance($id)))
 		{
 			// @todo: set error
-			return FALSE;
+			return false;
 		}
 
 		$data = array();
@@ -196,12 +186,12 @@ class Admin_instances extends Admin_Controller {
 				$data = array();
 
 				$status === 'success' AND $data['messages'][$status] = $message;
-				$message = $this->load->view('admin/partials/notices', $data, TRUE);
+				$message = $this->load->view('admin/partials/notices', $data, true);
 
 				return $this->template->build_json(array(
 					'status'	=> $status,
 					'message'	=> $message,
-					'active'	=> (isset($area) && $area ? '#area-' . $area->slug . ' header' : FALSE)
+					'active'	=> (isset($area) && $area ? '#area-' . $area->slug . ' header' : false)
 				));
 			}
 
@@ -252,7 +242,7 @@ class Admin_instances extends Admin_Controller {
 			$data = array();
 
 			$data['messages'][$status] = $message;
-			$message = $this->load->view('admin/partials/notices', $data, TRUE);
+			$message = $this->load->view('admin/partials/notices', $data, true);
 
 			return $this->template->build_json(array(
 				'status'	=> $status,
