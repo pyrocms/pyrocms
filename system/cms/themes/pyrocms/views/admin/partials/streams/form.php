@@ -6,7 +6,7 @@
 
 	<?php foreach( $fields as $field ) { ?>
 
-		<li>
+		<li class="<?php echo in_array($field['input_slug'], $hidden) ? 'hidden' : null; ?>">
 			<label for="<?php echo $field['input_slug'];?>"><?php echo $this->fields->translate_label($field['input_title']);?> <?php echo $field['required'];?>
 			
 			<?php if( $field['instructions'] != '' ): ?>

@@ -179,7 +179,9 @@ class Admin_layouts extends Admin_Controller
 			
 			Events::trigger('page_layout_updated', $id);
 
-			redirect('admin/pages/layouts');
+			$this->input->post('btnAction') == 'save_exit'
+				? redirect('admin/pages/layouts')
+				: redirect('admin/pages/layouts/edit/'.$id);
 		}
 
 		// Loop through each validation rule

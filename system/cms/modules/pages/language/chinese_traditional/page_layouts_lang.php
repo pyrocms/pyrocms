@@ -6,7 +6,7 @@ $lang['page_layouts.css_label'] 					= 'CSS';
 
 // labels
 $lang['page_layouts.updated_label'] 				= '已更新';
-$lang['page_layouts.theme_layout_label'] 			= '主題佈局';
+$lang['page_layouts:theme_layout_label'] 			= '主題佈局';
 
 // titles
 $lang['page_layouts.list_title'] 					= '頁面佈局列表';
