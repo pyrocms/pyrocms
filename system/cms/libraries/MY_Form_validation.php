@@ -1,5 +1,13 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed.');
-
+/**
+ * MY_Form_validation
+ * 
+ * Extending the Form Validation class to add extra rules and model validation
+ *
+ * @package 	PyroCMS\Core\Libraries
+ * @author      PyroCMS Dev Team
+ * @copyright   Copyright (c) 2012, PyroCMS LLC
+ */
 class MY_Form_validation extends CI_Form_validation
 {
 	/**
@@ -7,7 +15,7 @@ class MY_Form_validation extends CI_Form_validation
 	 */
 	private $_model;
 
-	function __construct($rules = array())
+	public function __construct($rules = array())
 	{
 		parent::__construct($rules);
 		$this->CI->load->language('extra_validation');
@@ -18,13 +26,12 @@ class MY_Form_validation extends CI_Form_validation
 	/**
 	 * Alpha-numeric with underscores dots and dashes
 	 *
-	 * @access	public
 	 * @param	string
 	 * @return	bool
 	 */
-	function alpha_dot_dash($str)
+	public function alpha_dot_dash($str)
 	{
-		return ( ! preg_match("/^([-a-z0-9_\-\.])+$/i", $str)) ? FALSE : TRUE;
+		return preg_match("/^([-a-z0-9_\-\.])+$/i", $str);
 	}
 
 	// --------------------------------------------------------------------
@@ -33,11 +40,10 @@ class MY_Form_validation extends CI_Form_validation
 	 * Sneaky function to get field data from
 	 * the form validation library
 	 *
-	 * @access	public
 	 * @param	string
 	 * @return	bool
 	 */
-	function field_data($field)
+	public function field_data($field)
 	{
 		return (isset($this->_field_data[$field])) ? $this->_field_data[$field] : null;
 	}
@@ -46,14 +52,11 @@ class MY_Form_validation extends CI_Form_validation
 	/**
 	 * Formats an UTF-8 string and removes potential harmful characters
 	 *
-	 * @access	public
 	 * @param	string
 	 * @return	string
-	 * @author	Jeroen v.d. Gulik
-	 * @since	v1.0-beta1
 	 * @todo	Find decent regex to check utf-8 strings for harmful characters
 	 */
-	function utf8($str)
+	public function utf8($str)
 	{
 		// If they don't have mbstring enabled (suckers) then we'll have to do with what we got
 		if ( ! function_exists('mb_convert_encoding'))
@@ -71,7 +74,6 @@ class MY_Form_validation extends CI_Form_validation
 	/**
 	 * Sets the model to be used for validation callbacks. It's set dynamically in MY_Model
 	 *
-	 * @access	private
 	 * @param	string	The model class name
 	 * @return	void
 	 */
@@ -88,7 +90,6 @@ class MY_Form_validation extends CI_Form_validation
 	/**
 	 * Format an error in the set error delimiters
 	 *
-	 * @access 	public
 	 * @param	string
 	 * @return	void
 	 */
@@ -102,7 +103,6 @@ class MY_Form_validation extends CI_Form_validation
 	/**
 	 * Valid URL
 	 *
-	 * @access 	public
 	 * @param	string
 	 * @return	void
 	 */
@@ -127,14 +127,13 @@ class MY_Form_validation extends CI_Form_validation
 	 * Modified to work with HMVC -- Phil Sturgeon
 	 * Modified to work with callbacks in the calling model -- Jerel Unruh
 	 *
-	 * @access	private
 	 * @param	array
 	 * @param	array
 	 * @param	mixed
 	 * @param	integer
 	 * @return	mixed
 	 */
-	protected function _execute($row, $rules, $postdata = NULL, $cycles = 0)
+	protected function _execute($row, $rules, $postdata = null, $cycles = 0)
 	{
 		// If the $_POST data is an array we will run a recursive call
 		if (is_array($postdata))
@@ -151,13 +150,13 @@ class MY_Form_validation extends CI_Form_validation
 		// --------------------------------------------------------------------
 
 		// If the field is blank, but NOT required, no further tests are necessary
-		$callback = FALSE;
-		if ( ! in_array('required', $rules) AND is_null($postdata))
+		$callback = false;
+		if ( ! in_array('required', $rules) and is_null($postdata))
 		{
 			// Before we bail out, does the rule contain a callback?
 			if (preg_match("/(callback_\w+(\[.*?\])?)/", implode(' ', $rules), $match))
 			{
-				$callback = TRUE;
+				$callback = true;
 				$rules = (array('1' => $match[1]));
 			}
 			else
@@ -169,16 +168,16 @@ class MY_Form_validation extends CI_Form_validation
 		// --------------------------------------------------------------------
 
 		// Isset Test. Typically this rule will only apply to checkboxes.
-		if (is_null($postdata) AND $callback == FALSE)
+		if (is_null($postdata) and $callback == false)
 		{
-			if (in_array('isset', $rules, TRUE) OR in_array('required', $rules))
+			if (in_array('isset', $rules, true) or in_array('required', $rules))
 			{
 				// Set the message type
 				$type = (in_array('required', $rules)) ? 'required' : 'isset';
 
 				if ( ! isset($this->_error_messages[$type]))
 				{
-					if (FALSE === ($line = $this->CI->lang->line($type)))
+					if (false === ($line = $this->CI->lang->line($type)))
 					{
 						$line = 'The field was not set';
 					}
@@ -208,11 +207,11 @@ class MY_Form_validation extends CI_Form_validation
 		// Cycle through each rule and run it
 		foreach ($rules As $rule)
 		{
-			$_in_array = FALSE;
+			$_in_array = false;
 
 			// We set the $postdata variable with the current data in our master array so that
 			// each cycle of the loop is dealing with the processed data from the last cycle
-			if ($row['is_array'] == TRUE AND is_array($this->_field_data[$row['field']]['postdata']))
+			if ($row['is_array'] == true and is_array($this->_field_data[$row['field']]['postdata']))
 			{
 				// We shouldn't need this safety, but just in case there isn't an array index
 				// associated with this cycle we'll bail out
@@ -222,7 +221,7 @@ class MY_Form_validation extends CI_Form_validation
 				}
 
 				$postdata = $this->_field_data[$row['field']]['postdata'][$cycles];
-				$_in_array = TRUE;
+				$_in_array = true;
 			}
 			else
 			{
@@ -232,16 +231,16 @@ class MY_Form_validation extends CI_Form_validation
 			// --------------------------------------------------------------------
 
 			// Is the rule a callback?
-			$callback = FALSE;
+			$callback = false;
 			if (substr($rule, 0, 9) == 'callback_')
 			{
 				$rule = substr($rule, 9);
-				$callback = TRUE;
+				$callback = true;
 			}
 
 			// Strip the parameter (if exists) from the rule
 			// Rules can contain a parameter: max_length[5]
-			$param = FALSE;
+			$param = false;
 			if (preg_match("/(.*?)\[(.*)\]/", $rule, $match))
 			{
 				$rule	= $match[1];
@@ -249,7 +248,7 @@ class MY_Form_validation extends CI_Form_validation
 			}
 
 			// Call the function that corresponds to the rule
-			if ($callback === TRUE)
+			if ($callback === true)
 			{
 				// first check in the controller scope
 				if (method_exists(CI::$APP->controller, $rule))
@@ -275,7 +274,7 @@ class MY_Form_validation extends CI_Form_validation
 				}
 
 				// Re-assign the result to the master data array
-				if ($_in_array == TRUE)
+				if ($_in_array == true)
 				{
 					$this->_field_data[$row['field']]['postdata'][$cycles] = (is_bool($result)) ? $postdata : $result;
 				}
@@ -285,7 +284,7 @@ class MY_Form_validation extends CI_Form_validation
 				}
 
 				// If the field isn't required and we just processed a callback we'll move on...
-				if ( ! in_array('required', $rules, TRUE) AND $result !== FALSE)
+				if ( ! in_array('required', $rules, true) and $result !== false)
 				{
 					continue;
 				}
@@ -300,7 +299,7 @@ class MY_Form_validation extends CI_Form_validation
 					{
 						$result = $rule($postdata);
 
-						if ($_in_array == TRUE)
+						if ($_in_array == true)
 						{
 							$this->_field_data[$row['field']]['postdata'][$cycles] = (is_bool($result)) ? $postdata : $result;
 						}
@@ -319,7 +318,7 @@ class MY_Form_validation extends CI_Form_validation
 
 				$result = $this->$rule($postdata, $param);
 
-				if ($_in_array == TRUE)
+				if ($_in_array == true)
 				{
 					$this->_field_data[$row['field']]['postdata'][$cycles] = (is_bool($result)) ? $postdata : $result;
 				}
@@ -330,11 +329,11 @@ class MY_Form_validation extends CI_Form_validation
 			}
 
 			// Did the rule test negatively?  If so, grab the error.
-			if ($result === FALSE)
+			if ($result === false)
 			{
 				if ( ! isset($this->_error_messages[$rule]))
 				{
-					if (FALSE === ($line = $this->CI->lang->line($rule)))
+					if (false === ($line = $this->CI->lang->line($rule)))
 					{
 						$line = 'Unable to access an error message corresponding to your field name.'.$rule;
 					}
@@ -346,7 +345,7 @@ class MY_Form_validation extends CI_Form_validation
 
 				// Is the parameter we are inserting into the error message the name
 				// of another field?  If so we need to grab its "field label"
-				if (isset($this->_field_data[$param]) AND isset($this->_field_data[$param]['label']))
+				if (isset($this->_field_data[$param]) and isset($this->_field_data[$param]['label']))
 				{
 					$param = $this->_translate_fieldname($this->_field_data[$param]['label']);
 				}
@@ -375,11 +374,10 @@ class MY_Form_validation extends CI_Form_validation
 	 * Used for streams but can be used in other
 	 * recaptcha situations.
 	 *
-	 * @access	public
 	 * @param	string
 	 * @return	bool
 	 */
-	function check_recaptcha($val)
+	public function check_recaptcha($val)
 	{
 		if ($this->CI->recaptcha->check_answer(
 						$this->CI->input->ip_address(),
@@ -405,7 +403,6 @@ class MY_Form_validation extends CI_Form_validation
 	 *
 	 * Used by streams_core.
 	 *
-	 * @access	public
 	 * @param	string
 	 * @param	string
 	 * @param	obj
@@ -443,9 +440,9 @@ class MY_Form_validation extends CI_Form_validation
 		$stream = $this->CI->streams_m->get_stream($stream_id);
 			
 		$obj = $this->CI->db
-					->select('id')
-					->where(trim($column), trim($string))
-					->get($stream->stream_prefix.$stream->stream_slug);
+			->select('id')
+			->where(trim($column), trim($string))
+			->get($stream->stream_prefix.$stream->stream_slug);
 		
 		// If this is new, we just need to make sure the
 		// value doesn't exist already.
@@ -507,7 +504,6 @@ class MY_Form_validation extends CI_Form_validation
 	 * Used by streams as conduit to call custom
 	 * callback functions.
 	 *
-	 * @access	public
 	 * @param	string
 	 * @param	string
 	 * @return	bool
@@ -555,7 +551,6 @@ class MY_Form_validation extends CI_Form_validation
 	 *
 	 * Used by Streams.
 	 *
-	 * @access	public
 	 * @param	string
 	 * @param	string
 	 * @return	bool
@@ -596,7 +591,6 @@ class MY_Form_validation extends CI_Form_validation
 	 *
 	 * Used by Streams.
 	 *
-	 * @access	public
 	 * @param	string
 	 * @param	string
 	 * @return	void
@@ -661,7 +655,6 @@ class MY_Form_validation extends CI_Form_validation
 	 * Checks to see if the stream is unique based on the 
 	 * stream_slug
 	 *
-	 * @access	public
 	 * @param	string
 	 * @param	string
 	 * @return	bool
@@ -711,7 +704,6 @@ class MY_Form_validation extends CI_Form_validation
 	 * be used as a variable. The same variable rules for
 	 * PHP variables apply to Lex.
 	 *
-	 * @access 	public
 	 * @param 	string
 	 * @return 	bool
 	 */
@@ -740,7 +732,6 @@ class MY_Form_validation extends CI_Form_validation
 	/**
 	 * Make sure a type is valid
 	 *
-	 * @access	public
 	 * @param	string
 	 * @return	bool
 	 */	

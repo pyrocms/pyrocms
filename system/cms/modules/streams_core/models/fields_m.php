@@ -42,12 +42,25 @@ class Fields_m extends CI_Model {
 
 	// --------------------------------------------------------------------------
 
-	function __construct()
+	public function __construct()
 	{
 		$this->table = FIELDS_TABLE;
 	}
-    
+ 
     // --------------------------------------------------------------------------
+
+	public function populate_field_cache()
+	{
+		$fields = $this->db->get($this->table)->result();
+
+		foreach ($fields as $field)
+		{
+			$this->fields_cache['by_id'][$field->id] 			= $field;
+			$this->fields_cache['by_slug'][$field->field_slug]	= $field;
+		}
+	}
+
+	// --------------------------------------------------------------------------
     
     /**
      * Get some fields
@@ -58,9 +71,9 @@ class Fields_m extends CI_Model {
      * @param	[int offset]
      * @return	obj
      */
-    public function get_fields($namespace = NULL, $limit = FALSE, $offset = 0, $skips = array())
+    public function get_fields($namespace = null, $limit = false, $offset = 0, $skips = array())
 	{
-		if (!empty($skips)) $this->db->or_where_not_in('field_slug', $skips);
+		if ( ! empty($skips)) $this->db->or_where_not_in('field_slug', $skips);
 		
 		if ($namespace) $this->db->where('field_namespace', $namespace);
 	
@@ -81,7 +94,7 @@ class Fields_m extends CI_Model {
      * @access	public
      * @param	int limit
      * @param	int offset
-     * @return	obj
+     * @return	array
      */
     public function get_all_fields($namespace = false)
 	{
@@ -485,9 +498,9 @@ class Fields_m extends CI_Model {
 	{
 		$this->db->select(STREAMS_TABLE.'.*, '.STREAMS_TABLE.'.view_options as stream_view_options, '.STREAMS_TABLE.'.id as stream_id, '.FIELDS_TABLE.'.id as field_id, '.FIELDS_TABLE.'.*, '.FIELDS_TABLE.'.view_options as field_view_options');
 		$this->db->from(STREAMS_TABLE.', '.ASSIGN_TABLE.', '.FIELDS_TABLE);
-		$this->db->where($this->db->dbprefix(STREAMS_TABLE).'.id', $this->db->dbprefix(ASSIGN_TABLE).'.stream_id', FALSE);
-		$this->db->where($this->db->dbprefix(FIELDS_TABLE).'.id', $this->db->dbprefix(ASSIGN_TABLE).'.field_id', FALSE);
-		$this->db->where($this->db->dbprefix(ASSIGN_TABLE).'.field_id', $field_id, FALSE);
+		$this->db->where($this->db->dbprefix(STREAMS_TABLE).'.id', $this->db->dbprefix(ASSIGN_TABLE).'.stream_id', false);
+		$this->db->where($this->db->dbprefix(FIELDS_TABLE).'.id', $this->db->dbprefix(ASSIGN_TABLE).'.field_id', false);
+		$this->db->where($this->db->dbprefix(ASSIGN_TABLE).'.field_id', $field_id, false);
 		
 		$obj = $this->db->get();
 		
@@ -512,9 +525,9 @@ class Fields_m extends CI_Model {
 	{
 		$this->db->select(STREAMS_TABLE.'.*, '.STREAMS_TABLE.'.view_options as stream_view_options, '.ASSIGN_TABLE.'.id as assign_id, '.STREAMS_TABLE.'.id as stream_id, '.FIELDS_TABLE.'.id as field_id, '.FIELDS_TABLE.'.*, '.FIELDS_TABLE.'.view_options as field_view_options, '.ASSIGN_TABLE.'.instructions, '.ASSIGN_TABLE.'.is_required, '.ASSIGN_TABLE.'.is_unique');
 		$this->db->from(STREAMS_TABLE.', '.ASSIGN_TABLE.', '.FIELDS_TABLE);
-		$this->db->where($this->db->dbprefix(STREAMS_TABLE).'.id', $this->db->dbprefix(ASSIGN_TABLE).'.stream_id', FALSE);
-		$this->db->where($this->db->dbprefix(FIELDS_TABLE).'.id', $this->db->dbprefix(ASSIGN_TABLE).'.field_id', FALSE);
-		$this->db->where($this->db->dbprefix(ASSIGN_TABLE).'.stream_id', $stream_id, FALSE);
+		$this->db->where($this->db->dbprefix(STREAMS_TABLE).'.id', $this->db->dbprefix(ASSIGN_TABLE).'.stream_id', false);
+		$this->db->where($this->db->dbprefix(FIELDS_TABLE).'.id', $this->db->dbprefix(ASSIGN_TABLE).'.field_id', false);
+		$this->db->where($this->db->dbprefix(ASSIGN_TABLE).'.stream_id', $stream_id, false);
 		$this->db->order_by('sort_order', 'ASC');
 		
 		$obj = $this->db->get();
@@ -561,6 +574,16 @@ class Fields_m extends CI_Model {
 			
 			if ( ! $outcome) return $outcome;
 		}
+		else
+		{
+			// If we have no assignments, let's call a special
+			// function (if it exists). This is for deleting
+			// fields that have no assignments.
+			if (method_exists($this->type->types->{$field->field_type}, 'field_no_assign_destruct'))
+			{
+				$this->type->types->{$field->field_type}->field_no_assign_destruct($field);
+			}
+		}
 		
 		// Delete field assignments		
 		$this->db->where('field_id', $field->id);
@@ -596,7 +619,7 @@ class Fields_m extends CI_Model {
 	 * @param	obj - the assignment
 	 * @return	void
 	 */
-	function cleanup_assignment($assignment)
+	public function cleanup_assignment($assignment)
 	{
 		// Drop the column if it exists
 		if ($this->db->field_exists($assignment->field_slug, $assignment->stream_prefix.$assignment->stream_slug))

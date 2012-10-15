@@ -58,6 +58,8 @@ class Admin extends Admin_Controller
 	 */
 	public function add()
 	{
+		$group = new stdClass();
+
 		if ($_POST)
 		{
 			$this->form_validation->set_rules($this->validation_rules);
@@ -110,7 +112,7 @@ class Admin extends Admin_Controller
 		if ($_POST)
 		{
 			// Got validation?
-			if ($group->name == 'admin' OR $group->name == 'user')
+			if ($group->name == 'admin' or $group->name == 'user')
 			{
 				//if they're changing description on admin or user save the old name
 				$_POST['name'] = $group->name;

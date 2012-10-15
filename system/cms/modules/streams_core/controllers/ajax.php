@@ -17,7 +17,7 @@ class Ajax extends Admin_Controller {
         
         // No matter what we don't show the profiler
         // in our AJAX calls.
-        $this->output->enable_profiler(FALSE);
+        $this->output->enable_profiler(false);
  
         // We need this for all of the variable setups in
         // the Type library __construct
@@ -115,7 +115,6 @@ class Ajax extends Admin_Controller {
 	 *
 	 * Accessed via AJAX
 	 *
-	 * @access	public
 	 * @return	void
 	 */
 	public function update_field_order()
@@ -129,9 +128,9 @@ class Ajax extends Admin_Controller {
 		foreach ($ids as $id)
 		{
 			$this->db
-					->where('id', $id)
-					->update('data_field_assignments', array('sort_order' => $order_count));
-			
+				->where('id', $id)
+				->update('data_field_assignments', array('sort_order' => $order_count));
+		
 			$order_count++;
 		}
 	}
@@ -143,7 +142,6 @@ class Ajax extends Admin_Controller {
 	 *
 	 * Accessed via AJAX
 	 *
-	 * @access	public
 	 * @return	void
 	 */
 	public function ajax_entry_order_update()

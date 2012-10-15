@@ -11,7 +11,7 @@ class OAuthConsumer {
   public $key;
   public $secret;
 
-  function __construct($key, $secret, $callback_url=NULL) {
+  function __construct($key, $secret, $callback_url=null) {
     $this->key = $key;
     $this->secret = $secret;
     $this->callback_url = $callback_url;
@@ -226,7 +226,7 @@ class OAuthRequest {
   public static $version = '1.0';
   public static $POST_INPUT = 'php://input';
 
-  function __construct($http_method, $http_url, $parameters=NULL) {
+  function __construct($http_method, $http_url, $parameters=null) {
     @$parameters or $parameters = array();
     $parameters = array_merge( OAuthUtil::parse_parameters(parse_url($http_url, PHP_URL_QUERY)), $parameters);
     $this->parameters = $parameters;
@@ -238,7 +238,7 @@ class OAuthRequest {
   /**
    * attempt to build up a request from what was passed to the server
    */
-  public static function from_request($http_method=NULL, $http_url=NULL, $parameters=NULL) {
+  public static function from_request($http_method=null, $http_url=null, $parameters=null) {
     $scheme = (!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] != "on")
               ? 'http'
               : 'https';
@@ -289,7 +289,7 @@ class OAuthRequest {
   /**
    * pretty much a helper function to set up the request
    */
-  public static function from_consumer_and_token($consumer, $token, $http_method, $http_url, $parameters=NULL) {
+  public static function from_consumer_and_token($consumer, $token, $http_method, $http_url, $parameters=null) {
     @$parameters or $parameters = array();
     $defaults = array("oauth_version" => OAuthRequest::$version,
                       "oauth_nonce" => OAuthRequest::generate_nonce(),
@@ -506,7 +506,7 @@ class OAuthServer {
     $consumer = $this->get_consumer($request);
 
     // no token required for the initial token request
-    $token = NULL;
+    $token = null;
 
     $this->check_signature($request, $consumer, $token);
 

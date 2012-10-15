@@ -2,7 +2,7 @@
 
 class Migration_Add_site_public_lang_setting extends CI_Migration {
 
-	function up()
+	public function up()
 	{
 		$this->db->insert('settings', array(
 			'slug'			=> 'site_public_lang',
@@ -19,7 +19,7 @@ class Migration_Add_site_public_lang_setting extends CI_Migration {
 		));
 	}
 
-	function down()
+	public function down()
 	{
 		$this->db->delete('settings', array('slug' => 'site_public_lang'));
 	}

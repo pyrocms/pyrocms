@@ -12,6 +12,23 @@
  
 class Streams_cp extends CI_Driver {
 
+	private $CI;
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Constructor
+	 *
+	 * @access	public
+	 * @return	void
+	 */
+	public function __construct()
+	{
+		$this->CI =& get_instance();
+	}
+
+	// --------------------------------------------------------------------------
+
 	/**
 	 * Entries Table
 	 *
@@ -40,7 +57,7 @@ class Streams_cp extends CI_Driver {
 	 *
 	 * see docs for more explanation
 	 */
-	function entries_table($stream_slug, $namespace_slug, $pagination = null, $pagination_uri = null, $view_override = false, $extra = array())
+	public function entries_table($stream_slug, $namespace_slug, $pagination = null, $pagination_uri = null, $view_override = false, $extra = array())
 	{
 		$CI = get_instance();
 		
@@ -53,7 +70,12 @@ class Streams_cp extends CI_Driver {
 		// -------------------------------------
 		
  		$stream_fields = $CI->streams_m->get_stream_fields($stream->id);
- 		
+
+ 		$stream_fields->id = new stdClass();
+  		$stream_fields->created = new stdClass();
+ 		$stream_fields->updated = new stdClass();
+ 		$stream_fields->created_by = new stdClass();
+		
   		$stream_fields->id->field_name 				= lang('streams.id');
 		$stream_fields->created->field_name 		= lang('streams.created_date');
  		$stream_fields->updated->field_name 		= lang('streams.updated_date');
@@ -72,24 +94,88 @@ class Streams_cp extends CI_Driver {
   		}
 
 		// Stuff below is not supported via the API yet
-		/*if ($stream->sorting == 'custom')
+		if ($stream->sorting == 'custom')
 		{
 			// We need some variables to use in the sort. I guess.
-			$this->template->append_metadata('<script type="text/javascript" language="javascript">var stream_id='.$this->data->stream->id.';var stream_offset='.$offset.';</script>');
+			$this->CI->template->append_metadata('<script type="text/javascript" language="javascript">var stream_id='.$stream->id.';var stream_offset='.$offset.';</script>');
 		
 			// We want to sort this
-		    //$this->template->append_js('module::entry_sorting.js');
+		    $this->CI->template->append_js('streams/entry_sorting.js');
 		    		      
 			// Comeon' Livequery! You're goin' in!
-			//$this->template->append_js('module::jquery.livequery.js');
-		}*/
-  
+			$this->CI->template->append_js('jquery/jquery.livequery.js');
+		}
+
   		$data = array(
   			'stream'		=> $stream,
   			'stream_fields'	=> $stream_fields,
-  			'buttons'		=> isset($extra['buttons']) ? $extra['buttons'] : NULL,
+  			'buttons'		=> isset($extra['buttons']) ? $extra['buttons'] : null,
+  			'filters'		=> isset($extra['filters']) ? $extra['filters'] : null,
+  			'search_id'		=> isset($_COOKIE['streams_core_filters']) ? $_COOKIE['streams_core_filters'] : null,
   		);
   
+ 		// -------------------------------------
+		// Set / Expire Filtering
+		// -------------------------------------
+
+		if ( isset($_POST['filter']) )
+		{
+			// We don't need this
+			unset($_POST['filter']);
+
+			// So we can find it later
+			$search_id = md5(rand().microtime());
+
+			// Save the search terms and some info
+			$CI->db->insert('data_stream_searches', array('stream_slug' => $stream->stream_slug, 'stream_namespace' => $stream->stream_namespace, 'search_id' => $search_id, 'search_term' => serialize($_POST), 'ip_address' => $_SERVER['REMOTE_ADDR'], 'total_results' => 0));
+
+			// Set dah cookie
+			setcookie('streams_core_filters', $search_id, time() + 86400, '/', '.'.SITE_DOMAIN);
+
+			// Set filter_data
+			$data['filter_data'] = array(
+				'filters' => $_POST,
+				'stream' => $stream->stream_slug,
+				);
+		}
+
+		// Clear old ones?
+		elseif ( isset($_POST['clear_filters']) )
+		{
+			setcookie('streams_core_filters', '', time() - 9999, '/', '.'.SITE_DOMAIN);
+		}
+
+		// Must be an existing one..
+		elseif ( isset($_COOKIE['streams_core_filters']) )
+		{
+
+			// Get the database search record
+			$db_search = $CI->db->select('search_term, stream_slug, stream_namespace')->where('search_id', $data['search_id'])->limit(1)->get('data_stream_searches')->row(0);
+
+			// Is this the right search module / namespace?
+			if ( $db_search->stream_slug == $stream->stream_slug and $db_search->stream_namespace == $stream->stream_namespace )
+			{
+
+				// Add it
+				$data['filter_data'] = array(
+					'filters' => unserialize($db_search->search_term),
+					'stream' => $db_search->stream_slug,
+					'namespace' => $db_search->stream_namespace,
+					);
+			}
+			else
+			{
+				setcookie('streams_core_filters', '', time() - 9999, '/', '.'.SITE_DOMAIN);
+			}
+			
+		}
+		else
+		{
+			setcookie('streams_core_filters', '', time() - 9999, '/', '.'.SITE_DOMAIN);
+		}
+
+		$filter_data = isset($data['filter_data']) ? $data['filter_data'] : null;
+
  		// -------------------------------------
 		// Get Entries
 		// -------------------------------------
@@ -100,15 +186,26 @@ class Streams_cp extends CI_Driver {
 														$stream,
 														$stream_fields, 
 														$limit,
-														$offset);
+														$offset,
+														$filter_data);
 
 		// -------------------------------------
 		// Pagination
 		// -------------------------------------
 
+		if ( $filter_data != null )
+		{
+
+			// Loop through and apply the filters
+			foreach ( $filter_data['filters'] as $filter=>$value )
+			{
+				if ( !empty($value) ) $CI->db->like(str_replace('f_', '', $filter), $value);
+			}
+		}
+
 		$data['pagination'] = create_pagination(
 									$pagination_uri,
-									$CI->db->count_all($stream->stream_prefix.$stream->stream_slug),
+									$CI->db->select('id')->count_all_results($stream->stream_prefix.$stream->stream_slug),
 									$pagination,
 									$offset_uri
 								);
@@ -167,7 +264,7 @@ class Streams_cp extends CI_Driver {
 	 * 							standard * for the PyroCMS CP
 	 * title				- Title of the form header (if using view override)
 	 */
-	function entry_form($stream_slug, $namespace_slug, $mode = 'new', $entry_id = null, $view_override = false, $extra = array(), $skips = array())
+	public function entry_form($stream_slug, $namespace_slug, $mode = 'new', $entry_id = null, $view_override = false, $extra = array(), $skips = array(), $tabs = false, $hidden = array(), $defaults = array())
 	{
 		$CI = get_instance();
 	
@@ -189,12 +286,15 @@ class Streams_cp extends CI_Driver {
 			$entry = null;
 		}
 
-		$fields = $CI->fields->build_form($stream, $mode, $entry, false, false, $skips, $extra);
+		$fields = $CI->fields->build_form($stream, $mode, $entry, false, false, $skips, $extra, $defaults);
 
 		// Get the entry
 		
 		$data = array(
 					'fields' 	=> $fields,
+					'tabs'		=> $tabs,
+					'hidden'	=> $hidden,
+					'defaults'	=> $defaults,
 					'stream'	=> $stream,
 					'entry'		=> $entry,
 					'mode'		=> $mode);
@@ -212,13 +312,28 @@ class Streams_cp extends CI_Driver {
 		
 		$CI->template->append_js('streams/entry_form.js');
 		
-		$form = $CI->load->view('admin/partials/streams/form', $data, true);
+		if ($data['tabs'] === false)
+		{
+			$form = $CI->load->view('admin/partials/streams/form', $data, true);
+		}
+		else
+		{
+
+			// Make the fields keys the input_slug. This will make it easier to build tabs. Less looping.
+			foreach ( $data['fields'] as $k => $v ){
+				$data['fields'][$v['input_slug']] = $v;
+				unset($data['fields'][$k]);
+			}
+
+			$form = $CI->load->view('admin/partials/streams/tabbed_form', $data, true);
+		}
 		
 		if ($view_override === false) return $form;
 		
-		$CI->data->content = $form;
+		$data['content'] = $form;
+		//$CI->data->content = $form;
 		
-		$CI->template->build('admin/partials/blank_section', $CI->data);
+		$CI->template->build('admin/partials/blank_section', $data);
 	}
 
 	// --------------------------------------------------------------------------
@@ -248,7 +363,10 @@ class Streams_cp extends CI_Driver {
 	 * title	- Title of the form header (if using view override)
 	 *			$extra['title'] = 'Streams Sample';
 	 * 
-	 * see docs for more explanation
+	 * show_cancel - bool. Show the cancel button or not?
+	 * cancel_url - url or uri to link to for cancel button
+	 *
+	 * see docs for more.
 	 */
 	public function field_form($stream_slug, $namespace, $method = 'new', $return, $assign_id = null, $include_types = array(), $view_override = false, $extra = array())
 	{
@@ -302,6 +420,13 @@ class Streams_cp extends CI_Driver {
 		{
 			$data['current_field'] = null;
 		}
+
+		// -------------------------------------
+		// Cancel Button
+		// -------------------------------------
+
+		$data['show_cancel'] = (isset($extra['show_cancel']) and $extra['show_cancel']) ? true : false;
+		$data['cancel_uri'] = (isset($extra['cancel_uri'])) ? $extra['cancel_uri'] : null;
 
 		// -------------------------------------
 		// Validation & Setup
@@ -547,7 +672,7 @@ class Streams_cp extends CI_Driver {
 	public function fields_table($namespace, $pagination = null, $pagination_uri = null, $view_override = false, $extra = array(), $skips = array())
 	{
 		$CI = get_instance();
-		$data['buttons'] = isset($extra['buttons']) ? $extra['buttons'] : NULL;
+		$data['buttons'] = isset($extra['buttons']) ? $extra['buttons'] : null;
 
 		if (is_numeric($pagination))
 		{
@@ -571,7 +696,7 @@ class Streams_cp extends CI_Driver {
 		}
 		else
 		{
-			$data['fields'] = $CI->fields_m->get_fields($namespace, FALSE, 0, $skips);
+			$data['fields'] = $CI->fields_m->get_fields($namespace, false, 0, $skips);
 		}
 
 		// -------------------------------------
@@ -589,11 +714,11 @@ class Streams_cp extends CI_Driver {
 		}
 		else
 		{ 
-			$data['pagination'] = FALSE;
+			$data['pagination'] = false;
 		}
 
 		// Allow view to inherit custom 'Add Field' uri
-		$data['add_uri'] = isset($extra['add_uri']) ? $extra['add_uri'] : NULL;
+		$data['add_uri'] = isset($extra['add_uri']) ? $extra['add_uri'] : null;
 		
 		// -------------------------------------
 		// Build Pages
@@ -651,7 +776,7 @@ class Streams_cp extends CI_Driver {
 	public function assignments_table($stream_slug, $namespace, $pagination = null, $pagination_uri = null, $view_override = false, $extra = array(), $skips = array())
 	{
 		$CI = get_instance();
-		$data['buttons'] = $extra['buttons'];
+		$data['buttons'] = (isset($extra['buttons']) and is_array($extra['buttons'])) ? $extra['buttons'] : array();
 
 		// Get stream
 		$stream = $this->stream_obj($stream_slug, $namespace);
@@ -662,10 +787,14 @@ class Streams_cp extends CI_Driver {
 			$segs = explode('/', $pagination_uri);
 			$offset_uri = count($segs)+1;
 
-	 		$offset = $CI->uri->segment($offset_uri, 0);
+	 		$offset = $pagination*($CI->uri->segment($offset_uri, 0)-1);
+
+	 		// Negative value check
+	 		if ($offset < 0) $offset = 0;
   		}
 		else
 		{
+			$offset_uri = null;
 			$offset = 0;
 			$offset_uri = null;
 		}
@@ -751,7 +880,7 @@ class Streams_cp extends CI_Driver {
 	 * @param 	bool - force delete field, even if it is shared with multiple streams
 	 * @return 	bool - success/fail
 	 */
-	public function teardown_assignment_field($assign_id, $force_delete = FALSE)
+	public function teardown_assignment_field($assign_id, $force_delete = false)
 	{
 		$CI = get_instance();
 

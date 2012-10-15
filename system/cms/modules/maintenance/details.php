@@ -43,7 +43,7 @@ class Module_Maintenance extends Module
 			),
 			'frontend' => false,
 			'backend' => true,
-			'menu' => 'utilities'
+			'menu' => 'data',
 		);
 	}
 

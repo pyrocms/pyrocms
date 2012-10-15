@@ -22,7 +22,7 @@ class Group_m extends MY_Model
 		// No more checking to do, admins win
 		if ( $role == 1 )
 		{
-			return TRUE;
+			return true;
 		}
 
 		// Check the rule based on whatever parts of the location we have
@@ -76,7 +76,7 @@ class Group_m extends MY_Model
 	 * @param array $input The data to insert
 	 * @return array
 	 */
-	public function insert($input = array())
+	public function insert($input = array(), $skip_validation = false)
 	{
 		return parent::insert(array(
 			'name'			=> $input['name'],
@@ -92,7 +92,7 @@ class Group_m extends MY_Model
 	 * @param array $input The data to update
 	 * @return array
 	 */
-	public function update($id = 0, $input = array())
+	public function update($id = 0, $input = array(), $skip_validation = false)
 	{
 		return parent::update($id, array(
 			'name'			=> $input['name'],
@@ -114,7 +114,7 @@ class Group_m extends MY_Model
 		// don't delete the group if there are still users assigned to it
 		if ($this->user_m->count_by(array('group_id' => $id)) > 0)
 		{
-			return FALSE;
+			return false;
 		}
 
 		// Dont let them delete the "admin" group or the "user" group.

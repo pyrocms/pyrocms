@@ -31,11 +31,11 @@ $lang['cp_contact_support'] 			= 'الدعم';
 $lang['cp_nav_settings']				= 'الإعدادات';
 $lang['cp_nav_addons']					= 'الإضافات';
 $lang['cp_nav_modules']					= 'الوحدات';
-$lang['cp_nav_widgets']					= 'الودجتس';
 $lang['cp_nav_users']					= 'المستخدمون';
-$lang['cp_nav_design']					= 'التصميم';
 $lang['cp_nav_content']					= 'المحتوى';
-$lang['cp_nav_utilities']				= 'الأدوات';
+$lang['cp_nav_data']					= 'Data'; #translate
+$lang['cp_nav_structure']				= 'Structure'; #translate
+$lang['cp_nav_misc']					= 'Miscellaneous'; #translate
 
 $lang['cp_must_login']	 				= 'يجب أن تكون مسجّل الدخول كي تعرض هذه الصفحة.';
 $lang['cp_access_denied'] 				= 'ليست لديك الصلاحيات الكافية لعرض هذه الصفحة.';

@@ -8,7 +8,7 @@
  */
 class Module_Users extends Module {
 
-	public $version = '0.9';
+	public $version = '1.1.0';
 
 	public function info()
 	{
@@ -159,11 +159,11 @@ class Module_Users extends Module {
     			'field_name' => 'lang:profile_dob',
     			'field_type' => 'datetime',
     			'extra'		 => array(
-    								'use_time' 		=> 'no',
-    								'storage' 		=> 'unix',
-    								'input_type'	=> 'dropdown',
-    								'start_date'	=> '-100Y'
-    							)
+					'use_time' 		=> 'no',
+					'storage' 		=> 'unix',
+					'input_type'	=> 'dropdown',
+					'start_date'	=> '-100Y'
+				)
     		),
     		'gender' => array(
     			'field_name' => 'lang:profile_gender',
@@ -205,7 +205,7 @@ class Module_Users extends Module {
 
 		// Run through each column and add the field
 		// metadata to it.
-    	foreach($columns as $field_slug => $column)
+    	foreach ($columns as $field_slug => $column)
     	{
     		// We only want fields that actually exist in the
     		// DB. The user could have deleted some of them.

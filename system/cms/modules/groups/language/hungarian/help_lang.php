@@ -5,6 +5,7 @@ $lang['help_body'] = "
 <h4>Leírás</h4>
 <p>A csoportok modul együttműködik a felhasználókezelő- és a jogosultságok modullal. Ezek együtt a PyroCMS beléptetőrendszere.</p>
 
-<h4>Csoport hozzáadása</h4><hr>
-<p>Adj meg egy csoportnevet (csupa kisbetűvel) és egy rövid leírást. Ezután használd a jogosultságok modult, hogy felügyelhesd a hozzáadott felhasználók hozzáférését.</p>
-";
+<h4>Csoport hozzáadása</h4>
+<p>Adj meg egy csoportnevet (csupa kisbetűvel) és egy rövid leírást. Ezután használd a jogosultságok modult, hogy felügyelhesd a hozzáadott felhasználók hozzáférését.</p>";
+
+/* End of file help_lang.php */

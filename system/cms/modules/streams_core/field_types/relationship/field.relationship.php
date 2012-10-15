@@ -140,7 +140,7 @@ class Field_relationship
 			return null;
 		}
 		
-		// We need to make sure the select is NOT null.
+		// We need to make sure the select is NOT NULL.
 		// So, if we have no title column, let's use the id
 		if (trim($title_column) == '')
 		{

@@ -1,0 +1,425 @@
+/**
+ * Backgrounds
+ */
+.blueish 
+{ 
+	background: url(../../img/bg_blueish.jpg) repeat !important; 
+}
+.noise 
+{ 
+	background: url(../../img/bg_noise.jpg) repeat !important; 
+}
+.noisedark 
+{ 
+	background: url(../../img/bg_noisedark.jpg) repeat !important; 
+}
+.classydark 
+{ 
+	background: url(../../img/bg_classydark.jpg) repeat !important; 
+}
+/* @end Backgrounds */
+
+
+
+/**
+ * Labels
+ */
+.label,
+a.label
+{
+	font-size: 11px;
+  	font-weight: bold;
+  	line-height: 14px;
+  	color: #ffffff;
+  	white-space: nowrap;
+  	vertical-align: baseline;
+  	background-color: #bbbbbb;
+  	padding: 2px 6px;
+    border-radius: 3px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+	text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.3);
+	border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+}
+a.label:hover
+{
+	color: #ffffff;
+}
+.notification
+{
+	font-size: 11px;
+  	font-weight: bold;
+  	text-align: center;
+  	line-height: 14px;
+  	color: #ffffff;
+  	white-space: nowrap;
+  	vertical-align: baseline;
+  	background-color: #bbbbbb;
+  	padding: 3px 7px 2px 7px;
+    border-radius: 25px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+	text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.3);
+	border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+}
+.label.red,
+.notification.red
+{
+ 	 background-color: #ff2b25; 
+}
+.label.orange,
+.notification.orange
+{
+  	background-color: #ff9900; 
+}
+.label.green,
+.notification.green
+{
+  	background-color: #91bd09; 
+}
+.label.blue,
+.notification.blue
+{
+  	background-color: #2daebf; 
+}
+.label.pink,
+.notification.pink		
+{ 
+	background-color: #fe57a1; 
+}
+.label.magenta,
+.notification.magenta		
+{ 
+	background-color: #a9014b; 
+}
+.label.yellow,
+.notification.yellow	
+{ 
+	background-color: #ffb515; 
+}
+.label.flat,
+.notification.flat 
+{
+	border-bottom: none;
+	box-shadow: none;
+}
+
+
+
+/**
+ * Wrapper
+ */
+.wrapper
+{
+	margin: 0 auto;
+	float: none;
+}
+
+
+
+/**
+ * Non-semantic helpers
+ */
+
+
+/** 
+ * Box shadows 
+ */
+.box_shadow 
+{
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+	-moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+	-webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+}
+
+/**
+ * Highlight
+ */
+ .highlight
+ {
+ 	background: #fff2a8;
+ }
+
+/** 
+ * Cancel list styles
+ */
+.nolist 
+{ 
+	list-style: none; 
+	margin: 0; 
+	padding: 0; 
+}
+
+/** 
+ * Cancel margins 
+ */
+.ntm 
+{ 
+	margin-top: 0; 
+}
+.nbm 
+{ 
+	margin-bottom: 0; 
+}
+.nlm 
+{ 
+	margin-left: 0; 
+}
+.nrm 
+{ 
+	margin-right: 0; 
+}
+
+/**
+ * Cancel borders
+ */
+.nb
+{
+	border: none;
+}
+.ntb
+{
+	border: none;
+}
+.nbb
+{
+	border: none;
+}
+.nlb
+{
+	border: none;
+}
+.nrb
+{
+	border: none;
+}
+
+
+/** 
+ * Last class 
+ */
+.last 
+{ 
+	margin-right: 0!important; 
+}
+
+/** 
+ * Colors 
+ */
+.muted 
+{ 
+	color: #888888; 
+}
+.highlight 
+{ 
+	background: #ffffe0; 
+	color: #555555; 
+	font-weight: normal; 
+}
+
+/** 
+ * Display 
+ */
+.inline 
+{ 
+	display: inline; 
+}
+
+/** 
+ * Positioning 
+ */
+.alignleft 
+{ 
+	float: left; 
+}
+.alignright 
+{ 
+	float: right; 
+}
+.aligncenter
+{
+	float: none;
+	margin: 0 auto;
+	text-align: center;
+}
+.textleft 
+{ 
+	text-align: left; 
+}
+.textright 
+{ 
+	text-align: right; 
+}
+.textcenter 
+{ 
+	text-align: center;
+}
+.inline
+{
+	display: inline;
+}
+.ti
+{
+	text-indent: -9999px;
+}
+
+/** 
+ * Sizes 
+ */
+.twentyfive
+{
+	width: 25%;
+}
+.fifty
+{
+	width: 50%;
+}
+.seventyfive
+{
+	width: 75%;
+}
+.onehundred
+{
+	width: 100%;
+}
+
+/** 
+ * Hide from screenreaders and browsers. 
+ */
+.hidden 
+{ 
+	display: none !important; 
+	visibility: hidden; 
+}
+/** 
+ * Hide only visually, but have it available 
+ * for screenreaders. 
+ */
+.visuallyhidden 
+{ 
+	border: 0; 
+	clip: rect(0 0 0 0); 
+	height: 1px; 
+	margin: -1px; 
+	overflow: hidden; 
+	padding: 0; 
+	position: absolute; 
+	width: 1px; 
+}
+/**
+ * Extends the .visuallyhidden class to allow 
+ * the element to be focusable when navigated 
+ * to via the keyboard. 
+ */
+.visuallyhidden.focusable:active, 
+.visuallyhidden.focusable:focus 
+{ 
+	clip: auto; 
+	height: auto; 
+	margin: 0; 
+	overflow: visible; 
+	position: static; 
+	width: auto; 
+}
+/** 
+ * Hide visually and from screenreaders, but 
+ * maintain layout 
+ */
+.invisible 
+{ 
+	visibility: hidden; 
+}
+
+
+/** 
+ * Floats
+ */ 
+.clearfix:before, 
+.clearfix:after 
+{ 
+	content: ""; 
+	display: table; 
+}
+.clearfix:after 
+{ 
+	clear: both; 
+}
+.clearfix 
+{ 
+	zoom: 1; 
+}
+
+/**
+ * Misc
+ */
+.help-text
+{
+	font-size: 12px;
+}
+/* @end Non-semantic helpers */
+
+
+
+/**
+ * Prettyprint 
+ */
+.com 
+{ 
+	color: #aaaaaa; 
+}
+.lit 
+{ 
+	color: #195f91; 
+}
+.pun, 
+.opn, 
+.clo 
+{ 
+	color: #34ade8; 
+}
+.fun 
+{ 
+	color: #4F6677; 
+}
+.str, 
+.atv 
+{ 
+	color: #268bd2; 
+}
+.kwd, 
+.tag 
+{ 
+	color: #195f91; 
+}
+.typ, 
+.atn, 
+.dec, 
+.var 
+{ 
+	color: #CB4B16; 
+}
+.pln 
+{ 
+	color: #4F6677; 
+}
+
+pre.prettyprint 
+{
+  	background: #fefefe;
+  	padding: 9px;
+	margin-top: 15px;
+	margin-bottom: 15px;
+  	border: 1px solid rgba(0, 0, 0, 0.2);
+	font-size: 14px;
+}
+.linenums 
+{ 
+	margin: 0; 
+	padding: 0; 
+}
+.linenums li 
+{ 
+	line-height: 20px; 
+}
+/* @end Prettyprint */

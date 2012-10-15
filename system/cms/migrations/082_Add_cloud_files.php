@@ -20,7 +20,7 @@ class Migration_Add_cloud_files extends CI_Migration {
 			'location' => array(
 				'type' => 'VARCHAR',
 				'constraint' => 20,
-				'null' => FALSE,
+				'null' => false,
 				'default' => 'local'
 			),
 		));
@@ -29,7 +29,7 @@ class Migration_Add_cloud_files extends CI_Migration {
 			'remote_container' => array(
 				'type' => 'VARCHAR',
 				'constraint' => 100,
-				'null' => FALSE,
+				'null' => false,
 				'default' => ''
 			),
 		));
@@ -38,7 +38,7 @@ class Migration_Add_cloud_files extends CI_Migration {
 			'path' => array(
 				'type' => 'VARCHAR',
 				'constraint' => 255,
-				'null' => FALSE,
+				'null' => false,
 				'default' => ''
 			),
 		));
@@ -47,7 +47,7 @@ class Migration_Add_cloud_files extends CI_Migration {
 			'download_count' => array(
 				'type' => 'INT',
 				'constraint' => 11,
-				'null' => FALSE,
+				'null' => false,
 				'default' => 0
 			),
 		));

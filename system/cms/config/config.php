@@ -88,10 +88,10 @@ $config['charset'] = 'UTF-8';
 |--------------------------------------------------------------------------
 |
 | If you would like to use the 'hooks' feature you must enable it by
-| setting this variable to TRUE (boolean).  See the user guide for details.
+| setting this variable to true (boolean).  See the user guide for details.
 |
 */
-$config['enable_hooks'] = TRUE;
+$config['enable_hooks'] = true;
 
 
 /*
@@ -138,12 +138,12 @@ $config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-';
 | example.com/who/what/where/
 |
 | By default CodeIgniter enables access to the $_GET array.  If for some
-| reason you would like to disable it, set 'allow_get_array' to FALSE.
+| reason you would like to disable it, set 'allow_get_array' to false.
 |
 | You can optionally enable standard query string based URLs:
 | example.com?who=me&what=something&where=here
 |
-| Options are: TRUE or FALSE (boolean)
+| Options are: true or false (boolean)
 |
 | The other items let you set the query string 'words' that will
 | invoke your controllers and its functions:
@@ -154,8 +154,8 @@ $config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-';
 | use segment based URLs.
 |
 */
-$config['allow_get_array']		= TRUE;
-$config['enable_query_strings'] = FALSE;
+$config['allow_get_array']		= true;
+$config['enable_query_strings'] = false;
 $config['controller_trigger']	= 'c';
 $config['function_trigger']		= 'm';
 $config['directory_trigger']	= 'd'; // experimental not currently in use
@@ -252,13 +252,13 @@ $config['encryption_key'] = "Jiu348^&H%fa";
 */
 $config['sess_cookie_name']		= 'pyrocms' . (ENVIRONMENT !== 'production' ? '_' . ENVIRONMENT : '');
 $config['sess_expiration']		= 0;
-$config['sess_expire_on_close']	= TRUE;
-$config['sess_encrypt_cookie']	= TRUE;
-$config['sess_use_database']	= TRUE;
+$config['sess_expire_on_close']	= true;
+$config['sess_encrypt_cookie']	= true;
+$config['sess_use_database']	= true;
 // don't change anything but the 'ci_sessions' part of this. The MSM depends on the 'default_' prefix
 $config['sess_table_name']		= 'default_ci_sessions';
-$config['sess_match_ip']		= TRUE;
-$config['sess_match_useragent']	= TRUE;
+$config['sess_match_ip']		= true;
+$config['sess_match_useragent']	= true;
 $config['sess_time_to_update']	= 300;
 
 /*
@@ -276,7 +276,7 @@ $config['sess_time_to_update']	= 300;
 $config['cookie_prefix']	= (substr_count($_SERVER['SERVER_NAME'], '.') > 1) ? substr($_SERVER['SERVER_NAME'], 0, strpos($_SERVER['SERVER_NAME'], '.')) . '_' : 'default_';
 $config['cookie_domain']	= ($_SERVER['SERVER_NAME'] == 'localhost') ? '' : $_SERVER['SERVER_NAME'];
 $config['cookie_path']		= BASE_URI;
-$config['cookie_secure']	= FALSE;
+$config['cookie_secure']	= false;
 
 /*
 |--------------------------------------------------------------------------
@@ -287,13 +287,13 @@ $config['cookie_secure']	= FALSE;
 | COOKIE data is encountered
 |
 */
-$config['global_xss_filtering'] = FALSE;
+$config['global_xss_filtering'] = false;
 
 /*
 |--------------------------------------------------------------------------
 | Cross Site Request Forgery
 |--------------------------------------------------------------------------
-| Enables a CSRF cookie token to be set. When set to TRUE, token will be
+| Enables a CSRF cookie token to be set. When set to true, token will be
 | checked on a submitted form. If you are accepting user data, it is strongly
 | recommended CSRF protection be enabled.
 |
@@ -325,7 +325,7 @@ $config['csrf_exclude_uris'] 	= array();
 | by the output class.  Do not 'echo' any values with compression enabled.
 |
 */
-$config['compress_output'] = FALSE;
+$config['compress_output'] = false;
 
 /*
 |--------------------------------------------------------------------------
@@ -360,10 +360,10 @@ $config['time_reference'] = 'gmt';
 |
 | If your PHP installation does not have short tag support enabled CI
 | can rewrite the tags on-the-fly, enabling you to utilize that syntax
-| in your view files.  Options are TRUE or FALSE (boolean)
+| in your view files.  Options are true or false (boolean)
 |
 */
-$config['rewrite_short_tags'] = FALSE;
+$config['rewrite_short_tags'] = false;
 
 
 /*

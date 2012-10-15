@@ -1,31 +1,147 @@
-html, body {height: 100%; }
-div#distance { margin-bottom: -10em; width: 1px;height: 50%; float: left;}
-div#container {	position: relative;   text-align: left; height: 150px;	width: 575px; margin: 0 auto; padding-top: 75px; clear: left;}
 
-body {background: url(../../img/admin/bg-login.jpg) repeat-x center; margin: 0; padding: 0;
-font-family: Helvetica, Arial, Tahoma, serif; font-size: 9pt;}
-h1 {font-size:250%; text-transform:uppercase; letter-spacing:-1px; font-weight:bold; width:450px; 
-	margin: 0 0 35px 0; padding: 0;}
-h1 a {color:#fff; text-decoration:none;}
-h1 a:hover {color:#ccc;}
+/** login Styles **/
+body{ background: color:#838383; font: 13px/1.5 'Helvetica Neue',Arial,'Liberation Sans',FreeSans,sans-serif;}
 
-fieldset, form {margin: 0; padding: 0; border: 0; outline: 0;}
-fieldset legend {display: none;}
+.account-container {
+	width: 380px; 
+	display: block;
+	margin: 60px auto 0 auto;
+	
+	background: #f9f9f9;
+	
+	border: 1px solid #d5d5d5;
+	
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
 
-ol {margin: 0; padding: 0; list-style: none;}
-ol li {float: left; margin-right: 15px;}
-label {display: block; width:75px; color:#fff; font-weight: bold; float: left; padding-top: 3px;}
-span {width: 186px; float: left; margin-right: 10px; }
-span input {
-	border: none;
-	outline: none;
-	padding: 4px;
-	-moz-border-radius:8px;
-	-webkit-border-radius:8px;
-	margin-top:-3px;
+	box-shadow:  0px 0px 2px #dadada, inset 0px -3px 0px #e6e6e6;
 }
-label.remember {color:#ccc; float:left; width: 200px; margin-top: 20px; margin-left:75px; margin-right: 215px;}
-div.float-right {float: left; width: 56px;  margin-top: 20px;}
 
-#error { font-size: 14px; display: block; padding: 15px; position: absolute; top: 0; left: 0; right: 0;background-color: #FF0000; color: #FFFFFF;}
-#error p { margin: 0; padding: 5px 0 0 0;}
+.content {
+	padding: 16px 28px 4px;
+} 
+
+#login-logo {
+	background-image: url('../../img/admin/login-logo.png');
+	background-repeat: no-repeat;
+	width: 103px;
+	height: 43px;
+	margin: 10px 0px 20px 110px;
+}
+
+.login-fields {
+	
+}
+
+.login-fields .field {
+	margin-bottom: 1.25em;
+}
+
+.login-fields label {
+	display: none;
+}
+
+.login-fields input {
+	font-family: "Arial Rounded MT",Arial,Helvetica,sans-serif;
+	font-size: 13px;
+	color: #8e8d8d;
+	padding: 11px 15px 10px 40px;
+	background-color: #fdfdfd;
+	width: 265px;
+	display: block;
+	margin: 0;
+	box-shadow: inset 2px 2px 4px #f1f1f1;
+}
+
+.input-email {
+	margin: -25px 0 0 10px;
+	float: left;
+	position: relative;
+	z-index: 9999;
+}
+.input-password {
+	margin: -30px 0 0 14px;
+	float: left;
+	position: relative;
+	z-index: 9999;
+}
+
+
+
+.login-actions {
+	float: left;
+	
+	width: 100%;
+	
+	margin-top: -1em;
+	margin-bottom: 1.25em;
+}
+
+span.login-checkbox {
+	float: left;
+	margin-top: 31px;
+}
+
+span.login-checkbox > input[type='checkbox'] {
+	opacity: 1;
+	float: left;
+	width: 15px;
+	margin: 0 0 ;
+}
+
+span.login-checkbox > input[type='checkbox'] + label {    
+	clear: none;
+	
+	height: 15px; 
+	display: block;
+	padding: 0 0 0 22px;
+	margin: 0;
+	
+	font-size: 12px;
+	line-height: 1.2em;
+	
+	
+	cursor: pointer;
+}
+
+/** Text Under Box**/
+.login-extra {
+	display: block; 
+	width: 300px; 
+	margin: 1.5em auto;
+	 
+	text-align: center;
+	line-height: 19px; 
+	
+	text-shadow: 1px 1px 0px #fff; 	
+}
+
+
+.account-container h1 {
+	margin-bottom: .4em;
+	
+	color: #f90;
+}
+
+/** Buttons **/
+.button {-webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; display: inline-block; float: right; margin-top: 18px;}
+
+
+@media (max-width: 480px) {
+	
+	.account-container {
+		width: 280px;	
+		margin-top: 35px;
+	}
+	
+	.login-fields input {
+		width: 160px;
+	}
+	
+	.login-fields input {
+		width: 204px;
+		padding-left: 6px;
+	}
+	
+}

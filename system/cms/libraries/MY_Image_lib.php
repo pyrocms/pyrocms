@@ -1,11 +1,12 @@
 <?php
 /**
- *
+ * MY_Image_lib
  * Fix for losing image transparency
+ * @TODO See if this needs to still be extended.
  *
- * @author Yorick Peterse
- * @author PyroCMS Dev Team
- * @package PyroCMS\Core\Libraries
+ * @package 	PyroCMS\Core\Libraries
+ * @author      PyroCMS Dev Team
+ * @copyright   Copyright (c) 2012, PyroCMS LLC
  */
 class MY_Image_lib extends CI_Image_lib
 {
@@ -14,19 +15,18 @@ class MY_Image_lib extends CI_Image_lib
 	 *
 	 * This function will resize or crop
 	 *
-	 * @access	public
 	 * @param	string
 	 * @return	bool
 	 */
-	function image_process_gd($action = 'resize')
+	public function image_process_gd($action = 'resize')
 	{
-		$v2_override = FALSE;
+		$v2_override = false;
 
 		// If the target width/height match the source, AND if the new file name is not equal to the old file name
 		// we'll simply make a copy of the original with the new name... assuming dynamic rendering is off.
-		if ($this->dynamic_output === FALSE)
+		if ($this->dynamic_output === false)
 		{
-			if ($this->orig_width == $this->width AND $this->orig_height == $this->height)
+			if ($this->orig_width == $this->width and $this->orig_height == $this->height)
 			{
  				if ($this->source_image != $this->new_image)
  				{
@@ -36,7 +36,7 @@ class MY_Image_lib extends CI_Image_lib
 					}
 				}
 
-				return TRUE;
+				return true;
 			}
 		}
 
@@ -48,10 +48,10 @@ class MY_Image_lib extends CI_Image_lib
 			$this->orig_height = $this->height;
 
 			// GD 2.0 has a cropping bug so we'll test for it
-			if ($this->gd_version() !== FALSE)
+			if ($this->gd_version() !== false)
 			{
 				$gd_version = str_replace('0', '', $this->gd_version());
-				$v2_override = ($gd_version == 2) ? TRUE : FALSE;
+				$v2_override = ($gd_version == 2) ? true : false;
 			}
 		}
 		else
@@ -64,7 +64,7 @@ class MY_Image_lib extends CI_Image_lib
 		//  Create the image handle
 		if ( ! ($src_img = $this->image_create_gd()))
 		{
-			return FALSE;
+			return false;
 		}
 
  		//  Create The Image
@@ -73,8 +73,8 @@ class MY_Image_lib extends CI_Image_lib
 		//  it appears that this is no longer the issue that it was in 2004, so we've removed it, retaining it in the comment
 		//  below should that ever prove inaccurate.
 		//
-		//  if ($this->image_library == 'gd2' AND function_exists('imagecreatetruecolor') AND $v2_override == FALSE)		
- 		if ($this->image_library == 'gd2' AND function_exists('imagecreatetruecolor'))
+		//  if ($this->image_library == 'gd2' and function_exists('imagecreatetruecolor') and $v2_override == false)		
+ 		if ($this->image_library == 'gd2' and function_exists('imagecreatetruecolor'))
 		{
 			$create	= 'imagecreatetruecolor';
 			$copy	= 'imagecopyresampled';
@@ -106,7 +106,7 @@ class MY_Image_lib extends CI_Image_lib
 		$copy($dst_img, $src_img, 0, 0, $this->x_axis, $this->y_axis, $this->width, $this->height, $this->orig_width, $this->orig_height);
 
 		//  Show the image
-		if ($this->dynamic_output == TRUE)
+		if ($this->dynamic_output == true)
 		{
 			$this->image_display_gd($dst_img);
 		}
@@ -115,7 +115,7 @@ class MY_Image_lib extends CI_Image_lib
 			// Or save it
 			if ( ! $this->image_save_gd($dst_img))
 			{
-				return FALSE;
+				return false;
 			}
 		}
 
@@ -126,8 +126,6 @@ class MY_Image_lib extends CI_Image_lib
 		// Set the file to 777
 		@chmod($this->full_dst_path, DIR_WRITE_MODE);
 
-		return TRUE;
+		return true;
 	}
 }
-
-?>

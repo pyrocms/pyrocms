@@ -452,13 +452,13 @@ class Lex_Parser
 	 * @param	string	$text	Text to inject into
 	 * @return	string
 	 */
-	public function inject_noparse($text)
+	public static function inject_noparse($text)
 	{
 		if (isset(Lex_Parser::$extractions['noparse']))
 		{
 			foreach (Lex_Parser::$extractions['noparse'] AS $hash => $replacement)
 			{
-				if (strpos($text, "noparse_{$hash}") !== FALSE)
+				if (strpos($text, "noparse_{$hash}") !== false)
 				{
 					$text = str_replace("noparse_{$hash}", $replacement, $text);
 				}
@@ -581,6 +581,10 @@ class Lex_Parser
 		$this->conditional_not_regex = '/(\s+|^)not(\s+|$)/ms';
 
 		$this->regex_setup = true;
+		
+		// This is important, it's pretty unclear by the documentation
+		// what the default value is on <= 5.3.6
+		ini_set('pcre.backtrack_limit', 1000000);
 	}
 
 	/**
@@ -717,7 +721,6 @@ class Lex_Parser
 		{
 			$parts = explode($this->scope_glue, $key);
 		}
-
 		foreach ($parts as $key_part)
 		{
 			if (is_array($data))
@@ -757,17 +760,11 @@ class Lex_Parser
 	{
 		ob_start();
 		$result = eval('?>'.$text.'<?php ');
-		
-		if (($result === false) and (ENVIRONMENT === PYRO_DEVELOPMENT))
+
+		if ($result === false)
 		{
 			echo '<br />You have a syntax error in your Lex tags. The snippet of text that contains the error has been output below:<br />';
 			exit(str_replace(array('?>', '<?php '), '', $text));
-			
-		}
-		elseif ($result === false)
-		{
-			log_message('error', str_replace(array('?>', '<?php '), '', $text));
-			echo '<br />You have a syntax error in your Lex tags: The snippet of text that contains the error has been output to your application\'s log file.<br />';
 		}
 
 		return ob_get_clean();

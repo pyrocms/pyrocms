@@ -11,24 +11,14 @@
 		<?php echo $success_string; ?>
 	</div>
 <?php else: ?>
-
-	<?php echo form_open('users/reset_pass', array('id'=>'reset-pass')); ?>
 	
-	<h4 class="reset-instructions"><?php echo lang('user_reset_instructions'); ?></h4>
+	<?php echo form_open('users/reset_pass', array('id'=>'reset-pass')); ?>
 
-	<ul>
-		<li>
-			<label for="email"><?php echo lang('user_email') ?></label>
-			<input type="text" name="email" maxlength="100" value="<?php echo set_value('email'); ?>" />
-		</li>
-		<li>
-			<label for="user_name"><?php echo lang('user_username') ?></label>
-			<input type="text" name="user_name" maxlength="40" value="<?php echo set_value('user_name'); ?>" />
-		</li>
-		<li>
-			<?php echo form_submit('btnSubmit', lang('user_reset_pass_btn')) ?>
-		</li>
-	</ul>
+	<label for="email"><?php echo lang('user_reset_instructions'); ?></label>
+	<input type="text" name="email" maxlength="100" value="<?php echo set_value('email'); ?>" />
+
+	<?php echo form_submit('', lang('user_reset_pass_btn')) ?>
+
 	<?php echo form_close(); ?>
 	
 <?php endif; ?>

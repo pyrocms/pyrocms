@@ -22,7 +22,7 @@ abstract class REST_Controller extends MY_Controller
 	 *
 	 * @var string|null
 	 */
-	protected $rest_format = NULL;
+	protected $rest_format = null;
 
 	/**
 	 * Defines the list of method properties such as limit, log and level
@@ -44,21 +44,21 @@ abstract class REST_Controller extends MY_Controller
 	 *
 	 * @var object
 	 */
-	protected $request = NULL;
+	protected $request = null;
 
 	/**
 	 * What is gonna happen in output?
 	 *
 	 * @var object
 	 */
-	protected $response = NULL;
+	protected $response = null;
 
 	/**
 	 * Stores DB, keys, key level, etc
 	 *
 	 * @var object
 	 */
-	protected $rest = NULL;
+	protected $rest = null;
 
 	/**
 	 * The arguments for the GET request method
@@ -100,14 +100,14 @@ abstract class REST_Controller extends MY_Controller
 	 *
 	 * @var boolean
 	 */
-	protected $_allow = TRUE;
+	protected $_allow = true;
 
 	/**
 	 * Determines if output compression is enabled
 	 *
 	 * @var boolean
 	 */
-	protected $_zlib_oc = FALSE;
+	protected $_zlib_oc = false;
 
 	/**
 	 * List all supported methods, the first will be the default format
@@ -167,7 +167,7 @@ abstract class REST_Controller extends MY_Controller
 		$this->request->format = $this->_detect_input_format();
 
 		// Some Methods cant have a body
-		$this->request->body = NULL;
+		$this->request->body = null;
 
 		$this->{'_parse_' . $this->request->method}();
 
@@ -196,7 +196,7 @@ abstract class REST_Controller extends MY_Controller
 		$this->auth_override = $this->_auth_override_check();
 
 		// When there is no specific override for the current class/method, use the default auth value set in the config
-		if ($this->auth_override !== TRUE)
+		if ($this->auth_override !== true)
 		{
 			if ($this->config->item('rest_auth') == 'basic')
 			{
@@ -214,9 +214,9 @@ abstract class REST_Controller extends MY_Controller
 
 		$this->rest = new StdClass();
 		// Load DB if its enabled
-		if (config_item('rest_database_group') AND (config_item('rest_enable_keys') OR config_item('rest_enable_logging')))
+		if (config_item('rest_database_group') and (config_item('rest_enable_keys') or config_item('rest_enable_logging')))
 		{
-			$this->rest->db = $this->load->database(config_item('rest_database_group'), TRUE);
+			$this->rest->db = $this->load->database(config_item('rest_database_group'), true);
 		}
 
 		// Use whatever database is in use (isset returns false)
@@ -232,7 +232,7 @@ abstract class REST_Controller extends MY_Controller
 		}
 
 		// only allow ajax requests
-		if ( ! $this->input->is_ajax_request() AND config_item('rest_ajax_only'))
+		if ( ! $this->input->is_ajax_request() and config_item('rest_ajax_only'))
 		{
 			$this->response(array('status' => false, 'error' => 'Only AJAX requests are accepted.'), 505);
 		}
@@ -259,15 +259,15 @@ abstract class REST_Controller extends MY_Controller
 		$controller_method = $object_called.'_'.$this->request->method;
 
 		// Do we want to log this method (if allowed by config)?
-		$log_method = !(isset($this->methods[$controller_method]['log']) AND $this->methods[$controller_method]['log'] == FALSE);
+		$log_method = !(isset($this->methods[$controller_method]['log']) AND $this->methods[$controller_method]['log'] == false);
 
 		// Use keys for this method?
-		$use_key = !(isset($this->methods[$controller_method]['key']) AND $this->methods[$controller_method]['key'] == FALSE);
+		$use_key = !(isset($this->methods[$controller_method]['key']) AND $this->methods[$controller_method]['key'] == false);
 
 		// Get that useless shitty key out of here
-		if (config_item('rest_enable_keys') AND $use_key AND $this->_allow === FALSE)
+		if (config_item('rest_enable_keys') and $use_key and $this->_allow === false)
 		{
-			if (config_item('rest_enable_logging') AND $log_method)
+			if (config_item('rest_enable_logging') and $log_method)
 			{
 				$this->_log_request();
 			}
@@ -282,10 +282,10 @@ abstract class REST_Controller extends MY_Controller
 		}
 
 		// Doing key related stuff? Can only do it if they have a key right?
-		if (config_item('rest_enable_keys') AND !empty($this->rest->key))
+		if (config_item('rest_enable_keys') and !empty($this->rest->key))
 		{
 			// Check the limit
-			if (config_item('rest_enable_limits') AND !$this->_check_limit($controller_method))
+			if (config_item('rest_enable_limits') and !$this->_check_limit($controller_method))
 			{
 				$this->response(array('status' => false, 'error' => 'This API key has reached the hourly limit for this method.'), 401);
 			}
@@ -297,7 +297,7 @@ abstract class REST_Controller extends MY_Controller
 			$authorized = $level <= $this->rest->level;
 
 			// IM TELLIN!
-			if (config_item('rest_enable_logging') AND $log_method)
+			if (config_item('rest_enable_logging') and $log_method)
 			{
 				$this->_log_request($authorized);
 			}
@@ -307,9 +307,9 @@ abstract class REST_Controller extends MY_Controller
 		}
 
 		// No key stuff, but record that stuff is happening
-		else if (config_item('rest_enable_logging') AND $log_method)
+		else if (config_item('rest_enable_logging') and $log_method)
 		{
-			$this->_log_request($authorized = TRUE);
+			$this->_log_request($authorized = true);
 		}
 
 		// And...... GO!
@@ -347,18 +347,18 @@ abstract class REST_Controller extends MY_Controller
 			$http_code = 404;
 
 			// create the output variable here in the case of $this->response(array());
-			$output = NULL;
+			$output = null;
 		}
 
 		// Otherwise (if no data but 200 provided) or some data, carry on camping!
 		else
 		{
 			// Is compression requested?
-			if ($CFG->item('compress_output') === TRUE && $this->_zlib_oc == FALSE)
+			if ($CFG->item('compress_output') === true && $this->_zlib_oc == false)
 			{
 				if (extension_loaded('zlib'))
 				{
-					if (isset($_SERVER['HTTP_ACCEPT_ENCODING']) AND strpos($_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip') !== FALSE)
+					if (isset($_SERVER['HTTP_ACCEPT_ENCODING']) and strpos($_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip') !== false)
 					{
 						ob_start('ob_gzhandler');
 					}
@@ -431,7 +431,7 @@ abstract class REST_Controller extends MY_Controller
 			}
 		}
 
-		return NULL;
+		return null;
 	}
 
 	/**
@@ -452,7 +452,7 @@ abstract class REST_Controller extends MY_Controller
 		}
 
 		// Check if a file extension is used
-		elseif ($this->_get_args AND !is_array(end($this->_get_args)) AND preg_match($pattern, end($this->_get_args), $matches))
+		elseif ($this->_get_args and !is_array(end($this->_get_args)) and preg_match($pattern, end($this->_get_args), $matches))
 		{
 			// The key of the last argument
 			$last_key = end(array_keys($this->_get_args));
@@ -465,22 +465,22 @@ abstract class REST_Controller extends MY_Controller
 		}
 
 		// A format has been passed as an argument in the URL and it is supported
-		if (isset($this->_get_args['format']) AND array_key_exists($this->_get_args['format'], $this->_supported_formats))
+		if (isset($this->_get_args['format']) and array_key_exists($this->_get_args['format'], $this->_supported_formats))
 		{
 			return $this->_get_args['format'];
 		}
 
 		// Otherwise, check the HTTP_ACCEPT (if it exists and we are allowed)
-		if ($this->config->item('rest_ignore_http_accept') === FALSE AND $this->input->server('HTTP_ACCEPT'))
+		if ($this->config->item('rest_ignore_http_accept') === false and $this->input->server('HTTP_ACCEPT'))
 		{
 			// Check all formats against the HTTP_ACCEPT header
 			foreach (array_keys($this->_supported_formats) as $format)
 			{
 				// Has this format been requested?
-				if (strpos($this->input->server('HTTP_ACCEPT'), $format) !== FALSE)
+				if (strpos($this->input->server('HTTP_ACCEPT'), $format) !== false)
 				{
 					// If not HTML or XML assume its right and send it on its way
-					if ($format != 'html' AND $format != 'xml')
+					if ($format != 'html' and $format != 'xml')
 					{
 
 						return $format;
@@ -490,13 +490,13 @@ abstract class REST_Controller extends MY_Controller
 					else
 					{
 						// If it is truly HTML, it wont want any XML
-						if ($format == 'html' AND strpos($this->input->server('HTTP_ACCEPT'), 'xml') === FALSE)
+						if ($format == 'html' and strpos($this->input->server('HTTP_ACCEPT'), 'xml') === false)
 						{
 							return $format;
 						}
 
 						// If it is truly XML, it wont want any HTML
-						elseif ($format == 'xml' AND strpos($this->input->server('HTTP_ACCEPT'), 'html') === FALSE)
+						elseif ($format == 'xml' and strpos($this->input->server('HTTP_ACCEPT'), 'html') === false)
 						{
 							return $format;
 						}
@@ -561,17 +561,17 @@ abstract class REST_Controller extends MY_Controller
 		// Work out the name of the SERVER entry based on config
 		$key_name = 'HTTP_'.strtoupper(str_replace('-', '_', $api_key_variable));
 
-		$this->rest->key = NULL;
-		$this->rest->level = NULL;
-		$this->rest->user_id = NULL;
-		$this->rest->ignore_limits = FALSE;
+		$this->rest->key = null;
+		$this->rest->level = null;
+		$this->rest->user_id = null;
+		$this->rest->ignore_limits = false;
 
 		// Find the key from server or arguments
 		if (($key = isset($this->_args[$api_key_variable]) ? $this->_args[$api_key_variable] : $this->input->server($key_name)))
 		{
 			if ( ! ($row = $this->rest->db->where('key', $key)->get(config_item('rest_keys_table'))->row()))
 			{
-				return FALSE;
+				return false;
 			}
 
 			$this->rest->key = $row->key;
@@ -580,11 +580,11 @@ abstract class REST_Controller extends MY_Controller
 			isset($row->level) AND $this->rest->level = $row->level;
 			isset($row->ignore_limits) AND $this->rest->ignore_limits = $row->ignore_limits;
 
-			return TRUE;
+			return true;
 		}
 
 		// No key has been sent
-		return FALSE;
+		return false;
 	}
 
 	/**
@@ -598,11 +598,11 @@ abstract class REST_Controller extends MY_Controller
 	{
 		if ( ! $lang = $this->input->server('HTTP_ACCEPT_LANGUAGE'))
 		{
-			return NULL;
+			return null;
 		}
 
 		// They might have sent a few, make it an array
-		if (strpos($lang, ',') !== FALSE)
+		if (strpos($lang, ',') !== false)
 		{
 			$langs = explode(',', $lang);
 
@@ -630,7 +630,7 @@ abstract class REST_Controller extends MY_Controller
 	 * @param boolean $authorized
 	 * @return object
 	 */
-	protected function _log_request($authorized = FALSE)
+	protected function _log_request($authorized = false)
 	{
 		return $this->rest->db->insert(config_item('rest_logs_table'), array(
 					'uri' => $this->uri->uri_string(),
@@ -654,10 +654,10 @@ abstract class REST_Controller extends MY_Controller
 	protected function _check_limit($controller_method)
 	{
 		// They are special, or it might not even have a limit
-		if ( ! empty($this->rest->ignore_limits) OR !isset($this->methods[$controller_method]['limit']))
+		if ( ! empty($this->rest->ignore_limits) or !isset($this->methods[$controller_method]['limit']))
 		{
 			// On your way sonny-jim.
-			return TRUE;
+			return true;
 		}
 
 		// How many times can you get to this method an hour?
@@ -671,7 +671,7 @@ abstract class REST_Controller extends MY_Controller
 				->row();
 
 		// No calls yet, or been an hour since they called
-		if ( ! $result OR $result->hour_started < time() - (60 * 60))
+		if ( ! $result or $result->hour_started < time() - (60 * 60))
 		{
 			// Right, set one up from scratch
 			$this->rest->db->insert(config_item('rest_limits_table'), array(
@@ -688,17 +688,17 @@ abstract class REST_Controller extends MY_Controller
 			// Your luck is out, you've called too many times!
 			if ($result->count >= $limit)
 			{
-				return FALSE;
+				return false;
 			}
 
 			$this->rest->db
 					->where('uri', $this->uri->uri_string())
 					->where('api_key', $this->rest->key)
-					->set('count', 'count + 1', FALSE)
+					->set('count', 'count + 1', false)
 					->update(config_item('rest_limits_table'));
 		}
 
-		return TRUE;
+		return true;
 	}
 
 	/**
@@ -817,14 +817,14 @@ abstract class REST_Controller extends MY_Controller
 	 * @param boolean $xss_clean Whether the value should be XSS cleaned or not.
 	 * @return string The GET argument value.
 	 */
-	public function get($key = NULL, $xss_clean = TRUE)
+	public function get($key = null, $xss_clean = true)
 	{
-		if ($key === NULL)
+		if ($key === null)
 		{
 			return $this->_get_args;
 		}
 
-		return array_key_exists($key, $this->_get_args) ? $this->_xss_clean($this->_get_args[$key], $xss_clean) : FALSE;
+		return array_key_exists($key, $this->_get_args) ? $this->_xss_clean($this->_get_args[$key], $xss_clean) : false;
 	}
 
 	/**
@@ -834,14 +834,14 @@ abstract class REST_Controller extends MY_Controller
 	 * @param boolean $xss_clean Whether the value should be XSS cleaned or not.
 	 * @return string The POST argument value.
 	 */
-	public function post($key = NULL, $xss_clean = TRUE)
+	public function post($key = null, $xss_clean = true)
 	{
-		if ($key === NULL)
+		if ($key === null)
 		{
 			return $this->_post_args;
 		}
 
-		return array_key_exists($key, $this->_post_args) ? $this->_xss_clean($this->_post_args[$key], $xss_clean) : FALSE;
+		return array_key_exists($key, $this->_post_args) ? $this->_xss_clean($this->_post_args[$key], $xss_clean) : false;
 	}
 
 	/**
@@ -851,14 +851,14 @@ abstract class REST_Controller extends MY_Controller
 	 * @param boolean $xss_clean Whether the value should be XSS cleaned or not.
 	 * @return string The PUT argument value.
 	 */
-	public function put($key = NULL, $xss_clean = TRUE)
+	public function put($key = null, $xss_clean = true)
 	{
-		if ($key === NULL)
+		if ($key === null)
 		{
 			return $this->_put_args;
 		}
 
-		return array_key_exists($key, $this->_put_args) ? $this->_xss_clean($this->_put_args[$key], $xss_clean) : FALSE;
+		return array_key_exists($key, $this->_put_args) ? $this->_xss_clean($this->_put_args[$key], $xss_clean) : false;
 	}
 
 	/**
@@ -868,14 +868,14 @@ abstract class REST_Controller extends MY_Controller
 	 * @param boolean $xss_clean Whether the value should be XSS cleaned or not.
 	 * @return string The DELETE argument value.
 	 */
-	public function delete($key = NULL, $xss_clean = TRUE)
+	public function delete($key = null, $xss_clean = true)
 	{
-		if ($key === NULL)
+		if ($key === null)
 		{
 			return $this->_delete_args;
 		}
 
-		return array_key_exists($key, $this->_delete_args) ? $this->_xss_clean($this->_delete_args[$key], $xss_clean) : FALSE;
+		return array_key_exists($key, $this->_delete_args) ? $this->_xss_clean($this->_delete_args[$key], $xss_clean) : false;
 	}
 
 	/**
@@ -916,27 +916,27 @@ abstract class REST_Controller extends MY_Controller
 	 * @param string $password The user's password
 	 * @return boolean
 	 */
-	protected function _check_login($username = '', $password = NULL)
+	protected function _check_login($username = '', $password = null)
 	{
 		if (empty($username))
 		{
-			return FALSE;
+			return false;
 		}
 
 		$valid_logins = & $this->config->item('rest_valid_logins');
 
 		if ( ! array_key_exists($username, $valid_logins))
 		{
-			return FALSE;
+			return false;
 		}
 
-		// If actually NULL (not empty string) then do not check it
-		if ($password !== NULL AND $valid_logins[$username] != $password)
+		// If actually null (not empty string) then do not check it
+		if ($password !== null and $valid_logins[$username] != $password)
 		{
-			return FALSE;
+			return false;
 		}
 
-		return TRUE;
+		return true;
 	}
 
 	/**
@@ -950,8 +950,8 @@ abstract class REST_Controller extends MY_Controller
 			$this->_check_whitelist_auth();
 		}
 
-		$username = NULL;
-		$password = NULL;
+		$username = null;
+		$password = null;
 
 		// mod_php
 		if ($this->input->server('PHP_AUTH_USER'))
@@ -1013,7 +1013,7 @@ abstract class REST_Controller extends MY_Controller
 		preg_match_all('@(username|nonce|uri|nc|cnonce|qop|response)=[\'"]?([^\'",]+)@', $digest_string, $matches);
 		$digest = array_combine($matches[1], $matches[2]);
 
-		if ( ! array_key_exists('username', $digest) OR !$this->_check_login($digest['username']))
+		if ( ! array_key_exists('username', $digest) or !$this->_check_login($digest['username']))
 		{
 			$this->_force_login($uniqid);
 		}
@@ -1082,7 +1082,7 @@ abstract class REST_Controller extends MY_Controller
 	protected function _force_loopable($data)
 	{
 		// Force it to be something useful
-		if ( ! is_array($data) AND !is_object($data))
+		if ( ! is_array($data) and !is_object($data))
 		{
 			$data = (array) $data;
 		}

@@ -81,12 +81,11 @@ class Ion_auth
 	 * __construct
 	 *
 	 * @return void
-	 * @author Mathew
 	 **/
 	public function __construct()
 	{
 		$this->ci =& get_instance();
-		$this->ci->load->config('users/ion_auth', TRUE);
+		$this->ci->load->config('users/ion_auth', true);
 		$this->ci->load->library('email');
 		$this->ci->load->library('session');
 		$this->ci->lang->load('users/ion_auth');
@@ -116,12 +115,12 @@ class Ion_auth
 	 **/
 	public function __call($method, $arguments)
 	{
-		if( !method_exists( $this->ci->ion_auth_model, $method) )
+		if ( ! method_exists( $this->ci->ion_auth_model, $method))
 		{
 			throw new Exception('Undefined method Ion_auth::' . $method . '() called');
 		}
 
-		return call_user_func_array( array($this->ci->ion_auth_model, $method), $arguments);
+		return call_user_func_array(array($this->ci->ion_auth_model, $method), $arguments);
 	}
 
 	/**
@@ -135,11 +134,11 @@ class Ion_auth
 		if ($this->ci->ion_auth_model->activate($id, $code))
 		{
 			$this->set_message('activate_successful');
-			return TRUE;
+			return true;
 		}
 
 		$this->set_error('activate_unsuccessful');
-		return FALSE;
+		return false;
 	}
 
 	/**
@@ -153,11 +152,11 @@ class Ion_auth
 		if ($this->ci->ion_auth_model->deactivate($id))
 		{
 			$this->set_message('deactivate_successful');
-			return TRUE;
+			return true;
 		}
 
 		$this->set_error('deactivate_unsuccessful');
-		return FALSE;
+		return false;
 	}
 
 	/**
@@ -171,11 +170,11 @@ class Ion_auth
 	if ($this->ci->ion_auth_model->change_password($identity, $old, $new))
 	{
 		$this->set_message('password_change_successful');
-		return TRUE;
+		return true;
 	}
 
 		$this->set_error('password_change_unsuccessful');
-	return FALSE;
+	return false;
 	}
 
 	/**
@@ -209,18 +208,18 @@ class Ion_auth
 				if ( ! $result)
 				{
 					$this->set_error('forgot_password_unsuccessful');
-					return FALSE;
+					return false;
 				}
 			}
 			
 			// email send was successful, let them know
 			$this->set_message('forgot_password_successful');
-			return TRUE;
+			return true;
 		}
 		else
 		{
 			$this->set_error('forgot_password_unsuccessful');
-			return FALSE;
+			return false;
 		}
 	}
 
@@ -238,7 +237,7 @@ class Ion_auth
 	    if (!is_object($user))
 	    {
 		$this->set_error('password_change_unsuccessful');
-		return FALSE;
+		return false;
 	    }
 
 		$new_password = $this->ci->ion_auth_model->forgotten_password_complete($code, $user->salt);
@@ -264,18 +263,18 @@ class Ion_auth
 				if ( ! $result)
 				{
 					$this->set_error('password_change_unsuccessful');
-					return FALSE;
+					return false;
 				}
 			}
 			
 			// email send was successful, let them know
 			$this->set_message('password_change_successful');
-			return TRUE;
+			return true;
 		}
 		else
 		{
 			$this->set_error('password_change_unsuccessful');
-			return FALSE;
+			return false;
 		}
 	}
 
@@ -289,7 +288,7 @@ class Ion_auth
 	{
 		$id = $this->ci->ion_auth_model->register($username, $password, $email, $group_id, $additional_data, $group_name);
 
-		if ($id !== FALSE)
+		if ($id !== false)
 		{
 			$this->set_message('account_creation_successful');
 
@@ -303,7 +302,7 @@ class Ion_auth
 		else
 		{
 			$this->set_error('account_creation_unsuccessful');
-			return FALSE;
+			return false;
 		}
 	}
 
@@ -324,7 +323,7 @@ class Ion_auth
 		if ( ! $user)
 		{
 			$this->set_error('activation_email_unsuccessful');
-			return FALSE;
+			return false;
 		}
 
 		// Add in some extra details
@@ -346,7 +345,7 @@ class Ion_auth
 			if ( ! $result)
 			{
 				$this->set_error('activation_email_unsuccessful');
-				return FALSE;
+				return false;
 			}
 		}
 		
@@ -367,11 +366,11 @@ class Ion_auth
 		if ($this->ci->ion_auth_model->login($identity, $password, $remember))
 		{
 			$this->set_message('login_successful');
-			return TRUE;
+			return true;
 		}
 
 		$this->set_error('login_unsuccessful');
-		return FALSE;
+		return false;
 	}
 	
 	public function force_login($user_id, $remember = false)
@@ -379,11 +378,11 @@ class Ion_auth
 		if ($this->ci->ion_auth_model->force_login($user_id, $remember))
 		{
 			$this->set_message('login_successful');
-			return TRUE;
+			return true;
 		}
 
 		$this->set_error('login_unsuccessful');
-		return FALSE;
+		return false;
 	}
 
 	/**
@@ -413,7 +412,7 @@ class Ion_auth
 		$this->ci->session->sess_destroy();
 
 		$this->set_message('logout_successful');
-		return TRUE;
+		return true;
 	}
 
 	/**
@@ -481,7 +480,7 @@ class Ion_auth
 	 * @return object Users
 	 * @author Ben Edmunds
 	 **/
-	public function get_users($group_name=false, $limit=NULL, $offset=NULL)
+	public function get_users($group_name=false, $limit=null, $offset=null)
 	{
 		return $this->ci->ion_auth_model->get_users($group_name, $limit, $offset)->result();
 	}
@@ -503,7 +502,7 @@ class Ion_auth
 	 * @return array Users
 	 * @author Ben Edmunds
 	 **/
-	public function get_users_array($group_name=false, $limit=NULL, $offset=NULL)
+	public function get_users_array($group_name=false, $limit=null, $offset=null)
 	{
 		return $this->ci->ion_auth_model->get_users($group_name, $limit, $offset)->result_array();
 	}
@@ -663,11 +662,11 @@ class Ion_auth
 		 if ($this->ci->ion_auth_model->update_user($id, $data, $profile_data))
 		 {
 			$this->set_message('update_successful');
-			return TRUE;
+			return true;
 		 }
 
 		$this->set_error('update_unsuccessful');
-		return FALSE;
+		return false;
 	}
 
 
@@ -682,11 +681,11 @@ class Ion_auth
 		 if ($this->ci->ion_auth_model->delete_user($id))
 		 {
 			$this->set_message('delete_successful');
-			return TRUE;
+			return true;
 		 }
 
 		$this->set_error('delete_unsuccessful');
-		return FALSE;
+		return false;
 	}
 
 
@@ -735,7 +734,7 @@ class Ion_auth
 		$this->message_start_delimiter = $start_delimiter;
 		$this->message_end_delimiter   = $end_delimiter;
 
-		return TRUE;
+		return true;
 	}
 
 	/**
@@ -751,7 +750,7 @@ class Ion_auth
 		$this->error_start_delimiter = $start_delimiter;
 		$this->error_end_delimiter   = $end_delimiter;
 
-		return TRUE;
+		return true;
 	}
 
 	/**

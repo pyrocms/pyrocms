@@ -44,6 +44,7 @@ $lang['blog:blog_title']                     = 'Blog';
 $lang['blog:list_title']                     = 'Seznam prispevkov';
 
 // messages
+$lang['blog:disabled_after'] 				= 'Posting comments after %s has been disabled.'; #translate
 $lang['blog:no_posts']                    = 'Trenutno še ni prispevkov.';
 $lang['blog:subscripe_to_rss_desc']          = 'Pridite do prispevkov v najkrajšem možnem času tako da se prijavite na RSS podajalca. To lahko storite preko popularnega email programa ali poizkusite  <a href="http://reader.google.co.uk/">Google Reader</a>.';
 $lang['blog:currently_no_posts']          = 'Ta trenutek ni prispevkov';

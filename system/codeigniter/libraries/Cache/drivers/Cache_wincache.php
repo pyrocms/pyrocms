@@ -2,7 +2,7 @@
 /**
  * CodeIgniter
  *
- * An open source application development framework for PHP 5.1.6 or newer
+ * An open source application development framework for PHP 5.2.4 or newer
  *
  * NOTICE OF LICENSE
  *
@@ -25,8 +25,6 @@
  * @filesource
  */
 
-// ------------------------------------------------------------------------
-
 /**
  * CodeIgniter Wincache Caching Class
  *
@@ -39,7 +37,6 @@
  * @author		Mike Murkovic
  * @link
  */
-
 class CI_Cache_wincache extends CI_Driver {
 
 	/**
@@ -68,7 +65,7 @@ class CI_Cache_wincache extends CI_Driver {
 	 * @param	string	Unique Key
 	 * @param	mixed	Data to store
 	 * @param	int	Length of time (in seconds) to cache the data
-	 * @return 	bool	true on success/false on failure
+	 * @return	bool	true on success/false on failure
 	 */
 	public function save($id, $data, $ttl = 60)
 	{
@@ -81,7 +78,7 @@ class CI_Cache_wincache extends CI_Driver {
 	 * Delete from Cache
 	 *
 	 * @param	mixed	unique identifier of the item in the cache
-	 * @param	bool	true on success/false on failure
+	 * @return	bool	true on success/false on failure
 	 */
 	public function delete($id)
 	{

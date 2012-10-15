@@ -93,7 +93,7 @@ class Field_encrypt
 	 * @param	[array - param]
 	 * @return	string
 	 */	
-	public function param_hide_typing($params = FALSE)
+	public function param_hide_typing($params = false)
 	{
 		$selected 		= ($params == 'no') ? 'no' : 'yes';
 

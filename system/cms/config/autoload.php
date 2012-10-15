@@ -68,7 +68,7 @@ $autoload['libraries'] = array('asset', 'database', 'template', 'parser');
 
 $autoload['helper'] = array(
 	'debug', 'url', 'form', 'text', 'string', 'language', 'html', 'pagination', 'array', 'gravatar',
-	'markdown', 'comments/comments', 'modules/module', 'users/user'
+	'markdown', 'addons/module', 'users/user'
 );
 
 
@@ -115,7 +115,7 @@ $autoload['language'] = array('errors');
 */
 
 // Autoloaded in MY_Controller
-//	permissions/permission_m', modules/module_m', 'pages/pages_m
+//	permissions/permission_m', addons/module_m', 'pages/pages_m
 $autoload['model'] = array();
 
 /* End of file autoload.php */

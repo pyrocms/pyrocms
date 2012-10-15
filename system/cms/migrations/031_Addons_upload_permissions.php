@@ -2,7 +2,7 @@
 
 class Migration_Addons_upload_permissions extends CI_Migration {
 
-	function up()
+	public function up()
 	{
 		$this->db->insert('settings',
 			array('slug' 			=> 'addons_upload',
@@ -18,7 +18,7 @@ class Migration_Addons_upload_permissions extends CI_Migration {
 			);
 	}
 
-	function down()
+	public function down()
 	{
 		$this->db->delete('settings', array('slug' => 'addons_upload'));
 	}

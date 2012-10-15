@@ -52,7 +52,7 @@ class Admin extends Admin_Controller
 		// Set template layout to false if request is of ajax type
 		if ($this->input->is_ajax_request())
 		{
-			$this->template->set_layout(FALSE);
+			$this->template->set_layout(false);
 		}
 	}
 
@@ -81,6 +81,8 @@ class Admin extends Admin_Controller
 	 */
 	public function create()
 	{
+		$variable = new stdClass();
+
 		// Got validation?
 		if ($this->form_validation->run())
 		{
@@ -102,7 +104,7 @@ class Admin extends Admin_Controller
 			{
 				$data = array();
 				$data['messages'][$status] = $message;
-				$message = $this->load->view('admin/partials/notices', $data, TRUE);
+				$message = $this->load->view('admin/partials/notices', $data, true);
 
 				return print (json_encode((object)array(
 					'status' => $status,
@@ -118,7 +120,7 @@ class Admin extends Admin_Controller
 			// if request is ajax return json data, otherwise do normal stuff
 			if ($this->input->is_ajax_request())
 			{
-				$message = $this->load->view('admin/partials/notices', array(), TRUE);
+				$message = $this->load->view('admin/partials/notices', array(), true);
 
 				return $this->template->build_json(array(
 					'status' => 'error',
@@ -148,6 +150,8 @@ class Admin extends Admin_Controller
 	 */
 	public function edit($id = 0)
 	{
+		$variable = new stdClass();
+
 		// Got ID?
 		$id OR redirect('admin/variables');
 
@@ -175,7 +179,7 @@ class Admin extends Admin_Controller
 			{
 				$data = array();
 				$data['messages'][$status] = $message;
-				$message = $this->load->view('admin/partials/notices', $data, TRUE);
+				$message = $this->load->view('admin/partials/notices', $data, true);
 
 				return $this->template->build_json(array(
 					'status' => $status,
@@ -191,7 +195,7 @@ class Admin extends Admin_Controller
 		{
 			if ($this->input->is_ajax_request())
 			{
-				$message = $this->load->view('admin/partials/notices', array(), TRUE);
+				$message = $this->load->view('admin/partials/notices', array(), true);
 
 				return $this->template->build_json(array(
 					'status' => 'error',
@@ -203,7 +207,7 @@ class Admin extends Admin_Controller
 		// Loop through each validation rule
 		foreach ($this->_validation_rules as $rule)
 		{
-			if ($this->input->post($rule['field']) !== FALSE)
+			if ($this->input->post($rule['field']) !== false)
 			{
 				$variable->{$rule['field']} = set_value($rule['field']);
 			}

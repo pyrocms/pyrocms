@@ -7,3 +7,6 @@ $lang['streams.image.resize_height'] 	= "Redimensionner en hauteur";
 $lang['streams.image.allowed_types'] 	= "Formats autorisés (Exemple : jpg|png)";
 $lang['streams.image.image_errors']		= "Les erreurs suivantes se sont produites lors de l'ajout de votre fichier :";
 $lang['streams.image.need_folder']		= "Vous devez définir un dossier de réception avant de pouvoir y envoyer des fichiers.";
+$lang['streams.image.keep_ratio'] 		= 'Keep Ratio'; #translate
+$lang['streams.image.keep_ratio_instr']		= 'When resizing, should we keep the ratio?'; #translate
+$lang['streams.image.allowed_types_instr'] 	= 'Ex: jpg|jpeg|png'; #translate
