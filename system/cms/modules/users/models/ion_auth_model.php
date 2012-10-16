@@ -717,7 +717,15 @@ class Ion_auth_model extends CI_Model
 		{
 			foreach ($this->user_stream_fields as $field_key => $field_data)
 			{
-				$this->db->select($this->tables['meta'].'.'. $field_key);
+				// Is this an alt. process field type? If so, we don't
+				// want to select the column since it doesn't exist.
+				if (
+					! isset($this->type->types->{$field_data->field_type}->alt_process) or 
+					! $this->type->types->{$field_data->field_type}->alt_process
+				)
+				{
+					$this->db->select($this->tables['meta'].'.'. $field_key);
+				}
 			}
 		}
 
