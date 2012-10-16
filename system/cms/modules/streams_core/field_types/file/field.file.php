@@ -17,7 +17,7 @@ class Field_file
 
 	public $custom_parameters		= array('folder', 'allowed_types');
 
-	public $version					= '1.0';
+	public $version					= '1.1';
 
 	public $author					= array('name'=>'Parse19', 'url'=>'http://parse19.com');
 	
@@ -85,64 +85,38 @@ class Field_file
 	 */
 	public function pre_save($input, $field)
 	{	
-		// Only go through the pre_save upload if there is a file ready to go
-		if (isset($_FILES[$field->field_slug.'_file']['name']) && $_FILES[$field->field_slug.'_file']['name'] != '')
+		// If we do not have a file that is being submitted. If we do not,
+		// it could be the case that we already have one, in which case just
+		// return the numeric file record value.
+		if ( ! isset($_FILES[$field->field_slug.'_file']['name']) or ! $_FILES[$field->field_slug.'_file']['name'])
 		{
-			// Do nothing
-		}	
-		else
-		{
-			// If we have a file already just return that value
-			if (is_numeric($this->CI->input->post( $field->field_slug )))
+			if (is_numeric($this->CI->input->post($field->field_slug)))
 			{
-				return $this->CI->input->post( $field->field_slug );
+				return $this->CI->input->post($field->field_slug);
 			}
 			else
 			{
 				return null;
 			}
-		}	
-	
-		$this->CI->load->model('files/file_m');
-		$this->CI->load->config('files/files');
+		}
 
-		// Set upload data
-		$upload_config['upload_path'] 		= FCPATH . $this->CI->config->item('files:path') . '/';
-		$upload_config['allowed_types'] 	= $field->field_data['allowed_types'];
+		$this->CI->load->library('files/files');
 
-		// Do the upload
-		$this->CI->load->library('upload', $upload_config);
+		// If you don't set allowed types, we'll set it to allow all.
+		$allowed_types 	= (isset($field->field_data['allowed_types'])) ? $field->field_data['allowed_types'] : '*';
 
-		if ( ! $this->CI->upload->do_upload( $field->field_slug . '_file' ))
+		$return = Files::upload($field->field_data['folder'], null, $field->field_slug.'_file', null, null, null, $allowed_types);
+
+		if ( ! $return['status'])
 		{
-			// @todo - languagize
-			$this->CI->session->set_flashdata('notice', 'The following errors occurred when adding your file: '.$this->CI->upload->display_errors());	
+			$this->CI->session->set_flashdata('notice', $return['message']);	
 			
 			return null;
 		}
 		else
 		{
-			$file = $this->CI->upload->data();
-			
-			// Insert the data
-			// We are going to use the PyroCMS way here.
-			$this->CI->file_m->insert(array(
-				'folder_id' 		=> $field->field_data['folder'],
-				'user_id' 			=> $this->CI->current_user->id,
-				'type' 				=> 'd',
-				'name' 				=> $file['file_name'],
-				'description' 		=> '',
-				'filename' 			=> $file['file_name'],
-				'extension' 		=> $file['file_ext'],
-				'mimetype' 			=> $file['file_type'],
-				'filesize' 			=> $file['file_size'],
-				'date_added' 		=> time(),
-			));
-		
-			$id = $this->CI->db->insert_id();
-			
-			// Return the ID
-			return $id;
+			// Return the ID of the file DB entry
+			return $return['data']['id'];
 		}
 	}
 
@@ -157,15 +131,19 @@ class Field_file
 	 */	
 	public function pre_output($input, $params)
 	{
-		if ( ! $input) return null;
+		if ( ! $input or ! is_numeric($input)) return null;
 
 		$this->CI->load->config('files/files');
 		
-		$db_obj = $this->CI->db->limit(1)->where('id', $input)->get('files');
+		$file = $this->CI->db
+						->limit(1)
+						->select('name')
+						->where('id', $input)
+						->get('files')->row();
 		
-		if ($db_obj->num_rows() > 0)
+		if ($file)
 		{
-			return $this->_output_link($db_obj->row(), false);
+			return '<a href="'.base_url('files/download/'.$input).'">'.$file->name.'</a>';
 		}
 	}
 
@@ -194,13 +172,17 @@ class Field_file
 		$this->CI->load->helper('html');
 		
 		$db_obj = $this->CI->db->limit(1)->where('id', $input)->get('files');
-		
-		if ($db_obj->num_rows() > 0)
-		{
-			$file = $db_obj->row();
-					
+
+		$file = $this->CI->db
+						->limit(1)
+						->select('name, extension, mimetype')
+						->where('id', $input)
+						->get('files')->row();
+
+		if ($file)
+		{					
 			$file_data['filename']		= $file->name;
-			$file_data['file']			= base_url().$this->CI->config->item('files:path').'/'.$file->filename;
+			$file_data['file']			= base_url().'files/download/'.$input;
 			$file_data['ext']			= $file->extension;
 			$file_data['mimetype']		= $file->mimetype;
 		}
@@ -212,22 +194,6 @@ class Field_file
 		}
 
 		return $file_data;
-	}
-
-	// --------------------------------------------------------------------------
-	
-	/**
-	 * Output link
-	 *
-	 * Used mostly for the back end
-	 *
-	 * @access	private
-	 * @param	obj
-	 * @return	string
-	 */
-	private function _output_link($file)
-	{	
-		return '<a href="'.$this->CI->config->item('files:path').$file->filename.'" target="_blank">'.$file->filename.'</a><br />';
 	}
 
 	// --------------------------------------------------------------------------
@@ -279,7 +245,7 @@ class Field_file
 	 */
 	public function param_allowed_types($value = null)
 	{
-		$instructions = '<p class="note">'.lang('streams.file.allowed_types_instrcutions').'</p>';
+		$instructions = '<p class="note">'.lang('streams.file.allowed_types_instructions').'</p>';
 		
 		return '<div style="float: left;">'.form_input('allowed_types', $value).$instructions.'</div>';
 	}
