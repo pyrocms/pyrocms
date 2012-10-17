@@ -125,7 +125,7 @@
 
 			<section class="item">
 				<ul class="nolist">
-					<?php if (isset($this->permissions['comments']) or $this->current_user->group === 'admin'): ?>
+					<?php if ($this->module_m->enabled('comments') and (isset($this->permissions['comments']) or $this->current_user->group === 'admin')): ?>
 						<li>
 							<a class="button orange" title="<?php echo lang('cp_manage_comments') ?>" href="<?php echo site_url('admin/comments') ?>">
 								<i class="icon-comment icon-white"></i> <?php echo lang('cp_manage_comments') ?>
@@ -133,7 +133,7 @@
 						</li>
 					<?php endif; ?>
 				
-					<?php if (isset($this->permissions['pages']) or $this->current_user->group === 'admin'): ?>
+					<?php if ($this->module_m->enabled('pages') and (isset($this->permissions['pages']) or $this->current_user->group === 'admin')): ?>
 						<li>
 							<a class="button orange" title="<?php echo lang('cp_manage_pages'); ?>" href="<?php echo site_url('admin/pages') ?>">
 								<i class="icon-file icon-white"></i> <?php echo lang('cp_manage_pages'); ?>
@@ -141,7 +141,7 @@
 						</li>
 					<?php endif; ?>
 				
-					<?php if (isset($this->permissions['files']) or $this->current_user->group === 'admin'): ?>
+					<?php if ($this->module_m->enabled('files') and (isset($this->permissions['files']) or $this->current_user->group === 'admin')): ?>
 						<li>
 							<a class="button orange" title="<?php echo lang('cp_manage_files'); ?>" href="<?php echo site_url('admin/files') ?>">
 								<i class="icon-folder-open icon-white"></i> <?php echo lang('cp_manage_files'); ?>
@@ -149,7 +149,7 @@
 						</li>
 					<?php endif; ?>
 				
-					<?php if (isset($this->permissions['users']) or $this->current_user->group === 'admin'): ?>
+					<?php if ($this->module_m->enabled('users') and (isset($this->permissions['users']) or $this->current_user->group === 'admin')): ?>
 						<li>
 							<a class="button orange" title="<?php echo lang('cp_manage_users'); ?>" href="<?php echo site_url('admin/users') ?>">
 								<i class="icon-user icon-white"></i> <?php echo lang('cp_manage_users'); ?>
@@ -163,7 +163,7 @@
 	<!-- /quick links -->
 
 	<!-- recent comments -->
-	<?php if (isset($recent_comments) and is_array($recent_comments) and $theme_options->pyrocms_recent_comments == 'yes') : ?>
+	<?php if ($this->module_m->enabled('comments') and isset($recent_comments) and is_array($recent_comments) and $theme_options->pyrocms_recent_comments == 'yes') : ?>
 		<div id="existing-comments" class="one_half last">
 			<section class="title">
 				<h4><i class="icon-comment"></i> <?php echo lang('comments:recent_comments') ?></h4>
