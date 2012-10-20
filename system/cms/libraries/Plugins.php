@@ -8,8 +8,14 @@
  */
 abstract class Plugin
 {
+	/**
+	 * Holds attribute data
+	 */
 	private $attributes = array();
-
+	
+	/**
+	 * Holds content between tags
+	 */
 	private $content = array();
 
 	/**
@@ -29,11 +35,11 @@ abstract class Plugin
 			// Let's get parse_params first since it
 			// dictates how we handle all tags
 			if ( ! isset($attributes['parse_params'])) $attributes['parse_params'] = 'yes';
-
-			// For each attribute, let's see if we need to parse it.
-			foreach ($attributes as $key => $attr)
+			
+			if ($attributes['parse_params'] == 'yes')
 			{
-				if ($attributes['parse_params'] == 'yes')
+				// For each attribute, let's see if we need to parse it.
+				foreach ($attributes as $key => $attr)
 				{
 					$attributes[$key] = $this->parse_parameter($attr);
 				}
@@ -44,7 +50,7 @@ abstract class Plugin
 	}
 
 	/**
-	 * Make the Codeigniter object properies & methods accessible to this class.
+	 * Make the Codeigniter object properties & methods accessible to this class.
 	 *
 	 * @param string $var The name of the method/property.
 	 *
@@ -58,7 +64,7 @@ abstract class Plugin
 	/**
 	 * Getter for the content.
 	 *
-	 * @return array
+	 * @return string
 	 */
 	public function content()
 	{
@@ -92,22 +98,39 @@ abstract class Plugin
 	 * Parse special variables in an attribute
 	 *
 	 * @param string $value The value of the attribute.
+	 * @param array  $data  Additional data to parse with
 	 *
 	 * @return string The value.
 	 */
-	public function parse_parameter($value)
+	public function parse_parameter($value, $data = array())
 	{
 		// Parse for variables. Before we do anything crazy,
 		// let's check for a bracket.
-		if (strpos($value, '[') !== false)
+		if (strpos($value, '[[') !== false)
 		{
 			// Change our [[ ]] to {{ }}. Sneaky.
-			$value = str_replace(array('[', ']'), array('{', '}'), $value);
+			$value = str_replace(array('[[', ']]'), array('{{', '}}'), $value);
 
 			$parser = new Lex_Parser();
 			$parser->scope_glue(':');
+			
+			$default_data = array(
+				'segment_1' => $this->uri->segment(1),
+				'segment_2' => $this->uri->segment(2),
+				'segment_3' => $this->uri->segment(3),
+				'segment_4' => $this->uri->segment(4),
+				'segment_5' => $this->uri->segment(5),
+				'segment_6' => $this->uri->segment(6),
+				'segment_7' => $this->uri->segment(7)
+			);
+	
+			// user info
+			if($this->current_user) {
+				$default_data['user_id']	= $this->current_user->id;
+				$default_data['username']	= $this->current_user->username;
+			}
 
-			return $parser->parse($value, array(), array($this->parser, 'parser_callback'));
+			return $parser->parse($value, array_merge($default_data, $data), array($this->parser, 'parser_callback'));
 		}
 
 		return $value;
