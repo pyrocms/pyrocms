@@ -609,9 +609,9 @@ class Streams_m extends MY_Model {
 			return false;
 		}
 	
-		$this->db->select(ASSIGN_TABLE.'.id as assign_id, '.STREAMS_TABLE.'.*, '.ASSIGN_TABLE.'.*, '.FIELDS_TABLE.'.*');
-		$this->db->order_by(ASSIGN_TABLE.'.sort_order', 'asc');
-		
+		$this->db->select('a.id as assign_id, s.*, a.*, f.*');
+		$this->db->from(STREAMS_TABLE.' s');
+                
 		if (is_numeric($limit))
 		{
 			if (is_numeric($offset))
@@ -624,13 +624,15 @@ class Streams_m extends MY_Model {
 			}
 		}
 		
-		if (!empty($skips)) $this->db->or_where_not_in('field_slug', $skips);
+		if (!empty($skips)) $this->db->or_where_not_in('f.field_slug', $skips);
+		$this->db->where('s.id', $stream_id);
+                
+		$this->db->join(ASSIGN_TABLE.' a', 's.id=a.stream_id');
+		$this->db->join(FIELDS_TABLE.' f', 'f.id=a.field_id');
+                
+                $this->db->order_by('a.sort_order', 'asc');                
 		
-		$this->db->where(STREAMS_TABLE.'.id', $stream_id);
-		$this->db->join(ASSIGN_TABLE, STREAMS_TABLE.'.id='.ASSIGN_TABLE.'.stream_id');
-		$this->db->join(FIELDS_TABLE, FIELDS_TABLE.'.id='.ASSIGN_TABLE.'.field_id');
-		
-		$obj = $this->db->get(STREAMS_TABLE);
+                $obj = $this->db->get();
 		
 		if ($obj->num_rows() == 0)
 		{
@@ -641,7 +643,7 @@ class Streams_m extends MY_Model {
 			$streams = new stdClass;
 		
 			$raw = $obj->result();
-			
+
 			foreach ($raw as $item)
 			{
 				$node = $item->field_slug;
