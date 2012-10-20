@@ -30,8 +30,10 @@ class Field_country
 	 */
 	public function form_output($data, $entry_id, $field)
 	{
-		// Default value
-		if ( ! $data['value'])
+		// Value
+		// We only use the default value if this is a new
+		// entry.
+		if ( ! $data['value'] and ! $entry_id)
 		{
 			$value = (isset($field->field_data['default_country'])) ? $field->field_data['default_country'] : null;
 		}
