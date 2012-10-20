@@ -17,7 +17,7 @@ class Field_year
 	
 	public $col_constraint			= 4;
 
-	public $custom_parameters		= array('start_year', 'end_year');
+	public $custom_parameters		= array('start_year', 'end_year', 'default_year');
 
 	public $extra_validation		= 'integer';
 
@@ -54,8 +54,20 @@ class Field_year
 			
 			--$end_year;
 		}
-		
-		return form_dropdown($data['form_slug'], $years, $data['value']);
+
+		// Value
+		// We only use the default value if this is a new
+		// entry.
+		if ( ! $data['value'] and ! $entry_id)
+		{
+			$value = (isset($field->field_data['default_year'])) ? $field->field_data['default_year'] : null;
+		}
+		else
+		{
+			$value = $data['value'];
+		}	
+
+		return form_dropdown($data['form_slug'], $years, $value);
 	}
 
 	// --------------------------------------------------------------------------
@@ -148,6 +160,27 @@ class Field_year
 		$options['name'] 	= 'end_year';
 		$options['id']		= 'end_year';
 		$options['value']	= $value;
+		
+		return form_input($options);
+	}
+
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * Start Year
+	 *
+	 * @access	public
+	 * @param	[string - value]
+	 * @return	string
+	 */
+	public function param_default_year($value = null)
+	{
+		$options = array(
+			'name'		=> 'default_year',
+			'id'		=> 'default_year',
+			'value'		=> $value,
+			'maxlength' => 4
+		);
 		
 		return form_input($options);
 	}
