@@ -1,6 +1,5 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-
 /**
  * Swedish translation.
  *
@@ -11,12 +10,7 @@
  * @version		1.0.0
  */
 
-
 $lang['streams.year.name']		= 'År';
 $lang['streams.year.start_year']		= 'Start år';
 $lang['streams.year.end_year']		= 'Slut år';
-
-
-
-/* End of file year_lang.php */  
-/* Location: ./system/cms/modules/streams_core/field_types/year/language/swedish */ 
+$lang['streams.year.default_year']	= 'Default Year'; #translate

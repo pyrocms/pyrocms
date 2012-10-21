@@ -29,7 +29,7 @@
 					</li>
 					
 					<li>
-						<label for="theme_layout"><?php echo lang('page_layouts.theme_layout_label');?></label>
+						<label for="theme_layout"><?php echo lang('page_layouts:theme_layout_label');?></label>
 						<div class="input"><?php echo form_dropdown('theme_layout', $theme_layouts, $page_layout->theme_layout ? $page_layout->theme_layout : 'default'); ?></div>
 					</li>
 			
@@ -76,9 +76,9 @@
 		</div>
 		
 	</div>
-	
+
 	<div class="buttons float-right padding-top">
-		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )); ?>
+		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'save_exit', 'cancel') )); ?>
 	</div>
 
 <?php echo form_close(); ?>

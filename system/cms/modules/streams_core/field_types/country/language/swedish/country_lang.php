@@ -1,6 +1,5 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-
 /**
  * Swedish translation.
  *
@@ -11,10 +10,5 @@
  * @version		1.0.0
  */
 
-
 $lang['streams.country.name']		= 'Land';
-
-
-
-/* End of file country_lang.php */  
-/* Location: ./system/cms/modules/streams_core/field_types/country/language/swedish */ 
+$lang['streams.country.default_country']	= 'Default Country'; #translate
