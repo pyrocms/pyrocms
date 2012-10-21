@@ -252,6 +252,24 @@ class Page_m extends MY_Model
 				->result_array();
 		}
 
+		$this->db->select('*')->where('layout_id', $page->layout_id);
+		$page_variables = $this->db->get('page_variables')->result_array();
+
+		$this->db->select('*')->where('page_id', $page->id);
+		$page_variables_data = $this->db->get('page_variables_data')->result_array();
+
+		$page->page_variables = array();
+		foreach($page_variables as $variable) {
+			$variable['data'] = '';
+			foreach($page_variables_data as $data) {
+				if($data['variable_id'] == $variable['id']) {
+					$variable['data'] = $data['data'];
+					break;
+				}
+			}
+			$page->page_variables[] = $variable;
+		}
+
 		return $page;
 	}
 
@@ -569,6 +587,9 @@ class Page_m extends MY_Model
 		// now insert this page's chunks
 		$input['page_id'] = $id;
 		$this->page_chunk_m->create($input);
+
+		// now update the page variables
+		$this->page_variables_data_m->update_all($id, $input);
 
 		$this->db->trans_complete();
 

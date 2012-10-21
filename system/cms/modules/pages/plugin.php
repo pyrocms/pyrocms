@@ -311,6 +311,24 @@ class Plugin_Pages extends Plugin
 		return $this->page_m->has_children($this->attribute('id'));
 	}
 
+	/**
+	* Get variable assigned to current page
+	*
+	* Usage
+	* {{ pages:variable id="{{ page:id }}" name="Top image" }}
+	* @param 
+	*/
+	public function variable() {
+		$page_id = $this->attribute('id');
+		$variable_name = $this->attribute('name');
+		$this->db->where(array('page_id' => $page_id, 'name' => $variable_name));
+		$this->db->join('page_variables', 'page_variables.id = page_variables_data.variable_id');
+		$result_array = $this->db->get('page_variables_data')->result_array();
+		if(isset($result_array[0])) {
+			return $result_array[0]['data'];
+		}
+	}
+
 	// --------------------------------------------------------------------------
 
 	/**

@@ -103,10 +103,26 @@ class Module_Pages extends Module
 	{
 		$this->dbforge->drop_table('page_chunks');
 		$this->dbforge->drop_table('page_layouts');
+		$this->dbforge->drop_table('page_variables');
+		$this->dbforge->drop_table('page_variables_data');
 		$this->dbforge->drop_table('pages');
 		$this->dbforge->drop_table('revisions');
 
 		$tables = array(
+			'page_variables' => array(
+					'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true),
+					'name' => array('type' => 'VARCHAR', 'constraint' => 100),
+					'description' => array('type' => 'VARCHAR', 'constraint' => 255),
+					'type' => array('type' => 'VARCHAR', 'constraint' => 20),
+					'options' => array('type' => 'VARCHAR', 'constraint' => 255),
+					'layout_id' => array('type' => 'INT', 'constraint' => 11)
+				),
+			'page_variables_data' => array(
+					'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true),
+					'data' => array('type' => 'TEXT'),
+					'page_id' => array('type' => 'INT', 'constraint' => 11),
+					'variable' => array('type' => 'INT', 'constraint' => 11)
+				)
 			'page_layouts' => array(
 				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true),
 				'title' => array('type' => 'VARCHAR', 'constraint' => 60),

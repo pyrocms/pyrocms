@@ -14,6 +14,7 @@
 	
 		<ul class="tab-menu">
 			<li><a href="#page-layout-html"><span><?php echo lang('page_layouts.html_label');?></span></a></li>
+			<li><a href="#page-layout-variables"><span><?php echo lang('page_layouts.variables_label');?></span></a></li>
 			<li><a href="#page-layout-css"><span><?php echo lang('page_layouts.css_label');?></span></a></li>
 			<li><a href="#page-layout-script"><span><?php echo lang('pages:js_label');?></span></a></li>
 		</ul>
@@ -41,6 +42,41 @@
 				
 			</fieldset>
 		
+		</div>
+
+		<!-- Variables tab -->
+		<div class="form_inputs" id="page-layout-variables">
+			<fieldset>
+				<table>
+					<thead>
+						<tr>
+							<th><?php echo lang('page_layouts.name'); ?></th>
+							<th><?php echo lang('page_layouts.description'); ?></th>
+							<th><?php echo lang('page_layouts.type'); ?></th>
+							<th><?php echo lang('page_layouts.options'); ?> *</th>
+							<th><?php echo lang('page_layouts.delete'); ?></th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php foreach($page_variables as $page_variable): ?>
+							<tr>
+								<td>
+									<?php echo form_hidden('edit_variable['.$page_variable->id.'][id]', $page_variable->id); ?>
+									<?php echo form_hidden('edit_variable['.$page_variable->id.'][layout_id]', $page_layout->id); ?>
+									<?php echo form_input('edit_variable['.$page_variable->id.'][name]', $page_variable->name); ?>
+								</td>
+								<td><?php echo form_input('edit_variable['.$page_variable->id.'][description]', $page_variable->description); ?></td>
+								<td><?php echo form_dropdown('edit_variable['.$page_variable->id.'][type]', array('image' => lang('page_layouts.option_image'), 'text' => lang('page_layouts.option_text'), 'dropdown' => lang('page_layouts.option_dropdown')), $page_variable->type); ?></td>
+								<td><?php echo form_input('edit_variable['.$page_variable->id.'][options]', $page_variable->options) ?></td>
+								<td><input type="checkbox" name="delete_variables[]" value="<?php echo $page_variable->id; ?>" /></td>
+							</tr>
+						<?php endforeach; ?>
+					</tbody>
+				</table>
+				<input id="add_page_layout_variable" type="button" value="Add page variable" data-layout-id="<?php echo $page_layout->id; ?>">
+				<br /><br />
+				<small>* <?php echo lang('page_layouts.options_explaination'); ?></small>
+			</fieldset>
 		</div>
 		
 		<!-- Design tab -->

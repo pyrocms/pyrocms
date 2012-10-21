@@ -29,6 +29,8 @@ class Admin extends Admin_Controller {
 		$this->load->model('page_m');
 		$this->load->model('page_chunk_m');
 		$this->load->model('page_layouts_m');
+		$this->load->model('page_variables_m');
+		$this->load->model('page_variables_data_m');
 		$this->load->model('navigation/navigation_m');
 		$this->lang->load('pages');
 	}
