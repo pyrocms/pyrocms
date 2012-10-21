@@ -5,6 +5,7 @@ $lang['pages:pages']						= 'Pages';
 
 // tabs
 $lang['pages:content_label']				= 'Page Content';
+$lang['pages:variables_label']				= 'Page Variables';
 $lang['pages:meta_label']					= 'Meta data';
 $lang['pages:design_label']					= 'Design';
 $lang['pages:script_label']					= 'Script';
@@ -63,6 +64,9 @@ $lang['pages_page_already_exist_error']		= 'A page with the URL "%s" already exi
 $lang['pages_parent_not_exist_error']		= 'The parent page you have selected does not exist.';
 $lang['pages_chunk_slug_length']			= 'Page Chunk slugs may be no more than 30 characters in length.';
 $lang['pages_root_folder']                	= 'the top level';
+$lang['pages:save_page_first']				= 'You must save the page first to enable page variables since they depend on the layout you choose.';
+$lang['pages:change_layout']				= 'Please note that changing the page layout will cause you to lose your page variables.';
+
 
 $lang['pages:tree_explanation_title']	    = 'Explanation';
 $lang['pages:tree_explanation']				= 'The list on the left represents pages on your website. Click the page item to show its children. You may drag pages to order them; drag horizontally to make it a child. When you click the page text you will see all sorts of handy information in this box.';

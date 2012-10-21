@@ -58,6 +58,8 @@ class Admin_layouts extends Admin_Controller
 		parent::__construct();
 
 		$this->load->model('page_layouts_m');
+		$this->load->model('page_variables_data_m');
+		$this->load->model('page_variables_m');
 		$this->lang->load('pages');
 		$this->lang->load('page_layouts');
 
@@ -157,6 +159,9 @@ class Admin_layouts extends Admin_Controller
 		// Give validation a try, who knows, it just might work!
 		if ($this->form_validation->run())
 		{
+			// Update or delete any page variables needed
+			$this->page_variables_m->update_delete($this->input->post());
+
 			// Run the update code with the POST data
 			$this->page_layouts_m->update($id, array(
 				'title' => $this->input->post('title'),
@@ -192,10 +197,14 @@ class Admin_layouts extends Admin_Controller
 			$theme_layouts_options[$theme_layout] = basename($theme_layout, '.html');
 		}
 
+		$page_variables = $this->page_variables_m->get_many_by('layout_id', $page_layout->id);
+		
 		$this->template
 			->title($this->module_details['name'], lang('pages:layout_id_label'), sprintf(lang('page_layouts.edit_title'), $page_layout->title))
 			->set('theme_layouts', $theme_layouts_options)
 			->set('page_layout', $page_layout)
+			->set('page_variables', $page_variables)
+			->append_js('module::layouts.js')
 			->build('admin/layouts/form');
 	}
 

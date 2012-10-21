@@ -8,13 +8,14 @@
 
 <section class="item">
 
-	<?php echo form_open(uri_string(), 'id="page-form"'); ?>
+	<?php echo form_open_multipart(uri_string(), 'id="page-form"'); ?>
 	<?php echo form_hidden('parent_id', empty($page->parent_id) ? 0 : $page->parent_id); ?>
 
 	<div class="tabs">
 
 		<ul class="tab-menu">
 			<li><a href="#page-content"><span><?php echo lang('pages:content_label');?></span></a></li>
+			<li><a href="#page-variables"><span><?php echo lang('pages:variables_label');?></span></a></li>
 			<li><a href="#page-meta"><span><?php echo lang('pages:meta_label');?></span></a></li>
 			<li><a href="#page-design"><span><?php echo lang('pages:design_label');?></span></a></li>
 			<li><a href="#page-script"><span><?php echo lang('pages:script_label');?></span></a></li>
@@ -96,6 +97,41 @@
 			</fieldset>
 		</div>
 
+		<!-- Page variables tab -->
+		<div class="form_inputs" id="page-variables">
+			<fieldset>
+				<ul>
+					<?php if(isset($page->page_variables)): ?>
+						<?php foreach($page->page_variables as $page_variable): ?>
+							<li>
+								<label for="variable_<?php echo $page_variable['id']; ?>"><?php echo $page_variable['name']; ?></label>
+								<div class="input">
+									<?php if($page_variable['type'] == 'image'): ?>
+										This is where an image selector would display
+									<?php elseif($page_variable['type'] == 'dropdown'): ?>
+										<select id="variable_<?php echo $page_variable['id']; ?>" name="variable_<?php echo $page_variable['id']; ?>">
+											<?php foreach(explode('|', $page_variable['options']) as $option): ?>
+												<?php $option_vals = explode('=', $option); ?>
+												<?php if($option_vals[0] == $page_variable['data']): ?>
+													<option value="<?php echo $option_vals[0]; ?>" selected='selected'><?php echo $option_vals[1]; ?></option>
+												<?php else: ?>
+													<option value="<?php echo $option_vals[0]; ?>"><?php echo $option_vals[1]; ?></option>
+												<?php endif; ?>
+										<?php endforeach; ?>
+										</select>
+									<?php else: ?>
+										<?php echo form_textarea(array('id' => 'variable_' . $page_variable['id'], 'name' => 'variable_' . $page_variable['id'], 'value' => $page_variable['data'], 'rows' => 5)); ?>
+									<?php endif; ?>
+								</div>
+							</li>
+						<?php endforeach; ?>
+					<?php else: ?>
+						<?php echo lang('pages:save_page_first'); ?>
+					<?php endif; ?>	
+				</ul>
+			</fieldset>
+		</div>
+
 		<!-- Meta data tab -->
 		<div class="form_inputs" id="page-meta">
 		
@@ -129,8 +165,13 @@
 			
 			<ul>
 				<li>
-					<label for="layout_id"><?php echo lang('pages:layout_id_label');?></label>
-					<div class="input"><?php echo form_dropdown('layout_id', $page_layouts, $page->layout_id); ?></div>
+					<label for="layout_id">
+						<?php echo lang('pages:layout_id_label');?>
+						<small><?php echo lang('pages:change_layout'); ?></small>
+				</label>
+					<div class="input">
+						<?php echo form_dropdown('layout_id', $page_layouts, $page->layout_id); ?>
+					</div>
 				</li>
 				
 				<li>
