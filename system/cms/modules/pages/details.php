@@ -121,8 +121,8 @@ class Module_Pages extends Module
 					'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true),
 					'data' => array('type' => 'TEXT'),
 					'page_id' => array('type' => 'INT', 'constraint' => 11),
-					'variable' => array('type' => 'INT', 'constraint' => 11)
-				)
+					'variable_id' => array('type' => 'INT', 'constraint' => 11)
+				),
 			'page_layouts' => array(
 				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true),
 				'title' => array('type' => 'VARCHAR', 'constraint' => 60),
