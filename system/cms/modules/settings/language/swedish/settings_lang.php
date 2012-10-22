@@ -29,7 +29,7 @@ $lang['settings_dashboard_rss_desc'] = 'Länk till RSS källa som ska vara synli
 $lang['settings_dashboard_rss_count'] = 'Antal RSS meddelanden';
 $lang['settings_dashboard_rss_count_desc'] = 'Antal RSS meddelanden som ska vara synliga i kontrollpanelen';
 $lang['settings_date_format'] = 'Datumformat';
-$lang['settings_date_format_desc'] = 'Hur ska datum visas över webbplatsen och i kontrollpanelen? Använd <a target="_blank" href="http://php.net/manual/en/function.date.php">date format</ a> via PHP - eller - vill du använda <a target="_blank" href="http://php.net/manual/en/function.strftime.php">strängar formaterade som datum</a> via PHP.';
+$lang['settings_date_format_desc'] = 'Hur ska datum visas över webbplatsen och i kontrollpanelen? Använd <a target="_blank" href="http://php.net/manual/en/function.date.php">date format</a> via PHP - eller - vill du använda <a target="_blank" href="http://php.net/manual/en/function.strftime.php">strängar formaterade som datum</a> via PHP.';
 $lang['settings_frontend_enabled'] = 'Webbplatsstatus';
 $lang['settings_frontend_enabled_desc'] = 'Använd denna funktion när du vill meddelan att webbplatsen ligger nere för underhåll.';
 $lang['settings_mail_protocol'] = 'Protokoll för e-post';
