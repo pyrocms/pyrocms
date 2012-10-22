@@ -14,11 +14,13 @@ class Module_Domains extends Module
 		return array(
 		    'name' => array(
 		        'en' => 'Domains',
-		        'fr' => 'Domaines'
+		        'fr' => 'Domaines',
+                        'se' => 'Domäner'
 		    ),
 		    'description' => array(
 		        'en' => 'Create domain aliases for your website.',
-		        'fr' => 'Créer des alias de domaine pour votre site web'
+		        'fr' => 'Créer des alias de domaine pour votre site web',
+                        'se' => 'Skapa domänalias för din webbplats'
 		    ),
 		    'frontend' => false,
 		    'backend'  => true,

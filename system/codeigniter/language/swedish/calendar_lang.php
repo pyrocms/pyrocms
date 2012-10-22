@@ -1,16 +1,14 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-
-/**
+ /**
  * Swedish translation.
  *
  * @author		marcus@incore.se
  * @package		PyroCMS  
  * @link		http://pyrocms.com
- * @date		2012-03-13
- * @version		1.0.0
+ * @date		2012-10-22
+ * @version		1.1.0
  */
-
 
 $lang['cal_su'] = 'sö';
 $lang['cal_mo'] = 'må';
@@ -59,6 +57,5 @@ $lang['cal_november'] = 'november';
 $lang['cal_december'] = 'december';
 
 
-
 /* End of file calendar_lang.php */  
-/* Location: ./system/codeigniter/language/english */ 
+/* Location: system/codeigniter/language/swedish/calendar_lang.php */  

@@ -10,10 +10,8 @@
  * @version		1.1.0
  */
 
-$lang['pages.role_put_live'] = 'Publicera sidor';
-$lang['pages.role_edit_live'] = 'Editera publika sidor';
-$lang['pages.role_delete_live'] = 'Radera publika sidor';
+$lang['users.role_admin_profile_fields'] = 'Adminstratörsfält';
 
 
 /* End of file permission_lang.php */  
-/* Location: system/cms/modules/pages/language/swedish/permission_lang.php */  
+/* Location: system/cms/modules/users/language/swedish/permission_lang.php */  
