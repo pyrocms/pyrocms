@@ -216,6 +216,7 @@ class Streams_cp extends CI_Driver {
 		
 		if ($view_override === false) return $form;
 		
+		$CI->data = new stdClass();
 		$CI->data->content = $form;
 		
 		$CI->template->build('admin/partials/blank_section', $CI->data);
