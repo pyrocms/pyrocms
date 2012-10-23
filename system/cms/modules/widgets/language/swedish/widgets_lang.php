@@ -6,7 +6,7 @@
  * @author		marcus@incore.se
  * @package		PyroCMS  
  * @link		http://pyrocms.com
- * @date		2012-10-22
+ * @date		2012-10-23
  * @version		1.1.0
  */
 
@@ -30,7 +30,7 @@ $lang['widgets.widget_area_title'] = 'Fältnamn';
 $lang['widgets.widget_area_slug'] = 'Fält kortnamn';
 $lang['widgets.view_code'] = 'Visa kod';
 $lang['widgets.instance_title'] = 'Titel';
-$lang['widgets.show_title'] = 'Display Widget Title?';
+$lang['widgets.show_title'] = 'Visa widget titel?';
 $lang['widgets.tag_title'] = 'Tagg';
 $lang['widgets.no_available_widgets'] = 'Det finns inga widgetar tillgängliga.';
 
