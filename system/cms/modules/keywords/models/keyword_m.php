@@ -26,4 +26,18 @@ class Keyword_m extends MY_Model {
 			->result();
 	}
 	
+	/**
+	 * Delete applied
+	 *
+	 * Deletes all the keywords applied byhash
+	 *
+	 * @param	string	$hash	The unique hash stored for a entry
+	 * @return	array
+	 */
+	public function delete_applied($hash)
+	{
+		return $this->db
+			->where('hash', $hash)
+			->delete('keywords_applied');
+	}
 }
