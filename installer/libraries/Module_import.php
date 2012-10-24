@@ -162,6 +162,14 @@ class Module_import {
 		// create a session table so they can use it if they want
 		$this->ci->db->query($session);
 
+		// install Settings first as others depend on it
+		$this->_spawn_class('settings', true);
+		$this->install('settings', true);
+
+		// now install streams so other modules can use it
+		$this->_spawn_class('streams_core', true);
+		$this->install('streams_core', true);
+
 		// Loop through directories that hold modules
 		$is_core = TRUE;
 		foreach (array(PYROPATH, ADDONPATH, SHARED_ADDONPATH) as $directory)
@@ -176,7 +184,8 @@ class Module_import {
 				{
 					$slug = basename($module_name);
 
-					if ( ! $details_class = $this->_spawn_class($slug, $is_core))
+					// don't install Settings or streams_core again
+					if (in_array($slug, array('settings', 'streams_core')) or ! $details_class = $this->_spawn_class($slug, $is_core))
 					{
 						continue;
 					}
