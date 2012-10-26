@@ -168,8 +168,8 @@ class Search_index_m extends MY_Model
 	{
 		return $this->db
 			->select('title, description, keywords, module, entry_key, entry_plural, uri, cp_edit_uri')
-			->select('MATCH(title, description, keywords) AGAINST ("'.$this->db->escape_str($query).'" IN BOOLEAN MODE) as bool_relevance', false)
-			->select('MATCH(title, description, keywords) AGAINST ("'.$this->db->escape_str($query).'") AS relevance', false)
+			->select('MATCH(title, description, keywords) AGAINST ("*'.$this->db->escape_str($query).'*" IN BOOLEAN MODE) as bool_relevance', false)
+			->select('MATCH(title, description, keywords) AGAINST ("*'.$this->db->escape_str($query).'*") AS relevance', false)
 			->having('bool_relevance > 0')
 			->order_by('relevance', 'desc')
 			->get('search_index')
