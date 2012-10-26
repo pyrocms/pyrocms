@@ -169,6 +169,7 @@ class Admin extends Admin_Controller
 			}
 		}
 
+		$data = new stdClass();
 		$data->slug = $slug;
 		$data->options_array = $all_options;
 		$data->controller = &$this;
