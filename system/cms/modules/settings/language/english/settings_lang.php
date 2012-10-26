@@ -77,7 +77,7 @@ $lang['settings_ga_email']						= 'Google Analytic E-mail';
 $lang['settings_ga_email_desc']					= 'E-mail address used for Google Analytics, we need this to show the graph on the dashboard.';
 
 $lang['settings_ga_password']					= 'Google Analytic Password';
-$lang['settings_ga_password_desc']				= 'Google Analytics password. This is also needed this to show the graph on the dashboard.';
+$lang['settings_ga_password_desc']				= 'Google Analytics password. This is also needed this to show the graph on the dashboard. You will need to allow access to from Google to get this to work. See <a href="https://accounts.google.com/b/0/IssuedAuthSubTokens?hl=en_US" target="_blank">Authorized Access to your Google Account</a>';
 
 $lang['settings_ga_profile']					= 'Google Analytic Profile';
 $lang['settings_ga_profile_desc']				= 'Profile ID for this website in Google Analytics.';
