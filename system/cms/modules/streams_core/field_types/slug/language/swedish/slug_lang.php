@@ -11,21 +11,13 @@
  * @version		1.0.0
  */
 
-<<<<<<< HEAD
+
 $lang['streams.slug.name'] = 'Slugg';
 $lang['streams.slug.space_type'] = 'Typ av utrymme';
 $lang['streams.slug.slug_field'] = 'Sluggfält';
 $lang['streams.slug.dash'] = 'Tankstreck';
 $lang['streams.slug.underscore'] = 'Understreck';
-=======
 
-$lang['streams.slug.name']		= 'Slugg';
-$lang['streams.slug.space_type']		= 'Typ av utrymme';
-$lang['streams.slug.slug_field']		= 'Sluggfält';
-$lang['streams.slug.dash']		= 'Tankstreck';
-$lang['streams.slug.underscore']		= 'Understräck';
-
->>>>>>> parent of 65e3949... Added swedish
 
 
 /* End of file slug_lang.php */  
