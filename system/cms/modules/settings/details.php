@@ -412,7 +412,7 @@ class Module_Settings extends Module {
 			// @todo Move this to the respective module
 			'ga_password' => array(
 				'title' => 'Google Analytic Password',
-				'description' => 'This is also needed this to show the graph on the dashboard.',
+				'description' => 'This is also needed this to show the graph on the dashboard. You will need to allow access to from Google to get this to work. See <a href="https://accounts.google.com/b/0/IssuedAuthSubTokens?hl=en_US" target="_blank">Authorized Access to your Google Account</a>',
 				'type' => 'text',
 				'default' => '',
 				'value' => '',
