@@ -6,7 +6,7 @@
  * @author		marcus@incore.se
  * @package		PyroCMS  
  * @link		http://pyrocms.com
- * @date		2012-10-23
+ * @date		2012-10-22
  * @version		1.1.0
  */
 
@@ -48,7 +48,7 @@ $lang['blog:posts_title'] = 'Inlägg';
 $lang['blog:rss_posts_title'] = 'Blogginlägg för %s';
 $lang['blog:blog_title'] = 'Blogg';
 $lang['blog:list_title'] = 'Lista inlägg';
-$lang['blog:disabled_after'] = 'Skickade kommentarer efter %s har blivit inaktiverade.';
+$lang['blog:disabled_after'] = 'Posting comments after %s has been disabled.';
 $lang['blog:no_posts'] = 'Det finns inga poster';
 $lang['blog:subscripe_to_rss_desc'] = 'Få inlägg direkt genom att prenumerera på vårt RSS-flöde. Du flesta populära e-postklienter har stöd för detta, eller prova <a href="http://reader.google.co.uk/">Google Reader</ a>.';
 $lang['blog:currently_no_posts'] = 'Det finns inga poster just nu';
