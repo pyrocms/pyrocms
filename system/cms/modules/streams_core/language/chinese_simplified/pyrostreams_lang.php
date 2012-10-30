@@ -1,201 +1,190 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
-/**
- * Chinese Simpplified translation.
- *
- * @author		Kefeng DENG
- * @package		PyroCMS
- * @subpackage 	Pyrostreams Module
- * @category	Modules
- * @link		http://pyrocms.com
- * @date		2012-06-27
- * @version		1.0
- */
 
 /* Messages */
 
-$lang['streams.save_field_error'] 						= "保存此项出错。";
-$lang['streams.field_add_success']						= "添加此项成果。";
-$lang['streams.field_update_error']						= "更新此项出错.";
-$lang['streams.field_update_success']					= "更新此项成功";
-$lang['streams.field_delete_error']						= "删除此项出错";
-$lang['streams.field_delete_success']					= "删除此项成功";
-$lang['streams.view_options_update_error']				= "更新视窗选项出错。";
-$lang['streams.view_options_update_success']			= "视窗选项更新成功";
-$lang['streams.remove_field_error']						= "删除视窗选项出错";
-$lang['streams.remove_field_success']					= "删除此项成功";
-$lang['streams.create_stream_error']					= "There was a problem creating your stream.";
-$lang['streams.create_stream_success']					= "Stream created successfully.";
-$lang['streams.stream_update_error']					= "There was a problem updating this stream.";
-$lang['streams.stream_update_success']					= "Stream updated successfully.";
-$lang['streams.stream_delete_error']					= "There was a problem with deleting this stream.";
-$lang['streams.stream_delete_success']					= "Stream deleted successfully.";
-$lang['streams.stream_field_ass_add_error']				= "There was a problem adding this field to this stream.";
-$lang['streams.stream_field_ass_add_success']			= "Field added to stream successfully.";
-$lang['streams.stream_field_ass_upd_error']				= "There was a problem updating this field assignment.";
-$lang['streams.stream_field_ass_upd_success']			= "Field assignment updated successfully.";
-$lang['streams.delete_entry_error']						= "There was a problem deleting this entry.";
-$lang['streams.delete_entry_success']					= "Entry deleted successfully.";
-$lang['streams.new_entry_error']						= "There was a problem adding this entry.";
-$lang['streams.new_entry_success']						= "Entry added successfully.";
-$lang['streams.edit_entry_error']						= "There was a problem updating this entry.";
-$lang['streams.edit_entry_success']						= "Entry updated successfully.";
-$lang['streams.delete_summary']							= "Are you sure you want to delete the <strong>%s</strong> stream? This will <strong>delete %s %s</strong> permanently.";
+$lang['streams.save_field_error'] 						= "存储此字段时出错。";
+$lang['streams.field_add_success']						= "此字段被添加成功。";
+$lang['streams.field_update_error']						= "更新此字段时出错。";
+$lang['streams.field_update_success']					= "此字段更新成功。";
+$lang['streams.field_delete_error']						= "删除此字段时出错。";
+$lang['streams.field_delete_success']					= "此字段被删除";
+$lang['streams.view_options_update_error']				= "更新此查看选项时出错。";
+$lang['streams.view_options_update_success']			= "查看选项更新成功。";
+$lang['streams.remove_field_error']						= "移除此字段出错。";
+$lang['streams.remove_field_success']					= "此字段移除成功。";
+$lang['streams.create_stream_error']					= "创建您的流出现问题。";
+$lang['streams.create_stream_success']					= "流已成功创建。";
+$lang['streams.stream_update_error']					= "更新此流发生问题。";
+$lang['streams.stream_update_success']					= "成功更新此流。";
+$lang['streams.stream_delete_error']					= "删除此流发生问题。";
+$lang['streams.stream_delete_success']					= "成功删除此流。";
+$lang['streams.stream_field_ass_add_error']				= "添加此字段到流出错。";
+$lang['streams.stream_field_ass_add_success']			= "此字段被成功添加到流。";
+$lang['streams.stream_field_ass_upd_error']				= "更新这个字段赋值出错。";
+$lang['streams.stream_field_ass_upd_success']			= "成功更新这个字段赋值";
+$lang['streams.delete_entry_error']						= "删除该条目出错。";
+$lang['streams.delete_entry_success']					= "成功删除该条目。";
+$lang['streams.new_entry_error']						= "添加该条目出错。";
+$lang['streams.new_entry_success']						= "成功添加该条目。";
+$lang['streams.edit_entry_error']						= "更新该条目出错。";
+$lang['streams.edit_entry_success']						= "成功更新该条目。";
+$lang['streams.delete_summary']							= "您确定要删除 <strong>%s</strong> 流? 这将会<strong>永久性地删除 %s %s</strong>.";
 
 /* Misc Errors */
 
-$lang['streams.no_stream_provided']						= "No stream was provided.";
-$lang['streams.invalid_stream']							= "Invalid stream.";
-$lang['streams.not_valid_stream']						= "is not a valid stream.";
-$lang['streams.invalid_stream_id']						= "Invalid stream ID.";
-$lang['streams.invalid_row']							= "Invalid row.";
-$lang['streams.invalid_id']								= "Invalid ID.";
-$lang['streams.cannot_find_assign']						= "Cannot find field assignment.";
-$lang['streams.cannot_find_pyrostreams']				= "Cannot find PyroStreams.";
-$lang['streams.table_exists']							= "A table with the slug %s already exists.";
-$lang['streams.no_results']								= "No results";
-$lang['streams.no_entry']								= "Unable to find entry.";
-$lang['streams.invalid_search_type']					= "is not a valid search type.";
-$lang['streams.search_not_found']						= "Search not found.";
+$lang['streams.no_stream_provided']						= "没有任何流。";
+$lang['streams.invalid_stream']							= "无效的流。";
+$lang['streams.not_valid_stream']						= "不是一个有效的流。";
+$lang['streams.invalid_stream_id']						= "无效的流ID.";
+$lang['streams.invalid_row']							= "无效的行。";
+$lang['streams.invalid_id']								= "无效的ID。";
+$lang['streams.cannot_find_assign']						= "未能发现此字段赋值。";
+$lang['streams.cannot_find_pyrostreams']				= "未能发现PyroStreams。";
+$lang['streams.table_exists']							= " %s 数据表已经存在。";
+$lang['streams.no_results']								= "没有结果。";
+$lang['streams.no_entry']								= "不能找到该条目。";
+$lang['streams.invalid_search_type']					= "不是一个有效的查询种类。";
+$lang['streams.search_not_found']						= "未能找到查询结果。";
 
 /* Validation Messages */
 
-$lang['streams.field_slug_not_unique']					= "This field slug is already in use.";
-$lang['streams.not_mysql_safe_word']					= "The %s field is a MySQL reserved word.";
-$lang['streams.not_mysql_safe_characters']				= "The %s field contains disallowed characters.";
-$lang['streams.type_not_valid']							= "Please select a valid field type.";
-$lang['streams.stream_slug_not_unique']					= "This stream slug is already in use.";
-$lang['streams.field_unique']							= "The %s field must be unique.";
-$lang['streams.field_is_required']						= "The %s field is required.";
-$lang['streams.date_out_or_range']						= "The date you have chosen for %s is out of the acceptable range.";
+$lang['streams.field_slug_not_unique']					= "此项标号已经存在。";
+$lang['streams.not_mysql_safe_word']					= "%s 项为MySQL保留字段。.";
+$lang['streams.not_mysql_safe_characters']				= "%s 项包括非法字符。";
+$lang['streams.type_not_valid']							= "请选择一个有效的项目种类。";
+$lang['streams.stream_slug_not_unique']					= "此流标号已经存在。";
+$lang['streams.field_unique']							= "%s 项必须是唯一的。";
+$lang['streams.field_is_required']						= "%s 项是必填的。";
+$lang['streams.date_out_or_range']						= "您选择的日期在有效日期以外。";
 
 /* Field Labels */
 
-$lang['streams.label.field']							= "Field";
-$lang['streams.label.field_required']					= "Field is Required";
-$lang['streams.label.field_unique']						= "Field is Unique";
-$lang['streams.label.field_instructions']				= "Field Instructions";
-$lang['streams.label.make_field_title_column']			= "Make field the title column";
-$lang['streams.label.field_name']						= "Field Name";
-$lang['streams.label.field_slug']						= "Field Slug";
-$lang['streams.label.field_type']						= "Field Type";
+$lang['streams.label.field']							= "字段";
+$lang['streams.label.field_required']					= "必填字段";
+$lang['streams.label.field_unique']						= "唯一字段";
+$lang['streams.label.field_instructions']				= "字段指导";
+$lang['streams.label.make_field_title_column']			= "标记此字段的标题栏";
+$lang['streams.label.field_name']						= "字段名称";
+$lang['streams.label.field_slug']						= "字段标号";
+$lang['streams.label.field_type']						= "字段种类";
 $lang['streams.id']										= "ID";
-$lang['streams.created_by']								= "Created By";
-$lang['streams.created_date']							= "Created Date";
-$lang['streams.updated_date']							= "Updated Date";
-$lang['streams.value']									= "Value";
-$lang['streams.manage']									= "Manage";
-$lang['streams.search']									= "Search";
-$lang['streams:stream_prefix']							= "Stream Prefix";
+$lang['streams.created_by']								= "创建于";
+$lang['streams.created_date']							= "创建时间";
+$lang['streams.updated_date']							= "更新时间";
+$lang['streams.value']									= "数字";
+$lang['streams.manage']									= "管理";
+$lang['streams.search']									= "查询";
+$lang['streams:stream_prefix']							= "流前缀";
 
 /* Field Instructions */
 
-$lang['streams.instr.field_instructions']				= "Displayed on form when entering or editing data.";
-$lang['streams.instr.stream_full_name']					= "Full name for your stream.";
-$lang['streams.instr.slug']								= "Lowercase, just letters and underscores.";
+$lang['streams.instr.field_instructions']				= "显示输入或编辑数据在表格里。";
+$lang['streams.instr.stream_full_name']					= "您的流全名";
+$lang['streams.instr.slug']								= "小写，只接受字母和下划线。";
 
 /* Titles */
 
-$lang['streams.assign_field']							= "Assign Field to Stream";
-$lang['streams.edit_assign']							= "Edit Stream Assignment";
-$lang['streams.add_field']								= "Create Field";
-$lang['streams.edit_field']								= "Edit Field";
-$lang['streams.fields']									= "Fields";
-$lang['streams.streams']								= "Streams";
-$lang['streams.list_fields']							= "List Fields";
-$lang['streams.new_entry']								= "New Entry";
-$lang['streams.stream_entries']							= "Stream Entries";
-$lang['streams.entries']								= "Entries";
-$lang['streams.stream_admin']							= "Stream Admin";
-$lang['streams.list_streams']							= "List Streams";
-$lang['streams.sure']									= "Are You Sure?";
-$lang['streams.field_assignments'] 						= "Stream Field Assignments";
-$lang['streams.new_field_assign']						= "New Field Assignment";
-$lang['streams.stream_name']							= "Stream Name";
-$lang['streams.stream_slug']							= "Stream Slug";
-$lang['streams.about']									= "About";
-$lang['streams.total_entries']							= "Total Entries";
-$lang['streams.add_stream']								= "New Stream";
-$lang['streams.edit_stream']							= "Edit Stream";
-$lang['streams.about_stream']							= "About This Stream";
-$lang['streams.title_column']							= "Title Column";
-$lang['streams.sort_method']							= "Sort Method";
-$lang['streams.add_entry']								= "Add Entry";
-$lang['streams.edit_entry']								= "Edit Entry";
-$lang['streams.view_options']							= "View Options";
-$lang['streams.stream_view_options']					= "Stream View Options";
-$lang['streams.backup_table']							= "Backup Stream Table";
-$lang['streams.delete_stream']							= "Delete Stream";
-$lang['streams.entry']									= "Entry";
-$lang['streams.field_types']							= "Field Types";
-$lang['streams.field_type']								= "Field Type";
-$lang['streams.database_table']							= "Database Table";
-$lang['streams.size']									= "Size";
-$lang['streams.num_of_entries']							= "Number of Entries";
-$lang['streams.num_of_fields']							= "Number of Fields";
-$lang['streams.last_updated']							= "Last Updated";
-$lang['streams.export_schema']							= "Export Schema";
+$lang['streams.assign_field']							= "分配字段流";
+$lang['streams.edit_assign']							= "编辑字段流";
+$lang['streams.add_field']								= "创建字段";
+$lang['streams.edit_field']								= "编辑字段";
+$lang['streams.fields']									= "字段";
+$lang['streams.streams']								= "流";
+$lang['streams.list_fields']							= "字段列表";
+$lang['streams.new_entry']								= "新的条目";
+$lang['streams.stream_entries']							= "流条目";
+$lang['streams.entries']								= "条目";
+$lang['streams.stream_admin']							= "流管理";
+$lang['streams.list_streams']							= "流列表";
+$lang['streams.sure']									= "您确定?";
+$lang['streams.field_assignments'] 						= "流字段赋值";
+$lang['streams.new_field_assign']						= "新的字段赋值";
+$lang['streams.stream_name']							= "流名称";
+$lang['streams.stream_slug']							= "流标号";
+$lang['streams.about']									= "关于";
+$lang['streams.total_entries']							= "全部条目";
+$lang['streams.add_stream']								= "添加流";
+$lang['streams.edit_stream']							= "编辑流";
+$lang['streams.about_stream']							= "编辑此流";
+$lang['streams.title_column']							= "标题列";
+$lang['streams.sort_method']							= "排序项";
+$lang['streams.add_entry']								= "添加条目";
+$lang['streams.edit_entry']								= "编辑条目";
+$lang['streams.view_options']							= "查看选项";
+$lang['streams.stream_view_options']					= "流的查看选项";
+$lang['streams.backup_table']							= "备份流表";
+$lang['streams.delete_stream']							= "删除流表";
+$lang['streams.entry']									= "条目";
+$lang['streams.field_types']							= "字段种类";
+$lang['streams.field_type']								= "字段种类";
+$lang['streams.database_table']							= "数据表";
+$lang['streams.size']									= "大小";
+$lang['streams.num_of_entries']							= "条目数量";
+$lang['streams.num_of_fields']							= "字段数量";
+$lang['streams.last_updated']							= "最后更新";
+$lang['streams.export_schema']							= "导出流";
 
 /* Startup */
 
-$lang['streams.start.add_one']							= "add one here";
-$lang['streams.start.no_fields']						= "You have not created any fields yet. To start, you can";
-$lang['streams.start.no_assign'] 						= "Looks like there are no fields yet for this stream. To start, you can";
-$lang['streams.start.add_field_here']					= "add a field here";
-$lang['streams.start.create_field_here']				= "create a field here";
-$lang['streams.start.no_streams']						= "There are no streams yet, but can start by";
-$lang['streams.start.no_streams_yet']					= "There are no streams yet.";
-$lang['streams.start.adding_one']						= "adding one";
-$lang['streams.start.no_fields_to_add']					= "No Fields to Add";
-$lang['streams.start.no_fields_msg']					= "There are no fields to add to this stream. In PyroStreams, field types can be shared between streams and must be created before being added to a stream. You can start by";
-$lang['streams.start.adding_a_field_here']				= "adding a field here";
-$lang['streams.start.no_entries']						= "There are no entries yet for <strong>%s</strong>. To start, you can";
-$lang['streams.add_fields']								= "assign fields";
-$lang['streams.add_an_entry']							= "add an entry";
-$lang['streams.to_this_stream_or']						= "to this stream or";
-$lang['streams.no_field_assign']						= "No Field Assignments";
-$lang['streams.no_fields_msg_first']					= "Looks like there are no fields yet for this stream.";
-$lang['streams.no_field_assign_msg']					= "Before you start entering data, you need to";
-$lang['streams.add_some_fields']						= "assign some fields";
-$lang['streams.start.before_assign']					= "Before assigning fields to a stream, you need to create a field. You can";
-$lang['streams.start.no_fields_to_assign']				= "Looks like there are no fields available to be assigned. Before you can assign a field you must ";
+$lang['streams.start.add_one']							= "从这里添加";
+$lang['streams.start.no_fields']						= "您还没有创建任何字段。要启动，您可以";
+$lang['streams.start.no_assign'] 						= "此流看起来没有任何字段。要启动，你可以";
+$lang['streams.start.add_field_here']					= "从这里添加字段";
+$lang['streams.start.create_field_here']				= "从这里创建字段";
+$lang['streams.start.no_streams']						= "没有任何流，要启动，您可以";
+$lang['streams.start.no_streams_yet']					= "没有任何流。";
+$lang['streams.start.adding_one']						= "添加";
+$lang['streams.start.no_fields_to_add']					= "没有字段被添加";
+$lang['streams.start.no_fields_msg']					= "没有字段添加到该流。在PyroStreams，字段类型可以在流之间共享，并且被添加到流之前，必须创建。您可以通过";
+$lang['streams.start.adding_a_field_here']				= "从这里添加字段";
+$lang['streams.start.no_entries']						= "<strong>%s</strong> 没有任何条目。要启动，您可以";
+$lang['streams.add_fields']								= "赋值字段";
+$lang['streams.add_an_entry']							= "添加条目";
+$lang['streams.to_this_stream_or']						= "对此流或";
+$lang['streams.no_field_assign']						= "没有字段赋值";
+$lang['streams.no_fields_msg_first']					= "此流不包含任何字段。";
+$lang['streams.no_field_assign_msg']					= "在您开始输入数据前，您需要";
+$lang['streams.add_some_fields']						= "分配给一些字段";
+$lang['streams.start.before_assign']					= "在分配字段的流之前，你需要创建一个字段。您可以";
+$lang['streams.start.no_fields_to_assign']				= "看起来像没有字段可以分配。在分配一个字段前，你必须";
 
 /* Buttons */
 
-$lang['streams.yes_delete']								= "Yes, Delete";
-$lang['streams.no_thanks']								= "No Thanks";
-$lang['streams.new_field']								= "New Field";
-$lang['streams.edit']									= "Edit";
-$lang['streams.delete']									= "Delete";
-$lang['streams.remove']									= "Remove";
-$lang['streams.reset']									= "Reset";
+$lang['streams.yes_delete']								= "是的，删除";
+$lang['streams.no_thanks']								= "不用谢";
+$lang['streams.new_field']								= "新字段";
+$lang['streams.edit']									= "编辑";
+$lang['streams.delete']									= "删除";
+$lang['streams.remove']									= "移除";
+$lang['streams.reset']									= "重置";
 
 /* Misc */
 
-$lang['streams.field_singular']							= "field";
-$lang['streams.field_plural']							= "fields";
-$lang['streams.by_title_column']						= "By Title Column";
-$lang['streams.manual_order']							= "Manual Order";
-$lang['streams.stream_data_line']						= "Edit basic stream data.";
-$lang['streams.view_options_line'] 						= "Choose which columns should be visible on the list data page.";
-$lang['streams.backup_line']							= "Backup and download stream table into a zip file.";
-$lang['streams.permanent_delete_line']					= "Permanently delete a stream and all stream data.";
-$lang['streams.choose_a_field_type']					= "Choose a field type";
-$lang['streams.choose_a_field']							= "Choose a field";
+$lang['streams.field_singular']							= "字段";
+$lang['streams.field_plural']							= "字段";
+$lang['streams.by_title_column']						= "按标题列";
+$lang['streams.manual_order']							= "手动排序";
+$lang['streams.stream_data_line']						= "编辑基本的流数据.";
+$lang['streams.view_options_line'] 						= "选择哪些列应该是可见的名单上的数据页.";
+$lang['streams.backup_line']							= "备份并下载流数据库到ZIP文件";
+$lang['streams.permanent_delete_line']					= "永久删除流数据";
+$lang['streams.choose_a_field_type']					= "选择一个字段种类";
+$lang['streams.choose_a_field']							= "选择一个字段";
 
 /* reCAPTCHA */
 
-$lang['recaptcha_class_initialized'] 					= "reCaptcha Library Initialized";
-$lang['recaptcha_no_private_key']						= "You did not supply an API key for Recaptcha";
-$lang['recaptcha_no_remoteip'] 							= "For security reasons, you must pass the remote ip to reCAPTCHA";
-$lang['recaptcha_socket_fail'] 							= "Could not open socket";
-$lang['recaptcha_incorrect_response'] 					= "Incorrect Security Image Response";
-$lang['recaptcha_field_name'] 							= "Security Image";
-$lang['recaptcha_html_error'] 							= "Error loading security image.  Please try again later";
+$lang['recaptcha_class_initialized'] 					= "验证码库初始化";
+$lang['recaptcha_no_private_key']						= "您没有提供一个API密钥验证码";
+$lang['recaptcha_no_remoteip'] 							= "为了安全起见，你必须通过远程IP验证码";
+$lang['recaptcha_socket_fail'] 							= "无法打开Socket";
+$lang['recaptcha_incorrect_response'] 					= "不正确的安全图像响应";
+$lang['recaptcha_field_name'] 							= "安全图片";
+$lang['recaptcha_html_error'] 							= "加载错误的安全图片。请稍后再试一次";
 
 /* Default Parameter Fields */
 
-$lang['streams.max_length'] 							= "Max Length";
-$lang['streams.upload_location'] 						= "Upload Location";
-$lang['streams.default_value'] 							= "Default Value";
+$lang['streams.max_length'] 							= "最大长度";
+$lang['streams.upload_location'] 						= "上传地址";
+$lang['streams.default_value'] 							= "默认值";
 
 /* End of file pyrostreams_lang.php */
