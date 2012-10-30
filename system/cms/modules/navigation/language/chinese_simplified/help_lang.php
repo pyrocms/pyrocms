@@ -14,10 +14,10 @@ $lang['help_body'] = "
 <p>选择一个链接的标题，然后选择您希望它显示英寸组
 链接类型如下：
 <ul>
-<li>URL: an external link - http://google.com</li>
-<li>Site Link: a link within your site - galleries/portfolio-pictures</li>
-<li>Module: takes a visitor to the index page of a module</li>
-<li>Page: link to a page</li>
+<li>URL: 外部链接 - http://google.com</li>
+<li>Site Link: 站内链接 - galleries/portfolio-pictures</li>
+<li>Module: 引导用到一个模组的首页</li>
+<li>Page: 链接到一个页面</li>
 </ul>
 目标指定如果此链接打开新的浏览器窗口或标签。
 （提示：使用新窗口谨慎，以避免恼人的您的网站访问者。）
