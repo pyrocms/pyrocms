@@ -21,6 +21,8 @@ $lang['version_label'] 					= '版本'; 		//'Version';
 $lang['global:author'] 					= '作者'; 		//'Author';
 $lang['global:action'] 					= '操作'; 		//'Action';
 
+$lang['global:slug'] 					= '别名';
+$lang['global:slug_instructions']		= '只接受小写字母和下划线。';
 $lang['global:dialog:delete_message']		= '確定要刪除吗？这将无法复原。'; //'Are you sure you want to delete this? It can not be undone.';
 $lang['global:dialog:confirm'] 				= '确认'; 		//'Confirm';
 $lang['dialog:yes'] 					= '是'; 			//'Yes';

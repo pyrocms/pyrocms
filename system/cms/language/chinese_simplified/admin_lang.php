@@ -1,15 +1,5 @@
 <?php
-/**
- * Chinese Simpplified translation.
- *
- * @author		Kefeng DENG
- * @package		PyroCMS
- * @subpackage 	-
- * @category	-
- * @link		http://pyrocms.com
- * @date		2012-06-22
- * @version		1.0
- */
+
 $lang['cp_admin_title'] 				= '管理系统'; 		//'Control Panel';
 $lang['global:dashboard'] 				= '控制台'; 			//'Dashboard';
 $lang['cp_admin_quick_links']			= '快捷链接'; 		//'Quick Links';
@@ -43,9 +33,24 @@ $lang['cp_nav_addons']					= '附加模组'; 		//'Add-ons';
 $lang['cp_nav_modules']					= '模组'; 			//'Modules';
 $lang['cp_nav_widgets']					= '小组件'; 			//'Widgets';
 $lang['cp_nav_users']					= '网站用戶'; 			//'Users';
+$lang['cp_nav_data']					= '网站数据';
 $lang['cp_nav_design']					= '网站设计'; 			//'Design';
 $lang['cp_nav_content']					= '网站內容'; 			//'Content';
 $lang['cp_nav_utilities']               = '公用程式'; 		//'Utilities';
+$lang['cp_nav_structure']				= '网站结构';
+$lang['cp_nav_content']					= '网站内容';
+$lang['cp_nav_misc']					= '其他设置';
+$lang['cp_nav_navigation']              = '管理导航栏';
+$lang['cp_nav_redirects']               = '管理重定向';
+$lang['cp_nav_domains']                 = '域名管理';
+$lang['cp_nav_keywords']                = '关键字';
+$lang['cp_nav_maintenance']             = '维护';
+$lang['cp_nav_variables']               = '变量';
+$lang['cp_nav_groups']                  = '管理用户组';
+$lang['cp_nav_permissions']             = '权限设置';
+$lang['cp_nav_pages']                   = '页面管理';
+$lang['cp_nav_files']                   = '文件管理';
+$lang['cp_nav_comments']                = '回复管理';
 
 $lang['global:keywords']				= '关键字';
 
