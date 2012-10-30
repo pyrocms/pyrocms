@@ -1,17 +1,17 @@
 <?php
 
-$lang['blog:post']                 = 'Post'; #translate
-$lang['blog:posts']                   = 'Posts'; #translate
+$lang['blog:post']                 = '文章';
+$lang['blog:posts']                   = '文章';
 
 // labels
-$lang['blog:posted_label'] 				= '已發佈';
-$lang['blog:posted_label_alt']			= '發表於';
+$lang['blog:posted_label'] 				= '已发布';
+$lang['blog:posted_label_alt']			= '发表於';
 $lang['blog:written_by_label']				= '撰文者';
 $lang['blog:author_unknown']				= '未知';
 $lang['blog:keywords_label']				= '關鍵字';
 $lang['blog:tagged_label']					= '標籤';
 $lang['blog:category_label'] 			= '分類';
-$lang['blog:post_label'] 				= '發表';
+$lang['blog:post_label'] 				= '发表';
 $lang['blog:date_label'] 				= '日期';
 $lang['blog:date_at']					= '於';
 $lang['blog:time_label'] 				= '時間';
@@ -48,18 +48,18 @@ $lang['blog:no_posts'] 				= '沒有文章';
 $lang['blog:subscripe_to_rss_desc'] 	= '訂閱我們的 RSS 摘要可立即獲得最新的文章，您可以使用慣用的收件軟體，或試試看 <a href="http://reader.google.com.tw">Google 閱讀器</a>。';
 $lang['blog:currently_no_posts'] 	= '目前沒有文章';
 $lang['blog:post_add_success'] 		= '文章 "%s" 已經新增';
-$lang['blog:post_add_error'] 		= '發生了錯誤';
+$lang['blog:post_add_error'] 		= '发生了錯誤';
 $lang['blog:edit_success'] 				= '這文章 "%s" 更新了。';
-$lang['blog:edit_error'] 				= '發生了錯誤';
-$lang['blog:publish_success'] 			= '此文章 "%s" 已經被發佈。';
-$lang['blog:mass_publish_success'] 		= '這些文章 "%s" 已經被發佈。';
-$lang['blog:publish_error'] 			= '沒有文章被發佈。';
+$lang['blog:edit_error'] 				= '发生了錯誤';
+$lang['blog:publish_success'] 			= '此文章 "%s" 已經被发布。';
+$lang['blog:mass_publish_success'] 		= '這些文章 "%s" 已經被发布。';
+$lang['blog:publish_error'] 			= '沒有文章被发布。';
 $lang['blog:delete_success'] 			= '此文章 "%s" 已經被刪除。';
 $lang['blog:mass_delete_success'] 		= '這些文章 "%s" 已經被刪除。';
 $lang['blog:delete_error'] 				= '沒有文章被刪除。';
 $lang['blog:already_exist_error'] 		= '一則相同網址的文章已經存在。';
 
-$lang['blog:twitter_posted']			= '發佈 "%s" %s';
+$lang['blog:twitter_posted']			= '发布 "%s" %s';
 $lang['blog:twitter_error'] 			= 'Twitter 錯誤';
 
 // date

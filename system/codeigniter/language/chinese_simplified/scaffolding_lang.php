@@ -14,4 +14,3 @@ $lang['scaff_del_confirm']		= '你確定要刪除以下資料:';
 
 
 /* End of file scaffolding_lang.php */
-/* Location: ./system/language/chinese_traditional/scaffolding_lang.php */

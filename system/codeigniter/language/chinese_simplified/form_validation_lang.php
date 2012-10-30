@@ -15,11 +15,10 @@ $lang['alpha_dash']			= "%s 只能填寫英文字母、數字、底線(_)或破�
 $lang['numeric']			= "%s 只能填寫數字.";
 $lang['is_numeric']			= "%s 只能填寫數字.";
 $lang['integer']			= "%s 只能填寫整數數字(不可小數點).";
-$lang['regex_match']		= "The %s field is not in the correct format."; #translate
+$lang['regex_match']		= "%s 字段的格式错误.";
 $lang['matches']			= "%s 與 %s 兩者不相符合.";
 $lang['is_natural']			= "%s 只能填寫正整數數字(不可有負值、小數點).";
 $lang['is_natural_no_zero']	= "%s 只能填寫大於零的數字.";
 
 
 /* End of file form_validation_lang.php */
-/* Location: ./system/language/chinese_traditional/form_validation_lang.php */

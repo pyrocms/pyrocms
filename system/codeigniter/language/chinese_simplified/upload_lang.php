@@ -19,4 +19,3 @@ $lang['upload_not_writable'] = "上傳目錄無法寫入.";
 
 
 /* End of file upload_lang.php */
-/* Location: ./system/language/chinese_traditional/upload_lang.php */

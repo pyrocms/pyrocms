@@ -12,7 +12,7 @@ $lang['ut_failed']			= '未通過';
 $lang['ut_boolean']			= '布林';
 $lang['ut_integer']			= '整數';
 $lang['ut_float']			= '浮點點';
-$lang['ut_double']			= '倍精度浮點數'; // can be the same as float
+$lang['ut_double']			= '倍精度浮點數';
 $lang['ut_string']			= '字串';
 $lang['ut_array']			= '陣列';
 $lang['ut_object']			= '物件';
@@ -21,4 +21,3 @@ $lang['ut_null']			= '無';
 
 
 /* End of file unit_test_lang.php */
-/* Location: ./system/language/chinese_traditional/unit_test_lang.php */

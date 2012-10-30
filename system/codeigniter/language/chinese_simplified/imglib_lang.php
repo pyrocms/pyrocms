@@ -21,4 +21,3 @@ $lang['imglib_save_failed'] = "無法儲存檔案.  請確認圖片或目錄是�
 
 
 /* End of file imglib_lang.php */
-/* Location: ./system/language/chinese_traditional/imglib_lang.php */

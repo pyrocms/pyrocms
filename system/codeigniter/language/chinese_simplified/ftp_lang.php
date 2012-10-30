@@ -14,4 +14,3 @@ $lang['ftp_unable_to_move']			= "無法移動檔案. 請確定目的地資料夾
 
 
 /* End of file ftp_lang.php */
-/* Location: ./system/language/chinese_traditional/ftp_lang.php */

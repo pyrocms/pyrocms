@@ -16,4 +16,3 @@ $lang['profiler_no_uri']		= '沒有 URI 字串存在';
 $lang['profiler_no_memory']		= '無法取得記憶體使用';
 
 /* End of file profiler_lang.php */
-/* Location: ./system/language/chinese_traditional/profiler_lang.php */

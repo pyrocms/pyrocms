@@ -48,5 +48,3 @@ $lang['cal_december'] 	= "十二月";
 
 
 /* End of file calendar_lang.php */
-
-/* Location: ./system/language/chinese_traditional/calendar_lang.php */

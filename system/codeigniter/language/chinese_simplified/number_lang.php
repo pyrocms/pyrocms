@@ -7,4 +7,3 @@ $lang['kilobyte_abbr'] = "KB";
 $lang['bytes'] = "Bytes";
 
 /* End of file number_lang.php */
-/* Location: ./system/language/chinese_traditional/number_lang.php */
