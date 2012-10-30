@@ -18,10 +18,12 @@ class Module_Search extends Module {
 			'name' => array(
 				'en' => 'Search',
 				'fr' => 'Recherche',
+                                'se' => 'Sök',
 			),
 			'description' => array(
 				'en' => 'Search through various types of content with this modular search system.',
 				'fr' => 'Rechercher parmi différents types de contenus avec système de recherche modulaire.',
+                                'se' => 'Sök igenom olika typer av innehåll',
 			),
 			'frontend' => false,
 			'backend'  => false,
