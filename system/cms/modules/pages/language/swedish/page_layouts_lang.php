@@ -15,7 +15,7 @@
 $lang['page_layouts.html_label']		= 'HTML';
 $lang['page_layouts.css_label']		= 'CSS';
 $lang['page_layouts.updated_label']		= 'Uppdaterad';
-$lang['page_layouts.theme_layout_label']		= 'Temalayout';
+$lang['page_layouts:theme_layout_label']		= 'Temalayout';
 $lang['page_layouts.layout']		= 'Layout';
 $lang['page_layouts.list_title']		= 'Sidlayout';
 $lang['page_layouts.create_title']		= 'Lägg till sidlayout';

@@ -68,24 +68,24 @@ class Recaptcha
     */
   function check_answer ($remoteip, $challenge, $response, $extra_params = array()) 
   {
-    log_message('debug','Recaptcha::check_answer('.$remoteip.','.$challenge.','.$response.','.print_r($extra_params,TRUE).')');
+    log_message('debug','Recaptcha::check_answer('.$remoteip.','.$challenge.','.$response.','.print_r($extra_params,true).')');
   	if ($this->_rConfig['private'] == '') 
   	{
   		log_message('error',$this->_CI->lang->line('recaptcha_no_private_key'));
-  		return FALSE;
+  		return false;
   	}
   
   	if ($remoteip == null || $remoteip == '') 
   	{
   		log_message('error',$this->_CI->lang->line('recaptcha_no_remoteip'));
-  		return FALSE;
+  		return false;
   	}
 
     //discard spam submissions
     if ($challenge == null || strlen($challenge) == 0 || $response == null || strlen($response) == 0) 
     {
       $this->_error = 'incorrect-captcha-sol';
-      return FALSE;
+      return false;
     }
 
     $response = $this->_http_post(
@@ -98,17 +98,17 @@ class Recaptcha
         'response' => $response
       ) + $extra_params
     );
-    log_message('debug','Recaptcha::_http_post response:'.print_r($response,TRUE));
+    log_message('debug','Recaptcha::_http_post response:'.print_r($response,true));
     $answers = explode ("\n", $response[1]);
 
     if (trim($answers[0]) == 'true') 
     {
-      return TRUE;
+      return true;
     } 
     else 
     {
       $this->_error = $answers[1];
-      return FALSE;
+      return false;
     }
   }
 	
@@ -178,7 +178,7 @@ class Recaptcha
    */
   function _qsencode($data) 
   {
-    log_message('debug',"Recaptcha::_qsencode(\n".print_r($data,TRUE)."\n)");
+    log_message('debug',"Recaptcha::_qsencode(\n".print_r($data,true)."\n)");
     //http_build_query() = PHP 5 ONLY!
     return http_build_query($data);
   }
@@ -193,7 +193,7 @@ class Recaptcha
    */
   function _http_post($host, $path, $data, $port = 80) 
   {
-    log_message('debug','Recaptcha::http_post('.$host.','.$path.','.print_r($data,TRUE).','.$port.')');
+    log_message('debug','Recaptcha::http_post('.$host.','.$path.','.print_r($data,true).','.$port.')');
     
     $req = $this->_qsencode($data);
     $http_request = implode('',array(

@@ -31,9 +31,9 @@ abstract class Module {
 	 *	   'description' => array(
 	 *		   'en' => 'Example Module Description'
 	 *	   ),
-	 *	   'frontend' => TRUE,
-	 *	   'backend'  => TRUE,
-	 *	   'menu'	  => TRUE
+	 *	   'frontend' => true,
+	 *	   'backend'  => true,
+	 *	   'menu'	  => true
 	 *	   'controllers' => array(
 	 *		   'admin' => array('index', 'edit', 'delete'),
 	 *		   'example' => array('index', 'view')
@@ -210,7 +210,7 @@ abstract class Module {
 					// Add them one by one.
 					foreach ($keys as $i => $primary_key)
 					{
-						$this->dbforge->add_key($keys[$i], TRUE);
+						$this->dbforge->add_key($keys[$i], true);
 					}
 				}
 				// Everything else can be just be supplied as an array.

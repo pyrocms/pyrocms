@@ -32,10 +32,10 @@ $lang['cp_nav_settings']  = 'Paramètres';
 $lang['cp_nav_addons']    = 'Extensions';
 $lang['cp_nav_modules']   = 'Modules';
 $lang['cp_nav_users']     = 'Utilisateurs';
+$lang['cp_nav_data']      = 'Données';
+$lang['cp_nav_structure'] = 'Structure';
 $lang['cp_nav_content']   = 'Contenu';
-$lang['cp_nav_data']					= 'Data'; #translate
-$lang['cp_nav_structure']				= 'Structure'; #translate
-$lang['cp_nav_misc']					= 'Miscellaneous'; #translate
+$lang['cp_nav_misc']      = 'Divers';
 
 $lang['cp_must_login']                  = 'Vous devez être identifié pour voir cette page.';
 $lang['cp_access_denied']               = 'Vous n\'avez pas les autorisations suffisantes pour voir cette page.';

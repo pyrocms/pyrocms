@@ -97,7 +97,7 @@ function pick_language()
 	}
 
 	// If no language has been worked out - or it is not supported - use the default
-	if (empty($lang) OR ! array_key_exists($lang, $config['supported_languages']))
+	if (empty($lang) or ! array_key_exists($lang, $config['supported_languages']))
 	{
 		$lang = $config['default_language'];
 

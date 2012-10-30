@@ -2,7 +2,7 @@
 
 class Migration_Add_session_sql extends CI_Migration {
 
-	function up()
+	public function up()
 	{
 		$session = "
 			CREATE TABLE IF NOT EXISTS ".$this->db->dbprefix(str_replace('default_', '', config_item('sess_table_name')))." (
@@ -10,7 +10,7 @@ class Migration_Add_session_sql extends CI_Migration {
 			 `ip_address` varchar(16) DEFAULT '0' NOT NULL,
 			 `user_agent` varchar(120) NOT NULL,
 			 `last_activity` int(10) unsigned DEFAULT 0 NOT NULL,
-			 `user_data` text NULL,
+			 `user_data` text null,
 			PRIMARY KEY (`session_id`),
 			KEY `last_activity_idx` (`last_activity`)
 			);
@@ -20,7 +20,7 @@ class Migration_Add_session_sql extends CI_Migration {
 		$this->db->query($session);
 	}
 
-	function down()
+	public function down()
 	{
 		$this->db->query("DROP TABLE IF EXISTS ".$this->db->dbprefix(str_replace('default_', '', config_item('sess_table_name'))));
 	}

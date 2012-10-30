@@ -6,7 +6,7 @@ $lang['page_layouts.css_label']                      = 'CSS';
 
 // labels
 $lang['page_layouts.updated_label']                  = 'Aktualisiert';
-$lang['page_layouts.theme_layout_label']             = 'Seitenlayout';
+$lang['page_layouts:theme_layout_label']             = 'Seitenlayout';
 
 // titles
 $lang['page_layouts.list_title']                     = 'Seitenlayouts auflisten';

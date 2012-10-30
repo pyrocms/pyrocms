@@ -114,7 +114,7 @@ class Admin extends Admin_Controller
 		// Unset the layout if we have an ajax request
 		if ($this->input->is_ajax_request())
 		{
-			$this->template->set_layout(FALSE);
+			$this->template->set_layout(false);
 		}
 
 		// Render the view

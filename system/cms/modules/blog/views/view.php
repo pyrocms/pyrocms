@@ -8,7 +8,7 @@
 		<?php if (isset($post->display_name)): ?>
 		<div class="author">
 			<?php echo lang('blog:written_by_label'); ?>: 
-			<span><?php echo anchor('user/' . $post->author_id, $post->display_name); ?></span>
+			<span><?php echo anchor('user/' . $post->username, $post->display_name); ?></span>
 		</div>
 		<?php endif; ?>
 

@@ -109,9 +109,9 @@ class Streams_cp extends CI_Driver {
   		$data = array(
   			'stream'		=> $stream,
   			'stream_fields'	=> $stream_fields,
-  			'buttons'		=> isset($extra['buttons']) ? $extra['buttons'] : NULL,
-  			'filters'		=> isset($extra['filters']) ? $extra['filters'] : NULL,
-  			'search_id'		=> isset($_COOKIE['streams_core_filters']) ? $_COOKIE['streams_core_filters'] : NULL,
+  			'buttons'		=> isset($extra['buttons']) ? $extra['buttons'] : null,
+  			'filters'		=> isset($extra['filters']) ? $extra['filters'] : null,
+  			'search_id'		=> isset($_COOKIE['streams_core_filters']) ? $_COOKIE['streams_core_filters'] : null,
   		);
   
  		// -------------------------------------
@@ -153,7 +153,7 @@ class Streams_cp extends CI_Driver {
 			$db_search = $CI->db->select('search_term, stream_slug, stream_namespace')->where('search_id', $data['search_id'])->limit(1)->get('data_stream_searches')->row(0);
 
 			// Is this the right search module / namespace?
-			if ( $db_search->stream_slug == $stream->stream_slug AND $db_search->stream_namespace == $stream->stream_namespace )
+			if ( $db_search->stream_slug == $stream->stream_slug and $db_search->stream_namespace == $stream->stream_namespace )
 			{
 
 				// Add it
@@ -672,7 +672,7 @@ class Streams_cp extends CI_Driver {
 	public function fields_table($namespace, $pagination = null, $pagination_uri = null, $view_override = false, $extra = array(), $skips = array())
 	{
 		$CI = get_instance();
-		$data['buttons'] = isset($extra['buttons']) ? $extra['buttons'] : NULL;
+		$data['buttons'] = isset($extra['buttons']) ? $extra['buttons'] : null;
 
 		if (is_numeric($pagination))
 		{
@@ -696,7 +696,7 @@ class Streams_cp extends CI_Driver {
 		}
 		else
 		{
-			$data['fields'] = $CI->fields_m->get_fields($namespace, FALSE, 0, $skips);
+			$data['fields'] = $CI->fields_m->get_fields($namespace, false, 0, $skips);
 		}
 
 		// -------------------------------------
@@ -714,11 +714,11 @@ class Streams_cp extends CI_Driver {
 		}
 		else
 		{ 
-			$data['pagination'] = FALSE;
+			$data['pagination'] = false;
 		}
 
 		// Allow view to inherit custom 'Add Field' uri
-		$data['add_uri'] = isset($extra['add_uri']) ? $extra['add_uri'] : NULL;
+		$data['add_uri'] = isset($extra['add_uri']) ? $extra['add_uri'] : null;
 		
 		// -------------------------------------
 		// Build Pages
@@ -880,7 +880,7 @@ class Streams_cp extends CI_Driver {
 	 * @param 	bool - force delete field, even if it is shared with multiple streams
 	 * @return 	bool - success/fail
 	 */
-	public function teardown_assignment_field($assign_id, $force_delete = FALSE)
+	public function teardown_assignment_field($assign_id, $force_delete = false)
 	{
 		$CI = get_instance();
 

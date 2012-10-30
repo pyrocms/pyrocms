@@ -112,7 +112,7 @@ class Plugin_Blog extends Plugin
 		$wheres = $this->attributes();
 
 		// make sure they provided a where clause
-		if (count($wheres) == 0) return FALSE;
+		if (count($wheres) == 0) return false;
 
 		foreach ($wheres AS $column => $value)
 		{

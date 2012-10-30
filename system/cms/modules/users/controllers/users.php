@@ -41,15 +41,25 @@ class Users extends Public_Controller
 	}
 
 	/**
-	 * View a user profile based on the ID
+	 * View a user profile based on the username
 	 *
-	 * @param int|string $id The Username or ID of the user
+	 * @param string $username The Username or ID of the user
 	 */
-	public function view($id = null)
+	public function view($username = null)
 	{
-		$user = ($this->current_user && $id == $this->current_user->id) ? $this->current_user : $this->ion_auth->get_user($id);
+		// Don't make a 2nd db call if the user profile is the same as the logged in user
+		if ($this->current_user && $username === $this->current_user->username)
+		{
+			$user = $this->current_user;
+		}
 
-		// No user? Show a 404 error. Easy way for now, instead should show a custom error message
+		// Fine, just grab the user from the DB
+		else
+		{
+			$user = $this->ion_auth->get_user($username);
+		}
+
+		// No user? Show a 404 error
 		$user or show_404();
 
 		$this->template->build('profile/view', array(
@@ -68,7 +78,7 @@ class Users extends Public_Controller
 			: $this->session->userdata('redirect_to');
 
 		// Any idea where we are heading after login?
-		if ( ! $_POST AND $args = func_get_args())
+		if ( ! $_POST and $args = func_get_args())
 		{
 			$this->session->set_userdata('redirect_to', $redirect_to = implode('/', $args));
 		}
@@ -118,7 +128,7 @@ class Users extends Public_Controller
 			}
 
 			// Don't allow protocols or cheeky requests
-			if (strpos($redirect_to, ':') !== FALSE and strpos($redirect_to, site_url()) !== 0)
+			if (strpos($redirect_to, ':') !== false and strpos($redirect_to, site_url()) !== 0)
 			{
 				// Just login to the homepage
 				redirect('');
@@ -429,7 +439,7 @@ class Users extends Public_Controller
 	 *
 	 * @return void
 	 */
-	public function activate($id = 0, $code = NULL)
+	public function activate($id = 0, $code = null)
 	{
 		// Get info from email
 		if ($this->input->post('email'))
@@ -441,7 +451,7 @@ class Users extends Public_Controller
 		$code = ($this->input->post('activation_code')) ? $this->input->post('activation_code') : $code;
 
 		// If user has supplied both bits of information
-		if ($id AND $code)
+		if ($id and $code)
 		{
 			// Try to activate this user
 			if ($this->ion_auth->activate($id, $code))
@@ -511,7 +521,7 @@ class Users extends Public_Controller
 			$uname = (string) $this->input->post('user_name');
 			$email = (string) $this->input->post('email');
 
-			if ( ! $uname AND ! $email)
+			if ( ! $uname and ! $email)
 			{
 				// they submitted with an empty form, abort
 				$this->template->set('error_string', $this->ion_auth->errors())
@@ -593,7 +603,7 @@ class Users extends Public_Controller
 	 */
 	public function edit($id = 0)
 	{
-		if ($this->current_user AND $this->current_user->group === 'admin' AND $id > 0)
+		if ($this->current_user and $this->current_user->group === 'admin' and $id > 0)
 		{
 			$user = $this->user_m->get(array('id' => $id));
 
@@ -696,7 +706,7 @@ class Users extends Public_Controller
 
 			$profile_data = $secure_post;
 
-			if ($this->ion_auth->update_user($user->id, $user_data, $profile_data) !== FALSE)
+			if ($this->ion_auth->update_user($user->id, $user_data, $profile_data) !== false)
 			{
 				Events::trigger('post_user_update');
 				$this->session->set_flashdata('success', $this->ion_auth->messages());

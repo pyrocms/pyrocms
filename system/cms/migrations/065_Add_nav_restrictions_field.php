@@ -8,8 +8,8 @@ class Migration_Add_nav_restrictions_field extends CI_Migration {
 			'restricted_to' => array(
 				'type'			=> 'varchar',
 				'constraint'	=> 255,
-				'null'			=> TRUE,
-				'default'		=> NULL
+				'null'			=> true,
+				'default'		=> null
 			)
 		));
 	}

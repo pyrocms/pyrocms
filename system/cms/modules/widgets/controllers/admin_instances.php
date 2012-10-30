@@ -47,7 +47,7 @@ class Admin_instances extends Admin_Controller {
 		$this->load->library('widgets');
 		$this->lang->load('widgets');
 
-		$this->input->is_ajax_request() AND $this->template->set_layout(FALSE);
+		$this->input->is_ajax_request() AND $this->template->set_layout(false);
 
 		$this->template
 			->set_partial('shortcuts', 'admin/partials/shortcuts')
@@ -78,7 +78,7 @@ class Admin_instances extends Admin_Controller {
 		if ( ! ($slug && $widget = $this->widgets->get_widget($slug)))
 		{
 			// @todo: set error
-			return FALSE;
+			return false;
 		}
 
 		$data = array();
@@ -114,12 +114,12 @@ class Admin_instances extends Admin_Controller {
 				$data = array();
 
 				$status === 'success' AND $data['messages'][$status] = $message;
-				$message = $this->load->view('admin/partials/notices', $data, TRUE);
+				$message = $this->load->view('admin/partials/notices', $data, true);
 
 				return $this->template->build_json(array(
 					'status'	=> $status,
 					'message'	=> $message,
-					'active'	=> (isset($area) && $area ? '#area-' . $area->slug . ' header' : FALSE)
+					'active'	=> (isset($area) && $area ? '#area-' . $area->slug . ' header' : false)
 				));
 			}
 
@@ -149,7 +149,7 @@ class Admin_instances extends Admin_Controller {
 		if ( ! ($id && $widget = $this->widgets->get_instance($id)))
 		{
 			// @todo: set error
-			return FALSE;
+			return false;
 		}
 
 		$data = array();
@@ -186,12 +186,12 @@ class Admin_instances extends Admin_Controller {
 				$data = array();
 
 				$status === 'success' AND $data['messages'][$status] = $message;
-				$message = $this->load->view('admin/partials/notices', $data, TRUE);
+				$message = $this->load->view('admin/partials/notices', $data, true);
 
 				return $this->template->build_json(array(
 					'status'	=> $status,
 					'message'	=> $message,
-					'active'	=> (isset($area) && $area ? '#area-' . $area->slug . ' header' : FALSE)
+					'active'	=> (isset($area) && $area ? '#area-' . $area->slug . ' header' : false)
 				));
 			}
 
@@ -242,7 +242,7 @@ class Admin_instances extends Admin_Controller {
 			$data = array();
 
 			$data['messages'][$status] = $message;
-			$message = $this->load->view('admin/partials/notices', $data, TRUE);
+			$message = $this->load->view('admin/partials/notices', $data, true);
 
 			return $this->template->build_json(array(
 				'status'	=> $status,

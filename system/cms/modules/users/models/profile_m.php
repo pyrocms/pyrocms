@@ -12,7 +12,7 @@ class Profile_m extends MY_Model
 	 * @param array $params Parameters used to retrieve the profile
 	 * @return object
 	 */
-	function get_profile($params = array())
+	public function get_profile($params = array())
 	{
 		$query = $this->db->get_where('profiles', $params);
 
@@ -58,6 +58,6 @@ class Profile_m extends MY_Model
 			$this->db->insert('profiles', $set);
 		}
 		
-		return TRUE;
+		return true;
 	}
 }

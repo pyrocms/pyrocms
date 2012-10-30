@@ -78,20 +78,20 @@ class Plugin_Contact extends Plugin {
 		$field_list = $this->attributes();
 		
 		// If they try using the old form tag plugin give them an idea why it's failing.
-		if ( ! $this->content() OR count($field_list) == 0)
+		if ( ! $this->content() or count($field_list) == 0)
 		{
 			return 'The new contact plugin requires field parameters and it must be used as a double tag.';
 		}
 		
 		$button 	= $this->attribute('button', 'send');
 		$template	= $this->attribute('template', 'contact');
-		$autoreply_template = $this->attribute('auto-reply', FALSE);
+		$autoreply_template = $this->attribute('auto-reply', false);
 		$lang 		= $this->attribute('lang', Settings::get('site_lang'));
 		$to			= $this->attribute('to', Settings::get('contact_email'));
 		$from		= $this->attribute('from', Settings::get('server_email'));
 		$reply_to	= $this->attribute('reply-to');
 		$max_size	= $this->attribute('max-size', 10000);
-		$redirect	= $this->attribute('success-redirect', FALSE);
+		$redirect	= $this->attribute('success-redirect', false);
 		$action		= $this->attribute('action', current_url());
 		$form_meta 	= array();
 		$validation	= array();
@@ -276,10 +276,10 @@ class Plugin_Contact extends Plugin {
 			$templates = $this->email_templates_m->get_templates($template);
 			
             $subject = array_key_exists($lang, $templates) ? $templates[$lang]->subject : $templates['en']->subject ;
-            $data['subject'] = $this->parser->parse_string($subject, $data, TRUE);
+            $data['subject'] = $this->parser->parse_string($subject, $data, true);
 
             $body = array_key_exists($lang, $templates) ? $templates[$lang]->body : $templates['en']->body ;
-            $data['body'] = $this->parser->parse_string($body, $data, TRUE);
+            $data['body'] = $this->parser->parse_string($body, $data, true);
 			
 			$this->load->model('contact/contact_m');
 			
@@ -342,7 +342,7 @@ class Plugin_Contact extends Plugin {
 	
 		$output	 = form_open_multipart($action, 'class="contact-form"').PHP_EOL;
 		$output	.= form_input('d0ntf1llth1s1n', ' ', 'class="default-form" style="display:none"');
-		$output	.= $this->parser->parse_string($this->content(), str_replace('{{', '{ {', $parse_data), TRUE).PHP_EOL;
+		$output	.= $this->parser->parse_string($this->content(), str_replace('{{', '{ {', $parse_data), true).PHP_EOL;
 		$output .= '<span class="contact-button">'.form_submit('contact-submit', ucfirst($button)).'</span>'.PHP_EOL;
 		$output .= form_close();
 
@@ -351,10 +351,10 @@ class Plugin_Contact extends Plugin {
 	
 	public function _require_upload($field)
 	{
-		if ( isset($_FILES[$field]) AND $_FILES[$field]['name'] > '')
+		if ( isset($_FILES[$field]) and $_FILES[$field]['name'] > '')
 		{
-			return TRUE;
+			return true;
 		}
-		return FALSE;
+		return false;
 	}
 }

@@ -3,25 +3,34 @@
 
 	<!-- analytics -->
 	<div class="one_half">
-		<?php if ((isset($analytic_visits) OR isset($analytic_views)) AND $theme_options->pyrocms_analytics_graph == 'yes'): ?>
+		<?php if ((isset($analytic_visits) or isset($analytic_views)) and $theme_options->pyrocms_analytics_graph == 'yes'): ?>
 			<script type="text/javascript">
 				jQuery(function($) {
 					var visits = <?php echo isset($analytic_visits) ? $analytic_visits : 0; ?>;
 					var views = <?php echo isset($analytic_views) ? $analytic_views : 0; ?>;
 
-					$.plot($('#analytics'), [{ label: 'Visits', data: visits },{ label: 'Page views', data: views }], {
-						lines: { show: true },
-						points: { show: true },
-						grid: { hoverable: true, backgroundColor: '#fefefe' },
-						series: {
-							lines: { show: true, lineWidth: 1 },
-							shadowSize: 0
-						},
-						xaxis: { mode: "time" },
-						yaxis: { min: 0},
-						selection: { mode: "x" }
+					var buildGraph = function() {
+						$.plot($('#analytics'), [{ label: 'Visits', data: visits },{ label: 'Page views', data: views }], {
+							lines: { show: true },
+							points: { show: true },
+							grid: { hoverable: true, backgroundColor: '#fefefe' },
+							series: {
+								lines: { show: true, lineWidth: 1 },
+								shadowSize: 0
+							},
+							xaxis: { mode: "time" },
+							yaxis: { min: 0},
+							selection: { mode: "x" }
+						});
+					}
+					// create the analytics graph when the page loads
+					buildGraph();
+
+					// re-create the analytics graph on window resize
+					$(window).resize(function(){
+						buildGraph();
 					});
-			
+					
 					function showTooltip(x, y, contents) {
 						$('<div id="tooltip">' + contents + '</div>').css( {
 							position: 'absolute',
@@ -37,7 +46,7 @@
 							opacity: 0.80
 						}).appendTo("body").fadeIn(500);
 					}
-	 
+
 					var previousPoint = null;
 		
 					$("#analytics").bind("plothover", function (event, pos, item) {
@@ -75,7 +84,7 @@
 	<!-- /analytics -->
 
 	<!-- rss feed -->
-	<?php if ( isset($rss_items) AND $theme_options->pyrocms_news_feed == 'yes') : ?>
+	<?php if ( isset($rss_items) and $theme_options->pyrocms_news_feed == 'yes') : ?>
 		<div class="one_half" id="feed">
 			<section class="title">
 				<h4><i class="icon-list"></i> <?php echo lang('cp_news_feed_title'); ?></h4>

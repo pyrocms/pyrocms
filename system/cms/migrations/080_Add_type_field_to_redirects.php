@@ -7,7 +7,7 @@ class Migration_Add_type_field_to_redirects extends CI_Migration {
 		$this->dbforge->add_column('redirects', array(
 			'type' => array(
 				'type'			=> 'int',
-				'null'			=> FALSE,
+				'null'			=> false,
 				'default'		=> 302
 			)
 		));

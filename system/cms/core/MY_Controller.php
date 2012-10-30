@@ -176,7 +176,7 @@ class MY_Controller extends MX_Controller
 	    if ((isset($this->current_user->group) and $this->current_user->group === 'admin') and is_array($_GET) and array_key_exists('_debug', $_GET))
 	    {
 			unset($_GET['_debug']);
-	    	$this->output->enable_profiler(TRUE);
+	    	$this->output->enable_profiler(true);
 	    }
 	}
 }

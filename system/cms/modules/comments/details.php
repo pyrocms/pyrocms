@@ -111,7 +111,7 @@ class Module_Comments extends Module {
 
 	public function upgrade($old_version)
 	{
-		return TRUE;
+		return true;
 	}
 
 }

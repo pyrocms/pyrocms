@@ -63,7 +63,7 @@ class Streams_m extends MY_Model {
 	
     // --------------------------------------------------------------------------
 
-	function __construct()
+	public function __construct()
 	{
 		$this->table = STREAMS_TABLE;
 		
@@ -229,7 +229,7 @@ class Streams_m extends MY_Model {
 		// Add in our standard fields		
 		$standard_fields = array(
 	        'created' 			=> array('type' => 'DATETIME'),
-            'updated'	 		=> array('type' => 'DATETIME', 'null' => TRUE),
+            'updated'	 		=> array('type' => 'DATETIME', 'null' => true),
             'created_by'		=> array('type' => 'INT', 'constraint' => '11', 'null' => true),
             'ordering_count'	=> array('type' => 'INT', 'constraint' => '11')
 		);
@@ -244,7 +244,7 @@ class Streams_m extends MY_Model {
 		$insert_data['stream_prefix']		= $prefix;
 		$insert_data['stream_namespace']	= $namespace;
 		$insert_data['about']				= $about;
-		$insert_data['title_column']		= NULL;
+		$insert_data['title_column']		= null;
 		
 		// Since this is a new stream, we are going to add a basic view profile
 		// with data we know will be there.	
@@ -268,7 +268,7 @@ class Streams_m extends MY_Model {
 		// See if the stream slug is different
 		$stream = $this->get_stream($stream_id);
 		
-		if ($stream->stream_slug != $data['stream_slug'] or $stream->stream_prefix != $data['stream_prefix'])
+		if ($stream->stream_slug != $data['stream_slug'] or (isset($data['stream_prefix']) and $stream->stream_prefix != $data['stream_prefix']))
 		{
 			// Use the right DB prefix
 			if (isset($data['stream_prefix']))
@@ -539,7 +539,7 @@ class Streams_m extends MY_Model {
 			// Loop through and apply the filters
 			foreach ( $filter_data['filters'] as $filter=>$value )
 			{
-				if ( !empty($value) ) $this->db->like(str_replace('f_', '', $filter), $value);
+				if ( strlen($value) > 0 ) $this->db->like(str_replace('f_', '', $filter), $value);
 			}
 		}
 

@@ -1,3 +1,5 @@
+<?php $this->load->view('admin/partials/streams/filters'); ?>
+
 <?php if ($entries) { ?>
 
     <table class="table-list">
@@ -5,7 +7,10 @@
 			<tr>
 				<?php if($stream->sorting == 'custom'): ?><th></th><?php endif; ?>
 				<?php foreach( $stream->view_options as $view_option ) { ?>
-				<th><?php echo $stream_fields->$view_option->field_name;?></th>
+				<th><?php 
+				$lang=str_replace('lang:', '', $stream_fields->$view_option->field_name);
+				echo ($lang!=$stream_fields->$view_option->field_name) ? lang($lang):$lang;
+				?></th>
 				<?php } ?>
 			    <th></th>
 			</tr>

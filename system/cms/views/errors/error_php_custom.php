@@ -139,7 +139,7 @@ function koggle(elem)
 					<?php foreach ($step['args'] as $name => $arg): ?>
 						<tr>
 							<td><code><?php echo $name ?></code></td>
-							<td><pre><?php echo print_r($arg, TRUE) ?></pre></td>
+							<td><pre><?php echo print_r($arg, true) ?></pre></td>
 						</tr>
 					<?php endforeach ?>
 					</table>
@@ -182,14 +182,14 @@ function koggle(elem)
 		</div>
 		
 	<?php foreach (array('_SESSION', '_GET', '_POST', '_FILES', '_COOKIE', '_SERVER') as $var): ?>
-		<?php if (empty($GLOBALS[$var]) OR ! is_array($GLOBALS[$var])) continue ?>
+		<?php if (empty($GLOBALS[$var]) or ! is_array($GLOBALS[$var])) continue ?>
 		<h3><a href="#<?php echo $env_id = $error_id.'environment'.strtolower($var) ?>" onclick="return koggle('<?php echo $env_id ?>')">$<?php echo $var ?></a></h3>
 		<div id="<?php echo $env_id ?>" class="collapsed">
 			<table cellspacing="0">
 			<?php foreach ($GLOBALS[$var] as $key => $value): ?>
 				<tr>
 					<td><code><?php echo $key ?></code></td>
-					<td><pre><?php echo print_r($value, TRUE) ?></pre></td>
+					<td><pre><?php echo print_r($value, true) ?></pre></td>
 				</tr>
 			<?php endforeach ?>
 			</table>

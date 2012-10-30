@@ -152,7 +152,7 @@ class Search_index_m extends MY_Model
 	public function count($query)
 	{
 		return $this->db
-			->where('MATCH(title, description, keywords) AGAINST ("'.$this->db->escape_str($query).'" IN BOOLEAN MODE) > 0', NULL, FALSE)
+			->where('MATCH(title, description, keywords) AGAINST ("'.$this->db->escape_str($query).'" IN BOOLEAN MODE) > 0', null, false)
 			->count_all_results('search_index');
 	}
 
@@ -167,9 +167,9 @@ class Search_index_m extends MY_Model
 	public function search($query)
 	{
 		return $this->db
-			->select('title, description, module, entry_key, entry_plural, uri')
-			->select('MATCH(title, description, keywords) AGAINST ("'.$this->db->escape_str($query).'" IN BOOLEAN MODE) as bool_relevance', FALSE)
-			->select('MATCH(title, description, keywords) AGAINST ("'.$this->db->escape_str($query).'") AS relevance', FALSE)
+			->select('title, description, keywords, module, entry_key, entry_plural, uri, cp_edit_uri')
+			->select('MATCH(title, description, keywords) AGAINST ("*'.$this->db->escape_str($query).'*" IN BOOLEAN MODE) as bool_relevance', false)
+			->select('MATCH(title, description, keywords) AGAINST ("*'.$this->db->escape_str($query).'*") AS relevance', false)
 			->having('bool_relevance > 0')
 			->order_by('relevance', 'desc')
 			->get('search_index')

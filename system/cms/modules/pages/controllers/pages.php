@@ -24,7 +24,7 @@ class Pages extends Public_Controller
 
 		// No page is mentioned and we are not using pages as default
 		//  (eg blog on homepage)
-		if ( ! $this->uri->segment(1) AND $this->router->default_controller != 'pages')
+		if ( ! $this->uri->segment(1) and $this->router->default_controller != 'pages')
 		{
 			redirect('');
 		}
@@ -79,15 +79,15 @@ class Pages extends Public_Controller
 	 */
 	public function _page($url_segments)
 	{
-		$page = ($url_segments !== NULL)
+		$page = ($url_segments !== null)
 
 			// Fetch this page from the database via cache
-			? $this->pyrocache->model('page_m', 'get_by_uri', array($url_segments, TRUE))
+			? $this->pyrocache->model('page_m', 'get_by_uri', array($url_segments, true))
 
 			: $this->pyrocache->model('page_m', 'get_home');
 
 		// If page is missing or not live (and not an admin) show 404
-		if ( ! $page OR ($page->status == 'draft' AND ( ! isset($this->current_user->group) OR $this->current_user->group != 'admin')))
+		if ( ! $page or ($page->status == 'draft' and ( ! isset($this->current_user->group) or $this->current_user->group != 'admin')))
 		{
 			// Load the '404' page. If the actual 404 page is missing (oh the irony) bitch and quit to prevent an infinite loop.
 			if ( ! ($page = $this->pyrocache->model('page_m', 'get_by_uri', array('404'))) )
@@ -117,7 +117,7 @@ class Pages extends Public_Controller
 			$page->restricted_to = (array)explode(',', $page->restricted_to);
 
 			// Are they logged in and an admin or a member of the correct group?
-			if ( ! $this->current_user OR (isset($this->current_user->group) AND $this->current_user->group != 'admin' AND ! in_array($this->current_user->group_id, $page->restricted_to)))
+			if ( ! $this->current_user or (isset($this->current_user->group) and $this->current_user->group != 'admin' and ! in_array($this->current_user->group_id, $page->restricted_to)))
 			{
 				// send them to login but bring them back when they're done
 				redirect('users/login/'.(empty($url_segments) ? '' : implode('/', $url_segments)));
@@ -126,7 +126,7 @@ class Pages extends Public_Controller
 
 		// We want to use the valid uri from here on. Don't worry about segments passed by Streams or 
 		// similar. Also we don't worry about breadcrumbs for 404
-		if ($url_segments = explode('/', $page->base_uri) AND count($url_segments) > 1)
+		if ($url_segments = explode('/', $page->base_uri) and count($url_segments) > 1)
 		{
 			// we dont care about the last one
 			array_pop($url_segments);
@@ -140,7 +140,7 @@ class Pages extends Public_Controller
 				{
 					$breadcrumb_segments[] = $segment;
 
-					$parents[] = $this->pyrocache->model('page_m', 'get_by_uri', array($breadcrumb_segments, TRUE));
+					$parents[] = $this->pyrocache->model('page_m', 'get_by_uri', array($breadcrumb_segments, true));
 				}
 
 				// Cache for next time
@@ -179,7 +179,7 @@ class Pages extends Public_Controller
 		}
 
 		// If a Page Layout has a Theme Layout that exists, use it
-		if ( ! empty($page->layout->theme_layout) AND $this->template->layout_exists($page->layout->theme_layout)
+		if ( ! empty($page->layout->theme_layout) and $this->template->layout_exists($page->layout->theme_layout)
 			// But Allow that you use layout files of you theme folder without override the defined by you in your control panel
 			AND ($this->template->layout_is('default.html') OR $page->layout->theme_layout !== 'default.html')
 		)
@@ -208,7 +208,7 @@ class Pages extends Public_Controller
 			->set_breadcrumb($page->title);
 
 		// Parse it so the embedded tags are parsed. We pass along $page so that {{ page:id }} and friends work in page content.
-		$page->body = $this->parser->parse_string(str_replace(array('&#39;', '&quot;'), array("'", '"'), $chunk_html), array('theme' => $this->theme, 'page' => $page), TRUE);
+		$page->body = $this->parser->parse_string(str_replace(array('&#39;', '&quot;'), array("'", '"'), $chunk_html), array('theme' => $this->theme, 'page' => $page), true);
 
 		if ($page->layout->css or $page->css)
 		{
@@ -216,7 +216,7 @@ class Pages extends Public_Controller
 				<style type="text/css">
 					'.$page->layout->css.'
 					'.$page->css.'
-				</style>');
+				</style>', 'late_header');
 		}
 
 		if ($page->layout->js or $page->js)
@@ -246,10 +246,10 @@ class Pages extends Public_Controller
 			log_message('error', 'Page Missing: '.$this->uri->uri_string());
 
 			// things behave a little differently when called by MX from MY_Exceptions' show_404()
-			exit($this->template->build('pages/page', array('page' => $page), FALSE, FALSE));
+			exit($this->template->build('pages/page', array('page' => $page), false, false));
 		}
 
-		$this->template->build('page', array('page' => $page), FALSE, FALSE);
+		$this->template->build('page', array('page' => $page), false, false);
 	}
 
 	/**
@@ -266,13 +266,13 @@ class Pages extends Public_Controller
 
 
 		// Fetch this page from the database via cache
-		$page = $this->pyrocache->model('page_m', 'get_by_uri', array($url_segments, TRUE));
+		$page = $this->pyrocache->model('page_m', 'get_by_uri', array($url_segments, true));
 
 		// We will need to know if we should include draft pages in the feed later on too, so save it.
 		$include_draft = ! empty($this->current_user) AND $this->current_user->group !== 'admin';
 
 		// If page is missing or not live (and not an admin) show 404
-		if (empty($page) OR ($page->status == 'draft' AND $include_draft) OR ! $page->rss_enabled)
+		if (empty($page) or ($page->status == 'draft' and $include_draft) or ! $page->rss_enabled)
 		{
 			// Will try the page then try 404 eventually
 			$this->_page('404');

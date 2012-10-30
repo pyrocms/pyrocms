@@ -33,8 +33,8 @@ class Unzip {
 	private $info = array();
 	private $error = array();
 	private $_zip_file = '';
-	private $_target_dir = FALSE;
-	private $_return_dir = FALSE;
+	private $_target_dir = false;
+	private $_return_dir = false;
 	private $apply_chmod = 0777;
 	private $fh;
 	private $zip_signature = "\x50\x4b\x03\x04";
@@ -48,7 +48,7 @@ class Unzip {
 	// ignore these directories (useless meta data)
 	private $_skip_dirs = array('__MACOSX');
 
-	private $_allow_extensions = NULL; // What is allowed out of the zip
+	private $_allow_extensions = null; // What is allowed out of the zip
 
 	// --------------------------------------------------------------------
 
@@ -73,7 +73,7 @@ class Unzip {
 	 * @param     none
 	 * @return    none
 	 */
-	public function extract($zip_file, $target_dir = NULL, $preserve_filepath = TRUE, $return_dir = FALSE)
+	public function extract($zip_file, $target_dir = null, $preserve_filepath = true, $return_dir = false)
 	{
 		$this->_zip_file = $zip_file;
 		$this->_target_dir = $target_dir ? $target_dir : dirname($this->_zip_file);
@@ -81,7 +81,7 @@ class Unzip {
 		if ( ! $files = $this->_list_files())
 		{
 			$this->set_error('ZIP folder was empty.');
-			return FALSE;
+			return false;
 		}
 		
 		if ($return_dir)
@@ -123,7 +123,7 @@ class Unzip {
 						if ( ! @mkdir($this->_target_dir . '/' . $str))
 						{
 							$this->set_error($this->_target_dir . ' is not writable.');
-							return FALSE;
+							return false;
 						}
 
 						// Apply chmod if configured to do so
@@ -140,7 +140,7 @@ class Unzip {
 			$preserve_filepath ? $this->_extract_file($file, $this->_target_dir . '/' . $file) : $this->_extract_file($file, $this->_target_dir . '/' . basename($file));
 		}
 
-		return $this->_return_dir ? $this->_return_dir : TRUE;
+		return $this->_return_dir ? $this->_return_dir : true;
 	}
 
 	// --------------------------------------------------------------------
@@ -152,7 +152,7 @@ class Unzip {
 	 * @param     none
 	 * @return    none
 	 */
-	public function allow($ext = NULL)
+	public function allow($ext = null)
 	{
 		$this->_allow_extensions = $ext;
 	}
@@ -222,7 +222,7 @@ class Unzip {
 	 * @param     boolean
 	 * @return    mixed
 	 */
-	private function _list_files($stop_on_file = FALSE)
+	private function _list_files($stop_on_file = false)
 	{
 		if (sizeof($this->compressed_list))
 		{
@@ -237,7 +237,7 @@ class Unzip {
 		if ( ! $fh)
 		{
 			$this->set_error('Failed to load file: ' . $this->_zip_file);
-			return FALSE;
+			return false;
 		}
 
 		$this->set_debug('Loading list from "End of Central Dir" index list...');
@@ -251,7 +251,7 @@ class Unzip {
 				$this->set_debug('Failed! Could not find any valid header.');
 				$this->set_error('ZIP File is corrupted or empty');
 
-				return FALSE;
+				return false;
 			}
 		}
 
@@ -267,12 +267,12 @@ class Unzip {
 	 * @param     string, boolean
 	 * @return    Unziped file.
 	 */
-	private function _extract_file($compressed_file_name, $target_file_name = FALSE)
+	private function _extract_file($compressed_file_name, $target_file_name = false)
 	{
 		if ( ! sizeof($this->compressed_list))
 		{
 			$this->set_debug('Trying to unzip before loading file list... Loading it!');
-			$this->_list_files(FALSE, $compressed_file_name);
+			$this->_list_files(false, $compressed_file_name);
 		}
 
 		$fdetails = &$this->compressed_list[$compressed_file_name];
@@ -280,13 +280,13 @@ class Unzip {
 		if ( ! isset($this->compressed_list[$compressed_file_name]))
 		{
 			$this->set_error('File "<strong>$compressed_file_name</strong>" is not compressed in the zip.');
-			return FALSE;
+			return false;
 		}
 
 		if (substr($compressed_file_name, -1) == '/')
 		{
 			$this->set_error('Trying to unzip a folder name "<strong>$compressed_file_name</strong>".');
-			return FALSE;
+			return false;
 		}
 
 		if ( ! $fdetails['uncompressed_size'])
@@ -353,26 +353,26 @@ class Unzip {
 	 * @param     Filecontent, int, int, boolean
 	 * @return    none
 	 */
-	private function _uncompress($content, $mode, $uncompressed_size, $target_file_name=FALSE)
+	private function _uncompress($content, $mode, $uncompressed_size, $target_file_name=false)
 	{
 		switch ($mode) {
 			case 0:
 				return $target_file_name ? file_put_contents($target_file_name, $content) : $content;
 			case 1:
 				$this->set_error('Shrunk mode is not supported... yet?');
-				return FALSE;
+				return false;
 			case 2:
 			case 3:
 			case 4:
 			case 5:
 				$this->set_error('Compression factor ' . ($mode - 1) . ' is not supported... yet?');
-				return FALSE;
+				return false;
 			case 6:
 				$this->set_error('Implode is not supported... yet?');
-				return FALSE;
+				return false;
 			case 7:
 				$this->set_error('Tokenizing compression algorithm is not supported... yet?');
-				return FALSE;
+				return false;
 			case 8:
 				// Deflate
 				return $target_file_name ?
@@ -380,10 +380,10 @@ class Unzip {
 						gzinflate($content, $uncompressed_size);
 			case 9:
 				$this->set_error('Enhanced Deflating is not supported... yet?');
-				return FALSE;
+				return false;
 			case 10:
 				$this->set_error('PKWARE Date Compression Library Impoloding is not supported... yet?');
-				return FALSE;
+				return false;
 			case 12:
 				// Bzip2
 				return $target_file_name ?
@@ -391,14 +391,14 @@ class Unzip {
 						bzdecompress($content);
 			case 18:
 				$this->set_error('IBM TERSE is not supported... yet?');
-				return FALSE;
+				return false;
 			default:
 				$this->set_error('Unknown uncompress method: $mode');
-				return FALSE;
+				return false;
 		}
 	}
 
-	private function _load_file_list_by_eof(&$fh, $stop_on_file=FALSE)
+	private function _load_file_list_by_eof(&$fh, $stop_on_file=false)
 	{
 		// Check if there's a valid Central Dir signature.
 		// Let's consider a file comment smaller than 1024 characters...
@@ -521,14 +521,14 @@ class Unzip {
 				return true;
 			}
 		}
-		return FALSE;
+		return false;
 	}
 
-	private function _load_files_by_signatures(&$fh, $stop_on_file = FALSE)
+	private function _load_files_by_signatures(&$fh, $stop_on_file = false)
 	{
 		fseek($fh, 0);
 
-		$return = FALSE;
+		$return = false;
 		for (;;)
 		{
 			$details = $this->_get_file_header($fh);
@@ -559,9 +559,9 @@ class Unzip {
 		return $return;
 	}
 
-	private function _get_file_header(&$fh, $start_offset = FALSE)
+	private function _get_file_header(&$fh, $start_offset = false)
 	{
-		if ($start_offset !== FALSE)
+		if ($start_offset !== false)
 		{
 			fseek($fh, $start_offset);
 		}
@@ -618,7 +618,7 @@ class Unzip {
 
 			return $i;
 		}
-		return FALSE;
+		return false;
 	}
 
 }

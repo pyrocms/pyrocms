@@ -29,7 +29,7 @@ class Migration_Add_contact_log extends CI_Migration {
 
 		if ($this->db->query($contact_log))
 		{
-			return TRUE;
+			return true;
 		}
 	}
 

@@ -20,9 +20,9 @@
 				 mysql, mysqli, postgre, odbc, mssql
 |	['dbprefix'] You can add an optional prefix, which will be added
 |				 to the table name when using the  Active Record class
-|	['pconnect'] TRUE/FALSE - Whether to use a persistent connection
-|	['db_debug'] TRUE/FALSE - Whether database errors should be displayed.
-|	['cache_on'] TRUE/FALSE - Enables/disables query caching
+|	['pconnect'] true/false - Whether to use a persistent connection
+|	['db_debug'] true/false - Whether database errors should be displayed.
+|	['cache_on'] true/false - Enables/disables query caching
 |	['cachedir'] The path to the folder where cache files should be stored
 |
 | The $active_group variable lets you choose which connection group to
@@ -38,16 +38,16 @@ $db[PYRO_DEVELOPMENT] = array(
 	'database'		=> 	'pyrocms',
 	'dbdriver' 		=> 	'mysql',
 	'dbprefix' 		=>	'',
-	'active_r' 		=>	TRUE,
-	'pconnect' 		=>	FALSE,
-	'db_debug' 		=>	TRUE,
-	'cache_on' 		=>	FALSE,
+	'active_r' 		=>	true,
+	'pconnect' 		=>	false,
+	'db_debug' 		=>	true,
+	'cache_on' 		=>	false,
 	'char_set' 		=>	'utf8',
 	'dbcollat' 		=>	'utf8_unicode_ci',
 	'port' 	 		=>	3306,
 
 	// 'Tough love': Forces strict mode to test your app for best compatibility
-	'stricton' 		=> TRUE,
+	'stricton' 		=> true,
 );
 
 // Staging
@@ -58,9 +58,9 @@ $db[PYRO_STAGING] = array(
 	'password'		=> 	'',
 	'database'		=> 	'pyrocms',
 	'dbdriver' 		=> 	'mysql',
-	'pconnect' 		=>	FALSE,
-	'db_debug' 		=>	FALSE,
-	'cache_on' 		=>	FALSE,
+	'pconnect' 		=>	false,
+	'db_debug' 		=>	false,
+	'cache_on' 		=>	false,
 	'char_set' 		=>	'utf8',
 	'dbcollat' 		=>	'utf8_unicode_ci',
 	'port' 	 		=>	3306,
@@ -74,9 +74,9 @@ $db[PYRO_PRODUCTION] = array(
 	'password'		=> 	'',
 	'database'		=> 	'pyrocms',
 	'dbdriver' 		=> 	'mysql',
-	'pconnect' 		=>	FALSE,
-	'db_debug' 		=>	FALSE,
-	'cache_on' 		=>	FALSE,
+	'pconnect' 		=>	false,
+	'db_debug' 		=>	false,
+	'cache_on' 		=>	false,
 	'char_set' 		=>	'utf8',
 	'dbcollat' 		=>	'utf8_unicode_ci',
 	'port' 	 		=>	3306,
@@ -91,6 +91,6 @@ if ( ! array_key_exists(ENVIRONMENT, $db))
 
 // Assign the group to be used
 $active_group = ENVIRONMENT;
-$query_builder = TRUE;
+$query_builder = true;
 
 /* End of file database.php */

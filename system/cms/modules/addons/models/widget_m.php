@@ -111,7 +111,7 @@ class Widget_m extends MY_Model
 
 				$_field = @unserialize($obj->{$field});
 
-				if ($_field === FALSE)
+				if ($_field === false)
 				{
 					isset($obj->slug) && $this->widgets->reload_widget($obj->slug);
 				}
@@ -174,7 +174,7 @@ class Widget_m extends MY_Model
 	{
 		if ( ! isset($input['slug']))
 		{
-			return FALSE;
+			return false;
 		}
 
 		return $this->db
@@ -243,7 +243,7 @@ class Widget_m extends MY_Model
 
 		$result = $this->db->affected_rows();
 
-		return ($result > 0) ? TRUE : FALSE;
+		return ($result > 0) ? true : false;
 	}
 
 	public function insert_instance($input)
@@ -315,7 +315,7 @@ class Widget_m extends MY_Model
 				->get_where('widget_areas', array('slug' => $slug))
 				->row();
 
-			return $area ? $this->delete_area($area->id) : FALSE;
+			return $area ? $this->delete_area($area->id) : false;
 		}
 
 		// Delete widgets in that area

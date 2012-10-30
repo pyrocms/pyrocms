@@ -19,7 +19,7 @@ class Public_Controller extends MY_Controller
 		$this->benchmark->mark('public_controller_start');
 
 		// Check redirects if GET and Not AJAX
-		if ( ! $this->input->is_ajax_request() AND $_SERVER['REQUEST_METHOD'] == 'GET')
+		if ( ! $this->input->is_ajax_request() and $_SERVER['REQUEST_METHOD'] == 'GET')
 		{
 			$this->load->model('redirects/redirect_m');
 			$uri = trim(uri_string(), '/');
@@ -33,7 +33,7 @@ class Public_Controller extends MY_Controller
 				}
 
 				// If it has back reference
-				if (strpos($redirect->to, '$') !== FALSE)
+				if (strpos($redirect->to, '$') !== false)
 				{
 					$from = str_replace('%', '(.*?)', $redirect->from);
 					$redirect->to = preg_replace('#^'.$from.'$#', $redirect->to, $uri);
@@ -46,7 +46,7 @@ class Public_Controller extends MY_Controller
 		Events::trigger('public_controller');
 
 		// Check the frontend hasnt been disabled by an admin
-		if ( ! $this->settings->frontend_enabled && (empty($this->current_user) OR $this->current_user->group != 'admin'))
+		if ( ! $this->settings->frontend_enabled && (empty($this->current_user) or $this->current_user->group != 'admin'))
 		{
 			header('Retry-After: 600');
 

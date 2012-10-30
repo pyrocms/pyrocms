@@ -8,7 +8,7 @@ class Migration_Update_contact extends CI_Migration {
 		$this->dbforge->drop_column('contact_log', 'name');
 		$this->dbforge->add_column('contact_log', array('attachments' => array('type' => 'text')));
 		
-		return TRUE;
+		return true;
 	}
 
 	public function down()
@@ -25,6 +25,6 @@ class Migration_Update_contact extends CI_Migration {
 																		)
 														));
 		
-		return TRUE;
+		return true;
 	}
 }

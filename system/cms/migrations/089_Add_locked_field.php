@@ -23,6 +23,6 @@ class Migration_Add_locked_field extends CI_Migration {
 
     public function down()
     {
-        return TRUE;
+        return true;
     }
 }
