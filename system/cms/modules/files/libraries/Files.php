@@ -402,8 +402,12 @@ class Files
 
 				if ($folder->location !== 'local')
 				{
+					header("Connection: close");
+
 					return Files::move($file_id, $data['filename'], 'local', $folder->location, $folder->remote_container);
 				}
+
+				header("Connection: close");
 
 				return self::result(true, lang('files:file_uploaded'), $data['name'], array('id' => $file_id) + $data);
 			}
@@ -411,11 +415,15 @@ class Files
 			{
 				$errors = ci()->upload->display_errors();
 
+				header("Connection: close");
+
 				return self::result(false, $errors);
 			}
 		}
 		else
 		{
+			header("Connection: close");
+
 			return self::result(false, lang('files:specify_valid_folder'));
 		}
 	}
