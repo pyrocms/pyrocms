@@ -12,7 +12,7 @@
  */
 
 $lang['global:control-panel'] 						= '控制台'; 		//'Control Panel';
-$lang['global:profile']					= '人物简介'; #translate
+$lang['global:profile']					= '人物简介'; 
 
 $lang['global:title'] 					= '标题'; 		//'Title';
 $lang['name_label'] 					= '姓名'; 		//'Name';
@@ -39,12 +39,12 @@ $lang['operators.not_equal'] 			= '不等于';
 $lang['operators.less_than'] 			= '小于';
 $lang['operators.greater_than'] 		= '大于';
 
-$lang['global:duration:1-day']			= '一天'; #translate
-$lang['global:duration:1-week']			= '一周'; #translate
-$lang['global:duration:2-weeks']		= '两周'; #translate
-$lang['global:duration:1-month']		= '一个月'; #translate
-$lang['global:duration:3-months']		= '三个月'; #translate
-$lang['global:duration:always']			= '永久'; #translate
+$lang['global:duration:1-day']			= '一天'; 
+$lang['global:duration:1-week']			= '一周'; 
+$lang['global:duration:2-weeks']		= '两周'; 
+$lang['global:duration:1-month']		= '一个月'; 
+$lang['global:duration:3-months']		= '三个月'; 
+$lang['global:duration:always']			= '永久'; 
 
 $lang['navigation_headline'] 			= '导航'; 		//'Navigation';
 $lang['breadcrumb_base_label'] 			= '首页'; 		//'Home';
@@ -62,7 +62,7 @@ $lang['success_label'] 					= '成功'; 			//'Success';
 
 $lang['login_title'] 					= '登入'; 			//'Log In';
 $lang['cms_fatal_error'] 				= '严重错误，CMS安裝了吗？'; //'Fatal error, is CMS installed?';
-$lang['global:demo_restrictions']       = '因为演示目的，本页部分功能被关闭。'; #translate
+$lang['global:demo_restrictions']       = '因为演示目的，本页部分功能被关闭。'; 
 
 $lang['login_error_label'] 				= '登入错误'; 		//'Login Error';
 $lang['forgot_password_label'] 			= '忘记密码'; 		//'Forgot your password ?';
@@ -85,12 +85,12 @@ $lang['global:install'] 			    = '安裝'; 			//'Install';
 $lang['global:enable']					= '启用'; 			//'Enable';
 $lang['global:disable'] 				= '禁用'; 			//'Disable';
 
-$lang['all_right_reserved']				= '保留所有权利.';  #translate
-$lang['powered_by_pyrocms']				= 'Powered by PyroCMS';  #translate
-$lang['top_page']						= '顶部';  #translate
-$lang['back_to_top']					= '返回顶部';  #translate
+$lang['all_right_reserved']				= '保留所有权利.';
+$lang['powered_by_pyrocms']				= '本站建由PyroCMS';
+$lang['top_page']						= '顶部';
+$lang['back_to_top']					= '返回顶部';
 
-$lang['global:image'] 					= '图片'; #translate
+$lang['global:image'] 					= '图片'; 
 $lang['global:description']				= '說明';
 $lang['global:actions']					= '操作';
 $lang['global:view']					= '查看';

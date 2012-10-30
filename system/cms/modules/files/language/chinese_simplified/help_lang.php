@@ -1,6 +1,5 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-// inline help html. Only 'help_body' is used.
 $lang['help_body'] = "
 <h6>概观</h6><hr>
 <p>文件模块是一个很好的方式，为网站管理员在网站上使用的文件管理。

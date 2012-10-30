@@ -1,15 +1,4 @@
 <?php
-/**
- * Chinese Simpplified translation.
- *
- * @author		Kefeng DENG
- * @package		PyroCMS
- * @subpackage 	Maintenance Module
- * @category	Modules
- * @link		http://pyrocms.com
- * @date		2012-06-27
- * @version		1.0
- */
 
 $lang['maintenance:list_label'] 		= '暂存维护';
 $lang['maintenance:no_items'] 			= '无暫存目錄';
