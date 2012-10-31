@@ -86,7 +86,7 @@ class Fields_m extends CI_Model {
     public function get_all_fields($namespace = false)
 	{
 		// Limit to namespace
-		if ( $namespace ) $this->db->where('field_namespace', $namespace);
+		if ($namespace) $this->db->where('field_namespace', $namespace);
 		
 		$obj = $this->db->order_by('field_name', 'asc')->get($this->table);
 		
