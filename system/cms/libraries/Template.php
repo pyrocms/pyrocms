@@ -113,7 +113,7 @@ class Template
 		$this->_ci->load->library('user_agent');
 
 		// We'll want to know this later
-		$this->_is_mobile = $this->_ci->agent->is_mobile();
+		$this->_is_mobile = ($this->_ci->agent->is_mobile() and $this->_ci->agent->is_tablet() === false);
 	}
 
 	// --------------------------------------------------------------------
