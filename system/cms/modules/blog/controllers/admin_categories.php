@@ -61,7 +61,7 @@ class Admin_Categories extends Admin_Controller {
 	 */
 	public function index()
 	{
-		$this->pyrocache->delete_all('modules_m');
+		$this->cache->clear('modules_m');
 		
 		// Create pagination links
 		$total_rows = $this->blog_categories_m->count_all();

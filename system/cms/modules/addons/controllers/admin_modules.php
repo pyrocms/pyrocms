@@ -205,7 +205,7 @@ class Admin_modules extends Admin_Controller
 			Events::trigger('module_enabled', $slug);
 							
 			// Clear the module cache
-			$this->pyrocache->delete_all('module_m');
+			$this->cache->clear('module_m');
 			$this->session->set_flashdata('success', sprintf(lang('addons:modules:install_success'), $slug));
 		}
 		else
@@ -232,7 +232,7 @@ class Admin_modules extends Admin_Controller
 			Events::trigger('module_enabled', $slug);
 			
 			// Clear the module cache
-			$this->pyrocache->delete_all('module_m');
+			$this->cache->clear('module_m');
 			$this->session->set_flashdata('success', sprintf(lang('addons:modules:enable_success'), $slug));
 		}
 		else
@@ -259,7 +259,7 @@ class Admin_modules extends Admin_Controller
 			Events::trigger('module_disabled', $slug);
 			
 			// Clear the module cache
-			$this->pyrocache->delete_all('module_m');
+			$this->cache->clear('module_m');
 			$this->session->set_flashdata('success', sprintf(lang('addons:modules:disable_success'), $slug));
 		}
 		else
@@ -315,7 +315,7 @@ class Admin_modules extends Admin_Controller
 		{
             $scan = glob(rtrim($str,'/').'/*');
 
-			foreach($scan as $index => $path)
+			foreach ($scan as $path)
 			{
                 $this->_delete_recursive($path);
             }

@@ -200,7 +200,7 @@ class Admin extends Admin_Controller
                 'preview_hash'      => $hash
 			)))
 			{
-				$this->pyrocache->delete_all('blog_m');
+				$this->cache->clear('blog_m');
 				$this->session->set_flashdata('success', sprintf($this->lang->line('blog:post_add_success'), $this->input->post('title')));
 				
 				// Blog article has been updated, may not be anything to do with publishing though
@@ -428,7 +428,7 @@ class Admin extends Admin_Controller
 					$this->blog_m->publish($id);
 
 					// Wipe cache for this model, the content has changed
-					$this->pyrocache->delete('blog_m');
+					$this->cache->clear('blog_m');
 					$post_titles[] = $post->title;
 				}
 			}
@@ -487,7 +487,7 @@ class Admin extends Admin_Controller
 						$this->comment_m->where('module', 'blog')->delete_by('module_id', $id);
 
 						// Wipe cache for this model, the content has changed
-						$this->pyrocache->delete('blog_m');
+						$this->cache->clear('blog_m');
 						$post_titles[] = $post->title;
 						$deleted_ids[] = $id;
 					}

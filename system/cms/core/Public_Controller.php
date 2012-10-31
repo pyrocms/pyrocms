@@ -112,7 +112,7 @@ class Public_Controller extends MY_Controller
 		$this->load->library('variables/variables');
 
 		// grab the theme options if there are any
-		$this->theme->options = $this->pyrocache->model('theme_m', 'get_values_by', array(array('theme' => $this->theme->slug)));
+		$this->theme->options = $this->cache->method('theme_m', 'get_values_by', array(array('theme' => $this->theme->slug)));
 
 		// Assign segments to the template the new way
 		$this->template->variables = $this->variables->get_all();

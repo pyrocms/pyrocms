@@ -3,13 +3,11 @@
 /**
  * Show Twitter streams in your site
  * 
- * @author		Phil Sturgeon
  * @author		PyroCMS Dev Team
  * @package		PyroCMS\Core\Widgets
  */
 class Widget_Twitter_feed extends Widgets
 {
-
 	/**
 	 * The translations for the widget title
 	 *
@@ -98,7 +96,7 @@ class Widget_Twitter_feed extends Widgets
 	 */
 	public function run($options)
 	{
-		if ( ! $tweets = $this->pyrocache->get('twitter-'.$options['username'].'-'.$options['number']))
+		if ( ! $tweets = $this->cache->get('twitter-'.$options['username'].'-'.$options['number']))
 		{
 			$url_segments = '&screen_name='.$options['username'].'&count='.$options['number'];
 
@@ -114,7 +112,7 @@ class Widget_Twitter_feed extends Widgets
 
 			$tweets = json_decode(@file_get_contents($this->feed_url.$url_segments, false, $context));
 
-			$this->pyrocache->write($tweets, 'twitter-'.$options['username'].'-'.$options['number'], $this->settings->twitter_cache);
+			$this->cache->set('twitter-'.$options['username'].'-'.$options['number'], $tweets, $this->settings->twitter_cache);
 		}
 
 		$patterns = array(

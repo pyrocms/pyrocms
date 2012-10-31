@@ -57,8 +57,8 @@ class MY_Controller extends MX_Controller
 		// By changing the prefix we are essentially "namespacing" each site
 		$this->db->set_dbprefix(SITE_REF.'_');
 
-		// Load the cache library now that we know the siteref
-		$this->load->library('pyrocache');
+		// the Quick\Cache package is instantiated to $this->cache in the config file
+		$this->load->config('cache');
 
 		// Add the site specific theme folder
 		$this->template->add_theme_location(ADDONPATH.'themes/');

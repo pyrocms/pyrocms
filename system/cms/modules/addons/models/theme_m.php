@@ -213,7 +213,7 @@ class Theme_m extends MY_Model
 			$this->db->insert('theme_options', $insert);
 		}
 
-		$this->pyrocache->delete_all('theme_m');
+		$this->cache->clear('theme_m');
 
 		return true;
 	}
@@ -304,7 +304,7 @@ class Theme_m extends MY_Model
 	 */
 	public function delete_options($theme)
 	{
-		$this->pyrocache->delete_all('theme_m');
+		$this->cache->clear('theme_m');
 
 		return $this->db
 			->where('theme', $theme)
@@ -381,6 +381,6 @@ class Theme_m extends MY_Model
 			->where('slug', $slug)
 			->update('theme_options', $input);
 
-		$this->pyrocache->delete_all('theme_m');
+		$this->cache->clear('theme_m');
 	}
 }

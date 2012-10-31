@@ -1,0 +1,21 @@
+{
+    "name": "quick/cache",
+    "type": "library",
+    "description": "This is a cache system that uses Redis for rapid caching.",
+    "keywords": ["redis", "nosql", "cache", "predis"],
+    "homepage": "http://github.com/jerel/quick-cache",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jerel Unruh",
+            "email": "mail@unruhdesigns.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "predis/predis": "v0.7.3"
+    },
+    "autoload": {
+        "psr-0": {"Quick": "core/"}
+    }
+}

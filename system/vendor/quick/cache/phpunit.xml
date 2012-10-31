@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit 	bootstrap="./tests/bootstrap.php"
+			colors="true"
+			verbose="true"
+			strict="true"
+>
+    <testsuites>
+        <testsuite name="Quick Cache Test Suite">
+            <directory>./tests/</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>

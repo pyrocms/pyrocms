@@ -17,6 +17,7 @@ class Settings {
 	 * @var	array
 	 */
 	private static $cache = array();
+	
 	/**
 	 * The settings table columns
 	 *

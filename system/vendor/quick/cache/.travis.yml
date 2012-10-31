@@ -1,0 +1,14 @@
+language: php
+
+php: 
+  - 5.3
+  - 5.4
+
+services:
+  - redis-server
+
+before_script:
+  - curl -s http://getcomposer.org/installer | php
+  - php composer.phar install --dev
+
+script: phpunit
