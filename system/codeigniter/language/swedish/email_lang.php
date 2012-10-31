@@ -1,19 +1,17 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-
-/**
+ /**
  * Swedish translation.
  *
  * @author		marcus@incore.se
  * @package		PyroCMS  
  * @link		http://pyrocms.com
- * @date		2012-03-13
- * @version		1.0.0
+ * @date		2012-10-22
+ * @version		1.1.0
  */
 
-
 $lang['email_must_be_array'] = 'Valideringen av e-postadresser kräver en matris (array).';
-$lang['email_invalid_address'] = 'Ej korrekt e-postadress: %s';
+$lang['email_invalid_address'] = 'Du angav inte en korrekt e-postadress: %s';
 $lang['email_attachment_missing'] = 'Det gick inte att hitta bilagan: %s';
 $lang['email_attachment_unreadable'] = 'Det gick inte att öppna bilagan: %s';
 $lang['email_no_recipients'] = 'Du måste ange minst en mottagare: Till, Kopia, eller Hemlig kopia';
@@ -32,6 +30,5 @@ $lang['email_smtp_data_failure'] = 'Det gick inte att skicka data: %s';
 $lang['email_exit_status'] = 'Avslutande statuskod: %s';
 
 
-
 /* End of file email_lang.php */  
-/* Location: ./system/codeigniter/language/english */ 
+/* Location: system/codeigniter/language/swedish/email_lang.php */  

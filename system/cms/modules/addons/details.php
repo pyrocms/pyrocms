@@ -36,7 +36,7 @@ class Module_Addons extends Module
 				'zh' => '附加模組',
 				'hu' => 'Bővítmények',
 				'th' => 'ส่วนเสริม',
-            	'se' => 'Add-ons',
+                                'se' => 'Tillägg',
 			),
 			'description' => array(
 				'en' => 'Allows admins to see a list of currently installed modules.',
