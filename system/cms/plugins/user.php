@@ -164,6 +164,8 @@ class Plugin_User extends Plugin
 
 		foreach($this->ion_auth_model->user_stream_fields as $key => $field)
 		{
+			if ( ! isset($profile_data[$key])) continue;
+
 			$name = (lang($field->field_name)) ? $this->lang->line($field->field_name) : $field->field_name;
 
 			$plugin_data[] = array(
@@ -180,8 +182,22 @@ class Plugin_User extends Plugin
 
 	// --------------------------------------------------------------------------
 
+	/**
+	 * Allows usage of full user variables inside
+	 * of a tag pair.
+	 *
+	 * {{ user:profile }}
+	 *     {{ variable }}
+	 * {{ /user:profile }}
+	 *
+	 * @access 	public
+	 * @return 	string 	
+	 */
 	public function profile()
 	{
+		// We can't parse anything if there is no content.
+		if ( ! $this->content()) return null;
+
 		$profile_data = $this->get_user_profile();
 
 		if (is_null($profile_data))
@@ -189,7 +205,13 @@ class Plugin_User extends Plugin
 			return null;
 		}
 
-		return array($profile_data);
+		$this->load->driver('Streams');
+
+		// Dumb hack that should be goine in 2.2
+		$profile_data['user_id'] = $profile_data['id'];
+		$profile_data['id'] = $profile_data['profile_id'];
+
+		return $this->streams->parse->parse_tag_content($this->content(), $profile_data, 'profiles', 'users', false);
 	}
 
 	// --------------------------------------------------------------------------
@@ -197,6 +219,13 @@ class Plugin_User extends Plugin
 	/**
 	 * Get a user's profile data.
 	 * 
+	 * Function shared by single user profile
+	 * tags as well as the tag pair. Takes
+	 * care of runtime caching as well.
+	 * 
+	 * @access 	private
+	 * @param 	[plugin call - does this need to be processed with full plugin vars?]
+	 * @return 	array
 	 */
 	private function get_user_profile($plugin_call = true)
 	{
@@ -224,9 +253,9 @@ class Plugin_User extends Plugin
 		// for plugin return (ie if we haven't already done that).
 		foreach ($this->ion_auth_model->user_stream_fields as $field_key => $field_data)
 		{
-			if($plugin_call)
+			if ($plugin_call)
 			{
-				if ( ! isset($this->user_profile_data[$user_id]['plugin'][$field_key]))
+				if ( ! isset($this->user_profile_data[$user_id]['plugin'][$field_key]) and isset($user[$field_key]))
 				{
 					$this->user_profile_data[$user_id]['plugin'][$field_key] = $this->row_m->format_column(
 																			$field_key,
@@ -238,11 +267,12 @@ class Plugin_User extends Plugin
 																			true);
 				}
 				
+				if (isset($user[$field_key]))
 				$user[$field_key] = $this->user_profile_data[$user_id]['plugin'][$field_key];
 			}
 			else
 			{
-				if ( ! isset($this->user_profile_data[$user_id]['pre_formatted'][$field_key]))
+				if ( ! isset($this->user_profile_data[$user_id]['pre_formatted'][$field_key]) and isset($user[$field_key]))
 				{
 					$this->user_profile_data[$user_id]['pre_formatted'][$field_key] = $this->row_m->format_column(
 																			$field_key,
@@ -254,6 +284,7 @@ class Plugin_User extends Plugin
 																			false);
 				}
 				
+				if (isset($user[$field_key]))
 				$user[$field_key] = $this->user_profile_data[$user_id]['pre_formatted'][$field_key];
 			}
 
