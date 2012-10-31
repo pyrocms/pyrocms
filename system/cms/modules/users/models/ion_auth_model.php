@@ -1070,8 +1070,8 @@ class Ion_auth_model extends CI_Model
 
 	    $this->load->driver('streams');
 
-	    // Get the row id for the profile. Probably the same as
-	    // the user_id by not necessarily
+	    // Get the row id for the profile. It's probably the same as
+	    // the user_id but not necessarily.
 	    $profile = $this->db->limit(1)->where('user_id', $id)->get($this->tables['meta'])->row();
 	    if ( ! $profile) return false;
 
