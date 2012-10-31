@@ -76,6 +76,13 @@
 				<li><label><?php echo lang('files:name'); ?>:</label> 
 					<span class="name"></span>
 				</li>
+
+				<li class="show-data">
+					<button><?php echo lang('files:toggle_data_display'); ?></button>
+				</li>
+			</ul>
+
+			<ul class="meta-data">
 				<li><label><?php echo lang('files:slug'); ?>:</label> 
 					<span class="slug"></span>
 				</li>
@@ -119,6 +126,12 @@
 				</li>
 				<li>
 					<span class="container-info"></span>
+				</li>
+			</ul>
+
+			<ul class="item-description">
+				<li><label><?php echo lang('files:keywords'); ?>:</label>
+					<?php echo form_input('keywords', '', 'id="keyword_input"'); ?>
 				</li>
 				<li><label><?php echo lang('files:description'); ?>:</label> <br />
 					<textarea class="description"></textarea>

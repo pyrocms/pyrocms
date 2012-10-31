@@ -14,28 +14,15 @@
 			{
 
 				// Dropdown type
-				echo '<label>'.$stream_fields->{$k}->field_name.':&nbsp;</label>';
+				echo '<label>'.$this->fields->translate_label($stream_fields->{$k}->field_name).':&nbsp;</label>';
 				echo form_dropdown('f_'.$stream_fields->{$k}->field_slug, $filter, isset($filter_data['filters']['f_'.$stream_fields->{$k}->field_slug]) ? $filter_data['filters']['f_'.$stream_fields->{$k}->field_slug] : null);
 			}
 			else
 			{
 
-				// Switch for the normal ones
-				switch ( $stream_fields->{$filter}->field_type )
-				{
-
-					// Text type fields
-					case 'text':
-					case 'textarea':
-					case 'email':
-					case 'choice';
-					case 'wysiwyg':
-						echo '<label>'.$stream_fields->{$filter}->field_name.':&nbsp;</label>';
-						echo form_input('f_'.$stream_fields->{$filter}->field_slug, isset($filter_data['filters']['f_'.$stream_fields->{$filter}->field_slug]) ? $filter_data['filters']['f_'.$stream_fields->{$filter}->field_slug] : '');
-						break;
-
-					default: break;
-				}
+				// Normal text filtering
+				echo '<label>'.$this->fields->translate_label($stream_fields->{$filter}->field_name).':&nbsp;</label>';
+				echo form_input('f_'.$stream_fields->{$filter}->field_slug, isset($filter_data['filters']['f_'.$stream_fields->{$filter}->field_slug]) ? $filter_data['filters']['f_'.$stream_fields->{$filter}->field_slug] : '');
 			}
 
 		?>
