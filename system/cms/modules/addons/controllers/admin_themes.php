@@ -115,7 +115,7 @@ class Admin_themes extends Admin_Controller
 				// Success...
 				$this->session->set_flashdata('success', lang('themes.re-index_success'));
 
-				$this->pyrocache->delete_all('theme_m');
+				$this->cache->clear('theme_m');
 
 				redirect('admin/addons/themes/options/'.$slug);
 			}
@@ -168,7 +168,7 @@ class Admin_themes extends Admin_Controller
 				// Success...
 				$this->session->set_flashdata('success', lang('themes.save_success'));
 
-				$this->pyrocache->delete_all('theme_m');
+				$this->cache->clear('theme_m');
 
 				redirect('admin/addons/themes/options/'.$slug);
 			}
