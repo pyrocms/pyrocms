@@ -5,7 +5,10 @@
 			<tr>
 				<?php if($stream->sorting == 'custom'): ?><th></th><?php endif; ?>
 				<?php foreach( $stream->view_options as $view_option ) { ?>
-				<th><?php echo $stream_fields->$view_option->field_name;?></th>
+				<th><?php 
+				$lang=str_replace('lang:', '', $stream_fields->$view_option->field_name);
+				echo ($lang!=$stream_fields->$view_option->field_name) ? lang($lang):$lang;
+				?></th>
 				<?php } ?>
 			    <th></th>
 			</tr>
@@ -14,6 +17,9 @@
 		<?php foreach ($entries as $field => $data_item) { ?>
 
 			<tr>
+
+				<?php if($stream->sorting == 'custom'): ?><td width="30" class="handle"><?php echo Asset::img('icons/drag_handle.gif', 'Drag Handle'); ?></td><?php endif; ?>
+
 				<?php if(is_array($stream->view_options)): foreach( $stream->view_options as $view_option ): ?>
 				<td>
 				

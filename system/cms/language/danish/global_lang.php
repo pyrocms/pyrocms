@@ -9,7 +9,8 @@ $lang['desc_label'] 					= 'Beskrivelse';
 $lang['version_label'] 					= 'Version';
 $lang['global:author'] 					= 'Forfatter';
 $lang['global:action'] 					= 'Handling';
-
+$lang['global:slug'] 					= 'Slug'; #translate
+$lang['global:slug_instructions']		= 'Lowercase characters and underscores only.'; #translate
 $lang['dialog.delete_message'] 			= 'Er du sikker på, at du vil slette dette? Det kan ikke ændres.';
 $lang['dialog.confirm'] 				= 'Bekræft';
 $lang['dialog.yes'] 					= 'Ja';

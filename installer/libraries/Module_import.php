@@ -35,7 +35,7 @@ class Module_import {
 		$db['port'] 	= $this->ci->input->post('port');
 		$db['dbdriver'] = "mysql";
 		$db['dbprefix'] = 'default_';
-		$db['pconnect'] = TRUE;
+		$db['pconnect'] = FALSE;
 		$db['db_debug'] = TRUE;
 		$db['cache_on'] = FALSE;
 		$db['cachedir'] = "";

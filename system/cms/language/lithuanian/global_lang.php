@@ -9,7 +9,8 @@ $lang['desc_label'] 					= 'Aprašymas';
 $lang['version_label'] 					= 'Versija';
 $lang['global:author'] 					= 'Autorius';
 $lang['global:action'] 					= 'Veiksmas';
-
+$lang['global:slug'] 					= 'Slug'; #translate
+$lang['global:slug_instructions']		= 'Lowercase characters and underscores only.'; #translate
 $lang['dialog.delete_message'] 			= 'Ar tikrai norite tai išstrinti? Atstatymas negalimas.';
 $lang['dialog.confirm'] 				= 'Patvirtinti';
 $lang['dialog.yes'] 					= 'Taip';

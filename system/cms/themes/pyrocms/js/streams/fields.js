@@ -2,7 +2,7 @@
 
 	$(function(){
 
-	pyro.generate_slug('input[name="field_name"]', 'input[name="field_slug"]');
+	pyro.generate_slug('input[name="field_name"]', 'input[name="field_slug"]', '_', true);
 
 	$('#field_type').change(function() {
 

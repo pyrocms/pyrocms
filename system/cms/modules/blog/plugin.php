@@ -26,13 +26,22 @@ class Plugin_Blog extends Plugin
 	public function posts()
 	{
 		$limit		= $this->attribute('limit', 10);
+		$offset		= $this->attribute('offset',0);
 		$category	= $this->attribute('category');
 		$order_by 	= $this->attribute('order-by', 'created_on');
 		$order_dir	= $this->attribute('order-dir', 'ASC');
 
 		if ($category)
 		{
+			$categories = explode('|', $category);
+			$category = array_shift($categories);
+
 			$this->db->where('blog_categories.' . (is_numeric($category) ? 'id' : 'slug'), $category);
+
+			foreach($categories as $category)
+			{
+				$this->db->or_where('blog_categories.' . (is_numeric($category) ? 'id' : 'slug'), $category);
+			}
 		}
 
 		$posts = $this->db
@@ -44,13 +53,14 @@ class Plugin_Blog extends Plugin
 			->join('blog_categories', 'blog.category_id = blog_categories.id', 'left')
 			->join('profiles p', 'blog.author_id = p.user_id', 'left')
 			->order_by('blog.' . $order_by, $order_dir)
-			->limit($limit)
+			->limit($limit,$offset)
 			->get('blog')
 			->result();
-
+		$i = 1;
 		foreach ($posts as &$post)
 		{
 			$post->url = site_url('blog/'.date('Y', $post->created_on).'/'.date('m', $post->created_on).'/'.$post->slug);
+			$post->count = $i++;
 		}
 		
 		return $posts;

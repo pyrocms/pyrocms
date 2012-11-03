@@ -257,6 +257,8 @@ class Users extends Public_Controller
 		// Set the validation rules
 		$this->form_validation->set_rules($validation);
 
+		$user = new stdClass();
+
 		// Set default values as empty or POST values
 		foreach ($validation as $rule)
 		{

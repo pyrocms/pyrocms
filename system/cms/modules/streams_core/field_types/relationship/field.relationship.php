@@ -111,10 +111,12 @@ class Field_relationship
 	 *
 	 * @access	public
 	 * @param	array
-	 * @return	string
+	 * @return	mixed - null or string
 	 */
 	public function pre_output($input, $data)
-	{	
+	{
+		if ( ! $input) return null;
+
 		// We only need this in the admin.
 		// Relationships are taken care of by a join
 		// on the front end
@@ -175,10 +177,13 @@ class Field_relationship
 	 * @access	public
 	 * @param	string
 	 * @param	string
-	 * @param	array
+	 * @param	mixed - null or array
 	 */
-	function pre_output_plugin($row, $custom)
+	public function pre_output_plugin($row, $custom)
 	{
+		if ( ! $row) return null;
+
+		// Mini-cache for getting the related stream.
 		if (isset($this->cache[$custom['choose_stream']][$row]))
 		{
 			return $this->cache[$custom['choose_stream']][$row];

@@ -159,9 +159,6 @@ $lang['settings_form_option_Allow Markdown']	= 'Autoriser Markdown';
 $lang['settings_form_option_Yes']				= 'Oui';
 $lang['settings_form_option_No']				= 'Non';
 
-// titles
-$lang['settings_edit_title'] 					= 'Modifier les paramètres';
-
 // messages
 $lang['settings_no_settings']					= 'Il n\'y a aucun paramétrages actuellement.';
 $lang['settings_save_success'] 					= 'Vos paramètres ont été enregistrés !';

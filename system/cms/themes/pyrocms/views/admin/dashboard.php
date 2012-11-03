@@ -5,17 +5,26 @@ $(function($) {
 		var visits = <?php echo isset($analytic_visits) ? $analytic_visits : 0; ?>;
 		var views = <?php echo isset($analytic_views) ? $analytic_views : 0; ?>;
 
-		$.plot($('#analytics'), [{ label: 'Visits', data: visits },{ label: 'Page views', data: views }], {
-			lines: { show: true },
-			points: { show: true },
-			grid: { hoverable: true, backgroundColor: '#fefefe' },
-			series: {
-				lines: { show: true, lineWidth: 1 },
-				shadowSize: 0
-			},
-			xaxis: { mode: "time" },
-			yaxis: { min: 0},
-			selection: { mode: "x" }
+		var buildGraph = function() {
+			$.plot($('#analytics'), [{ label: 'Visits', data: visits },{ label: 'Page views', data: views }], {
+				lines: { show: true },
+				points: { show: true },
+				grid: { hoverable: true, backgroundColor: '#fefefe' },
+				series: {
+					lines: { show: true, lineWidth: 1 },
+					shadowSize: 0
+				},
+				xaxis: { mode: "time" },
+				yaxis: { min: 0},
+				selection: { mode: "x" }
+			});
+		}
+		// create the analytics graph when the page loads
+		buildGraph();
+
+		// re-create the analytics graph on window resize
+		$(window).resize(function(){
+			buildGraph();
 		});
 		
 		function showTooltip(x, y, contents) {

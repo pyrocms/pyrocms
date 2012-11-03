@@ -31,6 +31,8 @@ class Lex_Parser
 	protected $conditional_regex = '';
 	protected $conditional_else_regex = '';
 	protected $conditional_end_regex = '';
+	protected $conditional_exists_regex = '';
+	protected $conditional_not_regex = '';
 	protected $conditional_data = array();
 
 	protected static $extractions = array(
@@ -174,7 +176,7 @@ class Lex_Parser
 		{
 			foreach ($data_matches[1] as $index => $var)
 			{
-				if ($val = $this->get_variable($var, $data))
+				if (($val = $this->get_variable($var, $data, '__lex_no_value__')) !== '__lex_no_value__')
 				{
 					$text = str_replace($data_matches[0][$index], $val, $text);
 				}
@@ -294,6 +296,20 @@ class Lex_Parser
 					$condition = $this->create_extraction('__cond_str', $m, $m, $condition);
 				}
 			}
+			$condition = preg_replace($this->conditional_not_regex, '$1!$2', $condition);
+
+			if (preg_match_all($this->conditional_exists_regex, $condition, $exists_matches, PREG_SET_ORDER))
+			{
+				foreach ($exists_matches as $m)
+				{
+					$exists = 'true';
+					if ($this->get_variable($m[2], $data, '__doesnt_exist__') === '__doesnt_exist__')
+					{
+						$exists = 'false';
+					}
+					$condition = $this->create_extraction('__cond_exists', $m[0], $m[1].$exists.$m[3], $condition);
+				}
+			}
 
 			$condition = preg_replace_callback('/\b('.$this->variable_regex.')\b/', array($this, 'process_condition_var'), $condition);
 
@@ -301,10 +317,25 @@ class Lex_Parser
 			{
 				$condition = preg_replace('/\b(?!\{\s*)('.$this->callback_name_regex.')(?!\s+.*?\s*\})\b/', '{$1}', $condition);
 				$condition = $this->parse_callback_tags($condition, $data, $callback);
+
+				// Incase the callback returned a string, we need to extract it
+				if (preg_match_all('/(["\']).*?(?<!\\\\)\1/', $condition, $str_matches))
+				{
+					foreach ($str_matches[0] as $m)
+					{
+						$condition = $this->create_extraction('__cond_str', $m, $m, $condition);
+					}
+				}
 			}
+			
+			// Re-process for variables, we trick processConditionVar so that it will return null
+			$this->in_condition = false;
+			$condition = preg_replace_callback('/\b('.$this->variable_regex.')\b/', array($this, 'process_condition_var'), $condition);
+			$this->in_condition = true;
 
 			// Re-inject any strings we extracted
 			$condition = $this->inject_extractions($condition, '__cond_str');
+			$condition = $this->inject_extractions($condition, '__cond_exists');
 
 			$conditional = '<?php '.$match[1].' ('.$condition.'): ?>';
 
@@ -449,6 +480,7 @@ class Lex_Parser
 		$var = is_array($match) ? $match[0] : $match;
 		if (in_array(strtolower($var), array('true', 'false', 'null', 'or', 'and')) or
 		    strpos($var, '__cond_str') === 0 or
+		    strpos($var, '__cond_exists') === 0 or
 		    is_numeric($var))
 		{
 			return $var;
@@ -545,6 +577,8 @@ class Lex_Parser
 		$this->conditional_regex = '/\{\{\s*(if|elseif)\s*((?:\()?(.*?)(?:\))?)\s*\}\}/ms';
 		$this->conditional_else_regex = '/\{\{\s*else\s*\}\}/ms';
 		$this->conditional_end_regex = '/\{\{\s*(\/if|endif)\s*\}\}/ms';
+		$this->conditional_exists_regex = '/(\s+|^)exists\s+('.$this->variable_regex.')(\s+|$)/ms';
+		$this->conditional_not_regex = '/(\s+|^)not(\s+|$)/ms';
 
 		$this->regex_setup = true;
 	}

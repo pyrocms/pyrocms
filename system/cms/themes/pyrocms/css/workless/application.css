@@ -576,3 +576,41 @@ table > tbody > tr {
 	color: #5D7F88;
 	font-size: 11px;
 }
+
+/* Comments */
+
+#existing-comments .comment {
+	padding-top: 10px;
+	border-bottom: 1px solid #efefef;
+
+}
+
+#existing-comments .comment .image {
+	float: left;
+	width: 50px;
+	margin-right: 12px;
+}
+
+#existing-comments .comment .image .gravatar {
+	width: 50px;
+}
+
+#existing-comments .comment .name p {
+	font-weight: bold;
+	margin-bottom: 0px;
+	margin-top: 0px;
+}
+
+#existing-comments .comment .date {
+	float: none;
+}
+
+#existing-comments .comment .date p {
+	font-size: 11px;
+	color: #777;
+	margin-top: 0px;
+}
+
+#existing-comments .comment .content {
+	margin-left: 62px;
+}

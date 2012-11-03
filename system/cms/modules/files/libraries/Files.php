@@ -375,7 +375,7 @@ class Files
 				);
 
 				// perhaps they want to resize it a bit as they upload
-				if ($file['is_image'] AND $width OR $height)
+				if ($file['is_image'] AND ($width OR $height))
 				{
 					ci()->load->library('image_lib');
 

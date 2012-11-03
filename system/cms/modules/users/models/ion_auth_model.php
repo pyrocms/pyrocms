@@ -565,7 +565,15 @@ class Ion_auth_model extends CI_Model
 		$this->db->insert($this->tables['users'], $data);
 
 		// For the profiles tables.
-		$id = $this->db->insert_id();
+		if ($this->db->dbdriver == 'mysql')
+		{
+			$last = $this->db->query("SELECT LAST_INSERT_ID() as last_id")->row();
+			$id = $last->last_id;
+		}
+		else
+		{
+			$id = $this->db->insert_id();
+		}
 
 		// Use streams to add the profile data.
 		// Even if there is not data to add, we still want an entry
@@ -709,7 +717,15 @@ class Ion_auth_model extends CI_Model
 		{
 			foreach ($this->user_stream_fields as $field_key => $field_data)
 			{
-				$this->db->select($this->tables['meta'].'.'. $field_key);
+				// Is this an alt. process field type? If so, we don't
+				// want to select the column since it doesn't exist.
+				if (
+					! isset($this->type->types->{$field_data->field_type}->alt_process) or 
+					! $this->type->types->{$field_data->field_type}->alt_process
+				)
+				{
+					$this->db->select($this->tables['meta'].'.'. $field_key);
+				}
 			}
 		}
 
@@ -1054,8 +1070,8 @@ class Ion_auth_model extends CI_Model
 
 	    $this->load->driver('streams');
 
-	    // Get the row id for the profile. Probably the same as
-	    // the user_id by not necessarily
+	    // Get the row id for the profile. It's probably the same as
+	    // the user_id but not necessarily.
 	    $profile = $this->db->limit(1)->where('user_id', $id)->get($this->tables['meta'])->row();
 	    if ( ! $profile) return false;
 

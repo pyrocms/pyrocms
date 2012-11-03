@@ -99,14 +99,9 @@ class Admin extends Admin_Controller {
 	public function ajax_page_details($id)
 	{
 		$page = $this->page_m->get($id);
-		
-		// If there's a keywords hash
-		if ($page->meta_keywords != '') {
-			// Get comma-separated meta_keywords based on keywords hash
-			$this->load->model('keywords/keyword_m');
-			$old_keywords_hash = $page->meta_keywords;
-			$page->meta_keywords = Keywords::get_string($page->meta_keywords);
-		}
+
+        $this->load->model('keywords/keyword_m');
+        $page->meta_keywords = Keywords::get_string($page->meta_keywords);
 
 		$this->load->view('admin/ajax/page_details', array('page' => $page));
 	}
@@ -166,7 +161,6 @@ class Admin extends Admin_Controller {
 
         	$page['restricted_to'] = null;
         	$page['navigation_group_id'] = 0;
-	        $page['is_home'] = true;
         
         	foreach($page['chunks'] as $chunk)
         	{
@@ -180,13 +174,10 @@ class Admin extends Admin_Controller {
 
 		foreach ($children as $child)
 		{
-			$this->duplicate($child->id, $new_page['id']);
+			$this->duplicate($child->id, $new_page);
 		}
 
-		if ($parent_id === NULL)
-		{
-			redirect('admin/pages/edit/'.$new_page['id']);
-		}
+		redirect('admin/pages');
 	}
 
 	/**

@@ -6,7 +6,7 @@ $lang['page_layouts.css_label']                      = 'CSS';
 
 // labels
 $lang['page_layouts.updated_label']                  = 'Opdateret';
-$lang['page_layouts.theme_layout_label']             = 'Tema layout';
+$lang['page_layouts:theme_layout_label']             = 'Tema layout';
 
 // titles
 $lang['page_layouts.list_title']                     = 'List side layouts';

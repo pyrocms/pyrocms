@@ -9,7 +9,7 @@
  * @license		http://parse19.com/pyrostreams/docs/license
  * @link		http://parse19.com/pyrostreams
  */
-class Ajax extends Admin_Controller {
+class Ajax extends MY_Controller {
 
     public function __construct()
     {
@@ -17,17 +17,19 @@ class Ajax extends Admin_Controller {
         
         // No matter what we don't show the profiler
         // in our AJAX calls.
-        $this->output->enable_profiler(FALSE);
+        $this->output->enable_profiler(false);
+
+        $this->error_message = 'invalid request';
  
         // We need this for all of the variable setups in
         // the Type library __construct
         $this->load->library('streams_core/Type');
         
         // Only AJAX gets through!
-       	if ( ! $this->input->is_ajax_request())
-       	{
-       		die('Invalid request.');
-       	}
+		if ( ! $this->input->is_ajax_request()) die($this->error_message);
+
+       	// You also need to be logged in
+       	if ( ! is_logged_in()) die($this->error_message);
     }
 
 	// --------------------------------------------------------------------------
@@ -120,6 +122,8 @@ class Ajax extends Admin_Controller {
 	 */
 	public function update_field_order()
 	{
+		$this->_check_module_accessibility();
+
 		$ids = explode(',', $this->input->post('order'));
 
 		// Set the count by the offset for
@@ -147,7 +151,9 @@ class Ajax extends Admin_Controller {
 	 * @return	void
 	 */
 	public function ajax_entry_order_update()
-	{	
+	{
+		$this->_check_module_accessibility();
+
 		// Get the stream from the ID
 		$this->load->model('streams_core/streams_m');
 		$stream = $this->streams_m->get_stream($this->input->post('stream_id'));
@@ -166,6 +172,46 @@ class Ajax extends Admin_Controller {
 					->update($stream->stream_prefix.$stream->stream_slug, array('ordering_count' => $order_count));
 
 			++$order_count;
+		}
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Check for Module accessibility.
+	 *
+	 * This is really all we can do in 2.1/develop to allow non-admins
+	 * to re-order and access control panel streams functions. We
+	 * are basically checking to see if the current logged
+	 * in user has access to the module that
+	 * is calling the function via JS.
+	 *
+	 * @access 	private
+	 * @return 	mixed
+	 */
+	private function _check_module_accessibility()
+	{
+		// We always let the admins in
+		if ($this->current_user->group === 'admin')
+		{
+			return;
+		}
+
+		// Get module slug
+		$module = $this->input->post('streams_module');
+
+		if ( ! $module) die($this->error_message);
+
+		$this->load->library('encrypt');
+
+		$module = $this->encrypt->decode($module);
+
+		if ( ! $module) die($this->error_message);
+
+		// Do we have permission for this module?
+		if ( ! $this->db->limit(1)->where('group_id', $this->current_user->group_id)->where('module', $module)->get('permissions')->row())
+		{
+			die($this->error_message);
 		}
 	}
 		

@@ -37,10 +37,15 @@ class Streams_cp extends CI_Driver {
 	 *				'url'		=> 'admin/streams_sample/delete/-entry_id-',
 	 *				'confirm'	= true
 	 *			);
+	 * columns  - an array of field slugs to display. This overrides view options.
+	 * 			$extra['columns'] = array('field_one', 'field_two');
+	 *
+ 	 * sorting  - bool. Whether or not to turn on the drag/drop sorting of entries. This defaults
+ 	 * 			to the sorting option of the stream.
 	 *
 	 * see docs for more explanation
 	 */
-	function entries_table($stream_slug, $namespace_slug, $pagination = null, $pagination_uri = null, $view_override = false, $extra = array())
+	public function entries_table($stream_slug, $namespace_slug, $pagination = null, $pagination_uri = null, $view_override = false, $extra = array())
 	{
 		$CI = get_instance();
 		
@@ -54,6 +59,11 @@ class Streams_cp extends CI_Driver {
 		
  		$stream_fields = $CI->streams_m->get_stream_fields($stream->id);
  		
+ 		$stream_fields->id = new stdClass();
+ 		$stream_fields->created = new stdClass();
+ 		$stream_fields->updated = new stdClass();
+ 		$stream_fields->created_by = new stdClass();
+
   		$stream_fields->id->field_name 				= lang('streams.id');
 		$stream_fields->created->field_name 		= lang('streams.created_date');
  		$stream_fields->updated->field_name 		= lang('streams.updated_date');
@@ -70,26 +80,46 @@ class Streams_cp extends CI_Driver {
 	
 	 		$offset = $CI->uri->segment($offset_uri, 0);
   		}
+  		else
+  		{
+  			$offset = 0;
+  		}
 
-		// Stuff below is not supported via the API yet
-		/*if ($stream->sorting == 'custom')
+  		// -------------------------------------
+		// Sorting
+		// @since 2.1.5
+		// -------------------------------------
+
+		if ($stream->sorting == 'custom' or (isset($extra['sorting']) and $extra['sorting'] === true))
 		{
-			// We need some variables to use in the sort. I guess.
-			$this->template->append_metadata('<script type="text/javascript" language="javascript">var stream_id='.$this->data->stream->id.';var stream_offset='.$offset.';</script>');
-		
-			// We want to sort this
-		    //$this->template->append_js('module::entry_sorting.js');
-		    		      
-			// Comeon' Livequery! You're goin' in!
-			//$this->template->append_js('module::jquery.livequery.js');
-		}*/
+			$stream->sorting = 'custom';
+
+			// As an added measure of obsurity, we are going to encrypt the
+			// slug of the module so it isn't easily changed.
+			$CI->load->library('encrypt');
+
+			// We need some variables to use in the sort.
+			$CI->template->append_metadata('<script type="text/javascript" language="javascript">var stream_id='.$stream->id.'; var stream_offset='.$offset.'; var streams_module="'.$CI->encrypt->encode($CI->module_details['slug']).'";
+				</script>');
+			$CI->template->append_js('streams/entry_sorting.js');
+		}
   
   		$data = array(
   			'stream'		=> $stream,
   			'stream_fields'	=> $stream_fields,
   			'buttons'		=> isset($extra['buttons']) ? $extra['buttons'] : NULL,
   		);
-  
+ 
+  		// -------------------------------------
+		// Columns
+		// @since 2.1.5
+		// -------------------------------------
+
+		if (isset($extra['columns']) and is_array($extra['columns']))
+		{
+			$stream->view_options = $extra['columns'];
+		}
+
  		// -------------------------------------
 		// Get Entries
 		// -------------------------------------
@@ -101,6 +131,7 @@ class Streams_cp extends CI_Driver {
 														$stream_fields, 
 														$limit,
 														$offset);
+
 
 		// -------------------------------------
 		// Pagination
@@ -216,6 +247,7 @@ class Streams_cp extends CI_Driver {
 		
 		if ($view_override === false) return $form;
 		
+		$CI->data = new stdClass();
 		$CI->data->content = $form;
 		
 		$CI->template->build('admin/partials/blank_section', $CI->data);
@@ -426,17 +458,18 @@ class Streams_cp extends CI_Driver {
 			{
 				// Get the type so we can use the custom params
 				$data['current_type'] = $CI->type->types->{$field_type};
+
+				if ( ! is_object($data['current_field']))
+				{
+					$data['current_field'] = new stdClass();
+					$data['current_field']->field_data = array();
+				}
 				
 				// Get our standard params
 				require_once(PYROSTEAMS_DIR.'libraries/Parameter_fields.php');
 				
 				$data['parameters'] = new Parameter_fields();
 				
-				if ( ! is_array($data['current_field']->field_data))
-				{
-					$data['current_field']->field_data = array();				
-				}
-
 				if (isset($data['current_type']->custom_parameters) and is_array($data['current_type']->custom_parameters))
 				{
 					// Build items out of post data
@@ -451,7 +484,7 @@ class Streams_cp extends CI_Driver {
 						}
 						else
 						{
-							$$data['current_field']->field_data[$param] = $CI->input->post($param);
+							$data['current_field']->field_data[$param] = $CI->input->post($param);
 						}
 					}
 				}
@@ -660,12 +693,13 @@ class Streams_cp extends CI_Driver {
 		{
 			$segs = explode('/', $pagination_uri);
 			$offset_uri = count($segs)+1;
-	
+
 	 		$offset = $CI->uri->segment($offset_uri, 0);
   		}
 		else
 		{
 			$offset = 0;
+			$offset_uri = null;
 		}
 
 		// -------------------------------------
@@ -697,16 +731,16 @@ class Streams_cp extends CI_Driver {
 											$pagination_uri,
 											$CI->fields_m->count_fields($namespace),
 											$pagination,
-											$offset
+											$offset_uri
 										);
 		}
 		else
 		{ 
-			$data['pagination'] = FALSE;
+			$data['pagination'] = false;
 		}
 
 		// Allow view to inherit custom 'Add Field' uri
-		$data['add_uri'] = isset($extra['add_uri']) ? $extra['add_uri'] : NULL;
+		$data['add_uri'] = isset($extra['add_uri']) ? $extra['add_uri'] : null;
 
 		// -------------------------------------
 		// Build Pages
