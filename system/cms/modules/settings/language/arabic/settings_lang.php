@@ -134,6 +134,9 @@ $lang['settings_form_option_Required']			= 'إجباري';
 $lang['settings_form_option_Optional']			= 'اختياري';
 $lang['settings_form_option_Oldest First']		= 'الأقدم أولاً';
 $lang['settings_form_option_Newest First']		= 'الأحدث أولاً';
+$lang['settings_form_option_activate_by_email']        	= 'Activate by email'; #translate
+$lang['settings_form_option_activate_by_admin']        	= 'Activate by admin'; #translate
+$lang['settings_form_option_no_activation']         	= 'No activation'; #translate
 
 // titles
 $lang['settings_edit_title'] 					= 'تعديل الإعدادات';
