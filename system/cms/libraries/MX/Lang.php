@@ -52,7 +52,7 @@ class MX_Lang extends CI_Lang
 		$deft_lang = CI::$APP->config->item('language');
 		$idiom = ($lang == '') ? $deft_lang : $lang;
 
-		if (in_array($langfile . '_lang'.EXT, $this->is_loaded, true))
+		if (in_array($langfile . '_lang'.'.php', $this->is_loaded, true))
 		{
 			return $this->language;
 		}
@@ -85,7 +85,7 @@ class MX_Lang extends CI_Lang
 				}
 
 				$this->language = array_merge($this->language, $lang);
-				$this->is_loaded[] = $langfile . '_lang'.EXT;
+				$this->is_loaded[] = $langfile . '_lang.php';
 				unset($lang);
 			}
 		}

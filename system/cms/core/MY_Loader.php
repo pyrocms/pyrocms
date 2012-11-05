@@ -179,7 +179,7 @@ class MY_Loader extends MX_Loader
 	 */
 	protected function ci_autoloader($basepath = null)
 	{
-		$autoload_path = (($basepath !== null) ? $basepath : APPPATH).'config/autoload'.EXT;
+		$autoload_path = (($basepath !== null) ? $basepath : APPPATH).'config/autoload.php';
 
 		if ( ! file_exists($autoload_path))
 		{

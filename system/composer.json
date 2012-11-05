@@ -5,10 +5,4 @@
     "require": {
         "quick/cache": "1.0.*"
     },
-    "authors": [
-        {
-            "name": "jerel",
-            "email": "jerel@pyrocms.com"
-        }
-    ]
 }

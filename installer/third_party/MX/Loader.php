@@ -91,7 +91,7 @@ class MX_Loader extends CI_Loader
 		if (class_exists('CI_DB', FALSE) AND $return == FALSE AND $active_record == NULL AND isset(CI::$APP->db) AND is_object(CI::$APP->db)) 
 			return;
 
-		require_once BASEPATH.'database/DB'.EXT;
+		require_once BASEPATH.'database/DB'.'.php';
 
 		if ($return === TRUE) return DB($params, $active_record);
 			
@@ -240,7 +240,7 @@ class MX_Loader extends CI_Loader
 
 		list($path, $_plugin) = Modules::find($plugin.'_pi', $this->_module, 'plugins/');	
 		
-		if ($path === FALSE AND ! is_file($_plugin = APPPATH.'plugins/'.$_plugin.EXT)) {	
+		if ($path === FALSE AND ! is_file($_plugin = APPPATH.'plugins/'.$_plugin.'.php')) {	
 			show_error("Unable to locate the plugin file: {$_plugin}");
 		}
 
@@ -282,7 +282,7 @@ class MX_Loader extends CI_Loader
 		if (isset($_ci_view)) {
 			
 			$_ci_path = '';
-			$_ci_file = strpos($_ci_view, '.') ? $_ci_view : $_ci_view.EXT;
+			$_ci_file = strpos($_ci_view, '.') ? $_ci_view : $_ci_view.'.php';
 			
 			foreach ($this->_ci_view_paths as $path => $cascade) {				
 				if (file_exists($view = $path.$_ci_file)) {
@@ -337,7 +337,7 @@ class MX_Loader extends CI_Loader
 			
 			/* module constants file */
 			if ($path != FALSE) {
-				include_once $path.$file.EXT;
+				include_once $path.$file.'.php';
 			}
 					
 			list($path, $file) = Modules::find('autoload', $this->_module, 'config/');

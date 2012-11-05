@@ -469,7 +469,7 @@ class Module_m extends MY_Model
 				// Yeah yeah we know
 				if (in_array($slug, $known_array))
 				{
-					$details_file = $directory.'modules/'.$slug.'/details'.EXT;
+					$details_file = $directory.'modules/'.$slug.'/details.php';
 
 					if (file_exists($details_file) &&
 						filemtime($details_file) > $known_mtime[$slug]['updated_on'] &&
@@ -540,12 +540,12 @@ class Module_m extends MY_Model
 		$path = $is_core ? APPPATH : ADDONPATH;
 
 		// Before we can install anything we need to know some details about the module
-		$details_file = $path.'modules/'.$slug.'/details'.EXT;
+		$details_file = $path.'modules/'.$slug.'/details.php';
 
 		// Check the details file exists
 		if ( ! is_file($details_file))
 		{
-			$details_file = SHARED_ADDONPATH.'modules/'.$slug.'/details'.EXT;
+			$details_file = SHARED_ADDONPATH.'modules/'.$slug.'/details.php';
 			
 			if ( ! is_file($details_file))
 			{

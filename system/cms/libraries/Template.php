@@ -871,7 +871,7 @@ class Template
 
 	private function _ext($file)
 	{
-		return pathinfo($file, PATHINFO_EXTENSION) ? '' : EXT;
+		return pathinfo($file, PATHINFO_EXTENSION) ? '' : '.php';
 	}
 }
 

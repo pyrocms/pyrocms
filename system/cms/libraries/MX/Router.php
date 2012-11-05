@@ -68,7 +68,7 @@ class MX_Router extends CI_Router
 		 */
 		if ( ! defined('SITE_REF'))
 		{
-			require_once BASEPATH.'database/DB'.EXT;
+			require_once BASEPATH.'database/DB'.'.php';
 			
 			# deprecated Remove this for 2.3, as this was too early for a migration
 			if ( ! DB()->table_exists('core_domains'))
@@ -145,7 +145,7 @@ class MX_Router extends CI_Router
 		
 		$this->module = '';
 		$this->directory = '';
-		$ext = $this->config->item('controller_suffix').EXT;
+		$ext = $this->config->item('controller_suffix').'.php';
 		
 		/* use module route if available */
 		if (isset($segments[0]) and $routes = Modules::parse_routes($segments[0], implode('/', $segments))) 	
