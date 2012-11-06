@@ -76,12 +76,12 @@ class Events
 		$path = $is_core ? APPPATH : ADDONPATH;
 
 		// Before we can install anything we need to know some details about the module
-		$events_file = $path.'modules/'.$slug.'/events'.EXT;
+		$events_file = $path.'modules/'.$slug.'/events.php';
 
 		// Check the details file exists
 		if (!is_file($events_file))
 		{
-			$events_file = SHARED_ADDONPATH.'modules/'.$slug.'/events'.EXT;
+			$events_file = SHARED_ADDONPATH.'modules/'.$slug.'/events.php';
 
 			if (!is_file($events_file))
 			{

@@ -272,12 +272,12 @@ class Theme_m extends MY_Model
 		$path = $is_core ? APPPATH : ADDONPATH;
 
 		// Before we can install anything we need to know some details about the module
-		$details_file = $path.'themes/'.$slug.'/theme'.EXT;
+		$details_file = "{$path}themes/{$slug}/theme.php";
 
 		// Check the details file exists
 		if ( ! is_file($details_file))
 		{
-			$details_file = SHARED_ADDONPATH.'themes/'.$slug.'/theme'.EXT;
+			$details_file = SHARED_ADDONPATH.'themes/'.$slug.'/theme.php';
 
 			if ( ! is_file($details_file))
 			{

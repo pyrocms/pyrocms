@@ -89,7 +89,7 @@ class MX_Loader extends CI_Loader
 		if (class_exists('CI_DB', false) and $return == false and $active_record == null AND isset(CI::$APP->db) AND is_object(CI::$APP->db)) 
 			return;
 
-		require_once BASEPATH.'database/DB'.EXT;
+		require_once BASEPATH.'database/DB.php';
 
 		if ($return === true) return DB($params, $active_record);
 			
@@ -282,7 +282,7 @@ class MX_Loader extends CI_Loader
 		}
 
 		if ($_ci_path == '') {
-			$_ci_file = strpos($_ci_view, '.') ? $_ci_view : $_ci_view.EXT;
+			$_ci_file = strpos($_ci_view, '.') ? $_ci_view : $_ci_view.'.php';
 			foreach ($this->_ci_view_paths as $view_file => $cascade)
 			{
 				if (file_exists($view_file.$_ci_file))

@@ -96,7 +96,7 @@ class Widgets {
 			}
 
 			// Finally, check if is need and update the widget info
-			$widget_file = FCPATH . $this->_widget_locations[$widget->slug] . $widget->slug . EXT;
+			$widget_file = FCPATH . $this->_widget_locations[$widget->slug] . $widget->slug.'.php';
 
 			if (file_exists($widget_file) &&
 				filemtime($widget_file) > $widget->updated_on)
@@ -200,7 +200,7 @@ class Widgets {
 		$data['options'] = $options;
 
 		// Is there an overload view in the theme?
-		$overload = file_exists($this->template->get_views_path().'widgets/'.$name.'/display'.EXT) ? $name : false;
+		$overload = file_exists($this->template->get_views_path().'widgets/'.$name.'/display.php') ? $name : false;
 
 		return $this->load_view('display', $data, $overload);
 	}
@@ -272,7 +272,7 @@ class Widgets {
 
 		$path = $this->template->get_views_path() . 'modules/widgets/';
 
-		if ( ! file_exists($path . $view . EXT))
+		if ( ! file_exists("{$path}{$view}.php"))
 		{
 			list($path, $view) = Modules::find($view, 'widgets', 'views/');
 		}
@@ -453,7 +453,7 @@ class Widgets {
 	private function _spawn_widget($name)
 	{
 		$widget_path = $this->_widget_locations[$name];
-		$widget_file = FCPATH . $widget_path . $name . EXT;
+		$widget_file = FCPATH."{$widget_path}{$name}.php";
 
 		if (file_exists($widget_file))
 		{
@@ -482,10 +482,10 @@ class Widgets {
 		if ($overload !== false)
 		{
 			return $this->parser->parse_string($this->load->_ci_load(array(
-					'_ci_path' => $this->template->get_views_path().'widgets/' . $overload . '/display' . EXT,
-					'_ci_vars' => $data,
-					'_ci_return' => true
-				)), array(), true);
+				'_ci_path' => $this->template->get_views_path().'widgets/'.$overload.'/display.php',
+				'_ci_vars' => $data,
+				'_ci_return' => true
+			)), array(), true);
 		}
 
 		$path = isset($this->_widget->path) ? $this->_widget->path : $this->path;
@@ -493,13 +493,13 @@ class Widgets {
 		return $view == 'display'
 
 			? $this->parser->parse_string($this->load->_ci_load(array(
-				'_ci_path'		=> $path . 'views/' . $view . EXT,
+				'_ci_path'		=> "{$path}views/{$view}.php",
 				'_ci_vars'		=> $data,
 				'_ci_return'	=> true
 			)), array(), true)
 
 			: $this->load->_ci_load(array(
-				'_ci_path'		=> $path . 'views/' . $view . EXT,
+				'_ci_path'		=> "{$path}views/{$view}.php",
 				'_ci_vars'		=> $data,
 				'_ci_return'	=> true
 			));
