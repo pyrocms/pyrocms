@@ -82,6 +82,7 @@ class Streams_cp extends CI_Driver {
   		}
   		else
   		{
+  			$offset_uri = null;
   			$offset = 0;
   		}
 
