@@ -153,12 +153,6 @@ class Pages extends Public_Controller
 			}
 		}
 
-		// Not got a meta title? Use slogan for homepage or the normal page title for other pages
-		if ($page->meta_title == '')
-		{
-			$page->meta_title = $page->is_home ? $this->settings->site_slogan : $page->title;
-		}
-
 		// If this page has an RSS feed, show it
 		if ($page->rss_enabled)
 		{
@@ -187,28 +181,41 @@ class Pages extends Public_Controller
 			$this->template->set_layout($page->layout->theme_layout);
 		}
 
-		// Grab all the chunks that make up the body
-		$page->chunks = $this->page_m->get_chunks($page->id);
+		// fetch the actual content fields and merge them as if they were columns in the page table
+		$page_data = new stdClass();
+		$page_data->page = (object) array_merge(
+			(array) $page, 
+			(array) $this->streams->entries->get_entry($page->stream_entry_id, $page->layout->stream_slug, 'pages')
+		);
 
-		$chunk_html = '';
-		foreach ($page->chunks as $chunk)
+		// parse the layout metadata fields so they can be populated with stream data 
+		// (they can hold tags). Metadata explicitly set in a page trumps layout metadata
+		$meta_title = ($page->meta_title ? $page->meta_title : $page->layout->meta_title);
+		$meta_keywords = ($page->meta_keywords ? Keywords::get_string($page->meta_keywords) : Keywords::get_string($page->layout->meta_keywords));
+		$meta_description = ($page->meta_description ? $page->meta_description : $page->layout->meta_description);
+
+		// Not got a meta title? Use slogan for homepage or the normal page title for other pages
+		if ($meta_title == '')
 		{
-			$chunk_html .= '<section id="'.$chunk->slug.'" class="page-chunk '.$chunk->class.'">'.
-				'<div class="page-chunk-pad">'.
-				(($chunk->type == 'markdown') ? $chunk->parsed : $chunk->body).
-				'</div>'.
-				'</section>'.PHP_EOL;
+			$meta_title = $page->is_home ? $this->settings->site_slogan : $page->title;
 		}
 
-		// Create page output. We do this before parsing the page contents so that 
+		// We do this before parsing the page contents so that 
 		// title, meta, & breadcrumbs can be overridden with tags in the page content
-		$this->template->title($page->meta_title)
-			->set_metadata('keywords', Keywords::get_string($page->meta_keywords))
-			->set_metadata('description', $page->meta_description)
+		$this->template->title($this->parser->parse_string($meta_title, $page_data, true))
+			->set_metadata('keywords', $this->parser->parse_string($meta_keywords, $page_data, true))
+			->set_metadata('description', $this->parser->parse_string($meta_description, $page_data, true))
 			->set_breadcrumb($page->title);
 
-		// Parse it so the embedded tags are parsed. We pass along $page so that {{ page:id }} and friends work in page content.
-		$page->body = $this->parser->parse_string(str_replace(array('&#39;', '&quot;'), array("'", '"'), $chunk_html), array('theme' => $this->theme, 'page' => $page), true);
+		// Parse the tag layout structure
+		$page->layout->body = $this->parser->parse_string(
+			// replace encoding by WYSIWYG
+			str_replace(array('&#39;', '&quot;'), array("'", '"'), $page->layout->body),
+			// pass along $page and $theme so that {{ page:id }} and friends work in page content
+			array('theme' => $this->theme, $page_data),
+			// return the string
+			true
+		);
 
 		if ($page->layout->css or $page->css)
 		{
@@ -246,10 +253,10 @@ class Pages extends Public_Controller
 			log_message('error', 'Page Missing: '.$this->uri->uri_string());
 
 			// things behave a little differently when called by MX from MY_Exceptions' show_404()
-			exit($this->template->build('pages/page', array('page' => $page), false, false));
+			exit($this->template->build('pages/page', $page_data, false, false));
 		}
 
-		$this->template->build('page', array('page' => $page), false, false);
+		$this->template->build('page', $page_data, false, false);
 	}
 
 	/**
