@@ -42,6 +42,7 @@ $lang['files:search_message']				= 'Ketik dan Tekan Enter';
 $lang['files:search']						= 'Cari';
 $lang['files:synchronize']					= 'Sinkronisasikan';
 $lang['files:uploader']						= 'Letakkan berkas disini <br />atau<br />Klik untuk memilih berkas';
+$lang['files:alt_attribute']				= 'alt Atribut';
 
 // Context Menu
 $lang['files:open']							= 'Buka';
@@ -97,5 +98,5 @@ $lang['files:type_v']						= 'Video';
 $lang['files:type_d']						= 'Dokumen';
 $lang['files:type_i']						= 'Gambar';
 $lang['files:type_o']						= 'Lainnya';
-
+$lang['files:alt_saved']					= 'Atribut alt gambar telah disimpan';
 /* End of file files_lang.php */

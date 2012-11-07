@@ -42,6 +42,7 @@ $lang['files:search_message']				= 'Įrašyk ir spasuk ENTER';
 $lang['files:search']						= 'Ieškok';
 $lang['files:synchronize']					= 'Sinchronizuok';
 $lang['files:uploader']						= 'Imesk čia failus <br />arba<br />spausk, kad išsirinkti failą';
+$lang['files:alt_attribute']				= 'alt Atributo';
 
 // Context Menu
 $lang['files:open']							= 'Atidaryti';
@@ -97,5 +98,6 @@ $lang['files:type_v']						= 'Video';
 $lang['files:type_d']						= 'Dokumentai';
 $lang['files:type_i']						= 'Nuotraukos';
 $lang['files:type_o']						= 'Kiti';
+$lang['files:alt_saved']					= 'Įrašytas vaizdo alt atributo';
 
 /* End of file files_lang.php */

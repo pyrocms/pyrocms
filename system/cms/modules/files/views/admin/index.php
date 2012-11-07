@@ -79,6 +79,9 @@
 				<li><label><?php echo lang('files:slug'); ?>:</label> 
 					<span class="slug"></span>
 				</li>
+				<li><label><?php echo lang('files:alt_attribute'); ?>:</label>
+					<input type="text" class="alt_attribute" />
+				</li>
 				<li><label><?php echo lang('files:path'); ?>:</label> 
 					<input readonly="readonly" type="text" class="path"/>
 				</li>

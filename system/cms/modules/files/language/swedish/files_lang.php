@@ -94,7 +94,8 @@ $lang['files:type_v']		= 'Video';
 $lang['files:type_d']		= 'Dokument';
 $lang['files:type_i']		= 'Bild';
 $lang['files:type_o']		= 'Annat';
-
+$lang['files:alt_attribute']	= 'alt Attribut';
+$lang['files:alt_saved']		= 'Attributet alt bilden har sparats';
 
 
 /* End of file files_lang.php */  

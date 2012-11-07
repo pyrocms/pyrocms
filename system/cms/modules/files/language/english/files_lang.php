@@ -42,6 +42,7 @@ $lang['files:search_message']				= 'Type and hit Enter';
 $lang['files:search']						= 'Search';
 $lang['files:synchronize']					= 'Synchronize';
 $lang['files:uploader']						= 'Drop files here <br />or<br />Click to select files';
+$lang['files:alt_attribute']				= 'alt Attribute';
 
 // Context Menu
 $lang['files:open']							= 'Open';
@@ -97,5 +98,6 @@ $lang['files:type_v']						= 'Video';
 $lang['files:type_d']						= 'Document';
 $lang['files:type_i']						= 'Image';
 $lang['files:type_o']						= 'Other';
+$lang['files:alt_saved']					= 'The image alt attribute has been saved';
 
 /* End of file files_lang.php */

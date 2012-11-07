@@ -359,8 +359,10 @@ jQuery(function($){
 								'<label>'+pyro.lang.height+'</label>'+
 								'<select name="height" class="skip"><option value="0">'+pyro.lang.full_size+'</option><option value="100">100px</option><option value="200">200px</option><option value="300">300px</option><option value="400">400px</option><option value="500">500px</option><option value="600">600px</option><option value="700">700px</option><option value="800">800px</option><option value="900">900px</option><option value="1000">1000px</option><option value="1100">1100px</option><option value="1200">1200px</option><option value="1300">1300px</option><option value="1400">1400px</option><option value="1500">1500px</option><option value="1600">1600px</option><option value="1700">1700px</option><option value="1800">1800px</option><option value="1900">1900px</option><option value="2000">2000px</option></select>'+
 								'<label>'+pyro.lang.ratio+'</label>'+
-								'<input name="ratio" type="checkbox" value="1" checked="checked"/>';
-				}
+								'<input name="ratio" type="checkbox" value="1" checked="checked"/>'+
+								'<label>'+pyro.lang.alt_attribute+'</label>'+
+								'<input type="text" name="alt_attribute" class="alt_attribute" />';
+				} 
 				// build the upload html for this file
 				return $('<li>'+
 							'<div class="file_upload_preview ui-corner-all"><div class="ui-corner-all preview-container"></div></div>' +
@@ -408,6 +410,7 @@ jQuery(function($){
 						width: handler.uploadRow.find('[name="width"]').val(),
 						height: handler.uploadRow.find('[name="height"]').val(),
 						ratio: handler.uploadRow.find('[name="ratio"]').is(':checked'),
+						alt: handler.uploadRow.find('[name="alt_attribute"]').val(),
 						folder_id: pyro.files.upload_to,
 						csrf_hash_name: $.cookie(pyro.csrf_cookie_name)
 					};
@@ -723,6 +726,7 @@ jQuery(function($){
 		 	if ($item.download_count) 	$item_details.find('.download_count')	.html($item.download_count).parent().show();
 		 	if ($item.filename) 		$item_details.find('.filename')			.html($item.filename).parent().show();
 		 	if (type === 'file') 		$item_details.find('.description')		.val($item.description).parent().show();
+		 	if ($item.type === 'i')		$item_details.find('.alt_attribute')	.val($item.alt_attribute).parent().show();
 
 		 	// they can only change the cloud provider if the folder is empty and they have permission
 		 	if (type === 'folder' && $item.file_count === 0 && pyro.files.permissions.indexOf('set_location') > -1){
@@ -785,7 +789,9 @@ jQuery(function($){
 			});
 		}
 	 };
-
+	/**
+	 * since there is only one submit button on the form, we have to assume that the description, alt attribute or both have been changed
+	 */	 	
 	pyro.files.save_description = function(item) {
 
 		var new_description = $item_details.find('textarea.description').val();
@@ -804,6 +810,24 @@ jQuery(function($){
 
 				// resave it locally
 				item.description = new_description;
+				$(window).data('file_'+item.id, item);
+			});
+		}
+		
+		var new_alt_attribute = $item_details.find('input.alt_attribute').val();
+		var post_data = {
+			file_id: item.id,
+			alt_attribute: new_alt_attribute
+		};
+		
+		if (item.alt_attribute != new_alt_attribute){
+			
+			$.post(SITE_URL + 'admin/files/save_alt', post_data, function(data){
+				var results = $.parseJSON(data);
+				$(window).trigger('show-message', results);
+
+				// resave it locally
+				item.alt_attribute = new_alt_attribute;
 				$(window).data('file_'+item.id, item);
 			});
 		}

@@ -86,13 +86,13 @@ class Plugin_Files extends Plugin
 			))
 		{
 			$ids = array_merge(array((int) $folder->id), array_keys($subfolders));
-			$this->db->select('files.*, files.id as file_id, file_folders.location')
+			$this->file_m->select('files.*, file_folders.location')
 				->join('file_folders', 'file_folders.id = files.folder_id')
 				->where_in('folder_id', $ids);
 		}
 		else
 		{
-			$this->db->select('files.*, files.id as file_id, file_folders.location')
+			$this->file_m->select('files.*, file_folders.location')
 				->join('file_folders', 'file_folders.id = files.folder_id')
 				->where('folder_id', $folder->id);
 		}
@@ -224,7 +224,10 @@ class Plugin_Files extends Plugin
 		}
 
 		$base = $this->attribute('base', 'url');
-
+		
+		// alt tag is named differently in db, so need to do check for it manually
+		$attributes['alt'] = isset($attributes['alt']) ? $attributes['alt'] : $file->alt_attribute;
+		
 		// return an image tag html
 		if ($type === 'i')
 		{

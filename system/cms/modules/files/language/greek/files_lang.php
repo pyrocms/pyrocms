@@ -42,6 +42,7 @@ $lang['files:search_message']				= 'Εισάγετε όρο & Enter';
 $lang['files:search']						= 'Αναζήτηση';
 $lang['files:synchronize']					= 'Συγχρονισμός';
 $lang['files:uploader']						= 'Σύρτε και αφήστε τα αρχεία εδώ <br />ή<br />Κάντε κλικ για να επιλέξετε αρχεία';
+$lang['files:alt_attribute']				= 'alt χαρακτηριστικό';
 
 // Context Menu
 $lang['files:open']							= 'Άνοιγμα';
@@ -97,3 +98,4 @@ $lang['files:type_v']						= 'Video';
 $lang['files:type_d']						= 'Έγγραφο';
 $lang['files:type_i']						= 'Εικόνα';
 $lang['files:type_o']						= 'Άλλο';
+$lange['files:alt_saved']					= 'Η alt χαρακτηριστικό του Εικόνα αποθηκεύτηκε';
