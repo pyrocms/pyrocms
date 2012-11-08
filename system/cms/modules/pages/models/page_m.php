@@ -33,6 +33,16 @@ class Page_m extends MY_Model
 			'rules'	=> 'trim|numeric|required'
 		),
 		array(
+			'field' => 'stream_slug',
+			'label'	=> 'stream slug',
+			'rules'	=> 'trim'
+		),
+		array(
+			'field' => 'stream_entry_id',
+			'label'	=> 'stream entry id',
+			'rules'	=> 'trim|numeric'
+		),
+		array(
 			'field'	=> 'css',
 			'label'	=> 'lang:pages:css_label',
 			'rules'	=> 'trim'
@@ -172,16 +182,11 @@ class Page_m extends MY_Model
 		$page = $this->db
 			->select('pages.*, page_layouts.stream_slug')
 			->join('page_layouts', 'page_layouts.id = pages.layout_id')
-			->where($this->primary_key, $id)
+			->where('pages.id', $id)
 			->get($this->_table)
 			->row();
 
-		if ( ! $page)
-		{
-			return;
-		}
-
-		if ($get_data)
+		if ($page and $get_data)
 		{
 			return (object) array_merge((array) $page, (array) $this->streams->entries->get_entry($page->stream_entry_id, $page->stream_slug, 'pages'));
 		}
@@ -247,7 +252,7 @@ class Page_m extends MY_Model
 	 *
 	 * @return array An array containing data fields for a page
 	 */
-	public function get_data($id, $stream_slug)
+	public function get_data($stream_entry_id, $stream_slug)
 	{
 		return $this->streams->entries->get_entry($stream_entry_id, $stream_slug, 'pages');
 	}

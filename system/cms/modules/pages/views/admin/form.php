@@ -28,6 +28,11 @@
 		
 			<ul>
 				<li>
+					<label for="layout_id"><?php echo lang('pages:layout_id_label');?></label>
+					<div class="input"><?php echo form_dropdown('layout_id', $page_layouts, $page->layout_id); ?></div>
+				</li>
+				
+				<li>
 					<label for="title"><?php echo lang('global:title');?> <span>*</span></label>
 					<div class="input"><?php echo form_input('title', $page->title, 'id="title" maxlength="60"'); ?></div>
 				</li>
@@ -70,29 +75,11 @@
 				</li>
 				<?php endif; ?>
 			</ul>
-			<ul id="page-chunks">
-				<?php foreach ($page->chunks as $chunk): ?>
-				<li class="page-chunk">
-					<?php echo form_input('chunk_slug['.$chunk['id'].']', $chunk['slug'], 'class="label" placeholder="id"'); ?>
-					<?php echo form_input('chunk_class['.$chunk['id'].']', $chunk['class'], 'class="label" placeholder="class"'); ?>
-					<?php echo form_dropdown('chunk_type['.$chunk['id'].']', array(
-						'html' => 'html',
-						'markdown' => 'markdown',
-						'wysiwyg-simple' => 'wysiwyg-simple',
-						'wysiwyg-advanced' => 'wysiwyg-advanced',
-					), $chunk['type']); ?>
-					<div class="alignright">
-						<a href="javascript:void(0)" class="remove-chunk btn red"><?php echo lang('global:remove') ?></a>
-						<span class="sort-handle"></span>
-					</div>
-					<br style="clear:both" />
-					<span class="chunky">
-						<?php echo form_textarea(array('id' => $chunk['slug'].'_'.$chunk['id'], 'name'=>'chunk_body['.$chunk['id'].']', 'value' => $chunk['body'], 'rows' => 20, 'class'=> $chunk['type'], 'style' => 'width:100%')); ?>
-					</span>
-				</li>
-				<?php endforeach; ?>
-			</ul>
-			<a class="add-chunk btn orange" href="#"><?php echo lang('pages:add_page_chunk'); ?></a>
+			<div id="page-data">
+				<?php if ($this->method == 'edit'): ?>
+					<?php echo $this->streams->cp->entry_form($page->stream_slug, 'pages', 'edit', $page->stream_entry_id); ?>
+				<?php endif; ?>
+			</div>
 			</fieldset>
 		</div>
 
@@ -128,11 +115,6 @@
 			<fieldset>
 			
 			<ul>
-				<li>
-					<label for="layout_id"><?php echo lang('pages:layout_id_label');?></label>
-					<div class="input"><?php echo form_dropdown('layout_id', $page_layouts, $page->layout_id); ?></div>
-				</li>
-				
 				<li>
 					<label for="css"><?php echo lang('pages:css_label');?></label><br />
 					<div>
