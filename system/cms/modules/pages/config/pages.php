@@ -24,7 +24,7 @@ $config['pages:default_page_types'] = array(
 	)
 );
 
-
+// The page type Streams
 $config['pages:page_streams'] = array(
 	array(
 		'name' 		=> 'Generic', 
@@ -72,6 +72,7 @@ $config['pages:default_pages'] = array(
 		'title' => 'Home',
 		'uri' => 'home',
 		'stream_entry_id' => 1,
+		'stream_slug' => 'generic',
 		'parent_id' => 0,
 		'layout_id' => 1,
 		'status' => 'live',
@@ -86,6 +87,7 @@ $config['pages:default_pages'] = array(
 		'title' => 'Contact',
 		'uri' => 'contact',
 		'stream_entry_id' => 2,
+		'stream_slug' => 'generic',
 		'parent_id' => 0,
 		'layout_id' => 1,
 		'status' => 'live',
@@ -100,6 +102,7 @@ $config['pages:default_pages'] = array(
 		'title' => 'Page missing',
 		'uri' => '404',
 		'stream_entry_id' => 1,/* It's the only entry in the system page type so it'll be the first */
+		'stream_slug' => 'system',
 		'parent_id' => 0,
 		'layout_id' => 2,/* Notice that this page is assigned to the System page type */
 		'status' => 'live',
@@ -110,10 +113,12 @@ $config['pages:default_pages'] = array(
 	),
 );
 
+
 // and now the content for the pages
 $config['pages:default_page_content'] = array(
-	/* The home page data. */
+	// The Generic group table
 	'generic' => array(
+		/* The home page data. */
 		array(
 			'created' => date('Y-m-d H:i:s'),
 			'body' => '<p>Welcome to our homepage. We have not quite finished setting up our website yet, but please add us to your bookmarks and come back soon.</p>',
@@ -133,8 +138,9 @@ $config['pages:default_page_content'] = array(
 			'created_by' => 1
 		),
 	),
-	/* The 404 page data. Assigned to the System page type */
+	// System group table
 	'system' => array(
+		/* The 404 page data. Assigned to the System page type */
 		array(
 			'created' => date('Y-m-d H:i:s'),
 			'message_body' => '<p>We cannot find the page you are looking for, please click <a title="Home" href="{{ pages:url id=\'1\' }}">here</a> to go to the homepage.</p>',

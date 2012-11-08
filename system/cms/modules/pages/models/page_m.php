@@ -28,11 +28,6 @@ class Page_m extends MY_Model
 			'rules'	=> 'trim|required|alpha_dot_dash|max_length[250]|callback__check_slug'
 		),
 		array(
-			'field' => 'chunk_body[]',
-			'label'	=> 'lang:pages:body_label',
-			'rules' => 'trim'
-		),
-		array(
 			'field' => 'layout_id',
 			'label'	=> 'lang:pages:layout_id_label',
 			'rules'	=> 'trim|numeric|required'
@@ -100,66 +95,6 @@ class Page_m extends MY_Model
 	);
 
 	/**
-	* Get a page by it's path
-	*
-	* 
-	* @param array $segments The path segments
-	* @return array
-	*/
-
-	/*
-	* Not in use right now but added back for a) historical purposes and b) it was f**king difficult to write and I dont want to have to do it again
-	*
-	public function get_by_path($segments = array())
-	{
-	// If the URI has been passed as a string, explode to create an array of segments
-	if(is_string($segments))
-	{
-		$segments = explode('/', $segments);
-	}
-
-	// Work out how many segments there are
-	$total_segments = count($segments);
-
-		// Which is the target alias (the final page in the tree)
-	$target_alias = 'p'.$total_segments;
-
-	// Start Query, Select (*) from Target Alias, from Pages
-	$this->db->select($target_alias.'.*, revisions.id as revision_id, revisions.owner_id, revisions.table_name, revisions.body, revisions.revision_date, revisions.author_id');
-	$this->db->from('pages p1');
-
-		// Simple join enables revisions - Yorick
-		$this->db->join('revisions', 'p1.revision_id = revisions.id');
-
-	// Loop thorugh each Slug
-	$level = 1;
-	foreach( $segments as $segment )
-	{
-	    // Current is the current page, child is the next page to join on.
-	    $current_alias = 'p'.$level;
-	    $child_alias = 'p'.($level - 1);
-
-	    // We dont want to join the first page again
-	    if($level != 1)
-	    {
-		$this->db->join('pages '.$current_alias, $current_alias.'.parent_id = '.$child_alias.'.id');
-	    }
-
-	    // Add slug to where clause to keep us on the right tree
-	    $this->db->where($current_alias . '.slug', $segment);
-
-	    // Increment
-	    ++$level;
-	}
-
-	// Can only be one result
-	$this->db->limit(1);
-
-	return $this->db->get()->row();
-	}
-	*/
-
-	/**
 	 * Get a page by its URI
 	 *
 	 * @param string $uri The uri of the page.
@@ -169,7 +104,7 @@ class Page_m extends MY_Model
 	 */
 	public function get_by_uri($uri, $is_request = false)
 	{
-		// If the URI has been passed as a array, implode to create a string of uri segments
+		// If the URI has been passed as an array, implode to create a string of uri segments
 		is_array($uri) && $uri = trim(implode('/', $uri), '/');
 
 		// $uri gets shortened so we save the original
@@ -225,16 +160,18 @@ class Page_m extends MY_Model
 	/**
 	 * Get a page from the database.
 	 *
-	 * Also retrieves the chunks for that page.
+	 * Also retrieves the content fields for that page.
 	 *
 	 * @param int $id The page id.
-	 * @param bool $get_chunks Whether to retrieve the chunks for this page or not. Defaults to true.
+	 * @param bool $get_data Whether to retrieve the stream data for this page or not. Defaults to true.
 	 *
 	 * @return array The page data.
 	 */
-	public function get($id, $get_chunks = true)
+	public function get($id, $get_data = true)
 	{
 		$page = $this->db
+			->select('pages.*, page_layouts.stream_slug')
+			->join('page_layouts', 'page_layouts.id = pages.layout_id')
 			->where($this->primary_key, $id)
 			->get($this->_table)
 			->row();
@@ -244,12 +181,9 @@ class Page_m extends MY_Model
 			return;
 		}
 
-		if ($get_chunks)
+		if ($get_data)
 		{
-			$page->chunks = $this->db
-				->order_by('sort')
-				->get_where('page_chunks', array('page_id' => $id))
-				->result_array();
+			return (object) array_merge((array) $page, (array) $this->streams->entries->get_entry($page->stream_entry_id, $page->stream_slug, 'pages'));
 		}
 
 		return $page;
@@ -309,16 +243,13 @@ class Page_m extends MY_Model
 	}
 
 	/**
-	 * Return page chunks
+	 * Return page data
 	 *
-	 * @return array An array containing all chunks for a page
+	 * @return array An array containing data fields for a page
 	 */
-	public function get_chunks($id)
+	public function get_data($id, $stream_slug)
 	{
-		return $this->db
-			->order_by('sort')
-			->get_where('page_chunks', array('page_id' => $id))
-			->result();
+		return $this->streams->entries->get_entry($stream_entry_id, $stream_slug, 'pages');
 	}
 
 	/**
@@ -499,10 +430,6 @@ class Page_m extends MY_Model
 
 		$this->build_lookup($id);
 
-		// now insert this page's chunks
-		$input['page_id'] = $id;
-		$this->page_chunk_m->create($input);
-
 		// Add a Navigation Link
 		if ($input['navigation_group_id'] > 0)
 		{
@@ -566,10 +493,6 @@ class Page_m extends MY_Model
 
 		$this->build_lookup($id);
 
-		// now insert this page's chunks
-		$input['page_id'] = $id;
-		$this->page_chunk_m->create($input);
-
 		$this->db->trans_complete();
 
 		return (bool) $this->db->trans_status();
@@ -589,14 +512,17 @@ class Page_m extends MY_Model
 
 		$ids = $this->get_descendant_ids($id);
 
+		foreach ($ids as $id)
+		{
+			$page = $this->get($id);
+			$this->streams->streams->delete_entry($page->stream_entry_id, $page->stream_slug, 'pages');
+		}
+
 		$this->db->where_in('id', $ids);
 		$this->db->delete('pages');
 
 		$this->db->where_in('page_id', $ids);
-		$this->db->delete('navigation_links');
-		
-        $this->db->where_in('page_id', $ids);
-        $this->db->delete('page_chunks');		
+		$this->db->delete('navigation_links');	
 
 		$this->db->trans_complete();
 
@@ -651,20 +577,6 @@ class Page_m extends MY_Model
 
 			$this->form_validation->set_message('_check_slug',sprintf(lang('pages_page_already_exist_error'),$url, $parent_folder));
 			return false;
-		}
-
-		// We check the page chunk slug length here too
-		if (is_array($this->input->post('chunk_slug')))
-		{
-			foreach ($this->input->post('chunk_slug') AS $chunk)
-			{
-				if (strlen($chunk) > 30)
-				{
-					$this->form_validation->set_message('_check_slug', lang('pages_chunk_slug_length'));
-					return false;
-				}
-			}
-			return true;
 		}
 	}
 }

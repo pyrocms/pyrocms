@@ -134,6 +134,7 @@ class Module_Pages extends Module
 				'parent_id' => array('type' => 'INT', 'constraint' => 11, 'default' => 0, 'key' => 'parent_id'),
 				'layout_id' => array('type' => 'VARCHAR', 'constraint' => 255),
 				'stream_entry_id' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '1'),
+				'stream_slug' => array('type' => 'VARCHAR', 'constraint' => 100,),
 				'css' => array('type' => 'TEXT', 'null' => true),
 				'js' => array('type' => 'TEXT', 'null' => true),
 				'meta_title' => array('type' => 'VARCHAR', 'constraint' => 255, 'null' => true),
