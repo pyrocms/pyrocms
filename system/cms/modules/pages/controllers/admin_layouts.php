@@ -1,20 +1,20 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
- * Admin controller for the Page Layouts of the Pages module.
+ * Admin controller for the Page Types of the Pages module.
  *
  * @author		 Phil Sturgeon
  * @author		 Yorick Peterse
  * @author		PyroCMS Dev Team
  * @package	 PyroCMS\Core\Modules\Pages\Controllers
  */
-class Admin_layouts extends Admin_Controller
+class Admin_types extends Admin_Controller
 {
 	/**
 	 * The current active section
 	 *
 	 * @var string
 	 */
-	protected $section = 'layouts';
+	protected $section = 'types';
 
 	/**
 	 * Validation rules used by the form_validation library
@@ -29,17 +29,17 @@ class Admin_layouts extends Admin_Controller
 		),
 		array(
 			'field' => 'theme_layout',
-			'label' => 'lang:page_layouts.theme_layout_label',
+			'label' => 'lang:page_types.theme_layout_label',
 			'rules' => 'trim'
 		),
 		array(
 			'field' => 'body',
-			'label' => 'lang:page_layouts.body_label',
+			'label' => 'lang:page_types.body_label',
 			'rules' => 'trim|required'
 		),
 		array(
 			'field' => 'css',
-			'label' => 'lang:page_layouts.css_label',
+			'label' => 'lang:page_types.css_label',
 			'rules' => 'trim'
 		),
 		array(
@@ -57,9 +57,9 @@ class Admin_layouts extends Admin_Controller
 		// Call the parent's constructor
 		parent::__construct();
 
-		$this->load->model('page_layouts_m');
+		$this->load->model('page_type_m');
 		$this->lang->load('pages');
-		$this->lang->load('page_layouts');
+		$this->lang->load('page_types');
 
 		// Load the validation library
 		$this->load->library('form_validation');
@@ -70,17 +70,17 @@ class Admin_layouts extends Admin_Controller
 
 
 	/**
-	 * Index methods, lists all page layouts
+	 * Index methods, lists all page types
 	 */
 	public function index()
 	{
-		// Get all page layouts
-		$this->template->page_layouts = $this->page_layouts_m->get_all();
+		// Get all page types
+		$this->template->page_types = $this->page_type_m->get_all();
 
 		// Render the view
 		$this->template
-			->title($this->module_details['name'], lang('pages:layout_id_label'))
-			->build('admin/layouts/index');
+			->title($this->module_details['name'], lang('pages:type_id_label'))
+			->build('admin/types/index');
 	}
 
 	/**
@@ -89,13 +89,13 @@ class Admin_layouts extends Admin_Controller
 	public function create()
 	{
 		$data = new stdClass();
-		$page_layout = new stdClass();
+		$page_type = new stdClass();
 
 		// Got validation?
 		if ($this->form_validation->run())
 		{
 			// Insert the page
-			$id = $this->page_layouts_m->insert(array(
+			$id = $this->page_type_m->insert(array(
 				'title' => $this->input->post('title'),
 				'theme_layout' => $this->input->post('theme_layout'),
 				'body' => $this->input->post('body', false),
@@ -106,21 +106,21 @@ class Admin_layouts extends Admin_Controller
 			// Success or fail?
 			if ($id > 0)
 			{
-				$this->session->set_flashdata('success', lang('page_layouts.create_success'));
+				$this->session->set_flashdata('success', lang('page_types.create_success'));
 				
-				Events::trigger('page_layout_created', $id);
+				Events::trigger('page_type_created', $id);
 			}
 			else {
-				$this->session->set_flashdata('notice', lang('page_layouts.create_error'));
+				$this->session->set_flashdata('notice', lang('page_types.create_error'));
 			}
 
-			redirect('admin/pages/layouts');
+			redirect('admin/pages/types');
 		}
 
 		// Loop through each validation rule
 		foreach ($this->validation_rules as $rule)
 		{
-			$page_layout->{$rule['field']} = set_value($rule['field']);
+			$page_type->{$rule['field']} = set_value($rule['field']);
 		}
 
 		$theme_layouts = $this->template->get_theme_layouts($this->settings->default_theme);
@@ -132,13 +132,13 @@ class Admin_layouts extends Admin_Controller
 
 		// Assign data for display
 		$this->load->vars(array(
-			'page_layout' => &$page_layout
+			'page_type' => &$page_type
 		));
 
 		// Load WYSIWYG editor
 		$this->template
-			->title($this->module_details['name'], lang('pages:layout_id_label'), lang('page_layouts.create_title'))
-			->build('admin/layouts/form', $data);
+			->title($this->module_details['name'], lang('pages:type_id_label'), lang('page_types.create_title'))
+			->build('admin/types/form', $data);
 	}
 
 	/**
@@ -148,23 +148,23 @@ class Admin_layouts extends Admin_Controller
 	 */
 	public function edit($id = 0)
 	{
-		empty($id) AND redirect('admin/pages/layouts');
+		empty($id) AND redirect('admin/pages/types');
 
 		// We use this controller property for a validation callback later on
-		$this->page_layout_id = $id;
+		$this->page_type_id = $id;
 
 		// Set data, if it exists
-		if ( ! $page_layout = $this->page_layouts_m->get($id))
+		if ( ! $page_type = $this->page_type_m->get($id))
 		{
-			$this->session->set_flashdata('error', lang('page_layouts.page_not_found_error'));
-			redirect('admin/pages/layouts/create');
+			$this->session->set_flashdata('error', lang('page_types.page_not_found_error'));
+			redirect('admin/pages/types/create');
 		}
 
 		// Give validation a try, who knows, it just might work!
 		if ($this->form_validation->run())
 		{
 			// Run the update code with the POST data
-			$this->page_layouts_m->update($id, array(
+			$this->page_type_m->update($id, array(
 				'title' => $this->input->post('title'),
 				'theme_layout' => $this->input->post('theme_layout'),
 				'body' => $this->input->post('body', false),
@@ -173,15 +173,15 @@ class Admin_layouts extends Admin_Controller
 			));
 
 			// Wipe cache for this model as the data has changed
-			$this->pyrocache->delete_all('page_layouts_m');
+			$this->pyrocache->delete_all('page_type_m');
 
-			$this->session->set_flashdata('success', sprintf(lang('page_layouts.edit_success'), $this->input->post('title')));
+			$this->session->set_flashdata('success', sprintf(lang('page_types.edit_success'), $this->input->post('title')));
 			
-			Events::trigger('page_layout_updated', $id);
+			Events::trigger('page_type_updated', $id);
 
 			$this->input->post('btnAction') == 'save_exit'
-				? redirect('admin/pages/layouts')
-				: redirect('admin/pages/layouts/edit/'.$id);
+				? redirect('admin/pages/types')
+				: redirect('admin/pages/types/edit/'.$id);
 		}
 
 		// Loop through each validation rule
@@ -189,7 +189,7 @@ class Admin_layouts extends Admin_Controller
 		{
 			if ($this->input->post($rule['field']))
 			{
-				$page_layout->{$rule['field']} = set_value($rule['field']);
+				$page_type->{$rule['field']} = set_value($rule['field']);
 			}
 		}
 
@@ -201,10 +201,10 @@ class Admin_layouts extends Admin_Controller
 		}
 
 		$this->template
-			->title($this->module_details['name'], lang('pages:layout_id_label'), sprintf(lang('page_layouts.edit_title'), $page_layout->title))
+			->title($this->module_details['name'], lang('pages:type_id_label'), sprintf(lang('page_types.edit_title'), $page_type->title))
 			->set('theme_layouts', $theme_layouts_options)
-			->set('page_layout', $page_layout)
-			->build('admin/layouts/form');
+			->set('page_type', $page_type)
+			->build('admin/types/form');
 	}
 
 	/**
@@ -222,15 +222,15 @@ class Admin_layouts extends Admin_Controller
 		{
 			if ($id !== 1)
 			{
-				$deleted_ids = $this->page_layouts_m->delete($id);
+				$deleted_ids = $this->page_type_m->delete($id);
 
 				// Wipe cache for this model, the content has changd
-				$this->pyrocache->delete_all('page_layouts_m');
+				$this->pyrocache->delete_all('page_type_m');
 			}
 
 			else
 			{
-				$this->session->set_flashdata('error', lang('page_layouts.delete_home_error'));
+				$this->session->set_flashdata('error', lang('page_types.delete_home_error'));
 			}
 		}
 
@@ -240,22 +240,22 @@ class Admin_layouts extends Admin_Controller
 			// Only deleting one page
 			if (count($ids) == 1)
 			{
-				$this->session->set_flashdata('success', sprintf(lang('page_layouts.delete_success'), $ids[0]));
+				$this->session->set_flashdata('success', sprintf(lang('page_types.delete_success'), $ids[0]));
 			}
 			else // Deleting multiple pages
 			{
-				$this->session->set_flashdata('success', sprintf(lang('page_layouts.mass_delete_success'), count($ids)));
+				$this->session->set_flashdata('success', sprintf(lang('page_types.mass_delete_success'), count($ids)));
 			}
 			
-			Events::trigger('page_layout_deleted', $ids);
+			Events::trigger('page_type_deleted', $ids);
 		}
 
 		else // For some reason, none of them were deleted
 		{
-			$this->session->set_flashdata('notice', lang('page_layouts.delete_none_notice'));
+			$this->session->set_flashdata('notice', lang('page_types.delete_none_notice'));
 		}
 
-		redirect('admin/pages/layouts');
+		redirect('admin/pages/types');
 	}
 
 }

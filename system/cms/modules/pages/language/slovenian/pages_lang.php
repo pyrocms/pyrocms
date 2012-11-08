@@ -23,7 +23,7 @@ $lang['pages:body_label']                  = 'Telo strani';
 $lang['pages:meta_title_label']            = 'Meta naslov';
 $lang['pages:meta_keywords_label']         = 'Meta ključ. besed.';
 $lang['pages:meta_desc_label']             = 'Meta opis';
-$lang['pages:layout_id_label']             = 'Postavitev strani';
+$lang['pages:type_id_label']             = 'Postavitev strani';
 $lang['pages:css_label']                   = 'CSS';
 $lang['pages:js_label']                    = 'JavaScript';
 $lang['pages:access_label']                = 'Dostop';
@@ -46,8 +46,8 @@ $lang['pages:duplicate_label']				= 'Podvoji';
 $lang['pages:create_title']                = 'Dodaj stran';
 $lang['pages:edit_title']                  = 'Uredi stran "%s"';
 $lang['pages:list_title']                  = 'Seznam strani';
-$lang['pages:layouts_create_title']        = 'Dodaj postavitev strani';
-$lang['pages:layouts_list_title']          = 'Seznam postavitev strani';
+$lang['pages:types_create_title']        = 'Dodaj postavitev strani';
+$lang['pages:types_list_title']          = 'Seznam postavitev strani';
 
 // messages
 $lang['pages:no_pages']                    = 'Ni strani.';

@@ -4,7 +4,7 @@
 $lang['help_body'] = "
 <h4>Overview</h4>
 <p>The pages module is a simple but powerful way to manage static content on your site.
-Page layouts can be managed and widgets embedded without ever editing the template files.</p>
+Page types can be managed and widgets embedded without ever editing the template files.</p>
 
 <h4>Managing Pages</h4><hr>
 <h6>Page Content</h6>
@@ -21,7 +21,7 @@ The meta description is a short description of this page and may be used as the 
 
 <h6>Design</h6>
 <p>The design tab allows you to select a custom page layout and optionally apply different css styles to it on this page only. 
-Refer to the Page Layouts section below for instructions on how to best use Page Layouts.</p>
+Refer to the Page Types section below for instructions on how to best use Page Types.</p>
 
 <h6>Script</h6>
 <p>You may place javascript here that you would like appended to the &lt;head&gt; of the page.</p>
@@ -41,8 +41,8 @@ This makes it easy to pass parameters to embedded tags. An example using the Str
     {{ /entries }}
 {{ /streams:cycle }}</code></pre></p>
 
-<h4>Page Layouts</h4><hr>
-<p>Page layouts allows you to control the layout of the page without modifying the theme files. You can also select theme layout files when creating Page Layouts. 
+<h4>Page Types</h4><hr>
+<p>Page types allows you to control the layout of the page without modifying the theme files. You can also select theme layout files when creating Page Types. 
 You can embed tags into the page layout instead of placing them in every page. 
 For example: If you have a twitter feed widget that you want to display at the bottom of every page you can just place the widget tag in the page layout:</p><br />
 <pre><code>

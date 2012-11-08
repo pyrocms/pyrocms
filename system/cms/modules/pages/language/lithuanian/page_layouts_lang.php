@@ -1,30 +1,30 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 // tabs
-$lang['page_layouts.html_label']                     = 'HTML';
-$lang['page_layouts.css_label']                      = 'CSS';
+$lang['page_types.html_label']                     = 'HTML';
+$lang['page_types.css_label']                      = 'CSS';
 
 // labels
-$lang['page_layouts.updated_label']                  = 'Atnaujinta';
-$lang['page_layouts:theme_layout_label']             = 'Maketo tema';
+$lang['page_types.updated_label']                  = 'Atnaujinta';
+$lang['page_types:theme_layout_label']             = 'Maketo tema';
 
 // titles
-$lang['page_layouts.list_title']                     = 'Puslapių maketų sarašas';
-$lang['page_layouts.create_title']                   = 'Pridėti puslapių maketą';
-$lang['page_layouts.edit_title']                     = 'Redaguoti puslapių maketą "%s"';
+$lang['page_types.list_title']                     = 'Puslapių maketų sarašas';
+$lang['page_types.create_title']                   = 'Pridėti puslapių maketą';
+$lang['page_types.edit_title']                     = 'Redaguoti puslapių maketą "%s"';
 
 // messages
-$lang['page_layouts.no_pages']                       = 'Nėra puslapių maketų.';
-$lang['page_layouts.create_success']                 = 'Maketas sukurtas.';
-$lang['page_layouts.create_error']                   = 'Maketas nesukurtas.';
-$lang['page_layouts.page_layout.not_found_error']    = 'Maketas neegzistuoja.';
-$lang['page_layouts.edit_success']                   = 'Maketas "%s" išsaugotas.';
-$lang['page_layouts.delete_home_error']              = 'Negalite ištrinti numatytojo maketo.';
-$lang['page_layouts.delete_success']                 = 'Maketai #%s buvo ištrinti.';
-$lang['page_layouts.mass_delete_success']            = '%s puslapio maketas išrtintas.';
-$lang['page_layouts.delete_none_notice']             = 'Nėra ištrintų maketų.';
-$lang['page_layouts.already_exist_error']            = 'Maketas su tokiu vardu "%s" jau egzistuoja.';
+$lang['page_types.no_pages']                       = 'Nėra puslapių maketų.';
+$lang['page_types.create_success']                 = 'Maketas sukurtas.';
+$lang['page_types.create_error']                   = 'Maketas nesukurtas.';
+$lang['page_types.page_type.not_found_error']    = 'Maketas neegzistuoja.';
+$lang['page_types.edit_success']                   = 'Maketas "%s" išsaugotas.';
+$lang['page_types.delete_home_error']              = 'Negalite ištrinti numatytojo maketo.';
+$lang['page_types.delete_success']                 = 'Maketai #%s buvo ištrinti.';
+$lang['page_types.mass_delete_success']            = '%s puslapio maketas išrtintas.';
+$lang['page_types.delete_none_notice']             = 'Nėra ištrintų maketų.';
+$lang['page_types.already_exist_error']            = 'Maketas su tokiu vardu "%s" jau egzistuoja.';
 
-$lang['page_layouts.variable_introduction']          = 'Šiame įvedimo lauke yra du prieinami kintamieji';
-$lang['page_layouts.variable_title']                 = 'Sudėtyje yra šio puslapio pavadinimas.';
-$lang['page_layouts.variable_body']                  = 'Tūri visą HTML body savyje';
+$lang['page_types.variable_introduction']          = 'Šiame įvedimo lauke yra du prieinami kintamieji';
+$lang['page_types.variable_title']                 = 'Sudėtyje yra šio puslapio pavadinimas.';
+$lang['page_types.variable_body']                  = 'Tūri visą HTML body savyje';

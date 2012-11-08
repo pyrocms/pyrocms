@@ -23,7 +23,7 @@ $lang['pages:body_label']							= 'Badan Halaman';
 $lang['pages:meta_title_label']						= 'Meta title';
 $lang['pages:meta_keywords_label']					= 'Meta keywords';
 $lang['pages:meta_desc_label']						= 'Meta description';
-$lang['pages:layout_id_label']						= 'Layout Halaman';
+$lang['pages:type_id_label']						= 'Type Halaman';
 $lang['pages:css_label']							= 'CSS';
 $lang['pages:js_label']								= 'JavaScript';
 $lang['pages:access_label']							= 'Akses';
@@ -48,8 +48,8 @@ $lang['pages:duplicate_label']						= 'Duplikasi';
 $lang['pages:create_title']							= 'Tambah Halaman';
 $lang['pages:edit_title']							= 'Edit Halaman "%s"';
 $lang['pages:list_title']							= 'Halaman';
-$lang['pages:layouts_create_title']					= 'Tambah Layout Halaman';
-$lang['pages:layouts_list_title']					= 'Layout';
+$lang['pages:types_create_title']					= 'Tambah Type Halaman';
+$lang['pages:types_list_title']					= 'Type';
 
 // messages
 $lang['pages:no_pages']								= 'Tidak ada halaman.';

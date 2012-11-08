@@ -27,7 +27,7 @@ class Admin extends Admin_Controller {
 
 		// Load the required classes
 		$this->load->model('page_m');
-		$this->load->model('page_layouts_m');
+		$this->load->model('page_type_m');
 		$this->load->model('navigation/navigation_m');
 		$this->lang->load('pages');
 	}
@@ -367,8 +367,8 @@ class Admin extends Admin_Controller {
 	 */
 	private function _form_data()
 	{
-		$page_layouts = $this->page_layouts_m->order_by('title')->get_all();
-		$this->template->page_layouts = array_for_select($page_layouts, 'id', 'title');
+		$page_types = $this->page_type_m->order_by('title')->get_all();
+		$this->template->page_types = array_for_select($page_types, 'id', 'title');
 
 		// Load navigation list
 		$this->load->model('navigation/navigation_m');

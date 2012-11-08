@@ -28,8 +28,8 @@
 		
 			<ul>
 				<li>
-					<label for="layout_id"><?php echo lang('pages:layout_id_label');?></label>
-					<div class="input"><?php echo form_dropdown('layout_id', $page_layouts, $page->layout_id); ?></div>
+					<label for="type_id"><?php echo lang('pages:type_id_label');?></label>
+					<div class="input"><?php echo form_dropdown('type_id', $page_types, $page->type_id); ?></div>
 				</li>
 				
 				<li>

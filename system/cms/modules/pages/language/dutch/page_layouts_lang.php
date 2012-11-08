@@ -1,31 +1,31 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 // tabs
-$lang['page_layouts.html_label'] 					= 'HTML';
-$lang['page_layouts.css_label'] 					= 'CSS';
+$lang['page_types.html_label'] 					= 'HTML';
+$lang['page_types.css_label'] 					= 'CSS';
 
 // labels
-$lang['page_layouts.updated_label'] 				= 'Gewijzigd';
-$lang['page_layouts:theme_layout_label'] 			= 'Thema Layout';
-$lang['page_layouts.layout']             			= 'Layout';
+$lang['page_types.updated_label'] 				= 'Gewijzigd';
+$lang['page_types:theme_layout_label'] 			= 'Thema Type';
+$lang['page_types.layout']             			= 'Type';
 
 // titles
-$lang['page_layouts.list_title'] 					= 'Overzicht paginalayouts';
-$lang['page_layouts.create_title'] 					= 'Voeg paginalayout toe';
-$lang['page_layouts.edit_title'] 					= 'Bewerk paginalayout "%s"';
+$lang['page_types.list_title'] 					= 'Overzicht paginatypes';
+$lang['page_types.create_title'] 					= 'Voeg paginalayout toe';
+$lang['page_types.edit_title'] 					= 'Bewerk paginalayout "%s"';
 
 // messages
-$lang['page_layouts.no_pages'] 						= 'Er zijn geen paginalayouts.';
-$lang['page_layouts.create_success'] 				= 'De paginalayout is gemaakt.';
-$lang['page_layouts.create_error'] 					= 'De paginalayout kon niet worden gemaakt.';
-$lang['page_layouts.page_layout.not_found_error']	= 'Deze paginalayout bestaat niet';
-$lang['page_layouts.edit_success'] 					= 'De paginalayout "%s" is opgeslagen.';
-$lang['page_layouts.delete_home_error'] 			= 'U kunt de standaardlayout niet verwijderen.';
-$lang['page_layouts.delete_success']				= 'Paginalayout #%s is verwijderd.';
-$lang['page_layouts.mass_delete_success'] 			= '%s paginalayouts zijn verwijderd.';
-$lang['page_layouts.delete_none_notice'] 			= 'De paginalayouts zijn niet verwijderd.';
-$lang['page_layouts.already_exist_error'] 			= 'Een paginalayout met de slug "%s" bestaat al.';
+$lang['page_types.no_pages'] 						= 'Er zijn geen paginatypes.';
+$lang['page_types.create_success'] 				= 'De paginalayout is gemaakt.';
+$lang['page_types.create_error'] 					= 'De paginalayout kon niet worden gemaakt.';
+$lang['page_types.page_type.not_found_error']	= 'Deze paginalayout bestaat niet';
+$lang['page_types.edit_success'] 					= 'De paginalayout "%s" is opgeslagen.';
+$lang['page_types.delete_home_error'] 			= 'U kunt de standaardlayout niet verwijderen.';
+$lang['page_types.delete_success']				= 'Paginalayout #%s is verwijderd.';
+$lang['page_types.mass_delete_success'] 			= '%s paginatypes zijn verwijderd.';
+$lang['page_types.delete_none_notice'] 			= 'De paginatypes zijn niet verwijderd.';
+$lang['page_types.already_exist_error'] 			= 'Een paginalayout met de slug "%s" bestaat al.';
 
-$lang['page_layouts.variable_introduction']			= 'In deze velden zijn twee variabelen beschikbaar';
-$lang['page_layouts.variable_title']				= 'Bevat de titel van de pagina.';
-$lang['page_layouts.variable_body']					= 'Bevat de HTML body van de pagina.';
+$lang['page_types.variable_introduction']			= 'In deze velden zijn twee variabelen beschikbaar';
+$lang['page_types.variable_title']				= 'Bevat de titel van de pagina.';
+$lang['page_types.variable_body']					= 'Bevat de HTML body van de pagina.';

@@ -23,7 +23,7 @@ $lang['pages:body_label']				= 'Σώμα σελίδας';
 $lang['pages:meta_title_label']			= 'Meta title';
 $lang['pages:meta_keywords_label']		= 'Meta keywords';
 $lang['pages:meta_desc_label']			= 'Meta description';
-$lang['pages:layout_id_label']			= 'Διάταξη Σελίδας';
+$lang['pages:type_id_label']			= 'Διάταξη Σελίδας';
 $lang['pages:css_label']				= 'CSS';
 $lang['pages:js_label']					= 'JavaScript';
 $lang['pages:access_label']				= 'Πρόσβαση';
@@ -48,8 +48,8 @@ $lang['pages:duplicate_label']			= 'Αντίγραφο';
 $lang['pages:create_title']		= 'Προσθήκη σελίδας';
 $lang['pages:edit_title']		= 'Επεξεργασία σελίδας "%s"';
 $lang['pages:list_title']		= 'Λίστα σελίδων';
-$lang['pages:layouts_create_title']	= 'Προσθήκη διάταξης σελίδας';
-$lang['pages:layouts_list_title']	= 'Λίστα διατάξεων σελίδας';
+$lang['pages:types_create_title']	= 'Προσθήκη διάταξης σελίδας';
+$lang['pages:types_list_title']	= 'Λίστα διατάξεων σελίδας';
 
 // messages
 $lang['pages:no_pages']			= 'Δεν υπάρχουν σελίδες.';

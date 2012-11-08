@@ -28,8 +28,8 @@ class Page_m extends MY_Model
 			'rules'	=> 'trim|required|alpha_dot_dash|max_length[250]|callback__check_slug'
 		),
 		array(
-			'field' => 'layout_id',
-			'label'	=> 'lang:pages:layout_id_label',
+			'field' => 'type_id',
+			'label'	=> 'lang:pages:type_id_label',
 			'rules'	=> 'trim|numeric|required'
 		),
 		array(
@@ -180,8 +180,8 @@ class Page_m extends MY_Model
 	public function get($id, $get_data = true)
 	{
 		$page = $this->db
-			->select('pages.*, page_layouts.stream_slug')
-			->join('page_layouts', 'page_layouts.id = pages.layout_id')
+			->select('pages.*, page_types.stream_slug')
+			->join('page_types', 'page_types.id = pages.type_id')
 			->where('pages.id', $id)
 			->get($this->_table)
 			->row();
@@ -414,7 +414,7 @@ class Page_m extends MY_Model
 			'title'				=> $input['title'],
 			'uri'				=> null,
 			'parent_id'			=> (int) $input['parent_id'],
-			'layout_id'			=> (int) $input['layout_id'],
+			'type_id'			=> (int) $input['type_id'],
 			'css'				=> isset($input['css']) ? $input['css'] : null,
 			'js'				=> isset($input['js']) ? $input['js'] : null,
 			'meta_title'    	=> isset($input['meta_title']) ? $input['meta_title'] : '',
@@ -478,7 +478,7 @@ class Page_m extends MY_Model
 			'title'				=> $input['title'],
 			'uri'				=> null,
 			'parent_id'			=> (int) $input['parent_id'],
-			'layout_id'			=> (int) $input['layout_id'],
+			'type_id'			=> (int) $input['type_id'],
 			'css'				=> isset($input['css']) ? $input['css'] : null,
 			'js'				=> isset($input['js']) ? $input['js'] : null,
 			'meta_title'    	=> isset($input['meta_title']) ? $input['meta_title'] : '',

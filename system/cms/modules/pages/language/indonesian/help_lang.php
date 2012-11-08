@@ -4,7 +4,7 @@
 $lang['help_body'] = "
 <h4> Ikhtisar </h4>
 <p> Modul halaman adalah cara yang sederhana tetapi ampuh untuk mengelola konten statis pada situs Anda.
-Layout halaman dapat dikelola dan widget tertanam tanpa pernah mengedit file template.</p>
+Type halaman dapat dikelola dan widget tertanam tanpa pernah mengedit file template.</p>
 
 <h4> Mengelola Halaman </h4> <hr>
 <h6> Halaman Konten </h6>
@@ -20,7 +20,7 @@ Meta description adalah deskripsi singkat dari halaman ini dan dapat digunakan s
 
 <h6> Desain </h6>
 <p> Tab desain memungkinkan Anda untuk memilih tata letak halaman kustom dan opsional dalam menerapkan css yang berbeda di halaman ini saja.
-Lihat Layouts bagian halaman di bawah ini untuk petunjuk tentang cara terbaik dalam menggunakan layout halaman. </p>
+Lihat Types bagian halaman di bawah ini untuk petunjuk tentang cara terbaik dalam menggunakan layout halaman. </p>
 
 <h6> Script </h6>
 <p> Anda dapat menempatkan javascript di sini jika Anda ingin script tersebut ditambahkan ke <head> halaman. </p>
@@ -35,7 +35,7 @@ Katakanlah seorang karyawan baru benar-benar mengacaukan mengedit halaman.
 Cukup pilih tanggal yang Anda ingin untuk kembali halaman dan klik Simpan!
 Anda bahkan dapat membandingkan revisi untuk melihat apa yang telah berubah. </p>
 
-<h4> Halaman Layouts </h4> <hr>
+<h4> Halaman Types </h4> <hr>
 <p> layout halaman memungkinkan Anda untuk mengontrol tata letak halaman tanpa memodifikasi file tema.
 Anda dapat menanamkan tag ke halaman tata letak, bukan menempatkan mereka di setiap halaman.
 Sebagai contoh: Jika Anda memiliki widget twitter feed yang ingin ditampilkan di bagian bawah setiap halaman Anda tinggal menempatkan tag widget tata letak halaman:

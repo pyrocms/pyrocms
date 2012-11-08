@@ -84,13 +84,13 @@ class Module_Pages extends Module
 						),
 				    ),
 				),
-				'layouts' => array(
-				    'name' => 'pages:layouts_list_title',
-				    'uri' => 'admin/pages/layouts',
+				'types' => array(
+				    'name' => 'pages:types_list_title',
+				    'uri' => 'admin/pages/types',
 				    'shortcuts' => array(
 						array(
-						    'name' => 'pages:layouts_create_title',
-						    'uri' => 'admin/pages/layouts/create',
+						    'name' => 'pages:types_create_title',
+						    'uri' => 'admin/pages/types/create',
 						    'class' => 'add'
 						),
 				    ),
@@ -104,14 +104,14 @@ class Module_Pages extends Module
 		$this->load->helper('date');
 		$this->load->config('pages/pages');
 
-		$this->dbforge->drop_table('page_layouts');
+		$this->dbforge->drop_table('page_types');
 		$this->dbforge->drop_table('pages');
 
 		$this->load->driver('streams');
 		$this->streams->utilities->remove_namespace('pages');
 
 		$tables = array(
-			'page_layouts' => array(
+			'page_types' => array(
 				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true),
 				'title' => array('type' => 'VARCHAR', 'constraint' => 60),
 				'stream_id' => array('type' => 'INT', 'constraint' => 11),
@@ -132,7 +132,7 @@ class Module_Pages extends Module
 				'title' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => ''),
 				'uri' => array('type' => 'TEXT', 'null' => true),
 				'parent_id' => array('type' => 'INT', 'constraint' => 11, 'default' => 0, 'key' => 'parent_id'),
-				'layout_id' => array('type' => 'VARCHAR', 'constraint' => 255),
+				'type_id' => array('type' => 'VARCHAR', 'constraint' => 255),
 				'stream_entry_id' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '1'),
 				'stream_slug' => array('type' => 'VARCHAR', 'constraint' => 100,),
 				'css' => array('type' => 'TEXT', 'null' => true),
@@ -175,7 +175,7 @@ class Module_Pages extends Module
 		// insert the page type structures
 		foreach (config_item('pages:default_page_types') as $page_type)
 		{
-			if ( ! $this->db->insert('page_layouts', $page_type))
+			if ( ! $this->db->insert('page_types', $page_type))
 			{
 				return false;
 			}

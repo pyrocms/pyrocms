@@ -23,7 +23,7 @@ $lang['pages:body_label']					= 'Corpo da página';
 $lang['pages:meta_title_label']				= 'Meta título';
 $lang['pages:meta_keywords_label'] 			= 'Meta palavras-chave';
 $lang['pages:meta_desc_label'] 				= 'Meta descrição';
-$lang['pages:layout_id_label'] 				= 'Layout da página';
+$lang['pages:type_id_label'] 				= 'Type da página';
 $lang['pages:css_label'] 					= 'CSS';
 $lang['pages:js_label'] 					= 'JavaScript';
 $lang['pages:access_label'] 				= 'Restrito a';
@@ -48,8 +48,8 @@ $lang['pages:duplicate_label']				= 'Duplicar';
 $lang['pages:create_title'] 				= 'Adicionar página';
 $lang['pages:edit_title'] 					= 'Editar página "%s"';
 $lang['pages:list_title'] 					= 'Listar páginas';
-$lang['pages:layouts_create_title'] 		= 'Adicionar página de layout';
-$lang['pages:layouts_list_title'] 			= 'Listar páginas de layout';
+$lang['pages:types_create_title'] 		= 'Adicionar página de layout';
+$lang['pages:types_list_title'] 			= 'Listar páginas de layout';
 
 // messages
 $lang['pages:no_pages'] 					= 'Nenhuma página encontrada.';

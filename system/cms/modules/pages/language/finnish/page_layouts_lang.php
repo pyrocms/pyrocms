@@ -6,30 +6,30 @@
  */
 
 // tabs
-$lang['page_layouts.html_label']                     = 'HTML';
-$lang['page_layouts.css_label']                      = 'CSS';
+$lang['page_types.html_label']                     = 'HTML';
+$lang['page_types.css_label']                      = 'CSS';
 
 // labels
-$lang['page_layouts.updated_label']                  = 'Päivitetty';
-$lang['page_layouts:theme_layout_label']             = 'Sivupohja';
+$lang['page_types.updated_label']                  = 'Päivitetty';
+$lang['page_types:theme_layout_label']             = 'Sivupohja';
 
 // titles
-$lang['page_layouts.list_title']                     = 'Listaa sivupohjat';
-$lang['page_layouts.create_title']                   = 'Lisää sivupohja';
-$lang['page_layouts.edit_title']                     = 'Muokkaa sivupohjaa "%s"';
+$lang['page_types.list_title']                     = 'Listaa sivupohjat';
+$lang['page_types.create_title']                   = 'Lisää sivupohja';
+$lang['page_types.edit_title']                     = 'Muokkaa sivupohjaa "%s"';
 
 // messages
-$lang['page_layouts.no_pages']                       = 'Sivupohjia ei löytynyt.';
-$lang['page_layouts.create_success']                 = 'Sivupohja luotiin onnistuneesti.';
-$lang['page_layouts.create_error']                   = 'Sivupohjaa ei luotu.';
-$lang['page_layouts.page_layout.not_found_error']    = 'Sivupohjaa ei löytynyt.';
-$lang['page_layouts.edit_success']                   = 'Sivupohja "%s" tallennettiin.';
-$lang['page_layouts.delete_home_error']              = 'Et voi poistaa oletus sivupohjaa.';
-$lang['page_layouts.delete_success']                 = 'Sivupohja #%s poistettiin.';
-$lang['page_layouts.mass_delete_success']            = '%s sivupohjaa poistettiin.';
-$lang['page_layouts.delete_none_notice']             = 'Yhtään sivupohjaa ei poistettu.';
-$lang['page_layouts.already_exist_error']            = 'Sivupohja lyhenteellä "%s" on jo olemassa.';
+$lang['page_types.no_pages']                       = 'Sivupohjia ei löytynyt.';
+$lang['page_types.create_success']                 = 'Sivupohja luotiin onnistuneesti.';
+$lang['page_types.create_error']                   = 'Sivupohjaa ei luotu.';
+$lang['page_types.page_type.not_found_error']    = 'Sivupohjaa ei löytynyt.';
+$lang['page_types.edit_success']                   = 'Sivupohja "%s" tallennettiin.';
+$lang['page_types.delete_home_error']              = 'Et voi poistaa oletus sivupohjaa.';
+$lang['page_types.delete_success']                 = 'Sivupohja #%s poistettiin.';
+$lang['page_types.mass_delete_success']            = '%s sivupohjaa poistettiin.';
+$lang['page_types.delete_none_notice']             = 'Yhtään sivupohjaa ei poistettu.';
+$lang['page_types.already_exist_error']            = 'Sivupohja lyhenteellä "%s" on jo olemassa.';
 
-$lang['page_layouts.variable_introduction']          = 'Tässä kentässä on kaksi muuttujaa.';
-$lang['page_layouts.variable_title']                 = 'Sisältää sivun otsikko.';
-$lang['page_layouts.variable_body']                  = 'Sisältää sivun HTML leipätekstin.';
+$lang['page_types.variable_introduction']          = 'Tässä kentässä on kaksi muuttujaa.';
+$lang['page_types.variable_title']                 = 'Sisältää sivun otsikko.';
+$lang['page_types.variable_body']                  = 'Sisältää sivun HTML leipätekstin.';

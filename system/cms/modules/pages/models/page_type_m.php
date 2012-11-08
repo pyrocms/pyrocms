@@ -5,7 +5,7 @@
  * @author		PyroCMS Dev Team
  * @package		PyroCMS\Core\Modules\Pages\Models
  */
-class Page_layouts_m extends MY_Model
+class Page_type_m extends MY_Model
 {
 	
     /**

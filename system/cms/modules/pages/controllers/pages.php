@@ -16,7 +16,7 @@ class Pages extends Public_Controller
 		parent::__construct();
 
 		$this->load->model('page_m');
-		$this->load->model('page_layouts_m');
+		$this->load->model('page_type_m');
 
 		// This basically keeps links to /home always pointing to
 		// the actual homepage even when the default_controller is
@@ -160,10 +160,10 @@ class Pages extends Public_Controller
 		}
 
 		// Wrap the page with a page layout, otherwise use the default 'Home' layout
-		if ( ! $page->layout = $this->page_layouts_m->get($page->layout_id))
+		if ( ! $page->layout = $this->page_type_m->get($page->type_id))
 		{
 			// Some pillock deleted the page layout, use the default and pray to god they didnt delete that too
-			$page->layout = $this->page_layouts_m->get(1);
+			$page->layout = $this->page_type_m->get(1);
 		}
 
 		// Set pages layout files in your theme folder
@@ -172,7 +172,7 @@ class Pages extends Public_Controller
 			$this->template->set_layout($page->uri.'.html');
 		}
 
-		// If a Page Layout has a Theme Layout that exists, use it
+		// If a Page Type has a Theme Layout that exists, use it
 		if ( ! empty($page->layout->theme_layout) and $this->template->layout_exists($page->layout->theme_layout)
 			// But Allow that you use layout files of you theme folder without override the defined by you in your control panel
 			AND ($this->template->layout_is('default.html') OR $page->layout->theme_layout !== 'default.html')
