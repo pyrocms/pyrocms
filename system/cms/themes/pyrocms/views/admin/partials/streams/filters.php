@@ -14,14 +14,14 @@
 			{
 
 				// Dropdown type
-				echo '<label>'.$stream_fields->{$k}->field_name.':&nbsp;</label>';
+				echo '<label>'.$this->fields->translate_label($stream_fields->{$k}->field_name).':&nbsp;</label>';
 				echo form_dropdown('f_'.$stream_fields->{$k}->field_slug, $filter, isset($filter_data['filters']['f_'.$stream_fields->{$k}->field_slug]) ? $filter_data['filters']['f_'.$stream_fields->{$k}->field_slug] : null);
 			}
 			else
 			{
 
 				// Normal text filtering
-				echo '<label>'.$stream_fields->{$filter}->field_name.':&nbsp;</label>';
+				echo '<label>'.$this->fields->translate_label($stream_fields->{$filter}->field_name).':&nbsp;</label>';
 				echo form_input('f_'.$stream_fields->{$filter}->field_slug, isset($filter_data['filters']['f_'.$stream_fields->{$filter}->field_slug]) ? $filter_data['filters']['f_'.$stream_fields->{$filter}->field_slug] : '');
 			}
 

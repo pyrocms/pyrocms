@@ -1,16 +1,14 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-
-/**
+ /**
  * Swedish translation.
  *
  * @author		marcus@incore.se
  * @package		PyroCMS  
  * @link		http://pyrocms.com
- * @date		2012-03-13
- * @version		1.0.0
+ * @date		2012-10-22
+ * @version		1.1.0
  */
-
 
 $lang['page_types.html_label']		= 'HTML';
 $lang['page_types.css_label']		= 'CSS';
@@ -33,8 +31,6 @@ $lang['page_types.already_exist_error']		= 'En sidlayout med namnet "%s" finns r
 $lang['page_types.variable_introduction']		= 'I denna ruta finns det två variabler tillängliga';
 $lang['page_types.variable_title']		= 'Innehåller titeln på sidan.';
 $lang['page_types.variable_body']		= 'Innehåller HTML delen av sidan.';
-
-
 
 /* End of file page_types_lang.php */  
 /* Location: ./system/cms/modules/pages/language/swedish */ 

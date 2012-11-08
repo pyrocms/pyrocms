@@ -1,17 +1,14 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-/**
+ /**
  * Swedish translation.
  *
  * @author		marcus@incore.se
  * @package		PyroCMS  
  * @link		http://pyrocms.com
- * @date		2012-03-13
- * @version		1.0.0
+ * @date		2012-10-22
+ * @version		1.1.0
  */
-
-$lang['pages:page']							= 'Sida';
-$lang['pages:pages']						= 'Sidor';
 
 $lang['pages:content_label']				= 'Sidinnehåll';
 $lang['pages:meta_label']					= 'Metadata';
@@ -69,3 +66,4 @@ $lang['pages:tree_explanation']				= 'Listan till vänster representerar sidor p
 $lang['pages:rss_explanation']				= 'Genom att aktivera RSS för denna sida kommer användarna ges möjlighet att prenumerera på ett RSS-flöde som visar varje undersida som som en ny post.';
 
 /* End of file pages_lang.php */  
+/* Location: system/cms/modules/pages/language/swedish/pages_lang.php */  
