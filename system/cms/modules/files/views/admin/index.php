@@ -26,6 +26,7 @@
 				<li data-role="create_folder"	data-applies-to="pane root-pane"	data-menu="new-folder"><?php echo lang('files:new_folder'); ?></li>
 				<li data-role="upload" 			data-applies-to="folder pane" 		data-menu="upload"><?php echo lang('files:upload'); ?></li>
 				<li data-role="edit_file"		data-applies-to="file" 				data-menu="rename"><?php echo lang('files:rename'); ?></li>
+				<li data-role="upload"			data-applies-to="file" 				data-menu="replace"><?php echo lang('files:replace'); ?></li>
 				<li data-role="edit_folder"		data-applies-to="folder" 			data-menu="rename"><?php echo lang('files:rename'); ?></li>
 				<!--<li 						data-applies-to="file" 				data-menu="edit"><?php echo lang('files:edit'); ?></li>-->
 				<li data-role="download_file"	data-applies-to="file" 				data-menu="download"><?php echo lang('files:download'); ?></li>
@@ -51,11 +52,17 @@
 
 	<div class="hidden">
 		<div id="files-uploader">
-			
+
+			<div id="file-to-replace">
+				<h4><?php echo lang('files:replace_file'); ?> : <span class="name"></span></h4>
+				<span class="alert-warning"><? echo lang('files:replace_warning'); ?></span>
+			</div>
+
 			<div class="files-uploader-browser">
 				<?php echo form_open_multipart('admin/files/upload'); ?>
 					<label for="file" class="upload"><?php echo lang('files:uploader'); ?></label>
 					<?php echo form_upload('file', null, 'multiple="multiple"'); ?>
+					<input type="hidden" name="replace-id" value="" />
 				<?php echo form_close(); ?>
 				<ul id="files-uploader-queue" class="ui-corner-all"></ul>
 			</div>

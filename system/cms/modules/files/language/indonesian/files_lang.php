@@ -44,12 +44,14 @@ $lang['files:search_message']				= 'Ketik dan Tekan Enter';
 $lang['files:search']						= 'Cari';
 $lang['files:synchronize']					= 'Sinkronisasikan';
 $lang['files:uploader']						= 'Letakkan berkas disini <br />atau<br />Klik untuk memilih berkas';
+$lang['files:replace_file']					= 'Replace file'; #translate
 
 // Context Menu
 $lang['files:open']							= 'Buka';
 $lang['files:new_folder']					= 'Folder Baru';
 $lang['files:upload']						= 'Unggah';
 $lang['files:rename']						= 'Ganti Nama';
+$lang['files:replace']	  					= 'Replace'; # translate
 $lang['files:delete']						= 'Hapus';
 $lang['files:edit']							= 'Edit';
 $lang['files:details']						= 'Detail';
@@ -94,6 +96,7 @@ $lang['files:file_moved']					= '"%s" sudah dipindahkan';
 $lang['files:exceeds_server_setting']		= 'Server tidak dapat menangani besarnya berkas ini';
 $lang['files:exceeds_allowed']				= 'Berkas melebihi batas ukuran maksimal yang diperbolehkan';
 $lang['files:file_type_not_allowed']		= 'Tipe berkas ini tidak diperbolehkan';
+$lang['files:replace_warning']				= 'Warning: Do not replace a file with a file of a different type (e.g. .jpg with .png)'; #translate
 $lang['files:type_a']						= 'Audio';
 $lang['files:type_v']						= 'Video';
 $lang['files:type_d']						= 'Dokumen';

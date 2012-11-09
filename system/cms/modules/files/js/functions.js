@@ -228,6 +228,10 @@ jQuery(function($){
 				pyro.files.delete_item(pyro.files.current_level);
 			break;
 
+			case 'replace':
+				pyro.files.replace();
+			break;
+
 			case 'details':
 				pyro.files.details();
 			break;
@@ -313,8 +317,8 @@ jQuery(function($){
 
 	$(window).on('open-upload', function(){
 
-		// we use the current level if they clicked in the open area
-		if (pyro.files.$last_r_click.attr('data-id') > '') {
+		// we use the current level if they clicked in the open area or if they want to replace a file
+		if ( ! pyro.files.$last_r_click.hasClass('file') && pyro.files.$last_r_click.attr('data-id') > '') {
 			pyro.files.upload_to = pyro.files.$last_r_click.attr('data-id');
 		} else {
 			pyro.files.upload_to = pyro.files.current_level;
@@ -337,6 +341,25 @@ jQuery(function($){
 				// we don't reload unless they are inside the folder that they uploaded to
 				if (pyro.files.upload_to === pyro.files.current_level) {
 					pyro.files.folder_contents(pyro.files.upload_to);
+				}
+
+				$('#files-uploader').find('form').fileUploadUI('option', 'maxFiles', 0);
+				//not really an option, but the only way to reset it from here
+				$('#files-uploader').find('form').fileUploadUI('option', 'currentFileCount', 0);
+				$("#file-to-replace").hide();
+			},
+			onLoad : function(){
+				//onLoad is currently only used when replacing a file
+				if( ! 'mode' in pyro.files || pyro.files.mode != 'replace' ) {
+					return;
+				}
+
+				// the last thing that has been right clicked should be a file, so this might not be neccessary
+				if ( pyro.files.$last_r_click.hasClass('file') )
+				{
+					$("#file-to-replace").find('span.name').text(pyro.files.$last_r_click.attr('data-name')).end().show();
+					//set max file upload to 1
+					$('#files-uploader').find('form').fileUploadUI('option', 'maxFiles', 1);
 				}
 			}
 		});
@@ -382,6 +405,12 @@ jQuery(function($){
 				}
 			},
 			beforeSend: function(event, files, index, xhr, handler, callBack){
+
+				if( ! handler.uploadRow ) //happens if someone trys to upload more than he's allowed to, e.g. during file replace
+				{
+					return;
+				}
+
 				var $progress_div = handler.uploadRow.find('.file_upload_progress');
 
 				// check if the server can handle it
@@ -409,6 +438,7 @@ jQuery(function($){
 						height: handler.uploadRow.find('[name="height"]').val(),
 						ratio: handler.uploadRow.find('[name="ratio"]').is(':checked'),
 						folder_id: pyro.files.upload_to,
+						replace_id: 'mode' in pyro.files && pyro.files.mode == 'replace' ? pyro.files.$last_r_click.attr('data-id') : 0,
 						csrf_hash_name: $.cookie(pyro.csrf_cookie_name)
 					};
 					callBack();
@@ -546,7 +576,8 @@ jQuery(function($){
 						// if it's an image then we set the thumbnail as the content
 						var li_content = '<span class="name-text">'+item.name+'</span>';
 						if (item.type && item.type === 'i') {
-							li_content = '<img src="'+SITE_URL+'files/cloud_thumb/'+item.id+'" alt="'+item.name+'"/>'+li_content;
+							li_content = '<img src="'+SITE_URL+'files/cloud_thumb/'+item.id+'?' + new Date().getMilliseconds() + '" alt="'+item.name+'"/>'+li_content;
+							//date with Milliseconds is to circumvent browser caching
 						}
 
 						$folders_center.append(
@@ -632,6 +663,12 @@ jQuery(function($){
 
 	 		$('input[name="rename"]').parent().html($('input[name="rename"]').val());
 	 	})
+	};
+
+	pyro.files.replace = function() {
+		pyro.files.mode = 'replace';
+
+		$(window).trigger('open-upload');
 	};
 
 	pyro.files.delete_item = function(current_level) {

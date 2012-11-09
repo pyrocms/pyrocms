@@ -44,12 +44,14 @@ $lang['files:search_message']				= 'Digite e pressione Enter';
 $lang['files:search']						= 'Procurar';
 $lang['files:synchronize']					= 'Sincronizar';
 $lang['files:uploader']						= 'Arraste ficheiros para aqui <br />ou<br />Clique para selecionar ficheiros';
+$lang['files:replace_file']					= 'Replace file'; #translate
 
 // Context Menu
 $lang['files:open']							= 'Aberto';
 $lang['files:new_folder']					= 'Nova Pasta';
 $lang['files:upload']						= 'Upload';
 $lang['files:rename']						= 'Renomear';
+$lang['files:replace']	  					= 'Replace'; # translate
 $lang['files:delete']						= 'Remover';
 $lang['files:edit']							= 'Editar';
 $lang['files:details']						= 'Detalhes';
@@ -94,6 +96,7 @@ $lang['files:file_moved']					= '"%s" foi movido com sucesso';
 $lang['files:exceeds_server_setting']		= 'O servidor não pode lidar com um ficheiro tão grande';
 $lang['files:exceeds_allowed']				= 'O ficheiro excede o tamanho máximo permitido';
 $lang['files:file_type_not_allowed']		= 'Este tipo de ficheiro não é permitido';
+$lang['files:replace_warning']				= 'Warning: Do not replace a file with a file of a different type (e.g. .jpg with .png)'; #translate
 $lang['files:type_a']						= 'Audio';
 $lang['files:type_v']						= 'Video';
 $lang['files:type_d']						= 'Documento';

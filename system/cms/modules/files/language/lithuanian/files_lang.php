@@ -44,12 +44,14 @@ $lang['files:search_message']				= 'Įrašyk ir spasuk ENTER';
 $lang['files:search']						= 'Ieškok';
 $lang['files:synchronize']					= 'Sinchronizuok';
 $lang['files:uploader']						= 'Imesk čia failus <br />arba<br />spausk, kad išsirinkti failą';
+$lang['files:replace_file']					= 'Replace file'; #translate
 
 // Context Menu
 $lang['files:open']							= 'Atidaryti';
 $lang['files:new_folder']					= 'Naujas katalogas';
 $lang['files:upload']						= 'Įkelti';
 $lang['files:rename']						= 'Pervadinti';
+$lang['files:replace']	  					= 'Replace'; # translate
 $lang['files:delete']						= 'Ištrinti';
 $lang['files:edit']							= 'Tvarkyti';
 $lang['files:details']						= 'Informacija';
@@ -94,6 +96,7 @@ $lang['files:file_moved']					= '"%s" buvo sėkmingai perkeltas';
 $lang['files:exceeds_server_setting']		= 'Sėrveris negali apdoroti tokio didelio failo';
 $lang['files:exceeds_allowed']				= 'Failas viršija maksimalų failo dydį';
 $lang['files:file_type_not_allowed']		= 'Šis failo tipas nėra leistinas';
+$lang['files:replace_warning']				= 'Warning: Do not replace a file with a file of a different type (e.g. .jpg with .png)'; #translate
 $lang['files:type_a']						= 'Audio';
 $lang['files:type_v']						= 'Video';
 $lang['files:type_d']						= 'Dokumentai';

@@ -44,12 +44,14 @@ $lang['files:search_message']				= 'Type and hit Enter';
 $lang['files:search']						= 'Search';
 $lang['files:synchronize']					= 'Synchronize';
 $lang['files:uploader']						= 'Drop files here <br />or<br />Click to select files';
+$lang['files:replace_file']					= 'Replace file';
 
 // Context Menu
 $lang['files:open']							= 'Open';
 $lang['files:new_folder']					= 'New Folder';
 $lang['files:upload']						= 'Upload';
 $lang['files:rename']						= 'Rename';
+$lang['files:replace']						= 'Replace';
 $lang['files:delete']						= 'Delete';
 $lang['files:edit']							= 'Edit';
 $lang['files:details']						= 'Details';
@@ -94,6 +96,7 @@ $lang['files:file_moved']					= '"%s" has been moved successfully';
 $lang['files:exceeds_server_setting']		= 'The server cannot handle this large of a file';
 $lang['files:exceeds_allowed']				= 'File exceeds the max size allowed';
 $lang['files:file_type_not_allowed']		= 'This type of file is not allowed';
+$lang['files:replace_warning']				= 'Warning: Do not replace a file with a file of a different type (e.g. .jpg with .png)';
 $lang['files:type_a']						= 'Audio';
 $lang['files:type_v']						= 'Video';
 $lang['files:type_d']						= 'Document';

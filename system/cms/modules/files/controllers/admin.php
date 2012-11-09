@@ -222,21 +222,29 @@ class Admin extends Admin_Controller {
 	public function upload()
 	{
 		// this is just a safeguard if they circumvent the JS permissions
-		if ( ! in_array('upload', Files::allowed_actions()))
+		if ( ! in_array('upload', Files::allowed_actions()) AND
+			// replacing files needs upload and delete permission
+			! ( $this->input->post('replace_id') && ! in_array('delete', Files::allowed_actions()) )
+		)
 		{
 			show_error(lang('files:no_permissions'));
 		}
 
+		$result = null;
 		$input = $this->input->post();
 
-		if ($input['folder_id'] and $input['name'])
+		if($input['replace_id'] > 0)
+		{
+			$result = Files::replace_file($input['replace_id'], $input['folder_id'], $input['name'], 'file', $input['width'], $input['height'], $input['ratio']);
+			$result['status'] AND Events::trigger('file_replaced', $result['data']);
+		}
+		elseif ($input['folder_id'] and $input['name'])
 		{
 			$result = Files::upload($input['folder_id'], $input['name'], 'file', $input['width'], $input['height'], $input['ratio']);
-
 			$result['status'] AND Events::trigger('file_uploaded', $result['data']);
-
-			echo json_encode($result);
 		}
+
+		echo json_encode($result);		
 	}
 
 	/**
