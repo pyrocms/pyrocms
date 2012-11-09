@@ -6,6 +6,8 @@ $lang['page_types.css_label'] 					= 'CSS';
 
 // labels
 $lang['page_types.updated_label'] 				= '已更新';
+$lang['page_types:auto_create_stream']				= 'Create New Data Stream'; #translate
+$lang['page_types:select_stream']					= 'Data Stream'; #translate
 $lang['page_types:theme_layout_label'] 			= '主題佈局';
 
 // titles
@@ -23,7 +25,7 @@ $lang['page_types.delete_home_error'] 			= '預設的佈局不能被刪除。';
 $lang['page_types.delete_success']				= '頁面佈局 #%s 已經被刪除。';
 $lang['page_types.mass_delete_success'] 			= '%s 頁面佈局已經被刪除。';
 $lang['page_types.delete_none_notice'] 			= '沒有頁面佈局被刪除。';
-$lang['page_types.already_exist_error'] 			= '有相同縮略名(slug) "%s" 的頁面已經存在。';
+$lang['page_types.already_exist_error']            = 'A table with that name already exists. Please choose a different name for this page type.'; #translate
 
 $lang['page_types.variable_introduction']			= '在下方的輸入區塊裡，可使用兩種變數。';
 $lang['page_types.variable_title']				= '包含頁面的標題(title)';

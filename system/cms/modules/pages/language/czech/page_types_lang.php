@@ -6,6 +6,8 @@ $lang['page_types.css_label'] 					= 'CSS';
 
 // labels
 $lang['page_types.updated_label'] 				= 'Aktualizováno';
+$lang['page_types:auto_create_stream']				= 'Create New Data Stream'; #translate
+$lang['page_types:select_stream']					= 'Data Stream'; #translate
 $lang['page_types:theme_layout_label'] 			= 'Šablona vzhledu';
 
 // titles
@@ -23,7 +25,7 @@ $lang['page_types.delete_home_error'] 			= 'Nelze vymazat výchozí šablonu str
 $lang['page_types.delete_success']				= 'Šablona stránky #%s byla vymazána.';
 $lang['page_types.mass_delete_success'] 			= '%s šablona stránek bylo vymazáno.';
 $lang['page_types.delete_none_notice'] 			= 'Žádné šablony stránek nebyly vymazány.';
-$lang['page_types.already_exist_error'] 			= 'Šablona stránky s adresou v URL "%s" již existuje.';
+$lang['page_types.already_exist_error']            = 'A table with that name already exists. Please choose a different name for this page type.'; #translate
 
 $lang['page_types.variable_introduction']			= 'V tomto políčou jsou dostupné dvě proměnné';
 $lang['page_types.variable_title']				= 'Obsahuje titulek stránky.';

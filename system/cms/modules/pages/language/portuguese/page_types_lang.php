@@ -24,7 +24,7 @@ $lang['page_types.delete_home_error'] 			= 'Não pode remover a página de layou
 $lang['page_types.delete_success']				= 'A página de layout #%s foi removida.';
 $lang['page_types.mass_delete_success'] 			= '%s páginas de layout foram removidas.';
 $lang['page_types.delete_none_notice'] 			= 'Nenhuma página de layout removida.';
-$lang['page_types.already_exist_error'] 			= 'A abreviação "%s" de página de layout já existe.';
+$lang['page_types.already_exist_error']            = 'A table with that name already exists. Please choose a different name for this page type.'; #translate
 
 $lang['page_types.variable_introduction']			= 'Esta caixa de texto possui duas variáveis disponíveis';
 $lang['page_types.variable_title']				= 'Contém o título da página.';

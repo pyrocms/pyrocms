@@ -6,6 +6,8 @@ $lang['page_types.css_label'] 					= 'CSS';
 
 // labels
 $lang['page_types.updated_label'] 				= 'Mis à jour';
+$lang['page_types:auto_create_stream']				= 'Create New Data Stream'; #translate
+$lang['page_types:select_stream']					= 'Data Stream'; #translate
 $lang['page_types:theme_layout_label'] 			= 'Gabarit du theme';
 
 // titles
@@ -23,7 +25,7 @@ $lang['page_types.delete_home_error'] 			= 'Vous ne pouvez pas supprimer le mod�
 $lang['page_types.delete_success']				= 'Le modèle #%s a été supprimé.';
 $lang['page_types.mass_delete_success'] 			= '%s modèles ont été supprimés.';
 $lang['page_types.delete_none_notice'] 			= 'Aucun modèle n\'a été supprimé.';
-$lang['page_types.already_exist_error'] 			= 'Un modèle avec le permalien "%s" existe déjà.';
+$lang['page_types.already_exist_error']            = 'A table with that name already exists. Please choose a different name for this page type.'; #translate
 
 $lang['page_types.variable_introduction']			= 'Deux variables sont disponibles pour ce champ';
 $lang['page_types.variable_title']				= 'Contient le titre de la page.';

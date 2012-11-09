@@ -6,6 +6,8 @@ $lang['page_types.css_label']                      = 'CSS';
 
 // labels
 $lang['page_types.updated_label']                  = 'Posodobljeno';
+$lang['page_types:auto_create_stream']				= 'Create New Data Stream'; #translate
+$lang['page_types:select_stream']					= 'Data Stream'; #translate
 $lang['page_types:theme_layout_label']             = 'Izgled postavitve';
 
 // titles
@@ -23,7 +25,7 @@ $lang['page_types.delete_home_error']              = 'Prednastavljene postavitve
 $lang['page_types.delete_success']                 = 'Postavitev strani #%s je bila odstranjena.';
 $lang['page_types.mass_delete_success']            = '%s postavitve strani so bile odstranjene.';
 $lang['page_types.delete_none_notice']             = 'Nobena postavitev strani ni bila odstranjena.';
-$lang['page_types.already_exist_error']            = 'Postavitev strani s imenom "%s" že obstaja.';
+$lang['page_types.already_exist_error']            = 'A table with that name already exists. Please choose a different name for this page type.'; #translate
 
 $lang['page_types.variable_introduction']          = 'V tem polju za vnos so na voljo dve možnosti.';
 $lang['page_types.variable_title']                 = 'Vsebuje naslov strani.';

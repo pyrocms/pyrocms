@@ -30,6 +30,7 @@ class Admin extends Admin_Controller {
 		$this->load->model('page_type_m');
 		$this->load->model('navigation/navigation_m');
 		$this->lang->load('pages');
+		$this->lang->load('page_types');
 	}
 
 	/**
@@ -157,16 +158,8 @@ class Admin extends Admin_Controller {
 			$page['parent_id'] = $parent_id;
 		}
 
-        	$page['restricted_to'] = null;
-        	$page['navigation_group_id'] = 0;
-        
-        	foreach($page['chunks'] as $chunk)
-        	{
-            		$page['chunk_slug'][] = $chunk['slug'];
-            		$page['chunk_class'][] = $chunk['class'];
-            		$page['chunk_type'][] = $chunk['type'];
-            		$page['chunk_body'][] = $chunk['body'];
-        	}
+		$page['restricted_to'] = null;
+		$page['navigation_group_id'] = 0;
 
 		$new_page = $this->page_m->create($page);
 
@@ -260,7 +253,7 @@ class Admin extends Admin_Controller {
 		// The user needs to be able to edit pages.
 		role_or_die('pages', 'edit_live');
 
-		// Retrieve the page data along with its chunk data as an array.
+		// Retrieve the page data along with its data as part of the array.
 		$page = $this->page_m->get($id);
 
 		// If there's a keywords hash
@@ -319,8 +312,8 @@ class Admin extends Admin_Controller {
 		{
 			$field = $field['field'];
 
-			// Nothing to do for these two fields.
-			if (in_array($field, array('navigation_group_id', 'chunk_body[]')))
+			// Nothing to do for the navigation field
+			if (in_array($field, array('navigation_group_id')))
 			{
 				continue;
 			}
@@ -340,7 +333,7 @@ class Admin extends Admin_Controller {
 		// If this page has a parent.
 		if ($page->parent_id > 0)
 		{
-			// Get only the details for the parent, no chunks.
+			// Get only the details for the parent, no data.
 			$parent_page = $this->page_m->get($page->parent_id, false);
 		}
 		else

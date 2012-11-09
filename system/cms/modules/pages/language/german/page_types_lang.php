@@ -6,6 +6,8 @@ $lang['page_types.css_label']                      = 'CSS';
 
 // labels
 $lang['page_types.updated_label']                  = 'Aktualisiert';
+$lang['page_types:auto_create_stream']				= 'Create New Data Stream'; #translate
+$lang['page_types:select_stream']					= 'Data Stream'; #translate
 $lang['page_types:theme_layout_label']             = 'Seitenlayout';
 
 // titles
@@ -23,7 +25,7 @@ $lang['page_types.delete_home_error']              = 'Das Standard Seitenlayout 
 $lang['page_types.delete_success']                 = 'Seitenlayout #%s wurde gel&ouml;scht.';
 $lang['page_types.mass_delete_success']            = '%s Seitentypes wurden gel&ouml;scht.';
 $lang['page_types.delete_none_notice']             = 'Es wurde(n) kein(e) Seitenlayout(s) gel&ouml;scht.';
-$lang['page_types.already_exist_error']            = 'Es existiert bereits ein Seitenlayout mit dem Titel "%s".';# slug = title?
+$lang['page_types.already_exist_error']            = 'A table with that name already exists. Please choose a different name for this page type.'; #translate# slug = title?
 
 $lang['page_types.variable_introduction']          = 'In dieser Eingabebox stehen zwei Variablen zur Auswahl';
 $lang['page_types.variable_title']                 = 'Enth&auml;lt den Titel der Seite.';

@@ -11,6 +11,8 @@ $lang['page_types.css_label']                      = 'CSS';
 
 // labels
 $lang['page_types.updated_label']                  = 'Päivitetty';
+$lang['page_types:auto_create_stream']				= 'Create New Data Stream'; #translate
+$lang['page_types:select_stream']					= 'Data Stream'; #translate
 $lang['page_types:theme_layout_label']             = 'Sivupohja';
 
 // titles
@@ -28,7 +30,7 @@ $lang['page_types.delete_home_error']              = 'Et voi poistaa oletus sivu
 $lang['page_types.delete_success']                 = 'Sivupohja #%s poistettiin.';
 $lang['page_types.mass_delete_success']            = '%s sivupohjaa poistettiin.';
 $lang['page_types.delete_none_notice']             = 'Yhtään sivupohjaa ei poistettu.';
-$lang['page_types.already_exist_error']            = 'Sivupohja lyhenteellä "%s" on jo olemassa.';
+$lang['page_types.already_exist_error']            = 'A table with that name already exists. Please choose a different name for this page type.'; #translate
 
 $lang['page_types.variable_introduction']          = 'Tässä kentässä on kaksi muuttujaa.';
 $lang['page_types.variable_title']                 = 'Sisältää sivun otsikko.';

@@ -27,6 +27,13 @@
 						<label for="title"><?php echo lang('global:title');?> <span>*</span></label>
 						<div class="input"><?php echo form_input('title', $page_type->title, 'maxlength="60"'); ?></div>
 					</li>
+
+					<?php if ($this->method === 'create'): ?>
+					<li>
+						<label for="stream_slug"><?php echo lang('page_types:select_stream');?></label>
+						<div class="input"><?php echo form_dropdown('stream_slug', array(0 => lang('page_types:auto_create_stream')) + $page_type->streams, isset($page_type->stream_slug) ? $page_type->stream_slug : false); ?></div>
+					</li>
+					<?php endif; ?>
 					
 					<li>
 						<label for="theme_layout"><?php echo lang('page_types:theme_layout_label');?></label>

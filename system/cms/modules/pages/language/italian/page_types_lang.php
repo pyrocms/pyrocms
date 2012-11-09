@@ -8,6 +8,8 @@ $lang['page_types.css_label'] 					= 'CSS';
 
 // labels
 $lang['page_types.updated_label'] 				= 'Aggiornato';
+$lang['page_types:auto_create_stream']				= 'Create New Data Stream'; #translate
+$lang['page_types:select_stream']					= 'Data Stream'; #translate
 $lang['page_types:theme_layout_label'] 			= 'Tema del layout';
 
 // titles
@@ -25,7 +27,7 @@ $lang['page_types.delete_home_error'] 			= 'Non puoi eliminare il layout di pagi
 $lang['page_types.delete_success']				= 'Il layout di pagina #%s è stato eliminato.';
 $lang['page_types.mass_delete_success'] 			= '%s layout di pagina sono stati eliminati.';
 $lang['page_types.delete_none_notice'] 			= 'Nessun layout di pagina è stato eliminato.';
-$lang['page_types.already_exist_error'] 			= 'Un layout di pagina chiamato "%s" esiste già.';
+$lang['page_types.already_exist_error']            = 'A table with that name already exists. Please choose a different name for this page type.'; #translate
 
 $lang['page_types.variable_introduction']			= 'In questo campo sono disponibili due variabili';
 $lang['page_types.variable_title']				= 'Contiene il titolo della pagina.';

@@ -6,6 +6,8 @@ $lang['page_types.css_label']                      = 'CSS';
 
 // labels
 $lang['page_types.updated_label']                  = 'עודכן';
+$lang['page_types:auto_create_stream']				= 'Create New Data Stream'; #translate
+$lang['page_types:select_stream']					= 'Data Stream'; #translate
 $lang['page_types:theme_layout_label']             = 'Theme Layout';
 
 // titles
@@ -23,7 +25,7 @@ $lang['page_types.delete_home_error']              = 'אין אפשרות למח
 $lang['page_types.delete_success']                 = 'Page layout #%s נמחק בהצלחה.';
 $lang['page_types.mass_delete_success']            = '%s page types נמחקו בהצלחה.';
 $lang['page_types.delete_none_notice']             = 'אף page layout לא נמחק.';
-$lang['page_types.already_exist_error']            = 'page layout עם שבלול "%s" כבר קיים.';
+$lang['page_types.already_exist_error']            = 'A table with that name already exists. Please choose a different name for this page type.'; #translate
 
 $lang['page_types.variable_introduction']          = 'בתיבת הקלט הזה ישנם שני משתנים זמינים';
 $lang['page_types.variable_title']                 = 'מכיל את כותרת הדף.';

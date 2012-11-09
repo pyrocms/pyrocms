@@ -6,6 +6,8 @@ $lang['page_types.css_label'] 					= 'CSS';
 
 // labels
 $lang['page_types.updated_label'] 				= 'Atualizado';
+$lang['page_types:auto_create_stream']				= 'Create New Data Stream'; #translate
+$lang['page_types:select_stream']					= 'Data Stream'; #translate
 $lang['page_types:theme_layout_label']			= 'Tema de layout';
 
 // titles
@@ -23,7 +25,7 @@ $lang['page_types.delete_home_error'] 			= 'Você não pode remover a página de
 $lang['page_types.delete_success']				= 'A página de layout #%s foi removida.';
 $lang['page_types.mass_delete_success'] 			= '%s páginas de layout foram removidas.';
 $lang['page_types.delete_none_notice'] 			= 'Nenhuma página de layout removida.';
-$lang['page_types.already_exist_error'] 			= 'A abreviação "%s" de página de layout já existe.';
+$lang['page_types.already_exist_error']            = 'A table with that name already exists. Please choose a different name for this page type.'; #translate
 
 $lang['page_types.variable_introduction']			= 'Esta caixa de texto possui duas variáveis disponíveis';
 $lang['page_types.variable_title']				= 'Contém o título da página.';

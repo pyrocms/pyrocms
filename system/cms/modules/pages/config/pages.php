@@ -4,7 +4,7 @@
 $config['pages:default_page_types'] = array(
 	array(
 			'id' => 1,
-			'title' => 'Default',
+			'title' => 'Generic',
 			'stream_id' => 1,
 			'stream_slug' => 'generic',
 			'body' => '<h2>{{ page:title }}</h2>'.PHP_EOL.'{{ page:body }}',

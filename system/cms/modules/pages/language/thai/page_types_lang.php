@@ -16,6 +16,8 @@ $lang['page_types.css_label']                      = 'CSS';
 
 // labels
 $lang['page_types.updated_label']                  = 'แก้ไข';
+$lang['page_types:auto_create_stream']				= 'Create New Data Stream'; #translate
+$lang['page_types:select_stream']					= 'Data Stream'; #translate
 $lang['page_types:theme_layout_label']             = 'เค้าโครงธีม';
 $lang['page_types.layout']             			= 'เค้าโครง';
 
@@ -34,7 +36,7 @@ $lang['page_types.delete_home_error']              = 'คุณไม่สา�
 $lang['page_types.delete_success']                 = 'เค้าโครงหน้า #%s ถูกลบ';
 $lang['page_types.mass_delete_success']            = '%s เค้าโครงหน้าถูกลบ';
 $lang['page_types.delete_none_notice']             = 'ไม่มีเค้าโครงหน้าถูกลบ';
-$lang['page_types.already_exist_error']            = 'เค้าโครงหน้า "%s" มีอยู่แล้ว';
+$lang['page_types.already_exist_error']            = 'A table with that name already exists. Please choose a different name for this page type.'; #translate
 
 $lang['page_types.variable_introduction']          = 'ในกล่องป้อนข้อมูลมีสองค่าเปิดใช้งานอยู่';
 $lang['page_types.variable_title']                 = 'มีชื่อของหน้า';

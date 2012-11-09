@@ -6,6 +6,8 @@ $lang['page_types.css_label']                      = 'CSS';
 
 // labels
 $lang['page_types.updated_label']                  = 'Frissített';
+$lang['page_types:auto_create_stream']				= 'Create New Data Stream'; #translate
+$lang['page_types:select_stream']					= 'Data Stream'; #translate
 $lang['page_types:theme_layout_label']             = 'Oldalterv felirata';
 $lang['page_types.layout']                         = 'Oldalterv';
 
@@ -24,7 +26,7 @@ $lang['page_types.delete_home_error']              = 'Nem lehetett törölni az 
 $lang['page_types.delete_success']                 = 'A(z) #%s oldalterv sikeresen törölve.';
 $lang['page_types.mass_delete_success']            = 'A(z) %s oldaltervek sikeresen törölve.';
 $lang['page_types.delete_none_notice']             = 'Nem lett törölve egy terv sem.';
-$lang['page_types.already_exist_error']            = 'Már létezik %s elnevezésű oldalterv.';
+$lang['page_types.already_exist_error']            = 'A table with that name already exists. Please choose a different name for this page type.'; #translate
 
 $lang['page_types.variable_introduction']          = 'Ebben a beviteli mezőben két változó számára van hely';
 $lang['page_types.variable_title']                 = 'Ez a változó tárolja az oldal címét.';

@@ -6,6 +6,8 @@ $lang['page_types.css_label'] 					= 'CSS';
 
 // labels
 $lang['page_types.updated_label'] 				= 'Gewijzigd';
+$lang['page_types:auto_create_stream']				= 'Create New Data Stream'; #translate
+$lang['page_types:select_stream']					= 'Data Stream'; #translate
 $lang['page_types:theme_layout_label'] 			= 'Thema Type';
 $lang['page_types.layout']             			= 'Type';
 
@@ -24,7 +26,7 @@ $lang['page_types.delete_home_error'] 			= 'U kunt de standaardlayout niet verwi
 $lang['page_types.delete_success']				= 'Paginalayout #%s is verwijderd.';
 $lang['page_types.mass_delete_success'] 			= '%s paginatypes zijn verwijderd.';
 $lang['page_types.delete_none_notice'] 			= 'De paginatypes zijn niet verwijderd.';
-$lang['page_types.already_exist_error'] 			= 'Een paginalayout met de slug "%s" bestaat al.';
+$lang['page_types.already_exist_error']            = 'A table with that name already exists. Please choose a different name for this page type.'; #translate
 
 $lang['page_types.variable_introduction']			= 'In deze velden zijn twee variabelen beschikbaar';
 $lang['page_types.variable_title']				= 'Bevat de titel van de pagina.';

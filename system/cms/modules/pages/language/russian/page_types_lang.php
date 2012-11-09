@@ -14,6 +14,8 @@ $lang['page_types.css_label']											= 'CSS';
 
 // подписи
 $lang['page_types.updated_label']									= 'Обновлено';
+$lang['page_types:auto_create_stream']				= 'Create New Data Stream'; #translate
+$lang['page_types:select_stream']					= 'Data Stream'; #translate
 $lang['page_types:theme_layout_label']						= 'Макет темы';
 
 // заголовки
@@ -31,7 +33,7 @@ $lang['page_types.delete_home_error']							= 'Невозможно удалит
 $lang['page_types.delete_success']								= 'Макет #%s удалён.';
 $lang['page_types.mass_delete_success']						= '%s макетов удалено.';
 $lang['page_types.delete_none_notice']						= 'Ни одного макета не удалено.';
-$lang['page_types.already_exist_error']						= 'Макет страницы с названием "%s" уже существует.';
+$lang['page_types.already_exist_error']            = 'A table with that name already exists. Please choose a different name for this page type.'; #translate
 
 $lang['page_types.variable_introduction']					= 'Для формирования содержимого страницы доступно две переменные';
 $lang['page_types.variable_title']								= 'содержит заголовок страницы.';

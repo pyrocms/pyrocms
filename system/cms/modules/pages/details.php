@@ -85,7 +85,7 @@ class Module_Pages extends Module
 				    ),
 				),
 				'types' => array(
-				    'name' => 'pages:types_list_title',
+				    'name' => 'page_types.list_title',
 				    'uri' => 'admin/pages/types',
 				    'shortcuts' => array(
 						array(

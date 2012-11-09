@@ -6,6 +6,8 @@ $lang['page_types.css_label']                      = 'CSS';
 
 // labels
 $lang['page_types.updated_label']                  = 'Atnaujinta';
+$lang['page_types:auto_create_stream']				= 'Create New Data Stream'; #translate
+$lang['page_types:select_stream']					= 'Data Stream'; #translate
 $lang['page_types:theme_layout_label']             = 'Maketo tema';
 
 // titles
@@ -23,7 +25,7 @@ $lang['page_types.delete_home_error']              = 'Negalite ištrinti numatyt
 $lang['page_types.delete_success']                 = 'Maketai #%s buvo ištrinti.';
 $lang['page_types.mass_delete_success']            = '%s puslapio maketas išrtintas.';
 $lang['page_types.delete_none_notice']             = 'Nėra ištrintų maketų.';
-$lang['page_types.already_exist_error']            = 'Maketas su tokiu vardu "%s" jau egzistuoja.';
+$lang['page_types.already_exist_error']            = 'A table with that name already exists. Please choose a different name for this page type.'; #translate
 
 $lang['page_types.variable_introduction']          = 'Šiame įvedimo lauke yra du prieinami kintamieji';
 $lang['page_types.variable_title']                 = 'Sudėtyje yra šio puslapio pavadinimas.';

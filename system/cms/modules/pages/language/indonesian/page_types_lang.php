@@ -6,6 +6,8 @@ $lang['page_types.css_label']                      = 'CSS';
 
 // labels
 $lang['page_types.updated_label']                  = 'Terbaru';
+$lang['page_types:auto_create_stream']				= 'Create New Data Stream'; #translate
+$lang['page_types:select_stream']					= 'Data Stream'; #translate
 $lang['page_types:theme_layout_label']             = 'Type Tema';
 $lang['page_types.layout']             			= 'Type';
 
@@ -24,7 +26,7 @@ $lang['page_types.delete_home_error']              = 'Anda tidak dapat menhapus 
 $lang['page_types.delete_success']                 = 'Type halaman #%s telah dihapus.';
 $lang['page_types.mass_delete_success']            = '%s layout halaman telah dihapus.';
 $lang['page_types.delete_none_notice']             = 'Tidak ada layout halaman yang terhapus.';
-$lang['page_types.already_exist_error']            = 'Type halaman dengan slug "%s" sudah ada.';
+$lang['page_types.already_exist_error']            = 'A table with that name already exists. Please choose a different name for this page type.'; #translate
 
 $lang['page_types.variable_introduction']          = 'Di dalam input box ada dua variabel yang tersedia';
 $lang['page_types.variable_title']                 = 'Mengandung judul halaman.';

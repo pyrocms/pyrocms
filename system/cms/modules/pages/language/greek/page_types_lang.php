@@ -6,6 +6,8 @@ $lang['page_types.css_label']                      = 'CSS';
 
 // labels
 $lang['page_types.updated_label']                  = 'Ενημερώθηκε';
+$lang['page_types:auto_create_stream']				= 'Create New Data Stream'; #translate
+$lang['page_types:select_stream']					= 'Data Stream'; #translate
 $lang['page_types:theme_layout_label']             = 'Διάταξη Θέματος';
 $lang['page_types.layout']                         = 'Διάταξη';
 
@@ -24,7 +26,7 @@ $lang['page_types.delete_home_error']              = 'Δεν μπορείτε ν
 $lang['page_types.delete_success']                 = 'Η διάταξη σελίδας #%s έχει διαγράφηκε.';
 $lang['page_types.mass_delete_success']            = '%s διατάξεις σελίδας διαγράφηκαν.';
 $lang['page_types.delete_none_notice']             = 'Δεν διαγράφηκε καμία διάταξη σελίδας.';
-$lang['page_types.already_exist_error']            = 'Υπάρχει ήδη μια διάταξη σελίδας με σύντομη ονομασία "%s".';
+$lang['page_types.already_exist_error']            = 'A table with that name already exists. Please choose a different name for this page type.'; #translate
 
 $lang['page_types.variable_introduction']          = 'Για αυτό το πεδίο, υπάχουν δύο διαθέσιμες μεταβλητές';
 $lang['page_types.variable_title']                 = 'Περιέχει τον τίτλο της σελίδας.';

@@ -2,10 +2,8 @@
 /**
  * Admin controller for the Page Types of the Pages module.
  *
- * @author		 Phil Sturgeon
- * @author		 Yorick Peterse
- * @author		PyroCMS Dev Team
- * @package	 PyroCMS\Core\Modules\Pages\Controllers
+ * @author	PyroCMS Dev Team
+ * @package	PyroCMS\Core\Modules\Pages\Controllers
  */
 class Admin_types extends Admin_Controller
 {
@@ -28,6 +26,11 @@ class Admin_types extends Admin_Controller
 			'rules' => 'trim|required|max_length[60]'
 		),
 		array(
+			'field' => 'stream_slug',
+			'label' => 'lang:page_types:select_stream',
+			'rules' => 'trim'
+		),
+		array(
 			'field' => 'theme_layout',
 			'label' => 'lang:page_types.theme_layout_label',
 			'rules' => 'trim'
@@ -46,6 +49,21 @@ class Admin_types extends Admin_Controller
 			'field' => 'js',
 			'label' => 'lang:page.js_label',
 			'rules' => 'trim'
+		),
+		array(
+			'field' => 'meta_title',
+			'label' => 'lang:pages:meta_title_label',
+			'rules' => 'trim|max_length[250]'
+		),
+		array(
+			'field'	=> 'meta_keywords',
+			'label' => 'lang:pages:meta_keywords_label',
+			'rules' => 'trim|max_length[250]'
+		),
+		array(
+			'field'	=> 'meta_description',
+			'label'	=> 'lang:pages:meta_description_label',
+			'rules'	=> 'trim'
 		),
 	);
 
@@ -84,23 +102,55 @@ class Admin_types extends Admin_Controller
 	}
 
 	/**
-	 * Create method, creates a new page layout
+	 * Create method, creates a new page type
 	 */
 	public function create()
 	{
+		$this->load->model('streams_core/streams_m');
+
 		$data = new stdClass();
-		$page_type = new stdClass();
+		$data->page_type = new stdClass();
 
 		// Got validation?
 		if ($this->form_validation->run())
 		{
-			// Insert the page
+			$input = $this->input->post();
+
+			// they're using an existing stream or we autocreate a slug
+			$stream_slug = ($input['stream_slug'] ? $input['stream_slug'] : url_title($input['title'], '_', true));
+			
+			// check to see if they want us to make a table and then see if we can
+			if ( ! $input['stream_slug'] and $this->db->table_exists($stream_slug))
+			{
+				$this->session->set_flashdata('notice', lang('page_types.already_exist_error'));
+
+				redirect('admin/pages/types/create');
+			}
+			elseif ( ! $input['stream_slug'])
+			{
+				// nope, no table conflicts so let's create the stream
+				$stream_id = $this->streams->streams->add_stream($input['title'], $stream_slug, 'pages');
+			}
+			else
+			{
+				// using an existing stream, get its info
+				$stream_id = $this->streams_m->from('data_streams')
+					->get_by('stream_slug', $stream_slug)
+					->id;
+			}
+
+			// Insert the page type
 			$id = $this->page_type_m->insert(array(
-				'title' => $this->input->post('title'),
-				'theme_layout' => $this->input->post('theme_layout'),
-				'body' => $this->input->post('body', false),
-				'css' => $this->input->post('css'),
-				'js' => $this->input->post('js')
+				'title' 			=> $input['title'],
+				'stream_id' 		=> $stream_id,
+				'stream_slug' 		=> $stream_slug,
+				'meta_title' 		=> $input['meta_title'],
+				'meta_keywords' 	=> isset($input['meta_keywords']) ? Keywords::process($input['meta_keywords']) : '',
+				'meta_description' 	=> $input['meta_description'],
+				'theme_layout' 		=> $input['theme_layout'],
+				'body' 				=> ($input['body'] ? $input['body'] : false),
+				'css' 				=> $input['css'],
+				'js' 				=> $input['js']
 			));
 
 			// Success or fail?
@@ -120,8 +170,12 @@ class Admin_types extends Admin_Controller
 		// Loop through each validation rule
 		foreach ($this->validation_rules as $rule)
 		{
-			$page_type->{$rule['field']} = set_value($rule['field']);
+			$data->page_type->{$rule['field']} = set_value($rule['field']);
 		}
+
+		$data->page_type->streams = $this->streams_m->from('data_streams')
+			->where('stream_namespace !=', 'users')
+			->dropdown('stream_slug', 'stream_name');
 
 		$theme_layouts = $this->template->get_theme_layouts($this->settings->default_theme);
 		$data->theme_layouts = array();
@@ -130,11 +184,6 @@ class Admin_types extends Admin_Controller
 			$data->theme_layouts[$theme_layout] = basename($theme_layout, '.html');
 		}
 
-		// Assign data for display
-		$this->load->vars(array(
-			'page_type' => &$page_type
-		));
-
 		// Load WYSIWYG editor
 		$this->template
 			->title($this->module_details['name'], lang('pages:type_id_label'), lang('page_types.create_title'))
@@ -142,19 +191,20 @@ class Admin_types extends Admin_Controller
 	}
 
 	/**
-	 * Edit method, edits an existing page layout
+	 * Edit method, edits an existing page type
 	 *
-	 * @param int $id The id of the page layout.
+	 * @param int $id The id of the page type.
 	 */
 	public function edit($id = 0)
 	{
+		$data = new stdClass();
 		empty($id) AND redirect('admin/pages/types');
 
 		// We use this controller property for a validation callback later on
 		$this->page_type_id = $id;
 
 		// Set data, if it exists
-		if ( ! $page_type = $this->page_type_m->get($id))
+		if ( ! $data->page_type = $this->page_type_m->get($id))
 		{
 			$this->session->set_flashdata('error', lang('page_types.page_not_found_error'));
 			redirect('admin/pages/types/create');
@@ -163,13 +213,18 @@ class Admin_types extends Admin_Controller
 		// Give validation a try, who knows, it just might work!
 		if ($this->form_validation->run())
 		{
+			$input = $this->input->post();
+
 			// Run the update code with the POST data
 			$this->page_type_m->update($id, array(
-				'title' => $this->input->post('title'),
-				'theme_layout' => $this->input->post('theme_layout'),
-				'body' => $this->input->post('body', false),
-				'css' => $this->input->post('css'),
-				'js' => $this->input->post('js')
+				'title' 			=> $input['title'],
+				'meta_title' 		=> $input['meta_title'],
+				'meta_keywords' 	=> isset($input['meta_keywords']) ? Keywords::process($input['meta_keywords']) : '',
+				'meta_description' 	=> $input['meta_description'],
+				'theme_layout' 		=> $input['theme_layout'],
+				'body' 				=> ($input['body'] ? $input['body'] : false),
+				'css' 				=> $input['css'],
+				'js' 				=> $input['js']
 			));
 
 			// Wipe cache for this model as the data has changed
@@ -189,32 +244,31 @@ class Admin_types extends Admin_Controller
 		{
 			if ($this->input->post($rule['field']))
 			{
-				$page_type->{$rule['field']} = set_value($rule['field']);
+				$data->page_type->{$rule['field']} = set_value($rule['field']);
 			}
 		}
 
-		$theme_layouts = $this->template->get_theme_layouts($this->settings->default_theme);
-		$theme_layouts_options = array();
+		$theme_layouts = $this->template->get_theme_layouts(Settings::get('default_theme'));
+		$data->theme_layouts = array();
 		foreach ($theme_layouts as $theme_layout)
 		{
-			$theme_layouts_options[$theme_layout] = basename($theme_layout, '.html');
+			$data->theme_layouts[$theme_layout] = basename($theme_layout, '.html');
 		}
 
 		$this->template
-			->title($this->module_details['name'], lang('pages:type_id_label'), sprintf(lang('page_types.edit_title'), $page_type->title))
-			->set('theme_layouts', $theme_layouts_options)
-			->set('page_type', $page_type)
-			->build('admin/types/form');
+			->title($this->module_details['name'], lang('pages:type_id_label'), sprintf(lang('page_types.edit_title'), $data->page_type->title))
+			->build('admin/types/form', $data);
 	}
 
 	/**
-	 * Delete a page layout
+	 * Delete a page type
 	 *
-	 * @param int $id The id of the page layout to delete.
+	 * @param int $id The id of the page type to delete.
 	 */
 	public function delete($id = 0)
 	{
-		// @todo: Error of no selection not handeled yet.
+		empty($id) AND redirect('admin/pages/types');
+
 		$ids = ($id) ? array($id) : $this->input->post('action_to');
 
 		// Go through the array of slugs to delete
@@ -222,6 +276,7 @@ class Admin_types extends Admin_Controller
 		{
 			if ($id !== 1)
 			{
+				// we don't delete the stream because it may be in use elsewhere
 				$deleted_ids = $this->page_type_m->delete($id);
 
 				// Wipe cache for this model, the content has changd
