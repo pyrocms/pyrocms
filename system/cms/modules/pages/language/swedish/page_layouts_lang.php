@@ -31,6 +31,7 @@ $lang['page_layouts.already_exist_error'] = 'En sidlayout med namnet "%s" finns 
 $lang['page_layouts.variable_introduction'] = 'I denna ruta finns det två variabler tillängliga';
 $lang['page_layouts.variable_title'] = 'Innehåller titeln på sidan.';
 $lang['page_layouts.variable_body'] = 'Innehåller HTML delen av sidan.';
+$lang['page_layouts:body_class'] = 'Body Class(es)'; #translate
 
 
 /* End of file page_layouts_lang.php */  

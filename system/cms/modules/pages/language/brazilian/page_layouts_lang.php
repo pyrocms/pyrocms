@@ -7,6 +7,7 @@ $lang['page_layouts.css_label'] 					= 'CSS';
 // labels
 $lang['page_layouts.updated_label'] 				= 'Atualizado';
 $lang['page_layouts:theme_layout_label']			= 'Tema de layout';
+$lang['page_layouts:body_class']					= 'Body Class(es)'; #translate
 
 // titles
 $lang['page_layouts.list_title'] 					= 'Listar páginas de layout';

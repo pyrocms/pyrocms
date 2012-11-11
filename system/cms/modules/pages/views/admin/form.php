@@ -132,6 +132,20 @@
 					<label for="layout_id"><?php echo lang('pages:layout_id_label');?></label>
 					<div class="input"><?php echo form_dropdown('layout_id', $page_layouts, $page->layout_id); ?></div>
 				</li>
+
+				<li>
+					<label for="body-id"><?php echo lang('pages.body_id'); ?></label>
+					<div>
+						<?php echo form_input('body_id', $page->body_id, 'id="body-id"'); ?>
+					</div>
+				</li>
+				
+				<li>
+					<label for="body-class"><?php echo lang('pages.body_class'); ?></label>
+					<div>
+						<?php echo form_input('body_class', $page->body_class, 'id="body-class"'); ?>
+					</div>
+				</li>
 				
 				<li>
 					<label for="css"><?php echo lang('pages:css_label');?></label><br />

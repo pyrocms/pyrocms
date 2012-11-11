@@ -47,6 +47,11 @@ class Admin_layouts extends Admin_Controller
 			'label' => 'lang:page.js_label',
 			'rules' => 'trim'
 		),
+		array(
+			'field' => 'body_class',
+			'label' => 'lang:page_layouts.body_class',
+			'rules' => 'trim'
+		),
 	);
 
 	/**
@@ -100,7 +105,8 @@ class Admin_layouts extends Admin_Controller
 				'theme_layout' => $this->input->post('theme_layout'),
 				'body' => $this->input->post('body', false),
 				'css' => $this->input->post('css'),
-				'js' => $this->input->post('js')
+				'js' => $this->input->post('js'),
+				'body_classes'	=> $this->input->post('body_classes')
 			));
 
 			// Success or fail?
@@ -169,7 +175,8 @@ class Admin_layouts extends Admin_Controller
 				'theme_layout' => $this->input->post('theme_layout'),
 				'body' => $this->input->post('body', false),
 				'css' => $this->input->post('css'),
-				'js' => $this->input->post('js')
+				'js' => $this->input->post('js'),
+				'body_class'	=> $this->input->post('body_class')
 			));
 
 			// Wipe cache for this model as the data has changed

@@ -40,4 +40,15 @@ class Page_layouts_m extends MY_Model
 
         return parent::update($id, $input);
     }
+    
+    /**
+     * Get the body class(es) for this layout
+     * 
+     * @param int (id of page layout)
+     * @return string
+     */
+	public function get_body_class($id)
+	{	
+		return $this->db->get_where('page_layouts', array('id'=>$id))->row()->body_class;
+	}
 }

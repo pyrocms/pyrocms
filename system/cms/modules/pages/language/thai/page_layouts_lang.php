@@ -18,6 +18,7 @@ $lang['page_layouts.css_label']                      = 'CSS';
 $lang['page_layouts.updated_label']                  = 'แก้ไข';
 $lang['page_layouts:theme_layout_label']             = 'เค้าโครงธีม';
 $lang['page_layouts.layout']             			= 'เค้าโครง';
+$lang['page_layouts:body_class']					= 'Body Class(es)'; #translate
 
 // titles
 $lang['page_layouts.list_title']                     = 'เค้าโครงหน้า';

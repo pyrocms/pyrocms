@@ -12,6 +12,7 @@ $lang['page_layouts:theme_layout_label']             = 'Maketo tema';
 $lang['page_layouts.list_title']                     = 'Puslapių maketų sarašas';
 $lang['page_layouts.create_title']                   = 'Pridėti puslapių maketą';
 $lang['page_layouts.edit_title']                     = 'Redaguoti puslapių maketą "%s"';
+$lang['page_layouts:body_class']					= 'Body Class(es)'; #translate
 
 // messages
 $lang['page_layouts.no_pages']                       = 'Nėra puslapių maketų.';
