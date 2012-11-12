@@ -146,8 +146,6 @@
             } else if (typeof callBack === func) {
                 callBack();
             }
-
-            uploadHandler.currentFileCount++;
         };
 
         this.removeNode = function (node, callBack) {
@@ -224,6 +222,8 @@
             if (typeof readyState !== 'number' || readyState < 2) {
                 handler.onAbort(event, files, index, xhr, handler);
             }
+
+            uploadHandler.currentFileCount = uploadHandler.currentFileCount > 0 ? uploadHandler.currentFileCount - 1 : 0;
         };
         
         this.initProgressBar = function (node, value) {
@@ -350,6 +350,8 @@
                 //a nice message would be nice I guess
                 uploadRow = handler.uploadRow = (typeof handler.buildUploadRow === func ?
                     handler.buildUploadRow(files, index, handler) : null);
+
+                uploadHandler.currentFileCount++;
             }
 
             if (uploadRow) {
