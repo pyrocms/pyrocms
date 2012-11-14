@@ -10,7 +10,14 @@
 			//Let's see how many menu items they have access to
 			if ($this->current_user->group == 'admin')
 			{
-				$count = isset($modules[$menu_item]) ? count($modules[$menu_item]) : 0;
+				if (isset($modules[$menu_item]))
+				{
+					$count = count($modules[$menu_item]);
+				}
+				else
+				{
+					$count = 0;
+				}
 			}
 			else
 			{

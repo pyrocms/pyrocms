@@ -1070,7 +1070,7 @@ class Row_m extends MY_Model {
 		// -------------------------------------
 
 		$update_data['updated'] = date('Y-m-d H:i:s');
-		
+
 		// -------------------------------------
 		// Update data
 		// -------------------------------------
@@ -1134,11 +1134,10 @@ class Row_m extends MY_Model {
 				$form_data[$field->field_slug] = null;
 			}
 
+			// If this is not in our skips list, process it.
 			if ( ! in_array($field->field_slug, $skips))
 			{
-				$type_call = $field->field_type;
-			
-				$type = $this->type->types->$type_call;
+				$type = $this->type->types->{$field->field_type};
 	
 				if ( ! isset($type->alt_process) or ! $type->alt_process)
 				{
@@ -1173,7 +1172,7 @@ class Row_m extends MY_Model {
 							$return_data[$field->field_slug] = null;
 						}
 					}
-				}	
+				}
 				else
 				{
 					// If this is an alt_process, there can still be a pre_save,
@@ -1190,7 +1189,7 @@ class Row_m extends MY_Model {
 						);
 					}
 				}
-			}	
+			}
 		}
 
 		return $return_data;

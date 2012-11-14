@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
- /**
+/**
  * Swedish translation.
  *
  * @author		marcus@incore.se
@@ -10,8 +10,5 @@
  * @version		1.1.0
  */
 
-$lang['streams.textarea.name'] = 'Textfält';
-
-
-/* End of file textarea_lang.php */  
-/* Location: system/cms/modules/streams_core/field_types/textarea/language/swedish/textarea_lang.php */  
+$lang['streams.textarea.name']			= 'Textarea';
+$lang['streams.textarea.default_text'] 	= 'Default Text'; #translate
