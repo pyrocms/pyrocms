@@ -491,9 +491,9 @@ class MY_Model extends CI_Model
 	 * @param string $order the order direction
 	 * @return \MY_Model
 	 */
-	public function order_by($criteria, $order = 'ASC')
+	public function order_by($criteria, $order = '', $escape = TRUE)
 	{
-		$this->db->order_by($criteria, $order);
+		$this->db->order_by($criteria, $order, $escape);
 		return $this;
 	}
 
