@@ -16,4 +16,4 @@ $lang['streams.year.end_year'] = 'Slut år';
 $lang['streams.year.default_year']	= 'Default Year'; #translate
 
 /* End of file year_lang.php */  
-/* Location: system/cms/modules/streams_core/field_types/year/language/swedish/year_lang.php */  
+/* Location: system/cms/modules/streams_core/field_types/year/language/swedish/year_lang.php */

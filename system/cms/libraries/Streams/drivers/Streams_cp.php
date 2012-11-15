@@ -19,7 +19,6 @@ class Streams_cp extends CI_Driver {
 	/**
 	 * Constructor
 	 *
-	 * @access	public
 	 * @return	void
 	 */
 	public function __construct()
@@ -34,7 +33,6 @@ class Streams_cp extends CI_Driver {
 	 *
 	 * Creates a table of entries.
  	 *
-	 * @access	public
 	 * @param	string - the stream slug
 	 * @param	string - the stream namespace slug
 	 * @param	[mixed - pagination, either null for no pagination or a number for per page]
@@ -123,7 +121,6 @@ class Streams_cp extends CI_Driver {
 
 		/*
 		@TODO Was it the code above or this below? Phil
-
 		if ($stream->sorting == 'custom' or (isset($extra['sorting']) and $extra['sorting'] === true))
 		{
 			$stream->sorting = 'custom';
@@ -139,7 +136,6 @@ class Streams_cp extends CI_Driver {
 		}
 		*/
   
-
   		$data = array(
   			'stream'		=> $stream,
   			'stream_fields'	=> $stream_fields,
@@ -286,7 +282,6 @@ class Streams_cp extends CI_Driver {
 	 *
 	 * Creates an entry form for a stream.
 	 *
-	 * @access	public
 	 * @param	string - stream slug
 	 * @param	string - stream namespace
 	 * @param	mode - new or edit
@@ -375,13 +370,11 @@ class Streams_cp extends CI_Driver {
 		
 		if ($view_override === false) return $form;
 		
-<<<<<<< HEAD
 		$data['content'] = $form;
 		//$CI->data->content = $form;
-=======
-		$CI->data = new stdClass();
+
+		$CI->data = new stdClass;
 		$CI->data->content = $form;
->>>>>>> c33505b7cfcffabbedc782a0c7e4f158e7c1927e
 		
 		$CI->template->build('admin/partials/blank_section', $data);
 	}
@@ -397,7 +390,6 @@ class Streams_cp extends CI_Driver {
 	 * use to add new fields to a stream. This functions as the
 	 * form assignment as well.
 	 *
-	 * @access	public
 	 * @param	string - stream slug
 	 * @param	string - namespace
 	 * @param 	string - method - new or edit. defaults to new
@@ -422,7 +414,7 @@ class Streams_cp extends CI_Driver {
 	{
 		$CI = get_instance();
 		$data = array();
-		$data['field'] = new stdClass();
+		$data['field'] = new stdClass;
 		
 		// We always need our stream
 		$stream = $this->stream_obj($stream_slug, $namespace);
@@ -439,10 +431,10 @@ class Streams_cp extends CI_Driver {
    		
    		// -------------------------------------
         
-        	// Need this for the view
-        	$data['method'] = $method;
-        
-        	// Get our list of available fields
+		// Need this for the view
+		$data['method'] = $method;
+
+		// Get our list of available fields
 		$data['field_types'] = $CI->type->field_types_array(true);
 
 		// @todo - allow including/excluding some fields
@@ -925,7 +917,6 @@ class Streams_cp extends CI_Driver {
 	 * but we need to delete the field as well since
 	 * there is a 1-1 relationship here.
 	 *
-	 * @access 	public
 	 * @param 	int - assignment id
 	 * @param 	bool - force delete field, even if it is shared with multiple streams
 	 * @return 	bool - success/fail
