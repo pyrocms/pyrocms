@@ -26,7 +26,7 @@ $config['base_url']	= '';
 | variable so that it is blank.
 |
 */
-$config['index_page'] = '__INDEX__';
+$config['index_page'] = '{index}';
 
 /*
 |--------------------------------------------------------------------------

@@ -83,9 +83,9 @@ class Module_Widgets extends Module {
 
 	public function install()
 	{
-		$this->dbforge->drop_table('widget_areas');
-		$this->dbforge->drop_table('widget_instances');
-		$this->dbforge->drop_table('widgets');
+		$this->dbforge->drop_table('widget_areas', true);
+		$this->dbforge->drop_table('widget_instances', true);
+		$this->dbforge->drop_table('widgets', true);
 
 		$tables = array(
 			'widget_areas' => array(
@@ -130,12 +130,7 @@ class Module_Widgets extends Module {
 			'slug' 	=> 'sidebar',
 		);
 
-		if ( ! $this->db->insert('widget_areas', $default_widget_areas))
-		{
-			return false;
-		}
-
-		return true;
+		return $this->db->insert('widget_areas', $default_widget_areas);
 	}
 
 	public function uninstall()

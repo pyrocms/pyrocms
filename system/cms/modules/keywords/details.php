@@ -64,8 +64,8 @@ class Module_Keywords extends Module {
 
 	public function install()
 	{
-		$this->dbforge->drop_table('keywords');
-		$this->dbforge->drop_table('keywords_applied');
+		$this->dbforge->drop_table('keywords', true);
+		$this->dbforge->drop_table('keywords_applied', true);
 
 		return $this->install_tables(array(
 			'keywords' => array(

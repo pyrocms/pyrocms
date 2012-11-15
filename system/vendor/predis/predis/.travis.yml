@@ -1,9 +1,0 @@
-language: php
-php:
-  - 5.3
-  - 5.4
-branches:
-  only:
-    - master
-    - v0.7
-script: phpunit -c phpunit.xml.travisci

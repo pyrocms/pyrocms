@@ -317,9 +317,9 @@ textarea {
 	padding: 8px;
 	margin-top: 10px;
 	border: 1px solid #d9d9d9;
-	border-radius: 5px;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
+  border-radius: 5px;
 }
 
 .input { margin-top: 10px; padding: 8px; border-bottom: 1px solid #eeeeee; }
@@ -336,11 +336,10 @@ input.error {
 }
 
 /* Colors for form validity */
-input:valid, textarea:valid {  }
 input:invalid, textarea:invalid { background-color: #f0dddd; }
 
 form .required-icon {
-	background: url(../images/required.png) no-repeat;
+	background: url(../img/required.png) no-repeat;
 	width: 94px;
 	height: 28px;
 	text-indent: -9999px !important;
@@ -1310,7 +1309,7 @@ nav#menu ul li span {
 }
 
 nav#menu .sep {
-	background: url(../images/sep.png) no-repeat;
+	background: url(../img/sep.png) no-repeat;
 	width: 84px;
 	height: 37px;
 	float: left;
@@ -1793,7 +1792,7 @@ ul.block-message { width: 100%; float: left; }
 .tipsy { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; color: #ffffff; padding: 5px; position: absolute; z-index: 100000; }
 .tipsy a { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; color: #ffffff; }
 .tipsy-inner { padding: 5px 8px 6px 8px; background-color: black; color: white; max-width: 200px; text-align: left; border-radius: 3px; -moz-border-radius:3px; -webkit-border-radius:3px; font-size: 12px; }
-.tipsy-arrow { position: absolute; background: url('../images/tipsy.gif') no-repeat top left; width: 9px; height: 5px; }
+.tipsy-arrow { position: absolute; background: url('../img/tipsy.gif') no-repeat top left; width: 9px; height: 5px; }
 .tipsy-n .tipsy-arrow { top: 0; left: 50%; margin-left: -4px; }
 .tipsy-nw .tipsy-arrow { top: 0; left: 10px; }
 .tipsy-ne .tipsy-arrow { top: 0; right: 10px; }

@@ -575,7 +575,22 @@ if ( ! function_exists('timezone_menu'))
 			$menu .= ' class="'.$class.'"';
 		}
 
-		$menu .= _stringify_attributes($attributes).">\n";
+		// Generate a string from the attributes submitted, if any
+		if (is_array($attributes))
+		{
+			$atts = '';
+			foreach ($attributes as $key => $val)
+			{
+				$atts .= ' '.$key.'="'.$val.'"';
+			}
+			$attributes = $atts;
+		}
+		elseif (is_string($attributes) && strlen($attributes) > 0)
+		{
+			$attributes = ' '.$attributes;
+		}
+
+		$menu .= $attributes.">\n";
 
 		foreach (timezones() as $key => $val)
 		{

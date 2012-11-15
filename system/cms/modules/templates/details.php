@@ -71,7 +71,7 @@ class Module_Templates extends Module {
 
 	public function install()
 	{
-		$this->dbforge->drop_table('email_templates');
+		$this->dbforge->drop_table('email_templates', true);
 
 		$tables = array(
 			'email_templates' => array(

@@ -52,7 +52,7 @@ class Module_Sitemap extends Module {
 				'zh' => '站點地圖模塊創建一個索引的所有網頁和XML網站地圖搜索引擎。',
 				'th' => 'โมดูลไซต์แมพสามารถสร้างดัชนีของหน้าเว็บทั้งหมดสำหรับเครื่องมือค้นหา.',
 				'hu' => 'Ez a modul indexeli az összes oldalt és egy XML oldaltéképet generál a keresőmotoroknak.',
-				'se' => 'Sajtkarta, modulen skapar ett index av alla sidor och en XML-sitemap för sökmotorer.'
+				'se' => 'Sajtkarta, modulen skapar ett index av alla sidor och en XML-sitemap för sökmotorer.',
 			),
 			'frontend' => true,
 			'backend' => false,

@@ -75,7 +75,7 @@ class Module_Redirects extends Module {
 
 	public function install()
 	{
-		$this->dbforge->drop_table('redirects');
+		$this->dbforge->drop_table('redirects', true);
 
 		$tables = array(
 			'redirects' => array(
@@ -86,12 +86,7 @@ class Module_Redirects extends Module {
 			),
 		);
 
-		if ( ! $this->install_tables($tables))
-		{
-			return false;
-		}
-
-		return true;
+		return $this->install_tables($tables);
 	}
 
 	public function uninstall()
