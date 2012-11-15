@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS `core_users`, `core_settings`, `core_sites`, `{PREFIX}schema_version`;
+DROP TABLE IF EXISTS `core_users`, `core_settings`, `core_sites`, `{PREFIX}migrations`;
 	
 -- command split --
 

@@ -3,3 +3,4 @@
 $lang['streams.year.name'] 			= 'Έτος';
 $lang['streams.year.start_year'] 	= 'Από';
 $lang['streams.year.end_year'] 		= 'Ως';
+$lang['streams.year.default_year']	= 'Default Year'; #translate

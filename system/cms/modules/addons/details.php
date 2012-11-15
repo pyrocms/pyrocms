@@ -36,7 +36,7 @@ class Module_Addons extends Module
 				'zh' => '附加模組',
 				'hu' => 'Bővítmények',
 				'th' => 'ส่วนเสริม',
-                                'se' => 'Tillägg',
+				'se' => 'Tillägg',
 			),
 			'description' => array(
 				'en' => 'Allows admins to see a list of currently installed modules.',
@@ -117,7 +117,7 @@ class Module_Addons extends Module
 				'type' => array('type' => 'set', 'constraint' => array('text', 'textarea', 'password', 'select', 'select-multiple', 'radio', 'checkbox', 'colour-picker')),
 				'default' => array('type' => 'VARCHAR', 'constraint' => 255),
 				'value' => array('type' => 'VARCHAR', 'constraint' => 255),
-				'options' => array('type' => 'VARCHAR', 'constraint' => 255),
+				'options' => array('type' => 'TEXT'),
 				'is_required' => array('type' => 'INT', 'constraint' => 1),
 				'theme' => array('type' => 'VARCHAR', 'constraint' => 50),
 			),
