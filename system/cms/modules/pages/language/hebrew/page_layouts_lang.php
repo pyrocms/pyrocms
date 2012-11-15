@@ -6,7 +6,7 @@ $lang['page_layouts.css_label']                      = 'CSS';
 
 // labels
 $lang['page_layouts.updated_label']                  = 'עודכן';
-$lang['page_layouts.theme_layout_label']             = 'Theme Layout';
+$lang['page_layouts:theme_layout_label']             = 'Theme Layout';
 
 // titles
 $lang['page_layouts.list_title']                     = 'רשימת page layouts';

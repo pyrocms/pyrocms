@@ -171,7 +171,9 @@ class Admin_layouts extends Admin_Controller
 
 			$this->session->set_flashdata('success', sprintf(lang('page_layouts.edit_success'), $this->input->post('title')));
 
-			redirect('admin/pages/layouts');
+			$this->input->post('btnAction') == 'save_exit'
+				? redirect('admin/pages/layouts')
+				: redirect('admin/pages/layouts/edit/'.$id);
 		}
 
 		// Loop through each validation rule

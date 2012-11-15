@@ -303,7 +303,7 @@ class Admin extends Admin_Controller
 			{
 				$profile_data[$assign->field_slug] = $this->input->post($assign->field_slug);
 			}
-			else
+			elseif (isset($member->{$assign->field_slug}))
 			{
 				$profile_data[$assign->field_slug] = $member->{$assign->field_slug};
 			}
@@ -382,13 +382,24 @@ class Admin extends Admin_Controller
 			}
 		}
 
+		// We need the profile ID to pass to get_stream_fields.
+		// This theoretically could be different from the actual user id.
+		if ($id)
+		{
+			$profile_id = $this->db->limit(1)->select('id')->where('user_id', $id)->get('profiles')->row()->id;
+		}
+		else
+		{
+			$profile_id = null;
+		}
+
 		// Run stream field events
 		$this->fields->run_field_events($this->streams_m->get_stream_fields($this->streams_m->get_stream_id_from_slug('profiles', 'users')));
 
 		$this->template
 			->title($this->module_details['name'], sprintf(lang('user_edit_title'), $member->username))
 			->set('display_name', $member->display_name)
-			->set('profile_fields', $this->streams->fields->get_stream_fields('profiles', 'users', $profile_data))
+			->set('profile_fields', $this->streams->fields->get_stream_fields('profiles', 'users', $profile_data, $profile_id))
 			->set('member', $member)
 			->build('admin/form');
 	}

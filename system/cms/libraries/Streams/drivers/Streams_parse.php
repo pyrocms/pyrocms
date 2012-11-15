@@ -67,11 +67,11 @@ class Streams_parse extends CI_Driver {
 		// remove this after PyroCMS 2.2
 		// -------------------------------------
 
-		$rep = array('{{ streams:related', '{{streams:related');
-		$content = str_replace($rep, '{{ streams:related stream="'.$stream_slug.'" entry=id ', $content);
+		$rep = array('{{ streams_core:related', '{{streams_core:related');
+		$content = str_replace($rep, '{{ streams:related stream="'.$stream_slug.'" base_namespace="'.$stream_namespace.'" entry=id ', $content);
 
-		$rep = array('{{ streams:multiple', '{{streams:multiple');
-		$content = str_replace($rep, '{{ streams:multiple stream="'.$stream_slug.'" entry=id ', $content);
+		$rep = array('{{ streams_core:multiple', '{{streams_core:multiple');
+		$content = str_replace($rep, '{{ streams_core:multiple stream="'.$stream_slug.'" base_namespace="'.$stream_namespace.'" entry=id ', $content);
 
 		// -------------------------------------
 		// Make sure we have our stream fields
@@ -79,7 +79,7 @@ class Streams_parse extends CI_Driver {
 
 		if (is_null($fields))
 		{
-			$stream = $this->stream_obj($stream_slug);
+			$stream = $this->stream_obj($stream_slug, $stream_namespace);
 			$fields = $this->CI->streams_m->get_stream_fields($stream->id);
 		}
 

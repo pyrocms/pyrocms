@@ -216,7 +216,7 @@ class Pages extends Public_Controller
 				<style type="text/css">
 					'.$page->layout->css.'
 					'.$page->css.'
-				</style>');
+				</style>', 'late_header');
 		}
 
 		if ($page->layout->js OR $page->js)

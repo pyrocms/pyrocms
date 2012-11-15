@@ -738,6 +738,12 @@ jQuery(function($){
 				}
 		 	}
 
+			// when the colorbox is closed unbind
+			$item_details.bind('cbox_closed', function(){
+				// if we don't unbind it will stay bound even if we cancel
+				$item_details.find('.buttons').off('click', 'button');
+			});
+
 		 	// show/hide the bucket/container name field on change
 		 	$select.change(function(e){
 		 		location = $(e.target).val();

@@ -25,7 +25,7 @@
 			// If there is none selected
 			if(enabled === 0) {
 				// Don't disable nor check the first column checkbox
-				$row_checkbox.attr({checked: false, disabled: false});
+				$row_checkbox.attr({disabled: false});
 			}
 			// If there is at least one
 			else if (enabled >= 1) {
