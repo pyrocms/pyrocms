@@ -79,7 +79,7 @@ $lang['top_page']						= 'Boven';
 $lang['back_to_top']					= 'Terug naar Boven';
 
 $lang['global:filters'] 				= 'Filters';
-$lang['global:image'] 					= 'Image'; #translate
+$lang['global:image'] 					= 'Afbeelding';
 $lang['global:description'] 		    = 'Beschrijving';
 $lang['global:actions']					= 'Acties';
 $lang['global:view']					= 'Bekijk';
