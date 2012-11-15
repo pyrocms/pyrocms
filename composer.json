@@ -3,7 +3,7 @@
     "description": "The PyroCMS Composer configuration",
     "minimum-stability": "dev",
     "require": {
-        "quick/cache": "1.0.*",
-        "illuminate/database": "*"
+        "illuminate/database": "*",
+        "quick/cache": "1.0.*"
     },
 }
