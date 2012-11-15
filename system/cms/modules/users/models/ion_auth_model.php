@@ -139,10 +139,10 @@ class Ion_auth_model extends CI_Model
 	 **/
 	public function hash_password_db($id, $password)
 	{
-	   if (empty($id) || empty($password))
-	   {
-		return FALSE;
-	   }
+		if (empty($id) or empty($password))
+		{
+			return false;
+		}
 
 	   $query = $this->db->select('password')
 						 ->select('salt')
@@ -281,33 +281,31 @@ class Ion_auth_model extends CI_Model
 	 **/
 	public function change_password($identity, $old, $new)
 	{
-	    $query = $this->db->select('password, salt')
+	    $result = $this->db->select('password, id, salt')
 						  ->where($this->identity_column, $identity)
 						  ->where($this->ion_auth->_extra_where)
 						  ->limit(1)
-						  ->get($this->tables['users']);
-
-	    $result = $query->row();
+						  ->get($this->tables['users'])->row();
 
 	    $db_password = $result->password;
-	    $old	 = $this->hash_password_db($identity, $old);
-	    $new	 = $this->hash_password($new, $result->salt);
+	    $old		 = $this->hash_password_db($result->id, $old);
+	    $new		 = $this->hash_password($new, $result->salt);
 
 	    if ($db_password === $old)
 	    {
-		//store the new password and reset the remember code so all remembered instances have to re-login
-		$data = array(
-			'password' => $new,
-			'remember_code' => '',
-			);
+			// Store the new password and reset the remember code so all remembered instances have to re-login
+			$data = array(
+				'password' => $new,
+				'remember_code' => '',
+				);
 
-		$this->db->where($this->ion_auth->_extra_where);
-		$this->db->update($this->tables['users'], $data, array($this->identity_column => $identity));
+			$this->db->where($this->ion_auth->_extra_where);
+			$this->db->update($this->tables['users'], $data, array($this->identity_column => $identity));
 
-		return $this->db->affected_rows() == 1;
+			return $this->db->affected_rows() == 1;
 	    }
 
-	    return FALSE;
+	    return false;
 	}
 
 	// --------------------------------------------------------------------------
