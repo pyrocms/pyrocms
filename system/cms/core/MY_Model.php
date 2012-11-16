@@ -145,7 +145,7 @@ class MY_Model extends CI_Model
      * @author Phil Sturgeon
      * @return object
      */
-    public function get_by()
+    public function get_by($key = null, $value = null)
     {
         $where = func_get_args();
         $this->_set_where($where);
@@ -185,7 +185,7 @@ class MY_Model extends CI_Model
      */
     public function get_many_by()
     {
-        $where = & func_get_args();
+        $where = func_get_args();
         $this->_set_where($where);
 
         return $this->get_all();
@@ -218,7 +218,7 @@ class MY_Model extends CI_Model
      */
     public function count_by()
     {
-        $where = & func_get_args();
+        $where = func_get_args();
         $this->_set_where($where);
 
         return $this->db->count_all_results($this->_table);
@@ -498,7 +498,7 @@ class MY_Model extends CI_Model
      */
     public function limit($limit, $offset = 0)
     {
-        $limit = & func_get_args();
+        $limit = func_get_args();
         $this->_set_limit($limit);
         return $this;
     }
