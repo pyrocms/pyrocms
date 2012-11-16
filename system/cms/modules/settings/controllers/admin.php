@@ -58,19 +58,19 @@ class Admin extends Admin_Controller {
 			// Get Section name from native translation, third party translation or only use module name
 			if ( ! isset($setting_sections[$setting->module]))
 			{
-				$section_name = lang('settings_section_' . $setting->module);
+				$section_name = lang('settings_section_'.$setting->module);
 
-				if (module_exists($setting->module))
+				if ($this->module_m->exists($setting->module))
 				{
-					list($path, $_langfile) = Modules::find('settings_lang', $setting->module, 'language/' . config_item('language') . '/');
+					list($path, $_langfile) = Modules::find('settings_lang', $setting->module, 'language/'.config_item('language').'/');
 
-					if ($path !== FALSE)
+					if ($path !== false)
 					{
-						$setting_language[$setting->module] = $this->lang->load($setting->module . '/settings', '', TRUE);
+						$setting_language[$setting->module] = $this->lang->load($setting->module.'/settings', '', true);
 
-						if (empty($section_name) && isset($setting_language[$setting->module]['settings_section_' . $setting->module]))
+						if (empty($section_name) && isset($setting_language[$setting->module]['settings_section_'.$setting->module]))
 						{
-							$section_name = $setting_language[$setting->module]['settings_section_' . $setting->module];
+							$section_name = $setting_language[$setting->module]['settings_section_'.$setting->module];
 						}
 					}
 				}
@@ -85,8 +85,8 @@ class Admin extends Admin_Controller {
 
 			// Get Setting title and description translations as Section name
 			foreach (array(
-				'title' => 'settings_' . $setting->slug,
-				'description' => 'settings_' . $setting->slug . '_desc'
+				'title' => 'settings_'.$setting->slug,
+				'description' => 'settings_'.$setting->slug.'_desc'
 			) as $key => $name)
 			{
 				${$key} = lang($name);
@@ -131,18 +131,15 @@ class Admin extends Admin_Controller {
 		}
 		
 		$settings = $this->settings_m->get_many_by(array('is_gui'=>1));
-		$settings_stored = array();
 
 		// Create dynamic validation rules
 		foreach ($settings as $setting)
 		{
 			$this->validation_rules[] = array(
-				'field' => $setting->slug . (in_array($setting->type, array('select-multiple', 'checkbox')) ? '[]' : ''),
-				'label' => 'lang:settings_' . $setting->slug,
-				'rules' => 'trim' . ($setting->is_required ? '|required' : '') . ($setting->type !== 'textarea' ? '|max_length[255]' : '')
+				'field' => $setting->slug.(in_array($setting->type, array('select-multiple', 'checkbox')) ? '[]' : ''),
+				'label' => 'lang:settings_'.$setting->slug,
+				'rules' => 'trim'.($setting->is_required ? '|required' : '').($setting->type !== 'textarea' ? '|max_length[255]' : '')
 			);
-
-			$settings_stored[$setting->slug] = $setting->value;
 		}
 
 		// Set the validation rules
@@ -151,20 +148,31 @@ class Admin extends Admin_Controller {
 		// Got valid data?
 		if ($this->form_validation->run())
 		{
+			$settings_stored = array();
+			
 			// Loop through again now we know it worked
-			foreach ($settings_stored as $slug => $stored_value)
+			foreach ($settings as $setting)
 			{
-				$input_value = $this->input->post($slug, FALSE);
+				$new_value = $this->input->post($setting->slug, false);
 
-				if (is_array($input_value))
+				// Store arrays as CSV
+				if (is_array($new_value))
 				{
-					$input_value = implode(',', $input_value);
+					$new_value = implode(',', $new_value);
+				}
+
+				// Only update passwords if not placeholder value
+				if ($setting->type === 'password' and $new_value === 'XXXXXXXXXXXX')
+				{
+					continue;
 				}
 
 				// Dont update if its the same value
-				if ($input_value !== $stored_value)
+				if ($new_value != $setting->value)
 				{
-					$this->settings->set($slug, $input_value);
+					Settings::set($setting->slug, $new_value);
+
+					$settings_stored[$setting->slug] = $new_value;
 				}
 			}
 			
@@ -172,14 +180,13 @@ class Admin extends Admin_Controller {
 			Events::trigger('settings_updated', $settings_stored);
 
 			// Success...
-			$this->session->set_flashdata('success', $this->lang->line('settings_save_success'));
+			$this->session->set_flashdata('success', lang('settings_save_success'));
 		}
 		elseif (validation_errors())
 		{
 			$this->session->set_flashdata('error', validation_errors());
 		}
 
-		// Redirect user back to index page or the module/section settings they are editing
 		redirect('admin/settings');
 	}
 

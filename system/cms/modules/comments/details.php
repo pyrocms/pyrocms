@@ -8,7 +8,7 @@
  */
 class Module_Comments extends Module {
 
-	public $version = '1.0';
+	public $version = '1.1.0';
 
 	public function info()
 	{
@@ -36,7 +36,7 @@ class Module_Comments extends Module {
 				'zh' => '回應',
 				'hu' => 'Hozzászólások',
 				'th' => 'ความคิดเห็น',
-                                'se' => 'Kommentarer'
+				'se' => 'Kommentarer',
 			),
 			'description' => array(
 				'en' => 'Users and guests can write comments for content like blog, pages and photos.',
@@ -61,7 +61,7 @@ class Module_Comments extends Module {
 				'zh' => '用戶和訪客可以針對新聞、頁面與照片等內容發表回應。',
 				'hu' => 'A felhasználók és a vendégek hozzászólásokat írhatnak a tartalomhoz (bejegyzésekhez, oldalakhoz, fotókhoz).',
 				'th' => 'ผู้ใช้งานและผู้เยี่ยมชมสามารถเขียนความคิดเห็นในเนื้อหาของหน้าเว็บบล็อกและภาพถ่าย',
-                                'se' => 'Användare och besökare kan skriva kommentarer till innehåll som blogginlägg, sidor och bilder.'
+				'se' => 'Användare och besökare kan skriva kommentarer till innehåll som blogginlägg, sidor och bilder.',
 			),
 			'frontend' => false,
 			'backend'  => true,
@@ -75,18 +75,23 @@ class Module_Comments extends Module {
 
 		$tables = array(
 			'comments' => array(
-				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
-				'is_active' => array('type' => 'INT', 'constraint' => 1, 'default' => 0,),
-				'user_id' => array('type' => 'INT', 'constraint' => 11, 'default' => 0,),
-				'name' => array('type' => 'VARCHAR', 'constraint' => 40, 'default' => '',),
-				'email' => array('type' => 'VARCHAR', 'constraint' => 40, 'default' => '',), // @todo Shouldn't this be 255?
-				'website' => array('type' => 'VARCHAR', 'constraint' => 255,),
-				'comment' => array('type' => 'TEXT',),
-				'parsed' => array('type' => 'TEXT',),
-				'module' => array('type' => 'VARCHAR', 'constraint' => 40,),
-				'module_id' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => 0,),
-				'created_on' => array('type' => 'VARCHAR', 'constraint' => 11, 'default' => '0',), // @todo Shouldn't this be an int?
-				'ip_address' => array('type' => 'VARCHAR', 'constraint' => 15, 'default' => '',),
+				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true),
+				'is_active' => array('type' => 'INT', 'constraint' => 1, 'default' => 0),
+				'user_id' => array('type' => 'INT', 'constraint' => 11, 'default' => 0),
+				'user_name' => array('type' => 'VARCHAR', 'constraint' => 40, 'default' => ''),
+				'user_email' => array('type' => 'VARCHAR', 'constraint' => 40, 'default' => ''), // @todo Shouldn't this be 255?
+				'user_website' => array('type' => 'VARCHAR', 'constraint' => 255),
+				'comment' => array('type' => 'TEXT'),
+				'parsed' => array('type' => 'TEXT'),
+				'module' => array('type' => 'VARCHAR', 'constraint' => 40),
+				'entry_id' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => 0),
+				'entry_title' => array('type' => 'char', 'constraint' => 255, 'null' => false),
+				'entry_key' => array('type' => 'varchar', 'constraint' => 100, 'null' => false),
+				'entry_plural' => array('type' => 'varchar', 'constraint' => 100, 'null' => false),
+				'uri' => array('type' => 'varchar', 'constraint' => 255, 'null' => true),
+				'cp_uri' => array('type' => 'varchar','constraint' => 255, 'null' => true),
+				'created_on' => array('type' => 'INT', 'constraint' => 11, 'default' => '0'), // @todo Shouldn't this be an int?
+				'ip_address' => array('type' => 'VARCHAR', 'constraint' => 15, 'default' => ''),
 			),
 		);
 
@@ -106,7 +111,7 @@ class Module_Comments extends Module {
 
 	public function upgrade($old_version)
 	{
-		return TRUE;
+		return true;
 	}
 
 }

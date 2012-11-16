@@ -3,8 +3,8 @@
 	<header><h3><?php echo $widget->title; ?></h3></header>
 
 	<?php echo form_hidden('widget_id', $widget->id); ?>
-	<?php echo isset($widget->instance_id) ? form_hidden('widget_instance_id', $widget->instance_id) : NULL; ?>
-	<?php echo isset($error) && $error ? $error : NULL; ?>
+	<?php echo isset($widget->instance_id) ? form_hidden('widget_instance_id', $widget->instance_id) : null; ?>
+	<?php echo isset($error) && $error ? $error : null; ?>
 
 	<ol>
 		<li>
@@ -15,7 +15,7 @@
 
 		<li>
 			<label><?php echo lang('widgets.show_title'); ?>:</label>
-			<?php echo form_checkbox('show_title', TRUE, set_value('show_title')); ?>
+			<?php echo form_checkbox('show_title', true, isset($widget->options['show_title']) ? $widget->options['show_title'] : false); ?>
 		</li>
 
 		<?php if (isset($widget_areas)): ?>
@@ -25,7 +25,7 @@
 		</li>
 		<?php endif; ?>
 	</ol>
-	<?php echo $form ? $form : NULL; ?>
+	<?php echo $form ? $form : null; ?>
 
 	<div id="instance-actions" class="align-right padding-bottom padding-right buttons buttons-small">
 		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel'))); ?>

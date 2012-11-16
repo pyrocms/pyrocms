@@ -19,7 +19,7 @@ class Plugin_Settings extends Plugin
 	 *
 	 * @return string
 	 */
-	function __call($name, $data)
+	public function __call($name, $data)
 	{
 		return $this->settings->get($name);
 	}

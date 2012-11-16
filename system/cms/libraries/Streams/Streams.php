@@ -92,7 +92,7 @@ class Streams extends CI_Driver_Library {
 	 * @param	obj|int|string $namespace
 	 * @return	null|int
 	 */
-	public function stream_id($stream, $namespace = NULL)
+	public function stream_id($stream, $namespace = null)
 	{
 		// If we have an ID, then we're done.
 		if (is_numeric($stream)) return $stream;

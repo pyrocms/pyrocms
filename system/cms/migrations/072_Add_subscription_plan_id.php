@@ -8,7 +8,7 @@ class Migration_Add_subscription_plan_id extends CI_Migration {
 			'subscription_plan_id' => array(
 				'type' => 'INT',
 				'constraint' => 5,
-				'null' => TRUE,
+				'null' => true,
 			),
 		));
 	}

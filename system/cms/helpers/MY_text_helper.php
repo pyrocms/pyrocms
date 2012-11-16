@@ -5,8 +5,9 @@
  *
  * This overrides Codeigniter's helpers/array_helper.php file.
  * 
- * @author		PyroCMS Dev Team
  * @package		PyroCMS\Core\Helpers
+ * @author      PyroCMS Dev Team
+ * @copyright   Copyright (c) 2012, PyroCMS LLC
  */
 if ( ! function_exists('nl2p'))
 {
@@ -82,7 +83,7 @@ if ( ! function_exists('process_data_jmr1'))
         )                                   # If we made it here, we are not in a blacklist tag.
         %Six';
 
-		if (($data = preg_replace($re, ' ', $text)) === NULL)
+		if (($data = preg_replace($re, ' ', $text)) === null)
 		{
 			log_message('error', 'PCRE Error! Output of the page "'.uri_string().'" is too big.');
 

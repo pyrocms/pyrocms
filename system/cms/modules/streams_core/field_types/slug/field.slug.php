@@ -33,7 +33,7 @@ class Field_slug
 	 */
 	public function event()
 	{
-		$this->CI->type->add_misc("<script>function slugify_field(str, type){return str.toLowerCase().replace(/-+/g, '').replace(/\s+/g, type).replace(/[^a-z0-9_\-]/g, '');}</script>");
+		$this->CI->type->add_misc("<script>function slugify_field(str, type){return str.toLowerCase().replace(/[èéêë]/g,'e').replace(/-+/g, '').replace(/\s+/g, type).replace(/[^a-z0-9_\-]/g, '');}</script>");
 	}
 	
 	// --------------------------------------------------------------------------

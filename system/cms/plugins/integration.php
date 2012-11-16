@@ -23,7 +23,7 @@ class Plugin_Integration extends Plugin
 	 */
 	public function analytics()
 	{
-		return $this->load->view('fragments/google_analytics', NULL, TRUE);
+		return $this->load->view('fragments/google_analytics', null, true);
 	}
 
 	/**

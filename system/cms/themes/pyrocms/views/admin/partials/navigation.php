@@ -1,6 +1,6 @@
 <ul class="primary-nav">
 	
-	<li id="dashboard-link"><?php echo anchor('admin', lang('global:dashboard'), 'class="btn orange' . (!$this->module > '' ? ' current' : '').'"');?></li>
+	<li id="dashboard-link"><?php echo anchor('admin', lang('global:dashboard'), (!$this->module > '' ? 'current' : '').'"');?></li>
 	
 		<?php
 		foreach ($menu_items as $menu_item)

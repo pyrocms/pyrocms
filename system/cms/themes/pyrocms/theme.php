@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Theme_PyroCMS extends Theme {
+class Theme_Pyrocms extends Theme {
 
     public $name			= 'PyroCMS - Admin Theme';
     public $author			= 'PyroCMS Dev Team';
@@ -14,28 +14,28 @@ class Theme_PyroCMS extends Theme {
 																'default'       => 'yes',
 																'type'          => 'radio',
 																'options'       => 'yes=Yes|no=No',
-																'is_required'   => TRUE),
+																'is_required'   => true),
 																
 									'pyrocms_news_feed' => 			array('title' => 'News Feed',
 																'description'   => 'Would you like to display the news feed on the dashboard?',
 																'default'       => 'yes',
 																'type'          => 'radio',
 																'options'       => 'yes=Yes|no=No',
-																'is_required'   => TRUE),
+																'is_required'   => true),
 																
 									'pyrocms_quick_links' => 		array('title' => 'Quick Links',
 																'description'   => 'Would you like to display quick links on the dashboard?',
 																'default'       => 'yes',
 																'type'          => 'radio',
 																'options'       => 'yes=Yes|no=No',
-																'is_required'   => TRUE),
+																'is_required'   => true),
 																
 									'pyrocms_analytics_graph' => 	array('title' => 'Analytics Graph',
 																'description'   => 'Would you like to display the graph on the dashboard?',
 																'default'       => 'yes',
 																'type'          => 'radio',
 																'options'       => 'yes=Yes|no=No',
-																'is_required'   => TRUE),
+																'is_required'   => true),
 								   );
 	
 	/**
@@ -66,7 +66,7 @@ class Theme_PyroCMS extends Theme {
 		if ($this->current_user)
 		{
 			$modules = $this->module_m->get_all(array(
-				'is_backend' => TRUE,
+				'is_backend' => true,
 				'group' => $this->current_user->group,
 				'lang' => CURRENT_LANGUAGE
 			));
@@ -100,9 +100,9 @@ class Theme_PyroCMS extends Theme {
 	
 	public function get_analytics()
 	{
-		if ($this->settings->ga_email AND $this->settings->ga_password AND $this->settings->ga_profile)
+		if ($this->settings->ga_email and $this->settings->ga_password and $this->settings->ga_profile)
 		{
-			// Not FALSE? Return it
+			// Not false? Return it
 			if ($cached_response = $this->pyrocache->get('analytics'))
 			{
 				$data['analytic_visits'] = $cached_response['analytic_visits'];
@@ -138,7 +138,7 @@ class Theme_PyroCMS extends Theme {
 							$month = substr($date, 4, 2);
 							$day = substr($date, 6, 2);
 
-							$utc = mktime(date('h') + 1, NULL, NULL, $month, $day, $year) * 1000;
+							$utc = mktime(date('h') + 1, null, null, $month, $day, $year) * 1000;
 
 							$flot_datas_visits[] = '[' . $utc . ',' . $visit . ']';
 							$flot_datas_views[] = '[' . $utc . ',' . $views[$date] . ']';
@@ -184,13 +184,15 @@ class Theme_PyroCMS extends Theme {
 	
 	public function get_recent_comments()
 	{
-		$this->load->model('comments/comments_m');
+		$this->load->library('comments/comments');
+		$this->load->model('comments/comment_m');
+
 		$this->load->model('users/user_m');
 
 		$this->lang->load('comments/comments');
 
-		$recent_comments = $this->comments_m->get_recent(5);
-		$data['recent_comments'] = process_comment_items($recent_comments);
+		$recent_comments = $this->comment_m->get_recent(5);
+		$data['recent_comments'] = $this->comments->process($recent_comments);
 		
 		$this->template->set($data);
 	}

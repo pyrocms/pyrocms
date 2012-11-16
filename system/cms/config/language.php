@@ -21,84 +21,84 @@ $config['supported_languages'] = array(
         'folder'    => 'english',
         'direction'    => 'ltr',
         'codes'        => array('en', 'english', 'en_US'),
-        'ckeditor'    => NULL
+        'ckeditor'    => null
     ),
     'de' => array(
         'name'        => 'Deutsch',
         'folder'    => 'german',
         'direction'    => 'ltr',
         'codes'        => array('de', 'german', 'de_DE'),
-        'ckeditor'    => NULL
+        'ckeditor'    => null
     ),
     'ar' => array(
         'name'        => 'العربية',
         'folder'    => 'arabic',
         'direction'    => 'rtl',
         'codes'        => array('ar', 'arabic', 'ar_SA'),
-        'ckeditor'    => NULL
+        'ckeditor'    => null
     ),
     'cs' => array(
         'name'        => 'Česky',
         'folder'    => 'czech',
         'direction'    => 'ltr',
         'codes'        => array('csy', 'czech', 'cs_CZ'),
-        'ckeditor'    => NULL
+        'ckeditor'    => null
     ),
     'el' => array(
         'name'        => 'Ελληνικά',
         'folder'    => 'greek',
         'direction'    => 'ltr',
         'codes'        => array('ell', 'greek', 'el_GR'),
-        'ckeditor'    => NULL
+        'ckeditor'    => null
     ),
     'es' => array(
         'name'        => 'Espa&ntilde;ol',
         'folder'    => 'spanish',
         'direction'    => 'ltr',
         'codes'        => array('esp', 'spanish', 'es_ES'),
-        'ckeditor'    => NULL
+        'ckeditor'    => null
     ),
     'fr' => array(
         'name'        => 'Français',
         'folder'    => 'french',
         'direction'    => 'ltr',
         'codes'        => array('fra', 'french', 'fr_FR'),
-        'ckeditor'    => NULL
+        'ckeditor'    => null
     ),
     'it' => array(
         'name'        => 'Italiano',
         'folder'    => 'italian',
         'direction'    => 'ltr',
         'codes'        => array('ita', 'italian', 'it_IT'),
-        'ckeditor'    => NULL
+        'ckeditor'    => null
     ),
     'nl' => array(
         'name'        => 'Nederlands',
         'folder'    => 'dutch',
         'direction'    => 'ltr',
         'codes'        => array('dutch', 'nld', 'nl-NL'),
-        'ckeditor'    => NULL
+        'ckeditor'    => null
     ),
     'se' => array(
         'name'        => 'Svenska',
         'folder'    => 'swedish',
         'direction'    => 'ltr',
         'codes'        => array('se', 'swedish', 'se_SE'),
-        'ckeditor'    => NULL
+        'ckeditor'    => null
     ),
     'sl' => array(
         'name'        => 'Slovensko',
         'folder'    => 'slovenian',
         'direction'    => 'ltr',
         'codes'        => array('sl', 'slovenian', 'sl_SI'),
-        'ckeditor'    => NULL
+        'ckeditor'    => null
     ),
     'pl' => array(
         'name'        => 'Polski',
         'folder'    => 'polish',
         'direction'    => 'ltr',
         'codes'        => array('plk', 'polish', 'pl_PL'),
-        'ckeditor'    => NULL
+        'ckeditor'    => null
     ),
 	'pt' => array(
 		'name'		=> 'Portugu&ecirc;s de Portugal',
@@ -119,63 +119,63 @@ $config['supported_languages'] = array(
         'folder'    => 'russian',
         'direction'    => 'ltr',
         'codes'        => array('rus', 'russian', 'ru_RU'),
-        'ckeditor'    => NULL
+        'ckeditor'    => null
     ),
     'zh' => array(
         'name'        => '繁體中文',
         'folder'    => 'chinese_traditional',
         'direction'    => 'ltr',
         'codes'        => array('cht', 'chinese-traditional', 'zh_HK'),
-        'ckeditor'    => NULL
+        'ckeditor'    => null
     ),
     'he' => array(
         'name'        => 'עברית',
         'folder'    => 'hebrew',
         'direction'    => 'rtl',
         'codes'        => array('he', 'hebrew', 'he_IL'),
-        'ckeditor'    => NULL
+        'ckeditor'    => null
     ),
     'lt' => array(
         'name'        => 'Lietuvių',
         'folder'    => 'lithuanian',
         'direction'    => 'ltr',
         'codes'        => array('lt', 'lithuanian', 'lt_LT'),
-        'ckeditor'    => NULL
+        'ckeditor'    => null
     ),
     'fi' => array(
         'name'        => 'Suomi',
         'folder'    => 'finnish',
         'direction'    => 'ltr',
         'codes'        => array('fi', 'finnish', 'fi_FI'),
-        'ckeditor'    => NULL
+        'ckeditor'    => null
     ),
     'da' => array(
         'name'        => 'Dansk',
         'folder'    => 'danish',
         'direction'    => 'ltr',
         'codes'        => array('da', 'danish', 'da_DK'),
-        'ckeditor'    => NULL
+        'ckeditor'    => null
     ),
     'id' => array(
         'name'        => 'Bahasa Indonesia',
         'folder'    => 'indonesian',
         'direction'    => 'ltr',
         'codes'        => array('id', 'indonesian' ,'id_ID'),
-        'ckeditor'    => NULL
+        'ckeditor'    => null
     ),
     'hu' => array(
         'name'          => 'Magyar',
         'folder'        => 'hungarian',
         'direction'     => 'ltr',
         'codes'         => array('hu', 'hu_HU'),
-        'ckeditor'      => NULL
+        'ckeditor'      => null
     ),
     'th' => array(
         'name'        => 'ไทย',
         'folder'    => 'thai',
         'direction'    => 'ltr',
         'codes'        => array('th', 'thai', 'th_TH'),
-        'ckeditor'    => NULL
+        'ckeditor'    => null
     )
 );
 

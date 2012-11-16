@@ -3,8 +3,8 @@
 /**
  * Shared logic and data for all CMS controllers
  *
- * @author		Phil Sturgeon
- * @author		PyroCMS Dev Team
+ * @author      PyroCMS Dev Team
+ * @copyright   Copyright (c) 2012, PyroCMS LLC
  * @package		PyroCMS\Core\Controllers
  */
 class WYSIWYG_Controller extends MY_Controller
@@ -18,7 +18,7 @@ class WYSIWYG_Controller extends MY_Controller
 		parent::__construct();
 
 		// Not logged in or not an admin and don't have permission to see files
-		if ( ! $this->current_user OR
+		if ( ! $this->current_user or
 			($this->current_user->group !== 'admin' AND 
 			( ! isset($this->permissions['files']) OR
 			  ! isset($this->permissions['files']['wysiwyg']))))
@@ -51,7 +51,7 @@ class WYSIWYG_Controller extends MY_Controller
 		$this->template
 			->set_theme(ADMIN_THEME)
 			->set_layout('wysiwyg', 'admin')
-			->enable_parser(FALSE)
+			->enable_parser(false)
 			->append_css('module::wysiwyg.css')
 			->append_css('jquery/ui-lightness/jquery-ui.css')
 			->append_js('jquery/jquery.js')

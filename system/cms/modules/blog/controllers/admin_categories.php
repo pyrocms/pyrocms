@@ -26,8 +26,13 @@ class Admin_Categories extends Admin_Controller {
 			'rules' => 'trim|required|max_length[100]|callback__check_title'
 		),
 		array(
+			'field' => 'slug',
+			'label' => 'lang:global:slug',
+			'rules' => 'trim|required|max_length[100]|callback__check_slug'
+		),
+		array(
 			'field' => 'id',
-			'rules' => 'trim|is_numeric'			
+			'rules' => 'trim|numeric'			
 		),
 	);
 	
@@ -60,7 +65,7 @@ class Admin_Categories extends Admin_Controller {
 		
 		// Create pagination links
 		$total_rows = $this->blog_categories_m->count_all();
-		$pagination = create_pagination('admin/blog/categories/index', $total_rows, NULL, 5);
+		$pagination = create_pagination('admin/blog/categories/index', $total_rows, null, 5);
 			
 		// Using this data, get the relevant results
 		$categories = $this->blog_categories_m->order_by('title')->limit($pagination['limit'])->get_all();
@@ -79,10 +84,12 @@ class Admin_Categories extends Admin_Controller {
 	 */
 	public function create()
 	{
+		$category = new stdClass;
+
 		// Validate the data
 		if ($this->form_validation->run())
 		{
-			if ($id = $this->blog_categories_m->insert($_POST))
+			if ($id = $this->blog_categories_m->insert($this->input->post()))
 			{
 				// Fire an event. A new blog category has been created.
 				Events::trigger('blog_category_created', $id);
@@ -108,6 +115,7 @@ class Admin_Categories extends Admin_Controller {
 		$this->template
 			->title($this->module_details['name'], lang('cat_create_title'))
 			->set('category', $category)
+			->append_js('module::blog_category_form.js')
 			->build('admin/categories/form');	
 	}
 	
@@ -125,12 +133,12 @@ class Admin_Categories extends Admin_Controller {
 		// ID specified?
 		$category or redirect('admin/blog/categories/index');
 
-		$this->form_validation->set_rules('id', 'ID', 'trim|required|is_numeric');
+		$this->form_validation->set_rules('id', 'ID', 'trim|required|numeric');
 		
 		// Validate the results
 		if ($this->form_validation->run())
 		{		
-			$this->blog_categories_m->update($id, $_POST)
+			$this->blog_categories_m->update($id, $this->input->post())
 				? $this->session->set_flashdata('success', sprintf( lang('cat_edit_success'), $this->input->post('title')) )
 				: $this->session->set_flashdata('error', lang('cat_edit_error'));
 			
@@ -143,7 +151,7 @@ class Admin_Categories extends Admin_Controller {
 		// Loop through each rule
 		foreach ($this->validation_rules as $rule)
 		{
-			if ($this->input->post($rule['field']) !== FALSE)
+			if ($this->input->post($rule['field']) !== null)
 			{
 				$category->{$rule['field']} = $this->input->post($rule['field']);
 			}
@@ -152,6 +160,7 @@ class Admin_Categories extends Admin_Controller {
 		$this->template
 			->title($this->module_details['name'], sprintf(lang('cat_edit_title'), $category->title))
 			->set('category', $category)
+			->append_js('module::blog_category_form.js')
 			->build('admin/categories/form');
 	}	
 
@@ -210,13 +219,31 @@ class Admin_Categories extends Admin_Controller {
 	public function _check_title($title = '')
 	{
 		$id = $this->input->post('id');
-		if ($this->blog_categories_m->check_title($title,$id))
+		if ($this->blog_categories_m->check_title($title, $id))
 		{
 			$this->form_validation->set_message('_check_title', sprintf(lang('cat_already_exist_error'), $title));
-			return FALSE;
+			return false;
 		}
 
-		return TRUE;
+		return true;
+	}
+		
+	/**
+	 * Callback method that checks the slug of the category
+	 * 
+	 * @param string slug The slug to check
+	 * @return bool
+	 */
+	public function _check_slug($slug = '')
+	{
+		$id = $this->input->post('id');
+		if ($this->blog_categories_m->check_title($slug, $id))
+		{
+			$this->form_validation->set_message('_check_slug', sprintf(lang('cat_already_exist_error'), $slug));
+			return false;
+		}
+
+		return true;
 	}
 	
 	/**
@@ -227,6 +254,7 @@ class Admin_Categories extends Admin_Controller {
 	public function create_ajax()
 	{
 		$category = new stdClass();
+
 		// Loop through each validation rule
 		foreach ($this->validation_rules as $rule)
 		{
@@ -244,7 +272,7 @@ class Admin_Categories extends Admin_Controller {
 			
 			if ($id > 0)
 			{
-				$message = sprintf(lang('cat_add_success'), $this->input->post('title', TRUE));
+				$message = sprintf(lang('cat_add_success'), $this->input->post('title', true));
 			}
 			else
 			{
@@ -261,7 +289,7 @@ class Admin_Categories extends Admin_Controller {
 		else
 		{
 			// Render the view
-			$form = $this->load->view('admin/categories/form', $data, TRUE);
+			$form = $this->load->view('admin/categories/form', $data, true);
 
 			if ($errors = validation_errors())
 			{

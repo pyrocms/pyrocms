@@ -18,7 +18,7 @@ class Plugin_Global extends Plugin
 	 *
 	 * @return	null|string
 	 */
-	function __call($name, $data)
+	public function __call($name, $data)
 	{
 		// A constant
 		if (defined(strtoupper($name)))
@@ -27,12 +27,12 @@ class Plugin_Global extends Plugin
 		}
 		
 		// A global variable ($this->controller etc)
-		elseif (isset(get_instance()->$name) AND is_scalar($this->$name))
+		elseif (isset(get_instance()->$name) and is_scalar($this->$name))
 		{
 			return $this->$name;
 		}
 
-		return NULL;
+		return null;
 	}
 
 }

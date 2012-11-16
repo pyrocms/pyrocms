@@ -239,7 +239,7 @@ select.chzn-select {
   text-decoration: none;
 }
 .chzn-container-single .chzn-single span {
-  margin-top: 5px;
+  margin-top: 0;
   margin-right: 26px;
   display: block;
   overflow: hidden;

@@ -30,6 +30,13 @@ $lang['global:operators:not-equal'] 	= 'Rozdílné od';
 $lang['global:operators:less-than'] 	= 'Méně než';
 $lang['global:operators:greater-than'] 	= 'Více než';
 
+$lang['global:duration:1-day']			= 'One day'; #translate
+$lang['global:duration:1-week']			= 'One week'; #translate
+$lang['global:duration:2-weeks']		= 'Two weeks'; #translate
+$lang['global:duration:1-month']		= 'One month'; #translate
+$lang['global:duration:3-months']		= 'Three Months'; #translate
+$lang['global:duration:always']			= 'Always'; #translate
+
 $lang['navigation_headline'] 			= 'Navigace';
 $lang['breadcrumb_base_label'] 			= 'Domů';
 
@@ -50,8 +57,8 @@ $lang['global:demo_restrictions']       = 'Some features on this page have been 
 
 $lang['login_error_label'] 				= 'Chyba při přihlášení';
 $lang['forgot_password_label'] 			= 'Zapomenuté heslo?';
-$lang['email_label'] 					= 'E-mail';
-$lang['password_label'] 				= 'Heslo';
+$lang['global:email'] 					= 'E-mail';
+$lang['global:password'] 				= 'Heslo';
 $lang['login_label'] 					= 'Přihlásit';
 
 $lang['help_label'] 					= 'Nápověda';
@@ -63,7 +70,7 @@ $lang['activate_label'] 				= 'Aktivovat';
 $lang['approve_label']					= 'Schválit';
 $lang['unapprove_label']				= 'Zamítnout';
 $lang['publish_label'] 					= 'Publikovat';
-$lang['upload_label'] 					= 'Nahrát';
+$lang['global:upload'] 					= 'Nahrát';
 $lang['global:uninstall'] 				= 'Odinstalovat';
 $lang['global:install'] 					= 'Instalovat';
 $lang['global:enable']					= 'Zapnout';

@@ -2,8 +2,9 @@
 /**
  * The admin class is basically the main controller for the backend.
  *
- * @author PyroCMS Development Team
- * @package	 PyroCMS\Core\Controllers
+ * @author      PyroCMS Dev Team
+ * @copyright   Copyright (c) 2012, PyroCMS LLC
+ * @package	 	PyroCMS\Core\Controllers
  */
 class Admin extends Admin_Controller
 {
@@ -23,13 +24,23 @@ class Admin extends Admin_Controller
 	public function index()
 	{
 		$this->template
-			->enable_parser(TRUE)
+			->enable_parser(true)
 			->title(lang('global:dashboard'));
 
 		if (is_dir('./installer'))
 		{
-			$this->template
-				->set('messages', array('notice' => lang('cp_delete_installer_message')));
+			$this->load->helper('file');
+
+			// if the contents of "installer" delete successfully then finish off the installer dir
+			if(delete_files('./installer', true) and count(scandir('./installer')) == 2 )
+			{
+				rmdir('./installer');
+			}
+			else 
+			{
+				$this->template
+					->set('messages', array('notice' => lang('cp_delete_installer_message')));
+			}
 		}
 
 		$this->template
@@ -45,12 +56,12 @@ class Admin extends Admin_Controller
 		$this->validation_rules = array(
 			array(
 				'field' => 'email',
-				'label' => lang('email_label'),
+				'label' => lang('global:email'),
 				'rules' => 'required|callback__check_login'
 			),
 			array(
 				'field' => 'password',
-				'label' => lang('password_label'),
+				'label' => lang('global:password'),
 				'rules' => 'required'
 			)
 		);
@@ -60,7 +71,7 @@ class Admin extends Admin_Controller
 		$this->form_validation->set_rules($this->validation_rules);
 
 		// If the validation worked, or the user is already logged in
-		if ($this->form_validation->run() OR $this->ion_auth->logged_in())
+		if ($this->form_validation->run() or $this->ion_auth->logged_in())
 		{
 			// if they were trying to go someplace besides the 
 			// dashboard we'll have stored it in the session
@@ -71,7 +82,7 @@ class Admin extends Admin_Controller
 		}
 
 		$this->template
-			->set_layout(FALSE)
+			->set_layout(false)
 			->build('admin/login');
 	}
 

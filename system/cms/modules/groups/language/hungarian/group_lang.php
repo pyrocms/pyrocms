@@ -1,9 +1,9 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 // labels
-$lang['groups.title']			= 'Cím';
-$lang['groups.name']			= 'Név';
-$lang['groups.short_name']		= 'Rövidített név';
+$lang['groups.title']                   = 'Cím';
+$lang['groups.name']                    = 'Név';
+$lang['groups.short_name']              = 'Rövid név';
 
 // titles
 $lang['groups.index_title']             = 'Csoportok listája';

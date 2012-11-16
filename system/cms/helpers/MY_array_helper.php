@@ -5,12 +5,13 @@
  * 
  * This overrides Codeigniter's helpers/array_helper.php file.
  *
- * @author		Philip Sturgeon
+ * @author      PyroCMS Dev Team
+ * @copyright   Copyright (c) 2012, PyroCMS LLC
  * @package		PyroCMS\Core\Helpers
  */
 
 
-if (!function_exists('array_object_merge'))
+if ( ! function_exists('array_object_merge'))
 {
 	/**
 	 * Merge an array or an object into another object
@@ -40,7 +41,7 @@ if (!function_exists('array_for_select'))
 	 */
 	function array_for_select()
 	{
-		$args = & func_get_args();
+		$args = func_get_args();
 
 		$return = array();
 
@@ -69,7 +70,7 @@ if (!function_exists('array_for_select'))
 				break;
 
 			default:
-				return FALSE;
+				return false;
 		}
 
 		return $return;
@@ -127,7 +128,7 @@ if (!function_exists('assoc_array_prop'))
 	 * @param string $prop Should be a common property with value scalar, as id, slug, order.
 	 * @return array 
 	 */
-	function assoc_array_prop(array &$arr = NULL, $prop = 'id')
+	function assoc_array_prop(array &$arr = null, $prop = 'id')
 	{
 		$newarr = array();
 

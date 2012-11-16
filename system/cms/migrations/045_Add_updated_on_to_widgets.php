@@ -8,7 +8,7 @@ class Migration_Add_updated_on_to_widgets extends CI_Migration {
 			'updated_on' => array(
 				'type'			=> 'int',
 				'constraint'	=> 11,
-				'null'			=> FALSE,
+				'null'			=> false,
 				'default'		=> 0
 			)
 		));

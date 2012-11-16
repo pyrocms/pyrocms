@@ -75,6 +75,7 @@ class Fields
      * @param	bool - are we using reCAPTCHA?
      * @param	array - all the skips
      * @param	array - extra data:
+     * @param	array - default values: Only used during new method.
      *
      * - email_notifications
      * - return
@@ -86,7 +87,7 @@ class Fields
      *
      * @return	array - fields
      */
- 	public function build_form($stream, $method, $row = false, $plugin = false, $recaptcha = false, $skips = array(), $extra = array())
+ 	public function build_form($stream, $method, $row = false, $plugin = false, $recaptcha = false, $skips = array(), $extra = array(), $defaults = array())
  	{
  		$this->CI->load->helper(array('form', 'url'));
  	
@@ -95,10 +96,10 @@ class Fields
 		// -------------------------------------
 		
 		$default_extras = array(
-			'email_notifications'		=> NULL,
+			'email_notifications'		=> null,
 			'return'					=> current_url(),
-			'error_start'				=> NULL,
-			'error_end'					=> NULL,
+			'error_start'				=> null,
+			'error_end'					=> null,
 			'required'					=> '<span>*</span>'
 		);
 
@@ -167,7 +168,7 @@ class Fields
 		// Set Values
 		// -------------------------------------
 
-		$values = $this->set_values($stream_fields, $row, $method, $skips);
+		$values = $this->set_values($stream_fields, $row, $method, $skips, $defaults);
 
 		// -------------------------------------
 		// Validation
@@ -303,9 +304,10 @@ class Fields
 	 * @param 	object - row
 	 * @param 	string - edit or new
 	 * @param 	array
+	 * @param 	array
 	 * @return 	array
 	 */
-	public function set_values($stream_fields, $row, $mode, $skips)
+	public function set_values($stream_fields, $row, $mode, $skips, $defaults)
 	{
 		$values = array();
 		
@@ -318,7 +320,8 @@ class Fields
 					// If this is a new entry and there is no post data,
 					// we see if:
 					// a - there is data from the DB to show
-					// b - there is a default value to show
+					// b - 1. there is a defaults value sent to the form ($defaults)
+					// b - 2. there is a default value to show from the assignment
 					// Otherwise, it's just null
 					if (isset($row->{$stream_field->field_slug}))
 					{
@@ -326,7 +329,7 @@ class Fields
 					}
 					else
 					{
-						$values[$stream_field->field_slug] = (isset($stream_field->field_data['default_value'])) ? $stream_field->field_data['default_value'] : null;
+						$values[$stream_field->field_slug] = (isset($defaults[$stream_field->field_slug]) ? $defaults[$stream_field->field_slug] : (isset($stream_field->field_data['default_value']) ? $stream_field->field_data['default_value'] : null));
 					}
 				}
 				else
@@ -477,7 +480,7 @@ class Fields
 							
 				if ($stream_field->is_required == 'yes')
 				{
-					if (isset($type->input_is_file) && $type->input_is_file === TRUE)
+					if (isset($type->input_is_file) && $type->input_is_file === true)
 					{
 						$rules[] = 'streams_file_required['.$stream_field->field_slug.']';
 					}
@@ -640,8 +643,8 @@ class Fields
 
 		// We accept a null to/from, as these can be
 		// created automatically.
-		if ( ! isset($notify) AND ! $notify) return NULL;
-		if ( ! isset($template) AND ! $template) return NULL;
+		if ( ! isset($notify) and ! $notify) return null;
+		if ( ! isset($template) and ! $template) return null;
 			
 		// -------------------------------------
 		// Get e-mails. Forget if there are none
@@ -649,7 +652,7 @@ class Fields
 
 		$emails = explode("|", $notify);
 
-		if (empty($emails)) return NULL;
+		if (empty($emails)) return null;
 
 		foreach($emails as $key => $piece)
 		{
@@ -713,7 +716,7 @@ class Fields
 
 		$this->CI->load->library('Email');
 		
-		if (isset($from) AND $from)
+		if (isset($from) and $from)
 		{
 			$email_pieces = explode("|", $from);
 		
@@ -763,7 +766,7 @@ class Fields
 	 */
 	private function _process_email_address($email)
 	{	
-		if (strpos($email, '@') === FALSE AND $this->CI->input->post($email))
+		if (strpos($email, '@') === false and $this->CI->input->post($email))
 		{
 			return $this->CI->input->post($email);
 		}

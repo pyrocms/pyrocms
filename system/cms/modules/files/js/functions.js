@@ -10,7 +10,7 @@ jQuery(function($){
 	 ***************************************************************************/
 	$(window).on('show-message', function(e, results) {
 
-		if (results.message > '') {
+		if (typeof(results.message) != "undefined" && results.message > '') {
 
 			var li_status_class = 'info';
 			var status_class = 'icon-info-sign';
@@ -711,6 +711,12 @@ jQuery(function($){
 	 	// hide all the unused elements
 	 	$item_details.find('li').hide();
 
+	 	$item_details.find('.meta-data').hide();
+
+	 	$item_details.find('.show-data > button').click(function(){
+	 		$item_details.find('.meta-data, .item-description').slideToggle();
+	 	});
+
 	 	if ($item) {
 	 		if ($item.id) 				$item_details.find('.id')				.html($item.id).parent().show();
 		 	if ($item.name) 			$item_details.find('.name')				.html($item.name).parent().show();
@@ -723,6 +729,8 @@ jQuery(function($){
 		 	if ($item.download_count) 	$item_details.find('.download_count')	.html($item.download_count).parent().show();
 		 	if ($item.filename) 		$item_details.find('.filename')			.html($item.filename).parent().show();
 		 	if (type === 'file') 		$item_details.find('.description')		.val($item.description).parent().show();
+		 	if (type === 'file') 		$item_details.find('#keyword_input')	.val($item.keywords).parent().show();
+		 	if (type === 'file')		$item_details.find('.show-data')		.show();
 
 		 	// they can only change the cloud provider if the folder is empty and they have permission
 		 	if (type === 'folder' && $item.file_count === 0 && pyro.files.permissions.indexOf('set_location') > -1){
@@ -738,8 +746,20 @@ jQuery(function($){
 				}
 		 	}
 
-			// when the colorbox is closed unbind
+			// needed so that Keywords can return empty JSON
+			$.ajaxSetup({
+				allowEmpty: true
+			});
+
+			// set up keywords
+			$('#keyword_input').tagsInput({
+				autocomplete_url:'admin/keywords/autocomplete'
+			});
+
+			// when the colorbox is closed kill the tag input
 			$item_details.bind('cbox_closed', function(){
+				$('#keyword_input_tagsinput').remove();
+
 				// if we don't unbind it will stay bound even if we cancel
 				$item_details.find('.buttons').off('click', 'button');
 			});
@@ -773,15 +793,13 @@ jQuery(function($){
 			});
 
 			// save on click, then close the modal
-			$item_details.find('.buttons').on('click', function() {
+			$item_details.find('.buttons').on('click', 'button', function() {
 				if (type === 'file'){
 					pyro.files.save_description($item);
 				} else {
 					pyro.files.save_location($item);
 				}
 				$.colorbox.close();
-
-				$(this).off('click');
 			});
 		}
 	 };
@@ -789,13 +807,16 @@ jQuery(function($){
 	pyro.files.save_description = function(item) {
 
 		var new_description = $item_details.find('textarea.description').val();
+		var new_keywords = $item_details.find('#keyword_input').val();
 		var post_data = {
 			file_id : item.id,
-			description : new_description
+			description : new_description,
+			keywords : new_keywords,
+			old_hash : item.keywords_hash
 		};
 
 		// only save it if it's different than the old one
-		if (item.description != new_description){
+		if (item.description != new_description || item.keywords != new_keywords){
 
 			$.post(SITE_URL + 'admin/files/save_description', post_data, function(data){
 
@@ -804,6 +825,8 @@ jQuery(function($){
 
 				// resave it locally
 				item.description = new_description;
+				item.keywords = new_keywords;
+				item.keywords_hash = results.data.keywords_hash;
 				$(window).data('file_'+item.id, item);
 			});
 		}

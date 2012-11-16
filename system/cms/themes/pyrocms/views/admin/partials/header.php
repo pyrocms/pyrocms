@@ -6,10 +6,11 @@
 	
 	<div class="wrapper">
 		<div id="logo">
-			<?php echo anchor('', $this->settings->site_name, 'target="_blank"'); ?>
+			<?php //echo anchor('', $this->settings->site_name, 'target="_blank"'); ?>
+			<?php echo Asset::img('logo.png', ''); ?>
 		</div>
 	
-		<nav>
+		<nav id="primary">
 			<?php file_partial('navigation'); ?>
 		</nav>
 	</div>

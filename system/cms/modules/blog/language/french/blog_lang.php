@@ -35,17 +35,18 @@ $lang['blog:created_minute']           = 'Minute de création';
 $lang['blog:comments_enabled_label']   = 'Commentaires activés';
 
 // titles
-$lang['blog:create_title']    = 'Créer un post';
-$lang['blog:edit_title']      = 'Modifier le post "%s"';
-$lang['blog:archive_title']   = 'Archiver';
-$lang['blog:posts_title']     = 'Posts';
-$lang['blog:rss_posts_title'] = 'Post d\'actualité pour %s';
-$lang['blog:blog_title']      = 'Actualités';
-$lang['blog:list_title']      = 'Lister les posts';
+$lang['blog:create_title']    			= 'Créer un post';
+$lang['blog:edit_title']      			= 'Modifier le post "%s"';
+$lang['blog:archive_title']   			= 'Archiver';
+$lang['blog:posts_title']     			= 'Posts';
+$lang['blog:rss_posts_title'] 			= 'Post d\'actualité pour %s';
+$lang['blog:blog_title']      			= 'Actualités';
+$lang['blog:list_title']      			= 'Lister les posts';
 
 // messages
+$lang['blog:disabled_after'] 			= 'Poster des commentaires après  %s a été désactivé.';
 $lang['blog:no_posts']              = 'Il n\'y a pas de posts.';
-$lang['blog:subscripe_to_rss_desc'] = 'Obtenez les posts en temps réel en vous abonnant au flux RSS. Vous pouvez faire cela avec la plupart des logiciels de messagerie, ou essayez <a href="http://reader.google.co.uk/">Google Reader</a>.';
+$lang['blog:subscripe_to_rss_desc'] = 'Obtenez les posts en temps réel en vous abonnant au flux RSS. Vous pouvez faire cela avec la plupart des logiciels de messagerie, ou essayez <a href="http://www.google.fr/reader">Google Reader</a>.';
 $lang['blog:currently_no_posts']    = 'Il n\'y a pas de posts actuellement.';
 $lang['blog:post_add_success']      = 'Le post "%s" a été ajouté.';
 $lang['blog:post_add_error']        = 'Une erreur est survenue.';

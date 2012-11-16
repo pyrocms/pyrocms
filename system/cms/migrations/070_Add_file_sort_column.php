@@ -8,7 +8,7 @@ class Migration_Add_file_sort_column extends CI_Migration {
 			'sort' => array(
 				'type'			=> 'int',
 				'constraint'	=> 11,
-				'null'			=> FALSE,
+				'null'			=> false,
 				'default'		=> 0
 			)
 		));
@@ -17,7 +17,7 @@ class Migration_Add_file_sort_column extends CI_Migration {
 			'sort' => array(
 				'type'			=> 'int',
 				'constraint'	=> 11,
-				'null'			=> FALSE,
+				'null'			=> false,
 				'default'		=> 0
 			)
 		));

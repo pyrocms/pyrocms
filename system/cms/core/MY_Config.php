@@ -3,7 +3,9 @@
 /**
  * Extends the CodeIgniter Config class
  *
- * @package   PyroCMS\Core\Libraries
+ * @author      PyroCMS Dev Team
+ * @copyright   Copyright (c) 2012, PyroCMS LLC
+ * @package   	PyroCMS\Core\Libraries
  */
 class MY_Config extends CI_Config
 {
@@ -13,7 +15,7 @@ class MY_Config extends CI_Config
 	 * @param string $uri the URI string
 	 * @return string
 	 */
-	function site_url($uri = '')
+	public function site_url($uri = '')
 	{
 		if (is_array($uri))
 		{
@@ -27,7 +29,7 @@ class MY_Config extends CI_Config
 		else
 		{
 			// -- Old busted shit
-			//$suffix = ($this->item('url_suffix') == FALSE) ? '' : $this->item('url_suffix');
+			//$suffix = ($this->item('url_suffix') == false) ? '' : $this->item('url_suffix');
 			// -- end old busted shit
 			
 			// -- Hot newness
@@ -42,7 +44,7 @@ class MY_Config extends CI_Config
 			
 			else
 			{
-				$suffix = ($this->item('url_suffix') == FALSE) ? '' : $this->item('url_suffix');
+				$suffix = ($this->item('url_suffix') == false) ? '' : $this->item('url_suffix');
 			}
 			// -- end host newness
 			
@@ -57,7 +59,7 @@ class MY_Config extends CI_Config
 	 * @param string $value the config item value
 	 * @param string $index 
 	 */
-	function set_item($item, $value, $index = '')
+	public function set_item($item, $value, $index = '')
 	{
 		if ($index == '')
 		{
