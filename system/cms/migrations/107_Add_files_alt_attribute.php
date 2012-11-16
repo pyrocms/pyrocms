@@ -5,7 +5,7 @@ class Migration_Add_files_alt_attribute extends CI_Migration {
 
     public function up()
     {
-        if ( ! $this->db->field_exists('alt_attibute'))
+        if ( ! $this->db->field_exists('alt_attribute', 'files'))
         {
             $this->dbforge->add_column('files', array(
                 'alt_attribute' => array(
