@@ -317,9 +317,11 @@ class Files
 	 * @param bool $width The width to resize the image to
 	 * @param bool $height The height to resize the image to
 	 * @param bool $ratio Keep the aspect ratio or not?
+	 * @param string $alt "alt" attribute, here so that it may be set when photos are initially uploaded
+	 * @param array $allowed types	 	 
 	 * @return array|bool
 	 */
-	public static function upload($folder_id, $name = false, $field = 'userfile', $width = false, $height = false, $ratio = false, $allowed_types = false)
+	public static function upload($folder_id, $name = false, $field = 'userfile', $width = false, $height = false, $ratio = false, $alt = NULL, $allowed_types = false)
 	{
 		if ( ! $check_dir = self::check_dir(self::$path))
 		{
@@ -389,9 +391,14 @@ class Files
 					ci()->image_lib->resize();
 
 					$data['width'] = ci()->image_lib->width;
-					$data['height'] = ci()->image_lib->height;
+					$data['height'] = ci()->image_lib->height;					
 				}
-
+				
+				if ($file['is_image'])
+				{
+					$data['alt_attribute'] = $alt ? $alt : '';
+				}
+				
 				$file_id = ci()->file_m->insert($data);
 
 				if ($data['type'] !== 'i')

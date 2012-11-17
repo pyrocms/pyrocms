@@ -130,6 +130,9 @@
 			</ul>
 
 			<ul class="item-description">
+				<li><label><?php echo lang('files:alt_attribute'); ?>:</label>
+					<input type="text" class="alt_attribute" />
+				</li>
 				<li><label><?php echo lang('files:keywords'); ?>:</label>
 					<?php echo form_input('keywords', '', 'id="keyword_input"'); ?>
 				</li>
