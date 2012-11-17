@@ -66,7 +66,7 @@ class Field_choice
 			// Parse the value coming in.
 			// If these are checkboxes, we need to put
 			// the incoming data through some special processes
-			if($params['custom']['choice_type'] == 'checkboxes' or $params['custom']['choice_type'] == 'multiselect')
+			if($params['custom']['choice_type'] == 'checkboxes')
 			{
 				// We may have an array from $_POST or a string
 				// from the saved form data in the case
@@ -91,11 +91,6 @@ class Field_choice
 					{
 						$vals[$k] = trim($v);
 					}
-				}
-				//If It's a multiselect, then we can go out now.
-				if ($params['custom']['choice_type'] == 'multiselect')
-				{
-					return form_multiselect($params['form_slug'].'[]', $choices, $vals, 'id="'.$params['form_slug'].'"');
 				}
 			}
 
@@ -188,7 +183,7 @@ class Field_choice
 		$choices = $this->_choices_to_array($data['choice_data'], $data['choice_type']);
 		
 		// Checkboxes?
-		if ($data['choice_type'] == 'checkboxes' ||$data['choice_type']== 'multiselect')
+		if ($data['choice_type'] == 'checkboxes')
 		{
 			$vals = explode("\n", $input);
 
@@ -225,7 +220,7 @@ class Field_choice
 	public function pre_save($input, $field)
 	{
 		// We only need to do this for checkboxes
-		if (($field->field_data['choice_type'] == 'checkboxes' or $field->field_data['choice_type']== 'multiselect') and is_array($input))
+		if ($field->field_data['choice_type'] == 'checkboxes' and is_array($input))
 		{
 			// If we have any disabled checkboxes that have been diabled by
 			// a ^ before it, then we need to go and find those and make sure
@@ -245,7 +240,7 @@ class Field_choice
 			// One per line
 			return implode("\n", array_unique($input));		
 		}
-		elseif (($field->field_data['choice_type'] == 'checkboxes'  or $field->field_data['choice_type']== 'multiselect') and ! $input)
+		elseif ($field->field_data['choice_type'] == 'checkboxes' and ! $input)
 		{
 			return '';
 		}
@@ -270,7 +265,7 @@ class Field_choice
 	 */
 	public function validate($value, $mode, $field)
 	{
-		if (($field->field_data['choice_type'] == 'checkboxes' or $field->field_data['choice_type'] == 'multiselect') and is_array($value))
+		if ($field->field_data['choice_type'] == 'checkboxes' and is_array($value))
 		{
 			// Go through and count the number that are disabled
 			$choices = explode("\n", $field->field_data['choice_data']);
@@ -357,7 +352,7 @@ class Field_choice
 	public function field_assignment_construct($field, $stream)
 	{
 		// We need more room for checkboxes
-		if ($field->field_data['choice_type'] == 'checkboxes' || $field->field_data['choice_type'] == 'multiselect')
+		if ($field->field_data['choice_type'] == 'checkboxes')
 		{
 			$this->db_col_type = 'text';
 		}
@@ -380,7 +375,7 @@ class Field_choice
 		$options = $this->_choices_to_array($params['choice_data'], $params['choice_type']);
 
 		// Checkboxes
-		if ($params['choice_type'] == 'checkboxes' || $params['choice_type']== 'multiselect')
+		if ($params['choice_type'] == 'checkboxes')
 		{
 			$this->plugin_return = 'array';
 			
@@ -452,7 +447,6 @@ class Field_choice
 	{
 		$choices = array(
 			'dropdown' 	=> $this->CI->lang->line('streams.choice.dropdown'),
-			'multiselect' 	=> $this->CI->lang->line('streams.choice.multiselect'),
 			'radio' 	=> $this->CI->lang->line('streams.choice.radio_buttons'),
 			'checkboxes'=> $this->CI->lang->line('streams.choice.checkboxes')
 		);
