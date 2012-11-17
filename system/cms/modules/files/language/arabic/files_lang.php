@@ -42,6 +42,7 @@ $lang['files:search_message']				= 'اكتب واضغط إدخال';
 $lang['files:search']						= 'ابحث';
 $lang['files:synchronize']					= 'مزامنة';
 $lang['files:uploader']						= 'اسحب الملفات إلى هنا<br />أو<br />اضغط لاختيار الملفات';
+$lang['files:alt_attribute']				= 'alt السمة';
 
 // Context Menu
 $lang['files:open']							= 'فتح';
@@ -97,5 +98,6 @@ $lang['files:type_v']						= 'مرئي';
 $lang['files:type_d']						= 'مستند';
 $lang['files:type_i']						= 'صورة';
 $lang['files:type_o']						= 'آخر';
+$lang['files:alt_saved']					= 'alt تم حفظ الصورة السمة';
 
 /* End of file files_lang.php */

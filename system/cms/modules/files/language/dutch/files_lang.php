@@ -42,6 +42,7 @@ $lang['files:search_message']				= 'Type en druk op Enter';
 $lang['files:search']						= 'Zoeken';
 $lang['files:synchronize']					= 'Synchroniseren';
 $lang['files:uploader']						= 'Plaats bestanden hier <br />of<br />Selecteer bestanden';
+$lang['files:alt_attribute']				= 'alt Attribuut';
 
 // Context Menu
 $lang['files:open']							= 'Open';
@@ -96,5 +97,6 @@ $lang['files:type_v']						= 'Video';
 $lang['files:type_d']						= 'Document';
 $lang['files:type_i']						= 'Afbeelding';
 $lang['files:type_o']						= 'Anders';
+$lang['files:alt_saved']					= 'Het image alt-attribuut is opgeslagen';
 
 /* End of file files_lang.php */

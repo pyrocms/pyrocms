@@ -107,5 +107,7 @@ $lang['files:type_v']						= 'วิดีโอ';
 $lang['files:type_d']						= 'เอกสาร';
 $lang['files:type_i']						= 'รูปภาพ';
 $lang['files:type_o']						= 'อื่น ๆ';
+$lang['files:alt_attribute']				= 'แอตทริบิวต์ alt';
+$lang['files:alt_saved']					= 'แอตทริบิวต์ alt ของรูปภาพได้ถูกบันทึก';
 
 /* End of file files_lang.php */

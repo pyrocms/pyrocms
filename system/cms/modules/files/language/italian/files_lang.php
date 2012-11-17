@@ -42,6 +42,7 @@ $lang['files:search_message']				= 'Scrivi e premi Invio';
 $lang['files:search']						= 'Cerca';
 $lang['files:synchronize']					= 'Sincronizzazione';
 $lang['files:uploader']						= 'Trascina qui i file <br />oppure<br />Clicca per selezionare i file';
+$lang['files:alt_attribute']				= 'alt Attributo';
 
 // Context Menu
 $lang['files:open']							= 'Apri';
@@ -97,5 +98,6 @@ $lang['files:type_v']						= 'Video';
 $lang['files:type_d']						= 'Documento';
 $lang['files:type_i']						= 'Immagine';
 $lang['files:type_o']						= 'Altro';
+$lang['files:alt_saved']					= 'L\'attributo alt immagine è stata salvata';
 
 /* End of file files_lang.php */
