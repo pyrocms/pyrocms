@@ -5,5 +5,5 @@
     "require": {
         "illuminate/database": "*",
         "quick/cache": "1.0.*"
-    },
+    }
 }

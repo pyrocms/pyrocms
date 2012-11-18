@@ -9,6 +9,7 @@ system/cms/config/database.php
 system/cms/logs/log-*.php
 nbproject/
 uploads/*
+vendor/*
 
 addons/*
 !addons/shared_addons
