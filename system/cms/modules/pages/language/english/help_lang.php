@@ -22,6 +22,8 @@ The meta description is a short description of this page and may be used as the 
 <h6>Design</h6>
 <p>The design tab allows you to select a custom page layout and optionally apply different css styles to it on this page only. 
 Refer to the Page Layouts section below for instructions on how to best use Page Layouts.</p>
+<p>You may also add an id attribute or a class attribute to the <body> tag here. It is displayed by putting the {{ theme:body_id }} and/or the {{ theme:body_class }} plugin into the <body> tag in your theme.</p>
+<p>{{ theme:body_id }} defaults to the last segment of the page url (usually the page slug) or \"home\" for the homepage, if nothing is set here. The output of {{ theme:body_class }} is built from a number of sources. See the comments on the plugin method for details.</p>
 
 <h6>Script</h6>
 <p>You may place javascript here that you would like appended to the &lt;head&gt; of the page.</p>
@@ -53,4 +55,5 @@ For example: If you have a twitter feed widget that you want to display at the b
 	{{ widgets:instance id=\"1\" }}
 &lt;/div&gt;
 </code></pre>
-<p>Now you can apply css styling to the \"my-twitter-widget\" class in the CSS tab.</p>";
+<p>Now you can apply css styling to the \"my-twitter-widget\" class in the CSS tab.</p>
+<p>An option to add a body class for the layout is also here.";

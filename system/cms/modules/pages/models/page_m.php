@@ -96,6 +96,16 @@ class Page_m extends MY_Model
 			'field' => 'navigation_group_id',
 			'label' => 'lang:pages:navigation_label',
 			'rules' => 'numeric'
+		),
+		array(
+			'field' => 'body_id',
+			'label' => 'lang:pages:body_id',
+			'rules' => 'trim'
+		),
+		array(
+			'field' => 'body_class',
+			'label' => 'lang:pages:body_class',
+			'rules' => 'trim'
 		)
 	);
 
@@ -479,6 +489,8 @@ class Page_m extends MY_Model
 			'uri'				=> null,
 			'parent_id'			=> (int) $input['parent_id'],
 			'layout_id'			=> (int) $input['layout_id'],
+			'body_id'			=> $input['body_id'],
+			'body_class'		=> $input['body_class'],
 			'css'				=> isset($input['css']) ? $input['css'] : null,
 			'js'				=> isset($input['js']) ? $input['js'] : null,
 			'meta_title'    	=> isset($input['meta_title']) ? $input['meta_title'] : '',
@@ -547,6 +559,8 @@ class Page_m extends MY_Model
 			'uri'				=> null,
 			'parent_id'			=> (int) $input['parent_id'],
 			'layout_id'			=> (int) $input['layout_id'],
+			'body_id'			=> $input['body_id'],
+			'body_class'		=> $input['body_class'],
 			'css'				=> isset($input['css']) ? $input['css'] : null,
 			'js'				=> isset($input['js']) ? $input['js'] : null,
 			'meta_title'    	=> isset($input['meta_title']) ? $input['meta_title'] : '',

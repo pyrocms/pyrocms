@@ -311,4 +311,113 @@ class Plugin_Theme extends Plugin
         return $value?$value:$default;
     }
 
+	// --------------------------------------------------------------------------
+	
+	/**
+	* 
+	* return the body class for a layout
+	* 
+	* @param void
+	* @return string
+	*/
+	// usage <body {{ theme:body_class }}>
+	// if page: if Body Class for layout or page set in admin returns 'class="page layout_body_class page_body_class"'
+	//			else returns 'class="page"'
+	// elseif blog: returns class="blog [single]|[archive]|[category category_slug]" 
+	function body_class()
+	{
+		if ($this->controller == 'admin') return '';
+		
+		$segments = $this->uri->segment_array();
+		
+		if (empty($segments))
+		{
+			$page = $this->pyrocache->model('page_m', 'get_home');
+			
+			// get any layout class
+			$body_classes = $this->page_layouts_m->get_body_class($page->layout_id);
+			// and any page class
+			$body_classes .= (empty($page->body_class)) ? ' ' : $page->body_class;
+			// and concatenate them
+			$classes = (!empty($body_classes)) ? 'page ' . $body_classes : 'page';
+		}
+		elseif ($segments[1] == 'faq') // if faq addon installed
+		{
+			$classes = 'faq';
+		}
+		elseif ($segments[1] != 'blog')
+		{
+			$page = $this->pyrocache->model('page_m', 'get_by_uri', $segments);
+			
+			// might not be a blog page, but might not be a "true" page either
+			if (!$page) return;
+			// age any layout class
+			$body_classes = $this->page_layouts_m->get_body_class($page->layout_id);
+			// and any page class
+			$body_classes .=  (!empty($page->body_class)) ? ' ' . $page->body_class : '';
+			// and concatenate them
+			$classes = (!empty($body_classes)) ? 'page ' . $body_classes : 'page';
+		}
+		else // blog pages
+		{
+			$uri = $this->uri->uri_string();
+			
+			if (strpos($uri, 'category') !== FALSE) // category pages
+			{
+				$classes = implode(' ', $segments);
+			}
+			elseif (strpos($uri, 'archive') !== FALSE) // archive pages
+			{
+				$classes = 'blog archive';
+			}
+			else // single "permalink" page
+			{
+				$classes = 'blog single';
+			}									
+		}	
+		
+		return 'class="' . $classes . '"'; 	
+	}
+	
+	// --------------------------------------------------------------------------
+	
+	/**
+	 *
+	 * return the page id for a page
+	 * 
+	 * @param void
+	 * @return string
+	 */
+	// usage: <body {{ theme:body_id }}>
+	// if Body ID set in admin returns 'id="body_id"'
+	// else returns 'id="home"' or 'id="[last_segment]"
+	function body_id()
+	{
+		if ($this->controller == 'admin') return '';
+		
+		$segments = $this->uri->segment_array();
+		
+		if (empty($segments)) // home page
+		{
+			$page = $this->pyrocache->model('page_m', 'get_home');
+			
+			return (!empty($page->body_id)) ? 'id="' . $page->body_id . '"' : 'id="home"';
+		}
+		else // other page or blog
+		{
+			$page = $this->pyrocache->model('page_m', 'get_by_uri', $segments);
+			
+			if ($page) // page: get id if page has it, otherwise use last segment
+			{
+				return (!empty($page->body_id)) ? 'id="' . $page->body_id . '"' : 'id="' . $segments[$this->uri->total_segments()] . '"';
+			}
+			else // blog: get id if post has it, otherwise use last segment; suppress error on non-single pages for now
+			{ 
+				$body_id = @$this->pyrocache->model('blog/blog_m', 'get_by', array('slug', $segments[$this->uri->total_segments()]))->body_id;
+				
+				return (!empty($body_id)) ? 'id="' . $body_id . '"' : 'id="' . $segments[$this->uri->total_segments()] . '"';
+			}
+		}
+
+	}	 
 }

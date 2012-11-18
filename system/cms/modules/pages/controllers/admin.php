@@ -384,7 +384,7 @@ class Admin extends Admin_Controller {
 				$page->restricted_to[0] = ($page->restricted_to[0] == '') ? '0' : $page->restricted_to[0];
 				continue;
 			}
-
+						
 			// Set all the other fields
 			$page->{$field} = set_value($field, $page->{$field});
 		}

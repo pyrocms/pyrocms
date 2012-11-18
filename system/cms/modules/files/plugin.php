@@ -254,7 +254,10 @@ class Plugin_Files extends Plugin
 		}
 
 		$base = $this->attribute('base', 'url');
-
+		
+		// alt tag is named differently in db to prevent confusion with "alternative", so need to do check for it manually
+		$attributes['alt'] = isset($attributes['alt']) ? $attributes['alt'] : $file->alt_attribute;
+		
 		// return an image tag html
 		if ($type === 'i')
 		{

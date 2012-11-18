@@ -50,6 +50,12 @@
 		
 			<ul>
 				<li>
+					<label for="body-class"><?php echo lang('page_layouts.body_class'); ?></label>
+					<div>
+						<?php echo form_input('body_class', $page_layout->body_class, array('id'=>'body-class')); ?>
+					</div>
+				</li>
+				<li>
 					<label for="css">CSS</label><br />
 					<?php echo form_textarea('css', $page_layout->css, 'class="css_editor" id="css"'); ?>
 				</li>
