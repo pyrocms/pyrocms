@@ -57,18 +57,17 @@ class Installer_lib {
 	 */
 	public function gd_acceptable()
 	{
-		// Get if the gd_info() function exists
-		if (function_exists('gd_info'))
+		// Homeboy is not rockin GD at all
+		if ( ! function_exists('gd_info'))
 		{
-			$gd_info = gd_info();
-			$this->gd_version = preg_replace('/[^0-9\.]/','',$gd_info['GD Version']);
-
-			// If the GD version is at least 1.0 
-			return ($this->gd_version >= 1);
+			return false;
 		}
 
-		// Homeboy is not rockin GD at all
-		return FALSE;
+		$gd_info = gd_info();
+		$this->gd_version = preg_replace('/[^0-9\.]/','',$gd_info['GD Version']);
+
+		// If the GD version is at least 1.0 
+		return ($this->gd_version >= 1);
 	}
 
 	/**
@@ -90,24 +89,24 @@ class Installer_lib {
 	public function check_server($data)
 	{
 		// Check PHP
-		if ( ! $this->php_acceptable($data->php_min_version) )
+		if ( ! $this->php_acceptable($data->php_min_version))
 		{
-			return FALSE;
+			return false;
 		}
 
-		if ($data->http_server->supported === FALSE)
+		if ($data->http_server->supported === false)
 		{
-			return FALSE;
+			return false;
 		}
 
 		// If PHP, MySQL, etc is good but either server, GD, and/or Zlib is unknown, say partial
-		if ( $data->http_server->supported === 'partial' || $this->gd_acceptable() === FALSE || $this->zlib_enabled() === FALSE)
+		if ($data->http_server->supported === 'partial' || $this->gd_acceptable() === false || $this->zlib_enabled() === false)
 		{
 			return 'partial';
 		}
 
 		// Must be fine
-		return TRUE;
+		return true;
 
 	}
 
@@ -150,7 +149,7 @@ class Installer_lib {
 	 */
 	public function create_db_connection()
 	{
-		$engine   = $this->ci->session->userdata('db.engine');
+		$driver   = $this->ci->session->userdata('db.driver');
 		$port     = $this->ci->session->userdata('db.port');
 		$hostname = $this->ci->session->userdata('db.hostname');
 		$location = $this->ci->session->userdata('db.location');
@@ -158,19 +157,19 @@ class Installer_lib {
 		$password = $this->ci->session->userdata('db.password');
 		$database = $this->ci->session->userdata('db.database');
 
-		switch ($engine)
+		switch ($driver)
 		{
 			case 'mysql':
-				$dsn = "{$engine}:host={$hostname};port={$port};charset=utf8;";
+				$dsn = "{$driver}:host={$hostname};port={$port};charset=utf8;";
 			break;
 			case 'pgsql':
-				$dsn = "{$engine}:host={$hostname};port={$port};";
+				$dsn = "{$driver}:host={$hostname};port={$port};";
 			break;
 			case 'sqlite':
 				$dsn = "sqlite:{$location}";
 			break;
 			default:
-				show_error('Unknown engine type: '.$engine);
+				show_error('Unknown driver type: '.$driver);
 		}
 
 		// Try the connection
@@ -198,81 +197,63 @@ class Installer_lib {
 	 *
 	 * Install the PyroCMS database and write the database.php file
 	 */
-	public function install($data)
+	public function install($user, $db)
 	{
 		// Retrieve the database server, username and password from the session
-		$server 	= $this->ci->session->userdata('hostname') . ':' . $this->ci->session->userdata('port');
-		$username 	= $this->ci->session->userdata('username');
-		$password 	= $this->ci->session->userdata('password');
-		$database 	= $data['database'];
+		$server 	= "{$db['hostname']}:{$db['port']}";
+		$username 	= $db['username'];
+		$password 	= $db['password'];
+		$database 	= $db['database'];
 
 		// User settings
-		$user_salt		= substr(md5(uniqid(rand(), true)), 0, 5);
-		$data['user_password'] 	= sha1($data['user_password'] . $user_salt);
+		$user_salt = substr(md5(uniqid(rand(), true)), 0, 5);
+		$user['password'] = sha1($user['password'] . $user_salt);
 
 		// Include migration config to know which migration to start from
 		include '../system/cms/config/migration.php';
 
 		// Create a connection
-		if ( ! $this->db = @mysql_connect($server, $username, $password) )
+		if ( ! $pdo = $this->create_db_connection())
 		{
-			return array('status' => FALSE,'message' => 'The installer could not connect to the MySQL server or the database, be sure to enter the correct information.');
+			return array('status' => false,'message' => 'The installer could not connect to the database, be sure to enter the correct information.');
 		}
-
-		// Get the SQL for the default data and parse it
-		$user_sql = file_get_contents('./sql/default.sql');
-		$user_sql = str_replace('{PREFIX}', $data['site_ref'].'_', $user_sql);
-		$user_sql = str_replace('{EMAIL}', $data['user_email'], $user_sql);
-		$user_sql = str_replace('{USER-NAME}', mysql_real_escape_string($data['user_name'], $this->db), $user_sql);
-		$user_sql = str_replace('{DISPLAY-NAME}', mysql_real_escape_string($data['user_firstname'] . ' ' . $data['user_lastname'], $this->db), $user_sql);
-		$user_sql = str_replace('{PASSWORD}', mysql_real_escape_string($data['user_password'], $this->db), $user_sql);
-		$user_sql = str_replace('{FIRST-NAME}', mysql_real_escape_string($data['user_firstname'], $this->db), $user_sql);
-		$user_sql = str_replace('{LAST-NAME}', mysql_real_escape_string($data['user_lastname'], $this->db) , $user_sql);
-		$user_sql = str_replace('{SALT}', $user_salt, $user_sql);
-		$user_sql = str_replace('{NOW}', time(), $user_sql);
-		$user_sql = str_replace('{MIGRATION}', $config['migration_version'], $user_sql);
 
 		$this->ci->load->model('install_m');
 
-		$pdo = $this->create_db_connection();
-
 		// Basic installation done with this PDO connection
-		$this->ci->install_m->set_default_structure($pdo['conn'], $data);
+		$this->ci->install_m->set_default_structure($pdo['conn'], array_merge($user, $db));
 
 		// We didn't neccessairily have the DB at connection time
-		if ($this->ci->session->userdata('db.database'))
+		if ($db['database'])
 		{
-			$pdo['dsn'] .= 'dbname='.$this->ci->session->userdata('db.database').';';
+			$pdo['dsn'] .= "dbname={$db['database']};";
 		}
 
-		$username = $this->ci->session->userdata('db.username');
-		$password = $this->ci->session->userdata('db.password');
-
 		// Write the database file
-		if ( ! $this->write_db_file($pdo['dsn'], $username, $password))
+		if ( ! $this->write_db_file($pdo['dsn'], $db['database'], $db['username'], $db['password']))
 		{
 			return array(
-				'status'	=> FALSE,
+				'status'	=> false,
 				'message'	=> '',
 				'code'		=> 105
 			);
 		}
 
 		// Write the config file.
-		if ( ! $this->write_config_file() )
+		if ( ! $this->write_config_file())
 		{
 			return array(
-				'status'	=> FALSE,
+				'status'	=> false,
 				'message'	=> '',
 				'code'		=> 106
 			);
 		}
 
 		return array(
-			'status' => TRUE,
+			'status' => true,
 			'dsn' => $pdo['dsn'],
-			'username' => $username,
-			'password' => $password,
+			'username' => $db['username'],
+			'password' => $db['password'],
 		);
 	}
 	
@@ -282,15 +263,15 @@ class Installer_lib {
 	 *
 	 * Writes the database file based on the provided database settings
 	 */
-	public function write_db_file($dsn, $username, $password)
+	public function write_db_file($dsn, $database, $username, $password)
 	{
 		// Open the template file
 		$template 	= file_get_contents('./assets/config/database.php');
 
 		// We didn't neccessairily have the DB at connection time
-		if ($this->ci->session->userdata('db.database'))
+		if ($database)
 		{
-			$dsn .= 'dbname='.$this->ci->session->userdata('db.database').';';
+			$dsn .= "dbname={$database};";
 		}
 
 		// Replace the __ variables with the data specified by the user

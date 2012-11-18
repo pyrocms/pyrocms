@@ -1,4 +1,4 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // This is for using the the settings
 // library in PyroCMS when installing. This is a
@@ -10,6 +10,8 @@ function ci()
 }
 
 define('PYROPATH', dirname(FCPATH).'/system/cms/');
+define('ADDONPATH', dirname(FCPATH).'/addons/default/');
+define('SHARED_ADDONPATH', dirname(FCPATH).'/addons/shared_addons/');
 
 /**
  * Installer controller.
@@ -32,7 +34,7 @@ class Installer extends CI_Controller
 	/**
 	 * Array of languages supported by the installer
 	 */
-	private $languages	= array ('arabic', 'brazilian', 'english', 'dutch', 'french', 'german', 'portuguese', 'polish', 'chinese_traditional', 'slovenian', 'spanish', 'russian', 'greek', 'lithuanian','danish','vietnamese', 'indonesian', 'hungarian', 'finnish', 'swedish','thai','italian');
+	private $languages	= array('arabic', 'brazilian', 'english', 'dutch', 'french', 'german', 'portuguese', 'polish', 'chinese_traditional', 'slovenian', 'spanish', 'russian', 'greek', 'lithuanian','danish','vietnamese', 'indonesian', 'hungarian', 'finnish', 'swedish','thai','italian');
 
 	/**
 	 * Array containing the directories that need to be writable
@@ -115,13 +117,13 @@ class Installer extends CI_Controller
 		// Save this junk for later
 		// Used in validation callback, so set early
 		$this->session->set_userdata(array(
-			'db.engine'   => $this->input->post('db_engine'),
-			'db.hostname' => $this->input->post('hostname'),
-			'db.location' => $this->input->post('location'),
-			'db.username' => $this->input->post('username'),
-			'db.password' => $this->input->post('password'),
-			'db.port'     => $this->input->post('port'),
-			'db.database' => $this->input->post('database'),
+			'db.engine'   => $engine 	= $this->input->post('db_engine'),
+			'db.hostname' => $hostname 	= $this->input->post('hostname'),
+			'db.location' => $location 	= $this->input->post('location'),
+			'db.username' => $username 	= $this->input->post('username'),
+			'db.password' => $password 	= $this->input->post('password'),
+			'db.port'     => $port 		= $this->input->post('port'),
+			'db.database' => $database 	= $this->input->post('database'),
 			'db.create_db' => $this->input->post('create_db'),
 			'http_server' => $this->input->post('http_server'),
 		));
@@ -141,7 +143,7 @@ class Installer extends CI_Controller
 			array(
 				'field' => 'location',
 				'label'	=> 'lang:location',
-				'rules'	=> 'trim'.(in_array($this->input->post('db_engine'), array('sqlite')) ? '|required' : ''),
+				'rules'	=> 'trim'.(in_array($engine, array('sqlite')) ? '|required' : ''),
 			),
 			array(
 				'field' => 'username',
@@ -155,13 +157,13 @@ class Installer extends CI_Controller
 			),
 			array(
 				'field' => 'port',
-				'label'	=> 'lang:portnr',
+				'label'	=> 'lang:port',
 				'rules'	=> 'trim|required'
 			),
 			array(
 				'field' => 'database',
 				'label'	=> 'lang:server_settings',
-				'rules'	=> 'trim'.(in_array($this->input->post('db_engine'), array('mysql', 'pgsql')) ? '|required' : ''),
+				'rules'	=> 'trim'.(in_array($engine, array('mysql', 'pgsql')) ? '|required' : ''),
 			),
 			array(
 				'field' => 'http_server',
@@ -192,9 +194,13 @@ class Installer extends CI_Controller
 		}
 
 		// Get the port from the session or set it to the default value when it isn't specified
-		$default_port = $this->default_ports[$this->input->post('db_engine')];
-		$data->port = $this->session->userdata('db.port') ? $this->session->userdata('db.port') : $default_port;
-
+		$data->port = null;
+		if (in_array($engine, array('mysql', 'pgsql')))
+		{
+			$default_port = $this->default_ports[$engine];
+			$data->port = $port ?: $default_port;
+		}
+		
 		// Check what DB's are available
 		$data->db_engines = $this->installer_lib->check_db_extensions();
 
@@ -280,15 +286,6 @@ class Installer extends CI_Controller
 		$data->php_acceptable	= $this->installer_lib->php_acceptable($data->php_min_version);
 		$data->php_version		= $this->installer_lib->php_version;
 
-		$data->mysql = new stdClass;
-		$data->http_server = new stdClass;
-
-		// Check the MySQL data
-		$data->mysql->server_version_acceptable = $this->installer_lib->mysql_acceptable('server');
-		$data->mysql->client_version_acceptable = $this->installer_lib->mysql_acceptable('client');
-		$data->mysql->server_version = $this->installer_lib->mysql_server_version;
-		$data->mysql->client_version = $this->installer_lib->mysql_client_version;
-
 		// Check the GD data
 		$data->gd_acceptable = $this->installer_lib->gd_acceptable();
 		$data->gd_version = $this->installer_lib->gd_version;
@@ -303,8 +300,10 @@ class Installer extends CI_Controller
 		$selected_server = $this->session->userdata('http_server');
 		$supported_servers = $this->config->item('supported_servers');
 
-		$data->http_server->supported = $this->installer_lib->verify_http_server($this->session->userdata('http_server'));
-		$data->http_server->name = @$supported_servers[$selected_server]['name'];
+		$data->http_server = (object) array(
+			'supported' => $this->installer_lib->verify_http_server($this->session->userdata('http_server')),
+			'name' => $supported_servers[$selected_server]['name']
+		);
 
 		// Check the final results
 		$data->step_passed = $this->installer_lib->check_server($data);
@@ -444,15 +443,17 @@ class Installer extends CI_Controller
 			//define the default user email to be used in the settings module install
 			define('DEFAULT_EMAIL', $user['email']);
 
-			$input = array(
+			// Let's try to install the system
+			$install = $this->installer_lib->install($user, array(
 				'engine'   => $this->session->userdata('db.engine'), 
 				'database' => $this->session->userdata('db.database'),
+				'hostname' => $this->session->userdata('db.hostname'),
+				'port' 		=> $this->session->userdata('db.port'),
+				'username' => $this->session->userdata('db.username'),
+				'password' => $this->session->userdata('db.password'),
 				'create_db' => (bool) $this->session->userdata('db.create_db'),
 				'site_ref' => $this->input->post('site_ref'),
-			);
-
-			// Let's try to install the system
-			$install = $this->installer_lib->install(array_merge($user, $input));
+			));
 
 			// Did the install fail?
 			if ($install['status'] === FALSE)
@@ -474,6 +475,7 @@ class Installer extends CI_Controller
 				'username' => $install['username'],
 				'password' => $install['password'],
 			));
+
 			$this->module_import->import_all();
 
 			redirect('installer/complete');

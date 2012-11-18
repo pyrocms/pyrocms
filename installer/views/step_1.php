@@ -78,7 +78,6 @@
 			<?php echo form_password(array(
 				'id' => 'password',
 				'name' => 'password',
-				'value' => set_value('password')
 			)) ?>
 			
 		</div>

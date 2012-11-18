@@ -178,8 +178,6 @@
  *  Now that we know the path, set the main path constants
  * -------------------------------------------------------------------
  */		
-	// The PHP file extension
-	define('EXT', '.php');
 
  	// Path to the system folder
 	define('BASEPATH', str_replace("\\", "/", $system_path));
@@ -196,6 +194,16 @@
 	
 	// Path to the views folder
 	define('VIEWPATH', APPPATH.'views/');
+
+/*
+ * --------------------------------------------------------------------
+ * LOAD THE COMPOSER AUTOLOADER
+ * --------------------------------------------------------------------
+ *
+ * ...and it will take care of our classes
+ *
+ */
+require_once '../system/vendor/autoload.php';
 
 /*
  * --------------------------------------------------------------------

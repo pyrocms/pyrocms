@@ -2,7 +2,7 @@
 
 // labels
 $lang['header']			=	'Step 3: Set Permissions';
-$lang['intro_text']		= 	'Before PyroCMS can be installed you need to make sure that certain files and folders are writeable, these files and folders are listed below. Make sure any subfolders have the correct permissions too !';
+$lang['intro_text']		= 	'Before PyroCMS can be installed you need to make sure that certain files and folders are writeable, these files and folders are listed below. Make sure any subfolders have the correct permissions too!';
 
 $lang['folder_perm']		= 'Folder Permissions';
 $lang['folder_text']		= 'The CHMOD values of the following folders must be changed to 777 (in some cases 775 works too).';

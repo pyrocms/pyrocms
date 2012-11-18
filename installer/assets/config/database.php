@@ -57,7 +57,6 @@ $db[PYRO_DEVELOPMENT] = array(
 	'cache_on' 	=>	FALSE,
 	'char_set' 	=>	'utf8',
 	'dbcollat' 	=>	'utf8_unicode_ci',
-	'port' 	 	=>	'{port}',
 
 	// 'Tough love': Forces strict mode to test your app for best compatibility
 	'stricton' 		=> TRUE,
@@ -76,7 +75,6 @@ $db[PYRO_STAGING] = array(
 	'cache_on' 	=>	FALSE,
 	'char_set' 	=>	'utf8',
 	'dbcollat' 	=>	'utf8_unicode_ci',
-	'port' 	 	=>	'{port}',
 );
 */
 
@@ -91,7 +89,6 @@ $db[PYRO_PRODUCTION] = array(
 	'cache_on' 	=>	FALSE,
 	'char_set' 	=>	'utf8',
 	'dbcollat' 	=>	'utf8_unicode_ci',
-	'port' 	 	=>	'{port}',
 );
 
 
