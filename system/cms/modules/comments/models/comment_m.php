@@ -72,7 +72,7 @@ class Comment_m extends MY_Model
     		->where('c.entry_id', $entry_id)
     		->where('c.entry_key', $entry_key)
     		->where('c.is_active', $is_active)
-    		->order_by('c.created_on', $this->settings->comment_order);
+    		->order_by('c.created_on', Settings::get('comment_order'));
     	
 	    return $this->get_all();
   	}
@@ -81,13 +81,10 @@ class Comment_m extends MY_Model
 	 * Insert a new comment
 	 *
 	 * @param array $input The data to insert
-	 * @return void
+	 * @return bool
 	 */
-
 	public function insert($input, $skip_validation = false)
-	{
-		$this->load->helper('date');
-		
+	{	
 		return parent::insert(array(
 			'user_id'		=> isset($input['user_id']) 	? 	$input['user_id'] 									:  0,
 			'user_name'		=> isset($input['user_name']) 	? 	ucwords(strtolower(strip_tags($input['user_name']))) : '',
@@ -117,8 +114,6 @@ class Comment_m extends MY_Model
 	 */
 	public function update($id, $input, $skip_validation = false)
 	{
-  		$this->load->helper('date');
-		
 		return parent::update($id, array(
 			'user_name'		=> isset($input['user_name']) 	? 	ucwords(strtolower(strip_tags($input['user_name']))) : '',
 			'user_email'	=> isset($input['user_email']) 	? 	strtolower($input['user_email']) 					 : '',
@@ -215,6 +210,23 @@ class Comment_m extends MY_Model
 
 		return $options;
 	}
+
+	/**
+	 * Get something based on a module item
+	 *
+	 * @param string $module The name of the module
+	 * @param int $entry_key The singular key of the entry (E.g: blog:post or pages:page)
+	 * @param int $entry_id The ID of the entry
+	 * @return bool
+	 */
+  	public function delete_by_entry($module, $entry_key, $entry_id)
+	{
+    	return $this->db
+    		->where('module', $module)
+    		->where('entry_id', $entry_id)
+    		->where('entry_key', $entry_key)
+    		->delete('comments');
+ 	}
 	
 	/**
 	 * Setting up the query for the get* functions

@@ -3,6 +3,7 @@
 .project
 .settings
 .idea
+composer.lock
 assets/cache/*
 system/cms/cache/*
 system/cms/config/database.php

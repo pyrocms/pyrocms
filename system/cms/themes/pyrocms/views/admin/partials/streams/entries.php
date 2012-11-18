@@ -1,5 +1,3 @@
-<?php $this->load->view('admin/partials/streams/filters'); ?>
-
 <?php if ($entries) { ?>
 
     <table class="table-list">

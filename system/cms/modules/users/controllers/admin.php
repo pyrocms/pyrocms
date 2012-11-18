@@ -99,7 +99,7 @@ class Admin extends Admin_Controller
 
 		// Create pagination links
 		$pagination = create_pagination('admin/users/index', $this->user_m->count_by($base_where));
-		
+
 		//Skip admin
 		$skip_admin = ( $this->current_user->group != 'admin' ) ? 'admin' : '';
 
@@ -107,8 +107,8 @@ class Admin extends Admin_Controller
 		$this->db->order_by('active', 'desc')
 			->join('groups', 'groups.id = users.group_id')
 			->where_not_in('groups.name', $skip_admin)
-			->limit($pagination['limit']);
-			
+			->limit($pagination['limit'], $pagination['offset']);
+
 		$users = $this->user_m->get_many_by($base_where);
 
 		// Unset the layout if we have an ajax request
@@ -237,6 +237,7 @@ class Admin extends Admin_Controller
 			{
 				$member = (object) $_POST;
 			}
+
 		}
 
 		if ( ! isset($member))
