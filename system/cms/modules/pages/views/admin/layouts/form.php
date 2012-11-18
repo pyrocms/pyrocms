@@ -50,7 +50,7 @@
 		
 			<ul>
 				<li>
-					<label for="body-classes"><?php echo lang('page_layouts.body_class'); ?></label>
+					<label for="body-class"><?php echo lang('page_layouts.body_class'); ?></label>
 					<div>
 						<?php echo form_input('body_class', $page_layout->body_class, array('id'=>'body-class')); ?>
 					</div>

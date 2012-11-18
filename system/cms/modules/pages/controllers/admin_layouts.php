@@ -106,7 +106,7 @@ class Admin_layouts extends Admin_Controller
 				'body' => $this->input->post('body', false),
 				'css' => $this->input->post('css'),
 				'js' => $this->input->post('js'),
-				'body_classes'	=> $this->input->post('body_classes')
+				'body_class' => $this->input->post('body_class')
 			));
 
 			// Success or fail?
@@ -176,7 +176,7 @@ class Admin_layouts extends Admin_Controller
 				'body' => $this->input->post('body', false),
 				'css' => $this->input->post('css'),
 				'js' => $this->input->post('js'),
-				'body_class'	=> $this->input->post('body_class')
+				'body_class' => $this->input->post('body_class')
 			));
 
 			// Wipe cache for this model as the data has changed
