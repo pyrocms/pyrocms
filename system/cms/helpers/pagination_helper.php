@@ -29,12 +29,14 @@ if ( ! function_exists('create_pagination'))
 		$current_page = $ci->uri->segment($uri_segment, 0);
 		$suffix = $ci->config->item('url_suffix');
 
+		$limit = $limit === null ? Settings::get('records_per_page') : $limit;
+
 		// Initialize pagination
 		$ci->pagination->initialize(array(
 			'suffix' 				=> $suffix,
 			'base_url' 				=> ( ! $suffix) ? rtrim(site_url($uri), $suffix) : site_url($uri),
 			'total_rows' 			=> $total_rows,
-			'per_page' 				=> $limit === null ? Settings::get('records_per_page') : $limit,
+			'per_page' 				=> $limit,
 			'uri_segment' 			=> $uri_segment,
 			'use_page_numbers'		=> true,
 			'reuse_query_string' 	=> true,
@@ -48,7 +50,7 @@ if ( ! function_exists('create_pagination'))
 		return array(
 			'current_page' => $current_page,
 			'per_page' => $limit,
-			'limit' => array($limit, $offset),
+			'limit' => $limit,
 			'offset' => $offset,
 			'links' => $ci->pagination->create_links($full_tag_wrap)
 		);

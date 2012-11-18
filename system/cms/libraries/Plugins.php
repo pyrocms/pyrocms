@@ -2,9 +2,9 @@
 /**
  * Central library for Plugin logic
  *
- * @author		Phil Sturgeon
- * @author		PyroCMS Dev Team
- * @package	 PyroCMS\Core\Libraries
+ * @author   Phil Sturgeon
+ * @author   PyroCMS Dev Team
+ * @package  PyroCMS\Core\Libraries
  */
 abstract class Plugin
 {
@@ -44,6 +44,9 @@ abstract class Plugin
 					$attributes[$key] = $this->parse_parameter($attr);
 				}
 			}
+			
+			// unset the parse_params since we no longer need it
+			unset($attributes['parse_params']);
 		
 			$this->attributes = $attributes;
 		}
@@ -110,9 +113,6 @@ abstract class Plugin
 		{
 			// Change our [[ ]] to {{ }}. Sneaky.
 			$value = str_replace(array('[[', ']]'), array('{{', '}}'), $value);
-
-			$parser = new Lex_Parser();
-			$parser->scope_glue(':');
 			
 			$default_data = array(
 				'segment_1' => $this->uri->segment(1),
@@ -130,7 +130,7 @@ abstract class Plugin
 				$default_data['username']	= $this->current_user->username;
 			}
 
-			return $parser->parse($value, array_merge($default_data, $data), array($this->parser, 'parser_callback'));
+			return $this->parser->parse_string($value, array_merge($default_data, $data), true);
 		}
 
 		return $value;
@@ -139,15 +139,14 @@ abstract class Plugin
 	/**
 	 * Render a view located in a module.
 	 *
-	 * @todo Document this better.
-	 *
 	 * @param string $module The module to load the view from.
 	 * @param string $view The name of the view to load.
 	 * @param array $vars The array of variables to pass to the view.
+	 * @param bool $parse_output Send the output through the LEX parser?
 	 *
 	 * @return string The rendered view.
 	 */
-	public function module_view($module, $view, $vars = array())
+	public function module_view($module, $view, $vars = array(), $parse_output = true)
 	{
 		if (file_exists($this->template->get_views_path().'modules/'.$module.'/'.$view.(pathinfo($view, PATHINFO_EXTENSION) ? '' : '.php')))
 		{
@@ -164,10 +163,48 @@ abstract class Plugin
 		// add this view location to the array
 		$this->load->set_view_path($path);
 
-		$content = $this->load->_ci_load(array('_ci_view' => $view, '_ci_vars' => ((array)$vars), '_ci_return' => true));
+		$content = $this->load->_ci_load(array('_ci_view' => $view, '_ci_return' => true));
 
 		// Put the old array back
 		$this->load->set_view_path($save_path);
+		
+		// Parse output with LEX if desired
+		if ($parse_output) {
+			$content = $this->parser->parse_string($content, ((array)$vars), true);
+		}
+
+		return $content;
+	}
+	
+	/**
+	 * Render a view located in your theme folder.
+	 *
+	 * @param string $view The name of the view to load.
+	 * @param array $vars The array of variables to pass to the view.
+	 * @param bool $parse_output Send the output through the LEX parser?
+	 *
+	 * @return string The rendered view.
+	 */
+	public function theme_view($view, $vars = array(), $parse_output = true)
+	{
+		// default to .html extension like the {{ theme:partial }} plugin
+		$view = strpos($view, '.') ? $view : $view . '.html';
+		
+		// save the existing view array so we can restore it
+		$save_path = $this->load->get_view_paths();
+
+		// add this view location to the array
+		$this->load->set_view_path($this->load->get_var('template_views'));
+		
+		$content = $this->load->_ci_load(array('_ci_view' => $view, '_ci_return' => true));
+		
+		// Put the old array back
+		$this->load->set_view_path($save_path);
+		
+		// Parse output with LEX if desired
+		if ($parse_output) {
+			$content = $this->parser->parse_string($content, ((array)$vars), true);
+		}
 
 		return $content;
 	}
