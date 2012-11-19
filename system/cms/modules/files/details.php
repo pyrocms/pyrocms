@@ -8,7 +8,7 @@
  */
 class Module_Files extends Module {
 
-	public $version = '2.0';
+	public $version = '2.1.0';
 
 	public function info()
 	{
@@ -65,49 +65,55 @@ class Module_Files extends Module {
 			'backend' => true,
 			'menu' => 'content',
 			'roles' => array(
-				'wysiwyg', 'upload', 'download_file', 'edit_file', 'delete_file', 'create_folder', 'set_location', 'synchronize', 'edit_folder', 'delete_folder'
+				'wysiwyg', 'upload', 'download_file', 'edit_file', 'delete_file', 'create_folder',
+				'set_location', 'synchronize', 'edit_folder', 'delete_folder',
 			)
 		);
 	}
 
 	public function install()
 	{
-		$this->dbforge->drop_table('files', true);
-		$this->dbforge->drop_table('file_folders', true);
+		$schema = $this->pdb->getSchemaBuilder();
 
-		$tables = array(
-			'files' => array(
-				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
-				'folder_id' => array('type' => 'INT', 'constraint' => 11, 'default' => 0,),
-				'user_id' => array('type' => 'INT', 'constraint' => 11, 'default' => 1,),
-				'type' => array('type' => 'ENUM', 'constraint' => array('a', 'v', 'd', 'i', 'o'), 'null' => true, 'default' => null,),
-				'name' => array('type' => 'VARCHAR', 'constraint' => 100,),
-				'filename' => array('type' => 'VARCHAR', 'constraint' => 255,),
-				'path' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => ''),
-				'description' => array('type' => 'TEXT',),
-				'extension' => array('type' => 'VARCHAR', 'constraint' => 10,),
-				'mimetype' => array('type' => 'VARCHAR', 'constraint' => 100,),
-				'keywords' => array('type' => 'CHAR', 'constraint' => 32, 'default' => ''),
-				'width' => array('type' => 'INT', 'constraint' => 5, 'null' => true,),
-				'height' => array('type' => 'INT', 'constraint' => 5, 'null' => true,),
-				'filesize' => array('type' => 'INT', 'constraint' => 11, 'default' => 0,),
-				'download_count' => array('type' => 'INT', 'constraint' => 11, 'default' => 0,),
-				'date_added' => array('type' => 'INT', 'constraint' => 11, 'default' => 0,),
-				'sort' => array('type' => 'INT', 'constraint' => 11, 'default' => 0,),
-			),
-			'file_folders' => array(
-				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
-				'parent_id' => array('type' => 'INT', 'constraint' => 11, 'null' => true, 'default' => 0,),
-				'slug' => array('type' => 'VARCHAR', 'constraint' => 100,),
-				'name' => array('type' => 'VARCHAR', 'constraint' => 100,),
-				'location' => array('type' => 'VARCHAR', 'constraint' => 20, 'default' => 'local',),
-				'remote_container' => array('type' => 'VARCHAR', 'constraint' => 100, 'default' => '',),
-				'date_added' => array('type' => 'INT', 'constraint' => 11,),
-				'sort' => array('type' => 'INT', 'constraint' => 11, 'default' => 0,),
-			),
-		);
+		$schema->drop('files');
+		$schema->drop('file_folders');
 
-		return $this->install_tables($tables);
+		$schema->create('files', function($table) { 
+			$table->increments('id');
+			$table->integer('folder_id');
+			$table->integer('user_id');
+			$table->enum('type', array('a', 'v', 'd', 'i', 'o'));
+			$table->string('name', 100);
+			$table->string('filename', 255);
+			$table->string('path', 255);
+			$table->text('description');
+			$table->string('extension', 10);
+			$table->string('mimetype', 100);
+			$table->string('keywords', 32)->nullable();
+			$table->integer('width', 5)->nullable();
+			$table->integer('height', 5)->nullable();
+			$table->integer('filesize')->nullable();
+			$table->integer('download_count')->default(0);
+			$table->integer('date_added', 11);
+			$table->integer('sort')->default(0);
+			
+			$table->key('folder_id');
+		});
+
+		$schema->create('file_folders', function($table) { 
+			$table->increments('id');
+			$table->integer('parent_id')->nullable();
+			$table->string('slug', 100);
+			$table->string('name', 100);
+			$table->string('location', 20)->default('local');
+			$table->string('remote_container', 100)->nullable();,
+			$table->integer('date_added', 11);
+			$table->integer('sort')->default(0);
+
+			$table->key('folder_id');
+		});
+
+		return true;
 	}
 
 	public function uninstall()
@@ -120,5 +126,4 @@ class Module_Files extends Module {
 	{
 		return true;
 	}
-
 }

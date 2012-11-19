@@ -53,7 +53,11 @@ class Module_import {
 		$details_class->upload_path	= 'uploads/default/';
 
 		// Run the install method to get it into the database
-		if ( ! $details_class->install())
+		try 
+		{
+			$details_class->install();
+		} 
+		catch (Exception $e)
 		{
 			return false;
 		}

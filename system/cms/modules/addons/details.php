@@ -122,6 +122,8 @@ class Module_Addons extends Module
 			$table->boolean('is_required');
 			$table->string('theme', 50);
 		});
+
+		return true;
 	}
 
 	public function uninstall()

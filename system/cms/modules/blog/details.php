@@ -127,6 +127,8 @@ class Module_Blog extends Module {
 			$table->string('slug', 100)->nullable()->unique();
 			$table->string('title', 100)->nullable()->unique();
 		});
+
+		return true;
 	}
 
 	public function uninstall()
