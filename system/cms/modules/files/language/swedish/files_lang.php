@@ -1,10 +1,10 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
- /**
+/**
  * Swedish translation.
  *
  * @author		marcus@incore.se
- * @package		PyroCMS  
+ * @package		PyroCMS
  * @link		http://pyrocms.com
  * @date		2012-10-22
  * @version		1.1.0
@@ -98,5 +98,5 @@ $lang['files:type_i'] = 'Bild';
 $lang['files:type_o'] = 'Annat';
 
 
-/* End of file files_lang.php */  
+/* End of file files_lang.php */
 /* Location: system/cms/modules/files/language/swedish/files_lang.php */  
