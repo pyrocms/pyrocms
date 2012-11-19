@@ -8,7 +8,7 @@ $lang['db_engine']		=	 'Database Engine';
 $lang['mysql_about']    =    'MySQL is the world\'s most used open-source database. It is fast, popular and installed on the majority of web servers.';
 $lang['use_mysql']		= 	 'Use MySQL';
 $lang['pgsql_about'] 	=    'PostgreSQL is a popular alternative to MySQL. It is often slightly quicker but is installed on less servers by default.';
-$lang['use_pqsql']		= 	 'Use PostgreSQL';
+$lang['use_pgsql']		= 	 'Use PostgreSQL';
 $lang['sqlite_about']   =    'SQLite is a lightweight file-based SQL engine, which installed on many servers and part of PHP as of PHP 5.3.';
 $lang['use_sqlite']		= 	 'Use SQLite';
 

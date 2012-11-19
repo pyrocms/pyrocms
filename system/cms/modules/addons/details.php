@@ -106,24 +106,22 @@ class Module_Addons extends Module
 
 	public function install()
 	{
-		$this->dbforge->drop_table('theme_options');
+		$schema = $this->pdb->getSchemaBuilder();
 
-		$tables = array(
-			'theme_options' => array(
-				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true),
-				'slug' => array('type' => 'VARCHAR', 'constraint' => 30),
-				'title' => array('type' => 'VARCHAR', 'constraint' => 100),
-				'description' => array('type' => 'TEXT', 'constraint' => 100),
-				'type' => array('type' => 'set', 'constraint' => array('text', 'textarea', 'password', 'select', 'select-multiple', 'radio', 'checkbox', 'colour-picker')),
-				'default' => array('type' => 'VARCHAR', 'constraint' => 255),
-				'value' => array('type' => 'VARCHAR', 'constraint' => 255),
-				'options' => array('type' => 'TEXT'),
-				'is_required' => array('type' => 'INT', 'constraint' => 1),
-				'theme' => array('type' => 'VARCHAR', 'constraint' => 50),
-			),
-		);
+		$schema->drop('theme_options');
 
-		return $this->install_tables($tables);
+		$schema->create('theme_options', function($table) { 
+			$table->increments('id');
+			$table->string('slug', 30);
+			$table->string('title', 100);
+			$table->text('description');
+			$table->enum('type', array('text', 'textarea', 'password', 'select', 'select-multiple', 'radio', 'checkbox', 'colour-picker'));
+			$table->string('default', 255);
+			$table->string('value', 255);
+			$table->text('options');
+			$table->boolean('is_required');
+			$table->string('theme', 50);
+		});
 	}
 
 	public function uninstall()

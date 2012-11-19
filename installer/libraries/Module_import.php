@@ -1,61 +1,30 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php
 
 // All modules talk to the Module class, best get that!
 include PYROPATH .'libraries/Module.php';
-
-// Let's get connecting
-use Illuminate\Database\Connectors\Connector;
 
 class Module_import {
 
 	// private $ci;
 
-	public function __construct($params)
+	public function __construct(array $params)
 	{
-		// $this->ci =& get_instance();
-		// $this->ci->load->helper('file');
+		$this->ci = get_instance();
 
-		// Getting our model and MY_Model class set up
-		// class_exists('CI_Model', false) OR load_class('Model', 'core');
-		// include(PYROPATH.'/core/MY_Model.php');
-
-		// Include some constants that modules may be looking for
-		define('SITE_REF', 'default');
-
-		// Now we can use stuff from our system/cms directory, hooray!
-		// Any dupes are generic so we shouldn't run into any 
-		// meaningful conflicts.
-		$this->ci->load->add_package_path(PYROPATH);
-		$this->ci->load->add_package_path(SHARED_ADDONPATH);
-
-		$this->pdb = new Connector($params['dsn'], array(
-			'username'	=> $params['username'],
-			'password'	=> $params['password'],
-			'driver'	=> $params['driver'],
-			'prefix'	=> 'default_',
-			'charset'	=> "utf8",
-			'collation'	=> "utf8_unicode_ci",
-		));
+		$this->pdb = $params['pdb'];
 
 		// create the site specific addon folder
-		is_dir(ADDONPATH.'modules') OR mkdir(ADDONPATH.'modules', DIR_READ_MODE, true);
-		is_dir(ADDONPATH.'themes') OR mkdir(ADDONPATH.'themes', DIR_READ_MODE, true);
-		is_dir(ADDONPATH.'widgets') OR mkdir(ADDONPATH.'widgets', DIR_READ_MODE, true);
-		is_dir(ADDONPATH.'field_types') OR mkdir(ADDONPATH.'field_types', DIR_READ_MODE, true);
+		is_dir(ADDONPATH.'modules') or mkdir(ADDONPATH.'modules', DIR_READ_MODE, true);
+		is_dir(ADDONPATH.'themes') or mkdir(ADDONPATH.'themes', DIR_READ_MODE, true);
+		is_dir(ADDONPATH.'widgets') or mkdir(ADDONPATH.'widgets', DIR_READ_MODE, true);
+		is_dir(ADDONPATH.'field_types') or mkdir(ADDONPATH.'field_types', DIR_READ_MODE, true);
 
 		// create the site specific upload folder
-		if (is_dir(dirname(FCPATH).'/uploads/default')) 
+		if ( ! is_dir(dirname(FCPATH).'/uploads/default')) 
 		{
 			mkdir(dirname(FCPATH).'/uploads/default', DIR_WRITE_MODE, true);
 		}
-
-		//insert empty html files
-		write_file(ADDONPATH.'modules/index.html', '');
-		write_file(ADDONPATH.'themes/index.html', '');
-		write_file(ADDONPATH.'widgets/index.html', '');
-		write_file(PYROPATH.'uploads/index.html', '');
 	}
-
 
 	/**
 	 * Install
@@ -95,19 +64,22 @@ class Module_import {
 
 	public function add($module)
 	{
-		return $this->ci->db->insert('modules', array(
-			'name' => serialize($module['name']),
-			'slug' => $module['slug'],
-			'version' => $module['version'],
-			'description' => serialize($module['description']),
-			'skip_xss' => ! empty($module['skip_xss']),
-			'is_frontend' => ! empty($module['frontend']),
-			'is_backend' => ! empty($module['backend']),
-			'menu' => ! empty($module['menu']) ? $module['menu'] : false,
-			'enabled' => $module['enabled'],
-			'installed' => $module['installed'],
-			'is_core' => $module['is_core']
-		));
+		return $this->pdb
+			->table('modules')
+			->insert(array(
+				'name' => serialize($module['name']),
+				'slug' => $module['slug'],
+				'version' => $module['version'],
+				'description' => serialize($module['description']),
+				'skip_xss' => ! empty($module['skip_xss']),
+				'is_frontend' => ! empty($module['frontend']),
+				'is_backend' => ! empty($module['backend']),
+				'menu' => ! empty($module['menu']) ? $module['menu'] : false,
+				'enabled' => $module['enabled'],
+				'installed' => $module['installed'],
+				'is_core' => $module['is_core']
+			)
+		);
 	}
 
 
@@ -142,8 +114,10 @@ class Module_import {
 
 		// After modules are imported we need to modify the settings table
 		// This allows regular admins to upload addons on the first install but not on multi
-		$this->ci->db->where('slug', 'addons_upload')
-			->update('settings', array('value' => '1'));
+		$this->pdb
+			->table('settings')
+			->where('slug', '=', 'addons_upload')
+			->update(array('value' => true));
 
 		return true;
 	}
@@ -181,6 +155,6 @@ class Module_import {
 		$class = 'Module_'.ucfirst(strtolower($slug));
 
 		// Now we need to talk to it
-		return class_exists($class) ? new $class : false;
+		return class_exists($class) ? new $class($this->pdb) : false;
 	}
 }

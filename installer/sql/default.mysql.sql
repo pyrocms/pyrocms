@@ -30,7 +30,7 @@ CREATE TABLE `core_sites` (
 
 DROP TABLE IF EXISTS `{site_ref}_users`;
 
-CREATE TABLE IF NOT EXISTS `{site_ref}_users` (
+CREATE TABLE `{site_ref}_users` (
   `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
   `email` varchar(60) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `password` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS `{site_ref}_users` (
 INSERT INTO `{site_ref}_users` (`id`, `email`, `password`, `salt`, `group_id`, `ip_address`, `active`, `activation_code`, `created_on`, `last_login`, `username`) 
 VALUES (1, :email, :password, :salt, 1, '', 1, '', :unix_now, :unix_now, :username);
 	
-CREATE TABLE IF NOT EXISTS `core_users` (
+CREATE TABLE `core_users` (
   `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
   `email` varchar(60) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `password` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
@@ -101,13 +101,13 @@ CREATE TABLE `{site_ref}_profiles` (
 INSERT INTO `{site_ref}_profiles` (`id`, `user_id`, `first_name`, `last_name`, `display_name`, `company`, `lang`)
 VALUES (1, 1, :firstname, :lastname, :displayname, '', 'en');
 
-CREATE TABLE IF NOT EXISTS {site_ref}_migrations (
+CREATE TABLE `{site_ref}_migrations` (
   `version` int(3) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO {site_ref}_migrations VALUES (:migration);
 
-CREATE TABLE IF NOT EXISTS `{site_ref}_modules` (
+CREATE TABLE `{site_ref}_modules` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` TEXT NOT NULL,
   `slug` varchar(50) NOT NULL,
@@ -127,7 +127,7 @@ CREATE TABLE IF NOT EXISTS `{site_ref}_modules` (
   INDEX `enabled` (`enabled`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-CREATE TABLE IF NOT EXISTS `{session_table}` (
+CREATE TABLE `{session_table}` (
  `session_id` varchar(40) DEFAULT '0' NOT NULL,
  `ip_address` varchar(16) DEFAULT '0' NOT NULL,
  `user_agent` varchar(120) NOT NULL,

@@ -10,31 +10,31 @@
 <?php echo form_open(uri_string(), 'id="install_frm"'); ?>
 
 	<section class="title">
-		<h3>{db_engine}</h3>
+		<h3>{db_driver}</h3>
 	</section>
 	
-	<section id="db-engine" class="item">
+	<section id="db-driver" class="item">
 		<div class="one_full">
 
-			<div class="mysql one_quarter alert <?php echo $db_engines['mysql'] ? 'success' : 'error' ?>" style="width: 22.5em">
-				<img src="<?php echo base_url('assets/img/dbengines/mysql.png') ?>" />
+			<div class="mysql one_quarter alert <?php echo $db_drivers['mysql'] ? 'success' : 'error' ?>" style="width: 22.5em">
+				<img src="<?php echo base_url('assets/img/dbdrivers/mysql.png') ?>" />
 				<p>{mysql_about}</p>
-				<?php echo form_radio('db_engine', "mysql", $selected_db_engine, 'id="use-mysql"'.($db_engines['mysql'] ? '' : ' disabled')) ?> 
-				<?php echo lang($db_engines['mysql'] ? 'use_mysql' : 'not_available', 'use-mysql') ?>
+				<?php echo form_radio('db_driver', "mysql", $selected_db_driver, 'id="use-mysql"'.($db_drivers['mysql'] ? '' : ' disabled')) ?> 
+				<?php echo lang($db_drivers['mysql'] ? 'use_mysql' : 'not_available', 'use-mysql') ?>
 			</div>
 
-			<div class="pgsql one_quarter alert <?php echo $db_engines['pgsql'] ? 'success' : 'error' ?>" style="width: 22.5em">
-				<img src="<?php echo base_url('assets/img/dbengines/pgsql.png') ?>" />
+			<div class="pgsql one_quarter alert <?php echo $db_drivers['pgsql'] ? 'success' : 'error' ?>" style="width: 22.5em">
+				<img src="<?php echo base_url('assets/img/dbdrivers/pgsql.png') ?>" />
 				<p>{pgsql_about}</p>
-				<?php echo form_radio('db_engine', "pgsql", $selected_db_engine === 'pgsql', 'id="use-pgsql"'.($db_engines['pgsql'] ? '' : ' disabled')) ?> 
-				<?php echo lang($db_engines['pgsql'] ? 'use_pgsql' : 'not_available', 'use-pgsql') ?>
+				<?php echo form_radio('db_driver', "pgsql", $selected_db_driver === 'pgsql', 'id="use-pgsql"'.($db_drivers['pgsql'] ? '' : ' disabled')) ?> 
+				<?php echo lang($db_drivers['pgsql'] ? 'use_pgsql' : 'not_available', 'use-pgsql') ?>
 			</div>
 
-			<div class="sqlite one_quarter last alert <?php echo $db_engines['sqlite'] ? 'success' : 'error' ?>" style="width: 22.5em">
-				<img src="<?php echo base_url('assets/img/dbengines/sqlite.gif') ?>" style="background-color:white" />
+			<div class="sqlite one_quarter last alert <?php echo $db_drivers['sqlite'] ? 'success' : 'error' ?>" style="width: 22.5em">
+				<img src="<?php echo base_url('assets/img/dbdrivers/sqlite.gif') ?>" style="background-color:white" />
 				<p>{sqlite_about}</p>
-				<?php echo form_radio('db_engine', "sqlite", $selected_db_engine === 'sqlite', 'id="use-sqlite"'.($db_engines['sqlite'] ? '' : ' disabled')) ?> 
-				<?php echo lang($db_engines['sqlite'] ? 'use_sqlite' : 'not_available', 'use-sqlite') ?>
+				<?php echo form_radio('db_driver', "sqlite", $selected_db_driver === 'sqlite', 'id="use-sqlite"'.($db_drivers['sqlite'] ? '' : ' disabled')) ?> 
+				<?php echo lang($db_drivers['sqlite'] ? 'use_sqlite' : 'not_available', 'use-sqlite') ?>
 				</button>
 			</div>
 		</div>

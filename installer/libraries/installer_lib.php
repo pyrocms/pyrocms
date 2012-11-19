@@ -1,4 +1,7 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+
+use Illuminate\Database\Connectors\ConnectionFactory;
+
 /**
  * @author 		Phil Sturgeon
  * @author 		Victor Michnowicz
@@ -132,20 +135,19 @@ class Installer_lib {
 	}
 
 	/**
-	 * @return bool
 	 * Make sure the database name is a valid mysql identifier
-	 * 
+	 * @return bool
 	 */
 	 public function validate_db_name($db_name)
 	 {
-	 	$expr = '/[^A-Za-z0-9_-]+/';
-	 	return !(preg_match($expr,$db_name)>0);
+	 	return ! (preg_match('/[^A-Za-z0-9_-]+/', $db_name) > 0);
 	 }
 
 	/**
-	 * @return 	mixed
-	 *
 	 * Make sure we can connect to the database
+	 *
+	 * @return PDO
+	 * @throws PDOException If connection fails
 	 */
 	public function create_db_connection()
 	{
@@ -160,8 +162,6 @@ class Installer_lib {
 		switch ($driver)
 		{
 			case 'mysql':
-				$dsn = "{$driver}:host={$hostname};port={$port};charset=utf8;";
-			break;
 			case 'pgsql':
 				$dsn = "{$driver}:host={$hostname};port={$port};";
 			break;
@@ -169,26 +169,26 @@ class Installer_lib {
 				$dsn = "sqlite:{$location}";
 			break;
 			default:
-				show_error('Unknown driver type: '.$driver);
+				throw new Exception('Unknown database driver type: '.$driver);
 		}
 
-		// Try the connection
-		try
-		{
-			$pdo = new PDO($dsn, $username, $password, array(
-				PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
-			));
-		}
-		catch (PDOException $e)
-		{
-		    $this->_error_message = $e->getMessage();
-		    return false;
-		}
+		// Try and connect, but bitch if error
+		return new PDO($dsn, $username, $password, array(
+			PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+		));
+	}
 
-		return array(
-			'conn' => $pdo,
-			'dsn' => $dsn,
-		);
+	/**
+	 * Make sure we can connect to the database
+	 *
+	 * @param PDO $database
+	 * @return bool
+	 */
+	public function create_db($database)
+	{
+		$pdo = $this->create_db_connection();
+		
+		return $pdo->query("CREATE DATABASE {$database}");
 	}
 
 	/**
@@ -197,112 +197,94 @@ class Installer_lib {
 	 *
 	 * Install the PyroCMS database and write the database.php file
 	 */
-	public function install($user, $db)
+	public function install(array $user, array $db)
 	{
-		// Retrieve the database server, username and password from the session
-		$server 	= "{$db['hostname']}:{$db['port']}";
-		$username 	= $db['username'];
-		$password 	= $db['password'];
-		$database 	= $db['database'];
-
-		// User settings
-		$user_salt = substr(md5(uniqid(rand(), true)), 0, 5);
-		$user['password'] = sha1($user['password'] . $user_salt);
-
-		// Include migration config to know which migration to start from
-		include '../system/cms/config/migration.php';
-
 		// Create a connection
-		if ( ! $pdo = $this->create_db_connection())
+		$config = array(
+			'driver'	=> $db['driver'],
+			'password' 	=> $db['password'],
+			'prefix'	=> $db['site_ref'].'_',
+			'charset'	=> "utf8",
+			'collation'	=> "utf8_unicode_ci",
+		);
+
+		switch ($config['driver'])
 		{
-			return array('status' => false,'message' => 'The installer could not connect to the database, be sure to enter the correct information.');
+			case 'mysql':
+			case 'pgsql':
+				$config['host'] 	= $db['hostname'];
+				$config['port']     = $db['port'];
+				$config['username'] = $db['username'];
+				$config['database'] = $db['database'];
+			break;
+			case 'sqlite':
+				$config['location'] = $db['location'];
+			break;
+			default:
+				throw new Exception('Unknown database driver type: '.$db['driver']);
 		}
+
+		// Connect using the Laravel Database component
+		$cf = new ConnectionFactory;
+		$conn = $cf->make($config);
 
 		$this->ci->load->model('install_m');
 
 		// Basic installation done with this PDO connection
-		$this->ci->install_m->set_default_structure($pdo['conn'], array_merge($user, $db));
-
-		// We didn't neccessairily have the DB at connection time
-		if ($db['database'])
-		{
-			$pdo['dsn'] .= "dbname={$db['database']};";
-		}
+		$this->ci->install_m->set_default_structure($conn, array_merge($user, $db));
 
 		// Write the database file
-		if ( ! $this->write_db_file($pdo['dsn'], $db['database'], $db['username'], $db['password']))
+		if ( ! $this->write_db_file($db))
 		{
-			return array(
-				'status'	=> false,
-				'message'	=> '',
-				'code'		=> 105
-			);
+			throw new Exception('Failed to write database.php file.');
 		}
 
 		// Write the config file.
 		if ( ! $this->write_config_file())
 		{
-			return array(
-				'status'	=> false,
-				'message'	=> '',
-				'code'		=> 106
-			);
+			throw new Exception('Failed to write config.php file.');
 		}
 
-		return array(
-			'status' => true,
-			'dsn' => $pdo['dsn'],
-			'username' => $db['username'],
-			'password' => $db['password'],
-		);
+		return $conn;
 	}
 	
-
 	/**
-	 * @param 	string $database The name of the database
-	 *
 	 * Writes the database file based on the provided database settings
+	 *
+	 * @param 	array $db The database config params
 	 */
-	public function write_db_file($dsn, $database, $username, $password)
+	public function write_db_file($db)
 	{
 		// Open the template file
-		$template 	= file_get_contents('./assets/config/database.php');
-
-		// We didn't neccessairily have the DB at connection time
-		if ($database)
-		{
-			$dsn .= "dbname={$database};";
-		}
+		$template = file_get_contents('./assets/config/database.php');
 
 		// Replace the __ variables with the data specified by the user
-		$new_file  	= str_replace(array(
-			'{dsn}', 
-			'{username}', 
-			'{password}'
+		$new_file = str_replace(array( 
+			'{driver}', '{hostname}', '{port}', '{database}', '{username}', '{password}'
 		), array(
-			$dsn,
-			$username,
-			$password,
+			$db['driver'], $db['hostname'], $db['port'], $db['database'], $db['username'], $db['password'],
 		), $template);
 
 		// Open the database.php file, show an error message in case this returns false
-		$handle 	= @fopen('../system/cms/config/database.php','w+');
+		$handle = @fopen(PYROPATH.'config/database.php','w+');
 
 		// Validate the handle results
-		if ($handle !== FALSE)
+		if ($handle !== false)
 		{
 			return @fwrite($handle, $new_file);
 		}
 
-		return FALSE;
+		@fclose($handle);
+
+		return false;
 	}
 
 	/**
-	 * @return bool
-	 *
 	 * Writes the config file.n
+	 * 
+	 * @return bool
 	 */
-	function write_config_file()
+	public function write_config_file()
 	{
 		// Open the template
 		$template = file_get_contents('./assets/config/config.php');
@@ -315,7 +297,6 @@ class Installer_lib {
 		{
 			$index_page = '';
 		}
-
 		else
 		{
 			$index_page = 'index.php';
@@ -325,25 +306,20 @@ class Installer_lib {
 		$new_file = str_replace('{index}', $index_page, $template);
 
 		// Open the database.php file, show an error message in case this returns false
-		$handle = @fopen('../system/cms/config/config.php','w+');
+		$handle = @fopen(PYROPATH.'config/config.php','w+');
 
 		// Validate the handle results
-		if ($handle !== FALSE)
+		if ($handle !== false)
 		{
 			return fwrite($handle, $new_file);
 		}
 
-		return FALSE;
+		return false;
 	}
 
 	public function curl_enabled()
 	{
-		return (bool) function_exists('curl_init');
-	}
-
-	public function get_error()
-	{
-		return $this->_error_message;
+		return function_exists('curl_init');
 	}
 }
 

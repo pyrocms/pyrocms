@@ -203,7 +203,7 @@
  * ...and it will take care of our classes
  *
  */
-require_once '../system/vendor/autoload.php';
+require_once '../vendor/autoload.php';
 
 /*
  * --------------------------------------------------------------------
@@ -213,6 +213,6 @@ require_once '../system/vendor/autoload.php';
  * And away we go...
  *
  */
-require_once BASEPATH.'core/CodeIgniter'.EXT;
+require_once BASEPATH.'core/CodeIgniter.php';
 
 /* End of file index.php */

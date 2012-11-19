@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed');
+<?php
 
 // This is for using the the settings
 // library in PyroCMS when installing. This is a
@@ -86,6 +86,10 @@ class Installer extends CI_Controller
 
 		// Let us load stuff from the main application
 		$this->load->add_package_path(PYROPATH);
+		$this->load->add_package_path(SHARED_ADDONPATH);
+
+		// Include some constants that modules may be looking for
+		define('SITE_REF', 'default');
 
 		// Load form validation
 		$this->load->library('form_validation');
@@ -117,7 +121,7 @@ class Installer extends CI_Controller
 		// Save this junk for later
 		// Used in validation callback, so set early
 		$this->session->set_userdata(array(
-			'db.engine'   => $engine 	= $this->input->post('db_engine'),
+			'db.driver'   => $driver 	= $this->input->post('db_driver'),
 			'db.hostname' => $hostname 	= $this->input->post('hostname'),
 			'db.location' => $location 	= $this->input->post('location'),
 			'db.username' => $username 	= $this->input->post('username'),
@@ -131,8 +135,8 @@ class Installer extends CI_Controller
 		// Set rules
 		$this->form_validation->set_rules(array(
 			array(
-				'field' => 'db_engine',
-				'label'	=> 'lang:db_engine',
+				'field' => 'db_driver',
+				'label'	=> 'lang:db_driver',
 				'rules'	=> 'trim|required'
 			),
 			array(
@@ -143,7 +147,7 @@ class Installer extends CI_Controller
 			array(
 				'field' => 'location',
 				'label'	=> 'lang:location',
-				'rules'	=> 'trim'.(in_array($engine, array('sqlite')) ? '|required' : ''),
+				'rules'	=> 'trim'.(in_array($driver, array('sqlite')) ? '|required' : ''),
 			),
 			array(
 				'field' => 'username',
@@ -163,7 +167,7 @@ class Installer extends CI_Controller
 			array(
 				'field' => 'database',
 				'label'	=> 'lang:server_settings',
-				'rules'	=> 'trim'.(in_array($engine, array('mysql', 'pgsql')) ? '|required' : ''),
+				'rules'	=> 'trim'.(in_array($driver, array('mysql', 'pgsql')) ? '|required' : ''),
 			),
 			array(
 				'field' => 'http_server',
@@ -176,8 +180,7 @@ class Installer extends CI_Controller
 		if ($this->form_validation->run())
 		{
 			// Set the flashdata message
-			$this->session->set_flashdata('message', lang('db_success'));
-			$this->session->set_flashdata('message_type', 'success');
+			$this->session->set_flashdata('success', lang('db_success'));
 
 			// Redirect to the second step
 			$this->session->set_userdata('step_1_passed', TRUE);
@@ -195,32 +198,32 @@ class Installer extends CI_Controller
 
 		// Get the port from the session or set it to the default value when it isn't specified
 		$data->port = null;
-		if (in_array($engine, array('mysql', 'pgsql')))
+		if (in_array($driver, array('mysql', 'pgsql')))
 		{
-			$default_port = $this->default_ports[$engine];
+			$default_port = $this->default_ports[$driver];
 			$data->port = $port ?: $default_port;
 		}
 		
 		// Check what DB's are available
-		$data->db_engines = $this->installer_lib->check_db_extensions();
+		$data->db_drivers = $this->installer_lib->check_db_extensions();
 
-		// Work out which DB engine to show as selected
-		$data->selected_db_engine = null;
+		// Work out which DB driver to show as selected
+		$data->selected_db_driver = null;
 
-		if ($this->input->post('db_engine') === null)
+		if ($this->input->post('db_driver') === null)
 		{
-			foreach (array('sqlite', 'pgsql', 'mysql') as $engine)
+			foreach (array('sqlite', 'pgsql', 'mysql') as $driver)
 			{
-				if ($data->db_engines[$engine] === true)
+				if ($data->db_drivers[$driver] === true)
 				{
-					$data->selected_db_engine = $engine;
+					$data->selected_db_driver = $driver;
 					break;
 				}
 			}
 		}
 		else
 		{
-			$data->selected_db_engine = $this->input->post('db_engine');
+			$data->selected_db_driver = $this->input->post('db_driver');
 		}
 
 		// Load language labels
@@ -251,12 +254,13 @@ class Installer extends CI_Controller
 	 */
 	public function test_db_connection()
 	{
-		if ( ! $this->installer_lib->create_db_connection())
-		{
-			$this->form_validation->set_message('test_db_connection', lang('db_failure') . $this->installer_lib->get_error());
+		try {
+			$this->installer_lib->create_db_connection();
+		} catch (Exception $e) {
+			$this->form_validation->set_message('test_db_connection', lang('db_failure') . $e->getMessage());
 			return false;
 		}
-		
+
 		return true;
 	}
 
@@ -275,14 +279,13 @@ class Installer extends CI_Controller
 		if ( ! $this->session->userdata('step_1_passed'))
 		{
 			// Set the flashdata message
-			$this->session->set_flashdata('message', lang('step1_failure'));
-			$this->session->set_flashdata('message_type','failure');
+			$this->session->set_flashdata('error', lang('step1_failure'));
 
 			redirect('');
 		}
 
 		// Check the PHP version
-		$data->php_min_version	= '5.2';
+		$data->php_min_version	= '5.3.6';
 		$data->php_acceptable	= $this->installer_lib->php_acceptable($data->php_min_version);
 		$data->php_version		= $this->installer_lib->php_version;
 
@@ -426,10 +429,12 @@ class Installer extends CI_Controller
 		));
 
 		// If the form validation failed (or did not run)
-		if ($this->form_validation->run() == FALSE)
+		if ($this->form_validation->run() === false)
 		{
-			$final_data['page_output'] = $this->parser->parse('step_4', $this->lang->language, TRUE);
-			$this->load->view('global', $final_data);
+			$this->load->view('global', array(
+				'page_output' => $this->parser->parse('step_4', $this->lang->language, true),
+			));
+			return;
 		}
 
 		// If the form validation passed
@@ -443,37 +448,46 @@ class Installer extends CI_Controller
 			//define the default user email to be used in the settings module install
 			define('DEFAULT_EMAIL', $user['email']);
 
-			// Let's try to install the system
-			$install = $this->installer_lib->install($user, array(
-				'engine'   => $this->session->userdata('db.engine'), 
-				'database' => $this->session->userdata('db.database'),
-				'hostname' => $this->session->userdata('db.hostname'),
-				'port' 		=> $this->session->userdata('db.port'),
-				'username' => $this->session->userdata('db.username'),
-				'password' => $this->session->userdata('db.password'),
-				'create_db' => (bool) $this->session->userdata('db.create_db'),
-				'site_ref' => $this->input->post('site_ref'),
-			));
-
-			// Did the install fail?
-			if ($install['status'] === FALSE)
+			// Should we try creating the database?
+			if ($this->session->userdata('db.create_db'));
 			{
-				// Let's tell them why the install failed
-				$this->session->set_flashdata('message', lang('error_'.$install['code']) . $install['message']);
+				try
+				{
+					$this->installer_lib->create_db($this->session->userdata('db.database'));
+				}
+				catch (Exception $e) {}
+			}
 
-				$final_data['page_output'] = $this->parser->parse('step_4', $this->lang->language, TRUE);
-				$this->load->view('global', $final_data);
+			try
+			{
+				// Install, then return valid PDO connection if it worked
+				$pdb = $this->installer_lib->install($user, array(
+					'hostname' 	=> $this->session->userdata('db.hostname'),
+					'port' 		=> $this->session->userdata('db.port'),
+					'driver'   	=> $this->session->userdata('db.driver'), 
+					'database' 	=> $this->session->userdata('db.database'),
+					'username' 	=> $this->session->userdata('db.username'),
+					'password' 	=> $this->session->userdata('db.password'),
+					'site_ref' 	=> $this->input->post('site_ref'),
+				));
+			}
+			
+			// Did the install fail?
+			catch (Exception $e)
+			{
+				$this->load->view('global', array(
+					'error' 		=> $e->getMessage(),
+					'page_output' 	=> $this->parser->parse('step_4', $this->lang->language, true),
+				));
+				return;
 			}
 
 			// Success!
-			$this->session->set_flashdata('message', lang('success'));
-			$this->session->set_flashdata('message_type', 'success');
+			$this->session->set_flashdata('success', lang('success'));
 
 			// Import the modules
 			$this->load->library('module_import', array(
-				'dsn' => $install['dsn'],
-				'username' => $install['username'],
-				'password' => $install['password'],
+				'pdb' => $pdb,
 			));
 
 			$this->module_import->import_all();
@@ -553,7 +567,7 @@ class Installer extends CI_Controller
 
 		// let's load the language file belonging to the page i.e. method
 		$lang_file = $this->config->item('language') . '/' . $this->router->fetch_method() . '_lang';
-		if (is_file(realpath(dirname(__FILE__) . '/../language/' . $lang_file . EXT)))
+		if (is_file(realpath(dirname(__FILE__) . "/../language/{$lang_file}.php")))
 		{
 			$this->lang->load($this->router->fetch_method());
 		}

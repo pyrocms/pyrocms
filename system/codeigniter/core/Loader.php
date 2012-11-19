@@ -394,9 +394,10 @@ class CI_Loader {
 
 		require_once(BASEPATH.'database/DB_forge.php');
 		require_once(BASEPATH.'database/drivers/'.$CI->db->dbdriver.'/'.$CI->db->dbdriver.'_forge.php');
+
 		$class = 'CI_DB_'.$CI->db->dbdriver.'_forge';
 
-		$CI->dbforge = new $class();
+		$CI->dbforge = new $class($CI->db);
 	}
 
 	// --------------------------------------------------------------------
