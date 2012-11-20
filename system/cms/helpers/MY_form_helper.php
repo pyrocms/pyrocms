@@ -3,12 +3,16 @@
 if ( ! function_exists('form_file_picker'))
 {
     /**
-    * Text Input Field
+    * File Picker Field
     *
-    * @param	mixed
     * @param	string
-    * @param	string
+    * @param	mixed ( string or array )
+    * @param	boolean
     * @return	string
+	* 
+	* Example 1 (single image): <?php echo form_file_picker('product_image_id', $product->product_image_id);?>
+	* Example 2 (multiple images) : <?php echo form_file_picker('product_highlights', $product->product_highlights, true);?>
+	*
     */
     function form_file_picker($data = '', $value = '', $multiple=false)
     {
