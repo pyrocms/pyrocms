@@ -6,7 +6,7 @@ $lang['page_layouts.css_label']                      = 'CSS';
 
 // labels
 $lang['page_layouts.updated_label']                  = 'Frissített';
-$lang['page_layouts.theme_layout_label']             = 'Oldalterv felirata';
+$lang['page_layouts:theme_layout_label']             = 'Oldalterv felirata';
 $lang['page_layouts.layout']                         = 'Oldalterv';
 
 // titles

@@ -37,7 +37,7 @@
 				
 					<td>
 						<strong><?php echo lang($comment->singular) ? lang($comment->singular) : $comment->singular; ?>: </strong>
-						<?php echo $comment->entry_title ? $comment->entry_title : '#'.$comment->entry_id ?>
+						<?php echo anchor($comment->cp_uri ? $comment->cp_uri : $comment->uri, $comment->entry_title ? $comment->entry_title : '#'.$comment->entry_id) ?>
 					</td>
 					
 					<td>

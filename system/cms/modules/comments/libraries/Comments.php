@@ -163,7 +163,7 @@ class Comments
 			// Override specified website if they are a user
 			if ($comment->user_id and Settings::get('enable_profiles'))
 			{
-				$comment->website = 'user/'.$comment->username;
+				$comment->website = 'user/'.$comment->user_name;
 			}
 
 			// We only want to load a lang file once
@@ -182,8 +182,8 @@ class Comments
 				}
 			}
 
-			$comment->singular = lang($comment->entry_key) ? lang($comment->entry_key) : $comment->entry_key;
-			$comment->plural = lang($comment->entry_plural) ? lang($comment->entry_plural) : $comment->entry_plural;
+			$comment->singular = lang($comment->entry_key) ? lang($comment->entry_key) : humanize($comment->entry_key);
+			$comment->plural = lang($comment->entry_plural) ? lang($comment->entry_plural) : humanize($comment->entry_plural);
 
 			// work out who did the commenting
 			if ($comment->user_id > 0)

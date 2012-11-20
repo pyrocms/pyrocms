@@ -90,16 +90,6 @@ class Field_image
 	
 		$this->CI->load->library('files/files');
 
-		// Set Allowed Types
-		if (trim($field->field_data['allowed_types']) == '')
-		{
-			$upload_config['allowed_types'] 	= '*';
-		}
-		else
-		{
-			$upload_config['allowed_types'] 	= $field->field_data['allowed_types'];
-		}
-
 		// Resize options
 		$resize_width 	= (isset($field->field_data['resize_width'])) ? $field->field_data['resize_width'] : null;
 		$resize_height 	= (isset($field->field_data['resize_height'])) ? $field->field_data['resize_height'] : null;

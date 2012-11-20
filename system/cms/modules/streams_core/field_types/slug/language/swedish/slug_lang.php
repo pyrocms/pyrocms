@@ -12,11 +12,11 @@
  */
 
 
-$lang['streams.slug.name']		= 'Slugg';
-$lang['streams.slug.space_type']		= 'Typ av utrymme';
-$lang['streams.slug.slug_field']		= 'Sluggfält';
-$lang['streams.slug.dash']		= 'Tankstreck';
-$lang['streams.slug.underscore']		= 'Understräck';
+$lang['streams.slug.name'] = 'Slugg';
+$lang['streams.slug.space_type'] = 'Typ av utrymme';
+$lang['streams.slug.slug_field'] = 'Sluggfält';
+$lang['streams.slug.dash'] = 'Tankstreck';
+$lang['streams.slug.underscore'] = 'Understreck';
 
 
 

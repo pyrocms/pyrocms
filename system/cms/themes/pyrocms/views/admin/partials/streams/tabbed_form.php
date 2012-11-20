@@ -24,7 +24,7 @@
 					<label for="<?php echo $fields[$field]['input_slug'];?>"><?php echo $this->fields->translate_label($fields[$field]['input_title']);?> <?php echo $fields[$field]['required'];?>
 					
 					<?php if( $fields[$field]['instructions'] != '' ): ?>
-						<br /><small><?php echo $fields[$field]['instructions']; ?></small>
+						<br /><small><?php echo $this->fields->translate_label($fields[$field]['instructions']); ?></small>
 					<?php endif; ?>
 					</label>
 					

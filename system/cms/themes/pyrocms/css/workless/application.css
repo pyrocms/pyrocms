@@ -609,6 +609,11 @@ nav#shortcuts ul li a:hover
   	opacity: 0.8;
 }
 
+.title h4 .button
+{
+	margin-top: -5px;
+}
+
 .item
 {
 	background: #ffffff;
@@ -1641,3 +1646,5 @@ span.cke_skin_kama
 		max-width: 1185px!important;
 	}
 }
+/* Streams Core Styles */
+.dropzone td, .dropzone { background: #fbf9ee; height: 35px;padding:0; width:100%;}

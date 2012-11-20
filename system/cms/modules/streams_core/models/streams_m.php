@@ -539,7 +539,7 @@ class Streams_m extends MY_Model {
 			// Loop through and apply the filters
 			foreach ( $filter_data['filters'] as $filter=>$value )
 			{
-				if ( !empty($value) ) $this->db->like(str_replace('f_', '', $filter), $value);
+				if ( strlen($value) > 0 ) $this->db->like(str_replace('f_', '', $filter), $value);
 			}
 		}
 

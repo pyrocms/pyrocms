@@ -523,6 +523,60 @@ class Field_choice
 				$choices[$key_bit] = $this->CI->fields->translate_label(trim($bits[1]));
 			}
 		}
+
+
+		// -------------------------------
+		// Scan for <optgroup> triggers
+		// -------------------------------
+		// Optgroups are trigger by
+		// wrapping a line in *
+		// like: *group name*
+		// TODO: Perhaps use this for
+		// grouping checkboxes in the future?
+		// -------------------------------
+		if ( $type == 'dropdown' )
+		{
+
+			// Initialize
+			$optgroups = array();
+			$currentgroup = '';
+
+			// Loop and look
+			foreach ( $choices as $key => $value )
+			{
+
+				// Is this an <optgroup> trigger?
+				if ( substr($key, 0, 1) == '*' )
+				{
+
+					// Sure is, set the current group
+					$currentgroup = substr($key, 1, -1);
+
+					// This is a trigger, so we're done.
+					// Continue to the next iteration.
+					continue;
+				}
+				else
+				{
+
+					// Nope, so is there a group yet?
+					if ( $currentgroup == '' )
+					{
+
+						// Dang, this won't be in an <optgroup>
+						$optgroups[$key] = $value;
+					}
+					else
+					{
+
+						// Yes! This will be in the current <optgroup>
+						$optgroups[$currentgroup][$key] = $value;
+					}
+				}
+			}
+
+			$choices = $optgroups;
+		}
 		
 		return $choices;
 	}
