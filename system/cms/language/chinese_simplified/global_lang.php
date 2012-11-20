@@ -1,110 +1,107 @@
-<?php
-/**
- * Chinese Simpplified translation.
- *
- * @author		Kefeng DENG
- * @package		PyroCMS
- * @subpackage 	-
- * @category	-
- * @link		http://pyrocms.com
- * @date		2012-06-22
- * @version		1.0
- */
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-$lang['global:control-panel'] 						= '控制台'; 		//'Control Panel';
-$lang['global:profile']					= '人物简介'; #translate
+$lang['global:control-panel'] 			= 'Control Panel';
+$lang['global:profile']					= 'Profile';
 
-$lang['global:title'] 					= '标题'; 		//'Title';
-$lang['name_label'] 					= '姓名'; 		//'Name';
-$lang['desc_label'] 					= '说明'; 		//'Description';
-$lang['version_label'] 					= '版本'; 		//'Version';
-$lang['global:author'] 					= '作者'; 		//'Author';
-$lang['global:action'] 					= '操作'; 		//'Action';
+$lang['global:title'] 					= 'Title';
+$lang['name_label'] 					= 'Name';
+$lang['desc_label'] 					= 'Description';
+$lang['version_label'] 					= 'Version';
+$lang['global:author'] 					= 'Author';
+$lang['global:action'] 					= 'Action';
+$lang['global:slug'] 					= 'Slug';
+$lang['global:slug_instructions']		= 'Lowercase characters and underscores only.';
+$lang['global:user'] 					= 'User';
 
-$lang['global:dialog:delete_message']		= '確定要刪除吗？这将无法复原。'; //'Are you sure you want to delete this? It can not be undone.';
-$lang['global:dialog:confirm'] 				= '确认'; 		//'Confirm';
+$lang['global:dialog:delete_message'] 	= 'Are you sure you want to delete this? It cannot be undone.';
+$lang['global:dialog:confirm'] 			= 'Confirm';
 
-$lang['global:slug'] 					= 'Slug'; #translate
-$lang['global:slug_instructions']		= 'Lowercase characters and underscores only.'; #translate
+$lang['global:yes'] 					= 'Yes';
+$lang['global:no'] 						= 'No';
 
-$lang['dialog.delete_message'] 			= '確定要刪除嗎？這將無法復原。'; //'Are you sure you want to delete this? It can not be undone.';
-$lang['dialog.confirm'] 				= '確認'; 		//'Confirm';
-$lang['dialog.yes'] 					= '是'; 			//'Yes';
-$lang['dialog.no'] 						= '否'; 			//'No';
+$lang['global:select-none'] 			= '-- None --';
+$lang['global:select-all'] 				= '-- All --';
+$lang['global:select-any'] 				= '-- Any --';
+$lang['global:select-pick'] 			= '-- Select --';
 
-$lang['global:select-none'] 			= '-- 无 --';
-$lang['global:select-all'] 				= '-- 全部 --';
-$lang['global:select-any'] 				= '-- 任何 --';
-$lang['global:select-pick']				= '-- 请选择 --';
+$lang['global:check-all']				= 'All';
+$lang['global:check-none'] 				= 'None';
 
-$lang['global:check-none'] 				= '沒有';
-$lang['global:check-all']				= '全部';
+$lang['global:operators:equal'] 		= 'Equal to';
+$lang['global:operators:not-equal'] 	= 'Not equal to';
+$lang['global:operators:less-than'] 	= 'Less than';
+$lang['global:operators:greater-than'] 	= 'Greater than';
 
-$lang['operators.equal'] 				= '等于';
-$lang['operators.not_equal'] 			= '不等于';
-$lang['operators.less_than'] 			= '小于';
-$lang['operators.greater_than'] 		= '大于';
+$lang['global:duration:1-day']			= 'One day';
+$lang['global:duration:1-week']			= 'One week';
+$lang['global:duration:2-weeks']		= 'Two weeks';
+$lang['global:duration:1-month']		= 'One month';
+$lang['global:duration:3-months']		= 'Three Months';
+$lang['global:duration:always']			= 'Always';
 
-$lang['global:duration:1-day']			= '一天'; #translate
-$lang['global:duration:1-week']			= '一周'; #translate
-$lang['global:duration:2-weeks']		= '两周'; #translate
-$lang['global:duration:1-month']		= '一个月'; #translate
-$lang['global:duration:3-months']		= '三个月'; #translate
-$lang['global:duration:always']			= '永久'; #translate
+$lang['navigation_headline'] 			= 'Navigation';
+$lang['breadcrumb_base_label'] 			= 'Home';
 
-$lang['navigation_headline'] 			= '导航'; 		//'Navigation';
-$lang['breadcrumb_base_label'] 			= '首页'; 		//'Home';
+$lang['logged_in_welcome']				= 'Welcome %s, you are logged in.';
+$lang['logout_label'] 					= 'Log out';
+$lang['edit_profile_label'] 			= 'Edit Profile';
+$lang['settings_label'] 				= 'Settings';
 
-$lang['logged_in_welcome']				= '欢迎您 %s，您已经登陆成功。'; //'Welcome %s, you are logged in.';
-$lang['logout_label'] 					= '登出'; 			//'Log out';
-$lang['edit_profile_label'] 			= '编辑个人簡介'; 	//'Edit Profile';
-$lang['settings_label'] 				= '设定'; 			//'Settings';
+$lang['close_message'] 					= 'Close this message';
+$lang['general_error_label'] 			= 'Error';
+$lang['required_error_label'] 			= 'Required field missing';
+$lang['note_label'] 					= 'Note';
+$lang['success_label'] 					= 'Success';
 
-$lang['close_message'] 					= '关闭此消息'; 		//'Close this message';
-$lang['general_error_label'] 			= '错误'; 			//'Error';
-$lang['required_error_label'] 			= '缺少必填栏位';    //'Required field missing';
-$lang['note_label'] 					= '注意'; 			//'Note';
-$lang['success_label'] 					= '成功'; 			//'Success';
+$lang['login_title'] 					= 'Log In';
+$lang['global:fatal_error'] 			= 'Fatal error, is CMS installed?';
+$lang['global:demo_restrictions'] 		= 'Some features on this page have been disabled for the demo.';
 
-$lang['login_title'] 					= '登入'; 			//'Log In';
-$lang['cms_fatal_error'] 				= '严重错误，CMS安裝了吗？'; //'Fatal error, is CMS installed?';
-$lang['global:demo_restrictions']       = '因为演示目的，本页部分功能被关闭。'; #translate
+$lang['login_error_label'] 				= 'Login Error';
+$lang['forgot_password_label'] 			= 'Forgot your password ?';
+$lang['global:email'] 					= 'E-mail';
+$lang['global:password'] 				= 'Password';
+$lang['login_label'] 					= 'Log In';
 
-$lang['login_error_label'] 				= '登入错误'; 		//'Login Error';
-$lang['forgot_password_label'] 			= '忘记密码'; 		//'Forgot your password ?';
-$lang['email_label'] 					= '电子邮件'; 		//'E-mail';
-$lang['password_label'] 				= '密码'; 			//'Password';
-$lang['login_label'] 					= '登入'; 			//'Log In';
+$lang['help_label'] 					= 'Help';
+$lang['save_label'] 					= 'Save';
+$lang['cancel_label'] 					= 'Cancel';
+$lang['update_label'] 					= 'Update Caption';
+$lang['global:delete'] 					= 'Delete';
+$lang['activate_label'] 				= 'Activate';
+$lang['approve_label']					= 'Approve';
+$lang['unapprove_label']				= 'Unapprove';
+$lang['publish_label'] 					= 'Publish';
+$lang['global:upload'] 					= 'Upload';
+$lang['global:uninstall'] 				= 'Uninstall';
+$lang['global:install'] 				= 'Install';
+$lang['global:upgrade'] 				= 'Upgrade';
+$lang['global:enable']					= 'Enable';
+$lang['global:disable'] 				= 'Disable';
+$lang['global:enabled']					= 'Enabled';
+$lang['global:disabled'] 				= 'Disabled';
 
-$lang['help_label'] 					= '幫助';
-$lang['save_label'] 					= '儲存'; 			//'Save';
-$lang['cancel_label'] 					= '取消'; 			//'Cancel';
-$lang['update_label'] 					= '更新'; 			//'Update Caption';
-$lang['global:delete'] 					= '刪除'; 			//'Delete';
-$lang['activate_label'] 				= '启动'; 			//'Activate';
-$lang['approve_label']					= '核准'; 			//'Approve';
-$lang['unapprove_label']				= '取消核准'; 		//'Unapprove';
-$lang['publish_label'] 					= '发布'; 			//'Publish';
-$lang['upload_label'] 					= '上传'; 			//'Upload';
-$lang['global:uninstall'] 				= '卸载'; 			//'Uninstall';
-$lang['global:install'] 			    = '安裝'; 			//'Install';
-$lang['global:enable']					= '启用'; 			//'Enable';
-$lang['global:disable'] 				= '禁用'; 			//'Disable';
+$lang['all_right_reserved']				= 'All Rights Reserved.';
+$lang['powered_by_pyrocms']				= 'Powered by PyroCMS';
+$lang['top_page']						= 'Top';
+$lang['back_to_top']					= 'Back to Top';
 
-$lang['all_right_reserved']				= '保留所有权利.';  #translate
-$lang['powered_by_pyrocms']				= 'Powered by PyroCMS';  #translate
-$lang['top_page']						= '顶部';  #translate
-$lang['back_to_top']					= '返回顶部';  #translate
+$lang['global:filters'] 				= 'Filters';
+$lang['global:image'] 					= 'Image';
+$lang['global:description']				= 'Description';
+$lang['global:actions']					= 'Actions';
+$lang['global:view']					= 'View';
+$lang['global:preview']					= 'Preview';
+$lang['global:add']						= 'Add';
+$lang['global:edit']					= 'Edit';
+$lang['global:empty']					= 'Empty';
+$lang['global:delete']					= 'Delete';
+$lang['global:remove']					= 'Remove';
 
-$lang['global:image'] 					= '图片'; #translate
-$lang['global:description']				= '說明';
-$lang['global:actions']					= '操作';
-$lang['global:view']					= '查看';
-$lang['global:preview']					= '预览';
-$lang['global:add']						= '新增';
-$lang['global:edit']					= '编辑';
-$lang['global:empty']					= '清空';
-$lang['global:delete']					= '刪除';
-$lang['global:remove']					= '移除';
+$lang['global:keywords']				= 'Keywords';
 
-$lang['global:keywords']				= '关键字';
+$lang['global:or']						= 'or';
+$lang['global:and']						= 'and';
+$lang['global:at']						= 'at';
+
+/* End of file main_lang.php */

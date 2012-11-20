@@ -31,7 +31,7 @@ $lang['buttons.deactivate']	= '停用';
 $lang['buttons.preview']	= '预览';
 $lang['buttons.close']		= '关闭';
 $lang['buttons.edit']		= '编辑';
-$lang['buttons.clone']		= '复制';
+$lang['buttons.clone']		= '克隆';
 $lang['buttons.re-index']	= '重新建立索引';
 $lang['buttons.copy']		= '复制';
 

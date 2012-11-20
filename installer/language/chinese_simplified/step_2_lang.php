@@ -36,10 +36,9 @@ $lang['curl']			=	'Curl';
 $lang['curl_required']	=	'PyroCMS 需要 Curl 才能和其他網站建立連結。';
 $lang['curl_fail']		=	'找不到 Curl 程式庫。這通常表示此程式庫尚未安裝。PyroCMS 將仍然可以運作，但是有些功能可能無法使用。因此，我們強烈建議您先安裝並啟動 Curl 程式庫。';
 
-
-$lang['summary_green']	=	'您的伺服器符合正確執行 PyroCMS 的所有需求，請點選下方的按鈕進行下一步。';
-$lang['summary_orange']	=	'您的伺服器符合 PyroCMS 的<em>大部分</em>需求，這表示 PyroCMS 將仍然可以運作，但是某些情況下會遇到問題，例如：在建立縮圖的尺寸縮放時。';
-$lang['summary_red']	=	'看來似乎您的伺服器不符合執行 PyroCMS 的需求。請聯繫您的伺服器管理員或是網站空間的服務提供商，請他們協助解決。';
+$lang['summary_success']	=	'您的伺服器符合正確執行 PyroCMS 的所有需求，請點選下方的按鈕進行下一步。';
+$lang['summary_partial']	=	'您的伺服器符合 PyroCMS 的<em>大部分</em>需求，這表示 PyroCMS 將仍然可以運作，但是某些情況下會遇到問題，例如：在建立縮圖的尺寸縮放時。';
+$lang['summary_failure']	=	'看來似乎您的伺服器不符合執行 PyroCMS 的需求。請聯繫您的伺服器管理員或是網站空間的服務提供商，請他們協助解決。';
 $lang['next_step']		=	'進行下一個步骤';
 $lang['step3']			=	'步骤三';
 $lang['retry']			=	'再試一次';

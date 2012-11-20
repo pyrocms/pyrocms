@@ -12,7 +12,6 @@ function ci()
 /**
  * Installer controller.
  * 
- * @author 		Yorick Peterse
  * @author		PyroCMS Dev Team
  * @package		PyroCMS\Installer\Controllers
  * @property    CI_Loader $load
@@ -211,14 +210,13 @@ class Installer extends CI_Controller
 	/**
 	 * First actual installation step
 	 *
-	 * @access public
 	 * @return void
 	 */
 	public function step_2()
 	{
-		$data = new stdClass();
-		$data->mysql = new stdClass();
-		$data->http_server = new stdClass();
+		$data = new stdClass;
+		$data->mysql = new stdClass;
+		$data->http_server = new stdClass;
 
 		// Did the user enter the DB settings ?
 		if ( ! $this->session->userdata('step_1_passed'))
@@ -282,12 +280,11 @@ class Installer extends CI_Controller
 	/**
 	 * Another step, yay!
 	 *
-	 * @access public
 	 * @return void
 	 */
 	public function step_3()
 	{
-		$data = new stdClass();
+		$data = new stdClass;
 		$permissions = array();
 		
 		if ( ! $this->session->userdata('step_1_passed') OR ! $this->session->userdata('step_2_passed'))

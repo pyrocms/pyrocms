@@ -48,6 +48,5 @@ $lang['nav_link_add_error'] 					= '發生了無法預期的錯誤';
 $lang['nav_link_not_exist_error'] 				= '此导航链接不存在。';
 $lang['nav_link_edit_success'] 					= '此导航链接已經儲存。';
 $lang['nav_link_delete_success'] 				= '此导航链接已經刪除。';
-
-$lang['nav_choose_value']						= 'The %s field must not be empty.'; #translate
+$lang['nav_choose_value']						= '%s 不能为空y.'; #translate
 $lang['nav_link_type_desc'] 					= '請選擇一個链接类型以建立您的链接。';

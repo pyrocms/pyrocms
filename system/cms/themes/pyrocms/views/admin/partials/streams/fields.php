@@ -23,7 +23,7 @@
 						
 						foreach($buttons as $button)
 						{
-							// don't render button if field is locked and $button['hide_locked'] is set to true
+							// don't render button if field is locked and $button['hide_locked'] is set to TRUE
 							if($field->is_locked == 'yes' and isset($button['locked']) and $button['locked']) continue;
 							$class = (isset($button['confirm']) and $button['confirm']) ? 'button confirm' : 'button';
 							$all_buttons[] = anchor(str_replace('-assign_id-', $field->id, $button['url']), $button['label'], 'class="'.$class.'"');

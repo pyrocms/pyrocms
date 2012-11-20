@@ -18,6 +18,21 @@
 	<!-- Mobile viewport optimized -->
 	<meta name="viewport" content="width=device-width,user-scalable=no">
 
+	<!-- CSS. No need to specify the media attribute unless specifically targeting a media type, leaving blank implies media=all -->
+	<?php echo Asset::css('plugins.css'); ?>
+	<?php echo Asset::css('workless/workless.css'); ?>
+	<?php echo Asset::css('workless/application.css'); ?>
+	<?php echo Asset::css('workless/responsive.css'); ?>
+	<!-- End CSS-->
+
+	<!-- Load up some favicons -->
+	<link rel="shortcut icon" href="favicon.ico">
+	<link rel="apple-touch-icon" href="apple-touch-icon.png">
+	<link rel="apple-touch-icon" href="apple-touch-icon-precomposed.png">
+	<link rel="apple-touch-icon" href="apple-touch-icon-57x57-precomposed.png">
+	<link rel="apple-touch-icon" href="apple-touch-icon-72x72-precomposed.png">
+	<link rel="apple-touch-icon" href="apple-touch-icon-114x114-precomposed.png">
+
 	<!-- metadata needs to load before some stuff -->
 	<?php file_partial('metadata'); ?>
 
@@ -25,21 +40,25 @@
 
 <body>
 
-	<section id="content">
-		<?php file_partial('header'); ?>
-		<?php file_partial('notices'); ?>
-		<div class="wrapper">
+	<div id="container">
+
+		<section id="content">
+
+			<?php file_partial('header'); ?>
+
 			<div id="content-body">
+				<?php file_partial('notices'); ?>
 				<?php echo $template['body']; ?>
 			</div>
-		</div>
-	</section>
+
+		</section>
+
+	</div>
 
 	<footer>
 		<div class="wrapper">
-			<div id="pyroinfo">
-				<p>&copy; 2009 - <?php echo date('Y'); ?> PyroCMS &nbsp; -- &nbsp; Version <?php echo CMS_VERSION.' '.CMS_EDITION; ?><br>Rendered in {elapsed_time} sec. using {memory_usage}.</p>
-			</div>
+			<p>Copyright &copy; 2009 - <?php echo date('Y'); ?> PyroCMS &nbsp; -- &nbsp; Version <?php echo CMS_VERSION.' '.CMS_EDITION; ?> &nbsp; -- &nbsp; Rendered in {elapsed_time} sec. using {memory_usage}.</p>
+
 			<ul id="lang">
 				<form action="<?php echo current_url(); ?>" id="change_language" method="get">
 					<select class="chzn" name="lang" onchange="this.form.submit();">

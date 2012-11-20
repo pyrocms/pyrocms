@@ -2,8 +2,6 @@
 /**
  * Permissions controller
  *
- * @author 		Phil Sturgeon
- * @author 		Yorick Peterse
  * @author		PyroCMS Dev Team
  * @package 	PyroCMS\Core\Modules\Permissions\Controllers
  */

@@ -165,7 +165,7 @@ class Module_Settings extends Module {
 			),
 			'date_format' => array(
 				'title' => 'Date Format',
-				'description' => 'How should dates be displayed across the website and control panel? Using the <a target=\"_blank\" href=\"http://php.net/manual/en/function.date.php\">date format</a> from PHP - OR - Using the format of <a target=\"_blank\" href=\"http://php.net/manual/en/function.strftime.php\">strings formatted as date</a> from PHP.',
+				'description' => 'How should dates be displayed across the website and control panel? Using the <a target="_blank" href="http://php.net/manual/en/function.date.php">date format</a> from PHP - OR - Using the format of <a target="_blank" href="http://php.net/manual/en/function.strftime.php">strings formatted as date</a> from PHP.',
 				'type' => 'text',
 				'default' => 'Y-m-d',
 				'value' => '',
@@ -312,7 +312,7 @@ class Module_Settings extends Module {
 			),
 			'files_s3_access_key' => array(
 				'title' => 'Amazon S3 Access Key',
-				'description' => 'To enable cloud file storage in your Amazon S3 account provide your Access Key. <a href=\"https://aws-portal.amazon.com/gp/aws/securityCredentials#access_credentials\">Find your credentials</a>',
+				'description' => 'To enable cloud file storage in your Amazon S3 account provide your Access Key. <a href="https://aws-portal.amazon.com/gp/aws/securityCredentials#access_credentials">Find your credentials</a>',
 				'type' => 'text',
 				'default' => '',
 				'value' => '',
@@ -360,7 +360,7 @@ class Module_Settings extends Module {
 			),
 			'files_cf_username' => array(
 				'title' => 'Rackspace Cloud Files Username',
-				'description' => 'To enable cloud file storage in your Rackspace Cloud Files account please enter your Cloud Files Username. <a href=\"https://manage.rackspacecloud.com/APIAccess.do\">Find your credentials</a>',
+				'description' => 'To enable cloud file storage in your Rackspace Cloud Files account please enter your Cloud Files Username. <a href="https://manage.rackspacecloud.com/APIAccess.do">Find your credentials</a>',
 				'type' => 'text',
 				'default' => '',
 				'value' => '',
