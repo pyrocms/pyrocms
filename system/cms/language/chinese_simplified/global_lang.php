@@ -1,107 +1,117 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-$lang['global:control-panel'] 			= 'Control Panel';
-$lang['global:profile']					= 'Profile';
+/**
+ * Chinese Simpplified translation.
+ *
+ * @author		Kefeng DENG
+ * @package		PyroCMS
+ * @subpackage 	-
+ * @category	-
+ * @link		http://pyrocms.com
+ * @date		2012-11-20
+ * @version		1.1
+ */
 
-$lang['global:title'] 					= 'Title';
-$lang['name_label'] 					= 'Name';
-$lang['desc_label'] 					= 'Description';
-$lang['version_label'] 					= 'Version';
-$lang['global:author'] 					= 'Author';
-$lang['global:action'] 					= 'Action';
-$lang['global:slug'] 					= 'Slug';
-$lang['global:slug_instructions']		= 'Lowercase characters and underscores only.';
-$lang['global:user'] 					= 'User';
+$lang['global:control-panel'] 			= '控制面板';
+$lang['global:profile']					= '人物简介';
 
-$lang['global:dialog:delete_message'] 	= 'Are you sure you want to delete this? It cannot be undone.';
-$lang['global:dialog:confirm'] 			= 'Confirm';
+$lang['global:title'] 					= '标题';
+$lang['name_label'] 					= '姓名';
+$lang['desc_label'] 					= '说明';
+$lang['version_label'] 					= '版本';
+$lang['global:author'] 					= '作者';
+$lang['global:action'] 					= '操作';
+$lang['global:slug'] 					= '别名';
+$lang['global:slug_instructions']		= '只接受小写字母和下划线.';
+$lang['global:user'] 					= '用户';
 
-$lang['global:yes'] 					= 'Yes';
-$lang['global:no'] 						= 'No';
+$lang['global:dialog:delete_message'] 	= '确定要删除吗？这将是不可回复的。';
+$lang['global:dialog:confirm'] 			= '确认';
 
-$lang['global:select-none'] 			= '-- None --';
-$lang['global:select-all'] 				= '-- All --';
-$lang['global:select-any'] 				= '-- Any --';
-$lang['global:select-pick'] 			= '-- Select --';
+$lang['global:yes'] 					= '是';
+$lang['global:no'] 						= '否';
 
-$lang['global:check-all']				= 'All';
-$lang['global:check-none'] 				= 'None';
+$lang['global:select-none'] 			= '-- 无 --';
+$lang['global:select-all'] 				= '-- 全部 --';
+$lang['global:select-any'] 				= '-- 任何 --';
+$lang['global:select-pick'] 			= '-- 请选择 --';
 
-$lang['global:operators:equal'] 		= 'Equal to';
-$lang['global:operators:not-equal'] 	= 'Not equal to';
-$lang['global:operators:less-than'] 	= 'Less than';
-$lang['global:operators:greater-than'] 	= 'Greater than';
+$lang['global:check-all']				= '全部';
+$lang['global:check-none'] 				= '取消';
 
-$lang['global:duration:1-day']			= 'One day';
-$lang['global:duration:1-week']			= 'One week';
-$lang['global:duration:2-weeks']		= 'Two weeks';
-$lang['global:duration:1-month']		= 'One month';
-$lang['global:duration:3-months']		= 'Three Months';
-$lang['global:duration:always']			= 'Always';
+$lang['global:operators:equal'] 		= '等于';
+$lang['global:operators:not-equal'] 	= '不等于';
+$lang['global:operators:less-than'] 	= '下于';
+$lang['global:operators:greater-than'] 	= '大于';
 
-$lang['navigation_headline'] 			= 'Navigation';
-$lang['breadcrumb_base_label'] 			= 'Home';
+$lang['global:duration:1-day']			= '一天';
+$lang['global:duration:1-week']			= '一周';
+$lang['global:duration:2-weeks']		= '两周';
+$lang['global:duration:1-month']		= '一个月';
+$lang['global:duration:3-months']		= '三个月';
+$lang['global:duration:always']			= '永久';
 
-$lang['logged_in_welcome']				= 'Welcome %s, you are logged in.';
-$lang['logout_label'] 					= 'Log out';
-$lang['edit_profile_label'] 			= 'Edit Profile';
-$lang['settings_label'] 				= 'Settings';
+$lang['navigation_headline'] 			= '导航';
+$lang['breadcrumb_base_label'] 			= '首页';
 
-$lang['close_message'] 					= 'Close this message';
-$lang['general_error_label'] 			= 'Error';
-$lang['required_error_label'] 			= 'Required field missing';
-$lang['note_label'] 					= 'Note';
-$lang['success_label'] 					= 'Success';
+$lang['logged_in_welcome']				= '欢迎您 %s，您已经登陆成功。';
+$lang['logout_label'] 					= '退出';
+$lang['edit_profile_label'] 			= '编辑个人资料';
+$lang['settings_label'] 				= '设置';
 
-$lang['login_title'] 					= 'Log In';
-$lang['global:fatal_error'] 			= 'Fatal error, is CMS installed?';
-$lang['global:demo_restrictions'] 		= 'Some features on this page have been disabled for the demo.';
+$lang['close_message'] 					= '关闭此消息';
+$lang['general_error_label'] 			= '错误';
+$lang['required_error_label'] 			= '缺少必填栏位';
+$lang['note_label'] 					= '注意';
+$lang['success_label'] 					= '成功';
 
-$lang['login_error_label'] 				= 'Login Error';
-$lang['forgot_password_label'] 			= 'Forgot your password ?';
-$lang['global:email'] 					= 'E-mail';
-$lang['global:password'] 				= 'Password';
-$lang['login_label'] 					= 'Log In';
+$lang['login_title'] 					= '登入';
+$lang['global:fatal_error'] 			= '严重错误，CMS安裝了吗？';
+$lang['global:demo_restrictions'] 		= '因为演示目的，本页部分功能被关闭。';
 
-$lang['help_label'] 					= 'Help';
-$lang['save_label'] 					= 'Save';
-$lang['cancel_label'] 					= 'Cancel';
-$lang['update_label'] 					= 'Update Caption';
-$lang['global:delete'] 					= 'Delete';
-$lang['activate_label'] 				= 'Activate';
-$lang['approve_label']					= 'Approve';
-$lang['unapprove_label']				= 'Unapprove';
-$lang['publish_label'] 					= 'Publish';
-$lang['global:upload'] 					= 'Upload';
-$lang['global:uninstall'] 				= 'Uninstall';
-$lang['global:install'] 				= 'Install';
-$lang['global:upgrade'] 				= 'Upgrade';
-$lang['global:enable']					= 'Enable';
-$lang['global:disable'] 				= 'Disable';
-$lang['global:enabled']					= 'Enabled';
-$lang['global:disabled'] 				= 'Disabled';
+$lang['login_error_label'] 				= '登入错误';
+$lang['forgot_password_label'] 			= '忘记密码？';
+$lang['global:email'] 					= '电子邮件';
+$lang['global:password'] 				= '密码';
+$lang['login_label'] 					= '登入';
 
-$lang['all_right_reserved']				= 'All Rights Reserved.';
-$lang['powered_by_pyrocms']				= 'Powered by PyroCMS';
-$lang['top_page']						= 'Top';
-$lang['back_to_top']					= 'Back to Top';
+$lang['help_label'] 					= '帮助';
+$lang['save_label'] 					= '保存';
+$lang['cancel_label'] 					= '取消';
+$lang['update_label'] 					= '更新';
+$lang['global:delete'] 					= '删除';
+$lang['activate_label'] 				= '激活';
+$lang['approve_label']					= '核准';
+$lang['unapprove_label']				= '未经核准';
+$lang['publish_label'] 					= '发表';
+$lang['global:upload'] 					= '上传';
+$lang['global:uninstall'] 				= '卸载';
+$lang['global:install'] 				= '安装';
+$lang['global:upgrade'] 				= '升级';
+$lang['global:enable']					= '启用';
+$lang['global:disable'] 				= '禁用';
 
-$lang['global:filters'] 				= 'Filters';
-$lang['global:image'] 					= 'Image';
-$lang['global:description']				= 'Description';
-$lang['global:actions']					= 'Actions';
-$lang['global:view']					= 'View';
-$lang['global:preview']					= 'Preview';
-$lang['global:add']						= 'Add';
-$lang['global:edit']					= 'Edit';
-$lang['global:empty']					= 'Empty';
-$lang['global:delete']					= 'Delete';
-$lang['global:remove']					= 'Remove';
+$lang['all_right_reserved']				= '保留所有权利.';
+$lang['powered_by_pyrocms']				= '本站由PyroCMS支持并维护';
+$lang['top_page']						= '顶部';
+$lang['back_to_top']					= '返回顶部';
 
-$lang['global:keywords']				= 'Keywords';
+$lang['global:filters'] 				= '筛选';
+$lang['global:image'] 					= '图片';
+$lang['global:description']				= '描述';
+$lang['global:actions']					= '操作';
+$lang['global:view']					= '查看';
+$lang['global:preview']					= '预览';
+$lang['global:add']						= '添加';
+$lang['global:edit']					= '编辑';
+$lang['global:empty']					= '清空';
+$lang['global:delete']					= '删除';
+$lang['global:remove']					= '移除';
 
-$lang['global:or']						= 'or';
-$lang['global:and']						= 'and';
-$lang['global:at']						= 'at';
+$lang['global:keywords']				= '关键字';
+
+$lang['global:or']						= '或者';
+$lang['global:and']						= '并且';
+$lang['global:at']						= '在';
 
 /* End of file main_lang.php */
