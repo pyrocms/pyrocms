@@ -71,31 +71,29 @@ class Module_Templates extends Module {
 
 	public function install()
 	{
-		$this->dbforge->drop_table('email_templates', true);
+		$schema = $this->pdb->getSchemaBuilder();
+		$schema->drop('email_templates');
 
-		$tables = array(
-			'email_templates' => array(
-				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
-				'slug' => array('type' => 'VARCHAR', 'constraint' => 100, 'unique' => 'slug_lang',),
-				'name' => array('type' => 'VARCHAR', 'constraint' => 100,), // @todo rename this to 'title' to keep coherency with the rest of the modules
-				'description' => array('type' => 'VARCHAR', 'constraint' => 255,), // @todo change this to TEXT to be coherent with the rest of the modules
-				'subject' => array('type' => 'VARCHAR', 'constraint' => 255,),
-				'body' => array('type' => 'TEXT'),
-				'lang' => array('type' => 'VARCHAR', 'constraint' => 2, 'null' => true, 'unique' => 'slug_lang',),
-				'is_default' => array('type' => 'INT', 'constraint' => 1, 'default' => 0,),
-				'module' => array('type' => 'VARCHAR', 'constraint' => 50, 'default' => '',),
-			),
-		);
+		$schema->create('email_templates',function(\Illuminate\Database\Schema\Blueprint $table) {
+			$table->increments('id');
+			$table->string('slug', 100);
+			$table->string('title', 100);       // @todo rename this to 'title' to keep coherency with the rest of the modules
+			$table->string('description', 255); // @todo change this to TEXT to be coherent with the rest of the modules
+			$table->string('subject', 255);
+			$table->text('body');
+			$table->string('lang', 2)->nullable();
+			$table->boolean('is_default')->default(false);
+			$table->string('module', 50)->default('');
 
-		if ( !$this->install_tables($tables))
-		{
-			return false;
-		}
+			$table->primary('id');
+			$table->unique(array('slug', 'lang'), 'slug_lang');
+		});
 
+		$this->pdb->table('email_templates')->insert(array());
 		// Insert the default email templates
 
 		// @todo move this to the comments module
-		$this->db->insert('email_templates',array(
+		$this->pdb->table('email_templates')->insert(array(
 			'slug' => 'comments',
 			'name' => 'Comment Notification',
 			'description' => 'Email that is sent to admin when someone creates a comment',
@@ -114,7 +112,7 @@ class Module_Templates extends Module {
 		));
 
 		// @todo move this to the contact module
-		$this->db->insert('email_templates',array(
+		$this->pdb->table('email_templates')->insert(array(
 			'slug' => 'contact',
 			'name' => 'Contact Notification',
 			'description' => 'Template for the contact form',
@@ -136,7 +134,7 @@ class Module_Templates extends Module {
 		));
 
 		// @todo move this to the users module
-		$this->db->insert('email_templates',array(
+		$this->pdb->table('email_templates')->insert(array(
 			'slug' => 'registered',
 			'name' => 'New User Registered',
 			'description' => 'Email sent to the site contact e-mail when a new user registers',
@@ -152,7 +150,7 @@ class Module_Templates extends Module {
 		));
 
 		// @todo move this to the users module
-		$this->db->insert('email_templates',array(
+		$this->pdb->table('email_templates')->insert(array(
 			'slug' => 'activation',
 			'name' => 'Activation Email',
 			'description' => 'The email which contains the activation code that is sent to a new user',
@@ -170,7 +168,7 @@ class Module_Templates extends Module {
 		));
 
 		// @todo move this to the users module
-		$this->db->insert('email_templates',array(
+		$this->pdb->table('email_templates')->insert(array(
 			'slug' => 'forgotten_password',
 			'name' => 'Forgotten Password Email',
 			'description' => 'The email that is sent containing a password reset code',
@@ -184,7 +182,7 @@ class Module_Templates extends Module {
 		));
 
 		// @todo move this to the users module
-		$this->db->insert('email_templates',array(
+		$this->pdb->table('email_templates')->insert(array(
 			'slug' => 'new_password',
 			'name' => 'New Password Email',
 			'description' => 'After a password is reset this email is sent containing the new password',
