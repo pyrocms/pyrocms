@@ -2,10 +2,8 @@
 /**
  * Admin controller for the Page Layouts of the Pages module.
  *
- * @author		 Phil Sturgeon
- * @author		 Yorick Peterse
  * @author		PyroCMS Dev Team
- * @package	 PyroCMS\Core\Modules\Pages\Controllers
+ * @package	 	PyroCMS\Core\Modules\Pages\Controllers
  */
 class Admin_layouts extends Admin_Controller
 {
