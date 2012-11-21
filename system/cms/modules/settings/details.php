@@ -72,32 +72,31 @@ class Module_Settings extends Module {
 
 	public function install()
 	{
-		$this->dbforge->drop_table('settings', true);
+		$schema = $this->pdb->getSchemaBuilder();
+		$schema->drop('settings');
 
 		log_message('debug', '-- Settings: going to install the settings table');
-		$tables = array(
-			'settings' => array(
-				'slug' => array('type' => 'VARCHAR', 'constraint' => 30, 'primary' => true, 'unique' => true, 'key' => 'index_slug'),
-				'title' => array('type' => 'VARCHAR', 'constraint' => 100,),
-				'description' => array('type' => 'TEXT',),
-				'type' => array('type' => 'set',  'constraint' => array('text','textarea','password','select','select-multiple','radio','checkbox'),),
-				'default' => array('type' => 'TEXT',),
-				'value' => array('type' => 'TEXT',),
-				'options' => array('type' => 'VARCHAR', 'constraint' => 255,),
-				'is_required' => array('type' => 'INT', 'constraint' => 1,),
-				'is_gui' => array('type' => 'INT', 'constraint' => 1,),
-				'module' => array('type' => 'VARCHAR', 'constraint' => 50,),
-				'order' => array('type' => 'INT', 'constraint' => 10, 'default' => 0,),
-			),
-		);
 
-		if ( ! $this->install_tables($tables))
-		{
-			return false;
-		}
+		$schema->create('settings', function(\Illuminate\Database\Schema\Blueprint $table) {
+			$table->string('slug', 30);
+			$table->string('title', 100);
+			$table->text('description');
+			$table->enum('type',array('text','textarea','password','select','select-multiple','radio','checkbox'));
+			$table->text('default');
+			$table->text('value');
+			$table->string('options', 255);
+			$table->boolean('is_required');
+			$table->boolean('is_gui');
+			$table->string('module', 50);
+			$table->integer('order')->default(0);
+
+			$table->unique('slug', 'index_slug');
+		});
+
 		log_message('debug', '-- -- ok settings table');
 
 		log_message('debug', '-- Settings: going to install the default settings');
+
 		// Regarding ordering: any additions to this table can have an order
 		// value the same as a sibling in the same section. For example if you
 		// add to the Email tab give it a value in the range of 983 to 975.
@@ -807,7 +806,7 @@ class Module_Settings extends Module {
 		{
 			log_message('debug', '-- Settings: installing '.$slug);
 			$setting_info['slug'] = $slug;
-			if ( ! $this->db->insert('settings', $setting_info))
+			if ( ! $this->pdb->table('settings')->insert($setting_info))
 			{
 				log_message('debug', '-- -- could not install '.$slug);
 				return false;

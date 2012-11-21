@@ -33,24 +33,27 @@ class Module_Search extends Module {
 
 	public function install()
 	{
-		$this->dbforge->drop_table('search_index', true);
+		$schema = $this->pdb->getSchemaBuilder();
+		$schema->drop('search_index');
 
-		return $this->install_tables(array(
-			'search_index' => array(
-				'id' => array('type' => 'INT', 'unsigned' => true, 'auto_increment' => true, 'primary' => true,),
-				'title' => array('type' => 'VARCHAR', 'constraint' => 255, 'fulltext' => 'full search'),
-				'description' => array('type' => 'text', 'fulltext' => 'full search'),
-				'keywords' => array('type' => 'text', 'fulltext' => 'full search'),
-				'keyword_hash' => array('type' => 'text'),
-				'module' => array('type' => 'varchar', 'constraint' => 40, 'unique' => 'unique'),
-				'entry_key' => array('type' => 'varchar', 'constraint' => 100, 'unique' => 'unique'),
-				'entry_plural' => array('type' => 'varchar', 'constraint' => 100),
-				'entry_id' => array('type' => 'varchar', 'constraint' => 255, 'unique' => 'unique'),
-				'uri' => array('type' => 'varchar', 'constraint' => 255),
-				'cp_edit_uri' => array('type' => 'varchar', 'constraint' => 255),
-				'cp_delete_uri' => array('type' => 'varchar', 'constraint' => 255),
-			),
-		));
+		$schema->create('search_index',function(\Illuminate\Database\Schema\Blueprint $table) {
+			$table->increments('id');
+			$table->string('title', 255)->fulltext(); // TODO: I don't have an idea about this, FULLTEXT doesn't seem to be implemented in illuminate/database
+			$table->text('description')->fulltext(); // TODO: Same as above
+			$table->text('keywords')->fulltext(); // TODO: Same as above
+			$table->text('keywords_hash');
+			$table->string('module', 40);
+			$table->string('entry_key', 100);
+			$table->string('entry_plural', 100);
+			$table->string('entry_id', 255);
+			$table->string('uri', 255);
+			$table->string('cp_edit_uri', 255);
+			$table->string('cp_delete_uri', 255);
+
+			$table->primary('id');
+			$table->unique(array('module', 'entry_key', 'entry_id'));
+		});
+		return true;
 
 		/*
 		TODO Work out how to enable this search stuff for other systems
