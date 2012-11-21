@@ -12,8 +12,8 @@
  * @param string $string
  * @return string
  */
-if ( ! function_exists('noparse') ) {
-	function noparse($string = '') {
+if ( ! function_exists('no_parse') ) {
+	function no_parse($string = '') {
 		return str_replace(array('{{','}}'), array('&#123;&#123;','&#125;&#125;'), $string);
 	}
 }
@@ -26,8 +26,8 @@ if ( ! function_exists('noparse') ) {
  * @param bool   $strict  Value has to match a truthy string
  * @return bool
  */
-if ( ! function_exists('strtobool') ) {
-	function strtobool($value = '', $strict = false) {
+if ( ! function_exists('str_to_bool') ) {
+	function str_to_bool($value = '', $strict = false) {
 		if ( is_bool($value) ) {
 			return $value;
 		}
