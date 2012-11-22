@@ -67,6 +67,7 @@ class Admin extends Admin_Controller
 
 		// Using this data, get the relevant results
 		$this->template->variables = $this->variables_m
+			->order_by('name')
 			->limit($this->template->pagination['limit'])
 			->get_all();
 
