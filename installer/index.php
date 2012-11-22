@@ -28,15 +28,17 @@
  * By default development will show errors but testing and live will hide them.
  */
 
+	error_reporting(E_ALL);
+
 	switch (ENVIRONMENT)
 	{
 		case 'development':
-			error_reporting(E_ALL);
+			ini_set('display_errors', true);
 		break;
 
 		case 'testing':
 		case 'production':
-			error_reporting(0);
+			ini_set('display_errors', false);
 		break;
 
 		default:

@@ -71,7 +71,7 @@ class Module_Comments extends Module {
 
 	public function install()
 	{
-		$this->dbforge->drop_table('comments');
+		$this->dbforge->drop_table('comments', true);
 
 		$tables = array(
 			'comments' => array(
@@ -95,12 +95,7 @@ class Module_Comments extends Module {
 			),
 		);
 
-		if ( !$this->install_tables($tables))
-		{
-			return false;
-		}
-
-		return true;
+		return $this->install_tables($tables);
 	}
 
 	public function uninstall()

@@ -124,25 +124,25 @@ class Streams_utilities extends CI_Driver {
 		$this->CI->load->dbforge();
 
 		// Created Field
-		if ( ! $this->CI->db->field_exists('created', $prefix.$table_slug) )
+		if ( ! $this->CI->db->field_exists('created', $prefix.$table_slug))
 		{
 			$this->CI->dbforge->add_column($prefix.$table_slug, array('created' => array('type' => 'DATETIME', 'null' => true)));
 		}
 	
 		// Updated Field
-		if ( ! $this->CI->db->field_exists('updated', $prefix.$table_slug) )
+		if ( ! $this->CI->db->field_exists('updated', $prefix.$table_slug))
 		{
 			$this->CI->dbforge->add_column($prefix.$table_slug, array('updated' => array('type' => 'DATETIME', 'null' => true)));
 		}
 
 		// Created_by Field
-		if ( ! $this->CI->db->field_exists('created_by', $prefix.$table_slug) )
+		if ( ! $this->CI->db->field_exists('created_by', $prefix.$table_slug))
 		{
 			$this->CI->dbforge->add_column($prefix.$table_slug, array('created_by' => array('type' => 'INT', 'constraint' => 11, 'null' => true)));
 		}
 
 		// Ordering_count Field
-		if ( ! $this->CI->db->field_exists('ordering_count', $prefix.$table_slug) )
+		if ( ! $this->CI->db->field_exists('ordering_count', $prefix.$table_slug))
 		{
 			$this->CI->dbforge->add_column($prefix.$table_slug, array('ordering_count' => array('type' => 'INT', 'constraint' => 11, 'null' => true)));
 		}

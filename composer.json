@@ -1,0 +1,9 @@
+{
+    "name": "pyrocms/pyrocms",
+    "description": "The PyroCMS Composer configuration",
+    "minimum-stability": "dev",
+    "require": {
+        "illuminate/database": "*",
+        "quick/cache": "1.0.*"
+    }
+}

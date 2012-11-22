@@ -36,7 +36,7 @@ class Module_Contact extends Module {
 				'zh' => '聯絡我們',
 				'hu' => 'Kapcsolat',
 				'th' => 'ติดต่อ',
-                                'se' => 'Kontakt'
+				'se' => 'Kontakt',
 			),
 			'description' => array(
 				'en' => 'Adds a form to your site that allows visitors to send emails to you without disclosing an email address to them.',
@@ -60,8 +60,8 @@ class Module_Contact extends Module {
 				'sl' => 'Dodaj obrazec za kontakt da vam lahko obiskovalci pošljejo sporočilo brez da bi jim razkrili vaš email naslov.',
 				'zh' => '為您的網站新增「聯絡我們」的功能，對訪客是較為清楚便捷的聯絡方式，也無須您將電子郵件公開在網站上。',
 				'th' => 'เพิ่มแบบฟอร์มในเว็บไซต์ของคุณ ช่วยให้ผู้เยี่ยมชมสามารถส่งอีเมลถึงคุณโดยไม่ต้องเปิดเผยที่อยู่อีเมลของพวกเขา',
-                                'hu' => 'Létrehozható vele olyan űrlap, amely lehetővé teszi a látogatók számára, hogy e-mailt küldjenek neked úgy, hogy nem feded fel az e-mail címedet.',
-                                'se' => 'Lägger till ett kontaktformulär till din webbplats.'
+				'hu' => 'Létrehozható vele olyan űrlap, amely lehetővé teszi a látogatók számára, hogy e-mailt küldjenek neked úgy, hogy nem feded fel az e-mail címedet.',
+				'se' => 'Lägger till ett kontaktformulär till din webbplats.',
 			),
 			'frontend' => false,
 			'backend' => false,
@@ -71,7 +71,7 @@ class Module_Contact extends Module {
 
 	public function install()
 	{
-		$this->dbforge->drop_table('contact_log');
+		$this->dbforge->drop_table('contact_log', true);
 
 		$tables = array(
 			'contact_log' => array(

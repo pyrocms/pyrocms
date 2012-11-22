@@ -36,7 +36,7 @@ class Module_Settings extends Module {
 				'zh' => '網站設定',
 				'hu' => 'Beállítások',
 				'th' => 'ตั้งค่า',
-                                'se' => 'Inställningar'
+				'se' => 'Inställningar',
 			),
 			'description' => array(
 				'en' => 'Allows administrators to update settings like Site Name, messages and email address, etc.',
@@ -61,7 +61,7 @@ class Module_Settings extends Module {
 				'zh' => '網站管理者可更新的重要網站設定。例如：網站名稱、訊息、電子郵件等。',
 				'hu' => 'Lehetővé teszi az adminok számára a beállítások frissítését, mint a weboldal neve, üzenetek, e-mail címek, stb...',
 				'th' => 'ให้ผู้ดูแลระบบสามารถปรับปรุงการตั้งค่าเช่นชื่อเว็บไซต์ ข้อความและอีเมล์เป็นต้น',
-                                'se' => 'Administratören kan uppdatera webbplatsens titel, meddelanden och E-postadress etc.'
+				'se' => 'Administratören kan uppdatera webbplatsens titel, meddelanden och E-postadress etc.',
 			),
 			'frontend' => false,
 			'backend'  => true,
@@ -72,7 +72,7 @@ class Module_Settings extends Module {
 
 	public function install()
 	{
-		$this->dbforge->drop_table('settings');
+		$this->dbforge->drop_table('settings', true);
 
 		log_message('debug', '-- Settings: going to install the settings table');
 		$tables = array(
@@ -165,7 +165,7 @@ class Module_Settings extends Module {
 			),
 			'date_format' => array(
 				'title' => 'Date Format',
-				'description' => 'How should dates be displayed across the website and control panel? Using the <a target=\"_blank\" href=\"http://php.net/manual/en/function.date.php\">date format</a> from PHP - OR - Using the format of <a target=\"_blank\" href=\"http://php.net/manual/en/function.strftime.php\">strings formatted as date</a> from PHP.',
+				'description' => 'How should dates be displayed across the website and control panel? Using the <a target="_blank" href="http://php.net/manual/en/function.date.php">date format</a> from PHP - OR - Using the format of <a target="_blank" href="http://php.net/manual/en/function.strftime.php">strings formatted as date</a> from PHP.',
 				'type' => 'text',
 				'default' => 'Y-m-d',
 				'value' => '',
@@ -312,7 +312,7 @@ class Module_Settings extends Module {
 			),
 			'files_s3_access_key' => array(
 				'title' => 'Amazon S3 Access Key',
-				'description' => 'To enable cloud file storage in your Amazon S3 account provide your Access Key. <a href=\"https://aws-portal.amazon.com/gp/aws/securityCredentials#access_credentials\">Find your credentials</a>',
+				'description' => 'To enable cloud file storage in your Amazon S3 account provide your Access Key. <a href="https://aws-portal.amazon.com/gp/aws/securityCredentials#access_credentials">Find your credentials</a>',
 				'type' => 'text',
 				'default' => '',
 				'value' => '',
@@ -360,7 +360,7 @@ class Module_Settings extends Module {
 			),
 			'files_cf_username' => array(
 				'title' => 'Rackspace Cloud Files Username',
-				'description' => 'To enable cloud file storage in your Rackspace Cloud Files account please enter your Cloud Files Username. <a href=\"https://manage.rackspacecloud.com/APIAccess.do\">Find your credentials</a>',
+				'description' => 'To enable cloud file storage in your Rackspace Cloud Files account please enter your Cloud Files Username. <a href="https://manage.rackspacecloud.com/APIAccess.do">Find your credentials</a>',
 				'type' => 'text',
 				'default' => '',
 				'value' => '',
@@ -757,8 +757,8 @@ class Module_Settings extends Module {
 				'default' => '0',
 				'value' => '0',
 				'options' => '',
-				'is_required' => 1,
-				'is_gui' => 0,
+				'is_required' => true,
+				'is_gui' => false,
 				'module' => '',
 				'order' => 0,
 			),
@@ -767,9 +767,9 @@ class Module_Settings extends Module {
 				'title' => 'API Enabled',
 				'description' => 'Allow API access to all modules which have an API controller.',
 				'type' => 'select',
-				'`default`' => false,
-				'value' => '0',
-				'`options`' => '0=Disabled|1=Enabled',
+				'default' => false,
+				'value' => false,
+				'options' => '0=Disabled|1=Enabled',
 				'is_required' => false,
 				'is_gui' => false,
 				'module' => 'api',
@@ -780,9 +780,9 @@ class Module_Settings extends Module {
 				'title' => 'API User Keys',
 				'description' => 'Allow users to sign up for API keys (if the API is Enabled).',
 				'type' => 'select',
-				'`default`' => false,
+				'default' => false,
 				'value' => '0',
-				'`options`' => '0=Disabled|1=Enabled',
+				'options' => '0=Disabled|1=Enabled',
 				'is_required' => false,
 				'is_gui' => false,
 				'module' => 'api',

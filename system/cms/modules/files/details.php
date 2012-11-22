@@ -72,8 +72,8 @@ class Module_Files extends Module {
 
 	public function install()
 	{
-		$this->dbforge->drop_table('files');
-		$this->dbforge->drop_table('file_folders');
+		$this->dbforge->drop_table('files', true);
+		$this->dbforge->drop_table('file_folders', true);
 
 		$tables = array(
 			'files' => array(
@@ -107,12 +107,7 @@ class Module_Files extends Module {
 			),
 		);
 
-		if ( ! $this->install_tables($tables))
-		{
-			return false;
-		}
-
-		return true;
+		return $this->install_tables($tables);
 	}
 
 	public function uninstall()

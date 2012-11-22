@@ -221,10 +221,10 @@ if ( ! function_exists('anchor_popup'))
 			unset($attributes[$key]);
 		}
 
-		$attributes = _stringify_attributes($attributes);
+		$attributes = empty($attributes) ? '' : _parse_attributes($attributes);
 
 		return '<a href="'.$site_url
-			.'" onclick="window.open(\''.$site_url."', '".$window_name."', '"._stringify_attributes($atts, TRUE)."'); return false;\""
+			.'" onclick="window.open(\''.$site_url."', '".$window_name."', '"._parse_attributes($atts, TRUE)."'); return false;\""
 			.$attributes.'>'.$title.'</a>';
 	}
 }

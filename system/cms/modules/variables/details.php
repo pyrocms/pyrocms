@@ -62,7 +62,6 @@ class Module_Variables extends Module {
 				'zh' => '管理此網站內可存取的全局變數。',
 				'hu' => 'Globális változók kezelése a hozzáféréshez, bárhonnan.',
 				'se' => 'Hantera globala variabler som kan avändas över hela webbplatsen.',
-
 			),
 			'frontend'	=> false,
 			'backend'	=> true,
@@ -79,7 +78,7 @@ class Module_Variables extends Module {
 
 	public function install()
 	{
-		$this->dbforge->drop_table('variables');
+		$this->dbforge->drop_table('variables', true);
 
 		$tables = array(
 			'variables' => array(
@@ -89,12 +88,7 @@ class Module_Variables extends Module {
 			),
 		);
 
-		if ( ! $this->install_tables($tables))
-		{
-			return false;
-		}
-
-		return true;
+		return $this->install_tables($tables);
 	}
 
 	public function uninstall()

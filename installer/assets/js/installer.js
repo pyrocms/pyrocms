@@ -196,6 +196,20 @@
 
 jQuery(document).ready(function($) {
 
+	var updateEngineFields = function(enabled_engine) {
+		$('section#db-settings .input').each(function() {
+			$input = $(this);
+			if ($input.hasClass(enabled_engine)) $input.show();
+			else $input.hide();
+		});
+	};
+
+	// If any are checked then show the right fields
+	updateEngineFields($('section#db-engine input[name=db_engine]:checked').val());
+
+	// Show relevant input options for DB engine
+	$('section#db-engine input[name=db_engine]').change(function(){ updateEngineFields($(this).val()); });
+
 	// Add that cool orange bkg to the input that has focus
 	$('input, select').bind({
 		focusin: function() {
@@ -261,8 +275,9 @@ jQuery(document).ready(function($) {
 		html: true
 	});
 
+
     // Password Complexity
-    $("#user_password").complexify({},function(
+    $("input#password").complexify({},function(
         valid, complexity) {
        if (!valid) {
            $('#progress').css({

@@ -71,23 +71,16 @@ class Module_Permissions extends Module {
 
 	public function install()
 	{
-		$this->dbforge->drop_table('permissions');
+		$this->dbforge->drop_table('permissions', true);
 
-		$tables = array(
+		return $this->install_tables(array(
 			'permissions' => array(
 				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
 				'group_id' => array('type' => 'INT', 'constraint' => 11, 'key' => true),
 				'module' => array('type' => 'VARCHAR', 'constraint' => 50,),
 				'roles' => array('type' => 'TEXT', 'null' => true,),
 			),
-		);
-
-		if ( ! $this->install_tables($tables))
-		{
-			return false;
-		}
-
-		return true;
+		));
 	}
 
 	public function uninstall()
