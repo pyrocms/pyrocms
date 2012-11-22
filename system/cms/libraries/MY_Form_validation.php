@@ -31,7 +31,7 @@ class MY_Form_validation extends CI_Form_validation
 	 */
 	public function alpha_dot_dash($str)
 	{
-		return (preg_match("/^([-a-z0-9_\-\.])+$/i", $str) == 1) ? true : false;
+		return (bool) preg_match("/^([-a-z0-9_\-\.])+$/i", $str);
 	}
 
 	// --------------------------------------------------------------------
