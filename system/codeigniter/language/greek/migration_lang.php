@@ -1,13 +1,13 @@
 <?php
 
-$lang['migration_none_found']			= "No migrations were found.";
-$lang['migration_not_found']			= "This migration could not be found.";
-$lang['migration_multiple_version']		= "This are multiple migrations with the same version number: %d.";
-$lang['migration_class_doesnt_exist']	= "The migration class \"%s\" could not be found.";
-$lang['migration_missing_up_method']	= "The migration class \"%s\" is missing an 'up' method.";
-$lang['migration_missing_down_method']	= "The migration class \"%s\" is missing an 'down' method.";
-$lang['migration_invalid_filename']		= "Migration \"%s\" has an invalid filename.";
+$lang['migration_none_found']			= "Δεν βρέθηκαν εντολές μεταποίησης της βάσης δεδομένων.";
+$lang['migration_not_found']			= "Δεν βρέθηκε η εντολή μεταποίησης της βάσης δεδομένων με αριθμό: %d";
+$lang['migration_multiple_version']		= "Υπάρχουν πολλαπλές εντολές μεταποίησης της βάσης δεδομένων με τον ίδιο αριθμό: %d.";
+$lang['migration_class_doesnt_exist']	= "Το class \"%s\" για τις εντολές μεταποίησης της βάσης δεδομένων δεν βρέθηκε.";
+$lang['migration_missing_up_method']	= "Το class \"%s\" για τις εντολές μεταποίησης της βάσης δεδομένων δεν έχει μέθοδο 'up'.";
+$lang['migration_missing_down_method']	= "Το class \"%s\" για τις εντολές μεταποίησης της βάσης δεδομένων δεν έχει μέθοδο 'down'.";
+$lang['migration_invalid_filename']		= "Οι εντολές μεταποίησης της βάσης δεδομένων \"%s\" έχουν μη έγκυρο όνομα αρχείου.";
 
 
 /* End of file migration_lang.php */
-/* Location: ./system/language/english/migration_lang.php */
+/* Location: ./system/language/greek/migration_lang.php */
