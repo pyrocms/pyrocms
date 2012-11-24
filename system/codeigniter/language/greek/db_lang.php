@@ -1,29 +1,29 @@
 <?php
 
-$lang['db_invalid_connection_str'] = 'Unable to determine the database settings based on the connection string you submitted.';
-$lang['db_unable_to_connect'] = 'Unable to connect to your database server using the provided settings.';
-$lang['db_unable_to_select'] = 'Unable to select the specified database: %s';
-$lang['db_unable_to_create'] = 'Unable to create the specified database: %s';
-$lang['db_invalid_query'] = 'The query you submitted is not valid.';
-$lang['db_must_set_table'] = 'You must set the database table to be used with your query.';
-$lang['db_must_use_set'] = 'You must use the "set" method to update an entry.';
-$lang['db_must_use_index'] = 'You must specify an index to match on for batch updates.';
-$lang['db_batch_missing_index'] = 'One or more rows submitted for batch updating is missing the specified index.';
-$lang['db_must_use_where'] = 'Updates are not allowed unless they contain a "where" clause.';
-$lang['db_del_must_use_where'] = 'Deletes are not allowed unless they contain a "where" or "like" clause.';
-$lang['db_field_param_missing'] = 'To fetch fields requires the name of the table as a parameter.';
-$lang['db_unsupported_function'] = 'This feature is not available for the database you are using.';
-$lang['db_transaction_failure'] = 'Transaction failure: Rollback performed.';
-$lang['db_unable_to_drop'] = 'Unable to drop the specified database.';
-$lang['db_unsuported_feature'] = 'Unsupported feature of the database platform you are using.';
-$lang['db_unsuported_compression'] = 'The file compression format you chose is not supported by your server.';
-$lang['db_filepath_error'] = 'Unable to write data to the file path you have submitted.';
-$lang['db_invalid_cache_path'] = 'The cache path you submitted is not valid or writable.';
-$lang['db_table_name_required'] = 'A table name is required for that operation.';
-$lang['db_column_name_required'] = 'A column name is required for that operation.';
-$lang['db_column_definition_required'] = 'A column definition is required for that operation.';
-$lang['db_unable_to_set_charset'] = 'Unable to set client connection character set: %s';
-$lang['db_error_heading'] = 'A Database Error Occurred';
+$lang['db_invalid_connection_str'] = 'Δεν ήταν δυνατό να καθοριστούν οι ρυθμίσεις της σύνδεσης στην βάση δεδομένων από την γραμμή κειμένου που υποβάλλατε.';
+$lang['db_unable_to_connect'] = 'Δεν ήταν δυνατή η σύνδεση στην βάση δεδομένων κάνοντας χρήση των ρυθμίσεων που παρείχθησαν.';
+$lang['db_unable_to_select'] = 'Δεν ήταν δυνατή η επιλογή της βάσης δεδομένων: %s';
+$lang['db_unable_to_create'] = 'Δεν ήταν δυνατή η δημιουργία της βάση δεδομένων: %s';
+$lang['db_invalid_query'] = 'Το ερώτημα που υποβάλλατε δεν είναι έγκυρο.';
+$lang['db_must_set_table'] = 'Πρέπει να ορίσετε τον πίνακα της βάσης δεδομένων πάνω στον οποίο θα εκτελεστεί το ερώτημά σας.';
+$lang['db_must_use_set'] = 'Πρέπει να χρησιμοποιήσετε την εντολή "set" για να ενημερώσετε μια ήδη υπάρχουσα εγγραφή.';
+$lang['db_must_use_index'] = 'Πρέπει να ορίσετε ένα index για να είναι δυνατό το ταίριασμα για μαζικές ενημερώσεις.';
+$lang['db_batch_missing_index'] = 'Το ορισμένο index λείπει από μια ή περισσότερες εγγραφές που υποβλήθηκαν για μαζική ενημέρωση.';
+$lang['db_must_use_where'] = 'Οι εντολές για ενημέρωση εγγραφών δεν επιτρέπονται εκτός και αν περιέχουν περιορισμούς "where" ή "like".';
+$lang['db_del_must_use_where'] = 'Οι εντολές για διαγραφή εγγραφών δεν επιτρέπονται εκτός και αν περιέχουν περιορισμούς "where" ή "like".';
+$lang['db_field_param_missing'] = 'Για την ανάκτηση πεδίων πρέπει να παρέχεται το όνομα του πίνακα ως παράμετρος.';
+$lang['db_unsupported_function'] = 'Αυτή η λειτουργία δεν είναι διαθέσιμη στην βάση που χρησιμοποιείται.';
+$lang['db_transaction_failure'] = 'Αποτυχία Transaction: εφαρμόστηκε rollback.';
+$lang['db_unable_to_drop'] = 'Δεν ήταν δυνατό να καταργηθεί η βάση δεδομένων που ορίσατε.';
+$lang['db_unsuported_feature'] = 'Λειτουργία που δεν υποστηρίζεται από το λογισμικό της βάσης δεδομένων που χρησιμοποιείτε.';
+$lang['db_unsuported_compression'] = 'Η μορφή συμπιεσμένου αρχείου που έχετε επιλέξει δεν υποστηρίζεται από τον διακομιστή σας.';
+$lang['db_filepath_error'] = 'Δεν είναι δυνατό να εγγραφούν δεδομένα στην διαδρομή αρχείο που υποβάλλατε.';
+$lang['db_invalid_cache_path'] = 'Η διαδρομή cache που έχει υποβάλλει δεν είναι έγκυρη ή δεν είναι εγγράψιμη.';
+$lang['db_table_name_required'] = 'Απαιτείται ένα όνομα πίνακα για αυτήν την ενέργεια.';
+$lang['db_column_name_required'] = 'Απαιτείται ένα όνομα στήλης για αυτήν την ενέργεια.';
+$lang['db_column_definition_required'] = 'Απαιτείται ο ορισμός μιας στήλης για αυτήν την ενέργεια.';
+$lang['db_unable_to_set_charset'] = 'Δεν είναι δυνατό να οριστεί το character set της σύνδεσης σε: %s';
+$lang['db_error_heading'] = 'Συνέβη κάποιο σφάλμα της βάσης δεδομένων';
 
 /* End of file db_lang.php */
-/* Location: ./system/language/english/db_lang.php */
+/* Location: ./system/language/greek/db_lang.php */
