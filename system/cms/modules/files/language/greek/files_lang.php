@@ -20,7 +20,7 @@ $lang['files:back']							= 'Πίσω';
 $lang['files:forward']						= 'Εμπρός';
 $lang['files:start']						= 'Εκκίνηση';
 $lang['files:details']						= 'Λεπτομέρειες';
-$lang['files:id']							= 'ID'; #translate
+$lang['files:id']							= 'ID';
 $lang['files:name']							= 'Όνομα';
 $lang['files:slug']							= 'Σύντομο όνομα';
 $lang['files:path']							= 'Διαδρομή';
@@ -34,8 +34,8 @@ $lang['files:filesize']						= 'Μέγεθος αρχείου';
 $lang['files:download_count']				= 'Αριθμός μεταφορτώσεων';
 $lang['files:download']						= 'Λήψη';
 $lang['files:location']						= 'Τοποθεσία';
-$lang['files:keywords']						= 'Keywords'; #translate
-$lang['files:toggle_data_display']			= 'Toggle Data Display'; #translate
+$lang['files:keywords']						= 'Λέξεις κλειδιά';
+$lang['files:toggle_data_display']			= 'Εναλλαγή Εμφάνισης Δεδομένων';
 $lang['files:description']					= 'Περιγραφή';
 $lang['files:container']					= 'Container';
 $lang['files:bucket']						= 'Bucket';
@@ -57,7 +57,6 @@ $lang['files:details']						= 'Λεπτομέρειες';
 // Folders
 
 $lang['files:no_folders']					= 'Η διαχείριση αρχείων και φακέλων γίνεται περίπου όπως και στον υπολογιστή σας. Κάντε δεξί κλικ στην περιοχή κάτω από αυτό το μήνυμα για να δημιουργήσετε τον πρώτο σας φάκελο. Στην συνέχεια μπορείτε να τον μετονομάσετε, αν ανεβάσετε σε αυτόν αρχεία ή και να τροποποιήσετε τις λεπτομέρειές του όπως για παράδειγμα να τον συνδέσετε με μια τοποθεσία στο cloud.';
-$lang['files:no_folders_places']			= 'Folders that you create will show up here in a tree that can be expanded and collapsed. Click on "Places" to view the root folder.';
 $lang['files:no_folders_places']			= 'Οι φάκελοι που θα δημιουργήσετε θα εμφανίζονται εδώ σε διάταξη δένδρου που μπορείτε να αναπτύξετε ή να συμπτύξετε. Κάντε κλικ στο "Τοποθεσίες" για να δείτε το αρχικό επίπεδο.';
 $lang['files:no_folders_wysiwyg']			= 'Δεν έχουν δημιουργηθεί ακόμη φάκελοι';
 $lang['files:new_folder_name']				= 'Φάκελος Χωρίς Όνομα';
@@ -80,6 +79,7 @@ $lang['files:specify_valid_folder']			= 'Πρέπει να ορίσετε ένα
 $lang['files:enable_cdn']					= 'Πρέπει να ενεργοποιήσετε το CDN για "%s" μέσα από την περιοχή ελέγχου του Rackspace προτού να μπορείτε να συγχρονίσετε';
 $lang['files:synchronization_started']		= 'Εκκίνηση συγχρονισμού';
 $lang['files:synchronization_complete']		= 'Ο συγχρονισμός του φακέλου "%s" ολοκληρώθηκε';
+$lang['files:untitled_folder']				= 'Φάκελος Χωρίς Όνομα';
 
 // Files
 $lang['files:no_files']						= 'Δεν βρέθηκαν αρχεία';
