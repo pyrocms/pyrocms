@@ -104,6 +104,18 @@ class Module_Addons extends Module
 		return $info;
 	}
 
+	public function admin_menu(&$menu)
+	{
+		$menu['lang:cp_nav_addons'] = array(
+			'lang:cp_nav_modules'			=> 'admin/addons',
+			'lang:global:plugins'			=> 'admin/addons/plugins',
+			'lang:global:widgets'			=> 'admin/addons/widgets',
+			'lang:global:fieldtypes'		=> 'admin/addons/fieldtypes'
+		);
+
+		add_admin_menu_place('lang:cp_nav_addons', 5);
+	}
+
 	public function install()
 	{
 		$this->dbforge->drop_table('theme_options');
