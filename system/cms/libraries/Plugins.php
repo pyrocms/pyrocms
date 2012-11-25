@@ -217,6 +217,7 @@ class Plugins
 	public function __construct()
 	{
 		$this->_ci = & get_instance();
+		$this->_ci->load->helper('plugin');
 	}
 
 	public function locate($plugin, $attributes, $content)
