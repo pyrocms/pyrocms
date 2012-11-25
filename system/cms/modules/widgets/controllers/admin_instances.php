@@ -32,6 +32,16 @@ class Admin_instances extends Admin_Controller {
 			'field' => 'slug',
 			'label' => 'lang:widgets.widget_area_slug',
 			'rules' => 'trim|required|alpha_dash|max_length[100]'
+		),
+		array( // needed for stickiness
+			'field' => 'show_or_hide',
+			'label' => 'Show or Hide',
+			'rules' => ''
+		),
+		array(
+			'field' => 'page_slugs',
+			'label' => 'Page Slugs',
+			'rules' => 'xss_clean'
 		)
 	);
 
@@ -80,7 +90,9 @@ class Admin_instances extends Admin_Controller {
 			// @todo: set error
 			return false;
 		}
-
+		// need to set radio
+		$widget->show_or_hide = false;
+		
 		$data = array();
 
 		if ($input = $this->input->post())
@@ -88,10 +100,12 @@ class Admin_instances extends Admin_Controller {
 			$title 			= $input['title'];
 			$widget_id 		= $input['widget_id'];
 			$widget_area_id = $input['widget_area_id'];
+			$widget_soh		= $input['show_or_hide'];
+			$widget_page_slugs	= $input['page_slugs'];
 
-			unset($input['title'], $input['widget_id'], $input['widget_area_id']);
+			unset($input['title'], $input['widget_id'], $input['widget_area_id'], $input['show_or_hide'], $input['page_slugs']);
 
-			$result = $this->widgets->add_instance($title, $widget_id, $widget_area_id, $input);
+			$result = $this->widgets->add_instance($title, $widget_id, $widget_area_id, $widget_soh, $widget_page_slugs, $input);
 
 			if ($result['status'] === 'success')
 			{
@@ -160,10 +174,12 @@ class Admin_instances extends Admin_Controller {
 			$widget_id		= $input['widget_id'];
 			$widget_area_id	= $input['widget_area_id'];
 			$instance_id	= $input['widget_instance_id'];
+			$widget_soh		= $input['show_or_hide'];
+			$widget_page_slugs	= $input['page_slugs'];
 
-			unset($input['title'], $input['widget_id'], $input['widget_area_id'], $input['widget_instance_id']);
+			unset($input['title'], $input['widget_id'], $input['widget_area_id'], $input['widget_instance_id'], $input['show_or_hide'], $input['page_slugs']);
 
-			$result = $this->widgets->edit_instance($instance_id, $title, $widget_area_id, $input);
+			$result = $this->widgets->edit_instance($instance_id, $title, $widget_area_id, $widget_soh, $widget_page_slugs, $input);
 
 			if ($result['status'] === 'success')
 			{

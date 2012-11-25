@@ -18,7 +18,7 @@ class Widget_m extends MY_Model
 	public function get_instance($id)
 	{
 		$this->db
-			->select('w.id, w.slug, wi.id as instance_id, wi.title as instance_title, w.title, wi.widget_area_id, wa.slug as widget_area_slug, wi.options')
+			->select('w.id, w.slug, wi.id as instance_id, wi.title as instance_title, wi.show_or_hide, wi.page_slugs, w.title, wi.widget_area_id, wa.slug as widget_area_slug, wi.options')
 			->from('widget_areas wa')
 			->join('widget_instances wi', 'wa.id = wi.widget_area_id')
 			->join('widgets w', 'wi.widget_id = w.id')
@@ -37,7 +37,7 @@ class Widget_m extends MY_Model
 	public function get_by_area($slug)
 	{
 		$this->db
-			->select('wi.id, w.slug, wi.id as instance_id, wi.title as instance_title, w.title, wi.widget_area_id, wa.slug as widget_area_slug, wi.options')
+			->select('wi.id, w.slug, wi.id as instance_id, wi.title as instance_title, w.title, wi.widget_area_id, wi.show_or_hide, wi.page_slugs, wa.slug as widget_area_slug, wi.options')
 			->from('widget_areas wa')
 			->join('widget_instances wi', 'wa.id = wi.widget_area_id')
 			->join('widgets w', 'wi.widget_id = w.id')
@@ -63,7 +63,7 @@ class Widget_m extends MY_Model
 		}
 
 		$this->db
-			->select('wi.id, w.slug, wi.id as instance_id, wi.title as instance_title, w.title, wi.widget_area_id, wa.slug as widget_area_slug, wi.options')
+			->select('wi.id, w.slug, wi.id as instance_id, wi.show_or_hide, wi.page_slugs, wi.title as instance_title, w.title, wi.widget_area_id, wa.slug as widget_area_slug, wi.options')
 			->from('widget_areas wa')
 			->join('widget_instances wi', 'wa.id = wi.widget_area_id')
 			->join('widgets w', 'wi.widget_id = w.id')
@@ -226,7 +226,7 @@ class Widget_m extends MY_Model
 	}
 
 	public function update_area($input = array())
-	{
+	{ 
 		if (isset($input['id']))
 		{
 			$this->db->where('id', $input['id']);
@@ -264,6 +264,8 @@ class Widget_m extends MY_Model
 			'widget_id'			=> $input['widget_id'],
 			'widget_area_id'	=> $input['widget_area_id'],
 			'options'			=> $input['options'],
+			'show_or_hide'		=> $input['show_or_hide'],
+			'page_slugs'		=> $input['page_slugs'],
 			'order'				=> $order,
 			'created_on'		=> now(),
 		));
@@ -277,6 +279,8 @@ class Widget_m extends MY_Model
         	'title'				=> $input['title'],
 			'widget_area_id'	=> $input['widget_area_id'],
 			'options'			=> $input['options'],
+			'show_or_hide'		=> $input['show_or_hide'],
+			'page_slugs'		=> $input['page_slugs'],
 			'updated_on'		=> now()
 		));
 	}
@@ -329,4 +333,5 @@ class Widget_m extends MY_Model
 	{
 		return $this->db->delete('widget_instances', array('id' => $id));
 	}
+
 }

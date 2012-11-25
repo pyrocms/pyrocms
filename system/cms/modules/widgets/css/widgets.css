@@ -149,7 +149,7 @@
 .no-sortable header {
 	cursor: auto !important;
 }
-.widget-instance ol {
+.widget-instance ol, .widget-instance ul {
 	margin-bottom: 0;
 }
 .widget-list { overflow: auto; }
@@ -241,7 +241,7 @@
 }
 .widget-list fieldset li li {
 	padding-left: 0;
-	padding-rigth: 0;
+	padding-right: 0;
 }
 .widget-list ol li {
 	margin: 0 0 10px;
@@ -286,3 +286,32 @@ li.empty-drop-item.loading {
 
 #widgets-list > tbody > tr { cursor: auto; }
 td span.move-handle { float: right; margin-right: 6px; width: 18px; height: 18px; cursor: move; background: url(../../../themes/pyrocms/img/icons/cursor_drag_arrow.png) no-repeat; }
+
+#widget-context fieldset, #widget-content fieldset {
+	padding-top: 10px;
+	width: 430px;
+}
+#widget-context ul, #widget-content ul {
+	margin: 0;
+}
+#widget-content ul {
+	float: none !important;
+	clear: both;
+}
+#widget-context label, #widget-content label, #widget-content .chzn-single {
+	display: block;
+	margin-bottom: 6px;
+}
+	#widget-content label input[type=text], #widget-content label select, #widget-content label div {
+		display: block;
+		margin-bottom: 8px;
+	}
+	#widget-context label input[type=radio] {
+		margin-left: 5px;
+	}
+	#widget-context textarea {
+		width: 98% !important;
+		margin-top: 6px;
+	}
+
+

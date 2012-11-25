@@ -91,7 +91,7 @@ class Module_Widgets extends Module {
 			'widget_areas' => array(
 				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
 				'slug' => array('type' => 'VARCHAR', 'constraint' => 100, 'null' => true,),
-				'title' => array('type' => 'VARCHAR', 'constraint' => 100, 'null' => true,),
+				'title' => array('type' => 'VARCHAR', 'constraint' => 100, 'null' => true,)
 			),
 
 			'widget_instances' => array(
@@ -99,6 +99,7 @@ class Module_Widgets extends Module {
 				'title' => array('type' => 'VARCHAR', 'constraint' => 100, 'null' => true,),
 				'widget_id' => array('type' => 'INT', 'constraint' => 11, 'null' => true,),
 				'widget_area_id' => array('type' => 'INT', 'constraint' => 11, 'null' => true,),
+				'show_or_hide' => array('type'=> 'TINYINT', 'constraint' => 1, 'default' => 1),
 				'options' => array('type' => 'TEXT'),
 				'order' => array('type' => 'INT', 'constraint' => 10, 'default' => 0,),
 				'created_on' => array('type' => 'INT', 'constraint' => 11, 'default' => 0,),

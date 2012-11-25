@@ -12,8 +12,10 @@ class Widgets {
 	private $_widget = null;
 	private $_rendered_areas = array();
 	private $_widget_locations = array();
+	
+	private $_page_type;
 
-	public function __construct()
+	function __construct()
 	{
 		$this->load->model('widgets/widget_m');
 		
@@ -59,19 +61,22 @@ class Widgets {
 				$this->_widget_locations[$slug] = $widget_path . '/';
 			}
 		}
+		
+		// get the "page type" for the widget context so it only runs once
+		$this->_page_type = $this->_get_pagetype();
 	}
 
-	public function list_areas()
+	function list_areas()
 	{
 		return $this->widget_m->get_areas();
 	}
 
-	public function list_area_instances($slug)
+	function list_area_instances($slug)
 	{
 		return is_array($slug) ? $this->widget_m->get_by_areas($slug) : $this->widget_m->get_by_area($slug);
 	}
 
-	public function list_available_widgets()
+	function list_available_widgets()
 	{
 		// Firstly, install any uninstalled widgets
 		$uninstalled_widgets = $this->list_uninstalled_widgets();
@@ -113,7 +118,7 @@ class Widgets {
 		return $avaliable;
 	}
 
-	public function list_uninstalled_widgets()
+	function list_uninstalled_widgets()
 	{
 		$available = $this->widget_m->order_by('slug')->get_all();
 		$available_slugs = array();
@@ -138,12 +143,12 @@ class Widgets {
 		return $uninstalled;
 	}
 
-	public function get_instance($instance_id)
-	{
+	function get_instance($instance_id)
+	{ 
 		$widget = $this->widget_m->get_instance($instance_id);
 
 		if ($widget)
-		{
+		{	
 			$widget->options = $this->_unserialize_options($widget->options);
 
 			return $widget;
@@ -152,17 +157,17 @@ class Widgets {
 		return false;
 	}
 
-	public function get_area($id)
+	function get_area($id)
 	{
 		return is_numeric($id) ? $this->widget_m->get_area_by('id', $id) : $this->widget_m->get_area_by('slug', $id);
 	}
 
-	public function get_widget($id)
+	function get_widget($id)
 	{
 		return is_numeric($id) ? $this->widget_m->get_widget_by('id', $id) : $this->widget_m->get_widget_by('slug', $id);
 	}
 
-	public function read_widget($slug)
+	function read_widget($slug)
 	{
 		$this->_spawn_widget($slug);
 
@@ -179,7 +184,7 @@ class Widgets {
 		return $widget;
 	}
 
-	public function render($name, $options = array())
+	function render($name, $options = array())
 	{
 		$this->_spawn_widget($name);
 
@@ -199,13 +204,10 @@ class Widgets {
 
 		$data['options'] = $options;
 
-		// Is there an overload view in the theme?
-		$overload = file_exists($this->template->get_views_path().'widgets/'.$name.'/display'.EXT) ? $name : false;
-
-		return $this->load_view('display', $data, $overload);
+		return $this->load_view('display', $data);
 	}
 
-	public function render_backend($name, $saved_data = array())
+	function render_backend($name, $saved_data = array())
 	{
 		$this->_spawn_widget($name);
 
@@ -250,7 +252,7 @@ class Widgets {
 		return $this->load_view('form', $data);
 	}
 
-	public function render_area($area)
+	function render_area($area)
 	{
 		if (isset($this->_rendered_areas[$area]))
 		{
@@ -282,9 +284,12 @@ class Widgets {
 
 		foreach ($widgets as $widget)
 		{
+			// are we supposed to show this widget here?
+			if (!$this->_check_widget_context($widget)) continue;
+			
 			$widget->options = $this->_unserialize_options($widget->options);
 			$widget->body = $this->render($widget->slug, $widget->options);
-
+			
 			if ($widget->body !== false)
 			{
 				// add this view location to the array
@@ -302,7 +307,7 @@ class Widgets {
 		return $output;
 	}
 
-	public function reload_widget($slug)
+	function reload_widget($slug)
 	{
 		if (is_array($slug))
 		{
@@ -328,42 +333,42 @@ class Widgets {
 		));
 	}
 
-	public function add_widget($input)
+	function add_widget($input)
 	{
 		return $this->widget_m->insert_widget($input);
 	}
 
-	public function edit_widget($input)
+	function edit_widget($input)
 	{
 		return $this->widget_m->update_widget($input);
 	}
 
-	public function update_widget_order($id, $position)
+	function update_widget_order($id, $position)
 	{
 		return $this->widget_m->update_widget_order($id, $position);
 	}
 
-	public function delete_widget($slug)
+	function delete_widget($slug)
 	{
 		return $this->widget_m->delete_widget($slug);
 	}
 
-	public function add_area($input)
+	function add_area($input)
 	{
 		return $this->widget_m->insert_area((array) $input);
 	}
 
-	public function edit_area($input)
-	{
+	function edit_area($input)
+	{ 
 		return $this->widget_m->update_area((array) $input);
 	}
 
-	public function delete_area($slug)
+	function delete_area($slug)
 	{
 		return $this->widget_m->delete_area($slug);
 	}
 
-	public function add_instance($title, $widget_id, $widget_area_id, $options = array(), $data = array())
+	function add_instance($title, $widget_id, $widget_area_id, $widget_soh, $widget_page_slugs = '', $options = array(), $data = array())
 	{
 		$slug = $this->get_widget($widget_id)->slug;
 
@@ -380,13 +385,15 @@ class Widgets {
 			'widget_id' => $widget_id,
 			'widget_area_id' => $widget_area_id,
 			'options' => $this->_serialize_options($options),
+			'show_or_hide' => $widget_soh,
+			'page_slugs' => $widget_page_slugs,
 			'data' => $data
 		));
 
 		return array('status' => 'success');
 	}
 
-	public function edit_instance($instance_id, $title, $widget_area_id, $options = array(), $data = array())
+	function edit_instance($instance_id, $title, $widget_area_id, $widget_soh, $widget_page_slugs = '', $options = array(), $data = array())
 	{
 		$slug = $this->widget_m->get_instance($instance_id)->slug;
 
@@ -402,23 +409,25 @@ class Widgets {
 			'title' => $title,
 			'widget_area_id' => $widget_area_id,
 			'options' => $this->_serialize_options($options),
+			'show_or_hide' => $widget_soh,
+			'page_slugs' => $widget_page_slugs,
 			'data' => $data
 		));
 
 		return array('status' => 'success');
 	}
 
-	public function update_instance_order($id, $position)
+	function update_instance_order($id, $position)
 	{
 		return $this->widget_m->update_instance_order($id, $position);
 	}
 
-	public function delete_instance($id)
+	function delete_instance($id)
 	{
 		return $this->widget_m->delete_instance($id);
 	}
 
-	public function validation_errors($name, $options)
+	function validation_errors($name, $options)
 	{
 //		$_POST = $options;
 
@@ -438,7 +447,7 @@ class Widgets {
 		}
 	}
 
-	public function prepare_options($name, $options = array())
+	function prepare_options($name, $options = array())
 	{
 		$this->_widget OR $this->_spawn_widget($name);
 
@@ -469,7 +478,7 @@ class Widgets {
 		$this->_widget = null;
 	}
 
-	public function __get($var)
+	function __get($var)
 	{
 		if (isset(get_instance()->$var))
 		{
@@ -477,17 +486,8 @@ class Widgets {
 		}
 	}
 
-	protected function load_view($view, $data = array(), $overload = false)
+	protected function load_view($view, $data = array())
 	{
-		if ($overload !== false)
-		{
-			return $this->parser->parse_string($this->load->_ci_load(array(
-					'_ci_path' => $this->template->get_views_path().'widgets/' . $overload . '/display' . EXT,
-					'_ci_vars' => $data,
-					'_ci_return' => true
-				)), array(), true);
-		}
-
 		$path = isset($this->_widget->path) ? $this->_widget->path : $this->path;
 
 		return $view == 'display'
@@ -518,4 +518,122 @@ class Widgets {
 
 		return $options;
 	}
+				
+	/**
+	 * checks the "availability" of a widget
+	 * this can be set to show or not on specific page(s) like a Drupal block
+	 * 
+	 * @access private
+	 * @param string
+	 * @return bool
+	 * @uses _get_pagetype()
+	 * @uses widget_m model
+	 */	
+	private function _check_widget_context($widget)
+	{
+		if (!empty($widget->page_slugs))
+		{	
+			// split the string
+			$slugs = preg_split("/\r\n|\n|\r/", $widget->page_slugs);
+			
+			// show only on these pages
+			if ($widget->show_or_hide == 1)
+			{
+				if (in_array($this->_page_type, $slugs)) // show on these pages only
+				{
+					return TRUE;
+				}
+				else
+				{
+					// have to check for "blog", since $page might == "category:cat_name"
+					if (strpos($this->_page_type, 'category') !== FALSE && in_array('blog', $slugs))
+					{
+						return TRUE;
+					}
+					return FALSE;
+				}
+			} 
+			// hide only on these pages
+			elseif ($widget->show_or_hide == 0)
+			{
+				if (in_array($this->_page_type, $slugs)) // do not show on these pages
+				{
+					return FALSE;
+				}
+				else
+				{
+					// have to check for "blog", since $page might == "category:cat_name"
+					if (strpos($this->_page_type, 'category') !== FALSE && in_array('blog', $slugs)) // "blog" not allowed
+					{
+						return FALSE;
+					}
+					return TRUE;
+				}
+			}
+		}
+		
+		return TRUE; // not listed, so allow it to show
+	}
+	
+	/**
+	 * get the page type from the segments or the breadcrumbs
+	 * this returns "home", "category:category_slug", "blog", or page slug from parsed url
+	 * 
+	 * @access private
+	 * @param void
+	 * @return string
+	 */	 	 	  	 	 	 	
+	private function _get_pagetype()
+	{
+		if (current_url() == BASE_URL) // homepage
+		{
+			return '<home>';
+		}
+		
+		// check for a custom module (should widgets even be possible to use in custom modules)
+		$core_modules = array('blog', 'pages'); // these are only ones available to front side
+		$module_name = $this->router->fetch_module();
+		if (!in_array($module_name, $core_modules))
+		{
+			return '<module:' . $module_name . '>';
+		}
+		
+		// get the breadcrumbs
+		$data = & $this->load->_ci_cached_vars;
+		$first = array_shift($data['template']['breadcrumbs']); // the first element will have the most segments
+		
+		// get the uri segments
+		$segs = $this->uri->segment_array();
+				
+		// combine them, get rid of duplicates, numeric values and empty strings
+		$arr = explode('/', $first['uri']);
+		$segments = array_merge($segs, $arr);
+		$segments = array_unique($segments);
+		foreach($segments as $k=>&$v)
+		{
+			if (is_numeric($v) || empty($v))
+			{
+				unset($segments[$k]);
+			}
+		}
+		$segments = array_values($segments);
+		
+		if (in_array('blog', $segments)) // a blog page of some sort
+		{
+			if (in_array('category', $segments)) // a category index, archive or post in that category
+			{
+				return '<category:' . $segments[count($segments) - 1] . '>';	
+			}
+			else // must be blog index page
+			{
+				return '<blog>';
+			}
+		}
+		else // must be a page, so return last segment
+		{
+			return $segments[0];
+		}
+
+	}
+
 }
