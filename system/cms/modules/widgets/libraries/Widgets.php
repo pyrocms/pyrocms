@@ -63,7 +63,7 @@ class Widgets {
 		}
 		
 		// get the "page type" for the widget context so it only runs once
-		$this->_page_type = $this->_get_pagetype();
+		$this->_page_type = $this->_get_pagetype(); var_dump($this->_page_type);
 	}
 
 	function list_areas()
@@ -590,50 +590,40 @@ class Widgets {
 			return '<home>';
 		}
 		
-		// check for a custom module (should widgets even be possible to use in custom modules)
-		$core_modules = array('blog', 'pages'); // these are only ones available to front side
-		$module_name = $this->router->fetch_module();
-		if (!in_array($module_name, $core_modules))
+		// use the cached vars to find what we need
+		$data = & $this->load->_ci_cached_vars; 
+		switch($data['module_details']['slug'])
 		{
-			return '<module:' . $module_name . '>';
-		}
-		
-		// get the breadcrumbs
-		$data = & $this->load->_ci_cached_vars;
-		$first = array_shift($data['template']['breadcrumbs']); // the first element will have the most segments
-		
-		// get the uri segments
-		$segs = $this->uri->segment_array();
-				
-		// combine them, get rid of duplicates, numeric values and empty strings
-		$arr = explode('/', $first['uri']);
-		$segments = array_merge($segs, $arr);
-		$segments = array_unique($segments);
-		foreach($segments as $k=>&$v)
-		{
-			if (is_numeric($v) || empty($v))
-			{
-				unset($segments[$k]);
+		case 'pages':
+			return $data['page']->slug;
+			break;
+			
+		case 'blog':
+			if (isset($data['post'])) // "permalink page"
+			{ 
+				if (isset($data['post']->category->slug)) // categorized ?
+				{
+					return '<category:' . $data['post']->category->slug . '>';
+				}
+				else // nope
+				{
+					return '<blog>'; 
+				}
 			}
-		}
-		$segments = array_values($segments);
-		
-		if (in_array('blog', $segments)) // a blog page of some sort
-		{
-			if (in_array('category', $segments)) // a category index, archive or post in that category
+			elseif (isset($data['category'])) // category archive page
 			{
-				return '<category:' . $segments[count($segments) - 1] . '>';	
+				return '<category:' . $data['category']->slug . '>';
 			}
-			else // must be blog index page
+			else // blog index
 			{
 				return '<blog>';
 			}
+			break;
+		
+		default: // custom module not covered above
+			return '<module:' . $data['module_details']['slug'] . '>';
+			break;
 		}
-		else // must be a page, so return last segment
-		{
-			return $segments[0];
-		}
-
 	}
 
 }
