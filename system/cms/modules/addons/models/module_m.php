@@ -145,6 +145,7 @@ class Module_m extends MY_Model
 
 			$module = array(
 				'name'				=> $name,
+				'module'				=> $class,
 				'slug'				=> $row->slug,
 				'version'			=> $row->version,
 				'description'		=> $description,
