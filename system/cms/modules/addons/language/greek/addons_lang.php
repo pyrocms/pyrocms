@@ -1,7 +1,7 @@
 <?php
 
 $lang['addons:modules'] 						= 'Πρόσθετα';
-$lang['addons:themes'] 							= 'Themes'; #translate
+$lang['addons:themes'] 							= 'Θέματα Εμφάνισης';
 $lang['addons:widgets'] 						= 'Widgets';
 
 $lang['addons:modules:core_list']				= 'Βασικά Πρόσθετα';

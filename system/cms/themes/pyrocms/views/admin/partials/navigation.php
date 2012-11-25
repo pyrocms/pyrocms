@@ -104,8 +104,8 @@
 			<li><?php echo anchor('admin/settings', lang('cp_nav_settings'), 'class="top-link no-submenu' . (($this->module == 'settings') ? ' current"' : '"'));?></li>
 		<?php endif; ?>
 
-		<?php if (array_key_exists('modules', $this->permissions) OR $this->current_user->group == 'admin'): ?>
-			<li><?php echo anchor('admin/modules', lang('cp_nav_addons'), 'class="top-link no-submenu' . (($this->module == 'modules') ? ' current"' : '"'));?></li>
+		<?php if (array_key_exists('addons', $this->permissions) OR $this->current_user->group == 'admin'): ?>
+			<li><?php echo anchor('admin/addons', lang('cp_nav_addons'), 'class="top-link no-submenu' . (($this->module == 'modules') ? ' current"' : '"'));?></li>
 		<?php endif; ?>
 		
 		<?php
