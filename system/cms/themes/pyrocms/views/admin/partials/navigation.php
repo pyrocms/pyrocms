@@ -10,7 +10,7 @@
 		// display them now.
 		foreach ($menu_items as $key => $menu_item)
 		{
-			if (is_array($menu_item))
+			if (is_array($menu_item) and count($menu_item) > 1)
 			{
 				echo '<li><a href="'.current_url().'#" class="top-link">'.lang_label($key).'</a><ul>';
 
@@ -23,10 +23,18 @@
 				echo '</ul></li>';
 
 			}
+			elseif (is_array($menu_item) and count($menu_item) == 1)
+			{
+				foreach ($menu_item as $lang_key => $uri)
+				{
+					echo '<li><a href="'.site_url($menu_item).'" class="top-link no-submenu">'.lang_label($lang_key).'</a></li>';
+				}
+			}
 			elseif (is_string($menu_item))
 			{
 				echo '<li><a href="'.site_url($menu_item).'" class="top-link no-submenu">'.lang_label($key).'</a></li>';
 			}
+
 		}
 	
 		?>
