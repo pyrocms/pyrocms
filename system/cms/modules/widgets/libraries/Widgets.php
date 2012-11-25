@@ -63,7 +63,7 @@ class Widgets {
 		}
 		
 		// get the "page type" for the widget context so it only runs once
-		$this->_page_type = $this->_get_pagetype(); var_dump($this->_page_type);
+		$this->_page_type = $this->_get_pagetype();
 	}
 
 	function list_areas()
