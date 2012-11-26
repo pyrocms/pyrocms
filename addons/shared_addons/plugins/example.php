@@ -10,6 +10,10 @@
  */
 class Plugin_Example extends Plugin
 {
+	public $description = array(
+		'en'	=> 'Example of PyroCMS plugin structure.'
+	);
+
 	/**
 	 * Hello
 	 *

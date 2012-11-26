@@ -60,4 +60,7 @@ $lang['addons:themes:version_label']			= 'Version';
 $lang['addons:themes:default_theme_label']		= 'Default Theme';
 $lang['addons:themes:no_themes_installed']		= 'There are no Themes installed.';
 
+$lang['addons:plugins:add_on_plugins']			= 'Add-on Plugins';
+$lang['addons:plugins:core_plugins']			= 'Core Plugins';
+
 /* End of file addons_lang.php */

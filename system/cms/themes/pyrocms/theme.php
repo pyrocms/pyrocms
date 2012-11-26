@@ -48,8 +48,6 @@ class Theme_Pyrocms extends Theme {
 	 */
 	public function run()
 	{
-		self::generate_menu();
-
 		// only load these items on the dashboard
 		if ($this->module == '' && $this->method != 'login' && $this->method != 'help')
 		{
@@ -57,44 +55,6 @@ class Theme_Pyrocms extends Theme {
 			if ($this->theme_options->pyrocms_analytics_graph == 'yes')		self::get_analytics();
 			if ($this->theme_options->pyrocms_news_feed == 'yes')			self::get_rss_feed();
 			if ($this->theme_options->pyrocms_recent_comments == 'yes')		self::get_recent_comments();
-		}
-	}
-	
-	private function generate_menu()
-	{
-		// Get a list of all modules available to this user/group
-		if ($this->current_user)
-		{
-			$modules = $this->module_m->get_all(array(
-				'is_backend' => true,
-				'group' => $this->current_user->group,
-				'lang' => CURRENT_LANGUAGE
-			));
-
-			$grouped_modules = array();
-
-			$grouped_menu[] = 'content';
-
-			foreach ($modules as $module)
-			{
-				if ($module['menu'] != 'content' && $module['menu'] != 'design' && $module['menu'] != 'users' && $module['menu'] != 'utilities' && $module['menu'] != '0')
-				{
-					$grouped_menu[] = $module['menu'];
-				}
-			}
-
-			array_push($grouped_menu, 'design', 'users', 'utilities');
-
-			$grouped_menu = array_unique($grouped_menu);
-
-			foreach ($modules as $module)
-			{
-				$grouped_modules[$module['menu']][$module['name']] = $module;
-			}
-
-			// pass them on as template variables
-			$this->template->menu_items = $grouped_menu;
-			$this->template->modules = $grouped_modules;
 		}
 	}
 	

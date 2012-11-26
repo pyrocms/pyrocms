@@ -10,6 +10,9 @@
  */
 class Plugin_Helper extends Plugin
 {
+	public $description = array(
+		'en'	=> 'Access helper functions and other helpful items.'
+	);
 
 	/**
 	 * A flag for the counter functions for loops.

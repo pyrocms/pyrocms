@@ -103,6 +103,11 @@ class Module_Users extends Module {
 		return $info;
 	}
 
+	public function admin_menu(&$menu)
+	{
+		$menu['lang:cp_nav_users']['lang:cp_nav_users'] = 'admin/users';
+	}
+
 	/**
 	 * Installation logic
 	 *

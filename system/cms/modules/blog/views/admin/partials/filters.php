@@ -1,7 +1,7 @@
 <fieldset id="filters">
 	<legend><?php echo lang('global:filters'); ?></legend>
 	
-	<?php echo form_open('admin/blog/ajax_filter'); ?>
+	<?php echo form_open(''); ?>
 		<?php echo form_hidden('f_module', $module_details['slug']); ?>
 		<ul>  
 			<li class="one_quarter">

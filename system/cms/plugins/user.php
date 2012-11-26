@@ -10,6 +10,9 @@
  */
 class Plugin_User extends Plugin
 {
+	public $description = array(
+		'en'	=> 'Access current user profile variables and settings.'
+	);
 
 	/**
 	 * Array of data for the currently

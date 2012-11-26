@@ -409,7 +409,7 @@ class Ion_auth
 		delete_cookie('remember_code');
 	    }
 
-		$this->ci->session->sess_destroy();
+		$this->ci->session->sess_regenerate(true);
 
 		$this->set_message('logout_successful');
 		return true;
