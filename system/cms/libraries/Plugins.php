@@ -61,7 +61,10 @@ abstract class Plugin
 	 */
 	public function __get($var)
 	{
-		return get_instance()->$var;
+		if (isset(get_instance()->$var))
+		{
+			return get_instance()->$var;
+		}
 	}
 
 	/**
