@@ -135,7 +135,62 @@ class Module_Addons extends Module
 			),
 		);
 
-		return $this->install_tables($tables);
+		if ( ! $this->install_tables($tables)) {
+			return false;
+		}
+
+		// Install settings
+		$settings = array(
+			array(
+				'slug' => 'addons_upload',
+				'title' => 'Addons Upload Permissions',
+				'description' => 'Keeps mere admins from uploading addons by default',
+				'type' => 'text',
+				'default' => '0',
+				'value' => '0',
+				'options' => '',
+				'is_required' => 1,
+				'is_gui' => 0,
+				'module' => '',
+				'order' => 0,
+			),
+			array(
+				'slug' => 'default_theme',
+				'title' => 'Default Theme',
+				'description' => 'Select the theme you want users to see by default.',
+				'type' => '',
+				'default' => 'default',
+				'value' => 'default',
+				'options' => 'func:get_themes',
+				'is_required' => 1,
+				'is_gui' => 0,
+				'module' => '',
+				'order' => 0,
+			),
+			array(
+				'slug' => 'admin_theme',
+				'title' => 'Control Panel Theme',
+				'description' => 'Select the theme for the control panel.',
+				'type' => '',
+				'default' => '',
+				'value' => 'pyrocms',
+				'options' => 'func:get_themes',
+				'is_required' => 1,
+				'is_gui' => 0,
+				'module' => '',
+				'order' => 0,
+			),
+		);
+
+		foreach ($settings as $setting)
+		{
+			if ( ! $this->db->insert('settings', $setting))
+			{
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 	public function uninstall()
