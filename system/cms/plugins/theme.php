@@ -313,6 +313,7 @@ class Plugin_Theme extends Plugin
 
 	// --------------------------------------------------------------------------
 	
+	
 	/**
 	* 
 	* return the body class for a layout
@@ -321,62 +322,60 @@ class Plugin_Theme extends Plugin
 	* @return string
 	*/
 	// usage <body {{ theme:body_class }}>
-	// if page: if Body Class for layout or page set in admin returns 'class="page layout_body_class page_body_class"'
-	//			else returns 'class="page"'
-	// elseif blog: returns class="blog [single]|[archive]|[category category_slug]" 
+	// returns class="page[ body_class][ layout_class]" for a pyro page
+	// returns class="blog[ category_slug][ single]" for a pyro blog page
+	// returns class="profile" for user-profile page
+	// returns class="module module_slug" for a custom-module page
 	function body_class()
-	{
-		if ($this->controller == 'admin') return '';
+	{ 
+		$classes = array();
+		 
+		// use the cached vars to find what we need
+		$data = & $this->load->_ci_cached_vars;
 		
-		$segments = $this->uri->segment_array();
-		
-		if (empty($segments))
+		if (!$this->uri->segment(1)) // no segments == homepage
 		{
-			$page = $this->pyrocache->model('page_m', 'get_home');
-			
-			// get any layout class
-			$body_classes = $this->page_layouts_m->get_body_class($page->layout_id);
-			// and any page class
-			$body_classes .= (empty($page->body_class)) ? ' ' : $page->body_class;
-			// and concatenate them
-			$classes = (!empty($body_classes)) ? 'page ' . $body_classes : 'page';
+			array_push($classes, 'home', 'page');
+			if (isset($data['page']->layout->body_class)) array_push($classes, $data['page']->layout->body_class);
+			if (isset($data['page']->body_class)) array_push($classes, $data['page']->body_class);
 		}
-		elseif ($segments[1] == 'faq') // if faq addon installed
+		else
 		{
-			$classes = 'faq';
-		}
-		elseif ($segments[1] != 'blog')
-		{
-			$page = $this->pyrocache->model('page_m', 'get_by_uri', $segments);
-			
-			// might not be a blog page, but might not be a "true" page either
-			if (!$page) return;
-			// age any layout class
-			$body_classes = $this->page_layouts_m->get_body_class($page->layout_id);
-			// and any page class
-			$body_classes .=  (!empty($page->body_class)) ? ' ' . $page->body_class : '';
-			// and concatenate them
-			$classes = (!empty($body_classes)) ? 'page ' . $body_classes : 'page';
-		}
-		else // blog pages
-		{
-			$uri = $this->uri->uri_string();
-			
-			if (strpos($uri, 'category') !== FALSE) // category pages
+			switch($data['module_details']['slug'])
 			{
-				$classes = implode(' ', $segments);
+			case 'pages':
+				array_push($classes, 'page');
+				if (isset($data['page']->layout->body_class)) array_push($classes, $data['page']->layout->body_class);
+				if (isset($data['page']->body_class)) array_push($classes, $data['page']->body_class);
+				break;
+			
+			case 'blog':
+				array_push($classes, 'blog');
+				
+				if (isset($data['post'])) // on "permalink" page
+				{
+					array_push($classes, 'single', $data['post']->category->slug);
+				}
+				elseif (isset($data['category'])) // archive/index page for category
+				{
+					array_push($classes, 'category-index', $data['category']->slug);
+				}
+				break;
+				
+			case 'users':
+				array_push($classes, 'profile');
+				break;
+				
+			default: // custom module
+				array_push($classes, 'module', $data['module_details']['slug']);
+				break;
 			}
-			elseif (strpos($uri, 'archive') !== FALSE) // archive pages
-			{
-				$classes = 'blog archive';
-			}
-			else // single "permalink" page
-			{
-				$classes = 'blog single';
-			}									
-		}	
+		}
 		
-		return 'class="' . $classes . '"'; 	
+		$classes = array_filter(array_unique($classes));
+		$classes = implode(' ', $classes);
+		return 'class="' . $classes . '"';
+
 	}
 	
 	// --------------------------------------------------------------------------
@@ -389,35 +388,62 @@ class Plugin_Theme extends Plugin
 	 * @return string
 	 */
 	// usage: <body {{ theme:body_id }}>
-	// if Body ID set in admin returns 'id="body_id"'
-	// else returns 'id="home"' or 'id="[last_segment]"
+	// returns id="body_id | page_slug" for a pyro page
+	// returns id="url_title(post_title)" for a blog "permalink" page, 
+	//		id="category_slug-index" for a blog category index
+	//		id="blog-index" for main blog index
+	// returns id="segment_1" for users page
+	// returns id="module_slug-[index]|[method_name]" for custom-module page 
 	function body_id()
 	{
-		if ($this->controller == 'admin') return '';
+		$id = '';
 		
-		$segments = $this->uri->segment_array();
-		
-		if (empty($segments)) // home page
-		{
-			$page = $this->pyrocache->model('page_m', 'get_home');
-			
-			return (!empty($page->body_id)) ? 'id="' . $page->body_id . '"' : 'id="home"';
-		}
-		else // other page or blog
-		{
-			$page = $this->pyrocache->model('page_m', 'get_by_uri', $segments);
-			
-			if ($page) // page: get id if page has it, otherwise use last segment
-			{
-				return (!empty($page->body_id)) ? 'id="' . $page->body_id . '"' : 'id="' . $segments[$this->uri->total_segments()] . '"';
-			}
-			else // blog: get id if post has it, otherwise use last segment; suppress error on non-single pages for now
-			{ 
-				$body_id = @$this->pyrocache->model('blog/blog_m', 'get_by', array('slug', $segments[$this->uri->total_segments()]))->body_id;
+		$data = & $this->load->_ci_cached_vars;
 				
-				return (!empty($body_id)) ? 'id="' . $body_id . '"' : 'id="' . $segments[$this->uri->total_segments()] . '"';
-			}
+		if (!$this->uri->segment(1))
+		{
+			$id = !empty($data['page']->body_id) ? $data['page']->body_id : 'home';	
 		}
-
+		else
+		{
+			switch($data['module_details']['slug'])
+			{
+			case 'pages':
+				$id = !empty($data['page']->body_id) ? $data['page']->body_id : $data['page']->slug;
+				break;
+				
+			case 'blog':
+				if (isset($data['post']))
+				{
+					$id = url_title($data['post']->title, '-', true);
+				}
+				elseif (isset($data['category']))
+				{
+					$id = $data['category']->slug . '-index';
+				}
+				else
+				{
+					$id = 'blog-index';
+				}
+				break;
+				
+			case 'users':
+				$id = $this->uri->segment(1);
+				break;
+				
+			default: // custom module
+				if ($this->uri->segment(2))
+				{
+					$id = $this->uri->segment(1) . '-' . $this->uri->segment(2);
+				}
+				else
+				{
+					$id = $this->uri->segment(1) . '-index';
+				}
+				break;			
+			}			
+		}
+		
+		return (!empty($id)) ? 'id="' . $id . '"' : '';
 	}	 
 }
