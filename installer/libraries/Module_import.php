@@ -177,16 +177,19 @@ class Module_import
 			// Loop through modules
 			if ($modules = glob($directory.'modules/*', GLOB_ONLYDIR))
 			{
+				// Put the settings module first
+				$modules = array_map('basename',$modules);
+				$s = array_splice($modules, array_search('settings', $modules), 1);
+				array_unshift($modules, $s[0]);
+
 				foreach ($modules as $module_name)
 				{
-					$slug = basename($module_name);
-
-					if ( ! $details_class = $this->_spawn_class($slug, $is_core))
+					if ( ! $details_class = $this->_spawn_class($module_name, $is_core))
 					{
 						continue;
 					}
 
-					$this->install($slug, $is_core);
+					$this->install($module_name, $is_core);
 				}
 			}
 
