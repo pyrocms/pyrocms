@@ -10,7 +10,8 @@ jQuery(function($){
 	pyro.files.current_level = 0;
 
 	// Default button set
-	$('.button-menu-source li:not([data-applies-to^="pane"])').hide();
+	$('.item .folders-center').trigger('click');
+
 
 	/***************************************************************************
 	 * Activity sidebar message handler                                        *
@@ -153,7 +154,7 @@ jQuery(function($){
 				} else if ($target.hasClass('folder')){
 					pattern = new RegExp('folder');
 					folder = true;
-				} else if ($target.hasClass('pane') && pyro.files.current_level === 0){
+				} else if ($target.hasClass('pane') && pyro.files.current_level == '0'){
 					pattern = new RegExp('root-pane');
 				}
 
@@ -630,8 +631,7 @@ jQuery(function($){
 		if ( folder_id == 0 )
 		{
 			// Reset detault buttons (applicable to root-pane)
-			$('.button-menu-source li:not([data-applies-to^="pane"])').hide();
-			$('.button-menu-source li[data-applies-to^="pane"]').show();
+			$('.item .folders-center').trigger('click');
 		}
 	 };
 
