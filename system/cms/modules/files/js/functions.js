@@ -624,15 +624,11 @@ jQuery(function($){
 				results.message = pyro.lang.fetch_completed;
 				$(window).trigger('show-message', results);
 				$(window).trigger('load-completed');
+
+				// Show the applicable buttons.
+				$('.item .folders-center').trigger('click');
 			}
 		});
-
-		// Defualt buttons?
-		if ( folder_id == 0 )
-		{
-			// Reset detault buttons (applicable to root-pane)
-			$('.item .folders-center').trigger('click');
-		}
 	 };
 
 	pyro.files.rename = function() {
