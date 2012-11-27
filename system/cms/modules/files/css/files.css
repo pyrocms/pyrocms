@@ -33,10 +33,12 @@ section.center .no_data { margin: 40px 20px 20px 20px; }
 .folders-center .file.type-i .name-text { margin-top: 7px; }
 .folders-center .file.type-i img { padding: 25px 13px 0 13px; }
 
+#item-details h4 { margin: 0 0 10px; }
 #item-details li { font-size: 14px; list-style: none; line-height: 26px; }
 #item-details label { font-size: 14px; width: 130px; display: inline-block; }
 #item-details span { padding-left: 5px; }
 #item-details input.path { width: 250px; margin-left: 6px; }
+#item-details input.alt_attribute { display: block; margin-left: 0; width: 250px; }
 #item-details textarea { width: 390px; min-height: 0; height: 75px; }
 
 #console { margin-top: 5px !important; border-top: 1px solid #d8d8d8; }

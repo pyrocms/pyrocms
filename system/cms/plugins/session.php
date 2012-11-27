@@ -10,6 +10,9 @@
  */
 class Plugin_Session extends Plugin
 {
+	public $description = array(
+		'en'	=> 'Access and set session variables.'
+	);
 
 	/**
 	 * Data

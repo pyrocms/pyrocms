@@ -100,6 +100,83 @@ class Module_Comments extends Module {
 			return false;
 		}
 
+		// Install the setting
+		$settings = array(
+			array(
+				'slug' => 'akismet_api_key',
+				'title' => 'Akismet API Key',
+				'description' => 'Akismet is a spam-blocker from the WordPress team. It keeps spam under control without forcing users to get past human-checking CAPTCHA forms.',
+				'type' => 'text',
+				'default' => '',
+				'value' => '',
+				'options' => '',
+				'is_required' => 0,
+				'is_gui' => 1,
+				'module' => 'integration',
+				'order' => 981,
+			),
+			array(
+				'slug' => 'enable_comments',
+				'title' => 'Enable Comments',
+				'description' => 'Enable comments.',
+				'type' => 'radio',
+				'default' => true,
+				'value' => true,
+				'options' => '1=Enabled|0=Disabled',
+				'is_required' => 1,
+				'is_gui' => 1,
+				'module' => 'comments',
+				'order' => 968,
+			),
+			array(
+				'slug' => 'moderate_comments',
+				'title' => 'Moderate Comments',
+				'description' => 'Force comments to be approved before they appear on the site.',
+				'type' => 'radio',
+				'default' => true,
+				'value' => true,
+				'options' => '1=Enabled|0=Disabled',
+				'is_required' => 1,
+				'is_gui' => 1,
+				'module' => 'comments',
+				'order' => 967,
+			),
+			array(
+				'slug' => 'comment_order',
+				'title' => 'Comment Order',
+				'description' => 'Sort order in which to display comments.',
+				'type' => 'select',
+				'default' => 'ASC',
+				'value' => 'ASC',
+				'options' => 'ASC=Oldest First|DESC=Newest First',
+				'is_required' => 1,
+				'is_gui' => 1,
+				'module' => 'comments',
+				'order' => 966,
+			),
+			array(
+				'slug' => 'comment_markdown',
+				'title' => 'Allow Markdown',
+				'description' => 'Do you want to allow visitors to post comments using Markdown?',
+				'type' => 'select',
+				'default' => '0',
+				'value' => '0',
+				'options' => '0=Text Only|1=Allow Markdown',
+				'is_required' => 1,
+				'is_gui' => 1,
+				'module' => 'comments',
+				'order' => 965,
+			),
+		);
+
+		foreach ($settings as $setting)
+		{
+			if ( ! $this->db->insert('settings', $setting))
+			{
+				return false;
+			}
+		}
+
 		return true;
 	}
 

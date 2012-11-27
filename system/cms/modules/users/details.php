@@ -36,7 +36,7 @@ class Module_Users extends Module {
 				'zh' => '用戶',
 				'hu' => 'Felhasználók',
 				'th' => 'ผู้ใช้งาน',
-                                'se' => 'Användare'
+				'se' => 'Användare'
 			),
 			'description' => array(
 				'en' => 'Let users register and log in to the site, and manage them via the control panel.',
@@ -60,8 +60,8 @@ class Module_Users extends Module {
 				'sl' => 'Dovoli uporabnikom za registracijo in prijavo na strani, urejanje le teh preko nadzorne plošče',
 				'zh' => '讓用戶可以註冊並登入網站，並且管理者可在控制台內進行管理。',
 				'th' => 'ให้ผู้ใช้ลงทะเบียนและเข้าสู่เว็บไซต์และจัดการกับพวกเขาผ่านทางแผงควบคุม',
-                                'hu' => 'Hogy a felhasználók tudjanak az oldalra regisztrálni és belépni, valamint lehessen őket kezelni a vezérlőpulton.',
-                                'se' => 'Låt dina besökare registrera sig och logga in på webbplatsen. Hantera sedan användarna via kontrollpanelen.'
+				'hu' => 'Hogy a felhasználók tudjanak az oldalra regisztrálni és belépni, valamint lehessen őket kezelni a vezérlőpulton.',
+				'se' => 'Låt dina besökare registrera sig och logga in på webbplatsen. Hantera sedan användarna via kontrollpanelen.'
 			),
 			'frontend' 	=> false,
 			'backend'  	=> true,
@@ -103,6 +103,11 @@ class Module_Users extends Module {
 		return $info;
 	}
 
+	public function admin_menu(&$menu)
+	{
+		$menu['lang:cp_nav_users']['lang:cp_nav_users'] = 'admin/users';
+	}
+
 	/**
 	 * Installation logic
 	 *
@@ -112,126 +117,219 @@ class Module_Users extends Module {
 	 */
 	public function install()
 	{
-    	// Load up the streams driver and convert the profiles table
-    	// into a stream.
-    	$this->load->driver('Streams');
+	// Load up the streams driver and convert the profiles table
+	// into a stream.
+	$this->load->driver('Streams');
 
-    	if ( ! $this->streams->utilities->convert_table_to_stream('profiles', 'users', null, 'lang:user_profile_fields_label', 'Profiles for users module', 'display_name', array('display_name')))
-    	{
-    		return false;
-    	}
+	if ( ! $this->streams->utilities->convert_table_to_stream('profiles', 'users', null, 'lang:user_profile_fields_label', 'Profiles for users module', 'display_name', array('display_name')))
+	{
+		return false;
+	}
 
-    	// Go ahead and convert our standard user fields:
-    	$columns = array(
+	// Go ahead and convert our standard user fields:
+	$columns = array(
 			'first_name' => array(
-    			'field_name' => 'lang:user_first_name',
-    			'field_type' => 'text',
-    			'extra'		 => array('max_length' => 50),
-    			'assign'	 => array('required' => true)
-    		),
+			'field_name' => 'lang:user_first_name',
+			'field_type' => 'text',
+			'extra'		 => array('max_length' => 50),
+			'assign'	 => array('required' => true)
+		),
 			'last_name' => array(
-    			'field_name' => 'lang:user_last_name',
-    			'field_type' => 'text',
-    			'extra'		 => array('max_length' => 50),
-				'assign'	 => array('required' => true)
-    		),
-    		'company' => array(
-    			'field_name' => 'lang:profile_company',
-    			'field_slug' => 'company',
-    			'field_type' => 'text',
-    			'extra'		 => array('max_length' => 100)
-    		),
-    		'language' => array(
-    			'field_name' => 'lang:user_lang',
-    			'field_slug' => 'pyro_lang',
-    			'extra'		 => array('filter_theme' => 'yes')
-    		),
- 			'bio' => array(
-    			'field_name' => 'lang:profile_bio',
-    			'field_type' => 'textarea'
-    		),
-            'lang' => array(
-                'field_name' => 'lang:user_lang',
-                'field_type' => 'pyro_lang',
-                'extra'      => array('filter_theme' => 'yes')
-            ),
-			'dob' => array(
-    			'field_name' => 'lang:profile_dob',
-    			'field_type' => 'datetime',
-    			'extra'		 => array(
-					'use_time' 		=> 'no',
-					'storage' 		=> 'unix',
-					'input_type'	=> 'dropdown',
-					'start_date'	=> '-100Y'
-				)
-    		),
-    		'gender' => array(
-    			'field_name' => 'lang:profile_gender',
-    			'field_type' => 'choice',
-    			'extra'		 => array('choice_type' => 'dropdown', 'choice_data' => " : Not Telling\nm : Male\nf : Female")
-    		),
-     		'phone' => array(
-    			'field_name' => 'lang:profile_phone',
-    			'field_type' => 'text',
-    			'extra'		 => array('max_length' => 20)
-    		),
-     		'mobile' => array(
-    			'field_name' => 'lang:profile_mobile',
-    			'field_type' => 'text',
-    			'extra'		 => array('max_length' => 20)
-    		),
-      		'address_line1' => array(
-    			'field_name' => 'lang:profile_address_line1',
-    			'field_type' => 'text'
-    		),
-      		'address_line2' => array(
-    			'field_name' => 'lang:profile_address_line2',
-    			'field_type' => 'text'
-    		),
-    		'address_line3' => array(
-    			'field_name' => 'lang:profile_address_line3',
-    			'field_type' => 'text'
-    		),
-    		'postcode' => array(
-    			'field_name' => 'lang:profile_address_postcode',
-    			'field_type' => 'text',
-    			'extra'		 => array('max_length' => 20)
-    		),
-     		'website' => array(
-    			'field_name' => 'lang:profile_website',
-    			'field_type' => 'url'
-    		)
-        );
+			'field_name' => 'lang:user_last_name',
+			'field_type' => 'text',
+			'extra'		 => array('max_length' => 50),
+			'assign'	 => array('required' => true)
+		),
+		'company' => array(
+			'field_name' => 'lang:profile_company',
+			'field_slug' => 'company',
+			'field_type' => 'text',
+			'extra'		 => array('max_length' => 100)
+		),
+		'language' => array(
+			'field_name' => 'lang:user_lang',
+			'field_slug' => 'pyro_lang',
+			'extra'		 => array('filter_theme' => 'yes')
+		),
+			'bio' => array(
+			'field_name' => 'lang:profile_bio',
+			'field_type' => 'textarea'
+		),
+		'lang' => array(
+			'field_name' => 'lang:user_lang',
+			'field_type' => 'pyro_lang',
+			'extra' => array('filter_theme' => 'yes')
+		),
+		'dob' => array(
+			'field_name' => 'lang:profile_dob',
+			'field_type' => 'datetime',
+			'extra'		 => array(
+				'use_time' 		=> 'no',
+				'storage' 		=> 'unix',
+				'input_type'	=> 'dropdown',
+				'start_date'	=> '-100Y'
+			)
+		),
+		'gender' => array(
+			'field_name' => 'lang:profile_gender',
+			'field_type' => 'choice',
+			'extra'		 => array(
+				'choice_type' => 'dropdown',
+				'choice_data' => " : Not Telling\nm : Male\nf : Female"
+			)
+		),
+		'phone' => array(
+			'field_name' => 'lang:profile_phone',
+			'field_type' => 'text',
+			'extra'		 => array('max_length' => 20)
+		),
+		'mobile' => array(
+			'field_name' => 'lang:profile_mobile',
+			'field_type' => 'text',
+			'extra'		 => array('max_length' => 20)
+		),
+		'address_line1' => array(
+			'field_name' => 'lang:profile_address_line1',
+			'field_type' => 'text'
+		),
+		'address_line2' => array(
+			'field_name' => 'lang:profile_address_line2',
+			'field_type' => 'text'
+		),
+		'address_line3' => array(
+			'field_name' => 'lang:profile_address_line3',
+			'field_type' => 'text'
+		),
+		'postcode' => array(
+			'field_name' => 'lang:profile_address_postcode',
+			'field_type' => 'text',
+			'extra'		 => array('max_length' => 20)
+		),
+		'website' => array(
+			'field_name' => 'lang:profile_website',
+			'field_type' => 'url'
+		)
+	);
 
 		// Run through each column and add the field
 		// metadata to it.
-    	foreach ($columns as $field_slug => $column)
-    	{
-    		// We only want fields that actually exist in the
-    		// DB. The user could have deleted some of them.
-    		if ($this->db->field_exists($field_slug, 'profiles'))
-    		{
-	    		$extra = array();
-	    		$assign = array();
+	foreach ($columns as $field_slug => $column)
+	{
+		// We only want fields that actually exist in the
+		// DB. The user could have deleted some of them.
+		if ($this->db->field_exists($field_slug, 'profiles'))
+		{
+			$extra = array();
+			$assign = array();
 
-	    		if (isset($column['extra']))
-	    		{
-	    			$extra = $column['extra'];
-	    		}
+			if (isset($column['extra']))
+			{
+				$extra = $column['extra'];
+			}
 
-	    		if (isset($column['assign']))
-	    		{
-	    			$assign = $column['assign'];
-	    		}
+			if (isset($column['assign']))
+			{
+				$assign = $column['assign'];
+			}
 
-	    		$this->streams->utilities->convert_column_to_field('profiles', 'users', $column['field_name'], $field_slug, $column['field_type'], $extra, $assign);
+			$this->streams->utilities->convert_column_to_field('profiles', 'users', $column['field_name'], $field_slug, $column['field_type'], $extra, $assign);
 
-	    		unset($extra);
-	    		unset($assign);
-    		}
-    	}
+			unset($extra);
+			unset($assign);
+		}
+	}
 
-    	return true;
+		// Install the settings
+		$settings = array(
+			array(
+				'slug' => 'auto_username',
+				'title' => 'Auto Username',
+				'description' => 'Create the username automatically, meaning users can skip making one on registration.',
+				'type' => 'radio',
+				'default' => true,
+				'value' => '',
+				'options' => '1=Enabled|0=Disabled',
+				'is_required' => 0,
+				'is_gui' => 1,
+				'module' => 'users',
+				'order' => 964,
+			),
+			array(
+				'slug' => 'enable_profiles',
+				'title' => 'Enable profiles',
+				'description' => 'Allow users to add and edit profiles.',
+				'type' => 'radio',
+				'default' => true,
+				'value' => '',
+				'options' => '1=Enabled|0=Disabled',
+				'is_required' => 1,
+				'is_gui' => 1,
+				'module' => 'users',
+				'order' => 963,
+			),
+			array(
+				'slug' => 'require_lastname',
+				'title' => 'Require last names?',
+				'description' => 'For some situations, a last name may not be required. Do you want to force users to enter one or not?',
+				'type' => 'radio',
+				'default' => true,
+				'value' => '',
+				'options' => '1=Required|0=Optional',
+				'is_required' => 1,
+				'is_gui' => 1,
+				'module' => 'users',
+				'order' => 962,
+			),
+			array(
+				'slug' => 'activation_email',
+				'title' => 'Activation Email',
+				'description' => 'Send out an e-mail with an activation link when a user signs up. Disable this so that admins must manually activate each account.',
+				'type' => 'radio',
+				'default' => true,
+				'value' => '',
+				'options' => '1=Enabled|0=Disabled',
+				'is_required' => 0,
+				'is_gui' => 1,
+				'module' => 'users',
+				'order' => 961,
+			),
+			array(
+				'slug' => 'registered_email',
+				'title' => 'User Registered Email',
+				'description' => 'Send a notification email to the contact e-mail when someone registers.',
+				'type' => 'radio',
+				'default' => true,
+				'value' => '',
+				'options' => '1=Enabled|0=Disabled',
+				'is_required' => 0,
+				'is_gui' => 1,
+				'module' => 'users',
+				'order' => 962,
+			),
+			array(
+				'slug' => 'enable_registration',
+				'title' => 'Enable user registration',
+				'description' => 'Allow users to register in your site.',
+				'type' => 'radio',
+				'default' => true,
+				'value' => '',
+				'options' => '1=Enabled|0=Disabled',
+				'is_required' => 0,
+				'is_gui' => 1,
+				'module' => 'users',
+				'order' => 961,
+			),
+		);
+
+		foreach ($settings as $setting)
+		{
+			if ( ! $this->db->insert('settings', $setting))
+			{
+				return false;
+			}
+		}
+
+	return true;
 	}
 
 	public function uninstall()

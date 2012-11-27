@@ -10,7 +10,8 @@ $lang['version_label'] 			= 'Έκδοση';
 $lang['global:author'] 			= 'Συγγραφέας';
 $lang['global:action'] 			= 'Ενέργεια';
 $lang['global:slug'] 			= 'Slug';
-$lang['global:slug_instructions']		= 'Lowercase characters and underscores only.'; #translate
+$lang['global:slug_instructions']		= 'Μόνο πεζά γράμματα λατινικού αλφάβητου και κάτω παύλες.';
+$lang['global:user'] 					= 'Χρήστης';
 
 $lang['global:dialog:delete_message'] 	= 'Είσαστε σίγουροι ότι θέλετε να το διαγράψετε; Δεν μπορεί να αναιρεθεί.';
 $lang['global:dialog:confirm'] 		= 'Επιβεβαίωση';
@@ -79,7 +80,7 @@ $lang['top_page']			= 'Κορυφή';
 $lang['back_to_top']			= 'Πίσω στην Κορυφή';
 
 $lang['global:filters'] 		= 'Φίλτρα';
-$lang['global:image'] 					= 'Image'; #translate
+$lang['global:image'] 					= 'Εικόνα';
 $lang['global:description'] 		= 'Περιγραφή';
 $lang['global:actions']			= 'Ενέργειες';
 $lang['global:view']			= 'Προβολή';
@@ -91,5 +92,9 @@ $lang['global:delete']			= 'Διαγραφή';
 $lang['global:remove']			= 'Διαγραφή';
 
 $lang['global:keywords']		= 'Λέξεις Κλειδιά';
+
+$lang['global:or']						= 'ή';
+$lang['global:and']						= 'και';
+$lang['global:at']						= 'στο';
 
 /* End of file main_lang.php */

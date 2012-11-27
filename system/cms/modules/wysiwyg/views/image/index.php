@@ -83,6 +83,7 @@
 						<th><?php echo lang('files:type_i'); ?></th>
 						<th><?php echo lang('files:name') . '/' . lang('files:description'); ?></th>
 						<th><?php echo lang('files:filename') . '/' . lang('files:added'); ?></th>
+						<th><?php echo lang('files:alt_attribute'); ?></th>
 						<th><?php echo lang('wysiwyg.meta.width'); ?></th>
 						<th><?php echo lang('wysiwyg.meta.height'); ?></th>
 						<th><?php echo lang('wysiwyg.meta.size'); ?></th>
@@ -91,7 +92,7 @@
 				<tbody>
 					<?php foreach ($current_folder->items as $image): ?>
 					<tr class="<?php echo alternator('', 'alt'); ?>">
-						<td class="image"><img class="pyro-image" src="<?php echo base_url($image->location === 'local' ? 'files/thumb/'.$image->id.'/50/50' : 'files/cloud_thumb/'.$image->id); ?>" alt="<?php echo $image->name; ?>" width="50" onclick="javascript:insertImage('<?php echo $image->id."', '".htmlentities($image->name)."', '".$image->location."', '".$image->path; ?>');" /></td>
+						<td class="image"><img class="pyro-image" src="<?php echo base_url($image->location === 'local' ? 'files/thumb/'.$image->id.'/50/50' : 'files/cloud_thumb/'.$image->id); ?>" alt="<?php echo $image->alt_attribute; ?>" width="50" onclick="javascript:insertImage('<?php echo $image->id."', '".htmlentities($image->alt_attribute)."', '".$image->location."', '".$image->path; ?>');" /></td>
 						<td class="name-description">
 							<p><?php echo $image->name; ?><p>
 							<p><?php echo $image->description; ?></p>
@@ -100,6 +101,7 @@
 							<p><?php echo $image->filename; ?></p>
 							<p><?php echo format_date($image->date_added); ?></p>
 						</td>
+						<td class="alt_attribute"><?php echo $image->alt_attribute; ?></td>
 						<td class="meta width"><?php echo $image->width; ?></td>
 						<td class="meta height"><?php echo $image->height; ?></td>
 						<td class="meta size"><?php echo $image->filesize; ?></td>
