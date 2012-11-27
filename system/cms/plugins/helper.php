@@ -101,7 +101,7 @@ class Plugin_Helper extends Plugin
 	 * Replaces whitespace in the content.
 	 * 
 	 * Usage:
-	 * {{ helper:replace replace="   " }} Ouputs all whitespace replaced by three spaces.
+	 * {{ helper:replace replace="   " }} Outputs all whitespace replaced by three spaces.
 	 *
 	 * @return string The final content string.
 	 */
@@ -151,23 +151,17 @@ class Plugin_Helper extends Plugin
 		{
 			$count[$identifier] = $this->attribute('start', 1);
 		}
-
 		// lets check to see if they're only wanting to show the count
-		if (self::$_counter_increment)
+		elseif (self::$_counter_increment)
 		{
 			// count up unless they specify to "subtract"
-			$value = ($this->attribute('mode') == 'subtract') ? $count[$identifier]-- : $count[$identifier]++;
-
-			// go ahead and increment but return an empty string
-			if (strtolower($this->attribute('return')) === 'false')
-			{
-				return '';
-			}
-			
-			return $value;
+			($this->attribute('mode') == 'subtract') ? $count[$identifier]-- : $count[$identifier]++;
 		}
 		
-		return $count[$identifier];
+		// set this back to continue counting again next time
+		self::$_counter_increment = true;
+		
+		return (strtolower($this->attribute('return')) === 'false') ? '' : $count[$identifier];
 	}
 
 	/**
