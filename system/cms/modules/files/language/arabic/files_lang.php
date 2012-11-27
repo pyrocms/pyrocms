@@ -47,6 +47,7 @@ $lang['files:synchronize']					= 'مزامنة';
 $lang['files:uploader']						= 'اسحب الملفات إلى هنا<br />أو<br />اضغط لاختيار الملفات';
 
 // Context Menu
+$lang['files:refresh']						= 'Refresh'; #translate
 $lang['files:open']							= 'فتح';
 $lang['files:new_folder']					= 'مجلد جديد';
 $lang['files:upload']						= 'رفع';

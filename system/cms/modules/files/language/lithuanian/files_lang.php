@@ -47,6 +47,7 @@ $lang['files:synchronize']					= 'Sinchronizuok';
 $lang['files:uploader']						= 'Imesk čia failus <br />arba<br />spausk, kad išsirinkti failą';
 
 // Context Menu
+$lang['files:refresh']						= 'Refresh'; #translate
 $lang['files:open']							= 'Atidaryti';
 $lang['files:new_folder']					= 'Naujas katalogas';
 $lang['files:upload']						= 'Įkelti';

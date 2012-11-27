@@ -47,6 +47,7 @@ $lang['files:synchronize']     = 'Synchroniser';
 $lang['files:uploader']        = 'Déposez les fichiers ici <br />ou<br /> Cliquez-ici pour sélectionner les fichiers';
 
 // Context Menu
+$lang['files:refresh']						= 'Refresh'; #translate
 $lang['files:open']       = 'Ouvrir';
 $lang['files:new_folder'] = 'Nouveau Dossier';
 $lang['files:upload']     = 'Upload';
