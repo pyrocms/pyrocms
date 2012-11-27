@@ -169,12 +169,14 @@
 
 </section>
 
-<?php if ( $this->session->flashdata('initial_folder_contents') ): ?>
 <script type="text/javascript">
-	$(document).ready(function(){
+	jQuery(function($){
 
-		// Load the flash data ID
-		setTimeout(function(){pyro.files.folder_contents(<?php echo $this->session->flashdata('initial_folder_contents'); ?>);}, '1000');
+		/***************************************************************************
+		 * And off we go... load the desired folder                                *
+		 ***************************************************************************/
+		if ($('.folders-center').find('.no_data').length === 0) {
+			pyro.files.folder_contents(<?php echo $this->session->flashdata('initial_folder_contents') ? $this->session->flashdata('initial_folder_contents') : 0; ?>);
+		}
 	});
 </script>
-<?php endif; ?>

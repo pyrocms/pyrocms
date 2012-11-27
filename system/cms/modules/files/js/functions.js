@@ -932,10 +932,7 @@ jQuery(function($){
 
 	};
 
-	/***************************************************************************
-	 * And off we go... load the root folder                                   *
-	 ***************************************************************************/
-	if ($('.folders-center').find('.no_data').length === 0) {
-		pyro.files.folder_contents(0);
-	}
+	//
+	// The index.php view fires up the magic initially
+	//
 });
