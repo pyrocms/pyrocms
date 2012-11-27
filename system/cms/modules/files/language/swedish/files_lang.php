@@ -50,6 +50,7 @@ $lang['files:search_message'] = 'Skriv och tryck enter';
 $lang['files:search'] = 'Sök';
 $lang['files:synchronize'] = 'Synkronisera';
 $lang['files:uploader'] = 'Släpp filer här <br /> eller <br /> Klicka för att välja filer';
+$lang['files:refresh']						= 'Refresh'; #translate
 $lang['files:open'] = 'Öppna';
 $lang['files:new_folder'] = 'Ny mapp';
 $lang['files:upload'] = 'Ladda upp';
