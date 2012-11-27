@@ -685,6 +685,17 @@ jQuery(function($){
 
 			$('input[name="rename"]').parent().html($('input[name="rename"]').val());
 		});
+
+		// Prevent form from submitting
+		// if used outside of module
+		// ie: form input for streams
+		$input.keydown(function(e){
+			if ( e.which == '13' )
+			{
+				$(this).blur(); // trigger the save
+				return false; //don't submit form
+			}
+		});
 	};
 
 	pyro.files.delete_item = function(current_level) {
