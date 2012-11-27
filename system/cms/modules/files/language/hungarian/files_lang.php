@@ -44,6 +44,7 @@ $lang['files:synchronize']                       = 'Szinkronizálás';
 $lang['files:uploader']                          = 'Húzz ide fájlokat <br />vagy<br />Kattints a fájlok kiválasztásához';
 
 // Context Menu
+$lang['files:refresh']						= 'Refresh'; #translate
 $lang['files:open']                              = 'Megnyitás';
 $lang['files:new_folder']                        = 'Új mappa';
 $lang['files:upload']                            = 'Feltöltés';

@@ -57,6 +57,7 @@ $lang['files:synchronize']					= 'ซิงค์';
 $lang['files:uploader']						= 'วางไฟล์ที่นี่ <br />หรือ<br />เลือกไฟล์';
 
 // Context Menu
+$lang['files:refresh']						= 'Refresh'; #translate
 $lang['files:open']							= 'เปิด';
 $lang['files:new_folder']					= 'สร้างโฟลเดอร์ใหม่';
 $lang['files:upload']						= 'อัพโหลด';

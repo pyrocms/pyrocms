@@ -184,6 +184,10 @@ jQuery(function($){
 		// otherwise unselect any folder
 		if ( $(e.target).hasClass('folder') )
 		{
+			// Remove selected files
+			$('.folders-center li.selected').removeClass('selected');
+
+			// Highlight folder
 			$(e.target).addClass('highlight');
 		}
 		else
@@ -257,10 +261,17 @@ jQuery(function($){
 					return;
 				}
 				pyro.files.delete_item(pyro.files.current_level);
+
+				// "Click" on the resulting folder
+				$('.item .folders-center').trigger('click');
 			break;
 
 			case 'details':
 				pyro.files.details();
+			break;
+
+			case 'refresh':
+				pyro.files.folder_contents( pyro.files.current_level );
 			break;
 		}
 	});
@@ -270,8 +281,6 @@ jQuery(function($){
 	 ***************************************************************************/
 
 	$folders_center.on('click', '.file[data-id]', function(e){
-
-		e.stopPropagation();
 
 		var first,
 			last,
@@ -620,17 +629,11 @@ jQuery(function($){
 		// Defualt buttons?
 		if ( folder_id == 0 )
 		{
-			pyro.files.reset_menu_buttons();
+			// Reset detault buttons (applicable to root-pane)
+			$('.button-menu-source li:not([data-applies-to^="pane"])').hide();
+			$('.button-menu-source li[data-applies-to^="pane"]').show();
 		}
 	 };
-
-	pyro.files.reset_menu_buttons = function() {
-
-		// Reset detault buttons (applicable to pane)
-		$('.button-menu-source li:not([data-applies-to^="pane"])').hide();
-		$('.button-menu-source li[data-applies-to^="pane"]').show();
-
-	};
 
 	pyro.files.rename = function() {
 

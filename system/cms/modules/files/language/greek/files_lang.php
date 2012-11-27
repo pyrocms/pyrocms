@@ -47,6 +47,7 @@ $lang['files:synchronize']					= 'Συγχρονισμός';
 $lang['files:uploader']						= 'Σύρτε και αφήστε τα αρχεία εδώ <br />ή<br />Κάντε κλικ για να επιλέξετε αρχεία';
 
 // Context Menu
+$lang['files:refresh']						= 'Refresh'; #translate
 $lang['files:open']							= 'Άνοιγμα';
 $lang['files:new_folder']					= 'Νέος Φάκελος';
 $lang['files:upload']						= 'Ανέβασμα';

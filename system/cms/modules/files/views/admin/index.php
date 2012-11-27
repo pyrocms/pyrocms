@@ -17,6 +17,7 @@
 	<section class="center">
 
 			<ul class="button-menu-source buttons">
+				<li class="button"											data-applies-to="pane"				data-menu="refresh"><?php echo lang('files:refresh'); ?></li>
 				<li class="button"											data-applies-to="folder" 			data-menu="open"><?php echo lang('files:open'); ?></li>
 				<li class="button show" data-role="create_folder"			data-applies-to="pane root-pane"	data-menu="new-folder"><?php echo lang('files:new_folder'); ?></li>
 				<li class="button" data-role="upload" 						data-applies-to="folder pane" 		data-menu="upload"><?php echo lang('files:upload'); ?></li>
