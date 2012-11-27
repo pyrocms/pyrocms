@@ -8,7 +8,7 @@
  */
 class Files_front extends Public_Controller
 {
-	private	$_path = '';
+	private	$path = '';
 	
 	public function __construct()
 	{
