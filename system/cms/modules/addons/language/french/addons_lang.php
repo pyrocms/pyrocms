@@ -48,9 +48,9 @@ $lang['addons:themes:delete_error'] 			= 'Impossible de supprimer le répertoire
 $lang['addons:themes:mass_delete_success']		= '%s thèmes sur %s thèmes supprimés avec succès.';
 $lang['addons:themes:mass_delete_error']		= 'Seuls %s themes sur %s ont été supprimés.';
 $lang['addons:themes:delete_select_error']		= 'Vous devez d\'abord sélectionner un thème à supprimer.';
-$lang['addons:themes:upload_title'] 			= 'Charger un thème';
 $lang['addons:themes:admin_list']				= 'Administrer les thèmes';
 $lang['addons:themes:list_title'] 				= 'Liste de thèmes';
+$lang['addons:themes:upload_title'] 			= 'Charger un thème';
 $lang['addons:themes:upload_desc']				= 'Veuillez sélectionner un fichier et cliquer sur le bouton Charger';
 
 $lang['addons:themes:options']					= 'Options';
@@ -59,5 +59,8 @@ $lang['addons:themes:make_default'] 			= 'Utiliser par défaut';
 $lang['addons:themes:version_label']			= 'Version';
 $lang['addons:themes:default_theme_label'] 		= 'Thème par défaut';
 $lang['addons:themes:no_themes_installed'] 		= 'Il n\'y a aucun thème installé.';
+
+$lang['addons:plugins:add_on_plugins']			= 'Plugins Additionnels';
+$lang['addons:plugins:core_plugins']			= 'Plugins Système';
 
 /* End of file addons_lang.php */
