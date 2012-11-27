@@ -15,6 +15,22 @@
 	</section>
 
 	<section class="center">
+
+			<ul class="button-menu-source buttons">
+				<li class="button"											data-applies-to="pane root-pane"	data-menu="refresh"><?php echo lang('files:refresh'); ?></li>
+				<li class="button"											data-applies-to="folder" 			data-menu="open"><?php echo lang('files:open'); ?></li>
+				<li class="button show" data-role="create_folder"			data-applies-to="pane root-pane"	data-menu="new-folder"><?php echo lang('files:new_folder'); ?></li>
+				<li class="button" data-role="upload" 						data-applies-to="folder pane" 		data-menu="upload"><?php echo lang('files:upload'); ?></li>
+				<li class="button" data-role="edit_file"					data-applies-to="file" 				data-menu="rename"><?php echo lang('files:rename'); ?></li>
+				<li class="button" data-role="edit_folder"					data-applies-to="folder" 			data-menu="rename"><?php echo lang('files:rename'); ?></li>
+				<!--<li class="button" 										data-applies-to="file" 				data-menu="edit"><?php echo lang('files:edit'); ?></li>-->
+				<li class="button" data-role="download_file"				data-applies-to="file" 				data-menu="download"><?php echo lang('files:download'); ?></li>
+				<li class="button" data-role="synchronize"					data-applies-to="folder"			data-menu="synchronize"><?php echo lang('files:synchronize'); ?></li>
+				<li class="button red" data-role="delete_file"				data-applies-to="file" 				data-menu="delete"><?php echo lang('files:delete'); ?></li>
+				<li class="button red" data-role="delete_folder"			data-applies-to="folder" 			data-menu="delete"><?php echo lang('files:delete'); ?></li>
+				<li class="button" 											data-applies-to="folder file pane"	data-menu="details"><?php echo lang('files:details'); ?></li>
+			</ul>
+
 			<?php if ( ! $folders) : ?>
 				<div class="no_data"><?php echo lang('files:no_folders'); ?></div>
 			<?php endif; ?>
@@ -34,6 +50,7 @@
 				<li data-role="delete_folder"	data-applies-to="folder" 			data-menu="delete"><?php echo lang('files:delete'); ?></li>
 				<li 							data-applies-to="folder file pane"	data-menu="details"><?php echo lang('files:details'); ?></li>
 			</ul>
+
 	</section>
 
 	<section class="side sidebar-right">
@@ -152,12 +169,14 @@
 
 </section>
 
-<?php if ( $this->session->flashdata('initial_folder_contents') ): ?>
 <script type="text/javascript">
-	$(document).ready(function(){
+	jQuery(function($){
 
-		// Load the flash data ID
-		setTimeout(function(){pyro.files.folder_contents(<?php echo $this->session->flashdata('initial_folder_contents'); ?>);}, '1000');
+		/***************************************************************************
+		 * And off we go... load the desired folder                                *
+		 ***************************************************************************/
+		if ($('.folders-center').find('.no_data').length === 0) {
+			pyro.files.folder_contents(<?php echo $this->session->flashdata('initial_folder_contents') ? $this->session->flashdata('initial_folder_contents') : 0; ?>);
+		}
 	});
 </script>
-<?php endif; ?>
