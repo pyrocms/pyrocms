@@ -14,6 +14,9 @@ $lang['addons:modules:enable_error']            = 'Tidak dapat mengaktifkan modu
 $lang['addons:modules:enable_success']          = 'Modul "%s" telah diaktifkan.';
 $lang['addons:modules:install_error']           = 'Tidak dapat menginstal modul.';
 $lang['addons:modules:install_success']         = 'Modul "%s" telah terinstal.';
+
+$lang['addons:modules:module_upload_success']   = 'The module "%s" has been uploaded.'; #translate
+
 $lang['addons:modules:delete_success']			= 'Modul "%s" telah dihapus.';
 $lang['addons:modules:delete_error']			= 'Tidak dapat menghapus modul "%s".';
 $lang['addons:modules:uninstall_error']         = 'Tidak dapat menghapus instalasi modul "%s".';

@@ -66,7 +66,7 @@ class Module_Settings extends Module {
 			'frontend' => false,
 			'backend'  => true,
 			'skip_xss' => true,
-			'menu'	  => false,
+			'menu'	  => 'settings',
 		);
 	}
 

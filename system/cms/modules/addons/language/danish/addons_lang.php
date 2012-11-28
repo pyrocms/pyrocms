@@ -14,6 +14,9 @@ $lang['addons:modules:enable_error']            = 'Kunne ikke aktivere modulet "
 $lang['addons:modules:enable_success']          = 'Modulet "%s" er aktiveret.';
 $lang['addons:modules:install_error']           = 'Kunne ikke installere modulet.';
 $lang['addons:modules:install_success']         = 'Modulet "%s" er installeret.';
+
+$lang['addons:modules:module_upload_success']   = 'The module "%s" has been uploaded.'; #translate
+
 $lang['addons:modules:delete_success']			 = 'Modulet "%s" ere slettet.';
 $lang['addons:modules:delete_error']			 = 'Kunne ikke slette modulet "%s".';
 $lang['addons:modules:uninstall_error']         = 'Kunne ikke afinstallere modulet "%s".';

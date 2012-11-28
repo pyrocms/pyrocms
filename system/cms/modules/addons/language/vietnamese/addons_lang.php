@@ -22,6 +22,9 @@ $lang['addons:modules:enable_error']            = 'Không thể kích hoạt mô
 $lang['addons:modules:enable_success']          = 'Mô đun "%s" đã được kích hoạt.';
 $lang['addons:modules:install_error']           = 'Không thể cài đặt mô đun.';
 $lang['addons:modules:install_success']         = 'Mô đun "%s" đã được cài đặt.';
+
+$lang['addons:modules:module_upload_success']   = 'The module "%s" has been uploaded.'; #translate
+
 $lang['addons:modules:delete_success']			= 'Mô đun "%s" đã được xóa.'; #translate
 $lang['addons:modules:delete_error']			= 'Không thể xóa mô đun "%s".'; #translate
 $lang['addons:modules:uninstall_error']         = 'Không thể gỡ cài đặt mô đun "%s".';
