@@ -89,6 +89,7 @@ class Admin_layouts extends Admin_Controller
 	public function create()
 	{
 		$data = new stdClass();
+		$page_layout = new stdClass();
 
 		// Got validation?
 		if ($this->form_validation->run())
@@ -117,6 +118,7 @@ class Admin_layouts extends Admin_Controller
 		}
 
 		$theme_layouts = $this->template->get_theme_layouts($this->settings->default_theme);
+		$data->theme_layouts = array();
 		foreach ($theme_layouts as $theme_layout)
 		{
 			$data->theme_layouts[$theme_layout] = basename($theme_layout, '.html');
@@ -169,7 +171,9 @@ class Admin_layouts extends Admin_Controller
 
 			$this->session->set_flashdata('success', sprintf(lang('page_layouts.edit_success'), $this->input->post('title')));
 
-			redirect('admin/pages/layouts');
+			$this->input->post('btnAction') == 'save_exit'
+				? redirect('admin/pages/layouts')
+				: redirect('admin/pages/layouts/edit/'.$id);
 		}
 
 		// Loop through each validation rule

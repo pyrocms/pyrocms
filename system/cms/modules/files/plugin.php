@@ -86,13 +86,13 @@ class Plugin_Files extends Plugin
 			))
 		{
 			$ids = array_merge(array((int) $folder->id), array_keys($subfolders));
-			$this->file_m->select('files.*, file_folders.location')
+			$this->db->select('files.*, files.id as file_id, file_folders.location')
 				->join('file_folders', 'file_folders.id = files.folder_id')
 				->where_in('folder_id', $ids);
 		}
 		else
 		{
-			$this->file_m->select('files.*, file_folders.location')
+			$this->db->select('files.*, files.id as file_id, file_folders.location')
 				->join('file_folders', 'file_folders.id = files.folder_id')
 				->where('folder_id', $folder->id);
 		}

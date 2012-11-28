@@ -4,13 +4,14 @@
 * [Documentation](http://pyrocms.com/docs)
 * [License](http://pyrocms.com/legal/license)
 * [Forums](http://pyrocms.com/forums)
-* Version: 2.1.3-dev
+* Version: 2.1.4
 
 ## Team
 
-* [Phil Sturgeon](http://philsturgeon.co.uk/)
-* [Jerel Unruh](http://unruhdesigns.com/)
 * [Adam Fairholm](http://parse19.com/)
+* [Jerel Unruh](http://unruhdesigns.com/)
+* [Phil Sturgeon](http://philsturgeon.co.uk/)
+* [Scott Parry](http://ikreativ.com/)
 
 ## Description
 

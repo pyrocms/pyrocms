@@ -3,9 +3,7 @@
 <script type="text/javascript">
 
   var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', '<?php echo $this->settings->ga_tracking;?>']);
-  _gaq.push(['_trackPageview']);
-  _gaq.push(['_trackPageLoadTime']);
+  _gaq.push(['_setAccount', '<?php echo $this->settings->ga_tracking;?>'], ['_trackPageview']);
 
   (function() {
     var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;

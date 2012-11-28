@@ -6,7 +6,7 @@ $lang['page_layouts.css_label'] 					= 'CSS';
 
 // labels
 $lang['page_layouts.updated_label'] 				= 'Aktualizováno';
-$lang['page_layouts.theme_layout_label'] 		= 'Šablona vzhledu';
+$lang['page_layouts:theme_layout_label'] 			= 'Šablona vzhledu';
 
 // titles
 $lang['page_layouts.list_title'] 					= 'Seznam šablon stránek';

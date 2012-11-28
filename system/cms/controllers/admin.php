@@ -62,7 +62,12 @@ class Admin extends Admin_Controller
 		// If the validation worked, or the user is already logged in
 		if ($this->form_validation->run() OR $this->ion_auth->logged_in())
 		{
-			redirect('admin');
+			// if they were trying to go someplace besides the 
+			// dashboard we'll have stored it in the session
+			$redirect = $this->session->userdata('admin_redirect');
+			$this->session->unset_userdata('admin_redirect');
+
+			redirect($redirect ? $redirect : 'admin');
 		}
 
 		$this->template
