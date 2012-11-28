@@ -3,12 +3,15 @@ jQuery(function($){
 		$folders_center,
 		$item_details;
 		// end function global vars
-		
-		
+
 	pyro.files.cache = {};
 	pyro.files.history = {};
 	pyro.files.timeout = {};
 	pyro.files.current_level = 0;
+
+	// Default button set
+	$('.item .folders-center').trigger('click');
+
 
 	/***************************************************************************
 	 * Activity sidebar message handler                                        *
@@ -119,20 +122,22 @@ jQuery(function($){
 	});
 
 	/***************************************************************************
-	 * Context menu management                                                 *
+	 * Context / button menu management                                        *
 	 ***************************************************************************/
 
 	// open a right click menu on items in the main area
-	$('.item').on('contextmenu', '.folders-center, .folders-center li', function(e){
+	$('.item').on('contextmenu click', '.folders-center, .folders-center li', function(e){
 		e.preventDefault();
 		e.stopPropagation();
 
 		// make the right clicked element easily accessible
 		pyro.files.$last_r_click = $(this);
 
+		var $menu_sources = $('.context-menu-source, .button-menu-source');
 		var $context_menu_source = $('.context-menu-source');
+		var $button_menu_source = $('.button-menu-source');
 
-		$context_menu_source.find('li')
+		$menu_sources.find('li')
 			// reset in case they've right clicked before
 			.show()
 			// what did the user click on? folder, pane, or file
@@ -149,7 +154,7 @@ jQuery(function($){
 				} else if ($target.hasClass('folder')){
 					pattern = new RegExp('folder');
 					folder = true;
-				} else if ($target.hasClass('pane') && pyro.files.current_level === 0){
+				} else if ($target.hasClass('pane') && pyro.files.current_level == '0'){
 					pattern = new RegExp('root-pane');
 				}
 
@@ -175,19 +180,44 @@ jQuery(function($){
 				
 			});
 
+		// IF this is a click on a folder
+		// show the folder as selected
+		// otherwise unselect any folder
+		if ( $(e.target).hasClass('folder') )
+		{
+			// Remove selected files
+			$('.folders-center li.selected').removeClass('selected');
+
+			// Highlight folder
+			$(e.target).addClass('highlight');
+		}
+		else
+		{
+			$('.folders-center li.highlight').removeClass('highlight');
+		}
+
 		// jquery UI position the context menu by the mouse
-		$context_menu_source
-			.fadeIn('fast')
-			.position({
-				my:			'left top',
-				at:			'left bottom',
-				of:			e,
-				collision:	'fit'
-			});
+		// IF e.type IS contextmenu
+		// otherwise hide that booger
+		if ( e.type == 'contextmenu' )
+		{
+			$context_menu_source
+				.fadeIn('fast')
+				.position({
+					my:			'left top',
+					at:			'left bottom',
+					of:			e,
+					collision:	'fit'
+				});
+		}
+		else
+		{
+			$context_menu_source.hide();
+		}
 	});
 
 	// call the correct function for the menu item they have clicked
-	$('.context-menu-source').on('click', '[data-menu]', function(e){
+	$('.context-menu-source, .button-menu-source').on('click', '[data-menu]', function(e){
 
 		var menu = $(this).attr('data-menu'),
 			item;
@@ -232,10 +262,17 @@ jQuery(function($){
 					return;
 				}
 				pyro.files.delete_item(pyro.files.current_level);
+
+				// "Click" on the resulting folder
+				$('.item .folders-center').trigger('click');
 			break;
 
 			case 'details':
 				pyro.files.details();
+			break;
+
+			case 'refresh':
+				pyro.files.folder_contents( pyro.files.current_level );
 			break;
 		}
 	});
@@ -245,7 +282,6 @@ jQuery(function($){
 	 ***************************************************************************/
 
 	$folders_center.on('click', '.file[data-id]', function(e){
-		e.stopPropagation();
 
 		var first,
 			last,
@@ -588,6 +624,9 @@ jQuery(function($){
 				results.message = pyro.lang.fetch_completed;
 				$(window).trigger('show-message', results);
 				$(window).trigger('load-completed');
+
+				// Show the applicable buttons.
+				$('.item .folders-center').trigger('click');
 			}
 		});
 	 };
@@ -596,13 +635,14 @@ jQuery(function($){
 
 		// what type of item are we renaming?
 		var type = pyro.files.$last_r_click.hasClass('folder') ? 'folder' : 'file',
-			$item = pyro.files.$last_r_click.find('.name-text'),
-			$input  = $item.find('input');
+			$item = pyro.files.$last_r_click.find('.name-text');
 
 		// if they have one selected already then undo it
 		$('[name="rename"]').parent().html($('[name="rename"]').val());
 
 		$item.html('<input name="rename" value="'+$item.html()+'"/>');
+
+		$input  = $item.find('input');
 
 		$input.select();
 
@@ -644,6 +684,17 @@ jQuery(function($){
 			}
 
 			$('input[name="rename"]').parent().html($('input[name="rename"]').val());
+		});
+
+		// Prevent form from submitting
+		// if used outside of module
+		// ie: form input for streams
+		$input.keydown(function(e){
+			if ( e.which == '13' )
+			{
+				$(this).blur(); // trigger the save
+				return false; //don't submit form
+			}
 		});
 	};
 
@@ -888,10 +939,7 @@ jQuery(function($){
 
 	};
 
-	/***************************************************************************
-	 * And off we go... load the root folder                                   *
-	 ***************************************************************************/
-	if ($('.folders-center').find('.no_data').length === 0) {
-		pyro.files.folder_contents(0);
-	}
+	//
+	// The index.php view fires up the magic initially
+	//
 });
