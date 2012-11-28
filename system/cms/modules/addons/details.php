@@ -111,7 +111,7 @@ class Module_Addons extends Module
 			'lang:global:fieldtypes'		=> 'admin/addons/fieldtypes'
 		);
 
-		add_admin_menu_place('lang:cp_nav_addons', 5);
+		add_admin_menu_place('lang:cp_nav_addons', 6);
 	}
 
 	public function install()
