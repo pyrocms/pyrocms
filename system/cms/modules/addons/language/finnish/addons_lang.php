@@ -19,6 +19,9 @@ $lang['addons:modules:enable_error']            = 'Moduulia "%s" ei voitu ottaa 
 $lang['addons:modules:enable_success']          = 'Moduuli "%s" otettiin käyttöön.';
 $lang['addons:modules:install_error']           = 'Moduulia ei voitu asentaa.';
 $lang['addons:modules:install_success']         = 'Moduuli "%s" on asennettu.';
+
+$lang['addons:modules:module_upload_success']   = 'The module "%s" has been uploaded.'; #translate
+
 $lang['addons:modules:delete_success']			= 'Moduuli "%s" poistettiin.';
 $lang['addons:modules:delete_error']			= 'Moduulia "%s" ei voitu poistaa.';
 $lang['addons:modules:uninstall_error']         = 'Moduulia "%s" asennusta ei voitu poistaa.';

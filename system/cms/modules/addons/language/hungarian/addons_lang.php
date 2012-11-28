@@ -14,6 +14,9 @@ $lang['addons:modules:enable_error']            = 'Nem lehetett aktiválni a "%s
 $lang['addons:modules:enable_success']          = 'A(z) "%s" modul aktiválva lett.';
 $lang['addons:modules:install_error']           = 'Nem lehetett telepíteni a modult.';
 $lang['addons:modules:install_success']         = 'A(z) "%s" modul sikeresen telepítve lett.';
+
+$lang['addons:modules:module_upload_success']   = 'The module "%s" has been uploaded.'; #translate
+
 $lang['addons:modules:delete_success']          = 'A(z) "%s" modul sikeresen törlésre került.';
 $lang['addons:modules:delete_error']            = 'Nem lehetett törölni a következő modult: "%s".';
 $lang['addons:modules:uninstall_error']         = 'Nem lehetett eltávolítani a(z) "%s" nevű modult.';

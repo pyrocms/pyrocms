@@ -14,6 +14,9 @@ $lang['addons:modules:enable_error']			= 'Nie można włączyć modułu "%s".';
 $lang['addons:modules:enable_success']			= 'Moduł "%s" został włączony.';
 $lang['addons:modules:install_error']			= 'Could not install the module.';
 $lang['addons:modules:install_success']			= 'Moduł został zainstalowany.';
+
+$lang['addons:modules:module_upload_success']   = 'The module "%s" has been uploaded.'; #translate
+
 $lang['addons:modules:delete_success']			= '"%s" moduł został usunięty';
 $lang['addons:modules:delete_error']			= 'Nie można usunąć modułu "%s".';
 $lang['addons:modules:uninstall_error']			= 'nie można odinstalować modułu "%s".';

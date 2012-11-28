@@ -3,7 +3,7 @@
 </section>
 
 <section class="item">
-<?php echo form_open_multipart('admin/modules/upload', array('class' => 'crud'));?>
+<?php echo form_open_multipart('admin/addons/modules/upload', array('class' => 'crud'));?>
 
 	<ul>
 		<li>

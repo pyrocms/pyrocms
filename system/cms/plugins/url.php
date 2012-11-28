@@ -102,5 +102,18 @@ class Plugin_Url extends Plugin
 
 		return anchor($segments, $title, $class);
 	}
+	
+	/**
+	 * Test if the current protocol is SSL or not (https)
+	 *
+	 * Usage:
+	 *   {{ if url:is_ssl }} Yep {{ else }} Nope {{ endif }}
+	 *
+	 * @return bool
+	 */
+	function is_ssl()
+	{
+		return (isset($_SERVER['HTTPS']) ? ($_SERVER['HTTPS'] == "on" ? true : false) : false);
+	}
 
 }
