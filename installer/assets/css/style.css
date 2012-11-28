@@ -869,8 +869,8 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
 }
 
 .block-message.pyro {
-  background: rgba(255, 105, 0, 0.3);
-  border: 1px solid rgba(255, 105, 0, 0.5);
+  background: rgba(0, 112, 255, 0.3);
+  border: 1px solid rgba(0, 113, 255, 0.5);
   margin-bottom: 0px;
   padding: 8px;
   position: relative;

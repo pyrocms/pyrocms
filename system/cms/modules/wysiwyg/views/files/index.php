@@ -71,7 +71,7 @@
 					<?php foreach ($current_folder->items as $file): ?>
 					<tr class="<?php echo alternator('', 'alt'); ?>">
 						<td class="image">
-							<button onclick="javascript:insertFile('<?php echo $file->id."', '".htmlentities($file->name)."', '".$file->location."', '".$file->path; ?>');">
+							<button onclick="javascript:insertFile('<?php echo $file->id."', '".htmlentities(addslashes($file->name))."', '".$file->location."', '".$file->path; ?>');">
 								Insert
 							</button>
 						</td>

@@ -10,6 +10,18 @@
  */
 // ------------------------------------------------------------------------
 
+/**
+ * Checks to see if a user is logged in or not.
+ * 
+ * @access public
+ * @return bool
+ */
+function is_logged_in()
+{
+    return (isset(get_instance()->current_user->id)) ? true : false; 
+}
+
+// ------------------------------------------------------------------------
 
 /**
  * Checks if a group has access to module or role
@@ -41,6 +53,7 @@ function group_has_role($module, $role)
 	return TRUE;
 }
 
+// ------------------------------------------------------------------------
 
 /**
  * Checks if role has access to module or returns error 

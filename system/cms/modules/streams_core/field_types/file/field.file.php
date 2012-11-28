@@ -54,7 +54,7 @@ class Field_file
 		
 		if ($current_file)
 		{
-			$out .= $this->_output_link($current_file).'<br />';
+			$out .= '<a href="'.base_url('files/download/'.$current_file->id).'">'.$current_file->name.'</a><br>';
 		}
 		
 		// Output the actual used value

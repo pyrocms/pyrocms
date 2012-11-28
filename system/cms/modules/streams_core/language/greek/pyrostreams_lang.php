@@ -122,6 +122,7 @@ $lang['streams.size']									= "Μέγεθος";
 $lang['streams.num_of_entries']							= "Αριθμός Εγγραφών";
 $lang['streams.num_of_fields']							= "Αριθμός Πεδίων";
 $lang['streams.last_updated']							= "Τελευταία Ενημέρωση";
+$lang['streams.export_schema']							= "Εξαγωγή Schema";
 
 /* Startup */
 
