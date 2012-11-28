@@ -40,6 +40,7 @@ $lang['files:added']						= 'Agregado el';
 $lang['files:width']						= 'Ancho';
 $lang['files:height']						= 'Alto';
 $lang['files:ratio']						= 'Ratio';
+$lang['files:alt_attribute']				= 'alt Attribute'; #translate
 $lang['files:full_size']					= 'Tamaño completo';
 $lang['files:filename']						= 'Nombre del Archivo';
 $lang['files:filesize']						= 'Tamaño del Archivo';
@@ -56,6 +57,7 @@ $lang['files:synchronize']					= 'Sincronizar';
 $lang['files:uploader']						= 'Arrastrar los archivos aquí <br />o<br />Hacer clic para seleccionar los archivos';
 
 // Context Menu
+$lang['files:refresh']						= 'Refresh'; #translate
 $lang['files:open']							= 'Abrir';
 $lang['files:new_folder']					= 'Nueva Carpeta';
 $lang['files:upload']						= 'Subir';
@@ -100,6 +102,7 @@ $lang['files:no_records_found']				= 'No se pudo encontrar algún registro';
 $lang['files:invalid_extension']			= 'El archivo "%s" tiene una extensión no permitida';
 $lang['files:upload_error']					= 'La subida del archivo ha fallado';
 $lang['files:description_saved']			= 'La descripción del archivo ha sido guardada';
+$lang['files:alt_saved']					= 'The image alt attribute has been saved'; #translate
 $lang['files:file_moved']					= 'El archivo "%s" se ha movido exitosamente';
 $lang['files:exceeds_server_setting']		= 'El servidor no puede manejar un archivo de un tamaño tan grande como este';
 $lang['files:exceeds_allowed']				= 'El archivo supera el tamaño máximo permitido';

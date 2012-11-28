@@ -10,6 +10,9 @@
  */
 class Plugin_Url extends Plugin
 {
+	public $description = array(
+		'en'	=> 'Access URL variables, segments, and more.'
+	);
 
 	/**
 	 * Current uri string

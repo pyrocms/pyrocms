@@ -23,6 +23,9 @@ $lang['addons:modules:enable_error']			= 'Во время включения м�
 $lang['addons:modules:enable_success']			= 'Модуль "%s" включен.';
 $lang['addons:modules:install_error']			= 'Невозможно установить модуль.';
 $lang['addons:modules:install_success']			= 'Модуль "%s" установлен.';
+
+$lang['addons:modules:module_upload_success']   = 'The module "%s" has been uploaded.'; #translate
+
 $lang['addons:modules:delete_success']			= 'Модуль "%s" удалён.';
 $lang['addons:modules:delete_error']			= 'Во время удаления модуля "%s" произошла ошибка.';
 $lang['addons:modules:uninstall_error']			= 'Во время удаления модуля "%s" произошла ошибка.';

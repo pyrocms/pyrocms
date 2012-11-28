@@ -10,6 +10,9 @@
  */
 class Plugin_Global extends Plugin
 {
+	public $description = array(
+		'en'	=> 'Access global variables.'
+	);
 
 	/**
 	 * Load a constant
