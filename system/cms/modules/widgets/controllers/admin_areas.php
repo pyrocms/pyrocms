@@ -38,8 +38,8 @@ class Admin_areas extends Admin_Controller {
 	/**
 	 * Constructor method
 	 *
-	 * @access	public
-	 * @return	void
+	 * @access    public
+	 * @return \Admin_areas
 	 */
 	public function __construct()
 	{
@@ -48,7 +48,7 @@ class Admin_areas extends Admin_Controller {
 		$this->load->library('widgets');
 		$this->lang->load('widgets');
 
-		$this->input->is_ajax_request() AND $this->template->set_layout(FALSE);
+		$this->input->is_ajax_request() AND $this->template->set_layout(false);
 
 		$this->template
 			->append_js('module::widgets.js')
@@ -114,13 +114,13 @@ class Admin_areas extends Admin_Controller {
 				$data = array();
 
 				$data['messages'][$status] = $message;
-				$message = $this->load->view('admin/partials/notices', $data, TRUE);
+				$message = $this->load->view('admin/partials/notices', $data, true);
 
 				return $this->template->build_json(array(
 					'status'	=> $status,
 					'message'	=> $message,
-					'html'		=> ($status === 'success' ? $this->index() : NULL),
-					'active'	=> (isset($area) && $area ? '#area-' . $area->slug . ' header' : FALSE)
+					'html'		=> ($status === 'success' ? $this->index() : null),
+					'active'	=> (isset($area) && $area ? '#area-' . $area->slug . ' header' : false)
 				));
 			}
 
@@ -139,7 +139,7 @@ class Admin_areas extends Admin_Controller {
 			if ($this->input->is_ajax_request())
 			{
 				$status		= 'error';
-				$message	= $this->load->view('admin/partials/notices', array(), TRUE);
+				$message	= $this->load->view('admin/partials/notices', array(), true);
 
 				return $this->template->build_json(array(
 					'status'	=> $status,
@@ -170,7 +170,7 @@ class Admin_areas extends Admin_Controller {
 		if ( ! ($id && $area = $this->widgets->get_area($id)))
 		{
 			// @todo: set error
-			return FALSE;
+			return false;
 		}
 
 		$data = array();
@@ -206,13 +206,13 @@ class Admin_areas extends Admin_Controller {
 				$data = array();
 
 				$data['messages'][$status] = $message;
-				$message = $this->load->view('admin/partials/notices', $data, TRUE);
+				$message = $this->load->view('admin/partials/notices', $data, true);
 
 				return $this->template->build_json(array(
 					'status'	=> $status,
 					'message'	=> $message,
-					'html'		=> ($status === 'success' ? $this->index() : NULL),
-					'active'	=> (isset($area) && $area ? '#area-' . $area->slug . ' header' : FALSE)
+					'html'		=> ($status === 'success' ? $this->index() : null),
+					'active'	=> (isset($area) && $area ? '#area-' . $area->slug . ' header' : false)
 				));
 			}
 
@@ -231,7 +231,7 @@ class Admin_areas extends Admin_Controller {
 			if ($this->input->is_ajax_request())
 			{
 				$status		= 'error';
-				$message	= $this->load->view('admin/partials/notices', array(), TRUE);
+				$message	= $this->load->view('admin/partials/notices', array(), true);
 
 				return $this->template->build_json(array(
 					'status'	=> $status,
@@ -276,7 +276,7 @@ class Admin_areas extends Admin_Controller {
 			$data = array();
 
 			$data['messages'][$status] = $message;
-			$message = $this->load->view('admin/partials/notices', $data, TRUE);
+			$message = $this->load->view('admin/partials/notices', $data, true);
 
 			return $this->template->build_json(array(
 				'status'	=> $status,

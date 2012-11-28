@@ -18,11 +18,11 @@ class Plugin_Comments extends Plugin
 	 * @param	array
 	 * @return	array
 	 */
-	function count()
+	public function count()
 	{
 		$item_id = $this->attribute('item_id', 0);
 		$module = $this->attribute('module', $this->module);
-		$type = $this->attribute('type', FALSE);
+		$type = $this->attribute('type', false);
 		
 		$this->load->helper('comments/comments');
 		

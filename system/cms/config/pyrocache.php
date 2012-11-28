@@ -15,6 +15,6 @@ $config['rss_cache'] = 3600; // 1 hour
 $config['simplepie_cache_dir'] = APPPATH . 'cache/' . SITE_REF . '/simplepie/';
 
 // Make sure all the folders exist
-is_dir($config['cache_path']) OR mkdir($config['cache_path'], DIR_WRITE_MODE, TRUE);
-is_dir($config['cache_dir']) OR mkdir($config['cache_dir'], DIR_WRITE_MODE, TRUE);
-is_dir($config['simplepie_cache_dir']) OR mkdir($config['simplepie_cache_dir'], DIR_WRITE_MODE, TRUE);
+is_dir($config['cache_path']) OR mkdir($config['cache_path'], DIR_WRITE_MODE, true);
+is_dir($config['cache_dir']) OR mkdir($config['cache_dir'], DIR_WRITE_MODE, true);
+is_dir($config['simplepie_cache_dir']) OR mkdir($config['simplepie_cache_dir'], DIR_WRITE_MODE, true);

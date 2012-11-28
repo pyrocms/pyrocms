@@ -105,7 +105,7 @@ class Field_user
 	public function pre_output_plugin($input, $params)
 	{
 		// Can't do anything without an input
-		if ( ! is_numeric($input) OR $input < 1)
+		if ( ! is_numeric($input) or $input < 1)
 		{
 			return null;
 		}

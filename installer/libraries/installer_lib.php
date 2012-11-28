@@ -251,7 +251,7 @@ class Installer_lib {
 		$user_sql = str_replace('{SALT}', $user_salt, $user_sql);
 		$user_sql = str_replace('{NOW}', time(), $user_sql);
 		$user_sql = str_replace('{MIGRATION}', $config['migration_version'], $user_sql);
-		
+
 		if ($this->mysql_server_version >= '5.0.7')
 		{
 			@mysql_set_charset('utf8', $this->db);
@@ -264,7 +264,7 @@ class Installer_lib {
 		}
 
 		// Select the database we created before
-		if ( !mysql_select_db($database, $this->db) )
+		if ( ! mysql_select_db($database, $this->db) )
 		{
 			return array(
 				'status'	=> FALSE,
@@ -296,20 +296,20 @@ class Installer_lib {
 		if ( ! $this->write_db_file($database) )
 		{
 			return array(
-						'status'	=> FALSE,
-						'message'	=> '',
-						'code'		=> 105
-					);
+				'status'	=> FALSE,
+				'message'	=> '',
+				'code'		=> 105
+			);
 		}
 
 		// Write the config file.
 		if ( ! $this->write_config_file() )
 		{
 			return array(
-						'status'	=> FALSE,
-						'message'	=> '',
-						'code'		=> 106
-					);
+				'status'	=> FALSE,
+				'message'	=> '',
+				'code'		=> 106
+			);
 		}
 
 		return array('status' => TRUE);

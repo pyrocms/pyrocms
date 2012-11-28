@@ -51,8 +51,8 @@ $lang['global:demo_restrictions']       = 'Some features on this page have been 
 
 $lang['login_error_label']			= 'Błąd logowania';
 $lang['forgot_password_label']			= 'Nie pamiętasz hasła?';
-$lang['email_label']				= 'E-mail';
-$lang['password_label']				= 'Hasło';
+$lang['global:email']				= 'E-mail';
+$lang['global:password']				= 'Hasło';
 $lang['login_label']				= 'Zaloguj się';
 
 $lang['help_label'] 				= 'Pomoc';
@@ -64,7 +64,7 @@ $lang['activate_label']				= 'Aktywuj';
 $lang['approve_label']				= 'Zatwierdź';
 $lang['unapprove_label']			= 'Odrzuć';
 $lang['publish_label']				= 'Publikuj';
-$lang['upload_label']				= 'Wyślij';
+$lang['global:upload']				= 'Wyślij';
 $lang['global:uninstall']			= 'Odinstaluj';
 $lang['global:install']				= 'Instaluj';
 $lang['global:enable']				= 'Włącz';

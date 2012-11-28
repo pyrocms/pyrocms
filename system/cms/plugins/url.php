@@ -10,6 +10,9 @@
  */
 class Plugin_Url extends Plugin
 {
+	public $description = array(
+		'en'	=> 'Access URL variables, segments, and more.'
+	);
 
 	/**
 	 * Current uri string
@@ -19,9 +22,22 @@ class Plugin_Url extends Plugin
 	 * 
 	 * @return string The current URI string.
 	 */
-	function current()
+	public function current()
 	{
 		return site_url($this->uri->uri_string());
+	}
+
+	/**
+	 * Current uri string
+	 *
+	 * Usage:
+	 *   {{ url:get key="foo" }}
+	 * 
+	 * @return string The key of the item in $_GET
+	 */
+	public function get()
+	{
+		return $this->input->get($this->attribute('key'));
 	}
 
 	/**
@@ -32,7 +48,7 @@ class Plugin_Url extends Plugin
 	 *
 	 * @return string Site URL of the install.
 	 */
-	function site()
+	public function site()
 	{
 		$uri = $this->attribute('uri');
 
@@ -47,7 +63,7 @@ class Plugin_Url extends Plugin
 	 *
 	 * @return string The base URL for the installation.
 	 */
-	function base()
+	public function base()
 	{
 		return base_url();
 	}
@@ -60,7 +76,7 @@ class Plugin_Url extends Plugin
 	 *
 	 * @return string The URI segment, or the provided default.
 	 */
-	function segments()
+	public function segments()
 	{
 		$default = $this->attribute('default');
 		$segment = $this->attribute('segment');
@@ -76,7 +92,7 @@ class Plugin_Url extends Plugin
 	 *
 	 * @return string The anchor HTML tag.
 	 */
-	function anchor()
+	public function anchor()
 	{
 		$segments = $this->attribute('segments');
 		$title = $this->attribute('title', '');
@@ -85,6 +101,19 @@ class Plugin_Url extends Plugin
 		$class = !empty($class) ? 'class="'.$class.'"' : '';
 
 		return anchor($segments, $title, $class);
+	}
+	
+	/**
+	 * Test if the current protocol is SSL or not (https)
+	 *
+	 * Usage:
+	 *   {{ if url:is_ssl }} Yep {{ else }} Nope {{ endif }}
+	 *
+	 * @return bool
+	 */
+	function is_ssl()
+	{
+		return (isset($_SERVER['HTTPS']) ? ($_SERVER['HTTPS'] == "on" ? true : false) : false);
 	}
 
 }

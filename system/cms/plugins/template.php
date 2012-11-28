@@ -10,6 +10,9 @@
  */
 class Plugin_Template extends Plugin
 {
+	public $description = array(
+		'en'	=> 'Access and set theme settings and properties.'
+	);
 
 	/**
 	 * Set Template Title
@@ -63,7 +66,7 @@ class Plugin_Template extends Plugin
 	{
 		$name 	= $this->attribute('name');
 		$uri 	= $this->attribute('uri');
-		$reset	= (strtolower($this->attribute('reset')) === 'true') ? TRUE : FALSE;
+		$reset	= (strtolower($this->attribute('reset')) === 'true') ? true : false;
 
 		$this->template->set_breadcrumb($name, $uri, $reset);
 	}
@@ -106,7 +109,7 @@ class Plugin_Template extends Plugin
 
 		if (isset($data['template']['partials'][$name]))
 		{
-			return $this->content() ? array(array('partial' => $data['template']['partials'][$name])) : TRUE;
+			return $this->content() ? array(array('partial' => $data['template']['partials'][$name])) : true;
 		}
 
 		return $this->content() ? array() : '';
@@ -159,7 +162,7 @@ class Plugin_Template extends Plugin
 	{
 		$data = & $this->load->_ci_cached_vars;
 
-		return isset($data['template'][$foo]) ? $data['template'][$foo] : NULL;
+		return isset($data['template'][$foo]) ? $data['template'][$foo] : null;
 	}
 
 }

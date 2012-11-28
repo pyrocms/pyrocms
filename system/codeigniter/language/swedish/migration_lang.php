@@ -1,38 +1,23 @@
-<?php
-/**
- * CodeIgniter
+<?php defined('BASEPATH') or exit('No direct script access allowed');
+
+ /**
+ * Swedish translation.
  *
- * An open source application development framework for PHP 5.1.6 or newer
- *
- * NOTICE OF LICENSE
- * 
- * Licensed under the Open Software License version 3.0
- * 
- * This source file is subject to the Open Software License (OSL 3.0) that is
- * bundled with this package in the files license.txt / license.rst.  It is
- * also available through the world wide web at this URL:
- * http://opensource.org/licenses/OSL-3.0
- * If you did not receive a copy of the license and are unable to obtain it
- * through the world wide web, please send an email to
- * licensing@ellislab.com so we can send you a copy immediately.
- *
- * @package		CodeIgniter
- * @author		EllisLab Dev Team
- * @copyright	Copyright (c) 2008 - 2012, EllisLab, Inc. (http://ellislab.com/)
- * @license		http://opensource.org/licenses/OSL-3.0 Open Software License (OSL 3.0)
- * @link		http://codeigniter.com
- * @since		Version 3.0
- * @filesource
+ * @author		marcus@incore.se
+ * @package		PyroCMS  
+ * @link		http://pyrocms.com
+ * @date		2012-10-22
+ * @version		1.1.0
  */
 
-$lang['migration_none_found']			= "Inga migreringar hittades.";
-$lang['migration_not_found']			= "Denna migrering kunde inte hittas.";
-$lang['migration_multiple_version']		= "Detta är flera migreringar med samma versionsnummer: %d.";
-$lang['migration_class_doesnt_exist']	= "Migrationsklassen \"%s\" kunde inte hittas.";
-$lang['migration_missing_up_method']	= "Migrationsklassen \"%s\" saknar en 'up' metod.";
-$lang['migration_missing_down_method']	= "Migrationsklassen \"%s\" saknar en 'down' metod.";
-$lang['migration_invalid_filename']		= "Migreringen \"%s\" har ett ogiltigt filnamn.";
+$lang['migration_none_found'] = 'Inga migreringar hittades.';
+$lang['migration_not_found'] = 'Denna migrering kunde inte hittas.';
+$lang['migration_multiple_version'] = 'Detta är flera migreringar med samma versionsnummer: %d.';
+$lang['migration_class_doesnt_exist'] = 'Migrationsklassen "%s" kunde inte hittas.';
+$lang['migration_missing_up_method'] = 'Migrationsklassen "%s" saknar en "up"-metod.';
+$lang['migration_missing_down_method'] = 'Migrationsklassen "%s" saknar en "down" metod.';
+$lang['migration_invalid_filename'] = 'Migreringen "%s" har ett ogiltigt filnamn.';
 
 
-/* End of file migration_lang.php */
-/* Location: ./system/language/english/migration_lang.php */
+/* End of file migration_lang.php */  
+/* Location: system/codeigniter/language/swedish/migration_lang.php */  

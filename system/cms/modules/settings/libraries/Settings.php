@@ -109,10 +109,10 @@ class Settings {
 
 			self::$cache[$name] = $value;
 
-			return TRUE;
+			return true;
 		}
 
-		return FALSE;
+		return false;
 	}
 
 	/**
@@ -167,7 +167,7 @@ class Settings {
 	{
 		if ( ! $this->_check_format($setting))
 		{
-			return FALSE;
+			return false;
 		}
 		return ci()->settings_m->insert($setting);
 	}
@@ -206,7 +206,7 @@ class Settings {
 			{
 				$func = substr($setting->options, 5);
 
-				if (($pos = strrpos($func, '/')) !== FALSE)
+				if (($pos = strrpos($func, '/')) !== false)
 				{
 					$helper	= substr($func, 0, $pos);
 					$func	= substr($func, $pos + 1);
@@ -228,6 +228,7 @@ class Settings {
 				}
 			}
 
+			// If its an array un-CSV it
 			if (is_string($setting->options))
 			{
 				$setting->options = explode('|', $setting->options);
@@ -259,7 +260,7 @@ class Settings {
 				$form_control = form_password(array(
 					'id'	=> $setting->slug,
 					'name'	=> $setting->slug,
-					'value'	=> $setting->value,
+					'value'	=> 'XXXXXXXXXXXX',
 					'class'	=> 'text width-20',
 					'autocomplete' => 'off',
 				));
@@ -288,7 +289,7 @@ class Settings {
 					}
 					else
 					{
-						$checked = FALSE;
+						$checked = false;
 					}
 
 					$form_control .= '<label>';
@@ -336,7 +337,7 @@ class Settings {
 		{
 			list($value, $name) = explode('=', $option);
 
-			if ($this->ci->lang->line('settings_form_option_' . $name) !== FALSE)
+			if ($this->ci->lang->line('settings_form_option_' . $name) !== false)
 			{
 				$name = $this->ci->lang->line('settings_form_option_' . $name);
 			}
@@ -360,17 +361,17 @@ class Settings {
 	{
 		if ( ! isset($setting))
 		{
-			return FALSE;
+			return false;
 		}
 		foreach ($setting as $key => $value)
 		{
 			if ( ! in_array($key, $this->columns))
 			{
-				return FALSE;
+				return false;
 			}
 		}
 
-		return TRUE;
+		return true;
 	}
 
 }

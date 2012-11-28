@@ -19,9 +19,6 @@
 *
 */
 
-//  CI 2.0 Compatibility
-if(!class_exists('CI_Model')) { class CI_Model extends Model {} }
-
 
 class Ion_auth_model extends CI_Model
 {
@@ -71,7 +68,7 @@ class Ion_auth_model extends CI_Model
 	{
 		parent::__construct();
 		$this->load->database();
-		$this->load->config('users/ion_auth', TRUE);
+		$this->load->config('users/ion_auth', true);
 		$this->load->helper('cookie');
 		$this->load->helper('date');
 		$this->load->library('session');
@@ -114,7 +111,7 @@ class Ion_auth_model extends CI_Model
 	{
 	    if (empty($password))
 	    {
-		return FALSE;
+		return false;
 	    }
 
 	    if ($this->store_salt && $salt)
@@ -155,7 +152,7 @@ class Ion_auth_model extends CI_Model
 
 		if ($query->num_rows() !== 1)
 		{
-		    return FALSE;
+		    return false;
 		}
 
 		if ($this->store_salt)
@@ -215,7 +212,7 @@ class Ion_auth_model extends CI_Model
 
 			if ($query->num_rows() !== 1)
 			{
-				return FALSE;
+				return false;
 			}
 
 			$identity = $result->{$this->identity_column};
@@ -254,7 +251,7 @@ class Ion_auth_model extends CI_Model
 	{
 	    if (empty($id))
 	    {
-		return FALSE;
+		return false;
 	    }
 
 		$activation_code       = sha1(md5(microtime()));
@@ -320,7 +317,7 @@ class Ion_auth_model extends CI_Model
 	{
 	    if (empty($username))
 	    {
-		return FALSE;
+		return false;
 	    }
 
 	    return $this->db->where('username', $username)
@@ -340,7 +337,7 @@ class Ion_auth_model extends CI_Model
 	{
 	    if (empty($email))
 	    {
-			return FALSE;
+			return false;
 	    }
 
 	    return $this->db->where('email', $email)
@@ -360,7 +357,7 @@ class Ion_auth_model extends CI_Model
 	{
 	    if (empty($identity))
 	    {
-			return FALSE;
+			return false;
 	    }
 
 	    return $this->db->where($this->identity_column, $identity)
@@ -379,7 +376,7 @@ class Ion_auth_model extends CI_Model
 	{
 	    if (empty($email))
 	    {
-			return FALSE;
+			return false;
 	    }
 
 		$key = $this->hash_password(microtime().$email);
@@ -401,11 +398,11 @@ class Ion_auth_model extends CI_Model
 	 * @return string
 	 * @author Mathew
 	 **/
-	public function forgotten_password_complete($code, $salt=FALSE)
+	public function forgotten_password_complete($code, $salt=false)
 	{
 		if (empty($code))
 		{
-			return FALSE;
+			return false;
 		}
 
 		$this->db->where('forgotten_password_code', $code);
@@ -425,7 +422,7 @@ class Ion_auth_model extends CI_Model
 			return $password;
 		}
 
-		return FALSE;
+		return false;
 	}
 
 	// --------------------------------------------------------------------------
@@ -440,7 +437,7 @@ class Ion_auth_model extends CI_Model
 	{
 		if (empty($identity))
 		{
-			return FALSE;
+			return false;
 		}
 
 		$this->db->select(array(
@@ -469,7 +466,7 @@ class Ion_auth_model extends CI_Model
 
 		// @todo - run the profile fields through streams
 
-		return ($i->num_rows > 0) ? $i->row() : FALSE;
+		return ($i->num_rows() > 0) ? $i->row() : false;
 	}
 
 	// --------------------------------------------------------------------------
@@ -496,12 +493,12 @@ class Ion_auth_model extends CI_Model
 		if ($this->identity_column == 'email' && $this->email_check($email))
 		{
 			$this->ion_auth->set_error('account_creation_duplicate_email');
-			return FALSE;
+			return false;
 		}
 		elseif ($this->identity_column == 'username' && $this->username_check($username))
 		{
 			$this->ion_auth->set_error('account_creation_duplicate_username');
-			return FALSE;
+			return false;
 		}
 
 		// If username is taken, use username1 or username2, etc.
@@ -535,7 +532,7 @@ class Ion_auth_model extends CI_Model
 
 		// IP Address
 		$ip_address	= $this->input->ip_address();
-		$salt		= $this->store_salt ? $this->salt() : FALSE;
+		$salt		= $this->store_salt ? $this->salt() : false;
 		$password	= $this->hash_password($password, $salt);
 
 		// Users table.
@@ -605,11 +602,11 @@ class Ion_auth_model extends CI_Model
 	 * @return bool
 	 * @author Mathew
 	 **/
-	public function login($identity, $password, $remember=FALSE)
+	public function login($identity, $password, $remember=false)
 	{
 		if (empty($identity) || empty($password))
 		{
-			return FALSE;
+			return false;
 		}
 
 		$this->db->select('username, email, id, password, group_id')
@@ -633,20 +630,20 @@ class Ion_auth_model extends CI_Model
 			if ($user->password === $password)
 			{
 				$this->_set_login($user, $remember);
-				return TRUE;
+				return true;
 			}
 		}
 
-		return FALSE;
+		return false;
 	}
 	
 	// --------------------------------------------------------------------------
 	
-	public function force_login($user_id, $remember = FALSE)
+	public function force_login($user_id, $remember = false)
 	{
 		if (empty($user_id))
 		{
-			return FALSE;
+			return false;
 		}
 
 		$this->db->select('username, email, id, password, group_id')->where('id', $user_id);
@@ -665,10 +662,10 @@ class Ion_auth_model extends CI_Model
 		if ($user)
 		{
 			$this->_set_login($user, $remember);
-			return TRUE;
+			return true;
 		}
 
-		return FALSE;
+		return false;
 	}
 
 	// --------------------------------------------------------------------------
@@ -830,7 +827,7 @@ class Ion_auth_model extends CI_Model
 	 * @return object
 	 * @author Phil Sturgeon
 	 **/
-	public function get_user($id = NULL)
+	public function get_user($id = null)
 	{
 		// Don't grab the user data again if we
 		// already have it
@@ -839,10 +836,10 @@ class Ion_auth_model extends CI_Model
 			return $this->users[$id];
 		}
 
-		$_user_is_current = FALSE;
+		$_user_is_current = false;
 
 		//if no id was passed use the current users id
-		if (is_null($id) OR is_bool($id))
+		if (is_null($id) or is_bool($id))
 		{
 			$identity	= $this->config->item('identity', 'ion_auth');
 			$id			= $this->session->userdata($identity);
@@ -850,7 +847,7 @@ class Ion_auth_model extends CI_Model
 			// we'll use it bellow.. before returning
 			$_user_is_current = is_scalar($id) && $id
 				? array($id)	// as bool is true, as array pass the value to log
-				: ($id = NULL);	// as bool is false and $id is null
+				: ($id = null);	// as bool is false and $id is null
 		}
 		//if a valid id was passed set identity
 		elseif (is_scalar($id))
@@ -861,7 +858,7 @@ class Ion_auth_model extends CI_Model
 		else
 		{
 			$identity	= $this->config->item('identity', 'ion_auth');
-			$id			= NULL;
+			$id			= null;
 		}
 
 		$this->db->where(sprintf('%s.%s', $this->tables['users'], $identity), $id);
@@ -1063,7 +1060,7 @@ class Ion_auth_model extends CI_Model
 	    {
 			$this->db->trans_rollback();
 			$this->ion_auth->set_error('account_creation_duplicate_'.$this->identity_column);
-			return FALSE;
+			return false;
 	    }
 
 	    $this->load->driver('streams');
@@ -1101,14 +1098,14 @@ class Ion_auth_model extends CI_Model
 			$this->db->update($this->tables['users'], $data, array('id' => $id));
 		}
 
-		if ($this->db->trans_status() === FALSE)
+		if ($this->db->trans_status() === false)
 		{
 		    $this->db->trans_rollback();
-		    return FALSE;
+		    return false;
 		}
 
 		$this->db->trans_commit();
-		return TRUE;
+		return true;
 	}
 
 	// --------------------------------------------------------------------------
@@ -1126,14 +1123,14 @@ class Ion_auth_model extends CI_Model
 		$this->db->delete($this->tables['meta'], array($this->meta_join => $id));
 		$this->db->delete($this->tables['users'], array('id' => $id));
 
-		if ($this->db->trans_status() === FALSE)
+		if ($this->db->trans_status() === false)
 		{
 		    $this->db->trans_rollback();
-		    return FALSE;
+		    return false;
 		}
 
 		$this->db->trans_commit();
-		return TRUE;
+		return true;
 	}
 
 	// --------------------------------------------------------------------------
@@ -1175,7 +1172,7 @@ class Ion_auth_model extends CI_Model
 			'expire' => $this->config->item('user_expire', 'ion_auth') + time()
 		));
 
-		return TRUE;
+		return true;
 	}
 
 	// --------------------------------------------------------------------------
@@ -1191,7 +1188,7 @@ class Ion_auth_model extends CI_Model
 		//check for valid data
 		if (!get_cookie('identity') || !get_cookie('remember_code') || !$this->identity_check(get_cookie('identity')))
 		{
-			return FALSE;
+			return false;
 		}
 
 		//get the user
@@ -1232,10 +1229,10 @@ class Ion_auth_model extends CI_Model
 				$this->remember_user($user->id);
 			}
 
-			return TRUE;
+			return true;
 		}
 
-		return FALSE;
+		return false;
 	}
 
 	// --------------------------------------------------------------------------
@@ -1250,7 +1247,7 @@ class Ion_auth_model extends CI_Model
 	{
 		if (!$id)
 		{
-			return FALSE;
+			return false;
 		}
 
 		$user = $this->get_user($id)->row();
@@ -1273,9 +1270,9 @@ class Ion_auth_model extends CI_Model
 				'expire' => $this->config->item('user_expire', 'ion_auth'),
 			));
 
-			return TRUE;
+			return true;
 		}
 
-		return FALSE;
+		return false;
 	}
 }

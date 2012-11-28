@@ -10,6 +10,9 @@
  */
 class Plugin_Session extends Plugin
 {
+	public $description = array(
+		'en'	=> 'Access and set session variables.'
+	);
 
 	/**
 	 * Data
@@ -27,7 +30,7 @@ class Plugin_Session extends Plugin
 		$value = $this->attribute('value');
 
 		// value provided! We are setting to the name
-		if ($value !== NULL)
+		if ($value !== null)
 		{
 			$this->session->set_userdata($name, $value);
 			return;
@@ -52,7 +55,7 @@ class Plugin_Session extends Plugin
 		$value = $this->attribute('value');
 
 		// value provided! We are setting to the name
-		if ($value !== NULL)
+		if ($value !== null)
 		{
 			$this->session->set_flashdata($name, $value);
 			return;

@@ -1,5 +1,5 @@
 <section class="title">
-	<?php if ($this->method == 'create'): ?>
+	<?php if ($this->method === 'create'): ?>
 		<h4><?php echo lang('user_add_title');?></h4>
 		<?php echo form_open_multipart(uri_string(), 'class="crud" autocomplete="off"'); ?>
 	
@@ -23,7 +23,7 @@
 			<fieldset>
 				<ul>
 					<li class="even">
-						<label for="email"><?php echo lang('user_email_label');?> <span>*</span></label>
+						<label for="email"><?php echo lang('global:email');?> <span>*</span></label>
 						<div class="input">
 							<?php echo form_input('email', $member->email, 'id="email"'); ?>
 						</div>
@@ -52,7 +52,7 @@
 					</li>
 					<li class="even">
 						<label for="password">
-							<?php echo lang('user_password_label');?>
+							<?php echo lang('global:password');?>
 							<?php if ($this->method == 'create'): ?> <span>*</span><?php endif; ?>
 						</label>
 						<div class="input">
@@ -93,7 +93,7 @@
 	</div>
 
 	<div class="buttons float-right padding-top">
-		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )); ?>
+		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'save_exit', 'cancel') )); ?>
 	</div>
 
 <?php echo form_close(); ?>

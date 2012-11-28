@@ -50,7 +50,8 @@ class Admin extends Admin_Controller {
 				pyro.files.max_size_allowed = '".Files::$max_size_allowed."';
 				pyro.files.valid_extensions = '/".trim($allowed_extensions, '|')."$/i';
 				pyro.lang.file_type_not_allowed = '".addslashes(lang('files:file_type_not_allowed'))."';
-				pyro.lang.new_folder_name = '".lang('files:new_folder_name')."';
+				pyro.lang.new_folder_name = '".addslashes(lang('files:new_folder_name'))."';
+				pyro.lang.alt_attribute = '".addslashes(lang('files:alt_attribute'))."';
 			</script>");
 	}
 
@@ -61,8 +62,10 @@ class Admin extends Admin_Controller {
 	{
 		$this->template
 			->title($this->module_details['name'])
+			->append_css('jquery/jquery.tagsinput.css')
 			->append_css('module::jquery.fileupload-ui.css')
 			->append_css('module::files.css')
+			->append_js('jquery/jquery.tagsinput.js')
 			->append_js('module::jquery.fileupload.js')
 			->append_js('module::jquery.fileupload-ui.js')
 			->append_js('module::functions.js')
@@ -102,6 +105,18 @@ class Admin extends Admin_Controller {
 		$result['status'] AND Events::trigger('file_folder_created', $result['data']);
 
 		echo json_encode($result);
+	}
+
+	/**
+	 * Set the initial folder ID to load contents for
+	 *
+	 * Accepts the parent id and sets it as flash data
+	 */
+	public function initial_folder_contents($id)
+	{
+		$this->session->set_flashdata('initial_folder_contents', $id);
+
+		redirect(site_url('admin/files'));
 	}
 
 	/**
@@ -152,11 +167,11 @@ class Admin extends Admin_Controller {
 			}
 
 			// let the files library format the return array like all the others
-			echo json_encode(Files::result(TRUE, lang('files:sort_saved')));
+			echo json_encode(Files::result(true, lang('files:sort_saved')));
 		}
 		else 
 		{
-			echo json_encode(Files::result(FALSE, lang('files:save_failed')));
+			echo json_encode(Files::result(false, lang('files:save_failed')));
 		}
 	}
 
@@ -171,7 +186,7 @@ class Admin extends Admin_Controller {
 			show_error(lang('files:no_permissions'));
 		}
 
-		if ($id = $this->input->post('folder_id') AND $name = $this->input->post('name'))
+		if ($id = $this->input->post('folder_id') and $name = $this->input->post('name'))
 		{
 			$result = Files::rename_folder($id, $name);
 			
@@ -215,9 +230,9 @@ class Admin extends Admin_Controller {
 
 		$input = $this->input->post();
 
-		if ($input['folder_id'] AND $input['name'])
+		if ($input['folder_id'] and $input['name'])
 		{
-			$result = Files::upload($input['folder_id'], $input['name'], 'file', $input['width'], $input['height'], $input['ratio']);
+			$result = Files::upload($input['folder_id'], $input['name'], 'file', $input['width'], $input['height'], $input['ratio'], $input['alt_attribute']);
 
 			$result['status'] AND Events::trigger('file_uploaded', $result['data']);
 
@@ -236,7 +251,7 @@ class Admin extends Admin_Controller {
 			show_error(lang('files:no_permissions'));
 		}
 
-		if ($id = $this->input->post('file_id') AND $name = $this->input->post('name'))
+		if ($id = $this->input->post('file_id') and $name = $this->input->post('name'))
 		{
 			$result = Files::rename_file($id, $name);
 
@@ -251,13 +266,32 @@ class Admin extends Admin_Controller {
 	 */
 	public function save_description()
 	{
-		if ($id = $this->input->post('file_id') AND $description = $this->input->post('description'))
-		{
-			$this->file_m->update($id, array('description' => $description));
+		$this->load->library('keywords/keywords');
 
-			echo json_encode(Files::result(TRUE, lang('files:description_saved')));
+		$description 	= $this->input->post('description');
+		$keywords_hash	= $this->keywords->process($this->input->post('keywords'), $this->input->post('old_hash'));
+		$alt_attribute	= $this->input->post('alt_atttibute');
+
+		if ($id = $this->input->post('file_id'))
+		{
+			$this->file_m->update($id, array('description' => $description, 'keywords' => $keywords_hash, 'alt_attribute' => $alt_attribute));
+
+			echo json_encode(Files::result(true, lang('files:description_saved')));
 		}
 	}
+		
+	/**
+	 * Edit the "alt" attribute of an image file
+	 */
+	public function save_alt()
+	{
+		if ($id = $this->input->post('file_id') AND $alt_attribute = $this->input->post('alt_attribute'))
+		{
+			$this->file_m->update($id, array('alt_attribute' => $alt_attribute));
+			
+			echo json_encode(Files::result(TRUE, lang('files:alt_saved')));
+		}
+	}	 	
 
 	/**
 	 * Edit location of a folder (S3/Cloud Files/Local)
@@ -270,7 +304,7 @@ class Admin extends Admin_Controller {
 			show_error(lang('files:no_permissions'));
 		}
 
-		if ($id = $this->input->post('folder_id') AND $location = $this->input->post('location') AND $container = $this->input->post('container'))
+		if ($id = $this->input->post('folder_id') and $location = $this->input->post('location') and $container = $this->input->post('container'))
 		{
 			$this->file_folders_m->update($id, array('location' => $location));
 

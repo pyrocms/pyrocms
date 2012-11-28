@@ -8,7 +8,7 @@ class Migration_Add_module_column_to_templates extends CI_Migration {
             'module' => array(
                 'type' => 'VARCHAR',
                 'constraint' => 50,
-                'null' => FALSE,
+                'null' => false,
                 'default' => ''
             ),
         ));

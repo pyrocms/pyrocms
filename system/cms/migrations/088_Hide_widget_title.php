@@ -13,7 +13,7 @@ class Migration_Hide_widget_title extends CI_Migration {
 				$options = unserialize($instance->options);
 
 				// we show the title by default on all existing widgets
-				$options['show_title'] = TRUE;
+				$options['show_title'] = true;
 
 				$data = array('options' => serialize($options));
 
@@ -21,11 +21,11 @@ class Migration_Hide_widget_title extends CI_Migration {
 			}
 		}
 
-		return TRUE;
+		return true;
     }
 
     public function down()
     {
-        return TRUE;
+        return true;
     }
 }

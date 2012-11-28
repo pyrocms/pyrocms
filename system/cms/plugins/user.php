@@ -10,6 +10,9 @@
  */
 class Plugin_User extends Plugin
 {
+	public $description = array(
+		'en'	=> 'Access current user profile variables and settings.'
+	);
 
 	/**
 	 * Array of data for the currently
@@ -37,7 +40,7 @@ class Plugin_User extends Plugin
 
 		if ($this->current_user)
 		{
-			if ($group AND $group !== $this->current_user->group)
+			if ($group and $group !== $this->current_user->group)
 			{
 				return '';
 			}
@@ -67,7 +70,7 @@ class Plugin_User extends Plugin
 		$group = $this->attribute('group', null);
 
 		// Logged out or not the right user
-		if ( ! $this->current_user OR ($group AND $group !== $this->current_user->group))
+		if ( ! $this->current_user or ($group and $group !== $this->current_user->group))
 		{
 			return $this->content() ? $this->content() : true;
 		}
@@ -93,7 +96,7 @@ class Plugin_User extends Plugin
 	{
 		if ($this->current_user)
 		{
-			if (!(($this->current_user->group == 'admin') OR $this->permission_m->get_group($this->current_user->group_id)))
+			if (!(($this->current_user->group == 'admin') or $this->permission_m->get_group($this->current_user->group_id)))
 			{
 				return '';
 			}
@@ -122,7 +125,7 @@ class Plugin_User extends Plugin
 
 		$plugin_data[] = array(
 							'value'		=> $profile_data['email'],
-							'name'		=> lang('user_email'),
+							'name'		=> lang('global:email'),
 							'slug'		=> 'email'
 						);
 

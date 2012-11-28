@@ -31,11 +31,11 @@ $lang['cp_contact_support'] 			= 'Support';
 $lang['cp_nav_settings']				= 'Indstillinger';
 $lang['cp_nav_addons']					= 'Add-ons';
 $lang['cp_nav_modules']					= 'Moduler';
-$lang['cp_nav_widgets']					= 'Widgets';
 $lang['cp_nav_users']					= 'Brugere';
-$lang['cp_nav_design']					= 'Design';
 $lang['cp_nav_content']					= 'Indhold';
-$lang['cp_nav_utilities']				= 'Forsyninger';
+$lang['cp_nav_data']					= 'Data'; #translate
+$lang['cp_nav_structure']				= 'Structure'; #translate
+$lang['cp_nav_misc']					= 'Miscellaneous'; #translate
 
 $lang['cp_must_login']	 				= 'Du skal være logget ind for at se denne side.';
 $lang['cp_access_denied'] 				= 'Du har ikke adgang til at se denne side.';

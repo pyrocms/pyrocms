@@ -42,7 +42,7 @@ class Events_Templates {
         {
 			$lang	   = isset($data['lang']) ? $data['lang'] : Settings::get('site_lang');
 			$from	   = isset($data['from']) ? $data['from'] : Settings::get('server_email');
-            $from_name = isset($data['name']) ? $data['name'] : NULL;
+            $from_name = isset($data['name']) ? $data['name'] : null;
 			$reply_to  = isset($data['reply-to']) ? $data['reply-to'] : $from;
 			$to		   = isset($data['to']) ? $data['to'] : Settings::get('contact_email');
 
@@ -50,10 +50,10 @@ class Events_Templates {
             if ( ! is_array($to)) $to = str_replace('|', ',', $to);
 
             $subject = array_key_exists($lang, $templates) ? $templates[$lang]->subject : $templates['en']->subject ;
-            $subject = $this->ci->parser->parse_string($subject, $data, TRUE);
+            $subject = $this->ci->parser->parse_string($subject, $data, true);
 
             $body = array_key_exists($lang, $templates) ? $templates[$lang]->body : $templates['en']->body ;
-            $body = $this->ci->parser->parse_string($body, $data, TRUE);
+            $body = $this->ci->parser->parse_string($body, $data, true);
 
             $this->ci->email->from($from, $from_name);
             $this->ci->email->reply_to($reply_to);
@@ -76,7 +76,7 @@ class Events_Templates {
         }
 
         //return false if we can't find the necessary templates
-        return FALSE;
+        return false;
     }
 }
 /* End of file events.php */

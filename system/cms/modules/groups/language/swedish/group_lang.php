@@ -1,5 +1,14 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
+ /**
+ * Swedish translation.
+ *
+ * @author		marcus@incore.se
+ * @package		PyroCMS  
+ * @link		http://pyrocms.com
+ * @date		2012-10-22
+ * @version		1.1.0
+ */
 
 $lang['groups.title'] = 'Titel';
 $lang['groups.name'] = 'Gruppnamn';
@@ -17,6 +26,5 @@ $lang['groups.delete_error'] = 'Ett fel inträffade när gruppen skulle raderas.
 $lang['groups.already_exist_error'] = 'En grupp med namnet "%s" finns redan.';
 
 
-
 /* End of file group_lang.php */  
-/* Location: ./system/cms/modules/groups/language/english */ 
+/* Location: system/cms/modules/groups/language/swedish/group_lang.php */  

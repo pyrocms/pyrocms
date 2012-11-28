@@ -52,8 +52,8 @@ $lang['global:demo_restrictions'] 	= 'Μερικές λειτουργίες σε
 
 $lang['login_error_label'] 		= 'Σφάλμα σύνδεσης';
 $lang['forgot_password_label'] 		= 'Ξεχάσατε το συνθηματικό σας;';
-$lang['email_label'] 			= 'E-mail';
-$lang['password_label'] 		= 'Συνθηματικό';
+$lang['global:email'] 			= 'E-mail';
+$lang['global:password'] 		= 'Συνθηματικό';
 $lang['login_label'] 			= 'Σύνδεση';
 
 $lang['help_label'] 			= 'Βοήθεια';
@@ -65,7 +65,7 @@ $lang['activate_label'] 		= 'Ενεργοποίηση';
 $lang['approve_label']			= 'Έγκριση';
 $lang['unapprove_label']		= 'Απόρριψη';
 $lang['publish_label'] 			= 'Δημοσίευση';
-$lang['upload_label'] 			= 'Ανέβασμα';
+$lang['global:upload'] 			= 'Ανέβασμα';
 $lang['global:uninstall'] 		= 'Απεγκατάσταση';
 $lang['global:install'] 		= 'Εγκατάσταση';
 $lang['global:upgrade'] 		= 'Ενημέρωση';

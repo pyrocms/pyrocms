@@ -36,7 +36,7 @@ class Module_Permissions extends Module {
 				'zh' => '權限',
 				'hu' => 'Jogosultságok',
 				'th' => 'สิทธิ์',
-                                'se' => 'Behörigheter'
+				'se' => 'Behörigheter',
 			),
 			'description' => array(
 				'en' => 'Control what type of users can see certain sections within the site.',
@@ -61,7 +61,7 @@ class Module_Permissions extends Module {
 				'zh' => '用來控制不同類別的用戶，設定其瀏覽特定網站內容的權限。',
 				'hu' => 'A felhasználók felügyelet alatt tartására, hogy milyen típusú felhasználók, mit láthatnak, mely szakaszain az oldalnak.',
 				'th' => 'ควบคุมว่าผู้ใช้งานจะเห็นหมวดหมู่ไหนบ้าง',
-                                'se' => 'Hantera gruppbehörigheter.'
+				'se' => 'Hantera gruppbehörigheter.',
 			),
 			'frontend' => false,
 			'backend'  => true,

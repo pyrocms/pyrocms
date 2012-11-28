@@ -1,5 +1,14 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
+ /**
+ * Swedish translation.
+ *
+ * @author		marcus@incore.se
+ * @package		PyroCMS  
+ * @link		http://pyrocms.com
+ * @date		2012-10-22
+ * @version		1.1.0
+ */
 
 $lang['intro'] = 'Start';
 $lang['step1'] = 'Steg #1';
@@ -11,6 +20,5 @@ $lang['installer.passwords_match'] = 'Anslutningen fungerar';
 $lang['installer.passwords_dont_match'] = 'Anslutningen fungerar inte, kontrollera lösenord';
 
 
-
 /* End of file global_lang.php */  
-/* Location: ./installer/language/english */ 
+/* Location: installer/language/swedish/global_lang.php */  

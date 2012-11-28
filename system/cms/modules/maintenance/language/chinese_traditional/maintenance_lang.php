@@ -9,3 +9,10 @@ $lang['maintenance:remove_msg'] 		= '目錄 %2$s 已經刪除';
 
 $lang['maintenance:empty_msg_err'] 		= '清空目錄 %s 有錯誤';
 $lang['maintenance:remove_msg_err'] 	= '移除目錄 %s 有錯誤';
+
+$lang['maintenance:export_data']		= 'Export Data';
+$lang['maintenance:export_xml']			= 'Export XML';
+$lang['maintenance:export_csv']			= 'Export CSV';
+$lang['maintenance:export_json']		= 'Export JSON';
+$lang['maintenance:table_label']		= 'Tables';
+$lang['maintenance:record_label']		= 'Records';

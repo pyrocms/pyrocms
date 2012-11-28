@@ -21,9 +21,9 @@ $lang['global:slug'] 					= 'Slug'; #translate
 $lang['global:slug_instructions']		= 'Lowercase characters and underscores only.'; #translate
 
 $lang['dialog.delete_message']	= 'Вы уверены, что хотите удалить? Это действие нельзя отменить.';
-$lang['dialog.confirm']					= 'Подтверждение';
-$lang['dialog.yes']							= 'Да';
-$lang['dialog.no']							= 'Нет';
+$lang['global:dialog:confirm']					= 'Подтверждение';
+$lang['global:yes']							= 'Да';
+$lang['global:no']							= 'Нет';
 
 $lang['global:select-none']						= '-- нет --';
 $lang['global:select-all']							= '-- все --';
@@ -33,10 +33,17 @@ $lang['global:select-pick']						= '-- выберите --';
 $lang['global:check-none'] 						= 'Ни одного';
 $lang['global:check-all']							= 'Все';
 
-$lang['operators.equal']				= 'Равно';
-$lang['operators.not_equal']		= 'Не равно';
-$lang['operators.less_than']		= 'Меньше чем';
-$lang['operators.greater_than']	= 'Больше чем';
+$lang['global:operators:equal']				= 'Равно';
+$lang['global:operators:not-equal']		= 'Не равно';
+$lang['global:operators:less-than']		= 'Меньше чем';
+$lang['global:operators:greater-than']	= 'Больше чем';
+
+$lang['global:duration:1-day']			= 'One day'; #translate
+$lang['global:duration:1-week']			= 'One week'; #translate
+$lang['global:duration:2-weeks']		= 'Two weeks'; #translate
+$lang['global:duration:1-month']		= 'One month'; #translate
+$lang['global:duration:3-months']		= 'Three Months'; #translate
+$lang['global:duration:always']			= 'Always'; #translate
 
 $lang['navigation_headline']		= 'Навигация';
 $lang['breadcrumb_base_label']	= 'Домой';
@@ -58,8 +65,8 @@ $lang['global:demo_restrictions']       = 'Some features on this page have been 
 
 $lang['login_error_label']			= 'Ошибка входа';
 $lang['forgot_password_label']	= 'Забыли пароль?';
-$lang['email_label']						= 'E-mail';
-$lang['password_label']					= 'Пароль';
+$lang['global:email']						= 'E-mail';
+$lang['global:password']					= 'Пароль';
 $lang['login_label']						= 'Войти';
 
 $lang['help_label']							= 'Помощь';
@@ -71,7 +78,7 @@ $lang['activate_label']					= 'Активировать';
 $lang['approve_label']					= 'Утвердить';
 $lang['unapprove_label']				= 'Отменить';
 $lang['publish_label']					= 'Опубликовать';
-$lang['upload_label']						= 'Загрузить';
+$lang['global:upload']						= 'Загрузить';
 $lang['global:uninstall']				= 'Удалить';
 $lang['global:install']					= 'Установить';
 $lang['global:enable']						= 'Включить';

@@ -117,14 +117,6 @@ class Field_relationship
 	{
 		if ( ! $input) return null;
 
-		// We only need this in the admin.
-		// Relationships are taken care of by a join
-		// on the front end
-		if ($this->CI->uri->segment(1) != 'admin')
-		{
-			return null;
-		}
-	
 		$stream = $this->CI->streams_m->get_stream($data['choose_stream']);
 
 		$title_column = $stream->title_column;
@@ -140,7 +132,7 @@ class Field_relationship
 			return null;
 		}
 		
-		// We need to make sure the select is NOT null.
+		// We need to make sure the select is NOT NULL.
 		// So, if we have no title column, let's use the id
 		if (trim($title_column) == '')
 		{
@@ -152,17 +144,19 @@ class Field_relationship
 		// -------------------------------------
 		
 		$row = $this->CI->db
-						->select('id, '.$title_column)
+						->select()
 						->where('id', $input)
 						->get($stream->stream_prefix.$stream->stream_slug)
-						->row();
+						->row_array();
 		
-		if (isset($row->$title_column))
+		if ( $this->CI->uri->segment(1) == 'admin' )
 		{
-			return '<a href="'.site_url('admin/streams/entries/view/'.$stream->id.'/'.$row->id).'">'.$row->$title_column.'</a>';
+			return '<a href="'.site_url('admin/streams/entries/view/'.$stream->id.'/'.$row['id']).'">'.$row[$title_column].'</a>';
 		}
-		
-		return null;
+		else
+		{
+			return $row;
+		}
 	}
 
 	// --------------------------------------------------------------------------

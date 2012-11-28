@@ -5,7 +5,8 @@
  * 
  * This overrides Codeigniter's helpers/date_helper.php
  *
- * @author		Philip Sturgeon
+ * @author      PyroCMS Dev Team
+ * @copyright   Copyright (c) 2012, PyroCMS LLC
  * @package		PyroCMS\Core\Helpers
  */
 
@@ -32,7 +33,7 @@ if (!function_exists('format_date'))
 			$format = Settings::get('date_format');
 		}
 
-		return strstr($format, '%') !== FALSE ? ucfirst(utf8_encode(strftime($format, $unix))) : date($format, $unix);
+		return strstr($format, '%') !== false ? ucfirst(utf8_encode(strftime($format, $unix))) : date($format, $unix);
 	}
 
 }
