@@ -190,6 +190,13 @@ class Module_import
 					}
 
 					$this->install($module_name, $is_core);
+
+					// Settings is installed first. Once it's installed we load the library
+					// so all modules can use settings in their install code.
+					if ($module_name === 'settings')
+					{
+						$this->ci->load->library('settings/settings');
+					}
 				}
 			}
 
