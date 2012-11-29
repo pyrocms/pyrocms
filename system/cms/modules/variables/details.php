@@ -49,7 +49,7 @@ class Module_Variables extends Module {
 				'el' => 'Διαχείριση μεταβλητών που είναι προσβάσιμες από παντού στον ιστότοπο.',
 				'es' => 'Manage global variables to access from everywhere.',
 				'fi' => 'Hallitse globaali muuttujia, joihin pääsee käsiksi mistä vain.',
-				'fr' => 'Manage global variables to access from everywhere.',
+				'fr' => 'Gérer des variables globales pour pouvoir y accéder depuis n\'importe quel endroit du site.',
 				'he' => 'ניהול משתנים גלובליים אשר ניתנים להמרה בכל חלקי האתר',
 				'id' => 'Mengatur variabel global yang dapat diakses dari mana saja.',
 				'it' => 'Gestisci le variabili globali per accedervi da ogni parte.',
