@@ -274,7 +274,7 @@ define('ENVIRONMENT', (isset($_SERVER['PYRO_ENV']) ? $_SERVER['PYRO_ENV'] : PYRO
  * ...and it will take care of our classes
  *
  */
-require_once 'system/vendor/autoload.php';
+require_once FCPATH.'vendor/autoload.php';
 
 /*
  * --------------------------------------------------------------------

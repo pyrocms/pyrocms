@@ -106,7 +106,7 @@ class Module_Files extends Module {
 			$table->string('slug', 100);
 			$table->string('name', 100);
 			$table->string('location', 20)->default('local');
-			$table->string('remote_container', 100)->nullable();,
+			$table->string('remote_container', 100)->nullable();
 			$table->integer('date_added', 11);
 			$table->integer('sort')->default(0);
 
