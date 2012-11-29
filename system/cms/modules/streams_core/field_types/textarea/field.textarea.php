@@ -4,10 +4,8 @@
  * PyroStreams Textarea Field Type
  *
  * @package		PyroCMS\Core\Modules\Streams Core\Field Types
- * @author		Parse19
- * @copyright	Copyright (c) 2011 - 2012, Parse19
- * @license		http://parse19.com/pyrostreams/docs/license
- * @link		http://parse19.com/pyrostreams
+ * @author		Adam Fairholm
+ * @copyright	Copyright (c) 2011 - 2012, Adam Fairholm
  */
 class Field_textarea
 {
@@ -15,11 +13,11 @@ class Field_textarea
 	
 	public $db_col_type				= 'longtext';
 
-	public $version					= '1.0';
+	public $version					= '1.1';
 
-	public $author					= array('name'=>'Parse19', 'url'=>'http://parse19.com');
+	public $author					= array('name' => 'Adam Fairholm', 'url' => 'http://adamfairholm.com');
 
-	public $custom_parameters		= array('default_value');
+	public $custom_parameters		= array('default_text');
 	
 	// --------------------------------------------------------------------------
 
@@ -30,13 +28,53 @@ class Field_textarea
 	 * @param	array
 	 * @return	string
 	 */
-	public function form_output($data)
+	public function form_output($data, $entry_id, $field)
 	{
-		$options['name'] 	= $data['form_slug'];
-		$options['id']		= $data['form_slug'];
-		$options['value']	= $data['value'];
-		
+		// Value
+		// We only use the default value if this is a new
+		// entry.
+		if ( ! $entry_id)
+		{
+			$value = (isset($field->field_data['default_text'])) ? $field->field_data['default_text'] : null;
+
+			// If we still don't have a default value, maybe we have it in
+			// the old default value string. So backwards compat.
+			if ( ! $value and isset($field->field_data['default_vlaue']))
+			{
+				$value = $field->field_data['default_vlaue'];
+			}
+		}
+		else
+		{
+			$value = $data['value'];
+		}	
+
+		$options = array(
+			'name'		=> $data['form_slug'],
+			'id'		=> $data['form_slug'],
+			'value'		=> $value
+		);
+
 		return form_textarea($options);
 	}
+
+	// --------------------------------------------------------------------------
 	
+	/**
+	 * Default Textarea Value
+	 *
+	 * @access	public
+	 * @param	[string - value]
+	 * @return	string
+	 */
+	public function param_default_text($value = null)
+	{
+		$options = array(
+			'name'		=> 'default_text',
+			'id'		=> 'default_text',
+			'value'		=> $value,
+		);
+		
+		return form_textarea($options);
+	}	
 }

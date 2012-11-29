@@ -2,10 +2,8 @@
 /**
  * Admin controller for the Page Layouts of the Pages module.
  *
- * @author		 Phil Sturgeon
- * @author		 Yorick Peterse
  * @author		PyroCMS Dev Team
- * @package	 PyroCMS\Core\Modules\Pages\Controllers
+ * @package	 	PyroCMS\Core\Modules\Pages\Controllers
  */
 class Admin_layouts extends Admin_Controller
 {
@@ -124,6 +122,7 @@ class Admin_layouts extends Admin_Controller
 		}
 
 		$theme_layouts = $this->template->get_theme_layouts($this->settings->default_theme);
+		$data->theme_layouts = array();
 		foreach ($theme_layouts as $theme_layout)
 		{
 			$data->theme_layouts[$theme_layout] = basename($theme_layout, '.html');
@@ -178,7 +177,9 @@ class Admin_layouts extends Admin_Controller
 			
 			Events::trigger('page_layout_updated', $id);
 
-			redirect('admin/pages/layouts');
+			$this->input->post('btnAction') == 'save_exit'
+				? redirect('admin/pages/layouts')
+				: redirect('admin/pages/layouts/edit/'.$id);
 		}
 
 		// Loop through each validation rule

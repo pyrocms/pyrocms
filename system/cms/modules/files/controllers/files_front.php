@@ -8,7 +8,7 @@
  */
 class Files_front extends Public_Controller
 {
-	private	$path = '';
+	private	$_path = '';
 	
 	public function __construct()
 	{
@@ -236,9 +236,9 @@ class Files_front extends Public_Controller
 		}
 
 		header('Content-type: ' . $file->mimetype);
-		header('Last-Modified: ' . gmdate('D, d M Y H:i:s', filemtime($image_thumb)) . ' GMT');
+		header('Last-Modified: ' . gmdate('D, d M Y H:i:s', filemtime($thumb_filename)) . ' GMT');
 		ob_clean();
-		readfile($image_thumb);
+		readfile($thumb_filename);
 	}
 
 	public function large($id)

@@ -14,6 +14,9 @@ $lang['addons:modules:enable_error']			= 'אין אפשרות להפעיל את 
 $lang['addons:modules:enable_success']			= 'מודול "%s" הופעל.';
 $lang['addons:modules:install_error']			= 'אין אפשרות להתקין את המודול.';
 $lang['addons:modules:install_success']			= 'מודול "%s" הותקן בהצלחה.';
+
+$lang['addons:modules:module_upload_success']   = 'The module "%s" has been uploaded.'; #translate
+
 $lang['addons:modules:delete_success']			= 'The module "%s" has been deleted.'; #translate
 $lang['addons:modules:delete_error']			= 'Could not delete the module "%s".'; #translate
 $lang['addons:modules:uninstall_error']			= 'אין אפשרות להסיר את מודול "%s".';

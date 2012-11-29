@@ -99,7 +99,7 @@ class Admin extends Admin_Controller
 
 		// Create pagination links
 		$pagination = create_pagination('admin/users/index', $this->user_m->count_by($base_where));
-		
+
 		//Skip admin
 		$skip_admin = ( $this->current_user->group != 'admin' ) ? 'admin' : '';
 
@@ -107,8 +107,8 @@ class Admin extends Admin_Controller
 		$this->db->order_by('active', 'desc')
 			->join('groups', 'groups.id = users.group_id')
 			->where_not_in('groups.name', $skip_admin)
-			->limit($pagination['limit']);
-			
+			->limit($pagination['limit'], $pagination['offset']);
+
 		$users = $this->user_m->get_many_by($base_where);
 
 		// Unset the layout if we have an ajax request
@@ -237,6 +237,7 @@ class Admin extends Admin_Controller
 			{
 				$member = (object) $_POST;
 			}
+
 		}
 
 		if ( ! isset($member))
@@ -305,7 +306,7 @@ class Admin extends Admin_Controller
 			{
 				$profile_data[$assign->field_slug] = $this->input->post($assign->field_slug);
 			}
-			else
+			elseif (isset($member->{$assign->field_slug}))
 			{
 				$profile_data[$assign->field_slug] = $member->{$assign->field_slug};
 			}
@@ -385,13 +386,24 @@ class Admin extends Admin_Controller
 			}
 		}
 
+		// We need the profile ID to pass to get_stream_fields.
+		// This theoretically could be different from the actual user id.
+		if ($id)
+		{
+			$profile_id = $this->db->limit(1)->select('id')->where('user_id', $id)->get('profiles')->row()->id;
+		}
+		else
+		{
+			$profile_id = null;
+		}
+
 		// Run stream field events
 		$this->fields->run_field_events($this->streams_m->get_stream_fields($this->streams_m->get_stream_id_from_slug('profiles', 'users')));
 
 		$this->template
 			->title($this->module_details['name'], sprintf(lang('user_edit_title'), $member->username))
 			->set('display_name', $member->display_name)
-			->set('profile_fields', $this->streams->fields->get_stream_fields('profiles', 'users', $profile_data))
+			->set('profile_fields', $this->streams->fields->get_stream_fields('profiles', 'users', $profile_data, $profile_id))
 			->set('member', $member)
 			->build('admin/form');
 	}

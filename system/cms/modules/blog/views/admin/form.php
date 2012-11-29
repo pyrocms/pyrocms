@@ -26,7 +26,7 @@
 				<div class="input">
 					<label for="title"><?php echo lang('global:title'); ?></label>
 					<?php echo form_input('title', htmlspecialchars_decode($post->title), 'maxlength="100" id="title"'); ?>
-					<span class="req">This field is required.</span>
+					<span class="req"><?php echo lang('required_error_label'); ?></span>
 				</div>				
 			</li>
 			
@@ -34,7 +34,7 @@
 				<div class="input">
 					<label for="slug"><?php echo lang('global:slug'); ?></label>
 					<?php echo form_input('slug', $post->slug, 'maxlength="100" class="width-20"'); ?>
-					<span class="req">This field is required.</span>
+					<span class="req"><?php echo lang('required_error_label'); ?></span>
 				</div>
 			</li>
 			

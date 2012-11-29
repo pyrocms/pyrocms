@@ -10,6 +10,9 @@
  */
 class Plugin_Asset extends Plugin
 {
+	public $description = array(
+		'en'	=> 'Access assets.'
+	);
 
 	/**
 	 * Asset CSS

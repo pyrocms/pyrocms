@@ -31,21 +31,28 @@ class Plugin_Files extends Plugin
 	 * 	// your html logic
 	 * {{ /files:listing }}
 	 *
+	 * 
+	 * Alternate Usage:
+	 * 
+	 * {{ files:listing folder="home-slider" tagged="sunset|hiking|mountain" }}
+	 * 	// your html logic
+	 * {{ /files:listing }}
+	 *
 	 * The tags that are available to use from this method are listed below
 	 *
-	 * {id}
-	 * {folder_id}
-	 * {user_id}
-	 * {type}
-	 * {name}
-	 * {filename}
-	 * {description}
-	 * {extension}
-	 * {mimetype}
-	 * {width}
-	 * {height}
-	 * {filesize}
-	 * {date_added}
+	 * {{ id }}
+	 * {{ folder_id }}
+	 * {{ user_id }}
+	 * {{ type }}
+	 * {{ name }}
+	 * {{ filename }}
+	 * {{ description }}
+	 * {{ extension }}
+	 * {{ mimetype }}
+	 * {{ width }}
+	 * {{ height }}
+	 * {{ filesize }}
+	 * {{ date_added }}
 	 *
 	 * @return	array
 	 */
@@ -57,6 +64,7 @@ class Plugin_Files extends Plugin
 		}
 
 		$folder_id	= $this->attribute('folder', ''); // Id or Path
+		$tags		= $this->attribute('tagged', false);
 		$limit		= $this->attribute('limit', '10');
 		$offset		= $this->attribute('offset', '');
 		$type		= $this->attribute('type', '');
@@ -75,35 +83,57 @@ class Plugin_Files extends Plugin
 			}
 		}
 
-		if (empty($folder))
+		if (isset($folder) and $folder)
+		{
+			// we're getting the files for an entire tree
+			if (in_array($fetch, array('root', 'subfolder')))
+			{
+				$fetch_id = ($fetch === 'root' ? $folder->root_id : $folder->id);
+
+				$subfolders = $this->file_folders_m->folder_tree($fetch_id);
+
+				if ($subfolders)
+				{
+					$ids = array_merge(array((int) $folder->id), array_keys($subfolders));
+					$this->db->select('files.*, files.id as file_id, file_folders.location')
+						->join('file_folders', 'file_folders.id = files.folder_id')
+						->where_in('folder_id', $ids);
+				}
+			}
+			// just the files for one folder
+			else
+			{
+				$this->db->select('files.*, files.id as file_id, file_folders.location')
+					->join('file_folders', 'file_folders.id = files.folder_id')
+					->where('folder_id', $folder->id);
+			}
+		}
+		// no restrictions by folder so we'll just be getting files by their tags. Set up the join
+		elseif ( ! isset($folder))
+		{
+			$this->db->select('files.*, files.id as file_id, file_folders.location')
+				->join('file_folders', 'file_folders.id = files.folder_id');
+		}
+		else
 		{
 			return array();
 		}
 
-		if (in_array($fetch, array('root', 'subfolder')) &&
-			$subfolders = $this->file_folders_m->folder_tree(
-				$fetch === 'root' ? $folder->root_id : $folder->id
-			))
-		{
-			$ids = array_merge(array((int) $folder->id), array_keys($subfolders));
-			$this->db->select('files.*, files.id as file_id, file_folders.location')
-				->join('file_folders', 'file_folders.id = files.folder_id')
-				->where_in('folder_id', $ids);
-		}
-		else
-		{
-			$this->db->select('files.*, files.id as file_id, file_folders.location')
-				->join('file_folders', 'file_folders.id = files.folder_id')
-				->where('folder_id', $folder->id);
+		$type 		and $this->db->where('type', $type);
+		$limit 		and $this->db->limit($limit);
+		$offset 	and $this->db->offset($offset);
+        $order_by 	and $this->db->order_by($order_by);
+
+        if ($tags)
+        {
+			$files = $this->file_m->get_tagged($tags);
+        }
+        else
+        {
+			$files = $this->file_m->get_all();
 		}
 
-		$type and $this->db->where('type', $type);
-		$limit and $this->db->limit($limit);
-		$offset and $this->db->offset($offset);
-        $order_by and $this->db->order_by($order_by);
-
-		$files = $this->file_m->get_all();
-		$files and array_merge($this->_files, $files);
+		$files and array_merge($this->_files, (array) $files);
 
 		return $files;
 	}
@@ -224,7 +254,10 @@ class Plugin_Files extends Plugin
 		}
 
 		$base = $this->attribute('base', 'url');
-
+		
+		// alt tag is named differently in db to prevent confusion with "alternative", so need to do check for it manually
+		$attributes['alt'] = isset($attributes['alt']) ? $attributes['alt'] : $file->alt_attribute;
+		
 		// return an image tag html
 		if ($type === 'i')
 		{

@@ -10,6 +10,9 @@
  */
 class Plugin_Template extends Plugin
 {
+	public $description = array(
+		'en'	=> 'Access and set theme settings and properties.'
+	);
 
 	/**
 	 * Set Template Title

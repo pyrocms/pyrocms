@@ -47,13 +47,6 @@ jQuery(function($) {
 	 */
 	pyro.init = function() {
 
-		// Drop Menu
-		$("nav#primary ul li").hover(function(){
-			$(this).find('ul:first').css({visibility: "visible",display: "none"}).stop(true, true).fadeIn(250);
-		},function(){
-			$(this).find('ul:first').css({visibility: "visible"}).fadeOut(250);
-		});
-
 		// Select menu for smaller screens
 		$("<select />").appendTo("nav#primary");
 
@@ -77,19 +70,27 @@ jQuery(function($) {
   			window.location = $(this).find("option:selected").val();
 		});
 
+		$('.topbar ul li:not(#dashboard-link)').hoverIntent({
+			sensitivity: 7,
+			interval: 75,
+			over: function(){ $(this).find('ul:first:hidden').css({visibility: "visible", display: "none"}).slideDown(400) },
+			timeout: 0,
+			out: function(){ $(this).parent().find('ul').slideUp(400) }
+		});
+
 		// Add class to dropdowns for styling
-		$("nav#primary ul li:has(ul)").children("a").addClass("menu");
+		$(".topbar ul li:has(ul)").children("a").addClass("menu");
 
 		// Add the close link to all alert boxes
 		$('.alert').livequery(function(){
-			$(this).prepend('<a href="#" class="close">&times;</a>');
+			$(this).prepend('<a href="#" class="close">x</a>');
 		});
 
 		// Close the notifications when the close link is clicked
 		$('a.close').live('click', function(e){
 			e.preventDefault();
-			$(this).slideUp(800); // This is a hack so that the close link fades out in IE
-			$(this).parent().slideUp(800);
+			$(this).fadeTo(200, 0); // This is a hack so that the close link fades out in IE
+			$(this).parent().fadeTo(200, 0);
 			$(this).parent().slideUp(400, function(){
 				$(window).trigger('notification-closed');
 				$(this).remove();
@@ -99,8 +100,8 @@ jQuery(function($) {
 		$("#datepicker").datepicker({dateFormat: 'yy-mm-dd'});
 
 		// Fade in the notifications
-		$('.block-message').livequery(function(){
-			$(this).hide().delay(800).slideDown(800, function(){
+		$('.alert').livequery(function(){
+			$(this).fadeIn('slow', function(){
 				$(window).trigger('notification-complete');
 			});
 		});
@@ -375,7 +376,7 @@ jQuery(function($) {
 	}
 
 	// Create a clean slug from whatever garbage is in the title field
-	pyro.generate_slug = function(input_form, output_form, space_character)
+	pyro.generate_slug = function(input_form, output_form, space_character, disallow_dashes)
 	{
 		var slug, value;
 
@@ -383,8 +384,8 @@ jQuery(function($) {
 			value = $(input_form).val();
 
 			if ( ! value.length ) return;
-			
 			space_character = space_character || '-';
+			disallow_dashes = disallow_dashes || false;
 			var rx = /[a-z]|[A-Z]|[0-9]|[áàâąбćčцдđďéèêëęěфгѓíîïийкłлмñńňóôóпúùûůřšśťтвýыžżźзäæœчöøüшщßåяюжαβγδεέζηήθιίϊκλμνξοόπρστυύϋφχψωώ]/,
 				value = value.toLowerCase(),
 				chars = pyro.foreign_characters,
@@ -408,10 +409,19 @@ jQuery(function($) {
 		        	value = value.replace(new RegExp(search, 'g'), replace);
 		        };
 
+
+
 		        slug = value.replace(/[^-a-z0-9~\s\.:;+=_]/g, '')
 		        			.replace(/[\s\.:;=+]+/g, space_character)
 		        			.replace(space_regex, space_character)
 		        			.replace(space_regex_trim, '');
+
+		        // Remove the dashes if they are
+		        // not allowed.
+		       	if (disallow_dashes)
+		        {
+					slug = slug.replace(/-+/g, '_');
+		        }
 		    }
 
 			$(output_form).val(slug);
@@ -431,6 +441,21 @@ jQuery(function($) {
 	$('#cboxLoadedContent a.cancel').live('click', function(e) {
 		e.preventDefault();
 		$.colorbox.close();
+	});
+
+
+	// Title toggle
+	$('a.toggle').click(function() {
+	   $(this).parent().next('.item').slideToggle(500);
+	});
+
+	// Draggable / Droppable
+	$("#sortable").sortable({
+		placeholder : 'dropzone',
+	    handle : '.draggable',
+	    update : function () {
+	      var order = $('#sortable').sortable('serialize');
+	    }
 	});
 
 	// Pretty Photo

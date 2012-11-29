@@ -14,6 +14,9 @@ $lang['addons:modules:enable_error']            = 'Nepavyko įjungti modulio "%s
 $lang['addons:modules:enable_success']          = 'Modulis "%s" buvo įjungtas.';
 $lang['addons:modules:install_error']           = 'Nepavyko suinstaliuoti modulio.';
 $lang['addons:modules:install_success']         = 'Modulis "%s" instaliuotas.';
+
+$lang['addons:modules:module_upload_success']   = 'The module "%s" has been uploaded.'; #translate
+
 $lang['addons:modules:delete_success']			 = 'Modulis "%s" buvo ištrintas.';
 $lang['addons:modules:delete_error']			 = 'Nepavyko ištrinti modulio "%s".';
 $lang['addons:modules:uninstall_error']         = 'Nepavyko ištrinti modulio "%s".';

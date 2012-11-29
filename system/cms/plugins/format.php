@@ -10,6 +10,9 @@
  */
 class Plugin_format extends Plugin
 {
+	public $description = array(
+		'en'	=> 'Format strings, including markdown and textile.'
+	);
 
 	/**
 	 * Markdown
@@ -31,7 +34,7 @@ class Plugin_format extends Plugin
 
 		$content = $this->attribute('content', $this->content());
 
-		return parse_markdown(trim($content, "\n"));
+		return parse_markdown(trim($content));
 	}
 	
 	
@@ -55,7 +58,35 @@ class Plugin_format extends Plugin
 
 		$content = $this->attribute('content', $this->content());
 
-		return $this->textile->TextileThis(trim($content, "\n"));
+		return $this->textile->TextileThis(trim($content));
+	}
+
+
+	/**
+	 * URL Title
+	 *
+	 * Converts a string using the `url_title()` URL Helper function
+	 *
+	 * Usage:
+	 * {{ format:url_title string="Introducing New Administrators" separator="dash" lowercase="true" }}
+	 *
+	 * Outputs: "introducing-new-administrators"
+	 *
+	 * @return string Formatted with the `url_title` helper function
+	 */
+	public function url_title()
+	{
+		$this->load->helper('url');
+
+		$attrs = $this->attributes();
+
+		// fix 'true' or 'false' to real bools.
+		if (count($attrs) > 2) {
+			$bool = array_slice($attrs, 2);
+			array_splice($attrs, 2, 1, (bool) $bool);
+		}
+
+		return call_user_func_array('url_title', $attrs);
 	}
 
 

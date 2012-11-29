@@ -31,7 +31,7 @@ class MY_Form_validation extends CI_Form_validation
 	 */
 	public function alpha_dot_dash($str)
 	{
-		return preg_match("/^([-a-z0-9_\-\.])+$/i", $str);
+		return (bool) preg_match("/^([-a-z0-9_\-\.])+$/i", $str);
 	}
 
 	// --------------------------------------------------------------------
@@ -205,7 +205,7 @@ class MY_Form_validation extends CI_Form_validation
 		// --------------------------------------------------------------------
 
 		// Cycle through each rule and run it
-		foreach ($rules As $rule)
+		foreach ($rules as $rule)
 		{
 			$_in_array = false;
 

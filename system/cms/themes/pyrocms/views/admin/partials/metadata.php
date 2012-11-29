@@ -14,7 +14,7 @@ Asset::js(array('codemirror/codemirror.js',
 	'scripts.js'
 )); ?>
 
-<?php if (isset($analytic_visits) or isset($analytic_views)): ?>
+<?php if (isset($analytic_visits) OR isset($analytic_views)): ?>
 	<?php Asset::js('jquery/jquery.excanvas.min.js'); ?>
 	<?php Asset::js('jquery/jquery.flot.js'); ?>
 <?php endif; ?>
@@ -36,14 +36,18 @@ Asset::js(array('codemirror/codemirror.js',
 	pyro.foreign_characters			= <?php echo json_encode(accented_characters()); ?>
 </script>
 
-<?php Asset::css(array('workless/minified.css.php', 'jquery/colorbox.css', 'codemirror.css')); ?>
+<?php Asset::css(array('plugins.css', 'jquery/colorbox.css', 'codemirror.css')); ?>
 
 <?php echo Asset::render(); ?>
 
 <!--[if lt IE 9]>
-	<?php echo Asset::css('ie8.css', null, 'ie8'); ?>
-	<?php echo Asset::render_css('ie8'); ?>
-	<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<?php echo Asset::css('ie8.css', null, 'ie8'); ?>
+<?php echo Asset::render_css('ie8'); ?>
+<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
+
+<?php if ($module_details['sections']): ?>
+<style>section#content {margin-top: 170px!important;}</style>
+<?php endif; ?>
 
 <?php echo $template['metadata']; ?>

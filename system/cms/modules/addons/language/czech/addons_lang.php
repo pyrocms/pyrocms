@@ -14,6 +14,9 @@ $lang['addons:modules:enable_error']			= 'Nepodařilo se povolit modul "%s".';
 $lang['addons:modules:enable_success']			= 'Modul "%s" byl povolen.';
 $lang['addons:modules:install_error']			= 'Nepodařilo se nainstalovat modul.';
 $lang['addons:modules:install_success']			= 'Modul "%s" byl nainstalován.';
+
+$lang['addons:modules:module_upload_success']   = 'The module "%s" has been uploaded.'; #translate
+
 $lang['addons:modules:delete_success']			= 'The module "%s" has been deleted.'; #translate
 $lang['addons:modules:delete_error']			= 'Could not delete the module "%s".'; #translate
 $lang['addons:modules:uninstall_error']			= 'Nepodařilo se odinstalovat modul "%s".';

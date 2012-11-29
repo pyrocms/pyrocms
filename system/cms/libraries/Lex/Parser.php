@@ -313,16 +313,25 @@ class Lex_Parser
 
 			$condition = preg_replace_callback('/\b('.$this->variable_regex.')\b/', array($this, 'process_condition_var'), $condition);
 
-			// Re-process for variables, we trick processConditionVar so that it will return null
-			$this->in_condition = false;
-			$condition = preg_replace_callback('/\b('.$this->variable_regex.')\b/', array($this, 'process_condition_var'), $condition);
-			$this->in_condition = true;
-
 			if ($callback)
 			{
 				$condition = preg_replace('/\b(?!\{\s*)('.$this->callback_name_regex.')(?!\s+.*?\s*\})\b/', '{$1}', $condition);
 				$condition = $this->parse_callback_tags($condition, $data, $callback);
+
+				// Incase the callback returned a string, we need to extract it
+				if (preg_match_all('/(["\']).*?(?<!\\\\)\1/', $condition, $str_matches))
+				{
+					foreach ($str_matches[0] as $m)
+					{
+						$condition = $this->create_extraction('__cond_str', $m, $m, $condition);
+					}
+				}
 			}
+			
+			// Re-process for variables, we trick processConditionVar so that it will return null
+			$this->in_condition = false;
+			$condition = preg_replace_callback('/\b('.$this->variable_regex.')\b/', array($this, 'process_condition_var'), $condition);
+			$this->in_condition = true;
 
 			// Re-inject any strings we extracted
 			$condition = $this->inject_extractions($condition, '__cond_str');

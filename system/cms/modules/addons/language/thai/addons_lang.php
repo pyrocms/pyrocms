@@ -22,6 +22,9 @@ $lang['addons:modules:enable_error']            = 'ไม่สามารถ�
 $lang['addons:modules:enable_success']          = 'โมดูล "%s" ถูกเปิดการใช้งาน';
 $lang['addons:modules:install_error']           = 'ไม่สามารถติดตั้งโมดูลได้';
 $lang['addons:modules:install_success']         = 'โมดูล "%s" ถูกติดตั้งแล้ว';
+
+$lang['addons:modules:module_upload_success']   = 'The module "%s" has been uploaded.'; #translate
+
 $lang['addons:modules:delete_success']			= 'โมดูล "%s" ถูกลบแล้ว';
 $lang['addons:modules:delete_error']			= 'ไม่สามารถลบโมดูล "%s".';
 $lang['addons:modules:uninstall_error']         = 'ไม่สามารถถอนการติดตั้งโมดูล "%s".';

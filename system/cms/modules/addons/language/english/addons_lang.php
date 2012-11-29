@@ -12,8 +12,12 @@ $lang['addons:modules:disable_error']			= 'Could not disable the module "%s".';
 $lang['addons:modules:disable_success']         = 'The module "%s" has been disabled.';
 $lang['addons:modules:enable_error']            = 'Could not enable the module "%s".';
 $lang['addons:modules:enable_success']          = 'The module "%s" has been enabled.';
+
 $lang['addons:modules:install_error']           = 'Could not install the module.';
 $lang['addons:modules:install_success']         = 'The module "%s" has been installed.';
+
+$lang['addons:modules:module_upload_success']   = 'The module "%s" has been uploaded.';
+
 $lang['addons:modules:delete_success']			= 'The module "%s" has been deleted.';
 $lang['addons:modules:delete_error']			= 'Could not delete the module "%s".';
 $lang['addons:modules:uninstall_error']         = 'Could not uninstall the module "%s".';
@@ -59,5 +63,8 @@ $lang['addons:themes:make_default']				= 'Make default';
 $lang['addons:themes:version_label']			= 'Version';
 $lang['addons:themes:default_theme_label']		= 'Default Theme';
 $lang['addons:themes:no_themes_installed']		= 'There are no Themes installed.';
+
+$lang['addons:plugins:add_on_plugins']			= 'Add-on Plugins';
+$lang['addons:plugins:core_plugins']			= 'Core Plugins';
 
 /* End of file addons_lang.php */

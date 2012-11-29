@@ -6,7 +6,7 @@ $lang['page_layouts.css_label']                      = 'CSS';
 
 // labels
 $lang['page_layouts.updated_label']                  = 'Posodobljeno';
-$lang['page_layouts.theme_layout_label']             = 'Izgled postavitve';
+$lang['page_layouts:theme_layout_label']             = 'Izgled postavitve';
 
 // titles
 $lang['page_layouts.list_title']                     = 'Seznam postavitev strani';

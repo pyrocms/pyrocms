@@ -19,7 +19,6 @@ class Streams_cp extends CI_Driver {
 	/**
 	 * Constructor
 	 *
-	 * @access	public
 	 * @return	void
 	 */
 	public function __construct()
@@ -34,7 +33,6 @@ class Streams_cp extends CI_Driver {
 	 *
 	 * Creates a table of entries.
  	 *
-	 * @access	public
 	 * @param	string - the stream slug
 	 * @param	string - the stream namespace slug
 	 * @param	[mixed - pagination, either null for no pagination or a number for per page]
@@ -54,6 +52,11 @@ class Streams_cp extends CI_Driver {
 	 *				'url'		=> 'admin/streams_sample/delete/-entry_id-',
 	 *				'confirm'	= true
 	 *			);
+	 * columns  - an array of field slugs to display. This overrides view options.
+	 * 			$extra['columns'] = array('field_one', 'field_two');
+	 *
+ 	 * sorting  - bool. Whether or not to turn on the drag/drop sorting of entries. This defaults
+ 	 * 			to the sorting option of the stream.
 	 *
 	 * see docs for more explanation
 	 */
@@ -71,11 +74,11 @@ class Streams_cp extends CI_Driver {
 		
  		$stream_fields = $CI->streams_m->get_stream_fields($stream->id);
 
- 		$stream_fields->id = new stdClass();
-  		$stream_fields->created = new stdClass();
- 		$stream_fields->updated = new stdClass();
- 		$stream_fields->created_by = new stdClass();
-		
+ 		$stream_fields->id = new stdClass;
+  		$stream_fields->created = new stdClass;
+ 		$stream_fields->updated = new stdClass;
+ 		$stream_fields->created_by = new stdClass;
+
   		$stream_fields->id->field_name 				= lang('streams.id');
 		$stream_fields->created->field_name 		= lang('streams.created_date');
  		$stream_fields->updated->field_name 		= lang('streams.updated_date');
@@ -92,6 +95,16 @@ class Streams_cp extends CI_Driver {
 	
 	 		$offset = $CI->uri->segment($offset_uri, 0);
   		}
+  		else
+  		{
+  			$offset_uri = null;
+  			$offset = 0;
+  		}
+
+  		// -------------------------------------
+		// Sorting
+		// @since 2.1.5
+		// -------------------------------------
 
 		// Stuff below is not supported via the API yet
 		if ($stream->sorting == 'custom')
@@ -106,6 +119,23 @@ class Streams_cp extends CI_Driver {
 			$this->CI->template->append_js('jquery/jquery.livequery.js');
 		}
 
+		/*
+		@TODO Was it the code above or this below? Phil
+		if ($stream->sorting == 'custom' or (isset($extra['sorting']) and $extra['sorting'] === true))
+		{
+			$stream->sorting = 'custom';
+
+			// As an added measure of obsurity, we are going to encrypt the
+			// slug of the module so it isn't easily changed.
+			$CI->load->library('encrypt');
+
+			// We need some variables to use in the sort.
+			$CI->template->append_metadata('<script type="text/javascript" language="javascript">var stream_id='.$stream->id.'; var stream_offset='.$offset.'; var streams_module="'.$CI->encrypt->encode($CI->module_details['slug']).'";
+				</script>');
+			$CI->template->append_js('streams/entry_sorting.js');
+		}
+		*/
+  
   		$data = array(
   			'stream'		=> $stream,
   			'stream_fields'	=> $stream_fields,
@@ -113,7 +143,17 @@ class Streams_cp extends CI_Driver {
   			'filters'		=> isset($extra['filters']) ? $extra['filters'] : null,
   			'search_id'		=> isset($_COOKIE['streams_core_filters']) ? $_COOKIE['streams_core_filters'] : null,
   		);
-  
+ 
+  		// -------------------------------------
+		// Columns
+		// @since 2.1.5
+		// -------------------------------------
+
+		if (isset($extra['columns']) and is_array($extra['columns']))
+		{
+			$stream->view_options = $extra['columns'];
+		}
+
  		// -------------------------------------
 		// Set / Expire Filtering
 		// -------------------------------------
@@ -189,6 +229,7 @@ class Streams_cp extends CI_Driver {
 														$offset,
 														$filter_data);
 
+
 		// -------------------------------------
 		// Pagination
 		// -------------------------------------
@@ -241,7 +282,6 @@ class Streams_cp extends CI_Driver {
 	 *
 	 * Creates an entry form for a stream.
 	 *
-	 * @access	public
 	 * @param	string - stream slug
 	 * @param	string - stream namespace
 	 * @param	mode - new or edit
@@ -332,6 +372,9 @@ class Streams_cp extends CI_Driver {
 		
 		$data['content'] = $form;
 		//$CI->data->content = $form;
+
+		$CI->data = new stdClass;
+		$CI->data->content = $form;
 		
 		$CI->template->build('admin/partials/blank_section', $data);
 	}
@@ -347,7 +390,6 @@ class Streams_cp extends CI_Driver {
 	 * use to add new fields to a stream. This functions as the
 	 * form assignment as well.
 	 *
-	 * @access	public
 	 * @param	string - stream slug
 	 * @param	string - namespace
 	 * @param 	string - method - new or edit. defaults to new
@@ -372,7 +414,7 @@ class Streams_cp extends CI_Driver {
 	{
 		$CI = get_instance();
 		$data = array();
-		$data['field'] = new stdClass();
+		$data['field'] = new stdClass;
 		
 		// We always need our stream
 		$stream = $this->stream_obj($stream_slug, $namespace);
@@ -389,10 +431,10 @@ class Streams_cp extends CI_Driver {
    		
    		// -------------------------------------
         
-        	// Need this for the view
-        	$data['method'] = $method;
-        
-        	// Get our list of available fields
+		// Need this for the view
+		$data['method'] = $method;
+
+		// Get our list of available fields
 		$data['field_types'] = $CI->type->field_types_array(true);
 
 		// @todo - allow including/excluding some fields
@@ -875,7 +917,6 @@ class Streams_cp extends CI_Driver {
 	 * but we need to delete the field as well since
 	 * there is a 1-1 relationship here.
 	 *
-	 * @access 	public
 	 * @param 	int - assignment id
 	 * @param 	bool - force delete field, even if it is shared with multiple streams
 	 * @return 	bool - success/fail

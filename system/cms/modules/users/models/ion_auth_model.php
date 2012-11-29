@@ -136,10 +136,10 @@ class Ion_auth_model extends CI_Model
 	 **/
 	public function hash_password_db($id, $password)
 	{
-	   if (empty($id) || empty($password))
-	   {
-		return false;
-	   }
+		if (empty($id) or empty($password))
+		{
+			return false;
+		}
 
 	   $query = $this->db->select('password')
 						 ->select('salt')
@@ -278,30 +278,28 @@ class Ion_auth_model extends CI_Model
 	 **/
 	public function change_password($identity, $old, $new)
 	{
-	    $query = $this->db->select('password, salt')
+	    $result = $this->db->select('password, id, salt')
 						  ->where($this->identity_column, $identity)
 						  ->where($this->ion_auth->_extra_where)
 						  ->limit(1)
-						  ->get($this->tables['users']);
-
-	    $result = $query->row();
+						  ->get($this->tables['users'])->row();
 
 	    $db_password = $result->password;
-	    $old	 = $this->hash_password_db($identity, $old);
-	    $new	 = $this->hash_password($new, $result->salt);
+	    $old		 = $this->hash_password_db($result->id, $old);
+	    $new		 = $this->hash_password($new, $result->salt);
 
 	    if ($db_password === $old)
 	    {
-		//store the new password and reset the remember code so all remembered instances have to re-login
-		$data = array(
-			'password' => $new,
-			'remember_code' => '',
-			);
+			// Store the new password and reset the remember code so all remembered instances have to re-login
+			$data = array(
+				'password' => $new,
+				'remember_code' => '',
+				);
 
-		$this->db->where($this->ion_auth->_extra_where);
-		$this->db->update($this->tables['users'], $data, array($this->identity_column => $identity));
+			$this->db->where($this->ion_auth->_extra_where);
+			$this->db->update($this->tables['users'], $data, array($this->identity_column => $identity));
 
-		return $this->db->affected_rows() == 1;
+			return $this->db->affected_rows() == 1;
 	    }
 
 	    return false;
@@ -714,7 +712,15 @@ class Ion_auth_model extends CI_Model
 		{
 			foreach ($this->user_stream_fields as $field_key => $field_data)
 			{
-				$this->db->select($this->tables['meta'].'.'. $field_key);
+				// Is this an alt. process field type? If so, we don't
+				// want to select the column since it doesn't exist.
+				if (
+					! isset($this->type->types->{$field_data->field_type}->alt_process) or 
+					! $this->type->types->{$field_data->field_type}->alt_process
+				)
+				{
+					$this->db->select($this->tables['meta'].'.'. $field_key);
+				}
 			}
 		}
 
@@ -1059,8 +1065,8 @@ class Ion_auth_model extends CI_Model
 
 	    $this->load->driver('streams');
 
-	    // Get the row id for the profile. Probably the same as
-	    // the user_id by not necessarily
+	    // Get the row id for the profile. It's probably the same as
+	    // the user_id but not necessarily.
 	    $profile = $this->db->limit(1)->where('user_id', $id)->get($this->tables['meta'])->row();
 	    if ( ! $profile) return false;
 
@@ -1073,7 +1079,7 @@ class Ion_auth_model extends CI_Model
 	    $profile_parsed_data = $this->row_m->run_field_pre_processes($stream_fields, $stream, $profile->id, $profile_data);
 
 	    // Special provision for our non-stream controlled fields
-	    $profile_parsed_data['display_name'] 	= $profile_data['display_name'];
+	    $profile_parsed_data['display_name'] 	= (array_key_exists('display_name', $profile_data)) ? $profile_data['display_name'] : $profile->display_name;
 	    $profile_parsed_data['updated_on']		= now();
 
 	    // Hey look at me I'm Phil Sturgeon I'm using transactions I'm so fancy!

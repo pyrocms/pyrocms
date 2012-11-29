@@ -28,7 +28,7 @@ class Blog_m extends MY_Model
 			->row();
 	}
 	
-	public function get_by($key, $value = null)
+	public function get_by($key = nullf, $value = null)
 	{
 		$this->db
 			->select('blog.*, users.username, profiles.display_name')
@@ -94,7 +94,7 @@ class Blog_m extends MY_Model
 		// By default, dont show future posts
 		if ( ! isset($params['show_future']) || (isset($params['show_future']) && $params['show_future'] == false))
 		{
-			$this->db->where('created_on <=', now());
+			$this->db->where('blog.created_on <=', now());
 		}
 
 		// Limit the results based on 1 number or 2 (2nd is offset)

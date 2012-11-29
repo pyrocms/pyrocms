@@ -1,7 +1,19 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
-$lang['alpha_dot_dash']			= "Fältet %s får endast innehålla alfanumeriska tecken, understreck, snedstreck och punkter.";
-$lang['decimal']				= "Fältet %s måste innehålla ett decimaltal.";
-$lang['csrf_bad_token']			= "Ogiltig CSRF token";
+ /**
+ * Swedish translation.
+ *
+ * @author		marcus@incore.se
+ * @package		PyroCMS  
+ * @link		http://pyrocms.com
+ * @date		2012-10-22
+ * @version		1.1.0
+ */
 
-/* End of file extra_validation_lang.php */
+$lang['alpha_dot_dash'] = 'Fältet %s får endast innehålla alfanumeriska tecken, understreck, snedstreck och punkter.';
+$lang['decimal'] = 'Fältet %s måste innehålla ett decimaltal.';
+$lang['csrf_bad_token'] = 'Ogiltig CSRF token';
+
+
+/* End of file extra_validation_lang.php */  
+/* Location: system/cms/language/swedish/extra_validation_lang.php */  
