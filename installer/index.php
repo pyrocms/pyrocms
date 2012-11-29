@@ -178,8 +178,6 @@
  *  Now that we know the path, set the main path constants
  * -------------------------------------------------------------------
  */		
-	// The PHP file extension
-	define('EXT', '.php');
 
  	// Path to the system folder
 	define('BASEPATH', str_replace("\\", "/", $system_path));
@@ -199,12 +197,22 @@
 
 /*
  * --------------------------------------------------------------------
+ * LOAD THE COMPOSER AUTOLOADER
+ * --------------------------------------------------------------------
+ *
+ * ...and it will take care of our classes
+ *
+ */
+require_once '../vendor/autoload.php';
+
+/*
+ * --------------------------------------------------------------------
  * LOAD THE BOOTSTRAP FILE
  * --------------------------------------------------------------------
  *
  * And away we go...
  *
  */
-require_once BASEPATH.'core/CodeIgniter'.EXT;
+require_once BASEPATH.'core/CodeIgniter.php';
 
 /* End of file index.php */

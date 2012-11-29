@@ -72,11 +72,12 @@ abstract class Module {
 
 	/**
 	 * Loads the database and dbforge libraries.
+	 *
+	 * @param Illuminate\Database\Connection $pdb The Laravel database connection
 	 */
-	public function __construct()
+	public function __construct(Illuminate\Database\Connection $pdb)
 	{
-		$this->load->database();
-		$this->load->dbforge();
+		$this->pdb = $pdb;
 	}
 
 	/**

@@ -1,4 +1,7 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php 
+
+use Illuminate\Database\Connection;
+
 /**
 * Install model
 *
@@ -8,24 +11,14 @@
 */
 class Install_m extends CI_Model
 {
-	public function set_default_structure(PDO $db, $input)
+	public function set_default_structure(Connection $db, $input)
 	{
-		// User settings
+		// @TODO Upgrade sha1 to password_hash()
 		$salt = substr(md5(uniqid(rand(), true)), 0, 5);
 		$input['password'] = sha1($input['password'].$salt);
 
 		// Include migration config to know which migration to start from
-		require '../system/cms/config/migration.php';
-		
-		if ($input['engine'] === 'mysql')
-		{
-			// Do we want to create the database using the installer?
-			empty($input['create_db']) or $db->exec("CREATE DATABASE IF NOT EXISTS {$input['database']}");
-
-			$db->exec("USE {$input['database']}");
-		}
-
-		$sql = file_get_contents('./sql/default.'.$input['engine'].'.sql');
+		require PYROPATH.'config/migration.php';
 
 		/* 
 		TODO Binding parameters via the usual method produces the ever-so-helpful error:
@@ -47,25 +40,28 @@ class Install_m extends CI_Model
 		$sql = $db->prepare($sql);
 		*/
 
+		$pdo = $db->getPdo();
+
+		$sql = file_get_contents('./sql/default.'.$input['driver'].'.sql');
+
 		$replace = array(
-			'{site_ref}' => $input['site_ref'],
+			'{site_ref}' 	=> $input['site_ref'],
 			'{session_table}' => config_item('sess_table_name'),
 
-			':email'        => $db->quote($input['email']),
-			':username'     => $db->quote($input['username']),
-			':displayname'  => $db->quote($input['firstname'].' '.$input['lastname']),
-			':password'     => $db->quote($input['password']),
-			':firstname'    => $db->quote($input['firstname']),
-			':lastname'     => $db->quote($input['lastname']),
-			':salt'         => $db->quote($salt),
+			':email'        => $pdo->quote($input['email']),
+			':username'     => $pdo->quote($input['username']),
+			':displayname'  => $pdo->quote($input['firstname'].' '.$input['lastname']),
+			':password'     => $pdo->quote($input['password']),
+			':firstname'    => $pdo->quote($input['firstname']),
+			':lastname'     => $pdo->quote($input['lastname']),
+			':salt'         => $pdo->quote($salt),
 			':unix_now'     => time(),
 			':migration'    => $config['migration_version'],
 		);
 
-
 		$sql = str_replace(array_keys($replace), array_values($replace), $sql);
 
-		$db->exec($sql);
+		$pdo->exec($sql);
 	}
 
 }

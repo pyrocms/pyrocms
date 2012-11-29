@@ -15,12 +15,12 @@ class Module_Domains extends Module
 		    'name' => array(
 		        'en' => 'Domains',
 		        'fr' => 'Domaines',
-                        'se' => 'Domäner'
+		        'se' => 'Domäner',
 		    ),
 		    'description' => array(
 		        'en' => 'Create domain aliases for your website.',
 		        'fr' => 'Créer des alias de domaine pour votre site web',
-                        'se' => 'Skapa domänalias för din webbplats'
+		        'se' => 'Skapa domänalias för din webbplats',
 		    ),
 		    'frontend' => false,
 		    'backend'  => true,
@@ -37,25 +37,20 @@ class Module_Domains extends Module
 
 	public function install()
 	{
-		if ( ! $this->db->table_exists('core_domains'))
-		{
-			$result = $this->db->query('	
-				CREATE TABLE `core_domains` (
-				  `id` int NOT NULL AUTO_INCREMENT,
-				  `domain` varchar(100) NOT NULL,
-				  `site_id` int NOT NULL,
-				  `type` enum("park", "redirect") NOT NULL DEFAULT "park",
-				  PRIMARY KEY (`id`),
-				  KEY `domain` (`domain`),
-				  UNIQUE `unique` (`domain`)
-				) ENGINE=InnoDB DEFAULT CHARSET=utf8; ');
+		$schema = $this->pdb->getSchemaBuilder();
 
-			// Create alias table
-			if ( ! $result)
-			{
-				return false;
-			}
-		}
+		$schema->drop('domains');
+
+		// @TODO Make this install core_domains
+		$schema->create('domains', function($table) { 
+			$table->increments('id');
+			$table->string('domain', 100);
+			$table->integer('site_id');
+			$table->enum('type', array('park', 'redirect'))->default('park');
+			
+			$table->key('domain');
+			$table->unique('domain');
+		});
 
 		return true;
 	}

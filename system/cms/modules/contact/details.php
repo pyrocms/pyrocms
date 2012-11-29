@@ -8,7 +8,7 @@
  */
 class Module_Contact extends Module {
 
-	public $version = 0.9;
+	public $version = '1.1.0';
 
 	public function info()
 	{
@@ -71,26 +71,21 @@ class Module_Contact extends Module {
 
 	public function install()
 	{
-		$this->dbforge->drop_table('contact_log', true);
+		$schema = $this->pdb->getSchemaBuilder();
 
-		$tables = array(
-			'contact_log' => array(
-				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
-				'email' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '',),
-				'subject' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '',),
-				'message' => array('type' => 'TEXT',),
-				'sender_agent' => array('type' => 'VARCHAR', 'constraint' => 64, 'default' => '',),
-				'sender_ip' => array('type' => 'VARCHAR', 'constraint' => 32, 'default' => '',),
-				'sender_os' => array('type' => 'VARCHAR', 'constraint' => 32, 'default' => '',),
-				'sent_at' => array('type' => 'INT', 'constraint' => 11, 'default' => 0,),
-				'attachments' => array('type' => 'TEXT',),
-			),
-		);
+		$schema->drop('contact_log');
 
-		if ( ! $this->install_tables($tables))
-		{
-			return false;
-		}
+		$schema->create('contact_log', function($table) { 
+			$table->increments('id');
+			$table->string('email', 255)->nullable();
+			$table->string('subject', 255)->nullable();
+			$table->text('message');
+			$table->string('sender_agent', 64);
+			$table->string('sender_ip', 32);
+			$table->string('sender_os', 32);
+			$table->string('sent_at', 11)->default(0);
+			$table->text('attachments');
+		});
 
 		return true;
 	}

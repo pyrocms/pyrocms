@@ -71,31 +71,32 @@ class Module_Comments extends Module {
 
 	public function install()
 	{
-		$this->dbforge->drop_table('comments', true);
+		$schema = $this->pdb->getSchemaBuilder();
 
-		$tables = array(
-			'comments' => array(
-				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true),
-				'is_active' => array('type' => 'INT', 'constraint' => 1, 'default' => 0),
-				'user_id' => array('type' => 'INT', 'constraint' => 11, 'default' => 0),
-				'user_name' => array('type' => 'VARCHAR', 'constraint' => 40, 'default' => ''),
-				'user_email' => array('type' => 'VARCHAR', 'constraint' => 40, 'default' => ''), // @todo Shouldn't this be 255?
-				'user_website' => array('type' => 'VARCHAR', 'constraint' => 255),
-				'comment' => array('type' => 'TEXT'),
-				'parsed' => array('type' => 'TEXT'),
-				'module' => array('type' => 'VARCHAR', 'constraint' => 40),
-				'entry_id' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => 0),
-				'entry_title' => array('type' => 'char', 'constraint' => 255, 'null' => false),
-				'entry_key' => array('type' => 'varchar', 'constraint' => 100, 'null' => false),
-				'entry_plural' => array('type' => 'varchar', 'constraint' => 100, 'null' => false),
-				'uri' => array('type' => 'varchar', 'constraint' => 255, 'null' => true),
-				'cp_uri' => array('type' => 'varchar','constraint' => 255, 'null' => true),
-				'created_on' => array('type' => 'INT', 'constraint' => 11, 'default' => '0'), // @todo Shouldn't this be an int?
-				'ip_address' => array('type' => 'VARCHAR', 'constraint' => 15, 'default' => ''),
-			),
-		);
+		$schema->drop('comments');
 
-		return $this->install_tables($tables);
+		$schema->create('comments', function($table) { 
+			$table->increments('id');
+			$table->bool('is_active')->default(false);
+			$table->integer('user_id', 11)->nullable();
+			$table->string('user_name', 40)->nullable();
+			$table->string('user_email', 40)->nullable();
+			$table->string('user_website', 255)->nullable();
+			$table->text('comment');
+			$table->text('parsed');
+			$table->string('module', 40);
+			$table->string('entry_id', 255)->default(0);
+			$table->string('entry_title', 255)->default(0);
+			$table->string('entry_key', 100);
+			$table->string('entry_plural', 100);
+			$table->string('entry_plural', 100);
+			$table->string('uri', 255)->nullable();
+			$table->string('cp_uri', 255)->nullable();
+			$table->integer('created_on', 11)->nullable();
+			$table->integer('ip_address', 15)->nullable();
+		});
+
+		return true;
 	}
 
 	public function uninstall()
