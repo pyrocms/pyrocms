@@ -16,11 +16,13 @@ class Module_WYSIWYG extends Module
 		return array(
 			'name' => array(
 				'en' => 'WYSIWYG',
+                            'fr' => 'WYIWYG',
 				'pt' => 'WYSIWYG',
 				'se' => 'HTML-redigerare'
 			),
 			'description' => array(
 				'en' => 'Provides the WYSIWYG editor for PyroCMS powered by CKEditor.',
+                            'fr' => 'Fourni un éditeur WYSIWYG pour PyroCMS propulsé par CKEditor.',
 				'pt' => 'Fornece o editor WYSIWYG para o PyroCMS, powered by CKEditor.',
 				'el' => 'Παρέχει τον επεξεργαστή WYSIWYG για το PyroCMS, χρησιμοποιεί το CKEDitor.',
 				'se' => 'Redigeringsmodul för HTML, CKEditor.'
