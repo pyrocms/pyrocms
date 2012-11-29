@@ -47,20 +47,22 @@
 */
 
 // Development
-$db[PYRO_DEVELOPMENT] = array(
-	'dsn'		=> 	'{dsn}',
+$db['development'] = array(
+	'hostname'	=> 	'{hostname}',
+	'port'		=> 	'{port}',
+	'database'	=> 	'{database}',
 	'username'	=> 	'{username}',
 	'password'	=> 	'{password}',
 	'dbdriver' 	=> 	'pdo',
-	'pconnect' 	=>	TRUE,
-	'db_debug' 	=>	TRUE,
-	'cache_on' 	=>	FALSE,
+	'subdriver'	=> 	'{driver}',
+	'pconnect' 	=>	true,
+	'db_debug' 	=>	true,
+	'cache_on' 	=>	false,
 	'char_set' 	=>	'utf8',
 	'dbcollat' 	=>	'utf8_unicode_ci',
-	'port' 	 	=>	'{port}',
 
 	// 'Tough love': Forces strict mode to test your app for best compatibility
-	'stricton' 		=> TRUE,
+	'stricton' 		=> true,
 );
 
 // Staging
@@ -76,22 +78,20 @@ $db[PYRO_STAGING] = array(
 	'cache_on' 	=>	FALSE,
 	'char_set' 	=>	'utf8',
 	'dbcollat' 	=>	'utf8_unicode_ci',
-	'port' 	 	=>	'{port}',
 );
 */
 
 // Production
-$db[PYRO_PRODUCTION] = array(
+$db['production'] = array(
 	'dsn'		=> 	'{dsn}',
 	'username'	=> 	'{username}',
 	'password'	=> 	'{password}',
 	'dbdriver' 	=> 	'pdo',
-	'pconnect' 	=>	FALSE,
-	'db_debug' 	=>	FALSE,
-	'cache_on' 	=>	FALSE,
+	'pconnect' 	=>	false,
+	'db_debug' 	=>	false,
+	'cache_on' 	=>	false,
 	'char_set' 	=>	'utf8',
 	'dbcollat' 	=>	'utf8_unicode_ci',
-	'port' 	 	=>	'{port}',
 );
 
 
@@ -103,6 +103,6 @@ if ( ! array_key_exists(ENVIRONMENT, $db))
 
 // Assign the group to be used
 $active_group = ENVIRONMENT;
-$query_builder = TRUE;
+$query_builder = true;
 
 /* End of file database.php */

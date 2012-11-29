@@ -155,18 +155,30 @@
 		<nav id="menu">
 			<ul>
 				<li><?= anchor('', lang('intro'), $this->uri->segment(2, '') == '' ? 'id="current"' : ''); ?></li>
-				<li><span id="<?= $this->uri->segment(2, '') == 'step_1' ? 'current' : '' ?>"><?= lang('step1'); ?></span><span class="sep"></span></li>
-				<li><span id="<?= $this->uri->segment(2, '') == 'step_2' ? 'current' : '' ?>"><?= lang('step2'); ?></span><span class="sep"></span></li>
-				<li><span id="<?= $this->uri->segment(2, '') == 'step_3' ? 'current' : '' ?>"><?= lang('step3'); ?></span><span class="sep"></span></li>
-				<li><span id="<?= $this->uri->segment(2, '') == 'step_4' ? 'current' : '' ?>"><?= lang('step4'); ?></span><span class="sep"></span></li>
-				<li><span id="<?= $this->uri->segment(2, '') == 'complete' ? 'current' : '' ?>"><?= lang('final'); ?></span><span class="sep"></span></li>
+				<li><span id="<?= $this->uri->segment(2) == 'step_1' ? 'current' : '' ?>"><?= lang('step1'); ?></span><span class="sep"></span></li>
+				<li><span id="<?= $this->uri->segment(2) == 'step_2' ? 'current' : '' ?>"><?= lang('step2'); ?></span><span class="sep"></span></li>
+				<li><span id="<?= $this->uri->segment(2) == 'step_3' ? 'current' : '' ?>"><?= lang('step3'); ?></span><span class="sep"></span></li>
+				<li><span id="<?= $this->uri->segment(2) == 'step_4' ? 'current' : '' ?>"><?= lang('step4'); ?></span><span class="sep"></span></li>
+				<li><span id="<?= $this->uri->segment(2) == 'complete' ? 'current' : '' ?>"><?= lang('final'); ?></span><span class="sep"></span></li>
 			</ul>
 		</nav>
 
 		<!-- Message type 1 (flashdata) -->
-		<?php if($this->session->flashdata('message')): ?>
-			<ul class="block-message success <?= ($this->session->flashdata('message_type')) ? $this->session->flashdata('message_type') : 'block-message success'; ?>">
-				<li><?php if($this->session->flashdata('message')) { echo $this->session->flashdata('message'); }; ?></li>
+		<?php if ($this->session->flashdata('success')): ?>
+			<ul class="block-message success">
+				<li><?= $this->session->flashdata('success') ?></li>
+			</ul>
+		<?php endif; ?>
+
+		<?php if ($this->session->flashdata('error')): ?>
+			<ul class="block-message error">
+				<li><?= $this->session->flashdata('error') ?></li>
+			</ul>
+		<?php endif; ?>
+
+		<?php if ( ! empty($error)): ?>
+			<ul class="block-message error">
+				<li><?= $error ?></li>
 			</ul>
 		<?php endif; ?>
 
@@ -174,7 +186,7 @@
 		<?php if (validation_errors()): ?>
 			<div id="notification">
 				<ul class="block-message error">
-					<?= validation_errors('<li>', '</li>'); ?>
+					<?= validation_errors('<li>', '</li>') ?>
 				</ul>
 			</div>
 		<?php endif; ?>

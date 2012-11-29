@@ -196,19 +196,19 @@
 
 jQuery(document).ready(function($) {
 
-	var updateEngineFields = function(enabled_engine) {
+	var updateEngineFields = function(enabled_driver) {
 		$('section#db-settings .input').each(function() {
 			$input = $(this);
-			if ($input.hasClass(enabled_engine)) $input.show();
+			if ($input.hasClass(enabled_driver)) $input.show();
 			else $input.hide();
 		});
 	};
 
 	// If any are checked then show the right fields
-	updateEngineFields($('section#db-engine input[name=db_engine]:checked').val());
+	updateEngineFields($('section#db-driver input[name=db_driver]:checked').val());
 
-	// Show relevant input options for DB engine
-	$('section#db-engine input[name=db_engine]').change(function(){ updateEngineFields($(this).val()); });
+	// Show relevant input options for DB driver
+	$('section#db-driver input[name=db_driver]').change(function(){ updateEngineFields($(this).val()); });
 
 	// Add that cool orange bkg to the input that has focus
 	$('input, select').bind({
