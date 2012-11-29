@@ -51,7 +51,7 @@ class Upload extends WYSIWYG_Controller
 			if ($results['status'])
 			{
 				$data = $results['data'];
-				$this->file_m->update($data->id, array('description' => $input['description']));
+				$this->file_m->update($data['id'], array('description' => $input['description']));
 			}
 
 			// upload has a message to share... good or bad?
