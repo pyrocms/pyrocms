@@ -80,7 +80,7 @@ class Admin_Controller extends MY_Controller {
 			$menu_items = array();
 
 			// This array controls the order of the admin items.
-			$this->template->menu_order = array('lang:cp_nav_content', 'lang:cp_nav_structure', 'lang:cp_nav_data', 'lang:cp_nav_users', 'lang:global:profile');
+			$this->template->menu_order = array('lang:cp_nav_content', 'lang:cp_nav_structure', 'lang:cp_nav_data', 'lang:cp_nav_users', 'lang:cp_nav_settings', 'lang:global:profile');
 
 			$modules = $this->module_m->get_all(array(
 				'is_backend' => true,

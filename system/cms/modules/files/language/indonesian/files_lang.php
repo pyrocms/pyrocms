@@ -47,6 +47,7 @@ $lang['files:synchronize']					= 'Sinkronisasikan';
 $lang['files:uploader']						= 'Letakkan berkas disini <br />atau<br />Klik untuk memilih berkas';
 
 // Context Menu
+$lang['files:refresh']						= 'Refresh'; #translate
 $lang['files:open']							= 'Buka';
 $lang['files:new_folder']					= 'Folder Baru';
 $lang['files:upload']						= 'Unggah';

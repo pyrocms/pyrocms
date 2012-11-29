@@ -78,25 +78,23 @@ class Module_Addons extends Module
 				),
 			),
 		);
-
+	
 		// Add upload options to various modules
-		if ( ! class_exists('Module_import') and Settings::get('addons_upload'))
+		if (Settings::get('addons_upload'))
 		{
 			$info['sections']['modules']['shortcuts'] = array(
 				array(
-					// @TODO
 					'name' => 'global:upload',
 					'uri' => 'admin/addons/modules/upload',
-					'class' => 'add modal',
+					'class' => 'add',
 				),
 			);
 
 			$info['sections']['themes']['shortcuts'] = array(
 				array(
-					// @TODO
 					'name' => 'global:upload',
 					'uri' => 'admin/addons/themes/upload',
-					'class' => 'add modal',
+					'class' => 'add',
 				),
 			);
 		}
@@ -113,7 +111,7 @@ class Module_Addons extends Module
 			'lang:global:fieldtypes'		=> 'admin/addons/fieldtypes'
 		);
 
-		add_admin_menu_place('lang:cp_nav_addons', 5);
+		add_admin_menu_place('lang:cp_nav_addons', 6);
 	}
 
 	public function install()

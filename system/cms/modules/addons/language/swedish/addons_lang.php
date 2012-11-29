@@ -23,6 +23,9 @@ $lang['addons:modules:enable_error'] = 'Kunde inte aktivera modulen, "%s".';
 $lang['addons:modules:enable_success'] = 'Modulen "%s" är aktiverad.';
 $lang['addons:modules:install_error'] = 'Kunde inte installera modulen.';
 $lang['addons:modules:install_success'] = 'Modulen "%s" är installerad.';
+
+$lang['addons:modules:module_upload_success']   = 'The module "%s" has been uploaded.'; #translate
+
 $lang['addons:modules:delete_success'] = 'Modulen "%s" har raderats.';
 $lang['addons:modules:delete_error'] = 'Kunde inte radera modulen, "%s".';
 $lang['addons:modules:uninstall_error'] = 'Kunde inte avinstallera modulen, "%s".';

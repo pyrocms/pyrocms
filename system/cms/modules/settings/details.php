@@ -66,7 +66,7 @@ class Module_Settings extends Module {
 			'frontend' => false,
 			'backend'  => true,
 			'skip_xss' => true,
-			'menu'	  => false,
+			'menu'	  => 'settings',
 		);
 	}
 
@@ -297,7 +297,7 @@ class Module_Settings extends Module {
 			),
 			'ga_password' => array(
 				'title' => 'Google Analytic Password',
-				'description' => 'This is also needed this to show the graph on the dashboard.',
+				'description' => 'This is also needed to show the graph on the dashboard. You will need to allow access to Google to get this to work. See <a href="https://accounts.google.com/b/0/IssuedAuthSubTokens?hl=en_US" target="_blank">Authorized Access to your Google Account</a>',
 				'type' => 'password',
 				'default' => '',
 				'value' => '',

@@ -14,6 +14,9 @@ $lang['addons:modules:enable_error']			= '無法啟用名稱為 "%s" 的模組';
 $lang['addons:modules:enable_success']			= '此模組 "%s" 已經啟用';
 $lang['addons:modules:install_error']			= '無法安裝這個模組';
 $lang['addons:modules:install_success']			= '"%s" 模組已經安裝';
+
+$lang['addons:modules:module_upload_success']   = 'The module "%s" has been uploaded.'; #translate
+
 $lang['addons:modules:delete_success']			= '"%s" 模組已經刪除';
 $lang['addons:modules:delete_error']			= '無法刪除 "%s" 模組';
 $lang['addons:modules:uninstall_error']			= '無法卸載名稱為 "%s" 的模組';

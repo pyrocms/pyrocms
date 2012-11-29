@@ -53,6 +53,7 @@ $lang['files:synchronize']					= '同步';
 $lang['files:uploader']						= '拖放文件至此 <br />或<br /> 点击选择文件';
 
 // Context Menu
+$lang['files:refresh']						= 'Refresh'; #translate
 $lang['files:open']							= '打开';
 $lang['files:new_folder']					= '新的文件夹';
 $lang['files:upload']						= '上传';

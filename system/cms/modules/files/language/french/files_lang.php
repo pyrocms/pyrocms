@@ -28,6 +28,7 @@ $lang['files:added'] = 'Date d\'ajout';
 $lang['files:width'] = 'Largeur';
 $lang['files:height'] = 'Hauteur';
 $lang['files:ratio'] = 'Ratio';
+$lang['files:alt_attribute'] = 'Attribut Alt';
 $lang['files:full_size'] = 'Taille originale';
 $lang['files:filename'] = 'Nom du fichier';
 $lang['files:filesize'] = 'Taille du fichier';
@@ -46,6 +47,7 @@ $lang['files:synchronize'] = 'Synchroniser';
 $lang['files:uploader'] = 'Déposez les fichiers ici <br />ou<br /> Cliquez-ici pour sélectionner les fichiers';
 
 // Context Menu
+$lang['files:refresh'] = 'Rafraîchir';
 $lang['files:open'] = 'Ouvrir';
 $lang['files:new_folder'] = 'Nouveau Dossier';
 $lang['files:upload'] = 'Upload';
