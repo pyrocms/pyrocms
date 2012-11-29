@@ -4,6 +4,7 @@
     "minimum-stability": "dev",
     "require": {
         "illuminate/database": "*",
-        "quick/cache": "1.0.*"
+        "quick/cache": "1.0.*",
+        "simplepie/simplepie": "1.3.*"
     }
 }
