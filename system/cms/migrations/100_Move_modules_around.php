@@ -29,7 +29,7 @@ class Migration_Move_modules_around extends CI_Migration {
 			->set('menu', 'misc')
 			->update('modules');
 
-		$this->pyrocache->delete_all('module_m');
+		$this->cache->clear('module_m');
 	}
 
 	public function down()
