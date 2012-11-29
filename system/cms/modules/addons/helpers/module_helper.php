@@ -78,7 +78,7 @@ function module_enabled($slug = '')
  * Returns true/false if the module is installed
  *
  * @param	string	$slug		The name of the module we are testing
- * @return	string
+ * @return bool
  */
 
 function module_installed($slug = '')
