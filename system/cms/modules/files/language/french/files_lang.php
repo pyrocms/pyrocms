@@ -28,6 +28,7 @@ $lang['files:added']           = 'Date d\'ajout';
 $lang['files:width']           = 'Largeur';
 $lang['files:height']          = 'Hauteur';
 $lang['files:ratio']           = 'Ratio';
+$lang['files:alt_attribute']   = 'alt Attribute'; #translate
 $lang['files:full_size']       = 'Taille originale';
 $lang['files:filename']        = 'Nom du fichier';
 $lang['files:filesize']        = 'Taille du fichier';
@@ -46,6 +47,7 @@ $lang['files:synchronize']     = 'Synchroniser';
 $lang['files:uploader']        = 'Déposez les fichiers ici <br />ou<br /> Cliquez-ici pour sélectionner les fichiers';
 
 // Context Menu
+$lang['files:refresh']						= 'Refresh'; #translate
 $lang['files:open']       = 'Ouvrir';
 $lang['files:new_folder'] = 'Nouveau Dossier';
 $lang['files:upload']     = 'Upload';
@@ -90,6 +92,7 @@ $lang['files:no_records_found']       = 'Aucun enregistrement n\'a été trouvé
 $lang['files:invalid_extension']      = '"%s" a une extension de fichier qui n\'est pas autorisé';
 $lang['files:upload_error']           = 'Le téléchargement du fichier à échoué';
 $lang['files:description_saved']      = 'La description du fichier a été sauvegardée';
+$lang['files:alt_saved']			  = 'The image alt attribute has been saved'; #translate
 $lang['files:file_moved']             = '"%s" a été déplacé avec succès';
 $lang['files:exceeds_server_setting'] = 'Le serveur ne prend pas en compte les fichiers de cette taille';
 $lang['files:exceeds_allowed']        = 'Le fichier dépasse la taille maximum autorisée';

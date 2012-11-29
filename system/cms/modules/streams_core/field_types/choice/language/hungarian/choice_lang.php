@@ -13,5 +13,6 @@ $lang['streams.choice.checkboxes_only'] = 'Csak jelölőnégyzetekhez érhető e
 $lang['streams.choice.must_select_num'] = 'Muszáj kiválasztanod {val} tételt a %s listából.';
 $lang['streams.choice.must_at_least']   = 'Muszáj kiválasztanod legalább {val} tételt a %s listából.';
 $lang['streams.choice.must_max_num']    = 'Csak {val} tételt választhatsz ki a %s listából.';
+$lang['streams.choice.multiselect'] 		= 'Multiselect Type.'; 											#translate
 
 /* End of file choice_lang.php */

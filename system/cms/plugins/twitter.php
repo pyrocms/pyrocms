@@ -9,6 +9,10 @@
  */
 class Plugin_Twitter extends Plugin
 {
+	public $description = array(
+		'en'	=> 'Display a Twitter feed.'
+	);
+
 	/**
 	 * The URL used to retrieve tweets from the Twitter API
 	 *

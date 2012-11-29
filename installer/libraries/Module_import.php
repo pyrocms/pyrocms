@@ -3,7 +3,8 @@
 // All modules talk to the Module class, best get that!
 include PYROPATH .'libraries/Module.php';
 
-class Module_import {
+class Module_import
+{
 
 	// private $ci;
 
@@ -27,12 +28,12 @@ class Module_import {
 	}
 
 	/**
-	 * Install
-	 *
 	 * Installs a module
 	 *
-	 * @param	string	$slug	The module slug
-	 * @return	bool
+	 * @param string $slug The module slug
+	 * @param bool   $is_core
+	 *
+	 * @return bool
 	 */
 	public function install($slug, $is_core = false)
 	{
@@ -49,8 +50,8 @@ class Module_import {
 		$module['slug'] = $slug;
 
 		// set the site_ref and upload_path for third-party devs
-		$details_class->site_ref 	= 'default';
-		$details_class->upload_path	= 'uploads/default/';
+		$details_class->site_ref = 'default';
+		$details_class->upload_path = 'uploads/default/';
 
 		// Run the install method to get it into the database
 		try 
@@ -94,21 +95,33 @@ class Module_import {
 		foreach (array(PYROPATH, ADDONPATH, SHARED_ADDONPATH) as $directory)
 		{
 			// some servers return false instead of an empty array
-			if ( ! $directory) continue;
+			if ( ! $directory) {
+				continue;
+			}
 
 			// Loop through modules
 			if ($modules = glob($directory.'modules/*', GLOB_ONLYDIR))
 			{
+				// Put the settings module first
+				$modules = array_map('basename',$modules);
+				$s = array_splice($modules, array_search('settings', $modules), 1);
+				array_unshift($modules, $s[0]);
+
 				foreach ($modules as $module_name)
 				{
-					$slug = basename($module_name);
-
-					if ( ! $details_class = $this->_spawn_class($slug, $is_core))
+					if ( ! $details_class = $this->_spawn_class($module_name, $is_core))
 					{
 						continue;
 					}
 
-					$this->install($slug, $is_core);
+					$this->install($module_name, $is_core);
+
+					// Settings is installed first. Once it's installed we load the library
+					// so all modules can use settings in their install code.
+					if ($module_name === 'settings')
+					{
+						$this->ci->load->library('settings/settings');
+					}
 				}
 			}
 
@@ -131,14 +144,16 @@ class Module_import {
 	 *
 	 * Checks to see if a details.php exists and returns a class
 	 *
-	 * @param	string	$module_slug	The folder name of the module
-	 * @return	array
+	 * @param string $slug    The folder name of the module
+	 * @param bool   $is_core
+	 *
+	 * @return    Module
 	 */
 	private function _spawn_class($slug, $is_core = false)
 	{
 		$path = $is_core ? PYROPATH : ADDONPATH;
 
-		// Before we can install anything we need to know some details about the module
+		// Before we can install anything we need to know some details about the module<<<<<<< HEAD
 		$details_file = "{$path}modules/{$slug}/details.php";
 
 		// Check the details file exists

@@ -1081,7 +1081,7 @@ class Ion_auth_model extends CI_Model
 	    $profile_parsed_data = $this->row_m->run_field_pre_processes($stream_fields, $stream, $profile->id, $profile_data);
 
 	    // Special provision for our non-stream controlled fields
-	    $profile_parsed_data['display_name'] 	= $profile_data['display_name'];
+	    $profile_parsed_data['display_name'] 	= (array_key_exists('display_name', $profile_data)) ? $profile_data['display_name'] : $profile->display_name;
 	    $profile_parsed_data['updated_on']		= now();
 
 	    // Hey look at me I'm Phil Sturgeon I'm using transactions I'm so fancy!

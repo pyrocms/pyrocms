@@ -99,6 +99,7 @@ class Admin extends Admin_Controller {
 	public function ajax_page_details($id)
 	{
 		$page = $this->page_m->get($id);
+
         $this->load->model('keywords/keyword_m');
         $page->meta_keywords = Keywords::get_string($page->meta_keywords);
 

@@ -56,8 +56,6 @@ class Theme_Pyrocms extends Theme {
 	 */
 	public function run()
 	{
-		self::generate_menu();
-
 		// only load these items on the dashboard
 		if ($this->module == '' && $this->method !== 'login' && $this->method !== 'help')
 		{

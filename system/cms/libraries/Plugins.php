@@ -61,7 +61,10 @@ abstract class Plugin
 	 */
 	public function __get($var)
 	{
-		return get_instance()->$var;
+		if (isset(get_instance()->$var))
+		{
+			return get_instance()->$var;
+		}
 	}
 
 	/**
@@ -217,6 +220,7 @@ class Plugins
 	public function __construct()
 	{
 		$this->_ci = & get_instance();
+		$this->_ci->load->helper('plugin');
 	}
 
 	public function locate($plugin, $attributes, $content)

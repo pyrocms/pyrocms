@@ -1,7 +1,7 @@
 <?php
 
 $lang['addons:modules'] 						= 'Πρόσθετα';
-$lang['addons:themes'] 							= 'Themes'; #translate
+$lang['addons:themes'] 							= 'Θέματα Εμφάνισης';
 $lang['addons:widgets'] 						= 'Widgets';
 
 $lang['addons:modules:core_list']				= 'Βασικά Πρόσθετα';
@@ -14,6 +14,9 @@ $lang['addons:modules:enable_error']			= 'Δεν ήταν δυνατό να εν
 $lang['addons:modules:enable_success']			= 'Το πρόσθετο "%s" ενεργοποιήθηκε.';
 $lang['addons:modules:install_error']			= 'Δεν ήταν δυνατό να εγκατασταθεί το πρόσθετο.';
 $lang['addons:modules:install_success']			= 'Το πρόσθετο "%s" εγκαταστάθηκε.';
+
+$lang['addons:modules:module_upload_success']   = 'The module "%s" has been uploaded.'; #translate
+
 $lang['addons:modules:delete_success']			= 'Το πρόσθετο "%s" διαγράφηκε.';
 $lang['addons:modules:delete_error']			= 'Δεν ήταν δυνατό να διαγραφεί το πρόσθετο "%s".';
 $lang['addons:modules:uninstall_error']			= 'Δεν ήταν δυνατό να απεγκατασταθεί το πρόσθετο "%s".';
