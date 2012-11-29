@@ -195,14 +195,6 @@ class Installer extends CI_Controller
 		{
 			$data->server_options[$key] = $server['name'];
 		}
-
-		// Get the port from the session or set it to the default value when it isn't specified
-		$data->port = null;
-		if (in_array($driver, array('mysql', 'pgsql')))
-		{
-			$default_port = $this->default_ports[$driver];
-			$data->port = $port ?: $default_port;
-		}
 		
 		// Check what DB's are available
 		$data->db_drivers = $this->installer_lib->check_db_extensions();
@@ -224,6 +216,14 @@ class Installer extends CI_Controller
 		else
 		{
 			$data->selected_db_driver = $this->input->post('db_driver');
+		}
+
+		// Get the port from the session or set it to the default value when it isn't specified
+		$data->port = null;
+		if (in_array($data->selected_db_driver, array('mysql', 'pgsql')))
+		{
+			$default_port = $this->default_ports[$driver];
+			$data->port = $port ?: $default_port;
 		}
 
 		// Load language labels
