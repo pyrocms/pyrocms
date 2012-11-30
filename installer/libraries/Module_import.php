@@ -1,7 +1,9 @@
 <?php
 
+include PYROPATH.'core/MY_Model.php';
+
 // All modules talk to the Module class, best get that!
-include PYROPATH .'libraries/Module.php';
+include PYROPATH.'libraries/Module.php';
 
 class Module_import
 {
@@ -12,7 +14,7 @@ class Module_import
 	{
 		$this->ci = get_instance();
 
-		$this->pdb = $params['pdb'];
+		$this->ci->pdb = $this->pdb = $params['pdb'];
 
 		// create the site specific addon folder
 		is_dir(ADDONPATH.'modules') or mkdir(ADDONPATH.'modules', DIR_READ_MODE, true);

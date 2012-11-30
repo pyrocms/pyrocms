@@ -72,27 +72,6 @@ class Module_Settings extends Module {
 
     public function install()
     {
-        $schema = $this->pdb->getSchemaBuilder();
-        $schema->drop('settings');
-
-        log_message('debug', '-- Settings: going to install the settings table');
-
-        $schema->create('settings', function($table) {
-            $table->string('slug', 30);
-            $table->string('title', 100);
-            $table->text('description');
-            $table->enum('type',array('text','textarea','password','select','select-multiple','radio','checkbox'));
-            $table->text('default');
-            $table->text('value');
-            $table->string('options', 255);
-            $table->boolean('is_required');
-            $table->boolean('is_gui');
-            $table->string('module', 50);
-            $table->integer('order')->default(0);
-
-            $table->unique('slug', 'index_slug');
-        });
-
         log_message('debug', '-- -- ok settings table');
 
         log_message('debug', '-- Settings: going to install the default settings');

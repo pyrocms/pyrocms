@@ -10,7 +10,6 @@
  */
 class Settings {
 
-	protected $ci;
 	/**
 	 * Settings cache
 	 *
@@ -23,17 +22,18 @@ class Settings {
 	 *
 	 * @var	array
 	 */
-	private $columns = array('slug', 'title', 'description', 'type', 'default', 'value', 'options', 'is_required', 'is_gui', 'module', 'order');
+	private $columns = array(
+		'slug', 'title', 'description', 'type', 'default', 'value', 
+		'options', 'is_required', 'is_gui', 'module', 'order'
+	);
 
 	/**
-	 * The Settings Construct
+	 * Settings Construct
 	 */
 	public function __construct()
 	{
-		ci()->load->model('settings/settings_m');
-
-		$this->ci =& get_instance();
-		$this->ci->lang->load('settings/settings');
+		ci()->load->model('settings/setting_m');
+		ci()->lang->load('settings/settings');
 
 		$this->get_all();
 	}
@@ -43,11 +43,11 @@ class Settings {
 	 *
 	 * Gets the setting value requested
 	 *
-	 * @param	string	$name
+	 * @param	string	$key
 	 */
-	public function __get($name)
+	public function __get($key)
 	{
-		return self::get($name);
+		return self::get($key);
 	}
 
 	/**
@@ -55,13 +55,13 @@ class Settings {
 	 *
 	 * Sets the setting value requested
 	 *
-	 * @param	string	$name
+	 * @param	string	$key
 	 * @param	string	$value
 	 * @return	bool
 	 */
-	public function __set($name, $value)
+	public function __set($key, $value)
 	{
-		return self::set($name, $value);
+		return self::set($key, $value);
 	}
 
 	/**
@@ -69,23 +69,23 @@ class Settings {
 	 *
 	 * Gets a setting.
 	 *
-	 * @param	string	$name
+	 * @param	string	$key
 	 * @return	bool
 	 */
-	public static function get($name)
+	public static function get($key)
 	{
-		if (isset(self::$cache[$name]))
+		if (isset(self::$cache[$key]))
 		{
-			return self::$cache[$name];
+			return self::$cache[$key];
 		}
 
-		$setting = ci()->settings_m->get_by(array('slug' => $name));
+		$setting = ci()->setting_m->get($key);
 
 		// Setting doesn't exist, maybe it's a config option
-		$value = $setting ? $setting->value : config_item($name);
+		$value = $setting ? $setting->value : config_item($key);
 
 		// Store it for later
-		self::$cache[$name] = $value;
+		self::$cache[$key] = $value;
 
 		return $value;
 	}
@@ -95,20 +95,20 @@ class Settings {
 	 *
 	 * Sets a config item
 	 *
-	 * @param	string	$name
+	 * @param	string	$key
 	 * @param	string	$value
 	 * @return	bool
 	 */
-	public static function set($name, $value)
+	public static function set($key, $value)
 	{
-		if (is_string($name))
+		if (is_string($key))
 		{
 			if (is_scalar($value))
 			{
-				$setting = ci()->settings_m->update($name, array('value' => $value));
+				$setting = ci()->setting_m->update($key, array('value' => $value));
 			}
 
-			self::$cache[$name] = $value;
+			self::$cache[$key] = $value;
 
 			return true;
 		}
@@ -121,15 +121,15 @@ class Settings {
 	 *
 	 * Changes a setting for this request only. Does not modify the database
 	 *
-	 * @param	string	$name
+	 * @param	string	$key
 	 * @param	string	$value
 	 * @return	bool
 	 */
-	public static function temp($name, $value)
+	public static function temp($key, $value)
 	{
 		// store the temp value in the cache so that all subsequent calls
 		// for this request will use it instead of the database value
-		self::$cache[$name] = $value;
+		self::$cache[$key] = $value;
 	}
 
 	/**
@@ -146,7 +146,7 @@ class Settings {
 			return self::$cache;
 		}
 
-		$settings = ci()->settings_m->get_many_by(array());
+		$settings = ci()->setting_m->getAll();
 
 		foreach ($settings as $setting)
 		{
@@ -170,7 +170,7 @@ class Settings {
 		{
 			return false;
 		}
-		return ci()->settings_m->insert($setting);
+		return ci()->setting_m->insert($setting);
 	}
 
 	/**
@@ -178,12 +178,12 @@ class Settings {
 	 *
 	 * Deletes setting to the database
 	 *
-	 * @param	string	$name
+	 * @param	string	$key
 	 * @return	bool
 	 */
-	public function delete($name)
+	public function delete($key)
 	{
-		return ci()->settings_m->delete_by(array('slug' => $name));
+		return ci()->setting_m->delete($key);
 	}
 
 	/**
@@ -214,7 +214,7 @@ class Settings {
 
 					if ($helper)
 					{
-						$this->ci->load->helper($helper);
+						ci()->load->helper($helper);
 					}
 				}
 
@@ -336,14 +336,14 @@ class Settings {
 
 		foreach ($options as $option)
 		{
-			list($value, $name) = explode('=', $option);
+			list($value, $key) = explode('=', $option);
 
-			if ($this->ci->lang->line('settings_form_option_' . $name) !== false)
+			if (ci()->lang->line('settings_form_option_' . $key) !== false)
 			{
-				$name = $this->ci->lang->line('settings_form_option_' . $name);
+				$key = ci()->lang->line('settings_form_option_' . $key);
 			}
 
-			$select_array[$value] = $name;
+			$select_array[$value] = $key;
 		}
 
 		return $select_array;

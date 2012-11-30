@@ -24,7 +24,7 @@ class Admin extends Admin_Controller {
 	{
 		parent::__construct();
 
-		$this->load->model('settings_m');
+		$this->load->model('setting_m');
 		$this->load->library('settings');
 		$this->load->library('form_validation');
 		$this->lang->load('settings');
@@ -41,7 +41,7 @@ class Admin extends Admin_Controller {
 	{
 		$setting_language = array();
 		$setting_sections = array();
-		$settings = $this->settings_m->get_many_by(array('is_gui' => 1));
+		$settings = $this->setting_m->getGui();
 
 		// Loop through each setting
 		foreach ($settings as $key => $setting)
@@ -130,7 +130,7 @@ class Admin extends Admin_Controller {
 			redirect('admin/settings');
 		}
 		
-		$settings = $this->settings_m->get_many_by(array('is_gui'=>1));
+		$settings = $this->setting_m->getGui();
 
 		// Create dynamic validation rules
 		foreach ($settings as $setting)
@@ -197,12 +197,12 @@ class Admin extends Admin_Controller {
 	 */
 	public function ajax_update_order()
 	{
-		$slugs = explode(',', $this->input->post('order'));
+		$keys = explode(',', $this->input->post('order'));
 
 		$i = 1000;
-		foreach ($slugs as $slug)
+		foreach ($keys as $keys)
 		{
-			$this->settings_m->update($slug, array(
+			$this->setting_m->update($keys, array(
 				'order' => $i--,
 			));
 		}

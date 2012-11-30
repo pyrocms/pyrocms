@@ -10,16 +10,10 @@ use Illuminate\Database\Connectors\ConnectionFactory;
  */
 class Installer_lib {
 
-	private $ci;
 	public $php_version;
 	public $mysql_server_version;
 	public $mysql_client_version;
 	public $gd_version;
-
-	function __construct()
-	{
-		$this->ci =& get_instance();
-	}
 
 	// Functions used in Step 1
 
@@ -74,9 +68,9 @@ class Installer_lib {
 	}
 
 	/**
-	 * @return bool
-	 *
 	 * Function to check if zlib is installed
+	 *
+	 * @return bool
 	 */
 	public function zlib_enabled()
 	{
@@ -84,10 +78,10 @@ class Installer_lib {
 	}
 
 	/**
+	 * Function to validate the server settings.
+	 *
 	 * @param 	string $data The data that contains server related information.
 	 * @return 	bool
-	 *
-	 * Function to validate the server settings.
 	 */
 	public function check_server($data)
 	{
@@ -129,7 +123,7 @@ class Installer_lib {
 			return 'partial';
 		}
 
-		$supported_servers = $this->ci->config->item('supported_servers');
+		$supported_servers = ci()->config->item('supported_servers');
 
 		return array_key_exists($server_name, $supported_servers);
 	}
@@ -151,13 +145,13 @@ class Installer_lib {
 	 */
 	public function create_db_connection()
 	{
-		$driver   = $this->ci->session->userdata('db.driver');
-		$port     = $this->ci->session->userdata('db.port');
-		$hostname = $this->ci->session->userdata('db.hostname');
-		$location = $this->ci->session->userdata('db.location');
-		$username = $this->ci->session->userdata('db.username');
-		$password = $this->ci->session->userdata('db.password');
-		$database = $this->ci->session->userdata('db.database');
+		$driver   = ci()->session->userdata('db.driver');
+		$port     = ci()->session->userdata('db.port');
+		$hostname = ci()->session->userdata('db.hostname');
+		$location = ci()->session->userdata('db.location');
+		$username = ci()->session->userdata('db.username');
+		$password = ci()->session->userdata('db.password');
+		$database = ci()->session->userdata('db.database');
 
 		switch ($driver)
 		{
@@ -228,10 +222,10 @@ class Installer_lib {
 		$cf = new ConnectionFactory;
 		$conn = $cf->make($config);
 
-		$this->ci->load->model('install_m');
+		ci()->load->model('install_m');
 
 		// Basic installation done with this PDO connection
-		$this->ci->install_m->set_default_structure($conn, array_merge($user, $db));
+		ci()->install_m->set_default_structure($conn, array_merge($user, $db));
 
 		// Write the database file
 		if ( ! $this->write_db_file($db))
@@ -289,11 +283,11 @@ class Installer_lib {
 		// Open the template
 		$template = file_get_contents('./assets/config/config.php');
 
-		$server_name = $this->ci->session->userdata('http_server');
-		$supported_servers = $this->ci->config->item('supported_servers');
+		$server_name = ci()->session->userdata('http_server');
+		$supported_servers = ci()->config->item('supported_servers');
 
 		// Able to use clean URLs?
-		if ($supported_servers[$server_name]['rewrite_support'] !== FALSE)
+		if ($supported_servers[$server_name]['rewrite_support'] !== false)
 		{
 			$index_page = '';
 		}
