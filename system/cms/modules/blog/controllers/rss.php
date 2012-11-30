@@ -18,10 +18,8 @@ class Rss extends Public_Controller
 			'limit' => $this->settings->get('rss_feed_items'))
 		), $this->settings->get('rss_cache'));
 
-		$data = $this->_build_feed($posts);
-		$data->rss->feed_name .= $this->lang->line('blog_rss_name_suffix');
-		$this->output->set_header('Content-Type: application/rss+xml');
-		$this->load->view('rss', $data);
+		$this->output->set_content_type('application/rss+xml');
+		$this->load->view('rss', $this->_build_feed($posts, $this->lang->line('blog:rss_name_suffix')));
 	}
 
 	public function category($slug = '')
@@ -39,19 +37,17 @@ class Rss extends Public_Controller
 			'limit' => $this->settings->get('rss_feed_items'))
 		), $this->settings->get('rss_cache'));
 
-		$data = $this->_build_feed($posts);
-		$data->rss->feed_name .= ' '.$category->title.$this->lang->line('blog_rss_category_suffix');
-		$this->output->set_header('Content-Type: application/rss+xml');
-		$this->load->view('rss', $data);
+		$this->output->set_content_type('application/rss+xml');
+		$this->load->view('rss', $this->_build_feed($posts, $category->title.$this->lang->line('blog:rss_category_suffix')));
 	}
 
-	public function _build_feed($posts = array())
+	public function _build_feed($posts = array(), $suffix = '')
 	{
 		$data = new stdClass();
 		$data->rss = new stdClass();
 
 		$data->rss->encoding = $this->config->item('charset');
-		$data->rss->feed_name = $this->settings->get('site_name');
+		$data->rss->feed_name = $this->settings->get('site_name').' '.$suffix;
 		$data->rss->feed_url = base_url();
 		$data->rss->page_description = sprintf($this->lang->line('blog:rss_posts_title'), $this->settings->get('site_name'));
 		$data->rss->page_language = 'en-gb';
