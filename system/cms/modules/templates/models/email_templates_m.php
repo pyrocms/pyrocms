@@ -19,7 +19,7 @@ class Email_templates_m extends MY_Model {
         parent::__construct();
     }
 
-    public function get_templates($slug = FALSE)
+    public function get_templates($slug = false)
     {
         $results = parent::get_many_by('slug', $slug);
         $templates = array();

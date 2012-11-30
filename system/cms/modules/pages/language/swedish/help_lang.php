@@ -1,18 +1,16 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-
-/**
+ /**
  * Swedish translation.
  *
  * @author		marcus@incore.se
  * @package		PyroCMS  
  * @link		http://pyrocms.com
- * @date		2012-03-13
- * @version		1.0.0
+ * @date		2012-10-22
+ * @version		1.1.0
  */
 
-
-$lang['help_body']		= '<h4> Översikt </ h4>
+$lang['help_body'] = '<h4> Översikt </ h4>
 <p>Sidmodulen är ett enkelt men kraftfullt sätt att hantera statiskt innehåll på din webbplats.
 Sidlayouter kan hanteras och widgets kan bäddas in utan att du behöver redigera mallfilerna. </ P>
 
@@ -59,6 +57,5 @@ Till exempel: Om du har en "Twitter feed widget" som du vill visa längst ned p�
 Nu kan du applicera en CSS-stil till \ "my-twitter-widget \" klassen i CSS-fliken. </ P>';
 
 
-
 /* End of file help_lang.php */  
-/* Location: ./system/cms/modules/pages/language/swedish */ 
+/* Location: system/cms/modules/pages/language/swedish/help_lang.php */  

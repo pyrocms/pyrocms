@@ -1,4 +1,7 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+
+use Illuminate\Database\Connectors\ConnectionFactory;
+
 /**
  * @author 		Phil Sturgeon
  * @author 		Victor Michnowicz
@@ -25,68 +28,29 @@ class Installer_lib {
 	 *
 	 * Function to see if the PHP version is acceptable (at least version 5)
 	 */
-	function php_acceptable($version = NULL)
+	public function php_acceptable($version = NULL)
 	{
 		// Set the PHP version
 		$this->php_version = phpversion();
 
 		// Is this version of PHP greater than minimum version required?
-		return ( version_compare(PHP_VERSION, $version, '>=') ) ? TRUE : FALSE;
+		return (bool) version_compare(PHP_VERSION, $version, '>=');
 	}
-
 
 	/**
 	 * @return 	bool
 	 *
 	 * Function to check that MySQL and its PHP module is installed properly
 	 */
-	public function mysql_available()
-	{
-		return function_exists('mysql_connect');
-	}
-	/**
-	 * @param 	string $type The MySQL type, client or server
-	 * @return 	string The MySQL version of either the server or the client
-	 *
-	 * Function to retrieve the MySQL version (client/server)
-	 */
-	public function mysql_acceptable($type = 'server')
-	{
-		// Server version
-		if ($type == 'server')
-		{
-			// Retrieve the database settings from the session
-			$server 	= $this->ci->session->userdata('hostname') . ':' . $this->ci->session->userdata('port');
-			$username 	= $this->ci->session->userdata('username');
-			$password 	= $this->ci->session->userdata('password');
+	public function check_db_extensions()
+	{		
+		$has_pdo = extension_loaded('pdo');
 
-			// Connect to MySQL
-			if ( $db = @mysql_connect($server,$username,$password) )
-			{
-				$this->mysql_server_version = @mysql_get_server_info($db);
-
-				// Close the connection
-				@mysql_close($db);
-
-				// If the MySQL server version is at least version 5 return TRUE, else FALSE
-				return ($this->mysql_server_version >= 5) ? TRUE : FALSE;
-			}
-			else
-			{
-				@mysql_close($db);
-				return FALSE;
-			}
-		}
-
-		// Client version
-		else
-		{
-			// Get the version
-			$this->mysql_client_version = preg_replace('/[^0-9\.]/','', mysql_get_client_info());
-
-			// If the MySQL client version is at least version 5 return TRUE, else FALSE
-			return ($this->mysql_client_version >= 5) ? TRUE : FALSE;
-		}
+		return array(
+			'mysql' => $has_pdo and extension_loaded('pdo_mysql'),
+			'sqlite' => $has_pdo and extension_loaded('pdo_sqlite'),
+			'pgsql' => $has_pdo and extension_loaded('pdo_pgsql'),
+		);
 	}
 
 	/**
@@ -96,21 +60,17 @@ class Installer_lib {
 	 */
 	public function gd_acceptable()
 	{
-		// Get if the gd_info() function exists
-		if (function_exists('gd_info'))
-		{
-			$gd_info = gd_info();
-			$this->gd_version = preg_replace('/[^0-9\.]/','',$gd_info['GD Version']);
-
-			// If the GD version is at least 1.0 return TRUE, else FALSE
-			return ($this->gd_version >= 1) ? TRUE : FALSE;
-		}
-
 		// Homeboy is not rockin GD at all
-		else
+		if ( ! function_exists('gd_info'))
 		{
-			return FALSE;
+			return false;
 		}
+
+		$gd_info = gd_info();
+		$this->gd_version = preg_replace('/[^0-9\.]/','',$gd_info['GD Version']);
+
+		// If the GD version is at least 1.0 
+		return ($this->gd_version >= 1);
 	}
 
 	/**
@@ -132,36 +92,24 @@ class Installer_lib {
 	public function check_server($data)
 	{
 		// Check PHP
-		if ( ! $this->php_acceptable($data->php_min_version) )
+		if ( ! $this->php_acceptable($data->php_min_version))
 		{
-			return FALSE;
+			return false;
 		}
 
-		// Check MySQL server
-		if ( ! $this->mysql_acceptable('server') )
+		if ($data->http_server->supported === false)
 		{
-			return FALSE;
-		}
-
-		// Check MySQL client
-		if ( ! $this->mysql_acceptable('client') )
-		{
-			return FALSE;
-		}
-
-		if ($data->http_server->supported === FALSE)
-		{
-			return FALSE;
+			return false;
 		}
 
 		// If PHP, MySQL, etc is good but either server, GD, and/or Zlib is unknown, say partial
-		if ( $data->http_server->supported === 'partial' || $this->gd_acceptable() === FALSE || $this->zlib_enabled() === FALSE)
+		if ($data->http_server->supported === 'partial' || $this->gd_acceptable() === false || $this->zlib_enabled() === false)
 		{
 			return 'partial';
 		}
 
 		// Must be fine
-		return TRUE;
+		return true;
 
 	}
 
@@ -187,29 +135,60 @@ class Installer_lib {
 	}
 
 	/**
-	 * @return bool
 	 * Make sure the database name is a valid mysql identifier
-	 * 
+	 * @return bool
 	 */
-	 public function validate_mysql_db_name($db_name)
+	 public function validate_db_name($db_name)
 	 {
-	 	$expr = '/[^A-Za-z0-9_-]+/';
-	 	return !(preg_match($expr,$db_name)>0);
+	 	return ! (preg_match('/[^A-Za-z0-9_-]+/', $db_name) > 0);
 	 }
 
 	/**
-	 * @return 	mixed
-	 *
 	 * Make sure we can connect to the database
+	 *
+	 * @return PDO
+	 * @throws PDOException If connection fails
 	 */
-	public function test_db_connection()
+	public function create_db_connection()
 	{
-		$hostname = $this->ci->session->userdata('hostname');
-		$username = $this->ci->session->userdata('username');
-		$password = $this->ci->session->userdata('password');
-		$port	  = $this->ci->session->userdata('port');
+		$driver   = $this->ci->session->userdata('db.driver');
+		$port     = $this->ci->session->userdata('db.port');
+		$hostname = $this->ci->session->userdata('db.hostname');
+		$location = $this->ci->session->userdata('db.location');
+		$username = $this->ci->session->userdata('db.username');
+		$password = $this->ci->session->userdata('db.password');
+		$database = $this->ci->session->userdata('db.database');
 
-		return $this->mysql_available() && @mysql_connect("$hostname:$port", $username, $password);
+		switch ($driver)
+		{
+			case 'mysql':
+			case 'pgsql':
+				$dsn = "{$driver}:host={$hostname};port={$port};";
+			break;
+			case 'sqlite':
+				$dsn = "sqlite:{$location}";
+			break;
+			default:
+				throw new Exception('Unknown database driver type: '.$driver);
+		}
+
+		// Try and connect, but bitch if error
+		return new PDO($dsn, $username, $password, array(
+			PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+		));
+	}
+
+	/**
+	 * Make sure we can connect to the database
+	 *
+	 * @param PDO $database
+	 * @return bool
+	 */
+	public function create_db($database)
+	{
+		$pdo = $this->create_db_connection();
+		
+		return $pdo->query("CREATE DATABASE {$database}");
 	}
 
 	/**
@@ -218,178 +197,94 @@ class Installer_lib {
 	 *
 	 * Install the PyroCMS database and write the database.php file
 	 */
-	public function install($data)
+	public function install(array $user, array $db)
 	{
-		// Retrieve the database server, username and password from the session
-		$server 	= $this->ci->session->userdata('hostname') . ':' . $this->ci->session->userdata('port');
-		$username 	= $this->ci->session->userdata('username');
-		$password 	= $this->ci->session->userdata('password');
-		$database 	= $data['database'];
-
-		// User settings
-		$user_salt		= substr(md5(uniqid(rand(), true)), 0, 5);
-		$data['user_password'] 	= sha1($data['user_password'] . $user_salt);
-
-		// Include migration config to know which migration to start from
-		include '../system/cms/config/migration.php';
-
 		// Create a connection
-		if ( ! $this->db = @mysql_connect($server, $username, $password) )
+		$config = array(
+			'driver'	=> $db['driver'],
+			'password' 	=> $db['password'],
+			'prefix'	=> $db['site_ref'].'_',
+			'charset'	=> "utf8",
+			'collation'	=> "utf8_unicode_ci",
+		);
+
+		switch ($config['driver'])
 		{
-			return array('status' => FALSE,'message' => 'The installer could not connect to the MySQL server or the database, be sure to enter the correct information.');
+			case 'mysql':
+			case 'pgsql':
+				$config['host'] 	= $db['hostname'];
+				$config['port']     = $db['port'];
+				$config['username'] = $db['username'];
+				$config['database'] = $db['database'];
+			break;
+			case 'sqlite':
+				$config['location'] = $db['location'];
+			break;
+			default:
+				throw new Exception('Unknown database driver type: '.$db['driver']);
 		}
 
-		// Get the SQL for the default data and parse it
-		$user_sql = file_get_contents('./sql/default.sql');
-		$user_sql = str_replace('{PREFIX}', $data['site_ref'].'_', $user_sql);
-		$user_sql = str_replace('{EMAIL}', $data['user_email'], $user_sql);
-		$user_sql = str_replace('{USER-NAME}', mysql_real_escape_string($data['user_name'], $this->db), $user_sql);
-		$user_sql = str_replace('{DISPLAY-NAME}', mysql_real_escape_string($data['user_firstname'] . ' ' . $data['user_lastname'], $this->db), $user_sql);
-		$user_sql = str_replace('{PASSWORD}', mysql_real_escape_string($data['user_password'], $this->db), $user_sql);
-		$user_sql = str_replace('{FIRST-NAME}', mysql_real_escape_string($data['user_firstname'], $this->db), $user_sql);
-		$user_sql = str_replace('{LAST-NAME}', mysql_real_escape_string($data['user_lastname'], $this->db) , $user_sql);
-		$user_sql = str_replace('{SALT}', $user_salt, $user_sql);
-		$user_sql = str_replace('{NOW}', time(), $user_sql);
-		$user_sql = str_replace('{MIGRATION}', $config['migration_version'], $user_sql);
-		
-		if ($this->mysql_server_version >= '5.0.7')
-		{
-			@mysql_set_charset('utf8', $this->db);
-		}
+		// Connect using the Laravel Database component
+		$cf = new ConnectionFactory;
+		$conn = $cf->make($config);
 
-		// Do we want to create the database using the installer ?
-		if ( ! empty($data['create_db'] ))
-		{
-			mysql_query('CREATE DATABASE IF NOT EXISTS '.$database, $this->db);
-		}
+		$this->ci->load->model('install_m');
 
-		// Select the database we created before
-		if ( !mysql_select_db($database, $this->db) )
-		{
-			return array(
-				'status'	=> FALSE,
-				'message'	=> '',
-				'code'		=> 101
-			);
-		}
-
-		if ( ! $this->_process_schema($user_sql, FALSE) )
-		{
-			return array(
-				'status'	=> FALSE,
-				'message'	=> mysql_error($this->db),
-				'code'		=> 104
-			);
-		}
-
-		mysql_query(sprintf(
-			"INSERT INTO core_sites (name, ref, domain, created_on) VALUES ('Default Site', '%s', '%s', '%s');",
-			$data['site_ref'],
-			preg_replace('/^www\./', '', $_SERVER['SERVER_NAME']),
-			time()
-		));
-
-		// If we got this far there can't have been any errors. close and bail!
-		mysql_close($this->db);
+		// Basic installation done with this PDO connection
+		$this->ci->install_m->set_default_structure($conn, array_merge($user, $db));
 
 		// Write the database file
-		if ( ! $this->write_db_file($database) )
+		if ( ! $this->write_db_file($db))
 		{
-			return array(
-						'status'	=> FALSE,
-						'message'	=> '',
-						'code'		=> 105
-					);
+			throw new Exception('Failed to write database.php file.');
 		}
 
 		// Write the config file.
-		if ( ! $this->write_config_file() )
+		if ( ! $this->write_config_file())
 		{
-			return array(
-						'status'	=> FALSE,
-						'message'	=> '',
-						'code'		=> 106
-					);
+			throw new Exception('Failed to write config.php file.');
 		}
 
-		return array('status' => TRUE);
+		return $conn;
 	}
-
-	private function _process_schema($schema_file, $is_file = TRUE)
-	{
-		// String or file?
-		if ( $is_file == TRUE )
-		{
-			$schema 	= file_get_contents('./sql/' . $schema_file . '.sql');
-		}
-		else
-		{
-			$schema 	= $schema_file;
-		}
-
-		// Parse the queries
-		$queries 	= explode('-- command split --', $schema);
-
-		foreach($queries as $query)
-		{
-			$query = rtrim( trim($query), "\n;");
-
-			@mysql_query($query, $this->db);
-
-			if (mysql_errno($this->db) > 0)
-			{
-				return FALSE;
-			}
-		}
-
-		return TRUE;
-	}
-
+	
 	/**
-	 * @param 	string $database The name of the database
-	 *
 	 * Writes the database file based on the provided database settings
+	 *
+	 * @param 	array $db The database config params
 	 */
-	function write_db_file($database)
+	public function write_db_file($db)
 	{
-		// First retrieve all the required data from the session and the $database variable
-		$server 	= $this->ci->session->userdata('hostname');
-		$username 	= $this->ci->session->userdata('username');
-		$password 	= $this->ci->session->userdata('password');
-		$port		= $this->ci->session->userdata('port');
-
 		// Open the template file
-		$template 	= file_get_contents('./assets/config/database.php');
-
-		$replace = array(
-			'__HOSTNAME__' 	=> $server,
-			'__USERNAME__' 	=> $username,
-			'__PASSWORD__' 	=> $password,
-			'__DATABASE__' 	=> $database,
-			'__PORT__' 		=> $port ? $port : 3306
-		);
+		$template = file_get_contents('./assets/config/database.php');
 
 		// Replace the __ variables with the data specified by the user
-		$new_file  	= str_replace(array_keys($replace), $replace, $template);
+		$new_file = str_replace(array( 
+			'{driver}', '{hostname}', '{port}', '{database}', '{username}', '{password}'
+		), array(
+			$db['driver'], $db['hostname'], $db['port'], $db['database'], $db['username'], $db['password'],
+		), $template);
 
 		// Open the database.php file, show an error message in case this returns false
-		$handle 	= @fopen('../system/cms/config/database.php','w+');
+		$handle = @fopen(PYROPATH.'config/database.php','w+');
 
 		// Validate the handle results
-		if ($handle !== FALSE)
+		if ($handle !== false)
 		{
 			return @fwrite($handle, $new_file);
 		}
 
-		return FALSE;
+		@fclose($handle);
+
+		return false;
 	}
 
 	/**
-	 * @return bool
-	 *
 	 * Writes the config file.n
+	 * 
+	 * @return bool
 	 */
-	function write_config_file()
+	public function write_config_file()
 	{
 		// Open the template
 		$template = file_get_contents('./assets/config/config.php');
@@ -402,30 +297,29 @@ class Installer_lib {
 		{
 			$index_page = '';
 		}
-
 		else
 		{
 			$index_page = 'index.php';
 		}
 
-		// Replace the __INDEX__ with index.php or an empty string
-		$new_file = str_replace('__INDEX__', $index_page, $template);
+		// Replace the {index} with index.php or an empty string
+		$new_file = str_replace('{index}', $index_page, $template);
 
 		// Open the database.php file, show an error message in case this returns false
-		$handle = @fopen('../system/cms/config/config.php','w+');
+		$handle = @fopen(PYROPATH.'config/config.php','w+');
 
 		// Validate the handle results
-		if ($handle !== FALSE)
+		if ($handle !== false)
 		{
 			return fwrite($handle, $new_file);
 		}
 
-		return FALSE;
+		return false;
 	}
 
 	public function curl_enabled()
 	{
-		return (bool) function_exists('curl_init');
+		return function_exists('curl_init');
 	}
 }
 

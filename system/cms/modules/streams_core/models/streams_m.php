@@ -63,7 +63,7 @@ class Streams_m extends MY_Model {
 	
     // --------------------------------------------------------------------------
 
-	function __construct()
+	public function __construct()
 	{
 		$this->table = STREAMS_TABLE;
 		
@@ -177,7 +177,7 @@ class Streams_m extends MY_Model {
      * @param	[mixed - provide a namespace string to restrict total]
      * @return	int
      */
-	public function total_streams($namespace = FALSE)
+	public function total_streams($namespace = null)
 	{
 		$where = ($namespace) ? "WHERE stream_namespace='$namespace'" : null;
 	
@@ -229,7 +229,7 @@ class Streams_m extends MY_Model {
 		// Add in our standard fields		
 		$standard_fields = array(
 	        'created' 			=> array('type' => 'DATETIME'),
-            'updated'	 		=> array('type' => 'DATETIME', 'null' => TRUE),
+            'updated'	 		=> array('type' => 'DATETIME', 'null' => true),
             'created_by'		=> array('type' => 'INT', 'constraint' => '11', 'null' => true),
             'ordering_count'	=> array('type' => 'INT', 'constraint' => '11')
 		);
@@ -244,7 +244,7 @@ class Streams_m extends MY_Model {
 		$insert_data['stream_prefix']		= $prefix;
 		$insert_data['stream_namespace']	= $namespace;
 		$insert_data['about']				= $about;
-		$insert_data['title_column']		= NULL;
+		$insert_data['title_column']		= null;
 		
 		// Since this is a new stream, we are going to add a basic view profile
 		// with data we know will be there.	
@@ -505,7 +505,7 @@ class Streams_m extends MY_Model {
 	 * @param	int
 	 * @return 	obj
 	 */
-	public function get_stream_data($stream, $stream_fields, $limit = null, $offset = 0)
+	public function get_stream_data($stream, $stream_fields, $limit = null, $offset = 0, $filter_data = null)
 	{
 		$this->load->config('streams');
 
@@ -527,6 +527,20 @@ class Streams_m extends MY_Model {
 		else
 		{
 			$this->db->order_by('created', 'DESC');
+		}
+
+		// -------------------------------------
+		// Filter results
+		// -------------------------------------
+
+		if ( $filter_data != null )
+		{
+
+			// Loop through and apply the filters
+			foreach ( $filter_data['filters'] as $filter=>$value )
+			{
+				if ( strlen($value) > 0 ) $this->db->like(str_replace('f_', '', $filter), $value);
+			}
 		}
 
 		// -------------------------------------
@@ -612,11 +626,16 @@ class Streams_m extends MY_Model {
 		
 		if (!empty($skips)) $this->db->or_where_not_in('field_slug', $skips);
 		
-		$this->db->where(STREAMS_TABLE.'.id', $stream_id);
-		$this->db->join(ASSIGN_TABLE, STREAMS_TABLE.'.id='.ASSIGN_TABLE.'.stream_id');
-		$this->db->join(FIELDS_TABLE, FIELDS_TABLE.'.id='.ASSIGN_TABLE.'.field_id');
+		// TODO Remove hack once PDO drivers work
+		return array();
+
+		$this->db
+			->from(STREAMS_TABLE)
+			->join(ASSIGN_TABLE, STREAMS_TABLE.'.id='.ASSIGN_TABLE.'.stream_id')
+			->join(FIELDS_TABLE, FIELDS_TABLE.'.id='.ASSIGN_TABLE.'.field_id')
+			->where(STREAMS_TABLE.'.id', $stream_id);
 		
-		$obj = $this->db->get(STREAMS_TABLE);
+		$obj = $this->db->get();
 		
 		if ($obj->num_rows() == 0)
 		{

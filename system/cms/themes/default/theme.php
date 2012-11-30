@@ -13,19 +13,19 @@ class Theme_Default extends Theme {
 																'default'       => 'yes',
 																'type'          => 'radio',
 																'options'       => 'yes=Yes|no=No',
-																'is_required'   => TRUE),
+																'is_required'   => true),
 									'layout' => 			array('title' => 'Layout',
 																'description'   => 'Which type of layout shall we use?',
 																'default'       => '2 column',
 																'type'          => 'select',
 																'options'       => '2 column=Two Column|full-width=Full Width|full-width-home=Full Width Home Page',
-																'is_required'   => TRUE),
+																'is_required'   => true),
 									'cufon_enabled' => 		array('title'		=> 'Use Cufon',
 																'description' 	=> 'Would you like to use Cufon for titles?',
 																'default'       => 'yes',
 																'type'          => 'radio',
 																'options'       => 'yes=Yes|no=No',
-																'is_required'   => TRUE),
+																'is_required'   => true),
 								   );
 
 	public function __construct()
@@ -42,13 +42,13 @@ class Theme_Default extends Theme {
 		switch (CURRENT_LANGUAGE)
 		{
 			case 'zh':
-				$cufon_enabled	= FALSE;
+				$cufon_enabled	= false;
 				break;
 			case 'ar':
-				$cufon_enabled = FALSE;
+				$cufon_enabled = false;
 				break;
 			case 'he':
-				$cufon_enabled	= TRUE;
+				$cufon_enabled	= true;
 			case 'ru':
 				$cufon_font		= 'times.font.js';
 				break;

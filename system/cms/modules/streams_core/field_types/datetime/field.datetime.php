@@ -435,7 +435,7 @@ class Field_datetime
 		if ($data['custom']['use_time'] == 'yes')
 		{
 			// Hour	
-			$hour_count = 1;
+			$hour_count = 0;
 			
 			$hours = array();
 			
@@ -1010,7 +1010,7 @@ class Field_datetime
 	 * @param	[bool]
 	 * @return	string
 	 */	
-	private function format_date($format, $unix_date, $standard = FALSE)
+	private function format_date($format, $unix_date, $standard = false)
 	{
 		if ( ! $unix_date)
 		{

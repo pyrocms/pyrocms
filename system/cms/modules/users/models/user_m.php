@@ -7,7 +7,7 @@
  */
 class User_m extends MY_Model
 {
-	function __construct()
+	public function __construct()
 	{
 		parent::__construct();
 
@@ -130,7 +130,7 @@ class User_m extends MY_Model
 	 *
 	 * @return bool
 	 */
-	function activate($id)
+	public function activate($id)
 	{
 		return parent::update($id, array('active' => 1, 'activation_code' => ''));
 	}

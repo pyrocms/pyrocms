@@ -2,8 +2,9 @@
 /**
  * The Language Handler Library.
  * 
- * @author PyroCMS Dev Team
- * @package PyroCMS\Core\Libraries 
+ * @author      PyroCMS Dev Team
+ * @copyright   Copyright (c) 2012, PyroCMS LLC
+ * @package 	PyroCMS\Core\Libraries 
  */
 require APPPATH."libraries/MX/Lang.php";
 
@@ -21,10 +22,10 @@ class MY_Lang extends MX_Lang
 	 */
 	public function line($line = '')
 	{
-		$translation = ($line == '' OR !isset($this->language[$line])) ? FALSE : $this->language[$line];
+		$translation = ($line == '' OR !isset($this->language[$line])) ? false : $this->language[$line];
 
 		// Because killer robots like unicorns!
-		if ($translation === FALSE)
+		if ($translation === false)
 		{
 			log_message('debug', 'Could not find the language line "'.$line.'"');
 		}

@@ -21,12 +21,12 @@ class Admin extends Admin_Controller
 	private $validation_rules = array(
 		'email' => array(
 			'field' => 'email',
-			'label' => 'lang:user_email_label',
+			'label' => 'lang:global:email',
 			'rules' => 'required|max_length[60]|valid_email'
 		),
 		'password' => array(
 			'field' => 'password',
-			'label' => 'lang:user_password_label',
+			'label' => 'lang:global:password',
 			'rules' => 'min_length[6]|max_length[20]'
 		),
 		'username' => array(
@@ -99,22 +99,22 @@ class Admin extends Admin_Controller
 
 		// Create pagination links
 		$pagination = create_pagination('admin/users/index', $this->user_m->count_by($base_where));
-		
+
 		//Skip admin
 		$skip_admin = ( $this->current_user->group != 'admin' ) ? 'admin' : '';
 
 		// Using this data, get the relevant results
-		$users = $this->user_m
-			->order_by('active', 'desc')
+		$this->db->order_by('active', 'desc')
 			->join('groups', 'groups.id = users.group_id')
 			->where_not_in('groups.name', $skip_admin)
-			->limit($pagination['limit'])
-			->get_many_by($base_where);
+			->limit($pagination['limit'], $pagination['offset']);
+
+		$users = $this->user_m->get_many_by($base_where);
 
 		// Unset the layout if we have an ajax request
 		if ($this->input->is_ajax_request())
 		{
-			$this->template->set_layout(FALSE);
+			$this->template->set_layout(false);
 		}
 
 		// Render the view
@@ -219,7 +219,9 @@ class Admin extends Admin_Controller
 
 				// Set the flashdata message and redirect
 				$this->session->set_flashdata('success', $this->ion_auth->messages());
-				redirect('admin/users');
+
+				// Redirect back to the form or main page
+				$this->input->post('btnAction') === 'save_exit' ? redirect('admin/users') : redirect('admin/users/edit/'.$user_id);
 			}
 			// Error
 			else
@@ -233,8 +235,9 @@ class Admin extends Admin_Controller
 			// re-add all data upon an error
 			if ($_POST)
 			{
-				$member = (object)$_POST;
+				$member = (object) $_POST;
 			}
+
 		}
 
 		if ( ! isset($member))
@@ -272,7 +275,7 @@ class Admin extends Admin_Controller
 			$this->session->set_flashdata('error', lang('user_edit_user_not_found_error'));
 			redirect('admin/users');
 		}
-
+		
 		// Check to see if we are changing usernames
 		if ($member->username != $this->input->post('username'))
 		{
@@ -362,21 +365,22 @@ class Admin extends Admin_Controller
 				$this->session->set_flashdata('error', $this->ion_auth->errors());
 			}
 
-			redirect('admin/users');
+			// Redirect back to the form or main page
+			$this->input->post('btnAction') === 'save_exit' ? redirect('admin/users') : redirect('admin/users/edit/'.$id);
 		}
 		else
 		{
 			// Dirty hack that fixes the issue of having to re-add all data upon an error
 			if ($_POST)
 			{
-				$member = (object)$_POST;
+				$member = (object) $_POST;
 			}
 		}
 
 		// Loop through each validation rule
 		foreach ($this->validation_rules as $rule)
 		{
-			if ($this->input->post($rule['field']) !== false)
+			if ($this->input->post($rule['field']) !== null)
 			{
 				$member->{$rule['field']} = set_value($rule['field']);
 			}

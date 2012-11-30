@@ -8,7 +8,7 @@
  */
 class Module_Comments extends Module {
 
-	public $version = '1.0';
+	public $version = '1.1.0';
 
 	public function info()
 	{
@@ -36,7 +36,7 @@ class Module_Comments extends Module {
 				'zh' => '回應',
 				'hu' => 'Hozzászólások',
 				'th' => 'ความคิดเห็น',
-                                'se' => 'Kommentarer'
+				'se' => 'Kommentarer',
 			),
 			'description' => array(
 				'en' => 'Users and guests can write comments for content like blog, pages and photos.',
@@ -61,7 +61,7 @@ class Module_Comments extends Module {
 				'zh' => '用戶和訪客可以針對新聞、頁面與照片等內容發表回應。',
 				'hu' => 'A felhasználók és a vendégek hozzászólásokat írhatnak a tartalomhoz (bejegyzésekhez, oldalakhoz, fotókhoz).',
 				'th' => 'ผู้ใช้งานและผู้เยี่ยมชมสามารถเขียนความคิดเห็นในเนื้อหาของหน้าเว็บบล็อกและภาพถ่าย',
-                                'se' => 'Användare och besökare kan skriva kommentarer till innehåll som blogginlägg, sidor och bilder.'
+				'se' => 'Användare och besökare kan skriva kommentarer till innehåll som blogginlägg, sidor och bilder.',
 			),
 			'frontend' => false,
 			'backend'  => true,
@@ -71,29 +71,105 @@ class Module_Comments extends Module {
 
 	public function install()
 	{
-		$this->dbforge->drop_table('comments');
+		$schema = $this->pdb->getSchemaBuilder();
 
-		$tables = array(
-			'comments' => array(
-				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
-				'is_active' => array('type' => 'INT', 'constraint' => 1, 'default' => 0,),
-				'user_id' => array('type' => 'INT', 'constraint' => 11, 'default' => 0,),
-				'name' => array('type' => 'VARCHAR', 'constraint' => 40, 'default' => '',),
-				'email' => array('type' => 'VARCHAR', 'constraint' => 40, 'default' => '',), // @todo Shouldn't this be 255?
-				'website' => array('type' => 'VARCHAR', 'constraint' => 255,),
-				'comment' => array('type' => 'TEXT',),
-				'parsed' => array('type' => 'TEXT',),
-				'module' => array('type' => 'VARCHAR', 'constraint' => 40,),
-				'module_id' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => 0,),
-				'created_on' => array('type' => 'VARCHAR', 'constraint' => 11, 'default' => '0',), // @todo Shouldn't this be an int?
-				'ip_address' => array('type' => 'VARCHAR', 'constraint' => 15, 'default' => '',),
+		$schema->drop('comments');
+
+		$schema->create('comments', function($table) { 
+			$table->increments('id');
+			$table->bool('is_active')->default(false);
+			$table->integer('user_id', 11)->nullable();
+			$table->string('user_name', 40)->nullable();
+			$table->string('user_email', 40)->nullable();
+			$table->string('user_website', 255)->nullable();
+			$table->text('comment');
+			$table->text('parsed');
+			$table->string('module', 40);
+			$table->string('entry_id', 255)->default(0);
+			$table->string('entry_title', 255)->default(0);
+			$table->string('entry_key', 100);
+			$table->string('entry_plural', 100);
+			$table->string('entry_plural', 100);
+			$table->string('uri', 255)->nullable();
+			$table->string('cp_uri', 255)->nullable();
+			$table->integer('created_on', 11)->nullable();
+			$table->integer('ip_address', 15)->nullable();
+		});
+
+		$schema->create('comment_blacklists', function($table) { 
+			$table->increments('id')->primary();
+			$table->string('website', 255);
+			$table->string('email', 150);
+		});
+
+		// Install the settings
+		$this->db->insert('settings', array(
+			array(
+				'slug' => 'akismet_api_key',
+				'title' => 'Akismet API Key',
+				'description' => 'Akismet is a spam-blocker from the WordPress team. It keeps spam under control without forcing users to get past human-checking CAPTCHA forms.',
+				'type' => 'text',
+				'default' => '',
+				'value' => '',
+				'options' => '',
+				'is_required' => 0,
+				'is_gui' => 1,
+				'module' => 'integration',
+				'order' => 981,
 			),
-		);
-
-		if ( !$this->install_tables($tables))
-		{
-			return false;
-		}
+			array(
+				'slug' => 'enable_comments',
+				'title' => 'Enable Comments',
+				'description' => 'Enable comments.',
+				'type' => 'radio',
+				'default' => true,
+				'value' => true,
+				'options' => '1=Enabled|0=Disabled',
+				'is_required' => 1,
+				'is_gui' => 1,
+				'module' => 'comments',
+				'order' => 968,
+			),
+			array(
+				'slug' => 'moderate_comments',
+				'title' => 'Moderate Comments',
+				'description' => 'Force comments to be approved before they appear on the site.',
+				'type' => 'radio',
+				'default' => true,
+				'value' => true,
+				'options' => '1=Enabled|0=Disabled',
+				'is_required' => 1,
+				'is_gui' => 1,
+				'module' => 'comments',
+				'order' => 967,
+			),
+			array(
+				'slug' => 'comment_order',
+				'title' => 'Comment Order',
+				'description' => 'Sort order in which to display comments.',
+				'type' => 'select',
+				'default' => 'ASC',
+				'value' => 'ASC',
+				'options' => 'ASC=Oldest First|DESC=Newest First',
+				'is_required' => 1,
+				'is_gui' => 1,
+				'module' => 'comments',
+				'order' => 966,
+			),
+			array(
+				'slug' => 'comment_markdown',
+				'title' => 'Allow Markdown',
+				'description' => 'Do you want to allow visitors to post comments using Markdown?',
+				'type' => 'select',
+				'default' => '0',
+				'value' => '0',
+				'options' => '0=Text Only|1=Allow Markdown',
+				'is_required' => 1,
+				'is_gui' => 1,
+				'module' => 'comments',
+				'order' => 965,
+			),
+		));
 
 		return true;
 	}
@@ -106,7 +182,7 @@ class Module_Comments extends Module {
 
 	public function upgrade($old_version)
 	{
-		return TRUE;
+		return true;
 	}
 
 }

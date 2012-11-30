@@ -103,7 +103,7 @@ class Admin extends Admin_Controller {
 		//only allow modules that user has permissions for
 		foreach($all_modules as $module)
 		{
-			if(in_array($module['slug'], $this->permissions) OR $this->current_user->group == 'admin') $modules[] = $module;
+			if (in_array($module['slug'], $this->permissions) or $this->current_user->group == 'admin') $modules[] = $module;
 		}
 
 		$this->template->modules_select = array_for_select($modules, 'slug', 'name');
@@ -171,7 +171,7 @@ class Admin extends Admin_Controller {
 				$this->navigation_m->_set_children($link);
 			}
 
-			$this->pyrocache->delete_all('navigation_m');
+			$this->cache->clear('navigation_m');
 			Events::trigger('post_navigation_order', array($order, $group));
 		}
 	}
@@ -188,7 +188,8 @@ class Admin extends Admin_Controller {
 		$ids = explode(',', $link[0]->restricted_to);
 
 		$this->load->model('groups/group_m');
-		$groups = $this->group_m->where_in('id', $ids)->dropdown('id', 'name');
+		$this->db->where_in('id', $ids);
+		$groups = $this->group_m->dropdown('id', 'name');
 
 		$link[0]->{'restricted_to'} = implode(', ', $groups);
 
@@ -224,7 +225,7 @@ class Admin extends Admin_Controller {
 			// Got post?
 			if ($this->navigation_m->insert_link($input) > 0)
 			{
-				$this->pyrocache->delete_all('navigation_m');
+				$this->cache->clear('navigation_m');
 
 				Events::trigger('post_navigation_create', $input);
 
@@ -312,7 +313,7 @@ class Admin extends Admin_Controller {
 
 			// Update the link and flush the cache
 			$this->navigation_m->update_link($id, $input);
-			$this->pyrocache->delete_all('navigation_m');
+			$this->cache->clear('navigation_m');
 
 			Events::trigger('post_navigation_edit', $input);
 
@@ -333,7 +334,7 @@ class Admin extends Admin_Controller {
 		// Loop through each rule
 		foreach($this->validation_rules as $rule)
 		{
-			if($this->input->post($rule['field']) !== FALSE)
+			if($this->input->post($rule['field']) !== false)
 			{
 				$this->template->navigation_link->{$rule['field']} = $this->input->post($rule['field']);
 			}
@@ -368,7 +369,7 @@ class Admin extends Admin_Controller {
 			Events::trigger('post_navigation_delete', $id_array);
 		}
 		// Flush the cache and redirect
-		$this->pyrocache->delete_all('navigation_m');
+		$this->cache->clear('navigation_m');
 		$this->session->set_flashdata('success', $this->lang->line('nav_link_delete_success'));
 		redirect('admin/navigation');
 	}
@@ -382,7 +383,7 @@ class Admin extends Admin_Controller {
 	 *
 	 * @return string
 	 */
-	function _build_tree_select($params)
+	public function _build_tree_select($params)
 	{
 		$params = array_merge(array(
 			'tree'			=> array(),
@@ -452,10 +453,11 @@ class Admin extends Admin_Controller {
 	 * Only the URI field may be submitted blank.
 	 *
 	 * @param string $link The link value
+	 * @return bool
 	 */
 	public function _link_check($link)
 	{
-		$status = TRUE;
+		$status = true;
 
 		switch ($link) {
 

@@ -10,6 +10,9 @@
  */
 class Plugin_Theme extends Plugin
 {
+	public $description = array(
+		'en'	=> 'Load and display theme assets.'
+	);
 
 	/**
 	 * Partial
@@ -28,8 +31,8 @@ class Plugin_Theme extends Plugin
 		$path = $this->load->get_var('template_views');
 		$data = $this->load->get_vars();
 
-		$string = $this->load->file($path.'partials/'.$name.'.html', TRUE);
-		return $this->parser->parse_string($string, $data, TRUE, TRUE);
+		$string = $this->load->file($path.'partials/'.$name.'.html', true);
+		return $this->parser->parse_string($string, $data, true, true);
 	}
 
 	/**
@@ -242,7 +245,7 @@ class Plugin_Theme extends Plugin
 		$name = $this->attribute('name');
 		$value = $this->attribute('value');
 
-		if ($value !== NULL)
+		if ($value !== null)
 		{
 			$variables[$name] = $value;
 			return;

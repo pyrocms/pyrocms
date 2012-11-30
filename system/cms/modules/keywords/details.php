@@ -8,7 +8,7 @@
  */
 class Module_Keywords extends Module {
 
-	public $version = '1.0';
+	public $version = '1.1.0';
 
 	public $_tables = array('keywords', 'keywords_applied');
 
@@ -51,7 +51,7 @@ class Module_Keywords extends Module {
 			),
 			'frontend' => false,
 			'backend'  => true,
-			'menu'     => 'content',
+			'menu'     => 'data',
 			'shortcuts' => array(
 				array(
 			 	   'name' => 'keywords:add_title',
@@ -64,20 +64,24 @@ class Module_Keywords extends Module {
 
 	public function install()
 	{
-		$this->dbforge->drop_table('keywords');
-		$this->dbforge->drop_table('keywords_applied');
+		$schema = $this->pdb->getSchemaBuilder();
+		$schema->drop('keywords');
 
-		return $this->install_tables(array(
-			'keywords' => array(
-				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
-				'name' => array('type' => 'VARCHAR', 'constraint' => 50,),
-			),
-			'keywords_applied' => array(
-				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
-				'hash' => array('type' => 'CHAR', 'constraint' => 32, 'default' => '',),
-				'keyword_id' => array('type' => 'INT', 'constraint' => 11,),
-			),
-		));
+		$schema->create('keywords',function(\Illuminate\Database\Schema\Blueprint $table) {
+			$table->increments('id');
+			$table->string('name', 50);
+			$table->primary('id');
+		});
+
+		$schema->drop('keywords_applied');
+
+		$schema->create('keywords_applied',function(\Illuminate\Database\Schema\Blueprint $table) {
+			$table->increments('id')->primary();
+			$table->string('hash', 32)->default('');
+			$table->integer('keyword_id');
+		});
+
+		return true;
 	}
 
 	public function uninstall()

@@ -1,7 +1,5 @@
 <?php (defined('BASEPATH')) OR exit('No direct script access allowed');
 
-(defined('EXT')) OR define('EXT', '.php');
-
 global $CFG;
 
 /* get module locations from config settings or use the default module location and offset */
@@ -115,19 +113,19 @@ class Modules
 		if (strstr($class, 'CI_') OR strstr($class, config_item('subclass_prefix'))) return;
 
 		/* autoload Modular Extensions MX core classes */
-		if (strstr($class, 'MX_') AND is_file($location = dirname(__FILE__).'/'.substr($class, 3).EXT)) {
+		if (strstr($class, 'MX_') AND is_file($location = dirname(__FILE__).'/'.substr($class, 3).'.php')) {
 			include_once $location;
 			return;
 		}
 		
 		/* autoload core classes */
-		if(is_file($location = APPPATH.'core/'.$class.EXT)) {
+		if(is_file($location = APPPATH.'core/'.$class.'.php')) {
 			include_once $location;
 			return;
 		}		
 		
 		/* autoload library classes */
-		if(is_file($location = APPPATH.'libraries/'.$class.EXT)) {
+		if(is_file($location = APPPATH.'libraries/'.$class.'.php')) {
 			include_once $location;
 			return;
 		}		
@@ -136,8 +134,8 @@ class Modules
 	/** Load a module file **/
 	public static function load_file($file, $path, $type = 'other', $result = TRUE)	{
 		
-		$file = str_replace(EXT, '', $file);		
-		$location = $path.$file.EXT;
+		$file = str_replace('.php', '', $file);		
+		$location = $path.$file.'.php';
 		
 		if ($type === 'other') {			
 			if (class_exists($file, FALSE))	{
@@ -170,7 +168,7 @@ class Modules
 		$segments = explode('/', $file);
 
 		$file = array_pop($segments);
-		$file_ext = strpos($file, '.') ? $file : $file.EXT;
+		$file_ext = strpos($file, '.') ? $file : $file.'.php';
 		
 		$path = ltrim(implode('/', $segments).'/', '/');	
 		$module ? $modules[$module] = $path : $modules = array();

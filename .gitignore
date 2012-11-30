@@ -3,12 +3,14 @@
 .project
 .settings
 .idea
+composer.lock
 assets/cache/*
 system/cms/cache/*
 system/cms/config/database.php
 system/cms/logs/log-*.php
 nbproject/
 uploads/*
+vendor/*
 
 addons/*
 !addons/shared_addons

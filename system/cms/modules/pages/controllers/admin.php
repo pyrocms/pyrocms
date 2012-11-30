@@ -84,8 +84,8 @@ class Admin extends Admin_Controller {
 			// rebuild page URIs
 			$this->page_m->update_lookup($root_pages);
 
-			$this->pyrocache->delete_all('navigation_m');
-			$this->pyrocache->delete_all('page_m');
+			$this->cache->clear('navigation_m');
+			$this->cache->clear('page_m');
 
 			Events::trigger('page_ordered', array($order, $root_pages));
 		}
@@ -287,7 +287,7 @@ class Admin extends Admin_Controller {
 	public function edit($id = 0)
 	{
 		// We are lost without an id. Redirect to the pages index.
-		$id OR redirect('admin/pages');
+		$id or redirect('admin/pages');
 
 		// The user needs to be able to edit pages.
 		role_or_die('pages', 'edit_live');
@@ -305,9 +305,10 @@ class Admin extends Admin_Controller {
 
 		// Turn the CSV list back to an array
 		$page->restricted_to = explode(',', $page->restricted_to);
+		$page->meta_keywords = Keywords::get_string($page->meta_keywords);
 
 		// Got page?
-		if ( ! $page OR empty($page))
+		if ( ! $page or empty($page))
 		{
 			// Maybe you would like to create one?
 			$this->session->set_flashdata('error', lang('pages_page_not_found_error'));
@@ -335,8 +336,8 @@ class Admin extends Admin_Controller {
 
 				Events::trigger('page_updated', $id);
 
-				$this->pyrocache->delete_all('page_m');
-				$this->pyrocache->delete_all('navigation_m');
+				$this->cache->clear('page_m');
+				$this->cache->clear('navigation_m');
 
 				// Mission accomplished!
 				$input['btnAction'] == 'save_exit'
@@ -367,8 +368,10 @@ class Admin extends Admin_Controller {
 		}
 
 		// Loop through each validation rule
-		foreach ($this->page_m->fields() as $field)
+		foreach ($this->page_m->validate as $field)
 		{
+			$field = $field['field'];
+
 			// Nothing to do for these two fields.
 			if (in_array($field, array('navigation_group_id', 'chunk_body[]')))
 			{
@@ -417,7 +420,7 @@ class Admin extends Admin_Controller {
 	 */
 	private function _form_data()
 	{
-		$page_layouts = $this->page_layouts_m->get_all();
+		$page_layouts = $this->page_layouts_m->order_by('title')->get_all();
 		$this->template->page_layouts = array_for_select($page_layouts, 'id', 'title');
 
 		// Load navigation list
@@ -447,7 +450,7 @@ class Admin extends Admin_Controller {
 	 */
 	public function delete($id = 0)
 	{
-		$this->load->model('comments/comments_m');
+		$this->load->model('comments/comment_m');
 
 		// The user needs to be able to delete pages.
 		role_or_die('pages', 'delete_live');
@@ -464,11 +467,15 @@ class Admin extends Admin_Controller {
 				{
 					$deleted_ids = $this->page_m->delete($id);
 
-					$this->comments_m->where('module', 'pages')->delete_by('module_id', $id);
+					// Delete any page comments for this entry
+					$this->comment_m->where('module', 'pages')->delete_by(array(
+						'entry_key' => 'page:page',
+						'entry_id' => $id
+					));
 
 					// Wipe cache for this model, the content has changd
-					$this->pyrocache->delete_all('page_m');
-					$this->pyrocache->delete_all('navigation_m');
+					$this->cache->clear('page_m');
+					$this->cache->clear('navigation_m');
 				}
 				else
 				{

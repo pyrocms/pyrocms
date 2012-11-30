@@ -8,7 +8,7 @@ class Migration_Lazy_pages extends CI_Migration {
             'strict_uri' => array(
                 'type' => 'TINYINT',
                 'constraint' => 1,
-                'null' => FALSE,
+                'null' => false,
                 'default' => 1
             ),
         ));

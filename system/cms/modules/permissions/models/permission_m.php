@@ -36,8 +36,8 @@ class Permission_m extends CI_Model
 
 		foreach ($result as $row)
 		{
-			// Either pass roles or just TRUE
-			$rules[$row->module] = $row->roles ? json_decode($row->roles, true) : TRUE;
+			// Either pass roles or just true
+			$rules[$row->module] = $row->roles ? json_decode($row->roles, true) : true;
 		}
 
 		// Save this result for later
@@ -53,10 +53,10 @@ class Permission_m extends CI_Model
 	 * @param null|string $module The module to check access against
 	 * @return bool
 	 */
-	public function check_access($group_id, $module = NULL)
+	public function check_access($group_id, $module = null)
 	{
 		// If no module is set, just make sure they have SOMETHING
-		if ($module !== NULL)
+		if ($module !== null)
 		{
 			$this->db->where('module', $module);
 		}
@@ -89,22 +89,22 @@ class Permission_m extends CI_Model
 					$data = array(
 						'module' => $module,
 						'group_id' => $group_id,
-						'roles' => ! empty($module_roles[$module]) ? json_encode($module_roles[$module]) : NULL,
+						'roles' => ! empty($module_roles[$module]) ? json_encode($module_roles[$module]) : null,
 					);
 
 					// Save this module in the list of "allowed modules"
 					if ( ! $result = $this->db->insert('permissions', $data))
 					{
 						// Fail, give up trying
-						return FALSE;
+						return false;
 					}
 				}
 			}
 			// All done!
-			return TRUE;
+			return true;
 		}
 
-		return FALSE;
+		return false;
 	}
 
 }

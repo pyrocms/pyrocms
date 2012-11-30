@@ -15,7 +15,7 @@ class Migration_Add_site_active_field extends CI_Migration {
 				'active' => array(
 					'type'			=> 'tinyint',
 					'constraint'	=> 1,
-					'null'			=> FALSE,
+					'null'			=> false,
 					'default'		=> 1
 				)
 			));

@@ -28,15 +28,17 @@
  * By default development will show errors but testing and live will hide them.
  */
 
+	error_reporting(E_ALL);
+
 	switch (ENVIRONMENT)
 	{
 		case 'development':
-			error_reporting(E_ALL);
+			ini_set('display_errors', true);
 		break;
 
 		case 'testing':
 		case 'production':
-			error_reporting(0);
+			ini_set('display_errors', false);
 		break;
 
 		default:
@@ -176,8 +178,6 @@
  *  Now that we know the path, set the main path constants
  * -------------------------------------------------------------------
  */		
-	// The PHP file extension
-	define('EXT', '.php');
 
  	// Path to the system folder
 	define('BASEPATH', str_replace("\\", "/", $system_path));
@@ -197,12 +197,22 @@
 
 /*
  * --------------------------------------------------------------------
+ * LOAD THE COMPOSER AUTOLOADER
+ * --------------------------------------------------------------------
+ *
+ * ...and it will take care of our classes
+ *
+ */
+require_once '../vendor/autoload.php';
+
+/*
+ * --------------------------------------------------------------------
  * LOAD THE BOOTSTRAP FILE
  * --------------------------------------------------------------------
  *
  * And away we go...
  *
  */
-require_once BASEPATH.'core/CodeIgniter'.EXT;
+require_once BASEPATH.'core/CodeIgniter.php';
 
 /* End of file index.php */

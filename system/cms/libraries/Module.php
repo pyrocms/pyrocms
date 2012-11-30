@@ -4,9 +4,9 @@
  *
  * This class should be extended to allow for module management.
  *
- * @author		Dan Horrigan <dan@dhorrigan.com>
- * @author		PyroCMS Dev Team
  * @package		PyroCMS\Core\Libraries
+ * @author		PyroCMS Dev Team
+ * @copyright   Copyright (c) 2012, PyroCMS LLC
  */
 abstract class Module {
 
@@ -31,9 +31,9 @@ abstract class Module {
 	 *	   'description' => array(
 	 *		   'en' => 'Example Module Description'
 	 *	   ),
-	 *	   'frontend' => TRUE,
-	 *	   'backend'  => TRUE,
-	 *	   'menu'	  => TRUE
+	 *	   'frontend' => true,
+	 *	   'backend'  => true,
+	 *	   'menu'	  => true
 	 *	   'controllers' => array(
 	 *		   'admin' => array('index', 'edit', 'delete'),
 	 *		   'example' => array('index', 'view')
@@ -72,11 +72,12 @@ abstract class Module {
 
 	/**
 	 * Loads the database and dbforge libraries.
+	 *
+	 * @param Illuminate\Database\Connection $pdb The Laravel database connection
 	 */
-	public function __construct()
+	public function __construct(Illuminate\Database\Connection $pdb)
 	{
-		$this->load->database();
-		$this->load->dbforge();
+		$this->pdb = $pdb;
 	}
 
 	/**
@@ -162,7 +163,7 @@ abstract class Module {
 			$this->_add_keys('key', $key_types['key']);
 
 			// Then we create the table (if not exists).
-			if ( ! $this->dbforge->create_table($table_name, true))
+			if ( ! $this->dbforge->create_table($table_name))
 			{
 				log_message('error', '-- Table creation for '.$table_name.' failed.');
 				return false;
@@ -210,7 +211,7 @@ abstract class Module {
 					// Add them one by one.
 					foreach ($keys as $i => $primary_key)
 					{
-						$this->dbforge->add_key($keys[$i], TRUE);
+						$this->dbforge->add_key($keys[$i], true);
 					}
 				}
 				// Everything else can be just be supplied as an array.
@@ -254,16 +255,19 @@ abstract class Module {
 			// @todo there is no checking whether the index exists already.
 
 			// FULLTEXT is only available on MyISAM.
-			if($type === 'FULLTEXT') {
+			if ($type === 'FULLTEXT')
+			{
 				$sql = 'ALTER TABLE '.$this->db->dbprefix($table).' ENGINE = MyISAM';
-				if ( ! $this->db->query($sql) ) {
+				if ( ! $this->db->query($sql) )
+				{
 					log_message('error', '-- -- Failed turning the engine for '.$table.' to MyISAM. SQL: '.$sql);
 					return false;
 				}
 			}
 			foreach ($keys as $key => $fields)
 			{
-				$sql = 'CREATE '.$type.' INDEX '.$key.' ON '.$this->db->dbprefix($table).'('.implode(', ', $fields).')';
+				$key = "{$table}_{$key}";
+				$sql = 'CREATE '.$type.' INDEX `'.$key.'` ON '.$this->db->dbprefix($table).'('.implode(', ', $fields).')';
 				if ( ! $this->db->query($sql))
 				{
 					log_message('error', '-- -- Failed creating key '.$type.' for '.$table.': '. $sql);
@@ -292,21 +296,22 @@ abstract class Module {
 	 */
 	protected function _add_to_array(&$arr, $index, $value, $type='')
 	{
-		if(is_array($value)) {
+		if (is_array($value))
+		{
 			foreach ($value as $v)
 			{
 				$this->_add_to_array($arr, $index, $v, $type);
 			}
 		}
 
-		if ( is_bool($index) and $index === true)
+		if (is_bool($index) and $index === true)
 		{
 			// The key/index takes the fields name.
 			$index = ( ! empty($type)) ? $type.'_'.$value : $value;
 		}
 
 		// If we dont have a key for this
-		if (!array_key_exists($index, $arr))
+		if ( ! array_key_exists($index, $arr))
 		{
 			// Go ahead and create it
 			$arr[$index] = array();

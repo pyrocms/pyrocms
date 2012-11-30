@@ -7,7 +7,6 @@
  */
 class Module_Maintenance extends Module
 {
-
 	public $version = '1.0';
 
 	public function info()
@@ -43,7 +42,7 @@ class Module_Maintenance extends Module
 			),
 			'frontend' => false,
 			'backend' => true,
-			'menu' => 'utilities'
+			'menu' => 'data',
 		);
 	}
 

@@ -8,7 +8,7 @@
  */
 class Module_Contact extends Module {
 
-	public $version = 0.9;
+	public $version = '1.1.0';
 
 	public function info()
 	{
@@ -36,7 +36,7 @@ class Module_Contact extends Module {
 				'zh' => '聯絡我們',
 				'hu' => 'Kapcsolat',
 				'th' => 'ติดต่อ',
-                                'se' => 'Kontakt'
+				'se' => 'Kontakt',
 			),
 			'description' => array(
 				'en' => 'Adds a form to your site that allows visitors to send emails to you without disclosing an email address to them.',
@@ -60,8 +60,8 @@ class Module_Contact extends Module {
 				'sl' => 'Dodaj obrazec za kontakt da vam lahko obiskovalci pošljejo sporočilo brez da bi jim razkrili vaš email naslov.',
 				'zh' => '為您的網站新增「聯絡我們」的功能，對訪客是較為清楚便捷的聯絡方式，也無須您將電子郵件公開在網站上。',
 				'th' => 'เพิ่มแบบฟอร์มในเว็บไซต์ของคุณ ช่วยให้ผู้เยี่ยมชมสามารถส่งอีเมลถึงคุณโดยไม่ต้องเปิดเผยที่อยู่อีเมลของพวกเขา',
-                                'hu' => 'Létrehozható vele olyan űrlap, amely lehetővé teszi a látogatók számára, hogy e-mailt küldjenek neked úgy, hogy nem feded fel az e-mail címedet.',
-                                'se' => 'Lägger till ett kontaktformulär till din webbplats.'
+				'hu' => 'Létrehozható vele olyan űrlap, amely lehetővé teszi a látogatók számára, hogy e-mailt küldjenek neked úgy, hogy nem feded fel az e-mail címedet.',
+				'se' => 'Lägger till ett kontaktformulär till din webbplats.',
 			),
 			'frontend' => false,
 			'backend' => false,
@@ -71,26 +71,21 @@ class Module_Contact extends Module {
 
 	public function install()
 	{
-		$this->dbforge->drop_table('contact_log');
+		$schema = $this->pdb->getSchemaBuilder();
 
-		$tables = array(
-			'contact_log' => array(
-				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
-				'email' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '',),
-				'subject' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '',),
-				'message' => array('type' => 'TEXT',),
-				'sender_agent' => array('type' => 'VARCHAR', 'constraint' => 64, 'default' => '',),
-				'sender_ip' => array('type' => 'VARCHAR', 'constraint' => 32, 'default' => '',),
-				'sender_os' => array('type' => 'VARCHAR', 'constraint' => 32, 'default' => '',),
-				'sent_at' => array('type' => 'INT', 'constraint' => 11, 'default' => 0,),
-				'attachments' => array('type' => 'TEXT',),
-			),
-		);
+		$schema->drop('contact_log');
 
-		if ( ! $this->install_tables($tables))
-		{
-			return false;
-		}
+		$schema->create('contact_log', function($table) { 
+			$table->increments('id');
+			$table->string('email', 255)->nullable();
+			$table->string('subject', 255)->nullable();
+			$table->text('message');
+			$table->string('sender_agent', 64);
+			$table->string('sender_ip', 32);
+			$table->string('sender_os', 32);
+			$table->string('sent_at', 11)->default(0);
+			$table->text('attachments');
+		});
 
 		return true;
 	}

@@ -1,4 +1,4 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
 /**
  * CodeIgniter
  *
@@ -24,6 +24,7 @@
  * @since		Version 1.0
  * @filesource
  */
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * Database Utility Class
@@ -32,16 +33,49 @@
  * @author		EllisLab Dev Team
  * @link		http://codeigniter.com/user_guide/database/
  */
-class CI_DB_utility extends CI_DB_forge {
+abstract class CI_DB_utility {
 
-	public $db;
-	public $data_cache		= array();
+	/**
+	 * Database object
+	 *
+	 * @var	object
+	 */
+	protected $db;
 
-	public function __construct()
+	// --------------------------------------------------------------------
+
+	/**
+	 * List databases statement
+	 *
+	 * @var	string
+	 */
+	protected $_list_databases		= FALSE;
+
+	/**
+	 * OPTIMIZE TABLE statement
+	 *
+	 * @var	string
+	 */
+	protected $_optimize_table	= FALSE;
+
+	/**
+	 * REPAIR TABLE statement
+	 *
+	 * @var	string
+	 */
+	protected $_repair_table	= FALSE;
+
+	// --------------------------------------------------------------------
+
+	/**
+	 * Class constructor
+	 *
+	 * @param	object	&$db	Database object
+	 * @return	void
+	 */
+	public function __construct(&$db)
 	{
-		// Assign the main database object to $this->db
-		$CI =& get_instance();
-		$this->db =& $CI->db;
+		$this->db =& $db;
 		log_message('debug', 'Database Utility Class Initialized');
 	}
 
@@ -50,27 +84,34 @@ class CI_DB_utility extends CI_DB_forge {
 	/**
 	 * List databases
 	 *
-	 * @return	bool
+	 * @return	array
 	 */
 	public function list_databases()
 	{
 		// Is there a cached result?
-		if (isset($this->data_cache['db_names']))
+		if (isset($this->db->data_cache['db_names']))
 		{
-			return $this->data_cache['db_names'];
+			return $this->db->data_cache['db_names'];
+		}
+		elseif ($this->_list_databases === FALSE)
+		{
+			return ($this->db->db_debug) ? $this->db->display_error('db_unsupported_feature') : FALSE;
 		}
 
-		$query = $this->db->query($this->_list_databases());
-		$dbs = array();
-		if ($query->num_rows() > 0)
+		$this->db->data_cache['db_names'] = array();
+
+		$query = $this->db->query($this->_list_databases);
+		if ($query === FALSE)
 		{
-			foreach ($query->result_array() as $row)
-			{
-				$dbs[] = current($row);
-			}
+			return $this->db->data_cache['db_names'];
 		}
 
-		return $this->data_cache['db_names'] = $dbs;
+		for ($i = 0, $query = $query->result_array(), $c = count($query); $i < $c; $i++)
+		{
+			$this->db->data_cache['db_names'][] = current($query[$i]);
+		}
+
+		return $this->db->data_cache['db_names'];
 	}
 
 	// --------------------------------------------------------------------
@@ -78,49 +119,37 @@ class CI_DB_utility extends CI_DB_forge {
 	/**
 	 * Determine if a particular database exists
 	 *
-	 * @param	string
-	 * @return	boolean
+	 * @param	string	$database_name
+	 * @return	bool
 	 */
 	public function database_exists($database_name)
 	{
-		// Some databases won't have access to the list_databases() function, so
-		// this is intended to allow them to override with their own functions as
-		// defined in $driver_utility.php
-		if (method_exists($this, '_database_exists'))
-		{
-			return $this->_database_exists($database_name);
-		}
-		else
-		{
-			return ( ! in_array($database_name, $this->list_databases())) ? FALSE : TRUE;
-		}
+		return in_array($database_name, $this->list_databases());
 	}
-
 
 	// --------------------------------------------------------------------
 
 	/**
 	 * Optimize Table
 	 *
-	 * @param	string	the table name
-	 * @return	bool
+	 * @param	string	$table_name
+	 * @return	mixed
 	 */
 	public function optimize_table($table_name)
 	{
-		$sql = $this->_optimize_table($table_name);
-
-		if (is_bool($sql))
+		if ($this->_optimize_table === FALSE)
 		{
-			show_error('db_must_use_set');
-			return FALSE;
+			return ($this->db->db_debug) ? $this->db->display_error('db_unsupported_feature') : FALSE;
 		}
 
-		$query = $this->db->query($sql);
-		$res = $query->result_array();
+		$query = $this->db->query(sprintf($this->_optimize_table, $this->db->escape_identifiers($table_name)));
+		if ($query !== FALSE)
+		{
+			$query = $query->result_array();
+			return current($res);
+		}
 
-		// Note: Due to a bug in current() that affects some versions
-		// of PHP we can not pass function call directly into it
-		return current($res);
+		return FALSE;
 	}
 
 	// --------------------------------------------------------------------
@@ -128,26 +157,26 @@ class CI_DB_utility extends CI_DB_forge {
 	/**
 	 * Optimize Database
 	 *
-	 * @return	array
+	 * @return	mixed
 	 */
 	public function optimize_database()
 	{
+		if ($this->_optimize_table === FALSE)
+		{
+			return ($this->db->db_debug) ? $this->db->display_error('db_unsupported_feature') : FALSE;
+		}
+
 		$result = array();
 		foreach ($this->db->list_tables() as $table_name)
 		{
-			$sql = $this->_optimize_table($table_name);
-
-			if (is_bool($sql))
+			$res = $this->db->query(sprintf($this->_optimize_table, $this->db->escape_identifiers($table_name)));
+			if (is_bool($res))
 			{
-				return $sql;
+				return $res;
 			}
 
-			$query = $this->db->query($sql);
-
 			// Build the result array...
-			// Note: Due to a bug in current() that affects some versions
-			// of PHP we can not pass function call directly into it
-			$res = $query->result_array();
+			$res = $res->result_array();
 			$res = current($res);
 			$key = str_replace($this->db->database.'.', '', current($res));
 			$keys = array_keys($res);
@@ -164,24 +193,24 @@ class CI_DB_utility extends CI_DB_forge {
 	/**
 	 * Repair Table
 	 *
-	 * @param	string	the table name
-	 * @return	bool
+	 * @param	string	$table_name
+	 * @return	mixed
 	 */
 	public function repair_table($table_name)
 	{
-		$sql = $this->_repair_table($table_name);
-
-		if (is_bool($sql))
+		if ($this->_repair_table === FALSE)
 		{
-			return $sql;
+			return ($this->db->db_debug) ? $this->db->display_error('db_unsupported_feature') : FALSE;
 		}
 
-		$query = $this->db->query($sql);
+		$query = $this->db->query(sprintf($this->_repair_table, $this->db->escape_identifiers($table_name)));
+		if (is_bool($query))
+		{
+			return $query;
+		}
 
-		// Note: Due to a bug in current() that affects some versions
-		// of PHP we can not pass function call directly into it
-		$res = $query->result_array();
-		return current($res);
+		$query = $query->result_array();
+		return current($query);
 	}
 
 	// --------------------------------------------------------------------
@@ -189,10 +218,10 @@ class CI_DB_utility extends CI_DB_forge {
 	/**
 	 * Generate CSV from a query result object
 	 *
-	 * @param	object	The query result object
-	 * @param	string	The delimiter - comma by default
-	 * @param	string	The newline character - \n by default
-	 * @param	string	The enclosure - double quote by default
+	 * @param	object	$query		Query result object
+	 * @param	string	$delim		Delimiter (default: ,)
+	 * @param	string	$newline	Newline character (default: \n)
+	 * @param	string	$enclosure	Enclosure (default: ")
 	 * @return	string
 	 */
 	public function csv_from_result($query, $delim = ',', $newline = "\n", $enclosure = '"')
@@ -212,7 +241,7 @@ class CI_DB_utility extends CI_DB_forge {
 		$out = rtrim($out).$newline;
 
 		// Next blast through the result array and build out the rows
-		foreach ($query->result_array() as $row)
+		while ($row = $query->unbuffered_row('array'))
 		{
 			foreach ($row as $item)
 			{
@@ -229,8 +258,8 @@ class CI_DB_utility extends CI_DB_forge {
 	/**
 	 * Generate XML data from a query result object
 	 *
-	 * @param	object	The query result object
-	 * @param	array	Any preferences
+	 * @param	object	$query	Query result object
+	 * @param	array	$params	Any preferences
 	 * @return	string
 	 */
 	public function xml_from_result($query, $params = array())
@@ -257,18 +286,18 @@ class CI_DB_utility extends CI_DB_forge {
 		$CI->load->helper('xml');
 
 		// Generate the result
-		$xml = "<{$root}>".$newline;
-		foreach ($query->result_array() as $row)
+		$xml = '<'.$root.'>'.$newline;
+		while ($row = $query->unbuffered_row())
 		{
-			$xml .= $tab."<{$element}>".$newline;
+			$xml .= $tab.'<'.$element.'>'.$newline;
 			foreach ($row as $key => $val)
 			{
-				$xml .= $tab.$tab."<{$key}>".xml_convert($val)."</{$key}>".$newline;
+				$xml .= $tab.$tab.'<'.$key.'>'.xml_convert($val).'</'.$key.'>'.$newline;
 			}
-			$xml .= $tab."</{$element}>".$newline;
+			$xml .= $tab.'</'.$element.'>'.$newline;
 		}
 
-		return $xml .= "</$root>".$newline;
+		return $xml.'</'.$root.'>'.$newline;
 	}
 
 	// --------------------------------------------------------------------
@@ -276,6 +305,7 @@ class CI_DB_utility extends CI_DB_forge {
 	/**
 	 * Database Backup
 	 *
+	 * @param	array	$params
 	 * @return	void
 	 */
 	public function backup($params = array())
@@ -287,8 +317,6 @@ class CI_DB_utility extends CI_DB_forge {
 		{
 			$params = array('tables' => $params);
 		}
-
-		// ------------------------------------------------------
 
 		// Set up our default preferences
 		$prefs = array(
@@ -328,12 +356,12 @@ class CI_DB_utility extends CI_DB_forge {
 
 		// Is the encoder supported? If not, we'll either issue an
 		// error or use plain text depending on the debug settings
-		if (($prefs['format'] === 'gzip' AND ! @function_exists('gzencode'))
-			OR ($prefs['format'] === 'zip'  AND ! @function_exists('gzcompress')))
+		if (($prefs['format'] === 'gzip' && ! @function_exists('gzencode'))
+			OR ($prefs['format'] === 'zip' && ! @function_exists('gzcompress')))
 		{
 			if ($this->db->db_debug)
 			{
-				return $this->db->display_error('db_unsuported_compression');
+				return $this->db->display_error('db_unsupported_compression');
 			}
 
 			$prefs['format'] = 'txt';
@@ -343,7 +371,7 @@ class CI_DB_utility extends CI_DB_forge {
 		if ($prefs['format'] === 'zip')
 		{
 			// Set the filename if not provided (only needed with Zip files)
-			if ($prefs['filename'] == '')
+			if ($prefs['filename'] === '')
 			{
 				$prefs['filename'] = (count($prefs['tables']) === 1 ? $prefs['tables'] : $this->db->database)
 							.date('Y-m-d_H-i', time()).'.sql';
@@ -369,7 +397,7 @@ class CI_DB_utility extends CI_DB_forge {
 			$CI->zip->add_data($prefs['filename'], $this->_backup($prefs));
 			return $CI->zip->get_zip();
 		}
-		elseif ($prefs['format'] == 'txt') // Was a text file requested?
+		elseif ($prefs['format'] === 'txt') // Was a text file requested?
 		{
 			return $this->_backup($prefs);
 		}

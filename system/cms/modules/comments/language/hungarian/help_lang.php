@@ -1,12 +1,16 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 // inline help html. Only 'help_body' is used.
-$lang['help_body'] = "
-<h4>Overview</h4>
-<p>The comments module allows visitors to comment on any part of your website that you enable comments for.</p>
+$lang['help_body'] = '
+<h4>Áttekintés</h4>
+<p>A Hozzászólások modul lehetővé teszi a látogatóknak hogy a weboldal bármely részéhez hozzászóljanak amihez engedélyezve vannak a hozzászólások.</p>
 
-<h4>Enabling Comments</h4><hr>
-<p>Comments can be enabled in Pages, Galleries, and Blog. If you want to moderate comments you must enable comment moderation in Settings.</p>
 
-<h4>Comment Moderation</h4><hr>
-<p>Comments may be Approved or Unapproved at any time from the admin panel. If you approve a comment and later want to unapprove it you may do so.</p>";
+<h4>Hozzászólások engedélyezése</h4><hr>
+<p>A hozzászólásokat engedélyezni lehet oldalakra, galériákra, és blogra. Ha moderálni akarod a hozzászólásokat,
+ be kell állítanod a "Hozzászólások moderálása" opciót a Beállítások menüben a Hozzászólások fülön.</p>
+
+<h4>Hozzászólások moderálása</h4><hr>
+<p>A hozzászólásokat bármikor lehet engedélyezni és elutasítani az admin oldalról. Ha engedélyezel egy hozzászólást, de később el akarod utasítani, azt is megtheted.</p>';
+
+/* End of file help_lang.php */

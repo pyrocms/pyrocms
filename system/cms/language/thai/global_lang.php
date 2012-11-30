@@ -63,8 +63,8 @@ $lang['global:demo_restrictions'] 		= 'คุณลักษณะบางอ�
 
 $lang['login_error_label'] 				= 'เข้าสู่ระบบผิดพลาด';
 $lang['forgot_password_label'] 			= 'ลืมรหัสผ่าน?';
-$lang['email_label'] 					= 'อีเมล์';
-$lang['password_label'] 				= 'รหัสผ่าน';
+$lang['global:email'] 					= 'อีเมล์';
+$lang['global:password'] 				= 'รหัสผ่าน';
 $lang['login_label'] 					= 'เข้าสู่ระบบ';
 
 $lang['help_label'] 					= 'ช่วยเหลือ';
@@ -76,7 +76,7 @@ $lang['activate_label'] 				= 'เปิดใช้งาน';
 $lang['approve_label']					= 'อนุมัติ';
 $lang['unapprove_label']				= 'ไม่อนุมัติ';
 $lang['publish_label'] 					= 'ประกาศ';
-$lang['upload_label'] 					= 'อัพโหลด';
+$lang['global:upload'] 					= 'อัพโหลด';
 $lang['global:uninstall'] 				= 'ถอนการติดตั้ง';
 $lang['global:install'] 				= 'ติดตั้ง';
 $lang['global:upgrade'] 				= 'อัพเกรด';

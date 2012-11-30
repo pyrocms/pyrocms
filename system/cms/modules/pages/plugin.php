@@ -21,7 +21,7 @@ class Plugin_Pages extends Plugin
 	public function url()
 	{
 		$id		= $this->attribute('id');
-		$page	= $this->pyrocache->model('page_m', 'get', array($id));
+		$page	= $this->cache->method('page_m', 'get', array($id));
 
 		return site_url($page ? $page->uri : '');
 	}
@@ -42,7 +42,7 @@ class Plugin_Pages extends Plugin
 			->or_where('pages.slug', $this->attribute('slug'))
 			->where('status', 'live')
 			->get('pages')
-			->row_array();
+			->row();
 
 		// Grab all the chunks that make up the body
 		$page['chunks'] = $this->db->get_where('page_chunks', array('page_id' => $page['id']))->result_array();
@@ -104,7 +104,6 @@ class Plugin_Pages extends Plugin
 	/**
 	 * Parse chunk content
 	 *
-	 * @access 	private
 	 * @param 	string - the chunk content
 	 * @param 	string - parse Lex tags? - yes/no
 	 * @return 	string
@@ -407,7 +406,7 @@ class Plugin_Pages extends Plugin
 						$group_array = explode(',', $list_item->restricted_to);
 
 						// if restricted_to is 0 or empty (unrestricted) or if the current user's group is allowed
-						if (($group_array[0] < 1) OR in_array($this->current_user->group_id, $group_array))
+						if (($group_array[0] < 1) or in_array($this->current_user->group_id, $group_array))
 						{
 							$id_list[] = $list_item->id;
 						}

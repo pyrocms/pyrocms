@@ -29,72 +29,72 @@ class Page_m extends MY_Model
 		),
 		array(
 			'field' => 'chunk_body[]',
-			'label'	=> 'lang:pages.body_label',
+			'label'	=> 'lang:pages:body_label',
 			'rules' => 'trim'
 		),
 		array(
 			'field' => 'layout_id',
-			'label'	=> 'lang:pages.layout_id_label',
+			'label'	=> 'lang:pages:layout_id_label',
 			'rules'	=> 'trim|numeric|required'
 		),
 		array(
 			'field'	=> 'css',
-			'label'	=> 'lang:pages.css_label',
+			'label'	=> 'lang:pages:css_label',
 			'rules'	=> 'trim'
 		),
 		array(
 			'field'	=> 'js',
-			'label'	=> 'lang:pages.js_label',
+			'label'	=> 'lang:pages:js_label',
 			'rules'	=> 'trim'
 		),
 		array(
 			'field' => 'meta_title',
-			'label' => 'lang:pages.meta_title_label',
+			'label' => 'lang:pages:meta_title_label',
 			'rules' => 'trim|max_length[250]'
 		),
 		array(
 			'field'	=> 'meta_keywords',
-			'label' => 'lang:pages.meta_keywords_label',
+			'label' => 'lang:pages:meta_keywords_label',
 			'rules' => 'trim|max_length[250]'
 		),
 		array(
 			'field'	=> 'meta_description',
-			'label'	=> 'lang:pages.meta_description_label',
+			'label'	=> 'lang:pages:meta_description_label',
 			'rules'	=> 'trim'
 		),
 		array(
 			'field' => 'restricted_to[]',
-			'label'	=> 'lang:pages.access_label',
+			'label'	=> 'lang:pages:access_label',
 			'rules'	=> 'trim|required'
 		),
 		array(
 			'field' => 'rss_enabled',
-			'label'	=> 'lang:pages.rss_enabled_label',
-			'rules'	=> 'trim|numeric'
+			'label'	=> 'lang:pages:rss_enabled_label',
+			'rules'	=> 'trim'
 		),
 		array(
 			'field' => 'comments_enabled',
-			'label'	=> 'lang:pages.comments_enabled_label',
-			'rules'	=> 'trim|numeric'
+			'label'	=> 'lang:pages:comments_enabled_label',
+			'rules'	=> 'trim'
 		),
 		array(
 			'field' => 'is_home',
-			'label'	=> 'lang:pages.is_home_label',
-			'rules'	=> 'trim|numeric'
+			'label'	=> 'lang:pages:is_home_label',
+			'rules'	=> 'trim'
 		),
 		array(
 			'field' => 'strict_uri',
-			'label'	=> 'lang:pages.strict_uri_label',
-			'rules'	=> 'trim|numeric'
+			'label'	=> 'lang:pages:strict_uri_label',
+			'rules'	=> 'trim'
 		),
 		array(
 			'field'	=> 'status',
-			'label'	=> 'lang:pages.status_label',
+			'label'	=> 'lang:pages:status_label',
 			'rules'	=> 'trim|alpha|required'
 		),
 		array(
 			'field' => 'navigation_group_id',
-			'label' => 'lang:pages.navigation_label',
+			'label' => 'lang:pages:navigation_label',
 			'rules' => 'numeric'
 		)
 	);
@@ -193,7 +193,7 @@ class Page_m extends MY_Model
 			}
 
 			// if we didn't find a page with that exact uri AND there's more than one segment
-			if ( ! $page AND strpos($uri, '/') !== false)
+			if ( ! $page and strpos($uri, '/') !== false)
 			{
 				// pop the last segment off and we'll try again
 				$uri = preg_replace('@^(.+)/(.*?)$@', '$1', $uri);
@@ -210,7 +210,7 @@ class Page_m extends MY_Model
 		{
 			// so we found a page but if strict uri matching is required and the unmodified
 			// uri doesn't match the page we fetched then we pretend it didn't happen
-			if ($is_request AND (bool)$page->strict_uri AND $original_uri !== $uri)
+			if ($is_request and (bool)$page->strict_uri and $original_uri !== $uri)
 			{
 				return false;
 			}
@@ -550,7 +550,7 @@ class Page_m extends MY_Model
 			'css'				=> isset($input['css']) ? $input['css'] : null,
 			'js'				=> isset($input['js']) ? $input['js'] : null,
 			'meta_title'    	=> isset($input['meta_title']) ? $input['meta_title'] : '',
-			'meta_keywords' 	=> isset($input['meta_keywords']) ? Keywords::process($input['meta_keywords'], (isset($input['old_keywords_hash'])) ? $input['old_keywords_hash'] : null) : '',
+			'meta_keywords' 	=> isset($input['meta_keywords']) ? $this->keywords->process($input['meta_keywords'], (isset($input['old_keywords_hash'])) ? $input['old_keywords_hash'] : null) : '',
 			'meta_description' 	=> isset($input['meta_description']) ? $input['meta_description'] : '',
 			'rss_enabled'		=> ! empty($input['rss_enabled']),
 			'comments_enabled'	=> ! empty($input['comments_enabled']),

@@ -1,6 +1,6 @@
 <!-- Install Complete -->
 <section class="title">
-<h3>{congrats}, {user_firstname} {user_lastname}!</h3>
+<h3>{congrats}, {firstname} {lastname}!</h3>
 </section>
 
 <section class="item">
@@ -8,10 +8,10 @@
 
 <div class="block-message">
 <p>
-	<strong>{email}:</strong> {user_email}
+	<strong>{email}:</strong> {email}
 </p>
 <p class="password-reveal">
-	<strong>{password}:</strong> <span class="password">{user_password}</span>
+	<strong>{password}:</strong> <span class="password">{password}</span>
 </p>
 <p><a class="button show-pass" href="#"> {show_password}</a></p>
 

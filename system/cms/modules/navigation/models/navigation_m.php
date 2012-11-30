@@ -28,7 +28,7 @@ class Navigation_m extends MY_Model
 
 		if ($query->num_rows() == 0)
 		{
-			return FALSE;
+			return false;
 		}
 		else
 		{
@@ -49,7 +49,7 @@ class Navigation_m extends MY_Model
 
 		if ($query->num_rows() == 0)
 		{
-			return FALSE;
+			return false;
 		}
 		else
 		{
@@ -173,13 +173,13 @@ class Navigation_m extends MY_Model
 			$this->db->order_by('position');
 		}
 		
-		if (isset($params['front_end']) AND $params['front_end'])
+		if (isset($params['front_end']) and $params['front_end'])
 		{
-			$front_end = TRUE;
+			$front_end = true;
 		}
 		else
 		{
-			$front_end = FALSE;
+			$front_end = false;
 		}
 		
 		if (isset($params['user_group']))
@@ -188,7 +188,7 @@ class Navigation_m extends MY_Model
 		}
 		else
 		{
-			$user_group = FALSE;
+			$user_group = false;
 		}
 
 		$all_links = $this->db->where('navigation_group_id', $group)
@@ -341,7 +341,7 @@ class Navigation_m extends MY_Model
 				case 'page':
 					if ($page = $this->page_m->get_by(array_filter(array(
 						'id'		=> $row->page_id,
-						'status'	=> (is_subclass_of(ci(), 'Public_Controller') ? 'live' : NULL)
+						'status'	=> (is_subclass_of(ci(), 'Public_Controller') ? 'live' : null)
 					))))
 					{
 						$row->url = site_url($page->uri);
@@ -365,7 +365,7 @@ class Navigation_m extends MY_Model
 	 * @param array $row Array of links
 	 * @return mixed Array of links with valid urls
 	 */
-	public function make_url_array($links, $user_group = FALSE, $front_end = FALSE)
+	public function make_url_array($links, $user_group = false, $front_end = false)
 	{
 		// We have to fetch it ourselves instead of just using $current_user because this
 		// will all be cached per user group
@@ -374,12 +374,12 @@ class Navigation_m extends MY_Model
 		foreach($links as $key => &$row)
 		{				
 			// Looks like it's restricted. Let's find out who
-			if ($row['restricted_to'] AND $front_end)
+			if ($row['restricted_to'] and $front_end)
 			{
 				$row['restricted_to'] = (array) explode(',', $row['restricted_to']);
 
-				if ( ! $user_group OR
-					($user_group != 'admin' AND
+				if ( ! $user_group or
+					 ($user_group != 'admin' AND
 					 ! in_array($group->id, $row['restricted_to']))
 					)
 				{
@@ -401,20 +401,18 @@ class Navigation_m extends MY_Model
 				case 'page':
 					if ($page = $this->page_m->get_by(array_filter(array(
 						'id'		=> $row['page_id'],
-						'status'	=> ($front_end ? 'live' : NULL)
+						'status'	=> ($front_end ? 'live' : null)
 					))))
 					{
 						$row['url'] = site_url($page->uri);
 						$row['is_home'] = $page->is_home;
 
 						// But wait. If we're on the front-end and they don't have access to the page then we'll remove it anyway.
-						if ($front_end AND $page->restricted_to)
+						if ($front_end and $page->restricted_to)
 						{
 							$page->restricted_to = (array) explode(',', $page->restricted_to);
 
-							if ( ! $user_group OR
-								($user_group != 'admin' AND
-								 ! in_array($group->id, $page->restricted_to))
+							if ( ! $user_group or 								($user_group != 'admin' and 								 ! in_array($group->id, $page->restricted_to))
 								)
 							{
 								unset($links[$key]);

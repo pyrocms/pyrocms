@@ -74,7 +74,7 @@ class Module_Blog extends Module {
 						array(
 					 	   'name' => 'blog:create_title',
 						    'uri' => 'admin/blog/create',
-						    'class' => 'add'
+						    'class' => 'add',
 						),
 					),
 				),
@@ -85,7 +85,7 @@ class Module_Blog extends Module {
 						array(
 						    'name' => 'cat_create_title',
 						    'uri' => 'admin/blog/categories/create',
-						    'class' => 'add'
+						    'class' => 'add',
 						),
 				    ),
 			    ),
@@ -95,36 +95,40 @@ class Module_Blog extends Module {
 
 	public function install()
 	{
-		$this->dbforge->drop_table('blog_categories');
-		$this->dbforge->drop_table('blog');
+		$schema = $this->pdb->getSchemaBuilder();
 
-		$tables = array(
-			'blog_categories' => array(
-				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true),
-				'slug' => array('type' => 'VARCHAR', 'constraint' => 100, 'null' => false, 'unique' => true, 'key' => true),
-				'title' => array('type' => 'VARCHAR', 'constraint' => 100, 'null' => false, 'unique' => true),
-			),
-			'blog' => array(
-				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true),
-				'title' => array('type' => 'VARCHAR', 'constraint' => 100, 'null' => false, 'unique' => true),
-				'slug' => array('type' => 'VARCHAR', 'constraint' => 100, 'null' => false),
-				'category_id' => array('type' => 'INT', 'constraint' => 11, 'key' => true),
-				'attachment' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => ''),
-				'intro' => array('type' => 'TEXT'),
-				'body' => array('type' => 'TEXT'),
-				'parsed' => array('type' => 'TEXT'),
-				'keywords' => array('type' => 'VARCHAR', 'constraint' => 32, 'default' => ''),
-				'author_id' => array('type' => 'INT', 'constraint' => 11, 'default' => 0),
-				'created_on' => array('type' => 'INT', 'constraint' => 11),
-				'updated_on' => array('type' => 'INT', 'constraint' => 11, 'default' => 0),
-				'comments_enabled' => array('type' => 'INT', 'constraint' => 1, 'default' => 1),
-				'status' => array('type' => 'ENUM', 'constraint' => array('draft', 'live'), 'default' => 'draft'),
-				'type' => array('type' => 'SET', 'constraint' => array('html', 'markdown', 'wysiwyg-advanced', 'wysiwyg-simple')),
-                'preview_hash' => array('type' => 'CHAR', 'constraint' => 32,'default'=>''),
-			),
-		);
+		$schema->drop('blog');
+		$schema->drop('blog_categories');
 
-		return $this->install_tables($tables);
+		$schema->create('blog', function($table) { 
+			$table->increments('id');
+			$table->string('slug', 200)->unique();
+			$table->string('title', 200)->unique();
+			$table->integer('category_id', 11);
+			$table->string('attachment', 255)->default('');
+			$table->text('intro');
+			$table->text('body');
+			$table->text('parsed');
+			$table->string('keywords', 32)->default('');
+			$table->string('author_id', 11)->nullable();
+			$table->string('comments_enabled', 1)->default(1);
+			$table->string('status', array('draft', 'live'))->default('draft');
+			$table->string('type', array('html', 'markdown', 'wysiwyg-advanced', 'wysiwyg-simple'));
+	        $table->string('preview_hash', 32)->nullable();
+			$table->string('created_on', 11);
+			$table->string('updated_on', 11)->nullable();
+
+			$table->index('slug');
+			$table->index('category_id');
+		});
+
+		$schema->create('blog_categories', function($table) { 
+			$table->increments('id');
+			$table->string('slug', 100)->nullable()->unique();
+			$table->string('title', 100)->nullable()->unique();
+		});
+
+		return true;
 	}
 
 	public function uninstall()

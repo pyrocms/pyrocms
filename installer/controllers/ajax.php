@@ -86,7 +86,6 @@ class Ajax extends CI_Controller {
 	 * Sends statistics back to pyrocms.com. These are only used to see which OS's we should develop for
 	 * and are anonymous.
 	 *
-	 * @access	public
 	 * @author	jeroenvdgulik
 	 * @since	1.0.1
 	 * @return	void

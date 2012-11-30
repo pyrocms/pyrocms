@@ -1,4 +1,4 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
 /**
  * CodeIgniter
  *
@@ -24,6 +24,7 @@
  * @since		Version 1.0
  * @filesource
  */
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * MySQL Result Class
@@ -33,8 +34,26 @@
  * @category	Database
  * @author		EllisLab Dev Team
  * @link		http://codeigniter.com/user_guide/database/
+ * @since	1.0
  */
 class CI_DB_mysql_result extends CI_DB_result {
+
+	/**
+	 * Class constructor
+	 *
+	 * @param	object	&$driver_object
+	 * @return	void
+	 */
+	public function __construct(&$driver_object)
+	{
+		parent::__construct($driver_object);
+
+		// Required, due to mysql_data_seek() causing nightmares
+		// with empty result sets
+		$this->num_rows = @mysql_num_rows($this->result_id);
+	}
+
+	// --------------------------------------------------------------------
 
 	/**
 	 * Number of rows in the result set
@@ -43,7 +62,7 @@ class CI_DB_mysql_result extends CI_DB_result {
 	 */
 	public function num_rows()
 	{
-		return @mysql_num_rows($this->result_id);
+		return $this->num_rows;
 	}
 
 	// --------------------------------------------------------------------
@@ -126,13 +145,16 @@ class CI_DB_mysql_result extends CI_DB_result {
 	 *
 	 * Moves the internal pointer to the desired offset. We call
 	 * this internally before fetching results to make sure the
-	 * result set starts at zero
+	 * result set starts at zero.
 	 *
-	 * @return	array
+	 * @param	int	$n
+	 * @return	bool
 	 */
 	protected function _data_seek($n = 0)
 	{
-		return mysql_data_seek($this->result_id, $n);
+		return $this->num_rows
+			? @mysql_data_seek($this->result_id, $n)
+			: FALSE;
 	}
 
 	// --------------------------------------------------------------------
@@ -156,11 +178,12 @@ class CI_DB_mysql_result extends CI_DB_result {
 	 *
 	 * Returns the result set as an object
 	 *
+	 * @param	string	$class_name
 	 * @return	object
 	 */
-	protected function _fetch_object()
+	protected function _fetch_object($class_name = 'stdClass')
 	{
-		return mysql_fetch_object($this->result_id);
+		return mysql_fetch_object($this->result_id, $class_name);
 	}
 
 }

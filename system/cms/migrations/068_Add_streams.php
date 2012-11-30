@@ -52,7 +52,7 @@ class Migration_Add_streams extends CI_Migration {
 				'skip_xss'		=> ! empty($module['skip_xss']),
 				'is_frontend'	=> ! empty($module['frontend']),
 				'is_backend'	=> ! empty($module['backend']),
-				'menu'			=> ! empty($module['menu']) ? $module['menu'] : FALSE,
+				'menu'			=> ! empty($module['menu']) ? $module['menu'] : false,
 				'enabled'		=> ! empty($module['enabled']),
 				'installed'		=> ! empty($module['installed']),
 				'is_core'		=> ! empty($module['is_core']),
@@ -127,7 +127,7 @@ class Migration_Add_streams extends CI_Migration {
 			
 		endif;
 		
-		return TRUE;
+		return true;
 	}
 
 	public function down()

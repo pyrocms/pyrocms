@@ -8,7 +8,7 @@ class Migration_Add_keywords_to_blog extends CI_Migration {
 			'keywords' => array(
 				'type'			=> 'char',
 				'constraint'	=> 32,
-				'null'			=> FALSE,
+				'null'			=> false,
 			)
 		));
 	}

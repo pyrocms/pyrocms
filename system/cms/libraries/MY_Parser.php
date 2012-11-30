@@ -14,7 +14,7 @@ class MY_Parser extends CI_Parser {
 
 	private $_ci;
 
-	function __construct($config = array())
+	public function __construct($config = array())
 	{
 		$this->_ci = & get_instance();
 		
@@ -38,9 +38,9 @@ class MY_Parser extends CI_Parser {
 	 * @param	bool
 	 * @return	string
 	 */
-	public function parse($template, $data = array(), $return = FALSE, $is_include = FALSE)
+	public function parse($template, $data = array(), $return = false, $is_include = false)
 	{
-		$string = $this->_ci->load->view($template, $data, TRUE);
+		$string = $this->_ci->load->view($template, $data, true);
 
 		return $this->_parse($string, $data, $return, $is_include);
 	}
@@ -59,7 +59,7 @@ class MY_Parser extends CI_Parser {
 	 * @param	bool
 	 * @return	string
 	 */
-	public function parse_string($string, $data = array(), $return = FALSE, $is_include = FALSE)
+	public function parse_string($string, $data = array(), $return = false, $is_include = false)
 	{
 		return $this->_parse($string, $data, $return, $is_include);
 	}
@@ -78,7 +78,7 @@ class MY_Parser extends CI_Parser {
 	 * @param	bool
 	 * @return	string
 	 */
-	function _parse($string, $data, $return = FALSE, $is_include = FALSE)
+	protected function _parse($string, $data, $return = false, $is_include = false)
 	{
 		// Start benchmark
 		$this->_ci->benchmark->mark('parse_start');
@@ -92,7 +92,7 @@ class MY_Parser extends CI_Parser {
 
 		$parser = new Lex_Parser();
 		$parser->scope_glue(':');
-		$parser->cumulative_noparse(TRUE);
+		$parser->cumulative_noparse(true);
 		$parsed = $parser->parse($string, $data, array($this, 'parser_callback'));
 		
 		// Finish benchmark
@@ -150,7 +150,7 @@ class MY_Parser extends CI_Parser {
 			$return_data = $parsed_return;
 		}
 
-		return $return_data ? $return_data : NULL;
+		return $return_data ? $return_data : null;
 	}
 
 	// ------------------------------------------------------------------------

@@ -39,7 +39,6 @@ class Ajax extends MY_Controller {
 	 *
 	 * Accessed via AJAX
 	 *
-	 * @access	public
 	 * @return	void
 	 */
 	public function build_parameters()
@@ -117,7 +116,6 @@ class Ajax extends MY_Controller {
 	 *
 	 * Accessed via AJAX
 	 *
-	 * @access	public
 	 * @return	void
 	 */
 	public function update_field_order()
@@ -133,9 +131,9 @@ class Ajax extends MY_Controller {
 		foreach ($ids as $id)
 		{
 			$this->db
-					->where('id', $id)
-					->update('data_field_assignments', array('sort_order' => $order_count));
-			
+				->where('id', $id)
+				->update('data_field_assignments', array('sort_order' => $order_count));
+		
 			$order_count++;
 		}
 	}
@@ -147,7 +145,6 @@ class Ajax extends MY_Controller {
 	 *
 	 * Accessed via AJAX
 	 *
-	 * @access	public
 	 * @return	void
 	 */
 	public function ajax_entry_order_update()

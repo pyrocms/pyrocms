@@ -5,7 +5,9 @@ require APPPATH."libraries/MX/Controller.php";
 /**
  * Code here is run before ALL controllers
  * 
- * @package PyroCMS\Core\Controllers 
+ * @package 	PyroCMS\Core\Controllers
+ * @author      PyroCMS Dev Team
+ * @copyright   Copyright (c) 2012, PyroCMS LLC
  */
 class MY_Controller extends MX_Controller
 {
@@ -55,8 +57,8 @@ class MY_Controller extends MX_Controller
 		// By changing the prefix we are essentially "namespacing" each site
 		$this->db->set_dbprefix(SITE_REF.'_');
 
-		// Load the cache library now that we know the siteref
-		$this->load->library('pyrocache');
+		// the Quick\Cache package is instantiated to $this->cache in the config file
+		$this->load->config('cache');
 
 		// Add the site specific theme folder
 		$this->template->add_theme_location(ADDONPATH.'themes/');
@@ -70,7 +72,7 @@ class MY_Controller extends MX_Controller
 		}
 
 		// Result of schema version migration
-		else if (is_numeric($schema_version))
+		elseif (is_numeric($schema_version))
 		{
 			log_message('debug', 'PyroCMS was migrated to version: ' . $schema_version);
 		}
@@ -79,7 +81,7 @@ class MY_Controller extends MX_Controller
 		$this->load->library(array('session', 'settings/settings'));
 
 		// Lock front-end language
-		if ( ! (is_a($this, 'Admin_Controller') && ($site_lang = AUTO_LANGUAGE)))
+		if ( ! (is_a($this, 'Admin_Controller') and ($site_lang = AUTO_LANGUAGE)))
 		{
 			$site_public_lang = explode(',', Settings::get('site_public_lang'));
 
@@ -104,7 +106,7 @@ class MY_Controller extends MX_Controller
 		$this->load->vars($pyro);
 
 		// Set php locale time
-		if (isset($langs[CURRENT_LANGUAGE]['codes']) && sizeof($locale = (array) $langs[CURRENT_LANGUAGE]['codes']) > 1)
+		if (isset($langs[CURRENT_LANGUAGE]['codes']) and sizeof($locale = (array) $langs[CURRENT_LANGUAGE]['codes']) > 1)
 		{
 			array_unshift($locale, LC_TIME);
 			call_user_func_array('setlocale', $locale);
@@ -129,7 +131,7 @@ class MY_Controller extends MX_Controller
 		ci()->hooks =& $GLOBALS['EXT'];
 
 		// Create a hook point with access to instance but before custom code
-		$this->hooks->_call_hook('post_core_controller_constructor');
+		$this->hooks->call_hook('post_core_controller_constructor');
 
 		// Get user data
 		$this->template->current_user = ci()->current_user = $this->current_user = $this->ion_auth->get_user();
@@ -142,9 +144,9 @@ class MY_Controller extends MX_Controller
 		// Loaded after $this->current_user is set so that data can be used everywhere
 		$this->load->model(array(
 			'permissions/permission_m',
-			'modules/module_m',
+			'addons/module_m',
+			'addons/theme_m',
 			'pages/page_m',
-			'themes/theme_m',
 		));
 
 		// List available module permissions for this user
@@ -171,10 +173,10 @@ class MY_Controller extends MX_Controller
 		$this->benchmark->mark('my_controller_end');
 		
 		// Enable profiler on local box
-	    if ((isset($this->current_user->group) AND $this->current_user->group == 'admin') AND is_array($_GET) AND array_key_exists('_debug', $_GET) )
+	    if ((isset($this->current_user->group) and $this->current_user->group === 'admin') and is_array($_GET) and array_key_exists('_debug', $_GET))
 	    {
 			unset($_GET['_debug']);
-	    	$this->output->enable_profiler(TRUE);
+	    	$this->output->enable_profiler(true);
 	    }
 	}
 }

@@ -9,6 +9,10 @@
  */
 class Plugin_Twitter extends Plugin
 {
+	public $description = array(
+		'en'	=> 'Display a Twitter feed.'
+	);
+
 	/**
 	 * The URL used to retrieve tweets from the Twitter API
 	 *
@@ -21,21 +25,24 @@ class Plugin_Twitter extends Plugin
 	 *
 	 * Magic method to get a constant or global variable
 	 * 
-	 * Usage:
-	 *   {{ twitter:feed username="twitterusername" limit="5" }}
+	 * <code>
+	 *   {{ twitter:feed username="twitterusername" limit="1" }}
+	 *      {{ text }}
+	 *   {{ /twitter:feed }}
+	 * </code>
 	 * 
 	 * @return array The tweet objects in an array.
 	 */
-	function feed()
+	public function feed()
 	{
 		$username = $this->attribute('username');
 		$limit = $this->attribute('limit', 5);
 		
-		if ( ! ($tweets = $this->pyrocache->get('twitter-' . $username)))
+		if ( ! ($tweets = $this->cache->get('twitter-' . $username)))
 		{
 			$tweets = json_decode(@file_get_contents($this->feed_url.'&screen_name='.$username. '&count='.$limit));
 
-			$this->pyrocache->write($tweets, 'twitter-' . $username, $this->settings->twitter_cache);
+			$this->cache->set('twitter-' . $username, $this->settings->twitter_cache, $tweets);
 		}
 		
 		$patterns = array(

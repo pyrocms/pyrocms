@@ -40,6 +40,7 @@ $lang['blog:created_minute']                 = 'Luotiin minuutissa'; // @todo Wh
 $lang['blog:comments_enabled_label']         = 'Kommentit päällä';
 
 // titles
+$lang['blog:disabled_after'] 				= 'Posting comments after %s has been disabled.'; #translate
 $lang['blog:create_title']                   = 'Luo artikkeli';
 $lang['blog:edit_title']                     = 'Muokkaa artikkelia "%s"';
 $lang['blog:archive_title']                  = 'Arkisto';

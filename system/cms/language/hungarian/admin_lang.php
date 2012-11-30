@@ -31,11 +31,11 @@ $lang['cp_contact_support'] 			= 'Támogatás';
 $lang['cp_nav_settings']			= 'Beállítások';
 $lang['cp_nav_addons']				= 'Bővítmények';
 $lang['cp_nav_modules']				= 'Modulok';
-$lang['cp_nav_widgets']				= 'Widget-ek';
 $lang['cp_nav_users']				= 'Felhasználók';
-$lang['cp_nav_design']				= 'Dizájn';
 $lang['cp_nav_content']				= 'Tartalom';
-$lang['cp_nav_utilities']			= 'Eszközök';
+$lang['cp_nav_data']					= 'Data'; #translate
+$lang['cp_nav_structure']				= 'Structure'; #translate
+$lang['cp_nav_misc']					= 'Miscellaneous'; #translate
 
 $lang['cp_must_login']	 			= 'Ennek az oldalnak a megtekintéséhez, be kell jelentkezned.';
 $lang['cp_access_denied'] 			= 'Nem rendelkezel elég jogosultsággal, hogy megtekinthesd az oldalt.';

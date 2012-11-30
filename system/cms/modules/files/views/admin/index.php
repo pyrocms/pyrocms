@@ -2,8 +2,8 @@
 	<h4><?php echo lang('files:files_title'); ?></h4>
 </section>
 
-<section class="item one_full">
-	<section class="sidebar">
+<section class="item">
+	<section class="side">
 		<ul id="folders-sidebar">
 			<li class="folder places" data-id="0"><a href="#"><?php echo lang('files:places') ?></a></li>
 			<?php if ( ! $folders) : ?>
@@ -14,7 +14,23 @@
 		</ul>
 	</section>
 
-	<section class="two_third">
+	<section class="center">
+
+			<ul class="button-menu-source buttons">
+				<li class="button"											data-applies-to="pane root-pane"	data-menu="refresh"><?php echo lang('files:refresh'); ?></li>
+				<li class="button"											data-applies-to="folder" 			data-menu="open"><?php echo lang('files:open'); ?></li>
+				<li class="button show" data-role="create_folder"			data-applies-to="pane root-pane"	data-menu="new-folder"><?php echo lang('files:new_folder'); ?></li>
+				<li class="button" data-role="upload" 						data-applies-to="folder pane" 		data-menu="upload"><?php echo lang('files:upload'); ?></li>
+				<li class="button" data-role="edit_file"					data-applies-to="file" 				data-menu="rename"><?php echo lang('files:rename'); ?></li>
+				<li class="button" data-role="edit_folder"					data-applies-to="folder" 			data-menu="rename"><?php echo lang('files:rename'); ?></li>
+				<!--<li class="button" 										data-applies-to="file" 				data-menu="edit"><?php echo lang('files:edit'); ?></li>-->
+				<li class="button" data-role="download_file"				data-applies-to="file" 				data-menu="download"><?php echo lang('files:download'); ?></li>
+				<li class="button" data-role="synchronize"					data-applies-to="folder"			data-menu="synchronize"><?php echo lang('files:synchronize'); ?></li>
+				<li class="button red" data-role="delete_file"				data-applies-to="file" 				data-menu="delete"><?php echo lang('files:delete'); ?></li>
+				<li class="button red" data-role="delete_folder"			data-applies-to="folder" 			data-menu="delete"><?php echo lang('files:delete'); ?></li>
+				<li class="button" 											data-applies-to="folder file pane"	data-menu="details"><?php echo lang('files:details'); ?></li>
+			</ul>
+
 			<?php if ( ! $folders) : ?>
 				<div class="no_data"><?php echo lang('files:no_folders'); ?></div>
 			<?php endif; ?>
@@ -34,9 +50,10 @@
 				<li data-role="delete_folder"	data-applies-to="folder" 			data-menu="delete"><?php echo lang('files:delete'); ?></li>
 				<li 							data-applies-to="folder file pane"	data-menu="details"><?php echo lang('files:details'); ?></li>
 			</ul>
+
 	</section>
 
-	<section class="right sidebar sidebar-left">
+	<section class="side sidebar-right">
 		<div id="search-area">
 			<span class="subsection-title"><?php echo lang('files:search'); ?></span>
 			<input type="text" id="file-search" name="file-search" value="" placeholder="<?php echo lang('files:search_message'); ?>"/>
@@ -55,7 +72,7 @@
 			<div class="files-uploader-browser">
 				<?php echo form_open_multipart('admin/files/upload'); ?>
 					<label for="file" class="upload"><?php echo lang('files:uploader'); ?></label>
-					<?php echo form_upload('file', NULL, 'multiple="multiple"'); ?>
+					<?php echo form_upload('file', null, 'multiple="multiple"'); ?>
 				<?php echo form_close(); ?>
 				<ul id="files-uploader-queue" class="ui-corner-all"></ul>
 			</div>
@@ -76,6 +93,13 @@
 				<li><label><?php echo lang('files:name'); ?>:</label> 
 					<span class="name"></span>
 				</li>
+
+				<li class="show-data">
+					<button><?php echo lang('files:toggle_data_display'); ?></button>
+				</li>
+			</ul>
+
+			<ul class="meta-data">
 				<li><label><?php echo lang('files:slug'); ?>:</label> 
 					<span class="slug"></span>
 				</li>
@@ -120,6 +144,15 @@
 				<li>
 					<span class="container-info"></span>
 				</li>
+			</ul>
+
+			<ul class="item-description">
+				<li><label><?php echo lang('files:alt_attribute'); ?>:</label>
+					<input type="text" class="alt_attribute" />
+				</li>
+				<li><label><?php echo lang('files:keywords'); ?>:</label>
+					<?php echo form_input('keywords', '', 'id="keyword_input"'); ?>
+				</li>
 				<li><label><?php echo lang('files:description'); ?>:</label> <br />
 					<textarea class="description"></textarea>
 				</li>
@@ -135,3 +168,15 @@
 	</div>
 
 </section>
+
+<script type="text/javascript">
+	jQuery(function($){
+
+		/***************************************************************************
+		 * And off we go... load the desired folder                                *
+		 ***************************************************************************/
+		if ($('.folders-center').find('.no_data').length === 0) {
+			pyro.files.folder_contents(<?php echo $this->session->flashdata('initial_folder_contents') ? $this->session->flashdata('initial_folder_contents') : 0; ?>);
+		}
+	});
+</script>

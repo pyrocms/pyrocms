@@ -34,9 +34,9 @@ class Module_Variables extends Module {
 				'ru' => 'Переменные',
 				'sl' => 'Spremenljivke',
 				'zh' => '系統變數',
-				'hu' => 'Változók',
 				'th' => 'ตัวแปร',
-                                'se' => 'Variabler'
+				'se' => 'Variabler',
+				'hu' => 'Változók',
 			),
 			'description' => array(
 				'en' => 'Manage global variables that can be accessed from anywhere.',
@@ -60,13 +60,12 @@ class Module_Variables extends Module {
 				'sl' =>	'Urejanje globalnih spremenljivk za dostop od kjerkoli',
 				'th' => 'จัดการตัวแปรทั่วไปโดยที่สามารถเข้าถึงได้จากทุกที่.',
 				'zh' => '管理此網站內可存取的全局變數。',
-                                'hu' => 'Globális változók kezelése a hozzáféréshez, bárhonnan.',
-                                'se' => 'Hantera globala variabler som kan avändas över hela webbplatsen.'
-
+				'hu' => 'Globális változók kezelése a hozzáféréshez, bárhonnan.',
+				'se' => 'Hantera globala variabler som kan avändas över hela webbplatsen.',
 			),
 			'frontend'	=> false,
 			'backend'	=> true,
-			'menu'		=> 'content',
+			'menu'		=> 'data',
 			'shortcuts' => array(
 				array(
 				    'name' => 'variables.create_title',
@@ -79,21 +78,14 @@ class Module_Variables extends Module {
 
 	public function install()
 	{
-		$this->dbforge->drop_table('variables');
+		$schema = $this->pdb->getSchemaBuilder();
+		$schema->drop('variables');
 
-		$tables = array(
-			'variables' => array(
-				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
-				'name' => array('type' => 'VARCHAR', 'constraint' => 250, 'null' => true,),
-				'data' => array('type' => 'VARCHAR', 'constraint' => 250, 'null' => true,),
-			),
-		);
-
-		if ( ! $this->install_tables($tables))
-		{
-			return false;
-		}
-
+		$schema->create('variables',function(\Illuminate\Database\Schema\Blueprint $table) {
+			$table->increments('id')->primary();
+			$table->string('name', 250)->nullable();
+			$table->string('data', 250)->nullable();
+		});
 		return true;
 	}
 

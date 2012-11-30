@@ -9,7 +9,7 @@
  class Module_Groups extends Module
 {
 
-	public $version = '1.0';
+	public $version = '1.1.0';
 
 	public function info()
 	{
@@ -77,34 +77,20 @@
 
 	public function install()
 	{
-		$this->dbforge->drop_table('groups');
+		$schema = $this->pdb->getSchemaBuilder();
+		$schema->drop('groups');
 
-		$tables = array(
-			'groups' => array(
-				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
-				'name' => array('type' => 'VARCHAR', 'constraint' => 100,),
-				'description' => array('type' => 'VARCHAR', 'constraint' => 250, 'null' => true,),
-			),
-		);
+		$schema->create('groups',function(\Illuminate\Database\Schema\Blueprint $table) {
+			$table->increments('id');
+			$table->string('name', 100);
+			$table->string('description', 250)->nullable();
 
-		if ( ! $this->install_tables($tables))
-		{
-			return false;
-		}
+			$table->primary('id');
+		});
 
-		$groups = array(
-			array('name' => 'admin', 'description' => 'Administrator',),
-			array('name' => 'user', 'description' => 'User',),
-		);
-
-		foreach ($groups as $group)
-		{
-			if ( ! $this->db->insert('groups', $group))
-			{
-				return false;
-			}
-		}
-
+		// TODO: Something tells me there is an easier way to insert multiple records.
+		$this->pdb->table('groups')->insert(array('name' => 'admin', 'description' => 'Administrator'));
+		$this->pdb->table('groups')->insert(array('name' => 'user', 'description' => 'User'));
 		return true;
 	}
 

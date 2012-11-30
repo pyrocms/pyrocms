@@ -5,6 +5,7 @@
  * 
  * Code here is run before admin controllers
  * 
+ * @copyright   Copyright (c) 2012, PyroCMS LLC
  * @package PyroCMS\Core\Controllers
  */
 class Admin_Controller extends MY_Controller {
@@ -14,7 +15,7 @@ class Admin_Controller extends MY_Controller {
 	 *
 	 * @var string 
 	 */
-	protected $section = NULL;
+	protected $section = null;
 
 	/**
 	 * Load language, check flashdata, define https, load and setup the data 
@@ -59,16 +60,96 @@ class Admin_Controller extends MY_Controller {
 		Asset::set_path('theme');
 		
 		// grab the theme options if there are any
-		ci()->theme_options = $this->pyrocache->model('theme_m', 'get_values_by', array(array('theme' => ADMIN_THEME) ));
+		ci()->theme_options = $this->cache->method('theme_m', 'get_values_by', array(array('theme' => ADMIN_THEME) ));
 	
 		// Active Admin Section (might be null, but who cares)
 		$this->template->active_section = $this->section;
 		
 		Events::trigger('admin_controller');
+
+		// -------------------------------------
+		// Build Admin Navigation
+		// -------------------------------------
+		// We'll get all of the backend modules
+		// from the DB and run their module items.
+		// -------------------------------------
+
+		if (is_logged_in())
+		{
+			// Here's our menu array.
+			$menu_items = array();
+
+			// This array controls the order of the admin items.
+			$this->template->menu_order = array('lang:cp_nav_content', 'lang:cp_nav_structure', 'lang:cp_nav_data', 'lang:cp_nav_users', 'lang:cp_nav_settings', 'lang:global:profile');
+
+			$modules = $this->module_m->get_all(array(
+				'is_backend' => true,
+				'group' => $this->current_user->group,
+				'lang' => CURRENT_LANGUAGE
+			));
+
+			foreach ($modules as $module)
+			{
+				// If a module has an admin_menu function, then
+				// we simply run that and allow it to manipulate the
+				// menu array.
+				if (method_exists($module['module'], 'admin_menu'))
+				{
+					$module['module']->admin_menu($menu_items);
+				}
+				// If we do not have an admin_menu function, we use the
+				// regular way of checking out the details.php data.
+				elseif ($module['menu'] and (isset($this->permissions[$module['slug']]) or $this->current_user->group == 'admin'))
+				{
+					$menu_items['lang:cp_nav_'.$module['menu']][$module['name']] = 'admin/'.$module['slug'];
+				}
+			}
+
+			// We always have our 
+			// edit profile links and such.
+			$menu_items['lang:global:profile'] = array(
+							'lang:cp_edit_profile_label'		=> 'edit-profile',
+							'lang:cp_logout_label'				=> 'admin/logout'
+						);
+
+			// Trigger an event so modules can mess with the
+			// menu items array via the events structure. 
+			$event_output = Events::trigger('admin_menu', $menu_items);
+
+			// If we get an array, we assume they have altered the menu items
+			// and are returning them to us to use.
+			if (is_array($event_output))
+			{
+				$menu_items = $event_output;
+			}
+
+			// Order the menu items. We go by our menu_order array.
+			$ordered_menu = array();
+
+			foreach ($this->template->menu_order as $order)
+			{
+				if (isset($menu_items[$order]))
+				{
+					$ordered_menu[$order] = $menu_items[$order];
+					unset($menu_items[$order]);
+				}
+			}
+
+			// Any stragglers?
+			if ($menu_items)
+			{
+				$ordered_menu = array_merge($ordered_menu, $menu_items);
+			}
+
+			// And there we go! These are the admin menu items.
+			$this->template->menu_items = $ordered_menu;
+		}
+
+		// ------------------------------
 		
 		// Template configuration
 		$this->template
-			->enable_parser(FALSE)
+			->enable_parser(false)
 			->set('theme_options', $this->theme_options)
 			->set_theme(ADMIN_THEME)
 			->set_layout('default', 'admin');
@@ -94,7 +175,7 @@ class Admin_Controller extends MY_Controller {
 		// Dont need to log in, this is an open page
 		if (in_array($current_page, $ignored_pages))
 		{
-			return TRUE;
+			return true;
 		}
 
 		if ( ! $this->current_user)
@@ -107,16 +188,16 @@ class Admin_Controller extends MY_Controller {
 		// Admins can go straight in
 		if ($this->current_user->group === 'admin')
 		{
-			return TRUE;
+			return true;
 		}
 
 		// Well they at least better have permissions!
 		if ($this->current_user)
 		{
 			// We are looking at the index page. Show it if they have ANY admin access at all
-			if ($current_page == 'admin/index' && $this->permissions)
+			if ($current_page === 'admin/index' && $this->permissions)
 			{
-				return TRUE;
+				return true;
 			}
 
 			// Check if the current user can view that page
@@ -124,7 +205,7 @@ class Admin_Controller extends MY_Controller {
 		}
 
 		// god knows what this is... erm...
-		return FALSE;
+		return false;
 	}
 
 }

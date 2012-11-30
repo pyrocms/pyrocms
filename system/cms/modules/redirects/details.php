@@ -34,7 +34,7 @@ class Module_Redirects extends Module {
 				'zh' => '轉址',
 				'hu' => 'Átirányítások',
 				'th' => 'เปลี่ยนเส้นทาง',
-                                'se' => 'Omdirigeringar'
+				'se' => 'Omdirigeringar',
 			),
 			'description' => array(
 				'en' => 'Redirect from one URL to another.',
@@ -57,17 +57,17 @@ class Module_Redirects extends Module {
 				'zh' => '將網址轉址、重新定向。',
 				'hu' => 'Egy URL átirányítása egy másikra.',
 				'th' => 'เปลี่ยนเส้นทางจากที่หนึ่งไปยังอีกที่หนึ่ง',
-                                'se' => 'Omdirigera från en URL till en annan.'
+				'se' => 'Omdirigera från en URL till en annan.',
 			),
 			'frontend' => false,
 			'backend'  => true,
-			'menu'	  => 'utilities',
+			'menu'	  => 'structure',
 
 			'shortcuts' => array(
 				array(
 				    'name' => 'redirects.add_title',
 				    'uri' => 'admin/redirects/add',
-				    'class' => 'add'
+				    'class' => 'add',
 				),
 		    ),
 		);
@@ -75,22 +75,18 @@ class Module_Redirects extends Module {
 
 	public function install()
 	{
-		$this->dbforge->drop_table('redirects');
+		$schema = $this->pdb->getSchemaBuilder();
+		$schema->drop('redirects');
 
-		$tables = array(
-			'redirects' => array(
-				'id' => array('type' => 'int', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
-				'from' => array('type' => 'varchar', 'constraint' => 250, 'key' => 'request'),
-				'to' => array('type' => 'varchar', 'constraint' => 250,),
-				'type' => array('type' => 'int','constraint' => 3,'default' => 302),
-			),
-		);
+		$schema->create('redirects',function(\Illuminate\Database\Schema\Blueprint $table) {
+			$table->increments('id');
+			$table->string('from', 250);
+			$table->string('to', 250);
+			$table->integer('type')->default(302);
 
-		if ( ! $this->install_tables($tables))
-		{
-			return false;
-		}
-
+			$table->primary('id');
+			$table->index('from', 'request');
+		});
 		return true;
 	}
 

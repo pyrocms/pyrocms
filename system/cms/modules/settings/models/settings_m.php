@@ -30,7 +30,7 @@ class Settings_m extends MY_Model {
 		}
 
 		return $this->db
-			->select('*, IF(`value` = "", `default`, `value`) as `value`', FALSE)
+			->select('*, IF(`value` = "", `default`, `value`) as `value`', false)
 			->where($where)
 			->get($this->_table)
 			->row();
@@ -53,11 +53,12 @@ class Settings_m extends MY_Model {
 			$where = array('module' => $where);
 		}
 
-		return $this
-			->select('*, IF(`value` = "", `default`, `value`) as `value`', FALSE)
+		$this->db
+			->select('*, IF(`value` = "", `default`, `value`) as `value`', false)
 			->where($where)
-			->order_by('`order`', 'DESC')
-			->get_all();
+			->order_by('`order`', 'DESC');
+		
+		return $this->get_all();
 	}
 
 	/**
@@ -70,7 +71,7 @@ class Settings_m extends MY_Model {
 	 * @param	array	$params
 	 * @return	bool
 	 */
-	public function update($slug = '', $params = array())
+	public function update($slug = '', $params = array(), $skip_validation = false)
 	{
 		return $this->db->update($this->_table, $params, array('slug' => $slug));
 	}

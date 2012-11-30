@@ -10,6 +10,10 @@
  */
 class Plugin_Integration extends Plugin
 {
+	public $description = array(
+		'en'	=> 'Google analytics tracking code and data.'
+	);
+
 
 	/**
 	 * Partial
@@ -23,7 +27,7 @@ class Plugin_Integration extends Plugin
 	 */
 	public function analytics()
 	{
-		return $this->load->view('fragments/google_analytics', NULL, TRUE);
+		return $this->load->view('fragments/google_analytics', null, true);
 	}
 
 	/**
@@ -47,7 +51,7 @@ class Plugin_Integration extends Plugin
 		if (Settings::get('ga_email') and Settings::get('ga_password') and Settings::get('ga_profile'))
 		{
 			// do we have it? Return it
-			if ($cached_response = $this->pyrocache->get('analytics_plugin'))
+			if ($cached_response = $this->cache->get('analytics_plugin'))
 			{
 				return $cached_response;
 			}
@@ -86,7 +90,7 @@ class Plugin_Integration extends Plugin
 					}
 
 					// Call the model or library with the method provided and the same arguments
-					$this->pyrocache->write($data, 'analytics_plugin', 60 * 60 * (int) $refresh); // 24 hours
+					$this->cache->set('analytics_plugin', $data, 60 * 60 * (int) $refresh); // 24 hours
 				}
 
 				catch (Exception $e)
