@@ -55,15 +55,18 @@
 | for PyroCMS
 |
 */
+
+	// Let's hold Windows' hand and set a include_path in case it forgot
+	set_include_path(dirname(__FILE__));
+
 	// Some hosts (was it GoDaddy? complained without this
 	@ini_set('cgi.fix_pathinfo', 0);
 	
 	// PHP 5.3 will BITCH without this
-	if(ini_get('date.timezone') == '')
+	if (ini_get('date.timezone') == '')
 	{
-		date_default_timezone_set('GMT');
+		date_default_timezone_set('UTC');
 	}
-
 
 /*
  *---------------------------------------------------------------

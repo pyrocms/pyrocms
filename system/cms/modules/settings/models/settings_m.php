@@ -18,7 +18,6 @@ class Settings_m extends MY_Model {
 	 * Gets a setting based on the $where param.  $where can be either a string
 	 * containing a slug name or an array of WHERE options.
 	 *
-	 * @access	public
 	 * @param	mixed	$where
 	 * @return	object
 	 */
@@ -29,11 +28,11 @@ class Settings_m extends MY_Model {
 			$where = array('slug' => $where);
 		}
 
-		return $this->db
-			->select('*, IF(`value` = "", `default`, `value`) as `value`', false)
+		return $this->pdb
+			->table($this->_table)
+			->select('*, IF(`value` = "", `default`, `value`) as `value`')
 			->where($where)
-			->get($this->_table)
-			->row();
+			->first();
 	}
 
 	/**
@@ -42,7 +41,6 @@ class Settings_m extends MY_Model {
 	 * Gets all settings based on the $where param.  $where can be either a string
 	 * containing a module name or an array of WHERE options.
 	 *
-	 * @access	public
 	 * @param	mixed	$where
 	 * @return	object
 	 */
@@ -53,10 +51,9 @@ class Settings_m extends MY_Model {
 			$where = array('module' => $where);
 		}
 
-		$this->db
-			->select('*, IF(`value` = "", `default`, `value`) as `value`', false)
+		$this->pdb
 			->where($where)
-			->order_by('`order`', 'DESC');
+			->orderBy('order', 'DESC');
 		
 		return $this->get_all();
 	}
@@ -66,14 +63,16 @@ class Settings_m extends MY_Model {
 	 *
 	 * Updates a setting for a given $slug.
 	 *
-	 * @access	public
 	 * @param	string	$slug
 	 * @param	array	$params
 	 * @return	bool
 	 */
 	public function update($slug = '', $params = array(), $skip_validation = false)
 	{
-		return $this->db->update($this->_table, $params, array('slug' => $slug));
+		return $this->pdb
+			->table($this->_table)
+			->where('slug', '=', $slug)
+			->update($params);
 	}
 
 	/**
@@ -81,24 +80,20 @@ class Settings_m extends MY_Model {
 	 *
 	 * Gets all the sections (modules) from the settings table.
 	 *
-	 * @access	public
-	 * @return	array
+	 * @return	array  Return an array of modules
 	 */
 	public function sections()
 	{
-		$sections = $this->select('module')
+		$sections = $this->pdb
+			->table($this->_table)
+			->select('module')
 			->distinct()
-			->where('module != ""')
-			->get_all();
+			->where('module', '!=', '')
+			->get();
 
-		$result = array();
-
-		foreach ($sections as $section)
-		{
-			$result[] = $section->module;
-		}
-
-		return $result;
+		return array_map(function($section) {
+		    return $section->module;
+		}, $sections);
 	}
 
 }
