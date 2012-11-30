@@ -18,10 +18,10 @@ class Rss extends Public_Controller
 			'limit' => $this->settings->get('rss_feed_items'))
 		), $this->settings->get('rss_cache'));
 
-		$this->_build_feed($posts);
-		$this->data->rss->feed_name .= $this->lang->line('blog_rss_name_suffix');
+		$data = $this->_build_feed($posts);
+		$data->rss->feed_name .= $this->lang->line('blog_rss_name_suffix');
 		$this->output->set_header('Content-Type: application/rss+xml');
-		$this->load->view('rss', $this->data);
+		$this->load->view('rss', $data);
 	}
 
 	public function category($slug = '')
@@ -39,23 +39,23 @@ class Rss extends Public_Controller
 			'limit' => $this->settings->get('rss_feed_items'))
 		), $this->settings->get('rss_cache'));
 
-		$this->_build_feed($posts);
-		$this->data->rss->feed_name .= ' '.$category->title.$this->lang->line('blog_rss_category_suffix');
+		$data = $this->_build_feed($posts);
+		$data->rss->feed_name .= ' '.$category->title.$this->lang->line('blog_rss_category_suffix');
 		$this->output->set_header('Content-Type: application/rss+xml');
-		$this->load->view('rss', $this->data);
+		$this->load->view('rss', $data);
 	}
 
 	public function _build_feed($posts = array())
 	{
-		$this->data = new stdClass();
-		$this->data->rss = new stdClass();
+		$data = new stdClass();
+		$data->rss = new stdClass();
 
-		$this->data->rss->encoding = $this->config->item('charset');
-		$this->data->rss->feed_name = $this->settings->get('site_name');
-		$this->data->rss->feed_url = base_url();
-		$this->data->rss->page_description = sprintf($this->lang->line('blog:rss_posts_title'), $this->settings->get('site_name'));
-		$this->data->rss->page_language = 'en-gb';
-		$this->data->rss->creator_email = $this->settings->get('contact_email');
+		$data->rss->encoding = $this->config->item('charset');
+		$data->rss->feed_name = $this->settings->get('site_name');
+		$data->rss->feed_url = base_url();
+		$data->rss->page_description = sprintf($this->lang->line('blog:rss_posts_title'), $this->settings->get('site_name'));
+		$data->rss->page_language = 'en-gb';
+		$data->rss->creator_email = $this->settings->get('contact_email');
 
 		if (!empty($posts))
 		{
@@ -74,8 +74,9 @@ class Rss extends Public_Controller
 					'date' => $row->created_on,
 					'category' => $row->category_title
 				);
-				$this->data->rss->items[] = (object)$item;
+				$data->rss->items[] = (object)$item;
 			}
 		}
+		return $data;
 	}
 }
