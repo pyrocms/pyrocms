@@ -10,8 +10,8 @@
 
 * [Adam Fairholm](http://parse19.com/)
 * [Jerel Unruh](http://unruhdesigns.com/)
+* [Joshua Pekera](http://joshuapekera.com/)
 * [Phil Sturgeon](http://philsturgeon.co.uk/)
-* [Scott Parry](http://ikreativ.com/)
 
 ## Description
 
@@ -59,6 +59,7 @@ It's strongly recommended that you download the [git-flow client](https://github
 * [Stephen Cozart](http://twitter.com/stephencozart)
 * [Matt Frost](http://shortwhitebaldguy.com)
 * [Ryan Thompson](http://aiwebsystems.com)
+* [Scott Parry](http://ikreativ.com/)
 
 Think you should be on this list? Add yourself in the next pull request you submit.
 
