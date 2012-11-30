@@ -321,7 +321,7 @@ class Files
 	 * @param array $allowed types	 	 
 	 * @return array|bool
 	 */
-	public static function upload($folder_id, $name = false, $field = 'userfile', $width = false, $height = false, $ratio = false, $alt = NULL, $allowed_types = false, $replace_file = false)
+	public static function upload($folder_id, $name = false, $field = 'userfile', $width = false, $height = false, $ratio = false, $alt = NULL, $replace_file = false, $allowed_types = false)
 	{
 		if ( ! $check_dir = self::check_dir(self::$path))
 		{
@@ -909,7 +909,7 @@ class Files
 			self::_unlink_file($file_to_replace);
 
 			//...then upload the new file
-			$result = self::upload($folder_id, $name, $field, $width, $height, $ratio, $allowed_types, $alt_attribute, $file_to_replace);
+			$result = self::upload($folder_id, $name, $field, $width, $height, $ratio, $alt_attribute, $file_to_replace, $allowed_types);
 
 			// remove files from cache
 			if( $result['status'] == 1 )

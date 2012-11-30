@@ -364,9 +364,6 @@ jQuery(function($){
 
 		// we use the current level if they clicked in the open area or if they want to replace a file
 		if ( ! pyro.files.$last_r_click.hasClass('file') && pyro.files.$last_r_click.attr('data-id') > '') {
-
-		// we use the current level if they clicked in the open area
-		if (pyro.files.$last_r_click.attr('data-id') > '') {
 			pyro.files.upload_to = pyro.files.$last_r_click.attr('data-id');
 		} else {
 			pyro.files.upload_to = pyro.files.current_level;
