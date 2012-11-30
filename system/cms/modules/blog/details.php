@@ -117,7 +117,7 @@ class Module_Blog extends Module {
 				'author_id' => array('type' => 'INT', 'constraint' => 11, 'default' => 0),
 				'created_on' => array('type' => 'INT', 'constraint' => 11),
 				'updated_on' => array('type' => 'INT', 'constraint' => 11, 'default' => 0),
-				'comments_enabled' => array('type' => 'INT', 'constraint' => 1, 'default' => 1),
+				'comments_enabled' => array('type' => 'ENUM', 'constraint' => array('no','1 day','1 week','2 weeks','1 month', '3 months', 'always'), 'default' => '3 months'),
 				'status' => array('type' => 'ENUM', 'constraint' => array('draft', 'live'), 'default' => 'draft'),
 				'type' => array('type' => 'SET', 'constraint' => array('html', 'markdown', 'wysiwyg-advanced', 'wysiwyg-simple')),
                 'preview_hash' => array('type' => 'CHAR', 'constraint' => 32,'default'=>''),
