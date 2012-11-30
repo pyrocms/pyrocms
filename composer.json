@@ -1,12 +1,18 @@
 {
-    "name": "pyrocms/pyrocms",
-    "description": "The PyroCMS Composer configuration",
     "minimum-stability": "dev",
-    "require": {
-		"fuel/lex": "2.1.*",
-		"dflydev/markdown": "1.0.*",
+        "require": {
+        "fuel/lex": "2.1.*",
+        "dflydev/markdown": "1.0.*",
         "illuminate/database": "*",
         "quick/cache": "1.0.*",
         "simplepie/simplepie": "1.3.*"
-    }
+    },
+    "autoload": {
+        "classmap": [
+            "app/controllers",
+            "app/core",
+            "app/models",
+            "app/libraries"
+        ]
+    },
 }
