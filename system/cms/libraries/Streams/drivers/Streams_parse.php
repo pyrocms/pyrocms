@@ -17,7 +17,6 @@ class Streams_parse extends CI_Driver {
 	/**
 	 * The CodeIgniter instance
 	 *
-	 * @access 	private
 	 * @var 	object 
 	 */
 	private $CI;
@@ -27,7 +26,6 @@ class Streams_parse extends CI_Driver {
 	/**
 	 * Constructor
 	 *
-	 * @access	public
 	 * @return	void
 	 */
 	public function __construct()
@@ -46,7 +44,6 @@ class Streams_parse extends CI_Driver {
 	 * a. Takes care of legacy multiple relationship parsing
 	 * b. Finds and formats special plugin fields
 	 *
-	 * @access	public
 	 * @param	string - the tag content
 	 * @param	array - the return data
 	 * @param	string - stream slug
@@ -106,7 +103,7 @@ class Streams_parse extends CI_Driver {
 		// Parse
 		// -------------------------------------
 
-		$parser = new Lex_Parser();
+		$parser = new Lex\Parser();
 		$parser->scope_glue(':');
 
 		if ( ! $loop)

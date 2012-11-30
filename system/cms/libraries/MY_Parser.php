@@ -17,11 +17,6 @@ class MY_Parser extends CI_Parser {
 	public function __construct($config = array())
 	{
 		$this->_ci = & get_instance();
-		
-		if ( ! class_exists('Lex_Autoloader'))
-		{
-			include APPPATH.'/libraries/Lex/Autoloader.php';
-		}
 	}
 
 	// --------------------------------------------------------------------
@@ -32,7 +27,6 @@ class MY_Parser extends CI_Parser {
 	 * Parses pseudo-variables contained in the specified template,
 	 * replacing them with the data in the second param
 	 *
-	 * @access	public
 	 * @param	string
 	 * @param	array
 	 * @param	bool
@@ -53,7 +47,6 @@ class MY_Parser extends CI_Parser {
 	 * Parses pseudo-variables contained in the string content,
 	 * replacing them with the data in the second param
 	 *
-	 * @access	public
 	 * @param	string
 	 * @param	array
 	 * @param	bool
@@ -72,7 +65,6 @@ class MY_Parser extends CI_Parser {
 	 * Parses pseudo-variables contained in the specified template,
 	 * replacing them with the data in the second param
 	 *
-	 * @access	protected
 	 * @param	string
 	 * @param	array
 	 * @param	bool
@@ -88,9 +80,7 @@ class MY_Parser extends CI_Parser {
 
 		$data = array_merge($data, $this->_ci->load->_ci_cached_vars);
 
-		Lex_Autoloader::register();
-
-		$parser = new Lex_Parser();
+		$parser = new Lex\Parser();
 		$parser->scope_glue(':');
 		$parser->cumulative_noparse(true);
 		$parsed = $parser->parse($string, $data, array($this, 'parser_callback'));
@@ -129,14 +119,16 @@ class MY_Parser extends CI_Parser {
 				$return_data = $this->_make_multi($return_data);
 			}
 
-			// $content = $data['content']; # TODO What was this doing other than throw warnings in 2.0?
+			# TODO What was this doing other than throw warnings in 2.0? Phil
+			// $content = $data['content']; 
 			$parsed_return = '';
 
-			$parser = new Lex_Parser();
+			$parser = new Lex\Parser();
 			$parser->scope_glue(':');
 			
 			foreach ($return_data as $result)
 			{
+				// TODO Why is this commented out? Phil
 				// if ($data['skip_content'])
 				// {
 				// 	$simpletags->set_skip_content($data['skip_content']);
@@ -150,7 +142,7 @@ class MY_Parser extends CI_Parser {
 			$return_data = $parsed_return;
 		}
 
-		return $return_data ? $return_data : null;
+		return $return_data ?: null;
 	}
 
 	// ------------------------------------------------------------------------
@@ -181,14 +173,8 @@ class MY_Parser extends CI_Parser {
 		$return = array();
 		foreach ($flat as $item => $value)
 		{
-			if (is_object($value))
-			{
-				$return[$item] = (array) $value;
-			}
-			else
-			{
-				$return[$i][$item] = $value;
-			}
+			is_object($value) and $value = (array) $value;
+			$return[$i][$item] = $value;
 		}
 		return $return;
 	}

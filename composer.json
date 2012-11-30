@@ -3,6 +3,7 @@
     "description": "The PyroCMS Composer configuration",
     "minimum-stability": "dev",
     "require": {
+		"fuel/lex": "2.1.*",
         "illuminate/database": "*",
         "quick/cache": "1.0.*",
         "simplepie/simplepie": "1.3.*"

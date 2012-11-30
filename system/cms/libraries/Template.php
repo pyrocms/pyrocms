@@ -291,9 +291,9 @@ class Template
 		}
 		
 		// Now that *all* parsing is sure to be done we inject the {{ noparse }} contents back into the output
-		if (class_exists('Lex_Parser'))
+		if (class_exists('Lex\Parser'))
 		{
-			$this->_body = Lex_Parser::inject_noparse($this->_body);
+			$this->_body = Lex\Parser::inject_noparse($this->_body);
 		}
 
 		// Want it returned or output to browser?

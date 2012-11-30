@@ -114,7 +114,7 @@ class Plugin_Pages extends Plugin
 		// turn off parsing Lex tags, just set parse_tags to 'no'
 		if ($parse_tags == 'yes')
 		{
-			$parser = new Lex_Parser();
+			$parser = new Lex\Parser();
 			$parser->scope_glue(':');
 
 			return $parser->parse($content, array(), array($this->parser, 'parser_callback'));
