@@ -103,7 +103,7 @@ class Module_Comments extends Module {
 		});
 
 		// Install the settings
-		$this->db->insert('settings', array(
+		$this->pdb->table('settings')->insert(array(
 			array(
 				'slug' => 'akismet_api_key',
 				'title' => 'Akismet API Key',
@@ -112,8 +112,8 @@ class Module_Comments extends Module {
 				'default' => '',
 				'value' => '',
 				'options' => '',
-				'is_required' => 0,
-				'is_gui' => 1,
+				'is_required' => false,
+				'is_gui' => true,
 				'module' => 'integration',
 				'order' => 981,
 			),
@@ -125,8 +125,8 @@ class Module_Comments extends Module {
 				'default' => true,
 				'value' => true,
 				'options' => '1=Enabled|0=Disabled',
-				'is_required' => 1,
-				'is_gui' => 1,
+				'is_required' => true,
+				'is_gui' => true,
 				'module' => 'comments',
 				'order' => 968,
 			),
@@ -138,8 +138,8 @@ class Module_Comments extends Module {
 				'default' => true,
 				'value' => true,
 				'options' => '1=Enabled|0=Disabled',
-				'is_required' => 1,
-				'is_gui' => 1,
+				'is_required' => true,
+				'is_gui' => true,
 				'module' => 'comments',
 				'order' => 967,
 			),
@@ -151,8 +151,8 @@ class Module_Comments extends Module {
 				'default' => 'ASC',
 				'value' => 'ASC',
 				'options' => 'ASC=Oldest First|DESC=Newest First',
-				'is_required' => 1,
-				'is_gui' => 1,
+				'is_required' => true,
+				'is_gui' => true,
 				'module' => 'comments',
 				'order' => 966,
 			),
@@ -164,8 +164,8 @@ class Module_Comments extends Module {
 				'default' => '0',
 				'value' => '0',
 				'options' => '0=Text Only|1=Allow Markdown',
-				'is_required' => 1,
-				'is_gui' => 1,
+				'is_required' => true,
+				'is_gui' => true,
 				'module' => 'comments',
 				'order' => 965,
 			),
@@ -184,5 +184,4 @@ class Module_Comments extends Module {
 	{
 		return true;
 	}
-
 }
