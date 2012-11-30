@@ -13,10 +13,6 @@ class Install_m extends CI_Model
 {
 	public function set_default_structure(Connection $db, $input)
 	{
-		// @TODO Upgrade sha1 to password_hash()
-		$salt = substr(md5(uniqid(rand(), true)), 0, 5);
-		$password = sha1($input['password'].$salt);
-
 		// Include migration config to know which migration to start from
 		require PYROPATH.'config/migration.php';
 
@@ -27,9 +23,10 @@ class Install_m extends CI_Model
 		$pdo->exec('DROP TABLE core_users');
 		$pdo->exec('DROP TABLE core_settings');
 		$pdo->exec('DROP TABLE core_sites');
-		$pdo->exec('DROP TABLE '.$pdo->quote($input['site_ref']).'_modules');
-		$pdo->exec('DROP TABLE '.$pdo->quote($input['site_ref']).'_migrations');
-		$pdo->exec('DROP TABLE '.$pdo->quote($input['site_ref']).'_users');
+		$pdo->exec('DROP TABLE IF EXISTS '.$pdo->quote($input['site_ref']).'_modules');
+		$pdo->exec('DROP TABLE IF EXISTS '.$pdo->quote($input['site_ref']).'_migrations');
+		$pdo->exec('DROP TABLE IF EXISTS '.$pdo->quote($input['site_ref']).'_users');
+		$pdo->exec('DROP TABLE IF EXISTS '.$pdo->quote($input['site_ref']).'_profile');
 
 		// Create core_settings first
 		$schema->create('core_settings', function($table) {
@@ -57,9 +54,9 @@ class Install_m extends CI_Model
 			),
 		));
 
-		// Domains
+		// Core Sites
 		$schema->create('core_sites', function($table) {
-		    $table->increments()->primary();
+		    $table->increments('id')->primary();
 		    $table->text('name', 100);
 		    $table->text('ref', 20);
 		    $table->text('domain', 100);
@@ -73,9 +70,9 @@ class Install_m extends CI_Model
 		    $table->index('domain');
 		});
 
-		// Domains
-		$schema->create($input['site_ref'].'_users', function($table) {
-		    $table->increments()->primary();
+		// User Table is used for site users and core users
+		$user_table = function($table) {
+		    $table->increments('id')->primary();
 		    $table->string('username', 20);
 		    $table->string('email', 60);
 		    $table->string('password', 40);
@@ -94,88 +91,83 @@ class Install_m extends CI_Model
 		    $table->unique('username');
 		    $table->index('email');
 		    $table->index('username');
+		};
+
+		// @TODO Upgrade sha1 to password_hash()
+		$salt = substr(md5(uniqid(rand(), true)), 0, 5);
+		$password = sha1($input['password'].$salt);
+
+		$user_data = array(
+			'username'    => $input['username'],
+			'email'       => $input['email'],
+			'password'    => $password,
+			'salt'        => $salt,
+			'group_id'    => 1,
+			'ip_address'  => $this->input->ip_address(),
+			'active'      => true,
+			'created_on'  => time(),
+		);
+
+		// Create User tables
+		$schema->create('core_users', $user_table);
+		$schema->create($input['site_ref'].'_users', $user_table);
+
+		// Insert our new user to both
+		$db->table('core_users')->insert($user_data);
+		$db->table($input['site_ref'].'_users')->insert($user_data);
+
+		// Site Profiles
+		$schema->create('core_sites', function($table) {
+		    $table->increments('id')->primary();
+		    $table->text('name', 100);
+		    $table->text('ref', 20);
+		    $table->text('domain', 100);
+		    $table->bool('active')->default(1);
+		    $table->integer('created_on');
+		    $table->integer('updated_on')->nullable();
+
+		    $table->unique('ref');
+		    $table->unique('domain');
+		    $table->index('ref');
+		    $table->index('domain');
 		});
 
+		// Profiles
+		$schema->create($input['site_ref'].'_profiles', function($table) {
+		    $table->increments('id')->primary();
+		    $table->integer('user_id');
+		    $table->string('display_name', 50); // TODO Revise these lengths
+		    $table->string('first_name', 50);
+		    $table->string('last_name', 50)->nullable();
+		    $table->string('company', 100)->nullable();
+		    $table->string('lang', 2)->default('en');
+		    $table->text('bio')->nullable();
+		    $table->integer('dob')->nullable();
+		    $table->enum('gender', array('m', 'f', ''))->default('');
+		    $table->string('phone', 20)->nullable();
+		    $table->string('website', 255)->nullable();
+		    $table->integer('updated_on')->nullable();
 
-		// '{site_ref}' 	=> $input['site_ref'],
-		// '{session_table}' => config_item('sess_table_name'),
+		    $table->index('user_id');
+		});
 
-		// ':email'        => $pdo->quote(),
-		// ':username'     => $pdo->quote(),
-		// ':displayname'  => $pdo->quote(),
-		// ':password'     => $pdo->quote($input['password']),
-		// ':firstname'    => $pdo->quote($input['firstname']),
-		// ':lastname'     => $pdo->quote($input['lastname']),
-		// ':salt'         => $pdo->quote($salt),
-		// ':unix_now'     => time(),
-		// ':migration'    => $config['migration_version'],
-	
-		// Populate first user
-		$db->table($input['site_ref'].'_users')->insert(array(
-			`username`         => $input['username'],
-			`email`            => $input['email'],
-			`password`         => $password,
-			`salt`             => $salt,
-			`group_id`         => 1,
-			`ip_address`       => $this->input->ip_address(),
-			`active`           => true,
-			`created_on`       => time(),
+		// Populate site profiles
+		$db->table($input['site_ref'].'_profiles')->insert(array(
+			'user_id'       => 1,
+			'first_name'    => $input['firstname'],
+			'last_name'     => $input['lastname'],
+			'display_name'  => $input['firstname'].' '.$input['lastname'],
+			'lang'          => 'en',
 		));
 
+		// Migrations
+		$schema->create($input['site_ref'].'_migrations', function($table) {
+		    $table->integer('version');
+		});
 
-CREATE TABLE `core_users` (
-  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
-  `email` varchar(60) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `password` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `salt` varchar(6) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `group_id` int(11) DEFAULT NULL,
-  `ip_address` varchar(16) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `active` int(1) DEFAULT NULL,
-  `activation_code` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `created_on` int(11) NOT NULL,
-  `last_login` int(11) NOT NULL,
-  `username` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `forgotten_password_code` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `remember_code` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `email` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Super User Information';
-
-INSERT INTO core_users SELECT * FROM {site_ref}_users;
-
-DROP TABLE IF EXISTS `{site_ref}_profiles`;
-
-CREATE TABLE `{site_ref}_profiles` (
-  `id` int(9) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) unsigned NOT NULL,
-  `display_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `first_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `last_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `company` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `lang` varchar(2) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'en',
-  `bio` text COLLATE utf8_unicode_ci,
-  `dob` int(11) DEFAULT NULL,
-  `gender` set('m','f','') COLLATE utf8_unicode_ci DEFAULT NULL,
-  `phone` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `mobile` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `address_line1` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `address_line2` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `address_line3` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `postcode` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `website` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `updated_on` int(11) unsigned DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `user_id` (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ;
-
-INSERT INTO `{site_ref}_profiles` (`id`, `user_id`, `first_name`, `last_name`, `display_name`, `company`, `lang`)
-VALUES (1, 1, :firstname, :lastname, :displayname, '', 'en');
-
-CREATE TABLE `{site_ref}_migrations` (
-  `version` int(3) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-INSERT INTO {site_ref}_migrations VALUES (:migration);
+		$db->table($input['site_ref'].'_profiles')->insert(array(
+			'version' => $config['migration_version'],
+		));
 
 CREATE TABLE `{site_ref}_modules` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -197,7 +189,7 @@ CREATE TABLE `{site_ref}_modules` (
   INDEX `enabled` (`enabled`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-CREATE TABLE `{session_table}` (
+CREATE TABLE config_item('sess_table_name') (
  `session_id` varchar(40) DEFAULT '0' NOT NULL,
  `ip_address` varchar(16) DEFAULT '0' NOT NULL,
  `user_agent` varchar(120) NOT NULL,
