@@ -10,6 +10,9 @@
  */
 class Plugin_Theme extends Plugin
 {
+	public $description = array(
+		'en'	=> 'Load and display theme assets.'
+	);
 
 	/**
 	 * Partial

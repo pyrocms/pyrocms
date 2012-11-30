@@ -19,7 +19,7 @@
                        "new or private protected public static switch throw try use var while xor return" +
                        "die echo empty exit eval include include_once isset list require require_once print unset"),
     blockKeywords: keywords("catch do else elseif for foreach if switch try while"),
-    atoms: keywords("true false null true false null"),
+    atoms: keywords("true false null TRUE FALSE NULL"),
     multiLineStrings: true,
     hooks: {
       "$": function(stream, state) {

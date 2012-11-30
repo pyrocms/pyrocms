@@ -4,10 +4,8 @@
  * PyroStreams Country Field Type
  *
  * @package		PyroCMS\Core\Modules\Streams Core\Field Types
- * @author		Parse19
- * @copyright	Copyright (c) 2011 - 2012, Parse19
- * @license		http://parse19.com/pyrostreams/docs/license
- * @link		http://parse19.com/pyrostreams
+ * @author		Adam Fairholm
+ * @copyright	Copyright (c) 2011 - 2012, Adam Fairholm
  */
 class Field_country
 {
@@ -15,9 +13,11 @@ class Field_country
 	
 	public $db_col_type				= 'varchar';
 
-	public $version					= '1.0';
+	public $version					= '1.1';
 
-	public $author					= array('name'=>'Parse19', 'url'=>'http://parse19.com');
+	public $custom_parameters   	= array('default_country'); 
+
+	public $author					= array('name' => 'Adam Fairholm', 'url' => 'http://adamfairholm.com');
 		
 	// --------------------------------------------------------------------------
 
@@ -30,7 +30,19 @@ class Field_country
 	 */
 	public function form_output($data, $entry_id, $field)
 	{
-		return form_dropdown($data['form_slug'], $this->countries($field->is_required), $data['value'], 'id="'.$data['form_slug'].'"');
+		// Value
+		// We only use the default value if this is a new
+		// entry.
+		if ( ! $data['value'] and ! $entry_id)
+		{
+			$value = (isset($field->field_data['default_country'])) ? $field->field_data['default_country'] : null;
+		}
+		else
+		{
+			$value = $data['value'];
+		}
+
+		return form_dropdown($data['form_slug'], $this->countries($field->is_required), $value, 'id="'.$data['form_slug'].'"');
 	}
 
 	// --------------------------------------------------------------------------
@@ -80,6 +92,21 @@ class Field_country
 		{
 			return null;
 		}
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Default Country Parameter
+	 *
+	 * @access 	public
+	 * @return 	string
+	 */
+	public function param_default_country($input)
+	{
+		// Return a drop down of countries
+		// but we don't require them to give one.
+		return form_dropdown('default_country', $this->countries('no'), $input);
 	}
 
 	// --------------------------------------------------------------------------

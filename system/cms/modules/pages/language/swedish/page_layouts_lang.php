@@ -1,10 +1,10 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
- /**
+/**
  * Swedish translation.
  *
  * @author		marcus@incore.se
- * @package		PyroCMS  
+ * @package		PyroCMS
  * @link		http://pyrocms.com
  * @date		2012-10-22
  * @version		1.1.0
@@ -33,5 +33,5 @@ $lang['page_layouts.variable_title'] = 'Innehåller titeln på sidan.';
 $lang['page_layouts.variable_body'] = 'Innehåller HTML delen av sidan.';
 
 
-/* End of file page_layouts_lang.php */  
+/* End of file page_layouts_lang.php */
 /* Location: system/cms/modules/pages/language/swedish/page_layouts_lang.php */  

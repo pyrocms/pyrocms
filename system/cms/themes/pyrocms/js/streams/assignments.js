@@ -2,23 +2,10 @@
 	$(function(){
 
 		$('table tbody').sortable({
-			handle: '.handle',
-			axis: 'y',
-			placeholder: 'dropzone',
-			start: function(e, ui) {
+			handle: 'td',
+			helper: 'clone',
+			start: function(event, ui) {
 				$('tr').removeClass('alt');
-				ui.item.children().each(function(i, v) {
-					$('<td></td>').width($(this).width()).appendTo(ui.placeholder);
-				});
-			},
-			helper: function(e, tr) {
-				var $originals = tr.children();
-				var $helper = tr.clone();
-				$helper.children().each(function(index)
-				{
-					$(this).width($originals.eq(index).width())
-				});
-				return $helper;
 			},
 			update: function() {
 				order = new Array();

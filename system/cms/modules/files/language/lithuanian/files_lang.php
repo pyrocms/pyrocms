@@ -28,6 +28,7 @@ $lang['files:added']						= 'Įkėlimo data';
 $lang['files:width']						= 'Plotis';
 $lang['files:height']						= 'Aukštis';
 $lang['files:ratio']						= 'Ratio';
+$lang['files:alt_attribute']				= 'alt Attribute'; #translate
 $lang['files:full_size']					= 'Failo pilnas dydis';
 $lang['files:filename']						= 'Failo pavadinimas';
 $lang['files:filesize']						= 'Failo dydis';
@@ -47,6 +48,7 @@ $lang['files:uploader']						= 'Imesk čia failus <br />arba<br />spausk, kad i�
 $lang['files:replace_file']					= 'Replace file'; #translate
 
 // Context Menu
+$lang['files:refresh']						= 'Refresh'; #translate
 $lang['files:open']							= 'Atidaryti';
 $lang['files:new_folder']					= 'Naujas katalogas';
 $lang['files:upload']						= 'Įkelti';
@@ -92,6 +94,7 @@ $lang['files:no_records_found']				= 'Nerasta įrašų';
 $lang['files:invalid_extension']			= '"%s" turi neleistina failo išplėtimą';
 $lang['files:upload_error']					= 'Failo įkelimas nesėkmingas';
 $lang['files:description_saved']			= 'Failo aprašymas išsaugotas';
+$lang['files:alt_saved']					= 'The image alt attribute has been saved'; #translate
 $lang['files:file_moved']					= '"%s" buvo sėkmingai perkeltas';
 $lang['files:exceeds_server_setting']		= 'Sėrveris negali apdoroti tokio didelio failo';
 $lang['files:exceeds_allowed']				= 'Failas viršija maksimalų failo dydį';

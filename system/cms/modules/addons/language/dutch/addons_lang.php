@@ -14,6 +14,9 @@ $lang['addons:modules:enable_error']			= 'De module "%s" kon niet worden ingesch
 $lang['addons:modules:enable_success']			= 'De module "%s" is ingeschakeld.';
 $lang['addons:modules:install_error']			= 'De module kon niet worden geinstalleerd.';
 $lang['addons:modules:install_success']			= 'De module "%s" is geinstalleerd.';
+
+$lang['addons:modules:module_upload_success']   = 'The module "%s" has been uploaded.'; #translate
+
 $lang['addons:modules:delete_success']			= 'De module "%s" is verwijderd.';
 $lang['addons:modules:delete_error']			= 'De module "%s" kon niet worden verwijderd.';
 $lang['addons:modules:uninstall_error']			= 'De module "%s" kon niet worden gedeinstalleerd.';

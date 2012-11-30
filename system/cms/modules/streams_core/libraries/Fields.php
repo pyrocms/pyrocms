@@ -256,7 +256,7 @@ class Fields
 			
 				// If return url is set, redirect and replace -id- with the result ID
 				// Otherwise return id
-				if ($extra['return'])
+				if ($extra['return'] or $plugin === true)
 				{
 					redirect(str_replace('-id-', $result_id, $extra['return']));
 				}

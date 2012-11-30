@@ -14,6 +14,9 @@ $lang['addons:modules:enable_error']            = 'Modula "%s" ni možno omogoč
 $lang['addons:modules:enable_success']          = 'Modul "%s" je bil omogočen.';
 $lang['addons:modules:install_error']           = 'Modula ni mogoče namestiti.';
 $lang['addons:modules:install_success']         = 'Modul "%s" je bil nameščen.';
+
+$lang['addons:modules:module_upload_success']   = 'The module "%s" has been uploaded.'; #translate
+
 $lang['addons:modules:delete_success']			 = 'Modul "%s" je bil izbrisan.';
 $lang['addons:modules:delete_error']			 = 'Modula "%s" ni mogoče izbrisati.';
 $lang['addons:modules:uninstall_error']         = 'Modula "%s" ni mogoče odstraniti.';

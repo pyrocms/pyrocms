@@ -14,6 +14,9 @@ $lang['addons:modules:enable_error']			= 'Le module "%s" n\'a pu être activé.'
 $lang['addons:modules:enable_success']			= 'Le module "%s" a été activé.';
 $lang['addons:modules:install_error']			= 'Le module n\'a pu être installé.';
 $lang['addons:modules:install_success']			= 'Le module a été installé.';
+
+$lang['addons:modules:module_upload_success']   = 'The module "%s" has been uploaded.'; #translate
+
 $lang['addons:modules:delete_success']			= 'Le module "%s" a été supprimé.';
 $lang['addons:modules:delete_error']			= 'Impossible de supprimer le module "%s".';
 $lang['addons:modules:uninstall_error']			= 'Le module "%s" n\'a pu être installé.';

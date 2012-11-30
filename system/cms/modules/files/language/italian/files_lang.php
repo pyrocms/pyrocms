@@ -28,6 +28,7 @@ $lang['files:added']						= 'Data di aggiunta';
 $lang['files:width']						= 'Larghezza';
 $lang['files:height']						= 'Altezza';
 $lang['files:ratio']						= 'Ratio';
+$lang['files:alt_attribute']				= 'alt Attribute'; #translate
 $lang['files:full_size']					= 'Dimensione intera';
 $lang['files:filename']						= 'Filename';
 $lang['files:filesize']						= 'Filesize';
@@ -47,6 +48,7 @@ $lang['files:uploader']						= 'Trascina qui i file <br />oppure<br />Clicca per
 $lang['files:replace_file']					= 'Replace file'; #translate
 
 // Context Menu
+$lang['files:refresh']						= 'Refresh'; #translate
 $lang['files:open']							= 'Apri';
 $lang['files:new_folder']					= 'Nuova cartella';
 $lang['files:upload']						= 'Carica';
@@ -92,6 +94,7 @@ $lang['files:no_records_found']				= 'Non sono stati trovati risultati';
 $lang['files:invalid_extension']			= '"%s" ha una estensione che non è ammessa';
 $lang['files:upload_error']					= 'L\'upload del file è fallito';
 $lang['files:description_saved']			= 'La descrizione del file è stata salvata';
+$lang['files:alt_saved']					= 'The image alt attribute has been saved'; #translate
 $lang['files:file_moved']					= '"%s" è stato spostato con successo';
 $lang['files:exceeds_server_setting']		= 'Il server non può gestire file così grossi';
 $lang['files:exceeds_allowed']				= 'Il file eccede la dimensione massima';

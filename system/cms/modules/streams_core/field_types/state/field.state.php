@@ -4,10 +4,7 @@
  * PyroStreams US State Field Type
  *
  * @package		PyroCMS\Core\Modules\Streams Core\Field Types
- * @author		Parse19
- * @license		http://parse19.com/pyrostreams/docs/license
- * @license		http://parse19.com/pyrostreams/license
- * @link		http://parse19.com/pyrostreams
+ * @author		Adam Fairholm
  */
 class Field_state
 {
@@ -15,11 +12,11 @@ class Field_state
 	
 	public $db_col_type				= 'varchar';
 
-	public $version					= '1.2';
+	public $version					= '1.3';
 
-	public $author					= array('name'=>'Parse19', 'url'=>'http://parse19.com');
+	public $author					= array('name' => 'Adam Fairholm', 'url' => 'http://adamfairholm.com');
 	
-	public $custom_parameters		= array('state_display');
+	public $custom_parameters		= array('state_display', 'default_state');
 
 	// --------------------------------------------------------------------------
 
@@ -95,13 +92,24 @@ class Field_state
 	public function form_output($data, $entry_id, $field)
 	{
 		// Default is abbr for backwards compat.
-		if( ! isset($data['custom']['state_display']) ):
-		
+		if ( ! isset($data['custom']['state_display']))
+		{
 			$data['custom']['state_display'] = 'abbr';
+		}
+
+		// Value
+		// We only use the default value if this is a new
+		// entry.
+		if ( ! $data['value'] and ! $entry_id)
+		{
+			$value = (isset($field->field_data['default_state'])) ? $field->field_data['default_state'] : null;
+		}
+		else
+		{
+			$value = $data['value'];
+		}
 	
-		endif;
-	
-		return form_dropdown($data['form_slug'], $this->states($field->is_required, $data['custom']['state_display']), $data['value'], 'id="'.$data['form_slug'].'"');
+		return form_dropdown($data['form_slug'], $this->states($field->is_required, $data['custom']['state_display']), $value, 'id="'.$data['form_slug'].'"');
 	}
 
 	// --------------------------------------------------------------------------
@@ -167,6 +175,21 @@ class Field_state
 		);
 	
 		return form_dropdown('state_display', $options, $value);
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Default Country Parameter
+	 *
+	 * @access 	public
+	 * @return 	string
+	 */
+	public function param_default_state($input)
+	{
+		// Return a drop down of countries
+		// but we don't require them to give one.
+		return form_dropdown('default_state', $this->states('no', 'full'), $input);
 	}
 
 	// --------------------------------------------------------------------------

@@ -28,6 +28,7 @@ $lang['files:added']						= 'Date Added';
 $lang['files:width']						= 'Width';
 $lang['files:height']						= 'Height';
 $lang['files:ratio']						= 'Ratio';
+$lang['files:alt_attribute']				= 'alt Attribute';
 $lang['files:full_size']					= 'Full Size';
 $lang['files:filename']						= 'Filename';
 $lang['files:filesize']						= 'Filesize';
@@ -47,6 +48,7 @@ $lang['files:uploader']						= 'Drop files here <br />or<br />Click to select fi
 $lang['files:replace_file']					= 'Replace file';
 
 // Context Menu
+$lang['files:refresh']						= 'Refresh'; #translate
 $lang['files:open']							= 'Open';
 $lang['files:new_folder']					= 'New Folder';
 $lang['files:upload']						= 'Upload';
@@ -92,6 +94,7 @@ $lang['files:no_records_found']				= 'No records could be found';
 $lang['files:invalid_extension']			= '"%s" has a file extension that is not allowed';
 $lang['files:upload_error']					= 'The file upload failed';
 $lang['files:description_saved']			= 'The file details have been saved';
+$lang['files:alt_saved']					= 'The image alt attribute has been saved';
 $lang['files:file_moved']					= '"%s" has been moved successfully';
 $lang['files:exceeds_server_setting']		= 'The server cannot handle this large of a file';
 $lang['files:exceeds_allowed']				= 'File exceeds the max size allowed';

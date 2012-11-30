@@ -55,7 +55,7 @@ $lang['streams.type_not_valid']							= "Παρακαλούμε επιλέξτε
 $lang['streams.stream_slug_not_unique']					= "Το σύντομο όνομα (slug) για αυτήν την ροή χρησιμοποιείται ήδη.";
 $lang['streams.field_unique']							= "Το πεδίο %s πρέπει να είναι μοναδικό.";
 $lang['streams.field_is_required']						= "Το πεδίο %s απαιτείται.";
-$lang['streams.date_out_or_range']						= "The date you have chosen is out of the acceptable range."; #translate
+$lang['streams.date_out_or_range']						= "Η ημερομηνία που επιλέξατε είναι εκτός της αποδεκτής περιόδου.";
 
 /* Field Labels */
 
@@ -122,6 +122,7 @@ $lang['streams.size']									= "Μέγεθος";
 $lang['streams.num_of_entries']							= "Αριθμός Εγγραφών";
 $lang['streams.num_of_fields']							= "Αριθμός Πεδίων";
 $lang['streams.last_updated']							= "Τελευταία Ενημέρωση";
+$lang['streams.export_schema']							= "Εξαγωγή Schema";
 
 /* Startup */
 

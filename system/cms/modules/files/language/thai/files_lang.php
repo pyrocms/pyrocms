@@ -38,6 +38,7 @@ $lang['files:added']						= 'วันที่เพิ่ม';
 $lang['files:width']						= 'กว้าง';
 $lang['files:height']						= 'สูง';
 $lang['files:ratio']						= 'อัตราส่วน';
+$lang['files:alt_attribute']				= 'alt Attribute'; #translate
 $lang['files:full_size']					= 'ขนาดเต็ม์';
 $lang['files:filename']						= 'ชื่อไฟล์';
 $lang['files:filesize']						= 'ขนาดไฟล์';
@@ -57,6 +58,7 @@ $lang['files:uploader']						= 'วางไฟล์ที่นี่ <br />�
 $lang['files:replace_file']					= 'Replace file'; #translate
 
 // Context Menu
+$lang['files:refresh']						= 'Refresh'; #translate
 $lang['files:open']							= 'เปิด';
 $lang['files:new_folder']					= 'สร้างโฟลเดอร์ใหม่';
 $lang['files:upload']						= 'อัพโหลด';
@@ -102,6 +104,7 @@ $lang['files:no_records_found']				= 'ไม่พบข้อมูลซัก
 $lang['files:invalid_extension']			= '"%s" มีนามสกุลไฟล์ที่ไม่ได้รับอนุญาต';
 $lang['files:upload_error']					= 'อัพโหลดไฟล์ล้มเหลว';
 $lang['files:description_saved']			= 'คำอธิบายไฟล์ที่ได้รับการบันทึกไว้';
+$lang['files:alt_saved']					= 'The image alt attribute has been saved'; #translate
 $lang['files:file_moved']					= '"%s" ได้ถูกย้ายเรียบร้อยแล้ว';
 $lang['files:exceeds_server_setting']		= 'เซิร์ฟเวอร์ไม่สามารถจัดการไฟล์ที่มีขนาดใหญ่ได้';
 $lang['files:exceeds_allowed']				= 'ไฟล์เกินขนาดสูงสุดที่อนุญาต';
