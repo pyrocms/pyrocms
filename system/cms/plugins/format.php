@@ -10,6 +10,9 @@
  */
 class Plugin_format extends Plugin
 {
+	public $description = array(
+		'en'	=> 'Format strings, including markdown and textile.'
+	);
 
 	/**
 	 * Markdown

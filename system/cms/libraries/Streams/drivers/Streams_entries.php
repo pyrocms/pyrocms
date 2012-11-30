@@ -153,7 +153,7 @@ class Streams_entries extends CI_Driver {
 				}
 
 				// Make sure we set the false params to boolean
-				if ($this->pagination_config[$key] == 'false')
+				if ($this->pagination_config[$key] === 'false')
 				{
 					$this->pagination_config[$key] = false;
 				}

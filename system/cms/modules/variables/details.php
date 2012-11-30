@@ -78,17 +78,15 @@ class Module_Variables extends Module {
 
 	public function install()
 	{
-		$this->dbforge->drop_table('variables', true);
+		$schema = $this->pdb->getSchemaBuilder();
+		$schema->drop('variables');
 
-		$tables = array(
-			'variables' => array(
-				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
-				'name' => array('type' => 'VARCHAR', 'constraint' => 250, 'null' => true,),
-				'data' => array('type' => 'VARCHAR', 'constraint' => 250, 'null' => true,),
-			),
-		);
-
-		return $this->install_tables($tables);
+		$schema->create('variables',function(\Illuminate\Database\Schema\Blueprint $table) {
+			$table->increments('id')->primary();
+			$table->string('name', 250)->nullable();
+			$table->string('data', 250)->nullable();
+		});
+		return true;
 	}
 
 	public function uninstall()

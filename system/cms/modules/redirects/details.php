@@ -75,18 +75,19 @@ class Module_Redirects extends Module {
 
 	public function install()
 	{
-		$this->dbforge->drop_table('redirects', true);
+		$schema = $this->pdb->getSchemaBuilder();
+		$schema->drop('redirects');
 
-		$tables = array(
-			'redirects' => array(
-				'id' => array('type' => 'int', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
-				'from' => array('type' => 'varchar', 'constraint' => 250, 'key' => 'request'),
-				'to' => array('type' => 'varchar', 'constraint' => 250,),
-				'type' => array('type' => 'int','constraint' => 3,'default' => 302),
-			),
-		);
+		$schema->create('redirects',function(\Illuminate\Database\Schema\Blueprint $table) {
+			$table->increments('id');
+			$table->string('from', 250);
+			$table->string('to', 250);
+			$table->integer('type')->default(302);
 
-		return $this->install_tables($tables);
+			$table->primary('id');
+			$table->index('from', 'request');
+		});
+		return true;
 	}
 
 	public function uninstall()

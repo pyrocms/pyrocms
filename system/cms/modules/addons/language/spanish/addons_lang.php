@@ -14,6 +14,9 @@ $lang['addons:modules:enable_error']			= 'No se pudo activar el módulo "%s".';
 $lang['addons:modules:enable_success']			= 'El módulo "%s" ha sido activado.';
 $lang['addons:modules:install_error']			= 'No se pudo instalar el módulo.';
 $lang['addons:modules:install_success']			= 'El módulo ha sido instalado.';
+
+$lang['addons:modules:module_upload_success']   = 'The module "%s" has been uploaded.'; #translate
+
 $lang['addons:modules:delete_success']			= 'The module "%s" has been deleted.'; #translate
 $lang['addons:modules:delete_error']			= 'Could not delete the module "%s".'; #translate
 $lang['addons:modules:uninstall_error']			= 'No se pudo desinstalar el módulo "%s".';

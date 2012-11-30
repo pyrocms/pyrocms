@@ -14,6 +14,9 @@ $lang['addons:modules:enable_error']			= 'تعذّر تمكين الوحدة "%s
 $lang['addons:modules:enable_success']			= 'تم تمكين الوحدة "%s".';
 $lang['addons:modules:install_error']			= 'تعذّر تثبيت الوحدة.';
 $lang['addons:modules:install_success']			= 'تم تثبيت الوحدة "%s".';
+
+$lang['addons:modules:module_upload_success']   = 'The module "%s" has been uploaded.'; #translate
+
 $lang['addons:modules:delete_success']			= 'تم حذف الوحدة "%s".';
 $lang['addons:modules:delete_error']			= 'تعذر حذف الوحدة "%s".';
 $lang['addons:modules:uninstall_error']			= 'تعذّرت إزالة تثبيت الوحدة "%s".';

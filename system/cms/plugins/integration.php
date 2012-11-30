@@ -10,6 +10,10 @@
  */
 class Plugin_Integration extends Plugin
 {
+	public $description = array(
+		'en'	=> 'Google analytics tracking code and data.'
+	);
+
 
 	/**
 	 * Partial

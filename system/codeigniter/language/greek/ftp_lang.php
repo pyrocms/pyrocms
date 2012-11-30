@@ -1,18 +1,18 @@
 <?php
 
-$lang['ftp_no_connection']			= "Unable to locate a valid connection ID.  Please make sure you are connected before peforming any file routines.";
-$lang['ftp_unable_to_connect']		= "Unable to connect to your FTP server using the supplied hostname.";
-$lang['ftp_unable_to_login']		= "Unable to login to your FTP server.  Please check your username and password.";
-$lang['ftp_unable_to_makdir']		= "Unable to create the directory you have specified.";
-$lang['ftp_unable_to_changedir']	= "Unable to change directories.";
-$lang['ftp_unable_to_chmod']		= "Unable to set file permissions.  Please check your path.  Note: This feature is only available in PHP 5 or higher.";
-$lang['ftp_unable_to_upload']		= "Unable to upload the specified file.  Please check your path.";
-$lang['ftp_unable_to_download']		= "Unable to download the specified file.  Please check your path.";
-$lang['ftp_no_source_file']			= "Unable to locate the source file.  Please check your path.";
-$lang['ftp_unable_to_rename']		= "Unable to rename the file.";
-$lang['ftp_unable_to_delete']		= "Unable to delete the file.";
-$lang['ftp_unable_to_move']			= "Unable to move the file.  Please make sure the destination directory exists.";
+$lang['ftp_no_connection']			= "Δεν ήταν δυνατός ο εντοπισμός μιας έγκυρης ID σύνδεσης. Παρακαλούμε σιγουρευτείτε ότι είσαστε συνδεδεμένοι προτού εκτελέσετε οποιεσδήποτε ενέργειες.";
+$lang['ftp_unable_to_connect']		= "Δεν είναι δυνατή η σύνδεση στον διακομιστή FTP με αυτό το hostname.";
+$lang['ftp_unable_to_login']		= "Δεν ήταν δυνατό να γίνει login στον διακομιστή FTP. Παρακαλούμε ελέγξτε το όνομα χρήστη και το συνθηματικό.";
+$lang['ftp_unable_to_makdir']		= "Δεν ήταν δυνατή η δημιουργία του φακέλου που ζητήσατε.";
+$lang['ftp_unable_to_changedir']	= "Δεν ήταν δυνατή η μετάβαση σε άλλο φάκελο.";
+$lang['ftp_unable_to_chmod']		= "Δεν ήταν δυνατός ο ορισμός δικαιωμάτων επί του αρχείου. Παρακαλούμε ελέγξτε την διαδρομή. Σημείωση: αυτή η λειτουργία είναι διαθέσιμη σε εγκαταστάσεις PHP 5 και πάνω.";
+$lang['ftp_unable_to_upload']		= "Δεν ήταν δυνατό να ανέβει το αρχείο. Παρακαλούμε ελέγξτε την διαδρομή.";
+$lang['ftp_unable_to_download']		= "Δεν ήταν δυνατό να κατέβει το αρχείο. Παρακαλούμε ελέγξτε την διαδρομή.";
+$lang['ftp_no_source_file']			= "Δεν βρέθηκε το αρχείο πηγή. Παρακαλούμε ελέγξτε την διαδρομή.";
+$lang['ftp_unable_to_rename']		= "Δεν ήταν δυνατή η μετονομασία του αρχείου.";
+$lang['ftp_unable_to_delete']		= "Δεν ήταν δυνατή η διαγραφή του αρχείου.";
+$lang['ftp_unable_to_move']			= "Δεν ήταν δυνατή η μετακίνηση του αρχείου. Παρακαλούμε ελέγξτε ότι η διαδρομή προορισμού υπάρχει.";
 
 
 /* End of file ftp_lang.php */
-/* Location: ./system/language/english/ftp_lang.php */
+/* Location: ./system/language/greek/ftp_lang.php */
