@@ -239,6 +239,7 @@ class Admin extends Admin_Controller
 			->append_metadata($this->load->view('fragments/wysiwyg', $this->data, true))
 			->append_js('jquery/jquery.tagsinput.js')
 			->append_js('module::blog_form.js')
+			->append_js('module::blog_category_form.js')
 			->append_css('jquery/jquery.tagsinput.css')
 			->set('post', $post)
 			->build('admin/form');
