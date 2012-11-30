@@ -11,12 +11,6 @@ require APPPATH."libraries/MX/Controller.php";
  */
 class MY_Controller extends MX_Controller
 {
-	/**
-	 * No longer used globally
-	 * 
-	 * @deprecated remove in 2.2
-	 */
-	protected $data;
 
 	/**
 	 * The name of the module that this controller instance actually belongs to.
