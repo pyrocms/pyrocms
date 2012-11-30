@@ -26,6 +26,7 @@
 				<!--<li class="button" 										data-applies-to="file" 				data-menu="edit"><?php echo lang('files:edit'); ?></li>-->
 				<li class="button" data-role="download_file"				data-applies-to="file" 				data-menu="download"><?php echo lang('files:download'); ?></li>
 				<li class="button" data-role="synchronize"					data-applies-to="folder"			data-menu="synchronize"><?php echo lang('files:synchronize'); ?></li>
+				<li class="button" data-role="upload delete"					data-applies-to="file" 				data-menu="replace"><?php echo lang('files:replace'); ?></li>
 				<li class="button red" data-role="delete_file"				data-applies-to="file" 				data-menu="delete"><?php echo lang('files:delete'); ?></li>
 				<li class="button red" data-role="delete_folder"			data-applies-to="folder" 			data-menu="delete"><?php echo lang('files:delete'); ?></li>
 				<li class="button" 											data-applies-to="folder file pane"	data-menu="details"><?php echo lang('files:details'); ?></li>

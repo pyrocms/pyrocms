@@ -164,7 +164,7 @@ jQuery(function($){
 				}
 
 				// and hide it if they don't have permission for it
-				if ($(this).attr('data-role') && $.inArray($(this).attr('data-role'), pyro.files.permissions) < 0) {
+				if ( $(this).attr('data-role') && ! pyro.files.has_permissions( $(this).attr('data-role') ) ) {
 					$(this).hide();
 				}
 
@@ -836,7 +836,7 @@ jQuery(function($){
 		 	if ($item.type === 'i') {	$item_details.find('.alt_attribute')	.val($item.alt_attribute).parent().show(); }
 
 			// they can only change the cloud provider if the folder is empty and they have permission
-			if (type === 'folder' && $item.file_count === 0 && pyro.files.permissions.indexOf('set_location') > -1){
+			if (type === 'folder' && $item.file_count === 0 && pyro.files.has_permissions('set_location') ){
 				// update the value and trigger an update on Chosen
 				$select.val($item.location).find('option[value="'+$item.location+'"]').attr('selected', true);
 				$select.trigger('liszt:updated').parents().show();
@@ -976,6 +976,24 @@ jQuery(function($){
 		});
 
 	};
+
+	pyro.files.has_permissions = function(roles) {
+
+		var actions = roles.split(' ');
+		var max_actions = actions.length;
+		var perm_granted = true;
+
+		for(var x = 0;x < max_actions;x++)
+		{
+			if( ! $.inArray(actions[x], pyro.files.permissions) )
+			{
+				perm_granted = false;
+				break;
+			}
+		}
+
+		return perm_granted;
+	}
 
 	//
 	// The index.php view fires up the magic initially
