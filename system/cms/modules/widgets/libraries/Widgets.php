@@ -16,13 +16,13 @@ class Widgets {
 	function __construct()
 	{
 		$this->load->model('widgets/widget_m');
-		
+
 		$locations = array(
 		   APPPATH,
 		   ADDONPATH,
 		   SHARED_ADDONPATH,
 		);
-		
+
 		if (defined('ADMIN_THEME'))
 		{
 			$locations += array(
@@ -142,14 +142,109 @@ class Widgets {
 	{
 		$widget = $this->widget_m->get_instance($instance_id);
 
-		if ($widget)
-		{
-			$widget->options = $this->_unserialize_options($widget->options);
-
-			return $widget;
+		if (!$widget){
+			return FALSE;
 		}
 
-		return FALSE;
+		$this->_map_saved_data_to_widget_options($widget);
+
+		return $widget;
+	}
+
+	function _map_saved_data_to_widget_options(stdClass &$widget){
+		$saved_data = $this->_unserialize_options($widget->options);
+
+		$options = array();
+		$_list_array_keys = array();
+
+		$this->_spawn_widget($widget->slug);
+
+		foreach ($this->_widget->fields as $field)
+		{
+			$field_name = &$field['field'];
+
+			$options[$field_name] = $this->_get_saved_data_from_field_name($saved_data, $field_name, $_list_array_keys);
+
+			if(array_key_exists($field_name,$saved_data)){
+				unset($saved_data[$field_name]);
+			}
+		}
+
+		//we are cleaning $saved_data array members, which were created by the _unserialize_options method.
+		foreach($_list_array_keys as $array_key){
+			if(array_key_exists($array_key,$saved_data)){
+				unset($saved_data[$array_key]);
+			}
+		}
+
+		// Any extra data? Merge it in, but options wins!
+		if ( !empty($saved_data) )
+		{
+			$options = array_merge($saved_data, $options);
+		}
+
+		$widget->options = $options;
+	}
+
+	function _get_saved_data_from_field_name($saved_data, $field_name, &$_list_array_keys){
+
+		$value = "";
+
+		//is field_name referencing an array value ?
+		$bracket_index = strpos($field_name, '[');
+		if ($bracket_index !== FALSE)
+		{
+			$array_key = substr($field_name, 0, $bracket_index);
+			$_list_array_keys[] = $array_key; //reference the array_key to unset it from the saved_data later
+
+			if(!function_exists('callback')){
+				function callback($item_value,$item_key){
+					global $saved_data_params;
+					if(!empty($saved_data_params['value'])){
+						return; //optimization
+					}
+					$field_name = $saved_data_params['field_name'];
+					$bracket_index = strpos($field_name, '[');
+					$key = substr($field_name, 0, $bracket_index);
+					if($key != $item_key){
+						return;
+					}
+
+					$field_part = substr($field_name, $bracket_index+1);
+
+					//handle array[key][] and array[key]
+					$is_last_key =  substr($field_part, 0, 1) == ']' || ( strpos($field_part,']') == strlen($field_part)-1  );
+
+					if($is_last_key){
+						$saved_data_params['value'] = $item_value;
+					}else{
+						if(!is_array($item_value)){
+							return;
+						}
+
+						$next_bracket_index = strpos($field_part, ']');
+						$next_key = substr($field_part, 0, $next_bracket_index);
+						$new_field_name =  $next_key . substr($field_part, $next_bracket_index+1);
+						$saved_data_params['field_name'] = $new_field_name;
+						return array_walk($item_value,'callback');
+					}
+				}
+			}
+
+			//"ugly" hack to pass by reference data to the array_walk callback :
+			//see : http://stackoverflow.com/questions/5155411/pass-by-reference-the-third-parameter-in-php-array-walk-without-a-warning
+			global $saved_data_params;
+			$saved_data_params = array("value"=>$value,"field_name"=>$field_name);
+			array_walk($saved_data,'callback');
+			$value = $saved_data_params['value'];
+			unset($saved_data_params); //do not need this global var anymore
+		}else{
+			if( isset($saved_data[$field_name]) ){
+				$value = $saved_data[$field_name];
+			}
+		}
+
+		return set_value($field_name, $value);
 	}
 
 	function get_area($id)
@@ -202,7 +297,7 @@ class Widgets {
 		return $this->load_view('display', $data);
 	}
 
-	function render_backend($name, $saved_data = array())
+	function render_backend($name, $options = array())
 	{
 		$this->_spawn_widget($name);
 
@@ -279,7 +374,7 @@ class Widgets {
 
 		foreach ($widgets as $widget)
 		{
-			$widget->options = $this->_unserialize_options($widget->options);
+			$this->_map_saved_data_to_widget_options($widget);
 			$widget->body = $this->render($widget->slug, $widget->options);
 
 			if ($widget->body !== FALSE)
