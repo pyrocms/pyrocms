@@ -109,8 +109,8 @@ class Admin extends Admin_Controller
 	}
 
 	/**
-	 * Used to create an entirely new template from scratch.  Usually will be
-	 * used for future expansion or third party modules
+	 * Used to create an entirely new template from scratch.
+	 * Usually will be used for future expansion or third party modules
 	 */
 	public function create()
 	{
@@ -151,7 +151,7 @@ class Admin extends Admin_Controller
 		$this->template
 			->set('email_template', $email_template)
 			->title(lang('templates.create_title'))
-			->append_metadata($this->load->view('fragments/wysiwyg', $this->data, true))
+			->append_metadata($this->load->view('fragments/wysiwyg', array(), true))
 			->build('admin/form');
 	}
 
@@ -212,7 +212,7 @@ class Admin extends Admin_Controller
 		$this->template
 			->set('email_template', $email_template)
 			->title(lang('templates.edit_title'))
-			->append_metadata($this->load->view('fragments/wysiwyg', $this->data, true))
+			->append_metadata($this->load->view('fragments/wysiwyg', array(), true))
 			->build('admin/form');
 	}
 
