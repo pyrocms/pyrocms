@@ -63,7 +63,7 @@ class Rss extends Public_Controller
 			{
 				//$row->created_on = human_to_unix($row->created_on);
 				$row->link = site_url('blog/'.date('Y/m', $row->created_on).'/'.$row->slug);
-				$row->created_on = standard_date('DATE_RSS', $row->created_on);
+				$row->created_on = date(DATE_RSS, $row->created_on);
 
 				$item = array(
 					//'author' => $row->author,
