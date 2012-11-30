@@ -1,4 +1,6 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php 
+
+use dflydev\markdown\MarkdownExtraParser;
 
 /**
  * Markdown helper for PyroCMS.
@@ -9,7 +11,8 @@
  * @author      PyroCMS Dev Team
  * @copyright   Copyright (c) 2012, PyroCMS LLC
  * @package 	PyroCMS\Core\Helpers
- * @see 		http://michelf.com/projects/php-markdown/
+ * @see 		https://github.com/dflydev/dflydev-markdown
+ * @deprecated
  */
 if ( ! function_exists('parse_markdown'))
 {
@@ -21,10 +24,9 @@ if ( ! function_exists('parse_markdown'))
 	 */
 	function parse_markdown($markdown)
 	{
-		$ci = & get_instance();
-		$ci->load->library('markdown_parser');
+		$parser = new MarkdownExtraParser;
 
-		return Markdown($markdown);
+		return $parser->transformMarkdown($markdown);
 	}
 
 }
