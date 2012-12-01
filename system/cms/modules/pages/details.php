@@ -101,61 +101,68 @@ class Module_Pages extends Module
 
 	public function install()
 	{
-		$this->dbforge->drop_table('page_chunks', true);
-		$this->dbforge->drop_table('page_layouts', true);
-		$this->dbforge->drop_table('pages', true);
-		$this->dbforge->drop_table('revisions', true);
+		$schema = $this->pdb->getSchemaBuilder();
 
-		$tables = array(
-			'page_layouts' => array(
-				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true),
-				'title' => array('type' => 'VARCHAR', 'constraint' => 60),
-				'body' => array('type' => 'TEXT'),
-				'css' => array('type' => 'TEXT', 'null' => true),
-				'js' => array('type' => 'TEXT', 'null' => true),
-				'theme_layout' => array('type' => 'VARCHAR', 'constraint' => 100, 'default' => 'default'),
-				'updated_on' => array('type' => 'INT', 'constraint' => 11),
-			),
-			'pages' => array(
-				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true),
-				'slug' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '', 'key' => 'slug'),
-				'class' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => ''),
-				'title' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => ''),
-				'uri' => array('type' => 'TEXT', 'null' => true),
-				'parent_id' => array('type' => 'INT', 'constraint' => 11, 'default' => 0, 'key' => 'parent_id'),
-				'revision_id' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '1'),
-				'layout_id' => array('type' => 'VARCHAR', 'constraint' => 255),
-				'css' => array('type' => 'TEXT', 'null' => true),
-				'js' => array('type' => 'TEXT', 'null' => true),
-				'meta_title' => array('type' => 'VARCHAR', 'constraint' => 255, 'null' => true),
-				'meta_keywords' => array('type' => 'CHAR', 'constraint' => 32, 'null' => true),
-				'meta_description' => array('type' => 'TEXT', 'null' => true),
-				'rss_enabled' => array('type' => 'INT', 'constraint' => 1, 'default' => 0),
-				'comments_enabled' => array('type' => 'INT', 'constraint' => 1, 'default' => 0),
-				'status' => array('type' => 'ENUM', 'constraint' => array('draft', 'live'), 'default' => 'draft'),
-				'created_on' => array('type' => 'INT', 'constraint' => 11, 'default' => 0),
-				'updated_on' => array('type' => 'INT', 'constraint' => 11, 'default' => 0),
-				'restricted_to' => array('type' => 'VARCHAR', 'constraint' => 255, 'null' => true),
-				'is_home' => array('type' => 'INT', 'constraint' => 1, 'default' => 0),
-				'strict_uri' => array('type' => 'TINYINT', 'constraint' => 1, 'default' => 1),
-				'order' => array('type' => 'INT', 'constraint' => 11, 'default' => 0),
-			),
-			'page_chunks' => array(
-				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true),
-				'slug' => array('type' => 'VARCHAR', 'constraint' => 255, 'null' => false),
-				'class' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => ''),
-				'page_id' => array('type' => 'INT', 'constraint' => 11),
-				'body' => array('type' => 'TEXT'),
-				'parsed' => array('type' => 'TEXT', 'null' => true),
-				'type' => array('type' => 'SET', 'constraint' => array('html', 'markdown', 'wysiwyg-advanced', 'wysiwyg-simple')),
-				'sort' => array('type' => 'INT', 'constraint' => 11),
-			),
-		);
+		$schema->drop('page_chunks');
 
-		if ( ! $this->install_tables($tables))
-		{
-			return false;
-		}
+		$schema->create('keywords',function(\Illuminate\Database\Schema\Blueprint $table) {
+			$table->increments('id');
+			$table->string('slug');
+			$table->string('class')->default('');
+			$table->integer('page_id');
+			$table->text('body');
+			$table->text('parsed')->nullable();
+			$table->enum('type', array('html', 'markdown', 'wysiwyg-advanced', 'wysiwyg-simple'));
+			$table->integer('sort');
+
+			$table->primary('id');
+			// $table->foreign('page_id'); // TODO: Surely more documentation is needed to make this work.
+		});
+
+		$schema->drop('page_layouts');
+
+		$schema->create('page_layouts',function(\Illuminate\Database\Schema\Blueprint $table) {
+			$table->increments('id');
+			$table->string('title');
+			$table->text('body');
+			$table->text('css')->nullable();
+			$table->text('js')->nullable();
+			$table->string('theme_layout')->default('default');
+			$table->timestamp('updated_on');
+
+			$table->primary('id');
+		});
+
+		$schema->drop('pages');
+
+		$schema->create('pages',function(\Illuminate\Database\Schema\Blueprint $table) {
+			$table->increments('id');
+			$table->string('slug')->default('')->key(); //
+			$table->string('class')->default('');
+			$table->string('title')->default('');
+			$table->text('uri')->nullable();
+			$table->integer('parent_id')->default(0)->key('parent_id'); //
+			$table->string('revision_id')->default('1');
+			$table->string('layout_id');
+			$table->text('css')->nullable();
+			$table->text('js')->nullable();
+			$table->string('meta_title')->nullable();
+			$table->string('meta_keywords')->nullable();
+			$table->string('meta_description')->nullable();
+			$table->boolean('rss_enabled')->default(false);
+			$table->boolean('comments_enabled')->default(false);
+			$table->enum('status', array('draft', 'live'))->default('draft');
+			$table->timestamps();
+			$table->string('restricted_to')->nullable();
+			$table->boolean('is_home');
+			$table->boolean('strict_uri')->default(true);
+			$table->integer('order')->default(0);
+
+			$table->primary('id');
+		});
+
+		$schema->drop('revisions');
+
 
 		// We will need to get now() later on.
 		$this->load->helper('date');
@@ -169,7 +176,7 @@ class Module_Pages extends Module
 			'updated_on' => now(),
 		);
 
-		if ( ! $this->db->insert('page_layouts', $default_page_layout))
+		if ( ! $this->pdb->insert('page_layouts', $default_page_layout))
 		{
 			return false;
 		}
@@ -219,9 +226,9 @@ class Module_Pages extends Module
 			),
 		);
 
-		foreach ($default_pages as $page_chunk)
+		foreach ($default_pages as $page)
 		{
-			if ( ! $this->db->insert('pages', $page_chunk))
+			if ( ! $this->pdb->insert('pages', $page))
 			{
 				return false;
 			}
@@ -265,7 +272,7 @@ class Module_Pages extends Module
 		);
 		foreach ($default_page_chunks as $page_chunk)
 		{
-			if ( ! $this->db->insert('page_chunks', $page_chunk))
+			if ( ! $this->pdb->insert('page_chunks', $page_chunk))
 			{
 				return false;
 			}
