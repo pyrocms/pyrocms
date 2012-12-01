@@ -24,10 +24,10 @@ $lang['streams.stream_field_ass_upd_error']				= "Kilo kliučių naujinant lauko
 $lang['streams.stream_field_ass_upd_success']			= "Lauko assignment atnaujintas sėkmingai.";
 $lang['streams.delete_entry_error']						= "Kilo kliučių ištrinant šį įrašą.";
 $lang['streams.delete_entry_success']					= "Įrašas ištrintas sėkmingai.";
-$lang['streams.add_entry_error']						= "Kilo kliučių pridedant įrašą.";
-$lang['streams.entry_add_success']						= "Įrašas pridėtas sėkmingai.";
-$lang['streams.update_entry_error']						= "Kilo kliučių naujinant įrašą.";
-$lang['streams.entry_update_success']					= "Įrašas sėkmingai atnaujintas.";
+$lang['streams.new_entry_error']						= "Kilo kliučių pridedant įrašą."; #translate
+$lang['streams.new_entry_success']						= "Įrašas pridėtas sėkmingai."; #translate
+$lang['streams.edit_entry_error']						= "Kilo kliučių naujinant įrašą."; #translate
+$lang['streams.edit_entry_success']					= "Įrašas sėkmingai atnaujintas."; #translate
 $lang['streams.delete_summary']							= "Ar jūs esate tikri, kad norite pašalinti <strong>%s</strong> srautą? Bus <strong>ištrinta %s %s</strong> negrįžtamai.";
 
 /* Misc Errors */
@@ -74,6 +74,7 @@ $lang['streams.updated_date']							= "Atnaujinimo data";
 $lang['streams.value']									= "Reikšmė";
 $lang['streams.manage']									= "Administruoti";
 $lang['streams.search']									= "Paieška";
+$lang['streams:stream_prefix']							= "Stream Prefix"; #translate
 
 /* Field Instructions */
 
@@ -121,6 +122,7 @@ $lang['streams.size']									= "Dydis";
 $lang['streams.num_of_entries']							= "Įrašų skaičius";
 $lang['streams.num_of_fields']							= "Laukų skaičius";
 $lang['streams.last_updated']							= "Atnaujinimo laikas";
+$lang['streams.export_schema']							= "Export Schema"; #translate
 
 /* Startup */
 
@@ -130,8 +132,9 @@ $lang['streams.start.no_assign'] 						= "Atrodo nėra nei vieno lauko šiam sra
 $lang['streams.start.add_field_here']					= "pridėti laukus čia";
 $lang['streams.start.create_field_here']				= "sukurti lauką čia";
 $lang['streams.start.no_streams']						= "Nėra sukurta srautų, galite pradėti";
+$lang['streams.start.no_streams_yet']					= "There are no streams yet."; #translate
 $lang['streams.start.adding_one']						= "pridėdami vieną";
-$lang['streams.start.no_fields_to_add']					= "Negalima pridėti laukų";		
+$lang['streams.start.no_fields_to_add']					= "Negalima pridėti laukų";
 $lang['streams.start.no_fields_msg']					= "Nėra galimų pridėti laukų į šį srautą. PyroStreams modulyje, laukų tipai gali būti panaudojami kitame sraute ir turi būti sukurti prieš pridedant į srautą. Galite pradėti";
 $lang['streams.start.adding_a_field_here']				= "pridėdami vieną jų";
 $lang['streams.start.no_entries']						= "Nėra yrašų <strong>%s</strong>. Kad pradėti,";
@@ -139,6 +142,7 @@ $lang['streams.add_fields']								= "priskirkite laukus";
 $lang['streams.add_an_entry']							= "pridekite įrašą";
 $lang['streams.to_this_stream_or']						= "šiam srautui arba";
 $lang['streams.no_field_assign']						= "Nėra lauko priskyrimai";
+$lang['streams.no_fields_msg_first']					= "Looks like there are no fields yet for this stream."; #translate
 $lang['streams.no_field_assign_msg']					= "Atrodo nėra laukų šiam srautui. Prieš įvedant duomenis, jums reikia ";
 $lang['streams.add_some_fields']						= "priskirti laukų";
 $lang['streams.start.before_assign']					= "Prieš priskirdami laukus srautui, jums reikia sukurti lauką. Jūs galite ";

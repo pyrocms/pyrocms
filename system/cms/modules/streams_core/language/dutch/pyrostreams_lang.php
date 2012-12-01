@@ -122,7 +122,7 @@ $lang['streams.size']							    		= "Formaat";
 $lang['streams.num_of_entries']						= "Aantal ingave";
 $lang['streams.num_of_fields']						= "Aantal velden";
 $lang['streams.last_updated']							= "Laatst bijgewerkt";
-$lang['streams.export_schema']						= "Export schema";
+$lang['streams.export_schema']						= "Export schema"; #translate
 
 /* Startup */
 

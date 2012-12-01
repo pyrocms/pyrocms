@@ -145,8 +145,7 @@ $lang['streams.no_field_assign']                 = 'No Field Assignments'; #tran
 $lang['streams.no_fields_msg_first']             = 'Looks like there are no fields yet for this stream.'; #translate
 $lang['streams.no_field_assign_msg']             = 'Before you start entering data, you need to'; #translate
 $lang['streams.add_some_fields']                 = 'assign some fields'; #translate
-$lang['streams.start.before_assign']             = 'Before assigning fields to a stream,
-you need to create a field. You can'; #translate
+$lang['streams.start.before_assign']             = 'Before assigning fields to a stream, you need to create a field. You can'; #translate
 $lang['streams.start.no_fields_to_assign']       = 'Looks like there are no fields available to be assigned. Before you can assign a field you must '; #translate
 
 /* Buttons */
