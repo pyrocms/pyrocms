@@ -3,10 +3,11 @@
 /**
  * Navigation Module
  *
- * @author PyroCMS Dev Team
+ * @author  PyroCMS Dev Team
  * @package PyroCMS\Core\Modules\Navigation
  */
-class Module_Navigation extends Module {
+class Module_Navigation extends Module
+{
 
 	public $version = '1.2.0';
 
@@ -62,19 +63,18 @@ class Module_Navigation extends Module {
 				'th' => 'จัดการการเชื่อมโยงนำทางและกลุ่มนำทาง',
 				'se' => 'Hantera länkar och länkgrupper.',
 				'hu' => 'Linkek kezelése a navigációs menükben és a navigációs csoportok kezelése, amikhez tartoznak.',
-				'se' => 'Hantera länkar och länkgrupper.',
 			),
 			'frontend' => false,
-			'backend'  => true,
-			'menu'	  => 'structure',
+			'backend' => true,
+			'menu' => 'structure',
 
-		    'shortcuts' => array(
+			'shortcuts' => array(
 				array(
-				    'name' => 'nav_group_create_title',
-				    'uri' => 'admin/navigation/groups/create',
-				    'class' => 'add',
+					'name' => 'nav_group_create_title',
+					'uri' => 'admin/navigation/groups/create',
+					'class' => 'add',
 				),
-		    ),
+			),
 		);
 	}
 
@@ -83,7 +83,8 @@ class Module_Navigation extends Module {
 		$schema = $this->pdb->getSchemaBuilder();
 
 		$schema->drop('navigation_groups');
-		$schema->create('navigation_groups',function(\Illuminate\Database\Schema\Blueprint $table) {
+		$schema->create('navigation_groups', function (\Illuminate\Database\Schema\Blueprint $table)
+		{
 			$table->increments('id');
 			$table->string('title', 50);
 			$table->string('abbrev', 50);
@@ -93,7 +94,8 @@ class Module_Navigation extends Module {
 		});
 
 		$schema->drop('navigation_links');
-		$schema->create('navigation_links',function(\Illuminate\Database\Schema\Blueprint $table) {
+		$schema->create('navigation_links', function (\Illuminate\Database\Schema\Blueprint $table)
+		{
 			$table->increments('id');
 			$table->string('title', 100)->default('');
 			$table->integer('parent')->nullable();
@@ -114,33 +116,17 @@ class Module_Navigation extends Module {
 			// $table->foreign('navigation_group_id'); // TODO: Surely more documentation is needed to make this work.
 		});
 
-		$groups = array(
+		$this->pdb->table('navigation_groups')->insert(array(
 			array('title' => 'Header', 'abbrev' => 'header',),
 			array('title' => 'Sidebar', 'abbrev' => 'sidebar',),
 			array('title' => 'Footer', 'abbrev' => 'footer',),
-		);
+		));
 
-		foreach ($groups as $group)
-		{
-			if ( ! $this->pdb->insert('navigation_groups', $group))
-			{
-				return false;
-			}
-		}
-
-		$links = array(
+		$this->pdb->table('navigation_links')->insert(array(
 			array('title' => 'Home', 'link_type' => 'page', 'page_id' => 1, 'navigation_group_id' => 1, 'position' => 1,),
 			array('title' => 'Blog', 'link_type' => 'module', 'page_id' => null, 'navigation_group_id' => 1, 'position' => 2, 'module_name' => 'blog'),
 			array('title' => 'Contact', 'link_type' => 'page', 'page_id' => 3, 'navigation_group_id' => 1, 'position' => 3,),
-		);
-
-		foreach ($links as $link)
-		{
-			if ( ! $this->pdb->insert('navigation_links', $link))
-			{
-				return false;
-			}
-		}
+		));
 
 		return true;
 	}
