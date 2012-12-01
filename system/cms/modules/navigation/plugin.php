@@ -91,7 +91,7 @@ class Plugin_Navigation extends Plugin
 			}
 		}
 
-		foreach ($links as $link)
+foreach ($links as $link)
 		{
 			$item		= array();
 			$wrapper	= array();
@@ -106,11 +106,14 @@ class Plugin_Navigation extends Plugin
 			
 			$item['attributes']['target']	= $link['target'] ? 'target="' . $link['target'] . '"' : null;
 			$item['attributes']['class']	= $link_class ? 'class="' . $link_class . '"' : '';
+			$item['attributes']['level']  = $level;
 
 			// attributes of anchor wrapper
 			$wrapper['class']		= $link['class'] ? explode(' ', $link['class']) : array();
 			$wrapper['children']	= $return_arr ? array() : null;
 			$wrapper['separator']	= $separator;
+			$wrapper['level']    = $level;
+			$wrapper['current']  = FALSE;
 
 			// is single ?
 			if ($total === 1)
@@ -145,6 +148,7 @@ class Plugin_Navigation extends Plugin
 			{
 				$current_link = $link['url'];
 				$wrapper['class'][] = $current_class;
+				$wrapper['current'] = TRUE;
 			}
 
 			// is the link we're currently working with found inside the children html?
@@ -164,7 +168,9 @@ class Plugin_Navigation extends Plugin
 			{
 				$item['target']		=& $item['attributes']['target'];
 				$item['class']		=& $item['attributes']['class'];
+				$item['level']		=& $item['attributes']['level'];
 				$item['children']	= $wrapper['children'];
+				$item['current']	= $wrapper['current'];
 
 				if ($wrapper['class'] && $item['class'])
 				{
