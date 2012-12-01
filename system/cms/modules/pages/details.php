@@ -3,7 +3,7 @@
 /**
  * Pages Module
  *
- * @author PyroCMS Dev Team
+ * @author  PyroCMS Dev Team
  * @package PyroCMS\Core\Modules\Pages
  */
 class Module_Pages extends Module
@@ -36,7 +36,7 @@ class Module_Pages extends Module
 				'zh' => '頁面',
 				'hu' => 'Oldalak',
 				'th' => 'หน้าเพจ',
-            	'se' => 'Sidor',
+				'se' => 'Sidor',
 			),
 			'description' => array(
 				'en' => 'Add custom pages to the site with any content you want.',
@@ -61,40 +61,40 @@ class Module_Pages extends Module
 				'zh' => '為您的網站新增自定的頁面。',
 				'th' => 'เพิ่มหน้าเว็บที่กำหนดเองไปยังเว็บไซต์ของคุณตามที่ต้องการ',
 				'hu' => 'Saját oldalak hozzáadása a weboldalhoz, akármilyen tartalommal.',
-            	'se' => 'Lägg till egna sidor till webbplatsen.',
+				'se' => 'Lägg till egna sidor till webbplatsen.',
 			),
 			'frontend' => true,
-			'backend'  => true,
+			'backend' => true,
 			'skip_xss' => true,
-			'menu'	  => 'content',
+			'menu' => 'content',
 
 			'roles' => array(
 				'put_live', 'edit_live', 'delete_live'
 			),
 
 			'sections' => array(
-			    'pages' => array(
-				    'name' => 'pages:list_title',
-				    'uri' => 'admin/pages',
-				    'shortcuts' => array(
+				'pages' => array(
+					'name' => 'pages:list_title',
+					'uri' => 'admin/pages',
+					'shortcuts' => array(
 						array(
-						    'name' => 'pages:create_title',
-						    'uri' => 'admin/pages/create',
-						    'class' => 'add'
+							'name' => 'pages:create_title',
+							'uri' => 'admin/pages/create',
+							'class' => 'add'
 						),
-				    ),
+					),
 				),
 				'layouts' => array(
-				    'name' => 'pages:layouts_list_title',
-				    'uri' => 'admin/pages/layouts',
-				    'shortcuts' => array(
+					'name' => 'pages:layouts_list_title',
+					'uri' => 'admin/pages/layouts',
+					'shortcuts' => array(
 						array(
-						    'name' => 'pages:layouts_create_title',
-						    'uri' => 'admin/pages/layouts/create',
-						    'class' => 'add'
+							'name' => 'pages:layouts_create_title',
+							'uri' => 'admin/pages/layouts/create',
+							'class' => 'add'
 						),
-				    ),
-			    ),
+					),
+				),
 			),
 		);
 	}
@@ -105,7 +105,8 @@ class Module_Pages extends Module
 
 		$schema->drop('page_chunks');
 
-		$schema->create('keywords',function(\Illuminate\Database\Schema\Blueprint $table) {
+		$schema->create('keywords', function (\Illuminate\Database\Schema\Blueprint $table)
+		{
 			$table->increments('id');
 			$table->string('slug');
 			$table->string('class')->default('');
@@ -121,7 +122,8 @@ class Module_Pages extends Module
 
 		$schema->drop('page_layouts');
 
-		$schema->create('page_layouts',function(\Illuminate\Database\Schema\Blueprint $table) {
+		$schema->create('page_layouts', function (\Illuminate\Database\Schema\Blueprint $table)
+		{
 			$table->increments('id');
 			$table->string('title');
 			$table->text('body');
@@ -135,13 +137,14 @@ class Module_Pages extends Module
 
 		$schema->drop('pages');
 
-		$schema->create('pages',function(\Illuminate\Database\Schema\Blueprint $table) {
+		$schema->create('pages', function (\Illuminate\Database\Schema\Blueprint $table)
+		{
 			$table->increments('id');
-			$table->string('slug')->default('')->key();
+			$table->string('slug')->default('');
 			$table->string('class')->default('');
 			$table->string('title')->default('');
 			$table->text('uri')->nullable();
-			$table->integer('parent_id')->default(0)->key('parent_id');
+			$table->integer('parent_id')->default(0);
 			$table->string('revision_id')->default('1');
 			$table->string('layout_id');
 			$table->text('css')->nullable();
@@ -169,21 +172,16 @@ class Module_Pages extends Module
 		// We will need to get now() later on.
 		$this->load->helper('date');
 
-		$default_page_layout = array(
+		$this->pdb->table('page_layouts')->insert(array(
 			'id' => 1,
 			'title' => 'Default',
 			'body' => '<h2>{{ page:title }}</h2>'.PHP_EOL.'{{ page:body }}',
 			'css' => '',
 			'js' => '',
 			'updated_on' => now(),
-		);
+		));
 
-		if ( ! $this->pdb->insert('page_layouts', $default_page_layout))
-		{
-			return false;
-		}
-
-		$default_pages = array(
+		$this->pdb->table('pages')->insert(array(
 			/* The home page. */
 			array(
 				'slug' => 'home',
@@ -226,17 +224,9 @@ class Module_Pages extends Module
 				'is_home' => 0,
 				'order' => now()
 			),
-		);
+		));
 
-		foreach ($default_pages as $page)
-		{
-			if ( ! $this->pdb->insert('pages', $page))
-			{
-				return false;
-			}
-		}
-
-		$default_page_chunks = array(
+		$this->pdb->table('page_chunks')->insert(array(
 			/* The home page chunk. */
 			array(
 				'slug' => 'default',
@@ -271,14 +261,7 @@ class Module_Pages extends Module
 				'type' => 'html',
 				'sort' => 1,
 			),
-		);
-		foreach ($default_page_chunks as $page_chunk)
-		{
-			if ( ! $this->pdb->insert('page_chunks', $page_chunk))
-			{
-				return false;
-			}
-		}
+		));
 
 		return true;
 	}
