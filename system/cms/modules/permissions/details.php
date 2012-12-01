@@ -71,16 +71,18 @@ class Module_Permissions extends Module {
 
 	public function install()
 	{
-		$this->dbforge->drop_table('permissions', true);
+		$schema = $this->pdb->getSchemaBuilder();
+		$schema->drop('permissions');
 
-		return $this->install_tables(array(
-			'permissions' => array(
-				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
-				'group_id' => array('type' => 'INT', 'constraint' => 11, 'key' => true),
-				'module' => array('type' => 'VARCHAR', 'constraint' => 50,),
-				'roles' => array('type' => 'TEXT', 'null' => true,),
-			),
-		));
+		$schema->create('keywords',function(\Illuminate\Database\Schema\Blueprint $table) {
+			$table->increments('id');
+			$table->integer('group_id');
+			$table->string('module');
+			$table->text('roles')->nullable();
+
+			$table->primary('id');
+			$table->index('group_id'); // TODO: consider $table->foreign('group_id');
+		});
 	}
 
 	public function uninstall()
