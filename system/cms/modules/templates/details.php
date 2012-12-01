@@ -74,7 +74,7 @@ class Module_Templates extends Module {
 		$schema = $this->pdb->getSchemaBuilder();
 		$schema->drop('email_templates');
 
-		$schema->create('email_templates',function(\Illuminate\Database\Schema\Blueprint $table) {
+		$schema->create('email_templates', function($table) {
 			$table->increments('id');
 			$table->string('slug', 100);
 			$table->string('title', 100);       // @todo rename this to 'title' to keep coherency with the rest of the modules
@@ -107,7 +107,7 @@ class Module_Templates extends Module {
 				<p>{{ comment }}</p>
 				<p>View Comment: {{ redirect_url }}</p>",
 			'lang' => 'en',
-			'is_default' => 1,
+			'is_default' => true,
 			'module' => 'comments'
 		));
 
@@ -129,7 +129,7 @@ class Module_Templates extends Module {
 
 				{{ email }}',
 			'lang' => 'en',
-			'is_default' => 1,
+			'is_default' => true,
 			'module' => 'pages'
 		));
 
@@ -145,7 +145,7 @@ class Module_Templates extends Module {
 				<strong>User Agent: {{ sender_agent }}</strong>
 				</p>',
 			'lang' => 'en',
-			'is_default' => 1,
+			'is_default' => true,
 			'module' => 'users'
 		));
 
@@ -163,7 +163,7 @@ class Module_Templates extends Module {
 				<p><a href="{{ url:site }}users/activate">{{ url:site }}users/activate</a></p>
 				<p><strong>Activation Code:</strong> {{ activation_code }}</p>',
 			'lang' => 'en',
-			'is_default' => 1,
+			'is_default' => true,
 			'module' => 'users'
 		));
 
@@ -177,7 +177,7 @@ class Module_Templates extends Module {
 				<p>It seems you have requested a password reset. Please click this link to complete the reset: <a href="{{ url:site }}users/reset_pass/{{ user:forgotten_password_code }}">{{ url:site }}users/reset_pass/{{ user:forgotten_password_code }}</a></p>
 				<p>If you did not request a password reset please disregard this message. No further action is necessary.</p>',
 			'lang' => 'en',
-			'is_default' => 1,
+			'is_default' => true,
 			'module' => 'users'
 		));
 
@@ -191,7 +191,7 @@ class Module_Templates extends Module {
 				<p>Your new password is: {{ new_password }}</p>
 				<p>After logging in you may change your password by visiting <a href="{{ url:site }}edit-profile">{{ url:site }}edit-profile</a></p>',
 			'lang' => 'en',
-			'is_default' => 1,
+			'is_default' => true,
 			'module' => 'users'
 		));
 
