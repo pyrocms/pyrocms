@@ -74,6 +74,7 @@ $lang['streams.updated_date']							= "Upraveno";
 $lang['streams.value']									= "Hodnota";
 $lang['streams.manage']									= "Spravovat stream";
 $lang['streams.search']									= "Hledat";
+$lang['streams:stream_prefix']							= "Stream Prefix"; #translate
 
 /* Field Instructions */
 
@@ -93,7 +94,7 @@ $lang['streams.list_fields']							= "Seznam polí";
 $lang['streams.new_entry']								= "Nový záznam";
 $lang['streams.stream_entries']							= "Záznamy ve streamu";
 $lang['streams.entries']								= "Záznamy";
-$lang['streams.stream_admin']							= "Administrace streamu"; 
+$lang['streams.stream_admin']							= "Administrace streamu";
 $lang['streams.list_streams']							= "Seznam streamů";
 $lang['streams.sure']									= "Jste si jistý/á?";
 $lang['streams.field_assignments'] 						= "Přiřazení polí ke streamu";
@@ -130,8 +131,9 @@ $lang['streams.start.no_assign'] 						= "Stream ještě nemá žádná pole. M�
 $lang['streams.start.add_field_here']					= "přidat pole";
 $lang['streams.start.create_field_here']				= "vytvořit pole";
 $lang['streams.start.no_streams']						= "Nejsou vytvořené žádné streamy, můžete";
+$lang['streams.start.no_streams_yet']					= "There are no streams yet."; #translate
 $lang['streams.start.adding_one']						= "nějaký vytvořit";
-$lang['streams.start.no_fields_to_add']					= "Žádná pole k přidání";		
+$lang['streams.start.no_fields_to_add']					= "Žádná pole k přidání";
 $lang['streams.start.no_fields_msg']					= "Nejsou zde žádná pole k přiřazení ke streamu. Typy polí mohou být sdíleny mezi streamy musí být vytvořeny předtím, než jsou přiřazeny ke streamu. Můžete začít";
 $lang['streams.start.adding_a_field_here']				= "přidání pole";
 $lang['streams.start.no_entries']						= "Zatím zde nejsou žádné záznamy pro <strong>%s</strong>. Můžete";
@@ -139,6 +141,7 @@ $lang['streams.add_fields']								= "přiřadit pole";
 $lang['streams.add_an_entry']							= "přidat záznam";
 $lang['streams.to_this_stream_or']						= "k tomuto streamu nebo";
 $lang['streams.no_field_assign']						= "Žádná přiřazená pole";
+$lang['streams.no_fields_msg_first']					= "Looks like there are no fields yet for this stream."; #translate
 $lang['streams.no_field_assign_msg']					= "Stream ještě nemá žádná pole. Před přidáním záznamů musíte";
 $lang['streams.add_some_fields']						= "nějaká pole přiřadit";
 $lang['streams.start.before_assign']					= "Před přiřazením pole ke streamu musíte pole vytvořit. Tady můžete";
@@ -152,7 +155,7 @@ $lang['streams.new_field']								= "Nové pole";
 $lang['streams.edit']									= "Upravit";
 $lang['streams.delete']									= "Vymazat";
 $lang['streams.remove']									= "Odstranit";
-$lang['streams.reset']									= "Reset";
+$lang['streams.reset']									= "Reset"; #translate
 
 /* Misc */
 

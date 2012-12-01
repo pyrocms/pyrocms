@@ -3,10 +3,11 @@
 /**
  * Settings module
  *
- * @author PyroCMS Dev Team
+ * @author  PyroCMS Dev Team
  * @package PyroCMS\Core\Modules\Settings
  */
-class Module_Settings extends Module {
+class Module_Settings extends Module
+{
 
 	public $version = '1.0';
 
@@ -36,7 +37,7 @@ class Module_Settings extends Module {
 				'zh' => '網站設定',
 				'hu' => 'Beállítások',
 				'th' => 'ตั้งค่า',
-                                'se' => 'Inställningar'
+				'se' => 'Inställningar'
 			),
 			'description' => array(
 				'en' => 'Allows administrators to update settings like Site Name, messages and email address, etc.',
@@ -64,9 +65,9 @@ class Module_Settings extends Module {
 				'se' => 'Administratören kan uppdatera webbplatsens titel, meddelanden och E-postadress etc.'
 			),
 			'frontend' => false,
-			'backend'  => true,
+			'backend' => true,
 			'skip_xss' => true,
-			'menu'	  => 'settings',
+			'menu' => 'settings',
 		);
 	}
 
@@ -80,7 +81,7 @@ class Module_Settings extends Module {
 				'slug' => array('type' => 'VARCHAR', 'constraint' => 30, 'primary' => true, 'unique' => true, 'key' => 'index_slug'),
 				'title' => array('type' => 'VARCHAR', 'constraint' => 100,),
 				'description' => array('type' => 'TEXT',),
-				'type' => array('type' => 'set',  'constraint' => array('text','textarea','password','select','select-multiple','radio','checkbox'),),
+				'type' => array('type' => 'set', 'constraint' => array('text', 'textarea', 'password', 'select', 'select-multiple', 'radio', 'checkbox'),),
 				'default' => array('type' => 'TEXT',),
 				'value' => array('type' => 'TEXT',),
 				'options' => array('type' => 'VARCHAR', 'constraint' => 255,),
@@ -501,6 +502,7 @@ class Module_Settings extends Module {
 			if ( ! $this->db->insert('settings', $setting_info))
 			{
 				log_message('debug', '-- -- could not install '.$slug);
+
 				return false;
 			}
 		}

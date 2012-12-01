@@ -3,10 +3,11 @@
 /**
  * Search module
  *
- * @author PyroCMS Dev Team
+ * @author  PyroCMS Dev Team
  * @package PyroCMS\Core\Modules\Search
  */
-class Module_Search extends Module {
+class Module_Search extends Module
+{
 
 	public $version = '1.0.0';
 
@@ -18,16 +19,16 @@ class Module_Search extends Module {
 			'name' => array(
 				'en' => 'Search',
 				'fr' => 'Recherche',
-                                'se' => 'Sök',
+				'se' => 'Sök',
 			),
 			'description' => array(
 				'en' => 'Search through various types of content with this modular search system.',
 				'fr' => 'Rechercher parmi différents types de contenus avec système de recherche modulaire.',
-                                'se' => 'Sök igenom olika typer av innehåll',
+				'se' => 'Sök igenom olika typer av innehåll',
 			),
 			'frontend' => false,
-			'backend'  => false,
-			'menu'     => 'content',
+			'backend' => false,
+			'menu' => 'content',
 		);
 	}
 
