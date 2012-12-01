@@ -3,10 +3,11 @@
 /**
  * Navigation Module
  *
- * @author PyroCMS Dev Team
+ * @author  PyroCMS Dev Team
  * @package PyroCMS\Core\Modules\Navigation
  */
-class Module_Navigation extends Module {
+class Module_Navigation extends Module
+{
 
 	public $version = '1.2.0';
 
@@ -62,82 +63,70 @@ class Module_Navigation extends Module {
 				'th' => 'จัดการการเชื่อมโยงนำทางและกลุ่มนำทาง',
 				'se' => 'Hantera länkar och länkgrupper.',
 				'hu' => 'Linkek kezelése a navigációs menükben és a navigációs csoportok kezelése, amikhez tartoznak.',
-				'se' => 'Hantera länkar och länkgrupper.',
 			),
 			'frontend' => false,
-			'backend'  => true,
-			'menu'	  => 'structure',
+			'backend' => true,
+			'menu' => 'structure',
 
-		    'shortcuts' => array(
+			'shortcuts' => array(
 				array(
-				    'name' => 'nav_group_create_title',
-				    'uri' => 'admin/navigation/groups/create',
-				    'class' => 'add',
+					'name' => 'nav_group_create_title',
+					'uri' => 'admin/navigation/groups/create',
+					'class' => 'add',
 				),
-		    ),
+			),
 		);
 	}
 
 	public function install()
 	{
-		$this->dbforge->drop_table('navigation_groups', true);
-		$this->dbforge->drop_table('navigation_links', true);
+		$schema = $this->pdb->getSchemaBuilder();
 
-		$tables = array(
-			'navigation_groups' => array(
-				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
-				'title' => array('type' => 'VARCHAR', 'constraint' => 50,),
-				'abbrev' => array('type' => 'VARCHAR', 'constraint' => 50, 'key' => true),
-			),
-			'navigation_links' => array(
-				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
-				'title' => array('type' => 'VARCHAR', 'constraint' => 100, 'default' => '',),
-				'parent' => array('type' => 'INT', 'constraint' => 11, 'null' => true,),
-				'link_type' => array('type' => 'VARCHAR', 'constraint' => 20, 'default' => 'uri',),
-				'page_id' => array('type' => 'INT', 'constraint' => 11, 'null' => true,),
-				'module_name' => array('type' => 'VARCHAR', 'constraint' => 50, 'default' => '',),
-				'url' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '',),
-				'uri' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '',),
-				'navigation_group_id' => array('type' => 'INT', 'constraint' => 5, 'default' => 0, 'key' => 'navigation_group_id'),
-				'position' => array('type' => 'INT', 'constraint' => 5, 'default' => 0,),
-				'target' => array('type' => 'VARCHAR', 'constraint' => 10, 'null' => true,),
-				'restricted_to' => array('type' => 'VARCHAR', 'constraint' => 255, 'null' => true,),
-				'class' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '',),
-			),
-		);
-
-		if ( ! $this->install_tables($tables))
+		$schema->drop('navigation_groups');
+		$schema->create('navigation_groups', function (\Illuminate\Database\Schema\Blueprint $table)
 		{
-			return false;
-		}
+			$table->increments('id');
+			$table->string('title', 50);
+			$table->string('abbrev', 50);
 
-		$groups = array(
+			$table->primary('id');
+			$table->index('abbrev');
+		});
+
+		$schema->drop('navigation_links');
+		$schema->create('navigation_links', function (\Illuminate\Database\Schema\Blueprint $table)
+		{
+			$table->increments('id');
+			$table->string('title', 100)->default('');
+			$table->integer('parent')->nullable();
+			$table->string('link_type', 20)->default('uri');
+			$table->integer('page_id')->nullable();
+			$table->string('module_name')->default('');
+			$table->string('url')->default('');
+			$table->string('uri')->default('');
+			$table->integer('navigation_group_id')->default(0);
+			$table->integer('position')->default(0);
+			$table->string('target')->nullable();
+			$table->string('restricted_to')->nullable();
+			$table->string('class')->nullable();
+
+
+			$table->primary('id');
+			$table->index('navigation_group_id');
+			// $table->foreign('navigation_group_id'); // TODO: Surely more documentation is needed to make this work.
+		});
+
+		$this->pdb->table('navigation_groups')->insert(array(
 			array('title' => 'Header', 'abbrev' => 'header',),
 			array('title' => 'Sidebar', 'abbrev' => 'sidebar',),
 			array('title' => 'Footer', 'abbrev' => 'footer',),
-		);
+		));
 
-		foreach ($groups as $group)
-		{
-			if ( ! $this->db->insert('navigation_groups', $group))
-			{
-				return false;
-			}
-		}
-
-		$links = array(
+		$this->pdb->table('navigation_links')->insert(array(
 			array('title' => 'Home', 'link_type' => 'page', 'page_id' => 1, 'navigation_group_id' => 1, 'position' => 1,),
 			array('title' => 'Blog', 'link_type' => 'module', 'page_id' => null, 'navigation_group_id' => 1, 'position' => 2, 'module_name' => 'blog'),
 			array('title' => 'Contact', 'link_type' => 'page', 'page_id' => 3, 'navigation_group_id' => 1, 'position' => 3,),
-		);
-
-		foreach ($links as $link)
-		{
-			if ( ! $this->db->insert('navigation_links', $link))
-			{
-				return false;
-			}
-		}
+		));
 
 		return true;
 	}
