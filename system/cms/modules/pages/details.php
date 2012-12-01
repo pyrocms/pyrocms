@@ -137,11 +137,11 @@ class Module_Pages extends Module
 
 		$schema->create('pages',function(\Illuminate\Database\Schema\Blueprint $table) {
 			$table->increments('id');
-			$table->string('slug')->default('')->key(); //
+			$table->string('slug')->default('')->key();
 			$table->string('class')->default('');
 			$table->string('title')->default('');
 			$table->text('uri')->nullable();
-			$table->integer('parent_id')->default(0)->key('parent_id'); //
+			$table->integer('parent_id')->default(0)->key('parent_id');
 			$table->string('revision_id')->default('1');
 			$table->string('layout_id');
 			$table->text('css')->nullable();
@@ -159,6 +159,8 @@ class Module_Pages extends Module
 			$table->integer('order')->default(0);
 
 			$table->primary('id');
+			$table->index('slug');
+			$table->index('parent_id');
 		});
 
 		$schema->drop('revisions');
