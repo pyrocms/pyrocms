@@ -80,36 +80,39 @@ class Module_Navigation extends Module {
 
 	public function install()
 	{
-		$this->dbforge->drop_table('navigation_groups', true);
-		$this->dbforge->drop_table('navigation_links', true);
+		$schema = $this->pdb->getSchemaBuilder();
 
-		$tables = array(
-			'navigation_groups' => array(
-				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
-				'title' => array('type' => 'VARCHAR', 'constraint' => 50,),
-				'abbrev' => array('type' => 'VARCHAR', 'constraint' => 50, 'key' => true),
-			),
-			'navigation_links' => array(
-				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
-				'title' => array('type' => 'VARCHAR', 'constraint' => 100, 'default' => '',),
-				'parent' => array('type' => 'INT', 'constraint' => 11, 'null' => true,),
-				'link_type' => array('type' => 'VARCHAR', 'constraint' => 20, 'default' => 'uri',),
-				'page_id' => array('type' => 'INT', 'constraint' => 11, 'null' => true,),
-				'module_name' => array('type' => 'VARCHAR', 'constraint' => 50, 'default' => '',),
-				'url' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '',),
-				'uri' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '',),
-				'navigation_group_id' => array('type' => 'INT', 'constraint' => 5, 'default' => 0, 'key' => 'navigation_group_id'),
-				'position' => array('type' => 'INT', 'constraint' => 5, 'default' => 0,),
-				'target' => array('type' => 'VARCHAR', 'constraint' => 10, 'null' => true,),
-				'restricted_to' => array('type' => 'VARCHAR', 'constraint' => 255, 'null' => true,),
-				'class' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '',),
-			),
-		);
+		$schema->drop('navigation_groups');
+		$schema->create('navigation_groups',function(\Illuminate\Database\Schema\Blueprint $table) {
+			$table->increments('id');
+			$table->string('title', 50);
+			$table->string('abbrev', 50);
 
-		if ( ! $this->install_tables($tables))
-		{
-			return false;
-		}
+			$table->primary('id');
+			$table->index('abbrev');
+		});
+
+		$schema->drop('navigation_links');
+		$schema->create('navigation_links',function(\Illuminate\Database\Schema\Blueprint $table) {
+			$table->increments('id');
+			$table->string('title', 100)->default('');
+			$table->integer('parent')->nullable();
+			$table->string('link_type', 20)->default('uri');
+			$table->integer('page_id')->nullable();
+			$table->string('module_name')->default('');
+			$table->string('url')->default('');
+			$table->string('uri')->default('');
+			$table->integer('navigation_group_id')->default(0);
+			$table->integer('position')->default(0);
+			$table->string('target')->nullable();
+			$table->string('restricted_to')->nullable();
+			$table->string('class')->nullable();
+
+
+			$table->primary('id');
+			$table->index('navigation_group_id');
+			// $table->foreign('navigation_group_id'); // TODO: Surely more documentation is needed to make this work.
+		});
 
 		$groups = array(
 			array('title' => 'Header', 'abbrev' => 'header',),
@@ -119,7 +122,7 @@ class Module_Navigation extends Module {
 
 		foreach ($groups as $group)
 		{
-			if ( ! $this->db->insert('navigation_groups', $group))
+			if ( ! $this->pdb->insert('navigation_groups', $group))
 			{
 				return false;
 			}
@@ -133,7 +136,7 @@ class Module_Navigation extends Module {
 
 		foreach ($links as $link)
 		{
-			if ( ! $this->db->insert('navigation_links', $link))
+			if ( ! $this->pdb->insert('navigation_links', $link))
 			{
 				return false;
 			}
