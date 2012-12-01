@@ -1,4 +1,4 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['addons:modules'] 						= 'Πρόσθετα';
 $lang['addons:themes'] 							= 'Θέματα Εμφάνισης';
@@ -15,7 +15,7 @@ $lang['addons:modules:enable_success']			= 'Το πρόσθετο "%s" ενερ�
 $lang['addons:modules:install_error']			= 'Δεν ήταν δυνατό να εγκατασταθεί το πρόσθετο.';
 $lang['addons:modules:install_success']			= 'Το πρόσθετο "%s" εγκαταστάθηκε.';
 
-$lang['addons:modules:module_upload_success']   = 'The module "%s" has been uploaded.'; #translate
+$lang['addons:modules:module_upload_success']   = 'Το πρόσθετο "%s" ανέβηκε.';
 
 $lang['addons:modules:delete_success']			= 'Το πρόσθετο "%s" διαγράφηκε.';
 $lang['addons:modules:delete_error']			= 'Δεν ήταν δυνατό να διαγραφεί το πρόσθετο "%s".';
