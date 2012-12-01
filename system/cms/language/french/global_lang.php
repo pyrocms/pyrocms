@@ -13,7 +13,7 @@ $lang['global:slug'] = 'Slug';
 $lang['global:slug_instructions'] = 'Caractères en minuscule et underscores seulement.';
 $lang['global:user'] = 'Utilisateur';
 
-$lang['global:dialog:delete_message'] = 'Etes-vous sûr de vouloir supprimer ce fichier&nbsp;? Cette action ne peut-être annulée.';
+$lang['global:dialog:delete_message'] = 'Etes-vous sûr de vouloir supprimer ce fichier&nbsp;? Cette action ne peut être annulée.';
 $lang['global:dialog:confirm'] = 'Confirmez';
 
 $lang['global:yes'] = 'Oui';
