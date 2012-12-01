@@ -197,7 +197,7 @@ class Installer_lib {
 		$config = array(
 			'driver'	=> $db['driver'],
 			'password' 	=> $db['password'],
-			'prefix'	=> $db['site_ref'].'_',
+			'prefix'	=> '',
 			'charset'	=> "utf8",
 			'collation'	=> "utf8_unicode_ci",
 		);

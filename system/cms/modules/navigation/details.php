@@ -8,7 +8,7 @@
  */
 class Module_Navigation extends Module {
 
-	public $version = '1.1';
+	public $version = '1.2.0';
 
 	public function info()
 	{

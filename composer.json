@@ -1,6 +1,12 @@
 {
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "http://github.com/philsturgeon/database"
+        }
+    ],
     "minimum-stability": "dev",
-        "require": {
+    "require": {
         "fuel/lex": "2.1.*",
         "dflydev/markdown": "1.0.*",
         "illuminate/database": "*",
@@ -9,10 +15,8 @@
     },
     "autoload": {
         "classmap": [
-            "app/controllers",
-            "app/core",
-            "app/models",
-            "app/libraries"
+            "system/cms/controllers",
+            "system/cms/libraries"
         ]
-    },
+    }
 }

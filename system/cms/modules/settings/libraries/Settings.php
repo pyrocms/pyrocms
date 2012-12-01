@@ -150,7 +150,7 @@ class Settings {
 
 		foreach ($settings as $setting)
 		{
-			self::$cache[$setting->slug] = $setting->value;
+			self::$cache[$setting['slug']] = $setting['value'];
 		}
 
 		return self::$cache;
