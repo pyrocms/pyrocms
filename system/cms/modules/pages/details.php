@@ -130,7 +130,7 @@ class Module_Pages extends Module
 			$table->text('css')->nullable();
 			$table->text('js')->nullable();
 			$table->string('theme_layout')->default('default');
-			$table->timestamp('updated_on');
+			$table->integer('updated_on');
 
 			$table->primary('id');
 		});
@@ -155,7 +155,8 @@ class Module_Pages extends Module
 			$table->boolean('rss_enabled')->default(false);
 			$table->boolean('comments_enabled')->default(false);
 			$table->enum('status', array('draft', 'live'))->default('draft');
-			$table->timestamps();
+			$table->integer('created_on')->default(0);
+			$table->integer('updated_on')->default(0);
 			$table->string('restricted_to')->nullable();
 			$table->boolean('is_home');
 			$table->boolean('strict_uri')->default(true);
