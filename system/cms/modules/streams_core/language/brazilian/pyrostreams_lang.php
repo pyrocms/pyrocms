@@ -74,6 +74,7 @@ $lang['streams.updated_date']							= "Data de atualização";
 $lang['streams.value']									= "Valor";
 $lang['streams.manage']									= "Administrar";
 $lang['streams.search']									= "Search"; #translate
+$lang['streams:stream_prefix']							= "Stream Prefix"; #translate
 
 /* Field Instructions */
 
@@ -121,6 +122,7 @@ $lang['streams.size']									= "Size"; #translate
 $lang['streams.num_of_entries']							= "Number of Entries"; #translate
 $lang['streams.num_of_fields']							= "Number of Fields"; #translate
 $lang['streams.last_updated']							= "Last Updated"; #translate
+$lang['streams.export_schema']							= "Export Schema"; #translate
 
 /* Startup */
 
@@ -130,8 +132,9 @@ $lang['streams.start.no_assign'] 						= "Ainda não há campos atribuídos para
 $lang['streams.start.add_field_here']					= "adicionar um campo aqui";
 $lang['streams.start.create_field_here']				= "criar um campo aqui";
 $lang['streams.start.no_streams']						= "Ainda não há fluxos, mas pode começar";
+$lang['streams.start.no_streams_yet']					= "There are no streams yet."; #translate
 $lang['streams.start.adding_one']						= "adicionando um";
-$lang['streams.start.no_fields_to_add']					= "Sem campos para adicionar";		
+$lang['streams.start.no_fields_to_add']					= "Sem campos para adicionar";
 $lang['streams.start.no_fields_msg']					= "Não existem campos para adicionar a este fluxo. Em PyroStreams, tipos de campos podem ser compartilhados entre fluxos e deve ser criado antes de ser adicionado a um fluxo. Você pode começar por";
 $lang['streams.start.adding_a_field_here']				= "adicionando um campo aqui";
 $lang['streams.start.no_entries']						= "Ainda não há entradas para <strong>%s</strong>. Você pode, começar";
@@ -139,6 +142,7 @@ $lang['streams.add_fields']								= "atribuir campos";
 $lang['streams.add_an_entry']							= "adicionar entrada";
 $lang['streams.to_this_stream_or']						= "para este fluxo ou";
 $lang['streams.no_field_assign']						= "Não há Atribuições de Campo";
+$lang['streams.no_fields_msg_first']				= "Looks like there are no fields yet for this stream."; #translate
 $lang['streams.no_field_assign_msg']					= "Ainda não há campos para esse fluxo. Antes de começar a inserir dados, você precisa";
 $lang['streams.add_some_fields']						= "atribuir alguns campos";
 $lang['streams.start.before_assign']					= "Antes de atribuir campos para um fluxo, você precisa criar um campo. Você pode";
@@ -152,7 +156,7 @@ $lang['streams.new_field']								= "Novo Campo";
 $lang['streams.edit']									= "Editar";
 $lang['streams.delete']									= "Excluir";
 $lang['streams.remove']									= "Remover";
-$lang['streams.remove']									= "Remove"; #translate
+$lang['streams.reset']									= "Reset"; #translate
 
 /* Misc */
 
