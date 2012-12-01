@@ -2,3 +2,5 @@
 
 $lang['streams.wysiwyg.name'] 			= 'WYSIWYG';
 $lang['streams.wysiwyg.editor_type']	= 'Τύπος Επεξεργαστή';
+$lang['streams.wysiwyg.simple']			= 'Απλός';
+$lang['streams.wysiwyg.advanced']		= 'Εκτενής';
