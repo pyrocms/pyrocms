@@ -1,4 +1,4 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['header']			=	'Langkah 1: Konfigurasi Database dan Server';
@@ -23,5 +23,3 @@ $lang['step2']			=	'Langkah 2';
 // messages
 $lang['db_success']		=	'Pengaturan database telah dites dan berjalan lancar.';
 $lang['db_failure']		=	'Permasalahan koneksi pada database: ';
-
-/* End of file step_1_lang.php */

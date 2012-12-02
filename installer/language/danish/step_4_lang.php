@@ -1,4 +1,4 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['header']			=	'Trin 4: Opret Database';
@@ -27,5 +27,3 @@ $lang['error_104']		=	'Installeren kunne ikke oprette standardbrugeren.';
 $lang['error_105']		=	'Database konfigurationsfilen kunne ikke skrives. Snød du installeren og sprang trin 3 over?';
 $lang['error_106']		=	'Config filen kunne ikke skrives. Er du sikker på at filen har korrekte tilladelser?';
 $lang['success']		=	'PyroCMS blev installeret uden problemer.';
-
-/* End of file step_4_lang.php */

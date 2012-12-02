@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['header']			=	'Vaihe 2: Vaatimusten tarkistaminen';
@@ -45,5 +45,3 @@ $lang['retry']			=	'Tarkista uudelleen';
 
 // messages
 $lang['step1_failure']	=	'Ole hyvä ja täytä pakolliset tietokanta asetukset alla olevasta lomakkeesta..';
-
-/* End of file step_2_lang.php */

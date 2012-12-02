@@ -1,4 +1,4 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
 * Thai translation.
@@ -37,5 +37,3 @@ $lang['error_104']		=	'ตัวช่วยติดตั้งไม่สา
 $lang['error_105']		=	'ไฟล์ตั้งค่าของฐานข้อมูลไม่สามารถเขียนทับได้, ให้แน่ใจว่าไม่ได้ข้ามขั้นตอนที่ 3 ไป?';
 $lang['error_106']		=	'ไฟล์ตั้งค่าของเว็บไซต์ไม่สามารถเขียนทับได้ กรุณาตรวจสอบสิทธิ์อีกครั้ง?';
 $lang['success']		=	'PyroCMS ได้ถูกติดตั้งสมบรูณ์แล้ว';
-
-/* End of file step_4_lang.php */

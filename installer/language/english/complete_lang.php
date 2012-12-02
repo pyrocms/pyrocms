@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['congrats']			= 'Congratulations';
@@ -10,5 +10,3 @@ $lang['outro_text']			= 'Finally, <strong>delete the installer from your server<
 
 $lang['go_website']			= 'Go to Website';
 $lang['go_control_panel']	= 'Go to Control Panel';
-
-/* End of file complete_lang.php */

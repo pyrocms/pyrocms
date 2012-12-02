@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['header']			=	'Step 2: Check Requirements';
@@ -45,5 +45,3 @@ $lang['retry']			=	'Try again';
 
 // messages
 $lang['step1_failure']	=	'Please fill in the required database settings in the form below..';
-
-/* End of file step_2_lang.php */

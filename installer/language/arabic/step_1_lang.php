@@ -1,4 +1,4 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['header']			=	'الخطوة الأولى: تهيئة قاعدة البيانات والخادم';
@@ -23,5 +23,3 @@ $lang['step2']			=	'الخطوة الثانية';
 // messages
 $lang['db_success']		=	'تم اختبار إعدادات قاعدة البيانات بنجاح.';
 $lang['db_failure']		=	'حدثت مشكلة في الاتصال بقاعدة البيانات: ';
-
-/* End of file step_1_lang.php */

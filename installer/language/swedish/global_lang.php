@@ -18,7 +18,3 @@ $lang['step4'] = 'Steg #4';
 $lang['final'] = 'Slutför';
 $lang['installer.passwords_match'] = 'Anslutningen fungerar';
 $lang['installer.passwords_dont_match'] = 'Anslutningen fungerar inte, kontrollera lösenord';
-
-
-/* End of file global_lang.php */  
-/* Location: installer/language/swedish/global_lang.php */  

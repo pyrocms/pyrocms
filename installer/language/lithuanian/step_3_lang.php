@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['header']			=	'Žingsnis 3: Teisių nustatymas';
@@ -19,5 +19,3 @@ $lang['hide_commands']		= 'Slėpti komandas';
 $lang['next_step']		= 'Tęsti į sekanti žingsnį';
 $lang['step4']			= 'Žingsnis 4';
 $lang['retry']			= 'Bandyti dar kartą';
-
-/* End of file step_3_lang.php */

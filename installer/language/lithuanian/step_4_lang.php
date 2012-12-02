@@ -1,4 +1,4 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['header']			 =	'Žingsnis 4: Sukurti duomenų bazę';
@@ -27,5 +27,3 @@ $lang['error_104']		 =	'Įrašymo vedlys negalėjo sukurti vartotojo.';
 $lang['error_105']		 =	'Duomenų bazės konfiguracijos failas negali būti įrašytas, ar suklaidinote įrašymo vedlį 3 žingsnyje?';
 $lang['error_106']		 =	'Konfiguracijos failas negali būti įrašytas, ar esate įsitikinęs, kad bylos turi tinkamas teises?';
 $lang['success']		 =	'PyroCMS buvo sėkmingai įdiegtas.';
-
-/* End of file step_4_lang.php */

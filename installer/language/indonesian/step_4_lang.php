@@ -1,4 +1,4 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['header']			=	'Langkah 4: Buat Database';
@@ -27,5 +27,3 @@ $lang['error_104']		=	'Installer tidak dapat membuat pengguna awal.';
 $lang['error_105']		=	'File konfigurasi database tidak dapat ditulisi, apakah Anda mencurangi installer dengan melewati langkah 3?';
 $lang['error_106']		=	'File config tidak dapat ditulisi, Anda yakin file tersebut sudah dapat ditulisi ?';
 $lang['success']		=	'PyroCMS akhirnya berhasil terinstall.';
-
-/* End of file step_4_lang.php */

@@ -1,4 +1,4 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['header']			=	'Étape 4&nbsp;: Création de la base de données';
@@ -27,5 +27,3 @@ $lang['error_104']		=	'L\'installation ne peut pas créer un utilisateur par dé
 $lang['error_105']		=	'Le fichier configuration de base de données ne peut être écris, avez vous sauté l\'étape 3 de l\'installation ?';
 $lang['error_106']		=	'Le fichier de configuration ne peut pas être écrit, avez-vous les permissions nécessaires à cette écriture ?';
 $lang['success']		=	'PyroCMS a été installé avec succès.';
-
-/* End of file step_4_lang.php */

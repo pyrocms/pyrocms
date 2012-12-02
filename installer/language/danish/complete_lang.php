@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['congrats']			= 'Tillykke';
@@ -10,5 +10,3 @@ $lang['outro_text']			= 'Afslutningsvis, <strong>slet installer mappen fra din s
 
 $lang['go_website']			= 'Gå til Website';
 $lang['go_control_panel']	= 'Gå til Kontrolpanel';
-
-/* End of file complete_lang.php */

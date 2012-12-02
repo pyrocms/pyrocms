@@ -1,4 +1,4 @@
-<?php
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 $lang['required'] 			= "<span class=\"error\">Поле <strong>%s</strong> обязательно для заполнения.</span>";
 $lang['isset']				= "<span class=\"error\">Поле <strong>%s</strong> не должно быть пустым.</span>";
 $lang['valid_email']		= "<span class=\"error\">Поле <strong>%s</strong> должно содержать правильный почтовый адрес.</span>";

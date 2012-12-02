@@ -1,4 +1,4 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['header']			= 'Negyedik lépés: Az adatbázis létrehozása';
@@ -27,5 +27,3 @@ $lang['error_104']		= 'A telepítő nem tudta létrehozni az alapértelmezett fe
 $lang['error_105']		= 'Az adatbázis konfigurációs fálj nem lett módosítva, a harmadik lépés át lett ugorva?';
 $lang['error_106']		= 'A konfigurációs fálj nem lett módosíta. Biztos vagy benne, hogy a fájl írható és a helyes jogosultság van beállítva?';
 $lang['success']		= 'A PyroCMS sikeresen telepítve.';
-
-/* End of file step_4_lang.php */

@@ -18,7 +18,3 @@ $lang['show_password'] = 'Visa lösenord';
 $lang['outro_text'] = 'OBS, <strong>Radera mappen "installer" </strong> annars kan obehöriga ges tillträde till administrationsgränssnittet och sabotera din webbplats.';
 $lang['go_website'] = 'Gå till webbplatsen';
 $lang['go_control_panel'] = 'Gå till kontrollpanelen';
-
-
-/* End of file complete_lang.php */  
-/* Location: installer/language/swedish/complete_lang.php */  
