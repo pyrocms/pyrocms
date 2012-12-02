@@ -4,7 +4,7 @@ class TestInstallerInvalidDbCreds extends PHPUnit_Extensions_Selenium2TestCase
 {
     public function setUp()
     {
-        $this->setBrowserUrl('http://localhost:8099');
+        $this->setBrowserUrl('http://localhost');
         $this->setBrowser('firefox');
     }
 
@@ -16,7 +16,7 @@ class TestInstallerInvalidDbCreds extends PHPUnit_Extensions_Selenium2TestCase
      */
     public function InstallWithInvalidDBCredentials()
     {
-        $this->url('http://localhost:8099');
+        $this->url('http://localhost');
         $this->assertEquals($this->title(),'PyroCMS Installer');
         $this->byId("next_step")->click();
         $this->byId('username')->value('Test');

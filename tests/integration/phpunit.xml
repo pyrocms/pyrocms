@@ -1,0 +1,10 @@
+<phpunit
+    colors="true"
+    testSuiteLoaderClass="PHPUnit_Runner_StandardTestSuiteLoader">
+    <testsuites>
+        <testsuite name="installer">
+            <directory>./installer</directory>
+            <files>*.php</files>
+        </testsuite>
+    </testsuites>
+</phpunit>
