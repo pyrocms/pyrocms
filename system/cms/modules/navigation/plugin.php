@@ -196,7 +196,20 @@ class Plugin_Navigation extends Plugin
 					$output .= $add_first_tag ? "<{$list_tag}>" . PHP_EOL : '';
 					$output .= $ident_b . '<' . $tag . ($classes > '' ? ' class="' . $classes . '">' : '>') . PHP_EOL;
 					if (strstr($classes, 'current')) $output .= $ident_c . '<span>'.$item['title'].'</span>';
-					else $output .= $ident_c . ((($level == 0) AND $top == 'text' AND $wrapper['children']) ? $item['title'] : anchor($item['url'], $item['title'], trim(implode(' ', $item['attributes'])))) . PHP_EOL;
+					else {
+						$output .= $ident_c;
+						if (($level == 0) AND $top == 'text' AND $wrapper['children'])
+						{
+							$output .=  $item['title'];
+						}
+						elseif (filter_var($item['url'], FILTER_VALIDATE_EMAIL, FILTER_VALIDATE_BOOLEAN) or strstr($item['url'], 'mailto:'))
+						{
+							$output .=  mailto(str_replace('mailto:', '', $item['url']), $item['title'], trim(implode(' ', $item['attributes'])));
+						}
+						else {
+							$output .=  anchor($item['url'], $item['title'], trim(implode(' ', $item['attributes'])));	
+						}
+					}
 
 					if ($wrapper['children'])
 					{
@@ -218,7 +231,19 @@ class Plugin_Navigation extends Plugin
 					$output .= '<' . $tag . ($classes > '' ? ' class="' . $classes . '">' : '>');
 
 					if (strstr($classes, 'current')) $output .= '<span>'.$item['title'].'</span>';
-					else $output .= (($level == 0) AND $top == 'text' AND $wrapper['children']) ? $item['title'] : anchor($item['url'], $item['title'], trim(implode(' ', $item['attributes'])));
+					else {
+						if (($level == 0) AND $top == 'text' AND $wrapper['children'])
+						{
+							$output .=  $item['title'];
+						}
+						elseif (filter_var($item['url'], FILTER_VALIDATE_EMAIL, FILTER_VALIDATE_BOOLEAN) or strstr($item['url'], 'mailto:'))
+						{
+							$output .=  mailto(str_replace('mailto:', '', $item['url']), $item['title'], trim(implode(' ', $item['attributes'])));
+						}
+						else {
+							$output .=  anchor($item['url'], $item['title'], trim(implode(' ', $item['attributes'])));	
+						}
+					}
 
 					if ($wrapper['children'])
 					{
