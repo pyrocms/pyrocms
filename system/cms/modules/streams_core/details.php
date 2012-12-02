@@ -102,7 +102,6 @@ class Module_Streams_core extends Module {
             // $table->foreign('field_id'); //TODO Set up foreign keys
         });
 
-
 		return true;
 	}
 
@@ -116,21 +115,18 @@ class Module_Streams_core extends Module {
 	 */
 	public function uninstall()
 	{
-
-
-		if ($config === false)
+		if ( ! ($config = $this->_load_config()))
 		{
 			return false;
 		}
 
-		// Go through our schema and drop each table
-		foreach ($config['streams:schema'] as $table_name => $schema)
-		{
-			if ( ! $this->dbforge->drop_table($table_name))
-			{
-				return false;
-			}
-		}
+		$schema = $this->pdb->getSchemaBuilder();
+
+		// Streams Table
+        $schema->drop($config['streams:streams_table']);	
+        $schema->drop($config['streams:fields_table']);
+        $schema->drop($config['streams:assignments_table']);
+        $schema->drop($config['streams:searches_table']);
 
 		return true;
 	}

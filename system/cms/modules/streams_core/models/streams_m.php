@@ -81,7 +81,6 @@ class Streams_m extends MY_Model {
 	 * This function can be used in the case where you need
 	 * to make sure that all streams data is in the cache.
 	 *
-	 * @access 	public
 	 * @return 	void
 	 */
 	public function run_slug_cache()
@@ -97,13 +96,12 @@ class Streams_m extends MY_Model {
 	 * Puts streams data into cache to reduce
 	 * database load.
 	 *
-	 * @access 	private
 	 * @param 	string - type 'id' or 'slug'
 	 * @return 	void
 	 */
 	private function run_cache($type = 'id')
 	{		
-		foreach($this->db->get($this->table)->result() as $stream)
+		foreach($this->pdb->table($this->table)->get() as $stream)
 		{
 			if (trim($stream->view_options) == '')
 			{
@@ -137,7 +135,6 @@ class Streams_m extends MY_Model {
     /**
      * Get streams
      *
-     * @access	public
      * @param	string - the stream namespace
      * @param	[int limit]
      * @param	[int offset]
@@ -173,7 +170,6 @@ class Streams_m extends MY_Model {
     /**
      * Count total streams
      *
-     * @access	public
      * @param	[mixed - provide a namespace string to restrict total]
      * @return	int
      */
@@ -191,7 +187,6 @@ class Streams_m extends MY_Model {
 	/**
 	 * Count entries in a stream
 	 *
-	 * @access	public
 	 * @param	string - stream slug
 	 * @param	string - stream namespace
 	 * @return	int
@@ -208,7 +203,6 @@ class Streams_m extends MY_Model {
 	/**
 	 * Create a new stream
 	 *
-	 * @access	public
 	 * @param	string - name of the stream
 	 * @param	string - stream slug
 	 * @param	string - stream prefix
@@ -258,7 +252,6 @@ class Streams_m extends MY_Model {
 	/**
 	 * Update Stream
 	 *
-	 * @access	public
 	 * @param	int
 	 * @param	array - update_data
 	 * @return	bool
@@ -337,7 +330,6 @@ class Streams_m extends MY_Model {
 	/**
 	 * Delete a stream
 	 *
-	 * @access	public
 	 * @param	obj
 	 * @return	bool
 	 */
@@ -393,7 +385,6 @@ class Streams_m extends MY_Model {
 	/**
 	 * Get the ID for a stream from the slug
 	 *
-	 * @access	public
 	 * @param	string - stream slug
 	 * @param 	string - stream namespace
 	 * @return	mixed
@@ -423,7 +414,6 @@ class Streams_m extends MY_Model {
 	/**
 	 * Get a data for a single stream
 	 *
-	 * @access	public
 	 * @param	int
 	 * @param	bool
 	 * @return	mixed
@@ -498,7 +488,6 @@ class Streams_m extends MY_Model {
 	 *
 	 * Only really shown on the back end.
 	 *
-	 * @access	public
 	 * @param	obj
 	 * @param	obj
 	 * @param	int
@@ -590,7 +579,6 @@ class Streams_m extends MY_Model {
 	/**
 	 * Get the assigned fields for a stream
 	 *
-	 * @access	public
 	 * @param	int
 	 * @param	int
 	 * @param	int
@@ -668,7 +656,6 @@ class Streams_m extends MY_Model {
 	/**
 	 * Get total stream fields
 	 *
-	 * @access	public
 	 * @param	int
 	 * @return	int
 	 */
@@ -687,7 +674,6 @@ class Streams_m extends MY_Model {
 	 * Runs all the processess necessary to add a field to a stream including
 	 * Creating the necessary column in the database
 	 *
-	 * @access  public
 	 * @param	int
 	 * @param	int
 	 * @param	array - data
