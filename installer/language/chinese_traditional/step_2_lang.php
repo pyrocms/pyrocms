@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['header']			=	'步驟二：檢查安裝需求';
@@ -46,5 +46,3 @@ $lang['retry']			=	'再試一次';
 
 // messages
 $lang['step1_failure']	=	'請在下方的表單中輸入資料庫設定的必要資訊。';
-
-/* End of file step_2_lang.php */

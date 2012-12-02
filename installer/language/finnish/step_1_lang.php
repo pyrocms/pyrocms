@@ -1,4 +1,4 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['header']			=	'Vaihe 1: Konfiguroi tietokanta ja palvelin';
@@ -23,5 +23,3 @@ $lang['step2']			=	'Vaihe 2';
 // messages
 $lang['db_success']		=	'Tietokanta asetukset on testattu ja toimii.';
 $lang['db_failure']		=	'Tietokannan yhteydessä tapahtui virhe: ';
-
-/* End of file step_1_lang.php */

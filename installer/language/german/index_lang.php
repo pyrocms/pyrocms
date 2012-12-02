@@ -1,4 +1,4 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 $lang['header']	  = 'Willkomen';
 $lang['thankyou'] = 'Vielen Dank, dass Sie sich f&uuml;r das PyroCMS entschieden haben.';

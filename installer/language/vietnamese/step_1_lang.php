@@ -1,4 +1,4 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['header']			=	'Bước 1: Cấu hình cơ sở dữ liệu và máy chủ';
@@ -23,5 +23,3 @@ $lang['step2']			=	'Bước 2';
 // messages
 $lang['db_success']		=	'Cấu hình cơ sở dữ liệu đã đã kiểm tra và hoạt động tốt.';
 $lang['db_failure']		=	'Có lỗi khi kết nối đến cơ sở dữ liệu: ';
-
-/* End of file step_1_lang.php */

@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['congrats']			= 'Sveikiname';
@@ -10,5 +10,3 @@ $lang['outro_text']			= 'Galiausiai, <strong>ištrinkite katalogą installer iš
 
 $lang['go_website']			= 'Eiti į puslapį';
 $lang['go_control_panel']	= 'Eiti į Turinio Valdymo Panelę';
-
-/* End of file complete_lang.php */

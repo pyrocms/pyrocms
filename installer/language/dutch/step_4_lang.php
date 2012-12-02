@@ -1,4 +1,4 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['header']			=	'Stap 4: Cre&euml;er database';
@@ -27,5 +27,3 @@ $lang['error_104']		=	'De installer kon de standaardgebruiker niet aanmekan.<br/
 $lang['error_105']		=	'De databaseconfiguratie kon niet weggeschreven worden. Heeft u wellicht stap 3 overgeslagen?';
 $lang['error_106']		=	'Het configuratiebestand kon niet opgeslagen worden. Heeft het bestand de correcte rechten?';
 $lang['success']		=	'PyroCMS is met succes geinstalleerd.';
-
-/* End of file step_4_lang.php */
