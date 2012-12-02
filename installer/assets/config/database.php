@@ -67,7 +67,7 @@ $db['development'] = array(
 
 // Staging
 /*
-$db[PYRO_STAGING] = array(
+$db['staging'] = array(
 	'dsn'		=> 	'',
 	'dbdriver' 	=> 	'pdo',
 	'username'	=> 	'{username}',
@@ -83,11 +83,14 @@ $db[PYRO_STAGING] = array(
 
 // Production
 $db['production'] = array(
-	'dsn'		=> 	'{dsn}',
+	'hostname'	=> 	'{hostname}',
+	'port'		=> 	'{port}',
+	'database'	=> 	'{database}',
 	'username'	=> 	'{username}',
 	'password'	=> 	'{password}',
 	'dbdriver' 	=> 	'pdo',
-	'pconnect' 	=>	false,
+	'subdriver'	=> 	'{driver}',
+	'pconnect' 	=>	true,
 	'db_debug' 	=>	false,
 	'cache_on' 	=>	false,
 	'char_set' 	=>	'utf8',

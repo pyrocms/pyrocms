@@ -11,7 +11,7 @@ use Illuminate\Database\Connection;
 */
 class Install_m extends CI_Model
 {
-	public function set_default_structure(Connection $conn, array $input)
+	public function set_default_structure(Connection $conn, array $user, array $db)
 	{
 		// Include migration config to know which migration to start from
 		require PYROPATH.'config/migration.php';
@@ -24,11 +24,11 @@ class Install_m extends CI_Model
 		$pdo->exec('DROP TABLE IF EXISTS core_settings');
 		$pdo->exec('DROP TABLE IF EXISTS core_sites');
 		$pdo->exec('DROP TABLE IF EXISTS '.config_item('sess_table_name'));
-		$pdo->exec('DROP TABLE IF EXISTS '.$input['site_ref'].'_modules');
-		$pdo->exec('DROP TABLE IF EXISTS '.$input['site_ref'].'_migrations');
-		$pdo->exec('DROP TABLE IF EXISTS '.$input['site_ref'].'_settings');
-		$pdo->exec('DROP TABLE IF EXISTS '.$input['site_ref'].'_users');
-		$pdo->exec('DROP TABLE IF EXISTS '.$input['site_ref'].'_profiles');
+		$pdo->exec('DROP TABLE IF EXISTS '.$db['site_ref'].'_modules');
+		$pdo->exec('DROP TABLE IF EXISTS '.$db['site_ref'].'_migrations');
+		$pdo->exec('DROP TABLE IF EXISTS '.$db['site_ref'].'_settings');
+		$pdo->exec('DROP TABLE IF EXISTS '.$db['site_ref'].'_users');
+		$pdo->exec('DROP TABLE IF EXISTS '.$db['site_ref'].'_profiles');
 
 		// Create core_settings first
 		$schema->create('core_settings', function($table) {
@@ -97,11 +97,11 @@ class Install_m extends CI_Model
 
 		// @TODO Upgrade sha1 to password_hash()
 		$salt = substr(md5(uniqid(rand(), true)), 0, 5);
-		$password = sha1($input['password'].$salt);
+		$password = sha1($user['password'].$salt);
 
 		$user_data = array(
-			'username'    => $input['username'],
-			'email'       => $input['email'],
+			'username'    => $user['username'],
+			'email'       => $user['email'],
 			'password'    => $password,
 			'salt'        => $salt,
 			'group_id'    => 1,
@@ -112,11 +112,11 @@ class Install_m extends CI_Model
 
 		// Create User tables
 		$schema->create('core_users', $user_table);
-		$schema->create($input['site_ref'].'_users', $user_table);
+		$schema->create($db['site_ref'].'_users', $user_table);
 
 		// Insert our new user to both
 		$conn->table('core_users')->insert($user_data);
-		$conn->table($input['site_ref'].'_users')->insert($user_data);
+		$conn->table($db['site_ref'].'_users')->insert($user_data);
 
 		$schema->create(config_item('sess_table_name'), function($table) {
 		    $table->string('session_id', 40)->default(0);
@@ -129,8 +129,8 @@ class Install_m extends CI_Model
 		});
 
 		// HEAR YE HEAR YE, THE DB PREFIX CHANGES NOW!
-		$conn->getQueryGrammar()->setTablePrefix($input['site_ref'].'_');
-		$conn->getSchemaGrammar()->setTablePrefix($input['site_ref'].'_');
+		$conn->getQueryGrammar()->setTablePrefix($db['site_ref'].'_');
+		$conn->getSchemaGrammar()->setTablePrefix($db['site_ref'].'_');
 
 		// Profiles
 		$schema->create('profiles', function($table) {
@@ -154,9 +154,9 @@ class Install_m extends CI_Model
 		// Populate site profiles
 		$conn->table('profiles')->insert(array(
 			'user_id'       => 1,
-			'first_name'    => $input['firstname'],
-			'last_name'     => $input['lastname'],
-			'display_name'  => $input['firstname'].' '.$input['lastname'],
+			'first_name'    => $user['firstname'],
+			'last_name'     => $user['lastname'],
+			'display_name'  => $user['firstname'].' '.$user['lastname'],
 			'lang'          => 'en',
 		));
 

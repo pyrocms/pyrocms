@@ -28,7 +28,7 @@ class MY_Exceptions extends CI_Exceptions
 		// clear out assets set by the first module before the 404 handler takes over
 		Asset::reset();
 
-		Modules::run('pages/_remap', '404');
+		Modules::run('pages/_remap', 404);
 	}
 
     /**
@@ -62,7 +62,7 @@ class MY_Exceptions extends CI_Exceptions
         parent::__construct();
         
         // If we are in production, then lets dump out now.
-        if (IN_PRODUCTION)
+        if (ENVIRONMENT === PYRO_PRODUCTION)
         {
             return;
         }
@@ -443,15 +443,15 @@ class MY_Exceptions extends CI_Exceptions
      * @param   string  the template name
      * @return  string
      */
-    function show_error($heading, $message, $template = 'error_general', $status_code = 500)
+    public function show_error($heading, $message, $template = 'error_general', $status_code = 500)
     {
         // If we are in production, then lets dump out now.
-        if (IN_PRODUCTION)
+        if (ENVIRONMENT === PYRO_PRODUCTION)
         {
             return parent::show_error($heading, $message, $template, $status_code);
         }
         
-        if( ! headers_sent())
+        if ( ! headers_sent())
         {
             set_status_header($status_code);
         }

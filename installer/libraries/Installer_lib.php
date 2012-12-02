@@ -225,7 +225,7 @@ class Installer_lib {
 		ci()->load->model('install_m');
 
 		// Basic installation done with this PDO connection
-		ci()->install_m->set_default_structure($conn, array_merge($user, $db));
+		ci()->install_m->set_default_structure($conn, $user, $db);
 
 		// Write the database file
 		if ( ! $this->write_db_file($db))
