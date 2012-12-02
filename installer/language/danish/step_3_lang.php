@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['header']			=	'Trin 3: kontroller tilladelser';
@@ -19,5 +19,3 @@ $lang['hide_commands']		= 'Gem kommandoer';
 $lang['next_step']		= 'Fortsæt til næste trin';
 $lang['step4']			= 'Trin 4';
 $lang['retry']			= 'Prøv igen';
-
-/* End of file step_3_lang.php */

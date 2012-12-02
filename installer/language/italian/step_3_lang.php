@@ -1,4 +1,4 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['header']			=	'Passo 3: Imposta Permessi';
@@ -22,5 +22,3 @@ $lang['retry']			= 'Riprova';
 
 // messages
 $lang['step1_failure']		= 'È necessario fornire le impostazioni del database nel modulo sottostante.';
-
-/* End of file step_3_lang.php */

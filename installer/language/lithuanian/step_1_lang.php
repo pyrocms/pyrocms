@@ -1,4 +1,4 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['header']			=	'Žingsnis 1: sukonfiguruokite duomenų bazę bei serverį';
@@ -22,5 +22,3 @@ $lang['step2']			=	'Žingsnis 2';
 // messages
 $lang['db_success']		=	'Duomenų bazės nustatymai buvo sėkmingai patikrinti.';
 $lang['db_failure']		=	'Problema susijungiant su duomenu baze:: ';
-
-/* End of file step_1_lang.php */

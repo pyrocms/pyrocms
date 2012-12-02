@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['congrats']            = 'Gratulálunk';
@@ -10,5 +10,3 @@ $lang['outro_text']          = 'Végül <strong>töröld a telepítőt - az [ins
 
 $lang['go_website']          = 'Weboldal';
 $lang['go_control_panel']    = 'Vezérlőpult';
-
-/* End of file complete_lang.php */

@@ -1,4 +1,4 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
 * Thai translation.
@@ -32,5 +32,3 @@ $lang['step2']			=	'ขั้นตอนที่ 2';
 // messages
 $lang['db_success']		=	'การตั้งค่าฐานข้อมูลถูกทดสอบแล้วว่าปกติ';
 $lang['db_failure']		=	'มีปัญหาการเชื่อมต่อกับระบบฐานข้อมูล: ';
-
-/* End of file step_1_lang.php */

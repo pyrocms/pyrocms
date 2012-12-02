@@ -34,7 +34,3 @@ $lang['error_104'] = 'Installationsprogrammet kunde inte skapa användaren.';
 $lang['error_105'] = 'Databas-konfigurationsfilen inte kunde skapas, har du genomfört hela Steg 3 i installationsguiden?';
 $lang['error_106'] = 'Konfigurationsfilen inte kunde skrivas, är du säker på att filen har rätt behörighet?';
 $lang['success'] = 'PyroCMS installationen genomfördes.';
-
-
-/* End of file step_4_lang.php */  
-/* Location: installer/language/swedish/step_4_lang.php */  

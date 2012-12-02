@@ -1,4 +1,4 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['header']			=	'Bước 4: Tạo cơ sở dữ liệu';
@@ -27,5 +27,3 @@ $lang['error_104']		=	'Trình cài đặt không thể khởi tạo người dù
 $lang['error_105']		=	'Không thể ghi file cấu hình cơ sở dữ liệu, có phải bạn bỏ qua bước 3 khi cài đặt?';
 $lang['error_106']		=	'Không thể ghi file cấu hình, bạn có chắc quyền truy cập của file đã được thiết lập đúng ?';
 $lang['success']		=	'PyroCMS đã được cài đặt thành công.';
-
-/* End of file step_4_lang.php */

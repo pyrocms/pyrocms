@@ -1,4 +1,4 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['header']			=	'Krok 1: Konfigurace databáze a serveru';
@@ -23,5 +23,3 @@ $lang['step2']			=	'Krok 2';
 // messages
 $lang['db_success']		=	'Nastavení databáze bylo ověřeno a pracuje správně';
 $lang['db_failure']		=	'Problém s připojením k databázi: ';
-
-/* End of file step_1_lang.php */

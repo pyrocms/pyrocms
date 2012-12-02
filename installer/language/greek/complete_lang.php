@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['congrats']			= 'Συγχαρητήρια';
@@ -10,5 +10,3 @@ $lang['outro_text']			= 'Εν τέλει, <strong>διαγράψτε τον φά
 
 $lang['go_website']			= 'Μετάβαση στον Ιστότοπο';
 $lang['go_control_panel']	= 'Μετάβαση στον Πίνακα Διαχείρισης';
-
-/* End of file complete_lang.php */

@@ -38,13 +38,9 @@ $lang['curl'] = 'Curl';
 $lang['curl_required'] = 'PyroCMS kräver Curl för att göra anslutningar till andra webbplatser.';
 $lang['curl_fail'] = 'Curl kan inte hittas. Detta innebär förmodligen att Curl inte är installerat. PyroCMS kommer fortfarande fungera korrekt, men vissa funktioner kommer att saknas eller inte fungera korrekt. Det rekommenderas starkt att du aktiverar/installerar Curl-biblioteket.';
 $lang['summary_success'] = 'Servern uppfyller alla krav för PyroCMS, gå till nästa steg genom att klicka på knappen nedan.';
-$lang['summary_partial'] = 'Servern uppfyller <em> de flesta </ em> av kraven för PyroCMS. Detta innebär att PyroCMS ska kunna fungera korrekt, men det finns en chans att du kommer att uppleva problem med saker som bildstorleksändring etc.';
+$lang['summary_partial'] = 'Servern uppfyller <em>de flesta</em> av kraven för PyroCMS. Detta innebär att PyroCMS ska kunna fungera korrekt, men det finns en chans att du kommer att uppleva problem med saker som bildstorleksändring etc.';
 $lang['summary_failure'] = 'Det verkar som om din server inte uppfyllde kraven för att köra PyroCMS. Kontakta din serveradministratör eller webbhotell för att få detta löst.';
 $lang['next_step'] = 'Fortsätt till nästa steg';
 $lang['step3'] = 'Steg 3';
 $lang['retry'] = 'Försök igen';
 $lang['step1_failure'] = 'Fyll i databasinställningarna i formuläret nedan.';
-
-
-/* End of file step_2_lang.php */  
-/* Location: installer/language/swedish/step_2_lang.php */  
