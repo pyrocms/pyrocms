@@ -1,7 +1,5 @@
-<?php echo form_open('users/login', array('id'=>'login-small')); ?>
-<?php if (isset($redirect_hash) && $redirect_hash): ?>
-<?php echo form_hidden('redirect_hash', $redirect_hash); ?>
-<?php endif; ?>
+<?php echo form_open('users/login', array('id'=>'login-small'), array('redirect_to' => $redirect_to)); ?>
+
 <ul>
 	<li class="email">
 		<label for="email"><?php echo lang('global:email'); ?></label>
@@ -12,7 +10,10 @@
 		<input type="password" id="password" name="password" maxlength="20" />
 	</li>
 	<li class="form-buttons">
-		<input type="submit" value="<?php echo lang('user_login_btn') ?>" name="btnLogin" /> | <?php echo anchor('register', lang('user_register_btn'));?>
+		<input type="submit" value="<?php echo lang('user_login_btn') ?>" name="btnLogin" />
+		<?php if (Settings::get('enable_registration')): ?>
+		<?php echo ' | '.anchor('register', lang('user_register_btn')); ?>
+		<?php endif; ?>
 	</li>
 	<li class="remember-me">
 		<?php echo form_checkbox('remember', '1', false); ?><span><?php echo lang('user_remember')?></span>
