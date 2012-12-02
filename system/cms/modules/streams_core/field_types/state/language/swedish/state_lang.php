@@ -14,7 +14,10 @@ $lang['streams.state.name'] = 'US Delstat';
 $lang['streams.state.full'] = 'Namn';
 $lang['streams.state.abbr'] = 'Förkortning';
 $lang['streams.state.state_display'] = 'Visa delstat';
+$lang['streams.state.country']			= 'Country';
+$lang['streams.state.us']				= 'United States';
+$lang['streams.state.nl']				= 'Netherland';
+$lang['streams.state.fr']				= 'France';
 $lang['streams.state.default_state']	= 'Default State'; #translate
-
 /* End of file state_lang.php */  
 /* Location: system/cms/modules/streams_core/field_types/state/language/swedish/state_lang.php */
