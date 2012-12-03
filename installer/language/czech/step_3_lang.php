@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['header']			=	'Krok 3: Nastavení oprávnění';
@@ -19,5 +19,3 @@ $lang['hide_commands']		= 'Skrýt příkazy';
 $lang['next_step']		= 'Pokračovat na další krok';
 $lang['step4']			= 'Krok 4';
 $lang['retry']			= 'Zkusit znovu';
-
-/* End of file step_3_lang.php */

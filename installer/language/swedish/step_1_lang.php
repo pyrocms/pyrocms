@@ -1,5 +1,4 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
-
  /**
  * Swedish translation.
  *
@@ -27,7 +26,3 @@ $lang['mod_rewrite'] = 'Du har valt "(Apache med mod_rewrite)", men din server i
 $lang['step2'] = 'Steg 2';
 $lang['db_success'] = 'Databaskopplingen fungerar';
 $lang['db_failure'] = 'Kan inte kontakta databasen:';
-
-
-/* End of file step_1_lang.php */  
-/* Location: installer/language/swedish/step_1_lang.php */  

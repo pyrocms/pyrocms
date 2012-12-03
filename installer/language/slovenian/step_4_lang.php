@@ -1,4 +1,4 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['header']			=	'Korak 4: Ustvarimo podatkovno bazo';
@@ -27,5 +27,3 @@ $lang['error_104']		=	'Installer ni mogel ustvariti prvega uporabnika.';
 $lang['error_105']		=	'Konfiguracijska datoteka ni zapisljiva, ali ste goljufali pri installer-ju in preskočili korak 3?';
 $lang['error_106']		=	'Config datoteka ni zapisljiva, ali ste prepričani da ste ji nastavili zadostne pravice za zapisovanje?';
 $lang['success']		=	'PyroCMS je bil uspešno nameščen.';
-
-/* End of file step_4_lang.php */

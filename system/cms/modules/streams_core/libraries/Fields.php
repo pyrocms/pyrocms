@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed');
+﻿<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
  * PyroStreams Core Fields Library
@@ -147,7 +147,9 @@ class Fields
 		// -------------------------------------
 
 		$row_id = ($method == 'edit') ? $row->id : null;
-
+		//reset the rules
+		$this->CI->form_validation->reset_validation();
+		//set the rules
 		$this->set_rules($stream_fields, $method, $skips, false, $row_id);
 
 		// -------------------------------------

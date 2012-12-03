@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
 * Thai translation.
@@ -29,5 +29,3 @@ $lang['hide_commands']		= 'ซ่อนคำสั่ง';
 $lang['next_step']		= 'ดำเนินการขั้นตอนต่อไป';
 $lang['step4']			= 'ขั้นตอนที่ 4';
 $lang['retry']			= 'ลองอีกครั้ง';
-
-/* End of file step_3_lang.php */

@@ -1,4 +1,4 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['header']			=	'Korak 1: Vnesite dostopne podatke za podatkovno bazo in strežnik';
@@ -22,5 +22,3 @@ $lang['step2']			=	'Korak 2';
 // messages
 $lang['db_success']		=	'Podatki za povezavo s podatkovo bazo so bili preverjeni in vse pravilno deluje.';
 $lang['db_failure']		=	'Na podatkovno bazo se ni mogoče povezati: ';
-
-/* End of file step_1_lang.php */

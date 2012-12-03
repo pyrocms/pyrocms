@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
 * Thai translation.
@@ -20,5 +20,3 @@ $lang['outro_text']			= 'สุดท้าย, <strong>อย่าลืมล
 
 $lang['go_website']			= 'ไปที่เว็บไซต์';
 $lang['go_control_panel']	= 'ไปที่แผงควบคุม';
-
-/* End of file complete_lang.php */

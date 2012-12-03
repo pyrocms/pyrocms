@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 // labels
-$lang['streams.keywords.name']			= 'Λέξεις Κλειδιά';
-$lang['streams.keywords.return_type']    = "Return Type";
-$lang['streams.keywords.return_type.instructions']    = "Array: Rows with keyword, count, total, is_first, is_last<br/>String: keyword_1, keyword_2, keyword_3<br/>Changing this will effect your templating.";
+$lang['streams.keywords.name'] = 'Λέξεις Κλειδιά';
+$lang['streams.keywords.return_type'] = 'Τύπος Αποτελέσματος';
+$lang['streams.keywords.return_type.instructions'] = 'Array: Καταχωρήσεις με τα στοιχεία keyword, count, total, is_first, is_last<br/>Κειμενοσειρά: keyword_1, keyword_2, keyword_3<br/>Αλλάζοντας το παραπάνω θα επηρρεάσει τα πρότυπα εμφάνισής σας.';

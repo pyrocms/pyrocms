@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['congrats']	=	'Gefeliciteerd!';
@@ -10,5 +10,3 @@ $lang['outro_text']	=	'Tot slot dient u de <b>installer van de server te verwijd
 
 $lang['go_website']			= 'Ga naar de Website';
 $lang['go_control_panel']	= 'Ga naar het Controlepaneel';
-
-/* End of file complete_lang.php */

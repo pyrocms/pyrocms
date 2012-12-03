@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['header']			=	'Bước 2: Yêu cầu hệ thống';
@@ -45,5 +45,3 @@ $lang['retry']			=	'Thử lại';
 
 // messages
 $lang['step1_failure']	=	'Hãy điền các thiết lập cơ sở dữ liệu được yêu cầu trong biểu mẫu dưới đây..';
-
-/* End of file step_2_lang.php */

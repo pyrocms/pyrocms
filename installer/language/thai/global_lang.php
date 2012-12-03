@@ -1,4 +1,4 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
 * Thai translation.
@@ -19,5 +19,3 @@ $lang['final']	=	'ขั้นตอนสุดท้าย';
 
 $lang['installer.passwords_match']		= "รหัสผ่านตรงกัน";
 $lang['installer.passwords_dont_match']	= "รหัสผ่านไม่ตรงกัน";
-
-/* End of file global_lang.php */

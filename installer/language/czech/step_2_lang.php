@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['header']			=	'Krok 2: Kontrola požadavků';
@@ -45,5 +45,3 @@ $lang['retry']			=	'Zkusit znovu';
 
 // messages
 $lang['step1_failure']	=	'Prosím vyplňte požadovaná pole ve formuláři níže.';
-
-/* End of file step_2_lang.php */

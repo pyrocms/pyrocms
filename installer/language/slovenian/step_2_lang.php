@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['header']			=	'Korak 2: Preveritev strežnika';
@@ -45,5 +45,3 @@ $lang['retry']			=	'Poizkusite znova';
 
 // messages
 $lang['step1_failure']	=	'Prosimo izpolnite zahtevane podatke za podatkovno bazo v obrazcu spodaj..';
-
-/* End of file step_2_lang.php */
