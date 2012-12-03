@@ -304,8 +304,16 @@ class Widgets
 		is_array($data) OR $data = (array) $data;
 
 		$data['options'] = $options;
-
-		return $this->load_view('display', $data);
+		
+		// Check that the widget is enabled = 1 , if it's 1
+		// we go ahead and return it
+		$result = $this->db->select('enabled')
+		->where('slug', $name)
+		->get('widgets');
+		if($result->row()->enabled == 1)
+		{
+			return $this->load_view('display', $data);
+		}	
 	}
 
 	/**
