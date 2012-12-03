@@ -125,19 +125,19 @@ $(function($) {
 		
 		<section id="quick_links" class="item <?php echo isset($rss_items); ?>">
 			<ul>
-				<?php if(array_key_exists('comments', $this->permissions) OR $this->current_user->group == 'admin'): ?>
+				<?php if((array_key_exists('comments', $this->permissions) OR $this->current_user->group == 'admin') AND module_enabled('comments')): ?>
 				<li>
 					<a class="tooltip-s" title="<?php echo lang('cp_manage_comments') ?>" href="<?php echo site_url('admin/comments') ?>"><?php echo Asset::img('icons/comments.png', lang('cp_manage_comments')); ?></a>
 				</li>
 				<?php endif; ?>
 				
-				<?php if(array_key_exists('pages', $this->permissions) OR $this->current_user->group == 'admin'): ?>
+				<?php if((array_key_exists('pages', $this->permissions) OR $this->current_user->group == 'admin') AND module_enabled('pages')): ?>
 				<li>
 					<a class="tooltip-s" title="<?php echo lang('cp_manage_pages'); ?>" href="<?php echo site_url('admin/pages') ?>"><?php echo Asset::img('icons/pages.png', lang('cp_manage_pages')); ?></a>
 				</li>
 				<?php endif; ?>
 				
-				<?php if(array_key_exists('files', $this->permissions) OR $this->current_user->group == 'admin'): ?>
+				<?php if((array_key_exists('files', $this->permissions) OR $this->current_user->group == 'admin') AND module_enabled('files')): ?>
 				<li>
 					<a class="tooltip-s" title="<?php echo lang('cp_manage_files'); ?>" href="<?php echo site_url('admin/files') ?>"><?php echo Asset::img('icons/files.png', lang('cp_manage_files')); ?></a>
 				</li>

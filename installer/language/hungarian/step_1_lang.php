@@ -1,4 +1,4 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['header']                  = 'Első lépés: Szerver és adatbázis beállításai';
@@ -23,5 +23,3 @@ $lang['step2']                   = 'Második lépés';
 // messages
 $lang['db_success']              = 'Az adatbázis beállítások tesztelve lettek és jól működnek.';
 $lang['db_failure']              = 'Nem lehetett csatlakozni az adatbázishoz: ';
-
-/* End of file step_1_lang.php */

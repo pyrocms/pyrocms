@@ -1,4 +1,4 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['header']			=	'1ª Etapa: Banse de Dados e Servidor';
@@ -23,5 +23,3 @@ $lang['step2']			=	'2ª Etapa';
 // messages
 $lang['db_success']		=	'As configurações da base de dados foram testadas e estão corretas.';
 $lang['db_failure']		=	'Houve um problema ao tentar conectar-se com a base de dados: ';
-
-/* End of file step_1_lang.php */

@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['header']			=	'Langkah 3: Set Perizinan';
@@ -19,5 +19,3 @@ $lang['hide_commands']		= 'Sembunyikan perintah';
 $lang['next_step']		= 'Jalankan langkah selanjutnya';
 $lang['step4']			= 'Langkah 4';
 $lang['retry']			= 'Coba lagi';
-
-/* End of file step_3_lang.php */

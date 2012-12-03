@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['header']			=	'Stap 3: Toegangsrechten';
@@ -19,5 +19,3 @@ $lang['hide_commands']		= 'Verberg commando&acute;s';
 $lang['next_step']		=	'Ga door naar de volgende stap';
 $lang['step4']			=	'Stap 4';
 $lang['retry']			=	'Probeer nog eens';
-
-/* End of file step_3_lang.php */

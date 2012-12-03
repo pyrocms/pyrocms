@@ -3,10 +3,11 @@
 /**
  * Comments module
  *
- * @author PyroCMS Dev Team
+ * @author  PyroCMS Dev Team
  * @package PyroCMS\Core\Modules\Comments
  */
-class Module_Comments extends Module {
+class Module_Comments extends Module
+{
 
 	public $version = '1.1.0';
 
@@ -64,8 +65,8 @@ class Module_Comments extends Module {
 				'se' => 'Användare och besökare kan skriva kommentarer till innehåll som blogginlägg, sidor och bilder.',
 			),
 			'frontend' => false,
-			'backend'  => true,
-			'menu'	  => 'content'
+			'backend' => true,
+			'menu' => 'content'
 		);
 	}
 
@@ -89,13 +90,13 @@ class Module_Comments extends Module {
 				'entry_key' => array('type' => 'varchar', 'constraint' => 100, 'null' => false),
 				'entry_plural' => array('type' => 'varchar', 'constraint' => 100, 'null' => false),
 				'uri' => array('type' => 'varchar', 'constraint' => 255, 'null' => true),
-				'cp_uri' => array('type' => 'varchar','constraint' => 255, 'null' => true),
-				'created_on' => array('type' => 'INT', 'constraint' => 11, 'default' => '0'), // @todo Shouldn't this be an int?
+				'cp_uri' => array('type' => 'varchar', 'constraint' => 255, 'null' => true),
+				'created_on' => array('type' => 'INT', 'constraint' => 11, 'default' => '0'),
 				'ip_address' => array('type' => 'VARCHAR', 'constraint' => 15, 'default' => ''),
 			),
 		);
 
-		if ( !$this->install_tables($tables))
+		if ( ! $this->install_tables($tables))
 		{
 			return false;
 		}

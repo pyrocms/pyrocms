@@ -1,4 +1,4 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['header']			=	'Vaihe 4: Luo tietokanta';
@@ -27,5 +27,3 @@ $lang['error_104']		=	'Asennus ei voinut lisätä oletuskäyttäjää.';
 $lang['error_105']		=	'Tietokanta konfiguraatio tiedostoon ei voitu kirjoittaa. Et kai huijannut asennusta hyppäämällä kolmannen vaiheen yli?';
 $lang['error_106']		=	'Konfigurointi tiedostoa ei voitu kirjoittaa. Oletko varma, että sillä on oikeat oikeudet?';
 $lang['success']		=	'PyroCMS on asennettu onnistuneesti.';
-
-/* End of file step_4_lang.php */

@@ -1,4 +1,4 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['header']			=	'Trin 1: Konfigurer Database og Server';
@@ -22,5 +22,3 @@ $lang['step2']			=	'Trin 2';
 // messages
 $lang['db_success']		=	'Databaseindstillingerne er testet, og fungerer.';
 $lang['db_failure']		=	'Problem med at forbinde til databasen: ';
-
-/* End of file step_1_lang.php */

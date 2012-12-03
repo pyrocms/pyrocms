@@ -1,4 +1,4 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['header']			=	'Krok 4: Vytvoření databáze';
@@ -27,5 +27,3 @@ $lang['error_104']		=	'Instalátor nemohl vytvořit výchozího uživatele.';
 $lang['error_105']		=	'Konfigurační soubor pro databázi nemohl být zapsán, nepřeskočil jste třetí krok instalace?';
 $lang['error_106']		=	'Konfigurační soubor nemohl být zapsán, jste si jistý správným oprávněním pro zápis do souboru?';
 $lang['success']		=	'PyroCMS byl úspěšně naisntalován.';
-
-/* End of file step_4_lang.php */

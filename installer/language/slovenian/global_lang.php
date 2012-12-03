@@ -1,4 +1,4 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 $lang['intro']	=	'Pozdrav';
 $lang['step1']	=	'Korak #1';
@@ -9,5 +9,3 @@ $lang['final']	=	'Zaključek';
 
 $lang['installer.passwords_match']		= "Gesli se ujemata.";
 $lang['installer.passwords_dont_match']	= "Gesli se ne ujemata";
-
-/* End of file global_lang.php */

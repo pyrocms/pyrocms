@@ -1,4 +1,4 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['header']			=	'Βήμα 1: Ορισμός Παραμέτρων Βάσης Δεδομένων και Διακομιστή';
@@ -23,5 +23,3 @@ $lang['step2']			=	'Βήμα 2';
 // messages
 $lang['db_success']		=	'Οι παραμέτροι της βάσης δεδομένων ελέγχθηκαν και δουλεύουν μια χαρά.';
 $lang['db_failure']		=	'Πρόβλημα κατά την σύνδεση με την βάση δεδομένων: ';
-
-/* End of file step_1_lang.php */

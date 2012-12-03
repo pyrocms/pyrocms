@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['congrats']			= 'Čestitamo';
@@ -10,5 +10,3 @@ $lang['outro_text']			= 'Za konec, <strong>izbrišite mapo installer</strong>, �
 
 $lang['go_website']			= 'Pojdi na spletno stran';
 $lang['go_control_panel']	= 'Pojdi v administracijo strani';
-
-/* End of file complete_lang.php */

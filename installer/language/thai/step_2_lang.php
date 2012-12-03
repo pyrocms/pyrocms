@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
 * Thai translation.
@@ -55,5 +55,3 @@ $lang['retry']			=	'ลองอีกครั้ง';
 
 // messages
 $lang['step1_failure']	=	'กรุณาระบุการตั้งค่าฐานข้อมูลการตั้งค่าที่จำเป็นในแบบฟอร์มด้านล่าง .. ';
-
-/* End of file step_2_lang.php */

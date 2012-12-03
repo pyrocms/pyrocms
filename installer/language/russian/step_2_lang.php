@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['header']			=	'Шаг 2: Проверка требований';
@@ -45,5 +45,3 @@ $lang['retry']			=	'Попробовать ещё раз';
 
 // messages
 $lang['step1_failure']	=	'Пожалуйста, укажите данные, необходимые для подключения к базе данных в форме ниже.';
-
-/* End of file step_2_lang.php */

@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['header']			=	'Βήμα 2: Έλεγχος Απαιτήσεων';
@@ -45,5 +45,3 @@ $lang['retry']			=	'Προσπαθήστε ξανά';
 
 // messages
 $lang['step1_failure']	=	'Παρακαλούμε συμπληρώστε τις απαιτούμενες ρυθμίσεις για την βάση δεδομένων παρακάτω..';
-
-/* End of file step_2_lang.php */
