@@ -422,13 +422,13 @@ jQuery(function($){
 					type = files[index]['type'];
 				// if it isn't an image then they can't resize it
 				if (type && type.search('image') >= 0) {
-					resize = 	'<label>'+pyro.lang.width+'</label>'+
+					resize = 	'<label id="width">'+pyro.lang.width+'</label>'+
 								'<select name="width" class="skip"><option value="0">'+pyro.lang.full_size+'</option><option value="100">100px</option><option value="200">200px</option><option value="300">300px</option><option value="400">400px</option><option value="500">500px</option><option value="600">600px</option><option value="700">700px</option><option value="800">800px</option><option value="900">900px</option><option value="1000">1000px</option><option value="1100">1100px</option><option value="1200">1200px</option><option value="1300">1300px</option><option value="1400">1400px</option><option value="1500">1500px</option><option value="1600">1600px</option><option value="1700">1700px</option><option value="1800">1800px</option><option value="1900">1900px</option><option value="2000">2000px</option></select>'+
-								'<label>'+pyro.lang.height+'</label>'+
+								'<label id="height">'+pyro.lang.height+'</label>'+
 								'<select name="height" class="skip"><option value="0">'+pyro.lang.full_size+'</option><option value="100">100px</option><option value="200">200px</option><option value="300">300px</option><option value="400">400px</option><option value="500">500px</option><option value="600">600px</option><option value="700">700px</option><option value="800">800px</option><option value="900">900px</option><option value="1000">1000px</option><option value="1100">1100px</option><option value="1200">1200px</option><option value="1300">1300px</option><option value="1400">1400px</option><option value="1500">1500px</option><option value="1600">1600px</option><option value="1700">1700px</option><option value="1800">1800px</option><option value="1900">1900px</option><option value="2000">2000px</option></select>'+
-								'<label>'+pyro.lang.ratio+'</label>'+
+								'<label id="ratio">'+pyro.lang.ratio+'</label>'+
 								'<input name="ratio" type="checkbox" value="1" checked="checked"/>'+
-								'<label>'+pyro.lang.alt_attribute+'</label>'+
+								'<label id="alt">'+pyro.lang.alt_attribute+'</label>'+
 								'<input type="text" name="alt_attribute" class="alt_attribute" />';
 				}
 				// build the upload html for this file
@@ -439,10 +439,12 @@ jQuery(function($){
 							'</div>' +
 							'<div class="file_upload_progress"><div></div></div>' +
 							'<div class="file_upload_cancel">' +
-								resize+
 								'<div title="'+pyro.lang.start+'" class="start-icon ui-helper-hidden-accessible"></div>'+
 								'<div title="'+pyro.lang.cancel+'" class="cancel-icon"></div>' +
 							'</div>' +
+							'<div class="image_meta">'+
+								resize+
+							'</div>'+
 						'</li>');
 			},
 			buildDownloadRow: function(results){
@@ -458,7 +460,7 @@ jQuery(function($){
 					return;
 				}
 
-				var $progress_div = handler.uploadRow.find('.file_upload_progress').
+				var $progress_div = handler.uploadRow.find('.file_upload_progress'),
 					regexp;
 
 				// check if the server can handle it
