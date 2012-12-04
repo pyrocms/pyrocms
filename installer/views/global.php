@@ -7,39 +7,36 @@
 
 <head>
 	<meta charset="utf-8">
-	
+
 	<!-- You can use .htaccess and remove these lines to avoid edge case issues. -->
   	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
 	<title>PyroCMS Installer</title>
 
 	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/style.css" type="text/css" />
-	
+
 	<!-- Googlelicious -->
 	<link href='http://fonts.googleapis.com/css?family=Questrial' rel='stylesheet' type='text/css'>
-	
+
 	<script type="text/javascript">
 		var base_url = '<?php echo base_url(); ?>',
-		pass_match = ['<?php echo lang('installer.passwords_match'); ?>','<?php echo lang('installer.passwords_dont_match'); ?>'];
+				pass_match = ['<?php echo lang('installer.passwords_match'); ?>','<?php echo lang('installer.passwords_dont_match'); ?>'];
 	</script>
 
-	<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.js"></script>
-	<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.complexify.js"></script>
-	<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/installer.js"></script>
-
+	<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.min.js"></script>
 </head>
 
 <body>
 
 	<div id="container">
-			
+
 		<div class="topbar">
 			<div class="wrapper">
-				
+
 			<div id="logo">
 				<img src="<?php echo base_url(); ?>assets/images/logo.png" alt="PyroCMS" />
 			</div>
-			
+
 <ul id="lang">
 	<li>
 		<a href="<?php echo site_url('installer/change/english'); ?>" title="English">
@@ -51,7 +48,7 @@
 			<img src="<?php echo base_url(); ?>assets/images/flags/br.gif" alt="Brazilian Portuguese" />
 		</a>
 	</li>
-    <li>
+	<li>
 		<a href="<?php echo site_url('installer/change/portuguese'); ?>" title="Portuguese Portugal">
 			<img src="<?php echo base_url(); ?>assets/images/flags/pt.gif" alt="Portuguese Portugal" />
 		</a>
@@ -76,7 +73,7 @@
 			<img src="<?php echo base_url(); ?>assets/images/flags/se.gif" alt="Swedish" />
 		</a>
 	</li>
-        <li>
+	<li>
 		<a href="<?php echo site_url('installer/change/polish'); ?>" title="Polish">
 			<img src="<?php echo base_url(); ?>assets/images/flags/pl.gif" alt="Polish" />
 		</a>
@@ -140,21 +137,21 @@
 		<a href="<?php echo site_url('installer/change/hungarian'); ?>" title="Magyar">
 			<img src="<?php echo base_url(); ?>assets/images/flags/hu.gif" alt="Magyar" />
 		</a>
-	</li>     
+	</li>
 	<li>
 		<a href="<?php echo site_url('installer/change/thai'); ?>" title="ไทย">
 			<img src="<?php echo base_url(); ?>assets/images/flags/th.gif" alt="ไทย" />
 		</a>
-	</li> 	
+	</li>
 	<li>
 		<a href="<?php echo site_url('installer/change/italian'); ?>" title="Italian">
 			<img src="<?php echo base_url(); ?>assets/images/flags/it.gif" alt="Italian" />
 		</a>
-	</li> 
+	</li>
 </ul>
-		</div>		
 		</div>
-			
+		</div>
+
 			<nav id="menu">
 				<ul>
 					<li><?php echo anchor('', lang('intro'), $this->uri->segment(2, '') == '' ? 'id="current"' : ''); ?></li>
@@ -186,5 +183,8 @@
 
 	</div>
 
+	<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.complexify.js"></script>
+
+	<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/installer.js"></script>
 </body>
 </html>
