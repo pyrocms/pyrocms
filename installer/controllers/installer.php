@@ -98,11 +98,7 @@ class Installer extends CI_Controller
      */
     public function index()
     {
-        // The index function doesn't do that much itself, it only displays a view file with 3 buttons : Install, Upgrade and Maintenance.
-        $data['page_output'] = $this->parser->parse('main', $this->lang->language, TRUE);
-
-        // Load the view file
-        $this->load->view('global',$data);
+		$this->_render_view('main');
     }
 
     /**
@@ -220,13 +216,7 @@ class Installer extends CI_Controller
             $data->selected_db_driver = $this->input->post('db_driver');
         }
 
-        // Load language labels
-        $data = array_merge((array) $data, $this->lang->language);
-
-        // Load the view file
-        $this->load->view('global', array(
-            'page_output' => $this->parser->parse('step_1', $data, TRUE)
-        ));
+		$this->_render_view('step_1', (array) $data);
     }
 
     /**
@@ -317,8 +307,8 @@ class Installer extends CI_Controller
         $this->session->set_userdata('step_2_passed', $data->step_passed);
 
         // Load the view files
-        $final_data['page_output'] = $this->load->view('step_2', $data, TRUE);
-        $this->load->view('global',$final_data);
+
+		$this->_render_view('step_2', $data);
     }
 
     /**
@@ -326,8 +316,6 @@ class Installer extends CI_Controller
      */
     public function step_3()
     {
-        $data = new stdClass;
-        $permissions = array();
 		
         if ( ! $this->session->userdata('step_1_passed') OR ! $this->session->userdata('step_2_passed'))
         {
@@ -339,6 +327,7 @@ class Installer extends CI_Controller
         $this->load->helper('file');
 
         // Get the write permissions for the folders
+		$permissions = array();
 		foreach($this->writable_directories as $dir)
         {
             @chmod('../'.$dir, 0777);
@@ -351,12 +340,13 @@ class Installer extends CI_Controller
 			$permissions['files'][$file] = is_really_writable('../' . $file);
         }
 
+		$data = array();
         // If all permissions are TRUE, go ahead
-        $data->step_passed = ! in_array(FALSE, $permissions['directories']) && !in_array(FALSE, $permissions['files']);
-        $this->session->set_userdata('step_3_passed', $data->step_passed);
+		$data['step_passed'] = ! in_array(false, $permissions['directories']) && !in_array(false, $permissions['files']);
+		$this->session->set_userdata('step_3_passed', $data['step_passed']);
 
         // Skip Step 2 if it passes
-        if ($data->step_passed)
+		if ($data['step_passed'])
         {
             $this->session->set_userdata('step_3_passed', true);
 			
@@ -364,14 +354,9 @@ class Installer extends CI_Controller
         }
 		
         // View variables
-        $data->permissions = $permissions;
+		$data['permissions'] = $permissions;
 
-        // Load the language labels
-        $data = (object) array_merge((array) $data, $this->lang->language);
-
-        // Load the view file
-        $final_data['page_output'] = $this->parser->parse('step_3', $data, TRUE);
-        $this->load->view('global', $final_data);
+		$this->_render_view('step_3', $data);
     }
 
     /**
@@ -422,10 +407,7 @@ class Installer extends CI_Controller
         // If the form validation failed (or did not run)
         if ($this->form_validation->run() === false)
         {
-            $this->load->view('global', array(
-                'page_output' => $this->parser->parse('step_4', $this->lang->language, true),
-            ));
-            return;
+			$this->_render_view('step_4');
         }
 
         // If the form validation passed
@@ -466,10 +448,7 @@ class Installer extends CI_Controller
             // Did the install fail?
             catch (Exception $e)
             {
-                $this->load->view('global', array(
-                    'error'       => $e->getMessage(),
-                    'page_output' => $this->parser->parse('step_4', $this->lang->language, true),
-                ));
+				$this->_render_view('step_4', array('error' => $e->getMessage()));
                 return;
             }
 
@@ -515,9 +494,7 @@ class Installer extends CI_Controller
         // Let's remove our session since it contains data we don't want anyone to see
         // $this->session->sess_destroy();
 
-        // Load the view files
-		$data['page_output'] = $this->parser->parse('complete',$data, TRUE);
-		$this->load->view('global',$data);
+		$this->_render_view('complete', $data);
     }
 
     /**
@@ -561,4 +538,26 @@ class Installer extends CI_Controller
         }
 		$this->lang->load('global');
     }
+
+	/**
+	 * Parse the view replacing the variables found in it.
+	 *
+	 * @param string $view The name of the view.
+	 * @param array $any,... optional, Unlimited number of variables to merge with the standard controller view variables.
+	 *
+	 * @return string|void
+	 */
+	private function _render_view($view) {
+		$args = array_slice(func_get_args(), 1);
+		$out = $this->lang->language;
+		foreach($args as $arg) {
+			if (is_array($arg)) {
+				$out = array_merge($out, $arg);
+			}
+		}
+
+		$this->load->view('global', array(
+			'page_output' => $this->parser->parse($view, $out, true)
+		));
+	}
 }
