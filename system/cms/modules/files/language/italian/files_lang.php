@@ -45,6 +45,7 @@ $lang['files:search_message']				= 'Scrivi e premi Invio';
 $lang['files:search']						= 'Cerca';
 $lang['files:synchronize']					= 'Sincronizzazione';
 $lang['files:uploader']						= 'Trascina qui i file <br />oppure<br />Clicca per selezionare i file';
+$lang['files:replace_file']					= 'Replace file'; #translate
 
 // Context Menu
 $lang['files:refresh']						= 'Refresh'; #translate
@@ -52,6 +53,7 @@ $lang['files:open']							= 'Apri';
 $lang['files:new_folder']					= 'Nuova cartella';
 $lang['files:upload']						= 'Carica';
 $lang['files:rename']						= 'Rinomina';
+$lang['files:replace']	  					= 'Replace'; # translate
 $lang['files:delete']						= 'Cancella';
 $lang['files:edit']							= 'Modifica';
 $lang['files:details']						= 'Dettagli';
@@ -97,6 +99,7 @@ $lang['files:file_moved']					= '"%s" è stato spostato con successo';
 $lang['files:exceeds_server_setting']		= 'Il server non può gestire file così grossi';
 $lang['files:exceeds_allowed']				= 'Il file eccede la dimensione massima';
 $lang['files:file_type_not_allowed']		= 'Questo tipo di file non è ammesso';
+$lang['files:replace_warning']				= 'Warning: Do not replace a file with a file of a different type (e.g. .jpg with .png)'; #translate
 $lang['files:type_a']						= 'Audio';
 $lang['files:type_v']						= 'Video';
 $lang['files:type_d']						= 'Documento';
