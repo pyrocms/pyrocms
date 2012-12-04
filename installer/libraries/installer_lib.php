@@ -6,9 +6,11 @@
 class Installer_lib
 {
 
+	/** @const string MIN_PHP_VERSION The minimum PHP version requirement */
+	const MIN_PHP_VERSION = '5.2';
+
 	/** @var CI The Codeigniter object instance */
 	private $ci;
-	public $php_version = PHP_VERSION;
 
 	/** @var string The MySQL server version */
 	public $mysql_server_version;
@@ -27,14 +29,12 @@ class Installer_lib
 	/**
 	 * Function to see if the PHP version is acceptable (at least version 5)
 	 *
-	 * @param string $version The version to check against.
-	 *
 	 * @return bool
 	 */
-	function php_acceptable($version = null)
+	function php_acceptable()
 	{
 		// Is this version of PHP greater than minimum version required?
-		return version_compare(PHP_VERSION, $version, '>=');
+		return version_compare(PHP_VERSION, self::MIN_PHP_VERSION, '>=');
 	}
 
 
@@ -141,7 +141,7 @@ class Installer_lib
 	public function check_server($data)
 	{
 		// Check PHP
-		if ( ! $this->php_acceptable($data->php_min_version) )
+		if ( ! $this->php_acceptable())
 		{
 			return false;
 		}
