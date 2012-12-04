@@ -166,6 +166,7 @@ $lang['profile_registred_on_label']   = 'Ημερομηνία εγγραφής';
 $lang['profile_last_login_label']     = 'Πρόσφατη σύνδεση';
 $lang['profile_male_label']           = 'Άνδρας';
 $lang['profile_female_label']         = 'Γυναίκα';
+$lang['user_profile_fields_label']	  = 'Πεδία Προφίλ';
 
 $lang['profile_not_set_up']           = 'Αυτός ο χρήστης δεν έχει φτιάξει το προφίλ του.';
 

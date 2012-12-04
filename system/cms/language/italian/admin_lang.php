@@ -46,5 +46,7 @@ $lang['cp_google_analytics_no_connect'] = 'Impossibile connettersi a Google Anal
 
 $lang['required_label'] 				= 'Obbligatorio';
 $lang['sb_recent_users'] 				= 'Utenti recenti';
+$lang['buttons.filter']					= 'Filtro';
+$lang['buttons.clear']					= 'Pulisci';
 
 /* End of file admin_lang.php */

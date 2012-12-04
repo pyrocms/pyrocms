@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // General
 $lang['files:files_title']					= 'Αρχεία';
@@ -45,7 +45,7 @@ $lang['files:search_message']				= 'Εισάγετε όρο & Enter';
 $lang['files:search']						= 'Αναζήτηση';
 $lang['files:synchronize']					= 'Συγχρονισμός';
 $lang['files:uploader']						= 'Σύρτε και αφήστε τα αρχεία εδώ <br />ή<br />Κάντε κλικ για να επιλέξετε αρχεία';
-$lang['files:replace_file']					= 'Replace file'; #translate
+$lang['files:replace_file']					= 'Αντικαταστήστε το αρχείο';
 
 // Context Menu
 $lang['files:refresh']						= 'Ανανέωση';
@@ -53,6 +53,7 @@ $lang['files:open']							= 'Άνοιγμα';
 $lang['files:new_folder']					= 'Νέος Φάκελος';
 $lang['files:upload']						= 'Ανέβασμα';
 $lang['files:rename']						= 'Μετονομασία';
+$lang['files:replace']						= 'Αντικατάσταση';
 $lang['files:delete']						= 'Διαγραφή';
 $lang['files:edit']							= 'Επεξεργασία';
 $lang['files:details']						= 'Λεπτομέρειες';
@@ -98,7 +99,7 @@ $lang['files:file_moved']					= 'Το "%s" μεταφέρθηκε με επιτ�
 $lang['files:exceeds_server_setting']		= 'Ο διακομιστής δεν μπορεί να διαχειριστεί τόσο μεγάλα αρχεία';
 $lang['files:exceeds_allowed']				= 'Το μέγεθος του αρχείου είναι μεγαλύτερο από το επιτρεπόμενο';
 $lang['files:file_type_not_allowed']		= 'Αυτός ο τύπος αρχείου δεν μπορεί να γίνει αποδεκτός';
-$lang['files:replace_warning']				= 'Warning: Do not replace a file with a file of a different type (e.g. .jpg with .png)'; #translate
+$lang['files:replace_warning']				= 'Προσοχή: Μην αντικαθηστάτε ένα αρχείο με ένα άλλο αρχείο άλλου τύπου (π.χ. .jpg με .png)';
 $lang['files:type_a']						= 'Ήχος';
 $lang['files:type_v']						= 'Video';
 $lang['files:type_d']						= 'Έγγραφο';
