@@ -15,7 +15,7 @@ $lang['global:slug_instructions']		= 'Sono ammessi solo caratteri minuscoli e un
 $lang['global:user'] 					= 'User';
 
 
-$lang['dialog.delete_message'] 			= 'Sei sicuro di volerlo eliminare? L\'azione non può essere annullata.';
+$lang['dialog:delete_message'] 			= 'Sei sicuro di volerlo eliminare? L\'azione non può essere annullata.';
 $lang['global:dialog:confirm'] 				= 'Conferma';
 $lang['global:yes'] 					= 'Si';
 $lang['global:no'] 						= 'No';
@@ -55,7 +55,7 @@ $lang['note_label'] 					= 'Note';
 $lang['success_label'] 					= 'Successo';
 
 $lang['login_title'] 					= 'Entra';
-$lang['cms_fatal_error'] 				= 'Errore fatale, il CMS è installato?';
+$lang['global:fatal_error'] 				= 'Errore fatale, il CMS è installato?';
 $lang['global:demo_restrictions']       = 'Alcune funzionalità di questa pagina sono disabilitate per la demo.';
 
 $lang['login_error_label'] 				= 'Errore di accesso';
@@ -85,6 +85,7 @@ $lang['powered_by_pyrocms']				= 'Powered by PyroCMS';
 $lang['top_page']						= 'SU'; 
 $lang['back_to_top']					= 'Torna SU';
 
+$lang['global:filters'] 				= 'Filtri';
 $lang['global:image'] 					= 'Immagine';
 $lang['global:description'] 		    = 'Descrizione';
 $lang['global:actions']					= 'Azioni';
@@ -97,5 +98,14 @@ $lang['global:delete']					= 'Elimina';
 $lang['global:remove']					= 'Elimina';
 
 $lang['global:keywords']				= 'Keywords';
+
+$lang['global:or']						= 'o';
+$lang['global:and']						= 'e';
+$lang['global:at']						= 'al';
+
+$lang['global:widgets']					= 'Widgets';
+$lang['global:fieldtypes']				= 'Field Types';
+$lang['global:plugins']					= 'Plugins';
+$lang['global:plugin']					= 'Plugin';
 
 /* End of file main_lang.php */
