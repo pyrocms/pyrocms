@@ -321,7 +321,7 @@ class Files
 	 * @param array $allowed types	 	 
 	 * @return array|bool
 	 */
-	public static function upload($folder_id, $name = false, $field = 'userfile', $width = false, $height = false, $ratio = false, $alt = NULL, $replace_file = false, $allowed_types = false)
+	public static function upload($folder_id, $name = false, $field = 'userfile', $width = false, $height = false, $ratio = false, $allowed_types = false, $alt = NULL, $replace_file = false)
 	{
 		if ( ! $check_dir = self::check_dir(self::$path))
 		{
