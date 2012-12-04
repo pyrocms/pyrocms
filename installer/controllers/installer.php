@@ -1,9 +1,7 @@
 <?php
 
-// This is for using the the settings
-// library in PyroCMS when installing. This is a
-// copy of the function that exists in
-// system/cms/core/My_Controller.php
+// This is for using the the settings library in PyroCMS when installing.
+// This is a copy of the function that exists in system/cms/core/My_Controller.php
 function ci()
 {
     return get_instance();
@@ -15,32 +13,27 @@ define('SHARED_ADDONPATH', dirname(FCPATH).'/addons/shared_addons/');
 
 /**
  * Installer controller.
- * 
- * @author      PyroCMS Dev Team
- * @package     PyroCMS\Installer\Controllers
- * @property    CI_Loader $load
- * @property    CI_Parser $parser
- * @property    CI_Input $input
- * @property    CI_Session $session
- * @property    CI_Form_validation $form_validation
- * @property    CI_Lang $lang
- * @property    CI_Config $config
- * @property    CI_Router $router
- * @property    Module_import $module_import
- * @property    Installer_lib $installer_lib
+ *
+ * @author		PyroCMS Dev Team
+ * @package		PyroCMS\Installer\Controllers
+ *
+ * @property CI_Loader          $load
+ * @property CI_Parser          $parser
+ * @property CI_Input           $input
+ * @property CI_Session         $session
+ * @property CI_Form_validation $form_validation
+ * @property CI_Lang            $lang
+ * @property CI_Config          $config
+ * @property CI_Router          $router
+ * @property Module_import      $module_import
+ * @property Installer_lib      $installer_lib
  */
 class Installer extends CI_Controller
 {
-    /**
-     * Array of languages supported by the installer
-     */
+	/** @var array Languages supported by the installer */
     private $languages  = array('arabic', 'brazilian', 'english', 'dutch', 'french', 'german', 'portuguese', 'polish', 'chinese_traditional', 'slovenian', 'spanish', 'russian', 'greek', 'lithuanian','danish','vietnamese', 'indonesian', 'hungarian', 'finnish', 'swedish','thai','italian');
 
-    /**
-     * Array containing the directories that need to be writable
-     *
-     * @var array
-     */
+	/** @var array Directories that need to be writable */
     private $writable_directories = array(
         'system/cms/cache',
         'system/cms/config',
@@ -49,11 +42,7 @@ class Installer extends CI_Controller
         'uploads',
     );
 
-    /**
-     * Array containing the files that need to be writable
-     *
-     * @var array
-     */
+	/** @var array Files that need to be writable */
     private $writable_files = array(
         'system/cms/config/config.php'
     );
@@ -70,9 +59,11 @@ class Installer extends CI_Controller
 
 
     /**
-     * Constructor method
-     *
-     * @return \Installer
+	 * At start this controller should:
+	 * 1. Load the array of supported servers
+	 * 2. Set the language used by the user.
+	 * 3. Load the language files.
+	 * 4. Load the Form validation library.
      */
     public function __construct()
     {
@@ -88,8 +79,15 @@ class Installer extends CI_Controller
         $this->load->add_package_path(PYROPATH);
         $this->load->add_package_path(SHARED_ADDONPATH);
 
-        // Include some constants that modules may be looking for
-        define('SITE_REF', 'default');
+		// also we load some generic language labels
+		$this->lang->load('installer');
+		// Include some constants that modules may be looking for
+		// set the supported languages to be saved in Settings for emails and .etc
+		// modules > settings > details.php uses this
+		require_once(dirname(FCPATH).'/system/cms/config/language.php');
+		
+		define('DEFAULT_LANG', $config['default_language']);
+		define('SITE_REF', 'default');
 
         // Load form validation
         $this->load->library('form_validation');
@@ -97,8 +95,6 @@ class Installer extends CI_Controller
 
     /**
      * Index method
-     *
-     * @return void
      */
     public function index()
     {
@@ -111,8 +107,6 @@ class Installer extends CI_Controller
 
     /**
      * Pre installation
-     *
-     * @return void
      */
     public function step_1()
     {
@@ -141,8 +135,8 @@ class Installer extends CI_Controller
             ),
             array(
                 'field' => 'hostname',
-                'label' => 'lang:server',
-                'rules' => 'trim|required|callback_test_db_connection'
+				'label'	=> 'lang:server',
+				'rules'	=> 'trim|required|callback_test_db_connection'
             ),
             array(
                 'field' => 'location',
@@ -151,18 +145,18 @@ class Installer extends CI_Controller
             ),
             array(
                 'field' => 'username',
-                'label' => 'lang:username',
+				'label'	=> 'lang:username',
                 'rules' => 'trim'
             ),
             array(
                 'field' => 'password',
-                'label' => 'lang:password',
-                'rules' => 'trim'
+				'label'	=> 'lang:password',
+				'rules'	=> 'trim'
             ),
             array(
                 'field' => 'port',
                 'label' => 'lang:port',
-                'rules' => 'trim|required'
+				'rules'	=> 'trim|required'
             ),
             array(
                 'field' => 'database',
@@ -171,19 +165,19 @@ class Installer extends CI_Controller
             ),
             array(
                 'field' => 'http_server',
-                'label' => 'lang:server_settings',
-                'rules' => 'trim|required'
+				'label'	=> 'lang:server_settings',
+				'rules'	=> 'trim|required'
             ),
         ));
 
         // If the form validation passed
-        if ($this->form_validation->run())
+		if ( $this->form_validation->run() )
         {
             // Set the flashdata message
             $this->session->set_flashdata('success', lang('db_success'));
 
             // Redirect to the second step
-            $this->session->set_userdata('step_1_passed', true);
+			$this->session->set_userdata('step_1_passed', TRUE);
             redirect('installer/step_2');
         }
 
@@ -238,7 +232,8 @@ class Installer extends CI_Controller
     /**
      * Function to validate the database name
      *
-     * @param $db_name
+	 * @param string $db_name The database name.
+	 *
      * @return bool
      */
     public function validate_db_name($db_name)
@@ -255,9 +250,11 @@ class Installer extends CI_Controller
     public function test_db_connection()
     {
         try {
+
             $this->installer_lib->create_db_connection();
         } catch (Exception $e) {
             $this->form_validation->set_message('test_db_connection', lang('db_failure') . $e->getMessage());
+
             return false;
         }
 
@@ -266,8 +263,6 @@ class Installer extends CI_Controller
 
     /**
      * First actual installation step
-     *
-     * @return void
      */
     public function step_2()
     {
@@ -310,15 +305,15 @@ class Installer extends CI_Controller
 
         // Check the final results
         $data->step_passed = $this->installer_lib->check_server($data);
-        
+		
         // Skip Step 2 if it passes
         if ($data->step_passed)
         {
             $this->session->set_userdata('step_2_passed', true);
-            
+			
             redirect('installer/step_3');
         }
-        
+		
         $this->session->set_userdata('step_2_passed', $data->step_passed);
 
         // Load the view files
@@ -328,14 +323,12 @@ class Installer extends CI_Controller
 
     /**
      * Another step, yay!
-     *
-     * @return void
      */
     public function step_3()
     {
         $data = new stdClass;
         $permissions = array();
-        
+		
         if ( ! $this->session->userdata('step_1_passed') OR ! $this->session->userdata('step_2_passed'))
         {
             // Redirect the user back to step 1
@@ -346,16 +339,16 @@ class Installer extends CI_Controller
         $this->load->helper('file');
 
         // Get the write permissions for the folders
-        foreach($this->writable_directories as $dir)
+		foreach($this->writable_directories as $dir)
         {
             @chmod('../'.$dir, 0777);
-            $permissions['directories'][$dir] = is_really_writable('../' . $dir);
+			$permissions['directories'][$dir] = is_really_writable('../' . $dir);
         }
 
-        foreach($this->writable_files as $file)
+		foreach($this->writable_files as $file)
         {
             @chmod('../'.$file, 0666);
-            $permissions['files'][$file] = is_really_writable('../' . $file);
+			$permissions['files'][$file] = is_really_writable('../' . $file);
         }
 
         // If all permissions are TRUE, go ahead
@@ -366,10 +359,10 @@ class Installer extends CI_Controller
         if ($data->step_passed)
         {
             $this->session->set_userdata('step_3_passed', true);
-            
+			
             redirect('installer/step_4');
         }
-        
+		
         // View variables
         $data->permissions = $permissions;
 
@@ -383,8 +376,6 @@ class Installer extends CI_Controller
 
     /**
      * Another step, damn thee steps, damn thee!
-     *
-     * @return void
      */
     public function step_4()
     {
@@ -398,33 +389,33 @@ class Installer extends CI_Controller
         $this->form_validation->set_rules(array(
             array(
                 'field' => 'site_ref',
-                'label' => 'lang:site_ref',
-                'rules' => 'trim|required|alpha_dash'
+				'label'	=> 'lang:site_ref',
+				'rules'	=> 'trim|required|alpha_dash'
             ),
             array(
                 'field' => 'user[username]',
-                'label' => 'lang:username',
-                'rules' => 'trim|required'
+				'label'	=> 'lang:username',
+				'rules'	=> 'trim|required'
             ),
             array(
                 'field' => 'user[firstname]',
                 'label' => 'lang:firstname',
-                'rules' => 'trim|required'
+				'rules'	=> 'trim|required'
             ),
             array(
                 'field' => 'user[lastname]',
                 'label' => 'lang:lastname',
-                'rules' => 'trim|required'
+				'rules'	=> 'trim|required'
             ),
             array(
                 'field' => 'user[email]',
-                'label' => 'lang:email',
-                'rules' => 'trim|required|valid_email'
+				'label'	=> 'lang:email',
+				'rules'	=> 'trim|required|valid_email'
             ),
             array(
                 'field' => 'user[password]',
-                'label' => 'lang:password',
-                'rules' => 'trim|min_length[6]|max_length[20]|required'
+				'label'	=> 'lang:password',
+				'rules'	=> 'trim|min_length[6]|max_length[20]|required'
             ),
         ));
 
@@ -499,8 +490,6 @@ class Installer extends CI_Controller
 
     /**
      * We're done, thank God for that
-     *
-     * @return void
      */
     public function complete()
     {
@@ -521,23 +510,23 @@ class Installer extends CI_Controller
 
         // Create the admin link
         $data['website_url'] = 'http://'.$this->input->server('HTTP_HOST').preg_replace('/installer\/index.php$/', '', $this->input->server('SCRIPT_NAME'));
-        $data['control_panel_url'] = $data['website_url'] . ($supported_servers[$server_name]['rewrite_support'] === TRUE ? 'admin' : 'index.php/admin');
+		$data['control_panel_url'] = $data['website_url'] . ($supported_servers[$server_name]['rewrite_support'] === TRUE ? 'admin' : 'index.php/admin');
 
         // Let's remove our session since it contains data we don't want anyone to see
         // $this->session->sess_destroy();
 
         // Load the view files
-        $data['page_output'] = $this->parser->parse('complete', $data, TRUE);
-        $this->load->view('global',$data);
+		$data['page_output'] = $this->parser->parse('complete',$data, TRUE);
+		$this->load->view('global',$data);
     }
 
     /**
      * Changes the active language
      *
-     * @author  jeroenvdgulik
-     * @since   0.9.8.1
-     * @param   string $language
-     * @return  void
+	 * @author	jeroenvdgulik
+	 * @since	0.9.8.1
+	 *
+	 * @param	string $language
      */
     public function change($language)
     {
@@ -554,7 +543,6 @@ class Installer extends CI_Controller
      *
      * @author  jeroenvdgulik
      * @since   0.9.8.1
-     * @return  void
      */
     private function _set_language()
     {
@@ -567,20 +555,10 @@ class Installer extends CI_Controller
 
         // let's load the language file belonging to the page i.e. method
         $lang_file = $this->config->item('language') . '/' . $this->router->fetch_method() . '_lang';
-        if (is_file(realpath(dirname(__FILE__) . "/../language/{$lang_file}.php")))
+		if (is_file(realpath(dirname(__FILE__) . '/../language/' . $lang_file . EXT)))
         {
             $this->lang->load($this->router->fetch_method());
         }
-
-        // also we load some generic language labels
-        $this->lang->load('installer');
-
-        // set the supported languages to be saved in Settings for emails and .etc
-        // modules > settings > details.php uses this
-        require_once(dirname(FCPATH).'/system/cms/config/language.php');
-
-        define('DEFAULT_LANG', $config['default_language']);
+		$this->lang->load('global');
     }
 }
-
-/* End of file installer.php */

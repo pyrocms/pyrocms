@@ -1,25 +1,35 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
  * Installer's Ajax controller.
- * 
- * @author 		Zack Kitzmiller
- * @author		PyroCMS Dev Team
- * @package		PyroCMS\Installer\Controllers
+ *
+ * @author PyroCMS Dev Team
+ * @package PyroCMS\Installer\Controllers
  */
-class Ajax extends CI_Controller {
-
+class Ajax extends CI_Controller
+{
 	/**
 	 * Array of languages supported by the installer
 	 */
 	private $languages	= array ('arabic', 'brazilian', 'english', 'dutch', 'french', 'german', 'polish', 'chinese_traditional', 'slovenian', 'spanish', 'russian', 'greek', 'lithuanian','danish','vietnamese', 'indonesian', 'hungarian', 'finnish', 'swedish');
 
+	/**
+	 * At start this controller should:
+	 * 1. Check that this is indeed an AJAX request.
+	 * 2. Set the language used by the user.
+	 * 3. Load the language files.
+	 */
 	public function __construct()
 	{
-		if ((isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') === FALSE)
-			show_error('You shouldn\'t be here');
+		if ((isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') === false)
+		{
+			show_error('You should not be here');
+		}
+
 		parent::__construct();
+
 		$this->_set_language();
+
 		$this->lang->load('global');
 		$this->lang->load('step_1');
 	}
@@ -72,10 +82,8 @@ class Ajax extends CI_Controller {
 	/**
 	 * Sets the language and loads the corresponding language files like the installer controller
 	 *
-	 * @access	private
 	 * @author	wupsbr
 	 * @since	1.0.0
-	 * @return	void
 	 */
 	private function _set_language()
 	{
@@ -93,17 +101,15 @@ class Ajax extends CI_Controller {
 			$this->lang->load($this->router->method);
 		}
 
-		// also we load some generic language labels
-		$this->lang->load('global');
 	}
 
 	/**
-	 * Sends statistics back to pyrocms.com. These are only used to see which OS's we should develop for
-	 * and are anonymous.
+	 * Sends statistics back to pyrocms.com
 	 *
-	 * @author	jeroenvdgulik
-	 * @since	1.0.1
-	 * @return	void
+	 * These are only used to see which OS's we should develop for and are anonymous.
+	 *
+	 * @author jeroenvdgulik
+	 * @since 1.0.1
 	 */
 	public function statistics()
 	{
@@ -133,9 +139,7 @@ class Ajax extends CI_Controller {
 	/**
 	 * Check if apache's mod_rewrite is enabled
 	 *
-	 * @access	public
-	 * @author	PyroCMS Dev Team
-	 * @return	string
+	 * @return string
 	 */
 	public function check_rewrite()
 	{
@@ -145,18 +149,12 @@ class Ajax extends CI_Controller {
 			return print(lang('rewrite_fail'));
 		}
 
-		$modules = apache_get_modules();
-
-		if (in_array('mod_rewrite', $modules))
+		if (in_array('mod_rewrite', apache_get_modules()))
 		{
 			return print('enabled');
 		}
-		else
-		{
-			return print(lang('mod_rewrite'));
-		}
+
+		return print(lang('mod_rewrite'));
 	}
 
 }
-
-/* End of file ajax.php */
