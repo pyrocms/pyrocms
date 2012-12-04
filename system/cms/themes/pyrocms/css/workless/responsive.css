@@ -20,10 +20,6 @@
  *
  * ---------------------------------- */
 
-	#quick_links {
-		width: 280px;
-	}
-
 	#logo {
 		display: none;
 	}
@@ -92,17 +88,9 @@
 		width: 180px!important;
 	}
 
-	#quick_links ul {
-		margin-top: -20px!important;
-	}
-	
-	#quick_links ul li a {
-		font-size: 0px;
-	}
-
 @media only screen and (min-width: 481px) {
 
-	.wrapper, #quick_links {
+	.wrapper {
 		width: 480px;
 		margin: 0 auto;
 	}
@@ -259,14 +247,6 @@
 	select { 
 		width: 445px; 
 	}
-
-	#quick_links ul {
-		margin-top: -20px!important;
-	}
-
-	#quick_links ul li a {
-		font-size: 0px;
-	}
 }
 
 @media only screen and (min-width: 768px) {
@@ -276,7 +256,7 @@
 
 	.topbar, .subbar, .sections_bar {position: fixed;}
 
-	.wrapper, #quick_links {
+	.wrapper {
 		width: 750px;
 		margin: 0 auto;
 	}
@@ -436,14 +416,6 @@
 		width: 545px; 
 	}
 
-	#quick_links ul {
-		margin-top: -15px!important;
-	}
-
-	#quick_links ul li a {
-		font-size: 12px;
-	}
-
 	.form_inputs fieldset > ul > li > label,
 	.form_inputs fieldset > ul > div > li > label,
 	.form_inputs > ul > div > li > label,
@@ -457,7 +429,7 @@
 
 @media only screen and (min-width: 1025px) {
 
-	.wrapper, #quick_links {
+	.wrapper {
 		width: 1024px;
 		margin: 0 auto;
 	}
@@ -596,19 +568,11 @@
 		width: 545px; 
 	}
 
-	#quick_links ul {
-		margin-top: -15px!important;
-	}
-
-	#quick_links ul li a {
-		font-size: 12px;
-	}
-
 }
 
 @media only screen and (min-width: 1281px) {
 
-	.wrapper, #quick_links {
+	.wrapper {
 		width: 1280px;
 		margin: 0 auto;
 	}
@@ -738,14 +702,6 @@
 
 	select { 
 		width: 545px; 
-	}
-
-	#quick_links ul {
-		margin-top: -15px!important;
-	}
-
-	#quick_links ul li a {
-		font-size: 12px;
 	}
 
 }
