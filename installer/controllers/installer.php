@@ -31,7 +31,7 @@ define('SHARED_ADDONPATH', dirname(FCPATH).'/addons/shared_addons/');
 class Installer extends CI_Controller
 {
 	/** @var array Languages supported by the installer */
-    private $languages  = array('arabic', 'brazilian', 'english', 'dutch', 'french', 'german', 'portuguese', 'polish', 'chinese_traditional', 'slovenian', 'spanish', 'russian', 'greek', 'lithuanian','danish','vietnamese', 'indonesian', 'hungarian', 'finnish', 'swedish','thai','italian');
+	private $languages = array();
 
 	/** @var array Directories that need to be writable */
     private $writable_directories = array(
@@ -46,6 +46,12 @@ class Installer extends CI_Controller
     private $writable_files = array(
         'system/cms/config/config.php'
     );
+
+	/** @var string The translations directory */
+	private $languages_directory = '../language/';
+
+	/** @var array The view variables for creating the language menu */
+	private $language_nav = array();
 
     /**
      * Array containing the files that need to be writable
@@ -72,24 +78,66 @@ class Installer extends CI_Controller
         // Load the config file that contains a list of supported servers
         $this->load->config('servers');
 
-        // Sets the language
-        $this->_set_language();
-
         // Let us load stuff from the main application
         $this->load->add_package_path(PYROPATH);
         $this->load->add_package_path(SHARED_ADDONPATH);
 
-		// also we load some generic language labels
+		// Get the supported languages
+		$this->_discover_languages();
+
+		if ($this->session->userdata('language'))
+		{
+			$this->config->set_item('language', $this->session->userdata('language'));
+		}
+		$current_language = $this->config->item('language');
+
+		// let's load the language file belonging to the page i.e. method
+		if (is_file($this->languages_directory.'/'.$current_language.'/'.$this->router->fetch_method().'_lang'.EXT))
+		{
+			$this->lang->load($this->router->fetch_method());
+		}
+
+		// Load the global installer language file
 		$this->lang->load('installer');
 		// Include some constants that modules may be looking for
 		// set the supported languages to be saved in Settings for emails and .etc
 		// modules > settings > details.php uses this
 		require_once(dirname(FCPATH).'/system/cms/config/language.php');
 		
+		// Check that the language configuration has been loaded.
+		isset($config) or exit('Could not load language configuration.');
+
+		// Define the default language code as constant
 		define('DEFAULT_LANG', $config['default_language']);
 		define('SITE_REF', 'default');
 
-        // Load form validation
+		$action_url = site_url('installer/change/__NAME__');
+		$image_url = base_url('assets/images/flags/__CODE__.gif');
+		// Work out some misrepresented language codes to specific language flags
+		$flag_exchange = array(
+			'english' => 'gb',
+			'chinese_simplified' => 'cn',
+			'chinese_traditional' => 'cn',
+			'danish' => 'dk',
+			'czech' => 'cz',
+		);
+		// Generate the language array for the navigation.
+		foreach($config['supported_languages'] as $code => $info) {
+			// There is a translation available and we haven't already put that in there.
+			if (in_array($info['folder'], $this->languages) && ! array_key_exists($info['folder'], $this->language_nav)) {
+				$this->language_nav[$info['folder']] = array(
+					'code' => $code,
+					'folder' => $info['folder'],
+					'name' => $info['name'],
+					'action_url' => str_replace('__NAME__', $info['folder'], $action_url),
+					'image_url' => str_replace('__CODE__', (in_array($info['folder'], array_keys($flag_exchange))) ? $flag_exchange[$info['folder']] : $code, $image_url),
+				);
+			}
+		}
+
+		ksort($this->language_nav);
+
+		// Load form validation library
         $this->load->library('form_validation');
     }
 
@@ -310,7 +358,7 @@ class Installer extends CI_Controller
 
         // Load the view files
 
-		$this->_render_view('step_2', $data);
+		$this->_render_view('step_2', (array)$data);
     }
 
     /**
@@ -486,9 +534,6 @@ class Installer extends CI_Controller
         // Load our user's settings
         $data = $this->session->userdata('user');
 
-        // Load the language labels
-        $data = array_merge((array) $data, $this->lang->language);
-
         // Create the admin link
         $data['website_url'] = 'http://'.$this->input->server('HTTP_HOST').preg_replace('/installer\/index.php$/', '', $this->input->server('SCRIPT_NAME'));
 		$data['control_panel_url'] = $data['website_url'] . ($supported_servers[$server_name]['rewrite_support'] === TRUE ? 'admin' : 'index.php/admin');
@@ -509,6 +554,8 @@ class Installer extends CI_Controller
      */
     public function change($language)
     {
+		$this->_discover_languages();
+
         if (in_array($language, $this->languages))
         {
             $this->session->set_userdata('language', $language);
@@ -517,29 +564,32 @@ class Installer extends CI_Controller
         redirect('installer');
     }
 
-    /**
-     * Sets the language and loads the corresponding language files
-     *
-     * @author  jeroenvdgulik
-     * @since   0.9.8.1
-     */
-    private function _set_language()
-    {
-        // let's check if the language is supported
-        if (in_array($this->session->userdata('language'), $this->languages))
-        {
-            // if so we set it
-            $this->config->set_item('language', $this->session->userdata('language'));
-        }
+	/**
+	 * Set up class properties related to translations.
+	 *
+	 * Populates the supported languages array and sets the
+	 * installer translations directory as an absolute path
+	 */
+	private function _discover_languages()
+	{
+		// Convert the translation directory path to absolute
+		if ($this->languages_directory === '../language/')
+		{
+			$this->languages_directory = realpath(dirname(__FILE__).'/'.$this->languages_directory);
+		}
 
-        // let's load the language file belonging to the page i.e. method
-        $lang_file = $this->config->item('language') . '/' . $this->router->fetch_method() . '_lang';
-		if (is_file(realpath(dirname(__FILE__) . '/../language/' . $lang_file . EXT)))
-        {
-            $this->lang->load($this->router->fetch_method());
-        }
-		$this->lang->load('global');
-    }
+		// Get the supported language array populated
+		if (empty($this->languages))
+		{
+			foreach (new FilesystemIterator($this->languages_directory, FilesystemIterator::CURRENT_AS_FILEINFO | FilesystemIterator::SKIP_DOTS) as $path)
+			{
+				if ($path->isDir())
+				{
+					$this->languages[] = $path->getBasename();
+				}
+			}
+		}
+	}
 
 	/**
 	 * Parse the view replacing the variables found in it.
@@ -551,7 +601,7 @@ class Installer extends CI_Controller
 	 */
 	private function _render_view($view) {
 		$args = array_slice(func_get_args(), 1);
-		$out = $this->lang->language;
+		$out = array_merge($this->lang->language, array('language_nav' => $this->language_nav));
 		foreach($args as $arg) {
 			if (is_array($arg)) {
 				$out = array_merge($out, $arg);
