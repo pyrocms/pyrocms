@@ -7,9 +7,9 @@ $lang['intro_text']		=	'Πριν να μπορούμε να ελέγξουμε �
 $lang['db_settings']	=	'Παραμέτροι Βάσης Δεδομένων';
 $lang['db_text']		=	'Για να μπορέσει το πρόγραμμα εγκατάστασης την έκδοση του διακομιστή MySQL σας απαιτείται η εισαγωγή του hostname, του ονόματος χρήστη και του κωδικού πρόσβασης στην παρακάτω φόρμα. Αυτές οι παραμέτροι θα χρησιμοποιηθούν και κατά την εγκατάσταση της βάσης δεδομένων.';
 $lang['db_missing']		=	'Δεν βρέθηκε ο οδηγός της PHP για την βάση δεδομένων MySQL και η εγκατάσταση δεν μπορεί να συνεχίσει. Ζητήστε από τον παροχό του διακομιστή σας να τον εγκαταστήσει.';
-$lang['db_create']		=	'Create Database'; #translate
-$lang['db_notice']		=	'You might need to do this yourself via your hosting control panel'; #translate
-$lang['database']		=	'MySQL Database'; #translate
+$lang['db_create']		=	'Δημιουργία Βάσης Δεδομένων';
+$lang['db_notice']		=	'Ίσως να χρειαστεί να δημιουργήσετε την βάση δεδομένων χειρονακτικά μέσω του control panel του παρόχου hosting';
+$lang['database']		=	'Βάση δεδομένων MySQL';
 
 $lang['server']			=	'Hostname';
 $lang['username']		=	'Όνομα χρήστη';

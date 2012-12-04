@@ -1,16 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
-/**
- * PyroCMS
- *
- * An open source CMS based on CodeIgniter
- *
- * @package		PyroCMS
- * @author		PyroCMS Dev Team
- * @license		Apache License v2.0
- * @link		http://pyrocms.com
- * @since		Version 1.0
- * @filesource
- */
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 $lang['buttons.submit'] 	= 'Υποβολή';
 $lang['buttons.cancel'] 	= 'Άκυρο';
