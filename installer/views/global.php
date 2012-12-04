@@ -24,6 +24,10 @@
 	</script>
 
 	<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.min.js"></script>
+
+	<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.complexify.js"></script>
+
+	<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/installer.js"></script>
 </head>
 
 <body>
@@ -182,9 +186,5 @@
 			<?php echo $page_output . PHP_EOL; ?>
 
 	</div>
-
-	<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.complexify.js"></script>
-
-	<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/installer.js"></script>
 </body>
 </html>

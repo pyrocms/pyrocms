@@ -1,4 +1,4 @@
-jQuery(document).ready(function($) {
+jQuery(document).ready(function ($) {
 
 	// Add that cool orange bkg to the input that has focus
 	$('input, select').bind({
@@ -14,7 +14,7 @@ jQuery(document).ready(function($) {
 		}
 	});
 
-	$('input[name="database"]').on('keyup', function() {
+	$('input[name="database"]').on('keyup', function () {
 		var $db = $('input[name=database]');
 		// check the database name for correct alphanumerics
 		if ($db.val().match(/[^A-Za-z0-9_-]+/)) {
@@ -22,15 +22,15 @@ jQuery(document).ready(function($) {
 		}
 	});
 
-	$('input[name=password]').on('keyup focus', function() {
+	$('input[name=password]').on('keyup focus', function () {
 
 		$.post(base_url + 'index.php/ajax/confirm_database', {
-				database: 	$('input[name=database]').val(),
-				create_db: 	$('input[name=create_db]').is(':checked'),
-				server: 	$('input[name=hostname]').val(),
-				port: 		$('input[name=port]').val(),
-				username: 	$('input[name=username]').val(),
-				password: 	$('input[name=password]').val()
+				database: $('input[name=database]').val(),
+				create_db: $('input[name=create_db]').is(':checked'),
+				server: $('input[name=hostname]').val(),
+				port: $('input[name=port]').val(),
+				username: $('input[name=username]').val(),
+				password: $('input[name=password]').val()
 			}, function (data) {
 				var $confirm_db = $('#confirm_db');
 				if (data.success === true) {
