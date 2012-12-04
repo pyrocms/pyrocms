@@ -1,4 +1,4 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 // Error 404
 $lang['error_404_title'] 			= '找不到頁面';
