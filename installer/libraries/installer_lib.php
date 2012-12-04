@@ -264,20 +264,12 @@ class Installer_lib
 		// Select the database we created before
 		if ( ! mysql_select_db($database, $this->db) )
 		{
-			return array(
-				'status' => false,
-				'message' => '',
-				'code' => 101
-			);
+			return array('status' => false, 'message' => '', 'code' => 101);
 		}
 
 		if ( ! $this->_process_schema($user_sql, false))
 		{
-			return array(
-				'status' => false,
-				'message' => mysql_error($this->db),
-				'code' => 104
-			);
+			return array('status' => false, 'message' => mysql_error($this->db), 'code' => 104);
 		}
 
 		mysql_query(sprintf(
@@ -293,21 +285,13 @@ class Installer_lib
 		// Write the database file
 		if ( ! $this->write_db_file($database) )
 		{
-			return array(
-				'status' => false,
-				'message' => '',
-				'code' => 105
-			);
+			return array('status' => false, 'message' => '', 'code' => 105);
 		}
 
 		// Write the config file.
 		if ( ! $this->write_config_file())
 		{
-			return array(
-				'status' => false,
-				'message' => '',
-				'code' => 106
-			);
+			return array('status' => false, 'message' => '', 'code' => 106);
 		}
 
 		return array('status' => true);
@@ -351,36 +335,17 @@ class Installer_lib
 	 */
 	function write_db_file($database)
 	{
-		// First retrieve all the required data from the session and the $database variable
-		$server = $this->ci->session->userdata('hostname');
-		$username = $this->ci->session->userdata('username');
-		$password = $this->ci->session->userdata('password');
 		$port = $this->ci->session->userdata('port');
 
-		// Open the template file
-		$template 	= file_get_contents('./assets/config/database.php');
-
 		$replace = array(
-			'__HOSTNAME__' => $server,
-			'__USERNAME__' => $username,
-			'__PASSWORD__' => $password,
+			'__HOSTNAME__' => $this->ci->session->userdata('hostname'),
+			'__USERNAME__' => $this->ci->session->userdata('username'),
+			'__PASSWORD__' => $this->ci->session->userdata('password'),
 			'__DATABASE__' => $database,
 			'__PORT__' => ($port) ? $port : 3306
 		);
 
-		// Replace the __ variables with the data specified by the user
-		$new_file  	= str_replace(array_keys($replace), $replace, $template);
-
-		// Open the database.php file, show an error message in case this returns false
-		$handle 	= @fopen('../system/cms/config/database.php','w+');
-
-		// Validate the handle results
-		if ($handle !== false)
-		{
-			return @fwrite($handle, $new_file);
-		}
-
-		return false;
+		return $this->_write_file_vars('../system/cms/config/database.php', './assets/config/database.php', $replace);
 	}
 
 	/**
@@ -390,28 +355,27 @@ class Installer_lib
 	 */
 	function write_config_file()
 	{
-		// Open the template
-		$template = file_get_contents('./assets/config/config.php');
-
 		$server_name = $this->ci->session->userdata('http_server');
 		$supported_servers = $this->ci->config->item('supported_servers');
 
 		// Able to use clean URLs?
 		$index_page = ($supported_servers[$server_name]['rewrite_support'] !== false) ? '' : 'index.php';
 
-		// Replace the __INDEX__ with index.php or an empty string
-		$new_file = str_replace('__INDEX__', $index_page, $template);
+		return $this->_write_file_vars('../system/cms/config/config.php', './assets/config/config.php', array('__INDEX__' => $index_page));
+	}
 
-		// Open the database.php file, show an error message in case this returns false
-		$handle = @fopen('../system/cms/config/config.php','w+');
-
-		// Validate the handle results
-		if ($handle !== false)
-		{
-			return fwrite($handle, $new_file);
-		}
-
-		return false;
+	/**
+	 * Write a file by replacing the placeholders found in a template file with values provided.
+	 *
+	 * @param string $destination  The path to where the file should be written.
+	 * @param string $template     The path to the template file.
+	 * @param array  $replacements Contains 'placeholder => value' pairs for the replacements
+	 *
+	 * @return bool
+	 */
+	private function _write_file_vars($destination, $template, $replacements)
+	{
+		return (file_put_contents($destination, str_replace(array_keys($replacements), $replacements, file_get_contents($template))) !== false);
 	}
 
 }
