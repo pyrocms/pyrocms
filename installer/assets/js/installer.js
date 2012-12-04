@@ -60,7 +60,7 @@ jQuery(document).ready(function($) {
 	});
 
 	// Password Complexity
-	$("#user_password").complexify({}, function (valid, complexity) {
+	$('#user_password').complexify({}, function (valid, complexity) {
 		var $progress = $('#progress');
 		if (!valid) {
 			$progress
