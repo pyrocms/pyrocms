@@ -7,6 +7,8 @@ section.center .no_data { margin: 40px 20px 20px 20px; }
 
 .subsection-title { color: #808080; margin-bottom: 10px; font-size: 14px; font-weight: bold; font-style: italic; }
 
+#file-to-replace { display: none; }
+
 #folders-sidebar .no_data { margin-right: 20px; }
 #folders-sidebar { height: 450px; border-right: 1px solid #d8d8d8; overflow-x: hidden; overflow-y: auto; }
 #folders-sidebar ul { padding-left: 15px !important; display: none; }

@@ -321,7 +321,7 @@ class Files
 	 * @param array $allowed types	 	 
 	 * @return array|bool
 	 */
-	public static function upload($folder_id, $name = false, $field = 'userfile', $width = false, $height = false, $ratio = false, $alt = NULL, $allowed_types = false)
+	public static function upload($folder_id, $name = false, $field = 'userfile', $width = false, $height = false, $ratio = false, $alt = NULL, $replace_file = false, $allowed_types = false)
 	{
 		if ( ! $check_dir = self::check_dir(self::$path))
 		{
@@ -347,8 +347,9 @@ class Files
 		{
 			$upload_config = array(
 				'upload_path'	=> self::$path,
-				'file_name'		=> self::$_filename,
-				'encrypt_name'	=> config_item('files:encrypt_filename')
+				'file_name'		=> $replace_file ? $replace_file->filename : self::$_filename,
+				// if we want to replace a file, the file name should already be encrypted, the option was true then
+				'encrypt_name'	=> config_item('files:encrypt_filename') && ! $replace_file ? TRUE : FALSE
 			);
 
 			// If we don't have allowed types set, we'll set it to the
@@ -360,6 +361,7 @@ class Files
 			if (ci()->upload->do_upload($field))
 			{
 				$file = ci()->upload->data();
+
 				$data = array(
 					'folder_id'		=> (int) $folder_id,
 					'user_id'		=> (int) ci()->current_user->id,
@@ -393,13 +395,21 @@ class Files
 					$data['width'] = ci()->image_lib->width;
 					$data['height'] = ci()->image_lib->height;					
 				}
-				
+
 				if ($file['is_image'])
 				{
 					$data['alt_attribute'] = $alt ? $alt : '';
 				}
-				
-				$file_id = ci()->file_m->insert($data);
+
+				if($replace_file)
+				{
+					$file_id = $replace_file;
+					ci()->file_m->update($replace_file->id, $data);
+				}
+				else
+				{
+					$file_id = ci()->file_m->insert($data);
+				}
 
 				if ($data['type'] !== 'i')
 				{
@@ -889,6 +899,48 @@ class Files
 	 * @return	array
 	 *
 	**/
+	public static function replace_file($to_replace, $folder_id, $name = false, $field = 'userfile', $width = false, $height = false, $ratio = false, $alt_attribute = false, $allowed_types = false)
+	{
+		if ($file_to_replace = ci()->file_m->select('files.*, file_folders.name foldername, file_folders.slug, file_folders.location, file_folders.remote_container')
+			->join('file_folders', 'files.folder_id = file_folders.id')
+			->get_by('files.id', $to_replace))
+		{
+			//remove the old file...
+			self::_unlink_file($file_to_replace);
+
+			//...then upload the new file
+			$result = self::upload($folder_id, $name, $field, $width, $height, $ratio, $alt_attribute, $file_to_replace, $allowed_types);
+
+			// remove files from cache
+			if( $result['status'] == 1 )
+			{
+				//md5 the name like they do it back in the thumb function
+				$cached_file_name = md5($file_to_replace->filename) . $file_to_replace->extension;
+				$path = Settings::get('cache_dir') . 'image_files/';
+				
+				$cached_files = glob( $path . '*_' . $cached_file_name );
+
+				foreach($cached_files as $full_path)
+				{
+					@unlink($full_path);
+				}
+			}
+
+			return $result;
+		}
+
+		return self::result(false, lang('files:item_not_found'), $id);
+	}
+
+	// ------------------------------------------------------------------------
+
+	/**
+	 * Delete a file
+	 *
+	 * @param	int		$id		The id of the file
+	 * @return	array
+	 *
+	**/
 	public static function delete_file($id = 0)
 	{
 		if ($file = ci()->file_m->select('files.*, file_folders.name foldername, file_folders.slug, file_folders.location, file_folders.remote_container')
@@ -901,17 +953,7 @@ class Files
 
 			ci()->file_m->delete($id);
 
-			if ($file->location === 'local')
-			{
-				@unlink(self::$path.$file->filename);
-			}
-			else
-			{
-				ci()->storage->load_driver($file->location);
-				ci()->storage->delete_file($file->remote_container, $file->filename);
-
-				@unlink(self::$_cache_path.$file->filename);
-			}
+			self::_unlink_file($file);
 
 			return self::result(true, lang('files:item_deleted'), $file->name);
 		}
@@ -1011,7 +1053,7 @@ class Files
 		foreach (ci()->module_m->roles('files') as $value)
 		{
 			// build a simplified permission list for use in this module
-			if (isset(ci()->permissions['files']) and 				array_key_exists($value, ci()->permissions['files']) or ci()->current_user->group == 'admin')
+			if (isset(ci()->permissions['files']) and array_key_exists($value, ci()->permissions['files']) or ci()->current_user->group == 'admin')
 			{
 				$allowed_actions[] = $value;
 			}
@@ -1194,5 +1236,34 @@ class Files
 				break;
 			}
 		}
+	}
+
+	/**
+	 * Physically delete a file
+	 * 
+	 *
+	 * @return	bool
+	 *
+	**/
+	private static function _unlink_file($file)
+	{
+		if( ! isset($file->filename) )
+		{
+			return FALSE;
+		}
+
+		if ($file->location === 'local')
+		{
+			@unlink(self::$path.$file->filename);
+		}
+		else
+		{
+			ci()->storage->load_driver($file->location);
+			ci()->storage->delete_file($file->remote_container, $file->filename);
+
+			@unlink(self::$_cache_path.$file->filename);
+		}
+
+		return TRUE;
 	}
 }
