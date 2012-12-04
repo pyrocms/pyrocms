@@ -239,7 +239,7 @@ class Installer extends CI_Controller
     public function validate_db_name($db_name)
     {
         $this->form_validation->set_message('validate_db_name', lang('invalid_db_name'));
-        return $this->installer_lib->validate_db_name($db_name);
+		return ! (preg_match('/[^A-Za-z0-9_-]+/', $db_name) > 0);
     }
 
     /**

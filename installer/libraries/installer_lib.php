@@ -201,18 +201,6 @@ class Installer_lib
 	}
 
 	/**
-	 * Make sure the database name is a valid mysql identifier
-	 *
-	 * @param string $db_name The database name to validate.
-	 *
-	 * @return bool
-	 */
-	public function validate_mysql_db_name($db_name)
-	{
-		return ! (preg_match('/[^A-Za-z0-9_-]+/', $db_name) > 0);
-	}
-
-	/**
 	 * Make sure we can connect to the database
 	 *
 	 * @return bool|mysql
