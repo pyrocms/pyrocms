@@ -92,7 +92,7 @@
 
 	<div class="input">
 		<label for="http_server">{httpserver}</label>
-			<?php echo form_dropdown('http_server', $server_options, set_value('http_server'), 'id="http_server"') ?>
+			<?php echo form_dropdown('http_server', $server_options, set_value('http_server'), 'id="http_server"'); ?>
 	</div>
 
 	<input type="hidden" name="installation_step" value="step_1"/>
