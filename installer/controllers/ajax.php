@@ -26,24 +26,42 @@ class Ajax extends CI_Controller {
 
 	public function confirm_database()
 	{
-		$server = $this->input->post('server');
-		$username = $this->input->post('username');
-		$password = $this->input->post('password');
-		$port = $this->input->post('port');
+		$database 	= $this->input->post('database');
+		$create_db 	= $this->input->post('create_db') === 'true';
+		$server 	= $this->input->post('server');
+		$username 	= $this->input->post('username');
+		$password 	= $this->input->post('password');
+		$port 		= $this->input->post('port');
 
 		$host = $server . ':' . $port;
 
 		$link = @mysql_connect($host, $username, $password, TRUE);
 
-		if (!$link)
+		if ( ! $link)
 		{
 			$data['success'] = 'false';
 			$data['message'] = lang('db_failure') . mysql_error();
 		}
 		else
 		{
-			$data['success'] = 'true';
-			$data['message'] = lang('db_success');
+			if ($create_db)
+			{
+				if (mysql_query('CREATE DATABASE IF NOT EXISTS '.$database, $link))
+				{
+					$data['success'] = 'true';
+					$data['message'] = lang('db_success');
+				}
+				else
+				{
+					$data['success'] = 'false';
+					$data['message'] = lang('db_failure') . mysql_error();
+				}
+			}
+			else
+			{
+				$data['success'] = 'true';
+				$data['message'] = lang('db_success');
+			}
 		}
 
 		// Set some headers for our JSON

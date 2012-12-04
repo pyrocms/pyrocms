@@ -1,12 +1,9 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
-$lang['header']			 =	'Žingsnis 4: Sukurti duomenų bazę';
-$lang['intro_text']		 =	'Užpildykite žemiau esančią formą ir spauskite "Įdiegti", kad įdiegtumėte PyroCMS. Įsitikinkite, kad įrašote PyroCMS į tinkamą duomenų bazę, kadangi esami pakeitimai bus ištrinti!';
+$lang['header']			 =	'Žingsnis 4: Sukurti duomenų bazę'; #translate
+$lang['intro_text']		 =	'Užpildykite žemiau esančią formą ir spauskite "Įdiegti", kad įdiegtumėte PyroCMS. Įsitikinkite, kad įrašote PyroCMS į tinkamą duomenų bazę, kadangi esami pakeitimai bus ištrinti!'; #translate
 
-$lang['db_settings']	 =	'Duomenų bazės nustatymai';
-$lang['db_create']		 =	'Sukurti';
-$lang['db_notice']		 =	'Galbut jums teks tai padaryti rankiniu būdu';
 $lang['default_user']	 =	'Svetainės administratoriaus nustatymai';
 $lang['database']		 =	'Pavadinimas';
 $lang['site_settings']	 = 	'Svetainės nustatymai';

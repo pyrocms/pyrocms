@@ -1,12 +1,9 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
-$lang['header']			=	'Krok 4: Vytvoření databáze';
-$lang['intro_text']		=	'vyplňte formulář níže a klikněte na tlačítko "Instalovat" pro dokončení instalace PyroCMS. Ujistěte se, že instalujete PyroCMS do správné databáze, protože její stávají obsah bude vymazán!';
+$lang['header']			=	'Krok 4: Vytvoření databáze'; #translate
+$lang['intro_text']		=	'vyplňte formulář níže a klikněte na tlačítko "Instalovat" pro dokončení instalace PyroCMS. Ujistěte se, že instalujete PyroCMS do správné databáze, protože její stávají obsah bude vymazán!'; #translate
 
-$lang['db_settings']	=	'Nastavení databáze';
-$lang['db_create']		=	'Vytvořit databázi';
-$lang['db_notice']		=	'To možná budete muset udělat sami';
 $lang['default_user']	=	'Výchozí uživatel';
 $lang['database']		=	'Databáze';
 $lang['site_settings']		= 	'Nastavení webu';

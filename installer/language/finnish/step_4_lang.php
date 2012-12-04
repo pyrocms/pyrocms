@@ -1,12 +1,9 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
-$lang['header']			=	'Vaihe 4: Luo tietokanta';
-$lang['intro_text']		=	'Täytä alla oleva lomake loppuun ja paina "Asenna". Varmista, että asennat PyroCMS oikeaan tietokantaan, sillä kaikki tiedot hävitetään ennen asentamista!';
+$lang['header']			=	'Vaihe 4: Luo tietokanta'; #translate
+$lang['intro_text']		=	'Täytä alla oleva lomake loppuun ja paina "Asenna". Varmista, että asennat PyroCMS oikeaan tietokantaan, sillä kaikki tiedot hävitetään ennen asentamista!'; #translate
 
-$lang['db_settings']		=	'Tietokanta asetukset';
-$lang['db_create']		=	'Luo tietokanta';
-$lang['db_notice']		=	'Saatat tehdä tämän itse käsin';
 $lang['default_user']		=	'Oletuskäyttäjä';
 $lang['database']		=	'Tietokanta';
 $lang['site_settings']		= 	'Sivuston asetukset';
