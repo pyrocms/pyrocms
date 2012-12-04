@@ -7,36 +7,34 @@
 
 <head>
 	<meta charset="utf-8">
+	
 
 	<title>PyroCMS Installer</title>
 
 	<link rel="stylesheet" href="<?= base_url(); ?>assets/css/style.css" type="text/css" />
-	
+
 	<!-- Googlelicious -->
 	<link href='http://fonts.googleapis.com/css?family=Questrial' rel='stylesheet' type='text/css'>
-	
+
 	<script type="text/javascript">
 		var base_url = '<?= base_url(); ?>',
 		pass_match = ['<?= lang('installer.passwords_match'); ?>','<?= lang('installer.passwords_dont_match'); ?>'];
 	</script>
 
-	<script type="text/javascript" src="<?= base_url(); ?>assets/js/jquery.js"></script>
-	<script type="text/javascript" src="<?= base_url(); ?>assets/js/jquery.complexify.js"></script>
-	<script type="text/javascript" src="<?= base_url(); ?>assets/js/installer.js"></script>
-
+	<script type="text/javascript" src="<?= base_url(); ?>assets/js/jquery.min.js"></script>
 </head>
 
 <body>
 
 	<div id="container">
-			
+
 		<div class="topbar">
 			<div class="wrapper">
-				
+
 			<div id="logo">
 				<img src="<?= base_url(); ?>assets/img/logo.png" alt="PyroCMS" />
 			</div>
-						
+			
 			<ul id="lang">
 				<li>
 					<a href="<?= site_url('installer/change/english'); ?>" title="English">
@@ -48,7 +46,7 @@
 						<img src="<?= base_url(); ?>assets/img/flags/br.gif" alt="Brazilian Portuguese" />
 					</a>
 				</li>
-			    <li>
+    <li>
 					<a href="<?= site_url('installer/change/portuguese'); ?>" title="Portuguese Portugal">
 						<img src="<?= base_url(); ?>assets/img/flags/pt.gif" alt="Portuguese Portugal" />
 					</a>
@@ -73,7 +71,7 @@
 						<img src="<?= base_url(); ?>assets/img/flags/se.gif" alt="Swedish" />
 					</a>
 				</li>
-			        <li>
+        <li>
 					<a href="<?= site_url('installer/change/polish'); ?>" title="Polish">
 						<img src="<?= base_url(); ?>assets/img/flags/pl.gif" alt="Polish" />
 					</a>
@@ -137,21 +135,21 @@
 					<a href="<?= site_url('installer/change/hungarian'); ?>" title="Magyar">
 						<img src="<?= base_url(); ?>assets/img/flags/hu.gif" alt="Magyar" />
 					</a>
-				</li>     
+	</li>     
 				<li>
 					<a href="<?= site_url('installer/change/thai'); ?>" title="ไทย">
 						<img src="<?= base_url(); ?>assets/img/flags/th.gif" alt="ไทย" />
 					</a>
-				</li> 	
+	</li> 	
 				<li>
 					<a href="<?= site_url('installer/change/italian'); ?>" title="Italian">
 						<img src="<?= base_url(); ?>assets/img/flags/it.gif" alt="Italian" />
 					</a>
-				</li> 
+	</li> 
 			</ul>
-		</div>		
 		</div>
-		
+		</div>
+			
 		<nav id="menu">
 			<ul>
 				<li><?= anchor('', lang('intro'), $this->uri->segment(2, '') == '' ? 'id="current"' : ''); ?></li>
@@ -195,5 +193,8 @@
 
 	</div>
 
+	<script type="text/javascript" src="<?= base_url(); ?>assets/js/jquery.complexify.js"></script>
+
+	<script type="text/javascript" src="<?= base_url(); ?>assets/js/installer.js"></script>
 </body>
 </html>
