@@ -45,6 +45,7 @@ $lang['files:search_message']				= 'Εισάγετε όρο & Enter';
 $lang['files:search']						= 'Αναζήτηση';
 $lang['files:synchronize']					= 'Συγχρονισμός';
 $lang['files:uploader']						= 'Σύρτε και αφήστε τα αρχεία εδώ <br />ή<br />Κάντε κλικ για να επιλέξετε αρχεία';
+$lang['files:replace_file']					= 'Replace file'; #translate
 
 // Context Menu
 $lang['files:refresh']						= 'Ανανέωση';
@@ -97,6 +98,7 @@ $lang['files:file_moved']					= 'Το "%s" μεταφέρθηκε με επιτ�
 $lang['files:exceeds_server_setting']		= 'Ο διακομιστής δεν μπορεί να διαχειριστεί τόσο μεγάλα αρχεία';
 $lang['files:exceeds_allowed']				= 'Το μέγεθος του αρχείου είναι μεγαλύτερο από το επιτρεπόμενο';
 $lang['files:file_type_not_allowed']		= 'Αυτός ο τύπος αρχείου δεν μπορεί να γίνει αποδεκτός';
+$lang['files:replace_warning']				= 'Warning: Do not replace a file with a file of a different type (e.g. .jpg with .png)'; #translate
 $lang['files:type_a']						= 'Ήχος';
 $lang['files:type_v']						= 'Video';
 $lang['files:type_d']						= 'Έγγραφο';

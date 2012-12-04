@@ -55,6 +55,7 @@ $lang['files:search_message']				= 'พิมพ์แล้วกด Enter';
 $lang['files:search']						= 'ค้นหา';
 $lang['files:synchronize']					= 'ซิงค์';
 $lang['files:uploader']						= 'วางไฟล์ที่นี่ <br />หรือ<br />เลือกไฟล์';
+$lang['files:replace_file']					= 'Replace file'; #translate
 
 // Context Menu
 $lang['files:refresh']						= 'Refresh'; #translate
@@ -62,6 +63,7 @@ $lang['files:open']							= 'เปิด';
 $lang['files:new_folder']					= 'สร้างโฟลเดอร์ใหม่';
 $lang['files:upload']						= 'อัพโหลด';
 $lang['files:rename']						= 'แก้ไขชื่อ';
+$lang['files:replace']	  					= 'Replace'; # translate
 $lang['files:delete']						= 'ลบ';
 $lang['files:edit']							= 'แก้ไข';
 $lang['files:details']						= 'รายละเอียด';
@@ -107,6 +109,7 @@ $lang['files:file_moved']					= '"%s" ได้ถูกย้ายเรีย
 $lang['files:exceeds_server_setting']		= 'เซิร์ฟเวอร์ไม่สามารถจัดการไฟล์ที่มีขนาดใหญ่ได้';
 $lang['files:exceeds_allowed']				= 'ไฟล์เกินขนาดสูงสุดที่อนุญาต';
 $lang['files:file_type_not_allowed']		= 'ไฟล์ประเภทนี้ไม่ได้รับอนุญาต';
+$lang['files:replace_warning']				= 'Warning: Do not replace a file with a file of a different type (e.g. .jpg with .png)'; #translate
 $lang['files:type_a']						= 'เสียง';
 $lang['files:type_v']						= 'วิดีโอ';
 $lang['files:type_d']						= 'เอกสาร';

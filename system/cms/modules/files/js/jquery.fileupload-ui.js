@@ -77,6 +77,8 @@
         this.uploadTable = this.downloadTable = null;
         this.buildUploadRow = this.buildDownloadRow = null;
         this.progressAllNode = null;
+        this.maxFiles = 0;
+        this.currentFileCount = 0;
 
         this.loadImage = function (file, callBack, maxWidth, maxHeight, imageTypes, noCanvas) {
             var img,
@@ -220,6 +222,8 @@
             if (typeof readyState !== 'number' || readyState < 2) {
                 handler.onAbort(event, files, index, xhr, handler);
             }
+
+            uploadHandler.currentFileCount = uploadHandler.currentFileCount > 0 ? uploadHandler.currentFileCount - 1 : 0;
         };
         
         this.initProgressBar = function (node, value) {
@@ -333,8 +337,23 @@
         };
 
         this.initUploadRow = function (event, files, index, xhr, handler) {
-            var uploadRow = handler.uploadRow = (typeof handler.buildUploadRow === func ?
-                handler.buildUploadRow(files, index, handler) : null);
+
+            var uploadRow = false;
+
+            if( uploadHandler.maxFiles == 0 ||
+                  ( 
+                    uploadHandler.currentFileCount < uploadHandler.maxFiles &&
+                    ( uploadHandler.currentFileCount + files.length ) <= uploadHandler.maxFiles
+                  )
+              )
+            {
+                //a nice message would be nice I guess
+                uploadRow = handler.uploadRow = (typeof handler.buildUploadRow === func ?
+                    handler.buildUploadRow(files, index, handler) : null);
+
+                uploadHandler.currentFileCount++;
+            }
+
             if (uploadRow) {
                 handler.progressbar = handler.initProgressBar(
                     uploadRow.find(handler.progressSelector),
