@@ -35,7 +35,7 @@
 
 		<div class="input">
 			<label for="port">{portnr}</label>
-			<?php echo form_input(array('id' => 'port', 'name' => 'port'), set_value('port', $port)));
+			<?php echo form_input(array('id' => 'port', 'name' => 'port'), set_value('port', $port)); ?>
 		</div>
 
 	<div class="input">
@@ -45,7 +45,7 @@
 
 	<div class="input">
 		<label for="password">{password}</label>
-		<?php echo form_password(array('id' => 'password', 'name' => 'password'), set_value('password'), 'autocomplete="off"'); ?>
+		<?php echo form_password(array('id' => 'password', 'name' => 'password'), set_value('password')); ?>
 	</div>
 
 	<div id="confirm_db"></div>
