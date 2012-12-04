@@ -9,11 +9,6 @@
 class Ajax extends CI_Controller
 {
 	/**
-	 * Array of languages supported by the installer
-	 */
-	private $languages	= array ('arabic', 'brazilian', 'english', 'dutch', 'french', 'german', 'polish', 'chinese_traditional', 'slovenian', 'spanish', 'russian', 'greek', 'lithuanian','danish','vietnamese', 'indonesian', 'hungarian', 'finnish', 'swedish');
-
-	/**
 	 * At start this controller should:
 	 * 1. Check that this is indeed an AJAX request.
 	 * 2. Set the language used by the user.
@@ -28,9 +23,32 @@ class Ajax extends CI_Controller
 
 		parent::__construct();
 
-		$this->_set_language();
+		$languages = array();
+		$languages_directory = realpath(dirname(__FILE__).'/../language/');
+		foreach (new FilesystemIterator($languages_directory, FilesystemIterator::CURRENT_AS_FILEINFO | FilesystemIterator::SKIP_DOTS) as $path)
+		{
+			if ($path->isDir())
+			{
+				$languages[] = $path->getBasename();
+			}
+		}
 
+		// Check if the language is supported and set it.
+		if (in_array($this->session->userdata('language'), $languages))
+		{
+			$this->config->set_item('language', $this->session->userdata('language'));
+		}
+		unset($languages);
+
+		// let's load the language file belonging to the page i.e. method
+		if (is_file($languages_directory.'/'.$this->config->item('language').'/'.$this->router->method.'_lang'.EXT))
+		{
+			$this->lang->load($this->router->method);
+		}
+
+		// also we load some generic language labels
 		$this->lang->load('global');
+
 		$this->lang->load('step_1');
 	}
 
@@ -66,30 +84,6 @@ class Ajax extends CI_Controller
 			));
 		}
 		@mysql_close($link);
-	}
-
-	/**
-	 * Sets the language and loads the corresponding language files like the installer controller
-	 *
-	 * @author	wupsbr
-	 * @since	1.0.0
-	 */
-	private function _set_language()
-	{
-		// let's check if the language is supported
-		if (in_array($this->session->userdata('language'), $this->languages))
-		{
-			// if so we set it
-			$this->config->set_item('language', $this->session->userdata('language'));
-		}
-
-		// let's load the language file belonging to the page i.e. method
-		$lang_file = $this->config->item('language') . '/' . $this->router->method . '_lang';
-		if (is_file(realpath(dirname(__FILE__) . '/../language/' . $lang_file . EXT)))
-		{
-			$this->lang->load($this->router->method);
-		}
-
 	}
 
 	/**
