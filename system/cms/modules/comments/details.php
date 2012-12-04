@@ -73,6 +73,7 @@ class Module_Comments extends Module
 	public function install()
 	{
 		$this->dbforge->drop_table('comments');
+		$this->dbforge->drop_table('comment_blacklists');
 
 		$tables = array(
 			'comments' => array(
@@ -93,6 +94,11 @@ class Module_Comments extends Module
 				'cp_uri' => array('type' => 'varchar', 'constraint' => 255, 'null' => true),
 				'created_on' => array('type' => 'INT', 'constraint' => 11, 'default' => '0'),
 				'ip_address' => array('type' => 'VARCHAR', 'constraint' => 15, 'default' => ''),
+			),
+			'comment_blacklists' => array(
+				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true),
+				'website' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => ''),
+				'email' => array('type' => 'VARCHAR', 'constraint' => 150, 'default' => ''),
 			),
 		);
 
