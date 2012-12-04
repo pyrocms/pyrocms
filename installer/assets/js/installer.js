@@ -1,4 +1,4 @@
-jQuery(document).ready(function($) {
+jQuery(document).ready(function ($) {
 
 	var updateEngineFields = function(enabled_driver) {
 		$('section#db-settings .input').each(function() {

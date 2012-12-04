@@ -192,7 +192,6 @@
 		<?= $page_output.PHP_EOL; ?>
 
 	</div>
-
 	<script type="text/javascript" src="<?= base_url(); ?>assets/js/jquery.complexify.js"></script>
 
 	<script type="text/javascript" src="<?= base_url(); ?>assets/js/installer.js"></script>
