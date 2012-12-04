@@ -6,18 +6,23 @@
 class Installer_lib
 {
 
+	/** @var CI The Codeigniter object instance */
 	private $ci;
 	public $php_version = PHP_VERSION;
+
+	/** @var string The MySQL server version */
 	public $mysql_server_version;
+
+	/** @var string The MySQL client extension version */
 	public $mysql_client_version;
+
+	/** @var string The GD extension version */
 	public $gd_version;
 
 	function __construct()
 	{
 		$this->ci =& get_instance();
 	}
-
-	// Functions used in Step 1
 
 	/**
 	 * Function to see if the PHP version is acceptable (at least version 5)
@@ -34,14 +39,35 @@ class Installer_lib
 
 
 	/**
-	 * Function to check that MySQL and its PHP module is installed properly
+	 * Check that MySQL and its PHP module is installed properly
 	 *
-	 * @return 	bool
+	 * @return bool
 	 */
 	public function mysql_available()
 	{
 		return function_exists('mysql_connect');
 	}
+
+	/**
+	 * Check if zlib is installed
+	 *
+	 * @return bool
+	 */
+	public function zlib_enabled()
+	{
+		return extension_loaded('zlib');
+	}
+
+	/**
+	 * Check the CURL is available
+	 *
+	 * @return bool
+	 */
+	public function curl_enabled()
+	{
+		return (bool)function_exists('curl_init');
+	}
+
 	/**
 	 * Function to retrieve the MySQL version (client/server)
 	 *
@@ -103,16 +129,6 @@ class Installer_lib
 
 		// Homeboy is not rockin GD at all
 		return false;
-	}
-
-	/**
-	 * Function to check if zlib is installed
-	 *
-	 * @return bool
-	 */
-	public function zlib_enabled()
-	{
-		return extension_loaded('zlib');
 	}
 
 	/**
@@ -191,10 +207,10 @@ class Installer_lib
 	 *
 	 * @return bool
 	 */
-	 public function validate_mysql_db_name($db_name)
-	 {
-		 return ! (preg_match('/[^A-Za-z0-9_-]+/', $db_name) > 0);
-	 }
+	public function validate_mysql_db_name($db_name)
+	{
+		return ! (preg_match('/[^A-Za-z0-9_-]+/', $db_name) > 0);
+	}
 
 	/**
 	 * Make sure we can connect to the database
@@ -410,13 +426,4 @@ class Installer_lib
 		return false;
 	}
 
-	/**
-	 * Check the CURL is available
-	 *
-	 * @return bool
-	 */
-	public function curl_enabled()
-	{
-		return (bool) function_exists('curl_init');
-	}
 }
