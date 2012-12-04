@@ -53,7 +53,7 @@ class Installer_lib
 	 *
 	 * @return bool
 	 */
-	public function zlib_enabled()
+	public function zlib_available()
 	{
 		return extension_loaded('zlib');
 	}
@@ -63,9 +63,9 @@ class Installer_lib
 	 *
 	 * @return bool
 	 */
-	public function curl_enabled()
+	public function curl_available()
 	{
-		return (bool)function_exists('curl_init');
+		return function_exists('curl_init');
 	}
 
 	/**
@@ -164,7 +164,7 @@ class Installer_lib
 		}
 
 		// If PHP, MySQL, etc is good but either server, GD, and/or Zlib is unknown, say partial
-		if ( $data->http_server->supported === 'partial' || $this->gd_acceptable() === false || $this->zlib_enabled() === false)
+		if ( $data->http_server->supported === 'partial' || $this->gd_acceptable() === false || $this->zlib_available() === false)
 		{
 			return 'partial';
 		}

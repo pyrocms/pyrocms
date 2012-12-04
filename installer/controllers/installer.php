@@ -242,10 +242,10 @@ class Installer extends CI_Controller
 		$data->gd_version = $this->installer_lib->gd_version;
 
 		// Check to see if Zlib is enabled
-		$data->zlib_enabled = $this->installer_lib->zlib_enabled();
+		$data->zlib_enabled = $this->installer_lib->zlib_available();
 
 		// Check to see if Curl is enabled
-		$data->curl_enabled = $this->installer_lib->curl_enabled();
+		$data->curl_enabled = $this->installer_lib->curl_available();
 
 		// Get the server
 		$selected_server = $this->session->userdata('http_server');
