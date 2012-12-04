@@ -28,19 +28,16 @@ class Ajax extends CI_Controller {
 	{
 		$database 	= $this->input->post('database');
 		$create_db 	= $this->input->post('create_db') === 'true';
-		$server 	= $this->input->post('server');
+		$server = $this->input->post('server').':'.$this->input->post('port');
 		$username 	= $this->input->post('username');
 		$password 	= $this->input->post('password');
-		$port 		= $this->input->post('port');
 
-		$host = $server . ':' . $port;
-
-		$link = @mysql_connect($host, $username, $password, TRUE);
-
-		if ( ! $link)
+		if ( ! @mysql_connect($server, $username, $password, true))
 		{
-			$data['success'] = 'false';
-			$data['message'] = lang('db_failure') . mysql_error();
+			$data = array(
+				'success' => false,
+				'message' => lang('db_failure') . mysql_error()
+			);
 		}
 		else
 		{
@@ -104,7 +101,6 @@ class Ajax extends CI_Controller {
 	 * Sends statistics back to pyrocms.com. These are only used to see which OS's we should develop for
 	 * and are anonymous.
 	 *
-	 * @access	public
 	 * @author	jeroenvdgulik
 	 * @since	1.0.1
 	 * @return	void
