@@ -200,9 +200,6 @@ class Installer extends CI_Controller
 	 */
 	public function step_2()
 	{
-		$data = new stdClass;
-		$data->mysql = new stdClass;
-		$data->http_server = new stdClass;
 
 		// Did the user enter the DB settings ?
 		if ( ! $this->session->userdata('step_1_passed'))
@@ -214,12 +211,14 @@ class Installer extends CI_Controller
 			redirect('');
 		}
 
-		// Check the PHP version
-		$data->php_acceptable	= $this->installer_lib->php_acceptable();
-		$data->php_version		= PHP_VERSION;
+		$data = new stdClass;
 
 		$data->mysql = new stdClass();
 		$data->http_server = new stdClass();
+
+		// Check the PHP version
+		$data->php_acceptable	= $this->installer_lib->php_acceptable();
+		$data->php_version		= PHP_VERSION;
 
 		// Check the MySQL data
 		$data->mysql->server_version_acceptable = $this->installer_lib->mysql_acceptable('server');
