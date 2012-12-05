@@ -44,7 +44,7 @@ $lang['blog:blog_title'] 			= 'المُدوّنة';
 $lang['blog:list_title'] 			= 'سرد التدوينات';
 
 // messages
-$lang['blog:disabled_after'] 				= 'Posting comments after %s has been disabled.'; #translate
+$lang['blog:disabled_after'] 				= 'تم تعطيل التعليقات بعد %s.';
 $lang['blog:no_posts'] 			= 'لا يوجد تدوينات.';
 $lang['blog:subscripe_to_rss_desc'] 		= 'اطلع على آخر التدوينات مباشرة بالاشتراك بخدمة RSS. يمكنك القيام بذلك من خلال معظم برامج البريد الإلكتروني الشائعة، أو تجربة <a href="http://reader.google.com/">قارئ جوجل</a>.';
 $lang['blog:currently_no_posts'] 		= 'لا يوجد تدوينات حالياً.';
