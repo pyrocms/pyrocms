@@ -90,7 +90,7 @@ $lang['settings_ga_tracking_desc']                = 'Gib deinen Google Analytic 
 
 $lang['settings_twitter_username']                = 'Twitter-Benutzername';
 $lang['settings_twitter_username_desc']            = 'Dein Twitter-Benutzername.';
-    
+
 $lang['settings_twitter_feed_count']            = 'Anzahl der Feeds';
 $lang['settings_twitter_feed_count_desc']        = 'Wie viele Tweets sollen im Twitter-Block maximal angezeigt werden?';
 
@@ -109,14 +109,14 @@ $lang['settings_moderate_comments_desc']        = 'Kommentare m&uuml;ssen vorher
 $lang['settings_version']                        = 'Version';
 $lang['settings_version_desc']                    = 'Versionsbeschreibung';
 
-$lang['settings_ckeditor_config']               = 'CKEditor Config'; #translate
-$lang['settings_ckeditor_config_desc']          = 'You can find a list of valid configuration items in <a target="_blank" href="http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.config.html">CKEditor\'s documentation.</a>'; #translate
+$lang['settings_ckeditor_config']               = 'CKEditor Konfiguration';
+$lang['settings_ckeditor_config_desc']          = 'Eine Liste mit allen Einstellungen finden Sie in <a target="_blank" href="http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.config.html">der Dokumentation des CKEditor\'s.</a> (Seite nur auf englisch verfügbar).';
 
-$lang['settings_enable_registration']           = 'Enable user registration'; #translate
-$lang['settings_enable_registration_desc']      = 'Allow users to register in your site.'; #translate
+$lang['settings_enable_registration']           = 'Benutzer-Registrierung aktivieren';
+$lang['settings_enable_registration_desc']      = 'Erlaubt es Benutzer sich auf der Seite zu registrieren.';
 
-$lang['settings_cdn_domain']                    = 'CDN Domain'; #translate
-$lang['settings_cdn_domain_desc']               = 'CDN domains allow you to offload static content to various edge servers, like Amazon CloudFront or MaxCDN.'; #translate
+$lang['settings_cdn_domain']                    = 'CDN Domains';
+$lang['settings_cdn_domain_desc']               = 'CDN Domains erlauben es, statische Inhalt auf diverse Edge Server, wie Amazon CloudFront or MaxCDN, auszulagern.';
 
 #section titles
 $lang['settings_section_general']                = 'Allgemein';

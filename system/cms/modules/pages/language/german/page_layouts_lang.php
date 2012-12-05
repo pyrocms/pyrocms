@@ -23,7 +23,7 @@ $lang['page_layouts.delete_home_error']              = 'Das Standard Seitenlayou
 $lang['page_layouts.delete_success']                 = 'Seitenlayout #%s wurde gel&ouml;scht.';
 $lang['page_layouts.mass_delete_success']            = '%s Seitenlayouts wurden gel&ouml;scht.';
 $lang['page_layouts.delete_none_notice']             = 'Es wurde(n) kein(e) Seitenlayout(s) gel&ouml;scht.';
-$lang['page_layouts.already_exist_error']            = 'Es existiert bereits ein Seitenlayout mit dem Titel "%s".';# slug = title?
+$lang['page_layouts.already_exist_error']            = 'Es existiert bereits ein Seitenlayout mit dem Titel "%s".';
 
 $lang['page_layouts.variable_introduction']          = 'In dieser Eingabebox stehen zwei Variablen zur Auswahl';
 $lang['page_layouts.variable_title']                 = 'Enth&auml;lt den Titel der Seite.';
