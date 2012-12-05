@@ -2,12 +2,12 @@
 /**
  * Chinese Traditional translation.
  *
- * @author		-
+ * @author		Jack Sun (sunhsilu@gmail.com)
  * @package		PyroCMS
  * @subpackage 	Variables Module
  * @category	Modules
  * @link		http://pyrocms.com
- * @date		2011-03-13
+ * @date		2012-12-5
  * @version		1.1.0
  */
 
