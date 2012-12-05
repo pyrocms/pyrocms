@@ -33,9 +33,9 @@ $lang['cp_nav_addons']					= 'الإضافات';
 $lang['cp_nav_modules']					= 'الوحدات';
 $lang['cp_nav_users']					= 'المستخدمون';
 $lang['cp_nav_content']					= 'المحتوى';
-$lang['cp_nav_data']					= 'Data'; #translate
-$lang['cp_nav_structure']				= 'Structure'; #translate
-$lang['cp_nav_misc']					= 'Miscellaneous'; #translate
+$lang['cp_nav_data']					= 'البيانات';
+$lang['cp_nav_structure']				= 'البُنية';
+$lang['cp_nav_misc']					= 'مُتفرقات';
 
 $lang['cp_must_login']	 				= 'يجب أن تكون مسجّل الدخول كي تعرض هذه الصفحة.';
 $lang['cp_access_denied'] 				= 'ليست لديك الصلاحيات الكافية لعرض هذه الصفحة.';
