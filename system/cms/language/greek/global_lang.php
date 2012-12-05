@@ -35,7 +35,7 @@ $lang['global:operators:greater-than'] 	= 'Μεγαλύτερο από';
 $lang['global:duration:1-day']			= 'Μία μέρα';
 $lang['global:duration:1-week']			= 'Μία εβδομάδα';
 $lang['global:duration:2-weeks']		= 'Δύο εβδομάδες';
-$lang['global:duration:1-month']		= ''Ενα μήνα';
+$lang['global:duration:1-month']		= 'Ένα μήνα';
 $lang['global:duration:3-months']		= 'Τρείς Μήνες';
 $lang['global:duration:always']			= 'Πάντοτε';
 
