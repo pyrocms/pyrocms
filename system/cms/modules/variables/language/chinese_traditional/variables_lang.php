@@ -1,15 +1,4 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
-/**
- * Chinese Traditional translation.
- *
- * @author		-
- * @package		PyroCMS
- * @subpackage 	Variables Module
- * @category	Modules
- * @link		http://pyrocms.com
- * @date		2011-03-13
- * @version		1.1.0
- */
 
 // labels
 $lang['variables.syntax_label']				= '語法';

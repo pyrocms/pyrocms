@@ -19,6 +19,8 @@ class Module_Domains extends Module
 				'se' => 'Domäner',
 				'it' => 'Domini',
 				'ar' => 'أسماء النطاقات',
+				'tw' => '網域',
+				'cn' => '网域'
 			),
 			'description' => array(
 				'en' => 'Create domain aliases for your website.',
@@ -27,6 +29,8 @@ class Module_Domains extends Module
 				'se' => 'Skapa domänalias för din webbplats',
 				'it' => 'Crea alias per il tuo sito',
 				'ar' => 'أنشئ أسماء نطاقات بديلة لموقعك.',
+				'tw' => '為您的網站建立網域別名',
+				'cn' => '为您的网站建立网域别名'
 			),
 			'frontend' => false,
 			'backend' => true,

@@ -121,18 +121,18 @@ $config['supported_languages'] = array(
         'codes'        => array('rus', 'russian', 'ru_RU'),
         'ckeditor'    => null
     ),
-    'ch' => array(
+    'cn' => array(
         'name'        => '简体中文',
         'folder'    => 'chinese_simplified',
         'direction'    => 'ltr',
-        'codes'        => array('chs', 'chinese-simplified', 'zh_CN'),
+        'codes'        => array('cn', 'chinese-simplified', 'zh_CN'),
         'ckeditor'    => null
     ),
-    'zh' => array(
+    'tw' => array(
         'name'        => '繁體中文',
         'folder'    => 'chinese_traditional',
         'direction'    => 'ltr',
-        'codes'        => array('cht', 'chinese-traditional', 'zh_HK'),
+        'codes'        => array('tw', 'chinese-traditional', 'zh_TW'),
         'ckeditor'    => null
     ),
     'he' => array(
