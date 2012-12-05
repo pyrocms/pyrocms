@@ -1,4 +1,4 @@
-<?php
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // sidebar
 $lang['widgets.available_title']        = 'Διαθέσιμα widgets';

@@ -1,12 +1,9 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
-$lang['header']			= 'Negyedik lépés: Az adatbázis létrehozása';
-$lang['intro_text']		= 'Az alábbi mező kitöltése szükséges a telepítéshez, amit a "Telepít" feliratú gomb segítségével tudsz elindítani. Telepítés előtt bizonyosodj meg arról, hogy jó adatbázishoz csatlakozunk!';
+$lang['header']			= 'Negyedik lépés: Az adatbázis létrehozása'; #translate
+$lang['intro_text']		= 'Az alábbi mező kitöltése szükséges a telepítéshez, amit a "Telepít" feliratú gomb segítségével tudsz elindítani. Telepítés előtt bizonyosodj meg arról, hogy jó adatbázishoz csatlakozunk!'; #translate
 
-$lang['db_settings']		= 'Adatbázis beállítások';
-$lang['db_create']		= 'Adatbázis létrehozása';
-$lang['db_notice']		= 'Adott esetben neked kell létrehozni';
 $lang['default_user']		= 'Alapértelmezett felhasználó';
 $lang['database']		= 'Adatbázis';
 $lang['site_settings']		= 'Oldal beállítások';

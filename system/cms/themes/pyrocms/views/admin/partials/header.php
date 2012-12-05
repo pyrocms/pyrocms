@@ -6,8 +6,7 @@
 	
 	<div class="wrapper">
 		<div id="logo">
-			<?php //echo anchor('', $this->settings->site_name, 'target="_blank"'); ?>
-			<?php echo Asset::img('logo.png', ''); ?>
+			<?php echo anchor('', Asset::img('logo.png', 'view site'), 'target="_blank"'); ?>
 		</div>
 	
 		<nav id="primary">

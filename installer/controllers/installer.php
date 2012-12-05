@@ -103,6 +103,7 @@ class Installer extends CI_Controller
 
 		// Save this junk for later
 		$this->session->set_userdata(array(
+			'database' => $this->input->post('database'),
 			'hostname' => $this->input->post('hostname'),
 			'username' => $this->input->post('username'),
 			'password' => $this->input->post('password'),
@@ -112,6 +113,11 @@ class Installer extends CI_Controller
 
 		// Set rules
 		$this->form_validation->set_rules(array(
+			array(
+				'field' => 'database',
+				'label'	=> 'lang:database',
+				'rules'	=> 'trim|required|callback_validate_mysql_db_name'
+			),
 			array(
 				'field' => 'hostname',
 				'label'	=> 'lang:server',
@@ -349,11 +355,6 @@ class Installer extends CI_Controller
 		// Set rules
 		$this->form_validation->set_rules(array(
 			array(
-				'field' => 'database',
-				'label'	=> 'lang:database',
-				'rules'	=> 'trim|required|callback_validate_mysql_db_name'
-			),
-			array(
 				'field' => 'site_ref',
 				'label'	=> 'lang:site_ref',
 				'rules'	=> 'trim|required|alpha_dash'
@@ -405,7 +406,7 @@ class Installer extends CI_Controller
 				$this->session->set_flashdata('message', $this->lang->line('error_'.$install['code']) . $install['message']);
 
 				$final_data['page_output'] = $this->parser->parse('step_4', $this->lang->language, TRUE);
-				$this->load->view('global', $final_data);
+				exit($this->load->view('global', $final_data, true));
 			}
 
 			// Success!

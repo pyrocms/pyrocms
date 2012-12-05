@@ -7,6 +7,9 @@ $lang['intro_text']		=	'Prieš patikrinant duomenų bazę, privalome žinoti kur
 $lang['db_settings']	=	'Duomenų bazės nustatymai';
 $lang['db_text']		=	'Kad instaliavimo vedlys galetu patikrinti MySQL serverio versija, privalote irašyti adresą, vartotoją bei slaptažodi. Šie duomenys taip pat bus naudojami irašant duomenų bazę.';
 $lang['db_missing']		=	'The mysql database driver for PHP were not found, installation cannot continue. Ask your host or server administrator to install it.'; #translate
+$lang['db_create']		=	'Create Database'; #translate
+$lang['db_notice']		=	'You might need to do this yourself via your hosting control panel'; #translate
+$lang['database']		=	'MySQL Database'; #translate
 
 $lang['server']			=	'Serveris';
 $lang['username']		=	'Vartotojas';

@@ -16,6 +16,9 @@ $lang['intro_text']		=	'PyroCMS เป็นเรื่องง่ายมา
 
 $lang['db_settings']	=	'การตั้งค่าฐานข้อมูล';
 $lang['db_text']		=	'PyroCMS ต้องการฐานข้อมูล (MySQL) ในการจัดเก็บเนื้อหาและการตั้งค่า, อันดับแรกเราต้องตรวจสอบว่าสามารถเชื่อมต่อฐานข้อมูลได้หรือปล่าว ถ้าคุณไม่เข้าใจว่าเรากำลังถามอะไรโปรดติดต่อผู้ให้บริการเว็บโฮสติ้งหรือผู้ดูแลระบบเซิร์ฟเวอร์สำหรับรายละเอียดสำหรับรายละเอียดเพิ่มเติม';
+$lang['db_create']		=	'Create Database'; #translate
+$lang['db_notice']		=	'You might need to do this yourself via your hosting control panel'; #translate
+$lang['database']		=	'MySQL Database'; #translate
 
 $lang['server']			=	'MySQL Hostname';
 $lang['username']		=	'MySQL Username';

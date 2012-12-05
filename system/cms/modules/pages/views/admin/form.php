@@ -66,7 +66,7 @@
 				<?php if ($this->method == 'create'): ?>
 				<li>
 					<label for="navigation_group_id"><?php echo lang('pages:navigation_label');?></label>
-					<div class="input"><?php echo form_dropdown('navigation_group_id', array(lang('global:select-none')) + $navigation_groups, $page->navigation_group_id); ?></div>
+					<div class="input"><?php echo form_multiselect('navigation_group_id[]', array(lang('global:select-none')) + $navigation_groups, $page->navigation_group_id); ?></div>
 				</li>
 				<?php endif; ?>
 			</ul>
