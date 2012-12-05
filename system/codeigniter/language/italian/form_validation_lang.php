@@ -22,8 +22,14 @@ $lang['is_numeric']			= "Il campo %s deve contenere un numero.";
 $lang['integer']			= "Il campo %s deve contenere un intero.";
 $lang['regex_match']		= "Il campo %s non è nel formato corretto.";
 $lang['matches']			= "Il campo %s non è uguale al campo %s.";
-$lang['is_natural']			= "Il campo %s deve contenere un numero.";
-$lang['is_natural_no_zero']	= "Il campo %s deve contenere un numero più grande di zero.";
+$lang['is_unique'] 				= 'Il campo %s deve contenere un valore univoco.';
+$lang['is_natural']				= 'Il campo %s deve contenere solo numeri positivi.';
+$lang['is_natural_no_zero']		= 'Il campo %s deve contenere un numero maggiore di zero.';
+$lang['decimal']				= 'Il campo %s deve contenere un numero decimale.';
+$lang['less_than']				= 'Il campo %s deve contenere un numero minore di %s.';
+$lang['less_than_equal_to']		= 'Il campo %s deve contenere un numero minore o uguale a %s.';
+$lang['greater_than']			= 'Il campo %s deve contenere un numero maggiore di %s.';
+$lang['greater_than_equal_to']	= 'Il campo %s deve contenere un numero maggiore o uguale a %s.';
 
 
 /* End of file form_validation_lang.php */

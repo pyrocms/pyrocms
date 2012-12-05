@@ -32,6 +32,13 @@ $lang['global:operators:not-equal'] 	= 'Όχι ίσο με';
 $lang['global:operators:less-than'] 	= 'Μικρότερο από';
 $lang['global:operators:greater-than'] 	= 'Μεγαλύτερο από';
 
+$lang['global:duration:1-day']			= 'Μία μέρα';
+$lang['global:duration:1-week']			= 'Μία εβδομάδα';
+$lang['global:duration:2-weeks']		= 'Δύο εβδομάδες';
+$lang['global:duration:1-month']		= ''Ενα μήνα';
+$lang['global:duration:3-months']		= 'Τρείς Μήνες';
+$lang['global:duration:always']			= 'Πάντοτε';
+
 $lang['navigation_headline'] 		= 'Πλοήγηση';
 $lang['breadcrumb_base_label'] 		= 'Αρχική';
 
@@ -96,5 +103,10 @@ $lang['global:keywords']		= 'Λέξεις Κλειδιά';
 $lang['global:or']						= 'ή';
 $lang['global:and']						= 'και';
 $lang['global:at']						= 'στο';
+
+$lang['global:widgets']					= 'Widgets';
+$lang['global:fieldtypes']				= 'Τύποι Πεδίων';
+$lang['global:plugins']					= 'Πρόσθετα';
+$lang['global:plugin']					= 'Πρόσθετο';
 
 /* End of file main_lang.php */

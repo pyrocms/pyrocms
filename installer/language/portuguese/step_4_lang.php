@@ -1,12 +1,9 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
-$lang['header']			=	'4ª Etapa: Criação da Base de Dados';
-$lang['intro_text']		=	'Complete o formulário abaixo e clique no botão "Instalar" para instalar o PyroCMS. Certifique-se que está a instar o PyroCMS na base de dados correta, pois todos os dados existentes nela serão perdidos!';
+$lang['header']			=	'4ª Etapa: Criação da Base de Dados'; #translate
+$lang['intro_text']		=	'Complete o formulário abaixo e clique no botão "Instalar" para instalar o PyroCMS. Certifique-se que está a instar o PyroCMS na base de dados correta, pois todos os dados existentes nela serão perdidos!'; #translate
 
-$lang['db_settings']	=	'Configuração da base de dados';
-$lang['db_create']		=	'Criar base de dados';
-$lang['db_notice']		=	'Talvez precise de fazer isto manualmente';
 $lang['default_user']	=	'Utilizador padrão do PyroCMS';
 $lang['database']		=	'Base de dados';
 $lang['site_settings']	= 	'Configurações do site';

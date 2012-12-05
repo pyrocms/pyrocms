@@ -45,6 +45,7 @@ $lang['files:search_message']				= 'اكتب واضغط إدخال';
 $lang['files:search']						= 'ابحث';
 $lang['files:synchronize']					= 'مزامنة';
 $lang['files:uploader']						= 'اسحب الملفات إلى هنا<br />أو<br />اضغط لاختيار الملفات';
+$lang['files:replace_file']					= 'Replace file'; #translate
 
 // Context Menu
 $lang['files:refresh']						= 'إعادة التحميل';
@@ -52,6 +53,7 @@ $lang['files:open']							= 'فتح';
 $lang['files:new_folder']					= 'مجلد جديد';
 $lang['files:upload']						= 'رفع';
 $lang['files:rename']						= 'تغيير الاسم';
+$lang['files:replace']	  					= 'Replace'; # translate
 $lang['files:delete']						= 'حذف';
 $lang['files:edit']							= 'تعديل';
 $lang['files:details']						= 'التفاصيل';
@@ -97,6 +99,7 @@ $lang['files:file_moved']					= 'تم نقل "%s" بنجاح';
 $lang['files:exceeds_server_setting']		= 'لا يحتمل الخادم ملفاً بهذا الحجم';
 $lang['files:exceeds_allowed']				= 'حجم الملف أكبر من أقصى حد مسموح به';
 $lang['files:file_type_not_allowed']		= 'نوع الملف هذا غير مسموح';
+$lang['files:replace_warning']				= 'Warning: Do not replace a file with a file of a different type (e.g. .jpg with .png)';
 $lang['files:type_a']						= 'صوتي';
 $lang['files:type_v']						= 'مرئي';
 $lang['files:type_d']						= 'مستند';

@@ -8,29 +8,8 @@
 
 <?php echo form_open(uri_string(), 'id="install_frm"'); ?>
 	
-	<section class="title">
-		<h3><?php echo lang('db_settings'); ?></h3>
-	</section>
-	
-	<section class="item">
+	<input type="hidden" id="site_ref" name="site_ref" value="default" />
 
-	<div class="input">
-		<label for="database"><?php echo lang('database'); ?></label>
-		<input type="text" id="database" class="input_text" name="database" value="<?php echo set_value('database'); ?>" />
-	</div>
-
-	<div class="input">
-		<label for="create_db"><?php echo lang('db_create'); ?></label><br>
-		<input type="checkbox" name="create_db" value="true" id="create_db" <?php if($this->input->post('create_db') == 'true') { echo ' checked="checked"'; } ?> />
-		<small>(<?php echo lang('db_notice'); ?>)</small>
-	</div>
-
-	<br>
-
-		<input type="hidden" id="site_ref" name="site_ref" value="default" />
-
-	</section>
-	
 	<section class="title">
 		<h3><?php echo lang('default_user'); ?></h3>
 	</section>
