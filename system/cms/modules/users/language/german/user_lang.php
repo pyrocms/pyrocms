@@ -1,12 +1,12 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-$lang['user_add_field']                        	= 'Add User Profile Field'; #translate
-$lang['user_profile_delete_success']           	= 'User profile field deleted successfully'; #translate
-$lang['user_profile_delete_failure']            = 'There was a problem with deleting your user profile field'; #translate
-$lang['profile_user_basic_data_label']  		= 'Basic Data'; #translate
-$lang['profile_company']         	  			= 'Company'; #translate
-$lang['profile_updated_on']           			= 'Updated On'; #translate
-$lang['user_profile_fields_label']	 		 	= 'Profile Fields'; #translate`
+$lang['user_add_field']                        	= 'Benutzerprofil-Feld hinzufügen';
+$lang['user_profile_delete_success']           	= 'Das Benutzerprofil-Feld wurde gelöscht';
+$lang['user_profile_delete_failure']            = 'Das Benutzerprofil-Feld konnte nicht gelöscht werden';
+$lang['profile_user_basic_data_label']  		= 'Basisangaben';
+$lang['profile_company']         	  			= 'Firma';
+$lang['profile_updated_on']           			= 'Aktualisiert am';
+$lang['user_profile_fields_label']	 		 	= 'Profil Felder';
 
 $lang['user_register_header']                   = 'Registrieren';
 $lang['user_register_step1']                    = '<strong>1 Schritt:</strong> Registrieren';
@@ -44,8 +44,8 @@ $lang['indicates_required']                     = 'Kennzeichnet Pflichtfelder';
 
 // -- Registration / Activation / Reset Password ----------------------------------------------------------
 
-$lang['user_send_activation_email']            = 'Send Activation Email'; #translate
-$lang['user_do_not_activate']                  = 'Inactive'; #translate
+$lang['user_send_activation_email']            = 'Aktivierungs-E-Mail';
+$lang['user_do_not_activate']                  = 'Inaktiv';
 $lang['user_register_title']                    = 'Registrieren';
 $lang['user_activate_account_title']            = 'Benutzer aktivieren';
 $lang['user_activate_label']                    = 'Aktivieren';
@@ -77,7 +77,7 @@ $lang['user_reset_password_link']               = 'Passwort vergessen?';
 
 $lang['user_activation_code_sent_notice']       = 'Sie haben eine Email mit ihren Aktivierungscode erhalten.';
 $lang['user_activation_by_admin_notice']        = 'Ihre Registrierung muss noch von einem Administrator bestätigt werden.';
-$lang['user_registration_disabled']            = 'Sorry, but the user registration is disabled.'; #translate
+$lang['user_registration_disabled']            = 'Die Registrierung für Benutzer wurde deaktiviert.';
 
 // -- Settings ---------------------------------------------------------------------------------------------
 
