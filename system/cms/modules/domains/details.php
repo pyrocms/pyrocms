@@ -17,14 +17,16 @@ class Module_Domains extends Module
 				'el' => 'Domains',
 				'fr' => 'Domaines',
 				'se' => 'Domäner',
-				'zh' => '網域',
+				'tw' => '網域',
+				'cn' => '网域'
 			),
 			'description' => array(
 				'en' => 'Create domain aliases for your website.',
 				'el' => 'Διαχειριστείτε συνώνυμα domain για τον ιστότοπό σας.',
 				'fr' => 'Créer des alias de domaine pour votre site web',
 				'se' => 'Skapa domänalias för din webbplats',
-				'zh' => '為您的網站建立網域別名',
+				'tw' => '為您的網站建立網域別名',
+				'cn' => '为您的网站建立网域别名'
 			),
 			'frontend' => false,
 			'backend' => true,

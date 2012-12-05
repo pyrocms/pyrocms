@@ -28,7 +28,8 @@ class Module_Streams_core extends Module
 				'fr' => 'Noyau Flux',
 				'el' => 'Πυρήνας Ροών',
 				'se' => 'Streams grundmodul',
-				'zh' => 'Streams 核心'
+				'tw' => 'Streams 核心',
+				'cn' => 'Streams 核心'
 			),
 			'description' => array(
 				'en' => 'Core data module for streams.',
@@ -36,7 +37,8 @@ class Module_Streams_core extends Module
 				'fr' => 'Noyau de données pour les Flux.',
 				'el' => 'Προγραμματιστικός πυρήνας για την λειτουργία ροών δεδομένων.',
 				'se' => 'Streams grundmodul för enklare hantering av data.',
-				'zh' => 'Streams 核心資料模組。'
+				'tw' => 'Streams 核心資料模組。',
+				'cn' => 'Streams 核心资料模组。'
 			),
 			'frontend' => false,
 			'backend' => false,
