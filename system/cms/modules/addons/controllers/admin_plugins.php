@@ -1,26 +1,20 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
  * Admin controller for the widgets module.
- * 
- * @package 	PyroCMS\Core\Modules\Addons\Controllers
- * @author      PyroCMS Dev Team
- * @copyright   Copyright (c) 2012, PyroCMS LLC
  *
+ * @package   PyroCMS\Core\Modules\Addons\Controllers
+ * @author    PyroCMS Dev Team
+ * @copyright Copyright (c) 2012, PyroCMS LLC
  */
-class Admin_plugins extends Admin_Controller {
+class Admin_plugins extends Admin_Controller
+{
 
-	/**
-	 * The current active section
-	 * @access protected
-	 * @var string
-	 */
+	/** @var string The current active section */
 	protected $section = 'instances';
 
 	/**
 	 * Constructor method
-	 * 
-	 * @return void
 	 */
 	public function __construct()
 	{
@@ -29,8 +23,6 @@ class Admin_plugins extends Admin_Controller {
 
 	/**
 	 * Index method, lists all plugins.
-	 * 
-	 * @return void
 	 */
 	public function index()
 	{
@@ -67,35 +59,37 @@ class Admin_plugins extends Admin_Controller {
 		// Get our files
 		$files = directory_map($full_dir, 1);
 
-		if( ! $files) continue;
+		if (!$files)
+		{
+			return array();
+		}
 
-		$count = 0;
-
+		$plugins = array();
 		// Go through and load up some info about our plugin files.
 		foreach ($files as $file)
 		{
 			$info = pathinfo($full_dir.$file);
-		
+
 			if ($info['extension'] == 'php')
 			{
 				include $full_dir.$file;
 
 				$class_name = 'Plugin_'.ucfirst($info['filename']);
-			
+
 				if (class_exists($class_name))
 				{
 					$plugin = new $class_name();
-
-					$plugins[$count]['name'] = (isset($plugin->name[CURRENT_LANGUAGE])) ? $plugin->name[CURRENT_LANGUAGE] : ucfirst($info['filename']);
-					$plugins[$count]['description'] = (isset($plugin->description[CURRENT_LANGUAGE])) ? $plugin->description[CURRENT_LANGUAGE] : null;
-					$plugins[$count]['version'] = (isset($plugin->version)) ? $plugin->version : null;
+					array_push($plugins, array(
+						'name' => (isset($plugin->name[CURRENT_LANGUAGE])) ? $plugin->name[CURRENT_LANGUAGE] : (isset($plugin->name[CURRENT_LANGUAGE])) ? $plugin->name[CURRENT_LANGUAGE] : ((isset($plugin->name['en'])) ? $plugin->name['en'] : ucfirst($info['filename'])),
+						'description' => (isset($plugin->description[CURRENT_LANGUAGE])) ? $plugin->description[CURRENT_LANGUAGE] : null,
+						'version' => (isset($plugin->version)) ? $plugin->version : null,
+					));
 
 				}
 			}
 
-			$count++;
 		}
-	
+
 		return $plugins;
 	}
 

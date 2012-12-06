@@ -1,24 +1,27 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
  * Helper Plugin
  *
  * Various helper plugins.
  *
- * @author		PyroCMS Dev Team
- * @package		PyroCMS\Core\Plugins
+ * @author  PyroCMS Dev Team
+ * @package PyroCMS\Core\Plugins
  */
 class Plugin_Helper extends Plugin
 {
-	public $description = array(
-		'en'	=> 'Access helper functions and other helpful items.'
+	public $version = '1.0';
+
+	public $name = array(
+		'en' => 'Helper',
 	);
 
-	/**
-	 * A flag for the counter functions for loops.
-	 *
-	 * @var boolean
-	 */
+	public $description = array(
+		'en' => 'Access helper functions and other helpful items.',
+		'el' => 'Πρόσβαση σε helper functions και άλλα χρήσιμα.',
+	);
+
+	/** @var boolean A flag for the counter functions for loops. */
 	static $_counter_increment = true;
 
 	/**
@@ -27,13 +30,15 @@ class Plugin_Helper extends Plugin
 	 * Loads a theme partial
 	 *
 	 * Usage:
-	 * {{ helper:lang line="foo" }}
+	 *
+	 *     {{ helper:lang line="foo" }}
 	 *
 	 * @return string The language string
 	 */
 	public function lang()
 	{
 		$line = $this->attribute('line');
+
 		return $this->lang->line($line);
 	}
 
@@ -43,13 +48,15 @@ class Plugin_Helper extends Plugin
 	 * Displays a config item
 	 *
 	 * Usage:
-	 * {{ helper:config item="foo" }}
+	 *
+	 *     {{ helper:config item="foo" }}
 	 *
 	 * @return string The configuration key's value
 	 */
 	public function config()
 	{
 		$item = $this->attribute('item');
+
 		return config_item($item);
 	}
 
@@ -57,11 +64,17 @@ class Plugin_Helper extends Plugin
 	 * Date
 	 *
 	 * Displays the current date or formats a timestamp that is passed to it.
-	 * 
+	 *
 	 * Usage:
-	 * {{ helper:date format="Y" }} Outputs: 2011
-	 * {{ helper:date format="Y" timestamp="2524608000" }} Outputs: 2050
-	 * 
+	 *
+	 *     {{ helper:date format="Y" }}
+	 *
+	 * Outputs: 2011
+	 *
+	 *     {{ helper:date format="Y" timestamp="2524608000" }}
+	 *
+	 * Outputs: 2050
+	 *
 	 * @return string The date and time formatted appropriately.
 	 */
 	public function date()
@@ -76,11 +89,12 @@ class Plugin_Helper extends Plugin
 
 	/**
 	 * Gravatar
-	 * 
+	 *
 	 * Provides for showing Gravatar images.
-	 * 
+	 *
 	 * Usage:
-	 * {{ helper:gravatar email="some-guy@example.com" size="50" rating="g" url-only="true" }}
+	 *
+	 *     {{ helper:gravatar email="some-guy@example.com" size="50" rating="g" url-only="true" }}
 	 *
 	 * @return string An image element or the URL to the gravatar.
 	 */
@@ -89,19 +103,23 @@ class Plugin_Helper extends Plugin
 		$email = $this->attribute('email', '');
 		$size = $this->attribute('size', '50');
 		$rating = $this->attribute('rating', 'g');
-		
-		$url_only = (bool) in_array($this->attribute('url-only', 'false'), array('1', 'y', 'yes', 'true'));
+
+		$url_only = (bool)in_array($this->attribute('url-only', 'false'), array('1', 'y', 'yes', 'true'));
 
 		return gravatar($email, $size, $rating, $url_only);
 	}
 
 	/**
 	 * Replace
-	 * 
+	 *
 	 * Replaces whitespace in the content.
-	 * 
+	 *
 	 * Usage:
-	 * {{ helper:replace replace="   " }} Outputs all whitespace replaced by three spaces.
+	 *
+	 *     {{ helper:replace replace="   " }}
+	 *
+	 * Outputs:
+	 * all whitespace replaced by three spaces.
 	 *
 	 * @return string The final content string.
 	 */
@@ -113,37 +131,42 @@ class Plugin_Helper extends Plugin
 	/**
 	 * Add counting to tag loops
 	 *
-	 * @example 
+	 * @example
 	 * Usage:
-	 * {{ blog:posts }}
-	 * 		{{ helper:count }} -- {{title}}
-	 * {{ /blog:posts }}
+	 *
+	 *     {{ blog:posts }}
+	 *         {{ helper:count }} -- {{title}}
+	 *     {{ /blog:posts }}
 	 *
 	 * Outputs:
-	 * 1 -- This is an example title
-	 * 2 -- This is another title
+	 *
+	 *     1 -- This is an example title
+	 *     2 -- This is another title
 	 *
 	 * @example
 	 * Usage:
-	 * {{ blog:posts }}
-	 * 		{{ helper:count mode="subtract" start="10" }} -- {{title}}
-	 * {{ /blog:posts }}
+	 *
+	 *     {{ blog:posts }}
+	 *         {{ helper:count mode="subtract" start="10" }} -- {{title}}
+	 *     {{ /blog:posts }}
 	 *
 	 * Outputs:
-	 * 10 -- This is an example title
-	 * 9  -- This is another title
-	 * 
+	 *
+	 *     10 -- This is an example title
+	 *     9  -- This is another title
+	 *
 	 * You can add a second counter to a page by setting a unique identifier:
-	 * {{ files:listing folder="foo" }}
-	 * 		{{ helper:count identifier="files" return="false" }}
-	 * 		{{name}} -- {{slug}}
-	 * 	{{ /files:listing }}
-	 * 	You have {{ helper:show_count identifier="files" }} files.
+	 *
+	 *     {{ files:listing folder="foo" }}
+	 *         {{ helper:count identifier="files" return="false" }}
+	 *         {{name}} -- {{slug}}
+	 *     {{ /files:listing }}
+	 *     You have {{ helper:show_count identifier="files" }} files.
 	 */
 	public function count()
 	{
 		static $count = array();
-		
+
 		$identifier = $this->attribute('identifier', 'default');
 
 		// Use a default of 1 if they haven't specified one and it's the first iteration
@@ -157,26 +180,27 @@ class Plugin_Helper extends Plugin
 			// count up unless they specify to "subtract"
 			($this->attribute('mode') == 'subtract') ? $count[$identifier]-- : $count[$identifier]++;
 		}
-		
+
 		// set this back to continue counting again next time
 		self::$_counter_increment = true;
-		
+
 		return (strtolower($this->attribute('return')) === 'false') ? '' : $count[$identifier];
 	}
 
 	/**
 	 * Get the total count of the set.
-	 * 
-	 * Not to be used without a {{ helper:count }}
-	 * 
-	 * Usage:
-	 * {{ helper:show_count identifier="files" }}
 	 *
-	 * 	Outputs:
-	 * 	Test -- test
-	 * 	Second -- second
-	 * 	You have 2 files.
-	 * 
+	 * Not to be used without a {{ helper:count }}
+	 *
+	 * Usage:
+	 *
+	 *     {{ helper:show_count identifier="files" }}
+	 *
+	 * Outputs:
+	 *     Test -- test
+	 *     Second -- second
+	 *     You have 2 files.
+	 *
 	 * @return int The total set count.
 	 */
 	public function show_count()
@@ -189,10 +213,11 @@ class Plugin_Helper extends Plugin
 	/**
 	 * Execute whitelisted php functions
 	 *
-	 * {{ helper:foo parameter1="bar" parameter2="bar" }}
-	 * NOTE: the attribute name is irrelevant as only 
-	 * the values are concatenated and passed as arguments
+	 * Usage:
 	 *
+	 *     {{ helper:foo parameter1="bar" parameter2="bar" }}
+	 *
+	 * NOTE: the attribute name is irrelevant as only the values are concatenated and passed as arguments.
 	 */
 	public function __call($name, $args)
 	{
