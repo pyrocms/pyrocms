@@ -363,6 +363,7 @@ class Streams_fields extends CI_Driver {
 			$return[$count]['instructions']			= $assign->instructions;
 			$return[$count]['field_name']			= $this->CI->fields->translate_label($assign->field_name);
 			$return[$count]['field_unprocessed']	= $assign->field_name;
+			$return[$count]['field_type']			= $assign->field_type;
 			$return[$count]['field_slug']			= $assign->field_slug;
 			
 			$return[$count]['required']				= ($assign->is_required == 'yes') ? true : false;

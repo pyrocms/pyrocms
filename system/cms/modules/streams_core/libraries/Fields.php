@@ -290,6 +290,8 @@ class Fields
 	 */
 	public function run_field_events($stream_fields, $skips = array())
 	{
+		if ( ! $stream_fields or ! is_array($stream_fields)) return array();
+
 		foreach ($stream_fields as $field)
 		{
 			if ( ! in_array($field->field_slug, $skips))
@@ -467,6 +469,8 @@ class Fields
 	 */	
 	public function set_rules($stream_fields, $method, $skips = array(), $return_array = false, $row_id = null)
 	{
+		if ( ! $stream_fields or ! is_array($stream_fields)) return array();
+
 		$validation_rules = array();
 
 		// -------------------------------------

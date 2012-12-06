@@ -214,7 +214,7 @@ class Streams_m extends MY_Model {
 	 * @param	string - stream prefix
 	 * @param	string - stream namespace
 	 * @param	[string - about the stream]
-	 * @return	bool
+	 * @return	false or stream id
 	 */
 	public function create_new_stream($stream_name, $stream_slug, $prefix, $namespace, $about = null)
 	{	
@@ -250,7 +250,14 @@ class Streams_m extends MY_Model {
 		// with data we know will be there.	
 		$insert_data['view_options']		= serialize(array('id', 'created'));
 		
-		return $this->db->insert($this->table, $insert_data);
+		if ($this->db->insert($this->table, $insert_data))
+		{
+			return $this->db->insert_id();
+		}
+		else
+		{
+			return false;
+		}
 	}
 
 	// --------------------------------------------------------------------------
@@ -816,6 +823,22 @@ class Streams_m extends MY_Model {
 		{
 			return $this->db->insert_id();
 		}
+	}
+
+    // --------------------------------------------------------------------------
+
+	/**
+	 * Check to see if the table name needed for a stream is
+	 * actually available.
+	 *
+	 * @access 	public
+	 * @param 	string
+	 * @param 	string
+	 * @param 	string
+	 */
+	public function check_table_exists($stream_slug, $prefix)
+	{
+		return $this->db->table_exists($prefix.$stream_slug);
 	}
 
 	// --------------------------------------------------------------------------
