@@ -30,6 +30,8 @@ class Pages extends Public_Controller
 		}
 	}
 
+    // --------------------------------------------------------------------------
+
 	/**
 	 * Catch all requests to this page in one mega-function.
 	 *
@@ -71,6 +73,8 @@ class Pages extends Public_Controller
 			? $this->_rss($url_segments)
 			: $this->_page($url_segments);
 	}
+
+    // --------------------------------------------------------------------------
 
 	/**
 	 * Page method
@@ -186,6 +190,29 @@ class Pages extends Public_Controller
 		// This is our basic page data ({{ page:title }}, etc.)
 		$page_data->page = $page;
 
+		// ---------------------------------
+		// Legacy Page Chunks Logic
+		// ---------------------------------
+		// This is here so upgrades will not
+		// break entire sites. We can get rid
+		// of this in a newer version.
+		// ---------------------------------
+
+		$page->chunks = $this->page_m->get_chunks($page->id);
+
+		$chunk_html = '';
+		foreach ($page->chunks as $chunk)
+		{
+			$chunk_html .= '<section id="'.$chunk->slug.'" class="page-chunk '.$chunk->class.'">'.
+				'<div class="page-chunk-pad">'.
+				(($chunk->type == 'markdown') ? $chunk->parsed : $chunk->body).
+				'</div>'.
+				'</section>'.PHP_EOL;
+		}
+		$page_data->page->body = $chunk_html;
+
+		// ---------------------------------
+
 		// parse the layout metadata fields so they can be populated with stream data 
 		// (they can hold tags). Metadata explicitly set in a page trumps layout metadata
 		$meta_title = ($page->meta_title ? $page->meta_title : $page->layout->meta_title);
@@ -279,6 +306,8 @@ class Pages extends Public_Controller
 
 		$this->template->build('page', $page_data, false, false);
 	}
+
+    // --------------------------------------------------------------------------
 
 	/**
 	 * RSS method

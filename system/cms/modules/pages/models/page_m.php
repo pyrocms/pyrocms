@@ -330,6 +330,21 @@ class Page_m extends MY_Model
     // --------------------------------------------------------------------------
 
 	/**
+	 * Return page chunks
+	 *
+	 * @return array An array containing all chunks for a page
+	 */
+	public function get_chunks($id)
+	{
+		return $this->db
+			->order_by('sort')
+			->get_where('page_chunks', array('page_id' => $id))
+			->result();
+	}
+
+    // --------------------------------------------------------------------------
+
+	/**
 	 * Get the child IDs
 	 *
 	 * @param int $id The ID of the page?
