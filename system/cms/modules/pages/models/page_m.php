@@ -28,21 +28,6 @@ class Page_m extends MY_Model
 			'rules'	=> 'trim|required|alpha_dot_dash|max_length[250]|callback__check_slug'
 		),
 		array(
-			'field' => 'type_id',
-			'label'	=> 'lang:pages:type_id_label',
-			'rules'	=> 'trim|numeric|required'
-		),
-		array(
-			'field' => 'stream_slug',
-			'label'	=> 'stream slug',
-			'rules'	=> 'trim'
-		),
-		array(
-			'field' => 'stream_entry_id',
-			'label'	=> 'stream entry id',
-			'rules'	=> 'trim|numeric'
-		),
-		array(
 			'field'	=> 'css',
 			'label'	=> 'lang:pages:css_label',
 			'rules'	=> 'trim'
@@ -103,6 +88,13 @@ class Page_m extends MY_Model
 			'rules' => 'numeric'
 		)
 	);
+
+    // --------------------------------------------------------------------------
+
+	// For streams
+	public $compiled_validate = array();
+
+    // --------------------------------------------------------------------------
 
 	/**
 	 * Get a page by its URI
@@ -167,6 +159,8 @@ class Page_m extends MY_Model
 		return $page;
 	}
 
+    // --------------------------------------------------------------------------
+
 	/**
 	 * Get a page from the database.
 	 *
@@ -180,19 +174,50 @@ class Page_m extends MY_Model
 	public function get($id, $get_data = true)
 	{
 		$page = $this->db
-			->select('pages.*, page_types.stream_slug')
-			->join('page_types', 'page_types.id = pages.type_id')
+			->select('pages.*, page_types.id as page_type_id, page_types.stream_id, page_types.js as js, page_types.css, page_types.body, page_types.save_as_files, page_types.slug as page_type_slug')
+			->join('page_types', 'page_types.id = pages.type_id', 'left')
 			->where('pages.id', $id)
 			->get($this->_table)
 			->row();
 
-		if ($page and $get_data)
+		$page->stream_entry_found = false;
+
+		if ($page and $page->type_id and $get_data)
 		{
-			return (object) array_merge((array) $page, (array) $this->streams->entries->get_entry($page->stream_entry_id, $page->stream_slug, 'pages'));
+			// Get our page type files in case we are grabbing
+			// the body/html/css from the filesystem. 
+			$this->page_type_m->get_page_type_files_for_page($page);
+
+			$this->load->driver('Streams');
+			$stream = $this->streams_m->get_stream($page->stream_id);
+
+			$params = array(
+				'stream' 	=> $stream->stream_slug,
+				'namespace' => $stream->stream_namespace,
+				'where' 	=> "`id`='".$page->entry_id."'",
+				'limit' 	=> 1
+			);
+
+			$ret = $this->streams->entries->get_entries($params);
+
+			if (isset($ret['entries'][0]))
+			{
+				// For no collisions
+				$ret['entries'][0]['entry_id'] = $ret['entries'][0]['id'];
+				unset($ret['entries'][0]['id']);
+
+				$page->stream_entry_found = true;
+
+				return (object) array_merge((array) $page, (array) $ret['entries'][0]);
+			}
+
+			$this->page_type_m->get_page_type_files_for_page($page);
 		}
 
 		return $page;
 	}
+
+    // --------------------------------------------------------------------------
 
 	/**
 	 * Get the home page
@@ -206,6 +231,8 @@ class Page_m extends MY_Model
 			->get('pages')
 			->row();
 	}
+
+    // --------------------------------------------------------------------------
 
 	/**
 	 * Build a multi-array of parent > children.
@@ -247,6 +274,8 @@ class Page_m extends MY_Model
 		return $page_array;
 	}
 
+    // --------------------------------------------------------------------------
+
 	/**
 	 * Return page data
 	 *
@@ -256,6 +285,8 @@ class Page_m extends MY_Model
 	{
 		return $this->streams->entries->get_entry($stream_entry_id, $stream_slug, 'pages');
 	}
+
+    // --------------------------------------------------------------------------
 
 	/**
 	 * Set the parent > child relations and child order
@@ -282,6 +313,7 @@ class Page_m extends MY_Model
 		}
 	}
 
+    // --------------------------------------------------------------------------
 
 	/**
 	 * Does the page have children?
@@ -294,6 +326,8 @@ class Page_m extends MY_Model
 	{
 		return parent::count_by(array('parent_id' => $parent_id)) > 0;
 	}
+
+    // --------------------------------------------------------------------------
 
 	/**
 	 * Get the child IDs
@@ -324,6 +358,8 @@ class Page_m extends MY_Model
 		return $id_array;
 	}
 
+    // --------------------------------------------------------------------------
+
 	/**
 	 * Build a lookup
 	 *
@@ -352,6 +388,7 @@ class Page_m extends MY_Model
 		return $this->update($id, array('uri' => implode('/', $segments)), true);
 	}
 
+    // --------------------------------------------------------------------------
 
 	/**
 	 * Reindex child items
@@ -366,6 +403,8 @@ class Page_m extends MY_Model
 			$this->build_lookup($descendant);
 		}
 	}
+
+    // --------------------------------------------------------------------------
 
 	/**
 	 * Update lookup.
@@ -389,15 +428,17 @@ class Page_m extends MY_Model
 		}
 	}
 
+    // --------------------------------------------------------------------------
+
 	/**
 	 * Create a new page
 	 *
 	 * @param array $input The page data to insert.
-	 * @param array $chunks The page chunks to insert.
+	 * @param obj   $stream The stream tied to this page.
 	 *
 	 * @return bool `true` on success, `false` on failure.
 	 */
-	public function create($input)
+	public function create($input, $stream = false)
 	{
 		$this->db->trans_start();
 
@@ -418,7 +459,7 @@ class Page_m extends MY_Model
 			'css'				=> isset($input['css']) ? $input['css'] : null,
 			'js'				=> isset($input['js']) ? $input['js'] : null,
 			'meta_title'    	=> isset($input['meta_title']) ? $input['meta_title'] : '',
-			'meta_keywords' 	=> isset($input['meta_keywords']) ? Keywords::process($input['meta_keywords']) : '',
+			'meta_keywords' 	=> isset($input['meta_keywords']) ? $this->keywords->process($input['meta_keywords']) : '',
 			'meta_description' 	=> isset($input['meta_description']) ? $input['meta_description'] : '',
 			'rss_enabled'		=> ! empty($input['rss_enabled']),
 			'comments_enabled'	=> ! empty($input['comments_enabled']),
@@ -447,11 +488,34 @@ class Page_m extends MY_Model
 			));
 		}
 
+		// Add the stream data.
+		if ($stream)
+		{
+			$this->load->driver('Streams');
+
+			// Insert the stream using the streams driver. Our only extra field is the page_id
+			// which links this particular entry to our page.
+			if ($entry_id = $this->streams->entries->insert_entry($input, $stream->stream_slug, $stream->stream_namespace, array()))
+			{
+				// Update with our new entry id
+				if ( ! $this->db->limit(1)->where('id', $id)->update($this->_table, array('entry_id' => $entry_id)))
+				{
+					return false;
+				}
+			}
+			else
+			{
+				// Something went wrong. Abort!
+				return false;
+			}
+		}
+
 		$this->db->trans_complete();
 
 		return ($this->db->trans_status() === false) ? false : $id;
 	}
 
+    // --------------------------------------------------------------------------
 
 	/**
 	 * Update a Page
@@ -461,7 +525,7 @@ class Page_m extends MY_Model
 	 * @param array $input The data to update
 	 * @return void
 	*/
-	public function edit($id, $input)
+	public function edit($id, $input, $stream = null, $entry_id = null)
 	{
 		$this->db->trans_start();
 
@@ -498,11 +562,22 @@ class Page_m extends MY_Model
 
 		$this->build_lookup($id);
 
+		// Add the stream data.
+		if ($stream and $entry_id)
+		{
+			$this->load->driver('Streams');
+
+			// Insert the stream using the streams driver. Our only extra field is the page_id
+			// which links this particular entry to our page.
+			$this->streams->entries->update_entry($entry_id, $input, $stream->stream_slug, $stream->stream_namespace);
+		}
+
 		$this->db->trans_complete();
 
 		return (bool) $this->db->trans_status();
 	}
 
+    // --------------------------------------------------------------------------
 
 	/**
 	 * Delete a Page
@@ -520,12 +595,23 @@ class Page_m extends MY_Model
 		foreach ($ids as $id)
 		{
 			$page = $this->get($id);
-			$this->streams->streams->delete_entry($page->stream_entry_id, $page->stream_slug, 'pages');
+
+			// Get the stream and delete the entry. Yeah this is a lot of queries
+			// but hey we're deleting stuff. Get off my back!
+			if ($page->stream_id)
+			{
+				if ($stream = $this->streams_m->get_stream($page->stream_id))
+				{
+					$this->streams->entries->delete_entry($page->entry_id, $stream->stream_slug, $stream->stream_namespace);
+				}
+			}
 		}
 
+		// Delete the page.
 		$this->db->where_in('id', $ids);
 		$this->db->delete('pages');
 
+		// Our navigation links should go as well.
 		$this->db->where_in('page_id', $ids);
 		$this->db->delete('navigation_links');	
 
@@ -533,6 +619,8 @@ class Page_m extends MY_Model
 
 		return ($this->db->trans_status() !== false) ? $ids : false;
 	}
+
+    // --------------------------------------------------------------------------
 
 	/**
 	 * Check Slug for Uniqueness
@@ -546,13 +634,15 @@ class Page_m extends MY_Model
 	 * @return bool
 	*/
 	public function _unique_slug($slug, $parent_id, $id = 0)
-	{
-		return (int) parent::count_by(array(
+	{		
+		return (bool) parent::count_by(array(
 			'id !=' => $id,
 			'slug' => $slug,
 			'parent_id' => $parent_id
 		)) > 0;
 	}
+
+    // --------------------------------------------------------------------------
 
 	/**
 	 * Callback to check uniqueness of slug + parent
@@ -583,5 +673,7 @@ class Page_m extends MY_Model
 			$this->form_validation->set_message('_check_slug',sprintf(lang('pages_page_already_exist_error'),$url, $parent_folder));
 			return false;
 		}
+
+		return true;
 	}
 }

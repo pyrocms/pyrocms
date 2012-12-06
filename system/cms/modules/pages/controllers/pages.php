@@ -181,12 +181,10 @@ class Pages extends Public_Controller
 			$this->template->set_layout($page->layout->theme_layout);
 		}
 
-		// fetch the actual content fields and merge them as if they were columns in the page table
 		$page_data = new stdClass();
-		$page_data->page = (object) array_merge(
-			(array) $page, 
-			(array) $this->streams->entries->get_entry($page->stream_entry_id, $page->layout->stream_slug, 'pages')
-		);
+
+		// This is our basic page data ({{ page:title }}, etc.)
+		$page_data->page = $page;
 
 		// parse the layout metadata fields so they can be populated with stream data 
 		// (they can hold tags). Metadata explicitly set in a page trumps layout metadata
@@ -208,15 +206,37 @@ class Pages extends Public_Controller
 			->set_breadcrumb($page->title);
 
 		// Parse the tag layout structure
-		$page->layout->body = $this->parser->parse_string(
+		// This is now legacy
+		/*$page->layout->body = $this->parser->parse_string(
 			// replace encoding by WYSIWYG
 			str_replace(array('&#39;', '&quot;'), array("'", '"'), $page->layout->body),
 			// pass along $page and $theme so that {{ page:id }} and friends work in page content
 			array('theme' => $this->theme, $page_data),
 			// return the string
 			true
-		);
+		);*/
 
+		// Get our stream entry.
+		if ($page->entry_id and $page->layout->stream_id)
+		{
+			$this->load->driver('Streams');
+
+			// Get Streams
+			$stream = $this->streams_m->get_stream($page->layout->stream_id);
+
+			if ($stream)
+			{
+				if ($entry = $this->streams->entries->get_entry($page->entry_id, $stream->stream_slug, $stream->stream_namespace))
+				{
+					$page_data = (object) array_merge((array) $page_data, (array) $entry);
+
+					// Bump title up
+					$page_data->title = $page_data->page->title;
+				}
+			}
+		}
+		
+		// Add our page and page layout CSS
 		if ($page->layout->css or $page->css)
 		{
 			$this->template->append_metadata('
@@ -226,6 +246,7 @@ class Pages extends Public_Controller
 				</style>', 'late_header');
 		}
 
+		// Add our page and page layout JS
 		if ($page->layout->js or $page->js)
 		{
 			$this->template->append_metadata('

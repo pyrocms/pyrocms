@@ -31,6 +31,8 @@ class Admin extends Admin_Controller {
 		$this->load->model('navigation/navigation_m');
 		$this->lang->load('pages');
 		$this->lang->load('page_types');
+
+		$this->load->driver('Streams');
 	}
 
 	/**
@@ -38,7 +40,6 @@ class Admin extends Admin_Controller {
 	 */
 	public function index()
 	{
-
 		$this->template
 
 			->title($this->module_details['name'])
@@ -52,6 +53,24 @@ class Admin extends Admin_Controller {
 
 			->set('pages', $this->page_m->get_page_tree())
 			->build('admin/index');
+	}
+
+	/**
+	 * Choose a page type
+	 */
+	public function choose_type()
+	{
+		// Get our types.
+		$this->load->model('page_type_m');
+
+		$all = $this->page_type_m->get_all();
+
+		echo '<ul class="modal_select">';
+		foreach ($all as $pt)
+		{
+			echo '<li><a href="'.site_url('admin/pages/create?page_type='.$pt->id).'">'.$pt->title.'</a></li>';
+		}
+		echo '</ul>';
 	}
 
 	/**
@@ -101,7 +120,7 @@ class Admin extends Admin_Controller {
 		$page = $this->page_m->get($id);
 
         $this->load->model('keywords/keyword_m');
-        $page->meta_keywords = Keywords::get_string($page->meta_keywords);
+        $page->meta_keywords = $this->keywords->get_string($page->meta_keywords);
 
 		$this->load->view('admin/ajax/page_details', array('page' => $page));
 	}
@@ -181,17 +200,35 @@ class Admin extends Admin_Controller {
 	{
 		$page = new stdClass;
 
-		// did they even submit?
-		if ($input = $this->input->post())
+		// What type of page are we creating?
+		$page_type_id = $this->input->get('page_type');
+
+		// Get the page type.
+		$page_type = $this->db->limit(1)->where('id', $page_type_id)->get('page_types')->row();
+
+		if ( ! $page_type) show_error('No page type found.');
+
+		$stream = $this->_setup_stream_fields($page_type);
+
+		// Run our validation. At this point, this is running the
+		// compiled validation for both stream and standard.
+		if ($this->form_validation->run())
 		{
+			$input = $this->input->post();
+
 			// do they have permission to proceed?
 			if ($input['status'] == 'live')
 			{
 				role_or_die('pages', 'put_live');
 			}
 
-			// validate and insert
-			if ($id = $this->page_m->create($input))
+			// We need to manually add this since we don't allow
+			// users to change it in the page form.
+			$input['type_id'] = $page_type_id;
+
+			// Insert the page data, along with
+			// the stream data.
+			if ($id = $this->page_m->create($input, $stream))
 			{
 				Events::trigger('page_created', $id);
 
@@ -204,7 +241,8 @@ class Admin extends Admin_Controller {
 			}
 		}
 
-		// Loop through each rule
+		// Loop through each rule for the standard page fields and 
+		// set our current value for the form.
 		foreach ($this->page_m->fields() as $field)
 		{
 			if ($field === 'restricted_to[]' or $field === 'strict_uri')
@@ -219,6 +257,23 @@ class Admin extends Admin_Controller {
 
 			$page->{$field} = set_value($field);
 		}
+
+		// Go through our stream fields and set the current value 
+		// for the form. Since we are creating a new form, this should
+		// simply be the post data if it is available.
+		$assignments = $this->streams->streams->get_assignments($stream->stream_slug, $stream->stream_namespace);
+		$page_content_data = array();
+
+		if ($assignments)
+		{
+			foreach ($assignments as $assign)
+			{
+				$page_content_data[$assign->field_slug] = $this->input->post($assign->field_slug);
+			}
+		}
+
+		// Run stream field events
+		$this->fields->run_field_events($this->streams_m->get_stream_fields($this->streams_m->get_stream_id_from_slug($stream->stream_slug, $stream->stream_namespace)));
 
 		$parent_page = new stdClass;
 
@@ -237,7 +292,9 @@ class Admin extends Admin_Controller {
 			->title($this->module_details['name'], lang('pages:create_title'))
 			->append_metadata($this->load->view('fragments/wysiwyg', array(), true))
 			->set('page', $page)
+			->set('stream_fields', $this->streams->fields->get_stream_fields($stream->stream_slug, $stream->stream_namespace, $page_content_data))
 			->set('parent_page', $parent_page)
+			->set('page_type', $page_type)
 			->build('admin/form');
 	}
 
@@ -254,20 +311,11 @@ class Admin extends Admin_Controller {
 		// The user needs to be able to edit pages.
 		role_or_die('pages', 'edit_live');
 
+		// This comes in handy
+		define('PAGE_ID', $id);
+
 		// Retrieve the page data along with its data as part of the array.
 		$page = $this->page_m->get($id);
-
-		// If there's a keywords hash
-		if ($page->meta_keywords != '') {
-			// Get comma-separated meta_keywords based on keywords hash
-			$this->load->model('keywords/keyword_m');
-			$old_keywords_hash = $page->meta_keywords;
-			$page->meta_keywords = Keywords::get_string($page->meta_keywords);
-		}
-
-		// Turn the CSV list back to an array
-		$page->restricted_to = explode(',', $page->restricted_to);
-		$page->meta_keywords = Keywords::get_string($page->meta_keywords);
 
 		// Got page?
 		if ( ! $page or empty($page))
@@ -277,22 +325,52 @@ class Admin extends Admin_Controller {
 			redirect('admin/pages/create');
 		}
 
-		// did they even submit?
-		if ($input = $this->input->post())
+		// Note: we don't need to get the page type
+		// from the URL since it is present in the $page data
+
+		// Get the page type.
+		$page_type = $this->db->limit(1)->where('id', $page->type_id)->get('page_types')->row();
+
+		if ( ! $page_type) show_error('No page type found.');
+
+		$stream = $this->_setup_stream_fields($page_type);
+
+		// If there's a keywords hash
+		if ($page->meta_keywords != '')
 		{
+			// Get comma-separated meta_keywords based on keywords hash
+			$this->load->model('keywords/keyword_m');
+			$old_keywords_hash = $page->meta_keywords;
+			$page->meta_keywords = $this->keywords->get_string($page->meta_keywords);
+		}
+
+		// Turn the CSV list back to an array
+		$page->restricted_to = explode(',', $page->restricted_to);
+		$page->meta_keywords = Keywords::get_string($page->meta_keywords);
+
+		// Did they even submit?
+		if ($this->form_validation->run())
+		{
+			$input = $this->input->post();
+
 			// do they have permission to proceed?
 			if ($input['status'] == 'live')
 			{
 				role_or_die('pages', 'put_live');
 			}
 
-			// were there keywords before this update?
-			if (isset($old_keywords_hash)) {
+			// Were there keywords before this update?
+			if (isset($old_keywords_hash))
+			{
 				$input['old_keywords_hash'] = $old_keywords_hash;
 			}
 
+			// We need to manually add this since we don't allow
+			// users to change it in the page form.
+			$input['type_id'] = $page->type_id;
+
 			// validate and insert
-			if ($this->page_m->edit($id, $input))
+			if ($this->page_m->edit($id, $input, $stream, $page->entry_id))
 			{
 				$this->session->set_flashdata('success', sprintf(lang('pages_edit_success'), $input['title']));
 
@@ -331,6 +409,23 @@ class Admin extends Admin_Controller {
 			$page->{$field} = set_value($field, $page->{$field});
 		}
 
+		// Go through our stream fields and set the current value 
+		// for the form. Since we are creating a new form, this should
+		// simply be the post data if it is available.
+
+		$assignments = $this->streams->streams->get_assignments($stream->stream_slug, $stream->stream_namespace);
+		$page_content_data = array();
+
+		foreach ($assignments as $assign)
+		{
+			$from_db = isset($page->{$assign->field_slug}) ? $page->{$assign->field_slug} : null;
+
+			$page_content_data[$assign->field_slug] = isset($_POST[$assign->field_slug]) ? $_POST[$assign->field_slug] : $from_db;
+		}		
+
+		// Run stream field events
+		$this->fields->run_field_events($this->streams_m->get_stream_fields($this->streams_m->get_stream_id_from_slug($stream->stream_slug, $stream->stream_namespace)));
+
 		// If this page has a parent.
 		if ($page->parent_id > 0)
 		{
@@ -346,13 +441,64 @@ class Admin extends Admin_Controller {
 
 		$this->template
 			->title($this->module_details['name'], sprintf(lang('pages:edit_title'), $page->title))
-			// Load WYSIWYG Editor
-			->append_metadata( $this->load->view('fragments/wysiwyg', array() , true) )
+			->append_metadata($this->load->view('fragments/wysiwyg', array() , true))
 			->append_css('module::page-edit.css')
+			->set('stream_fields', $this->streams->fields->get_stream_fields($stream->stream_slug, $stream->stream_namespace, $page_content_data))
 			->set('page', $page)
 			->set('parent_page', $parent_page)
+			->set('page_type', $page_type)
 			->build('admin/form');
 	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Setup Stream fields
+	 *
+	 * Sets up our validation and some other common
+	 * elements for our page create/edit functions.
+	 *
+	 * @access 	private
+	 * @param 	obj
+	 * @param 	string - new or edit
+	 * @param 	int
+	 * @return 	obj - the stream object
+	 */
+	private function _setup_stream_fields($page_type, $method = 'new', $id = null)
+	{
+		// Get the stream that we are using for this page type.
+		$stream = $this->db->limit(1)->where('id', $page_type->stream_id)->get('data_streams')->row();
+
+		$this->load->driver('Streams');
+		$this->load->library('Form_validation');
+
+		// So we can use the callbacks in page_m
+		$this->form_validation->set_model('page_m');
+
+		// If we have renamed the title, then we need to change that in the validation array
+		if ($page_type->title_label)
+		{
+			foreach ($this->page_m->validate as $k => $v)
+			{
+				if ($v['field'] == 'title')
+				{
+					$this->page_m->validate[$k]['label'] = lang_label($page_type->title_label);
+				}
+			}
+		}
+
+		// Get the validation for our
+		$profile_validation = $this->streams->streams->validation_array($stream->stream_slug, $stream->stream_namespace, $method, array(), $id);
+
+		$this->page_m->compiled_validate = array_merge($this->page_m->validate, $profile_validation);
+
+		// Set the validation rules based on the compiled validation.
+		$this->form_validation->set_rules($this->page_m->compiled_validate);
+
+		return $stream;
+	}
+
+	// --------------------------------------------------------------------------
 
 	/**
 	 * Sets up common form inputs.
@@ -449,4 +595,6 @@ class Admin extends Admin_Controller {
 
 		redirect('admin/pages');
 	}
+
+
 }

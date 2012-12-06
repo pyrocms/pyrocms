@@ -9,7 +9,6 @@
 			<table>		    
 				<thead>
 					<tr>
-						<th><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all'));?></th>
 						<th><?php echo lang('global:title');?></th>
 						<th></th>
 					</tr>
@@ -18,20 +17,21 @@
 				<tbody>
 					<?php foreach ($page_types as $page_type): ?>
 						<tr>
-							<td><?php echo form_checkbox('action_to[]', $page_type->id); ?></td>
 							<td><?php echo $page_type->title;?></td>
 							<td class="actions">
+
+								<?php if ($page_type->save_as_files == 'y' and $page_type->needs_sync): ?>
+								<?php echo anchor('admin/pages/types/sync/'.$page_type->id, lang('page_types:sync_files'), array('class'=>'button'));?> 
+								<?php endif; ?>
+
+								<?php echo anchor('admin/pages/types/fields/'.$page_type->id, lang('global:fields'), array('class'=>'button'));?> 
 								<?php echo anchor('admin/pages/types/edit/' . $page_type->id, lang('global:edit'), array('class'=>'button'));?> 
-								<?php echo anchor('admin/pages/types/delete/' . $page_type->id, lang('global:delete'), array('class'=>'button confirm'));?>
+								<?php echo anchor('admin/pages/types/delete/' . $page_type->id, lang('global:delete'), array('class'=>'button'));?>
 							</td>
 						</tr>
 					<?php endforeach; ?>
 				</tbody>
 			</table>
-
-			<div class="table_action_buttons">
-				<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete') )); ?>
-			</div>
 			
 			<?php else:?>
 				<div class="no_data"><?php echo lang('page_types.no_pages');?></div>

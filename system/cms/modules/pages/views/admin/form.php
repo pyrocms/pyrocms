@@ -8,32 +8,28 @@
 
 <section class="item">
 
-	<?php echo form_open(uri_string(), 'id="page-form"'); ?>
+	<?php echo form_open(uri_string().'?page_type='.$this->input->get('page_type'), 'id="page-form"'); ?>
 	<?php echo form_hidden('parent_id', empty($page->parent_id) ? 0 : $page->parent_id); ?>
 
 	<div class="tabs">
 
 		<ul class="tab-menu">
-			<li><a href="#page-content"><span><?php echo lang('pages:content_label');?></span></a></li>
+			<li><a href="#page-details"><span><?php echo lang('pages:details_label');?></span></a></li>
+			<?php if ($stream_fields): ?><li><a href="#page-content"><span><?php if ($page_type->content_label): echo lang_label($page_type->content_label); else: echo lang('pages:content_label'); endif; ?></span></a></li><?php endif; ?>
 			<li><a href="#page-meta"><span><?php echo lang('pages:meta_label');?></span></a></li>
-			<li><a href="#page-design"><span><?php echo lang('pages:design_label');?></span></a></li>
+			<li><a href="#page-design"><span><?php echo lang('pages:css_label');?></span></a></li>
 			<li><a href="#page-script"><span><?php echo lang('pages:script_label');?></span></a></li>
 			<li><a href="#page-options"><span><?php echo lang('pages:options_label');?></span></a></li>
 		</ul>
-		
-		<!-- Content tab -->
-		<div class="form_inputs" id="page-content">
-		
+
+		<div class="form_inputs" id="page-details">
+
 			<fieldset>
 		
 			<ul>
-				<li>
-					<label for="type_id"><?php echo lang('pages:type_id_label');?></label>
-					<div class="input"><?php echo form_dropdown('type_id', $page_types, $page->type_id); ?></div>
-				</li>
 				
 				<li>
-					<label for="title"><?php echo lang('global:title');?> <span>*</span></label>
+					<label for="title"><?php if ($page_type->title_label): echo lang_label($page_type->title_label); else: echo lang('global:title'); endif; ?> <span>*</span></label>
 					<div class="input"><?php echo form_input('title', $page->title, 'id="title" maxlength="60"'); ?></div>
 				</li>
 				
@@ -75,13 +71,28 @@
 				</li>
 				<?php endif; ?>
 			</ul>
-			<div id="page-data">
-				<?php if ($this->method == 'edit'): ?>
-					<?php echo $this->streams->cp->entry_form($page->stream_slug, 'pages', 'edit', $page->stream_entry_id); ?>
-				<?php endif; ?>
-			</div>
 			</fieldset>
+
 		</div>
+
+		<?php if ($stream_fields): ?>
+		
+		<!-- Content tab -->
+		<div class="form_inputs" id="page-content">
+	
+			<fieldset>
+
+			<ul>
+				
+				<?php foreach ($stream_fields as $field) echo $this->load->view('admin/partials/streams/form_single_display', array('field' => $field), true); ?>
+				
+			</ul>
+
+			</fieldset>
+		
+		</div>
+
+		<?php endif; ?>
 
 		<!-- Meta data tab -->
 		<div class="form_inputs" id="page-meta">

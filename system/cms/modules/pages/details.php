@@ -12,7 +12,7 @@ class Module_Pages extends Module
 
 	public function info()
 	{
-		return array(
+		$info = array(
 			'name' => array(
 				'en' => 'Pages',
 				'ar' => 'الصفحات',
@@ -76,27 +76,69 @@ class Module_Pages extends Module
 			    'pages' => array(
 				    'name' => 'pages:list_title',
 				    'uri' => 'admin/pages',
-				    'shortcuts' => array(
-						array(
-						    'name' => 'pages:create_title',
-						    'uri' => 'admin/pages/create',
-						    'class' => 'add'
-						),
-				    ),
 				),
 				'types' => array(
 				    'name' => 'page_types.list_title',
-				    'uri' => 'admin/pages/types',
-				    'shortcuts' => array(
-						array(
-						    'name' => 'pages:types_create_title',
-						    'uri' => 'admin/pages/types/create',
-						    'class' => 'add'
-						),
-				    ),
+				    'uri' => 'admin/pages/types'
 			    ),
 			),
 		);
+
+		if ( ! class_exists('Module_import'))
+		{
+			// Shortcuts for New page
+
+			// Do we have more than one page type? If we don't, no need to have a modal
+			// ask them to choose a page type.
+			if ($this->db->count_all('page_types') > 1)
+			{
+
+				$info['sections']['pages']['shortcuts'] = array(
+					array(
+					    'name' => 'pages:create_title',
+					    'uri' => 'admin/pages/choose_type',
+					    'class' => 'add modal'
+					)
+				);
+			}
+			else
+			{
+				// Get the one page type.
+				$page_type = $this->db->limit(1)->select('id')->get('page_types')->row();
+
+				$info['sections']['pages']['shortcuts'] = array(
+					array(
+					    'name' => 'pages:create_title',
+					    'uri' => 'admin/pages/create?page_type='.$page_type->id,
+					    'class' => 'add'
+					)
+				);			
+			}
+
+			// Show the correct +Add button based on the page
+			if ($this->uri->segment(4) == 'fields' and $this->uri->segment(5))
+			{
+				$info['sections']['types']['shortcuts'] = array(
+								array(
+								    'name' => 'streams.new_field',
+								    'uri' => 'admin/pages/types/fields/'.$this->uri->segment(5).'/new_field',
+								    'class' => 'add'
+								)
+						    );
+			}
+			else
+			{
+				$info['sections']['types']['shortcuts'] = array(
+								array(
+								    'name' => 'pages:types_create_title',
+								    'uri' => 'admin/pages/types/create',
+								    'class' => 'add'
+								)
+							);			
+			}
+		}
+
+		return $info;
 	}
 
 	public function install()
@@ -104,18 +146,12 @@ class Module_Pages extends Module
 		$this->load->helper('date');
 		$this->load->config('pages/pages');
 
-		$this->dbforge->drop_table('page_types');
-		$this->dbforge->drop_table('pages');
-
-		$this->load->driver('streams');
-		$this->streams->utilities->remove_namespace('pages');
-
 		$tables = array(
 			'page_types' => array(
 				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true),
+				'slug' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => ''),
 				'title' => array('type' => 'VARCHAR', 'constraint' => 60),
 				'stream_id' => array('type' => 'INT', 'constraint' => 11),
-				'stream_slug' => array('type' => 'VARCHAR', 'constraint' => 100),
 				'meta_title' => array('type' => 'VARCHAR', 'constraint' => 255, 'null' => true),
 				'meta_keywords' => array('type' => 'CHAR', 'constraint' => 32, 'null' => true),
 				'meta_description' => array('type' => 'TEXT', 'null' => true),
@@ -124,6 +160,9 @@ class Module_Pages extends Module
 				'js' => array('type' => 'TEXT', 'null' => true),
 				'theme_layout' => array('type' => 'VARCHAR', 'constraint' => 100, 'default' => 'default'),
 				'updated_on' => array('type' => 'INT', 'constraint' => 11),
+	            'save_as_files'     => array('type' => 'CHAR', 'constraint' => 1, 'default' => 'n'),
+	            'content_label'     => array('type' => 'VARCHAR', 'constraint' => 60),
+	            'title_label'     => array('type' => 'VARCHAR', 'constraint' => 100)
 			),
 			'pages' => array(
 				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true),
@@ -133,8 +172,7 @@ class Module_Pages extends Module
 				'uri' => array('type' => 'TEXT', 'null' => true),
 				'parent_id' => array('type' => 'INT', 'constraint' => 11, 'default' => 0, 'key' => 'parent_id'),
 				'type_id' => array('type' => 'VARCHAR', 'constraint' => 255),
-				'stream_entry_id' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '1'),
-				'stream_slug' => array('type' => 'VARCHAR', 'constraint' => 100,),
+				'entry_id' => array('type' => 'VARCHAR', 'constraint' => 255, 'null' => true),
 				'css' => array('type' => 'TEXT', 'null' => true),
 				'js' => array('type' => 'TEXT', 'null' => true),
 				'meta_title' => array('type' => 'VARCHAR', 'constraint' => 255, 'null' => true),
@@ -157,10 +195,12 @@ class Module_Pages extends Module
 			return false;
 		}
 
+		$this->load->driver('streams');
+
 		// now set up the default streams that will hold the page content
-		foreach (config_item('pages:page_streams') as $stream)
+		foreach (config_item('pages:default_page_stream') as $stream)
 		{
-			$this->streams->streams->add_stream(
+			$stream_id = $this->streams->streams->add_stream(
 				$stream['name'],
 				$stream['slug'],
 				$stream['namespace'],
@@ -168,38 +208,82 @@ class Module_Pages extends Module
 				$stream['about']
 			);
 		}
+
 		// add the fields to the streams
 		$this->streams->fields->add_fields(config_item('pages:default_fields'));
 
-
-		// insert the page type structures
-		foreach (config_item('pages:default_page_types') as $page_type)
+		// Insert the page type structures
+		$page_type = 	array(
+			'id' => 1,
+			'title' => 'Default',
+			'slug' => 'default',
+			'stream_id' => $stream_id,
+			'body' => '<h2>{{ page:title }}</h2>',
+			'css' => '',
+			'js' => '',
+			'updated_on' => now()
+		);
+		if ( ! $this->db->insert('page_types', $page_type))
 		{
-			if ( ! $this->db->insert('page_types', $page_type))
-			{
-				return false;
-			}
+			return false;
 		}
 
-		// now the page structures
-		foreach (config_item('pages:default_pages') as $page)
-		{
-			if ( ! $this->db->insert('pages', $page))
-			{
-				return false;
-			}
-		}
+		$def_page_type_id = $this->db->insert_id();
 
-		// insert the content
-		foreach (config_item('pages:default_page_content') as $page_type_table => $page_type)
+		$page_content = config_item('pages:default_page_content');
+		$page_entries = array(
+			'home' => array(
+				'slug' => 'home',
+				'title' => 'Home',
+				'uri' => 'home',
+				'parent_id' => 0,
+				'type_id' => $def_page_type_id,
+				'status' => 'live',
+				'restricted_to' => '',
+				'created_on' => now(),
+				'is_home' => 1,
+				'order' => now()
+			),
+			'contact' => array(
+				'slug' => 'contact',
+				'title' => 'Contact',
+				'uri' => 'contact',
+				'parent_id' => 0,
+				'type_id' => $def_page_type_id,
+				'status' => 'live',
+				'restricted_to' => '',
+				'created_on' => now(),
+				'is_home' => 0,
+				'order' => now()
+			),
+			'fourohfour' => array(
+				'slug' => '404',
+				'title' => 'Page missing',
+				'uri' => '404',
+				'parent_id' => 0,
+				'type_id' => $def_page_type_id,
+				'status' => 'live',
+				'restricted_to' => '',
+				'created_on' => now(),
+				'is_home' => 0,
+				'order' => now()
+			)
+		);
+
+		foreach ($page_entries as $key => $d)
 		{
-			foreach ($page_type as $page_data)
-			{
-				if ( ! $this->db->insert($page_type_table, $page_data))
-				{
-					return false;
-				}
-			}
+			// Contact Page
+			$this->db->insert('pages', $d);
+			$page_id = $this->db->insert_id();
+
+			$this->db->insert('def_page_fields', $page_content[$key]);
+			$entry_id = $this->db->insert_id();
+
+			$this->db->where('id', $page_id);
+			$this->db->update('pages', array('entry_id' => $entry_id));
+
+			unset($page_id);
+			unset($entry_id);
 		}
 
 		return true;

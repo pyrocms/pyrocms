@@ -11,8 +11,8 @@
 	</p>
 	<p>
 		<strong><?php echo lang('global:slug');?>:</strong>
-		<a href="<?php echo site_url('admin/pages/preview/'.$page->id);?>?iframe" rel="modal-large" target="_blank">
-			<?php echo site_url(!empty($page->uri) ? $page->uri : $page->slug); ?>
+		<a href="<?php echo !empty($page->uri) ? $page->uri : $page->slug; ?>" target="_blank">
+			/<?php echo !empty($page->uri) ? $page->uri : $page->slug; ?>
 		</a>
 	</p>
 </fieldset>

@@ -1,131 +1,39 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-// set up the page types
-$config['pages:default_page_types'] = array(
-	array(
-			'id' => 1,
-			'title' => 'Generic',
-			'stream_id' => 1,
-			'stream_slug' => 'generic',
-			'body' => '<h2>{{ page:title }}</h2>'.PHP_EOL.'{{ page:body }}',
-			'css' => '',
-			'js' => '',
-			'updated_on' => now(),
-	),
-	array(
-			'id' => 2,
-			'title' => 'System',
-			'stream_id' => 2,
-			'stream_slug' => 'system',
-			'body' => '<h2>{{ page:title }}</h2>'.PHP_EOL.'{{ page:message_body }}',
-			'css' => '',
-			'js' => '',
-			'updated_on' => now(),
-	)
-);
-
 // The page type Streams
-$config['pages:page_streams'] = array(
+$config['pages:default_page_stream'] = 
 	array(
-		'name' 		=> 'Generic', 
-		'slug' 		=> 'generic', 
-		'namespace' => 'pages', 
-		'prefix' 	=> null, 
-		'about' 	=> 'A basic page type to get you started adding content.'
-	),
-	array(
-		'name' 		=> 'System', 
-		'slug' 		=> 'system', 
-		'namespace' => 'pages', 
-		'prefix' 	=> null, 
-		'about' 	=> 'A page type for system pages such as 404.'
-	)
-);
-
+		array(
+			'name' 		=> 'Default', 
+			'slug' 		=> 'def_page_fields', 
+			'namespace' => 'pages', 
+			'prefix' 	=> null, 
+			'about' 	=> 'A basic page type to get you started adding content.'
+		)
+	);
 
 // define all custom fields that a new installation should have
 $config['pages:default_fields']	= array(
 	array(         
-		'name'          => 'Body',
+		'name'          => 'lang:pages:body_label',
 		'slug'          => 'body',
 		'namespace'     => 'pages',
-		'type'          => 'textarea',
+		'type'          => 'wysiwyg',
 		'extra'			=> array('editor_type' => 'advanced'),
-		'assign'        => 'generic',
-	),
-	array(         
-		'name'          => 'Message Body',
-		'slug'          => 'message_body',
-		'namespace'     => 'pages',
-		'type'          => 'textarea',
-		'extra'			=> array('editor_type' => 'advanced'),
-		'assign'        => 'system',
-	),
+		'assign'        => 'def_page_fields'
+	)
 );
-
-
-// insert default pages
-$config['pages:default_pages'] = array(
-	/* The home page. */
-	array(
-		'slug' => 'home',
-		'title' => 'Home',
-		'uri' => 'home',
-		'stream_entry_id' => 1,
-		'stream_slug' => 'generic',
-		'parent_id' => 0,
-		'type_id' => 1,
-		'status' => 'live',
-		'restricted_to' => '',
-		'created_on' => now(),
-		'is_home' => 1,
-		'order' => now()
-	),
-	/* The contact page. */
-	array(
-		'slug' => 'contact',
-		'title' => 'Contact',
-		'uri' => 'contact',
-		'stream_entry_id' => 2,
-		'stream_slug' => 'generic',
-		'parent_id' => 0,
-		'type_id' => 1,
-		'status' => 'live',
-		'restricted_to' => '',
-		'created_on' => now(),
-		'is_home' => 0,
-		'order' => now()
-	),
-	/* The 404 page. */
-	array(
-		'slug' => '404',
-		'title' => 'Page missing',
-		'uri' => '404',
-		'stream_entry_id' => 1,/* It's the only entry in the system page type so it'll be the first */
-		'stream_slug' => 'system',
-		'parent_id' => 0,
-		'type_id' => 2,/* Notice that this page is assigned to the System page type */
-		'status' => 'live',
-		'restricted_to' => '',
-		'created_on' => now(),
-		'is_home' => 0,
-		'order' => now()
-	),
-);
-
 
 // and now the content for the pages
 $config['pages:default_page_content'] = array(
-	// The Generic group table
-	'generic' => array(
 		/* The home page data. */
-		array(
+		'home' => array(
 			'created' => date('Y-m-d H:i:s'),
 			'body' => '<p>Welcome to our homepage. We have not quite finished setting up our website yet, but please add us to your bookmarks and come back soon.</p>',
 			'created_by' => 1
 		),
 		/* The contact page data. */
-		array(
+		'contact' => array(
 			'created' => date('Y-m-d H:i:s'),
 			'body' => '<p>To contact us please fill out the form below.</p>
 				{{ contact:form name="text|required" email="text|required|valid_email" subject="dropdown|Support|Sales|Feedback|Other" message="textarea" attachment="file|zip" }}
@@ -137,14 +45,9 @@ $config['pages:default_page_content'] = array(
 				{{ /contact:form }}',
 			'created_by' => 1
 		),
-	),
-	// System group table
-	'system' => array(
-		/* The 404 page data. Assigned to the System page type */
-		array(
+		'fourohfour' => array(
 			'created' => date('Y-m-d H:i:s'),
-			'message_body' => '<p>We cannot find the page you are looking for, please click <a title="Home" href="{{ pages:url id=\'1\' }}">here</a> to go to the homepage.</p>',
+			'body' => '<p>We cannot find the page you are looking for, please click <a title="Home" href="{{ pages:url id=\'1\' }}">here</a> to go to the homepage.</p>',
 			'created_by' => 1
 		)
-	),
 );

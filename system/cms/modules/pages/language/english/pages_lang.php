@@ -4,6 +4,7 @@ $lang['pages:page']							= 'Page';
 $lang['pages:pages']						= 'Pages';
 
 // tabs
+$lang['pages:details_label']				= 'Page Details';
 $lang['pages:content_label']				= 'Page Content';
 $lang['pages:meta_label']					= 'Meta data';
 $lang['pages:design_label']					= 'Design';
