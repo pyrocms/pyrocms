@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['header']			=	'Bước 3: Thiết lập quyền truy cập';
@@ -19,5 +19,3 @@ $lang['hide_commands']		= 'Ẩn câu lệnh';
 $lang['next_step']		= 'Bước tiếp theo';
 $lang['step4']			= 'Bước 4';
 $lang['retry']			= 'Hãy thử lại';
-
-/* End of file step_3_lang.php */

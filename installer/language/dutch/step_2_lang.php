@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['header']			=	'Stap 2: Controleer benodigdheden';
@@ -45,5 +45,3 @@ $lang['retry']			=	'Probeer opnieuw';
 
 // messages
 $lang['step1_failure']	=	'U moet de benodigde databaseinstellingen in het formulier hieronder invullen.';
-
-/* End of file step_2_lang.php */

@@ -83,7 +83,7 @@ class Page_m extends MY_Model
 			'rules'	=> 'trim|alpha|required'
 		),
 		array(
-			'field' => 'navigation_group_id',
+			'field' => 'navigation_group_id[]',
 			'label' => 'lang:pages:navigation_label',
 			'rules' => 'numeric'
 		)
@@ -477,15 +477,18 @@ class Page_m extends MY_Model
 		$this->build_lookup($id);
 
 		// Add a Navigation Link
-		if ($input['navigation_group_id'] > 0)
+		if (count($input['navigation_group_id']) > 0)
 		{
 			$this->load->model('navigation/navigation_m');
-			$this->navigation_m->insert_link(array(
-				'title'					=> $input['title'],
-				'link_type'				=> 'page',
-				'page_id'				=> $id,
-				'navigation_group_id'	=> (int) $input['navigation_group_id']
-			));
+			foreach ($input['navigation_group_id'] as $group_id)
+			{
+				$this->navigation_m->insert_link(array(
+					'title'					=> $input['title'],
+					'link_type'				=> 'page',
+					'page_id'				=> $id,
+					'navigation_group_id'	=> $group_id
+				));
+			}
 		}
 
 		// Add the stream data.

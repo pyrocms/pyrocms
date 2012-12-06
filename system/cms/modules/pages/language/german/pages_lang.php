@@ -13,8 +13,8 @@ $lang['pages:options_label']            = 'Optionen';
 $lang['pages:detail_label']             = 'Details';
 
 // labels
-$lang['pages:add_page_chunk']           = 'Add Page Chunk'; #translate
-$lang['pages:page_chunk']               = 'Page Chunk'; #translate
+$lang['pages:add_page_chunk']           = 'Seiten-Fragment hinzufügen';
+$lang['pages:page_chunk']               = 'Seiten-Fragment';
 $lang['pages:language_label']           = 'Sprache';
 $lang['pages:updated_label']            = 'Aktualisiert';
 $lang['pages:unknown_label']            = 'Unbekannt';
@@ -30,7 +30,7 @@ $lang['pages:access_label']             = 'Zugang';
 $lang['pages:rss_enabled_label']        = 'RSS aktiviert';
 $lang['pages:comments_enabled_label']   = 'Kommentare aktiviert';
 $lang['pages:is_home_label']            = 'Standartseite? (Home)';
-$lang['pages:strict_uri_label']			= 'Require an exact uri match?'; #translate
+$lang['pages:strict_uri_label']			= 'Benötigt diese Seite eine genau zutreffende URI?';
 
 $lang['pages:status_label']          	= 'Status';
 $lang['pages:draft_label']           	= 'Entwurf';
@@ -63,10 +63,10 @@ $lang['pages_mass_delete_success']         = '%s Seiten wurden gel&ouml;scht.';
 $lang['pages_delete_none_notice']          = 'Keine Seiten wurden gel&ouml;scht.';
 $lang['pages_page_already_exist_error']    = 'Es existiert bereits eine Seite mit der URL "%s" in %s.';
 $lang['pages_parent_not_exist_error']      = 'Die ausgew&auml;hlte &uuml;bergeordnete Seite existiert nicht.';//there is no german word for 'parent' (in this context at least)
-$lang['pages_chunk_slug_length']           = 'Page Chunk slugs may be no more than 30 characters in length.';#translate
-$lang['pages_root_folder']                 = 'the top level';#translate
+$lang['pages_chunk_slug_length']           = 'Slugs von Seiten-Fragmenten dürfen nicht länger als 30 Zeichen sein.';
+$lang['pages_root_folder']                 = 'zur obersten Ebene';
 
-$lang['pages:tree_explanation_title']	   = 'Explanation'; #translate
+$lang['pages:tree_explanation_title']	   = 'Erklärung';
 $lang['pages:tree_explanation']            = 'Die Liste zur Linken repr&auml;sentiert Seiten auf deiner Webseite.
 W&auml;hle das "+" Icon neben der Seite um ihre untergeordneten Seiten anzuzeigen. Durch ausw&auml;hlen einer Seite erh&auml;ltst du Informationen &uuml;ber die ausgew&auml;hlte Seite.';
 

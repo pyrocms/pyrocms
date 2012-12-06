@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['header']			=	'Lsngkah 2: Cek Kebutuhan';
@@ -45,5 +45,3 @@ $lang['retry']			=	'Coba lagi';
 
 // messages
 $lang['step1_failure']	=	'Silakan isi pengaturan database yang diperlukan di form berikut.';
-
-/* End of file step_2_lang.php */

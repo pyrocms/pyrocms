@@ -55,7 +55,7 @@ $lang['streams.type_not_valid']							= "Bitte wähle einen gültigen Feldtypen.
 $lang['streams.stream_slug_not_unique']					= "Dieser Streamslug wird bereits verwendet.";
 $lang['streams.field_unique']							= "Das %s Feld muss eindeutig sein.";
 $lang['streams.field_is_required']						= "Das %s Feld ist erforderlich.";
-$lang['streams.date_out_or_range']						= "The date you have chosen is out of the acceptable range."; #translate
+$lang['streams.date_out_or_range']						= "Das gewählte Datum liegt ausserhalb des akzeptierten Bereiches.";
 
 /* Field Labels */
 
@@ -74,6 +74,7 @@ $lang['streams.updated_date']							= "Aktualisierungsdatum";
 $lang['streams.value']									= "Wert";
 $lang['streams.manage']									= "Verwalten";
 $lang['streams.search']									= "Suche";
+$lang['streams:stream_prefix']							= "Stream Präfix";
 
 /* Field Instructions */
 
@@ -121,6 +122,7 @@ $lang['streams.size']									= "Grösse";
 $lang['streams.num_of_entries']							= "Anzahl Einträge";
 $lang['streams.num_of_fields']							= "Anzahl Felder";
 $lang['streams.last_updated']							= "Zuletzt aktualisiert";
+$lang['streams.export_schema']							= "Schema exportieren";
 
 /* Startup */
 
@@ -130,8 +132,9 @@ $lang['streams.start.no_assign'] 						= "Es scheint, als hätte dieser Stream n
 $lang['streams.start.add_field_here']					= "hier ein Feld hinzufügen";
 $lang['streams.start.create_field_here']				= "hier ein Feld erstellen";
 $lang['streams.start.no_streams']						= "Du hast noch keine Streams, aber du kannst damit beginnen indem du";
+$lang['streams.start.no_streams_yet']					= "Bisher sind keine Streams vorhanden.";
 $lang['streams.start.adding_one']						= "einen hinzufügst";
-$lang['streams.start.no_fields_to_add']					= "Keine Felder zum Hinzufügen";		
+$lang['streams.start.no_fields_to_add']					= "Keine Felder zum Hinzufügen";
 $lang['streams.start.no_fields_msg']					= "Es gibt keine Felder, welche zu diesem Stream hinzugefügt werden müssen. In PyroStreams können Feldtypen zwischen verschiedenen Streams ausgetauscht werden und müssen deshalb vor dem Hinzufügen zu einem Stream erstellt werden. Um zu starten, kannst du";
 $lang['streams.start.adding_a_field_here']				= "hier ein Feld hinzufügen";
 $lang['streams.start.no_entries']						= "Zur Zeit gibt es noch keine Einträge im Stream '<strong>%s</strong>'. Um zu starten, kannst du diesem Stream";
@@ -139,6 +142,7 @@ $lang['streams.add_fields']								= "Felder zuweisen";
 $lang['streams.add_an_entry']							= "hier einen Eintrag erstellen";
 $lang['streams.to_this_stream_or']						= "oder";
 $lang['streams.no_field_assign']						= "Keine Feldzuweisungen";
+$lang['streams.no_fields_msg_first']					= "Es gibt noch keine Felder für diese Stream.";
 $lang['streams.no_field_assign_msg']					= "Es scheint, als hätte dieser Stream noch keine Felder. Bevor du Daten erfassen kannst, musst du";
 $lang['streams.add_some_fields']						= "einige Felder zuweisen";
 $lang['streams.start.before_assign']					= "Bevor du einem Stream Felder zuweisen kannst, musst du diese Erstellen. Du kannst";
@@ -171,7 +175,7 @@ $lang['streams.choose_a_field']						= "Wählen Sie ein Feld";
 
 $lang['recaptcha_class_initialized'] 					= "reCaptcha Bibliothek initialisiert";
 $lang['recaptcha_no_private_key']						= "Du hast keinen API Schlüssel für Recaptcha definiert";
-$lang['recaptcha_no_remoteip'] 							= "For security reasons, you must pass the remote ip to reCAPTCHA";
+$lang['recaptcha_no_remoteip'] 							= "Aus Sicherheitsgründen muss reCAPTCHA die IP-Adresse angegeben werden.";
 $lang['recaptcha_socket_fail'] 							= "Socket konnte nicht geöffnet werden";
 $lang['recaptcha_incorrect_response'] 			= "Falsche Eingabe zum Sicherheitsbild";
 $lang['recaptcha_field_name'] 							= "Sicherheitsbild";

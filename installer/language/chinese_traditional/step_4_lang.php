@@ -1,12 +1,9 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
-$lang['header']			=	'步驟四：建立資料庫';
-$lang['intro_text']		=	'請輸入下列表單並點選「開始安裝」，即可開始安裝 PyroCMS。請再三確認您要安裝的資料庫設定是正確的，如果存在既有的資料，那麼將會被覆蓋消失。';
+$lang['header']			=	'步驟四：建立資料庫'; #translate
+$lang['intro_text']		=	'請輸入下列表單並點選「開始安裝」，即可開始安裝 PyroCMS。請再三確認您要安裝的資料庫設定是正確的，如果存在既有的資料，那麼將會被覆蓋消失。'; #translate
 
-$lang['db_settings']	=	'資料庫設定';
-$lang['db_create']		=	'建立資料庫';
-$lang['db_notice']		=	'在某些情況下，您也許必須自己建立';
 $lang['default_user']	=	'預設使用者';
 $lang['database']		=	'資料庫';
 $lang['site_settings']	= 	'網站設定';

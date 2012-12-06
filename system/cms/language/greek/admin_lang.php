@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 $lang['cp_admin_title'] 		= 'Πίνακας Διαχείρισης';
 $lang['global:dashboard'] 		= 'Επισκόπηση';
@@ -32,9 +32,9 @@ $lang['cp_nav_settings'] 		= 'Ρυθμίσεις';
 $lang['cp_nav_addons'] 			= 'Πρόσθετα';
 $lang['cp_nav_modules'] 		= 'Μονάδες';
 $lang['cp_nav_users'] 			= 'Χρήστες';
-$lang['cp_nav_content'] 		= 'Περιεχόμενο';
 $lang['cp_nav_data']					= 'Δεδομένα';
 $lang['cp_nav_structure']				= 'Δομή';
+$lang['cp_nav_content'] 		= 'Περιεχόμενο';
 $lang['cp_nav_misc']					= 'Διάφορα';
 
 $lang['cp_must_login'] 			= 'Πρέπει να είσαστε συνδεδεμένος για να δείτε αυτή την σελίδα.';

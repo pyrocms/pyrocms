@@ -3,10 +3,11 @@
 /**
  * Blog module
  *
- * @author PyroCMS Dev Team
+ * @author  PyroCMS Dev Team
  * @package PyroCMS\Core\Modules\Blog
  */
-class Module_Blog extends Module {
+class Module_Blog extends Module
+{
 
 	public $version = '2.0';
 
@@ -24,11 +25,12 @@ class Module_Blog extends Module {
 				'lt' => 'Blogas',
 				'pl' => 'Blog',
 				'ru' => 'Блог',
-				'zh' => '文章',
+				'tw' => '文章',
+				'cn' => '文章',
 				'hu' => 'Blog',
 				'fi' => 'Blogi',
 				'th' => 'บล็อก',
-            	'se' => 'Blogg',
+				'se' => 'Blogg',
 			),
 			'description' => array(
 				'en' => 'Post blog entries.',
@@ -42,7 +44,6 @@ class Module_Blog extends Module {
 				'fi' => 'Kirjoita blogi artikkeleita.',
 				'el' => 'Δημιουργήστε άρθρα και εγγραφές στο ιστολόγιο σας.',
 				'es' => 'Escribe entradas para los artículos y blog (web log).', #update translation
-				'fi' => 'Kirjoita blogi artikkeleita.',
 				'fr' => 'Envoyez de nouveaux posts et messages de blog.', #update translation
 				'he' => 'ניהול בלוג',
 				'id' => 'Post entri blog',
@@ -51,45 +52,45 @@ class Module_Blog extends Module {
 				'nl' => 'Post nieuwsartikelen en blogs op uw site.',
 				'pl' => 'Dodawaj nowe wpisy na blogu',
 				'ru' => 'Управление записями блога.',
-				'sl' => 'Objavite blog prispevke',
-				'zh' => '發表新聞訊息、部落格等文章。',
+				'tw' => '發表新聞訊息、部落格等文章。',
+				'cn' => '发表新闻讯息、部落格等文章。',
 				'th' => 'โพสต์รายการบล็อก',
-	            'hu' => 'Blog bejegyzések létrehozása.',
-	            'se' => 'Inlägg i bloggen.',
+				'hu' => 'Blog bejegyzések létrehozása.',
+				'se' => 'Inlägg i bloggen.',
 			),
-			'frontend'	=> true,
-			'backend'	=> true,
-			'skip_xss'	=> true,
-			'menu'		=> 'content',
+			'frontend' => true,
+			'backend' => true,
+			'skip_xss' => true,
+			'menu' => 'content',
 
 			'roles' => array(
 				'put_live', 'edit_live', 'delete_live'
 			),
 
 			'sections' => array(
-			    'posts' => array(
-				    'name' => 'blog:posts_title',
-				    'uri' => 'admin/blog',
-				    'shortcuts' => array(
+				'posts' => array(
+					'name' => 'blog:posts_title',
+					'uri' => 'admin/blog',
+					'shortcuts' => array(
 						array(
-					 	   'name' => 'blog:create_title',
-						    'uri' => 'admin/blog/create',
-						    'class' => 'add',
+							'name' => 'blog:create_title',
+							'uri' => 'admin/blog/create',
+							'class' => 'add',
 						),
 					),
 				),
 				'categories' => array(
-				    'name' => 'cat_list_title',
-				    'uri' => 'admin/blog/categories',
-				    'shortcuts' => array(
+					'name' => 'cat_list_title',
+					'uri' => 'admin/blog/categories',
+					'shortcuts' => array(
 						array(
-						    'name' => 'cat_create_title',
-						    'uri' => 'admin/blog/categories/create',
-						    'class' => 'add',
+							'name' => 'cat_create_title',
+							'uri' => 'admin/blog/categories/create',
+							'class' => 'add',
 						),
-				    ),
-			    ),
-		    ),
+					),
+				),
+			),
 		);
 	}
 
@@ -117,10 +118,10 @@ class Module_Blog extends Module {
 				'author_id' => array('type' => 'INT', 'constraint' => 11, 'default' => 0),
 				'created_on' => array('type' => 'INT', 'constraint' => 11),
 				'updated_on' => array('type' => 'INT', 'constraint' => 11, 'default' => 0),
-				'comments_enabled' => array('type' => 'INT', 'constraint' => 1, 'default' => 1),
+				'comments_enabled' => array('type' => 'ENUM', 'constraint' => array('no','1 day','1 week','2 weeks','1 month', '3 months', 'always'), 'default' => '3 months'),
 				'status' => array('type' => 'ENUM', 'constraint' => array('draft', 'live'), 'default' => 'draft'),
 				'type' => array('type' => 'SET', 'constraint' => array('html', 'markdown', 'wysiwyg-advanced', 'wysiwyg-simple')),
-                'preview_hash' => array('type' => 'CHAR', 'constraint' => 32,'default'=>''),
+				'preview_hash' => array('type' => 'CHAR', 'constraint' => 32, 'default' => ''),
 			),
 		));
 	}

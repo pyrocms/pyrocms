@@ -1,4 +1,4 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['header']			=	'Korak 1: Vnesite dostopne podatke za podatkovno bazo in strežnik';
@@ -7,6 +7,9 @@ $lang['intro_text']		=	'Pred preveritvijo podatkovne baze, potrebujemo podatke z
 $lang['db_settings']	=	'Namestitev podatkovne baze (MYSQL DB)';
 $lang['db_text']		=	'Da bo lahko Installer preveril verzijo MYSQL strežnika je potrebno, da vnesete pot do MYSQL strežnika (ponavadi: localhost) MYSQL uporabnika ter geslo uporabnika. Ti podatki bodo uporabljeni tudi pri namestitvi podatkov v podatkovno bazo.';
 $lang['db_missing']		=	'The mysql database driver for PHP were not found, installation cannot continue. Ask your host or server administrator to install it.'; #translate
+$lang['db_create']		=	'Create Database'; #translate
+$lang['db_notice']		=	'You might need to do this yourself via your hosting control panel'; #translate
+$lang['database']		=	'MySQL Database'; #translate
 
 $lang['server']			=	'Strežnik';
 $lang['username']		=	'DB Uporabnik';
@@ -22,5 +25,3 @@ $lang['step2']			=	'Korak 2';
 // messages
 $lang['db_success']		=	'Podatki za povezavo s podatkovo bazo so bili preverjeni in vse pravilno deluje.';
 $lang['db_failure']		=	'Na podatkovno bazo se ni mogoče povezati: ';
-
-/* End of file step_1_lang.php */

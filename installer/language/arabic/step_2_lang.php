@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['header']			=	'الخطوة الثانية: التحقق من المتطلبات';
@@ -45,5 +45,3 @@ $lang['retry']			=	'حاول مجدداً';
 
 // messages
 $lang['step1_failure']	=	'الرجاء إدخال جميع بيانات إعدادات قاعدة البيانات في النموذج أدناه.';
-
-/* End of file step_2_lang.php */

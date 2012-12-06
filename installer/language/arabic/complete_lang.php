@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['congrats']			= 'تهانينا';
@@ -10,5 +10,3 @@ $lang['outro_text']			= 'أخيراً، <strong>احذف برنامج التثب
 
 $lang['go_website']			= 'تقدم إلى الموقع';
 $lang['go_control_panel']	= 'أدخل لوحة التحكم';
-
-/* End of file complete_lang.php */

@@ -224,7 +224,7 @@ class Installer_lib {
 		$server 	= $this->ci->session->userdata('hostname') . ':' . $this->ci->session->userdata('port');
 		$username 	= $this->ci->session->userdata('username');
 		$password 	= $this->ci->session->userdata('password');
-		$database 	= $data['database'];
+		$database 	= $this->ci->session->userdata('database');
 
 		// User settings
 		$user_salt		= substr(md5(uniqid(rand(), true)), 0, 5);
@@ -255,12 +255,6 @@ class Installer_lib {
 		if ($this->mysql_server_version >= '5.0.7')
 		{
 			@mysql_set_charset('utf8', $this->db);
-		}
-
-		// Do we want to create the database using the installer ?
-		if ( ! empty($data['create_db'] ))
-		{
-			mysql_query('CREATE DATABASE IF NOT EXISTS '.$database, $this->db);
 		}
 
 		// Select the database we created before

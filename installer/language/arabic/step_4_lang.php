@@ -1,12 +1,9 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
-$lang['header']			=	'الخطوة الرابعة: إنشاء قاعدة البيانات';
-$lang['intro_text']		=	'أكمل بيانات الاستمارة أدناه واضغط زر "تثبيت" لتثبيت PyroCMS. تأكد من تثبيت PyroCMS في قاعدة البيانات الصحيحة حيث أن جميع البينات الموجودة مسبقاً ستفقد!';
+$lang['header']			=	'الخطوة الرابعة: إنشاء قاعدة البيانات'; #translate
+$lang['intro_text']		=	'أكمل بيانات الاستمارة أدناه واضغط زر "تثبيت" لتثبيت PyroCMS. تأكد من تثبيت PyroCMS في قاعدة البيانات الصحيحة حيث أن جميع البينات الموجودة مسبقاً ستفقد!'; #translate
 
-$lang['db_settings']	=	'إعدادات قاعدة البيانات';
-$lang['db_create']		=	'إنشاء قاعدة البيانات';
-$lang['db_notice']		=	'قد تحتاج أن تقوم بذلك بنفسك';
 $lang['default_user']	=	'إسم المستخدم الإفتراضي';
 $lang['database']		=	'قاعدة البيانات';
 $lang['site_settings']		= 	'إعدادات الموقع';
@@ -27,5 +24,3 @@ $lang['error_104']		=	'تعذر على برنامج التثبيت إنشاء ا
 $lang['error_105']		=	'تعذرت كتابة ملف تهيئة قاعدة البيانات! هل تخطيت الخطوة الثالثة بطريقة ما؟!';
 $lang['error_106']		=	'تعذرت كتابة ملف التهيئة، هل أنت متأكد أن الملف له صلاحيات صحيحة؟';
 $lang['success']		=	'تم تثبيت PyroCMS بنجاح.';
-
-/* End of file step_4_lang.php */

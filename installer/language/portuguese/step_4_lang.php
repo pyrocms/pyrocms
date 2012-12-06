@@ -1,12 +1,9 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
-$lang['header']			=	'4ª Etapa: Criação da Base de Dados';
-$lang['intro_text']		=	'Complete o formulário abaixo e clique no botão "Instalar" para instalar o PyroCMS. Certifique-se que está a instar o PyroCMS na base de dados correta, pois todos os dados existentes nela serão perdidos!';
+$lang['header']			=	'4ª Etapa: Criação da Base de Dados'; #translate
+$lang['intro_text']		=	'Complete o formulário abaixo e clique no botão "Instalar" para instalar o PyroCMS. Certifique-se que está a instar o PyroCMS na base de dados correta, pois todos os dados existentes nela serão perdidos!'; #translate
 
-$lang['db_settings']	=	'Configuração da base de dados';
-$lang['db_create']		=	'Criar base de dados';
-$lang['db_notice']		=	'Talvez precise de fazer isto manualmente';
 $lang['default_user']	=	'Utilizador padrão do PyroCMS';
 $lang['database']		=	'Base de dados';
 $lang['site_settings']	= 	'Configurações do site';
@@ -27,5 +24,3 @@ $lang['error_104']		=	'O instalador não conseguiu criar o utilizador padrão.<b
 $lang['error_105']		=	'O ficheiro de configuração da base de dados não pode ser escrito. Seguiu as instruções na 3ª etapa?';
 $lang['error_106']		=	'O ficheiro de configuração não pode ser escrito. Tem certeza que atribuiu as permissões corretas?';
 $lang['success']		=	'O PyroCMS foi instalado com sucesso.';
-
-/* End of file step_4_lang.php */

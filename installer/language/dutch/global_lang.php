@@ -1,4 +1,4 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 $lang['intro']	=	'Introductie';
 $lang['step1']	=	'Stap #1';
@@ -9,5 +9,3 @@ $lang['final']	=	'Laatste Stap';
 
 $lang['installer.passwords_match']		= "Wachtwoorden komen overeen.";
 $lang['installer.passwords_dont_match']	= "Wachtwoorden komen niet overeen.";
-
-/* End of file global_lang.php */

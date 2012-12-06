@@ -115,6 +115,7 @@ class Admin_Categories extends Admin_Controller {
 		$this->template
 			->title($this->module_details['name'], lang('cat_create_title'))
 			->set('category', $category)
+			->set('mode', 'create')
 			->append_js('module::blog_category_form.js')
 			->build('admin/categories/form');	
 	}
@@ -160,6 +161,7 @@ class Admin_Categories extends Admin_Controller {
 		$this->template
 			->title($this->module_details['name'], sprintf(lang('cat_edit_title'), $category->title))
 			->set('category', $category)
+			->set('mode', 'edit')
 			->append_js('module::blog_category_form.js')
 			->build('admin/categories/form');
 	}	

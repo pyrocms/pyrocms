@@ -1,6 +1,6 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed.');
 /**
- * The Matchbox helper gives you lots of handy functions to use with your modules
+ * Modules helper gives you lots of handy functions to use with your modules
  *
  * @author 		Philip Sturgeon
  * @modified	Dan Horrigan
@@ -41,16 +41,34 @@ function module_array()
  *
  * Returns true/false if the module exists
  *
- * @param	string	$module		The name of the module we are testing
+ * @param	string	$slug		The name of the module we are testing
  * @return	string
  */
 
-function module_exists($module = '')
+function module_exists($slug = '')
 {
 	// Start looking
 	$ci =& get_instance();
 
-	return $ci->module_m->exists($module);
+	return $ci->module_m->exists($slug);
+}
+
+
+/**
+ * Module Enabled
+ *
+ * Returns true/false if the module is enabled
+ *
+ * @param	string	$slug		The name of the module we are testing
+ * @return	bool
+ */
+
+function module_enabled($slug = '')
+{
+	// Start looking
+	$ci =& get_instance();
+
+	return $ci->module_m->enabled($slug);
 }
 
 
@@ -59,18 +77,16 @@ function module_exists($module = '')
  *
  * Returns true/false if the module is installed
  *
- * @param	string	$module		The name of the module we are testing
- * @return	string
+ * @param	string	$slug		The name of the module we are testing
+ * @return bool
  */
 
-function module_installed($module = '')
+function module_installed($slug = '')
 {
 	// Start looking
 	$ci =& get_instance();
 
-	$module = $ci->db->select('installed')->where('slug', $module)->limit(1)->get('modules')->row(0);
-
-	return (isset($module->installed) and $module->installed == 1) ? true : false;
+	return $ci->module_m->installed($slug);
 }
 
 
@@ -94,7 +110,7 @@ function module_controller($controller, $module)
 
 	$controllers = $ci->module_m->get_module_controllers($module);
 
-	return isset($controllers[$controller]) ? true : false;
+	return isset($controllers[$controller]);
 }
 
 // will that your place is here? or maybe should it exists?

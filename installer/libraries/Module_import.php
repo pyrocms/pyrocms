@@ -32,8 +32,8 @@ class Module_import
 		$db['hostname'] = $this->ci->session->userdata('hostname');
 		$db['username'] = $this->ci->session->userdata('username');
 		$db['password'] = $this->ci->session->userdata('password');
-		$db['database'] = $this->ci->input->post('database');
-		$db['port'] = $this->ci->input->post('port');
+		$db['database'] = $this->ci->session->userdata('database');
+		$db['port'] 	= $this->ci->session->userdata('port');
 		$db['dbdriver'] = "mysql";
 		$db['dbprefix'] = 'default_';
 		$db['pconnect'] = false;
@@ -201,6 +201,13 @@ class Module_import
 					}
 
 					$this->install($module_name, $is_core);
+
+					// Settings is installed first. Once it's installed we load the library
+					// so all modules can use settings in their install code.
+					if ($module_name === 'settings')
+					{
+						$this->ci->load->library('settings/settings');
+					}
 				}
 			}
 

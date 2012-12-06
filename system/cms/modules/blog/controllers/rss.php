@@ -1,82 +1,78 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 class Rss extends Public_Controller
 {
 	public function __construct()
 	{
-		parent::__construct();	
+		parent::__construct();
 		$this->load->model('blog_m');
 		$this->load->helper('xml');
 		$this->load->helper('date');
 		$this->lang->load('blog');
 	}
-	
+
 	public function index()
 	{
 		$posts = $this->pyrocache->model('blog_m', 'get_many_by', array(array(
 			'status' => 'live',
 			'limit' => $this->settings->get('rss_feed_items'))
 		), $this->settings->get('rss_cache'));
-		
-		$this->_build_feed( $posts );		
-		$this->data->rss->feed_name .= $this->lang->line('blog_rss_name_suffix');		
-		$this->output->set_header('Content-Type: application/rss+xml');
-		$this->load->view('rss', $this->data);
+
+		$this->output->set_content_type('application/rss+xml');
+		$this->load->view('rss', $this->_build_feed($posts, $this->lang->line('blog:rss_name_suffix')));
 	}
-	
-	public function category( $slug = '')
+
+	public function category($slug = '')
 	{
 		$this->load->model('blog_categories_m');
-		
-		if(!$category = $this->blog_categories_m->get_by('slug', $slug))
+
+		if (!$category = $this->blog_categories_m->get_by('slug', $slug))
 		{
 			redirect('blog/rss/all.rss');
 		}
-		
+
 		$posts = $this->pyrocache->model('blog_m', 'get_many_by', array(array(
 			'status' => 'live',
 			'category' => $slug,
-			'limit' => $this->settings->get('rss_feed_items') )
+			'limit' => $this->settings->get('rss_feed_items'))
 		), $this->settings->get('rss_cache'));
-		
-		$this->_build_feed( $posts );		
-		$this->data->rss->feed_name .= ' '. $category->title . $this->lang->line('blog_rss_category_suffix');		
-		$this->output->set_header('Content-Type: application/rss+xml');
-		$this->load->view('rss', $this->data);
-	}
-	
-	public function _build_feed( $posts = array() )
-	{
-		$this->data = new stdClass();
-		$this->data->rss = new stdClass();
 
-		$this->data->rss->encoding = $this->config->item('charset');
-		$this->data->rss->feed_name = $this->settings->get('site_name');
-		$this->data->rss->feed_url = base_url();
-		$this->data->rss->page_description = sprintf($this->lang->line('blog:rss_posts_title'), $this->settings->get('site_name'));
-		$this->data->rss->page_language = 'en-gb';
-		$this->data->rss->creator_email = $this->settings->get('contact_email');
-		
-		if(!empty($posts))
+		$this->output->set_content_type('application/rss+xml');
+		$this->load->view('rss', $this->_build_feed($posts, $category->title.$this->lang->line('blog:rss_category_suffix')));
+	}
+
+	public function _build_feed($posts = array(), $suffix = '')
+	{
+		$data = new stdClass();
+		$data->rss = new stdClass();
+
+		$data->rss->encoding = $this->config->item('charset');
+		$data->rss->feed_name = $this->settings->get('site_name').' '.$suffix;
+		$data->rss->feed_url = base_url();
+		$data->rss->page_description = sprintf($this->lang->line('blog:rss_posts_title'), $this->settings->get('site_name'));
+		$data->rss->page_language = 'en-gb';
+		$data->rss->creator_email = $this->settings->get('contact_email');
+
+		if (!empty($posts))
 		{
-			foreach($posts as $row)
+			foreach ($posts as $row)
 			{
 				//$row->created_on = human_to_unix($row->created_on);
-				$row->link = site_url('blog/' .date('Y/m', $row->created_on) .'/'. $row->slug);
-				$row->created_on = standard_date('DATE_RSS', $row->created_on);
-				
+				$row->link = site_url('blog/'.date('Y/m', $row->created_on).'/'.$row->slug);
+				$row->created_on = date(DATE_RSS, $row->created_on);
+
 				$item = array(
 					//'author' => $row->author,
 					'title' => xml_convert($row->title),
 					'link' => $row->link,
 					'guid' => $row->link,
-					'description'  => $row->intro,
+					'description' => $row->intro,
 					'date' => $row->created_on,
 					'category' => $row->category_title
-				);				
-				$this->data->rss->items[] = (object) $item;
+				);
+				$data->rss->items[] = (object)$item;
 			}
-		}	
+		}
+		return $data;
 	}
 }
-?>

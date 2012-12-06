@@ -18,6 +18,17 @@
 		<?php if ( !$this->installer_lib->mysql_available() ): ?>
 			<p class="result fail">{db_missing}</p>
 		<?php endif; ?>
+
+		<div class="input">
+			<label for="database"><?php echo lang('database'); ?></label>
+			<input type="text" id="database" class="input_text" name="database" value="<?php echo set_value('database'); ?>" />
+		</div>
+
+		<div class="input">
+			<label for="create_db"><?php echo lang('db_create'); ?></label><br>
+			<input type="checkbox" name="create_db" value="true" id="create_db" <?php if($this->input->post('create_db') == 'true') { echo ' checked="checked"'; } ?> />
+			<small>(<?php echo lang('db_notice'); ?>)</small>
+		</div>
 		
 		<div class="input">
 			<label for="hostname">{server}</label>
@@ -31,7 +42,18 @@
 		?>
 		
 		</div>
-		
+
+		<div class="input">
+			<?php echo lang('portnr','port'); ?>
+			<?php
+				echo form_input(array(
+					'id' => 'port',
+					'name' => 'port',
+					'value' => set_value('port', $port)
+				));
+			?>
+			
+		</div>
 		
 		<div class="input">
 			<?php echo lang('username','username'); ?>
@@ -51,18 +73,6 @@
 					'id' => 'password',
 					'name' => 'password',
 					'value' => set_value('password')
-				));
-			?>
-			
-		</div>
-		
-		<div class="input">
-			<?php echo lang('portnr','port'); ?>
-			<?php
-				echo form_input(array(
-					'id' => 'port',
-					'name' => 'port',
-					'value' => set_value('port', $port)
 				));
 			?>
 			

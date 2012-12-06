@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['header']			=	'Vaihe 3: Oikeuksien asettaminen';
@@ -19,5 +19,3 @@ $lang['hide_commands']		= 'Piilota komennot';
 $lang['next_step']		= 'Siirry seuraavaan vaiheeseen';
 $lang['step4']			= 'Vaihe 4';
 $lang['retry']			= 'Tarkista uudelleen';
-
-/* End of file step_3_lang.php */

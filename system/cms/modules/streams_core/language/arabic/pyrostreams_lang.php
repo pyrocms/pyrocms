@@ -122,6 +122,7 @@ $lang['streams.size']									= "الحجم";
 $lang['streams.num_of_entries']							= "عدد المُدخلات";
 $lang['streams.num_of_fields']							= "عدد الحقول";
 $lang['streams.last_updated']							= "آخر تحديث";
+$lang['streams.export_schema']							= "تصدير المخطط";
 
 /* Startup */
 

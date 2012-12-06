@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['header']			=	'Step 3: Set Permissions';
@@ -19,5 +19,3 @@ $lang['hide_commands']		= 'Hide commands';
 $lang['next_step']		= 'Proceed to the next step';
 $lang['step4']			= 'Step 4';
 $lang['retry']			= 'Try again';
-
-/* End of file step_3_lang.php */

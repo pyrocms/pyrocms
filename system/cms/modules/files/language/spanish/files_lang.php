@@ -55,6 +55,7 @@ $lang['files:search_message']				= 'Escribe y presiona Enter';
 $lang['files:search']						= 'Buscar';
 $lang['files:synchronize']					= 'Sincronizar';
 $lang['files:uploader']						= 'Arrastrar los archivos aquí <br />o<br />Hacer clic para seleccionar los archivos';
+$lang['files:replace_file']					= 'Replace file'; #translate
 
 // Context Menu
 $lang['files:refresh']						= 'Refresh'; #translate
@@ -62,6 +63,7 @@ $lang['files:open']							= 'Abrir';
 $lang['files:new_folder']					= 'Nueva Carpeta';
 $lang['files:upload']						= 'Subir';
 $lang['files:rename']						= 'Cambiar nombre';
+$lang['files:replace']	  					= 'Replace'; # translate
 $lang['files:delete']						= 'Eliminar';
 $lang['files:edit']							= 'Editar';
 $lang['files:details']						= 'Detalles';
@@ -107,6 +109,7 @@ $lang['files:file_moved']					= 'El archivo "%s" se ha movido exitosamente';
 $lang['files:exceeds_server_setting']		= 'El servidor no puede manejar un archivo de un tamaño tan grande como este';
 $lang['files:exceeds_allowed']				= 'El archivo supera el tamaño máximo permitido';
 $lang['files:file_type_not_allowed']		= 'Este tipo de archivo no está permitido';
+$lang['files:replace_warning']				= 'Warning: Do not replace a file with a file of a different type (e.g. .jpg with .png)'; #translate
 $lang['files:type_a']						= 'Audio';
 $lang['files:type_v']						= 'Video';
 $lang['files:type_d']						= 'Documento';

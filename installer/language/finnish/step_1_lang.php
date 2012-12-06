@@ -1,4 +1,4 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['header']			=	'Vaihe 1: Konfiguroi tietokanta ja palvelin';
@@ -7,6 +7,9 @@ $lang['intro_text']		=	'PyroCMS on helppo asentaa ja sen pitäisi viedä muutama
 $lang['db_settings']	=	'Tietokanta asetukset';
 $lang['db_text']		=	'PyroCMS vaatii tietokannan (MySQL) tallentaakseen kaikki sisällöt ja asetukset, joten tarkistamme nyt että tietokanta yhteys on kunnossa. Jos et ymmärrä mistä on kysymys, niin kysy tiedot palveluntarjoajaltasi.';
 $lang['db_missing']		=	'The mysql database driver for PHP were not found, installation cannot continue. Ask your host or server administrator to install it.'; #translate
+$lang['db_create']		=	'Create Database'; #translate
+$lang['db_notice']		=	'You might need to do this yourself via your hosting control panel'; #translate
+$lang['database']		=	'MySQL Database'; #translate
 
 $lang['server']			=	'MySQL palvelin';
 $lang['username']		=	'MySQL käyttäjätunnus';
@@ -23,5 +26,3 @@ $lang['step2']			=	'Vaihe 2';
 // messages
 $lang['db_success']		=	'Tietokanta asetukset on testattu ja toimii.';
 $lang['db_failure']		=	'Tietokannan yhteydessä tapahtui virhe: ';
-
-/* End of file step_1_lang.php */

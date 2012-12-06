@@ -1,4 +1,4 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['header']			=	'الخطوة الأولى: تهيئة قاعدة البيانات والخادم';
@@ -7,6 +7,9 @@ $lang['intro_text']		=	'قبل أن نتمكن من التحقق من قاعدة
 $lang['db_settings']	=	'إعدادات قاعدة البيانات';
 $lang['db_text']		=	'كي يتمكن برنامج التثبيت من التحقق من إصدار خادم MySQL يجب عليك إدخال بيانات اسم المضيف، وإسم المستخدم وكلمة السرّ في الاستمارة أدناه. ستستخدم هذه الإعدادات عند تثبيت قاعدة البيانات.';
 $lang['db_missing']		=	'يبدو أن مُعرف mysql الخاص بـPHP غير موجود. رجاءً تشغيله أو طلب ذلك من مدير النظام.';
+$lang['db_create']		=	'Create Database'; #translate
+$lang['db_notice']		=	'You might need to do this yourself via your hosting control panel'; #translate
+$lang['database']		=	'MySQL Database'; #translate
 
 $lang['server']			=	'الخادم';
 $lang['username']		=	'إسم المستخدم';
@@ -23,5 +26,3 @@ $lang['step2']			=	'الخطوة الثانية';
 // messages
 $lang['db_success']		=	'تم اختبار إعدادات قاعدة البيانات بنجاح.';
 $lang['db_failure']		=	'حدثت مشكلة في الاتصال بقاعدة البيانات: ';
-
-/* End of file step_1_lang.php */

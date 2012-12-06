@@ -1,12 +1,9 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
-$lang['header']			=	'Krok 4: Tworzenie bazy danych';
-$lang['intro_text']		=	'Wypełnij poniższy formularz i kliknij przycisk Instaluj, aby zainstalować PyroCMS.';
+$lang['header']			=	'Krok 4: Tworzenie bazy danych'; #translate
+$lang['intro_text']		=	'Wypełnij poniższy formularz i kliknij przycisk Instaluj, aby zainstalować PyroCMS.'; #translate
 
-$lang['db_settings']		=	'Konfiguracja bazy danych';
-$lang['db_create']		=	'Twórz bazę danych';
-$lang['db_notice']		=	'być może będziesz musiał to zrobić samemu';
 $lang['default_user']		=	'Domyślny użytkownik';
 $lang['database']		=	'Baza danych';
 $lang['site_settings']		= 	'Ustawienia strony';

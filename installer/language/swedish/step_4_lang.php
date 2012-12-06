@@ -10,11 +10,8 @@
  * @version		1.1.0
  */
 
-$lang['header'] = 'Steg 4: Skapa databas';
-$lang['intro_text'] = 'Fyll i formuläret nedan och tryck på knappen "Installera" för att installera PyroCMS. Var noga med att installera PyroCMS i rätt databas eftersom alla befintliga ändringar kommer att förloras!';
-$lang['db_settings'] = 'Databasinställningar';
-$lang['db_create'] = 'Skapa databas';
-$lang['db_notice'] = 'Du kan behöva göra det själv';
+$lang['header'] = 'Steg 4: Skapa databas'; #translate
+$lang['intro_text'] = 'Fyll i formuläret nedan och tryck på knappen "Installera" för att installera PyroCMS. Var noga med att installera PyroCMS i rätt databas eftersom alla befintliga ändringar kommer att förloras!'; #translate
 $lang['default_user'] = 'Standardanvändare';
 $lang['database'] = 'Databas';
 $lang['site_settings'] = 'Webbplatsinställningar';
@@ -34,7 +31,3 @@ $lang['error_104'] = 'Installationsprogrammet kunde inte skapa användaren.';
 $lang['error_105'] = 'Databas-konfigurationsfilen inte kunde skapas, har du genomfört hela Steg 3 i installationsguiden?';
 $lang['error_106'] = 'Konfigurationsfilen inte kunde skrivas, är du säker på att filen har rätt behörighet?';
 $lang['success'] = 'PyroCMS installationen genomfördes.';
-
-
-/* End of file step_4_lang.php */  
-/* Location: installer/language/swedish/step_4_lang.php */  

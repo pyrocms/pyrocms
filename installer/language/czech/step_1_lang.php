@@ -1,4 +1,4 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['header']			=	'Krok 1: Konfigurace databáze a serveru';
@@ -7,6 +7,9 @@ $lang['intro_text']		=	'Než budeme moci zkontrolovat databázi, potřebujeme zn
 $lang['db_settings']	=	'Nastavení databáze';
 $lang['db_text']		=	'Aby mohl instalátor zkontrolovat váš MySQL server, musíte vložit adresu serveru, uživatelské jméno a heslo. Toto nastavení bude použito i při instalaci databáze.';
 $lang['db_missing']		=	'The mysql database driver for PHP were not found, installation cannot continue. Ask your host or server administrator to install it.'; #translate
+$lang['db_create']		=	'Create Database'; #translate
+$lang['db_notice']		=	'You might need to do this yourself via your hosting control panel'; #translate
+$lang['database']		=	'MySQL Database'; #translate
 
 $lang['server']			=	'Server';
 $lang['username']		=	'Uživatelské jméno';
@@ -23,5 +26,3 @@ $lang['step2']			=	'Krok 2';
 // messages
 $lang['db_success']		=	'Nastavení databáze bylo ověřeno a pracuje správně';
 $lang['db_failure']		=	'Problém s připojením k databázi: ';
-
-/* End of file step_1_lang.php */

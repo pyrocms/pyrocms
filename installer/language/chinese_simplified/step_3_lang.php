@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['header']			=	'步骤三：設定权限';
@@ -19,5 +19,3 @@ $lang['hide_commands']		= '隐藏留言';
 $lang['next_step']		=	'進行下一個步骤';
 $lang['step4']			=	'步骤四';
 $lang['retry']			=	'再試一次';
-
-/* End of file step_3_lang.php */

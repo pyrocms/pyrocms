@@ -7,7 +7,7 @@
 </section>
 
 <section class="item">
-<?php echo form_open($this->uri->uri_string(), 'class="crud" id="categories"'); ?>
+<?php echo form_open($this->uri->uri_string(), 'class="crud'.((isset($mode)) ? ' '.$mode : '').'" id="categories"'); ?>
 
 <div class="form_inputs">
 
@@ -15,10 +15,12 @@
 		<li class="even">
 			<label for="title"><?php echo lang('global:title');?> <span>*</span></label>
 			<div class="input"><?php echo  form_input('title', $category->title); ?></div>
-			<div class="input"><?php echo  form_hidden('id', $category->id); ?></div>
+			<label for="slug"><?php echo lang('global:slug'); ?> <span>*</span></label>
+			<div class="input"><?php echo  form_input('slug', $category->slug); ?></div>
+			<?php echo  form_hidden('id', $category->id); ?>
 		</li>
 	</ul>
-	
+
 </div>
 
 	<div><?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )); ?></div>
