@@ -7,7 +7,7 @@ class Installer_lib
 {
 
 	/** @const string MIN_PHP_VERSION The minimum PHP version requirement */
-	const MIN_PHP_VERSION = '5.2';
+	const MIN_PHP_VERSION = '5.3.6';
 
 	/** @var CI The Codeigniter object instance */
 	private $ci;
@@ -37,15 +37,20 @@ class Installer_lib
 		return version_compare(PHP_VERSION, self::MIN_PHP_VERSION, '>=');
 	}
 
-
 	/**
-	 * Check that MySQL and its PHP module is installed properly
+	 * Function to check that MySQL and its PHP module is installed properly
 	 *
-	 * @return bool
+	 * @return 	bool
 	 */
-	public function mysql_available()
+	public function check_db_extensions()
 	{
-		return function_exists('mysql_connect');
+		$has_pdo = extension_loaded('pdo');
+
+		return array(
+			'mysql' => $has_pdo and extension_loaded('pdo_mysql'),
+			'sqlite' => $has_pdo and extension_loaded('pdo_sqlite'),
+			'pgsql' => $has_pdo and extension_loaded('pdo_pgsql'),
+		);
 	}
 
 	/**
@@ -203,16 +208,49 @@ class Installer_lib
 	/**
 	 * Make sure we can connect to the database
 	 *
-	 * @return bool|mysql
+	 * @return PDO
+	 * @throws PDOException If connection fails
 	 */
-	public function test_db_connection()
+	public function create_db_connection()
 	{
-		$hostname = $this->ci->session->userdata('hostname');
-		$username = $this->ci->session->userdata('username');
-		$password = $this->ci->session->userdata('password');
-		$port	  = $this->ci->session->userdata('port');
+		$driver   = ci()->session->userdata('db.driver');
+		$port     = ci()->session->userdata('db.port');
+		$hostname = ci()->session->userdata('db.hostname');
+		$location = ci()->session->userdata('db.location');
+		$username = ci()->session->userdata('db.username');
+		$password = ci()->session->userdata('db.password');
+		$database = ci()->session->userdata('db.database');
 
-		return $this->mysql_available() && @mysql_connect("$hostname:$port", $username, $password);
+		switch ($driver)
+		{
+			case 'mysql':
+			case 'pgsql':
+				$dsn = "{$driver}:host={$hostname};port={$port};";
+				break;
+			case 'sqlite':
+				$dsn = "sqlite:{$location}";
+				break;
+			default:
+				throw new PDOException('Unknown database driver type: '.$driver);
+		}
+
+		// Try and connect, but bitch if error
+		return new PDO($dsn, $username, $password, array(
+			PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+		));
+	}
+
+	/**
+	 * Make sure we can connect to the database
+	 *
+	 * @param PDO $database
+	 * @return bool
+	 */
+	public function create_db($database)
+	{
+		$pdo = $this->create_db_connection();
+
+		return $pdo->query("CREATE DATABASE {$database}");
 	}
 
 	/**

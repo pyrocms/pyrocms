@@ -112,7 +112,7 @@ class Installer extends CI_Controller
 		define('SITE_REF', 'default');
 
 		$action_url = site_url('installer/change/__NAME__');
-		$image_url = base_url('assets/images/flags/__CODE__.gif');
+		$image_url = base_url('assets/img/flags/__CODE__.gif');
 		// Work out some misrepresented language codes to specific language flags
 		$flag_exchange = array(
 			'english' => 'gb',
@@ -190,17 +190,17 @@ class Installer extends CI_Controller
             array(
                 'field' => 'username',
 				'label'	=> 'lang:username',
-                'rules' => 'trim'
+                'rules' => 'trim'.(in_array($driver, array('mysql', 'pgsql')) ? '|required' : '')
             ),
             array(
                 'field' => 'password',
 				'label'	=> 'lang:password',
-				'rules'	=> 'trim'
+				'rules'	=> 'trim'.(in_array($driver, array('mysql', 'pgsql')) ? '|required' : '')
             ),
             array(
                 'field' => 'port',
                 'label' => 'lang:port',
-				'rules'	=> 'trim|required'
+				'rules'	=> 'trim'.(in_array($driver, array('mysql', 'pgsql')) ? '|required' : '')
             ),
             array(
                 'field' => 'database',
@@ -320,8 +320,8 @@ class Installer extends CI_Controller
 		$data->http_server = new stdClass();
 
         // Check the PHP version
-		$data->php_min_version	= '5.2';
-		$data->php_acceptable	= $this->installer_lib->php_acceptable($data->php_min_version);
+		$data->php_min_version	= Installer_lib::MIN_PHP_VERSION;
+		$data->php_acceptable	= $this->installer_lib->php_acceptable();
 		$data->php_version		= PHP_VERSION;
 
         // Check the GD data

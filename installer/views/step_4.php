@@ -1,14 +1,14 @@
 <section class="title">
 	<h3>{header}</h3>
 </section>
-
 <section class="item">
 	<p>{intro_text}</p>
 </section>
 
 <?php echo form_open(uri_string(), 'id="install_frm"'); ?>
 
-	<input type="hidden" id="site_ref" name="site_ref" value="default" />
+<input type="hidden" id="site_ref" name="site_ref" value="default" />
+
 <section class="title">
 	<h3>{default_user}</h3>
 </section>
@@ -39,7 +39,7 @@
 		<br style="clear:both" />
 	</div>
 	<hr />
-	<input class="btn orange" id="next_step" type="submit" id="submit" value="<?php echo lang('finish'); ?>" />
+	<input class="btn orange" id="next_step" type="submit" value="<?php echo lang('finish'); ?>" />
 </section>
 
 <?php echo form_close(); ?>

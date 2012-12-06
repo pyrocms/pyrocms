@@ -11,17 +11,17 @@
 
 	<title>PyroCMS Installer</title>
 
-	<link rel="stylesheet" href="<?= base_url(); ?>assets/css/style.css" type="text/css" />
+	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/style.css" type="text/css" />
 
 	<!-- Googlelicious -->
 	<link href='http://fonts.googleapis.com/css?family=Questrial' rel='stylesheet' type='text/css'>
 
 	<script type="text/javascript">
-		var base_url = '<?= base_url(); ?>',
-		pass_match = ['<?= lang('installer.passwords_match'); ?>','<?= lang('installer.passwords_dont_match'); ?>'];
+		var base_url = '<?php echo base_url(); ?>',
+		pass_match = ['<?php echo lang('installer.passwords_match'); ?>','<?php echo lang('installer.passwords_dont_match'); ?>'];
 	</script>
 
-	<script type="text/javascript" src="<?= base_url(); ?>assets/js/jquery.min.js"></script>
+	<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.min.js"></script>
 </head>
 
 <body>
@@ -32,7 +32,7 @@
 			<div class="wrapper">
 
 			<div id="logo">
-				<img src="<?= base_url(); ?>assets/img/logo.png" alt="PyroCMS" />
+				<img src="<?php echo base_url(); ?>assets/img/logo.png" alt="PyroCMS" />
 			</div>
 			
 			<ul id="lang">
@@ -49,31 +49,31 @@
 			
 		<nav id="menu">
 			<ul>
-				<li><?= anchor('', lang('intro'), $this->uri->segment(2, '') == '' ? 'id="current"' : ''); ?></li>
-				<li><span id="<?= $this->uri->segment(2) == 'step_1' ? 'current' : '' ?>"><?= lang('step1'); ?></span><span class="sep"></span></li>
-				<li><span id="<?= $this->uri->segment(2) == 'step_2' ? 'current' : '' ?>"><?= lang('step2'); ?></span><span class="sep"></span></li>
-				<li><span id="<?= $this->uri->segment(2) == 'step_3' ? 'current' : '' ?>"><?= lang('step3'); ?></span><span class="sep"></span></li>
-				<li><span id="<?= $this->uri->segment(2) == 'step_4' ? 'current' : '' ?>"><?= lang('step4'); ?></span><span class="sep"></span></li>
-				<li><span id="<?= $this->uri->segment(2) == 'complete' ? 'current' : '' ?>"><?= lang('final'); ?></span><span class="sep"></span></li>
+				<li><?php echo anchor('', lang('intro'), $this->uri->segment(2, '') == '' ? 'id="current"' : ''); ?></li>
+				<li><span id="<?php echo $this->uri->segment(2) == 'step_1' ? 'current' : '' ?>"><?php echo lang('step1'); ?></span><span class="sep"></span></li>
+				<li><span id="<?php echo $this->uri->segment(2) == 'step_2' ? 'current' : '' ?>"><?php echo lang('step2'); ?></span><span class="sep"></span></li>
+				<li><span id="<?php echo $this->uri->segment(2) == 'step_3' ? 'current' : '' ?>"><?php echo lang('step3'); ?></span><span class="sep"></span></li>
+				<li><span id="<?php echo $this->uri->segment(2) == 'step_4' ? 'current' : '' ?>"><?php echo lang('step4'); ?></span><span class="sep"></span></li>
+				<li><span id="<?php echo $this->uri->segment(2) == 'complete' ? 'current' : '' ?>"><?php echo lang('final'); ?></span><span class="sep"></span></li>
 			</ul>
 		</nav>
 
 		<!-- Message type 1 (flashdata) -->
 		<?php if ($this->session->flashdata('success')): ?>
 			<ul class="block-message success">
-				<li><?= $this->session->flashdata('success') ?></li>
+				<li><?php echo $this->session->flashdata('success') ?></li>
 			</ul>
 		<?php endif; ?>
 
 		<?php if ($this->session->flashdata('error')): ?>
 			<ul class="block-message error">
-				<li><?= $this->session->flashdata('error') ?></li>
+				<li><?php echo $this->session->flashdata('error') ?></li>
 			</ul>
 		<?php endif; ?>
 
 		<?php if ( ! empty($error)): ?>
 			<ul class="block-message error">
-				<li><?= $error ?></li>
+				<li><?php echo $error ?></li>
 			</ul>
 		<?php endif; ?>
 
@@ -81,16 +81,16 @@
 		<?php if (validation_errors()): ?>
 			<div id="notification">
 				<ul class="block-message error">
-					<?= validation_errors('<li>', '</li>') ?>
+					<?php echo validation_errors('<li>', '</li>') ?>
 				</ul>
 			</div>
 		<?php endif; ?>
 
-		<?= $page_output.PHP_EOL; ?>
+		<?php echo $page_output.PHP_EOL; ?>
 
 	</div>
-	<script type="text/javascript" src="<?= base_url(); ?>assets/js/jquery.complexify.js"></script>
+	<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.complexify.js"></script>
 
-	<script type="text/javascript" src="<?= base_url(); ?>assets/js/installer.js"></script>
+	<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/installer.js"></script>
 </body>
 </html>
