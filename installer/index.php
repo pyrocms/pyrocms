@@ -180,7 +180,10 @@
  * -------------------------------------------------------------------
  *  Now that we know the path, set the main path constants
  * -------------------------------------------------------------------
- */		
+ */
+
+	// The PHP file extension
+	define('EXT', '.php');
 
  	// Path to the system folder
 	define('BASEPATH', str_replace("\\", "/", $system_path));
