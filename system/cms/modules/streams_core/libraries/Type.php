@@ -115,30 +115,32 @@ class Type
 	{
 		foreach ($this->addon_paths as $raw_mode => $path)
 		{
-			if ( ! is_dir($path)) continue;
-		
-			$types_files = directory_map($path, 1);
+			$mode = ($raw_mode == 'core') ? 'core' : 'addon';
 	
-			($raw_mode == 'core') ? $mode = 'core' : $mode = 'addon';
-	
-			$this->_load_types($types_files, $path, $mode);
-			
-			unset($types_files);
+			$this->load_types_from_folder($path, $mode);
 		}
 	}
 	
 	// --------------------------------------------------------------------------
 
 	/**
-	 * Load types
+	 * Load field types from a certain folder.
 	 *
-	 * @access	private
+	 * Mostly used by this library, but can be used in
+	 * a pinch if you need to bring in some field types
+	 * from a custom location.
+	 *
+	 * @access	public
 	 * @param	array
 	 * @param	string
 	 * @return	void
 	 */	
-	private function _load_types($types_files, $addon_path, $mode = 'core')
+	public function load_types_from_folder($addon_path, $mode = 'core')
 	{
+		if ( ! is_dir($addon_path)) return;
+
+		$types_files = directory_map($addon_path, 1);
+
 		foreach ($types_files as $type)
 		{
 			// Is this a directory w/ a field type?
