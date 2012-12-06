@@ -211,6 +211,29 @@ class Pages extends Public_Controller
 		$page_data->page->body = $chunk_html;
 
 		// ---------------------------------
+		// Get Stream Entry
+		// ---------------------------------
+
+		if ($page->entry_id and $page->layout->stream_id)
+		{
+			$this->load->driver('Streams');
+
+			// Get Streams
+			$stream = $this->streams_m->get_stream($page->layout->stream_id);
+
+			if ($stream)
+			{
+				if ($entry = $this->streams->entries->get_entry($page->entry_id, $stream->stream_slug, $stream->stream_namespace))
+				{
+					$page_data = (object) array_merge((array) $page_data, (array) $entry);
+
+					// Bump title up
+					$page_data->title = $page_data->page->title;
+				}
+			}
+		}
+
+		// ---------------------------------
 		// Metadata
 		// ---------------------------------
 
@@ -248,26 +271,6 @@ class Pages extends Public_Controller
 			true
 		);*/
 
-		// Get our stream entry.
-		if ($page->entry_id and $page->layout->stream_id)
-		{
-			$this->load->driver('Streams');
-
-			// Get Streams
-			$stream = $this->streams_m->get_stream($page->layout->stream_id);
-
-			if ($stream)
-			{
-				if ($entry = $this->streams->entries->get_entry($page->entry_id, $stream->stream_slug, $stream->stream_namespace))
-				{
-					$page_data = (object) array_merge((array) $page_data, (array) $entry);
-
-					// Bump title up
-					$page_data->title = $page_data->page->title;
-				}
-			}
-		}
-		
 		// Add our page and page layout CSS
 		if ($page->layout->css or $page->css)
 		{
