@@ -57,7 +57,7 @@ foreach($permissions['files'] as $files => $status) {
 </textarea>
 <?php endif; ?>
 
-<script>
+<script type="text/javascript">
 	$(function(){
 		$('#show-commands').click(function(){
 			$(this).hide();
