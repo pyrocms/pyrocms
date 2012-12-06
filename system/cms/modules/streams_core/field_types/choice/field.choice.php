@@ -185,7 +185,7 @@ class Field_choice
 	 */
 	public function pre_output($input, $data)
 	{
-		$choices = $this->_choices_to_array($data['choice_data'], $data['choice_type'], false);
+		$choices = $this->_choices_to_array($data['choice_data'], $data['choice_type'], 'no', false);
 		
 		// Checkboxes?
 		if ($data['choice_type'] == 'checkboxes' ||$data['choice_type']== 'multiselect')
@@ -377,7 +377,7 @@ class Field_choice
 	 */
 	public function pre_output_plugin($input, $params)
 	{
-		$options = $this->_choices_to_array($params['choice_data'], $params['choice_type'], false);
+		$options = $this->_choices_to_array($params['choice_data'], $params['choice_type'], 'no', false);
 
 		// Checkboxes
 		if ($params['choice_type'] == 'checkboxes' || $params['choice_type']== 'multiselect')
