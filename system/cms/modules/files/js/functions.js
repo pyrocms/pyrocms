@@ -164,7 +164,7 @@ jQuery(function($){
 				}
 
 				// and hide it if they don't have permission for it
-				if ( $(this).attr('data-role') && ! pyro.files.has_permissions( $(this).attr('data-role') ) ) {
+				if ( $(this).attr('data-role') && pyro.files.has_permissions( $(this).attr('data-role') ) === false ) {
 					$(this).hide();
 				}
 
@@ -983,18 +983,16 @@ jQuery(function($){
 
 		var actions = roles.split(' ');
 		var max_actions = actions.length;
-		var perm_granted = true;
 
 		for(var x = 0;x < max_actions;x++)
 		{
-			if( ! $.inArray(actions[x], pyro.files.permissions) )
+			if( $.inArray(actions[x], pyro.files.permissions) === -1 )
 			{
-				perm_granted = false;
-				break;
+				return false;
 			}
 		}
 
-		return perm_granted;
+		return true;
 	}
 
 	//
