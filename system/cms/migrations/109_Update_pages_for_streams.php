@@ -32,14 +32,14 @@ class Migration_Update_pages_for_streams extends CI_Migration
 
         // Step 2: Add some new columns to page_types
         $pt_fields = array(
-            'slug'              => array('type' => 'VARCHAR', 'constraint' => 60),
+            'slug'              => array('type' => 'VARCHAR', 'constraint' => 60, 'null' => true),
             'stream_id'         => array('type' => 'INT', 'constraint' => 11),
-            'meta_title'        => array('type' => 'VARCHAR', 'constraint' => 255),
-            'meta_keywords'     => array('type' => 'CHAR', 'constraint' => 32),
-            'meta_description'  => array('type' => 'TEXT'),
+            'meta_title'        => array('type' => 'VARCHAR', 'constraint' => 255, 'null' => true),
+            'meta_keywords'     => array('type' => 'CHAR', 'constraint' => 32, 'null' => true),
+            'meta_description'  => array('type' => 'TEXT', 'null' => true),
             'save_as_files'     => array('type' => 'CHAR', 'constraint' => 1, 'default' => 'n'),
-            'content_label'     => array('type' => 'VARCHAR', 'constraint' => 60),
-            'title_label'       => array('type' => 'VARCHAR', 'constraint' => 100)
+            'content_label'     => array('type' => 'VARCHAR', 'constraint' => 60, 'null' => true),
+            'title_label'       => array('type' => 'VARCHAR', 'constraint' => 100, 'null' => true)
         );
         $this->dbforge->add_column('page_types', $pt_fields);
 
@@ -88,7 +88,7 @@ class Migration_Update_pages_for_streams extends CI_Migration
 
         // Step 6: Add some columns to the pages table.
         $page_fields = array(
-            'entry_id'         => array('type' => 'INT', 'contstraint' => 11)
+            'entry_id'         => array('type' => 'INT', 'contstraint' => 11, 'null' => true)
         );
         $this->dbforge->add_column('pages', $page_fields);
 

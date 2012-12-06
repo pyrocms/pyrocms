@@ -65,10 +65,13 @@ class Admin extends Admin_Controller {
 
 		$all = $this->page_type_m->get_all();
 
+		// Do we have a parent ID?
+		$parent = ($this->input->get('parent')) ? '&parent='.$this->input->get('parent') : null;
+
 		echo '<ul class="modal_select">';
 		foreach ($all as $pt)
 		{
-			echo '<li><a href="'.site_url('admin/pages/create?page_type='.$pt->id).'">'.$pt->title.'</a></li>';
+			echo '<li><a href="'.site_url('admin/pages/create?page_type='.$pt->id.$parent).'">'.$pt->title.'</a></li>';
 		}
 		echo '</ul>';
 	}
@@ -196,9 +199,13 @@ class Admin extends Admin_Controller {
 	 *
 	 * @param int $parent_id The id of the parent page.
 	 */
-	public function create($parent_id = 0)
+	public function create()
 	{
 		$page = new stdClass;
+
+		// Parent ID
+		$parent_id = ($this->input->get('parent')) ? $this->input->get('parent') : false;
+		$this->template->set('parent_id', $parent_id);
 
 		// What type of page are we creating?
 		$page_type_id = $this->input->get('page_type');
@@ -230,7 +237,7 @@ class Admin extends Admin_Controller {
 			// the stream data.
 			if ($id = $this->page_m->create($input, $stream))
 			{
-				if (count($input['navigation_group_id']) > 0)
+				if (isset($input['navigation_group_id']) and count($input['navigation_group_id']) > 0)
 				{
 					$this->pyrocache->delete_all('page_m');
 					$this->pyrocache->delete_all('navigation_m');
@@ -319,6 +326,8 @@ class Admin extends Admin_Controller {
 	{
 		// We are lost without an id. Redirect to the pages index.
 		$id or redirect('admin/pages');
+
+		$this->template->set('parent_id', null);
 
 		// The user needs to be able to edit pages.
 		role_or_die('pages', 'edit_live');
@@ -433,7 +442,7 @@ class Admin extends Admin_Controller {
 			$from_db = isset($page->{$assign->field_slug}) ? $page->{$assign->field_slug} : null;
 
 			$page_content_data[$assign->field_slug] = isset($_POST[$assign->field_slug]) ? $_POST[$assign->field_slug] : $from_db;
-		}		
+		}	
 
 		// Run stream field events
 		$this->fields->run_field_events($this->streams_m->get_stream_fields($this->streams_m->get_stream_id_from_slug($stream->stream_slug, $stream->stream_namespace)));

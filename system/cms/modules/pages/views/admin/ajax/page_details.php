@@ -40,7 +40,18 @@
 <?php endif ?>
 
 <div class="buttons">
-	<?php echo anchor('admin/pages/create/'.$page->id, lang('pages:create_label'), 'class="button"'); ?>
+	<?php 
+
+		if ($this->db->count_all('page_types') > 1)
+		{
+			echo anchor('admin/pages/choose_type?parent='.$page->id, lang('pages:create_label'), 'class="button modal"');
+		}
+		else
+		{
+			echo anchor('admin/pages/create?parent='.$page->id, lang('pages:create_label'), 'class="button"');
+		}
+
+	?>
 	<?php echo anchor('admin/pages/duplicate/'.$page->id, lang('pages:duplicate_label'), 'class="button"'); ?>
 	<?php echo anchor('admin/pages/edit/'.$page->id, lang('global:edit'), 'class="button"'); ?>
 	<?php echo anchor('admin/pages/delete/'.$page->id, lang('global:delete'), 'class="confirm button"'); ?>

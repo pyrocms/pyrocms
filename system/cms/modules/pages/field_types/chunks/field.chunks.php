@@ -86,6 +86,12 @@ class Field_chunks
 
 		$input = $this->CI->input->post();
 
+		$slugs = array('chunk_slug', 'chunk_class', 'chunk_body', 'chunk_type');
+		foreach ($slugs as $slug)
+		{
+			if ( ! isset($input[$slug])) $input[$slug] = null; 
+		}
+
 		$chunk_slugs 	= $input['chunk_slug'] ? array_values($input['chunk_slug']) : array();
 		$chunk_class 	= $input['chunk_class'] ? array_values($input['chunk_class']) : array();
 		$chunk_bodies 	= $input['chunk_body'] ? array_values($input['chunk_body']) : array();

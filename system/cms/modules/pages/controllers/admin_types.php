@@ -175,6 +175,7 @@ class Admin_types extends Admin_Controller
 			// Insert the page type
 			$id = $this->page_type_m->insert(array(
 				'title' 			=> $input['title'],
+				'slug'				=> $input['slug'],
 				'stream_id' 		=> $input['stream_id'],
 				'meta_title' 		=> isset($input['meta_title']) ? $input['meta_title'] : null,
 				//'meta_keywords' 	=> isset($input['meta_keywords']) ? $this->keywords->process($input['meta_keywords']) : '',

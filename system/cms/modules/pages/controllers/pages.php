@@ -199,7 +199,6 @@ class Pages extends Public_Controller
 		// ---------------------------------
 
 		$page->chunks = $this->page_m->get_chunks($page->id);
-
 		$chunk_html = '';
 		foreach ($page->chunks as $chunk)
 		{
@@ -212,18 +211,24 @@ class Pages extends Public_Controller
 		$page_data->page->body = $chunk_html;
 
 		// ---------------------------------
+		// Metadata
+		// ---------------------------------
 
-		// parse the layout metadata fields so they can be populated with stream data 
-		// (they can hold tags). Metadata explicitly set in a page trumps layout metadata
+		// First we need to figure out our metadata. If we have meta for our page,
+		// that overrides the meta from the page layout.
 		$meta_title = ($page->meta_title ? $page->meta_title : $page->layout->meta_title);
 		$meta_keywords = ($page->meta_keywords ? Keywords::get_string($page->meta_keywords) : Keywords::get_string($page->layout->meta_keywords));
 		$meta_description = ($page->meta_description ? $page->meta_description : $page->layout->meta_description);
+
+		// They will be parsed later, when they are set for the template library.
 
 		// Not got a meta title? Use slogan for homepage or the normal page title for other pages
 		if ($meta_title == '')
 		{
 			$meta_title = $page->is_home ? $this->settings->site_slogan : $page->title;
 		}
+
+		// ---------------------------------
 
 		// We do this before parsing the page contents so that 
 		// title, meta, & breadcrumbs can be overridden with tags in the page content
@@ -365,7 +370,6 @@ class Pages extends Public_Controller
 		if ( ! empty($children))
 		{
 			$this->load->helper('xml');
-
 
 			foreach ($children as &$row)
 			{

@@ -492,7 +492,7 @@ class Page_m extends MY_Model
 		$this->build_lookup($id);
 
 		// Add a Navigation Link
-		if (count($input['navigation_group_id']) > 0)
+		if (isset($input['navigation_group_id']) and count($input['navigation_group_id']) > 0)
 		{
 			$this->load->model('navigation/navigation_m');
 			foreach ($input['navigation_group_id'] as $group_id)
