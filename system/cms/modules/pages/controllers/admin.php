@@ -464,7 +464,7 @@ class Admin extends Admin_Controller {
 			->title($this->module_details['name'], sprintf(lang('pages:edit_title'), $page->title))
 			->append_metadata($this->load->view('fragments/wysiwyg', array() , true))
 			->append_css('module::page-edit.css')
-			->set('stream_fields', $this->streams->fields->get_stream_fields($stream->stream_slug, $stream->stream_namespace, $page_content_data))
+			->set('stream_fields', $this->streams->fields->get_stream_fields($stream->stream_slug, $stream->stream_namespace, $page_content_data, $page->entry_id))
 			->set('page', $page)
 			->set('parent_page', $parent_page)
 			->set('page_type', $page_type)
