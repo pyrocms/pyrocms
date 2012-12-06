@@ -909,7 +909,7 @@ class Files
 			self::_unlink_file($file_to_replace);
 
 			//...then upload the new file
-			$result = self::upload($folder_id, $name, $field, $width, $height, $ratio, $alt_attribute, $file_to_replace, $allowed_types);
+			$result = self::upload($folder_id, $name, $field, $width, $height, $ratio, $allowed_types, $alt_attribute, $file_to_replace);
 
 			// remove files from cache
 			if( $result['status'] == 1 )
