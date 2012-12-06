@@ -86,7 +86,9 @@ class Module_Pages extends Module
 			),
 		);
 
-		if ( ! class_exists('Module_import'))
+		// We check that the table exists
+		// to avoid any pre 109 migration module class spawning issues.
+		if ( ! class_exists('Module_import') and $this->db->table_exists('page_types'))
 		{
 			// Shortcuts for New page
 
@@ -105,7 +107,7 @@ class Module_Pages extends Module
 			}
 			else
 			{
-				// Get the one page type.
+				// Get the one page type. 
 				$page_type = $this->db->limit(1)->select('id')->get('page_types')->row();
 
 				$info['sections']['pages']['shortcuts'] = array(
