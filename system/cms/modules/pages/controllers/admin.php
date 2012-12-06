@@ -404,7 +404,7 @@ class Admin extends Admin_Controller {
 			$field = $field['field'];
 
 			// Nothing to do for the navigation field
-			if (in_array($field, array('navigation_group_id')))
+			if (in_array($field, array('navigation_group_id[]')))
 			{
 				continue;
 			}
