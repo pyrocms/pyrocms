@@ -115,7 +115,7 @@ class Installer extends CI_Controller
 		}
 
 		ksort($this->language_nav);
-
+ broken
 		// Load form validation library
 		$this->load->library('form_validation');
 	}
