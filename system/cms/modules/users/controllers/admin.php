@@ -65,7 +65,7 @@ class Admin extends Admin_Controller
 		$this->load->library('form_validation');
 		$this->lang->load('user');
 
-		if($this->current_user->group != 'admin') 
+		if ($this->current_user->group != 'admin') 
 		{
 			$this->template->groups = $this->group_m->where_not_in('name', 'admin')->get_all();
 		} 

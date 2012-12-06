@@ -47,7 +47,7 @@ class Field_textarea
 		else
 		{
 			$value = $data['value'];
-		}	
+		}
 
 		$options = array(
 			'name'		=> $data['form_slug'],

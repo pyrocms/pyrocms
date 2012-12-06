@@ -14,6 +14,8 @@ class Field_wysiwyg
 	public $field_type_slug			= 'wysiwyg';
 	
 	public $db_col_type				= 'longtext';
+
+	public $admin_display			= 'full';
 	
 	public $custom_parameters 		= array('editor_type');
 
