@@ -4,7 +4,7 @@
 // This is a copy of the function that exists in system/cms/core/My_Controller.php
 function ci()
 {
-    return get_instance();
+	return get_instance();
 }
 
 define('PYROPATH', dirname(FCPATH).'/system/cms/');
@@ -34,18 +34,18 @@ class Installer extends CI_Controller
 	private $languages = array();
 
 	/** @var array Directories that need to be writable */
-    private $writable_directories = array(
-        'system/cms/cache',
-        'system/cms/config',
-        'addons',
-        'assets/cache',
-        'uploads',
-    );
+	private $writable_directories = array(
+		'system/cms/cache',
+		'system/cms/config',
+		'addons',
+		'assets/cache',
+		'uploads',
+	);
 
 	/** @var array Files that need to be writable */
-    private $writable_files = array(
-        'system/cms/config/config.php'
-    );
+	private $writable_files = array(
+		'system/cms/config/config.php'
+	);
 
 	/** @var string The translations directory */
 	private $languages_directory = '../language/';
@@ -53,34 +53,30 @@ class Installer extends CI_Controller
 	/** @var array The view variables for creating the language menu */
 	private $language_nav = array();
 
-    /**
-     * Array containing the files that need to be writable
-     *
-     * @var array
-     */
-    private $default_ports = array(
-        'mysql' => 3306,
-        'pgsql' => 5432,
-    );
+	/** @var array The default ports for the database servers */
+	private $default_ports = array(
+		'mysql' => 3306,
+		'pgsql' => 5432,
+	);
 
 
-    /**
+	/**
 	 * At start this controller should:
 	 * 1. Load the array of supported servers
 	 * 2. Set the language used by the user.
 	 * 3. Load the language files.
 	 * 4. Load the Form validation library.
-     */
-    public function __construct()
-    {
-        parent::__construct();
+	 */
+	public function __construct()
+	{
+		parent::__construct();
 
-        // Load the config file that contains a list of supported servers
-        $this->load->config('servers');
+		// Load the config file that contains a list of supported servers
+		$this->load->config('servers');
 
-        // Let us load stuff from the main application
-        $this->load->add_package_path(PYROPATH);
-        $this->load->add_package_path(SHARED_ADDONPATH);
+		// Let us load stuff from the main application
+		$this->load->add_package_path(PYROPATH);
+		$this->load->add_package_path(SHARED_ADDONPATH);
 
 		// Get the supported languages
 		$this->_discover_languages();
@@ -103,7 +99,7 @@ class Installer extends CI_Controller
 		// set the supported languages to be saved in Settings for emails and .etc
 		// modules > settings > details.php uses this
 		require_once(dirname(FCPATH).'/system/cms/config/language.php');
-		
+
 		// Check that the language configuration has been loaded.
 		isset($config) or exit('Could not load language configuration.');
 
@@ -138,16 +134,16 @@ class Installer extends CI_Controller
 		ksort($this->language_nav);
 
 		// Load form validation library
-        $this->load->library('form_validation');
-    }
+		$this->load->library('form_validation');
+	}
 
-    /**
-     * Index method
-     */
-    public function index()
-    {
+	/**
+	 * Index method
+	 */
+	public function index()
+	{
 		$this->_render_view('main');
-    }
+	}
 
     /**
      * Pre installation
@@ -241,7 +237,7 @@ class Installer extends CI_Controller
             $default_port = $this->default_ports[$driver];
             $data->port = $port ?: $default_port;
         }
-        
+
         // Check what DB's are available
         $data->db_drivers = $this->installer_lib->check_db_extensions();
 
@@ -345,15 +341,15 @@ class Installer extends CI_Controller
 
         // Check the final results
         $data->step_passed = $this->installer_lib->check_server($data);
-		
+
         // Skip Step 2 if it passes
         if ($data->step_passed)
         {
             $this->session->set_userdata('step_2_passed', true);
-			
+
             redirect('installer/step_3');
         }
-		
+
         $this->session->set_userdata('step_2_passed', $data->step_passed);
 
         // Load the view files
@@ -366,7 +362,7 @@ class Installer extends CI_Controller
      */
     public function step_3()
     {
-		
+
         if ( ! $this->session->userdata('step_1_passed') OR ! $this->session->userdata('step_2_passed'))
         {
             // Redirect the user back to step 1
@@ -399,10 +395,10 @@ class Installer extends CI_Controller
 		if ($data['step_passed'])
         {
             $this->session->set_userdata('step_3_passed', true);
-			
+
             redirect('installer/step_4');
         }
-		
+
         // View variables
 		$data['permissions'] = $permissions;
 
@@ -485,16 +481,17 @@ class Installer extends CI_Controller
             {
                 // Install, then return valid PDO connection if it worked
                 $pdb = $this->installer_lib->install($user, array(
+                    'location'  => $this->session->userdata('db.location'),
                     'hostname'  => $this->session->userdata('db.hostname'),
                     'port'      => $this->session->userdata('db.port'),
-                    'driver'    => $this->session->userdata('db.driver'), 
+                    'driver'    => $this->session->userdata('db.driver'),
                     'database'  => $this->session->userdata('db.database'),
                     'username'  => $this->session->userdata('db.username'),
                     'password'  => $this->session->userdata('db.password'),
                     'site_ref'  => $this->input->post('site_ref'),
                 ));
             }
-            
+
             // Did the install fail?
             catch (Exception $e)
             {
