@@ -7,19 +7,19 @@
  * structure with page types, which are built
  * on streams.
  */
-class Update_pages_for_streams extends CI_Migration
+class Migration_Update_pages_for_streams extends CI_Migration
 {
     public function up()
     {
-        return null;
-
         // Here we go.
 
         // Step 0: Make sure that data_streams can accept null as a value for 'about'.
         // Somehow this is still an issue.
         $streams_columns = array(
             'about' => array(
-                 'null' => true
+                'type' => 'VARCHAR',
+                'constraint' => 255,
+                'null' => true
             )
         );
         $this->dbforge->modify_column('data_streams', $streams_columns);
@@ -32,14 +32,14 @@ class Update_pages_for_streams extends CI_Migration
 
         // Step 2: Add some new columns to page_types
         $pt_fields = array(
-            'slug'              => array('type' => 'VARCHAR', 'contstraint' => 60),
-            'stream_id'         => array('type' => 'INT', 'contstraint' => 11),
-            'meta_title'        => array('type' => 'VARCHAR', 'contstraint' => 255),
-            'meta_keywords'     => array('type' => 'CHAR', 'contstraint' => 32),
+            'slug'              => array('type' => 'VARCHAR', 'constraint' => 60),
+            'stream_id'         => array('type' => 'INT', 'constraint' => 11),
+            'meta_title'        => array('type' => 'VARCHAR', 'constraint' => 255),
+            'meta_keywords'     => array('type' => 'CHAR', 'constraint' => 32),
             'meta_description'  => array('type' => 'TEXT'),
-            'save_as_files'     => array('type' => 'CHAR', 'contstraint' => 1, 'default' => 'n'),
-            'content_label'     => array('type' => 'VARCHAR', 'contstraint' => 60),
-            'title_label'       => array('type' => 'VARCHAR', 'contstraint' => 100)
+            'save_as_files'     => array('type' => 'CHAR', 'constraint' => 1, 'default' => 'n'),
+            'content_label'     => array('type' => 'VARCHAR', 'constraint' => 60),
+            'title_label'       => array('type' => 'VARCHAR', 'constraint' => 100)
         );
         $this->dbforge->add_column('page_types', $pt_fields);
 
@@ -62,39 +62,62 @@ class Update_pages_for_streams extends CI_Migration
         // Step 4: Add a chunks field type to the new stream.
         // The field type goes through and grabs the chunks 
         // based on the page ID.
+
+        // We need to have the chunks field type available or else fits will be thrown.
+        $this->type->load_types_from_folder(APPPATH.'modules/pages/field_types/', 'addon');
+       
         $field = array(
-            'name'          => 'lang:streams.chunks.name',
-            'slug'          => 'chunks',
-            'namespace'     => 'pages',
-            'type'          => 'chunks',
-            'assign'        => 'def_page_fields'
-        )
+            'name'          => 'lang:streams.chunks.name',
+            'slug'          => 'chunks',
+            'namespace'     => 'pages',
+            'type'          => 'chunks',
+            'assign'        => 'def_page_fields'
+        );
         $this->streams->fields->add_field($field);
     
         // Step 5: Rename layout_id to type_id for pages table.
         $rename_layout_id = array(
             'layout_id' => array(
-                 'name' => 'type_id'
+                 'name' => 'type_id',
+                 'type' => 'INT',
+                 'constraint' => 11,
+                 'null' => false
             )
         );
-        $this->dbforge->modify_column('page_types', $rename_layout_id);
+        $this->dbforge->modify_column('pages', $rename_layout_id);
 
         // Step 6: Add some columns to the pages table.
         $page_fields = array(
             'entry_id'         => array('type' => 'INT', 'contstraint' => 11)
         );
-        $this->dbforge->add_column('pages', $fields);
+        $this->dbforge->add_column('pages', $page_fields);
 
         // Step 7: Go through and create an entry for each page.
         // This could be a bit of an issue if a site has thousands of pages,
         // but this is unlikely on PyroCMS currently.
+        $pages = $this->db->get('pages')->result();
         foreach ($pages as $page)
         {
             // New entry for this page!
-            $this->db->insert('def_page_fields', array('chunks' => '0', 'created' => date('Y-m-d H:i:s', time())));
+            $this->db->insert('def_page_fields', array('chunks' => '0', 'ordering_count' => '1', 'created' => date('Y-m-d H:i:s', time())));
             $id = $this->db->insert_id();
             $this->db->limit(1)->where('id', $page->id)->update('pages', array('entry_id' => $id));
             unset($id);
+        }
+
+        // Step 8: Add page_types folder. This is not 100%
+        // necessary since this is only used as an opt in
+        // and can be easily added, but hey, let's try.
+        $pt_folder = FCPATH.'assets/page_types/';
+
+        if ( ! is_dir($pt_folder))
+        {
+            if ( ! @mkdir($pt_folder, 0777))
+            {
+                // Make an .htaccess file
+                $this->load->helper('file');
+                write_file($pt_folder.'.htaccess', 'deny from all');
+            }
         }
 
         // Whew! We made it!
