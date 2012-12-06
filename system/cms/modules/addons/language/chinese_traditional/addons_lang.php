@@ -7,7 +7,7 @@ $lang['addons:widgets'] 						= '小組件';
 $lang['addons:modules:core_list']				= '核心(Core)模組';
 $lang['addons:modules:addon_list']				= '附加(Add-on)模組';
 $lang['addons:modules:introduction']			= '下方是已安裝的模組列表及其資訊，例如：說明或版本。';
-$lang['addons:modules:core_introduction']		= 'Below is a list of core modules and their information. You may disable them but do so with extreme care. Disabling modules such as Users will render your site inoperable.'; #translate
+$lang['addons:modules:core_introduction']		= '下方是核心模組的清單及資訊。你可以禁用這些模組，但必須非常謹慎。禁用某些模組（例如：用戶）將導致網站無法正常運作。';
 $lang['addons:modules:disable_error'] 			= '無法禁用名稱為 "%s" 的模組';
 $lang['addons:modules:disable_success']			= '此模組 "%s" 已經被禁用';
 $lang['addons:modules:enable_error']			= '無法啟用名稱為 "%s" 的模組';
@@ -15,7 +15,7 @@ $lang['addons:modules:enable_success']			= '此模組 "%s" 已經啟用';
 $lang['addons:modules:install_error']			= '無法安裝這個模組';
 $lang['addons:modules:install_success']			= '"%s" 模組已經安裝';
 
-$lang['addons:modules:module_upload_success']   = 'The module "%s" has been uploaded.'; #translate
+$lang['addons:modules:module_upload_success']   = '"%s" 模組已經上傳';
 
 $lang['addons:modules:delete_success']			= '"%s" 模組已經刪除';
 $lang['addons:modules:delete_error']			= '無法刪除 "%s" 模組';

@@ -38,5 +38,5 @@ $lang['nav_link_not_exist_error'] 				= '此導航連結不存在。';
 $lang['nav_link_edit_success'] 					= '此導航連結已經儲存。';
 $lang['nav_link_delete_success'] 				= '此導航連結已經刪除。';
 
-$lang['nav_choose_value']						= 'The %s field must not be empty.'; #translate
+$lang['nav_choose_value']						= '%s 欄位不能是空白，必須填入資料。';
 $lang['nav_link_type_desc'] 					= '請選擇一個連結類型以建立您的連結。';

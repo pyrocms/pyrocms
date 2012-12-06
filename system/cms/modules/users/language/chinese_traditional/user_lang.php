@@ -1,12 +1,12 @@
 <?php
 
-$lang['user_add_field']                        	= 'Add User Profile Field'; #translate
-$lang['user_profile_delete_success']           	= 'User profile field deleted successfully'; #translate
-$lang['user_profile_delete_failure']            = 'There was a problem with deleting your user profile field'; #translate
-$lang['profile_user_basic_data_label']  		= 'Basic Data'; #translate
-$lang['profile_company']         	  			= 'Company'; #translate
-$lang['profile_updated_on']           			= 'Updated On'; #translate
-$lang['user_profile_fields_label']	 		 	= 'Profile Fields'; #translate`
+$lang['user_add_field']                        	= '新增用戶資料欄位';
+$lang['user_profile_delete_success']           	= '用戶資料欄位刪除成功';
+$lang['user_profile_delete_failure']            = '刪除資料欄位時發生了錯誤。';
+$lang['profile_user_basic_data_label']  		= '基本資料';
+$lang['profile_company']         	  			= '公司';
+$lang['profile_updated_on']           			= '更新於';
+$lang['user_profile_fields_label']	 		 	= '資料欄位';
 
 $lang['user_register_header'] 			= '註冊';
 $lang['user_register_step1'] 			= '<strong>步驟一：</strong> 註冊';
@@ -44,8 +44,8 @@ $lang['indicates_required'] 			= '代表必填欄位';
 
 // -- Registration / Activation / Reset Password ----------------------------------------------------------
 
-$lang['user_send_activation_email']            = 'Send Activation Email'; #translate
-$lang['user_do_not_activate']                  = 'Inactive'; #translate
+$lang['user_send_activation_email']     = '寄送啟動信件';
+$lang['user_do_not_activate']           = '未啟動';
 $lang['user_register_title'] 			= '註冊';
 $lang['user_activate_account_title'] 	= '啟動帳號';
 $lang['user_activate_label'] 			= '啟動';
@@ -77,7 +77,7 @@ $lang['user_reset_password_link'] 		= '忘記密碼';
 
 $lang['user_activation_code_sent_notice']	= '內含啟動碼的電子郵件已經寄給您了。';
 $lang['user_activation_by_admin_notice'] 	= '您的註冊資料正在等候管理員的審核。';
-$lang['user_registration_disabled']            = 'Sorry, but the user registration is disabled.'; #translate
+$lang['user_registration_disabled']         = '抱歉，使用者註冊功能已經關閉。';
 
 // -- Settings ---------------------------------------------------------------------------------------------
 
@@ -119,7 +119,7 @@ $lang['user_mass_delete_error'] 				= '請先選擇用戶';
 // Register
 $lang['user_email_pass_missing'] 				= 'Email 或密碼欄位尚未完成。';
 $lang['user_email_exists'] 						= '您選擇的電子郵件已經被另一個用戶所使用。';
-$lang['user_register_error']				   = 'We think you are a bot. If we are mistaken please accept our apologies.'; #translate
+$lang['user_register_error']				    = '您的操作被系統判斷為自動程式，如果是誤判了，那麼請接受我們的道歉。';
 $lang['user_register_reasons'] 					= '加入即可存取特定網站專區。這及表示網站將記住您的設定，更多的內容會提供給您。';
 
 
@@ -181,9 +181,9 @@ $lang['profile_dob_day']				= '日';
 $lang['profile_dob_month']				= '月';
 $lang['profile_dob_year']				= '年';
 $lang['profile_gender']					= '性別';
-$lang['profile_gender_nt']            = '不想透漏';
-$lang['profile_gender_male']          = '男性';
-$lang['profile_gender_female']        = '女性';
+$lang['profile_gender_nt']            	= '不想透漏';
+$lang['profile_gender_male']            = '男性';
+$lang['profile_gender_female']          = '女性';
 $lang['profile_bio']					= '關於我';
 
 $lang['profile_contact_section'] 		= '聯絡資訊';

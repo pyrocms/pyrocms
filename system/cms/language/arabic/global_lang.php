@@ -9,8 +9,8 @@ $lang['desc_label'] 					= 'الوصف';
 $lang['version_label'] 					= 'النسخة';
 $lang['global:author'] 					= 'الناشر';
 $lang['global:action'] 					= 'الإجراء';
-$lang['global:slug'] 					= 'Slug'; #translate
-$lang['global:slug_instructions']		= 'Lowercase characters and underscores only.'; #translate
+$lang['global:slug'] 					= 'مُختصر العُنوان';
+$lang['global:slug_instructions']		= 'أحرف صغيرة وشرطة سفلية فقط.';
 $lang['global:dialog:delete_message'] 	= 'متأكد أنك تريد حذف هذا؟ لا يمكن التراجع عن هذا الأمر.';
 $lang['global:dialog:confirm'] 			= 'التأكيد';
 
@@ -30,12 +30,12 @@ $lang['global:operators:not-equal'] 	= 'لا يساوي';
 $lang['global:operators:less-than'] 	= 'أقل من';
 $lang['global:operators:greater-than'] 	= 'أكثر من';
 
-$lang['global:duration:1-day']			= 'One day'; #translate
-$lang['global:duration:1-week']			= 'One week'; #translate
-$lang['global:duration:2-weeks']		= 'Two weeks'; #translate
-$lang['global:duration:1-month']		= 'One month'; #translate
-$lang['global:duration:3-months']		= 'Three Months'; #translate
-$lang['global:duration:always']			= 'Always'; #translate
+$lang['global:duration:1-day']			= 'يوم';
+$lang['global:duration:1-week']			= 'أسبوع';
+$lang['global:duration:2-weeks']		= 'أسبوعان';
+$lang['global:duration:1-month']		= 'شهر';
+$lang['global:duration:3-months']		= '3 أشهر';
+$lang['global:duration:always']			= 'دائماً';
 
 $lang['navigation_headline'] 			= 'الروابط';
 $lang['breadcrumb_base_label'] 			= 'الرئيسية';

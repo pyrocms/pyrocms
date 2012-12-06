@@ -34,7 +34,8 @@ class Module_Contact extends Module
 				'pl' => 'Kontakt',
 				'ru' => 'Обратная связь',
 				'sl' => 'Kontakt',
-				'zh' => '聯絡我們',
+				'tw' => '聯絡我們',
+				'cn' => '联络我们',
 				'hu' => 'Kapcsolat',
 				'th' => 'ติดต่อ',
 				'se' => 'Kontakt'
@@ -59,7 +60,8 @@ class Module_Contact extends Module
 				'pl' => 'Dodaje formularz kontaktowy do Twojej strony, który pozwala użytkownikom wysłanie maila za pomocą formularza kontaktowego.',
 				'ru' => 'Добавляет форму обратной связи на сайт, через которую посетители могут отправлять вам письма, при этом адрес Email остаётся скрыт.',
 				'sl' => 'Dodaj obrazec za kontakt da vam lahko obiskovalci pošljejo sporočilo brez da bi jim razkrili vaš email naslov.',
-				'zh' => '為您的網站新增「聯絡我們」的功能，對訪客是較為清楚便捷的聯絡方式，也無須您將電子郵件公開在網站上。',
+				'tw' => '為您的網站新增「聯絡我們」的功能，對訪客是較為清楚便捷的聯絡方式，也無須您將電子郵件公開在網站上。',
+				'cn' => '为您的网站新增“联络我们”的功能，对访客是较为清楚便捷的联络方式，也无须您将电子邮件公开在网站上。',
 				'th' => 'เพิ่มแบบฟอร์มในเว็บไซต์ของคุณ ช่วยให้ผู้เยี่ยมชมสามารถส่งอีเมลถึงคุณโดยไม่ต้องเปิดเผยที่อยู่อีเมลของพวกเขา',
 				'hu' => 'Létrehozható vele olyan űrlap, amely lehetővé teszi a látogatók számára, hogy e-mailt küldjenek neked úgy, hogy nem feded fel az e-mail címedet.',
 				'se' => 'Lägger till ett kontaktformulär till din webbplats.'

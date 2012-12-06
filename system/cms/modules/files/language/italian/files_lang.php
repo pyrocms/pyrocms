@@ -48,7 +48,7 @@ $lang['files:uploader']						= 'Trascina qui i file <br />oppure<br />Clicca per
 $lang['files:replace_file']					= 'Replace file'; #translate
 
 // Context Menu
-$lang['files:refresh']						= 'Refresh'; #translate
+$lang['files:refresh']						= 'Aggiorna'; 
 $lang['files:open']							= 'Apri';
 $lang['files:new_folder']					= 'Nuova cartella';
 $lang['files:upload']						= 'Carica';
