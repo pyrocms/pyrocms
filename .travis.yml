@@ -1,6 +1,7 @@
 language: php
 php:
   - "5.3"
+  - "5.4"
 before_script:
   - "sudo chmod -R 777  ."
   - "sudo apt-get install apache2"
@@ -22,6 +23,8 @@ before_install: pear channel-discover pear.phpunit.de
 install: pear install phpunit/PHPUnit_Selenium
 script: phpunit tests/integration/installer/TestInstallerValidDbCreds.php
 branches:
-  only:
-    - feature/selenium
-
+  exclude:
+    - 2.1/develop
+    - 2.1/master
+    - 2.0/develop
+    - 2.0/master

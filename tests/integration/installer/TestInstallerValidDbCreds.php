@@ -29,6 +29,6 @@ class TestInstallerValidDbCreds extends PHPUnit_Extensions_Selenium2TestCase
         $this->byId('username')->value('pyro');
         $this->byId('password')->value('pyro');
         $this->byId('next_step')->click();
-        $this->assertNotContains('Problem connecting to the database:',$this->byId('container')->text());
+        $this->assertNotContains('Problem connecting to the database:', $this->byId('container')->text());
     }
 }
