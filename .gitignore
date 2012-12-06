@@ -4,6 +4,8 @@
 .settings
 .idea
 assets/cache/*
+!assets/page_types/.htaccess
+assets/page_types/*
 system/cms/cache/*
 system/cms/config/database.php
 system/cms/logs/log-*.php
