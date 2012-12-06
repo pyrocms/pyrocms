@@ -33,7 +33,7 @@ class Type
 
     public function __construct()
     {    
-		$this->CI =& get_instance();
+		$this->CI = get_instance();
 		
 		$this->CI->load->helper('directory');
 		$this->CI->load->config('streams_core/streams');
@@ -84,9 +84,23 @@ class Type
 			'addon' 		=> ADDONPATH.'field_types/',
 			'addon_alt' 	=> SHARED_ADDONPATH.'field_types/'
 		);
+
+		// Add addon paths event. This is an opportunity to
+		// add another place for addons.
+		if ( ! class_exists('Module_import'))
+		{
+			Events::trigger('streams_core_add_addon_path', $this);
+		}
 		
 		// Go ahead and gather our types
 		$this->gather_types();		
+	}
+
+	// --------------------------------------------------------------------------
+
+	public function add_ft_path($key, $path)
+	{
+		$this->addon_paths[$key] = $path;
 	}
 
 	// --------------------------------------------------------------------------
