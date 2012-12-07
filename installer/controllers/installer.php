@@ -599,7 +599,7 @@ class Installer extends CI_Controller
 	private function _render_view($view) {
 		$args = array_slice(func_get_args(), 1);
 		$out = array_merge($this->lang->language, array('language_nav' => $this->language_nav));
-		foreach($args as $arg) {
+		foreach ($args as $arg) {
 			if (is_array($arg)) {
 				$out = array_merge($out, $arg);
 			}
