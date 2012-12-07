@@ -2,6 +2,10 @@
 
 class TestInstallerValidDbCreds extends PHPUnit_Extensions_Selenium2TestCase
 {
+    /**
+     * @group installer
+     * @group all
+     */
     public function setUp()
     {
         $this->setBrowser('firefox');
@@ -29,6 +33,6 @@ class TestInstallerValidDbCreds extends PHPUnit_Extensions_Selenium2TestCase
         $this->byId('username')->value('pyro');
         $this->byId('password')->value('pyro');
         $this->byId('next_step')->click();
-        $this->assertNotContains('Problem connecting to the database:', $this->byId('container')->text());
+        $this->assertContains('installer/step_4',$this->url());
     }
 }

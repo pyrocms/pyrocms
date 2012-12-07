@@ -21,7 +21,7 @@ before_script:
 
 before_install: pear channel-discover pear.phpunit.de
 install: pear install phpunit/PHPUnit_Selenium
-script: phpunit tests/integration/installer/TestInstallerValidDbCreds.php
+script: phpunit tests/integration
 branches:
   exclude:
     - 2.1/develop

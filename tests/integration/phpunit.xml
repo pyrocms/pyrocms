@@ -3,7 +3,7 @@
     testSuiteLoaderClass="PHPUnit_Runner_StandardTestSuiteLoader">
     <testsuites>
         <testsuite name="installer">
-            <directory>./installer</directory>
+            <directory>installer</directory>
             <files>*.php</files>
         </testsuite>
     </testsuites>
