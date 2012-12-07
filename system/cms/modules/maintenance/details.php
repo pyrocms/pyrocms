@@ -26,6 +26,7 @@ class Module_Maintenance extends Module
 				'sl' => 'Vzdrževanje',
 				'th' => 'การบำรุงรักษา',
 				'zh' => '維護',
+				'it' => 'Manutenzione',
 			),
 			'description' => array(
 				'en' => 'Manage the site cache and export information from the database.',
@@ -40,6 +41,7 @@ class Module_Maintenance extends Module
 				'sl' => 'Upravljaj s predpomnilnikom strani (cache) in izvozi podatke iz baze.',
 				'th' => 'การจัดการแคชเว็บไซต์และข้อมูลการส่งออกจากฐานข้อมูล',
 				'zh' => '經由管理介面手動刪除暫存資料。',
+				'it' => 'Gestisci la cache del sito e esporta le informazioni dal database',
 			),
 			'frontend' => false,
 			'backend' => true,
