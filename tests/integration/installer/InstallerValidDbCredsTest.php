@@ -27,12 +27,14 @@ class TestInstallerValidDbCreds extends PHPUnit_Extensions_Selenium2TestCase
         $this->url('/installer');
         $this->assertEquals($this->title(),'PyroCMS Installer');
         $this->byId("next_step")->click();
-        sleep(4);
+        $this->assertContains('installer/step_1',$this->url());
         $this->byId("hostname")->clear();
+        $this->byId("database")->value('pyrocms');
+        $this->byId("create_db")->click();
         $this->byId("hostname")->value("127.0.0.1");
         $this->byId('username')->value('pyro');
         $this->byId('password')->value('pyro');
-        $this->byId('next_step')->click();
+        $this->byClassName('btn')->click();
         $this->assertContains('installer/step_4',$this->url());
     }
 }

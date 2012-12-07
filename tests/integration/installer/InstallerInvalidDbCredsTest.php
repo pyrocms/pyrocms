@@ -26,7 +26,7 @@ class TestInstallerInvalidDbCreds extends PHPUnit_Extensions_Selenium2TestCase
         $this->byId('username')->value('Test');
         $this->byId('password')->value('test');
         $this->byId('http_server')->value('apache_w');
-        $this->byId('next_step')->click();
+        $this->byClassName('btn')->click();
         $this->assertContains('installer/step_1',$this->url());
     }
 }
