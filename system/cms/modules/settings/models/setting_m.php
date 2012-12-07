@@ -21,7 +21,6 @@ class Setting_m extends CI_Model {
 	{
 		return $this->pdb
 			->table('settings')
-			->select($this->pdb->raw('*, IF(`value` = "", `default`, `value`) as `value`'))
 			->where('slug', '=', $key)
 			->first();
 	}
@@ -36,7 +35,6 @@ class Setting_m extends CI_Model {
 	{
 		return $this->pdb
 			->table('settings')
-			->select($this->pdb->raw('*, IF(`value` = "", `default`, `value`) as `value`'))
 			->orderBy('order', 'DESC')
 			->get();
 	}
@@ -51,7 +49,6 @@ class Setting_m extends CI_Model {
 	{
 		return $this->pdb
 			->table('settings')
-			->select($this->pdb->raw('*, IF(`value` = "", `default`, `value`) as `value`'))
 			->where($where)
 			->orderBy('order', 'DESC')
 			->get();

@@ -82,13 +82,13 @@ class Module_import
 				'slug' => $module['slug'],
 				'version' => $module['version'],
 				'description' => serialize($module['description']),
-				'skip_xss' => ! empty($module['skip_xss']),
-				'is_frontend' => ! empty($module['frontend']),
-				'is_backend' => ! empty($module['backend']),
+				'skip_xss' => (int) ! empty($module['skip_xss']),
+				'is_frontend' => (int) ! empty($module['frontend']),
+				'is_backend' => (int) ! empty($module['backend']),
 				'menu' => ! empty($module['menu']) ? $module['menu'] : false,
-				'enabled' => $module['enabled'],
-				'installed' => $module['installed'],
-				'is_core' => $module['is_core']
+				'enabled' => (int) (bool) $module['enabled'],
+				'installed' => (int) (bool) $module['installed'],
+				'is_core' => (int) (bool) $module['is_core']
 			)
 		);
 	}

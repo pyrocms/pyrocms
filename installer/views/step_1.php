@@ -1,9 +1,3 @@
-<section class="title">
-	<h3>{header}</h3>
-</section>
-<section class="item">
-	<p>{intro_text}</p>
-</section>
 
 <?php echo form_open(uri_string(), 'id="install_frm"'); ?>
 

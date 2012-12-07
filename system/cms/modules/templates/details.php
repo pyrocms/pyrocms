@@ -88,7 +88,6 @@ class Module_Templates extends Module {
 			$table->unique(array('slug', 'lang'), 'slug_lang');
 		});
 
-		$this->pdb->table('email_templates')->insert(array());
 		// Insert the default email templates
 
 		// @todo move this to the comments module

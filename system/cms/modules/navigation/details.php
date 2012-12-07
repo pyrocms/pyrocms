@@ -100,7 +100,7 @@ class Module_Navigation extends Module
 			$table->integer('parent')->nullable();
 			$table->string('link_type', 20)->default('uri');
 			$table->integer('page_id')->nullable();
-			$table->string('module_name')->nullable();
+			$table->string('module_name')->nullable(); # TODO Rename to module
 			$table->string('url')->nullable();
 			$table->string('uri')->nullable();
 			$table->integer('navigation_group_id')->default(0);
@@ -114,15 +114,18 @@ class Module_Navigation extends Module
 		});
 
 		$this->pdb->table('navigation_groups')->insert(array(
-			array('title' => 'Header', 'abbrev' => 'header',),
-			array('title' => 'Sidebar', 'abbrev' => 'sidebar',),
-			array('title' => 'Footer', 'abbrev' => 'footer',),
+			array('title' => 'Header', 'abbrev' => 'header'),
+			array('title' => 'Sidebar', 'abbrev' => 'sidebar'),
+			array('title' => 'Footer', 'abbrev' => 'footer'),
 		));
 
 		$this->pdb->table('navigation_links')->insert(array(
-			array('title' => 'Home', 'link_type' => 'page', 'page_id' => 1, 'navigation_group_id' => 1, 'position' => 1,),
-			array('title' => 'Blog', 'link_type' => 'module', 'page_id' => null, 'navigation_group_id' => 1, 'position' => 2, 'module_name' => 'blog'),
-			array('title' => 'Contact', 'link_type' => 'page', 'page_id' => 3, 'navigation_group_id' => 1, 'position' => 3,),
+			array('title' => 'Home', 'link_type' => 'page', 'page_id' => 1, 'navigation_group_id' => 1, 'position' => 1),
+			array('title' => 'Contact', 'link_type' => 'page', 'page_id' => 3, 'navigation_group_id' => 1, 'position' => 3),
+		));
+
+		$this->pdb->table('navigation_links')->insert(array(
+			'title' => 'Blog', 'link_type' => 'module', 'page_id' => null, 'navigation_group_id' => 1, 'position' => 2, 'module_name' => 'blog'
 		));
 
 		return true;

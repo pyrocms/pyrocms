@@ -53,13 +53,6 @@ class Installer extends CI_Controller
 	/** @var array The view variables for creating the language menu */
 	private $language_nav = array();
 
-	/** @var array The default ports for the database servers */
-	private $default_ports = array(
-		'mysql' => 3306,
-		'pgsql' => 5432,
-	);
-
-
 	/**
 	 * At start this controller should:
 	 * 1. Load the array of supported servers
@@ -87,14 +80,9 @@ class Installer extends CI_Controller
 		}
 		$current_language = $this->config->item('language');
 
-		// let's load the language file belonging to the page i.e. method
-		if (is_file($this->languages_directory.'/'.$current_language.'/'.$this->router->fetch_method().'_lang'.EXT))
-		{
-			$this->lang->load($this->router->fetch_method());
-		}
-
 		// Load the global installer language file
 		$this->lang->load('installer');
+        
 		// Include some constants that modules may be looking for
 		// set the supported languages to be saved in Settings for emails and .etc
 		// modules > settings > details.php uses this
@@ -144,16 +132,6 @@ class Installer extends CI_Controller
 	 */
 	public function index()
 	{
-        $this->session->sess_destroy();
-        
-		$this->_render_view('main');
-	}
-
-    /**
-     * Pre installation
-     */
-    public function step_1()
-    {
         $data = new stdClass;
 
         // Save this junk for later
@@ -215,7 +193,7 @@ class Installer extends CI_Controller
         ));
 
         // If the form validation passed
-		if ( $this->form_validation->run() )
+		if ($this->form_validation->run())
         {
             // Set the flashdata message
             $this->session->set_flashdata('success', lang('db_success'));
@@ -235,12 +213,7 @@ class Installer extends CI_Controller
         }
 
         // Get the port from the session or set it to the default value when it isn't specified
-        $data->port = null;
-        if (in_array($driver, array('mysql', 'pgsql')))
-        {
-            $default_port = $this->default_ports[$driver];
-            $data->port = $port ?: $default_port;
-        }
+        $data->port = $port;
 
         // Check what DB's are available
         $data->db_drivers = $this->installer_lib->check_db_extensions();
@@ -316,8 +289,8 @@ class Installer extends CI_Controller
 
 		$data = new stdClass;
 
-		$data->mysql = new stdClass();
-		$data->http_server = new stdClass();
+		$data->mysql = new stdClass;
+		$data->http_server = new stdClass;
 
         // Check the PHP version
 		$data->php_min_version	= Installer_lib::MIN_PHP_VERSION;

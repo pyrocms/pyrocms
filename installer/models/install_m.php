@@ -169,13 +169,13 @@ class Install_m extends CI_Model
 			'version' => $config['migration_version'],
 		));
 
-		// Migrations
+		// Modules
+		// TODO make migration to remove "type" field from here
 		$schema->create('modules', function($table) {
 		    $table->increments('id');
 		    $table->text('name');
 		    $table->string('slug', 50);
 		    $table->string('version', 20);
-		    $table->string('type', 20);
 		    $table->text('description');
 		    $table->boolean('skip_xss');
 		    $table->boolean('is_frontend');
@@ -199,9 +199,9 @@ class Install_m extends CI_Model
 		    $table->enum('type', array('text','textarea','password','select','select-multiple','radio','checkbox'));
 		    $table->text('default')->nullable();
 		    $table->text('value')->nullable();
-		    $table->string('options', 255);
-		    $table->boolean('is_required');
-		    $table->boolean('is_gui');
+		    $table->string('options', 255)->nullable();
+		    $table->boolean('is_required')->default(false);
+		    $table->boolean('is_gui')->default(true);
 		    $table->string('module', 50)->nullable();
 		    $table->integer('order')->default(0);
 
