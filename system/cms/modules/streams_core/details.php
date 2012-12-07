@@ -60,7 +60,7 @@ class Module_Streams_core extends Module {
         $schema->dropIfExists($config['streams:streams_table']);
 
         $schema->create($config['streams:streams_table'], function($table) { 
-            $table->increments('id')->primary();
+            $table->increments('id');
             $table->string('stream_name', 60);
             $table->string('stream_slug', 60);
             $table->string('stream_namespace', 60)->nullable();
@@ -75,7 +75,7 @@ class Module_Streams_core extends Module {
         $schema->dropIfExists($config['streams:fields_table']);
 
         $schema->create($config['streams:fields_table'], function($table) { 
-            $table->increments('id')->primary();
+            $table->increments('id');
             $table->string('field_name', 60);
             $table->string('field_slug', 60);
             $table->string('field_namespace', 60)->nullable();
@@ -89,7 +89,7 @@ class Module_Streams_core extends Module {
         $schema->dropIfExists($config['streams:assignments_table']);
 
         $schema->create($config['streams:assignments_table'], function($table) { 
-            $table->increments('id')->primary();
+            $table->increments('id');
             $table->integer('sort_order');
             $table->integer('stream_id');
             $table->integer('field_id');

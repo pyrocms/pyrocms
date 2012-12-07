@@ -76,9 +76,9 @@ class Module_Comments extends Module {
 		$schema->dropIfExists('comments');
 
 		$schema->create('comments', function($table) { 
-			$table->increments('id')->primary();
+			$table->increments('id');
 			$table->boolean('is_active')->default(false);
-			$table->integer('user_id', 11)->nullable();
+			$table->integer('user_id')->nullable();
 			$table->string('user_name', 40)->nullable();
 			$table->string('user_email', 40)->nullable();
 			$table->string('user_website', 255)->nullable();
@@ -91,12 +91,14 @@ class Module_Comments extends Module {
 			$table->string('entry_plural', 100);
 			$table->string('uri', 255)->nullable();
 			$table->string('cp_uri', 255)->nullable();
-			$table->integer('created_on', 11)->nullable();
-			$table->integer('ip_address', 15)->nullable();
+			$table->integer('created_on')->nullable();
+			$table->integer('ip_address')->nullable();
 		});
+		
+		$schema->dropIfExists('comment_blacklists');
 
 		$schema->create('comment_blacklists', function($table) { 
-			$table->increments('id')->primary();
+			$table->increments('id');
 			$table->string('website', 255);
 			$table->string('email', 150);
 		});

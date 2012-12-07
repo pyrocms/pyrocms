@@ -70,13 +70,12 @@ class Module_Keywords extends Module {
         $schema->create('keywords', function($table) {
             $table->increments('id');
             $table->string('name', 50);
-            $table->primary('id');
         });
 
         $schema->dropIfExists('keywords_applied');
 
         $schema->create('keywords_applied', function($table) {
-            $table->increments('id')->primary();
+            $table->increments('id');
             $table->string('hash', 32)->default('');
             $table->integer('keyword_id');
         });

@@ -74,13 +74,12 @@ class Module_Permissions extends Module {
 		$schema = $this->pdb->getSchemaBuilder();
 		$schema->dropIfExists('permissions');
 
-		$schema->create('keywords',function(\Illuminate\Database\Schema\Blueprint $table) {
+		$schema->create('permissions', function($table) {
 			$table->increments('id');
 			$table->integer('group_id');
 			$table->string('module');
 			$table->text('roles')->nullable();
 
-			$table->primary('id');
 			$table->index('group_id'); // TODO: consider $table->foreign('group_id');
 		});
 	}

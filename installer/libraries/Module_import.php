@@ -37,7 +37,10 @@ class Module_import
 	 */
 	public function install($slug, $is_core = false)
 	{
-		$details_class = $this->_spawn_class($slug, $is_core);
+		if ( ! ($details_class = $this->_spawn_class($slug, $is_core)))
+		{
+			exit($slug);
+		}
 
 		// Get some basic info
 		$module = $details_class->info();
@@ -60,6 +63,9 @@ class Module_import
 		} 
 		catch (Exception $e)
 		{
+			// TODO Do something useful
+			exit('HEY '.$e->getMessage()." in ".$e->getFile()."<br />");
+
 			return false;
 		}
 

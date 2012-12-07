@@ -510,8 +510,6 @@ class Installer extends CI_Controller
 
             $this->module_import->import_all();
 
-            exit('DID They import?');
-
             redirect('installer/complete');
         }
     }

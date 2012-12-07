@@ -87,17 +87,15 @@ class Module_Widgets extends Module
 		$schema = $this->pdb->getSchemaBuilder();
 
 		$schema->dropIfExists('widget_areas');
-		$schema->create('widget_areas', function (\Illuminate\Database\Schema\Blueprint $table)
+		$schema->create('widget_areas', function ($table)
 		{
 			$table->increments('id');
 			$table->string('slug')->nullable();
 			$table->string('title')->nullable();
-
-			$table->primary('id');
 		});
 
 		$schema->dropIfExists('widget_instances');
-		$schema->create('widget_instances', function (\Illuminate\Database\Schema\Blueprint $table)
+		$schema->create('widget_instances', function ($table)
 		{
 			$table->increments('id');
 			$table->string('title')->nullable();
@@ -105,15 +103,15 @@ class Module_Widgets extends Module
 			$table->integer('widget_area_id')->nullable();
 			$table->text('options');
 			$table->integer('order')->default(0);
-			$table->timestamps();
+			$table->integer('created_on');
+			$table->integer('updated_on')->nullable();
 
-			$table->primary('id');
 			// $table->foreign('widget_id'); // TODO: Need more documentation to make this work.
 			// $table->foreign('widget_area_id'); // TODO: Need more documentation to make this work.
 		});
 
 		$schema->dropIfExists('widget_instances');
-		$schema->create('widget_instances', function (\Illuminate\Database\Schema\Blueprint $table)
+		$schema->create('widget_instances', function ($table)
 		{
 			$table->increments('id');
 			$table->string('slug')->default('');
@@ -124,9 +122,8 @@ class Module_Widgets extends Module
 			$table->string('version')->default('');
 			$table->boolean('enabled')->default(true);
 			$table->integer('order')->default(0);
-			$table->timestamp('updated_on');
-
-			$table->primary('id');
+			$table->integer('created_on');
+			$table->integer('updated_on')->nullable();
 		});
 
 		// Add the default data

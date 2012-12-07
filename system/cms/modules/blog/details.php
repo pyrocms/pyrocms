@@ -101,10 +101,10 @@ class Module_Blog extends Module {
 		$schema->dropIfExists('blog_categories');
 
 		$schema->create('blog', function($table) { 
-			$table->increments('id')->primary();
+			$table->increments('id');
 			$table->string('slug', 200)->unique();
 			$table->string('title', 200)->unique();
-			$table->integer('category_id', 11);
+			$table->integer('category_id');
 			$table->string('attachment', 255)->default('');
 			$table->text('intro');
 			$table->text('body');

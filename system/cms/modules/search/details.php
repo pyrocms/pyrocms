@@ -37,7 +37,7 @@ class Module_Search extends Module {
         $schema->dropIfExists('search_index');
 
         $schema->create('search_index', function($table) {
-            $table->increments('id')->primary();
+            $table->increments('id');
             $table->string('title', 255)->fulltext();
             $table->text('description')->fulltext();
             $table->text('keywords')->fulltext();

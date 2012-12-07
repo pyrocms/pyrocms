@@ -75,10 +75,10 @@ class Module_Templates extends Module {
 		$schema->dropIfExists('email_templates');
 
 		$schema->create('email_templates', function($table) {
-			$table->increments('id')->primary();
+			$table->increments('id');
 			$table->string('slug', 100);
-			$table->string('title', 100);       // @todo rename this to 'title' to keep coherency with the rest of the modules
-			$table->string('description', 255); // @todo change this to TEXT to be coherent with the rest of the modules
+			$table->string('name', 100);       // @todo rename this to 'title' to keep coherency with the rest of the modules
+			$table->text('description'); // @todo change this to TEXT to be coherent with the rest of the modules
 			$table->string('subject', 255);
 			$table->text('body');
 			$table->string('lang', 2)->nullable();

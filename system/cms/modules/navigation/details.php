@@ -83,35 +83,32 @@ class Module_Navigation extends Module
 		$schema = $this->pdb->getSchemaBuilder();
 
 		$schema->dropIfExists('navigation_groups');
-		$schema->create('navigation_groups', function (\Illuminate\Database\Schema\Blueprint $table)
+		$schema->create('navigation_groups', function ($table)
 		{
 			$table->increments('id');
 			$table->string('title', 50);
 			$table->string('abbrev', 50);
 
-			$table->primary('id');
 			$table->index('abbrev');
 		});
 
 		$schema->dropIfExists('navigation_links');
-		$schema->create('navigation_links', function (\Illuminate\Database\Schema\Blueprint $table)
+		$schema->create('navigation_links', function ($table)
 		{
 			$table->increments('id');
 			$table->string('title', 100)->default('');
 			$table->integer('parent')->nullable();
 			$table->string('link_type', 20)->default('uri');
 			$table->integer('page_id')->nullable();
-			$table->string('module_name')->default('');
-			$table->string('url')->default('');
-			$table->string('uri')->default('');
+			$table->string('module_name')->nullable();
+			$table->string('url')->nullable();
+			$table->string('uri')->nullable();
 			$table->integer('navigation_group_id')->default(0);
 			$table->integer('position')->default(0);
 			$table->string('target')->nullable();
 			$table->string('restricted_to')->nullable();
 			$table->string('class')->nullable();
 
-
-			$table->primary('id');
 			$table->index('navigation_group_id');
 			// $table->foreign('navigation_group_id'); // TODO: Surely more documentation is needed to make this work.
 		});

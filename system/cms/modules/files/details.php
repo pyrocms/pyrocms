@@ -80,7 +80,7 @@ class Module_Files extends Module
 		$schema->dropIfExists('file_folders');
 
 		$schema->create('files', function($table) { 
-			$table->increments('id')->primary();
+			$table->increments('id');
 			$table->integer('folder_id');
 			$table->integer('user_id');
 			$table->enum('type', array('a', 'v', 'd', 'i', 'o'));
@@ -91,28 +91,26 @@ class Module_Files extends Module
 			$table->string('extension', 10);
 			$table->string('mimetype', 100);
 			$table->string('keywords', 32)->nullable();
-			$table->integer('width', 5)->nullable();
-			$table->integer('height', 5)->nullable();
+			$table->integer('width')->nullable();
+			$table->integer('height')->nullable();
 			$table->integer('filesize')->nullable();
 			$table->integer('alt_attribute')->nullable();
 			$table->integer('download_count')->default(0);
-			$table->integer('date_added', 11);
+			$table->integer('date_added');
 			$table->integer('sort')->default(0);
 			
 			$table->index('folder_id');
 		});
 
 		$schema->create('file_folders', function($table) { 
-			$table->increments('id')->primary();
+			$table->increments('id');
 			$table->integer('parent_id')->nullable();
 			$table->string('slug', 100);
 			$table->string('name', 100);
 			$table->string('location', 20)->default('local');
 			$table->string('remote_container', 100)->nullable();
-			$table->integer('date_added', 11);
+			$table->integer('date_added');
 			$table->integer('sort')->default(0);
-
-			$table->index('folder_id');
 		});
 
 		// Install the settings

@@ -82,7 +82,7 @@ class Module_Variables extends Module {
         $schema->dropIfExists('variables');
 
         $schema->create('variables', function($table) {
-            $table->increments('id')->primary();
+            $table->increments('id');
             $table->string('name', 250)->nullable();
             $table->string('data', 250)->nullable();
         });

@@ -105,7 +105,7 @@ class Module_Pages extends Module
 
 		$schema->dropIfExists('page_chunks');
 
-		$schema->create('keywords', function (\Illuminate\Database\Schema\Blueprint $table)
+		$schema->create('page_chunks', function ($table)
 		{
 			$table->increments('id');
 			$table->string('slug');
@@ -116,13 +116,12 @@ class Module_Pages extends Module
 			$table->enum('type', array('html', 'markdown', 'wysiwyg-advanced', 'wysiwyg-simple'));
 			$table->integer('sort');
 
-			$table->primary('id');
 			// $table->foreign('page_id'); // TODO: Surely more documentation is needed to make this work.
 		});
 
 		$schema->dropIfExists('page_layouts');
 
-		$schema->create('page_layouts', function (\Illuminate\Database\Schema\Blueprint $table)
+		$schema->create('page_layouts', function ($table)
 		{
 			$table->increments('id');
 			$table->string('title');
@@ -131,13 +130,11 @@ class Module_Pages extends Module
 			$table->text('js')->nullable();
 			$table->string('theme_layout')->default('default');
 			$table->integer('updated_on');
-
-			$table->primary('id');
 		});
 
 		$schema->dropIfExists('pages');
 
-		$schema->create('pages', function (\Illuminate\Database\Schema\Blueprint $table)
+		$schema->create('pages', function ($table)
 		{
 			$table->increments('id');
 			$table->string('slug')->default('');
@@ -155,14 +152,13 @@ class Module_Pages extends Module
 			$table->boolean('rss_enabled')->default(false);
 			$table->boolean('comments_enabled')->default(false);
 			$table->enum('status', array('draft', 'live'))->default('draft');
-			$table->integer('created_on')->default(0);
-			$table->integer('updated_on')->default(0);
+			$table->integer('created_on');
+			$table->integer('updated_on')->nullable();
 			$table->string('restricted_to')->nullable();
 			$table->boolean('is_home');
 			$table->boolean('strict_uri')->default(true);
 			$table->integer('order')->default(0);
 
-			$table->primary('id');
 			$table->index('slug');
 			$table->index('parent_id');
 		});

@@ -84,8 +84,6 @@
             $table->increments('id');
             $table->string('name', 100);
             $table->string('description', 250)->nullable();
-
-            $table->primary('id');
         });
 
         $this->pdb->table('groups')->insert(array(

@@ -76,14 +76,14 @@ class Module_Contact extends Module {
 		$schema->dropIfExists('contact_log');
 
 		$schema->create('contact_log', function($table) { 
-			$table->increments('id')->primary();
+			$table->increments('id');
 			$table->string('email', 255)->nullable();
 			$table->string('subject', 255)->nullable();
 			$table->text('message');
 			$table->string('sender_agent', 64);
 			$table->string('sender_ip', 32);
 			$table->string('sender_os', 32);
-			$table->string('sent_at', 11)->default(0);
+			$table->integer('sent_at')->default(0);
 			$table->text('attachments');
 		});
 

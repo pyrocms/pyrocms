@@ -84,7 +84,6 @@ class Module_Redirects extends Module {
             $table->string('to', 250);
             $table->integer('type')->default(302);
 
-            $table->primary('id');
             $table->index('from', 'request');
         });
         
