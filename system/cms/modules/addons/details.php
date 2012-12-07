@@ -118,7 +118,7 @@ class Module_Addons extends Module
     {
         $schema = $this->pdb->getSchemaBuilder();
 
-        $schema->drop('theme_options');
+        $schema->dropIfExists('theme_options');
 
         $schema->create('theme_options', function($table) { 
             $table->increments('id');

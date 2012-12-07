@@ -431,18 +431,6 @@ class Module_Settings extends Module {
                 'module' => '',
                 'order' => 0,
             ),
-            'addons_upload' => array(
-                'title' => 'Addons Upload Permissions',
-                'description' => 'Keeps mere admins from uploading addons by default',
-                'type' => 'text',
-                'default' => '0',
-                'value' => '0',
-                'options' => '',
-                'is_required' => true,
-                'is_gui' => false,
-                'module' => '',
-                'order' => 0,
-            ),
             // @todo Move this to the API module
             'api_enabled' => array(
                 'title' => 'API Enabled',

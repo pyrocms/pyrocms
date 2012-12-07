@@ -18,17 +18,16 @@ class Install_m extends CI_Model
 
 		$schema = $conn->getSchemaBuilder();
 
-		// TODO KIIIIILLLL... MEEEEEE...!
-		$pdo = $conn->getPdo();
-		$pdo->exec('DROP TABLE IF EXISTS core_users');
-		$pdo->exec('DROP TABLE IF EXISTS core_settings');
-		$pdo->exec('DROP TABLE IF EXISTS core_sites');
-		$pdo->exec('DROP TABLE IF EXISTS '.config_item('sess_table_name'));
-		$pdo->exec('DROP TABLE IF EXISTS '.$db['site_ref'].'_modules');
-		$pdo->exec('DROP TABLE IF EXISTS '.$db['site_ref'].'_migrations');
-		$pdo->exec('DROP TABLE IF EXISTS '.$db['site_ref'].'_settings');
-		$pdo->exec('DROP TABLE IF EXISTS '.$db['site_ref'].'_users');
-		$pdo->exec('DROP TABLE IF EXISTS '.$db['site_ref'].'_profiles');
+		// Remove any tables not installed by a module
+		$schema->dropIfExists('core_users');
+		$schema->dropIfExists('core_settings');
+		$schema->dropIfExists('core_sites');
+		$schema->dropIfExists(config_item('sess_table_name'));
+		$schema->dropIfExists($db['site_ref'].'_modules');
+		$schema->dropIfExists($db['site_ref'].'_migrations');
+		$schema->dropIfExists($db['site_ref'].'_settings');
+		$schema->dropIfExists($db['site_ref'].'_users');
+		$schema->dropIfExists($db['site_ref'].'_profiles');
 
 		// Create core_settings first
 		$schema->create('core_settings', function($table) {
@@ -207,7 +206,6 @@ class Install_m extends CI_Model
 		    $table->integer('order')->default(0);
 
 		    $table->unique('slug');
-		    $table->unique('is_gui');
 		    $table->index('slug');
 		});
 	}

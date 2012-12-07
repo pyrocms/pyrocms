@@ -65,7 +65,7 @@ class Module_Keywords extends Module {
     public function install()
     {
         $schema = $this->pdb->getSchemaBuilder();
-        $schema->drop('keywords');
+        $schema->dropIfExists('keywords');
 
         $schema->create('keywords', function($table) {
             $table->increments('id');
@@ -73,7 +73,7 @@ class Module_Keywords extends Module {
             $table->primary('id');
         });
 
-        $schema->drop('keywords_applied');
+        $schema->dropIfExists('keywords_applied');
 
         $schema->create('keywords_applied', function($table) {
             $table->increments('id')->primary();

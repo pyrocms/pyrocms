@@ -103,7 +103,7 @@ class Module_Pages extends Module
 	{
 		$schema = $this->pdb->getSchemaBuilder();
 
-		$schema->drop('page_chunks');
+		$schema->dropIfExists('page_chunks');
 
 		$schema->create('keywords', function (\Illuminate\Database\Schema\Blueprint $table)
 		{
@@ -120,7 +120,7 @@ class Module_Pages extends Module
 			// $table->foreign('page_id'); // TODO: Surely more documentation is needed to make this work.
 		});
 
-		$schema->drop('page_layouts');
+		$schema->dropIfExists('page_layouts');
 
 		$schema->create('page_layouts', function (\Illuminate\Database\Schema\Blueprint $table)
 		{
@@ -135,7 +135,7 @@ class Module_Pages extends Module
 			$table->primary('id');
 		});
 
-		$schema->drop('pages');
+		$schema->dropIfExists('pages');
 
 		$schema->create('pages', function (\Illuminate\Database\Schema\Blueprint $table)
 		{
@@ -167,7 +167,7 @@ class Module_Pages extends Module
 			$table->index('parent_id');
 		});
 
-		$schema->drop('revisions');
+		$schema->dropIfExists('revisions');
 
 
 		// We will need to get now() later on.

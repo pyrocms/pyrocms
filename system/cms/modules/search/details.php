@@ -34,10 +34,10 @@ class Module_Search extends Module {
     public function install()
     {
         $schema = $this->pdb->getSchemaBuilder();
-        $schema->drop('search_index');
+        $schema->dropIfExists('search_index');
 
         $schema->create('search_index', function($table) {
-            $table->increments('id');
+            $table->increments('id')->primary();
             $table->string('title', 255)->fulltext();
             $table->text('description')->fulltext();
             $table->text('keywords')->fulltext();
@@ -50,7 +50,6 @@ class Module_Search extends Module {
             $table->string('cp_edit_uri', 255);
             $table->string('cp_delete_uri', 255);
 
-            $table->primary('id');
             $table->unique(array('module', 'entry_key', 'entry_id'));
         });
 

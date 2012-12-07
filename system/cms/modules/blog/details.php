@@ -97,11 +97,11 @@ class Module_Blog extends Module {
 	{
 		$schema = $this->pdb->getSchemaBuilder();
 
-		$schema->drop('blog');
-		$schema->drop('blog_categories');
+		$schema->dropIfExists('blog');
+		$schema->dropIfExists('blog_categories');
 
 		$schema->create('blog', function($table) { 
-			$table->increments('id');
+			$table->increments('id')->primary();
 			$table->string('slug', 200)->unique();
 			$table->string('title', 200)->unique();
 			$table->integer('category_id', 11);
@@ -112,8 +112,8 @@ class Module_Blog extends Module {
 			$table->string('keywords', 32)->default('');
 			$table->string('author_id', 11)->nullable();
 			$table->string('comments_enabled', 1)->default(1);
-			$table->string('status', array('draft', 'live'))->default('draft');
-			$table->string('type', array('html', 'markdown', 'wysiwyg-advanced', 'wysiwyg-simple'));
+			$table->enum('status', array('draft', 'live'))->default('draft');
+			$table->enum('type', array('html', 'markdown', 'wysiwyg-advanced', 'wysiwyg-simple'));
 	        $table->string('preview_hash', 32)->nullable();
 			$table->string('created_on', 11);
 			$table->string('updated_on', 11)->nullable();

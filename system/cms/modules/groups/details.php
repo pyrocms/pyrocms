@@ -78,7 +78,7 @@
     public function install()
     {
         $schema = $this->pdb->getSchemaBuilder();
-        $schema->drop('groups');
+        $schema->dropIfExists('groups');
 
         $schema->create('groups', function($table) {
             $table->increments('id');

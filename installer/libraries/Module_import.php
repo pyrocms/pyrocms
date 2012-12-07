@@ -12,9 +12,7 @@ class Module_import
 
 	public function __construct(array $params)
 	{
-		$this->ci = get_instance();
-
-		$this->ci->pdb = $this->pdb = $params['pdb'];
+		ci()->pdb = $this->pdb = $params['pdb'];
 
 		// create the site specific addon folder
 		is_dir(ADDONPATH.'modules') or mkdir(ADDONPATH.'modules', DIR_READ_MODE, true);
@@ -96,34 +94,31 @@ class Module_import
 		$is_core = true;
 		foreach (array(PYROPATH, ADDONPATH, SHARED_ADDONPATH) as $directory)
 		{
+			$modules = glob($directory.'modules/*', GLOB_ONLYDIR);
+
 			// some servers return false instead of an empty array
-			if ( ! $directory) {
+			if ( ! $modules) {
 				continue;
 			}
 
-			// Loop through modules
-			if ($modules = glob($directory.'modules/*', GLOB_ONLYDIR))
+			// Put the settings module first
+			$modules = array_map('basename', $modules);
+			$s = array_splice($modules, array_search('settings', $modules), 1);
+			array_unshift($modules, $s[0]);
+
+			foreach ($modules as $module_name)
 			{
-				// Put the settings module first
-				$modules = array_map('basename',$modules);
-				$s = array_splice($modules, array_search('settings', $modules), 1);
-				array_unshift($modules, $s[0]);
-
-				foreach ($modules as $module_name)
+				// Try and install
+				if ( ! $this->install($module_name, $is_core))
 				{
-					if ( ! $details_class = $this->_spawn_class($module_name, $is_core))
-					{
-						continue;
-					}
+					continue;
+				}
 
-					$this->install($module_name, $is_core);
-
-					// Settings is installed first. Once it's installed we load the library
-					// so all modules can use settings in their install code.
-					if ($module_name === 'settings')
-					{
-						$this->ci->load->library('settings/settings');
-					}
+				// Settings is installed first. Once it's installed we load the library
+				// so all modules can use settings in their install code.
+				if ($module_name === 'settings')
+				{
+					ci()->load->library('settings/settings');
 				}
 			}
 

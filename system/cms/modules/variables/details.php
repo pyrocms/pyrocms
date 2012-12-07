@@ -79,7 +79,7 @@ class Module_Variables extends Module {
     public function install()
     {
         $schema = $this->pdb->getSchemaBuilder();
-        $schema->drop('variables');
+        $schema->dropIfExists('variables');
 
         $schema->create('variables', function($table) {
             $table->increments('id')->primary();

@@ -1,10 +1,4 @@
 {
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "http://github.com/philsturgeon/database"
-        }
-    ],
     "minimum-stability": "dev",
     "require": {
         "fuel/lex": "2.1.*",

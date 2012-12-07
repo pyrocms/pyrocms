@@ -86,7 +86,7 @@ class Module_Widgets extends Module
 	{
 		$schema = $this->pdb->getSchemaBuilder();
 
-		$schema->drop('widget_areas');
+		$schema->dropIfExists('widget_areas');
 		$schema->create('widget_areas', function (\Illuminate\Database\Schema\Blueprint $table)
 		{
 			$table->increments('id');
@@ -96,7 +96,7 @@ class Module_Widgets extends Module
 			$table->primary('id');
 		});
 
-		$schema->drop('widget_instances');
+		$schema->dropIfExists('widget_instances');
 		$schema->create('widget_instances', function (\Illuminate\Database\Schema\Blueprint $table)
 		{
 			$table->increments('id');
@@ -112,7 +112,7 @@ class Module_Widgets extends Module
 			// $table->foreign('widget_area_id'); // TODO: Need more documentation to make this work.
 		});
 
-		$schema->drop('widget_instances');
+		$schema->dropIfExists('widget_instances');
 		$schema->create('widget_instances', function (\Illuminate\Database\Schema\Blueprint $table)
 		{
 			$table->increments('id');

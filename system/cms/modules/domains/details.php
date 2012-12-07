@@ -39,16 +39,16 @@ class Module_Domains extends Module
 	{
 		$schema = $this->pdb->getSchemaBuilder();
 
-		$schema->drop('domains');
+		$schema->dropIfExists('domains');
 
 		// @TODO Make this install core_domains
 		$schema->create('domains', function($table) { 
-			$table->increments('id');
+			$table->increments('id')->primary();
 			$table->string('domain', 100);
 			$table->integer('site_id');
 			$table->enum('type', array('park', 'redirect'))->default('park');
 			
-			$table->key('domain');
+			$table->index('domain');
 			$table->unique('domain');
 		});
 

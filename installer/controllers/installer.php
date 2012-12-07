@@ -98,7 +98,7 @@ class Installer extends CI_Controller
 		// Include some constants that modules may be looking for
 		// set the supported languages to be saved in Settings for emails and .etc
 		// modules > settings > details.php uses this
-		require_once(dirname(FCPATH).'/system/cms/config/language.php');
+		require_once(PYROPATH.'config/language.php');
 
 		// Check that the language configuration has been loaded.
 		isset($config) or exit('Could not load language configuration.');
@@ -109,6 +109,7 @@ class Installer extends CI_Controller
 
 		$action_url = site_url('installer/change/__NAME__');
 		$image_url = base_url('assets/img/flags/__CODE__.gif');
+
 		// Work out some misrepresented language codes to specific language flags
 		$flag_exchange = array(
 			'english' => 'gb',
@@ -117,6 +118,7 @@ class Installer extends CI_Controller
 			'danish' => 'dk',
 			'czech' => 'cz',
 		);
+
 		// Generate the language array for the navigation.
 		foreach($config['supported_languages'] as $code => $info) {
 			// There is a translation available and we haven't already put that in there.
@@ -362,7 +364,6 @@ class Installer extends CI_Controller
      */
     public function step_3()
     {
-
         if ( ! $this->session->userdata('step_1_passed') OR ! $this->session->userdata('step_2_passed'))
         {
             // Redirect the user back to step 1
@@ -374,6 +375,7 @@ class Installer extends CI_Controller
 
         // Get the write permissions for the folders
 		$permissions = array();
+
 		foreach($this->writable_directories as $dir)
         {
             @chmod('../'.$dir, 0777);
@@ -410,7 +412,7 @@ class Installer extends CI_Controller
      */
     public function step_4()
     {
-        if ( ! $this->session->userdata('step_1_passed') OR ! $this->session->userdata('step_2_passed') OR ! $this->session->userdata('step_3_passed'))
+        if ( ! $this->session->userdata('step_1_passed') or ! $this->session->userdata('step_2_passed') or ! $this->session->userdata('step_3_passed'))
         {
             // Redirect the user back to step 2
             redirect('installer/step_2');
@@ -491,7 +493,6 @@ class Installer extends CI_Controller
                     'site_ref'  => $this->input->post('site_ref'),
                 ));
             }
-
             // Did the install fail?
             catch (Exception $e)
             {
@@ -508,6 +509,8 @@ class Installer extends CI_Controller
             ));
 
             $this->module_import->import_all();
+
+            exit('DID They import?');
 
             redirect('installer/complete');
         }

@@ -73,10 +73,10 @@ class Module_Contact extends Module {
 	{
 		$schema = $this->pdb->getSchemaBuilder();
 
-		$schema->drop('contact_log');
+		$schema->dropIfExists('contact_log');
 
 		$schema->create('contact_log', function($table) { 
-			$table->increments('id');
+			$table->increments('id')->primary();
 			$table->string('email', 255)->nullable();
 			$table->string('subject', 255)->nullable();
 			$table->text('message');

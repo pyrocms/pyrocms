@@ -76,7 +76,7 @@ class Module_Redirects extends Module {
     public function install()
     {
         $schema = $this->pdb->getSchemaBuilder();
-        $schema->drop('redirects');
+        $schema->dropIfExists('redirects');
 
         $schema->create('redirects', function($table) {
             $table->increments('id');

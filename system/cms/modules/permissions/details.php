@@ -72,7 +72,7 @@ class Module_Permissions extends Module {
 	public function install()
 	{
 		$schema = $this->pdb->getSchemaBuilder();
-		$schema->drop('permissions');
+		$schema->dropIfExists('permissions');
 
 		$schema->create('keywords',function(\Illuminate\Database\Schema\Blueprint $table) {
 			$table->increments('id');

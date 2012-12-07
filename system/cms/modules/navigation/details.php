@@ -82,7 +82,7 @@ class Module_Navigation extends Module
 	{
 		$schema = $this->pdb->getSchemaBuilder();
 
-		$schema->drop('navigation_groups');
+		$schema->dropIfExists('navigation_groups');
 		$schema->create('navigation_groups', function (\Illuminate\Database\Schema\Blueprint $table)
 		{
 			$table->increments('id');
@@ -93,7 +93,7 @@ class Module_Navigation extends Module
 			$table->index('abbrev');
 		});
 
-		$schema->drop('navigation_links');
+		$schema->dropIfExists('navigation_links');
 		$schema->create('navigation_links', function (\Illuminate\Database\Schema\Blueprint $table)
 		{
 			$table->increments('id');

@@ -73,11 +73,11 @@ class Module_Comments extends Module {
 	{
 		$schema = $this->pdb->getSchemaBuilder();
 
-		$schema->drop('comments');
+		$schema->dropIfExists('comments');
 
 		$schema->create('comments', function($table) { 
-			$table->increments('id');
-			$table->bool('is_active')->default(false);
+			$table->increments('id')->primary();
+			$table->boolean('is_active')->default(false);
 			$table->integer('user_id', 11)->nullable();
 			$table->string('user_name', 40)->nullable();
 			$table->string('user_email', 40)->nullable();
@@ -85,10 +85,9 @@ class Module_Comments extends Module {
 			$table->text('comment');
 			$table->text('parsed');
 			$table->string('module', 40);
-			$table->string('entry_id', 255)->default(0);
-			$table->string('entry_title', 255)->default(0);
+			$table->string('entry_id', 255)->nullable();
+			$table->string('entry_title', 255)->nullable();
 			$table->string('entry_key', 100);
-			$table->string('entry_plural', 100);
 			$table->string('entry_plural', 100);
 			$table->string('uri', 255)->nullable();
 			$table->string('cp_uri', 255)->nullable();

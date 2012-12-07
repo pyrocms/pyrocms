@@ -76,11 +76,11 @@ class Module_Files extends Module
 	{
 		$schema = $this->pdb->getSchemaBuilder();
 
-		$schema->drop('files');
-		$schema->drop('file_folders');
+		$schema->dropIfExists('files');
+		$schema->dropIfExists('file_folders');
 
 		$schema->create('files', function($table) { 
-			$table->increments('id');
+			$table->increments('id')->primary();
 			$table->integer('folder_id');
 			$table->integer('user_id');
 			$table->enum('type', array('a', 'v', 'd', 'i', 'o'));
@@ -99,11 +99,11 @@ class Module_Files extends Module
 			$table->integer('date_added', 11);
 			$table->integer('sort')->default(0);
 			
-			$table->key('folder_id');
+			$table->index('folder_id');
 		});
 
 		$schema->create('file_folders', function($table) { 
-			$table->increments('id');
+			$table->increments('id')->primary();
 			$table->integer('parent_id')->nullable();
 			$table->string('slug', 100);
 			$table->string('name', 100);
@@ -112,7 +112,7 @@ class Module_Files extends Module
 			$table->integer('date_added', 11);
 			$table->integer('sort')->default(0);
 
-			$table->key('folder_id');
+			$table->index('folder_id');
 		});
 
 		// Install the settings
@@ -237,12 +237,7 @@ class Module_Files extends Module
 			),
 		);
 
-		if ( ! $this->pdb->table('settings')->insert($settings))
-		{
-			return false;
-		}
-
-		return true;
+		return $this->pdb->table('settings')->insert($settings);
 	}
 
 	public function uninstall()

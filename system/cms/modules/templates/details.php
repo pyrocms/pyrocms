@@ -72,10 +72,10 @@ class Module_Templates extends Module {
 	public function install()
 	{
 		$schema = $this->pdb->getSchemaBuilder();
-		$schema->drop('email_templates');
+		$schema->dropIfExists('email_templates');
 
 		$schema->create('email_templates', function($table) {
-			$table->increments('id');
+			$table->increments('id')->primary();
 			$table->string('slug', 100);
 			$table->string('title', 100);       // @todo rename this to 'title' to keep coherency with the rest of the modules
 			$table->string('description', 255); // @todo change this to TEXT to be coherent with the rest of the modules
@@ -85,7 +85,6 @@ class Module_Templates extends Module {
 			$table->boolean('is_default')->default(false);
 			$table->string('module', 50)->default('');
 
-			$table->primary('id');
 			$table->unique(array('slug', 'lang'), 'slug_lang');
 		});
 

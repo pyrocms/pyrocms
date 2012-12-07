@@ -117,6 +117,8 @@ class Module_Users extends Module {
      */
     public function install()
     {
+        /* TODO Removed this just to get installing with PDO
+
         // Load up the streams driver and convert the profiles table
         // into a stream.
         $this->load->driver('Streams');
@@ -213,6 +215,7 @@ class Module_Users extends Module {
 
         // Run through each column and add the field
         // metadata to it.
+
         foreach ($columns as $field_slug => $column)
         {
             // We only want fields that actually exist in the
@@ -238,9 +241,9 @@ class Module_Users extends Module {
                 unset($assign);
             }
         }
-
+*/
         // Install the settings
-        $settings = array(
+        $this->pdb->table('settings')->insert(array(
             array(
                 'slug' => 'auto_username',
                 'title' => 'Auto Username',
@@ -249,8 +252,8 @@ class Module_Users extends Module {
                 'default' => true,
                 'value' => '',
                 'options' => '1=Enabled|0=Disabled',
-                'is_required' => 0,
-                'is_gui' => 1,
+                'is_required' => false,
+                'is_gui' => true,
                 'module' => 'users',
                 'order' => 964,
             ),
@@ -262,8 +265,8 @@ class Module_Users extends Module {
                 'default' => true,
                 'value' => '',
                 'options' => '1=Enabled|0=Disabled',
-                'is_required' => 1,
-                'is_gui' => 1,
+                'is_required' => true,
+                'is_gui' => true,
                 'module' => 'users',
                 'order' => 963,
             ),
@@ -275,8 +278,8 @@ class Module_Users extends Module {
                 'default' => true,
                 'value' => '',
                 'options' => '1=Required|0=Optional',
-                'is_required' => 1,
-                'is_gui' => 1,
+                'is_required' => true,
+                'is_gui' => true,
                 'module' => 'users',
                 'order' => 962,
             ),
@@ -288,8 +291,8 @@ class Module_Users extends Module {
                 'default' => true,
                 'value' => '',
                 'options' => '1=Enabled|0=Disabled',
-                'is_required' => 0,
-                'is_gui' => 1,
+                'is_required' => false,
+                'is_gui' => true,
                 'module' => 'users',
                 'order' => 961,
             ),
@@ -301,8 +304,8 @@ class Module_Users extends Module {
                 'default' => true,
                 'value' => '',
                 'options' => '1=Enabled|0=Disabled',
-                'is_required' => 0,
-                'is_gui' => 1,
+                'is_required' => false,
+                'is_gui' => true,
                 'module' => 'users',
                 'order' => 962,
             ),
@@ -314,20 +317,12 @@ class Module_Users extends Module {
                 'default' => true,
                 'value' => '',
                 'options' => '1=Enabled|0=Disabled',
-                'is_required' => 0,
-                'is_gui' => 1,
+                'is_required' => false,
+                'is_gui' => true,
                 'module' => 'users',
                 'order' => 961,
             ),
-        );
-
-        foreach ($settings as $setting)
-        {
-            if ( ! $this->db->insert('settings', $setting))
-            {
-                return false;
-            }
-        }
+        ));
 
         return true;
     }

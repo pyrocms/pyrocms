@@ -57,10 +57,10 @@ class Module_Streams_core extends Module {
 		$schema = $this->pdb->getSchemaBuilder();
 
 		// Streams Table
-        $schema->drop($config['streams:streams_table']);
+        $schema->dropIfExists($config['streams:streams_table']);
 
         $schema->create($config['streams:streams_table'], function($table) { 
-            $table->increments('id');
+            $table->increments('id')->primary();
             $table->string('stream_name', 60);
             $table->string('stream_slug', 60);
             $table->string('stream_namespace', 60)->nullable();
@@ -72,10 +72,10 @@ class Module_Streams_core extends Module {
         });
 
         // Fields Table
-        $schema->drop($config['streams:fields_table']);
+        $schema->dropIfExists($config['streams:fields_table']);
 
         $schema->create($config['streams:fields_table'], function($table) { 
-            $table->increments('id');
+            $table->increments('id')->primary();
             $table->string('field_name', 60);
             $table->string('field_slug', 60);
             $table->string('field_namespace', 60)->nullable();
@@ -86,10 +86,10 @@ class Module_Streams_core extends Module {
         });
 
         // Assignments Table
-        $schema->drop($config['streams:assignments_table']);
+        $schema->dropIfExists($config['streams:assignments_table']);
 
         $schema->create($config['streams:assignments_table'], function($table) { 
-            $table->increments('id');
+            $table->increments('id')->primary();
             $table->integer('sort_order');
             $table->integer('stream_id');
             $table->integer('field_id');
@@ -123,10 +123,10 @@ class Module_Streams_core extends Module {
 		$schema = $this->pdb->getSchemaBuilder();
 
 		// Streams Table
-        $schema->drop($config['streams:streams_table']);	
-        $schema->drop($config['streams:fields_table']);
-        $schema->drop($config['streams:assignments_table']);
-        $schema->drop($config['streams:searches_table']);
+        $schema->dropIfExists($config['streams:streams_table']);	
+        $schema->dropIfExists($config['streams:fields_table']);
+        $schema->dropIfExists($config['streams:assignments_table']);
+        $schema->dropIfExists($config['streams:searches_table']);
 
 		return true;
 	}
