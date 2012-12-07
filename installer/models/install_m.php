@@ -32,8 +32,8 @@ class Install_m extends CI_Model
 		// Create core_settings first
 		$schema->create('core_settings', function($table) {
 		    $table->string('slug', 30);
-		    $table->text('default');
-		    $table->text('value');
+		    $table->text('default')->nullable();
+		    $table->text('value')->nullable();
 
 		    $table->unique('slug');
 		    $table->index('slug');
@@ -196,13 +196,13 @@ class Install_m extends CI_Model
 		    $table->string('slug', 30);
 		    $table->string('title', 100);
 		    $table->text('description');
-		    $table->enum('type',array('text','textarea','password','select','select-multiple','radio','checkbox'));
-		    $table->text('default');
-		    $table->text('value');
+		    $table->enum('type', array('text','textarea','password','select','select-multiple','radio','checkbox'));
+		    $table->text('default')->nullable();
+		    $table->text('value')->nullable();
 		    $table->string('options', 255);
 		    $table->boolean('is_required');
 		    $table->boolean('is_gui');
-		    $table->string('module', 50);
+		    $table->string('module', 50)->nullable();
 		    $table->integer('order')->default(0);
 
 		    $table->unique('slug');
