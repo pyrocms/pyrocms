@@ -14,6 +14,7 @@ class TestInstallerValidDbCreds extends PHPUnit_Extensions_Selenium2TestCase
 
     public function tearDown()
     {
+        exec('sudo chmod -R 777 ../../../*');
     }
 
     /**
@@ -58,6 +59,5 @@ class TestInstallerValidDbCreds extends PHPUnit_Extensions_Selenium2TestCase
         $this->byId('password')->value('pyro');
         $this->byClassName('btn')->click();
         $this->assertContains('installer/step_3',$this->url());
-        exec('sudo chmod -R 777 ../../../*');
     }
 }
