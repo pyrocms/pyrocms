@@ -78,6 +78,10 @@ class Module_Addons extends Module
 					'name' => 'addons:themes',
 					'uri' => 'admin/addons/themes',
 				),
+				'widgets' => array(
+					'name' => 'global:widgets',
+					'uri' => 'admin/addons/widgets',
+				),
 			),
 		);
 	
