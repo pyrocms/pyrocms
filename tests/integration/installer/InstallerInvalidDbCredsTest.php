@@ -10,6 +10,7 @@ class TestInstallerInvalidDbCreds extends PHPUnit_Extensions_Selenium2TestCase
     {
         $this->setBrowserUrl('http://localhost');
         $this->setBrowser('firefox');
+
     }
 
     /**
@@ -49,4 +50,6 @@ class TestInstallerInvalidDbCreds extends PHPUnit_Extensions_Selenium2TestCase
          $this->byClassName('btn')->click();
          $this->assertContains('The MySQL Database field is required',$this->byClassName('error')->text());
      }
+
+
 }
