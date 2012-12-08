@@ -29,4 +29,22 @@ class TestInstallerInvalidDbCreds extends PHPUnit_Extensions_Selenium2TestCase
         $this->byClassName('btn')->click();
         $this->assertContains('installer/step_1',$this->url());
     }
+
+    /**
+     * @test
+     * Given that the database field is not provided
+     * When the form is submitted
+     * Then an error should display on the same page
+     */
+     public function InstallWithMissingDB()
+     {
+         $this->url('/');
+         $nextStep = $this->byId('next_step');
+         $nextStep->click();
+         unset($nextStep);
+         $this->byId('username')->value('pyro');
+         $this->byId('password')->value('pyro');
+         $this->byId('next_step')->click();
+         $this->assertContains('The MySQL Database field is required',$this->byClassName('error')->text());
+     }
 }
