@@ -118,7 +118,6 @@ class Module_m extends MY_Model
 	 *
 	 * @param   array   $params             The array containing the modules to load
 	 * @param   bool    $return_disabled    Whether to return disabled modules
-	 * @access  public
 	 * @return  array
 	 */
 	public function get_all($params = array(), $return_disabled = false)

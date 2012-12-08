@@ -1,12 +1,10 @@
 <section class="title">
-	<h4><?php echo lang('addons:modules');?></h4>
+	<h4><?php echo lang('addons:modules:addon_list');?></h4>
 </section>
 
 <section class="item">
-	<h4><?php echo lang('addons:modules:addon_list');?></h4>
 
-	<p><?php echo lang('addons:modules:introduction'); ?></p>
-
+	<?php if ($addon_modules): ?>
 	<table class="table-list" cellspacing="0">
 		<thead>
 			<tr>
@@ -17,8 +15,7 @@
 			</tr>
 		</thead>
 		<tbody>
-		<?php foreach ($all_modules as $module): ?>
-		<?php if ($module['is_core']) continue; ?>
+		<?php foreach ($addon_modules as $module): ?>
 			<tr>
 				<td class="collapse"><?php echo ($module['is_backend'] and $module['installed']) ? anchor('admin/'.$module['slug'], $module['name']) : $module['name']; ?></td>
 
@@ -46,7 +43,15 @@
 		</tbody>
 	</table>
 
+	<?php endif ?>
+
+</section>
+
+<section class="title">
 	<h4><?php echo lang('addons:modules:core_list');?></h4>
+</section>
+
+<section class="item">
 
 	<p><?php echo lang('addons:modules:core_introduction'); ?></p>
 
@@ -60,8 +65,8 @@
 			</tr>
 		</thead>	
 		<tbody>
-		<?php foreach ($all_modules as $module): ?>
-		<?php if ( ! $module['is_core'] or $module['slug'] === 'addons') continue; ?>
+		<?php foreach ($core_modules as $module): ?>
+		<?php if ($module['slug'] === 'addons') continue; ?>
 			<tr>
 				<td><?php echo $module['is_backend'] ? anchor('admin/'.$module['slug'], $module['name']) : $module['name']; ?></td>
 				<td><?php echo $module['description']; ?></td>
