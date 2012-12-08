@@ -11,10 +11,10 @@ class Admin_plugins extends Admin_Controller
 {
 
 	/** @var string The current active section */
-	protected $section = 'instances';
+	protected $section = 'plugins';
 
 	/**
-	 * Constructor method
+	 * Constructor
 	 */
 	public function __construct()
 	{
@@ -22,7 +22,9 @@ class Admin_plugins extends Admin_Controller
 	}
 
 	/**
-	 * Index method, lists all plugins.
+	 * Index method
+	 * 
+	 * Lists all plugins.
 	 */
 	public function index()
 	{
@@ -48,7 +50,7 @@ class Admin_plugins extends Admin_Controller
 		// Create the layout
 		$this->template
 			->title($this->module_details['name'])
-			->build('admin/list_plugins', $data);
+			->build('admin/plugins/index', $data);
 	}
 
 	private function _gather_plugin_info($dir_path)
