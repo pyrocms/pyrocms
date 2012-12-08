@@ -20,6 +20,7 @@ class TestInstallerInvalidDbCreds extends PHPUnit_Extensions_Selenium2TestCase
      */
     public function InstallWithInvalidDBCredentials()
     {
+        $this->using('shared');
         $this->url('/');
         $this->assertEquals($this->title(),'PyroCMS Installer');
         $this->byId("next_step")->click();
@@ -38,6 +39,7 @@ class TestInstallerInvalidDbCreds extends PHPUnit_Extensions_Selenium2TestCase
      */
      public function InstallWithMissingDB()
      {
+         $this->using('shared');
          $this->url('/');
          $nextStep = $this->byId('next_step');
          $nextStep->click();
