@@ -44,7 +44,7 @@ class TestInstallerInvalidDbCreds extends PHPUnit_Extensions_Selenium2TestCase
          unset($nextStep);
          $this->byId('username')->value('pyro');
          $this->byId('password')->value('pyro');
-         $this->byId('next_step')->click();
+         $this->byClassName('btn')->click();
          $this->assertContains('The MySQL Database field is required',$this->byClassName('error')->text());
      }
 }
