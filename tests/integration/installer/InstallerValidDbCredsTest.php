@@ -14,7 +14,7 @@ class TestInstallerValidDbCreds extends PHPUnit_Extensions_Selenium2TestCase
 
     public function tearDown()
     {
-        exec('sudo chmod -R 777 ../../../*');
+        //exec('sudo chmod -R 777 ../../../*');
     }
 
     /**
