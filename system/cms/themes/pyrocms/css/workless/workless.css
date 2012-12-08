@@ -540,6 +540,10 @@ table .actions a {
   -webkit-transition: 250ms linear all;
   -moz-transition: 250ms linear all;
   transition: 250ms linear all;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .btn, .btn a, a.btn {
