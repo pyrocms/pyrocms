@@ -9,6 +9,12 @@
  */
 class Admin_Widgets extends Admin_Controller
 {
+	/**
+	 * The current active section
+	 *
+	 * @var string
+	 */
+	protected $section = 'widgets';
 
 	/**
 	 * Every time this controller is called it should:
