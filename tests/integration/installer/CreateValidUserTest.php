@@ -17,7 +17,8 @@ class CreateValidUserTest extends PHPUnit_Framework_TestCase
 
     public function navigateToStepFour()
     {
-        $crawler = $this->client->request('http://localhost/installer');
+        $crawler = $this->client->request('GET','http://localhost/installer');
+
         $link = $crawler->selectLink('Step #1')->link();
         $crawler = $this->client->click($link);
         $form = $crawler->selectButton('Step #2')->form();
@@ -48,6 +49,6 @@ class CreateValidUserTest extends PHPUnit_Framework_TestCase
             'user_password' => 'administrator'
         );
         $crawler = $this->client->submit($form,$formFields);
-        $this->assertContains('')
+        $this->assertContains('Congratulations',$crawler->filter('.title h3')->text());
     }
 }
