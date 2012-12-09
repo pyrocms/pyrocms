@@ -8,6 +8,7 @@ class CreateValidUserTest extends PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->client = new Client();
+        $this->client->followRedirects(true);
     }
 
     public function tearDown()
@@ -17,7 +18,7 @@ class CreateValidUserTest extends PHPUnit_Framework_TestCase
 
     public function navigateToStepFour()
     {
-        $crawler = $this->client->request('GET','http://localhost/installer');
+        $crawler = $this->client->request('GET','http://localhost:8099/installer');
 
         $link = $crawler->selectLink('Step #1')->link();
         $crawler = $this->client->click($link);
