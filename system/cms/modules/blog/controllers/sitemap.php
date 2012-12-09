@@ -1,15 +1,13 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
+
 /**
- * 
- * @author		PyroCMS Dev Team
- * @package		PyroCMS\Core\Modules\Blog\Controllers
+ * @author  PyroCMS Dev Team
+ * @package PyroCMS\Core\Modules\Blog\Controllers
  */
 class Sitemap extends Public_Controller
 {
 	/**
 	 * XML
-	 * 
-	 * @return void
 	 */
 	public function xml()
 	{
@@ -22,7 +20,7 @@ class Sitemap extends Public_Controller
 
 		// send em to XML!
 		foreach ($articles as $article)
-		{			
+		{
 			$node = $doc->addChild('url');
 
 			$loc = site_url('blog/'.date('Y/m/', $article->created_on).$article->slug);
@@ -37,7 +35,6 @@ class Sitemap extends Public_Controller
 
 		$this->output
 			->set_content_type('application/xml')
-			->set_output($doc->asXML());			
-	
+			->set_output($doc->asXML());
 	}
 }
