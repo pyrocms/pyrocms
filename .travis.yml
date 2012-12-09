@@ -12,15 +12,7 @@ before_script:
   - echo "$(curl -fsSL https://raw.github.com/gist/2eb301570ed4a1f4c33d/gistfile1.txt)" | sed -e "s,PATH,`pwd`,g" | sudo tee /etc/apache2/sites-available/default > /dev/null
   - "sudo service apache2 restart"
   - mysql -u root -e "CREATE USER 'pyro'@'127.0.0.1' IDENTIFIED BY 'pyro'"
-  - "sh -e /etc/init.d/xvfb start"
-  - "export DISPLAY=:99.0"
-  - "firefox &"
-  - "wget http://selenium.googlecode.com/files/selenium-server-standalone-2.26.0.jar"
-  - "java -jar selenium-server-standalone-2.26.0.jar > /dev/null 2>&1 &"
-  - "sleep 30"
 
-before_install: pear channel-discover pear.phpunit.de
-install: pear install phpunit/PHPUnit_Selenium
 script: phpunit tests/integration/installer
 branches:
   exclude:

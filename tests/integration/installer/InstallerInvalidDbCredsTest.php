@@ -1,6 +1,9 @@
 <?php
 
-class TestInstallerInvalidDbCreds extends PHPUnit_Extensions_Selenium2TestCase
+require_once dirname(dirname(__FILE__)) . '/goutte.phar';
+use Goutte\Client;
+
+class TestInstallerInvalidDbCreds extends PHPUnit_Framework_Testcase
 {
     /**
      * @group installer
@@ -8,11 +11,13 @@ class TestInstallerInvalidDbCreds extends PHPUnit_Extensions_Selenium2TestCase
      */
     public function setUp()
     {
-        $this->setBrowserUrl('http://localhost');
-        $this->setBrowser('firefox');
-
+        $this->client = new Client();
     }
 
+    public function tearDown()
+    {
+        unset($this->client);
+    }
     /**
      * @test
      * Given a fresh Pyro install
@@ -21,15 +26,16 @@ class TestInstallerInvalidDbCreds extends PHPUnit_Extensions_Selenium2TestCase
      */
     public function InstallWithInvalidDBCredentials()
     {
-        $this->using('shared');
-        $this->url('/installer');
-        $this->assertEquals($this->title(),'PyroCMS Installer');
-        $this->byId("next_step")->click();
-        $this->byId('username')->value('Test');
-        $this->byId('password')->value('test');
-        $this->byId('http_server')->value('apache_w');
-        $this->byClassName('btn')->click();
-        $this->assertContains('installer/step_1',$this->url());
+        $crawler = $this->client->request('GET','http://localhost');
+        $link = $crawler->selectLink('Step #1')->link();
+        $crawler = $this->client->click($link);
+        $this->assertEquals($crawler->filter('title')->text(),'PyroCMS Installer');
+        $form = $crawler->selectButton('Step #2')->form();
+        $crawler = $this->client->submit($form,array('username'=>'test',
+                                                     'password'=>'test',
+                                                     'database'=>'pyrocms'
+                                                ));
+        $this->assertContains('Problem connecting to',$crawler->filter('.error')->text());
     }
 
     /**
@@ -40,15 +46,15 @@ class TestInstallerInvalidDbCreds extends PHPUnit_Extensions_Selenium2TestCase
      */
      public function InstallWithMissingDB()
      {
-         $this->using('shared');
-         $this->url('/installer');
-         $nextStep = $this->byId('next_step');
-         $nextStep->click();
-         unset($nextStep);
-         $this->byId('username')->value('pyro');
-         $this->byId('password')->value('pyro');
-         $this->byClassName('btn')->click();
-         $this->assertContains('The MySQL Database field is required',$this->byClassName('error')->text());
+         $crawler = $this->client->request('GET','http://localhost/installer');
+         $link = $crawler->selectLink('Step #1')->link();
+         $crawler = $this->client->click($link);
+         $this->assertEquals($crawler->filter('title')->text(),'PyroCMS Installer');
+         $form = $crawler->selectButton('Step #2')->form();
+         $crawler = $this->client->submit($form,array('username'=>'pyro',
+                                                      'password'=>'pyro'
+                                                ));
+         $this->assertContains('MySQL Database field is required',$crawler->filter('.error')->text());
      }
 
 

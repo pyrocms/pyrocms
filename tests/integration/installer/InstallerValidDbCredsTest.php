@@ -1,6 +1,9 @@
 <?php
 
-class TestInstallerValidDbCreds extends PHPUnit_Extensions_Selenium2TestCase
+require dirname(dirname(__FILE__)) . '/goutte.phar';
+use Goutte\Client;
+
+class TestInstallerValidDbCreds extends PHPUnit_Framework_TestCase
 {
     /**
      * @group installer
@@ -8,13 +11,12 @@ class TestInstallerValidDbCreds extends PHPUnit_Extensions_Selenium2TestCase
      */
     public function setUp()
     {
-        $this->setBrowser('firefox');
-        $this->setBrowserUrl('http://localhost');
+        $this->client = new Client();
     }
 
     public function tearDown()
     {
-        //exec('sudo chmod -R 777 ../../../*');
+        unset($this->client);
     }
 
     /**
@@ -25,18 +27,20 @@ class TestInstallerValidDbCreds extends PHPUnit_Extensions_Selenium2TestCase
      */
     public function DatabaseAuthenticationWithValidCreds()
     {
-        $this->url('/installer');
-        $this->assertEquals($this->title(),'PyroCMS Installer');
-        $this->byId("next_step")->click();
-        $this->assertContains('installer/step_1',$this->url());
-        $this->byId("hostname")->clear();
-        $this->byId("database")->value('pyrocms');
-        $this->byId("create_db")->click();
-        $this->byId("hostname")->value("127.0.0.1");
-        $this->byId('username')->value('pyro');
-        $this->byId('password')->value('pyro');
-        $this->byClassName('btn')->click();
-        $this->assertContains('installer/step_4',$this->url());
+        $formFields = array(
+            'hostname'=>'127.0.0.1',
+            'username'=>'pyro',
+            'password'=>'pyro',
+            'create_db'=>'true',
+            'database'=>'pyrocms'
+        );
+        $crawler = $this->client->request('GET','http://localhost/installer');
+        $this->assertEquals($crawler->filter('title')->text(),'PyroCMS Installer');
+        $link = $crawler->selectLink('Step #1')->link();
+        $crawler = $this->client->click($link);
+        $form = $crawler->selectButton('Step #2')->form();
+        $crawler = $this->client->submit($form,$formFields);
+        $this->assertContains('Step 4:',$crawler->filter('.title h3')->text());
     }
 
     /**
@@ -49,15 +53,20 @@ class TestInstallerValidDbCreds extends PHPUnit_Extensions_Selenium2TestCase
     public function FileSystemNotWritable()
     {
         exec('sudo chmod -R 555 ../../../*');
-        $this->url('/installer');
-        $this->byId('next_step')->click();
-        $this->byId('hostname')->clear();
-        $this->byId('database')->value('pyrocms');
-        $this->byId('create_db')->click();
-        $this->byId('hostname')->value('127.0.0.1');
-        $this->byId('username')->value('pyro');
-        $this->byId('password')->value('pyro');
-        $this->byClassName('btn')->click();
-        $this->assertContains('installer/step_3',$this->url());
+        $formFields = array(
+            'hostname'=>'127.0.0.1',
+            'username'=>'pyro',
+            'password'=>'pyro',
+            'create_db'=>'true',
+            'database'=>'pyrocms'
+        );
+        $crawler = $this->client->request('GET','http://localhost/installer');
+        $this->assertEquals($crawler->filter('title')->text(),'PyroCMS Installer');
+        $link = $crawler->selectLink('Step #1')->link();
+        $crawler = $this->client->click($link);
+        $form = $crawler->selectButton('Step #2')->form();
+        $crawler = $this->client->submit($form,$formFields);
+        $this->assertContains('Step 3:',$crawler->filter('.title h3')->text());
+        exec('sudo chmod -R 777 ../../../*');
     }
 }
