@@ -39,20 +39,11 @@
 			</li>
 			
 			<li>
-				<label for="status"><?php echo lang('blog:status_label') ?></label>
-				<div class="input"><?php echo form_dropdown('status', array('draft' => lang('blog:draft_label'), 'live' => lang('blog:live_label')), $post->status) ?></div>
-			</li>
-
-			<hr>
-			
-			<li>
 				<label for="intro"><?php echo lang('blog:intro_label') ?></label>
 				<div class="one_full">
 					<?php echo form_textarea(array('id' => 'intro', 'name' => 'intro', 'value' => $post->intro, 'rows' => 5, 'class' => 'blog wysiwyg-simple')) ?>
 				</div>
 			</li>
-
-			<hr>
 			
 			<li class="editor">
 				<label for="body"><?php echo lang('blog:content_label') ?></label><br>
@@ -79,6 +70,12 @@
 		<hr style="margin-top:0;">
 		
 		<ul>
+
+			<li>
+				<label for="status"><?php echo lang('blog:status_label') ?></label>
+				<div class="input"><?php echo form_dropdown('status', array('draft' => lang('blog:draft_label'), 'live' => lang('blog:live_label')), $post->status) ?></div>
+			</li>
+
 			<li>
 				<label for="category_id"><?php echo lang('blog:category_label') ?></label>
 				<div class="input">
