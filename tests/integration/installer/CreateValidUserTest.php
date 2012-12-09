@@ -18,7 +18,7 @@ class CreateValidUserTest extends PHPUnit_Framework_TestCase
 
     public function navigateToStepFour()
     {
-        $crawler = $this->client->request('GET','http://localhost/installer');
+        $crawler = $this->client->request('GET','http://localhost:8099/installer');
 
         $link = $crawler->selectLink('Step #1')->link();
         $crawler = $this->client->click($link);
@@ -51,7 +51,7 @@ class CreateValidUserTest extends PHPUnit_Framework_TestCase
         );
         $crawler = $this->client->submit($form,$formFields);
         $this->assertEmpty($crawler->filter('')->text());
-        $crawler = $this->client('GET','http://localhost/index.php/admin');
-        $this->assertNotEmpty($crawler->filter('login-logo')->text());
+        $crawler = $this->client->request('GET','http://localhost:8099/index.php/admin');
+        $this->assertContains('Log In',$crawler->filter('title')->text());
     }
 }
