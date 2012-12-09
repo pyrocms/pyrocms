@@ -12,7 +12,8 @@ before_script:
   - echo "$(curl -fsSL https://raw.github.com/gist/2eb301570ed4a1f4c33d/gistfile1.txt)" | sed -e "s,PATH,`pwd`,g" | sudo tee /etc/apache2/sites-available/default > /dev/null
   - "sudo service apache2 restart"
   - mysql -u root -e "CREATE USER 'pyro'@'127.0.0.1' IDENTIFIED BY 'pyro'"
-
+  - mysql -u root -e "GRANT ALL PRIVELEGES ON *.* to pyro@127.0.0.1 IDENTIFIED BY 'pyro'"
+  
 script: phpunit tests/integration/installer
 branches:
   exclude:
