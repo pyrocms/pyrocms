@@ -1,8 +1,8 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 /**
  *
- * @author         PyroCMS Dev Team
- * @package        PyroCMS\Core\Modules\Blog\Controllers
+ * @author  PyroCMS Dev Team
+ * @package PyroCMS\Core\Modules\Blog\Controllers
  */
 class Admin extends Admin_Controller
 {
@@ -92,11 +92,6 @@ class Admin extends Admin_Controller
 
 		$this->load->library(array('keywords/keywords', 'form_validation'));
 
-		// Date ranges for select boxes
-		$this->template
-			->set('hours', array_combine($hours = range(0, 23), $hours))
-			->set('minutes', array_combine($minutes = range(0, 59), $minutes));
-
 		$_categories = array();
 		if ($categories = $this->blog_categories_m->order_by('title')->get_all())
 		{
@@ -105,7 +100,14 @@ class Admin extends Admin_Controller
 				$_categories[$category->id] = $category->title;
 			}
 		}
-		$this->template->set('categories', $_categories);
+
+		// Date ranges for select boxes
+		$this->template
+			->set('hours', array_combine($hours = range(0, 23), $hours))
+			->set('minutes', array_combine($minutes = range(0, 59), $minutes))
+			->set('categories', $_categories)
+
+			->append_css('module::blog.css');
 	}
 
 	/**
