@@ -19,6 +19,7 @@ class Plugin_Integration extends Plugin
 	public $description = array(
 		'en' => 'Google analytics tracking code and data.',
 		'el' => 'Συνεργασία με Google Analytics;',
+                'fr' => 'Intégration du code de suivi Google Analytics.'
 	);
 
 	/**

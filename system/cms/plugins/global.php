@@ -19,6 +19,7 @@ class Plugin_Global extends Plugin
 	public $description = array(
 		'en' => 'Access global variables.',
 		'el' => 'Πρόσβαση σε οικουμενικές μεταβλητές.',
+                'fr' => 'Accéder à des variables globales.'
 	);
 
 	/**

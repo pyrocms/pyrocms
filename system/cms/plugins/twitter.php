@@ -18,6 +18,7 @@ class Plugin_Twitter extends Plugin
 	public $description = array(
 		'en' => 'Display a Twitter feed.',
 		'el' => 'Προβάλλει μια σειρά από tweets.',
+                'fr' => 'Afficher le flux Twitter'
 	);
 
 	/**
