@@ -10,16 +10,15 @@
  */
 class Plugin_Asset extends Plugin
 {
-	public $version = '1.0';
 
+	public $version = '1.0';
 	public $name = array(
 		'en' => 'Asset',
 	);
-
 	public $description = array(
 		'en' => 'Access to static content such as CSS or Javascript file assets.',
 		'el' => 'Πρόσβαση σε στατικό περιεχόμενο όπως αρχεία CSS ή Javascript.',
-                'fr' => 'Accéder à des ressources CSS et Javascript (Assets).'
+		'fr' => 'Accéder à des ressources CSS et Javascript (Assets).'
 	);
 
 	/**
@@ -75,7 +74,7 @@ class Plugin_Asset extends Plugin
 	{
 		$file = $this->attribute('file');
 
-		return BASE_URI.Asset::get_filepath_css($file, false);
+		return BASE_URI . Asset::get_filepath_css($file, false);
 	}
 
 	/**
@@ -134,7 +133,7 @@ class Plugin_Asset extends Plugin
 	{
 		$file = $this->attribute('file');
 
-		return BASE_URI.Asset::get_filepath_img($file, false);
+		return BASE_URI . Asset::get_filepath_img($file, false);
 	}
 
 	/**
@@ -190,7 +189,7 @@ class Plugin_Asset extends Plugin
 	{
 		$file = $this->attribute('file');
 
-		return BASE_URI.Asset::get_filepath_js($file, false);
+		return BASE_URI . Asset::get_filepath_js($file, false);
 	}
 
 	/**

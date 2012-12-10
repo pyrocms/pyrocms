@@ -10,16 +10,15 @@
  */
 class Plugin_Theme extends Plugin
 {
-	public $version = '1.0';
 
+	public $version = '1.0';
 	public $name = array(
 		'en' => 'Theme',
 	);
-
 	public $description = array(
 		'en' => 'Load and display theme assets.',
 		'el' => 'Φορτώνει και προβάλλει πόρους του θέματος εμφάνισης.',
-                'fr' => 'Permet de charger et d\'afficher les différentes ressources du thème.'
+		'fr' => 'Permet de charger et d\'afficher les différentes ressources du thème.'
 	);
 
 	/**
@@ -40,7 +39,7 @@ class Plugin_Theme extends Plugin
 		$path = $this->load->get_var('template_views');
 		$data = $this->load->get_vars();
 
-		$string = $this->load->file($path.'partials/'.$name.'.html', true);
+		$string = $this->load->file($path . 'partials/' . $name . '.html', true);
 
 		return $this->parser->parse_string($string, $data, true, true);
 	}
@@ -76,7 +75,7 @@ class Plugin_Theme extends Plugin
 	{
 		$path = & rtrim($this->load->get_var('template_views'), '/');
 
-		return preg_replace('#(\/views(\/web|\/mobile)?)$#', '', $path).'/';
+		return preg_replace('#(\/views(\/web|\/mobile)?)$#', '', $path) . '/';
 	}
 
 	/**
@@ -200,7 +199,7 @@ class Plugin_Theme extends Plugin
 	{
 		$file = $this->attribute('file');
 
-		return BASE_URI.Asset::get_filepath_img($file, false);
+		return BASE_URI . Asset::get_filepath_img($file, false);
 	}
 
 	/**
@@ -220,7 +219,7 @@ class Plugin_Theme extends Plugin
 	{
 		$file = $this->attribute('file');
 
-		return '<script src="'.$this->js_url($file).'" type="text/javascript"></script>';
+		return '<script src="' . $this->js_url($file) . '" type="text/javascript"></script>';
 	}
 
 	/**
@@ -252,7 +251,7 @@ class Plugin_Theme extends Plugin
 	{
 		$file = $this->attribute('file');
 
-		return BASE_URI.Asset::get_filepath_js($file, false);
+		return BASE_URI . Asset::get_filepath_js($file, false);
 	}
 
 	/**
@@ -266,7 +265,7 @@ class Plugin_Theme extends Plugin
 	 */
 	public function variables()
 	{
-		if ( ! isset($variables))
+		if (!isset($variables))
 		{
 			static $variables = array();
 		}
@@ -305,10 +304,10 @@ class Plugin_Theme extends Plugin
 		$is_xhtml = in_array($this->attribute('xhtml', 'true'), array('1', 'y', 'yes', 'true'));
 
 		$link = '<link ';
-		$link .= 'href="'.$file.'" ';
-		$link .= 'rel="'.$rel.'" ';
-		$link .= 'type="'.$type.'" ';
-		$link .= ($is_xhtml ? '/' : '').'>';
+		$link .= 'href="' . $file . '" ';
+		$link .= 'rel="' . $rel . '" ';
+		$link .= 'type="' . $type . '" ';
+		$link .= ($is_xhtml ? '/' : '') . '>';
 
 		return $link;
 	}
@@ -330,16 +329,16 @@ class Plugin_Theme extends Plugin
 		$line = $this->attribute('line');
 		$default = $this->attribute('default');
 		// Return an empty string as the attribute LINE is missing
-		if ( ! isset($line))
+		if (!isset($line))
 		{
 			return "";
 		}
 
 		$deft_lang = CI::$APP->config->item('language');
-		if ($lang = Modules::load_file($lang_file.'_lang', CI::$APP->template->get_theme_path().'/language/'.$deft_lang.'/', 'lang'))
+		if ($lang = Modules::load_file($lang_file . '_lang', CI::$APP->template->get_theme_path() . '/language/' . $deft_lang . '/', 'lang'))
 		{
 			CI::$APP->lang->language = array_merge(CI::$APP->lang->language, $lang);
-			CI::$APP->lang->is_loaded[] = $lang_file.'_lang'.EXT;
+			CI::$APP->lang->is_loaded[] = $lang_file . '_lang' . EXT;
 			unset($lang);
 		}
 		$value = $this->lang->line($line);

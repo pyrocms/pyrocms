@@ -10,16 +10,15 @@
  */
 class Plugin_Template extends Plugin
 {
-	public $version = '1.0';
 
+	public $version = '1.0';
 	public $name = array(
 		'en' => 'Template',
 	);
-
 	public $description = array(
 		'en' => 'Access and set theme settings and properties.',
 		'el' => 'Πρόσβαση και αλλαγή ρυθμίσεων και ιδιοτήτων του θέματος εμφάνισης.',
-                'fr' => 'Accéder aux paramètres et propriétés du thème.'
+		'fr' => 'Accéder aux paramètres et propriétés du thème.'
 	);
 
 	/**
@@ -149,7 +148,7 @@ class Plugin_Template extends Plugin
 
 		$crumbs = $data['template']['breadcrumbs'];
 
-		return ! empty($crumbs);
+		return !empty($crumbs);
 	}
 
 	/**

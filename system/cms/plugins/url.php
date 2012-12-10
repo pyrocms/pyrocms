@@ -10,16 +10,15 @@
  */
 class Plugin_Url extends Plugin
 {
-	public $version = '1.0';
 
+	public $version = '1.0';
 	public $name = array(
 		'en' => 'URL',
 	);
-
 	public $description = array(
 		'en' => 'Access URL variables, segments, and more.',
 		'el' => 'Πρόσβαση σε μεταβλητές που βρήσκονται σε URL, τμήματα URL και αλλού.',
-                'fr' => 'Accéder aux informations sur une URL (URL courante, segments, ancres, etc.).'
+		'fr' => 'Accéder aux informations sur une URL (URL courante, segments, ancres, etc.).'
 	);
 
 	/**
@@ -63,7 +62,7 @@ class Plugin_Url extends Plugin
 	{
 		$uri = $this->attribute('uri');
 
-		return $uri ? site_url($uri) : rtrim(site_url(), '/').'/';
+		return $uri ? site_url($uri) : rtrim(site_url(), '/') . '/';
 	}
 
 	/**
@@ -112,7 +111,7 @@ class Plugin_Url extends Plugin
 		$title = $this->attribute('title', '');
 		$class = $this->attribute('class', '');
 
-		$class = !empty($class) ? 'class="'.$class.'"' : '';
+		$class = !empty($class) ? 'class="' . $class . '"' : '';
 
 		return anchor($segments, $title, $class);
 	}

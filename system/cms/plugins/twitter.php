@@ -1,4 +1,5 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
+
 /**
  * Twitter Plugin
  *
@@ -9,16 +10,15 @@
  */
 class Plugin_Twitter extends Plugin
 {
-	public $version = '1.0';
 
+	public $version = '1.0';
 	public $name = array(
 		'en' => 'Twitter',
 	);
-
 	public $description = array(
 		'en' => 'Display a Twitter feed.',
 		'el' => 'Προβάλλει μια σειρά από tweets.',
-                'fr' => 'Afficher le flux Twitter'
+		'fr' => 'Afficher le flux Twitter'
 	);
 
 	/**
@@ -46,11 +46,11 @@ class Plugin_Twitter extends Plugin
 		$username = $this->attribute('username');
 		$limit = $this->attribute('limit', 5);
 
-		if (!($tweets = $this->pyrocache->get('twitter-'.$username)))
+		if (!($tweets = $this->pyrocache->get('twitter-' . $username)))
 		{
-			$tweets = json_decode(@file_get_contents($this->feed_url.'&screen_name='.$username.'&count='.$limit));
+			$tweets = json_decode(@file_get_contents($this->feed_url . '&screen_name=' . $username . '&count=' . $limit));
 
-			$this->pyrocache->write($tweets, 'twitter-'.$username, $this->settings->twitter_cache);
+			$this->pyrocache->write($tweets, 'twitter-' . $username, $this->settings->twitter_cache);
 		}
 
 		$patterns = array(
@@ -64,7 +64,7 @@ class Plugin_Twitter extends Plugin
 			'|#([a-z0-9-_]+)|i' => '<a href="http://twitter.com/search?q=%23$1" target="_blank">$0</a>'
 		);
 
-		if ( ! $tweets)
+		if (!$tweets)
 		{
 			return array();
 		}
@@ -72,11 +72,12 @@ class Plugin_Twitter extends Plugin
 		foreach ($tweets as &$tweet)
 		{
 			$tweet->id = sprintf('%.0f', $tweet->id);
-			$tweet->text = str_replace($username.': ', '', $tweet->text);
+			$tweet->text = str_replace($username . ': ', '', $tweet->text);
 			$tweet->text = preg_replace(array_keys($patterns), $patterns, $tweet->text);
-			$tweet->timespan = strtolower(current(explode(',', timespan(strtotime($tweet->created_at))))).' ago';
+			$tweet->timespan = strtolower(current(explode(',', timespan(strtotime($tweet->created_at))))) . ' ago';
 		}
 
 		return $tweets;
 	}
+
 }
