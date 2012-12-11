@@ -9,7 +9,7 @@
 class Module_Contact extends Module
 {
 
-	public $version = 0.9;
+	public $version = '1.0.0';
 
 	public function info()
 	{

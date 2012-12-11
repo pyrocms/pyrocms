@@ -8,7 +8,7 @@
  */
 class Module_Permissions extends Module {
 
-	public $version = '0.6';
+	public $version = '1.0.0';
 
 	public function info()
 	{
