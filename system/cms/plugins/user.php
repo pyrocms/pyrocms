@@ -10,15 +10,15 @@
  */
 class Plugin_User extends Plugin
 {
-	public $version = '1.0';
 
+	public $version = '1.0';
 	public $name = array(
 		'en' => 'User',
 	);
-
 	public $description = array(
 		'en' => 'Access current user profile variables and settings.',
 		'el' => 'Πρόσβαση σε μεταβλητές και ρυθμίσεις προφίλ του εκάστοτε χρήστη.',
+		'fr' => 'Accéder aux données de l\'utilisateur courant.'
 	);
 
 	/**
@@ -75,7 +75,7 @@ class Plugin_User extends Plugin
 		$group = $this->attribute('group', null);
 
 		// Logged out or not the right user
-		if ( ! $this->current_user or ($group and $group !== $this->current_user->group))
+		if (!$this->current_user or ($group and $group !== $this->current_user->group))
 		{
 			return $this->content() ? $this->content() : true;
 		}
@@ -100,7 +100,7 @@ class Plugin_User extends Plugin
 	{
 		if ($this->current_user)
 		{
-			if ( ! (($this->current_user->group == 'admin') or $this->permission_m->get_group($this->current_user->group_id)))
+			if (!(($this->current_user->group == 'admin') or $this->permission_m->get_group($this->current_user->group_id)))
 			{
 				return '';
 			}
@@ -169,7 +169,8 @@ class Plugin_User extends Plugin
 
 		foreach ($this->ion_auth_model->user_stream_fields as $key => $field)
 		{
-			if ( ! isset($profile_data[$key])) {
+			if (!isset($profile_data[$key]))
+			{
 				continue;
 			}
 
@@ -203,7 +204,8 @@ class Plugin_User extends Plugin
 	public function profile()
 	{
 		// We can't parse anything if there is no content.
-		if ( ! $this->content()) {
+		if (!$this->content())
+		{
 			return null;
 		}
 
@@ -239,7 +241,7 @@ class Plugin_User extends Plugin
 
 		// If we do not have a user id and there is
 		// no currently logged in user, there is nothing to display.
-		if (is_null($user_id) and ! isset($this->current_user->id))
+		if (is_null($user_id) and !isset($this->current_user->id))
 		{
 			return null;
 		}
@@ -261,16 +263,10 @@ class Plugin_User extends Plugin
 		{
 			if ($plugin_call)
 			{
-				if ( ! isset($this->user_profile_data[$user_id]['plugin'][$field_key]) and isset($user[$field_key]))
+				if (!isset($this->user_profile_data[$user_id]['plugin'][$field_key]) and isset($user[$field_key]))
 				{
 					$this->user_profile_data[$user_id]['plugin'][$field_key] = $this->row_m->format_column(
-						$field_key,
-						$user[$field_key],
-						$user['profile_id'],
-						$field_data->field_type,
-						$field_data->field_data,
-						$this->ion_auth_model->user_stream,
-						true);
+							$field_key, $user[$field_key], $user['profile_id'], $field_data->field_type, $field_data->field_data, $this->ion_auth_model->user_stream, true);
 				}
 
 				if (isset($user[$field_key]))
@@ -280,16 +276,10 @@ class Plugin_User extends Plugin
 			}
 			else
 			{
-				if ( ! isset($this->user_profile_data[$user_id]['pre_formatted'][$field_key]) and isset($user[$field_key]))
+				if (!isset($this->user_profile_data[$user_id]['pre_formatted'][$field_key]) and isset($user[$field_key]))
 				{
 					$this->user_profile_data[$user_id]['pre_formatted'][$field_key] = $this->row_m->format_column(
-						$field_key,
-						$user[$field_key],
-						$user['profile_id'],
-						$field_data->field_type,
-						$field_data->field_data,
-						$this->ion_auth_model->user_stream,
-						false);
+							$field_key, $user[$field_key], $user['profile_id'], $field_data->field_type, $field_data->field_data, $this->ion_auth_model->user_stream, false);
 				}
 
 				if (isset($user[$field_key]))
@@ -297,7 +287,6 @@ class Plugin_User extends Plugin
 					$user[$field_key] = $this->user_profile_data[$user_id]['pre_formatted'][$field_key];
 				}
 			}
-
 		}
 
 		return $user;
@@ -324,13 +313,7 @@ class Plugin_User extends Plugin
 		if (array_key_exists($var, $this->ion_auth_model->user_stream_fields))
 		{
 			$formatted_column = $this->row_m->format_column(
-				$var,
-				$user[$var],
-				$user['profile_id'],
-				$this->ion_auth_model->user_stream_fields->{$var}->field_type,
-				$this->ion_auth_model->user_stream_fields->{$var}->field_data,
-				$this->ion_auth_model->user_stream,
-				true
+					$var, $user[$var], $user['profile_id'], $this->ion_auth_model->user_stream_fields->{$var}->field_type, $this->ion_auth_model->user_stream_fields->{$var}->field_data, $this->ion_auth_model->user_stream, true
 			);
 		}
 		else
@@ -371,7 +354,7 @@ class Plugin_User extends Plugin
 
 		// If we do not have a user id and there is
 		// no currently logge in user, there's nothing we can do
-		if (is_null($user_id) and ! isset($this->current_user->id))
+		if (is_null($user_id) and !isset($this->current_user->id))
 		{
 			return null;
 		}
