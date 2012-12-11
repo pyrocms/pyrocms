@@ -1,15 +1,15 @@
 <?php if ($this->method == 'edit'): ?>
 	<section class="title">
-    	<h4><?php echo sprintf(lang('groups.edit_title'), $group->name); ?></h4>
+    	<h4><?php echo sprintf(lang('groups.edit_title'), $group->name) ?></h4>
 	</section>
 <?php else: ?>
 	<section class="title">
-    	<h4><?php echo lang('groups.add_title'); ?></h4>
+    	<h4><?php echo lang('groups.add_title') ?></h4>
 	</section>
-<?php endif; ?>
+<?php endif ?>
 
 <section class="item">
-<?php echo form_open(uri_string(), 'class="crud"'); ?>
+<?php echo form_open(uri_string(), 'class="crud"') ?>
 
 <div class="form_inputs">
 
@@ -28,8 +28,8 @@
 			<?php echo form_input('name', $group->name);?>
 
 			<?php else: ?>
-			<p><?php echo $group->name; ?></p>
-			<?php endif; ?>
+			<p><?php echo $group->name ?></p>
+			<?php endif ?>
 			
 			</div>
 		</li>
@@ -38,7 +38,7 @@
 </div>
 
 	<div class="buttons float-right padding-top">
-		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )); ?>
+		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )) ?>
 	</div>
 	
 <?php echo form_close();?>

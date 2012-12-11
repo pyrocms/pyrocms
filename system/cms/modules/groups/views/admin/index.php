@@ -1,5 +1,5 @@
 <section class="title">
-	<h4><?php echo $module_details['name']; ?></h4>
+	<h4><?php echo $module_details['name'] ?></h4>
 </section>
 
 <section class="item">
@@ -15,21 +15,21 @@
 			<tfoot>
 				<tr>
 					<td colspan="3">
-						<div class="inner"><?php $this->load->view('admin/partials/pagination'); ?></div>
+						<div class="inner"><?php $this->load->view('admin/partials/pagination') ?></div>
 					</td>
 				</tr>
 			</tfoot>
 			<tbody>
 			<?php foreach ($groups as $group):?>
 				<tr>
-					<td><?php echo $group->description; ?></td>
-					<td><?php echo $group->name; ?></td>
+					<td><?php echo $group->description ?></td>
+					<td><?php echo $group->name ?></td>
 					<td class="actions">
-					<?php echo anchor('admin/groups/edit/'.$group->id, lang('buttons.edit'), 'class="button edit"'); ?>
+					<?php echo anchor('admin/groups/edit/'.$group->id, lang('buttons.edit'), 'class="button edit"') ?>
 					<?php if ( ! in_array($group->name, array('user', 'admin'))): ?>
-						<?php echo anchor('admin/groups/delete/'.$group->id, lang('buttons.delete'), 'class="confirm button delete"'); ?>
-					<?php endif; ?>
-					<?php echo anchor('admin/permissions/group/'.$group->id, lang('permissions.edit').' &rarr;', 'class="button edit"'); ?>
+						<?php echo anchor('admin/groups/delete/'.$group->id, lang('buttons.delete'), 'class="confirm button delete"') ?>
+					<?php endif ?>
+					<?php echo anchor('admin/permissions/group/'.$group->id, lang('permissions.edit').' &rarr;', 'class="button edit"') ?>
 					</td>
 				</tr>
 			<?php endforeach;?>

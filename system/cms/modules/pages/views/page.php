@@ -1,5 +1,5 @@
-<!-- Page layout: <?php echo $page->layout->title; ?> -->
-<?php echo $page->layout->body; ?>
+<!-- Page layout: <?php echo $page->layout->title ?> -->
+<?php echo $page->layout->body ?>
 
 <?php if (Settings::get('enable_comments') and $page->comments_enabled): ?>
 

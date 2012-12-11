@@ -8,17 +8,17 @@
 
 <?php if(!empty($success_string)): ?>
 	<div class="success-box">
-		<?php echo $success_string; ?>
+		<?php echo $success_string ?>
 	</div>
 <?php else: ?>
 	
-	<?php echo form_open('users/reset_pass', array('id'=>'reset-pass')); ?>
+	<?php echo form_open('users/reset_pass', array('id'=>'reset-pass')) ?>
 
-	<label for="email"><?php echo lang('user_reset_instructions'); ?></label>
-	<input type="text" name="email" maxlength="100" value="<?php echo set_value('email'); ?>" />
+	<label for="email"><?php echo lang('user_reset_instructions') ?></label>
+	<input type="text" name="email" maxlength="100" value="<?php echo set_value('email') ?>" />
 
 	<?php echo form_submit('', lang('user_reset_pass_btn')) ?>
 
-	<?php echo form_close(); ?>
+	<?php echo form_close() ?>
 	
-<?php endif; ?>
+<?php endif ?>

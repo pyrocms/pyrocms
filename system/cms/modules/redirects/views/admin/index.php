@@ -1,12 +1,12 @@
 <section class="title">
-	<h4><?php echo lang('redirects.list_title'); ?></h4>
+	<h4><?php echo lang('redirects.list_title') ?></h4>
 </section>
 
 <?php if ($redirects): ?>
 
 	<section class="item">
 
-    <?php echo form_open('admin/redirects/delete'); ?>
+    <?php echo form_open('admin/redirects/delete') ?>
 	<table border="0" class="table-list" cellspacing="0">
 	    <thead>
 			<tr>
@@ -20,14 +20,14 @@
 		<tfoot>
 			<tr>
 				<td colspan="4">
-					<div class="inner"><?php $this->load->view('admin/partials/pagination'); ?></div>
+					<div class="inner"><?php $this->load->view('admin/partials/pagination') ?></div>
 				</td>
 			</tr>
 		</tfoot>
 	    <tbody>
 		<?php foreach ($redirects as $redirect): ?>
 		    <tr>
-			<td><?php echo form_checkbox('action_to[]', $redirect->id); ?></td>
+			<td><?php echo form_checkbox('action_to[]', $redirect->id) ?></td>
 			<td><?php echo $redirect->type;?></td>
 			<td><?php echo str_replace('%', '*', $redirect->from);?></td>
 			<td><?php echo $redirect->to;?></td>
@@ -38,14 +38,14 @@
 			</div>
 			</td>
 		    </tr>
-		<?php endforeach; ?>
+		<?php endforeach ?>
 	    </tbody>
 	</table>
 
 	<div class="table_action_buttons">
-		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete') )); ?>
+		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete') )) ?>
 	</div>
-    <?php echo form_close(); ?>
+    <?php echo form_close() ?>
 
 	</section>
 
@@ -53,4 +53,4 @@
 	<section class="item">
 		<div class="no_data"><?php echo lang('redirects.no_redirects');?></div>
 	</section>
-<?php endif; ?>
+<?php endif ?>

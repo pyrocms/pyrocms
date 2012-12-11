@@ -1,12 +1,12 @@
 <section class="title">
-	<h4><?php echo lang('domains:list_title'); ?></h4>
+	<h4><?php echo lang('domains:list_title') ?></h4>
 </section>
 
 <?php if ($domains): ?>
 
 	<section class="item">
 
-    <?php echo form_open('admin/domains/delete'); ?>
+    <?php echo form_open('admin/domains/delete') ?>
 	<table border="0" class="table-list" cellpadding="0" cellspacing="0">
 	    <thead>
 			<tr>
@@ -19,14 +19,14 @@
 		<tfoot>
 			<tr>
 				<td colspan="4">
-					<div class="inner"><?php $this->load->view('admin/partials/pagination'); ?></div>
+					<div class="inner"><?php $this->load->view('admin/partials/pagination') ?></div>
 				</td>
 			</tr>
 		</tfoot>
 	    <tbody>
 		<?php foreach ($domains as $domain): ?>
 		    <tr>
-			<td><?php echo form_checkbox('action_to[]', $domain->id); ?></td>
+			<td><?php echo form_checkbox('action_to[]', $domain->id) ?></td>
 			<td><?php echo ($domain->type == 'park' ? lang('domains:park') : lang('domains:redirect'));?></td>
 			<td><?php echo anchor('http://'.$domain->domain, $domain->domain, 'target="_blank"');?></td>
 			<td class="align-right">
@@ -36,14 +36,14 @@
 			</div>
 			</td>
 		    </tr>
-		<?php endforeach; ?>
+		<?php endforeach ?>
 	    </tbody>
 	</table>
 
 	<div class="table_action_buttons">
-		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete') )); ?>
+		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete') )) ?>
 	</div>
-    <?php echo form_close(); ?>
+    <?php echo form_close() ?>
 
 	</section>
 
@@ -51,4 +51,4 @@
 	<section class="item">
 		<div class="no_data"><?php echo lang('domains:no_domains');?></div>
 	</section>
-<?php endif; ?>
+<?php endif ?>

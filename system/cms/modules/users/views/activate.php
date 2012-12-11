@@ -7,10 +7,10 @@
 
 <?php if(!empty($error_string)): ?>
 <div class="error-box">
-	<?php echo $error_string; ?>
+	<?php echo $error_string ?>
 </div>
 <?php endif;?>
-<?php echo form_open('users/activate', 'id="activate-user"'); ?>
+<?php echo form_open('users/activate', 'id="activate-user"') ?>
 <ul>
 	<li>
 		<label for="email"><?php echo lang('global:email') ?></label>
@@ -26,4 +26,4 @@
 		<?php echo form_submit('btnSubmit', lang('user_activate_btn'), array('class' => 'pyro_button')) ?>
 	</li>
 </ul>
-<?php echo form_close(); ?>
+<?php echo form_close() ?>
