@@ -1,7 +1,7 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['cp_admin_title'] 				= '管理系統'; 		//'Control Panel';
-$lang['global:dashboard'] 			= '控制台'; 			//'Dashboard';
+$lang['global:dashboard'] 				= '控制台'; 			//'Dashboard';
 $lang['cp_admin_quick_links']			= '快速連結'; 		//'Quick Links';
 
 $lang['cp_welcome_title'] 				= '歡迎';
@@ -28,14 +28,14 @@ $lang['cp_documentation'] 				= '參考文件'; 		//'Documentation';
 $lang['cp_report_bug'] 					= '錯誤回報'; 		//'Report a bug';
 $lang['cp_contact_support'] 			= '協助支援'; 		//'Support';
 
-$lang['cp_nav_settings']				= '網站設定'; 			//'Settings';
+$lang['cp_nav_settings']				= '網站設定'; 		//'Settings';
 $lang['cp_nav_addons']					= '附加模組'; 		//'Add-ons';
 $lang['cp_nav_modules']					= '模組'; 			//'Modules';
-$lang['cp_nav_users']					= '網站用戶'; 			//'Users';
-$lang['cp_nav_content']					= '網站內容'; 			//'Content';
-$lang['cp_nav_data']					= 'Data'; #translate
-$lang['cp_nav_structure']				= 'Structure'; #translate
-$lang['cp_nav_misc']					= 'Miscellaneous'; #translate
+$lang['cp_nav_users']					= '網站用戶'; 		//'Users';
+$lang['cp_nav_content']					= '網站內容'; 		//'Content';
+$lang['cp_nav_data']					= '網站資料';
+$lang['cp_nav_structure']				= '網站結構';
+$lang['cp_nav_misc']					= '其他項目';
 
 $lang['global:keywords']				= '關鍵字';
 
@@ -46,3 +46,5 @@ $lang['cp_upgrade_message']				= '您目前執行的版本是 %s，但是您資�
 
 $lang['required_label'] 				= '必填'; 			//'Required';
 $lang['sb_recent_users'] 				= '最近用戶'; 		//'Recent users';
+
+/* End of file admin_lang.php */

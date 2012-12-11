@@ -12,6 +12,7 @@ $lang['addons:modules:disable_error']			= 'Δεν ήταν δυνατό να α�
 $lang['addons:modules:disable_success']			= 'Το πρόσθετο "%s" απενεργοποιήθηκε.';
 $lang['addons:modules:enable_error']			= 'Δεν ήταν δυνατό να ενεργοποιηθεί το πρόσθετο "%s".';
 $lang['addons:modules:enable_success']			= 'Το πρόσθετο "%s" ενεργοποιήθηκε.';
+
 $lang['addons:modules:install_error']			= 'Δεν ήταν δυνατό να εγκατασταθεί το πρόσθετο.';
 $lang['addons:modules:install_success']			= 'Το πρόσθετο "%s" εγκαταστάθηκε.';
 
@@ -51,9 +52,9 @@ $lang['addons:themes:delete_error']				= 'Δεν ήταν δυνατή η δια
 $lang['addons:themes:mass_delete_success']		= '%s από τα %s θέματα διαγράφηκαν με επιτυχία.';
 $lang['addons:themes:mass_delete_error']		= 'Διαγράφηκαν μόνο %s από τα %s θέματα.';
 $lang['addons:themes:delete_select_error']		= 'Πρέπει να επιλέξετε κάποια θέματα για να τα διαγράψετε.';
-$lang['addons:themes:upload_title']				= 'Μεταφόρτωση θέματος';
 $lang['addons:themes:admin_list']				= 'Λίστα θεμάτων διαχείρισης';
 $lang['addons:themes:list_title']				= 'Λίστα θεμάτων';
+$lang['addons:themes:upload_title']				= 'Μεταφόρτωση θέματος';
 $lang['addons:themes:upload_desc']				= 'Παρακαλώ επιλέξτε ένα αρχείο και κάντε κλικ στο κουμπί Μεταφόρτωση';
 
 $lang['addons:themes:options']					= 'Επιλογές';
@@ -62,5 +63,8 @@ $lang['addons:themes:make_default']				= 'Ως προεπιλεγμένο';
 $lang['addons:themes:version_label']			= 'Έκδοση';
 $lang['addons:themes:default_theme_label']		= 'Προεπιλεγμένο θέμα';
 $lang['addons:themes:no_themes_installed']		= 'Δεν υπάρχουν εγκατεστημένα θέματα.';
+
+$lang['addons:plugins:add_on_plugins']			= 'Πρόσθετα Από Τρίτους';
+$lang['addons:plugins:core_plugins']			= 'Απαραίτητα Πρόσθετα';
 
 /* End of file addons_lang.php */

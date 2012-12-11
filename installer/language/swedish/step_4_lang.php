@@ -10,11 +10,8 @@
  * @version		1.1.0
  */
 
-$lang['header'] = 'Steg 4: Skapa databas';
-$lang['intro_text'] = 'Fyll i formuläret nedan och tryck på knappen "Installera" för att installera PyroCMS. Var noga med att installera PyroCMS i rätt databas eftersom alla befintliga ändringar kommer att förloras!';
-$lang['db_settings'] = 'Databasinställningar';
-$lang['db_create'] = 'Skapa databas';
-$lang['db_notice'] = 'Du kan behöva göra det själv';
+$lang['header'] = 'Steg 4: Skapa databas'; #translate
+$lang['intro_text'] = 'Fyll i formuläret nedan och tryck på knappen "Installera" för att installera PyroCMS. Var noga med att installera PyroCMS i rätt databas eftersom alla befintliga ändringar kommer att förloras!'; #translate
 $lang['default_user'] = 'Standardanvändare';
 $lang['database'] = 'Databas';
 $lang['site_settings'] = 'Webbplatsinställningar';

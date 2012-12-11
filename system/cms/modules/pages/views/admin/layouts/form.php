@@ -3,12 +3,12 @@
 	<h4><?php echo lang('page_layouts.create_title');?></h4>
 	<?php else: ?>
 	<h4><?php echo sprintf(lang('page_layouts.edit_title'), $page_layout->title);?></h4>
-	<?php endif; ?>
+	<?php endif ?>
 </section>
 
 <section class="item">
 	
-<?php echo form_open(); ?>
+<?php echo form_open() ?>
 
 	<div class="tabs">
 	
@@ -25,17 +25,17 @@
 				<ul>
 					<li class="even">
 						<label for="title"><?php echo lang('global:title');?> <span>*</span></label>
-						<div class="input"><?php echo form_input('title', $page_layout->title, 'maxlength="60"'); ?></div>
+						<div class="input"><?php echo form_input('title', $page_layout->title, 'maxlength="60"') ?></div>
 					</li>
 					
 					<li>
 						<label for="theme_layout"><?php echo lang('page_layouts:theme_layout_label');?></label>
-						<div class="input"><?php echo form_dropdown('theme_layout', $theme_layouts, $page_layout->theme_layout ? $page_layout->theme_layout : 'default'); ?></div>
+						<div class="input"><?php echo form_dropdown('theme_layout', $theme_layouts, $page_layout->theme_layout ? $page_layout->theme_layout : 'default') ?></div>
 					</li>
 			
 					<li class="even">
-						<label for="html_editor"><?php echo lang('page_layouts.layout'); ?></label>
-						<?php echo form_textarea(array('id'=>'html_editor', 'name'=>'body', 'value' => ($page_layout->body == '' ? '<h2>{{ page:title }}</h2>'.PHP_EOL.'{{ page:body }}' : $page_layout->body), 'rows' => 50)); ?>
+						<label for="html_editor"><?php echo lang('page_layouts.layout') ?></label>
+						<?php echo form_textarea(array('id'=>'html_editor', 'name'=>'body', 'value' => ($page_layout->body == '' ? '<h2>{{ page:title }}</h2>'.PHP_EOL.'{{ page:body }}' : $page_layout->body), 'rows' => 50)) ?>
 					</li>
 				</ul>
 				
@@ -51,7 +51,7 @@
 			<ul>
 				<li>
 					<label for="css">CSS</label><br />
-					<?php echo form_textarea('css', $page_layout->css, 'class="css_editor" id="css"'); ?>
+					<?php echo form_textarea('css', $page_layout->css, 'class="css_editor" id="css"') ?>
 				</li>
 			</ul>
 			
@@ -67,7 +67,7 @@
 			<ul>
 				<li>
 					<label for="js">JavaScript</label><br />
-					<?php echo form_textarea('js', $page_layout->js, 'class="js_editor" id="js"'); ?>
+					<?php echo form_textarea('js', $page_layout->js, 'class="js_editor" id="js"') ?>
 				</li>
 			</ul>
 
@@ -78,8 +78,8 @@
 	</div>
 
 	<div class="buttons float-right padding-top">
-		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'save_exit', 'cancel') )); ?>
+		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'save_exit', 'cancel') )) ?>
 	</div>
 
-<?php echo form_close(); ?>
+<?php echo form_close() ?>
 </section>

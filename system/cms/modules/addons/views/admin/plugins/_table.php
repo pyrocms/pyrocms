@@ -8,14 +8,14 @@
 		</tr>
 		</thead>
 
-	<body>
+	<tbody>
 	<?php foreach ($plugins as $plugin): ?>
 	<tr>
-		<td width="30%"><?php echo $plugin['name']; ?></td>
-		<td width="60%"><?php echo $plugin['description']; ?></td>
-		<td><?php echo $plugin['version']; ?></td>
-	<tr>
-	<?php endforeach; ?>
+		<td width="30%"><?php echo $plugin['name'] ?></td>
+		<td width="60%"><?php echo $plugin['description'] ?></td>
+		<td><?php echo $plugin['version'] ?></td>
+	</tr>
+	<?php endforeach ?>
 	</tbody>
 
 </table>

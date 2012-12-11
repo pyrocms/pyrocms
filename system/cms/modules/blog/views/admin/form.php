@@ -1,20 +1,20 @@
 <section class="title">
 <?php if ($this->method == 'create'): ?>
-	<h4><?php echo lang('blog:create_title'); ?></h4>
+	<h4><?php echo lang('blog:create_title') ?></h4>
 <?php else: ?>
-	<h4><?php echo sprintf(lang('blog:edit_title'), $post->title); ?></h4>
-<?php endif; ?>
+	<h4><?php echo sprintf(lang('blog:edit_title'), $post->title) ?></h4>
+<?php endif ?>
 </section>
 
 <section class="item">
 	
-<?php echo form_open_multipart(); ?>
+<?php echo form_open_multipart() ?>
 
 <div class="tabs">
 
 	<ul class="tab-menu">
-		<li><a href="#blog-content-tab"><span><?php echo lang('blog:content_label'); ?></span></a></li>
-		<li><a href="#blog-options-tab"><span><?php echo lang('blog:options_label'); ?></span></a></li>
+		<li><a href="#blog-content-tab"><span><?php echo lang('blog:content_label') ?></span></a></li>
+		<li><a href="#blog-options-tab"><span><?php echo lang('blog:options_label') ?></span></a></li>
 	</ul>
 	
 	<!-- Content tab -->
@@ -24,49 +24,49 @@
 		<ul>
 			<li>
 				<div class="input">
-					<label for="title"><?php echo lang('global:title'); ?></label>
-					<?php echo form_input('title', htmlspecialchars_decode($post->title), 'maxlength="100" id="title"'); ?>
-					<span class="req"><?php echo lang('required_error_label'); ?></span>
+					<label for="title"><?php echo lang('global:title') ?></label>
+					<?php echo form_input('title', htmlspecialchars_decode($post->title), 'maxlength="100" id="title"') ?>
+					<span class="req"><?php echo lang('required_error_label') ?></span>
 				</div>				
 			</li>
 			
 			<li>
 				<div class="input">
-					<label for="slug"><?php echo lang('global:slug'); ?></label>
-					<?php echo form_input('slug', $post->slug, 'maxlength="100" class="width-20"'); ?>
-					<span class="req"><?php echo lang('required_error_label'); ?></span>
+					<label for="slug"><?php echo lang('global:slug') ?></label>
+					<?php echo form_input('slug', $post->slug, 'maxlength="100" class="width-20"') ?>
+					<span class="req"><?php echo lang('required_error_label') ?></span>
 				</div>
 			</li>
 			
 			<li>
-				<label for="status"><?php echo lang('blog:status_label'); ?></label>
+				<label for="status"><?php echo lang('blog:status_label') ?></label>
 				<div class="input"><?php echo form_dropdown('status', array('draft' => lang('blog:draft_label'), 'live' => lang('blog:live_label')), $post->status) ?></div>
 			</li>
 
 			<hr>
 			
 			<li>
-				<label for="intro"><?php echo lang('blog:intro_label'); ?></label>
+				<label for="intro"><?php echo lang('blog:intro_label') ?></label>
 				<div class="one_full">
-					<?php echo form_textarea(array('id' => 'intro', 'name' => 'intro', 'value' => $post->intro, 'rows' => 5, 'class' => 'blog wysiwyg-simple')); ?>
+					<?php echo form_textarea(array('id' => 'intro', 'name' => 'intro', 'value' => $post->intro, 'rows' => 5, 'class' => 'blog wysiwyg-simple')) ?>
 				</div>
 			</li>
 
 			<hr>
 			
 			<li class="editor">
-				<label for="body"><?php echo lang('blog:content_label'); ?></label><br>
+				<label for="body"><?php echo lang('blog:content_label') ?></label><br>
 				<div class="input">
 					<?php echo form_dropdown('type', array(
 						'html' => 'html',
 						'markdown' => 'markdown',
 						'wysiwyg-simple' => 'wysiwyg-simple',
 						'wysiwyg-advanced' => 'wysiwyg-advanced',
-					), $post->type); ?>
+					), $post->type) ?>
 				</div>
 				
 				<div class="one_full">
-					<?php echo form_textarea(array('id' => 'body', 'name' => 'body', 'value' => $post->body, 'rows' => 30, 'class' => $post->type)); ?>
+					<?php echo form_textarea(array('id' => 'body', 'name' => 'body', 'value' => $post->body, 'rows' => 30, 'class' => $post->type)) ?>
 				</div>
 			</li>
 		</ul>
@@ -80,23 +80,23 @@
 		
 		<ul>
 			<li>
-				<label for="category_id"><?php echo lang('blog:category_label'); ?></label>
+				<label for="category_id"><?php echo lang('blog:category_label') ?></label>
 				<div class="input">
 				<?php echo form_dropdown('category_id', array(lang('blog:no_category_select_label')) + $categories, @$post->category_id) ?>
-					[ <?php echo anchor('admin/blog/categories/create', lang('blog:new_category_label'), 'target="_blank"'); ?> ]
+					[ <?php echo anchor('admin/blog/categories/create', lang('blog:new_category_label'), 'target="_blank"') ?> ]
 				</div>
 			</li>
 			
 			<li>
-				<label for="keywords"><?php echo lang('global:keywords'); ?></label>
+				<label for="keywords"><?php echo lang('global:keywords') ?></label>
 				<div class="input"><?php echo form_input('keywords', $post->keywords, 'id="keywords"') ?></div>
 			</li>
 						
 			<li class="date-meta">
-				<label><?php echo lang('blog:date_label'); ?></label>
+				<label><?php echo lang('blog:date_label') ?></label>
 				
 				<div class="input datetime_input">
-				<?php echo form_input('created_on', date('Y-m-d', $post->created_on), 'maxlength="10" id="datepicker" class="text width-20"'); ?> &nbsp;
+				<?php echo form_input('created_on', date('Y-m-d', $post->created_on), 'maxlength="10" id="datepicker" class="text width-20"') ?> &nbsp;
 				<?php echo form_dropdown('created_on_hour', $hours, date('H', $post->created_on)) ?> : 
 				<?php echo form_dropdown('created_on_minute', $minutes, date('i', ltrim($post->created_on, '0'))) ?>
 				
@@ -114,7 +114,7 @@
 						'1 month' => lang('global:duration:1-month'),
 						'3 months' => lang('global:duration:3-months'),
 						'always' => lang('global:duration:always'),
-					), $post->comments_enabled ? $post->comments_enabled : '3 months'); ?>
+					), $post->comments_enabled ? $post->comments_enabled : '3 months') ?>
 				</div>
 			</li>
 		</ul>
@@ -124,10 +124,10 @@
 </div>
 
 <div class="buttons">
-	<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'save_exit', 'cancel'))); ?>
+	<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'save_exit', 'cancel'))) ?>
 </div>
 
-<?php echo form_close(); ?>
+<?php echo form_close() ?>
 
 </section>
 

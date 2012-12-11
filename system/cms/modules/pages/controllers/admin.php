@@ -201,6 +201,12 @@ class Admin extends Admin_Controller {
 			// validate and insert
 			if ($id = $this->page_m->create($input))
 			{
+				if (count($input['navigation_group_id']) > 0)
+				{
+					$this->pyrocache->delete_all('page_m');
+					$this->pyrocache->delete_all('navigation_m');
+				}
+
 				Events::trigger('page_created', $id);
 
 				$this->session->set_flashdata('success', lang('pages_create_success'));
@@ -245,17 +251,23 @@ class Admin extends Admin_Controller {
 		// Loop through each rule
 		foreach ($this->page_m->fields() as $field)
 		{
-			if ($field === 'restricted_to[]' or $field === 'strict_uri')
-			{
-				$page->restricted_to = set_value($field, array('0'));
+			switch ($field) {
+				case 'restricted_to[]':
+					$page->restricted_to = set_value($field, array('0'));
+					break;
+				
+				case 'navigation_group_id[]':
+					$page->navigation_group_id = $this->input->post('navigation_group_id');
+					break;
 
-				// we'll set the default for strict URIs here also
-				$page->strict_uri = true;
+				case 'strict_uri':
+					$page->strict_uri = set_value($field, true);
+					break;
 
-				continue;
+				default:
+					$page->{$field} = set_value($field);
+					break;
 			}
-
-			$page->{$field} = set_value($field);
 		}
 
 		$parent_page = new stdClass;
@@ -373,7 +385,7 @@ class Admin extends Admin_Controller {
 			$field = $field['field'];
 
 			// Nothing to do for these two fields.
-			if (in_array($field, array('navigation_group_id', 'chunk_body[]')))
+			if (in_array($field, array('navigation_group_id[]', 'chunk_body[]')))
 			{
 				continue;
 			}

@@ -127,14 +127,14 @@ $lang['settings_auto_username_desc']			= '自動為用戶建立 username，代�
 $lang['settings_registered_email']				= '發送註冊通知';
 $lang['settings_registered_email_desc']			= '當有人註冊時，寄送通知信到網站預設信箱。';
 
-$lang['settings_ckeditor_config']               = 'CKEditor Config'; #translate
-$lang['settings_ckeditor_config_desc']          = 'You can find a list of valid configuration items in <a target="_blank" href="http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.config.html">CKEditor\'s documentation.</a>'; #translate
+$lang['settings_ckeditor_config']               = 'CKEditor 設定'; #translate
+$lang['settings_ckeditor_config_desc']          = '您可以在「<a target="_blank" href="http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.config.html">CKEditor\'s 線上文件.</a>」中查閱到可以使用的設定項目。'; #translate
 
-$lang['settings_enable_registration']           = 'Enable user registration'; #translate
-$lang['settings_enable_registration_desc']      = 'Allow users to register in your site.'; #translate
+$lang['settings_enable_registration']           = '開啟使用者註冊';
+$lang['settings_enable_registration_desc']      = '讓訪客可以在你的網站註冊成為用戶。';
 
-$lang['settings_cdn_domain']                    = 'CDN Domain'; #translate
-$lang['settings_cdn_domain_desc']               = 'CDN domains allow you to offload static content to various edge servers, like Amazon CloudFront or MaxCDN.'; #translate
+$lang['settings_cdn_domain']                    = 'CDN Domain';
+$lang['settings_cdn_domain_desc']               = 'CDN domains 讓你可以使用一些知名伺服器上的固定內容, 像是 Amazon CloudFront 或 MaxCDN.';
 
 #section titles
 $lang['settings_section_general']				= '一般';

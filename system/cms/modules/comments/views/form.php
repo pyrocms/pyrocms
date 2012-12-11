@@ -1,37 +1,37 @@
-<?php echo form_open("comments/create/{$module}", 'id="create-comment"'); ?>
+<?php echo form_open("comments/create/{$module}", 'id="create-comment"') ?>
 
-	<noscript><?php echo form_input('d0ntf1llth1s1n', '', 'style="display:none"'); ?></noscript>
+	<noscript><?php echo form_input('d0ntf1llth1s1n', '', 'style="display:none"') ?></noscript>
 
-	<h4><?php echo lang('comments:your_comment'); ?></h4>
+	<h4><?php echo lang('comments:your_comment') ?></h4>
 
-	<?php echo form_hidden('entry', $entry_hash); ?>
+	<?php echo form_hidden('entry', $entry_hash) ?>
 
 	<?php if ( ! $current_user): ?>
 
 	<div class="form_name">
-		<label for="name"><?php echo lang('comments:name_label'); ?>:</label>
+		<label for="name"><?php echo lang('comments:name_label') ?>:</label>
 		<input type="text" name="name" id="name" maxlength="40" value="<?php echo $comment['name'] ?>" />
 	</div>
 
 	<div class="form_email">
-		<label for="email"><?php echo lang('global:email'); ?>:</label>
+		<label for="email"><?php echo lang('global:email') ?>:</label>
 		<input type="text" name="email" maxlength="40" value="<?php echo $comment['email'] ?>" />
 	</div>
 
 	<div class="form_url">
-		<label for="website"><?php echo lang('comments:website_label'); ?>:</label>
+		<label for="website"><?php echo lang('comments:website_label') ?>:</label>
 		<input type="text" name="website" maxlength="40" value="<?php echo $comment['website'] ?>" />
 	</div>
 
-	<?php endif; ?>
+	<?php endif ?>
 
 	<div class="form_textarea">
-		<label for="comment"><?php echo lang('comments:message_label'); ?>:</label>
+		<label for="comment"><?php echo lang('comments:message_label') ?>:</label>
 		<textarea name="comment" id="comment" rows="5" cols="30" class="width-full"><?php echo $comment['comment'] ?></textarea>
 	</div>
 
 	<div class="form_submit">
-		<?php echo form_submit('submit', lang('comments:send_label')); ?>
+		<?php echo form_submit('submit', lang('comments:send_label')) ?>
 	</div>
 
-<?php echo form_close(); ?>
+<?php echo form_close() ?>

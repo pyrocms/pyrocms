@@ -92,7 +92,7 @@ $(function($) {
 	<div class="one_half">
 		
 		<section class="draggable title">
-			<h4><?php echo lang('comments.recent_comments') ?></h4>
+			<h4><?php echo lang('comments:recent_comments') ?></h4>
 			<a class="tooltip-s toggle" title="Toggle this element"></a>
 		</section>
 		
@@ -101,11 +101,11 @@ $(function($) {
 				<?php if (count($recent_comments)): ?>
 						<?php foreach ($recent_comments AS $rant) : ?>
 							<li>
-								<p><?php echo sprintf(lang('comments.list_comment'), $rant->name, $rant->item); ?> <em><?php echo (Settings::get('comment_markdown') AND $rant->parsed > '') ? strip_tags($rant->parsed) : $rant->comment; ?></em></p>
+								<p><?php echo sprintf(lang('comments:list_comment'), $rant->user_name, $rant->entry_title); ?> <em><?php echo (Settings::get('comment_markdown') AND $rant->parsed > '') ? strip_tags($rant->parsed) : $rant->comment; ?></em></p>
 							</li>
 						<?php endforeach; ?>
 				<?php else: ?>
-						<?php echo lang('comments.no_comments');?>
+						<?php echo lang('comments:no_comments');?>
 				<?php endif; ?>
 			</ul>
 		</section>

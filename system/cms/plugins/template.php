@@ -1,27 +1,35 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
  * Template Plugin
  *
  * Display theme templates
- * 
- * @author		PyroCMS Dev Team
- * @package		PyroCMS\Core\Plugins
+ *
+ * @author  PyroCMS Dev Team
+ * @package PyroCMS\Core\Plugins
  */
 class Plugin_Template extends Plugin
 {
+	public $version = '1.0';
+
+	public $name = array(
+		'en' => 'Template',
+	);
+
 	public $description = array(
-		'en'	=> 'Access and set theme settings and properties.'
+		'en' => 'Access and set theme settings and properties.',
+		'el' => 'Πρόσβαση και αλλαγή ρυθμίσεων και ιδιοτήτων του θέματος εμφάνισης.',
 	);
 
 	/**
 	 * Set Template Title
 	 *
-	 * Set your own custom page titles from within page content. 
+	 * Set your own custom page titles from within page content.
 	 * Separate multiple segments with a comma
 	 *
 	 * Usage:
-	 *   {{ template:set_title value="My Custom Page Title, Another Segment" }}
+	 *
+	 *     {{ template:set_title value="My Custom Page Title, Another Segment" }}
 	 *
 	 * @return void
 	 */
@@ -35,19 +43,20 @@ class Plugin_Template extends Plugin
 	/**
 	 * Set Metadata
 	 *
-	 * Metadata can be set from inside page content. If meta info 
-	 * with the same name exists it will be replaced
+	 * Metadata can be set from inside page content.
+	 * If meta info with the same name exists it will be replaced
 	 *
 	 * Usage:
-	 *   {{ template:set_metadata name="description" value="My Description" type="meta" }}
+	 *
+	 *     {{ template:set_metadata name="description" value="My Description" type="meta" }}
 	 *
 	 * @return void
 	 */
 	public function set_metadata()
 	{
-		$name 	= $this->attribute('name');
-		$value 	= $this->attribute('value');
-		$type 	= $this->attribute('type', 'meta');
+		$name = $this->attribute('name');
+		$value = $this->attribute('value');
+		$type = $this->attribute('type', 'meta');
 
 		$this->template->set_metadata($name, $value, $type);
 	}
@@ -58,26 +67,26 @@ class Plugin_Template extends Plugin
 	 * Breadcrumbs can be overridden by using this tag inside page content
 	 *
 	 * Usage:
-	 *   {{ template:set_breadcrumb name="My Page" uri="some-page" reset="true" }}
+	 *
+	 *     {{ template:set_breadcrumb name="My Page" uri="some-page" reset="true" }}
 	 *
 	 * @return void
 	 */
 	public function set_breadcrumb()
 	{
-		$name 	= $this->attribute('name');
-		$uri 	= $this->attribute('uri');
-		$reset	= (strtolower($this->attribute('reset')) === 'true') ? true : false;
+		$name = $this->attribute('name');
+		$uri = $this->attribute('uri');
+		$reset = (strtolower($this->attribute('reset')) === 'true') ? true : false;
 
 		$this->template->set_breadcrumb($name, $uri, $reset);
 	}
 
 	/**
-	 * Data
-	 *
 	 * Loads a template partial
 	 *
 	 * Usage:
-	 *   {{ template:partial name="sidebar" }}
+	 *
+	 *     {{ template:partial name="sidebar" }}
 	 *
 	 * @return string The contents of the partial view.
 	 */
@@ -94,12 +103,13 @@ class Plugin_Template extends Plugin
 	 * Checks for existance of a partial
 	 *
 	 * Usage:
-	 * {{ template:has_partial name="sidebar" }}
-	 *   <h2>Sidebar</h2>
-	 *   {{ template:partial name="sidebar" }}
-	 * {{ /template:has_partial }}
 	 *
-	 * @return array|string|boolean 
+	 *     {{ template:has_partial name="sidebar" }}
+	 *         <h2>Sidebar</h2>
+	 *         {{ template:partial name="sidebar" }}
+	 *     {{ /template:has_partial }}
+	 *
+	 * @return array|string|boolean
 	 */
 	public function has_partial()
 	{
@@ -119,15 +129,16 @@ class Plugin_Template extends Plugin
 	 * Check for the existance of breadcrumbs
 	 *
 	 * Usage:
-	 * {{ if {template:has_breadcrumbs} }}
-	 * 	{{ template:breadcrumbs }}
-	 * 		{{ if uri }}
-	 * 			{{ url:anchor segments='{{ uri }}' title='{{ name }}' }}
-	 * 		{{ else }}
-	 * 			{{ name }}
-	 * 		{{ /if }}
-	 * 	{{ /template:breadcrumbs }}
-	 * {{ /if }}
+	 *
+	 *     {{ if {template:has_breadcrumbs} }}
+	 *         {{ template:breadcrumbs }}
+	 *             {{ if uri }}
+	 *                 {{ url:anchor segments='{{ uri }}' title='{{ name }}' }}
+	 *             {{ else }}
+	 *                 {{ name }}
+	 *             {{ /if }}
+	 *         {{ /template:breadcrumbs }}
+	 *     {{ /if }}
 	 *
 	 * @return boolean
 	 */
@@ -137,7 +148,7 @@ class Plugin_Template extends Plugin
 
 		$crumbs = $data['template']['breadcrumbs'];
 
-		return !empty($crumbs);
+		return ! empty($crumbs);
 	}
 
 	/**
@@ -152,11 +163,15 @@ class Plugin_Template extends Plugin
 
 	/**
 	 * Return template variables
-	 * Example: {{ template:title }}
-	 * 
+	 *
+	 * Example:
+	 *
+	 *     {{ template:title }}
+	 *
 	 * @param type $foo
 	 * @param type $arguments
-	 * @return type 
+	 *
+	 * @return type
 	 */
 	public function __call($foo, $arguments)
 	{

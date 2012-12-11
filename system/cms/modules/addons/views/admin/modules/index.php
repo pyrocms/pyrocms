@@ -1,12 +1,10 @@
 <section class="title">
-	<h4><?php echo lang('addons:modules');?></h4>
+	<h4><?php echo lang('addons:modules:addon_list');?></h4>
 </section>
 
 <section class="item">
-	<h4><?php echo lang('addons:modules:addon_list');?></h4>
 
-	<p><?php echo lang('addons:modules:introduction'); ?></p>
-
+	<?php if ($addon_modules): ?>
 	<table class="table-list" cellspacing="0">
 		<thead>
 			<tr>
@@ -17,38 +15,45 @@
 			</tr>
 		</thead>
 		<tbody>
-		<?php foreach ($all_modules as $module): ?>
-		<?php if ($module['is_core']) continue; ?>
+		<?php foreach ($addon_modules as $module): ?>
 			<tr>
-				<td class="collapse"><?php echo ($module['is_backend'] and $module['installed']) ? anchor('admin/'.$module['slug'], $module['name']) : $module['name']; ?></td>
+				<td class="collapse"><?php echo ($module['is_backend'] and $module['installed']) ? anchor('admin/'.$module['slug'], $module['name']) : $module['name'] ?></td>
 
-				<td><?php echo $module['description']; ?></td>
-				<td class="align-center"><?php echo $module['version']; ?></td>
+				<td><?php echo $module['description'] ?></td>
+				<td class="align-center"><?php echo $module['version'] ?></td>
 				<td class="actions">
 					<?php if ($module['installed']): ?>
 						<?php if ($module['enabled']): ?>
-							<?php echo anchor('admin/addons/modules/disable/'.$module['slug'], lang('global:disable'), array('class'=>'confirm button small', 'title'=>lang('addons:modules:confirm_disable'))); ?>
+							<?php echo anchor('admin/addons/modules/disable/'.$module['slug'], lang('global:disable'), array('class'=>'confirm button small', 'title'=>lang('addons:modules:confirm_disable'))) ?>
 						<?php else: ?>
-							<?php echo anchor('admin/addons/modules/enable/'.$module['slug'], lang('global:enable'), array('class'=>'confirm button small', 'title'=>lang('addons:modules:confirm_enable'))); ?>
-						<?php endif; ?>
+							<?php echo anchor('admin/addons/modules/enable/'.$module['slug'], lang('global:enable'), array('class'=>'confirm button small', 'title'=>lang('addons:modules:confirm_enable'))) ?>
+						<?php endif ?>
 						<?php if ($module['is_current']): ?>
-							<?php echo anchor('admin/addons/modules/uninstall/'.$module['slug'], lang('global:uninstall'), array('class'=>'confirm button small', 'title'=>lang('addons:modules:confirm_uninstall'))); ?>
+							<?php echo anchor('admin/addons/modules/uninstall/'.$module['slug'], lang('global:uninstall'), array('class'=>'confirm button small', 'title'=>lang('addons:modules:confirm_uninstall'))) ?>
 						<?php else: ?>
-							<?php echo anchor('admin/addons/modules/upgrade/'.$module['slug'], lang('global:upgrade'), array('class'=>'confirm button small', 'title'=>lang('addons:modules:confirm_upgrade'))); ?>
-						<?php endif; ?>
+							<?php echo anchor('admin/addons/modules/upgrade/'.$module['slug'], lang('global:upgrade'), array('class'=>'confirm button small', 'title'=>lang('addons:modules:confirm_upgrade'))) ?>
+						<?php endif ?>
 					<?php else: ?>
-						<?php echo anchor('admin/addons/modules/install/'.$module['slug'], lang('global:install'), array('class'=>'confirm button small', 'title'=>lang('addons:modules:confirm_install'))); ?>
-					<?php endif; ?>
-					<?php echo anchor('admin/addons/modules/delete/'.$module['slug'], lang('global:delete'), array('class'=>'confirm button small', 'title'=>lang('addons:modules:confirm_delete'))); ?>
+						<?php echo anchor('admin/addons/modules/install/'.$module['slug'], lang('global:install'), array('class'=>'confirm button small', 'title'=>lang('addons:modules:confirm_install'))) ?>
+					<?php endif ?>
+					<?php echo anchor('admin/addons/modules/delete/'.$module['slug'], lang('global:delete'), array('class'=>'confirm button small', 'title'=>lang('addons:modules:confirm_delete'))) ?>
 				</td>
 			</tr>
-		<?php endforeach; ?>
+		<?php endforeach ?>
 		</tbody>
 	</table>
 
-	<h4><?php echo lang('addons:modules:core_list');?></h4>
+	<?php endif ?>
 
-	<p><?php echo lang('addons:modules:core_introduction'); ?></p>
+</section>
+
+<section class="title">
+	<h4><?php echo lang('addons:modules:core_list');?></h4>
+</section>
+
+<section class="item">
+
+	<p><?php echo lang('addons:modules:core_introduction') ?></p>
 
 	<table class="table-list" cellspacing="0">
 		<thead>
@@ -60,21 +65,21 @@
 			</tr>
 		</thead>	
 		<tbody>
-		<?php foreach ($all_modules as $module): ?>
-		<?php if ( ! $module['is_core'] or $module['slug'] === 'addons') continue; ?>
+		<?php foreach ($core_modules as $module): ?>
+		<?php if ($module['slug'] === 'addons') continue ?>
 			<tr>
-				<td><?php echo $module['is_backend'] ? anchor('admin/'.$module['slug'], $module['name']) : $module['name']; ?></td>
-				<td><?php echo $module['description']; ?></td>
-				<td class="align-center"><?php echo $module['version']; ?></td>
+				<td><?php echo $module['is_backend'] ? anchor('admin/'.$module['slug'], $module['name']) : $module['name'] ?></td>
+				<td><?php echo $module['description'] ?></td>
+				<td class="align-center"><?php echo $module['version'] ?></td>
 				<td class="actions">
 				<?php if ($module['enabled']): ?>
- 					<?php echo anchor('admin/addons/modules/disable/'.$module['slug'], lang('global:disable'), array('class'=>'confirm button small', 'title'=>lang('addons:modules:confirm_disable'))); ?>
+ 					<?php echo anchor('admin/addons/modules/disable/'.$module['slug'], lang('global:disable'), array('class'=>'confirm button small', 'title'=>lang('addons:modules:confirm_disable'))) ?>
 				<?php else: ?>
-					<?php echo anchor('admin/addons/modules/enable/'.$module['slug'], lang('global:enable'), array('class'=>'confirm button small', 'title'=>lang('addons:modules:confirm_enable'))); ?>
-				<?php endif; ?>
+					<?php echo anchor('admin/addons/modules/enable/'.$module['slug'], lang('global:enable'), array('class'=>'confirm button small', 'title'=>lang('addons:modules:confirm_enable'))) ?>
+				<?php endif ?>
 				</td>
 			</tr>
-		<?php endforeach; ?>
+		<?php endforeach ?>
 		</tbody>	
 	</table>
 		

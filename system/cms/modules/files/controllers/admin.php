@@ -241,7 +241,7 @@ class Admin extends Admin_Controller {
 		}
 		elseif ($input['folder_id'] and $input['name'])
 		{
-			$result = Files::upload($input['folder_id'], $input['name'], 'file', $input['width'], $input['height'], $input['ratio'], $input['alt_attribute']);
+			$result = Files::upload($input['folder_id'], $input['name'], 'file', $input['width'], $input['height'], $input['ratio'], null, $input['alt_attribute']);
 			$result['status'] AND Events::trigger('file_uploaded', $result['data']);
 		}
 

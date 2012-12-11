@@ -3,11 +3,11 @@
 	<h4><?php echo lang('domains:add_domain');?></h4>
 <?php else: ?>
 	<h4><?php echo lang('domains:edit_domain');?></h4>
-<?php endif; ?>
+<?php endif ?>
 </section>
 
 <section class="item">
-	<?php echo form_open(uri_string(), 'class="crud"'); ?>
+	<?php echo form_open(uri_string(), 'class="crud"') ?>
 	<div class="form_inputs">
 		<ul>
 			<li>
@@ -25,8 +25,8 @@
 		</ul>
 
 		<div class="buttons">
-			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )); ?>
+			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )) ?>
 		</div>
 	</div>
-	<?php echo form_close(); ?>
+	<?php echo form_close() ?>
 </section>

@@ -20,11 +20,17 @@ class Module_Search extends Module
 				'en' => 'Search',
 				'fr' => 'Recherche',
 				'se' => 'Sök',
+				'ar' => 'البحث',
+				'tw' => '搜尋',
+				'cn' => '搜寻'
 			),
 			'description' => array(
 				'en' => 'Search through various types of content with this modular search system.',
 				'fr' => 'Rechercher parmi différents types de contenus avec système de recherche modulaire.',
 				'se' => 'Sök igenom olika typer av innehåll',
+				'ar' => 'ابحث في أنواع مختلفة من المحتوى باستخدام نظام البحث هذا.',
+				'tw' => '此模組可用以搜尋網站中不同類型的資料內容。',
+				'cn' => '此模组可用以搜寻网站中不同类型的资料内容。'
 			),
 			'frontend' => false,
 			'backend' => false,

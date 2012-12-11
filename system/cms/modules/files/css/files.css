@@ -101,6 +101,7 @@ li.right-title, li.right-title label { font-size: 14px; font-weight: bold; font-
     margin: -1px 10px 10px;
     padding-top: 10px;
     border-top: 1px dotted #ddd;
+    clear: both;
 }
 #files-uploader-queue li > div {
     margin-right: 15px;
@@ -112,40 +113,33 @@ li.right-title, li.right-title label { font-size: 14px; font-weight: bold; font-
 }
 #files-uploader-queue .file_upload_preview {
     border: 1px solid #ccc;
+    width: 20%;
 }
 #files-uploader-queue .file_upload_preview div {
-    width: 50px;
-    height: 30px;
-    border: 5px solid #fff;
     overflow: hidden;
     background: #fff;
+    max-height: 50px;
 }
-#files-uploader-queue .file_upload_preview img {
-    width: 50px;
+#files-uploader-queue .file_upload_preview img, #files-uploader-queue .file_upload_preview canvas {
+    width: 100%;
 }
 #files-uploader-queue .filename {
-    width: 100px;
+    width: 29%;
     overflow: hidden;
     color: #666666;
     margin-top: 10px;
+    text-align: center;
 }
 #files-uploader-queue .file_upload_progress {
     margin-top: 10px;
+    width: 30%;
+    overflow: hidden;
 }
 #files-uploader-queue .file_upload_cancel {
     margin-top: 5px;
     float: right;
     margin-right: 0;
-}
-#files-uploader-queue .file_upload_cancel label {
-    margin-right: 5px;
-}
-#files-uploader-queue .file_upload_cancel select {
-    margin-right: 10px;
-    max-width: 90px;
-}
-#files-uploader-queue .file_upload_cancel input {
-    margin-right: 10px;
+    width: 10%;
 }
 .file_upload_cancel div.start-icon {
 	margin-left: 5px;
@@ -160,4 +154,17 @@ li.right-title, li.right-title label { font-size: 14px; font-weight: bold; font-
     height: 30px;
     background: url(../img/cancel.png) no-repeat 0 0;
     display: inline-block;
+}
+#files-uploader-queue .image_meta {
+    float: left;
+}
+#files-uploader-queue .image_meta label {
+    margin-right: 5px;
+}
+#files-uploader-queue .image_meta select {
+    margin-right: 20px;
+    max-width: 120px;
+}
+#files-uploader-queue .image_meta input {
+    margin-right: 20px;
 }
