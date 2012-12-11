@@ -29,7 +29,7 @@
 					<?php if ( ! in_array($group->name, array('user', 'admin'))): ?>
 						<?php echo anchor('admin/groups/delete/'.$group->id, lang('buttons.delete'), 'class="confirm button delete"'); ?>
 					<?php endif; ?>
-					<?php echo anchor('admin/permissions/group/'.$group->id, lang('permissions.edit').' &rarr;', 'class="button edit"'); ?>
+					<?php echo anchor('admin/permissions/group/'.$group->id, lang('permissions:edit').' &rarr;', 'class="button edit"'); ?>
 					</td>
 				</tr>
 			<?php endforeach;?>
