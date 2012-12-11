@@ -10,15 +10,15 @@
  */
 class Plugin_Global extends Plugin
 {
-	public $version = '1.0';
 
+	public $version = '1.0';
 	public $name = array(
 		'en' => 'Global',
 	);
-
 	public $description = array(
 		'en' => 'Access global variables.',
 		'el' => 'Πρόσβαση σε οικουμενικές μεταβλητές.',
+		'fr' => 'Accéder à des variables globales.'
 	);
 
 	/**
