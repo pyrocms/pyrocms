@@ -10,15 +10,15 @@
  */
 class Plugin_Helper extends Plugin
 {
-	public $version = '1.0';
 
+	public $version = '1.0';
 	public $name = array(
 		'en' => 'Helper',
 	);
-
 	public $description = array(
 		'en' => 'Access helper functions and other helpful items.',
 		'el' => 'Πρόσβαση σε helper functions και άλλα χρήσιμα.',
+		'fr' => 'Accéder aux fonctions helper et à d\'autres éléments utiles.'
 	);
 
 	/** @var boolean A flag for the counter functions for loops. */
@@ -104,7 +104,7 @@ class Plugin_Helper extends Plugin
 		$size = $this->attribute('size', '50');
 		$rating = $this->attribute('rating', 'g');
 
-		$url_only = (bool)in_array($this->attribute('url-only', 'false'), array('1', 'y', 'yes', 'true'));
+		$url_only = (bool) in_array($this->attribute('url-only', 'false'), array('1', 'y', 'yes', 'true'));
 
 		return gravatar($email, $size, $rating, $url_only);
 	}
@@ -230,4 +230,5 @@ class Plugin_Helper extends Plugin
 
 		return 'Function not found or is not allowed';
 	}
+
 }

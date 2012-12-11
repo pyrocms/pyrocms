@@ -10,15 +10,15 @@
  */
 class Plugin_format extends Plugin
 {
-	public $version = '1.0';
 
+	public $version = '1.0';
 	public $name = array(
 		'en' => 'Format',
 	);
-
 	public $description = array(
 		'en' => 'Format strings, including Markdown and Textile.',
 		'el' => 'Μορφοποίηση κειμενοσειρών, συμπεριλαμβανομένων των Markdown και Textile.',
+		'fr' => 'Formatter des chaînes de caractères, incluant Markdown et Textile.'
 	);
 
 	/**
@@ -44,7 +44,6 @@ class Plugin_format extends Plugin
 		return parse_markdown(trim($content));
 	}
 
-
 	/**
 	 * Textile
 	 *
@@ -68,7 +67,6 @@ class Plugin_format extends Plugin
 		return $this->textile->TextileThis(trim($content));
 	}
 
-
 	/**
 	 * URL Title
 	 *
@@ -91,9 +89,10 @@ class Plugin_format extends Plugin
 		if (count($attrs) > 2)
 		{
 			$bool = array_slice($attrs, 2);
-			array_splice($attrs, 2, 1, (bool)$bool);
+			array_splice($attrs, 2, 1, (bool) $bool);
 		}
 
 		return call_user_func_array('url_title', $attrs);
 	}
+
 }
