@@ -7,7 +7,7 @@
  */
 class Module_Widgets extends Module {
 
-	public $version = '1.2.0';
+	public $version = '1.2';
 
 	public function info()
 	{

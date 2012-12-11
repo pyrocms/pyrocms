@@ -8,7 +8,7 @@
  */
 class Module_Addons extends Module
 {
-	public $version = '2.0.0';
+	public $version = '2.0';
 
 	public function info()
 	{
