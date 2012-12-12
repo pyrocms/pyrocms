@@ -288,7 +288,7 @@ class Module_Users extends Module {
 				'type' => 'select',
 				'default' => true,
 				'value' => '',
-				'options' => '1=activate_by_email|0=activate_by_admin|2=no_activation',
+				'options' => '0=activate_by_admin|1=activate_by_email|2=no_activation',
 				'is_required' => 0,
 				'is_gui' => 1,
 				'module' => 'users',
