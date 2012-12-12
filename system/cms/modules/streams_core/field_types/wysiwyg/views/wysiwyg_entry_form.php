@@ -1,4 +1,4 @@
-<script type="text/javascript">var SITE_URL	= "<?php echo site_url(); ?>";</script>
+<script type="text/javascript">var SITE_URL	= "<?php echo site_url() ?>";</script>
 
 <?php 
 	$this->admin_theme = $this->theme_m->get_admin();
@@ -6,8 +6,8 @@
 ?>
 
 <script type="text/javascript">pyro = {};</script>
-<script src="<?php echo Asset::get_filepath_js('admin::ckeditor/ckeditor.js'); ?>"></script>
-<script src="<?php echo Asset::get_filepath_js('admin::ckeditor/adapters/jquery.js'); ?>"></script>
+<script src="<?php echo Asset::get_filepath_js('admin::ckeditor/ckeditor.js') ?>"></script>
+<script src="<?php echo Asset::get_filepath_js('admin::ckeditor/adapters/jquery.js') ?>"></script>
 
 <script type="text/javascript">
 
@@ -22,7 +22,7 @@
 		$(function(){
 
 			pyro.init_ckeditor = function(){
-				<?php echo $this->parser->parse_string(Settings::get('ckeditor_config'), $this, true); ?>
+				<?php echo $this->parser->parse_string(Settings::get('ckeditor_config'), $this, true) ?>
 			};
 			pyro.init_ckeditor();
 			

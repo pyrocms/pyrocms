@@ -8,7 +8,7 @@
  */
 class Module_Users extends Module {
 
-	public $version = '1.1.0';
+	public $version = '1.1';
 
 	public function info()
 	{
@@ -282,14 +282,13 @@ class Module_Users extends Module {
 				'module' => 'users',
 				'order' => 962,
 			),
-			array(
-				'slug' => 'activation_email',
+			'activation_email' => array(
 				'title' => 'Activation Email',
 				'description' => 'Send out an e-mail with an activation link when a user signs up. Disable this so that admins must manually activate each account.',
-				'type' => 'radio',
+				'type' => 'select',
 				'default' => true,
 				'value' => '',
-				'options' => '1=Enabled|0=Disabled',
+				'options' => '0=activate_by_admin|1=activate_by_email|2=no_activation',
 				'is_required' => 0,
 				'is_gui' => 1,
 				'module' => 'users',

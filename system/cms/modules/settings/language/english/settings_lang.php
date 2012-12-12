@@ -158,6 +158,9 @@ $lang['settings_form_option_Text Only']			= 'Text Only';
 $lang['settings_form_option_Allow Markdown']	= 'Allow Markdown';
 $lang['settings_form_option_Yes']				= 'Yes';
 $lang['settings_form_option_No']				= 'No';
+$lang['settings_form_option_activate_by_email']				= 'Activate by email';
+$lang['settings_form_option_activate_by_admin']				= 'Activate by admin';
+$lang['settings_form_option_no_activation']				= 'No activation';
 
 // messages
 $lang['settings_no_settings']					= 'There are currently no settings.';

@@ -4,21 +4,21 @@
 <div class="error-box">
 	<?php echo validation_errors();?>
 </div>
-<?php endif; ?>
+<?php endif ?>
 
-<?php echo form_open('users/login', array('id'=>'login'), array('redirect_to' => $redirect_to)); ?>
+<?php echo form_open('users/login', array('id'=>'login'), array('redirect_to' => $redirect_to)) ?>
 <ul>
 	<li>
-		<label for="email"><?php echo lang('global:email'); ?></label>
+		<label for="email"><?php echo lang('global:email') ?></label>
 		<?php echo form_input('email', $this->input->post('email') ? $this->input->post('email') : '')?>
 	</li>
 	<li>
-		<label for="password"><?php echo lang('global:password'); ?></label>
+		<label for="password"><?php echo lang('global:password') ?></label>
 		<input type="password" id="password" name="password" maxlength="20" />
 	</li>
 	<li id="remember_me">
-		<label><?php echo lang('user_remember'); ?></label>
-		<?php echo form_checkbox('remember', '1', false); ?>
+		<label><?php echo lang('user_remember') ?></label>
+		<?php echo form_checkbox('remember', '1', false) ?>
 	</li>
 	<li class="form_buttons">
 		<input type="submit" value="<?php echo lang('user_login_btn') ?>" name="btnLogin" /> <span class="register"> | <?php echo anchor('register', lang('user_register_btn'));?></span>
@@ -27,4 +27,4 @@
 		<?php echo anchor('users/reset_pass', lang('user_reset_password_link'));?>
 	</li>
 </ul>
-<?php echo form_close(); ?>
+<?php echo form_close() ?>

@@ -118,7 +118,6 @@ class Module_m extends MY_Model
 	 *
 	 * @param   array   $params             The array containing the modules to load
 	 * @param   bool    $return_disabled    Whether to return disabled modules
-	 * @access  public
 	 * @return  array
 	 */
 	public function get_all($params = array(), $return_disabled = false)
@@ -396,36 +395,29 @@ class Module_m extends MY_Model
 	 */
 	private function module_widget_task($slug, $task)
 	{
-		$widget_paths = array(APPPATH, ADDONPATH, SHARED_ADDONPATH);
-		$widget_path = '';
-			foreach($widget_paths as $widget_folder_check)
-			{
-				if(is_dir($widget_folder_check.'modules/'.$slug))
-				{
-					$widget_path = $widget_folder_check.'modules/'.$slug.'/widgets';
-				}
-			}
-		if($widget_path != '')
+		foreach(array(APPPATH, ADDONPATH, SHARED_ADDONPATH) as $path)
 		{
-			$widgets = scandir($widget_path);
-			unset($widgets[0], $widgets[1]);
-			
-			foreach($widgets as $widget)
+			foreach((array) glob($path.'modules/'.$slug.'/widgets/*', GLOB_ONLYDIR) as $widget_path)
 			{
+				$widget = basename($widget_path);
+
 				switch($task)
 				{
 					case 'enable':
-						$this->db->where('slug', $widget)->where('enabled', 0);
-						$this->db->update('widgets', array('enabled' => 1)); 	
+						$this->db
+							->where('slug', $widget)
+							->where('enabled', 0)
+							->update('widgets', array('enabled' => 1));
 					break;
 					case 'disable':
-						$this->db->where('slug', $widget)->where('enabled', 1);
-						$this->db->update('widgets', array('enabled' => 0)); 
-					break;			
+						$this->db
+							->where('slug', $widget)
+							->where('enabled', 1)
+							->update('widgets', array('enabled' => 0));
+					break;
 				}
-			
 			}
-		} 
+		}
 	}
 
 	/**

@@ -137,6 +137,9 @@ $lang['settings_form_option_Required']			= 'Obrigatório';
 $lang['settings_form_option_Optional']			= 'Opcional';
 $lang['settings_form_option_Oldest First']		= 'Antigos primeiro';
 $lang['settings_form_option_Newest First']		= 'Novos primeiro';
+$lang['settings_form_option_activate_by_email']        	= 'Activate by email'; #translate
+$lang['settings_form_option_activate_by_admin']        	= 'Activate by admin'; #translate
+$lang['settings_form_option_no_activation']         	= 'No activation'; #translate
 
 // titles
 $lang['settings_edit_title']					= 'Editar configurações';

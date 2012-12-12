@@ -10,15 +10,15 @@
  */
 class Plugin_Integration extends Plugin
 {
-	public $version = '1.0';
 
+	public $version = '1.0';
 	public $name = array(
 		'en' => 'Integration',
 	);
-
 	public $description = array(
 		'en' => 'Google analytics tracking code and data.',
 		'el' => 'Συνεργασία με Google Analytics;',
+		'fr' => 'Intégration du code de suivi Google Analytics.'
 	);
 
 	/**
@@ -71,7 +71,7 @@ class Plugin_Integration extends Plugin
 				));
 
 				// Set by GA Profile ID if provided, else try and use the current domain
-				$this->analytics->setProfileById('ga:'.Settings::get('ga_profile'));
+				$this->analytics->setProfileById('ga:' . Settings::get('ga_profile'));
 
 				$this->analytics->setDateRange($start, $end);
 
@@ -101,8 +101,9 @@ class Plugin_Integration extends Plugin
 				}
 
 				// Call the model or library with the method provided and the same arguments
-				$this->pyrocache->write($data, 'analytics_plugin', 60 * 60 * (int)$refresh); // 24 hours
-			} catch (Exception $e)
+				$this->pyrocache->write($data, 'analytics_plugin', 60 * 60 * (int) $refresh); // 24 hours
+			}
+			catch (Exception $e)
 			{
 				log_message('error', 'Could not connect to Google Analytics. Called from the analytics plugin');
 			}
@@ -110,4 +111,5 @@ class Plugin_Integration extends Plugin
 
 		return $data;
 	}
+
 }

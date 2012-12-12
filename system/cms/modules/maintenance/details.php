@@ -22,11 +22,12 @@ class Module_Maintenance extends Module
 				'fi' => 'Ylläpito',
 				'fr' => 'Maintenance',
 				'id' => 'Pemeliharaan',
+				'it' => 'Manutenzione',
 				'se' => 'Underhåll',
 				'sl' => 'Vzdrževanje',
 				'th' => 'การบำรุงรักษา',
 				'tw' => '維護',
-				'cn' => '维护'
+				'cn' => '维护',
 			),
 			'description' => array(
 				'en' => 'Manage the site cache and export information from the database.',
@@ -34,6 +35,7 @@ class Module_Maintenance extends Module
 				'ar' => 'حذف عناصر الذاكرة المخبأة عبر واجهة الإدارة.',
 				'el' => 'Διαγραφή αντικειμένων προσωρινής αποθήκευσης μέσω της περιοχής διαχείρισης.',
 				'id' => 'Mengatur cache situs dan mengexport informasi dari database.',
+				'it' => 'Gestisci la cache del sito e esporta le informazioni dal database',
 				'fr' => 'Gérer le cache du site et exporter les contenus de la base de données',
 				'fi' => 'Hallinoi sivuston välimuistia ja vie tietoa tietokannasta.',
 				'hu' => 'Az oldal gyorsítótár kezelése és az adatbázis exportálása.',
@@ -41,7 +43,7 @@ class Module_Maintenance extends Module
 				'sl' => 'Upravljaj s predpomnilnikom strani (cache) in izvozi podatke iz baze.',
 				'th' => 'การจัดการแคชเว็บไซต์และข้อมูลการส่งออกจากฐานข้อมูล',
 				'tw' => '經由管理介面手動刪除暫存資料。',
-				'cn' => '经由管理介面手动删除暂存资料。'
+				'cn' => '经由管理介面手动删除暂存资料。',
 			),
 			'frontend' => false,
 			'backend' => true,

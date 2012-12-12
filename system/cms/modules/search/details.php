@@ -9,7 +9,7 @@
 class Module_Search extends Module
 {
 
-	public $version = '1.0.0';
+	public $version = '1.0';
 
 	public $_tables = array('search_index');
 

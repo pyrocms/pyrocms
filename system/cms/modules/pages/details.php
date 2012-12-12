@@ -8,7 +8,7 @@
  */
 class Module_Pages extends Module
 {
-	public $version = '2.2.0';
+	public $version = '2.2';
 
 	public function info()
 	{

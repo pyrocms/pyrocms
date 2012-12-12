@@ -8,7 +8,7 @@
  */
 class Module_Addons extends Module
 {
-	public $version = '2.0.0';
+	public $version = '2.0';
 
 	public function info()
 	{
@@ -77,6 +77,14 @@ class Module_Addons extends Module
 				'themes' => array(
 					'name' => 'addons:themes',
 					'uri' => 'admin/addons/themes',
+				),
+				'plugins' => array(
+					'name' => 'global:plugins',
+					'uri' => 'admin/addons/plugins',
+				),
+				'widgets' => array(
+					'name' => 'global:widgets',
+					'uri' => 'admin/addons/widgets',
 				),
 			),
 		);
