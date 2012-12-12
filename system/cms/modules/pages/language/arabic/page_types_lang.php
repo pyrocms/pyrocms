@@ -6,8 +6,8 @@ $lang['page_types.css_label'] 					= 'CSS';
 
 // labels
 $lang['page_types.updated_label'] 				= 'آخر تحديث';
-$lang['page_types:auto_create_stream']				= 'أنشئ جدول بيانات جديد'; #translate
-$lang['page_types:select_stream']					= 'جدول البيانات'; #translate
+$lang['page_types:auto_create_stream']				= 'أنشئ جدول بيانات جديد';
+$lang['page_types:select_stream']					= 'جدول البيانات';
 $lang['page_types:theme_layout_label'] 			= 'تخطيط السّمة';
 
 // titles
