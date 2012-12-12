@@ -127,60 +127,14 @@ class Fields
 		
 		extract($extra);
 
- 		// -------------------------------------
-		// Get Stream Fields
 		// -------------------------------------
-		
-		$stream_fields = $this->CI->streams_m->get_stream_fields($stream->id);
-		
-		// Can't do nothing if we don't have any fields		
-		if ($stream_fields === false) return false;
-			
+		// Form Key Check
 		// -------------------------------------
-		// Run Type Events
+		// Form keys help determine which
+		// in a series of multiple forms on the same
+		// page the fields library will handle.
 		// -------------------------------------
 
-		$this->run_field_events($stream_fields, $skips);
-				
-		// -------------------------------------
-		// Set Validation Rules
-		// -------------------------------------
-
-		$row_id = ($method == 'edit') ? $row->id : null;
-
-		$this->set_rules($stream_fields, $method, $skips, false, $row_id);
-
-		// -------------------------------------
-		// Set Error Delimns
-		// -------------------------------------
-
-		$this->CI->form_validation->set_error_delimiters($extra['error_start'], $extra['error_end']);
-
-		// -------------------------------------
-		// Set reCAPTCHA
-		// -------------------------------------
- 
-		if ($recaptcha)
-		{
-			$this->CI->config->load('streams_core/recaptcha');
-			$this->CI->load->library('streams_core/Recaptcha');
-			
-			$this->CI->form_validation->set_rules('recaptcha_response_field', 'lang:recaptcha_field_name', 'required|check_captcha');
-		}
-		
-		// -------------------------------------
-		// Set Values
-		// -------------------------------------
-
-		$values = $this->set_values($stream_fields, $row, $method, $skips, $defaults);
-
-		// -------------------------------------
-		// Validation
-		// -------------------------------------
-		
-		$result_id = '';
-
-		// Find the form key
 		$form_key = (isset($extra['form_key'])) ? $extra['form_key'] : null;
 
 		// Form key check. If no data, we must assume it is true.
@@ -192,6 +146,79 @@ class Fields
 		{
 			$key_check = true;
 		}
+
+ 		// -------------------------------------
+		// Get Stream Fields
+		// -------------------------------------
+		
+		$stream_fields = $this->CI->streams_m->get_stream_fields($stream->id);
+		
+		// Can't do nothing if we don't have any fields		
+		if ($stream_fields === false)
+		{
+			return null;
+		}
+			
+		// -------------------------------------
+		// Run Type Events
+		// -------------------------------------
+		// No matter what, we'll need these 
+		// events run for field type assets
+		// and other processes.
+		// -------------------------------------
+
+		$this->run_field_events($stream_fields, $skips);
+	
+		// -------------------------------------
+		// Get row id, if applicable
+		// -------------------------------------
+
+		$row_id = ($method == 'edit') ? $row->id : null;
+			
+		// -------------------------------------
+		// Set Validation Rules
+		// -------------------------------------
+		// We will only set the rules if the
+		// data has been posted. This works hand
+		// in hand with checking the $_POST array
+		// as well as the data validation when
+		// we decide what to do with the form.
+		// -------------------------------------
+
+		if ($_POST and $key_check)
+		{
+			$this->set_rules($stream_fields, $method, $skips, false, $row_id);
+		}
+
+		// -------------------------------------
+		// Set Error Delimns
+		// -------------------------------------
+
+		$this->CI->form_validation->set_error_delimiters($extra['error_start'], $extra['error_end']);
+
+		// -------------------------------------
+		// Set reCAPTCHA
+		// -------------------------------------
+ 
+		if ($recaptcha and $_POST)
+		{
+			$this->CI->config->load('streams_core/recaptcha');
+			$this->CI->load->library('streams_core/Recaptcha');
+			
+			$this->CI->form_validation->set_rules('recaptcha_response_field', 'lang:recaptcha_field_name', 'required|check_captcha');
+		}
+		
+		// -------------------------------------
+		// Set Values
+		// -------------------------------------
+
+		$values = $this->set_values($stream_fields, $row, $method, $skips, $defaults, $key_check);
+
+		// -------------------------------------
+		// Validation
+		// -------------------------------------
+		
+		$result_id = '';
 
 		if ($_POST and $key_check)
 		{
@@ -323,7 +350,7 @@ class Fields
 	 * @param 	array
 	 * @return 	array
 	 */
-	public function set_values($stream_fields, $row, $mode, $skips, $defaults)
+	public function set_values($stream_fields, $row, $mode, $skips, $defaults, $key_check = true)
 	{
 		$values = array();
 		
@@ -331,7 +358,11 @@ class Fields
 		{
 			if ( ! in_array($stream_field->field_slug, $skips))
 			{
-				if ( ! isset($_POST[$stream_field->field_slug]) and ! isset($_POST[$stream_field->field_slug.'[]']))
+				if ( ! $key_check)
+				{
+					$values[$stream_field->field_slug] = null;
+				}
+				elseif ( ! isset($_POST[$stream_field->field_slug]) and ! isset($_POST[$stream_field->field_slug.'[]']))
 				{
 					// If this is a new entry and there is no post data,
 					// we see if:
