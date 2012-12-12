@@ -128,8 +128,7 @@ class Admin_areas extends Admin_Controller {
 			{
 				$this->session->set_flashdata($status, $message);
 
-				redirect('admin/widgets');
-				return;
+				redirect('admin/widgets/areas');
 			}
 
 			$data['messages'][$status] = $message;
@@ -220,8 +219,7 @@ class Admin_areas extends Admin_Controller {
 			{
 				$this->session->set_flashdata($status, $message);
 
-				redirect('admim/widgets');
-				return;
+				redirect('admim/widgets/areas');
 			}
 
 			$data['messages'][$status] = $message;
