@@ -135,6 +135,9 @@ $lang['settings_form_option_Required']            = 'Ben&ouml;tigt';
 $lang['settings_form_option_Optional']            = 'Optional';
 $lang['settings_form_option_Oldest First']        = '&Auml;lteste Zuerst';
 $lang['settings_form_option_Newest First']        = 'Neueste Zuerst';
+$lang['settings_form_option_activate_by_email']            = 'Activate by email'; #translate
+$lang['settings_form_option_activate_by_admin']        	= 'Activate by admin'; #translate
+$lang['settings_form_option_no_activation']         	= 'No activation'; #translate
 
 // titles
 $lang['settings_edit_title']                    = 'Einstellungen bearbeiten';
