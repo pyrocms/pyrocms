@@ -198,17 +198,20 @@ class Pages extends Public_Controller
 		// of this in a newer version.
 		// ---------------------------------
 
-		$page->chunks = $this->page_m->get_chunks($page->id);
-		$chunk_html = '';
-		foreach ($page->chunks as $chunk)
+		if ($this->db->table_exists('page_chunks'))
 		{
-			$chunk_html .= '<section id="'.$chunk->slug.'" class="page-chunk '.$chunk->class.'">'.
-				'<div class="page-chunk-pad">'.
-				(($chunk->type == 'markdown') ? $chunk->parsed : $chunk->body).
-				'</div>'.
-				'</section>'.PHP_EOL;
+			$page->chunks = $this->page_m->get_chunks($page->id);
+			$chunk_html = '';
+			foreach ($page->chunks as $chunk)
+			{
+				$chunk_html .= '<section id="'.$chunk->slug.'" class="page-chunk '.$chunk->class.'">'.
+					'<div class="page-chunk-pad">'.
+					(($chunk->type == 'markdown') ? $chunk->parsed : $chunk->body).
+					'</div>'.
+					'</section>'.PHP_EOL;
+			}
+			$page_data->page->body = $chunk_html;
 		}
-		$page_data->page->body = $chunk_html;
 
 		// ---------------------------------
 		// Get Stream Entry
