@@ -222,7 +222,7 @@ class Module_Pages extends Module
 			'title' => 'Default',
 			'slug' => 'default',
 			'stream_id' => $stream_id,
-			'body' => '<h2>{{ page:title }}</h2>',
+			'body' => '<h2>{{ page:title }}</h2>'."\n\n".'{{ body }}',
 			'css' => '',
 			'js' => '',
 			'updated_on' => now()
