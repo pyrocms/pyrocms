@@ -165,17 +165,13 @@ class Module_import
 		// create a session table so they can use it if they want
 		$this->ci->db->query($session);
 
-		// install Settings first as others depend on it
-		$this->_spawn_class('settings', true);
+		// Install settings and streams core first. Other modules
+		// may need these.
 		$this->install('settings', true);
-
-		// now install streams so other modules can use it
-		$this->_spawn_class('streams_core', true);
 		$this->install('streams_core', true);
 
 		// Loop through directories that hold modules
-		$is_core = true;
-		foreach (array(PYROPATH, ADDONPATH, SHARED_ADDONPATH) as $directory)
+		foreach (array(PYROPATH) as $directory)
 		{
 			// some servers return false instead of an empty array
 			if ( ! $directory) {
@@ -192,15 +188,17 @@ class Module_import
 
 				foreach ($modules as $module_name)
 				{
-					$slug = basename($module_name);
-
-					// don't install Settings or streams_core again
-					if (in_array($slug, array('settings', 'streams_core')) or ! $details_class = $this->_spawn_class($slug, $is_core))
+					if ($module_name == 'streams_core' or $module_name == 'settings')
 					{
 						continue;
 					}
 
-					$this->install($module_name, $is_core);
+					if ( ! $details_class = $this->_spawn_class($module_name, true))
+					{
+						continue;
+					}
+
+					$this->install($module_name, true);
 
 					// Settings is installed first. Once it's installed we load the library
 					// so all modules can use settings in their install code.
@@ -210,9 +208,6 @@ class Module_import
 					}
 				}
 			}
-
-			// Going back around, 2nd time is addons
-			$is_core = false;
 		}
 
 		// After modules are imported we need to modify the settings table
