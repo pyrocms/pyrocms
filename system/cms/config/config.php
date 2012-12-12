@@ -173,13 +173,13 @@ $config['directory_trigger']	= 'd'; // experimental not currently in use
 |	0 = Disables logging, Error logging TURNED OFF
 |	1 = Error Messages (including PHP errors) - ERROR
 |	2 = Warning messages - WARN
-|   3 = Informational messages - INFO
+|	3 = Informational messages - INFO
 |	4 = Debug Messages - DEBUG
 |	5 = All Messages
 |
 | You can also pass in a array with threshold levels to show individual error types
 |
-| 	array(2) = Warning Messages, without Error Messages
+|   array(2) = Warning Messages, without Error Messages
 |   array(1,3) = Error messages, and Informational messages, without Warning messages and Debug messages
 |   array(0,3,5) = Disables logging
 |   array(1,2,5) = All messages
@@ -188,7 +188,7 @@ $config['directory_trigger']	= 'd'; // experimental not currently in use
 | your log files will fill up very fast.
 |
 */
-$config['log_threshold'] = array(1,5);
+$config['log_threshold'] = array(1,3);
 
 /*
 |--------------------------------------------------------------------------
