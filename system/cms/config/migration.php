@@ -23,7 +23,7 @@ $config['migration_enabled'] = true;
 |
 */
 
-$config['migration_version'] = 109;
+$config['migration_version'] = 110;
 
 /*
 |--------------------------------------------------------------------------
