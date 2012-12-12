@@ -42,3 +42,8 @@ form.crud li.date-meta label.time-meta {
 	min-width: 4em;
 	width:4em;
 }
+
+.one_quarter select {
+	min-width: 30% !important;
+	width: 40% !important;
+}
