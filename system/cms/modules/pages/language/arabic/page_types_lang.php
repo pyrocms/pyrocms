@@ -6,8 +6,8 @@ $lang['page_types.css_label'] 					= 'CSS';
 
 // labels
 $lang['page_types.updated_label'] 				= 'آخر تحديث';
-$lang['page_types:auto_create_stream']				= 'Create New Data Stream'; #translate
-$lang['page_types:select_stream']					= 'Data Stream'; #translate
+$lang['page_types:auto_create_stream']				= 'أنشئ جدول بيانات جديد';
+$lang['page_types:select_stream']					= 'جدول البيانات';
 $lang['page_types:theme_layout_label'] 			= 'تخطيط السّمة';
 
 // titles
@@ -25,7 +25,7 @@ $lang['page_types.delete_home_error'] 			= 'لا يمكنك حذف التخطي�
 $lang['page_types.delete_success']				= 'تم حذف تخطيط الصفحة #%s.';
 $lang['page_types.mass_delete_success'] 			= 'تم حذف %s تخطيط صفحة.';
 $lang['page_types.delete_none_notice'] 			= 'لم يتم حذف أي تخطيط صفحة.';
-$lang['page_types.already_exist_error']            = 'A table with that name already exists. Please choose a different name for this page type.'; #translate
+$lang['page_types.already_exist_error']            = 'هناك جدول بهذا الإسم موجود. رجاءً اختر اسماً مختلفاً لنوع الصفحة هذه.';
 
 $lang['page_types.variable_introduction']			= 'في مربّع الإدخال هذا يوجد متغيّران متوفّران.';
 $lang['page_types.variable_title']				= 'يحتوي عنوان الصفحة.';
