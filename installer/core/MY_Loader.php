@@ -70,7 +70,7 @@ class MY_Loader extends MX_Loader
 	 *
 	 * @return \MY_Loader
 	 */
-	function initialize()
+	function initialize($controller = null)
 	{
 		parent::initialize();
 
