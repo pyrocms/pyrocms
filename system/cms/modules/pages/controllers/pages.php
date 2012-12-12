@@ -28,8 +28,6 @@ class Pages extends Public_Controller
 		{
 			redirect('');
 		}
-
-        log_message('DEBUG', "message", 'application');
 	}
 
     // --------------------------------------------------------------------------
