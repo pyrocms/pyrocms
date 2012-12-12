@@ -120,6 +120,9 @@ class Migration_Update_pages_for_streams extends CI_Migration
             }
         }
 
+        // clear the page cache so it will retrieve data with page types data
+        $this->pyrocache->delete_all('page_m');
+
         // Whew! We made it!
     }
 
