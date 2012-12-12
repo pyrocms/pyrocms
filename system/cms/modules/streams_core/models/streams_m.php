@@ -86,7 +86,7 @@ class Streams_m extends MY_Model {
 	 */
 	public function run_slug_cache()
 	{
-		$this->run_cache('slug');
+		$this->run_cache();
 	}
 
     // --------------------------------------------------------------------------
@@ -101,7 +101,7 @@ class Streams_m extends MY_Model {
 	 * @param 	string - type 'id' or 'slug'
 	 * @return 	void
 	 */
-	private function run_cache($type = 'id')
+	private function run_cache()
 	{		
 		foreach($this->db->get($this->table)->result() as $stream)
 		{
@@ -120,14 +120,8 @@ class Streams_m extends MY_Model {
 				}
 			}
 
-			if ($type == 'id')
-			{
-				$this->streams_cache[$stream->id] = $stream;	
-			}
-			elseif ($type == 'slug')
-			{
-				$this->streams_cache['ns'][$stream->stream_namespace][$stream->stream_slug] = $stream;
-			}
+			$this->streams_cache[$stream->id] = $stream;	
+			$this->streams_cache['ns'][$stream->stream_namespace][$stream->stream_slug] = $stream;
 		}
 
 	}
@@ -453,13 +447,14 @@ class Streams_m extends MY_Model {
 		}
 		elseif ($by_slug and $namespace)
 		{
-			if (isset($this->streams_cache['ns'][$namespace]->$stream_id))
+			if (isset($this->streams_cache['ns'][$namespace][$stream_id]))
 			{
-				return $this->streams_cache['ns'][$namespace]->$stream_id;
+				return $this->streams_cache['ns'][$namespace][$stream_id];
 			}
 		}
 
 		// -------------------------------------
+
 
 		$this->db->limit(1);
 		
