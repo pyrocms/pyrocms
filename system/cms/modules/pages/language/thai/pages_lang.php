@@ -33,7 +33,7 @@ $lang['pages:body_label']							= 'ส่วนบอดี้หน้าเพ
 $lang['pages:meta_title_label']						= 'Meta title';
 $lang['pages:meta_keywords_label']					= 'Meta keywords';
 $lang['pages:meta_desc_label']						= 'Meta description';
-$lang['pages:layout_id_label']						= 'เค้าโครงหน้า';
+$lang['pages:type_id_label']						= 'เค้าโครงหน้า';
 $lang['pages:css_label']							= 'CSS';
 $lang['pages:js_label']								= 'JavaScript';
 $lang['pages:access_label']							= 'การเข้าถึง';
@@ -58,8 +58,8 @@ $lang['pages:duplicate_label']						= 'ทำซ้ำ';
 $lang['pages:create_title']							= 'เพิ่มหน้า';
 $lang['pages:edit_title']							= 'แก้ไขหน้า "%s"';
 $lang['pages:list_title']							= 'หน้า';
-$lang['pages:layouts_create_title']					= 'เพิ่มเค้าโครงหน้า';
-$lang['pages:layouts_list_title']					= 'เค้าโครง';
+$lang['pages:types_create_title']					= 'เพิ่มเค้าโครงหน้า';
+$lang['pages:types_list_title']					= 'เค้าโครง';
 
 // messages
 $lang['pages:no_pages']								= 'ไม่มีหน้าเพจ';

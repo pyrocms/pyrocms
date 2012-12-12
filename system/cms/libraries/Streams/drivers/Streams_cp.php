@@ -458,6 +458,11 @@ class Streams_cp extends CI_Driver {
 			// We also must have a field if we're editing
 			if ( ! $data['current_field']) show_error('Could not find field.');
 		}
+		elseif ($method == 'new' and $_POST and $this->CI->input->post('field_type'))
+		{
+			$data['current_field'] = new stdClass();
+			$data['current_field']->field_type = $this->CI->input->post('field_type');
+		}
 		else
 		{
 			$data['current_field'] = null;

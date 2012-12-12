@@ -135,6 +135,9 @@ $lang['settings_form_option_Required']			= 'Påkrævet';
 $lang['settings_form_option_Optional']			= 'Frivilligt';
 $lang['settings_form_option_Oldest First']		= 'Ældste Først';
 $lang['settings_form_option_Newest First']		= 'Nyeste Først';
+$lang['settings_form_option_activate_by_email']        	= 'Activate by email'; #translate
+$lang['settings_form_option_activate_by_admin']        	= 'Activate by admin'; #translate
+$lang['settings_form_option_no_activation']         	= 'No activation'; #translate
 
 /* End of file settings_lang.php */
 /* Location: ./system/cms/modules/settings/language/english/settings_lang.php */

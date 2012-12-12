@@ -4,7 +4,7 @@
 $lang['help_body'] = "
 <h4>Overblik</h4>
 <p>Sidemodulet er en simpel, men effektiv måde at håndtere statisk indhold på din side.
-Side layouts administreres og widgets indsættes uden nogensinde at redigere skabelonfilerne.</p>
+Side types administreres og widgets indsættes uden nogensinde at redigere skabelonfilerne.</p>
 
 <h4>Sidehåndtering</h4><hr>
 <h6>Side Indhold</h6>
@@ -20,7 +20,7 @@ Meta beskrivelsen er en kort beskrivelse af denne side, og kan bruges som søges
 
 <h6>Design</h6>
 <p>Design fanebladet lader dig vælge et customiseret sidelayout og tilføjelse af forskellige css styles til den på den side alene.
-Kig i Side layouts sektionen nedenunder for instruktioner omkring hvordan Side layouts bruges bedst.</p>
+Kig i Side types sektionen nedenunder for instruktioner omkring hvordan Side types bruges bedst.</p>
 
 <h6>Script</h6>
 <p>Her kan du placere javascript som du vil tilføje til < head > sektionen på siden.</p>
@@ -34,8 +34,8 @@ Hvis RSS feeded er slået til kan en besøgende abbonnere på denne side, og de 
 Hvis en ny ansat virkelig ødelægger noget ved en redigering skal du bare vælge en dato og gå tilbage til den dato og vælge Gem!
 Du kan endda sammenligne revisioner for at se hvad der er ændret.</p>
 
-<h4>Side Layouts</h4><hr>
-<p>Side layouts lader dig kontrollere layoutet på siden uden at modificere temafilerne.
+<h4>Side Types</h4><hr>
+<p>Side types lader dig kontrollere layoutet på siden uden at modificere temafilerne.
 Du kan indsætte tags i sidelayoutet istedet for at palcere dem på hver side.
 F.eks.: Hvis du vil have en twitter feed widget vist i bunden af hver side kan du indsætte widget tagget i side layoutet sådan:
 <pre><code>

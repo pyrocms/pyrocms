@@ -238,6 +238,24 @@ class Streams_streams extends CI_Driver {
 	// --------------------------------------------------------------------------
 
 	/**
+	 * Chekc is table exists
+	 * 
+	 * Check to see if the table name needed for a stream is
+	 * actually available.
+	 *
+	 * @access 	public
+	 * @param 	string
+	 * @param 	string
+	 * @param 	string
+	 */
+	public function check_table_exists($stream_slug, $prefix)
+	{
+		return $this->CI->streams_m->check_table_exists($stream_slug, $prefix);
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
 	 * Validation Array
 	 *
 	 * Get a validation array for a stream. Takes

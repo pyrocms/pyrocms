@@ -22,7 +22,7 @@ $lang['pages:body_label'] 					= 'Corps de la page';
 $lang['pages:meta_title_label'] 			= 'Meta title';
 $lang['pages:meta_keywords_label'] 			= 'Meta keywords';
 $lang['pages:meta_desc_label'] 				= 'Meta description';
-$lang['pages:layout_id_label'] 				= 'Modèle';
+$lang['pages:type_id_label'] 				= 'Modèle';
 $lang['pages:js_label'] 					= 'JavaScript';
 $lang['pages:css_label'] 					= 'CSS';
 $lang['pages:access_label'] 				= 'Accès';
@@ -46,8 +46,8 @@ $lang['pages:duplicate_label']				= 'Dupliquer';
 $lang['pages:create_title'] 				= 'Créer une page';
 $lang['pages:edit_title'] 					= 'Modifier la page "%s"';
 $lang['pages:list_title'] 					= 'Lister les pages';
-$lang['pages:layouts_create_title'] 		= 'Ajouter un modèle';
-$lang['pages:layouts_list_title'] 			= 'Lister les modèles';
+$lang['pages:types_create_title'] 		= 'Ajouter un modèle';
+$lang['pages:types_list_title'] 			= 'Lister les modèles';
 
 // messages
 $lang['pages:no_pages'] 					= 'Il n\'y a aucune page.';

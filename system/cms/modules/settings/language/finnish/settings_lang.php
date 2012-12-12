@@ -165,6 +165,9 @@ $lang['settings_form_option_Text Only']			= 'Vain Teksti';
 $lang['settings_form_option_Allow Markdown']	= 'Salli Markdown';
 $lang['settings_form_option_Yes']				= 'Kyllä';
 $lang['settings_form_option_No']				= 'Ei';
+$lang['settings_form_option_activate_by_email']        	= 'Activate by email'; #translate
+$lang['settings_form_option_activate_by_admin']        	= 'Activate by admin'; #translate
+$lang['settings_form_option_no_activation']         	= 'No activation'; #translate
 
 // titles
 $lang['settings_edit_title']					= 'Muokkaa asetuksia';

@@ -23,7 +23,7 @@ $lang['pages:body_label']                  = 'גוף הדף';
 $lang['pages:meta_title_label']            = 'Meta title';
 $lang['pages:meta_keywords_label']         = 'Meta keywords';
 $lang['pages:meta_desc_label']             = 'Meta description';
-$lang['pages:layout_id_label']             = 'Page Layout';
+$lang['pages:type_id_label']             = 'Page Type';
 $lang['pages:css_label']                   = 'CSS';
 $lang['pages:js_label']                    = 'JavaScript';
 $lang['pages:access_label']                = 'גישה';
@@ -46,8 +46,8 @@ $lang['pages:duplicate_label']			   = 'Duplicate'; #translate
 $lang['pages:create_title']                = 'הוסף דף';
 $lang['pages:edit_title']                  = 'ערוך דף "%s"';
 $lang['pages:list_title']                  = 'רשימת הדפים';
-$lang['pages:layouts_create_title']        = 'הוסף page layout';
-$lang['pages:layouts_list_title']          = 'רשימת page layouts';
+$lang['pages:types_create_title']        = 'הוסף page layout';
+$lang['pages:types_list_title']          = 'רשימת page types';
 
 // messages
 $lang['pages:no_pages']                    = 'אין עמודים.';

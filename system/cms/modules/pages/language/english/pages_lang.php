@@ -4,6 +4,7 @@ $lang['pages:page']							= 'Page';
 $lang['pages:pages']						= 'Pages';
 
 // tabs
+$lang['pages:details_label']				= 'Page Details';
 $lang['pages:content_label']				= 'Page Content';
 $lang['pages:meta_label']					= 'Meta data';
 $lang['pages:design_label']					= 'Design';
@@ -22,7 +23,7 @@ $lang['pages:body_label']					= 'Page body';
 $lang['pages:meta_title_label']				= 'Meta title';
 $lang['pages:meta_keywords_label']			= 'Meta keywords';
 $lang['pages:meta_desc_label']				= 'Meta description';
-$lang['pages:layout_id_label']				= 'Page Layout';
+$lang['pages:type_id_label']				= 'Page Type';
 $lang['pages:css_label']					= 'CSS';
 $lang['pages:js_label']						= 'JavaScript';
 $lang['pages:access_label']					= 'Access';
@@ -46,8 +47,8 @@ $lang['pages:duplicate_label']				= 'Duplicate';
 $lang['pages:create_title']					= 'Add Page';
 $lang['pages:edit_title']					= 'Edit Page "%s"';
 $lang['pages:list_title']					= 'Pages';
-$lang['pages:layouts_create_title']			= 'Add Page Layout';
-$lang['pages:layouts_list_title']			= 'Layouts';
+$lang['pages:types_create_title']			= 'Add Page Type';
+$lang['pages:types_list_title']			= 'Types';
 
 // messages
 $lang['pages:no_pages']						= 'There are no pages.';

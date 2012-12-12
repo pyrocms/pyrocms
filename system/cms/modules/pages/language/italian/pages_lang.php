@@ -25,7 +25,7 @@ $lang['pages:body_label'] 						= 'Corpo della pagina';
 $lang['pages:meta_title_label'] 				= 'Meta title';
 $lang['pages:meta_keywords_label'] 				= 'Meta keywords';
 $lang['pages:meta_desc_label'] 					= 'Meta description';
-$lang['pages:layout_id_label'] 					= 'Layout di pagina';
+$lang['pages:type_id_label'] 					= 'Type di pagina';
 $lang['pages:css_label'] 						= 'CSS';
 $lang['pages:js_label'] 						= 'JavaScript';
 $lang['pages:access_label'] 					= 'Accesso';
@@ -48,8 +48,8 @@ $lang['pages:duplicate_label']					= 'Duplica';
 $lang['pages:create_title'] 					= 'Aggiungi pagina';
 $lang['pages:edit_title'] 						= 'Modifica la pagina "%s"';
 $lang['pages:list_title'] 						= 'Elenco pagine';
-$lang['pages:layouts_create_title'] 			= 'Aggiungi layout di pagina';
-$lang['pages:layouts_list_title'] 				= 'Elenco layout di pagina';
+$lang['pages:types_create_title'] 			= 'Aggiungi layout di pagina';
+$lang['pages:types_list_title'] 				= 'Elenco layout di pagina';
 
 // messages
 $lang['pages:no_pages'] 						= 'Non ci sono pagine.';

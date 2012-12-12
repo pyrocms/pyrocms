@@ -344,7 +344,7 @@ class MY_Model extends CI_Model
      */
     public function update_by()
     {
-        $args = & func_get_args();
+        $args = func_get_args();
         $data = array_pop($args);
         $this->_set_where($args);
 
@@ -420,7 +420,7 @@ class MY_Model extends CI_Model
      */
     public function delete_by()
     {
-        $where = & func_get_args();
+        $where = func_get_args();
         $this->_set_where($where);
 
         return $this->db->delete($this->_table);
@@ -446,7 +446,7 @@ class MY_Model extends CI_Model
      */
     function dropdown()
     {
-        $args = & func_get_args();
+        $args = func_get_args();
 
         if (count($args) == 2)
         {

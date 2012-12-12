@@ -8,7 +8,7 @@
  */
 class Module_Addons extends Module
 {
-	public $version = '2.0.0';
+	public $version = '2.0';
 
 	public function info()
 	{
@@ -90,7 +90,7 @@ class Module_Addons extends Module
 		);
 	
 		// Add upload options to various modules
-		if (Settings::get('addons_upload'))
+		if ( ! class_exists('Module_import') and Settings::get('addons_upload'))
 		{
 			$info['sections']['modules']['shortcuts'] = array(
 				array(

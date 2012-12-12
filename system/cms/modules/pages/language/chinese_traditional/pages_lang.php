@@ -23,7 +23,7 @@ $lang['pages:body_label'] 						= '頁面主體';
 $lang['pages:meta_title_label'] 				= 'Meta 標題';
 $lang['pages:meta_keywords_label'] 				= 'Meta 關鍵字';
 $lang['pages:meta_desc_label'] 					= 'Meta 敘述';
-$lang['pages:layout_id_label'] 					= '頁面佈局';
+$lang['pages:type_id_label'] 					= '頁面佈局';
 $lang['pages:css_label'] 						= 'CSS';
 $lang['pages:js_label'] 						= 'JavaScript';
 $lang['pages:access_label'] 					= '存取';
@@ -48,8 +48,8 @@ $lang['pages:duplicate_label']					= '複製';
 $lang['pages:create_title'] 					= '新增頁面';
 $lang['pages:edit_title'] 						= '編輯頁面 "%s"';
 $lang['pages:list_title'] 						= '頁面列表';
-$lang['pages:layouts_create_title'] 			= '新增頁面佈局';
-$lang['pages:layouts_list_title'] 				= '頁面佈局列表';
+$lang['pages:types_create_title'] 			= '新增頁面佈局';
+$lang['pages:types_list_title'] 				= '頁面佈局列表';
 
 // messages
 $lang['pages:no_pages'] 						= '沒有頁面';

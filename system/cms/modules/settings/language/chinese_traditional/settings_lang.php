@@ -158,6 +158,9 @@ $lang['settings_form_option_Text Only']			= '僅限純文字';
 $lang['settings_form_option_Allow Markdown']	= '允許 Markdown';
 $lang['settings_form_option_Yes']				= '是';
 $lang['settings_form_option_No']				= '否';
+$lang['settings_form_option_activate_by_email']          = 'Activate by email'; #translate
+$lang['settings_form_option_activate_by_admin']        	= 'Activate by admin'; #translate
+$lang['settings_form_option_no_activation']         	= 'No activation'; #translate
 
 // titles
 $lang['settings_edit_title'] 					= '編輯設定';

@@ -353,8 +353,8 @@ class Streams_fields extends CI_Driver {
 			$value = (isset($current_data[$assign->field_slug])) ? $current_data[$assign->field_slug] : null;
 
 			// Format the serialized stuff.
-			$assign->field_data 			= unserialize($assign->field_data);
-			$assign->stream_view_options 	= unserialize($assign->stream_view_options);
+			$assign->field_data 			= @unserialize($assign->field_data);
+			$assign->stream_view_options 	= @unserialize($assign->stream_view_options);
 	
 			$return[$count]['input'] = $this->CI->fields->build_form_input($assign, $value, $entry_id);
 					
@@ -363,6 +363,7 @@ class Streams_fields extends CI_Driver {
 			$return[$count]['instructions']			= $assign->instructions;
 			$return[$count]['field_name']			= $this->CI->fields->translate_label($assign->field_name);
 			$return[$count]['field_unprocessed']	= $assign->field_name;
+			$return[$count]['field_type']			= $assign->field_type;
 			$return[$count]['field_slug']			= $assign->field_slug;
 			
 			$return[$count]['required']				= ($assign->is_required == 'yes') ? true : false;

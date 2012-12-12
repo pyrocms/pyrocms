@@ -8,28 +8,31 @@
 
 <section class="item">
 
-	<?php echo form_open(uri_string(), 'id="page-form"') ?>
-	<?php echo form_hidden('parent_id', empty($page->parent_id) ? 0 : $page->parent_id) ?>
+	<?php $parent = ($parent_id) ? '&parent='.$parent_id : null; ?>
+
+	<?php echo form_open(uri_string().'?page_type='.$this->input->get('page_type').$parent, 'id="page-form"'); ?>
+	<?php echo form_hidden('parent_id', empty($page->parent_id) ? 0 : $page->parent_id); ?>
 
 	<div class="tabs">
 
 		<ul class="tab-menu">
-			<li><a href="#page-content"><span><?php echo lang('pages:content_label');?></span></a></li>
+			<li><a href="#page-details"><span><?php echo lang('pages:details_label');?></span></a></li>
+			<?php if ($stream_fields): ?><li><a href="#page-content"><span><?php if ($page_type->content_label): echo lang_label($page_type->content_label); else: echo lang('pages:content_label'); endif; ?></span></a></li><?php endif; ?>
 			<li><a href="#page-meta"><span><?php echo lang('pages:meta_label');?></span></a></li>
-			<li><a href="#page-design"><span><?php echo lang('pages:design_label');?></span></a></li>
+			<li><a href="#page-design"><span><?php echo lang('pages:css_label');?></span></a></li>
 			<li><a href="#page-script"><span><?php echo lang('pages:script_label');?></span></a></li>
 			<li><a href="#page-options"><span><?php echo lang('pages:options_label');?></span></a></li>
 		</ul>
-		
-		<!-- Content tab -->
-		<div class="form_inputs" id="page-content">
-		
+
+		<div class="form_inputs" id="page-details">
+
 			<fieldset>
 		
 			<ul>
+				
 				<li>
-					<label for="title"><?php echo lang('global:title');?> <span>*</span></label>
-					<div class="input"><?php echo form_input('title', $page->title, 'id="title" maxlength="60"') ?></div>
+					<label for="title"><?php if ($page_type->title_label): echo lang_label($page_type->title_label); else: echo lang('global:title'); endif; ?> <span>*</span></label>
+					<div class="input"><?php echo form_input('title', $page->title, 'id="title" maxlength="60"'); ?></div>
 				</li>
 				
 				<li>
@@ -70,31 +73,29 @@
 				</li>
 				<?php endif ?>
 			</ul>
-			<ul id="page-chunks">
-				<?php foreach ($page->chunks as $chunk): ?>
-				<li class="page-chunk">
-					<?php echo form_input('chunk_slug['.$chunk['id'].']', $chunk['slug'], 'class="label" placeholder="id"') ?>
-					<?php echo form_input('chunk_class['.$chunk['id'].']', $chunk['class'], 'class="label" placeholder="class"') ?>
-					<?php echo form_dropdown('chunk_type['.$chunk['id'].']', array(
-						'html' => 'html',
-						'markdown' => 'markdown',
-						'wysiwyg-simple' => 'wysiwyg-simple',
-						'wysiwyg-advanced' => 'wysiwyg-advanced',
-					), $chunk['type']) ?>
-					<div class="alignright">
-						<a href="javascript:void(0)" class="remove-chunk btn red"><?php echo lang('global:remove') ?></a>
-						<span class="sort-handle"></span>
-					</div>
-					<br style="clear:both" />
-					<span class="chunky">
-						<?php echo form_textarea(array('id' => $chunk['slug'].'_'.$chunk['id'], 'name'=>'chunk_body['.$chunk['id'].']', 'value' => $chunk['body'], 'rows' => 20, 'class'=> $chunk['type'], 'style' => 'width:100%')) ?>
-					</span>
-				</li>
-				<?php endforeach ?>
-			</ul>
-			<a class="add-chunk btn orange" href="#"><?php echo lang('pages:add_page_chunk') ?></a>
+
 			</fieldset>
+
 		</div>
+
+		<?php if ($stream_fields): ?>
+		
+		<!-- Content tab -->
+		<div class="form_inputs" id="page-content">
+	
+			<fieldset>
+
+			<ul>
+				
+				<?php foreach ($stream_fields as $field) echo $this->load->view('admin/partials/streams/form_single_display', array('field' => $field), true); ?>
+				
+			</ul>
+
+			</fieldset>
+		
+		</div>
+
+		<?php endif; ?>
 
 		<!-- Meta data tab -->
 		<div class="form_inputs" id="page-meta">
@@ -128,11 +129,6 @@
 			<fieldset>
 			
 			<ul>
-				<li>
-					<label for="layout_id"><?php echo lang('pages:layout_id_label');?></label>
-					<div class="input"><?php echo form_dropdown('layout_id', $page_layouts, $page->layout_id) ?></div>
-				</li>
-				
 				<li>
 					<label for="css"><?php echo lang('pages:css_label');?></label><br />
 					<div>

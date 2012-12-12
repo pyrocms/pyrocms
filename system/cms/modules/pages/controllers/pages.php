@@ -16,7 +16,7 @@ class Pages extends Public_Controller
 		parent::__construct();
 
 		$this->load->model('page_m');
-		$this->load->model('page_layouts_m');
+		$this->load->model('page_type_m');
 
 		// This basically keeps links to /home always pointing to
 		// the actual homepage even when the default_controller is
@@ -29,6 +29,8 @@ class Pages extends Public_Controller
 			redirect('');
 		}
 	}
+
+    // --------------------------------------------------------------------------
 
 	/**
 	 * Catch all requests to this page in one mega-function.
@@ -71,6 +73,8 @@ class Pages extends Public_Controller
 			? $this->_rss($url_segments)
 			: $this->_page($url_segments);
 	}
+
+    // --------------------------------------------------------------------------
 
 	/**
 	 * Page method
@@ -153,12 +157,6 @@ class Pages extends Public_Controller
 			}
 		}
 
-		// Not got a meta title? Use slogan for homepage or the normal page title for other pages
-		if ($page->meta_title == '')
-		{
-			$page->meta_title = $page->is_home ? $this->settings->site_slogan : $page->title;
-		}
-
 		// If this page has an RSS feed, show it
 		if ($page->rss_enabled)
 		{
@@ -166,10 +164,10 @@ class Pages extends Public_Controller
 		}
 
 		// Wrap the page with a page layout, otherwise use the default 'Home' layout
-		if ( ! $page->layout = $this->page_layouts_m->get($page->layout_id))
+		if ( ! $page->layout = $this->page_type_m->get($page->type_id))
 		{
 			// Some pillock deleted the page layout, use the default and pray to god they didnt delete that too
-			$page->layout = $this->page_layouts_m->get(1);
+			$page->layout = $this->page_type_m->get(1);
 		}
 
 		// Set pages layout files in your theme folder
@@ -178,7 +176,7 @@ class Pages extends Public_Controller
 			$this->template->set_layout($page->uri.'.html');
 		}
 
-		// If a Page Layout has a Theme Layout that exists, use it
+		// If a Page Type has a Theme Layout that exists, use it
 		if ( ! empty($page->layout->theme_layout) and $this->template->layout_exists($page->layout->theme_layout)
 			// But Allow that you use layout files of you theme folder without override the defined by you in your control panel
 			AND ($this->template->layout_is('default.html') OR $page->layout->theme_layout !== 'default.html')
@@ -187,29 +185,96 @@ class Pages extends Public_Controller
 			$this->template->set_layout($page->layout->theme_layout);
 		}
 
-		// Grab all the chunks that make up the body
-		$page->chunks = $this->page_m->get_chunks($page->id);
+		$page_data = new stdClass();
 
-		$chunk_html = '';
-		foreach ($page->chunks as $chunk)
+		// This is our basic page data ({{ page:title }}, etc.)
+		$page_data->page = $page;
+
+		// ---------------------------------
+		// Legacy Page Chunks Logic
+		// ---------------------------------
+		// This is here so upgrades will not
+		// break entire sites. We can get rid
+		// of this in a newer version.
+		// ---------------------------------
+
+		if ($this->db->table_exists('page_chunks'))
 		{
-			$chunk_html .= '<section id="'.$chunk->slug.'" class="page-chunk '.$chunk->class.'">'.
-				'<div class="page-chunk-pad">'.
-				(($chunk->type == 'markdown') ? $chunk->parsed : $chunk->body).
-				'</div>'.
-				'</section>'.PHP_EOL;
+			$page->chunks = $this->page_m->get_chunks($page->id);
+			$chunk_html = '';
+			foreach ($page->chunks as $chunk)
+			{
+				$chunk_html .= '<section id="'.$chunk->slug.'" class="page-chunk '.$chunk->class.'">'.
+					'<div class="page-chunk-pad">'.
+					(($chunk->type == 'markdown') ? $chunk->parsed : $chunk->body).
+					'</div>'.
+					'</section>'.PHP_EOL;
+			}
+			$page_data->page->body = $chunk_html;
 		}
 
-		// Create page output. We do this before parsing the page contents so that 
+		// ---------------------------------
+		// Get Stream Entry
+		// ---------------------------------
+
+		if ($page->entry_id and $page->layout->stream_id)
+		{
+			$this->load->driver('Streams');
+
+			// Get Streams
+			$stream = $this->streams_m->get_stream($page->layout->stream_id);
+
+			if ($stream)
+			{
+				if ($entry = $this->streams->entries->get_entry($page->entry_id, $stream->stream_slug, $stream->stream_namespace))
+				{
+					$page_data = (object) array_merge((array) $page_data, (array) $entry);
+
+					// Bump title up
+					$page_data->title = $page_data->page->title;
+				}
+			}
+		}
+
+		// ---------------------------------
+		// Metadata
+		// ---------------------------------
+
+		// First we need to figure out our metadata. If we have meta for our page,
+		// that overrides the meta from the page layout.
+		$meta_title = ($page->meta_title ? $page->meta_title : $page->layout->meta_title);
+		$meta_keywords = ($page->meta_keywords ? Keywords::get_string($page->meta_keywords) : Keywords::get_string($page->layout->meta_keywords));
+		$meta_description = ($page->meta_description ? $page->meta_description : $page->layout->meta_description);
+
+		// They will be parsed later, when they are set for the template library.
+
+		// Not got a meta title? Use slogan for homepage or the normal page title for other pages
+		if ($meta_title == '')
+		{
+			$meta_title = $page->is_home ? $this->settings->site_slogan : $page->title;
+		}
+
+		// ---------------------------------
+
+		// We do this before parsing the page contents so that 
 		// title, meta, & breadcrumbs can be overridden with tags in the page content
-		$this->template->title($page->meta_title)
-			->set_metadata('keywords', Keywords::get_string($page->meta_keywords))
-			->set_metadata('description', $page->meta_description)
+		$this->template->title($this->parser->parse_string($meta_title, $page_data, true))
+			->set_metadata('keywords', $this->parser->parse_string($meta_keywords, $page_data, true))
+			->set_metadata('description', $this->parser->parse_string($meta_description, $page_data, true))
 			->set_breadcrumb($page->title);
 
-		// Parse it so the embedded tags are parsed. We pass along $page so that {{ page:id }} and friends work in page content.
-		$page->body = $this->parser->parse_string(str_replace(array('&#39;', '&quot;'), array("'", '"'), $chunk_html), array('theme' => $this->theme, 'page' => $page), true);
+		// Parse the tag layout structure
+		// This is now legacy
+		/*$page->layout->body = $this->parser->parse_string(
+			// replace encoding by WYSIWYG
+			str_replace(array('&#39;', '&quot;'), array("'", '"'), $page->layout->body),
+			// pass along $page and $theme so that {{ page:id }} and friends work in page content
+			array('theme' => $this->theme, $page_data),
+			// return the string
+			true
+		);*/
 
+		// Add our page and page layout CSS
 		if ($page->layout->css or $page->css)
 		{
 			$this->template->append_metadata('
@@ -219,6 +284,7 @@ class Pages extends Public_Controller
 				</style>', 'late_header');
 		}
 
+		// Add our page and page layout JS
 		if ($page->layout->js or $page->js)
 		{
 			$this->template->append_metadata('
@@ -246,11 +312,13 @@ class Pages extends Public_Controller
 			log_message('error', 'Page Missing: '.$this->uri->uri_string());
 
 			// things behave a little differently when called by MX from MY_Exceptions' show_404()
-			exit($this->template->build('pages/page', array('page' => $page), false, false));
+			exit($this->template->build('pages/page', $page_data, false, false));
 		}
 
-		$this->template->build('page', array('page' => $page), false, false);
+		$this->template->build('page', $page_data, false, false);
 	}
+
+    // --------------------------------------------------------------------------
 
 	/**
 	 * RSS method
@@ -308,7 +376,6 @@ class Pages extends Public_Controller
 		if ( ! empty($children))
 		{
 			$this->load->helper('xml');
-
 
 			foreach ($children as &$row)
 			{

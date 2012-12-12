@@ -90,8 +90,8 @@
 				// them to null if they are not.
 				$value = (isset($current_field->field_data[$param])) ? $current_field->field_data[$param] : null;
 						
-				if( method_exists($current_type, 'param_'.$param) ):
-				
+				if (method_exists($current_type, 'param_'.$param))
+				{
 					$call = 'param_'.$param;
 					
 					$input = $current_type->$call($value);
@@ -108,13 +108,12 @@
 					}
 
 					$data['input_name']		= $this->lang->line('streams.'.$this->type->types->{$current_field->field_type}->field_type_slug.'.'.$param);
-					
-				else:
-		
+				}
+				else
+				{			
 					$data['input'] 			= $parameters->$param($value);
 					$data['input_name']		= $this->lang->line('streams.'.$param);
-				
-				endif;
+				}
 				
 				$data['input_slug']		= $param;
 					

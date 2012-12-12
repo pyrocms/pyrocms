@@ -1028,6 +1028,8 @@ class Row_m extends MY_Model {
 		
 		foreach ($this->streams_m->streams_cache as $stream_id => $stream)
 		{
+			if ($stream_id == 'ns') continue;
+
 			$struct[$stream_id]['stream'] = $stream;
 			
 			foreach ($fields as $field)

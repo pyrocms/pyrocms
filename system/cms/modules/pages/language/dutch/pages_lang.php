@@ -23,7 +23,7 @@ $lang['pages:body_label'] 						= 'Paginainhoud';
 $lang['pages:meta_title_label'] 				= 'Meta titel';
 $lang['pages:meta_keywords_label'] 				= 'Meta sleutelwoord';
 $lang['pages:meta_desc_label'] 					= 'Meta omschrijving';
-$lang['pages:layout_id_label'] 					= 'Paginalayout';
+$lang['pages:type_id_label'] 					= 'Paginalayout';
 $lang['pages:css_label'] 						= 'CSS';
 $lang['pages:js_label'] 						= 'JavaScript';
 $lang['pages:access_label'] 					= 'Toegang';
@@ -48,8 +48,8 @@ $lang['pages:duplicate_label']					= 'Dupliceer';
 $lang['pages:create_title'] 					= 'Voeg pagina toe';
 $lang['pages:edit_title'] 						= 'Wijzig pagina "%s"';
 $lang['pages:list_title'] 						= 'Overzicht pagina&apos;s';
-$lang['pages:layouts_create_title'] 			= 'Voeg een paginalayout toe';
-$lang['pages:layouts_list_title'] 				= 'Overzicht paginalayouts';
+$lang['pages:types_create_title'] 			= 'Voeg een paginalayout toe';
+$lang['pages:types_list_title'] 				= 'Overzicht paginatypes';
 
 // messages
 $lang['pages:no_pages'] 						= 'Er zijn geen pagina&apos;s';

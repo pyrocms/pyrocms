@@ -8,11 +8,11 @@
  */
 class Module_Pages extends Module
 {
-	public $version = '2.2.0';
+	public $version = '2.2';
 
 	public function info()
 	{
-		return array(
+		$info = array(
 			'name' => array(
 				'en' => 'Pages',
 				'ar' => 'الصفحات',
@@ -78,45 +78,95 @@ class Module_Pages extends Module
 			    'pages' => array(
 				    'name' => 'pages:list_title',
 				    'uri' => 'admin/pages',
-				    'shortcuts' => array(
-						array(
-						    'name' => 'pages:create_title',
-						    'uri' => 'admin/pages/create',
-						    'class' => 'add'
-						),
-				    ),
 				),
-				'layouts' => array(
-				    'name' => 'pages:layouts_list_title',
-				    'uri' => 'admin/pages/layouts',
-				    'shortcuts' => array(
-						array(
-						    'name' => 'pages:layouts_create_title',
-						    'uri' => 'admin/pages/layouts/create',
-						    'class' => 'add'
-						),
-				    ),
+				'types' => array(
+				    'name' => 'page_types.list_title',
+				    'uri' => 'admin/pages/types'
 			    ),
 			),
 		);
+
+		// We check that the table exists
+		// to avoid any pre 109 migration module class spawning issues.
+		if ( ! class_exists('Module_import') and $this->db->table_exists('page_types'))
+		{
+			// Shortcuts for New page
+
+			// Do we have more than one page type? If we don't, no need to have a modal
+			// ask them to choose a page type.
+			if ($this->db->count_all('page_types') > 1)
+			{
+
+				$info['sections']['pages']['shortcuts'] = array(
+					array(
+					    'name' => 'pages:create_title',
+					    'uri' => 'admin/pages/choose_type',
+					    'class' => 'add modal'
+					)
+				);
+			}
+			else
+			{
+				// Get the one page type. 
+				$page_type = $this->db->limit(1)->select('id')->get('page_types')->row();
+
+				$info['sections']['pages']['shortcuts'] = array(
+					array(
+					    'name' => 'pages:create_title',
+					    'uri' => 'admin/pages/create?page_type='.$page_type->id,
+					    'class' => 'add'
+					)
+				);			
+			}
+
+			// Show the correct +Add button based on the page
+			if ($this->uri->segment(4) == 'fields' and $this->uri->segment(5))
+			{
+				$info['sections']['types']['shortcuts'] = array(
+								array(
+								    'name' => 'streams.new_field',
+								    'uri' => 'admin/pages/types/fields/'.$this->uri->segment(5).'/new_field',
+								    'class' => 'add'
+								)
+						    );
+			}
+			else
+			{
+				$info['sections']['types']['shortcuts'] = array(
+								array(
+								    'name' => 'pages:types_create_title',
+								    'uri' => 'admin/pages/types/create',
+								    'class' => 'add'
+								)
+							);			
+			}
+		}
+
+		return $info;
 	}
 
 	public function install()
 	{
-		$this->dbforge->drop_table('page_chunks');
-		$this->dbforge->drop_table('page_layouts');
-		$this->dbforge->drop_table('pages');
-		$this->dbforge->drop_table('revisions');
+		$this->load->helper('date');
+		$this->load->config('pages/pages');
 
 		$tables = array(
-			'page_layouts' => array(
+			'page_types' => array(
 				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true),
+				'slug' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => ''),
 				'title' => array('type' => 'VARCHAR', 'constraint' => 60),
+				'stream_id' => array('type' => 'INT', 'constraint' => 11),
+				'meta_title' => array('type' => 'VARCHAR', 'constraint' => 255, 'null' => true),
+				'meta_keywords' => array('type' => 'CHAR', 'constraint' => 32, 'null' => true),
+				'meta_description' => array('type' => 'TEXT', 'null' => true),
 				'body' => array('type' => 'TEXT'),
 				'css' => array('type' => 'TEXT', 'null' => true),
 				'js' => array('type' => 'TEXT', 'null' => true),
 				'theme_layout' => array('type' => 'VARCHAR', 'constraint' => 100, 'default' => 'default'),
 				'updated_on' => array('type' => 'INT', 'constraint' => 11),
+	            'save_as_files'     => array('type' => 'CHAR', 'constraint' => 1, 'default' => 'n'),
+	            'content_label'     => array('type' => 'VARCHAR', 'constraint' => 60),
+	            'title_label'     => array('type' => 'VARCHAR', 'constraint' => 100)
 			),
 			'pages' => array(
 				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true),
@@ -125,8 +175,8 @@ class Module_Pages extends Module
 				'title' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => ''),
 				'uri' => array('type' => 'TEXT', 'null' => true),
 				'parent_id' => array('type' => 'INT', 'constraint' => 11, 'default' => 0, 'key' => 'parent_id'),
-				'revision_id' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '1'),
-				'layout_id' => array('type' => 'VARCHAR', 'constraint' => 255),
+				'type_id' => array('type' => 'VARCHAR', 'constraint' => 255),
+				'entry_id' => array('type' => 'VARCHAR', 'constraint' => 255, 'null' => true),
 				'css' => array('type' => 'TEXT', 'null' => true),
 				'js' => array('type' => 'TEXT', 'null' => true),
 				'meta_title' => array('type' => 'VARCHAR', 'constraint' => 255, 'null' => true),
@@ -142,16 +192,6 @@ class Module_Pages extends Module
 				'strict_uri' => array('type' => 'TINYINT', 'constraint' => 1, 'default' => 1),
 				'order' => array('type' => 'INT', 'constraint' => 11, 'default' => 0),
 			),
-			'page_chunks' => array(
-				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true),
-				'slug' => array('type' => 'VARCHAR', 'constraint' => 255, 'null' => false),
-				'class' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => ''),
-				'page_id' => array('type' => 'INT', 'constraint' => 11),
-				'body' => array('type' => 'TEXT'),
-				'parsed' => array('type' => 'TEXT', 'null' => true),
-				'type' => array('type' => 'SET', 'constraint' => array('html', 'markdown', 'wysiwyg-advanced', 'wysiwyg-simple')),
-				'sort' => array('type' => 'INT', 'constraint' => 11),
-			),
 		);
 
 		if ( ! $this->install_tables($tables))
@@ -159,118 +199,95 @@ class Module_Pages extends Module
 			return false;
 		}
 
-		// We will need to get now() later on.
-		$this->load->helper('date');
+		$this->load->driver('streams');
 
-		$default_page_layout = array(
+		// now set up the default streams that will hold the page content
+		foreach (config_item('pages:default_page_stream') as $stream)
+		{
+			$stream_id = $this->streams->streams->add_stream(
+				$stream['name'],
+				$stream['slug'],
+				$stream['namespace'],
+				$stream['prefix'],
+				$stream['about']
+			);
+		}
+
+		// add the fields to the streams
+		$this->streams->fields->add_fields(config_item('pages:default_fields'));
+
+		// Insert the page type structures
+		$page_type = 	array(
 			'id' => 1,
 			'title' => 'Default',
-			'body' => '<h2>{{ page:title }}</h2>'.PHP_EOL.'{{ page:body }}',
+			'slug' => 'default',
+			'stream_id' => $stream_id,
+			'body' => '<h2>{{ page:title }}</h2>'."\n\n".'{{ body }}',
 			'css' => '',
 			'js' => '',
-			'updated_on' => now(),
+			'updated_on' => now()
 		);
-
-		if ( ! $this->db->insert('page_layouts', $default_page_layout))
+		if ( ! $this->db->insert('page_types', $page_type))
 		{
 			return false;
 		}
 
-		$default_pages = array(
-			/* The home page. */
-			array(
+		$def_page_type_id = $this->db->insert_id();
+
+		$page_content = config_item('pages:default_page_content');
+		$page_entries = array(
+			'home' => array(
 				'slug' => 'home',
 				'title' => 'Home',
 				'uri' => 'home',
-				'revision_id' => 1,
 				'parent_id' => 0,
-				'layout_id' => 1,
+				'type_id' => $def_page_type_id,
 				'status' => 'live',
 				'restricted_to' => '',
 				'created_on' => now(),
 				'is_home' => 1,
 				'order' => now()
 			),
-			/* The 404 page. */
-			array(
-				'slug' => '404',
-				'title' => 'Page missing',
-				'uri' => '404',
-				'revision_id' => 1,
-				'parent_id' => 0,
-				'layout_id' => 1,
-				'status' => 'live',
-				'restricted_to' => '',
-				'created_on' => now(),
-				'is_home' => 0,
-				'order' => now()
-			),
-			/* The contact page. */
-			array(
+			'contact' => array(
 				'slug' => 'contact',
 				'title' => 'Contact',
 				'uri' => 'contact',
-				'revision_id' => 1,
 				'parent_id' => 0,
-				'layout_id' => 1,
+				'type_id' => $def_page_type_id,
 				'status' => 'live',
 				'restricted_to' => '',
 				'created_on' => now(),
 				'is_home' => 0,
 				'order' => now()
 			),
+			'fourohfour' => array(
+				'slug' => '404',
+				'title' => 'Page missing',
+				'uri' => '404',
+				'parent_id' => 0,
+				'type_id' => $def_page_type_id,
+				'status' => 'live',
+				'restricted_to' => '',
+				'created_on' => now(),
+				'is_home' => 0,
+				'order' => now()
+			)
 		);
 
-		foreach ($default_pages as $page_chunk)
+		foreach ($page_entries as $key => $d)
 		{
-			if ( ! $this->db->insert('pages', $page_chunk))
-			{
-				return false;
-			}
-		}
+			// Contact Page
+			$this->db->insert('pages', $d);
+			$page_id = $this->db->insert_id();
 
-		$default_page_chunks = array(
-			/* The home page chunk. */
-			array(
-				'slug' => 'default',
-				'page_id' => 1,
-				'body' => '<p>Welcome to our homepage. We have not quite finished setting up our website yet, but please add us to your bookmarks and come back soon.</p>',
-				'parsed' => '',
-				'type' => 'wysiwyg-advanced',
-				'sort' => 1,
-			),
-			/* The 404 page chunk. */
-			array(
-				'slug' => 'default',
-				'page_id' => 2,
-				'body' => '<p>We cannot find the page you are looking for, please click <a title="Home" href="{{ pages:url id=\'1\' }}">here</a> to go to the homepage.</p>',
-				'parsed' => '',
-				'type' => 'html',
-				'sort' => 1,
-			),
-			/* The contact page chunk. */
-			array(
-				'slug' => 'default',
-				'page_id' => 3,
-				'body' => '<p>To contact us please fill out the form below.</p>
-					{{ contact:form name="text|required" email="text|required|valid_email" subject="dropdown|Support|Sales|Feedback|Other" message="textarea" attachment="file|zip" }}
-						<div><label for="name">Name:</label>{{ name }}</div>
-						<div><label for="email">Email:</label>{{ email }}</div>
-						<div><label for="subject">Subject:</label>{{ subject }}</div>
-						<div><label for="message">Message:</label>{{ message }}</div>
-						<div><label for="attachment">Attach  a zip file:</label>{{ attachment }}</div>
-					{{ /contact:form }}',
-				'parsed' => '',
-				'type' => 'html',
-				'sort' => 1,
-			),
-		);
-		foreach ($default_page_chunks as $page_chunk)
-		{
-			if ( ! $this->db->insert('page_chunks', $page_chunk))
-			{
-				return false;
-			}
+			$this->db->insert('def_page_fields', $page_content[$key]);
+			$entry_id = $this->db->insert_id();
+
+			$this->db->where('id', $page_id);
+			$this->db->update('pages', array('entry_id' => $entry_id));
+
+			unset($page_id);
+			unset($entry_id);
 		}
 
 		return true;

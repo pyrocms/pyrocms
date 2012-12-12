@@ -23,7 +23,7 @@ $lang['pages:body_label']                  = 'Page body';
 $lang['pages:meta_title_label']            = 'Meta title';
 $lang['pages:meta_keywords_label']         = 'Meta keywords';
 $lang['pages:meta_desc_label']             = 'Meta description';
-$lang['pages:layout_id_label']             = 'Puslapio maketas';
+$lang['pages:type_id_label']             = 'Puslapio maketas';
 $lang['pages:css_label']                   = 'CSS';
 $lang['pages:js_label']                    = 'JavaScript';
 $lang['pages:access_label']                = 'Access';
@@ -46,8 +46,8 @@ $lang['pages:duplicate_label']			   = 'Duplicate'; #translate
 $lang['pages:create_title']                = 'Pridėti puslapį';
 $lang['pages:edit_title']                  = 'Redaguoti puslapį "%s"';
 $lang['pages:list_title']                  = 'Puslapių sąrašas';
-$lang['pages:layouts_create_title']        = 'Pridėti puslapiui maketą';
-$lang['pages:layouts_list_title']          = 'Maketų sąrašas';
+$lang['pages:types_create_title']        = 'Pridėti puslapiui maketą';
+$lang['pages:types_list_title']          = 'Maketų sąrašas';
 
 // messages
 $lang['pages:no_pages']                    = 'Nėra puslapių.';

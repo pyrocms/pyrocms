@@ -33,7 +33,7 @@ class Type
 
     public function __construct()
     {    
-		$this->CI =& get_instance();
+		$this->CI = get_instance();
 		
 		$this->CI->load->helper('directory');
 		$this->CI->load->config('streams_core/streams');
@@ -84,9 +84,23 @@ class Type
 			'addon' 		=> ADDONPATH.'field_types/',
 			'addon_alt' 	=> SHARED_ADDONPATH.'field_types/'
 		);
+
+		// Add addon paths event. This is an opportunity to
+		// add another place for addons.
+		if ( ! class_exists('Module_import'))
+		{
+			Events::trigger('streams_core_add_addon_path', $this);
+		}
 		
 		// Go ahead and gather our types
 		$this->gather_types();		
+	}
+
+	// --------------------------------------------------------------------------
+
+	public function add_ft_path($key, $path)
+	{
+		$this->addon_paths[$key] = $path;
 	}
 
 	// --------------------------------------------------------------------------
@@ -101,30 +115,32 @@ class Type
 	{
 		foreach ($this->addon_paths as $raw_mode => $path)
 		{
-			if ( ! is_dir($path)) continue;
-		
-			$types_files = directory_map($path, 1);
+			$mode = ($raw_mode == 'core') ? 'core' : 'addon';
 	
-			($raw_mode == 'core') ? $mode = 'core' : $mode = 'addon';
-	
-			$this->_load_types($types_files, $path, $mode);
-			
-			unset($types_files);
+			$this->load_types_from_folder($path, $mode);
 		}
 	}
 	
 	// --------------------------------------------------------------------------
 
 	/**
-	 * Load types
+	 * Load field types from a certain folder.
 	 *
-	 * @access	private
+	 * Mostly used by this library, but can be used in
+	 * a pinch if you need to bring in some field types
+	 * from a custom location.
+	 *
+	 * @access	public
 	 * @param	array
 	 * @param	string
 	 * @return	void
 	 */	
-	private function _load_types($types_files, $addon_path, $mode = 'core')
+	public function load_types_from_folder($addon_path, $mode = 'core')
 	{
+		if ( ! is_dir($addon_path)) return;
+
+		$types_files = directory_map($addon_path, 1);
+
 		foreach ($types_files as $type)
 		{
 			// Is this a directory w/ a field type?

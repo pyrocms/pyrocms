@@ -27,6 +27,7 @@ class Page_chunk_m extends MY_Model
 		$page = new stdClass();
 		$page->chunks = array();
 		$chunk_bodies_count = count($input['chunk_body']);
+		
 		for ($i = 0; $i < $chunk_bodies_count; $i++)
 		{
 			$page->chunks[] = (object) array(
@@ -58,9 +59,9 @@ class Page_chunk_m extends MY_Model
 				));
 			}
 
-			return true;
+			return TRUE;
 		}
 
-		return false;
+		return FALSE;
 	}
 }
