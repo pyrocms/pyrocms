@@ -98,6 +98,8 @@ class Plugin_Navigation extends Plugin
 			// attributes of anchor
 			$item['url']					= $link['url'];
 			$item['title']					= $link['title'];
+			$item['total'] = $total;
+			
 			if($wrap)
 			{
 				$item['title']  = '<'.$wrap.'>'.$item['title'].'</'.$wrap.'>';
