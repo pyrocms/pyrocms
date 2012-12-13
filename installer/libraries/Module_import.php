@@ -170,36 +170,27 @@ class Module_import
 		$this->ci->load->library('settings/settings');
 		$this->install('streams_core', true);
 
-		$is_core = true;
-
-		// Loop through directories that hold modules
-		foreach (array(PYROPATH, ADDONPATH, SHARED_ADDONPATH) as $directory)
+		// Are there any modules to install on this path?
+		if ($modules = glob(PYROPATH.'modules/*', GLOB_ONLYDIR))
 		{
-			// Are there any modules to install on this path?
-			if ($modules = glob($directory.'modules/*', GLOB_ONLYDIR))
+			// Loop through modules
+			foreach ($modules as $module_name)
 			{
-				// Loop through modules
-				foreach ($modules as $module_name)
+				$slug = basename($module_name);
+
+				if ($slug == 'streams_core' or $slug == 'settings')
 				{
-					$slug = basename($module_name);
-
-					if ($slug == 'streams_core' or $slug == 'settings')
-					{
-						continue;
-					}
-
-					// invalid details class?
-					if ( ! $details_class = $this->_spawn_class($slug, $is_core))
-					{
-						continue;
-					}
-
-					$this->install($slug, true);
+					continue;
 				}
-			}
 
-			// the second loop installs addons and shared addons
-			$is_core = false;
+				// invalid details class?
+				if ( ! $details_class = $this->_spawn_class($slug, true))
+				{
+					continue;
+				}
+
+				$this->install($slug, true);
+			}
 		}
 
 		// After modules are imported we need to modify the settings table
