@@ -45,9 +45,6 @@ abstract class Plugin
 				}
 			}
 			
-			// unset the parse_params since we no longer need it
-			unset($attributes['parse_params']);
-		
 			$this->attributes = $attributes;
 		}
 	}

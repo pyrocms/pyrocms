@@ -225,7 +225,14 @@ class Plugin_Helper extends Plugin
 
 		if (function_exists($name) and in_array($name, config_item('allowed_functions')))
 		{
-			return call_user_func_array($name, $this->attributes());
+			$attributes = $this->attributes();
+			
+			// unset automatically set attributes
+			if ( isset($attributes['parse_params']) ) {
+				unset($attributes['parse_params']);
+			}
+			
+			return call_user_func_array($name, $attributes);
 		}
 
 		return 'Function not found or is not allowed';
