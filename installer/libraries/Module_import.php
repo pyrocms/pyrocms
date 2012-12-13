@@ -165,49 +165,41 @@ class Module_import
 		// create a session table so they can use it if they want
 		$this->ci->db->query($session);
 
-		// Install settings and streams core first. Other modules
-		// may need these.
+		// Install settings and streams core first. Other modules may need them.
 		$this->install('settings', true);
+		$this->ci->load->library('settings/settings');
 		$this->install('streams_core', true);
 
-		// Loop through directories that hold modules
-		foreach (array(PYROPATH) as $directory)
-		{
-			// some servers return false instead of an empty array
-			if ( ! $directory) {
-				continue;
-			}
+		$is_core = true;
 
-			// Loop through modules
+		// Loop through directories that hold modules
+		foreach (array(PYROPATH, ADDONPATH, SHARED_ADDONPATH) as $directory)
+		{
+			// Are there any modules to install on this path?
 			if ($modules = glob($directory.'modules/*', GLOB_ONLYDIR))
 			{
-				// Put the settings module first
-				$modules = array_map('basename',$modules);
-				$s = array_splice($modules, array_search('settings', $modules), 1);
-				array_unshift($modules, $s[0]);
-
+				// Loop through modules
 				foreach ($modules as $module_name)
 				{
-					if ($module_name == 'streams_core' or $module_name == 'settings')
+					$slug = basename($module_name);
+
+					if ($slug == 'streams_core' or $slug == 'settings')
 					{
 						continue;
 					}
 
-					if ( ! $details_class = $this->_spawn_class($module_name, true))
+					// invalid details class?
+					if ( ! $details_class = $this->_spawn_class($slug, $is_core))
 					{
 						continue;
 					}
 
-					$this->install($module_name, true);
-
-					// Settings is installed first. Once it's installed we load the library
-					// so all modules can use settings in their install code.
-					if ($module_name === 'settings')
-					{
-						$this->ci->load->library('settings/settings');
-					}
+					$this->install($slug, true);
 				}
 			}
+
+			// the second loop installs addons and shared addons
+			$is_core = false;
 		}
 
 		// After modules are imported we need to modify the settings table
@@ -236,7 +228,7 @@ class Module_import
 		// Before we can install anything we need to know some details about the module
 		$details_file = $path.'modules/'.$slug.'/details'.EXT;
 
-		// Check the details file exists
+		// If it didn't exist as a core module or an addon then check shared_addons
 		if ( ! is_file($details_file))
 		{
 			$details_file = SHARED_ADDONPATH.'modules/'.$slug.'/details'.EXT;
