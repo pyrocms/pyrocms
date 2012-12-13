@@ -91,11 +91,11 @@ class Plugin_Theme extends Plugin
 	 */
 	public function css()
 	{
-		$file = $this->attribute('file');
+		$file  = $this->attribute('file');
 		$title = $this->attribute('title');
 		$media = $this->attribute('media');
-		$type = $this->attribute('type', 'text/css');
-		$rel = $this->attribute('rel', 'stylesheet');
+		$type  = $this->attribute('type', 'text/css');
+		$rel   = $this->attribute('rel', 'stylesheet');
 
 		return link_tag($this->css_url($file), $rel, $type, $title, $media);
 	}
@@ -144,8 +144,8 @@ class Plugin_Theme extends Plugin
 	 */
 	public function image()
 	{
-		$file = $this->attribute('file');
-		$alt = $this->attribute('alt', $file);
+		$file       = $this->attribute('file');
+		$alt        = $this->attribute('alt', $file);
 		$attributes = $this->attributes();
 
 		foreach (array('file', 'alt') as $key)
@@ -299,9 +299,9 @@ class Plugin_Theme extends Plugin
 		$this->load->library('asset');
 		$file = Asset::get_filepath_img($this->attribute('file', 'favicon.ico'), true);
 
-		$rel = $this->attribute('rel', 'shortcut icon');
-		$type = $this->attribute('type', 'image/x-icon');
-		$is_xhtml = in_array($this->attribute('xhtml', 'true'), array('1', 'y', 'yes', 'true'));
+		$rel      = $this->attribute('rel', 'shortcut icon');
+		$type     = $this->attribute('type', 'image/x-icon');
+		$is_xhtml = str_to_bool($this->attribute('xhtml', true));
 
 		$link = '<link ';
 		$link .= 'href="' . $file . '" ';
@@ -326,10 +326,10 @@ class Plugin_Theme extends Plugin
 	public function lang()
 	{
 		$lang_file = $this->attribute('lang');
-		$line = $this->attribute('line');
-		$default = $this->attribute('default');
+		$line      = $this->attribute('line');
+		$default   = $this->attribute('default');
 		// Return an empty string as the attribute LINE is missing
-		if (!isset($line))
+		if ( ! isset($line))
 		{
 			return "";
 		}
@@ -347,3 +347,5 @@ class Plugin_Theme extends Plugin
 	}
 
 }
+
+/* EOF */

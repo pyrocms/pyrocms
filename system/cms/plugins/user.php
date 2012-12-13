@@ -127,44 +127,44 @@ class Plugin_User extends Plugin
 
 		$plugin_data[] = array(
 			'value' => $profile_data['email'],
-			'name' => lang('global:email'),
-			'slug' => 'email'
+			'name'  => lang('global:email'),
+			'slug'  => 'email'
 		);
 
 		$plugin_data[] = array(
 			'value' => $profile_data['username'],
-			'name' => lang('user_username'),
-			'slug' => 'username'
+			'name'  => lang('user_username'),
+			'slug'  => 'username'
 		);
 
 		$plugin_data[] = array(
 			'value' => $profile_data['group_description'],
-			'name' => lang('user_group_label'),
-			'slug' => 'group_name'
+			'name'  => lang('user_group_label'),
+			'slug'  => 'group_name'
 		);
 
 		$plugin_data[] = array(
 			'value' => date($this->settings->get('date_format'), $profile_data['last_login']),
-			'name' => lang('profile_last_login_label'),
-			'slug' => 'email'
+			'name'  => lang('profile_last_login_label'),
+			'slug'  => 'email'
 		);
 
 		$plugin_data[] = array(
 			'value' => date($this->settings->get('date_format'), $profile_data['created_on']),
-			'name' => lang('profile_registred_on_label'),
-			'slug' => 'registered_on'
+			'name'  => lang('profile_registred_on_label'),
+			'slug'  => 'registered_on'
 		);
 
 		// Display name and updated on
 		$plugin_data[] = array(
 			'value' => $profile_data['display_name'],
-			'name' => lang('profile_display_name'),
-			'slug' => 'display_name'
+			'name'  => lang('profile_display_name'),
+			'slug'  => 'display_name'
 		);
 		$plugin_data[] = array(
 			'value' => date($this->settings->get('date_format'), $profile_data['updated_on']),
-			'name' => lang('profile_updated_on'),
-			'slug' => 'updated_on'
+			'name'  => lang('profile_updated_on'),
+			'slug'  => 'updated_on'
 		);
 
 		foreach ($this->ion_auth_model->user_stream_fields as $key => $field)
@@ -178,8 +178,8 @@ class Plugin_User extends Plugin
 
 			$plugin_data[] = array(
 				'value' => $profile_data[$key],
-				'name' => $this->fields->translate_label($name),
-				'slug' => $field->field_slug
+				'name'  => $this->fields->translate_label($name),
+				'slug'  => $field->field_slug
 			);
 
 			unset($name);
@@ -204,7 +204,7 @@ class Plugin_User extends Plugin
 	public function profile()
 	{
 		// We can't parse anything if there is no content.
-		if (!$this->content())
+		if ( ! $this->content())
 		{
 			return null;
 		}
@@ -220,7 +220,7 @@ class Plugin_User extends Plugin
 
 		// Dumb hack that should be goine in 2.2
 		$profile_data['user_id'] = $profile_data['id'];
-		$profile_data['id'] = $profile_data['profile_id'];
+		$profile_data['id']      = $profile_data['profile_id'];
 
 		return $this->streams->parse->parse_tag_content($this->content(), $profile_data, 'profiles', 'users', false);
 	}
@@ -368,3 +368,5 @@ class Plugin_User extends Plugin
 	}
 
 }
+
+/* EOF */

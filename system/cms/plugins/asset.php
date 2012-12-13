@@ -34,9 +34,9 @@ class Plugin_Asset extends Plugin
 	 */
 	public function css()
 	{
-		$file = $this->attribute('file');
+		$file     = $this->attribute('file');
 		$file_min = $this->attribute('file_min');
-		$group = $this->attribute('group');
+		$group    = $this->attribute('group');
 
 		return Asset::css($file, $file_min, $group);
 	}
@@ -149,9 +149,9 @@ class Plugin_Asset extends Plugin
 	 */
 	public function js()
 	{
-		$file = $this->attribute('file');
+		$file     = $this->attribute('file');
 		$file_min = $this->attribute('file_min');
-		$group = $this->attribute('group');
+		$group    = $this->attribute('group');
 
 		return Asset::js($file, $file_min, $group);
 	}
@@ -247,3 +247,5 @@ class Plugin_Asset extends Plugin
 	}
 
 }
+
+/* EOF */

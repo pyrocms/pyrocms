@@ -1,11 +1,11 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 /**
  * Variable Plugin
  *
  * Allows tags to be used in content items.
  *
- * @author		PyroCMS Dev Team
- * @package		PyroCMS\Core\Modules\Variables\Plugins
+ * @author   PyroCMS Dev Team
+ * @package  PyroCMS\Core\Modules\Variables\Plugins
  */
 class Plugin_Variables extends Plugin
 {	
@@ -14,9 +14,9 @@ class Plugin_Variables extends Plugin
 	 *
 	 * Magic method to get the variable.
 	 *
-	 * @param	string
-	 * @param	string
-	 * @return	string
+	 * @param string $name
+	 * @param string $arguments
+	 * @return string
 	 */
 	public function __call($name, $arguments)
 	{
@@ -29,9 +29,9 @@ class Plugin_Variables extends Plugin
 	 *
 	 * Magic method to get the variable.
 	 *
-	 * @param	string
-	 * @param	string
-	 * @return	string
+	 * @param string
+	 * @param string
+	 * @return string
 	 */
 	public function set()
 	{

@@ -50,9 +50,12 @@ class Plugin_Integration extends Plugin
 	 */
 	public function visitors()
 	{
-		$data = array('visits' => 0, 'views' => 0);
-		$start = $this->attribute('start', '2010-01-01');
-		$end = $this->attribute('end', date('Y-m-d'));
+		$data    = array(
+			'visits' => 0,
+			'views'  => 0
+		);
+		$start   = $this->attribute('start', '2010-01-01');
+		$end     = $this->attribute('end', date('Y-m-d'));
 		$refresh = $this->attribute('refresh', 24); // refresh the cache every n hours
 
 		if (Settings::get('ga_email') and Settings::get('ga_password') and Settings::get('ga_profile'))
@@ -113,3 +116,5 @@ class Plugin_Integration extends Plugin
 	}
 
 }
+
+/* EOF */

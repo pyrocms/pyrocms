@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
  * Contact Plugin
@@ -22,23 +22,24 @@ class Plugin_Contact extends Plugin {
 	 *
 	 * Usage:
 	 *
-	 * {{ contact:form 	name	 			= "text|required"
-	 * 					email	 			= "text|required|valid_email"
-	 * 					subject				= "dropdown|required|hello=Say Hello|support=Support Request|Something Else"
-	 * 					message	 			= "textarea|required"
-	 * 					attachment			= "file|jpg|png|zip
-	 * 					max-size 			= "10000"
-	 * 					reply-to 			= "visitor@somewhere.com" * Read note below *
-	 * 					button	 			= "send"
-	 * 					template 			= "contact"
-	 * 					lang	 			= "en"
-	 * 					to		 			= "contact@site.com"
-	 * 					from	 			= "server@site.com"
-	 * 					sent				= "Your message has been sent. Thank you for contacting us"
-	 * 					error				= "Sorry. Your message could not be sent. Please call us at 123-456-7890"
-	 *					auto-reply			= "contact-autoreply"
-	 * 					success-redirect	= "home"
-	 * 					action				= "different/url" Default is current_url(). This can be used to place a contact form in
+	 * {{ contact:form
+	 *    name             = "text|required"
+	 *    email            = "text|required|valid_email"
+	 * 	  subject          = "dropdown|required|hello=Say Hello|support=Support Request|Something Else"
+	 * 	  message          = "textarea|required"
+	 * 	  attachment       = "file|jpg|png|zip
+	 *    max-size         = "10000"
+	 * 	  reply-to         = "visitor@somewhere.com" * Read note below *
+	 * 	  button           = "send"
+	 *    template         = "contact"
+	 *    lang             = "en"
+	 *    to               = "contact@site.com"
+	 *    from             = "server@site.com"
+	 *    sent             = "Your message has been sent. Thank you for contacting us"
+	 *    error            = "Sorry. Your message could not be sent. Please call us at 123-456-7890"
+	 *    auto-reply       = "contact-autoreply"
+	 *    success-redirect = "home"
+	 * 	  action           = "different/url" Default is current_url(). This can be used to place a contact form in
 	 * 											the footer (for example) and have it send via the regular contact page. Errors will then
 	 * 											be displayed on the regular contact page.
 	 * 	}}
@@ -82,36 +83,36 @@ class Plugin_Contact extends Plugin {
 		{
 			return 'The new contact plugin requires field parameters and it must be used as a double tag.';
 		}
-		
-		$button 	= $this->attribute('button', 'send');
-		$template	= $this->attribute('template', 'contact');
+
+		$button             = $this->attribute('button', 'send');
+		$template           = $this->attribute('template', 'contact');
 		$autoreply_template = $this->attribute('auto-reply', false);
-		$lang 		= $this->attribute('lang', Settings::get('site_lang'));
-		$to			= $this->attribute('to', Settings::get('contact_email'));
-		$from		= $this->attribute('from', Settings::get('server_email'));
-		$reply_to	= $this->attribute('reply-to');
-		$max_size	= $this->attribute('max-size', 10000);
-		$redirect	= $this->attribute('success-redirect', false);
-		$action		= $this->attribute('action', current_url());
-		$form_meta 	= array();
-		$validation	= array();
-		$output		= array();
-		$dropdown	= array();
+		$lang               = $this->attribute('lang', Settings::get('site_lang'));
+		$to                 = $this->attribute('to', Settings::get('contact_email'));
+		$from               = $this->attribute('from', Settings::get('server_email'));
+		$reply_to           = $this->attribute('reply-to');
+		$max_size           = $this->attribute('max-size', 10000);
+		$redirect           = $this->attribute('success-redirect', false);
+		$action             = $this->attribute('action', current_url());
+		$form_meta          = array();
+		$validation         = array();
+		$output             = array();
+		$dropdown           = array();
 		
 		// unset all attributes that are not field names
 		unset($field_list['button'],
-			  $field_list['template'],
-			  $field_list['auto-reply'],
-			  $field_list['lang'],
-			  $field_list['to'],
-			  $field_list['from'],
-			  $field_list['reply-to'],
-			  $field_list['max-size'],
-			  $field_list['redirect'],
-			  $field_list['action']
-			  );
+			$field_list['template'],
+			$field_list['auto-reply'],
+			$field_list['lang'],
+			$field_list['to'],
+			$field_list['from'],
+			$field_list['reply-to'],
+			$field_list['max-size'],
+			$field_list['redirect'],
+			$field_list['action']
+		);
 
-		foreach ($field_list AS $field => $rules)
+		foreach ($field_list as $field => $rules)
 		{
 			$rule_array = explode('|', $rules);
 			
@@ -149,7 +150,7 @@ class Plugin_Contact extends Plugin {
 					}
 
 					// Build the array to pass to the form_dropdown() helper
-					foreach ($values AS $item)
+					foreach ($values as $item)
 					{
 						$item = explode('=', $item);
 						// If they didn't specify a key=>value (example: name=Your Name) then we'll use the value for the key also
@@ -200,7 +201,7 @@ class Plugin_Contact extends Plugin {
 
 			$validation[$field]['field'] = $field;
 			$validation[$field]['label'] = ucfirst($field);
-			$validation[$field]['rules'] = ($rule_array[0] == 'file' OR $rule_array[0] == 'dropdown') ? $other_rules : implode('|', $rule_array);
+			$validation[$field]['rules'] = ($rule_array[0] == 'file' or $rule_array[0] == 'dropdown') ? $other_rules : implode('|', $rule_array);
 		}
 
 		$this->form_validation->set_rules($validation);
@@ -217,14 +218,14 @@ class Plugin_Contact extends Plugin {
 			$data = $this->input->post();
 
 			// Add in some extra details about the visitor
-			$data['sender_agent']	= $this->agent->browser() . ' ' . $this->agent->version();
-			$data['sender_ip']		= $this->input->ip_address();
-			$data['sender_os']		= $this->agent->platform();
-			$data['slug'] 			= $template;
+			$data['sender_agent'] = $this->agent->browser() . ' ' . $this->agent->version();
+			$data['sender_ip']    = $this->input->ip_address();
+			$data['sender_os']    = $this->agent->platform();
+			$data['slug']         = $template;
 			// they may have an email field in the form. If they do we'll use that for reply-to.
-			$data['reply-to']		= (empty($reply_to) AND isset($data['email'])) ? $data['email'] : $reply_to;
-			$data['to']				= $to;
-			$data['from']			= $from;
+			$data['reply-to'] = (empty($reply_to) and isset($data['email'])) ? $data['email'] : $reply_to;
+			$data['to']       = $to;
+			$data['from']     = $from;
 
 			// Yay they want to send attachments along
 			if ($_FILES > '')
@@ -232,7 +233,7 @@ class Plugin_Contact extends Plugin {
 				$this->load->library('upload');
 				is_dir(UPLOAD_PATH.'contact_attachments') OR @mkdir(UPLOAD_PATH.'contact_attachments', 0777);
 				
-				foreach ($_FILES AS $form => $file)
+				foreach ($_FILES as $form => $file)
 				{
 					if ($file['name'] > '')
 					{
@@ -263,12 +264,12 @@ class Plugin_Contact extends Plugin {
 			// If autoreply has been enabled then send the end user an autoreply response
 			if ($autoreply_template)
 			{
-				$data_autoreply = $data;
-				$data_autoreply['to']       = $data['email'];
-				$data_autoreply['from']     = $data['from'];
-				$data_autoreply['slug']     = $autoreply_template;
-				$data_autoreply['name']     = $data['name'];
-				$data_autoreply['subject']  = $data['subject'];
+				$data_autoreply            = $data;
+				$data_autoreply['to']      = $data['email'];
+				$data_autoreply['from']    = $data['from'];
+				$data_autoreply['slug']    = $autoreply_template;
+				$data_autoreply['name']    = $data['name'];
+				$data_autoreply['subject'] = $data['subject'];
 			}
 
 			// fetch the template so we can parse it to insert into the database log
@@ -309,7 +310,7 @@ class Plugin_Contact extends Plugin {
 
 		// From here on out is form production
 		$parse_data = array();
-		foreach ($form_meta AS $form => $value)
+		foreach ($form_meta as $form => $value)
 		{
 			$parse_data[$form]  = form_error($form, '<div class="'.$form.'-error error">', '</div>');
 			
@@ -358,3 +359,5 @@ class Plugin_Contact extends Plugin {
 		return false;
 	}
 }
+
+/* EOF */

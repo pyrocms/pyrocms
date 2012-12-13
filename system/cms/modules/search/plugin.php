@@ -4,8 +4,8 @@
  *
  * Use the search plugin to display search forms and content
  *
- * @author		PyroCMS Dev Team
- * @package		PyroCMS\Core\Modules\Search\Plugins
+ * @author  PyroCMS Dev Team
+ * @package PyroCMS\Core\Modules\Search\Plugins
  */
 class Plugin_Search extends Plugin
 {
@@ -20,8 +20,8 @@ class Plugin_Search extends Plugin
 	 */
 	public function form()
 	{
-		$action = $this->attribute('action', 'search/results');
-		$class = $this->attribute('class', 'search');
+		$action  = $this->attribute('action', 'search/results');
+		$class   = $this->attribute('class', 'search');
 
 		$output	 = form_open($action, 'class="'.$class.'"').PHP_EOL;
 		$output .= $this->content();
@@ -34,13 +34,14 @@ class Plugin_Search extends Plugin
 	 * Lists the posts in a specific category.
 	 *
 	 * @param string $slug The slug of the category.
+	 * @return array
 	 */
 	public function results($slug = '')
 	{
 		$this->load->model('search_index_m');
 
-		$limit = $this->attribute('limit', 5);
-		$uri = $this->attribute('uri', 'search/results');
+		$limit   = $this->attribute('limit', 5);
+		$uri     = $this->attribute('uri', 'search/results');
 		$segment = $this->attribute('pag_segment', count(explode('/', $uri)) + 1);
 
 		// If it's POST, send it off to return as a GET
@@ -49,7 +50,7 @@ class Plugin_Search extends Plugin
 			redirect($uri.'?q='.$this->input->post('q'));
 		}
 
-		$query = $this->input->get('q');
+		$query  = $this->input->get('q');
 		$filter = $this->input->get('filter');
 
 		$total = $this->search_index_m
@@ -102,3 +103,5 @@ class Plugin_Search extends Plugin
     }
 
 }
+
+/* EOF */

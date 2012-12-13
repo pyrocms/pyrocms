@@ -44,9 +44,9 @@ class Plugin_Twitter extends Plugin
 	public function feed()
 	{
 		$username = $this->attribute('username');
-		$limit = $this->attribute('limit', 5);
+		$limit    = $this->attribute('limit', 5);
 
-		if (!($tweets = $this->pyrocache->get('twitter-' . $username)))
+		if ( ! ($tweets = $this->pyrocache->get('twitter-' . $username)))
 		{
 			$tweets = json_decode(@file_get_contents($this->feed_url . '&screen_name=' . $username . '&count=' . $limit));
 
@@ -64,16 +64,16 @@ class Plugin_Twitter extends Plugin
 			'|#([a-z0-9-_]+)|i' => '<a href="http://twitter.com/search?q=%23$1" target="_blank">$0</a>'
 		);
 
-		if (!$tweets)
+		if ( ! $tweets)
 		{
 			return array();
 		}
 
 		foreach ($tweets as &$tweet)
 		{
-			$tweet->id = sprintf('%.0f', $tweet->id);
-			$tweet->text = str_replace($username . ': ', '', $tweet->text);
-			$tweet->text = preg_replace(array_keys($patterns), $patterns, $tweet->text);
+			$tweet->id       = sprintf('%.0f', $tweet->id);
+			$tweet->text     = str_replace($username . ': ', '', $tweet->text);
+			$tweet->text     = preg_replace(array_keys($patterns), $patterns, $tweet->text);
 			$tweet->timespan = strtolower(current(explode(',', timespan(strtotime($tweet->created_at))))) . ' ago';
 		}
 
@@ -81,3 +81,5 @@ class Plugin_Twitter extends Plugin
 	}
 
 }
+
+/* EOF */

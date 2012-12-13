@@ -81,7 +81,7 @@ class Plugin_Helper extends Plugin
 	{
 		$this->load->helper('date');
 
-		$format = $this->attribute('format');
+		$format    = $this->attribute('format');
 		$timestamp = $this->attribute('timestamp', now());
 
 		return format_date($timestamp, $format);
@@ -100,11 +100,10 @@ class Plugin_Helper extends Plugin
 	 */
 	public function gravatar()
 	{
-		$email = $this->attribute('email', '');
-		$size = $this->attribute('size', '50');
-		$rating = $this->attribute('rating', 'g');
-
-		$url_only = (bool) in_array($this->attribute('url-only', 'false'), array('1', 'y', 'yes', 'true'));
+		$email    = $this->attribute('email', '');
+		$size     = $this->attribute('size', '50');
+		$rating   = $this->attribute('rating', 'g');
+		$url_only = str_to_bool($this->attribute('url-only', false));
 
 		return gravatar($email, $size, $rating, $url_only);
 	}
@@ -162,6 +161,8 @@ class Plugin_Helper extends Plugin
 	 *         {{name}} -- {{slug}}
 	 *     {{ /files:listing }}
 	 *     You have {{ helper:show_count identifier="files" }} files.
+	 * 
+	 * @return string|int
 	 */
 	public function count()
 	{
@@ -170,7 +171,7 @@ class Plugin_Helper extends Plugin
 		$identifier = $this->attribute('identifier', 'default');
 
 		// Use a default of 1 if they haven't specified one and it's the first iteration
-		if (!isset($count[$identifier]))
+		if ( ! isset($count[$identifier]))
 		{
 			$count[$identifier] = $this->attribute('start', 1);
 		}
@@ -184,7 +185,7 @@ class Plugin_Helper extends Plugin
 		// set this back to continue counting again next time
 		self::$_counter_increment = true;
 
-		return (strtolower($this->attribute('return')) === 'false') ? '' : $count[$identifier];
+		return (str_to_bool($this->attribute('return', true))) ? '' : $count[$identifier];
 	}
 
 	/**
@@ -218,6 +219,10 @@ class Plugin_Helper extends Plugin
 	 *     {{ helper:foo parameter1="bar" parameter2="bar" }}
 	 *
 	 * NOTE: the attribute name is irrelevant as only the values are concatenated and passed as arguments.
+	 * 
+	 * @param string $name
+	 * @param array $args
+	 * @return mixed
 	 */
 	public function __call($name, $args)
 	{
@@ -232,3 +237,5 @@ class Plugin_Helper extends Plugin
 	}
 
 }
+
+/* EOF */
