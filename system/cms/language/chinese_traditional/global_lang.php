@@ -92,4 +92,10 @@ $lang['global:empty']					= '清空';
 $lang['global:delete']					= '刪除';
 $lang['global:remove']					= '移除';
 
+$lang['global:widgets']					= 'Widgets';
+$lang['global:themes']					= 'Themes'; #translate
+$lang['global:field_types']				= 'Field Types';
+$lang['global:plugins']					= 'Plugins';
+$lang['global:plugin']					= 'Plugin';
+
 $lang['global:keywords']				= '關鍵字';

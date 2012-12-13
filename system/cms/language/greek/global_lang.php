@@ -105,7 +105,8 @@ $lang['global:and']						= 'και';
 $lang['global:at']						= 'στο';
 
 $lang['global:widgets']					= 'Widgets';
-$lang['global:fieldtypes']				= 'Τύποι Πεδίων';
+$lang['global:themes']					= 'Themes'; #translate
+$lang['global:field_types']				= 'Τύποι Πεδίων';
 $lang['global:plugins']					= 'Πρόσθετα';
 $lang['global:plugin']					= 'Πρόσθετο';
 

@@ -85,6 +85,12 @@ $lang['global:empty']					= 'Để trống';
 $lang['global:delete']					= 'Xóa';
 $lang['global:remove']					= 'Gỡ bỏ';
 
+$lang['global:widgets']					= 'Widgets';
+$lang['global:themes']					= 'Themes'; #translate
+$lang['global:field_types']				= 'Field Types';
+$lang['global:plugins']					= 'Plugins';
+$lang['global:plugin']					= 'Plugin';
+
 $lang['global:keywords']				= 'Từ khóa';
 
 /* End of file main_lang.php */

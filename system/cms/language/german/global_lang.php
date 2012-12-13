@@ -92,6 +92,12 @@ $lang['global:empty']					= 'Leer';
 $lang['global:delete']					= 'Löschen'; 
 $lang['global:remove']					= 'Entfernen'; 
 
+$lang['global:widgets']					= 'Widgets';
+$lang['global:themes']					= 'Themes'; #translate
+$lang['global:field_types']				= 'Field Types';
+$lang['global:plugins']					= 'Plugins';
+$lang['global:plugin']					= 'Plugin';
+
 $lang['global:keywords']				= 'Keywords'; #translate
 
 /* End of file main_lang.php */

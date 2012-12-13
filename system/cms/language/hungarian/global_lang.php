@@ -90,6 +90,12 @@ $lang['global:empty']                           = 'Ürít';
 $lang['global:delete']                          = 'Töröl';
 $lang['global:remove']                          = 'Eltávolít';
 
+$lang['global:widgets']					= 'Widgets';
+$lang['global:themes']					= 'Themes'; #translate
+$lang['global:field_types']				= 'Field Types';
+$lang['global:plugins']					= 'Plugins';
+$lang['global:plugin']					= 'Plugin';
+
 $lang['global:keywords']                        = 'Kulcsszavak';
 
 /* End of file global_lang.php */
