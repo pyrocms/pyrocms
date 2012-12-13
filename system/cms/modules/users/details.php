@@ -282,7 +282,8 @@ class Module_Users extends Module {
 				'module' => 'users',
 				'order' => 962,
 			),
-			'activation_email' => array(
+			array(
+				'slug' => 'activation_email',
 				'title' => 'Activation Email',
 				'description' => 'Send out an e-mail with an activation link when a user signs up. Disable this so that admins must manually activate each account.',
 				'type' => 'select',
