@@ -165,8 +165,8 @@ class Module_Pages extends Module
 				'theme_layout' => array('type' => 'VARCHAR', 'constraint' => 100, 'default' => 'default'),
 				'updated_on' => array('type' => 'INT', 'constraint' => 11),
 	            'save_as_files'     => array('type' => 'CHAR', 'constraint' => 1, 'default' => 'n'),
-	            'content_label'     => array('type' => 'VARCHAR', 'constraint' => 60),
-	            'title_label'     => array('type' => 'VARCHAR', 'constraint' => 100)
+	            'content_label'     => array('type' => 'VARCHAR', 'constraint' => 60, 'null' => true),
+	            'title_label'     => array('type' => 'VARCHAR', 'constraint' => 100, 'null' => true)
 			),
 			'pages' => array(
 				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true),
