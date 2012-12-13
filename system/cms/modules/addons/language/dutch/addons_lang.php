@@ -1,6 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['addons:modules'] 						= 'Modules';
+$lang['addons:admin_themes'] 					= 'Admin Themes'; #translate
 $lang['addons:themes'] 							= 'Thema\'s';
 $lang['addons:widgets'] 						= 'Widgets';
 

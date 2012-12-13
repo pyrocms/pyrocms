@@ -1,6 +1,7 @@
 <?php
 
 $lang['addons:modules'] 						= 'Modulok';
+$lang['addons:admin_themes'] 					= 'Admin Themes'; #translate
 $lang['addons:themes'] 							= 'Sablonok';
 $lang['addons:widgets'] 						= 'Widget-ek';
 
