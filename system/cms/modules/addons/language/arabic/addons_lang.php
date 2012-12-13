@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['addons:modules'] 						= 'الوحدات';
-$lang['addons:admin_themes'] 					= 'Admin Themes'; #translate
+$lang['addons:admin_themes'] 					= 'سمات الإدارة';
 $lang['addons:themes'] 							= 'السّمات';
 $lang['addons:widgets'] 						= 'الودجت';
 
