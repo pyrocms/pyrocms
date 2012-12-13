@@ -55,17 +55,13 @@ class Plugin_Navigation extends Plugin
 		static $current_link = false;
 		static $level = 0;
 
-		$top       = $this->attribute('top', false);
-		$separator = $this->attribute('separator', '');
-		                               //deprecated
-		$link_class = $this->attribute('link-class', $this->attribute('link_class', ''));
-		                                  //deprecated
-		$more_class    = $this->attribute('more-class', $this->attribute('more_class', 'has_children'));
+		$top           = $this->attribute('top', false);
+		$separator     = $this->attribute('separator', '');
+		$link_class    = $this->attribute('link_class', '');
+		$more_class    = $this->attribute('more_class', 'has_children');
 		$current_class = $this->attribute('class', 'current');
-		                                  //deprecated
-		$first_class   = $this->attribute('first-class', 'first');
-		                                  //deprecated
-		$last_class    = $this->attribute('last-class', 'last');
+		$first_class   = $this->attribute('first_class', 'first');
+		$last_class    = $this->attribute('last_class', 'last');
 		$output        = $return_arr ? array() : '';
 		$wrap          = $this->attribute('wrap');
 		$i             = 1;
@@ -73,9 +69,8 @@ class Plugin_Navigation extends Plugin
 
 		if ( ! $return_arr )
 		{
-			$tag = $this->attribute('tag', 'li');
-			                             //deprecated
-			$list_tag = $this->attribute('list-tag', $this->attribute('list_tag', 'ul'));
+			$tag      = $this->attribute('tag', 'li');
+			$list_tag = $this->attribute('list_tag', 'ul');
 
 			switch ($this->attribute('indent'))
 			{
@@ -199,8 +194,7 @@ class Plugin_Navigation extends Plugin
 			}
 			else
 			{
-				                                                             //deprecated
-				$add_first_tag = $level === 0 && ! in_array($this->attribute('items-only', $this->attribute('items_only', 'true')), array('1', 'y', 'yes', 'true'));
+				$add_first_tag = $level === 0 && ! in_array($this->attribute('items_only', 'true'), array('1', 'y', 'yes', 'true'));
 
 				// render and indent or only render inline?
 				if ( $indent )
