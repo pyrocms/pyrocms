@@ -54,7 +54,7 @@ class Theme_Default extends Theme {
 				break;
 		}
 
-		Settings::set('theme_default', compact('cufon_enabled', 'cufon_font'));
+		Settings::temp('theme_default', compact('cufon_enabled', 'cufon_font'));
 	}
 }
 
