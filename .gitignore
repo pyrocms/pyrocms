@@ -51,3 +51,7 @@ addons/shared_addons/plugins/*
 addons/shared_addons/field_types/*
 !addons/shared_addons/field_types/index.html
 system/cms/config/config.php
+
+installer/assets/config/config.php
+
+installer/assets/config/config.php
