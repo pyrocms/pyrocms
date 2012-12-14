@@ -274,23 +274,26 @@ class Pages extends Public_Controller
 			true
 		);*/
 
-		// Add our page and page layout CSS
-		if ($page->layout->css or $page->css)
+		// make it possible to use {{ asset:inline_css }} #foo { color: red } {{ /asset:inline_css }}
+		// to output css via the {{ asset:render_inline_css }} tag. This is most useful for JS
+		$css = $this->parser->parse_string($page->layout->css.$page->css, $this, true);
+
+		// there may not be any css (for sure after parsing Lex tags)
+		if ($css)
 		{
 			$this->template->append_metadata('
 				<style type="text/css">
-					'.$page->layout->css.'
-					'.$page->css.'
+					'.$css.'
 				</style>', 'late_header');
 		}
 
+		$js = $this->parser->parse_string($page->layout->js.$page->js, $this, true);
 		// Add our page and page layout JS
-		if ($page->layout->js or $page->js)
+		if ($js)
 		{
 			$this->template->append_metadata('
 				<script type="text/javascript">
-					'.$page->layout->js.'
-					'.$page->js.'
+					'.$js.'
 				</script>');
 		}
 
