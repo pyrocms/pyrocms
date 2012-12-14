@@ -218,6 +218,8 @@ jQuery(function($){
 		// otherwise hide that booger
 		if ( e.type == 'contextmenu' )
 		{
+			$('.tipsy').remove();
+			
 			$context_menu_source
 				.fadeIn('fast')
 				.position({
@@ -840,7 +842,7 @@ jQuery(function($){
 			// file or folder?
 			type = pyro.files.$last_r_click.hasClass('file') ? 'file' : 'folder',
 			// figure out the ID from the last clicked item
-			$item_id = pyro.files.$last_r_click.attr('data-id') > 0 ? pyro.files.$last_r_click.attr('data-id') : pyro.files.current_level,
+			$item_id = pyro.files.$last_r_click.attr('data-id').length > 0 ? pyro.files.$last_r_click.attr('data-id') : pyro.files.current_level,
 			// retrieve all the data that was stored when the item was initially loaded
 			$item = $(window).data(type+'_'+$item_id),
 			$select = $item_details.find('.location'); // end var
