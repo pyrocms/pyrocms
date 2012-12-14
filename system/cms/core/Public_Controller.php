@@ -24,7 +24,7 @@ class Public_Controller extends MY_Controller
 			$this->load->model('redirects/redirect_m');
 			$uri = trim(uri_string(), '/');
 
-			if ($redirect = $this->redirect_m->get_from($uri))
+			if ($uri and $redirect = $this->redirect_m->get_from($uri))
 			{
 				// Check if it was direct match
 				if ($redirect->from == $uri)

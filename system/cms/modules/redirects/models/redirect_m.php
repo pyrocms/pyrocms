@@ -23,26 +23,14 @@ class Redirect_m extends MY_Model
 
 	public function get_from($from)
 	{
-		//$this->db->where('site_id', $this->site->id);
-		// Reverse like query
-		$redirects_table = $this->db->dbprefix('redirects');
-		if ($this->db->platform() == 'mysql')
-		{
-			$data = $this->db->query("SELECT * FROM (`$redirects_table`) WHERE ? LIKE $redirects_table.from", 
-				array($from))->row();
-		}
-		// Postgres version * Not tested *
-		else
-		{
-			$data = $this->db->query("SELECT * FROM $redirects_table WHERE ? LIKE $redirects_table.from",
-				array($from))->row();
-		}
-		return $data;
+		return $this->db
+			->like('from', $from, 'none')
+			->get($this->_table)
+			->row();
 	}
 
 	public function count_all()
 	{
-		//$this->db->where('site_id', $this->site->id);
 		return $this->db->count_all_results('redirects');
 	}
 
@@ -52,7 +40,6 @@ class Redirect_m extends MY_Model
 			'`type`' => $input['type'],
 			'`from`' => str_replace('*', '%', $input['from']),
 			'`to`' => trim($input['to'], '/'),
-		//	'site_id' => $this->site->id
 		));
 	}
 
@@ -60,7 +47,6 @@ class Redirect_m extends MY_Model
 	{
 		$this->db->where(array(
 			'id' => $id,
-		//	'site_id' => $this->site->id
 		));
 
 		return $this->db->update('redirects', array(
@@ -74,7 +60,6 @@ class Redirect_m extends MY_Model
 	{
 		return $this->db->delete('redirects', array(
 			'id' => $id,
-		//	'site_id' => $this->site->id
 		));
 	}
 
@@ -88,7 +73,6 @@ class Redirect_m extends MY_Model
 
 		return $this->db->where(array(
 			'`from`' =>  str_replace('*', '%', $from),
-		//	'site_id' => $this->site->id
 		))->count_all_results('redirects');
 	}
 }
