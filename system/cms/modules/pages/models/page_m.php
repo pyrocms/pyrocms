@@ -219,7 +219,7 @@ class Page_m extends MY_Model
 			{
 				if ($entry = $this->streams->entries->get_entry($page->entry_id, $stream->stream_slug, $stream->stream_namespace))
 				{
-					$page = (object) array_merge((array)$page, (array)$entry);
+					$page = (object) array_merge((array)$entry, (array)$page);
 				}
 			}
 		}
