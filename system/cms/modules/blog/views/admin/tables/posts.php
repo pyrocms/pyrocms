@@ -34,13 +34,13 @@
 					<td><?php echo lang('blog:'.$post->status.'_label') ?></td>
 					<td style="padding-top:10px;">
                         <?php if($post->status=='live') : ?>
-							<a href="<?php site_url('blog/'.date('Y/m', $post->created_on).'/'.$post->slug) ?>" title="<?php echo lang('global:view')?>" class="icon-search ti" target="_blank" style="margin-right:8px;"></a>
+							<a href="<?php echo site_url('blog/'.date('Y/m', $post->created_on).'/'.$post->slug) ?>" title="<?php echo lang('global:view')?>" class="icon-search ti" target="_blank" style="margin-right:8px;"></a>
                         <?php else: ?>
-							<a href="<?php site_url('blog/preview/' . $post->preview_hash) ?>" title="<?php echo lang('global:preview')?>" class="icon-search ti" target="_blank" style="margin-right:8px;"></a>
+							<a href="<?php echo site_url('blog/preview/' . $post->preview_hash) ?>" title="<?php echo lang('global:preview')?>" class="icon-search ti" target="_blank" style="margin-right:8px;"></a>
                         <?php endif ?>
 						<?php site_url('admin/blog/edit/' . $post->id) ?>
-						<a href="<?php site_url('admin/blog/edit/' . $post->id) ?>" title="<?php echo lang('global:edit')?>" class="icon-edit edit ti" style="margin-right:6px;"></a>
-						<a href="<?php site_url('admin/blog/delete/' . $post->id) ?>" title="<?php echo lang('global:delete')?>" class="icon-remove confirm delete ti"></a>
+						<a href="<?php echo site_url('admin/blog/edit/' . $post->id) ?>" title="<?php echo lang('global:edit')?>" class="icon-edit edit ti" style="margin-right:6px;"></a>
+						<a href="<?php echo site_url('admin/blog/delete/' . $post->id) ?>" title="<?php echo lang('global:delete')?>" class="icon-remove confirm delete ti"></a>
 					</td>
 				</tr>
 			<?php endforeach ?>
