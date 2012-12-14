@@ -86,9 +86,9 @@ class Module_Pages extends Module
 			),
 		);
 
-		// We check that the table exists
+		// We check that the table exists (only when in the admin controller)
 		// to avoid any pre 109 migration module class spawning issues.
-		if ( ! class_exists('Module_import') and $this->db->table_exists('page_types'))
+		if (class_exists('Admin_controller') and $this->db->table_exists('page_types'))
 		{
 			// Shortcuts for New page
 
@@ -165,8 +165,8 @@ class Module_Pages extends Module
 				'theme_layout' => array('type' => 'VARCHAR', 'constraint' => 100, 'default' => 'default'),
 				'updated_on' => array('type' => 'INT', 'constraint' => 11),
 	            'save_as_files'     => array('type' => 'CHAR', 'constraint' => 1, 'default' => 'n'),
-	            'content_label'     => array('type' => 'VARCHAR', 'constraint' => 60),
-	            'title_label'     => array('type' => 'VARCHAR', 'constraint' => 100)
+	            'content_label'     => array('type' => 'VARCHAR', 'constraint' => 60, 'null' => true),
+	            'title_label'     => array('type' => 'VARCHAR', 'constraint' => 100, 'null' => true)
 			),
 			'pages' => array(
 				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true),

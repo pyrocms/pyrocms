@@ -1,6 +1,7 @@
 <?php
 
 $lang['addons:modules'] 						= 'Moduli';
+$lang['addons:admin_themes'] 					= 'Admin Themes'; #translate
 $lang['addons:themes'] 							= 'Predloge';
 $lang['addons:widgets'] 						= 'Vtičniki';
 

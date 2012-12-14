@@ -83,12 +83,8 @@ class Pages extends Public_Controller
 	 */
 	public function _page($url_segments)
 	{
-		$page = ($url_segments !== null)
-
-			// Fetch this page from the database via cache
-			? $this->pyrocache->model('page_m', 'get_by_uri', array($url_segments, true))
-
-			: $this->pyrocache->model('page_m', 'get_home');
+		// GET THE PAGE ALREADY. In the event of this being the home page $url_segments will be null
+		$page = $this->pyrocache->model('page_m', 'get_by_uri', array($url_segments, true));
 
 		// If page is missing or not live (and not an admin) show 404
 		if ( ! $page or ($page->status == 'draft' and ( ! isset($this->current_user->group) or $this->current_user->group != 'admin')))
@@ -163,13 +159,6 @@ class Pages extends Public_Controller
 			$this->template->append_metadata('<link rel="alternate" type="application/rss+xml" title="'.$page->meta_title.'" href="'.site_url(uri_string().'.rss').'" />');
 		}
 
-		// Wrap the page with a page layout, otherwise use the default 'Home' layout
-		if ( ! $page->layout = $this->page_type_m->get($page->type_id))
-		{
-			// Some pillock deleted the page layout, use the default and pray to god they didnt delete that too
-			$page->layout = $this->page_type_m->get(1);
-		}
-
 		// Set pages layout files in your theme folder
 		if ($this->template->layout_exists($page->uri.'.html'))
 		{
@@ -185,57 +174,6 @@ class Pages extends Public_Controller
 			$this->template->set_layout($page->layout->theme_layout);
 		}
 
-		$page_data = new stdClass();
-
-		// This is our basic page data ({{ page:title }}, etc.)
-		$page_data->page = $page;
-
-		// ---------------------------------
-		// Legacy Page Chunks Logic
-		// ---------------------------------
-		// This is here so upgrades will not
-		// break entire sites. We can get rid
-		// of this in a newer version.
-		// ---------------------------------
-
-		if ($this->db->table_exists('page_chunks'))
-		{
-			$page->chunks = $this->page_m->get_chunks($page->id);
-			$chunk_html = '';
-			foreach ($page->chunks as $chunk)
-			{
-				$chunk_html .= '<section id="'.$chunk->slug.'" class="page-chunk '.$chunk->class.'">'.
-					'<div class="page-chunk-pad">'.
-					(($chunk->type == 'markdown') ? $chunk->parsed : $chunk->body).
-					'</div>'.
-					'</section>'.PHP_EOL;
-			}
-			$page_data->page->body = $chunk_html;
-		}
-
-		// ---------------------------------
-		// Get Stream Entry
-		// ---------------------------------
-
-		if ($page->entry_id and $page->layout->stream_id)
-		{
-			$this->load->driver('Streams');
-
-			// Get Streams
-			$stream = $this->streams_m->get_stream($page->layout->stream_id);
-
-			if ($stream)
-			{
-				if ($entry = $this->streams->entries->get_entry($page->entry_id, $stream->stream_slug, $stream->stream_namespace))
-				{
-					$page_data = (object) array_merge((array) $page_data, (array) $entry);
-
-					// Bump title up
-					$page_data->title = $page_data->page->title;
-				}
-			}
-		}
-
 		// ---------------------------------
 		// Metadata
 		// ---------------------------------
@@ -243,13 +181,19 @@ class Pages extends Public_Controller
 		// First we need to figure out our metadata. If we have meta for our page,
 		// that overrides the meta from the page layout.
 		$meta_title = ($page->meta_title ? $page->meta_title : $page->layout->meta_title);
-		$meta_keywords = ($page->meta_keywords ? Keywords::get_string($page->meta_keywords) : Keywords::get_string($page->layout->meta_keywords));
 		$meta_description = ($page->meta_description ? $page->meta_description : $page->layout->meta_description);
+		$meta_keywords = '';
+		if ($page->meta_keywords or $page->layout->meta_description)
+		{
+			$meta_keywords = $page->meta_keywords ? 
+								Keywords::get_string($page->meta_keywords) : 
+								Keywords::get_string($page->layout->meta_keywords);
+		}
 
 		// They will be parsed later, when they are set for the template library.
 
 		// Not got a meta title? Use slogan for homepage or the normal page title for other pages
-		if ($meta_title == '')
+		if ( ! $meta_title)
 		{
 			$meta_title = $page->is_home ? $this->settings->site_slogan : $page->title;
 		}
@@ -258,39 +202,31 @@ class Pages extends Public_Controller
 
 		// We do this before parsing the page contents so that 
 		// title, meta, & breadcrumbs can be overridden with tags in the page content
-		$this->template->title($this->parser->parse_string($meta_title, $page_data, true))
-			->set_metadata('keywords', $this->parser->parse_string($meta_keywords, $page_data, true))
-			->set_metadata('description', $this->parser->parse_string($meta_description, $page_data, true))
+		$this->template->title($this->parser->parse_string($meta_title, $page, true))
+			->set_metadata('keywords', $this->parser->parse_string($meta_keywords, $page, true))
+			->set_metadata('description', $this->parser->parse_string($meta_description, $page, true))
 			->set_breadcrumb($page->title);
 
-		// Parse the tag layout structure
-		// This is now legacy
-		/*$page->layout->body = $this->parser->parse_string(
-			// replace encoding by WYSIWYG
-			str_replace(array('&#39;', '&quot;'), array("'", '"'), $page->layout->body),
-			// pass along $page and $theme so that {{ page:id }} and friends work in page content
-			array('theme' => $this->theme, $page_data),
-			// return the string
-			true
-		);*/
+		// make it possible to use {{ asset:inline_css }} #foo { color: red } {{ /asset:inline_css }}
+		// to output css via the {{ asset:render_inline_css }} tag. This is most useful for JS
+		$css = $this->parser->parse_string($page->layout->css.$page->css, $this, true);
 
-		// Add our page and page layout CSS
-		if ($page->layout->css or $page->css)
+		// there may not be any css (for sure after parsing Lex tags)
+		if ($css)
 		{
 			$this->template->append_metadata('
 				<style type="text/css">
-					'.$page->layout->css.'
-					'.$page->css.'
+					'.$css.'
 				</style>', 'late_header');
 		}
 
+		$js = $this->parser->parse_string($page->layout->js.$page->js, $this, true);
 		// Add our page and page layout JS
-		if ($page->layout->js or $page->js)
+		if ($js)
 		{
 			$this->template->append_metadata('
 				<script type="text/javascript">
-					'.$page->layout->js.'
-					'.$page->js.'
+					'.$js.'
 				</script>');
 		}
 
@@ -312,10 +248,10 @@ class Pages extends Public_Controller
 			log_message('error', 'Page Missing: '.$this->uri->uri_string());
 
 			// things behave a little differently when called by MX from MY_Exceptions' show_404()
-			exit($this->template->build('pages/page', $page_data, false, false));
+			exit($this->template->build('pages/page', array('page' => $page), false, false));
 		}
 
-		$this->template->build('page', $page_data, false, false);
+		$this->template->build('page', array('page' => $page), false, false);
 	}
 
     // --------------------------------------------------------------------------

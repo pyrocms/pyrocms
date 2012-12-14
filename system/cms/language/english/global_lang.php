@@ -106,7 +106,8 @@ $lang['global:and']						= 'and';
 $lang['global:at']						= 'at';
 
 $lang['global:widgets']					= 'Widgets';
-$lang['global:fieldtypes']				= 'Field Types';
+$lang['global:themes']					= 'Themes'; #translate
+$lang['global:field_types']				= 'Field Types';
 $lang['global:plugins']					= 'Plugins';
 $lang['global:plugin']					= 'Plugin';
 

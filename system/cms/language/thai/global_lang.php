@@ -102,6 +102,12 @@ $lang['global:empty']					= 'ว่างเปล่า';
 $lang['global:delete']					= 'ลบ';
 $lang['global:remove']					= 'เอาออก';
 
+$lang['global:widgets']					= 'Widgets';
+$lang['global:themes']					= 'Themes'; #translate
+$lang['global:field_types']				= 'Field Types';
+$lang['global:plugins']					= 'Plugins';
+$lang['global:plugin']					= 'Plugin';
+
 $lang['global:keywords']				= 'คำหลัก';
 
 /* End of file main_lang.php */

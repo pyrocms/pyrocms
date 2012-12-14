@@ -91,6 +91,12 @@ $lang['global:add'] = 'Lägg till';
 $lang['global:edit'] = 'Redigera';
 $lang['global:empty'] = 'Tom';
 $lang['global:remove'] = 'Ta bort';
+$lang['global:widgets']					= 'Widgets';
+$lang['global:themes']					= 'Themes'; #translate
+$lang['global:field_types']				= 'Field Types';
+$lang['global:plugins']					= 'Plugins';
+$lang['global:plugin']					= 'Plugin';
+
 $lang['global:keywords'] = 'Nyckelord';
 $lang['global:or'] = 'eller';
 $lang['global:and'] = 'och';

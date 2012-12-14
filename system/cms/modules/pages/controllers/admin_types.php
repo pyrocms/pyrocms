@@ -483,7 +483,10 @@ class Admin_types extends Admin_Controller
 		$extra = array(
 			'title'			=> $stream->stream_name.' : '.lang('streams.new_field')
 		);
-		$this->streams->cp->field_form($stream->stream_slug, $stream->stream_namespace, 'new', 'admin/pages/types/fields/'.$this->uri->segment(5), null, array(), true, $extra);
+
+
+
+		$this->streams->cp->field_form($stream->stream_slug, $stream->stream_namespace, 'new', 'admin/pages/types/fields/'.$this->uri->segment(5), null, array(), true, $extra, array('chunks'));
 	}
 
 	// --------------------------------------------------------------------------

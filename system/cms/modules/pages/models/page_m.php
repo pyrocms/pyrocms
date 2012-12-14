@@ -106,54 +106,127 @@ class Page_m extends MY_Model
 	 */
 	public function get_by_uri($uri, $is_request = false)
 	{
-		// If the URI has been passed as an array, implode to create a string of uri segments
-		is_array($uri) && $uri = trim(implode('/', $uri), '/');
-
-		// $uri gets shortened so we save the original
-		$original_uri = $uri;
-		$page = false;
-		$i = 0;
-
-		while ( ! $page AND $uri AND $i < 15) /* max of 15 in case it all goes wrong (this shouldn't ever be used) */
+		// it's the home page
+		if ($uri === null)
 		{
 			$page = $this->db
-				->where('uri', $uri)
-				->limit(1)
+				->where('is_home', true)
 				->get('pages')
 				->row();
+		}
+		else
+		{
+			// If the URI has been passed as an array, implode to create a string of uri segments
+			is_array($uri) && $uri = trim(implode('/', $uri), '/');
 
-			// if it's not a normal page load (plugin or etc. that is not cached)
-			// then we won't do our recursive search
-			if ( ! $is_request)
+			// $uri gets shortened so we save the original
+			$original_uri = $uri;
+			$page = false;
+			$i = 0;
+
+			while ( ! $page AND $uri AND $i < 15) /* max of 15 in case it all goes wrong (this shouldn't ever be used) */
 			{
-				break;
+				$page = $this->db
+					->where('uri', $uri)
+					->limit(1)
+					->get('pages')
+					->row();
+
+				// if it's not a normal page load (plugin or etc. that is not cached)
+				// then we won't do our recursive search
+				if ( ! $is_request)
+				{
+					break;
+				}
+
+				// if we didn't find a page with that exact uri AND there's more than one segment
+				if ( ! $page and strpos($uri, '/') !== false)
+				{
+					// pop the last segment off and we'll try again
+					$uri = preg_replace('@^(.+)/(.*?)$@', '$1', $uri);
+				}
+				// we didn't find a page and there's only one segment; it's going to 404
+				elseif ( ! $page)
+				{
+					break;
+				}
+				++$i;
 			}
 
-			// if we didn't find a page with that exact uri AND there's more than one segment
-			if ( ! $page and strpos($uri, '/') !== false)
+			if ($page)
 			{
-				// pop the last segment off and we'll try again
-				$uri = preg_replace('@^(.+)/(.*?)$@', '$1', $uri);
+				// so we found a page but if strict uri matching is required and the unmodified
+				// uri doesn't match the page we fetched then we pretend it didn't happen
+				if ($is_request and (bool)$page->strict_uri and $original_uri !== $uri)
+				{
+					return false;
+				}
+
+				// things like breadcrumbs need to know the actual uri, not the uri with extra segments
+				$page->base_uri = $uri;
 			}
-			// we didn't find a page and there's only one segment; it's going to 404
-			elseif ( ! $page)
-			{
-				break;
-			}
-			++$i;
 		}
 
-		if ($page)
-		{
-			// so we found a page but if strict uri matching is required and the unmodified
-			// uri doesn't match the page we fetched then we pretend it didn't happen
-			if ($is_request and (bool)$page->strict_uri and $original_uri !== $uri)
-			{
-				return false;
-			}
 
-			// things like breadcrumbs need to know the actual uri, not the uri with extra segments
-			$page->base_uri = $uri;
+		// looks like we have a 404
+		if ( ! $page) return false;
+
+
+		// ---------------------------------
+		// Legacy Page Chunks Logic
+		// ---------------------------------
+		// This is here so upgrades will not
+		// break entire sites. We can get rid
+		// of this in a newer version.
+		// ---------------------------------
+
+		if ($this->db->table_exists('page_chunks'))
+		{
+			if ($page->chunks = $this->get_chunks($page->id))
+			{
+				$chunk_html = '';
+				foreach ($page->chunks as $chunk)
+				{
+					$chunk_html .= '<section id="'.$chunk->slug.'" class="page-chunk '.$chunk->class.'">'.
+						'<div class="page-chunk-pad">'.
+						(($chunk->type == 'markdown') ? $chunk->parsed : $chunk->body).
+						'</div>'.
+						'</section>'.PHP_EOL;
+				}
+				$page->body = $chunk_html;
+			}
+		}
+
+		// ---------------------------------
+		// End Legacy Logic
+		// ---------------------------------
+
+
+		// Wrap the page with a page layout, otherwise use the default 'Home' layout
+		if ( ! $page->layout = $this->page_type_m->get($page->type_id))
+		{
+			// Some pillock deleted the page layout, use the default and pray to god they didnt delete that too
+			$page->layout = $this->page_type_m->get(1);
+		}
+
+		// ---------------------------------
+		// Get Stream Entry
+		// ---------------------------------
+
+		if ($page->entry_id and $page->layout->stream_id)
+		{
+			$this->load->driver('Streams');
+
+			// Get Streams
+			$stream = $this->streams_m->get_stream($page->layout->stream_id);
+
+			if ($stream)
+			{
+				if ($entry = $this->streams->entries->get_entry($page->entry_id, $stream->stream_slug, $stream->stream_namespace))
+				{
+					$page = (object) array_merge((array)$entry, (array)$page);
+				}
+			}
 		}
 
 		return $page;
@@ -222,6 +295,8 @@ class Page_m extends MY_Model
 	/**
 	 * Get the home page
 	 *
+	 * @DEPRECATED
+	 * 
 	 * @return object
 	 */
 	public function get_home()
@@ -331,6 +406,8 @@ class Page_m extends MY_Model
 
 	/**
 	 * Return page chunks
+	 *
+	 * @DEPRECATED
 	 *
 	 * @return array An array containing all chunks for a page
 	 */
@@ -495,14 +572,18 @@ class Page_m extends MY_Model
 		if (isset($input['navigation_group_id']) and count($input['navigation_group_id']) > 0)
 		{
 			$this->load->model('navigation/navigation_m');
-			foreach ($input['navigation_group_id'] as $group_id)
+
+			if (isset($input['navigation_group_id']) and is_array($input['navigation_group_id']))
 			{
-				$this->navigation_m->insert_link(array(
-					'title'					=> $input['title'],
-					'link_type'				=> 'page',
-					'page_id'				=> $id,
-					'navigation_group_id'	=> $group_id
-				));
+				foreach ($input['navigation_group_id'] as $group_id)
+				{
+					$this->navigation_m->insert_link(array(
+						'title'					=> $input['title'],
+						'link_type'				=> 'page',
+						'page_id'				=> $id,
+						'navigation_group_id'	=> $group_id
+					));
+				}
 			}
 		}
 
@@ -511,9 +592,8 @@ class Page_m extends MY_Model
 		{
 			$this->load->driver('Streams');
 
-			// Insert the stream using the streams driver. Our only extra field is the page_id
-			// which links this particular entry to our page.
-			if ($entry_id = $this->streams->entries->insert_entry($input, $stream->stream_slug, $stream->stream_namespace, array()))
+			// Insert the stream using the streams driver.
+			if ($entry_id = $this->streams->entries->insert_entry($input, $stream->stream_slug, $stream->stream_namespace))
 			{
 				// Update with our new entry id
 				if ( ! $this->db->limit(1)->where('id', $id)->update($this->_table, array('entry_id' => $entry_id)))

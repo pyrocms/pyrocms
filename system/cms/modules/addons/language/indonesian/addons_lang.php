@@ -1,6 +1,7 @@
 <?php
 
 $lang['addons:modules'] 						= 'Modul';
+$lang['addons:admin_themes'] 					= 'Admin Themes'; #translate
 $lang['addons:themes'] 							= 'Tema';
 $lang['addons:widgets'] 						= 'Widget';
 

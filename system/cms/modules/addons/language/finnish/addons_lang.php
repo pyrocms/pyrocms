@@ -6,6 +6,7 @@
  */
 
 $lang['addons:modules'] 						= 'Moduulit';
+$lang['addons:admin_themes'] 					= 'Admin Themes'; #translate
 $lang['addons:themes'] 							= 'Teemat';
 $lang['addons:widgets'] 						= 'Widgetit';
 

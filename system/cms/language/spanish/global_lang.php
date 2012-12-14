@@ -99,4 +99,10 @@ $lang['global:empty']					= 'Vaciar';
 $lang['global:delete']			        = 'Eliminar';
 $lang['global:remove']			        = 'Eliminar';
 
+$lang['global:widgets']					= 'Widgets';
+$lang['global:themes']					= 'Themes'; #translate
+$lang['global:field_types']				= 'Field Types';
+$lang['global:plugins']					= 'Plugins';
+$lang['global:plugin']					= 'Plugin';
+
 $lang['global:keywords']		        = 'Palabras claves';

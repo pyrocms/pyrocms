@@ -30,7 +30,7 @@ class Theme_Default extends Theme {
 
 	public function __construct()
 	{
-		$supported_lang	= Settings::get('supported_languages');
+		$supported_lang	= config_item('supported_languages');
 
 		$cufon_enabled	= $supported_lang[CURRENT_LANGUAGE]['direction'] !== 'rtl';
 		$cufon_font		= 'qk.font.js';
@@ -54,7 +54,7 @@ class Theme_Default extends Theme {
 				break;
 		}
 
-		Settings::set('theme_default', compact('cufon_enabled', 'cufon_font'));
+		Settings::temp('theme_default', compact('cufon_enabled', 'cufon_font'));
 	}
 }
 

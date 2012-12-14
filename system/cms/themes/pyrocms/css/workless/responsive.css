@@ -254,8 +254,6 @@
 	nav#primary { display: inherit; }
 	nav#primary .chzn-container { display: none; }
 
-	.topbar, .subbar, .sections_bar {position: fixed;}
-
 	.wrapper {
 		width: 750px;
 		margin: 0 auto;

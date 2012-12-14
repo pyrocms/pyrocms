@@ -94,6 +94,12 @@ $lang['global:empty']					= 'فارغ';
 $lang['global:delete']					= 'حذف';
 $lang['global:remove']					= 'إزالة';
 
+$lang['global:widgets']					= 'الودجتس';
+$lang['global:themes']					= 'السّمات';
+$lang['global:field_types']				= 'أنواع الحقول';
+$lang['global:plugins']					= 'الإضافات';
+$lang['global:plugin']					= 'الإضافة';
+
 $lang['global:keywords']				= 'كلمات البحث';
 
 /* End of file main_lang.php */

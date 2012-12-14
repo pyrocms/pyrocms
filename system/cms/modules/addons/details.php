@@ -75,7 +75,7 @@ class Module_Addons extends Module
 					'uri' => 'admin/addons/modules',
 				),
 				'themes' => array(
-					'name' => 'addons:themes',
+					'name' => 'global:themes',
 					'uri' => 'admin/addons/themes',
 				),
 				'plugins' => array(
@@ -85,6 +85,10 @@ class Module_Addons extends Module
 				'widgets' => array(
 					'name' => 'global:widgets',
 					'uri' => 'admin/addons/widgets',
+				),
+				'field_types' => array(
+					'name' => 'global:field_types',
+					'uri' => 'admin/addons/field-types',
 				),
 			),
 		);
@@ -116,9 +120,10 @@ class Module_Addons extends Module
 	{
 		$menu['lang:cp_nav_addons'] = array(
 			'lang:cp_nav_modules'			=> 'admin/addons',
+			'lang:global:themes'			=> 'admin/addons/themes',
 			'lang:global:plugins'			=> 'admin/addons/plugins',
 			'lang:global:widgets'			=> 'admin/addons/widgets',
-			'lang:global:fieldtypes'		=> 'admin/addons/fieldtypes'
+			'lang:global:field_types'		=> 'admin/addons/field-types'
 		);
 
 		add_admin_menu_place('lang:cp_nav_addons', 6);

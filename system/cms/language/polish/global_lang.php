@@ -90,6 +90,12 @@ $lang['global:empty']					= 'Wyczyść';
 $lang['global:delete']					= 'Usuń';
 $lang['global:remove']					= 'Usuń';
 
+$lang['global:widgets']					= 'Widgets';
+$lang['global:themes']					= 'Themes'; #translate
+$lang['global:field_types']				= 'Field Types';
+$lang['global:plugins']					= 'Plugins';
+$lang['global:plugin']					= 'Plugin';
+
 $lang['global:keywords']				= 'Słowa kluczowe';
 
 $lang['global:or']						= 'lub';

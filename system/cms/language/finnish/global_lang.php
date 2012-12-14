@@ -92,6 +92,12 @@ $lang['global:edit']                    = 'Muokkaa';
 $lang['global:remove']                  = 'Poista';
 $lang['global:delete']                  = 'Poista';
 
+$lang['global:widgets']					= 'Widgets';
+$lang['global:themes']					= 'Themes'; #translate
+$lang['global:field_types']				= 'Field Types';
+$lang['global:plugins']					= 'Plugins';
+$lang['global:plugin']					= 'Plugin';
+
 $lang['global:keywords']				= 'Avainsanat';
 
 /* End of file main_lang.php */

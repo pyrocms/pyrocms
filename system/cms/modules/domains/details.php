@@ -50,7 +50,7 @@ class Module_Domains extends Module
 		if ( ! $this->db->table_exists('core_domains'))
 		{
 			$result = $this->db->query('	
-				CREATE TABLE `core_domains` (
+				CREATE TABLE IF NOT EXISTS `core_domains` (
 				  `id` int NOT NULL AUTO_INCREMENT,
 				  `domain` varchar(100) NOT NULL,
 				  `site_id` int NOT NULL,
