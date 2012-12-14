@@ -48,7 +48,8 @@
 		}
 		else
 		{
-			echo anchor('admin/pages/create?parent='.$page->id, lang('pages:create_label'), 'class="button"');
+			$type_id = $this->db->select('id')->limit(1)->get('page_types')->row()->id;
+			echo anchor('admin/pages/create?parent='.$page->id.'&page_type='.$type_id, lang('pages:create_label'), 'class="button"');
 		}
 
 	?>
