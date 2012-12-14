@@ -38,9 +38,8 @@
                         <?php else: ?>
 							<a href="<?php echo site_url('blog/preview/' . $post->preview_hash) ?>" title="<?php echo lang('global:preview')?>" class="icon-search ti" target="_blank" style="margin-right:8px;"></a>
                         <?php endif ?>
-						<?php site_url('admin/blog/edit/' . $post->id) ?>
 						<a href="<?php echo site_url('admin/blog/edit/' . $post->id) ?>" title="<?php echo lang('global:edit')?>" class="icon-edit edit ti" style="margin-right:6px;"></a>
-						<a href="<?php echo site_url('admin/blog/delete/' . $post->id) ?>" title="<?php echo lang('global:delete')?>" class="icon-remove confirm delete ti"></a>
+						<a href="<?php echo site_url('admin/blog/delete/' . $post->id) ?>" class="icon-remove confirm delete ti"></a>
 					</td>
 				</tr>
 			<?php endforeach ?>
