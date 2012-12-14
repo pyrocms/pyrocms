@@ -9,6 +9,23 @@ jQuery(function($){
 	pyro.files.timeout = {};
 	pyro.files.current_level = 0;
 
+	// custom tooltips
+	$('.files-tooltip').tipsy({
+		gravity: 'n',
+		fade: true,
+		html: true,
+		live: true,
+		delayIn: 300,
+		delayOut: 300,
+		title: function() { 
+			var text = $(this).find('span').html();
+			if (text.length > 15) {
+				return text;
+			}
+			return '';
+		}
+	});
+
 	// Default button set
 	$('.item .folders-center').trigger('click');
 
@@ -621,7 +638,8 @@ jQuery(function($){
 				};
 
 				// so let's wipe it clean...
-				$('.folders-center ').find('li').fadeOut('fast').remove();
+				$('.folders-center').find('li').fadeOut('fast').remove();
+				$('.tipsy').remove();
 
 				// iterate so that we have folders first, files second
 				$.each(results.data, function(type, data){
@@ -649,7 +667,7 @@ jQuery(function($){
 					}
 
 					$folders_center.append(
-						'<li class="'+item.el_type+' '+(item.el_type === 'file' ? 'type-'+item.type : '')+'" data-id="'+item.id+'" data-name="'+item.name+'">'+
+						'<li class="files-tooltip '+item.el_type+' '+(item.el_type === 'file' ? 'type-'+item.type : '')+'" data-id="'+item.id+'" data-name="'+item.name+'">'+
 							li_content+
 						'</li>'
 					);
