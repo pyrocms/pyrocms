@@ -158,8 +158,6 @@ class MY_Controller extends MX_Controller
 		// now pick our current module out of the enabled modules array
 		foreach (ci()->enabled_modules as $module)
 		{
-			$current_module = false;
-
 			if ($module['slug'] === $this->module)
 			{
 				// Set meta data for the module to be accessible system wide
@@ -167,6 +165,28 @@ class MY_Controller extends MX_Controller
 
 				continue;
 			}
+		}
+
+		// certain places (such as the Dashboard) we aren't running a module, provide defaults
+		if ( ! $this->module)
+		{
+			$this->module_details = array(
+				'name' => null,
+				'slug' => null,
+				'version' => null,
+				'description' => null,
+				'skip_xss' => null,
+				'is_frontend' => null,
+				'is_backend' => null,
+				'menu' => false,
+				'enabled' => 1,
+				'sections' => array(),
+				'shortcuts' => array(),
+				'is_core' => null,
+				'is_current' => null,
+				'current_version' => null,
+				'updated_on' => null
+			);
 		}
 
 		// If the module is disabled, then show a 404.
