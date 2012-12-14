@@ -119,7 +119,7 @@ class MY_Controller extends MX_Controller
 			$this->lang->load(array('global', 'users/user', 'files/files'));
 		}
 
-		$this->load->library(array('events', 'users/ion_auth'));
+		$this->load->library('users/ion_auth');
 
 		// Use this to define hooks with a nicer syntax
 		ci()->hooks =& $GLOBALS['EXT'];
@@ -146,8 +146,28 @@ class MY_Controller extends MX_Controller
 		// List available module permissions for this user
 		ci()->permissions = $this->permissions = $this->current_user ? $this->permission_m->get_group($this->current_user->group_id) : array();
 
-		// Get meta data for the module
-		$this->template->module_details = ci()->module_details = $this->module_details = $this->module_m->get($this->module);
+		// load all modules (the Events library uses them all) and make their details widely available
+		ci()->enabled_modules = $this->module_m->get_all();
+
+		// now that we have a list of enabled modules
+		$this->load->library('events');
+
+		// set defaults
+		$this->template->module_details = ci()->module_details = $this->module_details = false;
+
+		// now pick our current module out of the enabled modules array
+		foreach (ci()->enabled_modules as $module)
+		{
+			$current_module = false;
+
+			if ($module['slug'] === $this->module)
+			{
+				// Set meta data for the module to be accessible system wide
+				$this->template->module_details = ci()->module_details = $this->module_details = $module;
+
+				continue;
+			}
+		}
 
 		// If the module is disabled, then show a 404.
 		empty($this->module_details['enabled']) AND show_404();
