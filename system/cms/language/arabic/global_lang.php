@@ -94,11 +94,11 @@ $lang['global:empty']					= 'فارغ';
 $lang['global:delete']					= 'حذف';
 $lang['global:remove']					= 'إزالة';
 
-$lang['global:widgets']					= 'Widgets';
-$lang['global:themes']					= 'Themes'; #translate
-$lang['global:field_types']				= 'Field Types';
-$lang['global:plugins']					= 'Plugins';
-$lang['global:plugin']					= 'Plugin';
+$lang['global:widgets']					= 'الودجتس';
+$lang['global:themes']					= 'السّمات';
+$lang['global:field_types']				= 'أنواع الحقول';
+$lang['global:plugins']					= 'الإضافات';
+$lang['global:plugin']					= 'الإضافة';
 
 $lang['global:keywords']				= 'كلمات البحث';
 
