@@ -13,7 +13,7 @@ class Field_keywords
 {
 	public $field_type_slug    = 'keywords';
 	public $db_col_type        = 'varchar';
-	public $version            = '1.1';
+	public $version            = '1.1.0';
 	public $author             = array('name'=>'Osvaldo Brignoni', 'url'=>'http://obrignoni.com');
 	public $custom_parameters  = array('return_type');
 

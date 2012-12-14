@@ -22,7 +22,7 @@ class Widget_Latest_posts extends Widgets
 
 	public $website = 'http://www.nukleo.fr';
 
-	public $version = '1.0';
+	public $version = '1.0.0';
 
 	public $title = array(
 		'en' => 'Latest posts',

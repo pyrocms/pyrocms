@@ -17,7 +17,7 @@ class Field_slug
 
 	public $custom_parameters		= array( 'space_type', 'slug_field' );
 
-	public $version					= '1.0';
+	public $version					= '1.0.0';
 
 	public $author					= array('name'=>'Parse19', 'url'=>'http://parse19.com');
 

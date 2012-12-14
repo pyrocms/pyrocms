@@ -13,7 +13,7 @@ class Widget_Blog_categories extends Widgets
 
 	public $website = 'http://github.com/clip/';
 
-	public $version = '1.0';
+	public $version = '1.0.0';
 
 	public $title = array(
 		'en' => 'Blog Categories',

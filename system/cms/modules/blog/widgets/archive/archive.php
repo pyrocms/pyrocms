@@ -14,7 +14,7 @@ class Widget_Archive extends Widgets
 
 	public $website = 'http://philsturgeon.co.uk/';
 
-	public $version = '1.0';
+	public $version = '1.0.0';
 
 	public $title = array(
 		'en' => 'Archive',
