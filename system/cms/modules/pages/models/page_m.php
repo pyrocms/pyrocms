@@ -567,14 +567,18 @@ class Page_m extends MY_Model
 		if (isset($input['navigation_group_id']) and count($input['navigation_group_id']) > 0)
 		{
 			$this->load->model('navigation/navigation_m');
-			foreach ($input['navigation_group_id'] as $group_id)
+
+			if (isset($input['navigation_group_id']) and is_array($input['navigation_group_id']))
 			{
-				$this->navigation_m->insert_link(array(
-					'title'					=> $input['title'],
-					'link_type'				=> 'page',
-					'page_id'				=> $id,
-					'navigation_group_id'	=> $group_id
-				));
+				foreach ($input['navigation_group_id'] as $group_id)
+				{
+					$this->navigation_m->insert_link(array(
+						'title'					=> $input['title'],
+						'link_type'				=> 'page',
+						'page_id'				=> $id,
+						'navigation_group_id'	=> $group_id
+					));
+				}
 			}
 		}
 
@@ -583,9 +587,8 @@ class Page_m extends MY_Model
 		{
 			$this->load->driver('Streams');
 
-			// Insert the stream using the streams driver. Our only extra field is the page_id
-			// which links this particular entry to our page.
-			if ($entry_id = $this->streams->entries->insert_entry($input, $stream->stream_slug, $stream->stream_namespace, array()))
+			// Insert the stream using the streams driver.
+			if ($entry_id = $this->streams->entries->insert_entry($input, $stream->stream_slug, $stream->stream_namespace))
 			{
 				// Update with our new entry id
 				if ( ! $this->db->limit(1)->where('id', $id)->update($this->_table, array('entry_id' => $entry_id)))

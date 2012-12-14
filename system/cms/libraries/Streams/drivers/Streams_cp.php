@@ -410,7 +410,7 @@ class Streams_cp extends CI_Driver {
 	 *
 	 * see docs for more.
 	 */
-	public function field_form($stream_slug, $namespace, $method = 'new', $return, $assign_id = null, $include_types = array(), $view_override = false, $extra = array())
+	public function field_form($stream_slug, $namespace, $method = 'new', $return, $assign_id = null, $include_types = array(), $view_override = false, $extra = array(), $exclude_types = array())
 	{
 		$CI = get_instance();
 		$data = array();
@@ -421,13 +421,49 @@ class Streams_cp extends CI_Driver {
 		if ( ! $stream) $this->log_error('invalid_stream', 'form');
 
 		// -------------------------------------
+		// Include/Exclude Field Types
+		// -------------------------------------
+		// Allows the inclusion or exclusion of
+		// field types.
+		// -------------------------------------
+
+		if ($include_types)
+		{
+			$ft_types = new stdClass();
+
+			foreach ($CI->type->types as $type)
+			{
+				if (in_array($type->field_type_slug, $include_types))
+				{
+					$ft_types->{$type->field_type_slug} = $type;
+				}
+			}
+		}
+		elseif (count($exclude_types) > 0)
+		{
+			$ft_types = new stdClass();
+
+			foreach ($CI->type->types as $type)
+			{
+				if ( ! in_array($type->field_type_slug, $exclude_types))
+				{
+					$ft_types->{$type->field_type_slug} = $type;
+				}
+			}
+		}
+		else
+		{
+			$ft_types = $CI->type->types;
+		}
+
+		// -------------------------------------
 		// Field Type Assets
 		// -------------------------------------
 		// These are assets field types may
 		// need when adding/editing fields
 		// -------------------------------------
    		
-   		$CI->type->load_field_crud_assets();
+   		$CI->type->load_field_crud_assets($ft_types);
    		
    		// -------------------------------------
         
@@ -435,9 +471,7 @@ class Streams_cp extends CI_Driver {
 		$data['method'] = $method;
 
 		// Get our list of available fields
-		$data['field_types'] = $CI->type->field_types_array(true);
-
-		// @todo - allow including/excluding some fields
+		$data['field_types'] = $CI->type->field_types_array($ft_types);
 
 		// -------------------------------------
 		// Get the field if we have the assignment

@@ -318,7 +318,7 @@ class Fields
 	 */
 	public function run_field_events($stream_fields, $skips = array())
 	{
-		if ( ! $stream_fields or ! is_array($stream_fields)) return array();
+		if ( ! $stream_fields or ( ! is_array($stream_fields) and ! is_object($stream_fields))) return null;
 
 		foreach ($stream_fields as $field)
 		{

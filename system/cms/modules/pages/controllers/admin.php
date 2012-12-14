@@ -184,7 +184,7 @@ class Admin extends Admin_Controller {
 		$page['restricted_to'] = null;
 		$page['navigation_group_id'] = 0;
 
-		$new_page = $this->page_m->create($page);
+		$new_page = $this->page_m->create($page, $this->streams_m->get_stream($page['stream_id']));
 
 		foreach ($children as $child)
 		{
