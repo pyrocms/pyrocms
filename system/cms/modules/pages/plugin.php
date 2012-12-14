@@ -323,12 +323,12 @@ class Plugin_Pages extends Plugin
 
 		if ($child_id and $descendent_id)
 		{
-			if ( !is_numeric($child_id) )
+			if ( ! is_numeric($child_id))
 			{
 				$child_id = ($child = $this->page_m->get_by(array('slug' => $child_id))) ? $child->id : 0;
 			}
 
-			if ( !is_numeric($descendent_id) )
+			if ( ! is_numeric($descendent_id))
 			{
 				$descendent_id = ($descendent = $this->page_m->get_by(array('slug' => $descendent_id))) ? $descendent->id : 0;
 			}
@@ -352,7 +352,7 @@ class Plugin_Pages extends Plugin
 
 			return $parent_id ? (int) $this->page_m->count_by(array(
 				(is_numeric($child_id) ? 'id' : 'slug') => $child_id,
-				                            'parent_id' => $parent_id
+				'parent_id' => $parent_id
 			)) > 0 : false;
 		}
 	}
@@ -471,5 +471,3 @@ class Plugin_Pages extends Plugin
 		return $html;
 	}
 }
-
-/* EOF */

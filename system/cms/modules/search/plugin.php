@@ -103,5 +103,3 @@ class Plugin_Search extends Plugin
     }
 
 }
-
-/* EOF */

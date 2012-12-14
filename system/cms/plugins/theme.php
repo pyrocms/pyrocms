@@ -347,5 +347,3 @@ class Plugin_Theme extends Plugin
 	}
 
 }
-
-/* EOF */

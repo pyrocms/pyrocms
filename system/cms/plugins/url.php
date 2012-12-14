@@ -131,5 +131,3 @@ class Plugin_Url extends Plugin
 	}
 
 }
-
-/* EOF */

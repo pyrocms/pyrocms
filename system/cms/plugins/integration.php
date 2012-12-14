@@ -116,5 +116,3 @@ class Plugin_Integration extends Plugin
 	}
 
 }
-
-/* EOF */

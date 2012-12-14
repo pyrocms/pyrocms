@@ -181,5 +181,3 @@ class Plugin_Template extends Plugin
 	}
 
 }
-
-/* EOF */

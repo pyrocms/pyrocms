@@ -359,5 +359,3 @@ class Plugin_Contact extends Plugin {
 		return false;
 	}
 }
-
-/* EOF */

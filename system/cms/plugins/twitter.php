@@ -81,5 +81,3 @@ class Plugin_Twitter extends Plugin
 	}
 
 }
-
-/* EOF */

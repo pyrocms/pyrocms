@@ -115,5 +115,3 @@ class Plugin_Session extends Plugin
 	}
 
 }
-
-/* EOF */

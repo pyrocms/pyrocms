@@ -49,5 +49,3 @@ class Plugin_Global extends Plugin
 	}
 
 }
-
-/* EOF */

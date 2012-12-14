@@ -368,5 +368,3 @@ class Plugin_User extends Plugin
 	}
 
 }
-
-/* EOF */

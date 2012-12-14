@@ -237,5 +237,3 @@ class Plugin_Helper extends Plugin
 	}
 
 }
-
-/* EOF */

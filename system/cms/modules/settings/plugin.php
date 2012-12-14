@@ -24,5 +24,3 @@ class Plugin_Settings extends Plugin
 		return $this->settings->get($name);
 	}
 }
-
-/* EOF */

@@ -137,5 +137,3 @@ class Plugin_Streams_core extends Plugin
 	}
 
 }
-
-/* EOF */
