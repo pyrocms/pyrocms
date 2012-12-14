@@ -181,8 +181,14 @@ class Pages extends Public_Controller
 		// First we need to figure out our metadata. If we have meta for our page,
 		// that overrides the meta from the page layout.
 		$meta_title = ($page->meta_title ? $page->meta_title : $page->layout->meta_title);
-		$meta_keywords = ($page->meta_keywords ? Keywords::get_string($page->meta_keywords) : Keywords::get_string($page->layout->meta_keywords));
 		$meta_description = ($page->meta_description ? $page->meta_description : $page->layout->meta_description);
+		$meta_keywords = '';
+		if ($page->meta_keywords or $page->layout->meta_description)
+		{
+			$meta_keywords = $page->meta_keywords ? 
+								Keywords::get_string($page->meta_keywords) : 
+								Keywords::get_string($page->layout->meta_keywords);
+		}
 
 		// They will be parsed later, when they are set for the template library.
 
