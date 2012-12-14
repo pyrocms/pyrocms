@@ -86,9 +86,9 @@ class Module_Pages extends Module
 			),
 		);
 
-		// We check that the table exists
+		// We check that the table exists (only when in the admin controller)
 		// to avoid any pre 109 migration module class spawning issues.
-		if ( ! class_exists('Module_import') and $this->db->table_exists('page_types'))
+		if (class_exists('Admin_controller') and $this->db->table_exists('page_types'))
 		{
 			// Shortcuts for New page
 
