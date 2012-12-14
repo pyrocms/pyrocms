@@ -353,7 +353,7 @@ class Plugin_User extends Plugin
 		$user_id = $this->attribute('user_id', null);
 
 		// If we do not have a user id and there is
-		// no currently logge in user, there's nothing we can do
+		// no currently logged in user, there's nothing we can do
 		if (is_null($user_id) and !isset($this->current_user->id))
 		{
 			return null;
@@ -362,8 +362,15 @@ class Plugin_User extends Plugin
 		{
 			// Otherwise, we can use the current user id
 			$user_id = $this->current_user->id;
+
+			// but first, is it data we already have? (such as user:username)
+			if (isset($this->current_user->{$name}))
+			{
+				return $this->current_user->{$name};
+			}
 		}
 
+		// we're fetching a different user than the currently logged in one
 		return $this->get_user_var($name, $user_id);
 	}
 
