@@ -584,7 +584,10 @@ jQuery(function($){
 		var level = pyro.files.current_level,
 			folders = [],
 			files = [],
-			post_data;
+			post_data,
+			i = 0,
+			items = [],
+			content_interval;
 
 		// let them know we're getting the stuff, it may take a second
 		$(window).trigger('show-message', {message: pyro.lang.fetching});
@@ -620,29 +623,41 @@ jQuery(function($){
 				// so let's wipe it clean...
 				$('.folders-center ').find('li').fadeOut('fast').remove();
 
-				// iterate over array('folder' => $folders, 'file' => $files)
+				// iterate so that we have folders first, files second
 				$.each(results.data, function(type, data){
-
 					$.each(data, function(index, item){
-
-						// if it's an image then we set the thumbnail as the content
-						var li_content = '<span class="name-text">'+item.name+'</span>';
-						if (item.type && item.type === 'i') {
-							li_content = '<img src="'+SITE_URL+'files/cloud_thumb/'+item.id+'?' + new Date().getMilliseconds() + '" alt="'+item.name+'"/>'+li_content;
-							//date with Milliseconds is to circumvent browser caching
-						}
-
-						$folders_center.append(
-							'<li class="'+type+' '+(type === 'file' ? 'type-'+item.type : '')+'" data-id="'+item.id+'" data-name="'+item.name+'">'+
-								li_content+
-							'</li>'
-						);
-
-						// save all its details for other uses. The Details window for example
-						$(window).data(type+'_'+item.id, item);
+						item.el_type = type;
+						items.push(item);
 					});
-
 				});
+
+				content_interval = window.setInterval(function(){
+
+					if (typeof(items[i]) == 'undefined') {
+						clearInterval(content_interval);
+
+						return;
+					}
+
+					var item = items[i];
+					i++;
+
+					// if it's an image then we set the thumbnail as the content
+					var li_content = '<span class="name-text">'+item.name+'</span>';
+					if (item.type && item.type === 'i') {
+						li_content = '<img src="'+SITE_URL+'files/cloud_thumb/'+item.id+'" alt="'+item.name+'"/>'+li_content;
+					}
+
+					$folders_center.append(
+						'<li class="'+item.el_type+' '+(item.el_type === 'file' ? 'type-'+item.type : '')+'" data-id="'+item.id+'" data-name="'+item.name+'">'+
+							li_content+
+						'</li>'
+					);
+
+					// save all its details for other uses. The Details window for example
+					$(window).data(item.el_type+'_'+item.id, item);
+
+				}, 150);
 
 				// Toto, we're not in Kansas anymore
 				pyro.files.current_level = folder_id;
