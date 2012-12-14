@@ -40,6 +40,26 @@ class Plugin_Asset extends Plugin
 
 		return Asset::css($file, $file_min, $group);
 	}
+	
+	/**
+	 * Asset Inline CSS
+	 *
+	 * Insert a CSS tag
+	 *
+	 * Usage:
+	 *
+	 * {{ asset:css_inline }}
+	 *   #id .class { background: red }
+	 * {{ /asset:css_inline }}
+	 *
+	 * @return string empty
+	 */
+	public function css_inline()
+	{
+		$string = $this->content();
+		
+		return Asset::css_inline($string);
+	}
 
 	/**
 	 * Asset CSS URL
@@ -155,6 +175,26 @@ class Plugin_Asset extends Plugin
 
 		return Asset::js($file, $file_min, $group);
 	}
+	
+	/**
+	 * Asset Inline JS
+	 *
+	 * Insert a JS tag
+	 *
+	 * Usage:
+	 *
+	 * {{ asset:js_inline }}
+	 *   alert('Are you sure?');
+	 * {{ /asset:js_inline }}
+	 *
+	 * @return string empty
+	 */
+	public function js_inline()
+	{
+		$string = $this->content();
+		
+		return Asset::js_inline($string);
+	}
 
 	/**
 	 * Asset JS URL
@@ -229,6 +269,22 @@ class Plugin_Asset extends Plugin
 	}
 
 	/**
+	 * Asset Render CSS Inline
+	 *
+	 * Render inline CSS.
+	 *
+	 * Usage:
+	 *
+	 * {{ asset:render_css_inline }}
+	 *
+	 * @return string Inline CSS content
+	 */
+	public function render_css_inline()
+	{
+		return Asset::render_css_inline();
+	}
+	
+	/**
 	 * Asset Render Javascript
 	 *
 	 * Render a Javascript asset group.
@@ -245,5 +301,23 @@ class Plugin_Asset extends Plugin
 
 		return Asset::render_js($group);
 	}
+	
+	/**
+	 * Asset Render JS Inline
+	 *
+	 * Render inline JS.
+	 *
+	 * Usage:
+	 *
+	 * {{ asset:render_js_inline }}
+	 *
+	 * @return string Inline JS content
+	 */
+	public function render_js_inline()
+	{
+		return Asset::render_js_inline();
+	}
 
 }
+
+/* EOF */

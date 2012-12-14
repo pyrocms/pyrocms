@@ -10,7 +10,7 @@
  * @author     Antony Male
  * @license    MIT License
  * @copyright  2011 Antony Male
- * @author   Phil Sturgeon
+ * @author     Phil Sturgeon
  * @package    PyroCMS\Core\Libraries\Asset
  */
 class Asset_Exception extends Exception {}
@@ -28,13 +28,13 @@ class Asset {
 		'core' => 'assets/',
 	);
 
-	/*
+	/**
 	 * @var string The key in $asset_paths to use if no key is given
 	 */
 	protected static $default_path_key = 'core';
 
 	/**
-	 * @var string The URL to be prepanded to all assets.
+	 * @var string The URL to be prepended to all assets.
 	 */
 	protected static $asset_url = null;
 
@@ -54,7 +54,7 @@ class Asset {
 	protected static $cache_path = 'assets/cache/';
 
 	/**
-	 * @var array Holds groups of assets. Is documenented fully in the config file.
+	 * @var array Holds groups of assets. Is documented fully in the config file.
 	 */
 	protected static $groups = array(
 		'css' => array(),
@@ -107,7 +107,7 @@ class Asset {
 	 */
 	protected static $post_load_callback = null;
 
-	/*
+	/**
 	 * @var function If given, the function to call when we've decided on the name
 	 *               for a file, but want to allow the user to tweak it before we
 	 *               write it to the page.
@@ -191,7 +191,7 @@ class Asset {
 
 
 	/**
-	 * Sets up options for new groups setup via casset/config.php.
+	 * Sets up options for new groups setup via asset/config.php.
 	 * Abstracts away from _init method. Also easier if options are
 	 * added in future as iterates through defaults to do checking.
 	 *
@@ -705,7 +705,7 @@ class Asset {
 
 	/**
 	 * Return the path for the given JS asset. Ties into find_files, so supports
-	 * everything that, say, Casset::js() does.
+	 * everything that, say, Asset::js() does.
 	 * Throws an exception if the file isn't found.
 	 *
 	 * @param string $filename the name of the asset to find
@@ -723,7 +723,7 @@ class Asset {
 
 	/**
 	 * Return the path for the given CSS asset. Ties into find_files, so supports
-	 * everything that, say, Casset::js() does.
+	 * everything that, say, Asset::js() does.
 	 * Throws an exception if the file isn't found.
 	 *
 	 * @param string $filename the name of the asset to find.
@@ -741,7 +741,7 @@ class Asset {
 
 	/**
 	 * Return the path for the given img asset. Ties into find_files, so supports
-	 * everything that, say, Casset::js() does.
+	 * everything that, say, Asset::js() does.
 	 * Throws an exception if the file isn't found.
 	 *
 	 * @param string $filename the name of the asset to find.
@@ -759,7 +759,7 @@ class Asset {
 
 	/**
 	 * Return the path for the given asset. Ties into find_files, so supports
-	 * everything that, say, Casset::js() does.
+	 * everything that, say, Asset::js() does.
 	 * Throws an exception if the file isn't found.
 	 *
 	 * @param string $filename the name of the asset to find.
@@ -855,6 +855,8 @@ class Asset {
 	 * @param string $filepath The filepath to process
 	 * @param string $type The type of asset, passed to the callback
 	 * @param bool $remote Whether the asset is on another machine, passed to the callback
+	 * 
+	 * @return string
 	 */
 	protected static function process_filepath($filepath, $type, $remote = null)
 	{
@@ -1501,7 +1503,7 @@ class Asset {
 
 
 	/**
-	 * Cleares all cache files last modified before $before.
+	 * Clears all cache files last modified before $before.
 	 *
 	 * @param string $before Time before which to delete files.
 	 *   Defaults to 'now'. Uses strtotime.
@@ -1513,7 +1515,7 @@ class Asset {
 
 
 	/**
-	 * Cleares all JS cache files last modified before $before.
+	 * Clears all JS cache files last modified before $before.
 	 *
 	 * @param string $before Time before which to delete files.
 	 *   Defaults to 'now'. Uses strtotime.
@@ -1525,7 +1527,7 @@ class Asset {
 
 
 	/**
-	 * Cleares CSS all cache files last modified before $before.
+	 * Clears CSS all cache files last modified before $before.
 	 *
 	 * @param string $before Time before which to delete files.
 	 *   Defaults to 'now'. Uses strtotime.
@@ -1632,4 +1634,4 @@ class Asset {
 	}
 }
 
-/* End of file asset_php */
+/* End of file asset.php */
