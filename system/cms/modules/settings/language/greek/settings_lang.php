@@ -133,6 +133,9 @@ $lang['settings_ckeditor_config_desc']      = 'Υπάρχει λίστα με έ
 $lang['settings_enable_registration']           = 'Ενεργοποίηση εγγραφών νέων χρηστών';
 $lang['settings_enable_registration_desc']      = 'Να επιτρέπεται η εγγραφή νέων χρηστών στον ιστότοπο.';
 
+//$lang['settings_profile_visibility']        = 'Δυνατότητα προβολής προφίλ χρηστών';
+//$lang['settings_profile_visibility_desc']        = 'Προσδιορίστε ποιοι μπορούν να δουν τα προφίλ χρηστών στον ιστότοπο.';
+
 $lang['settings_cdn_domain']                    = 'CDN Domain';
 $lang['settings_cdn_domain_desc']               = 'Τα CDN σας επιτρέπουν αποφορτίζετε τον διακομιστή σας από την ευθύνη δεδομένων που είναι δεν είναι δυναμικά αλλά στατικά (εικόνες, αρχεία πολυμέσων, έγγραφα κτλ). Μπορείτε να χρησιμοποιήσετε υπηρεσίες όπως τα Amazon CloudFront ή MaxCDN.';
 
