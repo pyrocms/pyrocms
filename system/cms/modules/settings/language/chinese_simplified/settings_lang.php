@@ -145,6 +145,9 @@ $lang['settings_ckeditor_config_desc']          = '您可以从 <a target="_blan
 $lang['settings_enable_registration']           = '启动用户注册功能';
 $lang['settings_enable_registration_desc']      = '运行新用户在本网站注册.';
 
+$lang['settings_profile_visibility']            = 'Profile Visibility'; #translate
+$lang['settings_profile_visibility_desc']       = 'Specify who can view user profiles on the public site'; #translate
+
 $lang['settings_cdn_domain']                    = 'CDN 域名'; 
 $lang['settings_cdn_domain_desc']               = 'CDN 域名允许你卸载各种边缘服务器的静态内容, 像Amazon CloudFront或 MaxCDN一样.';
 

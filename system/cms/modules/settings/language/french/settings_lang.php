@@ -133,6 +133,9 @@ $lang['settings_ckeditor_config_desc']          = 'Vous pouvez trouver une liste
 $lang['settings_enable_registration']           = 'Activer l\'enregistrement des utilisateurs';
 $lang['settings_enable_registration_desc']      = 'Autoriser les utilisateurs à s\'inscrire sur votre siteAllow .';
 
+$lang['settings_profile_visibility']            = 'Profile Visibility'; #translate
+$lang['settings_profile_visibility_desc']       = 'Specify who can view user profiles on the public site'; #translate
+
 $lang['settings_cdn_domain']                    = 'Domaine CDN';
 $lang['settings_cdn_domain_desc']               = 'Domaines CDN autorisant de décharger des contenus statiques sur différents serveurs comme Amazon CloudFront ou MaxCDN';  // todo : check translation
 

@@ -98,6 +98,8 @@ $lang['settings_ckeditor_config'] = 'CKEditor konfigurering';
 $lang['settings_ckeditor_config_desc'] = 'Du hittar en lista på giltiga konfigurationer här: <a target="_blank" href="http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.config.html">CKEditor\'s documentation</a>.';
 $lang['settings_enable_registration'] = 'Aktivera registrering';
 $lang['settings_enable_registration_desc'] = 'tillåter att besökare registrerar sig via webbplatsen.';
+$lang['settings_profile_visibility']            = 'Profile Visibility'; #translate
+$lang['settings_profile_visibility_desc']       = 'Specify who can view user profiles on the public site'; #translate
 $lang['settings_cdn_domain'] = 'CDN Domän';
 $lang['settings_cdn_domain_desc'] = 'CDN domän tillåter att du kan använda statiskt innehåll från olika servertjänster som Amazon CloudFront eller MaxCDN.';
 $lang['settings_section_general'] = 'Allmän';

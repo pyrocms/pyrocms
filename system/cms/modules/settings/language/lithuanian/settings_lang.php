@@ -111,6 +111,9 @@ $lang['settings_ckeditor_config_desc']          = 'Pamatuti ivairius konfiguravi
 $lang['settings_enable_registration']           = 'Įjungti vartotojų registraciją';
 $lang['settings_enable_registration_desc']      = 'Leidžia vartotojų registraciją jūsų puslapyje.';
 
+$lang['settings_profile_visibility']            = 'Profile Visibility'; #translate
+$lang['settings_profile_visibility_desc']       = 'Specify who can view user profiles on the public site'; #translate
+
 $lang['settings_cdn_domain']                    = 'CDN domenas';
 $lang['settings_cdn_domain_desc']               = 'CDN domenas leidžia jums nuimti (statinių nuotraukų, css, js skriptų) apkrovimą nuo pagrindinio serverio. Pvz naudojant providerius tokius kaip Amazon CloudFront arba MaxCDN.';
 
