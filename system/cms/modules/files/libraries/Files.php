@@ -142,6 +142,15 @@ class Files
 	**/
 	public static function folder_contents($parent = 0)
 	{
+		// they can also pass a url hash such as #foo/bar/some-other-folder-slug
+		if ( ! is_numeric($parent))
+		{
+			$segment = explode('/', trim($parent, '/#'));
+			$result = ci()->file_folders_m->get_by('slug', array_pop($segment));
+
+			$parent = ($result ? $result->id : 0);
+		}
+
 		$folders = ci()->file_folders_m->where('parent_id', $parent)
 			->order_by('sort')
 			->get_all();
