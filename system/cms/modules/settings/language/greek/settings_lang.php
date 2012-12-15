@@ -158,6 +158,13 @@ $lang['settings_form_option_Text Only']		= 'Απλό Κείμενο';
 $lang['settings_form_option_Allow Markdown']	= 'Ενεργοποίηση Markdown';
 $lang['settings_form_option_Yes']		= 'Ναι';
 $lang['settings_form_option_No']		= 'Όχι';
+$lang['settings_form_option_profile_public']	= 'Εμφανές σε όλους';
+$lang['settings_form_option_profile_owner']		= 'Εμφανές μόνο στον ιδιοκτήτη του προφίλ';
+$lang['settings_form_option_profile_hidden']	= 'Μη διαθέσιμο';
+$lang['settings_form_option_profile_member']	= 'Εμφανές σε κάθε συνδεδεμένο χρήση';
+$lang['settings_form_option_activate_by_email']				= 'Ενεργοποίηση μέσω e-mail';
+$lang['settings_form_option_activate_by_admin']				= 'Ενεργοποίηση από τον διαχειριστή';
+$lang['settings_form_option_no_activation']				= 'Δεν απαιτείται ενεργοποίηση';
 
 // messages
 $lang['settings_no_settings']			= 'Προς το παρόν δεν υπάρχουν ρυθμίσεις.';
