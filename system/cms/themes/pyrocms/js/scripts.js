@@ -378,54 +378,9 @@ jQuery(function($) {
 	// Create a clean slug from whatever garbage is in the title field
 	pyro.generate_slug = function(input_form, output_form, space_character, disallow_dashes)
 	{
-		var slug, value;
+		space_character = space_character || '-';
 
-		$(input_form).live('keyup', function(){
-			value = $(input_form).val();
-
-			if ( ! value.length ) return;
-			space_character = space_character || '-';
-			disallow_dashes = disallow_dashes || false;
-			var rx = /[a-z]|[A-Z]|[0-9]|[áàâąбćčцдđďéèêëęěфгѓíîïийкłлмñńňóôóпúùûůřšśťтвýыžżźзäæœчöøüшщßåяюжαβγδεέζηήθιίϊκλμνξοόπρστυύϋφχψωώ]/,
-				value = value.toLowerCase(),
-				chars = pyro.foreign_characters,
-				space_regex = new RegExp('[' + space_character + ']+','g'),
-				space_regex_trim = new RegExp('^[' + space_character + ']+|[' + space_character + ']+$','g'),
-				search, replace;
-			
-
-			// If already a slug then no need to process any further
-		    if (!rx.test(value)) {
-		        slug = value;
-		    } else {
-		        value = $.trim(value);
-
-		        for (var i = chars.length - 1; i >= 0; i--) {
-		        	// Remove backslash from string
-		        	search = chars[i].search.replace(new RegExp('/', 'g'), '');
-		        	replace = chars[i].replace;
-
-		        	// create regex from string and replace with normal string
-		        	value = value.replace(new RegExp(search, 'g'), replace);
-		        };
-
-
-
-		        slug = value.replace(/[^-a-z0-9~\s\.:;+=_]/g, '')
-		        			.replace(/[\s\.:;=+]+/g, space_character)
-		        			.replace(space_regex, space_character)
-		        			.replace(space_regex_trim, '');
-
-		        // Remove the dashes if they are
-		        // not allowed.
-		       	if (disallow_dashes)
-		        {
-					slug = slug.replace(/-+/g, '_');
-		        }
-		    }
-
-			$(output_form).val(slug);
-		});
+		$(input_form).slugify({ slug: output_form, type: space_character });
 	}
 
 	$(document).ajaxError(function(e, jqxhr, settings, exception) {
