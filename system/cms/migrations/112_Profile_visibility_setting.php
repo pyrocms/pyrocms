@@ -6,12 +6,12 @@ class Migration_Profile_visibility_setting extends CI_Migration {
     {
         $insert = array(
                 'slug' => 'profile_visibility',
-                'title' => 'View user profile',
-                'description' => 'Allow anyone to view registered user\'s profile',
-                'type' => 'radio',
-                'default' => 0,
+                'title' => 'Profile Visibility',
+                'description' => 'Specify who can view user profiles on the public site',
+                'type' => 'select',
+                'default' => 'public',
                 'value' => '',
-                'options' => '1=Yes|0=No',
+                'options' => 'public=profile_public|owner=profile_owner|hidden=profile_hidden|member=profile_member',
                 'is_required' => 0,
                 'is_gui' => 1,
                 'module' => 'users',

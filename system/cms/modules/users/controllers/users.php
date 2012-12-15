@@ -56,7 +56,7 @@ class Users extends Public_Controller
 
 			case 'owner':
 				// they have to be logged in so we know if they're the owner
-				$this->current_user or redirect('users/login/'.$username);
+				$this->current_user or redirect('users/login/users/view/'.$username);
 
 				// do we have a match?
 				$this->current_user->username !== $username and redirect('404');
@@ -69,7 +69,7 @@ class Users extends Public_Controller
 
 			case 'member':
 				// anybody can see it if they're logged in
-				$this->current_user or redirect('users/login/'.$username);
+				$this->current_user or redirect('users/login/users/view/'.$username);
 				break;
 		}
 
