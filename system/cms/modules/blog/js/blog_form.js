@@ -6,11 +6,11 @@
 
 		// needed so that Keywords can return empty JSON
 		$.ajaxSetup({
-			allowEmpty:true
+			allowEmpty: true
 		});
 
 		$('#keywords').tagsInput({
-			autocomplete_url:'admin/keywords/autocomplete'
+			autocomplete_url: 'admin/keywords/autocomplete'
 		});
 
 		// editor switcher
@@ -26,21 +26,17 @@
 				var instance = CKEDITOR.instances[textarea.attr('id')];
 				instance && instance.destroy();
 			}
-
-
 			// Set up the new instance
 			textarea.addClass(this.value);
-
 			pyro.init_ckeditor();
-
 		});
 
 		$(document.getElementById('blog-options-tab')).find('ul').find('li').first().find('a').colorbox({
-			srollable:false,
-			innerWidth:600,
-			innerHeight:280,
-			href:SITE_URL + 'admin/blog/categories/create_ajax',
-			onComplete:function () {
+			srollable: false,
+			innerWidth: 600,
+			innerHeight: 280,
+			href: SITE_URL + 'admin/blog/categories/create_ajax',
+			onComplete: function () {
 				$.colorbox.resize();
 				var $form_categories = $('form#categories');
 				$form_categories.removeAttr('action');
@@ -49,10 +45,10 @@
 					var form_data = $(this).serialize();
 
 					$.ajax({
-						url:SITE_URL + 'admin/blog/categories/create_ajax',
-						type:"POST",
-						data:form_data,
-						success:function (obj) {
+						url: SITE_URL + 'admin/blog/categories/create_ajax',
+						type: "POST",
+						data: form_data,
+						success: function (obj) {
 
 							if (obj.status == 'ok') {
 
@@ -75,8 +71,6 @@
 								$cboxLoadedContent.find('p').first().addClass('notification error').show();
 							}
 						}
-
-
 					});
 					e.preventDefault();
 				});

@@ -8,7 +8,7 @@
  */
 class Module_Sitemap extends Module {
 
-	public $version = '1.3';
+	public $version = '1.3.0';
 
 	public function info()
 	{

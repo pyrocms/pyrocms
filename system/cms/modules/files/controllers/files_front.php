@@ -51,7 +51,8 @@ class Files_front extends Public_Controller
 
 	public function thumb($id = 0, $width = 100, $height = 100, $mode = null)
 	{
-		if (is_numeric($id))
+		// is it a 15 char hash or is it a filename?
+		if (strlen($id) === 15 and strpos($id, '.') === false)
 		{
 			$file = $this->file_m->get($id);
 		}

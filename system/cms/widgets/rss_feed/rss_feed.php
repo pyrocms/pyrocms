@@ -63,7 +63,7 @@ class Widget_Rss_feed extends Widgets
 	 *
 	 * @var string
 	 */
-	public $version = '1.2';
+	public $version = '1.2.0';
 
 	/**
 	 * The fields for customizing the options of the widget.

@@ -7,7 +7,7 @@ class Theme_Base extends Theme
     public $author_website	= 'http://ikreativ.com/';
     public $website			= 'http://ikreativ.com/';
     public $description		= 'An HTML5 base template filled with goodies to get you up and running quickly.';
-    public $version			= '1.0';
+    public $version			= '1.0.0';
 	public $options 		= array(
 		'background' => array(
 			'title'         => 'Background',

@@ -52,6 +52,9 @@ class Admin extends Admin_Controller {
 				pyro.lang.file_type_not_allowed = '".addslashes(lang('files:file_type_not_allowed'))."';
 				pyro.lang.new_folder_name = '".addslashes(lang('files:new_folder_name'))."';
 				pyro.lang.alt_attribute = '".addslashes(lang('files:alt_attribute'))."';
+
+				// deprecated
+				pyro.files.initial_folder_contents = '".$this->session->flashdata('initial_folder_contents')."';
 			</script>");
 	}
 
@@ -110,6 +113,8 @@ class Admin extends Admin_Controller {
 	/**
 	 * Set the initial folder ID to load contents for
 	 *
+	 * @deprecated
+	 * 
 	 * Accepts the parent id and sets it as flash data
 	 */
 	public function initial_folder_contents($id)

@@ -1,24 +1,17 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 /**
  * Admin Page Layouts controller for the Pages module
  *
- * @author		PyroCMS Dev Team
- * @package 	PyroCMS\Core\Modules\Blog\Controllers
+ * @author  PyroCMS Dev Team
+ * @package PyroCMS\Core\Modules\Blog\Controllers
  */
-class Admin_Categories extends Admin_Controller {
+class Admin_Categories extends Admin_Controller
+{
 
-	/**
-	 * The current active section
-	 * @access protected
-	 * @var int
-	 */
+	/** @var int The current active section */
 	protected $section = 'categories';
-	
-	/**
-	 * Array that contains the validation rules
-	 * @access protected
-	 * @var array
-	 */
+
+	/** @var array The validation rules */
 	protected $validation_rules = array(
 		array(
 			'field' => 'title',
@@ -32,41 +25,40 @@ class Admin_Categories extends Admin_Controller {
 		),
 		array(
 			'field' => 'id',
-			'rules' => 'trim|numeric'			
+			'rules' => 'trim|numeric'
 		),
 	);
-	
+
 	/**
-	 * The constructor
-	 * 
-	 * @return void
+	 * Every time this controller is called should:
+	 * - load the blog_categories model.
+	 * - load the categories and blog language files.
+	 * - load the form_validation and set the rules for it.
 	 */
 	public function __construct()
 	{
 		parent::__construct();
-		
+
 		$this->load->model('blog_categories_m');
 		$this->lang->load('categories');
 		$this->lang->load('blog');
-		
+
 		// Load the validation library along with the rules
 		$this->load->library('form_validation');
 		$this->form_validation->set_rules($this->validation_rules);
 	}
-	
+
 	/**
 	 * Index method, lists all categories
-	 * 
-	 * @return void
 	 */
 	public function index()
 	{
 		$this->pyrocache->delete_all('modules_m');
-		
+
 		// Create pagination links
 		$total_rows = $this->blog_categories_m->count_all();
 		$pagination = create_pagination('admin/blog/categories/index', $total_rows, null, 5);
-			
+
 		// Using this data, get the relevant results
 		$categories = $this->blog_categories_m->order_by('title')->limit($pagination['limit'])->get_all();
 
@@ -76,11 +68,9 @@ class Admin_Categories extends Admin_Controller {
 			->set('pagination', $pagination)
 			->build('admin/categories/index');
 	}
-	
+
 	/**
 	 * Create method, creates a new category
-	 *
-	 * @return void
 	 */
 	public function create()
 	{
@@ -94,61 +84,60 @@ class Admin_Categories extends Admin_Controller {
 				// Fire an event. A new blog category has been created.
 				Events::trigger('blog_category_created', $id);
 
-				$this->session->set_flashdata('success', sprintf( lang('cat_add_success'), $this->input->post('title')) );
+				$this->session->set_flashdata('success', sprintf(lang('cat_add_success'), $this->input->post('title')));
 			}
 			else
 			{
 				$this->session->set_flashdata('error', lang('cat_add_error'));
 			}
-			
+
 			redirect('admin/blog/categories');
 		}
 
 		$category = new stdClass();
-				
+
 		// Loop through each validation rule
 		foreach ($this->validation_rules as $rule)
 		{
 			$category->{$rule['field']} = set_value($rule['field']);
 		}
-		
+
 		$this->template
 			->title($this->module_details['name'], lang('cat_create_title'))
 			->set('category', $category)
 			->set('mode', 'create')
 			->append_js('module::blog_category_form.js')
-			->build('admin/categories/form');	
+			->build('admin/categories/form');
 	}
-	
+
 	/**
 	 * Edit method, edits an existing category
-	 * 
-	 * @param int id The ID of the category to edit
-	 * @return void
+	 *
+	 * @param int $id The ID of the category to edit
 	 */
 	public function edit($id = 0)
-	{	
+	{
 		// Get the category
 		$category = $this->blog_categories_m->get($id);
-		
+
 		// ID specified?
 		$category or redirect('admin/blog/categories/index');
 
 		$this->form_validation->set_rules('id', 'ID', 'trim|required|numeric');
-		
+
 		// Validate the results
 		if ($this->form_validation->run())
-		{		
+		{
 			$this->blog_categories_m->update($id, $this->input->post())
-				? $this->session->set_flashdata('success', sprintf( lang('cat_edit_success'), $this->input->post('title')) )
+				? $this->session->set_flashdata('success', sprintf(lang('cat_edit_success'), $this->input->post('title')))
 				: $this->session->set_flashdata('error', lang('cat_edit_error'));
-			
+
 			// Fire an event. A blog category is being updated.
 			Events::trigger('blog_category_updated', $id);
-			
+
 			redirect('admin/blog/categories/index');
 		}
-		
+
 		// Loop through each rule
 		foreach ($this->validation_rules as $rule)
 		{
@@ -164,18 +153,17 @@ class Admin_Categories extends Admin_Controller {
 			->set('mode', 'edit')
 			->append_js('module::blog_category_form.js')
 			->build('admin/categories/form');
-	}	
+	}
 
 	/**
 	 * Delete method, deletes an existing category (obvious isn't it?)
-	 * 
-	 * @param int id The ID of the category to edit
-	 * @return void
+	 *
+	 * @param int $id The ID of the category to edit
 	 */
 	public function delete($id = 0)
-	{	
+	{
 		$id_array = (!empty($id)) ? array($id) : $this->input->post('action_to');
-		
+
 		// Delete multiple
 		if (!empty($id_array))
 		{
@@ -195,63 +183,63 @@ class Admin_Categories extends Admin_Controller {
 				}
 				$to_delete++;
 			}
-			
-			if ( $deleted > 0 )
+
+			if ($deleted > 0)
 			{
 				$this->session->set_flashdata('success', sprintf(lang('cat_mass_delete_success'), $deleted, $to_delete));
 			}
-			
+
 			// Fire an event. One or more categories have been deleted.
 			Events::trigger('blog_category_deleted', $deleted_ids);
-		}		
+		}
 		else
 		{
 			$this->session->set_flashdata('error', lang('cat_no_select_error'));
 		}
-		
+
 		redirect('admin/blog/categories/index');
 	}
-		
+
 	/**
 	 * Callback method that checks the title of the category
-	 * 
-	 * @param string title The title to check
+	 *
+	 * @param string $title The title to check
+	 *
 	 * @return bool
 	 */
 	public function _check_title($title = '')
 	{
-		$id = $this->input->post('id');
-		if ($this->blog_categories_m->check_title($title, $id))
+		if ($this->blog_categories_m->check_title($title, $this->input->post('id')))
 		{
 			$this->form_validation->set_message('_check_title', sprintf(lang('cat_already_exist_error'), $title));
+
 			return false;
 		}
 
 		return true;
 	}
-		
+
 	/**
 	 * Callback method that checks the slug of the category
-	 * 
-	 * @param string slug The slug to check
+	 *
+	 * @param string $slug The slug to check
+	 *
 	 * @return bool
 	 */
 	public function _check_slug($slug = '')
 	{
-		$id = $this->input->post('id');
-		if ($this->blog_categories_m->check_title($slug, $id))
+		if ($this->blog_categories_m->check_title($slug, $this->input->post('id')))
 		{
 			$this->form_validation->set_message('_check_slug', sprintf(lang('cat_already_exist_error'), $slug));
+
 			return false;
 		}
 
 		return true;
 	}
-	
+
 	/**
 	 * Create method, creates a new category via ajax
-	 * 
-	 * @return void
 	 */
 	public function create_ajax()
 	{
@@ -262,16 +250,16 @@ class Admin_Categories extends Admin_Controller {
 		{
 			$category->{$rule['field']} = set_value($rule['field']);
 		}
-		
+
 		$data = array(
 			'method' => 'create',
 			'category' => $category,
 		);
-		
+
 		if ($this->form_validation->run())
 		{
 			$id = $this->blog_categories_m->insert_ajax($this->input->post());
-			
+
 			if ($id > 0)
 			{
 				$message = sprintf(lang('cat_add_success'), $this->input->post('title', true));
@@ -282,12 +270,12 @@ class Admin_Categories extends Admin_Controller {
 			}
 
 			return $this->template->build_json(array(
-				'message'		=> $message,
-				'title'			=> $this->input->post('title'),
-				'category_id'	=> $id,
-				'status'		=> 'ok'
+				'message' => $message,
+				'title' => $this->input->post('title'),
+				'category_id' => $id,
+				'status' => 'ok'
 			));
-		}	
+		}
 		else
 		{
 			// Render the view
@@ -296,9 +284,9 @@ class Admin_Categories extends Admin_Controller {
 			if ($errors = validation_errors())
 			{
 				return $this->template->build_json(array(
-					'message'	=> $errors,
-					'status'	=> 'error',
-					'form'		=> $form
+					'message' => $errors,
+					'status' => 'error',
+					'form' => $form
 				));
 			}
 

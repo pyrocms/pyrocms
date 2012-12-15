@@ -17,7 +17,7 @@ class Field_datetime
 
 	public $custom_parameters		= array('use_time', 'start_date', 'end_date', 'storage', 'input_type');
 
-	public $version					= '2.0';
+	public $version					= '2.0.0';
 
 	public $author					= array('name'=>'Parse19', 'url'=>'http://parse19.com');
 

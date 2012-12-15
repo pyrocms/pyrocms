@@ -1,12 +1,18 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 /**
  * Public Blog module controller
  *
- * @author		PyroCMS Dev Team
- * @package 	PyroCMS\Core\Modules\Blog\Controllers
+ * @author  PyroCMS Dev Team
+ * @package PyroCMS\Core\Modules\Blog\Controllers
  */
 class Blog extends Public_Controller
 {
+	/**
+	 * Every time this controller is called should:
+	 * - load the blog and blog_categories models.
+	 * - load the keywords library.
+	 * - load the blog language file.
+	 */
 	public function __construct()
 	{
 		parent::__construct();
@@ -19,7 +25,7 @@ class Blog extends Public_Controller
 	/**
 	 * Shows the blog index
 	 *
-	 * blog/page/x also routes here
+	 * URIs such as `blog/page/x` also route here.
 	 */
 	public function index()
 	{
@@ -98,8 +104,8 @@ class Blog extends Public_Controller
 	/**
 	 * Lists the posts in a specific year/month.
 	 *
-	 * @param null|string $year The year to show the posts for.
-	 * @param string $month The month to show the posts for.
+	 * @param null|string $year  The year to show the posts for.
+	 * @param string      $month The month to show the posts for.
 	 */
 	public function archive($year = null, $month = '01')
 	{
@@ -152,29 +158,30 @@ class Blog extends Public_Controller
 		$this->_single_view($post);
 	}
 
-    /**
-     * preview a post
-     *
-     * @param string $hash the preview_hash of post
-     */
-    public function preview($hash = '')
-    {
-        if ( ! $hash or ! $post = $this->blog_m->get_by('preview_hash', $hash))
-        {
-            redirect('blog');
-        }
+	/**
+	 * Preview a post
+	 *
+	 * @param string $hash the preview_hash of post
+	 */
+	public function preview($hash = '')
+	{
+		if ( ! $hash or ! $post = $this->blog_m->get_by('preview_hash', $hash))
+		{
+			redirect('blog');
+		}
 
-        if ($post->status === 'live')
-        {
-            redirect('blog/'.date('Y/m',$post->created_on).'/'.$post->slug);
-        }
+		if ($post->status === 'live')
+		{
+			redirect('blog/'.date('Y/m', $post->created_on).'/'.$post->slug);
+		}
 
-        //set index nofollow to attempt to avoid search engine indexing
-        $this->template->set_metadata('index','nofollow');
+		//set index nofollow to attempt to avoid search engine indexing
+		$this->template->set_metadata('index', 'nofollow');
 
-        $this->_single_view($post);
+		$this->_single_view($post);
 
-    }
+	}
+
 	/**
 	 * @todo Document this.
 	 *
@@ -248,43 +255,42 @@ class Blog extends Public_Controller
 		);
 	}
 
-    private function _single_view($post)
-    {
-        // if it uses markdown then display the parsed version
-        if ($post->type === 'markdown')
-        {
-            $post->body = $post->parsed;
-        }
+	private function _single_view($post)
+	{
+		// if it uses markdown then display the parsed version
+		if ($post->type === 'markdown')
+		{
+			$post->body = $post->parsed;
+		}
 
-        // IF this post uses a category, grab it
-        if ($post->category_id and ($category = $this->blog_categories_m->get($post->category_id)))
-        {
-            $post->category = $category;
-        }
-
-        // Set some defaults
-        else
-        {
-            $post->category = (object) array(
-            	'id' => 0,
+		// IF this post uses a category, grab it
+		if ($post->category_id and ($category = $this->blog_categories_m->get($post->category_id)))
+		{
+			$post->category = $category;
+		}
+		// Set some defaults
+		else
+		{
+			$post->category = (object)array(
+				'id' => 0,
 				'slug' => '',
 				'title' => '',
 			);
-        }
+		}
 
-        $this->session->set_flashdata(array('referrer' => $this->uri->uri_string()));
+		$this->session->set_flashdata(array('referrer' => $this->uri->uri_string()));
 
-        // Add category OG metadata
-        if ($post->category_id)
-        {
-        	// @TODO Add OG metadata for category
-        }
+		// Add category OG metadata
+		if ($post->category_id)
+		{
+			// @TODO Add OG metadata for category
+		}
 
-        // Add image OG metadata
-        if ($post->attachment)
-        {
-        	$this->template->set_metadata('og:image', null, 'og');
-        }
+		// Add image OG metadata
+		if ($post->attachment)
+		{
+			$this->template->set_metadata('og:image', null, 'og');
+		}
 
 		if ($post->category->id > 0)
 		{
@@ -308,23 +314,23 @@ class Blog extends Public_Controller
 		{
 			// Load Comments so we can work out what to do with them
 			$this->load->library('comments/comments', array(
-				'entry_id' 		=> $post->id,
-				'entry_title' 	=> $post->title,
-				'module' 		=> 'blog',
-				'singular' 		=> 'blog:post',
-				'plural' 		=> 'blog:posts',
+				'entry_id' => $post->id,
+				'entry_title' => $post->title,
+				'module' => 'blog',
+				'singular' => 'blog:post',
+				'plural' => 'blog:posts',
 			));
 
 			// Comments enabled can be 'no', 'always', or a strtotime compatable difference string, so "2 weeks"
 			$this->template->set('form_display', (
 				$post->comments_enabled === 'always' or
-				($post->comments_enabled !== 'no' and time() < strtotime('+'.$post->comments_enabled, $post->created_on))
+					($post->comments_enabled !== 'no' and time() < strtotime('+'.$post->comments_enabled, $post->created_on))
 			));
 		}
 
 		$this->template
 			->title($post->title, lang('blog:blog_title'))
-			
+
 			->set_metadata('og:type', 'article', 'og')
 			->set_metadata('og:url', current_url(), 'og')
 			->set_metadata('og:title', $post->title, 'og')

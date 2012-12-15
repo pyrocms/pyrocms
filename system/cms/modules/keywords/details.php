@@ -8,7 +8,7 @@
  */
 class Module_Keywords extends Module {
 
-	public $version = '1.1';
+	public $version = '1.1.0';
 
 	public $_tables = array('keywords', 'keywords_applied');
 

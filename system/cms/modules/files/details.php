@@ -9,7 +9,7 @@
 class Module_Files extends Module
 {
 
-	public $version = '2.0';
+	public $version = '2.0.0';
 
 	public function info()
 	{
@@ -80,7 +80,7 @@ class Module_Files extends Module
 
 		$tables = array(
 			'files' => array(
-				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
+				'id' => array('type' => 'CHAR', 'constraint' => 15, 'primary' => true,),
 				'folder_id' => array('type' => 'INT', 'constraint' => 11, 'default' => 0,),
 				'user_id' => array('type' => 'INT', 'constraint' => 11, 'default' => 1,),
 				'type' => array('type' => 'ENUM', 'constraint' => array('a', 'v', 'd', 'i', 'o'), 'null' => true, 'default' => null,),

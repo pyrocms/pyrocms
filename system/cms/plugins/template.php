@@ -11,7 +11,7 @@
 class Plugin_Template extends Plugin
 {
 
-	public $version = '1.0';
+	public $version = '1.0.0';
 	public $name = array(
 		'en' => 'Template',
 	);

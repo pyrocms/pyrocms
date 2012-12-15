@@ -12,7 +12,7 @@ class Field_state
 	
 	public $db_col_type				= 'varchar';
 
-	public $version					= '1.3';
+	public $version					= '1.3.0';
 
 	public $author					= array('name' => 'Adam Fairholm', 'url' => 'http://adamfairholm.com');
 	

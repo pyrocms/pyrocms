@@ -1,5 +1,9 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
+/**
+ * @author  PyroCMS Dev Team
+ * @package PyroCMS\Core\Modules\Blog\Controllers
+ */
 class Rss extends Public_Controller
 {
 	public function __construct()
@@ -26,7 +30,7 @@ class Rss extends Public_Controller
 	{
 		$this->load->model('blog_categories_m');
 
-		if (!$category = $this->blog_categories_m->get_by('slug', $slug))
+		if ( ! $category = $this->blog_categories_m->get_by('slug', $slug))
 		{
 			redirect('blog/rss/all.rss');
 		}
@@ -53,7 +57,7 @@ class Rss extends Public_Controller
 		$data->rss->page_language = 'en-gb';
 		$data->rss->creator_email = $this->settings->get('contact_email');
 
-		if (!empty($posts))
+		if ( ! empty($posts))
 		{
 			foreach ($posts as $row)
 			{
@@ -73,6 +77,7 @@ class Rss extends Public_Controller
 				$data->rss->items[] = (object)$item;
 			}
 		}
+
 		return $data;
 	}
 }

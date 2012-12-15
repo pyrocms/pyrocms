@@ -12,7 +12,7 @@
 class Module_Streams_core extends Module
 {
 
-	public $version = '1.0';
+	public $version = '1.0.0';
 
 	/**
 	 * Module Info
