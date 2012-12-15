@@ -71,14 +71,14 @@ class Installer extends CI_Controller
 		}
 		$current_language = $this->config->item('language');
 
+		// Load the global installer language file
+		$this->lang->load('installer');
+
 		// let's load the language file belonging to the page i.e. method
 		if (is_file($this->languages_directory.'/'.$current_language.'/'.$this->router->fetch_method().'_lang'.EXT))
 		{
 			$this->lang->load($this->router->fetch_method());
 		}
-
-		// Load the global installer language file
-		$this->lang->load('global');
 
 		// set the supported languages to be saved in Settings for emails and .etc
 		// modules > settings > details.php uses this
@@ -91,7 +91,7 @@ class Installer extends CI_Controller
 		define('DEFAULT_LANG', $config['default_language']);
 
 		$action_url = site_url('installer/change/__NAME__');
-		$image_url = base_url('assets/images/flags/__CODE__.gif');
+		$image_url = base_url('assets/img/flags/__CODE__.gif');
 		// Work out some misrepresented language codes to specific language flags
 		$flag_exchange = array(
 			'english' => 'gb',
@@ -125,83 +125,110 @@ class Installer extends CI_Controller
 	 */
 	public function index()
 	{
-		$this->_render_view('main');
-	}
+		$data = new stdClass;
 
-	/**
-	 * Pre installation
-	 */
-	public function step_1()
-	{
-		$data = new stdClass();
+        // Save this junk for later
+        // Used in validation callback, so set early
+        $this->session->set_userdata(array(
+            'db.driver'    => $driver    = $this->input->post('db_driver'),
+            'db.hostname'  => $hostname  = $this->input->post('hostname'),
+            'db.location'  => $location  = $this->input->post('location'),
+            'db.username'  => $username  = $this->input->post('username'),
+            'db.password'  => $password  = $this->input->post('password'),
+            'db.port'      => $port      = $this->input->post('port'),
+            'db.database'  => $database  = $this->input->post('database'),
+            'db.create_db' => $this->input->post('create_db'),
+            'http_server'  => $this->input->post('http_server'),
+        ));
 
-		// Save this junk for later
-		$this->session->set_userdata(array(
-			'database' => $this->input->post('database'),
-			'hostname' => $this->input->post('hostname'),
-			'username' => $this->input->post('username'),
-			'password' => $this->input->post('password'),
-			'port' => $this->input->post('port'),
-			'http_server' => $this->input->post('http_server')
-		));
+        // Set rules
+        $this->form_validation->set_rules(array(
+            array(
+                'field' => 'db_driver',
+                'label' => 'lang:db_driver',
+                'rules' => 'trim|required'
+            ),
+            array(
+                'field' => 'hostname',
+				'label'	=> 'lang:server',
+				'rules'	=> 'trim|required|callback_test_db_connection'
+            ),
+            array(
+                'field' => 'location',
+                'label' => 'lang:location',
+                'rules' => 'trim'.(in_array($driver, array('sqlite')) ? '|required' : ''),
+            ),
+            array(
+                'field' => 'username',
+				'label'	=> 'lang:username',
+                'rules' => 'trim'.(in_array($driver, array('mysql', 'pgsql')) ? '|required' : '')
+            ),
+            array(
+                'field' => 'password',
+				'label'	=> 'lang:password',
+				'rules'	=> 'trim'.(in_array($driver, array('mysql', 'pgsql')) ? '|required' : '')
+            ),
+            array(
+                'field' => 'port',
+                'label' => 'lang:port',
+				'rules'	=> 'trim'.(in_array($driver, array('mysql', 'pgsql')) ? '|required' : '')
+            ),
+            array(
+                'field' => 'database',
+                'label' => 'lang:server_settings',
+                'rules' => 'trim'.(in_array($driver, array('mysql', 'pgsql')) ? '|required' : ''),
+            ),
+            array(
+                'field' => 'http_server',
+				'label'	=> 'lang:server_settings',
+				'rules'	=> 'trim|required'
+            ),
+        ));
 
-		// Set rules
-		$this->form_validation->set_rules(array(
-			array(
-				'field' => 'database',
-				'label'	=> 'lang:database',
-				'rules'	=> 'trim|required|callback_validate_mysql_db_name'
-			),
-			array(
-				'field' => 'hostname',
-				'label' => 'lang:server',
-				'rules' => 'trim|required|callback_test_db_connection'
-			),
-			array(
-				'field' => 'username',
-				'label' => 'lang:username',
-				'rules' => 'trim|required'
-			),
-			array(
-				'field' => 'password',
-				'label' => 'lang:password',
-				'rules' => 'trim'
-			),
-			array(
-				'field' => 'port',
-				'label' => 'lang:portnr',
-				'rules' => 'trim|required'
-			),
-			array(
-				'field' => 'http_server',
-				'label' => 'lang:server_settings',
-				'rules' => 'trim|required'
-			)
-		));
-
-		// If the form validation passed
+        // If the form validation passed
 		if ($this->form_validation->run())
-		{
-			// Set the flashdata message
-			$this->session->set_flashdata('message', lang('db_success'));
-			$this->session->set_flashdata('message_type', 'success');
+        {
+            // Set the flashdata message
+            $this->session->set_flashdata('success', lang('db_success'));
 
-			// Redirect to the second step
-			$this->session->set_userdata('step_1_passed', true);
-			redirect('installer/step_2');
-		}
+            // Redirect to the second step
+			$this->session->set_userdata('step_1_passed', TRUE);
+            redirect('installer/step_2');
+        }
 
-		// Get supported servers
-		$supported_servers 		= $this->config->item('supported_servers');
-		$data->server_options 	= array();
+        // Get supported servers
+        $supported_servers      = $this->config->item('supported_servers');
+        $data->server_options   = array();
 
-		foreach($supported_servers as $key => $server)
-		{
-			$data->server_options[$key] = $server['name'];
-		}
+        foreach ($supported_servers as $key => $server)
+        {
+            $data->server_options[$key] = $server['name'];
+        }
 
-		// Get the port from the session or set it to the default value when it isn't specified
-		$data->port = $this->session->userdata('port') ? $this->session->userdata('port') : 3306;
+        // Get the port from the session or set it to the default value when it isn't specified
+        $data->port = $port;
+
+        // Check what DB's are available
+        $data->db_drivers = $this->installer_lib->check_db_extensions();
+
+        // Work out which DB driver to show as selected
+        $data->selected_db_driver = null;
+
+        if ($this->input->post('db_driver') === null)
+        {
+            foreach (array('sqlite', 'pgsql', 'mysql') as $driver)
+            {
+                if ($data->db_drivers[$driver] === true)
+                {
+                    $data->selected_db_driver = $driver;
+                    break;
+                }
+            }
+        }
+        else
+        {
+            $data->selected_db_driver = $this->input->post('db_driver');
+        }
 
 		$this->_render_view('step_1', (array) $data);
 	}

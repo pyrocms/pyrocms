@@ -32,7 +32,7 @@
 			<div class="wrapper">
 
 			<div id="logo">
-				<img src="<?php echo base_url(); ?>assets/img/logo.png" alt="PyroCMS" />
+				<img src="<?php echo base_url() ?>assets/img/logo.png" alt="PyroCMS" />
 			</div>
 			
 			<ul id="lang">

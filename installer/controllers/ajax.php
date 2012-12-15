@@ -47,43 +47,42 @@ class Ajax extends CI_Controller
 		}
 
 		// also we load some generic language labels
-		$this->lang->load('global');
-
-		$this->lang->load('step_1');
+		$this->lang->load('installer');
 	}
 
 	public function confirm_database()
 	{
-		$database 	= $this->input->post('database');
 		$create_db 	= $this->input->post('create_db') === 'true';
-		$server = $this->input->post('server').':'.$this->input->post('port');
-		$username 	= $this->input->post('username');
-		$password 	= $this->input->post('password');
 
 		// Set some headers for our JSON
 		header('Cache-Control: no-cache, must-revalidate');
 		header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
 		header('Content-type: application/json');
 
-		$link = @mysql_connect($server, $username, $password, true);
-		// Not good if either we have not connected to the database
-		// or we where required to create the database but couldn't
-		if ( ( ! $link) or ( $create_db && ! mysql_query('CREATE DATABASE IF NOT EXISTS '.$database, $link)) )
+		try
 		{
-			echo json_encode(array(
+			// Create a connection to see if data is correct
+			$this->installer_lib->create_connection(array(
+				'driver'    => $this->input->post('driver'),
+				'database'  => $this->input->post('database'),
+				'hostname'  => $this->input->post('server'),
+				'port'      => $this->input->post('port'),
+				'username' 	=> $this->input->post('username'),
+				'password' 	=> $this->input->post('password'),
+			));
+		}
+		catch (Exception $e)
+		{
+			exit(json_encode(array(
 				'success' => false,
-				'message' => lang('db_failure') . mysql_error()
-			));
+				'message' => lang('db_failure').$e->getMessage(),
+			)));
 		}
-		// We are good to go
-		else
-		{
-			echo json_encode(array(
-				'success' => true,
-				'message' => lang('db_success')
-			));
-		}
-		@mysql_close($link);
+
+		echo json_encode(array(
+			'success' => true,
+			'message' => lang('db_success'),
+		));
 	}
 
 	/**

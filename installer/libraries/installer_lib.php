@@ -145,31 +145,23 @@ class Installer_lib
 	 * @return PDO
 	 * @throws InstallerException If connection fails
 	 */
-	public function create_db_connection()
+	public function create_connection($config)
 	{
-		$driver = ci()->session->userdata('db.driver');
-		$port = ci()->session->userdata('db.port');
-		$hostname = ci()->session->userdata('db.hostname');
-		$location = ci()->session->userdata('db.location');
-		$username = ci()->session->userdata('db.username');
-		$password = ci()->session->userdata('db.password');
-		$database = ci()->session->userdata('db.database'); // weird not used... ?
-
-		switch ($driver)
+		switch ($config['driver'])
 		{
 			case 'mysql':
 			case 'pgsql':
-				$dsn = "{$driver}:host={$hostname};port={$port};";
+				$dsn = "{$config['driver']}:host={$config['hostname']};port={$config['port']};";
 				break;
 			case 'sqlite':
-				$dsn = "sqlite:{$location}";
+				$dsn = "sqlite:{$config['location']}";
 				break;
 			default:
-				throw new InstallerException('Unknown database driver type: '.$driver);
+				throw new InstallerException("Unknown database driver type: {$config['driver']}");
 		}
 
 		// Try and connect, but bitch if error
-		return new PDO($dsn, $username, $password, array(
+		return new PDO($dsn, $config['username'], $config['password'], array(
 			PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
 		));
 	}
@@ -177,14 +169,13 @@ class Installer_lib
 	/**
 	 * Make sure we can connect to the database
 	 *
-	 * @param PDO $database
+	 * @param PDO $database Array of hostname, username, etc
+	 * @param array $database Array of hostname, username, etc
 	 *
 	 * @return bool
 	 */
-	public function create_db($database)
+	public function create_db(PDO $conn, array $database)
 	{
-		$pdo = $this->create_db_connection();
-
 		return $pdo->query("CREATE DATABASE {$database}");
 	}
 

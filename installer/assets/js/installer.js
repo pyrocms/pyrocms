@@ -48,6 +48,7 @@ jQuery(document).ready(function ($) {
 	$('input[name=password]').on('keyup focus', function () {
 
 		$.post(base_url + 'index.php/ajax/confirm_database', {
+				driver: $('input[name=db_driver]:checked').val(),
 				database: $('input[name=database]').val(),
 				create_db: $('input[name=create_db]').is(':checked'),
 				server: $('input[name=hostname]').val(),
