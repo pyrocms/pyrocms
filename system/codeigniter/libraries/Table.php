@@ -1,4 +1,4 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
 /**
  * CodeIgniter
  *
@@ -24,6 +24,7 @@
  * @since		Version 1.3.1
  * @filesource
  */
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * HTML Table Generating Class
@@ -526,7 +527,7 @@ class CI_Table {
 	 */
 	protected function _default_template()
 	{
-		return  array(
+		return array(
 				'table_open'		=> '<table border="0" cellpadding="4" cellspacing="0">',
 
 				'thead_open'		=> '<thead>',

@@ -157,7 +157,7 @@ class CI_DB_mysql_forge extends CI_DB_forge {
 		}
 
 		return $this->db->escape_identifiers($field['name'])
-			.(empty($field['new_name']) ? '' : $this->db->escape_identifiers($field['new_name']))
+			.(empty($field['new_name']) ? '' : ' '.$this->db->escape_identifiers($field['new_name']))
 			.' '.$field['type'].$field['length']
 			.$field['unsigned']
 			.$field['null']
@@ -175,13 +175,24 @@ class CI_DB_mysql_forge extends CI_DB_forge {
 	 * @param	string	$table	(ignored)
 	 * @return	string
 	 */
-	protected function _process_indexes($table = NULL)
+	protected function _process_indexes($table)
 	{
 		$sql = '';
 
 		for ($i = 0, $c = count($this->keys); $i < $c; $i++)
 		{
-			if ( ! isset($this->fields[$this->keys[$i]]))
+			if (is_array($this->keys[$i]))
+			{
+				for ($i2 = 0, $c2 = count($this->keys[$i]); $i2 < $c2; $i2++)
+				{
+					if ( ! isset($this->fields[$this->keys[$i][$i2]]))
+					{
+						unset($this->keys[$i][$i2]);
+						continue;
+					}
+				}
+			}
+			elseif ( ! isset($this->fields[$this->keys[$i]]))
 			{
 				unset($this->keys[$i]);
 				continue;

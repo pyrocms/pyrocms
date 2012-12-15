@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php
 /**
  * CodeIgniter
  *
@@ -24,6 +24,7 @@
  * @since		Version 1.0
  * @filesource
  */
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * Database Driver Class
@@ -984,7 +985,7 @@ abstract class CI_DB_driver {
 	 */
 	public function escape($str)
 	{
-		if (is_string($str) OR method_exists($str, '__toString'))
+		if (is_string($str) OR (is_object($str) && method_exists($str, '__toString')))
 		{
 			return "'".$this->escape_str($str)."'";
 		}
@@ -1347,7 +1348,7 @@ abstract class CI_DB_driver {
 			$fields[$this->protect_identifiers($key)] = $this->escape($val);
 		}
 
-		return $this->_update($this->protect_identifiers($table, TRUE, NULL, FALSE), $fields, $dest);
+		return $this->_update($this->protect_identifiers($table, TRUE, NULL, FALSE), $fields);
 	}
 
 	// --------------------------------------------------------------------
@@ -1545,6 +1546,18 @@ abstract class CI_DB_driver {
 	// --------------------------------------------------------------------
 
 	/**
+	 * Get DB Connection
+	 *
+	 * @return	void
+	 */
+	public function get_connection()
+	{
+		return $this->conn_id;
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
 	 * Close DB Connection
 	 *
 	 * @return	void
@@ -1604,18 +1617,21 @@ abstract class CI_DB_driver {
 		$trace = debug_backtrace();
 		foreach ($trace as $call)
 		{
-			// We'll need this on Windows, as APPPATH and BASEPATH will always use forward slashes
-			if (DIRECTORY_SEPARATOR !== '/')
+			if (isset($call['file'], $call['class']))
 			{
-				$call['file'] = str_replace('\\', '/', $call['file']);
-			}
+				// We'll need this on Windows, as APPPATH and BASEPATH will always use forward slashes
+				if (DIRECTORY_SEPARATOR !== '/')
+				{
+					$call['file'] = str_replace('\\', '/', $call['file']);
+				}
 
-			if (isset($call['file'], $call['class']) && strpos($call['file'], BASEPATH.'database') === FALSE && strpos($call['class'], 'Loader') !== FALSE)
-			{
-				// Found it - use a relative path for safety
-				$message[] = 'Filename: '.str_replace(array(APPPATH, BASEPATH), '', $call['file']);
-				$message[] = 'Line Number: '.$call['line'];
-				break;
+				if (strpos($call['file'], BASEPATH.'database') === FALSE && strpos($call['class'], 'Loader') === FALSE)
+				{
+					// Found it - use a relative path for safety
+					$message[] = 'Filename: '.str_replace(array(APPPATH, BASEPATH), '', $call['file']);
+					$message[] = 'Line Number: '.$call['line'];
+					break;
+				}
 			}
 		}
 

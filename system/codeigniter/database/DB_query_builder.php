@@ -644,23 +644,22 @@ abstract class CI_DB_query_builder extends CI_DB_driver {
 				? $this->_group_get_type('')
 				: $this->_group_get_type($type);
 
-			if (is_null($v) && ! $this->_has_operator($k))
-			{
-				// value appears not to have been set, assign the test to IS NULL
-				$k .= ' IS NULL';
-			}
-
 			if ( ! is_null($v))
 			{
 				if ($escape === TRUE)
 				{
-					$v = ' '.(is_int($v) ? $v : $this->escape($v));
+					$v = ' '.$this->escape($v);
 				}
 
 				if ( ! $this->_has_operator($k))
 				{
 					$k .= ' = ';
 				}
+			}
+			elseif ( ! $this->_has_operator($k))
+			{
+				// value appears not to have been set, assign the test to IS NULL
+				$k .= ' IS NULL';
 			}
 
 			$this->{$qb_key}[] = array('condition' => $prefix.$k.$v, 'escape' => $escape);
@@ -904,11 +903,12 @@ abstract class CI_DB_query_builder extends CI_DB_driver {
 		}
 
 		is_bool($escape) OR $escape = $this->_protect_identifiers;
-		$prefix = (count($this->qb_where) === 0 && count($this->qb_cache_where) === 0)
-			? $this->_group_get_type('') : $this->_group_get_type($type);
 
 		foreach ($field as $k => $v)
 		{
+			$prefix = (count($this->qb_where) === 0 && count($this->qb_cache_where) === 0)
+				? $this->_group_get_type('') : $this->_group_get_type($type);
+
 			$v = $this->escape_like_str($v);
 
 			if ($side === 'none')
@@ -1508,7 +1508,7 @@ abstract class CI_DB_query_builder extends CI_DB_driver {
 				$row = $clean;
 			}
 
-			$this->qb_set[] =  '('.implode(',', $row).')';
+			$this->qb_set[] = '('.implode(',', $row).')';
 		}
 
 		foreach ($keys as $k)
@@ -2513,8 +2513,7 @@ abstract class CI_DB_query_builder extends CI_DB_driver {
 			{
 				continue;
 			}
-
-			$this->$qb_variable = array_unique(array_merge($this->$qb_cache_var, $this->$qb_variable));
+			$this->$qb_variable = array_merge($this->$qb_variable, array_diff($this->$qb_cache_var, $this->$qb_variable));
 		}
 
 		// If we are "protecting identifiers" we need to examine the "from"
@@ -2524,7 +2523,7 @@ abstract class CI_DB_query_builder extends CI_DB_driver {
 			$this->_track_aliases($this->qb_from);
 		}
 
-		$this->qb_no_escape = $this->qb_cache_no_escape;
+		$this->qb_no_escape = array_merge($this->qb_no_escape, array_diff($this->qb_cache_no_escape, $this->qb_no_escape));
 	}
 
 	// --------------------------------------------------------------------
@@ -2541,7 +2540,7 @@ abstract class CI_DB_query_builder extends CI_DB_driver {
 	{
 		$str = trim($str);
 
-		if (empty($str))
+		if (empty($str) OR ctype_digit($str) OR (string) (float) $str === $str OR in_array(strtoupper($str), array('TRUE', 'FALSE'), TRUE))
 		{
 			return TRUE;
 		}
@@ -2554,7 +2553,7 @@ abstract class CI_DB_query_builder extends CI_DB_driver {
 				? array('"', "'") : array("'");
 		}
 
-		return (ctype_digit($str) OR in_array($str[0], $_str, TRUE));
+		return in_array($str[0], $_str, TRUE);
 	}
 
 	// --------------------------------------------------------------------

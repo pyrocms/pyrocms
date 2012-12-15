@@ -90,6 +90,26 @@ class CI_DB_pdo_pgsql_driver extends CI_DB_pdo_driver {
 	// --------------------------------------------------------------------
 
 	/**
+	 * Database connection
+	 *
+	 * @param	bool	$persistent
+	 * @return	object
+	 */
+	public function db_connect($persistent = FALSE)
+	{
+		$this->conn_id = parent::db_connect($persistent);
+
+		if (is_object($this->conn_id) && ! empty($this->schema))
+		{
+			$this->simple_query('SET search_path TO '.$this->schema.',public');
+		}
+
+		return $this->conn_id;
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
 	 * Insert ID
 	 *
 	 * @param	string	$name
@@ -105,6 +125,26 @@ class CI_DB_pdo_pgsql_driver extends CI_DB_pdo_driver {
 		}
 
 		return $this->conn_id->lastInsertId($name);
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
+	 * "Smart" Escape String
+	 *
+	 * Escapes data based on type
+	 *
+	 * @param	string	$str
+	 * @return	mixed
+	 */
+	public function escape($str)
+	{
+		if (is_bool($str))
+		{
+			return ($str) ? 'TRUE' : 'FALSE';
+		}
+
+		return parent::escape($str);
 	}
 
 	// --------------------------------------------------------------------
@@ -169,7 +209,7 @@ class CI_DB_pdo_pgsql_driver extends CI_DB_pdo_driver {
 	// --------------------------------------------------------------------
 
 	/**
-	 * Show column query
+	 * List column query
 	 *
 	 * Generates a platform-specific query string so that the column names can be fetched
 	 *
@@ -178,22 +218,47 @@ class CI_DB_pdo_pgsql_driver extends CI_DB_pdo_driver {
 	 */
 	protected function _list_columns($table = '')
 	{
-		return 'SELECT "column_name" FROM "information_schema"."columns" WHERE "table_name" = '.$this->escape($table);
+		return 'SELECT "column_name"
+			FROM "information_schema"."columns"
+			WHERE LOWER("table_name") = '.$this->escape(strtolower($table));
 	}
 
 	// --------------------------------------------------------------------
 
 	/**
-	 * Field data query
-	 *
-	 * Generates a platform-specific query so that the column data can be retrieved
+	 * Returns an object with field data
 	 *
 	 * @param	string	$table
-	 * @return	string
+	 * @return	array
 	 */
-	protected function _field_data($table)
+	public function field_data($table = '')
 	{
-		return 'SELECT * FROM '.$this->protect_identifiers($table).' LIMIT 1';
+		if ($table === '')
+		{
+			return ($this->db_debug) ? $this->display_error('db_field_param_missing') : FALSE;
+		}
+
+		$sql = 'SELECT "column_name", "data_type", "character_maximum_length", "numeric_precision", "column_default"
+			FROM "information_schema"."columns"
+			WHERE LOWER("table_name") = '.$this->escape(strtolower($table));
+
+		if (($query = $this->query($sql)) === FALSE)
+		{
+			return FALSE;
+		}
+		$query = $query->result_object();
+
+		$retval = array();
+		for ($i = 0, $c = count($query); $i < $c; $i++)
+		{
+			$retval[$i]			= new stdClass();
+			$retval[$i]->name		= $query[$i]->column_name;
+			$retval[$i]->type		= $query[$i]->data_type;
+			$retval[$i]->max_length		= ($query[$i]->character_maximum_length > 0) ? $query[$i]->character_maximum_length : $query[$i]->numeric_precision;
+			$retval[$i]->default		= $query[$i]->column_default;
+		}
+
+		return $retval;
 	}
 
 	// --------------------------------------------------------------------
@@ -206,7 +271,7 @@ class CI_DB_pdo_pgsql_driver extends CI_DB_pdo_driver {
 	 * @param	string	$table
 	 * @param	array	$values
 	 * @return	string
-         */
+	 */
 	protected function _update($table, $values)
 	{
 		$this->qb_limit = FALSE;
@@ -237,7 +302,7 @@ class CI_DB_pdo_pgsql_driver extends CI_DB_pdo_driver {
 			{
 				if ($field !== $index)
 				{
-					$final[$field][] =  'WHEN '.$val[$index].' THEN '.$val[$field];
+					$final[$field][] = 'WHEN '.$val[$index].' THEN '.$val[$field];
 				}
 			}
 		}
@@ -285,91 +350,6 @@ class CI_DB_pdo_pgsql_driver extends CI_DB_pdo_driver {
 	{
 		return $sql.' LIMIT '.$this->qb_limit.($this->qb_offset ? ' OFFSET '.$this->qb_offset : '');
 	}
-
-	// --------------------------------------------------------------------
-
-	/**
-	 * WHERE, HAVING
-	 *
-	 * Called by where(), or_where(), having(), or_having()
-	 *
-	 * @param	string	'qb_where' or 'qb_having'
-	 * @param	mixed
-	 * @param	mixed
-	 * @param	string
-	 * @param	bool
-	 * @return	object
-	 */
-	protected function _wh($qb_key, $key, $value = NULL, $type = 'AND ', $escape = NULL)
-	{
-		$qb_cache_key = ($qb_key === 'qb_having') ? 'qb_cache_having' : 'qb_cache_where';
-
-		if ( ! is_array($key))
-		{
-			$key = array($key => $value);
-		}
-
-		// If the escape value was not set will will base it on the global setting
-		is_bool($escape) OR $escape = $this->_protect_identifiers;
-
-		foreach ($key as $k => $v)
-		{
-			$prefix = (count($this->$qb_key) === 0 && count($this->$qb_cache_key) === 0)
-				? $this->_group_get_type('')
-				: $this->_group_get_type($type);
-
-			if (is_null($v) && ! $this->_has_operator($k))
-			{
-				// value appears not to have been set, assign the test to IS NULL
-				$k .= ' IS NULL';
-			}
-
-			if ( ! is_null($v))
-			{
-				if (is_bool($v))
-				{
-					$v = ' '.($v ? 'TRUE' : 'FALSE');
-				}
-				elseif ($escape === TRUE)
-				{
-					$v = ' '.(is_int($v) ? $v : $this->escape($v));
-				}
-
-				if ( ! $this->_has_operator($k))
-				{
-					$k .= ' = ';
-				}
-			}
-
-			$this->{$qb_key}[] = array('condition' => $prefix.$k.$v, 'escape' => $escape);
-			if ($this->qb_caching === TRUE)
-			{
-				$this->{$qb_cache_key}[] = array('condition' => $prefix.$k.$v, 'escape' => $escape);
-				$this->qb_cache_exists[] = substr($qb_key, 3);
-			}
-
-		}
-
-		return $this;
-	}
-
-	// --------------------------------------------------------------------
-
-	/**
-	 * Is literal
-	 *
-	 * Determines if a string represents a literal value or a field name
-	 *
-	 * @param	string	$str
-	 * @return	bool
-	 */
-	protected function _is_literal($str)
-	{
-		$str = trim($str);
-
-		return (empty($str) OR ctype_digit($str) OR $str[0] === "'" OR in_array($str, array('TRUE', 'FALSE'), TRUE));
-	}
-
 
 }
 

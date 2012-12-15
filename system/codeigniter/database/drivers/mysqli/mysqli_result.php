@@ -102,7 +102,7 @@ class CI_DB_mysqli_result extends CI_DB_result {
 			$retval[$i]->type		= $field_data[$i]->type;
 			$retval[$i]->max_length		= $field_data[$i]->max_length;
 			$retval[$i]->primary_key	= (int) ($field_data[$i]->flags & 2);
-			$retval[$i]->default		= '';
+			$retval[$i]->default		= $field_data[$i]->def;
 		}
 
 		return $retval;
@@ -136,7 +136,7 @@ class CI_DB_mysqli_result extends CI_DB_result {
 	 * @param	int	$n
 	 * @return	bool
 	 */
-	protected function _data_seek($n = 0)
+	public function data_seek($n = 0)
 	{
 		return $this->result_id->data_seek($n);
 	}

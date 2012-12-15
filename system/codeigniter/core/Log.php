@@ -1,4 +1,4 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
 /**
  * CodeIgniter
  *
@@ -24,6 +24,7 @@
  * @since		Version 1.0
  * @filesource
  */
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * Logging Class
@@ -83,7 +84,7 @@ class CI_Log {
 	 *
 	 * @var array
 	 */
-	protected $_levels		= array('ERROR' => 1, 'DEBUG' => 2,  'INFO' => 3, 'ALL' => 4);
+	protected $_levels		= array('ERROR' => 1, 'DEBUG' => 2, 'INFO' => 3, 'ALL' => 4);
 
 	/**
 	 * Initialize Logging class
@@ -144,14 +145,13 @@ class CI_Log {
 			return FALSE;
 		}
 
-
 		$filepath = $this->_log_path.'log-'.date('Y-m-d').'.php';
 		$message  = '';
 
 		if ( ! file_exists($filepath))
 		{
 			$newfile = TRUE;
-			$message .= '<'."?php if ( ! defined('BASEPATH')) exit('No direct script access allowed'); ?".">\n\n";
+			$message .= '<'."?php defined('BASEPATH') OR exit('No direct script access allowed'); ?".">\n\n";
 		}
 
 		if ( ! $fp = @fopen($filepath, FOPEN_WRITE_CREATE))
