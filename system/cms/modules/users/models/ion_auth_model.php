@@ -71,7 +71,6 @@ class Ion_auth_model extends CI_Model
 		$this->load->config('users/ion_auth', true);
 		$this->load->helper('cookie');
 		$this->load->helper('date');
-		$this->load->library('session');
 		$this->tables  = $this->config->item('tables', 'ion_auth');
 		$this->columns = $this->config->item('columns', 'ion_auth');
 

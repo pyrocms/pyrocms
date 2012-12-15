@@ -123,7 +123,7 @@ class Module_m extends MY_Model
 		// Skip the disabled modules
 		if ($return_disabled === false)
 		{
-			$this->db->where('enabled', 1);
+			$this->db->where('enabled', true);
 		}
 
 		$result = $this->db->get($this->_table)->result();
@@ -294,7 +294,7 @@ class Module_m extends MY_Model
 	{
 		if ($this->exists($slug))
 		{
-			$this->db->where('slug', $slug)->update($this->_table, array('enabled' => 0));
+			$this->db->where('slug', $slug)->update($this->_table, array('enabled' => false));
 			return true;
 		}
 		return false;
@@ -324,18 +324,18 @@ class Module_m extends MY_Model
 			$input = $class->info();
 
 			// Now lets set some details ourselves
-			$input['slug']			= $slug;
-			$input['version']		= $class->version;
-			$input['enabled']		= $is_core; // enable if core
+			$input['slug'] = $slug;
+			$input['version'] = $class->version;
+			$input['enabled'] = $is_core; // enable if core
 			$input['installed']	= $is_core; // install if core
-			$input['is_core']		= $is_core; // is core if core
+			$input['is_core'] = $is_core; // is core if core
 
 			// It's a valid module let's make a record of it
 			$this->add($input);
 		}
 
 		// TURN ME ON BABY!
-		$this->db->where('slug', $slug)->update('modules', array('enabled' => 1, 'installed' => 1));
+		$this->db->where('slug', $slug)->update('modules', array('enabled' => true, 'installed' => true));
 
 		// set the site_ref and upload_path for third-party devs
 		$class->site_ref 	= SITE_REF;
@@ -379,11 +379,11 @@ class Module_m extends MY_Model
 			$input = $class->info();
 
 			// Now lets set some details ourselves
-			$input['slug']			= $slug;
-			$input['version']		= $class->version;
-			$input['enabled']		= $is_core; // enable if core
-			$input['installed']		= $is_core; // install if core
-			$input['is_core']		= $is_core; // is core if core
+			$input['slug'] = $slug;
+			$input['version'] = $class->version;
+			$input['enabled'] = $is_core; // enable if core
+			$input['installed'] = $is_core; // install if core
+			$input['is_core'] = $is_core; // is core if core
 
 			// We record it again here. If they really want to get rid of it they'll use Delete
 			return $this->add($input);
@@ -510,11 +510,11 @@ class Module_m extends MY_Model
 				$input = $class->info();
 
 				// Now lets set some details ourselves
-				$input['slug']			= $slug;
-				$input['version']		= $class->version;
-				$input['enabled']		= $is_core; // enable if core
-				$input['installed']		= $is_core; // install if core
-				$input['is_core']		= $is_core; // is core if core
+				$input['slug'] = $slug;
+				$input['version'] = $class->version;
+				$input['enabled'] = $is_core; // enable if core
+				$input['installed'] = $is_core; // install if core
+				$input['is_core'] = $is_core; // is core if core
 
 				// Looks like it installed ok, add a record
 				$this->add($input);
@@ -581,7 +581,7 @@ class Module_m extends MY_Model
 	 */
 	public function help($slug)
 	{
-		foreach (array(0, 1) as $is_core)
+		foreach (array(false, true) as $is_core)
     	{
 			$languages = $this->config->item('supported_languages');
 			$default = $languages[$this->config->item('default_language')]['folder'];
@@ -621,7 +621,7 @@ class Module_m extends MY_Model
 	 */
 	public function roles($slug)
 	{
-		foreach (array(0, 1) as $is_core)
+		foreach (array(false, true) as $is_core)
     	{
 			//first try it as a core module
 			if ($module = $this->_spawn_class($slug, $is_core))

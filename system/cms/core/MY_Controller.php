@@ -12,13 +12,6 @@ require APPPATH."libraries/MX/Controller.php";
 class MY_Controller extends MX_Controller
 {
 	/**
-	 * No longer used globally
-	 * 
-	 * @deprecated remove in 2.2
-	 */
-	protected $data;
-
-	/**
 	 * The name of the module that this controller instance actually belongs to.
 	 *
 	 * @var string 
@@ -51,11 +44,11 @@ class MY_Controller extends MX_Controller
 		// No record? Probably DNS'ed but not added to multisite
 		if ( ! defined('SITE_REF'))
 		{
-			show_error('This domain is not set up correctly. Please go to '.anchor('sites') .' and log in to add this site.');
+			show_error('This domain is not set up correctly. Please go to '.anchor('sites').' and log in to add this site.');
 		}
 
-		// By changing the prefix we are essentially "namespacing" each site
-		$this->db->set_dbprefix(SITE_REF.'_');
+		// Set up the Illuminate\Database layer
+		ci()->pdb = self::_setup_database();
 
 		// the Quick\Cache package is instantiated to $this->cache in the config file
 		$this->load->config('cache');
@@ -78,21 +71,17 @@ class MY_Controller extends MX_Controller
 		}
 
 		// With that done, load settings
-		$this->load->library(array('session', 'settings/settings'));
+		$this->load->library('settings/settings');
+
+		// And session stuff too
+		$this->load->driver('session');
 
 		// Lock front-end language
-		if ( ! (is_a($this, 'Admin_Controller') and ($site_lang = AUTO_LANGUAGE)))
+		if ( ! ($this instanceof Admin_Controller and ($site_lang = AUTO_LANGUAGE)))
 		{
 			$site_public_lang = explode(',', Settings::get('site_public_lang'));
 
-			if (in_array(AUTO_LANGUAGE, $site_public_lang))
-			{
-				$site_lang = AUTO_LANGUAGE;
-			}
-			else
-			{
-				$site_lang = Settings::get('site_lang');
-			}
+			$site_lang = in_array(AUTO_LANGUAGE, $site_public_lang) ? AUTO_LANGUAGE : Settings::get('site_lang');
 		}
 
 		// What language us being used
@@ -178,6 +167,33 @@ class MY_Controller extends MX_Controller
 			unset($_GET['_debug']);
 	    	$this->output->enable_profiler(true);
 	    }
+	}
+
+	public function _setup_database()
+	{
+		$prefix = SITE_REF.'_';
+
+		// By changing the prefix we are essentially "namespacing" each site
+		$this->db->set_dbprefix($prefix);
+
+		// Assign 
+		$conn = $this->db->get_connection();
+
+		// Is this a PDO connection?
+		if ($conn instanceof PDO) {
+
+			// Make a connection instance with the existing PDO connection
+			return new \Illuminate\Database\Connection($conn, $prefix);
+		
+		// Not using the new PDO driver
+		} else {
+
+			// Get the original CI config so we can use to make a second connection
+			require APPPATH.'config/database.php';
+
+			$cf = new \Illuminate\Database\ConnectionFactory;
+			return $cf->make($config);
+		}
 	}
 }
 

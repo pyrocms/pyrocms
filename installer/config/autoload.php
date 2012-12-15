@@ -29,6 +29,20 @@
 
 /*
 | -------------------------------------------------------------------
+|  Auto-load Drivers
+| -------------------------------------------------------------------
+| These are the classes located in the system/libraries folder
+| or in your system/application/libraries folder.
+|
+| Prototype:
+|
+|	$autoload['drivers'] = array('session', 'javascript');
+*/
+
+$autoload['drivers'] = array('session');
+
+/*
+| -------------------------------------------------------------------
 |  Auto-load Libraries
 | -------------------------------------------------------------------
 | These are the classes located in the system/libraries folder
@@ -39,7 +53,7 @@
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-$autoload['libraries'] = array('session', 'installer_lib', 'parser');
+$autoload['libraries'] = array('installer_lib', 'parser');
 
 
 /*

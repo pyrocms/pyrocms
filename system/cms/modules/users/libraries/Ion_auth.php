@@ -87,7 +87,6 @@ class Ion_auth
 		$this->ci =& get_instance();
 		$this->ci->load->config('users/ion_auth', true);
 		$this->ci->load->library('email');
-		$this->ci->load->library('session');
 		$this->ci->lang->load('users/ion_auth');
 		$this->ci->load->model('users/ion_auth_model');
 		$this->ci->load->helper('cookie');

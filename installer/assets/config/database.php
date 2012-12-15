@@ -48,21 +48,15 @@
 
 // Development
 $db['development'] = array(
-	'hostname'	=> 	'{hostname}',
-	'port'		=> 	'{port}',
-	'database'	=> 	'{database}',
+	'dbdriver' 	=> 	'pdo',
+	'dsn'		=> 	'{driver}:host={hostname};dbname={database};port={port}',
 	'username'	=> 	'{username}',
 	'password'	=> 	'{password}',
-	'dbdriver' 	=> 	'pdo',
-	'subdriver'	=> 	'{driver}',
 	'pconnect' 	=>	true,
 	'db_debug' 	=>	true,
 	'cache_on' 	=>	false,
 	'char_set' 	=>	'utf8',
 	'dbcollat' 	=>	'utf8_unicode_ci',
-
-	// 'Tough love': Forces strict mode to test your app for best compatibility
-	'stricton' 		=> true,
 );
 
 // Staging

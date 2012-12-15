@@ -39,7 +39,6 @@
 
 $autoload['packages'] = array();
 
-
 /*
 | -------------------------------------------------------------------
 |  Auto-load Libraries
@@ -50,8 +49,8 @@ $autoload['packages'] = array();
 | Prototype:
 |
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
-
-|	* pyrocache and session is loaded by MY_Controller to allow the site_ref to be set
+|
+|	Note: Quick Cache is loaded by MY_Controller to allow the site_ref to be set
 */
 
 $autoload['libraries'] = array('asset', 'database', 'template', 'parser');
