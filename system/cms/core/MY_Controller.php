@@ -116,12 +116,6 @@ class MY_Controller extends MX_Controller
 
 		$this->load->library(array('events', 'users/ion_auth'));
 
-		// Use this to define hooks with a nicer syntax
-		ci()->hooks =& $GLOBALS['EXT'];
-
-		// Create a hook point with access to instance but before custom code
-		$this->hooks->call_hook('post_core_controller_constructor');
-
 		// Get user data
 		$this->template->current_user = ci()->current_user = $this->current_user = $this->ion_auth->get_user();
 
@@ -144,14 +138,15 @@ class MY_Controller extends MX_Controller
 		// Get meta data for the module
 		$this->template->module_details = ci()->module_details = $this->module_details = $this->module_m->get($this->module);
 
-		// If the module is disabled, then show a 404.
-		empty($this->module_details['enabled']) AND show_404();
+		// If the module is disabled then show a 404.
+		empty($this->module_details['enabled']) and show_404();
 
 		if ( ! $this->module_details['skip_xss'])
 		{
 			$_POST = $this->security->xss_clean($_POST);
 		}
 
+		// Assign "This" module as its own namespace
 		if ($this->module and isset($this->module_details['path']))
 		{
 			Asset::add_path('module', $this->module_details['path'].'/');
