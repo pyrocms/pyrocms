@@ -47,12 +47,37 @@ class Users extends Public_Controller
 	 */
 	public function view($username = null)
 	{
+		// work out the visibility setting
+		switch (Settings::get('profile_visibility'))
+		{
+			case 'public':
+				// if it's public then we don't care about anything
+				break;
+
+			case 'owner':
+				// they have to be logged in so we know if they're the owner
+				$this->current_user or redirect('users/login/'.$username);
+
+				// do we have a match?
+				$this->current_user->username !== $username and redirect('404');
+				break;
+
+			case 'hidden':
+				// if it's hidden then nobody gets it
+				redirect('404');
+				break;
+
+			case 'member':
+				// anybody can see it if they're logged in
+				$this->current_user or redirect('users/login/'.$username);
+				break;
+		}
+
 		// Don't make a 2nd db call if the user profile is the same as the logged in user
 		if ($this->current_user && $username === $this->current_user->username)
 		{
 			$user = $this->current_user;
 		}
-
 		// Fine, just grab the user from the DB
 		else
 		{

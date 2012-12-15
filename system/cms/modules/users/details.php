@@ -321,6 +321,18 @@ class Module_Users extends Module {
 				'module' => 'users',
 				'order' => 961,
 			),
+			'profile_visibility' => array(
+                'title' => 'View user profile',
+                'description' => 'Allow anyone to view registered user\'s profile',
+                'type' => 'radio',
+                'default' => false,
+                'value' => '',
+                'options' => '1=Yes|0=No',
+                'is_required' => 0,
+                'is_gui' => 1,
+                'module' => 'users',
+                'order' => 960,
+			),
 		);
 
 		foreach ($settings as $setting)
