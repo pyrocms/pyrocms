@@ -15,7 +15,7 @@ class Field_text
 	
 	public $db_col_type				= 'varchar';
 
-	public $version					= '1.0';
+	public $version					= '1.0.0';
 
 	public $author					= array('name'=>'Parse19', 'url'=>'http://parse19.com');
 	

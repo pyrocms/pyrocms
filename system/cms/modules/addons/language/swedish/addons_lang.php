@@ -11,6 +11,7 @@
  */
 
 $lang['addons:modules'] = 'Moduler';
+$lang['addons:admin_themes'] 					= 'Admin Themes'; #translate
 $lang['addons:themes'] = 'Teman';
 $lang['addons:widgets'] = 'Widgetar';
 $lang['addons:modules:core_list'] = 'Grundmoduler';

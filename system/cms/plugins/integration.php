@@ -1,19 +1,25 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
  * Integration Plugin
  *
  * Attaches a Google Analytics tracking piece of code.
  *
- * @author		PyroCMS Dev Team
- * @package		PyroCMS\Core\Plugins
+ * @author  PyroCMS Dev Team
+ * @package PyroCMS\Core\Plugins
  */
 class Plugin_Integration extends Plugin
 {
-	public $description = array(
-		'en'	=> 'Google analytics tracking code and data.'
-	);
 
+	public $version = '1.0.0';
+	public $name = array(
+		'en' => 'Integration',
+	);
+	public $description = array(
+		'en' => 'Google analytics tracking code and data.',
+		'el' => 'Συνεργασία με Google Analytics;',
+		'fr' => 'Intégration du code de suivi Google Analytics.'
+	);
 
 	/**
 	 * Partial
@@ -21,7 +27,8 @@ class Plugin_Integration extends Plugin
 	 * Loads Google Analytic
 	 *
 	 * Usage:
-	 *   {{ integration:analytics }}
+	 *
+	 *     {{ integration:analytics }}
 	 *
 	 * @return string The analytics partial view.
 	 */
@@ -33,20 +40,20 @@ class Plugin_Integration extends Plugin
 	/**
 	 * Visitors
 	 *
-	 * Uses Google Analytics data to show page views 
-	 * and visitors for a given time period
+	 * Uses Google Analytics data to show page views and visitors for a given time period
 	 *
 	 * Usage:
-	 *   {{ integration:visitors }}
+	 *
+	 *     {{ integration:visitors }}
 	 *
 	 * @return array The number of page views and visitors.
 	 */
 	public function visitors()
 	{
-		$data 		= array('visits' => 0, 'views' => 0);
-		$start 		= $this->attribute('start', '2010-01-01');
-		$end 		= $this->attribute('end', date('Y-m-d'));
-		$refresh 	= $this->attribute('refresh', 24); // refresh the cache every n hours
+		$data = array('visits' => 0, 'views' => 0);
+		$start = $this->attribute('start', '2010-01-01');
+		$end = $this->attribute('end', date('Y-m-d'));
+		$refresh = $this->attribute('refresh', 24); // refresh the cache every n hours
 
 		if (Settings::get('ga_email') and Settings::get('ga_password') and Settings::get('ga_profile'))
 		{
@@ -56,50 +63,53 @@ class Plugin_Integration extends Plugin
 				return $cached_response;
 			}
 
-			else
+			try
 			{
-				try
+				$this->load->library('analytics', array(
+					'username' => Settings::get('ga_email'),
+					'password' => Settings::get('ga_password')
+				));
+
+				// Set by GA Profile ID if provided, else try and use the current domain
+				$this->analytics->setProfileById('ga:' . Settings::get('ga_profile'));
+
+				$this->analytics->setDateRange($start, $end);
+
+				$visits = $this->analytics->getVisitors();
+				$views = $this->analytics->getPageviews();
+
+				if ($visits)
 				{
-					$this->load->library('analytics', array(
-						'username' => Settings::get('ga_email'),
-						'password' => Settings::get('ga_password')
-					));
-
-					// Set by GA Profile ID if provided, else try and use the current domain
-					$this->analytics->setProfileById('ga:'.Settings::get('ga_profile'));
-
-					$this->analytics->setDateRange($start, $end);
-
-					$visits = $this->analytics->getVisitors();
-					$views 	= $this->analytics->getPageviews();
-
-					if ($visits)
+					foreach ($visits as $visit)
 					{
-						foreach ($visits as $visit)
+						if ($visit > 0)
 						{
-							if ($visit > 0) $data['visits'] += $visit;
+							$data['visits'] += $visit;
 						}
 					}
+				}
 
-					if ($views)
+				if ($views)
+				{
+					foreach ($views as $view)
 					{
-						foreach ($views as $view) 
+						if ($view > 0)
 						{
-							if ($view > 0) $data['views'] += $view;
+							$data['views'] += $view;
 						}
 					}
 
 					// Call the model or library with the method provided and the same arguments
 					$this->cache->set('analytics_plugin', $data, 60 * 60 * (int) $refresh); // 24 hours
 				}
-
-				catch (Exception $e)
-				{
-					log_message('error', 'Could not connect to Google Analytics. Called from the analytics plugin');
-				}
 			}
-
-			return $data;
+			catch (Exception $e)
+			{
+				log_message('error', 'Could not connect to Google Analytics. Called from the analytics plugin');
+			}
 		}
+
+		return $data;
 	}
+
 }

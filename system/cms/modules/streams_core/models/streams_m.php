@@ -85,7 +85,7 @@ class Streams_m extends MY_Model {
 	 */
 	public function run_slug_cache()
 	{
-		$this->run_cache('slug');
+		$this->run_cache();
 	}
 
     // --------------------------------------------------------------------------
@@ -99,7 +99,7 @@ class Streams_m extends MY_Model {
 	 * @param 	string - type 'id' or 'slug'
 	 * @return 	void
 	 */
-	private function run_cache($type = 'id')
+	private function run_cache()
 	{		
 		foreach($this->pdb->table($this->table)->get() as $stream)
 		{
@@ -118,14 +118,8 @@ class Streams_m extends MY_Model {
 				}
 			}
 
-			if ($type == 'id')
-			{
-				$this->streams_cache[$stream->id] = $stream;	
-			}
-			elseif ($type == 'slug')
-			{
-				$this->streams_cache['ns'][$stream->stream_namespace][$stream->stream_slug] = $stream;
-			}
+			$this->streams_cache[$stream->id] = $stream;	
+			$this->streams_cache['ns'][$stream->stream_namespace][$stream->stream_slug] = $stream;
 		}
 
 	}
@@ -208,7 +202,7 @@ class Streams_m extends MY_Model {
 	 * @param	string - stream prefix
 	 * @param	string - stream namespace
 	 * @param	[string - about the stream]
-	 * @return	bool
+	 * @return	false or stream id
 	 */
 	public function create_new_stream($stream_name, $stream_slug, $prefix, $namespace, $about = null)
 	{	
@@ -225,7 +219,7 @@ class Streams_m extends MY_Model {
 	        'created' 			=> array('type' => 'DATETIME'),
             'updated'	 		=> array('type' => 'DATETIME', 'null' => true),
             'created_by'		=> array('type' => 'INT', 'constraint' => '11', 'null' => true),
-            'ordering_count'	=> array('type' => 'INT', 'constraint' => '11')
+            'ordering_count'	=> array('type' => 'INT', 'constraint' => '11', 'null' => true)
 		);
 		
 		$this->dbforge->add_field($standard_fields);
@@ -244,7 +238,14 @@ class Streams_m extends MY_Model {
 		// with data we know will be there.	
 		$insert_data['view_options']		= serialize(array('id', 'created'));
 		
-		return $this->db->insert($this->table, $insert_data);
+		if ($this->db->insert($this->table, $insert_data))
+		{
+			return $this->db->insert_id();
+		}
+		else
+		{
+			return false;
+		}
 	}
 
 	// --------------------------------------------------------------------------
@@ -436,13 +437,14 @@ class Streams_m extends MY_Model {
 		}
 		elseif ($by_slug and $namespace)
 		{
-			if (isset($this->streams_cache['ns'][$namespace]->$stream_id))
+			if (isset($this->streams_cache['ns'][$namespace][$stream_id]))
 			{
-				return $this->streams_cache['ns'][$namespace]->$stream_id;
+				return $this->streams_cache['ns'][$namespace][$stream_id];
 			}
 		}
 
 		// -------------------------------------
+
 
 		$this->db->limit(1);
 		
@@ -807,6 +809,22 @@ class Streams_m extends MY_Model {
 		{
 			return $this->db->insert_id();
 		}
+	}
+
+    // --------------------------------------------------------------------------
+
+	/**
+	 * Check to see if the table name needed for a stream is
+	 * actually available.
+	 *
+	 * @access 	public
+	 * @param 	string
+	 * @param 	string
+	 * @param 	string
+	 */
+	public function check_table_exists($stream_slug, $prefix)
+	{
+		return $this->db->table_exists($prefix.$stream_slug);
 	}
 
 	// --------------------------------------------------------------------------

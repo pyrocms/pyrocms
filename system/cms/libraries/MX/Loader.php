@@ -119,7 +119,7 @@ class MX_Loader extends CI_Loader
 	}
 
 	/** Load a module language file **/
-	public function language($file = array(), $lang = '')
+	public function language($file = array(), $lang = '', $return = false, $add_suffix = true, $alt_path = '')
 	{
 		if (is_array($file))
 		{

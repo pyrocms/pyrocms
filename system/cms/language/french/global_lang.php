@@ -104,4 +104,10 @@ $lang['global:or'] = 'ou';
 $lang['global:and'] = 'et';
 $lang['global:at'] = 'à';
 
+$lang['global:widgets'] = 'Widgets';
+$lang['global:themes']					= 'Themes'; #translate
+$lang['global:field_types'] = 'Type de Champs';
+$lang['global:plugins'] = 'Plugins';
+$lang['global:plugin'] = 'Plugin';
+
 /* End of file main_lang.php */

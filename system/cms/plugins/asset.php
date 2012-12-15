@@ -1,17 +1,24 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
  * Asset Plugin
  *
  * Load and print asset data
  *
- * @author		PyroCMS Dev Team
- * @package		PyroCMS\Core\Plugins
+ * @author  PyroCMS Dev Team
+ * @package PyroCMS\Core\Plugins
  */
 class Plugin_Asset extends Plugin
 {
+
+	public $version = '1.0.0';
+	public $name = array(
+		'en' => 'Asset',
+	);
 	public $description = array(
-		'en'	=> 'Access assets.'
+		'en' => 'Access to static content such as CSS or Javascript file assets.',
+		'el' => 'Πρόσβαση σε στατικό περιεχόμενο όπως αρχεία CSS ή Javascript.',
+		'fr' => 'Accéder à des ressources CSS et Javascript (Assets).'
 	);
 
 	/**
@@ -32,6 +39,26 @@ class Plugin_Asset extends Plugin
 		$group = $this->attribute('group');
 
 		return Asset::css($file, $file_min, $group);
+	}
+	
+	/**
+	 * Asset Inline CSS
+	 *
+	 * Insert a CSS tag
+	 *
+	 * Usage:
+	 *
+	 * {{ asset:css_inline }}
+	 *   #id .class { background: red }
+	 * {{ /asset:css_inline }}
+	 *
+	 * @return string empty
+	 */
+	public function css_inline()
+	{
+		$string = $this->content();
+		
+		return Asset::css_inline($string);
 	}
 
 	/**
@@ -67,7 +94,7 @@ class Plugin_Asset extends Plugin
 	{
 		$file = $this->attribute('file');
 
-		return BASE_URI.Asset::get_filepath_css($file, false);
+		return BASE_URI . Asset::get_filepath_css($file, false);
 	}
 
 	/**
@@ -126,7 +153,7 @@ class Plugin_Asset extends Plugin
 	{
 		$file = $this->attribute('file');
 
-		return BASE_URI.Asset::get_filepath_img($file, false);
+		return BASE_URI . Asset::get_filepath_img($file, false);
 	}
 
 	/**
@@ -147,6 +174,26 @@ class Plugin_Asset extends Plugin
 		$group = $this->attribute('group');
 
 		return Asset::js($file, $file_min, $group);
+	}
+	
+	/**
+	 * Asset Inline JS
+	 *
+	 * Insert a JS tag
+	 *
+	 * Usage:
+	 *
+	 * {{ asset:js_inline }}
+	 *   alert('Are you sure?');
+	 * {{ /asset:js_inline }}
+	 *
+	 * @return string empty
+	 */
+	public function js_inline()
+	{
+		$string = $this->content();
+		
+		return Asset::js_inline($string);
 	}
 
 	/**
@@ -182,7 +229,7 @@ class Plugin_Asset extends Plugin
 	{
 		$file = $this->attribute('file');
 
-		return BASE_URI.Asset::get_filepath_js($file, false);
+		return BASE_URI . Asset::get_filepath_js($file, false);
 	}
 
 	/**
@@ -202,7 +249,7 @@ class Plugin_Asset extends Plugin
 
 		return Asset::render($group);
 	}
-	
+
 	/**
 	 * Asset Render CSS
 	 *
@@ -219,6 +266,22 @@ class Plugin_Asset extends Plugin
 		$group = $this->attribute('group', false);
 
 		return Asset::render_css($group);
+	}
+
+	/**
+	 * Asset Render CSS Inline
+	 *
+	 * Render inline CSS.
+	 *
+	 * Usage:
+	 *
+	 * {{ asset:render_css_inline }}
+	 *
+	 * @return string Inline CSS content
+	 */
+	public function render_css_inline()
+	{
+		return Asset::render_css_inline();
 	}
 	
 	/**
@@ -238,5 +301,23 @@ class Plugin_Asset extends Plugin
 
 		return Asset::render_js($group);
 	}
+	
+	/**
+	 * Asset Render JS Inline
+	 *
+	 * Render inline JS.
+	 *
+	 * Usage:
+	 *
+	 * {{ asset:render_js_inline }}
+	 *
+	 * @return string Inline JS content
+	 */
+	public function render_js_inline()
+	{
+		return Asset::render_js_inline();
+	}
 
 }
+
+/* EOF */

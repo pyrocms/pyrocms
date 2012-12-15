@@ -1,5 +1,5 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
-
+// TODO: Nothing translated, cna be removed.
 /* Messages */
 
 $lang['streams.save_field_error'] 						= "There was a problem saving your field."; #translate
@@ -55,7 +55,6 @@ $lang['streams.type_not_valid']							= "Please select a valid field type."; #tr
 $lang['streams.stream_slug_not_unique']					= "This stream slug is already in use."; #translate
 $lang['streams.field_unique']							= "The %s field must be unique."; #translate
 $lang['streams.field_is_required']						= "The %s field is required."; #translate
-$lang['streams.date_out_or_range']						= "The date you have chosen is out of the acceptable range."; #translate
 $lang['streams.date_out_or_range']						= "The date you have chosen is out of the acceptable range."; #translate
 
 /* Field Labels */

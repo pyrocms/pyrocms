@@ -1,4 +1,4 @@
-<?php
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
  * CodeIgniter
  *
@@ -24,12 +24,11 @@
  * @since		Version 1.0
  * @filesource
  */
-defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * Loader Class
  *
- * Loads framework components.
+ * Loads views and files
  *
  * @package		CodeIgniter
  * @subpackage	Libraries
@@ -43,84 +42,84 @@ class CI_Loader {
 	/**
 	 * Nesting level of the output buffering mechanism
 	 *
-	 * @var	int
+	 * @var int
 	 */
 	protected $_ci_ob_level;
 
 	/**
 	 * List of paths to load views from
 	 *
-	 * @var	array
+	 * @var array
 	 */
 	protected $_ci_view_paths =	array();
 
 	/**
 	 * List of paths to load libraries from
 	 *
-	 * @var	array
+	 * @var array
 	 */
 	protected $_ci_library_paths =	array();
 
 	/**
 	 * List of paths to load models from
 	 *
-	 * @var	array
+	 * @var array
 	 */
 	protected $_ci_model_paths =	array();
 
 	/**
 	 * List of paths to load helpers from
 	 *
-	 * @var	array
+	 * @var array
 	 */
 	protected $_ci_helper_paths =	array();
 
 	/**
 	 * List of loaded base classes
 	 *
-	 * @var	array
+	 * @var array
 	 */
 	protected $_base_classes =	array(); // Set by the controller class
 
 	/**
 	 * List of cached variables
 	 *
-	 * @var	array
+	 * @var array
 	 */
 	protected $_ci_cached_vars =	array();
 
 	/**
 	 * List of loaded classes
 	 *
-	 * @var	array
+	 * @var array
 	 */
 	protected $_ci_classes =	array();
 
 	/**
 	 * List of loaded files
 	 *
-	 * @var	array
+	 * @var array
 	 */
 	protected $_ci_loaded_files =	array();
 
 	/**
 	 * List of loaded models
 	 *
-	 * @var	array
+	 * @var array
 	 */
 	protected $_ci_models =	array();
 
 	/**
 	 * List of loaded helpers
 	 *
-	 * @var	array
+	 * @var array
 	 */
 	protected $_ci_helpers =	array();
 
 	/**
 	 * List of class name mappings
 	 *
-	 * @var	array
+	 * @var array
 	 */
 	protected $_ci_varmap =	array(
 		'unit_test' => 'unit',
@@ -128,9 +127,9 @@ class CI_Loader {
 	);
 
 	/**
-	 * Class constructor
+	 * Constructor
 	 *
-	 * Sets component load paths, gets the initial output buffering level.
+	 * Sets the path to the view files and gets the initial output buffering level
 	 *
 	 * @return	void
 	 */
@@ -148,18 +147,21 @@ class CI_Loader {
 	// --------------------------------------------------------------------
 
 	/**
-	 * Initializer
+	 * Initialize the Loader
 	 *
-	 * @todo	Figure out a way to move this to the constructor
-	 *		without breaking *package_path*() methods.
-	 * @uses	CI_Loader::_ci_autoloader()
-	 * @used-by	CI_Controller::__construct()
-	 * @return	void
+	 * This method is called once in CI_Controller.
+	 *
+	 * @return 	object
 	 */
-	public function initialize()
+	public function initialize($controller = null)
 	{
+		$this->_ci_classes = array();
+		$this->_ci_loaded_files = array();
+		$this->_ci_models = array();
 		$this->_base_classes =& is_loaded();
+
 		$this->_ci_autoloader();
+		return $this;
 	}
 
 	// --------------------------------------------------------------------
@@ -167,12 +169,14 @@ class CI_Loader {
 	/**
 	 * Is Loaded
 	 *
-	 * A utility method to test if a class is in the self::$_ci_classes array.
+	 * A utility function to test if a class is in the self::$_ci_classes array.
+	 * This function returns the object name if the class tested for is loaded,
+	 * and returns FALSE if it isn't.
 	 *
-	 * @used-by	Mainly used by Form Helper function _get_validation_object().
+	 * It is mainly used in the form_helper -> _get_validation_object()
 	 *
-	 * @param 	string		$class	Class name to check for
-	 * @return 	string|bool	Class object name if loaded or FALSE
+	 * @param 	string	class being checked for
+	 * @return 	mixed	class object name on the CI SuperObject or FALSE
 	 */
 	public function is_loaded($class)
 	{
@@ -182,14 +186,14 @@ class CI_Loader {
 	// --------------------------------------------------------------------
 
 	/**
-	 * Library Loader
+	 * Class Loader
 	 *
-	 * Loads and instantiates libraries.
-	 * Designed to be called from application controllers.
+	 * This function lets users load and instantiate classes.
+	 * It is designed to be called from a user's app controllers.
 	 *
-	 * @param	string	$library	Library name
-	 * @param	array	$params		Optional parameters to pass to the library class constructor
-	 * @param	string	$object_name	An optional object name to assign to
+	 * @param	string	the name of the class
+	 * @param	mixed	the optional parameters
+	 * @param	string	an optional object name
 	 * @return	void
 	 */
 	public function library($library = '', $params = NULL, $object_name = NULL)
@@ -206,7 +210,7 @@ class CI_Loader {
 
 		if ($library === '' OR isset($this->_base_classes[$library]))
 		{
-			return;
+			return FALSE;
 		}
 
 		if ( ! is_null($params) && ! is_array($params))
@@ -222,25 +226,26 @@ class CI_Loader {
 	/**
 	 * Model Loader
 	 *
-	 * Loads and instantiates libraries.
+	 * This function lets users load and instantiate models.
 	 *
-	 * @param	string	$model		Model name
-	 * @param	string	$name		An optional object name to assign to
-	 * @param	bool	$db_conn	An optional database connection configuration to initialize
+	 * @param	string	the name of the class
+	 * @param	string	name for the model
+	 * @param	bool	database connection
 	 * @return	void
 	 */
 	public function model($model, $name = '', $db_conn = FALSE)
 	{
-		if (empty($model))
-		{
-			return;
-		}
-		elseif (is_array($model))
+		if (is_array($model))
 		{
 			foreach ($model as $class)
 			{
 				$this->model($class);
 			}
+			return;
+		}
+
+		if ($model === '')
+		{
 			return;
 		}
 
@@ -313,13 +318,10 @@ class CI_Loader {
 	/**
 	 * Database Loader
 	 *
-	 * @param	mixed	$params		Database configuration options
-	 * @param	bool	$return 	Whether to return the database object
-	 * @param	bool	$query_builder	Whether to enable Query Builder
-	 *					(overrides the configuration setting)
-	 *
-	 * @return	void|object|bool	Database object if $return is set to TRUE,
-	 *					FALSE on failure, void in any other case
+	 * @param	string	the DB credentials
+	 * @param	bool	whether to return the DB object
+	 * @param	bool	whether to enable query builder (this allows us to override the config setting)
+	 * @return	object
 	 */
 	public function database($params = '', $return = FALSE, $query_builder = NULL)
 	{
@@ -327,7 +329,7 @@ class CI_Loader {
 		$CI =& get_instance();
 
 		// Do we even need to load the database class?
-		if ($return === FALSE && $query_builder === NULL && isset($CI->db) && is_object($CI->db) && ! empty($CI->db->conn_id))
+		if (class_exists('CI_DB') && $return === FALSE && $query_builder === NULL && isset($CI->db) && is_object($CI->db))
 		{
 			return FALSE;
 		}
@@ -350,32 +352,28 @@ class CI_Loader {
 	// --------------------------------------------------------------------
 
 	/**
-	 * Load the Database Utilities Class
+	 * Load the Utilities Class
 	 *
-	 * @param	object	$db	Database object
-	 * @param	bool	$return	Whether to return the DB Forge class object or not
-	 * @return	void|object
+	 * @return	string
 	 */
-	public function dbutil($db = NULL, $return = FALSE)
+	public function dbutil()
 	{
+		if ( ! class_exists('CI_DB'))
+		{
+			$this->database();
+		}
+
 		$CI =& get_instance();
 
-		if ( ! is_object($db) OR ! ($db instanceof CI_DB))
-		{
-			class_exists('CI_DB', FALSE) OR $this->database();
-			$db =& $CI->db;
-		}
+		// for backwards compatibility, load dbforge so we can extend dbutils off it
+		// this use is deprecated and strongly discouraged
+		$CI->load->dbforge();
 
 		require_once(BASEPATH.'database/DB_utility.php');
-		require_once(BASEPATH.'database/drivers/'.$db->dbdriver.'/'.$db->dbdriver.'_utility.php');
-		$class = 'CI_DB_'.$db->dbdriver.'_utility';
+		require_once(BASEPATH.'database/drivers/'.$CI->db->dbdriver.'/'.$CI->db->dbdriver.'_utility.php');
+		$class = 'CI_DB_'.$CI->db->dbdriver.'_utility';
 
-		if ($return === TRUE)
-		{
-			return new $class($db);
-		}
-
-		$CI->dbutil = new $class($db);
+		$CI->dbutil = new $class();
 	}
 
 	// --------------------------------------------------------------------
@@ -383,56 +381,40 @@ class CI_Loader {
 	/**
 	 * Load the Database Forge Class
 	 *
-	 * @param	object	$db	Database object
-	 * @param	bool	$return	Whether to return the DB Forge class object or not
-	 * @return	void|object
+	 * @return	string
 	 */
-	public function dbforge($db = NULL, $return = FALSE)
+	public function dbforge()
 	{
-		$CI =& get_instance();
-		if ( ! is_object($db) OR ! ($db instanceof CI_DB))
+		if ( ! class_exists('CI_DB'))
 		{
-			class_exists('CI_DB', FALSE) OR $this->database();
-			$db =& $CI->db;
+			$this->database();
 		}
+
+		$CI =& get_instance();
 
 		require_once(BASEPATH.'database/DB_forge.php');
-		require_once(BASEPATH.'database/drivers/'.$db->dbdriver.'/'.$db->dbdriver.'_forge.php');
+		require_once(BASEPATH.'database/drivers/'.$CI->db->dbdriver.'/'.$CI->db->dbdriver.'_forge.php');
+		$class = 'CI_DB_'.$CI->db->dbdriver.'_forge';
 
-		if ( ! empty($db->subdriver))
-		{
-			$driver_path = BASEPATH.'database/drivers/'.$db->dbdriver.'/subdrivers/'.$db->dbdriver.'_'.$db->subdriver.'_forge.php';
-			if (file_exists($driver_path))
-			{
-				require_once($driver_path);
-				$class = 'CI_DB_'.$db->dbdriver.'_'.$db->subdriver.'_forge';
-			}
-		}
-		else
-		{
-			$class = 'CI_DB_'.$db->dbdriver.'_forge';
-		}
-
-		if ($return === TRUE)
-		{
-			return new $class($db);
-		}
-
-		$CI->dbforge = new $class($db);
+		$CI->dbforge = new $class();
 	}
 
 	// --------------------------------------------------------------------
 
 	/**
-	 * View Loader
+	 * Load View
 	 *
-	 * Loads "view" files.
+	 * This function is used to load a "view" file. It has three parameters:
 	 *
-	 * @param	string	$view	View name
-	 * @param	array	$vars	An associative array of data
-	 *				to be extracted for use in the view
-	 * @param	bool	$return	Whether to return the view output
-	 *				or leave it to the Output class
+	 * 1. The name of the "view" file to be included.
+	 * 2. An associative array of data to be extracted for use in the view.
+	 * 3. TRUE/FALSE - whether to return the data or load it. In
+	 *	some cases it's advantageous to be able to return data so that
+	 *	a developer can process it in some way.
+	 *
+	 * @param	string
+	 * @param	array
+	 * @param	bool
 	 * @return	void
 	 */
 	public function view($view, $vars = array(), $return = FALSE)
@@ -443,11 +425,13 @@ class CI_Loader {
 	// --------------------------------------------------------------------
 
 	/**
-	 * Generic File Loader
+	 * Load File
 	 *
-	 * @param	string	$path	File path
-	 * @param	bool	$return	Whether to return the file output
-	 * @return	void|string
+	 * This is a generic file loader
+	 *
+	 * @param	string
+	 * @param	bool
+	 * @return	string
 	 */
 	public function file($path, $return = FALSE)
 	{
@@ -462,10 +446,8 @@ class CI_Loader {
 	 * Once variables are set they become available within
 	 * the controller class and its "view" files.
 	 *
-	 * @param	array|object|string	$vars
-	 *					An associative array or object containing values
-	 *					to be set, or a value's name if string
-	 * @param 	string	$val	Value to set, only used if $vars is a string
+	 * @param	array
+	 * @param 	string
 	 * @return	void
 	 */
 	public function vars($vars = array(), $val = '')
@@ -493,8 +475,8 @@ class CI_Loader {
 	 *
 	 * Check if a variable is set and retrieve it.
 	 *
-	 * @param	string	$key	Variable name
-	 * @return	mixed	The variable or NULL if not found
+	 * @param	array
+	 * @return	void
 	 */
 	public function get_var($key)
 	{
@@ -506,7 +488,7 @@ class CI_Loader {
 	/**
 	 * Get Variables
 	 *
-	 * Retrieves all loaded variables.
+	 * Retrieve all loaded variables
 	 *
 	 * @return	array
 	 */
@@ -518,9 +500,11 @@ class CI_Loader {
 	// --------------------------------------------------------------------
 
 	/**
-	 * Helper Loader
+	 * Load Helper
 	 *
-	 * @param	string|string[]	$helpers	Helper name(s)
+	 * This function loads the specified helper file.
+	 *
+	 * @param	mixed
 	 * @return	void
 	 */
 	public function helper($helpers = array())
@@ -532,34 +516,27 @@ class CI_Loader {
 				continue;
 			}
 
-			// Is this a helper extension request?
-			$ext_helper = config_item('subclass_prefix').$helper;
-			$ext_loaded = FALSE;
-			foreach ($this->_ci_helper_paths as $path)
-			{
-				if (file_exists($path.'helpers/'.$ext_helper.'.php'))
-				{
-					include_once($path.'helpers/'.$ext_helper.'.php');
-					$ext_loaded = TRUE;
-				}
-			}
+			$ext_helper = APPPATH.'helpers/'.config_item('subclass_prefix').$helper.'.php';
 
-			// If we have loaded extensions - check if the base one is here
-			if ($ext_loaded === TRUE)
+			// Is this a helper extension request?
+			if (file_exists($ext_helper))
 			{
 				$base_helper = BASEPATH.'helpers/'.$helper.'.php';
+
 				if ( ! file_exists($base_helper))
 				{
 					show_error('Unable to load the requested file: helpers/'.$helper.'.php');
 				}
 
+				include_once($ext_helper);
 				include_once($base_helper);
+
 				$this->_ci_helpers[$helper] = TRUE;
 				log_message('debug', 'Helper loaded: '.$helper);
 				continue;
 			}
 
-			// No extensions found ... try loading regular helpers and/or overrides
+			// Try to load the helper
 			foreach ($this->_ci_helper_paths as $path)
 			{
 				if (file_exists($path.'helpers/'.$helper.'.php'))
@@ -585,11 +562,10 @@ class CI_Loader {
 	/**
 	 * Load Helpers
 	 *
-	 * An alias for the helper() method in case the developer has
-	 * written the plural form of it.
+	 * This is simply an alias to the above function in case the
+	 * user has written the plural form of this function.
 	 *
-	 * @uses	CI_Loader::helper()
-	 * @param	string|string[]	$helpers	Helper name(s)
+	 * @param	array
 	 * @return	void
 	 */
 	public function helpers($helpers = array())
@@ -600,21 +576,22 @@ class CI_Loader {
 	// --------------------------------------------------------------------
 
 	/**
-	 * Language Loader
+	 * Loads a language file
 	 *
-	 * Loads language files.
-	 *
-	 * @param	string|string[]	$files	List of language file names to load
-	 * @param	string		Language name
+	 * @param	array
+	 * @param	string
 	 * @return	void
 	 */
-	public function language($files = array(), $lang = '')
+	public function language($file = array(), $lang = '', $return = FALSE, $add_suffix = TRUE, $alt_path = '')
 	{
 		$CI =& get_instance();
 
-		is_array($files) OR $files = array($files);
+		if ( ! is_array($file))
+		{
+			$file = array($file);
+		}
 
-		foreach ($files as $langfile)
+		foreach ($file as $langfile)
 		{
 			$CI->lang->load($langfile, $lang);
 		}
@@ -623,35 +600,30 @@ class CI_Loader {
 	// --------------------------------------------------------------------
 
 	/**
-	 * Config Loader
+	 * Loads a config file
 	 *
-	 * Loads a config file (an alias for CI_Config::load()).
-	 *
-	 * @uses	CI_Config::load()
-	 * @param	string	$file			Configuration file name
-	 * @param	bool	$use_sections		Whether configuration values should be loaded into their own section
-	 * @param	bool	$fail_gracefully	Whether to just return FALSE or display an error message
-	 * @return	bool	TRUE if the file was loaded correctly or FALSE on failure
+	 * @param	string
+	 * @param	bool
+	 * @param 	bool
+	 * @return	void
 	 */
 	public function config($file = '', $use_sections = FALSE, $fail_gracefully = FALSE)
 	{
 		$CI =& get_instance();
-		return $CI->config->load($file, $use_sections, $fail_gracefully);
+		$CI->config->load($file, $use_sections, $fail_gracefully);
 	}
 
 	// --------------------------------------------------------------------
 
 	/**
-	 * Driver Loader
+	 * Driver
 	 *
-	 * Loads a driver library.
+	 * Loads a driver library
 	 *
-	 * @param	string|string[]	$library	Driver name(s)
-	 * @param	array		$params		Optional parameters to pass to the driver
-	 * @param	string		$object_name	An optional object name to assign to
-	 *
-	 * @return	void|object|bool	Object or FALSE on failure if $library is a string
-	 *					and $object_name is set. void otherwise.
+	 * @param	mixed	the name of the class or array of classes
+	 * @param	mixed	the optional parameters
+	 * @param	string	an optional object name
+	 * @return	void
 	 */
 	public function driver($library = '', $params = NULL, $object_name = NULL)
 	{
@@ -669,12 +641,6 @@ class CI_Loader {
 			return FALSE;
 		}
 
-		if ( ! class_exists('CI_Driver_Library'))
-		{
-			// We aren't instantiating an object here, just making the base class available
-			require BASEPATH.'libraries/Driver.php';
-		}
-
 		// We can save the loader some time since Drivers will *always* be in a subfolder,
 		// and typically identically named to the library
 		if ( ! strpos($library, '/'))
@@ -690,16 +656,10 @@ class CI_Loader {
 	/**
 	 * Add Package Path
 	 *
-	 * Prepends a parent path to the library, model, helper and config
-	 * path arrays.
+	 * Prepends a parent path to the library, model, helper, and config path arrays
 	 *
-	 * @see	CI_Loader::$_ci_library_paths
-	 * @see	CI_Loader::$_ci_model_paths
-	 * @see CI_Loader::$_ci_helper_paths
-	 * @see CI_Config::$_config_paths
-	 *
-	 * @param	string	$path		Path to add
-	 * @param 	bool	$view_cascade	(default: TRUE)
+	 * @param	string
+	 * @param 	bool
 	 * @return	void
 	 */
 	public function add_package_path($path, $view_cascade = TRUE)
@@ -722,14 +682,14 @@ class CI_Loader {
 	/**
 	 * Get Package Paths
 	 *
-	 * Return a list of all package paths.
+	 * Return a list of all package paths, by default it will ignore BASEPATH.
 	 *
-	 * @param	bool	$include_base	Whether to include BASEPATH (default: TRUE)
-	 * @return	array
+	 * @param	string
+	 * @return	void
 	 */
 	public function get_package_paths($include_base = FALSE)
 	{
-		return ($include_base === TRUE) ? $this->_ci_library_paths : $this->_ci_model_paths;
+		return $include_base === TRUE ? $this->_ci_library_paths : $this->_ci_model_paths;
 	}
 
 	// --------------------------------------------------------------------
@@ -737,14 +697,14 @@ class CI_Loader {
 	/**
 	 * Remove Package Path
 	 *
-	 * Remove a path from the library, model, helper and/or config
-	 * path arrays if it exists. If no path is provided, the most recently
-	 * added path will be removed removed.
+	 * Remove a path from the library, model, and helper path arrays if it exists
+	 * If no path is provided, the most recently added path is removed.
 	 *
-	 * @param	string	$path	Path to remove
+	 * @param	string
+	 * @param 	bool
 	 * @return	void
 	 */
-	public function remove_package_path($path = '')
+	public function remove_package_path($path = '', $remove_config_path = TRUE)
 	{
 		$config =& $this->_ci_get_component('config');
 
@@ -789,16 +749,13 @@ class CI_Loader {
 	// --------------------------------------------------------------------
 
 	/**
-	 * Internal CI Data Loader
+	 * Loader
 	 *
-	 * Used to load views and files.
-	 *
+	 * This function is used to load views and files.
 	 * Variables are prefixed with _ci_ to avoid symbol collision with
-	 * variables made available to view files.
+	 * variables made available to view files
 	 *
-	 * @used-by	CI_Loader::view()
-	 * @used-by	CI_Loader::file()
-	 * @param	array	$_ci_data	Data to load
+	 * @param	array
 	 * @return	void
 	 */
 	protected function _ci_load($_ci_data)
@@ -884,9 +841,7 @@ class CI_Loader {
 		// If the PHP installation does not support short tags we'll
 		// do a little string replacement, changing the short tags
 		// to standard PHP echo statements.
-		if ( ! is_php('5.4') && (bool) @ini_get('short_open_tag') === FALSE
-			&& config_item('rewrite_short_tags') === TRUE && function_usable('eval')
-		)
+		if ( ! is_php('5.4') && (bool) @ini_get('short_open_tag') === FALSE && config_item('rewrite_short_tags') === TRUE)
 		{
 			echo eval('?>'.preg_replace('/;*\s*\?>/', '; ?>', str_replace('<?=', '<?php echo ', file_get_contents($_ci_path))));
 		}
@@ -928,14 +883,13 @@ class CI_Loader {
 	// --------------------------------------------------------------------
 
 	/**
-	 * Internal CI Class Loader
+	 * Load class
 	 *
-	 * @used-by	CI_Loader::library()
-	 * @uses	CI_Loader::_ci_init_class()
+	 * This function loads the requested class.
 	 *
-	 * @param	string	$class		Class name to load
-	 * @param	mixed	$params		Optional parameters to pass to the class constructor
-	 * @param	string	$object_name	Optional object name to assign to
+	 * @param	string	the item that is being loaded
+	 * @param	mixed	any additional parameters
+	 * @param	string	an optional object name
 	 * @return	void
 	 */
 	protected function _ci_load_class($class, $params = NULL, $object_name = NULL)
@@ -955,6 +909,13 @@ class CI_Loader {
 
 			// Get the filename from the path
 			$class = substr($class, $last_slash);
+
+			// Check for match and driver base class
+			if (strtolower(trim($subdir, '/')) == strtolower($class) && ! class_exists('CI_Driver_Library'))
+			{
+				// We aren't instantiating an object here, just making the base class available
+				require BASEPATH.'libraries/Driver.php';
+			}
 		}
 
 		// We'll test for both lowercase and capitalized versions of the file name
@@ -1044,7 +1005,7 @@ class CI_Loader {
 			$path = strtolower($class).'/'.$class;
 			return $this->_ci_load_class($path, $params, $object_name);
 		}
-		elseif (ucfirst($subdir) != $subdir)
+		else if (ucfirst($subdir) != $subdir)
 		{
 			// Lowercase subdir failed - retry capitalized
 			$path = ucfirst($subdir).$class;
@@ -1063,17 +1024,12 @@ class CI_Loader {
 	// --------------------------------------------------------------------
 
 	/**
-	 * Internal CI Class Instantiator
+	 * Instantiates a class
 	 *
-	 * @used-by	CI_Loader::_ci_load_class()
-	 *
-	 * @param	string		$class		Class name
-	 * @param	string		$prefix		Class name prefix
-	 * @param	array|null|bool	$config		Optional configuration to pass to the class constructor:
-	 *						FALSE to skip;
-	 *						NULL to search in config paths;
-	 *						array containing configuration data
-	 * @param	string		$object_name	Optional object name to assign to
+	 * @param	string
+	 * @param	string
+	 * @param	bool
+	 * @param	string	an optional object name
 	 * @return	void
 	 */
 	protected function _ci_init_class($class, $prefix = '', $config = FALSE, $object_name = NULL)
@@ -1175,11 +1131,11 @@ class CI_Loader {
 	// --------------------------------------------------------------------
 
 	/**
-	 * CI Autoloader
+	 * Autoloader
 	 *
-	 * Loads component listed in the config/autoload.php file.
+	 * The config/autoload.php file contains an array that permits sub-systems,
+	 * libraries, and helpers to be loaded automatically.
 	 *
-	 * @used-by	CI_Loader::initialize()
 	 * @return	void
 	 */
 	protected function _ci_autoloader()
@@ -1262,12 +1218,11 @@ class CI_Loader {
 	// --------------------------------------------------------------------
 
 	/**
-	 * CI Object to Array translator
+	 * Object to Array
 	 *
-	 * Takes an object as input and converts the class variables to
-	 * an associative array with key/value pairs.
+	 * Takes an object as input and converts the class variables to array key/vals
 	 *
-	 * @param	object	$object	Object data to translate
+	 * @param	object
 	 * @return	array
 	 */
 	protected function _ci_object_to_array($object)
@@ -1278,11 +1233,9 @@ class CI_Loader {
 	// --------------------------------------------------------------------
 
 	/**
-	 * CI Component getter
+	 * Get a reference to a specific library or model
 	 *
-	 * Get a reference to a specific library or model.
-	 *
-	 * @param 	string	$component	Component name
+	 * @param 	string
 	 * @return	bool
 	 */
 	protected function &_ci_get_component($component)
@@ -1296,11 +1249,10 @@ class CI_Loader {
 	/**
 	 * Prep filename
 	 *
-	 * This function prepares filenames of various items to
-	 * make their loading more reliable.
+	 * This function preps the name of various items to make loading them more reliable.
 	 *
-	 * @param	string|string[]	$filename	Filename(s)
-	 * @param 	string		$extension	Filename extension
+	 * @param	mixed
+	 * @param 	string
 	 * @return	array
 	 */
 	protected function _ci_prep_filename($filename, $extension)

@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // General
 $lang['files:files_title']					= 'Αρχεία';
@@ -28,7 +28,7 @@ $lang['files:added']						= 'Ημερομηνία προσθήκης';
 $lang['files:width']						= 'Πλάτος';
 $lang['files:height']						= 'Ύψος';
 $lang['files:ratio']						= 'Αναλογία';
-$lang['files:alt_attribute']				= 'alt Attribute'; #translate
+$lang['files:alt_attribute']				= 'Ιδιότητα alt';
 $lang['files:full_size']					= 'Πλήρες Μέγεθος';
 $lang['files:filename']						= 'Όνομα αρχείου';
 $lang['files:filesize']						= 'Μέγεθος αρχείου';
@@ -45,13 +45,15 @@ $lang['files:search_message']				= 'Εισάγετε όρο & Enter';
 $lang['files:search']						= 'Αναζήτηση';
 $lang['files:synchronize']					= 'Συγχρονισμός';
 $lang['files:uploader']						= 'Σύρτε και αφήστε τα αρχεία εδώ <br />ή<br />Κάντε κλικ για να επιλέξετε αρχεία';
+$lang['files:replace_file']					= 'Αντικαταστήστε το αρχείο';
 
 // Context Menu
-$lang['files:refresh']						= 'Refresh'; #translate
+$lang['files:refresh']						= 'Ανανέωση';
 $lang['files:open']							= 'Άνοιγμα';
 $lang['files:new_folder']					= 'Νέος Φάκελος';
 $lang['files:upload']						= 'Ανέβασμα';
 $lang['files:rename']						= 'Μετονομασία';
+$lang['files:replace']						= 'Αντικατάσταση';
 $lang['files:delete']						= 'Διαγραφή';
 $lang['files:edit']							= 'Επεξεργασία';
 $lang['files:details']						= 'Λεπτομέρειες';
@@ -91,12 +93,13 @@ $lang['files:invalid_container']			= 'Το "%s" δεν φαίνεται να ε�
 $lang['files:no_records_found']				= 'Δεν ήταν δυνατό να βρεθούν εγγραφές';
 $lang['files:invalid_extension']			= 'Το "%s" έχει μια μη αποδεκτή επέκταση αρχείου';
 $lang['files:upload_error']					= 'Η μεταφόρτωση του αρχείου απέτυχε';
-$lang['files:description_saved']			= 'Η περιγραφή του αρχείο αποθηκεύτηκε';
-$lang['files:alt_saved']					= 'The image alt attribute has been saved'; #translate
+$lang['files:description_saved']			= 'Η περιγραφή του αρχείου αποθηκεύτηκε';
+$lang['files:alt_saved']					= 'Η ιδιότητα alt της εικόνας αποθηκεύτηκε';
 $lang['files:file_moved']					= 'Το "%s" μεταφέρθηκε με επιτυχία';
 $lang['files:exceeds_server_setting']		= 'Ο διακομιστής δεν μπορεί να διαχειριστεί τόσο μεγάλα αρχεία';
 $lang['files:exceeds_allowed']				= 'Το μέγεθος του αρχείου είναι μεγαλύτερο από το επιτρεπόμενο';
 $lang['files:file_type_not_allowed']		= 'Αυτός ο τύπος αρχείου δεν μπορεί να γίνει αποδεκτός';
+$lang['files:replace_warning']				= 'Προσοχή: Μην αντικαθηστάτε ένα αρχείο με ένα άλλο αρχείο άλλου τύπου (π.χ. .jpg με .png)';
 $lang['files:type_a']						= 'Ήχος';
 $lang['files:type_v']						= 'Video';
 $lang['files:type_d']						= 'Έγγραφο';

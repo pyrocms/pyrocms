@@ -158,6 +158,13 @@ $lang['settings_form_option_Text Only']			= 'Alleen Text';
 $lang['settings_form_option_Allow Markdown']	= 'Markdown Toestaan';
 $lang['settings_form_option_Yes']				= 'Ja';
 $lang['settings_form_option_No']				= 'Nee';
+$lang['settings_form_option_profile_public']	= 'Visible to everybody'; #translate
+$lang['settings_form_option_profile_owner']		= 'Only visible to the profile owner'; #translate
+$lang['settings_form_option_profile_hidden']	= 'Never visible'; #translate
+$lang['settings_form_option_profile_member']	= 'Visible to any logged in user'; #translate
+$lang['settings_form_option_activate_by_email']  			= 'Activatie middels email';
+$lang['settings_form_option_activate_by_admin']				= 'Activatie door een admin';
+$lang['settings_form_option_no_activation']				= 'Geen activatie';
 
 // titles
 $lang['settings_edit_title'] 					= 'Wijzig instellingen';

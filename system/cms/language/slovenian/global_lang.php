@@ -94,6 +94,12 @@ $lang['global:empty']					= 'Prazno';
 $lang['global:delete']					= 'Izbriši';
 $lang['global:remove']					= 'Odstrani';
 
+$lang['global:widgets']					= 'Widgets';
+$lang['global:themes']					= 'Themes'; #translate
+$lang['global:field_types']				= 'Field Types';
+$lang['global:plugins']					= 'Plugins';
+$lang['global:plugin']					= 'Plugin';
+
 $lang['global:keywords']				= 'Ključne besede';
 
 /* End of file main_lang.php */

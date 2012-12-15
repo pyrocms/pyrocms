@@ -1,17 +1,24 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
  * Theme Plugin
  *
  * Load partials and access data
  *
- * @author		PyroCMS Dev Team
- * @package		PyroCMS\Core\Plugins
+ * @author  PyroCMS Dev Team
+ * @package PyroCMS\Core\Plugins
  */
 class Plugin_Theme extends Plugin
 {
+
+	public $version = '1.0.0';
+	public $name = array(
+		'en' => 'Theme',
+	);
 	public $description = array(
-		'en'	=> 'Load and display theme assets.'
+		'en' => 'Load and display theme assets.',
+		'el' => 'Φορτώνει και προβάλλει πόρους του θέματος εμφάνισης.',
+		'fr' => 'Permet de charger et d\'afficher les différentes ressources du thème.'
 	);
 
 	/**
@@ -20,7 +27,8 @@ class Plugin_Theme extends Plugin
 	 * Loads a theme partial
 	 *
 	 * Usage:
-	 * {{ theme:partial name="header" }}
+	 *
+	 *     {{ theme:partial name="header" }}
 	 *
 	 * @return string The final rendered partial view.
 	 */
@@ -31,7 +39,8 @@ class Plugin_Theme extends Plugin
 		$path = $this->load->get_var('template_views');
 		$data = $this->load->get_vars();
 
-		$string = $this->load->file($path.'partials/'.$name.'.html', true);
+		$string = $this->load->file($path . 'partials/' . $name . '.html', true);
+
 		return $this->parser->parse_string($string, $data, true, true);
 	}
 
@@ -41,7 +50,8 @@ class Plugin_Theme extends Plugin
 	 * Get the path to the theme
 	 *
 	 * Usage:
-	 * {{ theme:assets }}
+	 *
+	 *     {{ theme:assets }}
 	 *
 	 * @return string The rendered assets (CSS/Js) for the theme.
 	 */
@@ -56,14 +66,16 @@ class Plugin_Theme extends Plugin
 	 * Get the path to the theme
 	 *
 	 * Usage:
-	 * {{ theme:path }}
+	 *
+	 *     {{ theme:path }}
 	 *
 	 * @return string The path to the theme (relative to web root).
 	 */
 	public function path()
 	{
 		$path = & rtrim($this->load->get_var('template_views'), '/');
-		return preg_replace('#(\/views(\/web|\/mobile)?)$#', '', $path).'/';
+
+		return preg_replace('#(\/views(\/web|\/mobile)?)$#', '', $path) . '/';
 	}
 
 	/**
@@ -72,7 +84,8 @@ class Plugin_Theme extends Plugin
 	 * Insert a CSS tag with location based for url or path from the theme or module
 	 *
 	 * Usage:
-	 *  {{ theme:css file="" }}
+	 *
+	 *     {{ theme:css file="" }}
 	 *
 	 * @return string The link HTML tag for the stylesheets.
 	 */
@@ -82,7 +95,7 @@ class Plugin_Theme extends Plugin
 		$title = $this->attribute('title');
 		$media = $this->attribute('media');
 		$type = $this->attribute('type', 'text/css');
-        $rel = $this->attribute('rel', 'stylesheet');
+		$rel = $this->attribute('rel', 'stylesheet');
 
 		return link_tag($this->css_url($file), $rel, $type, $title, $media);
 	}
@@ -91,13 +104,15 @@ class Plugin_Theme extends Plugin
 	 * Theme CSS URL
 	 *
 	 * Usage:
-	 *  {{ theme:css_url file="" }}
+	 *
+	 *     {{ theme:css_url file="" }}
 	 *
 	 * @return string The CSS URL
 	 */
 	public function css_url()
 	{
 		$file = $this->attribute('file');
+
 		return Asset::get_filepath_css($file, true);
 	}
 
@@ -112,6 +127,7 @@ class Plugin_Theme extends Plugin
 	public function css_path()
 	{
 		$file = $this->attribute('file');
+
 		return Asset::get_filepath_css($file, false);
 	}
 
@@ -121,7 +137,8 @@ class Plugin_Theme extends Plugin
 	 * Insert a image tag with location based for url or path from the theme or module
 	 *
 	 * Usage:
-	 *   {{ theme:image file="" }}
+	 *
+	 *     {{ theme:image file="" }}
 	 *
 	 * @return string An empty string or the image tag.
 	 */
@@ -157,13 +174,15 @@ class Plugin_Theme extends Plugin
 	 * Theme Image URL
 	 *
 	 * Usage:
-	 *   {{ theme:image_url file="" }}
+	 *
+	 *     {{ theme:image_url file="" }}
 	 *
 	 * @return string The image URL
 	 */
 	public function image_url()
 	{
 		$file = $this->attribute('file');
+
 		return Asset::get_filepath_img($file, true);
 	}
 
@@ -171,14 +190,16 @@ class Plugin_Theme extends Plugin
 	 * Theme Image PATH
 	 *
 	 * Usage:
-	 *   {{ theme:image_path file="" }}
+	 *
+	 *     {{ theme:image_path file="" }}
 	 *
 	 * @return string The image location path
 	 */
 	public function image_path()
 	{
 		$file = $this->attribute('file');
-		return BASE_URI.Asset::get_filepath_img($file, false);
+
+		return BASE_URI . Asset::get_filepath_img($file, false);
 	}
 
 	/**
@@ -188,28 +209,32 @@ class Plugin_Theme extends Plugin
 	 *
 	 * Usage:
 	 *
-	 * {{ theme:js file="" }}
+	 *     {{ theme:js file="" }}
 	 *
 	 * @param string $return Not used
+	 *
 	 * @return string An empty string or the script tag.
 	 */
 	public function js($return = '')
 	{
 		$file = $this->attribute('file');
-		return '<script src="'.$this->js_url($file).'" type="text/javascript"></script>';
+
+		return '<script src="' . $this->js_url($file) . '" type="text/javascript"></script>';
 	}
 
 	/**
 	 * Theme JS URL
 	 *
 	 * Usage:
-	 *   {{ theme:js_url file="" }}
+	 *
+	 *     {{ theme:js_url file="" }}
 	 *
 	 * @return string The javascript asset URL.
 	 */
 	public function js_url()
 	{
 		$file = $this->attribute('file');
+
 		return Asset::get_filepath_js($file, true);
 	}
 
@@ -217,21 +242,24 @@ class Plugin_Theme extends Plugin
 	 * Theme JS PATH
 	 *
 	 * Usage:
-	 *   {{ theme:js_path file="" }}
+	 *
+	 *     {{ theme:js_path file="" }}
 	 *
 	 * @return string The javascript asset location path.
 	 */
 	public function js_path()
 	{
 		$file = $this->attribute('file');
-		return BASE_URI.Asset::get_filepath_js($file, false);
+
+		return BASE_URI . Asset::get_filepath_js($file, false);
 	}
 
 	/**
 	 * Set and get theme variables
 	 *
 	 * Usage:
-	 * {{ theme:variables name="foo" }}
+	 *
+	 *     {{ theme:variables name="foo" }}
 	 *
 	 * @return string The variable value.
 	 */
@@ -248,6 +276,7 @@ class Plugin_Theme extends Plugin
 		if ($value !== null)
 		{
 			$variables[$name] = $value;
+
 			return;
 		}
 
@@ -260,7 +289,8 @@ class Plugin_Theme extends Plugin
 	 * Insert a link tag for favicon from your theme
 	 *
 	 * Usage:
-	 *   {{ theme:favicon file="" [rel="foo"] [type="bar"] }}
+	 *
+	 *     {{ theme:favicon file="" [rel="foo"] [type="bar"] }}
 	 *
 	 * @return string The link HTML tag for the favicon.
 	 */
@@ -274,44 +304,46 @@ class Plugin_Theme extends Plugin
 		$is_xhtml = in_array($this->attribute('xhtml', 'true'), array('1', 'y', 'yes', 'true'));
 
 		$link = '<link ';
-		$link .= 'href="'.$file.'" ';
-		$link .= 'rel="'.$rel.'" ';
-		$link .= 'type="'.$type.'" ';
-		$link .= ($is_xhtml ? '/' : '').'>';
+		$link .= 'href="' . $file . '" ';
+		$link .= 'rel="' . $rel . '" ';
+		$link .= 'type="' . $type . '" ';
+		$link .= ($is_xhtml ? '/' : '') . '>';
 
 		return $link;
 	}
 
-    /**
-     * Theme Language line
-     *
-     * Fetch a single line of text from the language array
-     *
-     * Usage:
-     *   {{ theme:lang lang="theme" line="theme_title" [default="PyroCMS"] }}
-     *
-     * @return string.
-     */
-    public function lang()
-    {
-        $lang_file = $this->attribute('lang');
-        $line = $this->attribute('line');
-        $default = $this->attribute('default');
-        // Return an empty string as the attribute LINE is missing
-        if ( !isset($line) ) {
-            return "";
-        }
+	/**
+	 * Theme Language line
+	 *
+	 * Fetch a single line of text from the language array
+	 *
+	 * Usage:
+	 *
+	 *     {{ theme:lang lang="theme" line="theme_title" [default="PyroCMS"] }}
+	 *
+	 * @return string.
+	 */
+	public function lang()
+	{
+		$lang_file = $this->attribute('lang');
+		$line = $this->attribute('line');
+		$default = $this->attribute('default');
+		// Return an empty string as the attribute LINE is missing
+		if (!isset($line))
+		{
+			return "";
+		}
 
-        $deft_lang = CI::$APP->config->item('language');
-        if ($lang = Modules::load_file($lang_file.'_lang', CI::$APP->template->get_theme_path().'/language/'.$deft_lang.'/', 'lang'))
-        {
-            CI::$APP->lang->language = array_merge(CI::$APP->lang->language, $lang);
-            CI::$APP->lang->is_loaded[] = $lang_file . '_lang'.EXT;
-            unset($lang);
-        }
-        $value = $this->lang->line($line);
+		$deft_lang = CI::$APP->config->item('language');
+		if ($lang = Modules::load_file($lang_file . '_lang', CI::$APP->template->get_theme_path() . '/language/' . $deft_lang . '/', 'lang'))
+		{
+			CI::$APP->lang->language = array_merge(CI::$APP->lang->language, $lang);
+			CI::$APP->lang->is_loaded[] = $lang_file . '_lang' . EXT;
+			unset($lang);
+		}
+		$value = $this->lang->line($line);
 
-        return $value?$value:$default;
-    }
+		return $value ? $value : $default;
+	}
 
 }

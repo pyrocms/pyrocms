@@ -47,12 +47,37 @@ class Users extends Public_Controller
 	 */
 	public function view($username = null)
 	{
+		// work out the visibility setting
+		switch (Settings::get('profile_visibility'))
+		{
+			case 'public':
+				// if it's public then we don't care about anything
+				break;
+
+			case 'owner':
+				// they have to be logged in so we know if they're the owner
+				$this->current_user or redirect('users/login/users/view/'.$username);
+
+				// do we have a match?
+				$this->current_user->username !== $username and redirect('404');
+				break;
+
+			case 'hidden':
+				// if it's hidden then nobody gets it
+				redirect('404');
+				break;
+
+			case 'member':
+				// anybody can see it if they're logged in
+				$this->current_user or redirect('users/login/users/view/'.$username);
+				break;
+		}
+
 		// Don't make a 2nd db call if the user profile is the same as the logged in user
 		if ($this->current_user && $username === $this->current_user->username)
 		{
 			$user = $this->current_user;
 		}
-
 		// Fine, just grab the user from the DB
 		else
 		{
@@ -375,10 +400,18 @@ class Users extends Public_Controller
 					}
 
 					// show the "you need to activate" page while they wait for their email
-					if (Settings::get('activation_email'))
+					if ((int)Settings::get('activation_email') === 1)
 					{
 						$this->session->set_flashdata('notice', $this->ion_auth->messages());
 						redirect('users/activate');
+					}
+					// activate instantly
+					elseif ((int)Settings::get('activation_email') === 2)
+					{
+						$this->ion_auth->activate($id, false);
+
+						$this->ion_auth->login($this->input->post('email'), $this->input->post('password'));
+						redirect($this->config->item('register_redirect', 'ion_auth'));
 					}
 					else
 					{

@@ -31,7 +31,7 @@ $lang['pages:body_label']					= 'Описание';
 $lang['pages:meta_title_label']				= 'Заголовок';
 $lang['pages:meta_keywords_label']			= 'Ключевые слова';
 $lang['pages:meta_desc_label']				= 'Описание';
-$lang['pages:layout_id_label']				= 'Макет страницы';
+$lang['pages:type_id_label']				= 'Макет страницы';
 $lang['pages:css_label']					= 'CSS';
 $lang['pages:js_label']						= 'JavaScript';
 $lang['pages:access_label']					= 'Доступ';
@@ -54,8 +54,8 @@ $lang['pages:duplicate_label']				= 'Duplicate'; #translate
 $lang['pages:create_title']					= 'Создать страницу';
 $lang['pages:edit_title']					= 'Редактирование страницы "%s"';
 $lang['pages:list_title']					= 'Список страниц';
-$lang['pages:layouts_create_title']			= 'Создать макет';
-$lang['pages:layouts_list_title']			= 'Список макетов';
+$lang['pages:types_create_title']			= 'Создать макет';
+$lang['pages:types_list_title']			= 'Список макетов';
 
 // сообщения
 $lang['pages:no_pages']						= 'Страницы отсутствуют';

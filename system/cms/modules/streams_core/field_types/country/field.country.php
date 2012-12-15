@@ -13,7 +13,7 @@ class Field_country
 	
 	public $db_col_type				= 'varchar';
 
-	public $version					= '1.1';
+	public $version					= '1.1.0';
 
 	public $custom_parameters   	= array('default_country'); 
 

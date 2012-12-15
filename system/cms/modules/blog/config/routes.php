@@ -1,4 +1,4 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php  defined('BASEPATH') or exit('No direct script access allowed');
 /*
 | -------------------------------------------------------------------------
 | URI ROUTING
@@ -21,9 +21,9 @@
 */
 
 // public
-$route['(blog)/(:num)/(:num)/(:any)']	= 'blog/view/$4';
-$route['(blog)/page(/:num)?']			    = 'blog/index$2';
-$route['(blog)/rss/all.rss']			    = 'rss/index';
-$route['(blog)/rss/(:any).rss']		    = 'rss/category/$2';
+$route['(blog)/(:num)/(:num)/(:any)']   = 'blog/view/$4';
+$route['(blog)/page(/:num)?']           = 'blog/index$2';
+$route['(blog)/rss/all.rss']            = 'rss/index';
+$route['(blog)/rss/(:any).rss']         = 'rss/category/$2';
 // admin
-$route['blog/admin/categories(/:any)?']		= 'admin_categories$1';
+$route['blog/admin/categories(/:any)?'] = 'admin_categories$1';

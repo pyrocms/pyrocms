@@ -50,6 +50,7 @@ function &DB($params = '', $query_builder_override = NULL)
 		}
 
 		include($file_path);
+
 		// Make packages contain database config files
 		foreach (get_instance()->load->get_package_paths() as $path)
 		{

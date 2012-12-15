@@ -23,14 +23,14 @@ $lang['pages:body_label'] 						= '頁面主體';
 $lang['pages:meta_title_label'] 				= 'Meta 標題';
 $lang['pages:meta_keywords_label'] 				= 'Meta 關鍵字';
 $lang['pages:meta_desc_label'] 					= 'Meta 敘述';
-$lang['pages:layout_id_label'] 					= '頁面佈局';
+$lang['pages:type_id_label'] 					= '頁面佈局';
 $lang['pages:css_label'] 						= 'CSS';
 $lang['pages:js_label'] 						= 'JavaScript';
 $lang['pages:access_label'] 					= '存取';
 $lang['pages:rss_enabled_label'] 				= 'RSS 功能開啟';
 $lang['pages:comments_enabled_label']			= '回應功能開啟';
 $lang['pages:is_home_label']      				= '這是預設頁面（首頁）嗎？';
-$lang['pages:strict_uri_label']						= 'Require an exact uri match?'; #translate
+$lang['pages:strict_uri_label']					= 'uri 是否必須完全相同？';
 
 $lang['pages:status_label'] 					= '狀態';
 $lang['pages:draft_label'] 						= '草稿';
@@ -48,8 +48,8 @@ $lang['pages:duplicate_label']					= '複製';
 $lang['pages:create_title'] 					= '新增頁面';
 $lang['pages:edit_title'] 						= '編輯頁面 "%s"';
 $lang['pages:list_title'] 						= '頁面列表';
-$lang['pages:layouts_create_title'] 			= '新增頁面佈局';
-$lang['pages:layouts_list_title'] 				= '頁面佈局列表';
+$lang['pages:types_create_title'] 			= '新增頁面佈局';
+$lang['pages:types_list_title'] 				= '頁面佈局列表';
 
 // messages
 $lang['pages:no_pages'] 						= '沒有頁面';
@@ -66,7 +66,7 @@ $lang['pages_parent_not_exist_error'] 			= '您所選擇的上級頁面不存在
 $lang['pages_chunk_slug_length']				= '區塊縮略名(slug)不能超過30個字元。';
 $lang['pages_root_folder']                		= '最上層';
 
-$lang['pages:tree_explanation_title']	        = 'Explanation'; #translate
+$lang['pages:tree_explanation_title']	        = '說明';
 $lang['pages:tree_explanation'] 				= '左側表列了您網站中的自定頁面。點選頁面旁的 "+" 圖像即可顯示其下層頁面。當您點選了某頁面項目，您將會在此欄位裡看到關於該頁的有用資訊。';
 
 $lang['pages:rss_explanation']					= '啟用這頁的 RSS 功能，用戶將可訂閱含有該子頁面資訊的 RSS Feed。';

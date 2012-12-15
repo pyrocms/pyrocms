@@ -21,7 +21,7 @@ class Field_year
 
 	public $extra_validation		= 'integer';
 
-	public $version					= '1.0';
+	public $version					= '1.0.0';
 
 	public $author					= array('name'=>'Parse19', 'url'=>'http://parse19.com');
 

@@ -28,7 +28,7 @@ $lang['pages:no_selection_label']          = '-- Ei mikään --';
 $lang['pages:meta_title_label']            = 'Meta otsikko';
 $lang['pages:meta_keywords_label']         = 'Meta hakusanat';
 $lang['pages:meta_desc_label']             = 'Meta kuvaus';
-$lang['pages:layout_id_label']             = 'Sivun sivupohja';
+$lang['pages:type_id_label']             = 'Sivun sivupohja';
 $lang['pages:css_label']                   = 'CSS';
 $lang['pages:js_label']                    = 'JavaScript';
 $lang['pages:access_label']                = 'Pääsy';
@@ -53,8 +53,8 @@ $lang['pages:duplicate_label']             = 'Monista';
 $lang['pages:create_title']                = 'Lisää sivu';
 $lang['pages:edit_title']                  = 'Muokkaa sivua "%s"';
 $lang['pages:list_title']                  = 'Listaa sivut';
-$lang['pages:layouts_create_title']        = 'Lisää sivupohja';
-$lang['pages:layouts_list_title']          = 'Listaa sivupohjat';
+$lang['pages:types_create_title']        = 'Lisää sivupohja';
+$lang['pages:types_list_title']          = 'Listaa sivupohjat';
 
 // messages
 $lang['pages:no_pages']                    = 'Sivuja ei ole.';

@@ -672,6 +672,16 @@ input:invalid, textarea:invalid { background-color: #f0dddd; }
 	padding-left: 10px;
 	width: 69%;
 }
+.form_inputs li.full_width_input .input {
+  float: none!important;
+  width: 100%;
+}
+.form_inputs li.full_width_input label {
+  float: none!important;
+  display: block;
+  width: 100%;
+  margin-bottom: 10px;
+}
 .form_inputs .input > input {
 	color: #666;
 	min-width: 210px!important;
@@ -799,6 +809,10 @@ table .actions a {
   -webkit-transition: 250ms linear all;
   -moz-transition: 250ms linear all;
   transition: 250ms linear all;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .btn, .btn a, a.btn {
@@ -1806,6 +1820,21 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   margin-left: 0!important;
   background-color: rgba(255, 255, 255, 0.25);
   color: #fff;
+}
+
+ul.modal_select {
+  list-style-type: none;
+  margin-left: 0!important;
+}
+ul.modal_select li a {
+  display: block;
+  padding: 10px;
+  margin-bottom: 5px;
+  background: #ed8e28;
+  color: #fff;
+  border-radius: 3px;
+  moz-border-radius: 3px;
+  webkit-border-radius: 3px;
 }
 
 /* ----------------------------------

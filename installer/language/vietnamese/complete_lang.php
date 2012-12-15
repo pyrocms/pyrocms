@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['congrats']			= 'Chúc mừng';
@@ -10,5 +10,3 @@ $lang['outro_text']			= 'Cuối cùng, <strong>Hãy xóa thư mục installer tr
 
 $lang['go_website']			= 'Xem website';
 $lang['go_control_panel']	= 'Vào trang quản trị';
-
-/* End of file complete_lang.php */

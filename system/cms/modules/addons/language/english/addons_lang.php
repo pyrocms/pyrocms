@@ -1,6 +1,7 @@
 <?php
 
 $lang['addons:modules'] 						= 'Modules';
+$lang['addons:admin_themes'] 					= 'Admin Themes'; #translate
 $lang['addons:themes'] 							= 'Themes';
 $lang['addons:widgets'] 						= 'Widgets';
 
@@ -66,5 +67,8 @@ $lang['addons:themes:no_themes_installed']		= 'There are no Themes installed.';
 
 $lang['addons:plugins:add_on_plugins']			= 'Add-on Plugins';
 $lang['addons:plugins:core_plugins']			= 'Core Plugins';
+
+$lang['addons:plugins:add_on_field_types']		= 'Add-on Field Types';
+$lang['addons:plugins:core_field_types']		= 'Core Field Types';
 
 /* End of file addons_lang.php */

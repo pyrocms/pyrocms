@@ -158,6 +158,13 @@ $lang['settings_form_option_Text Only']			= 'Texte seulement';
 $lang['settings_form_option_Allow Markdown']	= 'Autoriser Markdown';
 $lang['settings_form_option_Yes']				= 'Oui';
 $lang['settings_form_option_No']				= 'Non';
+$lang['settings_form_option_profile_public']	= 'Visible to everybody'; #translate
+$lang['settings_form_option_profile_owner']		= 'Only visible to the profile owner'; #translate
+$lang['settings_form_option_profile_hidden']	= 'Never visible'; #translate
+$lang['settings_form_option_profile_member']	= 'Visible to any logged in user'; #translate
+$lang['settings_form_option_activate_by_email']          = 'Activate by email'; #translate
+$lang['settings_form_option_activate_by_admin']        	= 'Activate by admin'; #translate
+$lang['settings_form_option_no_activation']         	= 'No activation'; #translate
 
 // messages
 $lang['settings_no_settings']					= 'Il n\'y a aucun paramétrages actuellement.';

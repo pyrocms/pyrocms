@@ -4,6 +4,7 @@ Asset::js_inline('jQuery.noConflict();');
 Asset::js('jquery/jquery-ui.min.js', 'jquery/jquery-ui.min.js');
 Asset::js('jquery/jquery.colorbox.js');
 Asset::js('jquery/jquery.cooki.js');
+Asset::js('jquery/jquery.slugify.js');
 
 Asset::js(array('codemirror/codemirror.js',
 	'codemirror/mode/css/css.js',
@@ -33,7 +34,6 @@ Asset::js(array('codemirror/codemirror.js',
 	pyro.lang.remove				= "<?php echo lang('global:remove'); ?>";
 	pyro.lang.dialog_message 		= "<?php echo lang('global:dialog:delete_message'); ?>";
 	pyro.csrf_cookie_name			= "<?php echo config_item('cookie_prefix').config_item('csrf_cookie_name'); ?>";
-	pyro.foreign_characters			= <?php echo json_encode(accented_characters()); ?>
 </script>
 
 <?php Asset::css(array('plugins.css', 'jquery/colorbox.css', 'codemirror.css')); ?>

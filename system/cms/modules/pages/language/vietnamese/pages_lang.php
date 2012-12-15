@@ -34,7 +34,7 @@ $lang['pages:body_label']					= 'Page body';
 $lang['pages:meta_title_label']				= 'Meta title';
 $lang['pages:meta_keywords_label']			= 'Meta keywords';
 $lang['pages:meta_desc_label']				= 'Meta description';
-$lang['pages:layout_id_label']				= 'Page Layout';
+$lang['pages:type_id_label']				= 'Page Type';
 $lang['pages:css_label']					= 'CSS';
 $lang['pages:js_label']						= 'JavaScript';
 $lang['pages:access_label']					= 'Access';
@@ -59,8 +59,8 @@ $lang['pages:duplicate_label']				= 'Duplicate';
 $lang['pages:create_title']					= 'Thêm trang';
 $lang['pages:edit_title']					= 'Sửa trang "%s"';
 $lang['pages:list_title']					= 'Trang';
-$lang['pages:layouts_create_title']			= 'Thêm Page Layout';
-$lang['pages:layouts_list_title']			= 'Layouts';
+$lang['pages:types_create_title']			= 'Thêm Page Type';
+$lang['pages:types_list_title']			= 'Types';
 
 // messages
 $lang['pages:no_pages']						= 'Không có trang nào.';

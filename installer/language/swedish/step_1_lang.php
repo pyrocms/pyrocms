@@ -1,5 +1,4 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
-
  /**
  * Swedish translation.
  *
@@ -15,6 +14,10 @@ $lang['intro_text'] = 'PyroCMS är mycket lätt att installera och bör bara ta 
 $lang['db_settings'] = 'Inställningar';
 $lang['db_text'] = 'PyroCMS kräver en databas (MySQL) för att lagra sidor och inställningar, det första vi gör är att se till att databaskopplingen fungerar. Ifall du inte förstå vad vi frågar efter så kontakta ditt webbhotell eller serveradministratör.';
 $lang['db_missing'] = 'MySql drivrutinen för PHP kunde inte hittas, installationen avbryts. Installera drivrutinen och starta installationen på nytt.';
+$lang['db_create']		=	'Create Database'; #translate
+$lang['db_notice']		=	'You might need to do this yourself via your hosting control panel'; #translate
+$lang['database']		=	'MySQL Database'; #translate
+
 $lang['server'] = 'MySQL Värdnamn';
 $lang['username'] = 'MySQL Användarnamn';
 $lang['password'] = 'MySQL Lösenord';
@@ -27,7 +30,3 @@ $lang['mod_rewrite'] = 'Du har valt "(Apache med mod_rewrite)", men din server i
 $lang['step2'] = 'Steg 2';
 $lang['db_success'] = 'Databaskopplingen fungerar';
 $lang['db_failure'] = 'Kan inte kontakta databasen:';
-
-
-/* End of file step_1_lang.php */  
-/* Location: installer/language/swedish/step_1_lang.php */  

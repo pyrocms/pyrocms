@@ -23,7 +23,7 @@ $lang['pages:body_label'] 				= 'Cuerpo de la página';
 $lang['pages:meta_title_label'] 		= 'Meta Título';
 $lang['pages:meta_keywords_label']	 	= 'Meta Keywords';
 $lang['pages:meta_desc_label']			= 'Meta Descripción';
-$lang['pages:layout_id_label']			= 'Diseño de la página (Layout)';
+$lang['pages:type_id_label']			= 'Diseño de la página (Type)';
 $lang['pages:css_label']				= 'CSS';
 $lang['pages:js_label']					= 'JavaScript';
 $lang['pages:access_label']				= 'Acceder';
@@ -46,8 +46,8 @@ $lang['pages:duplicate_label']			= 'Duplicar';
 $lang['pages:create_title']				= 'Crear página';
 $lang['pages:edit_title'] 				= 'Editar página "%s"';
 $lang['pages:list_title'] 				= 'Lista de páginas';
-$lang['pages:layouts_create_title'] 	= 'Agregar un diseño de página';
-$lang['pages:layouts_list_title']		= 'Lista de diseños de páginas';
+$lang['pages:types_create_title'] 	= 'Agregar un diseño de página';
+$lang['pages:types_list_title']		= 'Lista de diseños de páginas';
 
 # messages
 $lang['pages:no_pages'] 				= 'No hay páginas creadas.';

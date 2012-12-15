@@ -44,8 +44,8 @@ $lang['indicates_required'] 			= 'تشير إلى الحقول المطلوبة'
 
 // -- Registration / Activation / Reset Password ----------------------------------------------------------
 
-$lang['user_send_activation_email']            = 'Send Activation Email'; #translate
-$lang['user_do_not_activate']                  = 'Inactive'; #translate
+$lang['user_send_activation_email']            = 'إرسال رسالة التفعيل';
+$lang['user_do_not_activate']                  = 'غير مُفعل';
 $lang['user_register_title'] 			= 'تسجيل';
 $lang['user_activate_account_title'] 	= 'تفعيل الحساب';
 $lang['user_activate_label'] 			= 'تفعيل';

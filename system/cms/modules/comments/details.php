@@ -3,10 +3,11 @@
 /**
  * Comments module
  *
- * @author PyroCMS Dev Team
+ * @author  PyroCMS Dev Team
  * @package PyroCMS\Core\Modules\Comments
  */
-class Module_Comments extends Module {
+class Module_Comments extends Module
+{
 
 	public $version = '1.1.0';
 
@@ -33,7 +34,8 @@ class Module_Comments extends Module {
 				'pl' => 'Komentarze',
 				'ru' => 'Комментарии',
 				'sl' => 'Komentarji',
-				'zh' => '回應',
+				'tw' => '回應',
+				'cn' => '回应',
 				'hu' => 'Hozzászólások',
 				'th' => 'ความคิดเห็น',
 				'se' => 'Kommentarer',
@@ -58,14 +60,15 @@ class Module_Comments extends Module {
 				'pl' => 'Użytkownicy i goście mogą dodawać komentarze z wbudowanym systemem zabezpieczeń captcha.',
 				'ru' => 'Пользователи и гости могут добавлять комментарии к новостям, информационным страницам и фотографиям.',
 				'sl' => 'Uporabniki in obiskovalci lahko vnesejo komentarje na vsebino kot je blok, stra ali slike',
-				'zh' => '用戶和訪客可以針對新聞、頁面與照片等內容發表回應。',
+				'tw' => '用戶和訪客可以針對新聞、頁面與照片等內容發表回應。',
+				'cn' => '用户和访客可以针对新闻、页面与照片等内容发表回应。',
 				'hu' => 'A felhasználók és a vendégek hozzászólásokat írhatnak a tartalomhoz (bejegyzésekhez, oldalakhoz, fotókhoz).',
 				'th' => 'ผู้ใช้งานและผู้เยี่ยมชมสามารถเขียนความคิดเห็นในเนื้อหาของหน้าเว็บบล็อกและภาพถ่าย',
 				'se' => 'Användare och besökare kan skriva kommentarer till innehåll som blogginlägg, sidor och bilder.',
 			),
 			'frontend' => false,
-			'backend'  => true,
-			'menu'	  => 'content'
+			'backend' => true,
+			'menu' => 'content'
 		);
 	}
 

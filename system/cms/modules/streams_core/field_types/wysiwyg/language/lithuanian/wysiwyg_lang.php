@@ -2,3 +2,5 @@
 
 $lang['streams.wysiwyg.name'] 		= 'Teksto redaktorius';
 $lang['streams.wysiwyg.editor_type']	= 'Teksto redaktoriaus tipas';
+$lang['streams.wysiwyg.simple']			= 'Simple'; #translate
+$lang['streams.wysiwyg.advanced']		= 'Advanced'; #translate

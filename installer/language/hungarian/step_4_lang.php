@@ -1,12 +1,9 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
-$lang['header']			= 'Negyedik lépés: Az adatbázis létrehozása';
-$lang['intro_text']		= 'Az alábbi mező kitöltése szükséges a telepítéshez, amit a "Telepít" feliratú gomb segítségével tudsz elindítani. Telepítés előtt bizonyosodj meg arról, hogy jó adatbázishoz csatlakozunk!';
+$lang['header']			= 'Negyedik lépés: Az adatbázis létrehozása'; #translate
+$lang['intro_text']		= 'Az alábbi mező kitöltése szükséges a telepítéshez, amit a "Telepít" feliratú gomb segítségével tudsz elindítani. Telepítés előtt bizonyosodj meg arról, hogy jó adatbázishoz csatlakozunk!'; #translate
 
-$lang['db_settings']		= 'Adatbázis beállítások';
-$lang['db_create']		= 'Adatbázis létrehozása';
-$lang['db_notice']		= 'Adott esetben neked kell létrehozni';
 $lang['default_user']		= 'Alapértelmezett felhasználó';
 $lang['database']		= 'Adatbázis';
 $lang['site_settings']		= 'Oldal beállítások';
@@ -27,5 +24,3 @@ $lang['error_104']		= 'A telepítő nem tudta létrehozni az alapértelmezett fe
 $lang['error_105']		= 'Az adatbázis konfigurációs fálj nem lett módosítva, a harmadik lépés át lett ugorva?';
 $lang['error_106']		= 'A konfigurációs fálj nem lett módosíta. Biztos vagy benne, hogy a fájl írható és a helyes jogosultság van beállítva?';
 $lang['success']		= 'A PyroCMS sikeresen telepítve.';
-
-/* End of file step_4_lang.php */

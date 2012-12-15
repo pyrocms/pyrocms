@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['header']			=	'Korak 3: Nastavitev dovoljenj';
@@ -19,5 +19,3 @@ $lang['hide_commands']		= 'Skrij ukaz';
 $lang['next_step']		= 'Nadaljujte na naslednji korak';
 $lang['step4']			= 'Korak 4';
 $lang['retry']			= 'Poizkusite znova';
-
-/* End of file step_3_lang.php */

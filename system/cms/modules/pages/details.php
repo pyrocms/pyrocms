@@ -3,7 +3,7 @@
 /**
  * Pages Module
  *
- * @author  PyroCMS Dev Team
+ * @author PyroCMS Dev Team
  * @package PyroCMS\Core\Modules\Pages
  */
 class Module_Pages extends Module
@@ -12,7 +12,7 @@ class Module_Pages extends Module
 
 	public function info()
 	{
-		return array(
+		$info = array(
 			'name' => array(
 				'en' => 'Pages',
 				'ar' => 'الصفحات',
@@ -33,10 +33,11 @@ class Module_Pages extends Module
 				'pl' => 'Strony',
 				'ru' => 'Страницы',
 				'sl' => 'Strani',
-				'zh' => '頁面',
+				'tw' => '頁面',
+				'cn' => '页面',
 				'hu' => 'Oldalak',
 				'th' => 'หน้าเพจ',
-				'se' => 'Sidor',
+            	'se' => 'Sidor',
 			),
 			'description' => array(
 				'en' => 'Add custom pages to the site with any content you want.',
@@ -58,83 +59,121 @@ class Module_Pages extends Module
 				'pl' => 'Dodaj własne strony z dowolną treścią do witryny.',
 				'ru' => 'Управление информационными страницами сайта, с произвольным содержимым.',
 				'sl' => 'Dodaj stran s kakršno koli vsebino želite.',
-				'zh' => '為您的網站新增自定的頁面。',
+				'tw' => '為您的網站新增自定的頁面。',
+				'cn' => '为您的网站新增自定的页面。',
 				'th' => 'เพิ่มหน้าเว็บที่กำหนดเองไปยังเว็บไซต์ของคุณตามที่ต้องการ',
 				'hu' => 'Saját oldalak hozzáadása a weboldalhoz, akármilyen tartalommal.',
-				'se' => 'Lägg till egna sidor till webbplatsen.',
+            	'se' => 'Lägg till egna sidor till webbplatsen.',
 			),
 			'frontend' => true,
-			'backend' => true,
+			'backend'  => true,
 			'skip_xss' => true,
-			'menu' => 'content',
+			'menu'	  => 'content',
 
 			'roles' => array(
 				'put_live', 'edit_live', 'delete_live'
 			),
 
 			'sections' => array(
-				'pages' => array(
-					'name' => 'pages:list_title',
-					'uri' => 'admin/pages',
-					'shortcuts' => array(
-						array(
-							'name' => 'pages:create_title',
-							'uri' => 'admin/pages/create',
-							'class' => 'add'
-						),
-					),
+			    'pages' => array(
+				    'name' => 'pages:list_title',
+				    'uri' => 'admin/pages',
 				),
-				'layouts' => array(
-					'name' => 'pages:layouts_list_title',
-					'uri' => 'admin/pages/layouts',
-					'shortcuts' => array(
-						array(
-							'name' => 'pages:layouts_create_title',
-							'uri' => 'admin/pages/layouts/create',
-							'class' => 'add'
-						),
-					),
-				),
+				'types' => array(
+				    'name' => 'page_types.list_title',
+				    'uri' => 'admin/pages/types'
+			    ),
 			),
 		);
+
+		// We check that the table exists (only when in the admin controller)
+		if (class_exists('Admin_Controller')) {
+			// Shortcuts for New page
+
+			// Do we have more than one page type? If we don't, no need to have a modal
+			// ask them to choose a page type.
+			if ($this->pdb->table('page_types')->count() > 1)
+			{
+				$info['sections']['pages']['shortcuts'] = array(
+					array(
+					    'name' => 'pages:create_title',
+					    'uri' => 'admin/pages/choose_type',
+					    'class' => 'add modal'
+					)
+				);
+			}
+			else
+			{
+				// Get the one page type. 
+				$page_type = $this->pdb->table('page_types')->take(1)->select('id')->first();
+
+				$info['sections']['pages']['shortcuts'] = array(
+					array(
+					    'name' => 'pages:create_title',
+					    'uri' => 'admin/pages/create?page_type='.$page_type->id,
+					    'class' => 'add'
+					)
+				);			
+			}
+
+			// Show the correct +Add button based on the page
+			if ($this->uri->segment(4) == 'fields' and $this->uri->segment(5))
+			{
+				$info['sections']['types']['shortcuts'] = array(
+					array(
+					    'name' => 'streams.new_field',
+					    'uri' => 'admin/pages/types/fields/'.$this->uri->segment(5).'/new_field',
+					    'class' => 'add'
+					)
+			    );
+			}
+			else
+			{
+				$info['sections']['types']['shortcuts'] = array(
+					array(
+					    'name' => 'pages:types_create_title',
+					    'uri' => 'admin/pages/types/create',
+					    'class' => 'add'
+					)
+				);			
+			}
+		}
+
+		return $info;
 	}
 
 	public function install()
 	{
-		$schema = $this->pdb->getSchemaBuilder();
+		$this->load->config('pages/pages');
+		
+		$schema->dropIfExists('page_types');
 
-		$schema->dropIfExists('page_chunks');
-
-		$schema->create('page_chunks', function ($table)
+		$schema->create('page_types', function ($table)
 		{
 			$table->increments('id');
-			$table->string('slug');
-			$table->string('class')->default('');
-			$table->integer('page_id');
-			$table->text('body');
-			$table->text('parsed')->nullable();
-			$table->enum('type', array('html', 'markdown', 'wysiwyg-advanced', 'wysiwyg-simple'));
-			$table->integer('sort');
-
-			// $table->foreign('page_id'); // TODO: Surely more documentation is needed to make this work.
-		});
-
-		$schema->dropIfExists('page_layouts');
-
-		$schema->create('page_layouts', function ($table)
-		{
-			$table->increments('id');
-			$table->string('title');
+			$table->string('slug', 255);
+			$table->string('title', 60);
+			$table->integer('stream_id');
+			$table->string('meta_title', 255)->nullable();
+			$table->string('meta_keywords', 32)->nullable();
+			$table->text('meta_description')->nullable();
 			$table->text('body');
 			$table->text('css')->nullable();
 			$table->text('js')->nullable();
 			$table->string('theme_layout')->default('default');
+	        $table->string('save_as_files', 1)->default('n');
+	        $table->string('content_label', 60)->nullable();
+	        $table->string('title_label', 100)->nullable();
 			$table->integer('updated_on');
+
+			$table->unique('slug');
 		});
+
+		// Pages
 
 		$schema->dropIfExists('pages');
 
-		$schema->create('pages', function ($table)
+		$schema->create('pages', function($table)
 		{
 			$table->increments('id');
 			$table->string('slug')->default('');
@@ -142,13 +181,12 @@ class Module_Pages extends Module
 			$table->string('title')->default('');
 			$table->text('uri')->nullable();
 			$table->integer('parent_id')->default(0);
-			$table->string('revision_id')->default('1');
-			$table->string('layout_id');
+			$table->string('type_id');
 			$table->text('css')->nullable();
 			$table->text('js')->nullable();
-			$table->string('meta_title')->nullable();
-			$table->string('meta_keywords')->nullable();
-			$table->string('meta_description')->nullable();
+			$table->string('meta_title', 255)->nullable();
+			$table->string('meta_keywords', 32)->nullable();
+			$table->text('meta_description')->nullable();
 			$table->boolean('rss_enabled')->default(false);
 			$table->boolean('comments_enabled')->default(false);
 			$table->enum('status', array('draft', 'live'))->default('draft');
@@ -163,102 +201,95 @@ class Module_Pages extends Module
 			$table->index('parent_id');
 		});
 
-		$schema->dropIfExists('revisions');
 
+		$this->load->driver('streams');
 
-		// We will need to get now() later on.
-		$this->load->helper('date');
+		// now set up the default streams that will hold the page content
+		foreach (config_item('pages:default_page_stream') as $stream)
+		{
+			$stream_id = $this->streams->streams->add_stream(
+				$stream['name'],
+				$stream['slug'],
+				$stream['namespace'],
+				$stream['prefix'],
+				$stream['about']
+			);
+		}
 
-		$this->pdb->table('page_layouts')->insert(array(
+		// add the fields to the streams
+		$this->streams->fields->add_fields(config_item('pages:default_fields'));
+
+		// Insert the page type structures
+		$page_type = 	array(
 			'id' => 1,
 			'title' => 'Default',
-			'body' => '<h2>{{ page:title }}</h2>'.PHP_EOL.'{{ page:body }}',
+			'slug' => 'default',
+			'stream_id' => $stream_id,
+			'body' => '<h2>{{ page:title }}</h2>'."\n\n".'{{ body }}',
 			'css' => '',
 			'js' => '',
-			'updated_on' => now(),
-		));
+			'updated_on' => now()
+		);
 
-		$this->pdb->table('pages')->insert(array(
-			/* The home page. */
-			array(
+		$def_page_type_id = $this->pdb->table('page_types')->insert($page_type);
+
+		if ( ! $def_page_type_id)
+		{
+			return false;
+		}
+
+		$page_content = config_item('pages:default_page_content');
+		$page_entries = array(
+			'home' => array(
 				'slug' => 'home',
 				'title' => 'Home',
 				'uri' => 'home',
-				'revision_id' => 1,
 				'parent_id' => 0,
-				'layout_id' => 1,
+				'type_id' => $def_page_type_id,
 				'status' => 'live',
 				'restricted_to' => '',
 				'created_on' => now(),
 				'is_home' => 1,
 				'order' => now()
 			),
-			/* The 404 page. */
-			array(
-				'slug' => '404',
-				'title' => 'Page missing',
-				'uri' => '404',
-				'revision_id' => 1,
-				'parent_id' => 0,
-				'layout_id' => 1,
-				'status' => 'live',
-				'restricted_to' => '',
-				'created_on' => now(),
-				'is_home' => 0,
-				'order' => now()
-			),
-			/* The contact page. */
-			array(
+			'contact' => array(
 				'slug' => 'contact',
 				'title' => 'Contact',
 				'uri' => 'contact',
-				'revision_id' => 1,
 				'parent_id' => 0,
-				'layout_id' => 1,
+				'type_id' => $def_page_type_id,
 				'status' => 'live',
 				'restricted_to' => '',
 				'created_on' => now(),
 				'is_home' => 0,
 				'order' => now()
 			),
-		));
+			'fourohfour' => array(
+				'slug' => '404',
+				'title' => 'Page missing',
+				'uri' => '404',
+				'parent_id' => 0,
+				'type_id' => $def_page_type_id,
+				'status' => 'live',
+				'restricted_to' => '',
+				'created_on' => now(),
+				'is_home' => 0,
+				'order' => now()
+			)
+		);
 
-		$this->pdb->table('page_chunks')->insert(array(
-			/* The home page chunk. */
-			array(
-				'slug' => 'default',
-				'page_id' => 1,
-				'body' => '<p>Welcome to our homepage. We have not quite finished setting up our website yet, but please add us to your bookmarks and come back soon.</p>',
-				'parsed' => '',
-				'type' => 'wysiwyg-advanced',
-				'sort' => 1,
-			),
-			/* The 404 page chunk. */
-			array(
-				'slug' => 'default',
-				'page_id' => 2,
-				'body' => '<p>We cannot find the page you are looking for, please click <a title="Home" href="{{ pages:url id=\'1\' }}">here</a> to go to the homepage.</p>',
-				'parsed' => '',
-				'type' => 'html',
-				'sort' => 1,
-			),
-			/* The contact page chunk. */
-			array(
-				'slug' => 'default',
-				'page_id' => 3,
-				'body' => '<p>To contact us please fill out the form below.</p>
-					{{ contact:form name="text|required" email="text|required|valid_email" subject="dropdown|Support|Sales|Feedback|Other" message="textarea" attachment="file|zip" }}
-						<div><label for="name">Name:</label>{{ name }}</div>
-						<div><label for="email">Email:</label>{{ email }}</div>
-						<div><label for="subject">Subject:</label>{{ subject }}</div>
-						<div><label for="message">Message:</label>{{ message }}</div>
-						<div><label for="attachment">Attach  a zip file:</label>{{ attachment }}</div>
-					{{ /contact:form }}',
-				'parsed' => '',
-				'type' => 'html',
-				'sort' => 1,
-			),
-		));
+		foreach ($page_entries as $key => $d)
+		{
+			// Contact Page
+			$page_id = $this->pdb->table('pages')->insert($d);
+
+			$entry_id = $this->pdb->table('def_page_fields')->insert($page_content[$key]);
+
+			$this->pdb
+				->table('pages')
+				->where('id', $page_id)
+				->update(array('entry_id', $entry_id));
+		}
 
 		return true;
 	}

@@ -1,4 +1,4 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['header']			=	'Passo 1: Configura Database e Server';
@@ -7,6 +7,9 @@ $lang['intro_text']		=	'Prima di verificare il database, abbiamo bisogno di sape
 $lang['db_settings']	=	'Impostazioni del Database';
 $lang['db_text']		=	'Per verificare la versione del tuo server MySQL devi inserire hostname, username e password nel modulo sottostante. Questi parametri saranno inoltre usati per installare il database.';
 $lang['db_missing']		=	'I driver PHP per il database MySQL non sono stati trovati, non è possibile continuare con l\'installazione. Chiedi all\'amminsitratore del tuo server o al tuo hosting di installarli.';
+$lang['db_create']		=	'Create Database'; #translate
+$lang['db_notice']		=	'You might need to do this yourself via your hosting control panel'; #translate
+$lang['database']		=	'MySQL Database'; #translate
 
 $lang['server']			=	'Server';
 $lang['username']		=	'Username';

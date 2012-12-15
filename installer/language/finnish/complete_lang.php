@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['congrats']			= 'Onnittelut';
@@ -10,5 +10,3 @@ $lang['outro_text']			= 'Lopuksi, <strong>poista installer kansio palvelimeltasi
 
 $lang['go_website']			= 'Mene sivuille';
 $lang['go_control_panel']	= 'Mene hallintapaneeliin';
-
-/* End of file complete_lang.php */

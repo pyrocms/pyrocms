@@ -11,7 +11,7 @@
 	<!-- You can use .htaccess and remove these lines to avoid edge case issues. -->
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-	<title><?php echo lang('cp_admin_title').' - '.$template['title'];?></title>
+	<title><?php echo $template['title'].' - '.lang('cp_admin_title') ?></title>
 
 	<base href="<?php echo base_url(); ?>" />
 
@@ -57,17 +57,17 @@
 
 	<footer>
 		<div class="wrapper">
-			<p>Copyright &copy; 2009 - <?php echo date('Y'); ?> PyroCMS &nbsp; -- &nbsp; Version <?php echo CMS_VERSION.' '.CMS_EDITION; ?> &nbsp; -- &nbsp; Rendered in {elapsed_time} sec. using {memory_usage}.</p>
+			<p>Copyright &copy; 2009 - <?php echo date('Y'); ?> PyroCMS LLC &nbsp; -- &nbsp; Version <?php echo CMS_VERSION.' '.CMS_EDITION; ?> &nbsp; -- &nbsp; Rendered in {elapsed_time} sec. using {memory_usage}.</p>
 
 			<ul id="lang">
 				<form action="<?php echo current_url(); ?>" id="change_language" method="get">
 					<select class="chzn" name="lang" onchange="this.form.submit();">
-						<?php foreach($this->config->item('supported_languages') as $key => $lang): ?>
-						<option value="<?php echo $key; ?>" <?php echo CURRENT_LANGUAGE == $key ? 'selected="selected"' : ''; ?>>
-								<?php echo $lang['name']; ?>
+						<?php foreach(config_item('supported_languages') as $key => $lang): ?>
+							<option value="<?php echo $key; ?>" <?php echo CURRENT_LANGUAGE == $key ? ' selected="selected" ' : ''; ?>>
+								 <?php echo $lang['name']; ?>
 							</option>
-					<?php endforeach; ?>
-				</select>
+						<?php endforeach; ?>
+					</select>
 				</form>
 			</ul>
 		</div>

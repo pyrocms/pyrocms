@@ -57,15 +57,33 @@ class Ajax extends CI_Controller
 		$database 	= $this->input->post('database');
 		$create_db 	= $this->input->post('create_db') === 'true';
 		$server = $this->input->post('server').':'.$this->input->post('port');
-		$username = $this->input->post('username');
-		$password = $this->input->post('password');
+		$username 	= $this->input->post('username');
+		$password 	= $this->input->post('password');
 
 		// Set some headers for our JSON
 		header('Cache-Control: no-cache, must-revalidate');
 		header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
 		header('Content-type: application/json');
 
-		// TODO Confirm db
+		$link = @mysql_connect($server, $username, $password, true);
+		// Not good if either we have not connected to the database
+		// or we where required to create the database but couldn't
+		if ( ( ! $link) or ( $create_db && ! mysql_query('CREATE DATABASE IF NOT EXISTS '.$database, $link)) )
+		{
+			echo json_encode(array(
+				'success' => false,
+				'message' => lang('db_failure') . mysql_error()
+			));
+		}
+		// We are good to go
+		else
+		{
+			echo json_encode(array(
+				'success' => true,
+				'message' => lang('db_success')
+			));
+		}
+		@mysql_close($link);
 	}
 
 	/**

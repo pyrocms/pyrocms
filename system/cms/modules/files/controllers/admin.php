@@ -52,6 +52,9 @@ class Admin extends Admin_Controller {
 				pyro.lang.file_type_not_allowed = '".addslashes(lang('files:file_type_not_allowed'))."';
 				pyro.lang.new_folder_name = '".addslashes(lang('files:new_folder_name'))."';
 				pyro.lang.alt_attribute = '".addslashes(lang('files:alt_attribute'))."';
+
+				// deprecated
+				pyro.files.initial_folder_contents = '".$this->session->flashdata('initial_folder_contents')."';
 			</script>");
 	}
 
@@ -110,6 +113,8 @@ class Admin extends Admin_Controller {
 	/**
 	 * Set the initial folder ID to load contents for
 	 *
+	 * @deprecated
+	 * 
 	 * Accepts the parent id and sets it as flash data
 	 */
 	public function initial_folder_contents($id)
@@ -223,21 +228,29 @@ class Admin extends Admin_Controller {
 	public function upload()
 	{
 		// this is just a safeguard if they circumvent the JS permissions
-		if ( ! in_array('upload', Files::allowed_actions()))
+		if ( ! in_array('upload', Files::allowed_actions()) AND
+			// replacing files needs upload and delete permission
+			! ( $this->input->post('replace_id') && ! in_array('delete', Files::allowed_actions()) )
+		)
 		{
 			show_error(lang('files:no_permissions'));
 		}
 
+		$result = null;
 		$input = $this->input->post();
 
-		if ($input['folder_id'] and $input['name'])
+		if($input['replace_id'] > 0)
 		{
-			$result = Files::upload($input['folder_id'], $input['name'], 'file', $input['width'], $input['height'], $input['ratio'], $input['alt_attribute']);
-
-			$result['status'] AND Events::trigger('file_uploaded', $result['data']);
-
-			echo json_encode($result);
+			$result = Files::replace_file($input['replace_id'], $input['folder_id'], $input['name'], 'file', $input['width'], $input['height'], $input['ratio'], $input['alt_attribute']);
+			$result['status'] AND Events::trigger('file_replaced', $result['data']);
 		}
+		elseif ($input['folder_id'] and $input['name'])
+		{
+			$result = Files::upload($input['folder_id'], $input['name'], 'file', $input['width'], $input['height'], $input['ratio'], null, $input['alt_attribute']);
+			$result['status'] AND Events::trigger('file_uploaded', $result['data']);
+		}
+
+		echo json_encode($result);		
 	}
 
 	/**

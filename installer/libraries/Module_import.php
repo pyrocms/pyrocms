@@ -7,9 +7,6 @@ include PYROPATH.'libraries/Module.php';
 
 class Module_import
 {
-
-	// private $ci;
-
 	public function __construct(array $params)
 	{
 		ci()->pdb = $this->pdb = $params['pdb'];
@@ -39,7 +36,7 @@ class Module_import
 	{
 		if ( ! ($details_class = $this->_spawn_class($slug, $is_core)))
 		{
-			exit($slug);
+			exit("The module $slug is missing a details.php");
 		}
 
 		// Get some basic info
@@ -73,6 +70,14 @@ class Module_import
 		return $this->add($module);
 	}
 
+	/**
+	 * Add
+	 *
+	 * Insert the database record for a single module
+	 *
+	 * @param     array     Array of module informaiton.
+	 * @return    boolean
+	 */
 	public function add($module)
 	{
 		return $this->pdb
@@ -82,54 +87,52 @@ class Module_import
 				'slug' => $module['slug'],
 				'version' => $module['version'],
 				'description' => serialize($module['description']),
-				'skip_xss' => (int) ! empty($module['skip_xss']),
-				'is_frontend' => (int) ! empty($module['frontend']),
-				'is_backend' => (int) ! empty($module['backend']),
+				'skip_xss' => ! empty($module['skip_xss']),
+				'is_frontend' => ! empty($module['frontend']),
+				'is_backend' => ! empty($module['backend']),
 				'menu' => ! empty($module['menu']) ? $module['menu'] : false,
-				'enabled' => (int) (bool) $module['enabled'],
-				'installed' => (int) (bool) $module['installed'],
-				'is_core' => (int) (bool) $module['is_core']
+				'enabled' => (bool) $module['enabled'],
+				'installed' => (bool) $module['installed'],
+				'is_core' => (bool) $module['is_core']
 			)
 		);
 	}
 
-
+	/**
+	 * Import All
+	 *
+	 * Create settings and streams core, and run the install() method for all modules
+	 *
+	 * @return    boolean
+	 */
 	public function import_all()
 	{
-		// Loop through directories that hold modules
-		$is_core = true;
-		foreach (array(PYROPATH, ADDONPATH, SHARED_ADDONPATH) as $directory)
+		// Install settings and streams core first. Other modules may need them.
+		$this->install('settings', true);
+		$this->ci->load->library('settings/settings');
+		$this->install('streams_core', true);
+
+		// Are there any modules to install on this path?
+		if ($modules = glob(PYROPATH.'modules/*', GLOB_ONLYDIR))
 		{
-			$modules = glob($directory.'modules/*', GLOB_ONLYDIR);
-
-			// some servers return false instead of an empty array
-			if ( ! $modules) {
-				continue;
-			}
-
-			// Put the settings module first
-			$modules = array_map('basename', $modules);
-			$s = array_splice($modules, array_search('settings', $modules), 1);
-			array_unshift($modules, $s[0]);
-
+			// Loop through modules
 			foreach ($modules as $module_name)
 			{
-				// Try and install
-				if ( ! $this->install($module_name, $is_core))
+				$slug = basename($module_name);
+
+				if ($slug == 'streams_core' or $slug == 'settings')
 				{
 					continue;
 				}
 
-				// Settings is installed first. Once it's installed we load the library
-				// so all modules can use settings in their install code.
-				if ($module_name === 'settings')
+				// invalid details class?
+				if ( ! $details_class = $this->_spawn_class($slug, true))
 				{
-					ci()->load->library('settings/settings');
+					continue;
 				}
-			}
 
-			// Going back around, 2nd time is addons
-			$is_core = false;
+				$this->install($slug, true);
+			}
 		}
 
 		// After modules are imported we need to modify the settings table
@@ -159,7 +162,7 @@ class Module_import
 		// Before we can install anything we need to know some details about the module<<<<<<< HEAD
 		$details_file = "{$path}modules/{$slug}/details.php";
 
-		// Check the details file exists
+		// If it didn't exist as a core module or an addon then check shared_addons
 		if ( ! is_file($details_file))
 		{
 			$details_file = "{SHARED_ADDONPATH}modules/{$slug}/details.php";

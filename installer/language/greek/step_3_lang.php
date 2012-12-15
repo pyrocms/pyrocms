@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['header']			=	'Βήμα 3: Καθορισμός Δικαιωμάτων';
@@ -19,5 +19,3 @@ $lang['hide_commands']		= 'Απόκρυψη εντολών';
 $lang['next_step']		= 'Προχωρήστε στο επόμενο βήμα';
 $lang['step4']			= 'Βήμα 4';
 $lang['retry']			= 'Προσπαθήστε ξανά';
-
-/* End of file step_3_lang.php */

@@ -152,4 +152,8 @@
 	 **/
 	$config['error_end_delimiter'] = '</p>';
 
+	/**
+	 * When no activation is required, redirect to:
+	 **/
+	$config['register_redirect'] = '';
 /* End of file ion_auth.php */

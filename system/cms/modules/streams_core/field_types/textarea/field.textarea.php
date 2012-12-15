@@ -13,7 +13,7 @@ class Field_textarea
 	
 	public $db_col_type				= 'longtext';
 
-	public $version					= '1.1';
+	public $version					= '1.1.0';
 
 	public $author					= array('name' => 'Adam Fairholm', 'url' => 'http://adamfairholm.com');
 
@@ -47,7 +47,7 @@ class Field_textarea
 		else
 		{
 			$value = $data['value'];
-		}	
+		}
 
 		$options = array(
 			'name'		=> $data['form_slug'],

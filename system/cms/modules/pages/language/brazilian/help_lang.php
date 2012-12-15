@@ -4,7 +4,7 @@
 $lang['help_body'] = '
 <h4>Visão geral</h4>
 <p>O módulo páginas é uma simples, mas poderosa ferramenta para gerenciar o conteúdo estático do seu site.
-Layouts de página podem ser gerenciados e widgets incorporados sem nunca editar os arquivos de template.</p>
+Types de página podem ser gerenciados e widgets incorporados sem nunca editar os arquivos de template.</p>
 
 <h4>Gerenciando páginas</h4><hr>
 <h6>Conteúdo de página</h6>
@@ -35,8 +35,8 @@ Digamos que um novo funcionário realmente bagunçou uma edição de página.
 Basta selecionar uma data que você gostaria de reverter a página e clicar em Salvar!
 Você pode até mesmo comparar as revisões para ver o que mudou.</p>
 
-<h4>Layouts de página</h4><hr>
-<p>Layouts de página permite que você controle o layout da página sem modificar os seus arquivos do tema. 
+<h4>Types de página</h4><hr>
+<p>Types de página permite que você controle o layout da página sem modificar os seus arquivos do tema. 
 Você pode incorporar marcações dentro do layout de página em vez de colocar dentro de cada página. 
 Por exemplo: Se você tem um widget de feed do Twitter que deseja mostrar na parte inferior de cada página você pode apenas adicioná-lo num layout de página:
 <pre><code>

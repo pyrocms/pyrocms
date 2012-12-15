@@ -23,7 +23,7 @@ $lang['pages:body_label'] 						= 'Tělo stránky';
 $lang['pages:meta_title_label'] 				= 'Meta titulek';
 $lang['pages:meta_keywords_label'] 				= 'Meta klíčová slova';
 $lang['pages:meta_desc_label'] 					= 'Meta popis';
-$lang['pages:layout_id_label'] 					= 'Šablona stránky';
+$lang['pages:type_id_label'] 					= 'Šablona stránky';
 $lang['pages:css_label'] 						= 'CSS';
 $lang['pages:js_label'] 						= 'JavaScript';
 $lang['pages:access_label'] 					= 'Přístup';
@@ -48,8 +48,8 @@ $lang['pages:duplicate_label']					= 'Duplicate'; #translate
 $lang['pages:create_title'] 					= 'Přidat stránku';
 $lang['pages:edit_title'] 						= 'Upravit stránku "%s"';
 $lang['pages:list_title'] 						= 'Seznam stránek';
-$lang['pages:layouts_create_title'] 			= 'Přidat šablonu stránek';
-$lang['pages:layouts_list_title'] 				= 'Seznam šablon stránek';
+$lang['pages:types_create_title'] 			= 'Přidat šablonu stránek';
+$lang['pages:types_list_title'] 				= 'Seznam šablon stránek';
 
 // messages
 $lang['pages:no_pages'] 						= 'Nejsou zde žádné stránky.';

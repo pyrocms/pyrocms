@@ -41,7 +41,7 @@ class MX_Loader extends CI_Loader
 	public $_ci_cached_vars = array();
 	
 	/** Initialize the loader variables **/
-	public function instance($controller = NULL) {
+	public function initialize($controller = NULL) {
 		
 		if (is_a($controller, 'MX_Controller')) {	
 			
@@ -91,7 +91,7 @@ class MX_Loader extends CI_Loader
 		if (class_exists('CI_DB', FALSE) AND $return == FALSE AND $active_record == NULL AND isset(CI::$APP->db) AND is_object(CI::$APP->db)) 
 			return;
 
-		require_once BASEPATH.'database/DB'.'.php';
+		require_once BASEPATH.'database/DB'.EXT;
 
 		if ($return === TRUE) return DB($params, $active_record);
 			
@@ -121,29 +121,22 @@ class MX_Loader extends CI_Loader
 	}
 
 	/** Load a module language file **/
-	public function language($file = array(), $lang = '')
-	{
-		if (is_array($file))
-		{
-			return $this->languages($file);
-		}
-
-		return CI::$APP->lang->load($file, $lang);
+	public function language($langfile = array(), $idiom = '', $return = FALSE, $add_suffix = TRUE, $alt_path = '') {
+		return CI::$APP->lang->load($langfile, $idiom, $return, $add_suffix, $alt_path, $this->_module);
 	}
 	
-	public function languages($languages)
-	{
+	public function languages($languages = array()) {
 		foreach($languages as $_language) $this->language($_language);
 	}
+	
 	/** Load a module library **/
-	public function library($library = '', $params = null, $object_name = null) {
+	public function library($library = '', $params = NULL, $object_name = NULL) {
 		
-		if (is_array($library)) return $this->libraries($library);	
+		if (is_array($library)) return $this->libraries($library);		
+		
+		$class = strtolower(basename($library));
 
-		$library_pieces = explode('/', $library);
-		$class = strtolower(end($library_pieces));
-		
-		if (isset($this->_ci_classes[$class]) and $_alias = $this->_ci_classes[$class])
+		if (isset($this->_ci_classes[$class]) AND $_alias = $this->_ci_classes[$class])
 			return CI::$APP->$_alias;
 			
 		($_alias = strtolower($object_name)) OR $_alias = $class;
@@ -151,12 +144,12 @@ class MX_Loader extends CI_Loader
 		list($path, $_library) = Modules::find($library, $this->_module, 'libraries/');
 		
 		/* load library config file as params */
-		if ($params == null) {
+		if ($params == NULL) {
 			list($path2, $file) = Modules::find($_alias, $this->_module, 'config/');	
 			($path2) AND $params = Modules::load_file($file, $path2, 'config');
 		}	
 			
-		if ($path === false) {
+		if ($path === FALSE) {
 			
 			$this->_ci_load_class($library, $params, $object_name);
 			$_alias = $this->_ci_classes[$class];
@@ -180,31 +173,30 @@ class MX_Loader extends CI_Loader
 	}
 
 	/** Load a module model **/
-	public function model($model, $object_name = null, $connect = false) {
+	public function model($model, $object_name = NULL, $connect = FALSE) {
 		
 		if (is_array($model)) return $this->models($model);
 
-		$model_pieces = explode('/', $model);
-		($_alias = $object_name) OR $_alias = end($model_pieces);
+		($_alias = $object_name) OR $_alias = basename($model);
 
-		if (in_array($_alias, $this->_ci_models, true)) 
+		if (in_array($_alias, $this->_ci_models, TRUE)) 
 			return CI::$APP->$_alias;
 			
 		/* check module */
 		list($path, $_model) = Modules::find(strtolower($model), $this->_module, 'models/');
 		
-		if ($path == false) {
+		if ($path == FALSE) {
 			
 			/* check application & packages */
 			parent::model($model, $object_name);
 			
 		} else {
 			
-			class_exists('CI_Model', false) OR load_class('Model', 'core');
+			class_exists('CI_Model', FALSE) OR load_class('Model', 'core');
 			
-			if ($connect !== false and ! class_exists('CI_DB', false)) {
-				if ($connect === true) $connect = '';
-				$this->database($connect, false, true);
+			if ($connect !== FALSE AND ! class_exists('CI_DB', FALSE)) {
+				if ($connect === TRUE) $connect = '';
+				$this->database($connect, FALSE, TRUE);
 			}
 			
 			Modules::load_file($_model, $path);
@@ -224,11 +216,11 @@ class MX_Loader extends CI_Loader
 	}
 
 	/** Load a module controller **/
-	public function module($module, $params = null)	{
+	public function module($module, $params = NULL)	{
 		
 		if (is_array($module)) return $this->modules($module);
 
-		$_alias = strtolower(end(explode('/', $module)));
+		$_alias = strtolower(basename($module));
 		CI::$APP->$_alias = Modules::load(array($module => $params));
 		return CI::$APP->$_alias;
 	}
@@ -248,10 +240,12 @@ class MX_Loader extends CI_Loader
 
 		list($path, $_plugin) = Modules::find($plugin.'_pi', $this->_module, 'plugins/');	
 		
-		if ($path === false) return;
+		if ($path === FALSE AND ! is_file($_plugin = APPPATH.'plugins/'.$_plugin.EXT)) {	
+			show_error("Unable to locate the plugin file: {$_plugin}");
+		}
 
 		Modules::load_file($_plugin, $path);
-		$this->_ci_plugins[$plugin] = true;
+		$this->_ci_plugins[$plugin] = TRUE;
 	}
 
 	/** Load an array of plugins **/
@@ -268,9 +262,8 @@ class MX_Loader extends CI_Loader
 			$view = $_view;
 		}
 		
- 		return $this->_ci_load(array('_ci_view' => $view, '_ci_vars' => $this->_ci_object_to_array($vars), '_ci_return' => $return));
- 	}
-
+		return $this->_ci_load(array('_ci_view' => $view, '_ci_vars' => $this->_ci_object_to_array($vars), '_ci_return' => $return));
+	}
 
 	public function _ci_is_instance() {}
 
@@ -284,42 +277,39 @@ class MX_Loader extends CI_Loader
 
 	public function _ci_load($_ci_data) {
 		
-		foreach (array('_ci_view', '_ci_vars', '_ci_path', '_ci_return') as $_ci_val) {
-			$$_ci_val = ( ! isset($_ci_data[$_ci_val])) ? false : $_ci_data[$_ci_val];
-		}
-
-		if ($_ci_path == '') {
-			$_ci_file = strpos($_ci_view, '.') ? $_ci_view : $_ci_view.'.php';
-			foreach ($this->_ci_view_paths as $view_file => $cascade)
-			{
-				if (file_exists($view_file.$_ci_file))
-				{
-					$_ci_path = $view_file.$_ci_file;
-					$file_exists = true;
+		extract($_ci_data);
+		
+		if (isset($_ci_view)) {
+			
+			$_ci_path = '';
+			$_ci_file = strpos($_ci_view, '.') ? $_ci_view : $_ci_view.EXT;
+			
+			foreach ($this->_ci_view_paths as $path => $cascade) {				
+				if (file_exists($view = $path.$_ci_file)) {
+					$_ci_path = $view;
 					break;
 				}
-
-				if ( ! $cascade)
-				{
-					break;
-				}
+				
+				if ( ! $cascade) break;
 			}
-		} else {
-			$path_pieces = explode('/', $_ci_path);
-			$_ci_file = end($path_pieces);
+			
+		} elseif (isset($_ci_path)) {
+			
+			$_ci_file = basename($_ci_path);
+			if( ! file_exists($_ci_path)) $_ci_path = '';
 		}
 
-		if ( ! file_exists($_ci_path)) 
+		if (empty($_ci_path)) 
 			show_error('Unable to load the requested file: '.$_ci_file);
 
-		if (is_array($_ci_vars)) 
-			$this->_ci_cached_vars = array_merge($this->_ci_cached_vars, $_ci_vars);
+		if (isset($_ci_vars)) 
+			$this->_ci_cached_vars = array_merge($this->_ci_cached_vars, (array) $_ci_vars);
 		
 		extract($this->_ci_cached_vars);
 
 		ob_start();
 
-		if ((bool) @ini_get('short_open_tag') === false and CI::$APP->config->item('rewrite_short_tags') == true) {
+		if ((bool) @ini_get('short_open_tag') === FALSE AND CI::$APP->config->item('rewrite_short_tags') == TRUE) {
 			echo eval('?>'.preg_replace("/;*\s*\?>/", "; ?>", str_replace('<?=', '<?php echo ', file_get_contents($_ci_path))));
 		} else {
 			include($_ci_path); 
@@ -327,7 +317,7 @@ class MX_Loader extends CI_Loader
 
 		log_message('debug', 'File loaded: '.$_ci_path);
 
-		if ($_ci_return == true) return ob_get_clean();
+		if ($_ci_return == TRUE) return ob_get_clean();
 
 		if (ob_get_level() > $this->_ci_ob_level + 1) {
 			ob_end_flush();
@@ -339,68 +329,78 @@ class MX_Loader extends CI_Loader
 	/** Autoload module items **/
 	public function _autoloader($autoload) {
 		
-		$path = false;
+		$path = FALSE;
 		
-		if ($this->_module)
+		if ($this->_module) {
+			
+			list($path, $file) = Modules::find('constants', $this->_module, 'config/');	
+			
+			/* module constants file */
+			if ($path != FALSE) {
+				include_once $path.$file.EXT;
+			}
+					
 			list($path, $file) = Modules::find('autoload', $this->_module, 'config/');
-
-		/* module autoload file */
-		if ($path != false)
-			$autoload = array_merge(Modules::load_file($file, $path, 'autoload'), $autoload);
-	
+		
+			/* module autoload file */
+			if ($path != FALSE) {
+				$autoload = array_merge(Modules::load_file($file, $path, 'autoload'), $autoload);
+			}
+		}
+		
 		/* nothing to do */
 		if (count($autoload) == 0) return;
 		
 		/* autoload package paths */
-		if (isset($autoload['packages'])){
-			foreach ($autoload['packages'] as $package_path){
+		if (isset($autoload['packages'])) {
+			foreach ($autoload['packages'] as $package_path) {
 				$this->add_package_path($package_path);
 			}
 		}
 				
 		/* autoload config */
-		if (isset($autoload['config'])){
-			foreach ($autoload['config'] as $config){
+		if (isset($autoload['config'])) {
+			foreach ($autoload['config'] as $config) {
 				$this->config($config);
 			}
 		}
 
 		/* autoload helpers, plugins, languages */
-		foreach (array('helper', 'plugin', 'language') as $type){
+		foreach (array('helper', 'plugin', 'language') as $type) {
 			if (isset($autoload[$type])){
-				foreach ($autoload[$type] as $item){
+				foreach ($autoload[$type] as $item) {
 					$this->$type($item);
 				}
 			}
 		}	
 			
 		/* autoload database & libraries */
-		if (isset($autoload['libraries'])){
-			if (in_array('database', $autoload['libraries'])){
+		if (isset($autoload['libraries'])) {
+			if (in_array('database', $autoload['libraries'])) {
 				/* autoload database */
-				if ( ! $db = CI::$APP->config->item('database')){
+				if ( ! $db = CI::$APP->config->item('database')) {
 					$db['params'] = 'default';
-					$db['active_record'] = true;
+					$db['active_record'] = TRUE;
 				}
-				$this->database($db['params'], false, $db['active_record']);
+				$this->database($db['params'], FALSE, $db['active_record']);
 				$autoload['libraries'] = array_diff($autoload['libraries'], array('database'));
 			}
 
 			/* autoload libraries */
-			foreach ($autoload['libraries'] as $library){
+			foreach ($autoload['libraries'] as $library) {
 				$this->library($library);
 			}
 		}
 		
 		/* autoload models */
-		if (isset($autoload['model'])){
-			foreach ($autoload['model'] as $model => $alias){
+		if (isset($autoload['model'])) {
+			foreach ($autoload['model'] as $model => $alias) {
 				(is_numeric($model)) ? $this->model($alias) : $this->model($model, $alias);
 			}
 		}
 		
 		/* autoload module controllers */
-		if (isset($autoload['modules'])){
+		if (isset($autoload['modules'])) {
 			foreach ($autoload['modules'] as $controller) {
 				($controller != $this->_module) AND $this->module($controller);
 			}
@@ -409,4 +409,4 @@ class MX_Loader extends CI_Loader
 }
 
 /** load the CI class for Modular Separation **/
-(class_exists('CI', false)) OR require dirname(__FILE__).'/Ci.php';
+(class_exists('CI', FALSE)) OR require dirname(__FILE__).'/Ci.php';

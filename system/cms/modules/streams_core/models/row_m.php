@@ -1028,6 +1028,8 @@ class Row_m extends MY_Model {
 		
 		foreach ($this->streams_m->streams_cache as $stream_id => $stream)
 		{
+			if ($stream_id == 'ns') continue;
+
 			$struct[$stream_id]['stream'] = $stream;
 			
 			foreach ($fields as $field)
@@ -1431,6 +1433,12 @@ class Row_m extends MY_Model {
 		// Get the ordering count
 		$row = $db_obj->row();
 		$ordering_count = $row->ordering_count;
+
+		// We need ordering count to be a number.
+		if ( ! is_numeric($ordering_count) or $ordering_count < 0)
+		{
+			$ordering_count = 1;
+		}
 		
 		// Delete the actual row
 		$this->db->where('id', $row_id);
@@ -1469,7 +1477,7 @@ class Row_m extends MY_Model {
 			// everthing higher than the row's
 			// order count
 			// -------------------------------------
-			
+
 			$this->db->where('ordering_count >', $ordering_count)->select('id, ordering_count');
 			$ord_obj = $this->db->get($stream->stream_prefix.$stream->stream_slug);
 			

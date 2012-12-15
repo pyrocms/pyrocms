@@ -1,12 +1,9 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
-$lang['header']			=	'Langkah 4: Buat Database';
-$lang['intro_text']		=	'Lengkapi form berikut dan klik tombol berlabel "Install" untuk menginstal PyroCMS. Pastikan Anda menginstal PyroCMS ke dalam database yang benar karena data yang sudah ada akan hilang!';
+$lang['header']			=	'Langkah 4: Buat Database'; #translate
+$lang['intro_text']		=	'Lengkapi form berikut dan klik tombol berlabel "Install" untuk menginstal PyroCMS. Pastikan Anda menginstal PyroCMS ke dalam database yang benar karena data yang sudah ada akan hilang!'; #translate
 
-$lang['db_settings']		=	'Pengaturan Database';
-$lang['db_create']		=	'Buat Database';
-$lang['db_notice']		=	'Anda mungkin harus melakukannya sendiri';
 $lang['default_user']		=	'Pengguna Awal';
 $lang['database']		=	'Database';
 $lang['site_settings']		= 	'Pengaturan Situs';
@@ -27,5 +24,3 @@ $lang['error_104']		=	'Installer tidak dapat membuat pengguna awal.';
 $lang['error_105']		=	'File konfigurasi database tidak dapat ditulisi, apakah Anda mencurangi installer dengan melewati langkah 3?';
 $lang['error_106']		=	'File config tidak dapat ditulisi, Anda yakin file tersebut sudah dapat ditulisi ?';
 $lang['success']		=	'PyroCMS akhirnya berhasil terinstall.';
-
-/* End of file step_4_lang.php */

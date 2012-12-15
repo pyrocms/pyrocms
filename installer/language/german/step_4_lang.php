@@ -1,12 +1,9 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
-$lang['header']             =   'Schritt 4: Datenbank erzeugen';
-$lang['intro_text']         =   'Vervollst&auml;ndigen Sie das untenstehende Formular und klicken Sie den Installieren-Button um das PyroCMS auf Ihrem Server einzurichten. Seien Sie sich sicher, dass Sie das PyroCMS mit der richtigen Datenbank verbinden!';
+$lang['header']             =   'Schritt 4: Datenbank erzeugen'; #translate
+$lang['intro_text']         =   'Vervollst&auml; #translatendigen Sie das untenstehende Formular und klicken Sie den Installieren-Button um das PyroCMS auf Ihrem Server einzurichten. Seien Sie sich sicher, dass Sie das PyroCMS mit der richtigen Datenbank verbinden!';
 
-$lang['db_settings']        =   'Datenbank-Einstellungen';
-$lang['db_create']          =   'Datenbank anlegen';
-$lang['db_notice']          =   'Du musst das nicht selbst erledigen!';
 $lang['default_user']       =   'Admin-Benutzername';
 $lang['database']           =   'Datenbank';
 $lang['site_settings']      = 	'Seiten-Einstellungen';

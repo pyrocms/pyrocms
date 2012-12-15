@@ -23,7 +23,7 @@ $lang['pages:body_label'] 						= 'نص الصفحة';
 $lang['pages:meta_title_label'] 				= 'عنوان ميتا';
 $lang['pages:meta_keywords_label'] 				= 'كلمات ميتا';
 $lang['pages:meta_desc_label'] 					= 'وصف ميتا';
-$lang['pages:layout_id_label'] 					= 'تخطيط الصفحة';
+$lang['pages:type_id_label'] 					= 'تخطيط الصفحة';
 $lang['pages:css_label'] 						= 'CSS';
 $lang['pages:js_label'] 						= 'جافاسكربت';
 $lang['pages:access_label'] 					= 'الصلاحيات';
@@ -48,8 +48,8 @@ $lang['pages:duplicate_label']					= 'مُكرّر';
 $lang['pages:create_title'] 					= 'إضافة صفحة';
 $lang['pages:edit_title'] 						= 'تعديل الصفحة "%s"';
 $lang['pages:list_title'] 						= 'سرد الصفحات';
-$lang['pages:layouts_create_title'] 			= 'إضافة تخطيط صفحة';
-$lang['pages:layouts_list_title'] 				= 'سرد تخطيطات الصفحات';
+$lang['pages:types_create_title'] 			= 'إضافة تخطيط صفحة';
+$lang['pages:types_list_title'] 				= 'سرد تخطيطات الصفحات';
 
 // messages
 $lang['pages:no_pages'] 						= 'لا يوجد صفحات.';

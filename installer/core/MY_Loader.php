@@ -9,6 +9,7 @@ require APPPATH.'third_party/MX/Loader.php';
  */
 class MY_Loader extends MX_Loader
 {
+
 	/**
 	 * Make it possible to get spark packages.
 	 */
@@ -67,9 +68,9 @@ class MY_Loader extends MX_Loader
 	 * the ci_autoloader() method. Once sparks is integrated into CI, we can
 	 * avoid the awkward version-specific logic.
 	 *
-	 * @return object
+	 * @return \MY_Loader
 	 */
-	public function initialize()
+	function initialize($controller = null)
 	{
 		parent::initialize();
 
@@ -174,7 +175,7 @@ class MY_Loader extends MX_Loader
 	 */
 	protected function ci_autoloader($basepath = NULL)
 	{
-		$autoload_path = (($basepath !== NULL) ? $basepath : APPPATH).'config/autoload.php';
+		$autoload_path = (($basepath !== NULL) ? $basepath : APPPATH).'config/autoload'.EXT;
 
 		if ( ! file_exists($autoload_path))
 		{

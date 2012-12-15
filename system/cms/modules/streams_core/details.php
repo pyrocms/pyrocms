@@ -3,13 +3,14 @@
 /**
  * PyroStreams Core Module
  *
- * @package		PyroCMS\Core\Modules\Streams Core
- * @author		Parse19
- * @copyright	Copyright (c) 2011 - 2012, Parse19
- * @license		http://parse19.com/pyrostreams/docs/license
- * @link		http://parse19.com/pyrostreams
+ * @package        PyroCMS\Core\Modules\Streams Core
+ * @author         Parse19
+ * @copyright      Copyright (c) 2011 - 2012, Parse19
+ * @license        http://parse19.com/pyrostreams/docs/license
+ * @link           http://parse19.com/pyrostreams
  */
-class Module_Streams_core extends Module {
+class Module_Streams_core extends Module
+{
 
 	public $version = '1.3.0';
 
@@ -27,6 +28,8 @@ class Module_Streams_core extends Module {
 				'fr' => 'Noyau Flux',
 				'el' => 'Πυρήνας Ροών',
 				'se' => 'Streams grundmodul',
+				'tw' => 'Streams 核心',
+				'cn' => 'Streams 核心',
 			),
 			'description' => array(
 				'en' => 'Core data module for streams.',

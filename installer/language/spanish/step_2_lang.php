@@ -1,6 +1,6 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
-# labels
+// labels
 $lang['header']			= 'Paso 2: Comprobar requisitos';
 $lang['intro_text']		= 'El primer paso en el proceso de instalación es la de comprobar si su servidor soporta PyroCMS. Muchos servidores pueden tener la capacidad de ejecutarlo sin ningún problema.';
 $lang['mandatory']		= 'Necesario';
@@ -43,7 +43,5 @@ $lang['next_step']		= 'Proceder al siguiente paso';
 $lang['step3']			= 'Paso 3';
 $lang['retry']			= 'Reintentar';
 
-# messages
+// messages
 $lang['step1_failure']		= 'Por favor, completa la configuración de la base de datos requerida en el formulario siguiente...';
-
-/* End of file step_2_lang.php */

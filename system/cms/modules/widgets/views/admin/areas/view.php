@@ -1,12 +1,12 @@
-<section id="area-<?php echo $widget_area->slug; ?>">
+<section id="area-<?php echo $widget_area->slug ?>">
 	<header class="clearfix widget-area-header">
-		<h3><a href="#"><?php echo $widget_area->title; ?></a></h3>
+		<h3><a href="#"><?php echo $widget_area->title ?></a></h3>
 		<div class="float-right padding-top-half padding-right-half padding-bottom-half buttons buttons-small">
-			<a id="edit-area-<?php echo $widget_area->slug; ?>" class="button edit edit-area" data-title="<?php echo $widget_area->title; ?>" href="#">
-				<?php echo lang('widgets.edit_area'); ?>
+			<a id="edit-area-<?php echo $widget_area->slug ?>" class="button edit edit-area" data-title="<?php echo $widget_area->title ?>" href="#">
+				<?php echo lang('widgets.edit_area') ?>
 			</a>
-			<a id="delete-area-<?php echo $widget_area->slug; ?>" class="confirm button delete delete-area" href="#">
-				<?php echo lang('widgets.delete_area'); ?>
+			<a id="delete-area-<?php echo $widget_area->slug ?>" class="confirm button delete delete-area" href="#">
+				<?php echo lang('widgets.delete_area') ?>
 			</a>
 		</div>
 	</header>

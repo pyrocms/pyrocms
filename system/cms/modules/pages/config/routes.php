@@ -20,4 +20,4 @@
 |	http://www.codeigniter.com/user_guide/general/routing.html
 */
 
-$route['pages/admin/layouts(:any)?'] = 'admin_layouts$1';
+$route['pages/admin/types(:any)?'] = 'admin_types$1';

@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['header']			=	'Trin 2: Tjek Krav';
@@ -45,5 +45,3 @@ $lang['retry']			=	'Prøv igen';
 
 // messages
 $lang['step1_failure']	=	'Udfyld venligst de påkrævede databaseindstillinger i formularen nedenfor..';
-
-/* End of file step_2_lang.php */

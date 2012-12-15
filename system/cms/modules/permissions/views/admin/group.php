@@ -1,14 +1,14 @@
 <section class="title">
-	<h4><?php echo $group->description; ?></h4>
+	<h4><?php echo $group->description ?></h4>
 </section>
 <section class="item">
-<?php echo form_open(uri_string(), array('class'=> 'crud', 'id'=>'edit-permissions',)); ?>
+<?php echo form_open(uri_string(), array('class'=> 'crud', 'id'=>'edit-permissions',)) ?>
 <table>
 	<thead>
 		<tr>
-			<th><?php echo form_checkbox(array('id'=>'check-all', 'name' => 'action_to_all', 'class' => 'check-all', 'title' => lang('permissions:checkbox_tooltip_action_to_all'))); ?></th>
-			<th><?php echo lang('permissions:module'); ?></th>
-			<th><?php echo lang('permissions:roles'); ?></th>
+			<th><?php echo form_checkbox(array('id'=>'check-all', 'name' => 'action_to_all', 'class' => 'check-all', 'title' => lang('permissions:checkbox_tooltip_action_to_all'))) ?></th>
+			<th><?php echo lang('permissions:module') ?></th>
+			<th><?php echo lang('permissions:roles') ?></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -23,11 +23,11 @@
 					'name'=>'modules[' . $module['slug'] . ']',
 					'checked'=> array_key_exists($module['slug'], $edit_permissions),
 					'title' => sprintf(lang('permissions:checkbox_tooltip_give_access_to_module'), $module['name']),
-				)); ?>
+				)) ?>
 			</td>
 			<td>
-				<label class="inline" for="<?php echo $module['slug']; ?>">
-					<?php echo $module['name']; ?>
+				<label class="inline" for="<?php echo $module['slug'] ?>">
+					<?php echo $module['name'] ?>
 				</label>
 			</td>
 			<td>
@@ -39,18 +39,18 @@
 						'name' => 'module_roles[' . $module['slug'] . ']['.$role.']',
 						'value' => true,
 						'checked' => isset($edit_permissions[$module['slug']]) AND array_key_exists($role, (array) $edit_permissions[$module['slug']])
-					)); ?>
-					<?php echo lang($module['slug'].'.role_'.$role); ?>
+					)) ?>
+					<?php echo lang($module['slug'].'.role_'.$role) ?>
 				</label>
-				<?php endforeach; ?>
-			<?php endif; ?>
+				<?php endforeach ?>
+			<?php endif ?>
 			</td>
 		</tr>
-		<?php endforeach; ?>
+		<?php endforeach ?>
 	</tbody>
 </table>
 <div class="buttons float-right padding-top">
-	<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'save_exit', 'cancel'))); ?>
+	<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'save_exit', 'cancel'))) ?>
 </div>
-<?php echo form_close(); ?>
+<?php echo form_close() ?>
 </section>

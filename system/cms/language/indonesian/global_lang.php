@@ -90,6 +90,12 @@ $lang['global:empty']					= 'Kosong';
 $lang['global:delete']					= 'Hapus';
 $lang['global:remove']					= 'Buang';
 
+$lang['global:widgets']					= 'Widgets';
+$lang['global:themes']					= 'Themes'; #translate
+$lang['global:field_types']				= 'Field Types';
+$lang['global:plugins']					= 'Plugins';
+$lang['global:plugin']					= 'Plugin';
+
 $lang['global:keywords']				= 'Kata Kunci';
 
 /* End of file main_lang.php */

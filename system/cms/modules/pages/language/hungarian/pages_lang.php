@@ -23,7 +23,7 @@ $lang['pages:body_label']                       = 'Oldal tartalma';
 $lang['pages:meta_title_label']                 = 'Meta cím';
 $lang['pages:meta_keywords_label']              = 'Meta kulcsszavak';
 $lang['pages:meta_desc_label']                  = 'Meta leírás';
-$lang['pages:layout_id_label']                  = 'Oldal elrendezése';
+$lang['pages:type_id_label']                  = 'Oldal elrendezése';
 $lang['pages:css_label']                        = 'CSS';
 $lang['pages:js_label']                         = 'JavaScript';
 $lang['pages:access_label']                     = 'Hozzáférés';
@@ -48,8 +48,8 @@ $lang['pages:duplicate_label']                  = 'Másolat';
 $lang['pages:create_title']                     = 'Oldal létrehozása';
 $lang['pages:edit_title']                       = 'A(z) "%s" oldal módosítása';
 $lang['pages:list_title']                       = 'Oldalak listázása';
-$lang['pages:layouts_create_title']             = 'Oldalterv hozzáadása';
-$lang['pages:layouts_list_title']               = 'Oldaltervek listázása';
+$lang['pages:types_create_title']             = 'Oldalterv hozzáadása';
+$lang['pages:types_list_title']               = 'Oldaltervek listázása';
 
 // messages
 $lang['pages:no_pages']                         = 'Nincsenek oldalak.';

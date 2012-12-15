@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['header']              = 'Második lépés: Követelmények ellenőrzése';
@@ -45,5 +45,3 @@ $lang['retry']               = 'Újra';
 
 // messages
 $lang['step1_failure']       = 'A telepítés folytatásához, szükséges kitölteni az alábbi mezőket...';
-
-/* End of file step_2_lang.php */

@@ -17,7 +17,7 @@ class Field_image
 
 	public $custom_parameters		= array('folder', 'resize_width', 'resize_height', 'keep_ratio', 'allowed_types');
 
-	public $version					= '1.1';
+	public $version					= '1.1.0';
 
 	public $author					= array('name' => 'Parse19', 'url' => 'http://parse19.com');
 

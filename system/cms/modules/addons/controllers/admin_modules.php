@@ -37,9 +37,25 @@ class Admin_modules extends Admin_Controller
 	{
 		$this->module_m->import_unknown();
 
+		$all_modules = $this->module_m->get_all(null, true);
+
+		$core_modules = $addon_modules = array();
+		foreach ($all_modules as $module)
+		{
+			if ($module['is_core'])
+			{
+				$core_modules[] = $module;
+			}
+			else
+			{
+				$addon_modules[] = $module;
+			}
+		}
+
 		$this->template
 			->title($this->module_details['name'])
-			->set('all_modules', $this->module_m->get_all(null, true))
+			->set('core_modules', $core_modules)
+			->set('addon_modules', $addon_modules)
 			->build('admin/modules/index');
 	}
 

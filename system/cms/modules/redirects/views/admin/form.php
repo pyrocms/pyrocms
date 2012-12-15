@@ -3,11 +3,11 @@
 	<h4><?php echo lang('redirects.add_title');?></h4>
 <?php else: ?>
 	<h4><?php echo lang('redirects.edit_title');?></h4>
-<?php endif; ?>
+<?php endif ?>
 </section>
 
 <section class="item">
-	<?php echo form_open(uri_string(), 'class="crud"'); ?>
+	<?php echo form_open(uri_string(), 'class="crud"') ?>
 		<ul>
 		<li>
 			<label for="type"><?php echo lang('redirects.type');?></label><br>
@@ -31,7 +31,7 @@
 		<hr>
 
 		<div class="buttons">
-			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )); ?>
+			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )) ?>
 		</div>
-	<?php echo form_close(); ?>
+	<?php echo form_close() ?>
 </section>

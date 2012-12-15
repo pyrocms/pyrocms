@@ -8,7 +8,6 @@
  */
 class Module_Navigation extends Module
 {
-
 	public $version = '1.2.0';
 
 	public function info()
@@ -34,7 +33,8 @@ class Module_Navigation extends Module
 				'pl' => 'Nawigacja',
 				'ru' => 'Навигация',
 				'sl' => 'Navigacija',
-				'zh' => '導航選單',
+				'tw' => '導航選單',
+				'cn' => '导航选单',
 				'th' => 'ตัวช่วยนำทาง',
 				'hu' => 'Navigáció',
 				'se' => 'Navigation',
@@ -59,7 +59,8 @@ class Module_Navigation extends Module
 				'pl' => 'Zarządzaj linkami w menu nawigacji oraz wszystkimi grupami nawigacji do których one należą.',
 				'ru' => 'Управление ссылками в меню навигации и группах, к которым они принадлежат.',
 				'sl' => 'Uredi povezave v meniju in vse skupine povezav ki jim pripadajo.',
-				'zh' => '管理導航選單中的連結，以及它們所隸屬的導航群組。',
+				'tw' => '管理導航選單中的連結，以及它們所隸屬的導航群組。',
+				'cn' => '管理导航选单中的连结，以及它们所隶属的导航群组。',
 				'th' => 'จัดการการเชื่อมโยงนำทางและกลุ่มนำทาง',
 				'se' => 'Hantera länkar och länkgrupper.',
 				'hu' => 'Linkek kezelése a navigációs menükben és a navigációs csoportok kezelése, amikhez tartoznak.',
@@ -110,7 +111,7 @@ class Module_Navigation extends Module
 			$table->string('class')->nullable();
 
 			$table->index('navigation_group_id');
-			// $table->foreign('navigation_group_id'); // TODO: Surely more documentation is needed to make this work.
+			// $table->foreign('navigation_group_id'); // TODO: Make this work.
 		});
 
 		$this->pdb->table('navigation_groups')->insert(array(

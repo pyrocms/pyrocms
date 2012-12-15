@@ -37,9 +37,19 @@ jQuery(document).ready(function ($) {
 		}
 	});
 
-	$('input[name=password]').bind('keyup focus', function() {
+	$('input[name="database"]').on('keyup', function () {
+		var $db = $('input[name=database]');
+		// check the database name for correct alphanumerics
+		if ($db.val().match(/[^A-Za-z0-9_-]+/)) {
+			$db.val($db.val().replace(/[^A-Za-z0-9_-]+/, ''));
+		}
+	});
+
+	$('input[name=password]').on('keyup focus', function () {
 
 		$.post(base_url + 'index.php/ajax/confirm_database', {
+				database: $('input[name=database]').val(),
+				create_db: $('input[name=create_db]').is(':checked'),
 				server: $('input[name=hostname]').val(),
 				port: $('input[name=port]').val(),
 				username: $('input[name=username]').val(),
@@ -72,9 +82,8 @@ jQuery(document).ready(function ($) {
 		}
 	});
 
-
 	// Password Complexity
-	$("input#password").complexify({}, function (valid, complexity) {
+	$('#user_password').complexify({}, function (valid, complexity) {
 		var $progress = $('#progress');
 		if (!valid) {
 			$progress

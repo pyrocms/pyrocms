@@ -1,4 +1,4 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['congrats']			=	'恭喜您';
@@ -10,5 +10,3 @@ $lang['outro_text']			=	'最後, <strong>請即刻將安裝目錄從您的伺服
 
 $lang['go_website']			= 	'進入前端網站';
 $lang['go_control_panel']	= 	'進入後端系統';
-
-/* End of file complete_lang.php */

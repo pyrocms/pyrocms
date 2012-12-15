@@ -27,21 +27,21 @@ $lang['streams.delete_entry_success']					= "Entrada excluída com sucesso.";
 $lang['streams.new_entry_error']						= "Houve um problema ao adicionar esta entrada.";
 $lang['streams.new_entry_success']						= "Entrada adicionada com sucesso.";
 $lang['streams.edit_entry_error']						= "Houve um problema ao actualizar esta entrada.";
-$lang['streams.edit_entry_success']					    = "Entrada actualizada com sucesso.";
+$lang['streams.edit_entry_success']						= "Entrada actualizada com sucesso.";
 $lang['streams.delete_summary']							= "Tem certeza de que deseja excluír o fluxo <strong>%s</strong>? Será <strong>excluído %s %s</strong> permanentemente.";
 
 /* Misc Errors */
 
-$lang['streams.no_stream_provided']						= "Nenhum fluxo foi fornecido."; 
-$lang['streams.invalid_stream']							= "Fluxo inválido."; 
-$lang['streams.not_valid_stream']						= "não é um fluxo válido."; 
-$lang['streams.invalid_stream_id']						= "ID do fluxo inválido."; 
+$lang['streams.no_stream_provided']						= "Nenhum fluxo foi fornecido.";
+$lang['streams.invalid_stream']							= "Fluxo inválido.";
+$lang['streams.not_valid_stream']						= "não é um fluxo válido.";
+$lang['streams.invalid_stream_id']						= "ID do fluxo inválido.";
 $lang['streams.invalid_row']							= "Linha inválida.";
-$lang['streams.invalid_id']								= "ID inválido."; 
+$lang['streams.invalid_id']								= "ID inválido.";
 $lang['streams.cannot_find_assign']						= "Não é possível localizar atribuição de campo.";
 $lang['streams.cannot_find_pyrostreams']				= "Não é possível localizar o PyroStreams.";
 $lang['streams.table_exists']							= "A tabela com o apelido %s já existe.";
-$lang['streams.no_results']								= "Nenhum resultado"; 
+$lang['streams.no_results']								= "Nenhum resultado";
 $lang['streams.no_entry']								= "Não foi possível encontrar a entrada.";
 $lang['streams.invalid_search_type']					= "não é um tipo de pesquisa válido.";
 $lang['streams.search_not_found']						= "Procura não encontrada.";
@@ -54,7 +54,7 @@ $lang['streams.not_mysql_safe_characters']				= "O campo %s contém caracteres n
 $lang['streams.type_not_valid']							= "Por favor selecione um tipo de campo válido.";
 $lang['streams.stream_slug_not_unique']					= "Este apelido do fluxo já está em uso.";
 $lang['streams.field_unique']							= "O campo %s tem que ser único.";
-$lang['streams.field_is_required']						= "O campo %s é obrigatório"; 
+$lang['streams.field_is_required']						= "O campo %s é obrigatório";
 $lang['streams.date_out_or_range']						= "The date you have chosen is out of the acceptable range."; #translate
 
 /* Field Labels */
@@ -116,12 +116,12 @@ $lang['streams.backup_table']							= "Backup da Tabela do Fluxo";
 $lang['streams.delete_stream']							= "Excluir Fluxo";
 $lang['streams.entry']									= "Entrada";
 $lang['streams.field_types']							= "Tipos de Campos";
-$lang['streams.field_type']								= "Tipos de Campo"; 
-$lang['streams.database_table']							= "Tabela B.D."; 
-$lang['streams.size']									= "Tamanho"; 
-$lang['streams.num_of_entries']							= "Numero de entradas"; 
-$lang['streams.num_of_fields']							= "Numero de campos"; 
-$lang['streams.last_updated']							= "Atualizado a"; 
+$lang['streams.field_type']								= "Tipos de Campo";
+$lang['streams.database_table']							= "Tabela B.D.";
+$lang['streams.size']									= "Tamanho";
+$lang['streams.num_of_entries']							= "Numero de entradas";
+$lang['streams.num_of_fields']							= "Numero de campos";
+$lang['streams.last_updated']							= "Atualizado a";
 $lang['streams.export_schema']							= "Esquema de exportação";
 
 /* Startup */
@@ -134,7 +134,7 @@ $lang['streams.start.create_field_here']				= "criar um campo aqui";
 $lang['streams.start.no_streams']						= "Ainda não há fluxos, mas pode começar";
 $lang['streams.start.no_streams_yet']					= "Ainda não há fluxos.";
 $lang['streams.start.adding_one']						= "adicionar um";
-$lang['streams.start.no_fields_to_add']					= "Sem campos para adicionar";		
+$lang['streams.start.no_fields_to_add']					= "Sem campos para adicionar";
 $lang['streams.start.no_fields_msg']					= "Não existem campos para adicionar a este fluxo. Em PyroStreams, tipos de campos podem ser compartilhados entre fluxos e deve ser criado antes de ser adicionado a um fluxo. Pode começar por";
 $lang['streams.start.adding_a_field_here']				= "adicionar um campo aqui";
 $lang['streams.start.no_entries']						= "Ainda não há entradas para <strong>%s</strong>. Pode, começar";
