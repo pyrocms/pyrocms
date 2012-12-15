@@ -330,6 +330,19 @@ class Users extends Public_Controller
 					{
 						$this->load->helper('url');
 						$username = url_title($this->input->post('first_name').'.'.$this->input->post('last_name'), '-', true);
+
+						// do they have a long first name + last name combo?
+						if (strlen($username) > 19)
+						{
+							// try only the last name
+							$username = url_title($this->input->post('last_name'), '-', true);
+
+							if (strlen($username) > 19)
+							{
+								// even their last name is over 20 characters, snip it!
+								$username = substr($username, 0, 20);
+							}
+						}
 					}
 					else
 					{
@@ -348,7 +361,8 @@ class Users extends Public_Controller
 					while ($this->db->where('username', $username)
 						->count_all_results('users') > 0)
 					{
-						$username = $username_base.$i;
+						// make sure that we don't go over our 20 char username even with a 2 digit integer added
+						$username = substr($username_base, 0, 18).$i;
 
 						++$i;
 					}
