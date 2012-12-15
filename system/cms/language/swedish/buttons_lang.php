@@ -4,7 +4,7 @@
  * Swedish translation.
  *
  * @author		marcus@incore.se
- * @package		PyroCMS  
+ * @package		PyroCMS
  * @link		http://pyrocms.com
  * @date		2012-10-22
  * @version		1.1.0
@@ -36,6 +36,4 @@ $lang['buttons.copy'] = 'Kopiera';
 $lang['buttons.filter'] = 'Filtrera';
 $lang['buttons.clear'] = 'Rensa';
 
-
-/* End of file buttons_lang.php */  
-/* Location: system/cms/language/swedish/buttons_lang.php */  
+/* End of file buttons_lang.php */

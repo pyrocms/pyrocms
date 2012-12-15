@@ -32,9 +32,9 @@ $lang['cp_nav_settings']				= 'Pengaturan';
 $lang['cp_nav_addons']					= 'Pengaya';
 $lang['cp_nav_modules']					= 'Modul';
 $lang['cp_nav_users']					= 'Pengguna';
-$lang['cp_nav_content']					= 'Konten';
 $lang['cp_nav_data']					= 'Data'; #translate
 $lang['cp_nav_structure']				= 'Structure'; #translate
+$lang['cp_nav_content']					= 'Konten';
 $lang['cp_nav_misc']					= 'Miscellaneous'; #translate
 
 $lang['cp_must_login']	 				= 'Anda harus masuk terlebih dahulu untuk melihat halaman ini.';

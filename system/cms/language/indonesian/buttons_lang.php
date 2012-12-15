@@ -35,5 +35,7 @@ $lang['buttons.edit']		= 'Edit';
 $lang['buttons.clone']		= 'Gandakan';
 $lang['buttons.re-index']	= 'Indeks Ulang';
 $lang['buttons.copy']		= 'Salin';
+$lang['buttons.filter']		= 'Filter'; #translate
+$lang['buttons.clear']		= 'Clear'; #translate
 
 /* End of file buttons_lang.php */

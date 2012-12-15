@@ -1,4 +1,4 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['cp_admin_title'] 				= 'Painel de Controlo';
 $lang['global:dashboard'] 			    = 'Dashboard';
@@ -32,9 +32,9 @@ $lang['cp_nav_settings']				= 'Configurações';
 $lang['cp_nav_addons']					= 'Complementos';
 $lang['cp_nav_modules']					= 'Módulos';
 $lang['cp_nav_users']					= 'Utilizadores';
-$lang['cp_nav_content']					= 'Conteúdo';
 $lang['cp_nav_data']					= 'Data'; #translate
 $lang['cp_nav_structure']				= 'Structure'; #translate
+$lang['cp_nav_content']					= 'Conteúdo';
 $lang['cp_nav_misc']					= 'Miscellaneous'; #translate
 
 $lang['cp_must_login']	 				= 'Deve estar conectado para ver esta página.';

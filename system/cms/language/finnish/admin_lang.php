@@ -32,9 +32,9 @@ $lang['cp_nav_settings']				= 'Asetukset';
 $lang['cp_nav_addons']					= 'Lisäosat';
 $lang['cp_nav_modules']					= 'Moduulit';
 $lang['cp_nav_users']					= 'Käyttäjät';
-$lang['cp_nav_content']					= 'Sisältö';
 $lang['cp_nav_data']					= 'Data'; #translate
 $lang['cp_nav_structure']				= 'Structure'; #translate
+$lang['cp_nav_content']					= 'Sisältö';
 $lang['cp_nav_misc']					= 'Miscellaneous'; #translate
 
 $lang['cp_must_login']	 				= 'Sinun tulee kirjautua sisään selataksesi tätä sivua.';

@@ -32,9 +32,9 @@ $lang['cp_nav_settings']				= 'Nustatymai';
 $lang['cp_nav_addons']					= 'Priedai';
 $lang['cp_nav_modules']					= 'Moduliai';
 $lang['cp_nav_users']					= 'Vartotojai';
-$lang['cp_nav_content']					= 'Turinys';
 $lang['cp_nav_data']					= 'Data'; #translate
 $lang['cp_nav_structure']				= 'Structure'; #translate
+$lang['cp_nav_content']					= 'Turinys';
 $lang['cp_nav_misc']					= 'Miscellaneous'; #translate
 
 $lang['cp_must_login']	 				= 'Jūs turite būti prisijungęs, kad matytumėte šį puslapį.';

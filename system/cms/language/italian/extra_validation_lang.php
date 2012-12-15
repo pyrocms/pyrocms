@@ -4,4 +4,4 @@ $lang['alpha_dot_dash']			= "Il campo %s può contenere solo caratteri alfa-nume
 $lang['decimal']				= "Il campo %s può contenere solo numeri decimali.";
 $lang['csrf_bad_token']			= "Token CSRF non valido";
 
-/* End of file form_validation_lang.php */
+/* End of file extra_validation_lang.php */

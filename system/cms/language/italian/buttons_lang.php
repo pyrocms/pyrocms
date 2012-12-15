@@ -35,5 +35,7 @@ $lang['buttons.edit']		= 'Modifica';
 $lang['buttons.clone']		= 'Clona';
 $lang['buttons.re-index']	= 'Indicizza di nuovo';
 $lang['buttons.copy']		= 'Copia';
+$lang['buttons.filter']					= 'Filtro';
+$lang['buttons.clear']					= 'Pulisci';
 
 /* End of file buttons_lang.php */

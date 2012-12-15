@@ -32,17 +32,17 @@ $lang['cp_nav_settings']				= '網站設定'; 		//'Settings';
 $lang['cp_nav_addons']					= '附加模組'; 		//'Add-ons';
 $lang['cp_nav_modules']					= '模組'; 			//'Modules';
 $lang['cp_nav_users']					= '網站用戶'; 		//'Users';
-$lang['cp_nav_content']					= '網站內容'; 		//'Content';
 $lang['cp_nav_data']					= '網站資料';
 $lang['cp_nav_structure']				= '網站結構';
+$lang['cp_nav_content']					= '網站內容'; 		//'Content';
 $lang['cp_nav_misc']					= '其他項目';
-
-$lang['global:keywords']				= '關鍵字';
 
 $lang['cp_must_login']	 				= '您必須登錄才能查看此頁面。'; 					//'You must be logged in to view this page.';
 $lang['cp_access_denied'] 				= '您沒有足夠的權限以查看此頁面'; 				//'You do not have sufficient permissions to view this page.';
 $lang['cp_delete_installer_message']	= '請將安裝程式目錄從伺服器上刪除。在線上保留這個目錄，等同於開放網站的控制權限給有心人士。'; //'Please delete the installer directory from your server. Leaving it online means control of this site could be granted to somebody else.';
 $lang['cp_upgrade_message']				= '您目前執行的版本是 %s，但是您資料庫的版本是 %s。請 <a href="%s" title="升級">點選這裡</a> 來升級資料庫。'; //'You are currently running version %s, but your database is version %s. Please <a href="%s" title="Upgrade">click here</a> to upgrade the database.';
+$lang['cp_google_analytics_missing']	= 'Google Analytics settings are missing. Add them into %s or contact your administrator.'; #translate
+$lang['cp_google_analytics_no_connect']	= 'Could not connect to Google Analytics. Check in %s.'; #translate
 
 $lang['required_label'] 				= '必填'; 			//'Required';
 $lang['sb_recent_users'] 				= '最近用戶'; 		//'Recent users';

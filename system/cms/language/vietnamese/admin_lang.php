@@ -32,9 +32,9 @@ $lang['cp_nav_settings']				= 'Thiết lập';
 $lang['cp_nav_addons']					= 'Add-ons'; #translate
 $lang['cp_nav_modules']					= 'Mô đun';
 $lang['cp_nav_users']					= 'Người dùng';
-$lang['cp_nav_content']					= 'Nội dung';
 $lang['cp_nav_data']					= 'Data'; #translate
 $lang['cp_nav_structure']				= 'Structure'; #translate
+$lang['cp_nav_content']					= 'Nội dung';
 $lang['cp_nav_misc']					= 'Miscellaneous'; #translate
 
 $lang['cp_must_login']	 				= 'Bạn phải đăng nhập để xem trang này.';

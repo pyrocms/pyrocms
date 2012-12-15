@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['global:control-panel'] 			= 'Admin-Oberfläche';
-$lang['global:profile']					= 'Profil'; 
+$lang['global:profile']					= 'Profil';
 
 $lang['global:title'] 					= 'Titel';
 $lang['name_label'] 					= 'Name';
@@ -11,9 +11,11 @@ $lang['global:author'] 					= 'Autor';
 $lang['global:action'] 					= 'Aktion';
 $lang['global:slug'] 					= 'Slug'; #translate
 $lang['global:slug_instructions']		= 'Lowercase characters and underscores only.'; #translate
+$lang['global:user'] 					= 'User'; #translate
 
-$lang['dialog.delete_message'] 			= 'Bist du sicher, dass du das löschen möchtest? Es gibt keine Möglichkeit das Löschen rückgängig zu machen.';
+$lang['global:dialog:delete_message'] 			= 'Bist du sicher, dass du das löschen möchtest? Es gibt keine Möglichkeit das Löschen rückgängig zu machen.';
 $lang['global:dialog:confirm'] 				= 'Bestätigen';
+
 $lang['global:yes'] 					= 'Ja';
 $lang['global:no'] 						= 'Nein';
 
@@ -22,8 +24,8 @@ $lang['global:select-all'] 				= '-- Alle --';
 $lang['global:select-any'] 				= '-- Eines --';
 $lang['global:select-pick']			 	= '-- Auswählen --';
 
-$lang['global:check-none'] 				= 'Keine';
 $lang['global:check-all']				= 'Alle';
+$lang['global:check-none'] 				= 'Keine';
 
 $lang['global:operators:equal'] 				= 'Gleicht';
 $lang['global:operators:not-equal'] 			= 'Gleicht nicht';
@@ -50,10 +52,11 @@ $lang['general_error_label'] 			= 'Fehler';
 $lang['required_error_label'] 			= 'Benötigtes Feld fehlt';
 $lang['note_label'] 					= 'Hinweis';
 $lang['success_label'] 					= 'Erfolgreich';
+$lang['global:fields']					= 'Fields'; #translate
 
 $lang['login_title'] 					= 'Anmelden';
 $lang['cms_fatal_error'] 				= 'Schwerwiegender Fehler! Ist das CMS installiert?';
-$lang['global:demo_restrictions']       = 'Einige Funktionen auf dieser Seite wurden für die Demo deaktiviert.'; 
+$lang['global:demo_restrictions'] 		= 'Einige Funktionen auf dieser Seite wurden für die Demo deaktiviert.';
 
 $lang['login_error_label'] 				= 'Anmeldefehler';
 $lang['forgot_password_label'] 			= 'Passwort vergessen ?';
@@ -73,31 +76,41 @@ $lang['publish_label'] 					= 'Veröffentlichen';
 $lang['global:upload'] 					= 'Hochladen';
 $lang['global:uninstall'] 				= 'Deinstallieren';
 $lang['global:install'] 					= 'Installieren';
+$lang['global:upgrade'] 				= 'Upgrade'; #translate
 $lang['global:enable']					= 'Aktivieren';
 $lang['global:disable'] 				= 'Deaktivieren';
+$lang['global:enabled']					= 'Enabled'; #translate
+$lang['global:disabled'] 				= 'Disabled'; #translate
 
 $lang['all_right_reserved']				= 'Alle Rechte vorbehalten.';
 $lang['powered_by_pyrocms']				= 'Powered by PyroCMS';  #translate
-$lang['top_page']						= 'Seitenanfang'; 
-$lang['back_to_top']					= 'Zum Seitenanfang'; 
+$lang['top_page']						= 'Seitenanfang';
+$lang['back_to_top']					= 'Zum Seitenanfang';
 
+$lang['global:filters'] 				= 'Filters'; #translate
 $lang['global:image'] 					= 'Bild';
-$lang['global:description']				= 'Beschreibung'; 
+$lang['global:description']				= 'Beschreibung';
 $lang['global:actions']					= 'Aktion';
-$lang['global:view']					= 'Ansicht'; 
-$lang['global:preview']					= 'Vorschau'; 
-$lang['global:add']						= 'Hinzufügen'; 
-$lang['global:edit']					= 'Bearbeiten'; 
-$lang['global:empty']					= 'Leer'; 
-$lang['global:delete']					= 'Löschen'; 
-$lang['global:remove']					= 'Entfernen'; 
-
-$lang['global:widgets']					= 'Widgets';
-$lang['global:themes']					= 'Themes'; #translate
-$lang['global:field_types']				= 'Field Types';
-$lang['global:plugins']					= 'Plugins';
-$lang['global:plugin']					= 'Plugin';
+$lang['global:view']					= 'Ansicht';
+$lang['global:preview']					= 'Vorschau';
+$lang['global:add']						= 'Hinzufügen';
+$lang['global:edit']					= 'Bearbeiten';
+$lang['global:empty']					= 'Leer';
+$lang['global:delete']					= 'Löschen';
+$lang['global:remove']					= 'Entfernen';
 
 $lang['global:keywords']				= 'Keywords'; #translate
+
+$lang['global:or']						= 'or'; #translate
+$lang['global:and']						= 'and'; #translate
+$lang['global:at']						= 'at'; #translate
+
+$lang['global:widgets']					= 'Widgets'; #translate
+$lang['global:themes']					= 'Themes'; #translate
+$lang['global:field_types']				= 'Field Types'; #translate
+$lang['global:plugins']					= 'Plugins'; #translate
+$lang['global:plugin']					= 'Plugin'; #translate
+
+$lang['global:options']					= 'Options'; #translate
 
 /* End of file main_lang.php */

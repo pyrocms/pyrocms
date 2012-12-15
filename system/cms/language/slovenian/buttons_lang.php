@@ -33,6 +33,9 @@ $lang['buttons.preview']	= 'Predogled';
 $lang['buttons.close']		= 'Zapri';
 $lang['buttons.edit']		= 'Uredi';
 $lang['buttons.clone']		= 'Duplikat';
+$lang['buttons.re-index']	= 'Re-index'; #translate
 $lang['buttons.copy']		= 'Kopiraj';
+$lang['buttons.filter']		= 'Filter'; #translate
+$lang['buttons.clear']		= 'Clear'; #translate
 
 /* End of file buttons_lang.php */
