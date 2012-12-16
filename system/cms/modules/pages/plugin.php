@@ -10,6 +10,14 @@
 class Plugin_Pages extends Plugin
 {
 
+	public $version = '1.0.0';
+	public $name = array(
+		'en' => 'Pages',
+	);
+	public $description = array(
+		'en' => 'Output page data or build a list of pages in a page tree.',
+	);
+
 	/**
 	 * Get the URL of a page
 	 *

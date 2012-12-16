@@ -9,6 +9,15 @@
  */
 class Plugin_Settings extends Plugin
 {
+
+	public $version = '1.0.0';
+	public $name = array(
+		'en' => 'Settings',
+	);
+	public $description = array(
+		'en' => 'Retrieve a setting from the database.',
+	);
+
 	/**
 	 * Load a variable
 	 *

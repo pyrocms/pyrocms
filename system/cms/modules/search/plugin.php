@@ -10,6 +10,14 @@
 class Plugin_Search extends Plugin
 {
 
+	public $version = '1.0.0';
+	public $name = array(
+		'en' => 'Search',
+	);
+	public $description = array(
+		'en' => 'Create a search form and display search results.',
+	);
+
 	/**
 	 * Get the URL of a page
 	 *

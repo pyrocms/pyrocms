@@ -8,7 +8,16 @@
  * @package		PyroCMS\Core\Modules\Variables\Plugins
  */
 class Plugin_Variables extends Plugin
-{	
+{
+
+	public $version = '1.0.0';
+	public $name = array(
+		'en' => 'Variables',
+	);
+	public $description = array(
+		'en' => 'Set and retrieve variable data.',
+	);
+
 	/**
 	 * Load a variable
 	 *

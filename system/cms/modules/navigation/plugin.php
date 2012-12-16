@@ -8,6 +8,14 @@
 class Plugin_Navigation extends Plugin
 {
 
+	public $version = '1.0.0';
+	public $name = array(
+		'en' => 'Navigation',
+	);
+	public $description = array(
+		'en' => 'Build navigation links including links in dropdown menus.',
+	);
+
 	/**
 	 * Navigation
 	 *

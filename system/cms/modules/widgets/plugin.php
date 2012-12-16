@@ -9,6 +9,15 @@
  */
 class Plugin_Widgets extends Plugin
 {
+
+	public $version = '1.0.0';
+	public $name = array(
+		'en' => 'Widgets',
+	);
+	public $description = array(
+		'en' => 'Display widgets by widget area or individually.',
+	);
+
 	public function __construct()
 	{
 		$this->load->library('widgets/widgets');

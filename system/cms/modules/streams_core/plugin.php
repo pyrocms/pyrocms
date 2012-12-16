@@ -14,6 +14,15 @@
  */
 class Plugin_Streams_core extends Plugin
 {
+
+	public $version = '1.0.0';
+	public $name = array(
+		'en' => 'Streams Core',
+	);
+	public $description = array(
+		'en' => 'A basic plugin for working with stream data.',
+	);
+
 	/**
 	 * Field Function
 	 * 

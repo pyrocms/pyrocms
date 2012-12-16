@@ -8,7 +8,16 @@
  * @author		PyroCMS Dev Team
  * @package		PyroCMS\Core\Modules\Contact\Plugins
  */
-class Plugin_Contact extends Plugin {
+class Plugin_Contact extends Plugin 
+{
+
+	public $version = '1.0.0';
+	public $name = array(
+		'en' => 'Contact',
+	);
+	public $description = array(
+		'en' => 'Displays a contact form for site visitors.',
+	);
 
 	public function __construct()
 	{
