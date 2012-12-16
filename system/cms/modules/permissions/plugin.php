@@ -21,8 +21,6 @@ class Plugin_Permissions extends Plugin
 	/**
 	 * Returns a PluginDoc array
 	 *
-	 * Refer to the Blog plugin for full documentation on how to create a PluginDoc array
-	 *
 	 * @return array
 	 */
 	public function _self_doc()
@@ -32,7 +30,7 @@ class Plugin_Permissions extends Plugin
 				'single' => true,
 				'double' => true,
 				'variables' => '',
-				'params' => array(),
+				'attributes' => array(),
 				),
 			);
 
@@ -41,6 +39,7 @@ class Plugin_Permissions extends Plugin
 
 		foreach ($modules as $module)
 		{
+			$info[$module['slug']]['description'] = array('en' => 'Check if the user has permissions for the '.$module['name'].' module. A single tag returns true or false while a double tag protects its content');
 			$info[$module['slug']]['single'] = true;
 			$info[$module['slug']]['double'] = true;
 			$info[$module['slug']]['variables'] = '';
@@ -51,7 +50,7 @@ class Plugin_Permissions extends Plugin
 			{
 				$info[$module['slug']]['params'] = array(
 					'can' => array(
-						'type' => '@text',
+						'type' => 'flag',
 						'flags' => $roles,
 						'default' => '',
 						'required' => false,

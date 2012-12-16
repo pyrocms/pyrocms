@@ -28,36 +28,39 @@ class Plugin_Blog extends Plugin
 
 		$info = array(
 			'posts' => array(
+				'description' => array(// a single sentence to explain the purpose of this method
+					'en' => 'Display blog posts optionally filtering them by category.'
+				),
 				'single' => false,// single tag or double tag (tag pair)
 				'double' => true,
-				'variables' => '',// the variables available inside the double tags
-				'params' => array(// an array of all attributes
+				'variables' => 'category_title|category_slug|author_name|title|slug|url|category_id|intro|body|parsed|created_on|updated_on|count',// the variables available inside the double tags
+				'attributes' => array(// an array of all attributes
 					'category' => array(// the attribute name. If the attribute name is used give most common values as separate attributes
-						'type' => '@slug',// Can be: @number, @flag, @text, @any. A flag is a predefined value.
+						'type' => 'slug',// Can be: slug, number, flag, text, any. A flag is a predefined value.
 						'flags' => '',// valid flag values that the plugin will recognize. IE: asc|desc|random
 						'default' => '',// the value that it defaults to
 						'required' => false,// is this attribute required?
 						),
 					'limit' => array(
-						'type' => '@number',
+						'type' => 'number',
 						'flags' => '',
 						'default' => '10',
 						'required' => false,
 						),
 					'offset' => array(
-						'type' => '@number',
+						'type' => 'number',
 						'flags' => '',
 						'default' => '0',
 						'required' => false,
 						),
 					'order-by' => array(
-						'type' => '@column',
+						'type' => 'column',
 						'flags' => '',
 						'default' => 'created_on',
 						'required' => false,
 						),
 					'order-dir' => array(
-						'type' => '@flag',
+						'type' => 'flag',
 						'flags' => 'asc|desc|random',
 						'default' => 'asc',
 						'required' => false,
@@ -65,24 +68,27 @@ class Plugin_Blog extends Plugin
 					),
 				),
 			'categories' => array(
+				'description' => array(
+					'en' => 'List blog categories.'
+				),
 				'single' => false,
 				'double' => true,
 				'variables' => 'title|slug|url',
-				'params' => array(
+				'attributes' => array(
 					'limit' => array(
-						'type' => '@number',
+						'type' => 'number',
 						'flags' => '',
 						'default' => '10',
 						'required' => false,
 						),
 					'order-by' => array(
-						'type' => '@flag',
+						'type' => 'flag',
 						'flags' => 'id|title',
 						'default' => 'title',
 						'required' => false,
 						),
 					'order-dir' => array(
-						'type' => '@flag',
+						'type' => 'flag',
 						'flags' => 'asc|desc|random',
 						'default' => 'asc',
 						'required' => false,
@@ -90,24 +96,27 @@ class Plugin_Blog extends Plugin
 					),
 				),
 			'count_posts' => array(
+				'description' => array(
+					'en' => 'Count blog posts that meet the conditions specified.'
+				),
 				'single' => true,
 				'double' => false,
 				'variables' => '',
-				'params' => array(
+				'attributes' => array(
 					'category_id' => array(
-						'type' => '@number',
+						'type' => 'number',
 						'flags' => '',
 						'default' => '',
 						'required' => false,
 						),
 					'author_id' => array(
-						'type' => '@number',
+						'type' => 'number',
 						'flags' => '',
 						'default' => '',
 						'required' => false,
 						),
 					'status' => array(
-						'type' => '@flag',
+						'type' => 'flag',
 						'flags' => 'live|draft',
 						'default' => '',
 						'required' => false,
@@ -116,12 +125,15 @@ class Plugin_Blog extends Plugin
 				),
 			// method name
 			'tags' => array(
+				'description' => array(
+					'en' => 'Retrieve all tags that have been applied to blog posts.'
+				),
 				'single' => false,
 				'double' => true,
 				'variables' => 'title|url',
-				'params' => array(
+				'attributes' => array(
 					'limit' => array(
-						'type' => '@number',
+						'type' => 'number',
 						'flags' => '',
 						'default' => '10',
 						'required' => false,

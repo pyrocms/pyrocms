@@ -11,3 +11,7 @@
 <?php echo $this->load->view('admin/plugins/_table', array('plugins' => $core_plugins), true) ?>
 
 </section>
+
+<section id="plugin-docs" style="display:none">
+	<?php echo $this->load->view('admin/plugins/_docs', array('plugins' => array($plugins, $core_plugins)), true) ?>
+</section>

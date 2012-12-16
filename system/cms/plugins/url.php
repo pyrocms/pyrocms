@@ -31,19 +31,25 @@ class Plugin_Url extends Plugin
 	public function _self_doc()
 	{
 		$info = array(
-			'url' => array(
+			'current' => array(
+				'description' => array(
+					'en' => 'Output the current url.'
+				),
 				'single' => true,
 				'double' => false,
 				'variables' => '',
-				'params' => array(),
+				'attributes' => array(),
 				),
 			'get' => array(
+				'description' => array(
+					'en' => 'Retrieve a GET variable from the url.'
+				),
 				'single' => true,
 				'double' => false,
 				'variables' => '',
-				'params' => array(
+				'attributes' => array(
 					'key' => array(
-						'type' => '@text',
+						'type' => 'text',
 						'flags' => '',
 						'default' => '',
 						'required' => true,
@@ -51,12 +57,15 @@ class Plugin_Url extends Plugin
 					),
 				),
 			'site' => array(
+				'description' => array(
+					'en' => 'Display the site url of this installation with or without the index.php (depending on url rewrite settings).'
+				),
 				'single' => true,
 				'double' => false,
 				'variables' => '',
-				'params' => array(
+				'attributes' => array(
 					'uri' => array(
-						'type' => '@text',
+						'type' => 'text',
 						'flags' => '',
 						'default' => '',
 						'required' => false,
@@ -64,24 +73,30 @@ class Plugin_Url extends Plugin
 					),
 				),
 			'base' => array(
+				'description' => array(
+					'en' => 'Display the base url of the installation without the index.php'
+				),
 				'single' => true,
 				'double' => false,
 				'variables' => '',
-				'params' => array(),
+				'attributes' => array(),
 				),
 			'segments' => array(
+				'description' => array(
+					'en' => 'Return the specified segments from the url.'
+				),
 				'single' => true,
 				'double' => false,
 				'variables' => '',
-				'params' => array(
+				'attributes' => array(
 					'segment' => array(
-						'type' => '@number',
+						'type' => 'number',
 						'flags' => '',
 						'default' => '',
 						'required' => true,
 						),
 					'default' => array(
-						'type' => '@text',
+						'type' => 'text',
 						'flags' => '',
 						'default' => '',
 						'required' => false,
@@ -89,24 +104,27 @@ class Plugin_Url extends Plugin
 					),
 				),
 			'anchor' => array(
+				'description' => array(
+					'en' => 'Build an anchor tag with the url segments you pass in.'
+				),
 				'single' => true,
 				'double' => false,
 				'variables' => '',
-				'params' => array(
+				'attributes' => array(
 					'segments' => array(
-						'type' => '@text',
+						'type' => 'text',
 						'flags' => '',
 						'default' => '',
 						'required' => false,
 						),
 					'title' => array(
-						'type' => '@text',
+						'type' => 'text',
 						'flags' => '',
 						'default' => '',
 						'required' => false,
 						),
 					'class' => array(
-						'type' => '@text',
+						'type' => 'text',
 						'flags' => '',
 						'default' => '',
 						'required' => false,
@@ -114,10 +132,13 @@ class Plugin_Url extends Plugin
 					),
 				),
 			'is_ssl' => array(
+				'description' => array(
+					'en' => 'Returns true if the site is running on https'
+				),
 				'single' => true,
 				'double' => false,
 				'variables' => '',
-				'params' => array(),
+				'attributes' => array(),
 				),
 			);
 

@@ -47,6 +47,9 @@ class Admin_plugins extends Admin_Controller
 			$is_core = false;
 		}
 
+		sort($data['core_plugins']);
+		sort($data['plugins']);
+
 		// Create the layout
 		$this->template
 			->title($this->module_details['name'])
@@ -79,6 +82,7 @@ class Admin_plugins extends Admin_Controller
 				$module_path = dirname($file);
 				$module = array_pop(explode('/', $module_path));
 				$class_name = 'Plugin_'.ucfirst($module);
+				$slug = $module;
 
 				// add the package path so $this->load will work in the plugin
 				$this->load->add_package_path($module_path);
@@ -86,6 +90,7 @@ class Admin_plugins extends Admin_Controller
 			else
 			{
 				$class_name = 'Plugin_'.ucfirst($file_name);
+				$slug = $file_name;
 			}
 
 			include_once $file;
@@ -95,9 +100,10 @@ class Admin_plugins extends Admin_Controller
 				$plugin = new $class_name();
 				array_push($plugins, array(
 					'name' => (isset($plugin->name[CURRENT_LANGUAGE])) ? $plugin->name[CURRENT_LANGUAGE] : (isset($plugin->name[CURRENT_LANGUAGE])) ? $plugin->name[CURRENT_LANGUAGE] : ((isset($plugin->name['en'])) ? $plugin->name['en'] : ucfirst($file_name)),
+					'slug' => $slug,
 					'description' => (isset($plugin->description[CURRENT_LANGUAGE])) ? $plugin->description[CURRENT_LANGUAGE] : null,
 					'version' => (isset($plugin->version)) ? $plugin->version : null,
-					'example' => (method_exists($plugin, '_example') ? $plugin->_example() : array()),
+					'self_doc' => (method_exists($plugin, '_self_doc') ? $plugin->_self_doc() : array()),
 				));
 
 			}

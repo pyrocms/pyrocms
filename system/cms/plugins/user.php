@@ -22,6 +22,42 @@ class Plugin_User extends Plugin
 	);
 
 	/**
+	 * Returns a PluginDoc array that PyroCMS uses 
+	 * to build the reference in the admin panel
+	 *
+	 * All options are listed here but refer 
+	 * to the Blog plugin for a larger example
+	 *
+	 * @todo fill the  array with details about this plugin, then uncomment the return value.
+	 * @todo  I did the __call magic method... the others still need to be documented
+	 *
+	 * @return array
+	 */
+	public function _self_doc()
+	{
+		$info = array();
+
+		// dynamically build the array for the magic method __call
+		$user = (array) $this->current_user;
+		ksort($user);
+
+		foreach ($user as $key => $value)
+		{
+			if (in_array($key, array('password', 'salt'))) continue;
+
+			$info[$key]['description'] = array(
+				'en' => 'Displays the '.$key.' for the current user.'
+			);
+			$info[$key]['single'] = true;
+			$info[$key]['double'] = (is_array($value) ? true : false);
+			$info[$key]['variables'] = (is_array($value) ? implode('|', array_keys($value)) : '');
+			$info[$key]['params'] = array();
+		}
+
+		return $info;
+	}
+
+	/**
 	 * Array of data for the currently
 	 * logged in user.
 	 */

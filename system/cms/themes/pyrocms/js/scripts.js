@@ -210,11 +210,24 @@ jQuery(function($) {
 		});
 
 		var current_module = $('#page-header h1 a').text();
-		// Fancybox modal window
+		// Colorbox modal window
 		$('a[rel=modal], a.modal').livequery(function() {
 			$(this).colorbox({
 				width: "60%",
 				maxHeight: "90%",
+				current: current_module + " {current} / {total}",
+				onComplete: function(){ pyro.chosen() }
+			});
+		});
+
+		$('a[data-inline-modal]').livequery(function() {
+			var element_id = $(this).attr('data-inline-modal');
+			console.log($(element_id).html());
+			$(this).colorbox({
+				width: "60%",
+				maxHeight: "90%",
+				inline: true,
+				href: element_id,
 				current: current_module + " {current} / {total}",
 				onComplete: function(){ pyro.chosen() }
 			});

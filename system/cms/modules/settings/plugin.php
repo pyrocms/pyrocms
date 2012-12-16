@@ -19,6 +19,34 @@ class Plugin_Settings extends Plugin
 	);
 
 	/**
+	 * Returns a PluginDoc array that PyroCMS uses 
+	 * to build the reference in the admin panel
+	 *
+	 * @return array
+	 */
+	public function _self_doc()
+	{
+		$info = array();
+
+		// dynamically build the array for the magic method __call
+		$settings = Settings::get_all();
+		ksort($settings);
+
+		foreach ($settings as $slug => $value)
+		{
+			$info[$slug]['description'] = array(
+				'en' => 'Retrieve the value for setting '.$slug.'.'
+			);
+			$info[$slug]['single'] = true;
+			$info[$slug]['double'] = false;
+			$info[$slug]['variables'] = '';
+			$info[$slug]['params'] = array();
+		}
+
+		return $info;
+	}
+
+	/**
 	 * Load a variable
 	 *
 	 * Magic method to get the setting.
