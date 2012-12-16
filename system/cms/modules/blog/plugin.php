@@ -9,6 +9,130 @@
  */
 class Plugin_Blog extends Plugin
 {
+
+	public $version = '1.0.0';
+	public $name = array(
+		'en' => 'Blog',
+	);
+	public $description = array(
+		'en' => 'A plugin to display information such as blog categories and posts.',
+	);
+
+	/**
+	 * Returns a PluginDoc array
+	 *
+	 * @return array
+	 */
+	public function _self_doc()
+	{
+
+		$info = array(
+			'posts' => array(
+				'single' => false,// single tag or double tag (tag pair)
+				'double' => true,
+				'variables' => '',// the variables available inside the double tags
+				'params' => array(// an array of all attributes
+					'category' => array(// the attribute name. If the attribute name is used give most common values as separate attributes
+						'type' => '@slug',// Can be: @number, @flag, @text, @any. A flag is a predefined value.
+						'flags' => '',// valid flag values that the plugin will recognize. IE: asc|desc|random
+						'default' => '',// the value that it defaults to
+						'required' => false,// is this attribute required?
+						),
+					'limit' => array(
+						'type' => '@number',
+						'flags' => '',
+						'default' => '10',
+						'required' => false,
+						),
+					'offset' => array(
+						'type' => '@number',
+						'flags' => '',
+						'default' => '0',
+						'required' => false,
+						),
+					'order-by' => array(
+						'type' => '@column',
+						'flags' => '',
+						'default' => 'created_on',
+						'required' => false,
+						),
+					'order-dir' => array(
+						'type' => '@flag',
+						'flags' => 'asc|desc|random',
+						'default' => 'asc',
+						'required' => false,
+						),
+					),
+				),
+			'categories' => array(
+				'single' => false,
+				'double' => true,
+				'variables' => 'title|slug|url',
+				'params' => array(
+					'limit' => array(
+						'type' => '@number',
+						'flags' => '',
+						'default' => '10',
+						'required' => false,
+						),
+					'order-by' => array(
+						'type' => '@flag',
+						'flags' => 'id|title',
+						'default' => 'title',
+						'required' => false,
+						),
+					'order-dir' => array(
+						'type' => '@flag',
+						'flags' => 'asc|desc|random',
+						'default' => 'asc',
+						'required' => false,
+						),
+					),
+				),
+			'count_posts' => array(
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'params' => array(
+					'category_id' => array(
+						'type' => '@number',
+						'flags' => '',
+						'default' => '',
+						'required' => false,
+						),
+					'author_id' => array(
+						'type' => '@number',
+						'flags' => '',
+						'default' => '',
+						'required' => false,
+						),
+					'status' => array(
+						'type' => '@flag',
+						'flags' => 'live|draft',
+						'default' => '',
+						'required' => false,
+						),
+					),
+				),
+			// method name
+			'tags' => array(
+				'single' => false,
+				'double' => true,
+				'variables' => 'title|url',
+				'params' => array(
+					'limit' => array(
+						'type' => '@number',
+						'flags' => '',
+						'default' => '10',
+						'required' => false,
+						),
+					),
+				),
+			);
+
+		return $info;
+	}
+
 	/**
 	 * Blog List
 	 *
@@ -26,7 +150,7 @@ class Plugin_Blog extends Plugin
 	public function posts()
 	{
 		$limit		= $this->attribute('limit', 10);
-		$offset		= $this->attribute('offset',0);
+		$offset		= $this->attribute('offset', 0);
 		$category	= $this->attribute('category');
 		$order_by 	= $this->attribute('order-by', 'created_on');
 		$order_dir	= $this->attribute('order-dir', 'ASC');

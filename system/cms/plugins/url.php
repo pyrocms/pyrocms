@@ -22,6 +22,109 @@ class Plugin_Url extends Plugin
 	);
 
 	/**
+	 * Returns a PluginDoc array
+	 *
+	 * Refer to the Blog plugin for full documentation
+	 *
+	 * @return array
+	 */
+	public function _self_doc()
+	{
+		$info = array(
+			'url' => array(
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'params' => array(),
+				),
+			'get' => array(
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'params' => array(
+					'key' => array(
+						'type' => '@text',
+						'flags' => '',
+						'default' => '',
+						'required' => true,
+						),
+					),
+				),
+			'site' => array(
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'params' => array(
+					'uri' => array(
+						'type' => '@text',
+						'flags' => '',
+						'default' => '',
+						'required' => false,
+						),
+					),
+				),
+			'base' => array(
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'params' => array(),
+				),
+			'segments' => array(
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'params' => array(
+					'segment' => array(
+						'type' => '@number',
+						'flags' => '',
+						'default' => '',
+						'required' => true,
+						),
+					'default' => array(
+						'type' => '@text',
+						'flags' => '',
+						'default' => '',
+						'required' => false,
+						),
+					),
+				),
+			'anchor' => array(
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'params' => array(
+					'segments' => array(
+						'type' => '@text',
+						'flags' => '',
+						'default' => '',
+						'required' => false,
+						),
+					'title' => array(
+						'type' => '@text',
+						'flags' => '',
+						'default' => '',
+						'required' => false,
+						),
+					'class' => array(
+						'type' => '@text',
+						'flags' => '',
+						'default' => '',
+						'required' => false,
+						),
+					),
+				),
+			'is_ssl' => array(
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'params' => array(),
+				),
+			);
+
+		return $info;
+	}
+
+	/**
 	 * Current uri string
 	 *
 	 * Usage:

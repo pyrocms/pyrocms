@@ -9,6 +9,15 @@
  */
 class Plugin_Comments extends Plugin
 {
+
+	public $version = '1.0.0';
+	public $name = array(
+		'en' => 'Comments',
+	);
+	public $description = array(
+		'en' => 'Display information about site comments.',
+	);
+
 	/**
 	 * Count
 	 *
