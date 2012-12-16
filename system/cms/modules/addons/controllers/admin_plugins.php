@@ -69,7 +69,8 @@ class Admin_plugins extends Admin_Controller
 		{
 			$module_path = false;
 
-			$file_name = array_pop(explode('/', $file));
+			$tmp         = explode('/', $file);
+			$file_name   = array_pop($tmp);
 
 			// work out the filename
 			$file_parts = explode('.', $file_name);
@@ -80,9 +81,10 @@ class Admin_plugins extends Admin_Controller
 			if ($file_name === 'plugin')
 			{
 				$module_path = dirname($file);
-				$module = array_pop(explode('/', $module_path));
-				$class_name = 'Plugin_'.ucfirst($module);
-				$slug = $module;
+				$tmp         = explode('/', $module_path);
+				$module      = array_pop($tmp);
+				$class_name  = 'Plugin_'.ucfirst($module);
+				$slug        = $module;
 
 				// add the package path so $this->load will work in the plugin
 				$this->load->add_package_path($module_path);
