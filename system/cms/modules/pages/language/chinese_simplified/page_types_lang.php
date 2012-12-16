@@ -6,38 +6,38 @@ $lang['page_types.css_label']                  = 'CSS';
 $lang['page_types.basic_info']                 = 'Basic Info'; #translate
 
 // labels
-$lang['page_types.updated_label']              = 'Opdateret';
+$lang['page_types.updated_label']              = '已更新';
 $lang['page_types.layout']                     = 'Layout'; #translate
 $lang['page_types:auto_create_stream']         = 'Create New Stream for this Page Type'; #translate
 $lang['page_types:select_stream']              = 'Stream'; #translate
-$lang['page_types:theme_layout_label']         = 'Tema layout';
+$lang['page_types:theme_layout_label']         = '主題佈局';
 $lang['page_types:save_as_files']              = 'Save as Files'; #translate
 $lang['page_types:content_label']              = 'Content Tab Label'; #translate
 $lang['page_types:title_label']                = 'Title Label'; #translate
 $lang['page_types:sync_files']                 = 'Sync Files'; #translate
 
 // titles
-$lang['page_types.list_title']                 = 'List side types';
+$lang['page_types.list_title']                 = '頁面佈局列表';
 $lang['page_types.list_title_sing']            = 'Page Type'; #translate
-$lang['page_types.create_title']               = 'Tilføj side layout';
-$lang['page_types.edit_title']                 = 'Redigér side layout "%s"';
+$lang['page_types.create_title']               = '新增頁面佈局';
+$lang['page_types.edit_title']                 = '編輯頁面佈局 "%s"';
 
 // messages
-$lang['page_types.no_pages']                   = 'Der er ingen side types.';
-$lang['page_types.create_success']             = 'Sidelayoutet er lavet.';
-$lang['page_types.create_error']               = 'Sidelayoutet er ikke lavet.';
-$lang['page_types.page_type.not_found_error']  = 'Sidelayoutet findes ikke.';
-$lang['page_types.edit_success']               = 'Sidelayoutet "%s" er gemt.';
-$lang['page_types.delete_home_error']          = 'Du kan ikke slette standardlayoutet.';
-$lang['page_types.delete_success']             = 'Sidelayoutene #%s er slettet.';
-$lang['page_types.mass_delete_success']        = '%s sidetypes er slettet.';
-$lang['page_types.delete_none_notice']         = 'Ingen sidetypes er slettet.';
-$lang['page_types.already_exist_error']        = 'A table with that name already exists. Please choose a different name for this page type.'; #translate
+$lang['page_types.no_pages']                   = '沒有頁面佈局';
+$lang['page_types.create_success']             = '頁面佈局已經建立';
+$lang['page_types.create_error']               = '那個頁面佈局尚未被建立';
+$lang['page_types.page_type.not_found_error']  = '那個頁面佈局不存在';
+$lang['page_types.edit_success']               = '頁面佈局 "%s" 已經儲存';
+$lang['page_types.delete_home_error']          = '預設的佈局不能被刪除。';
+$lang['page_types.delete_success']             = '頁面佈局 #%s 已經被刪除。';
+$lang['page_types.mass_delete_success']        = '%s 頁面佈局已經被刪除。';
+$lang['page_types.delete_none_notice']         = '沒有頁面佈局被刪除。';
+$lang['page_types.already_exist_error']        = '有相同縮略名(slug) "%s" 的頁面已經存在。';
 $lang['page_types._check_pt_slug_msg']         = 'Your page type slug must be unique.'; #translate
 
-$lang['page_types.variable_introduction']      = 'I denne input box er der to variabler tilgængeligt';
-$lang['page_types.variable_title']             = 'Indeholder sidetitlen.';
-$lang['page_types.variable_body']              = 'Indeholder sidens HTML body.';
+$lang['page_types.variable_introduction']      = '在下方的輸入區塊裡，可使用兩種變數。';
+$lang['page_types.variable_title']             = '包含頁面的標題(title)';
+$lang['page_types.variable_body']              = '包含頁面的主體(HTML body)';
 $lang['page_types.sync_notice']                = 'Only able to sync %s from the file system.'; #translate
 $lang['page_types.sync_success']               = 'Files synced successfully.'; #translate
 $lang['page_types.sync_fail']                  = 'Unable to sync your files.'; #translate

@@ -32,7 +32,7 @@ Si la fuente RSS se habilita un visitante puede suscribirse a esta página y est
 el slug de \"acme-widgets\" el cual es el descendiente \"products\" cuando usted visita ".site_url('products/acme-widgets').". Al marcar esta casilla en la página de Products, le está diciendo PyroCMS que está bien si no hay una página llamada Acme Widgets.
 Ahora se cargará Products y 'acme-widgets' sólo será un parámetro.
 Esto hace que sea fácil de pasar parámetros a las etiquetas incrustadas. Un ejemplo usando el agregado de Streams para mostrar el stream 'acme-widgets' en la página de Products:
-<pre><code>{{ streams:cycle stream={url:segments segment=\"2\"} }}
+<pre><code>{{ streams:cycle stream={url:segments segment=&quot;2&quot;} }}
     {{ entries }}
         {{ company_intro }}
         {{ owner_name }}
@@ -48,8 +48,8 @@ Por ejemplo: Si usted tiene un widget de Twitter que desea mostrar en la parte i
 {{ page:title }}
 {{ page:body }}
 
-&lt;div class=\"my-twitter-widget\"&gt;
-	{{ widgets:instance id=\"1\" }}
+&lt;div class=&quot;my-twitter-widget&quot;&gt;
+	{{ widgets:instance id=&quot;1&quot; }}
 &lt;/div&gt;
 </code></pre>
 <p>Ahora usted puede aplicar un estilo CSS a la clase \"my-twitter-widget\" en la pestaña de CSS.</p>";
