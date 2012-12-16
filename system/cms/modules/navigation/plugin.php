@@ -72,6 +72,7 @@ class Plugin_Navigation extends Plugin
 		$last_class    = $this->attribute('last_class', 'last');
 		$output        = $return_arr ? array() : '';
 		$wrap          = $this->attribute('wrap');
+		$max_depth     = $this->attribute('max_depth');
 		$i             = 1;
 		$total         = sizeof($links);
 
@@ -151,8 +152,13 @@ class Plugin_Navigation extends Plugin
 			if ( $link['children'] )
 			{
 				++$level;
-				$wrapper['class'][]  = $more_class;
-				$wrapper['children'] = $this->_build_links($link['children'], $return_arr);
+
+				if ( ! $max_depth or $level < $max_depth )
+				{
+					$wrapper['class'][]  = $more_class;
+					$wrapper['children'] = $this->_build_links($link['children'], $return_arr);
+				}
+
 				--$level;
 			}
 
