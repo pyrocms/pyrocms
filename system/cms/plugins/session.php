@@ -22,6 +22,92 @@ class Plugin_Session extends Plugin
 	);
 
 	/**
+	 * Returns a PluginDoc array that PyroCMS uses 
+	 * to build the reference in the admin panel
+	 *
+	 * @return array
+	 */
+	public function _self_doc()
+	{
+		$info = array(
+			'data' => array(
+				'description' => array(
+					'en' => 'Get and set session variables which will be available on future page requests. Omitting the value attribute results in a Get operation.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'name' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => '',
+						'required' => true,
+					),
+					'value' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => '',
+						'required' => false,
+					),
+				),
+			),// end first method
+			'flash' => array(
+				'description' => array(
+					'en' => 'Get and set flash variables which will be available on only the next page load. Omitting the value attribute results in a Get operation.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'name' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => '',
+						'required' => true,
+					),
+					'value' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => '',
+						'required' => false,
+					),
+				),
+			),// end second method
+			'messages' => array(
+				'description' => array(
+					'en' => 'Displays messages set with {{ session:flash }}. The attributes allow you to set the CSS class of the message.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'success' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => 'success',
+						'required' => false,
+					),
+					'notice' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => 'notice',
+						'required' => false,
+					),
+					'error' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => 'error',
+						'required' => false,
+					),
+				),
+			),// end third method
+		);
+	
+		return $info;
+	}
+
+	/**
 	 * Data
 	 *
 	 * Sets and retrieves flash data
