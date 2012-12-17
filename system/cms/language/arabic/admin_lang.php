@@ -32,9 +32,9 @@ $lang['cp_nav_settings']				= 'الإعدادات';
 $lang['cp_nav_addons']					= 'الإضافات';
 $lang['cp_nav_modules']					= 'الوحدات';
 $lang['cp_nav_users']					= 'المستخدمون';
-$lang['cp_nav_content']					= 'المحتوى';
 $lang['cp_nav_data']					= 'البيانات';
 $lang['cp_nav_structure']				= 'البُنية';
+$lang['cp_nav_content']					= 'المحتوى';
 $lang['cp_nav_misc']					= 'مُتفرقات';
 
 $lang['cp_must_login']	 				= 'يجب أن تكون مسجّل الدخول كي تعرض هذه الصفحة.';

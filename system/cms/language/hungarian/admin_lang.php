@@ -32,17 +32,17 @@ $lang['cp_nav_settings']			= 'Beállítások';
 $lang['cp_nav_addons']				= 'Bővítmények';
 $lang['cp_nav_modules']				= 'Modulok';
 $lang['cp_nav_users']				= 'Felhasználók';
-$lang['cp_nav_content']				= 'Tartalom';
 $lang['cp_nav_data']					= 'Data'; #translate
 $lang['cp_nav_structure']				= 'Structure'; #translate
+$lang['cp_nav_content']				= 'Tartalom';
 $lang['cp_nav_misc']					= 'Miscellaneous'; #translate
 
 $lang['cp_must_login']	 			= 'Ennek az oldalnak a megtekintéséhez, be kell jelentkezned.';
 $lang['cp_access_denied'] 			= 'Nem rendelkezel elég jogosultsággal, hogy megtekinthesd az oldalt.';
-$lang['cp_delete_installer_message']            = 'Töröld az "installer" könyvtárat! Megléte esetén át lehet venni az irányítást a weboldal felett.';
+$lang['cp_delete_installer_message']	= 'Töröld az "installer" könyvtárat! Megléte esetén át lehet venni az irányítást a weboldal felett.';
 $lang['cp_upgrade_message']			= 'Jelenleg a PyroCMS %s verziója fut, az adatbázis verziója pedig: %s. A következő linkre kattinva lehet <a href="%s" title="Upgrade">frissíteni</a> az adatbázist.';
-$lang['cp_google_analytics_missing']            = 'A Google Analytics nincs beállítva. Ad hozzá %s vagy szólj az adminnak!';
-$lang['cp_google_analytics_no_connect']         = 'Nem lehet csatlakozni a Google Analytics-hez. Ellenőrizd %s!';
+$lang['cp_google_analytics_missing']	= 'A Google Analytics nincs beállítva. Ad hozzá %s vagy szólj az adminnak!';
+$lang['cp_google_analytics_no_connect']	= 'Nem lehet csatlakozni a Google Analytics-hez. Ellenőrizd %s!';
 
 $lang['required_label'] 			= 'Kötelező';
 $lang['sb_recent_users'] 			= 'Jelenlegi felhasználók';

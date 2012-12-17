@@ -130,7 +130,10 @@ $lang['settings_ckeditor_config']               = 'Configurazione CKEditor';
 $lang['settings_ckeditor_config_desc']          = 'Puoi trovare una lista di configurazioni corrette nella <a target="_blank" href="http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.config.html">documentazione ufficiale.</a>'; 
 
 $lang['settings_enable_registration']           = 'Abilita registrazioni';
-$lang['settings_enable_registration_desc']      = 'Permetti agli utenti di registrarti al tuo sito.'; 
+$lang['settings_enable_registration_desc']      = 'Permetti agli utenti di registrarti al tuo sito.';
+
+$lang['settings_profile_visibility']            = 'Profile Visibility'; #translate
+$lang['settings_profile_visibility_desc']       = 'Specify who can view user profiles on the public site'; #translate
 
 $lang['settings_cdn_domain']                    = 'Dominio CDN'; 
 $lang['settings_cdn_domain_desc']               = 'il dominio CDN ti consente di scaricare contenuti da diversi server come Amazon CloudFront o MaxCDN.'; 

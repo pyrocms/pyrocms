@@ -32,7 +32,7 @@ Meta描述的是一个页面的简短描述，可用于搜索片段，如果搜�
 <p>\"Require an exact uri match\"字段是一个聪明的小工具，它允许你通过URL中的参数需要一个确切的URI匹配. 默认情况下, 当你访问site_url('products/acme-widgets')时，PyroCMS用\"acme-widgets\"查找在\"product\"下的子页面。
 如果PyroCMS发现在Product下面没有一个页面命名为 \"Acme Widgets\"，于是PyroCMS将会调用 Products 方法，并传递'acme-widgets'做为一个参数。这样的思路使得它很容易将参数传递给嵌入式标签。
 一个使用Streams组件在products页面上显示'acme-widgets'的例子：
-<pre><code>{{ streams:cycle stream={url:segments segment=\"2\"} }}
+<pre><code>{{ streams:cycle stream={url:segments segment=&quot;2&quot;} }}
     {{ entries }}
         {{ company_intro }}
         {{ owner_name }}
@@ -48,8 +48,8 @@ Meta描述的是一个页面的简短描述，可用于搜索片段，如果搜�
 {{ page:title }}
 {{ page:body }}
 
-&lt;div class=\"my-twitter-widget\"&gt;
-	{{ widgets:instance id=\"1\" }}
+&lt;div class=&quot;my-twitter-widget&quot;&gt;
+	{{ widgets:instance id=&quot;1&quot; }}
 &lt;/div&gt;
 </code></pre>
 <p>现在，你可以应用CSS样式\"my-twitter-widget\" 类在CSS标签。</p>";

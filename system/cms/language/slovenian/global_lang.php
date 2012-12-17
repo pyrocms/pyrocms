@@ -11,11 +11,13 @@ $lang['global:author'] 					= 'Avtor';
 $lang['global:action'] 					= 'Dejanje';
 $lang['global:slug'] 					= 'Slug'; #translate
 $lang['global:slug_instructions']		= 'Lowercase characters and underscores only.'; #translate
+$lang['global:user'] 					= 'User'; #translate
 
 $lang['global:dialog:delete_message'] 	= 'Ali ste prepričani da želite izbrisati to? Obnovitev ni mogoča';
 $lang['global:dialog:confirm'] 			= 'Potrdi';
-$lang['global:dialog:yes'] 				= 'Da';
-$lang['global:dialog:no'] 				= 'Ne';
+
+$lang['global:yes'] 				= 'Da';
+$lang['global:no'] 				= 'Ne';
 
 $lang['global:select-none'] 			= '-- Brez --';
 $lang['global:select-all'] 				= '-- Vse --';
@@ -50,10 +52,11 @@ $lang['general_error_label'] 			= 'Napaka';
 $lang['required_error_label'] 			= 'Manjkajoči podatki pri zahtevanih poljih';
 $lang['note_label'] 					= 'Opomba';
 $lang['success_label'] 					= 'Uspešno';
+$lang['global:fields']					= 'Fields'; #translate
 
 $lang['login_title'] 					= 'Prijava';
-$lang['cms_fatal_error'] 				= 'Kritična napaka pri namestitvi CMS-ja';
-$lang['global:demo_restrictions']       = 'Some features on this page have been disabled for the demo.'; #translate
+$lang['global:fatal_error'] 				= 'Kritična napaka pri namestitvi CMS-ja';
+$lang['global:demo_restrictions'] 		= 'Some features on this page have been disabled for the demo.'; #translate
 
 $lang['login_error_label'] 				= 'Napaka pri prijavi';
 $lang['forgot_password_label'] 			= 'Ali ste pozabili geslo ?';
@@ -73,17 +76,19 @@ $lang['publish_label'] 					= 'Objavi';
 $lang['global:upload'] 					= 'Naloži';
 $lang['global:uninstall'] 				= 'Odstrani';
 $lang['global:install'] 					= 'Namesti';
+$lang['global:upgrade'] 					= 'Posodobi';
 $lang['global:enable']					= 'Omogoči';
 $lang['global:disable'] 					= 'Onemogoči';
-$lang['global:upgrade'] 					= 'Posodobi';
+$lang['global:enabled']					= 'Enabled'; #translate
+$lang['global:disabled'] 				= 'Disabled'; #translate
 
 $lang['all_right_reserved']				= 'Vse pravice pridržane';
 $lang['powered_by_pyrocms']				= 'Gnano z PyroCMS';
 $lang['top_page']						= 'Vrh';
 $lang['back_to_top']					= 'Na vrh strani';
 
-$lang['global:filters']                 = 'Razvrstitev';
-$lang['global:shortcuts'] 				= 'Bližnjice';
+$lang['global:filters'] 				= 'Razvrstitev';
+$lang['global:image'] 					= 'Image'; #translate
 $lang['global:description']				= 'Opis';
 $lang['global:actions']					= 'Dejanja';
 $lang['global:view']					= 'Ogled';
@@ -94,12 +99,18 @@ $lang['global:empty']					= 'Prazno';
 $lang['global:delete']					= 'Izbriši';
 $lang['global:remove']					= 'Odstrani';
 
-$lang['global:widgets']					= 'Widgets';
-$lang['global:themes']					= 'Themes'; #translate
-$lang['global:field_types']				= 'Field Types';
-$lang['global:plugins']					= 'Plugins';
-$lang['global:plugin']					= 'Plugin';
-
 $lang['global:keywords']				= 'Ključne besede';
+
+$lang['global:or']						= 'or'; #translate
+$lang['global:and']						= 'and'; #translate
+$lang['global:at']						= 'at'; #translate
+
+$lang['global:widgets']					= 'Widgets'; #translate
+$lang['global:themes']					= 'Themes'; #translate
+$lang['global:field_types']				= 'Field Types'; #translate
+$lang['global:plugins']					= 'Plugins'; #translate
+$lang['global:plugin']					= 'Plugin'; #translate
+
+$lang['global:options']					= 'Options'; #translate
 
 /* End of file main_lang.php */

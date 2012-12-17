@@ -68,8 +68,8 @@ $lang['help_body'] = "
 {{ page:title }}
 {{ page:body }}
 
-&lt;div class=\"my-twitter-widget\"&gt;
- {{ widgets:instance id=\"1\" }}
+&lt;div class=&quot;my-twitter-widget&quot;&gt;
+	{{ widgets:instance id=&quot;1&quot; }}
 &lt;/div&gt;
 	</code></pre>
 	Теперь вы можете применить своё оформление к классу \"my-twitter-widget\" во вкладке CSS.

@@ -133,6 +133,9 @@ $lang['settings_ckeditor_config_desc']              = 'Az érvényes koncigurác
 $lang['settings_enable_registration']               = 'Felhasználói regisztráció engefélyezése';
 $lang['settings_enable_registration_desc']          = 'Engedélyezi a felhasználóknak hogy regisztráljanak a weboldaladra.';
 
+$lang['settings_profile_visibility']            = 'Profile Visibility'; #translate
+$lang['settings_profile_visibility_desc']       = 'Specify who can view user profiles on the public site'; #translate
+
 $lang['settings_cdn_domain']                        = 'CDN domain';
 $lang['settings_cdn_domain_desc']                   = 'A CDN domainek lehetővé teszik hogy kiszervezz statikus tartalmakat különböző "edge" szerverekre mint pl. Amazon, Cloudfront vagy MaxCDN.';
 

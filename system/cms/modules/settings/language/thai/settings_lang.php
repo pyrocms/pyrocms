@@ -143,8 +143,11 @@ $lang['settings_ckeditor_config_desc']          = 'You can find a list of valid 
 $lang['settings_enable_registration']           = 'เปิดสมัครสมาชิกEnable user registration';
 $lang['settings_enable_registration_desc']      = 'เปิดให้ผู้ใช้งานสมัครสมาชิกบนเว็บไซต์ของคุณ.';
 
-$lang['settings_cdn_domain']                    = 'CDN Domain';
-$lang['settings_cdn_domain_desc']               = 'CDN domains allow you to offload static content to various edge servers, like Amazon CloudFront or MaxCDN.';
+$lang['settings_profile_visibility']            = 'Profile Visibility'; #translate
+$lang['settings_profile_visibility_desc']       = 'Specify who can view user profiles on the public site'; #translate
+
+$lang['settings_cdn_domain']                    = 'CDN Domain'; #translate
+$lang['settings_cdn_domain_desc']               = 'CDN domains allow you to offload static content to various edge servers, like Amazon CloudFront or MaxCDN.'; #translate
 
 # section titles
 $lang['settings_section_general']				= 'ทั่วไป';

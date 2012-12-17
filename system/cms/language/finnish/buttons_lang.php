@@ -35,5 +35,7 @@ $lang['buttons.edit']		= 'Muokkaa';
 $lang['buttons.clone']		= 'Kloonaa';
 $lang['buttons.re-index']	= 'Re-index'; #translate
 $lang['buttons.copy']		= 'Kopioi';
+$lang['buttons.filter']		= 'Filter';
+$lang['buttons.clear']		= 'Clear';
 
 /* End of file buttons_lang.php */

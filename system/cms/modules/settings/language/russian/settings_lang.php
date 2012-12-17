@@ -122,6 +122,9 @@ $lang['settings_ckeditor_config_desc']          = 'You can find a list of valid 
 $lang['settings_enable_registration']           = 'Enable user registration'; #translate
 $lang['settings_enable_registration_desc']      = 'Allow users to register in your site.'; #translate
 
+$lang['settings_profile_visibility']            = 'Profile Visibility'; #translate
+$lang['settings_profile_visibility_desc']       = 'Specify who can view user profiles on the public site'; #translate
+
 $lang['settings_cdn_domain']                    = 'CDN Domain'; #translate
 $lang['settings_cdn_domain_desc']               = 'CDN domains allow you to offload static content to various edge servers, like Amazon CloudFront or MaxCDN.'; #translate
 

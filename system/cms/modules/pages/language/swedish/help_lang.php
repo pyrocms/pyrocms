@@ -4,7 +4,7 @@
  * Swedish translation.
  *
  * @author		marcus@incore.se
- * @package		PyroCMS  
+ * @package		PyroCMS
  * @link		http://pyrocms.com
  * @date		2012-10-22
  * @version		1.1.0
@@ -46,16 +46,12 @@ Du kan även jämföra versioner för att se vad som förändrats. </ P>
 <p> Med sidlayouter kan du styra layouten på sidan utan att ändra temafilerna.
 Du kan bädda in taggar i sidlayouten istället för att placera dem i varje sida.
 Till exempel: Om du har en "Twitter feed widget" som du vill visa längst ned på varje sida kan du bara placera widget-taggen i sidlayouten:
-<pre> <code>
-{{Page: title}}
-{{Page: body}}
+<pre><code>
+{{ page:title }}
+{{ page:body }}
 
-<Div class = \ "my-twitter-widget \">
-{{Widgets: ex id = \ "1 \"}}
-</ Div>
-</ Code> </ pre>
+&lt;div class=&quot;my-twitter-widget&quot;&gt;
+	{{ widgets:instance id=&quot;1&quot; }}
+&lt;/div&gt;
+</code></pre>
 Nu kan du applicera en CSS-stil till \ "my-twitter-widget \" klassen i CSS-fliken. </ P>';
-
-
-/* End of file help_lang.php */  
-/* Location: system/cms/modules/pages/language/swedish/help_lang.php */  

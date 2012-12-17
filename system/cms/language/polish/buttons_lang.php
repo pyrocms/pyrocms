@@ -1,4 +1,4 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * PyroCMS
  *
@@ -35,5 +35,7 @@ $lang['buttons.edit']		= 'Edytuj';
 $lang['buttons.clone']		= 'Klonuj';
 $lang['buttons.re-index']	= 'Przeindeksuj';
 $lang['buttons.copy']		= 'Kopiuj';
+$lang['buttons.filter']		= 'Filter';
+$lang['buttons.clear']		= 'Clear';
 
 /* End of file buttons_lang.php */

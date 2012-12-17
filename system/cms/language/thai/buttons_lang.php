@@ -3,7 +3,7 @@
 * Thai translation.
 *
 * @author	Nateetorn Lertkhonsan <nateetorn.l@gmail.com>
-* @package	PyroCMS  
+* @package	PyroCMS
 * @link		http://pyrocms.com
 * @date		2012-04-19
 * @version	1.0.0
@@ -32,6 +32,7 @@ $lang['buttons.edit'] 		= 'แก้ไข';
 $lang['buttons.clone'] 		= 'โคลน';
 $lang['buttons.re-index']	= 'ตั้งดัชนี';
 $lang['buttons.copy'] 		= 'คัดลอก';
-
+$lang['buttons.filter']		= 'Filter'; #translate
+$lang['buttons.clear']		= 'Clear'; #translate
 
 /* End of file buttons_lang.php */
