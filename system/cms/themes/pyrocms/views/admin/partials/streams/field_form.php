@@ -22,32 +22,49 @@
 				?></div>
 
 		</li>
+
+		<?php if (property_exists($field, 'field_slug')): ?>
+		
 		<li>
 			<label for="field_slug"><?php echo lang('streams.label.field_slug');?> <span>*</span><br /><small><?php echo lang('global:slug_instructions'); ?></small></label>
 			<div class="input"><?php echo form_input('field_slug', $field->field_slug, 'maxlength="60" id="field_slug"'); ?></div>
 		</li>
 
+		<?php endif; ?>
+
 		<?php
 
-		$is_required = ($field->is_required == 'yes') ? true : false;
-		$is_unique = ($field->is_unique == 'yes') ? true : false;
+		if (property_exists($field, 'is_required')) $is_required = ($field->is_required == 'yes') ? true : false;
+		if (property_exists($field, 'is_unique')) $is_unique = ($field->is_unique == 'yes') ? true : false;
 
 		?>
+
+		<?php if (property_exists($field, 'is_required')): ?>
 
 		<li>
 			<label for="is_required"><?php echo lang('streams.label.field_required');?></label>
 			<div class="input"><?php echo form_checkbox('is_required', 'yes', $is_required, 'id="is_required"');?></div>
 		</li>
 
+		<?php endif; ?>
+
+		<?php if (property_exists($field, 'is_unique')): ?>
+
 		<li>
 			<label for="is_unique"><?php echo lang('streams.label.field_unique');?></label>
 			<div class="input"><?php echo form_checkbox('is_unique', 'yes', $is_unique, 'id="is_unique"'); ?></div>
 		</li>
 
+		<?php endif; ?>
+
+		<?php if (property_exists($field, 'instructions')): ?>
+
 		<li>
 			<label for="field_instructions"><?php echo lang('streams.label.field_instructions');?><br /><small><?php echo lang('streams.instr.field_instructions');?></small></label>
 			<div class="input"><?php echo form_textarea('instructions', $field->instructions, 'id="field_instructions"');?></div>
 		</li>
+
+		<?php endif; ?>
 
 		<!--<li>
 			<label for="title_column"><?php echo lang('streams.label.make_field_title_column');?></label>
