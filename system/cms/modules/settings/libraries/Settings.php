@@ -34,8 +34,6 @@ class Settings {
 	{
 		ci()->load->model('settings/setting_m');
 		ci()->lang->load('settings/settings');
-
-		$this->get_all();
 	}
 
 	/**
@@ -82,7 +80,7 @@ class Settings {
 		$setting = ci()->setting_m->get($key);
 
 		// Setting doesn't exist, maybe it's a config option
-		$value = $setting ? $setting->value : config_item($key);
+		$value = $setting ? ($setting->value ?: $setting->default) : config_item($key);
 
 		// Store it for later
 		self::$cache[$key] = $value;

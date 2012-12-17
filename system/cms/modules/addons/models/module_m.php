@@ -44,7 +44,7 @@ class Module_m extends MY_Model
 			'is_frontend' => null,
 			'is_backend' => null,
 			'menu' => false,
-			'enabled' => 1,
+			'enabled' => true,
 			'sections' => array(),
 			'shortcuts' => array(),
 			'is_core' => null,
@@ -94,13 +94,13 @@ class Module_m extends MY_Model
 				'version' => $row->version,
 				'description' => $description,
 				'skip_xss' => $row->skip_xss,
-				'is_frontend' => $row->is_frontend,
-				'is_backend' => $row->is_backend,
+				'is_frontend' => (bool) $row->is_frontend,
+				'is_backend' => (bool) $row->is_backend,
 				'menu' => $row->menu,
-				'enabled' => $row->enabled,
+				'enabled' => (bool) $row->enabled,
 				'sections' => ! empty($info['sections']) ? $info['sections'] : array(),
 				'shortcuts' => ! empty($info['shortcuts']) ? $info['shortcuts'] : array(),
-				'is_core' => $row->is_core,
+				'is_core' => (bool) $row->is_core,
 				'is_current' => version_compare($row->version, $this->version($row->slug),  '>='),
 				'current_version' => $this->version($row->slug),
 				'path' => $location,
@@ -139,7 +139,7 @@ class Module_m extends MY_Model
 		// Skip the disabled modules
 		if ($return_disabled === false)
 		{
-			$this->db->where('enabled', 1);
+			$this->db->where('enabled', true);
 		}
 
 		$result = $this->db->get($this->_table)->result();
@@ -235,7 +235,6 @@ class Module_m extends MY_Model
 	 *
 	 * Updates a module in the database
 	 *
-	 * @access  public
 	 * @param   array   $slug   Module slug to update
 	 * @param   array   $module Information about the module
 	 * @return  object
@@ -253,7 +252,6 @@ class Module_m extends MY_Model
 	 * Delete a module from the database
 	 *
 	 * @param	array	$slug	The module slug
-	 * @access	public
 	 * @return	object
 	 */
 	public function delete($slug)
@@ -310,7 +308,7 @@ class Module_m extends MY_Model
 
 		return $this->_module_enabled[$slug] = $this->db
 			->where('slug', $slug)
-			->where('enabled', 1)
+			->where('enabled', true)
 			->count_all_results($this->_table) > 0;
 	}
 	
@@ -338,7 +336,7 @@ class Module_m extends MY_Model
 
 		return $this->_module_installed[$slug] = $this->db
 			->where('slug', $slug)
-			->where('installed', 1)
+			->where('installed', true)
 			->count_all_results($this->_table) > 0;
 	}
 
@@ -352,16 +350,16 @@ class Module_m extends MY_Model
 	 */
 	public function enable($slug)
 	{
-		if ($this->exists($slug))
+		if ( ! $this->exists($slug))
 		{
-
-			$this->db->where('slug', $slug)->update($this->_table, array('enabled' => 1));
-			$this->_module_enabled[$slug] = true;
-			$this->module_widget_task($slug, 'enable');
-
-			return true;
+			return false;
 		}
-		return false;
+
+		$this->db->where('slug', $slug)->update($this->_table, array('enabled' => true));
+		$this->_module_enabled[$slug] = true;
+		$this->module_widget_task($slug, 'enable');
+
+		return true;		
 	}
 	
 	
@@ -375,15 +373,16 @@ class Module_m extends MY_Model
 	 */
 	public function disable($slug)
 	{
-		if ($this->exists($slug))
+		if ( ! $this->exists($slug))
 		{
-			$this->db->where('slug', $slug)->update($this->_table, array('enabled' => 0));
-			$this->_module_enabled[$slug] = false;
-			$this->module_widget_task($slug, 'disable');
-			
-			return true;
+			return false;
 		}
-		return false;
+		
+		$this->db->where('slug', $slug)->update($this->_table, array('enabled' => false));
+		$this->_module_enabled[$slug] = false;
+		$this->module_widget_task($slug, 'disable');
+		
+		return true;
 	}
 	
 	/**
