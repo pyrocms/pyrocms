@@ -32,7 +32,7 @@ class Admin extends Admin_Controller
 			$this->load->helper('file');
 
 			// if the contents of "installer" delete successfully then finish off the installer dir
-			if(delete_files('./installer', true) and count(scandir('./installer')) == 2 )
+			if(ENVIRONMENT != 'development' and delete_files('./installer', true) and count(scandir('./installer')) == 2 )
 			{
 				rmdir('./installer');
 			}
