@@ -39,7 +39,9 @@ $lang['cp_nav_misc']      = 'Divers';
 
 $lang['cp_must_login']                  = 'Vous devez être identifié pour voir cette page.';
 $lang['cp_access_denied']               = 'Vous n\'avez pas les autorisations suffisantes pour voir cette page.';
-$lang['cp_delete_installer_message']    = 'Supprimez le répertoire "installer" de votre serveur. Le garder pourrait permettre à un tiers de prendre le contrôle de votre site.';
+$lang['cp_delete_installer_message']              = 'The installer directory still exists! <a href="#" id="remove_installer_directory">Please delete it from your server!</a>.<br>Leaving it online means control of this site could be granted to somebody else.'; #translate
+$lang['cp_delete_installer_successfully_message'] = 'The installer directory has been successfully deleted.'; #translate
+$lang['cp_delete_installer_manually_message']     = 'The installer directory could not be deleted. <strong>Please remove it manually!</strong>'; #translate
 $lang['cp_upgrade_message']             = 'Vous utilisez la version %s, mais votre base de données a pour version %s. Merci de <a href="%s">cliquer ici</a> pour mettre à jour votre base de données.';
 $lang['cp_google_analytics_missing']    = 'Google Analytics paramètres sont manquants. Les ajouter dans %s ou contactez votre administrateur.';
 $lang['cp_google_analytics_no_connect'] = 'Impossible de se connecter à Google Analytics. Vérifiez dans %s.';

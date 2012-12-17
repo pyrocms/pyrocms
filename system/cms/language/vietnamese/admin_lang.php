@@ -39,7 +39,9 @@ $lang['cp_nav_misc']					= 'Miscellaneous'; #translate
 
 $lang['cp_must_login']	 				= 'Bạn phải đăng nhập để xem trang này.';
 $lang['cp_access_denied'] 				= 'Bạn không có đủ quyền để xem trang này.';
-$lang['cp_delete_installer_message']	= 'Vì lý do bảo mật, hãy xóa thư mục installer trên server của bạn.';
+$lang['cp_delete_installer_message']              = 'The installer directory still exists! <a href="#" id="remove_installer_directory">Please delete it from your server!</a>.<br>Leaving it online means control of this site could be granted to somebody else.'; #translate
+$lang['cp_delete_installer_successfully_message'] = 'The installer directory has been successfully deleted.'; #translate
+$lang['cp_delete_installer_manually_message']     = 'The installer directory could not be deleted. <strong>Please remove it manually!</strong>'; #translate
 $lang['cp_upgrade_message']				= 'Bạn đang sử dụng phiên bản %s, nhưng cơ sở dữ liệu của bạn đang ở phiên bản %s. Bấm vào <a href="%s" title="Nâng cấp">đây</a> để nâng cấp cơ sở dữ liệu.';
 $lang['cp_google_analytics_missing']	= 'Không có thiết lập cho Google Analytics. Thêm vào %s hoặc liên hệ với người quản trị.';
 $lang['cp_google_analytics_no_connect']	= 'Không thể kết nối đến Google Analytics. Kiểm tra lại trong %s.';

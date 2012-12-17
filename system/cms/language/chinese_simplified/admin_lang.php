@@ -56,7 +56,9 @@ $lang['global:keywords']				= '关键字';
 
 $lang['cp_must_login']	 				= '您必須登錄才能查看此頁面。'; 					//'You must be logged in to view this page.';
 $lang['cp_access_denied'] 				= '您沒有足夠的權限以查看此頁面'; 				//'You do not have sufficient permissions to view this page.';
-$lang['cp_delete_installer_message']	= '请將安裝目录从本服务器上刪除。在線上保留這個目录，等同于开发网站的控制权限給有心人士。'; //'Please delete the installer directory from your server. Leaving it online means control of this site could be granted to somebody else.';
+$lang['cp_delete_installer_message']              = 'The installer directory still exists! <a href="#" id="remove_installer_directory">Please delete it from your server!</a>.<br>Leaving it online means control of this site could be granted to somebody else.'; #translate
+$lang['cp_delete_installer_successfully_message'] = 'The installer directory has been successfully deleted.'; #translate
+$lang['cp_delete_installer_manually_message']     = 'The installer directory could not be deleted. <strong>Please remove it manually!</strong>'; #translate
 $lang['cp_upgrade_message']				= '您目前執行的版本是 %s，但是您資料庫的版本是 %s。請 <a href="%s" title="升級">点击这里</a> 來升级数据库。'; //'You are currently running version %s, but your database is version %s. Please <a href="%s" title="Upgrade">click here</a> to upgrade the database.';
 
 $lang['cp_google_analytics_missing']	= 'Google分析设置为空，请添加到 %s 或联系管理员.';

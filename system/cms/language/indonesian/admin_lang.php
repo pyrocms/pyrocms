@@ -39,7 +39,9 @@ $lang['cp_nav_misc']					= 'Miscellaneous'; #translate
 
 $lang['cp_must_login']	 				= 'Anda harus masuk terlebih dahulu untuk melihat halaman ini.';
 $lang['cp_access_denied'] 				= 'Anda tidak memiliki izin untuk dapat mengakses halaman ini.';
-$lang['cp_delete_installer_message']	= 'Silakan hapus direktori installer dari server. Meninggalkannya tetap online berarti membiarkan kontrol situs Anda diambil alih oleh orang lain.';
+$lang['cp_delete_installer_message']              = 'The installer directory still exists! <a href="#" id="remove_installer_directory">Please delete it from your server!</a>.<br>Leaving it online means control of this site could be granted to somebody else.'; #translate
+$lang['cp_delete_installer_successfully_message'] = 'The installer directory has been successfully deleted.'; #translate
+$lang['cp_delete_installer_manually_message']     = 'The installer directory could not be deleted. <strong>Please remove it manually!</strong>'; #translate
 $lang['cp_upgrade_message']				= 'Anda sedang menjalankan versi %s, tetapi database Anda versi %s. Silakan <a href="%s" title="Perbaharui">klik disini</a> untuk memperbaharui database.';
 $lang['cp_google_analytics_missing']	= 'Pengaturan Google Analytics hilang. Tambahkan ke dalam %s atau hubungi administrator.';
 $lang['cp_google_analytics_no_connect']	= 'Tidak dapat terkoneksi ke Google Analytics. Silakan Cek %s.';
