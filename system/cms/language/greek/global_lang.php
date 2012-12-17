@@ -52,6 +52,7 @@ $lang['general_error_label'] 		= 'Σφάλμα';
 $lang['required_error_label'] 		= 'Λείπει η τιμή σε απαιτουμενο πεδίο';
 $lang['note_label'] 			= 'Σημείωση';
 $lang['success_label'] 			= 'Επιτυχία';
+$lang['global:fields']					= 'Πεδία';
 
 $lang['login_title'] 			= 'Σύνδεση';
 $lang['global:fatal_error'] 		= 'Σφάλμα, το CMS είναι εγκατεστημένο;';
@@ -105,9 +106,11 @@ $lang['global:and']						= 'και';
 $lang['global:at']						= 'στο';
 
 $lang['global:widgets']					= 'Widgets';
-$lang['global:themes']					= 'Themes'; #translate
+$lang['global:themes']					= 'Θέματα Προβολής';
 $lang['global:field_types']				= 'Τύποι Πεδίων';
 $lang['global:plugins']					= 'Πρόσθετα';
 $lang['global:plugin']					= 'Πρόσθετο';
+
+$lang['global:options']					= 'Επιλογές';
 
 /* End of file main_lang.php */
