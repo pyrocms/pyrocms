@@ -74,9 +74,11 @@ class Installer extends CI_Controller
 		// Load the global installer language file
 		$this->lang->load('installer');
 
+		define('SITE_REF', 'default');
+
 		// Where is PyroCMS installed?
 		define('PYROPATH', dirname(FCPATH).'/system/cms/');
-		define('ADDONPATH', dirname(FCPATH).'/addons/default/');
+		define('ADDONPATH', dirname(FCPATH).'/addons/'.SITE_REF.'/');
 		define('SHARED_ADDONPATH', dirname(FCPATH).'/addons/shared_addons/');
 
 		// Let us load stuff from the main application
