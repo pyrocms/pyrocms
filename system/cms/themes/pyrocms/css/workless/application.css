@@ -626,3 +626,8 @@ table > tbody > tr {
 	color: #5D7F88;
 	font-size: 11px;
 }
+
+#remove_installer_directory {
+	color: #0070FF;
+	font-weight: bold;
+}

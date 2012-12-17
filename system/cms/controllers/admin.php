@@ -29,18 +29,8 @@ class Admin extends Admin_Controller
 
 		if (is_dir('./installer'))
 		{
-			$this->load->helper('file');
-
-			// if the contents of "installer" delete successfully then finish off the installer dir
-			if(delete_files('./installer', true) and count(scandir('./installer')) == 2 )
-			{
-				rmdir('./installer');
-			}
-			else 
-			{
-				$this->template
-					->set('messages', array('notice' => lang('cp_delete_installer_message')));
-			}
+			$this->template
+				->set('messages', array('notice' => lang('cp_delete_installer_message')));
 		}
 
 		$this->template
@@ -131,5 +121,29 @@ class Admin extends Admin_Controller
 			->set_layout('modal', 'admin')
 			->set('help', $this->module_m->help($slug))
 			->build('admin/partials/help');
+	}
+
+	public function remove_installer_directory()
+	{
+		if ( ! $this->input->is_ajax_request())
+		{
+			die('Nope, sorry');
+		}
+
+		header('Content-Type: application/json');
+
+		if (is_dir('./installer'))
+		{
+			$this->load->helper('file');
+			// if the contents of "installer" delete successfully then finish off the installer dir
+			if (delete_files('./installer', true) and count(scandir('./installer')) == 2)
+			{
+				rmdir('./installer');
+				// This is the end, tell Sally I loved her.
+				die(json_encode(array('status' => 'success', 'message' => lang('cp_delete_installer_successfully_message'))));
+			}
+		}
+
+		die(json_encode(array('status' => 'error', 'message' => lang('cp_delete_installer_manually_message'))));
 	}
 }
