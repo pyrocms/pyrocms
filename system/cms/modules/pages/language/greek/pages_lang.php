@@ -4,15 +4,15 @@ $lang['pages:page']						= 'Σελίδα';
 $lang['pages:pages']					= 'Σελίδες';
 
 // tabs
+$lang['pages:details_label']				= 'Λεπτομέρειες Σελίδας';
 $lang['pages:content_label']			= 'Περιεχόμενο Σελίδας';
 $lang['pages:meta_label']				= 'Meta data';
 $lang['pages:design_label']				= 'Σχεδιασμός';
 $lang['pages:script_label']				= 'Script';
 $lang['pages:options_label']			= 'Επιλογές';
-	
 $lang['pages:detail_label']				= 'Λεπτομέρειες';
 
-// labels
+// label
 $lang['pages:add_page_chunk']			= 'Προσθήκη Περιοχής Σελίδας';
 $lang['pages:page_chunk']				= 'Περιοχής Σελίδας';
 $lang['pages:language_label']			= 'Γλώσσα';
@@ -39,12 +39,11 @@ $lang['pages:revisions_label']			= 'Αναθεωρήσεις';
 $lang['pages:compare_label']			= 'Σύγκριση';
 $lang['pages:preview_label']			= 'Προεπισκόπηση';
 $lang['pages:current_label']			= 'Τρέχουσα';
-
 $lang['pages:view_label']				= 'Προβολή';
 $lang['pages:create_label']				= 'Προσθήκη υποσελίδας';
 $lang['pages:duplicate_label']			= 'Αντίγραφο';
 
-// titles
+// title
 $lang['pages:create_title']		= 'Προσθήκη σελίδας';
 $lang['pages:edit_title']		= 'Επεξεργασία σελίδας "%s"';
 $lang['pages:list_title']		= 'Λίστα σελίδων';
@@ -68,5 +67,4 @@ $lang['pages_root_folder']		= 'το ανώτερο επίπεδο';
 
 $lang['pages:tree_explanation_title']	= 'Επεξήγηση';
 $lang['pages:tree_explanation']		= 'Η λίστα στα αριστερά αναπαριστά τις σελίδες στον ιστότοπό σας. Κάντε κλικ στο εικονίδιο "+" δίπλα από την κάθε σελίδα για να δείξετε σελίδες κάτω από αυτήν. Όταν κάνετε κλικ σε μια σελίδα θα μπορείτε να δείτε πληροφορίες για αυτήν σε αυτήν την περιοχή.';
-
 $lang['pages:rss_explanation']		= 'Ενεργοποιόντας την τροοφοδοσία RSS για αυτή την σελίδα, οι χρήστες σας θα έχουν την ευκαιρία να εγγραφούν σε ανανεώσεις των άμεσων υποσελίδων που προστίθενται σε αυτή την σελίδα.';

@@ -142,6 +142,15 @@ class Files
 	**/
 	public static function folder_contents($parent = 0)
 	{
+		// they can also pass a url hash such as #foo/bar/some-other-folder-slug
+		if ( ! is_numeric($parent))
+		{
+			$segment = explode('/', trim($parent, '/#'));
+			$result = ci()->file_folders_m->get_by('slug', array_pop($segment));
+
+			$parent = ($result ? $result->id : 0);
+		}
+
 		$folders = ci()->file_folders_m->where('parent_id', $parent)
 			->order_by('sort')
 			->get_all();
@@ -408,6 +417,7 @@ class Files
 				}
 				else
 				{
+					$data['id'] = substr(md5(now()+$data['filename']), 0, 15);
 					$file_id = ci()->file_m->insert($data);
 				}
 
@@ -666,7 +676,9 @@ class Files
 	public static function get_file($identifier = 0)
 	{
 		// they could have specified the row id or the actual filename
-		$column = is_numeric($identifier) ? 'files.id' : 'filename';
+		$column = (strlen($identifier) === 15 and strpos($identifier, '.') === false) ? 
+					'files.id' : 
+					'filename';
 
 		$results = ci()->file_m->select('files.*, file_folders.name folder_name, file_folders.slug folder_slug')
 			->join('file_folders', 'file_folders.id = files.folder_id')
@@ -832,6 +844,7 @@ class Files
 				if ( ! array_key_exists($file['filename'], $known))
 				{
 					$insert = array(
+						'id' 			=> substr(md5(now()+$data['filename']), 0, 15),
 						'folder_id' 	=> $folder_id,
 						'user_id'		=> ci()->current_user->id,
 						'type'			=> $file['type'],

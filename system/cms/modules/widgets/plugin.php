@@ -9,6 +9,68 @@
  */
 class Plugin_Widgets extends Plugin
 {
+
+	public $version = '1.0.0';
+	public $name = array(
+		'en' => 'Widgets',
+	);
+	public $description = array(
+		'en' => 'Display widgets by widget area or individually.',
+	);
+
+	/**
+	 * Returns a PluginDoc array that PyroCMS uses 
+	 * to build the reference in the admin panel
+	 *
+	 * @return array
+	 */
+	public function _self_doc()
+	{
+		$info = array(
+			'area' => array(
+				'description' => array(
+					'en' => 'Render a widget area specified by either its slug or the number of a uri segment that holds its slug.',
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'slug' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => '',
+						'required' => false,
+					),
+					'slug_segment' => array(
+						'type' => 'number',
+						'flags' => '',
+						'default' => '',
+						'required' => false,
+					),
+				),
+			),// end first method
+			'instance' => array(
+				'description' => array(
+					'en' => 'Render a widget specified by its id.',
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'id' => array(
+						'type' => 'number',
+						'flags' => '',
+						'default' => '',
+						'required' => true,
+					),
+				),
+			),// end first method
+		);
+	
+		return $info;
+	}
+
+
 	public function __construct()
 	{
 		$this->load->library('widgets/widgets');

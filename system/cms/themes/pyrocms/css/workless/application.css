@@ -264,7 +264,7 @@
 .sections_bar ul li.current a, .sections_bar ul li a:hover {color: #4E4E4E;}
 .sections_bar ul li img {
 	position: absolute;
-	bottom: -12px;
+	bottom: -10px;
 	left: 32%;
 }
 

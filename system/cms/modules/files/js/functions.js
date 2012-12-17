@@ -9,6 +9,23 @@ jQuery(function($){
 	pyro.files.timeout = {};
 	pyro.files.current_level = 0;
 
+	// custom tooltips
+	$('.files-tooltip').tipsy({
+		gravity: 'n',
+		fade: true,
+		html: true,
+		live: true,
+		delayIn: 300,
+		delayOut: 300,
+		title: function() { 
+			var text = $(this).find('span').html();
+			if (text.length > 15) {
+				return text;
+			}
+			return '';
+		}
+	});
+
 	// Default button set
 	$('.item .folders-center').trigger('click');
 
@@ -121,6 +138,16 @@ jQuery(function($){
 		}
 	});
 
+	// and use a single left click on the breadcrumbs
+	$('#file-breadcrumbs').on('click', 'a', function(e){
+		e.preventDefault();
+		e.stopPropagation();
+
+		// store element so it can be accessed the same as if it was right clicked
+		pyro.files.$last_r_click = $(e.target);
+		$('.context-menu-source [data-menu="open"]').trigger('click');
+	});
+
 	/***************************************************************************
 	 * Context / button menu management                                        *
 	 ***************************************************************************/
@@ -136,6 +163,9 @@ jQuery(function($){
 		var $menu_sources = $('.context-menu-source, .button-menu-source');
 		var $context_menu_source = $('.context-menu-source');
 		var $button_menu_source = $('.button-menu-source');
+
+		// make sure the button menu is shown (it's hidden by css to prevent flash)
+		$button_menu_source.fadeIn();
 
 		$menu_sources.find('li')
 			// reset in case they've right clicked before
@@ -196,11 +226,11 @@ jQuery(function($){
 			$('.folders-center li.highlight').removeClass('highlight');
 		}
 
-		// jquery UI position the context menu by the mouse
-		// IF e.type IS contextmenu
-		// otherwise hide that booger
+		// jquery UI position the context menu by the mouse IF e.type IS contextmenu
 		if ( e.type == 'contextmenu' )
 		{
+			$('.tipsy').remove();
+
 			$context_menu_source
 				.fadeIn('fast')
 				.position({
@@ -210,6 +240,7 @@ jQuery(function($){
 					collision:	'fit'
 				});
 		}
+		// otherwise they clicked off the context menu
 		else
 		{
 			$context_menu_source.hide();
@@ -587,7 +618,8 @@ jQuery(function($){
 			post_data,
 			i = 0,
 			items = [],
-			content_interval;
+			content_interval,
+			current;
 
 		// let them know we're getting the stuff, it may take a second
 		$(window).trigger('show-message', {message: pyro.lang.fetching});
@@ -621,7 +653,8 @@ jQuery(function($){
 				};
 
 				// so let's wipe it clean...
-				$('.folders-center ').find('li').fadeOut('fast').remove();
+				$('.folders-center').find('li').fadeOut('fast').remove();
+				$('.tipsy').remove();
 
 				// iterate so that we have folders first, files second
 				$.each(results.data, function(type, data){
@@ -631,8 +664,9 @@ jQuery(function($){
 					});
 				});
 
+				// we load all items with a small delay between, if we just appended all 
+				// elements at once it effectively launches a DOS attack on the server
 				content_interval = window.setInterval(function(){
-
 					if (typeof(items[i]) == 'undefined') {
 						clearInterval(content_interval);
 
@@ -649,7 +683,7 @@ jQuery(function($){
 					}
 
 					$folders_center.append(
-						'<li class="'+item.el_type+' '+(item.el_type === 'file' ? 'type-'+item.type : '')+'" data-id="'+item.id+'" data-name="'+item.name+'">'+
+						'<li class="files-tooltip '+item.el_type+' '+(item.el_type === 'file' ? 'type-'+item.type : '')+'" data-id="'+item.id+'" data-name="'+item.name+'">'+
 							li_content+
 						'</li>'
 					);
@@ -661,6 +695,24 @@ jQuery(function($){
 
 				// Toto, we're not in Kansas anymore
 				pyro.files.current_level = folder_id;
+
+				// remove the old breadcrumbs from the title
+				$('section.title').find('.folder-crumb').remove();
+
+				// grab all the data for the current folder
+				current = $(window).data('folder_'+folder_id);
+				var url = '';
+
+				// build all the parent crumbs in reverse order starting with current
+				while(typeof(current) !== 'undefined') {
+					$('section.title #crumb-root').after('<span class="folder-crumb"> &nbsp;/&nbsp; <a data-id="'+current.id+'" href="#">'+current.name+'</a></span>');
+					url = current.slug + '/' + url;
+					current = $(window).data('folder_'+current.parent_id);
+				}
+
+				if (url.length > 0) {
+					window.location.hash = '#'+url;
+				}
 
 				// show the children in the left sidebar
 				$('ul#folders-sidebar [data-id="'+folder_id+'"] > ul:hidden').parent('li').children('div').trigger('click');
@@ -822,7 +874,7 @@ jQuery(function($){
 			// file or folder?
 			type = pyro.files.$last_r_click.hasClass('file') ? 'file' : 'folder',
 			// figure out the ID from the last clicked item
-			$item_id = pyro.files.$last_r_click.attr('data-id') > 0 ? pyro.files.$last_r_click.attr('data-id') : pyro.files.current_level,
+			$item_id = pyro.files.$last_r_click.attr('data-id').length > 0 ? pyro.files.$last_r_click.attr('data-id') : pyro.files.current_level,
 			// retrieve all the data that was stored when the item was initially loaded
 			$item = $(window).data(type+'_'+$item_id),
 			$select = $item_details.find('.location'); // end var
@@ -1010,7 +1062,15 @@ jQuery(function($){
 		return true;
 	}
 
-	//
-	// The index.php view fires up the magic initially
-	//
+	/***************************************************************************
+	 * And off we go... load the desired folder                                *
+	 ***************************************************************************/
+	if ($('.folders-center').find('.no_data').length === 0) {
+		if (window.location.hash) {
+			pyro.files.folder_contents(window.location.hash);
+		} else {
+			// deprecated
+			pyro.files.folder_contents(pyro.files.initial_folder_contents);
+		}
+	}
 });

@@ -1,5 +1,12 @@
 <section class="title">
-	<h4><?php echo lang('files:files_title') ?></h4>
+	<h4 id="file-title">
+		<?php echo lang('files:files_title') ?>
+	</h4>
+	<h4 id="file-breadcrumbs">
+		<span id="crumb-root">
+			<a data-id="0" href="#"><?php echo lang('files:places') ?></a>
+		</span>
+	</h4>
 </section>
 
 <section class="item">
@@ -176,15 +183,3 @@
 	</div>
 
 </section>
-
-<script type="text/javascript">
-	jQuery(function($){
-
-		/***************************************************************************
-		 * And off we go... load the desired folder                                *
-		 ***************************************************************************/
-		if ($('.folders-center').find('.no_data').length === 0) {
-			pyro.files.folder_contents(<?php echo $this->session->flashdata('initial_folder_contents') ? $this->session->flashdata('initial_folder_contents') : 0 ?>);
-		}
-	});
-</script>

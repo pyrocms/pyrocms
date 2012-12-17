@@ -7,7 +7,7 @@
 	
 		<?php echo form_open('admin/addons/themes/set_default') ?>
 		<?php echo form_hidden('method', $this->method) ?>
-		<table cellspacing="0">
+		<table class="table-list" cellspacing="0">
 			<thead>
 				<tr>
 					<th width="50px" class="align-center"><?php echo lang('addons:themes:default_theme_label') ?></th>
@@ -18,13 +18,6 @@
 					<th width="250px"></th>
 				</tr>
 			</thead>
-			<tfoot>
-				<tr>
-					<td colspan="6">
-						<div class="inner"><?php $this->load->view('admin/partials/pagination') ?></div>
-					</td>
-				</tr>
-			</tfoot>
 			<tbody>
 				<?php foreach ($themes as $theme): ?>
 				<tr>
@@ -57,6 +50,8 @@
 				<?php endforeach ?>
 			</tbody>
 		</table>
+
+		<?php $this->load->view('admin/partials/pagination') ?>
 		
 		<div>
 			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save') )) ?>
