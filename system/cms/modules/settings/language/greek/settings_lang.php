@@ -133,6 +133,9 @@ $lang['settings_ckeditor_config_desc']      = 'Υπάρχει λίστα με έ
 $lang['settings_enable_registration']           = 'Ενεργοποίηση εγγραφών νέων χρηστών';
 $lang['settings_enable_registration_desc']      = 'Να επιτρέπεται η εγγραφή νέων χρηστών στον ιστότοπο.';
 
+//$lang['settings_profile_visibility']        = 'Δυνατότητα προβολής προφίλ χρηστών';
+//$lang['settings_profile_visibility_desc']        = 'Προσδιορίστε ποιοι μπορούν να δουν τα προφίλ χρηστών στον ιστότοπο.';
+
 $lang['settings_cdn_domain']                    = 'CDN Domain';
 $lang['settings_cdn_domain_desc']               = 'Τα CDN σας επιτρέπουν αποφορτίζετε τον διακομιστή σας από την ευθύνη δεδομένων που είναι δεν είναι δυναμικά αλλά στατικά (εικόνες, αρχεία πολυμέσων, έγγραφα κτλ). Μπορείτε να χρησιμοποιήσετε υπηρεσίες όπως τα Amazon CloudFront ή MaxCDN.';
 
@@ -158,6 +161,13 @@ $lang['settings_form_option_Text Only']		= 'Απλό Κείμενο';
 $lang['settings_form_option_Allow Markdown']	= 'Ενεργοποίηση Markdown';
 $lang['settings_form_option_Yes']		= 'Ναι';
 $lang['settings_form_option_No']		= 'Όχι';
+$lang['settings_form_option_profile_public']	= 'Εμφανές σε όλους';
+$lang['settings_form_option_profile_owner']		= 'Εμφανές μόνο στον ιδιοκτήτη του προφίλ';
+$lang['settings_form_option_profile_hidden']	= 'Μη διαθέσιμο';
+$lang['settings_form_option_profile_member']	= 'Εμφανές σε κάθε συνδεδεμένο χρήση';
+$lang['settings_form_option_activate_by_email']				= 'Ενεργοποίηση μέσω e-mail';
+$lang['settings_form_option_activate_by_admin']				= 'Ενεργοποίηση από τον διαχειριστή';
+$lang['settings_form_option_no_activation']				= 'Δεν απαιτείται ενεργοποίηση';
 
 // messages
 $lang['settings_no_settings']			= 'Προς το παρόν δεν υπάρχουν ρυθμίσεις.';

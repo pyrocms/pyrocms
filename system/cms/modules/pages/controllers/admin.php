@@ -367,7 +367,6 @@ class Admin extends Admin_Controller {
 
 		// Turn the CSV list back to an array
 		$page->restricted_to = explode(',', $page->restricted_to);
-		$page->meta_keywords = Keywords::get_string($page->meta_keywords);
 
 		// Did they even submit?
 		if ($this->form_validation->run())

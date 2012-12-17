@@ -23,5 +23,7 @@ $lang['buttons.edit'] 		= 'Επεξεργασία';
 $lang['buttons.clone'] 		= 'Κλωνοποίηση';
 $lang['buttons.re-index'] 	= 'Επανα-καταλογογράφηση';
 $lang['buttons.copy'] 		= 'Αντιγραφή';
+$lang['buttons.filter']		= 'Φίλτράρισμα';
+$lang['buttons.clear']		= 'Καθαρισμός';
 
 /* End of file buttons_lang.php */
