@@ -245,6 +245,7 @@ class Installer extends CI_Controller
 		$db_config = array(
 			'driver'    => $this->input->post('db_driver'),
 			'database'  => $this->input->post('database'),
+			'location'  => $this->input->post('location'),
 			'hostname'  => $this->input->post('hostname'),
 			'port'      => $this->input->post('port'),
 			'username' 	=> $this->input->post('username'),
