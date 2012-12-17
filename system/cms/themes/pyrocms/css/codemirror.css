@@ -4,6 +4,10 @@
   color: #333333;
 }
 
+.CodeMirror *{
+  font-family: monospace;
+}
+
 .CodeMirror-scroll {
   overflow: hidden;
   height: 300px;
