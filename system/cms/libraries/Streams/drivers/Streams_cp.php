@@ -557,7 +557,6 @@ class Streams_cp extends CI_Driver {
 				// First check if the current skip is disallowed
 				if (in_array($skip['slug'], $disallowed_skips))
 				{
-					// @todo maybe throw an error at this point?
 					continue;
 				}
 
