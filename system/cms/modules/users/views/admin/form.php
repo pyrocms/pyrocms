@@ -83,6 +83,9 @@
 						</label>
 						<div class="input">
 							<?php echo $field['input']; ?>
+              <?php if (!empty($field['instructions'])) : ?>
+							<p><?php echo $field['instructions']; ?></p>
+              <?php endif; ?>
 						</div>
 					</li>
 					<?php } ?>
