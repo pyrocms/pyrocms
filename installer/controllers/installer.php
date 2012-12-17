@@ -388,11 +388,6 @@ class Installer extends CI_Controller
 		// Set rules
 		$this->form_validation->set_rules(array(
 			array(
-				'field' => 'site_ref',
-				'label' => 'lang:site_ref',
-				'rules' => 'trim|required|alpha_dash'
-			),
-			array(
 				'field' => 'user[username]',
 				'label' => 'lang:user_name',
 				'rules' => 'trim|required'
@@ -452,14 +447,14 @@ class Installer extends CI_Controller
 			catch (Exception $e)
 			{
 				// Let's tell them why the install failed
-				$this->session->set_flashdata('message', $e->getMessage());
+				$this->session->set_flashdata('error', $e->getMessage());
 
-				redirect('installer/step_4');
+				$this->_render_view('step_4');
+				return;
 			}
 
 			// Success!
-			$this->session->set_flashdata('message', lang('success'));
-			$this->session->set_flashdata('message_type', 'success');
+			$this->session->set_flashdata('success', lang('success'));
 
 			// Store the default username and password in the session data
 			$this->session->set_userdata('user', $user);

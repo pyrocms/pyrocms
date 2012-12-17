@@ -9,30 +9,22 @@
 class Streams extends CI_Driver_Library {
 
 	/**
-	 * CI Instance
-	 *
-	 * @access	protected
-	 * @var		obj
+	 * @var object CI Instance
 	 */
 	protected $CI;
 
 	// --------------------------------------------------------------------------
 
 	/**
-	 * Valid Streams API Drivers
-	 *
-	 * Required by CodeIgniter
-	 *
-	 * @access	protected
-	 * @var		array
+	 * @var	array Valid Streams API Drivers
 	 */
-	protected $valid_drivers 	= array(
-			'streams_entries',
-			'streams_fields',
-			'streams_streams',
-			'streams_cp',
-			'streams_utilities',
-			'streams_parse'
+	protected $valid_drivers = array(
+		'entries',
+		'fields',
+		'streams',
+		'cp',
+		'utilities',
+		'parse'
 	);
 
 	// --------------------------------------------------------------------------
@@ -45,7 +37,6 @@ class Streams extends CI_Driver_Library {
 	 * a problem. Otherwise they will be
 	 * quietly ignored.
 	 *
-	 * @access	protected
 	 * @var		obj
 	 */
 	public $debug = true;
@@ -57,7 +48,6 @@ class Streams extends CI_Driver_Library {
 	 *
 	 * Load our required assets
 	 *
-	 * @access	public
 	 * @return	void
 	 */
 	public function __construct()

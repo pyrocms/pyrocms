@@ -26,7 +26,6 @@ class Streams_streams extends CI_Driver {
 	/**
 	 * Get entries for a stream.
 	 *
-	 * @access	public
 	 * @param	string - stream name
 	 * @param	string - stream slug
 	 * @param	string - stream namespace
@@ -73,12 +72,12 @@ class Streams_streams extends CI_Driver {
 		// -------------------------------------
 		
 		return $this->CI->streams_m->create_new_stream(
-												$stream_name,
-												$stream_slug,
-												$prefix,
-												$namespace,
-												$about
-											);
+			$stream_name,
+			$stream_slug,
+			$prefix,
+			$namespace,
+			$about
+		);
 	}
 
 	// --------------------------------------------------------------------------
@@ -86,7 +85,6 @@ class Streams_streams extends CI_Driver {
 	/**
 	 * Get Stream
 	 *
-	 * @access	public
 	 * @param	stream - obj, id, or string
 	 * @param	[string - namespace]
 	 * @return	object
@@ -105,7 +103,6 @@ class Streams_streams extends CI_Driver {
 	/**
 	 * Delete a stream
 	 *
-	 * @access	public
 	 * @param	stream - obj, id, or string
 	 * @param	[string - namespace]
 	 * @return	object
@@ -124,7 +121,6 @@ class Streams_streams extends CI_Driver {
 	/**
 	 * Update a stream
 	 *
-	 * @access	public
 	 * @param	stream - obj, id, or string
 	 * @param	string - namespace
 	 * @param 	array - associative array of new data
@@ -146,7 +142,6 @@ class Streams_streams extends CI_Driver {
 	/**
 	 * Get stream field assignments
 	 *
-	 * @access	public
 	 * @param	stream - obj, id, or string
 	 * @param	string - namespace
 	 * @return	object
@@ -165,7 +160,6 @@ class Streams_streams extends CI_Driver {
 	/**
 	 * Get streams in a namespace
 	 *
-	 * @access	public
 	 * @param	string - namespace
 	 * @param 	[int - limit]
 	 * @param 	[int - offset]
@@ -193,7 +187,6 @@ class Streams_streams extends CI_Driver {
 	 * fields_count 	Number of fields assigned to the stream
 	 * last_updated		Unix timestamp of when the stream was last updated
 	 *
-	 * @access	public
 	 * @param	stream - obj, id, or string
 	 * @param	string - namespace
 	 * @return	object
@@ -243,7 +236,6 @@ class Streams_streams extends CI_Driver {
 	 * Check to see if the table name needed for a stream is
 	 * actually available.
 	 *
-	 * @access 	public
 	 * @param 	string
 	 * @param 	string
 	 * @param 	string

@@ -204,8 +204,9 @@ class Module_Pages extends Module
 		});
 
 		// Try loading Streams
-		$this->load->driver('streams');
+		$this->load->driver('Streams');
 
+/*
 		// now set up the default streams that will hold the page content
 		foreach (config_item('pages:default_page_stream') as $stream)
 		{
@@ -222,7 +223,7 @@ class Module_Pages extends Module
 		$this->streams->fields->add_fields(config_item('pages:default_fields'));
 
 		// Insert the page type structures
-		$page_type = 	array(
+		$page_type = array(
 			'id' => 1,
 			'title' => 'Default',
 			'slug' => 'default',
@@ -292,7 +293,7 @@ class Module_Pages extends Module
 				->where('id', $page_id)
 				->update(array('entry_id', $entry_id));
 		}
-
+*/
 		return true;
 	}
 
