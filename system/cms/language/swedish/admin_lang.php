@@ -39,7 +39,9 @@ $lang['cp_nav_content'] = 'Innehåll';
 $lang['cp_nav_misc'] = 'Övrigt';
 $lang['cp_must_login'] = 'Du måste vara inloggad för att kunna se sidan.';
 $lang['cp_access_denied'] = 'Du har inte rättigheter att se sidan.';
-$lang['cp_delete_installer_message'] = 'OBS, Av säkerhetsskäl bör du radera mappen "installer" från din webbserver. ';
+$lang['cp_delete_installer_message']              = 'The installer directory still exists! <a href="#" id="remove_installer_directory">Please delete it from your server!</a>.<br>Leaving it online means control of this site could be granted to somebody else.'; #translate
+$lang['cp_delete_installer_successfully_message'] = 'The installer directory has been successfully deleted.'; #translate
+$lang['cp_delete_installer_manually_message']     = 'The installer directory could not be deleted. <strong>Please remove it manually!</strong>'; #translate
 $lang['cp_upgrade_message'] = 'Du använder version %s, men din databas använder %s. Vänligen <a href="%s" title="Uppgradera">klicka här</a> för att uppgradera databasen.';
 $lang['cp_google_analytics_missing'] = 'Inställningar för Google Analytics saknas. Lägg till dem till %s eller kontakta din administratör.';
 $lang['cp_google_analytics_no_connect'] = 'Kunde inte ansulta till Google Analytics. Kontrollera %s.';

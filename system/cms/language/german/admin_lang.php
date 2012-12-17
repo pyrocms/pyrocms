@@ -41,7 +41,9 @@ $lang['global:keywords']                = 'Keywords'; #translate
 
 $lang['cp_must_login']                     = 'Du musst eingeloggt sein, um diese Seite sehen zu k&ouml;nnen.';
 $lang['cp_access_denied']                 = 'Du hast keine ausreichenden Zugriffsberechtigungen um diese Seite anzusehen.';
-$lang['cp_delete_installer_message']    = 'Bitte l&ouml;sche das Installationsverzeichnis (installer) auf deinem Server, da sich ansonsten Dritte unerlaubt administrativen Zugang verschaffen k&ouml;nnten.';
+$lang['cp_delete_installer_message']              = 'The installer directory still exists! <a href="#" id="remove_installer_directory">Please delete it from your server!</a>.<br>Leaving it online means control of this site could be granted to somebody else.'; #translate
+$lang['cp_delete_installer_successfully_message'] = 'The installer directory has been successfully deleted.'; #translate
+$lang['cp_delete_installer_manually_message']     = 'The installer directory could not be deleted. <strong>Please remove it manually!</strong>'; #translate
 $lang['cp_upgrade_message']                = 'Du benutzt aktuell Version %s, aber die Datenbank ist in der &auml;lteren Version %s. Bitte <a href="%s">aktualisiere deine Datenbank</a>.';
 
 $lang['required_label']                 = 'Ben&ouml;tigt';

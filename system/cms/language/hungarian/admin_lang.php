@@ -39,7 +39,9 @@ $lang['cp_nav_misc']					= 'Miscellaneous'; #translate
 
 $lang['cp_must_login']	 			= 'Ennek az oldalnak a megtekintéséhez, be kell jelentkezned.';
 $lang['cp_access_denied'] 			= 'Nem rendelkezel elég jogosultsággal, hogy megtekinthesd az oldalt.';
-$lang['cp_delete_installer_message']            = 'Töröld az "installer" könyvtárat! Megléte esetén át lehet venni az irányítást a weboldal felett.';
+$lang['cp_delete_installer_message']              = 'The installer directory still exists! <a href="#" id="remove_installer_directory">Please delete it from your server!</a>.<br>Leaving it online means control of this site could be granted to somebody else.'; #translate
+$lang['cp_delete_installer_successfully_message'] = 'The installer directory has been successfully deleted.'; #translate
+$lang['cp_delete_installer_manually_message']     = 'The installer directory could not be deleted. <strong>Please remove it manually!</strong>'; #translate
 $lang['cp_upgrade_message']			= 'Jelenleg a PyroCMS %s verziója fut, az adatbázis verziója pedig: %s. A következő linkre kattinva lehet <a href="%s" title="Upgrade">frissíteni</a> az adatbázist.';
 $lang['cp_google_analytics_missing']            = 'A Google Analytics nincs beállítva. Ad hozzá %s vagy szólj az adminnak!';
 $lang['cp_google_analytics_no_connect']         = 'Nem lehet csatlakozni a Google Analytics-hez. Ellenőrizd %s!';

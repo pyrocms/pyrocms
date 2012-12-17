@@ -39,7 +39,9 @@ $lang['cp_nav_misc']					= 'Miscellaneous'; #translate
 
 $lang['cp_must_login']	 				= 'Du skal være logget ind for at se denne side.';
 $lang['cp_access_denied'] 				= 'Du har ikke adgang til at se denne side.';
-$lang['cp_delete_installer_message']	= 'Slet venligst installer mappen fra din server. Hvis du lader den være online er der risiko for at en anden kan tage kontrol over din side.';
+$lang['cp_delete_installer_message']              = 'The installer directory still exists! <a href="#" id="remove_installer_directory">Please delete it from your server!</a>.<br>Leaving it online means control of this site could be granted to somebody else.'; #translate
+$lang['cp_delete_installer_successfully_message'] = 'The installer directory has been successfully deleted.'; #translate
+$lang['cp_delete_installer_manually_message']     = 'The installer directory could not be deleted. <strong>Please remove it manually!</strong>'; #translate
 $lang['cp_upgrade_message']				= 'Du kører i øjeblikket version %s, men din database version er %s. Venligst <a href="%s" title="Upgrade">klik her</a> for at opgradere databasen.';
 $lang['cp_google_analytics_missing']	= 'Google Analytics indstillinger mangler. tilføj dem til %s eller kontakt din administrator.';
 $lang['cp_google_analytics_no_connect']	= 'Kunne ikke forbinde til Google Analytics. Tjek om %s.';

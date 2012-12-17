@@ -39,7 +39,9 @@ $lang['cp_nav_misc']					= 'Miscellaneous'; #translate
 
 $lang['cp_must_login']	 				= 'Sinun tulee kirjautua sisään selataksesi tätä sivua.';
 $lang['cp_access_denied'] 				= 'Sinulla ei ole oikeuksia selataksesi tätä sivua.';
-$lang['cp_delete_installer_message']	= 'Poista "installer" kansio palvelimeltasi. Mikäli et poista kansiota, annat pääsyn kävijöille uudelleen asennusta varten.';
+$lang['cp_delete_installer_message']              = 'The installer directory still exists! <a href="#" id="remove_installer_directory">Please delete it from your server!</a>.<br>Leaving it online means control of this site could be granted to somebody else.'; #translate
+$lang['cp_delete_installer_successfully_message'] = 'The installer directory has been successfully deleted.'; #translate
+$lang['cp_delete_installer_manually_message']     = 'The installer directory could not be deleted. <strong>Please remove it manually!</strong>'; #translate
 $lang['cp_upgrade_message']				= 'Käytät tällä hetkellä versiota %s, mutta tietokantasi versio on %s. <a href="%s" title="Upgrade">Klikkaa tästä</a> päivittääksesi tietokannan.';
 $lang['cp_google_analytics_missing']	= 'Google Analytics asetukset puuttuvat. Vaihda asetukset paikasta "%s" tai ota yhteyttä järjestelmänvalvojaan.';
 $lang['cp_google_analytics_no_connect']	= 'Google Analyticsiin ei saatu yhteyttä. Tarkista "%s".';
