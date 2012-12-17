@@ -40,18 +40,13 @@ class Ajax extends CI_Controller
 		}
 		unset($languages);
 
-		// let's load the language file belonging to the page i.e. method
-		if (is_file($languages_directory.'/'.$this->config->item('language').'/'.$this->router->method.'_lang'.EXT))
-		{
-			$this->lang->load($this->router->method);
-		}
-
 		// also we load some generic language labels
 		$this->lang->load('installer');
 	}
 
 	public function confirm_database()
 	{
+		// TODO Maybe actually use this somewhere?
 		$create_db 	= $this->input->post('create_db') === 'true';
 
 		// Set some headers for our JSON
@@ -65,7 +60,7 @@ class Ajax extends CI_Controller
 			$this->installer_lib->create_connection(array(
 				'driver'    => $this->input->post('driver'),
 				'database'  => $this->input->post('database'),
-				'hostname'  => $this->input->post('server'),
+				'hostname'  => $this->input->post('hostname'),
 				'port'      => $this->input->post('port'),
 				'username' 	=> $this->input->post('username'),
 				'password' 	=> $this->input->post('password'),

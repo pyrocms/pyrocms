@@ -109,7 +109,7 @@ class Module_import
 	{
 		// Install settings and streams core first. Other modules may need them.
 		$this->install('settings', true);
-		$this->ci->load->library('settings/settings');
+		ci()->load->library('settings/settings');
 		$this->install('streams_core', true);
 
 		// Are there any modules to install on this path?

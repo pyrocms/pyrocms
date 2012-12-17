@@ -151,7 +151,7 @@ class Installer_lib
 		{
 			case 'mysql':
 			case 'pgsql':
-				$dsn = "{$config['driver']}:host={$config['hostname']};port={$config['port']};";
+				$dsn = "{$config['driver']}:host={$config['hostname']};port={$config['port']}";
 				break;
 			case 'sqlite':
 				$dsn = "sqlite:{$config['location']}";
@@ -176,7 +176,7 @@ class Installer_lib
 	 */
 	public function create_db(PDO $conn, array $database)
 	{
-		return $pdo->query("CREATE DATABASE {$database}");
+		return $conn->query("CREATE DATABASE {$database}");
 	}
 
 	/**

@@ -5,9 +5,7 @@
 	<p>{intro_text}</p>
 </section>
 
-<?php echo form_open(uri_string(), 'id = "install_frm"') ?>
-
-	<input type="hidden" id="site_ref" name="site_ref" value="default" />
+<?php echo form_open(uri_string(), 'id="install_frm"') ?>
 
 <section class="title">
 	<h3>{default_user}</h3>

@@ -51,7 +51,7 @@ jQuery(document).ready(function ($) {
 				driver: $('input[name=db_driver]:checked').val(),
 				database: $('input[name=database]').val(),
 				create_db: $('input[name=create_db]').is(':checked'),
-				server: $('input[name=hostname]').val(),
+				hostname: $('input[name=hostname]').val(),
 				port: $('input[name=port]').val(),
 				username: $('input[name=username]').val(),
 				password: $('input[name=password]').val()

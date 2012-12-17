@@ -146,6 +146,8 @@ class Module_Pages extends Module
 	{
 		$this->load->config('pages/pages');
 		
+		$schema = $this->pdb->getSchemaBuilder();
+
 		$schema->dropIfExists('page_types');
 
 		$schema->create('page_types', function ($table)
@@ -201,7 +203,7 @@ class Module_Pages extends Module
 			$table->index('parent_id');
 		});
 
-
+		// Try loading Streams
 		$this->load->driver('streams');
 
 		// now set up the default streams that will hold the page content

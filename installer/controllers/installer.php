@@ -74,15 +74,17 @@ class Installer extends CI_Controller
 		// Load the global installer language file
 		$this->lang->load('installer');
 
-		// let's load the language file belonging to the page i.e. method
-		if (is_file($this->languages_directory.'/'.$current_language.'/'.$this->router->fetch_method().'_lang'.EXT))
-		{
-			$this->lang->load($this->router->fetch_method());
-		}
+		// Where is PyroCMS installed?
+		define('PYROPATH', dirname(FCPATH).'/system/cms/');
+		define('ADDONPATH', dirname(FCPATH).'/addons/default/');
+		define('SHARED_ADDONPATH', dirname(FCPATH).'/addons/shared_addons/');
+
+		// Let us load stuff from the main application
+		$this->load->add_package_path(PYROPATH);
 
 		// set the supported languages to be saved in Settings for emails and .etc
 		// modules > settings > details.php uses this
-		require_once(dirname(FCPATH).'/system/cms/config/language.php');
+		require_once(PYROPATH.'/config/language.php');
 
 		// Check that the language configuration has been loaded.
 		isset($config) or exit('Could not load language configuration.');
@@ -90,8 +92,8 @@ class Installer extends CI_Controller
 		// Define the default language code as constant
 		define('DEFAULT_LANG', $config['default_language']);
 
-		$action_url = site_url('installer/change/__NAME__');
 		$image_url = base_url('assets/img/flags/__CODE__.gif');
+
 		// Work out some misrepresented language codes to specific language flags
 		$flag_exchange = array(
 			'english' => 'gb',
@@ -100,6 +102,7 @@ class Installer extends CI_Controller
 			'danish' => 'dk',
 			'czech' => 'cz',
 		);
+
 		// Generate the language array for the navigation.
 		foreach($config['supported_languages'] as $code => $info) {
 			// There is a translation available and we haven't already put that in there.
@@ -108,7 +111,7 @@ class Installer extends CI_Controller
 					'code' => $code,
 					'folder' => $info['folder'],
 					'name' => $info['name'],
-					'action_url' => str_replace('__NAME__', $info['folder'], $action_url),
+					'action_url' => site_url('installer/change/'.$info['folder']),
 					'image_url' => str_replace('__CODE__', (in_array($info['folder'], array_keys($flag_exchange))) ? $flag_exchange[$info['folder']] : $code, $image_url),
 				);
 			}
@@ -127,19 +130,16 @@ class Installer extends CI_Controller
 	{
 		$data = new stdClass;
 
-        // Save this junk for later
-        // Used in validation callback, so set early
-        $this->session->set_userdata(array(
-            'db.driver'    => $driver    = $this->input->post('db_driver'),
-            'db.hostname'  => $hostname  = $this->input->post('hostname'),
-            'db.location'  => $location  = $this->input->post('location'),
-            'db.username'  => $username  = $this->input->post('username'),
-            'db.password'  => $password  = $this->input->post('password'),
-            'db.port'      => $port      = $this->input->post('port'),
-            'db.database'  => $database  = $this->input->post('database'),
-            'db.create_db' => $this->input->post('create_db'),
-            'http_server'  => $this->input->post('http_server'),
-        ));
+        // TODO No idea why this is here. Potentially lazy passing of data to ajax.php
+        $this->session->set_userdata('http_server', $this->input->post('http_server'));
+
+		$driver    = $this->input->post('db_driver');
+		$hostname  = $this->input->post('hostname');
+		$location  = $this->input->post('location');
+		$username  = $this->input->post('username');
+		$password  = $this->input->post('password');
+		$port      = $this->input->post('port');
+		$database  = $this->input->post('database');
 
         // Set rules
         $this->form_validation->set_rules(array(
@@ -234,35 +234,34 @@ class Installer extends CI_Controller
 	}
 
 	/**
-	 * Function to validate the database name
-	 *
-	 * @param string $db_name The database name.
-	 *
-	 * @return bool
-	 */
-	public function validate_mysql_db_name($db_name)
-	{
-		$this->form_validation->set_message('validate_mysql_db_name', lang('invalid_db_name'));
-		return ! (preg_match('/[^A-Za-z0-9_-]+/', $db_name) > 0);
-	}
-
-	/**
 	 * Function to test the DB connection (used for the form validation)
 	 *
 	 * @return bool
 	 */
 	public function test_db_connection()
 	{
-		if ( ! $this->installer_lib->mysql_available())
-		{
-			$this->form_validation->set_message('test_db_connection', lang('db_missing'));
+		$db_config = array(
+			'driver'    => $this->input->post('db_driver'),
+			'database'  => $this->input->post('database'),
+			'hostname'  => $this->input->post('hostname'),
+			'port'      => $this->input->post('port'),
+			'username' 	=> $this->input->post('username'),
+			'password' 	=> $this->input->post('password'),
+			'create_db' => $this->input->post('create_db'),
+			'site_ref'  => 'default',
+		);
 
-			return false;
+		// Store this for later
+		$this->session->set_userdata('db_config', $db_config);
+
+		try
+		{
+			// Create a connection to see if data is correct
+			$this->installer_lib->create_connection($db_config);
 		}
-		if ( ! $this->installer_lib->test_db_connection())
+		catch (Exception $e)
 		{
-			$this->form_validation->set_message('test_db_connection', lang('db_failure').mysql_error());
-
+			$this->form_validation->set_message('test_db_connection', lang('db_failure').$e->getMessage());
 			return false;
 		}
 
@@ -274,7 +273,6 @@ class Installer extends CI_Controller
 	 */
 	public function step_2()
 	{
-
 		// Did the user enter the DB settings ?
 		if ( ! $this->session->userdata('step_1_passed'))
 		{
@@ -287,18 +285,9 @@ class Installer extends CI_Controller
 
 		$data = new stdClass;
 
-		$data->mysql = new stdClass();
-		$data->http_server = new stdClass();
-
 		// Check the PHP version
 		$data->php_acceptable	= $this->installer_lib->php_acceptable();
 		$data->php_version		= PHP_VERSION;
-
-		// Check the MySQL data
-		$data->mysql->server_version_acceptable = $this->installer_lib->mysql_acceptable('server');
-		$data->mysql->client_version_acceptable = $this->installer_lib->mysql_acceptable('client');
-		$data->mysql->server_version = $this->installer_lib->mysql_server_version;
-		$data->mysql->client_version = $this->installer_lib->mysql_client_version;
 
 		// Check the GD data
 		$data->gd_acceptable = $this->installer_lib->gd_acceptable();
@@ -314,6 +303,7 @@ class Installer extends CI_Controller
 		$selected_server = $this->session->userdata('http_server');
 		$supported_servers = $this->config->item('supported_servers');
 
+		$data->http_server = new stdClass;
 		$data->http_server->supported = $this->installer_lib->verify_http_server($this->session->userdata('http_server'));
 		$data->http_server->name = @$supported_servers[$selected_server]['name'];
 
@@ -340,7 +330,6 @@ class Installer extends CI_Controller
 	 */
 	public function step_3()
 	{
-
 		if ( ! $this->session->userdata('step_1_passed') OR ! $this->session->userdata('step_2_passed'))
 		{
 			// Redirect the user back to step 1
@@ -402,27 +391,27 @@ class Installer extends CI_Controller
 				'rules' => 'trim|required|alpha_dash'
 			),
 			array(
-				'field' => 'user_name',
+				'field' => 'user[username]',
 				'label' => 'lang:user_name',
 				'rules' => 'trim|required'
 			),
 			array(
-				'field' => 'user_firstname',
+				'field' => 'user[firstname]',
 				'label' => 'lang:first_name',
 				'rules' => 'trim|required'
 			),
 			array(
-				'field' => 'user_lastname',
+				'field' => 'user[lastname]',
 				'label' => 'lang:last_name',
 				'rules' => 'trim|required'
 			),
 			array(
-				'field' => 'user_email',
+				'field' => 'user[email]',
 				'label' => 'lang:email',
 				'rules' => 'trim|required|valid_email'
 			),
 			array(
-				'field' => 'user_password',
+				'field' => 'user[password]',
 				'label' => 'lang:password',
 				'rules' => 'trim|min_length[6]|max_length[20]|required'
 			),
@@ -437,16 +426,33 @@ class Installer extends CI_Controller
 		// If the form validation passed
 		else
 		{
-			// Let's try to install the system
-			$install = $this->installer_lib->install($_POST);
+			// Grab the connection config from the session
+			$db_config = $this->session->userdata('db_config');
+			
+			// First User details
+			$user = $this->input->post('user');
 
-			// Did the install fail?
-			if ($install['status'] === false)
+			// Create the database if that is what they asked us to do
+			if ( ! empty($db_config['create_db']))
+			{
+				// Create an PDO connection and instance
+				$pdo = $this->installer_lib->create_connection($db_config);
+
+				// Make the database
+				$this->installer_lib->create_db($pdo, $db_config['database']);
+			}
+
+			// Let's try to install the system with this new PDO instance
+			try
+			{
+				$pdb = $this->installer_lib->install($user, $db_config);
+			}
+			catch (Exception $e)
 			{
 				// Let's tell them why the install failed
-				$this->session->set_flashdata('message', $this->lang->line('error_'.$install['code']).$install['message']);
+				$this->session->set_flashdata('message', $e->getMessage());
 
-				exit($this->_render_view('step_4'));
+				redirect('installer/step_4');
 			}
 
 			// Success!
@@ -454,18 +460,16 @@ class Installer extends CI_Controller
 			$this->session->set_flashdata('message_type', 'success');
 
 			// Store the default username and password in the session data
-			$this->session->set_userdata('user', array(
-				'user_email' => $this->input->post('user_email'),
-				'user_password' => $this->input->post('user_password'),
-				'user_firstname' => $this->input->post('user_firstname'),
-				'user_lastname' => $this->input->post('user_lastname')
-			));
+			$this->session->set_userdata('user', $user);
 
 			// Define the default user email to be used in the settings module install
 			define('DEFAULT_EMAIL', $this->input->post('user_email'));
 
 			// Import the modules
-			$this->load->library('module_import');
+			$this->load->library('module_import', array(
+				'pdb' => $pdb,
+			));
+
 			$this->module_import->import_all();
 
 			redirect('installer/complete');
