@@ -501,7 +501,7 @@ class Fields
 	 */	
 	public function set_rules($stream_fields, $method, $skips = array(), $return_array = false, $row_id = null)
 	{
-		if ( ! $stream_fields or ! is_array($stream_fields)) return array();
+		if ( ! $stream_fields or ! is_object($stream_fields)) return array();
 
 		$validation_rules = array();
 
