@@ -19,6 +19,8 @@
 			<li class="button" data-applies-to="folder file pane"	data-menu="details"><?php echo lang('files:details') ?></li>
 		</ul>
 	</div>
+
+	<input type="text" id="file-search" name="file-search" value="" placeholder="<?php echo lang('files:search_message') ?>"/>
 </section>
 
 <section class="item">
@@ -59,16 +61,8 @@
 	</section>
 
 	<section class="side sidebar-right">
-		<div id="search-area">
-			<!-- <span class="subsection-title"><?php echo lang('files:search') ?></span> -->
-			<input type="text" id="file-search" name="file-search" value="" placeholder="<?php echo lang('files:search_message') ?>"/>
-			<ul id="search-results"></ul>
-		</div>
-		<div id="console-area">
-			<span class="subsection-title"><?php echo lang('files:activity') ?></span>
-			<ul id="console"></ul>
-		</div>
-
+		<div class="close">&times;</div>
+		<ul id="search-results"></ul>
 	</section>
 
 	<div class="hidden">
@@ -186,4 +180,5 @@
 			<a data-id="0" href="#"><?php echo lang('files:places') ?></a>
 		</span>
 	</h5>
+	<h5 id="activity"></h5>
 </section>
