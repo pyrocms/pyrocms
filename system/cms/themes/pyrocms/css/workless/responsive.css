@@ -349,7 +349,7 @@
 	}
 
 	.form_inputs fieldset {
-		width: auto;
+		width: 95%;
 	}
 
 	table {
@@ -544,7 +544,7 @@ position: absolute;
 	}
 
 	.move-handle {display: block;}
-	fieldset {padding: 25px; margin: 5px 0 15px 0;}
+	fieldset {padding: 20px; margin: 5px 0 15px 0;}
 	.form_inputs .input > input {min-width: 210px!important;}
 	table th.collapse, table td.collapse {display: table-cell;}
 	table .actions a {
