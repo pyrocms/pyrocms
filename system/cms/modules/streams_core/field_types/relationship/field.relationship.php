@@ -44,7 +44,7 @@ class Field_relationship
 		
 		if ( ! $stream)
 		{
-			return '<em>'.$this->CI->lang->line('streams.relationship.doesnt_exist').'</em>';
+			return '<em>'.$this->CI->lang->line('streams:relationship.doesnt_exist').'</em>';
 		}
 
 		$title_column = $stream->title_column;

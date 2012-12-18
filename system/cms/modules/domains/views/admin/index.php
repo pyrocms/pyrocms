@@ -5,6 +5,7 @@
 <?php if ($domains): ?>
 
 	<section class="item">
+		<div class="content">
 
     <?php echo form_open('admin/domains/delete') ?>
 	<table border="0" class="table-list" cellpadding="0" cellspacing="0">
@@ -44,11 +45,14 @@
 		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete') )) ?>
 	</div>
     <?php echo form_close() ?>
-
+		
+		</div>
 	</section>
 
 <?php else: ?>
 	<section class="item">
-		<div class="no_data"><?php echo lang('domains:no_domains');?></div>
+		<div class="content">
+			<div class="no_data"><?php echo lang('domains:no_domains');?></div>
+		</div>
 	</section>
 <?php endif ?>

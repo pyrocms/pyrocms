@@ -12,6 +12,13 @@
 		<nav id="primary">
 			<?php file_partial('navigation'); ?>
 		</nav>
+		
+		<div class="topbar-form">
+			<form class="topbar-search">
+				<input type="text" class="search-query" placeholder="Search">
+			</form>
+		</div>
+		
 	</div>
 	
 </div>

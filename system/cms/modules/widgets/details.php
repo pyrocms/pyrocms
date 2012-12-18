@@ -66,17 +66,18 @@ class Module_Widgets extends Module
 			'skip_xss' => true,
 
 			'sections' => array(
-				'instances' => array(
-					'name' => 'widgets.instances',
-					'uri' => 'admin/widgets',
+
+			    'instances' => array(
+				    'name' => 'widgets:instances',
+				    'uri' => 'admin/widgets',
 				),
 				'areas' => array(
-					'name' => 'widgets.areas',
-					'uri' => 'admin/widgets/areas',
-					'shortcuts' => array(
+				    'name' => 'widgets:areas',
+				    'uri' => 'admin/widgets/areas',
+				    'shortcuts' => array(
 						array(
-							'name' => 'widgets.add_area',
-							'uri' => 'admin/widgets/areas/create',
+						    'name' => 'widgets:add_area',
+						    'uri' => 'admin/widgets/areas/create',
 						),
 					),
 				),

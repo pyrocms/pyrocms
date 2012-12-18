@@ -8,7 +8,9 @@
   </section>
 
 	<section class="item">
-		<?php echo $widget->body ?>
+		<div class="content">
+			<?php echo $widget->body ?>
+		</div>
   </section>
 
 </div>

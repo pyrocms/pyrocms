@@ -80,20 +80,23 @@ class Module_Pages extends Module
 				    'uri' => 'admin/pages',
 				),
 				'types' => array(
-				    'name' => 'page_types.list_title',
+				    'name' => 'page_types:list_title',
 				    'uri' => 'admin/pages/types'
 			    ),
 			),
 		);
 
 		// We check that the table exists (only when in the admin controller)
-		if (class_exists('Admin_Controller')) {
+		// to avoid any pre 109 migration module class spawning issues.
+		if (class_exists('Admin_controller') and $this->db->table_exists('page_types'))
+		{
 			// Shortcuts for New page
 
 			// Do we have more than one page type? If we don't, no need to have a modal
 			// ask them to choose a page type.
-			if ($this->pdb->table('page_types')->count() > 1)
+			if ($this->db->count_all('page_types') > 1)
 			{
+
 				$info['sections']['pages']['shortcuts'] = array(
 					array(
 					    'name' => 'pages:create_title',
@@ -105,7 +108,7 @@ class Module_Pages extends Module
 			else
 			{
 				// Get the one page type. 
-				$page_type = $this->pdb->table('page_types')->take(1)->select('id')->first();
+				$page_type = $this->db->limit(1)->select('id')->get('page_types')->row();
 
 				$info['sections']['pages']['shortcuts'] = array(
 					array(
@@ -120,22 +123,22 @@ class Module_Pages extends Module
 			if ($this->uri->segment(4) == 'fields' and $this->uri->segment(5))
 			{
 				$info['sections']['types']['shortcuts'] = array(
-					array(
-					    'name' => 'streams.new_field',
-					    'uri' => 'admin/pages/types/fields/'.$this->uri->segment(5).'/new_field',
-					    'class' => 'add'
-					)
-			    );
+								array(
+								    'name' => 'streams:new_field',
+								    'uri' => 'admin/pages/types/fields/'.$this->uri->segment(5).'/new_field',
+								    'class' => 'add'
+								)
+						    );
 			}
 			else
 			{
 				$info['sections']['types']['shortcuts'] = array(
-					array(
-					    'name' => 'pages:types_create_title',
-					    'uri' => 'admin/pages/types/create',
-					    'class' => 'add'
-					)
-				);			
+								array(
+								    'name' => 'pages:types_create_title',
+								    'uri' => 'admin/pages/types/create',
+								    'class' => 'add'
+								)
+							);			
 			}
 		}
 
@@ -144,69 +147,60 @@ class Module_Pages extends Module
 
 	public function install()
 	{
+		$this->load->helper('date');
 		$this->load->config('pages/pages');
-		
-		$schema = $this->pdb->getSchemaBuilder();
 
-		$schema->dropIfExists('page_types');
+		$tables = array(
+			'page_types' => array(
+				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true),
+				'slug' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => ''),
+				'title' => array('type' => 'VARCHAR', 'constraint' => 60),
+				'stream_id' => array('type' => 'INT', 'constraint' => 11),
+				'meta_title' => array('type' => 'VARCHAR', 'constraint' => 255, 'null' => true),
+				'meta_keywords' => array('type' => 'CHAR', 'constraint' => 32, 'null' => true),
+				'meta_description' => array('type' => 'TEXT', 'null' => true),
+				'body' => array('type' => 'TEXT'),
+				'css' => array('type' => 'TEXT', 'null' => true),
+				'js' => array('type' => 'TEXT', 'null' => true),
+				'theme_layout' => array('type' => 'VARCHAR', 'constraint' => 100, 'default' => 'default'),
+				'updated_on' => array('type' => 'INT', 'constraint' => 11),
+	            'save_as_files'     => array('type' => 'CHAR', 'constraint' => 1, 'default' => 'n'),
+	            'content_label'     => array('type' => 'VARCHAR', 'constraint' => 60, 'null' => true),
+	            'title_label'     => array('type' => 'VARCHAR', 'constraint' => 100, 'null' => true)
+			),
+			'pages' => array(
+				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true),
+				'slug' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => '', 'key' => 'slug'),
+				'class' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => ''),
+				'title' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => ''),
+				'uri' => array('type' => 'TEXT', 'null' => true),
+				'parent_id' => array('type' => 'INT', 'constraint' => 11, 'default' => 0, 'key' => 'parent_id'),
+				'type_id' => array('type' => 'VARCHAR', 'constraint' => 255),
+				'entry_id' => array('type' => 'VARCHAR', 'constraint' => 255, 'null' => true),
+				'css' => array('type' => 'TEXT', 'null' => true),
+				'js' => array('type' => 'TEXT', 'null' => true),
+				'meta_title' => array('type' => 'VARCHAR', 'constraint' => 255, 'null' => true),
+				'meta_keywords' => array('type' => 'CHAR', 'constraint' => 32, 'null' => true),
+				'meta_description' => array('type' => 'TEXT', 'null' => true),
+				'rss_enabled' => array('type' => 'INT', 'constraint' => 1, 'default' => 0),
+				'comments_enabled' => array('type' => 'INT', 'constraint' => 1, 'default' => 0),
+				'status' => array('type' => 'ENUM', 'constraint' => array('draft', 'live'), 'default' => 'draft'),
+				'created_on' => array('type' => 'INT', 'constraint' => 11, 'default' => 0),
+				'updated_on' => array('type' => 'INT', 'constraint' => 11, 'default' => 0),
+				'restricted_to' => array('type' => 'VARCHAR', 'constraint' => 255, 'null' => true),
+				'is_home' => array('type' => 'INT', 'constraint' => 1, 'default' => 0),
+				'strict_uri' => array('type' => 'TINYINT', 'constraint' => 1, 'default' => 1),
+				'order' => array('type' => 'INT', 'constraint' => 11, 'default' => 0),
+			),
+		);
 
-		$schema->create('page_types', function ($table)
+		if ( ! $this->install_tables($tables))
 		{
-			$table->increments('id');
-			$table->string('slug', 255);
-			$table->string('title', 60);
-			$table->integer('stream_id');
-			$table->string('meta_title', 255)->nullable();
-			$table->string('meta_keywords', 32)->nullable();
-			$table->text('meta_description')->nullable();
-			$table->text('body');
-			$table->text('css')->nullable();
-			$table->text('js')->nullable();
-			$table->string('theme_layout')->default('default');
-	        $table->string('save_as_files', 1)->default('n');
-	        $table->string('content_label', 60)->nullable();
-	        $table->string('title_label', 100)->nullable();
-			$table->integer('updated_on');
+			return false;
+		}
 
-			$table->unique('slug');
-		});
+		$this->load->driver('streams');
 
-		// Pages
-
-		$schema->dropIfExists('pages');
-
-		$schema->create('pages', function($table)
-		{
-			$table->increments('id');
-			$table->string('slug')->default('');
-			$table->string('class')->default('');
-			$table->string('title')->default('');
-			$table->text('uri')->nullable();
-			$table->integer('parent_id')->default(0);
-			$table->string('type_id');
-			$table->text('css')->nullable();
-			$table->text('js')->nullable();
-			$table->string('meta_title', 255)->nullable();
-			$table->string('meta_keywords', 32)->nullable();
-			$table->text('meta_description')->nullable();
-			$table->boolean('rss_enabled')->default(false);
-			$table->boolean('comments_enabled')->default(false);
-			$table->enum('status', array('draft', 'live'))->default('draft');
-			$table->integer('created_on');
-			$table->integer('updated_on')->nullable();
-			$table->string('restricted_to')->nullable();
-			$table->boolean('is_home');
-			$table->boolean('strict_uri')->default(true);
-			$table->integer('order')->default(0);
-
-			$table->index('slug');
-			$table->index('parent_id');
-		});
-
-		// Try loading Streams
-		$this->load->driver('Streams');
-
-/*
 		// now set up the default streams that will hold the page content
 		foreach (config_item('pages:default_page_stream') as $stream)
 		{
@@ -223,7 +217,7 @@ class Module_Pages extends Module
 		$this->streams->fields->add_fields(config_item('pages:default_fields'));
 
 		// Insert the page type structures
-		$page_type = array(
+		$page_type = 	array(
 			'id' => 1,
 			'title' => 'Default',
 			'slug' => 'default',
@@ -233,13 +227,12 @@ class Module_Pages extends Module
 			'js' => '',
 			'updated_on' => now()
 		);
-
-		$def_page_type_id = $this->pdb->table('page_types')->insert($page_type);
-
-		if ( ! $def_page_type_id)
+		if ( ! $this->db->insert('page_types', $page_type))
 		{
 			return false;
 		}
+
+		$def_page_type_id = $this->db->insert_id();
 
 		$page_content = config_item('pages:default_page_content');
 		$page_entries = array(
@@ -284,16 +277,19 @@ class Module_Pages extends Module
 		foreach ($page_entries as $key => $d)
 		{
 			// Contact Page
-			$page_id = $this->pdb->table('pages')->insert($d);
+			$this->db->insert('pages', $d);
+			$page_id = $this->db->insert_id();
 
-			$entry_id = $this->pdb->table('def_page_fields')->insert($page_content[$key]);
+			$this->db->insert('def_page_fields', $page_content[$key]);
+			$entry_id = $this->db->insert_id();
 
-			$this->pdb
-				->table('pages')
-				->where('id', $page_id)
-				->update(array('entry_id', $entry_id));
+			$this->db->where('id', $page_id);
+			$this->db->update('pages', array('entry_id' => $entry_id));
+
+			unset($page_id);
+			unset($entry_id);
 		}
-*/
+
 		return true;
 	}
 

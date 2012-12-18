@@ -1,20 +1,20 @@
 <?php
 
 // labels
-$lang['cat_category_label'] 			= 'Categorie';
+$lang['cat:category_label'] 			= 'Categorie';
 
 // titles
-$lang['cat_create_title'] 				= 'Voeg categorie toe';
-$lang['cat_edit_title'] 				= 'Wijzig categorie "%s"';
-$lang['cat_list_title'] 				= 'Overzicht categorie&euml;n';
+$lang['cat:create_title'] 				= 'Voeg categorie toe';
+$lang['cat:edit_title'] 				= 'Wijzig categorie "%s"';
+$lang['cat:list_title'] 				= 'Overzicht categorie&euml;n';
 
 // messages
-$lang['cat_no_categories'] 				= 'Er zijn geen categorie&euml;n.';
-$lang['cat_add_success'] 				= 'De categorie is opgeslagen.';
-$lang['cat_add_error'] 					= 'Er is een fout opgetreden.';
-$lang['cat_edit_success'] 				= 'De categorie is opgeslagen.';
-$lang['cat_edit_error'] 				= 'Er is een fout opgetreden.';
-$lang['cat_mass_delete_error'] 			= 'Er is een fout opgetreden bij het verwijderen van categorie "%s".';
-$lang['cat_mass_delete_success']		= '%s categori&euml;n van de %s zijn verwijderd.';
-$lang['cat_no_select_error'] 			= 'U moet eerst een categorie selecteren.';
-$lang['cat_already_exist_error']		= 'Een categorie met de naam "%s" bestaat al.';
+$lang['cat:no_categories'] 				= 'Er zijn geen categorie&euml;n.';
+$lang['cat:add_success'] 				= 'De categorie is opgeslagen.';
+$lang['cat:add_error'] 					= 'Er is een fout opgetreden.';
+$lang['cat:edit_success'] 				= 'De categorie is opgeslagen.';
+$lang['cat:edit_error'] 				= 'Er is een fout opgetreden.';
+$lang['cat:mass_delete_error'] 			= 'Er is een fout opgetreden bij het verwijderen van categorie "%s".';
+$lang['cat:mass_delete_success']		= '%s categori&euml;n van de %s zijn verwijderd.';
+$lang['cat:no_select_error'] 			= 'U moet eerst een categorie selecteren.';
+$lang['cat:already_exist_error']		= 'Een categorie met de naam "%s" bestaat al.';

@@ -697,7 +697,7 @@ jQuery(function($){
 				pyro.files.current_level = folder_id;
 
 				// remove the old breadcrumbs from the title
-				$('section.title').find('.folder-crumb').remove();
+				$('#file-breadcrumbs').find('.folder-crumb').remove();
 
 				// grab all the data for the current folder
 				current = $(window).data('folder_'+folder_id);
@@ -705,7 +705,7 @@ jQuery(function($){
 
 				// build all the parent crumbs in reverse order starting with current
 				while(typeof(current) !== 'undefined') {
-					$('section.title #crumb-root').after('<span class="folder-crumb"> &nbsp;/&nbsp; <a data-id="'+current.id+'" href="#">'+current.name+'</a></span>');
+					$('#file-breadcrumbs').find('#crumb-root').after('<span class="folder-crumb"> &nbsp;/&nbsp; <a data-id="'+current.id+'" href="#">'+current.name+'</a></span>');
 					url = current.slug + '/' + url;
 					current = $(window).data('folder_'+current.parent_id);
 				}

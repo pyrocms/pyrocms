@@ -65,42 +65,46 @@ class Module_Redirects extends Module {
 			'backend'  => true,
 			'menu'	  => 'structure',
 
-            'shortcuts' => array(
-                array(
-                    'name' => 'redirects.add_title',
-                    'uri' => 'admin/redirects/add',
-                    'class' => 'add',
-                ),
-            ),
-        );
-    }
+			'shortcuts' => array(
+				array(
+				    'name' => 'redirects:add_title',
+				    'uri' => 'admin/redirects/add',
+				    'class' => 'add',
+				),
+		    ),
+		);
+	}
 
-    public function install()
-    {
-        $schema = $this->pdb->getSchemaBuilder();
-        $schema->dropIfExists('redirects');
+	public function install()
+	{
+		$this->dbforge->drop_table('redirects');
 
-        $schema->create('redirects', function($table) {
-            $table->increments('id');
-            $table->string('from', 250);
-            $table->string('to', 250);
-            $table->integer('type')->default(302);
+		$tables = array(
+			'redirects' => array(
+				'id' => array('type' => 'int', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
+				'from' => array('type' => 'varchar', 'constraint' => 250, 'key' => 'request'),
+				'to' => array('type' => 'varchar', 'constraint' => 250,),
+				'type' => array('type' => 'int','constraint' => 3,'default' => 302),
+			),
+		);
 
-            $table->index('from', 'request');
-        });
-        
-        return true;
-    }
+		if ( ! $this->install_tables($tables))
+		{
+			return false;
+		}
 
-    public function uninstall()
-    {
-        // This is a core module, lets keep it around.
-        return false;
-    }
+		return true;
+	}
 
-    public function upgrade($old_version)
-    {
-        return true;
-    }
+	public function uninstall()
+	{
+		// This is a core module, lets keep it around.
+		return false;
+	}
+
+	public function upgrade($old_version)
+	{
+		return true;
+	}
 
 }

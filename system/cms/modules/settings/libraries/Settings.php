@@ -336,9 +336,9 @@ class Settings {
 		{
 			list($value, $key) = explode('=', $option);
 
-			if (ci()->lang->line('settings_form_option_' . $key) !== false)
+			if (ci()->lang->line('settings:form_option_' . $key) !== false)
 			{
-				$key = ci()->lang->line('settings_form_option_' . $key);
+				$key = ci()->lang->line('settings:form_option_' . $key);
 			}
 
 			$select_array[$value] = $key;

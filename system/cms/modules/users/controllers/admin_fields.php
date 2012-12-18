@@ -47,7 +47,7 @@ class Admin_fields extends Admin_Controller {
 			)
 		);
 
-		$this->template->title(lang('user_profile_fields_label'));
+		$this->template->title(lang('user:profile_fields_label'));
 
 		$this->streams->cp->assignments_table(
 								'profiles',
@@ -68,7 +68,7 @@ class Admin_fields extends Admin_Controller {
 	 */
 	public function create()
 	{
-		$extra['title'] 		= lang('streams.new_field');
+		$extra['title'] 		= lang('streams:new_field');
 		$extra['show_cancel'] 	= true;
 		$extra['cancel_uri'] 	= 'admin/users/fields';
 
@@ -87,17 +87,17 @@ class Admin_fields extends Admin_Controller {
 	{
 		if ( ! $assign_id = $this->uri->segment(5))
 		{
-			show_error(lang('streams.cannot_find_assign'));
+			show_error(lang('streams:cannot_find_assign'));
 		}
 	
 		// Tear down the assignment
 		if ( ! $this->streams->cp->teardown_assignment_field($assign_id))
 		{
-		    $this->session->set_flashdata('notice', lang('user_profile_delete_failure'));
+		    $this->session->set_flashdata('notice', lang('user:profile_delete_failure'));
 		}
 		else
 		{
-		    $this->session->set_flashdata('success', lang('user_profile_delete_success'));			
+		    $this->session->set_flashdata('success', lang('user:profile_delete_success'));			
 		}
 	
 		redirect('admin/users/fields');
@@ -115,10 +115,10 @@ class Admin_fields extends Admin_Controller {
 	{
 		if ( ! $assign_id = $this->uri->segment(5))
 		{
-			show_error(lang('streams.cannot_find_assign'));
+			show_error(lang('streams:cannot_find_assign'));
 		}
 
-		$extra['title'] 		= lang('streams.edit_field');
+		$extra['title'] 		= lang('streams:edit_field');
 		$extra['show_cancel'] 	= true;
 		$extra['cancel_uri'] 	= 'admin/users/fields';
 

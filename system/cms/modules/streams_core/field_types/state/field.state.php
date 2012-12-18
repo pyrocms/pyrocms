@@ -170,8 +170,8 @@ class Field_state
 	public function param_state_display($value = null)
 	{	
 		$options = array(
-			'full' => $this->CI->lang->line('streams.state.full'),
-			'abbr' => $this->CI->lang->line('streams.state.abbr')
+			'full' => $this->CI->lang->line('streams:state.full'),
+			'abbr' => $this->CI->lang->line('streams:state.abbr')
 		);
 	
 		return form_dropdown('state_display', $options, $value);

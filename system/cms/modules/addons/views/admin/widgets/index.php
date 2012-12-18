@@ -2,6 +2,7 @@
 	<h4><?php echo lang('addons:widgets') ?></h4>
 </section>
 <section class="item">
+<div class="content">
 <?php if ($widgets): ?>
 	<?php echo form_open(uri_string(), 'class="crud"') ?>
 	<!-- Available Widget List -->
@@ -29,9 +30,9 @@
 				<td class="align-center"><?php echo $widget->version ?></td>
 				<td class="align-center buttons buttons-small actions">
 				<?php if ($widget->enabled == '1'): ?>
-					<?php echo anchor('admin/addons/widgets/disable/' . $widget->id, lang('buttons.disable'), 'class="button disable"') ?>
+					<?php echo anchor('admin/addons/widgets/disable/' . $widget->id, lang('buttons:disable'), 'class="button disable"') ?>
 				<?php else: ?>
-					<?php echo anchor('admin/addons/widgets/enable/' . $widget->id, lang('buttons.enable'), 'class="button enable"') ?>
+					<?php echo anchor('admin/addons/widgets/enable/' . $widget->id, lang('buttons:enable'), 'class="button enable"') ?>
 				<?php endif ?>
 				</td>
 			</tr>
@@ -41,7 +42,7 @@
 	<?php echo form_close() ?>
 
 <?php else: ?>
-	<p><?php echo lang('widgets.no_available_widgets') ?></p>
+	<p><?php echo lang('widgets:no_available_widgets') ?></p>
 <?php endif ?>
-
+</div>
 </section>

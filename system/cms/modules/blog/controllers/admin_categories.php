@@ -64,7 +64,7 @@ class Admin_Categories extends Admin_Controller
 		$categories = $this->blog_categories_m->order_by('title')->limit($pagination['limit'])->get_all();
 
 		$this->template
-			->title($this->module_details['name'], lang('cat_list_title'))
+			->title($this->module_details['name'], lang('cat:list_title'))
 			->set('categories', $categories)
 			->set('pagination', $pagination)
 			->build('admin/categories/index');
@@ -85,11 +85,11 @@ class Admin_Categories extends Admin_Controller
 				// Fire an event. A new blog category has been created.
 				Events::trigger('blog_category_created', $id);
 
-				$this->session->set_flashdata('success', sprintf(lang('cat_add_success'), $this->input->post('title')));
+				$this->session->set_flashdata('success', sprintf(lang('cat:add_success'), $this->input->post('title')));
 			}
 			else
 			{
-				$this->session->set_flashdata('error', lang('cat_add_error'));
+				$this->session->set_flashdata('error', lang('cat:add_error'));
 			}
 
 			redirect('admin/blog/categories');
@@ -104,7 +104,7 @@ class Admin_Categories extends Admin_Controller
 		}
 
 		$this->template
-			->title($this->module_details['name'], lang('cat_create_title'))
+			->title($this->module_details['name'], lang('cat:create_title'))
 			->set('category', $category)
 			->set('mode', 'create')
 			->append_js('module::blog_category_form.js')
@@ -130,8 +130,8 @@ class Admin_Categories extends Admin_Controller
 		if ($this->form_validation->run())
 		{
 			$this->blog_categories_m->update($id, $this->input->post())
-				? $this->session->set_flashdata('success', sprintf(lang('cat_edit_success'), $this->input->post('title')))
-				: $this->session->set_flashdata('error', lang('cat_edit_error'));
+				? $this->session->set_flashdata('success', sprintf(lang('cat:edit_success'), $this->input->post('title')))
+				: $this->session->set_flashdata('error', lang('cat:edit_error'));
 
 			// Fire an event. A blog category is being updated.
 			Events::trigger('blog_category_updated', $id);
@@ -149,7 +149,7 @@ class Admin_Categories extends Admin_Controller
 		}
 
 		$this->template
-			->title($this->module_details['name'], sprintf(lang('cat_edit_title'), $category->title))
+			->title($this->module_details['name'], sprintf(lang('cat:edit_title'), $category->title))
 			->set('category', $category)
 			->set('mode', 'edit')
 			->append_js('module::blog_category_form.js')
@@ -180,14 +180,14 @@ class Admin_Categories extends Admin_Controller
 				}
 				else
 				{
-					$this->session->set_flashdata('error', sprintf(lang('cat_mass_delete_error'), $id));
+					$this->session->set_flashdata('error', sprintf(lang('cat:mass_delete_error'), $id));
 				}
 				$to_delete++;
 			}
 
 			if ($deleted > 0)
 			{
-				$this->session->set_flashdata('success', sprintf(lang('cat_mass_delete_success'), $deleted, $to_delete));
+				$this->session->set_flashdata('success', sprintf(lang('cat:mass_delete_success'), $deleted, $to_delete));
 			}
 
 			// Fire an event. One or more categories have been deleted.
@@ -195,7 +195,7 @@ class Admin_Categories extends Admin_Controller
 		}
 		else
 		{
-			$this->session->set_flashdata('error', lang('cat_no_select_error'));
+			$this->session->set_flashdata('error', lang('cat:no_select_error'));
 		}
 
 		redirect('admin/blog/categories/index');
@@ -212,7 +212,7 @@ class Admin_Categories extends Admin_Controller
 	{
 		if ($this->blog_categories_m->check_title($title, $this->input->post('id')))
 		{
-			$this->form_validation->set_message('_check_title', sprintf(lang('cat_already_exist_error'), $title));
+			$this->form_validation->set_message('_check_title', sprintf(lang('cat:already_exist_error'), $title));
 
 			return false;
 		}
@@ -231,7 +231,7 @@ class Admin_Categories extends Admin_Controller
 	{
 		if ($this->blog_categories_m->check_title($slug, $this->input->post('id')))
 		{
-			$this->form_validation->set_message('_check_slug', sprintf(lang('cat_already_exist_error'), $slug));
+			$this->form_validation->set_message('_check_slug', sprintf(lang('cat:already_exist_error'), $slug));
 
 			return false;
 		}
@@ -263,11 +263,11 @@ class Admin_Categories extends Admin_Controller
 
 			if ($id > 0)
 			{
-				$message = sprintf(lang('cat_add_success'), $this->input->post('title', true));
+				$message = sprintf(lang('cat:add_success'), $this->input->post('title', true));
 			}
 			else
 			{
-				$message = lang('cat_add_error');
+				$message = lang('cat:add_error');
 			}
 
 			return $this->template->build_json(array(

@@ -193,8 +193,6 @@ class Theme_Pyrocms extends Theme {
 	 * Get RSS Feed
 	 *
 	 * Fetch articles for whatever RSS feed is in settings
-	 *
-	 * @return	void
 	 */
 	public function get_rss_feed()
 	{
@@ -212,8 +210,6 @@ class Theme_Pyrocms extends Theme {
 	 * Get Recent Comments
 	 *
 	 * Fetch recent comments and work out what they attach to.
-	 *
-	 * @return	void
 	 */
 	public function get_recent_comments()
 	{

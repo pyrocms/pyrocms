@@ -19,7 +19,7 @@
 			</li>
 
 			<li class="one_quarter last">
-				<?php echo anchor(current_url() . '#', lang('buttons.cancel'), 'class="alignright button red"') ?>
+				<?php echo anchor(current_url() . '#', lang('buttons:cancel'), 'class="alignright button red"') ?>
 			</li>
 		</ul>
 	<?php echo form_close() ?>

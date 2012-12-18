@@ -139,18 +139,18 @@ class Admin extends Admin_Controller
 				// Fire an event. A new email template has been created.
 				Events::trigger('email_template_created', $id);
 
-				$this->session->set_flashdata('success', sprintf(lang('templates.tmpl_create_success'), $data['name']));
+				$this->session->set_flashdata('success', sprintf(lang('templates:tmpl_create_success'), $data['name']));
 			}
 			else
 			{
-				$this->session->set_flashdata('error', sprintf(lang('templates.tmpl_create_error'), $data['name']));
+				$this->session->set_flashdata('error', sprintf(lang('templates:tmpl_create_error'), $data['name']));
 			}
 			redirect('admin/templates');
 		}
 
 		$this->template
 			->set('email_template', $email_template)
-			->title(lang('templates.create_title'))
+			->title(lang('templates:create_title'))
 			->append_metadata($this->load->view('fragments/wysiwyg', array(), true))
 			->build('admin/form');
 	}
@@ -199,11 +199,11 @@ class Admin extends Admin_Controller
 				// Fire an event. An email template has been updated.
 				Events::trigger('email_template_updated', $id);
 
-				$this->session->set_flashdata('success', sprintf(lang('templates.tmpl_edit_success'), $email_template->name));
+				$this->session->set_flashdata('success', sprintf(lang('templates:tmpl_edit_success'), $email_template->name));
 			}
 			else
 			{
-				$this->session->set_flashdata('error', sprintf(lang('templates.tmpl_edit_error'), $email_template->name));
+				$this->session->set_flashdata('error', sprintf(lang('templates:tmpl_edit_error'), $email_template->name));
 			}
 			redirect('admin/templates');
 		}
@@ -211,7 +211,7 @@ class Admin extends Admin_Controller
 
 		$this->template
 			->set('email_template', $email_template)
-			->title(lang('templates.edit_title'))
+			->title(lang('templates:edit_title'))
 			->append_metadata($this->load->view('fragments/wysiwyg', array(), true))
 			->build('admin/form');
 	}
@@ -241,11 +241,11 @@ class Admin extends Admin_Controller
 				}
 				elseif ($this->email_templates_m->is_default($id))
 				{
-					$this->session->set_flashdata('error', sprintf(lang('templates.default_delete_error'), $id));
+					$this->session->set_flashdata('error', sprintf(lang('templates:default_delete_error'), $id));
 				}
 				else
 				{
-					$this->session->set_flashdata('error', sprintf(lang('templates.mass_delete_error'), $id));
+					$this->session->set_flashdata('error', sprintf(lang('templates:mass_delete_error'), $id));
 				}
 				$to_delete++;
 			}
@@ -257,17 +257,17 @@ class Admin extends Admin_Controller
 					// Fire an event. An email template has been deleted.
 					Events::trigger('email_template_deleted', $id);
 
-					$this->session->set_flashdata('success', sprintf(lang('templates.mass_delete_success'), $deleted, $to_delete));
+					$this->session->set_flashdata('success', sprintf(lang('templates:mass_delete_success'), $deleted, $to_delete));
 				}
 				else
 				{
-					$this->session->set_flashdata('success', sprintf(lang('templates.single_delete_success')));
+					$this->session->set_flashdata('success', sprintf(lang('templates:single_delete_success')));
 				}
 			}
 		}
 		else
 		{
-			$this->session->set_flashdata('error', $this->lang->line('templates.no_select_error'));
+			$this->session->set_flashdata('error', $this->lang->line('templates:no_select_error'));
 		}
 
 		redirect('admin/templates');
@@ -335,12 +335,12 @@ class Admin extends Admin_Controller
 				// Fire the "created" event here also.
 				Events::trigger('email_template_created');
 
-				$this->session->set_flashdata('success', sprintf(lang('templates.tmpl_clone_success'), $copy->name));
+				$this->session->set_flashdata('success', sprintf(lang('templates:tmpl_clone_success'), $copy->name));
 				redirect('admin/templates/edit/'.$new_id);
 			}
 			else
 			{
-				$this->session->set_flashdata('error', sprintf(lang('templates.tmpl_clone_error'), $copy->name));
+				$this->session->set_flashdata('error', sprintf(lang('templates:tmpl_clone_error'), $copy->name));
 			}
 
 			redirect('admin/templates');

@@ -1,3 +1,3 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-$lang['streams.text.name'] 		= "Texte";
+$lang['streams:text.name'] 		= "Texte";

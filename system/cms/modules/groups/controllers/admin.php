@@ -29,12 +29,12 @@ class Admin extends Admin_Controller
 		$this->validation_rules = array(
 			array(
 				'field' => 'name',
-				'label' => lang('groups.name'),
+				'label' => lang('groups:name'),
 				'rules' => 'trim|required|max_length[100]'
 			),
 			array(
 				'field' => 'description',
-				'label' => lang('groups.description'),
+				'label' => lang('groups:description'),
 				'rules' => 'trim|required|max_length[250]'
 			)
 		);
@@ -71,11 +71,11 @@ class Admin extends Admin_Controller
 					// Fire an event. A new group has been created.
 					Events::trigger('group_created', $id);
 
-					$this->session->set_flashdata('success', sprintf(lang('groups.add_success'), $this->input->post('name')));
+					$this->session->set_flashdata('success', sprintf(lang('groups:add_success'), $this->input->post('name')));
 				}
 				else
 				{
-					$this->session->set_flashdata('error', sprintf(lang('groups.add_error'), $this->input->post('name')));
+					$this->session->set_flashdata('error', sprintf(lang('groups:add_error'), $this->input->post('name')));
 				}
 
 				redirect('admin/groups');
@@ -91,7 +91,7 @@ class Admin extends Admin_Controller
 		}
 
 		$this->template
-			->title($this->module_details['name'], lang('groups.add_title'))
+			->title($this->module_details['name'], lang('groups:add_title'))
 			->set('group', $group)
 			->build('admin/form');
 	}
@@ -116,7 +116,7 @@ class Admin extends Admin_Controller
 			{
 				//if they're changing description on admin or user save the old name
 				$_POST['name'] = $group->name;
-				$this->form_validation->set_rules('description', lang('groups.description'), 'trim|required|max_length[250]');
+				$this->form_validation->set_rules('description', lang('groups:description'), 'trim|required|max_length[250]');
 			}
 			else
 			{
@@ -129,11 +129,11 @@ class Admin extends Admin_Controller
 				{
 					// Fire an event. A group has been updated.
 					Events::trigger('group_updated', $id);
-					$this->session->set_flashdata('success', sprintf(lang('groups.edit_success'), $this->input->post('name')));
+					$this->session->set_flashdata('success', sprintf(lang('groups:edit_success'), $this->input->post('name')));
 				}
 				else
 				{
-					$this->session->set_flashdata('error', sprintf(lang('groups.edit_error'), $this->input->post('name')));
+					$this->session->set_flashdata('error', sprintf(lang('groups:edit_error'), $this->input->post('name')));
 				}
 
 				redirect('admin/groups');
@@ -141,7 +141,7 @@ class Admin extends Admin_Controller
 		}
 
 		$this->template
-			->title($this->module_details['name'], sprintf(lang('groups.edit_title'), $group->name))
+			->title($this->module_details['name'], sprintf(lang('groups:edit_title'), $group->name))
 			->set('group', $group)
 			->build('admin/form');
 	}
@@ -158,11 +158,11 @@ class Admin extends Admin_Controller
 			// Fire an event. A group has been deleted.
 			Events::trigger('group_deleted', $id);
 
-			$this->session->set_flashdata('success', lang('groups.delete_success'));
+			$this->session->set_flashdata('success', lang('groups:delete_success'));
 		}
 		else
 		{
-			$this->session->set_flashdata('error', lang('groups.delete_error'));
+			$this->session->set_flashdata('error', lang('groups:delete_error'));
 		}
 
 		redirect('admin/groups');

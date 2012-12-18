@@ -75,7 +75,7 @@ class Field_user
 		
 		$db_obj = $this->CI->db->get('groups');
 		
-		$groups = array('no' => lang('streams.user.dont_restrict_groups'));
+		$groups = array('no' => lang('streams:user.dont_restrict_groups'));
 		
 		$groups_raw = $db_obj->result();
 		

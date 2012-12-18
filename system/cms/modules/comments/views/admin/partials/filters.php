@@ -18,7 +18,7 @@
             	<?php echo form_dropdown('module_slug', array(0 => lang('global:select-all')) + $module_list) ?>
         	</li>
 	
-			<li><?php echo anchor(current_url() . '#', lang('buttons.cancel'), 'class="cancel"') ?></li>
+			<li><?php echo anchor(current_url() . '#', lang('buttons:cancel'), 'class="cancel"') ?></li>
 		</ul>
 		
 		<?php echo form_close() ?>

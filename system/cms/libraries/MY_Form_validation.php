@@ -454,7 +454,7 @@ class MY_Form_validation extends CI_Form_validation
 			}
 			else
 			{
-				$this->set_message('streams_unique', lang('streams.field_unique'));
+				$this->set_message('streams_unique', lang('streams:field_unique'));
 				return false;
 			}
 		}
@@ -488,7 +488,7 @@ class MY_Form_validation extends CI_Form_validation
 			else
 			{
 				// Looks like the end of the road.
-				$this->set_message('streams_unique', lang('streams.field_unique'));
+				$this->set_message('streams_unique', lang('streams:field_unique'));
 				return false;
 			}
 		}
@@ -574,7 +574,7 @@ class MY_Form_validation extends CI_Form_validation
 		}			
 		else
 		{
-			$this->set_message('streams_file_required', lang('streams.field_is_required'));
+			$this->set_message('streams_file_required', lang('streams:field_is_required'));
 			return false;
 		}
 
@@ -625,7 +625,7 @@ class MY_Form_validation extends CI_Form_validation
 		{
 			if ($existing > 0)
 			{
-				$this->set_message('streams_unique_field_slug', lang('streams.field_slug_not_unique'));
+				$this->set_message('streams_unique_field_slug', lang('streams:field_slug_not_unique'));
 				return false;
 			}	
 		}
@@ -638,7 +638,7 @@ class MY_Form_validation extends CI_Form_validation
 				// Better make sure it doesn't exist.
 				if ($existing != 0)
 				{
-					$this->set_message('streams_unique_field_slug', lang('streams.field_slug_not_unique'));
+					$this->set_message('streams_unique_field_slug', lang('streams:field_slug_not_unique'));
 					return false;
 				}			
 			}
@@ -668,7 +668,7 @@ class MY_Form_validation extends CI_Form_validation
 		{
 			if ($db_obj->num_rows() > 0)
 			{
-				$this->set_message('stream_unique', lang('streams.stream_slug_not_unique'));
+				$this->set_message('stream_unique', lang('streams:stream_slug_not_unique'));
 				return false;	
 			}
 		}	
@@ -682,7 +682,7 @@ class MY_Form_validation extends CI_Form_validation
 			{
 				if ($db_obj->num_rows() != 0)
 				{
-					$this->set_message('stream_unique', lang('streams.stream_slug_not_unique'));
+					$this->set_message('stream_unique', lang('streams:stream_slug_not_unique'));
 					return false;
 				}
 			}
@@ -712,7 +712,7 @@ class MY_Form_validation extends CI_Form_validation
 		// See if word is MySQL Reserved Word
 		if (in_array(strtoupper($string), $this->CI->config->item('streams:reserved')))
 		{
-			$this->set_message('streams_slug_safe', lang('streams.not_mysql_safe_word'));
+			$this->set_message('streams_slug_safe', lang('streams:not_mysql_safe_word'));
 			return false;
 		}
 
@@ -720,7 +720,7 @@ class MY_Form_validation extends CI_Form_validation
 		// the string to make sure it can be used as a PHP/Lex variable.
 		if ( ! preg_match('/^[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*$/', $string))
 		{
-			$this->set_message('streams_slug_safe', lang('streams.not_mysql_safe_characters'));
+			$this->set_message('streams_slug_safe', lang('streams:not_mysql_safe_characters'));
 			return false;
 		}
 		
@@ -739,7 +739,7 @@ class MY_Form_validation extends CI_Form_validation
 	{
 		if ($string == '-')
 		{
-			$this->set_message('type_valid', lang('streams.type_not_valid'));
+			$this->set_message('type_valid', lang('streams:type_not_valid'));
 			return false;
 		}	
 		

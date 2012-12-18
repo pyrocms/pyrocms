@@ -3,5 +3,7 @@
 </section>
 
 <section class="item">
-	<?php echo $content; ?>
+	<div class="content">
+		<?php echo $content; ?>
+	</div>
 </section>

@@ -8,4 +8,3 @@ $lang['error_404_message'] = 'Vi kan ikke finde den ønskede side. Klik venligst
 $lang['error_invalid_db_group'] = 'Databasen forsøger at bruge en ugyldig konfigurationsgruppe "%s".';
 
 /* End of file errors_lang.php */
-/* Location: ./system/cms/language/english/errors_lang.php */
