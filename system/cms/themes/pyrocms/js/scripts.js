@@ -456,34 +456,70 @@ jQuery(function($) {
 
 	//functions for codemirror
 	$('.html_editor').each(function() {
-		CodeMirror.fromTextArea(this, {
+		var editor = CodeMirror.fromTextArea(this, {
 				mode: 'text/html',
 				tabMode: 'indent',
 				lineNumbers: true
 		});
+		var hlLine = editor.addLineClass(0, "background", "activeline");
+		editor.on("cursorActivity", function() {
+		  var cur = editor.getLineHandle(editor.getCursor().line);
+		  if (cur != hlLine) {
+		    editor.removeLineClass(hlLine, "background", "activeline");
+		    hlLine = editor.addLineClass(cur, "background", "activeline");
+		  }
+		});
+
 	});
 
 	$('#html_editor').each(function() {
-		CodeMirror.fromTextArea(this, {
+		var editor = CodeMirror.fromTextArea(this, {
 				mode: 'text/html',
 				tabMode: 'indent',
 				lineNumbers: true
 		});
+		var hlLine = editor.addLineClass(0, "background", "activeline");
+		editor.on("cursorActivity", function() {
+		  var cur = editor.getLineHandle(editor.getCursor().line);
+		  if (cur != hlLine) {
+		    editor.removeLineClass(hlLine, "background", "activeline");
+		    hlLine = editor.addLineClass(cur, "background", "activeline");
+		  }
+		});
+
 	});
 
 	$('.css_editor').each(function() {
-		CodeMirror.fromTextArea(this, {
+		var editor = CodeMirror.fromTextArea(this, {
 				mode: 'css',
 				tabMode: 'indent',
 				lineNumbers: true
 		});
+		var hlLine = editor.addLineClass(0, "background", "activeline");
+		editor.on("cursorActivity", function() {
+		  var cur = editor.getLineHandle(editor.getCursor().line);
+		  if (cur != hlLine) {
+		    editor.removeLineClass(hlLine, "background", "activeline");
+		    hlLine = editor.addLineClass(cur, "background", "activeline");
+		  }
+		});
+
 	});
 
 	$('.js_editor').each(function() {
-		CodeMirror.fromTextArea(this, {
+		var editor = CodeMirror.fromTextArea(this, {
 				mode: 'javascript',
 				tabMode: 'indent',
 				lineNumbers: true
 		});
+		var hlLine = editor.addLineClass(0, "background", "activeline");
+		editor.on("cursorActivity", function() {
+		  var cur = editor.getLineHandle(editor.getCursor().line);
+		  if (cur != hlLine) {
+		    editor.removeLineClass(hlLine, "background", "activeline");
+		    hlLine = editor.addLineClass(cur, "background", "activeline");
+		  }
+		});
+
 	});
 });

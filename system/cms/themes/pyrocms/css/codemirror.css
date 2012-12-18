@@ -14,6 +14,7 @@
 .CodeMirror pre{
  box-shadow: 0 0;
 }
+.CodeMirror .activeline {background: #e8f2ff !important;}
 .CodeMirror-scroll {
   /* Set scrolling behaviour here */
   overflow: auto;
