@@ -136,7 +136,7 @@ class Settings {
 	 *
 	 * @return	array
 	 */
-	public static function get_all()
+	public function get_all()
 	{
 		if (self::$cache)
 		{
@@ -161,7 +161,7 @@ class Settings {
 	 * @param	array	$setting
 	 * @return	int
 	 */
-	public static function add($setting)
+	public function add($setting)
 	{
 		if ( ! self::_check_format($setting))
 		{
@@ -178,7 +178,7 @@ class Settings {
 	 * @param	string	$name
 	 * @return	bool
 	 */
-	public static function delete($name)
+	public function delete($name)
 	{
 		return ci()->settings_m->delete_by(array('slug' => $name));
 	}
@@ -193,7 +193,7 @@ class Settings {
 	 * @param	object	$setting
 	 * @return	string
 	 */
-	public static function form_control(&$setting)
+	public function form_control(&$setting)
 	{
 		if ($setting->options)
 		{
@@ -335,9 +335,9 @@ class Settings {
 		{
 			list($value, $name) = explode('=', $option);
 
-			if (ci()->lang->line('settings_form_option_' . $name) !== false)
+			if (ci()->lang->line('settings:form_option_' . $name) !== false)
 			{
-				$name = ci()->lang->line('settings_form_option_' . $name);
+				$name = ci()->lang->line('settings:form_option_' . $name);
 			}
 
 			$select_array[$value] = $name;
