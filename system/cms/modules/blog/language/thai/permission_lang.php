@@ -11,6 +11,6 @@
 **/
 
 // Blog Permissions
-$lang['blog.role_put_live']		= 'วางบทบทความไลฟ์';
-$lang['blog.role_edit_live']	= 'แก้ไขบทความไลฟ์';
-$lang['blog.role_delete_live'] 	= 'ลบบทความไลฟ์';
+$lang['blog:role_put_live']		= 'วางบทบทความไลฟ์';
+$lang['blog:role_edit_live']	= 'แก้ไขบทความไลฟ์';
+$lang['blog:role_delete_live'] 	= 'ลบบทความไลฟ์';

@@ -337,9 +337,9 @@ class Settings {
 		{
 			list($value, $name) = explode('=', $option);
 
-			if ($this->ci->lang->line('settings_form_option_' . $name) !== false)
+			if ($this->ci->lang->line('settings:form_option_' . $name) !== false)
 			{
-				$name = $this->ci->lang->line('settings_form_option_' . $name);
+				$name = $this->ci->lang->line('settings:form_option_' . $name);
 			}
 
 			$select_array[$value] = $name;

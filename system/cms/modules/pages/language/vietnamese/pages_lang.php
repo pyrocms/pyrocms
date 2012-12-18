@@ -52,18 +52,18 @@ $lang['pages:types_list_title']         = 'Types'; #translate
 
 // messages
 $lang['pages:no_pages']                 = 'Không có trang nào.';
-$lang['pages_create_success']           = 'Trang đã được tạo.';
-$lang['pages_create_error']             = 'Trang chưa được tạo.';
-$lang['pages_page_not_found_error']     = 'Trang không tồn tại.';
-$lang['pages_edit_success']             = 'Trang "%s" đã được lưu.';
-$lang['pages_delete_home_error']        = 'Bạn không thể xóa trang chủ!';
-$lang['pages_delete_success']           = 'Trang #%s đã được xóa.';
-$lang['pages_mass_delete_success']      = '%s trang đã được xóa.';
-$lang['pages_delete_none_notice']       = 'Không có trang nào được xóa.';
-$lang['pages_page_already_exist_error'] = 'Trang với đường dẫn URL "%s" đã tồn tại trong %s.';
-$lang['pages_parent_not_exist_error']   = 'Trang cha được lựa chọn không tồn tại.';
-$lang['pages_chunk_slug_length']        = 'Page Chunk slugs may be no more than 30 characters in length.'; #translate
-$lang['pages_root_folder']              = 'cấp cao nhất';
+$lang['pages:create_success']           = 'Trang đã được tạo.';
+$lang['pages:create_error']             = 'Trang chưa được tạo.';
+$lang['pages:page_not_found_error']     = 'Trang không tồn tại.';
+$lang['pages:edit_success']             = 'Trang "%s" đã được lưu.';
+$lang['pages:delete_home_error']        = 'Bạn không thể xóa trang chủ!';
+$lang['pages:delete_success']           = 'Trang #%s đã được xóa.';
+$lang['pages:mass_delete_success']      = '%s trang đã được xóa.';
+$lang['pages:delete_none_notice']       = 'Không có trang nào được xóa.';
+$lang['pages:page_already_exist_error'] = 'Trang với đường dẫn URL "%s" đã tồn tại trong %s.';
+$lang['pages:parent_not_exist_error']   = 'Trang cha được lựa chọn không tồn tại.';
+$lang['pages:chunk_slug_length']        = 'Page Chunk slugs may be no more than 30 characters in length.'; #translate
+$lang['pages:root_folder']              = 'cấp cao nhất';
 
 $lang['pages:tree_explanation_title']   = 'Explanation'; #translate
 $lang['pages:tree_explanation']         = 'Danh sách bên trái hiển thị trang trên website của bạn. Bấm vào trang để hiển thị các trang con. Bạn có thể kéo thả để sắp xếp; rê ngang để tạo trang con. Khi bấm vào trang bạn sẽ xem được các thông tin về trang tại đây.';

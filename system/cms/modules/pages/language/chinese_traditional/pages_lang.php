@@ -52,18 +52,18 @@ $lang['pages:types_list_title']         = '頁面佈局列表';
 
 // messages
 $lang['pages:no_pages']                 = '沒有頁面';
-$lang['pages_create_success']           = '此頁已經新增';
-$lang['pages_create_error']             = '那一頁沒有被新增';
-$lang['pages_page_not_found_error']     = '那一頁不存在';
-$lang['pages_edit_success']             = '此頁面 "%s" 已經儲存。';
-$lang['pages_delete_home_error']        = '首頁不能被刪除！';
-$lang['pages_delete_success']           = '頁面 #%s 已經被刪除。';
-$lang['pages_mass_delete_success']      = '%s 個頁面已經刪除。';
-$lang['pages_delete_none_notice']       = '沒有頁面被刪除';
-$lang['pages_page_already_exist_error'] = '與 "%s" 相同網址的頁面已經存在 %s 當中。';
-$lang['pages_parent_not_exist_error']   = '您所選擇的上級頁面不存在。';
-$lang['pages_chunk_slug_length']        = '區塊縮略名(slug)不能超過30個字元。';
-$lang['pages_root_folder']              = '最上層';
+$lang['pages:create_success']           = '此頁已經新增';
+$lang['pages:create_error']             = '那一頁沒有被新增';
+$lang['pages:page_not_found_error']     = '那一頁不存在';
+$lang['pages:edit_success']             = '此頁面 "%s" 已經儲存。';
+$lang['pages:delete_home_error']        = '首頁不能被刪除！';
+$lang['pages:delete_success']           = '頁面 #%s 已經被刪除。';
+$lang['pages:mass_delete_success']      = '%s 個頁面已經刪除。';
+$lang['pages:delete_none_notice']       = '沒有頁面被刪除';
+$lang['pages:page_already_exist_error'] = '與 "%s" 相同網址的頁面已經存在 %s 當中。';
+$lang['pages:parent_not_exist_error']   = '您所選擇的上級頁面不存在。';
+$lang['pages:chunk_slug_length']        = '區塊縮略名(slug)不能超過30個字元。';
+$lang['pages:root_folder']              = '最上層';
 
 $lang['pages:tree_explanation_title']   = '說明';
 $lang['pages:tree_explanation']         = '左側表列了您網站中的自定頁面。點選頁面旁的 "+" 圖像即可顯示其下層頁面。當您點選了某頁面項目，您將會在此欄位裡看到關於該頁的有用資訊。';

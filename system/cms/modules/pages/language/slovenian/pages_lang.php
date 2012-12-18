@@ -52,18 +52,18 @@ $lang['pages:types_list_title']          = 'Seznam postavitev strani';
 
 // messages
 $lang['pages:no_pages']                 = 'Ni strani.';
-$lang['pages_create_success']           = 'Stran je bila ustvarjena.';
-$lang['pages_create_error']             = 'Ta stran ni bila ustvarjena.';
-$lang['pages_page_not_found_error']     = 'Ta stran ne obstaja.';
-$lang['pages_edit_success']             = 'Stran "%s" je bila shranjena.';
-$lang['pages_delete_home_error']        = 'Ne morete odstraniti prve strani!';
-$lang['pages_delete_success']           = 'Stran #%s je bila odstranjena.';
-$lang['pages_mass_delete_success']      = '%s strani so bile izbrisane.';
-$lang['pages_delete_none_notice']       = 'Nobena stran ni bila izbrisana.';
-$lang['pages_page_already_exist_error'] = 'Stran s URL-jem "%s" že obstaja v %s.';
-$lang['pages_parent_not_exist_error']   = 'Glavna stran katero ste izbrali ne obstaja.';
-$lang['pages_chunk_slug_length']        = 'kratko ime Koščka strani ne more biti daljše od 30 zankov.';
-$lang['pages_root_folder']              = 'glavna mapa';
+$lang['pages:create_success']           = 'Stran je bila ustvarjena.';
+$lang['pages:create_error']             = 'Ta stran ni bila ustvarjena.';
+$lang['pages:page_not_found_error']     = 'Ta stran ne obstaja.';
+$lang['pages:edit_success']             = 'Stran "%s" je bila shranjena.';
+$lang['pages:delete_home_error']        = 'Ne morete odstraniti prve strani!';
+$lang['pages:delete_success']           = 'Stran #%s je bila odstranjena.';
+$lang['pages:mass_delete_success']      = '%s strani so bile izbrisane.';
+$lang['pages:delete_none_notice']       = 'Nobena stran ni bila izbrisana.';
+$lang['pages:page_already_exist_error'] = 'Stran s URL-jem "%s" že obstaja v %s.';
+$lang['pages:parent_not_exist_error']   = 'Glavna stran katero ste izbrali ne obstaja.';
+$lang['pages:chunk_slug_length']        = 'kratko ime Koščka strani ne more biti daljše od 30 zankov.';
+$lang['pages:root_folder']              = 'glavna mapa';
 
 $lang['pages:tree_explanation_title']   = 'Pojasnitev';
 $lang['pages:tree_explanation']         = 'Seznam na levi predstavlja strani na vaši spletni strani. Kliknite "+" ikono zraven strani da se prikaže seznam podstrani. Če kliknete na stran se vam bo tukaj prikazal seznam vse uporabnih informacij in možnosti.';

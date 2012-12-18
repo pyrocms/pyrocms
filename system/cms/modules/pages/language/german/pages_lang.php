@@ -52,18 +52,18 @@ $lang['pages:types_list_title']         = 'Seitentypes auflisten';
 
 // messages
 $lang['pages:no_pages']                 = 'Es existieren keine Seiten.';
-$lang['pages_create_success']           = 'Seite wurde erstellt.';
-$lang['pages_create_error']             = 'Ein Fehler ist aufgetreten. Diese Seite wurde nicht erstellt.';
-$lang['pages_page_not_found_error']     = 'Diese Seite existiert nicht.';
-$lang['pages_edit_success']             = 'Seite "%s" wurde gesichert.';
-$lang['pages_delete_home_error']        = 'Hauptseite kann nicht gel&ouml;scht werden!';
-$lang['pages_delete_success']           = 'Seite "%s" wurde gel&ouml;scht.';
-$lang['pages_mass_delete_success']      = '%s Seiten wurden gel&ouml;scht.';
-$lang['pages_delete_none_notice']       = 'Keine Seiten wurden gel&ouml;scht.';
-$lang['pages_page_already_exist_error'] = 'Es existiert bereits eine Seite mit der URL "%s" in %s.';
-$lang['pages_parent_not_exist_error']   = 'Die ausgew&auml;hlte &uuml;bergeordnete Seite existiert nicht.';//there is no german word for 'parent' (in this context at least)
-$lang['pages_chunk_slug_length']        = 'Slugs von Seiten-Fragmenten dürfen nicht länger als 30 Zeichen sein.';
-$lang['pages_root_folder']              = 'zur obersten Ebene';
+$lang['pages:create_success']           = 'Seite wurde erstellt.';
+$lang['pages:create_error']             = 'Ein Fehler ist aufgetreten. Diese Seite wurde nicht erstellt.';
+$lang['pages:page_not_found_error']     = 'Diese Seite existiert nicht.';
+$lang['pages:edit_success']             = 'Seite "%s" wurde gesichert.';
+$lang['pages:delete_home_error']        = 'Hauptseite kann nicht gel&ouml;scht werden!';
+$lang['pages:delete_success']           = 'Seite "%s" wurde gel&ouml;scht.';
+$lang['pages:mass_delete_success']      = '%s Seiten wurden gel&ouml;scht.';
+$lang['pages:delete_none_notice']       = 'Keine Seiten wurden gel&ouml;scht.';
+$lang['pages:page_already_exist_error'] = 'Es existiert bereits eine Seite mit der URL "%s" in %s.';
+$lang['pages:parent_not_exist_error']   = 'Die ausgew&auml;hlte &uuml;bergeordnete Seite existiert nicht.';//there is no german word for 'parent' (in this context at least)
+$lang['pages:chunk_slug_length']        = 'Slugs von Seiten-Fragmenten dürfen nicht länger als 30 Zeichen sein.';
+$lang['pages:root_folder']              = 'zur obersten Ebene';
 
 $lang['pages:tree_explanation_title']   = 'Erklärung';
 $lang['pages:tree_explanation']         = 'Die Liste zur Linken repr&auml;sentiert Seiten auf deiner Webseite. W&auml;hle das "+" Icon neben der Seite um ihre untergeordneten Seiten anzuzeigen. Durch ausw&auml;hlen einer Seite erh&auml;ltst du Informationen &uuml;ber die ausgew&auml;hlte Seite.';

@@ -1,6 +1,6 @@
 <?php if ($this->controller === 'admin_areas' and ! $this->input->is_ajax_request()): ?>
 	<section class="title">
-		<h4><?php echo lang('widgets.areas') ?></h4>
+		<h4><?php echo lang('widgets:areas') ?></h4>
 	</section>
 
 	<section class="item">

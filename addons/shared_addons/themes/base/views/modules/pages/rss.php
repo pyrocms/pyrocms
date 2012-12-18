@@ -13,7 +13,7 @@
 				<title><?php echo $item->title;?></title>
 				<link><?php echo $item->link;?></link>
 				<description><![CDATA[<?php echo $item->description;?>]]></description>
-				<?php //'<author>< ? = lang('blog_author_name_label'); ? ></author>'; ?>
+				<?php //'<author>< ? = lang('blog:author_name_label'); ? ></author>'; ?>
 				<pubDate><?php echo $item->date;?></pubDate>
 				<guid><?php echo $item->guid;?></guid>
 			</item>

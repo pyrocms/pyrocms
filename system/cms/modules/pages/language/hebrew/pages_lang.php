@@ -50,18 +50,18 @@ $lang['pages:types_list_title']         = 'רשימת page types';
 
 // messages
 $lang['pages:no_pages']                 = 'אין עמודים.';
-$lang['pages_create_success']           = 'הדף נוצר בהצלחה.';
-$lang['pages_create_error']             = 'הדף לא נוצר.';
-$lang['pages_page_not_found_error']     = 'הדף לא קיים.';
-$lang['pages_edit_success']             = 'הדף "%s" נשמר בהצלחה.';
-$lang['pages_delete_home_error']        = 'אין למחוק את דף הבית!';
-$lang['pages_delete_success']           = 'הדף #%s נמחק בהצלחה.';
-$lang['pages_mass_delete_success']      = '%s דפים נמחקו בהצלחה.';
-$lang['pages_delete_none_notice']       = 'אף דף לא נמחק.';
-$lang['pages_page_already_exist_error'] = 'דף עם  URL "%s" כבר קיים ב %s.';
-$lang['pages_parent_not_exist_error']   = 'עמוד האב שבחרתם אינו קיים.';
-$lang['pages_chunk_slug_length']        = 'Page Chunk slugs may be no more than 30 characters in length.'; #translate
-$lang['pages_root_folder']              = 'the top level'; #translate
+$lang['pages:create_success']           = 'הדף נוצר בהצלחה.';
+$lang['pages:create_error']             = 'הדף לא נוצר.';
+$lang['pages:page_not_found_error']     = 'הדף לא קיים.';
+$lang['pages:edit_success']             = 'הדף "%s" נשמר בהצלחה.';
+$lang['pages:delete_home_error']        = 'אין למחוק את דף הבית!';
+$lang['pages:delete_success']           = 'הדף #%s נמחק בהצלחה.';
+$lang['pages:mass_delete_success']      = '%s דפים נמחקו בהצלחה.';
+$lang['pages:delete_none_notice']       = 'אף דף לא נמחק.';
+$lang['pages:page_already_exist_error'] = 'דף עם  URL "%s" כבר קיים ב %s.';
+$lang['pages:parent_not_exist_error']   = 'עמוד האב שבחרתם אינו קיים.';
+$lang['pages:chunk_slug_length']        = 'Page Chunk slugs may be no more than 30 characters in length.'; #translate
+$lang['pages:root_folder']              = 'the top level'; #translate
 
 $lang['pages:tree_explanation_title']   = 'Explanation'; #translate
 $lang['pages:tree_explanation']         = 'הרשימה בצד שמאל מייצגת דפים באתר האינטרנט שלך. Click the page item to show its children. אתה יכול לגרור עמודים כדי לסדר אותם; גרור אופקית כדי להפוך אותו לילד. בעת לחיצה על הטקסט בדף תוכלו לראות כל מיני מידע שימושי בתיבה זו.';

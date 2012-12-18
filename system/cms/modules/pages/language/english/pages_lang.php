@@ -52,18 +52,18 @@ $lang['pages:types_list_title']         = 'Types';
 
 // messages
 $lang['pages:no_pages']                 = 'There are no pages.';
-$lang['pages_create_success']           = 'The page was created.';
-$lang['pages_create_error']             = 'That page has not been created.';
-$lang['pages_page_not_found_error']     = 'That page does not exist.';
-$lang['pages_edit_success']             = 'The page "%s" was saved.';
-$lang['pages_delete_home_error']        = 'You can not delete the home page!';
-$lang['pages_delete_success']           = 'Page #%s has been deleted.';
-$lang['pages_mass_delete_success']      = '%s pages have been deleted.';
-$lang['pages_delete_none_notice']       = 'No pages were deleted.';
-$lang['pages_page_already_exist_error'] = 'A page with the URL "%s" already exists in %s.';
-$lang['pages_parent_not_exist_error']   = 'The parent page you have selected does not exist.';
-$lang['pages_chunk_slug_length']        = 'Page Chunk slugs may be no more than 30 characters in length.';
-$lang['pages_root_folder']              = 'the top level';
+$lang['pages:create_success']           = 'The page was created.';
+$lang['pages:create_error']             = 'That page has not been created.';
+$lang['pages:page_not_found_error']     = 'That page does not exist.';
+$lang['pages:edit_success']             = 'The page "%s" was saved.';
+$lang['pages:delete_home_error']        = 'You can not delete the home page!';
+$lang['pages:delete_success']           = 'Page #%s has been deleted.';
+$lang['pages:mass_delete_success']      = '%s pages have been deleted.';
+$lang['pages:delete_none_notice']       = 'No pages were deleted.';
+$lang['pages:page_already_exist_error'] = 'A page with the URL "%s" already exists in %s.';
+$lang['pages:parent_not_exist_error']   = 'The parent page you have selected does not exist.';
+$lang['pages:chunk_slug_length']        = 'Page Chunk slugs may be no more than 30 characters in length.';
+$lang['pages:root_folder']              = 'the top level';
 
 $lang['pages:tree_explanation_title']   = 'Explanation';
 $lang['pages:tree_explanation']         = 'The list on the left represents pages on your website. Click the page item to show its children. You may drag pages to order them; drag horizontally to make it a child. When you click the page text you will see all sorts of handy information in this box.';

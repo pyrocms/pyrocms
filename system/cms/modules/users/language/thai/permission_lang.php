@@ -10,4 +10,4 @@
 * @version	1.0.0
 **/
 
-$lang['users.role_admin_profile_fields'] = 'ฟิลด์โปรไฟล์ของผู้ดูแลระบบ';
+$lang['users:role_admin_profile_fields'] = 'ฟิลด์โปรไฟล์ของผู้ดูแลระบบ';

@@ -10,9 +10,9 @@
  * @version		1.1.0
  */
 
-$lang['streams.user.name'] = 'Användare';
-$lang['streams.user.restrict_group'] = 'Begränsa till grupp';
-$lang['streams.user.dont_restrict_groups'] = 'Begränsa inte till grupper';
+$lang['streams:user.name'] = 'Användare';
+$lang['streams:user.restrict_group'] = 'Begränsa till grupp';
+$lang['streams:user.dont_restrict_groups'] = 'Begränsa inte till grupper';
 
 
 /* End of file user_lang.php */  

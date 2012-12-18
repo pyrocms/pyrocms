@@ -40,7 +40,7 @@ class Admin extends Admin_Controller {
 				pyro.lang.height = '".lang('files:height')."';
 				pyro.lang.ratio = '".lang('files:ratio')."';
 				pyro.lang.full_size = '".lang('files:full_size')."';
-				pyro.lang.cancel = '".lang('buttons.cancel')."';
+				pyro.lang.cancel = '".lang('buttons:cancel')."';
 				pyro.lang.synchronization_started = '".lang('files:synchronization_started')."';
 				pyro.lang.untitled_folder = '".lang('files:untitled_folder')."';
 				pyro.lang.exceeds_server_setting = '".lang('files:exceeds_server_setting')."';

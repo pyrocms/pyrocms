@@ -1,7 +1,7 @@
 <?php if(!empty($templates)): ?>
 
 <section class="title">
-	<h4><?php echo lang('templates.default_title') ?></h4>
+	<h4><?php echo lang('templates:default_title') ?></h4>
 </section>
 	
 <section class="item">
@@ -15,7 +15,7 @@
 	                <th><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all'));?></th>
 	                <th><?php echo lang('name_label') ?></th>
 	                <th class="collapse"><?php echo lang('global:description') ?></th>
-	                <th class="collapse"><?php echo lang('templates.language_label') ?></th>
+	                <th class="collapse"><?php echo lang('templates:language_label') ?></th>
 	                <th width="220"></th>
 	            </tr>
 	        </thead>
@@ -31,9 +31,9 @@
 	                <td class="collapse"><?php echo $template->lang ?></td>
 	                <td class="actions">
 					<div class="buttons buttons-small align-center">
-						<?php echo anchor('admin/templates/preview/' . $template->id, lang('buttons.preview'), 'class="button preview modal"') ?>
-	                    <?php echo anchor('admin/templates/edit/' . $template->id, lang('buttons.edit'), 'class="button edit"') ?>
-						<?php echo anchor('admin/templates/create_copy/' . $template->id, lang('buttons.clone'), 'class="button clone"') ?>
+						<?php echo anchor('admin/templates/preview/' . $template->id, lang('buttons:preview'), 'class="button preview modal"') ?>
+	                    <?php echo anchor('admin/templates/edit/' . $template->id, lang('buttons:edit'), 'class="button edit"') ?>
+						<?php echo anchor('admin/templates/create_copy/' . $template->id, lang('buttons:clone'), 'class="button clone"') ?>
 					</div>
 	                </td>
 	            </tr>
@@ -50,7 +50,7 @@
 </section>
 
 <section class="title">
-	<h4><?php echo lang('templates.user_defined_title') ?></h4>
+	<h4><?php echo lang('templates:user_defined_title') ?></h4>
 </section>
 
 <?php echo form_open('admin/templates/delete') ?>
@@ -63,7 +63,7 @@
 	                <th><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all'));?></th>
 	                <th><?php echo lang('name_label') ?></th>
 	                <th><?php echo lang('global:description') ?></th>
-	                <th><?php echo lang('templates.language_label') ?></th>
+	                <th><?php echo lang('templates:language_label') ?></th>
 	                <th width="200"></th>
 	            </tr>
 	        </thead>
@@ -79,9 +79,9 @@
 	                <td><?php echo $template->lang ?></td>
 	                <td class="actions">
 					<div class="buttons buttons-small align-center">
-						<?php echo anchor('admin/templates/preview/' . $template->id, lang('buttons.preview'), 'class="button preview modal"') ?>
-	                    <?php echo anchor('admin/templates/edit/' . $template->id, lang('buttons.edit'), 'class="button edit"') ?>
-						<?php echo anchor('admin/templates/delete/' . $template->id, lang('buttons.delete'), 'class="button delete"') ?>
+						<?php echo anchor('admin/templates/preview/' . $template->id, lang('buttons:preview'), 'class="button preview modal"') ?>
+	                    <?php echo anchor('admin/templates/edit/' . $template->id, lang('buttons:edit'), 'class="button edit"') ?>
+						<?php echo anchor('admin/templates/delete/' . $template->id, lang('buttons:delete'), 'class="button delete"') ?>
 					</div>
 	                </td>
 	            </tr>
@@ -104,7 +104,7 @@
 
 <section class="item">
 	<div class="content">
-    <p><?php echo lang('templates.currently_no_templates') ?></p>
+    <p><?php echo lang('templates:currently_no_templates') ?></p>
 	</div>
 </section>
 

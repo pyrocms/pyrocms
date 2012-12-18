@@ -96,7 +96,7 @@
 			
 			<div class="buttons align-right padding-top">
 				<a href="#" title="" class="button start-upload"><?php echo lang('files:upload') ?></a>
-				<a href="#" title="" class="button cancel-upload"><?php echo lang('buttons.cancel');?></a>
+				<a href="#" title="" class="button cancel-upload"><?php echo lang('buttons:cancel');?></a>
 			</div>
 			
 		</div>

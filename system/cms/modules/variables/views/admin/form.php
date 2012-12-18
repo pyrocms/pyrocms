@@ -1,8 +1,8 @@
 <section class="title">
 	<?php if ($this->method == 'create'): ?>
-	<h4><?php echo lang('variables.create_title');?></h4>
+	<h4><?php echo lang('variables:create_title');?></h4>
 	<?php else: ?>
-	<h4><?php echo sprintf(lang('variables.edit_title'), $variable->name);?></h4>
+	<h4><?php echo sprintf(lang('variables:edit_title'), $variable->name);?></h4>
 	<?php endif ?>
 </section>
 
@@ -21,7 +21,7 @@
 				</li>
 				
 				<li class="">
-					<label for="data"><?php echo lang('variables.data_label');?> <span>*</span></label>
+					<label for="data"><?php echo lang('variables:data_label');?> <span>*</span></label>
 					<div class="input"><?php echo  form_input('data', $variable->data) ?></div>
 				</li>
 			</ul>

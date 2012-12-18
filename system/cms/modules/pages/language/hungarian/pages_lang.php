@@ -52,18 +52,18 @@ $lang['pages:types_list_title']         = 'Oldaltervek listázása';
 
 // messages
 $lang['pages:no_pages']                 = 'Nincsenek oldalak.';
-$lang['pages_create_success']           = 'Az oldal sikeresen létrehozva.';
-$lang['pages_create_error']             = 'Az oldal létrehozása sikertelen.';
-$lang['pages_page_not_found_error']     = 'Az oldal nem található.';
-$lang['pages_edit_success']             = 'A(z) "%s" oldal sikeresen módosítva.';
-$lang['pages_delete_home_error']        = 'A kezdőlapot nem lehet törölni! Válassz ki előtte egy másikat!';
-$lang['pages_delete_success']           = 'A(z) #%s számú oldal sikeresen törölve.';
-$lang['pages_mass_delete_success']      = 'A(z) %s oldal sikeresen törölve.';
-$lang['pages_delete_none_notice']       = 'Egy oldal sem lett törölve.';
-$lang['pages_page_already_exist_error'] = 'A(z) "%s" oldal már létezik itt: %s';
-$lang['pages_parent_not_exist_error']   = 'Nem létező szülő.';
-$lang['pages_chunk_slug_length']        = 'A keresőbarát URL nem lehet hosszabb 30 karakternél.';
-$lang['pages_root_folder']              = 'A legfelső szint';
+$lang['pages:create_success']           = 'Az oldal sikeresen létrehozva.';
+$lang['pages:create_error']             = 'Az oldal létrehozása sikertelen.';
+$lang['pages:page_not_found_error']     = 'Az oldal nem található.';
+$lang['pages:edit_success']             = 'A(z) "%s" oldal sikeresen módosítva.';
+$lang['pages:delete_home_error']        = 'A kezdőlapot nem lehet törölni! Válassz ki előtte egy másikat!';
+$lang['pages:delete_success']           = 'A(z) #%s számú oldal sikeresen törölve.';
+$lang['pages:mass_delete_success']      = 'A(z) %s oldal sikeresen törölve.';
+$lang['pages:delete_none_notice']       = 'Egy oldal sem lett törölve.';
+$lang['pages:page_already_exist_error'] = 'A(z) "%s" oldal már létezik itt: %s';
+$lang['pages:parent_not_exist_error']   = 'Nem létező szülő.';
+$lang['pages:chunk_slug_length']        = 'A keresőbarát URL nem lehet hosszabb 30 karakternél.';
+$lang['pages:root_folder']              = 'A legfelső szint';
 
 $lang['pages:tree_explanation_title']   = 'Magyarázat';
 $lang['pages:tree_explanation']         = 'A bal oldali lista tartalmazza a weboldalon látható oldalakat. Rájuk kattintva megtekinthetőek az aloldalak. Az oldalakat húzogatva lehet rendezni, újrarendezni - függőlegesen, ha aloldal létrehozása a cél. Ha a doboz szövegére kattintasz, akkor saját kezűleg lehet rendezni az információkat a jobb oldali dobozban.';

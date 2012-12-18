@@ -32,7 +32,7 @@ class Admin_Controller extends MY_Controller {
 		// Show error and exit if the user does not have sufficient permissions
 		if ( ! self::_check_access())
 		{
-			$this->session->set_flashdata('error', lang('cp_access_denied'));
+			$this->session->set_flashdata('error', lang('cp:access_denied'));
 			redirect();
 		}
 
@@ -80,7 +80,7 @@ class Admin_Controller extends MY_Controller {
 			$menu_items = array();
 
 			// This array controls the order of the admin items.
-			$this->template->menu_order = array('lang:cp_nav_content', 'lang:cp_nav_structure', 'lang:cp_nav_data', 'lang:cp_nav_users', 'lang:cp_nav_settings', 'lang:global:profile');
+			$this->template->menu_order = array('lang:cp:nav_content', 'lang:cp:nav_structure', 'lang:cp:nav_data', 'lang:cp:nav_users', 'lang:cp:nav_settings', 'lang:global:profile');
 
 			$modules = $this->module_m->get_all(array(
 				'is_backend' => true,
@@ -101,15 +101,15 @@ class Admin_Controller extends MY_Controller {
 				// regular way of checking out the details.php data.
 				elseif ($module['menu'] and (isset($this->permissions[$module['slug']]) or $this->current_user->group == 'admin'))
 				{
-					$menu_items['lang:cp_nav_'.$module['menu']][$module['name']] = 'admin/'.$module['slug'];
+					$menu_items['lang:cp:nav_'.$module['menu']][$module['name']] = 'admin/'.$module['slug'];
 				}
 			}
 
 			// We always have our 
 			// edit profile links and such.
 			$menu_items['lang:global:profile'] = array(
-							'lang:cp_edit_profile_label'		=> 'edit-profile',
-							'lang:cp_logout_label'				=> 'admin/logout'
+							'lang:cp:edit_profile_label'		=> 'edit-profile',
+							'lang:cp:logout_label'				=> 'admin/logout'
 						);
 
 			// Trigger an event so modules can mess with the

@@ -52,18 +52,18 @@ $lang['pages:types_list_title']         = 'Listaa sivupohjat';
 
 // messages
 $lang['pages:no_pages']                 = 'Sivuja ei ole.';
-$lang['pages_create_success']           = 'Sivu luotiin.';
-$lang['pages_create_error']             = 'Sivu poistettiin.';
-$lang['pages_page_not_found_error']     = 'Valittua sivua ei löytynyt.';
-$lang['pages_edit_success']             = 'Sivu "%s" tallennettiin.';
-$lang['pages_delete_home_error']        = 'Et voi poistaa etusivua!';
-$lang['pages_delete_success']           = 'Sivu #%s poistettiin.';
-$lang['pages_mass_delete_success']      = '%s sivua poistettiin.';
-$lang['pages_delete_none_notice']       = 'Yhtään sivua ei poistettu.';
-$lang['pages_page_already_exist_error'] = 'Sivu, jolla on URL osoite "%s" on jo olemassa paikassa %s.';
-$lang['pages_parent_not_exist_error']   = 'Yläkohdan sivua ei ole olemassa.';
-$lang['pages_chunk_slug_length']        = 'Sivun palojen polkutunnukset eivät voi olla yli 30 merkkiä pitkiä.';
-$lang['pages_root_folder']              = 'ylätaso';
+$lang['pages:create_success']           = 'Sivu luotiin.';
+$lang['pages:create_error']             = 'Sivu poistettiin.';
+$lang['pages:page_not_found_error']     = 'Valittua sivua ei löytynyt.';
+$lang['pages:edit_success']             = 'Sivu "%s" tallennettiin.';
+$lang['pages:delete_home_error']        = 'Et voi poistaa etusivua!';
+$lang['pages:delete_success']           = 'Sivu #%s poistettiin.';
+$lang['pages:mass_delete_success']      = '%s sivua poistettiin.';
+$lang['pages:delete_none_notice']       = 'Yhtään sivua ei poistettu.';
+$lang['pages:page_already_exist_error'] = 'Sivu, jolla on URL osoite "%s" on jo olemassa paikassa %s.';
+$lang['pages:parent_not_exist_error']   = 'Yläkohdan sivua ei ole olemassa.';
+$lang['pages:chunk_slug_length']        = 'Sivun palojen polkutunnukset eivät voi olla yli 30 merkkiä pitkiä.';
+$lang['pages:root_folder']              = 'ylätaso';
 
 $lang['pages:tree_explanation_title']   = 'Selitys';
 $lang['pages:tree_explanation']         = 'Vasemmalla oleva lista näyttää sivustosi sivut. Klikkaa "+" ikonia, niin näet sen alasivut. Kun klikkaat sivua, näet sivuun liittyen käteviä toimintoja.';

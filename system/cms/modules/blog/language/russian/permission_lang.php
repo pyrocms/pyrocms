@@ -9,8 +9,8 @@
  */
 
 // Права доступа для модуля Блог
-$lang['blog.role_put_live']			= 'Публиковать статьи';
-$lang['blog.role_edit_live']		= 'Редактировать опубликованные статьи';
-$lang['blog.role_delete_live'] 	= 'Удалять опубликованные статьи';
+$lang['blog:role_put_live']			= 'Публиковать статьи';
+$lang['blog:role_edit_live']		= 'Редактировать опубликованные статьи';
+$lang['blog:role_delete_live'] 	= 'Удалять опубликованные статьи';
 
 /* End of file permission_lang.php */

@@ -1,8 +1,8 @@
 <section class="title">
 	<?php if ($this->controller == 'admin_categories' && $this->method === 'edit'): ?>
-	<h4><?php echo sprintf(lang('cat_edit_title'), $category->title);?></h4>
+	<h4><?php echo sprintf(lang('cat:edit_title'), $category->title);?></h4>
 	<?php else: ?>
-	<h4><?php echo lang('cat_create_title');?></h4>
+	<h4><?php echo lang('cat:create_title');?></h4>
 	<?php endif ?>
 </section>
 

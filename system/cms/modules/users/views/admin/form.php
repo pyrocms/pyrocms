@@ -1,10 +1,10 @@
 <section class="title">
 	<?php if ($this->method === 'create'): ?>
-		<h4><?php echo lang('user_add_title');?></h4>
+		<h4><?php echo lang('user:add_title');?></h4>
 		<?php echo form_open_multipart(uri_string(), 'class="crud" autocomplete="off"') ?>
 	
 	<?php else: ?>
-		<h4><?php echo sprintf(lang('user_edit_title'), $member->username);?></h4>
+		<h4><?php echo sprintf(lang('user:edit_title'), $member->username);?></h4>
 		<?php echo form_open_multipart(uri_string(), 'class="crud"') ?>
 	<?php endif ?>
 </section>
@@ -16,7 +16,7 @@
 	
 			<ul class="tab-menu">
 				<li><a href="#user-basic-data-tab"><span><?php echo lang('profile_user_basic_data_label');?></span></a></li>
-				<li><a href="#user-profile-fields-tab"><span><?php echo lang('user_profile_fields_label');?></span></a></li>
+				<li><a href="#user-profile-fields-tab"><span><?php echo lang('user:profile_fields_label');?></span></a></li>
 			</ul>
 	
 			<!-- Content tab -->
@@ -31,23 +31,23 @@
 						</li>
 						
 						<li>
-							<label for="username"><?php echo lang('user_username');?> <span>*</span></label>
+							<label for="username"><?php echo lang('user:username');?> <span>*</span></label>
 							<div class="input">
 							<?php echo form_input('username', $member->username, 'id="username"') ?>
 							</div>
 						</li>
 	
 						<li>
-							<label for="group_id"><?php echo lang('user_group_label');?></label>
+							<label for="group_id"><?php echo lang('user:group_label');?></label>
 							<div class="input">
 							<?php echo form_dropdown('group_id', array(0 => lang('global:select-pick')) + $groups_select, $member->group_id, 'id="group_id"') ?>
 							</div>
 						</li>
 						
 						<li class="even">
-							<label for="active"><?php echo lang('user_activate_label');?></label>
+							<label for="active"><?php echo lang('user:activate_label');?></label>
 							<div class="input">
-								<?php $options = array(0 => lang('user_do_not_activate'), 1 => lang('user_active'), 2 => lang('user_send_activation_email')) ?>
+								<?php $options = array(0 => lang('user:do_not_activate'), 1 => lang('user:active'), 2 => lang('user:send_activation_email')) ?>
 								<?php echo form_dropdown('active', $options, $member->active, 'id="active"') ?>
 							</div>
 						</li>

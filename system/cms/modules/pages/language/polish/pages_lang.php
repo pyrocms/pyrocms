@@ -52,18 +52,18 @@ $lang['pages:types_list_title']         = 'Lista layoutów stron';
 
 // messages
 $lang['pages:no_pages']                 = 'Nie ma żadnych stron.';
-$lang['pages_create_success']           = 'Strona została utworzona.';
-$lang['pages_create_error']             = 'Strona nie została utworzona.';
-$lang['pages_page_not_found_error']     = 'Strona nie istnieje.';
-$lang['pages_edit_success']             = 'Strona "%s" została zapisana.';
-$lang['pages_delete_home_error']        = 'Nie możesz usunąć strony głównej !';
-$lang['pages_delete_success']           = 'Strona #%s została usunięta.';
-$lang['pages_mass_delete_success']      = '%s strony zostały usunięte.';
-$lang['pages_delete_none_notice']       = 'Żadna ze stron nie została usunięta.';
-$lang['pages_page_already_exist_error'] = 'Strona o adresie URL "%s" już istnieje w %s.';
-$lang['pages_parent_not_exist_error']   = 'Strona nadrzędna, którą wybrałeś nie istnieje.';
-$lang['pages_chunk_slug_length']        = 'Nazwa porcji strony nie może być dłuższa niż 30 znaków.';
-$lang['pages_root_folder']              = 'najwyższy poziom';
+$lang['pages:create_success']           = 'Strona została utworzona.';
+$lang['pages:create_error']             = 'Strona nie została utworzona.';
+$lang['pages:page_not_found_error']     = 'Strona nie istnieje.';
+$lang['pages:edit_success']             = 'Strona "%s" została zapisana.';
+$lang['pages:delete_home_error']        = 'Nie możesz usunąć strony głównej !';
+$lang['pages:delete_success']           = 'Strona #%s została usunięta.';
+$lang['pages:mass_delete_success']      = '%s strony zostały usunięte.';
+$lang['pages:delete_none_notice']       = 'Żadna ze stron nie została usunięta.';
+$lang['pages:page_already_exist_error'] = 'Strona o adresie URL "%s" już istnieje w %s.';
+$lang['pages:parent_not_exist_error']   = 'Strona nadrzędna, którą wybrałeś nie istnieje.';
+$lang['pages:chunk_slug_length']        = 'Nazwa porcji strony nie może być dłuższa niż 30 znaków.';
+$lang['pages:root_folder']              = 'najwyższy poziom';
 
 $lang['pages:tree_explanation_title']   = 'Explanation'; #translate
 $lang['pages:tree_explanation']         = 'Lista po lewej stronie reprezentuje strony Twojej witryny. Kliknij ikonę "+" obok danej strony aby wyświetlić strony które zawiera. Jeżeli klikniesz stronę, w tym miejscu pojawi się wiele użytecznych informacji.';

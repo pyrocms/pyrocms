@@ -12,7 +12,7 @@
 					<ul class="tab-menu">
 						<?php foreach ($setting_sections as $section_slug => $section_name): ?>
 						<li>
-							<a href="#<?php echo $section_slug ?>" title="<?php printf(lang('settings_section_title'), $section_name) ?>">
+							<a href="#<?php echo $section_slug ?>" title="<?php printf(lang('settings:section_title'), $section_name) ?>">
 								<span><?php echo $section_name ?></span>
 							</a>
 						</li>
@@ -50,7 +50,7 @@
 			<?php echo form_close() ?>
 		<?php else: ?>
 			<div>
-				<p><?php echo lang('settings_no_settings');?></p>
+				<p><?php echo lang('settings:no_settings');?></p>
 			</div>
 		<?php endif ?>
 	</div>

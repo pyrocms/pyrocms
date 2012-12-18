@@ -69,13 +69,13 @@ class Admin_groups extends Admin_Controller
 			// Insert the new group
 			if ($id = $this->navigation_m->insert_group($_POST) > 0)
 			{
-				$this->session->set_flashdata('success', $this->lang->line('nav_group_add_success'));
+				$this->session->set_flashdata('success', $this->lang->line('nav:group_add_success'));
 				// Fire an event. A new navigation group has been created.
 				Events::trigger('navigation_group_created', $id);
 			}
 			else
 			{
-				$this->session->set_flashdata('error', $this->lang->line('nav_group_add_error'));
+				$this->session->set_flashdata('error', $this->lang->line('nav:group_add_error'));
 			}
 
 			// Redirect the user
@@ -90,7 +90,7 @@ class Admin_groups extends Admin_Controller
 
 		// Render the view
 		$this->template
-			->title($this->module_details['name'], lang('nav_group_label'), lang('nav_group_create_title'))
+			->title($this->module_details['name'], lang('nav:group_label'), lang('nav:group_create_title'))
 			->set('navigation_group', $navigation_group)
 			->build('admin/groups/create');
 	}
@@ -134,7 +134,7 @@ class Admin_groups extends Admin_Controller
 		}
 
 		// Set the message and redirect
-		$this->session->set_flashdata('success', $this->lang->line('nav_group_mass_delete_success'));
+		$this->session->set_flashdata('success', $this->lang->line('nav:group_mass_delete_success'));
 		redirect('admin/navigation/index');
 	}
 }

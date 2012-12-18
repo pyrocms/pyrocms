@@ -52,18 +52,18 @@ $lang['pages:types_list_title']         = 'Elenco layout di pagina';
 
 // messages
 $lang['pages:no_pages']                 = 'Non ci sono pagine.';
-$lang['pages_create_success']           = 'La pagina è stata creata.';
-$lang['pages_create_error']             = 'Questa pagina non è stata creata.';
-$lang['pages_page_not_found_error']     = 'Questa pagina non esiste.';
-$lang['pages_edit_success']             = 'La pagina "%s" è stata salvata.';
-$lang['pages_delete_home_error']        = 'Non puoi eliminare la home page!';
-$lang['pages_delete_success']           = 'La pagina #%s è stata eliminata.';
-$lang['pages_mass_delete_success']      = '%s pagine sono state eliminate.';
-$lang['pages_delete_none_notice']       = 'Nessuna pagina è stata eliminata.';
-$lang['pages_page_already_exist_error'] = 'Una pagina con questo URL "%s" esiste già in %s.';
-$lang['pages_parent_not_exist_error']   = 'La pagina di livello superiore che hai scelto non esiste.';
-$lang['pages_chunk_slug_length']        = 'Page Chunk slugs may be no more than 30 characters in length.'; #translate
-$lang['pages_root_folder']              = 'the top level'; #translate
+$lang['pages:create_success']           = 'La pagina è stata creata.';
+$lang['pages:create_error']             = 'Questa pagina non è stata creata.';
+$lang['pages:page_not_found_error']     = 'Questa pagina non esiste.';
+$lang['pages:edit_success']             = 'La pagina "%s" è stata salvata.';
+$lang['pages:delete_home_error']        = 'Non puoi eliminare la home page!';
+$lang['pages:delete_success']           = 'La pagina #%s è stata eliminata.';
+$lang['pages:mass_delete_success']      = '%s pagine sono state eliminate.';
+$lang['pages:delete_none_notice']       = 'Nessuna pagina è stata eliminata.';
+$lang['pages:page_already_exist_error'] = 'Una pagina con questo URL "%s" esiste già in %s.';
+$lang['pages:parent_not_exist_error']   = 'La pagina di livello superiore che hai scelto non esiste.';
+$lang['pages:chunk_slug_length']        = 'Page Chunk slugs may be no more than 30 characters in length.'; #translate
+$lang['pages:root_folder']              = 'the top level'; #translate
 
 $lang['pages:tree_explanation_title']   = 'Spiegazione';
 $lang['pages:tree_explanation']         = 'La lista a sinistra mostra le pagine del tuo sito. Clicca sull\' icona "+" vicina alla pagina per vedere le pagine dipendenti da essa. Quando cliccherai su una pagina vedrai ogni tipo di informazione utile in questo box.';

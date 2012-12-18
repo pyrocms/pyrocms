@@ -52,18 +52,18 @@ $lang['pages:types_list_title']         = 'Lister les modèles';
 
 // messages
 $lang['pages:no_pages']                 = 'Il n\'y a aucune page.';
-$lang['pages_create_success']           = 'La page a été créée.';
-$lang['pages_create_error']             = 'Cette page n\'a pas été créée.';
-$lang['pages_page_not_found_error']     = 'Cette page n\'existe pas.';
-$lang['pages_edit_success']             = 'La page "%s" a été enregistrée.';
-$lang['pages_delete_home_error']        = 'Vous ne pouvez pas supprimer la page d\'acceuil!';
-$lang['pages_delete_success']           = 'La page "%s" a été supprimée.';
-$lang['pages_mass_delete_success']      = '%s pages ont été supprimées.';
-$lang['pages_delete_none_notice']       = 'Aucune page n\'a été supprimée.';
-$lang['pages_page_already_exist_error'] = 'Une page avec l\'URL "%s" existe déjà dans %s.';
-$lang['pages_parent_not_exist_error']   = 'La page parente que vous avez sélectionné n\'existe pas.';
-$lang['pages_chunk_slug_length']        = 'Les Slugs Page chunks ne doivent pas faire plus de 30 charactères de long.';
-$lang['pages_root_folder']              = 'le top level';
+$lang['pages:create_success']           = 'La page a été créée.';
+$lang['pages:create_error']             = 'Cette page n\'a pas été créée.';
+$lang['pages:page_not_found_error']     = 'Cette page n\'existe pas.';
+$lang['pages:edit_success']             = 'La page "%s" a été enregistrée.';
+$lang['pages:delete_home_error']        = 'Vous ne pouvez pas supprimer la page d\'acceuil!';
+$lang['pages:delete_success']           = 'La page "%s" a été supprimée.';
+$lang['pages:mass_delete_success']      = '%s pages ont été supprimées.';
+$lang['pages:delete_none_notice']       = 'Aucune page n\'a été supprimée.';
+$lang['pages:page_already_exist_error'] = 'Une page avec l\'URL "%s" existe déjà dans %s.';
+$lang['pages:parent_not_exist_error']   = 'La page parente que vous avez sélectionné n\'existe pas.';
+$lang['pages:chunk_slug_length']        = 'Les Slugs Page chunks ne doivent pas faire plus de 30 charactères de long.';
+$lang['pages:root_folder']              = 'le top level';
 
 $lang['pages:tree_explanation_title']   = 'Explication';
 $lang['pages:tree_explanation']         = 'La liste de gauche affiche les pages de votre site web. Cliquez sur l\'icône "+" à côté de la page pour afficher les pages incluses. En cliquant sur une page vous verrez toutes sortes d\'informations utiles dans cette boîte.';

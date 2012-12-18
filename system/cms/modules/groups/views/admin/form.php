@@ -1,10 +1,10 @@
 <?php if ($this->method == 'edit'): ?>
 	<section class="title">
-    	<h4><?php echo sprintf(lang('groups.edit_title'), $group->name) ?></h4>
+    	<h4><?php echo sprintf(lang('groups:edit_title'), $group->name) ?></h4>
 	</section>
 <?php else: ?>
 	<section class="title">
-    	<h4><?php echo lang('groups.add_title') ?></h4>
+    	<h4><?php echo lang('groups:add_title') ?></h4>
 	</section>
 <?php endif ?>
 
@@ -16,12 +16,12 @@
 		
 		    <ul>
 				<li>
-					<label for="description"><?php echo lang('groups.name');?> <span>*</span></label>
+					<label for="description"><?php echo lang('groups:name');?> <span>*</span></label>
 					<div class="input"><?php echo form_input('description', $group->description);?></div>
 				</li>
 				
 				<li class="even">
-					<label for="name"><?php echo lang('groups.short_name');?> <span>*</span></label>
+					<label for="name"><?php echo lang('groups:short_name');?> <span>*</span></label>
 					
 					<div class="input">
 		

@@ -1,5 +1,5 @@
 <section class="title">
-	<h4><?php echo lang('global:delete'); ?> <?php echo lang('page_types.list_title_sing'); ?></h4>
+	<h4><?php echo lang('global:delete'); ?> <?php echo lang('page_types:list_title_sing'); ?></h4>
 </section>
 
 <section class="item">

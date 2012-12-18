@@ -30,7 +30,7 @@ class Admin extends Admin_Controller
 		if (is_dir('./installer'))
 		{
 			$this->template
-				->set('messages', array('notice' => lang('cp_delete_installer_message')));
+				->set('messages', array('notice' => lang('cp:delete_installer_message')));
 		}
 
 		$this->template
@@ -83,7 +83,7 @@ class Admin extends Admin_Controller
 	{
 		$this->load->language('users/user');
 		$this->ion_auth->logout();
-		$this->session->set_flashdata('success', lang('user_logged_out'));
+		$this->session->set_flashdata('success', lang('user:logged_out'));
 		redirect('admin/login');
 	}
 
@@ -140,10 +140,10 @@ class Admin extends Admin_Controller
 			{
 				rmdir('./installer');
 				// This is the end, tell Sally I loved her.
-				die(json_encode(array('status' => 'success', 'message' => lang('cp_delete_installer_successfully_message'))));
+				die(json_encode(array('status' => 'success', 'message' => lang('cp:delete_installer_successfully_message'))));
 			}
 		}
 
-		die(json_encode(array('status' => 'error', 'message' => lang('cp_delete_installer_manually_message'))));
+		die(json_encode(array('status' => 'error', 'message' => lang('cp:delete_installer_manually_message'))));
 	}
 }

@@ -52,18 +52,18 @@ $lang['pages:types_list_title']         = 'Seznam šablon stránek';
 
 // messages
 $lang['pages:no_pages']                 = 'Nejsou zde žádné stránky.';
-$lang['pages_create_success']           = 'Stránka byla vytvořena.';
-$lang['pages_create_error']             = 'Stránka nebyla vytvořena.';
-$lang['pages_page_not_found_error']     = 'Stránka neexistuje.';
-$lang['pages_edit_success']             = 'Stránka "%s" byla uložena.';
-$lang['pages_delete_home_error']        = 'Nelze vymazat domovskou stránku!';
-$lang['pages_delete_success']           = 'Stránka #%s byla vymazána.';
-$lang['pages_mass_delete_success']      = '%s stránek bylo vymazáno.';
-$lang['pages_delete_none_notice']       = 'Žádné stránky nebyly vymazány.';
-$lang['pages_page_already_exist_error'] = 'Stránka s adresou URL "%s" již existuje v %s.';
-$lang['pages_parent_not_exist_error']   = 'Vybraná rodičovská stránka neexistuje.';
-$lang['pages_chunk_slug_length']        = 'Page Chunk slugs may be no more than 30 characters in length.'; #translate
-$lang['pages_root_folder']              = 'the top level'; #translate
+$lang['pages:create_success']           = 'Stránka byla vytvořena.';
+$lang['pages:create_error']             = 'Stránka nebyla vytvořena.';
+$lang['pages:page_not_found_error']     = 'Stránka neexistuje.';
+$lang['pages:edit_success']             = 'Stránka "%s" byla uložena.';
+$lang['pages:delete_home_error']        = 'Nelze vymazat domovskou stránku!';
+$lang['pages:delete_success']           = 'Stránka #%s byla vymazána.';
+$lang['pages:mass_delete_success']      = '%s stránek bylo vymazáno.';
+$lang['pages:delete_none_notice']       = 'Žádné stránky nebyly vymazány.';
+$lang['pages:page_already_exist_error'] = 'Stránka s adresou URL "%s" již existuje v %s.';
+$lang['pages:parent_not_exist_error']   = 'Vybraná rodičovská stránka neexistuje.';
+$lang['pages:chunk_slug_length']        = 'Page Chunk slugs may be no more than 30 characters in length.'; #translate
+$lang['pages:root_folder']              = 'the top level'; #translate
 
 $lang['pages:tree_explanation_title']   = 'Explanation'; #translate
 $lang['pages:tree_explanation']         = 'Seznam vlevo reprezentuje stránky na webu. Klikněte na ikonku "+" pro zobrazení stránek uvnitř. Při kliknutí na stránku tu uvidíte spoustu užitečných informací.';

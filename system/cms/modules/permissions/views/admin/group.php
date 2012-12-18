@@ -16,7 +16,7 @@
 				<?php foreach ($permission_modules as $module): ?>
 				<tr>
 					<td style="width: 30px">
-						<?php /*sprintf(lang('groups.edit_title'), $group->name)*/
+						<?php /*sprintf(lang('groups:edit_title'), $group->name)*/
 						echo form_checkbox(array(
 							'id'=> $module['slug'],
 							'class' => 'select-row',

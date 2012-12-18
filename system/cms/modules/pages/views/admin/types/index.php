@@ -1,5 +1,5 @@
 <section class="title">
-	<h4><?php echo lang('page_types.list_title'); ?></h4>
+	<h4><?php echo lang('page_types:list_title'); ?></h4>
 </section>
 
 <section class="item">
@@ -35,7 +35,7 @@
 				</table>
 				
 				<?php else:?>
-					<div class="no_data"><?php echo lang('page_types.no_pages');?></div>
+					<div class="no_data"><?php echo lang('page_types:no_pages');?></div>
 				<?php endif; ?>		
 				
 			<?php echo form_close(); ?>

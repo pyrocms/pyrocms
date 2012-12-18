@@ -1,5 +1,5 @@
 <section class="title">
-	<h4><?php echo lang('redirects.list_title') ?></h4>
+	<h4><?php echo lang('redirects:list_title') ?></h4>
 </section>
 
 <?php if ($redirects): ?>
@@ -12,9 +12,9 @@
 		    <thead>
 				<tr>
 					<th width="15"><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all'));?></th>
-					<th width="25"><?php echo lang('redirects.type');?></th>
-					<th width="25%"><?php echo lang('redirects.from');?></th>
-					<th><?php echo lang('redirects.to');?></th>
+					<th width="25"><?php echo lang('redirects:type');?></th>
+					<th width="25%"><?php echo lang('redirects:from');?></th>
+					<th><?php echo lang('redirects:to');?></th>
 					<th width="200"></th>
 				</tr>
 		    </thead>
@@ -34,8 +34,8 @@
 				<td><?php echo $redirect->to;?></td>
 				<td class="align-center">
 				<div class="actions">
-				    <?php echo anchor('admin/redirects/edit/' . $redirect->id, lang('redirects.edit'), 'class="button edit"');?>
-					<?php echo anchor('admin/redirects/delete/' . $redirect->id, lang('redirects.delete'), array('class'=>'confirm button delete'));?>
+				    <?php echo anchor('admin/redirects/edit/' . $redirect->id, lang('redirects:edit'), 'class="button edit"');?>
+					<?php echo anchor('admin/redirects/delete/' . $redirect->id, lang('redirects:delete'), array('class'=>'confirm button delete'));?>
 				</div>
 				</td>
 			    </tr>
@@ -54,7 +54,7 @@
 <?php else: ?>
 	<section class="item">
 		<div class="content">
-			<div class="no_data"><?php echo lang('redirects.no_redirects');?></div>
+			<div class="no_data"><?php echo lang('redirects:no_redirects');?></div>
 		</div>
 	</section>
 <?php endif ?>

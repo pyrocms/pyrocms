@@ -52,18 +52,18 @@ $lang['pages:types_list_title']         = 'เค้าโครง';
 
 // messages
 $lang['pages:no_pages']                 = 'ไม่มีหน้าเพจ';
-$lang['pages_create_success']           = 'หน้าเพจถูกสร้างแล้ว';
-$lang['pages_create_error']             = 'หน้าเพจไม่ได้ถูกสร้าง';
-$lang['pages_page_not_found_error']     = 'หน้าเพจไม่มีอยู่';
-$lang['pages_edit_success']             = 'หน้าเพจ "%s" ถูกบันทึก';
-$lang['pages_delete_home_error']        = 'คุณไม่สามารถลบหน้าเพจแรกได้!';
-$lang['pages_delete_success']           = 'หน้าเพจ #%s ถูกลบ';
-$lang['pages_mass_delete_success']      = '%s หน้าเพจถูกลบ';
-$lang['pages_delete_none_notice']       = 'ไม่มีหน้าเพจถูกลบ';
-$lang['pages_page_already_exist_error'] = 'หน้าเพจพร้อม URL "%s" มีอยู่แล้วใน %s.';
-$lang['pages_parent_not_exist_error']   = 'หน้าเพจที่เลือกไว้ไม่มี';
-$lang['pages_chunk_slug_length']        = 'หน้าเพจก้อนห้ามยาวไม่เกิน 30 ตัวอักษร';
-$lang['pages_root_folder']              = 'ระดับบนสุด';
+$lang['pages:create_success']           = 'หน้าเพจถูกสร้างแล้ว';
+$lang['pages:create_error']             = 'หน้าเพจไม่ได้ถูกสร้าง';
+$lang['pages:page_not_found_error']     = 'หน้าเพจไม่มีอยู่';
+$lang['pages:edit_success']             = 'หน้าเพจ "%s" ถูกบันทึก';
+$lang['pages:delete_home_error']        = 'คุณไม่สามารถลบหน้าเพจแรกได้!';
+$lang['pages:delete_success']           = 'หน้าเพจ #%s ถูกลบ';
+$lang['pages:mass_delete_success']      = '%s หน้าเพจถูกลบ';
+$lang['pages:delete_none_notice']       = 'ไม่มีหน้าเพจถูกลบ';
+$lang['pages:page_already_exist_error'] = 'หน้าเพจพร้อม URL "%s" มีอยู่แล้วใน %s.';
+$lang['pages:parent_not_exist_error']   = 'หน้าเพจที่เลือกไว้ไม่มี';
+$lang['pages:chunk_slug_length']        = 'หน้าเพจก้อนห้ามยาวไม่เกิน 30 ตัวอักษร';
+$lang['pages:root_folder']              = 'ระดับบนสุด';
 
 $lang['pages:tree_explanation_title']   = 'คำอธิบาย';
 $lang['pages:tree_explanation']         = 'The list on the left represents pages on your website. Click the page item to show its children. You may drag pages to order them; drag horizontally to make it a child. When you click the page text you will see all sorts of handy information in this box.'; #translate

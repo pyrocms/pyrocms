@@ -52,18 +52,18 @@ $lang['pages:types_list_title']         = 'Lista de diseños de páginas';
 
 // messages
 $lang['pages:no_pages']                 = 'No hay páginas creadas.';
-$lang['pages_create_success']           = 'La página fue creada.';
-$lang['pages_create_error']             = 'La página no pudo ser creada.';
-$lang['pages_page_not_found_error']     = 'La página no existe.';
-$lang['pages_edit_success']             = 'La página "%s" ha sido guardada.';
-$lang['pages_delete_home_error']        = 'No puedes borrar la página de inicio!!';
-$lang['pages_delete_success']           = 'Página "%s" ha sido borrada exitosamente.';
-$lang['pages_mass_delete_success']      = '%s páginas han sido eliminadas.';
-$lang['pages_delete_none_notice']       = 'No se ha borado ninguna página.';
-$lang['pages_page_already_exist_error'] = 'Una página con el URL "%s" ya existe en %s.';
-$lang['pages_parent_not_exist_error']   = 'La página padre que has seleccionado no existe.';
-$lang['pages_chunk_slug_length']        = 'Los slugs de los Pedazos de Página no pueden contener más de 30 caracteres de longitud.';
-$lang['pages_root_folder']              = 'el nivel más alto';
+$lang['pages:create_success']           = 'La página fue creada.';
+$lang['pages:create_error']             = 'La página no pudo ser creada.';
+$lang['pages:page_not_found_error']     = 'La página no existe.';
+$lang['pages:edit_success']             = 'La página "%s" ha sido guardada.';
+$lang['pages:delete_home_error']        = 'No puedes borrar la página de inicio!!';
+$lang['pages:delete_success']           = 'Página "%s" ha sido borrada exitosamente.';
+$lang['pages:mass_delete_success']      = '%s páginas han sido eliminadas.';
+$lang['pages:delete_none_notice']       = 'No se ha borado ninguna página.';
+$lang['pages:page_already_exist_error'] = 'Una página con el URL "%s" ya existe en %s.';
+$lang['pages:parent_not_exist_error']   = 'La página padre que has seleccionado no existe.';
+$lang['pages:chunk_slug_length']        = 'Los slugs de los Pedazos de Página no pueden contener más de 30 caracteres de longitud.';
+$lang['pages:root_folder']              = 'el nivel más alto';
 
 $lang['pages:tree_explanation_title']   = 'Explicación';
 $lang['pages:tree_explanation']         = 'La lista a la izquierda representa las páginas en tu sitio. Has click en el icono de "+" a un lado de la página para mostrar las páginas dentro de ella. Al hacer click en una página verás toda clase de información útil en está caja.';

@@ -52,18 +52,18 @@ $lang['pages:types_list_title']         = 'Maketų sąrašas';
 
 // messages
 $lang['pages:no_pages']                 = 'Nėra puslapių.';
-$lang['pages_create_success']           = 'Puslapis sukurtas.';
-$lang['pages_create_error']             = 'Šis puslapis nebuvo sukurtas.';
-$lang['pages_page_not_found_error']     = 'Toks puslapis neegzistuoja.';
-$lang['pages_edit_success']             = 'Puslapis "%s" išsaugotas.';
-$lang['pages_delete_home_error']        = 'Negalite ištrinti pagrindinio namų puslapio!';
-$lang['pages_delete_success']           = 'Puslapis #%s ištrintas.';
-$lang['pages_mass_delete_success']      = '%s puslapis ištrintas.';
-$lang['pages_delete_none_notice']       = 'Nėra ištrintų puslapių.';
-$lang['pages_page_already_exist_error'] = 'Puslapis su URL "%s" jau egzistuoja %s.';
-$lang['pages_parent_not_exist_error']   = 'Tėvo puslapis, kurį pažymėjote neegzistuoja.';
-$lang['pages_chunk_slug_length']        = 'Page Chunk slugs may be no more than 30 characters in length.'; #translate
-$lang['pages_root_folder']              = 'the top level'; #translate
+$lang['pages:create_success']           = 'Puslapis sukurtas.';
+$lang['pages:create_error']             = 'Šis puslapis nebuvo sukurtas.';
+$lang['pages:page_not_found_error']     = 'Toks puslapis neegzistuoja.';
+$lang['pages:edit_success']             = 'Puslapis "%s" išsaugotas.';
+$lang['pages:delete_home_error']        = 'Negalite ištrinti pagrindinio namų puslapio!';
+$lang['pages:delete_success']           = 'Puslapis #%s ištrintas.';
+$lang['pages:mass_delete_success']      = '%s puslapis ištrintas.';
+$lang['pages:delete_none_notice']       = 'Nėra ištrintų puslapių.';
+$lang['pages:page_already_exist_error'] = 'Puslapis su URL "%s" jau egzistuoja %s.';
+$lang['pages:parent_not_exist_error']   = 'Tėvo puslapis, kurį pažymėjote neegzistuoja.';
+$lang['pages:chunk_slug_length']        = 'Page Chunk slugs may be no more than 30 characters in length.'; #translate
+$lang['pages:root_folder']              = 'the top level'; #translate
 
 $lang['pages:tree_explanation_title']   = 'Explanation'; #translate
 $lang['pages:tree_explanation']         = 'Paspauskite ant puslapio pavadimo, kad pamatyti vidinius puslapius. Taip pat galite tampydami (aukštyn/žemyn/ vertikaliai) keisti puslapio poziciją; tampydami horizontaliai - galite jį padaryti vidiniu puslapiu. Paspaudę ant puslapio pavadinimo, gausite daugiau informacijos.';

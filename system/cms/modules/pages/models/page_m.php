@@ -757,7 +757,7 @@ class Page_m extends MY_Model
 		{
 			if ($this->input->post('parent_id') == 0)
 			{
-				$parent_folder = lang('pages_root_folder');
+				$parent_folder = lang('pages:root_folder');
 				$url = '/'.$slug;
 			}
 			else
@@ -768,7 +768,7 @@ class Page_m extends MY_Model
 				$parent_folder = $page_obj->title;
 			}
 
-			$this->form_validation->set_message('_check_slug',sprintf(lang('pages_page_already_exist_error'),$url, $parent_folder));
+			$this->form_validation->set_message('_check_slug',sprintf(lang('pages:page_already_exist_error'),$url, $parent_folder));
 			return false;
 		}
 

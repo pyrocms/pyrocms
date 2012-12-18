@@ -52,18 +52,18 @@ $lang['pages:types_list_title']         = 'Páginas de layout';
 
 // messages
 $lang['pages:no_pages']                 = 'Nenhuma página encontrada.';
-$lang['pages_create_success']           = 'A página foi criada.';
-$lang['pages_create_error']             = 'A página não foi criada.';
-$lang['pages_page_not_found_error']     = 'A página não existe.';
-$lang['pages_edit_success']             = 'A página "%s" foi salva.';
-$lang['pages_delete_home_error']        = 'Não pode remover a  página inicial!';
-$lang['pages_delete_success']           = 'A página #%s foi removida.';
-$lang['pages_mass_delete_success']      = '%s páginas foram removidas.';
-$lang['pages_delete_none_notice']       = 'Nenhuma página foi removida.';
-$lang['pages_page_already_exist_error'] = 'Uma página com a URL "%s" já existe em %s.';
-$lang['pages_parent_not_exist_error']   = 'A página pai que você selecionou não existe.';
-$lang['pages_chunk_slug_length']        = 'Page Chunk slugs não pode ter mais de 30 caracteres.';
-$lang['pages_root_folder']              = 'o nível superior';
+$lang['pages:create_success']           = 'A página foi criada.';
+$lang['pages:create_error']             = 'A página não foi criada.';
+$lang['pages:page_not_found_error']     = 'A página não existe.';
+$lang['pages:edit_success']             = 'A página "%s" foi salva.';
+$lang['pages:delete_home_error']        = 'Não pode remover a  página inicial!';
+$lang['pages:delete_success']           = 'A página #%s foi removida.';
+$lang['pages:mass_delete_success']      = '%s páginas foram removidas.';
+$lang['pages:delete_none_notice']       = 'Nenhuma página foi removida.';
+$lang['pages:page_already_exist_error'] = 'Uma página com a URL "%s" já existe em %s.';
+$lang['pages:parent_not_exist_error']   = 'A página pai que você selecionou não existe.';
+$lang['pages:chunk_slug_length']        = 'Page Chunk slugs não pode ter mais de 30 caracteres.';
+$lang['pages:root_folder']              = 'o nível superior';
 
 $lang['pages:tree_explanation_title']   = 'Explicação';
 $lang['pages:tree_explanation']         = 'A lista a esquerda representa as páginas do seu site em cada item. Quando houver um indicador de mais ao lado de um item, clique sobre o indicador para exibir suas subpáginas.<br><br>Também pode arrastar as páginas para ordená-las e/ou posiciona-las distanciando para direita horizontalmente abaixo de outra página para transforma-las em subpáginas.<br><br>Se clicar sobre o texto do título deverá ver todo tipo de informação útil nesta caixa.';

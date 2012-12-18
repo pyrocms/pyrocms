@@ -11,4 +11,4 @@
  * @version		1.0
  */
 
-$lang['users.role_admin_profile_fields'] = '管理员的栏目'; #translate
+$lang['users:role_admin_profile_fields'] = '管理员的栏目'; #translate

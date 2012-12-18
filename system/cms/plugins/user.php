@@ -169,13 +169,13 @@ class Plugin_User extends Plugin
 
 		$plugin_data[] = array(
 			'value' => $profile_data['username'],
-			'name' => lang('user_username'),
+			'name' => lang('user:username'),
 			'slug' => 'username'
 		);
 
 		$plugin_data[] = array(
 			'value' => $profile_data['group_description'],
-			'name' => lang('user_group_label'),
+			'name' => lang('user:group_label'),
 			'slug' => 'group_name'
 		);
 

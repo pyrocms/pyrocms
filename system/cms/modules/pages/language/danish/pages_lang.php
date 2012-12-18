@@ -52,18 +52,18 @@ $lang['pages:types_list_title']         = 'List sidetypes';
 
 // messages
 $lang['pages:no_pages']                 = 'Der er ingen sider.';
-$lang['pages_create_success']           = 'Siden er lavet.';
-$lang['pages_create_error']             = 'Den side er ikke lavet.';
-$lang['pages_page_not_found_error']     = 'Den side findes ikke.';
-$lang['pages_edit_success']             = 'Siden "%s" er gemt.';
-$lang['pages_delete_home_error']        = 'Du kan ikke slette startsiden!';
-$lang['pages_delete_success']           = 'Side #%s er slettet.';
-$lang['pages_mass_delete_success']      = '%s sider er slettet.';
-$lang['pages_delete_none_notice']       = 'Ingen sider er slettet.';
-$lang['pages_page_already_exist_error'] = 'En side med URL "%s" findes allerede i %s.';
-$lang['pages_parent_not_exist_error']   = 'Parent-siden som du har valgt findes ikke.';
-$lang['pages_chunk_slug_length']        = 'Page Chunk slugs may be no more than 30 characters in length.'; #translate
-$lang['pages_root_folder']              = 'the top level'; #translate
+$lang['pages:create_success']           = 'Siden er lavet.';
+$lang['pages:create_error']             = 'Den side er ikke lavet.';
+$lang['pages:page_not_found_error']     = 'Den side findes ikke.';
+$lang['pages:edit_success']             = 'Siden "%s" er gemt.';
+$lang['pages:delete_home_error']        = 'Du kan ikke slette startsiden!';
+$lang['pages:delete_success']           = 'Side #%s er slettet.';
+$lang['pages:mass_delete_success']      = '%s sider er slettet.';
+$lang['pages:delete_none_notice']       = 'Ingen sider er slettet.';
+$lang['pages:page_already_exist_error'] = 'En side med URL "%s" findes allerede i %s.';
+$lang['pages:parent_not_exist_error']   = 'Parent-siden som du har valgt findes ikke.';
+$lang['pages:chunk_slug_length']        = 'Page Chunk slugs may be no more than 30 characters in length.'; #translate
+$lang['pages:root_folder']              = 'the top level'; #translate
 
 $lang['pages:tree_explanation_title']   = 'Explanation'; #translate
 $lang['pages:tree_explanation']         = 'Listen til venstre viser siderne på dit website. Klik på siden for at se undersiderne. Du kan trække siderne for at sorter dem; træk vandret for at lave den til en underside. Når du klikker på sideteksten kan du se en række nyttige informationer i denne box.';

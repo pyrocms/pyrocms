@@ -117,7 +117,7 @@ class Field_datetime
 			{
 				if (( ! $_POST[$field->field_slug.'_month'] or ! $_POST[$field->field_slug.'_day'] or ! $_POST[$field->field_slug.'_year']) and $required)
 				{
-					return lang('streams.invalid_input_for_date_range_check');
+					return lang('streams:invalid_input_for_date_range_check');
 				}
 
 				$value = $this->CI->input->post($field->field_slug.'_year').'-'.$this->CI->input->post($field->field_slug.'_month').'-'.$this->CI->input->post($field->field_slug.'_day');
@@ -139,7 +139,7 @@ class Field_datetime
 				// Is now after the future point
 				if ($value > $pieces[1])
 				{
-					return lang('streams.date_out_or_range');
+					return lang('streams:date_out_or_range');
 				}
 			}
 			elseif ( ! $restrict['end_stamp'] and $restrict['start_stamp'])
@@ -147,7 +147,7 @@ class Field_datetime
 				// Is now before the past point
 				if ($value < $restrict['start_stamp'])
 				{
-					return lang('streams.date_out_or_range');
+					return lang('streams:date_out_or_range');
 				}
 			}
 			elseif ( ! $restrict['end_stamp'] and ! $restrict['start_stamp'])
@@ -162,7 +162,7 @@ class Field_datetime
 				// after the end?
 				if ($value < $restrict['start_stamp'] or $value > $restrict['end_stamp'])
 				{ 
-					return lang('streams.date_out_or_range');
+					return lang('streams:date_out_or_range');
 				}
 			}
 		}
@@ -843,7 +843,7 @@ class Field_datetime
 		
 		return array(
 			'input' 		=> form_input($options),
-			'instructions'	=> $this->CI->lang->line('streams.datetime.rest_instructions')
+			'instructions'	=> $this->CI->lang->line('streams:datetime.rest_instructions')
 		);
 	}
 
@@ -864,7 +864,7 @@ class Field_datetime
 		
 		return array(
 			'input' 		=> form_input($options),
-			'instructions'	=> $this->CI->lang->line('streams.datetime.rest_instructions')
+			'instructions'	=> $this->CI->lang->line('streams:datetime.rest_instructions')
 		);
 	}
 

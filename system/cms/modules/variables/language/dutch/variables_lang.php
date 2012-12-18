@@ -12,25 +12,25 @@
  */
 
 // labels
-$lang['variables.syntax_label'] 		    = 'Syntax';
-$lang['variables.data_label'] 			    = 'Waarde';
+$lang['variables:syntax_label'] 		    = 'Syntax';
+$lang['variables:data_label'] 			    = 'Waarde';
 
 // titles
-$lang['variables.create_title'] 			= 'Voeg variabele toe';
-$lang['variables.edit_title'] 				= 'Bewerk variabele "%s"';
-$lang['variables.list_title'] 				= 'Overzicht variabelen';
+$lang['variables:create_title'] 			= 'Voeg variabele toe';
+$lang['variables:edit_title'] 				= 'Bewerk variabele "%s"';
+$lang['variables:list_title'] 				= 'Overzicht variabelen';
 
 // messages
-$lang['variables.no_variables'] 			= 'Er zijn geen variabelen.';
-$lang['variables.add_success'] 				= 'Uw variabel is opgeslagen.';
-$lang['variables.add_error'] 				= 'Er is een fout opgetreden.';
-$lang['variables.edit_success']				= 'Uw variabele is opgeslagen.';
-$lang['variables.edit_error'] 				= 'Er is een fout opgetreden.';
-$lang['variables.delete_success']			= 'De variabel "%s" is met succes verwijderd.';
-$lang['variables.delete_error'] 			= 'Er is een fout opgetreden tijdens het verwijderen van de variabele "%s".';
-$lang['variables.mass_delete_success']		= '%s variabelen van de %s zijn verwijderd.';
-$lang['variables.mass_delete_error']		= 'Er is een fout opgetreden bij het verwijderen van variabele "%s".';
-$lang['variables.no_select_error'] 			= 'U moet eerst variabelen selecteren.';
-$lang['variables.already_exist_error']		= 'De variabel "%s" bestaat al.';
+$lang['variables:no_variables'] 			= 'Er zijn geen variabelen.';
+$lang['variables:add_success'] 				= 'Uw variabel is opgeslagen.';
+$lang['variables:add_error'] 				= 'Er is een fout opgetreden.';
+$lang['variables:edit_success']				= 'Uw variabele is opgeslagen.';
+$lang['variables:edit_error'] 				= 'Er is een fout opgetreden.';
+$lang['variables:delete_success']			= 'De variabel "%s" is met succes verwijderd.';
+$lang['variables:delete_error'] 			= 'Er is een fout opgetreden tijdens het verwijderen van de variabele "%s".';
+$lang['variables:mass_delete_success']		= '%s variabelen van de %s zijn verwijderd.';
+$lang['variables:mass_delete_error']		= 'Er is een fout opgetreden bij het verwijderen van variabele "%s".';
+$lang['variables:no_select_error'] 			= 'U moet eerst variabelen selecteren.';
+$lang['variables:already_exist_error']		= 'De variabel "%s" bestaat al.';
 
 /* End of file variables_lang.php */

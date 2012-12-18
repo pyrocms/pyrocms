@@ -12,8 +12,8 @@
 			<tr>
 				<th width="30"><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all'));?></th>
 				<th width="20%"><?php echo lang('name_label');?></th>
-				<th class="collapse"><?php echo lang('variables.data_label');?></th>
-				<th class="collapse" width="20%"><?php echo lang('variables.syntax_label');?></th>
+				<th class="collapse"><?php echo lang('variables:data_label');?></th>
+				<th class="collapse" width="20%"><?php echo lang('variables:syntax_label');?></th>
 				<th width="140"></th>
 			</tr>
 			</thead>
@@ -32,8 +32,8 @@
 					<td class="collapse"><?php echo $variable->data;?></td>
 					<td class="collapse"><?php form_input('', printf('{{&nbsp;variables:%s&nbsp;}}', $variable->name));?></td>
 					<td class="actions">
-						<?php echo anchor('admin/variables/edit/' . $variable->id, lang('buttons.edit'), 'class="button edit"') ?>
-						<?php echo anchor('admin/variables/delete/' . $variable->id, lang('buttons.delete'), array('class'=>'confirm button delete')) ?>
+						<?php echo anchor('admin/variables/edit/' . $variable->id, lang('buttons:edit'), 'class="button edit"') ?>
+						<?php echo anchor('admin/variables/delete/' . $variable->id, lang('buttons:delete'), array('class'=>'confirm button delete')) ?>
 					</td>
 				</tr>
 				<?php endforeach ?>
@@ -46,7 +46,7 @@
 	<?php echo form_close() ?>
 
 <?php else: ?>
-		<div class="no_data"><?php echo lang('variables.no_variables');?></div>
+		<div class="no_data"><?php echo lang('variables:no_variables');?></div>
 <?php endif ?>
 </div>
 </section>

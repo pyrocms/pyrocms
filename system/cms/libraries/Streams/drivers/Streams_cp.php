@@ -79,10 +79,10 @@ class Streams_cp extends CI_Driver {
  		$stream_fields->updated = new stdClass;
  		$stream_fields->created_by = new stdClass;
 
-  		$stream_fields->id->field_name 				= lang('streams.id');
-		$stream_fields->created->field_name 		= lang('streams.created_date');
- 		$stream_fields->updated->field_name 		= lang('streams.updated_date');
- 		$stream_fields->created_by->field_name 		= lang('streams.created_by');
+  		$stream_fields->id->field_name 				= lang('streams:id');
+		$stream_fields->created->field_name 		= lang('streams:created_date');
+ 		$stream_fields->updated->field_name 		= lang('streams:updated_date');
+ 		$stream_fields->created_by->field_name 		= lang('streams:created_by');
 
  		// -------------------------------------
 		// Find offset URI from array
@@ -609,18 +609,18 @@ class Streams_cp extends CI_Driver {
 					))
 				{
 				
-					$CI->session->set_flashdata('notice', lang('streams.save_field_error'));	
+					$CI->session->set_flashdata('notice', lang('streams:save_field_error'));	
 				}
 				else
 				{
 					// Add the assignment
 					if( ! $CI->streams_m->add_field_to_stream($CI->db->insert_id(), $stream->id, $post_data))
 					{
-						$CI->session->set_flashdata('notice', lang('streams.save_field_error'));	
+						$CI->session->set_flashdata('notice', lang('streams:save_field_error'));	
 					}
 					else
 					{
-						$CI->session->set_flashdata('success', lang('streams.field_add_success'));	
+						$CI->session->set_flashdata('success', lang('streams:field_add_success'));	
 					}
 				}
 			}
@@ -632,7 +632,7 @@ class Streams_cp extends CI_Driver {
 					))
 				{
 				
-					$CI->session->set_flashdata('notice', lang('streams.save_field_error'));	
+					$CI->session->set_flashdata('notice', lang('streams:save_field_error'));	
 				}
 				else
 				{
@@ -644,11 +644,11 @@ class Streams_cp extends CI_Driver {
 										$post_data
 									))
 					{
-						$CI->session->set_flashdata('notice', lang('streams.save_field_error'));	
+						$CI->session->set_flashdata('notice', lang('streams:save_field_error'));	
 					}
 					else
 					{
-						$CI->session->set_flashdata('success', lang('streams.field_update_success'));
+						$CI->session->set_flashdata('success', lang('streams:field_update_success'));
 					}
 				}
 

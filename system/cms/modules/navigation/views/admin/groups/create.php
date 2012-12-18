@@ -1,6 +1,6 @@
 <section class="title">
     
-    <h4><?php echo lang('nav_group_create_title');?></h4>
+    <h4><?php echo lang('nav:group_create_title');?></h4>
     
 </section>
 

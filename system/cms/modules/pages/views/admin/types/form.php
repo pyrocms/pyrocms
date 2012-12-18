@@ -1,8 +1,8 @@
 <section class="title">
 	<?php if ($this->method == 'create'): ?>
-	<h4><?php echo lang('page_types.create_title');?></h4>
+	<h4><?php echo lang('page_types:create_title');?></h4>
 	<?php else: ?>
-	<h4><?php echo sprintf(lang('page_types.edit_title'), $page_type->title);?></h4>
+	<h4><?php echo sprintf(lang('page_types:edit_title'), $page_type->title);?></h4>
 	<?php endif; ?>
 </section>
 
@@ -14,10 +14,10 @@
 			<div class="tabs">
 			
 				<ul class="tab-menu">
-					<li><a href="#page-layout-basic"><span><?php echo lang('page_types.basic_info');?></span></a></li>
-					<li><a href="#page-layout-layout"><span><?php echo lang('page_types.layout');?></span></a></li>
+					<li><a href="#page-layout-basic"><span><?php echo lang('page_types:basic_info');?></span></a></li>
+					<li><a href="#page-layout-layout"><span><?php echo lang('page_types:layout');?></span></a></li>
 					<li><a href="#page-layout-meta"><span><?php echo lang('pages:meta_label');?></span></a></li>
-					<li><a href="#page-layout-css"><span><?php echo lang('page_types.css_label');?></span></a></li>
+					<li><a href="#page-layout-css"><span><?php echo lang('page_types:css_label');?></span></a></li>
 					<li><a href="#page-layout-script"><span><?php echo lang('pages:script_label');?></span></a></li>
 				</ul>
 				
@@ -48,7 +48,7 @@
 							<?php endif; ?>
 		
 							<li>
-								<label for="stream_slug"><?php echo lang('page_types:select_stream');?> <span>*</span><?php if ($this->method == 'new'): ?><br><small><?php echo lang('page_types.stream_instructions'); ?></small><?php endif; ?></label>
+								<label for="stream_slug"><?php echo lang('page_types:select_stream');?> <span>*</span><?php if ($this->method == 'new'): ?><br><small><?php echo lang('page_types:stream_instructions'); ?></small><?php endif; ?></label>
 		
 								<div class="input">
 		
@@ -70,7 +70,7 @@
 							</li>
 		
 							<li>
-								<label for="save_as_files"><?php echo lang('page_types:save_as_files');?><br><small><?php echo lang('page_types.saf_instructions'); ?></small></label>
+								<label for="save_as_files"><?php echo lang('page_types:save_as_files');?><br><small><?php echo lang('page_types:saf_instructions'); ?></small></label>
 								<div class="input"><?php echo form_checkbox('save_as_files', 'y', $page_type->save_as_files == 'y' ? true : false, 'id="save_as_files"'); ?></div>
 							</li>
 			
@@ -96,7 +96,7 @@
 						
 						<ul>
 							<li>
-								<label for="html_editor"><?php echo lang('page_types.layout'); ?> <span>*</span></label>
+								<label for="html_editor"><?php echo lang('page_types:layout'); ?> <span>*</span></label>
 								<?php echo form_textarea(array('id'=>'html_editor', 'name'=>'body', 'value' => ($page_type->body == '' ? '<h2>{{ title }}</h2>' : $page_type->body), 'rows' => 50)); ?>
 							</li>
 						</ul>
@@ -139,7 +139,7 @@
 				
 					<ul>
 						<li>
-							<label for="css"><?php echo lang('page_types.css_label'); ?></label><br />
+							<label for="css"><?php echo lang('page_types:css_label'); ?></label><br />
 							<?php echo form_textarea('css', $page_type->css, 'class="css_editor" id="css"'); ?>
 						</li>
 					</ul>

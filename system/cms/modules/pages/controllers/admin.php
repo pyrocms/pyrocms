@@ -245,7 +245,7 @@ class Admin extends Admin_Controller {
 
 				Events::trigger('page_created', $id);
 
-				$this->session->set_flashdata('success', lang('pages_create_success'));
+				$this->session->set_flashdata('success', lang('pages:create_success'));
 
 				// Redirect back to the form or main page
 				$input['btnAction'] == 'save_exit'
@@ -342,7 +342,7 @@ class Admin extends Admin_Controller {
 		if ( ! $page or empty($page))
 		{
 			// Maybe you would like to create one?
-			$this->session->set_flashdata('error', lang('pages_page_not_found_error'));
+			$this->session->set_flashdata('error', lang('pages:page_not_found_error'));
 			redirect('admin/pages/create');
 		}
 
@@ -392,7 +392,7 @@ class Admin extends Admin_Controller {
 			// validate and insert
 			if ($this->page_m->edit($id, $input, $stream, $page->entry_id))
 			{
-				$this->session->set_flashdata('success', sprintf(lang('pages_edit_success'), $input['title']));
+				$this->session->set_flashdata('success', sprintf(lang('pages:edit_success'), $input['title']));
 
 				Events::trigger('page_updated', $id);
 
@@ -586,7 +586,7 @@ class Admin extends Admin_Controller {
 				}
 				else
 				{
-					$this->session->set_flashdata('error', lang('pages_delete_home_error'));
+					$this->session->set_flashdata('error', lang('pages:delete_home_error'));
 				}
 			}
 
@@ -598,18 +598,18 @@ class Admin extends Admin_Controller {
 				// Only deleting one page
 				if ( count($deleted_ids) == 1 )
 				{
-					$this->session->set_flashdata('success', sprintf(lang('pages_delete_success'), $deleted_ids[0]));
+					$this->session->set_flashdata('success', sprintf(lang('pages:delete_success'), $deleted_ids[0]));
 				}
 				// Deleting multiple pages
 				else
 				{
-					$this->session->set_flashdata('success', sprintf(lang('pages_mass_delete_success'), count($deleted_ids)));
+					$this->session->set_flashdata('success', sprintf(lang('pages:mass_delete_success'), count($deleted_ids)));
 				}
 			}
 			// For some reason, none of them were deleted
 			else
 			{
-				$this->session->set_flashdata('notice', lang('pages_delete_none_notice'));
+				$this->session->set_flashdata('notice', lang('pages:delete_none_notice'));
 			}
 		}
 

@@ -52,18 +52,18 @@ $lang['pages:types_list_title']         = 'Overzicht paginatypes';
 
 // messages
 $lang['pages:no_pages']                 = 'Er zijn geen pagina&apos;s';
-$lang['pages_create_success']           = 'De pagina is aangemaakt.';
-$lang['pages_create_error']             = 'De pagina is niet aangemaakt.';
-$lang['pages_page_not_found_error']     = 'Die pagina bestaat niet';
-$lang['pages_edit_success']             = 'De pagina "%s" is opgeslagen.';
-$lang['pages_delete_home_error']        = 'U kunt de hoofdpagina niet verwijderen!';
-$lang['pages_delete_success']           = 'Pagina #%s is verwijderd.';
-$lang['pages_mass_delete_success']      = '%s pagina&apos;s zijn verwijderd.';
-$lang['pages_delete_none_notice']       = 'Er zijn geen pagina&apos;s verwijderd.';
-$lang['pages_page_already_exist_error'] = 'De pagina met URL "%s" bestaat al in %s.';
-$lang['pages_parent_not_exist_error']   = 'De geselecteerde bovenliggende pagina bestaat niet.';
-$lang['pages_chunk_slug_length']        = 'Paginadeel slugs mogen niet groter zijn dan 30 tekens.';
-$lang['pages_root_folder']              = 'Het hoogste niveau';
+$lang['pages:create_success']           = 'De pagina is aangemaakt.';
+$lang['pages:create_error']             = 'De pagina is niet aangemaakt.';
+$lang['pages:page_not_found_error']     = 'Die pagina bestaat niet';
+$lang['pages:edit_success']             = 'De pagina "%s" is opgeslagen.';
+$lang['pages:delete_home_error']        = 'U kunt de hoofdpagina niet verwijderen!';
+$lang['pages:delete_success']           = 'Pagina #%s is verwijderd.';
+$lang['pages:mass_delete_success']      = '%s pagina&apos;s zijn verwijderd.';
+$lang['pages:delete_none_notice']       = 'Er zijn geen pagina&apos;s verwijderd.';
+$lang['pages:page_already_exist_error'] = 'De pagina met URL "%s" bestaat al in %s.';
+$lang['pages:parent_not_exist_error']   = 'De geselecteerde bovenliggende pagina bestaat niet.';
+$lang['pages:chunk_slug_length']        = 'Paginadeel slugs mogen niet groter zijn dan 30 tekens.';
+$lang['pages:root_folder']              = 'Het hoogste niveau';
 
 $lang['pages:tree_explanation_title']   = 'Uitleg';
 $lang['pages:tree_explanation']         = 'De lijst aan de linkerkant stellen de pagina&apos;s op uw website voor. Klik op het "+" icoon naast de pagina om de onderliggende pagina&apos;s te zien. Als u een pagina selecteert ziet u de informatie over de pagina in dit veld.';

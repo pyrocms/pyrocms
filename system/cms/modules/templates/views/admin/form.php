@@ -1,10 +1,10 @@
 <?php if($this->method == 'edit' and ! empty($email_template)): ?>
 	<section class="title">
-    	<h4><?php echo sprintf(lang('templates.edit_title'), $email_template->name) ?></h4>
+    	<h4><?php echo sprintf(lang('templates:edit_title'), $email_template->name) ?></h4>
 	</section>
 <?php else: ?>
 	<section class="title">
-    	<h4><?php echo lang('templates.create_title') ?></h4>
+    	<h4><?php echo lang('templates:create_title') ?></h4>
 	</section>
 <?php endif ?>
 
@@ -23,12 +23,12 @@
 				</li>
 				
 				<li  class="<?php echo alternator('even', '') ?>">
-					<label for="slug"><?php echo lang('templates.slug_label') ?> <span>*</span></label>
+					<label for="slug"><?php echo lang('templates:slug_label') ?> <span>*</span></label>
 					<div class="input"><?php echo form_input('slug', $email_template->slug) ?></div>
 				</li>
 				
 				<li class="<?php echo alternator('even', '') ?>">
-					<label for="lang"><?php echo lang('templates.language_label') ?></label>
+					<label for="lang"><?php echo lang('templates:language_label') ?></label>
 					<div class="input"><?php echo form_dropdown('lang', $lang_options, array($email_template->lang)) ?>
 				</li>
 				
@@ -39,12 +39,12 @@
 				
 				<?php endif ?>
 				<li class="<?php echo alternator('even', '') ?>">
-					<label for="subject"><?php echo lang('templates.subject_label') ?> <span>*</span></label>
+					<label for="subject"><?php echo lang('templates:subject_label') ?> <span>*</span></label>
 					<div class="input"><?php echo form_input('subject', $email_template->subject) ?></div>
 				</li>
 			
 				<li class="<?php echo alternator('even', '') ?>">
-					<label for="body"><?php echo lang('templates.body_label') ?> <span>*</span></label>
+					<label for="body"><?php echo lang('templates:body_label') ?> <span>*</span></label>
 					<br style="clear:both" />
 					<?php echo form_textarea('body', $email_template->body, 'class="templates wysiwyg-advanced"') ?>
 				</li>

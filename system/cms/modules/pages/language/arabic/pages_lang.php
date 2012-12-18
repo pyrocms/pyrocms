@@ -52,18 +52,18 @@ $lang['pages:types_list_title']         = 'سرد تخطيطات الصفحات'
 
 // messages
 $lang['pages:no_pages']                 = 'لا يوجد صفحات.';
-$lang['pages_create_success']           = 'تم إنشاء الصفحة.';
-$lang['pages_create_error']             = 'لم يتم إنشاء تلك الصفحة.';
-$lang['pages_page_not_found_error']     = 'الصفحة غير موجودة.';
-$lang['pages_edit_success']             = 'تم حفظ الصفحة "%s".';
-$lang['pages_delete_home_error']        = 'لا يمكنك حذف الصفحة الرئيسية!';
-$lang['pages_delete_success']           = 'تم حذف الصفحة #%s.';
-$lang['pages_mass_delete_success']      = 'تم حذف %s صفحة.';
-$lang['pages_delete_none_notice']       = 'لم تُحذف أية صفحات.';
-$lang['pages_page_already_exist_error'] = 'يوجد صفحة لها عنوان "%s" موجودة في %s.';
-$lang['pages_parent_not_exist_error']   = 'الصفحة الحاوية التي اخترتها غير موجودة.';
-$lang['pages_chunk_slug_length']        = 'مُختصر عنوان قصاصة الصفحة يجب أن يتكون من 30 حرف كحد أقصى.';
-$lang['pages_root_folder']              = 'المستوى الأعلى';
+$lang['pages:create_success']           = 'تم إنشاء الصفحة.';
+$lang['pages:create_error']             = 'لم يتم إنشاء تلك الصفحة.';
+$lang['pages:page_not_found_error']     = 'الصفحة غير موجودة.';
+$lang['pages:edit_success']             = 'تم حفظ الصفحة "%s".';
+$lang['pages:delete_home_error']        = 'لا يمكنك حذف الصفحة الرئيسية!';
+$lang['pages:delete_success']           = 'تم حذف الصفحة #%s.';
+$lang['pages:mass_delete_success']      = 'تم حذف %s صفحة.';
+$lang['pages:delete_none_notice']       = 'لم تُحذف أية صفحات.';
+$lang['pages:page_already_exist_error'] = 'يوجد صفحة لها عنوان "%s" موجودة في %s.';
+$lang['pages:parent_not_exist_error']   = 'الصفحة الحاوية التي اخترتها غير موجودة.';
+$lang['pages:chunk_slug_length']        = 'مُختصر عنوان قصاصة الصفحة يجب أن يتكون من 30 حرف كحد أقصى.';
+$lang['pages:root_folder']              = 'المستوى الأعلى';
 
 $lang['pages:tree_explanation_title']   = 'المساعدة';
 $lang['pages:tree_explanation']         = 'القائمة الجانبية تمثّل صفحات موقعك. اضغط علامة "+" المقابلة للصفحة التي تريد عرض صفحاتها الفرعيّة. وعندما تضغط على أحد الصفحات ستظهر لك جميع المعلومات المفيدة في هذا المربّع.';

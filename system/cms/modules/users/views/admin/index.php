@@ -1,5 +1,5 @@
 <section class="title">
-	<h4><?php echo lang('user_list_title') ?></h4>
+	<h4><?php echo lang('user:list_title') ?></h4>
 </section>
 
 <section class="item">

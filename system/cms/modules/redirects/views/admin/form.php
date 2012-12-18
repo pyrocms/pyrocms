@@ -1,8 +1,8 @@
 <section class="title">
 <?php if($this->method == 'add'): ?>
-	<h4><?php echo lang('redirects.add_title');?></h4>
+	<h4><?php echo lang('redirects:add_title');?></h4>
 <?php else: ?>
-	<h4><?php echo lang('redirects.edit_title');?></h4>
+	<h4><?php echo lang('redirects:edit_title');?></h4>
 <?php endif ?>
 </section>
 
@@ -11,20 +11,20 @@
 		<?php echo form_open(uri_string(), 'class="crud"') ?>
 			<ul>
 			<li>
-				<label for="type"><?php echo lang('redirects.type');?></label><br>
-				<?php echo form_dropdown('type', array('301' => lang('redirects.301'), '302' => lang('redirects.302')), !empty($redirect['type']) ? $redirect['type'] : '302');?>
+				<label for="type"><?php echo lang('redirects:type');?></label><br>
+				<?php echo form_dropdown('type', array('301' => lang('redirects:301'), '302' => lang('redirects:302')), !empty($redirect['type']) ? $redirect['type'] : '302');?>
 			</li>
 	
 			<hr>
 			<li>
-				<label for="from"><?php echo lang('redirects.from');?></label><br>
+				<label for="from"><?php echo lang('redirects:from');?></label><br>
 				<?php echo form_input('from', str_replace('%', '*', $redirect['from']));?>
 			</li>
 	
 			<hr>
 	
 			<li>
-				<label for="to"><?php echo lang('redirects.to');?></label><br>
+				<label for="to"><?php echo lang('redirects:to');?></label><br>
 				<?php echo form_input('to', $redirect['to']);?>
 			</li>
 			</ul>
