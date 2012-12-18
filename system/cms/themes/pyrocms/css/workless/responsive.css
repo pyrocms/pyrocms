@@ -60,7 +60,7 @@
 		width: 200px;
 	}
 
-	textarea, .cke_skin_kama .cke_wrapper
+	textarea
 	{
 		width: 230px;
 	}
@@ -273,7 +273,7 @@
 
 	.one_full {
 		/* width: 450px; */
-		width: 100%
+		width: 100%;
 		/* margin: 0; */
 		float: left;
 	}
@@ -368,7 +368,7 @@
 		width: 400px;
 	}
 
-	textarea, .cke_skin_kama .cke_wrapper
+	textarea
 	{
 		width: 430px;
 	}
@@ -485,7 +485,8 @@ position: absolute;
 
 	.one_full {
 		width: 750px;
-		/* margin: 0; */
+		max-width: 100%;
+		margin: 0;
 		float: left;
 	}
 
@@ -586,7 +587,7 @@ position: absolute;
 		width: 500px;
 	}
 
-	textarea, .cke_skin_kama .cke_wrapper
+	textarea
 	{
 		width: 675px;
 	}
@@ -744,7 +745,7 @@ position: absolute;
 		width: 500px;
 	}
 
-	textarea, .cke_skin_kama .cke_wrapper
+	textarea
 	{
 		width: 950px;
 	}
@@ -883,7 +884,7 @@ position: absolute;
 		width: 500px;
 	}
 
-	textarea, .cke_skin_kama .cke_wrapper
+	textarea
 	{
 		width: 1200px;
 	}
