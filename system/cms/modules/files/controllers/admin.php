@@ -54,7 +54,7 @@ class Admin extends Admin_Controller {
 				pyro.lang.alt_attribute = '".addslashes(lang('files:alt_attribute'))."';
 
 				// deprecated
-				pyro.files.initial_folder_contents = '".$this->session->flashdata('initial_folder_contents')."';
+				pyro.files.initial_folder_contents = '".(integer)$this->session->flashdata('initial_folder_contents')."';
 			</script>");
 	}
 

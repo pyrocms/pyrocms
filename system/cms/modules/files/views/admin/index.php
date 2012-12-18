@@ -2,13 +2,7 @@
 	<h4 id="file-title">
 		<?php echo lang('files:files_title') ?>
 	</h4>
-	<!--
-<h4 id="file-breadcrumbs">
-		<span id="crumb-root">
-			<a data-id="0" href="#"><?php echo lang('files:places') ?></a>
-		</span>
-	</h4>
--->
+
 	<div id="file-toolbar">
 		<ul class="button-menu-source buttons">
 			<li class="button" data-applies-to="pane root-pane"	data-menu="refresh"><?php echo lang('files:refresh') ?></li>
@@ -187,9 +181,9 @@
 </section>
 
 <section class="file-path">
-		<h5 id="file-breadcrumbs">
-			<span id="crumb-root">
-				<a data-id="0" href="#"><?php echo lang('files:places') ?></a>
-			</span>
-		</h5>
-	</section>
+	<h5 id="file-breadcrumbs">
+		<span id="crumb-root">
+			<a data-id="0" href="#"><?php echo lang('files:places') ?></a>
+		</span>
+	</h5>
+</section>
