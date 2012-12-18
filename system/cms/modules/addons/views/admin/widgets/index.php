@@ -2,6 +2,7 @@
 	<h4><?php echo lang('addons:widgets') ?></h4>
 </section>
 <section class="item">
+<div class="content">
 <?php if ($widgets): ?>
 	<?php echo form_open(uri_string(), 'class="crud"') ?>
 	<!-- Available Widget List -->
@@ -43,5 +44,5 @@
 <?php else: ?>
 	<p><?php echo lang('widgets.no_available_widgets') ?></p>
 <?php endif ?>
-
+</div>
 </section>

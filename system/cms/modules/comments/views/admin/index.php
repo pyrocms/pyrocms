@@ -3,6 +3,7 @@
 </section>
 
 <section class="item">
+	<div class="content">
 		
 	<?php echo $this->load->view('admin/partials/filters') ?>
 
@@ -30,5 +31,6 @@
 		</div>
 
 	<?php echo form_close();?>
-
+	
+	</div>
 </section>

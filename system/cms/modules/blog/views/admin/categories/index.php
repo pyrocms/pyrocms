@@ -3,6 +3,7 @@
 </section>
 
 <section class="item">
+	<div class="content">
 	
 	<?php if ($categories): ?>
 
@@ -48,4 +49,5 @@
 	<?php else: ?>
 		<div class="no_data"><?php echo lang('cat_no_categories') ?></div>
 	<?php endif ?>
+	</div>
 </section>
