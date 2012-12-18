@@ -136,7 +136,7 @@ class Settings {
 	 *
 	 * @return	array
 	 */
-	public function get_all()
+	public static function get_all()
 	{
 		if (self::$cache)
 		{
@@ -161,7 +161,7 @@ class Settings {
 	 * @param	array	$setting
 	 * @return	int
 	 */
-	public function add($setting)
+	public static function add($setting)
 	{
 		if ( ! self::_check_format($setting))
 		{
@@ -178,7 +178,7 @@ class Settings {
 	 * @param	string	$name
 	 * @return	bool
 	 */
-	public function delete($name)
+	public static function delete($name)
 	{
 		return ci()->settings_m->delete_by(array('slug' => $name));
 	}
@@ -193,7 +193,7 @@ class Settings {
 	 * @param	object	$setting
 	 * @return	string
 	 */
-	public function form_control(&$setting)
+	public static function form_control(&$setting)
 	{
 		if ($setting->options)
 		{
