@@ -214,21 +214,39 @@ class MY_Controller extends MX_Controller
 		// Assign 
 		$conn = $this->db->get_connection();
 
+		include APPPATH.'config/database.php';
+
+		$config = $db[ENVIRONMENT];
+		$subdriver = current(explode(':', $config['dsn']));
+
 		// Is this a PDO connection?
 		if ($conn instanceof PDO) {
 
+			$drivers = array(
+				'mysql' => '\Illuminate\Database\MySqlConnection',
+				'pgsql' => '\Illuminate\Database\PostgresConnection',
+				'sqlite' => '\Illuminate\Database\SQLiteConnection',
+			);
+
 			// Make a connection instance with the existing PDO connection
-			return new \Illuminate\Database\Connection($conn, $prefix);
+			$pdb = new $drivers[$subdriver]($conn, $prefix);
 		
 		// Not using the new PDO driver
 		} else {
 
-			// Get the original CI config so we can use to make a second connection
-			require APPPATH.'config/database.php';
-
-			$cf = new \Illuminate\Database\ConnectionFactory;
-			return $cf->make($config);
+			$pdb = \Capsule\Database\Connection::make('default', array(
+				'driver' => $subdriver,
+				'dsn' => $config["dsn"],
+				'username' => $config["username"],
+				'password' => $config["password"],
+				'charset' => $config["char_set"],
+				'collation' => $config["dbcollat"],
+			), true);
 		}
+
+		$pdb->setFetchMode(PDO::FETCH_OBJ);
+
+		return $pdb;
 	}
 }
 
