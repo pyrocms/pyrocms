@@ -1,7 +1,7 @@
 {
     "minimum-stability": "dev",
     "require": {
-        "fuel/lex": "2.2.*",
+        "pyrocms/lex": "2.2.*",
         "dflydev/markdown": "1.0.*",
         "dhorrigan/capsule": "2.0.*",
         "illuminate/database": "*",
