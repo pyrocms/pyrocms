@@ -114,6 +114,9 @@ $lang['settings_ckeditor_config_desc']          = 'تجد قائمة بعناص�
 $lang['settings_enable_registration']           = 'تمكين تسجيل المستخدمين';
 $lang['settings_enable_registration_desc']      = 'اسمح للمستخدمين التسجيل في موقعك.';
 
+$lang['settings_profile_visibility']            = 'Profile Visibility'; #translate
+$lang['settings_profile_visibility_desc']       = 'Specify who can view user profiles on the public site'; #translate
+
 $lang['settings_cdn_domain']                    = 'نطاق شبكة CDN';
 $lang['settings_cdn_domain_desc']               = 'نطاقات CDN يمكنك من استضافة المحتوى الثابت على خادمات سريعة، مثل Amazon CloudFront أو MaxCDN.';
 

@@ -7,7 +7,7 @@ $lang['cp_admin_quick_links']			= 'Hitre povezave';
 $lang['cp_welcome_title'] 				= 'Dobrodošli';
 $lang['cp_welcome_message'] 			= 'Dobrodošli na Nadzoni plošči %s .S uporabo povezav zgoraj in na levi strani lahko nadzorujete skoraj vse nastavitve vaše spletne strani.V primeru da boste naleteli na kakšne težave pri uporabi nam le to sporočite preko bugtracker-ja.';
 
-$lang['cp_blog_feed_title'] 			= 'Zadnje novice';
+$lang['cp_news_feed_title'] 			= 'Zadnje novice';
 
 // Shortcuts
 $lang['cp_manage_comments']				= 'Uredi komentarje';
@@ -32,9 +32,9 @@ $lang['cp_nav_settings']				= 'Nastavitve';
 $lang['cp_nav_addons']					= 'Razširitve';
 $lang['cp_nav_modules']					= 'Moduli';
 $lang['cp_nav_users']					= 'Uporabniki';
-$lang['cp_nav_content']					= 'Vsebina';
 $lang['cp_nav_data']					= 'Data'; #translate
 $lang['cp_nav_structure']				= 'Structure'; #translate
+$lang['cp_nav_content']					= 'Vsebina';
 $lang['cp_nav_misc']					= 'Miscellaneous'; #translate
 
 $lang['cp_must_login']	 				= 'Morate biti prijavljeni za ogled te strani.';

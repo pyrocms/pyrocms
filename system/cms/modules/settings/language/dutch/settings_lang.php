@@ -133,6 +133,9 @@ $lang['settings_ckeditor_config_desc']          = 'U kunt een lijst van configur
 $lang['settings_enable_registration']           = 'Schakel gebruikersregistratie in';
 $lang['settings_enable_registration_desc']      = 'Sta gebruikers toe zich in te schrijven op uw site.';
 
+$lang['settings_profile_visibility']            = 'Profile Visibility'; #translate
+$lang['settings_profile_visibility_desc']       = 'Specify who can view user profiles on the public site'; #translate
+
 $lang['settings_cdn_domain']                    = 'CDN Domein';
 $lang['settings_cdn_domain_desc']               = 'CDN domain kan bestanden plaatsen naar verschillende servers, zoals Amazon CloudFront or MaxCDN.';
 

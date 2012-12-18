@@ -133,6 +133,9 @@ $lang['settings_ckeditor_config_desc']          = '您可以在「<a target="_bl
 $lang['settings_enable_registration']           = '開啟使用者註冊';
 $lang['settings_enable_registration_desc']      = '讓訪客可以在你的網站註冊成為用戶。';
 
+$lang['settings_profile_visibility']            = 'Profile Visibility'; #translate
+$lang['settings_profile_visibility_desc']       = 'Specify who can view user profiles on the public site'; #translate
+
 $lang['settings_cdn_domain']                    = 'CDN Domain';
 $lang['settings_cdn_domain_desc']               = 'CDN domains 讓你可以使用一些知名伺服器上的固定內容, 像是 Amazon CloudFront 或 MaxCDN.';
 

@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // inline help html. Only 'help_body' is used.
 $lang['help_body'] = "
@@ -29,11 +29,11 @@ Refer to the Page Types section below for instructions on how to best use Page T
 <h6>Options</h6>
 <p>Allows you to turn on comments and an rss feed for this page. You can also restrict a page to specific logged in user groups by setting the Access field. 
 If the RSS feed is enabled a visitor can subscribe to this page and they will receive each child page in their rss reader.</p>
-<p>The \"Require an exact uri match\" field is a clever little tool that allows you to pass parameters in the url. By default PyroCMS looks for a page with 
-the slug of \"acme-widgets\" that is the child of \"products\" when you visit ".site_url('products/acme-widgets').". By checking this box in the Products 
+<p>The &quot;Require an exact uri match&quot; field is a clever little tool that allows you to pass parameters in the url. By default PyroCMS looks for a page with
+the slug of &quot;acme-widgets&quot; that is the child of &quot;products&quot; when you visit ".site_url('products/acme-widgets').". By checking this box in the Products
 page you are telling PyroCMS that it is now okay if there isn't a page named Acme Widgets. It will now load Products and 'acme-widgets' will just be a parameter.
 This makes it easy to pass parameters to embedded tags. An example using the Streams add-on to display the 'acme-widgets' stream on the Products page: 
-<pre><code>{{ streams:cycle stream={url:segments segment=\"2\"} }}
+<pre><code>{{ streams:cycle stream={url:segments segment=&quot;2&quot;} }}
     {{ entries }}
         {{ company_intro }}
         {{ owner_name }}
@@ -49,8 +49,8 @@ For example: If you have a twitter feed widget that you want to display at the b
 {{ page:title }}
 {{ page:body }}
 
-&lt;div class=\"my-twitter-widget\"&gt;
-	{{ widgets:instance id=\"1\" }}
+&lt;div class=&quot;my-twitter-widget&quot;&gt;
+	{{ widgets:instance id=&quot;1&quot; }}
 &lt;/div&gt;
 </code></pre>
-<p>Now you can apply css styling to the \"my-twitter-widget\" class in the CSS tab.</p>";
+<p>Now you can apply css styling to the &quot;my-twitter-widget&quot; class in the CSS tab.</p>";

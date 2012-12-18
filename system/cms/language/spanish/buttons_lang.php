@@ -1,4 +1,4 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * PyroCMS
  *
@@ -28,12 +28,14 @@ $lang['buttons.disable']	= 'Desactivar';
 $lang['buttons.yes']		= 'Si';
 $lang['buttons.no']			= 'No';
 $lang['buttons.activate']	= 'Activar';
-$lang['buttons.deactivate']	= 'Desactivar'; 
+$lang['buttons.deactivate']	= 'Desactivar';
 $lang['buttons.preview']	= 'Vista previa';
 $lang['buttons.close']		= 'Cerrar';
 $lang['buttons.edit']		= 'Editar';
 $lang['buttons.clone']		= 'Clonar';
-$lang['buttons.re-index']	= 'Volver a indexar'; 
+$lang['buttons.re-index']	= 'Volver a indexar';
 $lang['buttons.copy']		= 'Copiar';
+$lang['buttons.filter']		= 'Filter'; #translate
+$lang['buttons.clear']		= 'Clear'; #translate
 
 /* End of file buttons_lang.php */

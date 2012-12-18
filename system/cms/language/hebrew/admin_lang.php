@@ -5,10 +5,7 @@ $lang['global:dashboard'] 			= 'לוח בקרה';
 $lang['cp_admin_quick_links']			= 'קישורים מהירים';
 
 $lang['cp_welcome_title'] 			= 'ברוכים הבאים';
-$lang['cp_welcome_message'] 			= '
-ברוכים הבאים ל%s בלוח הבקרה.
-על יד שימוש בקישורים למעלה אתה יכול לשלוט כמעט בכל היבט של אתר האינטרנט שלך.
-אם במקרה יש לך בעיות עם המערכת, בבקשה לשלוח את הבעיה שלך לbugtracker שלנו.';
+$lang['cp_welcome_message'] 			= 'ברוכים הבאים ל%s בלוח הבקרה. על יד שימוש בקישורים למעלה אתה יכול לשלוט כמעט בכל היבט של אתר האינטרנט שלך. אם במקרה יש לך בעיות עם המערכת, בבקשה לשלוח את הבעיה שלך לbugtracker שלנו.';
 
 $lang['cp_news_feed_title'] 			= 'סרט חדשות';
 
@@ -28,16 +25,16 @@ $lang['cp_edit_profile_label'] 			= 'שנה פרופיל';
 // Footer
 $lang['cp_change_language'] 			= 'שינוי שפה';
 $lang['cp_documentation'] 			= 'תיעוד';
-$lang['cp_report_bug']                          = 'דווח על שגיה';
+$lang['cp_report_bug'] 					= 'דווח על שגיה';
 $lang['cp_contact_support'] 			= 'תמיכה';
 
 $lang['cp_nav_settings']				= 'הגדרות';
 $lang['cp_nav_addons']					= 'תוספות';
 $lang['cp_nav_modules']					= 'מודולים';
 $lang['cp_nav_users']					= 'משתמשים';
-$lang['cp_nav_content']					= 'קונטנט';
 $lang['cp_nav_data']					= 'Data'; #translate
 $lang['cp_nav_structure']				= 'Structure'; #translate
+$lang['cp_nav_content']					= 'קונטנט';
 $lang['cp_nav_misc']					= 'Miscellaneous'; #translate
 
 $lang['cp_must_login']	 				= 'חייבים להיות מחוברים כדי לצפות בעמוד זה';

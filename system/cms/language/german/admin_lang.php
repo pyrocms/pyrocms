@@ -32,12 +32,10 @@ $lang['cp_nav_settings']                = 'Einstellungen';
 $lang['cp_nav_addons']                    = 'Erweiterungen';
 $lang['cp_nav_modules']                    = 'Module';
 $lang['cp_nav_users']                    = 'Benutzer';
-$lang['cp_nav_content']                    = 'Inhalt';
 $lang['cp_nav_data']					= 'Data'; #translate
 $lang['cp_nav_structure']				= 'Structure'; #translate
+$lang['cp_nav_content']                    = 'Inhalt';
 $lang['cp_nav_misc']					= 'Miscellaneous'; #translate
-
-$lang['global:keywords']                = 'Keywords'; #translate
 
 $lang['cp_must_login']                     = 'Du musst eingeloggt sein, um diese Seite sehen zu k&ouml;nnen.';
 $lang['cp_access_denied']                 = 'Du hast keine ausreichenden Zugriffsberechtigungen um diese Seite anzusehen.';
@@ -45,6 +43,8 @@ $lang['cp_delete_installer_message']              = 'The installer directory sti
 $lang['cp_delete_installer_successfully_message'] = 'The installer directory has been successfully deleted.'; #translate
 $lang['cp_delete_installer_manually_message']     = 'The installer directory could not be deleted. <strong>Please remove it manually!</strong>'; #translate
 $lang['cp_upgrade_message']                = 'Du benutzt aktuell Version %s, aber die Datenbank ist in der &auml;lteren Version %s. Bitte <a href="%s">aktualisiere deine Datenbank</a>.';
+$lang['cp_google_analytics_missing']	= 'Google Analytics settings are missing. Add them into %s or contact your administrator.'; #translate
+$lang['cp_google_analytics_no_connect']	= 'Could not connect to Google Analytics. Check in %s.'; #translate
 
 $lang['required_label']                 = 'Ben&ouml;tigt';
 $lang['sb_recent_users']                 = 'Neue Benutzer';

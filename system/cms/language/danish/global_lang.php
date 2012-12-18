@@ -9,21 +9,23 @@ $lang['desc_label'] 					= 'Beskrivelse';
 $lang['version_label'] 					= 'Version';
 $lang['global:author'] 					= 'Forfatter';
 $lang['global:action'] 					= 'Handling';
-
 $lang['global:slug'] 					= 'Slug'; #translate
 $lang['global:slug_instructions']		= 'Lowercase characters and underscores only.'; #translate
-$lang['dialog.delete_message'] 			= 'Er du sikker på, at du vil slette dette? Det kan ikke ændres.';
-$lang['dialog.confirm'] 				= 'Bekræft';
-$lang['dialog.yes'] 					= 'Ja';
-$lang['dialog.no'] 						= 'Nej';
+$lang['global:user'] 					= 'User'; #translate
+
+$lang['global:dialog:delete_message'] 	= 'Er du sikker på, at du vil slette dette? Det kan ikke ændres.';
+$lang['global:dialog:confirm'] 			= 'Bekræft';
+
+$lang['global:yes'] 					= 'Ja';
+$lang['global:no'] 						= 'Nej';
 
 $lang['global:select-none'] 			= '-- Ingen --';
 $lang['global:select-all'] 				= '-- Alt --';
 $lang['global:select-any'] 				= '-- Enhver --';
 $lang['global:select-pick'] 			= '-- Vælg --';
 
-$lang['global:check-none'] 				= 'Ingen';
 $lang['global:check-all']				= 'Alt';
+$lang['global:check-none'] 				= 'Ingen';
 
 $lang['global:operators:equal'] 		= 'Lig med';
 $lang['global:operators:not-equal'] 	= 'Ikke lig med';
@@ -50,9 +52,10 @@ $lang['general_error_label'] 			= 'Fejl';
 $lang['required_error_label'] 			= 'Nødvendigt felt mangler';
 $lang['note_label'] 					= 'Bemærk';
 $lang['success_label'] 					= 'Gennemført';
+$lang['global:fields']					= 'Fields'; #translate
 
 $lang['login_title'] 					= 'Log ind';
-$lang['cms_fatal_error'] 				= 'Fejl! Er CMS installeret?';
+$lang['global:fatal_error'] 				= 'Fejl! Er CMS installeret?';
 $lang['global:demo_restrictions']       = 'Some features on this page have been disabled for the demo.'; #translate
 
 $lang['login_error_label'] 				= 'Fejl ved log ind';
@@ -73,15 +76,18 @@ $lang['publish_label'] 					= 'Publicér';
 $lang['global:upload'] 					= 'Upload';
 $lang['global:uninstall'] 				= 'Afinstallér';
 $lang['global:install'] 					= 'Installér';
+$lang['global:upgrade'] 					= 'Opgradér';
 $lang['global:enable']					= 'Aktivér';
 $lang['global:disable'] 					= 'Deaktivér';
-$lang['global:upgrade'] 					= 'Opgradér';
+$lang['global:enabled']					= 'Enabled'; #translate
+$lang['global:disabled'] 				= 'Disabled'; #translate
 
 $lang['all_right_reserved']				= 'All Rights Reserved.';  #translate
 $lang['powered_by_pyrocms']				= 'Powered by PyroCMS';  #translate
 $lang['top_page']						= 'Top';  #translate
 $lang['back_to_top']					= 'Back to Top';  #translate
 
+$lang['global:filters'] 				= 'Filters'; #translate
 $lang['global:image'] 					= 'Image'; #translate
 $lang['global:description']				= 'Description'; #translate
 $lang['global:actions']					= 'Handlinger';
@@ -93,13 +99,18 @@ $lang['global:empty']					= 'Empty'; #translate
 $lang['global:delete']					= 'Delete'; #translate
 $lang['global:remove']					= 'Remove'; #translate
 
-$lang['global:widgets']					= 'Widgets';
-$lang['global:themes']					= 'Themes'; #translate
-$lang['global:field_types']				= 'Field Types';
-$lang['global:plugins']					= 'Plugins';
-$lang['global:plugin']					= 'Plugin';
-
 $lang['global:keywords']				= 'Keywords'; #translate
 
+$lang['global:or']						= 'or'; #translate
+$lang['global:and']						= 'and'; #translate
+$lang['global:at']						= 'at'; #translate
+
+$lang['global:widgets']					= 'Widgets'; #translate
+$lang['global:themes']					= 'Themes'; #translate
+$lang['global:field_types']				= 'Field Types'; #translate
+$lang['global:plugins']					= 'Plugins'; #translate
+$lang['global:plugin']					= 'Plugin'; #translate
+
+$lang['global:options']					= 'Options'; #translate
+
 /* End of file main_lang.php */
-/* Location: ./system/cms/language/english/main_lang.php */

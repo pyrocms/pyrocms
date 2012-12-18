@@ -10,10 +10,12 @@ $lang['version_label'] 					= 'Versija';
 $lang['global:author'] 					= 'Autorius';
 $lang['global:action'] 					= 'Veiksmas';
 $lang['global:slug'] 					= 'Nuoroda';
+$lang['global:slug_instructions']		= 'Lowercase characters and underscores only.'; #translate
 $lang['global:user'] 					= 'Vartotojas';
 
-$lang['dialog.delete_message'] 			= 'Ar tikrai norite tai ištrinti? Atstatymas negalimas.';
+$lang['global:dialog:delete_message'] 			= 'Ar tikrai norite tai ištrinti? Atstatymas negalimas.';
 $lang['global:dialog:confirm'] 				= 'Patvirtinti';
+
 $lang['global:yes'] 					= 'Taip';
 $lang['global:no'] 						= 'Ne';
 
@@ -22,8 +24,8 @@ $lang['global:select-all'] 				= '-- Visi --';
 $lang['global:select-any'] 				= '-- Betkurie --';
 $lang['global:select-pick'] 			= '-- Išrinti --';
 
-$lang['global:check-none'] 				= 'Nieko';
 $lang['global:check-all']				= 'Visi';
+$lang['global:check-none'] 				= 'Nieko';
 
 $lang['global:operators:equal'] 				= 'Lygiai';
 $lang['global:operators:not-equal'] 			= 'Nelygu';
@@ -50,10 +52,11 @@ $lang['general_error_label'] 			= 'Klaida';
 $lang['required_error_label'] 			= 'Reikalingas laukas yra tuščias.';
 $lang['note_label'] 					= 'Užrašai';
 $lang['success_label'] 					= 'Sėkmingai';
+$lang['global:fields']					= 'Fields'; #translate
 
 $lang['login_title'] 					= 'Prisijungti';
-$lang['cms_fatal_error'] 				= 'Klaida. Ar TVS yra įdiegtas?';
-$lang['global:demo_restrictions']       = 'Kaikurios funkcijos buvo atjungtos demonstracinėje versijoje.';
+$lang['global:fatal_error'] 				= 'Klaida. Ar TVS yra įdiegtas?';
+$lang['global:demo_restrictions'] 		= 'Kaikurios funkcijos buvo atjungtos demonstracinėje versijoje.';
 
 $lang['login_error_label'] 				= 'Prisijungimo klaida';
 $lang['forgot_password_label'] 			= 'Užmiršote slaptažodį?';
@@ -73,15 +76,18 @@ $lang['publish_label'] 					= 'Publikuoti';
 $lang['global:upload'] 					= 'Įkelti';
 $lang['global:uninstall'] 				= 'Išdiegti';
 $lang['global:install'] 				= 'Įdiegti';
+$lang['global:upgrade'] 				= 'Atnaujinti';
 $lang['global:enable']					= 'Įjungti';
 $lang['global:disable'] 				= 'Atjungti';
-$lang['global:upgrade'] 				= 'Atnaujinti';
+$lang['global:enabled']					= 'Enabled'; #translate
+$lang['global:disabled'] 				= 'Disabled'; #translate
 
 $lang['all_right_reserved']				= 'Visos teisės saugomos.';
 $lang['powered_by_pyrocms']				= 'Veikia ant PyroCMS';
 $lang['top_page']						= 'Viršus';
 $lang['back_to_top']					= 'Grižti į viršų';
 
+$lang['global:filters'] 				= 'Filters'; #translate
 $lang['global:image'] 					= 'Image'; #translate
 $lang['global:description'] 		    = 'Aprašymas';
 $lang['global:actions']					= 'Veiksmai';
@@ -93,12 +99,18 @@ $lang['global:empty']					= 'Tuščias';
 $lang['global:delete']					= 'Ištrinti';
 $lang['global:remove']					= 'Išimti';
 
-$lang['global:widgets']					= 'Widgets';
-$lang['global:themes']					= 'Themes'; #translate
-$lang['global:field_types']				= 'Field Types';
-$lang['global:plugins']					= 'Plugins';
-$lang['global:plugin']					= 'Plugin';
-
 $lang['global:keywords']				= 'Raktažodžiai';
+
+$lang['global:or']						= 'or'; #translate
+$lang['global:and']						= 'and'; #translate
+$lang['global:at']						= 'at'; #translate
+
+$lang['global:widgets']					= 'Widgets'; #translate
+$lang['global:themes']					= 'Themes'; #translate
+$lang['global:field_types']				= 'Field Types'; #translate
+$lang['global:plugins']					= 'Plugins'; #translate
+$lang['global:plugin']					= 'Plugin'; #translate
+
+$lang['global:options']					= 'Options'; #translate
 
 /* End of file main_lang.php */

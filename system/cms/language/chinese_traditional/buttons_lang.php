@@ -35,5 +35,7 @@ $lang['buttons.edit']		= '編輯';
 $lang['buttons.clone']		= '複製';
 $lang['buttons.re-index']	= '重新建立索引';
 $lang['buttons.copy']		= '複製';
+$lang['buttons.filter']		= 'Filter'; #translate
+$lang['buttons.clear']		= 'Clear'; #translate
 
 /* End of file buttons_lang.php */

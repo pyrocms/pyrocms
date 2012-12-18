@@ -135,6 +135,9 @@ $lang['settings_ckeditor_config_desc']          = 'Pode encontrar uma lista de i
 $lang['settings_enable_registration']           = 'Habilitar o registro de utilizadores';
 $lang['settings_enable_registration_desc']      = 'Permitir que os utilizadores se registem no seu site.';
 
+$lang['settings_profile_visibility']            = 'Profile Visibility'; #translate
+$lang['settings_profile_visibility_desc']       = 'Specify who can view user profiles on the public site'; #translate
+
 $lang['settings_cdn_domain']                    = 'CDN Domain';
 $lang['settings_cdn_domain_desc']               = 'CDN domínios permite descarregar conteúdos estáticos para servidores de borda diferentes, como, Amazon CloudFront ou MaxCDN.';
 

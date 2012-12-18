@@ -31,22 +31,21 @@ $lang['cp_contact_support'] 			= 'Ondersteuning';
 $lang['cp_nav_settings']				= 'Instellingen';
 $lang['cp_nav_addons']					= 'Add-ons';
 $lang['cp_nav_modules']					= 'Modules';
-$lang['cp_nav_users']           		= 'Gebruikers';
-$lang['cp_nav_content']					= 'Content';
+$lang['cp_nav_users']					= 'Gebruikers';
 $lang['cp_nav_data']					= 'Data'; #translate
 $lang['cp_nav_structure']				= 'Structure'; #translate
+$lang['cp_nav_content']					= 'Content';
 $lang['cp_nav_misc']					= 'Miscellaneous'; #translate
 
+$lang['cp_must_login']	 				= 'U moet ingelogd zijn om deze pagina te kunnen bekijken.';
 $lang['cp_access_denied'] 				= 'U heeft geen rechten om deze pagina te bekijken.';
 $lang['cp_delete_installer_message']              = 'The installer directory still exists! <a href="#" id="remove_installer_directory">Please delete it from your server!</a>.<br>Leaving it online means control of this site could be granted to somebody else.'; #translate
 $lang['cp_delete_installer_successfully_message'] = 'The installer directory has been successfully deleted.'; #translate
 $lang['cp_delete_installer_manually_message']     = 'The installer directory could not be deleted. <strong>Please remove it manually!</strong>'; #translate
 $lang['cp_upgrade_message']				= 'U gebruikt momenteel versie %s, maar uw database draait op versie %s. Klik alstublieft <a href="%s">hier</a> om de database te upgraden.';
 
-$lang['cp_must_login']	 				= 'U moet ingelogd zijn om deze pagina te kunnen bekijken.';
-$lang['cp_access_denied'] 				= 'U heeft geen toestemming om deze pagina te bekijken.';
-$lang['cp_delete_installer_message']	= 'Verwijder alstublieft de installer map van de server. Het online laten staan betekent dat controle van deze website gegeven kan worden aan iemand anders.';
-$lang['cp_upgrade_message']				= 'U draait momenteel versie %s, maar uw database is versie %s. <a href="%s" title="Upgrade">Klik hier</a> om uw database te upgraden.';
+$lang['cp_google_analytics_missing']	= 'Google Analytics settings are missing. Add them into %s or contact your administrator.'; #translate
+$lang['cp_google_analytics_no_connect']	= 'Could not connect to Google Analytics. Check in %s.'; #translate
 
 $lang['required_label'] 				= 'Vereist';
 $lang['sb_recent_users'] 				= 'Recente gebruikers';

@@ -35,5 +35,7 @@ $lang['buttons.edit']		= 'Sửa';
 $lang['buttons.clone']		= 'Sao y';
 $lang['buttons.re-index']	= 'Đánh lại chỉ mục';
 $lang['buttons.copy']		= 'Sao chép';
+$lang['buttons.filter']		= 'Filter'; #translate
+$lang['buttons.clear']		= 'Clear'; #translate
 
 /* End of file buttons_lang.php */
