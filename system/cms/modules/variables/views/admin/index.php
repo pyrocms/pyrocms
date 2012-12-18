@@ -3,6 +3,7 @@
 </section>
 
 <section class="item">
+<div class="content">
 <?php if ($variables): ?>
 
 	<?php echo form_open('admin/variables/delete') ?>
@@ -47,4 +48,5 @@
 <?php else: ?>
 		<div class="no_data"><?php echo lang('variables.no_variables');?></div>
 <?php endif ?>
+</div>
 </section>

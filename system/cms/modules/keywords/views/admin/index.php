@@ -3,6 +3,7 @@
 </section>
 
 <section class="item">
+<div class="content">
 
 <?php if ($keywords): ?>
     <table class="table-list" cellspacing="0">
@@ -38,4 +39,5 @@
 	<div class="no_data"><?php echo lang('keywords:no_keywords');?></div>
 <?php endif;?>
 
+</div>
 </section>

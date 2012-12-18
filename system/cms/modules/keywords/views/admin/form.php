@@ -9,6 +9,7 @@
 <?php endif ?>
 
 <section class="item">
+<div class="content">
 
 
 
@@ -32,7 +33,7 @@
 <?php echo form_close();?>
 
 
-
+</div>
 </section>
 
 <script type="text/javascript">

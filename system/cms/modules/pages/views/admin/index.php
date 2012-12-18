@@ -4,10 +4,12 @@
 	</section>
 	
 	<section class="item">
-		<div id="page-list">
-		<ul class="sortable">
-			<?php echo tree_builder($pages, '<li id="page_{{ id }}"><div><a href="#" rel="{{ id }}">{{ title }}</a></div>{{ children }}</li>') ?>
-		</ul>
+		<div class="content">
+			<div id="page-list">
+			<ul class="sortable">
+				<?php echo tree_builder($pages, '<li id="page_{{ id }}"><div><a href="#" rel="{{ id }}">{{ title }}</a></div>{{ children }}</li>') ?>
+			</ul>
+			</div>
 		</div>
 	</section>
 </div>
@@ -18,10 +20,12 @@
 	</section>
 	
 	<section class="item">
-		<div id="page-details">
-		<p>
-			<?php echo lang('pages:tree_explanation') ?>
-		</p>
+		<div class="content">
+			<div id="page-details">
+				<p>
+					<?php echo lang('pages:tree_explanation') ?>
+				</p>
+			</div>
 		</div>
 	</section>
 </div>

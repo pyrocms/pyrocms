@@ -3,6 +3,7 @@
 </section>
 
 <section class="item">
+	<div class="content">
 	<?php if ($themes): ?>
 	
 		<?php echo form_open('admin/addons/themes/set_default') ?>
@@ -64,4 +65,5 @@
 			<p><?php echo lang('addons:themes:no_themes_installed') ?></p>
 		</div>
 	<?php endif ?>
+	</div>
 </section>
