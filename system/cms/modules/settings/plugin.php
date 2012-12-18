@@ -29,7 +29,7 @@ class Plugin_Settings extends Plugin
 		$info = array();
 
 		// dynamically build the array for the magic method __call
-		$settings = Settings::get_all();
+		$settings = $this->settings->get_all();
 		ksort($settings);
 
 		foreach ($settings as $slug => $value)
