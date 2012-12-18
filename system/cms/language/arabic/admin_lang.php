@@ -39,7 +39,9 @@ $lang['cp_nav_misc']					= 'مُتفرقات';
 
 $lang['cp_must_login']	 				= 'يجب أن تكون مسجّل الدخول كي تعرض هذه الصفحة.';
 $lang['cp_access_denied'] 				= 'ليست لديك الصلاحيات الكافية لعرض هذه الصفحة.';
-$lang['cp_delete_installer_message']	= 'رجاءً حذف مجلد التثبيت من خادمك، حيث أن تركه هناك قد يعني تحكم أحد آخر به.';
+$lang['cp_delete_installer_message']              = 'The installer directory still exists! <a href="#" id="remove_installer_directory">Please delete it from your server!</a>.<br>Leaving it online means control of this site could be granted to somebody else.'; #translate
+$lang['cp_delete_installer_successfully_message'] = 'The installer directory has been successfully deleted.'; #translate
+$lang['cp_delete_installer_manually_message']     = 'The installer directory could not be deleted. <strong>Please remove it manually!</strong>'; #translate
 $lang['cp_upgrade_message']				= 'أنت تستخدم النسخة %s حالياً، إلا أن نسخة قاعدة بياناتك هي %s. رجاءً <a href="%s" title="الترقية">اضغط هنا</a> لترقية قاعدة البيانات.';
 $lang['cp_google_analytics_missing']	= 'اعدادت Google Analytics غير موجودة، قم باضافتهم الى %1 او اتصل بمدير الموقع.';
 $lang['cp_google_analytics_no_connect']	= 'لا يمكن الاتصال بخدمة Google Analytics. تحقق من ذلك في %s.';

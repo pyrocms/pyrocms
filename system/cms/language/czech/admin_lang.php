@@ -39,7 +39,9 @@ $lang['cp_nav_misc']					= 'Miscellaneous'; #translate
 
 $lang['cp_must_login']					= 'Pro prohlížení této stránky musíte být přihlášen/a.';
 $lang['cp_access_denied']				= 'nemáte oprávnění k prohlížení této stránky.';
-$lang['cp_delete_installer_message']	= 'Prosím vymažte instalační složku ze serveru. Její přítomnost může být zneužita k získání kontroly nad vaším webem někým cizím.';
+$lang['cp_delete_installer_message']              = 'The installer directory still exists! <a href="#" id="remove_installer_directory">Please delete it from your server!</a>.<br>Leaving it online means control of this site could be granted to somebody else.'; #translate
+$lang['cp_delete_installer_successfully_message'] = 'The installer directory has been successfully deleted.'; #translate
+$lang['cp_delete_installer_manually_message']     = 'The installer directory could not be deleted. <strong>Please remove it manually!</strong>'; #translate
 $lang['cp_upgrade_message']				= 'Vaše verze systému je %s, ale verze vaší databáze je %s. <a href="%s" title="Aktualizace">Klikněte sem</a> pro aktualizaci vaší databáze.';
 $lang['cp_google_analytics_missing']	= 'Nastavení Google Analytics chybí. Zapište je do %s nebo kontaktujte svého administrátora.';
 $lang['cp_google_analytics_no_connect']	= 'Nepodařilo se připojit ke Google Analytics. Zkontrolujte na %s.';

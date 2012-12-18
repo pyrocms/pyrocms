@@ -195,6 +195,17 @@ $(function($) {
 	</div>		
 	<?php endif; ?>
 	<!-- End RSS Feed -->
+	<script type="text/javascript">
+		(function ($) {
 
+			$('#remove_installer_directory').on('click', function (e) {
+				e.preventDefault();
+				var $parent = $(this).parent();
+				$.get(SITE_URL + 'admin/remove_installer_directory', function (data) {
+					$parent.removeClass('warning').addClass(data.status).html(data.message);
+				});
+			});
+		})(jQuery);
+	</script>
 </div>
 <!-- End sortable div -->

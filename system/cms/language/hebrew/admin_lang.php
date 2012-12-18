@@ -43,8 +43,9 @@ $lang['cp_nav_misc']					= 'Miscellaneous'; #translate
 $lang['cp_must_login']	 				= 'חייבים להיות מחוברים כדי לצפות בעמוד זה';
 $lang['cp_access_denied'] 				= 'אין לך הרשאות מתאימות כדי לצפות בעמוד זה.';
 
-$lang['cp_delete_installer_message'] = '
-נא למחוק את ספריית ההתקנה מהשרת. השארתה באתר יכולה להעניק למישהו אחר שליטה על האתר.';
+$lang['cp_delete_installer_message']              = 'The installer directory still exists! <a href="#" id="remove_installer_directory">Please delete it from your server!</a>.<br>Leaving it online means control of this site could be granted to somebody else.'; #translate
+$lang['cp_delete_installer_successfully_message'] = 'The installer directory has been successfully deleted.'; #translate
+$lang['cp_delete_installer_manually_message']     = 'The installer directory could not be deleted. <strong>Please remove it manually!</strong>'; #translate
 
 $lang['cp_upgrade_message']= '
 אתא מפעיל כעת גירסה %s, אבל מסד הנתונים שלך גירסה %s. נא <a href="%s" title="Upgrade">לחץ כאן</a> לחידוש.';

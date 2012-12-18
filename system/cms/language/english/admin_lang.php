@@ -37,12 +37,14 @@ $lang['cp_nav_structure']				= 'Structure';
 $lang['cp_nav_content']					= 'Content';
 $lang['cp_nav_misc']					= 'Miscellaneous';
 
-$lang['cp_must_login']	 				= 'You must be logged in to view this page.';
-$lang['cp_access_denied'] 				= 'You do not have sufficient permissions to view this page.';
-$lang['cp_delete_installer_message']	= 'Please delete the installer directory from your server. Leaving it online means control of this site could be granted to somebody else.';
-$lang['cp_upgrade_message']				= 'You are currently running version %s, but your database is version %s. Please <a href="%s" title="Upgrade">click here</a> to upgrade the database.';
-$lang['cp_google_analytics_missing']	= 'Google Analytics settings are missing. Add them into %s or contact your administrator.';
-$lang['cp_google_analytics_no_connect']	= 'Could not connect to Google Analytics. Check in %s.';
+$lang['cp_must_login']                            = 'You must be logged in to view this page.';
+$lang['cp_access_denied']                         = 'You do not have sufficient permissions to view this page.';
+$lang['cp_delete_installer_message']              = 'The installer directory still exists! <a href="#" id="remove_installer_directory">Please delete it from your server!</a>.<br>Leaving it online means control of this site could be granted to somebody else.';
+$lang['cp_delete_installer_successfully_message'] = 'The installer directory has been successfully deleted.';
+$lang['cp_delete_installer_manually_message']     = 'The installer directory could not be deleted. <strong>Please remove it manually!</strong>';
+$lang['cp_upgrade_message']                       = 'You are currently running version %s, but your database is version %s. Please <a href="%s" title="Upgrade">click here</a> to upgrade the database.';
+$lang['cp_google_analytics_missing']              = 'Google Analytics settings are missing. Add them into %s or contact your administrator.';
+$lang['cp_google_analytics_no_connect']           = 'Could not connect to Google Analytics. Check in %s.';
 
 $lang['required_label'] 				= 'Required';
 $lang['sb_recent_users'] 				= 'Recent users';

@@ -39,7 +39,9 @@ $lang['cp_nav_misc']					= 'Miscellaneous'; #translate
 
 $lang['cp_must_login']	 				= 'Morate biti prijavljeni za ogled te strani.';
 $lang['cp_access_denied'] 				= 'Nimate dovolj dovoljenj za ogled te strani';
-$lang['cp_delete_installer_message']	= 'Prosimo izbrišite installer mapo. Če jo pustite lahko nekdo drug prevzame nadzor nad to vašo spletno stranjo.';
+$lang['cp_delete_installer_message']              = 'The installer directory still exists! <a href="#" id="remove_installer_directory">Please delete it from your server!</a>.<br>Leaving it online means control of this site could be granted to somebody else.'; #translate
+$lang['cp_delete_installer_successfully_message'] = 'The installer directory has been successfully deleted.'; #translate
+$lang['cp_delete_installer_manually_message']     = 'The installer directory could not be deleted. <strong>Please remove it manually!</strong>'; #translate
 $lang['cp_upgrade_message']				= 'Trenutno imate verzijo %s, vaša podatkovna baza pa je verzije %s. Prosimo <a href="%s" title="Nadgradnja">kliknite tukaj</a> Za nadgradnjo vaše podatkovne baze.';
 $lang['cp_google_analytics_missing']	= 'Nastavitve za GAnalytics manjkajo. Dodajte jih na %s ali kontaktirajte administratorja.';
 $lang['cp_google_analytics_no_connect']	= 'Ne morem se povezati s GAnalytics. Preverite v %s.';
