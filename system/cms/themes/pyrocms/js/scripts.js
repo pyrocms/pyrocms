@@ -457,28 +457,33 @@ jQuery(function($) {
 	//functions for codemirror
 	$('.html_editor').each(function() {
 		CodeMirror.fromTextArea(this, {
-		    mode: 'text/html',
-		    tabMode: 'indent',
-			height : '500px',
-			width : '500px',
+				mode: 'text/html',
+				tabMode: 'indent',
+				lineNumbers: true
+		});
+	});
+
+	$('#html_editor').each(function() {
+		CodeMirror.fromTextArea(this, {
+				mode: 'text/html',
+				tabMode: 'indent',
+				lineNumbers: true
 		});
 	});
 
 	$('.css_editor').each(function() {
 		CodeMirror.fromTextArea(this, {
-		    mode: 'css',
-		    tabMode: 'indent',
-			height : '500px',
-			width : '500px',
+				mode: 'css',
+				tabMode: 'indent',
+				lineNumbers: true
 		});
 	});
 
 	$('.js_editor').each(function() {
 		CodeMirror.fromTextArea(this, {
-		    mode: 'javascript',
-		    tabMode: 'indent',
-			height : '500px',
-			width : '500px',
+				mode: 'javascript',
+				tabMode: 'indent',
+				lineNumbers: true
 		});
 	});
 });
