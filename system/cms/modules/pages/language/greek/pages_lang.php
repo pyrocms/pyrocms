@@ -52,18 +52,18 @@ $lang['pages:types_list_title']	= 'Λίστα διατάξεων σελίδας'
 
 // messages
 $lang['pages:no_pages']			= 'Δεν υπάρχουν σελίδες.';
-$lang['pages_create_success']		= 'Η σελίδα δημιουργήθηκε.';
-$lang['pages_create_error']		= 'Αυτή η σελίδα δεν έχει δημιουργηθεί.';
-$lang['pages_page_not_found_error']	= 'Αυτή η σελίδα δεν υπάρχει.';
-$lang['pages_edit_success']		= 'Η σελίδα "%s" αποθηκεύτηκε.';
-$lang['pages_delete_home_error']	= 'Δεν μπορείτε να διαγράψετε την αρχική σελίδα!';
-$lang['pages_delete_success']		= 'Η σελίδα #%s διαγράφηκε.';
-$lang['pages_mass_delete_success']	= '%s σελίδες διαγράφηκαν.';
-$lang['pages_delete_none_notice']	= 'Δεν διαγράφηκε καμμία σελίδα.';
-$lang['pages_page_already_exist_error']	= 'Υπάρχει ήδη μια σελίδα με URL "%s" στο %s.';
-$lang['pages_parent_not_exist_error']	= 'Η σελίδα γονέας που έχετε επιλέξει δεν υπάρχει.';
-$lang['pages_chunk_slug_length']	= 'Τα Page Chunk slugs δεν μπορεί να είναι μεγαλύτερα από 30 χαρακτήρες.';
-$lang['pages_root_folder']		= 'το ανώτερο επίπεδο';
+$lang['pages:create_success']		= 'Η σελίδα δημιουργήθηκε.';
+$lang['pages:create_error']		= 'Αυτή η σελίδα δεν έχει δημιουργηθεί.';
+$lang['pages:page_not_found_error']	= 'Αυτή η σελίδα δεν υπάρχει.';
+$lang['pages:edit_success']		= 'Η σελίδα "%s" αποθηκεύτηκε.';
+$lang['pages:delete_home_error']	= 'Δεν μπορείτε να διαγράψετε την αρχική σελίδα!';
+$lang['pages:delete_success']		= 'Η σελίδα #%s διαγράφηκε.';
+$lang['pages:mass_delete_success']	= '%s σελίδες διαγράφηκαν.';
+$lang['pages:delete_none_notice']	= 'Δεν διαγράφηκε καμμία σελίδα.';
+$lang['pages:page_already_exist_error']	= 'Υπάρχει ήδη μια σελίδα με URL "%s" στο %s.';
+$lang['pages:parent_not_exist_error']	= 'Η σελίδα γονέας που έχετε επιλέξει δεν υπάρχει.';
+$lang['pages:chunk_slug_length']	= 'Τα Page Chunk slugs δεν μπορεί να είναι μεγαλύτερα από 30 χαρακτήρες.';
+$lang['pages:root_folder']		= 'το ανώτερο επίπεδο';
 
 $lang['pages:tree_explanation_title']	= 'Επεξήγηση';
 $lang['pages:tree_explanation']		= 'Η λίστα στα αριστερά αναπαριστά τις σελίδες στον ιστότοπό σας. Κάντε κλικ στο εικονίδιο "+" δίπλα από την κάθε σελίδα για να δείξετε σελίδες κάτω από αυτήν. Όταν κάνετε κλικ σε μια σελίδα θα μπορείτε να δείτε πληροφορίες για αυτήν σε αυτήν την περιοχή.';

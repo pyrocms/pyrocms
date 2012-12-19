@@ -50,7 +50,7 @@ class Public_Controller extends MY_Controller
 		{
 			header('Retry-After: 600');
 
-			$error = $this->settings->unavailable_message ? $this->settings->unavailable_message : lang('cms_fatal_error');
+			$error = $this->settings->unavailable_message ? $this->settings->unavailable_message : lang('cms:fatal_error');
 			show_error($error, 503);
 		}
 

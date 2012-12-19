@@ -58,6 +58,6 @@ class Plugin_Settings extends Plugin
 	 */
 	public function __call($name, $data)
 	{
-		return $this->settings->get($name);
+		return Settings::get($name);
 	}
 }

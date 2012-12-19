@@ -117,7 +117,7 @@ class Theme_Pyrocms extends Theme {
 
 				catch (Exception $e)
 				{
-					$data['messages']['notice'] = sprintf(lang('cp_google_analytics_no_connect'), anchor('admin/settings', lang('cp_nav_settings')));
+					$data['messages']['notice'] = sprintf(lang('cp:google_analytics_no_connect'), anchor('admin/settings', lang('cp:nav_settings')));
 				}
 			}
 

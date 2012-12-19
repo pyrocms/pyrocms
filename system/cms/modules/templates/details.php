@@ -63,7 +63,7 @@ class Module_Templates extends Module {
 			'skip_xss' => true,
 			'shortcuts' => array(
 				array(
-				    'name' => 'templates.create_title',
+				    'name' => 'templates:create_title',
 				    'uri' => 'admin/templates/create',
 				    'class' => 'add',
 				),

@@ -11,6 +11,6 @@
 *
 */
 // Blog Permissions
-$lang['blog.role_put_live']		= 'Đưa bài viết lên site';
-$lang['blog.role_edit_live']	= 'Sửa bài viết';
-$lang['blog.role_delete_live'] 	= 'Xóa bài viết';
+$lang['blog:role_put_live']		= 'Đưa bài viết lên site';
+$lang['blog:role_edit_live']	= 'Sửa bài viết';
+$lang['blog:role_delete_live'] 	= 'Xóa bài viết';

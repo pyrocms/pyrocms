@@ -1,7 +1,7 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['global:control-panel']			= 'Painel de Controle';
-$lang['global:profile']					= 'Perfil'; 
+$lang['global:profile']					= 'Perfil';
 
 $lang['global:title'] 					= 'Título';
 $lang['name_label'] 					= 'Nome';
@@ -11,10 +11,13 @@ $lang['global:author'] 					= 'Autor';
 $lang['global:action'] 					= 'Ação';
 $lang['global:slug'] 					= 'Slug'; #translate
 $lang['global:slug_instructions']		= 'Lowercase characters and underscores only.'; #translate
-$lang['dialog.delete_message'] 			= 'Tem certeza de que deseja remover? Isto não pode ser desfeito.';
-$lang['dialog.confirm'] 				= 'Confirmar';
-$lang['dialog.yes'] 					= 'Sim';
-$lang['dialog.no'] 						= 'Não';
+$lang['global:user'] 					= 'User'; #translate
+
+$lang['global:dialog:delete_message'] 			= 'Tem certeza de que deseja remover? Isto não pode ser desfeito.';
+$lang['global:dialog:confirm'] 				= 'Confirmar';
+
+$lang['global:yes'] 					= 'Sim';
+$lang['global:no'] 						= 'Não';
 
 $lang['global:select-none'] 			= '-- Nenhum --';
 $lang['global:select-all'] 				= '-- Todos --';
@@ -49,10 +52,11 @@ $lang['general_error_label'] 			= 'Erro';
 $lang['required_error_label'] 			= 'Campo obrigatório está faltando';
 $lang['note_label'] 					= 'Nota';
 $lang['success_label'] 					= 'Sucesso';
+$lang['global:fields']					= 'Fields'; #translate
 
 $lang['login_title'] 					= 'Entrar';
-$lang['cms_fatal_error'] 				= 'Erro fatal, o CMS está instalado?';
-$lang['global:demo_restrictions']       = 'Some features on this page have been disabled for the demo.'; #translate
+$lang['global:fatal_error'] 				= 'Erro fatal, o CMS está instalado?';
+$lang['global:demo_restrictions']		= 'Some features on this page have been disabled for the demo.'; #translate
 
 $lang['login_error_label'] 				= 'Erro de login';
 $lang['forgot_password_label'] 			= 'Esqueceu sua senha ?';
@@ -72,31 +76,41 @@ $lang['publish_label'] 					= 'Publicar';
 $lang['global:upload'] 					= 'Enviar';
 $lang['global:uninstall'] 				= 'Desinstalar';
 $lang['global:install'] 				= 'Instalar';
+$lang['global:upgrade'] 				= 'Upgrade'; #translate
 $lang['global:enable']					= 'Ativar';
 $lang['global:disable'] 				= 'Desativar';
+$lang['global:enabled']					= 'Enabled'; #translate
+$lang['global:disabled'] 				= 'Disabled'; #translate
 
-$lang['all_right_reserved']				= 'Todos os direitos reservados.';  
+$lang['all_right_reserved']				= 'Todos os direitos reservados.';
 $lang['powered_by_pyrocms']				= 'Powered by PyroCMS';  #translate
-$lang['top_page']						= 'Topo';  
-$lang['back_to_top']					= 'Voltar ao Topo'; 
+$lang['top_page']						= 'Topo';
+$lang['back_to_top']					= 'Voltar ao Topo';
 
+$lang['global:filters'] 				= 'Filters'; #translate
 $lang['global:image'] 					= 'Imagem';
 $lang['global:description'] 		    = 'Descrição';
 $lang['global:actions']					= 'Ações';
-$lang['global:view']					= 'Visualizar'; 
+$lang['global:view']					= 'Visualizar';
 $lang['global:preview']					= 'Preview'; #translate
-$lang['global:add']						= 'Adicionar'; 
+$lang['global:add']						= 'Adicionar';
 $lang['global:edit']					= 'Editar';
 $lang['global:empty']					= 'Empty'; #translate
 $lang['global:delete']					= 'Remover';
 $lang['global:remove']					= 'Remover';
 
-$lang['global:widgets']					= 'Widgets';
-$lang['global:themes']					= 'Themes'; #translate
-$lang['global:field_types']				= 'Field Types';
-$lang['global:plugins']					= 'Plugins';
-$lang['global:plugin']					= 'Plugin';
-
 $lang['global:keywords']				= 'Palavras-chave';
+
+$lang['global:or']						= 'or'; #translate
+$lang['global:and']						= 'and'; #translate
+$lang['global:at']						= 'at'; #translate
+
+$lang['global:widgets']					= 'Widgets'; #translate
+$lang['global:themes']					= 'Themes'; #translate
+$lang['global:field_types']				= 'Field Types'; #translate
+$lang['global:plugins']					= 'Plugins'; #translate
+$lang['global:plugin']					= 'Plugin'; #translate
+
+$lang['global:options']					= 'Options'; #translate
 
 /* End of file main_lang.php */

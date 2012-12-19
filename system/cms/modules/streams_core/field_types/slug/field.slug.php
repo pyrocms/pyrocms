@@ -64,8 +64,8 @@ class Field_slug
 	public function param_space_type($value = null)
 	{	
 		$options = array(
-			'-' => $this->CI->lang->line('streams.slug.dash'),
-			'_' => $this->CI->lang->line('streams.slug.underscore')
+			'-' => $this->CI->lang->line('streams:slug.dash'),
+			'_' => $this->CI->lang->line('streams:slug.underscore')
 		);
 	
 		return form_dropdown('space_type', $options, $value);

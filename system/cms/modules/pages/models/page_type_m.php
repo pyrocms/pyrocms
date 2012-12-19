@@ -116,7 +116,7 @@ class Page_type_m extends MY_Model
         }
         else
         {
-            $this->form_validation->set_message('_check_pt_slug', lang('page_types._check_pt_slug_msg'));
+            $this->form_validation->set_message('_check_pt_slug', lang('page_types:_check_pt_slug_msg'));
             return false;
         }
     }

@@ -216,7 +216,7 @@ class Field_file
 		
 		if ( ! $tree)
 		{
-			return '<em>'.lang('streams.file.folder_notice').'</em>';
+			return '<em>'.lang('streams:file.folder_notice').'</em>';
 		}
 		
 		$choices = array();
@@ -245,7 +245,7 @@ class Field_file
 	 */
 	public function param_allowed_types($value = null)
 	{
-		$instructions = '<p class="note">'.lang('streams.file.allowed_types_instructions').'</p>';
+		$instructions = '<p class="note">'.lang('streams:file.allowed_types_instructions').'</p>';
 		
 		return '<div style="float: left;">'.form_input('allowed_types', $value).$instructions.'</div>';
 	}

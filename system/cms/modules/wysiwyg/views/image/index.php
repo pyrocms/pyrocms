@@ -1,5 +1,5 @@
 <div id="upload-box">
-	<h2><?php echo lang('files:upload') ?><span class="close ui-icon ui-icon-closethick"><?php echo lang('buttons.close') ?></span></h2>
+	<h2><?php echo lang('files:upload') ?><span class="close ui-icon ui-icon-closethick"><?php echo lang('buttons:close') ?></span></h2>
 	<?php echo form_open_multipart('admin/wysiwyg/upload') ?>
 		<?php echo form_hidden('redirect_to', 'image') ?>
 		<ul>
@@ -20,8 +20,8 @@
 				<?php echo form_textarea('description', set_value('description'), 'id="description"') ?>
 			</li>
 			<li>
-				<?php echo form_submit('button_action', lang('buttons.save'), 'class="button"') ?>
-				<a href="<?php echo current_url() ?>#" class="btn cancel"><?php echo lang('buttons.cancel') ?></a>
+				<?php echo form_submit('button_action', lang('buttons:save'), 'class="button"') ?>
+				<a href="<?php echo current_url() ?>#" class="btn cancel"><?php echo lang('buttons:cancel') ?></a>
 			</li>
 		</ul>
 	<?php echo form_close() ?>

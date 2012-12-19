@@ -58,7 +58,7 @@ class Admin extends Admin_Controller {
 			// Get Section name from native translation, third party translation or only use module name
 			if ( ! isset($setting_sections[$setting->module]))
 			{
-				$section_name = lang('settings_section_'.$setting->module);
+				$section_name = lang('settings:section_'.$setting->module);
 
 				if ($this->module_m->exists($setting->module))
 				{
@@ -68,9 +68,9 @@ class Admin extends Admin_Controller {
 					{
 						$setting_language[$setting->module] = $this->lang->load($setting->module.'/settings', '', true);
 
-						if (empty($section_name) && isset($setting_language[$setting->module]['settings_section_'.$setting->module]))
+						if (empty($section_name) && isset($setting_language[$setting->module]['settings:section_'.$setting->module]))
 						{
-							$section_name = $setting_language[$setting->module]['settings_section_'.$setting->module];
+							$section_name = $setting_language[$setting->module]['settings:section_'.$setting->module];
 						}
 					}
 				}
@@ -85,8 +85,8 @@ class Admin extends Admin_Controller {
 
 			// Get Setting title and description translations as Section name
 			foreach (array(
-				'title' => 'settings_'.$setting->slug,
-				'description' => 'settings_'.$setting->slug.'_desc'
+				'title' => 'settings:'.$setting->slug,
+				'description' => 'settings:'.$setting->slug.'_desc'
 			) as $key => $name)
 			{
 				${$key} = lang($name);
@@ -180,7 +180,7 @@ class Admin extends Admin_Controller {
 			Events::trigger('settings_updated', $settings_stored);
 
 			// Success...
-			$this->session->set_flashdata('success', lang('settings_save_success'));
+			$this->session->set_flashdata('success', lang('settings:save_success'));
 		}
 		elseif (validation_errors())
 		{

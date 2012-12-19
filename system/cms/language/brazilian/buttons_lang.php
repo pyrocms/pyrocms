@@ -13,28 +13,30 @@
  * @filesource
  */
 
-$lang['buttons.submit']		= 'Salvar';
-$lang['buttons.cancel']		= 'Cancelar';
-$lang['buttons.upload']		= 'Enviar';
-$lang['buttons.save']		= 'Salvar';
-$lang['buttons.save_exit']	= 'Salvar e sair';
-$lang['buttons.delete']		= 'Remover';
-$lang['buttons.publish']	= 'Publicar';
-$lang['buttons.approve']	= 'Aprovar';
-$lang['buttons.unapprove']	= 'Rejeitar';
-$lang['buttons.install']	= 'Instalar';
-$lang['buttons.uninstall']	= 'Desinstalar';
-$lang['buttons.enable']		= 'Ativar';
-$lang['buttons.disable'] 	= 'Desativar';
-$lang['buttons.yes']		= 'Sim';
-$lang['buttons.no']			= 'Não';
-$lang['buttons.activate']	= 'Ativar';
-$lang['buttons.deactivate']	= 'Desativar';
-$lang['buttons.preview']	= 'Visualizar';
-$lang['buttons.close']		= 'Fechar';
-$lang['buttons.edit']		= 'Editar';
-$lang['buttons.clone']		= 'Clonar';
-$lang['buttons.re-index']	= 'Reindexar';
-$lang['buttons.copy']		= 'Copiar';
+$lang['buttons:submit']		= 'Salvar';
+$lang['buttons:cancel']		= 'Cancelar';
+$lang['buttons:upload']		= 'Enviar';
+$lang['buttons:save']		= 'Salvar';
+$lang['buttons:save_exit']	= 'Salvar e sair';
+$lang['buttons:delete']		= 'Remover';
+$lang['buttons:publish']	= 'Publicar';
+$lang['buttons:approve']	= 'Aprovar';
+$lang['buttons:unapprove']	= 'Rejeitar';
+$lang['buttons:install']	= 'Instalar';
+$lang['buttons:uninstall']	= 'Desinstalar';
+$lang['buttons:enable']		= 'Ativar';
+$lang['buttons:disable'] 	= 'Desativar';
+$lang['buttons:yes']		= 'Sim';
+$lang['buttons:no']			= 'Não';
+$lang['buttons:activate']	= 'Ativar';
+$lang['buttons:deactivate']	= 'Desativar';
+$lang['buttons:preview']	= 'Visualizar';
+$lang['buttons:close']		= 'Fechar';
+$lang['buttons:edit']		= 'Editar';
+$lang['buttons:clone']		= 'Clonar';
+$lang['buttons:re-index']	= 'Reindexar';
+$lang['buttons:copy']		= 'Copiar';
+$lang['buttons:filter']		= 'Filter'; #translate
+$lang['buttons:clear']		= 'Clear'; #translate
 
 /* End of file buttons_lang.php */

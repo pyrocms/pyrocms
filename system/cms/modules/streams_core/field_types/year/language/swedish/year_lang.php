@@ -10,10 +10,10 @@
  * @version		1.1.0
  */
 
-$lang['streams.year.name'] = 'År';
-$lang['streams.year.start_year'] = 'Start år';
-$lang['streams.year.end_year'] = 'Slut år';
-$lang['streams.year.default_year']	= 'Default Year'; #translate
+$lang['streams:year.name'] = 'År';
+$lang['streams:year.start_year'] = 'Start år';
+$lang['streams:year.end_year'] = 'Slut år';
+$lang['streams:year.default_year']	= 'Default Year'; #translate
 
 /* End of file year_lang.php */  
 /* Location: system/cms/modules/streams_core/field_types/year/language/swedish/year_lang.php */

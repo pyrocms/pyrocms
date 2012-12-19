@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // inline help html. Only 'help_body' is used.
 $lang['help_body'] = "
@@ -44,9 +44,8 @@ Sebagai contoh: Jika Anda memiliki widget twitter feed yang ingin ditampilkan di
 {{ page:title }}
 {{ page:body }}
 
-<div class=\"my-twitter-widget\">
-{{ widgets:instance id=\"1\" }}
-</div>
-</code> </pre>
-
+&lt;div class=&quot;my-twitter-widget&quot;&gt;
+	{{ widgets:instance id=&quot;1&quot; }}
+&lt;/div&gt;
+</code></pre>
 Sekarang Anda dapat menerapkan styling css untuk class \"my-twitter-widget\" dalam tab CSS.</p>";

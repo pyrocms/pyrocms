@@ -90,7 +90,7 @@ class Field_keywords
 
 	public function param_return_type($value = 'array') {
 		return array(
-			'instructions' => $this->CI->lang->line('streams.keywords.return_type.instructions'),
+			'instructions' => $this->CI->lang->line('streams:keywords.return_type.instructions'),
 			'input' =>
 				'<label>' . form_radio('return_type', 'array', $value == 'array') . ' Array </label><br/>'
 				// String gets set as default for backwards compat

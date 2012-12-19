@@ -1,4 +1,4 @@
-<h2 class="page-title" id="page_title"><?php echo lang('user_login_header') ?></h2>
+<h2 class="page-title" id="page_title"><?php echo lang('user:login_header') ?></h2>
 
 <?php if (validation_errors()): ?>
 <div class="error-box">
@@ -17,14 +17,14 @@
 		<input type="password" id="password" name="password" maxlength="20" />
 	</li>
 	<li id="remember_me">
-		<label><?php echo lang('user_remember') ?></label>
+		<label><?php echo lang('user:remember') ?></label>
 		<?php echo form_checkbox('remember', '1', false) ?>
 	</li>
 	<li class="form_buttons">
-		<input type="submit" value="<?php echo lang('user_login_btn') ?>" name="btnLogin" /> <span class="register"> | <?php echo anchor('register', lang('user_register_btn'));?></span>
+		<input type="submit" value="<?php echo lang('user:login_btn') ?>" name="btnLogin" /> <span class="register"> | <?php echo anchor('register', lang('user:register_btn'));?></span>
 	</li>
 	<li class="reset_pass">
-		<?php echo anchor('users/reset_pass', lang('user_reset_password_link'));?>
+		<?php echo anchor('users/reset_pass', lang('user:reset_password_link'));?>
 	</li>
 </ul>
 <?php echo form_close() ?>

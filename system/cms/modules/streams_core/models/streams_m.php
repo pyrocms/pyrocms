@@ -297,7 +297,7 @@ class Streams_m extends MY_Model {
 			// Check to see if there is a table, then alter it.
 			if ($this->db->table_exists($prefix.$stream_slug))
 			{
-				show_error(sprintf(lang('streams.table_exists'), $data['stream_slug']));
+				show_error(sprintf(lang('streams:table_exists'), $data['stream_slug']));
 			}
 			
 			$this->load->dbforge();

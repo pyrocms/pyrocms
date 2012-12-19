@@ -77,22 +77,22 @@ class Module_Users extends Module {
 			{
 				$info['sections'] = array(
 					'users' => array(
-							'name' 	=> 'user_list_title',
+							'name' 	=> 'user:list_title',
 							'uri' 	=> 'admin/users',
 								'shortcuts' => array(
 									'create' => array(
-										'name' 	=> 'user_add_title',
+										'name' 	=> 'user:add_title',
 										'uri' 	=> 'admin/users/create',
 										'class' => 'add'
 										)
 									)
 								),
 					'fields' => array(
-							'name' 	=> 'user_profile_fields_label',
+							'name' 	=> 'user:profile_fields_label',
 							'uri' 	=> 'admin/users/fields',
 								'shortcuts' => array(
 									'create' => array(
-										'name' 	=> 'user_add_field',
+										'name' 	=> 'user:add_field',
 										'uri' 	=> 'admin/users/fields/create',
 										'class' => 'add'
 										)
@@ -107,7 +107,7 @@ class Module_Users extends Module {
 
 	public function admin_menu(&$menu)
 	{
-		$menu['lang:cp_nav_users']['lang:cp_nav_users'] = 'admin/users';
+		$menu['lang:cp:nav_users']['lang:cp:nav_users'] = 'admin/users';
 	}
 
 	/**

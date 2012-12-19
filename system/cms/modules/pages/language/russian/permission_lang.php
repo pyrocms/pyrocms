@@ -1,16 +1,6 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
-/**
- * PyroCMS
- * Русский перевод от Dark Preacher - dark[at]darklab.ru
- *
- * @package		PyroCMS
- * @author		Dark Preacher
- * @link			http://pyrocms.com
- */
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
-// Разрешения страниц
-$lang['pages.role_put_live']			= 'Публиковать страницы';
-$lang['pages.role_edit_live']			= 'Редактировать опубликованные страницы';
-$lang['pages.role_delete_live']		= 'Удалять опубликованные страницы';
-
-/* End of file permission_lang.php */
+// Page Permissions
+$lang['pages:role_put_live']    = 'Публиковать страницы';
+$lang['pages:role_edit_live']   = 'Редактировать опубликованные страницы';
+$lang['pages:role_delete_live'] = 'Удалять опубликованные страницы';

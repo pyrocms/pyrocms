@@ -80,7 +80,7 @@ class Module_Pages extends Module
 				    'uri' => 'admin/pages',
 				),
 				'types' => array(
-				    'name' => 'page_types.list_title',
+				    'name' => 'page_types:list_title',
 				    'uri' => 'admin/pages/types'
 			    ),
 			),
@@ -124,7 +124,7 @@ class Module_Pages extends Module
 			{
 				$info['sections']['types']['shortcuts'] = array(
 								array(
-								    'name' => 'streams.new_field',
+								    'name' => 'streams:new_field',
 								    'uri' => 'admin/pages/types/fields/'.$this->uri->segment(5).'/new_field',
 								    'class' => 'add'
 								)

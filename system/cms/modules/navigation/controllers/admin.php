@@ -229,7 +229,7 @@ class Admin extends Admin_Controller {
 
 				Events::trigger('post_navigation_create', $input);
 
-				$this->session->set_flashdata('success', lang('nav_link_add_success'));
+				$this->session->set_flashdata('success', lang('nav:link_add_success'));
 
 				// echo success to let the js refresh the page
 				echo 'success';
@@ -237,7 +237,7 @@ class Admin extends Admin_Controller {
 			}
 			else
 			{
-				$this->template->messages['error'] = lang('nav_link_add_error');
+				$this->template->messages['error'] = lang('nav:link_add_error');
 
 				echo $this->load->view('admin/partials/notices', $this->template);
 				return;
@@ -299,7 +299,7 @@ class Admin extends Admin_Controller {
 
 		if ( ! $this->template->navigation_link)
 		{
-			$this->template->messages['error'] = lang('nav_link_not_exist_error');
+			$this->template->messages['error'] = lang('nav:link_not_exist_error');
 
 			echo $this->load->view('admin/partials/notices', $this->template);
 			return;
@@ -317,7 +317,7 @@ class Admin extends Admin_Controller {
 
 			Events::trigger('post_navigation_edit', $input);
 
-			$this->session->set_flashdata('success', lang('nav_link_edit_success'));
+			$this->session->set_flashdata('success', lang('nav:link_edit_success'));
 
 			// echo success to let the js refresh the page
 			echo 'success';
@@ -370,7 +370,7 @@ class Admin extends Admin_Controller {
 		}
 		// Flush the cache and redirect
 		$this->pyrocache->delete_all('navigation_m');
-		$this->session->set_flashdata('success', $this->lang->line('nav_link_delete_success'));
+		$this->session->set_flashdata('success', $this->lang->line('nav:link_delete_success'));
 		redirect('admin/navigation');
 	}
 
@@ -476,7 +476,7 @@ class Admin extends Admin_Controller {
 
 		if ( ! $status)
 		{
-			$this->form_validation->set_message('_link_check', sprintf(lang('nav_choose_value'), lang('nav_'.$link.'_label')));
+			$this->form_validation->set_message('_link_check', sprintf(lang('nav:choose_value'), lang('nav:'.$link.'_label')));
 			return false;
 		}
 		return true;

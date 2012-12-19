@@ -255,7 +255,7 @@ class Admin extends Admin_Controller
 		$this->fields->run_field_events($this->streams_m->get_stream_fields($this->streams_m->get_stream_id_from_slug('profiles', 'users')));
 
 		$this->template
-			->title($this->module_details['name'], lang('user_add_title'))
+			->title($this->module_details['name'], lang('user:add_title'))
 			->set('member', $member)
 			->set('display_name', set_value('display_name', $this->input->post('display_name')))
 			->set('profile_fields', $this->streams->fields->get_stream_fields('profiles', 'users', $profile_data))
@@ -272,7 +272,7 @@ class Admin extends Admin_Controller
 		// Get the user's data
 		if ( ! ($member = $this->ion_auth->get_user($id)))
 		{
-			$this->session->set_flashdata('error', lang('user_edit_user_not_found_error'));
+			$this->session->set_flashdata('error', lang('user:edit_user_not_found_error'));
 			redirect('admin/users');
 		}
 		
@@ -401,7 +401,7 @@ class Admin extends Admin_Controller
 		$this->fields->run_field_events($this->streams_m->get_stream_fields($this->streams_m->get_stream_id_from_slug('profiles', 'users')));
 
 		$this->template
-			->title($this->module_details['name'], sprintf(lang('user_edit_title'), $member->username))
+			->title($this->module_details['name'], sprintf(lang('user:edit_title'), $member->username))
 			->set('display_name', $member->display_name)
 			->set('profile_fields', $this->streams->fields->get_stream_fields('profiles', 'users', $profile_data, $profile_id))
 			->set('member', $member)
@@ -433,7 +433,7 @@ class Admin extends Admin_Controller
 		// Activate multiple
 		if ( ! ($ids = $this->input->post('action_to')))
 		{
-			$this->session->set_flashdata('error', lang('user_activate_error'));
+			$this->session->set_flashdata('error', lang('user:activate_error'));
 			redirect('admin/users');
 		}
 
@@ -447,7 +447,7 @@ class Admin extends Admin_Controller
 			}
 			$to_activate++;
 		}
-		$this->session->set_flashdata('success', sprintf(lang('user_activate_success'), $activated, $to_activate));
+		$this->session->set_flashdata('success', sprintf(lang('user:activate_success'), $activated, $to_activate));
 
 		redirect('admin/users');
 	}
@@ -477,7 +477,7 @@ class Admin extends Admin_Controller
 				// Make sure the admin is not trying to delete themself
 				if ($this->ion_auth->get_user()->id == $id)
 				{
-					$this->session->set_flashdata('notice', lang('user_delete_self_error'));
+					$this->session->set_flashdata('notice', lang('user:delete_self_error'));
 					continue;
 				}
 
@@ -494,13 +494,13 @@ class Admin extends Admin_Controller
 				// Fire an event. One or more users have been deleted. 
 				Events::trigger('user_deleted', $deleted_ids);
 
-				$this->session->set_flashdata('success', sprintf(lang('user_mass_delete_success'), $deleted, $to_delete));
+				$this->session->set_flashdata('success', sprintf(lang('user:mass_delete_success'), $deleted, $to_delete));
 			}
 		}
 		// The array of id's to delete is empty
 		else
 		{
-			$this->session->set_flashdata('error', lang('user_mass_delete_error'));
+			$this->session->set_flashdata('error', lang('user:mass_delete_error'));
 		}
 
 		redirect('admin/users');
@@ -519,7 +519,7 @@ class Admin extends Admin_Controller
 	{
 		if ($this->ion_auth->username_check($this->input->post('username')))
 		{
-			$this->form_validation->set_message('_username_check', lang('user_error_username'));
+			$this->form_validation->set_message('_username_check', lang('user:error_username'));
 			return false;
 		}
 		return true;
@@ -538,7 +538,7 @@ class Admin extends Admin_Controller
 	{
 		if ($this->ion_auth->email_check($this->input->post('email')))
 		{
-			$this->form_validation->set_message('_email_check', lang('user_error_email'));
+			$this->form_validation->set_message('_email_check', lang('user:error_email'));
 			return false;
 		}
 

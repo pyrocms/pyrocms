@@ -99,8 +99,8 @@ class Field_wysiwyg
 	public function param_editor_type($value = null)
 	{
 		$types = array(
-			'simple'	=> lang('streams.wysiwyg.simple'),
-			'advanced'	=> lang('streams.wysiwyg.advanced')
+			'simple'	=> lang('streams:wysiwyg.simple'),
+			'advanced'	=> lang('streams:wysiwyg.advanced')
 		);
 	
 		return form_dropdown('editor_type', $types, $value);

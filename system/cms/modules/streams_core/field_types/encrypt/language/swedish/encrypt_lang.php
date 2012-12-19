@@ -10,8 +10,8 @@
  * @version		1.1.0
  */
 
-$lang['streams.encrypt.name'] = 'Krypterad';
-$lang['streams.encrypt.hide_typing'] = 'Göm tecken vid inmatning?';
+$lang['streams:encrypt.name'] = 'Krypterad';
+$lang['streams:encrypt.hide_typing'] = 'Göm tecken vid inmatning?';
 
 
 /* End of file encrypt_lang.php */  

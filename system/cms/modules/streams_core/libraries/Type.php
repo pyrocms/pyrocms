@@ -250,7 +250,7 @@ class Type
 			// Field type name is languagized
 			if ( ! isset($tmp->field_type_name))
 			{
-				$tmp->field_type_name = $this->CI->lang->line('streams.'.$type.'.name');
+				$tmp->field_type_name = $this->CI->lang->line('streams:'.$type.'.name');
 			}
 		}
 	

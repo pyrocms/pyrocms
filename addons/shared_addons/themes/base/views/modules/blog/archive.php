@@ -36,5 +36,5 @@
 	<?php echo $pagination['links']; ?>
 
 <?php else: ?>
-	<p><?php echo lang('blog_currently_no_posts');?></p>
+	<p><?php echo lang('blog:currently_no_posts');?></p>
 <?php endif; ?>

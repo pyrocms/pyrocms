@@ -31,8 +31,8 @@
 
 		<li>
 			<div class="buttons">
-				<?php echo form_submit('filter', lang('buttons.filter'), 'class="button btn"'); ?>
-				<?php echo form_submit('clear_filters', lang('buttons.clear'), 'class="button btn"'); ?>
+				<?php echo form_submit('filter', lang('buttons:filter'), 'class="button btn"'); ?>
+				<?php echo form_submit('clear_filters', lang('buttons:clear'), 'class="button btn"'); ?>
 			</div>
 		</li>
 	</ul>

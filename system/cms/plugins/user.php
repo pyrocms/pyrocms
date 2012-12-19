@@ -169,24 +169,24 @@ class Plugin_User extends Plugin
 
 		$plugin_data[] = array(
 			'value' => $profile_data['username'],
-			'name' => lang('user_username'),
+			'name' => lang('user:username'),
 			'slug' => 'username'
 		);
 
 		$plugin_data[] = array(
 			'value' => $profile_data['group_description'],
-			'name' => lang('user_group_label'),
+			'name' => lang('user:group_label'),
 			'slug' => 'group_name'
 		);
 
 		$plugin_data[] = array(
-			'value' => date($this->settings->get('date_format'), $profile_data['last_login']),
+			'value' => date(Settings::get('date_format'), $profile_data['last_login']),
 			'name' => lang('profile_last_login_label'),
 			'slug' => 'email'
 		);
 
 		$plugin_data[] = array(
-			'value' => date($this->settings->get('date_format'), $profile_data['created_on']),
+			'value' => date(Settings::get('date_format'), $profile_data['created_on']),
 			'name' => lang('profile_registred_on_label'),
 			'slug' => 'registered_on'
 		);
@@ -198,7 +198,7 @@ class Plugin_User extends Plugin
 			'slug' => 'display_name'
 		);
 		$plugin_data[] = array(
-			'value' => date($this->settings->get('date_format'), $profile_data['updated_on']),
+			'value' => date(Settings::get('date_format'), $profile_data['updated_on']),
 			'name' => lang('profile_updated_on'),
 			'slug' => 'updated_on'
 		);

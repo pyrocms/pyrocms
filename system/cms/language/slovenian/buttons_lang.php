@@ -12,27 +12,30 @@
  * @filesource
  */
 
-$lang['buttons.submit']		= 'Shrani';
-$lang['buttons.cancel']		= 'Prekliči';
-$lang['buttons.upload']		= 'Naloži';
-$lang['buttons.save']		= 'Shrani';
-$lang['buttons.save_exit']	= 'Shrani &amp; Zapri';
-$lang['buttons.delete']		= 'Izbriši';
-$lang['buttons.publish']	= 'Objavi';
-$lang['buttons.approve']	= 'Oddobri';
-$lang['buttons.unapprove']	= 'Prekliči oddobritev';
-$lang['buttons.install'] 	= 'Namesti';
-$lang['buttons.uninstall'] 	= 'Odstrani';
-$lang['buttons.enable']		= 'Omogoči';
-$lang['buttons.disable'] 	= 'Onemogoči';
-$lang['buttons.yes']		= 'Da';
-$lang['buttons.no']			= 'Ne';
-$lang['buttons.activate']   = 'Aktiviraj';
-$lang['buttons.deactivate']	= 'Deaktiviraj';
-$lang['buttons.preview']	= 'Predogled';
-$lang['buttons.close']		= 'Zapri';
-$lang['buttons.edit']		= 'Uredi';
-$lang['buttons.clone']		= 'Duplikat';
-$lang['buttons.copy']		= 'Kopiraj';
+$lang['buttons:submit']		= 'Shrani';
+$lang['buttons:cancel']		= 'Prekliči';
+$lang['buttons:upload']		= 'Naloži';
+$lang['buttons:save']		= 'Shrani';
+$lang['buttons:save_exit']	= 'Shrani &amp; Zapri';
+$lang['buttons:delete']		= 'Izbriši';
+$lang['buttons:publish']	= 'Objavi';
+$lang['buttons:approve']	= 'Oddobri';
+$lang['buttons:unapprove']	= 'Prekliči oddobritev';
+$lang['buttons:install'] 	= 'Namesti';
+$lang['buttons:uninstall'] 	= 'Odstrani';
+$lang['buttons:enable']		= 'Omogoči';
+$lang['buttons:disable'] 	= 'Onemogoči';
+$lang['buttons:yes']		= 'Da';
+$lang['buttons:no']			= 'Ne';
+$lang['buttons:activate']   = 'Aktiviraj';
+$lang['buttons:deactivate']	= 'Deaktiviraj';
+$lang['buttons:preview']	= 'Predogled';
+$lang['buttons:close']		= 'Zapri';
+$lang['buttons:edit']		= 'Uredi';
+$lang['buttons:clone']		= 'Duplikat';
+$lang['buttons:re-index']	= 'Re-index'; #translate
+$lang['buttons:copy']		= 'Kopiraj';
+$lang['buttons:filter']		= 'Filter'; #translate
+$lang['buttons:clear']		= 'Clear'; #translate
 
 /* End of file buttons_lang.php */

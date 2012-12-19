@@ -3,6 +3,7 @@
 </section>
 
 	<section class="item">
+	<div class="content">
 	<?php echo form_open($this->uri->uri_string(), 'class="form_inputs"') ?>
 
 		<?php echo form_hidden('user_id', $comment->user_id) ?>
@@ -53,4 +54,5 @@
 		</div>
 
 	<?php echo form_close() ?>
+	</div>
 </section>

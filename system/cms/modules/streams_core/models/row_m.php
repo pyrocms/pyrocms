@@ -716,8 +716,12 @@ class Row_m extends MY_Model {
 	 */
 	private function process_where($where)
 	{
-		// Remove ()
-		$where = trim($where, '()');
+		// Get rid of where ()
+		if ($where[0] == '(' and $where[strlen($where)-1] == ')')
+		{
+			$where = ltrim('(');
+			$where = rtrim(')');
+		}
 
 		// Find the fields between the backticks
 		preg_match_all('/`[a-zA-Z0-9_]+`/', $where, $matches);

@@ -10,7 +10,7 @@
  * @version		1.1.0
  */
 
-$lang['users.role_admin_profile_fields'] = 'Adminstratörsfält';
+$lang['users:role_admin_profile_fields'] = 'Adminstratörsfält';
 
 
 /* End of file permission_lang.php */  

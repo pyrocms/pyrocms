@@ -1,8 +1,8 @@
-<h2 class="page-title" id="page_title"><?php echo lang('user_register_header') ?></h2>
+<h2 class="page-title" id="page_title"><?php echo lang('user:register_header') ?></h2>
 
 <p>
-	<span id="active_step"><?php echo lang('user_register_step1') ?></span> -&gt;
-	<span><?php echo lang('user_register_step2') ?></span>
+	<span id="active_step"><?php echo lang('user:register_step1') ?></span> -&gt;
+	<span><?php echo lang('user:register_step2') ?></span>
 </p>
 
 <?php if ( ! empty($error_string)):?>
@@ -17,7 +17,7 @@
 	
 	<?php if ( ! Settings::get('auto_username')): ?>
 	<li>
-		<label for="username"><?php echo lang('user_username') ?></label>
+		<label for="username"><?php echo lang('user:username') ?></label>
 		<input type="text" name="username" maxlength="100" value="<?php echo $_user->username ?>" />
 	</li>
 	<?php endif ?>
@@ -42,7 +42,7 @@
 
 	
 	<li>
-		<?php echo form_submit('btnSubmit', lang('user_register_btn')) ?>
+		<?php echo form_submit('btnSubmit', lang('user:register_btn')) ?>
 	</li>
 </ul>
 <?php echo form_close() ?>
