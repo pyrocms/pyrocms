@@ -75,7 +75,7 @@
 				<label for="category_id"><?php echo lang('blog:category_label') ?></label>
 				<div class="input">
 				<?php echo form_dropdown('category_id', array(lang('blog:no_category_select_label')) + $categories, @$post->category_id) ?>
-					[ <?php echo anchor('admin/blog/categories/create', lang('blog:new_category_label'), 'target="_blank"') ?> ]
+					[ <a id="new-category" href="<?php echo site_url('admin/blog/categories/create') ?>" target="_blank"><?php echo lang('blog:new_category_label') ?></a> ]
 				</div>
 			</li>
 

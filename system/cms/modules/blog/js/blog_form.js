@@ -45,14 +45,16 @@
 			}
 		});
 
-		$(document.getElementById('blog-options-tab')).find('ul').find('li').first().find('a').colorbox({
+		$('#new-category').colorbox({
 			srollable: false,
 			innerWidth: 600,
 			innerHeight: 280,
 			href: SITE_URL + 'admin/blog/categories/create_ajax',
 			onComplete: function () {
 				$.colorbox.resize();
+
 				var $form_categories = $('form#categories');
+				pyro.generate_slug('#categories input[name="title"]', 'input[name="slug"]');
 				$form_categories.removeAttr('action');
 				$form_categories.live('submit', function (e) {
 
@@ -71,9 +73,6 @@
 								//append to dropdown the new option
 								$select.append('<option value="' + obj.category_id + '" selected="selected">' + obj.title + '</option>');
 								$select.trigger("liszt:updated");
-								// TODO work this out? //uniform workaround
-								$(document.getElementById('blog-options-tab')).find('li').first().find('span').html(obj.title);
-
 								//close the colorbox
 								$.colorbox.close();
 							} else {
