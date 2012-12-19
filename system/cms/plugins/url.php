@@ -232,8 +232,8 @@ class Plugin_Url extends Plugin
 	public function anchor()
 	{
 		$segments = $this->attribute('segments');
-		$title = $this->attribute('title', '');
-		$class = $this->attribute('class', '');
+		$title    = $this->attribute('title', '');
+		$class    = $this->attribute('class', '');
 
 		$class = !empty($class) ? 'class="' . $class . '"' : '';
 
@@ -249,7 +249,7 @@ class Plugin_Url extends Plugin
 	 *
 	 * @return bool
 	 */
-	function is_ssl()
+	public function is_ssl()
 	{
 		return (isset($_SERVER['HTTPS']) ? ($_SERVER['HTTPS'] == "on" ? true : false) : false);
 	}
