@@ -884,7 +884,8 @@ jQuery(function($){
 
 		$item_details.find('.meta-data').hide();
 
-		$item_details.find('.show-data > button').click(function(){
+		$item_details.find('.show-data > button').unbind()
+		$item_details.find('.show-data > button').bind('click', function(){
 			$item_details.find('.meta-data, .item-description').slideToggle();
 		});
 
