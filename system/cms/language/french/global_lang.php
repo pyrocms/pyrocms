@@ -52,7 +52,7 @@ $lang['general_error_label'] 			= 'Erreur';
 $lang['required_error_label'] 			= 'Champ obligatoire';
 $lang['note_label'] 					= 'Note';
 $lang['success_label'] 					= 'Succès';
-$lang['global:fields']					= 'Fields'; #translate
+$lang['global:fields']					= 'Champs';
 
 $lang['login_title'] 					= 'Connexion';
 $lang['global:fatal_error'] 			= 'Erreur Fatale, CMS déjà installé&nbsp;?';
@@ -106,11 +106,11 @@ $lang['global:and']						= 'et';
 $lang['global:at']						= 'à';
 
 $lang['global:widgets']					= 'Widgets';
-$lang['global:themes']					= 'Themes'; #translate
+$lang['global:themes']					= 'Thèmes';
 $lang['global:field_types']				= 'Type de Champs';
 $lang['global:plugins']					= 'Plugins';
 $lang['global:plugin']					= 'Plugin';
 
-$lang['global:options']					= 'Options'; #translate
+$lang['global:options']					= 'Options';
 
 /* End of file main_lang.php */
