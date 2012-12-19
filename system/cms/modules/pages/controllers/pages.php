@@ -241,7 +241,7 @@ class Pages extends Public_Controller
 			exit($this->template->build('pages/page', array('page' => $page), FALSE, FALSE));
 		}
 
-		$this->template->build('page', array('page' => $page), FALSE, FALSE);
+		$this->template->build('pages/page', array('page' => $page), FALSE, FALSE);
 	}
 
 	/**
