@@ -153,7 +153,7 @@ class Admin_types extends Admin_Controller
 				}
 			}
 
-			// If they've indicated we 
+			// If they've indicated we create a new stream
 			if ($input['stream_id'] == 'new')
 			{
 				// Since this an automatically generated stream, we're not going to
@@ -205,6 +205,14 @@ class Admin_types extends Admin_Controller
 				
 				// Event: page_type_created
 				Events::trigger('page_type_created', $id);
+
+				if ($this->input->post('stream_id') == 'new')
+				{
+					$this->session->set_flashdata('success', lang('page_types:create_success_add_fields'));
+
+					// send them off to create their first fields
+					redirect('admin/pages/types/fields/' . $id);
+				}
 			}
 			else
 			{
@@ -481,7 +489,8 @@ class Admin_types extends Admin_Controller
 	private function _new_field($stream)
 	{
 		$extra = array(
-			'title'			=> $stream->stream_name.' : '.lang('streams:new_field')
+			'title'			=> $stream->stream_name.' : '.lang('streams:new_field'),
+			'success_message' => lang('page_types:success_add_tag'),
 		);
 
 

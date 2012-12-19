@@ -24,6 +24,7 @@ $lang['page_types:edit_title']                 = 'Uredi postavitev strani "%s"';
 
 // messages
 $lang['page_types:no_pages']                   = 'Ni še nobene postavitve strani.';
+$lang['page_types:create_success_add_fields']  = 'You have created a new page type; now add the fields that you want your page to have.'; #translate
 $lang['page_types:create_success']             = 'Postavitev strani je bila ustvarjena.';
 $lang['page_types:create_error']               = 'Ta postavitev strani je bila ustvarjena.';
 $lang['page_types:page_type.not_found_error']  = 'Ta postavitev strani ne obstaja.';

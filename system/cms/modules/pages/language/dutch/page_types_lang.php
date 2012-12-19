@@ -24,6 +24,7 @@ $lang['page_types:edit_title']                 = 'Bewerk paginalayout "%s"';
 
 // messages
 $lang['page_types:no_pages']                   = 'Er zijn geen paginatypes.';
+$lang['page_types:create_success_add_fields']  = 'You have created a new page type; now add the fields that you want your page to have.'; #translate
 $lang['page_types:create_success']             = 'De paginalayout is gemaakt.';
 $lang['page_types:create_error']               = 'De paginalayout kon niet worden gemaakt.';
 $lang['page_types:page_type.not_found_error']  = 'Deze paginalayout bestaat niet';

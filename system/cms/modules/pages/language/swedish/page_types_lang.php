@@ -24,6 +24,7 @@ $lang['page_types:edit_title']                 = 'Redigera sidlayout "%s"';
 
 // messages
 $lang['page_types:no_pages']                   = 'Det finns inga sidlayouter.';
+$lang['page_types:create_success_add_fields']  = 'You have created a new page type; now add the fields that you want your page to have.'; #translate
 $lang['page_types:create_success']             = 'Sidlayouten skapades.';
 $lang['page_types:create_error']               = 'Ingen sidlayout har skapades.';
 $lang['page_types:page_type.not_found_error']  = 'Sidlayouten finns inte.';

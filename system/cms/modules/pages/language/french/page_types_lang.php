@@ -24,6 +24,7 @@ $lang['page_types:edit_title']                 = 'Editer le modèle "%s"';
 
 // messages
 $lang['page_types:no_pages']                   = 'Il n\'y a pas de modèle.';
+$lang['page_types:create_success_add_fields']  = 'You have created a new page type; now add the fields that you want your page to have.'; #translate
 $lang['page_types:create_success']             = 'Le modèle a été créé';
 $lang['page_types:create_error']               = 'Le modèle n\'a pas été créé.';
 $lang['page_types:page_type.not_found_error']  = 'Ce modèle n\'existe pas.';

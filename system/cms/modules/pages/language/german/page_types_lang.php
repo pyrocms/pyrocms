@@ -24,6 +24,7 @@ $lang['page_types:edit_title']                 = 'Seitenlayout "%s" bearbeiten';
 
 // messages
 $lang['page_types:no_pages']                   = 'Es existieren noch keine Seitentypes.';
+$lang['page_types:create_success_add_fields']  = 'You have created a new page type; now add the fields that you want your page to have.'; #translate
 $lang['page_types:create_success']             = 'Seitenlayout wurde erstellt.';
 $lang['page_types:create_error']               = 'Ein Fehler ist aufgetreten. Seitenlayout konnte nicht erstellt werden.';
 $lang['page_types:page_type.not_found_error']  = 'Seitenlayout existiert nicht.';

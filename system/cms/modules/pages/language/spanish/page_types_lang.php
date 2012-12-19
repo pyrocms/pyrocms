@@ -24,6 +24,7 @@ $lang['page_types:edit_title']                 = 'Editar layout de página "%s"'
 
 // messages
 $lang['page_types:no_pages']                   = 'No hay types de página.';
+$lang['page_types:create_success_add_fields']  = 'You have created a new page type; now add the fields that you want your page to have.'; #translate
 $lang['page_types:create_success']             = 'Se ha creado el layout de página.';
 $lang['page_types:create_error']               = 'El layout de página no ha sido creado.';
 $lang['page_types:page_type.not_found_error']  = 'El layout de página no existe.';

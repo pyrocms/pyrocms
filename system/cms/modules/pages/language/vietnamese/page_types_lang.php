@@ -24,6 +24,7 @@ $lang['page_types:edit_title']                 = 'Sửa Page Type "%s"';
 
 // messages
 $lang['page_types:no_pages']                   = 'Không có page types nào.';
+$lang['page_types:create_success_add_fields']  = 'You have created a new page type; now add the fields that you want your page to have.'; #translate
 $lang['page_types:create_success']             = 'Page layout đã được tạo.';
 $lang['page_types:create_error']               = 'Page layout chưa được tạo.';
 $lang['page_types:page_type.not_found_error']  = 'Page layout không tồn tại.';

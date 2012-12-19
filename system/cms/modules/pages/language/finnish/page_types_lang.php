@@ -24,6 +24,7 @@ $lang['page_types:edit_title']                 = 'Muokkaa sivupohjaa "%s"';
 
 // messages
 $lang['page_types:no_pages']                   = 'Sivupohjia ei löytynyt.';
+$lang['page_types:create_success_add_fields']  = 'You have created a new page type; now add the fields that you want your page to have.'; #translate
 $lang['page_types:create_success']             = 'Sivupohja luotiin onnistuneesti.';
 $lang['page_types:create_error']               = 'Sivupohjaa ei luotu.';
 $lang['page_types:page_type.not_found_error']  = 'Sivupohjaa ei löytynyt.';

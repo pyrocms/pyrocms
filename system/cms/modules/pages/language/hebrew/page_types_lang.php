@@ -24,6 +24,7 @@ $lang['page_types:edit_title']                 = 'ערוך page layout "%s"';
 
 // messages
 $lang['page_types:no_pages']                   = 'אין page types.';
+$lang['page_types:create_success_add_fields']  = 'You have created a new page type; now add the fields that you want your page to have.'; #translate
 $lang['page_types:create_success']             = 'page layout נוצר בהצלחה.';
 $lang['page_types:create_error']               = 'page layout לא נוצר.';
 $lang['page_types:page_type.not_found_error']  = 'page layout אינו קיים.';
