@@ -1,17 +1,5 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-// The page type Streams
-$config['pages:default_page_stream'] = 
-	array(
-		array(
-			'name' 		=> 'Default', 
-			'slug' 		=> 'def_page_fields', 
-			'namespace' => 'pages', 
-			'prefix' 	=> null, 
-			'about' 	=> 'A basic page type to get you started adding content.'
-		)
-	);
-
 // define all custom fields that a new installation should have
 $config['pages:default_fields']	= array(
 	array(         
