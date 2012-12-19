@@ -15,20 +15,34 @@
 
 		// editor switcher
 		$('select[name^=type]').live('change', function () {
-			var chunk = $(this).closest('li.editor');
-			var textarea = $('textarea', chunk);
-
-			// Destroy existing WYSIWYG instance
-			if (textarea.hasClass('wysiwyg-simple') || textarea.hasClass('wysiwyg-advanced')) {
-				textarea.removeClass('wysiwyg-simple');
-				textarea.removeClass('wysiwyg-advanced');
-
+			var chunk = $(this).closest('li.editor'),
+					textarea = $('textarea', chunk),
+					newType = this.value,
+					oldType = textarea.attr('class'),
+					editor = textarea.data('editor');
+					console.log(editor);
+			// clear text area classes and add the new one
+			textarea.attr('class',this.value);
+			// Destroy old instance
+			if (oldType == 'wysiwyg-simple' || oldType == 'wysiwyg-advanced') {
 				var instance = CKEDITOR.instances[textarea.attr('id')];
 				instance && instance.destroy();
 			}
-			// Set up the new instance
-			textarea.addClass(this.value);
-			pyro.init_ckeditor();
+			if(editor !== undefined){
+				editor.save();
+				$('.CodeMirror').remove();
+				textarea.data('editor',undefined);
+			}
+			// create new ones
+			if (newType == 'wysiwyg-simple' || newType == 'wysiwyg-advanced') {
+				pyro.init_ckeditor();
+			}
+			if(newType == 'html'){
+				textarea.data('editor', pyro.createCodeMirror(textarea, 'text/html'));
+			}
+			if(newType == 'markdown'){
+				textarea.data('editor', pyro.createCodeMirror(textarea, 'markdown'));
+			}
 		});
 
 		$(document.getElementById('blog-options-tab')).find('ul').find('li').first().find('a').colorbox({
