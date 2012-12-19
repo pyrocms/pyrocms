@@ -318,7 +318,7 @@ class Fields
 	 */
 	public function run_field_events($stream_fields, $skips = array())
 	{
-		if ( ! $stream_fields or ! is_array($stream_fields)) return array();
+		if ( ! $stream_fields or ( ! is_array($stream_fields) and ! is_object($stream_fields))) return null;
 
 		foreach ($stream_fields as $field)
 		{
@@ -501,7 +501,7 @@ class Fields
 	 */	
 	public function set_rules($stream_fields, $method, $skips = array(), $return_array = false, $row_id = null)
 	{
-		if ( ! $stream_fields or ! is_array($stream_fields)) return array();
+		if ( ! $stream_fields or ! is_object($stream_fields)) return array();
 
 		$validation_rules = array();
 
@@ -784,7 +784,7 @@ class Fields
 		else
 		{
 			// Hmm. No from address. We'll just use the site setting.
-			$this->CI->email->from($this->CI->settings->get('server_email'), $this->CI->settings->get('site_name'));
+			$this->CI->email->from(Settings::get('server_email'), Settings::get('site_name'));
 		}
 
 		// -------------------------------------

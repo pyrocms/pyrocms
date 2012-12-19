@@ -4,7 +4,7 @@
 * Thai translation.
 *
 * @author	Nateetorn Lertkhonsan <nateetorn.l@gmail.com>
-* @package	PyroCMS  
+* @package	PyroCMS
 * @link		http://pyrocms.com
 * @date		2012-04-19
 * @version	1.0.0
@@ -21,7 +21,6 @@ $lang['global:author'] 					= 'ผู้เขียน';
 $lang['global:action'] 					= 'Action';
 $lang['global:slug'] 					= 'Slug';
 $lang['global:slug_instructions']		= 'Lowercase characters and underscores only.'; #translate
-
 $lang['global:user'] 					= 'ผู้ใช้';
 
 $lang['global:dialog:delete_message'] 	= 'คุณแน่ใจหรือว่าต้องการลบรายการนี้? หากลบไปแล้วมันไม่สามารถยกเลิกได้';
@@ -43,6 +42,13 @@ $lang['global:operators:not-equal'] 	= 'ไม่เท่ากับ';
 $lang['global:operators:less-than'] 	= 'น้อยกว่า';
 $lang['global:operators:greater-than'] 	= 'มากกว่า';
 
+$lang['global:duration:1-day']			= 'One day';
+$lang['global:duration:1-week']			= 'One week';
+$lang['global:duration:2-weeks']		= 'Two weeks';
+$lang['global:duration:1-month']		= 'One month';
+$lang['global:duration:3-months']		= 'Three Months';
+$lang['global:duration:always']			= 'Always';
+
 $lang['navigation_headline'] 			= 'นำทาง';
 $lang['breadcrumb_base_label'] 			= 'หน้าแรก';
 
@@ -56,6 +62,7 @@ $lang['general_error_label'] 			= 'ผิดพลาด';
 $lang['required_error_label'] 			= 'ฟิลด์ที่จำเป็นขาดหายไป';
 $lang['note_label'] 					= 'หมายเหตุ';
 $lang['success_label'] 					= 'สำเร็จ';
+$lang['global:fields']					= 'Fields'; #translate
 
 $lang['login_title'] 					= 'เข้าสู่ระบบ';
 $lang['global:fatal_error'] 			= 'มีข้อผิดพลาดร้ายแรง, CMS ได้ถูกต้ิดตั้งหรือไม่?';
@@ -102,12 +109,18 @@ $lang['global:empty']					= 'ว่างเปล่า';
 $lang['global:delete']					= 'ลบ';
 $lang['global:remove']					= 'เอาออก';
 
-$lang['global:widgets']					= 'Widgets';
-$lang['global:themes']					= 'Themes'; #translate
-$lang['global:field_types']				= 'Field Types';
-$lang['global:plugins']					= 'Plugins';
-$lang['global:plugin']					= 'Plugin';
-
 $lang['global:keywords']				= 'คำหลัก';
+
+$lang['global:or']						= 'or'; #translate
+$lang['global:and']						= 'and'; #translate
+$lang['global:at']						= 'at'; #translate
+
+$lang['global:widgets']					= 'Widgets'; #translate
+$lang['global:themes']					= 'Themes'; #translate
+$lang['global:field_types']				= 'Field Types'; #translate
+$lang['global:plugins']					= 'Plugins'; #translate
+$lang['global:plugin']					= 'Plugin'; #translate
+
+$lang['global:options']					= 'Options'; #translate
 
 /* End of file main_lang.php */

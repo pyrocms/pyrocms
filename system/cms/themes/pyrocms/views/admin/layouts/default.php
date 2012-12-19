@@ -11,7 +11,7 @@
 	<!-- You can use .htaccess and remove these lines to avoid edge case issues. -->
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-	<title><?php echo $template['title'].' - '.lang('cp_admin_title') ?></title>
+	<title><?php echo $template['title'].' - '.lang('cp:admin_title') ?></title>
 
 	<base href="<?php echo base_url(); ?>" />
 

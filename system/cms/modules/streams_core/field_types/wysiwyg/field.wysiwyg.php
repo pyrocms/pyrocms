@@ -19,7 +19,7 @@ class Field_wysiwyg
 	
 	public $custom_parameters 		= array('editor_type');
 
-	public $version					= '1.0';
+	public $version					= '1.0.0';
 
 	public $author					= array('name'=>'Parse19', 'url'=>'http://parse19.com');
 	
@@ -99,8 +99,8 @@ class Field_wysiwyg
 	public function param_editor_type($value = null)
 	{
 		$types = array(
-			'simple'	=> lang('streams.wysiwyg.simple'),
-			'advanced'	=> lang('streams.wysiwyg.advanced')
+			'simple'	=> lang('streams:wysiwyg.simple'),
+			'advanced'	=> lang('streams:wysiwyg.advanced')
 		);
 	
 		return form_dropdown('editor_type', $types, $value);

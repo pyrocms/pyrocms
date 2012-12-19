@@ -10,7 +10,7 @@
  * @version		1.1.0
  */
 
-$lang['streams.email.name'] = 'E-post';
+$lang['streams:email.name'] = 'E-post';
 
 
 /* End of file email_lang.php */  

@@ -8,7 +8,7 @@
  */
 class Module_Users extends Module {
 
-	public $version = '1.1';
+	public $version = '1.1.0';
 
 	public function info()
 	{
@@ -77,22 +77,22 @@ class Module_Users extends Module {
 			{
 				$info['sections'] = array(
 					'users' => array(
-							'name' 	=> 'user_list_title',
+							'name' 	=> 'user:list_title',
 							'uri' 	=> 'admin/users',
 								'shortcuts' => array(
 									'create' => array(
-										'name' 	=> 'user_add_title',
+										'name' 	=> 'user:add_title',
 										'uri' 	=> 'admin/users/create',
 										'class' => 'add'
 										)
 									)
 								),
 					'fields' => array(
-							'name' 	=> 'user_profile_fields_label',
+							'name' 	=> 'user:profile_fields_label',
 							'uri' 	=> 'admin/users/fields',
 								'shortcuts' => array(
 									'create' => array(
-										'name' 	=> 'user_add_field',
+										'name' 	=> 'user:add_field',
 										'uri' 	=> 'admin/users/fields/create',
 										'class' => 'add'
 										)
@@ -107,7 +107,7 @@ class Module_Users extends Module {
 
 	public function admin_menu(&$menu)
 	{
-		$menu['lang:cp_nav_users']['lang:cp_nav_users'] = 'admin/users';
+		$menu['lang:cp:nav_users']['lang:cp:nav_users'] = 'admin/users';
 	}
 
 	/**
@@ -282,7 +282,8 @@ class Module_Users extends Module {
 				'module' => 'users',
 				'order' => 962,
 			),
-			'activation_email' => array(
+			array(
+				'slug' => 'activation_email',
 				'title' => 'Activation Email',
 				'description' => 'Send out an e-mail with an activation link when a user signs up. Disable this so that admins must manually activate each account.',
 				'type' => 'select',
@@ -320,6 +321,19 @@ class Module_Users extends Module {
 				'module' => 'users',
 				'order' => 961,
 			),
+			array(
+            	'slug' => 'profile_visibility',
+                'title' => 'Profile Visibility',
+                'description' => 'Specify who can view user profiles on the public site',
+                'type' => 'select',
+                'default' => 'public',
+                'value' => '',
+                'options' => 'public=profile_public|owner=profile_owner|hidden=profile_hidden|member=profile_member',
+                'is_required' => 0,
+                'is_gui' => 1,
+                'module' => 'users',
+                'order' => 960,
+            ),
 		);
 
 		foreach ($settings as $setting)

@@ -8,7 +8,7 @@
  */
 class Module_Variables extends Module {
 
-	public $version = '1.0';
+	public $version = '1.0.0';
 
 	public function info()
 	{
@@ -71,7 +71,7 @@ class Module_Variables extends Module {
 			'menu'		=> 'data',
 			'shortcuts' => array(
 				array(
-				    'name' => 'variables.create_title',
+				    'name' => 'variables:create_title',
 				    'uri' => 'admin/variables/create',
 					'class' => 'add',
 				),

@@ -193,6 +193,7 @@ select.chzn-select {
   font-size: 13px;
   position: relative;
   display: inline-block;
+  margin: 5px 0 5px 0;
   zoom: 1;
   *display: inline;
 }

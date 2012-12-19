@@ -250,7 +250,7 @@ class Type
 			// Field type name is languagized
 			if ( ! isset($tmp->field_type_name))
 			{
-				$tmp->field_type_name = $this->CI->lang->line('streams.'.$type.'.name');
+				$tmp->field_type_name = $this->CI->lang->line('streams:'.$type.'.name');
 			}
 		}
 	
@@ -345,15 +345,22 @@ class Type
 	 * @access	public
 	 * @return	void
 	 */	
-	public function load_field_crud_assets()
+	public function load_field_crud_assets($types = null)
 	{
-		foreach ($this->types as $type)
+		if ( ! $types)
+		{
+			$types = $this->types;
+		}
+
+		foreach ($types as $type)
 		{
 			if (method_exists($type, 'add_edit_field_assets'))
 			{
 				$type->add_edit_field_assets();
 			}
 		}
+
+		unset($types);
 	}
 
 	// --------------------------------------------------------------------------   
@@ -366,14 +373,19 @@ class Type
 	 * @access	public
 	 * @return	array
 	 */
-	public function field_types_array()
+	public function field_types_array($types = null)
 	{
+		if ( ! $types)
+		{
+			$types = $this->types;
+		}
+
 		$return = array();
 		
 		// For the chozen data placeholder value
 		$return[null] = null;
 			
-		foreach ($this->types as $type)
+		foreach ($types as $type)
 		{
 			$return[$type->field_type_slug] = $type->field_type_name;
 		}

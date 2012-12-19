@@ -10,7 +10,7 @@
  * @version		1.1.0
  */
 
-$lang['streams.integer.name'] = 'Heltal';
+$lang['streams:integer.name'] = 'Heltal';
 
 
 /* End of file integer_lang.php */  

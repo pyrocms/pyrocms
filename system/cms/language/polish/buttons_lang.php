@@ -1,4 +1,4 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * PyroCMS
  *
@@ -12,28 +12,30 @@
  * @filesource
  */
 
-$lang['buttons.submit']		= 'Zapisz';
-$lang['buttons.cancel']		= 'Anuluj';
-$lang['buttons.upload']		= 'Wyślij';
-$lang['buttons.save']		= 'Zapisz';
-$lang['buttons.save_exit']	= 'Zapisz i zakończ';
-$lang['buttons.delete']		= 'Usuń';
-$lang['buttons.publish']	= 'Publikuj';
-$lang['buttons.approve']	= 'Zatwierdź';
-$lang['buttons.unapprove']	= 'Odrzuć';
-$lang['buttons.install']	= 'Instaluj';
-$lang['buttons.uninstall']	= 'Odinstaluj';
-$lang['buttons.enable']		= 'Włącz';
-$lang['buttons.disable']	= 'Wyłącz';
-$lang['buttons.yes']		= 'Tak';
-$lang['buttons.no']		= 'Nie';
-$lang['buttons.activate']	= 'Aktywuj';
-$lang['buttons.deactivate']	= 'Deaktywuj';
-$lang['buttons.preview']	= 'Podgląd';
-$lang['buttons.close']		= 'Zamknij';
-$lang['buttons.edit']		= 'Edytuj';
-$lang['buttons.clone']		= 'Klonuj';
-$lang['buttons.re-index']	= 'Przeindeksuj';
-$lang['buttons.copy']		= 'Kopiuj';
+$lang['buttons:submit']		= 'Zapisz';
+$lang['buttons:cancel']		= 'Anuluj';
+$lang['buttons:upload']		= 'Wyślij';
+$lang['buttons:save']		= 'Zapisz';
+$lang['buttons:save_exit']	= 'Zapisz i zakończ';
+$lang['buttons:delete']		= 'Usuń';
+$lang['buttons:publish']	= 'Publikuj';
+$lang['buttons:approve']	= 'Zatwierdź';
+$lang['buttons:unapprove']	= 'Odrzuć';
+$lang['buttons:install']	= 'Instaluj';
+$lang['buttons:uninstall']	= 'Odinstaluj';
+$lang['buttons:enable']		= 'Włącz';
+$lang['buttons:disable']	= 'Wyłącz';
+$lang['buttons:yes']		= 'Tak';
+$lang['buttons:no']		= 'Nie';
+$lang['buttons:activate']	= 'Aktywuj';
+$lang['buttons:deactivate']	= 'Deaktywuj';
+$lang['buttons:preview']	= 'Podgląd';
+$lang['buttons:close']		= 'Zamknij';
+$lang['buttons:edit']		= 'Edytuj';
+$lang['buttons:clone']		= 'Klonuj';
+$lang['buttons:re-index']	= 'Przeindeksuj';
+$lang['buttons:copy']		= 'Kopiuj';
+$lang['buttons:filter']		= 'Filter';
+$lang['buttons:clear']		= 'Clear';
 
 /* End of file buttons_lang.php */

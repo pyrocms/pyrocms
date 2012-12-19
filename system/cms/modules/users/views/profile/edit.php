@@ -1,6 +1,6 @@
 <h2 id="page_title" class="page-title">
 	<?php echo ($this->current_user->id !== $_user->id) ?
-					sprintf(lang('user_edit_title'), $_user->display_name) :
+					sprintf(lang('user:edit_title'), $_user->display_name) :
 					lang('profile_edit') ?>
 </h2>
 <div>
@@ -13,7 +13,7 @@
 	<?php echo form_open_multipart('', array('id'=>'user_edit'));?>
 
 	<fieldset id="profile_fields">
-		<legend><?php echo lang('user_details_section') ?></legend>
+		<legend><?php echo lang('user:details_section') ?></legend>
 		<ul>
 			<li>
 				<label for="display_name"><?php echo lang('profile_display_name') ?></label>
@@ -54,7 +54,7 @@
 	</fieldset>
 
 	<fieldset id="user_password">
-		<legend><?php echo lang('user_password_section') ?></legend>
+		<legend><?php echo lang('user:password_section') ?></legend>
 		<ul>
 			<li class="float-left spacer-right">
 				<label for="password"><?php echo lang('global:password') ?></label><br/>

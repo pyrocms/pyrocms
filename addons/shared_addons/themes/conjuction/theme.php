@@ -7,7 +7,7 @@ class Theme_Conjuction extends Theme {
     public $author_website = 'http://freecsstemplates.org';
     public $website = 'http://www.freecsstemplates.org/preview/conjuction';
     public $description = '2-column, fixed; horizontal nav.';
-    public $version = '1.0';
+    public $version = '1.0.0';
 
 }
 

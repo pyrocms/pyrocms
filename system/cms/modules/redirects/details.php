@@ -8,7 +8,7 @@
  */
 class Module_Redirects extends Module {
 
-	public $version = '1.0';
+	public $version = '1.0.0';
 
 	public function info()
 	{
@@ -67,7 +67,7 @@ class Module_Redirects extends Module {
 
 			'shortcuts' => array(
 				array(
-				    'name' => 'redirects.add_title',
+				    'name' => 'redirects:add_title',
 				    'uri' => 'admin/redirects/add',
 				    'class' => 'add',
 				),

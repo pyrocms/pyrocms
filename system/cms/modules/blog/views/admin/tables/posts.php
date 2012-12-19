@@ -7,7 +7,7 @@
 				<th class="collapse"><?php echo lang('blog:date_label') ?></th>
 				<th class="collapse"><?php echo lang('blog:written_by_label') ?></th>
 				<th><?php echo lang('blog:status_label') ?></th>
-				<th width="180">Actions</th>
+				<th width="180"><?php echo lang('global:actions') ?></th>
 			</tr>
 		</thead>
 		<tfoot>
@@ -34,12 +34,12 @@
 					<td><?php echo lang('blog:'.$post->status.'_label') ?></td>
 					<td style="padding-top:10px;">
                         <?php if($post->status=='live') : ?>
-                            <?php echo anchor('blog/' . date('Y/m', $post->created_on). '/'. $post->slug, lang('global:view'), 'class="icon-search ti" target="_blank" style="margin-right:8px;"');?>
+							<a href="<?php echo site_url('blog/'.date('Y/m', $post->created_on).'/'.$post->slug) ?>" title="<?php echo lang('global:view')?>" class="icon-search ti" target="_blank" style="margin-right:8px;"></a>
                         <?php else: ?>
-                            <?php echo anchor('blog/preview/' . $post->preview_hash, lang('global:preview'), 'class="icon-search ti" target="_blank" style="margin-right:8px;"');?>
+							<a href="<?php echo site_url('blog/preview/' . $post->preview_hash) ?>" title="<?php echo lang('global:preview')?>" class="icon-search ti" target="_blank" style="margin-right:8px;"></a>
                         <?php endif ?>
-						<?php echo anchor('admin/blog/edit/' . $post->id, lang('global:edit'), 'class="icon-edit edit ti" style="margin-right:6px;"') ?>
-						<?php echo anchor('admin/blog/delete/' . $post->id, lang('global:delete'), array('class'=>'icon-remove confirm delete ti')) ?>
+						<a href="<?php echo site_url('admin/blog/edit/' . $post->id) ?>" title="<?php echo lang('global:edit')?>" class="icon-edit edit ti" style="margin-right:6px;"></a>
+						<a href="<?php echo site_url('admin/blog/delete/' . $post->id) ?>" class="icon-remove confirm delete ti"></a>
 					</td>
 				</tr>
 			<?php endforeach ?>

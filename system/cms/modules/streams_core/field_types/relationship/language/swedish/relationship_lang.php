@@ -10,9 +10,9 @@
  * @version		1.1.0
  */
 
-$lang['streams.relationship.name'] = 'Relation';
-$lang['streams.relationship.choose_stream'] = 'Relations-Stream';
-$lang['streams.relationship.doesnt_exist'] = 'Relaterad Stream finns inte.';
+$lang['streams:relationship.name'] = 'Relation';
+$lang['streams:relationship.choose_stream'] = 'Relations-Stream';
+$lang['streams:relationship.doesnt_exist'] = 'Relaterad Stream finns inte.';
 
 
 /* End of file relationship_lang.php */  

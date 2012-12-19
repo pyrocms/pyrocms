@@ -11,6 +11,8 @@ $lang['global:author'] 					= 'الناشر';
 $lang['global:action'] 					= 'الإجراء';
 $lang['global:slug'] 					= 'مُختصر العُنوان';
 $lang['global:slug_instructions']		= 'أحرف صغيرة وشرطة سفلية فقط.';
+$lang['global:user'] 					= 'User'; #translate
+
 $lang['global:dialog:delete_message'] 	= 'متأكد أنك تريد حذف هذا؟ لا يمكن التراجع عن هذا الأمر.';
 $lang['global:dialog:confirm'] 			= 'التأكيد';
 
@@ -50,10 +52,11 @@ $lang['general_error_label'] 			= 'خطأ';
 $lang['required_error_label'] 			= 'أحد الحقول مفقود';
 $lang['note_label'] 					= 'ملاحظة';
 $lang['success_label'] 					= 'نجاح';
+$lang['global:fields']					= 'Fields'; #translate
 
 $lang['login_title'] 					= 'تسجيل الدخول';
-$lang['cms_fatal_error'] 				= 'خطأ جسيم، هل النظام مثبّت؟';
-$lang['global:demo_restrictions']       = 'بعض الخواص في هذه الصفحة مُعطّلة لغرض العرض فقط.';
+$lang['global:fatal_error'] 				= 'خطأ جسيم، هل النظام مثبّت؟';
+$lang['global:demo_restrictions']		= 'بعض الخواص في هذه الصفحة مُعطّلة لغرض العرض فقط.';
 
 $lang['login_error_label'] 				= 'خطأ في تسجيل الدخول';
 $lang['forgot_password_label'] 			= 'نسيت كلمة السرّ؟';
@@ -73,9 +76,11 @@ $lang['publish_label'] 					= 'نشر';
 $lang['global:upload'] 					= 'رفع';
 $lang['global:uninstall'] 				= 'إزالة';
 $lang['global:install'] 					= 'تثبيت';
+$lang['global:upgrade'] 					= 'تحديث';
 $lang['global:enable']					= 'تمكين';
 $lang['global:disable'] 					= 'تعطيل';
-$lang['global:upgrade'] 					= 'تحديث';
+$lang['global:enabled']					= 'Enabled'; #translate
+$lang['global:disabled'] 				= 'Disabled'; #translate
 
 $lang['all_right_reserved']				= 'جميع الحقوق محفوظة.';
 $lang['powered_by_pyrocms']				= 'هذا الموقع يستخدم PyroCMS';
@@ -94,12 +99,18 @@ $lang['global:empty']					= 'فارغ';
 $lang['global:delete']					= 'حذف';
 $lang['global:remove']					= 'إزالة';
 
-$lang['global:widgets']					= 'Widgets';
-$lang['global:themes']					= 'Themes'; #translate
-$lang['global:field_types']				= 'Field Types';
-$lang['global:plugins']					= 'Plugins';
-$lang['global:plugin']					= 'Plugin';
-
 $lang['global:keywords']				= 'كلمات البحث';
+
+$lang['global:or']						= 'or'; #translate
+$lang['global:and']						= 'and'; #translate
+$lang['global:at']						= 'at'; #translate
+
+$lang['global:widgets']					= 'الودجتس';
+$lang['global:themes']					= 'السّمات';
+$lang['global:field_types']				= 'أنواع الحقول';
+$lang['global:plugins']					= 'الإضافات';
+$lang['global:plugin']					= 'الإضافة';
+
+$lang['global:options']					= 'Options'; #translate
 
 /* End of file main_lang.php */

@@ -5,43 +5,43 @@
  * @author Mikael Kundert
  */
 
-$lang['user_add_field']                        	= 'Lisää Käyttäjäprofiilikenttä';
-$lang['user_profile_delete_success']           	= 'Käyttäjäprofiilikenttä poistettiin onnistuneesti';
-$lang['user_profile_delete_failure']            = 'Ongelma käyttäjäprofiilikentän poistamisessa';
+$lang['user:add_field']                        	= 'Lisää Käyttäjäprofiilikenttä';
+$lang['user:profile_delete_success']           	= 'Käyttäjäprofiilikenttä poistettiin onnistuneesti';
+$lang['user:profile_delete_failure']            = 'Ongelma käyttäjäprofiilikentän poistamisessa';
 $lang['profile_user_basic_data_label']  		= 'Perustiedot';
 $lang['profile_company']         	  			= 'Yritys';
 $lang['profile_updated_on']           			= 'Updated On'; #translate
-$lang['user_profile_fields_label']	 		 	= 'Profiilikentät';
+$lang['user:profile_fields_label']	 		 	= 'Profiilikentät';
 
-$lang['user_register_header']                  = 'Rekisteröityminen';
-$lang['user_register_step1']                   = '<strong>Vaihe 1:</strong> Rekisteröityminen';
-$lang['user_register_step2']                   = '<strong>Vaihe 2:</strong> Aktivointi';
+$lang['user:register_header']                  = 'Rekisteröityminen';
+$lang['user:register_step1']                   = '<strong>Vaihe 1:</strong> Rekisteröityminen';
+$lang['user:register_step2']                   = '<strong>Vaihe 2:</strong> Aktivointi';
 
-$lang['user_login_header']                     = 'Kirjaudu';
+$lang['user:login_header']                     = 'Kirjaudu';
 
 // titles
-$lang['user_add_title']                        = 'Lisää käyttäjä';
-$lang['user_list_title']					   = 'Listaa käyttäjät';
-$lang['user_inactive_title']                   = 'Ei-aktiiviset käyttäjät';
-$lang['user_active_title']                     = 'Aktiiviset käyttäjät';
-$lang['user_registred_title']                  = 'Rekisteröityneet käyttäjät';
+$lang['user:add_title']                        = 'Lisää käyttäjä';
+$lang['user:list_title']					   = 'Listaa käyttäjät';
+$lang['user:inactive_title']                   = 'Ei-aktiiviset käyttäjät';
+$lang['user:active_title']                     = 'Aktiiviset käyttäjät';
+$lang['user:registred_title']                  = 'Rekisteröityneet käyttäjät';
 
 // labels
-$lang['user_edit_title']                       = 'Muokkaa käyttäjää "%s"';
-$lang['user_details_label']                    = 'Tiedot';
-$lang['user_first_name_label']                 = 'Etunimi';
-$lang['user_last_name_label']                  = 'Sukunimi';
-$lang['user_group_label']                      = 'Ryhmä';
-$lang['user_activate_label']                   = 'Aktivoi';
-$lang['user_password_label']                   = 'Salasana';
-$lang['user_password_confirm_label']           = 'Vahvista salasana';
-$lang['user_name_label']                       = 'Nimi';
-$lang['user_joined_label']                     = 'Liittynyt';
-$lang['user_last_visit_label']                 = 'Viimeksi paikalla';
-$lang['user_never_label']                      = 'Ei koskaan';
+$lang['user:edit_title']                       = 'Muokkaa käyttäjää "%s"';
+$lang['user:details_label']                    = 'Tiedot';
+$lang['user:first_name_label']                 = 'Etunimi';
+$lang['user:last_name_label']                  = 'Sukunimi';
+$lang['user:group_label']                      = 'Ryhmä';
+$lang['user:activate_label']                   = 'Aktivoi';
+$lang['user:password_label']                   = 'Salasana';
+$lang['user:password_confirm_label']           = 'Vahvista salasana';
+$lang['user:name_label']                       = 'Nimi';
+$lang['user:joined_label']                     = 'Liittynyt';
+$lang['user:last_visit_label']                 = 'Viimeksi paikalla';
+$lang['user:never_label']                      = 'Ei koskaan';
 
-$lang['user_no_inactives']                     = 'Ei-aktiivisia käyttäjiä ei löytynyt.';
-$lang['user_no_registred']                     = 'Rekisteröityneitä käyttäjiä ei löytynyt.';
+$lang['user:no_inactives']                     = 'Ei-aktiivisia käyttäjiä ei löytynyt.';
+$lang['user:no_registred']                     = 'Rekisteröityneitä käyttäjiä ei löytynyt.';
 
 $lang['account_changes_saved']                 = 'Tilin muutokset tallennettiin.';
 
@@ -49,119 +49,119 @@ $lang['indicates_required']                    = 'Merkitsee pakolliset kentät';
 
 // -- Registration / Activation / Reset Password ----------------------------------------------------------
 
-$lang['user_send_activation_email']            = 'Send Activation Email'; #translate
-$lang['user_do_not_activate']                  = 'Inactive'; #translate
-$lang['user_register_title']                   = 'Rekisteröityminen';
-$lang['user_activate_account_title']           = 'Aktivoi tili';
-$lang['user_activate_label']                   = 'Aktivoi';
-$lang['user_activated_account_title']          = 'Tili aktivointiin';
-$lang['user_reset_password_title']             = 'Nollaa salasana';
-$lang['user_password_reset_title']             = 'Salasanan nollaaminen';
+$lang['user:send_activation_email']            = 'Send Activation Email'; #translate
+$lang['user:do_not_activate']                  = 'Inactive'; #translate
+$lang['user:register_title']                   = 'Rekisteröityminen';
+$lang['user:activate_account_title']           = 'Aktivoi tili';
+$lang['user:activate_label']                   = 'Aktivoi';
+$lang['user:activated_account_title']          = 'Tili aktivointiin';
+$lang['user:reset_password_title']             = 'Nollaa salasana';
+$lang['user:password_reset_title']             = 'Salasanan nollaaminen';
 
 
-$lang['user_error_username']                   = 'Käyttäjänimi, jonka syötit on jo käytössä';
-$lang['user_error_email']                      = 'Sähköpostiosoite, jonka syötit on jo käytössä';
+$lang['user:error_username']                   = 'Käyttäjänimi, jonka syötit on jo käytössä';
+$lang['user:error_email']                      = 'Sähköpostiosoite, jonka syötit on jo käytössä';
 
-$lang['user_full_name']                        = 'Koko nimi';
-$lang['user_first_name']                       = 'Etunimi';
-$lang['user_last_name']                        = 'Sukunimi';
-$lang['user_username']                         = 'Käyttäjätunnus';
-$lang['user_display_name']                     = 'Näyttönimi';
-$lang['user_email_use'] 					   = 'used to login'; #translate
-$lang['user_remember']                         = 'Muista minut';
-$lang['user_group_id_label']                   = 'Ryhmän ID';
+$lang['user:full_name']                        = 'Koko nimi';
+$lang['user:first_name']                       = 'Etunimi';
+$lang['user:last_name']                        = 'Sukunimi';
+$lang['user:username']                         = 'Käyttäjätunnus';
+$lang['user:display_name']                     = 'Näyttönimi';
+$lang['user:email_use'] 					   = 'used to login'; #translate
+$lang['user:remember']                         = 'Muista minut';
+$lang['user:group_id_label']                   = 'Ryhmän ID';
 
-$lang['user_level']                            = 'Käyttäjärooli';
-$lang['user_active']                           = 'Aktiivinen';
-$lang['user_lang']                             = 'Kieli';
+$lang['user:level']                            = 'Käyttäjärooli';
+$lang['user:active']                           = 'Aktiivinen';
+$lang['user:lang']                             = 'Kieli';
 
-$lang['user_activation_code']                  = 'Aktivointi koodi';
+$lang['user:activation_code']                  = 'Aktivointi koodi';
 
-$lang['user_reset_instructions']			   = 'Kirjoita sähköpostiosoitteesi tai käyttäjätunnuksesi';
-$lang['user_reset_password_link']              = 'Unohditko salasanan?';
+$lang['user:reset_instructions']			   = 'Kirjoita sähköpostiosoitteesi tai käyttäjätunnuksesi';
+$lang['user:reset_password_link']              = 'Unohditko salasanan?';
 
-$lang['user_activation_code_sent_notice']      = 'Aktivointi koodi lähetettiin sähköpostiisi.';
-$lang['user_activation_by_admin_notice']       = 'Rekisteröityminen vaatii ylläpidon hyväksymisen.';
-$lang['user_registration_disabled']            = 'Valitettavasti rekisteröityminen ei ole nyt käytössä.';
+$lang['user:activation_code_sent_notice']      = 'Aktivointi koodi lähetettiin sähköpostiisi.';
+$lang['user:activation_by_admin_notice']       = 'Rekisteröityminen vaatii ylläpidon hyväksymisen.';
+$lang['user:registration_disabled']            = 'Valitettavasti rekisteröityminen ei ole nyt käytössä.';
 
 // -- Settings ---------------------------------------------------------------------------------------------
 
-$lang['user_details_section']                  = 'Nimi';
-$lang['user_password_section']                 = 'Vaihda salasana';
-$lang['user_other_settings_section']           = 'Muut asetukset';
+$lang['user:details_section']                  = 'Nimi';
+$lang['user:password_section']                 = 'Vaihda salasana';
+$lang['user:other_settings_section']           = 'Muut asetukset';
 
-$lang['user_settings_saved_success']           = 'Käyttäjätilin asetukset tallennettiin.';
-$lang['user_settings_saved_error']             = 'Tapahtui virhe.';
+$lang['user:settings_saved_success']           = 'Käyttäjätilin asetukset tallennettiin.';
+$lang['user:settings_saved_error']             = 'Tapahtui virhe.';
 
 // -- Buttons ----------------------------------------------------------------------------------------------
 
-$lang['user_register_btn']                     = 'Rekisteröidy';
-$lang['user_activate_btn']                     = 'Aktivoi';
-$lang['user_reset_pass_btn']                   = 'Nollaa salasana';
-$lang['user_login_btn']                        = 'Kirjaudu';
-$lang['user_settings_btn']                     = 'Tallenna asetukset';
+$lang['user:register_btn']                     = 'Rekisteröidy';
+$lang['user:activate_btn']                     = 'Aktivoi';
+$lang['user:reset_pass_btn']                   = 'Nollaa salasana';
+$lang['user:login_btn']                        = 'Kirjaudu';
+$lang['user:settings_btn']                     = 'Tallenna asetukset';
 
 // -- Errors & Messages ------------------------------------------------------------------------------------
 
 // Create
-$lang['user_added_and_activated_success']      = 'Uusi käyttäjä luotiin ja aktivoitiin.';
-$lang['user_added_not_activated_success']      = 'Uusi käyttäjä luotiin, mutta se tarvitsee aktivoinnin.';
+$lang['user:added_and_activated_success']      = 'Uusi käyttäjä luotiin ja aktivoitiin.';
+$lang['user:added_not_activated_success']      = 'Uusi käyttäjä luotiin, mutta se tarvitsee aktivoinnin.';
 
 // Edit
-$lang['user_edit_user_not_found_error']        = 'Käyttäjää ei löytynyt.';
-$lang['user_edit_success']                     = 'Käyttäjää muokattiin onnistuneesti.';
-$lang['user_edit_error']                       = 'Käyttäjää muokattaessa tapahtui virhe.';
+$lang['user:edit_user_not_found_error']        = 'Käyttäjää ei löytynyt.';
+$lang['user:edit_success']                     = 'Käyttäjää muokattiin onnistuneesti.';
+$lang['user:edit_error']                       = 'Käyttäjää muokattaessa tapahtui virhe.';
 
 // Activate
-$lang['user_activate_success']                 = '%s käyttäjää %s käyttäjästä aktivoitiin onnistuneesti.';
-$lang['user_activate_error']                   = 'Sinun tulee valita käyttäjät ensin.';
+$lang['user:activate_success']                 = '%s käyttäjää %s käyttäjästä aktivoitiin onnistuneesti.';
+$lang['user:activate_error']                   = 'Sinun tulee valita käyttäjät ensin.';
 
 // Delete
-$lang['user_delete_self_error']                = 'Et voi poistaa itseäsi!';
-$lang['user_mass_delete_success']              = '%s käyttäjää %s käyttäjästä poistettiin onnistuneesti.';
-$lang['user_mass_delete_error']                = 'Sinun tulee valita käyttäjät ensin.';
+$lang['user:delete_self_error']                = 'Et voi poistaa itseäsi!';
+$lang['user:mass_delete_success']              = '%s käyttäjää %s käyttäjästä poistettiin onnistuneesti.';
+$lang['user:mass_delete_error']                = 'Sinun tulee valita käyttäjät ensin.';
 
 // Register
-$lang['user_email_pass_missing']               = 'Sähköposti tai salasaa puuttuvat.';
-$lang['user_email_exists']                     = 'Kirjoittamasi sähköpostiosoite on jo käytössä.';
-$lang['user_register_error']				   = 'Taidat olla botti. Jos näin ei ole, niin pahoittelemme.';
-$lang['user_register_reasons']                 = 'Rekisteröidy, niin voit päästä sivuille johon et normaalisti pääse.';
+$lang['user:email_pass_missing']               = 'Sähköposti tai salasaa puuttuvat.';
+$lang['user:email_exists']                     = 'Kirjoittamasi sähköpostiosoite on jo käytössä.';
+$lang['user:register_error']				   = 'Taidat olla botti. Jos näin ei ole, niin pahoittelemme.';
+$lang['user:register_reasons']                 = 'Rekisteröidy, niin voit päästä sivuille johon et normaalisti pääse.';
 
 
 // Activation
-$lang['user_activation_incorrect']             = 'Aktivoiminen epäonnistui. Ole hyvä ja tarkista tiedot ja varmista ettei CAPS LOCK ole päällä.';
-$lang['user_activated_message']                = 'Tili aktivoitiin onnistuneesti. Voit nyt kirjautua sisään.';
+$lang['user:activation_incorrect']             = 'Aktivoiminen epäonnistui. Ole hyvä ja tarkista tiedot ja varmista ettei CAPS LOCK ole päällä.';
+$lang['user:activated_message']                = 'Tili aktivoitiin onnistuneesti. Voit nyt kirjautua sisään.';
 
 
 // Login
-$lang['user_logged_in']                        = 'Kirjauduit sisään onnistuneesti.';
-$lang['user_already_logged_in']                = 'Olet jo kirjautunut sisään. Kirjaudu ensin ulos ja yritä uudelleen.';
-$lang['user_login_incorrect']                  = 'Sähköposti tai salasana on väärä. Tarkista tiedot ja varmista ettei CAPS LOCK ole päällä.';
-$lang['user_inactive']                         = 'Tili, jolla yiritit kirjautu sisään ei ole käytössä.<br />Lue sähköpostista lisäohjeet - <em>viesti saattaa löytyä roskapostista</em>.';
+$lang['user:logged_in']                        = 'Kirjauduit sisään onnistuneesti.';
+$lang['user:already_logged_in']                = 'Olet jo kirjautunut sisään. Kirjaudu ensin ulos ja yritä uudelleen.';
+$lang['user:login_incorrect']                  = 'Sähköposti tai salasana on väärä. Tarkista tiedot ja varmista ettei CAPS LOCK ole päällä.';
+$lang['user:inactive']                         = 'Tili, jolla yiritit kirjautu sisään ei ole käytössä.<br />Lue sähköpostista lisäohjeet - <em>viesti saattaa löytyä roskapostista</em>.';
 
 
 // Logged Out
-$lang['user_logged_out']                       = 'Kirjauduit ulos.';
+$lang['user:logged_out']                       = 'Kirjauduit ulos.';
 
 // Forgot Pass
-$lang['user_forgot_incorrect']                 = "Antamallasi tiedoilla ei löytynyt yhtään käyttäjää.";
+$lang['user:forgot_incorrect']                 = "Antamallasi tiedoilla ei löytynyt yhtään käyttäjää.";
 
-$lang['user_password_reset_message']           = "Salasanasi on nollattu. Sinulle pitäisi tulla sähköpostia kahden tunnin sisällä. Jos et ole vastaanottanut sähköpostia vielä, tarkista roskapostista.";
+$lang['user:password_reset_message']           = "Salasanasi on nollattu. Sinulle pitäisi tulla sähköpostia kahden tunnin sisällä. Jos et ole vastaanottanut sähköpostia vielä, tarkista roskapostista.";
 
 // Emails ----------------------------------------------------------------------------------------------------
 
 // Activation
-$lang['user_activation_email_subject']         = 'Aktivointia vaaditaan';
-$lang['user_activation_email_body']            = 'Kiitos %s tilin aktivoimisesta. Kirjautuessasi käytä seuraavia tietoja:';
+$lang['user:activation_email_subject']         = 'Aktivointia vaaditaan';
+$lang['user:activation_email_body']            = 'Kiitos %s tilin aktivoimisesta. Kirjautuessasi käytä seuraavia tietoja:';
 
 
-$lang['user_activated_email_subject']          = 'Aktivointi suoritettu';
-$lang['user_activated_email_content_line1']    = 'Kiitos rekisteröitymisestä %s sivustoon. Ennen kuin aktivoimme tilisi, ole hyvä ja klikkaa linkkiä:';
-$lang['user_activated_email_content_line2']    = 'Jos sähköposti ohjelmasi ei tunnistanut ylläolevaa linkiksi, ole hyvä ja kirjoita aktivointi koodi menemällä tähän osoitteeseen:';
+$lang['user:activated_email_subject']          = 'Aktivointi suoritettu';
+$lang['user:activated_email_content_line1']    = 'Kiitos rekisteröitymisestä %s sivustoon. Ennen kuin aktivoimme tilisi, ole hyvä ja klikkaa linkkiä:';
+$lang['user:activated_email_content_line2']    = 'Jos sähköposti ohjelmasi ei tunnistanut ylläolevaa linkiksi, ole hyvä ja kirjoita aktivointi koodi menemällä tähän osoitteeseen:';
 
 // Reset Pass
-$lang['user_reset_pass_email_subject']         = 'Salasanan nollaaminen';
-$lang['user_reset_pass_email_body']            = 'Salasanasi sivustolla %s on nollattu. Jos et ole nollannut salasanaa, pyydämme Teitä ottamaan yhteyttä %s.';
+$lang['user:reset_pass_email_subject']         = 'Salasanan nollaaminen';
+$lang['user:reset_pass_email_body']            = 'Salasanasi sivustolla %s on nollattu. Jos et ole nollannut salasanaa, pyydämme Teitä ottamaan yhteyttä %s.';
 
 // Profile
 $lang['profile_of_title']             = 'Käyttäjän %s profiili';

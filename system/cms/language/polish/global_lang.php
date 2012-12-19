@@ -24,13 +24,20 @@ $lang['global:select-all'] 				= '-- Wszystko --';
 $lang['global:select-any'] 				= '-- Dowolne --';
 $lang['global:select-pick']				= '-- Wybierz --';
 
-$lang['global:check-none'] 				= 'Nic';
 $lang['global:check-all']				= 'Wszystko';
+$lang['global:check-none'] 				= 'Nic';
 
 $lang['global:operators:equal'] 		= 'Równe z';
 $lang['global:operators:not_equal'] 	= 'Nie równe z';
 $lang['global:operators:less_than'] 	= 'Mniej niż';
 $lang['global:operators:greater_than'] 	= 'Więcej niż';
+
+$lang['global:duration:1-day']			= 'One day'; #translate
+$lang['global:duration:1-week']			= 'One week'; #translate
+$lang['global:duration:2-weeks']		= 'Two weeks'; #translate
+$lang['global:duration:1-month']		= 'One month'; #translate
+$lang['global:duration:3-months']		= 'Three Months'; #translate
+$lang['global:duration:always']			= 'Always'; #translate
 
 $lang['navigation_headline'] 			= 'Nawigacja';
 $lang['breadcrumb_base_label']			= 'Strona główna';
@@ -45,16 +52,16 @@ $lang['general_error_label']			= 'Błąd';
 $lang['required_error_label']			= 'Uzupełnij wymagane pole';
 $lang['note_label']						= 'Notatka';
 $lang['success_label']					= 'Sukces!';
+$lang['global:fields']					= 'Fields'; #translate
 
 $lang['login_title']					= 'Zaloguj się';
 $lang['global:fatal_error']				= 'Błąd krytyczny, sprawdź czy CMS jest zainstalowany!';
-$lang['global:demo_restrictions']       = 'Niektóre opcje na tej stronie zostały wyłaczone w wersji demo.';
+$lang['global:demo_restrictions'] 		= 'Niektóre opcje na tej stronie zostały wyłaczone w wersji demo.';
 
 $lang['login_error_label']				= 'Błąd logowania';
 $lang['forgot_password_label']			= 'Nie pamiętasz hasła?';
-
-$lang['email_label']					= 'E-mail';
-$lang['password_label']					= 'Hasło';
+$lang['global:email'] 					= 'E-mail';
+$lang['global:password'] 				= 'Hasło';
 $lang['login_label']					= 'Zaloguj się';
 
 $lang['help_label'] 					= 'Pomoc';
@@ -69,9 +76,11 @@ $lang['publish_label']					= 'Publikuj';
 $lang['global:upload']					= 'Wyślij';
 $lang['global:uninstall']				= 'Odinstaluj';
 $lang['global:install']					= 'Instaluj';
+$lang['global:upgrade'] 				= 'Aktualizuj';
 $lang['global:enable']					= 'Włącz';
 $lang['global:disable']					= 'Wyłącz';
-$lang['global:upgrade'] 				= 'Aktualizuj';
+$lang['global:enabled']					= 'Enabled'; #translate
+$lang['global:disabled'] 				= 'Disabled'; #translate
 
 $lang['all_right_reserved'] 			= 'Wszelkie prawa zastrzeżone.';
 $lang['powered_by_pyrocms'] 			= 'Wspierane przez PyroCMS';
@@ -90,16 +99,18 @@ $lang['global:empty']					= 'Wyczyść';
 $lang['global:delete']					= 'Usuń';
 $lang['global:remove']					= 'Usuń';
 
-$lang['global:widgets']					= 'Widgets';
-$lang['global:themes']					= 'Themes'; #translate
-$lang['global:field_types']				= 'Field Types';
-$lang['global:plugins']					= 'Plugins';
-$lang['global:plugin']					= 'Plugin';
-
 $lang['global:keywords']				= 'Słowa kluczowe';
 
 $lang['global:or']						= 'lub';
 $lang['global:and']						= 'i';
 $lang['global:at']						= 'o';
 
-/* End of file global_lang.php */
+$lang['global:widgets']					= 'Widgets'; #translate
+$lang['global:themes']					= 'Themes'; #translate
+$lang['global:field_types']				= 'Field Types'; #translate
+$lang['global:plugins']					= 'Plugins'; #translate
+$lang['global:plugin']					= 'Plugin'; #translate
+
+$lang['global:options']					= 'Options'; #translate
+
+/* End of file main_lang.php */

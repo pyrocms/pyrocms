@@ -47,12 +47,37 @@ class Users extends Public_Controller
 	 */
 	public function view($username = null)
 	{
+		// work out the visibility setting
+		switch (Settings::get('profile_visibility'))
+		{
+			case 'public':
+				// if it's public then we don't care about anything
+				break;
+
+			case 'owner':
+				// they have to be logged in so we know if they're the owner
+				$this->current_user or redirect('users/login/users/view/'.$username);
+
+				// do we have a match?
+				$this->current_user->username !== $username and redirect('404');
+				break;
+
+			case 'hidden':
+				// if it's hidden then nobody gets it
+				redirect('404');
+				break;
+
+			case 'member':
+				// anybody can see it if they're logged in
+				$this->current_user or redirect('users/login/users/view/'.$username);
+				break;
+		}
+
 		// Don't make a 2nd db call if the user profile is the same as the logged in user
 		if ($this->current_user && $username === $this->current_user->username)
 		{
 			$user = $this->current_user;
 		}
-
 		// Fine, just grab the user from the DB
 		else
 		{
@@ -120,11 +145,11 @@ class Users extends Public_Controller
 				$user->password = '';
 				$user->salt = '';
 
-				exit(json_encode(array('status' => true, 'message' => lang('user_logged_in'), 'data' => $user)));
+				exit(json_encode(array('status' => true, 'message' => lang('user:logged_in'), 'data' => $user)));
 			}
 			else
 			{
-				$this->session->set_flashdata('success', lang('user_logged_in'));
+				$this->session->set_flashdata('success', lang('user:logged_in'));
 			}
 
 			// Don't allow protocols or cheeky requests
@@ -165,11 +190,11 @@ class Users extends Public_Controller
 
 		if ($this->input->is_ajax_request())
 		{
-			exit(json_encode(array('status' => true, 'message' => lang('user_logged_out'))));
+			exit(json_encode(array('status' => true, 'message' => lang('user:logged_out'))));
 		}
 		else
 		{
-			$this->session->set_flashdata('success', lang('user_logged_out'));
+			$this->session->set_flashdata('success', lang('user:logged_out'));
 			redirect('');
 		}
 	}
@@ -183,7 +208,7 @@ class Users extends Public_Controller
 
 		if (isset($this->current_user->id))
 		{
-			$this->session->set_flashdata('notice', lang('user_already_logged_in'));
+			$this->session->set_flashdata('notice', lang('user:already_logged_in'));
 			redirect();
 		}
 
@@ -191,7 +216,7 @@ class Users extends Public_Controller
 		if ( ! Settings::get('enable_registration'))
 		{
 			$this->template
-				->title(lang('user_register_title'))
+				->title(lang('user:register_title'))
 				->build('disabled');
 			return;
 		}
@@ -210,7 +235,7 @@ class Users extends Public_Controller
 			),
 			array(
 				'field' => 'username',
-				'label' => lang('user_username'),
+				'label' => lang('user:username'),
 				'rules' => Settings::get('auto_username') ? '' : 'required|alpha_dot_dash|min_length[3]|max_length[20]|callback__username_check',
 			),
 		);
@@ -283,7 +308,7 @@ class Users extends Public_Controller
 				// don't fill this input in trick.
 				if ($this->input->post('d0ntf1llth1s1n') !== ' ')
 				{
-					$this->session->set_flashdata('error', lang('user_register_error'));
+					$this->session->set_flashdata('error', lang('user:register_error'));
 					redirect(current_url());
 				}
 
@@ -305,6 +330,19 @@ class Users extends Public_Controller
 					{
 						$this->load->helper('url');
 						$username = url_title($this->input->post('first_name').'.'.$this->input->post('last_name'), '-', true);
+
+						// do they have a long first name + last name combo?
+						if (strlen($username) > 19)
+						{
+							// try only the last name
+							$username = url_title($this->input->post('last_name'), '-', true);
+
+							if (strlen($username) > 19)
+							{
+								// even their last name is over 20 characters, snip it!
+								$username = substr($username, 0, 20);
+							}
+						}
 					}
 					else
 					{
@@ -323,7 +361,8 @@ class Users extends Public_Controller
 					while ($this->db->where('username', $username)
 						->count_all_results('users') > 0)
 					{
-						$username = $username_base.$i;
+						// make sure that we don't go over our 20 char username even with a 2 digit integer added
+						$username = substr($username_base, 0, 18).$i;
 
 						++$i;
 					}
@@ -393,7 +432,7 @@ class Users extends Public_Controller
 						$this->ion_auth->deactivate($id);
 
 						/* show that admin needs to activate your account */
-						$this->session->set_flashdata('notice', lang('user_activation_by_admin_notice'));
+						$this->session->set_flashdata('notice', lang('user:activation_by_admin_notice'));
 						redirect('users/register'); /* bump it to show the flash data */
 					}
 				}
@@ -432,7 +471,7 @@ class Users extends Public_Controller
 		// --------------------------------
 
 		$this->template
-			->title(lang('user_register_title'))
+			->title(lang('user:register_title'))
 			->set('_user', $user)
 			->build('register');
 	}
@@ -478,8 +517,8 @@ class Users extends Public_Controller
 		}
 
 		$this->template
-			->title(lang('user_activate_account_title'))
-			->set_breadcrumb(lang('user_activate_label'), 'users/activate')
+			->title(lang('user:activate_account_title'))
+			->set_breadcrumb(lang('user:activate_label'), 'users/activate')
 			->build('activate');
 	}
 
@@ -499,7 +538,7 @@ class Users extends Public_Controller
 		$this->template->activated_email = ($email = $this->session->flashdata('activated_email')) ? $email : '';
 
 		$this->template
-			->title(lang('user_activated_account_title'))
+			->title(lang('user:activated_account_title'))
 			->build('activated');
 	}
 
@@ -510,7 +549,7 @@ class Users extends Public_Controller
 	 */
 	public function reset_pass($code = null)
 	{
-		$this->template->title(lang('user_reset_password_title'));
+		$this->template->title(lang('user:reset_password_title'));
 
 		if (PYRO_DEMO)
 		{
@@ -520,7 +559,7 @@ class Users extends Public_Controller
 		//if user is logged in they don't need to be here
 		if ($this->current_user)
 		{
-			$this->session->set_flashdata('error', lang('user_already_logged_in'));
+			$this->session->set_flashdata('error', lang('user:already_logged_in'));
 			redirect('');
 		}
 
@@ -560,7 +599,7 @@ class Users extends Public_Controller
 			else
 			{
 				//wrong username / email combination
-				$this->template->error_string = lang('user_forgot_incorrect');
+				$this->template->error_string = lang('user:forgot_incorrect');
 			}
 		}
 
@@ -595,12 +634,12 @@ class Users extends Public_Controller
 		//if user is logged in they don't need to be here. and should use profile options
 		if ($this->current_user)
 		{
-			$this->session->set_flashdata('error', lang('user_already_logged_in'));
+			$this->session->set_flashdata('error', lang('user:already_logged_in'));
 			redirect('my-profile');
 		}
 
 		$this->template
-			->title(lang('user_password_reset_title'))
+			->title(lang('user:password_reset_title'))
 			->build('reset_pass_complete');
 	}
 
@@ -641,7 +680,7 @@ class Users extends Public_Controller
 		$this->validation_rules = array(
 			array(
 				'field' => 'email',
-				'label' => lang('user_email'),
+				'label' => lang('user:email'),
 				'rules' => 'required|xss_clean|valid_email'
 			),
 			array(
@@ -811,7 +850,7 @@ class Users extends Public_Controller
 	{
 		if ($this->ion_auth->username_check($username))
 		{
-			$this->form_validation->set_message('_username_check', lang('user_error_username'));
+			$this->form_validation->set_message('_username_check', lang('user:error_username'));
 			return false;
 		}
 
@@ -831,7 +870,7 @@ class Users extends Public_Controller
 	{
 		if ($this->ion_auth->email_check($email))
 		{
-			$this->form_validation->set_message('_email_check', lang('user_error_email'));
+			$this->form_validation->set_message('_email_check', lang('user:error_email'));
 			return false;
 		}
 

@@ -11,6 +11,7 @@ $lang['global:author'] 					= 'Penulis';
 $lang['global:action'] 					= 'Aksi';
 $lang['global:slug'] 					= 'Slug';
 $lang['global:slug_instructions']		= 'Lowercase characters and underscores only.'; #translate
+$lang['global:user'] 					= 'User'; #translate
 
 $lang['global:dialog:delete_message'] 	= 'Anda yakin akan menghapus ini? Yang telah dihapus tidak dapat dikembalikan.';
 $lang['global:dialog:confirm'] 			= 'Konfirmasi';
@@ -20,7 +21,7 @@ $lang['global:no'] 						= 'Tidak';
 
 $lang['global:select-none'] 			= '-- Tidak ada --';
 $lang['global:select-all'] 				= '-- Semua --';
-$lang['global:select-any'] 				= '-- Any --';
+$lang['global:select-any'] 				= '-- Any --'; #translate
 $lang['global:select-pick'] 			= '-- Pilih --';
 
 $lang['global:check-all']				= 'Semua';
@@ -30,6 +31,13 @@ $lang['global:operators:equal'] 		= 'Sama dengan';
 $lang['global:operators:not-equal'] 	= 'Tidak sama dengan';
 $lang['global:operators:less-than'] 	= 'Kurang dari';
 $lang['global:operators:greater-than'] 	= 'Lebih dari';
+
+$lang['global:duration:1-day']			= 'One day'; #translate
+$lang['global:duration:1-week']			= 'One week'; #translate
+$lang['global:duration:2-weeks']		= 'Two weeks'; #translate
+$lang['global:duration:1-month']		= 'One month'; #translate
+$lang['global:duration:3-months']		= 'Three Months'; #translate
+$lang['global:duration:always']			= 'Always'; #translate
 
 $lang['navigation_headline'] 			= 'Navigasi';
 $lang['breadcrumb_base_label'] 			= 'Beranda';
@@ -44,9 +52,10 @@ $lang['general_error_label'] 			= 'Kesalahan';
 $lang['required_error_label'] 			= 'Kolom yang dibutuhkan hilang';
 $lang['note_label'] 					= 'Catatan';
 $lang['success_label'] 					= 'Berhasil';
+$lang['global:fields']					= 'Fields';
 
 $lang['login_title'] 					= 'Masuk';
-$lang['cms_fatal_error'] 				= 'Kesalahan fatal, sudahkah CMS terinstall?';
+$lang['global:fatal_error'] 				= 'Kesalahan fatal, sudahkah CMS terinstall?';
 $lang['global:demo_restrictions']       = 'Some features on this page have been disabled for the demo.'; #translate
 
 $lang['login_error_label'] 				= 'Kesalahan ketika Masuk';
@@ -65,9 +74,9 @@ $lang['approve_label']					= 'Setujui';
 $lang['unapprove_label']				= 'Tolak';
 $lang['publish_label'] 					= 'Publikasikan';
 $lang['global:upload'] 					= 'Unggah';
-$lang['global:uninstall'] 				= 'Uninstall';
-$lang['global:install'] 				= 'Install';
-$lang['global:upgrade'] 				= 'Upgrade';
+$lang['global:uninstall'] 				= 'Uninstall'; #translate
+$lang['global:install'] 				= 'Install'; #translate
+$lang['global:upgrade'] 				= 'Upgrade'; #translate
 $lang['global:enable']					= 'Nyalakan';
 $lang['global:disable'] 				= 'Matikan';
 $lang['global:enabled']					= 'Dinyalakan';
@@ -85,17 +94,23 @@ $lang['global:actions']					= 'Aksi';
 $lang['global:view']					= 'Tinjau';
 $lang['global:preview']					= 'Pratinjau';
 $lang['global:add']						= 'Tambah';
-$lang['global:edit']					= 'Edit';
+$lang['global:edit']					= 'Edit'; #translate
 $lang['global:empty']					= 'Kosong';
 $lang['global:delete']					= 'Hapus';
 $lang['global:remove']					= 'Buang';
 
-$lang['global:widgets']					= 'Widgets';
-$lang['global:themes']					= 'Themes'; #translate
-$lang['global:field_types']				= 'Field Types';
-$lang['global:plugins']					= 'Plugins';
-$lang['global:plugin']					= 'Plugin';
-
 $lang['global:keywords']				= 'Kata Kunci';
+
+$lang['global:or']						= 'or'; #translate
+$lang['global:and']						= 'and'; #translate
+$lang['global:at']						= 'at'; #translate
+
+$lang['global:widgets']					= 'Widgets'; #translate
+$lang['global:themes']					= 'Themes'; #translate
+$lang['global:field_types']				= 'Field Types'; #translate
+$lang['global:plugins']					= 'Plugins'; #translate
+$lang['global:plugin']					= 'Plugin'; #translate
+
+$lang['global:options']					= 'Options'; #translate
 
 /* End of file main_lang.php */

@@ -19,9 +19,11 @@ $lang['global:author']						= 'Автор';
 $lang['global:action']						= 'Действие';
 $lang['global:slug'] 					= 'Slug'; #translate
 $lang['global:slug_instructions']		= 'Lowercase characters and underscores only.'; #translate
+$lang['global:user'] 					= 'User'; #translate
 
-$lang['dialog.delete_message']	= 'Вы уверены, что хотите удалить? Это действие нельзя отменить.';
+$lang['global:dialog:delete_message']	= 'Вы уверены, что хотите удалить? Это действие нельзя отменить.';
 $lang['global:dialog:confirm']					= 'Подтверждение';
+
 $lang['global:yes']							= 'Да';
 $lang['global:no']							= 'Нет';
 
@@ -30,8 +32,8 @@ $lang['global:select-all']							= '-- все --';
 $lang['global:select-any']							= '-- любой --';
 $lang['global:select-pick']						= '-- выберите --';
 
-$lang['global:check-none'] 						= 'Ни одного';
 $lang['global:check-all']							= 'Все';
+$lang['global:check-none'] 						= 'Ни одного';
 
 $lang['global:operators:equal']				= 'Равно';
 $lang['global:operators:not-equal']		= 'Не равно';
@@ -58,10 +60,11 @@ $lang['general_error_label']		= 'Ошибка';
 $lang['required_error_label']		= 'Не заполнено необходимое поле';
 $lang['note_label']							= 'Заметка';
 $lang['success_label']					= 'Успешно';
+$lang['global:fields']					= 'Fields';
 
 $lang['login_title']						= 'Войти';
-$lang['cms_fatal_error']				= 'Фатальная ошибка, CMS установлена?';
-$lang['global:demo_restrictions']       = 'Some features on this page have been disabled for the demo.'; #translate
+$lang['global:fatal_error']				= 'Фатальная ошибка, CMS установлена?';
+$lang['global:demo_restrictions'] 		= 'Some features on this page have been disabled for the demo.'; #translate
 
 $lang['login_error_label']			= 'Ошибка входа';
 $lang['forgot_password_label']	= 'Забыли пароль?';
@@ -100,12 +103,18 @@ $lang['global:empty']					= 'Empty'; #translate
 $lang['global:delete']							= 'Удалить';
 $lang['global:remove']							= 'Убрать';
 
-$lang['global:widgets']					= 'Widgets';
-$lang['global:themes']					= 'Themes'; #translate
-$lang['global:field_types']				= 'Field Types';
-$lang['global:plugins']					= 'Plugins';
-$lang['global:plugin']					= 'Plugin';
-
 $lang['global:keywords']				= 'Keywords'; #translate
+
+$lang['global:or']						= 'or'; #translate
+$lang['global:and']						= 'and'; #translate
+$lang['global:at']						= 'at'; #translate
+
+$lang['global:widgets']					= 'Widgets'; #translate
+$lang['global:themes']					= 'Themes'; #translate
+$lang['global:field_types']				= 'Field Types'; #translate
+$lang['global:plugins']					= 'Plugins'; #translate
+$lang['global:plugin']					= 'Plugin'; #translate
+
+$lang['global:options']					= 'Options'; #translate
 
 /* End of file main_lang.php */

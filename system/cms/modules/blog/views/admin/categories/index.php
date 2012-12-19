@@ -1,8 +1,9 @@
 <section class="title">
-	<h4><?php echo lang('cat_list_title') ?></h4>
+	<h4><?php echo lang('cat:list_title') ?></h4>
 </section>
 
 <section class="item">
+	<div class="content">
 	
 	<?php if ($categories): ?>
 
@@ -12,7 +13,7 @@
 			<thead>
 			<tr>
 				<th width="20"><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all')) ?></th>
-				<th><?php echo lang('cat_category_label') ?></th>
+				<th><?php echo lang('cat:category_label') ?></th>
 				<th><?php echo lang('global:slug') ?></th>
 				<th width="120"></th>
 			</tr>
@@ -46,6 +47,7 @@
 		<?php echo form_close() ?>
 
 	<?php else: ?>
-		<div class="no_data"><?php echo lang('cat_no_categories') ?></div>
+		<div class="no_data"><?php echo lang('cat:no_categories') ?></div>
 	<?php endif ?>
+	</div>
 </section>

@@ -225,7 +225,7 @@ class Streams_m extends MY_Model {
 	        'created' 			=> array('type' => 'DATETIME'),
             'updated'	 		=> array('type' => 'DATETIME', 'null' => true),
             'created_by'		=> array('type' => 'INT', 'constraint' => '11', 'null' => true),
-            'ordering_count'	=> array('type' => 'INT', 'constraint' => '11')
+            'ordering_count'	=> array('type' => 'INT', 'constraint' => '11', 'null' => true)
 		);
 		
 		$this->dbforge->add_field($standard_fields);
@@ -297,7 +297,7 @@ class Streams_m extends MY_Model {
 			// Check to see if there is a table, then alter it.
 			if ($this->db->table_exists($prefix.$stream_slug))
 			{
-				show_error(sprintf(lang('streams.table_exists'), $data['stream_slug']));
+				show_error(sprintf(lang('streams:table_exists'), $data['stream_slug']));
 			}
 			
 			$this->load->dbforge();

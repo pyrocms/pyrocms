@@ -716,8 +716,12 @@ class Row_m extends MY_Model {
 	 */
 	private function process_where($where)
 	{
-		// Remove ()
-		$where = trim($where, '()');
+		// Get rid of where ()
+		if ($where[0] == '(' and $where[strlen($where)-1] == ')')
+		{
+			$where = ltrim('(');
+			$where = rtrim(')');
+		}
 
 		// Find the fields between the backticks
 		preg_match_all('/`[a-zA-Z0-9_]+`/', $where, $matches);
@@ -1433,6 +1437,12 @@ class Row_m extends MY_Model {
 		// Get the ordering count
 		$row = $db_obj->row();
 		$ordering_count = $row->ordering_count;
+
+		// We need ordering count to be a number.
+		if ( ! is_numeric($ordering_count) or $ordering_count < 0)
+		{
+			$ordering_count = 1;
+		}
 		
 		// Delete the actual row
 		$this->db->where('id', $row_id);
@@ -1471,7 +1481,7 @@ class Row_m extends MY_Model {
 			// everthing higher than the row's
 			// order count
 			// -------------------------------------
-			
+
 			$this->db->where('ordering_count >', $ordering_count)->select('id, ordering_count');
 			$ord_obj = $this->db->get($stream->stream_prefix.$stream->stream_slug);
 			

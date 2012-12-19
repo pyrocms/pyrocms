@@ -11,7 +11,7 @@
 class Plugin_Url extends Plugin
 {
 
-	public $version = '1.0';
+	public $version = '1.0.0';
 	public $name = array(
 		'en' => 'URL',
 	);
@@ -20,6 +20,130 @@ class Plugin_Url extends Plugin
 		'el' => 'Πρόσβαση σε μεταβλητές που βρήσκονται σε URL, τμήματα URL και αλλού.',
 		'fr' => 'Accéder aux informations sur une URL (URL courante, segments, ancres, etc.).'
 	);
+
+	/**
+	 * Returns a PluginDoc array
+	 *
+	 * Refer to the Blog plugin for full documentation
+	 *
+	 * @return array
+	 */
+	public function _self_doc()
+	{
+		$info = array(
+			'current' => array(
+				'description' => array(
+					'en' => 'Output the current url.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(),
+				),
+			'get' => array(
+				'description' => array(
+					'en' => 'Retrieve a GET variable from the url.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'key' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => '',
+						'required' => true,
+						),
+					),
+				),
+			'site' => array(
+				'description' => array(
+					'en' => 'Display the site url of this installation with or without the index.php (depending on url rewrite settings).'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'uri' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => '',
+						'required' => false,
+						),
+					),
+				),
+			'base' => array(
+				'description' => array(
+					'en' => 'Display the base url of the installation without the index.php'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(),
+				),
+			'segments' => array(
+				'description' => array(
+					'en' => 'Return the specified segments from the url.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'segment' => array(
+						'type' => 'number',
+						'flags' => '',
+						'default' => '',
+						'required' => true,
+						),
+					'default' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => '',
+						'required' => false,
+						),
+					),
+				),
+			'anchor' => array(
+				'description' => array(
+					'en' => 'Build an anchor tag with the url segments you pass in.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'segments' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => '',
+						'required' => false,
+						),
+					'title' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => '',
+						'required' => false,
+						),
+					'class' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => '',
+						'required' => false,
+						),
+					),
+				),
+			'is_ssl' => array(
+				'description' => array(
+					'en' => 'Returns true if the site is running on https'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(),
+				),
+			);
+
+		return $info;
+	}
 
 	/**
 	 * Current uri string

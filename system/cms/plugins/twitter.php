@@ -11,7 +11,7 @@
 class Plugin_Twitter extends Plugin
 {
 
-	public $version = '1.0';
+	public $version = '1.0.0';
 	public $name = array(
 		'en' => 'Twitter',
 	);
@@ -20,6 +20,42 @@ class Plugin_Twitter extends Plugin
 		'el' => 'Προβάλλει μια σειρά από tweets.',
 		'fr' => 'Afficher le flux Twitter'
 	);
+
+	/**
+	 * Returns a PluginDoc array that PyroCMS uses 
+	 * to build the reference in the admin panel
+	 * 
+	 * @return array
+	 */
+	public function _self_doc()
+	{
+		$info = array(
+			'feed' => array(
+				'description' => array(
+					'en' => 'Allows a Twitter feed to be output anywhere on the site.'
+				),
+				'single' => false,
+				'double' => true,
+				'variables' => 'id|created_at|text|source|truncated|in_reply_to_status_id|in_reply_to_user_id|in_reply_to_screen_name|geo|coordinates|place|contributors|retweet_count|favorited|retweeted|timespan',
+				'attributes' => array(
+					'username' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => '',
+						'required' => true,
+					),
+					'limit' => array(
+						'type' => 'number',
+						'flags' => '',
+						'default' => '5',
+						'required' => false,
+					),
+				),
+			),// end first method
+		);
+	
+		return $info;
+	}
 
 	/**
 	 * The URL used to retrieve tweets from the Twitter API

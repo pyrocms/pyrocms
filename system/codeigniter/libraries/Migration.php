@@ -126,6 +126,9 @@ class CI_Migration {
 			show_error('Migrations configuration file (migration.php) must have "migration_table" set.');
 		}
 
+		/* 	Sorry CodeIgniter but a table_exists() is too expensive to do on *every* page load -- Sincerely, Jerel
+			P.S. We create the table in our installer
+			
 		// If the migrations table is missing, make it
 		if ( ! $this->db->table_exists($this->_migration_table))
 		{
@@ -137,6 +140,7 @@ class CI_Migration {
 
 			$this->db->insert($this->_migration_table, array('version' => 0));
 		}
+		*/
 
 		// Do we auto migrate to the latest migration?
 		if ($this->_migration_auto_latest === TRUE && ! $this->latest())

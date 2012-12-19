@@ -10,13 +10,13 @@
 		<input type="password" id="password" name="password" maxlength="20" />
 	</li>
 	<li class="form-buttons">
-		<input type="submit" value="<?php echo lang('user_login_btn') ?>" name="btnLogin" />
+		<input type="submit" value="<?php echo lang('user:login_btn') ?>" name="btnLogin" />
 		<?php if (Settings::get('enable_registration')): ?>
-		<?php echo ' | '.anchor('register', lang('user_register_btn')) ?>
+		<?php echo ' | '.anchor('register', lang('user:register_btn')) ?>
 		<?php endif ?>
 	</li>
 	<li class="remember-me">
-		<?php echo form_checkbox('remember', '1', false) ?><span><?php echo lang('user_remember')?></span>
+		<?php echo form_checkbox('remember', '1', false) ?><span><?php echo lang('user:remember')?></span>
 	</li>	
 </ul>
 <?php echo form_close() ?>

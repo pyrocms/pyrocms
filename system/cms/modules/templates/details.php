@@ -8,7 +8,7 @@
  */
 class Module_Templates extends Module {
 
-	public $version = '1.1';
+	public $version = '1.1.0';
 
 	public function info()
 	{
@@ -63,7 +63,7 @@ class Module_Templates extends Module {
 			'skip_xss' => true,
 			'shortcuts' => array(
 				array(
-				    'name' => 'templates.create_title',
+				    'name' => 'templates:create_title',
 				    'uri' => 'admin/templates/create',
 				    'class' => 'add',
 				),

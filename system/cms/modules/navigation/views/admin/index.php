@@ -5,13 +5,13 @@
 			<section class="title">
 				<ul>
 					<li>
-						<h4 class="tooltip" title="<?php echo lang('nav_abbrev_label').': '.$group->abbrev ?>"><?php echo $group->title;?></h4>
-						<?php echo anchor('admin/navigation/create/'.$group->id, lang('nav_link_create_title'), 'rel="'.$group->id.'" class="add ajax button"') ?>
+						<h4 class="tooltip" title="<?php echo lang('nav:abbrev_label').': '.$group->abbrev ?>"><?php echo $group->title;?></h4>
 					</li>
 					
+					<li><?php echo anchor('admin/navigation/groups/delete/'.$group->id, lang('global:delete'), array('class' => 'tooltip-e confirm button',  'title' => lang('nav:group_delete_confirm'))) ?></li>
 					<li>
-						<h4 class="form-title group-title-<?php echo $group->id ?>"></h4>
-						<?php echo anchor('admin/navigation/groups/delete/'.$group->id, lang('global:delete'), array('class' => 'tooltip-e confirm button',  'title' => lang('nav_group_delete_confirm'))) ?>
+						<!-- <h4 class="form-title group-title-<?php echo $group->id ?>"></h4> -->
+						<?php echo anchor('admin/navigation/create/'.$group->id, lang('nav:link_create_title'), 'rel="'.$group->id.'" class="add ajax button"') ?>
 					</li>
 				</ul>
 			
@@ -44,7 +44,7 @@
 					<div id="link-list" class="empty">
 						<ul class="sortable">
 					
-							<p><?php echo lang('nav_group_no_links');?></p>
+							<p><?php echo lang('nav:group_no_links');?></p>
 					
 						</ul>
 					</div>
@@ -66,6 +66,6 @@
 		
 <?php else: ?>
 	<div class="blank-slate">
-		<p><?php echo lang('nav_no_groups');?></p>
+		<p><?php echo lang('nav:no_groups');?></p>
 	</div>
 <?php endif ?>

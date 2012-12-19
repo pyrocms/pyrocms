@@ -5,7 +5,7 @@
 	<input id="link-uri" type="hidden" value="<?php echo ! empty($link->uri) ? $link->uri : '' ?>" />
 
 	<fieldset>
-		<legend><?php echo lang('nav_details_label') ?></legend>
+		<legend><?php echo lang('nav:details_label') ?></legend>
 		<p>
 			<strong>ID:</strong> #<?php echo $link->id ?>
 		</p>
@@ -15,24 +15,24 @@
 		</p>
 		
 		<p>
-			<strong><?php echo lang('nav_target_label');?>:</strong> <?php echo (!empty($link->target)) ? lang('nav_link_target_blank') : lang('nav_link_target_self') ?>
+			<strong><?php echo lang('nav:target_label');?>:</strong> <?php echo (!empty($link->target)) ? lang('nav:link_target_blank') : lang('nav:link_target_self') ?>
 		</p>
 		
 		<p>
-			<strong><?php echo lang('nav_class_label');?>:</strong> <?php echo $link->class ?>
+			<strong><?php echo lang('nav:class_label');?>:</strong> <?php echo $link->class ?>
 		</p>
 		
 		<p>
-			<strong><?php echo lang('nav_type_label');?>:</strong> <?php echo $link->link_type ?>
+			<strong><?php echo lang('nav:type_label');?>:</strong> <?php echo $link->link_type ?>
 		</p>
 		
 		<p>
-			<strong><?php echo lang('nav_location_label');?>:</strong>
+			<strong><?php echo lang('nav:location_label');?>:</strong>
 			<a target="_blank" href="<?php echo $link->url ?>"><?php echo $link->url ?></a>
 		</p>
 		
 		<p>
-			<strong><?php echo lang('nav_restricted_to');?>:</strong> <?php echo $link->restricted_to ?>
+			<strong><?php echo lang('nav:restricted_to');?>:</strong> <?php echo $link->restricted_to ?>
 		</p>
 	</fieldset>	
 	

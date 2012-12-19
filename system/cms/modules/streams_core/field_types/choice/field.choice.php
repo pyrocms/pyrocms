@@ -15,7 +15,7 @@ class Field_choice
 	
 	public $db_col_type				= 'varchar';
 
-	public $version					= '1.1';
+	public $version					= '1.1.0';
 
 	public $author					= array('name'=>'Parse19', 'url'=>'http://parse19.com');
 
@@ -312,7 +312,7 @@ class Field_choice
 			{
 				if ($total_selected != $max)
 				{
-					return str_replace('{val}', $max, lang('streams.choice.must_select_num'));
+					return str_replace('{val}', $max, lang('streams:choice.must_select_num'));
 				}
 			}
 			else
@@ -322,7 +322,7 @@ class Field_choice
 				{
 					if ($min > $total_selected)
 					{
-						return str_replace('{val}', $min, lang('streams.choice.must_at_least'));
+						return str_replace('{val}', $min, lang('streams:choice.must_at_least'));
 					}
 				}
 
@@ -331,7 +331,7 @@ class Field_choice
 				{
 					if ($max < $total_selected)
 					{
-						return str_replace('{val}', $max, lang('streams.choice.must_max_num'));
+						return str_replace('{val}', $max, lang('streams:choice.must_max_num'));
 					}
 				}
 
@@ -435,7 +435,7 @@ class Field_choice
 	{
 		return array(
 				'input' 		=> form_textarea('choice_data', $value),
-				'instructions'	=> $this->CI->lang->line('streams.choice.instructions')
+				'instructions'	=> $this->CI->lang->line('streams:choice.instructions')
 			);
 	}
 
@@ -451,10 +451,10 @@ class Field_choice
 	public function param_choice_type($value = null)
 	{
 		$choices = array(
-			'dropdown' 	=> $this->CI->lang->line('streams.choice.dropdown'),
-			'multiselect' 	=> $this->CI->lang->line('streams.choice.multiselect'),
-			'radio' 	=> $this->CI->lang->line('streams.choice.radio_buttons'),
-			'checkboxes'=> $this->CI->lang->line('streams.choice.checkboxes')
+			'dropdown' 	=> $this->CI->lang->line('streams:choice.dropdown'),
+			'multiselect' 	=> $this->CI->lang->line('streams:choice.multiselect'),
+			'radio' 	=> $this->CI->lang->line('streams:choice.radio_buttons'),
+			'checkboxes'=> $this->CI->lang->line('streams:choice.checkboxes')
 		);
 		
 		return form_dropdown('choice_type', $choices, $value);
@@ -473,7 +473,7 @@ class Field_choice
 	{
 		return array(
 				'input' 		=> form_input('min_choices', $value),
-				'instructions'	=> $this->CI->lang->line('streams.choice.checkboxes_only')
+				'instructions'	=> $this->CI->lang->line('streams:choice.checkboxes_only')
 			);
 	}
 
@@ -490,7 +490,7 @@ class Field_choice
 	{
 		return array(
 				'input' 		=> form_input('max_choices', $value),
-				'instructions'	=> $this->CI->lang->line('streams.choice.checkboxes_only')
+				'instructions'	=> $this->CI->lang->line('streams:choice.checkboxes_only')
 			);
 	}
 

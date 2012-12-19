@@ -11,7 +11,7 @@
 class Plugin_Helper extends Plugin
 {
 
-	public $version = '1.0';
+	public $version = '1.0.0';
 	public $name = array(
 		'en' => 'Helper',
 	);
@@ -20,6 +20,48 @@ class Plugin_Helper extends Plugin
 		'el' => 'Πρόσβαση σε helper functions και άλλα χρήσιμα.',
 		'fr' => 'Accéder aux fonctions helper et à d\'autres éléments utiles.'
 	);
+
+	/**
+	 * Returns a PluginDoc array that PyroCMS uses 
+	 * to build the reference in the admin panel
+	 *
+	 * All options are listed here but refer 
+	 * to the Blog plugin for a larger example
+	 *
+	 * @todo fill the  array with details about this plugin, then uncomment the return value.
+	 *
+	 * @return array
+	 */
+	public function _self_doc()
+	{
+		$info = array(
+			'your_method' => array(// the name of the method you are documenting
+				'description' => array(// a single sentence to explain the purpose of this method
+					'en' => 'Displays some data from some module.'
+				),
+				'single' => true,// will it work as a single tag?
+				'double' => false,// how about as a double tag?
+				'variables' => '',// list all variables available inside the double tag. Separate them|like|this
+				'attributes' => array(
+					'order-dir' => array(// this is the order-dir="asc" attribute
+						'type' => 'flag',// Can be: slug, number, flag, text, array, any.
+						'flags' => 'asc|desc|random',// flags are predefined values like this.
+						'default' => 'asc',// attribute defaults to this if no value is given
+						'required' => false,// is this attribute required?
+					),
+					'limit' => array(
+						'type' => 'number',
+						'flags' => '',
+						'default' => '20',
+						'required' => false,
+					),
+				),
+			),// end first method
+		);
+	
+		//return $info;
+		return array();
+	}
 
 	/** @var boolean A flag for the counter functions for loops. */
 	static $_counter_increment = true;
@@ -230,7 +272,14 @@ class Plugin_Helper extends Plugin
 
 		if (function_exists($name) and in_array($name, config_item('allowed_functions')))
 		{
-			return call_user_func_array($name, $this->attributes());
+			$attributes = $this->attributes();
+			
+			// unset automatically set attributes
+			if ( isset($attributes['parse_params']) ) {
+				unset($attributes['parse_params']);
+			}
+			
+			return call_user_func_array($name, $attributes);
 		}
 
 		return 'Function not found or is not allowed';

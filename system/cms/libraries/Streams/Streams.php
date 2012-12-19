@@ -145,7 +145,7 @@ class Streams extends CI_Driver_Library {
 	 */
 	public function log_error($lang_code, $function)
 	{
-		//$error = lang('streams.api.'.$lang_code).' ['.$function.']';
+		//$error = lang('streams:api.'.$lang_code).' ['.$function.']';
 		$error = $lang_code.' ['.$function.']';
 		
 		// Log the message either way

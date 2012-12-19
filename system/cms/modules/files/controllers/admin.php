@@ -40,7 +40,7 @@ class Admin extends Admin_Controller {
 				pyro.lang.height = '".lang('files:height')."';
 				pyro.lang.ratio = '".lang('files:ratio')."';
 				pyro.lang.full_size = '".lang('files:full_size')."';
-				pyro.lang.cancel = '".lang('buttons.cancel')."';
+				pyro.lang.cancel = '".lang('buttons:cancel')."';
 				pyro.lang.synchronization_started = '".lang('files:synchronization_started')."';
 				pyro.lang.untitled_folder = '".lang('files:untitled_folder')."';
 				pyro.lang.exceeds_server_setting = '".lang('files:exceeds_server_setting')."';
@@ -52,6 +52,9 @@ class Admin extends Admin_Controller {
 				pyro.lang.file_type_not_allowed = '".addslashes(lang('files:file_type_not_allowed'))."';
 				pyro.lang.new_folder_name = '".addslashes(lang('files:new_folder_name'))."';
 				pyro.lang.alt_attribute = '".addslashes(lang('files:alt_attribute'))."';
+
+				// deprecated
+				pyro.files.initial_folder_contents = ".(int)$this->session->flashdata('initial_folder_contents').";
 			</script>");
 	}
 
@@ -110,6 +113,8 @@ class Admin extends Admin_Controller {
 	/**
 	 * Set the initial folder ID to load contents for
 	 *
+	 * @deprecated
+	 * 
 	 * Accepts the parent id and sets it as flash data
 	 */
 	public function initial_folder_contents($id)

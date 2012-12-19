@@ -70,14 +70,14 @@ class Admin extends Admin_Controller
 		{
 			if ($this->redirect_m->insert($_POST))
 			{
-				$this->session->set_flashdata('success', lang('redirects.add_success'));
+				$this->session->set_flashdata('success', lang('redirects:add_success'));
 				
 				Events::trigger('redirect_created');
 
 				redirect('admin/redirects');
 			}
 
-			$messages['error'] = lang('redirects.add_error');
+			$messages['error'] = lang('redirects:add_error');
 		}
 
 		// Loop through each validation rule
@@ -113,14 +113,14 @@ class Admin extends Admin_Controller
 		{
 			if ($this->redirect_m->update($id, $_POST))
 			{
-				$this->session->set_flashdata('success', $this->lang->line('redirects.edit_success'));
+				$this->session->set_flashdata('success', $this->lang->line('redirects:edit_success'));
 				
 				Events::trigger('redirect_updated', $id);
 
 				redirect('admin/redirects');
 			}
 
-			$messages['error'] = lang('redirects.edit_error');
+			$messages['error'] = lang('redirects:edit_error');
 		}
 
 		$this->template
@@ -153,21 +153,21 @@ class Admin extends Admin_Controller
 				}
 				else
 				{
-					$this->session->set_flashdata('error', sprintf($this->lang->line('redirects.mass_delete_error'), $id));
+					$this->session->set_flashdata('error', sprintf($this->lang->line('redirects:mass_delete_error'), $id));
 				}
 				$to_delete++;
 			}
 
 			if ($deleted > 0)
 			{
-				$this->session->set_flashdata('success', sprintf($this->lang->line('redirects.mass_delete_success'), $deleted, $to_delete));
+				$this->session->set_flashdata('success', sprintf($this->lang->line('redirects:mass_delete_success'), $deleted, $to_delete));
 			}
 			
 			Events::trigger('redirect_deleted', $id_array);
 		}
 		else
 		{
-			$this->session->set_flashdata('error', $this->lang->line('redirects.no_select_error'));
+			$this->session->set_flashdata('error', $this->lang->line('redirects:no_select_error'));
 		}		
 		
 		redirect('admin/redirects');
@@ -186,7 +186,7 @@ class Admin extends Admin_Controller
 
 		if ($this->redirect_m->check_from($from, $id))
 		{
-			$this->form_validation->set_message('_check_unique', sprintf(lang('redirects.request_conflict_error'), $from));
+			$this->form_validation->set_message('_check_unique', sprintf(lang('redirects:request_conflict_error'), $from));
 			return false;
 		}
 

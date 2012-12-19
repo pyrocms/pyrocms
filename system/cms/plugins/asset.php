@@ -11,7 +11,7 @@
 class Plugin_Asset extends Plugin
 {
 
-	public $version = '1.0';
+	public $version = '1.0.0';
 	public $name = array(
 		'en' => 'Asset',
 	);
@@ -20,6 +20,48 @@ class Plugin_Asset extends Plugin
 		'el' => 'Πρόσβαση σε στατικό περιεχόμενο όπως αρχεία CSS ή Javascript.',
 		'fr' => 'Accéder à des ressources CSS et Javascript (Assets).'
 	);
+
+	/**
+	 * Returns a PluginDoc array that PyroCMS uses 
+	 * to build the reference in the admin panel
+	 *
+	 * All options are listed here but refer 
+	 * to the Blog plugin for a larger example
+	 *
+	 * @todo fill the  array with details about this plugin, then uncomment the return value.
+	 *
+	 * @return array
+	 */
+	public function _self_doc()
+	{
+		$info = array(
+			'your_method' => array(// the name of the method you are documenting
+				'description' => array(// a single sentence to explain the purpose of this method
+					'en' => 'Displays some data from some module.'
+				),
+				'single' => true,// will it work as a single tag?
+				'double' => false,// how about as a double tag?
+				'variables' => '',// list all variables available inside the double tag. Separate them|like|this
+				'attributes' => array(
+					'order-dir' => array(// this is the order-dir="asc" attribute
+						'type' => 'flag',// Can be: slug, number, flag, text, array, any.
+						'flags' => 'asc|desc|random',// flags are predefined values like this.
+						'default' => 'asc',// attribute defaults to this if no value is given
+						'required' => false,// is this attribute required?
+					),
+					'limit' => array(
+						'type' => 'number',
+						'flags' => '',
+						'default' => '20',
+						'required' => false,
+					),
+				),
+			),// end first method
+		);
+	
+		//return $info;
+		return array();
+	}
 
 	/**
 	 * Asset CSS
@@ -39,6 +81,26 @@ class Plugin_Asset extends Plugin
 		$group    = $this->attribute('group');
 
 		return Asset::css($file, $file_min, $group);
+	}
+	
+	/**
+	 * Asset Inline CSS
+	 *
+	 * Insert a CSS tag
+	 *
+	 * Usage:
+	 *
+	 * {{ asset:css_inline }}
+	 *   #id .class { background: red }
+	 * {{ /asset:css_inline }}
+	 *
+	 * @return string empty
+	 */
+	public function css_inline()
+	{
+		$string = $this->content();
+		
+		return Asset::css_inline($string);
 	}
 
 	/**
@@ -155,6 +217,26 @@ class Plugin_Asset extends Plugin
 
 		return Asset::js($file, $file_min, $group);
 	}
+	
+	/**
+	 * Asset Inline JS
+	 *
+	 * Insert a JS tag
+	 *
+	 * Usage:
+	 *
+	 * {{ asset:js_inline }}
+	 *   alert('Are you sure?');
+	 * {{ /asset:js_inline }}
+	 *
+	 * @return string empty
+	 */
+	public function js_inline()
+	{
+		$string = $this->content();
+		
+		return Asset::js_inline($string);
+	}
 
 	/**
 	 * Asset JS URL
@@ -229,6 +311,22 @@ class Plugin_Asset extends Plugin
 	}
 
 	/**
+	 * Asset Render CSS Inline
+	 *
+	 * Render inline CSS.
+	 *
+	 * Usage:
+	 *
+	 * {{ asset:render_css_inline }}
+	 *
+	 * @return string Inline CSS content
+	 */
+	public function render_css_inline()
+	{
+		return Asset::render_css_inline();
+	}
+	
+	/**
 	 * Asset Render Javascript
 	 *
 	 * Render a Javascript asset group.
@@ -245,7 +343,21 @@ class Plugin_Asset extends Plugin
 
 		return Asset::render_js($group);
 	}
+	
+	/**
+	 * Asset Render JS Inline
+	 *
+	 * Render inline JS.
+	 *
+	 * Usage:
+	 *
+	 * {{ asset:render_js_inline }}
+	 *
+	 * @return string Inline JS content
+	 */
+	public function render_js_inline()
+	{
+		return Asset::render_js_inline();
+	}
 
 }
-
-/* EOF */

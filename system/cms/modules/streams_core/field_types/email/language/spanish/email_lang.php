@@ -1,3 +1,3 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-$lang['streams.email.name'] 		= "Correo Electrónico";
+$lang['streams:email.name'] 		= "Correo Electrónico";

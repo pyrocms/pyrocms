@@ -7,7 +7,7 @@
  */
 class Module_Widgets extends Module {
 
-	public $version = '1.2';
+	public $version = '1.2.0';
 
 	public function info()
 	{
@@ -66,15 +66,15 @@ class Module_Widgets extends Module {
 
 			'sections' => array(
 			    'instances' => array(
-				    'name' => 'widgets.instances',
+				    'name' => 'widgets:instances',
 				    'uri' => 'admin/widgets',
 				),
 				'areas' => array(
-				    'name' => 'widgets.areas',
+				    'name' => 'widgets:areas',
 				    'uri' => 'admin/widgets/areas',
 				    'shortcuts' => array(
 						array(
-						    'name' => 'widgets.add_area',
+						    'name' => 'widgets:add_area',
 						    'uri' => 'admin/widgets/areas/create',
 						),
 				    ),

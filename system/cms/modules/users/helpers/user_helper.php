@@ -71,12 +71,12 @@ function role_or_die($module, $role, $redirect_to = 'admin', $message = '')
 
 	if (ci()->input->is_ajax_request() and ! group_has_role($module, $role))
 	{
-		echo json_encode(array('error' => ($message ? $message : lang('cp_access_denied')) ));
+		echo json_encode(array('error' => ($message ? $message : lang('cp:access_denied')) ));
 		return false;
 	}
 	elseif ( ! group_has_role($module, $role))
 	{
-		ci()->session->set_flashdata('error', ($message ? $message : lang('cp_access_denied')) );
+		ci()->session->set_flashdata('error', ($message ? $message : lang('cp:access_denied')) );
 		redirect($redirect_to);
 	}
 	return true;

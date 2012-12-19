@@ -17,7 +17,7 @@ class Field_user
 
 	public $custom_parameters		= array('restrict_group');
 
-	public $version					= '1.0';
+	public $version					= '1.0.0';
 
 	public $author					= array('name'=>'Parse19', 'url'=>'http://parse19.com');
 
@@ -75,7 +75,7 @@ class Field_user
 		
 		$db_obj = $this->CI->db->get('groups');
 		
-		$groups = array('no' => lang('streams.user.dont_restrict_groups'));
+		$groups = array('no' => lang('streams:user.dont_restrict_groups'));
 		
 		$groups_raw = $db_obj->result();
 		

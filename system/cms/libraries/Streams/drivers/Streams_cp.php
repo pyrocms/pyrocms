@@ -79,10 +79,10 @@ class Streams_cp extends CI_Driver {
  		$stream_fields->updated = new stdClass;
  		$stream_fields->created_by = new stdClass;
 
-  		$stream_fields->id->field_name 				= lang('streams.id');
-		$stream_fields->created->field_name 		= lang('streams.created_date');
- 		$stream_fields->updated->field_name 		= lang('streams.updated_date');
- 		$stream_fields->created_by->field_name 		= lang('streams.created_by');
+  		$stream_fields->id->field_name 				= lang('streams:id');
+		$stream_fields->created->field_name 		= lang('streams:created_date');
+ 		$stream_fields->updated->field_name 		= lang('streams:updated_date');
+ 		$stream_fields->created_by->field_name 		= lang('streams:created_by');
 
  		// -------------------------------------
 		// Find offset URI from array
@@ -410,7 +410,7 @@ class Streams_cp extends CI_Driver {
 	 *
 	 * see docs for more.
 	 */
-	public function field_form($stream_slug, $namespace, $method = 'new', $return, $assign_id = null, $include_types = array(), $view_override = false, $extra = array())
+	public function field_form($stream_slug, $namespace, $method = 'new', $return, $assign_id = null, $include_types = array(), $view_override = false, $extra = array(), $exclude_types = array(), $skips = array())
 	{
 		$CI = get_instance();
 		$data = array();
@@ -421,13 +421,49 @@ class Streams_cp extends CI_Driver {
 		if ( ! $stream) $this->log_error('invalid_stream', 'form');
 
 		// -------------------------------------
+		// Include/Exclude Field Types
+		// -------------------------------------
+		// Allows the inclusion or exclusion of
+		// field types.
+		// -------------------------------------
+
+		if ($include_types)
+		{
+			$ft_types = new stdClass();
+
+			foreach ($CI->type->types as $type)
+			{
+				if (in_array($type->field_type_slug, $include_types))
+				{
+					$ft_types->{$type->field_type_slug} = $type;
+				}
+			}
+		}
+		elseif (count($exclude_types) > 0)
+		{
+			$ft_types = new stdClass();
+
+			foreach ($CI->type->types as $type)
+			{
+				if ( ! in_array($type->field_type_slug, $exclude_types))
+				{
+					$ft_types->{$type->field_type_slug} = $type;
+				}
+			}
+		}
+		else
+		{
+			$ft_types = $CI->type->types;
+		}
+
+		// -------------------------------------
 		// Field Type Assets
 		// -------------------------------------
 		// These are assets field types may
 		// need when adding/editing fields
 		// -------------------------------------
    		
-   		$CI->type->load_field_crud_assets();
+   		$CI->type->load_field_crud_assets($ft_types);
    		
    		// -------------------------------------
         
@@ -435,9 +471,7 @@ class Streams_cp extends CI_Driver {
 		$data['method'] = $method;
 
 		// Get our list of available fields
-		$data['field_types'] = $CI->type->field_types_array(true);
-
-		// @todo - allow including/excluding some fields
+		$data['field_types'] = $CI->type->field_types_array($ft_types);
 
 		// -------------------------------------
 		// Get the field if we have the assignment
@@ -511,37 +545,82 @@ class Streams_cp extends CI_Driver {
 		// Get all of our valiation into one super validation object
 		$validation = array_merge($CI->fields_m->fields_validation, $assign_validation);
 
+		// Check if $skips is set to bypass validation for specified field slugs
+
+		// No point skipping field_name & field_type
+		$disallowed_skips = array('field_name', 'field_type');
+
+		if (count($skips) > 0)
+		{
+			foreach ($skips as $skip)
+			{
+				// First check if the current skip is disallowed
+				if (in_array($skip['slug'], $disallowed_skips))
+				{
+					continue;
+				}
+
+				foreach ($validation as $key => $value) 
+				{
+					if (in_array($value['field'], $skip))
+					{
+						unset($validation[$key]);
+					}
+				}
+			}
+		}
+
 		$CI->form_validation->set_rules($validation);
 
 		// -------------------------------------
 		// Process Data
 		// -------------------------------------
-		
+
 		if ($CI->form_validation->run())
 		{
+
+			$post_data = $CI->input->post();
+
+			// Set custom data from $skips param
+
+			if (count($skips) > 0)
+			{	
+				foreach ($skips as $skip)
+				{
+					if ($skip['slug'] == 'field_slug' && ( ! isset($skip['value']) || empty($skip['value'])))	
+					{
+						show_error('Set a default value for field_slug in your $skips param.');
+					}
+					else
+					{
+						$post_data[$skip['slug']] = $skip['value'];
+					}
+				}
+			}
+
 			if ($method == 'new')
 			{
 				if ( ! $CI->fields_m->insert_field(
-									$CI->input->post('field_name'),
-									$CI->input->post('field_slug'),
-									$CI->input->post('field_type'),
+									$post_data['field_name'],
+									$post_data['field_slug'],
+									$post_data['field_type'],
 									$namespace,
-									$CI->input->post()
+									$post_data
 					))
 				{
 				
-					$CI->session->set_flashdata('notice', lang('streams.save_field_error'));	
+					$CI->session->set_flashdata('notice', lang('streams:save_field_error'));	
 				}
 				else
 				{
 					// Add the assignment
-					if( ! $CI->streams_m->add_field_to_stream($CI->db->insert_id(), $stream->id, $CI->input->post()))
+					if( ! $CI->streams_m->add_field_to_stream($CI->db->insert_id(), $stream->id, $post_data))
 					{
-						$CI->session->set_flashdata('notice', lang('streams.save_field_error'));	
+						$CI->session->set_flashdata('notice', lang('streams:save_field_error'));	
 					}
 					else
 					{
-						$CI->session->set_flashdata('success', lang('streams.field_add_success'));	
+						$CI->session->set_flashdata('success', (isset($extra['success_message']) ? $extra['success_message'] : lang('streams:field_add_success')));	
 					}
 				}
 			}
@@ -549,11 +628,11 @@ class Streams_cp extends CI_Driver {
 			{
 				if ( ! $CI->fields_m->update_field(
 									$data['current_field'],
-									array_merge($CI->input->post(), array('field_namespace' => $namespace))
+									array_merge($post_data, array('field_namespace' => $namespace))
 					))
 				{
 				
-					$CI->session->set_flashdata('notice', lang('streams.save_field_error'));	
+					$CI->session->set_flashdata('notice', lang('streams:save_field_error'));	
 				}
 				else
 				{
@@ -562,14 +641,14 @@ class Streams_cp extends CI_Driver {
 										$assign_id,
 										$stream,
 										$data['current_field'],
-										$CI->input->post()
+										$post_data
 									))
 					{
-						$CI->session->set_flashdata('notice', lang('streams.save_field_error'));	
+						$CI->session->set_flashdata('notice', lang('streams:save_field_error'));	
 					}
 					else
 					{
-						$CI->session->set_flashdata('success', lang('streams.field_update_success'));
+						$CI->session->set_flashdata('success', (isset($extra['success_message']) ? $extra['success_message'] : lang('streams:field_update_success')));
 					}
 				}
 

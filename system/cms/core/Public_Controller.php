@@ -24,7 +24,7 @@ class Public_Controller extends MY_Controller
 			$this->load->model('redirects/redirect_m');
 			$uri = trim(uri_string(), '/');
 
-			if ($redirect = $this->redirect_m->get_from($uri))
+			if ($uri and $redirect = $this->redirect_m->get_from($uri))
 			{
 				// Check if it was direct match
 				if ($redirect->from == $uri)
@@ -50,7 +50,7 @@ class Public_Controller extends MY_Controller
 		{
 			header('Retry-After: 600');
 
-			$error = $this->settings->unavailable_message ? $this->settings->unavailable_message : lang('cms_fatal_error');
+			$error = $this->settings->unavailable_message ? $this->settings->unavailable_message : lang('cms:fatal_error');
 			show_error($error, 503);
 		}
 
@@ -115,8 +115,6 @@ class Public_Controller extends MY_Controller
 		$this->theme->options = $this->pyrocache->model('theme_m', 'get_values_by', array(array('theme' => $this->theme->slug)));
 
 		// Assign segments to the template the new way
-		$this->template->variables = $this->variables->get_all();
-		$this->template->settings = $this->settings->get_all();
 		$this->template->server = $_SERVER;
 		$this->template->theme = $this->theme;
 

@@ -11,7 +11,7 @@
 class Plugin_User extends Plugin
 {
 
-	public $version = '1.0';
+	public $version = '1.0.0';
 	public $name = array(
 		'en' => 'User',
 	);
@@ -20,6 +20,42 @@ class Plugin_User extends Plugin
 		'el' => 'Πρόσβαση σε μεταβλητές και ρυθμίσεις προφίλ του εκάστοτε χρήστη.',
 		'fr' => 'Accéder aux données de l\'utilisateur courant.'
 	);
+
+	/**
+	 * Returns a PluginDoc array that PyroCMS uses 
+	 * to build the reference in the admin panel
+	 *
+	 * All options are listed here but refer 
+	 * to the Blog plugin for a larger example
+	 *
+	 * @todo fill the  array with details about this plugin, then uncomment the return value.
+	 * @todo  I did the __call magic method... the others still need to be documented
+	 *
+	 * @return array
+	 */
+	public function _self_doc()
+	{
+		$info = array();
+
+		// dynamically build the array for the magic method __call
+		$user = (array) $this->current_user;
+		ksort($user);
+
+		foreach ($user as $key => $value)
+		{
+			if (in_array($key, array('password', 'salt'))) continue;
+
+			$info[$key]['description'] = array(
+				'en' => 'Displays the '.$key.' for the current user.'
+			);
+			$info[$key]['single'] = true;
+			$info[$key]['double'] = (is_array($value) ? true : false);
+			$info[$key]['variables'] = (is_array($value) ? implode('|', array_keys($value)) : '');
+			$info[$key]['params'] = array();
+		}
+
+		return $info;
+	}
 
 	/**
 	 * Array of data for the currently
@@ -133,24 +169,24 @@ class Plugin_User extends Plugin
 
 		$plugin_data[] = array(
 			'value' => $profile_data['username'],
-			'name'  => lang('user_username'),
+			'name'  => lang('user:username'),
 			'slug'  => 'username'
 		);
 
 		$plugin_data[] = array(
 			'value' => $profile_data['group_description'],
-			'name'  => lang('user_group_label'),
+			'name'  => lang('user:group_label'),
 			'slug'  => 'group_name'
 		);
 
 		$plugin_data[] = array(
-			'value' => date($this->settings->get('date_format'), $profile_data['last_login']),
+			'value' => date(Settings::get('date_format'), $profile_data['last_login']),
 			'name'  => lang('profile_last_login_label'),
 			'slug'  => 'email'
 		);
 
 		$plugin_data[] = array(
-			'value' => date($this->settings->get('date_format'), $profile_data['created_on']),
+			'value' => date(Settings::get('date_format'), $profile_data['created_on']),
 			'name'  => lang('profile_registred_on_label'),
 			'slug'  => 'registered_on'
 		);
@@ -162,7 +198,7 @@ class Plugin_User extends Plugin
 			'slug'  => 'display_name'
 		);
 		$plugin_data[] = array(
-			'value' => date($this->settings->get('date_format'), $profile_data['updated_on']),
+			'value' => date(Settings::get('date_format'), $profile_data['updated_on']),
 			'name'  => lang('profile_updated_on'),
 			'slug'  => 'updated_on'
 		);
@@ -353,7 +389,7 @@ class Plugin_User extends Plugin
 		$user_id = $this->attribute('user_id', null);
 
 		// If we do not have a user id and there is
-		// no currently logge in user, there's nothing we can do
+		// no currently logged in user, there's nothing we can do
 		if (is_null($user_id) and !isset($this->current_user->id))
 		{
 			return null;
@@ -362,8 +398,15 @@ class Plugin_User extends Plugin
 		{
 			// Otherwise, we can use the current user id
 			$user_id = $this->current_user->id;
+
+			// but first, is it data we already have? (such as user:username)
+			if (isset($this->current_user->{$name}))
+			{
+				return $this->current_user->{$name};
+			}
 		}
 
+		// we're fetching a different user than the currently logged in one
 		return $this->get_user_var($name, $user_id);
 	}
 

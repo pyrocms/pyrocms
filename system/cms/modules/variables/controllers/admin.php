@@ -91,12 +91,12 @@ class Admin extends Admin_Controller
 
 			if ($this->variables_m->insert($this->input->post()))
 			{
-				$message = sprintf(lang('variables.add_success'), $name);
+				$message = sprintf(lang('variables:add_success'), $name);
 				$status = 'success';
 			}
 			else
 			{
-				$message = sprintf(lang('variables.add_error'), $name);
+				$message = sprintf(lang('variables:add_error'), $name);
 				$status = 'error';
 			}
 
@@ -139,7 +139,7 @@ class Admin extends Admin_Controller
 		}
 
 		$this->template
-			->title($this->module_details['name'], lang('variables.create_title'))
+			->title($this->module_details['name'], lang('variables:create_title'))
 			->set('variable', $variable)
 			->build('admin/form');
 	}
@@ -166,12 +166,12 @@ class Admin extends Admin_Controller
 
 			if ($this->variables_m->update($id, $this->input->post()))
 			{
-				$message = sprintf(lang('variables.edit_success'), $name);
+				$message = sprintf(lang('variables:edit_success'), $name);
 				$status = 'success';
 			}
 			else
 			{
-				$message = sprintf(lang('variables.edit_error'), $name);
+				$message = sprintf(lang('variables:edit_error'), $name);
 				$status = 'error';
 			}
 
@@ -185,7 +185,7 @@ class Admin extends Admin_Controller
 				return $this->template->build_json(array(
 					'status' => $status,
 					'message' => $message,
-					'title' => sprintf(lang('variables.edit_title'), $name)
+					'title' => sprintf(lang('variables:edit_title'), $name)
 				));
 			}
 
@@ -220,7 +220,7 @@ class Admin extends Admin_Controller
 		}
 
 		$this->template
-			->title($this->module_details['name'], sprintf(lang('variables.edit_title'), $this->template->variable->name))
+			->title($this->module_details['name'], sprintf(lang('variables:edit_title'), $this->template->variable->name))
 			->build('admin/form');
 	}
 
@@ -256,21 +256,21 @@ class Admin extends Admin_Controller
 				$first_values = implode(', ', $values);
 
 				// Success / Error message
-				$this->session->set_flashdata($status, sprintf(lang('variables.mass_delete_'.$status), $status_total, $total, $first_values, $last_value));
+				$this->session->set_flashdata($status, sprintf(lang('variables:mass_delete_'.$status), $status_total, $total, $first_values, $last_value));
 			}
 
 			// Single deletion
 			else
 			{
 				// Success / Error messages
-				$this->session->set_flashdata($status, sprintf(lang('variables.delete_'.$status), $values[0]));
+				$this->session->set_flashdata($status, sprintf(lang('variables:delete_'.$status), $values[0]));
 			}
 		}
 
 		// He arrived here but it was not done nothing, certainly valid ids not were selected
 		if ( ! $deleted)
 		{
-			$this->session->set_flashdata('error', lang('variables.no_select_error'));
+			$this->session->set_flashdata('error', lang('variables:no_select_error'));
 		}
 
 		redirect('admin/variables');
@@ -285,7 +285,7 @@ class Admin extends Admin_Controller
 	 */
 	public function _check_name($name = '')
 	{
-		$this->form_validation->set_message('_check_name', sprintf(lang('variables.already_exist_error'), $name));
+		$this->form_validation->set_message('_check_name', sprintf(lang('variables:already_exist_error'), $name));
 
 		return ! $this->variables_m->check_name($name, (int)$this->input->post('variable_id'));
 	}

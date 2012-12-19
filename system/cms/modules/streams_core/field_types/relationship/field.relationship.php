@@ -17,7 +17,7 @@ class Field_relationship
 
 	public $custom_parameters		= array( 'choose_stream' );
 
-	public $version					= '1.1';
+	public $version					= '1.1.0';
 
 	public $author					= array('name'=>'Parse19', 'url'=>'http://parse19.com');
 
@@ -44,7 +44,7 @@ class Field_relationship
 		
 		if ( ! $stream)
 		{
-			return '<em>'.$this->CI->lang->line('streams.relationship.doesnt_exist').'</em>';
+			return '<em>'.$this->CI->lang->line('streams:relationship.doesnt_exist').'</em>';
 		}
 
 		$title_column = $stream->title_column;

@@ -8,8 +8,7 @@
  */
 class Module_Blog extends Module
 {
-
-	public $version = '2.0';
+	public $version = '2.0.0';
 
 	public function info()
 	{
@@ -80,11 +79,11 @@ class Module_Blog extends Module
 					),
 				),
 				'categories' => array(
-					'name' => 'cat_list_title',
+					'name' => 'cat:list_title',
 					'uri' => 'admin/blog/categories',
 					'shortcuts' => array(
 						array(
-							'name' => 'cat_create_title',
+							'name' => 'cat:create_title',
 							'uri' => 'admin/blog/categories/create',
 							'class' => 'add',
 						),

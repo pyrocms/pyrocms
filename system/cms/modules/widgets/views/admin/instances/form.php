@@ -8,19 +8,19 @@
 
 	<ol>
 		<li>
-			<label><?php echo lang('widgets.instance_title') ?>:</label>
+			<label><?php echo lang('widgets:instance_title') ?>:</label>
 			<?php echo form_input('title', set_value('title', isset($widget->instance_title) ? $widget->instance_title : '')) ?>
 			<span class="required-icon tooltip"><?php echo lang('required_label') ?></span>
 		</li>
 
 		<li>
-			<label><?php echo lang('widgets.show_title') ?>:</label>
+			<label><?php echo lang('widgets:show_title') ?>:</label>
 			<?php echo form_checkbox('show_title', true, isset($widget->options['show_title']) ? $widget->options['show_title'] : false) ?>
 		</li>
 
 		<?php if (isset($widget_areas)): ?>
 		<li>
-			<label><?php echo lang('widgets.widget_area') ?>:</label>
+			<label><?php echo lang('widgets:widget_area') ?>:</label>
 			<?php echo form_dropdown('widget_area_id', $widget_areas, $widget->widget_area_id) ?>
 		</li>
 		<?php endif ?>

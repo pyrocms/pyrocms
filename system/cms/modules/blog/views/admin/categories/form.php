@@ -1,12 +1,13 @@
 <section class="title">
 	<?php if ($this->controller == 'admin_categories' && $this->method === 'edit'): ?>
-	<h4><?php echo sprintf(lang('cat_edit_title'), $category->title);?></h4>
+	<h4><?php echo sprintf(lang('cat:edit_title'), $category->title);?></h4>
 	<?php else: ?>
-	<h4><?php echo lang('cat_create_title');?></h4>
+	<h4><?php echo lang('cat:create_title');?></h4>
 	<?php endif ?>
 </section>
 
 <section class="item">
+<div class="content">
 <?php echo form_open($this->uri->uri_string(), 'class="crud'.((isset($mode)) ? ' '.$mode : '').'" id="categories"') ?>
 
 <div class="form_inputs">
@@ -26,4 +27,5 @@
 	<div><?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )) ?></div>
 
 <?php echo form_close() ?>
+</div>
 </section>

@@ -63,7 +63,7 @@ class Widget_Navigation extends Widgets
 	 *
 	 * @var string
 	 */
-	public $version = '1.2';
+	public $version = '1.2.0';
 
 	/**
 	 * The fields for customizing the options of the widget.
@@ -129,7 +129,7 @@ class Widget_Navigation extends Widgets
 		// Load the navigation model from the navigation module.
 		$this->load->model('navigation/navigation_m');
 		
-		$links = $this->pyrocache->model('navigation_m', 'get_link_tree', $params, Settings::get('navigation_cache'));
+		$links = $this->pyrocache->model('navigation_m', 'get_link_tree', $params, config_item('navigation_cache'));
 
 		// Shorter alias
 		$widget = & $options['widget'];

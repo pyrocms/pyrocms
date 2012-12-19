@@ -1,23 +1,15 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 /**
- * 
- * @author 		PyroCMS Dev Team
- * @package 	PyroCMS\Core\Modules\Blog\Controllers
+ *
+ * @author  PyroCMS Dev Team
+ * @package PyroCMS\Core\Modules\Blog\Controllers
  */
 class Admin extends Admin_Controller
 {
-	/**
-	 * The current active section
-	 *
-	 * @var string
-	 */
+	/** @var string The current active section */
 	protected $section = 'posts';
 
-	/**
-	 * Array that contains the validation rules
-	 *
-	 * @var array
-	 */
+	/** @var array The validation rules */
 	protected $validation_rules = array(
 		'title' => array(
 			'field' => 'title',
@@ -73,35 +65,32 @@ class Admin extends Admin_Controller
 			'label' => 'lang:blog:created_minute',
 			'rules' => 'trim|numeric|required'
 		),
-        array(
+		array(
 			'field' => 'comments_enabled',
-			'label'	=> 'lang:blog:comments_enabled_label',
-			'rules'	=> 'trim|required'
+			'label' => 'lang:blog:comments_enabled_label',
+			'rules' => 'trim|required'
 		),
-        array(
-            'field' => 'preview_hash',
-            'label' => '',
-            'rules' => 'trim'
-        )
+		array(
+			'field' => 'preview_hash',
+			'label' => '',
+			'rules' => 'trim'
+		)
 	);
 
 	/**
-	 * The constructor
+	 * Every time this controller controller is called should:
+	 * - load the blog and blog_categories models
+	 * - load the keywords and form validation libraries
+	 * - set the hours, minutes and categories template variables.
 	 */
 	public function __construct()
 	{
 		parent::__construct();
-		
+
 		$this->load->model(array('blog_m', 'blog_categories_m'));
 		$this->lang->load(array('blog', 'categories'));
-		
-		$this->load->library(array('keywords/keywords', 'form_validation'));
 
-		// Date ranges for select boxes
-		$this->template
-			->set('hours', array_combine($hours = range(0, 23), $hours))
-			->set('minutes', array_combine($minutes = range(0, 59), $minutes))
-		;
+		$this->load->library(array('keywords/keywords', 'form_validation'));
 
 		$_categories = array();
 		if ($categories = $this->blog_categories_m->order_by('title')->get_all())
@@ -111,13 +100,18 @@ class Admin extends Admin_Controller
 				$_categories[$category->id] = $category->title;
 			}
 		}
-		$this->template->set('categories', $_categories);
+
+		// Date ranges for select boxes
+		$this->template
+			->set('hours', array_combine($hours = range(0, 23), $hours))
+			->set('minutes', array_combine($minutes = range(0, 59), $minutes))
+			->set('categories', $_categories)
+
+			->append_css('module::blog.css');
 	}
 
 	/**
 	 * Show all created blog posts
-	 * 
-	 * @return void
 	 */
 	public function index()
 	{
@@ -125,9 +119,20 @@ class Admin extends Admin_Controller
 		$base_where = array('show_future' => true, 'status' => 'all');
 
 		//add post values to base_where if f_module is posted
-		if ($this->input->post('f_category')) 	$base_where['category'] = $this->input->post('f_category');
-		if ($this->input->post('f_status')) 	$base_where['status'] 	= $this->input->post('f_status');
-		if ($this->input->post('f_keywords')) 	$base_where['keywords'] = $this->input->post('f_keywords');
+		if ($this->input->post('f_category'))
+		{
+			$base_where['category'] = $this->input->post('f_category');
+		}
+
+		if ($this->input->post('f_status'))
+		{
+			$base_where['status'] = $this->input->post('f_status');
+		}
+
+		if ($this->input->post('f_keywords'))
+		{
+			$base_where['keywords'] = $this->input->post('f_keywords');
+		}
 
 		// Create pagination links
 		$total_rows = $this->blog_m->count_by($base_where);
@@ -154,8 +159,6 @@ class Admin extends Admin_Controller
 
 	/**
 	 * Create new post
-	 *
-	 * @return void
 	 */
 	public function create()
 	{
@@ -167,12 +170,11 @@ class Admin extends Admin_Controller
 		{
 			$created_on = strtotime(sprintf('%s %s:%s', $this->input->post('created_on'), $this->input->post('created_on_hour'), $this->input->post('created_on_minute')));
 		}
-
 		else
 		{
 			$created_on = now();
 		}
-        $hash = $this->_preview_hash();
+		$hash = $this->_preview_hash();
 
 		if ($this->form_validation->run())
 		{
@@ -181,28 +183,29 @@ class Admin extends Admin_Controller
 			{
 				role_or_die('blog', 'put_live');
 
-                $hash = "";
+				$hash = "";
 			}
 
 			if ($id = $this->blog_m->insert(array(
-				'title'				=> $this->input->post('title'),
-				'slug'				=> $this->input->post('slug'),
-				'category_id'		=> $this->input->post('category_id'),
-				'keywords'			=> Keywords::process($this->input->post('keywords')),
-				'intro'				=> $this->input->post('intro'),
-				'body'				=> $this->input->post('body'),
-				'status'			=> $this->input->post('status'),
-				'created_on'		=> $created_on,
-				'comments_enabled'	=> $this->input->post('comments_enabled'),
-				'author_id'			=> $this->current_user->id,
-				'type'				=> $this->input->post('type'),
-				'parsed'			=> ($this->input->post('type') == 'markdown') ? parse_markdown($this->input->post('body')) : '',
-                'preview_hash'      => $hash
-			)))
+				'title'            => $this->input->post('title'),
+				'slug'             => $this->input->post('slug'),
+				'category_id'      => $this->input->post('category_id'),
+				'keywords'         => Keywords::process($this->input->post('keywords')),
+				'intro'            => $this->input->post('intro'),
+				'body'             => $this->input->post('body'),
+				'status'           => $this->input->post('status'),
+				'created_on'       => $created_on,
+				'comments_enabled' => $this->input->post('comments_enabled'),
+				'author_id'        => $this->current_user->id,
+				'type'             => $this->input->post('type'),
+				'parsed'           => ($this->input->post('type') == 'markdown') ? parse_markdown($this->input->post('body')) : '',
+				'preview_hash'     => $hash
+			))
+			)
 			{
 				$this->pyrocache->delete_all('blog_m');
 				$this->session->set_flashdata('success', sprintf($this->lang->line('blog:post_add_success'), $this->input->post('title')));
-				
+
 				// Blog article has been updated, may not be anything to do with publishing though
 				Events::trigger('post_created', $id);
 
@@ -219,7 +222,7 @@ class Admin extends Admin_Controller
 			}
 
 			// Redirect back to the form or main page
-			$this->input->post('btnAction') == 'save_exit' ? redirect('admin/blog') : redirect('admin/blog/edit/' . $id);
+			($this->input->post('btnAction') == 'save_exit') ? redirect('admin/blog') : redirect('admin/blog/edit/'.$id);
 		}
 		else
 		{
@@ -248,9 +251,7 @@ class Admin extends Admin_Controller
 	/**
 	 * Edit blog post
 	 *
-	 * 
-	 * @param int $id the ID of the blog post to edit
-	 * @return void
+	 * @param int $id The ID of the blog post to edit
 	 */
 	public function edit($id = 0)
 	{
@@ -268,12 +269,11 @@ class Admin extends Admin_Controller
 		{
 			$created_on = strtotime(sprintf('%s %s:%s', $this->input->post('created_on'), $this->input->post('created_on_hour'), $this->input->post('created_on_minute')));
 		}
-
 		else
 		{
 			$created_on = $post->created_on;
 		}
-		
+
 		$this->form_validation->set_rules(array_merge($this->validation_rules, array(
 			'title' => array(
 				'field' => 'title',
@@ -286,14 +286,13 @@ class Admin extends Admin_Controller
 				'rules' => 'trim|required|alpha_dot_dash|max_length[100]|callback__check_slug['.$id.']'
 			),
 		)));
-        $hash = $this->input->post('preview_hash');
+		$hash = $this->input->post('preview_hash');
 
-        if ($this->input->post('status') == 'draft' and $this->input->post('preview_hash') == '')
-        {
+		if ($this->input->post('status') == 'draft' and $this->input->post('preview_hash') == '')
+		{
+			$hash = $this->_preview_hash();
+		}
 
-            $hash = $this->_preview_hash();
-        }
-		
 		if ($this->form_validation->run())
 		{
 			// They are trying to put this live
@@ -305,21 +304,21 @@ class Admin extends Admin_Controller
 			$author_id = empty($post->display_name) ? $this->current_user->id : $post->author_id;
 
 			$result = $this->blog_m->update($id, array(
-				'title'				=> $this->input->post('title'),
-				'slug'				=> $this->input->post('slug'),
-				'category_id'		=> $this->input->post('category_id'),
-				'keywords'			=> Keywords::process($this->input->post('keywords'), $old_keywords_hash),
-				'intro'				=> $this->input->post('intro'),
-				'body'				=> $this->input->post('body'),
-				'status'			=> $this->input->post('status'),
-				'created_on'		=> $created_on,
-				'comments_enabled'	=> $this->input->post('comments_enabled'),
-				'author_id'			=> $author_id,
-				'type'				=> $this->input->post('type'),
-				'parsed'			=> ($this->input->post('type') == 'markdown') ? parse_markdown($this->input->post('body')) : '',
-                'preview_hash'      => $hash,
+				'title'            => $this->input->post('title'),
+				'slug'             => $this->input->post('slug'),
+				'category_id'      => $this->input->post('category_id'),
+				'keywords'         => Keywords::process($this->input->post('keywords'), $old_keywords_hash),
+				'intro'            => $this->input->post('intro'),
+				'body'             => $this->input->post('body'),
+				'status'           => $this->input->post('status'),
+				'created_on'       => $created_on,
+				'comments_enabled' => $this->input->post('comments_enabled'),
+				'author_id'        => $author_id,
+				'type'             => $this->input->post('type'),
+				'parsed'           => ($this->input->post('type') == 'markdown') ? parse_markdown($this->input->post('body')) : '',
+				'preview_hash'     => $hash,
 			));
-			
+
 			if ($result)
 			{
 				$this->session->set_flashdata(array('success' => sprintf(lang('blog:edit_success'), $this->input->post('title'))));
@@ -334,14 +333,13 @@ class Admin extends Admin_Controller
 					Events::trigger('post_published', $id);
 				}
 			}
-			
 			else
 			{
 				$this->session->set_flashdata('error', lang('blog:edit_error'));
 			}
 
 			// Redirect back to the form or main page
-			$this->input->post('btnAction') == 'save_exit' ? redirect('admin/blog') : redirect('admin/blog/edit/' . $id);
+			($this->input->post('btnAction') == 'save_exit') ? redirect('admin/blog') : redirect('admin/blog/edit/'.$id);
 		}
 
 		// Go through all the known fields and get the post values
@@ -354,7 +352,7 @@ class Admin extends Admin_Controller
 		}
 
 		$post->created_on = $created_on;
-		
+
 		$this->template
 			->title($this->module_details['name'], sprintf(lang('blog:edit_title'), $post->title))
 			->append_metadata($this->load->view('fragments/wysiwyg', array(), true))
@@ -367,24 +365,21 @@ class Admin extends Admin_Controller
 
 	/**
 	 * Preview blog post
-	 * 
-	 * @param int $id the ID of the blog post to preview
-	 * @return void
+	 *
+	 * @param int $id The ID of the blog post to preview
 	 */
 	public function preview($id = 0)
 	{
 		$post = $this->blog_m->get($id);
 
 		$this->template
-				->set_layout('modal', 'admin')
-				->set('post', $post)
-				->build('admin/preview');
+			->set_layout('modal', 'admin')
+			->set('post', $post)
+			->build('admin/preview');
 	}
 
 	/**
 	 * Helper method to determine what to do with selected items from form post
-	 * 
-	 * @return void
 	 */
 	public function action()
 	{
@@ -392,23 +387,22 @@ class Admin extends Admin_Controller
 		{
 			case 'publish':
 				$this->publish();
-			break;
-			
+				break;
+
 			case 'delete':
 				$this->delete();
-			break;
-			
+				break;
+
 			default:
 				redirect('admin/blog');
-			break;
+				break;
 		}
 	}
 
 	/**
 	 * Publish blog post
-	 * 
+	 *
 	 * @param int $id the ID of the blog post to make public
-	 * @return void
 	 */
 	public function publish($id = 0)
 	{
@@ -460,9 +454,8 @@ class Admin extends Admin_Controller
 
 	/**
 	 * Delete blog post
-	 * 
-	 * @param int $id the ID of the blog post to delete
-	 * @return void
+	 *
+	 * @param int $id The ID of the blog post to delete
 	 */
 	public function delete($id = 0)
 	{
@@ -494,7 +487,7 @@ class Admin extends Admin_Controller
 					}
 				}
 			}
-			
+
 			// Fire an event. We've deleted one or more blog posts.
 			Events::trigger('post_deleted', $deleted_ids);
 		}
@@ -524,36 +517,41 @@ class Admin extends Admin_Controller
 
 	/**
 	 * Callback method that checks the title of an post
-	 * 
-	 * @param string title The Title to check
+	 *
+	 * @param string $title The Title to check
+	 * @param string $id
+	 *
 	 * @return bool
 	 */
 	public function _check_title($title, $id = null)
 	{
 		$this->form_validation->set_message('_check_title', sprintf(lang('blog:already_exist_error'), lang('global:title')));
-		return $this->blog_m->check_exists('title', $title, $id);			
+
+		return $this->blog_m->check_exists('title', $title, $id);
 	}
-	
+
 	/**
 	 * Callback method that checks the slug of an post
-	 * 
-	 * @param string slug The Slug to check
+	 *
+	 * @param string $slug The Slug to check
+	 * @param null   $id
+	 *
 	 * @return bool
 	 */
 	public function _check_slug($slug, $id = null)
 	{
 		$this->form_validation->set_message('_check_slug', sprintf(lang('blog:already_exist_error'), lang('global:slug')));
+
 		return $this->blog_m->check_exists('slug', $slug, $id);
 	}
 
 	/**
 	 * Generate a preview hash
-	 * 
-	 * @param string slug The Slug to check
+	 *
 	 * @return bool
 	 */
-    private function _preview_hash()
-    {
-        return md5(microtime() + mt_rand(0,1000));
-    }
+	private function _preview_hash()
+	{
+		return md5(microtime() + mt_rand(0, 1000));
+	}
 }

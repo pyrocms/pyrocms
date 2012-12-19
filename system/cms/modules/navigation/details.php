@@ -8,7 +8,7 @@
  */
 class Module_Navigation extends Module {
 
-	public $version = '1.1';
+	public $version = '1.1.0';
 
 	public function info()
 	{
@@ -71,7 +71,7 @@ class Module_Navigation extends Module {
 
 		    'shortcuts' => array(
 				array(
-				    'name' => 'nav_group_create_title',
+				    'name' => 'nav:group_create_title',
 				    'uri' => 'admin/navigation/groups/create',
 				    'class' => 'add',
 				),

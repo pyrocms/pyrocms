@@ -9,7 +9,7 @@
  class Module_Groups extends Module
 {
 
-	public $version = '1.0';
+	public $version = '1.0.0';
 
 	public function info()
 	{
@@ -69,7 +69,7 @@
 			'menu' => 'users',
 			'shortcuts' => array(
 				array(
-					'name' => 'groups.add_title',
+					'name' => 'groups:add_title',
 					'uri' => 'admin/groups/add',
 					'class' => 'add'
 				),

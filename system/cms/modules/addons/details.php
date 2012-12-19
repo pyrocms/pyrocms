@@ -8,7 +8,7 @@
  */
 class Module_Addons extends Module
 {
-	public $version = '2.0';
+	public $version = '2.0.0';
 
 	public function info()
 	{
@@ -118,15 +118,15 @@ class Module_Addons extends Module
 
 	public function admin_menu(&$menu)
 	{
-		$menu['lang:cp_nav_addons'] = array(
-			'lang:cp_nav_modules'			=> 'admin/addons',
+		$menu['lang:cp:nav_addons'] = array(
+			'lang:cp:nav_modules'			=> 'admin/addons',
 			'lang:global:themes'			=> 'admin/addons/themes',
 			'lang:global:plugins'			=> 'admin/addons/plugins',
 			'lang:global:widgets'			=> 'admin/addons/widgets',
 			'lang:global:field_types'		=> 'admin/addons/field-types'
 		);
 
-		add_admin_menu_place('lang:cp_nav_addons', 6);
+		add_admin_menu_place('lang:cp:nav_addons', 6);
 	}
 
 	public function install()

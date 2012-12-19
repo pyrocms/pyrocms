@@ -1,42 +1,42 @@
 <?php
 
-$lang['user_add_field']                        	= 'إضافة حقل لملف المستخدم الشخصي';
-$lang['user_profile_delete_success']           	= 'تم حذف حقل ملف المستخدم الشخصي بنجاح';
-$lang['user_profile_delete_failure']            = 'حدث خطأ أثناء حذف حقل ملف المستخدم الشخصي بنجاح';
+$lang['user:add_field']                        	= 'إضافة حقل لملف المستخدم الشخصي';
+$lang['user:profile_delete_success']           	= 'تم حذف حقل ملف المستخدم الشخصي بنجاح';
+$lang['user:profile_delete_failure']            = 'حدث خطأ أثناء حذف حقل ملف المستخدم الشخصي بنجاح';
 $lang['profile_user_basic_data_label']  		= 'بيانات أساسية';
 $lang['profile_company']         	  			= 'الشركة';
 $lang['profile_updated_on']           			= 'آخر تحديث';
-$lang['user_profile_fields_label']	 		 	= 'حقول الملف الشخصي';
+$lang['user:profile_fields_label']	 		 	= 'حقول الملف الشخصي';
 
-$lang['user_register_header'] 			= 'الإشتراك';
-$lang['user_register_step1'] 			= '<strong>الخطوة الأولى:</strong> الإشتراك';
-$lang['user_register_step2'] 			= '<strong>الخطوة الثانية:</strong> التفعيل';
+$lang['user:register_header'] 			= 'الإشتراك';
+$lang['user:register_step1'] 			= '<strong>الخطوة الأولى:</strong> الإشتراك';
+$lang['user:register_step2'] 			= '<strong>الخطوة الثانية:</strong> التفعيل';
 
-$lang['user_login_header'] 				= 'تسجيل الدخول';
+$lang['user:login_header'] 				= 'تسجيل الدخول';
 
 // titles
-$lang['user_add_title'] 				= 'إضافة مستخدم';
-$lang['user_list_title'] 				= 'سرد المستخدمين';
-$lang['user_inactive_title'] 			= 'المستخدمون المُعطلون';
-$lang['user_active_title'] 				= 'المستخدمون النشطون';
-$lang['user_registred_title'] 			= 'المستخدمون المسجّلون';
+$lang['user:add_title'] 				= 'إضافة مستخدم';
+$lang['user:list_title'] 				= 'سرد المستخدمين';
+$lang['user:inactive_title'] 			= 'المستخدمون المُعطلون';
+$lang['user:active_title'] 				= 'المستخدمون النشطون';
+$lang['user:registred_title'] 			= 'المستخدمون المسجّلون';
 
 // labels
-$lang['user_edit_title'] 				= 'تعديل المستخدم "%s"';
-$lang['user_details_label'] 			= 'التفاصيل';
-$lang['user_first_name_label'] 			= 'الإسم الأول';
-$lang['user_last_name_label'] 			= 'الإسم الأخير';
-$lang['user_group_label'] 				= 'المجموعة';
-$lang['user_activate_label'] 			= 'تفعيل';
-$lang['user_password_label'] 			= 'كلمة السرّ';
-$lang['user_password_confirm_label'] 	= 'تأكيد كلمة السرّ';
-$lang['user_name_label'] 				= 'الإسم';
-$lang['user_joined_label'] 				= 'انضم في';
-$lang['user_last_visit_label'] 			= 'آخر زيارة';
-$lang['user_never_label'] 				= 'لم يتم';
+$lang['user:edit_title'] 				= 'تعديل المستخدم "%s"';
+$lang['user:details_label'] 			= 'التفاصيل';
+$lang['user:first_name_label'] 			= 'الإسم الأول';
+$lang['user:last_name_label'] 			= 'الإسم الأخير';
+$lang['user:group_label'] 				= 'المجموعة';
+$lang['user:activate_label'] 			= 'تفعيل';
+$lang['user:password_label'] 			= 'كلمة السرّ';
+$lang['user:password_confirm_label'] 	= 'تأكيد كلمة السرّ';
+$lang['user:name_label'] 				= 'الإسم';
+$lang['user:joined_label'] 				= 'انضم في';
+$lang['user:last_visit_label'] 			= 'آخر زيارة';
+$lang['user:never_label'] 				= 'لم يتم';
 
-$lang['user_no_inactives'] 				= 'ليس هناك أي مستخدمين مُعطلين.';
-$lang['user_no_registred'] 				= 'ليس هناك أي مستخدمين مُسجلين.';
+$lang['user:no_inactives'] 				= 'ليس هناك أي مستخدمين مُعطلين.';
+$lang['user:no_registred'] 				= 'ليس هناك أي مستخدمين مُسجلين.';
 
 $lang['account_changes_saved'] 			= 'تم حفظ التعديلات على حسابك بنجاح.';
 
@@ -44,119 +44,119 @@ $lang['indicates_required'] 			= 'تشير إلى الحقول المطلوبة'
 
 // -- Registration / Activation / Reset Password ----------------------------------------------------------
 
-$lang['user_send_activation_email']            = 'إرسال رسالة التفعيل';
-$lang['user_do_not_activate']                  = 'غير مُفعل';
-$lang['user_register_title'] 			= 'تسجيل';
-$lang['user_activate_account_title'] 	= 'تفعيل الحساب';
-$lang['user_activate_label'] 			= 'تفعيل';
-$lang['user_activated_account_title'] 	= 'تم تفعيل الحساب';
-$lang['user_reset_password_title'] 		= 'استعادة كلمة السرّ';
-$lang['user_password_reset_title'] 		= 'تمت استعادة كلمة السرّ';
+$lang['user:send_activation_email']            = 'إرسال رسالة التفعيل';
+$lang['user:do_not_activate']                  = 'غير مُفعل';
+$lang['user:register_title'] 			= 'تسجيل';
+$lang['user:activate_account_title'] 	= 'تفعيل الحساب';
+$lang['user:activate_label'] 			= 'تفعيل';
+$lang['user:activated_account_title'] 	= 'تم تفعيل الحساب';
+$lang['user:reset_password_title'] 		= 'استعادة كلمة السرّ';
+$lang['user:password_reset_title'] 		= 'تمت استعادة كلمة السرّ';
 
 
-$lang['user_error_username'] 			= 'إسم المستخدم الذي اخترته مُستخدم';
-$lang['user_error_email'] 				= 'عنوان البريد الإلكتروني الذي أدخلته مُستخدم.';
+$lang['user:error_username'] 			= 'إسم المستخدم الذي اخترته مُستخدم';
+$lang['user:error_email'] 				= 'عنوان البريد الإلكتروني الذي أدخلته مُستخدم.';
 
-$lang['user_full_name'] 				= 'الإسم الكامل';
-$lang['user_first_name'] 				= 'الإسم الأول';
-$lang['user_last_name'] 				= 'إسم العائلة';
-$lang['user_username'] 					= 'إسم المستخدم';
-$lang['user_display_name']				= 'إسم العرض';
-$lang['user_email_use'] 					   = 'يُستخدم لتسجيل الدخول';
-$lang['user_remember'] 					= 'تذكرني';
-$lang['user_group_id_label']			= 'مُعرف المجموعة';
+$lang['user:full_name'] 				= 'الإسم الكامل';
+$lang['user:first_name'] 				= 'الإسم الأول';
+$lang['user:last_name'] 				= 'إسم العائلة';
+$lang['user:username'] 					= 'إسم المستخدم';
+$lang['user:display_name']				= 'إسم العرض';
+$lang['user:email_use'] 					   = 'يُستخدم لتسجيل الدخول';
+$lang['user:remember'] 					= 'تذكرني';
+$lang['user:group_id_label']			= 'مُعرف المجموعة';
 
-$lang['user_level']						= 'دَوْر المستخدم';
-$lang['user_active']					= 'نشط';
-$lang['user_lang']						= 'اللغة';
+$lang['user:level']						= 'دَوْر المستخدم';
+$lang['user:active']					= 'نشط';
+$lang['user:lang']						= 'اللغة';
 
-$lang['user_activation_code'] 			= 'رمز التفعيل';
+$lang['user:activation_code'] 			= 'رمز التفعيل';
 
-$lang['user_reset_instructions']			   = 'اكتب عنوان بريدك الإلكتروني أو اسم المستخدم الخاص بك';
-$lang['user_reset_password_link'] 		= 'نسيت كلمة السرّ الخاصة بك؟';
+$lang['user:reset_instructions']			   = 'اكتب عنوان بريدك الإلكتروني أو اسم المستخدم الخاص بك';
+$lang['user:reset_password_link'] 		= 'نسيت كلمة السرّ الخاصة بك؟';
 
-$lang['user_activation_code_sent_notice']	= 'أرسلت رسالة إليك تحتوي رمز التفعيل.';
-$lang['user_activation_by_admin_notice'] 	= 'تسجيلك في الموقع بانتظار موافقة الإدارة.';
-$lang['user_registration_disabled']            = 'عُذرا، التسجيل في الموقع غير متاح حالياً.';
+$lang['user:activation_code_sent_notice']	= 'أرسلت رسالة إليك تحتوي رمز التفعيل.';
+$lang['user:activation_by_admin_notice'] 	= 'تسجيلك في الموقع بانتظار موافقة الإدارة.';
+$lang['user:registration_disabled']            = 'عُذرا، التسجيل في الموقع غير متاح حالياً.';
 
 // -- Settings ---------------------------------------------------------------------------------------------
 
-$lang['user_details_section'] 			= 'الإسم';
-$lang['user_password_section'] 			= 'تغيير كلمة السرّ';
-$lang['user_other_settings_section'] 	= 'إعدادات أخرى';
+$lang['user:details_section'] 			= 'الإسم';
+$lang['user:password_section'] 			= 'تغيير كلمة السرّ';
+$lang['user:other_settings_section'] 	= 'إعدادات أخرى';
 
-$lang['user_settings_saved_success'] 	= 'تم حفظ إعدادات حساب المستخدم الخاص بك.';
-$lang['user_settings_saved_error'] 		= 'حدث خطأ ما.';
+$lang['user:settings_saved_success'] 	= 'تم حفظ إعدادات حساب المستخدم الخاص بك.';
+$lang['user:settings_saved_error'] 		= 'حدث خطأ ما.';
 
 // -- Buttons ----------------------------------------------------------------------------------------------
 
-$lang['user_register_btn']				= 'تسجيل';
-$lang['user_activate_btn']				= 'تفعيل';
-$lang['user_reset_pass_btn'] 			= 'استعادة كلمة السرّ';
-$lang['user_login_btn'] 				= 'تسجيل الدخول';
-$lang['user_settings_btn'] 				= 'حفظ الإعدادات';
+$lang['user:register_btn']				= 'تسجيل';
+$lang['user:activate_btn']				= 'تفعيل';
+$lang['user:reset_pass_btn'] 			= 'استعادة كلمة السرّ';
+$lang['user:login_btn'] 				= 'تسجيل الدخول';
+$lang['user:settings_btn'] 				= 'حفظ الإعدادات';
 
 // -- Errors & Messages ------------------------------------------------------------------------------------
 
 // Create
-$lang['user_added_and_activated_success'] 		= 'تم إنشاء وتنشيط المستخدم الجديد.';
-$lang['user_added_not_activated_success'] 		= 'تم إنشاء المستخدم الجديد، وهو بحاجة إلى تنشيط.';
+$lang['user:added_and_activated_success'] 		= 'تم إنشاء وتنشيط المستخدم الجديد.';
+$lang['user:added_not_activated_success'] 		= 'تم إنشاء المستخدم الجديد، وهو بحاجة إلى تنشيط.';
 
 // Edit
-$lang['user_edit_user_not_found_error'] 		= 'المستخدم غير موجود.';
-$lang['user_edit_success'] 						= 'تم تحديث بيانات المستخدم بنجاح.';
-$lang['user_edit_error'] 						= 'حدث خطأ أثناء محاولة تحديث بيانات المستخدم.';
+$lang['user:edit_user_not_found_error'] 		= 'المستخدم غير موجود.';
+$lang['user:edit_success'] 						= 'تم تحديث بيانات المستخدم بنجاح.';
+$lang['user:edit_error'] 						= 'حدث خطأ أثناء محاولة تحديث بيانات المستخدم.';
 
 // Activate
-$lang['user_activate_success'] 					= 'تم تنشيط %s مستخدمين من مجموع %s بنجاح.';
-$lang['user_activate_error'] 					= 'يجب أن تحدد المستخدمين أولا.';
+$lang['user:activate_success'] 					= 'تم تنشيط %s مستخدمين من مجموع %s بنجاح.';
+$lang['user:activate_error'] 					= 'يجب أن تحدد المستخدمين أولا.';
 
 // Delete
-$lang['user_delete_self_error'] 				= 'لا يمكنك حذف بياناتك!';
-$lang['user_mass_delete_success'] 				= 'تم حذف %s من مجموع %s بنجاح.';
-$lang['user_mass_delete_error'] 				= 'يجب أن تحدد المستخدمين أولاً.';
+$lang['user:delete_self_error'] 				= 'لا يمكنك حذف بياناتك!';
+$lang['user:mass_delete_success'] 				= 'تم حذف %s من مجموع %s بنجاح.';
+$lang['user:mass_delete_error'] 				= 'يجب أن تحدد المستخدمين أولاً.';
 
 // Register
-$lang['user_email_pass_missing'] 				= 'حقل عنوان البريد الإلكتروني أو كلمة السرّ غير مكتمل.';
-$lang['user_email_exists'] 						= 'عنوان البريد الإلكتروني الذي اخترته يستخدمه مسبقاً مستخدم آخر.';
-$lang['user_register_error']				   = 'نعتقد أنك روبوت. إن كنا مخطئين فاقبل اعتذارنا.';
-$lang['user_register_reasons'] 					= 'اشترك معنا للوصول إلى الأقسام المحجوبة من الموقع. اشتراكك يتيح لك حفظ إعداداتك والمزيد من المُحتوى والقليل من الدعائيات.';
+$lang['user:email_pass_missing'] 				= 'حقل عنوان البريد الإلكتروني أو كلمة السرّ غير مكتمل.';
+$lang['user:email_exists'] 						= 'عنوان البريد الإلكتروني الذي اخترته يستخدمه مسبقاً مستخدم آخر.';
+$lang['user:register_error']				   = 'نعتقد أنك روبوت. إن كنا مخطئين فاقبل اعتذارنا.';
+$lang['user:register_reasons'] 					= 'اشترك معنا للوصول إلى الأقسام المحجوبة من الموقع. اشتراكك يتيح لك حفظ إعداداتك والمزيد من المُحتوى والقليل من الدعائيات.';
 
 
 // Activation
-$lang['user_activation_incorrect']   			= 'تعذر التفعيل. رجاءً تحقق من بياناتك وتأكد من عدم الكتابة بالأحرف الكبيرة.';
-$lang['user_activated_message']   				= 'تم تفعيل حسابك، ويمكنك الآن استخدامه لتسجيل الدخول.';
+$lang['user:activation_incorrect']   			= 'تعذر التفعيل. رجاءً تحقق من بياناتك وتأكد من عدم الكتابة بالأحرف الكبيرة.';
+$lang['user:activated_message']   				= 'تم تفعيل حسابك، ويمكنك الآن استخدامه لتسجيل الدخول.';
 
 
 // Login
-$lang['user_logged_in']							= 'تم تسجيل دخولك بنجاح.';
-$lang['user_already_logged_in'] 				= 'أنت مسجل الدخول حالياً. رجاءً سجل خروجك قبل المحاولة مرة أخرى.';
-$lang['user_login_incorrect'] 					= 'عنوان البريد الإلكتروني أو كلمة السرّ غير مطابقة. رجاءً تحقق من بياناتك المدخلة وأنك لا تستخدم الأحرف الكبيرة.';
-$lang['user_inactive']   						= 'الحساب الذي تحاول الوصول إليه غير نشط.<br />تحقق من بريدك الإلكتروني للحصول على تعليمات حول طريقة تفعيل حسابك  - <em>قد تكون الرسالة في مجلد البريد الغير مرغوب</em>.';
+$lang['user:logged_in']							= 'تم تسجيل دخولك بنجاح.';
+$lang['user:already_logged_in'] 				= 'أنت مسجل الدخول حالياً. رجاءً سجل خروجك قبل المحاولة مرة أخرى.';
+$lang['user:login_incorrect'] 					= 'عنوان البريد الإلكتروني أو كلمة السرّ غير مطابقة. رجاءً تحقق من بياناتك المدخلة وأنك لا تستخدم الأحرف الكبيرة.';
+$lang['user:inactive']   						= 'الحساب الذي تحاول الوصول إليه غير نشط.<br />تحقق من بريدك الإلكتروني للحصول على تعليمات حول طريقة تفعيل حسابك  - <em>قد تكون الرسالة في مجلد البريد الغير مرغوب</em>.';
 
 
 // Logged Out
-$lang['user_logged_out']   						= 'تم تسجيل خروجك.';
+$lang['user:logged_out']   						= 'تم تسجيل خروجك.';
 
 // Forgot Pass
-$lang['user_forgot_incorrect']   				= "لا يوجد أي حساب يطابق هذه البيانات.";
+$lang['user:forgot_incorrect']   				= "لا يوجد أي حساب يطابق هذه البيانات.";
 
-$lang['user_password_reset_message']   			= "تم استعادة كلمة السرّ الخاصة بك. يجب أن تصلك رسالة خلال ساعتين، وإن لم يحدث، فقد تكون الرسالة وضعت في مجلد البريد الغير مرغوب عن طريق الخطأ.";
+$lang['user:password_reset_message']   			= "تم استعادة كلمة السرّ الخاصة بك. يجب أن تصلك رسالة خلال ساعتين، وإن لم يحدث، فقد تكون الرسالة وضعت في مجلد البريد الغير مرغوب عن طريق الخطأ.";
 
 // Emails ----------------------------------------------------------------------------------------------------
 
 // Activation
-$lang['user_activation_email_subject'] 			= 'تفعيل الحساب';
-$lang['user_activation_email_body'] 			= 'شكراً لك على تفعيل حسابك على %s. رجاء استخدم الرابط أدناه كي تسجّل دخولك إلى الموقع:';
+$lang['user:activation_email_subject'] 			= 'تفعيل الحساب';
+$lang['user:activation_email_body'] 			= 'شكراً لك على تفعيل حسابك على %s. رجاء استخدم الرابط أدناه كي تسجّل دخولك إلى الموقع:';
 
 
-$lang['user_activated_email_subject'] 			= 'اكتملت عمليّة التفعيل';
-$lang['user_activated_email_content_line1'] 	= 'شكراً لك على تسجيلك في %s. قبل أن تتمكن من تفعيل حسابك، رجاء أتم عملية التسجيل بالضغط على الرابط التالي:';
-$lang['user_activated_email_content_line2'] 	= 'إن لم يتعرف برنامج البريد الإلكتروني لديك على الرابط أعلاه، رجاءً استخدم متصفحك واعرض رابط URL التالي وأدخل رمز التفعيل:';
+$lang['user:activated_email_subject'] 			= 'اكتملت عمليّة التفعيل';
+$lang['user:activated_email_content_line1'] 	= 'شكراً لك على تسجيلك في %s. قبل أن تتمكن من تفعيل حسابك، رجاء أتم عملية التسجيل بالضغط على الرابط التالي:';
+$lang['user:activated_email_content_line2'] 	= 'إن لم يتعرف برنامج البريد الإلكتروني لديك على الرابط أعلاه، رجاءً استخدم متصفحك واعرض رابط URL التالي وأدخل رمز التفعيل:';
 
 // Reset Pass
-$lang['user_reset_pass_email_subject'] 			= 'استعادة كلمة السرّ';
-$lang['user_reset_pass_email_body'] 			= 'تمت استعادة كلمة المرور على %s. إن لم تطلب هذا التغيير، رجاءً راسلنا على %s وسنقوم باللازم.';
+$lang['user:reset_pass_email_subject'] 			= 'استعادة كلمة السرّ';
+$lang['user:reset_pass_email_body'] 			= 'تمت استعادة كلمة المرور على %s. إن لم تطلب هذا التغيير، رجاءً راسلنا على %s وسنقوم باللازم.';
 
 // Profile
 $lang['profile_of_title'] 				= 'ملف %s الشخصيّ';

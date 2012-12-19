@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // inline help html. Only 'help_body' is used.
 $lang['help_body'] = "
@@ -9,8 +9,8 @@ Side types administreres og widgets indsættes uden nogensinde at redigere skabe
 <h4>Sidehåndtering</h4><hr>
 <h6>Side Indhold</h6>
 <p>Når du vælger en sidetitel, så husk at standardsidelayoutet vil vise sidetitlen over sideindholdet.
-Opret nu sideindholde på din side med WYSIWYG editoren. Når du er klar til at siden skal vises for besøgende, 
-kan du sætte sidestatus til Live, og den vil være tilgængelig på den viste URL. 
+Opret nu sideindholde på din side med WYSIWYG editoren. Når du er klar til at siden skal vises for besøgende,
+kan du sætte sidestatus til Live, og den vil være tilgængelig på den viste URL.
 <strong>Du skal også gå til Design -> Navigation og oprette et nyt navigationslink hvis du vil have at siden skal vises i menuen.</strong></p>
 
 <h6>Meta data</h6>
@@ -42,8 +42,8 @@ F.eks.: Hvis du vil have en twitter feed widget vist i bunden af hver side kan d
 {{ page:title }}
 {{ page:body }}
 
-< div class=\"min-twitter-widget\" >
-	{{ widgets:instance id=\"1\" }}
-< /div >
+&lt;div class=&quot;my-twitter-widget&quot;&gt;
+	{{ widgets:instance id=&quot;1&quot; }}
+&lt;/div&gt;
 </code></pre>
 Nu kan du tilføje css styling til \"min-twitter-widget\" klassen i CSS fanebladet</p>";

@@ -9,9 +9,9 @@
  * @version		1.1.0
  */
 
-$lang['streams.keywords.name'] = 'Nyckelord';
-$lang['streams.keywords.return_type'] = 'Returtyp';
-$lang['streams.keywords.return_type.instructions'] = 'Matris: Rader med keyword, count, total, is_first, is_last<br/>String: keyword_1, keyword_2, keyword_3<br/>Ändras detta påverkas dina mallar.';
+$lang['streams:keywords.name'] = 'Nyckelord';
+$lang['streams:keywords.return_type'] = 'Returtyp';
+$lang['streams:keywords.return_type.instructions'] = 'Matris: Rader med keyword, count, total, is_first, is_last<br/>String: keyword_1, keyword_2, keyword_3<br/>Ändras detta påverkas dina mallar.';
 
 
 /* End of file keywords_lang.php */  

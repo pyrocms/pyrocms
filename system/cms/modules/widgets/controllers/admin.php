@@ -196,7 +196,7 @@ class Admin extends Admin_Controller {
 			}
 		}
 
-		$this->session->set_flashdata( array($status=> lang('widgets.'.$action.'_'.$status.$multiple)));
+		$this->session->set_flashdata( array($status=> lang('widgets:'.$action.'_'.$status.$multiple)));
 	}
 
 }

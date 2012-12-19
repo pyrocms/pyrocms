@@ -17,7 +17,7 @@ class Field_image
 
 	public $custom_parameters		= array('folder', 'resize_width', 'resize_height', 'keep_ratio', 'allowed_types');
 
-	public $version					= '1.1';
+	public $version					= '1.1.0';
 
 	public $author					= array('name' => 'Parse19', 'url' => 'http://parse19.com');
 
@@ -209,7 +209,7 @@ class Field_image
 		
 		if ( ! $tree)
 		{
-			return '<em>'.lang('streams.image.need_folder').'</em>';
+			return '<em>'.lang('streams:image.need_folder').'</em>';
 		}
 		
 		$choices = array();
@@ -270,7 +270,7 @@ class Field_image
 
 		return array(
 				'input' 		=> form_dropdown('keep_ratio', $choices, $value),
-				'instructions'	=> lang('streams.image.keep_ratio_instr'));
+				'instructions'	=> lang('streams:image.keep_ratio_instr'));
 	}
 
 	// --------------------------------------------------------------------------
@@ -286,7 +286,7 @@ class Field_image
 	{
 		return array(
 				'input'			=> form_input('allowed_types', $value),
-				'instructions'	=> lang('streams.image.allowed_types_instr'));
+				'instructions'	=> lang('streams:image.allowed_types_instr'));
 	}
 	
 }

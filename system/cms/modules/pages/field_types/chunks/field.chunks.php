@@ -15,7 +15,7 @@ class Field_chunks
 	
 	public $db_col_type				= 'varchar';
 
-	public $version					= '1.0';
+	public $version					= '1.0.0';
 
 	public $admin_display			= 'full';
 

@@ -75,7 +75,7 @@ class Ajax extends MY_Controller {
 			if (method_exists($parameters, $field))
 			{
 				$data['input'] 			= $parameters->$field();
-				$data['input_name']		= $this->lang->line('streams.'.$field);
+				$data['input_name']		= $this->lang->line('streams:'.$field);
 			}
 			elseif (method_exists($field_type, 'param_'.$field))
 			{
@@ -94,7 +94,7 @@ class Ajax extends MY_Controller {
 					$data['instructions']	= null;
 				}
 
-				$data['input_name']		= $this->lang->line('streams.'.$field_type->field_type_slug.'.'.$field);
+				$data['input_name']		= $this->lang->line('streams:'.$field_type->field_type_slug.'.'.$field);
 			}
 			else
 			{

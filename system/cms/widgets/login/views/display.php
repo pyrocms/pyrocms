@@ -12,12 +12,12 @@
 </ul>
 
 <div class="pyro-buttons">
-	<?php echo form_checkbox('remember', '1', false); ?><?php echo lang('user_remember')?><br/>
+	<?php echo form_checkbox('remember', '1', false); ?><?php echo lang('user:remember')?><br/>
 
-	<button type="submit" class="login_submit"><?php echo lang('user_login_btn') ?></button>
-	<?php echo anchor('users/reset_pass', lang('user_reset_password_link'));?>
+	<button type="submit" class="login_submit"><?php echo lang('user:login_btn') ?></button>
+	<?php echo anchor('users/reset_pass', lang('user:reset_password_link'));?>
 	<?php if (Settings::get('enable_registration')): ?>
-	<?php echo ' | '.anchor('register', lang('user_register_btn')); ?>
+	<?php echo ' | '.anchor('register', lang('user:register_btn')); ?>
 	<?php endif; ?>
 </div>
 
