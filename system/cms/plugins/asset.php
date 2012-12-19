@@ -26,41 +26,255 @@ class Plugin_Asset extends Plugin
 	 * to build the reference in the admin panel
 	 *
 	 * All options are listed here but refer 
-	 * to the Blog plugin for a larger example
-	 *
-	 * @todo fill the  array with details about this plugin, then uncomment the return value.
+	 * to the Asset plugin for a larger example
 	 *
 	 * @return array
 	 */
 	public function _self_doc()
 	{
 		$info = array(
-			'your_method' => array(// the name of the method you are documenting
-				'description' => array(// a single sentence to explain the purpose of this method
-					'en' => 'Displays some data from some module.'
+			'css' => array(
+				'description' => array(
+					'en' => 'Add a StyleSheet to a specific group. Returns empty.'
 				),
-				'single' => true,// will it work as a single tag?
-				'double' => false,// how about as a double tag?
-				'variables' => '',// list all variables available inside the double tag. Separate them|like|this
+				'single' => true,
+				'double' => false,
+				'variables' => '',
 				'attributes' => array(
-					'order-dir' => array(// this is the order-dir="asc" attribute
-						'type' => 'flag',// Can be: slug, number, flag, text, array, any.
-						'flags' => 'asc|desc|random',// flags are predefined values like this.
-						'default' => 'asc',// attribute defaults to this if no value is given
-						'required' => false,// is this attribute required?
+					'file' => array(
+						'type' => 'text',
+						'required' => true,
 					),
-					'limit' => array(
-						'type' => 'number',
-						'flags' => '',
-						'default' => '20',
+					'file_min' => array(
+						'type' => 'text',
+						'default' => '(uses normal file)',
+						'required' => false,
+					),
+					'group' => array(
+						'type' => 'text',
+						'default' => 'global',
 						'required' => false,
 					),
 				),
-			),// end first method
+			),
+			'css_inline' => array(
+				'description' => array(
+					'en' => 'Add inline CSS to the Assets Library. Automatically wrapped in <style> tag.'
+				),
+				'single' => false,
+				'double' => true,
+				'variables' => '',
+				'attributes' => array(),
+			),
+			'css_url' => array(
+				'description' => array(
+					'en' => 'Get the full file URL to a CSS asset.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'file' => array(
+						'type' => 'text',
+						'required' => true,
+					),
+				),
+			),
+			'css_path' => array(
+				'description' => array(
+					'en' => 'Get the file path to a CSS asset.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'file' => array(
+						'type' => 'text',
+						'required' => true,
+					),
+				),
+			),
+			
+			'js' => array(
+				'description' => array(
+					'en' => 'Add a JavaScript file to a specific group. Returns empty.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'file' => array(
+						'type' => 'text',
+						'required' => true,
+					),
+					'file_min' => array(
+						'type' => 'text',
+						'default' => '(uses normal file)',
+						'required' => false,
+					),
+					'group' => array(
+						'type' => 'text',
+						'default' => 'global',
+						'required' => false,
+					),
+				),
+			),
+			'js_inline' => array(
+				'description' => array(
+					'en' => 'Add inline JS to the Assets Library. Automatically wrapped in <script> tag.'
+				),
+				'single' => false,
+				'double' => true,
+				'variables' => '',
+				'attributes' => array(),
+			),
+			'js_url' => array(
+				'description' => array(
+					'en' => 'Get the full file URL to a JS asset.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'file' => array(
+						'type' => 'text',
+						'required' => true,
+					),
+				),
+			),
+			'js_path' => array(
+				'description' => array(
+					'en' => 'Get the file path to a JS asset.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'file' => array(
+						'type' => 'text',
+						'required' => true,
+					),
+				),
+			),
+			
+			'image' => array(
+				'description' => array(
+					'en' => 'Return an <img/> tag with an image from Assets.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'file' => array(
+						'type' => 'text',
+						'required' => true,
+					),
+					'alt' => array(
+						'type' => 'text',
+						'default' => '',
+						'required' => false,
+					),
+					'[attribute]' => array(
+						'type' => 'text',
+						'required' => false,
+					),
+				),
+			),
+			'image_url' => array(
+				'description' => array(
+					'en' => 'Get the URL of an image from Assets.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'file' => array(
+						'type' => 'text',
+						'required' => true,
+					),
+				),
+			),
+			'image_path' => array(
+				'description' => array(
+					'en' => 'Get the file path of an image from Assets.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'file' => array(
+						'type' => 'text',
+						'required' => true,
+					),
+				),
+			),
+			
+			'render' => array(
+				'description' => array(
+					'en' => 'Render the CSS and JS of a specific group.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'group' => array(
+						'type' => 'text',
+						'default' => 'global',
+						'required' => false,
+					),
+				),
+			),
+			'render_css' => array(
+				'description' => array(
+					'en' => 'Render only the CSS of a specific group.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'group' => array(
+						'type' => 'text',
+						'default' => 'global',
+						'required' => false,
+					),
+				),
+			),
+			'render_css_inline' => array(
+				'description' => array(
+					'en' => 'Render only the inline CSS.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(),
+			),
+			'render_js' => array(
+				'description' => array(
+					'en' => 'Render only the JS of a specific group.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'group' => array(
+						'type' => 'text',
+						'default' => 'global',
+						'required' => false,
+					),
+				),
+			),
+			'render_js_inline' => array(
+				'description' => array(
+					'en' => 'Render only the inline JS.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(),
+			),
 		);
 	
-		//return $info;
-		return array();
+		return $info;
 	}
 
 	/**
