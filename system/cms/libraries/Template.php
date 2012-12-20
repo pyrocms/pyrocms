@@ -216,7 +216,8 @@ class Template
 		}
 
 		// Output template variables to the template
-		$template['title']			= $this->_title;
+		$template['title']			= strip_tags($this->_title);
+		$template['page_title']		= $this->_title;
 		$template['breadcrumbs']	= $this->_breadcrumbs;
 		$template['metadata']		= $this->get_metadata() . Asset::render('extra') . $this->get_metadata('late_header');
 		$template['partials']		= array();
