@@ -19,7 +19,6 @@ class Row_m extends MY_Model {
 	 * that we don't need to include in
 	 * some processes.
 	 *
-	 * @access 	public
 	 * @var 	array
 	 */
 	public $ignore = array('id', 'created', 'updated', 'created_by');
@@ -29,7 +28,6 @@ class Row_m extends MY_Model {
 	/**
 	 * Cycle Select String
 	 *
-	 * @access 	public
 	 * @var 	string
 	 */
 	public $data;
@@ -41,7 +39,6 @@ class Row_m extends MY_Model {
 	 *
 	 * Convenience Var
 	 *
-	 * @access 	public
 	 * @var 	string
 	 */
 	public $base_prefix;
@@ -54,7 +51,6 @@ class Row_m extends MY_Model {
 	 * Each of the arrays can also be a string,
 	 * in which case they will not be imploded.
 	 *
-	 * @access 	public
 	 * @var 	string
 	 */
 	public $sql = array(
@@ -72,7 +68,6 @@ class Row_m extends MY_Model {
 	 * to keep grabbing them from
 	 * the database.
 	 *
-	 * @access 	public
 	 * @var 	obj
 	 */
 	public $all_fields = array();
@@ -82,7 +77,6 @@ class Row_m extends MY_Model {
 	/**
 	 * Streams structure
 	 *
-	 * @access 	public
 	 * @var 	array
 	 */
 	public $structure;
@@ -111,7 +105,6 @@ class Row_m extends MY_Model {
 	/**
 	 * Data to send to the function
 	 *
-	 * @access	public
 	 * @var		obj
 	 */
 	public $get_rows_hook_data;
@@ -123,7 +116,6 @@ class Row_m extends MY_Model {
 	 *
 	 * Grab the fields for a stream
 	 *
-	 * @access 	private
 	 * @param 	stream object
 	 * @return 	void
 	 */
