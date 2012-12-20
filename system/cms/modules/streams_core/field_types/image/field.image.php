@@ -13,11 +13,13 @@ class Field_image
 {
 	public $field_type_slug			= 'image';
 	
-	public $db_col_type				= 'int';
+	// Files are saved as 15 character strings.
+	public $db_col_type				= 'char';
+	public $col_constraint 			= 15;
 
 	public $custom_parameters		= array('folder', 'resize_width', 'resize_height', 'keep_ratio', 'allowed_types');
 
-	public $version					= '1.1.0';
+	public $version					= '1.2.0';
 
 	public $author					= array('name' => 'Parse19', 'url' => 'http://parse19.com');
 
