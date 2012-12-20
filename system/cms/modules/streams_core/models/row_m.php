@@ -788,7 +788,7 @@ class Row_m extends MY_Model {
 	 * @param	[bool]
 	 * @return	mixed
 	 */
-	public function get_row($id, $stream, $format_output = true)
+	public function get_row($id, $stream, $format_output = true, $plugin_call = false)
 	{
 		// Now the structure. We will need this as well.
 		if ( ! $this->structure)
@@ -810,7 +810,7 @@ class Row_m extends MY_Model {
 			
 			if ($format_output)
 			{
-				return $this->format_row($row , $stream_fields, $stream);
+				return $this->format_row($row , $stream_fields, $stream, true, $plugin_call);
 			}
 			else
 			{	
