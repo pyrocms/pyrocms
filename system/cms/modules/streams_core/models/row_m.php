@@ -907,7 +907,6 @@ class Row_m extends MY_Model {
 
 			if (array_key_exists($row_slug, $all_fields))
 			{
-
 				if ($return_object)
 				{
 					$row->$row_slug = $this->format_column($row_slug,
@@ -1157,12 +1156,12 @@ class Row_m extends MY_Model {
 						}
 						else
 						{
-							$return_data[$field->field_slug] = escape_tags($return_data[$field->field_slug]);
+							$return_data[$field->field_slug] = $return_data[$field->field_slug];
 						}
 					}
 					else
 					{
-						$return_data[$field->field_slug] = escape_tags($form_data[$field->field_slug]);
+						$return_data[$field->field_slug] = $form_data[$field->field_slug];
 	
 						// Make null - some fields don't like just blank values
 						if ($return_data[$field->field_slug] == '')
@@ -1251,7 +1250,7 @@ class Row_m extends MY_Model {
 						}
 						elseif(is_string($insert_data[$field->field_slug]))
 						{
-							$insert_data[$field->field_slug] = escape_tags(trim($insert_data[$field->field_slug]));
+							$insert_data[$field->field_slug] = trim($insert_data[$field->field_slug]);
 						}
 					}
 				}
