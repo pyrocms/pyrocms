@@ -67,7 +67,7 @@ class Migration_Update_pages_for_streams extends CI_Migration
         $this->type->load_types_from_folder(APPPATH.'modules/pages/field_types/', 'addon');
        
         $field = array(
-            'name'          => 'lang:streams.chunks.name',
+            'name'          => 'lang:streams:chunks.name',
             'slug'          => 'chunks',
             'namespace'     => 'pages',
             'type'          => 'chunks',
