@@ -49,7 +49,8 @@ $lang['cp:nav_misc'] = 'Övrigt';
 
 $lang['cp:must_login'] = 'Du måste vara inloggad för att kunna se sidan.';
 $lang['cp:access_denied'] = 'Du har inte rättigheter att se sidan.';
-$lang['cp:delete_installer_message']              = 'The installer directory still exists! <a href="#" id="remove_installer_directory">Please delete it from your server!</a>.<br>Leaving it online means control of this site could be granted to somebody else.'; #translate
+$lang['cp:delete_installer_message']              = 'The installer directory still exists! Please delete it from your server! Leaving it online means control of this site could be granted to somebody else.'; #translate
+$lang['cp:delete_installer']					 = 'Delete Installer'; #translate
 $lang['cp:delete_installer_successfully_message'] = 'The installer directory has been successfully deleted.'; #translate
 $lang['cp:delete_installer_manually_message']     = 'The installer directory could not be deleted. <strong>Please remove it manually!</strong>'; #translate
 $lang['cp:upgrade_message'] = 'Du använder version %s, men din databas använder %s. Vänligen <a href="%s" title="Uppgradera">klicka här</a> för att uppgradera databasen.';
