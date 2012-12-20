@@ -392,7 +392,7 @@ class Type
 		// For the chozen data placeholder value
 		$return[null] = null;
 
-		if ( ! $types or ! is_array($types)) return array();
+		if ( ! $types) return array();
 			
 		foreach ($types as $type)
 		{
