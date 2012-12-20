@@ -74,6 +74,8 @@ class Streams_cp extends CI_Driver {
 		
  		$stream_fields = $CI->streams_m->get_stream_fields($stream->id);
 
+ 		$stream_fields = new stdClass;
+
  		$stream_fields->id = new stdClass;
   		$stream_fields->created = new stdClass;
  		$stream_fields->updated = new stdClass;
