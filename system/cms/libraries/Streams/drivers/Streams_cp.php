@@ -971,6 +971,12 @@ class Streams_cp extends CI_Driver {
 		{
 			$CI->template->title($extra['title']);
 		}
+
+		// Set no assignments message
+		if (isset($extra['no_assignments_message']))
+		{
+			$data['no_assignments_message'] = $extra['no_assignments_message'];
+		}
 		
 		$CI->template->append_metadata('<script>var fields_offset='.$offset.';</script>');
 		$CI->template->append_js('streams/assignments.js');
