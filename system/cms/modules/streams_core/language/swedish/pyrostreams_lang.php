@@ -129,6 +129,7 @@ $lang['streams:start.no_fields_msg'] = 'Det finns inga fält att lägga till, ti
 $lang['streams:start.adding_a_field_here'] = 'lägga till ett fält här';
 $lang['streams:start.no_entries'] = 'Det finnns inga poster i <strong>%s</strong>. Till att börja med kan du';
 $lang['streams:add_fields'] = 'koppla fält';
+$lang['streams:no_entries']								= 'No entries'; #translate
 $lang['streams:add_an_entry'] = 'skapa en ny post';
 $lang['streams:to_this_stream_or'] = 'till denna stream eller';
 $lang['streams:no_field_assign'] = 'Inga fält-kopplingar';

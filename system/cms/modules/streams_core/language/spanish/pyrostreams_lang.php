@@ -139,6 +139,7 @@ $lang['streams:start.no_fields_msg']					= "No hay campos para agregar a este st
 $lang['streams:start.adding_a_field_here']				= "agregar un campo aquí";
 $lang['streams:start.no_entries']						= "No hay entradas para <strong>%s</strong> todavía. Para comenzar, puedes";
 $lang['streams:add_fields']								= "asignar campos";
+$lang['streams:no_entries']								= 'No entries'; #translate
 $lang['streams:add_an_entry']							= "crear un campo";
 $lang['streams:to_this_stream_or']						= "a este stream o";
 $lang['streams:no_field_assign']						= "No Hay Campos Asignados";

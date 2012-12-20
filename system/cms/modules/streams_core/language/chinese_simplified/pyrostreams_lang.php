@@ -139,6 +139,7 @@ $lang['streams:start.no_fields_msg']					= "没有字段添加到该流。在Pyr
 $lang['streams:start.adding_a_field_here']				= "从这里添加字段";
 $lang['streams:start.no_entries']						= "<strong>%s</strong> 没有任何条目。要启动，您可以";
 $lang['streams:add_fields']								= "赋值字段";
+$lang['streams:no_entries']								= 'No entries'; #translate
 $lang['streams:add_an_entry']							= "添加条目";
 $lang['streams:to_this_stream_or']						= "对此流或";
 $lang['streams:no_field_assign']						= "没有字段赋值";

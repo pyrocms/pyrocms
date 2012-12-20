@@ -73,5 +73,20 @@
 <?php echo $pagination['links']; ?>
 
 <?php } else { ?>
-    <div class="no_data">No data</div>
+
+<div class="no_data">
+	<?php
+		
+		if (isset($no_entries_message) and $no_entries_message)
+		{
+			echo lang_label($no_entries_message);
+		}
+		else
+		{
+			echo lang('streams:no_entries');
+		}
+
+	?>
+</div><!--.no_data-->
+
 <?php } ?>

@@ -138,6 +138,7 @@ $lang['streams:start.no_fields_msg']					= "Nejsou zde žádná pole k přiřaze
 $lang['streams:start.adding_a_field_here']				= "přidání pole";
 $lang['streams:start.no_entries']						= "Zatím zde nejsou žádné záznamy pro <strong>%s</strong>. Můžete";
 $lang['streams:add_fields']								= "přiřadit pole";
+$lang['streams:no_entries']								= 'No entries'; #translate
 $lang['streams:add_an_entry']							= "přidat záznam";
 $lang['streams:to_this_stream_or']						= "k tomuto streamu nebo";
 $lang['streams:no_field_assign']						= "Žádná přiřazená pole";

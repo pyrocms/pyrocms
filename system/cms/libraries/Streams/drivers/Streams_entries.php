@@ -104,7 +104,7 @@ class Streams_entries extends CI_Driver {
 		{
 			foreach ($this->entries_params as $param => $default)
 			{
-				if ( ! isset($params[$param]) and !is_null($this->entries_params[$param])) $params[$param] = $default;
+				if ( ! isset($params[$param]) and ! is_null($this->entries_params[$param])) $params[$param] = $default;
 			}
 		}
 	
@@ -125,7 +125,6 @@ class Streams_entries extends CI_Driver {
 		// -------------------------------------
 
 		if ($params['paginate'] == 'yes' and ( ! isset($params['limit']) or ! is_numeric($params['limit']))) $params['limit'] = 25;
-				
 
 		// -------------------------------------
 		// Get Rows
@@ -183,9 +182,9 @@ class Streams_entries extends CI_Driver {
 	 * @param	bool - format results?
 	 * @return	object
 	 */
-	public function get_entry($entry_id, $stream, $namespace, $format = true)
+	public function get_entry($entry_id, $stream, $namespace, $format = true, $plugin_call = true)
 	{
-		return get_instance()->row_m->get_row($entry_id, $this->stream_obj($stream, $namespace), $format);
+		return get_instance()->row_m->get_row($entry_id, $this->stream_obj($stream, $namespace), $format, $plugin_call);
 	}
 
 	// --------------------------------------------------------------------------

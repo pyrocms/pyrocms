@@ -139,6 +139,7 @@ $lang['streams:start.no_fields_msg']					= "Δεν υπάρχουν πεδία �
 $lang['streams:start.adding_a_field_here']				= "προσθέτωντας ένα πεδίο εδώ";
 $lang['streams:start.no_entries']						= "Δεν υπάρχουν ακόμη εγγραφές για <strong>%s</strong>. Για να ξεκινήσετε μπορείτε να";
 $lang['streams:add_fields']								= "αντιστοιχήσετε πεδία";
+$lang['streams:no_entries']								= 'No entries'; #translate
 $lang['streams:add_an_entry']							= "προσθέσετε μια εγγραφή";
 $lang['streams:to_this_stream_or']						= "σε αυτή τη ροή ή";
 $lang['streams:no_field_assign']						= "Δεν Υπάρχουν Αντιστοιχίσεις Πεδίων";

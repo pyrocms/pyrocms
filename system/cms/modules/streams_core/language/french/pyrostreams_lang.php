@@ -139,6 +139,7 @@ $lang['streams:start.no_fields_msg'] = "Il n'y a aucun champ à ajouter à ce fl
 $lang['streams:start.adding_a_field_here'] = "ajouter un champ ici";
 $lang['streams:start.no_entries'] = "Il n'y a aucune entrée pour <strong>%s</strong>. Pour commencer, vous pouvez";
 $lang['streams:add_fields'] = "Assigner les Champs";
+$lang['streams:no_entries']								= 'No entries'; #translate
 $lang['streams:add_an_entry'] = "Ajouter une Entrée";
 $lang['streams:to_this_stream_or'] = "à ce Flux où";
 $lang['streams:no_field_assign'] = "Aucun Champ assigné";

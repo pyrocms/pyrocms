@@ -139,6 +139,7 @@ $lang['streams:start.no_fields_msg']					= "Nėra galimų pridėti laukų į š�
 $lang['streams:start.adding_a_field_here']				= "pridėdami vieną jų";
 $lang['streams:start.no_entries']						= "Nėra yrašų <strong>%s</strong>. Kad pradėti,";
 $lang['streams:add_fields']								= "priskirkite laukus";
+$lang['streams:no_entries']								= 'No entries'; #translate
 $lang['streams:add_an_entry']							= "pridekite įrašą";
 $lang['streams:to_this_stream_or']						= "šiam srautui arba";
 $lang['streams:no_field_assign']						= "Nėra lauko priskyrimai";
