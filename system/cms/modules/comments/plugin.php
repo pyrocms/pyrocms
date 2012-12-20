@@ -1,11 +1,9 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 /**
- * Example Plugin
+ * Comments Plugin
  *
- * Quick plugin to demonstrate how things work
- *
- * @author		PyroCMS Dev Team
- * @package		PyroCMS\Core\Modules\Comments\Plugins
+ * @author   PyroCMS Dev Team
+ * @package  PyroCMS\Core\Modules\Comments\Plugins
  */
 class Plugin_Comments extends Plugin
 {
@@ -64,16 +62,16 @@ class Plugin_Comments extends Plugin
 	 * Count
 	 *
 	 * Usage:
-	 * {{ comments:count item_id="{{ page:id }} [module="pages"] [type="number"] }}
+	 * {{ comments:count item_id="{{ page:id }}" [module="pages"] [type="number"] }}
 	 *
-	 * @param	array
-	 * @return	array
+	 * @param array
+	 * @return array
 	 */
 	public function count()
 	{
 		$item_id = $this->attribute('item_id', 0);
-		$module = $this->attribute('module', $this->module);
-		$type = $this->attribute('type', false);
+		$module  = $this->attribute('module', $this->module);
+		$type    = $this->attribute('type', false);
 		
 		$this->load->helper('comments/comments');
 		
@@ -81,4 +79,4 @@ class Plugin_Comments extends Plugin
 	}
 }
 
-/* End of file example.php */
+/* End of file plugin.php */

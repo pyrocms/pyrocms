@@ -96,9 +96,9 @@ class Plugin_Template extends Plugin
 	 */
 	public function set_metadata()
 	{
-		$name = $this->attribute('name');
+		$name  = $this->attribute('name');
 		$value = $this->attribute('value');
-		$type = $this->attribute('type', 'meta');
+		$type  = $this->attribute('type', 'meta');
 
 		$this->template->set_metadata($name, $value, $type);
 	}
@@ -116,9 +116,9 @@ class Plugin_Template extends Plugin
 	 */
 	public function set_breadcrumb()
 	{
-		$name = $this->attribute('name');
-		$uri = $this->attribute('uri');
-		$reset = (strtolower($this->attribute('reset')) === 'true') ? true : false;
+		$name  = $this->attribute('name');
+		$uri   = $this->attribute('uri');
+		$reset = str_to_bool($this->attribute('reset', false));
 
 		$this->template->set_breadcrumb($name, $uri, $reset);
 	}
@@ -142,7 +142,7 @@ class Plugin_Template extends Plugin
 	}
 
 	/**
-	 * Checks for existance of a partial
+	 * Checks for existence of a partial
 	 *
 	 * Usage:
 	 *
@@ -168,7 +168,7 @@ class Plugin_Template extends Plugin
 	}
 
 	/**
-	 * Check for the existance of breadcrumbs
+	 * Check for the existence of breadcrumbs
 	 *
 	 * Usage:
 	 *

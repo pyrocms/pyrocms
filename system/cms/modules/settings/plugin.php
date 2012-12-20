@@ -1,11 +1,11 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 /**
  * Settings Plugin
  *
  * Allows settings to be used in content tags.
  *
- * @author        PyroCMS Dev Team
- * @package        PyroCMS\Core\Modules\Settings\Plugins
+ * @author   PyroCMS Dev Team
+ * @package  PyroCMS\Core\Modules\Settings\Plugins
  */
 class Plugin_Settings extends Plugin
 {
