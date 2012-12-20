@@ -64,13 +64,13 @@ jQuery(function($){
 
 	$('.sidebar-right').find('.close').on('click', function() {
 		$search_results.empty();
-		$('.sidebar-right').slideUp();
+		$('.sidebar-right').removeClass('fadeInRight').addClass('fadeOutRight');
+		$('.side, .center').removeClass('three_column');
 	});
 
 	$('input#file-search').keyup(function(e){
 
 		$search_results.empty();
-		$('.sidebar-right').slideUp();
 
 		// submit on Enter
 		if (e.which === 13) {
@@ -91,7 +91,8 @@ jQuery(function($){
 				} else {
 					 $('<li><div class="info"></div>' + results.message + '</li>').appendTo('ul#search-results');
 				}
-				$('.sidebar-right').slideDown();
+				$('.sidebar-right').show().removeClass('fadeOutRight').addClass('fadeInRight');
+				$('.side, .center').addClass('three_column');
 			});
 
 		}

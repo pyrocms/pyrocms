@@ -65,7 +65,7 @@
 }
 
 section.side {
-	width:19.4%;
+	width:24.4%;
 	float:left;
 	margin:0;
 	overflow-x: hidden;
@@ -74,9 +74,13 @@ section.side {
 
 section.center {
 	display: inline-block;
-	width:61%;
+	width:75.4%;
 	float:left;
 	margin:0;
+}
+
+section.center.three_column {
+	width: 51%;
 }
 
 section.center .no_data {

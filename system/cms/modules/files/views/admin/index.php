@@ -1,4 +1,4 @@
-<section class="title animated bounceInDown">
+<section class="title">
 	<h4 id="file-title">
 		<?php echo lang('files:files_title') ?>
 	</h4>
@@ -24,7 +24,7 @@
 	</div>
 </section>
 
-<section class="item animated bounceInLeft">
+<section class="item">
 	<section class="side">
 		<ul id="folders-sidebar">
 			<li class="folder places" data-id="0"><a href="#"><?php echo lang('files:places') ?></a></li>
@@ -61,7 +61,7 @@
 
 	</section>
 
-	<section class="side sidebar-right animated fadeInRight" id="file-sidebar">
+	<section class="side sidebar-right animated" id="file-sidebar">
 		<button class="close" alt="close">Close</button>
 		<ul id="search-results"></ul>
 	</section>
@@ -175,7 +175,7 @@
 
 </section>
 
-<section class="file-path animated bounceInUp">
+<section class="file-path">
 	<h5 id="file-breadcrumbs">
 		<span id="crumb-root">
 			<a data-id="0" href="#"><?php echo lang('files:places') ?></a>
