@@ -108,9 +108,9 @@ class Admin_Controller extends MY_Controller {
 			// We always have our 
 			// edit profile links and such.
 			$menu_items['lang:global:profile'] = array(
-							'lang:cp:edit_profile_label'		=> 'edit-profile',
-							'lang:cp:logout_label'				=> 'admin/logout'
-						);
+				'lang:cp:edit_profile_label'		=> 'edit-profile',
+				'lang:cp:logout_label'				=> 'admin/logout'
+			);
 
 			// Trigger an event so modules can mess with the
 			// menu items array via the events structure. 
