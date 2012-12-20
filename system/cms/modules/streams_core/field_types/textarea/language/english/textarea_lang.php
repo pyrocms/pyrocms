@@ -2,3 +2,4 @@
 
 $lang['streams:textarea.name'] 			= 'Textarea';
 $lang['streams:textarea.default_text'] 	= 'Default Text';
+$lang['streams:textarea.allow_tags']	= 'Allow Tags';
