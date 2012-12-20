@@ -684,6 +684,7 @@ input:invalid, textarea:invalid { background-color: #f0dddd; }
   width: 100%;
   margin-bottom: 10px;
 }
+
 .form_inputs .input > input {
 	color: #666;
 	min-width: 210px!important;
@@ -699,7 +700,7 @@ input:invalid, textarea:invalid { background-color: #f0dddd; }
 -webkit-transition: 250ms linear all; 
   -moz-transition: 250ms linear all; 
   transition: 250ms linear all;
-  /* width: 100%; */
+  width: 99%;
 }
 
 .form_inputs input:focus,
