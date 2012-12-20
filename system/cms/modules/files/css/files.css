@@ -35,7 +35,74 @@ section.center .no_data {
 
 #file-toolbar {
 	display: inline-block;
+	position: relative;
 	float: right;
+	padding-right: 16px
+}
+
+#file-buttons {
+	display: inline-block;
+	position: relative;
+	float: left;
+}
+
+#file-query {
+	display: inline-block;
+	position: relative;
+	float: left;
+	width: auto;
+}
+
+input#file-search {
+	width: auto;
+	display: inline-block;
+	position: absolute;
+	top: -4px;
+	right: 0;
+	padding: 4px 0px 4px 16px;
+  margin: 0px 16px 0 0;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  font-weight: normal;
+  line-height: 20px;
+  background: white;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	-webkit-box-shadow: 0 1px 1px 0 rgba(255,255,255,.05);
+	-moz-box-shadow: 0 1px 1px 0 rgba(255,255,255,.05);
+	box-shadow: 0 1px 1px 0 rgba(255,255,255,.05);
+	width: 130px;
+	vertical-align: baseline;
+	outline: none;
+	/* color: white; */
+  -webkit-border-radius: 16px;
+  -moz-border-radius: 16px;
+  -o-border-radius: 16px;
+  border-radius: 16px;
+  -webkit-transition: 200ms linear all;
+	-moz-transition: 200ms linear all;
+	-o-transition: 200ms linear all;
+	transition: 200ms linear all;
+	-webkit-font-smoothing: subpixel-antialiased;
+}
+
+input#file-search:focus {
+	background: white;
+	/* width: 260px; */
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	outline: none;
+	-webkit-box-shadow: 0 1px 1px 0 rgba(255,255,255,.1);
+	-moz-box-shadow: 0 1px 1px 0 rgba(255,255,255,.1);
+	box-shadow: 0 1px 1px 0 rgba(255,255,255,.1);
+}
+
+.button-menu-source {
+	display:none;
+	padding:0 16px 0 0 !important;
+	float: left;
+}
+
+.button-menu-source li {
+	display:inline-block;
 }
 
 /* Overwriting border radius for file path footer */
@@ -87,7 +154,7 @@ section.file-path {
 
 section.file-path h5 {
   color: #555555;
-	font-size: 14px;
+	font-size: 13px;
   text-shadow: 1px 1px 0 #ffffff;
 	margin: 0;
 	margin-top: 10px;
@@ -132,9 +199,9 @@ section.file-path h5 a {
 
 #folders-sidebar li a {
 	width:80%;
-	padding:6px;
+	padding:0px;
 	cursor:pointer;
-	font-size:14px;
+	font-size:13px;
 	display:inline-block;
 	position: relative;
 }
@@ -303,8 +370,9 @@ section.file-path h5 a {
 }
 
 #activity {
-	margin-top:5px!important;
-	border-top:1px solid #d8d8d8;
+	margin-top:0px!important;
+	position: absolute;
+	right: 0px;
 }
 
 #activity li {
@@ -373,15 +441,6 @@ li.right-title,li.right-title label {
 
 #search-area {
 	margin-bottom:15px;
-}
-
-.button-menu-source {
-	display:none;
-	padding:0 16px 0 0 !important;
-}
-
-.button-menu-source li {
-	display:inline-block;
 }
 
 .context-menu-source {
