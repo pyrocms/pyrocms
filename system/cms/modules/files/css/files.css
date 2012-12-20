@@ -345,9 +345,12 @@ section.file-path h5 a {
 }
 
 .folders-center .file {
-	width:100px;
-	height:112px;
-	margin:10px;
+	/* width:100px; */
+	/* height:112px; */
+	height:102px;
+	/* margin:10px; */
+	margin: 10px;
+	padding: 10px 0px 0px 0px;
 	overflow:hidden;
 	float:left;
 }
@@ -381,11 +384,14 @@ section.file-path h5 a {
 }
 
 .folders-center .file.type-i .name-text {
-	margin-top:7px;
+	margin-top:6px;
 }
 
 .folders-center .file.type-i img {
-	padding:25px 13px 0;
+	/* padding:25px 13px 0; */
+	margin: 1px 3px 3px 3px;
+	border: 5px solid white;
+	box-shadow: 0 1px 3px 0 rgba(0,0,0,.4);
 }
 
 #item-details h4 {
