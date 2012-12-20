@@ -367,7 +367,7 @@ section.title {
   	background-image: -o-linear-gradient(#f7f7f7, #f3f3f3);
   	background-image: linear-gradient(#f7f7f7, #f3f3f3);
   	/* border: 1px solid #ffffff; */
-  	border-bottom: 1px solid #eeeeee;
+  	border-bottom: 1px solid #ccc;
   	padding: 13px 0px 8px 0px;
   	margin-top: 0px;
   	margin-bottom: 0px;
