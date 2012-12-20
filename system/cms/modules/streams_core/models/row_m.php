@@ -19,7 +19,6 @@ class Row_m extends MY_Model {
 	 * that we don't need to include in
 	 * some processes.
 	 *
-	 * @access 	public
 	 * @var 	array
 	 */
 	public $ignore = array('id', 'created', 'updated', 'created_by');
@@ -29,7 +28,6 @@ class Row_m extends MY_Model {
 	/**
 	 * Cycle Select String
 	 *
-	 * @access 	public
 	 * @var 	string
 	 */
 	public $data;
@@ -41,7 +39,6 @@ class Row_m extends MY_Model {
 	 *
 	 * Convenience Var
 	 *
-	 * @access 	public
 	 * @var 	string
 	 */
 	public $base_prefix;
@@ -54,7 +51,6 @@ class Row_m extends MY_Model {
 	 * Each of the arrays can also be a string,
 	 * in which case they will not be imploded.
 	 *
-	 * @access 	public
 	 * @var 	string
 	 */
 	public $sql = array(
@@ -72,7 +68,6 @@ class Row_m extends MY_Model {
 	 * to keep grabbing them from
 	 * the database.
 	 *
-	 * @access 	public
 	 * @var 	obj
 	 */
 	public $all_fields = array();
@@ -82,7 +77,6 @@ class Row_m extends MY_Model {
 	/**
 	 * Streams structure
 	 *
-	 * @access 	public
 	 * @var 	array
 	 */
 	public $structure;
@@ -111,7 +105,6 @@ class Row_m extends MY_Model {
 	/**
 	 * Data to send to the function
 	 *
-	 * @access	public
 	 * @var		obj
 	 */
 	public $get_rows_hook_data;
@@ -123,7 +116,6 @@ class Row_m extends MY_Model {
 	 *
 	 * Grab the fields for a stream
 	 *
-	 * @access 	private
 	 * @param 	stream object
 	 * @return 	void
 	 */
@@ -915,7 +907,6 @@ class Row_m extends MY_Model {
 
 			if (array_key_exists($row_slug, $all_fields))
 			{
-
 				if ($return_object)
 				{
 					$row->$row_slug = $this->format_column($row_slug,
@@ -1165,12 +1156,12 @@ class Row_m extends MY_Model {
 						}
 						else
 						{
-							$return_data[$field->field_slug] = escape_tags($return_data[$field->field_slug]);
+							$return_data[$field->field_slug] = $return_data[$field->field_slug];
 						}
 					}
 					else
 					{
-						$return_data[$field->field_slug] = escape_tags($form_data[$field->field_slug]);
+						$return_data[$field->field_slug] = $form_data[$field->field_slug];
 	
 						// Make null - some fields don't like just blank values
 						if ($return_data[$field->field_slug] == '')
@@ -1259,7 +1250,7 @@ class Row_m extends MY_Model {
 						}
 						elseif(is_string($insert_data[$field->field_slug]))
 						{
-							$insert_data[$field->field_slug] = escape_tags(trim($insert_data[$field->field_slug]));
+							$insert_data[$field->field_slug] = trim($insert_data[$field->field_slug]);
 						}
 					}
 				}

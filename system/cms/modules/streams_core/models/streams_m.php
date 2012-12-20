@@ -354,12 +354,10 @@ class Streams_m extends MY_Model {
 		
 		if (is_array($assignments))
 		{
-			//echo '<pre>'.print_r($assignments, true).'</pre>';
-
 			foreach ($assignments as $assignment)
 			{
 				// Run the destruct
-				if(method_exists($this->type->types->{$assignment->field_type}, 'field_assignment_destruct'))
+				if (isset($this->type->types->{$assignment->field_type}) and method_exists($this->type->types->{$assignment->field_type}, 'field_assignment_destruct'))
 				{
 					$this->type->types->{$assignment->field_type}->field_assignment_destruct($this->fields_m->get_field($assignment->field_id), $this->get_stream($assignment->stream_id));
 				}
@@ -381,6 +379,20 @@ class Streams_m extends MY_Model {
 		$this->db->where('stream_id', $stream->id);
 		
 		if ( ! $this->db->delete(ASSIGN_TABLE)) return false;
+
+		// -------------------------------------
+		// Clear the runtime cache
+		// -------------------------------------
+
+		if (isset($this->streams_cache[$stream->id]))
+		{
+			unset($this->streams_cache[$stream->id]);
+		}
+
+		if (isset($this->streams_cache['ns'][$stream->stream_namespace][$stream->stream_slug]))
+		{
+			unset($this->streams_cache['ns'][$stream->stream_namespace][$stream->stream_slug]);
+		}
 
 		// -------------------------------------
 		// Delete from streams table

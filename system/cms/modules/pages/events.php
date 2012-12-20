@@ -31,7 +31,10 @@ class Events_Pages {
      */
     public function add_pages_ft_folder($type)
     {
-        $type->add_ft_path('pages_ft_path', APPPATH.'modules/pages/field_types/');
+        if (get_instance()->db->table_exists('page_chunks'))
+        {
+            $type->add_ft_path('pages_ft_path', APPPATH.'modules/pages/field_types/');
+        }
     }
 
 }

@@ -26,3 +26,23 @@ if ( ! function_exists('keywords'))
 		return preg_replace('/[\s]+/', ', ', trim($str));
 	}
 }
+
+if(!function_exists('slugify'))
+{
+	/**
+	 * Make slug from a given string
+	 * 
+	 * @param string $str The string you want to convert to a slug.
+	 * @param string $separator The symbol you want in between slug parts.
+	 * @return string The string in slugified form.
+	 */
+	function slugify($string, $separator = '-')
+	{	
+		$string = trim($string);
+		$string = strtolower($string);
+		$string = preg_replace('/[\s-]+/', $separator, $string);
+		$string = preg_replace("/[^0-9a-zA-Z-]/", '', $string);
+		
+		return $string;
+	}
+}

@@ -8,7 +8,6 @@
  */
 class Module_Search extends Module
 {
-
 	public $version = '1.0.0';
 
 	public $_tables = array('search_index');
@@ -33,7 +32,7 @@ class Module_Search extends Module
 				'cn' => '此模组可用以搜寻网站中不同类型的资料内容。'
 			),
 			'frontend' => false,
-			'backend' => false,
+			'backend' => true,
 			'menu' => 'content',
 		);
 	}
@@ -61,6 +60,44 @@ class Module_Search extends Module
 		  FULLTEXT KEY `full search` (`title`,`description`,`keywords`)
 		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 		");
+
+		$this->load->model('search/search_index_m');
+		$this->load->library('keywords/keywords');
+
+		foreach ($this->db->get('pages')->result() as $page)
+		{
+			// Only index live articles
+	    	if ($page->status === 'live')
+	    	{
+	    		$hash = $this->keywords->process($page->meta_keywords);
+
+	    		$this->db
+	    			->set('meta_keywords', $hash)
+	    			->where('id', $page->id)
+	    			->update('pages');
+
+	    		$this->search_index_m->index(
+	    			'pages',
+	    			'pages:page', 
+	    			'pages:pages', 
+	    			$page->id,
+	    			$page->uri,
+	    			$page->title,
+	    			$page->meta_description ? $page->meta_description : null, 
+	    			array(
+	    				'cp_edit_uri' 	=> 'admin/pages/edit/'.$page->id,
+	    				'cp_delete_uri' => 'admin/pages/delete/'.$page->id,
+	    				'keywords' 		=> $hash,
+	    			)
+	    		);
+	    	}
+		}
+
+		return true;
+	}
+
+	public function admin_menu()
+	{
 	}
 
 	public function uninstall()

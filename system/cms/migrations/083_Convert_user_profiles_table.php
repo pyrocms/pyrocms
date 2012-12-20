@@ -24,13 +24,13 @@ class Migration_Convert_user_profiles_table extends CI_Migration {
     	// Go ahead and convert our standard user fields:
     	$columns = array(
 			'first_name' => array(
-    			'field_name' => 'lang:user_first_name',
+    			'field_name' => 'lang:user:first_name_label',
     			'field_type' => 'text',
     			'extra'		 => array('max_length' => 50),
     			'assign'	 => array('required' => true)
     		),
 			'last_name' => array(
-    			'field_name' => 'lang:user_last_name',
+    			'field_name' => 'lang:user:last_name_label',
     			'field_type' => 'text',
     			'extra'		 => array('max_length' => 50, 'required' => false)
     		),
@@ -40,17 +40,12 @@ class Migration_Convert_user_profiles_table extends CI_Migration {
     			'field_type' => 'text',
     			'extra'		 => array('max_length' => 100)
     		),
-    		'language' => array(
-    			'field_name' => 'lang:user_lang',
-    			'field_slug' => 'pyro_lang',
-    			'extra'		 => array('filter_theme' => 'yes')
-    		),
  			'bio' => array(
     			'field_name' => 'lang:profile_bio',
     			'field_type' => 'textarea'
     		),
             'lang' => array(
-                'field_name' => 'lang:user_lang',
+                'field_name' => 'lang:user:lang',
                 'field_type' => 'pyro_lang',
                 'extra'      => array('filter_theme' => 'yes')
             ),
@@ -58,16 +53,19 @@ class Migration_Convert_user_profiles_table extends CI_Migration {
     			'field_name' => 'lang:profile_dob',
     			'field_type' => 'datetime',
     			'extra'		 => array(
-                                    'use_time'      => 'no',
-                                    'storage'       => 'unix',
-                                    'input_type'    => 'dropdown',
-                                    'start_date'    => '-100Y'
+                    'use_time'      => 'no',
+                    'storage'       => 'unix',
+                    'input_type'    => 'dropdown',
+                    'start_date'    => '-100Y'
                 )
     		),
     		'gender' => array(
     			'field_name' => 'lang:profile_gender',
     			'field_type' => 'choice',
-    			'extra'		 => array('choice_type' => 'dropdown', 'choice_data' => " : Not Telling\nm : Male\nf : Female")
+    			'extra'		 => array(
+                    'choice_type' => 'dropdown',
+                    'choice_data' => " : Not Telling\nm : Male\nf : Female"
+                )
     		),
      		'phone' => array(
     			'field_name' => 'lang:profile_phone',

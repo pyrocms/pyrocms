@@ -11,7 +11,7 @@
 * [Adam Fairholm](http://parse19.com/)
 * [Jerel Unruh](http://unruhdesigns.com/)
 * [Phil Sturgeon](http://philsturgeon.co.uk/)
-* [Scott Parry](http://ikreativ.com/)
+* [Joshua Pekera](http://joshuapekera.com/)
 
 ## Description
 

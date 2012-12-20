@@ -47,6 +47,56 @@ class Permission_m extends CI_Model
 	}
 
 	/**
+	 * Get a role based on the group slug
+	 *
+	 * @param string|array $roles Either a single role or an array
+	 * @param null|string $module The module to check access against
+	 * @param bool $strict If set to true the user must have every role in $roles. Otherwise having one role is sufficient
+	 * @return bool
+	 */
+	public function has_role($roles, $module = null, $strict = false)
+	{
+		$access = array();
+		$module === null and $module = $this->module;
+
+		// must be logged in
+		if ( ! $this->current_user) return false;
+
+		// admins can have anything
+		if ($this->current_user->group == 'admin') return true;
+
+		// do they even have access to the module?
+		if ( ! isset($this->permissions[$module])) return false;
+
+		if (is_array($roles))
+		{
+			foreach ($roles as $role)
+			{
+				if (array_key_exists($role, $this->permissions[$module]))
+				{
+					// if not strict then one role is enough to get them in the door
+					if ( ! $strict)
+					{
+						return true;
+					}
+					else
+					{
+						array_push($access, false);
+					}
+				}
+			}
+
+			// we have to have a non-empty array but one false in the array gets them canned
+			return $access and ! in_array(false, $access);
+		}
+		else
+		{
+			// they just passed one role to check
+			return array_key_exists($roles, $this->permissions[$module]);
+		}
+	}
+
+	/**
 	 * Get a rule based on the ID
 	 *
 	 * @param int $group_id The id for the group to get the rule for.

@@ -203,6 +203,9 @@ class Admin extends Admin_Controller {
 	{
 		$page = new stdClass;
 
+		// Get our chunks field type.
+		$this->type->update_types();
+
 		// Parent ID
 		$parent_id = ($this->input->get('parent')) ? $this->input->get('parent') : false;
 		$this->template->set('parent_id', $parent_id);
@@ -327,6 +330,9 @@ class Admin extends Admin_Controller {
 		// We are lost without an id. Redirect to the pages index.
 		$id or redirect('admin/pages');
 
+		// Get our chunks field type.
+		$this->type->update_types();
+
 		$this->template->set('parent_id', null);
 
 		// The user needs to be able to edit pages.
@@ -354,7 +360,7 @@ class Admin extends Admin_Controller {
 
 		if ( ! $page_type) show_error('No page type found.');
 
-		$stream = $this->_setup_stream_fields($page_type);
+		$stream = $this->_setup_stream_fields($page_type, 'edit', $page->entry_id);
 
 		// If there's a keywords hash
 		if ($page->meta_keywords != '')
@@ -436,9 +442,12 @@ class Admin extends Admin_Controller {
 		$assignments = $this->streams->streams->get_assignments($stream->stream_slug, $stream->stream_namespace);
 		$page_content_data = array();
 
+		// Get straight raw from the db
+		$page_stream_entry_raw = $this->db->limit(1)->where('id', $page->entry_id)->get($stream->stream_prefix.$stream->stream_slug)->row();
+
 		foreach ($assignments as $assign)
 		{
-			$from_db = isset($page->{$assign->field_slug}) ? $page->{$assign->field_slug} : null;
+			$from_db = isset($page_stream_entry_raw->{$assign->field_slug}) ? $page_stream_entry_raw->{$assign->field_slug} : null;
 
 			$page_content_data[$assign->field_slug] = isset($_POST[$assign->field_slug]) ? $_POST[$assign->field_slug] : $from_db;
 		}	
@@ -481,7 +490,7 @@ class Admin extends Admin_Controller {
 	 * @access 	private
 	 * @param 	obj
 	 * @param 	string - new or edit
-	 * @param 	int
+	 * @param 	int - entry id
 	 * @return 	obj - the stream object
 	 */
 	private function _setup_stream_fields($page_type, $method = 'new', $id = null)
@@ -507,10 +516,10 @@ class Admin extends Admin_Controller {
 			}
 		}
 
-		// Get the validation for our
-		$profile_validation = $this->streams->streams->validation_array($stream->stream_slug, $stream->stream_namespace, $method, array(), $id);
+		// Get validation for our page fields.
+		$page_validation = $this->streams->streams->validation_array($stream->stream_slug, $stream->stream_namespace, $method, array(), $id);
 
-		$this->page_m->compiled_validate = array_merge($this->page_m->validate, $profile_validation);
+		$this->page_m->compiled_validate = array_merge($this->page_m->validate, $page_validation);
 
 		// Set the validation rules based on the compiled validation.
 		$this->form_validation->set_rules($this->page_m->compiled_validate);

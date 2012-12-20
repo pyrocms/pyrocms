@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 /**
  * Files Plugin
  *
@@ -115,13 +115,13 @@ class Plugin_Files extends Plugin
 			return '';
 		}
 
-		$folder_id	= $this->attribute('folder', ''); // Id or Path
-		$tags		= $this->attribute('tagged', false);
-		$limit		= $this->attribute('limit', '10');
-		$offset		= $this->attribute('offset', '');
-		$type		= $this->attribute('type', '');
-		$fetch		= $this->attribute('fetch');
-        $order_by   = $this->attribute('order-by');
+		$folder_id = $this->attribute('folder', ''); // Id or Path
+		$tags      = $this->attribute('tagged', false);
+		$limit     = $this->attribute('limit', '10');
+		$offset    = $this->attribute('offset', '');
+		$type      = $this->attribute('type', '');
+		$fetch     = $this->attribute('fetch');
+		$order_by  = $this->attribute('order-by');
 
 		if ( ! empty($folder_id) && (empty($type) || in_array($type, array('a','v','d','i','o'))))
 		{
@@ -171,17 +171,17 @@ class Plugin_Files extends Plugin
 			return array();
 		}
 
-		$type 		and $this->db->where('type', $type);
-		$limit 		and $this->db->limit($limit);
-		$offset 	and $this->db->offset($offset);
-        $order_by 	and $this->db->order_by($order_by);
+		$type      and $this->db->where('type', $type);
+		$limit     and $this->db->limit($limit);
+		$offset    and $this->db->offset($offset);
+		$order_by  and $this->db->order_by($order_by);
 
-        if ($tags)
-        {
+    if ($tags)
+    {
 			$files = $this->file_m->get_tagged($tags);
-        }
-        else
-        {
+    }
+    else
+    {
 			$files = $this->file_m->get_all();
 		}
 
@@ -199,8 +199,8 @@ class Plugin_Files extends Plugin
 		}
 
 		// prepare file params
-		$id		= $this->attribute('id');
-		$type	= $type && in_array($type, array('a','v','d','i','o')) ? $type : '';
+		$id   = $this->attribute('id');
+		$type = $type and in_array($type, array('a','v','d','i','o')) ? $type : '';
 
 		// get file
 		if (isset($this->_files[$id]))
@@ -209,7 +209,7 @@ class Plugin_Files extends Plugin
 		}
 		else
 		{
-			$type AND $this->file_m->select('files.*, file_folders.location')
+			$type and $this->file_m->select('files.*, file_folders.location')
 						->join('file_folders', 'file_folders.id = files.folder_id')
 						->where('type', $type);
 
@@ -232,18 +232,18 @@ class Plugin_Files extends Plugin
 		{
 			if ($size = $this->attribute('size', ''))
 			{
-				strpos($size, 'x') === false AND $size .= 'x';
+				(strpos($size, 'x') === false) and ($size .= 'x');
 
 				list($width, $height) = explode('/', strtr($size, 'x', '/'));
 			}
 			else
 			{
-				$width	= $this->attribute('width', '');
+				$width  = $this->attribute('width', '');
 				$height	= $this->attribute('height', '');
 			}
 
-			is_numeric($width) OR $width = 'auto';
-			is_numeric($height) OR $height = 'auto';
+			is_numeric($width) or $width = 'auto';
+			is_numeric($height) or $height = 'auto';
 
 			if ($width === 'auto' && $height === 'auto')
 			{

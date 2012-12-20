@@ -1,6 +1,6 @@
 <?php if ( $assignments ): ?>
 
-    <table class="table-list">
+    <table class="table-list" border="0" cellspacing="0">
 		<thead>
 			<tr>	
 				<th></th>
