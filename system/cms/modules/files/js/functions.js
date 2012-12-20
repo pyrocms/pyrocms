@@ -686,8 +686,8 @@ jQuery(function($){
 
 					// if it's an image then we set the thumbnail as the content
 					var li_content = '<span class="name-text">'+item.name+'</span>';
-					if (item.type && item.type === 'i') {
-						li_content = '<img src="'+SITE_URL+'files/cloud_thumb/'+item.id+'" alt="'+item.name+'"/>'+li_content;
+					if (item.type && item.type === 'i') {                                 /* without this the thumb doesn't update with Replace */
+						li_content = '<img src="'+SITE_URL+'files/cloud_thumb/'+item.id+'?'+new Date().getMilliseconds()+'" alt="'+item.name+'"/>'+li_content;
 					}
 
 					$folders_center.append(

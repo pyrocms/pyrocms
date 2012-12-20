@@ -178,6 +178,9 @@ class Admin extends Admin_Controller
 		$group_id = $this->input->post('group_id');
 		$activate = $this->input->post('active');
 
+		// keep non-admins from creating admin accounts. If they aren't an admin then force new one as a "user" account
+		$group_id = ($this->current_user->group !== 'admin' and $group_id == 1) ? 2 : $group_id;
+
 		// Get user profile data. This will be passed to our
 		// streams insert_entry data in the model.
 		$assignments = $this->streams->streams->get_assignments('profiles', 'users');
@@ -324,7 +327,8 @@ class Admin extends Admin_Controller
 			$update_data['email'] = $this->input->post('email');
 			$update_data['active'] = $this->input->post('active');
 			$update_data['username'] = $this->input->post('username');
-			$update_data['group_id'] = $this->input->post('group_id');
+			// allow them to update their one group but keep users with user editing privileges from escalating their accounts to admin
+			$update_data['group_id'] = ($this->current_user->group !== 'admin' and $this->input->post('group_id') == 1) ? $member->group_id : $this->input->post('group_id');
 
 			if ($update_data['active'] === '2')
 			{
