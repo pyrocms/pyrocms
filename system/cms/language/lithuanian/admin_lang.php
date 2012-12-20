@@ -39,7 +39,8 @@ $lang['cp:nav_misc']					= 'Miscellaneous'; #translate
 
 $lang['cp:must_login']	 				= 'Jūs turite būti prisijungęs, kad matytumėte šį puslapį.';
 $lang['cp:access_denied'] 				= 'Jūs neturite leidimo peržiūrėti šį puslapį.';
-$lang['cp:delete_installer_message']              = 'The installer directory still exists! <a href="#" id="remove_installer_directory">Please delete it from your server!</a>.<br>Leaving it online means control of this site could be granted to somebody else.'; #translate
+$lang['cp:delete_installer_message']              = 'The installer directory still exists! Please delete it from your server! Leaving it online means control of this site could be granted to somebody else.'; #translate
+$lang['cp:delete_installer']					 = 'Delete Installer'; #translate
 $lang['cp:delete_installer_successfully_message'] = 'The installer directory has been successfully deleted.'; #translate
 $lang['cp:delete_installer_manually_message']     = 'The installer directory could not be deleted. <strong>Please remove it manually!</strong>'; #translate
 $lang['cp:upgrade_message']				= 'Jūsų naudojama versija %s, tačiau duomenų bazės versija %s. Prašome <a href="%s" title="Atnaujinimai">spausti čia</a> kad atnaujinti duomenų bazę.';

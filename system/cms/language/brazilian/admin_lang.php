@@ -39,7 +39,8 @@ $lang['cp:nav_misc']					= 'Miscellaneous'; #translate
 
 $lang['cp:must_login']	 				= 'Você deve estar conectado para ver esta página.';
 $lang['cp:access_denied'] 				= 'Você não possui privilégios suficientes para ver esta página.';
-$lang['cp:delete_installer_message']              = 'The installer directory still exists! <a href="#" id="remove_installer_directory">Please delete it from your server!</a>.<br>Leaving it online means control of this site could be granted to somebody else.'; #translate
+$lang['cp:delete_installer_message']              = 'The installer directory still exists! Please delete it from your server! Leaving it online means control of this site could be granted to somebody else.'; #translate
+$lang['cp:delete_installer']					 = 'Delete Installer'; #translate
 $lang['cp:delete_installer_successfully_message'] = 'The installer directory has been successfully deleted.'; #translate
 $lang['cp:delete_installer_manually_message']     = 'The installer directory could not be deleted. <strong>Please remove it manually!</strong>'; #translate
 $lang['cp:upgrade_message']				= 'Você está rodando a versão %s, mas seu banco de dados é versão %s. Por favor, <a href="%s" title="Upgrade">clique aqui</a> para atualizar o banco de dados.';

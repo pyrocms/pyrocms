@@ -39,7 +39,8 @@ $lang['cp:nav_misc']					= 'Διάφορα';
 
 $lang['cp:must_login'] 			= 'Πρέπει να είσαστε συνδεδεμένος για να δείτε αυτή την σελίδα.';
 $lang['cp:access_denied'] 		= 'Δεν έχετε αρκετά δικαιώματα για να δείτε αυτή την σελίδα.';
-$lang['cp:delete_installer_message']              = 'Ο φάκελος installer υπάρχει ακόμη! <a href="#" id="remove_installer_directory">Διαγράψτε τον φάκελο από τον διακομιστή σας!</a>.<br>Η ύπαρξη του δίνει στον καθένα την δυνατότητα να πάρει τον έλεγχο του ιστότοπου σας.';
+$lang['cp:delete_installer_message']              = 'Ο φάκελος installer υπάρχει ακόμη! Διαγράψτε τον φάκελο από τον διακομιστή σας!<br>Η ύπαρξη του δίνει στον καθένα την δυνατότητα να πάρει τον έλεγχο του ιστότοπου σας.';
+$lang['cp:delete_installer']					 = 'Delete Installer'; #translate
 $lang['cp:delete_installer_successfully_message'] = 'Ο φάκελος installer διαγράφηκε επιτυχώς.';
 $lang['cp:delete_installer_manually_message']     = 'Ο φάκελος installer δεν ήταν δυνατό να διαγραφεί. <strong>Διαγράψτε τον χειροκίνητα!</strong>';
 $lang['cp:upgrade_message'] 		= 'Έχετε την έκδοση %s, αλλά η έκδοση της βάσης δεδομένων είναι %s. Παρακαλούμε <a href="%s" title="ενημερώστε">κάντε κλικ εδώ</a> για να ενημερώσετε την βάση δεδομένων σας.';

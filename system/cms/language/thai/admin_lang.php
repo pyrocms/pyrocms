@@ -49,7 +49,8 @@ $lang['cp:nav_misc']					= 'Miscellaneous'; #translate
 
 $lang['cp:must_login']	 				= 'คุณต้องล็อกอินเพื่อดูหน้านี้.';
 $lang['cp:access_denied'] 				= 'คุณไม่ได้รับสิทธิ์เพียงพอที่จะดูหน้านี้.';
-$lang['cp:delete_installer_message']              = 'The installer directory still exists! <a href="#" id="remove_installer_directory">Please delete it from your server!</a>.<br>Leaving it online means control of this site could be granted to somebody else.'; #translate
+$lang['cp:delete_installer_message']              = 'The installer directory still exists! Please delete it from your server! Leaving it online means control of this site could be granted to somebody else.'; #translate
+$lang['cp:delete_installer']					 = 'Delete Installer'; #translate
 $lang['cp:delete_installer_successfully_message'] = 'The installer directory has been successfully deleted.'; #translate
 $lang['cp:delete_installer_manually_message']     = 'The installer directory could not be deleted. <strong>Please remove it manually!</strong>'; #translate
 $lang['cp:upgrade_message']				= 'คุณกำลังทำงานอยู่ในรุ่น %s, แต่ฐานข้อมูลของคุณเป็นรุ่นที่ %s. กรุณา <a href="%s" title="Upgrade">คลิกที่นี่</a> เพื่อปรับรุ่นฐานข้อมูล.';

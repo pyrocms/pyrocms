@@ -39,7 +39,8 @@ $lang['cp:nav_misc']					= 'مُتفرقات';
 
 $lang['cp:must_login']	 				= 'يجب أن تكون مسجّل الدخول كي تعرض هذه الصفحة.';
 $lang['cp:access_denied'] 				= 'ليست لديك الصلاحيات الكافية لعرض هذه الصفحة.';
-$lang['cp:delete_installer_message']              = 'The installer directory still exists! <a href="#" id="remove_installer_directory">Please delete it from your server!</a>.<br>Leaving it online means control of this site could be granted to somebody else.'; #translate
+$lang['cp:delete_installer_message']              = 'The installer directory still exists! Please delete it from your server! Leaving it online means control of this site could be granted to somebody else.'; #translate
+$lang['cp:delete_installer']					 = 'Delete Installer'; #translate
 $lang['cp:delete_installer_successfully_message'] = 'The installer directory has been successfully deleted.'; #translate
 $lang['cp:delete_installer_manually_message']     = 'The installer directory could not be deleted. <strong>Please remove it manually!</strong>'; #translate
 $lang['cp:upgrade_message']				= 'أنت تستخدم النسخة %s حالياً، إلا أن نسخة قاعدة بياناتك هي %s. رجاءً <a href="%s" title="الترقية">اضغط هنا</a> لترقية قاعدة البيانات.';
