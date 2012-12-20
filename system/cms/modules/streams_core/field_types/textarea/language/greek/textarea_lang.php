@@ -2,4 +2,4 @@
 
 $lang['streams:textarea.name'] 			= 'Περιοχή Κειμένου';
 $lang['streams:textarea.default_text'] 	= 'Αρχικό Κείμενο';
-$lang['streams:textarea.allow_tags']	= 'Allow Tags'; #translate
+$lang['streams:textarea.allow_tags']	= 'Να επιτρέπονται τα tags';
