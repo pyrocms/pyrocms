@@ -1050,23 +1050,68 @@ class Row_m extends MY_Model {
 	 * @param	int
 	 * @param	array - update data
 	 * @param	skips - optional array of skips
+	 * @param 	extra - extra fields to add
+	 * @param 	bool - should we only update those passed?
 	 * @return	bool
 	 */
-	public function update_entry($fields, $stream, $row_id, $form_data, $skips = array())
+	public function update_entry($fields, $stream, $row_id, $form_data, $skips = array(), $extra = array(), $include_only_passed = false)
 	{
 		$this->load->helper('text');
+
+		// -------------------------------------
+		// Include Only Passed
+		// -------------------------------------
+		// If we include only the passed vars,
+		// then we skip everyhing else.
+		// -------------------------------------
+
+		if ($include_only_passed)
+		{
+			foreach ($fields as $field)
+			{
+				// If we haven't passed it, then we
+				// want to skip it.
+				if ( ! isset($form_data[$field->field_slug]))
+				{
+					$skips[] = $field->field_slug;
+				}
+			}
+
+			// If we are including only the passed,
+			// then we are simply going to process the fields that
+			// we have passed without creating null
+			// values for missing fields. This variable allows
+			// run_field_pre_processes to do that.
+			$set_missing_to_null = false;
+		}
+		else
+		{
+			$set_missing_to_null = true;
+		}
 
 		// -------------------------------------
 		// Run through fields
 		// -------------------------------------
 
-		$update_data = $this->run_field_pre_processes($fields, $stream, $row_id, $form_data, $skips);
+		$update_data = $this->run_field_pre_processes($fields, $stream, $row_id, $form_data, $skips, $set_missing_to_null);
 
 		// -------------------------------------
 		// Set standard fields
 		// -------------------------------------
 
-		$update_data['updated'] = date('Y-m-d H:i:s');
+		if ( ! in_array('updated', $skips))
+		{
+			$update_data['updated'] = date('Y-m-d H:i:s');
+		}
+
+		// -------------------------------------
+		// Add Extra Data
+		// -------------------------------------
+
+		if ($extra)
+		{
+			$update_data = array_merge($update_data, $extra);
+		}
 
 		// -------------------------------------
 		// Update data
@@ -1114,9 +1159,11 @@ class Row_m extends MY_Model {
 	 * @param	int
 	 * @param	array - update data
 	 * @param	skips - optional array of skips
+	 * @param 	bool - set_missing_to_null. Should we set missing pieces of data to null
+	 * 					for the database?
 	 * @return	bool
 	 */
-	public function run_field_pre_processes($fields, $stream, $row_id, $form_data, $skips = array())
+	public function run_field_pre_processes($fields, $stream, $row_id, $form_data, $skips = array(), $set_missing_to_null = true)
 	{
 		$return_data = array();
 		
@@ -1126,7 +1173,7 @@ class Row_m extends MY_Model {
 			// then simply set the value to null. This is necessary
 			// for fields that want to run a pre_save but may have
 			// a situation where no post data is sent (like a single checkbox)
-			if ( ! isset($form_data[$field->field_slug]))
+			if ( ! isset($form_data[$field->field_slug]) and $set_missing_to_null)
 			{
 				$form_data[$field->field_slug] = null;
 			}
