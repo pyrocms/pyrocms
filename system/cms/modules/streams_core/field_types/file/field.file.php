@@ -13,11 +13,13 @@ class Field_file
 {
 	public $field_type_slug			= 'file';
 	
-	public $db_col_type				= 'int';
+	// Files are saved as 15 character strings.
+	public $db_col_type				= 'char';
+	public $col_constraint 			= 15;
 
 	public $custom_parameters		= array('folder', 'allowed_types');
 
-	public $version					= '1.1.0';
+	public $version					= '1.2.0';
 
 	public $author					= array('name'=>'Parse19', 'url'=>'http://parse19.com');
 	
@@ -90,7 +92,7 @@ class Field_file
 		// return the numeric file record value.
 		if ( ! isset($_FILES[$field->field_slug.'_file']['name']) or ! $_FILES[$field->field_slug.'_file']['name'])
 		{
-			if (is_numeric($this->CI->input->post($field->field_slug)))
+			if ($this->CI->input->post($field->field_slug))
 			{
 				return $this->CI->input->post($field->field_slug);
 			}
@@ -131,7 +133,7 @@ class Field_file
 	 */	
 	public function pre_output($input, $params)
 	{
-		if ( ! $input or ! is_numeric($input)) return null;
+		if ( ! $input) return null;
 
 		$this->CI->load->config('files/files');
 		
