@@ -447,9 +447,13 @@ li.right-title,li.right-title label {
 	display:none;
 	position:absolute;
 	min-width:150px;
-	background-color:#ededed;
-	border:1px solid #b7b7b7;
-	border-radius:2px;
+	background-color:white;
+	border:1px solid #e5e5e5;
+	-webkit-border-radius:4px;
+	-moz-border-radius:4px;
+	-o-border-radius:4px;
+	border-radius:4px;
+	box-shadow: 0 6px 10px 0 rgba(0,0,0,.15);
 }
 
 .context-menu-source li {
@@ -457,8 +461,12 @@ li.right-title,li.right-title label {
 	cursor:pointer;
 	color:#585858;
 	font-size:14px;
-	padding:7px 25px;
+	padding:10px 25px 14px 25px;
 	border-bottom:1px solid #e0e0e0;
+}
+
+.context-menu-source li:last-child {
+	border-bottom: none;
 }
 
 .context-menu-source li:hover {
