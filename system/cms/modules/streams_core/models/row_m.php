@@ -1258,7 +1258,7 @@ class Row_m extends MY_Model {
 						}
 						elseif(is_string($insert_data[$field->field_slug]))
 						{
-							$insert_data[$field->field_slug] = escape_tags(trim($insert_data[$field->field_slug]));
+							$insert_data[$field->field_slug] = trim($insert_data[$field->field_slug]);
 						}
 					}
 				}
