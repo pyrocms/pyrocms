@@ -130,7 +130,8 @@ a
   font-size: inherit; 
   text-decoration: none; 
   -webkit-transition: 250ms linear all; 
-  -moz-transition: 250ms linear all; 
+  -moz-transition: 250ms linear all;
+  -o-transition: 250ms linear all; 
   transition: 250ms linear all; 
 }
 a:hover 
@@ -1828,8 +1829,14 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
 .topbar ul li ul li a:hover {
   background-color: #333;
   margin-left: 0!important;
-  background-color: rgba(255, 255, 255, 0.25);
+  background-color: #111;
   color: #fff;
+}
+
+.topbar ul li ul li a:last-child:hover {
+  -webkit-border-radius: 0 0 5px 5px;
+  -moz-border-radius: 0 0 5px 5px;
+  border-radius: 0 0 5px 5px;
 }
 
 .topbar-form {

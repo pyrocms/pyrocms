@@ -7,6 +7,7 @@
 	border-left:1px solid #d8d8d8;
 	height: 450px;
 	display: none;
+	float:right !important;
 	background-color: #f3f3f3;
 	position: relative;
 	-webkit-box-shadow: inset 1px 1px 4px 0 rgba(0,0,0,.1);
@@ -49,14 +50,14 @@
 
 
 #file-sidebar {
-	-webkit-animation-duration: 200ms;
-	-moz-animation-duration: 200ms;
-	-ms-animation-duration: 200ms;
-	-o-animation-duration: 200ms;
-	-webkit-animation-delay: 1s;
-	-moz-animation-delay: 1s;
-	-ms-animation-delay: 1s;
-	-o-animation-delay: 1s;
+	-webkit-animation-duration: .25s;
+	-moz-animation-duration: .25s;
+	-ms-animation-duration: .25s;
+	-o-animation-duration: .25s;
+	-webkit-animation-delay: 0;
+	-moz-animation-delay: 0;
+	-ms-animation-delay: 0;
+	-o-animation-delay: 0;
 	-webkit-animation-iteration-count: 1;
 	-moz-animation-iteration-count: 1;
 	-ms-animation-iteration-count: 1;
@@ -64,7 +65,7 @@
 }
 
 section.side {
-	width:19%;
+	width:19.4%;
 	float:left;
 	margin:0;
 	overflow-x: hidden;
@@ -72,7 +73,8 @@ section.side {
 }
 
 section.center {
-	width:62%;
+	display: inline-block;
+	width:61%;
 	float:left;
 	margin:0;
 }
