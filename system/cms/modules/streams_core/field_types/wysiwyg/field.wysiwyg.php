@@ -124,9 +124,9 @@ class Field_wysiwyg
 	// --------------------------------------------------------------------------
 	
 	/**
-	 * Editor Type Param
+	 * Allow tags param.
 	 *
-	 * Choose the type of editor.
+	 * Should tags go through or be converted to output?
 	 */
 	public function param_allow_tags($value = null)
 	{

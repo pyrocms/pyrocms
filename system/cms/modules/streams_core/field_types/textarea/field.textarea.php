@@ -17,7 +17,7 @@ class Field_textarea
 
 	public $author					= array('name' => 'Adam Fairholm', 'url' => 'http://adamfairholm.com');
 
-	public $custom_parameters		= array('default_text');
+	public $custom_parameters		= array('default_text', 'allow_tags');
 	
 	// --------------------------------------------------------------------------
 
@@ -59,6 +59,39 @@ class Field_textarea
 	}
 
 	// --------------------------------------------------------------------------
+
+	public function pre_save($input)
+	{
+		return $input;
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Pre-Ouput content
+	 *
+	 * @access 	public
+	 * @return 	string
+	 */
+	public function pre_output($input, $params)
+	{
+		$parse_tags = ( ! isset($params['allow_tags'])) ? 'y' : $params['allow_tags'];
+
+		// If this isn't the admin and we want to allow tags,
+		// let it through. Otherwise we will escape them.
+		if (defined('ADMIN_THEME') or $parse_tags == 'y')
+		{
+			return $input;
+		}
+		else
+		{
+			$this->CI->load->helper('text');
+			return escape_tags($input);
+		}
+		
+	}
+
+	// --------------------------------------------------------------------------
 	
 	/**
 	 * Default Textarea Value
@@ -76,5 +109,23 @@ class Field_textarea
 		);
 		
 		return form_textarea($options);
+	}
+
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * Allow tags param.
+	 *
+	 * Should tags go through or be converted to output?
+	 */
+	public function param_allow_tags($value = null)
+	{
+		$options = array(
+			'y'	=> lang('global:yes'),
+			'n'	=> lang('global:no')
+		);
+	
+		return form_dropdown('allow_tags', $options, $value);
 	}	
+
 }
