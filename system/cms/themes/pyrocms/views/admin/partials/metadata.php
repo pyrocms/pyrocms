@@ -36,7 +36,7 @@ Asset::js(array('codemirror/codemirror.js',
 	pyro.csrf_cookie_name			= "<?php echo config_item('cookie_prefix').config_item('csrf_cookie_name'); ?>";
 </script>
 
-<?php Asset::css(array('plugins.css', 'jquery/colorbox.css', 'codemirror.css')); ?>
+<?php Asset::css(array('plugins.css', 'jquery/colorbox.css', 'codemirror.css', 'animate/animate.min.css')); ?>
 
 <?php echo Asset::render(); ?>
 
