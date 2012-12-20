@@ -25,9 +25,9 @@ $lang['page_types:edit_title']                     = 'Επεξεργασία Τ�
 
 // messages
 $lang['page_types:no_pages']                       = 'Δεν υπάρχουν τύποι σελίδων.';
-$lang['page_types:create_success_add_fields']  = 'You have created a new page type; now add the fields that you want your page to have.'; #translate
+$lang['page_types:create_success_add_fields']      = 'Έχετε έναν νέο τύπο σελίδας - τώρα προσθέστε τα πεδία που θέλετε να έχει.';
 $lang['page_types:create_success']                 = 'Η διάταξη σελίδας δημιουργήθηκε.';
-$lang['page_types:success_add_tag']            = 'The page field has been added. However before its data will be output you must insert its tag into the Page Type\'s Layout textarea'; #translate
+$lang['page_types:success_add_tag']                = 'Το πεδίο σελίδας προστέθηκε. Όμως προτού να μπορούν να αποδοθούν τα δεδομένα του πρέπει να βάλετε το tag του κάπου στο πεδίο Διάταξη του τύπου σελίδας';
 $lang['page_types:create_error']                   = 'Αυτή η διάταξη σελίδας δεν έχει δημιουργηθεί.';
 $lang['page_types:page_type.not_found_error']      = 'Αυτή η διάταξη σελίδας δεν υπάρχει.';
 $lang['page_types:edit_success']                   = 'Η διάταξη σελίδας "%s" αποθηκεύτηκε.';
