@@ -11,7 +11,6 @@
 */
 $config['migration_enabled'] = true;
 
-
 /*
 |--------------------------------------------------------------------------
 | Migrations version
@@ -23,7 +22,7 @@ $config['migration_enabled'] = true;
 |
 */
 
-$config['migration_version'] = 112;
+$config['migration_version'] = 113;
 
 /*
 |--------------------------------------------------------------------------
