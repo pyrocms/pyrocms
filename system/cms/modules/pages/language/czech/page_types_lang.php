@@ -24,7 +24,9 @@ $lang['page_types:edit_title']                 = 'Upravit šablonu stránky "%s"
 
 // messages
 $lang['page_types:no_pages']                   = 'nejsou zde žádné šablony stránky.';
+$lang['page_types:create_success_add_fields']  = 'You have created a new page type; now add the fields that you want your page to have.'; #translate
 $lang['page_types:create_success']             = 'Šablona stránky byla vytvořena.';
+$lang['page_types:success_add_tag']            = 'The page field has been added. However before its data will be output you must insert its tag into the Page Type\'s Layout textarea'; #translate
 $lang['page_types:create_error']               = 'Šablonu stránky se nepodařilo vytvořit.';
 $lang['page_types:page_type.not_found_error']  = 'Šablona stránky neexistuje.';
 $lang['page_types:edit_success']               = 'Šablona stránky "%s" vyla uložena.';

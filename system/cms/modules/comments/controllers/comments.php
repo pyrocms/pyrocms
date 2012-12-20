@@ -207,7 +207,7 @@ class Comments extends Public_Controller
 		}
 
 		// Check Akismet if an API key exists
-		if ($this->settings->get('akismet_api_key'))
+		if (Settings::get('akismet_api_key'))
 		{
 			$this->load->library('akismet');
 

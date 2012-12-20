@@ -1,11 +1,11 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 /**
  * Settings Plugin
  *
  * Allows settings to be used in content tags.
  *
- * @author        PyroCMS Dev Team
- * @package        PyroCMS\Core\Modules\Settings\Plugins
+ * @author   PyroCMS Dev Team
+ * @package  PyroCMS\Core\Modules\Settings\Plugins
  */
 class Plugin_Settings extends Plugin
 {
@@ -29,7 +29,7 @@ class Plugin_Settings extends Plugin
 		$info = array();
 
 		// dynamically build the array for the magic method __call
-		$settings = $this->settings->get_all();
+		$settings = Settings::get_all();
 		ksort($settings);
 
 		foreach ($settings as $slug => $value)
@@ -58,6 +58,6 @@ class Plugin_Settings extends Plugin
 	 */
 	public function __call($name, $data)
 	{
-		return $this->settings->get($name);
+		return Settings::get($name);
 	}
 }

@@ -24,7 +24,9 @@ $lang['page_types:edit_title']                 = 'แก้ไขเค้าโ
 
 // messages
 $lang['page_types:no_pages']                   = 'ไม่มีเค้าโครงหน้า';
+$lang['page_types:create_success_add_fields']  = 'You have created a new page type; now add the fields that you want your page to have.'; #translate
 $lang['page_types:create_success']             = 'เค้าโครงหน้าถูกสร้าง';
+$lang['page_types:success_add_tag']            = 'The page field has been added. However before its data will be output you must insert its tag into the Page Type\'s Layout textarea'; #translate
 $lang['page_types:create_error']               = 'เค้าโครงหน้าไม่สามารถสร้างได้';
 $lang['page_types:page_type.not_found_error']  = 'ไม่มีเค้าโครงหน้านี้อยู่';
 $lang['page_types:edit_success']               = 'เค้าโครงหน้า "%s" ถูกบันทึก';

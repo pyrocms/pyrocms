@@ -3,7 +3,7 @@
 </section>
 <section class="item">
 	<div class="content">
-		<?php echo form_open(uri_string(), array('class'=> 'crud', 'id'=>'edit-permissions',)) ?>
+		<?php echo form_open(uri_string(), array('class'=> 'crud', 'id'=>'edit-permissions')) ?>
 		<table>
 			<thead>
 				<tr>
@@ -16,12 +16,11 @@
 				<?php foreach ($permission_modules as $module): ?>
 				<tr>
 					<td style="width: 30px">
-						<?php /*sprintf(lang('groups:edit_title'), $group->name)*/
-						echo form_checkbox(array(
+						<?php echo form_checkbox(array(
 							'id'=> $module['slug'],
 							'class' => 'select-row',
 							'value' => true,
-							'name'=>'modules[' . $module['slug'] . ']',
+							'name'=>'modules['.$module['slug'].']',
 							'checked'=> array_key_exists($module['slug'], $edit_permissions),
 							'title' => sprintf(lang('permissions:checkbox_tooltip_give_access_to_module'), $module['name']),
 						)) ?>
@@ -37,11 +36,11 @@
 						<label class="inline">
 							<?php echo form_checkbox(array(
 								'class' => 'select-rule',
-								'name' => 'module_roles[' . $module['slug'] . ']['.$role.']',
+								'name' => 'module_roles['.$module['slug'].']['.$role.']',
 								'value' => true,
 								'checked' => isset($edit_permissions[$module['slug']]) AND array_key_exists($role, (array) $edit_permissions[$module['slug']])
 							)) ?>
-							<?php echo lang($module['slug'].'.role_'.$role) ?>
+							<?php echo lang($module['slug'].':role_'.$role) ?>
 						</label>
 						<?php endforeach ?>
 					<?php endif ?>

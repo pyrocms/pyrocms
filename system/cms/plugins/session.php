@@ -120,7 +120,7 @@ class Plugin_Session extends Plugin
 	 */
 	public function data()
 	{
-		$name = $this->attribute('name');
+		$name  = $this->attribute('name');
 		$value = $this->attribute('value');
 
 		// value provided! We are setting to the name
@@ -148,7 +148,7 @@ class Plugin_Session extends Plugin
 	 */
 	public function flash()
 	{
-		$name = $this->attribute('name');
+		$name  = $this->attribute('name');
 		$value = $this->attribute('value');
 
 		// value provided! We are setting to the name
@@ -177,8 +177,8 @@ class Plugin_Session extends Plugin
 	public function messages()
 	{
 		$success_class = $this->attribute('success', 'success');
-		$notice_class = $this->attribute('notice', 'notice');
-		$error_class = $this->attribute('error', 'error');
+		$notice_class  = $this->attribute('notice', 'notice');
+		$error_class   = $this->attribute('error', 'error');
 
 		$output = '';
 

@@ -24,7 +24,9 @@ $lang['page_types:edit_title']                 = 'تعديل تخطيط الصف
 
 // messages
 $lang['page_types:no_pages']                   = 'لا يوجد أي تخطيطات صفحات.';
+$lang['page_types:create_success_add_fields']  = 'You have created a new page type; now add the fields that you want your page to have.'; #translate
 $lang['page_types:create_success']             = 'تم إنشاء تخطيط الصفحة.';
+$lang['page_types:success_add_tag']            = 'The page field has been added. However before its data will be output you must insert its tag into the Page Type\'s Layout textarea'; #translate
 $lang['page_types:create_error']               = 'لم يتم إنشاء تخطيط الصفحة.';
 $lang['page_types:page_type.not_found_error']  = 'تخطيط الصفحة هذا غير موجود.';
 $lang['page_types:edit_success']               = 'تم حفظ تخطيط الصفحة "%s".';

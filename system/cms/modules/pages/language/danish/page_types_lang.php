@@ -24,7 +24,9 @@ $lang['page_types:edit_title']                 = 'Redigér side layout "%s"';
 
 // messages
 $lang['page_types:no_pages']                   = 'Der er ingen side types.';
+$lang['page_types:create_success_add_fields']  = 'You have created a new page type; now add the fields that you want your page to have.'; #translate
 $lang['page_types:create_success']             = 'Sidelayoutet er lavet.';
+$lang['page_types:success_add_tag']            = 'The page field has been added. However before its data will be output you must insert its tag into the Page Type\'s Layout textarea'; #translate
 $lang['page_types:create_error']               = 'Sidelayoutet er ikke lavet.';
 $lang['page_types:page_type.not_found_error']  = 'Sidelayoutet findes ikke.';
 $lang['page_types:edit_success']               = 'Sidelayoutet "%s" er gemt.';

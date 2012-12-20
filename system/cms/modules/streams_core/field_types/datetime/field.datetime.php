@@ -964,11 +964,11 @@ class Field_datetime
 		// Format for admin
 		if ($params['use_time'] == 'no')
 		{
-			return(date($this->CI->settings->get('date_format'), $input));
+			return(date(Settings::get('date_format'), $input));
 		}	
 		else
 		{
-			return(date($this->CI->settings->get('date_format').' g:i a', $input));
+			return(date(Settings::get('date_format').' g:i a', $input));
 		}
 	}
 

@@ -11,14 +11,14 @@
 **/
 
 // Files Permissions
-$lang['files.role_wysiwyg']			= 'จัดการไฟล์จาก WYSIWYG';
-$lang['files.role_upload']			= 'อัปโหลดไฟล์';
-$lang['files.role_download_file']	= 'ดาวน์โหลดไฟล์';
-$lang['files.role_edit_file']		= 'แก้ไขไฟล์';
-$lang['files.role_delete_file'] 	= 'ลบไฟล์';
+$lang['files:role_wysiwyg']			= 'จัดการไฟล์จาก WYSIWYG';
+$lang['files:role_upload']			= 'อัปโหลดไฟล์';
+$lang['files:role_download_file']	= 'ดาวน์โหลดไฟล์';
+$lang['files:role_edit_file']		= 'แก้ไขไฟล์';
+$lang['files:role_delete_file'] 	= 'ลบไฟล์';
 
-$lang['files.role_create_folder']	= 'สร้างโฟลเดอร์';
-$lang['files.role_set_location']	= 'ตั้งผู้ใช้บริการกลุ่มเมฆ';
-$lang['files.role_synchronize']		= 'ซิงค์ข้อมูลกลุ่มเมฆ';
-$lang['files.role_edit_folder']		= 'แก้ไขโฟลเดอร์';
-$lang['files.role_delete_folder'] 	= 'ลบโฟลเดอร์';
+$lang['files:role_create_folder']	= 'สร้างโฟลเดอร์';
+$lang['files:role_set_location']	= 'ตั้งผู้ใช้บริการกลุ่มเมฆ';
+$lang['files:role_synchronize']		= 'ซิงค์ข้อมูลกลุ่มเมฆ';
+$lang['files:role_edit_folder']		= 'แก้ไขโฟลเดอร์';
+$lang['files:role_delete_folder'] 	= 'ลบโฟลเดอร์';
