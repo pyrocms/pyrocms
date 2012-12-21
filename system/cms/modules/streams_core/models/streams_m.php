@@ -342,10 +342,13 @@ class Streams_m extends MY_Model {
 			}
 		}
 		
-		if(isset($data['stream_name']))			$update_data['stream_name']		= $data['stream_name'];
-		if(isset($data['about']))				$update_data['about']			= $data['about'];
-		if(isset($data['sorting']))				$update_data['sorting']			= $data['sorting'];
-		if(isset($data['title_column']))		$update_data['title_column']	= $data['title_column'];
+		if (isset($data['stream_name']))		$update_data['stream_name']		= $data['stream_name'];
+		if (isset($data['about']))				$update_data['about']			= $data['about'];
+		if (isset($data['sorting']))			$update_data['sorting']			= $data['sorting'];
+		if (isset($data['title_column']))		$update_data['title_column']	= $data['title_column'];
+		if (isset($data['is_hidden']))			$update_data['is_hidden']		= $data['is_hidden'];
+		if (isset($data['sorting']))			$update_data['sorting']			= $data['sorting'];
+		if (isset($data['menu_path']))			$update_data['menu_path']		= $data['menu_path'];
 		
 		// View options
 		if (isset($data['view_options']) and $data['view_options'])
@@ -360,6 +363,35 @@ class Streams_m extends MY_Model {
 			{
 				$update_data['view_options']	= $data['view_options'];
 			}
+		}
+
+		// Extra enum data checks
+		if (isset($update_data['is_hidden']) and $update_data['is_hidden'] != 'yes' and $update_data['is_hidden'] != 'no')
+		{
+			$update_data['is_hidden'] = 'no';
+		}
+
+		if (isset($update_data['sorting']) and $update_data['sorting'] != 'title' and $update_data['sorting'] != 'custom')
+		{
+			$update_data['sorting'] = 'title';
+		}
+
+		// Permissions
+		if (isset($data['permissions']) and is_array($data['permissions']))
+		{
+			$update_data['permissions']		= serialize($data['permissions']);
+		}
+
+		// View options.
+		if (isset($extra['view_options']) and is_array($extra['view_options']))
+		{
+			$insert_data['view_options']		= serialize($extra['view_options']);
+		}
+		else
+		{
+			// Since this is a new stream, we are going to add a basic view profile
+			// with data we know will be there.	
+			$insert_data['view_options']		= serialize(array('id', 'created'));
 		}
 		
 		return $this->db->where('id', $stream_id)->update($this->table, $update_data);
@@ -670,7 +702,7 @@ class Streams_m extends MY_Model {
 			}
 		}
 		
-		if (!empty($skips)) $this->db->or_where_not_in('field_slug', $skips);
+		if ( ! empty($skips)) $this->db->or_where_not_in('field_slug', $skips);
 		
 		$this->db->where(STREAMS_TABLE.'.id', $stream_id);
 		$this->db->join(ASSIGN_TABLE, STREAMS_TABLE.'.id='.ASSIGN_TABLE.'.stream_id');
