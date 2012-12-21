@@ -188,4 +188,9 @@ $lang['streams:max_length'] 							= "Max Length";
 $lang['streams:upload_location'] 						= "Upload Location";
 $lang['streams:default_value'] 							= "Default Value";
 
+$lang['streams:menu_path']								= 'Menu Path';
+$lang['streams:about_instructions']						= 'A short description of your stream.';
+$lang['streams:slug_instructions']						= 'This will also be the database table name for your stream.';
+$lang['streams:prefix_instructions']					= 'If used, this will prefix the table in the database. Useful for naming collisons.';
+$lang['streams:menu_path_instructions']					= 'Where you what section and sub section this stream should show up in the menu. Separate by a forward slash. Ex: <strong>Main Section / Sub Section</strong>.';
 /* End of file pyrostreams_lang.php */

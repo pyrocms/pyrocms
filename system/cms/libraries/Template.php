@@ -197,9 +197,10 @@ class Template
 	 * @param	array	$data
 	 * @param	bool	$return
 	 * @param	bool	$IE_cache
+	 * @param 	bool 	$pre_parsed_view
 	 * @return	string
 	 */
-	public function build($view, $data = array(), $return = false, $IE_cache = true)
+	public function build($view, $data = array(), $return = false, $IE_cache = true, $pre_parsed_view = false)
 	{
 		// Set whatever values are given. These will be available to all view files
 		is_array($data) OR $data = (array) $data;
@@ -262,8 +263,17 @@ class Template
 		// Let CI do the caching instead of the browser
 		$this->cache_lifetime > 0 && $this->_ci->output->cache($this->cache_lifetime);
 
-		// Test to see if this file
-		$this->_body = $this->_find_view( $view, array(), $this->_parser_body_enabled);
+		// Set the _body var. If we have pre-parsed our
+		// view, then our work is done. Otherwise, we will
+		// find the view and parse it.
+		if ($pre_parsed_view)
+		{
+			$this->_body = $view;
+		}
+		else
+		{
+			$this->_body = $this->_find_view($view, array(), $this->_parser_body_enabled);
+		}
 
 		// Want this file wrapped with a layout file?
 		if ($this->_layout)

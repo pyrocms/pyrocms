@@ -242,9 +242,11 @@ class Streams_entries extends CI_Driver {
 	 * @param	stream - int, slug, or obj
 	 * @param 	string - namespace
 	 * @param 	array - field slugs to skip
+	 * @param 	array - assoc array of extra data to add
+	 * @param 	bool - update only the passed values?
 	 * @return	object
 	 */
-	public function update_entry($entry_id, $entry_data, $stream, $namespace, $skips = array())
+	public function update_entry($entry_id, $entry_data, $stream, $namespace, $skips = array(), $extra = array(), $include_only_passed = false)
 	{
 		$str_obj = $this->stream_obj($stream, $namespace);
 		
@@ -254,7 +256,7 @@ class Streams_entries extends CI_Driver {
 
 		$stream_fields = $CI->streams_m->get_stream_fields($str_obj->id);
 
-		return $CI->row_m->update_entry($stream_fields, $str_obj, $entry_id, $entry_data, $skips = array());
+		return $CI->row_m->update_entry($stream_fields, $str_obj, $entry_id, $entry_data, $skips, $extra, $include_only_passed);
 	}
 	
 }

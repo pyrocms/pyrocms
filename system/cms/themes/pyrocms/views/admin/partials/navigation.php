@@ -10,7 +10,7 @@
 		// display them now.
 		foreach ($menu_items as $key => $menu_item)
 		{
-			if (is_array($menu_item) and count($menu_item) > 1)
+			if (is_array($menu_item))
 			{
 				echo '<li><a href="'.current_url().'#" class="top-link">'.lang_label($key).'</a><ul>';
 

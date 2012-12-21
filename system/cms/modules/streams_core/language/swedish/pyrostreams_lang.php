@@ -166,6 +166,11 @@ $lang['streams:max_length'] = 'Maxlängd';
 $lang['streams:upload_location'] = 'Plats för uppladning';
 $lang['streams:default_value'] = 'Standardvärde';
 
+$lang['streams:menu_path']								= 'Menu Path'; #translate
+$lang['streams:about_instructions']						= 'A short description of your stream.'; #translate
+$lang['streams:slug_instructions']						= 'This will also be the database table name for your stream.'; #translate
+$lang['streams:prefix_instructions']					= 'If used, this will prefix the table in the database. Useful for naming collisons.'; #translate
+$lang['streams:menu_path_instructions']					= 'Where you what section and sub section this stream should show up in the menu. Separate by a forward slash. Ex: <strong>Main Section / Sub Section</strong>.'; #translate
 
 /* End of file pyrostreams_lang.php */  
 /* Location: system/cms/modules/streams_core/language/swedish/pyrostreams_lang.php */  
