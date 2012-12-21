@@ -640,6 +640,7 @@ margin: 0 15px 0 0;
 	background: #e0dbdb;
 	display: inline-block;
 	float: left;
+	clear: both;
 	width: 35px;
 	-moz-border-radius-bottom-right: 2px;
   	-webkit-border-bottom-right-radius: 2px;
