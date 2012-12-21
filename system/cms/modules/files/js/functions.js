@@ -665,6 +665,10 @@ jQuery(function($){
 				$('.folders-center').find('li').fadeOut('fast').remove();
 				$('.tipsy').remove();
 
+				// use the folder_id from results as we know that's numeric
+				folder_id = results.data.parent_id;
+				delete(results.data.parent_id);
+
 				// iterate so that we have folders first, files second
 				$.each(results.data, function(type, data){
 					$.each(data, function(index, item){

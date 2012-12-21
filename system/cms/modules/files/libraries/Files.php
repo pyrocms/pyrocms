@@ -182,7 +182,7 @@ class Files
 			}
 		}
 
-		return self::result(true, null, null, array('folder' => $folders, 'file' => $files));
+		return self::result(true, null, null, array('folder' => $folders, 'file' => $files, 'parent_id' => $parent));
 	}
 
 	// ------------------------------------------------------------------------
