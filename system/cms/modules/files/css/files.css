@@ -316,12 +316,15 @@ section.file-path h5 a {
 	border-radius:5px;
 }
 
-.folders-center .folder {
+.folders-center li {
 	width:100px;
-	height:112px;
-	margin:10px;
+	height:102px;
+	margin: 10px;
 	overflow:hidden;
 	float:left;
+}
+
+.folders-center .folder {
 	background:url(../img/folder.png) no-repeat;
 }
 
@@ -332,9 +335,12 @@ section.file-path h5 a {
 	font-size:11px;
 	height:15px;
 	overflow:hidden;
-	margin-top:80px;
+	margin-top:83px;
 	text-align:center;
 	cursor:default;
+	width: 92px;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 
 .folders-center li .name-text input {
@@ -348,27 +354,11 @@ section.file-path h5 a {
 	text-align:center;
 }
 
-.folders-center .file {
-	/* width:100px; */
-	/* height:112px; */
-	height:102px;
-	/* margin:10px; */
-	margin: 10px;
-	padding: 10px 0px 0px 0px;
-	overflow:hidden;
-	float:left;
-}
-
 .folders-center .selected {
 	background-color:#e0e0e0;
 	-webkit-border-radius:5px;
 	-moz-border-radius:5px;
 	border-radius:5px;
-}
-
-.folders-center .file .name-text {
-	margin-top:83px;
-	cursor:default;
 }
 
 .folders-center .file.type-a {
@@ -392,8 +382,7 @@ section.file-path h5 a {
 }
 
 .folders-center .file.type-i img {
-	/* padding:25px 13px 0; */
-	margin: 1px 3px 3px 3px;
+	margin: 14px 3px 3px 8px;
 	border: 5px solid white;
 	-webkit-box-shadow: 0 1px 3px 0 rgba(0,0,0,.4);
 	-moz-box-shadow: 0 1px 3px 0 rgba(0,0,0,.4);

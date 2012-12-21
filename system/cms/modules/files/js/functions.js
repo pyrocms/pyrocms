@@ -15,7 +15,7 @@ jQuery(function($){
 		fade: true,
 		html: true,
 		live: true,
-		delayIn: 300,
+		delayIn: 800,
 		delayOut: 300,
 		title: function() { 
 			var text = $(this).find('span').html();
