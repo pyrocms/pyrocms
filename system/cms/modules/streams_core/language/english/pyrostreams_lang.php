@@ -138,6 +138,7 @@ $lang['streams:start.no_fields_to_add']					= "No Fields to Add";
 $lang['streams:start.no_fields_msg']					= "There are no fields to add to this stream. In PyroStreams, field types can be shared between streams and must be created before being added to a stream. You can start by";
 $lang['streams:start.adding_a_field_here']				= "adding a field here";
 $lang['streams:start.no_entries']						= "There are no entries yet for <strong>%s</strong>. To start, you can";
+$lang['streams:no_entries']								= 'No entries'; #translate
 $lang['streams:add_fields']								= "assign fields";
 $lang['streams:add_an_entry']							= "add an entry";
 $lang['streams:to_this_stream_or']						= "to this stream or";
@@ -187,4 +188,9 @@ $lang['streams:max_length'] 							= "Max Length";
 $lang['streams:upload_location'] 						= "Upload Location";
 $lang['streams:default_value'] 							= "Default Value";
 
+$lang['streams:menu_path']								= 'Menu Path';
+$lang['streams:about_instructions']						= 'A short description of your stream.';
+$lang['streams:slug_instructions']						= 'This will also be the database table name for your stream.';
+$lang['streams:prefix_instructions']					= 'If used, this will prefix the table in the database. Useful for naming collisons.';
+$lang['streams:menu_path_instructions']					= 'Where you what section and sub section this stream should show up in the menu. Separate by a forward slash. Ex: <strong>Main Section / Sub Section</strong>.';
 /* End of file pyrostreams_lang.php */

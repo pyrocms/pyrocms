@@ -74,6 +74,8 @@ class Streams_cp extends CI_Driver {
 		
  		$stream_fields = $CI->streams_m->get_stream_fields($stream->id);
 
+ 		$stream_fields = new stdClass;
+
  		$stream_fields->id = new stdClass;
   		$stream_fields->created = new stdClass;
  		$stream_fields->updated = new stdClass;
@@ -106,21 +108,6 @@ class Streams_cp extends CI_Driver {
 		// @since 2.1.5
 		// -------------------------------------
 
-		// Stuff below is not supported via the API yet
-		if ($stream->sorting == 'custom')
-		{
-			// We need some variables to use in the sort. I guess.
-			$this->CI->template->append_metadata('<script type="text/javascript" language="javascript">var stream_id='.$stream->id.';var stream_offset='.$offset.';</script>');
-		
-			// We want to sort this
-		    $this->CI->template->append_js('streams/entry_sorting.js');
-		    		      
-			// Comeon' Livequery! You're goin' in!
-			$this->CI->template->append_js('jquery/jquery.livequery.js');
-		}
-
-		/*
-		@TODO Was it the code above or this below? Phil
 		if ($stream->sorting == 'custom' or (isset($extra['sorting']) and $extra['sorting'] === true))
 		{
 			$stream->sorting = 'custom';
@@ -134,7 +121,6 @@ class Streams_cp extends CI_Driver {
 				</script>');
 			$CI->template->append_js('streams/entry_sorting.js');
 		}
-		*/
   
   		$data = array(
   			'stream'		=> $stream,
@@ -260,6 +246,12 @@ class Streams_cp extends CI_Driver {
 		{
 			$CI->template->title($extra['title']);
 		}
+
+		// Set custom no data message
+		if (isset($extra['no_entries_message']))
+		{
+			$data['no_entries_message'] = $extra['no_entries_message'];
+		}
 		
 		$table = $CI->load->view('admin/partials/streams/entries', $data, true);
 		
@@ -303,11 +295,12 @@ class Streams_cp extends CI_Driver {
 	 * required				- String to show as required - this defaults to the
 	 * 							standard * for the PyroCMS CP
 	 * title				- Title of the form header (if using view override)
+	 * no_fields_message    - Custom message when there are no fields.
 	 */
 	public function entry_form($stream_slug, $namespace_slug, $mode = 'new', $entry_id = null, $view_override = false, $extra = array(), $skips = array(), $tabs = false, $hidden = array(), $defaults = array())
 	{
 		$CI = get_instance();
-	
+
 		$stream = $this->stream_obj($stream_slug, $namespace_slug);
 		if ( ! $stream) $this->log_error('invalid_stream', 'form');
 
@@ -326,10 +319,9 @@ class Streams_cp extends CI_Driver {
 			$entry = null;
 		}
 
+		// Get our field form elements.
 		$fields = $CI->fields->build_form($stream, $mode, $entry, false, false, $skips, $extra, $defaults);
 
-		// Get the entry
-		
 		$data = array(
 					'fields' 	=> $fields,
 					'tabs'		=> $tabs,
@@ -349,6 +341,12 @@ class Streams_cp extends CI_Driver {
 		{
 			$data['return'] = $extra['return'];
 		}
+
+		// Set the no fields mesage. This has a lang default.
+		if (isset($extra['no_fields_message']))
+		{
+			$data['no_fields_message'] = $extra['no_fields_message'];
+		}
 		
 		$CI->template->append_js('streams/entry_form.js');
 		
@@ -358,7 +356,6 @@ class Streams_cp extends CI_Driver {
 		}
 		else
 		{
-
 			// Make the fields keys the input_slug. This will make it easier to build tabs. Less looping.
 			foreach ( $data['fields'] as $k => $v ){
 				$data['fields'][$v['input_slug']] = $v;
@@ -973,6 +970,12 @@ class Streams_cp extends CI_Driver {
 		if (isset($extra['title']))
 		{
 			$CI->template->title($extra['title']);
+		}
+
+		// Set no assignments message
+		if (isset($extra['no_assignments_message']))
+		{
+			$data['no_assignments_message'] = $extra['no_assignments_message'];
 		}
 		
 		$CI->template->append_metadata('<script>var fields_offset='.$offset.';</script>');

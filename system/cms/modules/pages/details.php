@@ -157,7 +157,12 @@ class Module_Pages extends Module
 			$this->load->driver('Streams');
 			$this->streams->utilities->remove_namespace('pages');
 		}
-	
+
+		if ($this->db->table_exists('data_streams'))
+		{
+			$this->db->where('stream_namespace', 'pages')->delete('data_streams');
+		}
+
 		$this->load->helper('date');
 		$this->load->config('pages/pages');
 

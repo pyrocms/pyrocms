@@ -139,6 +139,7 @@ $lang['streams:start.no_fields_msg']					= "Nėra galimų pridėti laukų į š�
 $lang['streams:start.adding_a_field_here']				= "pridėdami vieną jų";
 $lang['streams:start.no_entries']						= "Nėra yrašų <strong>%s</strong>. Kad pradėti,";
 $lang['streams:add_fields']								= "priskirkite laukus";
+$lang['streams:no_entries']								= 'No entries'; #translate
 $lang['streams:add_an_entry']							= "pridekite įrašą";
 $lang['streams:to_this_stream_or']						= "šiam srautui arba";
 $lang['streams:no_field_assign']						= "Nėra lauko priskyrimai";
@@ -186,5 +187,11 @@ $lang['recaptcha_html_error'] 							= "Klaida, atidarant saugumo paveiksliuką.
 $lang['streams:max_length'] 							= "Maksimalus dydis";
 $lang['streams:upload_location'] 						= "Failo įkėlimo vieta";
 $lang['streams:default_value'] 							= "Numatyta reikšmė";
+
+$lang['streams:menu_path']								= 'Menu Path'; #translate
+$lang['streams:about_instructions']						= 'A short description of your stream.'; #translate
+$lang['streams:slug_instructions']						= 'This will also be the database table name for your stream.'; #translate
+$lang['streams:prefix_instructions']					= 'If used, this will prefix the table in the database. Useful for naming collisons.'; #translate
+$lang['streams:menu_path_instructions']					= 'Where you what section and sub section this stream should show up in the menu. Separate by a forward slash. Ex: <strong>Main Section / Sub Section</strong>.'; #translate
 
 /* End of file pyrostreams_lang.php */

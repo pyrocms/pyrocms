@@ -11,7 +11,7 @@
 
 		<?php $parent = ($parent_id) ? '&parent='.$parent_id : null; ?>
 	
-		<?php echo form_open(uri_string().'?page_type='.$this->input->get('page_type').$parent, 'id="page-form"'); ?>
+		<?php echo form_open_multipart(uri_string().'?page_type='.$this->input->get('page_type').$parent, 'id="page-form"'); ?>
 		<?php echo form_hidden('parent_id', empty($page->parent_id) ? 0 : $page->parent_id); ?>
 	
 		<div class="tabs">

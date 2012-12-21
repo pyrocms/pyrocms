@@ -208,12 +208,13 @@ class Streams_m extends MY_Model {
 	 * @param	string - stream prefix
 	 * @param	string - stream namespace
 	 * @param	[string - about the stream]
+	 * @param 	[array - extra data]
 	 * @return	false or stream id
 	 */
-	public function create_new_stream($stream_name, $stream_slug, $prefix, $namespace, $about = null)
+	public function create_new_stream($stream_name, $stream_slug, $prefix, $namespace, $about = null, $extra = array())
 	{	
 		// See if table exists. You never know if it sneaked past validation
-		if ($this->db->table_exists($prefix.$stream_slug)) return null;
+		if ($this->db->table_exists($prefix.$stream_slug)) return false;
 			
 		// Create the db table
 		$this->load->dbforge();
@@ -238,11 +239,42 @@ class Streams_m extends MY_Model {
 		$insert_data['stream_prefix']		= $prefix;
 		$insert_data['stream_namespace']	= $namespace;
 		$insert_data['about']				= $about;
-		$insert_data['title_column']		= null;
-		
-		// Since this is a new stream, we are going to add a basic view profile
-		// with data we know will be there.	
-		$insert_data['view_options']		= serialize(array('id', 'created'));
+
+		// Our extra columns, coming from the $extra array.
+		$insert_data['title_column']		= (isset($extra['title_column'])) ? $extra['title_column'] : null;
+		$insert_data['is_hidden']			= (isset($extra['is_hidden'])) ? $extra['is_hidden'] : 'no';
+		$insert_data['sorting']				= (isset($extra['sorting'])) ? $extra['sorting'] : 'title';
+		$insert_data['menu_path']			= (isset($extra['menu_path'])) ? $extra['menu_path'] : null;
+
+		// Extra enum data checks
+		if ($insert_data['is_hidden'] != 'yes' and $insert_data['is_hidden'] != 'no')
+		{
+			$insert_data['is_hidden'] = 'no';
+		}
+
+		if ($insert_data['sorting'] != 'title' and $insert_data['sorting'] != 'custom')
+		{
+			$insert_data['sorting'] = 'title';
+		}
+
+		// Permissions can be handled differently by each module, so unless they are 
+		// passed, we are just going to forget about them
+		if (isset($extra['permissions']) and is_array($extra['permissions']))
+		{
+			$insert_data['permissions']		= serialize($extra['permissions']);
+		}
+
+		// View options.
+		if (isset($extra['view_options']) and is_array($extra['view_options']))
+		{
+			$insert_data['view_options']		= serialize($extra['view_options']);
+		}
+		else
+		{
+			// Since this is a new stream, we are going to add a basic view profile
+			// with data we know will be there.	
+			$insert_data['view_options']		= serialize(array('id', 'created'));
+		}
 		
 		if ($this->db->insert($this->table, $insert_data))
 		{

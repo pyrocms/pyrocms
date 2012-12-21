@@ -684,6 +684,7 @@ input:invalid, textarea:invalid { background-color: #f0dddd; }
   width: 100%;
   margin-bottom: 10px;
 }
+
 .form_inputs .input > input {
 	color: #666;
 	min-width: 210px!important;
@@ -699,7 +700,7 @@ input:invalid, textarea:invalid { background-color: #f0dddd; }
 -webkit-transition: 250ms linear all; 
   -moz-transition: 250ms linear all; 
   transition: 250ms linear all;
-  /* width: 100%; */
+  width: 99%;
 }
 
 .form_inputs input:focus,
@@ -1851,6 +1852,7 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
 .topbar-form input {
   margin-top: 5px;
   display: inline-block;
+  position: relative;
   margin-bottom: 0;
   width: 200px;
 }
@@ -1888,6 +1890,18 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
 	-o-transition: 200ms linear all;
 	transition: 200ms linear all;
 	-webkit-font-smoothing: subpixel-antialiased;
+}
+
+.topbar-search .search-query::-webkit-input-placeholder {
+	color: gray;
+}
+
+.topbar-search .search-query:-moz-placeholder {  
+	color: gray;  
+}
+
+.topbar-search .search-query:-ms-input-placeholder {
+	color: gray; 
 }
 
 .topbar-search .search-query:focus {

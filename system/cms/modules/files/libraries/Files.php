@@ -358,7 +358,7 @@ class Files
 				'upload_path'	=> self::$path,
 				'file_name'		=> $replace_file ? $replace_file->filename : self::$_filename,
 				// if we want to replace a file, the file name should already be encrypted, the option was true then
-				'encrypt_name'	=> config_item('files:encrypt_filename') && ! $replace_file ? TRUE : FALSE
+				'encrypt_name'	=> (config_item('files:encrypt_filename') && ! $replace_file) ? TRUE : FALSE
 			);
 
 			// If we don't have allowed types set, we'll set it to the
@@ -412,13 +412,14 @@ class Files
 
 				if($replace_file)
 				{
-					$file_id = $replace_file;
+					$file_id = $replace_file->id;
 					ci()->file_m->update($replace_file->id, $data);
 				}
 				else
 				{
 					$data['id'] = substr(md5(now()+$data['filename']), 0, 15);
-					$file_id = ci()->file_m->insert($data);
+					$file_id = $data['id'];
+					ci()->file_m->insert($data);
 				}
 
 				if ($data['type'] !== 'i')
