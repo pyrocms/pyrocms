@@ -79,6 +79,12 @@
 	margin-right: 10px;
 }
 
+#remove_installer_directory {
+	right: 40px;
+	position: absolute;
+	top: 0;
+}
+
 .subbar {
 	position: fixed;
 	z-index: 9997;
