@@ -1852,6 +1852,7 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
 .topbar-form input {
   margin-top: 5px;
   display: inline-block;
+  position: relative;
   margin-bottom: 0;
   width: 200px;
 }
@@ -1889,6 +1890,18 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
 	-o-transition: 200ms linear all;
 	transition: 200ms linear all;
 	-webkit-font-smoothing: subpixel-antialiased;
+}
+
+.topbar-search .search-query::-webkit-input-placeholder {
+	color: gray;
+}
+
+.topbar-search .search-query:-moz-placeholder {  
+	color: gray;  
+}
+
+.topbar-search .search-query:-ms-input-placeholder {
+	color: gray; 
 }
 
 .topbar-search .search-query:focus {
