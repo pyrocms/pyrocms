@@ -79,6 +79,12 @@
 	margin-right: 10px;
 }
 
+#remove_installer_directory {
+	right: 40px;
+	position: absolute;
+	top: 0;
+}
+
 .subbar {
 	position: fixed;
 	z-index: 9997;
@@ -634,6 +640,7 @@ margin: 0 15px 0 0;
 	background: #e0dbdb;
 	display: inline-block;
 	float: left;
+	clear: both;
 	width: 35px;
 	-moz-border-radius-bottom-right: 2px;
   	-webkit-border-bottom-right-radius: 2px;
