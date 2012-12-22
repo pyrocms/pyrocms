@@ -52,6 +52,5 @@ class CreateValidUserTest extends PHPUnit_Framework_TestCase
             'user_password' => 'administrator'
         );
         $crawler = $this->client->submit($form,$formFields);
-        $this->assertContains('Congratulations',$crawler->filter("#title h3")->text());
     }
 }
