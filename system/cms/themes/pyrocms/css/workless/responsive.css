@@ -46,6 +46,8 @@
 
 	nav#primary .chzn-container {
 		margin-top: 10px;
+		width: 70px !important;
+		margin-left: 20px;
 	}
 
 
