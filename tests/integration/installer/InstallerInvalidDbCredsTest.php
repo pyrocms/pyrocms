@@ -12,6 +12,7 @@ class TestInstallerInvalidDbCreds extends PHPUnit_Framework_Testcase
     public function setUp()
     {
         $this->client = new Client();
+        $this->client->followRedirects(true);
     }
 
     public function tearDown()
@@ -26,7 +27,7 @@ class TestInstallerInvalidDbCreds extends PHPUnit_Framework_Testcase
      */
     public function InstallWithInvalidDBCredentials()
     {
-        $crawler = $this->client->request('GET','http://localhost');
+        $crawler = $this->client->request('GET','http://localhost/installer');
         $link = $crawler->selectLink('Step #1')->link();
         $crawler = $this->client->click($link);
         $this->assertEquals($crawler->filter('title')->text(),'PyroCMS Installer');

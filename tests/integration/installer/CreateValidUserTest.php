@@ -18,18 +18,6 @@ class CreateValidUserTest extends PHPUnit_Framework_TestCase
 
     public function navigateToStepFour()
     {
-
-
-        return $crawler;
-    }
-    /**
-     * @test
-     * Given that the database settings are successful
-     * When the user form is filled out
-     * Then the user should be created and user taken to confirmation page
-     */
-    public function CreateAdminUserInInstaller()
-    {
         $crawler = $this->client->request('GET','http://localhost/installer');
 
         $link = $crawler->selectLink('Step #1')->link();
@@ -43,6 +31,18 @@ class CreateValidUserTest extends PHPUnit_Framework_TestCase
             'hostname' => '127.0.0.1'
         );
         $crawler = $this->client->submit($form,$formFields);
+
+        return $crawler;
+    }
+    /**
+     * @test
+     * Given that the database settings are successful
+     * When the user form is filled out
+     * Then the user should be created and user taken to confirmation page
+     */
+    public function CreateAdminUserInInstaller()
+    {
+        $crawler = $this->navigateToStepFour();
         $form = $crawler->selectButton('Install')->form();
         $formFields = array(
             'user_name'=>'admin',
@@ -52,8 +52,6 @@ class CreateValidUserTest extends PHPUnit_Framework_TestCase
             'user_password' => 'administrator'
         );
         $crawler = $this->client->submit($form,$formFields);
-        $this->assertEmpty($crawler->filter('')->text());
-        $crawler = $this->client->request('GET','http://localhost/index.php/admin');
-        $this->assertContains('Log In',$crawler->filter('title')->text());
+        $this->assertContains('Congratulations',$crawler->filter("#title h3")->text());
     }
 }
