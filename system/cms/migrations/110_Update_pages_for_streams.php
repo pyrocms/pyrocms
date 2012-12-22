@@ -24,6 +24,27 @@ class Migration_Update_pages_for_streams extends CI_Migration
         );
         $this->dbforge->modify_column('data_streams', $streams_columns);
 
+        // Step 0b: The 2.2 codebase expects these columns. However they aren't added
+        // until migration 114/115 so we'll add them here, then remove again at the end of this migration.
+       if ( ! $this->db->field_exists('is_hidden', 'data_streams'))
+       {
+            $columns = array(
+                'is_hidden' => array(
+                            'type' => 'ENUM',
+                            'null' => true,
+                            'constraint' => array('yes', 'no'),
+                            'default' => 'no'
+                        ),
+                'menu_path' => array(
+                            'type' => 'VARCHAR',
+                            'null' => true,
+                            'constraint' => 255
+                        ),
+
+            );
+            $this->dbforge->add_column('data_streams', $columns);
+        }
+
         // Step 1: Rename page_layouts to page_types.
         if ($this->db->table_exists('page_layouts'))
         {
@@ -119,6 +140,10 @@ class Migration_Update_pages_for_streams extends CI_Migration
                 write_file($pt_folder.'.htaccess', 'deny from all');
             }
         }
+
+        // remove our temporary columns, they get added back later with proper setup
+        $this->dbforge->drop_column('data_streams', 'is_hidden');
+        $this->dbforge->drop_column('data_streams', 'menu_path');
 
         // clear the page cache so it will retrieve data with page types data
         $this->pyrocache->delete_all('page_m');
