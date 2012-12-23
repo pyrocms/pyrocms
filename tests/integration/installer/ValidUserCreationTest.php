@@ -18,7 +18,7 @@ class CreateValidUserTest extends PHPUnit_Framework_TestCase
 
     public function navigateToStepFour()
     {
-        $crawler = $this->client->request('GET','http://localhost/');
+        $crawler = $this->client->request('GET','http://localhost/installer');
 
         $link = $crawler->selectLink('Step #1')->link();
         $crawler = $this->client->click($link);
