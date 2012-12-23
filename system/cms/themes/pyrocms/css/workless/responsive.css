@@ -120,6 +120,86 @@
 	position: relative;
 }
 
+/* Login Screen */
+#container.login-screen {
+	width: 100%;
+}
+
+.login-screen #content {
+	margin: 10px 10px 70px 10px !important;
+}
+
+.login-screen section#content {
+	width: auto;
+}
+
+.login-screen #content-body {
+	width: 100%;
+	margin: 0 auto;
+}
+
+.login-screen #content-body .input {
+	width: 50%;
+}
+
+.login-screen #content-body form li {
+	padding: 0;
+	margin: 0;
+	line-height: 40px;
+	vertical-align: middle;
+}
+
+.login-screen #content-body form li label {
+	width: 30%;
+	text-align: right;
+}
+
+.login-screen #content-body form li input[type="text"],
+.login-screen #content-body form li input[type="password"] {
+	min-width: 100% !important;
+	position: relative;
+	top: 5px;
+}
+
+.login-screen #content-body form li label#login-remember {
+	width: 100% !important;
+	position: relative;
+	right: 35%;
+	line-height: 20px;
+}
+
+.login-screen #content-body form li label#login-remember input {
+	margin-right: 10px;
+	position: relative;
+	top: 2px;
+}
+
+#login-buttons {
+	vertical-align: middle;
+	margin: 10px auto;
+	width: 80%;
+	text-align: center;
+}
+
+#login-submit {
+	height: 40px;
+	width: 50%;
+}
+
+#login-footer {
+	text-align: center;
+	width: 100%;
+	margin: 10px auto;
+	padding: 0;
+}
+
+#login-footer #login-pyro-link {
+	width: 60%;
+	display: block;
+	margin: 0 auto;
+	line-height: 30px;
+}
+
 @media only screen and (min-width: 481px) {
 
 	.wrapper {
@@ -281,6 +361,13 @@
 	select { 
 		width: 445px; 
 	}
+
+	/* LOGIN SCREEN */
+	.login-screen #content { margin: 170px 0 150px 0 !important; }
+	.login-screen .alert {width: auto;}
+	#container.login-screen { width: 400px; }
+	.login-screen #content-body { width: 400px; }
+	#login-footer #login-pyro-link { width: 30%; }
 }
 
 @media only screen and (min-width: 768px) {
@@ -386,6 +473,9 @@
 		float: left;
 	}
 
+	footer {
+		margin-top: -81px;
+	}
 	footer p {
 		float: left;
 		padding: 10px 0 0 0;
@@ -458,7 +548,6 @@
 	.form_inputs > ul > li .label {
 		width: 25%!important;
 	}
-
 }
 
 @media only screen and (min-width: 1025px) {
@@ -552,6 +641,9 @@
 		float: left;
 	}
 
+	footer {
+		margin-top: -81px;
+	}
 	footer p {
 		padding: 0;
 		margin: 0;
