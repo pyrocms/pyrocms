@@ -51,6 +51,7 @@ class CreateValidUserTest extends PHPUnit_Framework_TestCase
             'user_email' => 'admin@admin.com',
             'user_password' => 'administrator'
         );
+        //submit user forms
         $crawler = $this->client->submit($form,$formFields);
     }
 }
