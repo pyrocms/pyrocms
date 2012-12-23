@@ -61,7 +61,7 @@
 
 	</section>
 
-	<section class="side sidebar-right">
+	<section class="side sidebar-right animated" id="file-sidebar">
 		<button class="close" alt="close">Close</button>
 		<ul id="search-results"></ul>
 	</section>

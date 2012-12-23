@@ -222,7 +222,6 @@ jQuery(function($) {
 
 		$('a[data-inline-modal]').livequery(function() {
 			var element_id = $(this).attr('data-inline-modal');
-			console.log($(element_id).html());
 			$(this).colorbox({
 				width: "60%",
 				maxHeight: "90%",

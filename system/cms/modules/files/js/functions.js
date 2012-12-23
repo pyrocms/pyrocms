@@ -15,7 +15,7 @@ jQuery(function($){
 		fade: true,
 		html: true,
 		live: true,
-		delayIn: 300,
+		delayIn: 800,
 		delayOut: 300,
 		title: function() { 
 			var text = $(this).find('span').html();
@@ -64,13 +64,13 @@ jQuery(function($){
 
 	$('.sidebar-right').find('.close').on('click', function() {
 		$search_results.empty();
-		$('.sidebar-right').slideUp();
+		$('.sidebar-right').removeClass('fadeInRight').addClass('fadeOutRight');
+		$('.side, .center').removeClass('three_column');
 	});
 
 	$('input#file-search').keyup(function(e){
 
 		$search_results.empty();
-		$('.sidebar-right').slideUp();
 
 		// submit on Enter
 		if (e.which === 13) {
@@ -91,7 +91,8 @@ jQuery(function($){
 				} else {
 					 $('<li><div class="info"></div>' + results.message + '</li>').appendTo('ul#search-results');
 				}
-				$('.sidebar-right').slideDown();
+				$('.sidebar-right').show().removeClass('fadeOutRight').addClass('fadeInRight');
+				$('.side, .center').addClass('three_column');
 			});
 
 		}
@@ -663,6 +664,10 @@ jQuery(function($){
 				// so let's wipe it clean...
 				$('.folders-center').find('li').fadeOut('fast').remove();
 				$('.tipsy').remove();
+
+				// use the folder_id from results as we know that's numeric
+				folder_id = results.data.parent_id;
+				delete(results.data.parent_id);
 
 				// iterate so that we have folders first, files second
 				$.each(results.data, function(type, data){

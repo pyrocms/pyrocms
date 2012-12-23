@@ -92,7 +92,12 @@ $config['streams:schema'] = array(
 						'type' => 'ENUM',
 						'constraint' => array('yes', 'no'),
 						'default' => 'no'
-					)
+					),
+   				'menu_path' => array(
+   						'type' => 'VARCHAR',
+   						'constraint' => 255,
+   						'null' => true
+   					)
 	     ),
         'primary_key' => 'id'),
     $config['streams:fields_table'] => array(
