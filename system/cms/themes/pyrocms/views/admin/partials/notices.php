@@ -1,42 +1,42 @@
 <?php if ($this->session->flashdata('error')): ?>
 <div class="alert error">
-	<?php echo $this->session->flashdata('error'); ?>
+	<p><?php echo $this->session->flashdata('error'); ?></p>
 </div>
 <?php endif; ?>
 
 <?php if (validation_errors()): ?>
 <div class="alert error">
-	<?php echo validation_errors(); ?>
+	<p><?php echo validation_errors(); ?></p>
 </div>
 <?php endif; ?>
 
 <?php if ( ! empty($messages['error'])): ?>
 <div class="alert error">
-	<?php echo $messages['error']; ?>
+	<p><?php echo $messages['error']; ?></p>
 </div>
 <?php endif; ?>
 
 <?php if ($this->session->flashdata('notice')): ?>
 <div class="alert warning">
-	<?php echo $this->session->flashdata('notice');?>
+	<p><?php echo $this->session->flashdata('notice');?></p>
 </div>
 <?php endif; ?>
 
 <?php if ( ! empty($messages['notice'])): ?>
 <div class="alert warning">
-	<?php echo $messages['notice']; ?>
+	<p><?php echo $messages['notice']; ?></p>
 </div>
 <?php endif; ?>
 
 <?php if ($this->session->flashdata('success')): ?>
 <div class="alert success">
-	<?php echo $this->session->flashdata('success'); ?>
+	<p><?php echo $this->session->flashdata('success'); ?></p>
 </div>
 <?php endif; ?>
 
 <?php if ( ! empty($messages['success'])): ?>
 <div class="alert success">
-	<?php echo $messages['success']; ?>
+	<p><?php echo $messages['success']; ?></p>
 </div>
 <?php endif; ?>
 

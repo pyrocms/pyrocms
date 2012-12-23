@@ -643,7 +643,7 @@ input:invalid, textarea:invalid { background-color: #f0dddd; }
 .form_inputs > ul > div > li,
 .form_inputs fieldset > ul > div > li,
 .form_inputs > ul > li {
-	float: left;
+	/* float: left; */
 	width: 100%;
 	border-bottom: 1px solid #efefef;
 	padding-bottom: 10px;
@@ -661,7 +661,7 @@ input:invalid, textarea:invalid { background-color: #f0dddd; }
 .form_inputs fieldset > ul > li .label,
 .form_inputs > ul > li .label {
 	width: 90%;
-	float: left;
+	/* float: left; */
 	text-align: left;
 	margin: 0 3% 0 0;
 	padding: 8px;
@@ -701,7 +701,7 @@ input:invalid, textarea:invalid { background-color: #f0dddd; }
 -webkit-transition: 250ms linear all; 
   -moz-transition: 250ms linear all; 
   transition: 250ms linear all;
-  width: 99%;
+  /* width: 99%; */
 }
 
 .form_inputs input:focus,
@@ -1412,8 +1412,11 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
 .alert p 
 {
     font-size: 13px;
-    color: #ffffff;
+    color: #333;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
+    display: block;
     margin-bottom: 0;
+    padding-right: 10px;
 }
 
 .alert.error {
@@ -1468,25 +1471,43 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
     border-bottom-color: #049cdb;
 }
 
+.alert .close:before {
+	content: "x";
+	position: absolute;
+	top: 4px;
+	left: 6px;
+}
+
 .alert .close {
+	position: relative;
   float: right;
-  margin-top: -5px;
-  color: #333333;
-  font-size: 18px;
+  margin-top: -20px;
+  margin-right: -20px;
+  background-color: #444;
+  padding: 10px;
+  line-height: 9px;
+  display: inline-block;
+  border: 2px solid white;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,.5);
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+  border-radius: 20px;
+  color: white;
+  font-size: 14px;
   font-weight: bold;
-  text-shadow: 0 1px 0 #ffffff;
-  filter: alpha(opacity=40);
-  -khtml-opacity: 0.4;
-  -moz-opacity: 0.4;
-  opacity: 0.4;
+  text-shadow: 0 1px 0 black;
+  -webkit-transition: all 200ms linear;
+  -moz-transition: all 200ms linear;
+  -ms-transition: all 200ms linear;
+  -o-transition: all 200ms linear;
+  transition: all 200ms linear;
 }
 
 .alert .close:hover {
   text-decoration: none;
-  filter: alpha(opacity=20);
-  -khtml-opacity: 0.2;
-  -moz-opacity: 0.2;
-  opacity: 0.2;
+  background-color: black;
 }
 
 .block-message {

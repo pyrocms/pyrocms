@@ -31,33 +31,35 @@
 			</section>
 
 			<section class="item">
-				<?php echo form_open('admin/login'); ?>
-				<div class="form_inputs">
-					<ul>
-						<li>
-							<label for="email"><?php echo lang('global:email'); ?></label>
-							<div class="input"><input type="text" name="email" placeholder="<?php echo lang('global:email'); ?>"/></div>
-						</li>
-
-						<li>
-							<label for="password"><?php echo lang('global:password'); ?></label>
-							<div class="input"><input type="password" name="password" placeholder="<?php echo lang('global:password'); ?>"/></div>
-						</li>
-						<li>
-							<label for="remember-check" id="login-remember">
-								<input type="checkbox" name="remember" id="remember-check"/>
-								<?php echo lang('user:remember'); ?>
-							</label>
-						</li>
-
-					</ul>
-					<div id="login-buttons" class="buttons padding-top">
-						<button id="login-submit" class="btn green" type="submit" name="submit" value="<?php echo lang('login_label'); ?>">
-							<span><?php echo lang('login_label'); ?></span>
-						</button>
+				<div class="content">
+					<?php echo form_open('admin/login'); ?>
+					<div class="form_inputs">
+						<ul>
+							<li>
+								<!-- <label for="email"><?php echo lang('global:email'); ?></label> -->
+								<div class="input"><input type="text" name="email" placeholder="<?php echo lang('global:email'); ?>"/></div>
+							</li>
+	
+							<li>
+								<!-- <label for="password"><?php echo lang('global:password'); ?></label> -->
+								<div class="input"><input type="password" name="password" placeholder="<?php echo lang('global:password'); ?>"/></div>
+							</li>
+							<li>
+								<label for="remember-check" id="login-remember">
+									<input type="checkbox" name="remember" id="remember-check"/>
+									<?php echo lang('user:remember'); ?>
+								</label>
+							</li>
+	
+						</ul>
+						<div id="login-buttons" class="buttons padding-top">
+							<button id="login-submit" class="btn green" type="submit" name="submit" value="<?php echo lang('login_label'); ?>">
+								<span><?php echo lang('login_label'); ?></span>
+							</button>
+						</div>
 					</div>
+					<?php echo form_close(); ?>
 				</div>
-				<?php echo form_close(); ?>
 			</section>
 		</div>
 	</section>
