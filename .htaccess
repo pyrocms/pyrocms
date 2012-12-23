@@ -1,7 +1,7 @@
 # Multiple Environment config
 # Set this to development, staging or production
 # SetEnv PYRO_ENV production
-
+php_flag display_errors On
 <IfModule mod_rewrite.c>
 
     # Make sure directory listing is disabled

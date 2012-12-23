@@ -34,7 +34,7 @@ class TestInstallerValidDbCreds extends PHPUnit_Framework_TestCase
             'create_db'=>'true',
             'database'=>'pyrocms'
         );
-        $crawler = $this->client->request('GET','http://localhost/installer');
+        $crawler = $this->client->request('GET','http://localhost/');
         $this->assertEquals($crawler->filter('title')->text(),'PyroCMS Installer');
         $link = $crawler->selectLink('Step #1')->link();
         $crawler = $this->client->click($link);
@@ -60,7 +60,7 @@ class TestInstallerValidDbCreds extends PHPUnit_Framework_TestCase
             'create_db'=>'true',
             'database'=>'pyrocms'
         );
-        $crawler = $this->client->request('GET','http://localhost/installer');
+        $crawler = $this->client->request('GET','http://localhost/');
         $this->assertEquals($crawler->filter('title')->text(),'PyroCMS Installer');
         $link = $crawler->selectLink('Step #1')->link();
         $crawler = $this->client->click($link);
