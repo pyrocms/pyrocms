@@ -169,7 +169,7 @@ class Admin_types extends Admin_Controller
 					$count++;
 				}
 
-				$input['stream_id'] = $this->streams->streams->add_stream(lang('page_types:list_title_sing').' '.$input['title'], $stream_slug, 'pages', 'pages:');
+				$input['stream_id'] = $this->streams->streams->add_stream(lang('page_types:list_title_sing').' '.$input['title'], $stream_slug, 'pages', 'pages_');
 			}
 
 			// Insert the page type

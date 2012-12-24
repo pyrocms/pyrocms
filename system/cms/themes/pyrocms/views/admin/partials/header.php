@@ -56,7 +56,7 @@
 
 
 			<form class="topbar-search">
-				<input type="text" class="search-query" placeholder="Search">
+				<input type="text" class="search-query" id="nav-search" placeholder="Search">
 			</form>
 		</div>
 		

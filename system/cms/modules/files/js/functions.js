@@ -15,7 +15,7 @@ jQuery(function($){
 		fade: true,
 		html: true,
 		live: true,
-		delayIn: 300,
+		delayIn: 800,
 		delayOut: 300,
 		title: function() { 
 			var text = $(this).find('span').html();
@@ -52,7 +52,8 @@ jQuery(function($){
 				break;
 			}
 
-			$('<li class="' + li_status_class + '"><i class="' + status_class + '"></i>' + results.message + '</li>').prependTo('#console');
+			$('#activity').find('span').fadeOut();
+			$('#activity').html('<span class="' + li_status_class + '"><i class="' + status_class + '"></i>' + results.message + '</span>');
 		}
 	});
 
@@ -60,6 +61,12 @@ jQuery(function($){
 	 * Sidebar search functionality                                            *
 	 ***************************************************************************/
 	$search_results = $('ul#search-results');
+
+	$('.sidebar-right').find('.close').on('click', function() {
+		$search_results.empty();
+		$('.sidebar-right').removeClass('fadeInRight').addClass('fadeOutRight');
+		$('.side, .center').removeClass('three_column');
+	});
 
 	$('input#file-search').keyup(function(e){
 
@@ -84,6 +91,8 @@ jQuery(function($){
 				} else {
 					 $('<li><div class="info"></div>' + results.message + '</li>').appendTo('ul#search-results');
 				}
+				$('.sidebar-right').show().removeClass('fadeOutRight').addClass('fadeInRight');
+				$('.side, .center').addClass('three_column');
 			});
 
 		}
@@ -656,6 +665,10 @@ jQuery(function($){
 				$('.folders-center').find('li').fadeOut('fast').remove();
 				$('.tipsy').remove();
 
+				// use the folder_id from results as we know that's numeric
+				folder_id = results.data.parent_id;
+				delete(results.data.parent_id);
+
 				// iterate so that we have folders first, files second
 				$.each(results.data, function(type, data){
 					$.each(data, function(index, item){
@@ -678,8 +691,8 @@ jQuery(function($){
 
 					// if it's an image then we set the thumbnail as the content
 					var li_content = '<span class="name-text">'+item.name+'</span>';
-					if (item.type && item.type === 'i') {
-						li_content = '<img src="'+SITE_URL+'files/cloud_thumb/'+item.id+'" alt="'+item.name+'"/>'+li_content;
+					if (item.type && item.type === 'i') {                                 /* without this the thumb doesn't update with Replace */
+						li_content = '<img src="'+SITE_URL+'files/cloud_thumb/'+item.id+'?'+new Date().getMilliseconds()+'" alt="'+item.name+'"/>'+li_content;
 					}
 
 					$folders_center.append(

@@ -82,7 +82,22 @@ $config['streams:schema'] = array(
     			'sorting' => array(
     					'type' => 'ENUM',
     					'constraint' => array('title', 'custom'),
-    					'default' => 'title')
+    					'default' => 'title'
+    				),
+    			'permissions' => array(
+    					'type' => 'TEXT',
+    					'null' => true
+    				),
+   				'is_hidden' => array(
+						'type' => 'ENUM',
+						'constraint' => array('yes', 'no'),
+						'default' => 'no'
+					),
+   				'menu_path' => array(
+   						'type' => 'VARCHAR',
+   						'constraint' => 255,
+   						'null' => true
+   					)
 	     ),
         'primary_key' => 'id'),
     $config['streams:fields_table'] => array(
