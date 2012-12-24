@@ -37,7 +37,7 @@
 	}
 
 	.sections_bar {
-		margin-top: 9px;
+		margin-top: 0px;
 	}
 
 	#content-body {
@@ -126,12 +126,21 @@
 	width: 100%;
 }
 
+#login-logo	{
+	background-image: url('../../img/login-logo.png');
+	background-repeat: no-repeat;
+	display: inline-block;
+	height: 100px;
+	width: 100px;
+}
+
 .login-screen #content {
 	margin: 10px 10px 70px 10px !important;
 }
 
 .login-screen section#content {
 	width: auto;
+	text-align: center;
 }
 
 .login-screen #content-body {
@@ -140,7 +149,9 @@
 }
 
 .login-screen #content-body .input {
-	width: 50%;
+	width: auto;
+	text-align: center;
+	padding-left: 0px;
 }
 
 .login-screen #content-body form li {
@@ -148,6 +159,9 @@
 	margin: 0;
 	line-height: 40px;
 	vertical-align: middle;
+	display: inline-block;
+	text-align: center;
+	border-bottom: none;
 }
 
 .login-screen #content-body form li label {
@@ -157,15 +171,12 @@
 
 .login-screen #content-body form li input[type="text"],
 .login-screen #content-body form li input[type="password"] {
-	min-width: 100% !important;
 	position: relative;
-	top: 5px;
 }
 
 .login-screen #content-body form li label#login-remember {
-	width: 100% !important;
 	position: relative;
-	right: 35%;
+	text-align: center;
 	line-height: 20px;
 }
 
@@ -241,7 +252,7 @@
 		padding: 0;
 	}
 	.sections_bar {
-		margin-top: 9px;
+		margin-top: 0px;
 	}
 
 	#content-body {
@@ -449,11 +460,11 @@ position: absolute;
 		margin-top: 25px;
 	}
 	.subbar small {
-		display: block;
+		display: inline-block;
 	}
 
 	.sections_bar {
-		margin-top: 9px;
+		margin-top: 0px;
 	}
 
 	#content-body {
@@ -625,7 +636,7 @@ position: absolute;
 	}
 
 	.sections_bar {
-		top: 9px;
+		top: 0px;
 	}
 
 	#content-body {
@@ -775,7 +786,7 @@ position: absolute;
 	}
 
 	.sections_bar {
-		top: 9px;
+		top: 0px;
 	}
 
 	#content-body {

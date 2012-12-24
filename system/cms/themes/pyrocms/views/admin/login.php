@@ -11,6 +11,7 @@
 	<?php Asset::css('workless/workless.css'); ?>
 	<?php Asset::css('workless/application.css'); ?>
 	<?php Asset::css('workless/responsive.css'); ?>
+	<?php Asset::css('animate/animate.min.css'); ?>
 
 	<?php Asset::js('jquery/jquery.js'); ?>
 	<?php Asset::js('admin/login.js'); ?>
@@ -25,9 +26,9 @@
 		<div id="content-body">
 
 			<?php $this->load->view('admin/partials/notices') ?>
-
+			<div class="animated bounceInDown" id="login-logo"></div>
 			<section class="title">
-				<h4 id="login-logo"><?php echo lang('login_title') ?></h4>
+				<h4><?php echo lang('login_title') ?></h4>
 			</section>
 
 			<section class="item">
