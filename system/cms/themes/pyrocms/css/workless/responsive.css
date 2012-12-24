@@ -37,7 +37,7 @@
 	}
 
 	.sections_bar {
-		margin-top: 9px;
+		margin-top: 0px;
 	}
 
 	#content-body {
@@ -46,6 +46,7 @@
 
 	nav#primary .chzn-container {
 		margin-top: 10px;
+		width: 90px !important;
 	}
 
 
@@ -125,12 +126,21 @@
 	width: 100%;
 }
 
+#login-logo	{
+	background-image: url('../../img/login-logo.png');
+	background-repeat: no-repeat;
+	display: inline-block;
+	height: 100px;
+	width: 100px;
+}
+
 .login-screen #content {
 	margin: 10px 10px 70px 10px !important;
 }
 
 .login-screen section#content {
 	width: auto;
+	text-align: center;
 }
 
 .login-screen #content-body {
@@ -139,7 +149,9 @@
 }
 
 .login-screen #content-body .input {
-	width: 50%;
+	width: auto;
+	text-align: center;
+	padding-left: 0px;
 }
 
 .login-screen #content-body form li {
@@ -147,6 +159,9 @@
 	margin: 0;
 	line-height: 40px;
 	vertical-align: middle;
+	display: inline-block;
+	text-align: center;
+	border-bottom: none;
 }
 
 .login-screen #content-body form li label {
@@ -156,15 +171,12 @@
 
 .login-screen #content-body form li input[type="text"],
 .login-screen #content-body form li input[type="password"] {
-	min-width: 100% !important;
 	position: relative;
-	top: 5px;
 }
 
 .login-screen #content-body form li label#login-remember {
-	width: 100% !important;
 	position: relative;
-	right: 35%;
+	text-align: center;
 	line-height: 20px;
 }
 
@@ -240,7 +252,7 @@
 		padding: 0;
 	}
 	.sections_bar {
-		margin-top: 9px;
+		margin-top: 0px;
 	}
 
 	#content-body {
@@ -260,18 +272,21 @@
 	}
 
 	.one_full {
-		width: 450px;
+		/* width: 450px; */
+		width: 100%
 		/* margin: 0; */
 		float: left;
 	}
 
 	.one_half {
-		width: 450px;
+		/* width: 450px; */
+		width: 100%;
 		float: left;
 	}
 
 	td.one_half {
-		width: 430px;
+		width: 100%;
+		/* width: 430px; */
 	}
 
 	/*.one_third {
@@ -370,6 +385,45 @@
 	#login-footer #login-pyro-link { width: 30%; }
 }
 
+@media only screen and (max-width: 767px) {
+	
+	.alert p {
+		margin: 20px 0;
+		padding: 0px;
+	}
+	
+	/* display alert button as block on mobile */
+	button#remove_installer_directory {
+		display: inline-block;
+		width: 100%;
+		text-align: center;
+		margin: 0px 0 10px 0px;
+		padding: 10px 0;
+	}
+	
+	/* Fix navigation for mobile devices */
+	.wrapper {
+		padding: 0 20px;
+	}
+	
+	.topbar-search {
+	  position: relative;
+	  display: inline-block;
+	}
+	
+	.topbar-search .search-query {
+	  padding: 4px 16px;
+	  margin: 5px 0 0 0;
+	}
+	
+	.topbar-search:focus {
+	  /*
+position: absolute;
+	  display: block;
+*/
+	}
+}
+
 @media only screen and (min-width: 768px) {
 
 	nav#primary { display: inherit; }
@@ -406,11 +460,11 @@
 		margin-top: 25px;
 	}
 	.subbar small {
-		display: block;
+		display: inline-block;
 	}
 
 	.sections_bar {
-		margin-top: 9px;
+		margin-top: 0px;
 	}
 
 	#content-body {
@@ -436,7 +490,8 @@
 	}
 
 	.one_half {
-		width: 365px;
+		/* width: 365px; */
+		width: 49.5%;
 		margin-right: 15px;
 		float: left;
 	}
@@ -581,7 +636,7 @@
 	}
 
 	.sections_bar {
-		top: 9px;
+		top: 0px;
 	}
 
 	#content-body {
@@ -601,13 +656,15 @@
 	}
 
 	.one_full {
-		width: 1000px;
+		/* width: 1000px; */
+		width: 100%;
 		/* margin: 0; */
 		float: left;
 	}
 
 	.one_half {
-		width: 500px;
+		/* width: 500px; */
+		width: 49.5%;
 		margin-right: 10px;
 		float: left;
 	}
@@ -729,7 +786,7 @@
 	}
 
 	.sections_bar {
-		top: 9px;
+		top: 0px;
 	}
 
 	#content-body {
@@ -749,14 +806,16 @@
 	}
 
 	.one_full {
-		width: 1280px;
+		/* width: 1280px; */
+		width: 100%;
 		/* margin: 0; */
 		float: left;
 	}
 	/* .one_full section.title, .one_full section.item {width: 1250px;} */
 
 	.one_half {
-		width: 625px;
+		/* width: 625px; */
+		width: 49.5%;
 		margin-right: 10px;
 		float: left;
 	}

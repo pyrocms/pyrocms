@@ -11,6 +11,7 @@
 	<?php Asset::css('workless/workless.css'); ?>
 	<?php Asset::css('workless/application.css'); ?>
 	<?php Asset::css('workless/responsive.css'); ?>
+	<?php Asset::css('animate/animate.min.css'); ?>
 
 	<?php Asset::js('jquery/jquery.js'); ?>
 	<?php Asset::js('admin/login.js'); ?>
@@ -25,39 +26,41 @@
 		<div id="content-body">
 
 			<?php $this->load->view('admin/partials/notices') ?>
-
+			<div class="animated bounceInDown" id="login-logo"></div>
 			<section class="title">
-				<h4 id="login-logo"><?php echo lang('login_title') ?></h4>
+				<h4><?php echo lang('login_title') ?></h4>
 			</section>
 
 			<section class="item">
-				<?php echo form_open('admin/login'); ?>
-				<div class="form_inputs">
-					<ul>
-						<li>
-							<label for="email"><?php echo lang('global:email'); ?></label>
-							<div class="input"><input type="text" name="email" placeholder="<?php echo lang('global:email'); ?>"/></div>
-						</li>
-
-						<li>
-							<label for="password"><?php echo lang('global:password'); ?></label>
-							<div class="input"><input type="password" name="password" placeholder="<?php echo lang('global:password'); ?>"/></div>
-						</li>
-						<li>
-							<label for="remember-check" id="login-remember">
-								<input type="checkbox" name="remember" id="remember-check"/>
-								<?php echo lang('user:remember'); ?>
-							</label>
-						</li>
-
-					</ul>
-					<div id="login-buttons" class="buttons padding-top">
-						<button id="login-submit" class="btn green" type="submit" name="submit" value="<?php echo lang('login_label'); ?>">
-							<span><?php echo lang('login_label'); ?></span>
-						</button>
+				<div class="content">
+					<?php echo form_open('admin/login'); ?>
+					<div class="form_inputs">
+						<ul>
+							<li>
+								<!-- <label for="email"><?php echo lang('global:email'); ?></label> -->
+								<div class="input"><input type="text" name="email" placeholder="<?php echo lang('global:email'); ?>"/></div>
+							</li>
+	
+							<li>
+								<!-- <label for="password"><?php echo lang('global:password'); ?></label> -->
+								<div class="input"><input type="password" name="password" placeholder="<?php echo lang('global:password'); ?>"/></div>
+							</li>
+							<li>
+								<label for="remember-check" id="login-remember">
+									<input type="checkbox" name="remember" id="remember-check"/>
+									<?php echo lang('user:remember'); ?>
+								</label>
+							</li>
+	
+						</ul>
+						<div id="login-buttons" class="buttons padding-top">
+							<button id="login-submit" class="btn green" type="submit" name="submit" value="<?php echo lang('login_label'); ?>">
+								<span><?php echo lang('login_label'); ?></span>
+							</button>
+						</div>
 					</div>
+					<?php echo form_close(); ?>
 				</div>
-				<?php echo form_close(); ?>
 			</section>
 		</div>
 	</section>
