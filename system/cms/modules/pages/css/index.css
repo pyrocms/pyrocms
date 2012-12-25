@@ -1,3 +1,4 @@
+#page-list { min-height: 250px; }
 #page-list ul { background:none; margin-left:1em !important; }
 #page-list > ul { margin-left: 0 !important; }
 #page-list a { text-decoration: none; font-size: 13px; color:#5c5b5b; padding: 1px 1px 1px 15px; background: url('../img/off.png') no-repeat left; }
@@ -15,4 +16,5 @@
 .plus { background: url('../img/more.png') no-repeat 0 4px; }
 .minus { background: url('../img/less.png') no-repeat 0 4px; }
 
+#page-details { min-height: 250px; }
 #page-details h5 { margin: 0; padding: 0; }

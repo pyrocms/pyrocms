@@ -139,6 +139,7 @@ $lang['streams:start.no_fields_msg']				= "Er zijn geen velden om aan deze strea
 $lang['streams:start.adding_a_field_here']	= "hier een veld toevoegen";
 $lang['streams:start.no_entries']						= "Er zijn nog geen ingaves voor <strong>%s</strong>. Om te beginnen, kunt u";
 $lang['streams:add_fields']								  = "een veld toewijzen";
+$lang['streams:no_entries']								= 'No entries'; #translate
 $lang['streams:add_an_entry']						  	= "een ingave toevoegen";
 $lang['streams:to_this_stream_or']					= "voor deze stream of";
 $lang['streams:no_field_assign']						= "Geen veld toewijzingen";
@@ -186,5 +187,11 @@ $lang['recaptcha_html_error'] 							= "Fout tijdens het laden van de beveiligin
 $lang['streams:max_length'] 							= "Maximale lengte";
 $lang['streams:upload_location'] 					= "Upload locatie";
 $lang['streams:default_value'] 						= "Standaard waarde";
+
+$lang['streams:menu_path']								= 'Menu Path'; #translate
+$lang['streams:about_instructions']						= 'A short description of your stream.'; #translate
+$lang['streams:slug_instructions']						= 'This will also be the database table name for your stream.'; #translate
+$lang['streams:prefix_instructions']					= 'If used, this will prefix the table in the database. Useful for naming collisons.'; #translate
+$lang['streams:menu_path_instructions']					= 'Where you what section and sub section this stream should show up in the menu. Separate by a forward slash. Ex: <strong>Main Section / Sub Section</strong>.'; #translate
 
 /* End of file pyrostreams_lang.php */

@@ -1,3 +1,4 @@
+<div class="one_full">
 <section class="title">
 	<h4><?php echo lang('addons:modules:addon_list');?></h4>
 </section>
@@ -46,7 +47,9 @@
 		<?php endif ?>
 	</div>
 </section>
+</div>
 
+<div class="one_full">
 <section class="title">
 	<h4><?php echo lang('addons:modules:core_list');?></h4>
 </section>
@@ -85,3 +88,4 @@
 		
 	</div>
 </section>
+</div>

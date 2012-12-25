@@ -73,9 +73,9 @@ jQuery(function($) {
 		$('.topbar ul li:not(#dashboard-link)').hoverIntent({
 			sensitivity: 7,
 			interval: 75,
-			over: function(){ $(this).find('ul:first:hidden').css({visibility: "visible", display: "none"}).slideDown(400) },
+			over: function(){ $(this).find('ul:first:hidden').css({visibility: "visible", display: "none"}).slideDown(200) },
 			timeout: 0,
-			out: function(){ $(this).parent().find('ul').slideUp(400) }
+			out: function(){ $(this).parent().find('ul').slideUp(200) }
 		});
 
 		// Add class to dropdowns for styling
@@ -83,7 +83,7 @@ jQuery(function($) {
 
 		// Add the close link to all alert boxes
 		$('.alert').livequery(function(){
-			$(this).prepend('<a href="#" class="close">x</a>');
+			$(this).prepend('<a href="#" class="close"></a>');
 		});
 
 		// Close the notifications when the close link is clicked
@@ -222,7 +222,6 @@ jQuery(function($) {
 
 		$('a[data-inline-modal]').livequery(function() {
 			var element_id = $(this).attr('data-inline-modal');
-			console.log($(element_id).html());
 			$(this).colorbox({
 				width: "60%",
 				maxHeight: "90%",

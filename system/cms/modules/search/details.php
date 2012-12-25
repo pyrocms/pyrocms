@@ -33,7 +33,7 @@ class Module_Search extends Module
 			),
 			'frontend' => false,
 			'backend' => true,
-			'menu' => 'content',
+			'menu' => false,
 		);
 	}
 

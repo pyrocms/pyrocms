@@ -30,7 +30,7 @@ class Admin extends Admin_Controller
 		if (is_dir('./installer'))
 		{
 			$this->template
-				->set('messages', array('notice' => lang('cp:delete_installer_message').'<br><button id="remove_installer_directory" class="button">'.lang('cp:delete_installer').'</button>'));
+				->set('messages', array('notice' => '<button id="remove_installer_directory" class="button">'.lang('cp:delete_installer').'</button>'.lang('cp:delete_installer_message')));
 		}
 
 		$this->template

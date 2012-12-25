@@ -1,7 +1,7 @@
 # PyroCMS Community Edition
 
 * [Website](http://pyrocms.com/)
-* [Documentation](http://pyrocms.com/docs)
+* [Documentation](https://www.pyrocms.com/support/documentation)
 * [License](http://pyrocms.com/legal/license)
 * [Forums](http://pyrocms.com/forums)
 * Version: 2.2.0-dev
@@ -11,7 +11,7 @@
 * [Adam Fairholm](http://parse19.com/)
 * [Jerel Unruh](http://unruhdesigns.com/)
 * [Phil Sturgeon](http://philsturgeon.co.uk/)
-* [Scott Parry](http://ikreativ.com/)
+* [Joshua Pekera](http://joshuapekera.com/)
 
 ## Description
 
