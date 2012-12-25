@@ -37,8 +37,8 @@ class Admin_field_types extends Admin_Controller
 		foreach ($this->type->types as $type)
 		{
 			$data[$type->ft_mode][] = array(
-					'name'		=> $type->field_type_name,
-					'version'	=> (isset($type->version)) ? $type->version : null
+				'name'		=> $type->field_type_name,
+				'version'	=> (isset($type->version)) ? $type->version : null
 			);
 		}
 
