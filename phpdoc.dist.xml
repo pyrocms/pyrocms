@@ -7,6 +7,7 @@
     <files>
         <directory>.</directory>
         <ignore>addons/*</ignore>
+        <ignore>tests/*</ignore>
         <ignore>*/language/*</ignore>
         <ignore>*/codeigniter/*</ignore>
         <ignore>*/installer/*</ignore>
