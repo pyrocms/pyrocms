@@ -5,7 +5,7 @@
 <section class="item">
 <div class="content">
 
-<h2><?php echo lang('addons:plugins:core_field_types'); ?></h2>
+<h2><?php echo lang('addons:plugins:core_field_types') ?></h2>
 
 <?php if ($core): ?>
 <table class="table-list" cellspacing="0">
@@ -18,17 +18,17 @@
 	<tbody>
 	<?php foreach ($core as $c_ft): ?>
 	<tr>
-		<td width="60%"><?php echo $c_ft['name']; ?>
-		<td><?php echo $c_ft['version']; ?>
+		<td width="60%"><?php echo $c_ft['name'] ?>
+		<td><?php echo $c_ft['version'] ?>
 	</tr>
-	<?php endforeach; ?>
+	<?php endforeach ?>
 	</tbody>
 </table>
-<?php endif; ?>
+<?php endif ?>
 
-<h2><?php echo lang('addons:plugins:add_on_field_types'); ?></h2>
+<h2><?php echo lang('addons:plugins:add_on_field_types') ?></h2>
 
-<?php if ($addon): ?>
+<?php if ( ! empty($addon)): ?>
 <table class="table-list" cellspacing="0">
 	<thead>
 		<tr>
@@ -39,13 +39,13 @@
 	<tbody>
 	<?php foreach ($addon as $a_ft): ?>
 	<tr>
-		<td width="60%"><?php echo $a_ft['name']; ?>
-		<td><?php echo $a_ft['version']; ?>
+		<td width="60%"><?php echo $a_ft['name'] ?>
+		<td><?php echo $a_ft['version'] ?>
 	</tr>
-	<?php endforeach; ?>
+	<?php endforeach ?>
 	</tbody>
 </table>
-<?php endif; ?>
+<?php endif ?>
 
 </div>
 </section>
