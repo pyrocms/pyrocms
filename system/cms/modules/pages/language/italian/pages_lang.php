@@ -4,7 +4,7 @@ $lang['pages:page']                     = 'Pagina';
 $lang['pages:pages']                    = 'Pagine';
 
 // tabs
-$lang['pages:details_label']            = 'Page Details'; #translate
+$lang['pages:details_label']            = 'Dettagli pagina';
 $lang['pages:content_label']            = 'Contenuto della pagina';
 $lang['pages:meta_label']               = 'Meta data';
 $lang['pages:design_label']             = 'Design';
@@ -35,8 +35,8 @@ $lang['pages:strict_uri_label']         = 'Richiede una esatta corrispondenza co
 $lang['pages:status_label']             = 'Stato';
 $lang['pages:draft_label']              = 'Bozza';
 $lang['pages:live_label']               = 'Pubblicato';
-$lang['pages:revisions_label']          = 'Revisions'; #translate
-$lang['pages:compare_label']            = 'Compare'; #translate
+$lang['pages:revisions_label']          = 'Revisioni';
+$lang['pages:compare_label']            = 'Compara';
 $lang['pages:preview_label']            = 'Anteprima';
 $lang['pages:current_label']            = 'Corrente';
 $lang['pages:view_label']               = 'Visualizza';
@@ -62,8 +62,8 @@ $lang['pages:mass_delete_success']      = '%s pagine sono state eliminate.';
 $lang['pages:delete_none_notice']       = 'Nessuna pagina è stata eliminata.';
 $lang['pages:page_already_exist_error'] = 'Una pagina con questo URL "%s" esiste già in %s.';
 $lang['pages:parent_not_exist_error']   = 'La pagina di livello superiore che hai scelto non esiste.';
-$lang['pages:chunk_slug_length']        = 'Page Chunk slugs may be no more than 30 characters in length.'; #translate
-$lang['pages:root_folder']              = 'the top level'; #translate
+$lang['pages:chunk_slug_length']        = 'Lo slug dei Pezzi di Pagina (Page Chunk) non possono essere più lunghi di 30 caratteri.';
+$lang['pages:root_folder']              = 'il livello superiore'; 
 
 $lang['pages:tree_explanation_title']   = 'Spiegazione';
 $lang['pages:tree_explanation']         = 'La lista a sinistra mostra le pagine del tuo sito. Clicca sull\' icona "+" vicina alla pagina per vedere le pagine dipendenti da essa. Quando cliccherai su una pagina vedrai ogni tipo di informazione utile in questo box.';
