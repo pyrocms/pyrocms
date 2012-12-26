@@ -40,7 +40,7 @@ $lang['cp:nav_misc']      = 'Divers';
 $lang['cp:must_login']                  = 'Vous devez être identifié pour voir cette page.';
 $lang['cp:access_denied']               = 'Vous n\'avez pas les autorisations suffisantes pour voir cette page.';
 $lang['cp:delete_installer_message']              = 'Le dossier installer existe toujours&nbsp;! Veuillez le supprimer de votre serveur&nbsp;!<br>Le conserver peut engendrer des failles de sécurité et de permettre à des personnes malveillantes de prendre possession du site.';
-$lang['cp:delete_installer']					 = 'Delete Installer'; #translate
+$lang['cp:delete_installer']					 = 'Supprimer le dossier Installer';
 $lang['cp:delete_installer_successfully_message'] = 'Le dossier installer a été supprimé avec succès.';
 $lang['cp:delete_installer_manually_message']     = 'Le dossier installer n\'as pu être supprimé. <strong>Merci de le supprimer manuellement&nbsp;!</strong>';
 $lang['cp:upgrade_message']             = 'Vous utilisez la version %s, mais votre base de données a pour version %s. Merci de <a href="%s">cliquer ici</a> pour mettre à jour votre base de données.';
