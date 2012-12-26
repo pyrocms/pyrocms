@@ -139,6 +139,7 @@ $lang['streams:start.no_fields_msg']					= "没有字段添加到该流。在Pyr
 $lang['streams:start.adding_a_field_here']				= "从这里添加字段";
 $lang['streams:start.no_entries']						= "<strong>%s</strong> 没有任何条目。要启动，您可以";
 $lang['streams:add_fields']								= "赋值字段";
+$lang['streams:no_entries']								= 'No entries'; #translate
 $lang['streams:add_an_entry']							= "添加条目";
 $lang['streams:to_this_stream_or']						= "对此流或";
 $lang['streams:no_field_assign']						= "没有字段赋值";
@@ -186,5 +187,11 @@ $lang['recaptcha_html_error'] 							= "加载错误的安全图片。请稍后�
 $lang['streams:max_length'] 							= "最大长度";
 $lang['streams:upload_location'] 						= "上传地址";
 $lang['streams:default_value'] 							= "默认值";
+
+$lang['streams:menu_path']								= 'Menu Path'; #translate
+$lang['streams:about_instructions']						= 'A short description of your stream.'; #translate
+$lang['streams:slug_instructions']						= 'This will also be the database table name for your stream.'; #translate
+$lang['streams:prefix_instructions']					= 'If used, this will prefix the table in the database. Useful for naming collisons.'; #translate
+$lang['streams:menu_path_instructions']					= 'Where you what section and sub section this stream should show up in the menu. Separate by a forward slash. Ex: <strong>Main Section / Sub Section</strong>.'; #translate
 
 /* End of file pyrostreams_lang.php */

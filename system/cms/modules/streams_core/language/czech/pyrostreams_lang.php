@@ -138,6 +138,7 @@ $lang['streams:start.no_fields_msg']					= "Nejsou zde žádná pole k přiřaze
 $lang['streams:start.adding_a_field_here']				= "přidání pole";
 $lang['streams:start.no_entries']						= "Zatím zde nejsou žádné záznamy pro <strong>%s</strong>. Můžete";
 $lang['streams:add_fields']								= "přiřadit pole";
+$lang['streams:no_entries']								= 'No entries'; #translate
 $lang['streams:add_an_entry']							= "přidat záznam";
 $lang['streams:to_this_stream_or']						= "k tomuto streamu nebo";
 $lang['streams:no_field_assign']						= "Žádná přiřazená pole";
@@ -185,5 +186,11 @@ $lang['recaptcha_html_error'] 							= "Nepodařilo se načíst bezpečnostní o
 $lang['streams:max_length'] 							= "Maximální délka";
 $lang['streams:upload_location'] 						= "Cíl uploadu";
 $lang['streams:default_value'] 							= "Výchozí hodnota";
+
+$lang['streams:menu_path']								= 'Menu Path'; #translate
+$lang['streams:about_instructions']						= 'A short description of your stream.'; #translate
+$lang['streams:slug_instructions']						= 'This will also be the database table name for your stream.'; #translate
+$lang['streams:prefix_instructions']					= 'If used, this will prefix the table in the database. Useful for naming collisons.'; #translate
+$lang['streams:menu_path_instructions']					= 'Where you what section and sub section this stream should show up in the menu. Separate by a forward slash. Ex: <strong>Main Section / Sub Section</strong>.'; #translate
 
 /* End of file pyrostreams_lang.php */

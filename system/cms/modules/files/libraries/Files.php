@@ -182,7 +182,7 @@ class Files
 			}
 		}
 
-		return self::result(true, null, null, array('folder' => $folders, 'file' => $files));
+		return self::result(true, null, null, array('folder' => $folders, 'file' => $files, 'parent_id' => $parent));
 	}
 
 	// ------------------------------------------------------------------------
@@ -375,7 +375,7 @@ class Files
 					'folder_id'		=> (int) $folder_id,
 					'user_id'		=> (int) ci()->current_user->id,
 					'type'			=> self::$_type,
-					'name'			=> $name ? $name : $file['file_name'],
+					'name'			=> $name ? $name : $file['orig_name'],
 					'path'			=> '{{ url:site }}files/large/'.$file['file_name'],
 					'description'	=> '',
 					'filename'		=> $file['file_name'],
@@ -417,7 +417,7 @@ class Files
 				}
 				else
 				{
-					$data['id'] = substr(md5(now()+$data['filename']), 0, 15);
+					$data['id'] = substr(md5(microtime()+$data['filename']), 0, 15);
 					$file_id = $data['id'];
 					ci()->file_m->insert($data);
 				}
@@ -622,7 +622,7 @@ class Files
 			ci()->storage->load_driver($new_location);
 
 			// make a really random temp file name
-			$temp_file = self::$path.md5(time()).'_temp_'.$new_name;
+			$temp_file = self::$path.md5(microtime()).'_temp_'.$new_name;
 
 			// and we download...
 			$curl_result = ci()->curl->simple_get($file);
@@ -845,7 +845,7 @@ class Files
 				if ( ! array_key_exists($file['filename'], $known))
 				{
 					$insert = array(
-						'id' 			=> substr(md5(now()+$data['filename']), 0, 15),
+						'id' 			=> substr(md5(microtime()+$data['filename']), 0, 15),
 						'folder_id' 	=> $folder_id,
 						'user_id'		=> ci()->current_user->id,
 						'type'			=> $file['type'],
