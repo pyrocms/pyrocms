@@ -90,44 +90,42 @@ class Migration_Add_comment_expiry extends CI_Migration
 			}
 
 
-			$this->load->model('modules/module_m');
+			$this->load->model('addons/module_m');
 
 			// Use the old comment logic to grab title names, then we can never have to use this junk again
-			if ($this->module_m->exists($comment->module))
+			if (in_array($comment->module, array('blog', 'pages')))
 			{
-				$model_name = singular($comment->module).'_m';
-				
-				if ( ! isset($this->{$model_name.'_m'}))
+				// Grab an item 
+				switch ($comment->module)
 				{
-					$this->load->model($comment->module.'/'.$model_name);
-				}
+					case 'blog':
 
-				if (($item = (object) $this->{$model_name}->get($comment->entry_id)) and isset($item->id))
-				{
-					// Only do this for blog or pages, otherwise we dont know!
-					switch ($comment->module)
-					{
-						case 'blog':
-							$comment->title = $item->title;
-							$comment->uri = 'blog/'.date('Y/m', $item->created_on).'/'.$item->slug;
-							$comment->entry_key = 'blog:post';
-							$comment->entry_plural = 'blog:posts';
-							$comment->cp_uri = 'admin/'.$comment->module.'/preview/'.$item->id;
-						break;
+						// Get this one article out of the db
+						$item = $this->db->get_where('blog', array('id' => $comment->entry_id))->row();
 
-						case 'pages':
-							$comment->title = $item->title;
-							$comment->uri = $item->uri;
-							$comment->entry_key = 'pages:page';
-							$comment->entry_plural = 'pages:pages';
-							$comment->cp_uri = 'admin/'.$comment->module.'/preview/'.$item->id;
-						break;
-					}
+						$comment->entry_title = $item->title;
+						$comment->uri = 'blog/'.date('Y/m', $item->created_on).'/'.$item->slug;
+						$comment->entry_key = 'blog:post';
+						$comment->entry_plural = 'blog:posts';
+						$comment->cp_uri = 'admin/'.$comment->module.'/preview/'.$item->id;
+					break;
+
+					case 'pages':
+
+						// Get this one page out of the db
+						$item = $this->db->get_where('pages', array('id' => $comment->entry_id))->row();
+
+						$comment->entry_title = $item->title;
+						$comment->uri = $item->uri;
+						$comment->entry_key = 'pages:page';
+						$comment->entry_plural = 'pages:pages';
+						$comment->cp_uri = 'admin/'.$comment->module.'/preview/'.$item->id;
+					break;
 				}
 			}
 			else
 			{
-				$comment->title = $comment->module .' #'. $comment->entry_id;
+				$comment->entry_title = $comment->module .' #'. $comment->entry_id;
 				$comment->entry_key = humanize(singular($comment->module));
 				$comment->entry_plural = humanize(plural($comment->module));
 			}
