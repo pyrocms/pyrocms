@@ -54,9 +54,8 @@
 	nav#primary .chzn-container { display: inherit; }
 
 	input[type="text"], 
-	input[type="password"], 
-	input[type="password"],
-	 {
+	input[type="password"]
+	{
 		width: 200px;
 	}
 
@@ -271,13 +270,6 @@
 		float: left;
 	}
 
-	.one_full {
-		/* width: 450px; */
-		width: 100%;
-		/* margin: 0; */
-		float: left;
-	}
-
 	.one_half {
 		/* width: 450px; */
 		width: 100%;
@@ -486,8 +478,6 @@ position: absolute;
 	.one_full {
 		width: 750px;
 		max-width: 100%;
-		margin: 0;
-		float: left;
 	}
 
 	.one_half {
@@ -543,10 +533,16 @@ position: absolute;
 		margin-right: 0;
 	}
 
-	.move-handle {display: block;}
+	.move-handle {
+		display: block;
+	}
 	fieldset {padding: 20px; margin: 5px 0 15px 0;}
-	.form_inputs .input > input {min-width: 210px!important;}
-	table th.collapse, table td.collapse {display: table-cell;}
+	.form_inputs .input > input {
+		min-width: 210px!important;
+	}
+	table th.collapse, table td.collapse {
+		display: table-cell;
+	}
 	table .actions a {
 		display: inline;
 		margin-bottom: 0;
@@ -581,9 +577,8 @@ position: absolute;
 	nav#primary .chzn-container { display: none; }
 
 	input[type="text"], 
-	input[type="password"], 
-	input[type="password"],
-	 {
+	input[type="password"]
+	{
 		width: 500px;
 	}
 
@@ -655,15 +650,7 @@ position: absolute;
 		margin: 150px 0 150px 0;
 		float: left;
 	}
-
-	.one_full {
-
-		/* width: 1000px; */
-		width: 100%;
-		/* margin: 0; */
-		float: left;
-	}
-
+	
 	.one_half {
 		/* width: 500px; */
 		width: 49.5%;
@@ -808,7 +795,6 @@ position: absolute;
 	}
 
 	.one_full {
-<<<<<<< HEAD
 		/* width: 1280px; */
 		width: 100%;
 		/* margin: 0; */
