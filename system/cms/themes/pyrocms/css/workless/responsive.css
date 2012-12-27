@@ -481,11 +481,6 @@ position: absolute;
 		float: left;
 	}
 
-	.one_full {
-		width: 750px;
-		max-width: 100%;
-	}
-
 	.one_half {
 		/* width: 365px; */
 		width: 49.5%;
