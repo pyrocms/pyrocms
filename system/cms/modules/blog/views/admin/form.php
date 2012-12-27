@@ -20,7 +20,7 @@
 
 	<!-- Content tab -->
 	<div class="form_inputs" id="blog-content-tab">
-		<hr style="margin-top:0;">
+		<hr style="margin-top:5px;">
 
 		<ul>
 			<li>
@@ -40,8 +40,8 @@
 				</div>
 			</li>
 
-			<li class="editor">
-				<label for="body"><?php echo lang('blog:content_label') ?></label><br>
+			<li class="editor clearfix">
+				<label for="body"><?php echo lang('blog:content_label') ?></label>
 				<div class="input small-side">
 					<?php echo form_dropdown('type', array(
 						'html' => 'html',
