@@ -210,9 +210,15 @@
 	margin: 0 auto;
 	line-height: 30px;
 }
+/* TABLES */
+table th.collapse, table td.collapse{
+    display:none;
+}
 
 @media only screen and (min-width: 481px) {
-
+	table th.collapse, table td.collapse{
+	    display:table-cell;
+	}
 	.wrapper {
 		width: 480px;
 		margin: 0 auto;
