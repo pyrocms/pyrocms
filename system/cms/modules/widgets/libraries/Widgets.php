@@ -279,7 +279,7 @@ class Widgets {
 
 		foreach ($widgets as $widget)
 		{
-			$widget->options = $this->_unserialize_options($widget->options);
+			$widget->options = array_merge(array("instance_title" => $widget->instance_title), $this->_unserialize_options($widget->options));
 			$widget->body = $this->render($widget->slug, $widget->options);
 
 			if ($widget->body !== FALSE)
