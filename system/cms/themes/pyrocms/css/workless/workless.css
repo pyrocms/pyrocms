@@ -783,9 +783,10 @@ table .actions a {
  * ---------------------------------- */
 
 /* Buttons */
-.buttons {
+/* DO WE NEED THIS ?? */
+/*.buttons {
 	white-space: nowrap;
-}
+}*/
 .btn {
   cursor: pointer;
   display: inline-block;
