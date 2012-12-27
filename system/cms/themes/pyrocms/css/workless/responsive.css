@@ -40,10 +40,6 @@
 		margin-top: 0px;
 	}
 
-	#content-body {
-		top: 0;
-	}
-
 	nav#primary .chzn-container {
 		margin-top: 10px;
 		width: 90px !important;
@@ -89,6 +85,15 @@
 	}
 */
 
+
+#content-body:before, #content-body:after { content: ""; display: table; }
+#content-body:after { clear: both; }
+#content-body { 
+	zoom: 1; 
+	padding: 0 10px;
+}
+
+/*  -----------  GRID -------------- */
 .one_full {
   width: 100%;
   margin-bottom: 20px;
@@ -114,6 +119,13 @@
 }
 .one_full [class*="item"]:first-child {
   margin-left: 0;
+}
+
+
+.one_half, .one_third, .two_third, .one_quarter, .three_quarter {
+	width: 100%;
+	float: none;
+	margin-bottom: 20px;
 }
 
 .wrapper {
@@ -216,6 +228,10 @@ table th.collapse, table td.collapse{
 }
 
 @media only screen and (min-width: 481px) {
+	/* now we remove padding not needed anymore */
+	#content-body { 
+		padding: 0;
+	}
 	table th.collapse, table td.collapse{
 	    display:table-cell;
 	}
@@ -260,10 +276,6 @@ table th.collapse, table td.collapse{
 		margin-top: 0px;
 	}
 
-	#content-body {
-		top: 0;
-	}
-
 	#analyticsWrapper, #analytics {
 		width: 432px;
 	}
@@ -273,38 +285,6 @@ table th.collapse, table td.collapse{
 		width: 100%;
 		padding: 0;
 		margin: 150px 0 150px 0;
-		float: left;
-	}
-
-	.one_half {
-		/* width: 450px; */
-		width: 100%;
-		float: left;
-	}
-
-	td.one_half {
-		width: 100%;
-		/* width: 430px; */
-	}
-
-	/*.one_third {
-		width: 450px;
-		float: left;
-	}
-
-	.two_third {
-		width: 450px;
-		float: left;
-	}*/
-
-	.one_quarter {
-		width: 100px;
-		float: left;
-		margin-right: 15px;
-	}
-
-	.three_quarter {
-		width: 310px;
 		float: left;
 	}
 
@@ -482,8 +462,8 @@ position: absolute;
 	}
 
 	.one_half {
-		/* width: 365px; */
-		width: 49.5%;
+		width: 365px;
+		/* width: 49.5%; */
 		margin-right: 15px;
 		float: left;
 	}
