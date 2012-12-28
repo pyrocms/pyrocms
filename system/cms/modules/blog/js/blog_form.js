@@ -20,7 +20,7 @@
 					newType = this.value,
 					oldType = textarea.attr('class'),
 					editor = textarea.data('editor');
-					console.log(editor);
+					
 			// clear text area classes and add the new one
 			textarea.attr('class',this.value);
 			// Destroy old instance
