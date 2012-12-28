@@ -283,13 +283,11 @@ button#login-submit {
 	-ms-box-shadow:inset 0 1px 0 0 rgba(255,255,255,0.2), 0 1px 0px 0 rgba(255,255,255,0.1);
 	-o-box-shadow:inset 0 1px 0 0 rgba(255,255,255,0.2), 0 1px 0px 0 rgba(255,255,255,0.1);
 	box-shadow:inset 0 1px 0 0 rgba(255,255,255,0.2), 0 1px 0px 0 rgba(255,255,255,0.1);
-	/*
--webkit-transition:80ms linear all;
-	-moz-transition:80ms linear all;
-	-ms-transition:80ms linear all;
-	-o-transition:80ms linear all;
-	transition:80ms linear all;
-*/
+	-webkit-transition:0ms linear all;
+	-moz-transition:0ms linear all;
+	-ms-transition:0ms linear all;
+	-o-transition:0ms linear all;
+	transition:0ms linear all;
 	-webkit-user-select:none;
 	-moz-user-select:none;
 	-ms-user-select:none;
