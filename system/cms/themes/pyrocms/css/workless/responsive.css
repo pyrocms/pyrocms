@@ -903,13 +903,6 @@ table th.collapse, table td.collapse{
 		float:left;
 	}
 	
-	.one_full {
-	/* width: 1280px; */
-		width:100%;
-	/* margin: 0; */
-		float:left;
-	}
-	
 	/* .one_full section.title, .one_full section.item {width: 1250px;} */
 	.one_half {
 	/* width: 625px; */

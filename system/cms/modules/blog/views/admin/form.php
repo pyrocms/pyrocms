@@ -62,7 +62,7 @@
 
 	<!-- Options tab -->
 	<div class="form_inputs" id="blog-options-tab">
-		<hr style="margin-top:0;">
+		<hr style="margin-top:5px;">
 
 		<ul>
 
