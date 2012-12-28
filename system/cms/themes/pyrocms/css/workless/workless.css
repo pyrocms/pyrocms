@@ -97,7 +97,7 @@ svg:not(:root) {
  * Typography
  */
 a {
-	color:#ed8e28;
+	color:#38a7e6;
 	font-weight:inherit;
 	font-size:inherit;
 	text-decoration:none;
@@ -108,7 +108,7 @@ a {
 }
 
 a:hover {
-	color:#BD6F01;
+	color:#1b7ad6;
 }
 
 a:active {
@@ -1704,7 +1704,6 @@ button.btn::-moz-focus-inner,input[type=submit].btn::-moz-focus-inner {
 	background:#eee;
 	color:#333;
 	font-weight:700;
-	margin-bottom:-6px;
 	padding:0 15px;
 	line-height:35px;
 	-webkit-border-radius:3px 3px 0 0;
@@ -1713,6 +1712,7 @@ button.btn::-moz-focus-inner,input[type=submit].btn::-moz-focus-inner {
 	border-left:1px solid #efefef;
 	border-top:1px solid #efefef;
 	border-right:1px solid #efefef;
+	margin-left: 2px;
 }
 
 .tab-menu li a:hover {

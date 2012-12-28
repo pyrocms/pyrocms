@@ -294,7 +294,7 @@ button#login-submit {
 	user-select:none;
 }
 
-button#login-submit:hover, button#login-submit:focus {
+button#login-submit:hover, button#login-submit:active:hover {
 	outline: none;
 	background-image:url('../../img/nav-grain.png'),-webkit-gradient(linear,left top,left bottom,color-stop(0%,#35383b),color-stop(100%,#5d6266));
 	background-image:url('../../img/nav-grain.png'),-webkit-linear-gradient(top,#35383b,#5d6266);
@@ -1035,17 +1035,17 @@ button#login-submit:hover, button#login-submit:focus {
 @media
 only screen and (-webkit-min-device-pixel-ratio: 2),only screen and ( min--moz-device-pixel-ratio: 2),only screen and ( -o-min-device-pixel-ratio: 21),only screen and ( min-device-pixel-ratio: 2),only screen and ( min-resolution: 192dpi),only screen and ( min-resolution: 2dppx) {
 	body {
-		background:#e9e9e9 url(../../img/bg_grain@2x.png) repeat;
+		background:#e9e9e9 url('../../img/bg_grain@2x.png') repeat;
 		background-size:200px 200px;
 	}
 	
 	body#login-body {
-		background:#333 url(../../img/nav-grain@2x.png) repeat;
+		background:#333 url('../../img/nav-grain@2x.png') repeat;
 		background-size:113px 113px;
 	}
 	
 	#login-logo {
-		background-image:url(../../img/login-logo@2x.png);
-		background-size:40px 125px;
+		background-image:url('../../img/login-logo@2x.png');
+		background-size:125px 40px;
 	}
 }

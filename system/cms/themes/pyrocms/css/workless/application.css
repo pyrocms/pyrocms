@@ -291,8 +291,8 @@ margin-top: -4px;
 	position:relative;
 	float:left;
 	border-bottom-width:0!important;
-	margin:7px 0 0 5px;
-	padding:0;
+	margin:7px 0 0 0px;
+	padding: 0;
 }
 
 .ui-tabs-panel {
@@ -418,6 +418,7 @@ section#content ul {
 
 section#content ul li {
 	list-style: none;
+	position: relative;
 }
 
 #blog-content-tab {
