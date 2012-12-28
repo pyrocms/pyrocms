@@ -74,7 +74,7 @@ jQuery(function($) {
 			sensitivity: 7,
 			interval: 75,
 			over: function(){ $(this).find('ul:first:hidden').css({visibility: "visible", display: "none"}).slideDown(200) },
-			timeout: 0,
+			timeout: 100,
 			out: function(){ $(this).parent().find('ul').slideUp(200) }
 		});
 
