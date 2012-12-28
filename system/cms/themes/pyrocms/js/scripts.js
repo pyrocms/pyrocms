@@ -74,7 +74,7 @@ jQuery(function($) {
 			sensitivity: 7,
 			interval: 75,
 			over: function(){ $(this).find('ul:first:hidden').css({visibility: "visible", display: "none"}).slideDown(200) },
-			timeout: 0,
+			timeout: 100,
 			out: function(){ $(this).parent().find('ul').slideUp(200) }
 		});
 
@@ -454,31 +454,39 @@ jQuery(function($) {
 		html: true
 	});
 
-	//functions for codemirror
-	$('.html_editor').each(function() {
-		CodeMirror.fromTextArea(this, {
-		    mode: 'text/html',
-		    tabMode: 'indent',
-			height : '500px',
-			width : '500px',
-		});
-	});
+	/**
+	 * creates a codemirror instance for a textarea
+	 * @param  {string} selector textarea selector
+	 * @param  {string} mode     lang used ex. text/html, css, javascript, markdown check codemirror for more
+	 * @return {object}          codemirror instance
+	 */
+	pyro.createCodeMirror = function(selector, mode){
+		var editor;
+		$(selector).each(function() {
+			editor = CodeMirror.fromTextArea(this, {
+				mode: mode,
+				tabMode: 'indent',
+				lineNumbers: true
+			});
+			$(this).data('editor', editor); // save codemirror instance in the data 
+			// add highlight current line support
+			var hlLine = editor.addLineClass(0, "background", "activeline");
+			editor.on("cursorActivity", function() {
+				var cur = editor.getLineHandle(editor.getCursor().line);
+				if (cur != hlLine) {
+					editor.removeLineClass(hlLine, "background", "activeline");
+					hlLine = editor.addLineClass(cur, "background", "activeline");
+				}
+			});
 
-	$('.css_editor').each(function() {
-		CodeMirror.fromTextArea(this, {
-		    mode: 'css',
-		    tabMode: 'indent',
-			height : '500px',
-			width : '500px',
 		});
-	});
-
-	$('.js_editor').each(function() {
-		CodeMirror.fromTextArea(this, {
-		    mode: 'javascript',
-		    tabMode: 'indent',
-			height : '500px',
-			width : '500px',
-		});
-	});
+		// returns the last cause we use the each function to init codemirror 
+		return editor;
+	};
+	//init codemirror for defautl selectors
+	pyro.createCodeMirror('.html_editor', 'text/html');
+	pyro.createCodeMirror('.css_editor', 'css');
+	pyro.createCodeMirror('.js_editor', 'javascript');
+	pyro.createCodeMirror('textarea.html', 'html');
+	pyro.createCodeMirror('textarea.markdown', 'markdown');
 });

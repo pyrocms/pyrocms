@@ -1,3 +1,4 @@
+<div class ="one_full">
 <section class="title">
 	<h4><?php echo lang('maintenance:export_data') ?></h4>
 </section>
@@ -31,11 +32,11 @@
 				</tbody>
 			</table>
 		<?php endif;?>
-	
+
 	</div>
 </section>
-
-
+</div>
+<div class ="one_full">
 <section class="title">
 	<h4><?php echo lang('maintenance:list_label') ?></h4>
 </section>
@@ -73,3 +74,4 @@
 
 	</div>
 </section>
+</div>

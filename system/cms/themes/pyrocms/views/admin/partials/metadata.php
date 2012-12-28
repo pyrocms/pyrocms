@@ -8,6 +8,7 @@ Asset::js('jquery/jquery.slugify.js');
 
 Asset::js(array('codemirror/codemirror.js',
 	'codemirror/mode/css/css.js',
+	'codemirror/mode/xml/xml.js',
 	'codemirror/mode/htmlmixed/htmlmixed.js',
 	'codemirror/mode/javascript/javascript.js',
 	'codemirror/mode/markdown/markdown.js',

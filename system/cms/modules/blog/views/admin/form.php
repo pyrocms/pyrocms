@@ -20,7 +20,7 @@
 
 	<!-- Content tab -->
 	<div class="form_inputs" id="blog-content-tab">
-		<hr style="margin-top:0;">
+		<hr style="margin-top:5px;">
 
 		<ul>
 			<li>
@@ -40,8 +40,8 @@
 				</div>
 			</li>
 
-			<li class="editor">
-				<label for="body"><?php echo lang('blog:content_label') ?></label><br>
+			<li class="editor clearfix">
+				<label for="body"><?php echo lang('blog:content_label') ?></label>
 				<div class="input small-side">
 					<?php echo form_dropdown('type', array(
 						'html' => 'html',
@@ -62,7 +62,7 @@
 
 	<!-- Options tab -->
 	<div class="form_inputs" id="blog-options-tab">
-		<hr style="margin-top:0;">
+		<hr style="margin-top:5px;">
 
 		<ul>
 
@@ -75,7 +75,7 @@
 				<label for="category_id"><?php echo lang('blog:category_label') ?></label>
 				<div class="input">
 				<?php echo form_dropdown('category_id', array(lang('blog:no_category_select_label')) + $categories, @$post->category_id) ?>
-					[ <?php echo anchor('admin/blog/categories/create', lang('blog:new_category_label'), 'target="_blank"') ?> ]
+					[ <a id="new-category" href="<?php echo site_url('admin/blog/categories/create') ?>" target="_blank"><?php echo lang('blog:new_category_label') ?></a> ]
 				</div>
 			</li>
 

@@ -17,17 +17,14 @@
  * ---------------------------------- */
 
 #container {
-	width: 280px;
 	height: 100%;
 	min-height: 100%;
 	margin: 0 auto;
-	padding: 0;
+	padding: 0 10px;
 }
 
 .one_full {
 	width: 250px;
-	margin: 0;
-	float: left;
 }
 
 .one_half {
@@ -105,11 +102,6 @@ button#remove_installer_directory {
 	-webkit-transform: translate3d(0, 0, 0);
 	-webkit-backface-visibility: hidden;
 	-webkit-perspective: 1000;
-}
-
-#content-body {
-	top: 135px;
-	position: relative;
 }
 
 .subbar .wrapper {
@@ -471,7 +463,6 @@ section.title h4 a {
 
 section.item {
 	background: #ffffff;
-	float: left;
 	width: 100%;
 	min-height: 100px;
 	margin: 0px 0 0 0;
