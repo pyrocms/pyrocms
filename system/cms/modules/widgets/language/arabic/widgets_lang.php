@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 // sidebar
-$lang['widgets:available_title'] 			= 'عناصر الودجت المتوفّرة';
+$lang['widgets:available_title'] 			= 'الودجتس المتوفرة';
 $lang['widgets:widget_area_wrapper']		= 'المساحات المتوفّرة';
 $lang['widgets:instructions']	 			= 'اسحب وأفلت للتثبيت';
 
