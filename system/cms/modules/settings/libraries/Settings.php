@@ -21,7 +21,7 @@ class Settings {
 	 *
 	 * @var	array
 	 */
-	private $columns = array('slug', 'title', 'description', 'type', 'default', 'value', 'options', 'is_required', 'is_gui', 'module', 'order');
+	private static $columns = array('slug', 'title', 'description', 'type', 'default', 'value', 'options', 'is_required', 'is_gui', 'module', 'order');
 
 	/**
 	 * The Settings Construct
