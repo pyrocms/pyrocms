@@ -64,7 +64,9 @@ textarea,.cke_skin_kama .cke_wrapper {
 }
 
 select {
-	width:245px;
+	/* width:245px; */
+	width:100%;
+	max-width: 100%;
 }
 
 /*
@@ -311,7 +313,7 @@ button#login-submit:hover {
 
 
 #login-footer {
-	background:#333 url(../../img/nav-grain.png) repeat;
+	background:#333 url('../../img/nav-grain.png') repeat;
 	border-top:none;
 	text-align:center;
 	color:#777;
@@ -489,9 +491,11 @@ button#login-submit:hover {
 		width:430px;
 	}
 	
-	select {
-		width:445px;
+	/*
+select {
+		width:400px;
 	}
+*/
 	
 	/* LOGIN SCREEN */
 	.login-screen #content {
@@ -737,9 +741,11 @@ button#login-submit:hover {
 		width:675px;
 	}
 	
-	select {
+	/*
+select {
 		width:545px;
 	}
+*/
 	
 	.form_inputs fieldset > ul > li > label,.form_inputs fieldset > ul > div > li > label,.form_inputs > ul > div > li > label,.form_inputs > ul > li > label,.form_inputs fieldset > ul > li .label,.form_inputs > ul > li .label {
 		width:25%!important;
@@ -888,9 +894,11 @@ button#login-submit:hover {
 		width:950px;
 	}
 	
-	select {
+	/*
+select {
 		width:545px;
 	}
+*/
 }
 
 @media only screen and (min-width: 1281px) {
@@ -1024,9 +1032,11 @@ button#login-submit:hover {
 		width:1200px;
 	}
 	
-	select {
+	/*
+select {
 		width:545px;
 	}
+*/
 }
 
 /* !Retina Displays 
@@ -1046,5 +1056,10 @@ only screen and (-webkit-min-device-pixel-ratio: 2),only screen and ( min--moz-d
 	#login-logo {
 		background-image:url('../../img/login-logo@2x.png');
 		background-size:125px 40px;
+	}
+	
+	button#login-submit {
+		background-image:url('../../img/nav-grain@2x.png');
+		background-size: 113px 113px;
 	}
 }

@@ -401,13 +401,14 @@ select.chzn-select {
 
 /* @group Results */
 .chzn-container .chzn-results {
-  margin: 0 4px 4px -5px !important;
+  margin: 0 4px 4px 0px !important;
   max-height: 190px;
-  padding: 0 0 0 4px;
+  padding: 0 0 0 0px !important;
   position: relative;
   overflow-x: hidden;
   overflow-y: auto;
   text-align: left;
+  text-indent: 4px;
   width: 100%;
 }
 .chzn-container-multi .chzn-results {

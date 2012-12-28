@@ -459,7 +459,7 @@ button,input,select,textarea {
 }
 
 select {
-	min-width:260px;
+	/* min-width:260px; */
 	visibility:hidden;
 }
 
@@ -567,8 +567,10 @@ input[type="text"],input[type="password"],input[type="file"],textarea {
 
 input[type="text"]:focus,input[type="password"]:focus,input[type="file"]:focus,textarea:focus {
 	background:#fff;
-	border:1px solid #2daebf;
-	box-shadow:0 0 5px #2daebf;
+	/*
+border:1px solid #38a7e6;
+	box-shadow:0 0 5px #38a7e6;
+*/
 }
 
 input.error {
@@ -683,8 +685,8 @@ input:invalid,textarea:invalid {
 	background:#eee;
 	color:#4D4D4D;
 	outline:none;
-	border-color:#ed8e28;
-	box-shadow:0 0 5px #ed8e28;
+	border-color:#38a7e6;
+	box-shadow:0 0 5px #38a7e6;
 }
 
 .form_inputs .datetime_input select {
