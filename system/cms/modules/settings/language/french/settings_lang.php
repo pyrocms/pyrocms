@@ -133,8 +133,8 @@ $lang['settings:ckeditor_config_desc']          = 'Vous pouvez trouver une liste
 $lang['settings:enable_registration']           = 'Activer l\'enregistrement des utilisateurs';
 $lang['settings:enable_registration_desc']      = 'Autoriser les utilisateurs à s\'inscrire sur votre siteAllow .';
 
-$lang['settings:profile_visibility']            = 'Profile Visibility'; #translate
-$lang['settings:profile_visibility_desc']       = 'Specify who can view user profiles on the public site'; #translate
+$lang['settings:profile_visibility']            = 'Visibilité du Profil';
+$lang['settings:profile_visibility_desc']       = 'Permet de spécifier qui peut voir les profils utilisateurs sur le site public';
 
 $lang['settings:cdn_domain']                    = 'Domaine CDN';
 $lang['settings:cdn_domain_desc']               = 'Domaines CDN autorisant de décharger des contenus statiques sur différents serveurs comme Amazon CloudFront ou MaxCDN';  // todo : check translation
@@ -161,13 +161,13 @@ $lang['settings:form_option_Text Only']			= 'Texte seulement';
 $lang['settings:form_option_Allow Markdown']	= 'Autoriser Markdown';
 $lang['settings:form_option_Yes']				= 'Oui';
 $lang['settings:form_option_No']				= 'Non';
-$lang['settings:form_option_profile_public']	= 'Visible to everybody'; #translate
-$lang['settings:form_option_profile_owner']		= 'Only visible to the profile owner'; #translate
-$lang['settings:form_option_profile_hidden']	= 'Never visible'; #translate
-$lang['settings:form_option_profile_member']	= 'Visible to any logged in user'; #translate
-$lang['settings:form_option_activate_by_email']          = 'Activate by email'; #translate
-$lang['settings:form_option_activate_by_admin']        	= 'Activate by admin'; #translate
-$lang['settings:form_option_no_activation']         	= 'No activation'; #translate
+$lang['settings:form_option_profile_public']	= 'Visible par tout le monde';
+$lang['settings:form_option_profile_owner']		= 'Visible uniquement par le propriétaire du profil';
+$lang['settings:form_option_profile_hidden']	= 'Jamais visible';
+$lang['settings:form_option_profile_member']	= 'Visible par tout les utilisateurs connectés';
+$lang['settings:form_option_activate_by_email']          = 'Activer par mail';
+$lang['settings:form_option_activate_by_admin']        	= 'Activer par un administrateur';
+$lang['settings:form_option_no_activation']         	= 'Pas d\'activation';
 
 // messages
 $lang['settings:no_settings']					= 'Il n\'y a aucun paramétrages actuellement.';
