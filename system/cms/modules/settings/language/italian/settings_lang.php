@@ -132,8 +132,8 @@ $lang['settings:ckeditor_config_desc']          = 'Puoi trovare una lista di con
 $lang['settings:enable_registration']           = 'Abilita registrazioni';
 $lang['settings:enable_registration_desc']      = 'Permetti agli utenti di registrarti al tuo sito.';
 
-$lang['settings:profile_visibility']            = 'Profile Visibility'; #translate
-$lang['settings:profile_visibility_desc']       = 'Specify who can view user profiles on the public site'; #translate
+$lang['settings:profile_visibility']            = 'Visibilità profilo';
+$lang['settings:profile_visibility_desc']       = 'Specifica chi può vedere il profilo di un utente nel sito pubblico'; 
 
 $lang['settings:cdn_domain']                    = 'Dominio CDN'; 
 $lang['settings:cdn_domain_desc']               = 'il dominio CDN ti consente di scaricare contenuti da diversi server come Amazon CloudFront o MaxCDN.'; 
