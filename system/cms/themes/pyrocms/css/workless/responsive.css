@@ -93,7 +93,6 @@ select {
 #content-body:after { clear: both; }
 #content-body { 
 	zoom: 1; 
-	padding: 0 10px;
 }
 
 /*  -----------  GRID -------------- */
@@ -136,6 +135,7 @@ select {
 
 .wrapper {
 	position:relative;
+	padding: 0 10px;
 }
 
 /* Login Screen */
@@ -349,16 +349,13 @@ table th.collapse, table td.collapse{
 }
 
 @media only screen and (min-width: 481px) {
-	/* now we remove padding not needed anymore */
-	#content-body { 
-		padding: 0;
-	}
 	table th.collapse, table td.collapse{
 	    display:table-cell;
 	}
 	.wrapper {
 		width:480px;
 		margin:0 auto;
+		padding: 0;
 	}
 	
 	#container {
