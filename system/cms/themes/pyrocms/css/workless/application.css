@@ -298,7 +298,7 @@ margin-top: -4px;
 	position:relative;
 	float:left;
 	border-bottom-width:0!important;
-	margin:7px 0 0 0px;
+	margin:4px 0 0 2px;
 	padding: 0;
 }
 
@@ -306,7 +306,7 @@ margin-top: -4px;
 	display:block;
 	border-width:0;
 	background:none;
-	float:left;
+	float: left;
 }
 
 .ui-tabs-hide {

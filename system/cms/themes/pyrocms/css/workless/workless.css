@@ -423,7 +423,7 @@ form .help-inline {
 }
 
 fieldset {
-	border:none;
+	border:1px solid #efefef;
 	margin:5px 0 15px -5px;
 	padding:2px 6px 2px 2px;
 }
@@ -603,6 +603,7 @@ input:invalid,textarea:invalid {
 
 .form_inputs fieldset {
 	width:250px;
+	margin-top: 0px;
 }
 
 .form_inputs fieldset > ul,.form_inputs > ul {
@@ -626,7 +627,7 @@ input:invalid,textarea:invalid {
 	border-bottom:1px solid #efefef;
 	padding-bottom:10px;
 	margin-bottom:10px;
-	margin-top: 20px;
+	margin-top: 0px;
 }
 
 .form_inputs > ul > div > li:last-child,.form_inputs fieldset > ul > li:last-child,.form_inputs > ul > li:last-child {
@@ -1702,6 +1703,14 @@ button.btn::-moz-focus-inner,input[type=submit].btn::-moz-focus-inner {
 	width:auto;
 }
 
+.tab-menu li {
+	margin-left: 2px;
+}
+
+.tab-menu li:first-child {
+	margin-left: 0px;
+}
+
 .tab-menu li a {
 	background:#eee;
 	color:#333;
@@ -1714,7 +1723,7 @@ button.btn::-moz-focus-inner,input[type=submit].btn::-moz-focus-inner {
 	border-left:1px solid #efefef;
 	border-top:1px solid #efefef;
 	border-right:1px solid #efefef;
-	margin-left: 2px;
+	margin-left: 0px;
 }
 
 .tab-menu li a:hover {
