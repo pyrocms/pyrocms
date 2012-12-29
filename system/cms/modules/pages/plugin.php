@@ -163,7 +163,7 @@ class Plugin_Pages extends Plugin
 		if (str_to_bool($parse_tags))
 		{
 			$parser = new Lex\Parser();
-			$parser->scope_glue(':');
+			$parser->scopeGlue(':');
 
 			return $parser->parse($content, array(), array($this->parser, 'parser_callback'));
 		}

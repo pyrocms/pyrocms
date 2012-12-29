@@ -88,8 +88,8 @@ class MY_Parser extends CI_Parser {
 		else
 		{
 			$parser = new Lex\Parser();
-			$parser->scope_glue(':');
-			$parser->cumulative_noparse(true);
+			$parser->scopeGlue(':');
+			$parser->cumulativeNoparse(true);
 			$parsed = $parser->parse($string, $data, array($this, 'parser_callback'));
 		}
 		
@@ -132,7 +132,7 @@ class MY_Parser extends CI_Parser {
 			$parsed_return = '';
 
 			$parser = new Lex\Parser();
-			$parser->scope_glue(':');
+			$parser->scopeGlue(':');
 			
 			foreach ($return_data as $result)
 			{
