@@ -98,7 +98,7 @@ $lang['streams:stream_admin'] = "Administration des Flux";
 $lang['streams:list_streams'] = "Lister les Flux";
 $lang['streams:sure'] = "Êtes vous sur&nbsp;?";
 $lang['streams:field_assignments'] = "Assignement des Champs de Flux";
-$lang['streams:new_field_assign']						= "New Field Assignment"; #translate
+$lang['streams:new_field_assign'] = "Nouvel assignement de champ";
 $lang['streams:stream_name'] = "Nom du Flux";
 $lang['streams:stream_slug'] = "Slug du Flux";
 $lang['streams:about'] = "A propos";
@@ -112,7 +112,7 @@ $lang['streams:add_entry'] = "Ajouter une Entrée";
 $lang['streams:edit_entry'] = "Editer une Entrée";
 $lang['streams:view_options'] = "Options d'affichage";
 $lang['streams:stream_view_options'] = "Options d'affichage des Flux";
-$lang['streams:backup_table'] = "Backup Stream Table"; #translate
+$lang['streams:backup_table'] = "Sauvegarder la table de flux Streams";
 $lang['streams:delete_stream'] = "Supprimer Flux";
 $lang['streams:entry'] = "Entrée";
 $lang['streams:field_types'] = "Types de Champ";
@@ -139,7 +139,7 @@ $lang['streams:start.no_fields_msg'] = "Il n'y a aucun champ à ajouter à ce fl
 $lang['streams:start.adding_a_field_here'] = "ajouter un champ ici";
 $lang['streams:start.no_entries'] = "Il n'y a aucune entrée pour <strong>%s</strong>. Pour commencer, vous pouvez";
 $lang['streams:add_fields'] = "Assigner les Champs";
-$lang['streams:no_entries']								= 'No entries'; #translate
+$lang['streams:no_entries'] = 'Aucune entrée';
 $lang['streams:add_an_entry'] = "Ajouter une Entrée";
 $lang['streams:to_this_stream_or'] = "à ce Flux où";
 $lang['streams:no_field_assign'] = "Aucun Champ assigné";
@@ -183,15 +183,15 @@ $lang['recaptcha_field_name'] = "Image de Sécurité";
 $lang['recaptcha_html_error'] = "Un problème à eu lieu lors du chargement de l'image de sécurité. Merci de recommencer plus tard";
 
 /* Default Parameter Fields */
-
+																																																																																																																																																																																				
 $lang['streams:max_length'] = "Longueur Max";
 $lang['streams:upload_location'] = "Dossier d'Upload";
 $lang['streams:default_value'] = "Valeur par défaut";
 
-$lang['streams:menu_path']								= 'Menu Path'; #translate
-$lang['streams:about_instructions']						= 'A short description of your stream.'; #translate
-$lang['streams:slug_instructions']						= 'This will also be the database table name for your stream.'; #translate
-$lang['streams:prefix_instructions']					= 'If used, this will prefix the table in the database. Useful for naming collisons.'; #translate
-$lang['streams:menu_path_instructions']					= 'Where you what section and sub section this stream should show up in the menu. Separate by a forward slash. Ex: <strong>Main Section / Sub Section</strong>.'; #translate
+$lang['streams:menu_path'] = 'Chemin du Menu';
+$lang['streams:about_instructions'] = 'Une courte description de votre flux Stream.';
+$lang['streams:slug_instructions'] = 'Sera utilisé comme nom de table en base de données pour votre flux.';
+$lang['streams:prefix_instructions'] = 'Si utilisé, servira de préfixe au nom de vos tables en base de données. Utile pour éviter les collisions de noms.';
+$lang['streams:menu_path_instructions'] = 'Permet d\'indiquer le chemin d\'affichage de votre flux dans le menu. Séparé par un slash (/). Ex: <strong>Section Principale / Sous-Section</strong>.';
 
 /* End of file pyrostreams_lang.php */

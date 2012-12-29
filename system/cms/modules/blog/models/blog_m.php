@@ -66,12 +66,12 @@ class Blog_m extends MY_Model
 
 		if ( ! empty($params['month']))
 		{
-			$this->db->where('MONTH(FROM_UNIXTIME(created_on))', $params['month']);
+			$this->db->where('MONTH(FROM_UNIXTIME('.$this->db->dbprefix('blog').'.created_on))', $params['month']);
 		}
 
 		if ( ! empty($params['year']))
 		{
-			$this->db->where('YEAR(FROM_UNIXTIME(created_on))', $params['year']);
+			$this->db->where('YEAR(FROM_UNIXTIME('.$this->db->dbprefix('blog').'.created_on))', $params['year']);
 		}
 
 		if ( ! empty($params['keywords']))
@@ -162,12 +162,12 @@ class Blog_m extends MY_Model
 
 		if ( ! empty($params['month']))
 		{
-			$this->db->where('MONTH(FROM_UNIXTIME(created_on))', $params['month']);
+			$this->db->where('MONTH(FROM_UNIXTIME('.$this->db->dbprefix('blog').'.created_on))', $params['month']);
 		}
 
 		if ( ! empty($params['year']))
 		{
-			$this->db->where('YEAR(FROM_UNIXTIME(created_on))', $params['year']);
+			$this->db->where('YEAR(FROM_UNIXTIME('.$this->db->dbprefix('blog').'.created_on))', $params['year']);
 		}
 
 		if ( ! empty($params['keywords']))
@@ -233,30 +233,6 @@ class Blog_m extends MY_Model
 		$query = $this->db->get();
 
 		return $query->result();
-	}
-
-	// DIRTY frontend functions. Move to views
-	public function get_blog_fragment($params = array())
-	{
-		$this->load->helper('date');
-
-		$this->db->where('status', 'live');
-		$this->db->where('created_on <=', now());
-
-		$string = '';
-		$this->db->order_by('created_on', 'DESC');
-		$this->db->limit(5);
-		$query = $this->db->get('blog');
-		if ($query->num_rows() > 0)
-		{
-			$this->load->helper('text');
-			foreach ($query->result() as $blog)
-			{
-				$string .= '<p>'.anchor('blog/'.date('Y/m').'/'.$blog->slug, $blog->title).'<br />'.strip_tags($blog->intro).'</p>';
-			}
-		}
-
-		return $string;
 	}
 
 	public function check_exists($field, $value = '', $id = 0)
