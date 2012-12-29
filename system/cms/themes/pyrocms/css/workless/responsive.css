@@ -1049,7 +1049,12 @@ only screen and (-webkit-min-device-pixel-ratio: 2),only screen and ( min--moz-d
 	}
 	
 	body#login-body {
-		background:#333 url('../../img/nav-grain@2x.png') repeat;
+		background-image:url('../../img/nav-grain@2x.png'),-webkit-gradient(linear,left top,left bottom,color-stop(0%,#5f6569),color-stop(100%,#45494c));
+		background-image:url('../../img/nav-grain@2x.png'),-webkit-linear-gradient(top,#5f6569,#45494c);
+		background-image:url('../../img/nav-grain@2x.png'),-moz-linear-gradient(top,#5f6569,#45494c);
+		background-image:url('../../img/nav-grain@2x.png'),-ms-linear-gradient(top,#5f6569,#45494c);
+		background-image:url('../../img/nav-grain@2x.png'),-o-linear-gradient(top,#5f6569,#45494c);
+		background-image:url('../../img/nav-grain@2x.png'),linear-gradient(top,#5f6569,#45494c);
 		background-size:113px 113px;
 	}
 	
