@@ -423,7 +423,7 @@ form .help-inline {
 }
 
 fieldset {
-	border:1px solid #eee;
+	border:none;
 	margin:5px 0 15px -5px;
 	padding:2px 6px 2px 2px;
 }
@@ -626,6 +626,7 @@ input:invalid,textarea:invalid {
 	border-bottom:1px solid #efefef;
 	padding-bottom:10px;
 	margin-bottom:10px;
+	margin-top: 20px;
 }
 
 .form_inputs > ul > div > li:last-child,.form_inputs fieldset > ul > li:last-child,.form_inputs > ul > li:last-child {
@@ -637,7 +638,7 @@ input:invalid,textarea:invalid {
 /* float: left; */
 	text-align:left;
 	margin:0 3% 0 0;
-	padding:8px;
+	padding:8px 8px 8px 0px;
 }
 
 .form_inputs fieldset > ul > li > label span,.form_inputs > ul > li > label span {
@@ -645,9 +646,7 @@ input:invalid,textarea:invalid {
 }
 
 .form_inputs .input {
-/* float: left!important; */
-	padding-left:10px;
-	width:69%;
+	width: 30%;
 }
 
 .form_inputs li.full_width_input .input {
@@ -672,6 +671,7 @@ input:invalid,textarea:invalid {
 	font-weight:400;
 	font-size:11px;
 	color:#666;
+	/* text-indent: 8px; */
 }
 
 .form_inputs input,.form_inputs textarea {

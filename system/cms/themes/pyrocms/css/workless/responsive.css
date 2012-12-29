@@ -461,7 +461,7 @@ button#login-submit:hover {
 		}
 		*/
 	.form_inputs label small {
-		margin-left:0;
+		/* margin-left:0; */
 		margin-bottom:0;
 	}
 	
@@ -683,8 +683,8 @@ select {
 	}
 	
 	fieldset {
-		padding:25px;
-		margin:5px 0 15px;
+		padding:10px;
+		margin:0px 0 15px;
 	}
 	
 	.form_inputs .input > input {
