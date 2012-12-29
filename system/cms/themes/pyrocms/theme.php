@@ -197,13 +197,13 @@ class Theme_Pyrocms extends Theme {
 	public function get_rss_feed()
 	{
 		// Dashboard RSS feed (using SimplePie)
-		$this->load->library('simplepie');
-		$this->simplepie->set_cache_location($this->config->item('simplepie_cache_dir'));
-		$this->simplepie->set_feed_url(Settings::get('dashboard_rss'));
-		$this->simplepie->init();
-		$this->simplepie->handle_content_type();
+		$pie = new \SimplePie;
+		$pie->set_cache_location($this->config->item('simplepie_cache_dir'));
+		$pie->set_feed_url(Settings::get('dashboard_rss'));
+		$pie->init();
+		$pie->handle_content_type();
 		
-		$this->template->rss_items = $this->simplepie->get_items(0, Settings::get('dashboard_rss_count'));
+		$this->template->rss_items = $pie->get_items(0, Settings::get('dashboard_rss_count'));
 	}
 
 	/**
