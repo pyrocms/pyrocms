@@ -35,7 +35,7 @@ $lang['buttons:edit']		= 'تحرير';
 $lang['buttons:clone']		= 'استنساخ';
 $lang['buttons:re-index']	= 'إعادة الفهرسة';
 $lang['buttons:copy']		= 'نسخ';
-$lang['buttons:filter']		= 'Filter'; #translate
-$lang['buttons:clear']		= 'Clear'; #translate
+$lang['buttons:filter']		= 'تصفية';
+$lang['buttons:clear']		= 'مسح';
 
 /* End of file buttons_lang.php */
