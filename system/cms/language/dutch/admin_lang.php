@@ -39,7 +39,8 @@ $lang['cp:nav_misc']					= 'Miscellaneous'; #translate
 
 $lang['cp:must_login']	 				= 'U moet ingelogd zijn om deze pagina te kunnen bekijken.';
 $lang['cp:access_denied'] 				= 'U heeft geen rechten om deze pagina te bekijken.';
-$lang['cp:delete_installer_message']              = 'The installer directory still exists! <a href="#" id="remove_installer_directory">Please delete it from your server!</a>.<br>Leaving it online means control of this site could be granted to somebody else.'; #translate
+$lang['cp:delete_installer_message']              = 'The installer directory still exists! Please delete it from your server! Leaving it online means control of this site could be granted to somebody else.'; #translate
+$lang['cp:delete_installer']					 = 'Delete Installer'; #translate
 $lang['cp:delete_installer_successfully_message'] = 'The installer directory has been successfully deleted.'; #translate
 $lang['cp:delete_installer_manually_message']     = 'The installer directory could not be deleted. <strong>Please remove it manually!</strong>'; #translate
 $lang['cp:upgrade_message']				= 'U gebruikt momenteel versie %s, maar uw database draait op versie %s. Klik alstublieft <a href="%s">hier</a> om de database te upgraden.';

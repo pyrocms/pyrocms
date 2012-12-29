@@ -2,5 +2,6 @@
 
 $lang['streams:wysiwyg.name'] 			= 'WYSIWYG';
 $lang['streams:wysiwyg.editor_type']	= 'Typ editoru';
+$lang['streams:wysiwyg.allow_tags']		= 'Allow Tags'; #translate
 $lang['streams:wysiwyg.simple']			= 'Simple'; #translate
 $lang['streams:wysiwyg.advanced']		= 'Advanced'; #translate

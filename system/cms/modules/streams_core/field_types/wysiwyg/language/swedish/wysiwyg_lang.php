@@ -12,6 +12,7 @@
 
 $lang['streams:wysiwyg.name'] = 'WYSIWYG';
 $lang['streams:wysiwyg.editor_type'] = 'Typ av textredigerare';
+$lang['streams:wysiwyg.allow_tags']		= 'Allow Tags'; #translate
 $lang['streams:wysiwyg.simple'] = 'Enkel';
 $lang['streams:wysiwyg.advanced'] = 'Avancerad';
 

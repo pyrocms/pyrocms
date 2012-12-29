@@ -19,8 +19,8 @@ class Rss extends Public_Controller
 	{
 		$posts = $this->cache->method('blog_m', 'get_many_by', array(array(
 			'status' => 'live',
-			'limit' => $this->settings->get('rss_feed_items'))
-		), $this->settings->get('rss_cache'));
+			'limit' => Settings::get('rss_feed_items'))
+		), Settings::get('rss_cache'));
 
 		$this->output->set_content_type('application/rss+xml');
 		$this->load->view('rss', $this->_build_feed($posts, lang('blog:rss_name_suffix')));
@@ -51,11 +51,12 @@ class Rss extends Public_Controller
 		$data->rss = new stdClass();
 
 		$data->rss->encoding = $this->config->item('charset');
-		$data->rss->feed_name = $this->settings->get('site_name').' '.$suffix;
+		$data->rss->feed_name = Settings::get('site_name').' '.$suffix;
 		$data->rss->feed_url = base_url();
-		$data->rss->page_description = sprintf(lang('blog:rss_posts_title'), $this->settings->get('site_name'));
+
+		$data->rss->page_description = sprintf(lang('blog:rss_posts_title'), Settings::get('site_name'));
 		$data->rss->page_language = 'en-gb';
-		$data->rss->creator_email = $this->settings->get('contact_email');
+		$data->rss->creator_email = Settings::get('contact_email');
 
 		if ( ! empty($posts))
 		{
@@ -74,7 +75,7 @@ class Rss extends Public_Controller
 					'date' => $row->created_on,
 					'category' => $row->category_title
 				);
-				$data->rss->items[] = (object)$item;
+				$data->rss->items[] = (object) $item;
 			}
 		}
 

@@ -24,7 +24,9 @@ $lang['page_types:edit_title']                 = '編輯頁面佈局 "%s"';
 
 // messages
 $lang['page_types:no_pages']                   = '沒有頁面佈局';
+$lang['page_types:create_success_add_fields']  = 'You have created a new page type; now add the fields that you want your page to have.'; #translate
 $lang['page_types:create_success']             = '頁面佈局已經建立';
+$lang['page_types:success_add_tag']            = 'The page field has been added. However before its data will be output you must insert its tag into the Page Type\'s Layout textarea'; #translate
 $lang['page_types:create_error']               = '那個頁面佈局尚未被建立';
 $lang['page_types:page_type.not_found_error']  = '那個頁面佈局不存在';
 $lang['page_types:edit_success']               = '頁面佈局 "%s" 已經儲存';

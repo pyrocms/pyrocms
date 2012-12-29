@@ -54,7 +54,7 @@ class Admin extends Admin_Controller {
 				pyro.lang.alt_attribute = '".addslashes(lang('files:alt_attribute'))."';
 
 				// deprecated
-				pyro.files.initial_folder_contents = '".(integer)$this->session->flashdata('initial_folder_contents')."';
+				pyro.files.initial_folder_contents = ".(int)$this->session->flashdata('initial_folder_contents').";
 			</script>");
 	}
 
@@ -283,7 +283,7 @@ class Admin extends Admin_Controller {
 
 		$description 	= $this->input->post('description');
 		$keywords_hash	= $this->keywords->process($this->input->post('keywords'), $this->input->post('old_hash'));
-		$alt_attribute	= $this->input->post('alt_atttibute');
+		$alt_attribute	= $this->input->post('alt_attribute');
 
 		if ($id = $this->input->post('file_id'))
 		{

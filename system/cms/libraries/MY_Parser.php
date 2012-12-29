@@ -32,11 +32,11 @@ class MY_Parser extends CI_Parser {
 	 * @param	bool
 	 * @return	string
 	 */
-	public function parse($template, $data = array(), $return = false, $is_include = false)
+	public function parse($template, $data = array(), $return = false, $is_include = false, $streams_parse = array())
 	{
 		$string = $this->_ci->load->view($template, $data, true);
 
-		return $this->_parse($string, $data, $return, $is_include);
+		return $this->_parse($string, $data, $return, $is_include, $streams_parse);
 	}
 
 	// --------------------------------------------------------------------
@@ -52,9 +52,9 @@ class MY_Parser extends CI_Parser {
 	 * @param	bool
 	 * @return	string
 	 */
-	public function parse_string($string, $data = array(), $return = false, $is_include = false)
+	public function parse_string($string, $data = array(), $return = false, $is_include = false, $streams_parse = array())
 	{
-		return $this->_parse($string, $data, $return, $is_include);
+		return $this->_parse($string, $data, $return, $is_include, $streams_parse);
 	}
 
 	// --------------------------------------------------------------------
@@ -70,7 +70,7 @@ class MY_Parser extends CI_Parser {
 	 * @param	bool
 	 * @return	string
 	 */
-	protected function _parse($string, $data, $return = false, $is_include = false)
+	protected function _parse($string, $data, $return = false, $is_include = false, $streams_parse = array())
 	{
 		// Start benchmark
 		$this->_ci->benchmark->mark('parse_start');
@@ -78,12 +78,20 @@ class MY_Parser extends CI_Parser {
 		// Convert from object to array
 		is_array($data) or $data = (array) $data;
 
-		$data = array_merge($data, $this->_ci->load->_ci_cached_vars);
+		$data = array_merge($data, $this->_ci->load->get_vars());
 
-		$parser = new Lex\Parser();
-		$parser->scope_glue(':');
-		$parser->cumulative_noparse(true);
-		$parsed = $parser->parse($string, $data, array($this, 'parser_callback'));
+		if ($streams_parse and isset($streams_parse['stream']) and isset($streams_parse['namespace']))
+		{
+			$this->_ci->load->driver('Streams');
+			$parsed = $this->_ci->streams->parse->parse_tag_content($string, $data, $streams_parse['stream'], $streams_parse['namespace']);
+		}
+		else
+		{
+			$parser = new Lex\Parser();
+			$parser->scope_glue(':');
+			$parser->cumulative_noparse(true);
+			$parsed = $parser->parse($string, $data, array($this, 'parser_callback'));
+		}
 		
 		// Finish benchmark
 		$this->_ci->benchmark->mark('parse_end');

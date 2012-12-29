@@ -10,11 +10,12 @@
  */
 class Plugin_Twitter extends Plugin
 {
-
 	public $version = '1.0.0';
+
 	public $name = array(
 		'en' => 'Twitter',
 	);
+
 	public $description = array(
 		'en' => 'Display a Twitter feed.',
 		'el' => 'Προβάλλει μια σειρά από tweets.',
@@ -29,7 +30,7 @@ class Plugin_Twitter extends Plugin
 	 */
 	public function _self_doc()
 	{
-		$info = array(
+		return array(
 			'feed' => array(
 				'description' => array(
 					'en' => 'Allows a Twitter feed to be output anywhere on the site.'
@@ -51,10 +52,8 @@ class Plugin_Twitter extends Plugin
 						'required' => false,
 					),
 				),
-			),// end first method
+			),
 		);
-	
-		return $info;
 	}
 
 	/**
@@ -80,13 +79,14 @@ class Plugin_Twitter extends Plugin
 	public function feed()
 	{
 		$username = $this->attribute('username');
+
 		$limit = $this->attribute('limit', 5);
 		
-		if ( ! ($tweets = $this->cache->get('twitter-' . $username)))
+		if ( ! ($tweets = $this->cache->get('twitter-'.$username)))
 		{
-			$tweets = json_decode(@file_get_contents($this->feed_url . '&screen_name=' . $username . '&count=' . $limit));
+			$tweets = json_decode(file_get_contents($this->feed_url.'&screen_name='.$username.'&count='.$limit));
 
-			$this->cache->set('twitter-' . $username, $this->settings->twitter_cache, $tweets);
+			$this->cache->set('twitter-'.$username, $this->settings->twitter_cache, $tweets);
 		}
 
 		$patterns = array(
@@ -100,17 +100,17 @@ class Plugin_Twitter extends Plugin
 			'|#([a-z0-9-_]+)|i' => '<a href="http://twitter.com/search?q=%23$1" target="_blank">$0</a>'
 		);
 
-		if (!$tweets)
+		if ( ! $tweets)
 		{
 			return array();
 		}
 
 		foreach ($tweets as &$tweet)
 		{
-			$tweet->id = sprintf('%.0f', $tweet->id);
-			$tweet->text = str_replace($username . ': ', '', $tweet->text);
-			$tweet->text = preg_replace(array_keys($patterns), $patterns, $tweet->text);
-			$tweet->timespan = strtolower(current(explode(',', timespan(strtotime($tweet->created_at))))) . ' ago';
+			$tweet->id       = sprintf('%.0f', $tweet->id);
+			$tweet->text     = str_replace($username.': ', '', $tweet->text);
+			$tweet->text     = preg_replace(array_keys($patterns), $patterns, $tweet->text);
+			$tweet->timespan = strtolower(current(explode(',', timespan(strtotime($tweet->created_at))))).' ago';
 		}
 
 		return $tweets;

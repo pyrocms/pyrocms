@@ -182,7 +182,7 @@ class Files
 			}
 		}
 
-		return self::result(true, null, null, array('folder' => $folders, 'file' => $files));
+		return self::result(true, null, null, array('folder' => $folders, 'file' => $files, 'parent_id' => $parent));
 	}
 
 	// ------------------------------------------------------------------------
@@ -358,7 +358,7 @@ class Files
 				'upload_path'	=> self::$path,
 				'file_name'		=> $replace_file ? $replace_file->filename : self::$_filename,
 				// if we want to replace a file, the file name should already be encrypted, the option was true then
-				'encrypt_name'	=> config_item('files:encrypt_filename') && ! $replace_file ? TRUE : FALSE
+				'encrypt_name'	=> (config_item('files:encrypt_filename') && ! $replace_file) ? TRUE : FALSE
 			);
 
 			// If we don't have allowed types set, we'll set it to the
@@ -375,7 +375,7 @@ class Files
 					'folder_id'		=> (int) $folder_id,
 					'user_id'		=> (int) ci()->current_user->id,
 					'type'			=> self::$_type,
-					'name'			=> $name ? $name : $file['file_name'],
+					'name'			=> $name ? $name : $file['orig_name'],
 					'path'			=> '{{ url:site }}files/large/'.$file['file_name'],
 					'description'	=> '',
 					'filename'		=> $file['file_name'],
@@ -412,13 +412,14 @@ class Files
 
 				if($replace_file)
 				{
-					$file_id = $replace_file;
+					$file_id = $replace_file->id;
 					ci()->file_m->update($replace_file->id, $data);
 				}
 				else
 				{
-					$data['id'] = substr(md5(now()+$data['filename']), 0, 15);
-					$file_id = ci()->file_m->insert($data);
+					$data['id'] = substr(md5(microtime()+$data['filename']), 0, 15);
+					$file_id = $data['id'];
+					ci()->file_m->insert($data);
 				}
 
 				if ($data['type'] !== 'i')
@@ -621,7 +622,7 @@ class Files
 			ci()->storage->load_driver($new_location);
 
 			// make a really random temp file name
-			$temp_file = self::$path.md5(time()).'_temp_'.$new_name;
+			$temp_file = self::$path.md5(microtime()).'_temp_'.$new_name;
 
 			// and we download...
 			$curl_result = ci()->curl->simple_get($file);
@@ -844,7 +845,7 @@ class Files
 				if ( ! array_key_exists($file['filename'], $known))
 				{
 					$insert = array(
-						'id' 			=> substr(md5(now()+$data['filename']), 0, 15),
+						'id' 			=> substr(md5(microtime()+$data['filename']), 0, 15),
 						'folder_id' 	=> $folder_id,
 						'user_id'		=> ci()->current_user->id,
 						'type'			=> $file['type'],

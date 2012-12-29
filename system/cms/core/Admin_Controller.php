@@ -89,7 +89,20 @@ class Admin_Controller extends MY_Controller {
 			));
 
 			foreach ($modules as $module)
-			{
+			{				
+				// If we do not have an admin_menu function, we use the
+				// regular way of checking out the details.php data.
+				if ($module['menu'] and (isset($this->permissions[$module['slug']]) or $this->current_user->group == 'admin'))
+				{
+					// Legacy module routing. This is just a rough
+					// re-route and modules should change using their 
+					// upgrade() details.php functions.
+					if ($module['menu'] == 'utilities') $module['menu'] = 'data';
+					if ($module['menu'] == 'design') $module['menu'] = 'structure';
+
+					$menu_items['lang:cp:nav_'.$module['menu']][$module['name']] = 'admin/'.$module['slug'];
+				}
+
 				// If a module has an admin_menu function, then
 				// we simply run that and allow it to manipulate the
 				// menu array.
@@ -97,20 +110,14 @@ class Admin_Controller extends MY_Controller {
 				{
 					$module['module']->admin_menu($menu_items);
 				}
-				// If we do not have an admin_menu function, we use the
-				// regular way of checking out the details.php data.
-				elseif ($module['menu'] and (isset($this->permissions[$module['slug']]) or $this->current_user->group == 'admin'))
-				{
-					$menu_items['lang:cp:nav_'.$module['menu']][$module['name']] = 'admin/'.$module['slug'];
-				}
 			}
 
 			// We always have our 
 			// edit profile links and such.
 			$menu_items['lang:global:profile'] = array(
-							'lang:cp:edit_profile_label'		=> 'edit-profile',
-							'lang:cp:logout_label'				=> 'admin/logout'
-						);
+				'lang:cp:edit_profile_label'		=> 'edit-profile',
+				'lang:cp:logout_label'				=> 'admin/logout'
+			);
 
 			// Trigger an event so modules can mess with the
 			// menu items array via the events structure. 

@@ -79,14 +79,14 @@ class Modules
 		
 		(is_array($module)) ? list($module, $params) = each($module) : $params = null;	
 		
+		/* get the module path */
+		$segments = explode('/', $module);
+
 		/* get the requested controller class name */
-		$alias = strtolower(end(explode('/', $module)));
+		$alias = strtolower(end($segments));
 
 		/* return an existing controller from the registry */
 		if (isset(self::$registry[$alias])) return self::$registry[$alias];
-			
-		/* get the module path */
-		$segments = explode('/', $module);
 			
 		/* find the controller */
 		list($class) = CI::$APP->router->locate($segments);

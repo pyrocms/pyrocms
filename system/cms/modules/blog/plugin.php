@@ -1,11 +1,11 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 /**
  * Blog Plugin
  *
  * Create lists of posts
  * 
- * @author		PyroCMS Dev Team
- * @package		PyroCMS\Core\Modules\Blog\Plugins
+ * @author   PyroCMS Dev Team
+ * @package  PyroCMS\Core\Modules\Blog\Plugins
  */
 class Plugin_Blog extends Plugin
 {
@@ -153,7 +153,7 @@ class Plugin_Blog extends Plugin
 	 * Usage:
 	 * {{ blog:posts order-by="title" limit="5" }}
 	 *		<h2>{{ title }}</h2>
-	 *		<p> {{ body }} </p>
+	 *		<p>{{ body }}</p>
 	 * {{ /blog:posts }}
 	 *
 	 * @param	array
@@ -161,11 +161,11 @@ class Plugin_Blog extends Plugin
 	 */
 	public function posts()
 	{
-		$limit		= $this->attribute('limit', 10);
-		$offset		= $this->attribute('offset', 0);
-		$category	= $this->attribute('category');
-		$order_by 	= $this->attribute('order-by', 'created_on');
-		$order_dir	= $this->attribute('order-dir', 'ASC');
+		$limit     = $this->attribute('limit', 10);
+		$offset    = $this->attribute('offset', 0);
+		$category  = $this->attribute('category');
+		$order_by  = $this->attribute('order-by', 'created_on');
+		$order_dir = $this->attribute('order-dir', 'ASC');
 
 		if ($category)
 		{
@@ -212,14 +212,14 @@ class Plugin_Blog extends Plugin
 	 *		<a href="{{ url }}" class="{{ slug }}">{{ title }}</a>
 	 * {{ /blog:categories }}
 	 *
-	 * @param	array
-	 * @return	array
+	 * @param array
+	 * @return array
 	 */
 	public function categories()
 	{
-		$limit		= $this->attribute('limit', 10);
-		$order_by 	= $this->attribute('order-by', 'title');
-		$order_dir	= $this->attribute('order-dir', 'ASC');
+		$limit     = $this->attribute('limit', 10);
+		$order_by  = $this->attribute('order-by', 'title');
+		$order_dir = $this->attribute('order-dir', 'ASC');
 
 		$categories = $this->db
 			->select('title, slug')
@@ -244,6 +244,8 @@ class Plugin_Blog extends Plugin
 	 *
 	 * The attribute name is the database column and 
 	 * the attribute value is the where value
+	 * 
+	 * @return int
 	 */
 	public function count_posts()
 	{
@@ -252,7 +254,7 @@ class Plugin_Blog extends Plugin
 		// make sure they provided a where clause
 		if (count($wheres) == 0) return false;
 
-		foreach ($wheres AS $column => $value)
+		foreach ($wheres as $column => $value)
 		{
 			$this->db->where($column, $value);
 		}
@@ -270,8 +272,8 @@ class Plugin_Blog extends Plugin
 	 *		<span><a href="{{ url }}" title="{{ title }}">{{ title }}</a></span>
 	 * {{ /blog:tags }}
 	 *
-	 * @param	array
-	 * @return	array
+	 * @param array
+	 * @return array
 	 */	
 	public function tags()
 	{

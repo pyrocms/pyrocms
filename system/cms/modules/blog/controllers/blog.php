@@ -111,10 +111,13 @@ class Blog extends Public_Controller
 	{
 		$year or $year = date('Y');
 		$month_date = new DateTime($year.'-'.$month.'-01');
-		$pagination = create_pagination('blog/archive/'.$year.'/'.$month, $this->blog_m->count_by(array('year' => $year, 'month' => $month)), null, 5);
+
+		$pagination = create_pagination("blog/archive/{$year}/{$month}", $this->blog_m->count_by(array('year' => $year, 'month' => $month)), null, 5);
+
 		$_blog = $this->blog_m
 			->limit($pagination['limit'])
 			->get_many_by(array('year' => $year, 'month' => $month));
+
 		$month_year = format_date($month_date->format('U'), lang('blog:archive_date_format'));
 
 		// Set meta description based on post titles

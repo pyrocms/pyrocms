@@ -8,8 +8,8 @@ $lang['redirects:delete']				= 'حذف';
 $lang['redirects:type']					= 'الطريقة';
 
 // redirect types
-$lang['redirects:301']					= '301 - Moved Permanently';
-$lang['redirects:302']					= '302 - Moved Temporarily';
+$lang['redirects:301']					= '301 - نقل دائم';
+$lang['redirects:302']					= '302 - نقل مؤقت';
 
 // titles
 $lang['redirects:add_title'] 			= 'إضافة توجيه';

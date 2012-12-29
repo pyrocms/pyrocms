@@ -27,41 +27,61 @@ class Plugin_format extends Plugin
 	 * to build the reference in the admin panel
 	 *
 	 * All options are listed here but refer 
-	 * to the Blog plugin for a larger example
-	 *
-	 * @todo fill the  array with details about this plugin, then uncomment the return value.
+	 * to the Format plugin for a larger example
 	 *
 	 * @return array
 	 */
 	public function _self_doc()
 	{
 		$info = array(
-			'your_method' => array(// the name of the method you are documenting
-				'description' => array(// a single sentence to explain the purpose of this method
-					'en' => 'Displays some data from some module.'
+			'markdown' => array(
+				'description' => array(
+					'en' => 'Send some content through the Markdown processor.'
 				),
-				'single' => true,// will it work as a single tag?
-				'double' => false,// how about as a double tag?
-				'variables' => '',// list all variables available inside the double tag. Separate them|like|this
+				'single' => false,
+				'double' => true,
+				'variables' => '',
+				'attributes' => array(),
+			),
+			
+			'textile' => array(
+				'description' => array(
+					'en' => 'Send some content through the Textile processor.'
+				),
+				'single' => false,
+				'double' => true,
+				'variables' => '',
+				'attributes' => array(),
+			),
+			
+			'url_title' => array(
+				'description' => array(
+					'en' => 'A Plugin shortcut to the CodeIgniter url_title() function.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
 				'attributes' => array(
-					'order-dir' => array(// this is the order-dir="asc" attribute
-						'type' => 'flag',// Can be: slug, number, flag, text, array, any.
-						'flags' => 'asc|desc|random',// flags are predefined values like this.
-						'default' => 'asc',// attribute defaults to this if no value is given
-						'required' => false,// is this attribute required?
+					'string' => array(
+						'type' => 'text',
+						'required' => true,
 					),
-					'limit' => array(
-						'type' => 'number',
-						'flags' => '',
-						'default' => '20',
+					'separator' => array(
+						'type' => 'text',
+						'default' => 'dash',
+						'required' => false,
+					),
+					'lowercase' => array(
+						'type' => 'bool',
+						'flags' => 'true|false',
+						'default' => 'false',
 						'required' => false,
 					),
 				),
-			),// end first method
+			),
 		);
 	
-		//return $info;
-		return array();
+		return $info;
 	}
 
 	/**
@@ -109,10 +129,12 @@ class Plugin_format extends Plugin
 		if (count($attrs) > 2)
 		{
 			$bool = array_slice($attrs, 2);
-			array_splice($attrs, 2, 1, (bool) $bool);
+			array_splice($attrs, 2, 1, str_to_bool($bool));
 		}
 
 		return call_user_func_array('url_title', $attrs);
 	}
 
 }
+
+/* EOF */

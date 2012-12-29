@@ -105,6 +105,7 @@ class Streams_parse extends CI_Driver {
 
 		$parser = new Lex\Parser();
 		$parser->scope_glue(':');
+		$parser->cumulative_noparse(true);
 
 		if ( ! $loop)
 		{

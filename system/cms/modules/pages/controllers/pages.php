@@ -86,8 +86,8 @@ class Pages extends Public_Controller
 
 			: $this->cache->method('page_m', 'get_home');
 
-		// If page is missing or not live (and not an admin) show 404
-		if ( ! $page or ($page->status === 'draft' and ( ! isset($this->current_user->group) or $this->current_user->group != 'admin')))
+		// If page is missing or not live (and the user does not have permission) show 404
+		if ( ! $page or ($page->status == 'draft' and ! $this->permission_m->has_role(array('put_live', 'edit_live'))))
 		{
 			// Load the '404' page. If the actual 404 page is missing (oh the irony) bitch and quit to prevent an infinite loop.
 			if ( ! ($page = $this->cache->method('page_m', 'get_by_uri', array('404'))))
@@ -251,7 +251,13 @@ class Pages extends Public_Controller
 			exit($this->template->build('pages/page', array('page' => $page), false, false));
 		}
 
-		$this->template->build('page', array('page' => $page), false, false);
+		// Get our stream.
+		$stream = $this->streams_m->get_stream($page->layout->stream_id);
+
+		// Parse our view file
+		$view = $this->parser->parse_string($this->load->view('page', array('page' => $page), true), $page, true, false, array('stream' => $stream->stream_slug, 'namespace' => $stream->stream_namespace));
+
+		$this->template->build($view, array('page' => $page), false, false, true);
 	}
 
 	/**

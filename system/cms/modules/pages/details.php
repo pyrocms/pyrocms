@@ -147,6 +147,22 @@ class Module_Pages extends Module
 
 	public function install()
 	{
+		$this->dbforge->drop_table('page_types');
+		$this->dbforge->drop_table('pages');
+
+		// We only need to do this if the def_page_fields table
+		// has already been added.
+		if ($this->db->table_exists('def_page_fields'))
+		{
+			$this->load->driver('Streams');
+			$this->streams->utilities->remove_namespace('pages');
+		}
+
+		if ($this->db->table_exists('data_streams'))
+		{
+			$this->db->where('stream_namespace', 'pages')->delete('data_streams');
+		}
+
 		$this->load->helper('date');
 		$this->load->config('pages/pages');
 
@@ -201,18 +217,14 @@ class Module_Pages extends Module
 
 		$this->load->driver('streams');
 
-		// now set up the default streams that will hold the page content
-		foreach (config_item('pages:default_page_stream') as $stream)
-		{
-			$stream_id = $this->streams->streams->add_stream(
-				$stream['name'],
-				$stream['slug'],
-				$stream['namespace'],
-				$stream['prefix'],
-				$stream['about']
-			);
-		}
-
+		$stream_id = $this->streams->streams->add_stream(
+			'Default',
+			'def_page_fields',
+			'pages',
+			null,
+			'A basic page type to get you started adding content.'
+		);
+	
 		// add the fields to the streams
 		$this->streams->fields->add_fields(config_item('pages:default_fields'));
 
@@ -227,6 +239,7 @@ class Module_Pages extends Module
 			'js' => '',
 			'updated_on' => now()
 		);
+
 		if ( ! $this->db->insert('page_types', $page_type))
 		{
 			return false;

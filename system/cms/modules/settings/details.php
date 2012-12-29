@@ -70,9 +70,18 @@ class Module_Settings extends Module {
         );
     }
 
-    public function install()
-    {
-        log_message('debug', '-- -- ok settings table');
+	public function admin_menu(&$menu)
+	{
+		unset($menu['lang:cp:nav_settings']);
+
+		$menu['lang:cp:nav_settings'] = 'admin/settings';
+
+		add_admin_menu_place('lang:cp:nav_settings', 7);
+	}
+
+	public function install()
+	{
+		$this->dbforge->drop_table('settings');
 
         log_message('debug', '-- Settings: going to install the default settings');
 
@@ -419,9 +428,7 @@ class Module_Settings extends Module {
             }
         }
 
-
         return true;
-
     }
 
     public function uninstall()

@@ -24,7 +24,9 @@ $lang['page_types:edit_title']                 = 'Editar a página de layout "%s
 
 // messages
 $lang['page_types:no_pages']                   = 'Nenhuma página de layout.';
+$lang['page_types:create_success_add_fields']  = 'You have created a new page type; now add the fields that you want your page to have.'; #translate
 $lang['page_types:create_success']             = 'A página de layout foi criada.';
+$lang['page_types:success_add_tag']            = 'The page field has been added. However before its data will be output you must insert its tag into the Page Type\'s Layout textarea'; #translate
 $lang['page_types:create_error']               = 'A página de layout não foi criada.';
 $lang['page_types:page_type.not_found_error']  = 'A página de layout não existe.';
 $lang['page_types:edit_success']               = 'A página de layout "%s" foi salva.';

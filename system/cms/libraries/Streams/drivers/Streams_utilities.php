@@ -54,7 +54,7 @@ class Streams_utilities extends CI_Driver {
 			$this->CI->streams_m->delete_stream($stream);
 		}
 		
-		// Remove all fields where
+		// Remove all fields in namespace
 		$this->CI->db->where('field_namespace', $namespace)->delete(FIELDS_TABLE);
 	}
 

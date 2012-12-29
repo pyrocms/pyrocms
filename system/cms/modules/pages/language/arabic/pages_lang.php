@@ -4,7 +4,7 @@ $lang['pages:page']                     = 'الصفحة';
 $lang['pages:pages']                    = 'الصفحات';
 
 // tabs
-$lang['pages:details_label']            = 'Page Details'; #translate
+$lang['pages:details_label']            = 'تفاصيل الصفحة';
 $lang['pages:content_label']            = 'مُحتوى الصفحة';
 $lang['pages:meta_label']               = 'بيانات ميتا';
 $lang['pages:design_label']             = 'التصميم';
