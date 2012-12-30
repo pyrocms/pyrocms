@@ -47,7 +47,7 @@
 					</ul>
 					<div class="animated fadeIn" id="login-action">
 						<div class="buttons padding-top" id="login-buttons">
-							<button id="login-submit" class="btn" type="submit" name="submit" value="<?php echo lang('login_label'); ?>">
+							<button id="login-submit" class="btn" ontouchstart="" type="submit" name="submit" value="<?php echo lang('login_label'); ?>">
 								<span><?php echo lang('login_label'); ?></span>
 							</button>
 						</div>

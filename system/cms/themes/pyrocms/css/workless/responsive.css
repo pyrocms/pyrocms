@@ -64,7 +64,9 @@ textarea,.cke_skin_kama .cke_wrapper {
 }
 
 select {
-	width:245px;
+	/* width:245px; */
+	width:100%;
+	max-width: 100%;
 }
 
 /*
@@ -283,36 +285,35 @@ button#login-submit {
 	-ms-box-shadow:inset 0 1px 0 0 rgba(255,255,255,0.2), 0 1px 0px 0 rgba(255,255,255,0.1);
 	-o-box-shadow:inset 0 1px 0 0 rgba(255,255,255,0.2), 0 1px 0px 0 rgba(255,255,255,0.1);
 	box-shadow:inset 0 1px 0 0 rgba(255,255,255,0.2), 0 1px 0px 0 rgba(255,255,255,0.1);
-	-webkit-transition:100ms linear all;
-	-moz-transition:80ms linear all;
-	-ms-transition:80ms linear all;
-	-o-transition:80ms linear all;
-	transition:80ms linear all;
+	-webkit-transition:0ms linear all;
+	-moz-transition:0ms linear all;
+	-ms-transition:0ms linear all;
+	-o-transition:0ms linear all;
+	transition:0ms linear all;
 	-webkit-user-select:none;
 	-moz-user-select:none;
 	-ms-user-select:none;
 	user-select:none;
+	-webkit-tap-highlight-color:transparent;
 }
 
-button#login-submit:hover, button#login-submit:focus {
-	outline: none;
-	background-image:url('../../img/nav-grain.png'),-webkit-gradient(linear,left top,left bottom,color-stop(0%,#35383b),color-stop(100%,#5d6266));
-	background-image:url('../../img/nav-grain.png'),-webkit-linear-gradient(top,#35383b,#5d6266);
-	background-image:url('../../img/nav-grain.png'),-moz-linear-gradient(top,#35383b,#5d6266);
-	background-image:url('../../img/nav-grain.png'),-ms-linear-gradient(top,#35383b,#5d6266);
-	background-image:url('../../img/nav-grain.png'),-o-linear-gradient(top,#35383b,#5d6266);
-	background-image:url('../../img/nav-grain.png'),linear-gradient(top,#35383b,#5d6266);
-	-webkit-box-shadow:inset 0 2px 5px 0 rgba(0,0,0,0.8), 0 1px 0px 0 rgba(255,255,255,0.1);
-	-moz-box-shadow:inset 0 2px 5px 0 rgba(0,0,0,0.8), 0 1px 0px 0 rgba(255,255,255,0.1);
-	-ms-box-shadow:inset 0 2px 5px 0 rgba(0,0,0,0.8), 0 1px 0px 0 rgba(255,255,255,0.1);
-	-o-box-shadow:inset 0 2px 5px 0 rgba(0,0,0,0.8), 0 1px 0px 0 rgba(255,255,255,0.1);
-	box-shadow:inset 0 2px 5px 0 rgba(0,0,0,0.8), 0 1px 0px 0 rgba(255,255,255,0.1);
-	/* text-shadow: 0 0 50px rgba(255,255,255,.5); */
+button#login-submit:hover {
+	background-image:url('../../img/nav-grain.png'),-webkit-gradient(linear,left top,left bottom,color-stop(0%,#35383b),color-stop(100%,#474B4E));
+	background-image:url('../../img/nav-grain.png'),-webkit-linear-gradient(top,#35383b,#474B4E);
+	background-image:url('../../img/nav-grain.png'),-moz-linear-gradient(top,#35383b,#474B4E);
+	background-image:url('../../img/nav-grain.png'),-ms-linear-gradient(top,#35383b,#474B4E);
+	background-image:url('../../img/nav-grain.png'),-o-linear-gradient(top,#35383b,#474B4E);
+	background-image:url('../../img/nav-grain.png'),linear-gradient(top,#35383b,#474B4E);
+	-webkit-box-shadow:inset 0 2px 4px 0 rgba(0,0,0,0.8), 0 1px 0px 0 rgba(255,255,255,0.1);
+	-moz-box-shadow:inset 0 2px 4px 0 rgba(0,0,0,0.8), 0 1px 0px 0 rgba(255,255,255,0.1);
+	-ms-box-shadow:inset 0 2px 4px 0 rgba(0,0,0,0.8), 0 1px 0px 0 rgba(255,255,255,0.1);
+	-o-box-shadow:inset 0 2px 4px 0 rgba(0,0,0,0.8), 0 1px 0px 0 rgba(255,255,255,0.1);
+	box-shadow:inset 0 2px 4px 0 rgba(0,0,0,0.8), 0 1px 0px 0 rgba(255,255,255,0.1);
 }
 
 
 #login-footer {
-	background:#333 url(../../img/nav-grain.png) repeat;
+	background:#333 url('../../img/nav-grain.png') repeat;
 	border-top:none;
 	text-align:center;
 	color:#777;
@@ -460,7 +461,7 @@ button#login-submit:hover, button#login-submit:focus {
 		}
 		*/
 	.form_inputs label small {
-		margin-left:0;
+		/* margin-left:0; */
 		margin-bottom:0;
 	}
 	
@@ -490,9 +491,11 @@ button#login-submit:hover, button#login-submit:focus {
 		width:430px;
 	}
 	
-	select {
-		width:445px;
+	/*
+select {
+		width:400px;
 	}
+*/
 	
 	/* LOGIN SCREEN */
 	.login-screen #content {
@@ -680,8 +683,8 @@ button#login-submit:hover, button#login-submit:focus {
 	}
 	
 	fieldset {
-		padding:25px;
-		margin:5px 0 15px;
+		padding:10px;
+		margin:0px 0 15px;
 	}
 	
 	.form_inputs .input > input {
@@ -738,9 +741,11 @@ button#login-submit:hover, button#login-submit:focus {
 		width:675px;
 	}
 	
-	select {
+	/*
+select {
 		width:545px;
 	}
+*/
 	
 	.form_inputs fieldset > ul > li > label,.form_inputs fieldset > ul > div > li > label,.form_inputs > ul > div > li > label,.form_inputs > ul > li > label,.form_inputs fieldset > ul > li .label,.form_inputs > ul > li .label {
 		width:25%!important;
@@ -889,9 +894,11 @@ button#login-submit:hover, button#login-submit:focus {
 		width:950px;
 	}
 	
-	select {
+	/*
+select {
 		width:545px;
 	}
+*/
 }
 
 @media only screen and (min-width: 1281px) {
@@ -1025,9 +1032,11 @@ button#login-submit:hover, button#login-submit:focus {
 		width:1200px;
 	}
 	
-	select {
+	/*
+select {
 		width:545px;
 	}
+*/
 }
 
 /* !Retina Displays 
@@ -1035,17 +1044,27 @@ button#login-submit:hover, button#login-submit:focus {
 @media
 only screen and (-webkit-min-device-pixel-ratio: 2),only screen and ( min--moz-device-pixel-ratio: 2),only screen and ( -o-min-device-pixel-ratio: 21),only screen and ( min-device-pixel-ratio: 2),only screen and ( min-resolution: 192dpi),only screen and ( min-resolution: 2dppx) {
 	body {
-		background:#e9e9e9 url(../../img/bg_grain@2x.png) repeat;
+		background:#e9e9e9 url('../../img/bg_grain@2x.png') repeat;
 		background-size:200px 200px;
 	}
 	
 	body#login-body {
-		background:#333 url(../../img/nav-grain@2x.png) repeat;
+		background:#333 url('../../img/nav-grain@2x.png') repeat;
 		background-size:113px 113px;
 	}
 	
 	#login-logo {
-		background-image:url(../../img/login-logo@2x.png);
-		background-size:40px 125px;
+		background-image:url('../../img/login-logo@2x.png');
+		background-size:125px 40px;
+	}
+	
+	button#login-submit {
+		background-image:url('../../img/nav-grain@2x.png'),-webkit-gradient(linear,left top,left bottom,color-stop(0%,#5f6569),color-stop(100%,#45494c));
+		background-image:url('../../img/nav-grain@2x.png'),-webkit-linear-gradient(top,#5f6569,#45494c);
+		background-image:url('../../img/nav-grain@2x.png'),-moz-linear-gradient(top,#5f6569,#45494c);
+		background-image:url('../../img/nav-grain@2x.png'),-ms-linear-gradient(top,#5f6569,#45494c);
+		background-image:url('../../img/nav-grain@2x.png'),-o-linear-gradient(top,#5f6569,#45494c);
+		background-image:url('../../img/nav-grain@2x.png'),linear-gradient(top,#5f6569,#45494c);
+		background-size: 113px 113px;
 	}
 }

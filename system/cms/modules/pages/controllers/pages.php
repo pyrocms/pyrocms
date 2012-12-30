@@ -79,12 +79,15 @@ class Pages extends Public_Controller
 	 */
 	public function _page($url_segments)
 	{
-		$page = ($url_segments !== null)
+		// Get our chunks field type if this is an
+		// upgraded site.
+		if ($this->db->table_exists('page_chunks'))
+		{
+			$this->type->load_types_from_folder(APPPATH.'modules/pages/field_types/', 'pages_module');
+		}
 
-			// Fetch this page from the database via cache
-			? $this->cache->method('page_m', 'get_by_uri', array($url_segments, true))
-
-			: $this->cache->method('page_m', 'get_home');
+		// GET THE PAGE ALREADY. In the event of this being the home page $url_segments will be null
+		$page = $this->pyrocache->model('page_m', 'get_by_uri', array($url_segments, true));
 
 		// If page is missing or not live (and the user does not have permission) show 404
 		if ( ! $page or ($page->status == 'draft' and ! $this->permission_m->has_role(array('put_live', 'edit_live'))))
