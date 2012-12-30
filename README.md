@@ -67,7 +67,7 @@ Think you should be on this list? Add yourself in the next pull request you subm
 ### Translators
 
 * [Demostenes Garcia](http://www.demogar.com/) Spanish
-* [Frederic Quie](http://www.bleekom.org/) French
+* [Frederic Quie](http://www.bleekom.org/) & [Khalil Tabbal](http://www.khalil-tabbal.com) French
 * [TheLoops](http://codeigniter.com/forums/member/62232/) German
 * [Bartosz Majewski](http://404design.pl/) Polish
 * [diederikeijgelaar](http://github.com/diederikeijgelaar) Dutch

@@ -238,26 +238,33 @@ margin-top: -4px;
 #filters ul {
 	margin: 0;
 	float: left;
+	width: 100%;
+	max-width: 100%;
 }
 #filters legend {color: #888; font-size: 12px; padding: 0 6px;}
 
 #filters form > ul > li {
 	margin: 8px 0 5px 5px;
-	float: left;
+	/* float: left; */
+	display: inline-block;
 }
 
 #filters form > ul > li label {
 	margin: 8px 5px 0 0;
 	float: left;
+	display: block;
+	width: 100%;
 }
 
 #filters form > ul > li input[type="text"] {
 	margin: 0;
 }
 
+/*
 #filters a.cancel {
 	float: right;
 }
+*/
 
 .sections_bar {
 	position: absolute;
@@ -291,15 +298,15 @@ margin-top: -4px;
 	position:relative;
 	float:left;
 	border-bottom-width:0!important;
-	margin:7px 0 0 5px;
-	padding:0;
+	margin:4px 0 0 2px;
+	padding: 0;
 }
 
 .ui-tabs-panel {
 	display:block;
 	border-width:0;
 	background:none;
-	float:left;
+	float: left;
 }
 
 .ui-tabs-hide {
@@ -418,6 +425,7 @@ section#content ul {
 
 section#content ul li {
 	list-style: none;
+	position: relative;
 }
 
 #blog-content-tab {

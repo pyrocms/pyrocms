@@ -164,17 +164,7 @@ class Fields
 		{
 			return null;
 		}
-			
-		// -------------------------------------
-		// Run Type Events
-		// -------------------------------------
-		// No matter what, we'll need these 
-		// events run for field type assets
-		// and other processes.
-		// -------------------------------------
-
-		$this->run_field_events($stream_fields, $skips);
-	
+		
 		// -------------------------------------
 		// Get row id, if applicable
 		// -------------------------------------
@@ -220,6 +210,16 @@ class Fields
 		// -------------------------------------
 
 		$values = $this->set_values($stream_fields, $row, $method, $skips, $defaults, $key_check);
+
+		// -------------------------------------
+		// Run Type Events
+		// -------------------------------------
+		// No matter what, we'll need these 
+		// events run for field type assets
+		// and other processes.
+		// -------------------------------------
+
+		$this->run_field_events($stream_fields, $skips, $values);
 
 		// -------------------------------------
 		// Validation
@@ -322,7 +322,7 @@ class Fields
 	 * @param 	[array - skips]
 	 * @return 	array
 	 */
-	public function run_field_events($stream_fields, $skips = array())
+	public function run_field_events($stream_fields, $skips = array(), $values = array())
 	{
 		if ( ! $stream_fields or ( ! is_array($stream_fields) and ! is_object($stream_fields))) return null;
 
@@ -333,6 +333,9 @@ class Fields
 			{
 				continue;
 			}
+
+			// Set the value
+			if ( isset($values[$field->field_slug]) ) $field->value = $values[$field->field_slug];
 
 			if ( ! in_array($field->field_slug, $skips))
 			{
@@ -436,7 +439,7 @@ class Fields
 
 		$count = 0;
 		
-		$this->run_field_events($stream_fields, $skips);
+		$this->run_field_events($stream_fields, $skips, $values);
 
 		foreach($stream_fields as $slug => $field)
 		{

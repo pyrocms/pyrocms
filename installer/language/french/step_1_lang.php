@@ -6,10 +6,10 @@ $lang['intro_text']		=	'PyroCMS est très simple à installer, ceci ne prends qu
 
 $lang['db_settings']	=	'Paramètres de la base de données';
 $lang['db_text']		=	'PyroCMS requiert une base de données (MySQL) pour stocker vos contenus et paramètres. Nous devons vérifier votre version du serveur MySQL, vous devez saisir le nom d\'hôte, le nom d\'utilisateur et le mot de passe dans le formulaire ci-dessous. Ces paramètres seront également utilisés lors de l\'installation de la base de données. Si vous ne comprenez pas les informations demandées merci de contacter votre hébergeur ou votre administrateur système pour les obtenir.';
-$lang['db_missing']		=	'The mysql database driver for PHP were not found, installation cannot continue. Ask your host or server administrator to install it.'; #translate
-$lang['db_create']		=	'Create Database'; #translate
-$lang['db_notice']		=	'You might need to do this yourself via your hosting control panel'; #translate
-$lang['database']		=	'MySQL Database'; #translate
+$lang['db_missing']		=	'Le driver MySQL pour PHP n\'a pas été trouvé, l\'installation ne peut pas continuer. Demandez à votre adminstrateur réseau de l\'installer.';
+$lang['db_create']		=	'Créer la base de données';
+$lang['db_notice']		=	'Vous devez peut être effectuer cette action vous même via la panneau de configuration de votre hébergement';
+$lang['database']		=	'Base de données MySQL';
 
 $lang['server']			=	'Nom d\'hôte';
 $lang['username']		=	'Nom d\'utilisateur';

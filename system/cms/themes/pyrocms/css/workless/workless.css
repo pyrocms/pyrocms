@@ -97,7 +97,7 @@ svg:not(:root) {
  * Typography
  */
 a {
-	color:#ed8e28;
+	color:#38a7e6;
 	font-weight:inherit;
 	font-size:inherit;
 	text-decoration:none;
@@ -108,7 +108,7 @@ a {
 }
 
 a:hover {
-	color:#BD6F01;
+	color:#1b7ad6;
 }
 
 a:active {
@@ -423,7 +423,7 @@ form .help-inline {
 }
 
 fieldset {
-	border:1px solid #eee;
+	border:1px solid #efefef;
 	margin:5px 0 15px -5px;
 	padding:2px 6px 2px 2px;
 }
@@ -459,7 +459,7 @@ button,input,select,textarea {
 }
 
 select {
-	min-width:260px;
+	/* min-width:260px; */
 	visibility:hidden;
 }
 
@@ -567,8 +567,10 @@ input[type="text"],input[type="password"],input[type="file"],textarea {
 
 input[type="text"]:focus,input[type="password"]:focus,input[type="file"]:focus,textarea:focus {
 	background:#fff;
-	border:1px solid #2daebf;
-	box-shadow:0 0 5px #2daebf;
+	/*
+border:1px solid #38a7e6;
+	box-shadow:0 0 5px #38a7e6;
+*/
 }
 
 input.error {
@@ -601,6 +603,7 @@ input:invalid,textarea:invalid {
 
 .form_inputs fieldset {
 	width:250px;
+	margin-top: 0px;
 }
 
 .form_inputs fieldset > ul,.form_inputs > ul {
@@ -624,6 +627,7 @@ input:invalid,textarea:invalid {
 	border-bottom:1px solid #efefef;
 	padding-bottom:10px;
 	margin-bottom:10px;
+	margin-top: 0px;
 }
 
 .form_inputs > ul > div > li:last-child,.form_inputs fieldset > ul > li:last-child,.form_inputs > ul > li:last-child {
@@ -635,7 +639,7 @@ input:invalid,textarea:invalid {
 /* float: left; */
 	text-align:left;
 	margin:0 3% 0 0;
-	padding:8px;
+	padding:8px 8px 8px 0px;
 }
 
 .form_inputs fieldset > ul > li > label span,.form_inputs > ul > li > label span {
@@ -643,9 +647,7 @@ input:invalid,textarea:invalid {
 }
 
 .form_inputs .input {
-/* float: left!important; */
-	padding-left:10px;
-	width:69%;
+	width: 30%;
 }
 
 .form_inputs li.full_width_input .input {
@@ -670,6 +672,7 @@ input:invalid,textarea:invalid {
 	font-weight:400;
 	font-size:11px;
 	color:#666;
+	/* text-indent: 8px; */
 }
 
 .form_inputs input,.form_inputs textarea {
@@ -683,8 +686,8 @@ input:invalid,textarea:invalid {
 	background:#eee;
 	color:#4D4D4D;
 	outline:none;
-	border-color:#ed8e28;
-	box-shadow:0 0 5px #ed8e28;
+	border-color:#38a7e6;
+	box-shadow:0 0 5px #38a7e6;
 }
 
 .form_inputs .datetime_input select {
@@ -1700,11 +1703,18 @@ button.btn::-moz-focus-inner,input[type=submit].btn::-moz-focus-inner {
 	width:auto;
 }
 
+.tab-menu li {
+	margin-left: 2px;
+}
+
+.tab-menu li:first-child {
+	margin-left: 0px;
+}
+
 .tab-menu li a {
 	background:#eee;
 	color:#333;
 	font-weight:700;
-	margin-bottom:-6px;
 	padding:0 15px;
 	line-height:35px;
 	-webkit-border-radius:3px 3px 0 0;
@@ -1713,6 +1723,7 @@ button.btn::-moz-focus-inner,input[type=submit].btn::-moz-focus-inner {
 	border-left:1px solid #efefef;
 	border-top:1px solid #efefef;
 	border-right:1px solid #efefef;
+	margin-left: 0px;
 }
 
 .tab-menu li a:hover {
