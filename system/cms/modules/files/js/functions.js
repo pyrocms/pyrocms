@@ -53,7 +53,7 @@ jQuery(function($){
 			}
 
 			$('#activity').find('span').fadeOut();
-			$('#activity').html('<span class="' + li_status_class + '"><i class="' + status_class + '"></i>' + results.message + '</span>');
+			$('#activity').html('<span class="' + li_status_class + '"><i class="' + status_class + '"></i> ' + results.message + '</span>');
 		}
 	});
 

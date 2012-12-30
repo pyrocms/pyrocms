@@ -7,9 +7,9 @@ $lang['intro_text']		=	'قبل أن نتمكن من التحقق من قاعدة
 $lang['db_settings']	=	'إعدادات قاعدة البيانات';
 $lang['db_text']		=	'كي يتمكن برنامج التثبيت من التحقق من إصدار خادم MySQL يجب عليك إدخال بيانات اسم المضيف، وإسم المستخدم وكلمة السرّ في الاستمارة أدناه. ستستخدم هذه الإعدادات عند تثبيت قاعدة البيانات.';
 $lang['db_missing']		=	'يبدو أن مُعرف mysql الخاص بـPHP غير موجود. رجاءً تشغيله أو طلب ذلك من مدير النظام.';
-$lang['db_create']		=	'Create Database'; #translate
-$lang['db_notice']		=	'You might need to do this yourself via your hosting control panel'; #translate
-$lang['database']		=	'MySQL Database'; #translate
+$lang['db_create']		=	'أنشئ قاعدة البيانات';
+$lang['db_notice']		=	'قد تحتاح إلى القيام بهذه الخطوة بنفسك من خلال لوحة تحكم استضافتك';
+$lang['database']		=	'قاعدة بيانات MySQL';
 
 $lang['server']			=	'الخادم';
 $lang['username']		=	'إسم المستخدم';

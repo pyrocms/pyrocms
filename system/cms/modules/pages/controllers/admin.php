@@ -33,6 +33,13 @@ class Admin extends Admin_Controller {
 		$this->lang->load('page_types');
 
 		$this->load->driver('Streams');
+
+		// Get our chunks field type if this is an
+		// upgraded site.
+		if ($this->db->table_exists('page_chunks'))
+		{
+			$this->type->load_types_from_folder(APPPATH.'modules/pages/field_types/', 'pages_module');
+		}
 	}
 
 	/**
@@ -203,9 +210,6 @@ class Admin extends Admin_Controller {
 	{
 		$page = new stdClass;
 
-		// Get our chunks field type.
-		$this->type->update_types();
-
 		// Parent ID
 		$parent_id = ($this->input->get('parent')) ? $this->input->get('parent') : false;
 		$this->template->set('parent_id', $parent_id);
@@ -261,7 +265,8 @@ class Admin extends Admin_Controller {
 		// set our current value for the form.
 		foreach ($this->page_m->fields() as $field)
 		{
-			switch ($field) {
+			switch ($field)
+			{
 				case 'restricted_to[]':
 					$page->restricted_to = set_value($field, array('0'));
 					break;
@@ -329,9 +334,6 @@ class Admin extends Admin_Controller {
 	{
 		// We are lost without an id. Redirect to the pages index.
 		$id or redirect('admin/pages');
-
-		// Get our chunks field type.
-		$this->type->update_types();
 
 		$this->template->set('parent_id', null);
 

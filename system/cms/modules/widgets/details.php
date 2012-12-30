@@ -34,10 +34,11 @@ class Module_Widgets extends Module {
 				'hu' => 'Widget-ek',
 				'th' => 'วิดเจ็ต',
 				'se' => 'Widgetar',
+				'ar' => 'الودجتس',
 			),
 			'description' => array(
 				'en' => 'Manage small sections of self-contained logic in blocks or "Widgets".',
-				'ar' => 'إدارة أقسام صغيرة من البرمجيات في مساحات الموقع أو ما يُسمّى بالـ"وِدْجِتْ".',
+				'ar' => 'إدارة أقسام صغيرة من البرمجيات في مساحات الموقع أو ما يُسمّى بالـ"ودجتس".',
 				'br' => 'Gerenciar pequenas seções de conteúdos em bloco conhecidos como "Widgets".',
 				'pt' => 'Gerir pequenas secções de conteúdos em bloco conhecidos como "Widgets".',
 				'cs' => 'Spravujte malé funkční části webu neboli "Widgety".',

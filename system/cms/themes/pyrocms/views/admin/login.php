@@ -19,58 +19,49 @@
 	<?php echo Asset::render() ?>
 </head>
 
-<body>
+<body id="login-body">
 
 <div id="container" class="login-screen">
 	<section id="content">
 		<div id="content-body">
 
 			<?php $this->load->view('admin/partials/notices') ?>
-			<div class="animated bounceInDown" id="login-logo"></div>
-			<section class="title">
-				<h4><?php echo lang('login_title') ?></h4>
-			</section>
+			<div class="animated fadeInDown" id="login-logo"></div>
+			<!-- <div class="animated fadeInUp" id="login-panel"> -->
+				<?php echo form_open('admin/login'); ?>
+				<div class="form_inputs">
+					<ul>
+						<li>
+							<div class="input animated fadeInDown" id="login-un"><input type="text" name="email" placeholder="<?php echo lang('global:email'); ?>"/></div>
+						</li>
 
-			<section class="item">
-				<div class="content">
-					<?php echo form_open('admin/login'); ?>
-					<div class="form_inputs">
-						<ul>
-							<li>
-								<!-- <label for="email"><?php echo lang('global:email'); ?></label> -->
-								<div class="input"><input type="text" name="email" placeholder="<?php echo lang('global:email'); ?>"/></div>
-							</li>
-	
-							<li>
-								<!-- <label for="password"><?php echo lang('global:password'); ?></label> -->
-								<div class="input"><input type="password" name="password" placeholder="<?php echo lang('global:password'); ?>"/></div>
-							</li>
-							<li>
-								<label for="remember-check" id="login-remember">
-									<input type="checkbox" name="remember" id="remember-check"/>
-									<?php echo lang('user:remember'); ?>
-								</label>
-							</li>
-	
-						</ul>
-						<div id="login-buttons" class="buttons padding-top">
-							<button id="login-submit" class="btn green" type="submit" name="submit" value="<?php echo lang('login_label'); ?>">
+						<li>
+							<div class="input animated fadeInDown" id="login-pw"><input type="password" name="password" placeholder="<?php echo lang('global:password'); ?>"/></div>
+						</li>
+						<li>
+							<label for="remember-check" id="login-remember">
+								<input type="checkbox" name="remember" id="remember-check"/>
+								<?php echo lang('user:remember'); ?>
+							</label>
+						</li>
+					</ul>
+					<div class="animated fadeIn" id="login-action">
+						<div class="buttons padding-top" id="login-buttons">
+							<button id="login-submit" class="btn" ontouchstart="" type="submit" name="submit" value="<?php echo lang('login_label'); ?>">
 								<span><?php echo lang('login_label'); ?></span>
 							</button>
 						</div>
 					</div>
-					<?php echo form_close(); ?>
-				</div>
-			</section>
+					<!-- </div> -->
+				<?php echo form_close(); ?>
+			</div>
 		</div>
 	</section>
 </div>
-<footer>
+<footer id="login-footer">
 	<div class="wrapper">
-		<p id="login-footer">
-			<a href="http://pyrocms.com/" id="login-pyro-link"><?php echo Asset::img('logo.png', 'PyroCMS');?>
-				<br><?php echo lang('powered_by_pyrocms') ?></a>
-		</p>
+		Copyright &copy; 2009 - <?php echo date('Y'); ?> PyroCMS LLC 
+		<br><span id="version"><?php echo CMS_VERSION.' '.CMS_EDITION; ?></span>
 	</div>
 </footer>
 </body>

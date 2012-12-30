@@ -4,10 +4,13 @@
  * PyroStreams Chunks Field Type
  *
  * This field type is only for use in the Pages module, and 
- * is for backwards compatibility purposes only.
+ * is for backwards compatibility purposes only. In fact,
+ * the chunks field type is only loaded when working in the pages
+ * module, and it has elements that only work with the pages
+ * module, so don't use it for anything else!
  *
  * @package		PyroCMS\Core\Modules\Pages\Field Types
- * @author		PyroCMS (Adam Fairholm)
+ * @author		PyroCMS
  */
 class Field_chunks
 {
@@ -19,7 +22,7 @@ class Field_chunks
 
 	public $admin_display			= 'full';
 
-	public $author					= array('name'=>'PyroCMS', 'url'=>'http://www.pyrocms.com');
+	public $author					= array('name' => 'PyroCMS', 'url' => 'http://www.pyrocms.com');
 		
 	// --------------------------------------------------------------------------
 
@@ -35,20 +38,30 @@ class Field_chunks
 	 */
 	public function form_output($data)
 	{
-		// We need a page ID.
-		if ( ! defined('PAGE_ID')) return null;
-
-		$data = array();
-
 		// Get the chunks
 		$this->CI->load->model('page_chunk_m');
 
-		$data['chunks'] = $this->CI->page_chunk_m->get_many_by('page_id', PAGE_ID);
+		// If we dont have a page ID, then let's just
+		// make an empty page chunks array with 1 entry.
+		if (defined('PAGE_ID'))
+		{
+			$data['chunks'] = $this->CI->page_chunk_m->get_many_by('page_id', PAGE_ID);
+		}
+		else
+		{
+			$data['chunks'] = array(
+					array(
+						'slug'		=> 'default',
+						'class'		=> null,
+						'type'		=> null,
+						'body'		=> null	
+					)
+				);
+		}
 
 		if ($_POST)
 		{
-
-			// validation failed, we must repopulate the chunks form
+			// Validation failed, we must repopulate the chunks form
 			$chunk_slugs 	= $this->CI->input->post('chunk_slug') ? array_values($this->CI->input->post('chunk_slug')) : array();
 			$chunk_classes 	= $this->CI->input->post('chunk_class') ? array_values($this->CI->input->post('chunk_class')) : array();
 			$chunk_bodies 	= $this->CI->input->post('chunk_body') ? array_values($this->CI->input->post('chunk_body')) : array();
@@ -74,19 +87,22 @@ class Field_chunks
 	// --------------------------------------------------------------------------
 
 	/**
-	 * Process before saving to database
+	 * Pre Save
+	 *
+	 * Process before saving to database. We have a dummy
+	 * value in the form so this gets processed, but we
+	 * ignore it and grab all the chunk inputs.
 	 *
 	 * @access	public
 	 * @param	array
 	 * @return	string
 	 */
-	public function pre_save()
+	public function pre_save($input, $field, $stream, $row_id, $input)
 	{
 		$this->CI->load->model('page_chunk_m');
 
-		$input = $this->CI->input->post();
-
 		$slugs = array('chunk_slug', 'chunk_class', 'chunk_body', 'chunk_type');
+		
 		foreach ($slugs as $slug)
 		{
 			if ( ! isset($input[$slug])) $input[$slug] = null; 
@@ -111,12 +127,13 @@ class Field_chunks
 			);
 		}
 
+		// No matter what, we are going to need to get rid of
+		// old page chunks.
+		$this->CI->page_chunk_m->delete_by('page_id', PAGE_ID);
+
+		// If we have chunks, let's go ahead and add them. 
 		if ($chunks)
 		{
-			// Get rid of the old
-			$this->CI->page_chunk_m->delete_by('page_id', PAGE_ID);
-
-			// And add the new ones
 			$i = 1;
 			foreach ($chunks as $chunk)
 			{
