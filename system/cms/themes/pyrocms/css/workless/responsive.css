@@ -152,7 +152,7 @@ body#login-body {
 	background-repeat:no-repeat;
 	display:inline-block;
 	height:40px;
-	width:125px;
+	width:126px;
 	margin:10px 0;
 }
 
@@ -1092,7 +1092,7 @@ only screen and (-webkit-min-device-pixel-ratio: 2),only screen and ( min--moz-d
 	
 	#login-logo {
 		background-image:url('../../img/login-logo@2x.png');
-		background-size:125px 40px;
+		background-size:126px 40px;
 	}
 	
 	button#login-submit {
