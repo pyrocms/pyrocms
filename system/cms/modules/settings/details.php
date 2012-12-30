@@ -81,8 +81,6 @@ class Module_Settings extends Module {
 
 	public function install()
 	{
-		$this->dbforge->drop_table('settings');
-
         log_message('debug', '-- Settings: going to install the default settings');
 
         // Regarding ordering: any additions to this table can have an order

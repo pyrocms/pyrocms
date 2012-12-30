@@ -72,10 +72,10 @@ class Module_Search extends Module
 	    	{
 	    		$hash = $this->keywords->process($page->meta_keywords);
 
-	    		$this->db
-	    			->set('meta_keywords', $hash)
+	    		$this->pdb
+	    			->table('pages')
 	    			->where('id', $page->id)
-	    			->update('pages');
+	    			->update(array('meta_keywords' => $hash));
 
 	    		$this->search_index_m->index(
 	    			'pages',

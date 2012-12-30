@@ -120,12 +120,12 @@ class Module_Users extends Module {
 		// Load up the streams driver and convert the profiles table
 		// into a stream.
 		$this->load->driver('Streams');
-
+/*
 		if ( ! $this->streams->utilities->convert_table_to_stream('profiles', 'users', null, 'lang:user_profile_fields_label', 'Profiles for users module', 'display_name', array('display_name')))
 		{
 			return false;
 		}
-/*
+
 		// Go ahead and convert our standard user fields:
 		$columns = array(
 			'first_name' => array(

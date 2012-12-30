@@ -129,37 +129,35 @@ class Streams_m extends MY_Model {
     /**
      * Get streams
      *
-     * @param	string - the stream namespace
-     * @param	[int limit]
-     * @param	[int offset]
+     * @param	string   the stream namespace
+     * @param	int      limit
+     * @param	int      offset
      * @return	obj
      */
     public function get_streams($namespace, $limit = null, $offset = 0)
 	{
-		if ($limit) $this->db->limit($limit, $offset);
+		$query = $this->pdb->table($this->table);
+
+		if ($limit) {
+			$query->limit($limit, $offset);
+		}
 	
-		$obj = $this->db
-				->where('stream_namespace', $namespace)
-				->order_by('stream_name', 'ASC')
-				->get($this->table);
-				
-		if ($obj->num_rows() == 0)
-		{
+		$streams = $query
+			->where('stream_namespace', $namespace)
+			->orderBy('stream_name', 'ASC')
+			->get();
+		
+		if ( ! $streams) {
 			return false;
 		}
 		
-		$streams = $obj->result();
-		
 		// Go through and unserialize all the view_options
-		foreach ($streams as $key => $stream)
-		{
+		foreach ($streams as $key => $stream) {
 			$streams[$key]->view_options = unserialize($streams[$key]->view_options);
 		}
 
 		return $streams;
 	}
-
-    // --------------------------------------------------------------------------
     
     /**
      * Count total streams
@@ -175,8 +173,6 @@ class Streams_m extends MY_Model {
 	
     	return $result->total;
 	}
-
-    // --------------------------------------------------------------------------
 
 	/**
 	 * Count entries in a stream
@@ -279,8 +275,6 @@ class Streams_m extends MY_Model {
 			return false;
 		}
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Update Stream
@@ -390,8 +384,6 @@ class Streams_m extends MY_Model {
 		return $this->db->where('id', $stream_id)->update($this->table, $update_data);
 	}
 
-	// --------------------------------------------------------------------------
-	
 	/**
 	 * Delete a stream
 	 *
@@ -457,8 +449,6 @@ class Streams_m extends MY_Model {
 		return $this->db->where('id', $stream->id)->delete($this->table);
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Get the ID for a stream from the slug
 	 *
@@ -486,8 +476,6 @@ class Streams_m extends MY_Model {
 		}
 	}
 
-	// --------------------------------------------------------------------------
-	
 	/**
 	 * Get a data for a single stream
 	 *
@@ -520,7 +508,6 @@ class Streams_m extends MY_Model {
 		}
 
 		// -------------------------------------
-
 
 		$this->db->limit(1);
 		
@@ -559,8 +546,6 @@ class Streams_m extends MY_Model {
 		return $stream;
 	}
 
-	// --------------------------------------------------------------------------
-	
 	/**
 	 * Get data from a stream.
 	 *

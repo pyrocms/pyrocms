@@ -9,13 +9,6 @@
 class Streams extends CI_Driver_Library {
 
 	/**
-	 * @var object CI Instance
-	 */
-	protected $CI;
-
-	// --------------------------------------------------------------------------
-
-	/**
 	 * @var	array Valid Streams API Drivers
 	 */
 	protected $valid_drivers = array(
@@ -26,8 +19,6 @@ class Streams extends CI_Driver_Library {
 		'utilities',
 		'parse'
 	);
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Debug Mode
@@ -41,8 +32,6 @@ class Streams extends CI_Driver_Library {
 	 */
 	public $debug = true;
 
-	// --------------------------------------------------------------------------
-	
 	/**
 	 * Library Constructor
 	 *
@@ -52,22 +41,18 @@ class Streams extends CI_Driver_Library {
 	 */
 	public function __construct()
 	{
-		$this->CI = get_instance();
-
-		$this->CI->load->language('streams_core/pyrostreams');
-		$this->CI->load->config('streams_core/streams');
-		$this->CI->load->library(array('streams_core/Type', 'streams_core/Fields', 'Form_validation'));
+		ci()->load->language('streams_core/pyrostreams');
+		ci()->load->config('streams_core/streams');
+		ci()->load->library(array('streams_core/Type', 'streams_core/Fields', 'Form_validation'));
 	
-		$this->CI->load->model(array('streams_core/row_m', 'streams_core/streams_m', 'streams_core/fields_m'));
+		ci()->load->model(array('streams_core/row_m', 'streams_core/streams_m', 'streams_core/fields_m'));
 		
 		// Load the language file
 		if(is_dir(APPPATH.'libraries/Streams'))
 		{
-			$this->CI->lang->load('streams_api', 'english', false, true, APPPATH.'libraries/Streams/');
+			ci()->CI->lang->load('streams_api', 'english', false, true, APPPATH.'libraries/Streams/');
 		}
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Stream ID
@@ -88,9 +73,8 @@ class Streams extends CI_Driver_Library {
 		if (is_numeric($stream)) return $stream;
 		
 		// Check for slug
-		if (is_string($stream))
-		{
-			return $this->CI->streams_m->get_stream_id_from_slug($stream, $namespace);
+		if (is_string($stream)) {
+			return ci()->streams_m->get_stream_id_from_slug($stream, $namespace);
 		}
 
 		// Check for object
@@ -99,8 +83,6 @@ class Streams extends CI_Driver_Library {
 		return null;
 	}
 	
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Get a stream object from any number of
 	 * stream inputs (object, id, or slug)
@@ -115,15 +97,13 @@ class Streams extends CI_Driver_Library {
 		if (is_object($stream)) return $stream;
 
 		// Check for ID
-		if (is_numeric($stream)) return $this->CI->streams_m->get_stream($stream);
+		if (is_numeric($stream)) return ci()->streams_m->get_stream($stream);
 				
 		// Check for slug
-		if (is_string($stream) and $namespace) return $this->CI->streams_m->get_stream($stream, true, $namespace);
+		if (is_string($stream) and $namespace) return ci()->streams_m->get_stream($stream, true, $namespace);
 		
 		return null;
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Show an error message based on the
