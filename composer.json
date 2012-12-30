@@ -6,7 +6,8 @@
         "dhorrigan/capsule": "2.0.*",
         "illuminate/database": "*",
         "quick/cache": "1.0.*",
-        "simplepie/simplepie": "1.3.*"
+        "simplepie/simplepie": "1.3.*",
+        "tijsverkoyen/akismet": "1.1.*"
     },
     "autoload": {
         "classmap": [

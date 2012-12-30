@@ -19,7 +19,6 @@
 *
 */
 
-
 class Ion_auth_model extends CI_Model
 {
 	/**
@@ -81,8 +80,9 @@ class Ion_auth_model extends CI_Model
 
 		$this->load->driver('Streams');
 
-		$this->user_stream 			= $this->streams_m->get_stream('profiles', true, 'users');
-		$this->user_stream_fields 	= $this->streams_m->get_stream_fields($this->user_stream->id);
+		// @TODO Re-enable this once installer is working for profiles
+		// $this->user_stream 			= ci()->streams_m->get_stream('profiles', true, 'users');
+		// $this->user_stream_fields 	= ci()->streams_m->get_stream_fields($this->user_stream->id);
 	}
 
 	// --------------------------------------------------------------------------

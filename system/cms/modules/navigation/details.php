@@ -137,9 +137,4 @@ class Module_Navigation extends Module {
 		return true;
 	}
 
-    public function upgrade($old_version)
-    {
-        return true;
-    }
-
 }

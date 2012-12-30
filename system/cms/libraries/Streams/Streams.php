@@ -50,7 +50,7 @@ class Streams extends CI_Driver_Library {
 		// Load the language file
 		if(is_dir(APPPATH.'libraries/Streams'))
 		{
-			ci()->CI->lang->load('streams_api', 'english', false, true, APPPATH.'libraries/Streams/');
+			ci()->lang->load('streams_api', 'english', false, true, APPPATH.'libraries/Streams/');
 		}
 	}
 

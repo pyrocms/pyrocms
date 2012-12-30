@@ -181,28 +181,22 @@ class Admin extends Admin_Controller {
 	// Admin: report a comment to local tables/Akismet as spam
 	public function report($id)
 	{
-		$api_key = Settings::get('akismet_api_key');
 		$comment = $this->comment_m->get($id);
+
+		$api_key = Settings::get('akismet_api_key');
+
 		if ( ! empty($api_key))
-		{	
-			$akismet = $this->load->library('akismet');
-			$comment_array = array(
-				'user_name' => $comment->user_name,
-				'user_website' => $comment->user_website,
-				'user_email' => $comment->user_email,
-				'body' => $comment->comment
-			);
-      
-			$config = array(
-				'blog_url' => BASE_URL,
-				'api_key' => $api_key,
-				'comment' => $comment_array
-			);
+		{
+			$akismet = new Akismet($api_key, BASE_URL);
 
-			$akismet->init($config);
-
-			//expecting to see $comment as an array not an object...
-			$akismet->submit_spam();          
+			$akismet->submitSpam(
+		        $comment->ip_address,
+		        $comment->user_agent,
+		        $comment->comment,
+		        $comment->user_name,
+		        $comment->user_email,
+		        $comment->user_website
+		    );
 		}
             
 		$this->comment_blacklists_m->save(array(
