@@ -44,10 +44,10 @@ class MY_Email extends CI_Email {
         //smtp options
         if (Settings::get('mail_protocol') == 'smtp')
         {
-                $config['smtp_host'] = Settings::get('mail_smtp_host');
-                $config['smtp_user'] = Settings::get('mail_smtp_user');
-                $config['smtp_pass'] = Settings::get('mail_smtp_pass');
-                $config['smtp_port'] = Settings::get('mail_smtp_port');
+            $config['smtp_host'] = Settings::get('mail_smtp_host');
+            $config['smtp_user'] = Settings::get('mail_smtp_user');
+            $config['smtp_pass'] = Settings::get('mail_smtp_pass');
+            $config['smtp_port'] = Settings::get('mail_smtp_port');
         }
 
         $this->initialize($config);
