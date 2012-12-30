@@ -44,6 +44,12 @@ class Fields
 		$form_data['value']			= $value;
 		$form_data['max_length']	= (isset($field->field_data['max_length'])) ? $field->field_data['max_length'] : null;
 
+		// We need the field type to go on.
+		if ( ! isset($this->CI->type->types->{$field->field_type}))
+		{
+			return null;
+		}
+
 		// If this is for a plugin, this relies on a function that
 		// many field types will not have
 		if ($plugin)
@@ -322,6 +328,12 @@ class Fields
 
 		foreach ($stream_fields as $field)
 		{
+			// We need the slug to go on.
+			if ( ! isset($this->CI->type->types->{$field->field_type}))
+			{
+				continue;
+			}
+
 			if ( ! in_array($field->field_slug, $skips))
 			{
 				// If we haven't called it (for dupes),
@@ -514,6 +526,12 @@ class Fields
 			if ( ! in_array($stream_field->field_slug, $skips))
 			{
 				$rules = array();
+
+				// If we don't have the type, then no need to go on.
+				if ( ! isset($this->CI->type->types->{$stream_field->field_type}))
+				{
+					continue;
+				}
 
 				$type = $this->CI->type->types->{$stream_field->field_type};
 
