@@ -20,3 +20,5 @@
 	</li>
 	<?php $count++; endforeach; ?>
 </ul>
+
+<input type="hidden" name="<?php echo $form_slug; ?>" value="*" />

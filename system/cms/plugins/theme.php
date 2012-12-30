@@ -134,8 +134,8 @@ class Plugin_Theme extends Plugin
 	public function css()
 	{
 		$file  = $this->attribute('file');
-		$title = $this->attribute('title');
-		$media = $this->attribute('media');
+		$title = $this->attribute('title', ''); // CodeIgniter stupidly checks for '' not empty
+		$media = $this->attribute('media', ''); // CodeIgniter stupidly checks for '' not empty
 		$type  = $this->attribute('type', 'text/css');
 		$rel   = $this->attribute('rel', 'stylesheet');
 
