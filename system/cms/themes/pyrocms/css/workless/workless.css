@@ -46,7 +46,7 @@ figure {
 
 html,body {
 	height:100%;
-	-webkit-font-smoothing:subpixel-antialiased;
+	/* -webkit-font-smoothing:subpixel-antialiased; */
 }
 
 body {

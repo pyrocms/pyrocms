@@ -43,8 +43,10 @@
 	<div id="container">
 
 		<section id="content">
-
+			
+			<header>
 			<?php file_partial('header'); ?>
+			</header>
 
 			<div id="content-body">
 				<?php file_partial('notices'); ?>

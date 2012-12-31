@@ -430,10 +430,9 @@ section#content {
 }
 
 section#content header {
-	/*
-width: 100%;
-	float: left;
-*/
+	-webkit-font-smoothing:subpixel-antialiased;
+	position: absolute;
+	top:0;
 }
 
 section#content ul {
