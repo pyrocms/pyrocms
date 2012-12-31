@@ -39,10 +39,10 @@ $lang['cp:nav_misc']					= 'Vario';
 
 $lang['cp:must_login']	 				= 'Devi effettuare il login per vedere questa pagina.';
 $lang['cp:access_denied'] 				= 'Non hai privilegi sufficienti per vedere questa pagina.';
-$lang['cp:delete_installer_message']              = 'The installer directory still exists! Please delete it from your server! Leaving it online means control of this site could be granted to somebody else.'; #translate
-$lang['cp:delete_installer']					 = 'Delete Installer'; #translate
-$lang['cp:delete_installer_successfully_message'] = 'The installer directory has been successfully deleted.'; #translate
-$lang['cp:delete_installer_manually_message']     = 'The installer directory could not be deleted. <strong>Please remove it manually!</strong>'; #translate
+$lang['cp:delete_installer_message']              = 'La cartella di installazione esiste ancora! Per vafore rimuovila dal server! Se la lasci online qualcuno potrebbe reinstallare il tuo sito cancellando tutti i dati prendendone così l controllo.';
+$lang['cp:delete_installer']					 = 'Cancella Installer';
+$lang['cp:delete_installer_successfully_message'] = 'La cartella di installazione è stata eliminata con successo.';
+$lang['cp:delete_installer_manually_message']     = 'La cartella di installazione non può essere eliminata in automatico. <strong>Per favore rimuovila manualmente!</strong>';
 $lang['cp:upgrade_message']				= 'Stai usando la versione %s, ma la versione del tuo database è la %s. Per favore <a href="%s" title="Upgrade">clicca qui</a> per aggiornare il database.';
 $lang['cp:google_analytics_missing'] = 'Le impostazioni di Google Analytics sono mancanti. Aggiungile in %s o contatta il tuo amministratore.';
 $lang['cp:google_analytics_no_connect'] = 'Impossibile connettersi a Google Analytics. Controlla le %s.';

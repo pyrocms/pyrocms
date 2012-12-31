@@ -8,11 +8,7 @@
 			</div>
 			<div class="details">
 				<div class="name">
-					<?php if ($item->user_id): ?>
-						<?php echo anchor($item->website ? $item->website : 'user/'.$item->username, $item->display_name) ?>
-					<?php else: ?>
-						<?php echo $item->website ? anchor($item->website, $item->user_name, 'rel="external nofollow"') : $item->user_name ?>
-					<?php endif ?>
+					<?php echo $item->user_name ?>
 				</div>
 				<div class="date">
 					<p><?php echo format_date($item->created_on) ?></p>

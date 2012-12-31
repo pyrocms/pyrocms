@@ -92,6 +92,7 @@ button#remove_installer_directory {
 	right: 0;
 	left: 0;
 	height: 20px;
+	width: 100%;
 	background: #333;
 	border-top: 1px solid #4c4c4c;
 	border-bottom: 1px solid #1a1a1a;
@@ -107,6 +108,21 @@ button#remove_installer_directory {
 	-webkit-perspective: 1000;
 }
 
+.subbar-inner:before,
+.subbar-inner:after {
+  display: table;
+  line-height: 0;
+  content: "";
+}
+
+.subbar-inner:after {
+  clear: both;
+}
+
+.subbar .container {
+  width: auto;
+}
+
 #content-body {
 	top: 135px;
 	position: relative;
@@ -120,7 +136,7 @@ button#remove_installer_directory {
 .subbar h2 a {
   color: white;
   text-shadow: 0px 2px 1px black;
-	margin: 0 0 0 5px;
+	margin: 0 0 0 0px;
 	padding: 0;
 	/* float: left; */
 	display: inline-block;
@@ -143,7 +159,7 @@ button#remove_installer_directory {
 #shortcuts {
 	margin: 0!important;
 	position: absolute;
-	right: 10px;
+	right: 0px;
 	top: 0px;
 }
 
@@ -184,14 +200,14 @@ margin-top: -4px;
   -moz-background-clip: padding;
   -webkit-background-clip: padding;
   background-clip: padding-box;
-  background: #1f1f1f;
-  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #333), color-stop(100%, #1f1f1f));
-  background-image: -webkit-linear-gradient(#333, #1f1f1f);
-  background-image: -moz-linear-gradient(#333, #1f1f1f);
-  background-image: -ms-linear-gradient(#333, #1f1f1f);
-  background-image: -o-linear-gradient(#333, #1f1f1f);
-  background-image: linear-gradient(#333, #1f1f1f);
-  border: 1px solid black;
+  background: #1b7ad6;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #767d82), color-stop(100%, #5d6266));
+  background-image: -webkit-linear-gradient(#767d82, #5d6266);
+  background-image: -moz-linear-gradient(#767d82, #5d6266);
+  background-image: -ms-linear-gradient(#767d82, #5d6266);
+  background-image: -o-linear-gradient(#767d82, #5d6266);
+  background-image: linear-gradient(#767d82, #5d6266);
+ /*  border: 1px solid #222; */
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   -ms-border-radius: 4px;
@@ -206,7 +222,11 @@ margin-top: -4px;
   text-shadow: 0 1px 1px black;
   width: auto;
   line-height: 16px;
-  box-shadow: inset 0px 1px 1px 0px rgba(255,255,255,.1);
+  -webkit-box-shadow: inset 0px 1px 1px 0px rgba(255,255,255,.2), 0px 0px 1px 1px rgba(0,0,0,.5), 0px 2px 0px 0px rgba(255,255,255,.15);
+  -moz-box-shadow: inset 0px 1px 1px 0px rgba(255,255,255,.2), 0px 0px 1px 1px rgba(0,0,0,.5), 0px 2px 0px 0px rgba(255,255,255,.15);
+  -ms-box-shadow: inset 0px 1px 1px 0px rgba(255,255,255,.2), 0px 0px 1px 1px rgba(0,0,0,.5), 0px 2px 0px 0px rgba(255,255,255,.15);
+  -o-box-shadow: inset 0px 1px 1px 0px rgba(255,255,255,.2), 0px 0px 1px 1px rgba(0,0,0,.5), 0px 2px 0px 0px rgba(255,255,255,.15);
+  box-shadow: inset 0px 1px 1px 0px rgba(255,255,255,.2), 0px 0px 1px 1px rgba(0,0,0,.5), 0px 2px 0px 0px rgba(255,255,255,.15);
   -webkit-transition: all 250ms linear;
   -moz-transition: all 250ms linear;
   -ms-transition: all 250ms linear;
@@ -216,14 +236,13 @@ margin-top: -4px;
 }
 
 #shortcuts li a:hover {
-  background: #1f1f1f;
-  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #222), color-stop(100%, #1f1f1f));
-  background-image: -webkit-linear-gradient(#222, #1f1f1f);
-  background-image: -moz-linear-gradient(#222, #1f1f1f);
-  background-image: -ms-linear-gradient(#222, #1f1f1f);
-  background-image: -o-linear-gradient(#222, #1f1f1f);
-  background-image: linear-gradient(#222, #1f1f1f);
-  border: 1px solid black;
+  background: #38a7e6;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #3193cc), color-stop(100%, #1b7ad6));
+  background-image: -webkit-linear-gradient(#3193cc, #1b7ad6);
+  background-image: -moz-linear-gradient(#3193cc, #1b7ad6);
+  background-image: -ms-linear-gradient(#3193cc, #1b7ad6);
+  background-image: -o-linear-gradient(#3193cc, #1b7ad6);
+  background-image: linear-gradient(#3193cc, #1b7ad6);
 }
 
 #shortcuts li a.active {
@@ -235,26 +254,33 @@ margin-top: -4px;
 #filters ul {
 	margin: 0;
 	float: left;
+	width: 100%;
+	max-width: 100%;
 }
 #filters legend {color: #888; font-size: 12px; padding: 0 6px;}
 
 #filters form > ul > li {
 	margin: 8px 0 5px 5px;
-	float: left;
+	/* float: left; */
+	display: inline-block;
 }
 
 #filters form > ul > li label {
 	margin: 8px 5px 0 0;
 	float: left;
+	display: block;
+	width: 100%;
 }
 
 #filters form > ul > li input[type="text"] {
 	margin: 0;
 }
 
+/*
 #filters a.cancel {
 	float: right;
 }
+*/
 
 .sections_bar {
 	position: absolute;
@@ -288,15 +314,15 @@ margin-top: -4px;
 	position:relative;
 	float:left;
 	border-bottom-width:0!important;
-	margin:7px 0 0 5px;
-	padding:0;
+	margin:4px 0 0 2px;
+	padding: 0;
 }
 
 .ui-tabs-panel {
 	display:block;
 	border-width:0;
 	background:none;
-	float:left;
+	float: left;
 }
 
 .ui-tabs-hide {
@@ -415,6 +441,7 @@ section#content ul {
 
 section#content ul li {
 	list-style: none;
+	position: relative;
 }
 
 #blog-content-tab {

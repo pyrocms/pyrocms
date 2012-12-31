@@ -241,7 +241,7 @@ section.file-path h5 a {
 }
 
 #folders-sidebar .no_data {
-	margin-right:20px;
+	margin:0 20px;
 }
 
 #folders-sidebar {
@@ -430,8 +430,7 @@ section.file-path h5 a {
 
 #activity {
 	margin-top:0px!important;
-	position: absolute;
-	right: 0px;
+	float: right;
 }
 
 #activity li {

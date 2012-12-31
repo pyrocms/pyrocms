@@ -83,6 +83,13 @@ class Pages extends Public_Controller
 	 */
 	public function _page($url_segments)
 	{
+		// Get our chunks field type if this is an
+		// upgraded site.
+		if ($this->db->table_exists('page_chunks'))
+		{
+			$this->type->load_types_from_folder(APPPATH.'modules/pages/field_types/', 'pages_module');
+		}
+
 		// GET THE PAGE ALREADY. In the event of this being the home page $url_segments will be null
 		$page = $this->pyrocache->model('page_m', 'get_by_uri', array($url_segments, true));
 
