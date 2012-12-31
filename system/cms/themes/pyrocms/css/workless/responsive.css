@@ -451,7 +451,7 @@ button#login-submit:hover {
 	}
 	
 	.alert {
-		width:450px;
+		width:auto;
 	}
 	
 	/*
@@ -540,6 +540,11 @@ select {
 		padding:0;
 	}
 	
+	.alert.error p {
+		margin:5px 0;
+		padding:0;
+	}
+	
 	/* display alert button as block on mobile */
 	button#remove_installer_directory {
 		display:inline-block;
@@ -588,6 +593,7 @@ select {
 		float: none;
 		display: block;
 		margin-bottom: 10px;
+		margin-top: 20px;
 	}
 	
 	footer {
@@ -739,7 +745,7 @@ select {
 	}
 	
 	.alert {
-		width:720px;
+		width:auto;
 	}
 	
 	/*
@@ -892,7 +898,7 @@ select {
 	}
 	
 	.alert {
-		width:995px;
+		width:auto;
 	}
 	
 	/*
@@ -1030,7 +1036,7 @@ select {
 	}
 	
 	.alert {
-		width:1250px;
+		width:auto;
 	}
 	
 	/*

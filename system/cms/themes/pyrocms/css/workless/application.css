@@ -430,8 +430,10 @@ section#content {
 }
 
 section#content header {
-	width: 100%;
+	/*
+width: 100%;
 	float: left;
+*/
 }
 
 section#content ul {
