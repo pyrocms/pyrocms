@@ -231,6 +231,22 @@ class Row_m extends MY_Model {
 		}
 
 		// -------------------------------------
+		// Created By
+		// -------------------------------------
+		// We are grabbing several user variables
+		// as part of the main query.
+		// -------------------------------------
+
+		if ( ! in_array('created_by', $disable))
+		{
+			$this->sql['select'][] = $this->db->protect_identifiers('users', true).'.id as `created_by||user_id`';
+			$this->sql['select'][] = $this->db->protect_identifiers('users', true).'.email as `created_by||email`';
+			$this->sql['select'][] = $this->db->protect_identifiers('users', true).'.username as `created_by||username`';
+
+			$this->sql['join'][] = 'LEFT JOIN default_users ON '.$this->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.created_by', true).'=`default_users`.`id`';
+		}
+
+		// -------------------------------------
 		// Ordering and Sorting
 		// -------------------------------------
 
@@ -546,7 +562,7 @@ class Row_m extends MY_Model {
 		// -------------------------------------
 				
 		$return['rows'] = $this->format_rows($rows, $stream, $disable);
-		
+	
 		// Reset
 		$this->get_rows_hook = array();
 		$this->reset_sql();
@@ -786,7 +802,9 @@ class Row_m extends MY_Model {
 		{
 			// Log the ID called
 			$this->called[$stream->stream_slug][] = $item['id'];
-		
+
+			$this->extract_arrays($item);
+
 			$data[$id] = $this->format_row($item, $stream_fields, $stream, false, true, $disable);
 			
 			// Give some info on if it is the last element
@@ -802,6 +820,40 @@ class Row_m extends MY_Model {
 		}
 		
 		return $data;
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Extract Arrays
+	 *
+	 * Takes a row array, and takes any ||'s as an
+	 * array split. This means that we can do joins and then
+	 * have them formatted in a way that the Lex parser
+	 * will be able to work with.
+	 *
+	 * @access 	public
+	 * @param 	array 	&$item
+	 * @return 	void
+	 */
+	public function extract_arrays(&$item)
+	{
+		foreach ($item as $row_slug => $data)
+		{
+			if (strpos($row_slug, '||') !== false)
+			{
+				$pieces = explode('||', $row_slug, 2);
+
+				unset($item[$row_slug]);
+
+				if (isset($item[$pieces[0]]) and ! is_array($item[$pieces[0]]))
+				{
+					unset($item[$pieces[0]]);
+				}
+
+				$item[$pieces[0]][$pieces[1]] = $data;
+			}
+		}
 	}
 
 	// --------------------------------------------------------------------------
@@ -888,27 +940,11 @@ class Row_m extends MY_Model {
 		{
 			// Easy out for our non-formattables and
 			// fields we are disabling.
-			if (in_array($row_slug, array('id')) or in_array($row_slug, $disable))
+			if (in_array($row_slug, array('id', 'created_by')) or in_array($row_slug, $disable))
 			{
 				continue;
 			}
-			
-			// -------------------------------------
-			// Format Created By
-			// -------------------------------------
-			
-			if ($row_slug == 'created_by')
-			{
-				if ($return_object)
-				{
-					$row->created_by	= $this->type->types->user->pre_output_plugin($row->created_by, null);
-				}
-				else
-				{	
-					$row['created_by']	= $this->type->types->user->pre_output_plugin($row['created_by'], null);
-				}
-			}
-			
+						
 			// -------------------------------------
 			// Format Dates
 			// -------------------------------------
