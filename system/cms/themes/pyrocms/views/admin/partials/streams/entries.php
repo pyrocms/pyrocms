@@ -2,7 +2,7 @@
 
 <?php if ($entries) { ?>
 
-    <table class="table-list">
+    <table class="table-list" cellpadding="0" cellspacing="0">
 		<thead>
 			<tr>
 				<?php if($stream->sorting == 'custom'): ?><th></th><?php endif; ?>
