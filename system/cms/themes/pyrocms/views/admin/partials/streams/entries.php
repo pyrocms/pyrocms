@@ -33,7 +33,7 @@
 					elseif ($view_option == 'created_by')
 					{
 					
-						?><a href="<?php echo site_url('admin/users/edit/'. $data_item->created_by['user_id']); ?>"><?php echo $data_item->created_by['display_name']; ?></a><?php
+						?><a href="<?php echo site_url('admin/users/edit/'. $data_item->created_by_user_id); ?>"><?php echo $data_item->created_by_username; ?></a><?php
 					}
 					else
 					{
