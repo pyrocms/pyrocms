@@ -596,6 +596,18 @@ select {
 		margin-top: 20px;
 	}
 	
+	#feed .date {
+		display: block;
+		float: none;
+		margin-bottom: 10px;
+		margin-right: 0px;
+	}
+	
+	#feed .post {
+		padding-left: 0px;
+		display: block;
+	}
+	
 	footer {
 		min-height: 84px;
 	}
@@ -1191,7 +1203,6 @@ only screen and (-webkit-min-device-pixel-ratio: 2),only screen and ( min--moz-d
 		background-image:url('../../img/nav-grain@2x.png'),-ms-linear-gradient(top,#555,#333);
 		background-image:url('../../img/nav-grain@2x.png'),-o-linear-gradient(top,#555,#333);
 		background-image:url('../../img/nav-grain@2x.png'),linear-gradient(top,#555,#333);
-		-webkit-box-shadow:0 1px 3px rgba(0,0,0,0.25),inset 0 -1px 0 rgba(0,0,0,0.1);
 		background-size: 113px 113px;
 	}
 	
