@@ -131,11 +131,13 @@ class Row_m extends MY_Model {
 	// --------------------------------------------------------------------------
 
 	/**
+	 * Get Rows
+	 *
 	 * Get rows from a stream
 	 *
 	 * @return 	array 
 	 * @param	array
-	 * @param	obj - @todo - not used, so needs to be removed
+	 * @param	obj
 	 * @param	obj
 	 * @return	array
 	 */
@@ -467,7 +469,7 @@ class Row_m extends MY_Model {
 		// -------------------------------------
 
 		$sql = $this->build_query($this->sql);
-		
+
 		// -------------------------------------
 		// Pagination
 		// -------------------------------------
@@ -547,7 +549,7 @@ class Row_m extends MY_Model {
 		
 		// Reset
 		$this->get_rows_hook = array();
-		$this->sql = array();
+		$this->reset_sql();
 		$this->db->set_dbprefix(SITE_REF.'_');
 				
 		return $return;
@@ -556,13 +558,15 @@ class Row_m extends MY_Model {
 	// --------------------------------------------------------------------------
 
 	/**
-	 * Dates can either be in UNIX or MYSQL format.
-	 * This makes it so we can do our date functions on
+	 * Format MySQL Date
+	 *
+	 * Dates in streams can either be in UNIX or MYSQL format.
+	 * This formats any MySQL dates so we can do our date functions as
 	 * UNIX time stamps.
 	 *
 	 * @access 	public
-	 * @param 	string - date by
-	 * @param 	stream namespace
+	 * @param 	string 	$data_by
+	 * @param 	string  $stream_namespace
 	 * @return 	string
 	 */
 	public function format_mysql_date($date_by, $stream_namespace)
@@ -589,59 +593,64 @@ class Row_m extends MY_Model {
 	 * Does not do LIMIT/OFFSET since that will
 	 * be taken care of after pagination is 
 	 * calculated.
+	 *
+	 * @access 	public
+	 * @param 	array 	[$sql] 	an array of sql elements to parse
+	 * 							into a sql string.
+	 * @return 	string 	the compiled query
 	 */
-	public function build_query($sql)
+	public function build_query($sql = array())
 	{
 		// -------------------------------------
 		// Select
 		// -------------------------------------
 
-		if (is_string($this->sql['select']))
+		if (is_string($sql['select']))
 		{
-			$select = $this->sql['select'];
+			$select = $sql['select'];
 		}
 		else
 		{
-			$select = implode(', ', $this->sql['select']);
+			$select = implode(', ', $sql['select']);
 		}
 		
 		// -------------------------------------
 		// From
 		// -------------------------------------
 
-		if (isset($this->sql['from']) && is_string($this->sql['from']))
+		if (isset($this->sql['from']) && is_string($sql['from']))
 		{
 			$from = $this->sql['from'];
 		}
 		else
 		{
-			$from = implode(', ', $this->sql['from']);
+			$from = implode(', ', $sql['from']);
 		}
 
 		// -------------------------------------
 		// Join
 		// -------------------------------------
 
-		if (isset($this->sql['join']) && is_string($this->sql['join']))
+		if (isset($sql['join']) && is_string($sql['join']))
 		{
-			$join = $this->sql['join'];
+			$join = $sql['join'];
 		}
 		else
 		{
-			(isset($this->sql['join'])) ? $join = implode(' ', $this->sql['join']) : $join = null;
+			(isset($sql['join'])) ? $join = implode(' ', $sql['join']) : $join = null;
 		}
 
 		// -------------------------------------
 		// Where
 		// -------------------------------------
 
-		if (isset($this->sql['where']) && is_string($this->sql['where']))
+		if (isset($sql['where']) && is_string($sql['where']))
 		{
-			$where = $this->sql['where'];
+			$where = $sql['where'];
 		}
 		else
 		{
-			(isset($this->sql['where'])) ? $where = implode(' AND ', $this->sql['where']) : $where = null;
+			(isset($sql['where'])) ? $where = implode(' AND ', $sql['where']) : $where = null;
 		}
 
 		if ($where != '')
@@ -656,13 +665,13 @@ class Row_m extends MY_Model {
 		// is the only order by segment
 		// -------------------------------------
 
-		if (isset($this->sql['order_by']) && is_string($this->sql['order_by']))
+		if (isset($sql['order_by']) && is_string($sql['order_by']))
 		{
-			$order_by = $this->sql['order_by'];
+			$order_by = $sql['order_by'];
 		}
 		else
 		{
-			(isset($this->sql['order_by'])) ? $order_by = implode(', ', $this->sql['order_by']) : $order_by = null;
+			(isset($sql['order_by'])) ? $order_by = implode(', ', $sql['order_by']) : $order_by = null;
 		}
 
 		if ($order_by)
@@ -674,17 +683,17 @@ class Row_m extends MY_Model {
 		// Misc
 		// -------------------------------------
 
-		if (isset($this->sql['misc']) && is_string($this->sql['misc']))
+		if (isset($sql['misc']) && is_string($sql['misc']))
 		{
-			$misc = $this->sql['misc'];
+			$misc = $sql['misc'];
 		}
 		else
 		{
-			(isset($this->sql['misc'])) ? $misc = implode(' ', $this->sql['misc']) : $misc = null;
+			(isset($sql['misc'])) ? $misc = implode(' ', $sql['misc']) : $misc = null;
 		}
 
 		// -------------------------------------
-		// Build Query
+		// Return Built Query
 		// -------------------------------------
 
 		return "SELECT {$select}
@@ -693,6 +702,25 @@ class Row_m extends MY_Model {
 		{$where}
 		{$misc}
 		{$order_by} ";
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Reset SQL query
+	 *
+	 * @access 	public
+	 * @return 	void
+	 */
+	public function reset_sql()
+	{
+		$this->sql = array(
+			'select'	=> array(),
+			'where'		=> array(),
+			'from'		=> array(),
+			'order_by'	=> array(),
+			'misc'		=> array()
+		);
 	}
 
 	// --------------------------------------------------------------------------
@@ -869,11 +897,7 @@ class Row_m extends MY_Model {
 			// Format Created By
 			// -------------------------------------
 			
-			if(
-				$row_slug == 'created_by' and 
-				isset($this->type->types->user) and 
-				method_exists($this->type->types->user, 'pre_output_plugin')
-			)
+			if ($row_slug == 'created_by')
 			{
 				if ($return_object)
 				{
@@ -887,6 +911,8 @@ class Row_m extends MY_Model {
 			
 			// -------------------------------------
 			// Format Dates
+			// -------------------------------------
+			// We simply want these to be UNIX stamps
 			// -------------------------------------
 			
 			if ($row_slug == 'created' or $row_slug == 'updated')
