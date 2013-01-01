@@ -84,8 +84,8 @@
                 series: {
                     points: {
                         show: false,
-                        radius: 3,
-                        lineWidth: 2, // in pixels
+                        radius: 4,
+                        lineWidth: 3, // in pixels
                         fill: true,
                         fillColor: "#ffffff",
                         symbol: "circle" // or callback
@@ -112,13 +112,13 @@
                 grid: {
                     show: true,
                     aboveData: false,
-                    color: "#545454", // primary color used for outline and labels
+                    color: "#999", // primary color used for outline and labels
                     backgroundColor: null, // null for transparent, else color
-                    borderColor: null, // set if different from the grid color
+                    borderColor: "#e5e5e5", // set if different from the grid color
                     tickColor: null, // color for the ticks, e.g. "rgba(0,0,0,0.15)"
                     labelMargin: 5, // in pixels
                     axisMargin: 8, // in pixels
-                    borderWidth: 2, // in pixels
+                    borderWidth: 1, // in pixels
                     markings: null, // array of ranges or fn: axes -> array of ranges
                     markingsColor: "#f4f4f4",
                     markingsLineWidth: 2,

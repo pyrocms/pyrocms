@@ -633,7 +633,7 @@ select {
 	}
 	
 	.topbar ul li a {
-		padding:15px 5px;
+		padding:16px 5px;
 	}
 	
 	.subbar {
@@ -1182,6 +1182,17 @@ only screen and (-webkit-min-device-pixel-ratio: 2),only screen and ( min--moz-d
 	body {
 		background:#e9e9e9 url('../../img/bg_grain@2x.png') repeat;
 		background-size:200px 200px;
+	}
+	
+	.topbar {
+		background-image:url('../../img/nav-grain@2x.png'),-webkit-gradient(linear,left top,left bottom,color-stop(0%,#555),color-stop(100%,#333));
+		background-image:url('../../img/nav-grain@2x.png'),-webkit-linear-gradient(top,#555,#333);
+		background-image:url('../../img/nav-grain@2x.png'),-moz-linear-gradient(top,#555,#333);
+		background-image:url('../../img/nav-grain@2x.png'),-ms-linear-gradient(top,#555,#333);
+		background-image:url('../../img/nav-grain@2x.png'),-o-linear-gradient(top,#555,#333);
+		background-image:url('../../img/nav-grain@2x.png'),linear-gradient(top,#555,#333);
+		-webkit-box-shadow:0 1px 3px rgba(0,0,0,0.25),inset 0 -1px 0 rgba(0,0,0,0.1);
+		background-size: 113px 113px;
 	}
 	
 	body#login-body {

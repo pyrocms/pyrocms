@@ -108,7 +108,7 @@ a {
 }
 
 a:hover {
-	color:#1b7ad6;
+	color:#22688E;
 }
 
 a:active {
@@ -554,9 +554,7 @@ input[type="text"],input[type="password"],textarea {
 }
 
 input[type="file"] {
-	padding:5px;
-	border:1px solid rgba(0,0,0,0.2);
-	border-radius:2px;
+	margin: 20px 0;
 }
 
 input[type="text"],input[type="password"],input[type="file"],textarea {
@@ -1826,12 +1824,12 @@ button.btn::-moz-focus-inner,input[type=submit].btn::-moz-focus-inner {
 	border-bottom:1px solid #1a1a1a;
 	background-color:#222;
 	background-repeat:repeat-x;
-	background-image:url(../../img/nav-grain.png),-webkit-gradient(linear,left top,left bottom,color-stop(0%,#555),color-stop(100%,#333));
-	background-image:url(../../img/nav-grain.png),-webkit-linear-gradient(top,#555,#333);
-	background-image:url(../../img/nav-grain.png),-moz-linear-gradient(top,#555,#333);
-	background-image:url(../../img/nav-grain.png),-ms-linear-gradient(top,#555,#333);
-	background-image:url(../../img/nav-grain.png),-o-linear-gradient(top,#555,#333);
-	background-image:url(../../img/nav-grain.png),linear-gradient(top,#555,#333);
+	background-image:url('../../img/nav-grain.png'),-webkit-gradient(linear,left top,left bottom,color-stop(0%,#555),color-stop(100%,#333));
+	background-image:url('../../img/nav-grain.png'),-webkit-linear-gradient(top,#555,#333);
+	background-image:url('../../img/nav-grain.png'),-moz-linear-gradient(top,#555,#333);
+	background-image:url('../../img/nav-grain.png'),-ms-linear-gradient(top,#555,#333);
+	background-image:url('../../img/nav-grain.png'),-o-linear-gradient(top,#555,#333);
+	background-image:url('../../img/nav-grain.png'),linear-gradient(top,#555,#333);
 	-webkit-box-shadow:0 1px 3px rgba(0,0,0,0.25),inset 0 -1px 0 rgba(0,0,0,0.1);
 	-moz-box-shadow:0 1px 3px rgba(0,0,0,0.25),inset 0 -1px 0 rgba(0,0,0,0.1);
 	box-shadow:0 1px 3px rgba(0,0,0,0.25),inset 0 -1px 0 rgba(0,0,0,0.1);
@@ -1881,7 +1879,7 @@ button.btn::-moz-focus-inner,input[type=submit].btn::-moz-focus-inner {
 	line-height:19px;
 	text-decoration:none;
 	color:#bfbfbf;
-	text-shadow:0 2px 1px rgba(0,0,0,0.3);
+	text-shadow:0 1px 1px rgba(0,0,0,0.4);
 }
 
 .topbar ul li a:hover {

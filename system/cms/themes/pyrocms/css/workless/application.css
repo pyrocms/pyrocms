@@ -131,7 +131,7 @@ button#remove_installer_directory {
 
 .subbar h2,.subbar h2 a {
 	color:#fff;
-	text-shadow:0 2px 1px #000;
+	text-shadow:0 1px 1px #000;
 	margin:0;
 	padding:0;
 /* float: left; */
@@ -196,7 +196,7 @@ margin-top: -4px;
 	-moz-background-clip:padding;
 	-webkit-background-clip:padding;
 	background-clip:padding-box;
-	background:#1b7ad6;
+	background:#5d6266;
 	background-image:-webkit-gradient(linear,left top,left bottom,color-stop(0%,#767d82),color-stop(100%,#5d6266));
 	background-image:-webkit-linear-gradient(#767d82,#5d6266);
 	background-image:-moz-linear-gradient(#767d82,#5d6266);
@@ -232,7 +232,7 @@ margin-top: -4px;
 }
 
 #shortcuts li a:hover {
-	background:#38a7e6;
+	background:#1b7ad6;
 	background-image:-webkit-gradient(linear,left top,left bottom,color-stop(0%,#3193cc),color-stop(100%,#1b7ad6));
 	background-image:-webkit-linear-gradient(#3193cc,#1b7ad6);
 	background-image:-moz-linear-gradient(#3193cc,#1b7ad6);
@@ -503,7 +503,7 @@ section.title {
 	background-image:-o-linear-gradient(#f7f7f7,#f3f3f3);
 	background-image:linear-gradient(#f7f7f7,#f3f3f3);
 /* border: 1px solid #ffffff; */
-	border-bottom:1px solid #ccc;
+	border-bottom:1px solid #f0f0f0;
 	padding:13px 0 8px;
 	margin-top:0;
 	margin-bottom:0;
