@@ -655,7 +655,7 @@ class Row_m extends MY_Model {
 		// From
 		// -------------------------------------
 
-		if (isset($this->sql['from']) && is_string($sql['from']))
+		if (isset($this->sql['from']) and is_string($sql['from']))
 		{
 			$from = $this->sql['from'];
 		}
@@ -668,7 +668,7 @@ class Row_m extends MY_Model {
 		// Join
 		// -------------------------------------
 
-		if (isset($sql['join']) && is_string($sql['join']))
+		if (isset($sql['join']) and is_string($sql['join']))
 		{
 			$join = $sql['join'];
 		}
@@ -681,7 +681,7 @@ class Row_m extends MY_Model {
 		// Where
 		// -------------------------------------
 
-		if (isset($sql['where']) && is_string($sql['where']))
+		if (isset($sql['where']) and is_string($sql['where']))
 		{
 			$where = $sql['where'];
 		}
@@ -702,7 +702,7 @@ class Row_m extends MY_Model {
 		// is the only order by segment
 		// -------------------------------------
 
-		if (isset($sql['order_by']) && is_string($sql['order_by']))
+		if (isset($sql['order_by']) and is_string($sql['order_by']))
 		{
 			$order_by = $sql['order_by'];
 		}
@@ -825,7 +825,7 @@ class Row_m extends MY_Model {
 		}
 
 		$total = count($data);
-		
+
 		foreach ($data as $id => $item)
 		{
 			// Log the ID called
