@@ -184,12 +184,14 @@
 						?>
 							
 						<div class="date">
-							<span class="month">
-								<?php echo $item_month ?>
-							</span>
-							<span class="day">
-								<?php echo $item_day; ?>
-							</span>
+							<div class="time">
+								<span class="month">
+									<?php echo $item_month ?>
+								</span>
+								<span class="day">
+									<?php echo $item_day; ?>
+								</span>
+							</div>
 						</div>
 						<div class="post">
 							<h4><?php echo anchor($rss_item->get_permalink(), $rss_item->get_title(), 'target="_blank"'); ?></h4>
