@@ -162,6 +162,12 @@ class Row_m extends MY_Model {
 		}
 
 		// -------------------------------------
+		// Get Our Stream Fields
+		// -------------------------------------
+
+		$stream_fields = $this->streams_m->get_stream_fields($stream->id);
+
+		// -------------------------------------
 		// Extract Our Params
 		// -------------------------------------
 
@@ -239,11 +245,29 @@ class Row_m extends MY_Model {
 
 		if ( ! in_array('created_by', $disable))
 		{
-			$this->sql['select'][] = $this->db->protect_identifiers('users', true).'.id as `created_by||user_id`';
-			$this->sql['select'][] = $this->db->protect_identifiers('users', true).'.email as `created_by||email`';
-			$this->sql['select'][] = $this->db->protect_identifiers('users', true).'.username as `created_by||username`';
+			$this->sql['select'][] = '`cb_users`.`id` as `created_by||user_id`';
+			$this->sql['select'][] = '`cb_users`.`email` as `created_by||email`';
+			$this->sql['select'][] = '`cb_users`.`username` as `created_by||username`';
 
-			$this->sql['join'][] = 'LEFT JOIN '.$this->db->protect_identifiers('users', true).' ON '.$this->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.created_by', true).'='.$this->db->protect_identifiers('users.id', true);
+			$this->sql['join'][] = 'LEFT JOIN '.$this->db->protect_identifiers('users', true).' as `cb_users` ON `cb_users`.`id`='.$this->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.created_by', true);
+		}
+
+		// -------------------------------------
+		// Field Type Hooks
+		// -------------------------------------
+		// By adding a query_build_hook() function, 
+		// field types can affect the sql array
+		// at this time.
+		// -------------------------------------
+
+		foreach ($stream_fields as $field_slug => $stream_field)
+		{
+			if ( ! in_array($field_slug, $disable)
+					and isset($this->type->types->{$stream_field->field_type})
+					and method_exists($this->type->types->{$stream_field->field_type}, 'query_build_hook'))
+			{
+				$this->type->types->{$stream_field->field_type}->query_build_hook($this->sql, $stream_field, $stream);
+			}
 		}
 
 		// -------------------------------------
@@ -558,7 +582,7 @@ class Row_m extends MY_Model {
 		// Run formatting
 		// -------------------------------------
 				
-		$return['rows'] = $this->format_rows($rows, $stream, $disable);
+		$return['rows'] = $this->format_rows($rows, $stream, $disable, $stream_fields);
 	
 		// Reset
 		$this->get_rows_hook = array();
@@ -787,11 +811,18 @@ class Row_m extends MY_Model {
 	 * @param	[array - disables]
 	 * @return	array
 	 */
-	public function format_rows($data, $stream, $disable = array())
+	public function format_rows($data, $stream, $disable = array(), $stream_fields = null)
 	{
 		$count = 1;
 
-		$stream_fields = $this->streams_m->get_stream_fields($stream->id);
+		// We are keepig the option to get stream fields in the function
+		// purely for legacy. We should be passing this in the format rows
+		// so we can check for functions in the field types that need
+		// to change the main query.
+		if ( ! $stream_fields)
+		{
+			$stream_fields = $this->streams_m->get_stream_fields($stream->id);
+		}
 
 		$total = count($data);
 		
