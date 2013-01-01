@@ -1,4 +1,4 @@
-<?php echo form_open(uri_string(), 'class="box-container crud"') ?>
+<?php echo form_open(uri_string(), 'class="crud"') ?>
 
 	<header><h3><?php echo $widget->title ?></h3></header>
 
