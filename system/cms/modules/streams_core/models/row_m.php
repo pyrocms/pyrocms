@@ -243,7 +243,7 @@ class Row_m extends MY_Model {
 			$this->sql['select'][] = $this->db->protect_identifiers('users', true).'.email as `created_by||email`';
 			$this->sql['select'][] = $this->db->protect_identifiers('users', true).'.username as `created_by||username`';
 
-			$this->sql['join'][] = 'LEFT JOIN default_users ON '.$this->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.created_by', true).'=`default_users`.`id`';
+			$this->sql['join'][] = 'LEFT JOIN '.$this->db->protect_identifiers('users', true).' ON '.$this->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.created_by', true).'='.$this->db->protect_identifiers('users.id', true);
 		}
 
 		// -------------------------------------
@@ -371,9 +371,6 @@ class Row_m extends MY_Model {
 
 		// -------------------------------------
 		// Show Past
-		// -------------------------------------
-		// @todo - check to see if this is a
-		// mysql date or a UNIX one.
 		// -------------------------------------
 
 		if (isset($show_past) and $show_past == 'no')
