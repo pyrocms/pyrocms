@@ -645,7 +645,8 @@ input:invalid,textarea:invalid {
 }
 
 .form_inputs .input {
-	width: 30%;
+	/* width: 30%; */
+	width: auto;
 }
 
 .form_inputs li.full_width_input .input {
