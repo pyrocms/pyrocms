@@ -3,9 +3,10 @@ section.item form ul {
 }
 
 .form_inputs .input.small-side {
-	width: auto;
-	float: right !important;
-	margin-right: 35px;
+	margin-right: 10px;
+	position: absolute;
+	top: 0;
+	right: 0;
 }
 
 .form_inputs .input.small-side  select {
@@ -19,6 +20,10 @@ section.item form ul {
 li.editor {
 	padding-bottom: 0 !important;
 	margin-bottom: 0 !important;
+}
+
+.edit-content {
+	margin-top: 20px;
 }
 
 form.crud li.date-meta div.selector {
