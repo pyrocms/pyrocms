@@ -373,10 +373,6 @@ button#login-submit:hover {
 		padding-left:0!important;
 	}
 	
-	.topbar ul li a {
-		padding:15px 5px;
-	}
-	
 	.subbar {
 		margin-top:25px;
 	}
@@ -657,7 +653,7 @@ select {
 	}
 	
 	.topbar ul li a {
-		padding:16px 5px;
+		padding:16px 7px;
 	}
 	
 	.subbar {
@@ -840,10 +836,6 @@ select {
 		text-align:center;
 	}
 	
-	.topbar ul li {
-		min-width:70px;
-	}
-	
 	.subbar {
 		top:25px;
 	}
@@ -987,10 +979,6 @@ select {
 	.topbar {
 		height:50px;
 		text-align:center;
-	}
-	
-	.topbar ul li {
-		min-width:80px;
 	}
 	
 	.subbar {
