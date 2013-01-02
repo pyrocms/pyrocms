@@ -74,7 +74,7 @@
 }
 
 #dashboard-link {
-	margin-right:10px;
+	margin-right:0px;
 }
 
 button#remove_installer_directory {
@@ -282,7 +282,7 @@ margin-top: -4px;
 	left:0;
 	width:100%;
 	height:33px;
-	background:#f2f2f2;
+	background:white;
 	border-bottom:1px solid #ccc;
 }
 
@@ -319,7 +319,7 @@ margin-top: -4px;
 	left: 40%;
 	display: inline-block;
 	border-right: 6px solid transparent;
-	border-top: 6px solid #f2f2f2;
+	border-top: 6px solid white;
 	border-left: 6px solid transparent;
 	content: '';
 }
@@ -714,7 +714,7 @@ ul#lang {
 }
 
 ul#lang .chzn-results {
-	width:100px;
+	width:auto;
 	z-index:999;
 	position:relative;
 }

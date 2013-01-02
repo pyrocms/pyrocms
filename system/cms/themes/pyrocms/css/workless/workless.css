@@ -101,10 +101,10 @@ a {
 	font-weight:inherit;
 	font-size:inherit;
 	text-decoration:none;
-	-webkit-transition:250ms linear all;
-	-moz-transition:250ms linear all;
-	-o-transition:250ms linear all;
-	transition:250ms linear all;
+	-webkit-transition:200ms linear all;
+	-moz-transition:200ms linear all;
+	-o-transition:200ms linear all;
+	transition:200ms linear all;
 }
 
 a:hover {
@@ -1710,13 +1710,14 @@ button.btn::-moz-focus-inner,input[type=submit].btn::-moz-focus-inner {
 }
 
 .tab-menu li a {
-	background:#eee;
-	color:#333;
+	background:whitesmoke;
+	color:#999;
 	font-weight:700;
 	padding:0 15px;
 	line-height:35px;
 	-webkit-border-radius:3px 3px 0 0;
 	-moz-border-radius:3px 3px 0 0;
+	-o-border-radius:3px 3px 0 0;
 	border-radius:3px 3px 0 0;
 	border-left:1px solid #efefef;
 	border-top:1px solid #efefef;
@@ -1725,7 +1726,8 @@ button.btn::-moz-focus-inner,input[type=submit].btn::-moz-focus-inner {
 }
 
 .tab-menu li a:hover {
-	background:#e6e6e6;
+	background:#6d7a87;
+	color: white;
 }
 
 .ui-state-active a {
@@ -1734,7 +1736,7 @@ button.btn::-moz-focus-inner,input[type=submit].btn::-moz-focus-inner {
 	border-left:1px solid #efefef;
 	border-top:1px solid #efefef;
 	border-right:1px solid #efefef;
-	color:gray;
+	color:#222 !important;
 }
 
 /* Pills */

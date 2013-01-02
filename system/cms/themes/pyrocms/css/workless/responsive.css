@@ -65,7 +65,7 @@ textarea,.cke_skin_kama .cke_wrapper {
 
 select {
 	/* width:245px; */
-	width:100%;
+	width:auto;
 	max-width: 100%;
 }
 
@@ -571,7 +571,7 @@ select {
 	}
 	
 	.topbar-search {
-		display:inline-block;
+		right: 20px;
 	}
 	
 	.topbar-search .search-query {
@@ -585,7 +585,7 @@ select {
 	}
 	
 	.topbar-form {
-		position: relative;
+		/* position: relative; */
 	}
 	
 	.one_half {
@@ -598,9 +598,15 @@ select {
 	
 	#feed .date {
 		display: block;
+		width: auto;
 		float: none;
 		margin-bottom: 10px;
 		margin-right: 0px;
+	}
+	
+	#feed .time {
+		display: block;
+		float: none;
 	}
 	
 	#feed .post {
