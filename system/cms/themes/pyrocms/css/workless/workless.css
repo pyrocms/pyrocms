@@ -2028,7 +2028,7 @@ button.btn::-moz-focus-inner,input[type=submit].btn::-moz-focus-inner {
 	top:5px;
 	right:0;
 	margin-bottom:0;
-	float:right;
+	width: auto;
 }
 
 .topbar-search .search-query {
@@ -2053,10 +2053,10 @@ button.btn::-moz-focus-inner,input[type=submit].btn::-moz-focus-inner {
 	-moz-border-radius:16px;
 	-o-border-radius:16px;
 	border-radius:16px;
-	-webkit-transition:200ms linear all;
-	-moz-transition:200ms linear all;
-	-o-transition:200ms linear all;
-	transition:200ms linear all;
+	-webkit-transition:150ms linear all;
+	-moz-transition:150ms linear all;
+	-o-transition:150ms linear all;
+	transition:150ms linear all;
 	-webkit-font-smoothing:subpixel-antialiased;
 	-webkit-tap-highlight-color:transparent;
 }

@@ -555,7 +555,12 @@ select {
 	}
 	
 	/* Fix navigation for mobile devices */
+	.topbar {
+		position: absolute;
+	}
+	
 	.subbar {
+		position: absolute;
 		padding:10px 0px;
 	}
 	
