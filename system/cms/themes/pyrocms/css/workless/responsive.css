@@ -319,6 +319,7 @@ button#login-submit:hover {
 	background-image:url('../../img/nav-grain.png'),-ms-linear-gradient(top,#35383b,#474B4E);
 	background-image:url('../../img/nav-grain.png'),-o-linear-gradient(top,#35383b,#474B4E);
 	background-image:url('../../img/nav-grain.png'),linear-gradient(top,#35383b,#474B4E);
+	background-position: 0 0;
 	-webkit-box-shadow:inset 0 2px 4px 0 rgba(0,0,0,0.8), 0 1px 0px 0 rgba(255,255,255,0.1);
 	-moz-box-shadow:inset 0 2px 4px 0 rgba(0,0,0,0.8), 0 1px 0px 0 rgba(255,255,255,0.1);
 	-ms-box-shadow:inset 0 2px 4px 0 rgba(0,0,0,0.8), 0 1px 0px 0 rgba(255,255,255,0.1);
