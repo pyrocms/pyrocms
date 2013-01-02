@@ -816,6 +816,23 @@ select {
 	}
 }
 
+/*iPad Specific Fixes */
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) {
+	
+	.topbar-search .search-query {
+		padding:4px 16px;
+		margin:5px 0 0;
+		width: 60px;
+	}
+	
+	.topbar-search .search-query:focus {
+		width: 130px;
+	}
+	
+}
+
 @media only screen and (min-width: 1025px) {
 	.wrapper {
 		width:1024px;
