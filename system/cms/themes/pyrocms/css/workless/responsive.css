@@ -65,7 +65,7 @@ textarea,.cke_skin_kama .cke_wrapper {
 
 select {
 	/* width:245px; */
-	width:100%;
+	width:auto;
 	max-width: 100%;
 }
 
@@ -319,6 +319,7 @@ button#login-submit:hover {
 	background-image:url('../../img/nav-grain.png'),-ms-linear-gradient(top,#35383b,#474B4E);
 	background-image:url('../../img/nav-grain.png'),-o-linear-gradient(top,#35383b,#474B4E);
 	background-image:url('../../img/nav-grain.png'),linear-gradient(top,#35383b,#474B4E);
+	background-position: 0 0;
 	-webkit-box-shadow:inset 0 2px 4px 0 rgba(0,0,0,0.8), 0 1px 0px 0 rgba(255,255,255,0.1);
 	-moz-box-shadow:inset 0 2px 4px 0 rgba(0,0,0,0.8), 0 1px 0px 0 rgba(255,255,255,0.1);
 	-ms-box-shadow:inset 0 2px 4px 0 rgba(0,0,0,0.8), 0 1px 0px 0 rgba(255,255,255,0.1);
@@ -370,10 +371,6 @@ button#login-submit:hover {
 	.topbar ul {
 		margin-left:-15px;
 		padding-left:0!important;
-	}
-	
-	.topbar ul li a {
-		padding:15px 5px;
 	}
 	
 	.subbar {
@@ -555,7 +552,12 @@ select {
 	}
 	
 	/* Fix navigation for mobile devices */
+	.topbar {
+		position: absolute;
+	}
+	
 	.subbar {
+		position: absolute;
 		padding:10px 0px;
 	}
 	
@@ -571,7 +573,7 @@ select {
 	}
 	
 	.topbar-search {
-		display:inline-block;
+		right: 20px;
 	}
 	
 	.topbar-search .search-query {
@@ -585,7 +587,7 @@ select {
 	}
 	
 	.topbar-form {
-		position: relative;
+		/* position: relative; */
 	}
 	
 	.one_half {
@@ -594,6 +596,24 @@ select {
 		display: block;
 		margin-bottom: 10px;
 		margin-top: 20px;
+	}
+	
+	#feed .date {
+		display: block;
+		width: auto;
+		float: none;
+		margin-bottom: 10px;
+		margin-right: 0px;
+	}
+	
+	#feed .time {
+		display: block;
+		float: none;
+	}
+	
+	#feed .post {
+		padding-left: 0px;
+		display: block;
 	}
 	
 	footer {
@@ -633,7 +653,7 @@ select {
 	}
 	
 	.topbar ul li a {
-		padding:16px 5px;
+		padding:16px 7px;
 	}
 	
 	.subbar {
@@ -796,6 +816,23 @@ select {
 	}
 }
 
+/*iPad Specific Fixes */
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) {
+	
+	.topbar-search .search-query {
+		padding:4px 16px;
+		margin:5px 0 0;
+		width: 60px;
+	}
+	
+	.topbar-search .search-query:focus {
+		width: 130px;
+	}
+	
+}
+
 @media only screen and (min-width: 1025px) {
 	.wrapper {
 		width:1024px;
@@ -814,10 +851,6 @@ select {
 	.topbar {
 		height:50px;
 		text-align:center;
-	}
-	
-	.topbar ul li {
-		min-width:70px;
 	}
 	
 	.subbar {
@@ -963,10 +996,6 @@ select {
 	.topbar {
 		height:50px;
 		text-align:center;
-	}
-	
-	.topbar ul li {
-		min-width:80px;
 	}
 	
 	.subbar {
@@ -1191,8 +1220,12 @@ only screen and (-webkit-min-device-pixel-ratio: 2),only screen and ( min--moz-d
 		background-image:url('../../img/nav-grain@2x.png'),-ms-linear-gradient(top,#555,#333);
 		background-image:url('../../img/nav-grain@2x.png'),-o-linear-gradient(top,#555,#333);
 		background-image:url('../../img/nav-grain@2x.png'),linear-gradient(top,#555,#333);
-		-webkit-box-shadow:0 1px 3px rgba(0,0,0,0.25),inset 0 -1px 0 rgba(0,0,0,0.1);
-		background-size: 113px 113px;
+		background-size: 113px 50px;
+	}
+	
+	#pyro-logo {
+		background: url('../../img/logo@2x.png') no-repeat;
+		background-size: 18px 28px;
 	}
 	
 	body#login-body {
