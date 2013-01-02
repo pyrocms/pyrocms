@@ -2058,6 +2058,7 @@ button.btn::-moz-focus-inner,input[type=submit].btn::-moz-focus-inner {
 	-o-transition:200ms linear all;
 	transition:200ms linear all;
 	-webkit-font-smoothing:subpixel-antialiased;
+	-webkit-tap-highlight-color:transparent;
 }
 
 .topbar-search .search-query::-webkit-input-placeholder {
