@@ -73,6 +73,13 @@
 	color:#fff;
 }
 
+#pyro-logo {
+	background: url('../../img/logo.png') no-repeat;
+	display: inline-block;
+	height: 28px;
+	width: 18px;
+}
+
 #dashboard-link {
 	margin-right:0px;
 }

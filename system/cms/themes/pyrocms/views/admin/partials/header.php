@@ -6,7 +6,8 @@
 	<div class="topbar-inner">
 		<div class="wrapper">
 			<div id="logo">
-				<?php echo anchor('', Asset::img('logo.png', 'view site'), 'target="_blank"') ?>
+				<!-- <?php echo anchor('', Asset::img('logo.png', 'view site'), 'target="_blank"') ?> -->
+				<?php echo anchor('','<span id="pyro-logo"></span>', 'target="_blank"') ?>
 			</div>
 		
 			<nav id="primary">

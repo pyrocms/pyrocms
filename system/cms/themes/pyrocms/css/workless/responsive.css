@@ -1212,6 +1212,11 @@ only screen and (-webkit-min-device-pixel-ratio: 2),only screen and ( min--moz-d
 		background-size: 113px 113px;
 	}
 	
+	#pyro-logo {
+		background: url('../../img/logo@2x.png') no-repeat;
+		background-size: 18px 28px;
+	}
+	
 	body#login-body {
 		background:#333 url('../../img/nav-grain@2x.png') repeat;
 		background-size:113px 113px;
@@ -1229,6 +1234,6 @@ only screen and (-webkit-min-device-pixel-ratio: 2),only screen and ( min--moz-d
 		background-image:url('../../img/nav-grain@2x.png'),-ms-linear-gradient(top,#5f6569,#45494c);
 		background-image:url('../../img/nav-grain@2x.png'),-o-linear-gradient(top,#5f6569,#45494c);
 		background-image:url('../../img/nav-grain@2x.png'),linear-gradient(top,#5f6569,#45494c);
-		background-size: 113px 113px;
+		background-size: 113px 50px;
 	}
 }
