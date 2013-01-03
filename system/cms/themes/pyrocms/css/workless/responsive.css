@@ -65,7 +65,7 @@ textarea,.cke_skin_kama .cke_wrapper {
 
 select {
 	/* width:245px; */
-	width:100%;
+	width:auto;
 	max-width: 100%;
 }
 
@@ -120,8 +120,22 @@ select {
 	margin-left:0;
 }
 
+.one_full .one_half:last-child {
+	float: right;
+}
+
 .wrapper {
 	position:relative;
+}
+.wrapper:before,
+.wrapper:after {
+  display: table;
+  line-height: 0;
+  content: "";
+}
+
+.wrapper:after {
+  clear: both;
 }
 
 /* Login Screen */
@@ -138,7 +152,7 @@ body#login-body {
 	background-repeat:no-repeat;
 	display:inline-block;
 	height:40px;
-	width:125px;
+	width:126px;
 	margin:10px 0;
 }
 
@@ -185,6 +199,7 @@ body#login-body {
 	min-width:210px;
 	width:228px;
 	padding:8px 5px;
+	margin: 10px 0;
 	font-size:13px;
 	font-weight:400;
 	line-height:20px;
@@ -304,6 +319,7 @@ button#login-submit:hover {
 	background-image:url('../../img/nav-grain.png'),-ms-linear-gradient(top,#35383b,#474B4E);
 	background-image:url('../../img/nav-grain.png'),-o-linear-gradient(top,#35383b,#474B4E);
 	background-image:url('../../img/nav-grain.png'),linear-gradient(top,#35383b,#474B4E);
+	background-position: 0 0;
 	-webkit-box-shadow:inset 0 2px 4px 0 rgba(0,0,0,0.8), 0 1px 0px 0 rgba(255,255,255,0.1);
 	-moz-box-shadow:inset 0 2px 4px 0 rgba(0,0,0,0.8), 0 1px 0px 0 rgba(255,255,255,0.1);
 	-ms-box-shadow:inset 0 2px 4px 0 rgba(0,0,0,0.8), 0 1px 0px 0 rgba(255,255,255,0.1);
@@ -355,10 +371,6 @@ button#login-submit:hover {
 	.topbar ul {
 		margin-left:-15px;
 		padding-left:0!important;
-	}
-	
-	.topbar ul li a {
-		padding:15px 5px;
 	}
 	
 	.subbar {
@@ -436,7 +448,7 @@ button#login-submit:hover {
 	}
 	
 	.alert {
-		width:450px;
+		width:auto;
 	}
 	
 	/*
@@ -525,6 +537,11 @@ select {
 		padding:0;
 	}
 	
+	.alert.error p {
+		margin:5px 0;
+		padding:0;
+	}
+	
 	/* display alert button as block on mobile */
 	button#remove_installer_directory {
 		display:inline-block;
@@ -535,25 +552,72 @@ select {
 	}
 	
 	/* Fix navigation for mobile devices */
+	.topbar {
+		position: absolute;
+	}
+	
+	.subbar {
+		position: absolute;
+		padding:10px 0px;
+	}
+	
+	.subbar-inner {
+		position: relative;
+	}
+	
 	.wrapper {
-		padding:0 20px;
+		height: 40px;
+		display: block;
+		position: relative;
+		padding: 0 20px;
 	}
 	
 	.topbar-search {
-		position:relative;
-		display:inline-block;
+		right: 20px;
 	}
 	
 	.topbar-search .search-query {
 		padding:4px 16px;
 		margin:5px 0 0;
+		width: 60px;
 	}
 	
-	.topbar-search:focus {
-	/*
-	position: absolute;
-		  display: block;
-	*/
+	.topbar-search .search-query:focus {
+		width: 120px;
+	}
+	
+	.topbar-form {
+		/* position: relative; */
+	}
+	
+	.one_half {
+		width: 100%;
+		float: none;
+		display: block;
+		margin-bottom: 10px;
+		margin-top: 20px;
+	}
+	
+	#feed .date {
+		display: block;
+		width: auto;
+		float: none;
+		margin-bottom: 10px;
+		margin-right: 0px;
+	}
+	
+	#feed .time {
+		display: block;
+		float: none;
+	}
+	
+	#feed .post {
+		padding-left: 0px;
+		display: block;
+	}
+	
+	footer {
+		min-height: 84px;
 	}
 }
 
@@ -589,7 +653,7 @@ select {
 	}
 	
 	.topbar ul li a {
-		padding:15px 5px;
+		padding:16px 7px;
 	}
 	
 	.subbar {
@@ -628,7 +692,7 @@ select {
 	
 	.one_half {
 	/* width: 365px; */
-		width:49.5%;
+		width:48%;
 		margin-right:15px;
 		float:left;
 	}
@@ -701,7 +765,7 @@ select {
 	}
 	
 	.alert {
-		width:720px;
+		width:auto;
 	}
 	
 	/*
@@ -752,6 +816,23 @@ select {
 	}
 }
 
+/*iPad Specific Fixes */
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) {
+	
+	.topbar-search .search-query {
+		padding:4px 16px;
+		margin:5px 0 0;
+		width: 60px;
+	}
+	
+	.topbar-search .search-query:focus {
+		width: 130px;
+	}
+	
+}
+
 @media only screen and (min-width: 1025px) {
 	.wrapper {
 		width:1024px;
@@ -770,10 +851,6 @@ select {
 	.topbar {
 		height:50px;
 		text-align:center;
-	}
-	
-	.topbar ul li {
-		min-width:70px;
 	}
 	
 	.subbar {
@@ -809,7 +886,7 @@ select {
 	
 	.one_half {
 	/* width: 500px; */
-		width:49.5%;
+		width:48%;
 		margin-right:10px;
 		float:left;
 	}
@@ -854,7 +931,7 @@ select {
 	}
 	
 	.alert {
-		width:995px;
+		width:auto;
 	}
 	
 	/*
@@ -921,10 +998,6 @@ select {
 		text-align:center;
 	}
 	
-	.topbar ul li {
-		min-width:80px;
-	}
-	
 	.subbar {
 		top:25px;
 	}
@@ -959,7 +1032,7 @@ select {
 	/* .one_full section.title, .one_full section.item {width: 1250px;} */
 	.one_half {
 	/* width: 625px; */
-		width:49.5%;
+		width:48%;
 		margin-right:10px;
 		float:left;
 	}
@@ -992,7 +1065,7 @@ select {
 	}
 	
 	.alert {
-		width:1250px;
+		width:auto;
 	}
 	
 	/*
@@ -1039,6 +1112,98 @@ select {
 */
 }
 
+/* !Animated 
+------------------------------------------------------------------ */
+#login-logo {
+-webkit-animation-duration: 1s;
+-moz-animation-duration: 1s;
+-o-animation-duration: 1s;
+animation-duration: 1s;
+-webkit-animation-delay: 1s;
+-moz-animation-delay: 1s;
+-o-animation-delay: 1s;
+animation-delay: 1s;
+-webkit-animation-iteration-count: 1;
+-moz-animation-iteration-count: 1;
+-o-animation-iteration-count: 1;
+animation-iteration-count: 1;
+}
+
+#login-un {
+-webkit-animation-duration: .25s;
+-moz-animation-duration: .25s;
+-o-animation-duration: .25s;
+animation-duration: .25s;
+-webkit-animation-delay: 2s;
+-moz-animation-delay: 2s;
+-o-animation-delay: 2s;
+animation-delay: 2s;
+-webkit-animation-iteration-count: 1;
+-moz-animation-iteration-count: 1;
+-o-animation-iteration-count: 1;
+animation-iteration-count: 1;
+}
+
+#login-pw {
+-webkit-animation-duration: .25s;
+-moz-animation-duration: .25s;
+-o-animation-duration: .25s;
+animation-duration: .25s;
+-webkit-animation-delay: 2.25s;
+-moz-animation-delay: 2.25s;
+-o-animation-delay: 2.25s;
+animation-delay: 2.25s;
+-webkit-animation-iteration-count: 1;
+-moz-animation-iteration-count: 1;
+-o-animation-iteration-count: 1;
+animation-iteration-count: 1;
+}
+
+#login-save {
+-webkit-animation-duration: .25s;
+-moz-animation-duration: .25s;
+-o-animation-duration: .25s;
+animation-duration: .25s;
+-webkit-animation-delay: 2.5s;
+-moz-animation-delay: 2.5s;
+-o-animation-delay: 2.5s;
+animation-delay: 2.5s;
+-webkit-animation-iteration-count: 1;
+-moz-animation-iteration-count: 1;
+-o-animation-iteration-count: 1;
+animation-iteration-count: 1;
+}
+
+#login-action {
+-webkit-animation-duration: .25s;
+-moz-animation-duration: .25s;
+-o-animation-duration: .25s;
+animation-duration: .25s;
+-webkit-animation-delay: 2.75s;
+-moz-animation-delay: 2.75s;
+-o-animation-delay: 2.75s;
+animation-delay: 2.75s;
+-webkit-animation-iteration-count: 1;
+-moz-animation-iteration-count: 1;
+-o-animation-iteration-count: 1;
+animation-iteration-count: 1;
+}
+
+#login-credits {
+-webkit-animation-duration: 1s;
+-moz-animation-duration: 1s;
+-o-animation-duration: 1s;
+animation-duration: 1s;
+-webkit-animation-delay: 3s;
+-moz-animation-delay: 3s;
+-o-animation-delay: 3s;
+animation-delay: 3s;
+-webkit-animation-iteration-count: 1;
+-moz-animation-iteration-count: 1;
+-o-animation-iteration-count: 1;
+animation-iteration-count: 1;
+}
+
 /* !Retina Displays 
 ------------------------------------------------------------------ */
 @media
@@ -1048,6 +1213,21 @@ only screen and (-webkit-min-device-pixel-ratio: 2),only screen and ( min--moz-d
 		background-size:200px 200px;
 	}
 	
+	.topbar {
+		background-image:url('../../img/nav-grain@2x.png'),-webkit-gradient(linear,left top,left bottom,color-stop(0%,#555),color-stop(100%,#333));
+		background-image:url('../../img/nav-grain@2x.png'),-webkit-linear-gradient(top,#555,#333);
+		background-image:url('../../img/nav-grain@2x.png'),-moz-linear-gradient(top,#555,#333);
+		background-image:url('../../img/nav-grain@2x.png'),-ms-linear-gradient(top,#555,#333);
+		background-image:url('../../img/nav-grain@2x.png'),-o-linear-gradient(top,#555,#333);
+		background-image:url('../../img/nav-grain@2x.png'),linear-gradient(top,#555,#333);
+		background-size: 113px 50px;
+	}
+	
+	#pyro-logo {
+		background: url('../../img/logo@2x.png') no-repeat;
+		background-size: 18px 28px;
+	}
+	
 	body#login-body {
 		background:#333 url('../../img/nav-grain@2x.png') repeat;
 		background-size:113px 113px;
@@ -1055,7 +1235,7 @@ only screen and (-webkit-min-device-pixel-ratio: 2),only screen and ( min--moz-d
 	
 	#login-logo {
 		background-image:url('../../img/login-logo@2x.png');
-		background-size:125px 40px;
+		background-size:126px 40px;
 	}
 	
 	button#login-submit {
