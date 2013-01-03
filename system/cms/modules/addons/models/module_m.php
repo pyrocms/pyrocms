@@ -475,9 +475,6 @@ class Module_m extends MY_Model
 			return true;
 		}
 
-		// Something went wrong, rollback
-		$this->uninstall($slug, $is_core);
-
 		return false;
 	}
 
