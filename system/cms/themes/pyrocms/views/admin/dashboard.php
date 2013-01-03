@@ -63,8 +63,8 @@
 					<?php if (count($recent_comments)): ?>
 						<?php foreach ($recent_comments as $comment): ?>
 							<li>
-								<div><?php echo gravatar($comment->user_email) ?></div>
-								<span><?php echo format_date($comment->created_on) ?></span>
+								<div class="comments-gravatar"><?php echo gravatar($comment->user_email) ?></div>
+								<div class="comments-date"><?php echo format_date($comment->created_on) ?></div>
 								<p>
 									<?php echo sprintf(lang('comments:list_comment'), $comment->user_name, $comment->entry_title) ?> 
 									<span><?php echo (Settings::get('comment_markdown') AND $comment->parsed > '') ? strip_tags($comment->parsed) : $comment->comment ?></span>

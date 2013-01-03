@@ -82,6 +82,7 @@
 
 #dashboard-link {
 	margin-right:0px;
+	color: 
 }
 
 button#remove_installer_directory {
@@ -419,13 +420,34 @@ margin-top: -4px;
 	display:block;
 }
 
+#widget-comments .comments-gravatar {
+	display: inline-block;
+	float: left;
+	border: 3px solid white;
+	-webkit-box-shadow: 0 1px 2px 0 rgba(0,0,0,.3);
+	-moz-box-shadow: 0 1px 2px 0 rgba(0,0,0,.3);
+	-ms-box-shadow: 0 1px 2px 0 rgba(0,0,0,.3);
+	-o-box-shadow: 0 1px 2px 0 rgba(0,0,0,.3);
+	box-shadow: 0 1px 2px 0 rgba(0,0,0,.3);
+}
+
+#widget-comments .comments-date {
+	display: inline-block;
+	color: #999;
+	position: absolute;
+	top: 0;
+	right: 0px;
+}
+
 #widget-comments p {
 	color: #777;
+	padding-left: 65px;
 }
+
 #widget-comments span {
 	display: block;
 	line-height: 18px;
-	margin:10px 0;
+	margin:10px 0 20px 0;
 	color: #333;
 	background-color: #f5f5f5;
 	padding: 8px;
@@ -434,20 +456,27 @@ margin-top: -4px;
 	-ms-border-radius: 4px;
 	-o-border-radius: 4px;
 	border-radius: 4px;
+	-webkit-box-shadow: 0 1px 2px 0 rgba(0,0,0,.3);
+	-moz-box-shadow: 0 1px 2px 0 rgba(0,0,0,.3);
+	-ms-box-shadow: 0 1px 2px 0 rgba(0,0,0,.3);
+	-o-box-shadow: 0 1px 2px 0 rgba(0,0,0,.3);
+	box-shadow: 0 1px 2px 0 rgba(0,0,0,.3);
 }
 
 #widget-comments span:before {
 	content: "\201C";
 	font-size: 22px;
 	color: #888;
-	margin-right: 4px;
+	margin-right: 2px;
+	display: inline-block;
+	height: auto;
 }
 
 #widget-comments span:after {
 	content: "\201D";
 	font-size: 22px;
 	color: #888;
-	margin-left: 4px;
+	margin-left: 2px;
 }
 
 #analyticsWrapper {
