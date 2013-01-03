@@ -81,12 +81,12 @@
 }
 
 #dashboard-link {
-	margin-top: 9px;
+	margin-top: 11px;
 	margin-right:4px;
 }
 
 #dashboard-link a {
-	padding: 6px 7px;
+	padding: 4px 7px;
 	/*fallback for ie8 */
 	background:#333;
 	background: rgba(0,0,0,.2);
