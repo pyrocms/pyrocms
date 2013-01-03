@@ -258,7 +258,7 @@ class Module_Pages extends Module
 				'status' => 'live',
 				'restricted_to' => '',
 				'created_on' => now(),
-				'is_home' => 1,
+				'is_home' => true,
 				'order' => now()
 			),
 			'contact' => array(
@@ -270,7 +270,19 @@ class Module_Pages extends Module
 				'status' => 'live',
 				'restricted_to' => '',
 				'created_on' => now(),
-				'is_home' => 0,
+				'is_home' => false,
+				'order' => now()
+			),
+			'search' => array(
+				'slug' => 'search',
+				'title' => 'Search',
+				'uri' => 'search',
+				'parent_id' => 0,
+				'type_id' => $def_page_type_id,
+				'status' => 'live',
+				'restricted_to' => '',
+				'created_on' => now(),
+				'is_home' => false,
 				'order' => now()
 			),
 			'fourohfour' => array(
@@ -282,7 +294,7 @@ class Module_Pages extends Module
 				'status' => 'live',
 				'restricted_to' => '',
 				'created_on' => now(),
-				'is_home' => 0,
+				'is_home' => false,
 				'order' => now()
 			)
 		);
