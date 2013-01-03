@@ -33,6 +33,11 @@
 				</li>
 	
 				<li>
+					<label for="status"><?php echo lang('blog:status_label') ?></label>
+					<div class="input"><?php echo form_dropdown('status', array('draft' => lang('blog:draft_label'), 'live' => lang('blog:live_label')), $post->status) ?></div>
+				</li>
+	
+				<li>
 					<label for="intro"><?php echo lang('blog:intro_label') ?></label>
 					<div class="edit-content">
 						<?php echo form_textarea(array('id' => 'intro', 'name' => 'intro', 'value' => $post->intro, 'rows' => 5, 'class' => 'blog wysiwyg-simple')) ?>
@@ -55,7 +60,7 @@
 					</div>
 				</li>
 			</ul>
-		<?php echo form_hidden('preview_hash',$post->preview_hash)?>
+		<?php echo form_hidden('preview_hash', $post->preview_hash)?>
 		</fieldset>
 	</div>
 
@@ -63,11 +68,6 @@
 	<div class="form_inputs" id="blog-options-tab">
 		<fieldset>
 			<ul>
-	
-				<li>
-					<label for="status"><?php echo lang('blog:status_label') ?></label>
-					<div class="input"><?php echo form_dropdown('status', array('draft' => lang('blog:draft_label'), 'live' => lang('blog:live_label')), $post->status) ?></div>
-				</li>
 	
 				<li>
 					<label for="category_id"><?php echo lang('blog:category_label') ?></label>

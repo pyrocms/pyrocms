@@ -167,10 +167,8 @@ class Page_m extends MY_Model
 			}
 		}
 
-
 		// looks like we have a 404
 		if ( ! $page) return false;
-
 
 		// ---------------------------------
 		// Legacy Page Chunks Logic

@@ -21,7 +21,8 @@
 						$(function() {
 							var cache = {}, lastXhr;
 							$(".search-query").autocomplete({
-								minLength: 0,
+								minLength: 2,
+								delay: 300,
 								source: function( request, response ) {
 									var term = request.term;
 									if ( term in cache ) {
