@@ -20,5 +20,6 @@
 	</li>
 	<?php $count++; endforeach; ?>
 </ul>
+<a class="add-chunk btn orange" href="#"><?php echo lang('pages:add_page_chunk'); ?></a>
 
 <input type="hidden" name="<?php echo $form_slug; ?>" value="*" />
