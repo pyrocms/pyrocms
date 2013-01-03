@@ -58,7 +58,7 @@
 		
 		<section class="item">
 			<div class="content">
-				<ul>
+				<ul id="widget-comments">
 					<?php if (count($recent_comments)): ?>
 							<?php foreach ($recent_comments AS $rant) : ?>
 								<li>

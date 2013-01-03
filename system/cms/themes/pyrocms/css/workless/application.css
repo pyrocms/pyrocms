@@ -419,6 +419,27 @@ margin-top: -4px;
 	display:block;
 }
 
+#widget-comments p {
+	color: #777;
+}
+#widget-comments em {
+	display: block;
+	margin:5px 0;
+	color: #333;
+}
+
+#widget-comments em:before {
+	content: "\201C";
+	font-size: 16px;
+	color: #888;
+}
+
+#widget-comments em:after {
+	content: "\201D";
+	font-size: 16px;
+	color: #888;
+}
+
 #analyticsWrapper {
 	background:#fff;
 	width:232px;
