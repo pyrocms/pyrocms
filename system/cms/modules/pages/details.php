@@ -150,12 +150,17 @@ class Module_Pages extends Module
 		$this->dbforge->drop_table('page_types');
 		$this->dbforge->drop_table('pages');
 
+		// Just in case. If this is a new install, we 
+		// definiitely should not have a page_chunks table.
+		$this->dbforge->drop_table('page_chunks');
+
 		// We only need to do this if the def_page_fields table
 		// has already been added.
 		if ($this->db->table_exists('def_page_fields'))
 		{
 			$this->load->driver('Streams');
 			$this->streams->utilities->remove_namespace('pages');
+			$this->dbforge->drop_table('def_page_fields');
 		}
 
 		if ($this->db->table_exists('data_streams'))
