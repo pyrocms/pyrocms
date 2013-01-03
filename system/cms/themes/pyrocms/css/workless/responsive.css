@@ -65,7 +65,7 @@ textarea,.cke_skin_kama .cke_wrapper {
 
 select {
 	/* width:245px; */
-	width:100%;
+	width:auto;
 	max-width: 100%;
 }
 
@@ -319,6 +319,7 @@ button#login-submit:hover {
 	background-image:url('../../img/nav-grain.png'),-ms-linear-gradient(top,#35383b,#474B4E);
 	background-image:url('../../img/nav-grain.png'),-o-linear-gradient(top,#35383b,#474B4E);
 	background-image:url('../../img/nav-grain.png'),linear-gradient(top,#35383b,#474B4E);
+	background-position: 0 0;
 	-webkit-box-shadow:inset 0 2px 4px 0 rgba(0,0,0,0.8), 0 1px 0px 0 rgba(255,255,255,0.1);
 	-moz-box-shadow:inset 0 2px 4px 0 rgba(0,0,0,0.8), 0 1px 0px 0 rgba(255,255,255,0.1);
 	-ms-box-shadow:inset 0 2px 4px 0 rgba(0,0,0,0.8), 0 1px 0px 0 rgba(255,255,255,0.1);
@@ -370,10 +371,6 @@ button#login-submit:hover {
 	.topbar ul {
 		margin-left:-15px;
 		padding-left:0!important;
-	}
-	
-	.topbar ul li a {
-		padding:15px 5px;
 	}
 	
 	.subbar {
@@ -451,7 +448,7 @@ button#login-submit:hover {
 	}
 	
 	.alert {
-		width:450px;
+		width:auto;
 	}
 	
 	/*
@@ -540,6 +537,11 @@ select {
 		padding:0;
 	}
 	
+	.alert.error p {
+		margin:5px 0;
+		padding:0;
+	}
+	
 	/* display alert button as block on mobile */
 	button#remove_installer_directory {
 		display:inline-block;
@@ -550,7 +552,12 @@ select {
 	}
 	
 	/* Fix navigation for mobile devices */
+	.topbar {
+		position: absolute;
+	}
+	
 	.subbar {
+		position: absolute;
 		padding:10px 0px;
 	}
 	
@@ -566,7 +573,7 @@ select {
 	}
 	
 	.topbar-search {
-		display:inline-block;
+		right: 20px;
 	}
 	
 	.topbar-search .search-query {
@@ -580,7 +587,7 @@ select {
 	}
 	
 	.topbar-form {
-		position: relative;
+		/* position: relative; */
 	}
 	
 	.one_half {
@@ -588,6 +595,25 @@ select {
 		float: none;
 		display: block;
 		margin-bottom: 10px;
+		margin-top: 20px;
+	}
+	
+	#feed .date {
+		display: block;
+		width: auto;
+		float: none;
+		margin-bottom: 10px;
+		margin-right: 0px;
+	}
+	
+	#feed .time {
+		display: block;
+		float: none;
+	}
+	
+	#feed .post {
+		padding-left: 0px;
+		display: block;
 	}
 	
 	footer {
@@ -627,7 +653,7 @@ select {
 	}
 	
 	.topbar ul li a {
-		padding:15px 5px;
+		padding:16px 7px;
 	}
 	
 	.subbar {
@@ -739,7 +765,7 @@ select {
 	}
 	
 	.alert {
-		width:720px;
+		width:auto;
 	}
 	
 	/*
@@ -790,6 +816,23 @@ select {
 	}
 }
 
+/*iPad Specific Fixes */
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) {
+	
+	.topbar-search .search-query {
+		padding:4px 16px;
+		margin:5px 0 0;
+		width: 60px;
+	}
+	
+	.topbar-search .search-query:focus {
+		width: 130px;
+	}
+	
+}
+
 @media only screen and (min-width: 1025px) {
 	.wrapper {
 		width:1024px;
@@ -808,10 +851,6 @@ select {
 	.topbar {
 		height:50px;
 		text-align:center;
-	}
-	
-	.topbar ul li {
-		min-width:70px;
 	}
 	
 	.subbar {
@@ -892,7 +931,7 @@ select {
 	}
 	
 	.alert {
-		width:995px;
+		width:auto;
 	}
 	
 	/*
@@ -957,10 +996,6 @@ select {
 	.topbar {
 		height:50px;
 		text-align:center;
-	}
-	
-	.topbar ul li {
-		min-width:80px;
 	}
 	
 	.subbar {
@@ -1030,7 +1065,7 @@ select {
 	}
 	
 	.alert {
-		width:1250px;
+		width:auto;
 	}
 	
 	/*
@@ -1176,6 +1211,21 @@ only screen and (-webkit-min-device-pixel-ratio: 2),only screen and ( min--moz-d
 	body {
 		background:#e9e9e9 url('../../img/bg_grain@2x.png') repeat;
 		background-size:200px 200px;
+	}
+	
+	.topbar {
+		background-image:url('../../img/nav-grain@2x.png'),-webkit-gradient(linear,left top,left bottom,color-stop(0%,#555),color-stop(100%,#333));
+		background-image:url('../../img/nav-grain@2x.png'),-webkit-linear-gradient(top,#555,#333);
+		background-image:url('../../img/nav-grain@2x.png'),-moz-linear-gradient(top,#555,#333);
+		background-image:url('../../img/nav-grain@2x.png'),-ms-linear-gradient(top,#555,#333);
+		background-image:url('../../img/nav-grain@2x.png'),-o-linear-gradient(top,#555,#333);
+		background-image:url('../../img/nav-grain@2x.png'),linear-gradient(top,#555,#333);
+		background-size: 113px 50px;
+	}
+	
+	#pyro-logo {
+		background: url('../../img/logo@2x.png') no-repeat;
+		background-size: 18px 28px;
 	}
 	
 	body#login-body {

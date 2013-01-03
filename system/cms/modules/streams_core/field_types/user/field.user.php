@@ -67,6 +67,31 @@ class Field_user
 	// --------------------------------------------------------------------------
 
 	/**
+	 * User Field Type Query Build Hook
+	 *
+	 * This joins our user fields.
+	 *
+	 * @access 	public
+	 * @param 	array 	&$sql 	The sql array to add to.
+	 * @param 	obj 	$field 	The field obj
+	 * @param 	obj 	$stream The stream object
+	 * @return 	void
+	 */
+	public function query_build_hook(&$sql, $field, $stream)
+	{
+		// Create a special alias for the users table.
+		$alias = 'users_'.$field->field_slug;
+
+		$sql['select'][] = '`'.$alias.'`.`id` as `'.$field->field_slug.'||user_id`';
+		$sql['select'][] = '`'.$alias.'`.`email` as `'.$field->field_slug.'||email`';
+		$sql['select'][] = '`'.$alias.'`.`username` as `'.$field->field_slug.'||username`';
+
+		$sql['join'][] = 'LEFT JOIN '.$this->CI->db->protect_identifiers('users', true).' as `'.$alias.'` ON `'.$alias.'`.`id`='.$this->CI->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$field->field_slug, true);
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
 	 * Restrict to Group
 	 */
 	public function param_restrict_group($value = null)
@@ -85,58 +110,6 @@ class Field_user
 		}
 	
 		return form_dropdown('restrict_group', $groups, $value);
-	}
-
-	// --------------------------------------------------------------------------
-
-	/**
-	 * Process before outputting for the plugin
-	 *
-	 * This creates an array of data to be merged with the
-	 * tag array so relationship data can be called with
-	 * a {field.column} syntax
-	 *
-	 * @access	public
-	 * @param	string
-	 * @param	string
-	 * @param	array
-	 * @return	array
-	 */
-	public function pre_output_plugin($input, $params)
-	{
-		// Can't do anything without an input
-		if ( ! is_numeric($input) or $input < 1)
-		{
-			return null;
-		}
-	
-		// Check run-time cache
-		if (isset($this->cache[$input]))
-		{
-			return $this->cache[$input];
-		}
-	
-		$this->CI->load->model('users/user_m');
-		
-		$user = $this->CI->user_m->get(array('id' => $input));
-
-		// Ensure the user was found
-		if ( ! empty($user) )
-		{
-
-			$return = array(
-				'user_id'			=> $user->user_id,
-				'display_name'		=> $user->display_name,
-				'email'				=> $user->email,
-				'username'			=> $user->username,
-			);
-			
-			$this->cache[$input] = $return;
-			
-			return $return;
-		}
-
-		return false;
 	}
 
 }

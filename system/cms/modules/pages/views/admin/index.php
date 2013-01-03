@@ -15,7 +15,7 @@
 		</section>
 	</div>
 	
-	<div class="one_half">	
+	<div class="one_half last">	
 		<section class="title">
 			<h4><?php echo lang('pages:tree_explanation_title') ?></h4>
 		</section>
