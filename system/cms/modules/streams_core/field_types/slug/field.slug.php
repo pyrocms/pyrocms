@@ -54,12 +54,19 @@ class Field_slug
 		$options['id']		= $params['form_slug'];
 		$options['value']	= $params['value'];
 		
-		$jquery = "<script>(function($) {
-			$(function(){
-					pyro.generate_slug('#{$params['custom']['slug_field']}', '#{$params['form_slug']}', '{$params['custom']['space_type']}');
-			});
-		})(jQuery);
-		</script>";
+		if ( ! defined('ADMIN_THEME'))
+		{
+			$jquery = "<script>$(function(){$('#{$params['form_slug']}').slugify({slug: '#{$params['custom']['slug_field']}', type: '{$params['custom']['space_type']}'})});</script>";
+		}
+		else
+		{
+			$jquery = "<script>(function($) {
+				$(function(){
+						pyro.generate_slug('#{$params['custom']['slug_field']}', '#{$params['form_slug']}', '{$params['custom']['space_type']}');
+				});
+			})(jQuery);
+			</script>";
+		}
 		
 		return form_input($options)."\n".$jquery;
 	}
