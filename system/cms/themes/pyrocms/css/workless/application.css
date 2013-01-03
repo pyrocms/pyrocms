@@ -81,8 +81,39 @@
 }
 
 #dashboard-link {
-	margin-right:0px;
-	color: 
+	margin-top: 9px;
+	margin-right:4px;
+}
+
+#dashboard-link a {
+	padding: 6px 7px;
+	/*fallback for ie8 */
+	background:#333;
+	background: rgba(0,0,0,.2);
+	color: #bbb;
+	border: 1px solid #222;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-ms-border-radius: 5px;
+	-o-border-radius: 5px;
+	border-radius: 5px;
+	-webkit-box-shadow: inset 0 1px 0px 0 #666, inset 0 1px 2px 0 #555, 0 1px 1px 0 #555;
+	-moz-box-shadow: inset 0 1px 0px 0 #666, inset 0 1px 2px 0 #555, 0 1px 1px 0 #555;
+	-ms-box-shadow: inset 0 1px 0px 0 #666, inset 0 1px 2px 0 #555, 0 1px 1px 0 #555;
+	-o-box-shadow: inset 0 1px 0px 0 #666, inset 0 1px 2px 0 #555, 0 1px 1px 0 #555;
+	box-shadow: inset 0 1px 0px 0 #666, inset 0 1px 2px 0 #555, 0 1px 1px 0 #555;
+}
+
+#dashboard-link a:hover {
+	color: white;
+	/*fallback for ie8 */
+	background:#222;
+	background: rgba(0,0,0,.3);
+	-webkit-box-shadow: inset 0 2px 4px 0 #111, inset 0 1px 2px 0 #555, 0 1px 1px 0 #555;
+	-moz-box-shadow: inset 0 2px 4px 0 #111, inset 0 1px 2px 0 #555, 0 1px 1px 0 #555;
+	-ms-box-shadow: inset 0 2px 4px 0 #111, inset 0 1px 2px 0 #555, 0 1px 1px 0 #555;
+	-o-box-shadow: inset 0 2px 4px 0 #111, inset 0 1px 2px 0 #555, 0 1px 1px 0 #555;
+	box-shadow: inset 0 2px 4px 0 #111, inset 0 1px 2px 0 #555, 0 1px 1px 0 #555;
 }
 
 button#remove_installer_directory {
