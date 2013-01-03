@@ -67,6 +67,7 @@ select {
 	/* width:245px; */
 	width:auto;
 	max-width: 100%;
+	min-width: 100px;
 }
 
 /*
