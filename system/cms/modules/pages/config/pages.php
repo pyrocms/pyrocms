@@ -33,6 +33,18 @@ $config['pages:default_page_content'] = array(
 				{{ /contact:form }}',
 			'created_by' => 1
 		),
+		/* The search page data. */
+		'search' => array(
+			'created' => date('Y-m-d H:i:s'),
+			'body' => "{{ search:form class=\"search-form\" }} \n		<input name=\"q\" placeholder=\"Search terms...\" />\n	{{ /search:form }}",
+			'created_by' => 1
+		),
+		/* The search results page data. */
+		'search-results' => array(
+			'created' => date('Y-m-d H:i:s'),
+			'body' => "{{ search:form class=\"search-form\" }} \n		<input name=\"q\" placeholder=\"Search terms...\" />\n	{{ /search:form }}\n\n{{ search:results }}\n\n	{{ total }} results for \"{{ query }}\".\n\n	<hr />\n\n	{{ entries }}\n\n		<article>\n			<h4>{{ singular }}: <a href=\"{{ url }}\">{{ title }}</a></h4>\n			<p>{{ description }}</p>\n		</article>\n\n	{{ /entries }}\n\n        {{ pagination }}\n\n{{ /search:results }}",
+			'created_by' => 1
+		),
 		'fourohfour' => array(
 			'created' => date('Y-m-d H:i:s'),
 			'body' => '<p>We cannot find the page you are looking for, please click <a title="Home" href="{{ pages:url id=\'1\' }}">here</a> to go to the homepage.</p>',
