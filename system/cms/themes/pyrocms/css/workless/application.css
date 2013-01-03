@@ -91,7 +91,7 @@ button#remove_installer_directory {
 }
 
 .subbar {
-	position:fixed;
+	position:absolute;
 	z-index:9997;
 	top:27px!important;
 	right:0;
@@ -422,22 +422,32 @@ margin-top: -4px;
 #widget-comments p {
 	color: #777;
 }
-#widget-comments em {
+#widget-comments span {
 	display: block;
-	margin:5px 0;
+	line-height: 18px;
+	margin:10px 0;
 	color: #333;
+	background-color: #f5f5f5;
+	padding: 8px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	-ms-border-radius: 4px;
+	-o-border-radius: 4px;
+	border-radius: 4px;
 }
 
-#widget-comments em:before {
+#widget-comments span:before {
 	content: "\201C";
-	font-size: 16px;
+	font-size: 22px;
 	color: #888;
+	margin-right: 4px;
 }
 
-#widget-comments em:after {
+#widget-comments span:after {
 	content: "\201D";
-	font-size: 16px;
+	font-size: 22px;
 	color: #888;
+	margin-left: 4px;
 }
 
 #analyticsWrapper {
