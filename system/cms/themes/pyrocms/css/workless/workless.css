@@ -2053,6 +2053,7 @@ button.btn::-moz-focus-inner,input[type=submit].btn::-moz-focus-inner {
 .topbar-search .search-query {
 	padding:4px 16px;
 	margin:5px 0 0;
+	min-height: 20px;
 	font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
 	font-size:13px;
 	font-weight:400;
