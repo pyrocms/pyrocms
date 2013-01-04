@@ -42,10 +42,12 @@
 	top:0;
 }
 
+/*
 nav#primary .chzn-container {
 	margin-top:10px;
 	width:90px!important;
 }
+*/
 
 nav#primary ul.primary-nav {
 	display:none;
@@ -533,6 +535,12 @@ select {
 }
 
 @media only screen and (max-width: 767px) {
+	.topbar nav {
+		float: none;
+		display: inline-block;
+		margin-top: 8px;
+	}
+	
 	.alert p {
 		margin:20px 0;
 		padding:0;
@@ -619,6 +627,10 @@ select {
 	
 	footer {
 		min-height: 84px;
+	}
+	
+	footer p {
+		margin: 10px 0 0px;
 	}
 }
 
@@ -769,31 +781,6 @@ select {
 		width:auto;
 	}
 	
-	/*
-		#filters form > ul > li .chzn-container {
-			width: 152px!important;
-			float: left;
-		}
-	
-		#filters form input[type="text"] {
-			width: 152px;
-			height: 12px;
-			float: left;
-		}
-	
-		.chzn-drop {
-			width: 152px!important;
-			float: left;
-		}
-	
-		.chzn-search input {
-			width: 110px!important;
-		}
-		*/
-	nav#primary ul.primary-nav {
-		display:inherit;
-	}
-	
 	nav#primary .chzn-container {
 		display:none;
 	}
@@ -806,11 +793,11 @@ select {
 		width:675px;
 	}
 	
-	/*
-select {
-		width:545px;
+	nav#primary select {
+		float: none;
+		display: inline-block;
+		margin-top: 14px;
 	}
-*/
 	
 	.form_inputs fieldset > ul > li > label,.form_inputs fieldset > ul > div > li > label,.form_inputs > ul > div > li > label,.form_inputs > ul > li > label,.form_inputs fieldset > ul > li .label,.form_inputs > ul > li .label {
 		width:25%!important;
@@ -825,7 +812,7 @@ and (max-device-width : 1024px) {
 	.topbar-search .search-query {
 		padding:4px 16px;
 		margin:5px 0 0;
-		width: 60px;
+		width: 130px;
 	}
 	
 	.topbar-search .search-query:focus {
