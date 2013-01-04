@@ -165,6 +165,12 @@ class Module_import
 		// create a session table so they can use it if they want
 		$this->ci->db->query($session);
 
+		// In case we are re-installing with existing data,
+		// we'll need to make sure that these tables aren't here.
+		$this->ci->dbforge->drop_table('data_streams');
+		$this->ci->dbforge->drop_table('data_fields');
+		$this->ci->dbforge->drop_table('data_field_assignments');
+
 		// Install settings and streams core first. Other modules may need them.
 		$this->install('settings', true);
 		$this->ci->load->library('settings/settings');

@@ -3,78 +3,83 @@
 </noscript>
 
 <div class="topbar" dir=<?php $vars = $this->load->get_vars(); echo $vars['lang']['direction'] ?>>
-	
-	<div class="wrapper">
-		<div id="logo">
-			<?php echo anchor('', Asset::img('logo.png', 'view site'), 'target="_blank"') ?>
-		</div>
-	
-		<nav id="primary">
-			<?php file_partial('navigation') ?>
-		</nav>
+	<div class="topbar-inner">
+		<div class="wrapper">
+			<div id="logo">
+				<!-- <?php echo anchor('', Asset::img('logo.png', 'view site'), 'target="_blank"') ?> -->
+				<?php echo anchor('','<span id="pyro-logo"></span>', 'target="_blank"') ?>
+			</div>
 		
-		<div class="topbar-form">
-
-			<script type="text/javascript">
-				jQuery(function($) {
-					$(function() {
-						var cache = {}, lastXhr;
-						$(".search-query").autocomplete({
-							minLength: 0,
-							source: function( request, response ) {
-								var term = request.term;
-								if ( term in cache ) {
-									response( cache[ term ] );
-									return;
-								}
-
-								lastXhr = $.getJSON(SITE_URL + 'admin/search/ajax_autocomplete', request, function( data, status, xhr ) {
-									cache[ term ] = data.results;
-									if ( xhr === lastXhr ) {
-										response( data.results );
+			<nav id="primary">
+				<?php file_partial('navigation') ?>
+			</nav>
+			
+			<div class="topbar-form">
+	
+				<script type="text/javascript">
+					jQuery(function($) {
+						$(function() {
+							var cache = {}, lastXhr;
+							$(".search-query").autocomplete({
+								minLength: 2,
+								delay: 300,
+								source: function( request, response ) {
+									var term = request.term;
+									if ( term in cache ) {
+										response( cache[ term ] );
+										return;
 									}
-								});
-							},
-							focus: function(event, ui) {
-								// $("#searchform").val( ui.item.label);
-								return false;
-							},
-							select: function(event, ui) {
-								window.location.href = ui.item.url;
-								return false;
-							}
-						})
-						.data("autocomplete")._renderItem = function(ul, item){
-							return $("<li></li>")
-							.data("item.autocomplete", item)
-							.append('<a href="' + item.url + '">' + item.title + '</a><div class="keywords">' + item.keywords + '</div><div class="singular">' + item.singular + '</div>')
-							.appendTo(ul);
-						};
+	
+									lastXhr = $.getJSON(SITE_URL + 'admin/search/ajax_autocomplete', request, function( data, status, xhr ) {
+										cache[ term ] = data.results;
+										if ( xhr === lastXhr ) {
+											response( data.results );
+										}
+									});
+								},
+								focus: function(event, ui) {
+									// $("#searchform").val( ui.item.label);
+									return false;
+								},
+								select: function(event, ui) {
+									window.location.href = ui.item.url;
+									return false;
+								}
+							})
+							.data("autocomplete")._renderItem = function(ul, item){
+								return $("<li></li>")
+								.data("item.autocomplete", item)
+								.append('<a href="' + item.url + '">' + item.title + '</a><div class="keywords">' + item.keywords + '</div><div class="singular">' + item.singular + '</div>')
+								.appendTo(ul);
+							};
+						});
 					});
-				});
-			</script>
-
-
-			<form class="topbar-search">
-				<input type="text" class="search-query" id="nav-search" placeholder="Search">
-			</form>
+				</script>
+	
+	
+				<form class="topbar-search">
+					<input type="text" class="search-query" id="nav-search" placeholder="Search" ontouchstart="">
+				</form>
+			</div>
+			
 		</div>
-		
 	</div>
 	
 </div>
 
 <div class="subbar">
 	<div class="wrapper">
-		<h2><?php echo $module_details['name'] ? anchor('admin/'.$module_details['slug'], $module_details['name']) : lang('global:dashboard') ?></h2>
+		<div class="subbar-inner">
+			<h2><?php echo $module_details['name'] ? anchor('admin/'.$module_details['slug'], $module_details['name']) : lang('global:dashboard') ?></h2>
+		
+			<small>
+				<?php if ( $this->uri->segment(2) ) { echo '&nbsp; | &nbsp;'; } ?>
+				<?php echo $module_details['description'] ? $module_details['description'] : '' ?>
+			</small>
 	
-		<small>
-			<?php if ( $this->uri->segment(2) ) { echo '&nbsp; | &nbsp;'; } ?>
-			<?php echo $module_details['description'] ? $module_details['description'] : '' ?>
-		</small>
-
-		<?php file_partial('shortcuts') ?>
-
+			<?php file_partial('shortcuts') ?>
+	
+		</div>
 	</div>
 </div>
 

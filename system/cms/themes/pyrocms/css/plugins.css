@@ -401,9 +401,9 @@ select.chzn-select {
 
 /* @group Results */
 .chzn-container .chzn-results {
-  margin: 0 4px 4px -5px !important;
+  margin: 0 4px 4px 0px !important;
   max-height: 190px;
-  padding: 0 0 0 4px;
+  padding: 0 0 0 0px !important;
   position: relative;
   overflow-x: hidden;
   overflow-y: auto;
@@ -415,7 +415,7 @@ select.chzn-select {
   padding: 0;
 }
 .chzn-container .chzn-results li {
-  line-height: 80%;
+  line-height: 16px;
   padding: 7px 7px 8px;
   margin: 0;
   list-style: none;
@@ -425,7 +425,7 @@ select.chzn-select {
   cursor: pointer;
 }
 .chzn-container .chzn-results .highlighted {
-  background: #3875d7;
+  background: #6d7a87;
   color: #fff;
 }
 .chzn-container .chzn-results li em {

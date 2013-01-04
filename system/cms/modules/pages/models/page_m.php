@@ -167,10 +167,8 @@ class Page_m extends MY_Model
 			}
 		}
 
-
 		// looks like we have a 404
 		if ( ! $page) return false;
-
 
 		// ---------------------------------
 		// Legacy Page Chunks Logic
@@ -565,6 +563,9 @@ class Page_m extends MY_Model
 
 		// did it pass validation?
 		if ( ! $id) return false;
+
+		// We define this for the field type.
+		define('PAGE_ID', $id);
 
 		$this->build_lookup($id);
 

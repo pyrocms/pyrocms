@@ -36,52 +36,56 @@ class Migration_Add_populate_search_index extends CI_Migration
 			'parsed' => array('type' => 'TEXT', 'null' => true),
         ));
 
-		$this->db->insert('pages', array(
-			'slug' => 'search',
-			'title' => 'Search',
-			'uri' => 'search',
-			'revision_id' => 1,
-			'layout_id' => 1,
-			'status' => 'live',
-			'created_on' => time(),
-			'strict_uri' => true,
-			'order' => time(),
-		));
+        // If they dont have a page called search then dig in
+        if ( ! $this->db->where('uri', 'search')->count_all_results('pages'))
+        {
+			$this->db->insert('pages', array(
+				'slug' => 'search',
+				'title' => 'Search',
+				'uri' => 'search',
+				'revision_id' => 1,
+				'layout_id' => 1,
+				'status' => 'live',
+				'created_on' => time(),
+				'strict_uri' => true,
+				'order' => time(),
+			));
 
-		$search_id = $this->db->insert_id();
+			$search_id = $this->db->insert_id();
 
-		$this->db->insert('pages', array(
-			'slug' => 'results',
-			'title' => 'Results',
-			'uri' => 'search/results',
-			'parent_id' => $search_id,
-			'revision_id' => 1,
-			'layout_id' => 1,
-			'status' => 'live',
-			'created_on' => time(),
-			'strict_uri' => true,
-			'order' => time(),
-		));
+			$this->db->insert('pages', array(
+				'slug' => 'results',
+				'title' => 'Results',
+				'uri' => 'search/results',
+				'parent_id' => $search_id,
+				'revision_id' => 1,
+				'layout_id' => 1,
+				'status' => 'live',
+				'created_on' => time(),
+				'strict_uri' => true,
+				'order' => time(),
+			));
 
-		$results_id = $this->db->insert_id();
+			$results_id = $this->db->insert_id();
 
-		$this->db->insert('page_chunks', array(
-			'slug' => 'default',
-			'page_id' => $search_id,
-			'body' => "{{ search:form class=\"search-form\" }} \n		<input name=\"q\" placeholder=\"Search terms...\" />\n	{{ /search:form }}",
-			'type' => 'html',
-			'sort' => 1,
-			'class' => 'search',
-		));
+			$this->db->insert('page_chunks', array(
+				'slug' => 'default',
+				'page_id' => $search_id,
+				'body' => "{{ search:form class=\"search-form\" }} \n		<input name=\"q\" placeholder=\"Search terms...\" />\n	{{ /search:form }}",
+				'type' => 'html',
+				'sort' => 1,
+				'class' => 'search',
+			));
 
-		$this->db->insert('page_chunks', array(
-			'slug' => 'default',
-			'page_id' => $results_id,
-			'body' => "{{ search:results }}\n\n	{{ total }} results for \"{{ query }}\".\n\n	<hr />\n\n	{{ entries }}\n\n		<article>\n			<h4>{{ singular }}: <a href=\"{{ url }}\">{{ title }}</a></h4>\n			<p>{{ description }}</p>\n		</article>\n\n	{{ /entries }}\n\n        {{ pagination }}\n\n{{ /search:results }}",
-			'type' => 'html',
-			'sort' => 1,
-			'class' => 'search results',
-		));
+			$this->db->insert('page_chunks', array(
+				'slug' => 'default',
+				'page_id' => $results_id,
+				'body' => "{{ search:results }}\n\n	{{ total }} results for \"{{ query }}\".\n\n	<hr />\n\n	{{ entries }}\n\n		<article>\n			<h4>{{ singular }}: <a href=\"{{ url }}\">{{ title }}</a></h4>\n			<p>{{ description }}</p>\n		</article>\n\n	{{ /entries }}\n\n        {{ pagination }}\n\n{{ /search:results }}",
+				'type' => 'html',
+				'sort' => 1,
+				'class' => 'search results',
+			));
+		}
 
 		if ( ! $this->db->table_exists('search_index'))
 		{
