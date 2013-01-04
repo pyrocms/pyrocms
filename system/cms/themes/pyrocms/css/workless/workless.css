@@ -460,7 +460,6 @@ button,input,select,textarea {
 
 select {
 	/* min-width:260px; */
-	visibility:hidden;
 }
 
 .cke_dialog select {
