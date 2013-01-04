@@ -61,7 +61,7 @@ jQuery(function($) {
 		}).appendTo("nav#primary select");
 
 		// Populate dropdown with menu items
-		$("nav#primary a").each(function() {
+		$("nav#primary a:not(.top-link)").each(function() {
 		 	var el = $(this);
  			$("<option />", {
      			"value"   : el.attr("href"),
