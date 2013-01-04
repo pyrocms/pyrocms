@@ -182,7 +182,7 @@ class Plugin_User extends Plugin
 		$plugin_data[] = array(
 			'value' => date(Settings::get('date_format'), $profile_data['last_login']),
 			'name'  => lang('profile_last_login_label'),
-			'slug'  => 'email'
+			'slug'  => 'last_login'
 		);
 
 		$plugin_data[] = array(
