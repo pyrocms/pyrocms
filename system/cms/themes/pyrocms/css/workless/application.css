@@ -123,6 +123,7 @@ button#remove_installer_directory {
 	padding: 4px 6px;
 	line-height: 18px;
 	color: #eee;
+	font-weight: 700;
 	text-shadow: 0 1px 0 #333;
 	border:1px solid #333;
 	background-color:#555;

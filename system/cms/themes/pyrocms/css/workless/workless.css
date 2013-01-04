@@ -1511,6 +1511,7 @@ button.btn::-moz-focus-inner,input[type=submit].btn::-moz-focus-inner {
 
 .alert p {
 	font-size:13px;
+	font-weight: 700;
 	color:#333;
 	text-shadow:0 1px 0 rgba(255,255,255,0.3);
 	display:block;
@@ -1529,6 +1530,11 @@ button.btn::-moz-focus-inner,input[type=submit].btn::-moz-focus-inner {
 	background-image:-o-linear-gradient(#e4776f,#d83a2e);
 	background-image:linear-gradient(#e4776f,#d83a2e);
 	border-bottom-color:#b32b21;
+}
+
+.alert.error p {
+	color: white;
+	text-shadow:0 1px 0 rgba(0,0,0,.3);
 }
 
 .alert.warning {
