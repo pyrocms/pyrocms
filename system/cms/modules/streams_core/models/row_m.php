@@ -906,7 +906,14 @@ class Row_m extends MY_Model {
 
 		$stream_fields = $this->streams_m->get_stream_fields($stream->id);
 
-		$obj = $this->db->limit(1)->where('id', $id)->get($stream->stream_prefix.$stream->stream_slug);
+		// Created By
+		$this->db->select($stream->stream_prefix.$stream->stream_slug.'.*, '.$this->db->dbprefix('users').'.username as created_by_username, '.$this->db->dbprefix('users').'.id as created_by_user_id, '.$this->db->dbprefix('users').'.email as created_by_email');
+		$this->db->join('users', 'users.id = '.$stream->stream_prefix.$stream->stream_slug.'.created_by', 'left');
+
+		$obj = $this->db
+						->limit(1)
+						->where($stream->stream_prefix.$stream->stream_slug.'.id', $id)
+						->get($stream->stream_prefix.$stream->stream_slug);
 		
 		if ($obj->num_rows() == 0)
 		{
