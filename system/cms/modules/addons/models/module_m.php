@@ -461,7 +461,7 @@ class Module_m extends MY_Model
 		$class->upload_path	= 'uploads/'.SITE_REF.'/';
 
 		// Run the install method to get it into the database
-		if( $class->install() )
+		if ($class->install())
 		{
 
 			// TURN ME ON BABY!
