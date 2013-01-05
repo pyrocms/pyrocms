@@ -454,27 +454,6 @@ button#login-submit:hover {
 		width:auto;
 	}
 	
-	/*
-		#filters form > ul > li .chzn-container {
-			width: 425px!important;
-			float: left;
-		}
-	
-		#filters form input[type="text"] {
-			width: 340px;
-			height: 12px;
-			float: left;
-		}
-	
-		.chzn-drop {
-			width: 423px!important;
-			float: left;
-		}
-	
-		.chzn-search input {
-			width: 370px!important;
-		}
-		*/
 	.form_inputs label small {
 		/* margin-left:0; */
 		margin-bottom:0;
@@ -506,12 +485,6 @@ button#login-submit:hover {
 		width:430px;
 	}
 	
-	/*
-select {
-		width:400px;
-	}
-*/
-	
 	/* LOGIN SCREEN */
 	.login-screen #content {
 		margin:170px 0 150px!important;
@@ -541,7 +514,7 @@ select {
 		margin-top: 8px;
 	}
 	
-	nav#primary .chzn-single {
+	nav#primary .chzn-single, nav#primary select {
 		width: 100px;
 	}
 	
