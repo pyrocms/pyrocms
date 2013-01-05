@@ -18,9 +18,6 @@
  * ! Ensure your main styling comes before this !
  *
  * ---------------------------------- */
-#logo {
-	display:none;
-}
 
 .topbar {
 	height:50px;
@@ -512,10 +509,12 @@ button#login-submit:hover {
 		float: none;
 		display: inline-block;
 		margin-top: 8px;
+		position: relative;
 	}
 	
 	nav#primary .chzn-single, nav#primary select {
 		width: 100px;
+		min-width: 1px;
 	}
 	
 	.alert p {
@@ -569,7 +568,7 @@ button#login-submit:hover {
 	}
 	
 	.topbar-search .search-query:focus {
-		width: 120px;
+		width: 60px;
 	}
 	
 	.topbar-form {
