@@ -353,11 +353,10 @@ margin-top: -4px;
 	margin:0;
 }
 
-/*
-#filters a.cancel {
-	float: right;
+#site_public_lang .type-checkbox {
+	padding-right: 50px;
 }
-*/
+
 .sections_bar {
 	position:absolute;
 	z-index:9995;
@@ -423,7 +422,7 @@ margin-top: -4px;
 	left:32%;
 }
 
-..ui-tabs-nav {
+.ui-tabs-nav {
 	width:100%;
 	float:left;
 }
