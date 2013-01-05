@@ -18,7 +18,8 @@ class Plugin_User extends Plugin
 	public $description = array(
 		'en' => 'Access current user profile variables and settings.',
 		'el' => 'Πρόσβαση σε μεταβλητές και ρυθμίσεις προφίλ του εκάστοτε χρήστη.',
-		'fr' => 'Accéder aux données de l\'utilisateur courant.'
+		'fr' => 'Accéder aux données de l\'utilisateur courant.',
+		'it' => 'Accedi alle variabili del profilo e alle impostazioni dell\'utente corrente'
 	);
 
 	/**
@@ -182,7 +183,7 @@ class Plugin_User extends Plugin
 		$plugin_data[] = array(
 			'value' => date(Settings::get('date_format'), $profile_data['last_login']),
 			'name'  => lang('profile_last_login_label'),
-			'slug'  => 'email'
+			'slug'  => 'last_login'
 		);
 
 		$plugin_data[] = array(

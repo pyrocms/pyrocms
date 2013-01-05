@@ -631,11 +631,18 @@ class Streams_m extends MY_Model {
 		}
 
 		// -------------------------------------
+		// Created By
+		// -------------------------------------
+
+		$this->db->select($stream->stream_prefix.$stream->stream_slug.'.*, '.$this->db->dbprefix('users').'.username as created_by_username, '.$this->db->dbprefix('users').'.id as created_by_user_id, '.$this->db->dbprefix('users').'.email as created_by_email');
+		$this->db->join('users', 'users.id = '.$stream->stream_prefix.$stream->stream_slug.'.created_by', 'left');
+
+		// -------------------------------------
 		// Get Data
 		// -------------------------------------
 		
 		$items = $this->db->get($stream->stream_prefix.$stream->stream_slug)->result();
-		
+
 		// -------------------------------------
 		// Get Format Profile
 		// -------------------------------------

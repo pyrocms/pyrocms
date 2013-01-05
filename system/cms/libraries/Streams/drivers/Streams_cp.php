@@ -74,7 +74,12 @@ class Streams_cp extends CI_Driver {
 		
  		$stream_fields = $CI->streams_m->get_stream_fields($stream->id);
 
- 		$stream_fields = new stdClass;
+ 		// We need to make sure that stream_fields is 
+ 		// at least an empty object.
+ 		if ( ! is_object($stream_fields))
+ 		{
+ 			$stream_fields = new stdClass;
+ 		}
 
  		$stream_fields->id = new stdClass;
   		$stream_fields->created = new stdClass;

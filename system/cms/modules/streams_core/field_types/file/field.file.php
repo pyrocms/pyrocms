@@ -60,7 +60,7 @@ class Field_file
 		}
 		
 		// Output the actual used value
-		if (is_numeric($params['value']))
+		if ($params['value'])
 		{
 			$out .= form_hidden($params['form_slug'], $params['value']);
 		}
