@@ -460,7 +460,6 @@ button,input,select,textarea {
 
 select {
 	/* min-width:260px; */
-	visibility:hidden;
 }
 
 .cke_dialog select {
@@ -495,7 +494,7 @@ select.skip {
 	border-color:#ddd #bbb #999;
 	cursor:pointer;
 	color:#333;
-	font-weight:700;
+	font-weight:normal;
 	font-size:13px;
 	outline:0;
 	overflow:visible;
@@ -1507,10 +1506,16 @@ button.btn::-moz-focus-inner,input[type=submit].btn::-moz-focus-inner {
 	-ms-box-shadow:0 1px 2px 0 rgba(0,0,0,.3);
 	-o-box-shadow:0 1px 2px 0 rgba(0,0,0,.3);
 	box-shadow:0 1px 2px 0 rgba(0,0,0,.3);
+	-webkit-backface-visibility: hidden;
+	-moz-backface-visibility: hidden;
+	-ms-backface-visibility: hidden;
+	-o-backface-visibility: hidden;
+	backface-visibility: hidden;
 }
 
 .alert p {
 	font-size:13px;
+	font-weight: 700;
 	color:#333;
 	text-shadow:0 1px 0 rgba(255,255,255,0.3);
 	display:block;
@@ -1529,6 +1534,11 @@ button.btn::-moz-focus-inner,input[type=submit].btn::-moz-focus-inner {
 	background-image:-o-linear-gradient(#e4776f,#d83a2e);
 	background-image:linear-gradient(#e4776f,#d83a2e);
 	border-bottom-color:#b32b21;
+}
+
+.alert.error p {
+	color: white;
+	text-shadow:0 1px 0 rgba(0,0,0,.3);
 }
 
 .alert.warning {
@@ -1571,32 +1581,36 @@ button.btn::-moz-focus-inner,input[type=submit].btn::-moz-focus-inner {
 }
 
 .alert .close:before {
-	content:"\00d7";
+	/* content:"\00d7"; */
+	content:"×";
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 20px;
+	font-weight: bold;
+	-webkit-font-smoothing: subpixel-antialiased;
 	position:absolute;
-	top:4px;
+	top:8px;
 	left:6px;
 }
 
 .alert .close {
 	position:relative;
 	float:right;
-	margin-top:-20px;
-	margin-right:-20px;
-	background-color:#444;
-	padding:10px;
-	line-height:9px;
+	margin-top:-4px;
+	margin-right:-10px;
+	padding:10px 12px;
+	line-height:1px;
 	display:inline-block;
-	border:2px solid #fff;
-	box-shadow:0 2px 4px 0 rgba(0,0,0,.5);
-	-webkit-border-radius:20px;
-	-moz-border-radius:20px;
-	-ms-border-radius:20px;
-	-o-border-radius:20px;
-	border-radius:20px;
-	color:#fff;
+	-webkit-border-radius:4px;
+	-moz-border-radius:4px;
+	-ms-border-radius:4px;
+	-o-border-radius:4px;
+	border-radius:4px;
+	color:black;
+	opacity: 0.2;
+	filter: alpha(opacity=20);
 	font-size:14px;
 	font-weight:700;
-	text-shadow:0 1px 0 #000;
+	text-shadow:0 -1px 0 rgba(0,0,0,.2);
 	-webkit-transition:all 200ms linear;
 	-moz-transition:all 200ms linear;
 	-ms-transition:all 200ms linear;
@@ -1606,7 +1620,11 @@ button.btn::-moz-focus-inner,input[type=submit].btn::-moz-focus-inner {
 
 .alert .close:hover {
 	text-decoration:none;
-	background-color:#000;
+	background: none;
+	background: rgba(0,0,0,.3);
+	box-shadow: inset 0px 0px 2px 0 rgba(0,0,0,.6);
+	opacity: 0.5;
+	filter: alpha(opacity=50);
 }
 
 .block-message {
@@ -1842,6 +1860,10 @@ button.btn::-moz-focus-inner,input[type=submit].btn::-moz-focus-inner {
 	box-shadow:0 1px 3px rgba(0,0,0,0.25),inset 0 -1px 0 rgba(0,0,0,0.1);
 }
 
+.topbar-inner {
+	width: 100%;
+}
+
 .topbar-inner:before,
 .topbar-inner:after {
   display: table;
@@ -2039,6 +2061,7 @@ button.btn::-moz-focus-inner,input[type=submit].btn::-moz-focus-inner {
 .topbar-search .search-query {
 	padding:4px 16px;
 	margin:5px 0 0;
+	min-height: 20px;
 	font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
 	font-size:13px;
 	font-weight:400;

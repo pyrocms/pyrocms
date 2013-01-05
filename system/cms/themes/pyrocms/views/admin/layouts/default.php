@@ -16,7 +16,7 @@
 	<base href="<?php echo base_url(); ?>" />
 
 	<!-- Mobile viewport optimized -->
-	<meta name="viewport" content="width=device-width,user-scalable=no">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 
 	<!-- CSS. No need to specify the media attribute unless specifically targeting a media type, leaving blank implies media=all -->
 	<?php echo Asset::css('plugins.css'); ?>

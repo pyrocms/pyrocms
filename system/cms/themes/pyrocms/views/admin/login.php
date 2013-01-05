@@ -25,9 +25,8 @@
 	<section id="content">
 		<div id="content-body">
 
-			<?php $this->load->view('admin/partials/notices') ?>
 			<div class="animated fadeInDown" id="login-logo"></div>
-			<!-- <div class="animated fadeInUp" id="login-panel"> -->
+			<?php $this->load->view('admin/partials/notices') ?>
 				<?php echo form_open('admin/login'); ?>
 				<div class="form_inputs">
 					<ul>

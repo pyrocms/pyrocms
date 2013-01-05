@@ -14,7 +14,6 @@
 			<li>
 				<label for="user_name"><?php echo lang('comments:name_label') ?>:</label>
 				<div class="input">
-					<?php dump($comment) ?>
 					<?php echo form_input('user_name', $comment->user_name, 'maxlength="100"') ?>
 				</div>
 			</li>
