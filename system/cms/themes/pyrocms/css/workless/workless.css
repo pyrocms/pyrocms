@@ -1506,6 +1506,11 @@ button.btn::-moz-focus-inner,input[type=submit].btn::-moz-focus-inner {
 	-ms-box-shadow:0 1px 2px 0 rgba(0,0,0,.3);
 	-o-box-shadow:0 1px 2px 0 rgba(0,0,0,.3);
 	box-shadow:0 1px 2px 0 rgba(0,0,0,.3);
+	-webkit-backface-visibility: hidden;
+	-moz-backface-visibility: hidden;
+	-ms-backface-visibility: hidden;
+	-o-backface-visibility: hidden;
+	backface-visibility: hidden;
 }
 
 .alert p {
