@@ -110,28 +110,22 @@ class Fields
 			'return'					=> current_url(),
 			'error_start'				=> null,
 			'error_end'					=> null,
-			'required'					=> '<span>*</span>'
+			'required'					=> '<span>*</span>',
+			'success_message'			=> 'lang:streams:'.$method.'_entry_success',
+			'failure_message'			=> 'lang:streams:'.$method.'_entry_error'
 		);
 
 		$this->CI->load->language('streams_core/pyrostreams');
 		
-		if ($method == 'new')
+		// Go through our defaults and see if anything has been
+		// passed in the $extra array to replace any values.		
+		foreach ($default_extras as $key => $value)
 		{
-			$default_extras['success_message']	 = 'lang:streams.new_entry_success';
-			$default_extras['failure_message']	 = 'lang:streams.new_entry_error';
+			// Note that we don't check to see if the variable has
+			// a non-null value, since the $extra variables can
+			// be set to null. 
+			if ( ! isset($extra[$key])) $extra[$key] = $value;
 		}
-		else
-		{
-			$default_extras['success_message']	 = 'lang:streams.edit_entry_success';
-			$default_extras['failure_message']	 = 'lang:streams.edit_entry_error';
-		}
-		
-		foreach($default_extras as $key => $value)
-		{
-			if( ! isset($extra[$key])) $extra[$key] = $value;
-		}
-		
-		extract($extra);
 
 		// -------------------------------------
 		// Form Key Check
