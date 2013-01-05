@@ -187,6 +187,7 @@ class Pages extends Public_Controller
 			$this->template->set_layout($page->layout->theme_layout);
 		}
 
+		// This will need to change, obviously.
 		// Grab all the chunks that make up the body
 		$page->chunks = $this->page_m->get_chunks($page->id);
 
@@ -199,6 +200,10 @@ class Pages extends Public_Controller
 				'</div>'.
 				'</section>'.PHP_EOL;
 		}
+
+		// Parse metadata
+		$page->meta_description = $this->parser->parse_string($page->meta_description, array(), true);
+		$page->meta_title = $this->parser->parse_string($page->meta_title, array(), true);
 
 		// Create page output. We do this before parsing the page contents so that 
 		// title, meta, & breadcrumbs can be overridden with tags in the page content
@@ -236,7 +241,7 @@ class Pages extends Public_Controller
 			exit($this->template->build('pages/page', array('page' => $page), FALSE, FALSE));
 		}
 
-		$this->template->build('page', array('page' => $page), FALSE, FALSE);
+		$this->template->build('pages/page', array('page' => $page), FALSE, FALSE);
 	}
 
 	/**

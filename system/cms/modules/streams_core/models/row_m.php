@@ -716,8 +716,12 @@ class Row_m extends MY_Model {
 	 */
 	private function process_where($where)
 	{
-		// Remove ()
-		$where = trim($where, '()');
+		// Get rid of where ()
+		if ($where[0] == '(' and $where[strlen($where)-1] == ')')
+		{
+			$where = ltrim('(');
+			$where = rtrim(')');
+		}
 
 		// Find the fields between the backticks
 		preg_match_all('/`[a-zA-Z0-9_]+`/', $where, $matches);
@@ -1053,9 +1057,11 @@ class Row_m extends MY_Model {
 	 * @param	int
 	 * @param	array - update data
 	 * @param	skips - optional array of skips
+	 * @param extra - optional assoc array of data to exclude from processing, but to
+	 * 						include in saving to the database.
 	 * @return	bool
 	 */
-	public function update_entry($fields, $stream, $row_id, $form_data, $skips = array())
+	public function update_entry($fields, $stream, $row_id, $form_data, $skips = array(), $extra = array())
 	{
 		$this->load->helper('text');
 
@@ -1064,6 +1070,15 @@ class Row_m extends MY_Model {
 		// -------------------------------------
 
 		$update_data = $this->run_field_pre_processes($fields, $stream, $row_id, $form_data, $skips);
+
+		// -------------------------------------
+		// Merge Extra Data
+		// -------------------------------------
+
+		if ( ! empty($extra))
+		{
+			$update_data = array_merge($update_data, $extra);
+		}
 
 		// -------------------------------------
 		// Set standard fields
