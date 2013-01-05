@@ -703,8 +703,8 @@ section.item > .content {
 }
 
 #quick_links ul li {
-	margin:0 10px 0 15px;
-	display:inline;
+	margin:0 10px 10px 0px;
+	display:inline-block;
 }
 
 #quick_links ul li a {
