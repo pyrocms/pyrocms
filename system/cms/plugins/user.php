@@ -18,7 +18,8 @@ class Plugin_User extends Plugin
 	public $description = array(
 		'en' => 'Access current user profile variables and settings.',
 		'el' => 'Πρόσβαση σε μεταβλητές και ρυθμίσεις προφίλ του εκάστοτε χρήστη.',
-		'fr' => 'Accéder aux données de l\'utilisateur courant.'
+		'fr' => 'Accéder aux données de l\'utilisateur courant.',
+		'it' => 'Accedi alle variabili del profilo e alle impostazioni dell\'utente corrente'
 	);
 
 	/**
