@@ -22,6 +22,9 @@ jQuery(function($) {
 		url_titles	: {}
 	}
 
+	// Is Mobile?
+	pyro.is_mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent);
+
 	/**
 	 * Overload the json converter to avoid error when json is null or empty.
 	 */
@@ -58,7 +61,7 @@ jQuery(function($) {
 		}).appendTo("nav#primary select");
 
 		// Populate dropdown with menu items
-		$("nav#primary a").each(function() {
+		$("nav#primary a:not(.top-link)").each(function() {
 		 	var el = $(this);
  			$("<option />", {
      			"value"   : el.attr("href"),
@@ -73,9 +76,9 @@ jQuery(function($) {
 		$('.topbar ul li:not(#dashboard-link)').hoverIntent({
 			sensitivity: 7,
 			interval: 75,
-			over: function(){ $(this).find('ul:first:hidden').css({visibility: "visible", display: "none"}).slideDown(400) },
+			over: function(){ $(this).find('ul:first:hidden').css({visibility: "visible", display: "none"}).slideDown(200) },
 			timeout: 0,
-			out: function(){ $(this).parent().find('ul').slideUp(400) }
+			out: function(){ $(this).parent().find('ul').slideUp(200) }
 		});
 
 		// Add class to dropdowns for styling
@@ -83,7 +86,7 @@ jQuery(function($) {
 
 		// Add the close link to all alert boxes
 		$('.alert').livequery(function(){
-			$(this).prepend('<a href="#" class="close">x</a>');
+			$(this).prepend('<a href="#" class="close"></a>');
 		});
 
 		// Close the notifications when the close link is clicked
@@ -222,7 +225,6 @@ jQuery(function($) {
 
 		$('a[data-inline-modal]').livequery(function() {
 			var element_id = $(this).attr('data-inline-modal');
-			console.log($(element_id).html());
 			$(this).colorbox({
 				width: "60%",
 				maxHeight: "90%",
@@ -369,23 +371,27 @@ jQuery(function($) {
 
 	pyro.chosen = function()
 	{
-		// Chosen
-		$('select:not(.skip)').livequery(function(){
-			$(this).addClass('chzn').trigger("liszt:updated");
-			$(".chzn").chosen();
+		// Non-mobile only
+		if( ! pyro.is_mobile ){
 
-			// This is a workaround for Chosen's visibility bug. In short if a select
-			// is inside a hidden element Chosen sets the width to 0. This iterates through
-			// the 0 width selects and sets a fixed width.
-			$('.chzn-container').each(function(i, ele){
-				if ($(ele).width() == 0) {
-					$(ele).css('width', '236px');
-					$(ele).find('.chzn-drop').css('width', '234px');
-					$(ele).find('.chzn-search input').css('width', '200px');
-					$(ele).find('.search-field input').css('width', '225px');
-				}
+			// Chosen
+			$('select:not(.skip)').livequery(function(){
+				$(this).addClass('chzn').addClass('hidden').trigger("liszt:updated");
+				$(".chzn").chosen();
+
+				// This is a workaround for Chosen's visibility bug. In short if a select
+				// is inside a hidden element Chosen sets the width to 0. This iterates through
+				// the 0 width selects and sets a fixed width.
+				$('.chzn-container').each(function(i, ele){
+					if ($(ele).width() == 0) {
+						$(ele).css('width', '236px');
+						$(ele).find('.chzn-drop').css('width', '234px');
+						$(ele).find('.chzn-search input').css('width', '200px');
+						$(ele).find('.search-field input').css('width', '225px');
+					}
+				});
 			});
-		});
+		}
 	}
 
 	// Create a clean slug from whatever garbage is in the title field

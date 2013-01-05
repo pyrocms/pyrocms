@@ -150,14 +150,24 @@ class Module_Pages extends Module
 		$this->dbforge->drop_table('page_types');
 		$this->dbforge->drop_table('pages');
 
+		// Just in case. If this is a new install, we 
+		// definiitely should not have a page_chunks table.
+		$this->dbforge->drop_table('page_chunks');
+
 		// We only need to do this if the def_page_fields table
 		// has already been added.
 		if ($this->db->table_exists('def_page_fields'))
 		{
 			$this->load->driver('Streams');
 			$this->streams->utilities->remove_namespace('pages');
+			$this->dbforge->drop_table('def_page_fields');
 		}
-	
+
+		if ($this->db->table_exists('data_streams'))
+		{
+			$this->db->where('stream_namespace', 'pages')->delete('data_streams');
+		}
+
 		$this->load->helper('date');
 		$this->load->config('pages/pages');
 
@@ -253,7 +263,7 @@ class Module_Pages extends Module
 				'status' => 'live',
 				'restricted_to' => '',
 				'created_on' => now(),
-				'is_home' => 1,
+				'is_home' => true,
 				'order' => now()
 			),
 			'contact' => array(
@@ -265,7 +275,31 @@ class Module_Pages extends Module
 				'status' => 'live',
 				'restricted_to' => '',
 				'created_on' => now(),
-				'is_home' => 0,
+				'is_home' => false,
+				'order' => now()
+			),
+			'search' => array(
+				'slug' => 'search',
+				'title' => 'Search',
+				'uri' => 'search',
+				'parent_id' => 0,
+				'type_id' => $def_page_type_id,
+				'status' => 'live',
+				'restricted_to' => '',
+				'created_on' => now(),
+				'is_home' => false,
+				'order' => now()
+			),
+			'search-results' => array(
+				'slug' => 'results',
+				'title' => 'Results',
+				'uri' => 'search/results',
+				'parent_id' => 3,
+				'type_id' => $def_page_type_id,
+				'status' => 'live',
+				'restricted_to' => '',
+				'created_on' => now(),
+				'is_home' => false,
 				'order' => now()
 			),
 			'fourohfour' => array(
@@ -277,7 +311,7 @@ class Module_Pages extends Module
 				'status' => 'live',
 				'restricted_to' => '',
 				'created_on' => now(),
-				'is_home' => 0,
+				'is_home' => false,
 				'order' => now()
 			)
 		);

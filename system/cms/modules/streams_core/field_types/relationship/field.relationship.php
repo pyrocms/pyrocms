@@ -107,11 +107,16 @@ class Field_relationship
 	// --------------------------------------------------------------------------
 
 	/**
-	 * Process before outputting on the CP
+	 * Pre Ouput
+	 *
+	 * Process before outputting on the CP. Since
+	 * there is less need for performance on the back end,
+	 * this is accomplished via just grabbing the title column
+	 * and the id and displaying a link (ie, no joins here).
 	 *
 	 * @access	public
-	 * @param	array
-	 * @return	mixed - null or string
+	 * @param	array 	$input 	
+	 * @return	mixed 	null or string
 	 */
 	public function pre_output($input, $data)
 	{
@@ -149,7 +154,7 @@ class Field_relationship
 						->get($stream->stream_prefix.$stream->stream_slug)
 						->row_array();
 		
-		if ( $this->CI->uri->segment(1) == 'admin' )
+		if ($this->CI->uri->segment(1) == 'admin')
 		{
 			return '<a href="'.site_url('admin/streams/entries/view/'.$stream->id.'/'.$row['id']).'">'.$row[$title_column].'</a>';
 		}
@@ -160,18 +165,69 @@ class Field_relationship
 	}
 
 	// --------------------------------------------------------------------------
+
+	/**
+	 * User Field Type Query Build Hook
+	 *
+	 * This joins our related fields so they don't have to
+	 * be queried separately in pre_output_plugin. Pre_output_plugin
+	 * now just formats the rows.
+	 *
+	 * @access 	public
+	 * @param 	array 	&$sql 	The sql array to add to.
+	 * @param 	obj 	$field 	The field obj
+	 * @param 	obj 	$stream The stream object
+	 * @return 	void
+	 */
+	public function query_build_hook(&$sql, $field, $stream)
+	{
+		// Create a special alias for the users table.
+		$alias = 'rel_'.$field->field_slug;
+
+		// Make sure we have a related stream.
+		if ( ! isset($field->field_data['choose_stream']) or ! $field->field_data['choose_stream'])
+		{
+			return null;
+		}
+
+		// Get our related stream.
+		$rel_stream = $this->CI->streams_m->get_stream($field->field_data['choose_stream']);
+
+		if ( ! $rel_stream)
+		{
+			return null;
+		}
+
+		// Basic fields
+		$sql['select'][] = '`'.$alias.'`.`id` as `'.$field->field_slug.'||id`';
+		$sql['select'][] = '`'.$alias.'`.`created` as `'.$field->field_slug.'||created`';
+		$sql['select'][] = '`'.$alias.'`.`updated` as `'.$field->field_slug.'||updated`';
+		$sql['select'][] = '`'.$alias.'`.`created_by` as `'.$field->field_slug.'||created_by`';
+		$sql['select'][] = '`'.$alias.'`.`ordering_count` as `'.$field->field_slug.'||ordering_count`';
+
+		// Get stream fields.
+		$stream_fields = $this->CI->streams_m->get_stream_fields($rel_stream->id);
+
+		foreach ($stream_fields as $field_slug => $stream_field)
+		{
+			$sql['select'][] = '`'.$alias.'`.`'.$field_slug.'` as `'.$field->field_slug.'||'.$field_slug.'`';
+		}
+
+		$sql['join'][] = 'LEFT JOIN '.$this->CI->db->protect_identifiers($rel_stream->stream_prefix.$rel_stream->stream_slug, true).' as `'.$alias.'` ON `'.$alias.'`.`id`='.$this->CI->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$field->field_slug, true);
+	}
+
+	// --------------------------------------------------------------------------
 	
 	/**
-	 * Format a relationship row
+	 * Pre Ouput Plugin
 	 * 
-	 * Note - this will only be processed in the event
-	 * of a relationship inside of a relationship. Top-level
-	 * relationships are handled by a join.
+	 * This takes the data from the join array
+	 * and formats it using the row parser.
 	 *
 	 * @access	public
-	 * @param	string
-	 * @param	string
-	 * @param	mixed - null or array
+	 * @param	array 	$row 		the row data from the join
+	 * @param	array  	$custom 	custom field data
+	 * @param	mixed 	null or formatted array
 	 */
 	public function pre_output_plugin($row, $custom)
 	{
@@ -186,33 +242,18 @@ class Field_relationship
 		// Okay good to go
 		$stream = $this->CI->streams_m->get_stream($custom['choose_stream']);
 
-		// Do it gracefully
+		// Do this gracefully
 		if ( ! $stream)
 		{
 			return null;
 		}
 
-		$obj = $this->CI->db->where('id', $row)->get($stream->stream_prefix.$stream->stream_slug);
-		
-		if ($obj->num_rows() == 0)
-		{
-			return null;
-		}
-		
-		$returned_row = $obj->row();
-		
-		foreach ($returned_row as $key => $val)
-		{
-			$return[$key] = $val;
-		}
-		
 		$stream_fields = $this->CI->streams_m->get_stream_fields($stream->id);
 
-		$return_row = $this->CI->row_m->format_row($return, $stream_fields, $stream, false, true);
+		// We should do something with this in the future.
+		$disable = array();
 
-		$this->cache[$custom['choose_stream']][$row] = $return_row;
-		
-		return $return_row;
+		return $this->CI->row_m->format_row($row, $stream_fields, $stream, false, true, $disable);
 	}
 
 }

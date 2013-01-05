@@ -129,6 +129,7 @@ $lang['streams:start.no_fields_msg'] = 'Det finns inga fält att lägga till, ti
 $lang['streams:start.adding_a_field_here'] = 'lägga till ett fält här';
 $lang['streams:start.no_entries'] = 'Det finnns inga poster i <strong>%s</strong>. Till att börja med kan du';
 $lang['streams:add_fields'] = 'koppla fält';
+$lang['streams:no_entries']								= 'No entries'; #translate
 $lang['streams:add_an_entry'] = 'skapa en ny post';
 $lang['streams:to_this_stream_or'] = 'till denna stream eller';
 $lang['streams:no_field_assign'] = 'Inga fält-kopplingar';
@@ -165,6 +166,11 @@ $lang['streams:max_length'] = 'Maxlängd';
 $lang['streams:upload_location'] = 'Plats för uppladning';
 $lang['streams:default_value'] = 'Standardvärde';
 
+$lang['streams:menu_path']								= 'Menu Path'; #translate
+$lang['streams:about_instructions']						= 'A short description of your stream.'; #translate
+$lang['streams:slug_instructions']						= 'This will also be the database table name for your stream.'; #translate
+$lang['streams:prefix_instructions']					= 'If used, this will prefix the table in the database. Useful for naming collisons.'; #translate
+$lang['streams:menu_path_instructions']					= 'Where you what section and sub section this stream should show up in the menu. Separate by a forward slash. Ex: <strong>Main Section / Sub Section</strong>.'; #translate
 
 /* End of file pyrostreams_lang.php */  
 /* Location: system/cms/modules/streams_core/language/swedish/pyrostreams_lang.php */  

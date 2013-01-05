@@ -18,7 +18,8 @@ class Plugin_Theme extends Plugin
 	public $description = array(
 		'en' => 'Load and display theme assets.',
 		'el' => 'Φορτώνει και προβάλλει πόρους του θέματος εμφάνισης.',
-		'fr' => 'Permet de charger et d\'afficher les différentes ressources du thème.'
+		'fr' => 'Permet de charger et d\'afficher les différentes ressources du thème.',
+		'it' => 'Carica e mostra gli asset del tema'
 	);
 
 	/**
@@ -134,8 +135,8 @@ class Plugin_Theme extends Plugin
 	public function css()
 	{
 		$file  = $this->attribute('file');
-		$title = $this->attribute('title');
-		$media = $this->attribute('media');
+		$title = $this->attribute('title', ''); // CodeIgniter stupidly checks for '' not empty
+		$media = $this->attribute('media', ''); // CodeIgniter stupidly checks for '' not empty
 		$type  = $this->attribute('type', 'text/css');
 		$rel   = $this->attribute('rel', 'stylesheet');
 

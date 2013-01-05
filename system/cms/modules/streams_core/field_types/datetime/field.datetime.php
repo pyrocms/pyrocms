@@ -109,7 +109,6 @@ class Field_datetime
 		// Date Range Validation
 		// -------------------------------
 
-
 		if (is_array($restrict = $this->parse_restrict($field->field_data)))
 		{
 			// Man we gotta convert this now if it's the dropdown format
@@ -576,6 +575,20 @@ class Field_datetime
 
 	// --------------------------------------------------------------------------
 
+	public function form_data($key, $form_data)
+	{
+		if (isset($form_data[$key]))
+		{
+			return $form_data[$key];
+		}
+		else
+		{
+			return null;
+		}
+	}
+
+	// --------------------------------------------------------------------------
+
 	/**
 	 * Process before saving to database
 	 *
@@ -584,7 +597,7 @@ class Field_datetime
 	 * @param	obj
 	 * @return	string
 	 */
-	public function pre_save($input, $field)
+	public function pre_save($input, $field, $stream, $row_id, $form_data)
 	{
 		// -------------------------------------
 		// Date
@@ -595,14 +608,14 @@ class Field_datetime
 		if ($input_type == 'datepicker')
 		{
 			// No collecting data necessary
-			$date = $this->CI->input->post($field->field_slug);
+			$date = $this->form_data($field->field_slug, $form_data);
 		}
 		else
 		{
 			// Get from post data
-			$date = $this->CI->input->post($field->field_slug.'_year').
-				'-'.$this->two_digit_number($this->CI->input->post($field->field_slug.'_month')).
-				'-'.$this->two_digit_number($this->CI->input->post($field->field_slug.'_day'));
+			$date = $this->form_data($field->field_slug.'_year', $form_data).
+				'-'.$this->two_digit_number($this->form_data($field->field_slug.'_month', $form_data)).
+				'-'.$this->two_digit_number($this->form_data($field->field_slug.'_day', $form_data));
 		}
 
 		// -------------------------------------
@@ -635,11 +648,11 @@ class Field_datetime
 		if ($field->field_data['use_time'] == 'yes')
 		{
 			// Hour
-			if ($this->CI->input->post($field->field_slug.'_hour'))
+			if ($this->form_data($field->field_slug.'_hour', $form_data))
 			{
-				$hour = $this->CI->input->post($field->field_slug.'_hour');
+				$hour = $this->form_data($field->field_slug.'_hour', $form_data);
 	
-				if ($this->CI->input->post($field->field_slug.'_am_pm') == 'pm' and $hour < 12)
+				if ($this->form_data($field->field_slug.'_am_pm', $form_data) == 'pm' and $hour < 12)
 				{
 					$hour = $hour+12;
 				}
@@ -650,9 +663,9 @@ class Field_datetime
 			}
 			
 			// Minute
-			if ($this->CI->input->post($field->field_slug.'_minute'))
+			if ($this->form_data($field->field_slug.'_minute', $form_data))
 			{
-				$minute = $this->CI->input->post($field->field_slug.'_minute');
+				$minute = $this->form_data($field->field_slug.'_minute', $form_data);
 			}				
 			else
 			{

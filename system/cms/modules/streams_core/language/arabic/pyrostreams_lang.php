@@ -139,6 +139,7 @@ $lang['streams:start.no_fields_msg']					= "لا يوجد أي حقول لإضا
 $lang['streams:start.adding_a_field_here']				= "إضافة حقل هنا";
 $lang['streams:start.no_entries']						= "لا يوجد أي مُدخلات لـ<strong>%s</strong>. كي تبدأ، يمكنك";
 $lang['streams:add_fields']								= "ربط الحقول";
+$lang['streams:no_entries']								= 'لا يوجد أية بيانات';
 $lang['streams:add_an_entry']							= "أضف مُدخل";
 $lang['streams:to_this_stream_or']						= "بهذا الجدول أو";
 $lang['streams:no_field_assign']						= "الحقل غير مرتبط";
@@ -186,5 +187,12 @@ $lang['recaptcha_html_error'] 							= "تعذر تحميل صورة الأما�
 $lang['streams:max_length'] 							= "أقصى طول";
 $lang['streams:upload_location'] 						= "موضع الرفع";
 $lang['streams:default_value'] 							= "القيمة الافتراضية";
+
+$lang['streams:menu_path']								= 'مسار القائمة';
+$lang['streams:about_instructions']						= 'وصف مختصر للجدول.';
+$lang['streams:slug_instructions']						= 'سيكون هذا أيضاً أسم الجدول في قاعدة البيانات.';
+$lang['streams:prefix_instructions']					= 'إن استخدمته، سيكون هذا الاسم السابق لأسماء الجداول في قاعدة بياناتك. وهذا مفيد لتجنب تعارض الأسماء.';
+$lang['streams:menu_path_instructions']					= 'موضع القسم والقسم الفرعي الذي يجب أن يظهر فيه هذا الجدول في القائمة. افصل بينها بشرطة مائلة - /. مثال <strong>القسم الرئيسي / القسم الفرعي</strong>.';
+
 
 /* End of file pyrostreams_lang.php */

@@ -104,6 +104,13 @@ class Type
 	}
 
 	// --------------------------------------------------------------------------
+
+	public function update_types()
+	{
+		Events::trigger('streams_core_add_addon_path', $this);
+	}
+
+	// --------------------------------------------------------------------------
 	
 	/**
 	 * Get the types together as a big object
@@ -384,6 +391,8 @@ class Type
 		
 		// For the chozen data placeholder value
 		$return[null] = null;
+
+		if ( ! $types) return array();
 			
 		foreach ($types as $type)
 		{

@@ -13,6 +13,8 @@ class Field_textarea
 	
 	public $db_col_type				= 'longtext';
 
+	public $admin_display			= 'full';
+
 	public $version					= '1.1.0';
 
 	public $author					= array('name' => 'Adam Fairholm', 'url' => 'http://adamfairholm.com');

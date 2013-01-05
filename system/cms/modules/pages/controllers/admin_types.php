@@ -97,6 +97,13 @@ class Admin_types extends Admin_Controller
 		$this->load->library('form_validation');
 
 		$this->load->driver('Streams');
+
+		// Get our chunks field type if this is an
+		// upgraded site.
+		if ($this->db->table_exists('page_chunks'))
+		{
+			$this->type->load_types_from_folder(APPPATH.'modules/pages/field_types/', 'pages_module');
+		}
 	}
 
 	// --------------------------------------------------------------------------
@@ -169,7 +176,7 @@ class Admin_types extends Admin_Controller
 					$count++;
 				}
 
-				$input['stream_id'] = $this->streams->streams->add_stream(lang('page_types:list_title_sing').' '.$input['title'], $stream_slug, 'pages', 'pages:');
+				$input['stream_id'] = $this->streams->streams->add_stream(lang('page_types:list_title_sing').' '.$input['title'], $stream_slug, 'pages', 'pages_');
 			}
 
 			// Insert the page type

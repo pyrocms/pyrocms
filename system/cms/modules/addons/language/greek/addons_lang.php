@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['addons:modules'] 						= 'Πρόσθετα';
-$lang['addons:admin_themes'] 					= 'Admin Themes'; #translate
+$lang['addons:admin_themes'] 					= 'Θέματα Εμφάνισης Διαχείρισης';
 $lang['addons:themes'] 							= 'Θέματα Εμφάνισης';
 $lang['addons:widgets'] 						= 'Widgets';
 

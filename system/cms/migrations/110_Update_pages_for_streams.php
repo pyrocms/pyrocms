@@ -24,24 +24,47 @@ class Migration_Update_pages_for_streams extends CI_Migration
         );
         $this->dbforge->modify_column('data_streams', $streams_columns);
 
+        // Step 0b: The 2.2 codebase expects these columns. However they aren't added
+        // until migration 114/115 so we'll add them here, then remove again at the end of this migration.
+       if ( ! $this->db->field_exists('is_hidden', 'data_streams'))
+       {
+            $this->dbforge->add_column('data_streams', array(
+                'is_hidden' => array(
+                    'type' => 'ENUM',
+                    'null' => true,
+                    'constraint' => array('yes', 'no'),
+                    'default' => 'no'
+                ),
+            ));
+        } 
+        if ( ! $this->db->field_exists('menu_path', 'data_streams'))
+        {
+            $this->dbforge->add_column('data_streams', array(
+                'menu_path' => array(
+                    'type' => 'VARCHAR',
+                    'null' => true,
+                    'constraint' => 255
+                ),
+            ));
+        }
+
         // Step 1: Rename page_layouts to page_types.
         if ($this->db->table_exists('page_layouts'))
         {
             $this->dbforge->rename_table('page_layouts', 'page_types');
-        }
 
-        // Step 2: Add some new columns to page_types
-        $pt_fields = array(
-            'slug'              => array('type' => 'VARCHAR', 'constraint' => 60, 'null' => true),
-            'stream_id'         => array('type' => 'INT', 'constraint' => 11),
-            'meta_title'        => array('type' => 'VARCHAR', 'constraint' => 255, 'null' => true),
-            'meta_keywords'     => array('type' => 'CHAR', 'constraint' => 32, 'null' => true),
-            'meta_description'  => array('type' => 'TEXT', 'null' => true),
-            'save_as_files'     => array('type' => 'CHAR', 'constraint' => 1, 'default' => 'n'),
-            'content_label'     => array('type' => 'VARCHAR', 'constraint' => 60, 'null' => true),
-            'title_label'       => array('type' => 'VARCHAR', 'constraint' => 100, 'null' => true)
-        );
-        $this->dbforge->add_column('page_types', $pt_fields);
+            // Step 2: Add some new columns to page_types
+            $this->dbforge->add_column('page_types', array(
+                'slug'              => array('type' => 'VARCHAR', 'constraint' => 60, 'null' => true),
+                'stream_id'         => array('type' => 'INT', 'constraint' => 11),
+                'meta_title'        => array('type' => 'VARCHAR', 'constraint' => 255, 'null' => true),
+                'meta_keywords'     => array('type' => 'CHAR', 'constraint' => 32, 'null' => true),
+                'meta_description'  => array('type' => 'TEXT', 'null' => true),
+                'save_as_files'     => array('type' => 'CHAR', 'constraint' => 1, 'default' => 'n'),
+                'content_label'     => array('type' => 'VARCHAR', 'constraint' => 60, 'null' => true),
+                'title_label'       => array('type' => 'VARCHAR', 'constraint' => 100, 'null' => true)
+            ));
+        }
 
         // Step 2.1: Generate slugs for the page_types
         $pts = $this->db->get('page_types')->result();
@@ -53,6 +76,11 @@ class Migration_Update_pages_for_streams extends CI_Migration
         // Step 3: Create a new default page stream
         // This stream has a single page chunks field, and can be
         // modified to suit needs further on down the road.
+        $this->dbforge->drop_table('def_page_fields', true);
+        
+        // Avoid stream conflicts
+        $this->db->where('stream_slug', 'def_page_fields')->delete('data_streams');
+
         $this->load->driver('Streams');
         $stream_id = $this->streams->streams->add_stream('Default Page Stream', 'def_page_fields', 'pages');
 
@@ -66,31 +94,37 @@ class Migration_Update_pages_for_streams extends CI_Migration
         // We need to have the chunks field type available or else fits will be thrown.
         $this->type->load_types_from_folder(APPPATH.'modules/pages/field_types/', 'addon');
        
-        $field = array(
-            'name'          => 'lang:streams.chunks.name',
+        // Remove it if its in there somehow already
+        $this->db->where(array('field_name' => 'lang:streams:chunks.name'))->delete('data_fields');
+
+        $this->streams->fields->add_field(array(
+            'name'          => 'lang:streams:chunks.name',
             'slug'          => 'chunks',
             'namespace'     => 'pages',
             'type'          => 'chunks',
             'assign'        => 'def_page_fields'
-        );
-        $this->streams->fields->add_field($field);
+        ));
     
         // Step 5: Rename layout_id to type_id for pages table.
-        $rename_layout_id = array(
-            'layout_id' => array(
-                 'name' => 'type_id',
-                 'type' => 'INT',
-                 'constraint' => 11,
-                 'null' => false
-            )
-        );
-        $this->dbforge->modify_column('pages', $rename_layout_id);
+        if ($this->db->field_exists('layout_id', 'pages'))
+        {
+            $this->dbforge->modify_column('pages', array(
+                'layout_id' => array(
+                     'name' => 'type_id',
+                     'type' => 'INT',
+                     'constraint' => 11,
+                     'null' => false
+                )
+            ));
+        }
 
-        // Step 6: Add some columns to the pages table.
-        $page_fields = array(
-            'entry_id'         => array('type' => 'INT', 'contstraint' => 11, 'null' => true)
-        );
-        $this->dbforge->add_column('pages', $page_fields);
+        if ( ! $this->db->field_exists('entry_id', 'pages'))
+        {
+            // Step 6: Add some columns to the pages table.
+            $this->dbforge->add_column('pages', array(
+                'entry_id' => array('type' => 'INT', 'contstraint' => 11, 'null' => true)
+            ));
+        }
 
         // Step 7: Go through and create an entry for each page.
         // This could be a bit of an issue if a site has thousands of pages,
@@ -119,6 +153,10 @@ class Migration_Update_pages_for_streams extends CI_Migration
                 write_file($pt_folder.'.htaccess', 'deny from all');
             }
         }
+
+        // remove our temporary columns, they get added back later with proper setup
+        $this->dbforge->drop_column('data_streams', 'is_hidden');
+        $this->dbforge->drop_column('data_streams', 'menu_path');
 
         // clear the page cache so it will retrieve data with page types data
         $this->pyrocache->delete_all('page_m');

@@ -13,11 +13,13 @@ class Field_image
 {
 	public $field_type_slug			= 'image';
 	
-	public $db_col_type				= 'int';
+	// Files are saved as 15 character strings.
+	public $db_col_type				= 'char';
+	public $col_constraint 			= 15;
 
 	public $custom_parameters		= array('folder', 'resize_width', 'resize_height', 'keep_ratio', 'allowed_types');
 
-	public $version					= '1.1.0';
+	public $version					= '1.2.0';
 
 	public $author					= array('name' => 'Parse19', 'url' => 'http://parse19.com');
 
@@ -45,9 +47,9 @@ class Field_image
 		
 		$out = '';
 		
-		if (is_numeric($params['value']))
+		if ($params['value'])
 		{
-			$out .= '<img src="'.site_url('files/thumb/'.$params['value']).'" /><br />';
+			$out .= '<a href="'.site_url('files/large/'.$params['value']).'" target="_break"><img src="'.site_url('files/thumb/'.$params['value']).'" /></a><br />';
 			$out .= form_hidden($params['form_slug'], $params['value']);
 		}
 		else
@@ -78,7 +80,7 @@ class Field_image
 		// return the numeric file record value.
 		if ( ! isset($_FILES[$field->field_slug.'_file']['name']) or ! $_FILES[$field->field_slug.'_file']['name'])
 		{
-			if (is_numeric($this->CI->input->post($field->field_slug)))
+			if ($this->CI->input->post($field->field_slug))
 			{
 				return $this->CI->input->post($field->field_slug);
 			}
@@ -86,8 +88,8 @@ class Field_image
 			{
 				return null;
 			}
-		}		
-	
+		}
+
 		$this->CI->load->library('files/files');
 
 		// Resize options
@@ -103,7 +105,6 @@ class Field_image
 		if ( ! $return['status'])
 		{
 			$this->CI->session->set_flashdata('notice', $return['message']);	
-			
 			return null;
 		}
 		else
@@ -126,8 +127,13 @@ class Field_image
 	{
 		if ( ! $input) return null;
 
+		// Get image data
+		$image = $this->CI->db->select('filename')->where('id', $input)->get('files')->row();
+
+		if ( ! $image) return null;
+
 		// This defaults to 100px wide
-		return '<img src="'.site_url('files/thumb/'.$input).'" />';
+		return '<img src="'.site_url('files/thumb/'.$input).'" alt="'.$image->filename.'" title="'.$image->filename.'" />';
 	}
 
 	// --------------------------------------------------------------------------

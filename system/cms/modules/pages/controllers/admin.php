@@ -33,6 +33,13 @@ class Admin extends Admin_Controller {
 		$this->lang->load('page_types');
 
 		$this->load->driver('Streams');
+
+		// Get our chunks field type if this is an
+		// upgraded site.
+		if ($this->db->table_exists('page_chunks'))
+		{
+			$this->type->load_types_from_folder(APPPATH.'modules/pages/field_types/', 'pages_module');
+		}
 	}
 
 	/**
@@ -258,7 +265,8 @@ class Admin extends Admin_Controller {
 		// set our current value for the form.
 		foreach ($this->page_m->fields() as $field)
 		{
-			switch ($field) {
+			switch ($field)
+			{
 				case 'restricted_to[]':
 					$page->restricted_to = set_value($field, array('0'));
 					break;
@@ -354,7 +362,7 @@ class Admin extends Admin_Controller {
 
 		if ( ! $page_type) show_error('No page type found.');
 
-		$stream = $this->_setup_stream_fields($page_type);
+		$stream = $this->_setup_stream_fields($page_type, 'edit', $page->entry_id);
 
 		// If there's a keywords hash
 		if ($page->meta_keywords != '')
@@ -436,9 +444,12 @@ class Admin extends Admin_Controller {
 		$assignments = $this->streams->streams->get_assignments($stream->stream_slug, $stream->stream_namespace);
 		$page_content_data = array();
 
+		// Get straight raw from the db
+		$page_stream_entry_raw = $this->db->limit(1)->where('id', $page->entry_id)->get($stream->stream_prefix.$stream->stream_slug)->row();
+
 		foreach ($assignments as $assign)
 		{
-			$from_db = isset($page->{$assign->field_slug}) ? $page->{$assign->field_slug} : null;
+			$from_db = isset($page_stream_entry_raw->{$assign->field_slug}) ? $page_stream_entry_raw->{$assign->field_slug} : null;
 
 			$page_content_data[$assign->field_slug] = isset($_POST[$assign->field_slug]) ? $_POST[$assign->field_slug] : $from_db;
 		}	
@@ -481,7 +492,7 @@ class Admin extends Admin_Controller {
 	 * @access 	private
 	 * @param 	obj
 	 * @param 	string - new or edit
-	 * @param 	int
+	 * @param 	int - entry id
 	 * @return 	obj - the stream object
 	 */
 	private function _setup_stream_fields($page_type, $method = 'new', $id = null)
@@ -507,10 +518,10 @@ class Admin extends Admin_Controller {
 			}
 		}
 
-		// Get the validation for our
-		$profile_validation = $this->streams->streams->validation_array($stream->stream_slug, $stream->stream_namespace, $method, array(), $id);
+		// Get validation for our page fields.
+		$page_validation = $this->streams->streams->validation_array($stream->stream_slug, $stream->stream_namespace, $method, array(), $id);
 
-		$this->page_m->compiled_validate = array_merge($this->page_m->validate, $profile_validation);
+		$this->page_m->compiled_validate = array_merge($this->page_m->validate, $page_validation);
 
 		// Set the validation rules based on the compiled validation.
 		$this->form_validation->set_rules($this->page_m->compiled_validate);

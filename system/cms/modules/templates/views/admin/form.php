@@ -1,3 +1,4 @@
+<div class="one_full">
 <?php if($this->method == 'edit' and ! empty($email_template)): ?>
 	<section class="title">
     	<h4><?php echo sprintf(lang('templates:edit_title'), $email_template->name) ?></h4>
@@ -51,7 +52,7 @@
 			
 			</ul>
 		
-			<div class="buttons alignleft">
+			<div class="buttons padding-top">
 				<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )) ?>
 			</div>
 	
@@ -60,3 +61,4 @@
 	<?php echo form_close() ?>
 	</div>
 </section>
+</div>

@@ -11,7 +11,7 @@ $lang['global:author'] 					= 'الناشر';
 $lang['global:action'] 					= 'الإجراء';
 $lang['global:slug'] 					= 'مُختصر العُنوان';
 $lang['global:slug_instructions']		= 'أحرف صغيرة وشرطة سفلية فقط.';
-$lang['global:user'] 					= 'User'; #translate
+$lang['global:user'] 					= 'المستخدم';
 
 $lang['global:dialog:delete_message'] 	= 'متأكد أنك تريد حذف هذا؟ لا يمكن التراجع عن هذا الأمر.';
 $lang['global:dialog:confirm'] 			= 'التأكيد';
@@ -52,7 +52,7 @@ $lang['general_error_label'] 			= 'خطأ';
 $lang['required_error_label'] 			= 'أحد الحقول مفقود';
 $lang['note_label'] 					= 'ملاحظة';
 $lang['success_label'] 					= 'نجاح';
-$lang['global:fields']					= 'Fields'; #translate
+$lang['global:fields']					= 'الحقول';
 
 $lang['login_title'] 					= 'تسجيل الدخول';
 $lang['global:fatal_error'] 				= 'خطأ جسيم، هل النظام مثبّت؟';
@@ -70,8 +70,8 @@ $lang['cancel_label'] 					= 'إلغاء';
 $lang['update_label'] 					= 'تحديث';
 $lang['global:delete'] 					= 'حذف';
 $lang['activate_label'] 				= 'تنشيط';
-$lang['approve_label']					= 'اعتماد';
-$lang['unapprove_label']				= 'حجب';
+$lang['global:approve']					= 'اعتماد';
+$lang['global:unapprove']				= 'حجب';
 $lang['publish_label'] 					= 'نشر';
 $lang['global:upload'] 					= 'رفع';
 $lang['global:uninstall'] 				= 'إزالة';
@@ -79,8 +79,8 @@ $lang['global:install'] 					= 'تثبيت';
 $lang['global:upgrade'] 					= 'تحديث';
 $lang['global:enable']					= 'تمكين';
 $lang['global:disable'] 					= 'تعطيل';
-$lang['global:enabled']					= 'Enabled'; #translate
-$lang['global:disabled'] 				= 'Disabled'; #translate
+$lang['global:enabled']					= 'مُمكّن';
+$lang['global:disabled'] 				= 'مُعطّل';
 
 $lang['all_right_reserved']				= 'جميع الحقوق محفوظة.';
 $lang['powered_by_pyrocms']				= 'هذا الموقع يستخدم PyroCMS';
@@ -101,9 +101,9 @@ $lang['global:remove']					= 'إزالة';
 
 $lang['global:keywords']				= 'كلمات البحث';
 
-$lang['global:or']						= 'or'; #translate
-$lang['global:and']						= 'and'; #translate
-$lang['global:at']						= 'at'; #translate
+$lang['global:or']						= 'أو';
+$lang['global:and']						= 'و';
+$lang['global:at']						= 'في';
 
 $lang['global:widgets']					= 'الودجتس';
 $lang['global:themes']					= 'السّمات';
@@ -111,6 +111,6 @@ $lang['global:field_types']				= 'أنواع الحقول';
 $lang['global:plugins']					= 'الإضافات';
 $lang['global:plugin']					= 'الإضافة';
 
-$lang['global:options']					= 'Options'; #translate
+$lang['global:options']					= 'خيارات';
 
 /* End of file main_lang.php */

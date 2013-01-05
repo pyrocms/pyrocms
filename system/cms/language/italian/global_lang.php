@@ -52,7 +52,7 @@ $lang['general_error_label'] 			= 'Errore';
 $lang['required_error_label'] 			= 'Campo obbligatorio mancante';
 $lang['note_label'] 					= 'Note';
 $lang['success_label'] 					= 'Successo';
-$lang['global:fields']					= 'Fields'; #translate
+$lang['global:fields']					= 'Campi';
 
 $lang['login_title'] 					= 'Entra';
 $lang['global:fatal_error'] 				= 'Errore fatale, il CMS è installato?';
@@ -70,8 +70,8 @@ $lang['cancel_label'] 					= 'Annulla';
 $lang['update_label'] 					= 'Aggiorna';
 $lang['global:delete'] 					= 'Elimina';
 $lang['activate_label'] 				= 'Attiva';
-$lang['approve_label']					= 'Approva';
-$lang['unapprove_label']				= 'Rifiuta';
+$lang['global:approve']					= 'Approva';
+$lang['global:unapprove']				= 'Rifiuta';
 $lang['publish_label'] 					= 'Pubblica';
 $lang['global:upload'] 					= 'Carica';
 $lang['global:uninstall'] 				= 'Disinstalla';
@@ -79,8 +79,8 @@ $lang['global:install'] 				= 'Installa';
 $lang['global:upgrade'] 				= 'Aggiorna';
 $lang['global:enable']					= 'Abilita';
 $lang['global:disable'] 				= 'Disabilita';
-$lang['global:enabled']					= 'Enabled'; #translate
-$lang['global:disabled'] 				= 'Disabled'; #translate
+$lang['global:enabled']					= 'Abilita';
+$lang['global:disabled'] 				= 'Disabilita';
 
 $lang['all_right_reserved']				= 'Tutti i diritti riservati.';
 $lang['powered_by_pyrocms']				= 'Powered by PyroCMS';
@@ -99,18 +99,18 @@ $lang['global:empty']					= 'Vuoto';
 $lang['global:delete']					= 'Elimina';
 $lang['global:remove']					= 'Elimina';
 
-$lang['global:keywords']				= 'Keywords'; #translate
+$lang['global:keywords']				= 'Keywords';
 
 $lang['global:or']						= 'o';
 $lang['global:and']						= 'e';
 $lang['global:at']						= 'al';
 
-$lang['global:widgets']					= 'Widgets'; #translate
-$lang['global:themes']					= 'Themes'; #translate
-$lang['global:field_types']				= 'Field Types'; #translate
-$lang['global:plugins']					= 'Plugins'; #translate
-$lang['global:plugin']					= 'Plugin'; #translate
+$lang['global:widgets']					= 'Widgets'; 
+$lang['global:themes']					= 'Temi';
+$lang['global:field_types']				= 'Field Types';
+$lang['global:plugins']					= 'Plugins';
+$lang['global:plugin']					= 'Plugin';
 
-$lang['global:options']					= 'Options'; #translate
+$lang['global:options']					= 'Opzioni';
 
 /* End of file main_lang.php */
