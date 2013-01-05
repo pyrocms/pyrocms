@@ -602,6 +602,11 @@ button#login-submit:hover {
 		display: block;
 	}
 	
+	/*Table fixes for mobile */
+	table th, table td  {
+		padding: 4px 1px;
+	}
+	
 	footer {
 		min-height: 84px;
 	}
@@ -616,8 +621,18 @@ button#login-submit:hover {
 		display:inherit;
 	}
 	
+	nav#primary select {
+		float: none;
+		display: inline-block;
+		margin-top: 14px;
+	}
+	
 	nav#primary .chzn-container {
-		display:none;
+		margin-top: 10px;
+	}
+	
+	nav#primary .chzn-container, nav#primary select {
+		width: 100px;
 	}
 	
 	.wrapper {
@@ -743,22 +758,12 @@ button#login-submit:hover {
 		width:auto;
 	}
 	
-	nav#primary .chzn-container {
-		display:none;
-	}
-	
 	input[type="text"],input[type="password"],input[type="password"], {
 		width:500px;
 	}
 	
 	textarea,.cke_skin_kama .cke_wrapper {
 		width:675px;
-	}
-	
-	nav#primary select {
-		float: none;
-		display: inline-block;
-		margin-top: 14px;
 	}
 	
 	.form_inputs fieldset > ul > li > label,.form_inputs fieldset > ul > div > li > label,.form_inputs > ul > div > li > label,.form_inputs > ul > li > label,.form_inputs fieldset > ul > li .label,.form_inputs > ul > li .label {
