@@ -236,7 +236,6 @@ class Streams_entries extends CI_Driver {
 	/**
 	 * Update an entry
 	 *
-	 * @access	public
 	 * @param	int - entry id
 	 * @param	array - entry data
 	 * @param	stream - int, slug, or obj
