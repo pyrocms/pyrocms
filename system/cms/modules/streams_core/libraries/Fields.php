@@ -237,9 +237,9 @@ class Fields
 						// Send Emails
 						// -------------------------------------
 						
-						if ($plugin and (isset($email_notifications) and $email_notifications))
+						if ($plugin and (isset($extra['email_notifications']) and $extra['email_notifications']))
 						{
-							foreach ($email_notifications as $notify)
+							foreach ($extra['email_notifications'] as $notify)
 							{
 								$this->send_email($notify, $result_id, $method = 'new', $stream);
 							}
@@ -693,23 +693,24 @@ class Fields
 	// --------------------------------------------------------------------------
 
 	/**
-	 * Send Emails
+	 * Send Email
 	 *
-	 * Sends emails for a notify group
+	 * Sends emails for a single notify group.
 	 *
 	 * @access	public
-	 * @param	string - a or b
-	 * @param	int - the entry id
-	 * @param	string - method - update or new
-	 * @param	obj - the stream
+	 * @param	string 	$notify 	a or b
+	 * @param	int 	$entry_id 	the entry id
+	 * @param	string 	$method 	edit or new
+	 * @param	obj 	$stream 	the stream
 	 * @return	void
 	 */
 	public function send_email($notify, $entry_id, $method, $stream)
 	{
 		extract($notify);
 
-		// We accept a null to/from, as these can be
-		// created automatically.
+		// We need a notify to and a template, or 
+		// else we can't do anything. Everything else
+		// can be substituted with a default value.
 		if ( ! isset($notify) and ! $notify) return null;
 		if ( ! isset($template) and ! $template) return null;
 			
@@ -717,11 +718,13 @@ class Fields
 		// Get e-mails. Forget if there are none
 		// -------------------------------------
 
-		$emails = explode("|", $notify);
+		$emails = explode('|', $notify);
 
 		if (empty($emails)) return null;
 
-		foreach($emails as $key => $piece)
+		// For each email, we can have an email value, or
+		// we take it from the form's post values.
+		foreach ($emails as $key => $piece)
 		{
 			$emails[$key] = $this->_process_email_address($piece);
 		}
@@ -744,6 +747,8 @@ class Fields
 		
 		// -------------------------------------
 		// Get some basic sender data
+		// -------------------------------------
+		// These are for use in the email template.
 		// -------------------------------------
 
 		$this->CI->load->library('user_agent');
@@ -785,15 +790,20 @@ class Fields
 		
 		if (isset($from) and $from)
 		{
-			$email_pieces = explode("|", $from);
-		
+			$email_pieces = explode('|', $from);
+
+			// For two segments we process it as email_address|name
 			if (count($email_pieces) == 2)
 			{
-				$this->CI->email->from($this->_process_email_address($email_pieces[0]), $email_pieces[1]);
+				$email_address 	= $this->_process_email_address($email_pieces[0]);
+				$name 			= ($this->CI->input->post($email_pieces[1])) ? 
+										$this->CI->input->post($email_pieces[1]) : $email_pieces[1];
+
+				$this->CI->email->from($email_address, $name);
 			}
 			else
 			{
-				$this->CI->email->from($email_pieces[0]);
+				$this->CI->email->from($this->_process_email_address($email_pieces[0]));
 			}
 		}
 		else
