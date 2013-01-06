@@ -8,7 +8,7 @@
 
 <section class="item">
 
-	<?php echo form_open(uri_string(), 'id="page-form"'); ?>
+	<?php echo form_open(uri_string(), 'id="page-form" data-mode="'.$this->method.'"'); ?>
 	<?php echo form_hidden('parent_id', empty($page->parent_id) ? 0 : $page->parent_id); ?>
 
 	<div class="tabs">
@@ -50,7 +50,7 @@
 						<?php echo form_hidden('slug', $page->slug); ?>
 						<?php echo form_input('', $page->slug, 'id="slug" size="20" disabled="disabled"'); ?>
 					<?php else: ?>
-						<?php echo form_input('slug', $page->slug, 'id="slug" size="20"'); ?>
+						<?php echo form_input('slug', $page->slug, 'id="slug" size="20" class="'.($this->method == 'edit' ? ' disabled' : '').'"'); ?>
 					<?php endif;?>
 
 					<?php echo config_item('url_suffix'); ?>
