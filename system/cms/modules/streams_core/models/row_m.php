@@ -906,7 +906,14 @@ class Row_m extends MY_Model {
 
 		$stream_fields = $this->streams_m->get_stream_fields($stream->id);
 
-		$obj = $this->db->limit(1)->where('id', $id)->get($stream->stream_prefix.$stream->stream_slug);
+		// Created By
+		$this->db->select($stream->stream_prefix.$stream->stream_slug.'.*, '.$this->db->dbprefix('users').'.username as created_by_username, '.$this->db->dbprefix('users').'.id as created_by_user_id, '.$this->db->dbprefix('users').'.email as created_by_email');
+		$this->db->join('users', 'users.id = '.$stream->stream_prefix.$stream->stream_slug.'.created_by', 'left');
+
+		$obj = $this->db
+						->limit(1)
+						->where($stream->stream_prefix.$stream->stream_slug.'.id', $id)
+						->get($stream->stream_prefix.$stream->stream_slug);
 		
 		if ($obj->num_rows() == 0)
 		{
@@ -1134,14 +1141,14 @@ class Row_m extends MY_Model {
 	/**
 	 * Update a row in a stream
 	 *
-	 * @access	public
 	 * @param	obj
 	 * @param 	string
 	 * @param	int
-	 * @param	array - update data
-	 * @param	skips - optional array of skips
-	 * @param 	extra - extra fields to add
-	 * @param 	bool - should we only update those passed?
+	 * @param	array   update data
+	 * @param	array   skips - optional array of skips
+	 * @param 	array   extra - optional assoc array of data to exclude from processing, but to
+	 * 						include in saving to the database.
+	 * @param 	bool    Should we only update those passed?
 	 * @return	bool
 	 */
 	public function update_entry($fields, $stream, $row_id, $form_data, $skips = array(), $extra = array(), $include_only_passed = false)
@@ -1184,6 +1191,15 @@ class Row_m extends MY_Model {
 		// -------------------------------------
 
 		$update_data = $this->run_field_pre_processes($fields, $stream, $row_id, $form_data, $skips, $set_missing_to_null);
+
+		// -------------------------------------
+		// Merge Extra Data
+		// -------------------------------------
+
+		if ( ! empty($extra))
+		{
+			$update_data = array_merge($update_data, $extra);
+		}
 
 		// -------------------------------------
 		// Set standard fields

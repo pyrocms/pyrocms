@@ -18,9 +18,6 @@
  * ! Ensure your main styling comes before this !
  *
  * ---------------------------------- */
-#logo {
-	display:none;
-}
 
 .topbar {
 	height:50px;
@@ -42,10 +39,12 @@
 	top:0;
 }
 
+/*
 nav#primary .chzn-container {
 	margin-top:10px;
 	width:90px!important;
 }
+*/
 
 nav#primary ul.primary-nav {
 	display:none;
@@ -452,27 +451,6 @@ button#login-submit:hover {
 		width:auto;
 	}
 	
-	/*
-		#filters form > ul > li .chzn-container {
-			width: 425px!important;
-			float: left;
-		}
-	
-		#filters form input[type="text"] {
-			width: 340px;
-			height: 12px;
-			float: left;
-		}
-	
-		.chzn-drop {
-			width: 423px!important;
-			float: left;
-		}
-	
-		.chzn-search input {
-			width: 370px!important;
-		}
-		*/
 	.form_inputs label small {
 		/* margin-left:0; */
 		margin-bottom:0;
@@ -504,12 +482,6 @@ button#login-submit:hover {
 		width:430px;
 	}
 	
-	/*
-select {
-		width:400px;
-	}
-*/
-	
 	/* LOGIN SCREEN */
 	.login-screen #content {
 		margin:170px 0 150px!important;
@@ -533,6 +505,18 @@ select {
 }
 
 @media only screen and (max-width: 767px) {
+	.topbar nav {
+		float: none;
+		display: inline-block;
+		margin-top: 8px;
+		position: relative;
+	}
+	
+	nav#primary .chzn-single, nav#primary select {
+		width: 100px;
+		min-width: 1px;
+	}
+	
 	.alert p {
 		margin:20px 0;
 		padding:0;
@@ -584,7 +568,7 @@ select {
 	}
 	
 	.topbar-search .search-query:focus {
-		width: 120px;
+		width: 60px;
 	}
 	
 	.topbar-form {
@@ -617,8 +601,17 @@ select {
 		display: block;
 	}
 	
+	/*Table fixes for mobile */
+	table th, table td  {
+		padding: 4px 1px;
+	}
+	
 	footer {
 		min-height: 84px;
+	}
+	
+	footer p {
+		margin: 10px 0 0px;
 	}
 }
 
@@ -627,8 +620,18 @@ select {
 		display:inherit;
 	}
 	
+	nav#primary select {
+		float: none;
+		display: inline-block;
+		margin-top: 14px;
+	}
+	
 	nav#primary .chzn-container {
-		display:none;
+		margin-top: 10px;
+	}
+	
+	nav#primary .chzn-container, nav#primary select {
+		width: 100px;
 	}
 	
 	.wrapper {
@@ -702,21 +705,6 @@ select {
 		width:325px;
 	}
 	
-	/* .one_half section.title, .one_half section.item {width: 335px;} */
-	/*.one_third {
-			width: 250px;
-			margin-right: 15px;
-			float: left;
-		}
-		.one_third section.title, .one_third section.item {width: 220px;}
-	
-		.two_third {
-			width: 500px;
-			margin-right: 15px;
-			float: left;
-		}
-		.two_third section.title, .two_third section.item {width: 470px;}
-		*/
 	.one_quarter {
 		width:200px;
 		margin-right:15px;
@@ -769,35 +757,6 @@ select {
 		width:auto;
 	}
 	
-	/*
-		#filters form > ul > li .chzn-container {
-			width: 152px!important;
-			float: left;
-		}
-	
-		#filters form input[type="text"] {
-			width: 152px;
-			height: 12px;
-			float: left;
-		}
-	
-		.chzn-drop {
-			width: 152px!important;
-			float: left;
-		}
-	
-		.chzn-search input {
-			width: 110px!important;
-		}
-		*/
-	nav#primary ul.primary-nav {
-		display:inherit;
-	}
-	
-	nav#primary .chzn-container {
-		display:none;
-	}
-	
 	input[type="text"],input[type="password"],input[type="password"], {
 		width:500px;
 	}
@@ -805,12 +764,6 @@ select {
 	textarea,.cke_skin_kama .cke_wrapper {
 		width:675px;
 	}
-	
-	/*
-select {
-		width:545px;
-	}
-*/
 	
 	.form_inputs fieldset > ul > li > label,.form_inputs fieldset > ul > div > li > label,.form_inputs > ul > div > li > label,.form_inputs > ul > li > label,.form_inputs fieldset > ul > li .label,.form_inputs > ul > li .label {
 		width:25%!important;
@@ -825,7 +778,7 @@ and (max-device-width : 1024px) {
 	.topbar-search .search-query {
 		padding:4px 16px;
 		margin:5px 0 0;
-		width: 60px;
+		width: 130px;
 	}
 	
 	.topbar-search .search-query:focus {

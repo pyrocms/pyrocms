@@ -245,7 +245,8 @@ class Page_m extends MY_Model
 	public function get($id, $get_data = true)
 	{
 		$page = $this->db
-			->select('pages.*, page_types.id as page_type_id, page_types.stream_id, page_types.js as js, page_types.css, page_types.body, page_types.save_as_files, page_types.slug as page_type_slug')
+			->select('pages.*, page_types.id as page_type_id, page_types.stream_id, page_types.body')
+			->select('page_types.save_as_files, page_types.slug as page_type_slug, page_types.js as page_type_js, page_types.css as page_type_css')
 			->join('page_types', 'page_types.id = pages.type_id', 'left')
 			->where('pages.id', $id)
 			->get($this->_table)

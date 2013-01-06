@@ -460,7 +460,6 @@ button,input,select,textarea {
 
 select {
 	/* min-width:260px; */
-	visibility:hidden;
 }
 
 .cke_dialog select {
@@ -1507,6 +1506,11 @@ button.btn::-moz-focus-inner,input[type=submit].btn::-moz-focus-inner {
 	-ms-box-shadow:0 1px 2px 0 rgba(0,0,0,.3);
 	-o-box-shadow:0 1px 2px 0 rgba(0,0,0,.3);
 	box-shadow:0 1px 2px 0 rgba(0,0,0,.3);
+	-webkit-backface-visibility: hidden;
+	-moz-backface-visibility: hidden;
+	-ms-backface-visibility: hidden;
+	-o-backface-visibility: hidden;
+	backface-visibility: hidden;
 }
 
 .alert p {
@@ -1854,6 +1858,10 @@ button.btn::-moz-focus-inner,input[type=submit].btn::-moz-focus-inner {
 	-webkit-box-shadow:0 1px 3px rgba(0,0,0,0.25),inset 0 -1px 0 rgba(0,0,0,0.1);
 	-moz-box-shadow:0 1px 3px rgba(0,0,0,0.25),inset 0 -1px 0 rgba(0,0,0,0.1);
 	box-shadow:0 1px 3px rgba(0,0,0,0.25),inset 0 -1px 0 rgba(0,0,0,0.1);
+}
+
+.topbar-inner {
+	width: 100%;
 }
 
 .topbar-inner:before,
