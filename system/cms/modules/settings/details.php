@@ -443,7 +443,7 @@ class Module_Settings extends Module
 			),
 			'twitter_cache' => array(
 				'title' => 'Cache time',
-				'description' => 'How many minutes should your Tweets be stored?',
+				'description' => 'How many seconds should your Tweets be stored?',
 				'type' => 'text',
 				'default' => '300',
 				'value' => '',
