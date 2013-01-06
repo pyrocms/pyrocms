@@ -42,9 +42,14 @@ class Events_Maintenance {
      */
     public function clean_sessions()
     {
+        $session_table = SITE_REF.'_'.str_replace('default_', '', config_item('sess_table_name'));
+
         // delete all session records older than 1 week. 
         // In a major versioin we'll add Settings for this
-        ci()->db->where('last_activity <', (now() - 604800))
-            ->delete(config_item('sess_table_name'));
+        if (ci()->db->table_exists($session_table))
+        {
+            ci()->db->where('last_activity <', (now() - 604800))
+                ->delete($session_table);
+        }
     }
 }
