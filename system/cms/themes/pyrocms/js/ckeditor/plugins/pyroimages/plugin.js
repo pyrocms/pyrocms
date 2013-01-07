@@ -3,7 +3,11 @@ CKEDITOR.plugins.add('pyroimages',
     requires: ['iframedialog'],
     init : function(editor)
     {
-        CKEDITOR.dialog.addIframe('pyroimage_dialog', 'Image', SITE_URL + 'admin/wysiwyg/image',800,500)
+        CKEDITOR.dialog.addIframe('pyroimage_dialog', 'Image', SITE_URL + 'admin/wysiwyg/image',800,500,function(){},
+		{onLoad: function(){
+			var id = '#'+this.parts.contents.getId();
+			$('.cke_dialog_page_contents', id).css({height:'100%'});
+		}});
         editor.addCommand('pyroimages', {exec:pyroimage_onclick});
         editor.ui.addButton('pyroimages',{ label:'Upload or insert images from library', command:'pyroimages', icon:this.path+'images/icon.png' });
 
