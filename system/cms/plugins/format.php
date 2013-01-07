@@ -18,7 +18,8 @@ class Plugin_format extends Plugin
 	public $description = array(
 		'en' => 'Format strings, including Markdown and Textile.',
 		'el' => 'Μορφοποίηση κειμενοσειρών, συμπεριλαμβανομένων των Markdown και Textile.',
-		'fr' => 'Formatter des chaînes de caractères, incluant Markdown et Textile.'
+		'fr' => 'Formatter des chaînes de caractères, incluant Markdown et Textile.',
+		'it' => 'Formatta le stringhe, incluse Markdown e Textitle',
 	);
 
 	/**

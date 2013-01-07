@@ -25,9 +25,8 @@
 	<section id="content">
 		<div id="content-body">
 
-			<?php $this->load->view('admin/partials/notices') ?>
 			<div class="animated fadeInDown" id="login-logo"></div>
-			<!-- <div class="animated fadeInUp" id="login-panel"> -->
+			<?php $this->load->view('admin/partials/notices') ?>
 				<?php echo form_open('admin/login'); ?>
 				<div class="form_inputs">
 					<ul>
@@ -38,7 +37,7 @@
 						<li>
 							<div class="input animated fadeInDown" id="login-pw"><input type="password" name="password" placeholder="<?php echo lang('global:password'); ?>"/></div>
 						</li>
-						<li>
+						<li class="animated fadeInDown" id="login-save">
 							<label for="remember-check" id="login-remember">
 								<input type="checkbox" name="remember" id="remember-check"/>
 								<?php echo lang('user:remember'); ?>
@@ -59,7 +58,7 @@
 	</section>
 </div>
 <footer id="login-footer">
-	<div class="wrapper">
+	<div class="wrapper animated fadeInUp" id="login-credits">
 		Copyright &copy; 2009 - <?php echo date('Y'); ?> PyroCMS LLC 
 		<br><span id="version"><?php echo CMS_VERSION.' '.CMS_EDITION; ?></span>
 	</div>
