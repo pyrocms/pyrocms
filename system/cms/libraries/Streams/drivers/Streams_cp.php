@@ -100,7 +100,13 @@ class Streams_cp extends CI_Driver {
 			$segs = explode('/', $pagination_uri);
 			$offset_uri = count($segs)+1;
 	
-	 		$offset = $CI->uri->segment($offset_uri, 0) * $pagination;
+	 		$offset = $CI->uri->segment($offset_uri, 0);
+
+			// Calculate actual offset if not first page
+			if ( $offset > 0 )
+			{
+				$offset = ($offset - 1) * $pagination;
+			}
   		}
   		else
   		{
