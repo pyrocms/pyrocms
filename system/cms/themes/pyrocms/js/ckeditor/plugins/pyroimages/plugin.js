@@ -1,14 +1,12 @@
+(function(siteUrl, baseUrl)
+{
+
 function pyroimage_onclick(e)
 {
-	update_instance();
-	// run when pyro button is clicked]
-	CKEDITOR.currentInstance.openDialog('pyroimage_dialog');
+    update_instance();
+    // run when pyro button is clicked]
+    CKEDITOR.currentInstance.openDialog('pyroimage_dialog');
 }
-
-(function()
-{
-// let's reference pyro global vars
-var siteUrl = SITE_URL, baseUrl = BASE_URL;
 
 // Replace url-encoded forms of {{ url:site }} and {{ url: base }}
 // with their corresponding JS constants
@@ -126,4 +124,4 @@ CKEDITOR.plugins.add('pyroimages',
 	}
 });
 
-})();
+})(SITE_URL,BASE_URL);
