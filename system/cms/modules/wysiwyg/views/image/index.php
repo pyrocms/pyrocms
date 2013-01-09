@@ -82,8 +82,8 @@
 					<tr>
 						<th><?php echo lang('files:type_i') ?></th>
 						<th><?php echo lang('files:name') . '/' . lang('files:description') ?></th>
-						<th><?php echo lang('files:filename') . '/' . lang('files:added') ?></th>
-						<th><?php echo lang('files:alt_attribute') ?></th>
+						<!--<th><?php echo lang('files:filename') . '/' . lang('files:added') ?></th>
+						<th><?php echo lang('files:alt_attribute') ?></th>//-->
 						<th><?php echo lang('wysiwyg.meta.width') ?></th>
 						<th><?php echo lang('wysiwyg.meta.height') ?></th>
 						<th><?php echo lang('wysiwyg.meta.size') ?></th>
@@ -97,11 +97,11 @@
 							<p><?php echo $image->name ?><p>
 							<p><?php echo $image->description ?></p>
 						</td>
-						<td class="filename">
+						<!--<td class="filename">
 							<p><?php echo $image->filename ?></p>
 							<p><?php echo format_date($image->date_added) ?></p>
 						</td>
-						<td class="alt_attribute"><?php echo $image->alt_attribute ?></td>
+						<td class="alt_attribute"><?php echo $image->alt_attribute ?></td>-->
 						<td class="meta width"><?php echo $image->width ?></td>
 						<td class="meta height"><?php echo $image->height ?></td>
 						<td class="meta size"><?php echo $image->filesize ?></td>
