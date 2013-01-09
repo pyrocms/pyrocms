@@ -3,7 +3,12 @@ CKEDITOR.plugins.add('pyrofiles',
 	init : function(editor)
 	{
 		// Add the link and unlink buttons.
-		CKEDITOR.dialog.addIframe('pyrofiles_dialog', 'Files', SITE_URL + 'admin/wysiwyg/files_wysiwyg',700,400);
+		CKEDITOR.dialog.addIframe('pyrofiles_dialog', 'Files', SITE_URL + 'admin/wysiwyg/files_wysiwyg',700,400,function(){}, {
+			onLoad: function(){
+				var id = '#'+this.parts.contents.getId();
+				$('.cke_dialog_page_contents', id).css({height:'100%'});
+			}
+		});
 		editor.addCommand('pyrofiles', {exec:pyrofiles_onclick} );
 		editor.ui.addButton('pyrofiles',{ label:'Upload or insert files from library.', command:'pyrofiles', icon:this.path+'images/icon.png' });
 
