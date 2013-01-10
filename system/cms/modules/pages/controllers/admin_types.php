@@ -584,7 +584,7 @@ class Admin_types extends Admin_Controller
 		if ($stream->stream_namespace == 'pages')
 		{
 			// Are any other page types using this?
-			if ($this->page_types_m->count_by('stream_id', $page_type->stream_id) <= 1)
+			if ($this->page_type_m->count_by('stream_id', $page_type->stream_id) <= 1)
 			{
 				$delete_stream = true;
 			}

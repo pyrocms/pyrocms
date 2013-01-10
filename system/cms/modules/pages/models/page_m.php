@@ -263,27 +263,30 @@ class Page_m extends MY_Model
 			$this->load->driver('Streams');
 			$stream = $this->streams_m->get_stream($page->stream_id);
 
-			$params = array(
-				'stream' 	=> $stream->stream_slug,
-				'namespace' => $stream->stream_namespace,
-				'where' 	=> "`id`='".$page->entry_id."'",
-				'limit' 	=> 1
-			);
-
-			$ret = $this->streams->entries->get_entries($params);
-
-			if (isset($ret['entries'][0]))
+			if ($stream)
 			{
-				// For no collisions
-				$ret['entries'][0]['entry_id'] = $ret['entries'][0]['id'];
-				unset($ret['entries'][0]['id']);
+				$params = array(
+					'stream' 	=> $stream->stream_slug,
+					'namespace' => $stream->stream_namespace,
+					'where' 	=> "`id`='".$page->entry_id."'",
+					'limit' 	=> 1
+				);
 
-				$page->stream_entry_found = true;
+				$ret = $this->streams->entries->get_entries($params);
 
-				return (object) array_merge((array) $page, (array) $ret['entries'][0]);
+				if (isset($ret['entries'][0]))
+				{
+					// For no collisions
+					$ret['entries'][0]['entry_id'] = $ret['entries'][0]['id'];
+					unset($ret['entries'][0]['id']);
+
+					$page->stream_entry_found = true;
+
+					return (object) array_merge((array) $page, (array) $ret['entries'][0]);
+				}
+
+				$this->page_type_m->get_page_type_files_for_page($page);
 			}
-
-			$this->page_type_m->get_page_type_files_for_page($page);
 		}
 
 		return $page;
