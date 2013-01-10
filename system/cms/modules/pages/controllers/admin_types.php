@@ -569,7 +569,7 @@ class Admin_types extends Admin_Controller
 
 		if ( ! $page_type) show_error('Invalid ID');
 
-		// Will we be needding to delete a stream as well?
+		// Will we be needing to delete a stream as well?
 		// We will only be deleting a stream if:
 		// - It is in the pages namespace
 		// - It is not being used by any other page types
