@@ -260,13 +260,16 @@ class Row_m extends MY_Model {
 		// at this time.
 		// -------------------------------------
 
-		foreach ($stream_fields as $field_slug => $stream_field)
+		if ($stream_fields)
 		{
-			if ( ! in_array($field_slug, $disable)
-					and isset($this->type->types->{$stream_field->field_type})
-					and method_exists($this->type->types->{$stream_field->field_type}, 'query_build_hook'))
+			foreach ($stream_fields as $field_slug => $stream_field)
 			{
-				$this->type->types->{$stream_field->field_type}->query_build_hook($this->sql, $stream_field, $stream);
+				if ( ! in_array($field_slug, $disable)
+						and isset($this->type->types->{$stream_field->field_type})
+						and method_exists($this->type->types->{$stream_field->field_type}, 'query_build_hook'))
+				{
+					$this->type->types->{$stream_field->field_type}->query_build_hook($this->sql, $stream_field, $stream);
+				}
 			}
 		}
 
@@ -1370,45 +1373,48 @@ class Row_m extends MY_Model {
 		$insert_data = array();
 		
 		$alt_process = array();
-			
-		foreach ($fields as $field)
+		
+		if ($fields)
 		{
-			if ( ! in_array($field->field_slug, $skips) or (in_array($field->field_slug, $skips) and isset($_POST[$field->field_slug])))
+			foreach ($fields as $field)
 			{
-				$type = $this->type->types->{$field->field_type};
-				
-				if (isset($data[$field->field_slug]) and $data[$field->field_slug] != '')
+				if ( ! in_array($field->field_slug, $skips) or (in_array($field->field_slug, $skips) and isset($_POST[$field->field_slug])))
 				{
-					// We don't process the alt process stuff.
-					// This is for field types that store data outside of the
-					// actual table
-					if (isset($type->alt_process) and $type->alt_process === true)
+					$type = $this->type->types->{$field->field_type};
+					
+					if (isset($data[$field->field_slug]) and $data[$field->field_slug] != '')
 					{
-						$alt_process[] = $field->field_slug;
-					}
-					else
-					{
-						if (method_exists($type, 'pre_save'))
+						// We don't process the alt process stuff.
+						// This is for field types that store data outside of the
+						// actual table
+						if (isset($type->alt_process) and $type->alt_process === true)
 						{
-							$insert_data[$field->field_slug] = $type->pre_save($data[$field->field_slug], $field, $stream, null, $data);
+							$alt_process[] = $field->field_slug;
 						}
 						else
 						{
-							$insert_data[$field->field_slug] = $data[$field->field_slug];
-						}
+							if (method_exists($type, 'pre_save'))
+							{
+								$insert_data[$field->field_slug] = $type->pre_save($data[$field->field_slug], $field, $stream, null, $data);
+							}
+							else
+							{
+								$insert_data[$field->field_slug] = $data[$field->field_slug];
+							}
 
-						if (is_null($insert_data[$field->field_slug]))
-						{
-							unset($insert_data[$field->field_slug]);
-						}
-						elseif(is_string($insert_data[$field->field_slug]))
-						{
-							$insert_data[$field->field_slug] = trim($insert_data[$field->field_slug]);
+							if (is_null($insert_data[$field->field_slug]))
+							{
+								unset($insert_data[$field->field_slug]);
+							}
+							elseif(is_string($insert_data[$field->field_slug]))
+							{
+								$insert_data[$field->field_slug] = trim($insert_data[$field->field_slug]);
+							}
 						}
 					}
+					
+					unset($type);
 				}
-				
-				unset($type);
 			}
 		}
 
@@ -1608,13 +1614,16 @@ class Row_m extends MY_Model {
 			$assignments = $this->fields_m->get_assignments_for_stream($stream->id);
 			
 			// Do they have a destruct function?
-			foreach ($assignments as $assign)
+			if ($assignments)
 			{
-				if (method_exists($this->type->types->{$assign->field_type}, 'entry_destruct'))
+				foreach ($assignments as $assign)
 				{
-					// Get the field
-					$field = $this->fields_m->get_field($assign->field_id);
-					$this->type->types->{$assign->field_type}->entry_destruct($row, $field, $stream);
+					if (method_exists($this->type->types->{$assign->field_type}, 'entry_destruct'))
+					{
+						// Get the field
+						$field = $this->fields_m->get_field($assign->field_id);
+						$this->type->types->{$assign->field_type}->entry_destruct($row, $field, $stream);
+					}
 				}
 			}
 		
