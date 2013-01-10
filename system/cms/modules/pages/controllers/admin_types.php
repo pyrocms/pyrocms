@@ -504,7 +504,7 @@ class Admin_types extends Admin_Controller
 		if ( ! $page_type_id = $this->uri->segment($segment)) show_404();
 
 		// Get the page type.
-		$page_type = $this->page_type_m->get($page_type_id);
+		$page_type = $this->db->limit(1)->where('id', $page_type_id)->get('page_types')->row();
 
 		if ( ! $page_type) show_404();
 
