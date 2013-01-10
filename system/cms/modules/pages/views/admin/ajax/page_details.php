@@ -28,7 +28,7 @@
 	<?php endif ?>
 	<?php if ($page->meta_keywords): ?>
 	<p>
-		<strong><?php echo lang('pages:meta_keywords_label');?>:</strong> <?php echo Keywords::get_string($page->meta_keywords) ?>
+		<strong><?php echo lang('pages:meta_keywords_label');?>:</strong> <?php echo $page->meta_keywords ?>
 	</p>
 	<?php endif ?>
 	<?php if ($page->meta_description): ?>
