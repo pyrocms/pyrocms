@@ -463,7 +463,7 @@ class Admin_types extends Admin_Controller
 
  		if ($update_data)
  		{
- 			$this->db->limit(1)->where('id', $page_type->id)->update($this->page_type_m->table_name(), $update_data);
+ 			$this->page_type_m->update_by('id', $page_type->id, $update_data);
  		}
 
  		if (count($update_data) < 3)
@@ -504,7 +504,7 @@ class Admin_types extends Admin_Controller
 		if ( ! $page_type_id = $this->uri->segment($segment)) show_404();
 
 		// Get the page type.
-		$page_type = $this->db->limit(1)->where('id', $page_type_id)->get('page_types')->row();
+		$page_type = $this->page_type_m->get($page_type_id);
 
 		if ( ! $page_type) show_404();
 
@@ -584,7 +584,7 @@ class Admin_types extends Admin_Controller
 		if ($stream->stream_namespace == 'pages')
 		{
 			// Are any other page types using this?
-			if ($this->db->select('COUNT(id) as total')->where('stream_id', $page_type->stream_id)->get('page_types')->row()->total > 1)
+			if ($this->page_types_m->count_by('stream_id', $page_type->stream_id) <= 1)
 			{
 				$delete_stream = true;
 			}
@@ -617,7 +617,7 @@ class Admin_types extends Admin_Controller
 		}
 
 		// Count number of pages that will be deleted.
-		$this->template->set('num_of_pages', $this->db->select('COUNT(id) as total')->where('type_id', $page_type->id)->get('pages')->row()->total);
+		$this->template->set('num_of_pages', $this->page_m->count_by('type_id', $page_type->id));
 
 		$this->template
 			->title($this->module_details['name'])
