@@ -569,7 +569,7 @@ class Admin_types extends Admin_Controller
 
 		if ( ! $page_type) show_error('Invalid ID');
 
-		// Will we be neededing to delete a stream as well?
+		// Will we be needding to delete a stream as well?
 		// We will only be deleting a stream if:
 		// - It is in the pages namespace
 		// - It is not being used by any other page types
@@ -582,7 +582,7 @@ class Admin_types extends Admin_Controller
 		if ($stream->stream_namespace == 'pages')
 		{
 			// Are any other page types using this?
-			if ($this->db->select('COUNT(id) as total')->where('stream_id', $page_type->stream_id)->get('page_types')->row()->total > 1)
+			if ($this->db->select('COUNT(id) as total')->where('stream_id', $page_type->stream_id)->get('page_types')->row()->total <= 1)
 			{
 				$delete_stream = true;
 			}
