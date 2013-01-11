@@ -107,7 +107,7 @@ section.title .form-title {
 }
 
 .sortable li div:hover {
-	background-color:#dbdbdb;
+	background-color:#bbb;
 	-webkit-border-radius:4px;
 	-moz-border-radius:4px;
 	-o-border-radius:4px;

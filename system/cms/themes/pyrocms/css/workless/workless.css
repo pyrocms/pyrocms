@@ -619,7 +619,6 @@ input:invalid,textarea:invalid {
 }
 
 .form_inputs fieldset > ul > li,.form_inputs > ul > div > li,.form_inputs fieldset > ul > div > li,.form_inputs > ul > li {
-/* float: left; */
 	width:100%;
 	border-bottom:1px solid #efefef;
 	padding-bottom:10px;
@@ -633,7 +632,6 @@ input:invalid,textarea:invalid {
 
 .form_inputs fieldset > ul > li > label,.form_inputs fieldset > ul > div > li > label,.form_inputs > ul > div > li > label,.form_inputs > ul > li > label,.form_inputs fieldset > ul > li .label,.form_inputs > ul > li .label {
 	width:90%;
-/* float: left; */
 	text-align:left;
 	margin:0 3% 0 0;
 	padding:8px 8px 8px 0px;
@@ -644,7 +642,6 @@ input:invalid,textarea:invalid {
 }
 
 .form_inputs .input {
-	/* width: 30%; */
 	width: auto;
 }
 
@@ -670,22 +667,28 @@ input:invalid,textarea:invalid {
 	font-weight:400;
 	font-size:11px;
 	color:#666;
-	/* text-indent: 8px; */
 }
 
 .form_inputs input,.form_inputs textarea {
 	-webkit-transition:250ms linear all;
 	-moz-transition:250ms linear all;
+	-ms-transition:250ms linear all;
+	-o-transition:250ms linear all;
 	transition:250ms linear all;
-/* width: 99%; */
+	background:#eee;
+	
 }
 
 .form_inputs input:focus,.form_inputs textarea:focus {
-	background:#eee;
+	background:white;
 	color:#4D4D4D;
 	outline:none;
 	border-color:#38a7e6;
-	box-shadow:0 0 5px #38a7e6;
+	-webkit-box-shadow: 0 0 5px #38a7e6;
+	-moz-box-shadow: 0 0 5px #38a7e6;
+	-ms-box-shadow: 0 0 5px #38a7e6;
+	-o-box-shadow: 0 0 5px #38a7e6;
+	box-shadow: 0 0 5px #38a7e6;
 }
 
 .form_inputs .datetime_input select {
