@@ -1,5 +1,12 @@
-<phpunit
-    colors="true"
+<phpunit 
+	bootstrap="./Bootstrap.php"
+	colors="true"
+	convertNoticesToExceptions="true"
+	convertWarningsToExceptions="true"
+	stopOnError="false"
+	stopOnFailure="false"
+	stopOnIncomplete="false"
+	stopOnSkipped="false">
     testSuiteLoaderClass="PHPUnit_Runner_StandardTestSuiteLoader">
     <testsuites>
         <testsuite name="installer">

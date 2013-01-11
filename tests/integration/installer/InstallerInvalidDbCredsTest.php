@@ -27,15 +27,16 @@ class TestInstallerInvalidDbCreds extends PHPUnit_Framework_Testcase
      */
     public function InstallWithInvalidDBCredentials()
     {
-        $crawler = $this->client->request('GET','http://localhost/installer');
+        $crawler = $this->client->request('GET', 'http://'.PYRO_HOST.'/installer');
         $link = $crawler->selectLink('Step #1')->link();
         $crawler = $this->client->click($link);
         $this->assertEquals($crawler->filter('title')->text(),'PyroCMS Installer');
         $form = $crawler->selectButton('Step #2')->form();
-        $crawler = $this->client->submit($form,array('username'=>'test',
-                                                     'password'=>'test',
-                                                     'database'=>'pyrocms'
-                                                ));
+        $crawler = $this->client->submit($form, array(
+            'username'=>'test',
+            'password'=>'test',
+            'database'=>'pyrocms'
+        ));
         $this->assertContains('Problem connecting to',$crawler->filter('.error')->text());
     }
 
@@ -47,15 +48,16 @@ class TestInstallerInvalidDbCreds extends PHPUnit_Framework_Testcase
      */
      public function InstallWithMissingDB()
      {
-         $crawler = $this->client->request('GET','http://localhost/installer');
-         $link = $crawler->selectLink('Step #1')->link();
-         $crawler = $this->client->click($link);
-         $this->assertEquals($crawler->filter('title')->text(),'PyroCMS Installer');
-         $form = $crawler->selectButton('Step #2')->form();
-         $crawler = $this->client->submit($form,array('username'=>'pyro',
-                                                      'password'=>'pyro'
-                                                ));
-         $this->assertContains('MySQL Database field is required',$crawler->filter('.error')->text());
+        $crawler = $this->client->request('GET', 'http://'.PYRO_HOST.'/installer');
+        $link = $crawler->selectLink('Step #1')->link();
+        $crawler = $this->client->click($link);
+        $this->assertEquals($crawler->filter('title')->text(),'PyroCMS Installer');
+        $form = $crawler->selectButton('Step #2')->form();
+        $crawler = $this->client->submit($form,array(
+            'username'=>'pyro',
+            'password'=>'pyro'
+        ));
+        $this->assertContains('MySQL Database field is required',$crawler->filter('.error')->text());
      }
 
 
