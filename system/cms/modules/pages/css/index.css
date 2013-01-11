@@ -13,8 +13,8 @@
 .sortable li div:hover { background-color: #dbdbdb; -webkit-border-radius: 4px; -moz-border-radius: 4px; -o-border-radius: 4px; border-radius: 4px; }
 .sortable li.placeholder { background-color: #c2c0c0; -webkit-border-radius: 4px; -moz-border-radius: 4px; -o-border-radius: 4px; border-radius: 4px; margin-left: 20px; }
 
-.plus { background: url('../img/more.png') no-repeat 0 4px; }
-.minus { background: url('../img/less.png') no-repeat 0 4px; }
+.plus { background: url('../img/more.png') no-repeat 0 7px; }
+.minus { background: url('../img/less.png') no-repeat 0 7px; }
 
 #page-details { min-height: 250px; }
 #page-details h5 { margin: 0; padding: 0; }
