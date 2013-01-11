@@ -125,7 +125,7 @@ class Field_image
 	 */	
 	public function pre_output($input, $params)
 	{
-		if ( ! $input) return null;
+		if ( ! $input or $input == 'dummy' ) return null;
 
 		// Get image data
 		$image = $this->CI->db->select('filename')->where('id', $input)->get('files')->row();
@@ -153,7 +153,7 @@ class Field_image
 	 */
 	public function pre_output_plugin($input, $params)
 	{
-		if ( ! $input) return null;
+		if ( ! $input or $input == 'dummy' ) return null;
 
 		$this->CI->load->library('files/files');
 	
