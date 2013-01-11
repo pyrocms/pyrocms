@@ -610,25 +610,16 @@ section#content header {
 section#content ul {
 	margin:0;
 	padding:0;
-	-webkit-box-sizing:border-box;
-	-moz-box-sizing:border-box;
-	box-sizing:border-box;
 }
 
 section#content ul li {
 	list-style:none;
 	position:relative;
-	-webkit-box-sizing:border-box;
-	-moz-box-sizing:border-box;
-	box-sizing:border-box;
 }
 
 section#content ul li.editor {
 	list-style:none;
 	position:relative;
-	-webkit-box-sizing:border-box;
-	-moz-box-sizing:border-box;
-	box-sizing:border-box;
 }
 
 #blog-content-tab {
