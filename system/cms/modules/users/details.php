@@ -65,7 +65,7 @@ class Module_Users extends Module {
             ),
             'frontend'  => false,
             'backend'   => true,
-            'menu'      => false,
+            'menu'      => 'users',
             'roles'     => array('admin_profile_fields')
         );
 
