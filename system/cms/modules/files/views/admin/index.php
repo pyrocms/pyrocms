@@ -6,18 +6,18 @@
 	<div id="file-toolbar">
 		<div id="file-buttons">
 			<ul class="button-menu-source buttons">
-				<li class="button" data-applies-to="pane root-pane"	data-menu="refresh"><?php echo lang('files:refresh') ?></li>
-				<li class="button" data-applies-to="folder" data-menu="open"><?php echo lang('files:open') ?></li>
-				<li class="button show" data-role="create_folder"	data-applies-to="pane root-pane" data-menu="new-folder"><?php echo lang('files:new_folder') ?></li>
-				<li class="button" data-role="upload" data-applies-to="folder pane" data-menu="upload"><?php echo lang('files:upload') ?></li>
-				<li class="button" data-role="edit_file" data-applies-to="file" data-menu="rename"><?php echo lang('files:rename') ?></li>
-				<li class="button" data-role="edit_folder" data-applies-to="folder" data-menu="rename"><?php echo lang('files:rename') ?></li>
-				<li class="button" data-role="download_file" data-applies-to="file" data-menu="download"><?php echo lang('files:download') ?></li>
-				<li class="button" data-role="synchronize" data-applies-to="folder" data-menu="synchronize"><?php echo lang('files:synchronize') ?></li>
-				<li class="button" data-role="upload delete_file" data-applies-to="file" data-menu="replace"><?php echo lang('files:replace') ?></li>
-				<li class="button red" data-role="delete_file" data-applies-to="file" data-menu="delete"><?php echo lang('files:delete') ?></li>
-				<li class="button red" data-role="delete_folder" data-applies-to="folder" data-menu="delete"><?php echo lang('files:delete') ?></li>
-				<li class="button" data-applies-to="folder file pane"	data-menu="details"><?php echo lang('files:details') ?></li>
+				<li class="button animated fadeIn" data-applies-to="pane root-pane"	data-menu="refresh"><?php echo lang('files:refresh') ?></li>
+				<li class="button animated fadeIn" data-applies-to="folder" data-menu="open"><?php echo lang('files:open') ?></li>
+				<li class="button animated fadeIn" data-role="create_folder"	data-applies-to="pane root-pane" data-menu="new-folder"><?php echo lang('files:new_folder') ?></li>
+				<li class="button animated fadeIn" data-role="upload" data-applies-to="folder pane" data-menu="upload"><?php echo lang('files:upload') ?></li>
+				<li class="button animated fadeIn" data-role="edit_file" data-applies-to="file" data-menu="rename"><?php echo lang('files:rename') ?></li>
+				<li class="button animated fadeIn" data-role="edit_folder" data-applies-to="folder" data-menu="rename"><?php echo lang('files:rename') ?></li>
+				<li class="button animated fadeIn" data-role="download_file" data-applies-to="file" data-menu="download"><?php echo lang('files:download') ?></li>
+				<li class="button animated fadeIn" data-role="synchronize" data-applies-to="folder" data-menu="synchronize"><?php echo lang('files:synchronize') ?></li>
+				<li class="button animated fadeIn" data-role="upload delete_file" data-applies-to="file" data-menu="replace"><?php echo lang('files:replace') ?></li>
+				<li class="button animated fadeIn" data-role="delete_file" data-applies-to="file" data-menu="delete"><?php echo lang('files:delete') ?></li>
+				<li class="button animated fadeIn" data-role="delete_folder" data-applies-to="folder" data-menu="delete"><?php echo lang('files:delete') ?></li>
+				<li class="button animated fadeIn" data-applies-to="folder file pane"	data-menu="details"><?php echo lang('files:details') ?></li>
 			</ul>
 		</div>
 		<input type="text" id="file-search" name="file-search" value="" placeholder="<?php echo lang('files:search_message') ?>"/>
@@ -67,28 +67,17 @@
 	</section>
 
 	<div class="hidden">
-		<div id="files-uploader">
+		
+		<script type="text/javascript">
 
-			<div id="file-to-replace">
-				<h4><?php echo lang('files:replace_file') ?> : <span class="name"></span></h4>
-				<span class="alert-warning"><? echo lang('files:replace_warning') ?></span>
-			</div>
+			/*
+			 * Put this somewhere safe
+			 * - Like at the end of the document
+			 */
 
-			<div class="files-uploader-browser">
-				<?php echo form_open_multipart('admin/files/upload') ?>
-					<label for="file" class="upload"><?php echo lang('files:uploader') ?></label>
-					<?php echo form_upload('file', null, 'multiple="multiple"') ?>
-					<input type="hidden" name="replace-id" value="" />
-				<?php echo form_close() ?>
-				<ul id="files-uploader-queue" class="ui-corner-all"></ul>
-			</div>
+			$('body').append('<div class="hidden"><div id="files-uploader"><div id="file-to-replace"><h4><?php echo lang("files:replace_file")?>:<span class="name"></span></h4><span class="alert-warning"><?php echo lang("files:replace_warning")?></span></div><div class="files-uploader-browser"><form action="admin/files/upload"method="post"accept-charset="utf-8"enctype="multipart/form-data"><label for="file"class="upload"><?php echo lang("files:uploader")?></label><input type="file"name="file"value=""multiple="multiple"/><input type="hidden"name="replace-id"value=""/></form><div class="buttons"><a href="#"title=""class="button start-upload"><?php echo lang("files:upload")?></a><a href="#"title=""class="button cancel-upload"><?php echo lang("buttons:cancel");?></a></div><ul id="files-uploader-queue"class="ui-corner-all"></ul></div></div></div>');
 			
-			<div class="buttons align-right padding-top">
-				<a href="#" title="" class="button start-upload"><?php echo lang('files:upload') ?></a>
-				<a href="#" title="" class="button cancel-upload"><?php echo lang('buttons:cancel');?></a>
-			</div>
-			
-		</div>
+		</script>
 
 		<div id="item-details">
 			<h4><?php echo lang('files:details') ?></h4>

@@ -132,7 +132,7 @@ class Admin_types extends Admin_Controller
 		// Set the validation rules
 		$this->form_validation->set_rules($this->validation_rules);
 
-		// Set page_type_m so we can use the page_type_m 
+		// Set page_type_m so we can use the page_type_m
 		// validation callbacks
 		$this->form_validation->set_model('page_type_m');
 
@@ -209,7 +209,7 @@ class Admin_types extends Admin_Controller
 				$this->session->set_flashdata('success', lang('page_types:create_success'));
 
 				$this->pyrocache->delete_all('page_m');
-				
+
 				// Event: page_type_created
 				Events::trigger('page_type_created', $id);
 
@@ -275,7 +275,7 @@ class Admin_types extends Admin_Controller
 		$streams = $this->db
 							->where('stream_namespace !=', 'users')
 							->select('id, stream_name, stream_namespace')->get(STREAMS_TABLE)->result();
-		
+
 		foreach ($streams as $stream)
 		{
 			if ($stream->stream_namespace)
@@ -410,12 +410,12 @@ class Admin_types extends Admin_Controller
 		elseif ($this->uri->segment(6) == 'edit_field')
 		{
 			return $this->_edit_field($stream);
-		}	
+		}
 		elseif ($this->uri->segment(6) == 'delete_field')
 		{
 			return $this->_delete_field($stream);
 		}
-		
+
 		$extra = array(
 			'add_uri'		=> 'admin/pages/types/fields/'.$page_type->id.'/new_field',
 			'title'			=> $stream->stream_name.' '.lang('global:fields')
@@ -435,7 +435,7 @@ class Admin_types extends Admin_Controller
 		);
 
 
-		// Show our fields list.		
+		// Show our fields list.
 		$this->streams->cp->assignments_table($stream->stream_slug, $stream->stream_namespace, 25, 'admin/pages/types/fields/'.$page_type->id, true, $extra);
 	}
 
@@ -463,9 +463,9 @@ class Admin_types extends Admin_Controller
 
  		if ($update_data)
  		{
- 			$this->db->limit(1)->where('id', $page_type->id)->update($this->page_type_m->table_name(), $update_data);
+ 			$this->page_type_m->update_by('id', $page_type->id, $update_data);
  		}
-	
+
  		if (count($update_data) < 3)
  		{
  			if (count($update_data) != 0)
@@ -480,8 +480,10 @@ class Admin_types extends Admin_Controller
  		else
  		{
 			$this->session->set_flashdata('success', lang('page_types:sync_success'));
+			$this->pyrocache->delete_all('page_m');
+			Events::trigger('page_type_updated', $page_type->id);
  		}
-	
+
  		redirect('admin/pages/types');
 	}
 
@@ -582,7 +584,7 @@ class Admin_types extends Admin_Controller
 		if ($stream->stream_namespace == 'pages')
 		{
 			// Are any other page types using this?
-			if ($this->db->select('COUNT(id) as total')->where('stream_id', $page_type->stream_id)->get('page_types')->row()->total > 1)
+			if ($this->page_type_m->count_by('stream_id', $page_type->stream_id) <= 1)
 			{
 				$delete_stream = true;
 			}
@@ -606,16 +608,16 @@ class Admin_types extends Admin_Controller
 
 			// Wipe cache for this model, the content has changd
 			$this->pyrocache->delete_all('page_type_m');
-		
+
 			$this->session->set_flashdata('success', sprintf(lang('page_types:delete_success'), $id));
-			
+
 			Events::trigger('page_type_deleted', $id);
 
 			redirect('admin/pages/types');
 		}
 
 		// Count number of pages that will be deleted.
-		$this->template->set('num_of_pages', $this->db->select('COUNT(id) as total')->where('type_id', $page_type->id)->get('pages')->row()->total);
+		$this->template->set('num_of_pages', $this->page_m->count_by('type_id', $page_type->id));
 
 		$this->template
 			->title($this->module_details['name'])
