@@ -15,6 +15,10 @@
 			/<?php echo !empty($page->uri) ? $page->uri : $page->slug ?>
 		</a>
 	</p>
+	<p>
+		<strong><?php echo lang('pages:type_id_label') ?>:</strong>
+		<?php echo $page->page_type_title; ?>
+	</p>
 </fieldset>
 
 <!-- Meta data tab -->
