@@ -152,7 +152,7 @@ class Plugin_format extends Plugin
 		if (count($attrs) > 2)
 		{
 			$bool = array_slice($attrs, 2);
-			array_splice($attrs, 2, 1, str_to_bool($bool));
+			array_splice($attrs, 2, 1, array_map('str_to_bool', $bool));
 		}
 
 		return call_user_func_array('url_title', $attrs);
