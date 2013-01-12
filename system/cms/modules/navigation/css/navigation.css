@@ -92,7 +92,7 @@ section.title .form-title {
 
 .sortable li {
 	margin:5px 0;
-	padding-left:0px;
+	padding-left:20px;
 }
 
 .sortable li div {
@@ -124,11 +124,11 @@ section.title .form-title {
 }
 
 .plus {
-	background:url(../img/more.png) no-repeat 0 4px;
+	background:url(../img/more.png) no-repeat 0 7px;
 }
 
 .minus {
-	background:url(../img/less.png) no-repeat 0 4px;
+	background:url(../img/less.png) no-repeat 0 7px;
 }
 
 /* Right pane */
