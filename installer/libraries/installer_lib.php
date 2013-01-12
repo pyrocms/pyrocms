@@ -174,7 +174,7 @@ class Installer_lib
 	 *
 	 * @return bool
 	 */
-	public function create_db(PDO $conn, array $database)
+	public function create_db(PDO $conn, $database)
 	{
 		return $conn->query("CREATE DATABASE {$database}");
 	}
