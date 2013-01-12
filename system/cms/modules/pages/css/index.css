@@ -68,11 +68,11 @@
 }
 
 .plus {
-	background:url(../img/more.png) no-repeat 0 4px;
+	background:url(../img/more.png) no-repeat 0 7px;
 }
 
 .minus {
-	background:url(../img/less.png) no-repeat 0 4px;
+	background:url(../img/less.png) no-repeat 0 7px;
 }
 
 #page-details {
