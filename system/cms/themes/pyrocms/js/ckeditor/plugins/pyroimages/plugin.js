@@ -61,16 +61,31 @@ CKEDITOR.plugins.add('pyroimages',
 			}
 		});
 
-		// We don't want users modifying the img src,
-		// so we'll disable the URL text field of the Image dialog
+		// We don't want users modifying the img src if it uses Lex tags,
+		// so we'll disable the URL text field of the Image dialog.
 		editor.on('dialogShow', function(e) {
+			if (e.data.getName() != 'image')
+				return;
+
+			var dialogDefinition = e.data.definition,
+				dialog = dialogDefinition.dialog,
+				image = e.data.imageElement;
+
+			if (image && image.hasAttribute('data-pyroimage')) {
+				dialog.getContentElement('info','txtUrl').disable();
+			}
+		});
+
+		// Enable the URL field again
+		editor.on('dialogHide', function(e) {
 			if (e.data.getName() != 'image')
 				return;
 
 			var dialogDefinition = e.data.definition,
 				dialog = dialogDefinition.dialog;
 
-			dialog.getContentElement('info','txtUrl').disable();
+			dialog.getContentElement('info','txtUrl').enable();
+
 		});
 	},
 
@@ -96,8 +111,16 @@ CKEDITOR.plugins.add('pyroimages',
 				{
 					var protectedSrc = element.attributes.src;
 					// Before replacing the Lex tags we need to get the raw src
-					// so we'll use the dataProcessor to 'unprotected' it.
-					var localizedSrc = lexToUrl(dataProcessor.toDataFormat(protectedSrc));
+					// so we'll use the dataProcessor to 'unprotect' it.
+					var unprotectedSrc = dataProcessor.toDataFormat(protectedSrc),
+						localizedSrc = lexToUrl(unprotectedSrc);
+
+					// We'll set a custom attribute so that the image dialog
+					// knows that the src attribute of this element should not be editable,
+					// because it uses Lex tags
+					if (unprotectedSrc.indexOf('\{\{') != -1) {
+						element.attributes['data-pyroimage'] = true;
+					}
 
 					element.attributes.src = localizedSrc;
 					// The Image dialog grabs the cke-data to set the image src
