@@ -1,21 +1,22 @@
 {{ if theme:options:layout == 'full-width' OR ( theme:options:layout == 'full-width-home' AND page:is_home == true ) }}
 	<!-- Begin full width content -->
-	<div id="full-content">
+	<section id="full-content">
 {{ else }}
 	<!-- Begin 2 column content -->
-	<div id="content">
+	<section id="content">
 {{ endif }}
 
-	{{ theme:partial name="breadcrumbs" }}
-	{{ session:messages success="success-box" notice="notice-box" error="error-box" }}
-	<section class="post clearfix">
-		{{ template:body }}
-	</section>
-</div>
+		{{ theme:partial name="breadcrumbs" }}
+		{{ session:messages success="success-box" notice="notice-box" error="error-box" }}
+		<article class="post clearfix">
+			{{ template:body }}
+		</article>
 
 {{ if theme:options:layout == 'full-width' OR ( theme:options:layout == 'full-width-home' AND page:is_home == true ) }}
-<!-- End full width content -->
+	</section>
+	<!-- End full width content -->
 {{ else }}
 	<!-- End 2 column content -->
+	</section>
 	{{ theme:partial name="sidebar" }}
 {{ endif }}
