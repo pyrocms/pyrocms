@@ -1,6 +1,6 @@
 h1,h2,h3,h4,h5,h6 {
-	font-family:"Helvetica Neue",Helvetica,Tahoma,sans-serif;
-	color:#fff;
+	font-family: "Proxima", "Helvetica Neue", "Helvetica", Arial, sans-serif;
+	color:#666;
 	font-weight:700;
 }
 
@@ -28,10 +28,11 @@ h6 {
 	font-size:16px;
 }
 
+/*
 a,a:link,p,.post,ul,ol,dl,dd,li {
-	font-family:Tahoma,"Helvetica Neue",Helvetica,sans-serif;
-	letter-spacing:.2px;
+	font-family: "Proxima", "Helvetica Neue", "Helvetica", Arial, sans-serif;
 }
+*/
 
 a,a:link {
 	color:#ff6900;

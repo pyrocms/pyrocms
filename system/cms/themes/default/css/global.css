@@ -25,7 +25,12 @@ body {
 
 /* Let's begin! */
 body {
-	background-color:#fafaf9;
+	font-family: "Proxima", "Helvetica Neue", "Helvetica", Arial, sans-serif;
+	font-size: 14px;
+	line-height: 20px;
+	font-weight: normal;
+	background-color: #fafaf9;
+	/* background: #fafaf9 url('../img/grain.png') repeat; */
 }
 
 /* Wrappers */
@@ -43,15 +48,21 @@ body {
 
 /* Header */
 header {
-	height: 120px;
+	height: 80px;
 	background: #444 url('../img/nav-grain.png') repeat-x;
 	border-top: 1px solid #333;
 	border-bottom: 1px solid #111;
 }
 
+/*
+header {
+	height: 80px;
+}
+*/
+
 /* Logo */
 header #logo {
-	margin:30px 0 0;
+	margin:25px 0 0;
 	float:left;
 }
 
@@ -75,7 +86,7 @@ header #logo h1 a:hover {
 }
 
 header #logo small {
-	font-family: "Helvetica Neue",Helvetica,Tahoma,sans-serif;
+	font-family: "Proxima", "Helvetica Neue", "Helvetica", Arial, sans-serif;
 	font-weight: 700;
 	font-size:12px;
 	color: #1e1e1e;
@@ -86,14 +97,13 @@ header #logo small {
 
 /* User meta */
 header #user-meta {
-	font-family:Tahoma,"Helvetica Neue",Helvetica,sans-serif;
+	font-family: "Proxima", "Helvetica Neue", "Helvetica", Arial, sans-serif;
 	font-size:11px;
 	font-weight:700;
 	color:#fff;
 	letter-spacing:.5px;
-	line-height:1.5em;
 	text-shadow:1px 1px 0 #000;
-	margin:45px 0 0;
+	margin:30px 0 0;
 	float:right;
 }
 
@@ -106,6 +116,8 @@ header #user-meta ul li {
 header #user-meta a,#header #user-meta a:link {
 	color:#888;
 	text-shadow:0px 1px 0 #333;
+	vertical-align: middle;
+	font-size: 13px;
 }
 
 header #user-meta a:hover {
@@ -120,6 +132,7 @@ header #user-meta .nav-splitter {
 
 header #user-meta .avatar-name {
 	display:inline-block;
+	position: relative;
 	vertical-align:middle;
 }
 
@@ -153,7 +166,7 @@ header #user-meta form ul li {
 }
 
 header #user-meta form ul li input {
-	font-family:Tahoma,"Helvetica Neue",Helvetica,sans-serif;
+	font-family: "Proxima", "Helvetica Neue", "Helvetica", Arial, sans-serif;
 	font-weight:700;
 	color:#59626e;
 	font-size:11px;
@@ -174,7 +187,7 @@ header #user-meta form ul li.form-buttons {
 
 header #user-meta form ul li input[type=submit] {
 	padding:0;
-	font-family:Tahoma,"Helvetica Neue",Helvetica,sans-serif;
+	font-family: "Proxima", "Helvetica Neue", "Helvetica", Arial, sans-serif;
 	font-weight:700;
 	font-size:11px;
 	color:#ff6900;
@@ -345,7 +358,7 @@ nav ul#head-nav ul ul {
 
 /* Breadcrumbs */
 .breadcrumbs {
-	font-family:Tahoma,"Helvetica Neue",Helvetica,sans-serif;
+	font-family: "Proxima", "Helvetica Neue", "Helvetica", Arial, sans-serif;
 	font-size:11px;
 	font-weight:700;
 	color:#7d7d7d;
@@ -359,15 +372,15 @@ nav ul#head-nav ul ul {
 /* Content */
 #content {
 	width:75%;
-	padding:15px 0 10px;
+	padding:15px 0 100px;
 	margin:0;
-	float:left;
+	display: inline-block;
 }
 
 #full-content {
 	width:100%;
 	/* min-height:500px; */
-	/* padding:35px 0 150px; */
+	padding:15px 0 100px;
 	margin:0;
 	/* float:left; */
 }
@@ -405,6 +418,8 @@ article.post img.feature {
 article.post img {
 	margin:10px 0;
 	border:3px solid #cfcfcf;
+	max-width: 100%;
+	max-height: auto;
 }
 
 article.blog_article {
@@ -437,7 +452,7 @@ article.post form input[type=text],section.post form input[type=password] {
 	-moz-border-radius:3px;
 	-webkit-border-radius:3px;
 	padding:4px 5px;
-	font-family:Tahoma,"Helvetica Neue",Helvetica,sans-serif;
+	font-family: "Proxima", "Helvetica Neue", "Helvetica", Arial, sans-serif;
 	color:#4D4D4D;
 	text-shadow:0 1px 0 #FBFBFB;
 }
@@ -474,7 +489,7 @@ article.post form textarea {
 	-moz-border-radius:3px;
 	-webkit-border-radius:3px;
 	padding:15px;
-	font-family:Tahoma,"Helvetica Neue",Helvetica,sans-serif;
+	font-family: "Proxima", "Helvetica Neue", "Helvetica", Arial, sans-serif;
 	font-size:13px;
 	font-weight:700;
 	color:#7d7d7d;
@@ -509,7 +524,7 @@ article.post form textarea {
 	-moz-border-radius:3px;
 	-webkit-border-radius:3px;
 	padding:25px 15px;
-	font-family:Tahoma,"Helvetica Neue",Helvetica,sans-serif;
+	font-family: "Proxima", "Helvetica Neue", "Helvetica", Arial, sans-serif;
 	font-size:13px;
 	font-weight:700;
 	color:#7d7d7d;
@@ -657,7 +672,7 @@ fieldset#write-comment {
 	-moz-border-radius:5px;
 	-webkit-border-radius:5px;
 	padding:5px 15px;
-	font-family:Tahoma,"Helvetica Neue",Helvetica,sans-serif;
+	font-family: "Proxima", "Helvetica Neue", "Helvetica", Arial, sans-serif;
 	font-size:90%;
 	color:#7d7d7d;
 	text-shadow:0 0 0 transparent;
@@ -670,6 +685,7 @@ aside {
 	text-shadow:1px 1px #fff;
 	width:23%;
 	padding:0px 0px;
+	display: inline-block;
 	float:right;
 }
 
@@ -747,7 +763,7 @@ form#login ul li input[type=text],form#login ul li input[type=password],form#reg
 	-moz-border-radius:3px;
 	-webkit-border-radius:3px;
 	padding:5px 15px;
-	font-family:Tahoma,"Helvetica Neue",Helvetica,sans-serif;
+	font-family: "Proxima", "Helvetica Neue", "Helvetica", Arial, sans-serif;
 	font-size:13px;
 	font-weight:700;
 	color:#7d7d7d;
@@ -808,7 +824,7 @@ form#activate-user ul li input[type=text] {
 	-moz-border-radius:3px;
 	-webkit-border-radius:3px;
 	padding:5px 15px;
-	font-family:Tahoma,"Helvetica Neue",Helvetica,sans-serif;
+	font-family: "Proxima", "Helvetica Neue", "Helvetica", Arial, sans-serif;
 	font-size:13px;
 	font-weight:700;
 	color:#7d7d7d;
@@ -824,7 +840,7 @@ footer {
 	letter-spacing:.5px;
 	text-shadow:none;
 	font-weight:700;
-	width:1000px;
+	width:940px;
 	margin:0 auto;
 }
 
@@ -878,7 +894,7 @@ ul#foot-nav {
 }
 
 ul#foot-nav li {
-	color:#bbb;
+	color:#aaa;
 	list-style:none;
 	margin:0 0 0 0;
 	line-height:14px;
@@ -907,7 +923,7 @@ ul#foot-nav li a.last {
 
 /* Widget */
 aside .widget {
-	font-family:Tahoma,"Helvetica Neue",Helvetica,sans-serif;
+	font-family: "Proxima", "Helvetica Neue", "Helvetica", Arial, sans-serif;
 	color:#7d7d7d;
 	font-size:13px;
 	text-shadow:1px 1px #fff;
@@ -926,7 +942,7 @@ aside .widget ul {
 }
 
 .error-box,.notice-box,.success-box {
-	font-family:Tahoma,"Helvetica Neue",Helvetica,sans-serif;
+	font-family: "Proxima", "Helvetica Neue", "Helvetica", Arial, sans-serif;
 	font-weight:700;
 	font-size:90%;
 	letter-spacing:.5px;
@@ -936,6 +952,11 @@ aside .widget ul {
 	line-height:200%;
 	vertical-align:middle;
 	display:block;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-ms-border-radius: 5px;
+	-o-border-radius: 5px;
+	border-radius: 5px;
 }
 
 .error-box {
