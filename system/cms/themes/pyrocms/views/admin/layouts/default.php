@@ -44,7 +44,7 @@
 
 		<section id="content">
 			
-			<header>
+			<header class="hide-on-ckeditor-maximize">
 			<?php file_partial('header'); ?>
 			</header>
 
