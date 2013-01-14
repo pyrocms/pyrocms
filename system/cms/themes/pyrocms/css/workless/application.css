@@ -830,23 +830,35 @@ ul#recent_comments li p {
 }
 
 footer {
-	background:#333;
-	border-top:1px solid #ececec;
+	background:#444 url('../../img/nav-grain.png') repeat;
+	border-top:1px solid #222;
 	width:100%;
-	min-height:60px;
+	height:60px;
 	color:#eee;
-	margin-top:-81px;
+	margin-top:-61px;
 	padding:0;
 	float:right;
-	text-shadow:0 -1px 0 #000;
+	-webkit-box-shadow:inset 0 1px 0 #666;
+	-moz-box-shadow:inset 0 1px 0 #666;
+	-ms-box-shadow:inset 0 1px 0 #666;
+	-o-box-shadow:inset 0 1px 0 #666;
+	box-shadow:inset 0 1px 0 #666;
 }
 
-footer p {
-	float:left;
+footer p.credits {
+	float:none;
 	font-size:12px;
-	margin:5px 0 15px;
-	padding:0 10px;
-	color:#fff;
+	font-weight: 500;
+	margin:20px 0 0px 0px;
+	padding:0 10px 0 0;
+	color:#999;
+	line-height: 20px;
+	display: inline-block;
+}
+
+footer p.credits span {
+	text-shadow: 0 1px 0 #555;
+	color: #222;
 }
 
 footer select {
@@ -855,6 +867,7 @@ footer select {
 
 ul#lang {
 	margin-top:15px;
+	margin-bottom: 0;
 	margin-right:24px;
 	text-align:center;
 	text-shadow:0 -1px 0 #fff;
@@ -868,7 +881,7 @@ ul#lang .chzn-results {
 }
 
 ul#lang .chzn-drop {
-	top:-230px!important;
+	top:-229px!important;
 	-webkit-box-shadow:none;
 	-moz-box-shadow:none;
 	box-shadow:none;

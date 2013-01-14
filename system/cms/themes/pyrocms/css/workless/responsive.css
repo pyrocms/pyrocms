@@ -595,11 +595,16 @@ button#login-submit:hover {
 	}
 	
 	footer {
-		min-height: 84px;
+		min-height: 150px;
 	}
 	
-	footer p {
-		margin: 10px 0 0px;
+	footer p.credits {
+		margin: 20px 0 0px 0px;
+		text-align: center;
+	}
+	
+	footer p.credits span {
+		display: block;
 	}
 }
 
@@ -703,9 +708,11 @@ button#login-submit:hover {
 		float:left;
 	}
 	
-	footer {
+	/*
+footer {
 		margin-top:-64px;
 	}
+*/
 	
 	footer p {
 		float:left;
@@ -843,9 +850,11 @@ and (max-device-width : 1024px) {
 		float:left;
 	}
 	
-	footer {
+	/*
+footer {
 		margin-top:-64px;
 	}
+*/
 	
 	footer p {
 		padding:0;
@@ -1076,6 +1085,11 @@ only screen and (-webkit-min-device-pixel-ratio: 2),only screen and ( min--moz-d
 		background-image:url('../../img/nav-grain@2x.png'),-o-linear-gradient(top,#555,#333);
 		background-image:url('../../img/nav-grain@2x.png'),linear-gradient(top,#555,#333);
 		background-size: 113px 50px;
+	}
+	
+	footer {
+		background:#444 url('../../img/nav-grain@2x.png') repeat;
+		background-size: 113px 113px;
 	}
 	
 	#pyro-logo {
