@@ -80,6 +80,16 @@
 	width: 18px;
 }
 
+.ckeditor-pyro-logo {
+	padding-top: 2px !important;
+	height: 20px !important;
+}
+.ckeditor-pyro-logo .cke_button__maximize_icon {
+	background: url('../../img/logo.png') no-repeat center center !important;
+	background-size: 14px 20px !important;
+	height: 20px !important;
+}
+
 #dashboard-link {
 	margin-top: 11px;
 	margin-right:4px;
