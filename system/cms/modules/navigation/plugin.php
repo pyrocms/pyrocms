@@ -214,9 +214,9 @@ class Plugin_Navigation extends Plugin
 			// is the link we're currently working with found inside the children html?
 			if ( ! in_array($current_class, $wrapper['class']) and
 				isset($wrapper['children']) and
-					$current_link and
-						((is_array($wrapper['children']) and in_array($current_link, $wrapper['children'])) or
-							(is_string($wrapper['children']) and strpos($wrapper['children'], $current_link)))
+				$current_link and
+				((is_array($wrapper['children']) and in_array_r($current_link, $wrapper['children'])) or
+				(is_string($wrapper['children']) and strpos($wrapper['children'], $current_link)))
 			)
 			{
 				// that means that this link is a parent
