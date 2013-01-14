@@ -169,7 +169,7 @@ class Admin extends Admin_Controller
 			}
 		}
 
-		$data->slug = $slug;
+		$data->slug = &$slug;
 		$data->options_array = $all_options;
 		$data->controller = &$this;
 
