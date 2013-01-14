@@ -336,6 +336,11 @@ button#login-submit:hover {
 	font-size:12px;
 	text-shadow:none;
 	margin-top:-75px;
+	-webkit-box-shadow: inset 0 0 0 #666;
+	-moz-box-shadow: inset 0 0 0 #666;
+	-ms-box-shadow: inset 0 0 0 #666;
+	-o-box-shadow: inset 0 0 0 #666;
+	box-shadow: inset 0 0 0 #666;
 }
 
 #login-footer span#version {
