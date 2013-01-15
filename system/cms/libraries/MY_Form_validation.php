@@ -423,13 +423,13 @@ class MY_Form_validation extends CI_Form_validation
 		$mode 		= $items[1];
 		$stream_id	= $items[2];
 
-		if ($mode == 'edit' and isset($items[3]) and is_numeric($items[3]))
-		{
-			$row_id = $items[3];
-		}
-		elseif ($mode == 'edit' and $this->CI->input->post('row_edit_id'))
+		if ($mode == 'edit' and $this->CI->input->post('row_edit_id'))
 		{
 			$row_id = $this->CI->input->post('row_edit_id');
+		}
+		elseif ($mode == 'edit' and isset($items[3]) and is_numeric($items[3]))
+		{
+			$row_id = $items[3];
 		}
 		else
 		{
@@ -467,7 +467,7 @@ class MY_Form_validation extends CI_Form_validation
 			$existing = $this->CI->db
 				->select($column)
 				->limit(1)
-				->where('user_id', $row_id)
+				->where('id', $row_id)
 				->get($stream->stream_prefix.$stream->stream_slug)
 				->row();
 
