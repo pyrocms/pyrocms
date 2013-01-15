@@ -341,6 +341,7 @@ class Admin extends Admin_Controller {
 		role_or_die('pages', 'edit_live');
 
 		// This comes in handy
+		// @TODO Work out where this is used and destroy it, or document a MAJOR need for it. Phil
 		define('PAGE_ID', $id);
 
 		// Retrieve the page data along with its data as part of the array.
@@ -447,12 +448,15 @@ class Admin extends Admin_Controller {
 		// Get straight raw from the db
 		$page_stream_entry_raw = $this->db->limit(1)->where('id', $page->entry_id)->get($stream->stream_prefix.$stream->stream_slug)->row();
 
-		foreach ($assignments as $assign)
+		if ($assignments)
 		{
-			$from_db = isset($page_stream_entry_raw->{$assign->field_slug}) ? $page_stream_entry_raw->{$assign->field_slug} : null;
+			foreach ($assignments as $assign)
+			{
+				$from_db = isset($page_stream_entry_raw->{$assign->field_slug}) ? $page_stream_entry_raw->{$assign->field_slug} : null;
 
-			$page_content_data[$assign->field_slug] = isset($_POST[$assign->field_slug]) ? $_POST[$assign->field_slug] : $from_db;
-		}	
+				$page_content_data[$assign->field_slug] = isset($_POST[$assign->field_slug]) ? $_POST[$assign->field_slug] : $from_db;
+			}	
+		}
 
 		// Run stream field events
 		$this->fields->run_field_events($this->streams_m->get_stream_fields($this->streams_m->get_stream_id_from_slug($stream->stream_slug, $stream->stream_namespace)));
@@ -481,15 +485,12 @@ class Admin extends Admin_Controller {
 			->build('admin/form');
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Setup Stream fields
 	 *
 	 * Sets up our validation and some other common
 	 * elements for our page create/edit functions.
 	 *
-	 * @access 	private
 	 * @param 	obj
 	 * @param 	string - new or edit
 	 * @param 	int - entry id

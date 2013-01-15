@@ -558,10 +558,9 @@ class MY_Form_validation extends CI_Form_validation
 	public function streams_file_required($string, $field)
 	{
 		// Do we already have something? If we are editing the row,
-		// the file may already be there. We know that if the ID has a
-		// numerical value, since it is hooked up with the PyroCMS
-		// file system.
-		if (is_numeric($this->CI->input->post($field)))
+		// the file may already be there. We know that if the ID is there,
+		// it is hooked up with the PyroCMS file system.
+		if ($this->CI->input->post($field) and $this->CI->input->post($field) != 'dummy')
 		{
 			return true;
 		}
@@ -570,15 +569,13 @@ class MY_Form_validation extends CI_Form_validation
 		// The method of choice here is checking for a file name		
 		if (isset($_FILES[$field.'_file']['name']) and $_FILES[$field.'_file']['name'] != '')
 		{
-			// Don't do shit.
+			// Don't do anything.
 		}			
 		else
 		{
 			$this->set_message('streams_file_required', lang('streams:field_is_required'));
 			return false;
 		}
-
-		return null;
 	}
 
 	// --------------------------------------------------------------------------

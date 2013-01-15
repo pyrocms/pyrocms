@@ -52,7 +52,7 @@
 			
 			</ul>
 		
-			<div class="buttons alignleft">
+			<div class="buttons padding-top">
 				<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )) ?>
 			</div>
 	

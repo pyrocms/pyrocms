@@ -395,9 +395,9 @@ table th {
   border-right: 4px solid transparent;
   border-top: 4px solid #000;
   visibility: visible;
-  -webkit-grid-shadow: none;
-  -moz-grid-shadow: none;
-  grid-shadow: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
   filter: alpha(opacity=60);
   -khtml-opacity: 0.6;
   -moz-opacity: 0.6;
@@ -490,9 +490,9 @@ Helpers.
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
-  -webkit-grid-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
-  -moz-grid-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
-  grid-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
   -webkit-transition: 250ms linear all;
   -moz-transition: 250ms linear all;
   transition: 250ms linear all;
@@ -770,9 +770,9 @@ Helpers.
 }
 
 .btn:active {
-  -webkit-grid-shadow: inset 0 3px 7px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.05);
-  -moz-grid-shadow: inset 0 3px 7px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.05);
-  grid-shadow: inset 0 3px 7px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.05);
+  -webkit-box-shadow: inset 0 3px 7px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: inset 0 3px 7px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 3px 7px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
@@ -1053,9 +1053,9 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   	-webkit-border-radius: 3px;
   	-moz-border-radius: 3px;
   	border-radius: 3px;
-  	-webkit-grid-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-  	-moz-grid-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-  	grid-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  	-webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  	-moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 .pagination ul li {

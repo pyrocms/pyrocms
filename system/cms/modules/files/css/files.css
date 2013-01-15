@@ -30,22 +30,30 @@
 	border: none;
 	text-shadow: none;
 	line-height: 1px;
-	background: #555;
-  background-image: -moz-linear-gradient(#555, #333);
-  background-image: -ms-linear-gradient(#555, #333);
-  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #333), color-stop(100%, #555));
-  background-image: -webkit-linear-gradient(#555, #333);
-  background-image: -o-linear-gradient(#555, #333);
-  background-image: linear-gradient(#555, #333);
-	color: white;
+	background: #444;
+  background-image: -moz-linear-gradient(#444, #333);
+  background-image: -ms-linear-gradient(#444, #333);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #333), color-stop(100%, #444));
+  background-image: -webkit-linear-gradient(#444, #333);
+  background-image: -o-linear-gradient(#444, #333);
+  background-image: linear-gradient(#444, #333);
+	color: #bbb;
 	cursor: pointer;
-	-webkit-transition: 250ms linear all; 
-	-moz-transition: 250ms linear all; 
-	transition: 250ms linear all; 
+	-webkit-transition: 200ms linear all; 
+	-moz-transition: 200ms linear all; 
+	transition: 200ms linear all; 
+	-webkit-font-smoothing: subpixel-antialiased;
 }
 
 .sidebar-right button.close:hover {
-	background: rgba(0,0,0,.5);
+	color: #fff;
+	background: #333;
+	background-image: -moz-linear-gradient(#333, #333);
+  background-image: -ms-linear-gradient(#333, #333);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #333), color-stop(100%, #333));
+  background-image: -webkit-linear-gradient(#333, #333);
+  background-image: -o-linear-gradient(#333, #333);
+  background-image: linear-gradient(#333, #333);
 }
 
 
@@ -124,8 +132,8 @@ input#file-search {
   font-size: 13px;
   font-weight: normal;
   line-height: 20px;
-  background: white;
-	border: 1px solid rgba(0, 0, 0, 0.2);
+  background: #eee;
+	border: 1px solid #ccc;
 	-webkit-box-shadow: 0 1px 1px 0 rgba(255,255,255,.05);
 	-moz-box-shadow: 0 1px 1px 0 rgba(255,255,255,.05);
 	box-shadow: 0 1px 1px 0 rgba(255,255,255,.05);
@@ -147,7 +155,7 @@ input#file-search {
 input#file-search:focus {
 	background: white;
 	/* width: 260px; */
-	border: 1px solid rgba(0, 0, 0, 0.2);
+	border: 1px solid #ccc;
 	outline: none;
 	-webkit-box-shadow: 0 1px 1px 0 rgba(255,255,255,.1);
 	-moz-box-shadow: 0 1px 1px 0 rgba(255,255,255,.1);
@@ -240,6 +248,10 @@ section.file-path h5 a {
 	display:none;
 }
 
+#file-to-replace .alert-warning {
+	color: #d83a2e;
+}
+
 #folders-sidebar .no_data {
 	margin:0 20px;
 }
@@ -322,6 +334,11 @@ section.file-path h5 a {
 	margin: 10px;
 	overflow:hidden;
 	float:left;
+	-webkit-transition: all 200ms linear;
+	-moz-transition: all 200ms linear;
+	-ms-transition: all 200ms linear;
+	-o-transition: all 200ms linear;
+	transition: all 200ms linear;
 }
 
 .folders-center .folder {
@@ -538,18 +555,25 @@ li.right-title,li.right-title label {
 
 #files-uploader .files-uploader-browser {
 	padding-bottom:75px;
+	position: relative;
 }
 
-#files-uploader > .buttons {
-	position:absolute;
-	bottom:20px;
-	right:0;
+#files-uploader .files-uploader-browser > .buttons {
+	display: block;
+	margin-left: 4px;
+	margin-bottom: 10px;
+	float: right;
+	clear:both;
+}
+
+#files-uploader .files-uploader-browser > .buttons button, #files-uploader .files-uploader-browser > .buttons a.button {
+	margin-left: 4px;
 }
 
 #files-uploader form.file_upload {
 	background-color:transparent;
 	border:2px dashed #d0d0d0;
-	margin:20px auto 30px;
+	margin:20px auto 10px;
 	min-height:100px;
 	color:#585858;
 	width:99%;
@@ -569,19 +593,32 @@ li.right-title,li.right-title label {
 
 #files-uploader-queue {
 	list-style-type:none;
-	margin:0 0 20px;
-	height:185px;
+	display: block;
+	margin:0px;
+	height:auto;
+	width: 100%;
+	min-height: 185px;
 	overflow-y:auto;
-	background:#f9f9f9;
+	background:#f5f5f5;
 	border:1px solid #ddd;
 	padding:0;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	-ms-border-radius: 10px;
+	-o-border-radius: 10px;
+	border-radius: 10px;
 }
 
 #files-uploader-queue li {
-	margin:-1px 10px 10px;
+	margin:0px 10px 0px;
 	padding-top:10px;
-	border-top:1px dotted #ddd;
+	border-top:1px solid #ddd;
 	clear:both;
+	display: inline-block;
+}
+
+#files-uploader-queue li:first-child {
+	border-top:none;
 }
 
 #files-uploader-queue li > div {
@@ -596,17 +633,23 @@ li.right-title,li.right-title label {
 
 #files-uploader-queue .file_upload_preview {
 	border:1px solid #ccc;
-	width:20%;
+	width:auto;
+	float: left;
 }
 
 #files-uploader-queue .file_upload_preview div {
 	overflow:hidden;
 	background:#fff;
-	max-height:50px;
+	-webkit-box-shadow: 0 2px 3px 0 rgba(0,0,0,.4);
+	-moz-box-shadow: 0 2px 3px 0 rgba(0,0,0,.4);
+	-ms-box-shadow: 0 2px 3px 0 rgba(0,0,0,.4);
+	-o-box-shadow: 0 2px 3px 0 rgba(0,0,0,.4);
+	box-shadow: 0 2px 3px 0 rgba(0,0,0,.4);
 }
 
 #files-uploader-queue .file_upload_preview img,#files-uploader-queue .file_upload_preview canvas {
-	width:100%;
+	width:auto;
+	border: 3px solid white;
 }
 
 #files-uploader-queue .filename {
@@ -614,7 +657,7 @@ li.right-title,li.right-title label {
 	overflow:hidden;
 	color:#666;
 	margin-top:10px;
-	text-align:center;
+	text-align:left;
 }
 
 #files-uploader-queue .file_upload_progress {
@@ -636,6 +679,7 @@ li.right-title,li.right-title label {
 	height:30px;
 	background:url(../img/upload.png) no-repeat 0 0;
 	display:inline-block;
+	cursor: pointer;
 }
 
 .file_upload_cancel div.cancel-icon {
@@ -644,10 +688,12 @@ li.right-title,li.right-title label {
 	height:30px;
 	background:url(../img/cancel.png) no-repeat 0 0;
 	display:inline-block;
+	cursor: pointer;
 }
 
 #files-uploader-queue .image_meta {
 	float:left;
+	margin-bottom: 10px;
 }
 
 #files-uploader-queue .image_meta label {

@@ -966,6 +966,9 @@ class Field_datetime
 	 */
 	public function pre_output($input, $params)
 	{
+		// Don't show Dec 31st if empty silly
+		if ( $input == null ) return null;
+		
 		// If this is a date-time stored value,
 		// we need this to be converted to UNIX.
 		if ( ! isset($params['storage']) or $params['storage'] == 'datetime')

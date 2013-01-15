@@ -258,7 +258,12 @@ class Pages extends Public_Controller
 		$stream = $this->streams_m->get_stream($page->layout->stream_id);
 
 		// Parse our view file
-		$view = $this->parser->parse_string($this->load->view('page', array('page' => $page), true), $page, true, false, array('stream' => $stream->stream_slug, 'namespace' => $stream->stream_namespace));
+		$html = $this->load->view('pages/page', array('page' => $page), true);
+		
+		$view = $this->parser->parse_string($html, $page, true, false, array(
+			'stream' => $stream->stream_slug, 
+			'namespace' => $stream->stream_namespace
+		));
 
 		$this->template->build($view, array('page' => $page), false, false, true);
 	}

@@ -14,11 +14,16 @@
 }
 #available-widgets  ul li {
 	position: relative;
-	padding: 1px 10px 10px 10px;
+	padding: 10px 10px 10px 10px;
 	margin: 0;
 	background-color: #f2f2f2;
 	border-color: #ddd;
 	margin-bottom: 5px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	-ms-border-radius: 4px;
+	-o-border-radius: 4px;
+	border-radius: 4px;
 }
 #available-widgets  ul li p span {
 	color: #484848;
@@ -63,41 +68,65 @@
 // WIDGETS AREAS LIST
 //-------------------------------------------------------------------*/
 
-#widget-areas .widget-area-box > header {
+.widget-area-box > header {
 	display: block;
 	float: none;
-	padding: 0 0 1px 0!important;
-	background: #F1F1F1;
+	width: auto;
+	padding: 10px;
+	background: #f2f2f2;
 	margin-bottom: 10px;
 	cursor: pointer;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	-ms-border-radius: 4px;
+	-o-border-radius: 4px;
+	border-radius: 4px;
+	-webkit-transition:250ms linear all;
+	-moz-transition:250ms linear all;
+	-o-transition:250ms linear all;
+	transition:250ms linear all;
 }
-#widget-areas .widget-area-box {
-	border: 1px solid #F1F1F1;
+.widget-area-box > header:hover {
+	background: #e6e6e6;
+}
+.widget-area-box > header:focus {
+	outline: none;
+}
+
+.widget-area-box {
 	width: 100%;
 	padding: 0!important;
 	margin-bottom: 15px;
 }
-#widget-areas .widget-area-box > header h3 {
+.widget-area-box > header h3 {
 	font-size: 16px;
-	display: block;
+	margin: 0px;
+	display: inline-block;
+	line-height: 10px;
+	text-align: left;
 	background: none;
 	color: #484848!important;
 }
-#widget-areas .widget-area-box > header h3 a {
+
+.widget-area-box > header h3:focus {
+	outline:none;
+}
+
+.widget-area-box > header h3 a {
 	color: #484848;
 }
-#widget-areas .widget-area-content {
+.widget-area-content {
 	display: block;
 	position: relative;
 }
-#widget-areas .area-buttons {
+.widget-area-content .area-buttons {
 	position: absolute;
 	right: 0;
-	top: -47px;
-	padding-right: 6px;
+	top: 0px;
+	padding-right: 10px;
 }
 
-#widget-areas .widget-area-content > code.tag {
+.widget-area-content > code.tag {
 	color: #999;
 }
 
@@ -108,6 +137,7 @@
 	background-color: #fafafa;
 	border: 1px solid #E6E6E6;
 	padding: 2px 10px;
+	margin-top: 10px;
 	margin-bottom: 5px;
 	min-height: 35px;
 }
@@ -152,7 +182,9 @@
 .widget-instance ol {
 	margin-bottom: 0;
 }
-.widget-list { overflow: auto; }
+.widget-list { 
+	/* overflow: auto; */ 
+}
 .widget-list textarea.uniform {
 	width: 97% !important;
 	resize: none;
@@ -162,8 +194,13 @@
 	resize: none;
 }
 
+.widget-list textarea {
+	width: auto;
+}
+
 .widget-instance form.crud label{
 	text-align: left;
+	display: block;
 }
 
 .widget-instance form.crud span.required-icon {
@@ -185,14 +222,14 @@
 }
 
 #add-instance-box {
-	padding: 0;
+	padding: 20px;
 	margin-bottom: 20px;
 	background-color: #fcfcfc;
 	position: static;
 }
 
 #edit-instance-box {
-	padding: 0;
+	padding: 20px;
 	margin-bottom: 20px;
 	background-color: #fcfcfc;
 	float:none;
@@ -220,7 +257,6 @@
 	margin-top: 7px;
 }
 
-
 #widget-wrapper {
 	width: 32%;
 	min-width: 350px;
@@ -228,27 +264,33 @@
 	display: inline-block;
 	float: left;
 }
+
+.widget-list h3 {
+	line-height: 18px;
+	margin: 0;
+}
+
 .widget-list ol {	
 	list-style-type: none;
 	cursor: auto;
 	display: block;
-	padding: 0 10px;
+	padding: 0 0px;
 	margin-bottom: 0;
-	margin-top: 30px;
+	margin: 10px 0;
 }
+
 .widget-list fieldset ol {
 	padding: 0;
 }
 .widget-list fieldset li li {
 	padding-left: 0;
-	padding-rigth: 0;
+	padding-right: 0;
 }
 .widget-list ol li {
-	margin: 0 0 10px;
 	cursor: move;
 }
 .widget-list ol input[type=text] {
-	width: 19em;
+	width: auto;
 }
 .widget-list ol li > label {
 	text-align: right;
@@ -269,9 +311,11 @@ li.empty-drop-item.loading {
 	display: block !important;
 	border-color: #ADADAD;
 }
+/*
 .box-container {
 	padding: 5px 15px;
 }
+*/
 
 .box-container header h3 {
 	font-size: 16px;
