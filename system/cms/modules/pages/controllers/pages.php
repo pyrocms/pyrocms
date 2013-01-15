@@ -87,7 +87,7 @@ class Pages extends Public_Controller
 		}
 
 		// GET THE PAGE ALREADY. In the event of this being the home page $url_segments will be null
-		$page = $this->pyrocache->model('page_m', 'get_by_uri', array($url_segments, true));
+		$page = $this->cache->method($this->page_m, 'get_by_uri', array($url_segments, true));
 
 		// If page is missing or not live (and the user does not have permission) show 404
 		if ( ! $page or ($page->status == 'draft' and ! $this->permission_m->has_role(array('put_live', 'edit_live'))))
