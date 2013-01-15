@@ -467,7 +467,7 @@ class MY_Form_validation extends CI_Form_validation
 			$existing = $this->CI->db
 				->select($column)
 				->limit(1)
-				->where('id', $row_id)
+				->where('user_id', $row_id)
 				->get($stream->stream_prefix.$stream->stream_slug)
 				->row();
 
