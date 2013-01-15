@@ -65,7 +65,7 @@ class Module_Search extends Module
 		$this->load->model('search/search_index_m');
 		$this->load->library('keywords/keywords');
 
-		foreach ($this->db->get('pages')->result() as $page)
+		foreach ($this->pdb->table('pages')->get() as $page)
 		{
 			// Only index live articles
 	    	if ($page->status === 'live')
@@ -84,7 +84,7 @@ class Module_Search extends Module
 	    			$page->id,
 	    			$page->uri,
 	    			$page->title,
-	    			$page->meta_description ? $page->meta_description : null, 
+	    			$page->meta_description ?: null, 
 	    			array(
 	    				'cp_edit_uri' 	=> 'admin/pages/edit/'.$page->id,
 	    				'cp_delete_uri' => 'admin/pages/delete/'.$page->id,
