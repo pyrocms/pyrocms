@@ -21,4 +21,6 @@ div.tabs fieldset ol li {
 div.type-checkbox label {
 	text-align:left;
 	font-weight:400;
+	width: auto !important;
+	margin: 0;
 }

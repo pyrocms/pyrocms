@@ -13,38 +13,38 @@
 			<a class="tooltip-s toggle" title="Toggle this element"></a>
 		</section>
 		
-		<section id="quick_links" class="item <?php echo isset($rss_items); ?>">
+		<section id="quick_links" class="item <?php echo isset($rss_items) ?>">
 			<div class="content">
 				<ul>
 					<?php if((array_key_exists('comments', $this->permissions) OR $this->current_user->group == 'admin') AND module_enabled('comments')): ?>
 					<li>
-						<a class="tooltip-s" title="<?php echo lang('cp:manage_comments') ?>" href="<?php echo site_url('admin/comments') ?>"><?php echo Asset::img('icons/comments.png', lang('cp:manage_comments')); ?></a>
+						<a class="tooltip-s" title="<?php echo lang('cp:manage_comments') ?>" href="<?php echo site_url('admin/comments') ?>"><?php echo Asset::img('icons/comments.png', lang('cp:manage_comments')) ?></a>
 					</li>
-					<?php endif; ?>
+					<?php endif ?>
 					
 					<?php if((array_key_exists('pages', $this->permissions) OR $this->current_user->group == 'admin') AND module_enabled('pages')): ?>
 					<li>
-						<a class="tooltip-s" title="<?php echo lang('cp:manage_pages'); ?>" href="<?php echo site_url('admin/pages') ?>"><?php echo Asset::img('icons/pages.png', lang('cp:manage_pages')); ?></a>
+						<a class="tooltip-s" title="<?php echo lang('cp:manage_pages') ?>" href="<?php echo site_url('admin/pages') ?>"><?php echo Asset::img('icons/pages.png', lang('cp:manage_pages')) ?></a>
 					</li>
-					<?php endif; ?>
+					<?php endif ?>
 					
 					<?php if((array_key_exists('files', $this->permissions) OR $this->current_user->group == 'admin') AND module_enabled('files')): ?>
 					<li>
-						<a class="tooltip-s" title="<?php echo lang('cp:manage_files'); ?>" href="<?php echo site_url('admin/files') ?>"><?php echo Asset::img('icons/files.png', lang('cp:manage_files')); ?></a>
+						<a class="tooltip-s" title="<?php echo lang('cp:manage_files') ?>" href="<?php echo site_url('admin/files') ?>"><?php echo Asset::img('icons/files.png', lang('cp:manage_files')) ?></a>
 					</li>
-					<?php endif; ?>
+					<?php endif ?>
 					
 					<?php if(array_key_exists('users', $this->permissions) OR $this->current_user->group == 'admin'): ?>
 					<li>
-						<a class="tooltip-s" title="<?php echo lang('cp:manage_users'); ?>" href="<?php echo site_url('admin/users') ?>"><?php echo Asset::img('icons/users.png', lang('cp:manage_users')); ?></a>
+						<a class="tooltip-s" title="<?php echo lang('cp:manage_users') ?>" href="<?php echo site_url('admin/users') ?>"><?php echo Asset::img('icons/users.png', lang('cp:manage_users')) ?></a>
 					</li>
-					<?php endif; ?>
+					<?php endif ?>
 				</ul>
 			</div>
 		</section>
 
 	</div>	
-	<?php endif; ?>
+	<?php endif ?>
 	<!-- End Quick Links -->
 
 	<!-- Begin Recent Comments -->
@@ -58,22 +58,28 @@
 		
 		<section class="item">
 			<div class="content">
-				<ul>
+				<ul id="widget-comments">
+
 					<?php if (count($recent_comments)): ?>
-							<?php foreach ($recent_comments AS $rant) : ?>
-								<li>
-									<p><?php echo sprintf(lang('comments:list_comment'), $rant->user_name, $rant->entry_title); ?> <em><?php echo (Settings::get('comment_markdown') AND $rant->parsed > '') ? strip_tags($rant->parsed) : $rant->comment; ?></em></p>
-								</li>
-							<?php endforeach; ?>
+						<?php foreach ($recent_comments as $comment): ?>
+							<li>
+								<div class="comments-gravatar"><?php echo gravatar($comment->user_email) ?></div>
+								<div class="comments-date"><?php echo format_date($comment->created_on) ?></div>
+								<p>
+									<?php echo sprintf(lang('comments:list_comment'), $comment->user_name, $comment->entry_title) ?> 
+									<span><?php echo (Settings::get('comment_markdown') AND $comment->parsed > '') ? strip_tags($comment->parsed) : $comment->comment ?></span>
+								</p>
+							</li>
+						<?php endforeach ?>
 					<?php else: ?>
-							<?php echo lang('comments:no_comments');?>
-					<?php endif; ?>
+						<?php echo lang('comments:no_comments') ?>
+					<?php endif ?>
 				</ul>
 			</div>
 		</section>
 
 	</div>		
-	<?php endif; ?>
+	<?php endif ?>
 	<!-- End Recent Comments -->
 		
 	
@@ -81,8 +87,8 @@
 	<script type="text/javascript">
 	
 	$(function($) {
-			var visits = <?php echo isset($analytic_visits) ? $analytic_visits : 0; ?>;
-			var views = <?php echo isset($analytic_views) ? $analytic_views : 0; ?>;
+			var visits = <?php echo isset($analytic_visits) ? $analytic_visits : 0 ?>;
+			var views = <?php echo isset($analytic_views) ? $analytic_views : 0 ?>;
 	
 			var buildGraph = function() {
 				$.plot($('#analytics'), [{ label: 'Visits', data: visits },{ label: 'Page views', data: views }], {
@@ -159,7 +165,7 @@
 		</section>
 	</div>
 	
-	<?php endif; ?>
+	<?php endif ?>
 	<!-- End Analytics -->
 
 	<!-- Begin RSS Feed -->
@@ -167,7 +173,7 @@
 	<div id="feed" class="one_full">
 		
 		<section class="draggable title">
-			<h4><?php echo lang('cp:news_feed_title'); ?></h4>
+			<h4><?php echo lang('cp:news_feed_title') ?></h4>
 			<a class="tooltip-s toggle" title="Toggle this element"></a>
 		</section>
 		
@@ -184,26 +190,28 @@
 						?>
 							
 						<div class="date">
-							<span class="month">
-								<?php echo $item_month ?>
-							</span>
-							<span class="day">
-								<?php echo $item_day; ?>
-							</span>
+							<div class="time">
+								<span class="month">
+									<?php echo $item_month ?>
+								</span>
+								<span class="day">
+									<?php echo $item_day ?>
+								</span>
+							</div>
 						</div>
 						<div class="post">
-							<h4><?php echo anchor($rss_item->get_permalink(), $rss_item->get_title(), 'target="_blank"'); ?></h4>
+							<h4><?php echo anchor($rss_item->get_permalink(), $rss_item->get_title(), 'target="_blank"') ?></h4>
 													
-							<p class='item_body'><?php echo $rss_item->get_description(); ?></p>
+							<p class='item_body'><?php echo $rss_item->get_description() ?></p>
 						</div>
 					</li>
-					<?php endforeach; ?>
+					<?php endforeach ?>
 				</ul>
 			</div>
 		</section>
 
 	</div>		
-	<?php endif; ?>
+	<?php endif ?>
 	<!-- End RSS Feed -->
 	<script type="text/javascript">
 		(function ($) {

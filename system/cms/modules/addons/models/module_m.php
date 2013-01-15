@@ -454,21 +454,29 @@ class Module_m extends MY_Model
 			// It's a valid module let's make a record of it
 			$this->add($input);
 		}
-
-		// TURN ME ON BABY!
-		$this->db->where('slug', $slug)->update($this->_table, array('enabled' => true, 'installed' => true));
-		
-		// enable it
-		$this->_module_exists[$slug] = true;
-		$this->_module_enabled[$slug] = true;
-		$this->_module_installed[$slug] = true;
 		
 		// set the site_ref and upload_path for third-party devs
 		$class->site_ref 	= SITE_REF;
 		$class->upload_path	= 'uploads/'.SITE_REF.'/';
 
 		// Run the install method to get it into the database
-		return $class->install();
+		if ($class->install())
+		{
+			// TURN ME ON BABY!
+			$this->db->where('slug', $slug)->update($this->_table, array(
+				'enabled' => true,
+				'installed' => true
+			));
+			
+			// enable it
+			$this->_module_exists[$slug] = true;
+			$this->_module_enabled[$slug] = true;
+			$this->_module_installed[$slug] = true;
+
+			return true;
+		}
+
+		return false;
 	}
 
 	/**
@@ -552,7 +560,9 @@ class Module_m extends MY_Model
 		if ($class->upgrade($old_version))
 		{
 			// Update version number
-			$this->db->where('slug', $slug)->update($this->_table, array('version' => $class->version));
+			$this->db->where('slug', $slug)->update($this->_table, array(
+				'version' => $class->version
+			));
 			
 			return true;
 		}

@@ -26,7 +26,7 @@
 		<div class="keywords">
 			<?php echo lang('blog:tagged_label');?>:
 			<?php foreach ($post->keywords as $keyword): ?>
-			<span><?php echo anchor('blog/tagged/'.$keyword->name, $keyword->name, 'class="keyword"') ?></span>
+			<span><?php echo anchor('blog/tagged/'.$keyword, $keyword, 'class="keyword"') ?></span>
 			<?php endforeach ?>
 		</div>
 		<?php endif ?>

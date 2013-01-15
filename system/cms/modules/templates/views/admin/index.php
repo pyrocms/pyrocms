@@ -60,14 +60,14 @@
 	   
 	<section class="item">
 		<div class="content">
-			<table border="0" class="table-list clear-both">
+			<table border="0" class="table-list clear-both" cellspacing="0">
 		        <thead>
 		            <tr>
 		                <th><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all'));?></th>
 		                <th><?php echo lang('name_label') ?></th>
 		                <th><?php echo lang('global:description') ?></th>
 		                <th><?php echo lang('templates:language_label') ?></th>
-		                <th width="200"></th>
+		                <th width="220"></th>
 		            </tr>
 		        </thead>
 		

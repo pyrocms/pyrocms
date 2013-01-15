@@ -18,7 +18,7 @@ class Comment_m extends MY_Model
 		return $this->db->select('c.*')
     		->select('IF(c.user_id > 0, m.display_name, c.user_name) as user_name', false)
     		->select('IF(c.user_id > 0, u.email, c.user_email) as user_email', false)
-    		->select('u.username, p.display_name')
+    		->select('u.username')
     		->from('comments c')
     		->join('users u', 'c.user_id = u.id', 'left')
     		->join('profiles m', 'm.user_id = u.id', 'left')

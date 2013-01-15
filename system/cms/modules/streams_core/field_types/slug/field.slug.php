@@ -33,7 +33,10 @@ class Field_slug
 	 */
 	public function event()
 	{
-		$this->CI->type->add_js('slug', 'jquery.slugify.js');
+		if ( ! defined('ADMIN_THEME'))
+		{
+			$this->CI->type->add_js('slug', 'jquery.slugify.js');
+		}
 	}
 	
 	// --------------------------------------------------------------------------
@@ -51,7 +54,12 @@ class Field_slug
 		$options['id']		= $params['form_slug'];
 		$options['value']	= $params['value'];
 		
-		$jquery = "<script>$('#{$params['form_slug']}').slugify({slug: '#{$params['custom']['slug_field']}', type: '{$params['custom']['space_type']}'});</script>";
+		$jquery = "<script>(function($) {
+			$(function(){
+					pyro.generate_slug('#{$params['custom']['slug_field']}', '#{$params['form_slug']}', '{$params['custom']['space_type']}');
+			});
+		})(jQuery);
+		</script>";
 		
 		return form_input($options)."\n".$jquery;
 	}

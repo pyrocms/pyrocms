@@ -117,9 +117,10 @@ class Field_country
 	 * Returns an array of country choices
 	 *
 	 * @access	private
+	 * @param 	bool 	$is_required 	If set to true, it will add a null value to array
 	 * @return	array
 	 */	
-	private function countries($is_required)
+	public function countries($is_required = false)
 	{
 		$choices = array();
 	

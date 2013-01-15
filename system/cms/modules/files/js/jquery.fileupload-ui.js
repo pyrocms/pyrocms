@@ -64,7 +64,7 @@
         this.requestHeaders = {'Accept': 'application/json, text/javascript, */*; q=0.01'};
         this.dropZone = container;
         this.imageTypes = /^image\/(gif|jpeg|png)$/;
-        this.previewMaxWidth = this.previewMaxHeight = 80;
+        this.previewMaxWidth = this.previewMaxHeight = 120;
         this.previewLoadDelay = 100;
         this.previewAsCanvas = true;
         this.previewSelector = '.file_upload_preview';

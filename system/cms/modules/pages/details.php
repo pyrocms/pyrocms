@@ -305,4 +305,5 @@ class Module_Pages extends Module
     {
         return true;
     }
+
 }

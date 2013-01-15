@@ -222,7 +222,7 @@ class Streams_entries extends CI_Driver {
 	{
 		$str_obj = $this->stream_obj($stream, $namespace);
 		
-		if ( ! $str_obj) $this->log_error('invalid_stream', 'delete_stream');
+		if ( ! $str_obj) $this->log_error('invalid_stream', 'insert_entry');
 
 		$CI = get_instance();
 
@@ -236,7 +236,6 @@ class Streams_entries extends CI_Driver {
 	/**
 	 * Update an entry
 	 *
-	 * @access	public
 	 * @param	int - entry id
 	 * @param	array - entry data
 	 * @param	stream - int, slug, or obj
@@ -250,7 +249,7 @@ class Streams_entries extends CI_Driver {
 	{
 		$str_obj = $this->stream_obj($stream, $namespace);
 		
-		if ( ! $str_obj) $this->log_error('invalid_stream', 'delete_stream');
+		if ( ! $str_obj) $this->log_error('invalid_stream', 'update_entry');
 
 		$CI = get_instance();
 

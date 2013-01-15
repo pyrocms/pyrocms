@@ -18,7 +18,8 @@ class Plugin_Helper extends Plugin
 	public $description = array(
 		'en' => 'Access helper functions and other helpful items.',
 		'el' => 'Πρόσβαση σε helper functions και άλλα χρήσιμα.',
-		'fr' => 'Accéder aux fonctions helper et à d\'autres éléments utiles.'
+		'fr' => 'Accéder aux fonctions helper et à d\'autres éléments utiles.',
+		'it' => 'Accedi alle funzioni di aiuto e ad altre cose utili',
 	);
 
 	/**

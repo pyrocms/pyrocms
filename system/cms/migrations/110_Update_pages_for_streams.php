@@ -77,6 +77,9 @@ class Migration_Update_pages_for_streams extends CI_Migration
         // This stream has a single page chunks field, and can be
         // modified to suit needs further on down the road.
         $this->dbforge->drop_table('def_page_fields', true);
+        
+        // Avoid stream conflicts
+        $this->db->where('stream_slug', 'def_page_fields')->delete('data_streams');
 
         $this->load->driver('Streams');
         $stream_id = $this->streams->streams->add_stream('Default Page Stream', 'def_page_fields', 'pages');

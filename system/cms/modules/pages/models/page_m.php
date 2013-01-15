@@ -167,10 +167,8 @@ class Page_m extends MY_Model
 			}
 		}
 
-
 		// looks like we have a 404
 		if ( ! $page) return false;
-
 
 		// ---------------------------------
 		// Legacy Page Chunks Logic
@@ -247,7 +245,8 @@ class Page_m extends MY_Model
 	public function get($id, $get_data = true)
 	{
 		$page = $this->db
-			->select('pages.*, page_types.id as page_type_id, page_types.stream_id, page_types.js as js, page_types.css, page_types.body, page_types.save_as_files, page_types.slug as page_type_slug')
+			->select('pages.*, page_types.id as page_type_id, page_types.stream_id, page_types.body')
+			->select('page_types.save_as_files, page_types.slug as page_type_slug, page_types.title as page_type_title, page_types.js as page_type_js, page_types.css as page_type_css')
 			->join('page_types', 'page_types.id = pages.type_id', 'left')
 			->where('pages.id', $id)
 			->get($this->_table)
@@ -264,27 +263,30 @@ class Page_m extends MY_Model
 			$this->load->driver('Streams');
 			$stream = $this->streams_m->get_stream($page->stream_id);
 
-			$params = array(
-				'stream' 	=> $stream->stream_slug,
-				'namespace' => $stream->stream_namespace,
-				'where' 	=> "`id`='".$page->entry_id."'",
-				'limit' 	=> 1
-			);
-
-			$ret = $this->streams->entries->get_entries($params);
-
-			if (isset($ret['entries'][0]))
+			if ($stream)
 			{
-				// For no collisions
-				$ret['entries'][0]['entry_id'] = $ret['entries'][0]['id'];
-				unset($ret['entries'][0]['id']);
+				$params = array(
+					'stream' 	=> $stream->stream_slug,
+					'namespace' => $stream->stream_namespace,
+					'where' 	=> "`id`='".$page->entry_id."'",
+					'limit' 	=> 1
+				);
 
-				$page->stream_entry_found = true;
+				$ret = $this->streams->entries->get_entries($params);
 
-				return (object) array_merge((array) $page, (array) $ret['entries'][0]);
+				if (isset($ret['entries'][0]))
+				{
+					// For no collisions
+					$ret['entries'][0]['entry_id'] = $ret['entries'][0]['id'];
+					unset($ret['entries'][0]['id']);
+
+					$page->stream_entry_found = true;
+
+					return (object) array_merge((array) $page, (array) $ret['entries'][0]);
+				}
+
+				$this->page_type_m->get_page_type_files_for_page($page);
 			}
-
-			$this->page_type_m->get_page_type_files_for_page($page);
 		}
 
 		return $page;

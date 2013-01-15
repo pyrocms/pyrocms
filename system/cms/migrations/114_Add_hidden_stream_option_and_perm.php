@@ -1,7 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-
-class Migration_Add_hidden_stream_option extends CI_Migration
+class Migration_Add_hidden_stream_option_and_perm extends CI_Migration
 {
     public function up()
     {
