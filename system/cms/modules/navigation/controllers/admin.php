@@ -251,21 +251,21 @@ class Admin extends Admin_Controller {
 			return;
 		}
 
-		$navigation_link = (object)array();
+		$link = new stdClass;
 
 		// Loop through each validation rule
 		foreach ($this->validation_rules as $rule)
 		{
-			$navigation_link->{$rule['field']} = set_value($rule['field']);
+			$link->{$rule['field']} = set_value($rule['field'], '');
 		}
 
-		$navigation_link->navigation_group_id = $group_id;
+		$link->navigation_group_id = $group_id;
 
 		$this->template
-			->set('navigation_link',$navigation_link);
+			->set('link',$link);
 
 		// Get Pages and create pages tree
-		$this->template->tree_select = $this->_build_tree_select(array('current_parent' => $this->template->navigation_link->page_id));
+		$this->template->tree_select = $this->_build_tree_select(array('current_parent' => $link->page_id));
 
 		$this->template
 			->set_layout(false)
