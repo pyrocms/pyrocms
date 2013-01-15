@@ -1,4 +1,4 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['header']			=	'Stap 1: Configureer de Database en de Server';
@@ -7,6 +7,9 @@ $lang['intro_text']		= 	'Voordat we de database kunnen gebruiken, moet u eerst d
 $lang['db_settings']	=	'Database Instellingen';
 $lang['db_text']		=	'Om de MySQL versie te controleren is het nodig om de naam, de gebruikersnaam en het password van de server in te vullen in het onderstaande formulier. Deze instellingen zullen ook gebruikt worden voor het installeren van de database.';
 $lang['db_missing']		=	'The mysql database driver for PHP were not found, installation cannot continue. Ask your host or server administrator to install it.'; #translate
+$lang['db_create']		=	'Create Database'; #translate
+$lang['db_notice']		=	'You might need to do this yourself via your hosting control panel'; #translate
+$lang['database']		=	'MySQL Database'; #translate
 
 $lang['server']			=	'Server naam';
 $lang['username']		=	'Gebruikersnaam';
@@ -22,5 +25,3 @@ $lang['step2']			=	'Stap 2';
 // messages
 $lang['db_success']		=	'De database instellingen zijn getest en werken.';
 $lang['db_failure']		=	'Er heeft zich een probleem voorgedaan tijdens het verbinden met de database: ';
-
-/* End of file step_1_lang.php */

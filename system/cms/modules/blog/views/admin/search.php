@@ -18,7 +18,7 @@
 		<tfoot>
 			<tr>
 				<td colspan="6">
-					<div class="inner filtered"><?php $this->load->view('admin/partials/pagination'); ?></div>
+					<div class="inner filtered"><?php $this->load->view('admin/partials/pagination') ?></div>
 				</td>
 			</tr>
 		</tfoot>
@@ -31,21 +31,21 @@
 					<td><?php echo format_date($post->created_on);?></td>
 					<td><?php echo lang('blog_'.$post->status.'_label');?></td>
 					<td>
-						<?php echo anchor('admin/blog/preview/' . $post->id, lang($post->status == 'live' ? 'global:view' : 'global:preview'), 'rel="modal-large" class="iframe" target="_blank"') . ' | '; ?>
+						<?php echo anchor('admin/blog/preview/' . $post->id, lang($post->status == 'live' ? 'global:view' : 'global:preview'), 'rel="modal-large" class="iframe" target="_blank"') . ' | ' ?>
 						<?php echo anchor('admin/blog/edit/' . $post->id, lang('global:edit'));?> |
-						<?php echo anchor('admin/blog/delete/' . $post->id, lang('global:delete'), array('class'=>'confirm')); ?>
+						<?php echo anchor('admin/blog/delete/' . $post->id, lang('global:delete'), array('class'=>'confirm')) ?>
 					</td>
 				</tr>
-			<?php endforeach; ?>
+			<?php endforeach ?>
 		</tbody>
 	</table>
 
 	<div class="buttons float-right padding-top">
-		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete', 'publish'))); ?>
+		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete', 'publish'))) ?>
 	</div>
 
 <?php else: ?>
 	<p><?php echo lang('blog_no_posts');?></p>
-<?php endif; ?>
+<?php endif ?>
 
 <?php echo form_close();?>

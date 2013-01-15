@@ -34,9 +34,9 @@ abstract class Plugin
 		{
 			// Let's get parse_params first since it
 			// dictates how we handle all tags
-			if ( ! isset($attributes['parse_params'])) $attributes['parse_params'] = 'yes';
+			if ( ! isset($attributes['parse_params'])) $attributes['parse_params'] = true;
 			
-			if ($attributes['parse_params'] == 'yes')
+			if (str_to_bool($attributes['parse_params']))
 			{
 				// For each attribute, let's see if we need to parse it.
 				foreach ($attributes as $key => $attr)
@@ -45,9 +45,6 @@ abstract class Plugin
 				}
 			}
 			
-			// unset the parse_params since we no longer need it
-			unset($attributes['parse_params']);
-		
 			$this->attributes = $attributes;
 		}
 	}

@@ -11,6 +11,8 @@ $lang['global:author'] 					= 'Autor';
 $lang['global:action'] 					= 'Akce';
 $lang['global:slug'] 					= 'Slug';
 $lang['global:slug_instructions']		= 'Lowercase characters and underscores only.'; #translate
+$lang['global:user'] 					= 'User'; #translate
+
 $lang['global:dialog:delete_message'] 	= 'Opravdu chcete položku vymazat? Akci nebude možno vrátit.';
 $lang['global:dialog:confirm'] 			= 'Potvrdit';
 
@@ -50,9 +52,10 @@ $lang['general_error_label'] 			= 'Chyba';
 $lang['required_error_label'] 			= 'Povinné pole chybí';
 $lang['note_label'] 					= 'Poznámka';
 $lang['success_label'] 					= 'Úspěch';
+$lang['global:fields']					= 'Fields'; #translate
 
 $lang['login_title'] 					= 'Přihlásit';
-$lang['cms_fatal_error'] 				= 'Závažná chyba, je systém nainstalován?';
+$lang['global:fatal_error'] 				= 'Závažná chyba, je systém nainstalován?';
 $lang['global:demo_restrictions']       = 'Some features on this page have been disabled for the demo.'; #translate
 
 $lang['login_error_label'] 				= 'Chyba při přihlášení';
@@ -67,15 +70,17 @@ $lang['cancel_label'] 					= 'Zrušit';
 $lang['update_label'] 					= 'Aktualizovat';
 $lang['global:delete'] 					= 'Vymazat';
 $lang['activate_label'] 				= 'Aktivovat';
-$lang['approve_label']					= 'Schválit';
-$lang['unapprove_label']				= 'Zamítnout';
+$lang['global:approve']					= 'Schválit';
+$lang['global:unapprove']				= 'Zamítnout';
 $lang['publish_label'] 					= 'Publikovat';
 $lang['global:upload'] 					= 'Nahrát';
 $lang['global:uninstall'] 				= 'Odinstalovat';
-$lang['global:install'] 					= 'Instalovat';
+$lang['global:install'] 				= 'Instalovat';
+$lang['global:upgrade'] 				= 'Upgrade'; #translate
 $lang['global:enable']					= 'Zapnout';
-$lang['global:disable'] 					= 'Vypnout';
-$lang['global:upgrade'] 					= 'Upgrade';
+$lang['global:disable'] 				= 'Vypnout';
+$lang['global:enabled']					= 'Enabled'; #translate
+$lang['global:disabled'] 				= 'Disabled'; #translate
 
 $lang['all_right_reserved']				= 'All Rights Reserved.';  #translate
 $lang['powered_by_pyrocms']				= 'Powered by PyroCMS';  #translate
@@ -83,8 +88,8 @@ $lang['top_page']						= 'Top';  #translate
 $lang['back_to_top']					= 'Back to Top';  #translate
 
 $lang['global:filters'] 				= 'Filtry';
-$lang['global:shortcuts']				= 'Rychlé odkazy';
-$lang['global:description'] 		    = 'Popis';
+$lang['global:image'] 					= 'Image'; #translate
+$lang['global:description']				= 'Popis';
 $lang['global:actions']					= 'Akce';
 $lang['global:view']					= 'View'; #translate
 $lang['global:preview']					= 'Preview'; #translate
@@ -95,5 +100,17 @@ $lang['global:delete']					= 'Vymazat';
 $lang['global:remove']					= 'Vymazat';
 
 $lang['global:keywords']				= 'Keywords'; #translate
+
+$lang['global:or']						= 'or'; #translate
+$lang['global:and']						= 'and'; #translate
+$lang['global:at']						= 'at'; #translate
+
+$lang['global:widgets']					= 'Widgets'; #translate
+$lang['global:themes']					= 'Themes'; #translate
+$lang['global:field_types']				= 'Field Types'; #translate
+$lang['global:plugins']					= 'Plugins'; #translate
+$lang['global:plugin']					= 'Plugin'; #translate
+
+$lang['global:options']					= 'Options'; #translate
 
 /* End of file main_lang.php */

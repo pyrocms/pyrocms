@@ -1,4 +1,4 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['header']                  = 'Első lépés: Szerver és adatbázis beállításai';
@@ -7,6 +7,9 @@ $lang['intro_text']              = 'A PyroCMS-t nagyon egyszerű telepíteni és
 $lang['db_settings']             = 'Adatbázis beállítások';
 $lang['db_text']                 = 'PyroCMS-hez szükség van egy adatbázisra (MySQL), ami tárolja az összes tartalmat és beállítást. Tehát elsőként ezt kell ellenőriznünk, hogy minden adatbázis beállitás rendben van-e. Ha nem tudod, hogy mit kell megadni, akkor kérd el az adatokat a tárhelyszolgáltatódtól vagy a szerver adminisztrátorától!';
 $lang['db_missing']              = 'The mysql database driver for PHP were not found, installation cannot continue. Ask your host or server administrator to install it.'; #translate
+$lang['db_create']		=	'Create Database'; #translate
+$lang['db_notice']		=	'You might need to do this yourself via your hosting control panel'; #translate
+$lang['database']		=	'MySQL Database'; #translate
 
 $lang['server']                  = 'MySQL Szerver név (hostname)';
 $lang['username']                = 'MySQL Felhasználónév';
@@ -23,5 +26,3 @@ $lang['step2']                   = 'Második lépés';
 // messages
 $lang['db_success']              = 'Az adatbázis beállítások tesztelve lettek és jól működnek.';
 $lang['db_failure']              = 'Nem lehetett csatlakozni az adatbázishoz: ';
-
-/* End of file step_1_lang.php */

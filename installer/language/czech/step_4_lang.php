@@ -1,12 +1,9 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
-$lang['header']			=	'Krok 4: Vytvoření databáze';
-$lang['intro_text']		=	'vyplňte formulář níže a klikněte na tlačítko "Instalovat" pro dokončení instalace PyroCMS. Ujistěte se, že instalujete PyroCMS do správné databáze, protože její stávají obsah bude vymazán!';
+$lang['header']			=	'Krok 4: Vytvoření databáze'; #translate
+$lang['intro_text']		=	'vyplňte formulář níže a klikněte na tlačítko "Instalovat" pro dokončení instalace PyroCMS. Ujistěte se, že instalujete PyroCMS do správné databáze, protože její stávají obsah bude vymazán!'; #translate
 
-$lang['db_settings']	=	'Nastavení databáze';
-$lang['db_create']		=	'Vytvořit databázi';
-$lang['db_notice']		=	'To možná budete muset udělat sami';
 $lang['default_user']	=	'Výchozí uživatel';
 $lang['database']		=	'Databáze';
 $lang['site_settings']		= 	'Nastavení webu';
@@ -27,5 +24,3 @@ $lang['error_104']		=	'Instalátor nemohl vytvořit výchozího uživatele.';
 $lang['error_105']		=	'Konfigurační soubor pro databázi nemohl být zapsán, nepřeskočil jste třetí krok instalace?';
 $lang['error_106']		=	'Konfigurační soubor nemohl být zapsán, jste si jistý správným oprávněním pro zápis do souboru?';
 $lang['success']		=	'PyroCMS byl úspěšně naisntalován.';
-
-/* End of file step_4_lang.php */

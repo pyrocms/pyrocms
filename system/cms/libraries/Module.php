@@ -221,7 +221,8 @@ abstract class Module {
 			}
 			else
 			{
-				$this->dbforge->add_key($keys[array_shift(array_keys($keys))], ($type == 'primary'));
+				$array_keys = array_keys($keys);
+				$this->dbforge->add_key($keys[array_shift($array_keys)], ($type == 'primary'));
 			}
 		}
 	}

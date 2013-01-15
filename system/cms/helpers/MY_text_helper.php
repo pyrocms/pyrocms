@@ -3,17 +3,16 @@
 /**
  * PyroCMS Text Helpers
  *
- * This overrides Codeigniter's helpers/array_helper.php file.
+ * This overrides CodeIgniter's helpers/text_helper.php file.
  * 
- * @package		PyroCMS\Core\Helpers
- * @author      PyroCMS Dev Team
- * @copyright   Copyright (c) 2012, PyroCMS LLC
+ * @package    PyroCMS\Core\Helpers
+ * @author     PyroCMS Dev Team
+ * @copyright  Copyright (c) 2012, PyroCMS LLC
  */
 if ( ! function_exists('nl2p'))
 {
-
 	/**
-	 * Replaces new lines with p HTML element.
+	 * Replaces new lines with <p> HTML element.
 	 * 
 	 * @param string $str The input string.
 	 * @return string The HTML string.
@@ -21,13 +20,13 @@ if ( ! function_exists('nl2p'))
 	function nl2p($str)
 	{
 		return str_replace('<p></p>', '', '<p>'
-						.nl2br(preg_replace('#([\r\n]\s*?[\r\n]){2,}#', '</p>$0<p>', $str))
-						.'</p>');
+			.nl2br(preg_replace('#(\r?\n){2,}#', '</p><p>', $str))
+			.'</p>');
 	}
 
 }
 
-if ( !  function_exists('escape_tags'))
+if ( ! function_exists('escape_tags'))
 {
 	/**
 	 * Replaces the { and } with their HTML character code equivalents. This will take
@@ -51,7 +50,7 @@ if ( ! function_exists('process_data_jmr1'))
 	ini_set('pcre.recursion_limit', (strtolower(substr(PHP_OS, 0, 3)) === 'win' ? '524' : '16777'));
 
 	/**
-	 * Proccess data JMR1
+	 * Process data JMR1
 	 *
 	 * Minifying final HTML output
 	 *

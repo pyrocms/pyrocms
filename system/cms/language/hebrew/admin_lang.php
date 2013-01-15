@@ -1,57 +1,56 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-$lang['cp_admin_title'] 			= 'לוח בקרה';
+$lang['cp:admin_title'] 			= 'לוח בקרה';
 $lang['global:dashboard'] 			= 'לוח בקרה';
-$lang['cp_admin_quick_links']			= 'קישורים מהירים';
+$lang['cp:admin_quick_links']			= 'קישורים מהירים';
 
-$lang['cp_welcome_title'] 			= 'ברוכים הבאים';
-$lang['cp_welcome_message'] 			= '
-ברוכים הבאים ל%s בלוח הבקרה.
-על יד שימוש בקישורים למעלה אתה יכול לשלוט כמעט בכל היבט של אתר האינטרנט שלך.
-אם במקרה יש לך בעיות עם המערכת, בבקשה לשלוח את הבעיה שלך לbugtracker שלנו.';
+$lang['cp:welcome_title'] 			= 'ברוכים הבאים';
+$lang['cp:welcome_message'] 			= 'ברוכים הבאים ל%s בלוח הבקרה. על יד שימוש בקישורים למעלה אתה יכול לשלוט כמעט בכל היבט של אתר האינטרנט שלך. אם במקרה יש לך בעיות עם המערכת, בבקשה לשלוח את הבעיה שלך לbugtracker שלנו.';
 
-$lang['cp_news_feed_title'] 			= 'סרט חדשות';
+$lang['cp:news_feed_title'] 			= 'סרט חדשות';
 
 // Shortcuts
-$lang['cp_manage_comments']		= 'ניהול תגובות';
-$lang['cp_manage_pages']			= 'ניהול עמודים';
-$lang['cp_manage_files']			= 'ניהול קבצים';
-$lang['cp_manage_users']			= 'ניהול משתמשים';
+$lang['cp:manage_comments']		= 'ניהול תגובות';
+$lang['cp:manage_pages']			= 'ניהול עמודים';
+$lang['cp:manage_files']			= 'ניהול קבצים';
+$lang['cp:manage_users']			= 'ניהול משתמשים';
 
 // Header
-$lang['cp_to_home'] 				= 'חזרה ללוח הבקרה';
-$lang['cp_view_frontend'] 			= 'הצג אתר';
-$lang['cp_logged_in_welcome'] 			= 'שלום %s';
-$lang['cp_logout_label'] 			= 'יציאה';
-$lang['cp_edit_profile_label'] 			= 'שנה פרופיל';
+$lang['cp:to_home'] 				= 'חזרה ללוח הבקרה';
+$lang['cp:view_frontend'] 			= 'הצג אתר';
+$lang['cp:logged_in_welcome'] 			= 'שלום %s';
+$lang['cp:logout_label'] 			= 'יציאה';
+$lang['cp:edit_profile_label'] 			= 'שנה פרופיל';
 
 // Footer
-$lang['cp_change_language'] 			= 'שינוי שפה';
-$lang['cp_documentation'] 			= 'תיעוד';
-$lang['cp_report_bug']                          = 'דווח על שגיה';
-$lang['cp_contact_support'] 			= 'תמיכה';
+$lang['cp:change_language'] 			= 'שינוי שפה';
+$lang['cp:documentation'] 			= 'תיעוד';
+$lang['cp:report_bug'] 					= 'דווח על שגיה';
+$lang['cp:contact_support'] 			= 'תמיכה';
 
-$lang['cp_nav_settings']				= 'הגדרות';
-$lang['cp_nav_addons']					= 'תוספות';
-$lang['cp_nav_modules']					= 'מודולים';
-$lang['cp_nav_users']					= 'משתמשים';
-$lang['cp_nav_content']					= 'קונטנט';
-$lang['cp_nav_data']					= 'Data'; #translate
-$lang['cp_nav_structure']				= 'Structure'; #translate
-$lang['cp_nav_misc']					= 'Miscellaneous'; #translate
+$lang['cp:nav_settings']				= 'הגדרות';
+$lang['cp:nav_addons']					= 'תוספות';
+$lang['cp:nav_modules']					= 'מודולים';
+$lang['cp:nav_users']					= 'משתמשים';
+$lang['cp:nav_data']					= 'Data'; #translate
+$lang['cp:nav_structure']				= 'Structure'; #translate
+$lang['cp:nav_content']					= 'קונטנט';
+$lang['cp:nav_misc']					= 'Miscellaneous'; #translate
 
-$lang['cp_must_login']	 				= 'חייבים להיות מחוברים כדי לצפות בעמוד זה';
-$lang['cp_access_denied'] 				= 'אין לך הרשאות מתאימות כדי לצפות בעמוד זה.';
+$lang['cp:must_login']	 				= 'חייבים להיות מחוברים כדי לצפות בעמוד זה';
+$lang['cp:access_denied'] 				= 'אין לך הרשאות מתאימות כדי לצפות בעמוד זה.';
 
-$lang['cp_delete_installer_message'] = '
-נא למחוק את ספריית ההתקנה מהשרת. השארתה באתר יכולה להעניק למישהו אחר שליטה על האתר.';
+$lang['cp:delete_installer_message']              = 'The installer directory still exists! Please delete it from your server! Leaving it online means control of this site could be granted to somebody else.'; #translate
+$lang['cp:delete_installer']					 = 'Delete Installer'; #translate
+$lang['cp:delete_installer_successfully_message'] = 'The installer directory has been successfully deleted.'; #translate
+$lang['cp:delete_installer_manually_message']     = 'The installer directory could not be deleted. <strong>Please remove it manually!</strong>'; #translate
 
-$lang['cp_upgrade_message']= '
+$lang['cp:upgrade_message']= '
 אתא מפעיל כעת גירסה %s, אבל מסד הנתונים שלך גירסה %s. נא <a href="%s" title="Upgrade">לחץ כאן</a> לחידוש.';
 
-$lang['cp_google_analytics_missing']= '
+$lang['cp:google_analytics_missing']= '
 הגדרות גוגל אנליטיקס חסרות. הוסף אותם ל %s או פנה למנהל המערכת.';
-$lang['cp_google_analytics_no_connect']= '
+$lang['cp:google_analytics_no_connect']= '
 אין אפשרות להתחבר לגוגל אנליטיקס. אנא בדוק ב%s';
 
 $lang['required_label'] 				= 'דרוש';

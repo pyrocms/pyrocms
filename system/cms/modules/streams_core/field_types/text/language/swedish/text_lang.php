@@ -10,7 +10,7 @@
  * @version		1.1.0
  */
 
-$lang['streams.text.name'] = 'Textrad';
+$lang['streams:text.name'] = 'Textrad';
 
 
 /* End of file text_lang.php */  

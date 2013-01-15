@@ -1,48 +1,51 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-$lang['cp_admin_title']                 = 'Admin-Oberfl&auml;che';
+$lang['cp:admin_title']                 = 'Admin-Oberfl&auml;che';
 $lang['global:dashboard']                 = 'Admin-Oberfl&auml;che';
-$lang['cp_admin_quick_links']            = 'Quick Links';
+$lang['cp:admin_quick_links']            = 'Quick Links';
 
-$lang['cp_welcome_title']                 = 'Willkommen';
-$lang['cp_welcome_message']             = 'Willkommen zur %s Admin-Oberfl&auml;che. Mit Hilfe der Links zu deiner Linken, sowie oben kannst du fast jeden Aspekt deiner Webseite kontrollieren. Solltest du Probleme mit dem System haben, so reiche dein Problem bitte in unserem "bugtracker" ein.';
+$lang['cp:welcome_title']                 = 'Willkommen';
+$lang['cp:welcome_message']             = 'Willkommen zur %s Admin-Oberfl&auml;che. Mit Hilfe der Links zu deiner Linken, sowie oben kannst du fast jeden Aspekt deiner Webseite kontrollieren. Solltest du Probleme mit dem System haben, so reiche dein Problem bitte in unserem "bugtracker" ein.';
 
-$lang['cp_news_feed_title']             = 'Nachrichten';
+$lang['cp:news_feed_title']             = 'Nachrichten';
 
 // Shortcuts
-$lang['cp_manage_comments']                = 'Kommentare bearbeiten';
-$lang['cp_manage_pages']                = 'Seiten verwalten';
-$lang['cp_manage_files']                = 'Dateien verwalten';
-$lang['cp_manage_users']                = 'Benutzer verwalten';
+$lang['cp:manage_comments']                = 'Kommentare bearbeiten';
+$lang['cp:manage_pages']                = 'Seiten verwalten';
+$lang['cp:manage_files']                = 'Dateien verwalten';
+$lang['cp:manage_users']                = 'Benutzer verwalten';
 
 // Header
-$lang['cp_to_home']                     = 'Zur&uuml;ck zur Admin-Oberfl&auml;che';
-$lang['cp_view_frontend']                 = 'Webseite anschauen';
-$lang['cp_logged_in_welcome']             = 'Hallo %s';
-$lang['cp_logout_label']                 = 'Abmelden';
-$lang['cp_edit_profile_label']             = 'Benutzerkonto bearbeiten';
+$lang['cp:to_home']                     = 'Zur&uuml;ck zur Admin-Oberfl&auml;che';
+$lang['cp:view_frontend']                 = 'Webseite anschauen';
+$lang['cp:logged_in_welcome']             = 'Hallo %s';
+$lang['cp:logout_label']                 = 'Abmelden';
+$lang['cp:edit_profile_label']             = 'Benutzerkonto bearbeiten';
 
 // Footer
-$lang['cp_change_language']             = 'Sprache &auml;ndern';
-$lang['cp_documentation']                 = 'Dokumentation';
-$lang['cp_report_bug']                     = 'Fehler melden';
-$lang['cp_contact_support']             = 'Support';
+$lang['cp:change_language']             = 'Sprache &auml;ndern';
+$lang['cp:documentation']                 = 'Dokumentation';
+$lang['cp:report_bug']                     = 'Fehler melden';
+$lang['cp:contact_support']             = 'Support';
 
-$lang['cp_nav_settings']                = 'Einstellungen';
-$lang['cp_nav_addons']                    = 'Erweiterungen';
-$lang['cp_nav_modules']                    = 'Module';
-$lang['cp_nav_users']                    = 'Benutzer';
-$lang['cp_nav_content']                    = 'Inhalt';
-$lang['cp_nav_data']					= 'Data'; #translate
-$lang['cp_nav_structure']				= 'Structure'; #translate
-$lang['cp_nav_misc']					= 'Miscellaneous'; #translate
+$lang['cp:nav_settings']                = 'Einstellungen';
+$lang['cp:nav_addons']                    = 'Erweiterungen';
+$lang['cp:nav_modules']                    = 'Module';
+$lang['cp:nav_users']                    = 'Benutzer';
+$lang['cp:nav_data']					= 'Data'; #translate
+$lang['cp:nav_structure']				= 'Structure'; #translate
+$lang['cp:nav_content']                    = 'Inhalt';
+$lang['cp:nav_misc']					= 'Miscellaneous'; #translate
 
-$lang['global:keywords']                = 'Keywords'; #translate
-
-$lang['cp_must_login']                     = 'Du musst eingeloggt sein, um diese Seite sehen zu k&ouml;nnen.';
-$lang['cp_access_denied']                 = 'Du hast keine ausreichenden Zugriffsberechtigungen um diese Seite anzusehen.';
-$lang['cp_delete_installer_message']    = 'Bitte l&ouml;sche das Installationsverzeichnis (installer) auf deinem Server, da sich ansonsten Dritte unerlaubt administrativen Zugang verschaffen k&ouml;nnten.';
-$lang['cp_upgrade_message']                = 'Du benutzt aktuell Version %s, aber die Datenbank ist in der &auml;lteren Version %s. Bitte <a href="%s">aktualisiere deine Datenbank</a>.';
+$lang['cp:must_login']                     = 'Du musst eingeloggt sein, um diese Seite sehen zu k&ouml;nnen.';
+$lang['cp:access_denied']                 = 'Du hast keine ausreichenden Zugriffsberechtigungen um diese Seite anzusehen.';
+$lang['cp:delete_installer_message']              = 'The installer directory still exists! Please delete it from your server! Leaving it online means control of this site could be granted to somebody else.'; #translate
+$lang['cp:delete_installer']					 = 'Delete Installer'; #translate
+$lang['cp:delete_installer_successfully_message'] = 'The installer directory has been successfully deleted.'; #translate
+$lang['cp:delete_installer_manually_message']     = 'The installer directory could not be deleted. <strong>Please remove it manually!</strong>'; #translate
+$lang['cp:upgrade_message']                = 'Du benutzt aktuell Version %s, aber die Datenbank ist in der &auml;lteren Version %s. Bitte <a href="%s">aktualisiere deine Datenbank</a>.';
+$lang['cp:google_analytics_missing']	= 'Google Analytics settings are missing. Add them into %s or contact your administrator.'; #translate
+$lang['cp:google_analytics_no_connect']	= 'Could not connect to Google Analytics. Check in %s.'; #translate
 
 $lang['required_label']                 = 'Ben&ouml;tigt';
 $lang['sb_recent_users']                 = 'Neue Benutzer';

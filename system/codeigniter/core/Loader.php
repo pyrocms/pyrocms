@@ -153,7 +153,7 @@ class CI_Loader {
 	 *
 	 * @return 	object
 	 */
-	public function initialize()
+	public function initialize($controller = null)
 	{
 		$this->_ci_classes = array();
 		$this->_ci_loaded_files = array();
@@ -582,7 +582,7 @@ class CI_Loader {
 	 * @param	string
 	 * @return	void
 	 */
-	public function language($file = array(), $lang = '')
+	public function language($file = array(), $lang = '', $return = FALSE, $add_suffix = TRUE, $alt_path = '')
 	{
 		$CI =& get_instance();
 

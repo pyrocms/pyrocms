@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['header']			=	'Étape 2&nbsp;: Vérification des exigences';
@@ -45,5 +45,3 @@ $lang['retry']			=	'Essayez encore';
 
 // messages
 $lang['step1_failure']	=	'Merci de remplir les champs obligatoires pour les paramètres de la base de données dans le formulaire ci-dessous...';
-
-/* End of file step_2_lang.php */

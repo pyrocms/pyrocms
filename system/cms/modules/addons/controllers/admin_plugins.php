@@ -1,26 +1,20 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
  * Admin controller for the widgets module.
- * 
- * @package 	PyroCMS\Core\Modules\Addons\Controllers
- * @author      PyroCMS Dev Team
- * @copyright   Copyright (c) 2012, PyroCMS LLC
  *
+ * @package   PyroCMS\Core\Modules\Addons\Controllers
+ * @author    PyroCMS Dev Team
+ * @copyright Copyright (c) 2012, PyroCMS LLC
  */
-class Admin_plugins extends Admin_Controller {
+class Admin_plugins extends Admin_Controller
+{
+
+	/** @var string The current active section */
+	protected $section = 'plugins';
 
 	/**
-	 * The current active section
-	 * @access protected
-	 * @var string
-	 */
-	protected $section = 'instances';
-
-	/**
-	 * Constructor method
-	 * 
-	 * @return void
+	 * Constructor
 	 */
 	public function __construct()
 	{
@@ -28,74 +22,100 @@ class Admin_plugins extends Admin_Controller {
 	}
 
 	/**
-	 * Index method, lists all plugins.
+	 * Index method
 	 * 
-	 * @return void
+	 * Lists all plugins.
 	 */
 	public function index()
 	{
-		$data = array();
+		$data = array('plugins' => array(), 'core_plugins' => array());
 
 		$this->load->language('addons');
 
 		$this->load->helper('directory');
 
-		include APPPATH.'libraries/Plugins.php';
+		$this->load->library('plugins');
 
-		// Get our core plugins
-		$data['core_plugins'] = $this->_gather_plugin_info(APPPATH);
-
-		$data['plugins'] = array();
-
+		$is_core = true;
 		// Find all the plugins available.
-		foreach (array(ADDONPATH, SHARED_ADDONPATH) as $directory)
+		foreach (array(APPPATH, ADDONPATH, SHARED_ADDONPATH) as $directory)
 		{
-			$data['plugins'] = array_merge($data['plugins'], $this->_gather_plugin_info($directory));
+			$index = $is_core ? 'core_plugins' : 'plugins';
+			$data[$index] = array_merge($data[$index], $this->_gather_plugin_info($directory.'modules/*/plugin.php'));
+			$data[$index] = array_merge($data[$index], $this->_gather_plugin_info($directory.'plugins/*.php'));
+
+			$is_core = false;
 		}
+
+		sort($data['core_plugins']);
+		sort($data['plugins']);
 
 		// Create the layout
 		$this->template
 			->title($this->module_details['name'])
-			->build('admin/list_plugins', $data);
+			->build('admin/plugins/index', $data);
 	}
 
-	private function _gather_plugin_info($dir_path)
+	private function _gather_plugin_info($path)
 	{
-		// Look for the plugins [age]
-		$full_dir = $dir_path.'plugins/';
+		if ( ! $files = glob($path))
+		{
+			return array();
+		}
 
-		// Get our files
-		$files = directory_map($full_dir, 1);
-
-		if( ! $files) continue;
-
-		$count = 0;
-
+		$plugins = array();
 		// Go through and load up some info about our plugin files.
 		foreach ($files as $file)
 		{
-			$info = pathinfo($full_dir.$file);
-		
-			if ($info['extension'] == 'php')
+			$module_path = false;
+
+			$tmp         = explode('/', $file);
+			$file_name   = array_pop($tmp);
+
+			// work out the filename
+			$file_parts = explode('.', $file_name);
+			array_pop($file_parts);
+			$file_name = implode('.', $file_parts);
+
+			// it's in a module, we have to use the module slug
+			if ($file_name === 'plugin')
 			{
-				include $full_dir.$file;
+				$module_path = dirname($file);
+				$tmp         = explode('/', $module_path);
+				$module      = array_pop($tmp);
+				$class_name  = 'Plugin_'.ucfirst($module);
+				$slug        = $module;
 
-				$class_name = 'Plugin_'.ucfirst($info['filename']);
-			
-				if (class_exists($class_name))
-				{
-					$plugin = new $class_name();
-
-					$plugins[$count]['name'] = (isset($plugin->name[CURRENT_LANGUAGE])) ? $plugin->name[CURRENT_LANGUAGE] : ucfirst($info['filename']);
-					$plugins[$count]['description'] = (isset($plugin->description[CURRENT_LANGUAGE])) ? $plugin->description[CURRENT_LANGUAGE] : null;
-					$plugins[$count]['version'] = (isset($plugin->version)) ? $plugin->version : null;
-
-				}
+				// add the package path so $this->load will work in the plugin
+				$this->load->add_package_path($module_path);
+			}
+			else
+			{
+				$class_name = 'Plugin_'.ucfirst($file_name);
+				$slug = $file_name;
 			}
 
-			$count++;
+			include_once $file;
+
+			if (class_exists($class_name))
+			{
+				$plugin = new $class_name();
+				array_push($plugins, array(
+					'name' => (isset($plugin->name[CURRENT_LANGUAGE])) ? $plugin->name[CURRENT_LANGUAGE] : (isset($plugin->name[CURRENT_LANGUAGE])) ? $plugin->name[CURRENT_LANGUAGE] : ((isset($plugin->name['en'])) ? $plugin->name['en'] : ucfirst($file_name)),
+					'slug' => $slug,
+					'description' => (isset($plugin->description[CURRENT_LANGUAGE])) ? $plugin->description[CURRENT_LANGUAGE] : null,
+					'version' => (isset($plugin->version)) ? $plugin->version : null,
+					'self_doc' => (method_exists($plugin, '_self_doc') ? $plugin->_self_doc() : array()),
+				));
+
+			}
+
+			if ($module_path)
+			{
+				$this->load->remove_package_path($module_path);
+			}
 		}
-	
+
 		return $plugins;
 	}
 

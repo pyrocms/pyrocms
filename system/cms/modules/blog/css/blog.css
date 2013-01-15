@@ -1,0 +1,54 @@
+section.item form ul {
+	margin: 5px 0 5px 0 !important;
+}
+
+.form_inputs .input.small-side {
+	margin-right: 10px;
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+.form_inputs .input.small-side  select {
+	width: auto;
+}
+
+.input.datetime_input #datepicker {
+	width: 35%;
+}
+
+li.editor {
+	padding-bottom: 0 !important;
+	margin-bottom: 0 !important;
+}
+
+.edit-content {
+	margin-top: 20px;
+}
+
+form.crud li.date-meta div.selector {
+	float: left;
+	width: 30px;
+}
+
+form.crud li.date-meta div input#datepicker {
+	width: 8em;
+}
+
+form.crud li.date-meta div.selector {
+	width: 5em;
+}
+
+form.crud li.date-meta div.selector span {
+	width: 1em;
+}
+
+form.crud li.date-meta label.time-meta {
+	min-width: 4em;
+	width:4em;
+}
+
+.one_quarter select {
+	min-width: 30% !important;
+	width: 40% !important;
+}

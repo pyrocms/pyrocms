@@ -1,4 +1,4 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['header']			=	'Шаг 1: Конфигурация базы данных и сервера';
@@ -7,6 +7,9 @@ $lang['intro_text']		=	'Перед проверкой базы данных на
 $lang['db_settings']	=	'Настройки базы данных';
 $lang['db_text']		=	'Для проверки версии вашего MySQL сервера - установщику нужно знать адрес сервера, имя пользователя и пароль, используемые для подключения к базе данных. Эти данные будут использованы при установке базы данных.';
 $lang['db_missing']		=	'The mysql database driver for PHP were not found, installation cannot continue. Ask your host or server administrator to install it.'; #translate
+$lang['db_create']		=	'Create Database'; #translate
+$lang['db_notice']		=	'You might need to do this yourself via your hosting control panel'; #translate
+$lang['database']		=	'MySQL Database'; #translate
 
 $lang['server']			=	'Сервер';
 $lang['username']		=	'Имя пользователя';

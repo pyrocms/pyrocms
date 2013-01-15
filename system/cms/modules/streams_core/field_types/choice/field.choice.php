@@ -15,7 +15,7 @@ class Field_choice
 	
 	public $db_col_type				= 'varchar';
 
-	public $version					= '1.1';
+	public $version					= '1.1.0';
 
 	public $author					= array('name'=>'Parse19', 'url'=>'http://parse19.com');
 
@@ -185,7 +185,7 @@ class Field_choice
 	 */
 	public function pre_output($input, $data)
 	{
-		$choices = $this->_choices_to_array($data['choice_data'], $data['choice_type']);
+		$choices = $this->_choices_to_array($data['choice_data'], $data['choice_type'], 'no', false);
 		
 		// Checkboxes?
 		if ($data['choice_type'] == 'checkboxes' ||$data['choice_type']== 'multiselect')
@@ -312,7 +312,7 @@ class Field_choice
 			{
 				if ($total_selected != $max)
 				{
-					return str_replace('{val}', $max, lang('streams.choice.must_select_num'));
+					return str_replace('{val}', $max, lang('streams:choice.must_select_num'));
 				}
 			}
 			else
@@ -322,7 +322,7 @@ class Field_choice
 				{
 					if ($min > $total_selected)
 					{
-						return str_replace('{val}', $min, lang('streams.choice.must_at_least'));
+						return str_replace('{val}', $min, lang('streams:choice.must_at_least'));
 					}
 				}
 
@@ -331,7 +331,7 @@ class Field_choice
 				{
 					if ($max < $total_selected)
 					{
-						return str_replace('{val}', $max, lang('streams.choice.must_max_num'));
+						return str_replace('{val}', $max, lang('streams:choice.must_max_num'));
 					}
 				}
 
@@ -377,7 +377,7 @@ class Field_choice
 	 */
 	public function pre_output_plugin($input, $params)
 	{
-		$options = $this->_choices_to_array($params['choice_data'], $params['choice_type']);
+		$options = $this->_choices_to_array($params['choice_data'], $params['choice_type'], 'no', false);
 
 		// Checkboxes
 		if ($params['choice_type'] == 'checkboxes' || $params['choice_type']== 'multiselect')
@@ -435,7 +435,7 @@ class Field_choice
 	{
 		return array(
 				'input' 		=> form_textarea('choice_data', $value),
-				'instructions'	=> $this->CI->lang->line('streams.choice.instructions')
+				'instructions'	=> $this->CI->lang->line('streams:choice.instructions')
 			);
 	}
 
@@ -451,10 +451,10 @@ class Field_choice
 	public function param_choice_type($value = null)
 	{
 		$choices = array(
-			'dropdown' 	=> $this->CI->lang->line('streams.choice.dropdown'),
-			'multiselect' 	=> $this->CI->lang->line('streams.choice.multiselect'),
-			'radio' 	=> $this->CI->lang->line('streams.choice.radio_buttons'),
-			'checkboxes'=> $this->CI->lang->line('streams.choice.checkboxes')
+			'dropdown' 	=> $this->CI->lang->line('streams:choice.dropdown'),
+			'multiselect' 	=> $this->CI->lang->line('streams:choice.multiselect'),
+			'radio' 	=> $this->CI->lang->line('streams:choice.radio_buttons'),
+			'checkboxes'=> $this->CI->lang->line('streams:choice.checkboxes')
 		);
 		
 		return form_dropdown('choice_type', $choices, $value);
@@ -473,7 +473,7 @@ class Field_choice
 	{
 		return array(
 				'input' 		=> form_input('min_choices', $value),
-				'instructions'	=> $this->CI->lang->line('streams.choice.checkboxes_only')
+				'instructions'	=> $this->CI->lang->line('streams:choice.checkboxes_only')
 			);
 	}
 
@@ -490,7 +490,7 @@ class Field_choice
 	{
 		return array(
 				'input' 		=> form_input('max_choices', $value),
-				'instructions'	=> $this->CI->lang->line('streams.choice.checkboxes_only')
+				'instructions'	=> $this->CI->lang->line('streams:choice.checkboxes_only')
 			);
 	}
 
@@ -505,7 +505,7 @@ class Field_choice
 	 * @param	string - fied is required - yes or no
 	 * @return	array
 	 */
-	public function _choices_to_array($choices_raw, $type = 'dropdown', $is_required = 'no')
+	public function _choices_to_array($choices_raw, $type = 'dropdown', $is_required = 'no', $optgroups = true)
 	{
 		$lines = explode("\n", $choices_raw);
 		
@@ -540,48 +540,52 @@ class Field_choice
 		// TODO: Perhaps use this for
 		// grouping checkboxes in the future?
 		// -------------------------------
-		if ( $type == 'dropdown' )
+		if ( $optgroups )
 		{
 
-			// Initialize
-			$optgroups = array();
-			$currentgroup = '';
-
-			// Loop and look
-			foreach ( $choices as $key => $value )
+			if ( $type == 'dropdown' )
 			{
 
-				// Is this an <optgroup> trigger?
-				if ( substr($key, 0, 1) == '*' )
+				// Initialize
+				$optgroups = array();
+				$currentgroup = '';
+
+				// Loop and look
+				foreach ( $choices as $key => $value )
 				{
 
-					// Sure is, set the current group
-					$currentgroup = substr($key, 1, -1);
-
-					// This is a trigger, so we're done.
-					// Continue to the next iteration.
-					continue;
-				}
-				else
-				{
-
-					// Nope, so is there a group yet?
-					if ( $currentgroup == '' )
+					// Is this an <optgroup> trigger?
+					if ( substr($key, 0, 1) == '*' )
 					{
 
-						// Dang, this won't be in an <optgroup>
-						$optgroups[$key] = $value;
+						// Sure is, set the current group
+						$currentgroup = substr($key, 1, -1);
+
+						// This is a trigger, so we're done.
+						// Continue to the next iteration.
+						continue;
 					}
 					else
 					{
 
-						// Yes! This will be in the current <optgroup>
-						$optgroups[$currentgroup][$key] = $value;
+						// Nope, so is there a group yet?
+						if ( $currentgroup == '' )
+						{
+
+							// Dang, this won't be in an <optgroup>
+							$optgroups[$key] = $value;
+						}
+						else
+						{
+
+							// Yes! This will be in the current <optgroup>
+							$optgroups[$currentgroup][$key] = $value;
+						}
 					}
 				}
-			}
 
-			$choices = $optgroups;
+				$choices = $optgroups;
+			}
 		}
 		
 		return $choices;

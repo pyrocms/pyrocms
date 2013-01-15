@@ -14,12 +14,14 @@ class Field_wysiwyg
 	public $field_type_slug			= 'wysiwyg';
 	
 	public $db_col_type				= 'longtext';
+
+	public $admin_display			= 'full';
 	
-	public $custom_parameters 		= array('editor_type');
+	public $custom_parameters 		= array('editor_type', 'allow_tags');
 
-	public $version					= '1.0';
+	public $version					= '1.1.0';
 
-	public $author					= array('name'=>'Parse19', 'url'=>'http://parse19.com');
+	public $author					= array('name' => 'Parse19', 'url'=>'http://parse19.com');
 	
 	// --------------------------------------------------------------------------
 
@@ -52,11 +54,26 @@ class Field_wysiwyg
 	 * @param 	string
 	 * @return 	string
 	 */
-	public function pre_output($input)
+	public function pre_output($input, $params)
 	{
-		// No matter what, we are going to replace {{ url:site }} with it's
-		// rightful value.
-		return str_replace('&#123;&#123; url:site &#125;&#125;', site_url().'/', $input);
+		// Legacy. This was a temp fix for a few things
+		// that I'm sure a few sites are utilizing.
+		$input = str_replace('&#123;&#123; url:site &#125;&#125;', site_url().'/', $input);
+
+		$parse_tags = ( ! isset($params['allow_tags'])) ? 'y' : $params['allow_tags'];
+
+		// If this isn't the admin and we want to allow tags,
+		// let it through. Otherwise we will escape them.
+		if ( ! defined('ADMIN_THEME') and $parse_tags == 'y')
+		{
+			return $input;
+		}
+		else
+		{
+			$this->CI->load->helper('text');
+			return escape_tags($input);
+		}
+		
 	}
 
 	// --------------------------------------------------------------------------
@@ -97,11 +114,28 @@ class Field_wysiwyg
 	public function param_editor_type($value = null)
 	{
 		$types = array(
-			'simple'	=> lang('streams.wysiwyg.simple'),
-			'advanced'	=> lang('streams.wysiwyg.advanced')
+			'simple'	=> lang('streams:wysiwyg.simple'),
+			'advanced'	=> lang('streams:wysiwyg.advanced')
 		);
 	
 		return form_dropdown('editor_type', $types, $value);
+	}	
+
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * Allow tags param.
+	 *
+	 * Should tags go through or be converted to output?
+	 */
+	public function param_allow_tags($value = null)
+	{
+		$options = array(
+			'y'	=> lang('global:yes'),
+			'n'	=> lang('global:no')
+		);
+	
+		return form_dropdown('allow_tags', $options, $value);
 	}	
 
 }

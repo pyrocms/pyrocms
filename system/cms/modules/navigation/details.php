@@ -8,7 +8,7 @@
  */
 class Module_Navigation extends Module {
 
-	public $version = '1.1';
+	public $version = '1.1.0';
 
 	public function info()
 	{
@@ -33,7 +33,8 @@ class Module_Navigation extends Module {
 				'pl' => 'Nawigacja',
 				'ru' => 'Навигация',
 				'sl' => 'Navigacija',
-				'zh' => '導航選單',
+				'tw' => '導航選單',
+				'cn' => '导航选单',
 				'th' => 'ตัวช่วยนำทาง',
 				'hu' => 'Navigáció',
 				'se' => 'Navigation',
@@ -58,7 +59,8 @@ class Module_Navigation extends Module {
 				'pl' => 'Zarządzaj linkami w menu nawigacji oraz wszystkimi grupami nawigacji do których one należą.',
 				'ru' => 'Управление ссылками в меню навигации и группах, к которым они принадлежат.',
 				'sl' => 'Uredi povezave v meniju in vse skupine povezav ki jim pripadajo.',
-				'zh' => '管理導航選單中的連結，以及它們所隸屬的導航群組。',
+				'tw' => '管理導航選單中的連結，以及它們所隸屬的導航群組。',
+				'cn' => '管理导航选单中的连结，以及它们所隶属的导航群组。',
 				'th' => 'จัดการการเชื่อมโยงนำทางและกลุ่มนำทาง',
 				'se' => 'Hantera länkar och länkgrupper.',
 				'hu' => 'Linkek kezelése a navigációs menükben és a navigációs csoportok kezelése, amikhez tartoznak.',
@@ -69,7 +71,7 @@ class Module_Navigation extends Module {
 
 		    'shortcuts' => array(
 				array(
-				    'name' => 'nav_group_create_title',
+				    'name' => 'nav:group_create_title',
 				    'uri' => 'admin/navigation/groups/create',
 				    'class' => 'add',
 				),
@@ -125,7 +127,7 @@ class Module_Navigation extends Module {
 		$links = array(
 			array('title' => 'Home', 'link_type' => 'page', 'page_id' => 1, 'navigation_group_id' => 1, 'position' => 1,),
 			array('title' => 'Blog', 'link_type' => 'module', 'page_id' => null, 'navigation_group_id' => 1, 'position' => 2, 'module_name' => 'blog'),
-			array('title' => 'Contact', 'link_type' => 'page', 'page_id' => 3, 'navigation_group_id' => 1, 'position' => 3,),
+			array('title' => 'Contact', 'link_type' => 'page', 'page_id' => 2, 'navigation_group_id' => 1, 'position' => 3,),
 		);
 		foreach ($links as $link)
 		{

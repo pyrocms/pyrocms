@@ -3,12 +3,13 @@
 /**
  * Settings module
  *
- * @author PyroCMS Dev Team
+ * @author  PyroCMS Dev Team
  * @package PyroCMS\Core\Modules\Settings
  */
-class Module_Settings extends Module {
+class Module_Settings extends Module
+{
 
-	public $version = '1.0';
+	public $version = '1.0.0';
 
 	public function info()
 	{
@@ -33,10 +34,11 @@ class Module_Settings extends Module {
 				'pl' => 'Ustawienia',
 				'ru' => 'Настройки',
 				'sl' => 'Nastavitve',
-				'zh' => '網站設定',
+				'tw' => '網站設定',
+				'cn' => '网站设定',
 				'hu' => 'Beállítások',
 				'th' => 'ตั้งค่า',
-                                'se' => 'Inställningar'
+				'se' => 'Inställningar'
 			),
 			'description' => array(
 				'en' => 'Allows administrators to update settings like Site Name, messages and email address, etc.',
@@ -58,16 +60,26 @@ class Module_Settings extends Module {
 				'pl' => 'Umożliwia administratorom zmianę ustawień strony jak nazwa strony, opis, e-mail administratora, itd.',
 				'ru' => 'Управление настройками сайта - Имя сайта, сообщения, почтовые адреса и т.п.',
 				'sl' => 'Dovoljuje administratorjem posodobitev nastavitev kot je Ime strani, sporočil, email naslova itd.',
-				'zh' => '網站管理者可更新的重要網站設定。例如：網站名稱、訊息、電子郵件等。',
+				'tw' => '網站管理者可更新的重要網站設定。例如：網站名稱、訊息、電子郵件等。',
+				'cn' => '网站管理者可更新的重要网站设定。例如：网站名称、讯息、电子邮件等。',
 				'hu' => 'Lehetővé teszi az adminok számára a beállítások frissítését, mint a weboldal neve, üzenetek, e-mail címek, stb...',
 				'th' => 'ให้ผู้ดูแลระบบสามารถปรับปรุงการตั้งค่าเช่นชื่อเว็บไซต์ ข้อความและอีเมล์เป็นต้น',
 				'se' => 'Administratören kan uppdatera webbplatsens titel, meddelanden och E-postadress etc.'
 			),
 			'frontend' => false,
-			'backend'  => true,
+			'backend' => true,
 			'skip_xss' => true,
-			'menu'	  => 'settings',
+			'menu' => 'settings',
 		);
+	}
+
+	public function admin_menu(&$menu)
+	{
+		unset($menu['lang:cp:nav_settings']);
+
+		$menu['lang:cp:nav_settings'] = 'admin/settings';
+
+		add_admin_menu_place('lang:cp:nav_settings', 7);
 	}
 
 	public function install()
@@ -80,7 +92,7 @@ class Module_Settings extends Module {
 				'slug' => array('type' => 'VARCHAR', 'constraint' => 30, 'primary' => true, 'unique' => true, 'key' => 'index_slug'),
 				'title' => array('type' => 'VARCHAR', 'constraint' => 100,),
 				'description' => array('type' => 'TEXT',),
-				'type' => array('type' => 'set',  'constraint' => array('text','textarea','password','select','select-multiple','radio','checkbox'),),
+				'type' => array('type' => 'set', 'constraint' => array('text', 'textarea', 'password', 'select', 'select-multiple', 'radio', 'checkbox'),),
 				'default' => array('type' => 'TEXT',),
 				'value' => array('type' => 'TEXT',),
 				'options' => array('type' => 'VARCHAR', 'constraint' => 255,),
@@ -297,7 +309,7 @@ class Module_Settings extends Module {
 			),
 			'ga_password' => array(
 				'title' => 'Google Analytic Password',
-				'description' => 'This is also needed this to show the graph on the dashboard.',
+				'description' => 'This is also needed to show the graph on the dashboard. You will need to allow access to Google to get this to work. See <a href="https://accounts.google.com/b/0/IssuedAuthSubTokens?hl=en_US" target="_blank">Authorized Access to your Google Account</a>',
 				'type' => 'password',
 				'default' => '',
 				'value' => '',
@@ -431,7 +443,7 @@ class Module_Settings extends Module {
 			),
 			'twitter_cache' => array(
 				'title' => 'Cache time',
-				'description' => 'How many minutes should your Tweets be stored?',
+				'description' => 'How many seconds should your Tweets be stored?',
 				'type' => 'text',
 				'default' => '300',
 				'value' => '',
@@ -501,6 +513,7 @@ class Module_Settings extends Module {
 			if ( ! $this->db->insert('settings', $setting_info))
 			{
 				log_message('debug', '-- -- could not install '.$slug);
+
 				return false;
 			}
 		}

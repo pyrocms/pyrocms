@@ -62,7 +62,7 @@ class Widget_Login extends Widgets
 	 *
 	 * @var string
 	 */
-	public $version = '1.0';
+	public $version = '1.0.0';
 
 	/**
 	 * Runs code and logic required to display the widget.

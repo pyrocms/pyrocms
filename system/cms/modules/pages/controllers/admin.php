@@ -27,10 +27,19 @@ class Admin extends Admin_Controller {
 
 		// Load the required classes
 		$this->load->model('page_m');
-		$this->load->model('page_chunk_m');
-		$this->load->model('page_layouts_m');
+		$this->load->model('page_type_m');
 		$this->load->model('navigation/navigation_m');
 		$this->lang->load('pages');
+		$this->lang->load('page_types');
+
+		$this->load->driver('Streams');
+
+		// Get our chunks field type if this is an
+		// upgraded site.
+		if ($this->db->table_exists('page_chunks'))
+		{
+			$this->type->load_types_from_folder(APPPATH.'modules/pages/field_types/', 'pages_module');
+		}
 	}
 
 	/**
@@ -38,7 +47,6 @@ class Admin extends Admin_Controller {
 	 */
 	public function index()
 	{
-
 		$this->template
 
 			->title($this->module_details['name'])
@@ -52,6 +60,27 @@ class Admin extends Admin_Controller {
 
 			->set('pages', $this->page_m->get_page_tree())
 			->build('admin/index');
+	}
+
+	/**
+	 * Choose a page type
+	 */
+	public function choose_type()
+	{
+		// Get our types.
+		$this->load->model('page_type_m');
+
+		$all = $this->page_type_m->get_all();
+
+		// Do we have a parent ID?
+		$parent = ($this->input->get('parent')) ? '&parent='.$this->input->get('parent') : null;
+
+		echo '<ul class="modal_select">';
+		foreach ($all as $pt)
+		{
+			echo '<li><a href="'.site_url('admin/pages/create?page_type='.$pt->id.$parent).'">'.$pt->title.'</a></li>';
+		}
+		echo '</ul>';
 	}
 
 	/**
@@ -101,7 +130,7 @@ class Admin extends Admin_Controller {
 		$page = $this->page_m->get($id);
 
         $this->load->model('keywords/keyword_m');
-        $page->meta_keywords = Keywords::get_string($page->meta_keywords);
+        $page->meta_keywords = $this->keywords->get_string($page->meta_keywords);
 
 		$this->load->view('admin/ajax/page_details', array('page' => $page));
 	}
@@ -159,18 +188,10 @@ class Admin extends Admin_Controller {
 			$page['parent_id'] = $parent_id;
 		}
 
-        	$page['restricted_to'] = null;
-        	$page['navigation_group_id'] = 0;
-        
-        	foreach($page['chunks'] as $chunk)
-        	{
-            		$page['chunk_slug'][] = $chunk['slug'];
-            		$page['chunk_class'][] = $chunk['class'];
-            		$page['chunk_type'][] = $chunk['type'];
-            		$page['chunk_body'][] = $chunk['body'];
-        	}
+		$page['restricted_to'] = null;
+		$page['navigation_group_id'] = 0;
 
-		$new_page = $this->page_m->create($page);
+		$new_page = $this->page_m->create($page, $this->streams_m->get_stream($page['stream_id']));
 
 		foreach ($children as $child)
 		{
@@ -185,78 +206,101 @@ class Admin extends Admin_Controller {
 	 *
 	 * @param int $parent_id The id of the parent page.
 	 */
-	public function create($parent_id = 0)
+	public function create()
 	{
 		$page = new stdClass;
 
-		// did they even submit?
-		if ($input = $this->input->post())
+		// Parent ID
+		$parent_id = ($this->input->get('parent')) ? $this->input->get('parent') : false;
+		$this->template->set('parent_id', $parent_id);
+
+		// What type of page are we creating?
+		$page_type_id = $this->input->get('page_type');
+
+		// Get the page type.
+		$page_type = $this->db->limit(1)->where('id', $page_type_id)->get('page_types')->row();
+
+		if ( ! $page_type) show_error('No page type found.');
+
+		$stream = $this->_setup_stream_fields($page_type);
+
+		// Run our validation. At this point, this is running the
+		// compiled validation for both stream and standard.
+		if ($this->form_validation->run())
 		{
+			$input = $this->input->post();
+
 			// do they have permission to proceed?
 			if ($input['status'] == 'live')
 			{
 				role_or_die('pages', 'put_live');
 			}
 
-			// validate and insert
-			if ($id = $this->page_m->create($input))
+			// We need to manually add this since we don't allow
+			// users to change it in the page form.
+			$input['type_id'] = $page_type_id;
+
+			// Insert the page data, along with
+			// the stream data.
+			if ($id = $this->page_m->create($input, $stream))
 			{
+				if (isset($input['navigation_group_id']) and count($input['navigation_group_id']) > 0)
+				{
+					$this->pyrocache->delete_all('page_m');
+					$this->pyrocache->delete_all('navigation_m');
+				}
+
 				Events::trigger('page_created', $id);
 
-				$this->session->set_flashdata('success', lang('pages_create_success'));
+				$this->session->set_flashdata('success', lang('pages:create_success'));
 
 				// Redirect back to the form or main page
 				$input['btnAction'] == 'save_exit'
 					? redirect('admin/pages')
 					: redirect('admin/pages/edit/'.$id);
 			}
-			else
-			{
-				// validation failed, we must repopulate the chunks form
-				$chunk_slugs 	= $this->input->post('chunk_slug') ? array_values($this->input->post('chunk_slug')) : array();
-				$chunk_classes 	= $this->input->post('chunk_class') ? array_values($this->input->post('chunk_class')) : array();
-				$chunk_bodies 	= $this->input->post('chunk_body') ? array_values($this->input->post('chunk_body')) : array();
-				$chunk_types 	= $this->input->post('chunk_type') ? array_values($this->input->post('chunk_type')) : array();
-
-				$chunk_bodies_count = count($input['chunk_body']);
-				for ($i = 0; $i < $chunk_bodies_count; $i++)
-				{
-					$page->chunks[] = array(
-						'id' 	=> $i,
-						'slug' 	=> ! empty($chunk_slugs[$i]) 	? $chunk_slugs[$i] 	: '',
-						'class' => ! empty($chunk_classes[$i]) 	? $chunk_classes[$i] 	: '',
-						'type' 	=> ! empty($chunk_types[$i]) 	? $chunk_types[$i] 	: '',
-						'body' 	=> ! empty($chunk_bodies[$i]) 	? $chunk_bodies[$i] : '',
-					);
-				}
-			}
-		}
-		else
-		{
-			$page->chunks = array(array(
-				'id' => 'NEW',
-				'slug' => 'default',
-				'class' => '',
-				'body' => '',
-				'type' => 'wysiwyg-advanced',
-			));
 		}
 
-		// Loop through each rule
+		// Loop through each rule for the standard page fields and 
+		// set our current value for the form.
 		foreach ($this->page_m->fields() as $field)
 		{
-			if ($field === 'restricted_to[]' or $field === 'strict_uri')
+			switch ($field)
 			{
-				$page->restricted_to = set_value($field, array('0'));
+				case 'restricted_to[]':
+					$page->restricted_to = set_value($field, array('0'));
+					break;
+				
+				case 'navigation_group_id[]':
+					$page->navigation_group_id = $this->input->post('navigation_group_id');
+					break;
 
-				// we'll set the default for strict URIs here also
-				$page->strict_uri = true;
+				case 'strict_uri':
+					$page->strict_uri = set_value($field, true);
+					break;
 
-				continue;
+				default:
+					$page->{$field} = set_value($field);
+					break;
 			}
-
-			$page->{$field} = set_value($field);
 		}
+
+		// Go through our stream fields and set the current value 
+		// for the form. Since we are creating a new form, this should
+		// simply be the post data if it is available.
+		$assignments = $this->streams->streams->get_assignments($stream->stream_slug, $stream->stream_namespace);
+		$page_content_data = array();
+
+		if ($assignments)
+		{
+			foreach ($assignments as $assign)
+			{
+				$page_content_data[$assign->field_slug] = $this->input->post($assign->field_slug);
+			}
+		}
+
+		// Run stream field events
+		$this->fields->run_field_events($this->streams_m->get_stream_fields($this->streams_m->get_stream_id_from_slug($stream->stream_slug, $stream->stream_namespace)));
 
 		$parent_page = new stdClass;
 
@@ -275,7 +319,9 @@ class Admin extends Admin_Controller {
 			->title($this->module_details['name'], lang('pages:create_title'))
 			->append_metadata($this->load->view('fragments/wysiwyg', array(), true))
 			->set('page', $page)
+			->set('stream_fields', $this->streams->fields->get_stream_fields($stream->stream_slug, $stream->stream_namespace, $page_content_data))
 			->set('parent_page', $parent_page)
+			->set('page_type', $page_type)
 			->build('admin/form');
 	}
 
@@ -289,50 +335,73 @@ class Admin extends Admin_Controller {
 		// We are lost without an id. Redirect to the pages index.
 		$id or redirect('admin/pages');
 
+		$this->template->set('parent_id', null);
+
 		// The user needs to be able to edit pages.
 		role_or_die('pages', 'edit_live');
 
-		// Retrieve the page data along with its chunk data as an array.
+		// This comes in handy
+		// @TODO Work out where this is used and destroy it, or document a MAJOR need for it. Phil
+		define('PAGE_ID', $id);
+
+		// Retrieve the page data along with its data as part of the array.
 		$page = $this->page_m->get($id);
-
-		// If there's a keywords hash
-		if ($page->meta_keywords != '') {
-			// Get comma-separated meta_keywords based on keywords hash
-			$this->load->model('keywords/keyword_m');
-			$old_keywords_hash = $page->meta_keywords;
-			$page->meta_keywords = Keywords::get_string($page->meta_keywords);
-		}
-
-		// Turn the CSV list back to an array
-		$page->restricted_to = explode(',', $page->restricted_to);
-		$page->meta_keywords = Keywords::get_string($page->meta_keywords);
 
 		// Got page?
 		if ( ! $page or empty($page))
 		{
 			// Maybe you would like to create one?
-			$this->session->set_flashdata('error', lang('pages_page_not_found_error'));
+			$this->session->set_flashdata('error', lang('pages:page_not_found_error'));
 			redirect('admin/pages/create');
 		}
 
-		// did they even submit?
-		if ($input = $this->input->post())
+		// Note: we don't need to get the page type
+		// from the URL since it is present in the $page data
+
+		// Get the page type.
+		$page_type = $this->db->limit(1)->where('id', $page->type_id)->get('page_types')->row();
+
+		if ( ! $page_type) show_error('No page type found.');
+
+		$stream = $this->_setup_stream_fields($page_type, 'edit', $page->entry_id);
+
+		// If there's a keywords hash
+		if ($page->meta_keywords != '')
 		{
+			// Get comma-separated meta_keywords based on keywords hash
+			$this->load->model('keywords/keyword_m');
+			$old_keywords_hash = $page->meta_keywords;
+			$page->meta_keywords = $this->keywords->get_string($page->meta_keywords);
+		}
+
+		// Turn the CSV list back to an array
+		$page->restricted_to = explode(',', $page->restricted_to);
+
+		// Did they even submit?
+		if ($this->form_validation->run())
+		{
+			$input = $this->input->post();
+
 			// do they have permission to proceed?
 			if ($input['status'] == 'live')
 			{
 				role_or_die('pages', 'put_live');
 			}
 
-			// were there keywords before this update?
-			if (isset($old_keywords_hash)) {
+			// Were there keywords before this update?
+			if (isset($old_keywords_hash))
+			{
 				$input['old_keywords_hash'] = $old_keywords_hash;
 			}
 
+			// We need to manually add this since we don't allow
+			// users to change it in the page form.
+			$input['type_id'] = $page->type_id;
+
 			// validate and insert
-			if ($this->page_m->edit($id, $input))
+			if ($this->page_m->edit($id, $input, $stream, $page->entry_id))
 			{
-				$this->session->set_flashdata('success', sprintf(lang('pages_edit_success'), $input['title']));
+				$this->session->set_flashdata('success', sprintf(lang('pages:edit_success'), $input['title']));
 
 				Events::trigger('page_updated', $id);
 
@@ -344,27 +413,6 @@ class Admin extends Admin_Controller {
 					? redirect('admin/pages')
 					: redirect('admin/pages/edit/'.$id);
 			}
-			else
-			{
-				// validation failed, we must repopulate the chunks form
-				$chunk_slugs 	= $this->input->post('chunk_slug') ? array_values($this->input->post('chunk_slug')) : array();
-				$chunk_classes 	= $this->input->post('chunk_class') ? array_values($this->input->post('chunk_class')) : array();
-				$chunk_bodies 	= $this->input->post('chunk_body') ? array_values($this->input->post('chunk_body')) : array();
-				$chunk_types 	= $this->input->post('chunk_type') ? array_values($this->input->post('chunk_type')) : array();
-
-				$page->chunks = array();
-				$chunk_bodies_count = count($input['chunk_body']);
-				for ($i = 0; $i < $chunk_bodies_count; $i++)
-				{
-					$page->chunks[] = array(
-						'id' 	=> $i,
-						'slug' 	=> ! empty($chunk_slugs[$i]) 	? $chunk_slugs[$i] 	: '',
-						'class' => ! empty($chunk_classes[$i]) 	? $chunk_classes[$i] 	: '',
-						'type' 	=> ! empty($chunk_types[$i]) 	? $chunk_types[$i] 	: '',
-						'body' 	=> ! empty($chunk_bodies[$i]) 	? $chunk_bodies[$i] : '',
-					);
-				}
-			}
 		}
 
 		// Loop through each validation rule
@@ -372,8 +420,8 @@ class Admin extends Admin_Controller {
 		{
 			$field = $field['field'];
 
-			// Nothing to do for these two fields.
-			if (in_array($field, array('navigation_group_id', 'chunk_body[]')))
+			// Nothing to do for the navigation field
+			if (in_array($field, array('navigation_group_id[]')))
 			{
 				continue;
 			}
@@ -390,10 +438,33 @@ class Admin extends Admin_Controller {
 			$page->{$field} = set_value($field, $page->{$field});
 		}
 
+		// Go through our stream fields and set the current value 
+		// for the form. Since we are creating a new form, this should
+		// simply be the post data if it is available.
+
+		$assignments = $this->streams->streams->get_assignments($stream->stream_slug, $stream->stream_namespace);
+		$page_content_data = array();
+
+		// Get straight raw from the db
+		$page_stream_entry_raw = $this->db->limit(1)->where('id', $page->entry_id)->get($stream->stream_prefix.$stream->stream_slug)->row();
+
+		if ($assignments)
+		{
+			foreach ($assignments as $assign)
+			{
+				$from_db = isset($page_stream_entry_raw->{$assign->field_slug}) ? $page_stream_entry_raw->{$assign->field_slug} : null;
+
+				$page_content_data[$assign->field_slug] = isset($_POST[$assign->field_slug]) ? $_POST[$assign->field_slug] : $from_db;
+			}	
+		}
+
+		// Run stream field events
+		$this->fields->run_field_events($this->streams_m->get_stream_fields($this->streams_m->get_stream_id_from_slug($stream->stream_slug, $stream->stream_namespace)));
+
 		// If this page has a parent.
 		if ($page->parent_id > 0)
 		{
-			// Get only the details for the parent, no chunks.
+			// Get only the details for the parent, no data.
 			$parent_page = $this->page_m->get($page->parent_id, false);
 		}
 		else
@@ -405,13 +476,61 @@ class Admin extends Admin_Controller {
 
 		$this->template
 			->title($this->module_details['name'], sprintf(lang('pages:edit_title'), $page->title))
-			// Load WYSIWYG Editor
-			->append_metadata( $this->load->view('fragments/wysiwyg', array() , true) )
+			->append_metadata($this->load->view('fragments/wysiwyg', array() , true))
 			->append_css('module::page-edit.css')
+			->set('stream_fields', $this->streams->fields->get_stream_fields($stream->stream_slug, $stream->stream_namespace, $page_content_data, $page->entry_id))
 			->set('page', $page)
 			->set('parent_page', $parent_page)
+			->set('page_type', $page_type)
 			->build('admin/form');
 	}
+
+	/**
+	 * Setup Stream fields
+	 *
+	 * Sets up our validation and some other common
+	 * elements for our page create/edit functions.
+	 *
+	 * @param 	obj
+	 * @param 	string - new or edit
+	 * @param 	int - entry id
+	 * @return 	obj - the stream object
+	 */
+	private function _setup_stream_fields($page_type, $method = 'new', $id = null)
+	{
+		// Get the stream that we are using for this page type.
+		$stream = $this->db->limit(1)->where('id', $page_type->stream_id)->get('data_streams')->row();
+
+		$this->load->driver('Streams');
+		$this->load->library('Form_validation');
+
+		// So we can use the callbacks in page_m
+		$this->form_validation->set_model('page_m');
+
+		// If we have renamed the title, then we need to change that in the validation array
+		if ($page_type->title_label)
+		{
+			foreach ($this->page_m->validate as $k => $v)
+			{
+				if ($v['field'] == 'title')
+				{
+					$this->page_m->validate[$k]['label'] = lang_label($page_type->title_label);
+				}
+			}
+		}
+
+		// Get validation for our page fields.
+		$page_validation = $this->streams->streams->validation_array($stream->stream_slug, $stream->stream_namespace, $method, array(), $id);
+
+		$this->page_m->compiled_validate = array_merge($this->page_m->validate, $page_validation);
+
+		// Set the validation rules based on the compiled validation.
+		$this->form_validation->set_rules($this->page_m->compiled_validate);
+
+		return $stream;
+	}
+
+	// --------------------------------------------------------------------------
 
 	/**
 	 * Sets up common form inputs.
@@ -420,8 +539,8 @@ class Admin extends Admin_Controller {
 	 */
 	private function _form_data()
 	{
-		$page_layouts = $this->page_layouts_m->order_by('title')->get_all();
-		$this->template->page_layouts = array_for_select($page_layouts, 'id', 'title');
+		$page_types = $this->page_type_m->order_by('title')->get_all();
+		$this->template->page_types = array_for_select($page_types, 'id', 'title');
 
 		// Load navigation list
 		$this->load->model('navigation/navigation_m');
@@ -479,7 +598,7 @@ class Admin extends Admin_Controller {
 				}
 				else
 				{
-					$this->session->set_flashdata('error', lang('pages_delete_home_error'));
+					$this->session->set_flashdata('error', lang('pages:delete_home_error'));
 				}
 			}
 
@@ -491,21 +610,22 @@ class Admin extends Admin_Controller {
 				// Only deleting one page
 				if ( count($deleted_ids) == 1 )
 				{
-					$this->session->set_flashdata('success', sprintf(lang('pages_delete_success'), $deleted_ids[0]));
+					$this->session->set_flashdata('success', sprintf(lang('pages:delete_success'), $deleted_ids[0]));
 				}
 				// Deleting multiple pages
 				else
 				{
-					$this->session->set_flashdata('success', sprintf(lang('pages_mass_delete_success'), count($deleted_ids)));
+					$this->session->set_flashdata('success', sprintf(lang('pages:mass_delete_success'), count($deleted_ids)));
 				}
 			}
 			// For some reason, none of them were deleted
 			else
 			{
-				$this->session->set_flashdata('notice', lang('pages_delete_none_notice'));
+				$this->session->set_flashdata('notice', lang('pages:delete_none_notice'));
 			}
 		}
 
 		redirect('admin/pages');
 	}
+
 }

@@ -1,6 +1,7 @@
 <?php
 
 $lang['addons:modules'] 						= 'Module';
+$lang['addons:admin_themes'] 					= 'Admin Themes'; #translate
 $lang['addons:themes'] 							= 'Themen';
 $lang['addons:widgets'] 						= 'Widgets';
 
@@ -15,7 +16,7 @@ $lang['addons:modules:enable_success']          = 'Das Modul "%s" wurde aktivier
 $lang['addons:modules:install_error']           = 'Das Modul konnte nicht installiert werden.';
 $lang['addons:modules:install_success']         = 'Das Modul "%s" wurde installiert.';
 
-$lang['addons:modules:module_upload_success']   = 'The module "%s" has been uploaded.'; #translate
+$lang['addons:modules:module_upload_success']   = 'Das Modul "%s" wurde hochgeladen.';
 
 $lang['addons:modules:delete_success']			= 'Das Modul "%s" wurde gel&ouml;scht.';
 $lang['addons:modules:delete_error']			= 'Das Modul "%s" konnte nicht gel&ouml;scht werden.';
@@ -27,7 +28,7 @@ $lang['addons:modules:details_error']           = 'Es ist ein Fehler in der deta
 
 $lang['addons:modules:manually_remove']         = 'Sie m&uuml;ssen "%s" entfernen um das Modul komplett zu entfernen.';
 $lang['addons:modules:upload_title']            = 'Modul Hochladen';
-$lang['addons:modules:upload_desc']             = 'Bitte w&auml;hle eine Datei und klicke auf Hochladen';
+$lang['addons:modules:upload_desc']             = 'Bitte w&auml;hlen Sie eine Datei aus und klicken Sie dann auf Hochladen';
 
 $lang['addons:modules:confirm_enable']          = 'Bist du sicher, dass du dieses Modul aktivieren m&ouml;chtest?';
 $lang['addons:modules:confirm_disable']         = 'Bist du sicher, dass du dieses Modul deaktivieren m&ouml;chtest?';
@@ -50,7 +51,7 @@ $lang['addons:themes:mass_delete_error']   		= 'Nur %s von %s Themen(a) wurde(n)
 $lang['addons:themes:delete_select_error'] 		= 'Du musst zuerst Themen(a) ausw&auml;hlen, um sie zu l&ouml;schen.';
 $lang['addons:themes:upload_title']        		= 'Thema hochladen';
 $lang['addons:themes:list_title']          		= 'Themen-Liste';
-$lang['addons:themes:upload_desc']         		= 'Bitte w&auml;hle eine Datei aus und klicke auf Hochladen';
+$lang['addons:themes:upload_desc']         		= 'Bitte w&auml;hlen Sie eine Datei aus und klicken Sie dann auf Hochladen';
 
 $lang['addons:themes:options']					= 'Optionen';
 $lang['addons:themes:theme_label']				= 'Thema';

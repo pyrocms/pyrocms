@@ -1,95 +1,98 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
  * Installer's Ajax controller.
- * 
- * @author 		Zack Kitzmiller
- * @author		PyroCMS Dev Team
- * @package		PyroCMS\Installer\Controllers
+ *
+ * @author PyroCMS Dev Team
+ * @package PyroCMS\Installer\Controllers
  */
-class Ajax extends CI_Controller {
-
+class Ajax extends CI_Controller
+{
 	/**
-	 * Array of languages supported by the installer
+	 * At start this controller should:
+	 * 1. Check that this is indeed an AJAX request.
+	 * 2. Set the language used by the user.
+	 * 3. Load the language files.
 	 */
-	private $languages	= array ('arabic', 'brazilian', 'english', 'dutch', 'french', 'german', 'polish', 'chinese_traditional', 'slovenian', 'spanish', 'russian', 'greek', 'lithuanian','danish','vietnamese', 'indonesian', 'hungarian', 'finnish', 'swedish');
-
 	public function __construct()
 	{
-		if ((isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') === FALSE)
-			show_error('You shouldn\'t be here');
+		if ((isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') === false)
+		{
+			show_error('You should not be here');
+		}
+
 		parent::__construct();
-		$this->_set_language();
-		$this->lang->load('global');
-		$this->lang->load('step_1');
-	}
 
-	public function confirm_database()
-	{
-		$server = $this->input->post('server');
-		$username = $this->input->post('username');
-		$password = $this->input->post('password');
-		$port = $this->input->post('port');
-
-		$host = $server . ':' . $port;
-
-		$link = @mysql_connect($host, $username, $password, TRUE);
-
-		if (!$link)
+		$languages = array();
+		$languages_directory = realpath(dirname(__FILE__).'/../language/');
+		foreach (new FilesystemIterator($languages_directory, FilesystemIterator::CURRENT_AS_FILEINFO | FilesystemIterator::SKIP_DOTS) as $path)
 		{
-			$data['success'] = 'false';
-			$data['message'] = lang('db_failure') . mysql_error();
-		}
-		else
-		{
-			$data['success'] = 'true';
-			$data['message'] = lang('db_success');
+			if ($path->isDir())
+			{
+				$languages[] = $path->getBasename();
+			}
 		}
 
-		// Set some headers for our JSON
-		header('Cache-Control: no-cache, must-revalidate');
-		header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
-		header('Content-type: application/json');
-
-		echo json_encode($data);
-	}
-
-	/**
-	 * Sets the language and loads the corresponding language files like the installer controller
-	 *
-	 * @access	private
-	 * @author	wupsbr
-	 * @since	1.0.0
-	 * @return	void
-	 */
-	private function _set_language()
-	{
-		// let's check if the language is supported
-		if (in_array($this->session->userdata('language'), $this->languages))
+		// Check if the language is supported and set it.
+		if (in_array($this->session->userdata('language'), $languages))
 		{
-			// if so we set it
 			$this->config->set_item('language', $this->session->userdata('language'));
 		}
+		unset($languages);
 
 		// let's load the language file belonging to the page i.e. method
-		$lang_file = $this->config->item('language') . '/' . $this->router->method . '_lang';
-		if (is_file(realpath(dirname(__FILE__) . '/../language/' . $lang_file . EXT)))
+		if (is_file($languages_directory.'/'.$this->config->item('language').'/'.$this->router->method.'_lang'.EXT))
 		{
 			$this->lang->load($this->router->method);
 		}
 
 		// also we load some generic language labels
 		$this->lang->load('global');
+
+		$this->lang->load('step_1');
+	}
+
+	public function confirm_database()
+	{
+		$database 	= $this->input->post('database');
+		$create_db 	= $this->input->post('create_db') === 'true';
+		$server = $this->input->post('server').':'.$this->input->post('port');
+		$username 	= $this->input->post('username');
+		$password 	= $this->input->post('password');
+
+		// Set some headers for our JSON
+		header('Cache-Control: no-cache, must-revalidate');
+		header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+		header('Content-type: application/json');
+
+		$link = @mysql_connect($server, $username, $password, true);
+		// Not good if either we have not connected to the database
+		// or we where required to create the database but couldn't
+		if ( ( ! $link) or ( $create_db && ! mysql_query('CREATE DATABASE IF NOT EXISTS '.$database, $link)) )
+		{
+			echo json_encode(array(
+				'success' => false,
+				'message' => lang('db_failure') . mysql_error()
+			));
+		}
+		// We are good to go
+		else
+		{
+			echo json_encode(array(
+				'success' => true,
+				'message' => lang('db_success')
+			));
+		}
+		@mysql_close($link);
 	}
 
 	/**
-	 * Sends statistics back to pyrocms.com. These are only used to see which OS's we should develop for
-	 * and are anonymous.
+	 * Sends statistics back to pyrocms.com
 	 *
-	 * @access	public
-	 * @author	jeroenvdgulik
-	 * @since	1.0.1
-	 * @return	void
+	 * These are only used to see which OS's we should develop for and are anonymous.
+	 *
+	 * @author jeroenvdgulik
+	 * @since 1.0.1
 	 */
 	public function statistics()
 	{
@@ -119,9 +122,7 @@ class Ajax extends CI_Controller {
 	/**
 	 * Check if apache's mod_rewrite is enabled
 	 *
-	 * @access	public
-	 * @author	PyroCMS Dev Team
-	 * @return	string
+	 * @return string
 	 */
 	public function check_rewrite()
 	{
@@ -131,18 +132,12 @@ class Ajax extends CI_Controller {
 			return print(lang('rewrite_fail'));
 		}
 
-		$modules = apache_get_modules();
-
-		if (in_array('mod_rewrite', $modules))
+		if (in_array('mod_rewrite', apache_get_modules()))
 		{
 			return print('enabled');
 		}
-		else
-		{
-			return print(lang('mod_rewrite'));
-		}
+
+		return print(lang('mod_rewrite'));
 	}
 
 }
-
-/* End of file ajax.php */

@@ -17,7 +17,7 @@ class Field_pyro_lang
 	
 	public $db_col_type				= 'varchar';
 
-	public $version					= '1.0';
+	public $version					= '1.0.0';
 
 	public $author					= array('name' => 'PyroCMS', 'url' => 'http://www.pyrocms.com');
 	

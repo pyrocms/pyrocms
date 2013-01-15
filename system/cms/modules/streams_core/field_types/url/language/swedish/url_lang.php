@@ -10,7 +10,7 @@
  * @version		1.1.0
  */
 
-$lang['streams.url.name'] = 'URL';
+$lang['streams:url.name'] = 'URL';
 
 
 /* End of file url_lang.php */  

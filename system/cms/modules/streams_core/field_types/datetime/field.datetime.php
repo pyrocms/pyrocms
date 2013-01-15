@@ -17,7 +17,7 @@ class Field_datetime
 
 	public $custom_parameters		= array('use_time', 'start_date', 'end_date', 'storage', 'input_type');
 
-	public $version					= '2.0';
+	public $version					= '2.0.0';
 
 	public $author					= array('name'=>'Parse19', 'url'=>'http://parse19.com');
 
@@ -109,7 +109,6 @@ class Field_datetime
 		// Date Range Validation
 		// -------------------------------
 
-
 		if (is_array($restrict = $this->parse_restrict($field->field_data)))
 		{
 			// Man we gotta convert this now if it's the dropdown format
@@ -117,7 +116,7 @@ class Field_datetime
 			{
 				if (( ! $_POST[$field->field_slug.'_month'] or ! $_POST[$field->field_slug.'_day'] or ! $_POST[$field->field_slug.'_year']) and $required)
 				{
-					return lang('streams.invalid_input_for_date_range_check');
+					return lang('streams:invalid_input_for_date_range_check');
 				}
 
 				$value = $this->CI->input->post($field->field_slug.'_year').'-'.$this->CI->input->post($field->field_slug.'_month').'-'.$this->CI->input->post($field->field_slug.'_day');
@@ -139,7 +138,7 @@ class Field_datetime
 				// Is now after the future point
 				if ($value > $pieces[1])
 				{
-					return lang('streams.date_out_or_range');
+					return lang('streams:date_out_or_range');
 				}
 			}
 			elseif ( ! $restrict['end_stamp'] and $restrict['start_stamp'])
@@ -147,7 +146,7 @@ class Field_datetime
 				// Is now before the past point
 				if ($value < $restrict['start_stamp'])
 				{
-					return lang('streams.date_out_or_range');
+					return lang('streams:date_out_or_range');
 				}
 			}
 			elseif ( ! $restrict['end_stamp'] and ! $restrict['start_stamp'])
@@ -162,7 +161,7 @@ class Field_datetime
 				// after the end?
 				if ($value < $restrict['start_stamp'] or $value > $restrict['end_stamp'])
 				{ 
-					return lang('streams.date_out_or_range');
+					return lang('streams:date_out_or_range');
 				}
 			}
 		}
@@ -576,6 +575,20 @@ class Field_datetime
 
 	// --------------------------------------------------------------------------
 
+	public function form_data($key, $form_data)
+	{
+		if (isset($form_data[$key]))
+		{
+			return $form_data[$key];
+		}
+		else
+		{
+			return null;
+		}
+	}
+
+	// --------------------------------------------------------------------------
+
 	/**
 	 * Process before saving to database
 	 *
@@ -584,7 +597,7 @@ class Field_datetime
 	 * @param	obj
 	 * @return	string
 	 */
-	public function pre_save($input, $field)
+	public function pre_save($input, $field, $stream, $row_id, $form_data)
 	{
 		// -------------------------------------
 		// Date
@@ -595,14 +608,14 @@ class Field_datetime
 		if ($input_type == 'datepicker')
 		{
 			// No collecting data necessary
-			$date = $this->CI->input->post($field->field_slug);
+			$date = $this->form_data($field->field_slug, $form_data);
 		}
 		else
 		{
 			// Get from post data
-			$date = $this->CI->input->post($field->field_slug.'_year').
-				'-'.$this->two_digit_number($this->CI->input->post($field->field_slug.'_month')).
-				'-'.$this->two_digit_number($this->CI->input->post($field->field_slug.'_day'));
+			$date = $this->form_data($field->field_slug.'_year', $form_data).
+				'-'.$this->two_digit_number($this->form_data($field->field_slug.'_month', $form_data)).
+				'-'.$this->two_digit_number($this->form_data($field->field_slug.'_day', $form_data));
 		}
 
 		// -------------------------------------
@@ -635,11 +648,11 @@ class Field_datetime
 		if ($field->field_data['use_time'] == 'yes')
 		{
 			// Hour
-			if ($this->CI->input->post($field->field_slug.'_hour'))
+			if ($this->form_data($field->field_slug.'_hour', $form_data))
 			{
-				$hour = $this->CI->input->post($field->field_slug.'_hour');
+				$hour = $this->form_data($field->field_slug.'_hour', $form_data);
 	
-				if ($this->CI->input->post($field->field_slug.'_am_pm') == 'pm' and $hour < 12)
+				if ($this->form_data($field->field_slug.'_am_pm', $form_data) == 'pm' and $hour < 12)
 				{
 					$hour = $hour+12;
 				}
@@ -650,9 +663,9 @@ class Field_datetime
 			}
 			
 			// Minute
-			if ($this->CI->input->post($field->field_slug.'_minute'))
+			if ($this->form_data($field->field_slug.'_minute', $form_data))
 			{
-				$minute = $this->CI->input->post($field->field_slug.'_minute');
+				$minute = $this->form_data($field->field_slug.'_minute', $form_data);
 			}				
 			else
 			{
@@ -843,7 +856,7 @@ class Field_datetime
 		
 		return array(
 			'input' 		=> form_input($options),
-			'instructions'	=> $this->CI->lang->line('streams.datetime.rest_instructions')
+			'instructions'	=> $this->CI->lang->line('streams:datetime.rest_instructions')
 		);
 	}
 
@@ -864,7 +877,7 @@ class Field_datetime
 		
 		return array(
 			'input' 		=> form_input($options),
-			'instructions'	=> $this->CI->lang->line('streams.datetime.rest_instructions')
+			'instructions'	=> $this->CI->lang->line('streams:datetime.rest_instructions')
 		);
 	}
 
@@ -953,6 +966,9 @@ class Field_datetime
 	 */
 	public function pre_output($input, $params)
 	{
+		// Don't show Dec 31st if empty silly
+		if ( $input == null ) return null;
+		
 		// If this is a date-time stored value,
 		// we need this to be converted to UNIX.
 		if ( ! isset($params['storage']) or $params['storage'] == 'datetime')
@@ -964,11 +980,11 @@ class Field_datetime
 		// Format for admin
 		if ($params['use_time'] == 'no')
 		{
-			return(date($this->CI->settings->get('date_format'), $input));
+			return(date(Settings::get('date_format'), $input));
 		}	
 		else
 		{
-			return(date($this->CI->settings->get('date_format').' g:i a', $input));
+			return(date(Settings::get('date_format').' g:i a', $input));
 		}
 	}
 

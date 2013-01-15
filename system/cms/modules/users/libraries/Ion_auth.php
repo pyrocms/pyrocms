@@ -191,12 +191,12 @@ class Ion_auth
 			$user = $this->get_user_by_identity($identity);  //changed to get_user_by_identity from email
 
 			// Add in some extra details
-			$data['subject']	= $this->ci->settings->get('site_name') . ' - Forgotten Password Verification';
+			$data['subject']	= Settings::get('site_name') . ' - Forgotten Password Verification';
 			$data['slug'] 		= 'forgotten_password';
 			$data['to'] 		= $user->email;
-			$data['from'] 		= $this->ci->settings->get('server_email');
-			$data['name']		= $this->ci->settings->get('site_name');
-			$data['reply-to']	= $this->ci->settings->get('contact_email');
+			$data['from'] 		= Settings::get('server_email');
+			$data['name']		= Settings::get('site_name');
+			$data['reply-to']	= Settings::get('contact_email');
 			$data['user']		= $user;
 			
 			// send the email using the template event found in system/cms/templates/
@@ -245,12 +245,12 @@ class Ion_auth
 		if ($new_password)
 		{
 			// Add in some extra details
-			$data['subject']		= $this->ci->settings->get('site_name') . ' - New Password';
+			$data['subject']		= Settings::get('site_name') . ' - New Password';
 			$data['slug'] 			= 'new_password';
 			$data['to'] 			= $user->email;
-			$data['from'] 			= $this->ci->settings->get('server_email');
-			$data['name']			= $this->ci->settings->get('site_name');
-			$data['reply-to']		= $this->ci->settings->get('contact_email');
+			$data['from'] 			= Settings::get('server_email');
+			$data['name']			= Settings::get('site_name');
+			$data['reply-to']		= Settings::get('contact_email');
 			$data['user']			= $user;
 			$data['new_password']	= $new_password;
 			
@@ -327,12 +327,12 @@ class Ion_auth
 		}
 
 		// Add in some extra details
-		$data['subject']			= $this->ci->settings->get('site_name') . ' - Account Activation'; // No translation needed as this is merely a fallback to Email Template subject
+		$data['subject']			= Settings::get('site_name') . ' - Account Activation'; // No translation needed as this is merely a fallback to Email Template subject
 		$data['slug'] 				= 'activation';
 		$data['to'] 				= $user->email;
-		$data['from'] 				= $this->ci->settings->get('server_email');
-		$data['name']				= $this->ci->settings->get('site_name');
-		$data['reply-to']			= $this->ci->settings->get('contact_email');
+		$data['from'] 				= Settings::get('server_email');
+		$data['name']				= Settings::get('site_name');
+		$data['reply-to']			= Settings::get('contact_email');
 		$data['activation_code']	= $activation_code;
 		$data['user']				= $user;
 		

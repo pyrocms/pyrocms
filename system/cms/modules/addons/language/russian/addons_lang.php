@@ -9,6 +9,7 @@
  */
 
 $lang['addons:modules'] 						= 'Модули';
+$lang['addons:admin_themes'] 					= 'Admin Themes'; #translate
 $lang['addons:themes'] 							= 'Темы';
 $lang['addons:widgets'] 						= 'Виджеты';
 

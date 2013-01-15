@@ -32,6 +32,13 @@ $lang['global:operators:not-equal'] 	= 'Όχι ίσο με';
 $lang['global:operators:less-than'] 	= 'Μικρότερο από';
 $lang['global:operators:greater-than'] 	= 'Μεγαλύτερο από';
 
+$lang['global:duration:1-day']			= 'Μία μέρα';
+$lang['global:duration:1-week']			= 'Μία εβδομάδα';
+$lang['global:duration:2-weeks']		= 'Δύο εβδομάδες';
+$lang['global:duration:1-month']		= 'Ένα μήνα';
+$lang['global:duration:3-months']		= 'Τρείς Μήνες';
+$lang['global:duration:always']			= 'Πάντοτε';
+
 $lang['navigation_headline'] 		= 'Πλοήγηση';
 $lang['breadcrumb_base_label'] 		= 'Αρχική';
 
@@ -45,6 +52,7 @@ $lang['general_error_label'] 		= 'Σφάλμα';
 $lang['required_error_label'] 		= 'Λείπει η τιμή σε απαιτουμενο πεδίο';
 $lang['note_label'] 			= 'Σημείωση';
 $lang['success_label'] 			= 'Επιτυχία';
+$lang['global:fields']					= 'Πεδία';
 
 $lang['login_title'] 			= 'Σύνδεση';
 $lang['global:fatal_error'] 		= 'Σφάλμα, το CMS είναι εγκατεστημένο;';
@@ -62,8 +70,8 @@ $lang['cancel_label'] 			= 'Άκυρο';
 $lang['update_label'] 			= 'Ενημέρωση Λεζάντας';
 $lang['global:delete'] 			= 'Διαγραφή';
 $lang['activate_label'] 		= 'Ενεργοποίηση';
-$lang['approve_label']			= 'Έγκριση';
-$lang['unapprove_label']		= 'Απόρριψη';
+$lang['global:approve']			= 'Έγκριση';
+$lang['global:unapprove']		= 'Απόρριψη';
 $lang['publish_label'] 			= 'Δημοσίευση';
 $lang['global:upload'] 			= 'Ανέβασμα';
 $lang['global:uninstall'] 		= 'Απεγκατάσταση';
@@ -96,5 +104,13 @@ $lang['global:keywords']		= 'Λέξεις Κλειδιά';
 $lang['global:or']						= 'ή';
 $lang['global:and']						= 'και';
 $lang['global:at']						= 'στο';
+
+$lang['global:widgets']					= 'Widgets';
+$lang['global:themes']					= 'Θέματα Προβολής';
+$lang['global:field_types']				= 'Τύποι Πεδίων';
+$lang['global:plugins']					= 'Πρόσθετα';
+$lang['global:plugin']					= 'Πρόσθετο';
+
+$lang['global:options']					= 'Επιλογές';
 
 /* End of file main_lang.php */

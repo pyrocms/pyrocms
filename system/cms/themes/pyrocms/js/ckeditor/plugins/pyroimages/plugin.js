@@ -1,9 +1,42 @@
+(function(siteUrl, baseUrl)
+{
+
+function pyroimage_onclick(e)
+{
+    update_instance();
+    // run when pyro button is clicked]
+    CKEDITOR.currentInstance.openDialog('pyroimage_dialog');
+}
+
+// Replace url-encoded forms of {{ url:site }} and {{ url: base }}
+// with their corresponding JS constants
+function lexToUrl(imgSrc) {
+	var src = decodeURIComponent(imgSrc)
+				.replace(/\{\{(\s*?)url:site(\s*?)\}\}/, siteUrl)
+				.replace(/\{\{(\s*?)url:base(\s*?)\}\}/, baseUrl);
+
+	return src;
+}
+
+// Restore localized src to their Lex tags
+function urlToLex(imgSrc) {
+	var src = imgSrc.replace(siteUrl, '{{ url:site }}')
+				.replace(baseUrl, '{{ url:base }}');
+
+	return src;
+}
+
 CKEDITOR.plugins.add('pyroimages',
 {
     requires: ['iframedialog'],
     init : function(editor)
     {
-        CKEDITOR.dialog.addIframe('pyroimage_dialog', 'Image', SITE_URL + 'admin/wysiwyg/image',800,500)
+        CKEDITOR.dialog.addIframe('pyroimage_dialog', 'Image', SITE_URL + 'admin/wysiwyg/image',800,500,function(){}, {
+			onLoad: function(){
+				var id = '#'+this.parts.contents.getId();
+				$('.cke_dialog_page_contents', id).css({height:'100%'});
+			}
+		});
         editor.addCommand('pyroimages', {exec:pyroimage_onclick});
         editor.ui.addButton('pyroimages',{ label:'Upload or insert images from library', command:'pyroimages', icon:this.path+'images/icon.png' });
 
@@ -28,16 +61,31 @@ CKEDITOR.plugins.add('pyroimages',
 			}
 		});
 
-		// When the "Image Properties" dialog windows is closed with the OK button, ckeditor inserts the updated element into the editor
-		// without calling the dataProcessor on it.
-		// This results in the image appearing as broken, as the {{ url:site }} isn't filtered out.
-		// We overcome this by hooking into the dialogHide event for the "Image Properties" dialog, and triggering an event
-		// which causes the newly-updated element (and everything else) to be processed by the dataProcessor.
+		// We don't want users modifying the img src if it uses Lex tags,
+		// so we'll disable the URL text field of the Image dialog.
+		editor.on('dialogShow', function(e) {
+			if (e.data.getName() != 'image')
+				return;
+
+			var dialogDefinition = e.data.definition,
+				dialog = dialogDefinition.dialog,
+				image = e.data.imageElement;
+
+			if (image && image.hasAttribute('data-pyroimage')) {
+				dialog.getContentElement('info','txtUrl').disable();
+			}
+		});
+
+		// Enable the URL field again
 		editor.on('dialogHide', function(e) {
 			if (e.data.getName() != 'image')
 				return;
 
-			editor.getMode().loadData( editor.getData() );
+			var dialogDefinition = e.data.definition,
+				dialog = dialogDefinition.dialog;
+
+			dialog.getContentElement('info','txtUrl').enable();
+
 		});
 	},
 
@@ -48,33 +96,60 @@ CKEDITOR.plugins.add('pyroimages',
 	{
 		var dataProcessor = editor.dataProcessor;
 		var dataFilter = dataProcessor && dataProcessor.dataFilter;
+		var htmlFilter = dataProcessor && dataProcessor.htmlFilter;
 
-		if ( !dataFilter )
+		if ( !dataFilter || !htmlFilter)
 			return;
 
+		// We'll use the dataFilter to replace the Lex 'site' tags present in the textarea, so images
+		// are properly displayed in the editor iframe and the preview window in the Image dialog.
 		dataFilter.addRules(
 		{
 			elements:
 			{
 				'img': function(element)
 				{
-					// Replace both url-encoded and non-url-encoded forms of {{ url:site }} and {{ url: base }} with their corresponding JS constants
-					// (FF produces a urlencoded version, chrome and IE don't)
-					var src = element.attributes.src;
-					src = src.replace("{{ url:site }}", SITE_URL).replace("%7B%7B%20url:site%20%7D%7D", SITE_URL);
-					src = src.replace("{{ url:base }}", BASE_URL).replace("%7B%7B%20url:base%20%7D%7D", BASE_URL);
-					element.attributes.src = src;
+					var protectedSrc = element.attributes.src;
+					// Before replacing the Lex tags we need to get the raw src
+					// so we'll use the dataProcessor to 'unprotect' it.
+					var unprotectedSrc = dataProcessor.toDataFormat(protectedSrc),
+						localizedSrc = lexToUrl(unprotectedSrc);
+
+					// We'll set a custom attribute so that the image dialog
+					// knows that the src attribute of this element should not be editable,
+					// because it uses Lex tags
+					if (unprotectedSrc.indexOf('\{\{') != -1) {
+						element.attributes['data-pyroimage'] = true;
+					}
+
+					element.attributes.src = localizedSrc;
+					// The Image dialog grabs the cke-data to set the image src
+					// for the Preview window, so we need to replace it too
+					element.attributes['data-cke-saved-src'] = localizedSrc;
 
 					return element;
 				}
 			}
-		})
+		});
+
+		// We need to revert the changes before the editor writes back into the textarea,
+		// so we'll use the htmlFilter to restore the Lex tags that were localized.
+		htmlFilter.addRules(
+		{
+			elements:
+			{
+				'img': function(element)
+				{
+					var originalSrc = urlToLex(element.attributes.src);
+
+					element.attributes.src = originalSrc;
+					element.attributes['data-cke-saved-src'] = originalSrc;
+
+					return element;
+				}
+			}
+		});
 	}
 });
 
-function pyroimage_onclick(e)
-{
-	update_instance();
-    // run when pyro button is clicked]
-    CKEDITOR.currentInstance.openDialog('pyroimage_dialog')
-}
+})(SITE_URL,BASE_URL);

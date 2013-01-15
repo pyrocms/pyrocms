@@ -24,7 +24,7 @@
 					<label for="<?php echo $fields[$field]['input_slug'];?>"><?php echo $this->fields->translate_label($fields[$field]['input_title']);?> <?php echo $fields[$field]['required'];?>
 					
 					<?php if( $fields[$field]['instructions'] != '' ): ?>
-						<br /><small><?php echo $fields[$field]['instructions']; ?></small>
+						<br /><small><?php echo $this->fields->translate_label($fields[$field]['instructions']); ?></small>
 					<?php endif; ?>
 					</label>
 					
@@ -45,8 +45,8 @@
 	<?php if ($mode == 'edit'){ ?><input type="hidden" value="<?php echo $entry->id;?>" name="row_edit_id" /><?php } ?>
 
 	<div class="float-right buttons">
-		<button type="submit" name="btnAction" value="save" class="btn blue"><span><?php echo lang('buttons.save'); ?></span></button>	
-		<a href="<?php echo site_url(isset($return) ? $return : 'admin/streams/entries/index/'.$stream->id); ?>" class="btn gray"><?php echo lang('buttons.cancel'); ?></a>
+		<button type="submit" name="btnAction" value="save" class="btn blue"><span><?php echo lang('buttons:save'); ?></span></button>	
+		<a href="<?php echo site_url(isset($return) ? $return : 'admin/streams/entries/index/'.$stream->id); ?>" class="btn gray"><?php echo lang('buttons:cancel'); ?></a>
 	</div>
 
 <?php echo form_close();?>

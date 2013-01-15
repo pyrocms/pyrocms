@@ -1,11 +1,11 @@
 <?php if (!empty($fields)): ?>
 
-    <table class="table-list">
+    <table class="table-list" border="0" cellspacing="0">
 		<thead>
 			<tr>
-			    <th><?php echo lang('streams.label.field_name');?></th>
-			    <th><?php echo lang('streams.label.field_slug');?></th>
-			    <th><?php echo lang('streams.label.field_type');?></th>
+			    <th><?php echo lang('streams:label.field_name');?></th>
+			    <th><?php echo lang('streams:label.field_slug');?></th>
+			    <th><?php echo lang('streams:label.field_type');?></th>
 			    <th><?php echo lang('pyro.actions');?></th>
 			</tr>
 		</thead>
@@ -42,5 +42,5 @@
 <?php echo $pagination['links']; ?>
 
 <?php else: ?>
-	<div class="no_data"><?php echo lang('streams.start.no_fields');?> <?php echo anchor(isset($add_uri) ? $add_uri : 'admin/streams/fields/add', lang('streams.start.add_one'), 'class="add"'); ?>.</div>
+	<div class="no_data"><?php echo lang('streams:start.no_fields');?> <?php echo anchor(isset($add_uri) ? $add_uri : 'admin/streams/fields/add', lang('streams:start.add_one'), 'class="add"'); ?>.</div>
 <?php endif;?>

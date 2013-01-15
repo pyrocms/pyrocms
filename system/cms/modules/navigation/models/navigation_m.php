@@ -24,16 +24,7 @@ class Navigation_m extends MY_Model
 	 */
 	public function get_link($id = 0)
 	{
-		$query = $this->db->get_where('navigation_links', array('id'=>$id));
-
-		if ($query->num_rows() == 0)
-		{
-			return false;
-		}
-		else
-		{
-			return $query->row();
-		}
+		return $this->db->get_where('navigation_links', array('id'=>$id))->row();
 	}
 	
 	/**
@@ -51,10 +42,8 @@ class Navigation_m extends MY_Model
 		{
 			return false;
 		}
-		else
-		{
-			return $this->make_url($query->result());
-		}
+
+		return $this->make_url($query->row());
 	}
 	
 	/**
@@ -323,39 +312,36 @@ class Navigation_m extends MY_Model
 	 * @param array $row Navigation record
 	 * @return mixed Valid url
 	 */
-	public function make_url($result)
+	public function make_url($row)
 	{
-		foreach($result as $key => &$row)
+		// If its any other type than a URL, it needs some help becoming one
+		switch($row->link_type)
 		{
-			// If its any other type than a URL, it needs some help becoming one
-			switch($row->link_type)
-			{
-				case 'uri':
-					$row->url = site_url($row->uri);
-				break;
+			case 'uri':
+				$row->url = site_url($row->uri);
+			break;
 
-				case 'module':
-					$row->url = site_url($row->module_name);
-				break;
+			case 'module':
+				$row->url = site_url($row->module_name);
+			break;
 
-				case 'page':
-					if ($page = $this->page_m->get_by(array_filter(array(
-						'id'		=> $row->page_id,
-						'status'	=> (is_subclass_of(ci(), 'Public_Controller') ? 'live' : null)
-					))))
-					{
-						$row->url = site_url($page->uri);
-						$row->is_home = $page->is_home;
-					}
-					else
-					{
-						unset($result[$key]);
-					}
-				break;
-			}
+			case 'page':
+				if ($page = $this->page_m->get_by(array_filter(array(
+					'id'		=> $row->page_id,
+					'status'	=> (is_subclass_of(ci(), 'Public_Controller') ? 'live' : null)
+				))))
+				{
+					$row->url = site_url($page->uri);
+					$row->is_home = $page->is_home;
+				}
+				else
+				{
+					unset($result[$key]);
+				}
+			break;
 		}
 
-		return $result;
+		return $row;
 	}
 	
 	/**

@@ -9,8 +9,10 @@ $lang['desc_label'] 					= 'الوصف';
 $lang['version_label'] 					= 'النسخة';
 $lang['global:author'] 					= 'الناشر';
 $lang['global:action'] 					= 'الإجراء';
-$lang['global:slug'] 					= 'Slug'; #translate
-$lang['global:slug_instructions']		= 'Lowercase characters and underscores only.'; #translate
+$lang['global:slug'] 					= 'مُختصر العُنوان';
+$lang['global:slug_instructions']		= 'أحرف صغيرة وشرطة سفلية فقط.';
+$lang['global:user'] 					= 'المستخدم';
+
 $lang['global:dialog:delete_message'] 	= 'متأكد أنك تريد حذف هذا؟ لا يمكن التراجع عن هذا الأمر.';
 $lang['global:dialog:confirm'] 			= 'التأكيد';
 
@@ -30,12 +32,12 @@ $lang['global:operators:not-equal'] 	= 'لا يساوي';
 $lang['global:operators:less-than'] 	= 'أقل من';
 $lang['global:operators:greater-than'] 	= 'أكثر من';
 
-$lang['global:duration:1-day']			= 'One day'; #translate
-$lang['global:duration:1-week']			= 'One week'; #translate
-$lang['global:duration:2-weeks']		= 'Two weeks'; #translate
-$lang['global:duration:1-month']		= 'One month'; #translate
-$lang['global:duration:3-months']		= 'Three Months'; #translate
-$lang['global:duration:always']			= 'Always'; #translate
+$lang['global:duration:1-day']			= 'يوم';
+$lang['global:duration:1-week']			= 'أسبوع';
+$lang['global:duration:2-weeks']		= 'أسبوعان';
+$lang['global:duration:1-month']		= 'شهر';
+$lang['global:duration:3-months']		= '3 أشهر';
+$lang['global:duration:always']			= 'دائماً';
 
 $lang['navigation_headline'] 			= 'الروابط';
 $lang['breadcrumb_base_label'] 			= 'الرئيسية';
@@ -50,10 +52,11 @@ $lang['general_error_label'] 			= 'خطأ';
 $lang['required_error_label'] 			= 'أحد الحقول مفقود';
 $lang['note_label'] 					= 'ملاحظة';
 $lang['success_label'] 					= 'نجاح';
+$lang['global:fields']					= 'الحقول';
 
 $lang['login_title'] 					= 'تسجيل الدخول';
-$lang['cms_fatal_error'] 				= 'خطأ جسيم، هل النظام مثبّت؟';
-$lang['global:demo_restrictions']       = 'بعض الخواص في هذه الصفحة مُعطّلة لغرض العرض فقط.';
+$lang['global:fatal_error'] 				= 'خطأ جسيم، هل النظام مثبّت؟';
+$lang['global:demo_restrictions']		= 'بعض الخواص في هذه الصفحة مُعطّلة لغرض العرض فقط.';
 
 $lang['login_error_label'] 				= 'خطأ في تسجيل الدخول';
 $lang['forgot_password_label'] 			= 'نسيت كلمة السرّ؟';
@@ -67,15 +70,17 @@ $lang['cancel_label'] 					= 'إلغاء';
 $lang['update_label'] 					= 'تحديث';
 $lang['global:delete'] 					= 'حذف';
 $lang['activate_label'] 				= 'تنشيط';
-$lang['approve_label']					= 'اعتماد';
-$lang['unapprove_label']				= 'حجب';
+$lang['global:approve']					= 'اعتماد';
+$lang['global:unapprove']				= 'حجب';
 $lang['publish_label'] 					= 'نشر';
 $lang['global:upload'] 					= 'رفع';
 $lang['global:uninstall'] 				= 'إزالة';
 $lang['global:install'] 					= 'تثبيت';
+$lang['global:upgrade'] 					= 'تحديث';
 $lang['global:enable']					= 'تمكين';
 $lang['global:disable'] 					= 'تعطيل';
-$lang['global:upgrade'] 					= 'تحديث';
+$lang['global:enabled']					= 'مُمكّن';
+$lang['global:disabled'] 				= 'مُعطّل';
 
 $lang['all_right_reserved']				= 'جميع الحقوق محفوظة.';
 $lang['powered_by_pyrocms']				= 'هذا الموقع يستخدم PyroCMS';
@@ -95,5 +100,17 @@ $lang['global:delete']					= 'حذف';
 $lang['global:remove']					= 'إزالة';
 
 $lang['global:keywords']				= 'كلمات البحث';
+
+$lang['global:or']						= 'أو';
+$lang['global:and']						= 'و';
+$lang['global:at']						= 'في';
+
+$lang['global:widgets']					= 'الودجتس';
+$lang['global:themes']					= 'السّمات';
+$lang['global:field_types']				= 'أنواع الحقول';
+$lang['global:plugins']					= 'الإضافات';
+$lang['global:plugin']					= 'الإضافة';
+
+$lang['global:options']					= 'خيارات';
 
 /* End of file main_lang.php */

@@ -42,6 +42,7 @@ $lang['files:search_message']                    = 'Írj valamit és üss Entert
 $lang['files:search']                            = 'Keresés';
 $lang['files:synchronize']                       = 'Szinkronizálás';
 $lang['files:uploader']                          = 'Húzz ide fájlokat <br />vagy<br />Kattints a fájlok kiválasztásához';
+$lang['files:replace_file']						 = 'Replace file'; #translate
 
 // Context Menu
 $lang['files:refresh']						= 'Refresh'; #translate
@@ -93,6 +94,7 @@ $lang['files:alt_saved']						= 'The image alt attribute has been saved'; #trans
 $lang['files:file_moved']                        = '"%s" sikeresen áthelyezve';
 $lang['files:exceeds_server_setting']            = 'A szerver nem tud ekkora méretű fájlt kezelni';
 $lang['files:exceeds_allowed']                   = 'A fájl mérete túllépi a maximum engedélyezett méretet';
+$lang['files:replace_warning']				= 'Warning: Do not replace a file with a file of a different type (e.g. .jpg with .png)'; #translate
 $lang['files:file_type_not_allowed']             = 'Nem engedélyezett fájltípus';
 $lang['files:type_a']                            = 'Audió';
 $lang['files:type_v']                            = 'Videó';

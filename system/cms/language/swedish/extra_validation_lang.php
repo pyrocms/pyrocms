@@ -4,7 +4,7 @@
  * Swedish translation.
  *
  * @author		marcus@incore.se
- * @package		PyroCMS  
+ * @package		PyroCMS
  * @link		http://pyrocms.com
  * @date		2012-10-22
  * @version		1.1.0
@@ -14,6 +14,4 @@ $lang['alpha_dot_dash'] = 'Fältet %s får endast innehålla alfanumeriska tecke
 $lang['decimal'] = 'Fältet %s måste innehålla ett decimaltal.';
 $lang['csrf_bad_token'] = 'Ogiltig CSRF token';
 
-
-/* End of file extra_validation_lang.php */  
-/* Location: system/cms/language/swedish/extra_validation_lang.php */  
+/* End of file extra_validation_lang.php */

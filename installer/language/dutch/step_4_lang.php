@@ -1,12 +1,9 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
-$lang['header']			=	'Stap 4: Cre&euml;er database';
-$lang['intro_text']		=	'Vul het formulier hieronder in en kiik op "Installeren" om PyroCMS te installeren. Zorg ervoor dat PyroCMS in de juiste database geïnstalleerd wordt, aangezien alle bestaande data wordt verwijderd!';
+$lang['header']			=	'Stap 4: Cre&euml; #translateer database';
+$lang['intro_text']		=	'Vul het formulier hieronder in en kiik op "Installeren" om PyroCMS te installeren. Zorg ervoor dat PyroCMS in de juiste database geïnstalleerd wordt, aangezien alle bestaande data wordt verwijderd!'; #translate
 
-$lang['db_settings']	=	'Databaseinstellingen';
-$lang['db_create']		=	'Creëer database';
-$lang['db_notice']		=	'Dit moet misschien handmatig';
 $lang['default_user']	=	'Standaard Gebruiker';
 $lang['database']		=	'Database';
 $lang['site_settings']		= 	'Siteinstellingen';
@@ -27,5 +24,3 @@ $lang['error_104']		=	'De installer kon de standaardgebruiker niet aanmekan.<br/
 $lang['error_105']		=	'De databaseconfiguratie kon niet weggeschreven worden. Heeft u wellicht stap 3 overgeslagen?';
 $lang['error_106']		=	'Het configuratiebestand kon niet opgeslagen worden. Heeft het bestand de correcte rechten?';
 $lang['success']		=	'PyroCMS is met succes geinstalleerd.';
-
-/* End of file step_4_lang.php */

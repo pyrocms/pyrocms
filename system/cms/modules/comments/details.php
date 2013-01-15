@@ -3,10 +3,11 @@
 /**
  * Comments module
  *
- * @author PyroCMS Dev Team
+ * @author  PyroCMS Dev Team
  * @package PyroCMS\Core\Modules\Comments
  */
-class Module_Comments extends Module {
+class Module_Comments extends Module
+{
 
 	public $version = '1.1.0';
 
@@ -33,7 +34,8 @@ class Module_Comments extends Module {
 				'pl' => 'Komentarze',
 				'ru' => 'Комментарии',
 				'sl' => 'Komentarji',
-				'zh' => '回應',
+				'tw' => '回應',
+				'cn' => '回应',
 				'hu' => 'Hozzászólások',
 				'th' => 'ความคิดเห็น',
 				'se' => 'Kommentarer',
@@ -58,20 +60,22 @@ class Module_Comments extends Module {
 				'pl' => 'Użytkownicy i goście mogą dodawać komentarze z wbudowanym systemem zabezpieczeń captcha.',
 				'ru' => 'Пользователи и гости могут добавлять комментарии к новостям, информационным страницам и фотографиям.',
 				'sl' => 'Uporabniki in obiskovalci lahko vnesejo komentarje na vsebino kot je blok, stra ali slike',
-				'zh' => '用戶和訪客可以針對新聞、頁面與照片等內容發表回應。',
+				'tw' => '用戶和訪客可以針對新聞、頁面與照片等內容發表回應。',
+				'cn' => '用户和访客可以针对新闻、页面与照片等内容发表回应。',
 				'hu' => 'A felhasználók és a vendégek hozzászólásokat írhatnak a tartalomhoz (bejegyzésekhez, oldalakhoz, fotókhoz).',
 				'th' => 'ผู้ใช้งานและผู้เยี่ยมชมสามารถเขียนความคิดเห็นในเนื้อหาของหน้าเว็บบล็อกและภาพถ่าย',
 				'se' => 'Användare och besökare kan skriva kommentarer till innehåll som blogginlägg, sidor och bilder.',
 			),
 			'frontend' => false,
-			'backend'  => true,
-			'menu'	  => 'content'
+			'backend' => true,
+			'menu' => 'content'
 		);
 	}
 
 	public function install()
 	{
 		$this->dbforge->drop_table('comments');
+		$this->dbforge->drop_table('comment_blacklists');
 
 		$tables = array(
 			'comments' => array(
@@ -89,13 +93,18 @@ class Module_Comments extends Module {
 				'entry_key' => array('type' => 'varchar', 'constraint' => 100, 'null' => false),
 				'entry_plural' => array('type' => 'varchar', 'constraint' => 100, 'null' => false),
 				'uri' => array('type' => 'varchar', 'constraint' => 255, 'null' => true),
-				'cp_uri' => array('type' => 'varchar','constraint' => 255, 'null' => true),
-				'created_on' => array('type' => 'INT', 'constraint' => 11, 'default' => '0'), // @todo Shouldn't this be an int?
+				'cp_uri' => array('type' => 'varchar', 'constraint' => 255, 'null' => true),
+				'created_on' => array('type' => 'INT', 'constraint' => 11, 'default' => '0'),
 				'ip_address' => array('type' => 'VARCHAR', 'constraint' => 15, 'default' => ''),
+			),
+			'comment_blacklists' => array(
+				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true),
+				'website' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => ''),
+				'email' => array('type' => 'VARCHAR', 'constraint' => 150, 'default' => ''),
 			),
 		);
 
-		if ( !$this->install_tables($tables))
+		if ( ! $this->install_tables($tables))
 		{
 			return false;
 		}

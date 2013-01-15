@@ -1,25 +1,158 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
  * Session Plugin
  *
  * Read and write session data
  *
- * @author		PyroCMS Dev Team
- * @package		PyroCMS\Core\Plugins
+ * @author  PyroCMS Dev Team
+ * @package PyroCMS\Core\Plugins
  */
 class Plugin_Url extends Plugin
 {
-	public $description = array(
-		'en'	=> 'Access URL variables, segments, and more.'
+
+	public $version = '1.0.0';
+	public $name = array(
+		'en' => 'URL',
 	);
+	public $description = array(
+		'en' => 'Access URL variables, segments, and more.',
+		'el' => 'Πρόσβαση σε μεταβλητές που βρήσκονται σε URL, τμήματα URL και αλλού.',
+		'fr' => 'Accéder aux informations sur une URL (URL courante, segments, ancres, etc.).',
+		'it' => 'Accedi alle variabili URL, ai segmenti e molto altro'
+	);
+
+	/**
+	 * Returns a PluginDoc array
+	 *
+	 * Refer to the Blog plugin for full documentation
+	 *
+	 * @return array
+	 */
+	public function _self_doc()
+	{
+		$info = array(
+			'current' => array(
+				'description' => array(
+					'en' => 'Output the current url.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(),
+				),
+			'get' => array(
+				'description' => array(
+					'en' => 'Retrieve a GET variable from the url.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'key' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => '',
+						'required' => true,
+						),
+					),
+				),
+			'site' => array(
+				'description' => array(
+					'en' => 'Display the site url of this installation with or without the index.php (depending on url rewrite settings).'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'uri' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => '',
+						'required' => false,
+						),
+					),
+				),
+			'base' => array(
+				'description' => array(
+					'en' => 'Display the base url of the installation without the index.php'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(),
+				),
+			'segments' => array(
+				'description' => array(
+					'en' => 'Return the specified segments from the url.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'segment' => array(
+						'type' => 'number',
+						'flags' => '',
+						'default' => '',
+						'required' => true,
+						),
+					'default' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => '',
+						'required' => false,
+						),
+					),
+				),
+			'anchor' => array(
+				'description' => array(
+					'en' => 'Build an anchor tag with the url segments you pass in.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'segments' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => '',
+						'required' => false,
+						),
+					'title' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => '',
+						'required' => false,
+						),
+					'class' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => '',
+						'required' => false,
+						),
+					),
+				),
+			'is_ssl' => array(
+				'description' => array(
+					'en' => 'Returns true if the site is running on https'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(),
+				),
+			);
+
+		return $info;
+	}
 
 	/**
 	 * Current uri string
 	 *
 	 * Usage:
-	 *   {{ url:current }}
-	 * 
+	 *
+	 *     {{ url:current }}
+	 *
 	 * @return string The current URI string.
 	 */
 	public function current()
@@ -31,8 +164,9 @@ class Plugin_Url extends Plugin
 	 * Current uri string
 	 *
 	 * Usage:
-	 *   {{ url:get key="foo" }}
-	 * 
+	 *
+	 *     {{ url:get key="foo" }}
+	 *
 	 * @return string The key of the item in $_GET
 	 */
 	public function get()
@@ -44,7 +178,8 @@ class Plugin_Url extends Plugin
 	 * Site URL of the installation.
 	 *
 	 * Usage:
-	 *   {{ url:site }}
+	 *
+	 *     {{ url:site }}
 	 *
 	 * @return string Site URL of the install.
 	 */
@@ -52,14 +187,15 @@ class Plugin_Url extends Plugin
 	{
 		$uri = $this->attribute('uri');
 
-		return $uri ? site_url($uri) : rtrim(site_url(), '/').'/';
+		return $uri ? site_url($uri) : rtrim(site_url(), '/') . '/';
 	}
 
 	/**
 	 * Base URL of the installation.
 	 *
 	 * Usage:
-	 *   {{ url:base }}
+	 *
+	 *     {{ url:base }}
 	 *
 	 * @return string The base URL for the installation.
 	 */
@@ -72,7 +208,8 @@ class Plugin_Url extends Plugin
 	 * Get URI segment.
 	 *
 	 * Usage:
-	 *   {{ url:segments segment="1" default="home" }}
+	 *
+	 *     {{ url:segments segment="1" default="home" }}
 	 *
 	 * @return string The URI segment, or the provided default.
 	 */
@@ -88,30 +225,32 @@ class Plugin_Url extends Plugin
 	 * Build an anchor tag
 	 *
 	 * Usage:
-	 *   {{ url:anchor segments="users/login" title="Login" class="login" }}
+	 *
+	 *     {{ url:anchor segments="users/login" title="Login" class="login" }}
 	 *
 	 * @return string The anchor HTML tag.
 	 */
 	public function anchor()
 	{
 		$segments = $this->attribute('segments');
-		$title = $this->attribute('title', '');
-		$class = $this->attribute('class', '');
+		$title    = $this->attribute('title', '');
+		$class    = $this->attribute('class', '');
 
-		$class = !empty($class) ? 'class="'.$class.'"' : '';
+		$class = !empty($class) ? 'class="' . $class . '"' : '';
 
 		return anchor($segments, $title, $class);
 	}
-	
+
 	/**
 	 * Test if the current protocol is SSL or not (https)
 	 *
 	 * Usage:
-	 *   {{ if url:is_ssl }} Yep {{ else }} Nope {{ endif }}
+	 *
+	 *     {{ if url:is_ssl }} Yep {{ else }} Nope {{ endif }}
 	 *
 	 * @return bool
 	 */
-	function is_ssl()
+	public function is_ssl()
 	{
 		return (isset($_SERVER['HTTPS']) ? ($_SERVER['HTTPS'] == "on" ? true : false) : false);
 	}

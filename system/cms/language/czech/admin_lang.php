@@ -1,48 +1,51 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-$lang['cp_admin_title']					= 'Kontrolní panel';
+$lang['cp:admin_title']					= 'Kontrolní panel';
 $lang['global:dashboard']			= 'Nástěnka';
-$lang['cp_admin_quick_links']			= 'Rychlé odkazy';
+$lang['cp:admin_quick_links']			= 'Rychlé odkazy';
 
-$lang['cp_welcome_title']				= 'Vítejte';
-$lang['cp_welcome_message']				= 'Vítejte v Kontrolním panelu pro %s. Pomocí odkazů nahoře a vlevo můžete změnit téměř cokoliv na vašem webu. Pokud budete mít jakýkoliv problém s tímto systémem, nahlašte ho prosím do bugtrackeru.';
+$lang['cp:welcome_title']				= 'Vítejte';
+$lang['cp:welcome_message']				= 'Vítejte v Kontrolním panelu pro %s. Pomocí odkazů nahoře a vlevo můžete změnit téměř cokoliv na vašem webu. Pokud budete mít jakýkoliv problém s tímto systémem, nahlašte ho prosím do bugtrackeru.';
 
-$lang['cp_news_feed_title']				= 'Novinky';
+$lang['cp:news_feed_title']				= 'Novinky';
 
 // Shortcuts
-$lang['cp_manage_comments']				= 'Správa komentářů';
-$lang['cp_manage_pages']				= 'Správa stránek';
-$lang['cp_manage_files']				= 'Správa souborů';
-$lang['cp_manage_users']				= 'Správa uživatelů';
+$lang['cp:manage_comments']				= 'Správa komentářů';
+$lang['cp:manage_pages']				= 'Správa stránek';
+$lang['cp:manage_files']				= 'Správa souborů';
+$lang['cp:manage_users']				= 'Správa uživatelů';
 
 // Header
-$lang['cp_to_home']						= 'Zpět na Nástěnku';
-$lang['cp_view_frontend']				= 'Přejít na web';
-$lang['cp_logged_in_welcome']			= 'Vítejte';
-$lang['cp_logout_label']				= 'Odhlásit';
-$lang['cp_edit_profile_label']			= 'Upravit profil';
+$lang['cp:to_home']						= 'Zpět na Nástěnku';
+$lang['cp:view_frontend']				= 'Přejít na web';
+$lang['cp:logged_in_welcome']			= 'Vítejte';
+$lang['cp:logout_label']				= 'Odhlásit';
+$lang['cp:edit_profile_label']			= 'Upravit profil';
 
 // Footer
-$lang['cp_change_language']				= 'Změnit jazyk';
-$lang['cp_documentation']				= 'Dokumentace';
-$lang['cp_report_bug']					= 'Nahlásit chybu';
-$lang['cp_contact_support']				= 'Podpora';
+$lang['cp:change_language']				= 'Změnit jazyk';
+$lang['cp:documentation']				= 'Dokumentace';
+$lang['cp:report_bug']					= 'Nahlásit chybu';
+$lang['cp:contact_support']				= 'Podpora';
 
-$lang['cp_nav_settings']				= 'Nastavení';
-$lang['cp_nav_addons']					= 'Doplňky';
-$lang['cp_nav_modules']					= 'Moduly';
-$lang['cp_nav_users']					= 'Uživatelé';
-$lang['cp_nav_content']					= 'Obsah';
-$lang['cp_nav_data']					= 'Data'; #translate
-$lang['cp_nav_structure']				= 'Structure'; #translate
-$lang['cp_nav_misc']					= 'Miscellaneous'; #translate
+$lang['cp:nav_settings']				= 'Nastavení';
+$lang['cp:nav_addons']					= 'Doplňky';
+$lang['cp:nav_modules']					= 'Moduly';
+$lang['cp:nav_users']					= 'Uživatelé';
+$lang['cp:nav_data']					= 'Data'; #translate
+$lang['cp:nav_structure']				= 'Structure'; #translate
+$lang['cp:nav_content']					= 'Obsah';
+$lang['cp:nav_misc']					= 'Miscellaneous'; #translate
 
-$lang['cp_must_login']					= 'Pro prohlížení této stránky musíte být přihlášen/a.';
-$lang['cp_access_denied']				= 'nemáte oprávnění k prohlížení této stránky.';
-$lang['cp_delete_installer_message']	= 'Prosím vymažte instalační složku ze serveru. Její přítomnost může být zneužita k získání kontroly nad vaším webem někým cizím.';
-$lang['cp_upgrade_message']				= 'Vaše verze systému je %s, ale verze vaší databáze je %s. <a href="%s" title="Aktualizace">Klikněte sem</a> pro aktualizaci vaší databáze.';
-$lang['cp_google_analytics_missing']	= 'Nastavení Google Analytics chybí. Zapište je do %s nebo kontaktujte svého administrátora.';
-$lang['cp_google_analytics_no_connect']	= 'Nepodařilo se připojit ke Google Analytics. Zkontrolujte na %s.';
+$lang['cp:must_login']					= 'Pro prohlížení této stránky musíte být přihlášen/a.';
+$lang['cp:access_denied']				= 'nemáte oprávnění k prohlížení této stránky.';
+$lang['cp:delete_installer_message']              = 'The installer directory still exists! Please delete it from your server! Leaving it online means control of this site could be granted to somebody else.'; #translate
+$lang['cp:delete_installer']					 = 'Delete Installer'; #translate
+$lang['cp:delete_installer_successfully_message'] = 'The installer directory has been successfully deleted.'; #translate
+$lang['cp:delete_installer_manually_message']     = 'The installer directory could not be deleted. <strong>Please remove it manually!</strong>'; #translate
+$lang['cp:upgrade_message']				= 'Vaše verze systému je %s, ale verze vaší databáze je %s. <a href="%s" title="Aktualizace">Klikněte sem</a> pro aktualizaci vaší databáze.';
+$lang['cp:google_analytics_missing']	= 'Nastavení Google Analytics chybí. Zapište je do %s nebo kontaktujte svého administrátora.';
+$lang['cp:google_analytics_no_connect']	= 'Nepodařilo se připojit ke Google Analytics. Zkontrolujte na %s.';
 
 $lang['required_label']					= 'Povinné';
 $lang['sb_recent_users']				= 'Nedávní uživatelé';

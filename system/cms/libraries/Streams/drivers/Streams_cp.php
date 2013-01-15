@@ -74,15 +74,22 @@ class Streams_cp extends CI_Driver {
 		
  		$stream_fields = $CI->streams_m->get_stream_fields($stream->id);
 
+ 		// We need to make sure that stream_fields is 
+ 		// at least an empty object.
+ 		if ( ! is_object($stream_fields))
+ 		{
+ 			$stream_fields = new stdClass;
+ 		}
+
  		$stream_fields->id = new stdClass;
   		$stream_fields->created = new stdClass;
  		$stream_fields->updated = new stdClass;
  		$stream_fields->created_by = new stdClass;
 
-  		$stream_fields->id->field_name 				= lang('streams.id');
-		$stream_fields->created->field_name 		= lang('streams.created_date');
- 		$stream_fields->updated->field_name 		= lang('streams.updated_date');
- 		$stream_fields->created_by->field_name 		= lang('streams.created_by');
+  		$stream_fields->id->field_name 				= lang('streams:id');
+		$stream_fields->created->field_name 		= lang('streams:created_date');
+ 		$stream_fields->updated->field_name 		= lang('streams:updated_date');
+ 		$stream_fields->created_by->field_name 		= lang('streams:created_by');
 
  		// -------------------------------------
 		// Find offset URI from array
@@ -94,6 +101,12 @@ class Streams_cp extends CI_Driver {
 			$offset_uri = count($segs)+1;
 	
 	 		$offset = $CI->uri->segment($offset_uri, 0);
+
+			// Calculate actual offset if not first page
+			if ( $offset > 0 )
+			{
+				$offset = ($offset - 1) * $pagination;
+			}
   		}
   		else
   		{
@@ -106,21 +119,6 @@ class Streams_cp extends CI_Driver {
 		// @since 2.1.5
 		// -------------------------------------
 
-		// Stuff below is not supported via the API yet
-		if ($stream->sorting == 'custom')
-		{
-			// We need some variables to use in the sort. I guess.
-			$this->CI->template->append_metadata('<script type="text/javascript" language="javascript">var stream_id='.$stream->id.';var stream_offset='.$offset.';</script>');
-		
-			// We want to sort this
-		    $this->CI->template->append_js('streams/entry_sorting.js');
-		    		      
-			// Comeon' Livequery! You're goin' in!
-			$this->CI->template->append_js('jquery/jquery.livequery.js');
-		}
-
-		/*
-		@TODO Was it the code above or this below? Phil
 		if ($stream->sorting == 'custom' or (isset($extra['sorting']) and $extra['sorting'] === true))
 		{
 			$stream->sorting = 'custom';
@@ -134,7 +132,6 @@ class Streams_cp extends CI_Driver {
 				</script>');
 			$CI->template->append_js('streams/entry_sorting.js');
 		}
-		*/
   
   		$data = array(
   			'stream'		=> $stream,
@@ -260,6 +257,12 @@ class Streams_cp extends CI_Driver {
 		{
 			$CI->template->title($extra['title']);
 		}
+
+		// Set custom no data message
+		if (isset($extra['no_entries_message']))
+		{
+			$data['no_entries_message'] = $extra['no_entries_message'];
+		}
 		
 		$table = $CI->load->view('admin/partials/streams/entries', $data, true);
 		
@@ -303,11 +306,12 @@ class Streams_cp extends CI_Driver {
 	 * required				- String to show as required - this defaults to the
 	 * 							standard * for the PyroCMS CP
 	 * title				- Title of the form header (if using view override)
+	 * no_fields_message    - Custom message when there are no fields.
 	 */
 	public function entry_form($stream_slug, $namespace_slug, $mode = 'new', $entry_id = null, $view_override = false, $extra = array(), $skips = array(), $tabs = false, $hidden = array(), $defaults = array())
 	{
 		$CI = get_instance();
-	
+
 		$stream = $this->stream_obj($stream_slug, $namespace_slug);
 		if ( ! $stream) $this->log_error('invalid_stream', 'form');
 
@@ -326,10 +330,9 @@ class Streams_cp extends CI_Driver {
 			$entry = null;
 		}
 
+		// Get our field form elements.
 		$fields = $CI->fields->build_form($stream, $mode, $entry, false, false, $skips, $extra, $defaults);
 
-		// Get the entry
-		
 		$data = array(
 					'fields' 	=> $fields,
 					'tabs'		=> $tabs,
@@ -349,6 +352,12 @@ class Streams_cp extends CI_Driver {
 		{
 			$data['return'] = $extra['return'];
 		}
+
+		// Set the no fields mesage. This has a lang default.
+		if (isset($extra['no_fields_message']))
+		{
+			$data['no_fields_message'] = $extra['no_fields_message'];
+		}
 		
 		$CI->template->append_js('streams/entry_form.js');
 		
@@ -358,7 +367,6 @@ class Streams_cp extends CI_Driver {
 		}
 		else
 		{
-
 			// Make the fields keys the input_slug. This will make it easier to build tabs. Less looping.
 			foreach ( $data['fields'] as $k => $v ){
 				$data['fields'][$v['input_slug']] = $v;
@@ -410,7 +418,7 @@ class Streams_cp extends CI_Driver {
 	 *
 	 * see docs for more.
 	 */
-	public function field_form($stream_slug, $namespace, $method = 'new', $return, $assign_id = null, $include_types = array(), $view_override = false, $extra = array())
+	public function field_form($stream_slug, $namespace, $method = 'new', $return, $assign_id = null, $include_types = array(), $view_override = false, $extra = array(), $exclude_types = array(), $skips = array())
 	{
 		$CI = get_instance();
 		$data = array();
@@ -421,13 +429,49 @@ class Streams_cp extends CI_Driver {
 		if ( ! $stream) $this->log_error('invalid_stream', 'form');
 
 		// -------------------------------------
+		// Include/Exclude Field Types
+		// -------------------------------------
+		// Allows the inclusion or exclusion of
+		// field types.
+		// -------------------------------------
+
+		if ($include_types)
+		{
+			$ft_types = new stdClass();
+
+			foreach ($CI->type->types as $type)
+			{
+				if (in_array($type->field_type_slug, $include_types))
+				{
+					$ft_types->{$type->field_type_slug} = $type;
+				}
+			}
+		}
+		elseif (count($exclude_types) > 0)
+		{
+			$ft_types = new stdClass();
+
+			foreach ($CI->type->types as $type)
+			{
+				if ( ! in_array($type->field_type_slug, $exclude_types))
+				{
+					$ft_types->{$type->field_type_slug} = $type;
+				}
+			}
+		}
+		else
+		{
+			$ft_types = $CI->type->types;
+		}
+
+		// -------------------------------------
 		// Field Type Assets
 		// -------------------------------------
 		// These are assets field types may
 		// need when adding/editing fields
 		// -------------------------------------
    		
-   		$CI->type->load_field_crud_assets();
+   		$CI->type->load_field_crud_assets($ft_types);
    		
    		// -------------------------------------
         
@@ -435,9 +479,7 @@ class Streams_cp extends CI_Driver {
 		$data['method'] = $method;
 
 		// Get our list of available fields
-		$data['field_types'] = $CI->type->field_types_array(true);
-
-		// @todo - allow including/excluding some fields
+		$data['field_types'] = $CI->type->field_types_array($ft_types);
 
 		// -------------------------------------
 		// Get the field if we have the assignment
@@ -457,6 +499,11 @@ class Streams_cp extends CI_Driver {
 
 			// We also must have a field if we're editing
 			if ( ! $data['current_field']) show_error('Could not find field.');
+		}
+		elseif ($method == 'new' and $_POST and $this->CI->input->post('field_type'))
+		{
+			$data['current_field'] = new stdClass();
+			$data['current_field']->field_type = $this->CI->input->post('field_type');
 		}
 		else
 		{
@@ -506,37 +553,82 @@ class Streams_cp extends CI_Driver {
 		// Get all of our valiation into one super validation object
 		$validation = array_merge($CI->fields_m->fields_validation, $assign_validation);
 
+		// Check if $skips is set to bypass validation for specified field slugs
+
+		// No point skipping field_name & field_type
+		$disallowed_skips = array('field_name', 'field_type');
+
+		if (count($skips) > 0)
+		{
+			foreach ($skips as $skip)
+			{
+				// First check if the current skip is disallowed
+				if (in_array($skip['slug'], $disallowed_skips))
+				{
+					continue;
+				}
+
+				foreach ($validation as $key => $value) 
+				{
+					if (in_array($value['field'], $skip))
+					{
+						unset($validation[$key]);
+					}
+				}
+			}
+		}
+
 		$CI->form_validation->set_rules($validation);
 
 		// -------------------------------------
 		// Process Data
 		// -------------------------------------
-		
+
 		if ($CI->form_validation->run())
 		{
+
+			$post_data = $CI->input->post();
+
+			// Set custom data from $skips param
+
+			if (count($skips) > 0)
+			{	
+				foreach ($skips as $skip)
+				{
+					if ($skip['slug'] == 'field_slug' && ( ! isset($skip['value']) || empty($skip['value'])))	
+					{
+						show_error('Set a default value for field_slug in your $skips param.');
+					}
+					else
+					{
+						$post_data[$skip['slug']] = $skip['value'];
+					}
+				}
+			}
+
 			if ($method == 'new')
 			{
 				if ( ! $CI->fields_m->insert_field(
-									$CI->input->post('field_name'),
-									$CI->input->post('field_slug'),
-									$CI->input->post('field_type'),
+									$post_data['field_name'],
+									$post_data['field_slug'],
+									$post_data['field_type'],
 									$namespace,
-									$CI->input->post()
+									$post_data
 					))
 				{
 				
-					$CI->session->set_flashdata('notice', lang('streams.save_field_error'));	
+					$CI->session->set_flashdata('notice', lang('streams:save_field_error'));	
 				}
 				else
 				{
 					// Add the assignment
-					if( ! $CI->streams_m->add_field_to_stream($CI->db->insert_id(), $stream->id, $CI->input->post()))
+					if( ! $CI->streams_m->add_field_to_stream($CI->db->insert_id(), $stream->id, $post_data))
 					{
-						$CI->session->set_flashdata('notice', lang('streams.save_field_error'));	
+						$CI->session->set_flashdata('notice', lang('streams:save_field_error'));	
 					}
 					else
 					{
-						$CI->session->set_flashdata('success', lang('streams.field_add_success'));	
+						$CI->session->set_flashdata('success', (isset($extra['success_message']) ? $extra['success_message'] : lang('streams:field_add_success')));	
 					}
 				}
 			}
@@ -544,11 +636,11 @@ class Streams_cp extends CI_Driver {
 			{
 				if ( ! $CI->fields_m->update_field(
 									$data['current_field'],
-									array_merge($CI->input->post(), array('field_namespace' => $namespace))
+									array_merge($post_data, array('field_namespace' => $namespace))
 					))
 				{
 				
-					$CI->session->set_flashdata('notice', lang('streams.save_field_error'));	
+					$CI->session->set_flashdata('notice', lang('streams:save_field_error'));	
 				}
 				else
 				{
@@ -557,14 +649,14 @@ class Streams_cp extends CI_Driver {
 										$assign_id,
 										$stream,
 										$data['current_field'],
-										$CI->input->post()
+										$post_data
 									))
 					{
-						$CI->session->set_flashdata('notice', lang('streams.save_field_error'));	
+						$CI->session->set_flashdata('notice', lang('streams:save_field_error'));	
 					}
 					else
 					{
-						$CI->session->set_flashdata('success', lang('streams.field_update_success'));
+						$CI->session->set_flashdata('success', (isset($extra['success_message']) ? $extra['success_message'] : lang('streams:field_update_success')));
 					}
 				}
 
@@ -889,6 +981,12 @@ class Streams_cp extends CI_Driver {
 		if (isset($extra['title']))
 		{
 			$CI->template->title($extra['title']);
+		}
+
+		// Set no assignments message
+		if (isset($extra['no_assignments_message']))
+		{
+			$data['no_assignments_message'] = $extra['no_assignments_message'];
 		}
 		
 		$CI->template->append_metadata('<script>var fields_offset='.$offset.';</script>');

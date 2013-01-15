@@ -10,7 +10,7 @@
  * @version		1.1.0
  */
 
-$lang['streams.pyro_lang.name'] = 'PyroCMS språk';
+$lang['streams:pyro_lang.name'] = 'PyroCMS språk';
 
 
 /* End of file pyro_lang_lang.php */  

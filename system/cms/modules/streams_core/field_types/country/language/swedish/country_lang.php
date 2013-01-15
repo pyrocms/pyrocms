@@ -10,8 +10,8 @@
  * @version		1.1.0
  */
 
-$lang['streams.country.name'] = 'Land';
-$lang['streams.country.default_country']	= 'Default Country'; #translate
+$lang['streams:country.name'] = 'Land';
+$lang['streams:country.default_country']	= 'Default Country'; #translate
 
 /* End of file country_lang.php */  
 /* Location: system/cms/modules/streams_core/field_types/country/language/swedish/country_lang.php */

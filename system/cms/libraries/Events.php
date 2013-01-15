@@ -45,7 +45,7 @@ class Events
 
 		$_ci->load->model('addons/module_m');
 
-		if (!$results = $_ci->module_m->get_all())
+		if ( ! $results = $_ci->enabled_modules)
 		{
 			return false;
 		}

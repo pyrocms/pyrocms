@@ -8,7 +8,7 @@
  */
 class Module_Redirects extends Module {
 
-	public $version = '1.0';
+	public $version = '1.0.0';
 
 	public function info()
 	{
@@ -31,8 +31,10 @@ class Module_Redirects extends Module {
 				'nl' => 'Verwijzingen',
 				'ru' => 'Перенаправления',
 				'sl' => 'Preusmeritve',
-				'zh' => '轉址',
+				'tw' => '轉址',
+				'cn' => '转址',
 				'hu' => 'Átirányítások',
+				'pl' => 'Przekierowania',
 				'th' => 'เปลี่ยนเส้นทาง',
 				'se' => 'Omdirigeringar',
 			),
@@ -54,8 +56,10 @@ class Module_Redirects extends Module {
 				'nl' => 'Verwijs vanaf een URL naar een andere.',
 				'ru' => 'Перенаправления с одного адреса на другой.',
 				'sl' => 'Preusmeritev iz enega URL naslova na drugega',
-				'zh' => '將網址轉址、重新定向。',
+				'tw' => '將網址轉址、重新定向。',
+				'cn' => '将网址转址、重新定向。',
 				'hu' => 'Egy URL átirányítása egy másikra.',
+				'pl' => 'Przekierowanie z jednego adresu URL na inny.',
 				'th' => 'เปลี่ยนเส้นทางจากที่หนึ่งไปยังอีกที่หนึ่ง',
 				'se' => 'Omdirigera från en URL till en annan.',
 			),
@@ -65,7 +69,7 @@ class Module_Redirects extends Module {
 
 			'shortcuts' => array(
 				array(
-				    'name' => 'redirects.add_title',
+				    'name' => 'redirects:add_title',
 				    'uri' => 'admin/redirects/add',
 				    'class' => 'add',
 				),

@@ -1,4 +1,4 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['header']			=	'Trin 1: Konfigurer Database og Server';
@@ -7,6 +7,9 @@ $lang['intro_text']		=	'Før vi kan tjekke databasen, skal vi vide hvor den er o
 $lang['db_settings']	=	'Database Indstillinger';
 $lang['db_text']		=	'For at installeren skal kunne tjekke din MySQL server version er det påkrævet at du indtaster hostnavn, brugernavn og kodeord i formularen nedenfor. Disse instillinger vil også blive brugt til installering af databasen.';
 $lang['db_missing']		=	'The mysql database driver for PHP were not found, installation cannot continue. Ask your host or server administrator to install it.'; #translate
+$lang['db_create']		=	'Create Database'; #translate
+$lang['db_notice']		=	'You might need to do this yourself via your hosting control panel'; #translate
+$lang['database']		=	'MySQL Database'; #translate
 
 $lang['server']			=	'Server';
 $lang['username']		=	'Brugernavn';
@@ -22,5 +25,3 @@ $lang['step2']			=	'Trin 2';
 // messages
 $lang['db_success']		=	'Databaseindstillingerne er testet, og fungerer.';
 $lang['db_failure']		=	'Problem med at forbinde til databasen: ';
-
-/* End of file step_1_lang.php */

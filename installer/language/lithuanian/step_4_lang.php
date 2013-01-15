@@ -1,12 +1,9 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
-$lang['header']			 =	'Žingsnis 4: Sukurti duomenų bazę';
-$lang['intro_text']		 =	'Užpildykite žemiau esančią formą ir spauskite "Įdiegti", kad įdiegtumėte PyroCMS. Įsitikinkite, kad įrašote PyroCMS į tinkamą duomenų bazę, kadangi esami pakeitimai bus ištrinti!';
+$lang['header']			 =	'Žingsnis 4: Sukurti duomenų bazę'; #translate
+$lang['intro_text']		 =	'Užpildykite žemiau esančią formą ir spauskite "Įdiegti", kad įdiegtumėte PyroCMS. Įsitikinkite, kad įrašote PyroCMS į tinkamą duomenų bazę, kadangi esami pakeitimai bus ištrinti!'; #translate
 
-$lang['db_settings']	 =	'Duomenų bazės nustatymai';
-$lang['db_create']		 =	'Sukurti';
-$lang['db_notice']		 =	'Galbut jums teks tai padaryti rankiniu būdu';
 $lang['default_user']	 =	'Svetainės administratoriaus nustatymai';
 $lang['database']		 =	'Pavadinimas';
 $lang['site_settings']	 = 	'Svetainės nustatymai';
@@ -27,5 +24,3 @@ $lang['error_104']		 =	'Įrašymo vedlys negalėjo sukurti vartotojo.';
 $lang['error_105']		 =	'Duomenų bazės konfiguracijos failas negali būti įrašytas, ar suklaidinote įrašymo vedlį 3 žingsnyje?';
 $lang['error_106']		 =	'Konfiguracijos failas negali būti įrašytas, ar esate įsitikinęs, kad bylos turi tinkamas teises?';
 $lang['success']		 =	'PyroCMS buvo sėkmingai įdiegtas.';
-
-/* End of file step_4_lang.php */

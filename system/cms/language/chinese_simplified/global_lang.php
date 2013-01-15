@@ -64,6 +64,7 @@ $lang['general_error_label'] 			= '错误';
 $lang['required_error_label'] 			= '缺少必填栏位';
 $lang['note_label'] 					= '注意';
 $lang['success_label'] 					= '成功';
+$lang['global:fields']					= 'Fields'; #translate
 
 $lang['login_title'] 					= '登入';
 $lang['global:fatal_error'] 			= '严重错误，CMS安裝了吗？';
@@ -81,8 +82,8 @@ $lang['cancel_label'] 					= '取消';
 $lang['update_label'] 					= '更新';
 $lang['global:delete'] 					= '删除';
 $lang['activate_label'] 				= '激活';
-$lang['approve_label']					= '核准';
-$lang['unapprove_label']				= '未经核准';
+$lang['global:approve']					= '核准';
+$lang['global:unapprove']				= '未经核准';
 $lang['publish_label'] 					= '发表';
 $lang['global:upload'] 					= '上传';
 $lang['global:uninstall'] 				= '卸载';
@@ -90,6 +91,8 @@ $lang['global:install'] 				= '安装';
 $lang['global:upgrade'] 				= '升级';
 $lang['global:enable']					= '启用';
 $lang['global:disable'] 				= '禁用';
+$lang['global:enabled']					= 'Enabled'; #translate
+$lang['global:disabled'] 				= 'Disabled'; #translate
 
 $lang['all_right_reserved']				= '保留所有权利.';
 $lang['powered_by_pyrocms']				= '本站由PyroCMS支持并维护';
@@ -113,5 +116,13 @@ $lang['global:keywords']				= '关键字';
 $lang['global:or']						= '或者';
 $lang['global:and']						= '并且';
 $lang['global:at']						= '在';
+
+$lang['global:widgets']					= 'Widgets'; #translate
+$lang['global:themes']					= 'Themes'; #translate
+$lang['global:field_types']				= 'Field Types'; #translate
+$lang['global:plugins']					= 'Plugins'; #translate
+$lang['global:plugin']					= 'Plugin'; #translate
+
+$lang['global:options']					= 'Options'; #translate
 
 /* End of file main_lang.php */

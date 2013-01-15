@@ -10,10 +10,11 @@
  * @version		1.1.0
  */
 
-$lang['streams.wysiwyg.name'] = 'WYSIWYG';
-$lang['streams.wysiwyg.editor_type'] = 'Typ av textredigerare';
-$lang['streams.wysiwyg.simple'] = 'Enkel';
-$lang['streams.wysiwyg.advanced'] = 'Avancerad';
+$lang['streams:wysiwyg.name'] = 'WYSIWYG';
+$lang['streams:wysiwyg.editor_type'] = 'Typ av textredigerare';
+$lang['streams:wysiwyg.allow_tags']		= 'Allow Tags'; #translate
+$lang['streams:wysiwyg.simple'] = 'Enkel';
+$lang['streams:wysiwyg.advanced'] = 'Avancerad';
 
 
 /* End of file wysiwyg_lang.php */  

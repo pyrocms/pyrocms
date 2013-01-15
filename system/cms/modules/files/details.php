@@ -9,7 +9,7 @@
 class Module_Files extends Module
 {
 
-	public $version = '2.0';
+	public $version = '2.0.0';
 
 	public function info()
 	{
@@ -33,7 +33,8 @@ class Module_Files extends Module
 				'nl' => 'Bestanden',
 				'ru' => 'Файлы',
 				'sl' => 'Datoteke',
-				'zh' => '檔案',
+				'tw' => '檔案',
+				'cn' => '档案',
 				'hu' => 'Fájlok',
 				'th' => 'ไฟล์',
 				'se' => 'Filer',
@@ -57,7 +58,8 @@ class Module_Files extends Module
 				'nl' => 'Beheer bestanden en mappen op uw website.',
 				'ru' => 'Управление файлами и папками вашего сайта.',
 				'sl' => 'Uredi datoteke in mape na vaši strani',
-				'zh' => '管理網站中的檔案與目錄',
+				'tw' => '管理網站中的檔案與目錄',
+				'cn' => '管理网站中的档案与目录',
 				'hu' => 'Fájlok és mappák kezelése az oldalon.',
 				'th' => 'บริหารจัดการไฟล์และโฟลเดอร์สำหรับเว็บไซต์ของคุณ',
 				'se' => 'Hanterar filer och mappar för din webbplats.',
@@ -78,7 +80,7 @@ class Module_Files extends Module
 
 		$tables = array(
 			'files' => array(
-				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true,),
+				'id' => array('type' => 'CHAR', 'constraint' => 15, 'primary' => true,),
 				'folder_id' => array('type' => 'INT', 'constraint' => 11, 'default' => 0,),
 				'user_id' => array('type' => 'INT', 'constraint' => 11, 'default' => 1,),
 				'type' => array('type' => 'ENUM', 'constraint' => array('a', 'v', 'd', 'i', 'o'), 'null' => true, 'default' => null,),

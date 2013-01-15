@@ -1,4 +1,4 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['header']			=	'Langkah 1: Konfigurasi Database dan Server';
@@ -7,6 +7,9 @@ $lang['intro_text']		=	'PyroCMS sangat mudah untuk diinstall dan hanya memerluka
 $lang['db_settings']	=	'Pengaturan Database';
 $lang['db_text']		=	'PyroCMS memerlukan database (MySQL) untuk menyimpan semua konten dan pengaturan, jadi yang pertama kita butuhkan adalah mengecek apakah koneksi database berjalan lancar. Apabila Anda tidak mengerti apa yang kami minta Anda untuk mengisi silakan tanya kepada penyedia layanan hosting Anda atau server administrator untuk lebih detailnya.';
 $lang['db_missing']		=	'The mysql database driver for PHP were not found, installation cannot continue. Ask your host or server administrator to install it.'; #translate
+$lang['db_create']		=	'Create Database'; #translate
+$lang['db_notice']		=	'You might need to do this yourself via your hosting control panel'; #translate
+$lang['database']		=	'MySQL Database'; #translate
 
 $lang['server']			=	'MySQL Hostname';
 $lang['username']		=	'MySQL Username';
@@ -23,5 +26,3 @@ $lang['step2']			=	'Langkah 2';
 // messages
 $lang['db_success']		=	'Pengaturan database telah dites dan berjalan lancar.';
 $lang['db_failure']		=	'Permasalahan koneksi pada database: ';
-
-/* End of file step_1_lang.php */

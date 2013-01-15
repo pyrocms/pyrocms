@@ -1,4 +1,4 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['header']             = 'Schritt 1: Server- und Datenbank-Konfiguration';
@@ -7,6 +7,9 @@ $lang['intro_text']         = 'Bevor die Verbindung zur Datenbank getestet werde
 $lang['db_settings']        = 'Einstellung der Datenbank';
 $lang['db_text']            = 'Um die Version der mySQL-Datenbank zu &uuml;berpr&uuml;ffen, geben Sie bitte im nachfolgenden Formular den Hostnamen, den Benutzernamen und das Passwort des MySQL-Servers an. Diese Einstellungen werden ebenfalls zur Installation vom PyroCMS ben&ouml;tigt.';
 $lang['db_missing']         = 'Der mySQL-Datenbanktreiber wurde nicht gefunden, die Installation kann nicht fortgeführt werden. Beauftragen Sie bitte Ihren Anbieter oder Server-Administrator, den mySQL-Datenbanktreiber zu installieren.';
+$lang['db_create']		=	'Create Database'; #translate
+$lang['db_notice']		=	'You might need to do this yourself via your hosting control panel'; #translate
+$lang['database']		=	'MySQL Database'; #translate
 
 $lang['server']             = 'Host';
 $lang['username']           = 'Benutzername';

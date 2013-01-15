@@ -32,8 +32,8 @@ class Module_import
 		$db['hostname'] = $this->ci->session->userdata('hostname');
 		$db['username'] = $this->ci->session->userdata('username');
 		$db['password'] = $this->ci->session->userdata('password');
-		$db['database'] = $this->ci->input->post('database');
-		$db['port'] = $this->ci->input->post('port');
+		$db['database'] = $this->ci->session->userdata('database');
+		$db['port'] 	= $this->ci->session->userdata('port');
 		$db['dbdriver'] = "mysql";
 		$db['dbprefix'] = 'default_';
 		$db['pconnect'] = false;
@@ -165,43 +165,38 @@ class Module_import
 		// create a session table so they can use it if they want
 		$this->ci->db->query($session);
 
-		// Loop through directories that hold modules
-		$is_core = true;
-		foreach (array(PYROPATH, ADDONPATH, SHARED_ADDONPATH) as $directory)
+		// In case we are re-installing with existing data,
+		// we'll need to make sure that these tables aren't here.
+		$this->ci->dbforge->drop_table('data_streams');
+		$this->ci->dbforge->drop_table('data_fields');
+		$this->ci->dbforge->drop_table('data_field_assignments');
+
+		// Install settings and streams core first. Other modules may need them.
+		$this->install('settings', true);
+		$this->ci->load->library('settings/settings');
+		$this->install('streams_core', true);
+
+		// Are there any modules to install on this path?
+		if ($modules = glob(PYROPATH.'modules/*', GLOB_ONLYDIR))
 		{
-			// some servers return false instead of an empty array
-			if ( ! $directory) {
-				continue;
-			}
-
 			// Loop through modules
-			if ($modules = glob($directory.'modules/*', GLOB_ONLYDIR))
+			foreach ($modules as $module_name)
 			{
-				// Put the settings module first
-				$modules = array_map('basename',$modules);
-				$s = array_splice($modules, array_search('settings', $modules), 1);
-				array_unshift($modules, $s[0]);
+				$slug = basename($module_name);
 
-				foreach ($modules as $module_name)
+				if ($slug == 'streams_core' or $slug == 'settings')
 				{
-					if ( ! $details_class = $this->_spawn_class($module_name, $is_core))
-					{
-						continue;
-					}
-
-					$this->install($module_name, $is_core);
-
-					// Settings is installed first. Once it's installed we load the library
-					// so all modules can use settings in their install code.
-					if ($module_name === 'settings')
-					{
-						$this->ci->load->library('settings/settings');
-					}
+					continue;
 				}
-			}
 
-			// Going back around, 2nd time is addons
-			$is_core = false;
+				// invalid details class?
+				if ( ! $details_class = $this->_spawn_class($slug, true))
+				{
+					continue;
+				}
+
+				$this->install($slug, true);
+			}
 		}
 
 		// After modules are imported we need to modify the settings table
@@ -230,7 +225,7 @@ class Module_import
 		// Before we can install anything we need to know some details about the module
 		$details_file = $path.'modules/'.$slug.'/details'.EXT;
 
-		// Check the details file exists
+		// If it didn't exist as a core module or an addon then check shared_addons
 		if ( ! is_file($details_file))
 		{
 			$details_file = SHARED_ADDONPATH.'modules/'.$slug.'/details'.EXT;

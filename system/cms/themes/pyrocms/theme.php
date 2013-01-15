@@ -7,7 +7,7 @@ class Theme_Pyrocms extends Theme {
     public $author_website	= 'http://pyrocms.com/';
     public $website			= 'http://pyrocms.com/';
     public $description		= 'PyroCMS admin theme. HTML5 and CSS3 styling.';
-    public $version			= '1.0';
+    public $version			= '1.0.0';
 	public $type			= 'admin';
 	public $options 		= array('pyrocms_recent_comments' => array('title' 		=> 'Recent Comments',
 																'description'   => 'Would you like to display recent comments on the dashboard?',
@@ -117,7 +117,7 @@ class Theme_Pyrocms extends Theme {
 
 				catch (Exception $e)
 				{
-					$data['messages']['notice'] = sprintf(lang('cp_google_analytics_no_connect'), anchor('admin/settings', lang('cp_nav_settings')));
+					$data['messages']['notice'] = sprintf(lang('cp:google_analytics_no_connect'), anchor('admin/settings', lang('cp:nav_settings')));
 				}
 			}
 

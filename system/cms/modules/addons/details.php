@@ -33,7 +33,8 @@ class Module_Addons extends Module
 				'pl' => 'Rozszerzenia',
 				'ru' => 'Дополнения',
 				'sl' => 'Razširitve',
-				'zh' => '附加模組',
+				'tw' => '附加模組',
+				'cn' => '附加模组',
 				'hu' => 'Bővítmények',
 				'th' => 'ส่วนเสริม',
 				'se' => 'Tillägg',
@@ -58,7 +59,8 @@ class Module_Addons extends Module
 				'pl' => 'Umożliwiają administratorowi wgląd do listy obecnie zainstalowanych modułów.',
 				'ru' => 'Список модулей, которые установлены на сайте.',
 				'sl' => 'Dovoljuje administratorjem pregled trenutno nameščenih modulov.',
-				'zh' => '管理員可以檢視目前已經安裝模組的列表',
+				'tw' => '管理員可以檢視目前已經安裝模組的列表',
+				'cn' => '管理员可以检视目前已经安装模组的列表',
 				'hu' => 'Lehetővé teszi az adminoknak, hogy lássák a telepített modulok listáját.',
 				'th' => 'ช่วยให้ผู้ดูแลระบบดูรายการของโมดูลที่ติดตั้งในปัจจุบัน',
 				'se' => 'Gör det möjligt för administratören att se installerade mouler.',
@@ -73,14 +75,26 @@ class Module_Addons extends Module
 					'uri' => 'admin/addons/modules',
 				),
 				'themes' => array(
-					'name' => 'addons:themes',
+					'name' => 'global:themes',
 					'uri' => 'admin/addons/themes',
+				),
+				'plugins' => array(
+					'name' => 'global:plugins',
+					'uri' => 'admin/addons/plugins',
+				),
+				'widgets' => array(
+					'name' => 'global:widgets',
+					'uri' => 'admin/addons/widgets',
+				),
+				'field_types' => array(
+					'name' => 'global:field_types',
+					'uri' => 'admin/addons/field-types',
 				),
 			),
 		);
 	
 		// Add upload options to various modules
-		if (Settings::get('addons_upload'))
+		if ( ! class_exists('Module_import') and Settings::get('addons_upload'))
 		{
 			$info['sections']['modules']['shortcuts'] = array(
 				array(
@@ -104,14 +118,15 @@ class Module_Addons extends Module
 
 	public function admin_menu(&$menu)
 	{
-		$menu['lang:cp_nav_addons'] = array(
-			'lang:cp_nav_modules'			=> 'admin/addons',
+		$menu['lang:cp:nav_addons'] = array(
+			'lang:cp:nav_modules'			=> 'admin/addons',
+			'lang:global:themes'			=> 'admin/addons/themes',
 			'lang:global:plugins'			=> 'admin/addons/plugins',
 			'lang:global:widgets'			=> 'admin/addons/widgets',
-			'lang:global:fieldtypes'		=> 'admin/addons/fieldtypes'
+			'lang:global:field_types'		=> 'admin/addons/field-types'
 		);
 
-		add_admin_menu_place('lang:cp_nav_addons', 6);
+		add_admin_menu_place('lang:cp:nav_addons', 6);
 	}
 
 	public function install()

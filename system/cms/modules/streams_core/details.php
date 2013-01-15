@@ -3,13 +3,14 @@
 /**
  * PyroStreams Core Module
  *
- * @package		PyroCMS\Core\Modules\Streams Core
- * @author		Parse19
- * @copyright	Copyright (c) 2011 - 2012, Parse19
- * @license		http://parse19.com/pyrostreams/docs/license
- * @link		http://parse19.com/pyrostreams
+ * @package        PyroCMS\Core\Modules\Streams Core
+ * @author         Parse19
+ * @copyright      Copyright (c) 2011 - 2012, Parse19
+ * @license        http://parse19.com/pyrostreams/docs/license
+ * @link           http://parse19.com/pyrostreams
  */
-class Module_Streams_core extends Module {
+class Module_Streams_core extends Module
+{
 
 	public $version = '1.0.0';
 
@@ -26,14 +27,20 @@ class Module_Streams_core extends Module {
 				'pt' => 'Núcleo Fluxos',
 				'fr' => 'Noyau Flux',
 				'el' => 'Πυρήνας Ροών',
-                                'se' => 'Streams grundmodul'
+				'se' => 'Streams grundmodul',
+				'tw' => 'Streams 核心',
+				'cn' => 'Streams 核心',
+				'ar' => 'الجداول الأساسية'
 			),
 			'description' => array(
 				'en' => 'Core data module for streams.',
 				'pt' => 'Módulo central de dados para fluxos.',
 				'fr' => 'Noyau de données pour les Flux.',
 				'el' => 'Προγραμματιστικός πυρήνας για την λειτουργία ροών δεδομένων.',
-                                'se' => 'Streams grundmodul för enklare hantering av data.'
+				'se' => 'Streams grundmodul för enklare hantering av data.',
+				'tw' => 'Streams 核心資料模組。',
+				'cn' => 'Streams 核心资料模组。',
+				'ar' => 'وحدة البيانات الأساسية للجداول',
 			),
 			'frontend' => false,
 			'backend' => false,
@@ -62,18 +69,18 @@ class Module_Streams_core extends Module {
 		{
 			// Case where table does not exist.
 			// Add fields and keys.
-			if( ! $this->db->table_exists($table_name))
+			if ( ! $this->db->table_exists($table_name))
 			{
 				$this->dbforge->add_field($schema['fields']);
 
 				// Add keys
-				if(isset($schema['keys']) and ! empty($schema['keys']))
+				if (isset($schema['keys']) and ! empty($schema['keys']))
 				{
 					$this->dbforge->add_key($schema['keys']);
 				}
 
 				// Add primary key
-				if(isset($schema['primary_key']))
+				if (isset($schema['primary_key']))
 				{
 					$this->dbforge->add_key($schema['primary_key'], true);
 				}

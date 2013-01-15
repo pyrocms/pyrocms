@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-$lang['blog:post']                 = 'Post'; #translate
-$lang['blog:posts']                   = 'Posts'; #translate
+$lang['blog:post']                 = 'Artikel';
+$lang['blog:posts']                   = 'Artikel';
 
 // labels
 $lang['blog:posted_label']                   = 'Ver&ouml;ffentlicht';
@@ -44,7 +44,7 @@ $lang['blog:blog_title']                     = 'Blog';
 $lang['blog:list_title']                     = 'Artikel auflisten';
 
 // messages
-$lang['blog:disabled_after'] 				= 'Posting comments after %s has been disabled.'; #translate
+$lang['blog:disabled_after'] 				= 'Kommentare nach %s wurden deaktiviert.';
 $lang['blog:no_posts']                       = 'Es existieren keine Artikel.';
 $lang['blog:subscripe_to_rss_desc']          = 'Abonnieren Sie unseren RSS Feed und erhalten Sie alle Artikel frei Haus. Sie k&ouml;nnen dies mit den meisten Email-Clients tun, oder z.B. mit <a href="http://reader.google.co.uk/">Google Reader</a>.';
 $lang['blog:currently_no_posts']             = 'Es existieren zur Zeit keine Artikel.';

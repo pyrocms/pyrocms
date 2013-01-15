@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['congrats']			= 'Selamat';
@@ -10,5 +10,3 @@ $lang['outro_text']			= 'Terakhir, <strong>hapus installer dari server</strong> 
 
 $lang['go_website']			= 'Buka Situs Web';
 $lang['go_control_panel']	= 'Buka Control Panel';
-
-/* End of file complete_lang.php */

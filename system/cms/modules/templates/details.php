@@ -28,7 +28,8 @@ class Module_Templates extends Module {
 				'nl' => 'Email sjablonen',
 				'ru' => 'Шаблоны почты',
 				'sl' => 'Email predloge',
-				'zh' => '郵件範本',
+				'tw' => '郵件範本',
+				'cn' => '邮件范本',
 				'hu' => 'E-mail sablonok',
 				'fi' => 'Sähköposti viestipohjat',
 				'th' => 'แม่แบบอีเมล',
@@ -49,7 +50,8 @@ class Module_Templates extends Module {
 				'nl' => 'Maak, bewerk, en beheer dynamische emailsjablonen',
 				'ru' => 'Создавайте, редактируйте и сохраняйте динамические почтовые шаблоны',
 				'sl' => 'Ustvari, uredi in shrani spremenljive email predloge',
-				'zh' => '新增、編輯與儲存可顯示動態資料的 email 範本',
+				'tw' => '新增、編輯與儲存可顯示動態資料的 email 範本',
+				'cn' => '新增、编辑与储存可显示动态资料的 email 范本',
                 'hu' => 'Csináld, szerkeszd és mentsd el a dinamikus e-mail sablonokat',
 				'fi' => 'Lisää, muokkaa ja tallenna dynaamisia sähköposti viestipohjia.',
 				'th' => 'การสร้างแก้ไขและบันทึกแม่แบบอีเมลแบบไดนามิก',
@@ -61,7 +63,7 @@ class Module_Templates extends Module {
 			'skip_xss' => true,
 			'shortcuts' => array(
 				array(
-				    'name' => 'templates.create_title',
+				    'name' => 'templates:create_title',
 				    'uri' => 'admin/templates/create',
 				    'class' => 'add',
 				),

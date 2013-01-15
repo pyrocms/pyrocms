@@ -13,7 +13,7 @@ class Field_country
 	
 	public $db_col_type				= 'varchar';
 
-	public $version					= '1.1';
+	public $version					= '1.1.0';
 
 	public $custom_parameters   	= array('default_country'); 
 
@@ -117,9 +117,10 @@ class Field_country
 	 * Returns an array of country choices
 	 *
 	 * @access	private
+	 * @param 	bool 	$is_required 	If set to true, it will add a null value to array
 	 * @return	array
 	 */	
-	private function countries($is_required)
+	public function countries($is_required = false)
 	{
 		$choices = array();
 	

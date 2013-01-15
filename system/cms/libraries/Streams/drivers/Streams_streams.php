@@ -32,9 +32,10 @@ class Streams_streams extends CI_Driver {
 	 * @param	string - stream namespace
 	 * @param	[string - stream prefix]
 	 * @param	[string - about notes for stream]
+	 * @param 	[array - extra data]
 	 * @return	bool
 	 */
-	public function add_stream($stream_name, $stream_slug, $namespace, $prefix = null, $about = null)
+	public function add_stream($stream_name, $stream_slug, $namespace, $prefix = null, $about = null, $extra = array())
 	{
 		// -------------------------------------
 		// Validate Data
@@ -77,7 +78,8 @@ class Streams_streams extends CI_Driver {
 												$stream_slug,
 												$prefix,
 												$namespace,
-												$about
+												$about, 
+												$extra
 											);
 	}
 
@@ -235,6 +237,24 @@ class Streams_streams extends CI_Driver {
 		return $data;
 	}
 	
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Chekc is table exists
+	 * 
+	 * Check to see if the table name needed for a stream is
+	 * actually available.
+	 *
+	 * @access 	public
+	 * @param 	string
+	 * @param 	string
+	 * @param 	string
+	 */
+	public function check_table_exists($stream_slug, $prefix)
+	{
+		return $this->CI->streams_m->check_table_exists($stream_slug, $prefix);
+	}
+
 	// --------------------------------------------------------------------------
 
 	/**

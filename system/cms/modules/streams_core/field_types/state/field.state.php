@@ -12,7 +12,7 @@ class Field_state
 	
 	public $db_col_type				= 'varchar';
 
-	public $version					= '1.3';
+	public $version					= '1.3.0';
 
 	public $author					= array('name' => 'Adam Fairholm', 'url' => 'http://adamfairholm.com');
 	
@@ -170,8 +170,8 @@ class Field_state
 	public function param_state_display($value = null)
 	{	
 		$options = array(
-			'full' => $this->CI->lang->line('streams.state.full'),
-			'abbr' => $this->CI->lang->line('streams.state.abbr')
+			'full' => $this->CI->lang->line('streams:state.full'),
+			'abbr' => $this->CI->lang->line('streams:state.abbr')
 		);
 	
 		return form_dropdown('state_display', $options, $value);

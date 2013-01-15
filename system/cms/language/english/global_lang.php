@@ -52,6 +52,7 @@ $lang['general_error_label'] 			= 'Error';
 $lang['required_error_label'] 			= 'Required field missing';
 $lang['note_label'] 					= 'Note';
 $lang['success_label'] 					= 'Success';
+$lang['global:fields']					= 'Fields';
 
 $lang['login_title'] 					= 'Log In';
 $lang['global:fatal_error'] 			= 'Fatal error, is CMS installed?';
@@ -69,8 +70,8 @@ $lang['cancel_label'] 					= 'Cancel';
 $lang['update_label'] 					= 'Update Caption';
 $lang['global:delete'] 					= 'Delete';
 $lang['activate_label'] 				= 'Activate';
-$lang['approve_label']					= 'Approve';
-$lang['unapprove_label']				= 'Unapprove';
+$lang['global:approve']					= 'Approve';
+$lang['global:unapprove']				= 'Unapprove';
 $lang['publish_label'] 					= 'Publish';
 $lang['global:upload'] 					= 'Upload';
 $lang['global:uninstall'] 				= 'Uninstall';
@@ -105,8 +106,11 @@ $lang['global:and']						= 'and';
 $lang['global:at']						= 'at';
 
 $lang['global:widgets']					= 'Widgets';
-$lang['global:fieldtypes']				= 'Field Types';
+$lang['global:themes']					= 'Themes'; #translate
+$lang['global:field_types']				= 'Field Types';
 $lang['global:plugins']					= 'Plugins';
 $lang['global:plugin']					= 'Plugin';
+
+$lang['global:options']					= 'Options';
 
 /* End of file main_lang.php */

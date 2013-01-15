@@ -1,6 +1,7 @@
 <?php
 
 $lang['addons:modules'] 						= '模組';
+$lang['addons:admin_themes'] 					= 'Admin Themes'; #translate
 $lang['addons:themes'] 							= '佈景主題';
 $lang['addons:widgets'] 						= '小組件';
 

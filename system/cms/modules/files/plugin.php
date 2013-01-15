@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 /**
  * Files Plugin
  *
@@ -10,6 +10,58 @@
  */
 class Plugin_Files extends Plugin
 {
+
+	public $version = '1.0.0';
+	public $name = array(
+		'en' => 'Files',
+	);
+	public $description = array(
+		'en' => 'List files in specified folders and output images with cropping.',
+	);
+
+	/**
+	 * Returns a PluginDoc array that PyroCMS uses 
+	 * to build the reference in the admin panel
+	 *
+	 * All options are listed here but refer 
+	 * to the Blog plugin for a larger example
+	 *
+	 * @todo fill the  array with details about this plugin, then uncomment the return value.
+	 *
+	 * @return array
+	 */
+	public function _self_doc()
+	{
+		$info = array(
+			'your_method' => array(// the name of the method you are documenting
+				'description' => array(// a single sentence to explain the purpose of this method
+					'en' => 'Displays some data from some module.'
+				),
+				'single' => true,// will it work as a single tag?
+				'double' => false,// how about as a double tag?
+				'variables' => '',// list all variables available inside the double tag. Separate them|like|this
+				'attributes' => array(
+					'order-dir' => array(// this is the order-dir="asc" attribute
+						'type' => 'flag',// Can be: slug, number, flag, text, array, any.
+						'flags' => 'asc|desc|random',// flags are predefined values like this.
+						'default' => 'asc',// attribute defaults to this if no value is given
+						'required' => false,// is this attribute required?
+					),
+					'limit' => array(
+						'type' => 'number',
+						'flags' => '',
+						'default' => '20',
+						'required' => false,
+					),
+				),
+			),// end first method
+		);
+	
+		//return $info;
+		return array();
+	}
+
+
 	private $_files = array();
 
 	public function __construct()
@@ -63,13 +115,13 @@ class Plugin_Files extends Plugin
 			return '';
 		}
 
-		$folder_id	= $this->attribute('folder', ''); // Id or Path
-		$tags		= $this->attribute('tagged', false);
-		$limit		= $this->attribute('limit', '10');
-		$offset		= $this->attribute('offset', '');
-		$type		= $this->attribute('type', '');
-		$fetch		= $this->attribute('fetch');
-        $order_by   = $this->attribute('order-by');
+		$folder_id = $this->attribute('folder', ''); // Id or Path
+		$tags      = $this->attribute('tagged', false);
+		$limit     = $this->attribute('limit', '10');
+		$offset    = $this->attribute('offset', '');
+		$type      = $this->attribute('type', '');
+		$fetch     = $this->attribute('fetch');
+		$order_by  = $this->attribute('order-by');
 
 		if ( ! empty($folder_id) && (empty($type) || in_array($type, array('a','v','d','i','o'))))
 		{
@@ -119,17 +171,17 @@ class Plugin_Files extends Plugin
 			return array();
 		}
 
-		$type 		and $this->db->where('type', $type);
-		$limit 		and $this->db->limit($limit);
-		$offset 	and $this->db->offset($offset);
-        $order_by 	and $this->db->order_by($order_by);
+		$type      and $this->db->where('type', $type);
+		$limit     and $this->db->limit($limit);
+		$offset    and $this->db->offset($offset);
+		$order_by  and $this->db->order_by($order_by);
 
-        if ($tags)
-        {
+    if ($tags)
+    {
 			$files = $this->file_m->get_tagged($tags);
-        }
-        else
-        {
+    }
+    else
+    {
 			$files = $this->file_m->get_all();
 		}
 
@@ -147,8 +199,8 @@ class Plugin_Files extends Plugin
 		}
 
 		// prepare file params
-		$id		= $this->attribute('id');
-		$type	= $type && in_array($type, array('a','v','d','i','o')) ? $type : '';
+		$id   = $this->attribute('id');
+		$type = $type and in_array($type, array('a','v','d','i','o')) ? $type : '';
 
 		// get file
 		if (isset($this->_files[$id]))
@@ -157,7 +209,7 @@ class Plugin_Files extends Plugin
 		}
 		else
 		{
-			$type AND $this->file_m->select('files.*, file_folders.location')
+			$type and $this->file_m->select('files.*, file_folders.location')
 						->join('file_folders', 'file_folders.id = files.folder_id')
 						->where('type', $type);
 
@@ -180,18 +232,18 @@ class Plugin_Files extends Plugin
 		{
 			if ($size = $this->attribute('size', ''))
 			{
-				strpos($size, 'x') === false AND $size .= 'x';
+				(strpos($size, 'x') === false) and ($size .= 'x');
 
 				list($width, $height) = explode('/', strtr($size, 'x', '/'));
 			}
 			else
 			{
-				$width	= $this->attribute('width', '');
+				$width  = $this->attribute('width', '');
 				$height	= $this->attribute('height', '');
 			}
 
-			is_numeric($width) OR $width = 'auto';
-			is_numeric($height) OR $height = 'auto';
+			is_numeric($width) or $width = 'auto';
+			is_numeric($height) or $height = 'auto';
 
 			if ($width === 'auto' && $height === 'auto')
 			{

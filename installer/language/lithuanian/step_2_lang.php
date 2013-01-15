@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // labels
 $lang['header']			=	'Žingsnis 2: Reikalavimų tikrinimas';
@@ -45,5 +45,3 @@ $lang['retry']			=	'Bandyti dar kartą';
 
 // messages
 $lang['step1_failure']	=	'Prašome įrašyti reikiamus duomenų bazes duomenys..';
-
-/* End of file step_2_lang.php */

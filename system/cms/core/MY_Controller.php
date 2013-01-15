@@ -11,12 +11,6 @@ require APPPATH."libraries/MX/Controller.php";
  */
 class MY_Controller extends MX_Controller
 {
-	/**
-	 * No longer used globally
-	 * 
-	 * @deprecated remove in 2.2
-	 */
-	protected $data;
 
 	/**
 	 * The name of the module that this controller instance actually belongs to.
@@ -125,13 +119,10 @@ class MY_Controller extends MX_Controller
 			$this->lang->load(array('global', 'users/user', 'files/files'));
 		}
 
-		$this->load->library(array('events', 'users/ion_auth'));
+		$this->load->library('users/ion_auth');
 
 		// Use this to define hooks with a nicer syntax
 		ci()->hooks =& $GLOBALS['EXT'];
-
-		// Create a hook point with access to instance but before custom code
-		$this->hooks->call_hook('post_core_controller_constructor');
 
 		// Get user data
 		$this->template->current_user = ci()->current_user = $this->current_user = $this->ion_auth->get_user();
@@ -152,8 +143,48 @@ class MY_Controller extends MX_Controller
 		// List available module permissions for this user
 		ci()->permissions = $this->permissions = $this->current_user ? $this->permission_m->get_group($this->current_user->group_id) : array();
 
-		// Get meta data for the module
-		$this->template->module_details = ci()->module_details = $this->module_details = $this->module_m->get($this->module);
+		// load all modules (the Events library uses them all) and make their details widely available
+		ci()->enabled_modules = $this->module_m->get_all();
+
+		// now that we have a list of enabled modules
+		$this->load->library('events');
+
+		// set defaults
+		$this->template->module_details = ci()->module_details = $this->module_details = false;
+
+		// now pick our current module out of the enabled modules array
+		foreach (ci()->enabled_modules as $module)
+		{
+			if ($module['slug'] === $this->module)
+			{
+				// Set meta data for the module to be accessible system wide
+				$this->template->module_details = ci()->module_details = $this->module_details = $module;
+
+				continue;
+			}
+		}
+
+		// certain places (such as the Dashboard) we aren't running a module, provide defaults
+		if ( ! $this->module)
+		{
+			$this->module_details = array(
+				'name' => null,
+				'slug' => null,
+				'version' => null,
+				'description' => null,
+				'skip_xss' => null,
+				'is_frontend' => null,
+				'is_backend' => null,
+				'menu' => false,
+				'enabled' => 1,
+				'sections' => array(),
+				'shortcuts' => array(),
+				'is_core' => null,
+				'is_current' => null,
+				'current_version' => null,
+				'updated_on' => null
+			);
+		}
 
 		// If the module is disabled, then show a 404.
 		empty($this->module_details['enabled']) AND show_404();

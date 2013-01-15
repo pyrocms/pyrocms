@@ -29,12 +29,12 @@
 			
 			?>
 				<button type="submit" name="btnAction" value="delete" class="<?php echo $btn_class; ?> confirm">
-					<span><?php echo lang('buttons.delete'); ?></span>
+					<span><?php echo lang('buttons:delete'); ?></span>
 				</button>
 				<?php break;
 			case 're-index': ?>
 				<button type="submit" name="btnAction" value="re-index" class="btn orange">
-					<span><?php echo lang('buttons.re-index'); ?></span>
+					<span><?php echo lang('buttons:re-index'); ?></span>
 				</button>
 				<?php break;
 			case 'activate':
@@ -46,7 +46,7 @@
 			case 'unapprove':
 			case 'upload': ?>
 				<button type="submit" name="btnAction" value="<?php echo $button ?>" class="<?php echo $btn_class; ?> blue">
-					<span><?php echo lang('buttons.' . $button); ?></span>
+					<span><?php echo lang('buttons:' . $button); ?></span>
 				</button>
 				<?php break;
 			case 'cancel':
@@ -61,7 +61,7 @@
 					$uri = $this->module_details['sections'][$active_section]['uri'];
 				}
 				
-				echo anchor($uri, lang('buttons.' . $button), 'class="'.$btn_class. ' ' . $button . '"');
+				echo anchor($uri, lang('buttons:' . $button), 'class="'.$btn_class. ' ' . $button . '"');
 				break;
 
 			/**
@@ -72,7 +72,7 @@
 				$id = is_array($extra) && array_key_exists('id', $extra) ? '/' . $button . '/' . $extra['id'] : NULL;
 				if($btn_class == 'btn') $btn_class .= ' gray';
 
-				echo anchor('admin/' . $this->module_details['slug'] . $id, lang('buttons.' . $button), 'class="'.$btn_class.' ' . $button . '"');
+				echo anchor('admin/' . $this->module_details['slug'] . $id, lang('buttons:' . $button), 'class="'.$btn_class.' ' . $button . '"');
 				break; ?>
 
 		<?php endswitch; ?>
