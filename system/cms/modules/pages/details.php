@@ -88,29 +88,32 @@ class Module_Pages extends Module
 
         // Shortcuts for New page
 
-        // Do we have more than one page type? If we don't, no need to have a modal
-        // ask them to choose a page type.
-        if ($this->pdb->table('page_types')->count() > 1) {
-            $info['sections']['pages']['shortcuts'] = array(
-                array(
-                    'name' => 'pages:create_title',
-                    'uri' => 'admin/pages/choose_type',
-                    'class' => 'add modal'
-                )
-            );
-        }
-        else {
-            // Get the one page type. 
-            $page_type = $this->pdb->table('page_types')->take(1)->select('id')->first();
+        if (class_exists('Admin_Controller', false)) {
 
-            if ($page_type) {
+            // Do we have more than one page type? If we don't, no need to have a modal
+            // ask them to choose a page type.
+            if ($this->pdb->table('page_types')->count() > 1) {
                 $info['sections']['pages']['shortcuts'] = array(
                     array(
                         'name' => 'pages:create_title',
-                        'uri' => 'admin/pages/create?page_type='.$page_type->id,
-                        'class' => 'add'
+                        'uri' => 'admin/pages/choose_type',
+                        'class' => 'add modal'
                     )
-                );          
+                );
+            }
+            else {
+                // Get the one page type. 
+                $page_type = $this->pdb->table('page_types')->take(1)->select('id')->first();
+
+                if ($page_type) {
+                    $info['sections']['pages']['shortcuts'] = array(
+                        array(
+                            'name' => 'pages:create_title',
+                            'uri' => 'admin/pages/create?page_type='.$page_type->id,
+                            'class' => 'add'
+                        )
+                    );          
+                }
             }
         }
 
