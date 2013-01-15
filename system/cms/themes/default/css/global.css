@@ -25,12 +25,10 @@ body {
 
 /* Let's begin! */
 body {
-	font-family: "Proxima", "Helvetica Neue", "Helvetica", Arial, sans-serif;
-	font-size: 14px;
-	line-height: 20px;
+	font: 16px/20px "Proxima", "Helvetica Neue", "Helvetica", Arial, sans-serif;
 	font-weight: normal;
+	letter-spacing: normal;
 	background-color: #fafaf9;
-	/* background: #fafaf9 url('../img/grain.png') repeat; */
 }
 
 /* Wrappers */
@@ -91,7 +89,6 @@ header #logo small {
 	font-size:12px;
 	color: #1e1e1e;
 	text-shadow: 0 1px 0 #555;
-	letter-spacing:.5px;
 	float:right;
 }
 
@@ -101,7 +98,6 @@ header #user-meta {
 	font-size:11px;
 	font-weight:700;
 	color:#fff;
-	letter-spacing:.5px;
 	text-shadow:1px 1px 0 #000;
 	margin:30px 0 0;
 	float:right;
@@ -170,7 +166,6 @@ header #user-meta form ul li input {
 	font-weight:700;
 	color:#59626e;
 	font-size:11px;
-	letter-spacing:.5px;
 	background-color:#202328;
 	border:1px solid #2e3138;
 	border-radius:3px;
@@ -211,10 +206,27 @@ nav#global-nav {
 
 nav ul#head-nav {
 	width:940px;
-	height:40px;
+	height:36px;
 	padding:0px;
-	margin:0 auto;
-	position:relative;
+	margin:20px auto 0;
+	border: solid 1px #2473b0;
+	/* border-bottom: 1px solid #20608f; */
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	border-radius: 6px;
+	-webkit-background-clip: padding; 
+  -moz-background-clip: padding; 
+  background-clip: padding-box;
+	background-color: #2b96f1;
+	-webkit-box-shadow: 0 1px 2px 0 rgba(0,0,0,0.3),inset 0 1px 0 0 rgba(255,255,255,0.25), inset 1px 0px 2px 0 rgba(255,255,255,0.25), inset -1px 0px 2px 0 rgba(255,255,255,0.25), 0px 1px 0px 0 rgba(0,0,0,.2), 0px 1px 20px 0 #fff;
+	-moz-box-shadow: 0 1px 2px 0 rgba(0,0,0,0.3),inset 0 1px 0 0 rgba(255,255,255,0.25), inset 1px 0px 2px 0 rgba(255,255,255,0.25), inset -1px 0px 2px 0 rgba(255,255,255,0.25), 0px 1px 0px 0 rgba(0,0,0,.2), 0px 1px 20px 0 #fff;
+	box-shadow: 0 1px 2px 0 rgba(0,0,0,0.3),inset 0 1px 0 0 rgba(255,255,255,0.25), inset 1px 0px 2px 0 rgba(255,255,255,0.25), inset -1px 0px 2px 0 rgba(255,255,255,0.25), 0px 1px 0px 0 rgba(0,0,0,.2), 0px 1px 20px 0 #fff;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #2a99ef), color-stop(1, #237bbd));
+	background: -webkit-linear-gradient(top, #2a99ef 0%, #237bbd 100%);
+	background: -moz-linear-gradient(top, #2a99ef 0%, #237bbd 100%);
+	background: -o-linear-gradient(top, #2a99ef 0%, #237bbd 100%);
+	background: -ms-linear-gradient(top, #2a99ef 0%, #237bbd 100%);
+	background: linear-gradient(top, #2a99ef 0%, #237bbd 100%);
 }
 
 nav ul#head-nav ul {
@@ -238,7 +250,7 @@ nav ul#head-nav li {
 }
 
 nav ul#head-nav li:first-child {
-	padding-left: 0px;
+	padding-left: 20px;
 }
 
 nav ul#head-nav li:last-child {
@@ -246,23 +258,24 @@ nav ul#head-nav li:last-child {
 }
 
 nav ul#head-nav li a,ul#head-nav li a:visited {
-	font-size:14px;
-	font-weight:700;
-	color:#969695;
-	letter-spacing:.5px;
+	font-size:16px;
+	font-weight:600;
+	color:white;
+	text-shadow: 0 1px 1px rgba(0,0,0,0.4);
+	letter-spacing:normal;
 }
 
 nav ul#head-nav li a:hover,ul#head-nav a:visited:hover {
-	color:#666;
+	color:white;
 	text-decoration:none;
 }
 
 nav ul#head-nav li a:active,ul#head-nav li a:visited:active {
-	color:#666;
+	color:white;
 }
 
 nav ul#head-nav li.has_current > a {
-	color:#666;
+	color:white;
 }
 
 /* Header Menu second level */
@@ -355,6 +368,15 @@ nav ul#head-nav ul ul {
 	width:149px;
 	padding-top:0;
 }
+
+/* Home Page Content */
+
+/* Hero-Unit */
+
+.hero-unit {
+	margin-top: 20px;
+}
+
 
 /* Breadcrumbs */
 .breadcrumbs {
@@ -453,7 +475,6 @@ article.post form input[type=text],section.post form input[type=password] {
 	padding:4px 5px;
 	font-family: "Proxima", "Helvetica Neue", "Helvetica", Arial, sans-serif;
 	color:#4D4D4D;
-	text-shadow:0 1px 0 #FBFBFB;
 }
 
 article.post form label {
@@ -492,8 +513,6 @@ article.post form textarea {
 	font-size:13px;
 	font-weight:700;
 	color:#7d7d7d;
-	letter-spacing:.5px;
-	text-shadow:1px 1px 0 #fbfbfb;
 }
 
 /* Comments */
@@ -527,8 +546,6 @@ article.post form textarea {
 	font-size:13px;
 	font-weight:700;
 	color:#7d7d7d;
-	letter-spacing:.5px;
-	text-shadow:1px 1px 0 #fbfbfb;
 }
 
 ul#comment_list li {
@@ -766,8 +783,6 @@ form#login ul li input[type=text],form#login ul li input[type=password],form#reg
 	font-size:13px;
 	font-weight:700;
 	color:#7d7d7d;
-	letter-spacing:.5px;
-	text-shadow:1px 1px 0 #fbfbfb;
 	margin:0 500px 0 0;
 }
 
@@ -827,8 +842,6 @@ form#activate-user ul li input[type=text] {
 	font-size:13px;
 	font-weight:700;
 	color:#7d7d7d;
-	letter-spacing:.5px;
-	text-shadow:1px 1px 0 #fbfbfb;
 	margin:0 500px 0 0;
 }
 
@@ -836,7 +849,6 @@ form#activate-user ul li input[type=text] {
 footer {
 	font-size:12px;
 	color:#969695;
-	letter-spacing:.5px;
 	text-shadow:none;
 	font-weight:700;
 	width:940px;
@@ -847,7 +859,11 @@ footer {
 	background-color:#fafaf9;
 	width:100%;
 	margin:0 auto;
-	box-shadow: inset 0 1px 0 0 #fff, 0 -1px 20px 0 rgba(0,0,0,.1);
+	-webkit-box-shadow: inset 0 1px 0 0 #fff, 0 -1px 100px 0 #fff, 0 -1px 20px 0 rgba(0,0,0,.12);
+	-moz-box-shadow: inset 0 1px 0 0 #fff, 0 -1px 100px 0 #fff, 0 -1px 20px 0 rgba(0,0,0,.12);
+	-ms-box-shadow: inset 0 1px 0 0 #fff, 0 -1px 100px 0 #fff, 0 -1px 20px 0 rgba(0,0,0,.12);
+	-o-box-shadow: inset 0 1px 0 0 #fff, 0 -1px 100px 0 #fff, 0 -1px 20px 0 rgba(0,0,0,.12);
+	box-shadow: inset 0 1px 0 0 #fff, 0 -1px 100px 0 #fff, 0 -1px 20px 0 rgba(0,0,0,.12);
 }
 
 /* Footer Powered By */
@@ -944,7 +960,6 @@ aside .widget ul {
 	font-family: "Proxima", "Helvetica Neue", "Helvetica", Arial, sans-serif;
 	font-weight:700;
 	font-size:90%;
-	letter-spacing:.5px;
 	margin:5px 0 10px;
 	padding:5px;
 	text-align:center;

@@ -3,7 +3,7 @@
 <head>
 	{{ theme:partial name="metadata" }}
 </head>
-<body class="animated fadeIn">
+<body>
 
 	<!-- Begin pageWrapper -->
 	<div id="pageWrapper">
@@ -21,8 +21,12 @@
 			<div class="container">
 			<!-- Begin contentWrapper -->
 			<div id="contentWrapper">
-	
+				
+				{{ if page:is_home == true }}
+				{{ theme:partial name="content-home" }}
+				{{ else }}
 				{{ theme:partial name="content" }}
+				{{ endif }}
 				
 			</div>
 			<!-- End contentWrapper -->

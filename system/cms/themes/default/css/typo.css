@@ -1,7 +1,7 @@
 h1,h2,h3,h4,h5,h6 {
 	font-family: "Proxima", "Helvetica Neue", "Helvetica", Arial, sans-serif;
 	color:#666;
-	font-weight:700;
+	font-weight:bold;
 }
 
 h1 {
@@ -34,7 +34,7 @@ a,a:link,p,.post,ul,ol,dl,dd,li {
 }
 */
 
-a,a:link {
+a, a:link {
 	color:#ff6900;
 	text-decoration:none;
 	-webkit-transition: all 200ms linear;
