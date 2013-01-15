@@ -252,7 +252,7 @@ class Admin_Categories extends Admin_Controller
 		}
 
 		$data = array(
-			'method' => 'create',
+			'mode' => 'create',
 			'category' => $category,
 		);
 
