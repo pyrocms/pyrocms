@@ -16,12 +16,6 @@ $hook['pre_system'] = array(
 	'filepath' => 'hooks',
 );
 
-$hook['pre_controller'][] = array(
-	'function' => 'pick_language',
-	'filename' => 'pick_language.php',
-	'filepath' => 'hooks'
-);
-
 # PERFORM-TWEAK: Disable this to make your system slightly quicker
 $hook['pre_controller'][] = array(
 	'function' => 'check_installed',

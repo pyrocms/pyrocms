@@ -40,6 +40,8 @@ class MY_Controller extends MX_Controller
 		parent::__construct();
 
 		$this->benchmark->mark('my_controller_start');
+
+        $this->pick_language();
 		
 		// No record? Probably DNS'ed but not added to multisite
 		if ( ! defined('SITE_REF'))
@@ -48,7 +50,7 @@ class MY_Controller extends MX_Controller
 		}
 
 		// Set up the Illuminate\Database layer
-		ci()->pdb = self::_setup_database();
+		ci()->pdb = self::setupDatabase();
 
 		// the Quick\Cache package is instantiated to $this->cache in the config file
 		$this->load->config('cache');
@@ -204,50 +206,164 @@ class MY_Controller extends MX_Controller
 	    }
 	}
 
-	public function _setup_database()
-	{
-		$prefix = SITE_REF.'_';
+	public function setupDatabase()
+    {
+        // @TODO Get rid of this for 3.0
+        if ( ! class_exists('CI_Model'))
+        {
+            load_class('Model', 'core');
+        }
 
-		// By changing the prefix we are essentially "namespacing" each site
-		$this->db->set_dbprefix($prefix);
+        $prefix = SITE_REF.'_';
 
-		// Assign 
-		$conn = $this->db->get_connection();
+        // By changing the prefix we are essentially "namespacing" each site
+        $this->db->set_dbprefix($prefix);
 
-		include APPPATH.'config/database.php';
+        // Assign 
+        $pdo = $this->db->get_connection();
 
-		$config = $db[ENVIRONMENT];
-		$subdriver = current(explode(':', $config['dsn']));
+        include APPPATH.'config/database.php';
 
-		// Is this a PDO connection?
-		if ($conn instanceof PDO) {
+        $config = $db[ENVIRONMENT];
+        $subdriver = current(explode(':', $config['dsn']));
 
-			$drivers = array(
-				'mysql' => '\Illuminate\Database\MySqlConnection',
-				'pgsql' => '\Illuminate\Database\PostgresConnection',
-				'sqlite' => '\Illuminate\Database\SQLiteConnection',
-			);
+        // Is this a PDO connection?
+        if ($pdo instanceof PDO) {
 
-			// Make a connection instance with the existing PDO connection
-			$pdb = new $drivers[$subdriver]($conn, $prefix);
-		
-		// Not using the new PDO driver
-		} else {
+            preg_match('/dbname=(\w+)/', $config['dsn'], $matches);
+            $database = $matches[1];
+            unset($matches);
 
-			$pdb = \Capsule\Database\Connection::make('default', array(
-				'driver' => $subdriver,
-				'dsn' => $config["dsn"],
-				'username' => $config["username"],
-				'password' => $config["password"],
-				'charset' => $config["char_set"],
-				'collation' => $config["dbcollat"],
-			), true);
-		}
+            $drivers = array(
+                'mysql' => '\Illuminate\Database\MySqlConnection',
+                'pgsql' => '\Illuminate\Database\PostgresConnection',
+                'sqlite' => '\Illuminate\Database\SQLiteConnection',
+            );
 
-		$pdb->setFetchMode(PDO::FETCH_OBJ);
+            // Make a connection instance with the existing PDO connection
+            $conn = new $drivers[$subdriver]($pdo, $database, $prefix);
 
-		return $pdb;
-	}
+            $resolver = \Capsule\Database\Connection::getResolver();
+            $resolver->addConnection('default', $conn);
+            $resolver->setDefaultConnection('default');
+
+            \Illuminate\Database\Eloquent\Model::setConnectionResolver($resolver);
+
+        // Not using the new PDO driver
+        } else {
+
+            $conn = \Capsule\Database\Connection::make('default', array(
+                'driver' => $subdriver,
+                'dsn' => $config["dsn"],
+                'username' => $config["username"],
+                'password' => $config["password"],
+                'charset' => $config["char_set"],
+                'collation' => $config["dbcollat"],
+            ), true);
+        }
+
+        $conn->setFetchMode(PDO::FETCH_OBJ);
+
+        return $conn;
+    }
+
+    /**
+     * Determines the language to use.
+     *
+     * This is called from the Codeigniter hook system.
+     * The hook is defined in system/cms/config/hooks.php
+     */
+    private function pick_language()
+    {
+        require APPPATH.'/config/language.php';
+
+        // Re-populate $_GET
+        parse_str($_SERVER['QUERY_STRING'], $_GET);
+
+        // If we've been redirected from HTTP to HTTPS on admin, ?session= will be set to maintain language
+        if ($_SERVER['SERVER_PORT'] == 443 and ! empty($_GET['session'])) {
+            session_start($_GET['session']);
+        } else {
+            session_start();
+        }
+
+        // Lang set in URL via ?lang=something
+        if ( ! empty($_GET['lang'])) {
+            // Turn en-gb into en
+            $lang = strtolower(substr($_GET['lang'], 0, 2));
+
+            log_message('debug', 'Set language in URL via GET: '.$lang);
+        }
+
+        // Lang has already been set and is stored in a session
+        elseif ( ! empty($_SESSION['lang_code'])) {
+            $lang = $_SESSION['lang_code'];
+
+            log_message('debug', 'Set language in Session: '.$lang);
+        }
+
+        // Lang has is picked by a user.
+        elseif ( ! empty($_COOKIE['lang_code'])) {
+            $lang = strtolower($_COOKIE['lang_code']);
+
+            log_message('debug', 'Set language in Cookie: '.$lang);
+        }
+
+        // Still no Lang. Lets try some browser detection then
+        elseif ( ! empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+            // explode languages into array
+            $accept_langs = explode(',', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
+
+            $supported_langs = array_keys($config['supported_languages']);
+
+            log_message('debug', 'Checking browser languages: '.implode(', ', $accept_langs));
+
+            // Check them all, until we find a match
+            foreach ($accept_langs as $accept_lang) {
+                if (strpos($accept_lang, '-') === 2) {
+                    // Turn pt-br into br
+                    $lang = strtolower(substr($accept_lang, 3, 2));
+
+                    // Check its in the array. If so, break the loop, we have one!
+                    if (in_array($lang, $supported_langs)) {
+                        log_message('debug', 'Accept browser language: '.$accept_lang);
+
+                        break;
+                    }
+                }
+
+                // Turn en-gb into en
+                $lang = strtolower(substr($accept_lang, 0, 2));
+
+                // Check its in the array. If so, break the loop, we have one!
+                if (in_array($lang, $supported_langs)) {
+                    log_message('debug', 'Accept browser language: '.$accept_lang);
+
+                    break;
+                }
+            }
+        }
+
+        // If no language has been worked out - or it is not supported - use the default
+        if (empty($lang) or ! array_key_exists($lang, $config['supported_languages'])) {
+            $lang = $config['default_language'];
+            log_message('debug', 'Set language default: '.$lang);
+        }
+
+        // Whatever we decided the lang was, save it for next time to avoid working it out again
+        $_SESSION['lang_code'] = $lang;
+
+        // Load CI config class
+        $CI_config =& load_class('Config');
+
+        // Set the language config. Selects the folder name from its key of 'en'
+        $CI_config->set_item('language', $config['supported_languages'][$lang]['folder']);
+
+        // Sets a constant to use throughout ALL of CI.
+        define('AUTO_LANGUAGE', $lang);
+
+        log_message('debug', 'Defined const AUTO_LANGUAGE: '.AUTO_LANGUAGE);
+    }
 }
 
 /**
