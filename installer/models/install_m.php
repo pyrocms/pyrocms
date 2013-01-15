@@ -80,10 +80,9 @@ class Install_m extends CI_Model
 		    $table->string('salt', 6);
 		    $table->integer('group_id')->nullable();
 		    $table->string('ip_address');
-		    $table->boolean('active')->default(1);
-		    $table->string('activation_code', 40)->nullable();
-		    $table->string('forgotten_password_code', 40)->nullable();
-		    $table->string('remember_code', 40)->nullable();
+		    $table->boolean('is_activated')->default(false);
+		    $table->string('activation_hash')->nullable();
+		    $table->string('reset_password_hash')->nullable();
 		    $table->integer('created_on');
 		    $table->integer('updated_on')->nullable();
 		    $table->integer('last_login')->nullable();

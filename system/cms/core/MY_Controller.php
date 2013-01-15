@@ -2,6 +2,8 @@
 
 require APPPATH."libraries/MX/Controller.php";
 
+use Cartalyst\Sentry;
+
 /**
  * Code here is run before ALL controllers
  * 
@@ -41,11 +43,12 @@ class MY_Controller extends MX_Controller
 
 		$this->benchmark->mark('my_controller_start');
 
-        $this->pick_language();
-		
+        if ( ! defined('AUTO_LANGUAGE')) {
+            $this->pickLanguage();
+		}
+
 		// No record? Probably DNS'ed but not added to multisite
-		if ( ! defined('SITE_REF'))
-		{
+		if ( ! defined('SITE_REF')) {
 			show_error('This domain is not set up correctly. Please go to '.anchor('sites').' and log in to add this site.');
 		}
 
@@ -116,10 +119,12 @@ class MY_Controller extends MX_Controller
 			$this->lang->load(array('global', 'users/user', 'files/files'));
 		}
 
-		$this->load->library('users/ion_auth');
+		// Is there a logged in user?
+        $this->sentry = $this->setupSentry();
 
-		// Get user data
-		$this->template->current_user = ci()->current_user = $this->current_user = $this->ion_auth->get_user();
+        // Assign to EVERYTHING
+        $user = $this->sentry->check();
+        $this->template->current_user = ci()->current_user = $this->current_user = $user;
 
 		// Work out module, controller and method and make them accessable throught the CI instance
 		ci()->module = $this->module = $this->router->fetch_module();
@@ -273,7 +278,7 @@ class MY_Controller extends MX_Controller
      * This is called from the Codeigniter hook system.
      * The hook is defined in system/cms/config/hooks.php
      */
-    private function pick_language()
+    private function pickLanguage()
     {
         require APPPATH.'/config/language.php';
 
@@ -363,6 +368,35 @@ class MY_Controller extends MX_Controller
         define('AUTO_LANGUAGE', $lang);
 
         log_message('debug', 'Defined const AUTO_LANGUAGE: '.AUTO_LANGUAGE);
+    }
+
+    public function setupSentry()
+    {
+        ci()->load->helper('cookie');
+        ci()->load->model('users/user_m');
+
+        $hasher = new Sentry\Hashing\BcryptHasher; // There are other hashers available, take your pick
+
+        $session = new Sentry_SessionProvider;
+
+        $cookie = new Sentry_CookieProvider;
+
+        $groupProvider = new Sentry\Groups\Eloquent\Provider;
+
+        $userProvider = new Sentry\Users\Eloquent\Provider($hasher);
+
+        $throttle = new Sentry\Throttling\Eloquent\Provider($userProvider, 'User_m');
+
+        $throttle->disable();
+
+        return new Sentry\Sentry(
+            $hasher,
+            $session,
+            $cookie,
+            $groupProvider,
+            $userProvider,
+            $throttle
+        );
     }
 }
 

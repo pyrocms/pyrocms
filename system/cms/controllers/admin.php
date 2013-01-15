@@ -61,7 +61,7 @@ class Admin extends Admin_Controller
 		$this->form_validation->set_rules($this->validation_rules);
 
 		// If the validation worked, or the user is already logged in
-		if ($this->form_validation->run() or $this->ion_auth->logged_in())
+		if ($this->form_validation->run() or $this->sentry->check())
 		{
 			// if they were trying to go someplace besides the 
 			// dashboard we'll have stored it in the session
@@ -96,15 +96,28 @@ class Admin extends Admin_Controller
 	 */
 	public function _check_login($email)
 	{
-		if ($this->ion_auth->login($email, $this->input->post('password'), (bool)$this->input->post('remember')))
-		{
-			Events::trigger('post_admin_login');
-			
-			return true;
+		try {
+
+			$this->sentry->authenticate(array(
+				'email' => $email,
+				'password' => $this->input->post('password'),
+			), (bool) $this->input->post('remember'));
+
+		} catch (Cartalyst\Sentry\Users\UserNotFoundException $e) {
+
+			$this->form_validation->set_message('_check_login', 'Incorrect login.');
+			return false;
+
+		} catch (Exception $e) {
+
+			var_dump($e);
+			$this->form_validation->set_message('_check_login', $e->getMessage());
+			return false;
 		}
 
-		$this->form_validation->set_message('_check_login', $this->ion_auth->errors());
-		return false;
+		Events::trigger('post_admin_login');
+
+		return true;
 	}
 
 	/**
