@@ -14,4 +14,7 @@
             <files>*.php</files>
         </testsuite>
     </testsuites>
+    <php>
+        <server name="PYRO_TEST_HOST" value="localhost/pyrocms"/>
+    </php>
 </phpunit>

@@ -52,7 +52,8 @@ class TestInstallerValidDbCreds extends PHPUnit_Framework_TestCase
 
     public function FileSystemNotWritable()
     {
-        exec('sudo chmod -R 555 ../../../*');
+        $path = dirname(__FILE__) . '/../../../*';
+        exec("sudo chmod -R 555 $path");
         $formFields = array(
             'hostname'=>'127.0.0.1',
             'username'=>'pyro',
