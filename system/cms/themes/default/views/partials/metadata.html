@@ -1,11 +1,11 @@
 <!-- Begin meta tags -->
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta name="author" content="HappyNinjas" />
-<meta name="copyright" content="PyroCMS.com" />
+<meta charset="utf-8">
+<meta name="author" content="PyroCMS Team" />
+<meta name="copyright" content="PyroCMS" />
 <meta name="distribution" content="global" />
 <meta name="resource-type" content="document" />
 <meta name="language" content="{{ lang:code }}" />
-
+<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
 {{ theme:favicon file="favicon.ico" }}
 
 <base href="{{ url:base }}" />
@@ -19,6 +19,8 @@
 
 <!-- Begin scripts -->
 {{ asset:js file="jquery/jquery.js" }}
+{{ asset:js file="modernizr/modernizr.js" }}
+{{ theme:js file="holder.js" }}
 <!-- End scripts -->
 
 {{ asset:render }}

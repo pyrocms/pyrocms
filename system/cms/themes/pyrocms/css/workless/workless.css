@@ -200,9 +200,11 @@ code,pre {
 	-webkit-border-radius:2px;
 	-moz-border-radius:2px;
 	border-radius:2px;
-	-webkit-box-shadow:0 2px 0 rgba(0,0,0,0.05);
+	/*
+-webkit-box-shadow:0 2px 0 rgba(0,0,0,0.05);
 	-moz-box-shadow:0 2px 0 rgba(0,0,0,0.05);
 	box-shadow:0 2px 0 rgba(0,0,0,0.05);
+*/
 	white-space:pre;
 	white-space:pre-wrap;
 	word-wrap:break-word;
@@ -683,7 +685,7 @@ input:invalid,textarea:invalid {
 	background:white;
 	color:#4D4D4D;
 	outline:none;
-	border-color:#38a7e6;
+	border: 1px solid #38a7e6;
 	-webkit-box-shadow: 0 0 5px #38a7e6;
 	-moz-box-shadow: 0 0 5px #38a7e6;
 	-ms-box-shadow: 0 0 5px #38a7e6;
@@ -1850,7 +1852,7 @@ button.btn::-moz-focus-inner,input[type=submit].btn::-moz-focus-inner {
 	overflow:visible;
 	border-top:1px solid #6e6e6e;
 	border-bottom:1px solid #1a1a1a;
-	background-color:#222;
+	background-color:#444;
 	background-repeat:repeat-x;
 	background-image:url('../../img/nav-grain.png'),-webkit-gradient(linear,left top,left bottom,color-stop(0%,#555),color-stop(100%,#333));
 	background-image:url('../../img/nav-grain.png'),-webkit-linear-gradient(top,#555,#333);
@@ -1860,6 +1862,8 @@ button.btn::-moz-focus-inner,input[type=submit].btn::-moz-focus-inner {
 	background-image:url('../../img/nav-grain.png'),linear-gradient(top,#555,#333);
 	-webkit-box-shadow:0 1px 3px rgba(0,0,0,0.25),inset 0 -1px 0 rgba(0,0,0,0.1);
 	-moz-box-shadow:0 1px 3px rgba(0,0,0,0.25),inset 0 -1px 0 rgba(0,0,0,0.1);
+	-ms-box-shadow:0 1px 3px rgba(0,0,0,0.25),inset 0 -1px 0 rgba(0,0,0,0.1);
+	-o-box-shadow:0 1px 3px rgba(0,0,0,0.25),inset 0 -1px 0 rgba(0,0,0,0.1);
 	box-shadow:0 1px 3px rgba(0,0,0,0.25),inset 0 -1px 0 rgba(0,0,0,0.1);
 }
 
@@ -2080,10 +2084,12 @@ button.btn::-moz-focus-inner,input[type=submit].btn::-moz-focus-inner {
 	vertical-align:baseline;
 	outline:none;
 	color:#fff;
-	-webkit-border-radius:16px;
+	-webkit-border-radius: 16px;
 	-moz-border-radius:16px;
-	-o-border-radius:16px;
 	border-radius:16px;
+	-webkit-background-clip: padding-box; 
+	-moz-background-clip: padding; 
+	background-clip: padding-box;
 	-webkit-transition:150ms linear all;
 	-moz-transition:150ms linear all;
 	-o-transition:150ms linear all;

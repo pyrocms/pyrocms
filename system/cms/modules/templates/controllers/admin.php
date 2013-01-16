@@ -152,6 +152,7 @@ class Admin extends Admin_Controller
 			->set('email_template', $email_template)
 			->title(lang('templates:create_title'))
 			->append_metadata($this->load->view('fragments/wysiwyg', array(), true))
+			->append_js('module::form.js')
 			->build('admin/form');
 	}
 
@@ -213,6 +214,7 @@ class Admin extends Admin_Controller
 			->set('email_template', $email_template)
 			->title(lang('templates:edit_title'))
 			->append_metadata($this->load->view('fragments/wysiwyg', array(), true))
+			->append_js('module::form.js')
 			->build('admin/form');
 	}
 

@@ -55,7 +55,13 @@ class Field_choice
 			// are just in an array from the field.
 			// -------------------------------
 
-			return form_dropdown($params['form_slug'], $choices, $params['value'], 'id="'.$params['form_slug'].'"');
+			// Extra check for default var.
+			$default_value = (isset($params['custom']['default_value'])) ? $params['custom']['default_value'] : null;
+
+			// If this is a new input, we need to use the default value or go null
+			$value = ( ! $entry_id) ? $default_value : $params['value']; 
+
+			return form_dropdown($params['form_slug'], $choices, $value, 'id="'.$params['form_slug'].'"');
 		}	
 		else
 		{

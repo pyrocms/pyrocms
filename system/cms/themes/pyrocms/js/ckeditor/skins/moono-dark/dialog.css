@@ -323,7 +323,7 @@ the same labelling structure, having the label text inside an element with
    appended to it. */
 div.cke_disabled .cke_dialog_ui_labeled_content *
 {
-  background-color: #a0a0a0;
+  color: #aaa;
   cursor: default;
 }
 

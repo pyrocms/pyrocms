@@ -32,7 +32,7 @@ class Module_Search extends Module
 				'cn' => '此模组可用以搜寻网站中不同类型的资料内容。'
 			),
 			'frontend' => false,
-			'backend' => true,
+			'backend' => false,
 			'menu' => false,
 		);
 	}

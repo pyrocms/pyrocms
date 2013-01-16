@@ -46,6 +46,21 @@ jQuery(function($) {
 	});
 
 	/**
+	 * Hides admin header to avoid overlapping when CKEDITOR is maximized
+	 */
+	pyro.init_ckeditor_maximize = function() {
+		if (typeof CKEDITOR != 'undefined')
+		{
+			$.each(CKEDITOR.instances, function(instance) {
+				CKEDITOR.instances[instance].on('maximize', function(e) {
+					$('.hide-on-ckeditor-maximize').toggleClass('hidden');
+					$('.cke_button__maximize').toggleClass('ckeditor-pyro-logo');
+				});
+			});			
+		}
+	};
+
+	/**
 	 * This initializes all JS goodness
 	 */
 	pyro.init = function() {
@@ -409,6 +424,7 @@ jQuery(function($) {
 	$(document).ready(function() {
 		pyro.init();
 		pyro.chosen();
+		pyro.init_ckeditor_maximize();
 	});
 
 	//close colorbox only when cancel button is clicked
