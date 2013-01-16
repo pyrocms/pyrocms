@@ -371,10 +371,12 @@ nav ul#head-nav ul ul {
 
 /* Home Page Content */
 
-/* Hero-Unit */
-
 .hero-unit {
 	margin-top: 20px;
+}
+
+.home-body {
+	margin-top: 10px;
 }
 
 

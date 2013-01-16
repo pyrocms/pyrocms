@@ -232,17 +232,44 @@ button#remove_installer_directory:hover {
 	display:inline-block;
 	font-size:16px;
 	vertical-align:top;
-	line-height:18px;
+	line-height:21px;
+}
+
+.subbar span.divider {
+	color: #222;
+	line-height: 21px;
+	text-shadow: none;
 }
 
 .subbar small {
-	color:#bfbfbf;
 	margin:0;
-	text-shadow:0 1px 1px #000;
+	color:#767d82;
+	text-shadow:0 1px 0px #111;
 	font-size:13px;
+	font-weight: 400;
 	line-height:21px;
 	display:none;
 	vertical-align:top;
+	-webkit-transition: 200ms linear all;
+	-moz-transition: 200ms linear all;
+	-o-transition: 200ms linear all;
+	transition: 200ms linear;
+}
+
+.subbar small:hover {
+	color: #8C949A;
+}
+
+.subbar small a {
+	/* color: #bfbfbf; */
+	color:#767d82;
+	text-shadow:0 1px 0px #111;
+	font-weight: 400;
+	text-decoration: none;
+}
+
+.subbar small a:hover {
+	color: #fff;
 }
 
 #shortcuts {
@@ -420,7 +447,7 @@ margin-top: -4px;
 
 .sections_bar ul li a {
 	color:#858585;
-	text-shadow:1px 1px 1px #fff;
+	text-decoration: none;
 }
 
 .sections_bar ul li.current a,.sections_bar ul li a:hover {

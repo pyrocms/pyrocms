@@ -200,9 +200,11 @@ code,pre {
 	-webkit-border-radius:2px;
 	-moz-border-radius:2px;
 	border-radius:2px;
-	-webkit-box-shadow:0 2px 0 rgba(0,0,0,0.05);
+	/*
+-webkit-box-shadow:0 2px 0 rgba(0,0,0,0.05);
 	-moz-box-shadow:0 2px 0 rgba(0,0,0,0.05);
 	box-shadow:0 2px 0 rgba(0,0,0,0.05);
+*/
 	white-space:pre;
 	white-space:pre-wrap;
 	word-wrap:break-word;
