@@ -15,6 +15,6 @@
         </testsuite>
     </testsuites>
     <php>
-        <server name="PYRO_TEST_HOST" value="localhost/pyrocms"/>
+        <server name="PYRO_TEST_HOST" value="localhost"/>
     </php>
 </phpunit>
