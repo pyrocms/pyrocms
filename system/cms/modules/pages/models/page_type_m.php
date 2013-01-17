@@ -216,7 +216,13 @@ class Page_type_m extends MY_Model
     // --------------------------------------------------------------------------
 
     /**
-     * Delete 
+     * Delete a Page Type
+     *
+     * @access  public
+     * @param   int     $id     ID of the page type
+     * @param   bool    [$delete_stream]    Should we also delete the stream associated
+     *                                           with the page type?
+     * @return  bool
      */
     public function delete($id, $delete_stream = false)
     {
@@ -230,8 +236,12 @@ class Page_type_m extends MY_Model
             $this->streams->streams->delete_stream($stream->stream_slug, $stream->stream_namespace);
         }
 
+        // If we are saving as files, we need to remove the page
+        // layout files to keep things tidy.
+        $this->remove_page_layout_files($page_type->slug, true);
+
         // Delete the actual page entry.
-        $this->db->limit(1)->where('id', $id)->delete($this->_table);
+        return $this->db->limit(1)->where('id', $id)->delete($this->_table);
     }
 
     // --------------------------------------------------------------------------
