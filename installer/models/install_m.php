@@ -61,7 +61,7 @@ class Install_m extends CI_Model
 		    $table->string('name', 100);
 		    $table->string('ref', 20);
 		    $table->string('domain', 100);
-		    $table->boolean('active')->default(1);
+		    $table->boolean('is_activated')->default(true);
 		    $table->integer('created_on');
 		    $table->integer('updated_on')->nullable();
 
@@ -104,7 +104,7 @@ class Install_m extends CI_Model
 			'salt'        => $salt,
 			'group_id'    => 1,
 			'ip_address'  => $this->input->ip_address(),
-			'active'      => true,
+			'is_activated'=> true,
 			'created_on'  => time(),
 		);
 

@@ -8,9 +8,12 @@ class Migration_Switch_to_sentry extends CI_Migration
         $schema = $this->pdb->getSchemaBuilder();
 
         // Add the new fields for Sentry
-        $schema->create('users', function($table) {
+        $schema->table('users', function($table) {
             $table->boolean('is_activated')->default(false);
+            $table->string('activation_hash', 40)->nullable();
+            $table->string('reset_password_hash', 40)->nullable();
             $table->text('permissions')->nullable();
+            $table->string('password_old', 40);
         });
 
         $prefix = $this->pdb->getQueryGrammar()->getTablePrefix();
@@ -19,15 +22,35 @@ class Migration_Switch_to_sentry extends CI_Migration
             is_activated = active, 
             activation_hash = activation_code, 
             reset_password_hash = forgotten_password_code, 
+            password_old = password 
         ');
+        
+        // Grab all the users for later
+        $users = $this->pdb->table('users')->select('id', 'password')->get();
 
         // Drop old fields no longer required
-        $schema->create('users', function($table) {
+        $schema->table('users', function($table) {
+            $table->dropColumn('password');
             $table->dropColumn('active');
             $table->dropColumn('activation_hash');
             $table->dropColumn('reset_password_hash');
             $table->dropColumn('remember_code');
         });
+
+        $schema->table('users', function($table) {
+            $table->string('password', 255);
+        });
+
+        $hasher = new \Cartalyst\Sentry\Hashing\NativeHasher;
+
+        foreach ($users as $user) {
+            $this->pdb
+                ->table('users')
+                ->where('id', $user->id)
+                ->update(array(
+                    'password' => $hasher->hash($user->password)
+                ));
+        }
 
     }
 

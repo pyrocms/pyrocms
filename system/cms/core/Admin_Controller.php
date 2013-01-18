@@ -8,8 +8,8 @@
  * @copyright   Copyright (c) 2012, PyroCMS LLC
  * @package PyroCMS\Core\Controllers
  */
-class Admin_Controller extends MY_Controller {
-
+class Admin_Controller extends MY_Controller
+{
 	/**
 	 * Admin controllers can have sections, normally an arbitrary string
 	 *
@@ -30,7 +30,7 @@ class Admin_Controller extends MY_Controller {
 		$this->lang->load('buttons');
 		
 		// Show error and exit if the user does not have sufficient permissions
-		if ( ! self::_check_access())
+		if ( ! self::checkAccess())
 		{
 			$this->session->set_flashdata('error', lang('cp:access_denied'));
 			redirect();
@@ -171,7 +171,7 @@ class Admin_Controller extends MY_Controller {
 	 *
 	 * @return boolean 
 	 */
-	private function _check_access()
+	private function checkAccess()
 	{
 		// These pages get past permission checks
 		$ignored_pages = array('admin/login', 'admin/logout', 'admin/help');

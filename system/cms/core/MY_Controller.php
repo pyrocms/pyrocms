@@ -175,7 +175,7 @@ class MY_Controller extends MX_Controller
 				'is_frontend' => null,
 				'is_backend' => null,
 				'menu' => false,
-				'enabled' => 1,
+				'enabled' => true,
 				'sections' => array(),
 				'shortcuts' => array(),
 				'is_core' => null,
@@ -214,8 +214,7 @@ class MY_Controller extends MX_Controller
 	public function setupDatabase()
     {
         // @TODO Get rid of this for 3.0
-        if ( ! class_exists('CI_Model'))
-        {
+        if ( ! class_exists('CI_Model')) {
             load_class('Model', 'core');
         }
 
@@ -234,6 +233,8 @@ class MY_Controller extends MX_Controller
 
         // Is this a PDO connection?
         if ($pdo instanceof PDO) {
+
+        	$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
             preg_match('/dbname=(\w+)/', $config['dsn'], $matches);
             $database = $matches[1];
@@ -375,17 +376,16 @@ class MY_Controller extends MX_Controller
         ci()->load->helper('cookie');
         ci()->load->model('users/user_m');
 
-        $hasher = new Sentry\Hashing\BcryptHasher; // There are other hashers available, take your pick
 
-        $session = new Sentry_SessionProvider;
+		dump(ci()->session->userdata('foo'));
+exit;
 
-        $cookie = new Sentry_CookieProvider;
-
+        $hasher = new Sentry\Hashing\NativeHasher;
+        $session = new Sentry\Sessions\CISession(ci()->session, 'pyro_user');
+        $cookie = new Sentry\Cookies\CICookie(ci()->input);
         $groupProvider = new Sentry\Groups\Eloquent\Provider;
-
-        $userProvider = new Sentry\Users\Eloquent\Provider($hasher);
-
-        $throttle = new Sentry\Throttling\Eloquent\Provider($userProvider, 'User_m');
+        $userProvider = new Sentry\Users\Eloquent\Provider($hasher, '\\User_m');
+        $throttle = new Sentry\Throttling\Eloquent\Provider($userProvider);
 
         $throttle->disable();
 

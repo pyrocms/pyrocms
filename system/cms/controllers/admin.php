@@ -68,7 +68,7 @@ class Admin extends Admin_Controller
 			$redirect = $this->session->userdata('admin_redirect');
 			$this->session->unset_userdata('admin_redirect');
 
-			redirect($redirect ? $redirect : 'admin');
+			redirect($redirect ?: 'admin');
 		}
 
 		$this->template
@@ -96,17 +96,32 @@ class Admin extends Admin_Controller
 	 */
 	public function _check_login($email)
 	{
+		$password = $this->input->post('password');
+
 		try {
 
 			$this->sentry->authenticate(array(
 				'email' => $email,
-				'password' => $this->input->post('password'),
+				'password' => $password,
 			), (bool) $this->input->post('remember'));
 
 		} catch (Cartalyst\Sentry\Users\UserNotFoundException $e) {
 
-			$this->form_validation->set_message('_check_login', 'Incorrect login.');
-			return false;
+			// Could not log in with password. Maybe its an old style pass?
+			try
+			{
+				// Try logging in with this double-hashed password
+				$this->sentry->authenticate(array(
+					'email' => $email,
+					'password' => whacky_old_password_hasher($email, $password),
+				), (bool) $this->input->post('remember'));
+
+			} catch (Cartalyst\Sentry\Users\UserNotFoundException $e) {
+
+				// That madness didn't work, error
+				$this->form_validation->set_message('_check_login', 'Incorrect login.');
+				return false;
+			}
 
 		} catch (Exception $e) {
 
