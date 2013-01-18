@@ -377,10 +377,12 @@ class MY_Controller extends MX_Controller
         ci()->load->model('users/user_m');
 
         $hasher = new Sentry\Hashing\NativeHasher;
-        $session = new Sentry\Sessions\CISession(ci()->session, 'pyro_user');
-        $cookie = new Sentry\Cookies\CICookie(ci()->input);
+        $session = new Sentry\Sessions\CISession(ci()->session, 'pyro_user_session');
+        $cookie = new Sentry\Cookies\CICookie(ci()->input, array(
+        	// Array of overridden cookie settings...
+        ),'pyro_user_cookie');
         $groupProvider = new Sentry\Groups\Eloquent\Provider;
-        $userProvider = new Sentry\Users\Eloquent\Provider($hasher, '\\User_m');
+        $userProvider = new Sentry\Users\Eloquent\Provider($hasher, 'User_m');
         $throttle = new Sentry\Throttling\Eloquent\Provider($userProvider);
 
         $throttle->disable();
