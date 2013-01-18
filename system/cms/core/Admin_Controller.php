@@ -193,7 +193,8 @@ class Admin_Controller extends MY_Controller
 		}
 
 		// Admins can go straight in
-		if ($this->current_user->group === 'admin')
+		// TODO get actual permissions working right
+		if ($this->current_user->group_id == 1)
 		{
 			return true;
 		}

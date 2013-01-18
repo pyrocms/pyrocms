@@ -376,10 +376,6 @@ class MY_Controller extends MX_Controller
         ci()->load->helper('cookie');
         ci()->load->model('users/user_m');
 
-
-		dump(ci()->session->userdata('foo'));
-exit;
-
         $hasher = new Sentry\Hashing\NativeHasher;
         $session = new Sentry\Sessions\CISession(ci()->session, 'pyro_user');
         $cookie = new Sentry\Cookies\CICookie(ci()->input);
