@@ -89,9 +89,16 @@ class Pages extends Public_Controller
 		{
 			$this->type->load_types_from_folder(APPPATH.'modules/pages/field_types/', 'pages_module');
 		}
-		if(ENVIRONMENT == PYRO_DEVELOPMENT){
+
+		// If we are on the development environment,
+		// we should get rid of the cache. That ways we can just
+		// make updates to the page type files and see the
+		// results immediately.
+		if (ENVIRONMENT == PYRO_DEVELOPMENT)
+		{
 			$this->pyrocache->delete_all('page_m');
 		}
+
 		// GET THE PAGE ALREADY. In the event of this being the home page $url_segments will be null
 		$page = $this->pyrocache->model('page_m', 'get_by_uri', array($url_segments, true));
 

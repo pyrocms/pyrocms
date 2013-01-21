@@ -32,9 +32,28 @@ class Page_type_m extends MY_Model
         
             $folder = FCPATH.'assets/page_types/'.$pt->slug.'/';
 
-            $pt->body   = read_file($folder.$pt->slug.'.html');
-            $pt->js     = read_file($folder.$pt->slug.'.js');
-            $pt->css    = read_file($folder.$pt->slug.'.css');
+            $items = array('body' => 'html', 'js' => 'js', 'css' => 'css');
+
+            foreach ($items as $key => $val)
+            {
+                if (file_exists($folder.$pt->slug.'.'.$val))
+                {
+                    $pt->{$key}   = read_file($folder.$pt->slug.'.'.$val);
+                }
+            }
+
+            // Update the database if we are pulling from the DB.
+            if (ENVIRONMENT == PYRO_DEVELOPMENT)
+            {
+                $update = array();
+
+                foreach ($items as $key => $val)
+                {
+                    $update[$key] = $pt->{$key};
+                }
+
+                $this->db->limit(1)->where('id', $id)->update($this->_table, $update);
+            }
         }
 
         return $pt;
