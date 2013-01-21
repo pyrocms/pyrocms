@@ -89,7 +89,9 @@ class Pages extends Public_Controller
 		{
 			$this->type->load_types_from_folder(APPPATH.'modules/pages/field_types/', 'pages_module');
 		}
-
+		if(ENVIRONMENT == PYRO_DEVELOPMENT){
+			$this->pyrocache->delete_all('page_m');
+		}
 		// GET THE PAGE ALREADY. In the event of this being the home page $url_segments will be null
 		$page = $this->pyrocache->model('page_m', 'get_by_uri', array($url_segments, true));
 
@@ -134,7 +136,7 @@ class Pages extends Public_Controller
 			}
 		}
 
-		// We want to use the valid uri from here on. Don't worry about segments passed by Streams or 
+		// We want to use the valid uri from here on. Don't worry about segments passed by Streams or
 		// similar. Also we don't worry about breadcrumbs for 404
 		if ($url_segments = explode('/', $page->base_uri) and count($url_segments) > 1)
 		{
@@ -195,8 +197,8 @@ class Pages extends Public_Controller
 		$meta_keywords = '';
 		if ($page->meta_keywords or $page->layout->meta_description)
 		{
-			$meta_keywords = $page->meta_keywords ? 
-								Keywords::get_string($page->meta_keywords) : 
+			$meta_keywords = $page->meta_keywords ?
+								Keywords::get_string($page->meta_keywords) :
 								Keywords::get_string($page->layout->meta_keywords);
 		}
 
@@ -210,7 +212,7 @@ class Pages extends Public_Controller
 
 		// ---------------------------------
 
-		// We do this before parsing the page contents so that 
+		// We do this before parsing the page contents so that
 		// title, meta, & breadcrumbs can be overridden with tags in the page content
 		$this->template->title($this->parser->parse_string($meta_title, $page, true))
 			->set_metadata('keywords', $this->parser->parse_string($meta_keywords, $page, true))
@@ -266,9 +268,9 @@ class Pages extends Public_Controller
 
 		// Parse our view file
 		$html = $this->load->view('pages/page', array('page' => $page), true);
-		
+
 		$view = $this->parser->parse_string($html, $page, true, false, array(
-			'stream' => $stream->stream_slug, 
+			'stream' => $stream->stream_slug,
 			'namespace' => $stream->stream_namespace
 		));
 
@@ -320,7 +322,7 @@ class Pages extends Public_Controller
 		$children = $this->pyrocache->model('page_m', 'get_many_by', array($query_options));
 
 		//var_dump($children);
-		
+
 		$data = array(
 			'rss' => array(
 				'title' => ($page->meta_title ? $page->meta_title : $page->title).' | '.$this->settings->site_name,
