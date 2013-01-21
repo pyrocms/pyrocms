@@ -974,51 +974,54 @@ class Row_m extends MY_Model {
 		// format it
 		// -------------------------------------
 
-		foreach ($row as $row_slug => $data)
+		if ($row and (is_array($row) or  is_object($row)))
 		{
-			// Easy out for our non-formattables and
-			// fields we are disabling.
-			if (in_array($row_slug, array('id', 'created_by')) or in_array($row_slug, $disable))
+			foreach ($row as $row_slug => $data)
 			{
-				continue;
-			}
-						
-			// -------------------------------------
-			// Format Dates
-			// -------------------------------------
-			// We simply want these to be UNIX stamps
-			// -------------------------------------
-			
-			if ($row_slug == 'created' or $row_slug == 'updated')
-			{
-				if ($return_object)
+				// Easy out for our non-formattables and
+				// fields we are disabling.
+				if (in_array($row_slug, array('id', 'created_by')) or in_array($row_slug, $disable))
 				{
-					$row->$row_slug = strtotime($row->$row_slug);
+					continue;
 				}
-				else
+							
+				// -------------------------------------
+				// Format Dates
+				// -------------------------------------
+				// We simply want these to be UNIX stamps
+				// -------------------------------------
+				
+				if ($row_slug == 'created' or $row_slug == 'updated')
 				{
-					$row[$row_slug] = strtotime($row[$row_slug]);
-				}
-			}	
+					if ($return_object)
+					{
+						$row->$row_slug = strtotime($row->$row_slug);
+					}
+					else
+					{
+						$row[$row_slug] = strtotime($row[$row_slug]);
+					}
+				}	
 
-			// -------------------------------------
-			// Format Columns
-			// -------------------------------------
+				// -------------------------------------
+				// Format Columns
+				// -------------------------------------
 
-			if (array_key_exists($row_slug, $all_fields))
-			{
-				if ($return_object)
+				if (array_key_exists($row_slug, $all_fields))
 				{
-					$row->$row_slug = $this->format_column($row_slug,
-						$row->$row_slug, $row->id, $stream_fields->$row_slug->field_type, $stream_fields->$row_slug->field_data, $stream, $plugin_call);
-				}
-				else
-				{
-					$row[$row_slug] = $this->format_column($row_slug,
-						$row[$row_slug], $row['id'], $stream_fields->$row_slug->field_type, $stream_fields->$row_slug->field_data, $stream, $plugin_call);
+					if ($return_object)
+					{
+						$row->$row_slug = $this->format_column($row_slug,
+							$row->$row_slug, $row->id, $stream_fields->$row_slug->field_type, $stream_fields->$row_slug->field_data, $stream, $plugin_call);
+					}
+					else
+					{
+						$row[$row_slug] = $this->format_column($row_slug,
+							$row[$row_slug], $row['id'], $stream_fields->$row_slug->field_type, $stream_fields->$row_slug->field_data, $stream, $plugin_call);
+					}
 				}
 			}
-		}		
+		}
 
 		// -------------------------------------
 		// Run through alt processes
@@ -1165,7 +1168,7 @@ class Row_m extends MY_Model {
 		// then we skip everyhing else.
 		// -------------------------------------
 
-		if ($include_only_passed)
+		if ($include_only_passed && $fields)
 		{
 			foreach ($fields as $field)
 			{
@@ -1229,29 +1232,32 @@ class Row_m extends MY_Model {
 		// Is there any logic to complete before updating?
 		if ( Events::trigger('streams_pre_update_entry', array('stream' => $stream, 'entry_id' => $row_id, 'update_data' => $update_data)) === false ) return false;
 
-		$this->db->where('id', $row_id);
-		
-		if ( ! $this->db->update($stream->stream_prefix.$stream->stream_slug, $update_data))
+		if ($update_data)
 		{
-			return false;
-		}
-		else
-		{
-			// -------------------------------------
-			// Event: Post Update Entry
-			// -------------------------------------
+			$this->db->where('id', $row_id);
 
-			$trigger_data = array(
-				'entry_id'		=> $row_id,
-				'stream'		=> $stream,
-				'update_data'		=> $update_data,
-			);
+			if ( ! $this->db->update($stream->stream_prefix.$stream->stream_slug, $update_data) )
+			{
+				return false;
+			}
+			else
+			{
+				// -------------------------------------
+				// Event: Post Update Entry
+				// -------------------------------------
 
-			Events::trigger('streams_post_update_entry', $trigger_data);
+				$trigger_data = array(
+					'entry_id'		=> $row_id,
+					'stream'		=> $stream,
+					'update_data'		=> $update_data,
+				);
 
-			// -------------------------------------
+				Events::trigger('streams_post_update_entry', $trigger_data);
 
-			return $row_id;
+				// -------------------------------------
+
+				return $row_id;
+			}
 		}
 	}
 
@@ -1276,73 +1282,76 @@ class Row_m extends MY_Model {
 	{
 		$return_data = array();
 		
-		foreach ($fields as $field)
+		if ($fields)
 		{
-			// If we don't have a post item for this field, 
-			// then simply set the value to null. This is necessary
-			// for fields that want to run a pre_save but may have
-			// a situation where no post data is sent (like a single checkbox)
-			if ( ! isset($form_data[$field->field_slug]) and $set_missing_to_null)
+			foreach ($fields as $field)
 			{
-				$form_data[$field->field_slug] = null;
-			}
-
-			// If this is not in our skips list, process it.
-			if ( ! in_array($field->field_slug, $skips))
-			{
-				$type = $this->type->types->{$field->field_type};
-	
-				if ( ! isset($type->alt_process) or ! $type->alt_process)
+				// If we don't have a post item for this field, 
+				// then simply set the value to null. This is necessary
+				// for fields that want to run a pre_save but may have
+				// a situation where no post data is sent (like a single checkbox)
+				if ( ! isset($form_data[$field->field_slug]) and $set_missing_to_null)
 				{
-					// If a pre_save function exists, go ahead and run it
-					if (method_exists($type, 'pre_save'))
-					{
-						$return_data[$field->field_slug] = $type->pre_save(
-									$form_data[$field->field_slug],
-									$field,
-									$stream,
-									$row_id,
-									$form_data);
+					$form_data[$field->field_slug] = null;
+				}
 
-						// We are unsetting the null values to as to
-						// not upset db can be null rules.
-						if (is_null($return_data[$field->field_slug]))
+				// If this is not in our skips list, process it.
+				if ( ! in_array($field->field_slug, $skips))
+				{
+					$type = $this->type->types->{$field->field_type};
+		
+					if ( ! isset($type->alt_process) or ! $type->alt_process)
+					{
+						// If a pre_save function exists, go ahead and run it
+						if (method_exists($type, 'pre_save'))
 						{
-							unset($return_data[$field->field_slug]);
+							$return_data[$field->field_slug] = $type->pre_save(
+										$form_data[$field->field_slug],
+										$field,
+										$stream,
+										$row_id,
+										$form_data);
+
+							// We are unsetting the null values to as to
+							// not upset db can be null rules.
+							if (is_null($return_data[$field->field_slug]))
+							{
+								unset($return_data[$field->field_slug]);
+							}
+							else
+							{
+								$return_data[$field->field_slug] = $return_data[$field->field_slug];
+							}
 						}
 						else
 						{
-							$return_data[$field->field_slug] = $return_data[$field->field_slug];
+							$return_data[$field->field_slug] = $form_data[$field->field_slug];
+		
+							// Make null - some fields don't like just blank values
+							if ($return_data[$field->field_slug] == '')
+							{
+								$return_data[$field->field_slug] = null;
+							}
 						}
 					}
 					else
 					{
-						$return_data[$field->field_slug] = $form_data[$field->field_slug];
-	
-						// Make null - some fields don't like just blank values
-						if ($return_data[$field->field_slug] == '')
+						// If this is an alt_process, there can still be a pre_save,
+						// it just won't return anything so we don't have to
+						// save the value
+						if (method_exists($type, 'pre_save'))
 						{
-							$return_data[$field->field_slug] = null;
+							$type->pre_save(
+										$form_data[$field->field_slug],
+										$field,
+										$stream,
+										$row_id,
+										$form_data
+							);
 						}
 					}
 				}
-				else
-				{
-					// If this is an alt_process, there can still be a pre_save,
-					// it just won't return anything so we don't have to
-					// save the value
-					if (method_exists($type, 'pre_save'))
-					{
-						$type->pre_save(
-									$form_data[$field->field_slug],
-									$field,
-									$stream,
-									$row_id,
-									$form_data
-						);
-					}
-				}
-			}
+			}	
 		}
 
 		return $return_data;
