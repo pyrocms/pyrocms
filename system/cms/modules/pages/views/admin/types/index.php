@@ -27,7 +27,7 @@
 	
 									<?php echo anchor('admin/pages/types/fields/'.$page_type->id, lang('global:fields'), array('class'=>'button'));?> 
 									<?php echo anchor('admin/pages/types/edit/' . $page_type->id, lang('global:edit'), array('class'=>'button'));?> 
-									<?php echo anchor('admin/pages/types/delete/' . $page_type->id, lang('global:delete'), array('class'=>'button'));?>
+									<?php if ($page_type->slug !== 'default') echo anchor('admin/pages/types/delete/' . $page_type->id, lang('global:delete'), array('class'=>'button'));?>
 								</td>
 							</tr>
 						<?php endforeach; ?>
