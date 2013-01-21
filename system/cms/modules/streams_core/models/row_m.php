@@ -974,51 +974,54 @@ class Row_m extends MY_Model {
 		// format it
 		// -------------------------------------
 
-		foreach ($row as $row_slug => $data)
+		if ($row and (is_array($row) or  is_object($row)))
 		{
-			// Easy out for our non-formattables and
-			// fields we are disabling.
-			if (in_array($row_slug, array('id', 'created_by')) or in_array($row_slug, $disable))
+			foreach ($row as $row_slug => $data)
 			{
-				continue;
-			}
-						
-			// -------------------------------------
-			// Format Dates
-			// -------------------------------------
-			// We simply want these to be UNIX stamps
-			// -------------------------------------
-			
-			if ($row_slug == 'created' or $row_slug == 'updated')
-			{
-				if ($return_object)
+				// Easy out for our non-formattables and
+				// fields we are disabling.
+				if (in_array($row_slug, array('id', 'created_by')) or in_array($row_slug, $disable))
 				{
-					$row->$row_slug = strtotime($row->$row_slug);
+					continue;
 				}
-				else
+							
+				// -------------------------------------
+				// Format Dates
+				// -------------------------------------
+				// We simply want these to be UNIX stamps
+				// -------------------------------------
+				
+				if ($row_slug == 'created' or $row_slug == 'updated')
 				{
-					$row[$row_slug] = strtotime($row[$row_slug]);
-				}
-			}	
+					if ($return_object)
+					{
+						$row->$row_slug = strtotime($row->$row_slug);
+					}
+					else
+					{
+						$row[$row_slug] = strtotime($row[$row_slug]);
+					}
+				}	
 
-			// -------------------------------------
-			// Format Columns
-			// -------------------------------------
+				// -------------------------------------
+				// Format Columns
+				// -------------------------------------
 
-			if (array_key_exists($row_slug, $all_fields))
-			{
-				if ($return_object)
+				if (array_key_exists($row_slug, $all_fields))
 				{
-					$row->$row_slug = $this->format_column($row_slug,
-						$row->$row_slug, $row->id, $stream_fields->$row_slug->field_type, $stream_fields->$row_slug->field_data, $stream, $plugin_call);
-				}
-				else
-				{
-					$row[$row_slug] = $this->format_column($row_slug,
-						$row[$row_slug], $row['id'], $stream_fields->$row_slug->field_type, $stream_fields->$row_slug->field_data, $stream, $plugin_call);
+					if ($return_object)
+					{
+						$row->$row_slug = $this->format_column($row_slug,
+							$row->$row_slug, $row->id, $stream_fields->$row_slug->field_type, $stream_fields->$row_slug->field_data, $stream, $plugin_call);
+					}
+					else
+					{
+						$row[$row_slug] = $this->format_column($row_slug,
+							$row[$row_slug], $row['id'], $stream_fields->$row_slug->field_type, $stream_fields->$row_slug->field_data, $stream, $plugin_call);
+					}
 				}
 			}
-		}		
+		}
 
 		// -------------------------------------
 		// Run through alt processes
