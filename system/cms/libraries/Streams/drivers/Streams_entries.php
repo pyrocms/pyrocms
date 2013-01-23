@@ -87,6 +87,37 @@ class Streams_entries extends CI_Driver {
 		if ( ! $stream) $this->log_error('invalid_stream', 'get_entries');
 
 		// -------------------------------------
+		// Allow 'yes'/'no' fields to be bool
+		// -------------------------------------
+		// Inputs are yes/no because that's what
+		// the row parser expects them to be. This
+		// is because early on the row parser JUST took
+		// inputs from the streams plugin and param
+		// values could not be bool. So this should
+		// definitely be changed in the future. This is
+		// a workaround so devs can use true/false
+		// instead of having to use 'yes'/'no' like
+		// common savages.
+		// -------------------------------------
+
+		$bool_inputs = array('show_upcoming', 'show_past', 'exclude_called', 'restrict_user', 'paginate');
+
+		foreach ($bool_inputs as $input)
+		{
+			if (isset($params[$input]))
+			{
+				if ($params[$input] === true)
+				{
+					$params[$input] = 'yes';
+				}
+				elseif ($params[$input] === false)
+				{
+					$params[$input] = 'no';
+				}
+			}
+		}
+
+		// -------------------------------------
 		// Pagination Limit
 		// -------------------------------------
 
