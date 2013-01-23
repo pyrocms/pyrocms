@@ -210,6 +210,13 @@ class Plugin_Navigation extends Plugin
 				$current_link       = $link['url'];
 				$wrapper['class'][] = $current_class;
 			}
+			
+			// if we are reading blog post, mark blog link as 'current'
+			if($link['module_name'] === 'blog' AND strpos(current_url(), $link['url']) !== FALSE)
+			{
+				$current_link = $link['url'];
+				$wrapper['class'][] = $current_class;	
+			}
 
 			// is the link we're currently working with found inside the children html?
 			if ( ! in_array($current_class, $wrapper['class']) and
