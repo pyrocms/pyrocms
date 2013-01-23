@@ -177,7 +177,7 @@ class Fields_m extends CI_Model {
 			{
 				if (method_exists($field_type, 'param_'.$param.'_pre_save'))
 				{
-					$extra_data[$param] = $field_type->{'param_'.$param.'_pre_save'}($insert_data);
+					$extra_data[$param] = $field_type->{'param_'.$param.'_pre_save'}($extra, $insert_data);
 				}
 				elseif(isset($extra[$param]))
 				{
@@ -436,7 +436,7 @@ class Fields_m extends CI_Model {
 			{
 				if (method_exists($type, 'param_'.$param.'_pre_save'))
 				{
-					$custom_params[$param] = $type->{'param_'.$param.'_pre_save'}($update_data);
+					$custom_params[$param] = $type->{'param_'.$param.'_pre_save'}($data, $update_data);
 				}
 				elseif(isset($data[$param]))
 				{
