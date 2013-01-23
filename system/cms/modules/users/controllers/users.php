@@ -260,6 +260,10 @@ class Users extends Public_Controller
 		$user = new stdClass();
 
 		// Set default values as empty or POST values
+		if(!isset($user) || !is_object($user)){
+			$user = new stdClass;
+		}
+		
 		foreach ($validation as $rule)
 		{
 			$user->{$rule['field']} = $this->input->post($rule['field']) ? $this->input->post($rule['field']) : null;
