@@ -48,40 +48,6 @@ class Streams_entries extends CI_Driver {
 	// --------------------------------------------------------------------------
 
 	/**
-	 * Pagination Config
-	 *
-	 * These are the CI defaults that can be
-	 * overridden by PyroStreams.
-	 *
-	 * @access	public
-	 * @var		array
-	 */
-	public $pagination_config = array(
-			'num_links'		=> 3,
-			'full_tag_open'		=> '<p>',
-			'full_tag_close'	=> '</p>',
-			'first_link'		=> 'First',
-			'first_tag_open'	=> '<div>',
-			'first_tag_close'	=> '</div>',
-			'last_link'		=> 'Last',
-			'last_tag_open'		=> '<div>',
-			'last_tag_close'	=> '</div>',
-			'next_link'		=> '&gt;',
-			'next_tag_open'		=> '<div>',
-			'next_tag_close'	=> '</div>',
-			'prev_link'		=> '&lt;',
-			'prev_tag_open'		=> '<div>',
-			'prev_tag_close'	=> '</div>',
-			'cur_tag_open'		=> '<span>',
-			'cur_tag_close'		=> '</span>',
-			'num_tag_open'		=> '<div>',
-			'num_tag_close'		=> '</div>',
-			'display_pages'		=> true
-	);
-
-	// --------------------------------------------------------------------------
-
-	/**
 	 * Get entries for a stream.
 	 *
 	 * @access	public
@@ -142,23 +108,7 @@ class Streams_entries extends CI_Driver {
 		{
 			$return['total'] 	= $rows['pag_count'];
 			
-			// Add in our pagination config
-			// override varaibles.
-			foreach ($this->pagination_config as $key => $var)
-			{
-				if (isset($pagination_config[$key]))
-				{
-					$this->pagination_config[$key] = $pagination_config[$key];
-				}
-
-				// Make sure we set the false params to boolean
-				if ($this->pagination_config[$key] === 'false')
-				{
-					$this->pagination_config[$key] = false;
-				}
-			}
-			
-			$return['pagination'] = $CI->row_m->build_pagination($params['pag_segment'], $params['limit'], $return['total'], $this->pagination_config);
+			$return['pagination'] = $CI->row_m->build_pagination($params['pag_segment'], $params['limit'], $return['total'], $pagination_config);
 		}		
 		else
 		{
