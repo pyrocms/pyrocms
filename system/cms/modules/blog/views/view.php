@@ -5,7 +5,7 @@
 	<div class="meta">
 		<div class="date">
 			<?php echo lang('blog:posted_label') ?>:
-			<span><?php echo format_date($post->created_on) ?></span></div>
+			<span><?php echo format_date($post->created_on) ?></span>
 		</div>
 
 		<?php if (isset($post->display_name)): ?>

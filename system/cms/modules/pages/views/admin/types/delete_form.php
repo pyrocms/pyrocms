@@ -17,7 +17,7 @@
 	
 			<p>
 				<button type="submit" class="btn red"><?php echo lang('global:delete'); ?></button>
-				<a href="<?php echo site_url('admin/pages/types'); ?>" class="btn"><?php echo lang('cancel_label'); ?></a>
+				<a href="<?php echo site_url('admin/pages/types'); ?>" class="btn gray"><?php echo lang('cancel_label'); ?></a>
 			</p>
 	
 		</form>

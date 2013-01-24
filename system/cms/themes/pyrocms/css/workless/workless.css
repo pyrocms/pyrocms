@@ -1797,6 +1797,7 @@ button.btn::-moz-focus-inner,input[type=submit].btn::-moz-focus-inner {
 /* Pagination */
 .pagination {
 	margin:18px 0;
+	padding-bottom: 20px;
 }
 
 .pagination ul {
