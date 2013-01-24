@@ -58,7 +58,7 @@ jQuery(function($) {
 						$('.hide-on-ckeditor-maximize').addClass('hidden');
 						$('.cke_button__maximize').addClass('ckeditor-pyro-logo');
 					}
-					else if(data == 2) //snap back
+					else if(e.data == 2) //snap back
 					{
 						$('.hide-on-ckeditor-maximize').removeClass('hidden');
 						$('.cke_button__maximize').removeClass('ckeditor-pyro-logo');
