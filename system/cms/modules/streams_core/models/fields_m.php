@@ -453,7 +453,7 @@ class Fields_m extends CI_Model {
 			{
 				if (method_exists($type, 'param_'.$param.'_pre_save'))
 				{
-					$update_data['custom'][$param] = $type->{'param_'.$param.'_pre_save'}( $insert_data );
+					$update_data['custom'][$param] = $type->{'param_'.$param.'_pre_save'}( $update_data );
 				}
 			}
 			
