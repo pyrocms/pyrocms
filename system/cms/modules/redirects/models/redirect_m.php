@@ -39,7 +39,7 @@ class Redirect_m extends MY_Model
     {
         return $this->pdb
             ->table($this->_table)
-            ->like('from', $from, 'none')
+            ->where('from', '=', $from)
             ->first();
     }
 
