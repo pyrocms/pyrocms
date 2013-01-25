@@ -76,9 +76,7 @@ class Install_m extends CI_Model
 		    $table->increments('id');
 		    $table->string('username', 20);
 		    $table->string('email', 60);
-		    $table->string('password', 40);
-		    $table->string('salt', 6);
-		    $table->integer('group_id')->nullable();
+		    $table->string('password', 255);
 		    $table->string('ip_address');
 		    $table->boolean('is_activated')->default(false);
 		    $table->string('activation_hash')->nullable();
@@ -93,16 +91,14 @@ class Install_m extends CI_Model
 		    $table->index('username');
 		};
 
-		// @TODO Upgrade sha1 to password_hash()
-		$salt = substr(md5(uniqid(rand(), true)), 0, 5);
-		$password = sha1($user['password'].$salt);
+		// Call upon the Mystical Hasher of Asoroth
+		$hasher = new Cartalyst\Sentry\Hashing\NativeHasher;
+		$password = $hasher->hash($user['password']);
 
 		$user_data = array(
 			'username'    => $user['username'],
 			'email'       => $user['email'],
 			'password'    => $password,
-			'salt'        => $salt,
-			'group_id'    => 1,
 			'ip_address'  => $this->input->ip_address(),
 			'is_activated'=> true,
 			'created_on'  => time(),
@@ -116,6 +112,28 @@ class Install_m extends CI_Model
 		$conn->table('core_users')->insert($user_data);
 		$conn->table($db['site_ref'].'_users')->insert($user_data);
 
+		// Create Users Groups
+		$user_groups_table = function($table)
+		{
+			$table->increments('id');
+			$table->integer('user_id');
+			$table->integer('group_id');
+		};
+
+		$user_groups_data = array(
+			'user_id'    => 1,
+			'group_id'   => 1,
+		);
+
+		// Create both User Groups tables
+		$schema->create('core_users_groups', $user_groups_table);
+		$schema->create($db['site_ref'].'_users_groups', $user_groups_table);
+
+		// Insert our new user to both
+		$conn->table('core_users_groups')->insert($user_groups_data);
+		$conn->table($db['site_ref'].'_users_groups')->insert($user_groups_data);
+
+		// Create Session Table
 		$schema->create(config_item('sess_table_name'), function($table) {
 		    $table->string('session_id', 40)->default(0);
 		    $table->string('ip_address', 16)->default(0);

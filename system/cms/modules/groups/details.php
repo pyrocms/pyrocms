@@ -81,8 +81,12 @@
 
         $schema->create('groups', function($table) {
             $table->increments('id');
-            $table->string('name', 100);
-            $table->string('description', 250)->nullable();
+            $table->string('name');
+            $table->string('description')->nullable();
+            $table->text('permissions')->nullable();
+            $table->timestamps();
+
+            $table->unique('name');
         });
 
         $this->pdb->table('groups')->insert(array(
