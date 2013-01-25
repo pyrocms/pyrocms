@@ -1,0 +1,9 @@
+{
+  "noIDs": false
+, "noJSPrefix": true
+, "noOverqualifying": false
+, "noUnderscores": false
+, "noUniversalSelectors": false
+, "zeroUnits": true
+, "strictPropertyOrder": true
+}
