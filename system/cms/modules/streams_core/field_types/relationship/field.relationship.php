@@ -49,20 +49,20 @@ class Field_relationship
 
 
 		// Streams in the pages namespace are spread out over two tables.
-	        // Joining is necessary to get the titles and the right IDs
-	        if( $stream->stream_namespace === 'pages' ) 
-	        {
-	            
-	            $title_column = 'title';
-	            
-	            $obj = $this->CI->db
-	                ->select('pages.title as title, pages.id as id')
-	                ->join('pages', 'pages.entry_id = ' . $stream->stream_prefix.$stream->stream_slug . '.id', 'left')
-	                ->where('pages.type_id', $stream->id)
-	                ->get($stream->stream_prefix.$stream->stream_slug);
-	        }
-	        else 
-	        {
+		// Joining is necessary to get the titles and the right IDs
+		if( $stream->stream_namespace === 'pages' ) 
+		{
+			
+			$title_column = 'title';
+			
+			$obj = $this->CI->db
+				->select('pages.title as title, pages.id as id')
+				->join('pages', 'pages.entry_id = ' . $stream->stream_prefix.$stream->stream_slug . '.id', 'left')
+				->where('pages.type_id', $stream->id)
+				->get($stream->stream_prefix.$stream->stream_slug);
+		}
+		else 
+		{
 			$title_column = $stream->title_column;
 			
 			// Default to ID for title column
@@ -73,7 +73,7 @@ class Field_relationship
 		
 			// Get the entries
 			$obj = $this->CI->db->get($stream->stream_prefix.$stream->stream_slug);
-	        }
+		}
 	        
 		$choices = array();
 
