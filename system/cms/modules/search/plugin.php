@@ -70,10 +70,15 @@ class Plugin_Search extends Plugin
 	 */
 	public function form()
 	{
-		$action  = $this->attribute('action', 'search/results');
-		$class   = $this->attribute('class', 'search');
+		$attributes = $this->attributes();
+		
+		// This needs to be by itself
+		unset($attributes['action']);
 
-		$output	 = form_open($action, 'class="'.$class.'"').PHP_EOL;
+		// Now, did they set a custom action?
+		$action = $this->attribute('action', 'search/results');
+
+		$output	 = form_open($action, $attributes).PHP_EOL;
 		$output .= $this->content();
 		$output .= form_close();
 
