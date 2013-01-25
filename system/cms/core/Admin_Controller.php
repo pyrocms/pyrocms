@@ -192,9 +192,10 @@ class Admin_Controller extends MY_Controller
 			redirect('admin/login');
 		}
 
+		$admin = $this->sentry->getGroupProvider()->findByName('admin');
+
 		// Admins can go straight in
-		// TODO get actual permissions working right
-		if ($this->current_user->group_id == 1)
+		if ($this->current_user->inGroup($admin))
 		{
 			return true;
 		}

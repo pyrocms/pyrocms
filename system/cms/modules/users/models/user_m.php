@@ -10,6 +10,16 @@ class User_m extends Cartalyst\Sentry\Users\Eloquent\User
 	protected $table = 'users';
 
 	/**
+	 * Returns the relationship between users and groups.
+	 *
+	 * @return Illuminate\Database\Eloquent\Relations\BelongsToMany
+	 */
+	public function groups()
+	{
+		return $this->belongsToMany('Cartalyst\Sentry\Groups\Eloquent\Group', 'users_groups', 'user_id');
+	}
+
+	/**
 	 * Get recent users
 	 *
 	 * @return     array

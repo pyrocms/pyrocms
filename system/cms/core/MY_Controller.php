@@ -139,9 +139,6 @@ class MY_Controller extends MX_Controller
 			'pages/page_m',
 		));
 
-		// List available module permissions for this user
-		ci()->permissions = $this->permissions = $this->current_user ? $this->permission_m->get_group($this->current_user->group_id) : array();
-
 		// load all modules (the Events library uses them all) and make their details widely available
 		ci()->enabled_modules = $this->module_m->get_all();
 
@@ -198,8 +195,6 @@ class MY_Controller extends MX_Controller
 		{
 			Asset::add_path('module', $this->module_details['path'].'/');
 		}
-
-		$this->load->vars($pyro);
 		
 		$this->benchmark->mark('my_controller_end');
 		
