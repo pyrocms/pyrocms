@@ -185,17 +185,26 @@ class Plugin_Session extends Plugin
 
 		if ($this->session->flashdata('success'))
 		{
-			$output .= '<div class="' . $success_class . '">' . $this->session->flashdata('success') . '</div>';
+			foreach ((array) $this->session->flashdata('success') as $message)
+			{
+				$output .= '<div class="' . $success_class . '">' . $message . '</div>';
+			}
 		}
 
 		if ($this->session->flashdata('notice'))
 		{
-			$output .= '<div class="' . $notice_class . '">' . $this->session->flashdata('notice') . '</div>';
+			foreach ((array) $this->session->flashdata('notice') as $message)
+			{
+				$output .= '<div class="' . $notice_class . '">' . $message . '</div>';
+			}
 		}
 
 		if ($this->session->flashdata('error'))
 		{
-			$output .= '<div class="' . $error_class . '">' . $this->session->flashdata('error') . '</div>';
+			foreach ((array) $this->session->flashdata('error') as $message)
+			{
+				$output .= '<div class="' . $error_class . '">' . $message . '</div>';
+			}
 		}
 
 		return $output;

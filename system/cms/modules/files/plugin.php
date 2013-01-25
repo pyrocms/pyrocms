@@ -368,7 +368,9 @@ class Plugin_Files extends Plugin
 	
 	public function folder_exists()
 	{
-		return $this->file_folders_m->exists($this->attribute('slug'));
+		$exists = (bool) $this->file_folders_m->exists($this->attribute('slug'));
+
+		return $exists && $this->content() ? $this->content() : $exists;
 	}
 
 	private function _build_tag_location_url($type = '', $uri = '', $extras = array())

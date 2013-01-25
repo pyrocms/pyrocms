@@ -427,9 +427,18 @@ class Row_m extends MY_Model {
 		// -------------------------------------
 		// Restrict User
 		// -------------------------------------
-		
+		// This allows us to restrict returned
+		// entries by created_by. $restrict_user
+		// Could have the following values:
+		// - 'current'
+		// - a user id
+		// - a username
+		// -------------------------------------
+	
 		if (isset($restrict_user) and $restrict_user)
 		{
+			$restrict_user_id = null;
+
 			if ($restrict_user != 'no')
 			{
 				// Should we restrict to the current user?
@@ -439,12 +448,14 @@ class Row_m extends MY_Model {
 					// and then set the param
 					if (isset($this->current_user->id) and is_numeric($this->current_user->id))
 					{
-						$restrict_user = $this->current_user->id;
+						$restrict_user_id = $this->current_user->id;
 					}
 				}
 				elseif (is_numeric($restrict_user))
 				{
-					// It's numeric, meaning we don't have to do anything. Durrr...
+					// It's numeric, meaning we can just
+					// use it below easy!
+					$restrict_user_id = $restrict_user;
 				}
 				else
 				{
@@ -452,16 +463,21 @@ class Row_m extends MY_Model {
 					$user = $this->db
 							->select('id')
 							->limit(1)
-							->where('username', $user)
-							->get('users');
-					
-					$restrict_user = ($user) ? $user->id : 'no';
+							->where('username', $restrict_user)
+							->get('users')->row();
+
+					if ($user)
+					{
+						$restrict_user_id = $user->id;
+					}
 				}
 			}
 		
-			if ($restrict_user != 'no' and is_numeric($restrict_user))
+			// Did we get a restrict user value from the
+			// options above? If so, let's filter by it!
+			if ($restrict_user_id)
 			{
-				$this->sql['where'][] = $this->select_prefix.$this->db->protect_identifiers('created_by').'='.$restrict_user;
+				$this->sql['where'][] = $this->select_prefix.$this->db->protect_identifiers('created_by').'='.$restrict_user_id;
 			}
 		}
 
@@ -1551,7 +1567,14 @@ class Row_m extends MY_Model {
 		$segments = array_slice($this->uri->segment_array(), 0, $pag_segment-1);
 		
 		$pagination_config['base_url'] 			= site_url(implode('/', $segments).'/');
+
+		// -------------------------------------
+		// Figure Limit and Offset
+		// -------------------------------------
 		
+		if ( ! is_numeric($limit)) $limit = 0;
+		if ($limit < 0) $limit = 0;
+
 		// -------------------------------------
 		// Set basic pagination data
 		// -------------------------------------
