@@ -164,7 +164,6 @@ class Admin extends Admin_Controller
      * Callback method for validating the redirect's name
      *
      * @param string $from
-
      * @return bool
      */
     public function _check_unique($from)
