@@ -47,13 +47,30 @@ class Field_relationship
 			return '<em>'.$this->CI->lang->line('streams:relationship.doesnt_exist').'</em>';
 		}
 
-		$title_column = $stream->title_column;
-		
-		// Default to ID for title column
-		if ( ! trim($title_column) or !$this->CI->db->field_exists($title_column, $stream->stream_prefix.$stream->stream_slug))
-		{
-			$title_column = 'id';
-		}
+        // Streams in the pages namespace have their proper ID and title stored in the pages table
+        if( $stream->stream_namespace === 'pages' ) {
+
+            $title_column = 'title';
+
+            $obj = $this->CI->db
+                ->select('pages.title as ' . $title_column . ', pages.id as id')
+                ->join('page_types', 'page_types.id = pages.type_id', 'inner')
+                ->where('page_types.stream_id', $stream->id)
+                ->get('pages');
+        }
+        else 
+        {
+            $title_column = $stream->title_column;
+
+            // Default to ID for title column
+            if ( ! trim($title_column) or !$this->CI->db->field_exists($title_column, $stream->stream_prefix.$stream->stream_slug))
+            {
+                $title_column = 'id';
+            }
+
+            // Get the entries
+            $obj = $this->CI->db->get($stream->stream_prefix.$stream->stream_slug);
+        }
 	
 		// Get the entries
 		$obj = $this->CI->db->get($stream->stream_prefix.$stream->stream_slug);
