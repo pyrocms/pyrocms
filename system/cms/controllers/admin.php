@@ -82,7 +82,7 @@ class Admin extends Admin_Controller
 	public function logout()
 	{
 		$this->load->language('users/user');
-		$this->ion_auth->logout();
+		$this->sentry->logout();
 		$this->session->set_flashdata('success', lang('user:logged_out'));
 		redirect('admin/login');
 	}

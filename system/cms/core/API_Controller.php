@@ -16,7 +16,7 @@ class API_Controller extends REST_Controller
 	{
 		parent::__construct();
 		
-		ci()->current_user = $this->current_user = $this->rest->user_id ? $this->ion_auth->get_user($this->rest->user_id) : null;
+		ci()->current_user = $this->current_user = $this->rest->user_id ? User_m::find($this->rest->user_id) : null;
 	}
 	
 	/**
@@ -26,7 +26,7 @@ class API_Controller extends REST_Controller
 	{
 		if ( ! Settings::get('api_enabled'))
 		{
-			$this->response( array('status' => false, 'error' => 'This API is currently disabled.'), 505 );
+			$this->response(array('status' => false, 'error' => 'This API is currently disabled.'), 505);
 			exit;
 		}
 	}
