@@ -120,11 +120,14 @@ class MY_Controller extends MX_Controller
 		}
 
 		// Is there a logged in user?
-        $this->sentry = $this->setupSentry();
+        ci()->sentry = $this->sentry = $this->setupSentry();
 
         // Assign to EVERYTHING
         $user = $this->sentry->check();
         $this->template->current_user = ci()->current_user = $this->current_user = $user;
+
+        // Calculate permissions
+        ci()->permissions = $this->permissions = $this->calculatePermissions();
 
 		// Work out module, controller and method and make them accessable throught the CI instance
 		ci()->module = $this->module = $this->router->fetch_module();
@@ -390,6 +393,23 @@ class MY_Controller extends MX_Controller
             $userProvider,
             $throttle
         );
+    }
+
+    public function calculatePermissions()
+    {
+        // Grab specific user permissions
+        $permissions = $this->current_user->getUserPermissions();
+
+        // They could have multiple groups
+        $groups = $this->current_user->getGroups();
+
+        foreach ($groups as $group) {
+
+            // Add extra roles into the whitelist so far
+            $permissions += $group->getGroupPermissions();
+        }
+
+        return $permissions;
     }
 }
 

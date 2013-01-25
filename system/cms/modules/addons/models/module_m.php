@@ -188,8 +188,10 @@ class Module_m extends MY_Model
 			
 			if ( ! empty($params['is_backend']))
 			{
+				$admin = ci()->sentry->getGroupProvider()->findByName('admin');
+
 				// This user has no permissions for this module
-				if ( $this->current_user->group !== 'admin' and empty($this->permissions[$row->slug]) )
+				if (( ! $this->current_user->inGroup($admin)) and empty($this->permissions[$row->slug]))
 				{
 					continue;
 				}
