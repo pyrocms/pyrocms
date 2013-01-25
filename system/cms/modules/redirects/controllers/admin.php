@@ -15,17 +15,17 @@ class Admin extends Admin_Controller
     protected $validation_rules = array(
         array(
             'field' => 'type',
-            'label' => 'lang:redirects.type',
+            'label' => 'lang:redirects:type',
             'rules' => 'trim|required|integer'
         ),
         array(
             'field' => 'from',
-            'label' => 'lang:redirects.from',
+            'label' => 'lang:redirects:from',
             'rules' => 'trim|required|max_length[250]|callback__check_unique'
         ),
         array(
             'field' => 'to',
-            'label' => 'lang:redirects.to',
+            'label' => 'lang:redirects:to',
             'rules' => 'trim|required|max_length[250]'
         )
     );
