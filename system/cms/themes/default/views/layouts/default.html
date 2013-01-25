@@ -3,42 +3,34 @@
 <head>
 	{{ theme:partial name="metadata" }}
 </head>
-<body>
+<body id="top">
 
 	<!-- Begin pageWrapper -->
 	<div id="pageWrapper">
+		{{ integration:analytics }}
 
-			{{ theme:partial name="header" }}
-	
-			<!-- Begin nav -->
-			<nav id="global-nav">
-				<ul id="head-nav">
-				{{ navigation:links group="header" }}
-				</ul>
-			</nav>
-			<!-- End nav -->
-			
-			<div class="container">
-			<!-- Begin contentWrapper -->
-			<div id="contentWrapper">
-				
-				{{ if page:is_home == true }}
-				{{ theme:partial name="content-home" }}
-				{{ else }}
-				{{ theme:partial name="content" }}
-				{{ endif }}
-				
-			</div>
-			<!-- End contentWrapper -->
-			</div> <!-- End Container -->
-			
-			<div id="push"></div>
-	</div>
-	<!-- End pageWrapper -->
+		{{ theme:partial name="header" }}
+
+		<!-- Begin nav -->
+		<nav>
+			<ul id="head-nav">
+			{{ navigation:links group="header" }}
+			</ul>
+		</nav>
+		<!-- End nav -->
+
+		<!-- Begin contentWrapper -->
+		<div id="contentWrapper">
+
+			{{ theme:partial name="content" }}
+
+		</div>
+		<!-- End contentWrapper -->
 
 	{{ theme:partial name="footer" }}
 
-	{{ integration:analytics }}
+	</div>
+	<!-- End pageWrapper -->
 
 </body>
 </html>
