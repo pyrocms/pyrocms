@@ -78,7 +78,7 @@ class Admin extends Admin_Controller {
 		echo '<ul class="modal_select">';
 		foreach ($all as $pt)
 		{
-			echo '<li><a href="'.site_url('admin/pages/create?page_type='.$pt->id.$parent).'">'.$pt->title.'</a></li>';
+			echo '<li><a href="'.site_url('admin/pages/create?page_type='.$pt->id.$parent).'">'.$pt->title.' | '.$pt->description.'</a></li>';
 		}
 		echo '</ul>';
 	}
