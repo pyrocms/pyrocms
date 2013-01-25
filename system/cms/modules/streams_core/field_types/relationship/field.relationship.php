@@ -48,18 +48,16 @@ class Field_relationship
 		}
 
 
-		// Streams in the pages namespace are spread out over two tables.
-		// Joining is necessary to get the titles and the right IDs
-		if( $stream->stream_namespace === 'pages' ) 
-		{
-			
+		// Streams in the pages namespace have their proper ID and title stored in the pages table
+		if( $stream->stream_namespace === 'pages' ) {
+
 			$title_column = 'title';
-			
+
 			$obj = $this->CI->db
-				->select('pages.title as title, pages.id as id')
-				->join('pages', 'pages.entry_id = ' . $stream->stream_prefix.$stream->stream_slug . '.id', 'left')
-				->where('pages.type_id', $stream->id)
-				->get($stream->stream_prefix.$stream->stream_slug);
+				->select('pages.title as ' . $title_column . ', pages.id as id')
+				->join('page_types', 'page_types.id = pages.type_id', 'inner')
+				->where('page_types.stream_id', $stream->id)
+				->get('pages');
 		}
 		else 
 		{
