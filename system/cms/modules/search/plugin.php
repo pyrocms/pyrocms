@@ -110,7 +110,7 @@ class Plugin_Search extends Plugin
 		$pagination = create_pagination($uri, $total, $limit, $segment);
 		
 		$results = $this->search_index_m
-			->limit($pagination['limit'])
+			->limit($pagination['limit'], $pagination['offset'])
 			->filter($this->input->get('filter'))
 			->search($query);
 
