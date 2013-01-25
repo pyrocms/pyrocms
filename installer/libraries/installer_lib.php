@@ -271,7 +271,7 @@ class Installer_lib
 		// Able to use clean URLs?
 		$index_page = ($supported_servers[$server_name]['rewrite_support'] !== false) ? '' : 'index.php';
 
-		return $this->_write_file_vars('../system/cms/config/config.php', './assets/config/config.php', array('__INDEX__' => $index_page));
+		return $this->_write_file_vars('../system/cms/config/config.php', './assets/config/config.php', array('{index}' => $index_page));
 	}
 
 	/**
