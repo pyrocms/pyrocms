@@ -103,7 +103,7 @@ class Public_Controller extends MY_Controller
 		$this->template->set_metadata('canonical', site_url($this->uri->uri_string()), 'link');
 
 		// If there is a blog module, link to its RSS feed in the head
-		if (module_exists('blog'))
+		if (module_enabled('blog'))
 		{
 			$this->template->append_metadata('<link rel="alternate" type="application/rss+xml" title="'.Settings::get('site_name').'" href="'.site_url('blog/rss/all.rss').'" />');
 		}

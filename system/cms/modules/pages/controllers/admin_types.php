@@ -569,7 +569,9 @@ class Admin_types extends Admin_Controller
 
 		$page_type = $this->page_type_m->get($id);
 
-		if ( ! $page_type) show_error('Invalid ID');
+		// if the page type doesn't exist or if they somehow bypassed 
+		// our front-end checks and are deleting 'default' directly
+		if ( ! $page_type or $page_type->slug === 'default') show_error('Invalid ID');
 
 		// Will we be neededing to delete a stream as well?
 		// We will only be deleting a stream if:

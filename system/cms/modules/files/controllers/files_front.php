@@ -51,13 +51,13 @@ class Files_front extends Public_Controller
 
 	public function thumb($id = 0, $width = 100, $height = 100, $mode = null)
 	{
-		// is it a 15 char hash or is it a filename?
-		if (strlen($id) === 15 and strpos($id, '.') === false)
+		// is it a 15 char hash with no file extension or is it an old style numeric id with no file extension?
+		if ((strlen($id) === 15 and strpos($id, '.') === false) or (is_numeric($id) and strpos($id, '.') === false))
 		{
 			$file = $this->file_m->get($id);
 		}
 		
-		// they've passed the filename itself
+		// it's neither a legacy numeric id nor a new hash id so they've passed the filename itself
 		else
 		{
 			$data = getimagesize($this->_path.$id) OR show_404();
