@@ -98,6 +98,19 @@ abstract class Plugin
 	}
 
 	/**
+	 * Set the value of an attribute.
+	 *
+	 * @param string $param The name of the attribute.
+	 * @param mixed $value The value to set for the attribute.
+	 *
+	 * @return mixed The value.
+	 */
+	public function set_attribute($param, $value)
+	{
+		$this->attributes[$param] = $value;
+	}
+
+	/**
 	 * Parse special variables in an attribute
 	 *
 	 * @param string $value The value of the attribute.
@@ -125,7 +138,7 @@ abstract class Plugin
 			);
 	
 			// user info
-			if($this->current_user) {
+			if ($this->current_user) {
 				$default_data['user_id']	= $this->current_user->id;
 				$default_data['username']	= $this->current_user->username;
 			}
