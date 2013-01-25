@@ -62,7 +62,7 @@ class Migration_Add_populate_search_index extends CI_Migration
 				'layout_id' => 1,
 				'status' => 'live',
 				'created_on' => time(),
-				'strict_uri' => true,
+				'strict_uri' => false,
 				'order' => time(),
 			));
 
