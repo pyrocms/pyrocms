@@ -300,6 +300,7 @@ class Module_Pages extends Module
 				'restricted_to' => '',
 				'created_on' => now(),
 				'is_home' => false,
+				'strict_uri' => false,
 				'order' => now()
 			),
 			'fourohfour' => array(
