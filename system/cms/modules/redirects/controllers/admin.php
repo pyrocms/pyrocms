@@ -55,7 +55,7 @@ class Admin extends Admin_Controller
         $this->template->pagination = create_pagination('admin/redirects/index', $total_rows);
 
         // Using this data, get the relevant results
-        $this->template->redirects = $this->redirect_m->orderBy('`from`')->limit($this->template->pagination['limit'])->getAll();
+        $this->template->redirects = $this->redirect_m->take($this->template->pagination['limit'])->getAll();
         $this->template->build('admin/index');
     }
 

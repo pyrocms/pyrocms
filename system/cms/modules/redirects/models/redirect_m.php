@@ -18,8 +18,8 @@ class Redirect_m extends MY_Model
     public function get($id)
     {
         return $this->pdb
-            ->table($this->_table)
-            ->where($this->primary_key, '=', $id)
+            ->table('redirects')
+            ->where('id', '=', $id)
             ->first();
     }
 
@@ -31,7 +31,8 @@ class Redirect_m extends MY_Model
     public function getAll()
     {
         return $this->pdb
-            ->table($this->_table)
+            ->table('redirects')
+            ->orderBy('from')
             ->get();
     }
 
