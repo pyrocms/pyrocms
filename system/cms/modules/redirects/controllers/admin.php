@@ -66,10 +66,8 @@ class Admin extends Admin_Controller
     {
         $messages = array();
         // Got validation?
-        if ($this->form_validation->run())
-        {
-            if ($id = $this->redirect_m->insert($_POST))
-            {
+        if ($this->form_validation->run()) {
+            if ($id = $this->redirect_m->insert($_POST)) {
                 $this->session->set_flashdata('success', lang('redirects:add_success'));
                 
                 Events::trigger('redirect_created', $id);
@@ -82,8 +80,7 @@ class Admin extends Admin_Controller
 
         // Loop through each validation rule
         $redirect = array();
-        foreach($this->validation_rules as $rule)
-        {
+        foreach ($this->validation_rules as $rule) {
             $redirect[$rule['field']] = set_value($rule['field']);
         }
 
@@ -109,10 +106,8 @@ class Admin extends Admin_Controller
         // Get the redirect
         $redirect = $this->redirect_m->get($id);
 
-        if ($this->form_validation->run())
-        {
-            if ($this->redirect_m->update($id, $_POST))
-            {
+        if ($this->form_validation->run()) {
+            if ($this->redirect_m->update($id, $_POST)) {
                 $this->session->set_flashdata('success', $this->lang->line('redirects:edit_success'));
                 
                 Events::trigger('redirect_updated', $id);
@@ -141,32 +136,24 @@ class Admin extends Admin_Controller
         $id_array = ( ! empty($id)) ? array($id) : $this->input->post('action_to');
 
         // Delete multiple
-        if( ! empty($id_array))
-        {
+        if (! empty($id_array)) {
             $deleted = 0;
             $to_delete = 0;
-            foreach ($id_array as $id)
-            {
-                if ($this->redirect_m->delete($id))
-                {
+            foreach ($id_array as $id) {
+                if ($this->redirect_m->delete($id)) {
                     $deleted++;
-                }
-                else
-                {
+                } else {
                     $this->session->set_flashdata('error', sprintf($this->lang->line('redirects:mass_delete_error'), $id));
                 }
                 $to_delete++;
             }
 
-            if ($deleted > 0)
-            {
+            if ($deleted > 0) {
                 $this->session->set_flashdata('success', sprintf($this->lang->line('redirects:mass_delete_success'), $deleted, $to_delete));
             }
             
             Events::trigger('redirect_deleted', $id_array);
-        }
-        else
-        {
+        } else {
             $this->session->set_flashdata('error', $this->lang->line('redirects:no_select_error'));
         }       
         
@@ -184,8 +171,7 @@ class Admin extends Admin_Controller
     {
         $id = $this->uri->segment(4);
 
-        if ($this->redirect_m->checkFrom($from, $id))
-        {
+        if ($this->redirect_m->checkFrom($from, $id)) {
             $this->form_validation->set_message('_check_unique', sprintf(lang('redirects:request_conflict_error'), $from));
             return false;
         }
