@@ -1,78 +1,97 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php 
+
 /**
  * Redirect model
  *
- * @author 		PyroCMS Dev Team
- * @package 	PyroCMS\Core\Modules\Redirects\Models 
+ * @author      PyroCMS Dev Team
+ * @package     PyroCMS\Core\Modules\Redirects\Models 
  */
 class Redirect_m extends MY_Model
 {
 
-	public function get($id)
-	{
-		return $this->db->where($this->primary_key, $id)
-			->get($this->_table)
-			->row_array();
-	}
+    /**
+     * Gets a single redirect using the id.
+     *
+     * @param   mixed   $where
+     * @return  object
+     */
+    public function get($id)
+    {
+        return $this->pdb
+            ->table($this->_table)
+            ->where($this->primary_key, '=', $id)
+            ->first();
+    }
 
-	public function get_all()
-	{
-		//$this->db->where('site_id', $this->site->id);
-		return $this->db->get('redirects')->result();
-	}
+    /**
+     * Gets all redirects
+     *
+     * @return  object
+     */
+    public function getAll()
+    {
+        return $this->pdb
+            ->table($this->_table)
+            ->get();
+    }
 
-	public function get_from($from)
-	{
-		return $this->db
-			->like('from', $from, 'none')
-			->get($this->_table)
-			->row();
-	}
+    public function getFrom($from)
+    {
+        return $this->pdb
+            ->table($this->_table)
+            ->like('from', $from, 'none')
+            ->first();
+    }
 
-	public function count_all()
-	{
-		return $this->db->count_all_results('redirects');
-	}
+    public function countAll()
+    {
+        return $this->pdb
+            ->table($this->_table)
+            ->count();
+    }
 
-	public function insert($input = array(), $skip_validation = false)
-	{
-		return $this->db->insert('redirects', array(
-			'`type`' => $input['type'],
-			'`from`' => str_replace('*', '%', $input['from']),
-			'`to`' => trim($input['to'], '/'),
-		));
-	}
+    public function insert($input = array(), $skip_validation = false)
+    {
+        return $this->pdb
+            ->table($this->_table)
+            ->insertGetId(array(
+                '`type`' => $input['type'],
+                '`from`' => str_replace('*', '%', $input['from']),
+                '`to`' => trim($input['to'], '/'),
+            ));
+    }
 
-	public function update($id, $input = array(), $skip_validation = false)
-	{
-		$this->db->where(array(
-			'id' => $id,
-		));
+    public function update($id, $input = array(), $skip_validation = false)
+    {
+        return $this->pdb
+            ->table($this->_table)
+            ->where('id', '=', $id)
+            ->update(array(
+                '`type`' => $input['type'],
+                '`from`' => str_replace('*', '%', $input['from']),
+                '`to`' => trim($input['to'], '/')
+            ));
+    }
 
-		return $this->db->update('redirects', array(
-			'`type`' => $input['type'],
-			'`from`' => str_replace('*', '%', $input['from']),
-			'`to`' => trim($input['to'], '/')
-		));
-	}
+    public function delete($id)
+    {
+        return $this->pdb
+            ->table($this->_table)
+            ->where('id', '=', $id)
+            ->delete();
+    }
 
-	public function delete($id)
-	{
-		return $this->db->delete('redirects', array(
-			'id' => $id,
-		));
-	}
+    // Callbacks
+    public function checkFrom($from, $id = 0)
+    {
+        if($id > 0)
+        {
+            $this->pdb->where('id', '!=', $id);
+        }
 
-	// Callbacks
-	public function check_from($from, $id = 0)
-	{
-		if($id > 0)
-		{
-			$this->db->where('id !=', $id);
-		}
-
-		return $this->db->where(array(
-			'`from`' =>  str_replace('*', '%', $from),
-		))->count_all_results('redirects');
-	}
+        return $this->pdb
+                    ->table($this->_table)
+                    ->where('`from`', str_replace('*', '%', $from))
+                    ->count();
+    }
 }
