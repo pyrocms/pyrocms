@@ -90,7 +90,7 @@ class Plugin_Search extends Plugin
 	{
 		$this->load->model('search_index_m');
 
-		$limit   = $this->attribute('limit', 5);
+		$limit   = $this->attribute('limit', 10);
 		$uri     = $this->attribute('uri', 'search/results');
 		$segment = $this->attribute('pag_segment', count(explode('/', $uri)) + 1);
 
