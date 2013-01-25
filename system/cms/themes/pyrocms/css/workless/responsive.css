@@ -51,7 +51,7 @@ nav#primary .chzn-container {
 input[type="text"],
 input[type="password"],
 input[type="password"] {
-  width: 200px;
+  width: auto;
 }
 
 textarea,
@@ -461,7 +461,7 @@ button#login-submit:hover {
   input[type="text"],
   input[type="password"],
   input[type="password"] {
-    width: 400px;
+    width: auto;
   }
   textarea,
   .cke_skin_kama .cke_wrapper {
@@ -704,13 +704,17 @@ button#login-submit:hover {
     display: inline;
     margin-bottom: 0;
   }
+  table .actions a.btn {
+    display: inline-block;
+    margin-bottom: 0;
+  }
   .alert {
     width: auto;
   }
   input[type="text"],
   input[type="password"],
   input[type="password"] {
-    width: 500px;
+    width: auto;
   }
   textarea,
   .cke_skin_kama .cke_wrapper {
@@ -824,7 +828,7 @@ button#login-submit:hover {
   input[type="text"],
   input[type="password"],
   input[type="password"] {
-    width: 500px;
+    width: auto;
   }
   textarea,
   .cke_skin_kama .cke_wrapper {
@@ -900,7 +904,7 @@ button#login-submit:hover {
   input[type="text"],
   input[type="password"],
   input[type="password"] {
-    width: 500px;
+    width: auto;
   }
   textarea,
   .cke_skin_kama .cke_wrapper {

@@ -558,6 +558,10 @@ input[type="button"] {
   background-image: linear-gradient(#ffffff, #dddddd);
   border: 1px solid;
   border-color: #ddd #bbb #999;
+  -webkit-transition: 0ms linear all !important;
+     -moz-transition: 0ms linear all !important;
+       -o-transition: 0ms linear all !important;
+          transition: 0ms linear all !important;
   -webkit-border-radius: 4px;
      -moz-border-radius: 4px;
           border-radius: 4px;
@@ -566,20 +570,6 @@ input[type="button"] {
      -moz-background-clip: padding;
           background-clip: padding-box;
   -webkit-appearance: none;
-}
-
-.btn:disabled {
-  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25) !important;
-  background-color: #bbb!important;
-  background-image: -khtml-gradient(linear, left top, left bottom, from(#cccccc), to(#bbbbbb)) !important;
-  background-image: -moz-linear-gradient(#cccccc, #bbbbbb) !important;
-  background-image: -ms-linear-gradient(#cccccc, #bbbbbb) !important;
-  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #cccccc), color-stop(100%, #bbbbbb)) !important;
-  background-image: -webkit-linear-gradient(#cccccc, #bbbbbb) !important;
-  background-image: -o-linear-gradient(#cccccc, #bbbbbb) !important;
-  background-image: linear-gradient(#cccccc, #bbbbbb) !important;
-  background-repeat: repeat-x !important;
-  border: 1px solid #aaa!important;
 }
 
 a.button {
@@ -885,7 +875,6 @@ table .actions a {
   border: 1px solid #bbbbbb;
   *border: 0;
   border-color: #e6e6e6 #e6e6e6 #bfbfbf;
-  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
   border-bottom-color: #a2a2a2;
   -webkit-border-radius: 4px;
      -moz-border-radius: 4px;
@@ -902,10 +891,6 @@ table .actions a {
   color: #333333;
   text-decoration: none;
   background-position: 0 -15px;
-  -webkit-transition: background-position 0.1s linear;
-     -moz-transition: background-position 0.1s linear;
-       -o-transition: background-position 0.1s linear;
-          transition: background-position 0.1s linear;
 }
 
 .btn,
@@ -918,6 +903,10 @@ a.btn {
 .btn a:hover,
 a.btn:hover {
   color: #fff;
+  -webkit-transition: 0ms linear all !important;
+     -moz-transition: 0ms linear all !important;
+       -o-transition: 0ms linear all !important;
+          transition: 0ms linear all !important;
 }
 
 .btn.red {
@@ -932,7 +921,6 @@ a.btn:hover {
   background-image: linear-gradient(to bottom, #ee5f5b, #bd362f);
   background-repeat: repeat-x;
   border-color: #bd362f #bd362f #802420;
-  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffee5f5b', endColorstr='#ffbd362f', GradientType=0);
   filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
 }
@@ -955,7 +943,6 @@ a.btn:hover {
   background-image: linear-gradient(to bottom, #fbb450, #f89406);
   background-repeat: repeat-x;
   border-color: #f89406 #f89406 #ad6704;
-  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fffbb450', endColorstr='#fff89406', GradientType=0);
   filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
 }
@@ -978,7 +965,6 @@ a.btn:hover {
   background-image: linear-gradient(to bottom, #62c462, #51a351);
   background-repeat: repeat-x;
   border-color: #51a351 #51a351 #387038;
-  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff62c462', endColorstr='#ff51a351', GradientType=0);
   filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
 }
@@ -1001,7 +987,6 @@ a.btn:hover {
   background-image: linear-gradient(to bottom, #0088cc, #0044cc);
   background-repeat: repeat-x;
   border-color: #0044cc #0044cc #002a80;
-  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0088cc', endColorstr='#ff0044cc', GradientType=0);
   filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
 }
@@ -1024,7 +1009,6 @@ a.btn:hover {
   background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
   background-repeat: repeat-x;
   border-color: #e6e6e6 #e6e6e6 #bfbfbf;
-  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffe6e6e6', GradientType=0);
   filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
 }
@@ -1049,21 +1033,24 @@ a.btn:hover {
   font-size: 11px;
 }
 
-.btn.disabled {
-  cursor: default;
-  background-image: none;
-  opacity: 0.65;
-  filter: alpha(opacity=65);
-  -webkit-box-shadow: none;
-     -moz-box-shadow: none;
-          box-shadow: none;
-}
-
+.btn.disabled,
 .btn:disabled {
-  cursor: default;
+  cursor: not-allowed;
   background-image: none;
   opacity: 0.65;
   filter: alpha(opacity=65);
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25) !important;
+  cursor: not-allowed;
+  background-color: #bbb!important;
+  background-image: -khtml-gradient(linear, left top, left bottom, from(#cccccc), to(#bbbbbb)) !important;
+  background-image: -moz-linear-gradient(#cccccc, #bbbbbb) !important;
+  background-image: -ms-linear-gradient(#cccccc, #bbbbbb) !important;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #cccccc), color-stop(100%, #bbbbbb)) !important;
+  background-image: -webkit-linear-gradient(#cccccc, #bbbbbb) !important;
+  background-image: -o-linear-gradient(#cccccc, #bbbbbb) !important;
+  background-image: linear-gradient(#cccccc, #bbbbbb) !important;
+  background-repeat: repeat-x !important;
+  border: 1px solid #aaa!important;
   -webkit-box-shadow: none;
      -moz-box-shadow: none;
           box-shadow: none;
