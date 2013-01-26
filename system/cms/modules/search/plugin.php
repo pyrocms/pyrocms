@@ -122,6 +122,8 @@ class Plugin_Search extends Plugin
 		// Remember which modules have been loaded
 		static $modules = array();
 
+		$count = 1;
+
 		// Loop through found results to find extra information
 		foreach ($results as &$row)
 		{
@@ -145,6 +147,10 @@ class Plugin_Search extends Plugin
 			$row->plural = lang($row->entry_plural) ? lang($row->entry_plural) : $row->entry_plural;
 
 			$row->url = site_url($row->uri);
+
+			// Increment our count.
+			$row->count = $count;
+			$count++;
 		}
 
 		return array(
