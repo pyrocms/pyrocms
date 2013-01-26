@@ -86,10 +86,9 @@
 					<label><?php echo lang('blog:date_label') ?></label>
 	
 					<div class="input datetime_input">
-					<?php echo form_input('created_on', date('Y-m-d', $post->created_on), 'maxlength="10" id="datepicker" class="text width-20"') ?> &nbsp;
-					<?php echo form_dropdown('created_on_hour', $hours, date('H', $post->created_on)) ?> :
-					<?php echo form_dropdown('created_on_minute', $minutes, date('i', ltrim($post->created_on, '0'))) ?>
-	
+						<?php echo form_input('created_on', date('Y-m-d', $post->created_on), 'maxlength="10" id="datepicker" class="text width-20"') ?> &nbsp;
+						<?php echo form_dropdown('created_on_hour', $hours, date('H', $post->created_on)) ?> :
+						<?php echo form_dropdown('created_on_minute', $minutes, date('i', ltrim($post->created_on, '0'))) ?>
 					</div>
 				</li>
 	

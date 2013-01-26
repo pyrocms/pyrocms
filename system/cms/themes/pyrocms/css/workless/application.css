@@ -775,6 +775,26 @@ section.title h4 a {
   color: #555;
 }
 
+section.title li {
+/* line-height: 35px; */
+  /* float:left; */
+  display: inline;
+  /* width:50%; */
+}
+
+section.title li .button {
+  float: right;
+  display: inline-block;
+  margin: 0 10px 0 0;
+  padding: 2px 6px;
+  font-size: 13px;
+  line-height: initial;
+}
+
+section.title li:first-child {
+  margin-right: 16px;
+}
+
 section.item {
   float: left;
   width: 100%;

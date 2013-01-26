@@ -10,7 +10,7 @@
 		});
 
 		$('#meta_keywords').tagsInput({
-			autocomplete_url:'admin/keywords/autocomplete'
+			autocomplete_url: SITE_URL + 'admin/keywords/autocomplete'
 		});
 		
 		// Hide the huge textarea

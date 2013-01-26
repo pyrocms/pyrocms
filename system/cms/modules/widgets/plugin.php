@@ -18,6 +18,7 @@ class Plugin_Widgets extends Plugin
 	public $description = array(
 		'en' => 'Display widgets by widget area or individually.',
 		'ar' => 'عرض الودجتس في مساحة ودجت أو لوحدها.',
+		'it' => 'Mostra singolarmente o a gruppi i Widget',
 	);
 
 	/**
