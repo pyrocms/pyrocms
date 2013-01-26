@@ -214,11 +214,17 @@ class Admin extends Admin_Controller {
 		$parent_id = ($this->input->get('parent')) ? $this->input->get('parent') : false;
 		$this->template->set('parent_id', $parent_id);
 
-		// What type of page are we creating?
-		$page_type_id = $this->input->get('page_type');
-
-		// Get the page type.
-		$page_type = $this->db->limit(1)->where('id', $page_type_id)->get('page_types')->row();
+        // What type of page are we creating? 
+        if ($page_type_id = ($this->input->get('page_type'))) 
+        {
+            // Get the page type
+            $page_type = $this->db->limit(1)->where('id', $page_type_id)->get('page_types')->row();
+        }
+        else 
+        {
+            // Get the first page type if none was specified 
+            $page_type = $this->db->limit(1)->get('page_types')->row();
+        }
 
 		if ( ! $page_type) show_error('No page type found.');
 
