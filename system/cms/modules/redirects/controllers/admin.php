@@ -51,11 +51,12 @@ class Admin extends Admin_Controller
     public function index()
     {
         // Create pagination links
-        $total_rows = $this->redirect_m->countAll();
+        $total_rows = Redirect_m::all()->count();
+        echo 'Total Rows: '.$total_rows;
         $this->template->pagination = create_pagination('admin/redirects/index', $total_rows);
-
+        print_r($this->template->pagination);
         // Using this data, get the relevant results
-        $this->template->redirects = $this->redirect_m->getAll();
+        $this->template->redirects = Redirect_m::skip($this->template->pagination['offset'])->take($this->template->pagination['limit'])->get();
         $this->template->build('admin/index');
     }
 
@@ -65,12 +66,20 @@ class Admin extends Admin_Controller
     public function add()
     {
         $messages = array();
+
         // Got validation?
         if ($this->form_validation->run()) {
-            if ($id = $this->redirect_m->insert($_POST)) {
+
+            $result = Redirect_m::create(array(
+                'type' => $this->input->post('type'),
+                'from' => $this->input->post('from'),
+                'to' => $this->input->post('to')
+            ));
+
+            if ($result) {
                 $this->session->set_flashdata('success', lang('redirects:add_success'));
                 
-                Events::trigger('redirect_created', $id);
+                Events::trigger('redirect_created');
 
                 redirect('admin/redirects');
             }
@@ -107,7 +116,13 @@ class Admin extends Admin_Controller
         $redirect = $this->redirect_m->get($id);
 
         if ($this->form_validation->run()) {
-            if ($this->redirect_m->update($id, $_POST)) {
+            $result = Redirect_m::find($id)->update(array(
+                'type' => $this->input->post('type'),
+                'from' => $this->input->post('from'),
+                'to' => $this->input->post('to')
+            ));
+
+            if ($result) {
                 $this->session->set_flashdata('success', $this->lang->line('redirects:edit_success'));
                 
                 Events::trigger('redirect_updated', $id);
@@ -140,7 +155,7 @@ class Admin extends Admin_Controller
             $deleted = 0;
             $to_delete = 0;
             foreach ($id_array as $id) {
-                if ($this->redirect_m->delete($id)) {
+                if (Redirect_m::find($id)->delete()) {
                     $deleted++;
                 } else {
                     $this->session->set_flashdata('error', sprintf($this->lang->line('redirects:mass_delete_error'), $id));
@@ -170,7 +185,13 @@ class Admin extends Admin_Controller
     {
         $id = $this->uri->segment(4);
 
-        if ($this->redirect_m->checkFrom($from, $id)) {
+        if($id and Redirect_m::findByFromWithId($from, $id)) {
+            $this->form_validation->set_message('_check_unique', sprintf(lang('redirects:request_conflict_error'), $from));
+            return false;
+        }
+
+        if (Redirect_m::findByFrom($from))
+        {
             $this->form_validation->set_message('_check_unique', sprintf(lang('redirects:request_conflict_error'), $from));
             return false;
         }
