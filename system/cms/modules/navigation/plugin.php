@@ -222,6 +222,12 @@ class Plugin_Navigation extends Plugin
 				// that means that this link is a parent
 				$wrapper['class'][] = 'has_' . $current_class;
 			}
+			// if we are viewing something in a module (such as a blog post) that doesn't have a link then mark the link
+			// to the module root with .has_current but not if it will already have .current
+			elseif ($link['module_name'] === $this->module and ! preg_match('@^' . current_url() . '/?$@', $link['url']))
+			{
+				$wrapper['class'][] = 'has_' . $current_class;
+			}
 
 			++$i;
 
