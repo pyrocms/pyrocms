@@ -35,7 +35,7 @@ class Admin_types extends Admin_Controller
         array(
             'field' => 'description',
             'label' => 'lang:page_types:select_stream',
-            'rules' => 'trim|required'
+            'rules' => 'trim'
         ),
 		array(
 			'field' => 'stream_id',
