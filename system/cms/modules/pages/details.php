@@ -100,7 +100,7 @@ class Module_Pages extends Module
 				$info['sections']['pages']['shortcuts'] = array(
 					array(
 					    'name' => 'pages:create_title',
-					    'uri' => 'admin/pages/choose_type',
+					    'uri' => 'admin/pages/choose_type?modal=true',
 					    'class' => 'add modal'
 					)
 				);
@@ -176,6 +176,7 @@ class Module_Pages extends Module
 				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true),
 				'slug' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => ''),
 				'title' => array('type' => 'VARCHAR', 'constraint' => 60),
+				'description' => array('type' => 'TEXT'),
 				'stream_id' => array('type' => 'INT', 'constraint' => 11),
 				'meta_title' => array('type' => 'VARCHAR', 'constraint' => 255, 'null' => true),
 				'meta_keywords' => array('type' => 'CHAR', 'constraint' => 32, 'null' => true),
