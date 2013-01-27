@@ -59,13 +59,18 @@ class Plugin_Settings extends Plugin
 	public function __call($name, $data)
 	{
 		$disallowed = array(
+			// settings
+			'akismet_api_key',
 			'ga_email',
 			'ga_password',
 			'files_cf_api_key',
 			'files_cf_username',
 			'files_s3_access_key',
 			'files_s3_secret_key',
-			'mail_smtp_pass'
+			'mail_smtp_pass',
+			// config items
+			'proxy_ips',
+			'encryption_key'
 		);
 		
 		return (in_array($name, $disallowed)) ? '' : Settings::get($name);
