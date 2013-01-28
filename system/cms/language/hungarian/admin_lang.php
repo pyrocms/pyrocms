@@ -32,17 +32,17 @@ $lang['cp:nav_settings']			= 'Beállítások';
 $lang['cp:nav_addons']				= 'Bővítmények';
 $lang['cp:nav_modules']				= 'Modulok';
 $lang['cp:nav_users']				= 'Felhasználók';
-$lang['cp:nav_data']					= 'Data'; #translate
-$lang['cp:nav_structure']				= 'Structure'; #translate
+$lang['cp:nav_data']					= 'Adat';
+$lang['cp:nav_structure']				= 'Struktúra';
 $lang['cp:nav_content']				= 'Tartalom';
-$lang['cp:nav_misc']					= 'Miscellaneous'; #translate
+$lang['cp:nav_misc']					= 'Egyéb';
 
 $lang['cp:must_login']	 			= 'Ennek az oldalnak a megtekintéséhez, be kell jelentkezned.';
 $lang['cp:access_denied'] 			= 'Nem rendelkezel elég jogosultsággal, hogy megtekinthesd az oldalt.';
-$lang['cp:delete_installer_message']              = 'The installer directory still exists! Please delete it from your server! Leaving it online means control of this site could be granted to somebody else.'; #translate
-$lang['cp:delete_installer']					 = 'Delete Installer'; #translate
-$lang['cp:delete_installer_successfully_message'] = 'The installer directory has been successfully deleted.'; #translate
-$lang['cp:delete_installer_manually_message']     = 'The installer directory could not be deleted. <strong>Please remove it manually!</strong>'; #translate
+$lang['cp:delete_installer_message']              = 'A telepítő könyvtára még elérhető! Kérlek töröld le a szerverről! Amennyiben elérhető marad, az oldal irányítását más is átveheti.';
+$lang['cp:delete_installer']					 = 'A telepítő törlése';
+$lang['cp:delete_installer_successfully_message'] = 'A telepítő könyvtára sikeresen törölve.';
+$lang['cp:delete_installer_manually_message']     = 'A telepítő könyvtárát nem lehet törölni. <strong>Kérlek távolísd el kézzel!</strong>';
 $lang['cp:upgrade_message']			= 'Jelenleg a PyroCMS %s verziója fut, az adatbázis verziója pedig: %s. A következő linkre kattinva lehet <a href="%s" title="Upgrade">frissíteni</a> az adatbázist.';
 $lang['cp:google_analytics_missing']	= 'A Google Analytics nincs beállítva. Ad hozzá %s vagy szólj az adminnak!';
 $lang['cp:google_analytics_no_connect']	= 'Nem lehet csatlakozni a Google Analytics-hez. Ellenőrizd %s!';
