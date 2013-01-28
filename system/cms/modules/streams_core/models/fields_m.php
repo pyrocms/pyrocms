@@ -77,7 +77,7 @@ class Fields_m extends CI_Model {
 		
 		if ($namespace) $this->db->where('field_namespace', $namespace);
 	
-		if ($offset) $this->db->offset($offset);
+		if ($offset && $limit) $this->db->offset(($offset - 1) * $limit);
 		
 		if ($limit) $this->db->limit($limit);
 
