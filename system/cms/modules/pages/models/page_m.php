@@ -252,6 +252,11 @@ class Page_m extends MY_Model
 			->get($this->_table)
 			->row();
 
+        if ( ! $page)
+        {
+            return;
+        }
+        
 		$page->stream_entry_found = false;
 
 		if ($page and $page->type_id and $get_data)
