@@ -75,12 +75,31 @@ class Admin extends Admin_Controller {
 		// Do we have a parent ID?
 		$parent = ($this->input->get('parent')) ? '&parent='.$this->input->get('parent') : null;
 
-		echo '<ul class="modal_select">';
-		foreach ($all as $pt)
-		{
-			echo '<li><a href="'.site_url('admin/pages/create?page_type='.$pt->id.$parent).'">'.$pt->title.'</a></li>';
-		}
-		echo '</ul>';
+        // Who needs a menu when there is only one option?
+        if (count($all) === 1) 
+        {
+            redirect('admin/pages/create?page_type='.$all[0]->id.$parent);
+        }
+
+        // Directly output the menu if it's for the modal 
+        if ($this->input->get('modal') === 'true') 
+        {
+            
+            echo '<h4>'.lang('pages:choose_type_title').'</h4>';
+    		echo '<ul class="modal_select">';
+    		foreach ($all as $pt)
+    		{
+    			echo '<li><a href="'.site_url('admin/pages/create?page_type='.$pt->id.$parent).'">'.$pt->title.'<small> | '.$pt->description.'</a></li>';
+    		}
+    		echo '</ul>';
+            
+            return;
+        }
+        
+        $this->template
+            ->set('parent', $parent)
+            ->set('page_types', $all)
+            ->build('admin/choosetype');
 	}
 
 	/**
@@ -214,11 +233,17 @@ class Admin extends Admin_Controller {
 		$parent_id = ($this->input->get('parent')) ? $this->input->get('parent') : false;
 		$this->template->set('parent_id', $parent_id);
 
-		// What type of page are we creating?
-		$page_type_id = $this->input->get('page_type');
-
-		// Get the page type.
-		$page_type = $this->db->limit(1)->where('id', $page_type_id)->get('page_types')->row();
+        // What type of page are we creating?
+        $page_type_id = $this->input->get('page_type');
+        
+        // Redirect to the page type selection menu if no page type was specified 
+        if ( ! $page_type_id) 
+        {
+            redirect('admin/pages/choose_type');
+        }
+        
+        // Get page type
+        $page_type = $this->db->limit(1)->where('id', $page_type_id)->get('page_types')->row();        
 
 		if ( ! $page_type) show_error('No page type found.');
 
@@ -352,7 +377,7 @@ class Admin extends Admin_Controller {
 		{
 			// Maybe you would like to create one?
 			$this->session->set_flashdata('error', lang('pages:page_not_found_error'));
-			redirect('admin/pages/create');
+			redirect('admin/pages/choose_type');
 		}
 
 		// Note: we don't need to get the page type
