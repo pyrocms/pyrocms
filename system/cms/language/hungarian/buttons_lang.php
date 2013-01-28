@@ -35,7 +35,7 @@ $lang['buttons:edit']		= 'Módosítás';
 $lang['buttons:clone']		= 'Klónozás';
 $lang['buttons:re-index']	= 'Újra indexel';
 $lang['buttons:copy']		= 'Másol';
-$lang['buttons:filter']		= 'Filter'; #translate
-$lang['buttons:clear']		= 'Clear'; #translate
+$lang['buttons:filter']		= 'Szűrés';
+$lang['buttons:clear']		= 'Törlés';
 
 /* End of file buttons_lang.php */

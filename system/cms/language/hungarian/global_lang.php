@@ -10,8 +10,8 @@ $lang['version_label'] 				= 'Verzió';
 $lang['global:author'] 				= 'Szerző';
 $lang['global:action'] 				= 'Művelet';
 $lang['global:slug'] 				= 'Keresőbarát név (slug)';
-$lang['global:slug_instructions']		= 'Lowercase characters and underscores only.'; #translate
-$lang['global:user'] 					= 'User'; #translate
+$lang['global:slug_instructions']		= 'Kisbetűk és alulvonás.';
+$lang['global:user'] 					= 'Felhasználó';
 
 $lang['global:dialog:delete_message']           = 'Valóban törölni szeretnéd? Ez a művelet nem visszavonható!';
 $lang['global:dialog:confirm']                  = 'Megerősít';
@@ -32,12 +32,12 @@ $lang['global:operators:not-equal']             = 'Nem egyenlő';
 $lang['global:operators:less-than']             = 'Kisebb mint';
 $lang['global:operators:greater-than']          = 'Nagyobb mint';
 
-$lang['global:duration:1-day']			= 'One day'; #translate
-$lang['global:duration:1-week']			= 'One week'; #translate
-$lang['global:duration:2-weeks']		= 'Two weeks'; #translate
-$lang['global:duration:1-month']		= 'One month'; #translate
-$lang['global:duration:3-months']		= 'Three Months'; #translate
-$lang['global:duration:always']			= 'Always'; #translate
+$lang['global:duration:1-day']			= 'Egy nap';
+$lang['global:duration:1-week']			= 'Egy hét';
+$lang['global:duration:2-weeks']		= 'Két hét';
+$lang['global:duration:1-month']		= 'Egy hónap';
+$lang['global:duration:3-months']		= 'Három hónap';
+$lang['global:duration:always']			= 'Mindig';
 
 $lang['navigation_headline']                    = 'Navigáció';
 $lang['breadcrumb_base_label']                  = 'Kezdőlap';
@@ -52,7 +52,7 @@ $lang['general_error_label']                    = 'Hiba';
 $lang['required_error_label']                   = 'Kötelező mező nincs kitöltve';
 $lang['note_label']                             = 'Jegyzet';
 $lang['success_label']                          = 'Siker';
-$lang['global:fields']					= 'Fields'; #translate
+$lang['global:fields']					= 'Mezők';
 
 $lang['login_title']                            = 'Bejelentkezés';
 $lang['global:fatal_error']                     = 'Végzetes hiba! Telepítve van a CMS?';
@@ -101,16 +101,16 @@ $lang['global:remove']                          = 'Eltávolít';
 
 $lang['global:keywords']				= 'Kulcsszavak';
 
-$lang['global:or']						= 'or'; #translate
-$lang['global:and']						= 'and'; #translate
-$lang['global:at']						= 'at'; #translate
+$lang['global:or']						= 'vagy';
+$lang['global:and']						= 'és';
+$lang['global:at']						= 'ebben';
 
-$lang['global:widgets']					= 'Widgets'; #translate
-$lang['global:themes']					= 'Themes'; #translate
-$lang['global:field_types']				= 'Field Types'; #translate
-$lang['global:plugins']					= 'Plugins'; #translate
-$lang['global:plugin']					= 'Plugin'; #translate
+$lang['global:widgets']					= 'Widgetek';
+$lang['global:themes']					= 'Témák';
+$lang['global:field_types']				= 'Mező típusok';
+$lang['global:plugins']					= 'Pluginek';
+$lang['global:plugin']					= 'Plugin';
 
-$lang['global:options']					= 'Options'; #translate
+$lang['global:options']					= 'Opciók';
 
 /* End of file main_lang.php */
