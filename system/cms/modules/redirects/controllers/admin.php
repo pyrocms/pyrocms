@@ -18,7 +18,7 @@ class Admin extends Admin_Controller
             'label' => 'lang:redirects:type',
             'rules' => 'trim|required|integer'
         ),
-        array(
+        'from' => array(
             'field' => 'from',
             'label' => 'lang:redirects:from',
             'rules' => 'trim|required|max_length[250]|callback__check_unique'
@@ -41,8 +41,6 @@ class Admin extends Admin_Controller
         $this->load->library('form_validation');
         $this->load->model('redirect_m');
         $this->lang->load('redirects');
-
-        $this->form_validation->set_rules($this->validation_rules);
     }
 
     /**
@@ -52,9 +50,7 @@ class Admin extends Admin_Controller
     {
         // Create pagination links
         $total_rows = Redirect_m::all()->count();
-        echo 'Total Rows: '.$total_rows;
         $this->template->pagination = create_pagination('admin/redirects/index', $total_rows);
-        print_r($this->template->pagination);
         // Using this data, get the relevant results
         $this->template->redirects = Redirect_m::skip($this->template->pagination['offset'])->take($this->template->pagination['limit'])->get();
         $this->template->build('admin/index');
@@ -66,6 +62,8 @@ class Admin extends Admin_Controller
     public function add()
     {
         $messages = array();
+
+        $this->form_validation->set_rules($this->validation_rules);
 
         // Got validation?
         if ($this->form_validation->run()) {
@@ -114,6 +112,14 @@ class Admin extends Admin_Controller
 
         // Get the redirect
         $redirect = $this->redirect_m->get($id);
+
+        $this->form_validation->set_rules(array_merge($this->validation_rules, array(
+            'from' => array(
+                'field' => 'from',
+                'label' => 'lang:redirects:from',
+                'rules' => 'trim|required|max_length[250]|callback__check_unique['.$id.']'
+            )
+        )));
 
         if ($this->form_validation->run()) {
             $result = Redirect_m::find($id)->update(array(
@@ -181,21 +187,10 @@ class Admin extends Admin_Controller
      * @param string $from
      * @return bool
      */
-    public function _check_unique($from)
+    public function _check_unique($from, $id = null)
     {
-        $id = $this->uri->segment(4);
+        $this->form_validation->set_message('_check_unique', sprintf(lang('redirects:request_conflict_error'), $from));
 
-        if($id and Redirect_m::findByFromWithId($from, $id)) {
-            $this->form_validation->set_message('_check_unique', sprintf(lang('redirects:request_conflict_error'), $from));
-            return false;
-        }
-
-        if (Redirect_m::findByFrom($from))
-        {
-            $this->form_validation->set_message('_check_unique', sprintf(lang('redirects:request_conflict_error'), $from));
-            return false;
-        }
-
-        return true;
+        return !Redirect_m::findByFromWithId($from, $id);
     }
 }

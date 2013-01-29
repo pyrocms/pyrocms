@@ -21,9 +21,9 @@ class Redirect_m extends \Illuminate\Database\Eloquent\Model
         return self::where('from','=',$from)->first();
     }
 
-    static function findByFromWithId($from, $id)
+    static function findByFromWithId($from, $id = 0)
     {
-        return self::where('id', '!=', $id)
-                        ->where('from', '=', $from)->first();
+        return self::where('id', '!=', (int)$id)
+                    ->where('from', '=', $from)->first();
     }
 }
