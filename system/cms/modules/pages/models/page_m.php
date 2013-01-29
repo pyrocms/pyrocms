@@ -104,7 +104,7 @@ class Page_m extends MY_Model
 	 *
 	 * @return object
 	 */
-	public function get_by_uri($uri, $is_request = false)
+	public function get_by_uri($uri, $is_request = false, $simple_return = false)
 	{
 		// it's the home page
 		if ($uri === null)
@@ -167,8 +167,12 @@ class Page_m extends MY_Model
 			}
 		}
 
-		// looks like we have a 404
+		// Looks like we have a 404
 		if ( ! $page) return false;
+
+		// If this is a simple page call, then we just want this page
+		// object, we don't need anything else.
+		if ($simple_return) return $page;
 
 		// ---------------------------------
 		// Legacy Page Chunks Logic
