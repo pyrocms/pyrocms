@@ -153,7 +153,7 @@ class Admin_Controller extends MY_Controller {
 					$translated_menu_items[lang_label($key)] = $menu_item;
 				}
 
-				$ordered_menu = array_merge($ordered_menu, $translated_menu_items);
+				$ordered_menu = array_merge_recursive($ordered_menu, $translated_menu_items);
 			}
 
 			// And there we go! These are the admin menu items.
