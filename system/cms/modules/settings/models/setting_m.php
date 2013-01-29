@@ -49,7 +49,8 @@ class Setting_m extends CI_Model {
 	{
 		return $this->pdb
 			->table('settings')
-			->where($where)
+			->where('slug', '=', $key)
+			->where('is_gui', '=', 1)
 			->orderBy('order', 'DESC')
 			->get();
 	}
