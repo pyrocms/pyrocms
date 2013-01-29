@@ -340,9 +340,8 @@ class Admin extends Admin_Controller {
 		// The user needs to be able to edit pages.
 		role_or_die('pages', 'edit_live');
 
-		// This comes in handy
-		// @TODO Work out where this is used and destroy it, or document a MAJOR need for it. Phil
-		define('PAGE_ID', $id);
+		// This is a temporary global until the page chunk field type is removed
+		ci()->page_id = $id;
 
 		// Retrieve the page data along with its data as part of the array.
 		$page = $this->page_m->get($id);

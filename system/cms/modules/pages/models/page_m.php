@@ -578,7 +578,7 @@ class Page_m extends MY_Model
 		if ( ! $id) return false;
 
 		// We define this for the field type.
-		define('PAGE_ID', $id);
+		ci()->page_id = $id;
 
 		$this->build_lookup($id);
 
