@@ -256,6 +256,11 @@ class Page_m extends MY_Model
 			->get($this->_table)
 			->row();
 
+        if ( ! $page)
+        {
+            return;
+        }
+        
 		$page->stream_entry_found = false;
 
 		if ($page and $page->type_id and $get_data)
@@ -642,7 +647,8 @@ class Page_m extends MY_Model
 			$this->skip_validation = true;
 			$this->update_by('is_home', 1, array('is_home' => 0));
 		}
-
+			// replace the old slug with the new
+		
 		// validate the data and update
 		$result = $this->update($id, array(
 			'slug'				=> $input['slug'],
@@ -666,9 +672,11 @@ class Page_m extends MY_Model
 
 		// did it pass validation?
 		if ( ! $result) return false;
-
-		$this->build_lookup($id);
-
+		$page_ids = $this->get_descendant_ids($id);
+		foreach($page_ids as $page)
+		{	
+			$this->build_lookup($page);
+		}
 		// Add the stream data.
 		if ($stream and $entry_id)
 		{
