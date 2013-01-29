@@ -198,7 +198,11 @@ class Admin extends Admin_Controller {
 			$this->duplicate($child->id, $new_page);
 		}
 
-		redirect('admin/pages');
+		// only allow a redirect when everything is finished (only the top level page has a null parent_id)
+		if (is_null($parent_id))
+		{
+			redirect('admin/pages');
+		}
 	}
 
 	/**
