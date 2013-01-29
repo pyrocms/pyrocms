@@ -192,13 +192,16 @@ class Admin extends Admin_Controller {
 		$page['navigation_group_id'] = 0;
 
 		$new_page = $this->page_m->create($page, $this->streams_m->get_stream($page['stream_id']));
-
+		
+		$child_count = 0;
 		foreach ($children as $child)
 		{
 			$this->duplicate($child->id, $new_page);
+			if($child_count==count($children))
+			{
+			      redirect('admin/pages');
+			}
 		}
-
-		redirect('admin/pages');
 	}
 
 	/**
