@@ -137,7 +137,7 @@ class Admin_Controller extends MY_Controller {
 			{
 				if (isset($menu_items[$order]))
 				{
-					$ordered_menu[$order] = $menu_items[$order];
+					$ordered_menu[lang_label($order)] = $menu_items[$order];
 					unset($menu_items[$order]);
 				}
 			}
@@ -145,7 +145,15 @@ class Admin_Controller extends MY_Controller {
 			// Any stragglers?
 			if ($menu_items)
 			{
-				$ordered_menu = array_merge($ordered_menu, $menu_items);
+				$translated_menu_items = array();
+
+				// translate any additional top level menu keys so the array_merge works
+				foreach ($menu_items as $key => $menu_item)
+				{
+					$translated_menu_items[lang_label($key)] = $menu_item;
+				}
+
+				$ordered_menu = array_merge($ordered_menu, $translated_menu_items);
 			}
 
 			// And there we go! These are the admin menu items.
