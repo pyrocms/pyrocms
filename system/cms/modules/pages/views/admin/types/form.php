@@ -42,6 +42,11 @@
 								<?php endif; ?>
 								</div>
 							</li>
+
+                            <li>
+                                <label for="description"><?php echo lang('global:description');?></label>
+                                <div class="input"><?php echo form_input('description', $page_type->description, 'id="description"'); ?></div>
+                            </li>
 		
 							<?php if ($this->method == 'edit'): ?>
 								<?php echo form_hidden('old_slug', $page_type->slug); ?>
@@ -83,10 +88,7 @@
 								<label for="title_label"><?php echo lang('page_types:title_label');?><br><small><?php echo lang('page_types:title_label_instructions'); ?></small></label>
 								<div class="input"><?php echo form_input('title_label', $page_type->title_label, 'id="title_label" maxlength="100"'); ?></div>
 							</li>		
-                            <li>
-                                <label for="description"><?php echo lang('global:description');?></label>
-                                <div class="input"><?php echo form_input('description', $page_type->description, 'id="description"'); ?></div>
-                            </li>
+
 						</ul>
 						
 					</fieldset>
