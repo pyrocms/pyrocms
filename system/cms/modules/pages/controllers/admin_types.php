@@ -296,7 +296,7 @@ class Admin_types extends Admin_Controller
 	 */
 	public function edit($id = 0)
 	{
-		// we don't need some of these:
+		// We don't need some of these:
 		unset($this->validation_rules[1]);
 		unset($this->validation_rules[2]);
 
