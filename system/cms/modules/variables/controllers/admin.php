@@ -3,7 +3,7 @@
  * Admin controller for the variables module
  *
  * @author		PyroCMS Dev Team
- * @package	 PyroCMS\Core\Modules\Variables\Controllers
+ * @package	 	PyroCMS\Core\Modules\Variables\Controllers
  */
 class Admin extends Admin_Controller
 {

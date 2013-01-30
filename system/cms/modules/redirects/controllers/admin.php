@@ -111,7 +111,7 @@ class Admin extends Admin_Controller
         $id or redirect('admin/redirects');
 
         // Get the redirect
-        $redirect = $this->redirect_m->get($id);
+        $redirect = Redirect_m::find($id);
 
         $this->form_validation->set_rules(array_merge($this->validation_rules, array(
             'from' => array(
