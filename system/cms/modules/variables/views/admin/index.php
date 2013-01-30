@@ -4,7 +4,7 @@
 
 <section class="item">
 <div class="content">
-<?php if (! $variables->isEmpty()): ?>
+<?php if ( ! $variables->isEmpty()): ?>
 
 	<?php echo form_open('admin/variables/delete') ?>
 		<table border="0" class="table-list" cellspacing="0">
