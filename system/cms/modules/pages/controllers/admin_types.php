@@ -32,11 +32,6 @@ class Admin_types extends Admin_Controller
 			'label' => 'lang:global:slug',
 			'rules' => 'trim|required|alpha_dot_dash|max_length[60]|callback__check_pt_slug'
 		),
-        array(
-            'field' => 'description',
-            'label' => 'lang:page_types:select_stream',
-            'rules' => 'trim'
-        ),
 		array(
 			'field' => 'stream_id',
 			'label' => 'lang:page_types:select_stream',
@@ -188,7 +183,6 @@ class Admin_types extends Admin_Controller
 			$id = $this->page_type_m->insert(array(
 				'title' 			=> $input['title'],
 				'slug'				=> $input['slug'],
-				'description'       => $input['description'],
 				'stream_id' 		=> $input['stream_id'],
 				'meta_title' 		=> isset($input['meta_title']) ? $input['meta_title'] : null,
 				//'meta_keywords' 	=> isset($input['meta_keywords']) ? $this->keywords->process($input['meta_keywords']) : '',
@@ -302,9 +296,9 @@ class Admin_types extends Admin_Controller
 	 */
 	public function edit($id = 0)
 	{
-		// Unset validation rules of required fields that are not included in the edit form
+		// we don't need some of these:
 		unset($this->validation_rules[1]);
-		unset($this->validation_rules[3]);
+		unset($this->validation_rules[2]);
 
 		// Set the validation rules
 		$this->form_validation->set_rules($this->validation_rules);
@@ -330,7 +324,6 @@ class Admin_types extends Admin_Controller
 			// Run the update code with the POST data
 			$this->page_type_m->update($id, array(
 				'title' 			=> $input['title'],
-				'description'       => $input['description'],
 				'meta_title' 		=> isset($input['meta_title']) ? $input['meta_title'] : null,
 				//'meta_keywords' 	=> isset($input['meta_keywords']) ? Keywords::process($input['meta_keywords']) : '',
 				'meta_description' 	=> isset($input['meta_description']) ? $input['meta_description'] : null,
