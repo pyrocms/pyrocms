@@ -100,7 +100,7 @@ class Module_Pages extends Module
 				$info['sections']['pages']['shortcuts'] = array(
 					array(
 					    'name' => 'pages:create_title',
-					    'uri' => 'admin/pages/choose_type',
+					    'uri' => 'admin/pages/choose_type?modal=true',
 					    'class' => 'add modal'
 					)
 				);
