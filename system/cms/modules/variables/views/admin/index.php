@@ -4,7 +4,7 @@
 
 <section class="item">
 <div class="content">
-<?php if ($variables): ?>
+<?php if (count($variables) > 0): ?>
 
 	<?php echo form_open('admin/variables/delete') ?>
 		<table border="0" class="table-list" cellspacing="0">
