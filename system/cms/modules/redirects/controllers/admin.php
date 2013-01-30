@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php 
 /**
  * Cms controller for the redirects module
  *
@@ -154,7 +154,7 @@ class Admin extends Admin_Controller
      */
     public function delete($id = 0)
     {
-        $id_array = ( ! empty($id)) ? array($id) : $this->input->post('action_to');
+        $id_array = (! empty($id)) ? array($id) : $this->input->post('action_to');
 
         // Delete multiple
         if (! empty($id_array)) {
@@ -191,6 +191,6 @@ class Admin extends Admin_Controller
     {
         $this->form_validation->set_message('_check_unique', sprintf(lang('redirects:request_conflict_error'), $from));
 
-        return !Redirect_m::findByFromWithId($from, $id);
+        return !Redirect_m::findByFromWithId($from, (int)$id);
     }
 }
