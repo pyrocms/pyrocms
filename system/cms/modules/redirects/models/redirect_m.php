@@ -1,5 +1,4 @@
 <?php 
-
 /**
  * Redirect model
  *
@@ -56,7 +55,7 @@ class Redirect_m extends \Illuminate\Database\Eloquent\Model
      */
     public static function findByFromWithId($from, $id = 0)
     {
-        return self::where('id', '!=', (int)$id)
+        return self::where('id', '!=', $id)
                     ->where('from', '=', $from)->first();
     }
 }
