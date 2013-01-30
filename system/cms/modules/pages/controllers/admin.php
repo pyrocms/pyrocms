@@ -81,21 +81,31 @@ class Admin extends Admin_Controller {
             redirect('admin/pages/create?page_type='.$all[0]->id.$parent);
         }
 
-        // Directly output the menu if it's for the modal 
+        // Directly output the menu if it's for the modal.
+        // All we need is the <ul>.
         if ($this->input->get('modal') === 'true') 
         {
-            
-            echo '<h4>'.lang('pages:choose_type_title').'</h4>';
-    		echo '<ul class="modal_select">';
+            $html  = '<h4>'.lang('pages:choose_type_title').'</h4>';
+    		$html .= '<ul class="modal_select">';
+    		
     		foreach ($all as $pt)
     		{
-    			echo '<li><a href="'.site_url('admin/pages/create?page_type='.$pt->id.$parent).'">'.$pt->title.'<small> | '.$pt->description.'</a></li>';
+    			$html .= '<li><a href="'.site_url('admin/pages/create?page_type='.$pt->id.$parent).'"><strong>'.$pt->title.'</strong>';
+
+    			if (trim($pt->description))
+    			{
+    				$html .= ' | '.$pt->description;
+    			}
+
+    			$html .= '</a></li>';
     		}
-    		echo '</ul>';
-            
+    		
+    		echo $html .= '</ul>';
             return;
         }
         
+        // If this is not being displayed in the modal, we can
+        // display an entire page.
         $this->template
             ->set('parent', $parent)
             ->set('page_types', $all)
