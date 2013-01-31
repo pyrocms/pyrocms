@@ -619,10 +619,8 @@ class MY_Model extends CI_Model
             $this->form_validation->set_rules($this->validate);
             return $this->form_validation->run();
         }
-        else
-        {
-            $this->form_validation->run($this->validate);
-        }
+
+        return $this->form_validation->run($this->validate);
     }
 
     /**

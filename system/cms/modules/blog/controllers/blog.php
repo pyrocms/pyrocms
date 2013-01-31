@@ -30,7 +30,7 @@ class Blog extends Public_Controller
 	public function index()
 	{
 		$pagination = create_pagination('blog/page', $this->blog_m->count_by(array('status' => 'live')), null, 3);
-		$_blog = $this->blog_m->limit($pagination['limit'])
+		$_blog = $this->blog_m->limit($pagination['limit'], $pagination['offset'])
 			->get_many_by(array('status' => 'live'));
 
 		// Set meta description based on post titles
@@ -75,10 +75,12 @@ class Blog extends Public_Controller
 		)), null, 4);
 
 		// Get the current page of blog posts
-		$blog = $this->blog_m->limit($pagination['limit'])->get_many_by(array(
-			'category' => $slug,
-			'status' => 'live'
-		));
+		$blog = $this->blog_m
+			->limit($pagination['limit'], $pagination['offset'])
+			->get_many_by(array(
+				'category' => $slug,
+				'status' => 'live'
+			));
 
 		// Set meta description based on post titles
 		$meta = $this->_posts_metadata($blog);
@@ -115,7 +117,7 @@ class Blog extends Public_Controller
 		$pagination = create_pagination("blog/archive/{$year}/{$month}", $this->blog_m->count_by(array('year' => $year, 'month' => $month)), null, 5);
 
 		$_blog = $this->blog_m
-			->limit($pagination['limit'])
+			->limit($pagination['limit'], $pagination['offset'])
 			->get_many_by(array('year' => $year, 'month' => $month));
 
 		$month_year = format_date($month_date->format('U'), lang('blog:archive_date_format'));
@@ -200,7 +202,7 @@ class Blog extends Public_Controller
 
 		// Get the current page of blog posts
 		$blog = $this->blog_m
-			->limit($pagination['limit'])
+			->limit($pagination['limit'], $pagination['offset'])
 			->get_tagged_by($tag, array('status' => 'live'));
 
 		foreach ($blog as &$post)

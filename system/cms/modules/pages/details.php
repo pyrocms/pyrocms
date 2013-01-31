@@ -100,8 +100,7 @@ class Module_Pages extends Module
                         'class' => 'add modal'
                     )
                 );
-            }
-            else {
+            } else {
                 // Get the one page type. 
                 $page_type = $this->pdb->table('page_types')->take(1)->select('id')->first();
 
@@ -118,8 +117,7 @@ class Module_Pages extends Module
         }
 
         // Show the correct +Add button based on the page
-        if ($this->uri->segment(4) == 'fields' and $this->uri->segment(5))
-        {
+        if ($this->uri->segment(4) == 'fields' and $this->uri->segment(5)) {
             $info['sections']['types']['shortcuts'] = array(
                 array(
                     'name' => 'streams:new_field',
@@ -128,8 +126,7 @@ class Module_Pages extends Module
                 )
             );
         }
-        else
-        {
+        else {
             $info['sections']['types']['shortcuts'] = array(
                 array(
                     'name' => 'pages:types_create_title',
@@ -306,5 +303,4 @@ class Module_Pages extends Module
     {
         return true;
     }
-
 }

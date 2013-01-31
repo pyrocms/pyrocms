@@ -139,7 +139,9 @@ class Admin extends Admin_Controller
 		$pagination = create_pagination('admin/blog/index', $total_rows);
 
 		// Using this data, get the relevant results
-		$blog = $this->blog_m->limit($pagination['limit'])->get_many_by($base_where);
+		$blog = $this->blog_m
+			->limit($pagination['limit'], $pagination['offset'])
+			->get_many_by($base_where);
 
 		//do we need to unset the layout because the request is ajax?
 		$this->input->is_ajax_request() and $this->template->set_layout(false);

@@ -219,12 +219,18 @@ class Plugin_Navigation extends Plugin
 			// is the link we're currently working with found inside the children html?
 			if ( ! in_array($current_class, $wrapper['class']) and
 				isset($wrapper['children']) and
-					$current_link and
-						((is_array($wrapper['children']) and in_array($current_link, $wrapper['children'])) or
-							(is_string($wrapper['children']) and strpos($wrapper['children'], $current_link)))
+				$current_link and
+				((is_array($wrapper['children']) and in_array_r($current_link, $wrapper['children'])) or
+				(is_string($wrapper['children']) and strpos($wrapper['children'], $current_link)))
 			)
 			{
 				// that means that this link is a parent
+				$wrapper['class'][] = 'has_' . $current_class;
+			}
+			// if we are viewing something in a module (such as a blog post) that doesn't have a link then mark the link
+			// to the module root with .has_current but not if it will already have .current
+			elseif ($link['module_name'] === $this->module and ! preg_match('@^' . current_url() . '/?$@', $link['url']))
+			{
 				$wrapper['class'][] = 'has_' . $current_class;
 			}
 

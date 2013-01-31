@@ -154,3 +154,26 @@ if (!function_exists('assoc_array_prop'))
 	}
 
 }
+
+
+if(!function_exists('in_array_r'))
+{
+	/**
+	 * Recursively search an array
+	 * This method was copied and pasted from this URL (http://stackoverflow.com/questions/4128323/in-array-and-multidimensional-array)
+	 * Real credit goes to (http://stackoverflow.com/users/427328/elusive)
+	 *
+	 * @author Elusive / Brennon Loveless
+	 * @param string $needle the term being recursively searched for
+	 * @param array $haystack multidimensional array to search
+	 * @param boolean $strict use strict comparison or not
+	 */
+	function in_array_r($needle, $haystack, $strict = false) {
+		foreach ($haystack as $item) {
+			if (($strict ? $item === $needle : $item == $needle) || (is_array($item) && in_array_r($needle, $item, $strict))) {
+				return true;
+			}
+		}
+		return false;
+	}
+}

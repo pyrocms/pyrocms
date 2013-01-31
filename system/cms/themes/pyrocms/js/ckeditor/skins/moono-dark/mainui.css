@@ -118,14 +118,14 @@ Special outer level classes used in this file:
   -webkit-box-shadow: 0 1px 0 rgba(255,255,255,.15) inset;
   box-shadow: 0 1px 0 rgba(255,255,255,.15) inset;
 
-  background: #1f1f1f;
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#333), to(#1f1f1f));
-  background-image: -moz-linear-gradient(top, #333, #1f1f1f);
-  background-image: -webkit-linear-gradient(top, #333, #1f1f1f);
-  background-image: -o-linear-gradient(top, #333, #1f1f1f);
-  background-image: -ms-linear-gradient(top, #333, #1f1f1f);
-  background-image: linear-gradient(top, #333, #1f1f1f);
-  filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#ff333333', endColorstr='#ff1f1f1f');
+  background: #444;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#555), to(#333));
+  background-image: -moz-linear-gradient(top, #555, #333);
+  background-image: -webkit-linear-gradient(top, #555, #333);
+  background-image: -o-linear-gradient(top, #555, #333);
+  background-image: -ms-linear-gradient(top, #555, #333);
+  background-image: linear-gradient(top, #555, #333);
+  filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#ff555555', endColorstr='#ff333333');
 }
 
 .cke_float .cke_top
@@ -138,7 +138,7 @@ Special outer level classes used in this file:
 .cke_bottom
 {
   border-top: 1px solid #ccc;
-  padding: 4px 8px;
+  padding: 10px 8px;
   position: relative;
 
   -moz-border-radius: 0 0 2px 2px;
