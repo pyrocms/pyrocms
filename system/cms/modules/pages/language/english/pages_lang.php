@@ -47,6 +47,7 @@ $lang['pages:duplicate_label']          = 'Duplicate';
 $lang['pages:create_title']             = 'Add Page';
 $lang['pages:edit_title']               = 'Edit Page "%s"';
 $lang['pages:list_title']               = 'Pages';
+$lang['pages:choose_type_title']        = 'What type of page do you want to create?';
 $lang['pages:types_create_title']       = 'Add Page Type';
 $lang['pages:types_list_title']         = 'Types';
 

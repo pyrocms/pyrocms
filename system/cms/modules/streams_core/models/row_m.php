@@ -996,7 +996,7 @@ class Row_m extends MY_Model {
 			{
 				// Easy out for our non-formattables and
 				// fields we are disabling.
-				if (in_array($row_slug, array('id', 'created_by')) or in_array($row_slug, $disable))
+				if (in_array($row_slug, array('id', 'created_by')) or in_array($row_slug, $disable) or in_array('*', $disable))
 				{
 					continue;
 				}

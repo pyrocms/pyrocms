@@ -10,8 +10,9 @@
 				<table border="0" cellspacing="0">		    
 					<thead>
 						<tr>
-							<th><?php echo lang('global:title');?></th>
-							<th></th>
+                            <th width="20%"><?php echo lang('global:title');?></th>
+                            <th width="50%"><?php echo lang('global:description');?></th>
+                            <th width="30%"></th>
 						</tr>
 					</thead>
 					
@@ -19,6 +20,7 @@
 						<?php foreach ($page_types as $page_type): ?>
 							<tr>
 								<td><?php echo $page_type->title;?></td>
+                                <td><?php echo $page_type->description;?></td>
 								<td class="actions">
 	
 									<?php if ($page_type->save_as_files == 'y' and $page_type->needs_sync): ?>
