@@ -228,7 +228,7 @@ class Plugin_Helper extends Plugin
 		// set this back to continue counting again next time
 		self::$_counter_increment = true;
 
-		return (str_to_bool($this->attribute('return', true))) ? '' : $count[$identifier];
+		return (str_to_bool($this->attribute('return', true))) ? $count[$identifier] : null;
 	}
 
 	/**
