@@ -1,17 +1,40 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php
+
 /**
  * Page type model
  *
  * @author		PyroCMS Dev Team
  * @package		PyroCMS\Core\Modules\Pages\Models
  */
-class Page_type_m extends MY_Model
+class Page_type_m extends \Illuminate\Database\Eloquent\Model
 {
+    /**
+     * Define the table name
+     *
+     * @var string
+     */
+    protected $table = 'page_types';
+
+    /**
+     * Disable updated_at and created_at on table
+     *
+     * @var boolean
+     */
+    public $timestamps = false;
+
+    /**
+     * Relationship: Page
+     *
+     * @return Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function pages()
+    {
+        return $this->hasMany('Page_m');
+    }
 	
     /**
      * Get a page type
      *
-     * @access  public
      * @param   int - id
      * @return  mixed
      */
@@ -213,28 +236,24 @@ class Page_type_m extends MY_Model
         }
     }
 
-    // --------------------------------------------------------------------------
-
     /**
      * Delete 
      */
-    public function delete($id, $delete_stream = false)
-    {
-        $page_type = $this->get($id);
+    // public function delete($id, $delete_stream = false)
+    // {
+    //     $page_type = $this->get($id);
 
-        // Are we going to delete the stream?
-        if ($delete_stream)
-        {
-            $stream = $this->streams_m->get_stream($page_type->stream_id);
+    //     // Are we going to delete the stream?
+    //     if ($delete_stream)
+    //     {
+    //         $stream = $this->streams_m->get_stream($page_type->stream_id);
 
-            $this->streams->streams->delete_stream($stream->stream_slug, $stream->stream_namespace);
-        }
+    //         $this->streams->streams->delete_stream($stream->stream_slug, $stream->stream_namespace);
+    //     }
 
-        // Delete the actual page entry.
-        $this->db->limit(1)->where('id', $id)->delete($this->_table);
-    }
-
-    // --------------------------------------------------------------------------
+    //     // Delete the actual page entry.
+    //     $this->db->limit(1)->where('id', $id)->delete($this->_table);
+    // }
 
     /**
      * Rename page layout files + the folder.

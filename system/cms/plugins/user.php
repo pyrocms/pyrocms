@@ -274,53 +274,56 @@ class Plugin_User extends Plugin
 	 */
 	private function get_user_profile($plugin_call = true)
 	{
-		$user_id = $this->attribute('user_id', null);
+		$user_id = $this->attribute('user_id');
 
 		// If we do not have a user id and there is
 		// no currently logged in user, there is nothing to display.
-		if (is_null($user_id) and !isset($this->current_user->id))
-		{
+		if (is_null($user_id) and ! isset($this->current_user->id)) {
 			return null;
-		}
-		elseif (is_null($user_id) and isset($this->current_user->id))
-		{
+		
+		// No user provided, but we know one
+		} elseif (is_null($user_id) and isset($this->current_user->id)) {
 			// Otherwise, we can use the current user id
 			$user_id = $this->current_user->id;
 		}
 
-		$user = $this->ion_auth_model->get_user($user_id)->row_array();
-
-		// Nobody needs these as profile fields.
-		unset($user['password']);
-		unset($user['salt']);
+		$user = User_m::find($user_id);
 
 		// Got through each stream field and see if we need to format it
 		// for plugin return (ie if we haven't already done that).
-		foreach ($this->ion_auth_model->user_stream_fields as $field_key => $field_data)
-		{
-			if ($plugin_call)
-			{
-				if (!isset($this->user_profile_data[$user_id]['plugin'][$field_key]) and isset($user[$field_key]))
-				{
+		foreach ($this->user_stream_fields as $field_key => $field_data) {
+			if ($plugin_call) {
+				if ( ! isset($this->user_profile_data[$user_id]['plugin'][$field_key]) and $user->{$field_key})) {
 					$this->user_profile_data[$user_id]['plugin'][$field_key] = $this->row_m->format_column(
-							$field_key, $user[$field_key], $user['profile_id'], $field_data->field_type, $field_data->field_data, $this->ion_auth_model->user_stream, true);
+						$field_key, 
+						$user->$field_key,
+						$user->profile_id,
+						$field_data->field_type,
+						$field_data->field_data,
+						$this->user_stream,
+						true
+					);
 				}
 
-				if (isset($user[$field_key]))
-				{
-					$user[$field_key] = $this->user_profile_data[$user_id]['plugin'][$field_key];
+				if ($user->$field_key) {
+					$user->$field_key = $this->user_profile_data[$user_id]['plugin'][$field_key];
 				}
-			}
-			else
-			{
-				if (!isset($this->user_profile_data[$user_id]['pre_formatted'][$field_key]) and isset($user[$field_key]))
-				{
+
+			// Not a plugin call
+			} else {
+				if ( ! isset($this->user_profile_data[$user_id]['pre_formatted'][$field_key]) and isset($user[$field_key])) {
 					$this->user_profile_data[$user_id]['pre_formatted'][$field_key] = $this->row_m->format_column(
-							$field_key, $user[$field_key], $user['profile_id'], $field_data->field_type, $field_data->field_data, $this->ion_auth_model->user_stream, false);
+						$field_key,
+						$user->{$field_key},
+						$user->profile_id,
+						$field_data->field_type,
+						$field_data->field_data,
+						$this->user_stream,
+						false
+					);
 				}
 
-				if (isset($user[$field_key]))
-				{
+				if ($user->{$field_key}) {
 					$user[$field_key] = $this->user_profile_data[$user_id]['pre_formatted'][$field_key];
 				}
 			}
@@ -339,30 +342,32 @@ class Plugin_User extends Plugin
 	 */
 	private function get_user_var($var, $user_id)
 	{
-		if (isset($this->user_profile_data[$user_id]['plugin'][$var]))
-		{
+		if (isset($this->user_profile_data[$user_id]['plugin'][$var])) {
 			return $this->user_profile_data[$user_id]['plugin'][$var];
 		}
 
-		$user = $this->ion_auth_model->get_user($user_id)->row_array();
+		$user = User_m::find($user_id);
 
 		// Is this a user stream field?
-		if (array_key_exists($var, $this->ion_auth_model->user_stream_fields))
-		{
+		if (array_key_exists($var, $this->user_stream_fields)) {
 			$formatted_column = $this->row_m->format_column(
-					$var, $user[$var], $user['profile_id'], $this->ion_auth_model->user_stream_fields->{$var}->field_type, $this->ion_auth_model->user_stream_fields->{$var}->field_data, $this->ion_auth_model->user_stream, true
+				$var, 
+				$user->$var, 
+				$user->profile_id,
+				$this->user_stream_fields->{$var}->field_type, 
+				$this->user_stream_fields->{$var}->field_data, 
+				$this->user_stream, 
+				true
 			);
 		}
-		else
-		{
+		else {
 			$formatted_column = $user[$var];
 		}
 
 		// Save for later user
 		$this->user_profile_data[$user_id]['plugin'][$var] = $formatted_column;
 
-		if (is_array($formatted_column))
-		{
+		if (is_array($formatted_column)) {
 			return array($formatted_column);
 		}
 
