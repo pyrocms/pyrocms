@@ -53,10 +53,18 @@ jQuery(function($) {
 		{
 			$.each(CKEDITOR.instances, function(instance) {
 				CKEDITOR.instances[instance].on('maximize', function(e) {
-					$('.hide-on-ckeditor-maximize').toggleClass('hidden');
-					$('.cke_button__maximize').toggleClass('ckeditor-pyro-logo');
+					if(e.data == 1) //maximize
+					{
+						$('.hide-on-ckeditor-maximize').addClass('hidden');
+						$('.cke_button__maximize').addClass('ckeditor-pyro-logo');
+					}
+					else if(e.data == 2) //snap back
+					{
+						$('.hide-on-ckeditor-maximize').removeClass('hidden');
+						$('.cke_button__maximize').removeClass('ckeditor-pyro-logo');
+					}
 				});
-			});			
+			});
 		}
 	};
 
