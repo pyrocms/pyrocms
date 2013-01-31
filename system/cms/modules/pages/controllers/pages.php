@@ -79,21 +79,16 @@ class Pages extends Public_Controller
 	 */
 	public function _page($url_segments)
 	{
-		// Get our chunks field type if this is an
-		// upgraded site.
-		if ($this->db->table_exists('page_chunks'))
-		{
-			$this->type->load_types_from_folder(APPPATH.'modules/pages/field_types/', 'pages_module');
-		}
-
 		// GET THE PAGE ALREADY. In the event of this being the home page $url_segments will be null
-		$page = $this->cache->method($this->page_m, 'get_by_uri', array($url_segments, true));
+		// $page = $this->cache->method($this->page_m, 'get_by_uri', array($url_segments, true));
+		$page = Page_m::findByUri($url_segments, true);
 
 		// If page is missing or not live (and the user does not have permission) show 404
-		if ( ! $page or ($page->status == 'draft' and ! $this->permission_m->has_role(array('put_live', 'edit_live'))))
+		if ( ! $page or ($page->status === 'draft' and ! $this->permission_m->has_role(array('put_live', 'edit_live'))))
 		{
 			// Load the '404' page. If the actual 404 page is missing (oh the irony) bitch and quit to prevent an infinite loop.
-			if ( ! ($page = $this->cache->method('page_m', 'get_by_uri', array('404'))))
+			// if ( ! ($page = $this->cache->method('page_m', 'get_by_uri', array('404'))))
+			if ( ! ($page = Page_m::findByUri(404)))
 			{
 				show_error('The page you are trying to view does not exist and it also appears as if the 404 page has been deleted.');
 			}
@@ -103,20 +98,17 @@ class Pages extends Public_Controller
 		isset($page->base_uri) OR $page->base_uri = $url_segments;
 
 		// If this is a homepage, do not show the slug in the URL
-		if ($page->is_home and $url_segments)
-		{
+		if ($page->is_home and $url_segments) {
 			redirect('', 'location', 301);
 		}
 
 		// If the page is missing, set the 404 status header
-		if ($page->slug == '404')
-		{
+		if ($page->slug == 404) {
 			$this->output->set_status_header(404);
 		}
 
 		// Nope, it is a page, but do they have access?
-		elseif ($page->restricted_to)
-		{
+		elseif ($page->restricted_to) {
 			$page->restricted_to = (array)explode(',', $page->restricted_to);
 
 			// Are they logged in and an admin or a member of the correct group?
@@ -150,31 +142,27 @@ class Pages extends Public_Controller
 				$this->cache->set('page_m/'.md5(implode('/', $url_segments)), $parents);
 			}
 
-			foreach ($parents as $parent_page)
-			{
+			foreach ($parents as $parent_page) {
 				$this->template->set_breadcrumb($parent_page->title, $parent_page->uri);
 			}
 		}
 
 		// If this page has an RSS feed, show it
-		if ($page->rss_enabled)
-		{
+		if ($page->rss_enabled) {
 			$this->template->append_metadata('<link rel="alternate" type="application/rss+xml" title="'.$page->meta_title.'" href="'.site_url(uri_string().'.rss').'" />');
 		}
 
 		// Set pages layout files in your theme folder
-		if ($this->template->layout_exists($page->uri.'.html'))
-		{
+		if ($this->template->layout_exists($page->uri.'.html')) {
 			$this->template->set_layout($page->uri.'.html');
 		}
 
 		// If a Page Type has a Theme Layout that exists, use it
-		if ( ! empty($page->layout->theme_layout) and $this->template->layout_exists($page->layout->theme_layout)
+		if ( ! empty($page->type->theme_layout) and $this->template->layout_exists($page->type->theme_layout)
 			// But Allow that you use layout files of you theme folder without override the defined by you in your control panel
-			AND ($this->template->layout_is('default.html') OR $page->layout->theme_layout !== 'default.html')
-		)
-		{
-			$this->template->set_layout($page->layout->theme_layout);
+			AND ($this->template->layout_is('default.html') OR $page->type->theme_layout !== 'default.html')
+		) {
+			$this->template->set_layout($page->type->theme_layout);
 		}
 
 		// ---------------------------------
@@ -183,14 +171,14 @@ class Pages extends Public_Controller
 
 		// First we need to figure out our metadata. If we have meta for our page,
 		// that overrides the meta from the page layout.
-		$meta_title = ($page->meta_title ? $page->meta_title : $page->layout->meta_title);
-		$meta_description = ($page->meta_description ? $page->meta_description : $page->layout->meta_description);
+		$meta_title = ($page->meta_title ?: $page->type->meta_title);
+		$meta_description = ($page->meta_description ?: $page->type->meta_description);
 		$meta_keywords = '';
-		if ($page->meta_keywords or $page->layout->meta_description)
-		{
-			$meta_keywords = $page->meta_keywords ? 
-				Keywords::get_string($page->meta_keywords) : 
-				Keywords::get_string($page->layout->meta_keywords);
+
+		$keyword_hash = $page->meta_keywords ?: $page->type->meta_keywords;
+
+		if ($keyword_hash) {
+			$meta_keywords = Keywords::get_string($page->meta_keywords);
 		}
 
 		// They will be parsed later, when they are set for the template library.
@@ -198,7 +186,7 @@ class Pages extends Public_Controller
 		// Not got a meta title? Use slogan for homepage or the normal page title for other pages
 		if ( ! $meta_title)
 		{
-			$meta_title = $page->is_home ? $this->settings->site_slogan : $page->title;
+			$meta_title = $page->is_home ? Settings::get('site_slogan') : $page->title;
 		}
 
 		// ---------------------------------
@@ -212,21 +200,20 @@ class Pages extends Public_Controller
 
 		// make it possible to use {{ asset:inline_css }} #foo { color: red } {{ /asset:inline_css }}
 		// to output css via the {{ asset:render_inline_css }} tag. This is most useful for JS
-		$css = $this->parser->parse_string($page->layout->css.$page->css, $this, true);
+		$css = $this->parser->parse_string($page->type->css.$page->css, $this, true);
 
 		// there may not be any css (for sure after parsing Lex tags)
-		if ($css)
-		{
+		if ($css) {
 			$this->template->append_metadata('
 				<style type="text/css">
 					'.$css.'
 				</style>', 'late_header');
 		}
 
-		$js = $this->parser->parse_string($page->layout->js.$page->js, $this, true);
+		$js = $this->parser->parse_string($page->type->js.$page->js, $this, true);
+		
 		// Add our page and page layout JS
-		if ($js)
-		{
+		if ($js) {
 			$this->template->append_metadata('
 				<script type="text/javascript">
 					'.$js.'
@@ -234,8 +221,7 @@ class Pages extends Public_Controller
 		}
 
 		// If comments are enabled, go fetch them all
-		if (Settings::get('enable_comments'))
-		{
+		if (Settings::get('enable_comments')) {
 			// Load Comments so we can work out what to do with them
 			$this->load->library('comments/comments', array(
 				'entry_id' 		=> $page->id,
@@ -246,8 +232,7 @@ class Pages extends Public_Controller
 			));
 		}
 
-		if ($page->slug == '404')
-		{
+		if ($page->slug == '404') {
 			log_message('error', 'Page Missing: '.$this->uri->uri_string());
 
 			// things behave a little differently when called by MX from MY_Exceptions' show_404()
@@ -255,15 +240,23 @@ class Pages extends Public_Controller
 		}
 
 		// Get our stream.
-		$stream = $this->streams_m->get_stream($page->layout->stream_id);
+		$this->load->driver('Streams');
+		$stream = $this->streams_m->get_stream($page->type->stream_id);
 
 		// Parse our view file
 		$html = $this->load->view('pages/page', array('page' => $page), true);
 		
-		$view = $this->parser->parse_string($html, $page, true, false, array(
-			'stream' => $stream->stream_slug, 
-			'namespace' => $stream->stream_namespace
-		));
+		$view_data = array();
+
+		// Let's assign some of that data to our view
+		if ($stream) {
+			$view_data = array(
+				'stream' => $stream->stream_slug, 
+				'namespace' => $stream->stream_namespace
+			);
+		}
+
+		$view = $this->parser->parse_string($html, $page, true, false, $view_data);
 
 		$this->template->build($view, array('page' => $page), false, false, true);
 	}
@@ -288,8 +281,7 @@ class Pages extends Public_Controller
 		$include_draft = ! empty($this->current_user) AND $this->current_user->group !== 'admin';
 
 		// If page is missing or not live (and not an admin) show 404
-		if (empty($page) or ($page->status == 'draft' and $include_draft) or ! $page->rss_enabled)
-		{
+		if (empty($page) or ($page->status == 'draft' and $include_draft) or ! $page->rss_enabled) {
 			// Will try the page then try 404 eventually
 			$this->_page('404');
 			return;
@@ -301,8 +293,7 @@ class Pages extends Public_Controller
 		);
 
 		// If the feed should only show live pages
-		if ( ! $include_draft)
-		{
+		if ( ! $include_draft) {
 			// add the query where criteria
 			$query_options['status'] = 'live';
 		}
@@ -313,10 +304,10 @@ class Pages extends Public_Controller
 		
 		$data = array(
 			'rss' => array(
-				'title' => ($page->meta_title ? $page->meta_title : $page->title).' | '.$this->settings->site_name,
+				'title' => ($page->meta_title ?: $page->title).' | '.Settings::get('site_name'),
 				'description' => $page->meta_description,
 				'link' => site_url($url_segments),
-				'creator_email' => $this->settings->contact_email,
+				'creator_email' => Settings::get('contact_email'),
 				'items' => array(),
 			),
 		);

@@ -37,7 +37,7 @@ class Admin_Controller extends MY_Controller {
 		}
 
 		// If the setting is enabled redirect request to HTTPS
-		if ($this->settings->admin_force_https and strtolower(substr(current_url(), 4, 1)) != 's')
+		if (Settings::get('admin_force_https') and strtolower(substr(current_url(), 4, 1)) != 's')
 		{
 			redirect(str_replace('http:', 'https:', current_url()).'?session='.session_id());
 		}
@@ -115,8 +115,8 @@ class Admin_Controller extends MY_Controller {
 			// We always have our 
 			// edit profile links and such.
 			$menu_items['lang:global:profile'] = array(
-				'lang:cp:edit_profile_label'		=> 'edit-profile',
-				'lang:cp:logout_label'				=> 'admin/logout'
+				'lang:cp:edit_profile_label' => 'edit-profile',
+				'lang:cp:logout_label'		 => 'admin/logout'
 			);
 
 			// Trigger an event so modules can mess with the

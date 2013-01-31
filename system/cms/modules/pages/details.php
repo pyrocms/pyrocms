@@ -151,6 +151,7 @@ class Module_Pages extends Module
             $table->increments('id');
             $table->string('slug', 255);
             $table->string('title', 60);
+            $table->text('description')->nullable();
             $table->integer('stream_id');
             $table->string('meta_title', 255)->nullable();
             $table->string('meta_keywords', 32)->nullable();

@@ -2,7 +2,7 @@
 	<h4><?php echo lang('redirects:list_title') ?></h4>
 </section>
 
-<?php if (count($redirects) > 0): ?>
+<?php if ( ! $redirects->isEmpty()): ?>
 
 	<section class="item">
 		<div class="content">
