@@ -22,7 +22,7 @@
 							var cache = {}, lastXhr;
 							$(".search-query").autocomplete({
 								minLength: 2,
-								delay: 500,
+								delay: 200,
 								source: function( request, response ) {
 									var term = request.term;
 									if ( term in cache ) {
