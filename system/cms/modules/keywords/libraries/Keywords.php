@@ -150,10 +150,7 @@ class Keywords
 			}
 
 			// Create assignment record
-			ci()->db->insert('keywords_applied', array(
-				'hash' => $assignment_hash,
-				'keyword_id' => $keyword_id,
-			));
+			Keyword_m::applyHashToKeywordId($assignment_hash, $keyword_id);
 		}
 
 		return $assignment_hash;
