@@ -164,7 +164,7 @@ input#file-search:focus {
 
 .button-menu-source {
 	display:none;
-	padding:0 16px 0 0 !important;
+	padding:4px 16px 0 0 !important;
 	float: left;
 }
 
