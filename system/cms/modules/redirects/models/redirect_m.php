@@ -30,7 +30,7 @@ class Redirect_m extends \Illuminate\Database\Eloquent\Model
      */
     public static function findByUri($uri)
     {
-        return self::where('from', '=', $uri)->first();
+        return static::where('from', '=', $uri)->first();
     }
 
     /**
@@ -42,7 +42,7 @@ class Redirect_m extends \Illuminate\Database\Eloquent\Model
      */
     public static function findByFrom($from)
     {
-        return self::where('from','=',$from)->first();
+        return static::where('from','=',$from)->first();
     }
 
     /**
@@ -55,7 +55,7 @@ class Redirect_m extends \Illuminate\Database\Eloquent\Model
      */
     public static function findByFromWithId($from, $id = 0)
     {
-        return self::where('id', '!=', $id)
+        return static::where('id', '!=', $id)
                     ->where('from', '=', $from)->first();
     }
 }
