@@ -1,5 +1,7 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
+use Capsule\Schema;
+
 /**
  * Pages Module
  *
@@ -141,10 +143,9 @@ class Module_Pages extends Module
 
     public function install()
     {
-        $schema = $this->pdb->getSchemaBuilder();
-        $schema->dropIfExists('page_types');
+        Schema::dropIfExists('page_types');
 
-        $schema->create('page_types', function($table) {
+        Schema::create('page_types', function($table) {
             $table->increments('id');
             $table->string('slug', 255);
             $table->string('title', 60);
@@ -164,9 +165,9 @@ class Module_Pages extends Module
         });
 
         // Pages Schema ----
-        $schema->dropIfExists('pages');
+        Schema::dropIfExists('pages');
 
-        $schema->create('pages', function($table) {
+        Schema::create('pages', function($table) {
             $table->increments('id');
 
             $table->string('slug', 255)->nullable();
@@ -197,8 +198,6 @@ class Module_Pages extends Module
 
         $this->load->driver('Streams');
 
-/* @TODO Adam - Convert all stream logic within over to eloquent 
-
         // Remove pages namespace, just in case its a 2nd install
         $this->streams->utilities->remove_namespace('pages');
 
@@ -211,7 +210,7 @@ class Module_Pages extends Module
         $this->load->config('pages/pages');
 
         // Def Page Fields Schema
-        $schema->dropIfExists('def_page_fields');
+        Schema::dropIfExists('def_page_fields');
 
         $stream_id = $this->streams->streams->add_stream(
             'Default',
@@ -276,8 +275,7 @@ class Module_Pages extends Module
             )
         );
 
-        foreach ($page_entries as $key => $d)
-        {
+        foreach ($page_entries as $key => $d) {
             // Contact Page
             $page_id = $this->pdb->table('pages')->insert($d);
 
@@ -288,7 +286,6 @@ class Module_Pages extends Module
 
             unset($page_id, $entry_id);
         }
-    */
 
         return true;
     }

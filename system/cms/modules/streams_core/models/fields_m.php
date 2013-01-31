@@ -717,31 +717,27 @@ class Fields_m extends CI_Model {
 	/**
 	 * Get a single field by the field slug
 	 *
-	 * @access	public
-	 * @param	string - field slug
-	 * @param	string - field namespace
+	 * @param	string field slug
+	 * @param	string field namespace
 	 * @return	obj
 	 */
 	public function get_field_by_slug($field_slug, $field_namespace)
 	{
 		// Check for already cached value
-		if (isset($this->fields_cache['by_slug'][$field_namespace.':'.$field_slug]))
-		{
+		if (isset($this->fields_cache['by_slug'][$field_namespace.':'.$field_slug])) {
 			return $this->fields_cache['by_slug'][$field_namespace.':'.$field_slug];
 		}
 
-		$obj = $this->db
-				->limit(1)
+		$field = $this->pdb
+				->table($this->table)
+				->take(1)
 				->where('field_namespace', $field_namespace)
 				->where('field_slug', $field_slug)
-				->get($this->table);
+				->first();
 		
-		if ($obj->num_rows() == 0)
-		{
+		if ( ! $field) {
 			return false;
 		}
-		
-		$field = $obj->row();
 		
 		$field->field_data = unserialize($field->field_data);
 
@@ -756,21 +752,17 @@ class Fields_m extends CI_Model {
 	/**
 	 * Assignment Exists
 	 *
-	 * @access 	public
 	 * @param 	int - stream ID
 	 * @param 	int - field ID
 	 * @return 	bool
 	 */
 	public function assignment_exists($stream_id, $field_id)
 	{
-		if ($this->db->select('id')->where('stream_id', $stream_id)->where('field_id', $field_id)->get(ASSIGN_TABLE)->num_rows() > 0)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		return $this->db->select('id')
+			->table(ASSIGN_TABLE)
+			->where('stream_id', $stream_id)
+			->where('field_id', $field_id)
+			->count() > 0;
 	}
 
 	// --------------------------------------------------------------------------
@@ -778,7 +770,6 @@ class Fields_m extends CI_Model {
 	/**
 	 * Edit Assignment
 	 *
-	 * @access	public
 	 * @param	int
 	 * @param	obj
 	 * @param	obj
