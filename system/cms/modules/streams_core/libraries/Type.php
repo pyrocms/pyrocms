@@ -14,23 +14,20 @@ class Type
 	/**
 	 * We build up these assets for the footer
 	 *
-	 * @access	public
 	 * @var		array
 	 */
 	public $assets = array();
-
-	// --------------------------------------------------------------------------
 	
 	/**
 	 * Places where our field types may be
 	 *
-	 * @access	public
 	 * @var		array
 	 */
 	public $addon_paths = array();
 
-	// --------------------------------------------------------------------------
-
+	/**
+	 * Constructor
+	 */
     public function __construct()
     {    
 		$this->CI = get_instance();
@@ -61,7 +58,7 @@ class Type
 		// We either need a prefix or not
 		// This is for legacy and if any 3rd party
 		// field types use this constant
-		(CMS_VERSION < 1.3) ? define('PYROSTREAMS_DB_PRE', '') : define('PYROSTREAMS_DB_PRE', SITE_REF.'_');
+		define('PYROSTREAMS_DB_PRE', SITE_REF.'_');
 		
 		// Since this is PyroStreams core we know where
 		// PyroStreams is, but we set this for backwards
@@ -69,7 +66,7 @@ class Type
 		// Also, now that the Streams API is around, we need to
 		// check if we need to change this based on the
 		// install situation. 
-		if(defined('PYROPATH'))
+		if (defined('PYROPATH'))
 		{
 			define('PYROSTEAMS_DIR', PYROPATH.'modules/streams_core/');
 		}
@@ -96,14 +93,10 @@ class Type
 		$this->gather_types();		
 	}
 
-	// --------------------------------------------------------------------------
-
 	public function add_ft_path($key, $path)
 	{
 		$this->addon_paths[$key] = $path;
 	}
-
-	// --------------------------------------------------------------------------
 
 	public function update_types()
 	{
@@ -113,12 +106,9 @@ class Type
 		$this->gather_types();	
 	}
 
-	// --------------------------------------------------------------------------
-	
 	/**
 	 * Get the types together as a big object
 	 *
-	 * @access	public
 	 * @return	void
 	 */
 	public function gather_types()
@@ -131,8 +121,6 @@ class Type
 		}
 	}
 	
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Load field types from a certain folder.
 	 *
@@ -140,77 +128,79 @@ class Type
 	 * a pinch if you need to bring in some field types
 	 * from a custom location.
 	 *
-	 * @access	public
 	 * @param	array
 	 * @param	string
 	 * @return	void
 	 */	
 	public function load_types_from_folder($addon_path, $mode = 'core')
 	{
-		if ( ! is_dir($addon_path)) return;
+		if ( ! is_dir($addon_path)) {
+			return;
+		}
 
 		$types_files = directory_map($addon_path, 1);
 
-		foreach ($types_files as $type)
-		{
+		foreach ($types_files as $type) {
+
+			$type = basename($type);
+
+			if ($type == 'index.html') {
+				continue;
+			}
+
 			// Is this a directory w/ a field type?
-			if (is_dir($addon_path.$type) and is_file($addon_path.$type.'/field.'.$type.'.php'))
-			{
-				$this->types->$type = $this->_load_type($addon_path, 
-									$addon_path.$type.'/field.'.$type.'.php',
-									$type,
-									$mode);
-			}			
-			elseif (is_file($addon_path.'field.'.$type.'.php'))
-			{
-				$this->types->$type = $this->_load_type($addon_path, 
-									$addon_path.'field.'.$type.'.php',
-									$type,
-									$mode);												
+			if (is_dir($addon_path.$type) and is_file("{$addon_path}{$type}/field.{$type}.php")) {
+				$this->types->$type = $this->_load_type(
+					$addon_path, 
+					$addon_path.$type.'/field.'.$type.'.php',
+					$type,
+					$mode
+				);
+			} elseif (is_file("{$addon_path}field.{$type}.php")) {
+				$this->types->$type = $this->_load_type(
+					$addon_path, 
+					$addon_path.'field.'.$type.'.php',
+					$type,
+					$mode
+				);
 			}
 		}
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Load single type
 	 *
-	 * @access	public
 	 * @param	string - type name
 	 * @return	obj or null
 	 */	
 	public function load_single_type($type)
 	{
-		foreach ($this->addon_paths as $mode => $path)
-		{
+		foreach ($this->addon_paths as $mode => $path) {
 			// Is this a directory w/ a field type?
-			if (is_dir($path.$type) and is_file($path.$type.'/field.'.$type.'.php'))
-			{
-				return $this->_load_type($path, 
-									$path.$type.'/field.'.$type.'.php',
-									$type,
-									$mode);		
-			}
-			elseif (is_file($path.'field.'.$type.'.php'))
-			{
-				return $this->_load_type($path, 
-									$path.'field.'.$type.'.php',
-									$type,
-									$mode);
+			if (is_dir($path.$type) and is_file($path.$type.'/field.'.$type.'.php')) {
+				return $this->_load_type(
+					$path, 
+					$path.$type.'/field.'.$type.'.php',
+					$type,
+					$mode
+				);
+			} elseif (is_file($path.'field.'.$type.'.php')) {
+				return $this->_load_type(
+					$path, 
+					$path.'field.'.$type.'.php',
+					$type,
+					$mode
+				);
 			}					
 		}
 		
 		return null;
 	}
 
-	// --------------------------------------------------------------------------
-	
 	/**
 	 * Load the actual field type into the
 	 * types object
 	 *
-	 * @access	private
 	 * @param	string - addon path
 	 * @param	string - path to the file (with the file name)
 	 * @param	string - the field type
@@ -223,8 +213,7 @@ class Type
 		// Load the language file
 		// -------------------------
 
-		if (is_dir($path.$type.'/language'))
-		{
+		if (is_dir($path.$type.'/language')) {
 			$lang = $this->CI->config->item('language');
 
 			// Fallback on English
@@ -245,8 +234,7 @@ class Type
 	
 		$class_name = 'Field_'.$type;
 		
-		if (class_exists($class_name))
-		{
+		if (class_exists($class_name)) {
 			$tmp = new $class_name();
 			
 			// Set some ft class vars
@@ -258,17 +246,14 @@ class Type
 			$tmp->CI			= get_instance();
 			
 			// Field type name is languagized
-			if ( ! isset($tmp->field_type_name))
-			{
-				$tmp->field_type_name = $this->CI->lang->line('streams:'.$type.'.name');
+			if ( ! isset($tmp->field_type_name)) {
+				$tmp->field_type_name = lang('streams:'.$type.'.name');
 			}
 		}
 	
 		return $tmp;
 	}
 	
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Add a field type CSS file
 	 */
@@ -280,8 +265,6 @@ class Type
 		
 		$this->assets[] = $html;	
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Add a field type JS file
@@ -295,8 +278,6 @@ class Type
 		$this->assets[] = $html;	
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Add a field type JS file
 	 */
@@ -307,12 +288,9 @@ class Type
 		$this->assets[] = $html;	
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Load a view from a field type
 	 *
-	 * @access	public
 	 * @param	string
 	 * @param	string
 	 * @param	bool
@@ -330,8 +308,6 @@ class Type
 		return $view_data;
 	}
 
-	// --------------------------------------------------------------------
-
 	/**
 	 * Object to Array
 	 *
@@ -347,12 +323,9 @@ class Type
 		return (is_object($object)) ? get_object_vars($object) : $object;
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Load crud assets for all field crud assets
 	 *
-	 * @access	public
 	 * @return	void
 	 */	
 	public function load_field_crud_assets($types = null)
@@ -373,20 +346,16 @@ class Type
 		unset($types);
 	}
 
-	// --------------------------------------------------------------------------   
-
 	/**
 	 * Field Types array
 	 *
 	 * Create a drop down of field types
 	 *
-	 * @access	public
 	 * @return	array
 	 */
 	public function field_types_array($types = null)
 	{
-		if ( ! $types)
-		{
+		if ( ! $types) {
 			$types = $this->types;
 		}
 

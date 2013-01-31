@@ -13,8 +13,6 @@ class Fields_m extends CI_Model {
 
 	public $table;
 
-    // --------------------------------------------------------------------------
-
 	/**
 	 * Fields Validation
 	 */
@@ -36,19 +34,13 @@ class Fields_m extends CI_Model {
 		)
 	);
 
-	// --------------------------------------------------------------------------
-
 	public $fields_cache;
-
-	// --------------------------------------------------------------------------
 
 	public function __construct()
 	{
 		$this->table = FIELDS_TABLE;
 	}
  
-    // --------------------------------------------------------------------------
-
 	public function populate_field_cache()
 	{
 		$fields = $this->db->get($this->table)->result();
@@ -60,12 +52,9 @@ class Fields_m extends CI_Model {
 		}
 	}
 
-	// --------------------------------------------------------------------------
-    
     /**
      * Get some fields
      *
-     * @access	public
      * @param	[string - field namespace]
      * @param	[int limit]
      * @param	[int offset]
@@ -79,19 +68,18 @@ class Fields_m extends CI_Model {
 	
 		if ($offset) $this->db->offset($offset);
 		
-		if ($limit) $this->db->limit($limit);
+		if ($limit) {
+			$this->db->limit($limit);
+		}
 
 		$query = $this->db->order_by('field_name', 'asc')->get($this->table);
      
     	return $query->result();
 	}
     
-    // --------------------------------------------------------------------------
-    
     /**
      * Get all fields with extra field info
      *
-     * @access	public
      * @param	int limit
      * @param	int offset
      * @return	array
@@ -115,13 +103,10 @@ class Fields_m extends CI_Model {
     	
     	return $return_fields;
 	}
-
-    // --------------------------------------------------------------------------
     
     /**
      * Count fields
      *
-     * @access	public
      * @return	int
      */
 	public function count_fields($namespace)
@@ -134,12 +119,9 @@ class Fields_m extends CI_Model {
 				->count_all_results();
 	}
 
-    // --------------------------------------------------------------------------
-
 	/**
 	 * Insert a field
 	 *
-	 * @access	public
 	 * @param	string - the field name
 	 * @param	string - the field slug
 	 * @param	string - the field type
@@ -148,13 +130,11 @@ class Fields_m extends CI_Model {
 	 */
 	public function insert_field($field_name, $field_slug, $field_type, $field_namespace, $extra = array(), $locked = 'no')
 	{
-		if ( ! $locked)
-		{
+		if ( ! $locked) {
 			$locked = 'no';
 		}
 
-		if ($locked != 'yes' and $locked != 'no')
-		{
+		if ($locked != 'yes' and $locked != 'no') {
 			$locked = 'no';
 		}
 
@@ -169,24 +149,13 @@ class Fields_m extends CI_Model {
 		// Load the type to see if there are other fields
 		$field_type = $this->type->types->$field_type;
 		
-		if (isset($field_type->custom_parameters))
-		{
-			foreach ($field_type->custom_parameters as $param)
-			{
-				if(isset($extra[$param]))
-				{
-					$insert_data['custom'][$param] = $extra[$param];
-				}
-				else
-				{
-					$insert_data['custom'][$param] = null;
-				}
+		if (isset($field_type->custom_parameters)) {
+			foreach ($field_type->custom_parameters as $param) {
+				$insert_data['custom'][$param] = isset($extra[$param]) ? $extra[$param] : null;
 			}
 			
-			foreach ($field_type->custom_parameters as $param)
-			{
-				if (method_exists($field_type, 'param_'.$param.'_pre_save'))
-				{
+			foreach ($field_type->custom_parameters as $param) {
+				if (method_exists($field_type, 'param_'.$param.'_pre_save')) {
 					$insert_data['custom'][$param] = $field_type->{'param_'.$param.'_pre_save'}( $insert_data );
 				}
 			}
@@ -195,7 +164,7 @@ class Fields_m extends CI_Model {
 			unset($insert_data['custom']);
 		}
 		
-		return $this->db->insert($this->table, $insert_data);
+		return $this->pdb->table($this->table)->insertGetId($insert_data);
 	}
 
 	// --------------------------------------------------------------------------
@@ -204,7 +173,6 @@ class Fields_m extends CI_Model {
 	 * Take field data and parse it into an array
 	 * the the DB forge class can use
 	 *
-	 * @access	public
 	 * @param	obj
 	 * @param	array
 	 * @param	string
@@ -313,7 +281,6 @@ class Fields_m extends CI_Model {
 	/**
 	 * Update field
 	 *
-	 * @access	public
 	 * @param	obj
 	 * @param	array - data
 	 * @param	int
@@ -481,12 +448,9 @@ class Fields_m extends CI_Model {
 		}
 	}
 
-	// --------------------------------------------------------------------------
-
     /**
      * Count assignments
      *
-     * @access	public
      * @return	int
      */
 	public function count_assignments($field_id)
@@ -499,12 +463,9 @@ class Fields_m extends CI_Model {
 				->count_all_results();
 	}
 
-	// --------------------------------------------------------------------------
-	
 	/**
 	 * Get assignments for a field
 	 *
-	 * @access	public
 	 * @param	int
 	 * @return	mixed
 	 */
@@ -526,12 +487,9 @@ class Fields_m extends CI_Model {
 		return $obj->result();
 	}
 
-	// --------------------------------------------------------------------------
-	
 	/**
 	 * Get assignments for a stream
 	 *
-	 * @access	public
 	 * @param	int
 	 * @return	mixed
 	 */
@@ -554,12 +512,9 @@ class Fields_m extends CI_Model {
 		return $obj->result();
 	}
 
-	// --------------------------------------------------------------------------
-	
 	/**
 	 * Delete a field
 	 *
-	 * @access	public
 	 * @param	int
 	 * @return	bool
 	 */
@@ -624,12 +579,9 @@ class Fields_m extends CI_Model {
 		return true;
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Field garbage cleanup
 	 *
-	 * @access	public
 	 * @param	obj - the assignment
 	 * @return	void
 	 */
@@ -676,33 +628,28 @@ class Fields_m extends CI_Model {
 		unset($view_options);
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Get a single field
 	 *
-	 * @access	public
 	 * @param	int
 	 * @return	obj
 	 */
 	public function get_field($field_id)
 	{
 		// Check for already cached value
-		if (isset($this->fields_cache['by_id'][$field_id]))
-		{
+		if (isset($this->fields_cache['by_id'][$field_id])) {
 			return $this->fields_cache['by_id'][$field_id];
 		}
 
-		$this->db->limit(1)->where('id', $field_id);
+		$field = $this->pdb
+			->table($this->table)
+			->take(1)
+			->where('id', $field_id)
+			->first();
 		
-		$obj = $this->db->get($this->table);
-		
-		if ($obj->num_rows() == 0)
-		{
+		if ( ! $field) {
 			return false;
 		}
-		
-		$field = $obj->row();
 		
 		$field->field_data = unserialize($field->field_data);
 
@@ -712,14 +659,12 @@ class Fields_m extends CI_Model {
 		return $field;
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Get a single field by the field slug
 	 *
 	 * @param	string field slug
 	 * @param	string field namespace
-	 * @return	obj
+	 * @return	object
 	 */
 	public function get_field_by_slug($field_slug, $field_namespace)
 	{
@@ -729,14 +674,14 @@ class Fields_m extends CI_Model {
 		}
 
 		$field = $this->pdb
-				->table($this->table)
-				->take(1)
-				->where('field_namespace', $field_namespace)
-				->where('field_slug', $field_slug)
-				->first();
+			->table($this->table)
+			->take(1)
+			->where('field_namespace', $field_namespace)
+			->where('field_slug', $field_slug)
+			->first();
 		
 		if ( ! $field) {
-			return false;
+			return;
 		}
 		
 		$field->field_data = unserialize($field->field_data);
@@ -747,8 +692,6 @@ class Fields_m extends CI_Model {
 		return $field;
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Assignment Exists
 	 *
@@ -758,14 +701,12 @@ class Fields_m extends CI_Model {
 	 */
 	public function assignment_exists($stream_id, $field_id)
 	{
-		return $this->db->select('id')
+		return $this->pdb->select('id')
 			->table(ASSIGN_TABLE)
 			->where('stream_id', $stream_id)
 			->where('field_id', $field_id)
 			->count() > 0;
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Edit Assignment
