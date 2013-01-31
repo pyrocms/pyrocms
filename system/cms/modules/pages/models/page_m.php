@@ -1,15 +1,27 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php
+
 /**
- * Regular pages model
+ * Pages model
  *
- * @author Phil Sturgeon
- * @author Jerel Unruh
- * @author PyroCMS Dev Team
- * @package PyroCMS\Core\Modules\Pages\Models
+ * @author     PyroCMS Dev Team
+ * @package    PyroCMS\Core\Modules\Pages\Models
  *
  */
-class Page_m extends MY_Model
+class Page_m extends \Illuminate\Database\Eloquent\Model
 {
+    /**
+     * Define the table name
+     *
+     * @var string
+     */
+    protected $table = 'pages';
+
+    /**
+     * Disable updated_at and created_at on table
+     *
+     * @var boolean
+     */
+    public $timestamps = false;
 
 	/**
 	 * Array containing the validation rules
@@ -89,30 +101,36 @@ class Page_m extends MY_Model
 		)
 	);
 
-    // --------------------------------------------------------------------------
-
 	// For streams
 	public $compiled_validate = array();
 
-    // --------------------------------------------------------------------------
+	/**
+	 * Relationship: Type
+	 *
+	 * @return Illuminate\Database\Eloquent\Relations\HasOne
+	 */
+	public function type()
+    {
+        return $this->belongsTo('Page_type_m');
+    }
 
 	/**
-	 * Get a page by its URI
+	 * Find a page by its URI
 	 *
 	 * @param string $uri The uri of the page.
 	 * @param bool $is_request Is this an http request or called from a plugin
 	 *
-	 * @return object
+	 * @return Page_m
 	 */
-	public function get_by_uri($uri, $is_request = false)
+	public static function findByUri($uri, $is_request = false)
 	{
 		// it's the home page
 		if ($uri === null)
 		{
-			$page = $this->db
-				->where('is_home', true)
-				->get('pages')
-				->row();
+			$page = static::where('is_home', '=', true)
+				->with('type')
+				->take(1)
+				->first();
 		}
 		else
 		{
@@ -124,13 +142,12 @@ class Page_m extends MY_Model
 			$page = false;
 			$i = 0;
 
-			while ( ! $page AND $uri AND $i < 15) /* max of 15 in case it all goes wrong (this shouldn't ever be used) */
+			while ( ! $page and $uri and $i < 15) /* max of 15 in case it all goes wrong (this shouldn't ever be used) */
 			{
-				$page = $this->db
-					->where('uri', $uri)
-					->limit(1)
-					->get('pages')
-					->row();
+				$page = static::where('uri', '=', $uri)
+					->with('type')
+					->take(1)
+					->first();
 
 				// if it's not a normal page load (plugin or etc. that is not cached)
 				// then we won't do our recursive search
@@ -157,7 +174,7 @@ class Page_m extends MY_Model
 			{
 				// so we found a page but if strict uri matching is required and the unmodified
 				// uri doesn't match the page we fetched then we pretend it didn't happen
-				if ($is_request and (bool)$page->strict_uri and $original_uri !== $uri)
+				if ($is_request and (bool) $page->strict_uri and $original_uri !== $uri)
 				{
 					return false;
 				}
@@ -168,60 +185,22 @@ class Page_m extends MY_Model
 		}
 
 		// looks like we have a 404
-		if ( ! $page) return false;
-
-		// ---------------------------------
-		// Legacy Page Chunks Logic
-		// ---------------------------------
-		// This is here so upgrades will not
-		// break entire sites. We can get rid
-		// of this in a newer version.
-		// ---------------------------------
-
-		if ($this->db->table_exists('page_chunks'))
-		{
-			if ($page->chunks = $this->get_chunks($page->id))
-			{
-				$chunk_html = '';
-				foreach ($page->chunks as $chunk)
-				{
-					$chunk_html .= '<section id="'.$chunk->slug.'" class="page-chunk '.$chunk->class.'">'.
-						'<div class="page-chunk-pad">'.
-						(($chunk->type == 'markdown') ? $chunk->parsed : $chunk->body).
-						'</div>'.
-						'</section>'.PHP_EOL;
-				}
-				$page->body = $chunk_html;
-			}
-		}
-
-		// ---------------------------------
-		// End Legacy Logic
-		// ---------------------------------
-
-
-		// Wrap the page with a page layout, otherwise use the default 'Home' layout
-		if ( ! $page->layout = $this->page_type_m->get($page->type_id))
-		{
-			// Some pillock deleted the page layout, use the default and pray to god they didnt delete that too
-			$page->layout = $this->page_type_m->get(1);
+		if ( ! $page) {
+			return false;
 		}
 
 		// ---------------------------------
 		// Get Stream Entry
 		// ---------------------------------
 
-		if ($page->entry_id and $page->layout->stream_id)
-		{
+		if ($page->entry_id and $page->type->stream_id) {
 			$this->load->driver('Streams');
 
 			// Get Streams
 			$stream = $this->streams_m->get_stream($page->layout->stream_id);
 
-			if ($stream)
-			{
-				if ($entry = $this->streams->entries->get_entry($page->entry_id, $stream->stream_slug, $stream->stream_namespace))
-				{
+			if ($stream) {
+				if ($entry = $this->streams->entries->get_entry($page->entry_id, $stream->stream_slug, $stream->stream_namespace)) {
 					$page = (object) array_merge((array)$entry, (array)$page);
 				}
 			}
@@ -254,8 +233,7 @@ class Page_m extends MY_Model
 
 		$page->stream_entry_found = false;
 
-		if ($page and $page->type_id and $get_data)
-		{
+		if ($page and $page->type_id and $get_data) {
 			// Get our page type files in case we are grabbing
 			// the body/html/css from the filesystem. 
 			$this->page_type_m->get_page_type_files_for_page($page);
@@ -263,8 +241,7 @@ class Page_m extends MY_Model
 			$this->load->driver('Streams');
 			$stream = $this->streams_m->get_stream($page->stream_id);
 
-			if ($stream)
-			{
+			if ($stream) {
 				$params = array(
 					'stream' 	=> $stream->stream_slug,
 					'namespace' => $stream->stream_namespace,
@@ -274,8 +251,7 @@ class Page_m extends MY_Model
 
 				$ret = $this->streams->entries->get_entries($params);
 
-				if (isset($ret['entries'][0]))
-				{
+				if (isset($ret['entries'][0])) {
 					// For no collisions
 					$ret['entries'][0]['entry_id'] = $ret['entries'][0]['id'];
 					unset($ret['entries'][0]['id']);
@@ -290,23 +266,6 @@ class Page_m extends MY_Model
 		}
 
 		return $page;
-	}
-
-    // --------------------------------------------------------------------------
-
-	/**
-	 * Get the home page
-	 *
-	 * @DEPRECATED
-	 * 
-	 * @return object
-	 */
-	public function get_home()
-	{
-		return $this->db
-			->where('is_home', true)
-			->get('pages')
-			->row();
 	}
 
     // --------------------------------------------------------------------------
@@ -404,25 +363,6 @@ class Page_m extends MY_Model
 		return parent::count_by(array('parent_id' => $parent_id)) > 0;
 	}
 
-    // --------------------------------------------------------------------------
-
-	/**
-	 * Return page chunks
-	 *
-	 * @DEPRECATED
-	 *
-	 * @return array An array containing all chunks for a page
-	 */
-	public function get_chunks($id)
-	{
-		return $this->db
-			->order_by('sort')
-			->get_where('page_chunks', array('page_id' => $id))
-			->result();
-	}
-
-    // --------------------------------------------------------------------------
-
 	/**
 	 * Get the child IDs
 	 *
@@ -431,21 +371,19 @@ class Page_m extends MY_Model
 	 *
 	 * @return array
 	 */
-	public function get_descendant_ids($id, $id_array = array())
+	public function getDescendantIds($id, $id_array = array())
 	{
 		$id_array[] = $id;
 
-		$children = $this->db->select('id, title')
-			->where('parent_id', $id)
-			->get('pages')
-			->result();
+		$children = $this
+			->select('id, title')
+			->where('parent_id', '=', $id)
+			->get();
 
-		if ($children)
-		{
+		if ($children) {
 			// Loop through all of the children and run this function again
-			foreach ($children as $child)
-			{
-				$id_array = $this->get_descendant_ids($child->id, $id_array);
+			foreach ($children as $child) {
+				$id_array = $this->getDescendantIds($child->id, $id_array);
 			}
 		}
 
@@ -461,7 +399,7 @@ class Page_m extends MY_Model
 	 *
 	 * @return array
 	 */
-	public function build_lookup($id)
+	public function buildLookup($id)
 	{
 		$current_id = $id;
 
@@ -491,10 +429,10 @@ class Page_m extends MY_Model
 	 */
 	public function reindex_descendants($id)
 	{
-		$descendants = $this->get_descendant_ids($id);
+		$descendants = $this->getDescendantIds($id);
 		foreach ($descendants as $descendant)
 		{
-			$this->build_lookup($descendant);
+			$this->buildLookup($descendant);
 		}
 	}
 
@@ -532,7 +470,7 @@ class Page_m extends MY_Model
 	 *
 	 * @return bool `true` on success, `false` on failure.
 	 */
-	public function create($input, $stream = false)
+	public function createOld($input, $stream = false)
 	{
 		$this->db->trans_start();
 
@@ -571,7 +509,7 @@ class Page_m extends MY_Model
 		// We define this for the field type.
 		define('PAGE_ID', $id);
 
-		$this->build_lookup($id);
+		$this->buildLookup($id);
 
 		// Add a Navigation Link
 		if (isset($input['navigation_group_id']) and count($input['navigation_group_id']) > 0)
@@ -593,21 +531,16 @@ class Page_m extends MY_Model
 		}
 
 		// Add the stream data.
-		if ($stream)
-		{
+		if ($stream) {
 			$this->load->driver('Streams');
 
 			// Insert the stream using the streams driver.
-			if ($entry_id = $this->streams->entries->insert_entry($input, $stream->stream_slug, $stream->stream_namespace))
-			{
+			if ($entry_id = $this->streams->entries->insert_entry($input, $stream->stream_slug, $stream->stream_namespace)) {
 				// Update with our new entry id
-				if ( ! $this->db->limit(1)->where('id', $id)->update($this->_table, array('entry_id' => $entry_id)))
-				{
+				if ( ! $this->db->limit(1)->where('id', $id)->update($this->_table, array('entry_id' => $entry_id))) {
 					return false;
 				}
-			}
-			else
-			{
+			} else {
 				// Something went wrong. Abort!
 				return false;
 			}
@@ -617,8 +550,6 @@ class Page_m extends MY_Model
 
 		return ($this->db->trans_status() === false) ? false : $id;
 	}
-
-    // --------------------------------------------------------------------------
 
 	/**
 	 * Update a Page
@@ -663,7 +594,7 @@ class Page_m extends MY_Model
 		// did it pass validation?
 		if ( ! $result) return false;
 
-		$this->build_lookup($id);
+		$this->buildLookup($id);
 
 		// Add the stream data.
 		if ($stream and $entry_id)
@@ -689,11 +620,11 @@ class Page_m extends MY_Model
 	 *
 	 * @return array|bool
 	 */
-	public function delete($id = 0)
+	public function deleteOld($id = 0)
 	{
 		$this->db->trans_start();
 
-		$ids = $this->get_descendant_ids($id);
+		$ids = $this->getDescendantIds($id);
 
 		foreach ($ids as $id)
 		{

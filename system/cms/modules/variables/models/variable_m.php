@@ -1,11 +1,11 @@
 <?php 
+
 /**
  * Variable model
  *
  * @author      PyroCMS Dev Team
  * @package     PyroCMS\Core\Modules\Variables\Models
  */
-
 class Variable_m extends \Illuminate\Database\Eloquent\Model
 {
     /**

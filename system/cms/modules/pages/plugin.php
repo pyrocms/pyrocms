@@ -386,7 +386,7 @@ class Plugin_Pages extends Plugin
 				return false;
 			}
 
-			$descendent_ids = $this->page_m->get_descendant_ids($descendent_id);
+			$descendent_ids = $this->page_m->getDescendantIds($descendent_id);
 
 			return in_array($child_id, $descendent_ids);
 		}
