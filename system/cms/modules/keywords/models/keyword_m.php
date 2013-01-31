@@ -33,7 +33,7 @@ class Keyword_m extends Model
 	 */
 	public static function findByName($name)
 	{
-		return self::where('name', '=', $name)->first();
+		return static::where('name', '=', $name)->first();
 	}
 
 	/**
@@ -44,7 +44,7 @@ class Keyword_m extends Model
 	 */
 	public static function findAndSortByName($direction = 'asc')
 	{
-		return self::orderBy('name', $direction)->get();
+		return static::orderBy('name', $direction)->get();
 	}
 
 	/**
@@ -55,7 +55,7 @@ class Keyword_m extends Model
 	 */
 	public static function findLikeTerm($term)
 	{
-		return self::select('name AS value')
+		return static::select('name AS value')
 					->where('name', 'like', '%'.$term.'%')
 					->get();
 	}
@@ -70,7 +70,7 @@ class Keyword_m extends Model
 	 */
 	public static function getAppliedByHash($hash)
 	{
-		return self::from('keywords_applied')
+		return static::from('keywords_applied')
 				->select('name')
 				->where('hash', '=', $hash)
 				->join('keywords', 'keyword_id', '=', 'keywords.id')
@@ -104,7 +104,7 @@ class Keyword_m extends Model
 	 */
 	public static function deleteAppliedByHash($hash)
 	{
-		return self::from('keywords_applied')
+		return static::from('keywords_applied')
 					->where('hash', '=', $hash)
 					->delete();
 	}
