@@ -2,7 +2,7 @@
 	<h4><?php echo lang('redirects:list_title') ?></h4>
 </section>
 
-<?php if ($redirects): ?>
+<?php if ( ! $redirects->isEmpty()): ?>
 
 	<section class="item">
 		<div class="content">
@@ -20,7 +20,7 @@
 		    </thead>
 			<tfoot>
 				<tr>
-					<td colspan="4">
+					<td colspan="5">
 						<div class="inner"><?php $this->load->view('admin/partials/pagination') ?></div>
 					</td>
 				</tr>
