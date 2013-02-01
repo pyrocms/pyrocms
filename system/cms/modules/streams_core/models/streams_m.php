@@ -617,7 +617,7 @@ class Streams_m extends MY_Model {
 			// Loop through and apply the filters
 			foreach ( $filter_data['filters'] as $filter=>$value )
 			{
-				if ( strlen($value) > 0 ) $this->db->like(str_replace('f_', '', $filter), $value);
+				if ( strlen($value) > 0 ) $this->db->like($stream->stream_prefix.$stream->stream_slug.'.'.str_replace('f_', '', $filter), $value);
 			}
 		}
 
@@ -830,10 +830,7 @@ class Streams_m extends MY_Model {
 		
 		if ($field_type->db_col_type !== false and $create_column === true)
 		{
-			if ( ! isset($field_type->alt_process) or !$field_type->alt_process)
-			{
-				if ( ! $this->dbforge->add_column($stream->stream_prefix.$stream->stream_slug, $field_to_add)) return false;
-			}
+			if ( ! $this->dbforge->add_column($stream->stream_prefix.$stream->stream_slug, $field_to_add)) return false;
 		}
 		
 		// -------------------------------------

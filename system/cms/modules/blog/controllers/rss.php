@@ -65,12 +65,14 @@ class Rss extends Public_Controller
 				$row->link = site_url('blog/'.date('Y/m', $row->created_on).'/'.$row->slug);
 				$row->created_on = date(DATE_RSS, $row->created_on);
 
+				$intro = (isset($row->intro)) ? $row->intro : $row->body;
+
 				$item = array(
 					//'author' => $row->author,
 					'title' => xml_convert($row->title),
 					'link' => $row->link,
 					'guid' => $row->link,
-					'description' => $row->intro,
+					'description' => $intro,
 					'date' => $row->created_on,
 					'category' => $row->category_title
 				);

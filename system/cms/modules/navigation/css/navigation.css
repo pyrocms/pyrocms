@@ -24,10 +24,12 @@ section.title li {
 }
 
 section.title li .button {
-	float:right;
+	float: right;
 	display: inline-block;
-	margin-right: 10px;
-/* margin-top: 6px; */
+	margin: 0 10px 0 0;
+	padding: 2px 6px;
+	font-size: 13px;
+	line-height: initial;
 }
 
 section.title li:first-child {
@@ -92,7 +94,7 @@ section.title .form-title {
 
 .sortable li {
 	margin:5px 0;
-	padding-left:0px;
+	padding-left:20px;
 }
 
 .sortable li div {

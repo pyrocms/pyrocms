@@ -31,6 +31,7 @@ $config['allowed_functions']	=	array(
 	'preg_match',
 	'preg_replace',
 	'rtrim',
+	'safe_mailto',
 	'sprintf',
 	'str_replace',
 	'str_word_count',

@@ -185,15 +185,15 @@ class Admin extends Admin_Controller {
 	{
 		$link = $this->navigation_m->get_url($link_id);
 
-		$ids = explode(',', $link[0]->restricted_to);
+		$ids = explode(',', $link->restricted_to);
 
 		$this->load->model('groups/group_m');
 		$this->db->where_in('id', $ids);
 		$groups = $this->group_m->dropdown('id', 'name');
 
-		$link[0]->{'restricted_to'} = implode(', ', $groups);
+		$link->restricted_to = implode(', ', $groups);
 
-		$this->load->view('admin/ajax/link_details', array('link' => $link['0']));
+		$this->load->view('admin/ajax/link_details', array('link' => $link));
 	}
 
 	/**
@@ -251,21 +251,21 @@ class Admin extends Admin_Controller {
 			return;
 		}
 
-		$navigation_link = (object)array();
+		$link = (object)array();
 
 		// Loop through each validation rule
 		foreach ($this->validation_rules as $rule)
 		{
-			$navigation_link->{$rule['field']} = set_value($rule['field']);
+			$link->{$rule['field']} = set_value($rule['field']);
 		}
 
-		$navigation_link->navigation_group_id = $group_id;
+		$link->navigation_group_id = $group_id;
 
 		$this->template
-			->set('navigation_link',$navigation_link);
+			->set('link',$link);
 
 		// Get Pages and create pages tree
-		$this->template->tree_select = $this->_build_tree_select(array('current_parent' => $this->template->navigation_link->page_id));
+		$this->template->tree_select = $this->_build_tree_select(array('current_parent' => $this->template->link->page_id));
 
 		$this->template
 			->set_layout(false)
@@ -286,7 +286,7 @@ class Admin extends Admin_Controller {
 		}
 
 		// Get the navigation item based on the ID
-		$this->template->navigation_link = $this->navigation_m->get_link($id);
+		$link = $this->navigation_m->get_link($id);
 
 		// Set the options for restricted to
 		$this->load->model('groups/group_m');
@@ -295,14 +295,12 @@ class Admin extends Admin_Controller {
 		{
 			$group_options[$group->id] = $group->name;
 		}
-		$this->template->group_options = $group_options;
 
-		if ( ! $this->template->navigation_link)
+		if ( ! $link)
 		{
 			$this->template->messages['error'] = lang('nav:link_not_exist_error');
 
-			echo $this->load->view('admin/partials/notices', $this->template);
-			return;
+			exit($this->load->view('admin/partials/notices', compact('link', 'group_options')));
 		}
 
 		// Valid data?
@@ -320,33 +318,31 @@ class Admin extends Admin_Controller {
 			$this->session->set_flashdata('success', lang('nav:link_edit_success'));
 
 			// echo success to let the js refresh the page
-			echo 'success';
-			return;
+			exit('success');
 		}
 
 		// check for errors
 		if (validation_errors())
 		{
-			echo $this->load->view('admin/partials/notices', $this->template);
-			return;
+			exit($this->load->view('admin/partials/notices', $this->template));
 		}
 
 		// Loop through each rule
-		foreach($this->validation_rules as $rule)
+		foreach ($this->validation_rules as $rule)
 		{
-			if($this->input->post($rule['field']) !== false)
+			if ($this->input->post($rule['field']) !== null)
 			{
-				$this->template->navigation_link->{$rule['field']} = $this->input->post($rule['field']);
+				$link->{$rule['field']} = $this->input->post($rule['field']);
 			}
 		}
 
 		// Get Pages and create pages tree
-		$this->template->tree_select = $this->_build_tree_select(array('current_parent' => $this->template->navigation_link->page_id));
+		$this->template->tree_select = $this->_build_tree_select(array('current_parent' => $link->page_id));
 
 		// Render the view
 		$this->template
 			->set_layout(false)
-			->build('admin/ajax/form');
+			->build('admin/ajax/form', compact('link', 'group_options'));
 	}
 
 	/**

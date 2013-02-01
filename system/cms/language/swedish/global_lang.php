@@ -63,6 +63,7 @@ $lang['required_error_label'] = 'Obligatoriskt fält saknas';
 $lang['note_label'] = 'Info';
 $lang['success_label'] = 'Ok';
 $lang['global:fields']					= 'Fields'; #translate
+$lang['global:custom_fields']			= 'Custom Fields'; #translate
 
 $lang['login_title'] = 'Log In';
 $lang['global:fatal_error'] = 'Kritiskt fel, är CMS installerat?';

@@ -93,24 +93,29 @@ class Plugin_Pages extends Plugin
 			->where('status', 'live')
 			->get('pages')
 			->row();
-
-		// Grab all the chunks that make up the body
-		$page->chunks = $this->db->get_where('page_chunks', array('page_id' => $page->id))->result();
-		
+        
 		$page->body = '';
-		if ($page->chunks)
+        
+		// Legacy support for chunks
+		if ($this->db->table_exists('page_chunks'))
 		{
-			foreach ($page->chunks as $chunk)
+			// Grab all the chunks that make up the body
+			$page->chunks = $this->db->get_where('page_chunks', array('page_id' => $page->id))->result();
+    		
+			if ($page->chunks)
 			{
-				$page->body .= '<div class="page-chunk '.$chunk->slug.'">' .
+    				foreach ($page->chunks as $chunk)
+				{
+					$page->body .= '<div class="page-chunk '.$chunk->slug.'">' .
 					(($chunk->type == 'markdown') ? $chunk->parsed : $chunk->body) .
 					'</div>' . PHP_EOL;
+				}
 			}
+    
+			// we'll unset the chunks array as Lex is grouchy about mixed data at the moment
+			unset($page->chunks);
 		}
-
-		// we'll unset the chunks array as Lex is grouchy about mixed data at the moment
-		unset($page->chunks);
-
+        
 		return $this->content() ? array($page) : $page->body;
 	}
 
@@ -207,7 +212,8 @@ class Plugin_Pages extends Plugin
 			->get('pages')
 			->result_array();
 
-		if ($pages)
+		// Legacy support for chunks
+		if ($pages && $this->db->table_exists('page_chunks'))
 		{
 			foreach ($pages as &$page)
 			{

@@ -63,6 +63,7 @@ $lang['required_error_label'] 			= 'ฟิลด์ที่จำเป็น�
 $lang['note_label'] 					= 'หมายเหตุ';
 $lang['success_label'] 					= 'สำเร็จ';
 $lang['global:fields']					= 'Fields'; #translate
+$lang['global:custom_fields']			= 'Custom Fields'; #translate
 
 $lang['login_title'] 					= 'เข้าสู่ระบบ';
 $lang['global:fatal_error'] 			= 'มีข้อผิดพลาดร้ายแรง, CMS ได้ถูกต้ิดตั้งหรือไม่?';

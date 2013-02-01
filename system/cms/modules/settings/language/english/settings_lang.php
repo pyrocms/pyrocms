@@ -92,7 +92,7 @@ $lang['settings:twitter_feed_count']			= 'Feed Count';
 $lang['settings:twitter_feed_count_desc']		= 'How many tweets should be returned to the Twitter feed block?';
 
 $lang['settings:twitter_cache']					= 'Cache time';
-$lang['settings:twitter_cache_desc']			= 'How many minutes should your Tweets be stored?';
+$lang['settings:twitter_cache_desc']			= 'How many seconds should your Tweets be stored?';
 
 $lang['settings:akismet_api_key']				= 'Akismet API Key';
 $lang['settings:akismet_api_key_desc']			= 'Akismet is a spam-blocker from the WordPress team. It keeps spam under control without forcing users to get past human-checking CAPTCHA forms.';

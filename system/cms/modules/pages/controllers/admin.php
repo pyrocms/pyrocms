@@ -75,12 +75,41 @@ class Admin extends Admin_Controller {
 		// Do we have a parent ID?
 		$parent = ($this->input->get('parent')) ? '&parent='.$this->input->get('parent') : null;
 
-		echo '<ul class="modal_select">';
-		foreach ($all as $pt)
-		{
-			echo '<li><a href="'.site_url('admin/pages/create?page_type='.$pt->id.$parent).'">'.$pt->title.'</a></li>';
-		}
-		echo '</ul>';
+        // Who needs a menu when there is only one option?
+        if (count($all) === 1) 
+        {
+            redirect('admin/pages/create?page_type='.$all[0]->id.$parent);
+        }
+
+        // Directly output the menu if it's for the modal.
+        // All we need is the <ul>.
+        if ($this->input->get('modal') === 'true') 
+        {
+            $html  = '<h4>'.lang('pages:choose_type_title').'</h4>';
+    		$html .= '<ul class="modal_select">';
+    		
+    		foreach ($all as $pt)
+    		{
+    			$html .= '<li><a href="'.site_url('admin/pages/create?page_type='.$pt->id.$parent).'"><strong>'.$pt->title.'</strong>';
+
+    			if (trim($pt->description))
+    			{
+    				$html .= ' | '.$pt->description;
+    			}
+
+    			$html .= '</a></li>';
+    		}
+    		
+    		echo $html .= '</ul>';
+            return;
+        }
+        
+        // If this is not being displayed in the modal, we can
+        // display an entire page.
+        $this->template
+            ->set('parent', $parent)
+            ->set('page_types', $all)
+            ->build('admin/choosetype');
 	}
 
 	/**
@@ -198,7 +227,11 @@ class Admin extends Admin_Controller {
 			$this->duplicate($child->id, $new_page);
 		}
 
-		redirect('admin/pages');
+		// only allow a redirect when everything is finished (only the top level page has a null parent_id)
+		if (is_null($parent_id))
+		{
+			redirect('admin/pages');
+		}
 	}
 
 	/**
@@ -214,11 +247,17 @@ class Admin extends Admin_Controller {
 		$parent_id = ($this->input->get('parent')) ? $this->input->get('parent') : false;
 		$this->template->set('parent_id', $parent_id);
 
-		// What type of page are we creating?
-		$page_type_id = $this->input->get('page_type');
-
-		// Get the page type.
-		$page_type = $this->db->limit(1)->where('id', $page_type_id)->get('page_types')->row();
+        // What type of page are we creating?
+        $page_type_id = $this->input->get('page_type');
+        
+        // Redirect to the page type selection menu if no page type was specified 
+        if ( ! $page_type_id) 
+        {
+            redirect('admin/pages/choose_type');
+        }
+        
+        // Get page type
+        $page_type = $this->db->limit(1)->where('id', $page_type_id)->get('page_types')->row();        
 
 		if ( ! $page_type) show_error('No page type found.');
 
@@ -340,8 +379,8 @@ class Admin extends Admin_Controller {
 		// The user needs to be able to edit pages.
 		role_or_die('pages', 'edit_live');
 
-		// This comes in handy
-		define('PAGE_ID', $id);
+		// This is a temporary global until the page chunk field type is removed
+		ci()->page_id = $id;
 
 		// Retrieve the page data along with its data as part of the array.
 		$page = $this->page_m->get($id);
@@ -351,7 +390,7 @@ class Admin extends Admin_Controller {
 		{
 			// Maybe you would like to create one?
 			$this->session->set_flashdata('error', lang('pages:page_not_found_error'));
-			redirect('admin/pages/create');
+			redirect('admin/pages/choose_type');
 		}
 
 		// Note: we don't need to get the page type
@@ -447,12 +486,15 @@ class Admin extends Admin_Controller {
 		// Get straight raw from the db
 		$page_stream_entry_raw = $this->db->limit(1)->where('id', $page->entry_id)->get($stream->stream_prefix.$stream->stream_slug)->row();
 
-		foreach ($assignments as $assign)
+		if ($assignments)
 		{
-			$from_db = isset($page_stream_entry_raw->{$assign->field_slug}) ? $page_stream_entry_raw->{$assign->field_slug} : null;
+			foreach ($assignments as $assign)
+			{
+				$from_db = isset($page_stream_entry_raw->{$assign->field_slug}) ? $page_stream_entry_raw->{$assign->field_slug} : null;
 
-			$page_content_data[$assign->field_slug] = isset($_POST[$assign->field_slug]) ? $_POST[$assign->field_slug] : $from_db;
-		}	
+				$page_content_data[$assign->field_slug] = isset($_POST[$assign->field_slug]) ? $_POST[$assign->field_slug] : $from_db;
+			}	
+		}
 
 		// Run stream field events
 		$this->fields->run_field_events($this->streams_m->get_stream_fields($this->streams_m->get_stream_id_from_slug($stream->stream_slug, $stream->stream_namespace)));
@@ -481,15 +523,12 @@ class Admin extends Admin_Controller {
 			->build('admin/form');
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Setup Stream fields
 	 *
 	 * Sets up our validation and some other common
 	 * elements for our page create/edit functions.
 	 *
-	 * @access 	private
 	 * @param 	obj
 	 * @param 	string - new or edit
 	 * @param 	int - entry id

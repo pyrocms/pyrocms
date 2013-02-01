@@ -53,6 +53,7 @@ $lang['required_error_label'] 			= 'Povinné pole chybí';
 $lang['note_label'] 					= 'Poznámka';
 $lang['success_label'] 					= 'Úspěch';
 $lang['global:fields']					= 'Fields'; #translate
+$lang['global:custom_fields']			= 'Custom Fields'; #translate
 
 $lang['login_title'] 					= 'Přihlásit';
 $lang['global:fatal_error'] 				= 'Závažná chyba, je systém nainstalován?';
