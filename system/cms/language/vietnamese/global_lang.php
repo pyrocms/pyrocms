@@ -53,6 +53,7 @@ $lang['required_error_label'] 			= 'Yêu cầu phải nhập';
 $lang['note_label'] 					= 'Ghi chú';
 $lang['success_label'] 					= 'Thành công';
 $lang['global:fields']					= 'Fields'; #translate
+$lang['global:custom_fields']			= 'Custom Fields'; #translate
 
 $lang['login_title'] 					= 'Đăng nhập';
 $lang['global:fatal_error'] 				= 'Lỗi nghiêm trọng, CMS đã được cài đặt hay chưa?';

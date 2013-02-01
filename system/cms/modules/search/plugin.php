@@ -70,10 +70,15 @@ class Plugin_Search extends Plugin
 	 */
 	public function form()
 	{
-		$action  = $this->attribute('action', 'search/results');
-		$class   = $this->attribute('class', 'search');
+		$attributes = $this->attributes();
+		
+		// This needs to be by itself
+		unset($attributes['action']);
 
-		$output	 = form_open($action, 'class="'.$class.'"').PHP_EOL;
+		// Now, did they set a custom action?
+		$action = $this->attribute('action', 'search/results');
+
+		$output	 = form_open($action, $attributes).PHP_EOL;
 		$output .= $this->content();
 		$output .= form_close();
 
@@ -90,7 +95,7 @@ class Plugin_Search extends Plugin
 	{
 		$this->load->model('search_index_m');
 
-		$limit   = $this->attribute('limit', 5);
+		$limit   = $this->attribute('limit', 10);
 		$uri     = $this->attribute('uri', 'search/results');
 		$segment = $this->attribute('pag_segment', count(explode('/', $uri)) + 1);
 
@@ -110,12 +115,14 @@ class Plugin_Search extends Plugin
 		$pagination = create_pagination($uri, $total, $limit, $segment);
 		
 		$results = $this->search_index_m
-			->limit($pagination['limit'])
+			->limit($pagination['limit'], $pagination['offset'])
 			->filter($this->input->get('filter'))
 			->search($query);
 
 		// Remember which modules have been loaded
 		static $modules = array();
+
+		$count = 1;
 
 		// Loop through found results to find extra information
 		foreach ($results as &$row)
@@ -140,6 +147,10 @@ class Plugin_Search extends Plugin
 			$row->plural = lang($row->entry_plural) ? lang($row->entry_plural) : $row->entry_plural;
 
 			$row->url = site_url($row->uri);
+
+			// Increment our count.
+			$row->count = $count;
+			$count++;
 		}
 
 		return array(

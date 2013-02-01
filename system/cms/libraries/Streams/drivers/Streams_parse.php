@@ -92,13 +92,16 @@ class Streams_parse extends CI_Driver {
 		// from within the field type itself.
 		// -------------------------------------
 
-		foreach ($fields as $field)
+		if ($fields)
 		{
-			if (method_exists($this->CI->type->types->{$field->field_type}, 'plugin_override'))
+			foreach ($fields as $field)
 			{
-				$content = preg_replace('/\{\{\s?'.$field->field_slug.'\s?/', '{{ streams_core:field row_id=id stream_slug="'.$stream_slug.'" field_slug="'.$field->field_slug.'" namespace="'.$stream_namespace.'" field_type="'.$field->field_type.'" ', $content);
+				if (method_exists($this->CI->type->types->{$field->field_type}, 'plugin_override'))
+				{
+					$content = preg_replace('/\{\{\s?'.$field->field_slug.'\s?/', '{{ streams_core:field row_id=id stream_slug="'.$stream_slug.'" field_slug="'.$field->field_slug.'" namespace="'.$stream_namespace.'" field_type="'.$field->field_type.'" ', $content);
 
-				$content = preg_replace('/\{\{\s?\/'.$field->field_slug.'\s?\}\}/', '{{ /streams_core:field }}', $content);
+					$content = preg_replace('/\{\{\s?\/'.$field->field_slug.'\s?\}\}/', '{{ /streams_core:field }}', $content);
+				}
 			}
 		}
 

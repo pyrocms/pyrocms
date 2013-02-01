@@ -75,7 +75,7 @@ class Admin extends Admin_Controller {
 		$pagination = create_pagination('admin/comments/index', $total_rows);
 
 		$comments = $this->comment_m
-			->limit($pagination['limit'])
+			->limit($pagination['limit'], $pagination['offset'])
 			->order_by('comments.created_on', 'desc')
 			->get_many_by($base_where);
 

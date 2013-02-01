@@ -47,7 +47,7 @@ class Field_image
 		
 		$out = '';
 		
-		if ($params['value'])
+		if ($params['value'] and $params['value'] != 'dummy')
 		{
 			$out .= '<a href="'.site_url('files/large/'.$params['value']).'" target="_break"><img src="'.site_url('files/thumb/'.$params['value']).'" /></a><br />';
 			$out .= form_hidden($params['form_slug'], $params['value']);
@@ -73,16 +73,16 @@ class Field_image
 	 * @param	obj
 	 * @return	string
 	 */
-	public function pre_save($input, $field)
+	public function pre_save($input, $field, $stream, $row_id, $form_data)
 	{
 		// If we do not have a file that is being submitted. If we do not,
 		// it could be the case that we already have one, in which case just
 		// return the numeric file record value.
 		if ( ! isset($_FILES[$field->field_slug.'_file']['name']) or ! $_FILES[$field->field_slug.'_file']['name'])
 		{
-			if ($this->CI->input->post($field->field_slug))
+			if (isset($form_data[$field->field_slug]) and $form_data[$field->field_slug] and $form_data[$field->field_slug] != 'dummy')
 			{
-				return $this->CI->input->post($field->field_slug);
+				return $form_data[$field->field_slug];
 			}
 			else
 			{
@@ -125,7 +125,7 @@ class Field_image
 	 */	
 	public function pre_output($input, $params)
 	{
-		if ( ! $input) return null;
+		if ( ! $input or $input == 'dummy' ) return null;
 
 		// Get image data
 		$image = $this->CI->db->select('filename')->where('id', $input)->get('files')->row();
@@ -153,7 +153,7 @@ class Field_image
 	 */
 	public function pre_output_plugin($input, $params)
 	{
-		if ( ! $input) return null;
+		if ( ! $input or $input == 'dummy' ) return null;
 
 		$this->CI->load->library('files/files');
 	

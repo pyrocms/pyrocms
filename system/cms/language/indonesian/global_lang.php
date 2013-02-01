@@ -53,6 +53,7 @@ $lang['required_error_label'] 			= 'Kolom yang dibutuhkan hilang';
 $lang['note_label'] 					= 'Catatan';
 $lang['success_label'] 					= 'Berhasil';
 $lang['global:fields']					= 'Fields';
+$lang['global:custom_fields']			= 'Custom Fields'; #translate
 
 $lang['login_title'] 					= 'Masuk';
 $lang['global:fatal_error'] 				= 'Kesalahan fatal, sudahkah CMS terinstall?';

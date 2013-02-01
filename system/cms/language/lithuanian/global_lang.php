@@ -53,6 +53,7 @@ $lang['required_error_label'] 			= 'Reikalingas laukas yra tuščias.';
 $lang['note_label'] 					= 'Užrašai';
 $lang['success_label'] 					= 'Sėkmingai';
 $lang['global:fields']					= 'Fields'; #translate
+$lang['global:custom_fields']			= 'Custom Fields'; #translate
 
 $lang['login_title'] 					= 'Prisijungti';
 $lang['global:fatal_error'] 				= 'Klaida. Ar TVS yra įdiegtas?';

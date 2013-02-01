@@ -296,7 +296,7 @@ select.chzn-select {
   margin: 1px 0;
   padding: 4px 20px 4px 5px;
   outline: 0;
-  border: 1px solid #aaa;
+  border: 1px solid #38a7e6;
   font-family: sans-serif;
   font-size: 1em;
 }
@@ -457,7 +457,8 @@ select.chzn-select {
   -moz-box-shadow   : 0 0 5px rgba(0,0,0,.3);
   -o-box-shadow     : 0 0 5px rgba(0,0,0,.3);
   box-shadow        : 0 0 5px rgba(0,0,0,.3);
-  border: 1px solid #5897fb;
+  /* border: 1px solid #5897fb; */
+  transition: none;
 }
 .chzn-container-active .chzn-single-with-drop {
   border: 1px solid #aaa;

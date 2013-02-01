@@ -53,6 +53,7 @@ $lang['required_error_label'] 			= 'أحد الحقول مفقود';
 $lang['note_label'] 					= 'ملاحظة';
 $lang['success_label'] 					= 'نجاح';
 $lang['global:fields']					= 'الحقول';
+$lang['global:custom_fields']			= 'Custom Fields'; #translate
 
 $lang['login_title'] 					= 'تسجيل الدخول';
 $lang['global:fatal_error'] 				= 'خطأ جسيم، هل النظام مثبّت؟';

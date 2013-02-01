@@ -53,6 +53,7 @@ $lang['required_error_label'] 			= 'Manjkajoči podatki pri zahtevanih poljih';
 $lang['note_label'] 					= 'Opomba';
 $lang['success_label'] 					= 'Uspešno';
 $lang['global:fields']					= 'Fields'; #translate
+$lang['global:custom_fields']			= 'Custom Fields'; #translate
 
 $lang['login_title'] 					= 'Prijava';
 $lang['global:fatal_error'] 				= 'Kritična napaka pri namestitvi CMS-ja';

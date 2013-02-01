@@ -92,6 +92,7 @@ class Admin_groups extends Admin_Controller
 		$this->template
 			->title($this->module_details['name'], lang('nav:group_label'), lang('nav:group_create_title'))
 			->set('navigation_group', $navigation_group)
+			->append_js('module::navigation.js')
 			->build('admin/groups/create');
 	}
 

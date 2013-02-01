@@ -148,7 +148,10 @@ class Lex_Parser
 					$looped_text = '';
 					foreach ($loop_data as $item_data)
 					{
-						$str = $this->parse_conditionals($match[2][0], $item_data, $callback);
+						$str = $this->extract_looped_tags($match[2][0], $item_data, $callback);
+						$str = $this->parse_conditionals($str, $item_data, $callback);
+						$str = $this->inject_extractions($str, 'looped_tags');
+
 						$str = $this->parse_variables($str, $item_data, $callback);
 						if ($callback !== null)
 						{
@@ -205,7 +208,7 @@ class Lex_Parser
 		}
 		else
 		{
-			$regex = '/\{\{\s*('.$this->variable_regex.')(\s+.*?)?\s*\}\}/ms';
+			$regex = '/\{\{\s*('.$this->variable_regex.')(\s+.*?)?\s*(\/)?\}\}/ms';
 		}
 		/**
 		 * $match[0][0] is the raw tag
@@ -214,9 +217,12 @@ class Lex_Parser
 		 * $match[1][1] is the offset of callback name
 		 * $match[2][0] is the parameters
 		 * $match[2][1] is the offset of parameters
+		 * $match[3][0] is the self closure
+		 * $match[3][1] is the offset of closure
 		 */
 		while (preg_match($regex, $text, $match, PREG_OFFSET_CAPTURE))
 		{
+			$selfClosed = false;
 			$parameters = array();
 			$tag = $match[0][0];
 			$start = $match[0][1];
@@ -232,10 +238,15 @@ class Lex_Parser
 				$parameters = $this->parse_parameters($raw_params, $cb_data, $callback);
 			}
 
+			if (isset($match[3]))
+			{
+				$selfClosed = true;
+			}
+
 			$content = '';
 
 			$temp_text = substr($text, $start + strlen($tag));
-			if (preg_match('/\{\{\s*\/'.preg_quote($name, '/').'\s*\}\}/m', $temp_text, $match, PREG_OFFSET_CAPTURE))
+			if (preg_match('/\{\{\s*\/'.preg_quote($name, '/').'\s*\}\}/m', $temp_text, $match, PREG_OFFSET_CAPTURE) && ! $selfClosed)
 			{
 				$content = substr($temp_text, 0, $match[0][1]);
 				$tag .= $content.$match[0][0];
@@ -318,7 +329,7 @@ class Lex_Parser
 				$condition = preg_replace('/\b(?!\{\s*)('.$this->callback_name_regex.')(?!\s+.*?\s*\})\b/', '{$1}', $condition);
 				$condition = $this->parse_callback_tags($condition, $data, $callback);
 
-				// Incase the callback returned a string, we need to extract it
+				// Re-extract the strings that have now been possibly added.
 				if (preg_match_all('/(["\']).*?(?<!\\\\)\1/', $condition, $str_matches))
 				{
 					foreach ($str_matches[0] as $m)
@@ -326,6 +337,7 @@ class Lex_Parser
 						$condition = $this->create_extraction('__cond_str', $m, $m, $condition);
 					}
 				}
+
 			}
 			
 			// Re-process for variables, we trick processConditionVar so that it will return null

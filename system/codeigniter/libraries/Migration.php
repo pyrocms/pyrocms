@@ -264,6 +264,11 @@ class CI_Migration {
 		// Loop through the migrations
 		foreach ($migrations AS $migration)
 		{
+			// if migration 10 adds a database column and migration 11 checks to see if it
+			// exists the cache will say it does not. This clears all caching during migration
+			$this->db->data_cache = array();
+			$this->db->cache_off();
+
 			// Run the migration class
 			$class = 'Migration_'.ucfirst(strtolower($migration));
 			call_user_func(array(new $class, $method));

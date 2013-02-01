@@ -104,7 +104,7 @@ class Page_m extends MY_Model
 	 *
 	 * @return object
 	 */
-	public function get_by_uri($uri, $is_request = false)
+	public function get_by_uri($uri, $is_request = false, $simple_return = false)
 	{
 		// it's the home page
 		if ($uri === null)
@@ -167,8 +167,12 @@ class Page_m extends MY_Model
 			}
 		}
 
-		// looks like we have a 404
+		// Looks like we have a 404
 		if ( ! $page) return false;
+
+		// If this is a simple page call, then we just want this page
+		// object, we don't need anything else.
+		if ($simple_return) return $page;
 
 		// ---------------------------------
 		// Legacy Page Chunks Logic
@@ -245,12 +249,18 @@ class Page_m extends MY_Model
 	public function get($id, $get_data = true)
 	{
 		$page = $this->db
-			->select('pages.*, page_types.id as page_type_id, page_types.stream_id, page_types.js as js, page_types.css, page_types.body, page_types.save_as_files, page_types.slug as page_type_slug')
+			->select('pages.*, page_types.id as page_type_id, page_types.stream_id, page_types.body')
+			->select('page_types.save_as_files, page_types.slug as page_type_slug, page_types.title as page_type_title, page_types.js as page_type_js, page_types.css as page_type_css')
 			->join('page_types', 'page_types.id = pages.type_id', 'left')
 			->where('pages.id', $id)
 			->get($this->_table)
 			->row();
 
+        if ( ! $page)
+        {
+            return;
+        }
+        
 		$page->stream_entry_found = false;
 
 		if ($page and $page->type_id and $get_data)
@@ -262,27 +272,30 @@ class Page_m extends MY_Model
 			$this->load->driver('Streams');
 			$stream = $this->streams_m->get_stream($page->stream_id);
 
-			$params = array(
-				'stream' 	=> $stream->stream_slug,
-				'namespace' => $stream->stream_namespace,
-				'where' 	=> "`id`='".$page->entry_id."'",
-				'limit' 	=> 1
-			);
-
-			$ret = $this->streams->entries->get_entries($params);
-
-			if (isset($ret['entries'][0]))
+			if ($stream)
 			{
-				// For no collisions
-				$ret['entries'][0]['entry_id'] = $ret['entries'][0]['id'];
-				unset($ret['entries'][0]['id']);
+				$params = array(
+					'stream' 	=> $stream->stream_slug,
+					'namespace' => $stream->stream_namespace,
+					'where' 	=> "`id`='".$page->entry_id."'",
+					'limit' 	=> 1
+				);
 
-				$page->stream_entry_found = true;
+				$ret = $this->streams->entries->get_entries($params);
 
-				return (object) array_merge((array) $page, (array) $ret['entries'][0]);
+				if (isset($ret['entries'][0]))
+				{
+					// For no collisions
+					$ret['entries'][0]['entry_id'] = $ret['entries'][0]['id'];
+					unset($ret['entries'][0]['id']);
+
+					$page->stream_entry_found = true;
+
+					return (object) array_merge((array) $page, (array) $ret['entries'][0]);
+				}
+
+				$this->page_type_m->get_page_type_files_for_page($page);
 			}
-
-			$this->page_type_m->get_page_type_files_for_page($page);
 		}
 
 		return $page;
@@ -565,7 +578,7 @@ class Page_m extends MY_Model
 		if ( ! $id) return false;
 
 		// We define this for the field type.
-		define('PAGE_ID', $id);
+		ci()->page_id = $id;
 
 		$this->build_lookup($id);
 
@@ -634,7 +647,8 @@ class Page_m extends MY_Model
 			$this->skip_validation = true;
 			$this->update_by('is_home', 1, array('is_home' => 0));
 		}
-
+			// replace the old slug with the new
+		
 		// validate the data and update
 		$result = $this->update($id, array(
 			'slug'				=> $input['slug'],
@@ -658,9 +672,11 @@ class Page_m extends MY_Model
 
 		// did it pass validation?
 		if ( ! $result) return false;
-
-		$this->build_lookup($id);
-
+		$page_ids = $this->get_descendant_ids($id);
+		foreach($page_ids as $page)
+		{	
+			$this->build_lookup($page);
+		}
 		// Add the stream data.
 		if ($stream and $entry_id)
 		{
