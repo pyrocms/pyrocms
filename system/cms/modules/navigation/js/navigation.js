@@ -2,6 +2,9 @@
 
 	$(function() {
 
+		// generate a slug for new navigation groups
+		pyro.generate_slug('input[name="title"]', 'input[name="abbrev"]');
+
 		var open_sections = $.cookie('nav_groups');
 		
 		if (open_sections) {

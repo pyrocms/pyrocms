@@ -79,6 +79,14 @@ class Pages extends Public_Controller
 	 */
 	public function _page($url_segments)
 	{
+		// If we are on the development environment,
+		// we should get rid of the cache. That ways we can just
+		// make updates to the page type files and see the
+		// results immediately.
+		if (ENVIRONMENT == PYRO_DEVELOPMENT) {
+			$this->cache->delete('page_m');
+		}
+
 		// GET THE PAGE ALREADY. In the event of this being the home page $url_segments will be null
 		// $page = $this->cache->method($this->page_m, 'get_by_uri', array($url_segments, true));
 		$page = Page_m::findByUri($url_segments, true);
@@ -119,7 +127,7 @@ class Pages extends Public_Controller
 			}
 		}
 
-		// We want to use the valid uri from here on. Don't worry about segments passed by Streams or 
+		// We want to use the valid uri from here on. Don't worry about segments passed by Streams or
 		// similar. Also we don't worry about breadcrumbs for 404
 		if ($url_segments = explode('/', $page->base_uri) and count($url_segments) > 1)
 		{
@@ -184,14 +192,13 @@ class Pages extends Public_Controller
 		// They will be parsed later, when they are set for the template library.
 
 		// Not got a meta title? Use slogan for homepage or the normal page title for other pages
-		if ( ! $meta_title)
-		{
+		if ( ! $meta_title) {
 			$meta_title = $page->is_home ? Settings::get('site_slogan') : $page->title;
 		}
 
 		// ---------------------------------
 
-		// We do this before parsing the page contents so that 
+		// We do this before parsing the page contents so that
 		// title, meta, & breadcrumbs can be overridden with tags in the page content
 		$this->template->title($this->parser->parse_string($meta_title, $page, true))
 			->set_metadata('keywords', $this->parser->parse_string($meta_keywords, $page, true))
@@ -301,7 +308,7 @@ class Pages extends Public_Controller
 		$children = $this->cache->method('page_m', 'get_many_by', array($query_options));
 
 		//var_dump($children);
-		
+
 		$data = array(
 			'rss' => array(
 				'title' => ($page->meta_title ?: $page->title).' | '.Settings::get('site_name'),

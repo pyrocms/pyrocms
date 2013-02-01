@@ -32,7 +32,7 @@ class Variable_m extends \Illuminate\Database\Eloquent\Model
      */
     public static function findByNameWithId($name, $id = 0)
     {
-        return self::where('id', '!=', $id)
+        return static::where('id', '!=', $id)
                     ->where('name', '=', $name)->first();
     }
 }

@@ -6,6 +6,7 @@
 	<?php else: ?>
 		<h4><?php echo sprintf(lang('user:edit_title'), $member->username) ?></h4>
 		<?php echo form_open_multipart(uri_string(), 'class="crud"') ?>
+		<?php echo form_hidden('row_edit_id', isset($member->row_edit_id) ? $member->row_edit_id : $member->profile_id); ?>
 	<?php endif ?>
 </section>
 

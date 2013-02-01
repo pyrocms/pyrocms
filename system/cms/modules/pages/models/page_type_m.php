@@ -55,9 +55,28 @@ class Page_type_m extends \Illuminate\Database\Eloquent\Model
         
             $folder = FCPATH.'assets/page_types/'.$pt->slug.'/';
 
-            $pt->body   = read_file($folder.$pt->slug.'.html');
-            $pt->js     = read_file($folder.$pt->slug.'.js');
-            $pt->css    = read_file($folder.$pt->slug.'.css');
+            $items = array('body' => 'html', 'js' => 'js', 'css' => 'css');
+
+            foreach ($items as $key => $val)
+            {
+                if (file_exists($folder.$pt->slug.'.'.$val))
+                {
+                    $pt->{$key}   = read_file($folder.$pt->slug.'.'.$val);
+                }
+            }
+
+            // Update the database if we are pulling from the DB.
+            if (ENVIRONMENT == PYRO_DEVELOPMENT)
+            {
+                $update = array();
+
+                foreach ($items as $key => $val)
+                {
+                    $update[$key] = $pt->{$key};
+                }
+
+                $this->db->limit(1)->where('id', $id)->update($this->_table, $update);
+            }
         }
 
         return $pt;
@@ -237,7 +256,12 @@ class Page_type_m extends \Illuminate\Database\Eloquent\Model
     }
 
     /**
-     * Delete 
+     * Delete a Page Type
+     *
+     * @param   int     $id     ID of the page type
+     * @param   bool    [$delete_stream]    Should we also delete the stream associated
+     *                                           with the page type?
+     * @return  bool
      */
     // public function delete($id, $delete_stream = false)
     // {
@@ -251,9 +275,15 @@ class Page_type_m extends \Illuminate\Database\Eloquent\Model
     //         $this->streams->streams->delete_stream($stream->stream_slug, $stream->stream_namespace);
     //     }
 
+    //     // If we are saving as files, we need to remove the page
+    //     // layout files to keep things tidy.
+    //     $this->remove_page_layout_files($page_type->slug, true);
+
     //     // Delete the actual page entry.
-    //     $this->db->limit(1)->where('id', $id)->delete($this->_table);
+    //     return $this->db->limit(1)->where('id', $id)->delete($this->_table);
     // }
+
+    // --------------------------------------------------------------------------
 
     /**
      * Rename page layout files + the folder.
