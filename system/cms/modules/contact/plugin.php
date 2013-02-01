@@ -430,7 +430,7 @@ class Plugin_Contact extends Plugin
 	 * @param	array 	$data	E-mail data
 	 * @return	bool			True on success, false on failure
 	 */
-	public static function trySendingMail($data) 
+	public function trySendingMail($data) 
 	{
 		if ( ! Events::trigger('email', $data, 'string')) {
 			
