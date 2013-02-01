@@ -15,6 +15,7 @@
 
 	<ul class="tab-menu">
 		<li><a href="#blog-content-tab"><span><?php echo lang('blog:content_label') ?></span></a></li>
+		<?php if ($stream_fields): ?><li><a href="#blog-custom-fields"><span><?php echo lang('global:custom_fields') ?></span></a></li><?php endif; ?>
 		<li><a href="#blog-options-tab"><span><?php echo lang('blog:options_label') ?></span></a></li>
 	</ul>
 
@@ -53,12 +54,25 @@
 					</div>
 				</li>
 
-				<?php foreach ($stream_fields as $field) echo $this->load->view('admin/partials/streams/form_single_display', array('field' => $field), true) ?>
 
 			</ul>
 		<?php echo form_hidden('preview_hash', $post->preview_hash)?>
 		</fieldset>
 	</div>
+
+	<?php if ($stream_fields): ?>
+
+	<div class="form_inputs" id="blog-custom-fields">
+		<fieldset>
+			<ul>
+
+				<?php foreach ($stream_fields as $field) echo $this->load->view('admin/partials/streams/form_single_display', array('field' => $field), true) ?>
+
+			</ul>
+		</fieldset>
+	</div>
+
+	<?php endif; ?>
 
 	<!-- Options tab -->
 	<div class="form_inputs" id="blog-options-tab">
