@@ -306,7 +306,7 @@ class Blog extends Public_Controller
 	
 		// What is the preview? If there is a field called intro,
 		// we will use that, otherwise we will cut down the blog post itself.
-		$post['preview'] = (isset($post['intro'])) ? $post['intro'] : trim(word_limiter($post['body'], 200));
+		$post['preview'] = (isset($post['intro'])) ? $post['intro'] : $post['body'];
 
 		// Category
 		if ($post['category_id'] > 0 and isset($this->categories[$post['category_id']]))
