@@ -350,7 +350,7 @@ class Admin extends Admin_Controller
 				'preview_hash'     => $hash,
 			);
 
-			if ($this->streams->entries->update_entry($id, $_POST, 'blog', 'blogs', array('created'), $extra))
+			if ($this->streams->entries->update_entry($id, $_POST, 'blog', 'blogs', array('updated'), $extra))
 			{
 				$this->session->set_flashdata(array('success' => sprintf(lang('blog:edit_success'), $this->input->post('title'))));
 
