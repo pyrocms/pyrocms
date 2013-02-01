@@ -53,6 +53,7 @@ $lang['required_error_label'] 			= 'Pakollinen kenttä puuttuu';
 $lang['note_label'] 					= 'Merkintä';
 $lang['success_label'] 					= 'Onnistunut';
 $lang['global:fields']					= 'Fields';
+$lang['global:custom_fields']			= 'Custom Fields'; #translate
 
 $lang['login_title'] 					= 'Kirjaudu sisään';
 $lang['global:fatal_error'] 				= 'Virhe, onko CMS asennettu?';

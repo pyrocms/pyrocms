@@ -1,35 +1,52 @@
-<h2 id="page_title"><?php echo lang('blog:archive_title');?></h2>
-<h3><?php echo $month_year;?></h3>
-<?php if ( ! empty($blog)): ?>
-	<?php foreach ($blog as $post): ?>
-	<div class="blog_post">
-		<!-- Post heading -->
-		<div class="post_heading">
-			<h2><?php echo  anchor('blog/' .date('Y/m', $post->created_on) .'/'. $post->slug, $post->title) ?></h2>
-			<p class="post_date">
-				<?php echo lang('blog:posted_label');?>: <?php echo format_date($post->created_on); ?>
-			</p>
+<h2 id="page_title">{{ helper:lang line="blog:archive_title" }}</h2>
+<h3>{{ month_year }}</h3>
 
-			<?php if ($post->category_slug): ?>
-			<p class="post_category">
-				<?php echo lang('blog:category_label');?> : <?php echo anchor('blog/category/'.$post->category_slug, $post->category_title);?>
-			</p>
-			<?php endif ?>
+{{ if posts }}
 
-			<?php if ($post->keywords): ?>
-			<p class="post_keywords">
-				<?php echo lang('blog:tagged_label');?>:
-				<?php echo $post->keywords ?>
-			</p>
-			<?php endif ?>
+	{{ posts }}
+
+		<div class="post">
+
+			<h3><a href="{{ url }}">{{ title }}</a></h3>
+
+			<div class="meta">
+
+			<div class="date">
+				{{ helper:lang line="blog:posted_label" }}
+				<span>{{ helper:date timestamp=created_on }}</span>
+			</div>
+
+			{{ if category }}
+			<div class="category">
+				{{ helper:lang line="blog:category_label" }}
+				<span><a href="blog/category/{{ category:slug }}">{{ category:title }}</a></span>
+			</div>
+			{{ endif }}
+
+			{{ if keywords }}
+			<div class="keywords">
+				{{ keywords }}
+					<span><a href="blog/tagged/{{ name }}">{{ name }}</a></span>
+				{{ /keywords }}
+			</div>
+			{{ endif }}
+
+			</div>
+
+			<div class="preview">
+			{{ preview }}
+			</div>
+
+			<p><a href="{{ url }}">{{ helper:lang line="blog:read_more_label" }}</a></p>
 
 		</div>
-		<div class="post_body">
-			<?php echo $post->intro ?>
-		</div>
-	</div>
-<?php endforeach ?>
-<?php echo $pagination['links'] ?>
-<?php else: ?>
-<p><?php echo lang('blog:currently_no_posts');?></p>
-<?php endif ?>
+
+	{{ /posts }}
+
+	{{ pagination }}
+
+{{ else }}
+	
+	{{ helper:lang line="blog:currently_no_posts" }}
+
+{{ endif }}

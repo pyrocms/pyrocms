@@ -53,6 +53,7 @@ $lang['required_error_label'] 			= 'Benötigtes Feld fehlt';
 $lang['note_label'] 					= 'Hinweis';
 $lang['success_label'] 					= 'Erfolgreich';
 $lang['global:fields']					= 'Fields'; #translate
+$lang['global:custom_fields']			= 'Custom Fields'; #translate
 
 $lang['login_title'] 					= 'Anmelden';
 $lang['cms_fatal_error'] 				= 'Schwerwiegender Fehler! Ist das CMS installiert?';

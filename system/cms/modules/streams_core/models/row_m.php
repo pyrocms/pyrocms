@@ -1215,21 +1215,12 @@ class Row_m extends MY_Model {
 		$update_data = $this->run_field_pre_processes($fields, $stream, $row_id, $form_data, $skips, $set_missing_to_null);
 
 		// -------------------------------------
-		// Merge Extra Data
+		// Set Updated Date
 		// -------------------------------------
 
-		if ( ! empty($extra))
+		if ( ! in_array('updated', $skips) and ! isset($extra['updated']))
 		{
-			$update_data = array_merge($update_data, $extra);
-		}
-
-		// -------------------------------------
-		// Set standard fields
-		// -------------------------------------
-
-		if ( ! in_array('updated', $skips))
-		{
-			$update_data['updated'] = date('Y-m-d H:i:s');
+			$update_data['updated'] 	= date('Y-m-d H:i:s');
 		}
 
 		// -------------------------------------
@@ -1444,27 +1435,37 @@ class Row_m extends MY_Model {
 		}
 
 		// -------------------------------------
+		// Set Created Date
+		// -------------------------------------
+
+		if ( ! in_array('created', $skips) and ! isset($extra['created']))
+		{
+			$insert_data['created'] 	= date('Y-m-d H:i:s');
+		}
+
+		// -------------------------------------
+		// Set Created By
+		// -------------------------------------
+
+		if ( ! in_array('created_by', $skips) and ! isset($extra['created_by']))
+		{
+			if (isset($this->current_user->id))
+			{
+				$insert_data['created_by'] 	= $this->current_user->id;
+			}
+			else
+			{
+				$insert_data['created_by'] 	= null;
+			}
+		}
+
+		// -------------------------------------
 		// Merge Extra Data
 		// -------------------------------------
 
 		if ( ! empty($extra))
 		{
 			$insert_data = array_merge($insert_data, $extra);
-		}
-
-		// -------------------------------------
-		// Set standard fields
-		// -------------------------------------
-
-		$insert_data['created'] 	= date('Y-m-d H:i:s');
-
-		if (isset($this->current_user->id))
-		{
-			$insert_data['created_by'] 	= $this->current_user->id;
-		}
-		else
-		{
-			$insert_data['created_by'] 	= null;
 		}
 
 		// -------------------------------------

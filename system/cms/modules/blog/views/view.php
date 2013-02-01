@@ -1,43 +1,45 @@
+{{ post }}
+
 <div class="post">
 
-	<h3><?php echo $post->title ?></h3>
+	<h3>{{ title }}</h3>
 
 	<div class="meta">
+
 		<div class="date">
-			<?php echo lang('blog:posted_label') ?>:
-			<span><?php echo format_date($post->created_on) ?></span>
+			{{ helper:lang line="blog:posted_label" }}
+			<span>{{ helper:date timestamp=created_on }}</span>
 		</div>
 
-		<?php if (isset($post->display_name)): ?>
 		<div class="author">
-			<?php echo lang('blog:written_by_label') ?>: 
-			<span><?php echo anchor('user/' . $post->username, $post->display_name) ?></span>
+			{{ helper:lang line="blog:written_by_label" }}
+			<span><a href="{{ user:username user_id=created_by }}">{{ user:display_name user_id=created_by }}</a></span>
 		</div>
-		<?php endif ?>
 
-		<?php if ($post->category->slug): ?>
+		{{ if category }}
 		<div class="category">
-			<?php echo lang('blog:category_label');?>:
-			<span><?php echo anchor('blog/category/'.$post->category->slug, $post->category->title);?></span>
+			{{ helper:lang line="blog:category_label" }}
+			<span><a href="blog/category/{{ category:slug }}">{{ category:title }}</a></span>
 		</div>
-		<?php endif ?>
+		{{ endif }}
 
-		<?php if ($post->keywords): ?>
+		{{ if keywords }}
 		<div class="keywords">
-			<?php echo lang('blog:tagged_label');?>:
-			<?php foreach ($post->keywords as $keyword): ?>
-			<span><?php echo anchor('blog/tagged/'.$keyword, $keyword, 'class="keyword"') ?></span>
-			<?php endforeach ?>
+			{{ keywords }}
+				<span><a href="blog/tagged/{{ name }}">{{ name }}</a></span>
+			{{ /keywords }}
 		</div>
-		<?php endif ?>
+		{{ endif }}
 
 	</div>
 
 	<div class="body">
-		<?php echo $post->body ?>
+		{{ body }}
 	</div>
 
 </div>
+
+{{ /post }}
 
 <?php if (Settings::get('enable_comments')): ?>
 
