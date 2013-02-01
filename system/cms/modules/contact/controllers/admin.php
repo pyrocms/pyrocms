@@ -1,4 +1,5 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
+
 /**
  * The admin controller for the Contact module.
  *
@@ -14,12 +15,12 @@ class Admin extends Admin_Controller
 	public function index()
 	{
 		$this->load->language('contact');
-		$this->load->model('contact_m');
 
 		$this->template
-			->set('contact_log', $this->contact_m->order_by('sent_at', 'desc')
-			->get_log())
+			->set('contact_log', Contact_m::orderBy('sent_at', 'desc')->all())
 			->build('index');
 	}
 
 }
+
+/* End of file admin.php */
