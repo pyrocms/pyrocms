@@ -32,11 +32,6 @@ class Admin extends Admin_Controller
 			'rules' => 'trim'
 		),
 		array(
-			'field' => 'intro',
-			'label' => 'lang:blog:intro_label',
-			'rules' => 'trim|required'
-		),
-		array(
 			'field' => 'body',
 			'label' => 'lang:blog:content_label',
 			'rules' => 'trim|required'
@@ -166,7 +161,19 @@ class Admin extends Admin_Controller
 	{
 		$post = new stdClass();
 
-		$this->form_validation->set_rules($this->validation_rules);
+		// Get the blog stream.
+		$this->load->driver('Streams');
+		$stream = $this->streams->streams->get_stream('blog', 'blogs');
+		$stream_fields = $this->streams_m->get_stream_fields($stream->id, $stream->stream_namespace);
+
+		// Get the validation for our custom blog fields.
+		$blog_validation = $this->streams->streams->validation_array($stream->stream_slug, $stream->stream_namespace, 'new');
+		
+		// Combine our validation rules.
+		$rules = array_merge($this->validation_rules, $blog_validation);
+
+		// Set our validation rules
+		$this->form_validation->set_rules($rules);
 
 		if ($this->input->post('created_on'))
 		{
@@ -188,22 +195,25 @@ class Admin extends Admin_Controller
 				$hash = "";
 			}
 
-			if ($id = $this->blog_m->insert(array(
+			// Insert a new blog entry.
+			// These are the values that we don't pass through streams processing.
+			$extra = array(
 				'title'            => $this->input->post('title'),
 				'slug'             => $this->input->post('slug'),
 				'category_id'      => $this->input->post('category_id'),
 				'keywords'         => Keywords::process($this->input->post('keywords')),
-				'intro'            => $this->input->post('intro'),
 				'body'             => $this->input->post('body'),
 				'status'           => $this->input->post('status'),
 				'created_on'       => $created_on,
+				'created'		   => date('Y-m-d H:i:s', $created_on),
 				'comments_enabled' => $this->input->post('comments_enabled'),
 				'author_id'        => $this->current_user->id,
 				'type'             => $this->input->post('type'),
 				'parsed'           => ($this->input->post('type') == 'markdown') ? parse_markdown($this->input->post('body')) : '',
 				'preview_hash'     => $hash
-			))
-			)
+			);
+
+			if ($id = $this->streams->entries->insert_entry($_POST, 'blog', 'blogs', array('created'), $extra))
 			{
 				$this->pyrocache->delete_all('blog_m');
 				$this->session->set_flashdata('success', sprintf($this->lang->line('blog:post_add_success'), $this->input->post('title')));
@@ -235,9 +245,13 @@ class Admin extends Admin_Controller
 				$post->$field['field'] = set_value($field['field']);
 			}
 			$post->created_on = $created_on;
+
 			// if it's a fresh new article lets show them the advanced editor
 			$post->type or $post->type = 'wysiwyg-advanced';
 		}
+
+		// Run stream field events
+		$this->fields->run_field_events($stream_fields);
 
 		$this->template
 			->title($this->module_details['name'], lang('blog:create_title'))
@@ -246,6 +260,7 @@ class Admin extends Admin_Controller
 			->append_js('module::blog_form.js')
 			->append_js('module::blog_category_form.js')
 			->append_css('jquery/jquery.tagsinput.css')
+			->set('stream_fields', $this->streams->fields->get_stream_fields($stream->stream_slug, $stream->stream_namespace, (array)$post))
 			->set('post', $post)
 			->build('admin/form');
 	}
@@ -257,7 +272,7 @@ class Admin extends Admin_Controller
 	 */
 	public function edit($id = 0)
 	{
-		$id OR redirect('admin/blog');
+		$id or redirect('admin/blog');
 
 		$post = $this->blog_m->get($id);
 
@@ -276,7 +291,15 @@ class Admin extends Admin_Controller
 			$created_on = $post->created_on;
 		}
 
-		$this->form_validation->set_rules(array_merge($this->validation_rules, array(
+		// Load up streams
+		$this->load->driver('Streams');
+		$stream = $this->streams->streams->get_stream('blog', 'blogs');
+		$stream_fields = $this->streams_m->get_stream_fields($stream->id, $stream->stream_namespace);
+
+		// Get the validation for our custom blog fields.
+		$blog_validation = $this->streams->streams->validation_array($stream->stream_slug, $stream->stream_namespace, 'new');
+		
+		$blog_validation = array_merge($this->validation_rules, array(
 			'title' => array(
 				'field' => 'title',
 				'label' => 'lang:global:title',
@@ -287,7 +310,11 @@ class Admin extends Admin_Controller
 				'label' => 'lang:global:slug',
 				'rules' => 'trim|required|alpha_dot_dash|max_length[100]|callback__check_slug['.$id.']'
 			),
-		)));
+		));
+
+		// Merge and set our validation rules
+		$this->form_validation->set_rules(array_merge($this->validation_rules, $blog_validation));
+
 		$hash = $this->input->post('preview_hash');
 
 		if ($this->input->post('status') == 'draft' and $this->input->post('preview_hash') == '')
@@ -305,23 +332,25 @@ class Admin extends Admin_Controller
 
 			$author_id = empty($post->display_name) ? $this->current_user->id : $post->author_id;
 
-			$result = $this->blog_m->update($id, array(
+			$extra = array(
 				'title'            => $this->input->post('title'),
 				'slug'             => $this->input->post('slug'),
 				'category_id'      => $this->input->post('category_id'),
 				'keywords'         => Keywords::process($this->input->post('keywords'), $old_keywords_hash),
-				'intro'            => $this->input->post('intro'),
 				'body'             => $this->input->post('body'),
 				'status'           => $this->input->post('status'),
 				'created_on'       => $created_on,
+				'updated_on'       => $created_on,
+				'created'		   => date('Y-m-d H:i:s', $created_on),
+				'updated'		   => date('Y-m-d H:i:s', $created_on),
 				'comments_enabled' => $this->input->post('comments_enabled'),
 				'author_id'        => $author_id,
 				'type'             => $this->input->post('type'),
 				'parsed'           => ($this->input->post('type') == 'markdown') ? parse_markdown($this->input->post('body')) : '',
 				'preview_hash'     => $hash,
-			));
+			);
 
-			if ($result)
+			if ($this->streams->entries->update_entry($id, $_POST, 'blog', 'blogs', array('updated'), $extra))
 			{
 				$this->session->set_flashdata(array('success' => sprintf(lang('blog:edit_success'), $this->input->post('title'))));
 
@@ -355,11 +384,15 @@ class Admin extends Admin_Controller
 
 		$post->created_on = $created_on;
 
+		// Add stream events.
+		$this->fields->run_field_events($stream_fields);
+
 		$this->template
 			->title($this->module_details['name'], sprintf(lang('blog:edit_title'), $post->title))
 			->append_metadata($this->load->view('fragments/wysiwyg', array(), true))
 			->append_js('jquery/jquery.tagsinput.js')
 			->append_js('module::blog_form.js')
+			->set('stream_fields', $this->streams->fields->get_stream_fields($stream->stream_slug, $stream->stream_namespace, (array)$post))
 			->append_css('jquery/jquery.tagsinput.css')
 			->set('post', $post)
 			->build('admin/form');

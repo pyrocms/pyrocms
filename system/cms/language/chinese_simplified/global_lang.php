@@ -65,6 +65,7 @@ $lang['required_error_label'] 			= '缺少必填栏位';
 $lang['note_label'] 					= '注意';
 $lang['success_label'] 					= '成功';
 $lang['global:fields']					= 'Fields'; #translate
+$lang['global:custom_fields']			= 'Custom Fields'; #translate
 
 $lang['login_title'] 					= '登入';
 $lang['global:fatal_error'] 			= '严重错误，CMS安裝了吗？';

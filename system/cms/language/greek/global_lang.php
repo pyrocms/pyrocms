@@ -53,6 +53,7 @@ $lang['required_error_label'] 		= 'Λείπει η τιμή σε απαιτου�
 $lang['note_label'] 			= 'Σημείωση';
 $lang['success_label'] 			= 'Επιτυχία';
 $lang['global:fields']					= 'Πεδία';
+$lang['global:custom_fields']			= 'Custom Fields'; #translate
 
 $lang['login_title'] 			= 'Σύνδεση';
 $lang['global:fatal_error'] 		= 'Σφάλμα, το CMS είναι εγκατεστημένο;';
