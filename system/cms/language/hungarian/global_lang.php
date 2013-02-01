@@ -52,7 +52,8 @@ $lang['general_error_label']                    = 'Hiba';
 $lang['required_error_label']                   = 'Kötelező mező nincs kitöltve';
 $lang['note_label']                             = 'Jegyzet';
 $lang['success_label']                          = 'Siker';
-$lang['global:fields']					= 'Mezők';
+$lang['global:fields']							= 'Mezők';
+$lang['global:custom_fields']					= 'Custom Fields'; #translate
 
 $lang['login_title']                            = 'Bejelentkezés';
 $lang['global:fatal_error']                     = 'Végzetes hiba! Telepítve van a CMS?';
