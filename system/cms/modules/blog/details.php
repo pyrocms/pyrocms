@@ -121,7 +121,7 @@ class Module_Blog extends Module
 		$this->streams->utilities->remove_namespace('blogs');
 
 		// Just in case.
-		$this->dbforge->drop_table('blogs');
+		$this->dbforge->drop_table('blog');
 
 		if ($this->db->table_exists('data_streams'))
 		{
@@ -144,8 +144,6 @@ class Module_Blog extends Module
 			null,
 			null
 		);
-
-		$this->load->dbforge();
 
 		$blog_fields = array(
 				'title' => array('type' => 'VARCHAR', 'constraint' => 200, 'null' => false, 'unique' => true),
