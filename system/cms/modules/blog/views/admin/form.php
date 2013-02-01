@@ -36,14 +36,7 @@
 					<label for="status"><?php echo lang('blog:status_label') ?></label>
 					<div class="input"><?php echo form_dropdown('status', array('draft' => lang('blog:draft_label'), 'live' => lang('blog:live_label')), $post->status) ?></div>
 				</li>
-	
-				<li>
-					<label for="intro"><?php echo lang('blog:intro_label') ?></label>
-					<div class="edit-content">
-						<?php echo form_textarea(array('id' => 'intro', 'name' => 'intro', 'value' => $post->intro, 'rows' => 5, 'class' => 'blog wysiwyg-simple')) ?>
-					</div>
-				</li>
-	
+		
 				<li class="editor">
 					<label for="body"><?php echo lang('blog:content_label') ?></label><br>
 					<div class="input small-side">
@@ -59,6 +52,9 @@
 						<?php echo form_textarea(array('id' => 'body', 'name' => 'body', 'value' => $post->body, 'rows' => 30, 'class' => $post->type)) ?>
 					</div>
 				</li>
+
+				<?php foreach ($stream_fields as $field) echo $this->load->view('admin/partials/streams/form_single_display', array('field' => $field), true) ?>
+
 			</ul>
 		<?php echo form_hidden('preview_hash', $post->preview_hash)?>
 		</fieldset>

@@ -45,7 +45,7 @@ class Events_Search
     			$id,
     			'blog/'.date('Y/m/', $post->created_on).$post->slug,
     			$post->title,
-    			$post->intro, 
+    			$post->body, 
     			array(
     				'cp_edit_uri' 	=> 'admin/blog/edit/'.$id,
     				'cp_delete_uri' => 'admin/blog/delete/'.$id,
