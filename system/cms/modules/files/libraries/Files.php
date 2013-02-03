@@ -261,7 +261,6 @@ class Files
 	{
 		$i = '';
 		$original_slug = self::create_slug($name);
-		$original_name = $name;
 
 		$slug = $original_slug;
 
@@ -269,7 +268,6 @@ class Files
 		{
 			$i++;
 			$slug = $original_slug.'-'.$i;
-			$name = $original_name.'-'.$i;
 		}
 
 		$insert = array('slug' => $slug, 
