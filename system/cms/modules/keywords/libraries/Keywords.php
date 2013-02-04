@@ -108,8 +108,6 @@ class Keywords
 	 *
 	 * Process a posted list of keywords into the db
 	 *
-	 * @todo 	Convert the last query to eloquent
-	 *
 	 * @param	string	$group	Arbitrary string to "namespace" unique requests
 	 * @param	string	$keywords	String containing unprocessed list of keywords
 	 * @param	string	$old_hash	If running an update, provide the old hash so we can remove it
