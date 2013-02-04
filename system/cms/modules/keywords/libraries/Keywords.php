@@ -14,6 +14,7 @@ class Keywords
 	public function __construct()
 	{
 		ci()->load->model('keywords/keyword_m');
+		ci()->load->model('keywords/appliedkeyword_m');
 	}
 
 	/**
@@ -28,7 +29,7 @@ class Keywords
 	{
 		$keywords = array();
 
-		foreach (Keyword_m::getAppliedByHash($hash) as $keyword)
+		foreach (AppliedKeyword_m::getNamesByHash($hash) as $keyword)
 		{
 			$keywords[] = $keyword->name;
 		}
@@ -48,7 +49,7 @@ class Keywords
 	{
 		$keywords = array();
 
-		foreach (Keyword_m::getAppliedByHash($hash) as $keyword)
+		foreach (AppliedKeyword_m::getNamesByHash($hash) as $keyword)
 		{
 			$keywords[] = $keyword->name;
 		}
@@ -66,7 +67,7 @@ class Keywords
 	 */
 	public static function get($hash)
 	{
-		return Keyword_m::getAppliedByHash($hash);
+		return AppliedKeyword_m::getNamesByHash($hash);
 	}
 
 	/**
@@ -79,7 +80,7 @@ class Keywords
 	 */
 	public static function add($keyword)
 	{
-		return Keyword_m::create(array('name' => self::prep($keyword)))->id;
+		return Keyword_m::add(static::prep($keyword))->id;
 	}
 
 	/**
@@ -120,7 +121,7 @@ class Keywords
 		// Remove the old keyword assignments if we're updating
 		if ($old_hash !== null)
 		{
-			Keyword_m::deleteAppliedByHash($old_hash);
+			AppliedKeyword_m::deleteByHash($old_hash);
 		}
 
 		// No keywords? Let's not bother then
@@ -150,7 +151,7 @@ class Keywords
 			}
 
 			// Create assignment record
-			Keyword_m::applyHashToKeywordId($assignment_hash, $keyword_id);
+			AppliedKeyword_m::add($assignment_hash, $keyword_id);
 		}
 
 		return $assignment_hash;

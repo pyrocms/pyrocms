@@ -78,6 +78,8 @@ class Module_Keywords extends Module {
             $table->increments('id');
             $table->string('hash', 32)->default('');
             $table->integer('keyword_id');
+
+            $table->foreign('keyword_id')->references('id')->on('keywords');
         });
 
         return true;

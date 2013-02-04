@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -24,6 +23,16 @@ class Keyword_m extends Model
 	 * @var boolean
 	 */
 	public $timestamps = false;
+
+	/**
+	 * Define the relationship
+	 *
+	 * @return void
+	 */
+	public function hashes()
+	{
+		return $this->hasMany('AppliedKeyword_m', 'keyword_id');
+	}
 
 	/**
 	 * Get a single keyword by name
@@ -61,51 +70,12 @@ class Keyword_m extends Model
 	}
 
 	/**
-	 * Get applied
+	 * Add a keyword
 	 *
-	 * Gets all the keywords applied with a certain hash
-	 *
-	 * @param   string  $hash   The unique hash stored for a entry
-	 * @return  array
+	 * @param string $keyword The keyword to add
 	 */
-	public static function getAppliedByHash($hash)
+	public static function add($keyword)
 	{
-		return static::from('keywords_applied')
-				->select('name')
-				->where('hash', '=', $hash)
-				->join('keywords', 'keyword_id', '=', 'keywords.id')
-				->orderBy('name')
-				->get();
-	}
-
-	/**
-	 * Apply a unique hash to a keyword
-	 *
-	 * @param  string $hash The unique hash
-	 * @param  int    $id   Keyword ID
-	 * @return		[description]
-	 */
-	public static function applyHashToKeywordId($hash, $keyword_id)
-	{
-		return ci()->pdb->table('keywords_applied')
-						->insert(array(
-							'hash' => $hash,
-							'keyword_id' => $keyword_id
-						));
-	}
-
-	/**
-	 * Delete applied
-	 *
-	 * Deletes all the keywords applied by hash
-	 *
-	 * @param   string  $hash   The unique hash stored for an entry
-	 * @return  int
-	 */
-	public static function deleteAppliedByHash($hash)
-	{
-		return static::from('keywords_applied')
-					->where('hash', '=', $hash)
-					->delete();
+		return static::create(array('name' => $keyword));
 	}
 }

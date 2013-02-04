@@ -19,6 +19,7 @@ class Admin extends Admin_Controller
 		$this->load->library('form_validation');
 
 		$this->load->model('keyword_m');
+		$this->load->model('appliedkeyword_m');
 
 		$this->lang->load('keywords');
 
