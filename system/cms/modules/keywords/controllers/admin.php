@@ -19,6 +19,7 @@ class Admin extends Admin_Controller
 		$this->load->library('form_validation');
 
 		$this->load->model('keyword_m');
+		$this->load->model('appliedkeyword_m');
 
 		$this->lang->load('keywords');
 
@@ -34,10 +35,12 @@ class Admin extends Admin_Controller
 
 	/**
 	 * Create a new keyword
+	 *
+	 * @return  void
 	 */
 	public function index()
 	{
-		$keywords = $this->keyword_m->order_by('name')->get_all();
+		$keywords = Keyword_m::findAndSortByName();
 
 		$this->template
 			->title($this->module_details['name'])
@@ -48,7 +51,6 @@ class Admin extends Admin_Controller
 	/**
 	 * Create a new keyword
 	 *
-	 * 
 	 * @return void
 	 */
 	public function add()
@@ -63,10 +65,10 @@ class Admin extends Admin_Controller
 
 			if ($this->form_validation->run())
 			{
-				if ($id = $this->keyword_m->insert(array('name' => $name)))
+				if ($result = Keyword_m::create(array('name' => $name)))
 				{
 					// Fire an event. A new keyword has been added.
-					Events::trigger('keyword_created', $id);
+					Events::trigger('keyword_created', $result->id);
 
 					$this->session->set_flashdata('success', sprintf(lang('keywords:add_success'), $name));
 				}
@@ -97,15 +99,13 @@ class Admin extends Admin_Controller
 	/**
 	 * Edit a keyword
 	 *
-	 * 
-	 *
 	 * @param int $id The ID of the keyword to edit
 	 *
 	 * @return void
 	 */
 	public function edit($id = 0)
 	{
-		$keyword = $this->keyword_m->get($id);
+		$keyword = Keyword_m::find($id);
 
 		// Make sure we found something
 		$keyword or redirect('admin/keywords');
@@ -118,7 +118,7 @@ class Admin extends Admin_Controller
 
 			if ($this->form_validation->run())
 			{
-				if ($success = $this->keyword_m->update($id, array('name' => $name)))
+				if ($success = $keyword->update(array('name' => $name)))
 				{
 					// Fire an event. A keyword has been updated.
 					Events::trigger('keyword_updated', $id);
@@ -142,15 +142,13 @@ class Admin extends Admin_Controller
 	/**
 	 * Delete keyword role(s)
 	 *
-	 * 
-	 *
 	 * @param int $id The ID of the keyword to delete
 	 *
 	 * @return void
 	 */
 	public function delete($id = 0)
 	{
-		if ($success = $this->keyword_m->delete($id))
+		if ($success = Keyword_m::find($id)->delete())
 		{
 			// Fire an event. A keyword has been deleted.
 			Events::trigger('keyword_deleted', $id);
@@ -164,12 +162,13 @@ class Admin extends Admin_Controller
 		redirect('admin/keywords');
 	}
 
+	/**
+	 * AJAX Autocomplete
+	 *
+	 * @return void Returns nothing; instead it outputs a JSON string of keywords
+	 */
 	public function autocomplete()
 	{
-		echo json_encode(
-			$this->keyword_m->select('name value')
-				->like('name', $this->input->get('term'))
-				->get_all()
-		);
+		echo Keyword_m::findLikeTerm($this->input->get('term'))->toJson();
 	}
 }
