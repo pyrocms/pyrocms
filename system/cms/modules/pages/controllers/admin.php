@@ -285,8 +285,8 @@ class Admin extends Admin_Controller {
 			{
 				if (isset($input['navigation_group_id']) and count($input['navigation_group_id']) > 0)
 				{
-					$this->cache->delete('page_m');
-					$this->cache->delete('navigation_m');
+					$this->cache->clear('page_m');
+					$this->cache->clear('navigation_m');
 				}
 
 				Events::trigger('page_created', $id);

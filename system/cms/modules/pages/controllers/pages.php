@@ -84,7 +84,7 @@ class Pages extends Public_Controller
 		// make updates to the page type files and see the
 		// results immediately.
 		if (ENVIRONMENT == PYRO_DEVELOPMENT) {
-			$this->cache->delete('page_m');
+			$this->cache->clear('page_m');
 		}
 
 		// GET THE PAGE ALREADY. In the event of this being the home page $url_segments will be null

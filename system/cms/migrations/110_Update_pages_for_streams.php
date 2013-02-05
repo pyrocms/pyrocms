@@ -159,7 +159,7 @@ class Migration_Update_pages_for_streams extends CI_Migration
         $this->dbforge->drop_column('data_streams', 'menu_path');
 
         // clear the page cache so it will retrieve data with page types data
-        $this->cache->delete('page_m');
+        $this->cache->clear('page_m');
 
         // Whew! We made it!
     }
