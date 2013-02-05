@@ -1,43 +1,81 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php
+
+use Illuminate\Database\Eloquent\Model;
+
 /**
  * Keyword model
  *
- * @author		PyroCMS Dev Team
- * @package		PyroCMS\Core\Modules\Keywords\Models
+ * @author	  PyroCMS Dev Team
+ * @package	 PyroCMS\Core\Modules\Keywords\Models
  */
-class Keyword_m extends MY_Model {
-	
+class Keyword_m extends Model
+{
 	/**
-	 * Get applied
+	 * Define the table name
 	 *
-	 * Gets all the keywords applied with a certain hash
-	 *
-	 * @param	string	$hash	The unique hash stored for a entry
-	 * @return	array
+	 * @var string
 	 */
-	public function get_applied($hash)
+	public $table = 'keywords';
+
+	/**
+	 * Disable updated_at and created_at on table
+	 *
+	 * @var boolean
+	 */
+	public $timestamps = false;
+
+	/**
+	 * Define the relationship
+	 *
+	 * @return void
+	 */
+	public function hashes()
 	{
-		return $this->db
-			->select('name')
-			->where('hash', $hash)
-			->join('keywords', 'keyword_id = keywords.id')
-			->order_by('name')
-			->get('keywords_applied')
-			->result();
+		return $this->hasMany('AppliedKeyword_m', 'keyword_id');
 	}
-	
+
 	/**
-	 * Delete applied
+	 * Get a single keyword by name
 	 *
-	 * Deletes all the keywords applied byhash
-	 *
-	 * @param	string	$hash	The unique hash stored for a entry
-	 * @return	array
+	 * @param  string $name The name of the keyword to retrieve
+	 * @return object
 	 */
-	public function delete_applied($hash)
+	public static function findByName($name)
 	{
-		return $this->db
-			->where('hash', $hash)
-			->delete('keywords_applied');
+		return static::where('name', '=', $name)->first();
+	}
+
+	/**
+	 * Get all keywords ordered by name
+	 *
+	 * @param string $direction The direction to sort results
+	 * @return void
+	 */
+	public static function findAndSortByName($direction = 'asc')
+	{
+		return static::orderBy('name', $direction)->get();
+	}
+
+	/**
+	 * Get keywords containing a certain search term
+	 *
+	 * @param  string $term The search term
+	 * @return void
+	 */
+	public static function findLikeTerm($term)
+	{
+		return static::select('name AS value')
+					->where('name', 'like', '%'.$term.'%')
+					->get();
+	}
+
+	/**
+	 * Add a keyword
+	 *
+	 * @param string $keyword The keyword to add
+	 */
+	public static function add($keyword)
+	{
+		return static::create(array('name' => $keyword));
 	}
 }
