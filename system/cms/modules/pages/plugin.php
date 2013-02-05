@@ -183,7 +183,7 @@ class Plugin_Pages extends Plugin
 	/**
 	 * Children list
 	 *
-	 * Creates a list of child pages
+	 * Creates a list of child pages one level under the parent page.
 	 *
 	 * Attributes:
 	 * - (int) limit: How many pages to show.
@@ -200,9 +200,23 @@ class Plugin_Pages extends Plugin
 	 */
 	public function children()
 	{
-		$limit     = $this->attribute('limit', 10);
-		$order_by  = $this->attribute('order-by', 'title');
-		$order_dir = $this->attribute('order-dir', 'ASC');
+		$limit			= $this->attribute('limit', 10);
+		$order_by 		= $this->attribute('order-by', 'title');
+		$order_dir 		= $this->attribute('order-dir', 'ASC');
+		$page_types 	= $this->attribute('include_types');
+
+		// Restrict page types.
+		// Page types can be provided in a pipe (|) delimited string.
+		// Ex: 4|6
+		if ($page_types)
+		{
+			$types = explode('|', $page_types);
+
+			foreach ($types as $type)
+			{
+				$this->db->where('pages.type_id', $type);
+			}
+		}
 
 		$pages = $this->db->select('pages.*')
 			->where('pages.parent_id', $this->attribute('id'))
@@ -213,7 +227,7 @@ class Plugin_Pages extends Plugin
 			->result_array();
 
 		// Legacy support for chunks
-		if ($pages && $this->db->table_exists('page_chunks'))
+		if ($pages and $this->db->table_exists('page_chunks'))
 		{
 			foreach ($pages as &$page)
 			{
@@ -233,6 +247,28 @@ class Plugin_Pages extends Plugin
 					}
 				}
 			}
+		}
+
+		// Process our pages.
+		foreach ($pages as &$page)
+		{
+			// First, let's get a full URL. This is just
+			// handy to have around.
+			$page['url'] = site_url($page['uri']);
+		
+			// Now let's process our keywords hash.
+			$keywords = Keywords::get($page['meta_keywords']);
+
+			// In order to properly display the keywords in Lex
+			// tags, we need to format them.
+			$formatted_keywords = array();
+			
+			foreach ($keywords as $key)
+			{
+				$formatted_keywords[] 	= array('keyword' => $key->name);
+
+			}
+			$page['meta_keywords'] = $formatted_keywords;
 		}
 
 		return $pages;
