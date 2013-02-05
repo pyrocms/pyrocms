@@ -441,12 +441,10 @@ class Installer extends CI_Controller
 			}
 
 			// Let's try to install the system with this new PDO instance
-			try
-			{
+			try {
 				$pdb = $this->installer_lib->install($user, $db_config);
 			}
-			catch (Exception $e)
-			{
+			catch (Exception $e) {
 				// Let's tell them why the install failed
 				$this->session->set_flashdata('error', $e->getMessage());
 

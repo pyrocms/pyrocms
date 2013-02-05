@@ -733,6 +733,8 @@ class Streams_m extends CI_Model {
 	 */
 	public function add_field_to_stream($field_id, $stream_id, $data, $create_column = true)
 	{
+		// TODO This whole method needs to be recoded to use Schema...
+
 		// -------------------------------------
 		// Get the field data
 		// -------------------------------------
@@ -783,11 +785,14 @@ class Streams_m extends CI_Model {
 			$field_data['default_value']		= $field->field_data['default_value'];
 		}
 		
+		// Grab table prefix from installer
+		$prefix = $this->pdb->getQueryGrammar()->getTablePrefix();
+
 		$field_to_add[$field->field_slug] 	= $this->fields_m->field_data_to_col_data($field_type, $field_data);
 		
 		if ($field_type->db_col_type !== false and $create_column === true)
 		{
-			if ( ! $this->dbforge->add_column($stream->stream_prefix.$stream->stream_slug, $field_to_add)) return false;
+			if ( ! $this->dbforge->add_column($prefix.$stream->stream_prefix.$stream->stream_slug, $field_to_add)) return false;
 		}
 		
 		// -------------------------------------
@@ -801,7 +806,7 @@ class Streams_m extends CI_Model {
 			$update_data['title_column'] = $field->field_slug;
 		
 			$this->db->where('id', $stream->id );
-			$this->db->update(STREAMS_TABLE, $update_data);
+			$this->db->update($prefix.STREAMS_TABLE, $update_data);
 		}
 		
 		// -------------------------------------
@@ -811,18 +816,11 @@ class Streams_m extends CI_Model {
 		$insert_data['stream_id'] 		= $stream_id;
 		$insert_data['field_id']		= $field_id;
 		
-		if (isset($data['instructions']))
-		{
-			$insert_data['instructions']	= $data['instructions'];
-		}
-		else
-		{
-			$insert_data['instructions']	= null;
-		}
+		$insert_data['instructions']	= isset($data['instructions']) ? $data['instructions'] : null;
 		
 		// +1 for ordering.
 		$this->db->select('MAX(sort_order) as top_num')->where('stream_id', $stream->id);
-		$query = $this->db->get(ASSIGN_TABLE);
+		$query = $this->db->get($prefix.ASSIGN_TABLE);
 		
 		if ($query->num_rows() == 0)
 		{
@@ -832,29 +830,27 @@ class Streams_m extends CI_Model {
 		else
 		{
 			$row = $query->row();
-			$insert_data['sort_order'] = $row->top_num+1;
+			$insert_data['sort_order'] = $row->top_num + 1;
 		}
 		
 		// Is Required
 		if (isset($data['is_required']) and $data['is_required'] == 'yes')
 		{
-			$insert_data['is_required']		= 'yes';
+			$insert_data['is_required'] = 'yes';
 		}
 		
 		// Unique		
 		if (isset($data['is_unique']) and $data['is_unique'] == 'yes')
 		{
-			$insert_data['is_unique']		= 'yes';
+			$insert_data['is_unique'] = 'yes';
 		}
 		
-		if ( ! $this->db->insert(ASSIGN_TABLE, $insert_data))
+		if ( ! $this->db->insert($prefix.ASSIGN_TABLE, $insert_data))
 		{
 			return false;
 		}
-		else
-		{
-			return $this->db->insert_id();
-		}
+
+		return $this->db->insert_id();
 	}
 
     // --------------------------------------------------------------------------

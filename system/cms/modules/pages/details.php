@@ -232,7 +232,7 @@ class Module_Pages extends Module
             'body' => '<h2>{{ page:title }}</h2>'."\n\n".'{{ body }}',
             'css' => '',
             'js' => '',
-            'updated_on' => now()
+            'updated_on' => time()
         ));
 
         $page_content = config_item('pages:default_page_content');
@@ -245,9 +245,9 @@ class Module_Pages extends Module
                 'type_id' => $def_page_type_id,
                 'status' => 'live',
                 'restricted_to' => '',
-                'created_on' => now(),
+                'created_on' => time(),
                 'is_home' => 1,
-                'order' => now()
+                'order' => time()
             ),
             'contact' => array(
                 'slug' => 'contact',
@@ -257,9 +257,9 @@ class Module_Pages extends Module
                 'type_id' => $def_page_type_id,
                 'status' => 'live',
                 'restricted_to' => '',
-                'created_on' => now(),
+                'created_on' => time(),
                 'is_home' => 0,
-                'order' => now()
+                'order' => time()
             ),
             'fourohfour' => array(
                 'slug' => '404',
@@ -269,9 +269,9 @@ class Module_Pages extends Module
                 'type_id' => $def_page_type_id,
                 'status' => 'live',
                 'restricted_to' => '',
-                'created_on' => now(),
+                'created_on' => time(),
                 'is_home' => 0,
-                'order' => now()
+                'order' => time()
             )
         );
 

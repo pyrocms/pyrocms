@@ -8,7 +8,6 @@ use Capsule\Database;
  */
 class Installer_lib
 {
-
 	/** @const string MIN_PHP_VERSION The minimum PHP version requirement */
 	const MIN_PHP_VERSION = '5.3.6';
 

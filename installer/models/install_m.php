@@ -128,6 +128,7 @@ class Install_m extends CI_Model
 		});
 
 		// HEAR YE HEAR YE, THE DB PREFIX CHANGES NOW!
+		$conn->setTablePrefix($db['site_ref'].'_');
 		$conn->getQueryGrammar()->setTablePrefix($db['site_ref'].'_');
 		$conn->getSchemaGrammar()->setTablePrefix($db['site_ref'].'_');
 

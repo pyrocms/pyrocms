@@ -1,4 +1,5 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php
+
 /**
  * Search Index model
  *
@@ -6,7 +7,7 @@
  * @package		PyroCMS\Core\Modules\Search\Models
  * @copyright   Copyright (c) 2012, PyroCMS LLC
  */
-class Search_index_m extends MY_Model
+class Search_index_m extends CI_Model
 {
 	/**
 	 * Index
@@ -73,15 +74,17 @@ class Search_index_m extends MY_Model
 			$this->db->set('cp_delete_uri', $options['cp_delete_uri']);
 		}
 
-		return $this->db->insert('search_index', array(
-			'title' 		=> $title,
-			'description' 	=> strip_tags($description),
-			'module' 		=> $module,
-			'entry_key' 	=> $singular,
-			'entry_plural' 	=> $plural,
-			'entry_id' 		=> $entry_id,
-			'uri' 			=> $uri,
-		));
+		return $this->pdb
+			->table('search_index')
+			->insert(array(
+				'title' 		=> $title,
+				'description' 	=> strip_tags($description),
+				'module' 		=> $module,
+				'entry_key' 	=> $singular,
+				'entry_plural' 	=> $plural,
+				'entry_id' 		=> $entry_id,
+				'uri' 			=> $uri,
+			));
 	}
 
 	/**
@@ -100,13 +103,12 @@ class Search_index_m extends MY_Model
 	 */
 	public function drop_index($module, $singular, $entry_id)
 	{
-		return $this->db
-			->where(array(
-				'module'     => $module,
-				'entry_key'  => $singular,
-				'entry_id'   => $entry_id,
-			))
-			->delete('search_index');
+		return ci()->pdb
+			->table('search_index')
+			->where('module', $module)
+			->where('entry_key', $singular)
+			->where('entry_id', $entry_id)
+			->delete();
 	}
 
 	/**
@@ -120,15 +122,13 @@ class Search_index_m extends MY_Model
 	public function filter($filter)
 	{
 		// Filter Logic
-		if ( ! $filter)
-		{
+		if ( ! $filter) {
 			return $this;
 		}
 		
 		$this->db->or_group_start();
 
-		foreach ($filter as $module => $plural)
-		{
+		foreach ($filter as $module => $plural) {
 			$this->db
 				->group_start()
 				->where('module', $module)

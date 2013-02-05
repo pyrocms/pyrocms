@@ -277,6 +277,7 @@ $config['cookie_prefix']	= (substr_count($_SERVER['SERVER_NAME'], '.') > 1) ? su
 $config['cookie_domain']	= ($_SERVER['SERVER_NAME'] == 'localhost') ? '' : $_SERVER['SERVER_NAME'];
 $config['cookie_path']		= BASE_URI;
 $config['cookie_secure']	= false;
+$config['cookie_httponly']  = false;
 
 /*
 |--------------------------------------------------------------------------

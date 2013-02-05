@@ -106,7 +106,7 @@ class Module_Streams_core extends Module
             $table->integer('field_id');
             $table->enum('is_required', array('yes', 'no'))->default('no');
             $table->enum('is_unique', array('yes', 'no'))->default('no');
-            $table->text('instructions');
+            $table->text('instructions')->nullable();
             $table->string('field_name', 60);
 
             // $table->foreign('stream_id'); //TODO Set up foreign keys
