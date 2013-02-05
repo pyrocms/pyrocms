@@ -115,6 +115,21 @@ class Page_m extends \Illuminate\Database\Eloquent\Model
     }
 
 	/**
+	 * Find page by id and status
+	 *
+	 * @param int $id The id of the page.
+	 * @param string $status Live or draft?
+	 *
+	 * @return Page_m
+	 */
+	public static function findByIdAndStatus($id, $status)
+	{
+		return static::where('id', '=', $id)
+			->where('status', '=', $status)
+			->first();
+	}
+
+	/**
 	 * Find a page by its URI
 	 *
 	 * @param string $uri The uri of the page.
@@ -194,13 +209,13 @@ class Page_m extends \Illuminate\Database\Eloquent\Model
 		// ---------------------------------
 
 		if ($page->entry_id and $page->type->stream_id) {
-			$this->load->driver('Streams');
+			ci()->load->driver('Streams');
 
 			// Get Streams
-			$stream = $this->streams_m->get_stream($page->layout->stream_id);
+			$stream = ci()->streams_m->get_stream($page->type->stream_id);
 
 			if ($stream) {
-				if ($entry = $this->streams->entries->get_entry($page->entry_id, $stream->stream_slug, $stream->stream_namespace)) {
+				if ($entry = ci()->streams->entries->get_entry($page->entry_id, $stream->stream_slug, $stream->stream_namespace)) {
 					$page = (object) array_merge((array)$entry, (array)$page);
 				}
 			}
