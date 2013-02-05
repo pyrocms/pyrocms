@@ -218,13 +218,59 @@ class Plugin_Pages extends Plugin
 			}
 		}
 
-		$pages = $this->db->select('pages.*')
+		$pages = $this->db->select('pages.*, page_types.stream_id, page_types.slug as page_type_slug, page_types.title as page_type_title')
 			->where('pages.parent_id', $this->attribute('id'))
 			->where('status', 'live')
+			->join('page_types', 'page_types.id = pages.type_id', 'left')
 			->order_by($order_by, $order_dir)
 			->limit($limit)
 			->get('pages')
 			->result_array();
+
+		// Custom fields provision.
+		// Since page children can have many different page types,
+		// we are going to do this in the most economical way possible:
+		// Find the entries by ID and attach them to a special custom_fields
+		// variable.
+		if (strpos($this->content(), 'custom_fields') !== false and $pages)
+		{
+			$custom_fields = array();
+			$this->load->driver('Streams');
+		
+			// Get all of the IDs by page type id.
+			// Ex: array('page_type_id' => array('1', '2'))
+			$entries = array();
+			foreach ($pages as $page)
+			{
+				$entries[$page['stream_id']][] = $page['entry_id'];
+			}
+
+			// Get our entries by steram
+			foreach ($entries as $stream_id => $entry_ids)
+			{
+				$stream = $this->streams_m->get_stream($stream_id);
+
+				$params = array(
+					'stream'		=> $stream->stream_slug,
+					'namespace'		=> $stream->stream_namespace,
+					'include'		=> implode('|', $entry_ids),
+					'disable'		=> 'created_by'
+				);
+
+				$entries = $this->streams->entries->get_entries($params);
+
+				// Set the entries in our custom fields array for
+				// easy reference later when processing our pages.
+				foreach ($entries['entries'] as $entry)
+				{
+					$custom_fields[$stream_id][$entry['id']] = $entry;	
+				}
+			}
+		}
+		else
+		{
+			$custom_fields = false;
+		}
 
 		// Legacy support for chunks
 		if ($pages and $this->db->table_exists('page_chunks'))
@@ -269,7 +315,16 @@ class Plugin_Pages extends Plugin
 
 			}
 			$page['meta_keywords'] = $formatted_keywords;
+
+			// If we have custom fields, we need to roll our
+			// entry values in.
+			if ($custom_fields and isset($custom_fields[$page['stream_id']][$page['entry_id']]))
+			{
+				$page['custom_fields'] = array($custom_fields[$page['stream_id']][$page['entry_id']]);
+			}
 		}
+
+		//return '<pre>'.print_r($pages, true).'</pre>';
 
 		return $pages;
 	}
