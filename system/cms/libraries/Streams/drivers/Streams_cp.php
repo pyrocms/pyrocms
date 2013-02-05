@@ -489,10 +489,16 @@ class Streams_cp extends CI_Driver {
 
 		if ($method == 'edit' and is_numeric($assign_id))
 		{
-			$assignment = $CI->db->limit(1)->where('id', $assign_id)->get(ASSIGN_TABLE)->row();
+			$assignment = $CI->pdb
+				->table(ASSIGN_TABLE)
+				->take(1)
+				->where('id', $assign_id)
+				->first();
 
 			// If we have no assignment, we can't continue
-			if ( ! $assignment) show_error('Could not find assignment');
+			if ( ! $assignment) {
+				show_error('Could not find assignment');
+			}
 
 			// Find the field now
 			$data['current_field'] = $CI->fields_m->get_field($assignment->field_id);
@@ -502,7 +508,7 @@ class Streams_cp extends CI_Driver {
 		}
 		elseif ($method == 'new' and $_POST and $this->CI->input->post('field_type'))
 		{
-			$data['current_field'] = new stdClass();
+			$data['current_field'] = new stdClass;
 			$data['current_field']->field_type = $this->CI->input->post('field_type');
 		}
 		else
