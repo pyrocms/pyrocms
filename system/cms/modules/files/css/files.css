@@ -595,9 +595,8 @@ li.right-title,li.right-title label {
 	list-style-type:none;
 	display: block;
 	margin:0px;
-	height:auto;
+	height:228px;
 	width: 100%;
-	min-height: 185px;
 	overflow-y:auto;
 	background:#f5f5f5;
 	border:1px solid #ddd;
