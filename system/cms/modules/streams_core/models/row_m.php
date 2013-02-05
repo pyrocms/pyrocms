@@ -925,32 +925,28 @@ class Row_m extends MY_Model {
 
 		$stream_fields = $this->streams_m->get_stream_fields($stream->id);
 
-		// Created By
-		$this->db->select($stream->stream_prefix.$stream->stream_slug.'.*, '.$this->db->dbprefix('users').'.username as created_by_username, '.$this->db->dbprefix('users').'.id as created_by_user_id, '.$this->db->dbprefix('users').'.email as created_by_email');
-		$this->db->join('users', 'users.id = '.$stream->stream_prefix.$stream->stream_slug.'.created_by', 'left');
+		$stream_table = $stream->stream_prefix.$stream->stream_slug;
 
-		$obj = $this->db
-						->limit(1)
-						->where($stream->stream_prefix.$stream->stream_slug.'.id', $id)
-						->get($stream->stream_prefix.$stream->stream_slug);
+		$row = $this->pdb
+			->table($stream_table)
+			->select($stream_table.'.*')
+			->select('users.username as created_by_username')
+			->select('users.id as created_by_user_id')
+			->select('users.email as created_by_email')
+			->take(1)
+			->leftJoin('users', 'users.id = '.$stream_table.'.created_by')
+			->where($stream_table.'.id', $id)
+			->first();
 		
-		if ($obj->num_rows() == 0)
-		{
+		if ( ! $row) {
 			return false;
 		}
-		else
-		{
-			$row = $obj->row();
-			
-			if ($format_output)
-			{
-				return $this->format_row($row , $stream_fields, $stream, true, $plugin_call);
-			}
-			else
-			{	
-				return $row;
-			}
+
+		if ($format_output) {
+			return $this->format_row($row , $stream_fields, $stream, true, $plugin_call);
 		}
+
+		return $row;
 	}
 
 	// --------------------------------------------------------------------------	
