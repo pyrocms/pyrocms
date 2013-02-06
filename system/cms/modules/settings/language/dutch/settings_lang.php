@@ -133,8 +133,8 @@ $lang['settings:ckeditor_config_desc']          = 'U kunt een lijst van configur
 $lang['settings:enable_registration']           = 'Schakel gebruikersregistratie in';
 $lang['settings:enable_registration_desc']      = 'Sta gebruikers toe zich in te schrijven op uw site.';
 
-$lang['settings:profile_visibility']            = 'Profile Visibility'; #translate
-$lang['settings:profile_visibility_desc']       = 'Specify who can view user profiles on the public site'; #translate
+$lang['settings:profile_visibility']            = 'Zichtbaarheid profiel';
+$lang['settings:profile_visibility_desc']       = 'Bepaal wie de gebruikersprofielen kan zien op de publieke site.';
 
 $lang['settings:cdn_domain']                    = 'CDN Domein';
 $lang['settings:cdn_domain_desc']               = 'CDN domain kan bestanden plaatsen naar verschillende servers, zoals Amazon CloudFront or MaxCDN.';
@@ -161,10 +161,10 @@ $lang['settings:form_option_Text Only']			= 'Alleen Text';
 $lang['settings:form_option_Allow Markdown']	= 'Markdown Toestaan';
 $lang['settings:form_option_Yes']				= 'Ja';
 $lang['settings:form_option_No']				= 'Nee';
-$lang['settings:form_option_profile_public']	= 'Visible to everybody'; #translate
-$lang['settings:form_option_profile_owner']		= 'Only visible to the profile owner'; #translate
-$lang['settings:form_option_profile_hidden']	= 'Never visible'; #translate
-$lang['settings:form_option_profile_member']	= 'Visible to any logged in user'; #translate
+$lang['settings:form_option_profile_public']	= 'Zichtbaar voor iedereen';
+$lang['settings:form_option_profile_owner']		= 'Alleen zichtbaar voor de eigenaar';
+$lang['settings:form_option_profile_hidden']	= 'Niet zichtbaar';
+$lang['settings:form_option_profile_member']	= 'Zichtbaar voor ingelogde gebruikers';
 $lang['settings:form_option_activate_by_email']  			= 'Activatie middels email';
 $lang['settings:form_option_activate_by_admin']				= 'Activatie door een admin';
 $lang['settings:form_option_no_activation']				= 'Geen activatie';
