@@ -27,7 +27,7 @@ class CreateValidUserTest extends PHPUnit_Framework_TestCase
             'password'=>'pyro',
             'database'=>'pyrocms',
             'create_db'=>'true',
-            'hostname' => 'localhost'
+            'hostname' => '127.0.0.1'
         );
         $crawler = $this->client->submit($form,$formFields);
 

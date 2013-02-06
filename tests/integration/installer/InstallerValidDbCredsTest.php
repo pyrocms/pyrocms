@@ -27,7 +27,7 @@ class TestInstallerValidDbCreds extends PHPUnit_Framework_TestCase
     public function DatabaseAuthenticationWithValidCreds()
     {
         $formFields = array(
-            'hostname'=>'localhost',
+            'hostname'=>'127.0.0.1',
             'username'=>'pyro',
             'password'=>'pyro',
             'create_db'=>'true',
@@ -54,7 +54,7 @@ class TestInstallerValidDbCreds extends PHPUnit_Framework_TestCase
         $path = dirname(__FILE__) . '/../../../*';
         exec("sudo chmod -R 555 $path");
         $formFields = array(
-            'hostname'=>'localhost',
+            'hostname'=>'127.0.0.1',
             'username'=>'pyro',
             'password'=>'pyro',
             'create_db'=>'true',
