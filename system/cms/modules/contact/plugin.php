@@ -334,6 +334,9 @@ class Plugin_Contact extends Plugin
             $data['body'] = $this->parser->parse_string($body, $data, true);
 			
 			$this->load->model('contact/contact_m');
+
+			// Grab userdata - we'll need this later
+			$userdata = $this->session->all_userdata();
 			
 			// Finally, we insert the same thing into the log as what we sent
 			$this->contact_m->insert_log($data);
@@ -342,7 +345,16 @@ class Plugin_Contact extends Plugin
 			{
 				if ( ! $result)
 				{
-					$message = $this->attribute('error', lang('contact_error_message'));
+					if (isset($userdata['flash:new:error']))
+					{
+						$message = (array) $userdata['flash:new:error'];
+
+						$message[] = $message = $this->attribute('error', lang('contact_error_message'));
+					}
+					else
+					{
+						$message = $this->attribute('error', lang('contact_error_message'));
+					}
 					
 					$this->session->set_flashdata('error', $message);
 					redirect(current_url());
@@ -352,9 +364,19 @@ class Plugin_Contact extends Plugin
 			if($autoreply_template) {
 				Events::trigger('email', $data_autoreply, 'array');
 			}
-			
-			$message = $this->attribute('sent', lang('contact_sent_text'));
-			
+
+
+			if (isset($userdata['flash:new:success']))
+			{
+				$message = (array) $userdata['flash:new:success'];
+
+				$message[] = $this->attribute('sent', lang('contact_sent_text'));
+			}
+			else
+			{
+				$message = $this->attribute('sent', lang('contact_sent_text'));
+			}
+
 			$this->session->set_flashdata('success', $message);
 			redirect( ($redirect ? $redirect : current_url()) );
 		}

@@ -50,34 +50,13 @@ class Streams_entries extends CI_Driver {
 	/**
 	 * Pagination Config
 	 *
-	 * These are the CI defaults that can be
-	 * overridden by PyroStreams.
+	 * These are the available pagination config variables
+	 * that are available to override.
 	 *
-	 * @access	public
-	 * @var		array
+	 * @access 	public
+	 * @var 	array
 	 */
-	public $pagination_config = array(
-			'num_links'		=> 3,
-			'full_tag_open'		=> '<p>',
-			'full_tag_close'	=> '</p>',
-			'first_link'		=> 'First',
-			'first_tag_open'	=> '<div>',
-			'first_tag_close'	=> '</div>',
-			'last_link'		=> 'Last',
-			'last_tag_open'		=> '<div>',
-			'last_tag_close'	=> '</div>',
-			'next_link'		=> '&gt;',
-			'next_tag_open'		=> '<div>',
-			'next_tag_close'	=> '</div>',
-			'prev_link'		=> '&lt;',
-			'prev_tag_open'		=> '<div>',
-			'prev_tag_close'	=> '</div>',
-			'cur_tag_open'		=> '<span>',
-			'cur_tag_close'		=> '</span>',
-			'num_tag_open'		=> '<div>',
-			'num_tag_close'		=> '</div>',
-			'display_pages'		=> true
-	);
+	public $pag_config = array('num_links', 'full_tag_open', 'full_tag_close', 'first_link', 'first_tag_open', 'first_tag_close', 'prev_link', 'prev_tag_open', 'prev_tag_close', 'cur_tag_open', 'cur_tag_close', 'num_tag_open', 'num_tag_close', 'next_link', 'next_tag_open', 'next_tag_close', 'last_link', 'last_tag_open', 'last_tag_close');
 
 	// --------------------------------------------------------------------------
 
@@ -121,6 +100,37 @@ class Streams_entries extends CI_Driver {
 		if ( ! $stream) $this->log_error('invalid_stream', 'get_entries');
 
 		// -------------------------------------
+		// Allow 'yes'/'no' fields to be bool
+		// -------------------------------------
+		// Inputs are yes/no because that's what
+		// the row parser expects them to be. This
+		// is because early on the row parser JUST took
+		// inputs from the streams plugin and param
+		// values could not be bool. So this should
+		// definitely be changed in the future. This is
+		// a workaround so devs can use true/false
+		// instead of having to use 'yes'/'no' like
+		// common savages.
+		// -------------------------------------
+
+		$bool_inputs = array('show_upcoming', 'show_past', 'exclude_called', 'restrict_user', 'paginate');
+
+		foreach ($bool_inputs as $input)
+		{
+			if (isset($params[$input]))
+			{
+				if ($params[$input] === true)
+				{
+					$params[$input] = 'yes';
+				}
+				elseif ($params[$input] === false)
+				{
+					$params[$input] = 'no';
+				}
+			}
+		}
+
+		// -------------------------------------
 		// Pagination Limit
 		// -------------------------------------
 
@@ -142,23 +152,7 @@ class Streams_entries extends CI_Driver {
 		{
 			$return['total'] 	= $rows['pag_count'];
 			
-			// Add in our pagination config
-			// override varaibles.
-			foreach ($this->pagination_config as $key => $var)
-			{
-				if (isset($pagination_config[$key]))
-				{
-					$this->pagination_config[$key] = $pagination_config[$key];
-				}
-
-				// Make sure we set the false params to boolean
-				if ($this->pagination_config[$key] === 'false')
-				{
-					$this->pagination_config[$key] = false;
-				}
-			}
-			
-			$return['pagination'] = $CI->row_m->build_pagination($params['pag_segment'], $params['limit'], $return['total'], $this->pagination_config);
+			$return['pagination'] = $CI->row_m->build_pagination($params['pag_segment'], $params['limit'], $return['total'], $pagination_config);
 		}		
 		else
 		{

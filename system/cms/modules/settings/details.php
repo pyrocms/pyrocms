@@ -179,7 +179,7 @@ class Module_Settings extends Module
 				'title' => 'Date Format',
 				'description' => 'How should dates be displayed across the website and control panel? Using the <a target="_blank" href="http://php.net/manual/en/function.date.php">date format</a> from PHP - OR - Using the format of <a target="_blank" href="http://php.net/manual/en/function.strftime.php">strings formatted as date</a> from PHP.',
 				'type' => 'text',
-				'default' => 'Y-m-d',
+				'default' => 'F j, Y',
 				'value' => '',
 				'options' => '',
 				'is_required' => 1,

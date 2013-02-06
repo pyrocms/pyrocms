@@ -155,7 +155,7 @@ class Streams_cp extends CI_Driver {
 		// Set / Expire Filtering
 		// -------------------------------------
 
-		if ( isset($_POST['filter']) )
+		if (isset($_POST['filter']))
 		{
 			// We don't need this
 			unset($_POST['filter']);
@@ -808,17 +808,25 @@ class Streams_cp extends CI_Driver {
 		$CI = get_instance();
 		$data['buttons'] = isset($extra['buttons']) ? $extra['buttons'] : null;
 
+		// Determine the offset and the pagination URI.
 		if (is_numeric($pagination))
 		{
 			$segs = explode('/', $pagination_uri);
-			$offset_uri = count($segs)+1;
+			$page_uri = count($segs)+1;
 	
-	 		$offset = $CI->uri->segment($offset_uri, 0);
+	 		$offset = $CI->uri->segment($page_uri, 0);
+
+			// Calculate actual offset if not first page
+			if ( $offset > 0 )
+			{
+				$offset = ($offset - 1) * $pagination;
+			}
   		}
-		else
-		{
-			$offset = 0;
-		}
+  		else
+  		{
+  			$page_uri = null;
+  			$offset = 0;
+  		}
 
 		// -------------------------------------
 		// Get fields
@@ -842,13 +850,13 @@ class Streams_cp extends CI_Driver {
 			$data['pagination'] = create_pagination(
 											$pagination_uri,
 											$CI->fields_m->count_fields($namespace),
-											$pagination,
-											$offset
+											$pagination, // Limit per page
+											$page_uri // URI segment
 										);
 		}
 		else
 		{ 
-			$data['pagination'] = false;
+			$data['pagination'] = null;
 		}
 
 		// Allow view to inherit custom 'Add Field' uri
