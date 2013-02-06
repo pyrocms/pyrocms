@@ -1,6 +1,5 @@
 <?php
 
-require_once dirname(dirname(__FILE__)) . '/goutte.phar';
 use Goutte\Client;
 
 class TestInstallerInvalidDbCreds extends PHPUnit_Framework_Testcase
@@ -27,7 +26,7 @@ class TestInstallerInvalidDbCreds extends PHPUnit_Framework_Testcase
      */
     public function InstallWithInvalidDBCredentials()
     {
-        $crawler = $this->client->request('GET', 'http://'.PYRO_HOST.'/installer');
+        $crawler = $this->client->request('GET', 'http://'.PYRO_HOST);
         $link = $crawler->selectLink('Step #1')->link();
         $crawler = $this->client->click($link);
         $this->assertEquals($crawler->filter('title')->text(),'PyroCMS Installer');
@@ -48,7 +47,7 @@ class TestInstallerInvalidDbCreds extends PHPUnit_Framework_Testcase
      */
      public function InstallWithMissingDB()
      {
-        $crawler = $this->client->request('GET', 'http://'.PYRO_HOST.'/installer');
+        $crawler = $this->client->request('GET', 'http://'.PYRO_HOST);
         $link = $crawler->selectLink('Step #1')->link();
         $crawler = $this->client->click($link);
         $this->assertEquals($crawler->filter('title')->text(),'PyroCMS Installer');

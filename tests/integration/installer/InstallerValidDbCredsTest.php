@@ -1,6 +1,5 @@
 <?php
 
-require dirname(dirname(__FILE__)) . '/goutte.phar';
 use Goutte\Client;
 
 class TestInstallerValidDbCreds extends PHPUnit_Framework_TestCase
@@ -28,13 +27,13 @@ class TestInstallerValidDbCreds extends PHPUnit_Framework_TestCase
     public function DatabaseAuthenticationWithValidCreds()
     {
         $formFields = array(
-            'hostname'=>'127.0.0.1',
+            'hostname'=>'localhost',
             'username'=>'pyro',
             'password'=>'pyro',
             'create_db'=>'true',
             'database'=>'pyrocms'
         );
-        $crawler = $this->client->request('GET', 'http://'.PYRO_HOST.'/installer');
+        $crawler = $this->client->request('GET', 'http://'.PYRO_HOST);
         $this->assertEquals($crawler->filter('title')->text(),'PyroCMS Installer');
         $link = $crawler->selectLink('Step #1')->link();
         $crawler = $this->client->click($link);
@@ -55,19 +54,19 @@ class TestInstallerValidDbCreds extends PHPUnit_Framework_TestCase
         $path = dirname(__FILE__) . '/../../../*';
         exec("sudo chmod -R 555 $path");
         $formFields = array(
-            'hostname'=>'127.0.0.1',
+            'hostname'=>'localhost',
             'username'=>'pyro',
             'password'=>'pyro',
             'create_db'=>'true',
             'database'=>'pyrocms'
         );
-        $crawler = $this->client->request('GET', 'http://'.PYRO_HOST.'/installer');
+        $crawler = $this->client->request('GET', 'http://'.PYRO_HOST);
         $this->assertEquals($crawler->filter('title')->text(),'PyroCMS Installer');
         $link = $crawler->selectLink('Step #1')->link();
         $crawler = $this->client->click($link);
         $form = $crawler->selectButton('Step #2')->form();
         $crawler = $this->client->submit($form,$formFields);
         $this->assertContains('Step 3:',$crawler->filter('.title h3')->text());
-        exec('sudo chmod -R 777 ../../../*');
+        exec("sudo chmod -R 777 $path");
     }
 }

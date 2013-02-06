@@ -1,6 +1,5 @@
 <?php
-
-require dirname(dirname(__FILE__)) . '/goutte.phar';
+require_once dirname(dirname(__FILE__)) . '/goutte.phar';
 use Goutte\Client;
 
 class CreateValidUserTest extends PHPUnit_Framework_TestCase
@@ -18,7 +17,7 @@ class CreateValidUserTest extends PHPUnit_Framework_TestCase
 
     public function navigateToStepFour()
     {
-        $crawler = $this->client->request('GET', 'http://'.PYRO_HOST.'/installer');
+        $crawler = $this->client->request('GET', 'http://'.PYRO_HOST);
 
         $link = $crawler->selectLink('Step #1')->link();
         $crawler = $this->client->click($link);
@@ -28,7 +27,7 @@ class CreateValidUserTest extends PHPUnit_Framework_TestCase
             'password'=>'pyro',
             'database'=>'pyrocms',
             'create_db'=>'true',
-            'hostname' => '127.0.0.1'
+            'hostname' => 'localhost'
         );
         $crawler = $this->client->submit($form,$formFields);
 
