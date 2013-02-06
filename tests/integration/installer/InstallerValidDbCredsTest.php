@@ -42,31 +42,4 @@ class TestInstallerValidDbCreds extends PHPUnit_Framework_TestCase
         $this->assertContains('Step 4:',$crawler->filter('.title h3')->text());
     }
 
-    /**
-     * @test
-     * Given that valid credentials are provided and the filesystem isn't writable
-     * When the form to setup the db is submitted
-     * Then the page should navigate to installer/step_3
-     */
-
-    public function FileSystemNotWritable()
-    {
-        $path = dirname(__FILE__) . '/../../../*';
-        exec("sudo chmod -R 555 $path");
-        $formFields = array(
-            'hostname'=>'127.0.0.1',
-            'username'=>'pyro',
-            'password'=>'pyro',
-            'create_db'=>'true',
-            'database'=>'pyrocms'
-        );
-        $crawler = $this->client->request('GET', 'http://'.PYRO_HOST);
-        $this->assertEquals($crawler->filter('title')->text(),'PyroCMS Installer');
-        $link = $crawler->selectLink('Step #1')->link();
-        $crawler = $this->client->click($link);
-        $form = $crawler->selectButton('Step #2')->form();
-        $crawler = $this->client->submit($form,$formFields);
-        $this->assertContains('Step 3:',$crawler->filter('.title h3')->text());
-        exec("sudo chmod -R 777 $path");
-    }
 }
