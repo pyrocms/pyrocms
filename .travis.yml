@@ -4,8 +4,6 @@ php:
   - "5.4.9"
 before_script:
   - "sudo chmod -R 777  ."
-  - "sudo apt-get install php5-cli"
-  - "sudo apt-get install php5-cgi"
   - "sudo apt-get install apache2"
   - "sudo a2enmod actions"
   - "sudo a2enmod rewrite"
