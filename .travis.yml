@@ -15,8 +15,7 @@ before_script:
   - "sudo service apache2 restart"
   - mysql -u root -e "CREATE USER 'pyro'@'127.0.0.1' IDENTIFIED BY 'pyro'"
   - mysql -u root -e "GRANT ALL PRIVILEGES ON *.* to pyro@127.0.0.1 IDENTIFIED BY 'pyro'"
-  - cd tests/integration
-script: phpunit ./ 
+script: phpunit -c tests/integration
 
 branches:
   exclude:
