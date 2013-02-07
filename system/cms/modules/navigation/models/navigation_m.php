@@ -145,42 +145,21 @@ class Navigation_m extends CI_Model
 	public function get_link_tree($group, $params = array())
 	{
 		// the plugin passes the abbreviation
-		if ( ! is_numeric($group))
-		{
+		if ( ! is_numeric($group)) {
 			$row = $this->get_group_by('abbrev', $group);
 			$group = $row ? $row->id : null;
 		}
 		
-		if ( ! empty($params['order']))
-		{
-			$this->db->order_by($params['order']);
-		}
-		else
-		{
-			$this->db->order_by('position');
-		}
+		$order_by = empty($params['order']) ? 'position' : $params['order'];
 		
-		if (isset($params['front_end']) and $params['front_end'])
-		{
-			$front_end = true;
-		}
-		else
-		{
-			$front_end = false;
-		}
+		$front_end = (isset($params['front_end']) and $params['front_end']);
 		
-		if (isset($params['user_group']))
-		{
-			$user_group = $params['user_group'];
-		}
-		else
-		{
-			$user_group = false;
-		}
+		$user_group = (isset($params['user_group'])) ? $params['user_group'] : false;
 
 		$all_links = $this->pdb
 			->table($this->_table)
 			->where('navigation_group_id', '=', $group)
+			->orderBy($order_by)
 			->get();
 
 		// we must reindex the array first and build urls
