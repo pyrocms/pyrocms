@@ -198,7 +198,6 @@ class Navigation_m extends CI_Model
 	/**
 	 * Set the parent > child relations and child order
 	 *
-	 * @author Jerel Unruh - PyroCMS Dev Team
 	 * @param array $link
 	 * @return void
 	 */
@@ -222,7 +221,6 @@ class Navigation_m extends CI_Model
 
 	/**
 	 * Format an array
-	 *
 	 * 
 	 * @param array $input The data to format
 	 * @return array
@@ -230,31 +228,27 @@ class Navigation_m extends CI_Model
 	public function _format_array($input)
 	{
 		// If the url is not empty and not just the default http://
-		if(!empty($input['url']) && $input['url'] != 'http://')
-		{
+		if ( ! empty($input['url']) && $input['url'] != 'http://') {
 			$input['uri'] = '';
 			$input['module_name'] = '';
 			$input['page_id'] = 0;
 		}
 		
 		// If the uri is empty reset the others
-		if(!empty($input['uri']))
-		{
+		if ( ! empty($input['uri'])) {
 			$input['url'] = '';
 			$input['module_name'] = '';
 			$input['page_id'] = 0;
 		}
 		
 		// You get the idea...
-		if(!empty($input['module_name']))
-		{
+		if ( ! empty($input['module_name'])) {
 			$input['url'] = '';
 			$input['uri'] = '';
 			$input['page_id'] = 0;
 		}
 		
-		if(!empty($input['page_id']))
-		{
+		if ( ! empty($input['page_id'])) {
 			$input['url'] = '';
 			$input['uri'] = '';
 			$input['module_name'] = '';
@@ -318,7 +312,6 @@ class Navigation_m extends CI_Model
 	/**
 	 * Make a URL array
 	 *
-	 * 
 	 * @param array $row Array of links
 	 * @return mixed Array of links with valid urls
 	 */
@@ -426,12 +419,11 @@ class Navigation_m extends CI_Model
 	 */
 	public function insert_group($input = array())
 	{
-		$this->db->insert('navigation_groups', array(
-        	'title' => $input['title'],
-        	'abbrev' => $input['abbrev']
-		));
-
-        return $this->db->insert_id();
+		return $this->pdb->table('navigation_groups')
+			->insertGetId(array(
+	        	'title' => $input['title'],
+	        	'abbrev' => $input['abbrev'],
+			));
 	}
 	
 	/**
