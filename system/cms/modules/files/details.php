@@ -38,6 +38,7 @@ class Module_Files extends Module
 				'hu' => 'Fájlok',
 				'th' => 'ไฟล์',
 				'se' => 'Filer',
+				'pl' => 'Pliki'
 			),
 			'description' => array(
 				'en' => 'Manages files and folders for your site.',
@@ -63,6 +64,7 @@ class Module_Files extends Module
 				'hu' => 'Fájlok és mappák kezelése az oldalon.',
 				'th' => 'บริหารจัดการไฟล์และโฟลเดอร์สำหรับเว็บไซต์ของคุณ',
 				'se' => 'Hanterar filer och mappar för din webbplats.',
+				'pl' => 'Zarządzaj plikami na swojej stronie.'
 			),
 			'frontend' => false,
 			'backend' => true,
