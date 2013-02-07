@@ -1,11 +1,6 @@
 {
     "minimum-stability": "dev",
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/philsturgeon/database"
-        }
-    ],
+
     "require": {
         "pyrocms/lex": "2.2.*",
         "dflydev/markdown": "1.0.*",
@@ -17,6 +12,7 @@
         "tijsverkoyen/akismet": "1.1.*"
 
     },
+    
     "autoload": {
         "classmap": [
             "system/cms/controllers",
