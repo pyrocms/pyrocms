@@ -5,8 +5,8 @@
  * @author 		PyroCMS Dev Team
  * @package 	PyroCMS\Core\Modules\Pages\Controllers
  */
-class Admin extends Admin_Controller {
-
+class Admin extends Admin_Controller
+{
 	/**
 	 * The current active section
 	 *
@@ -58,7 +58,7 @@ class Admin extends Admin_Controller {
 
 			->append_css('module::index.css')
 
-			->set('pages', $this->page_m->get_page_tree())
+			->set('pages', $this->page_m->fetchPageTree())
 			->build('admin/index');
 	}
 

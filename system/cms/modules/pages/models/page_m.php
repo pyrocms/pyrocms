@@ -290,42 +290,37 @@ class Page_m extends \Illuminate\Database\Eloquent\Model
 	 *
 	 * @return array An array representing the page tree.
 	 */
-	public function get_page_tree()
+	public function fetchPageTree()
 	{
-		$all_pages = $this->db
-			->select('id, parent_id, title')
-			->order_by('`order`')
-			->get('pages')
-			->result_array();
+		$result = $this
+			->orderBy('order')
+			->get();
 
-		// First, re-index the array.
-		foreach ($all_pages as $row)
-		{
-			$pages[$row['id']] = $row;
+		// First, re-index the array
+		$pages = array();
+		foreach ($result as $row) {
+			$pages[$row->id] = $row;
 		}
 
-		unset($all_pages);
+		unset($result);
 
 		// Build a multidimensional array of parent > children.
-		foreach ($pages as $row)
-		{
-			if (array_key_exists($row['parent_id'], $pages))
-			{
+		$page_array = array();
+		foreach ($pages as $row) {
+
+			if (array_key_exists($row->parent_id, $pages)) {
 				// Add this page to the children array of the parent page.
-				$pages[$row['parent_id']]['children'][] =& $pages[$row['id']];
+				$pages[$row->parent_id]->children[] =& $pages[$row->id];
 			}
 
 			// This is a root page.
-			if ($row['parent_id'] == 0)
-			{
-				$page_array[] =& $pages[$row['id']];
+			if ($row->parent_id == 0) {
+				$page_array[] =& $pages[$row->id];
 			}
 		}
 
 		return $page_array;
 	}
-
-    // --------------------------------------------------------------------------
 
 	/**
 	 * Return page data
@@ -337,8 +332,6 @@ class Page_m extends \Illuminate\Database\Eloquent\Model
 		return $this->streams->entries->get_entry($stream_entry_id, $stream_slug, 'pages');
 	}
 
-    // --------------------------------------------------------------------------
-
 	/**
 	 * Set the parent > child relations and child order
 	 *
@@ -346,18 +339,17 @@ class Page_m extends \Illuminate\Database\Eloquent\Model
 	 */
 	public function _set_children($page)
 	{
-		if (isset($page['children']))
-		{
-			foreach ($page['children'] as $i => $child)
-			{
-				$child_id = (int) str_replace('page_', '', $child['id']);
-				$page_id = (int) str_replace('page_', '', $page['id']);
+		if ($page->children) {
+			foreach ($page->children as $i => $child) {
+				$child_id = (int) str_replace('page_', '', $child->id);
+				$page_id = (int) str_replace('page_', '', $page->id);
 
-				$this->update($child_id, array('parent_id' => $page_id, '`order`' => $i), true);
+				$child->parent_id = $page_id;
+				$child->order = $i;
+				$child->save();
 
 				//repeat as long as there are children
-				if (isset($child['children']))
-				{
+				if ($child->children) {
 					$this->_set_children($child);
 				}
 			}

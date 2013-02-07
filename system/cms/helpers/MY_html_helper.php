@@ -1,10 +1,11 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php 
+
 /**
  * PyroCMS Tree Helpers
  *
  * @author      PyroCMS Dev Team
  * @copyright   Copyright (c) 2012, PyroCMS LLC
- * @package PyroCMS\Core\Helpers
+ * @package     PyroCMS\Core\Helpers
  */
 if ( ! function_exists('tree_builder'))
 {
@@ -17,27 +18,26 @@ if ( ! function_exists('tree_builder'))
 	 */
 	function tree_builder($items, $html)
 	{
+		if (empty($items)) {
+			return;
+		}
+
 		$output = '';
 
-		if( is_array($items) )
-		{
-			foreach ($items as $item)
-			{
-				if (isset($item['children']) and ! empty($item['children']))
-				{
-					// if there are children we build their html and set it up to be parsed as {{ children }}
-					$item['children'] = '<ul>'.tree_builder($item['children'], $html).'</ul>';
-				}
-				else
-				{
-					$item['children'] = null;
-				}
+		foreach ($items as $item) {
+			if ($item->children) {
 
-				// now that the children html is sorted we parse the html that they passed
-				$output .= ci()->parser->parse_string($html, $item, true);
+				// if there are children we build their html and set it up to be parsed as {{ children }}
+				$item->children = '<ul>'.tree_builder($item['children'], $html).'</ul>';
+			
+			} else {
+				$item->children = null;
 			}
 
-			return $output;
+			// now that the children html is sorted we parse the html that they passed
+			$output .= ci()->parser->parse_string($html, $item->toArray(), true);
 		}
+
+		return $output;
 	}
 }
