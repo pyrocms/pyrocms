@@ -95,6 +95,7 @@ class Module_Navigation extends Module {
         $schema->dropIfExists('navigation_links');
 
         $schema->create('navigation_links', function($table) {
+            $table->increments('id');
             $table->string('title', 100);
             $table->integer('parent')->nullable();
             $table->string('link_type', 20)->default('uri');
