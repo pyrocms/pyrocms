@@ -48,7 +48,9 @@ class MX_Router extends CI_Router
 		if (count($segments) == 0) return $segments;
 		
 		/* locate module controller */
-		if ($located = $this->locate($segments)) return $located;
+		if ($located = $this->locate($segments)) {
+			return $located;
+		}
 		
 		/* use a default 404_override controller */
 		if (isset($this->routes['404_override']) and $this->routes['404_override']) {
@@ -66,25 +68,8 @@ class MX_Router extends CI_Router
 		/**
 		 * Load the site ref for multi-site support
 		 */
-		if ( ! defined('SITE_REF'))
-		{
+		if ( ! defined('SITE_REF')) {
 			require_once BASEPATH.'database/DB'.'.php';
-			
-			# deprecated Remove this for 2.3, as this was too early for a migration
-			if ( ! DB()->table_exists('core_domains'))
-			{
-				// Create alias table
-				DB()->query('	
-					CREATE TABLE `core_domains` (
-					  `id` int NOT NULL AUTO_INCREMENT,
-					  `domain` varchar(100) NOT NULL,
-					  `site_id` int NOT NULL,
-					  `type` enum("park", "redirect") NOT NULL DEFAULT "park",
-					  PRIMARY KEY (`id`),
-					  KEY `domain` (`domain`),
-					  UNIQUE `unique` (`domain`)
-					) ENGINE=InnoDB DEFAULT CHARSET=utf8; ');
-			}
 
 			$site = DB()
 				->select('site.name, site.ref, site.domain, alias.domain as alias_domain, alias.type as alias_type')
@@ -121,7 +106,7 @@ class MX_Router extends CI_Router
 			// we will let MY_Controller handle the errors.
 			if (isset($site->ref))
 			{
-				foreach (config_item('modules_locations') AS $location => $offset)
+				foreach (config_item('modules_locations') as $location => $offset)
 				{
 					$locations[str_replace('__SITE_REF__', $site->ref, $location)] = str_replace('__SITE_REF__', $site->ref, $offset);
 				}
@@ -164,7 +149,7 @@ class MX_Router extends CI_Router
 				
 				$this->module = $module;
 				$this->directory = $offset.$module.'/controllers/';
-				
+
 				/* module sub-controller exists? */
 				if ($directory and is_file($source.$directory.$ext)) {
 					return array_slice($segments, 1);
@@ -188,7 +173,7 @@ class MX_Router extends CI_Router
 				}
 				
 				/* module controller exists? */			
-				if(is_file($source.$module.$ext)) {
+				if (is_file($source.$module.$ext)) {
 					return $segments;
 				}
 			}
