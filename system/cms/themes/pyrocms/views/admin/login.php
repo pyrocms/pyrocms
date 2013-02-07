@@ -11,7 +11,7 @@
 	<?php Asset::css('workless/workless.css'); ?>
 	<?php Asset::css('workless/application.css'); ?>
 	<?php Asset::css('workless/responsive.css'); ?>
-	<?php Asset::css('animate/animate.min.css'); ?>
+	<?php Asset::css('animate/animate.css'); ?>
 
 	<?php Asset::js('jquery/jquery.js'); ?>
 	<?php Asset::js('admin/login.js'); ?>

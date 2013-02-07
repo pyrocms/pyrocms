@@ -53,6 +53,7 @@ $lang['required_error_label'] 			= 'Verplicht veld';
 $lang['note_label'] 					= 'Notitie';
 $lang['success_label'] 					= 'Succes';
 $lang['global:fields']					= 'Fields'; #translate
+$lang['global:custom_fields']			= 'Custom Fields'; #translate
 
 $lang['login_title'] 					= 'Inloggen';
 $lang['cms_fatal_error'] 			= 'Fatale fout, is het CMS geinstalleerd?';

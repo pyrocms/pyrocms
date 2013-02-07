@@ -48,7 +48,7 @@
 
 		if ($this->db->count_all('page_types') > 1)
 		{
-			echo anchor('admin/pages/choose_type?parent='.$page->id, lang('pages:create_label'), 'class="button modal"');
+			echo anchor('admin/pages/choose_type?modal=true&parent='.$page->id, lang('pages:create_label'), 'class="button modal"');
 		}
 		else
 		{

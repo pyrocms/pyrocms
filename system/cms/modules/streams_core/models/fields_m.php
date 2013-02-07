@@ -171,21 +171,28 @@ class Fields_m extends CI_Model {
 		
 		if (isset($field_type->custom_parameters))
 		{
-			$extra_data = array();
-		
+			foreach ($field_type->custom_parameters as $param)
+			{
+				if(isset($extra[$param]))
+				{
+					$insert_data['custom'][$param] = $extra[$param];
+				}
+				else
+				{
+					$insert_data['custom'][$param] = null;
+				}
+			}
+			
 			foreach ($field_type->custom_parameters as $param)
 			{
 				if (method_exists($field_type, 'param_'.$param.'_pre_save'))
 				{
-					$extra_data[$param] = $field_type->{'param_'.$param.'_pre_save'}($insert_data);
-				}
-				elseif(isset($extra[$param]))
-				{
-					$extra_data[$param] = $extra[$param];
+					$insert_data['custom'][$param] = $field_type->{'param_'.$param.'_pre_save'}( $insert_data );
 				}
 			}
-		
-			$insert_data['field_data'] = serialize($extra_data);
+			
+			$insert_data['field_data'] = serialize($insert_data['custom']);
+			unset($insert_data['custom']);
 		}
 		
 		return $this->db->insert($this->table, $insert_data);
@@ -430,24 +437,31 @@ class Fields_m extends CI_Model {
 		}
 		else
 		{
-			$custom_params = array();
-
+			foreach ($type->custom_parameters as $param)
+			{
+				if(isset($data[$param]))
+				{
+					$update_data['custom'][$param] = $data[$param];
+				}
+				else
+				{
+					$update_data['custom'][$param] = null;
+				}
+			}
+			
 			foreach ($type->custom_parameters as $param)
 			{
 				if (method_exists($type, 'param_'.$param.'_pre_save'))
 				{
-					$custom_params[$param] = $type->{'param_'.$param.'_pre_save'}($update_data);
-				}
-				elseif(isset($data[$param]))
-				{
-					$custom_params[$param] = $data[$param];
+					$update_data['custom'][$param] = $type->{'param_'.$param.'_pre_save'}( $update_data );
 				}
 			}
-
-			if ( ! empty($custom_params))
+			
+			if ( ! empty($update_data['custom']))
 			{
-				$update_data['field_data'] = serialize($custom_params);
+				$update_data['field_data'] = serialize($update_data['custom']);
 			}
+			unset($update_data['custom']);
 		}
 		
 		$this->db->where('id', $field->id);

@@ -12,7 +12,7 @@ class Module_Blog extends Module
 
 	public function info()
 	{
-		return array(
+		$info = array(
 			'name' => array(
 				'en' => 'Blog',
 				'ar' => 'المدوّنة',
@@ -91,26 +91,64 @@ class Module_Blog extends Module
 				),
 			),
 		);
+
+		if (function_exists('group_has_role'))
+		{
+			if(group_has_role('blog', 'admin_blog_fields'))
+			{
+				$info['sections']['fields'] = array(
+							'name' 	=> 'global:custom_fields',
+							'uri' 	=> 'admin/blog/fields',
+								'shortcuts' => array(
+									'create' => array(
+										'name' 	=> 'streams:add_field',
+										'uri' 	=> 'admin/blog/fields/create',
+										'class' => 'add'
+										)
+									)
+							);
+			}
+		}
+
+		return $info;
 	}
 
 	public function install()
 	{
 		$this->dbforge->drop_table('blog_categories');
+
+		$this->load->driver('Streams');
+		$this->streams->utilities->remove_namespace('blogs');
+
+		// Just in case.
 		$this->dbforge->drop_table('blog');
 
-		return $this->install_tables(array(
+		if ($this->db->table_exists('data_streams'))
+		{
+			$this->db->where('stream_namespace', 'blogs')->delete('data_streams');
+		}
+
+		// Create the blog categories table.
+		$this->install_tables(array(
 			'blog_categories' => array(
 				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true),
 				'slug' => array('type' => 'VARCHAR', 'constraint' => 100, 'null' => false, 'unique' => true, 'key' => true),
 				'title' => array('type' => 'VARCHAR', 'constraint' => 100, 'null' => false, 'unique' => true),
 			),
-			'blog' => array(
-				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true),
+		));
+
+		$this->streams->streams->add_stream(
+			'lang:blog:blog_title',
+			'blog',
+			'blogs',
+			null,
+			null
+		);
+
+		$blog_fields = array(
 				'title' => array('type' => 'VARCHAR', 'constraint' => 200, 'null' => false, 'unique' => true),
 				'slug' => array('type' => 'VARCHAR', 'constraint' => 200, 'null' => false),
 				'category_id' => array('type' => 'INT', 'constraint' => 11, 'key' => true),
-				'attachment' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => ''),
-				'intro' => array('type' => 'TEXT'),
 				'body' => array('type' => 'TEXT'),
 				'parsed' => array('type' => 'TEXT'),
 				'keywords' => array('type' => 'VARCHAR', 'constraint' => 32, 'default' => ''),
@@ -121,8 +159,8 @@ class Module_Blog extends Module
 				'status' => array('type' => 'ENUM', 'constraint' => array('draft', 'live'), 'default' => 'draft'),
 				'type' => array('type' => 'SET', 'constraint' => array('html', 'markdown', 'wysiwyg-advanced', 'wysiwyg-simple')),
 				'preview_hash' => array('type' => 'CHAR', 'constraint' => 32, 'default' => ''),
-			),
-		));
+		);
+		return $this->dbforge->add_column('blog', $blog_fields);
 	}
 
 	public function uninstall()

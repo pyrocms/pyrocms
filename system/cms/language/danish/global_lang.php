@@ -53,6 +53,7 @@ $lang['required_error_label'] 			= 'Nødvendigt felt mangler';
 $lang['note_label'] 					= 'Bemærk';
 $lang['success_label'] 					= 'Gennemført';
 $lang['global:fields']					= 'Fields'; #translate
+$lang['global:custom_fields']			= 'Custom Fields'; #translate
 
 $lang['login_title'] 					= 'Log ind';
 $lang['global:fatal_error'] 				= 'Fejl! Er CMS installeret?';

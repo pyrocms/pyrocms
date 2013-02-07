@@ -4,7 +4,7 @@
 <section class="item">
 	<div class="content">
 		<?php echo form_open(uri_string(), array('class'=> 'crud', 'id'=>'edit-permissions')) ?>
-		<table>
+		<table border="0" class="table-list" cellspacing="0">
 			<thead>
 				<tr>
 					<th><?php echo form_checkbox(array('id'=>'check-all', 'name' => 'action_to_all', 'class' => 'check-all', 'title' => lang('permissions:checkbox_tooltip_action_to_all'))) ?></th>

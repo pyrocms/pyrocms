@@ -255,7 +255,7 @@ class Files
 				return self::result(true, lang('files:container_exists'), $name);
 			}
 		}
-		return self::result(true, lang('files:container_not_exists'), $name);
+		return self::result(false, lang('files:container_not_exists'), $name);
 	}
 
 	// ------------------------------------------------------------------------

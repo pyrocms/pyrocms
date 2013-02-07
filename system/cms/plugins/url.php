@@ -41,6 +41,15 @@ class Plugin_Url extends Plugin
 				'variables' => '',
 				'attributes' => array(),
 				),
+			'uri_string' => array(
+				'description' => array(
+					'en' => 'Output the current uri string.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(),
+				),
 			'get' => array(
 				'description' => array(
 					'en' => 'Retrieve a GET variable from the url.'
@@ -158,6 +167,20 @@ class Plugin_Url extends Plugin
 	public function current()
 	{
 		return site_url($this->uri->uri_string());
+	}
+	
+	/**
+	 * Current uri string sans site_url()
+	 *
+	 * Usage:
+	 *
+	 *     {{ url:uri_string }}
+	 *
+	 * @return string The current URI string.
+	 */
+	public function uri_string()
+	{
+		return $this->uri->uri_string();
 	}
 
 	/**
