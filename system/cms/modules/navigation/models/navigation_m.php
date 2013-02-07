@@ -6,7 +6,7 @@
  * @author		PyroCMS Dev Team
  * @package		PyroCMS\Core\Modules\Navigation\Models
  */
-class Navigation_m extends MY_Model
+class Navigation_m extends CI_Model
 {
 	public function __construct()
 	{
@@ -138,8 +138,6 @@ class Navigation_m extends MY_Model
 	
 	/**
 	 * Build a multi-array of parent > children.
-	 *
-	 * @author Jerel Unruh - PyroCMS Dev Team
 	 * 
 	 * @param  string $group Either the group abbrev or the group id
 	 * @return array An array representing the link tree
@@ -180,19 +178,17 @@ class Navigation_m extends MY_Model
 			$user_group = false;
 		}
 
-		$all_links = $this->db->where('navigation_group_id', $group)
-			 ->get($this->_table)
-			 ->result_array();
+		$all_links = $this->pdb
+			->table($this->_table)
+			->where('navigation_group_id', '=', $group)
+			->get();
 
-		$this->load->helper('url');
-
-		$links = array();
-		
 		// we must reindex the array first and build urls
 		$all_links = $this->make_url_array($all_links, $user_group, $front_end);
-		foreach ($all_links AS $row)
-		{
-			$links[$row['id']] = $row;
+
+		$links = array();
+		foreach ($all_links as $link) {
+			$links[$link->id] = $link;
 		}
 
 		unset($all_links);
@@ -200,23 +196,20 @@ class Navigation_m extends MY_Model
 		$link_array = array();
 
 		// build a multidimensional array of parent > children
-		foreach ($links AS $row)
-		{
-			if (array_key_exists($row['parent'], $links))
-			{
+		foreach ($links as $link) {
+
+			if (array_key_exists($link->parent, $links)) {
 				// add this link to the children array of the parent link
-				$links[$row['parent']]['children'][] =& $links[$row['id']];
+				$links[$row->parent]->children[] =& $links[$link->id];
 			}
 
-			if ( ! isset($links[$row['id']]['children']))
-			{
-				$links[$row['id']]['children'] = array();
+			if ( ! isset($links[$link->id]->children)) {
+				$links[$link->id]->children = array();
 			}
 
 			// this is a root link
-			if ($row['parent'] == 0)
-			{
-				$link_array[] =& $links[$row['id']];
+			if ( ! $link->parent) {
+				$link_array[] =& $links[$link->id];
 			}
 		}
 
@@ -308,7 +301,6 @@ class Navigation_m extends MY_Model
 	/**
 	 * Make URL
 	 *
-	 * 
 	 * @param array $row Navigation record
 	 * @return mixed Valid url
 	 */
@@ -355,59 +347,60 @@ class Navigation_m extends MY_Model
 	{
 		// We have to fetch it ourselves instead of just using $current_user because this
 		// will all be cached per user group
-		$group = $this->db->select('id')->where('name', $user_group)->get('groups')->row();
+		$group = ci()->pdb
+			->table('groups')
+			->select('id')
+			->where('name', $user_group)
+			->take(1)
+			->first();
 
-		foreach($links as $key => &$row)
-		{				
+		foreach ($links as $key => &$row) {				
 			// Looks like it's restricted. Let's find out who
-			if ($row['restricted_to'] and $front_end)
-			{
-				$row['restricted_to'] = (array) explode(',', $row['restricted_to']);
+			if ($row->restricted_to and $front_end) {
+				$row->restricted_to = (array) explode(',', $row->restricted_to);
 
 				if ( ! $user_group or
-					 ($user_group != 'admin' AND
-					 ! in_array($group->id, $row['restricted_to']))
-					)
-				{
+					($user_group != 'admin' AND
+					! in_array($group->id, $row->restricted_to))
+				) {
 					unset($links[$key]);
 				}
 			}
 							
 			// If its any other type than a URL, it needs some help becoming one
-			switch($row['link_type'])
-			{
+			switch ($row->link_type) {
 				case 'uri':
-					$row['url'] = site_url($row['uri']);
+					$row->url = site_url($row->uri);
 				break;
 
 				case 'module':
-					$row['url'] = site_url($row['module_name']);
+					$row->url = site_url($row->module_name);
 				break;
 
 				case 'page':
-					if ($page = $this->page_m->get_by(array_filter(array(
-						'id'		=> $row['page_id'],
-						'status'	=> ($front_end ? 'live' : null)
-					))))
-					{
-						$row['url'] = site_url($page->uri);
-						$row['is_home'] = $page->is_home;
 
-						// But wait. If we're on the front-end and they don't have access to the page then we'll remove it anyway.
-						if ($front_end and $page->restricted_to)
-						{
-							$page->restricted_to = (array) explode(',', $page->restricted_to);
-
-							if ( ! $user_group or 								($user_group != 'admin' and 								 ! in_array($group->id, $page->restricted_to))
-								)
-							{
-								unset($links[$key]);
-							}
-						}
+					if ($front_end) {
+						$page = Page_m::findByIdAndStatus($row->page_id, 'live');
+					} else {
+						$page = Page_m::find($row->page_id);
 					}
-					else
-					{
+
+					// Fuck this then
+					if ( ! $page) {
 						unset($links[$key]);
+						break;
+					}
+
+					$row->url = site_url($page->uri);
+					$row->is_home = $page->is_home;
+
+					// But wait. If we're on the front-end and they don't have access to the page then we'll remove it anyway.
+					if ($front_end and $page->restricted_to) {
+						$page->restricted_to = (array) explode(',', $page->restricted_to);
+
+						if ( ! $user_group or ($user_group != 'admin' and ! in_array($group->id, $page->restricted_to))) {
+							unset($links[$key]);
+						}
 					}
 				break;
 			}
@@ -426,7 +419,10 @@ class Navigation_m extends MY_Model
 	 */
 	public function get_group_by($what, $value)
 	{
-		return $this->db->where($what, $value)->get('navigation_groups')->row();
+		return $this->pdb
+			->table('navigation_groups')
+			->where($what, $value)
+			->first();
 	}
 	
 	/**
@@ -437,7 +433,9 @@ class Navigation_m extends MY_Model
 	 */
 	public function get_groups()
 	{
-		return $this->db->get('navigation_groups')->result();
+		return $this->pdb
+			->table('navigation_groups')
+			->get();
 	}
 	
 	/**

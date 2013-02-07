@@ -11,7 +11,7 @@ class Admin_instances extends Admin_Controller {
 
 	/**
 	 * The current active section
-	 * @access protected
+	 * 
 	 * @var string
 	 */
 	protected $section = 'instances';
@@ -19,7 +19,6 @@ class Admin_instances extends Admin_Controller {
 	/**
 	 * Array that contains the validation rules
 	 *
-	 * @access	protected
 	 * @var		array
 	 */
 	protected $_validation_rules = array(
@@ -37,7 +36,7 @@ class Admin_instances extends Admin_Controller {
 
 	/**
 	 * Constructor method
-	 * @access    public
+	 * 
 	 * @return \Admin_instances
 	 */
 	public function __construct()
@@ -146,7 +145,7 @@ class Admin_instances extends Admin_Controller {
 	 */
 	public function edit($id = 0)
 	{
-		if ( ! ($id && $widget = $this->widgets->get_instance($id)))
+		if ( ! ($id && $widget = $this->widgets->find($id)))
 		{
 			// @todo: set error
 			return false;

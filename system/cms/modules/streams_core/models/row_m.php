@@ -918,8 +918,7 @@ class Row_m extends MY_Model {
 	public function get_row($id, $stream, $format_output = true, $plugin_call = false)
 	{
 		// Now the structure. We will need this as well.
-		if ( ! $this->structure)
-		{
+		if ( ! $this->structure) {
 			$this->structure = $this->gather_structure();
 		}
 

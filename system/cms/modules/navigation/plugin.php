@@ -7,11 +7,12 @@
  */
 class Plugin_Navigation extends Plugin
 {
-
 	public $version = '1.0.0';
+
 	public $name = array(
 		'en' => 'Navigation',
 	);
+
 	public $description = array(
 		'en' => 'Build navigation links including links in dropdown menus.',
 	);
@@ -77,18 +78,16 @@ class Plugin_Navigation extends Plugin
 
 		is_numeric($group_segment) and $group = $this->uri->segment($group_segment);
 
-		// We must pass the user group from here so that we can cache the results and still always return the links with the proper permissions
-		$params = array(
-			$group,
-			array(
-				'user_group' => ($this->current_user and isset($this->current_user->group)) ? $this->current_user->group : false,
-				'front_end'  => true,
-				'is_secure'  => IS_SECURE,
-			)
-		);
+		$this->load->model('navigation_m');
 
-		$class = $this->load->model('navigation_m');
-		$links = $this->cache->method($class, 'get_link_tree', $params, Settings::get('navigation_cache'));
+		// TODO Cache me please
+		$links = $this->navigation_m->get_link_tree($group, array(
+
+			// TODO Rethink group logic for sentry
+			'user_group' => ($this->current_user and isset($this->current_user->group)) ? $this->current_user->group : false,
+			'front_end'  => true,
+			'is_secure'  => IS_SECURE,
+		));
 
 		return $this->_build_links($links, $this->content());
 	}
@@ -119,13 +118,11 @@ class Plugin_Navigation extends Plugin
 		$i             = 1;
 		$total         = sizeof($links);
 
-		if ( ! $return_arr )
-		{
+		if ( ! $return_arr ) {
 			$tag      = $this->attribute('tag', 'li');
 			$list_tag = $this->attribute('list_tag', 'ul');
 
-			switch ($this->attribute('indent'))
-			{
+			switch ($this->attribute('indent')) {
 				case 't':
 				case 'tab':
 				case '	':
@@ -141,77 +138,68 @@ class Plugin_Navigation extends Plugin
 					break;
 			}
 
-			if ( $indent )
-			{
+			if ($indent) {
 				$ident_a = repeater($indent, $level);
-				$ident_b = $ident_a . $indent;
-				$ident_c = $ident_b . $indent;
+				$ident_b = $ident_a.$indent;
+				$ident_c = $ident_b.$indent;
 			}
 		}
 
-		foreach ($links as $link)
-		{
+		foreach ($links as $link) {
 			$item    = array();
 			$wrapper = array();
 
 			// attributes of anchor
-			$item['url']   = $link['url'];
-			$item['title'] = $link['title'];
+			$item['url']   = $link->url;
+			$item['title'] = $link->title;
 			$item['total'] = $total;
 
-			if ( $wrap )
-			{
-				$item['title'] = '<' . $wrap . '>' . $item['title'] . '</' . $wrap . '>';
+			if ($wrap) {
+				$item['title'] = '<'.$wrap.'>'.$item['title'].'</'.$wrap.'>';
 			}
 			
-			$item['attributes']['target']	= $link['target'] ? 'target="' . $link['target'] . '"' : null;
-			$item['attributes']['class']	= $link_class ? 'class="' . $link_class . '"' : '';
+			$item['attributes']['target']	= $link->target ? 'target="'.$link->target.'"' : null;
+			$item['attributes']['class']	= $link_class ? 'class="'.$link_class.'"' : '';
 			$item['attributes']['level']  = $level;
 
 			// attributes of anchor wrapper
-			$wrapper['class']		= $link['class'] ? explode(' ', $link['class']) : array();
+			$wrapper['class']		= $link->class ? explode(' ', $link->class) : array();
 			$wrapper['children']	= $return_arr ? array() : null;
 			$wrapper['separator']	= $separator;
 			$wrapper['level']    = $level;
 			$wrapper['current']  = FALSE;
 
 			// is single ?
-			if ($total === 1)
-			{
+			if ($total === 1) {
 				$wrapper['class'][] = 'single';
 			}
 
 			// is first ?
-			elseif ($i === 1)
-			{
+			elseif ($i === 1) {
 				$wrapper['class'][] = $first_class;
 			}
 
 			// is last ?
-			elseif ($i === $total)
-			{
+			elseif ($i === $total) {
 				$wrapper['class'][]   = $last_class;
 				$wrapper['separator'] = '';
 			}
 
 			// has children ? build children
-			if ($link['children'])
-			{
+			if ($link->children) {
 				++$level;
 
-				if ( ! $max_depth or $level < $max_depth )
-				{
+				if ( ! $max_depth or $level < $max_depth ) {
 					$wrapper['class'][]  = $more_class;
-					$wrapper['children'] = $this->_build_links($link['children'], $return_arr);
+					$wrapper['children'] = $this->_build_links($link->children, $return_arr);
 				}
 
 				--$level;
 			}
 
 			// is this the link to the page that we're on?
-			if (preg_match('@^' . current_url() . '/?$@', $link['url']) or ($link['link_type'] == 'page' and $link['is_home']) and site_url() == current_url() )
-			{
-				$current_link       = $link['url'];
+			if (preg_match('@^'.current_url().'/?$@', $link->url) or ($link->link_type == 'page' and $link->is_home) and site_url() == current_url()) {
+				$current_link       = $link->url;
 				$wrapper['class'][] = $current_class;
 				$wrapper['current'] = TRUE;
 			}
@@ -222,22 +210,19 @@ class Plugin_Navigation extends Plugin
 				$current_link and
 				((is_array($wrapper['children']) and in_array_r($current_link, $wrapper['children'])) or
 				(is_string($wrapper['children']) and strpos($wrapper['children'], $current_link)))
-			)
-			{
+			) {
 				// that means that this link is a parent
-				$wrapper['class'][] = 'has_' . $current_class;
+				$wrapper['class'][] = 'has_'.$current_class;
 			}
 			// if we are viewing something in a module (such as a blog post) that doesn't have a link then mark the link
 			// to the module root with .has_current but not if it will already have .current
-			elseif ($link['module_name'] === $this->module and ! preg_match('@^' . current_url() . '/?$@', $link['url']))
-			{
-				$wrapper['class'][] = 'has_' . $current_class;
+			elseif ($link->module_name === $this->module and ! preg_match('@^'.current_url().'/?$@', $link->url)) {
+				$wrapper['class'][] = 'has_'.$current_class;
 			}
 
 			++$i;
 
-			if ( $return_arr )
-			{
+			if ($return_arr) {
 				$item['target']		=& $item['attributes']['target'];
 				$item['class']		=& $item['attributes']['class'];
 				$item['level']		=& $item['attributes']['level'];
@@ -246,7 +231,7 @@ class Plugin_Navigation extends Plugin
 
 				if ( $wrapper['class'] && $item['class'] )
 				{
-					$item['class'] = implode(' ', $wrapper['class']) . ' ' . substr($item['class'], 7, -1);
+					$item['class'] = implode(' ', $wrapper['class']).' '.substr($item['class'], 7, -1);
 				}
 				elseif ( $wrapper['class'] )
 				{
@@ -271,20 +256,20 @@ class Plugin_Navigation extends Plugin
 					// remove all empty values so we don't have an empty class attribute
 					$classes = implode(' ', array_filter($wrapper['class']));
 
-					$output .= $add_first_tag ? "<{$list_tag}>" . PHP_EOL : '';
-					$output .= $ident_b . '<' . $tag . ($classes > '' ? ' class="' . $classes . '">' : '>') . PHP_EOL;
-					$output .= $ident_c . ((($level == 0) and $top == 'text' and $wrapper['children']) ? $item['title'] : anchor($item['url'], $item['title'], trim(implode(' ', $item['attributes'])))) . PHP_EOL;
+					$output .= $add_first_tag ? "<{$list_tag}>".PHP_EOL : '';
+					$output .= $ident_b.'<'.$tag.($classes > '' ? ' class="'.$classes.'">' : '>').PHP_EOL;
+					$output .= $ident_c.((($level == 0) and $top == 'text' and $wrapper['children']) ? $item['title'] : anchor($item['url'], $item['title'], trim(implode(' ', $item['attributes'])))).PHP_EOL;
 
 					if ( $wrapper['children'] )
 					{
-						$output .= $ident_c . "<{$list_tag}>" . PHP_EOL;
-						$output .= $ident_c . $indent . str_replace(PHP_EOL, (PHP_EOL . $indent), trim($ident_c . $wrapper['children'])) . PHP_EOL;
-						$output .= $ident_c . "</{$list_tag}>" . PHP_EOL;
+						$output .= $ident_c."<{$list_tag}>".PHP_EOL;
+						$output .= $ident_c.$indent.str_replace(PHP_EOL, (PHP_EOL.$indent), trim($ident_c.$wrapper['children'])).PHP_EOL;
+						$output .= $ident_c."</{$list_tag}>".PHP_EOL;
 					}
 
-					$output .= $wrapper['separator'] ? $ident_c . $wrapper['separator'] . PHP_EOL : '';
-					$output .= $ident_b . "</{$tag}>" . PHP_EOL;
-					$output .= $add_first_tag ? $ident_a . "</{$list_tag}>" . PHP_EOL : '';
+					$output .= $wrapper['separator'] ? $ident_c.$wrapper['separator'].PHP_EOL : '';
+					$output .= $ident_b."</{$tag}>".PHP_EOL;
+					$output .= $add_first_tag ? $ident_a."</{$list_tag}>".PHP_EOL : '';
 				}
 				else
 				{
@@ -292,7 +277,7 @@ class Plugin_Navigation extends Plugin
 					$classes = implode(' ', array_filter($wrapper['class']));
 
 					$output .= $add_first_tag ? "<{$list_tag}>" : '';
-					$output .= '<' . $tag . ($classes > '' ? ' class="' . $classes . '">' : '>');
+					$output .= '<'.$tag.($classes > '' ? ' class="'.$classes.'">' : '>');
 					$output .= (($level == 0) and $top == 'text' and $wrapper['children']) ? $item['title'] : anchor($item['url'], $item['title'], trim(implode(' ', $item['attributes'])));
 
 					if ( $wrapper['children'] )

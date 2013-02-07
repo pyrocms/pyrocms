@@ -68,7 +68,7 @@ class Widgets {
 
 	public function list_area_instances($slug)
 	{
-		return is_array($slug) ? $this->widget_m->get_by_areas($slug) : $this->widget_m->get_by_area($slug);
+		return is_array($slug) ? $this->widget_m->findByAreas($slug) : $this->widget_m->findByArea($slug);
 	}
 
 	public function list_available_widgets()
@@ -140,7 +140,7 @@ class Widgets {
 
 	public function get_instance($instance_id)
 	{
-		$widget = $this->widget_m->get_instance($instance_id);
+		$widget = $this->widget_m->find($instance_id);
 
 		if ($widget)
 		{
@@ -257,7 +257,7 @@ class Widgets {
 			return $this->_rendered_areas[$area];
 		}
 
-		$widgets = $this->widget_m->get_by_area($area);
+		$widgets = $this->widget_m->findByArea($area);
 
 		$output = '';
 
@@ -388,7 +388,7 @@ class Widgets {
 
 	public function edit_instance($instance_id, $title, $widget_area_id, $options = array(), $data = array())
 	{
-		$slug = $this->widget_m->get_instance($instance_id)->slug;
+		$slug = $this->widget_m->find($instance_id)->slug;
 
 		if ($error = $this->validation_errors($slug, $options))
 		{
