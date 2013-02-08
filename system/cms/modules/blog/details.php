@@ -145,6 +145,20 @@ class Module_Blog extends Module
 			null
 		);
 
+		// Add the intro field.
+		// This can be later removed by an admin.
+		$intro_field = array(
+			'name'		=> 'lang:blog:intro_label',
+			'slug'		=> 'intro',
+			'namespace' => 'blogs',
+			'type'		=> 'wysiwyg',
+			'assign'	=> 'blog',
+			'extra'		=> array('editor_type' => 'simple', 'allow_tags' => 'y'),
+			'required'	=> true
+		);
+		$this->streams->fields->add_field($intro_field);
+
+		// Ad the rest of the blog fields the normal way.
 		$blog_fields = array(
 				'title' => array('type' => 'VARCHAR', 'constraint' => 200, 'null' => false, 'unique' => true),
 				'slug' => array('type' => 'VARCHAR', 'constraint' => 200, 'null' => false),
