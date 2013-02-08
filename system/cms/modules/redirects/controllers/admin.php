@@ -54,7 +54,7 @@ class Admin extends Admin_Controller
         $total_rows = Redirect::all()->count();
         $this->template->pagination = create_pagination('admin/redirects/index', $total_rows);
         // Using this data, get the relevant results
-        $this->template->redirects = Redirect_m::skip($this->template->pagination['offset'])->take($this->template->pagination['limit'])->get();
+        $this->template->redirects = Redirect::skip($this->template->pagination['offset'])->take($this->template->pagination['limit'])->get();
         $this->template->build('admin/index');
     }
 
