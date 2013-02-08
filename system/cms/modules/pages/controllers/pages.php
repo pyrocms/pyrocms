@@ -1,4 +1,7 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php
+
+use Pyro\Module\Pages\Model\Page;
+
 /**
  * The public controller for the Pages module.
  *
@@ -7,7 +10,6 @@
  */
 class Pages extends Public_Controller
 {
-
 	/**
 	 * Constructor method
 	 */
@@ -15,17 +17,13 @@ class Pages extends Public_Controller
 	{
 		parent::__construct();
 
-		$this->load->model('page_m');
-		$this->load->model('page_type_m');
-
 		// This basically keeps links to /home always pointing to
 		// the actual homepage even when the default_controller is
 		// changed
 
 		// No page is mentioned and we are not using pages as default
 		//  (eg blog on homepage)
-		if ( ! $this->uri->segment(1) and $this->router->default_controller != 'pages')
-		{
+		if ( ! $this->uri->segment(1) and $this->router->default_controller != 'pages') {
 			redirect('');
 		}
 	}
@@ -84,12 +82,12 @@ class Pages extends Public_Controller
 		// make updates to the page type files and see the
 		// results immediately.
 		if (ENVIRONMENT == PYRO_DEVELOPMENT) {
-			$this->cache->clear('page_m');
+			$this->cache->clear('Page');
 		}
 
 		// GET THE PAGE ALREADY. In the event of this being the home page $url_segments will be null
-		// $page = $this->cache->method($this->page_m, 'get_by_uri', array($url_segments, true));
-		$page = Page_m::findByUri($url_segments, true);
+		// $page = $this->cache->method('Page::findByUri', array($url_segments, true));
+		$page = Page::findByUri($url_segments, true);
 
 		// If page is missing or not live (and the user does not have permission) show 404
 		if ( ! $page or ($page->status === 'draft' and ! $this->permission_m->has_role(array('put_live', 'edit_live'))))
@@ -134,20 +132,13 @@ class Pages extends Public_Controller
 			// we dont care about the last one
 			array_pop($url_segments);
 
-			// This array of parents in the cache?
-			if ( ! $parents = $this->cache->get('page_m/'.md5(implode('/', $url_segments))))
-			{
-				$parents = $breadcrumb_segments = array();
+			$parents = $breadcrumb_segments = array();
 
-				foreach ($url_segments as $segment)
-				{
-					$breadcrumb_segments[] = $segment;
+			// TODO Cache me! Phil delete it
+			foreach ($url_segments as $segment) {
+				$breadcrumb_segments[] = $segment;
 
-					$parents[] = $this->cache->method('page_m', 'get_by_uri', array($breadcrumb_segments, true));
-				}
-
-				// Cache for next time
-				$this->cache->set('page_m/'.md5(implode('/', $url_segments)), $parents);
+				$parents[] = Page::findByUri($breadcrumb_segments, true);
 			}
 
 			foreach ($parents as $parent_page) {
@@ -168,7 +159,7 @@ class Pages extends Public_Controller
 		// If a Page Type has a Theme Layout that exists, use it
 		if ( ! empty($page->type->theme_layout) and $this->template->layout_exists($page->type->theme_layout)
 			// But Allow that you use layout files of you theme folder without override the defined by you in your control panel
-			AND ($this->template->layout_is('default.html') OR $page->type->theme_layout !== 'default.html')
+			and ($this->template->layout_is('default.html') or $page->type->theme_layout !== 'default.html')
 		) {
 			$this->template->set_layout($page->type->theme_layout);
 		}
@@ -282,7 +273,8 @@ class Pages extends Public_Controller
 
 
 		// Fetch this page from the database via cache
-		$page = $this->cache->method('page_m', 'get_by_uri', array($url_segments, true));
+		// TODO Cache me, Phil delete it
+		$page = Page::findByUri($url_segments, true);
 
 		// We will need to know if we should include draft pages in the feed later on too, so save it.
 		$include_draft = ! empty($this->current_user) AND $this->current_user->group !== 'admin';
@@ -294,20 +286,11 @@ class Pages extends Public_Controller
 			return;
 		}
 
-		// We need to get all the children of this page.
-		$query_options = array(
-			'parent_id' => $page->id,
-		);
-
 		// If the feed should only show live pages
-		if ( ! $include_draft) {
-			// add the query where criteria
-			$query_options['status'] = 'live';
-		}
-		// Hit the query through the cache.
-		$children = $this->cache->method('page_m', 'get_many_by', array($query_options));
+		$status = $include_draft ? null : 'live';
 
-		//var_dump($children);
+		// Hit the query through the cache.
+		$children = $this->cache->method('Page', 'findByIdAndStatus', array($id, $status));
 
 		$data = array(
 			'rss' => array(
@@ -319,12 +302,10 @@ class Pages extends Public_Controller
 			),
 		);
 
-		if ( ! empty($children))
-		{
+		if ( ! empty($children)) {
 			$this->load->helper('xml');
 
-			foreach ($children as &$row)
-			{
+			foreach ($children as &$row) {
 				$row->link = $row->uri ?: $row->slug;
 				$row->created_on = date(DATE_RSS, $row->created_on);
 
@@ -338,6 +319,7 @@ class Pages extends Public_Controller
 				);
 			}
 		}
+
 		// We are outputing RSS/Atom here... let them know.
 		$this->output->set_header('Content-Type: application/rss+xml');
 		$this->load->view('rss', $data);

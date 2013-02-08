@@ -1,4 +1,4 @@
-<?php
+<?php namespace Pyro\Module\Pages\Model;
 
 /**
  * Pages model
@@ -7,7 +7,7 @@
  * @package    PyroCMS\Core\Modules\Pages\Models
  *
  */
-class Page_m extends \Illuminate\Database\Eloquent\Model
+class Page extends \Illuminate\Database\Eloquent\Model
 {
     /**
      * Define the table name
@@ -111,8 +111,20 @@ class Page_m extends \Illuminate\Database\Eloquent\Model
 	 */
 	public function type()
     {
-        return $this->belongsTo('Page_type_m');
+        return $this->belongsTo('Pyro\Module\Pages\Model\PageType');
     }
+
+	/**
+	 * Find page by id and status
+	 *
+	 * @param string $status Live or draft?
+	 *
+	 * @return Page
+	 */
+	public static function findStatus($status)
+	{
+		return static::where('status', '=', $status)->all();
+	}
 
 	/**
 	 * Find page by id and status
@@ -120,7 +132,7 @@ class Page_m extends \Illuminate\Database\Eloquent\Model
 	 * @param int $id The id of the page.
 	 * @param string $status Live or draft?
 	 *
-	 * @return Page_m
+	 * @return Page
 	 */
 	public static function findByIdAndStatus($id, $status)
 	{
@@ -135,20 +147,19 @@ class Page_m extends \Illuminate\Database\Eloquent\Model
 	 * @param string $uri The uri of the page.
 	 * @param bool $is_request Is this an http request or called from a plugin
 	 *
-	 * @return Page_m
+	 * @return Page
 	 */
 	public static function findByUri($uri, $is_request = false)
 	{
 		// it's the home page
-		if ($uri === null)
-		{
+		if ($uri === null) {
+			
 			$page = static::where('is_home', '=', true)
 				->with('type')
 				->take(1)
 				->first();
-		}
-		else
-		{
+		
+		} else {
 			// If the URI has been passed as an array, implode to create a string of uri segments
 			is_array($uri) && $uri = trim(implode('/', $uri), '/');
 

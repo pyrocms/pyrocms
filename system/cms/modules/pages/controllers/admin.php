@@ -1,4 +1,7 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php
+
+use Pyro\Modules\Pages\Model\PageType;
+
 /**
  * Pages controller
  *
@@ -26,20 +29,11 @@ class Admin extends Admin_Controller
 		parent::__construct();
 
 		// Load the required classes
-		$this->load->model('page_m');
-		$this->load->model('page_type_m');
 		$this->load->model('navigation/navigation_m');
 		$this->lang->load('pages');
 		$this->lang->load('page_types');
 
 		$this->load->driver('Streams');
-
-		// Get our chunks field type if this is an
-		// upgraded site.
-		if ($this->db->table_exists('page_chunks'))
-		{
-			$this->type->load_types_from_folder(APPPATH.'modules/pages/field_types/', 'pages_module');
-		}
 	}
 
 	/**
@@ -67,33 +61,26 @@ class Admin extends Admin_Controller
 	 */
 	public function choose_type()
 	{
-		// Get our types.
-		$this->load->model('page_type_m');
-
-		$all = $this->page_type_m->get_all();
+		$types = PageType::all();
 
 		// Do we have a parent ID?
 		$parent = ($this->input->get('parent')) ? '&parent='.$this->input->get('parent') : null;
 
         // Who needs a menu when there is only one option?
-        if (count($all) === 1) 
-        {
-            redirect('admin/pages/create?page_type='.$all[0]->id.$parent);
+        if ($types->count() === 1) {
+            redirect('admin/pages/create?page_type='.$types[0]->id.$parent);
         }
 
         // Directly output the menu if it's for the modal.
         // All we need is the <ul>.
-        if ($this->input->get('modal') === 'true') 
-        {
+        if ($this->input->get('modal') === 'true')  {
             $html  = '<h4>'.lang('pages:choose_type_title').'</h4>';
     		$html .= '<ul class="modal_select">';
     		
-    		foreach ($all as $pt)
-    		{
+    		foreach ($types as $pt) {
     			$html .= '<li><a href="'.site_url('admin/pages/create?page_type='.$pt->id.$parent).'"><strong>'.$pt->title.'</strong>';
 
-    			if (trim($pt->description))
-    			{
+    			if (trim($pt->description)) {
     				$html .= ' | '.$pt->description;
     			}
 
@@ -108,8 +95,8 @@ class Admin extends Admin_Controller
         // display an entire page.
         $this->template
             ->set('parent', $parent)
-            ->set('page_types', $all)
-            ->build('admin/choosetype');
+            ->set('page_types', $types)
+            ->build('admin/choose_type');
 	}
 
 	/**
@@ -123,13 +110,12 @@ class Admin extends Admin_Controller
 		$data	= $this->input->post('data');
 		$root_pages	= isset($data['root_pages']) ? $data['root_pages'] : array();
 
-		if (is_array($order))
-		{
+		if (is_array($order)) {
+			
 			//reset all parent > child relations
 			$this->page_m->update_all(array('parent_id' => 0));
 
-			foreach ($order as $i => $page)
-			{
+			foreach ($order as $i => $page) {
 				$id = str_replace('page_', '', $page['id']);
 				
 				//set the order of the root pages

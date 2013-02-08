@@ -1,4 +1,7 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php 
+
+use Pyro\Module\Pages;
+
 /**
  * Admin controller for the navigation module. Handles actions such as editing links or creating new ones.
  *
@@ -88,7 +91,6 @@ class Admin extends Admin_Controller {
 		// Load the required classes
 		$this->load->library('form_validation');
 		$this->load->model('navigation_m');
-		$this->load->model('pages/page_m');
 		$this->lang->load('navigation');
 
 		$this->template
@@ -101,9 +103,10 @@ class Admin extends Admin_Controller {
 		$all_modules				= $this->module_m->get_all(array('is_frontend'=>true));
 
 		//only allow modules that user has permissions for
-		foreach($all_modules as $module)
-		{
-			if (in_array($module['slug'], $this->permissions) or $this->current_user->group == 'admin') $modules[] = $module;
+		foreach($all_modules as $module) {
+			if (in_array($module['slug'], $this->permissions) or $this->current_user->group == 'admin') {
+				$modules[] = $module;
+			}
 		}
 
 		$this->template->modules_select = array_for_select($modules, 'slug', 'name');
@@ -111,10 +114,8 @@ class Admin extends Admin_Controller {
 		// Get Pages and create pages tree
 		$tree = array();
 
-		if ($pages = $this->page_m->get_all())
-		{
-			foreach($pages AS $page)
-			{
+		if ($pages = Pages\Model\Page::all()) {
+			foreach($pages as $page) {
 				$tree[$page->parent_id][] = $page;
 			}
 		}
@@ -133,8 +134,7 @@ class Admin extends Admin_Controller {
 	{
 		$navigation = array();
 		// Go through all the groups
-		foreach ($this->template->groups as $group)
-		{
+		foreach ($this->template->groups as $group) {
 			//... and get navigation links for each one
 			$navigation[$group->id] = $this->navigation_m->get_link_tree($group->id);
 		}

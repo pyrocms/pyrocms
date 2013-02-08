@@ -1,4 +1,7 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php
+
+use Pyro\Module\Pages\Model\Page;
+
 /**
  * Navigation model for the navigation module.
  * 
@@ -297,18 +300,15 @@ class Navigation_m extends CI_Model
 			break;
 
 			case 'page':
-				if ($page = $this->page_m->get_by(array_filter(array(
-					'id'		=> $row->page_id,
-					'status'	=> (is_subclass_of(ci(), 'Public_Controller') ? 'live' : null)
-				))))
-				{
-					$row->url = site_url($page->uri);
-					$row->is_home = $page->is_home;
-				}
-				else
-				{
+
+				$status = (is_subclass_of(ci(), 'Public_Controller') ? 'live' : null);
+
+				if ( ! Page::findByIdAndStatus($row->page_id, $status)) {
 					unset($result[$key]);
 				}
+				
+				$row->url = site_url($page->uri);
+				$row->is_home = $page->is_home;
 			break;
 		}
 
@@ -358,9 +358,9 @@ class Navigation_m extends CI_Model
 				case 'page':
 
 					if ($front_end) {
-						$page = Page_m::findByIdAndStatus($row->page_id, 'live');
+						$page = Page::findByIdAndStatus($row->page_id, 'live');
 					} else {
-						$page = Page_m::find($row->page_id);
+						$page = Page::find($row->page_id);
 					}
 
 					// Fuck this then

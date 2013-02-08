@@ -1,4 +1,4 @@
-<?php
+<?php namespace Pyro\Module\Pages\Model;
 
 /**
  * Page type model
@@ -6,7 +6,7 @@
  * @author		PyroCMS Dev Team
  * @package		PyroCMS\Core\Modules\Pages\Models
  */
-class Page_type_m extends \Illuminate\Database\Eloquent\Model
+class PageType extends \Illuminate\Database\Eloquent\Model
 {
     /**
      * Define the table name
@@ -29,7 +29,7 @@ class Page_type_m extends \Illuminate\Database\Eloquent\Model
      */
     public function pages()
     {
-        return $this->hasMany('Page_m');
+        return $this->hasMany('Page');
     }
 	
     /**

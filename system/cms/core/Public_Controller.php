@@ -46,22 +46,17 @@ class Public_Controller extends MY_Controller
 		Events::trigger('public_controller');
 
 		// Check the frontend hasnt been disabled by an admin
-		if ( ! $this->settings->frontend_enabled && (empty($this->current_user) or $this->current_user->group != 'admin'))
-		{
+		if ( ! Settings::get('frontend_enabled') && (empty($this->current_user) or $this->current_user->group != 'admin')) {
 			header('Retry-After: 600');
 
-			$error = $this->settings->unavailable_message ? $this->settings->unavailable_message : lang('cms:fatal_error');
+			$error = Settings::get('unavailable_message') ?: lang('cms:fatal_error');
 			show_error($error, 503);
 		}
-
-		// -- Navigation menu -----------------------------------
-		$this->load->model('pages/page_m');
 
 		// Load the current theme so we can set the assets right away
 		ci()->theme = $this->theme_m->get();
 
-		if (empty($this->theme->slug))
-		{
+		if (empty($this->theme->slug)) {
 			show_error('This site has been set to use a theme that does not exist. If you are an administrator please '.anchor('admin/themes', 'change the theme').'.');
 		}
 
