@@ -168,17 +168,17 @@ class Comments extends Public_Controller
 		else
 		{
 			$this->session->set_flashdata('error', validation_errors());
-
-			// Loop through each rule
-			foreach ($this->validation_rules as $rule)
-			{
-				if ($this->input->post($rule['field']) !== false)
-				{
-					$comment[$rule['field']] = escape_tags($this->input->post($rule['field']));
-				}
-			}
-			$this->session->set_flashdata('comment', $comment);
 		}
+
+		// Loop through each rule
+		foreach ($this->validation_rules as $rule)
+		{
+			if ($this->input->post($rule['field']) !== false)
+			{
+				$comment[$rule['field']] = escape_tags($this->input->post($rule['field']));
+			}
+		}
+		$this->session->set_flashdata('comment', $comment);
 
 		// If for some reason the post variable doesnt exist, just send to module main page
 		$uri = ! empty($entry['uri']) ? $entry['uri'] : $module;
@@ -235,9 +235,9 @@ class Comments extends Public_Controller
 			{
 				return array('status' => false, 'message' => implode('<br />', $this->akismet->get_errors()));
 			}
-			
 		}
 	
+		// Do our own blacklist check.
 		$blacklist = array(
 			'email' => $this->input->post('email'),
 			'website' => $this->input->post('website')
