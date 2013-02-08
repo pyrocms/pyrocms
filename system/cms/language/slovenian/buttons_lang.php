@@ -33,9 +33,9 @@ $lang['buttons:preview']	  = 'Predogled';
 $lang['buttons:close']		  = 'Zapri';
 $lang['buttons:edit']		    = 'Uredi';
 $lang['buttons:clone']		  = 'Duplikat';
-$lang['buttons:re-index']	  = 'Reindeksiraj'; #translate
+$lang['buttons:re-index']	  = 'Reindeksiraj';
 $lang['buttons:copy']		    = 'Kopiraj';
-$lang['buttons:filter']		  = 'Filter'; #translate
-$lang['buttons:clear']		  = 'Počisti'; #translate
+$lang['buttons:filter']		  = 'Filter';
+$lang['buttons:clear']		  = 'Počisti';
 
 /* End of file buttons_lang.php */
