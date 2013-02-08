@@ -1,11 +1,11 @@
-<?php 
+<?php namespace Pyro\Module\Redirects\Model;
 /**
  * Redirect model
  *
  * @author      PyroCMS Dev Team
  * @package     PyroCMS\Core\Modules\Redirects\Models 
  */
-class Redirect_m extends \Illuminate\Database\Eloquent\Model
+class Redirect extends \Illuminate\Database\Eloquent\Model
 {
     /**
      * Define the table name

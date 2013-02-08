@@ -1,4 +1,7 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php 
+
+use Pyro\Module\Redirects\Model\Redirect;
+
 /**
  * Code here is run before frontend controllers
  *
@@ -21,10 +24,9 @@ class Public_Controller extends MY_Controller
 		// Check redirects if GET and Not AJAX
 		if ( ! $this->input->is_ajax_request() and $_SERVER['REQUEST_METHOD'] == 'GET')
 		{
-			$this->load->model('redirects/redirect_m');
 			$uri = trim(uri_string(), '/');
 
-			if ($uri and $redirect = Redirect_m::findByUri($uri))
+			if ($uri and $redirect = Redirect::findByUri($uri))
 			{
 				// Check if it was direct match
 				if ($redirect->from == $uri)
