@@ -16,5 +16,6 @@
     </testsuites>
     <php>
         <server name="PYRO_TEST_HOST" value="localhost/installer"/>
+        <server name="PYRO_DB_HOST" value="127.0.0.1">
     </php>
 </phpunit>

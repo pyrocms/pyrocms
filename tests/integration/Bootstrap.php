@@ -8,5 +8,5 @@ require 'goutte.phar';
 * quick switch to run the tests locally, 127.0.0.1 should run on travis
 * and localhost should run locally (depending on your config)
 **/
-define('PYRO_DB_HOST','127.0.0.1');
+define('PYRO_DB_HOST',isset($_SERVER['PYRO_DB_HOST']) ? $_SERVER['PYRO_DB_HOST'] : 'localhost');
 define('PYRO_HOST', isset($_SERVER['PYRO_TEST_HOST']) ? $_SERVER['PYRO_TEST_HOST'] : 'localhost');
