@@ -53,8 +53,8 @@ class TestInstallerInvalidDbCreds extends PHPUnit_Framework_Testcase
         $this->assertEquals($crawler->filter('title')->text(),'PyroCMS Installer');
         $form = $crawler->selectButton('Step #2')->form();
         $crawler = $this->client->submit($form,array(
-            'username'=>'pyro',
-            'password'=>'pyro'
+            'username'=>'pyrocms',
+            'password'=>'password'
         ));
         $this->assertContains('MySQL Database field is required',$crawler->filter('.error')->text());
      }

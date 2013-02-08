@@ -28,8 +28,8 @@ class TestInstallerValidDbCreds extends PHPUnit_Framework_TestCase
     {
         $formFields = array(
             'hostname'=>PYRO_DB_HOST,
-            'username'=>'pyro',
-            'password'=>'pyro',
+            'username'=>'pyrocms',
+            'password'=>'password',
             'create_db'=>'true',
             'database'=>'pyrocms'
         );

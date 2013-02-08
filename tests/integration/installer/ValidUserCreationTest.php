@@ -23,8 +23,8 @@ class CreateValidUserTest extends PHPUnit_Framework_TestCase
         $crawler = $this->client->click($link);
         $form = $crawler->selectButton('Step #2')->form();
         $formFields = array(
-            'username'=>'pyro',
-            'password'=>'pyro',
+            'username'=>'pyrocms',
+            'password'=>'password',
             'database'=>'pyrocms',
             'create_db'=>'true',
             'hostname' => PYRO_DB_HOST

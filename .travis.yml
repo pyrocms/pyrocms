@@ -11,8 +11,8 @@ before_script:
   - echo "$(curl -fsSL https://raw.github.com/gist/16d751c979fdeb5a14e3/gistfile1.txt)" | sudo tee /etc/apache2/conf.d/phpconfig > /dev/null
   - echo "$(curl -fsSL https://raw.github.com/gist/2eb301570ed4a1f4c33d/gistfile1.txt)" | sed -e "s,PATH,`pwd`,g" | sudo tee /etc/apache2/sites-available/default > /dev/null
   - "sudo service apache2 restart"
-  - mysql -u root -e "CREATE USER 'pyro'@'127.0.0.1' IDENTIFIED BY 'pyro'"
-  - mysql -u root -e "GRANT ALL PRIVILEGES ON *.* to pyro@127.0.0.1 IDENTIFIED BY 'pyro'"
+  - mysql -u root -e "CREATE USER 'pyrocms'@'127.0.0.1' IDENTIFIED BY 'password'"
+  - mysql -u root -e "GRANT ALL PRIVILEGES ON *.* to 'pyrocms'@'127.0.0.1' IDENTIFIED BY 'password'"
 script: phpunit -c tests/integration
 
 branches:
