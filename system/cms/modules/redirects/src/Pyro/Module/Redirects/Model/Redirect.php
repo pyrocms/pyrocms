@@ -1,4 +1,5 @@
 <?php namespace Pyro\Module\Redirects\Model;
+
 /**
  * Redirect model
  *
