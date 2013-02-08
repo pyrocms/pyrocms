@@ -13,10 +13,8 @@ class Events_Search
     
     public function __construct()
     {
-        $this->ci =& get_instance();
-
         // Load the search index model
-        $this->ci->load->model('search/search_index_m');
+        ci()->load->model('search/search_index_m');
 
 		// Post a blog to twitter and whatnot
         Events::register('post_published', array($this, 'index_post'));
@@ -31,14 +29,14 @@ class Events_Search
     
     public function index_post($id)
     {
-    	$this->ci->load->model('blog/blog_m');
+    	ci()->load->model('blog/blog_m');
 
-    	$post = $this->ci->blog_m->get($id);
+    	$post = ci()->blog_m->get($id);
 
     	// Only index live articles
     	if ($post->status === 'live')
     	{
-    		$this->ci->search_index_m->index(
+    		ci()->search_index_m->index(
     			'blog', 
     			'blog:post', 
     			'blog:posts', 
@@ -56,7 +54,7 @@ class Events_Search
     	// Remove draft articles
     	else
     	{
-    		$this->ci->search_index_m->drop_index('blog', 'blog:post', $id);
+    		ci()->search_index_m->drop_index('blog', 'blog:post', $id);
     	}
 	}
 
@@ -64,15 +62,15 @@ class Events_Search
     {
     	foreach ($ids as $id)
     	{
-			$this->ci->search_index_m->drop_index('blog', 'blog:post', $id);
+			ci()->search_index_m->drop_index('blog', 'blog:post', $id);
 		}
 	}
     
-    public function index_page($page)
+    public function index_page(Page_m $page)
     {
     	// Only index live articles
     	if ($page->status === 'live') {
-    		$this->ci->search_index_m->index(
+    		ci()->search_index_m->index(
     			'pages', 
     			'pages:page', 
     			'pages:pages', 
@@ -86,10 +84,10 @@ class Events_Search
     				'keywords' 		=> $page->meta_keywords,
     			)
     		);
-    	}
+
     	// Remove draft articles
-    	else {
-    		$this->ci->search_index_m->drop_index('pages', 'pages:page', $page->id);
+    	} else {
+    		ci()->search_index_m->drop_index('pages', 'pages:page', $page->id);
     	}
 	}
 
@@ -97,7 +95,7 @@ class Events_Search
     {
     	foreach ($ids as $id)
     	{
-			$this->ci->search_index_m->drop_index('pages', 'pages:page', $id);
+			ci()->search_index_m->drop_index('pages', 'pages:page', $id);
 		}
 	}
 }

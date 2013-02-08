@@ -46,45 +46,41 @@ class Search_index_m extends CI_Model
 		// Drop it so we can create a new index
 		$this->drop_index($module, $singular, $entry_id);
 
+		$insert_data = array();
+
 		// Hand over keywords without needing to look them up
-		if ( ! empty($options['keywords']))
-		{
-			if (is_array($options['keywords']))
-			{
-				$this->db->set('keywords', impode(',', $options['keywords']));
-			}
-			elseif (is_string($options['keywords']))
-			{
-				$this->db->set(array(
-					'keywords' 		=> Keywords::get_string($options['keywords']),
-					'keyword_hash' 	=> $options['keywords'],
-				));
+		if ( ! empty($options['keywords'])) {
+			if (is_array($options['keywords'])) {
+				$insert_data['keywords'] = impode(',', $options['keywords']);
+			
+			} elseif (is_string($options['keywords'])) {
+				$insert_data['keywords'] = Keywords::get_string($options['keywords']);
+				$insert_data['keyword_hash'] = $options['keywords'];
 			}
 		}
 
 		// Store a link to edit this entry
-		if ( ! empty($options['cp_edit_uri']))
-		{
-			$this->db->set('cp_edit_uri', $options['cp_edit_uri']);
+		if ( ! empty($options['cp_edit_uri'])) {
+			$insert_data['cp_edit_uri'] = $options['cp_edit_uri'];
 		}
 
 		// Store a link to delete this entry
-		if ( ! empty($options['cp_delete_uri']))
-		{
-			$this->db->set('cp_delete_uri', $options['cp_delete_uri']);
+		if ( ! empty($options['cp_delete_uri'])) {
+			$insert_data['cp_delete_uri'] = $options['cp_delete_uri'];
 		}
+
+
+		$insert_data['title'] 			= $title;
+		$insert_data['description'] 	= strip_tags($description);
+		$insert_data['module'] 			= $module;
+		$insert_data['entry_key'] 		= $singular;
+		$insert_data['entry_plural'] 	= $plural;
+		$insert_data['entry_id'] 		= $entry_id;
+		$insert_data['uri'] 			= $uri;
 
 		return $this->pdb
 			->table('search_index')
-			->insert(array(
-				'title' 		=> $title,
-				'description' 	=> strip_tags($description),
-				'module' 		=> $module,
-				'entry_key' 	=> $singular,
-				'entry_plural' 	=> $plural,
-				'entry_id' 		=> $entry_id,
-				'uri' 			=> $uri,
-			));
+			->insert($insert_data);
 	}
 
 	/**

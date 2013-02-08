@@ -642,71 +642,58 @@ class Streams_m extends CI_Model {
 	public function get_stream_fields($stream_id, $limit = false, $offset = false, $skips = array())
 	{	
 		// Check and see if there is a cache
-		if (isset($this->stream_fields_cache[$stream_id]) and ! $limit and ! $offset)
-		{
+		if (isset($this->stream_fields_cache[$stream_id]) and ! $limit and ! $offset) {
 			return $this->stream_fields_cache[$stream_id];
 		}
 	
-		if ( ! is_numeric($stream_id))
-		{
+		if ( ! is_numeric($stream_id)) {
 			return false;
 		}
 	
-		$this->db->select(ASSIGN_TABLE.'.id as assign_id, '.STREAMS_TABLE.'.*, '.ASSIGN_TABLE.'.*, '.FIELDS_TABLE.'.*');
-		$this->db->order_by(ASSIGN_TABLE.'.sort_order', 'asc');
+		$query = ci()->pdb
+			->table(STREAMS_TABLE)
+			->select(ASSIGN_TABLE.'.id as assign_id', STREAMS_TABLE.'.*', ASSIGN_TABLE.'.*', FIELDS_TABLE.'.*')
+			->orderBy(ASSIGN_TABLE.'.sort_order', 'asc');
 		
-		if (is_numeric($limit))
-		{
-			if (is_numeric($offset))
-			{
-				$this->db->limit($limit, $offset);
-			}	
-			else
-			{
-				$this->db->limit($limit);
-			}
+		if (is_numeric($limit)){
+			$query->take($limit);
+		}
+		if (is_numeric($offset)){
+			$query->skip($offset);
 		}
 		
-		if ( ! empty($skips)) $this->db->or_where_not_in('field_slug', $skips);
-		
-		// TODO Remove hack once PDO drivers work
-		return array();
+		if ( ! empty($skips)) {
+			$query->where('field_slug', 'NOT IN', $skips);
+		}
 
-		$this->db
-			->from(STREAMS_TABLE)
+		// Build the rest of the query and get it
+		$raw = $query->where(STREAMS_TABLE.'.id', $stream_id)
 			->join(ASSIGN_TABLE, STREAMS_TABLE.'.id='.ASSIGN_TABLE.'.stream_id')
 			->join(FIELDS_TABLE, FIELDS_TABLE.'.id='.ASSIGN_TABLE.'.field_id')
-			->where(STREAMS_TABLE.'.id', $stream_id);
+			->get();
 		
-		$obj = $this->db->get();
-		
-		if ($obj->num_rows() == 0)
-		{
-			return false;
+		if ( ! $raw) {
+			return;
 		}
-		else
-		{
-			$streams = new stdClass;
-		
-			$raw = $obj->result();
-			
-			foreach ($raw as $item)
-			{
-				$node = $item->field_slug;
-			
-				$streams->$node = $item;
-				
-				$streams->$node->field_data = unserialize($item->field_data);
-			}
-			
-			// Save for cache
-			if ( ! $limit and ! $offset) $this->stream_fields_cache[$stream_id] = $streams;
-			
-			return $streams;
-		}
-	}
 
-	// --------------------------------------------------------------------------
+		$streams = new stdClass;
+		
+		foreach ($raw as $item) {
+
+			$node = $item->field_slug;
+		
+			$streams->$node = $item;
+			
+			$streams->$node->field_data = unserialize($item->field_data);
+		}
+		
+		// Save for cache
+		if ( ! $limit and ! $offset) {
+			$this->stream_fields_cache[$stream_id] = $streams;
+		}
+		
+		return $streams;
+	}
 	
 	/**
 	 * Get total stream fields
