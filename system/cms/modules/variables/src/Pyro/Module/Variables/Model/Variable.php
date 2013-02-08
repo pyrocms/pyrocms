@@ -1,4 +1,4 @@
-<?php 
+<?php namespace Pyro\Module\Variables\Model;
 
 /**
  * Variable model
@@ -6,7 +6,7 @@
  * @author      PyroCMS Dev Team
  * @package     PyroCMS\Core\Modules\Variables\Models
  */
-class Variable_m extends \Illuminate\Database\Eloquent\Model
+class Variable extends \Illuminate\Database\Eloquent\Model
 {
     /**
      * Define the table name
