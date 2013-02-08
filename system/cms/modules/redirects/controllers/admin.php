@@ -88,9 +88,9 @@ class Admin extends Admin_Controller
         }
 
         // Loop through each validation rule
-        $redirect = array();
+        $redirect = new Redirect;
         foreach ($this->validation_rules as $rule) {
-            $redirect[$rule['field']] = set_value($rule['field']);
+            $redirect->$rule['field'] = set_value($rule['field']);
         }
 
         $this->template
