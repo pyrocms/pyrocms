@@ -94,7 +94,7 @@ class Pages extends Public_Controller
 		{
 			// Load the '404' page. If the actual 404 page is missing (oh the irony) bitch and quit to prevent an infinite loop.
 			// if ( ! ($page = $this->cache->method('page_m', 'get_by_uri', array('404'))))
-			if ( ! ($page = Page_m::findByUri(404)))
+			if ( ! ($page = Page::findByUri(404)))
 			{
 				show_error('The page you are trying to view does not exist and it also appears as if the 404 page has been deleted.');
 			}
