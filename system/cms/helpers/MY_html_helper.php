@@ -27,6 +27,7 @@ if ( ! function_exists('tree_builder'))
 		foreach ($items as $item) {
 
 			if ($item->children) {
+
 				// if there are children we build their html and set it up to be parsed as {{ children }}
 				$item->children = '<ul>'.tree_builder($item->children, $html).'</ul>';
 			

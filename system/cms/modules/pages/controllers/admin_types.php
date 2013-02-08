@@ -1,4 +1,7 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php
+
+use Pyro\Module\Pages\Model\PageType;
+
 /**
  * Admin controller for the Page Types of the Pages module.
  *
@@ -21,7 +24,7 @@ class Admin_types extends Admin_Controller
 	 *
 	 * @var array
 	 */
-	private $validation_rules = array(
+	private static $validate = array(
 		array(
 			'field' => 'title',
 			'label' => 'lang:global:title',
@@ -95,20 +98,12 @@ class Admin_types extends Admin_Controller
 	{
 		parent::__construct();
 
-		$this->load->model('page_type_m');
 		$this->lang->load('pages');
 		$this->lang->load('page_types');
 
 		$this->load->library('form_validation');
 
 		$this->load->driver('Streams');
-
-		// Get our chunks field type if this is an
-		// upgraded site.
-		if ($this->db->table_exists('page_chunks'))
-		{
-			$this->type->load_types_from_folder(APPPATH.'modules/pages/field_types/', 'pages_module');
-		}
 	}
 
 	// --------------------------------------------------------------------------
@@ -135,14 +130,14 @@ class Admin_types extends Admin_Controller
 	public function create()
 	{
 		// Set the validation rules
-		$this->form_validation->set_rules($this->validation_rules);
+		$this->form_validation->set_rules(static::$validate);
 
 		// Set page_type_m so we can use the page_type_m
 		// validation callbacks
 		$this->form_validation->set_model('page_type_m');
 
-		$data = new stdClass();
-		$data->page_type = new stdClass();
+		$data = new stdClass;
+		$data->page_type = new stdClass;
 
 		if ($this->form_validation->run())
 		{
@@ -316,45 +311,42 @@ class Admin_types extends Admin_Controller
 		$this->page_type_id = $id;
 
 		// Set data, if it exists
-		if ( ! $data->page_type = $this->page_type_m->get($id))
-		{
+		if ( ! $page_type = PageType::find($id)) {
 			$this->session->set_flashdata('error', lang('page_types:page_not_found_error'));
 			redirect('admin/pages/types/create');
 		}
 
 		// Give validation a try, who knows, it just might work!
-		if ($this->form_validation->run())
-		{
+		if ($this->form_validation->run()) {
+
 			$input = $this->input->post();
 
 			// Run the update code with the POST data
-			$this->page_type_m->update($id, array(
-				'title' 			=> $input['title'],
-				'description'       => $input['description'],
-				'meta_title' 		=> isset($input['meta_title']) ? $input['meta_title'] : null,
-				//'meta_keywords' 	=> isset($input['meta_keywords']) ? Keywords::process($input['meta_keywords']) : '',
-				'meta_description' 	=> isset($input['meta_description']) ? $input['meta_description'] : null,
-				'theme_layout' 		=> $input['theme_layout'],
-				'body' 				=> ($input['body'] ? $input['body'] : false),
-				'css' 				=> $input['css'],
-				'js' 				=> $input['js'],
-				'content_label'		=> $this->input->post('content_label'),
-				'title_label'		=> $this->input->post('title_label'),
-				'save_as_files'		=> (isset($input['save_as_files']) and $input['save_as_files'] == 'y') ? 'y' : 'n'
-			));
+			$page_type->title 				= $input['title'];
+			$page_type->description       	= $input['description'];
+			$page_type->meta_title 			= isset($input['meta_title']) ? $input['meta_title'] : null;
+			$page_type->meta_description 	= isset($input['meta_description']) ? $input['meta_description'] : null;
+			$page_type->theme_layout 		= $input['theme_layout'];
+			$page_type->body 				= $input['body'] ?: null;
+			$page_type->css 				= $input['css'];
+			$page_type->js 					= $input['js'];
+			$page_type->content_label		= $this->input->post('content_label');
+			$page_type->title_label			= $this->input->post('title_label');
+			$page_type->save_as_files		= (isset($input['save_as_files']) and $input['save_as_files'] == 'y') ? 'y' : 'n';
+
+			$page_type->save();
 
 			// Wipe cache for this model as the data has changed
 			$this->cache->clear('page_type_m');
 
 			$this->session->set_flashdata('success', sprintf(lang('page_types:edit_success'), $this->input->post('title')));
 
-			$input['slug'] = $data->page_type->slug;
-			if ($this->input->post('save_as_files') == 'y')
-			{
+			$input['slug'] = $page_type->slug;
+
+			if ($this->input->post('save_as_files') == 'y') {
 				$this->page_type_m->place_page_layout_files($input);
-			}
-			else
-			{
+			
+			} else {
 				$this->page_type_m->remove_page_layout_files($input['slug']);
 			}
 

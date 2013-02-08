@@ -288,10 +288,8 @@ class Admin extends Admin_Controller
 
 		// Loop through each rule for the standard page fields and 
 		// set our current value for the form.
-		foreach ($this->page_m->fields() as $field)
-		{
-			switch ($field)
-			{
+		foreach (Page::$validate as $field) {
+			switch ($field) {
 				case 'restricted_to[]':
 					$page->restricted_to = set_value($field, array('0'));
 					break;
@@ -333,7 +331,7 @@ class Admin extends Admin_Controller
 		if ($parent_id > 0)
 		{
 			$page->parent_id = $parent_id;
-			$parent_page = $this->page_m->get($parent_id);
+			$parent_page = Page::find($parent_id);
 		}
 
 		// Set some data that both create and edit forms will need
@@ -365,7 +363,7 @@ class Admin extends Admin_Controller
 		role_or_die('pages', 'edit_live');
 
 		// Retrieve the page data along with its data as part of the array.
-		$page = Page_m::with('type')->find($id);
+		$page = Page::with('type')->find($id);
 
 		// Got page?
 		if (is_null($page)) {
@@ -468,7 +466,7 @@ class Admin extends Admin_Controller
 		}
 
 		// Loop through each validation rule
-		foreach ($this->page_m->validate as $field)
+		foreach (Page::$validate as $field)
 		{
 			$field = $field['field'];
 
@@ -519,18 +517,7 @@ class Admin extends Admin_Controller
 
 		// Run stream field events
 		$this->fields->run_field_events($this->streams_m->get_stream_fields($this->streams_m->get_stream_id_from_slug($stream->stream_slug, $stream->stream_namespace)));
-
-		// If this page has a parent.
-		if ($page->parent_id > 0)
-		{
-			// Get only the details for the parent, no data.
-			$parent_page = $this->page_m->get($page->parent_id, false);
-		}
-		else
-		{
-			$parent_page = false;
-		}
-
+		
 		$this->_form_data();
 
 		$this->template
@@ -539,7 +526,6 @@ class Admin extends Admin_Controller
 			->append_css('module::page-edit.css')
 			->set('stream_fields', $this->streams->fields->get_stream_fields($stream->stream_slug, $stream->stream_namespace, $page_content_data, $page->entry_id))
 			->set('page', $page)
-			->set('parent_page', $parent_page)
 			->build('admin/form');
 	}
 
@@ -567,13 +553,10 @@ class Admin extends Admin_Controller
 		$this->form_validation->set_model('page_m');
 
 		// If we have renamed the title, then we need to change that in the validation array
-		if ($page_type->title_label)
-		{
-			foreach ($this->page_m->validate as $k => $v)
-			{
-				if ($v['field'] == 'title')
-				{
-					$this->page_m->validate[$k]['label'] = lang_label($page_type->title_label);
+		if ($page_type->title_label){
+			foreach (Page::$validate as $k => $v){
+				if ($v['field'] == 'title'){
+					Page::$validate[$k]['label'] = lang_label($page_type->title_label);
 				}
 			}
 		}
@@ -581,15 +564,14 @@ class Admin extends Admin_Controller
 		// Get validation for our page fields.
 		$page_validation = $this->streams->streams->validation_array($stream->stream_slug, $stream->stream_namespace, $method, array(), $id);
 
-		$this->page_m->compiled_validate = array_merge($this->page_m->validate, $page_validation);
+		// TODO I don't know what any of this is and i dont like it at all. Phil
+		Page::$compiled_validate = array_merge(Page::$validate, $page_validation);
 
 		// Set the validation rules based on the compiled validation.
-		$this->form_validation->set_rules($this->page_m->compiled_validate);
+		$this->form_validation->set_rules(Page::$compiled_validate);
 
 		return $stream;
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Sets up common form inputs.
@@ -641,13 +623,18 @@ class Admin extends Admin_Controller
 		$ids = ($id) ? array($id) : $this->input->post('action_to');
 
 		// Go through the array of slugs to delete
-		if ( ! empty($ids))
-		{
-			foreach ($ids as $id)
-			{
-				if ($id !== 1)
-				{
-					$deleted_ids = $this->page_m->delete($id);
+		if ( ! empty($ids)) {
+
+			foreach ($ids as $id) {
+
+				if ($id !== 1) {
+					if ( ! $page = Page::find($id)) {
+						continue;
+					}
+					
+					$page->delete();
+
+					$deleted_ids = $id;
 
 					// Delete any page comments for this entry
 					$this->comment_m->where('module', 'pages')->delete_by(array(
@@ -658,32 +645,27 @@ class Admin extends Admin_Controller
 					// Wipe cache for this model, the content has changd
 					$this->cache->clear('page_m');
 					$this->cache->clear('navigation_m');
-				}
-				else
-				{
+				
+				} else {
 					$this->session->set_flashdata('error', lang('pages:delete_home_error'));
 				}
 			}
 
 			// Some pages have been deleted
-			if ( ! empty($deleted_ids))
-			{
+			if ( ! empty($deleted_ids)) {
 				Events::trigger('page_deleted', $deleted_ids);
 
 				// Only deleting one page
-				if ( count($deleted_ids) == 1 )
-				{
+				if ( count($deleted_ids) == 1 ) {
 					$this->session->set_flashdata('success', sprintf(lang('pages:delete_success'), $deleted_ids[0]));
-				}
+					
 				// Deleting multiple pages
-				else
-				{
+				} else {
 					$this->session->set_flashdata('success', sprintf(lang('pages:mass_delete_success'), count($deleted_ids)));
 				}
-			}
+
 			// For some reason, none of them were deleted
-			else
-			{
+			} else {
 				$this->session->set_flashdata('notice', lang('pages:delete_none_notice'));
 			}
 		}

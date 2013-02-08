@@ -28,7 +28,7 @@ class Page extends \Illuminate\Database\Eloquent\Model
 	 * 
 	 * @var array
 	 */
-	public $validate = array(
+	public static $validate = array(
 		array(
 			'field' => 'title',
 			'label'	=> 'lang:global:title',
@@ -102,7 +102,7 @@ class Page extends \Illuminate\Database\Eloquent\Model
 	);
 
 	// For streams
-	public $compiled_validate = array();
+	public static $compiled_validate = array();
 
 	/**
 	 * Relationship: Type
@@ -115,13 +115,23 @@ class Page extends \Illuminate\Database\Eloquent\Model
     }
 
 	/**
+	 * Relationship: Parent
+	 *
+	 * @return Illuminate\Database\Eloquent\Relations\BelongsTo
+	 */
+	public function parent()
+    {
+        return $this->belongsTo('Pyro\Module\Pages\Model\Page', 'parent_id');
+    }
+
+	/**
 	 * Relationship: Children
 	 *
 	 * @return Illuminate\Database\Eloquent\Relations\HasMany
 	 */
 	public function children()
     {
-        return $this->hasMany('Pyro\Module\Pages\Model\Page', 'parent_id', 'id');
+        return $this->hasMany('Pyro\Module\Pages\Model\Page', 'parent_id');
     }
 
 	/**
