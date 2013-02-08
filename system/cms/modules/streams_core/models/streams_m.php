@@ -443,11 +443,15 @@ class Streams_m extends CI_Model {
 	 */	
 	public function get_stream_id_from_slug($slug, $namespace)
 	{
+		// TODO This was added because some other streams code was missing a ->get()
+		// This was effecting this query. Please fix! Phil
+		$this->db->reset_query();
+		
 		$db = $this->db
-					->limit(1)
-					->where('stream_slug', $slug)
-					->where('stream_namespace', $namespace)
-					->get($this->table);
+			->limit(1)
+			->where('stream_slug', $slug)
+			->where('stream_namespace', $namespace)
+			->get($this->table);
 		
 		if ($db->num_rows() == 0)
 		{

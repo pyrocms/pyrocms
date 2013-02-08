@@ -18,7 +18,7 @@
 	
 			<ul class="tab-menu">
 				<li><a href="#page-details"><span><?php echo lang('pages:details_label') ?></span></a></li>
-				<?php if ($stream_fields): ?><li><a href="#page-content"><span><?php if ($page_type->content_label): echo lang_label($page_type->content_label); else: echo lang('pages:content_label'); endif ?></span></a></li><?php endif ?>
+				<?php if ($stream_fields): ?><li><a href="#page-content"><span><?php if ($page->type->content_label): echo lang_label($page->type->content_label); else: echo lang('pages:content_label'); endif ?></span></a></li><?php endif ?>
 				<li><a href="#page-meta"><span><?php echo lang('pages:meta_label') ?></span></a></li>
 				<li><a href="#page-design"><span><?php echo lang('pages:css_label') ?></span></a></li>
 				<li><a href="#page-script"><span><?php echo lang('pages:script_label') ?></span></a></li>
@@ -32,7 +32,7 @@
 				<ul>
 					
 					<li>
-						<label for="title"><?php if ($page_type->title_label): echo lang_label($page_type->title_label); else: echo lang('global:title'); endif ?> <span>*</span></label>
+						<label for="title"><?php if ($page->type->title_label): echo lang_label($page->type->title_label); else: echo lang('global:title'); endif ?> <span>*</span></label>
 						<div class="input"><?php echo form_input('title', $page->title, 'id="title" maxlength="60"') ?></div>
 					</li>
 					

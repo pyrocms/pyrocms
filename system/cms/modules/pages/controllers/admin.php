@@ -156,12 +156,11 @@ class Admin extends Admin_Controller
 	 */
 	public function ajax_page_details($id)
 	{
-		$page = $this->page_m->get($id);
+		$page = Page_m::find($id);
 
-        $this->load->model('keywords/keyword_m');
-        $page->meta_keywords = $this->keywords->get_string($page->meta_keywords);
+        $page->meta_keywords = Keywords::get_string($page->meta_keywords);
 
-		$this->load->view('admin/ajax/page_details', array('page' => $page));
+		$this->load->view('admin/ajax/page_details', compact('page'));
 	}
 
 	/**
@@ -171,9 +170,11 @@ class Admin extends Admin_Controller
 	 */
 	public function preview($id = 0)
 	{
+		$page = Page_m::find($id);
+
 		$this->template
 			->set_layout('modal', 'admin')
-			->build('admin/preview', array('page' => $this->page_m->get($id)));
+			->build('admin/preview', compact('page'));
 	}
 
 	/**
@@ -360,7 +361,6 @@ class Admin extends Admin_Controller
 			->set('page', $page)
 			->set('stream_fields', $this->streams->fields->get_stream_fields($stream->stream_slug, $stream->stream_namespace, $page_content_data))
 			->set('parent_page', $parent_page)
-			->set('page_type', $page_type)
 			->build('admin/form');
 	}
 
@@ -379,56 +379,49 @@ class Admin extends Admin_Controller
 		// The user needs to be able to edit pages.
 		role_or_die('pages', 'edit_live');
 
-		// This is a temporary global until the page chunk field type is removed
-		ci()->page_id = $id;
-
 		// Retrieve the page data along with its data as part of the array.
-		$page = $this->page_m->get($id);
+		$page = Page_m::with('type')->find($id);
 
 		// Got page?
-		if ( ! $page or empty($page))
-		{
+		if (is_null($page)) {
 			// Maybe you would like to create one?
 			$this->session->set_flashdata('error', lang('pages:page_not_found_error'));
 			redirect('admin/pages/choose_type');
 		}
 
+		// This is a temporary global until the page chunk field type is removed
+		ci()->page_id = $id;
+
 		// Note: we don't need to get the page type
 		// from the URL since it is present in the $page data
 
-		// Get the page type.
-		$page_type = $this->db->limit(1)->where('id', $page->type_id)->get('page_types')->row();
+		if ( ! $page->type) {
+			show_error('No page type found.');
+		}
 
-		if ( ! $page_type) show_error('No page type found.');
-
-		$stream = $this->_setup_stream_fields($page_type, 'edit', $page->entry_id);
+		$stream = $this->_setup_stream_fields($page->type, 'edit', $page->entry_id);
 
 		// If there's a keywords hash
-		if ($page->meta_keywords != '')
-		{
+		if ($page->meta_keywords != '') {
 			// Get comma-separated meta_keywords based on keywords hash
-			$this->load->model('keywords/keyword_m');
 			$old_keywords_hash = $page->meta_keywords;
-			$page->meta_keywords = $this->keywords->get_string($page->meta_keywords);
+			$page->meta_keywords = Keywords::get_string($page->meta_keywords);
 		}
 
 		// Turn the CSV list back to an array
 		$page->restricted_to = explode(',', $page->restricted_to);
 
 		// Did they even submit?
-		if ($this->form_validation->run())
-		{
+		if ($this->form_validation->run()) {
 			$input = $this->input->post();
 
 			// do they have permission to proceed?
-			if ($input['status'] == 'live')
-			{
+			if ($input['status'] == 'live') {
 				role_or_die('pages', 'put_live');
 			}
 
 			// Were there keywords before this update?
-			if (isset($old_keywords_hash))
-			{
+			if (isset($old_keywords_hash)) {
 				$input['old_keywords_hash'] = $old_keywords_hash;
 			}
 
@@ -436,12 +429,48 @@ class Admin extends Admin_Controller
 			// users to change it in the page form.
 			$input['type_id'] = $page->type_id;
 
+			// Set this one page as the homepage, and not the others
+			if ( ! empty($input['is_home'])) {
+				$page->setHomePage();
+			}
+
+			// Assign post data to the page
+			$page->slug				= $input['slug'];
+			$page->title			= $input['title'];
+			$page->uri			 	= null;
+			$page->parent_id		= (int) $input['parent_id'];
+			$page->type_id			= (int) $input['type_id'];
+			$page->css			 	= isset($input['css']) ? $input['css'] : null;
+			$page->js			 	= isset($input['js']) ? $input['js'] : null;
+			$page->meta_title		= isset($input['meta_title']) ? $input['meta_title'] : '';
+			$page->meta_keywords	= isset($input['meta_keywords']) ? $this->keywords->process($input['meta_keywords'], (isset($input['old_keywords_hash'])) ? $input['old_keywords_hash'] : null) : '';
+			$page->meta_description	= isset($input['meta_description']) ? $input['meta_description'] : '';
+			$page->rss_enabled		= ! empty($input['rss_enabled']);
+			$page->comments_enabled	= ! empty($input['comments_enabled']);
+			$page->status			= $input['status'];
+			$page->updated_on		= time();
+			$page->restricted_to	= isset($input['restricted_to']) ? implode(',', $input['restricted_to']) : '0';
+			$page->strict_uri		= ! empty($input['strict_uri']);
+
 			// validate and insert
-			if ($this->page_m->edit($id, $input, $stream, $page->entry_id))
-			{
+			if ($page->save()) {
+
+				$page->buildLookup();
+
+
+
+				// Add the stream data.
+				if ($stream and $page->entry_id) {
+					$this->load->driver('Streams');
+
+					// Insert the stream using the streams driver. Our only extra field is the page_id
+					// which links this particular entry to our page.
+					$this->streams->entries->update_entry($entry_id, $input, $stream->stream_slug, $stream->stream_namespace);
+				}
+
 				$this->session->set_flashdata('success', sprintf(lang('pages:edit_success'), $input['title']));
 
-				Events::trigger('page_updated', $id);
+				Events::trigger('page_updated', $page);
 
 				$this->cache->clear('page_m');
 				$this->cache->clear('navigation_m');
@@ -449,7 +478,7 @@ class Admin extends Admin_Controller
 				// Mission accomplished!
 				$input['btnAction'] == 'save_exit'
 					? redirect('admin/pages')
-					: redirect('admin/pages/edit/'.$id);
+					: redirect('admin/pages/edit/'.$page->id);
 			}
 		}
 
@@ -467,8 +496,15 @@ class Admin extends Admin_Controller
 			// Translate the data of restricted_to to something we can use in the form.
 			if ($field === 'restricted_to[]')
 			{
-				$page->restricted_to = set_value($field, $page->restricted_to);
-				$page->restricted_to[0] = ($page->restricted_to[0] == '') ? '0' : $page->restricted_to[0];
+				$restricted_to = set_value($field, $page->restricted_to);
+
+				if ($restricted_to[0] == '') {
+					$restricted_to[0] = '0';
+				}
+
+				// TODO I cant remember what this shit is all about
+				$page->restricted_to = $restricted_to;
+
 				continue;
 			}
 
@@ -519,7 +555,6 @@ class Admin extends Admin_Controller
 			->set('stream_fields', $this->streams->fields->get_stream_fields($stream->stream_slug, $stream->stream_namespace, $page_content_data, $page->entry_id))
 			->set('page', $page)
 			->set('parent_page', $parent_page)
-			->set('page_type', $page_type)
 			->build('admin/form');
 	}
 
@@ -537,7 +572,8 @@ class Admin extends Admin_Controller
 	private function _setup_stream_fields($page_type, $method = 'new', $id = null)
 	{
 		// Get the stream that we are using for this page type.
-		$stream = $this->db->limit(1)->where('id', $page_type->stream_id)->get('data_streams')->row();
+		// TODO Convert this to be a Eloquent relationship. Phil
+		$stream = $this->pdb->table('data_streams')->take(1)->where('id', $page_type->stream_id)->first();
 
 		$this->load->driver('Streams');
 		$this->load->library('Form_validation');
@@ -577,8 +613,9 @@ class Admin extends Admin_Controller
 	 */
 	private function _form_data()
 	{
-		$page_types = $this->page_type_m->order_by('title')->get_all();
-		$this->template->page_types = array_for_select($page_types, 'id', 'title');
+		$page_types = Page_type_m::orderBy('title')->get();
+
+		$this->template->page_types = array_for_select($page_types->toArray(), 'id', 'title');
 
 		// Load navigation list
 		$this->load->model('navigation/navigation_m');
@@ -586,10 +623,13 @@ class Admin extends Admin_Controller
 		$this->template->navigation_groups = array_for_select($navigation_groups, 'id', 'title');
 
 		$this->load->model('groups/group_m');
-		$groups = $this->group_m->get_all();
-		foreach ($groups as $group)
-		{
-			$group->name !== 'admin' && $group_options[$group->id] = $group->name;
+		
+		$groups = Group_m::all();
+		$group_options = array();
+		foreach ($groups as $group) {
+			if ($group->name !== 'admin') {
+				$group_options[$group->id] = $group->name;
+			}
 		}
 		$this->template->group_options = $group_options;
 

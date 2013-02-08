@@ -24,7 +24,10 @@ class Navigation_m extends CI_Model
 	 */
 	public function get_link($id = 0)
 	{
-		return $this->db->get_where('navigation_links', array('id'=>$id))->row();
+		return $this->pdb->table('navigation_links')
+			->where('id', $id)
+			->take(1)
+			->first();
 	}
 	
 	/**
@@ -36,14 +39,17 @@ class Navigation_m extends CI_Model
 	 */
 	public function get_url($id = 0)
 	{
-		$query = $this->db->get_where('navigation_links', array('id'=>$id));
+		$link = $this->pdb
+			->table('navigation_links')
+			->take(1)
+			->where('id', $id)
+			->first();
 
-		if ($query->num_rows() == 0)
-		{
-			return false;
+		if ( ! $link) {
+			return;
 		}
 
-		return $this->make_url($query->row());
+		return $this->make_url($link);
 	}
 	
 	/**

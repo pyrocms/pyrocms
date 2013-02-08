@@ -68,35 +68,28 @@ class Events_Search
 		}
 	}
     
-    public function index_page($id)
+    public function index_page($page)
     {
-    	$this->ci->load->model('pages/page_m');
-
-    	// Get the page (with the chunks)
-    	$page = $this->ci->page_m->get($id);
-
     	// Only index live articles
-    	if ($page->status === 'live')
-    	{
+    	if ($page->status === 'live') {
     		$this->ci->search_index_m->index(
     			'pages', 
     			'pages:page', 
     			'pages:pages', 
-    			$id,
+    			$page->id,
     			$page->uri,
     			$page->title,
-    			$page->meta_description ? $page->meta_description : null, 
+    			$page->meta_description ?: null, 
     			array(
-    				'cp_edit_uri' 	=> 'admin/pages/edit/'.$id,
-    				'cp_delete_uri' => 'admin/pages/delete/'.$id,
+    				'cp_edit_uri' 	=> 'admin/pages/edit/'.$page->id,
+    				'cp_delete_uri' => 'admin/pages/delete/'.$page->id,
     				'keywords' 		=> $page->meta_keywords,
     			)
     		);
     	}
     	// Remove draft articles
-    	else
-    	{
-    		$this->ci->search_index_m->drop_index('pages', 'pages:page', $id);
+    	else {
+    		$this->ci->search_index_m->drop_index('pages', 'pages:page', $page->id);
     	}
 	}
 
