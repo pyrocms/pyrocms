@@ -87,15 +87,16 @@ class Plugin_Pages extends Plugin
 	 */
 	public function display()
 	{
-		$page = $this->db
+		$page = $this->db->select('pages.*, page_types.stream_id, page_types.slug as page_type_slug, page_types.title as page_type_title')
 			->where('pages.id', $this->attribute('id'))
 			->or_where('pages.slug', $this->attribute('slug'))
 			->where('status', 'live')
+			->join('page_types', 'page_types.id = pages.type_id', 'left')
 			->get('pages')
 			->row();
-        
+
 		$page->body = '';
-        
+
 		// Legacy support for chunks
 		if ($this->db->table_exists('page_chunks'))
 		{
@@ -115,7 +116,37 @@ class Plugin_Pages extends Plugin
 			// we'll unset the chunks array as Lex is grouchy about mixed data at the moment
 			unset($page->chunks);
 		}
-        
+
+		// Check for custom fields
+		if (strpos($this->content(), 'custom_fields') !== false and $page)
+		{
+			$custom_fields = array();
+			$this->load->driver('Streams');
+
+			$stream = $this->streams_m->get_stream($page->stream_id);
+
+			$params = array(
+				'stream'		=> $stream->stream_slug,
+				'namespace'		=> $stream->stream_namespace,
+				'include'		=> $page->entry_id,
+				'disable'		=> 'created_by'
+			);
+
+			$entries = $this->streams->entries->get_entries($params);
+
+			foreach ($entries['entries'] as $entry)
+			{
+				$custom_fields[$page->stream_id][$entry['id']] = $entry;
+			}
+		} else {
+			$custom_fields = false;
+		}
+
+		if ($custom_fields and isset($custom_fields[$page->stream_id][$page->entry_id]))
+		{
+			$page->custom_fields =$custom_fields[$page->stream_id][$page->entry_id];
+		}
+
 		return $this->content() ? array($page) : $page->body;
 	}
 
