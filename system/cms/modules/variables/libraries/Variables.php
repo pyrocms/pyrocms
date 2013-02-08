@@ -1,4 +1,7 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php 
+
+use Pyro\Module\Variables\Model\Variable;
+
 /**
  * Variable Library
  *
@@ -24,7 +27,6 @@ class Variables {
 	public function __construct()
 	{
 		$this->_CI =& get_instance();
-		$this->_CI->load->model('variables/variable_m');
 	}
 
 	// ------------------------------------------------------------------------
@@ -92,7 +94,7 @@ class Variables {
 		if ($this->_vars === null)
 		{
 			$this->_vars = array();
-			$vars = Variable_m::all();
+			$vars = Variable::all();
 
 			foreach ($vars as $var)
 			{
