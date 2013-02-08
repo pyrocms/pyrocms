@@ -1,4 +1,7 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed');
+<?php
+
+use Pyro\Module\Pages\Model\Page;
+
 /**
  * Pages Plugin
  *
@@ -80,102 +83,14 @@ class Plugin_Pages extends Plugin
 	 *
 	 * Attributes:
 	 * - (int) id: The id of the page.
-	 * - (string) slug: The slug of the page.
 	 *
 	 * @return array
 	 */
 	public function display()
 	{
-		$page = $this->db
-			->where('pages.id', $this->attribute('id'))
-			->or_where('pages.slug', $this->attribute('slug'))
-			->where('status', 'live')
-			->get('pages')
-			->row();
-        
-		$page->body = '';
-        
-		// Legacy support for chunks
-		if ($this->db->table_exists('page_chunks'))
-		{
-			// Grab all the chunks that make up the body
-			$page->chunks = $this->db->get_where('page_chunks', array('page_id' => $page->id))->result();
-    		
-			if ($page->chunks)
-			{
-    				foreach ($page->chunks as $chunk)
-				{
-					$page->body .= '<div class="page-chunk '.$chunk->slug.'">' .
-					(($chunk->type == 'markdown') ? $chunk->parsed : $chunk->body) .
-					'</div>' . PHP_EOL;
-				}
-			}
-    
-			// we'll unset the chunks array as Lex is grouchy about mixed data at the moment
-			unset($page->chunks);
-		}
+		$page = Page::findByIdAndStatus($this->attribute('id'), 'live');
         
 		return $this->content() ? array($page) : $page->body;
-	}
-
-	/**
-	 * Get a page chunk by page ID and chunk name
-	 *
-	 * Attributes:
-	 * - (int) id : The id of the page.
-	 * - (string) name : The name of the chunk.
-	 * - (string) parse_tags : yes/no - whether or not to parse tags within the chunk
-	 *
-	 * @return string|bool
-	 */
-	public function chunk()
-	{
-		$parse_tags = str_to_bool($this->attribute('parse_tags', true));
-
-		$chunk = $this->db
-			->where('page_id', $this->attribute('id'))
-			->where('slug', $this->attribute('name'))
-			->get('page_chunks')
-			->row_array();
-
-		if ($chunk)
-		{
-			if ($this->content())
-			{
-				$chunk['parsed'] = $this->parse_chunk($chunk['parsed'], $parse_tags);
-				$chunk['body']   = $this->parse_chunk($chunk['body'], $parse_tags);
-
-				return $chunk;
-			}
-			else
-			{
-				return $this->parse_chunk(($chunk['type'] == 'markdown') ? $chunk['parsed'] : $chunk['body'], $parse_tags);
-			}
-		}
-	}
-
-	/**
-	 * Parse chunk content
-	 *
-	 * @param string the chunk content
-	 * @param string parse Lex tags? - yes/no
-	 * @return string
-	 */
-	private function parse_chunk($content, $parse_tags)
-	{
-		// Lex tags are parsed by default. If you want to
-		// turn off parsing Lex tags, just set parse_tags to 'no'
-		if (str_to_bool($parse_tags))
-		{
-			$parser = new Lex\Parser();
-			$parser->scopeGlue(':');
-
-			return $parser->parse($content, array(), array($this->parser, 'parser_callback'));
-		}
-		else
-		{
-			return $content;
-		}
 	}
 
 	/**
@@ -198,42 +113,14 @@ class Plugin_Pages extends Plugin
 	 */
 	public function children()
 	{
+		$id 	   = $this->attribute('id');
 		$limit     = $this->attribute('limit', 10);
 		$order_by  = $this->attribute('order-by', 'title');
 		$order_dir = $this->attribute('order-dir', 'ASC');
 
-		$pages = $this->db->select('pages.*')
-			->where('pages.parent_id', $this->attribute('id'))
-			->where('status', 'live')
-			->order_by($order_by, $order_dir)
-			->limit($limit)
-			->get('pages')
-			->result_array();
-
-		// Legacy support for chunks
-		if ($pages && $this->db->table_exists('page_chunks'))
-		{
-			foreach ($pages as &$page)
-			{
-				// Grab all the chunks that make up the body for this page
-				$page['chunks'] = $this->db
-					->get_where('page_chunks', array('page_id' => $page['id']))
-					->result_array();
-
-				$page['body'] = '';
-				if ($page['chunks'])
-				{
-					foreach ($page['chunks'] as $chunk)
-					{
-						$page['body'] .= '<div class="page-chunk ' . $chunk['slug'] . '">' .
-							(($chunk['type'] == 'markdown') ? $chunk['parsed'] : $chunk['body']) .
-							'</div>' . PHP_EOL;
-					}
-				}
-			}
-		}
-
-		return $pages;
+		return Page::orderBy($order_by, $order_dir)
+			->take($limit)
+			->findManyByParentAndStatus($id, 'live');
 	}
 
 	/**
@@ -268,7 +155,7 @@ class Plugin_Pages extends Plugin
 		// find that ID.
 		if ($start)
 		{
-			$page = $this->page_m->get_by_uri($start);
+			$page = Page::findByUri($start);
 
 			if ( ! $page) {
 				return null;
@@ -286,13 +173,13 @@ class Plugin_Pages extends Plugin
 		// Disable individual pages or parent pages by submitting their slug
 		$this->disable = explode("|", $disable_levels);
 
-		return '<' . $list_tag . '>' . $this->_build_tree_html(array(
+		return '<'.$list_tag.'>'.$this->buildTreeHtml(array(
 			'parent_id' => $start_id,
 			'order_by'  => $order_by,
 			'order_dir' => $order_dir,
 			'list_tag'  => $list_tag,
 			'link'      => $link
-		)) . '</' . $list_tag . '>';
+		)).'</'.$list_tag.'>';
 	}
 
 	/**
@@ -419,7 +306,7 @@ class Plugin_Pages extends Plugin
 	 * @param  array
 	 * @return  array
 	 */
-	private function _build_tree_html($params)
+	private function buildTreeHtml($params)
 	{
 		$params = array_merge(array(
 			'tree'         => array(),
@@ -504,10 +391,9 @@ class Plugin_Pages extends Plugin
 		{
 			$html .= '<li';
 			$html .= (current_url() == site_url($item->uri)) ? ' class="current">' : '>';
-			$html .= ($link === true) ? '<a href="' . site_url($item->uri) . '">' . $item->title . '</a>' : $item->title;
+			$html .= ($link === true) ? '<a href="'.site_url($item->uri).'">'.$item->title.'</a>' : $item->title;
 			
-			
-			$nested_list = $this->_build_tree_html(array(
+			$nested_list = $this->buildTreeHtml(array(
 				'tree'         => $tree,
 				'parent_id'    => (int) $item->id,
 				'link'         => $link,
@@ -516,7 +402,7 @@ class Plugin_Pages extends Plugin
 			
 			if ($nested_list)
 			{
-				$html .= '<' . $list_tag . '>' . $nested_list . '</' . $list_tag . '>';
+				$html .= '<'.$list_tag.'>'.$nested_list.'</'.$list_tag.'>';
 			}
 			
 			$html .= '</li>';

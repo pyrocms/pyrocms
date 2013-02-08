@@ -162,6 +162,21 @@ class Page extends \Illuminate\Database\Eloquent\Model
 	}
 
 	/**
+	 * Find page by id and status
+	 *
+	 * @param int $id The id of the page.
+	 * @param string $status Live or draft?
+	 *
+	 * @return Page
+	 */
+	public static function findManyByParentAndStatus($parent_id, $status)
+	{
+		return static::where('parent_id', '=', $parent_id)
+			->where('status', '=', $status)
+			->get();
+	}
+
+	/**
 	 * Find a page by its URI
 	 *
 	 * @param string $uri The uri of the page.
