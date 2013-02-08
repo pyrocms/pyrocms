@@ -66,7 +66,7 @@
             'menu' => 'users',
             'shortcuts' => array(
                 array(
-                    'name' => 'groups.add_title',
+                    'name' => 'groups:add_title',
                     'uri' => 'admin/groups/add',
                     'class' => 'add',
                 ),
