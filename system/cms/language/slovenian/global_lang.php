@@ -9,9 +9,9 @@ $lang['desc_label'] 					= 'Opis';
 $lang['version_label'] 					= 'Različica';
 $lang['global:author'] 					= 'Avtor';
 $lang['global:action'] 					= 'Dejanje';
-$lang['global:slug'] 					= 'Vstavek'; #translate
-$lang['global:slug_instructions']		= 'Uporabljate majhne črke in podvezaje.'; #translate
-$lang['global:user'] 					= 'Uporabnik'; #translate
+$lang['global:slug'] 					= 'Vstavek';
+$lang['global:slug_instructions']		= 'Uporabljate majhne črke in podvezaje.';
+$lang['global:user'] 					= 'Uporabnik';
 
 $lang['global:dialog:delete_message'] 	= 'Ali ste prepričani da želite izbrisati to? Obnovitev ni mogoča';
 $lang['global:dialog:confirm'] 			= 'Potrdi';
@@ -32,12 +32,12 @@ $lang['global:operators:not-equal'] 			= 'Ni enako kot';
 $lang['global:operators:less-than'] 			= 'Manj kot';
 $lang['global:operators:greater-than'] 		= 'Več kot';
 
-$lang['global:duration:1-day']			= 'en dan'; #translate
-$lang['global:duration:1-week']			= 'en teden'; #translate
-$lang['global:duration:2-weeks']		= 'dva tedna'; #translate
-$lang['global:duration:1-month']		= 'en mesec'; #translate
-$lang['global:duration:3-months']		= 'tri mesci'; #translate
-$lang['global:duration:always']			= 'Vedno'; #translate
+$lang['global:duration:1-day']			= 'en dan';
+$lang['global:duration:1-week']			= 'en teden';
+$lang['global:duration:2-weeks']		= 'dva tedna';
+$lang['global:duration:1-month']		= 'en mesec';
+$lang['global:duration:3-months']		= 'tri mesci';
+$lang['global:duration:always']			= 'Vedno';
 
 $lang['navigation_headline'] 			  = 'Meni';
 $lang['breadcrumb_base_label'] 			= 'Domov';
@@ -52,12 +52,12 @@ $lang['general_error_label'] 			  = 'Napaka';
 $lang['required_error_label'] 			= 'Manjkajoči podatki pri zahtevanih poljih';
 $lang['note_label'] 					      = 'Opomba';
 $lang['success_label'] 					    = 'Uspešno';
-$lang['global:fields']					    = 'Polja'; #translate
-$lang['global:custom_fields']			  = 'Nastavljiva polja'; #translate
+$lang['global:fields']					    = 'Polja';
+$lang['global:custom_fields']			  = 'Nastavljiva polja';
 
 $lang['login_title'] 					      = 'Prijava';
 $lang['global:fatal_error'] 				= 'Kritična napaka pri namestitvi CMS-ja';
-$lang['global:demo_restrictions'] 	= 'Nekatere možnosti so bile izključene zaradi demo-prikaza.'; #translate
+$lang['global:demo_restrictions'] 	= 'Nekatere možnosti so bile izključene zaradi demo-prikaza.';
 
 $lang['login_error_label'] 				= 'Napaka pri prijavi';
 $lang['forgot_password_label'] 			= 'Ali ste pozabili geslo ?';
@@ -80,8 +80,8 @@ $lang['global:install'] 					= 'Namesti';
 $lang['global:upgrade'] 					= 'Posodobi';
 $lang['global:enable']					  = 'Omogoči';
 $lang['global:disable'] 					= 'Onemogoči';
-$lang['global:enabled']					  = 'Omogočeno'; #translate
-$lang['global:disabled'] 				  = 'Onemogočeno'; #translate
+$lang['global:enabled']					  = 'Omogočeno';
+$lang['global:disabled'] 				  = 'Onemogočeno';
 
 $lang['all_right_reserved']				= 'Vse pravice pridržane';
 $lang['powered_by_pyrocms']				= 'Gnano z PyroCMS';
@@ -89,7 +89,7 @@ $lang['top_page']						      = 'Vrh';
 $lang['back_to_top']					    = 'Na vrh strani';
 
 $lang['global:filters'] 				  = 'Razvrstitev';
-$lang['global:image'] 					  = 'Image'; #translate
+$lang['global:image'] 					  = 'Image';
 $lang['global:description']				= 'Opis';
 $lang['global:actions']					  = 'Dejanja';
 $lang['global:view']					    = 'Ogled';
@@ -102,16 +102,16 @@ $lang['global:remove']					  = 'Odstrani';
 
 $lang['global:keywords']				  = 'Ključne besede';
 
-$lang['global:or']						  = 'ali'; #translate
-$lang['global:and']					  	= 'in'; #translate
-$lang['global:at']					  	= 'pri'; #translate
+$lang['global:or']						  = 'ali';
+$lang['global:and']					  	= 'in';
+$lang['global:at']					  	= 'pri';
 
-$lang['global:widgets']					= 'Gradniki'; #translate
-$lang['global:themes']					= 'Temes'; #translate
-$lang['global:field_types']			= 'Vrste polj'; #translate
-$lang['global:plugins']					= 'Vtičniki'; #translate
-$lang['global:plugin']					= 'Vtič'; #translate
+$lang['global:widgets']					= 'Gradniki';
+$lang['global:themes']					= 'Temes';
+$lang['global:field_types']			= 'Vrste polj';
+$lang['global:plugins']					= 'Vtičniki';
+$lang['global:plugin']					= 'Vtič';
 
-$lang['global:options']					= 'Možnosti'; #translate
+$lang['global:options']					= 'Možnosti';
 
 /* End of file main_lang.php */
