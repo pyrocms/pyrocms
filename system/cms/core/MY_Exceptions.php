@@ -475,7 +475,7 @@ class MY_Exceptions extends CI_Exceptions
                 ob_end_flush(); 
             }
             ob_start();
-            include(APPPATH.'views/errors/'.$template.EXT);
+            include(APPPATH.'views/errors/'.$template.'.php');
             $buffer = ob_get_contents();
             ob_end_clean();
             return $buffer;

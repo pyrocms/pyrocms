@@ -607,7 +607,7 @@ class Module_m extends MY_Model
 				// Yeah yeah we know
 				if (in_array($slug, $known_array))
 				{
-					$details_file = $directory.'modules/'.$slug.'/details'.EXT;
+					$details_file = $directory.'modules/'.$slug.'/details.php';
 
 					if (file_exists($details_file) &&
 						filemtime($details_file) > $known_mtime[$slug]['updated_on'] &&

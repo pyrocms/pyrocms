@@ -153,7 +153,7 @@ class Widgets
 			}
 
 			// Finally, check if is need and update the widget info
-			$widget_file = FCPATH.$this->_widget_locations[$widget->slug].$widget->slug.EXT;
+			$widget_file = FCPATH.$this->_widget_locations[$widget->slug].$widget->slug.'.php';
 
 			if (file_exists($widget_file) and (filemtime($widget_file) > $widget->updated_on))
 			{
@@ -405,7 +405,7 @@ class Widgets
 
 		$path = $this->template->get_views_path().'modules/widgets/';
 
-		if ( ! file_exists($path.$view.EXT))
+		if ( ! file_exists($path.$view.'.php'))
 		{
 			list($path, $view) = Modules::find($view, 'widgets', 'views/');
 		}
@@ -584,7 +584,7 @@ class Widgets
 	protected function _spawn_widget($name)
 	{
 		$widget_path = $this->_widget_locations[$name];
-		$widget_file = FCPATH.$widget_path.$name.EXT;
+		$widget_file = FCPATH.$widget_path.$name.'.php';
 
 		if (file_exists($widget_file))
 		{
@@ -615,13 +615,13 @@ class Widgets
 		return $view == 'display'
 
 			? $this->parser->parse_string($this->load->_ci_load(array(
-				'_ci_path'		=> $path.'views/'.$view.EXT,
+				'_ci_path'		=> $path.'views/'.$view.'.php',
 				'_ci_vars'		=> $data,
 				'_ci_return'	=> true
 			)), array(), true)
 
 			: $this->load->_ci_load(array(
-				'_ci_path'		=> $path.'views/'.$view.EXT,
+				'_ci_path'		=> $path.'views/'.$view.'.php',
 				'_ci_vars'		=> $data,
 				'_ci_return'	=> true
 			));
