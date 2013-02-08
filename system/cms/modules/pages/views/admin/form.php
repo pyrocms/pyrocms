@@ -9,16 +9,16 @@
 <section class="item">
 	<div class="content">
 
-		<?php $parent = ($parent_id) ? '&parent='.$parent_id : null ?>
+		<?php $parent = ($page->parent) ? '&parent='.$page->parent->id : null ?>
 	
 		<?php echo form_open_multipart(uri_string().'?page_type='.$this->input->get('page_type').$parent, 'id="page-form"') ?>
-		<?php echo form_hidden('parent_id', empty($page->parent_id) ? 0 : $page->parent_id) ?>
+		<?php echo form_hidden('parent_id', empty($page->parent->id) ? 0 : $page->parent->id) ?>
 	
 		<div class="tabs">
 	
 			<ul class="tab-menu">
 				<li><a href="#page-details"><span><?php echo lang('pages:details_label') ?></span></a></li>
-				<?php if ($stream_fields): ?><li><a href="#page-content"><span><?php if ($page->type->content_label): echo lang_label($page->type->content_label); else: echo lang('pages:content_label'); endif ?></span></a></li><?php endif ?>
+				<?php if ($stream_fields): ?><li><a href="#page-content"><span><?php if (isset($page->type->content_label)): echo lang_label($page->type->content_label); else: echo lang('pages:content_label'); endif ?></span></a></li><?php endif ?>
 				<li><a href="#page-meta"><span><?php echo lang('pages:meta_label') ?></span></a></li>
 				<li><a href="#page-design"><span><?php echo lang('pages:css_label') ?></span></a></li>
 				<li><a href="#page-script"><span><?php echo lang('pages:script_label') ?></span></a></li>
@@ -32,7 +32,7 @@
 				<ul>
 					
 					<li>
-						<label for="title"><?php if ($page->type->title_label): echo lang_label($page->type->title_label); else: echo lang('global:title'); endif ?> <span>*</span></label>
+						<label for="title"><?php if (isset($page->type->title_label)): echo lang_label($page->type->title_label); else: echo lang('global:title'); endif ?> <span>*</span></label>
 						<div class="input"><?php echo form_input('title', $page->title, 'id="title" maxlength="60"') ?></div>
 					</li>
 					

@@ -227,50 +227,40 @@ class Admin extends Admin_Controller
 	 */
 	public function create()
 	{
-		$page = new stdClass;
+		$page = new Page;
 
 		// Parent ID
 		$parent_id = ($this->input->get('parent')) ? $this->input->get('parent') : false;
 		$this->template->set('parent_id', $parent_id);
 
-        // What type of page are we creating?
-        $page_type_id = $this->input->get('page_type');
-        
+        // What type of page are we creating?        
+        $page->type = PageType::find($this->input->get('page_type'));
+
         // Redirect to the page type selection menu if no page type was specified 
-        if ( ! $page_type_id) 
-        {
+        if ( ! $page->type) {
             redirect('admin/pages/choose_type');
-        }
-        
-        // Get page type
-        $page_type = $this->db->limit(1)->where('id', $page_type_id)->get('page_types')->row();        
+        }      
 
-		if ( ! $page_type) show_error('No page type found.');
-
-		$stream = $this->_setup_stream_fields($page_type);
+		$stream = $this->_setup_stream_fields($page->type);
 
 		// Run our validation. At this point, this is running the
 		// compiled validation for both stream and standard.
-		if ($this->form_validation->run())
-		{
+		if ($this->form_validation->run()) {
 			$input = $this->input->post();
 
 			// do they have permission to proceed?
-			if ($input['status'] == 'live')
-			{
+			if ($input['status'] == 'live') {
 				role_or_die('pages', 'put_live');
 			}
 
 			// We need to manually add this since we don't allow
 			// users to change it in the page form.
-			$input['type_id'] = $page_type_id;
+			$input['type_id'] = $page->type->id;
 
 			// Insert the page data, along with
-			// the stream data.
-			if ($id = $this->page_m->create($input, $stream))
-			{
-				if (isset($input['navigation_group_id']) and count($input['navigation_group_id']) > 0)
-				{
+			// TODO Stream data needs to get saved somehow!
+			if ($id = $page->create($input)) {
+				if (isset($input['navigation_group_id']) and count($input['navigation_group_id']) > 0) {
 					$this->cache->clear('page_m');
 					$this->cache->clear('navigation_m');
 				}
@@ -291,7 +281,7 @@ class Admin extends Admin_Controller
 		foreach (Page::$validate as $field) {
 			switch ($field) {
 				case 'restricted_to[]':
-					$page->restricted_to = set_value($field, array('0'));
+					$page->restricted_to = set_value($field['field'], array('0'));
 					break;
 				
 				case 'navigation_group_id[]':
@@ -299,11 +289,11 @@ class Admin extends Admin_Controller
 					break;
 
 				case 'strict_uri':
-					$page->strict_uri = set_value($field, true);
+					$page->strict_uri = set_value($field['field'], true);
 					break;
 
 				default:
-					$page->{$field} = set_value($field);
+					$page->{$field['field']} = set_value($field['field']);
 					break;
 			}
 		}
@@ -580,7 +570,7 @@ class Admin extends Admin_Controller
 	 */
 	private function _form_data()
 	{
-		$page_types = Page_type_m::orderBy('title')->get();
+		$page_types = PageType::orderBy('title')->get();
 
 		$this->template->page_types = array_for_select($page_types->toArray(), 'id', 'title');
 
