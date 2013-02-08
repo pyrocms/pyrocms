@@ -25,10 +25,10 @@ if ( ! function_exists('tree_builder'))
 		$output = '';
 
 		foreach ($items as $item) {
-			if ($item->children) {
 
+			if ($item->children) {
 				// if there are children we build their html and set it up to be parsed as {{ children }}
-				$item->children = '<ul>'.tree_builder($item['children'], $html).'</ul>';
+				$item->children = '<ul>'.tree_builder($item->children, $html).'</ul>';
 			
 			} else {
 				$item->children = null;

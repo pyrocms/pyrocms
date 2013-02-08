@@ -107,11 +107,21 @@ class Page extends \Illuminate\Database\Eloquent\Model
 	/**
 	 * Relationship: Type
 	 *
-	 * @return Illuminate\Database\Eloquent\Relations\HasOne
+	 * @return Illuminate\Database\Eloquent\Relations\BelongsTo
 	 */
 	public function type()
     {
         return $this->belongsTo('Pyro\Module\Pages\Model\PageType');
+    }
+
+	/**
+	 * Relationship: Children
+	 *
+	 * @return Illuminate\Database\Eloquent\Relations\HasMany
+	 */
+	public function children()
+    {
+        return $this->hasMany('Pyro\Module\Pages\Model\Page', 'parent_id', 'id');
     }
 
 	/**
@@ -293,45 +303,6 @@ class Page extends \Illuminate\Database\Eloquent\Model
 
 	// 	return $page;
 	// }
-
-    // --------------------------------------------------------------------------
-
-	/**
-	 * Build a multi-array of parent > children.
-	 *
-	 * @return array An array representing the page tree.
-	 */
-	public function fetchPageTree()
-	{
-		$result = $this
-			->orderBy('order')
-			->get();
-
-		// First, re-index the array
-		$pages = array();
-		foreach ($result as $row) {
-			$pages[$row->id] = $row;
-		}
-
-		unset($result);
-
-		// Build a multidimensional array of parent > children.
-		$page_array = array();
-		foreach ($pages as $row) {
-
-			if (array_key_exists($row->parent_id, $pages)) {
-				// Add this page to the children array of the parent page.
-				$pages[$row->parent_id]->children[] =& $pages[$row->id];
-			}
-
-			// This is a root page.
-			if ($row->parent_id == 0) {
-				$page_array[] =& $pages[$row->id];
-			}
-		}
-
-		return $page_array;
-	}
 
 	// /**
 	//  * Return page data

@@ -1,6 +1,7 @@
 <?php
 
-use Pyro\Modules\Pages\Model\PageType;
+use Pyro\Module\Pages\Model\Page;
+use Pyro\Module\Pages\Model\PageType;
 
 /**
  * Pages controller
@@ -41,6 +42,8 @@ class Admin extends Admin_Controller
 	 */
 	public function index()
 	{
+		$pages = Page::with('children')->get();
+		
 		$this->template
 
 			->title($this->module_details['name'])
@@ -52,7 +55,7 @@ class Admin extends Admin_Controller
 
 			->append_css('module::index.css')
 
-			->set('pages', $this->page_m->fetchPageTree())
+			->set('pages', $pages)
 			->build('admin/index');
 	}
 
@@ -142,7 +145,7 @@ class Admin extends Admin_Controller
 	 */
 	public function ajax_page_details($id)
 	{
-		$page = Page_m::find($id);
+		$page = Page::find($id);
 
         $page->meta_keywords = Keywords::get_string($page->meta_keywords);
 
@@ -156,7 +159,7 @@ class Admin extends Admin_Controller
 	 */
 	public function preview($id = 0)
 	{
-		$page = Page_m::find($id);
+		$page = Page::find($id);
 
 		$this->template
 			->set_layout('modal', 'admin')
@@ -171,52 +174,48 @@ class Admin extends Admin_Controller
 	 */
 	public function duplicate($id, $parent_id = null)
 	{
-		$page  = (array)$this->page_m->get($id);
+		$page  = Page::with('children')->find($id);
 
-		// Steal their children
-		$children = $this->page_m->get_many_by('parent_id', $id);
-
-		$new_slug = $page['slug'];
+		$new_slug = $page->slug;
 
 		// No parent around? Do what you like
-		if (is_null($parent_id))
-		{
-			do
-			{
+		if (is_null($parent_id)) {
+			do {
 				// Turn "Foo" into "Foo 2"
-				$page['title'] = increment_string($page['title'], ' ', 2);
+				$page->title = increment_string($page->title, ' ', 2);
 
 				// Turn "foo" into "foo-2"
-				$page['slug'] = increment_string($page['slug'], '-', 2);
+				$page->slug = increment_string($page->slug, '-', 2);
 
 				// Find if this already exists in this level
-				$dupes = $this->page_m->count_by(array(
-					'slug' => $page['slug'],
-					'parent_id' => $page['parent_id'],
-				));
+				$has_dupes = Page::where('slug', $page->slug)
+					->where('parent_id', $page->parent_id)
+					->count() > 0;
 			}
-			while ($dupes > 0);
-		}
+			while ($has_dupes === true);
 
 		// Oop, a parent turned up, work with that
-		else
-		{
-			$page['parent_id'] = $parent_id;
+		} else {
+			$page->parent_id = $parent_id;
 		}
 
-		$page['restricted_to'] = null;
-		$page['navigation_group_id'] = 0;
+		$page->restricted_to = null;
+		$page->navigation_group_id = 0;
 
-		$new_page = $this->page_m->create($page, $this->streams_m->get_stream($page['stream_id']));
+		exit('FAIL BECAUSE STREAMS ARENT ELOQUENT YET');
 
-		foreach ($children as $child)
-		{
+		// TODO Streams need to be converted to Eloquent so we can make a "stream" or "entry" relationship
+		$new_page = Page::create($page->toArray());
+
+		// TODO Make this bit into page->children()->create($datastuff);
+		// $this->streams_m->get_stream($page['stream_id']);
+
+		foreach ($page->children as $child) {
 			$this->duplicate($child->id, $new_page);
 		}
 
 		// only allow a redirect when everything is finished (only the top level page has a null parent_id)
-		if (is_null($parent_id))
-		{
+		if (is_null($parent_id)) {
 			redirect('admin/pages');
 		}
 	}

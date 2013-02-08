@@ -29,7 +29,7 @@ class PageType extends \Illuminate\Database\Eloquent\Model
      */
     public function pages()
     {
-        return $this->hasMany('Page');
+        return $this->hasMany('Pyro\Module\Pages\Model\Page');
     }
 	
     /**
