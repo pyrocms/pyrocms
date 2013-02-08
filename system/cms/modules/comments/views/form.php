@@ -6,7 +6,7 @@
 
 	<?php echo form_hidden('entry', $entry_hash) ?>
 
-	<?php if ( ! $current_user): ?>
+	<?php if ( ! is_logged_in()): ?>
 
 	<div class="form_name">
 		<label for="name"><?php echo lang('comments:name_label') ?>:</label>
