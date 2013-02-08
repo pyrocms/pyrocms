@@ -45,7 +45,7 @@ class Admin extends Admin_Controller
 	 */
 	public function index()
 	{
-		$groups = $this->group_m->get_all();
+		$groups = Group_m::all();
 
 		$this->template
 			->title($this->module_details['name'])
@@ -58,7 +58,7 @@ class Admin extends Admin_Controller
 	 */
 	public function add()
 	{
-		$group = new stdClass();
+		$group = new Group_m;
 
 		if ($_POST)
 		{
@@ -66,30 +66,31 @@ class Admin extends Admin_Controller
 
 			if ($this->form_validation->run())
 			{
-				if ($id = $this->group_m->insert($this->input->post()))
+				if ($group->create(array(
+						'name' => $this->input->post('name'),
+						'description' => $this->input->post('description')
+					)))
 				{
 					// Fire an event. A new group has been created.
-					Events::trigger('group_created', $id);
+					Events::trigger('group_created', $group);
 
-					$this->session->set_flashdata('success', sprintf(lang('groups:add_success'), $this->input->post('name')));
+					$this->session->set_flashdata('success', sprintf(lang('groups:add_success'), $group->name));
 				}
 				else
 				{
-					$this->session->set_flashdata('error', sprintf(lang('groups:add_error'), $this->input->post('name')));
+					$this->session->set_flashdata('error', sprintf(lang('groups:add_error'), $group->name));
 				}
 
 				redirect('admin/groups');
 			}
 		}
 
-		$group = new stdClass();
-
 		// Loop through each validation rule
 		foreach ($this->validation_rules as $rule)
 		{
 			$group->{$rule['field']} = set_value($rule['field']);
 		}
-
+		
 		$this->template
 			->title($this->module_details['name'], lang('groups:add_title'))
 			->set('group', $group)
@@ -104,7 +105,7 @@ class Admin extends Admin_Controller
 	 */
 	public function edit($id = 0)
 	{
-		$group = $this->group_m->get($id);
+		$group = Group_m::find($id);
 
 		// Make sure we found something
 		$group or redirect('admin/groups');
@@ -124,16 +125,19 @@ class Admin extends Admin_Controller
 			}
 
 			if ($this->form_validation->run())
-			{
-				if ($success = $this->group_m->update($id, $this->input->post()))
+			{	
+				$group->name = $this->input->post('name');
+				$group->description = $this->input->post('description');
+				
+				if ($success = $group->save())
 				{
 					// Fire an event. A group has been updated.
-					Events::trigger('group_updated', $id);
-					$this->session->set_flashdata('success', sprintf(lang('groups:edit_success'), $this->input->post('name')));
+					Events::trigger('group_updated', $group);
+					$this->session->set_flashdata('success', sprintf(lang('groups:edit_success'), $group->name));
 				}
 				else
 				{
-					$this->session->set_flashdata('error', sprintf(lang('groups:edit_error'), $this->input->post('name')));
+					$this->session->set_flashdata('error', sprintf(lang('groups:edit_error'), $group->name));
 				}
 
 				redirect('admin/groups');
@@ -153,7 +157,7 @@ class Admin extends Admin_Controller
 	 */
 	public function delete($id = 0)
 	{
-		if ($success = $this->group_m->delete($id))
+		if ($success = Group_m::find($id)->delete())
 		{
 			// Fire an event. A group has been deleted.
 			Events::trigger('group_deleted', $id);
