@@ -339,12 +339,15 @@ class Row_m extends MY_Model {
 		
 		if (isset($include) and $include)
 		{
-			$inclusions = explode('|', $include);
+			$inclusions 	= explode('|', $include);
+			$includes 		= array();
 			
 			foreach ($inclusions as $include_id)
 			{
-				$this->sql['where'][] = $this->select_prefix.$this->db->protect_identifiers($include_by).'='.$this->db->escape($include_id);
+				$includes[] = $this->select_prefix.$this->db->protect_identifiers($include_by).'='.$this->db->escape($include_id);
 			}
+
+			$this->sql['where'][] = '('.implode(' OR ', $includes).')';
 		}
 
 		// -------------------------------------
