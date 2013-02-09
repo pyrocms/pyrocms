@@ -54,14 +54,14 @@ class Blog extends Public_Controller
 		);
 		$posts = $this->streams->entries->get_entries($params);
 
-		// Set meta description based on post titles
-		$meta = $this->_posts_metadata($posts['entries']);
-
 		// Process posts
 		foreach ($posts['entries'] as &$post)
 		{
 			$this->_process_post($post);
 		}
+
+		// Set meta description based on post titles
+		$meta = $this->_posts_metadata($posts['entries']);
 
 		$this->template
 			->title($this->module_details['name'])
@@ -99,14 +99,14 @@ class Blog extends Public_Controller
 		);
 		$posts = $this->streams->entries->get_entries($params);
 
-		// Set meta description based on post titles
-		$meta = $this->_posts_metadata($posts['entries']);
-
 		// Process posts
 		foreach ($posts['entries'] as &$post)
 		{
 			$this->_process_post($post);
 		}
+
+		// Set meta description based on post titles
+		$meta = $this->_posts_metadata($posts['entries']);
 
 		// Build the page
 		$this->template->title($this->module_details['name'], $category->title)
@@ -144,13 +144,13 @@ class Blog extends Public_Controller
 
 		$month_year = format_date($month_date->format('U'), lang('blog:archive_date_format'));
 
-		// Set meta description based on post titles
-		$meta = $this->_posts_metadata($posts['entries']);
-
 		foreach ($posts['entries'] as &$post)
 		{
 			$this->_process_post($post);
 		}
+
+		// Set meta description based on post titles
+		$meta = $this->_posts_metadata($posts['entries']);
 
 		$this->template
 			->title($month_year, lang('blog:archive_title'), lang('blog:blog_title'))
@@ -242,22 +242,34 @@ class Blog extends Public_Controller
 		// decode encoded cyrillic characters
 		$tag = rawurldecode($tag) or redirect('blog');
 
-		// Count total blog posts and work out how many pages exist
-		$pagination = create_pagination('blog/tagged/'.$tag, $this->blog_m->count_tagged_by($tag, array('status' => 'live')), null, 4);
+		// Here we need to add some custom joins into the
+		// row query. This shouldn't be in the controller, but
+		// we need to figure out where this sort of stuff should go.
+		// Maybe the entire blog moduel should be replaced with stream
+		// calls with items like this. Otherwise, this currently works.
+		$this->row_m->sql['join'][] = 'JOIN '.$this->db->protect_identifiers('keywords_applied', true).' ON '.$this->db->protect_identifiers('keywords_applied.hash', true).' = '.$this->db->protect_identifiers('blog.keywords', true);
 
-		// Get the current page of blog posts
-		$blog = $this->blog_m
-			->limit($pagination['limit'], $pagination['offset'])
-			->get_tagged_by($tag, array('status' => 'live'));
+		$this->row_m->sql['join'][] = 'JOIN '.$this->db->protect_identifiers('keywords', true).' ON '.$this->db->protect_identifiers('keywords.id', true).' = '.$this->db->protect_identifiers('keywords_applied.keyword_id', true);	
 
-		foreach ($blog as &$post)
+		$this->row_m->sql['where'][] = $this->db->protect_identifiers('keywords.name', true)." = '".str_replace('-', ' ', $tag)."'";
+
+		// Get the blog posts
+		$params = array(
+			'stream'		=> 'blog',
+			'namespace'		=> 'blogs',
+			'limit'			=> Settings::get('records_per_page'),
+			'paginate'		=> 'yes',
+		);
+		$posts = $this->streams->entries->get_entries($params);
+
+		// Process posts
+		foreach ($posts['entries'] as &$post)
 		{
-			$post->keywords = Keywords::get($post->keywords, 'blog/tagged');
-			$post->url = site_url('blog/'.date('Y/m', $post->created_on).'/'.$post->slug);
+			$this->_process_post($post);
 		}
 
 		// Set meta description based on post titles
-		$meta = $this->_posts_metadata($blog);
+		$meta = $this->_posts_metadata($posts['entries']);
 
 		$name = str_replace('-', ' ', $tag);
 
@@ -268,9 +280,9 @@ class Blog extends Public_Controller
 			->set_metadata('keywords', $name)
 			->set_breadcrumb(lang('blog:blog_title'), 'blog')
 			->set_breadcrumb(lang('blog:tagged_label').': '.$name)
-			->set('blog', $blog)
+			->set('pagination', $posts['pagination'])
+			->set('posts', $posts['entries'])
 			->set('tag', $tag)
-			->set('pagination', $pagination)
 			->build('posts');
 	}
 
@@ -316,7 +328,7 @@ class Blog extends Public_Controller
 	}
 
 	/**
-	 * @todo Document this.
+	 * Posts Metadata
 	 *
 	 * @param array $posts
 	 *
@@ -332,10 +344,11 @@ class Blog extends Public_Controller
 		{
 			foreach ($posts as &$post)
 			{
-				/*if ($post->category_title)
+				if (isset($post['category']))
 				{
-					$keywords[$post->category_id] = $post->category_title.', '.$post->category_slug;
-				}*/
+					$keywords[] = $post['category']['title'].', '.$post['category']['slug'];
+				}
+
 				$description[] = $post['title'];
 			}
 		}
