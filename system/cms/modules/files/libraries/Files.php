@@ -1,4 +1,7 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php 
+
+use Pyro\Module\Keywords\Model\AppliedKeyword;
+
 /**
  * PyroCMS File library. 
  *
@@ -961,9 +964,7 @@ class Files
 			->join('file_folders', 'files.folder_id = file_folders.id')
 			->get_by('files.id', $id))
 		{
-			ci()->load->model('keywords/keyword_m');
-
-			ci()->keyword_m->delete_applied($file->keywords);
+			AppliedKeyword::deleteByHash($file->keywords);
 
 			ci()->file_m->delete($id);
 
