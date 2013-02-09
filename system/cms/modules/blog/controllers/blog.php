@@ -51,6 +51,8 @@ class Blog extends Public_Controller
 			'limit'			=> Settings::get('records_per_page'),
 			'where'			=> "`status` = 'live'",
 			'paginate'		=> 'yes',
+			'pag_base'		=> 'blog/page',
+			'pag_segment'   => 3
 		);
 		$posts = $this->streams->entries->get_entries($params);
 
@@ -96,6 +98,7 @@ class Blog extends Public_Controller
 			'limit'			=> Settings::get('records_per_page'),
 			'where'			=> "`status` = 'live' AND `category_id` = '{$category->id}'",
 			'paginate'		=> 'yes',
+			'pag_segment'	=> 4
 		);
 		$posts = $this->streams->entries->get_entries($params);
 
@@ -139,6 +142,7 @@ class Blog extends Public_Controller
 			'year'			=> $year,
 			'month'			=> $month,
 			'paginate'		=> 'yes',
+			'pag_segment'	=> 5
 		);
 		$posts = $this->streams->entries->get_entries($params);
 
@@ -259,6 +263,7 @@ class Blog extends Public_Controller
 			'namespace'		=> 'blogs',
 			'limit'			=> Settings::get('records_per_page'),
 			'paginate'		=> 'yes',
+			'pag_segment'	=> 4
 		);
 		$posts = $this->streams->entries->get_entries($params);
 
