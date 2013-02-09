@@ -677,7 +677,7 @@ class Files
 	public static function get_file($identifier = 0)
 	{
 		// they could have specified the row id or the actual filename
-		$column = (strlen($identifier) === 15 and strpos($identifier, '.') === false) ? 
+		$column = (strlen($identifier) === 15 or strpos($identifier, '.') === false) ? 
 					'files.id' : 
 					'filename';
 
