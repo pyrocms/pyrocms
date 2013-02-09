@@ -57,6 +57,7 @@ class Row_m extends MY_Model {
 		'select'	=> array(), 	// will be joined by ','
 		'where'		=> array(),		// will be joined by 'AND'
 		'from'		=> array(),		// array of tables
+		'join'		=> array(),		// array of joins
 		'order_by'	=> array(),		// will be joined by ','
 		'misc'		=> array()		// will be joined by line breaks
 	);
