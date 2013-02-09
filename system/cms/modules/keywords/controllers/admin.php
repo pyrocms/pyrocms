@@ -1,4 +1,8 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php 
+
+use Pyro\Module\Keywords\Model\Keyword;
+use Pyro\Module\Keywords\Model\AppliedKeyword;
+
 /**
  * Maintain a central list of keywords to label and organize your content.
  *
@@ -17,9 +21,6 @@ class Admin extends Admin_Controller
 
 		// Load the required classes
 		$this->load->library('form_validation');
-
-		$this->load->model('keyword_m');
-		$this->load->model('appliedkeyword_m');
 
 		$this->lang->load('keywords');
 
@@ -40,7 +41,7 @@ class Admin extends Admin_Controller
 	 */
 	public function index()
 	{
-		$keywords = Keyword_m::findAndSortByName();
+		$keywords = Keyword::findAndSortByName();
 
 		$this->template
 			->title($this->module_details['name'])
@@ -55,37 +56,28 @@ class Admin extends Admin_Controller
 	 */
 	public function add()
 	{
-		$keyword = new stdClass();
+		$keyword = new Keyword();
 
-		if ($_POST)
-		{
-			$this->form_validation->set_rules($this->validation_rules);
+		$this->form_validation->set_rules($this->validation_rules);
+
+		if ($this->form_validation->run()) {
 
 			$name = $this->input->post('name');
 
-			if ($this->form_validation->run())
-			{
-				if ($result = Keyword_m::create(array('name' => $name)))
-				{
-					// Fire an event. A new keyword has been added.
-					Events::trigger('keyword_created', $result->id);
+			if ($result = Keyword::create(array('name' => $name))) {
+				// Fire an event. A new keyword has been added.
+				Events::trigger('keyword_created', $result->id);
 
-					$this->session->set_flashdata('success', sprintf(lang('keywords:add_success'), $name));
-				}
-				else
-				{
-					$this->session->set_flashdata('error', sprintf(lang('keywords:add_error'), $name));
-				}
-
-				redirect('admin/keywords');
+				$this->session->set_flashdata('success', sprintf(lang('keywords:add_success'), $name));
+			} else {
+				$this->session->set_flashdata('error', sprintf(lang('keywords:add_error'), $name));
 			}
+
+			redirect('admin/keywords');
 		}
 
-		$keyword = new stdClass();
-
 		// Loop through each validation rule
-		foreach ($this->validation_rules as $rule)
-		{
+		foreach ($this->validation_rules as $rule) {
 			$keyword->{$rule['field']} = set_value($rule['field']);
 		}
 
@@ -105,32 +97,26 @@ class Admin extends Admin_Controller
 	 */
 	public function edit($id = 0)
 	{
-		$keyword = Keyword_m::find($id);
+		$keyword = Keyword::find($id);
 
 		// Make sure we found something
 		$keyword or redirect('admin/keywords');
 
-		if ($_POST)
-		{
-			$this->form_validation->set_rules($this->validation_rules);
+		$this->form_validation->set_rules($this->validation_rules);	
+
+		if ($this->form_validation->run()) {
 
 			$name = $this->input->post('name');
 
-			if ($this->form_validation->run())
-			{
-				if ($success = $keyword->update(array('name' => $name)))
-				{
-					// Fire an event. A keyword has been updated.
-					Events::trigger('keyword_updated', $id);
-					$this->session->set_flashdata('success', sprintf(lang('keywords:edit_success'), $name));
-				}
-				else
-				{
-					$this->session->set_flashdata('error', sprintf(lang('keywords:edit_error'), $name));
-				}
-
-				redirect('admin/keywords');
+			if ($success = $keyword->update(array('name' => $name))) {
+				// Fire an event. A keyword has been updated.
+				Events::trigger('keyword_updated', $id);
+				$this->session->set_flashdata('success', sprintf(lang('keywords:edit_success'), $name));
+			} else {
+				$this->session->set_flashdata('error', sprintf(lang('keywords:edit_error'), $name));
 			}
+
+			redirect('admin/keywords');
 		}
 
 		$this->template
@@ -148,14 +134,11 @@ class Admin extends Admin_Controller
 	 */
 	public function delete($id = 0)
 	{
-		if ($success = Keyword_m::find($id)->delete())
-		{
+		if ($success = Keyword::find($id)->delete()) {
 			// Fire an event. A keyword has been deleted.
 			Events::trigger('keyword_deleted', $id);
 			$this->session->set_flashdata('success', lang('keywords:delete_success'));
-		}
-		else
-		{
+		} else {
 			$this->session->set_flashdata('error', lang('keywords:delete_error'));
 		}
 
@@ -169,6 +152,6 @@ class Admin extends Admin_Controller
 	 */
 	public function autocomplete()
 	{
-		echo Keyword_m::findLikeTerm($this->input->get('term'))->toJson();
+		echo Keyword::findLikeTerm($this->input->get('term'))->toJson();
 	}
 }
