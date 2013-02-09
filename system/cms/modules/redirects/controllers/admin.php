@@ -63,7 +63,7 @@ class Admin extends Admin_Controller
      */
     public function add()
     {
-        $messages = array();
+        $redirect = new Redirect;
 
         $this->form_validation->set_rules($this->validation_rules);
 
@@ -80,22 +80,21 @@ class Admin extends Admin_Controller
                 $this->session->set_flashdata('success', lang('redirects:add_success'));
                 
                 Events::trigger('redirect_created');
-
-                redirect('admin/redirects');
+            } else {
+                $this->session->set_flashdata('error', lang('redirects:add_error'));
             }
 
-            $messages['error'] = lang('redirects:add_error');
+            redirect('admin/redirects');
         }
 
         // Loop through each validation rule
-        $redirect = new Redirect;
         foreach ($this->validation_rules as $rule) {
-            $redirect->$rule['field'] = set_value($rule['field']);
+            $redirect->{$rule['field']} = set_value($rule['field']);
         }
 
         $this->template
+            ->title($this->module_details['name'], lang('redirects:list_title'))
             ->set('redirect', $redirect)
-            ->set('messages', $messages)
             ->build('admin/form');
     }
 
@@ -108,7 +107,6 @@ class Admin extends Admin_Controller
      */
     public function edit($id = 0)
     {
-        $messages = array();
         // Got ID?
         $id or redirect('admin/redirects');
 
@@ -136,14 +134,13 @@ class Admin extends Admin_Controller
                 Events::trigger('redirect_updated', $id);
 
                 redirect('admin/redirects');
+            } else {
+                $this->session->set_flashdata('error', $this->lang->line('redirects:edit_error'));
             }
-
-            $messages['error'] = lang('redirects:edit_error');
         }
 
         $this->template
             ->set('redirect', $redirect)
-            ->set('messages', $messages)
             ->build('admin/form');
     }
 
@@ -191,8 +188,11 @@ class Admin extends Admin_Controller
      */
     public function _check_unique($from, $id = null)
     {
-        $this->form_validation->set_message('_check_unique', sprintf(lang('redirects:request_conflict_error'), $from));
-
-        return ! Redirect::findByFromWithId($from, (int)$id);
+        if ( Redirect::findByFromAndId($from, $id)->isEmpty() ) {
+            return true;
+        } else {
+            $this->form_validation->set_message('_check_unique', sprintf(lang('redirects:request_conflict_error'), $from));
+            return false;
+        }
     }
 }
