@@ -620,7 +620,6 @@ class Row_m extends MY_Model {
 	 * This formats any MySQL dates so we can do our date functions as
 	 * UNIX time stamps.
 	 *
-	 * @access 	public
 	 * @param 	string 	$data_by
 	 * @param 	string  $stream_namespace
 	 * @return 	string
@@ -650,7 +649,6 @@ class Row_m extends MY_Model {
 	 * be taken care of after pagination is 
 	 * calculated.
 	 *
-	 * @access 	public
 	 * @param 	array 	[$sql] 	an array of sql elements to parse
 	 * 							into a sql string.
 	 * @return 	string 	the compiled query
@@ -765,7 +763,6 @@ class Row_m extends MY_Model {
 	/**
 	 * Reset SQL query
 	 *
-	 * @access 	public
 	 * @return 	void
 	 */
 	public function reset_sql()
@@ -786,7 +783,6 @@ class Row_m extends MY_Model {
 	 * is considered a table name and has a table prefix
 	 * added onto it.
 	 *
-	 * @access 	private
 	 * @param 	string - where string
 	 * @return 	string
 	 */
@@ -824,7 +820,6 @@ class Row_m extends MY_Model {
 	 * from the DB and formats it. Adds
 	 * things like count and odd/even.
 	 *
-	 * @access	public
 	 * @param	array - rows from db
 	 * @param	obj - stream
 	 * @param	[array - disables]
@@ -879,7 +874,6 @@ class Row_m extends MY_Model {
 	 * have them formatted in a way that the Lex parser
 	 * will be able to work with.
 	 *
-	 * @access 	public
 	 * @param 	array 	&$item
 	 * @return 	void
 	 */
@@ -909,10 +903,9 @@ class Row_m extends MY_Model {
 	 * Get a row. Also has the option
 	 * to format that data before returning it.
 	 *
-	 * @access	public
 	 * @param	int
-	 * @param	obj
-	 * @param	[bool]
+	 * @param	object
+	 * @param	bool
 	 * @return	mixed
 	 */
 	public function get_row($id, $stream, $format_output = true, $plugin_call = false)
@@ -955,12 +948,11 @@ class Row_m extends MY_Model {
 	 *
 	 * Formats a row based on format profile
 	 *
-	 * @access	public
-	 * @param	array or obj
+	 * @param	array|object
 	 * @param	array
 	 * @param	obj
-	 * @param	[bool]
-	 * @param	[bool]
+	 * @param	bool
+	 * @param	bool
 	 * @param	[array - things to disable]
 	 */
 	public function format_row($row, $stream_fields, $stream, $return_object = true, $plugin_call = false,  $disable = array())
@@ -1073,7 +1065,6 @@ class Row_m extends MY_Model {
 	/**
 	 * Format a single column
 	 *
-	 * @access 	public
 	 * @params	
 	 */
 	public function format_column($column_slug, $column_data, $row_id, $type_slug, $field_data, $stream, $plugin = true)
@@ -1120,7 +1111,6 @@ class Row_m extends MY_Model {
 	 * when we are going to need this for formatting or
 	 * reference.
 	 *
-	 * @access	public
 	 * @return	array
 	 */
 	public function gather_structure()
@@ -1270,7 +1260,6 @@ class Row_m extends MY_Model {
 	 *
 	 * Just used for updating right now
 	 *
-	 * @access	public
 	 * @param	obj
 	 * @param 	string
 	 * @param	int
@@ -1364,7 +1353,6 @@ class Row_m extends MY_Model {
 	/**
 	 * Insert field to a stream
 	 *
-	 * @access	public
 	 * @param	array - data
 	 * @param	obj - our stream fields
 	 * @param	obj - our stream
@@ -1533,7 +1521,6 @@ class Row_m extends MY_Model {
 	/**
 	 * Build Row Pagination
 	 *
-	 * @access	public
 	 * @param	int - pagination uri segment
 	 * @param	int - limit
 	 * @param	int - total rows
@@ -1597,7 +1584,6 @@ class Row_m extends MY_Model {
 	/**
 	 * Delete a row
 	 *
-	 * @access	public
 	 * @param	int
 	 * @param	obj
 	 * @return 	bool

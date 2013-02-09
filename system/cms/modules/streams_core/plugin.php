@@ -102,7 +102,6 @@ class Plugin_Streams_core extends Plugin
 	 *
 	 * This works with the multiple relationship field
 	 *
-	 * @access	public
 	 * @return	array
 	 */
 	public function multiple()
@@ -177,7 +176,6 @@ class Plugin_Streams_core extends Plugin
 	 *
 	 * Multiple join callback
 	 *
-	 * @access	public
 	 * @param	array - array of settings
 	 * @return	void
 	 */

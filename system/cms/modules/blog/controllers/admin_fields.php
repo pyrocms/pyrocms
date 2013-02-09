@@ -32,7 +32,6 @@ class Admin_fields extends Admin_Controller {
 	/**
 	 * List out profile fields
 	 *
-	 * @access 	public
 	 * @return 	void
 	 */
 	public function index()
@@ -67,7 +66,6 @@ class Admin_fields extends Admin_Controller {
 	 *
 	 * Create a new custom blog field
 	 *
-	 * @access 	public
 	 * @return 	void
 	 */
 	public function create()
@@ -86,7 +84,6 @@ class Admin_fields extends Admin_Controller {
 	 *
 	 * Delete a custom blog profile field.
 	 *
-	 * @access 	public
 	 * @return 	void
 	 */
 	public function delete()
@@ -114,7 +111,6 @@ class Admin_fields extends Admin_Controller {
 	/**
 	 * Edit a profile field
 	 *
-	 * @access 	public
 	 * @return 	void
 	 */
 	public function edit()

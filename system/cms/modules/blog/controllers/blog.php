@@ -280,7 +280,6 @@ class Blog extends Public_Controller
 	 * Process data that was not part of the 
 	 * initial streams call.
 	 *
-	 * @access 	private
 	 * @return 	void
 	 */
 	private function _process_post(&$post)
@@ -352,7 +351,6 @@ class Blog extends Public_Controller
 	 * Generate a page for viewing a single
 	 * blog post.
 	 *
-	 * @access 	private
 	 * @param 	array $post The post to view
 	 * @return 	void
 	 */

@@ -15,7 +15,6 @@ class Field_asset extends Public_Controller {
 	 * The field type for the
 	 * field asset.
 	 *
-	 * @access	public
 	 * @var		object
 	 */
 	public $field_type;
@@ -69,7 +68,6 @@ class Field_asset extends Public_Controller {
     /**
      * Pull CSS
      *
-     * @access	private
      * @param	string - css file name
      * @return	void
      */
@@ -89,7 +87,6 @@ class Field_asset extends Public_Controller {
     /**
      * Pull JS
      *
-     * @access	private
      * @param	string - css file name
      * @return	void
      */

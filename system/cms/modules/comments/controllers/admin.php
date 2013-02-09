@@ -8,7 +8,7 @@ class Admin extends Admin_Controller {
 
 	/**
 	 * Array that contains the validation rules
-	 * @access private
+	 * 
 	 * @var array
 	 */
 	private $validation_rules = array(
@@ -285,7 +285,7 @@ class Admin extends Admin_Controller {
 
 	/**
 	 * Do the actual work for approve/unapprove
-	 * @access protected
+	 * 
 	 * @param  int|array $ids	id or array of ids to process
 	 * @param  string $action	action to take: maps to model
 	 * @return void

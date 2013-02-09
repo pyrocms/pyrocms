@@ -347,7 +347,6 @@ class Admin extends Admin_Controller {
 	/**
 	 * Delete a file
 	 *
-	 * @access	public
 	 * @return	void
 	 */
 	public function delete_file()

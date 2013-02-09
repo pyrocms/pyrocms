@@ -33,7 +33,6 @@ class Public_ajax extends Public_Controller {
 	 *
 	 * Accessed via AJAX
 	 *
-	 * @access	public
 	 * @return	void
 	 */
 	public function field()

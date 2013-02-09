@@ -146,7 +146,6 @@ class PageType extends \Illuminate\Database\Eloquent\Model
      * to be unique so we can use them as folder
      * names when saving as files.
      *
-     * @access  public
      * @param   string $slug - the page slug
      * @return  bool
      */

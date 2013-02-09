@@ -614,7 +614,6 @@ class Template
 	 * add_theme_location
 	 * Set another location for themes to be looked in
 	 *
-	 * @access	public
 	 * @param	string	$location
 	 * @return	array
 	 */

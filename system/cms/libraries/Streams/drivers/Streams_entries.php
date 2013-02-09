@@ -13,7 +13,6 @@ class Streams_entries extends CI_Driver {
 	 * Available entry parameters
 	 * and their defaults.
 	 *
-	 * @access	public
 	 * @var		array
 	 */
 	public $entries_params = array(
@@ -53,7 +52,6 @@ class Streams_entries extends CI_Driver {
 	 * These are the available pagination config variables
 	 * that are available to override.
 	 *
-	 * @access 	public
 	 * @var 	array
 	 */
 	public $pag_config = array('num_links', 'full_tag_open', 'full_tag_close', 'first_link', 'first_tag_open', 'first_tag_close', 'prev_link', 'prev_tag_open', 'prev_tag_close', 'cur_tag_open', 'cur_tag_close', 'num_tag_open', 'num_tag_close', 'next_link', 'next_tag_open', 'next_tag_close', 'last_link', 'last_tag_open', 'last_tag_close');
@@ -63,7 +61,6 @@ class Streams_entries extends CI_Driver {
 	/**
 	 * Get entries for a stream.
 	 *
-	 * @access	public
 	 * @param	array - parameters
 	 * @param	[array - pagination config]
 	 * @param	[bool - should we not do param defaults? Use with caution.]
@@ -170,7 +167,6 @@ class Streams_entries extends CI_Driver {
 	/**
 	 * Get a single entry
 	 *
-	 * @access	public
 	 * @param	int - entry id
 	 * @param	stream - int, slug, or obj
 	 * @param	bool - format results?
@@ -186,7 +182,6 @@ class Streams_entries extends CI_Driver {
 	/**
 	 * Delete an entry
 	 *
-	 * @access	public
 	 * @param	int - entry id
 	 * @param	stream - int, slug, or obj
 	 * @return	object
@@ -204,7 +199,6 @@ class Streams_entries extends CI_Driver {
 	 * This will be run through the streams data
 	 * processing.
 	 *
-	 * @access	public
 	 * @param	array - entry data
 	 * @param	stream - int, slug, or obj
 	 * @param 	string - namespace

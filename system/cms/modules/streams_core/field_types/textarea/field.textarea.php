@@ -72,7 +72,6 @@ class Field_textarea
 	/**
 	 * Pre-Ouput content
 	 *
-	 * @access 	public
 	 * @return 	string
 	 */
 	public function pre_output($input, $params)
@@ -98,7 +97,6 @@ class Field_textarea
 	/**
 	 * Default Textarea Value
 	 *
-	 * @access	public
 	 * @param	[string - value]
 	 * @return	string
 	 */

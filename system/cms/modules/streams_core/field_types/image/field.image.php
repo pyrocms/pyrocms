@@ -68,7 +68,6 @@ class Field_image
 	/**
 	 * Process before saving to database
 	 *
-	 * @access	public
 	 * @param	array
 	 * @param	obj
 	 * @return	string
@@ -119,7 +118,6 @@ class Field_image
 	/**
 	 * Pre Output
 	 *
-	 * @access	public
 	 * @param	array
 	 * @return	string
 	 */	
@@ -145,7 +143,6 @@ class Field_image
 	 * tag array so relationship data can be called with
 	 * a {field.column} syntax
 	 *
-	 * @access	public
 	 * @param	string
 	 * @param	string
 	 * @param	array
@@ -200,7 +197,6 @@ class Field_image
 	/**
 	 * Choose a folder to upload to.
 	 *
-	 * @access	public
 	 * @param	[string - value]
 	 * @return	string
 	 */	
@@ -238,7 +234,6 @@ class Field_image
 	/**
 	 * Param Resize Width
 	 *
-	 * @access	public
 	 * @param	[string - value]
 	 * @return	string
 	 */
@@ -252,7 +247,6 @@ class Field_image
 	/**
 	 * Param Resize Height
 	 *
-	 * @access	public
 	 * @param	[string - value]
 	 * @return	string
 	 */
@@ -266,7 +260,6 @@ class Field_image
 	/**
 	 * Param Allowed Types
 	 *
-	 * @access	public
 	 * @param	[string - value]
 	 * @return	string
 	 */
@@ -284,7 +277,6 @@ class Field_image
 	/**
 	 * Param Allowed Types
 	 *
-	 * @access	public
 	 * @param	[string - value]
 	 * @return	string
 	 */

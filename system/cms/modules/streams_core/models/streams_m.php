@@ -850,7 +850,6 @@ class Streams_m extends CI_Model {
 	 * Check to see if the table name needed for a stream is
 	 * actually available.
 	 *
-	 * @access 	public
 	 * @param 	string
 	 * @param 	string
 	 * @param 	string
@@ -865,9 +864,9 @@ class Streams_m extends CI_Model {
 	/**
 	 * Remove a field assignment
 	 *
-	 * @param	obj
-	 * @param	obj
-	 * @param	obj
+	 * @param	object
+	 * @param	object
+	 * @param	object
 	 * @return	bool
 	 */
 	public function remove_field_assignment($assignment, $field, $stream)
