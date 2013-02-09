@@ -9,11 +9,12 @@
  */
 class Plugin_Search extends Plugin
 {
-
 	public $version = '1.0.0';
+
 	public $name = array(
 		'en' => 'Search',
 	);
+
 	public $description = array(
 		'en' => 'Create a search form and display search results.',
 	);
@@ -78,11 +79,9 @@ class Plugin_Search extends Plugin
 		// Now, did they set a custom action?
 		$action = $this->attribute('action', 'search/results');
 
-		$output	 = form_open($action, $attributes).PHP_EOL;
-		$output .= $this->content();
-		$output .= form_close();
-
-		return $output;
+		return form_open($action, $attributes).PHP_EOL
+			 . $this->content().PHP_EOL
+			 . form_close();
 	}
 
 	/**
@@ -110,13 +109,13 @@ class Plugin_Search extends Plugin
 
 		$total = $this->search_index_m
 			->filter($filter)
-			->count($query, $filter);
+			->count($query);
 
 		$pagination = create_pagination($uri, $total, $limit, $segment);
 		
 		$results = $this->search_index_m
 			->limit($pagination['limit'], $pagination['offset'])
-			->filter($this->input->get('filter'))
+			->filter($filter)
 			->search($query);
 
 		// Remember which modules have been loaded

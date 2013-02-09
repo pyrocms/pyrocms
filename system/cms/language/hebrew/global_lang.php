@@ -53,6 +53,7 @@ $lang['required_error_label'] 			= 'Required field missing'; #translate
 $lang['note_label'] 					= 'Note'; #translate
 $lang['success_label'] 					= 'הצלחה';
 $lang['global:fields']					= 'Fields'; #translate
+$lang['global:custom_fields']			= 'Custom Fields'; #translate
 
 $lang['login_title'] 					= 'התחבר';
 $lang['global:fatal_error'] 			= 'Fatal error, is CMS installed?'; #translate

@@ -1,44 +1,49 @@
-<?php if (isset($category->title)): ?>
-	<h2 id="page_title"><?php echo $category->title ?></h2>
-<?php elseif (isset($tag)): ?>
-	<h2 id="page_title"><?php echo lang('blog:tagged_label').': '.$tag ?></h2>
-<?php endif ?>
+{{ if posts }}
 
-<?php if ( ! empty($blog)): ?>
-	<?php foreach ($blog as $post): ?>
-	<div class="post">
-		<!-- Post heading -->
-		<h3><?php echo  anchor('blog/'.date('Y/m/', $post->created_on).$post->slug, $post->title) ?></h3>
+	{{ posts }}
 
-		<div class="meta">
+		<div class="post">
+
+			<h3><a href="{{ url }}">{{ title }}</a></h3>
+
+			<div class="meta">
+
 			<div class="date">
-				<?php echo lang('blog:posted_label');?>:
-				<span><?php echo format_date($post->created_on) ?></span>
+				{{ helper:lang line="blog:posted_label" }}
+				<span>{{ helper:date timestamp=created_on }}</span>
 			</div>
 
-			<?php if ($post->category_slug): ?>
+			{{ if category }}
 			<div class="category">
-				<?php echo lang('blog:category_label');?>:
-				<span><?php echo anchor('blog/category/'.$post->category_slug, $post->category_title);?></span>
+				{{ helper:lang line="blog:category_label" }}
+				<span><a href="blog/category/{{ category:slug }}">{{ category:title }}</a></span>
 			</div>
-			<?php endif ?>
+			{{ endif }}
 
-			<?php if ($post->keywords): ?>
+			{{ if keywords }}
 			<div class="keywords">
-				<?php echo lang('blog:tagged_label');?>:
-				<?php foreach ($post->keywords as $keyword): ?>
-				<span><?php echo anchor('blog/tagged/'.$keyword->name, $keyword->name, 'class="keyword"') ?></span>
-				<?php endforeach ?>
+				{{ keywords }}
+					<span><a href="blog/tagged/{{ name }}">{{ name }}</a></span>
+				{{ /keywords }}
 			</div>
-			<?php endif ?>
+			{{ endif }}
+
+			</div>
+
+			<div class="preview">
+			{{ preview }}
+			</div>
+
+			<p><a href="{{ url }}">{{ helper:lang line="blog:read_more_label" }}</a></p>
 
 		</div>
-		<div class="intro">
-			<?php echo $post->intro ?>
-		</div>
-	</div>
-<?php endforeach ?>
-<?php echo $pagination['links'] ?>
-<?php else: ?>
-<p><?php echo lang('blog:currently_no_posts');?></p>
-<?php endif ?>
+
+	{{ /posts }}
+
+	{{ pagination }}
+
+{{ else }}
+	
+	{{ helper:lang line="blog:currently_no_posts" }}
+
+{{ endif }}

@@ -61,6 +61,7 @@ $lang['required_error_label']		= 'Не заполнено необходимое
 $lang['note_label']							= 'Заметка';
 $lang['success_label']					= 'Успешно';
 $lang['global:fields']					= 'Fields';
+$lang['global:custom_fields']			= 'Custom Fields'; #translate
 
 $lang['login_title']						= 'Войти';
 $lang['global:fatal_error']				= 'Фатальная ошибка, CMS установлена?';

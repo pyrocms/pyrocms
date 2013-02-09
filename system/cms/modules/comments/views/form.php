@@ -6,15 +6,15 @@
 
 	<?php echo form_hidden('entry', $entry_hash) ?>
 
-	<?php if ( ! $current_user): ?>
+	<?php if ( ! is_logged_in()): ?>
 
 	<div class="form_name">
-		<label for="name"><?php echo lang('comments:name_label') ?>:</label>
+		<label for="name"><?php echo lang('comments:name_label') ?><span class="required">*</span>:</label>
 		<input type="text" name="name" id="name" maxlength="40" value="<?php echo $comment['name'] ?>" />
 	</div>
 
 	<div class="form_email">
-		<label for="email"><?php echo lang('global:email') ?>:</label>
+		<label for="email"><?php echo lang('global:email') ?><span class="required">*</span>:</label>
 		<input type="text" name="email" maxlength="40" value="<?php echo $comment['email'] ?>" />
 	</div>
 
@@ -26,7 +26,7 @@
 	<?php endif ?>
 
 	<div class="form_textarea">
-		<label for="comment"><?php echo lang('comments:message_label') ?>:</label>
+		<label for="comment"><?php echo lang('comments:message_label') ?><span class="required">*</span>: </label>
 		<textarea name="comment" id="comment" rows="5" cols="30" class="width-full"><?php echo $comment['comment'] ?></textarea>
 	</div>
 
