@@ -243,7 +243,7 @@ class Analytics {
 	 */
 	public function getData($aProperties = array())
 	{
-		$sUrl = 'https://www.google.com/analytics/feeds/data?ids=' . $this->_sProfileId .
+		$sUrl = 'https://www.googleapis.com/analytics/v2.4/data?ids=' . $this->_sProfileId .
 				'&start-date=' . $this->_sStartDate .
 				'&end-date=' . $this->_sEndDate . '&' .
 				http_build_query($aProperties);
