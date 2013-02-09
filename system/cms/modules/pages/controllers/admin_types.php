@@ -458,7 +458,7 @@ class Admin_types extends Admin_Controller
 	{
 		$page_type = $this->_check_page_type();
 
- 		$folder = FCPATH.'assets/page_types/'.$page_type->slug.'/'.$page_type->slug.'.';
+ 		$folder = FCPATH.'assets/page_types/'.SITE_REF.'/'.$page_type->slug.'/'.$page_type->slug.'.';
 
  		$update_data = array();
 
