@@ -175,12 +175,10 @@ class Files
 
 		if ($files)
 		{
-			ci()->load->library('keywords/keywords');
-
 			foreach ($files as &$file) 
 			{
 				$file->keywords_hash = $file->keywords;
-				$file->keywords = ci()->keywords->get_string($file->keywords);
+				$file->keywords = Keywords::get_string($file->keywords);
 				$file->formatted_date = format_date($file->date_added);
 			}
 		}
