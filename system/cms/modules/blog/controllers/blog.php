@@ -294,7 +294,7 @@ class Blog extends Public_Controller
 
 		foreach ($keywords as $key)
 		{
-			$formatted_keywords[] 	= array('name' => $key->name);
+			$formatted_keywords[] 	= array('keyword' => $key->name);
 			$keywords_arr[] 		= $key->name;
 
 		}
