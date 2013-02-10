@@ -124,7 +124,7 @@ class Admin extends Admin_Controller
 			}
 		}
 
-		$variable = new stdClass();
+		$variable = new Variable;
 
 		// Loop through each validation rule
 		foreach ($this->_validation_rules as $rule) {
@@ -144,14 +144,9 @@ class Admin extends Admin_Controller
 	 */
 	public function edit($id = 0)
 	{
-		$variable = new stdClass();
-
-		// Got ID?
-		$id OR redirect('admin/variables');
-
 		// Get the variable
-		$this->template->variable = Variable::find($id);
-		$this->template->variable OR redirect('admin/variables');
+		$variable = Variable::find($id);
+		$variable OR redirect('admin/variables');
 
 		$this->form_validation->set_rules(array_merge($this->_validation_rules, array(
 			'name' => array(
@@ -162,18 +157,14 @@ class Admin extends Admin_Controller
         )));
 
 		if ($this->form_validation->run()) {
-			$name = $this->input->post('name');
+			$variable->name = $this->input->post('name');
+			$variable->data = $this->input->post('data');
 
-			$result = Variable::find($id)->update(array(
-                'name' => $this->input->post('name'),
-				'data' => $this->input->post('data')
-            ));
-
-			if ($result) {
-				$message = sprintf(lang('variables:edit_success'), $name);
+			if ($variable->save()) {
+				$message = sprintf(lang('variables:edit_success'), $variable->name);
 				$status = 'success';
 			} else {
-				$message = sprintf(lang('variables:edit_error'), $name);
+				$message = sprintf(lang('variables:edit_error'), $variable->name);
 				$status = 'error';
 			}
 
@@ -186,7 +177,7 @@ class Admin extends Admin_Controller
 				return $this->template->build_json(array(
 					'status' => $status,
 					'message' => $message,
-					'title' => sprintf(lang('variables:edit_title'), $name)
+					'title' => sprintf(lang('variables:edit_title'), $variable->name)
 				));
 			}
 
@@ -203,19 +194,14 @@ class Admin extends Admin_Controller
 			}
 		}
 
-		// Loop through each validation rule
-		foreach ($this->_validation_rules as $rule) {
-			if ($this->input->post($rule['field']) !== false) {
-				$variable->{$rule['field']} = set_value($rule['field']);
-			}
-		}
+		$this->template->set('variable', $variable);
 
 		if ($this->input->is_ajax_request()) {
 			return $this->template->build('admin/form_inline');
 		}
 
 		$this->template
-			->title($this->module_details['name'], sprintf(lang('variables:edit_title'), $this->template->variable->name))
+			->title($this->module_details['name'], sprintf(lang('variables:edit_title'), $variable->name))
 			->build('admin/form');
 	}
 
