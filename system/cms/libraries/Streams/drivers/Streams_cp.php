@@ -521,15 +521,18 @@ class Streams_cp extends CI_Driver {
 		// Validation & Setup
 		// -------------------------------------
 
-		// Add in the unique callback
 		if ($method == 'new')
 		{
 			$CI->fields_m->fields_validation[1]['rules'] .= '|streams_unique_field_slug[new:'.$namespace.']';
+
+			$CI->fields_m->fields_validation[1]['rules'] .= '|streams_col_safe[new:'.$stream->stream_prefix.$stream->stream_slug.']';
 		}
 		else
 		{
 			// @todo edit version of this.
 			$CI->fields_m->fields_validation[1]['rules'] .= '|streams_unique_field_slug['.$data['current_field']->field_slug.':'.$namespace.']';
+
+			$CI->fields_m->fields_validation[1]['rules'] .= '|streams_col_safe[edit:'.$stream->stream_prefix.$stream->stream_slug.':'.$data['current_field']->field_slug.']';
 		}
 
 		$assign_validation = array(
