@@ -31,7 +31,7 @@ class Keyword extends Model
 	 */
 	public function hashes()
 	{
-		return $this->hasMany('AppliedKeyword', 'keyword_id');
+		return $this->hasMany('Applied', 'keyword_id');
 	}
 
 	/**

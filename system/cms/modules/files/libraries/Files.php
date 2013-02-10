@@ -1,6 +1,6 @@
 <?php 
 
-use Pyro\Module\Keywords\Model\AppliedKeyword;
+use Pyro\Module\Keywords\Model\Applied;
 
 /**
  * PyroCMS File library. 
@@ -960,9 +960,8 @@ class Files
 	{
 		if ($file = ci()->file_m->select('files.*, file_folders.name foldername, file_folders.slug, file_folders.location, file_folders.remote_container')
 			->join('file_folders', 'files.folder_id = file_folders.id')
-			->get_by('files.id', $id))
-		{
-			AppliedKeyword::deleteByHash($file->keywords);
+			->get_by('files.id', $id)) {
+			Applied::deleteByHash($file->keywords);
 
 			ci()->file_m->delete($id);
 

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
  * @author    PyroCMS Dev Team
  * @package  PyroCMS\Core\Modules\Keywords\Models
  */
-class AppliedKeyword extends Model
+class Applied extends Model
 {
     /**
      * Define the table name

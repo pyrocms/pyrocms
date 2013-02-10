@@ -1,7 +1,6 @@
 <?php 
 
 use Pyro\Module\Keywords\Model\Keyword;
-use Pyro\Module\Keywords\Model\AppliedKeyword;
 
 /**
  * Maintain a central list of keywords to label and organize your content.
@@ -66,7 +65,7 @@ class Admin extends Admin_Controller
 
 			if ($result = Keyword::create(array('name' => $name))) {
 				// Fire an event. A new keyword has been added.
-				Events::trigger('keyword_created', $result->id);
+				Events::trigger('keyword_created', $result);
 
 				$this->session->set_flashdata('success', sprintf(lang('keywords:add_success'), $name));
 			} else {
@@ -86,7 +85,6 @@ class Admin extends Admin_Controller
 			->set('keyword', $keyword)
 			->build('admin/form');
 	}
-
 
 	/**
 	 * Edit a keyword
@@ -108,9 +106,9 @@ class Admin extends Admin_Controller
 
 			$name = $this->input->post('name');
 
-			if ($success = $keyword->update(array('name' => $name))) {
+			if ($result = $keyword->update(array('name' => $name))) {
 				// Fire an event. A keyword has been updated.
-				Events::trigger('keyword_updated', $id);
+				Events::trigger('keyword_updated', $result);
 				$this->session->set_flashdata('success', sprintf(lang('keywords:edit_success'), $name));
 			} else {
 				$this->session->set_flashdata('error', sprintf(lang('keywords:edit_error'), $name));
@@ -134,9 +132,9 @@ class Admin extends Admin_Controller
 	 */
 	public function delete($id = 0)
 	{
-		if ($success = Keyword::find($id)->delete()) {
+		if ($result = Keyword::find($id)->delete()) {
 			// Fire an event. A keyword has been deleted.
-			Events::trigger('keyword_deleted', $id);
+			Events::trigger('keyword_deleted', $result);
 			$this->session->set_flashdata('success', lang('keywords:delete_success'));
 		} else {
 			$this->session->set_flashdata('error', lang('keywords:delete_error'));

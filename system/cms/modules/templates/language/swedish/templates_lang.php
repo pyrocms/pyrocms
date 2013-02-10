@@ -20,6 +20,7 @@ $lang['templates:edit_title'] = 'Redigera mall "%s"';
 $lang['templates:clone_title'] = 'Kopiera mall "%s"';
 $lang['templates:list_title'] = 'Mallar';
 $lang['templates:default_title'] = 'Standardmallar';
+$lang['templates:currently_no_templates']	= 'There are no user defined templates.'; #Translate
 $lang['templates:user_defined_title'] = 'Användardefinierade mallar';
 $lang['templates:tmpl_create_success'] = 'E-postmallen "%s" är sparad.';
 $lang['templates:tmpl_create_error'] = 'E-postmallen "%s" kunde inte sparas.';

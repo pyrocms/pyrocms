@@ -1,7 +1,7 @@
 <?php 
 
 use Pyro\Module\Keywords\Model\Keyword;
-use Pyro\Module\Keywords\Model\AppliedKeyword;
+use Pyro\Module\Keywords\Model\Applied;
 
 /**
  * Keywords Library
@@ -12,14 +12,6 @@ use Pyro\Module\Keywords\Model\AppliedKeyword;
 
 class Keywords
 {
-	/**
-	 * The Keywords Construct
-	 */
-	public function __construct()
-	{
-	
-	}
-
 	/**
 	 * Get keywords
 	 *
@@ -32,7 +24,7 @@ class Keywords
 	{
 		$keywords = array();
 
-		foreach (AppliedKeyword::getNamesByHash($hash) as $keyword)
+		foreach (Applied::getNamesByHash($hash) as $keyword)
 		{
 			$keywords[] = $keyword->name;
 		}
@@ -52,7 +44,7 @@ class Keywords
 	{
 		$keywords = array();
 
-		foreach (AppliedKeyword::getNamesByHash($hash) as $keyword)
+		foreach (Applied::getNamesByHash($hash) as $keyword)
 		{
 			$keywords[] = $keyword->name;
 		}
@@ -70,7 +62,7 @@ class Keywords
 	 */
 	public static function get($hash)
 	{
-		return AppliedKeyword::getNamesByHash($hash);
+		return Applied::getNamesByHash($hash);
 	}
 
 	/**
@@ -122,7 +114,7 @@ class Keywords
 		// Remove the old keyword assignments if we're updating
 		if ($old_hash !== null)
 		{
-			AppliedKeyword::deleteByHash($old_hash);
+			Applied::deleteByHash($old_hash);
 		}
 
 		// No keywords? Let's not bother then
@@ -152,7 +144,7 @@ class Keywords
 			}
 
 			// Create assignment record
-			AppliedKeyword::add($assignment_hash, $keyword_id);
+			Applied::add($assignment_hash, $keyword_id);
 		}
 
 		return $assignment_hash;
