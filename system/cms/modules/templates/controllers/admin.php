@@ -182,7 +182,7 @@ class Admin extends Admin_Controller
 				$data = array(
 					'subject' => $this->input->post('subject'),
 					'body' => $this->input->post('body')
-				));
+				);
 			} else {
 				$data = array(
 					'slug' => $this->input->post('slug'),
@@ -192,7 +192,7 @@ class Admin extends Admin_Controller
 					'body' => $this->input->post('body'),
 					'lang' => $this->input->post('lang'),
 					'module' => $this->input->post('module')
-				));
+				);
 			}
 
 			if ($result = Email::find($id)->update($data)) {
