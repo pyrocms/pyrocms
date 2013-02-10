@@ -104,14 +104,14 @@ class Admin extends Admin_Controller
 
 		if ($this->form_validation->run()) {
 
-			$name = $this->input->post('name');
+			$keyword->name = $this->input->post('name');
 
-			if ($result = $keyword->update(array('name' => $name))) {
+			if ($keyword->save()) {
 				// Fire an event. A keyword has been updated.
-				Events::trigger('keyword_updated', $result);
-				$this->session->set_flashdata('success', sprintf(lang('keywords:edit_success'), $name));
+				Events::trigger('keyword_updated', $keyword);
+				$this->session->set_flashdata('success', sprintf(lang('keywords:edit_success'), $keyword->name));
 			} else {
-				$this->session->set_flashdata('error', sprintf(lang('keywords:edit_error'), $name));
+				$this->session->set_flashdata('error', sprintf(lang('keywords:edit_error'), $keyword->name));
 			}
 
 			redirect('admin/keywords');
