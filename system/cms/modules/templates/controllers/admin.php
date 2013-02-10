@@ -179,29 +179,24 @@ class Admin extends Admin_Controller
 
 		if ($this->form_validation->run()) {
 			if ($email_template->is_default) {
-				$data = array(
-					'subject' => $this->input->post('subject'),
-					'body' => $this->input->post('body')
-				);
+				$email_template->subject = $this->input->post('subject');
+				$email_template->body = $this->input->post('body');
 			} else {
-				$data = array(
-					'slug' => $this->input->post('slug'),
-					'name' => $this->input->post('name'),
-					'description' => $this->input->post('description'),
-					'subject' => $this->input->post('subject'),
-					'body' => $this->input->post('body'),
-					'lang' => $this->input->post('lang'),
-					'module' => $this->input->post('module')
-				);
+				$email_template->slug = $this->input->post('slug');
+				$email_template->name = $this->input->post('name');
+				$email_template->description = $this->input->post('description');
+				$email_template->subject = $this->input->post('subject');
+				$email_template->body = $this->input->post('body');
+				$email_template->lang = $this->input->post('lang');
 			}
 
-			if ($result = Email::find($id)->update($data)) {
+			if ($email_template->save()) {
 				// Fire an event. An email template has been updated.
-				Events::trigger('email_template_updated', $result);
+				Events::trigger('email_template_updated', $email_template);
 
-				$this->session->set_flashdata('success', sprintf(lang('templates:tmpl_edit_success'), $result->name));
+				$this->session->set_flashdata('success', sprintf(lang('templates:tmpl_edit_success'), $email_template->name));
 			} else {
-				$this->session->set_flashdata('error', sprintf(lang('templates:tmpl_edit_error'), $result->name));
+				$this->session->set_flashdata('error', sprintf(lang('templates:tmpl_edit_error'), $email_template->name));
 			}
 			redirect('admin/templates');
 		}

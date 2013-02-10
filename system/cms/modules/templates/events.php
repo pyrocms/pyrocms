@@ -35,8 +35,6 @@ class Events_Templates {
         $slug = $data['slug'];
         unset($data['slug']);
 
-        $this->ci->load->model('templates/email_templates_m');
-
 		//get all email templates
 		$templates = EmailTemplate::findBySlug($slug);
 
