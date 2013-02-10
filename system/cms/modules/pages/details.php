@@ -176,7 +176,7 @@ class Module_Pages extends Module
 				'id' => array('type' => 'INT', 'constraint' => 11, 'auto_increment' => true, 'primary' => true),
 				'slug' => array('type' => 'VARCHAR', 'constraint' => 255, 'default' => ''),
 				'title' => array('type' => 'VARCHAR', 'constraint' => 60),
-				'description' => array('type' => 'TEXT'),
+				'description' => array('type' => 'TEXT', 'null' => true),
 				'stream_id' => array('type' => 'INT', 'constraint' => 11),
 				'meta_title' => array('type' => 'VARCHAR', 'constraint' => 255, 'null' => true),
 				'meta_keywords' => array('type' => 'CHAR', 'constraint' => 32, 'null' => true),

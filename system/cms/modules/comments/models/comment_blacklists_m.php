@@ -16,7 +16,6 @@ class Comment_blacklists_m extends MY_Model {
 		$this->_table = $this->db->dbprefix('comment_blacklists');
 	}
 
-	
 	public function save($data)
 	{
 		if ($this->_get_count($data) < 1)
@@ -32,10 +31,14 @@ class Comment_blacklists_m extends MY_Model {
 
 	public function is_blacklisted($data)
 	{
-		if ($this->_get_count($data) > 0)
+		// We will always get an email address since it's required.
+		// The only variable is the website. If it wasn't provided,
+		// we can't check by it.
+		if ( ! trim($data['website']))
 		{
-			return true;
+			return (bool)$this->db->where('email', $data['email'])->count_all_results('comment_blacklists');
 		}
-		return false;
+
+		return (bool)$this->_get_count($data);
 	}
 }

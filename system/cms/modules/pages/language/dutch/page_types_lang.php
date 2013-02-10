@@ -13,12 +13,12 @@ $lang['page_types:select_stream']              = 'Stream'; #translate
 $lang['page_types:theme_layout_label']         = 'Thema Type';
 $lang['page_types:save_as_files']              = 'Save as Files'; #translate
 $lang['page_types:content_label']              = 'Content Tab Label'; #translate
-$lang['page_types:title_label']                = 'Title Label'; #translate
-$lang['page_types:sync_files']                 = 'Sync Files'; #translate
+$lang['page_types:title_label']                = 'Titellabel';
+$lang['page_types:sync_files']                 = 'Synchroniseer bestanden';
 
 // titles
 $lang['page_types:list_title']                 = 'Overzicht paginatypes';
-$lang['page_types:list_title_sing']            = 'Page Type'; #translate
+$lang['page_types:list_title_sing']            = 'Paginatype';
 $lang['page_types:create_title']               = 'Voeg paginalayout toe';
 $lang['page_types:edit_title']                 = 'Bewerk paginalayout "%s"';
 
@@ -35,13 +35,13 @@ $lang['page_types:delete_success']             = 'Paginalayout #%s is verwijderd
 $lang['page_types:mass_delete_success']        = '%s paginatypes zijn verwijderd.';
 $lang['page_types:delete_none_notice']         = 'De paginatypes zijn niet verwijderd.';
 $lang['page_types:already_exist_error']        = 'A table with that name already exists. Please choose a different name for this page type.'; #translate
-$lang['page_types:_check_pt_slug_msg']         = 'Your page type slug must be unique.'; #translate
+$lang['page_types:_check_pt_slug_msg']         = 'Uw paginatype moet uniek zijn.';
 
 $lang['page_types:variable_introduction']      = 'In deze velden zijn twee variabelen beschikbaar';
 $lang['page_types:variable_title']             = 'Bevat de titel van de pagina.';
 $lang['page_types:variable_body']              = 'Bevat de HTML body van de pagina.';
 $lang['page_types:sync_notice']                = 'Only able to sync %s from the file system.'; #translate
-$lang['page_types:sync_success']               = 'Files synced successfully.'; #translate
+$lang['page_types:sync_success']               = 'Bestanden zijn gesynchroniseerd.';
 $lang['page_types:sync_fail']                  = 'Unable to sync your files.'; #translate
 
 // Instructions

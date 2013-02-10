@@ -12,6 +12,7 @@ class Migration_Add_page_types_description_field extends CI_Migration
             $columns = array(
                 'description' => array(
                             'type' => 'TEXT',
+                            'null' => true
                         ),
             );
             $this->dbforge->add_column('page_types', $columns, 'title');

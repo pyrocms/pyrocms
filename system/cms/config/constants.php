@@ -85,7 +85,7 @@ unset($base_uri, $base_url);
 |
 */
 
-define('CMS_VERSION', '2.2.0-beta2');
+define('CMS_VERSION', '2.2.0-rc1');
 
 /*
 |--------------------------------------------------------------------------
@@ -103,10 +103,10 @@ define('CMS_EDITION', 'Community');
 | PyroCMS Release Date
 |--------------------------------------------------------------------------
 |
-| When was the current version of PyroCMS released?
+| When was the current version of PyroCMS released - in US Date format now.
 |
 */
 
-define('CMS_DATE', '12/20/2012');
+define('CMS_DATE', '02/09/2013');
 
 /* End of file constants.php */
