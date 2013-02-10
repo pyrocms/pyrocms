@@ -183,7 +183,6 @@ class Ajax extends MY_Controller {
 	 * in user has access to the module that
 	 * is calling the function via JS.
 	 *
-	 * @access 	private
 	 * @return 	mixed
 	 */
 	private function _check_module_accessibility()

@@ -576,7 +576,7 @@ class Streams_m extends CI_Model {
 			// Loop through and apply the filters
 			foreach ( $filter_data['filters'] as $filter=>$value )
 			{
-				if ( strlen($value) > 0 ) $this->db->like(str_replace('f_', '', $filter), $value);
+				if ( strlen($value) > 0 ) $this->db->like($stream->stream_prefix.$stream->stream_slug.'.'.str_replace('f_', '', $filter), $value);
 			}
 		}
 
@@ -850,7 +850,6 @@ class Streams_m extends CI_Model {
 	 * Check to see if the table name needed for a stream is
 	 * actually available.
 	 *
-	 * @access 	public
 	 * @param 	string
 	 * @param 	string
 	 * @param 	string
@@ -865,9 +864,9 @@ class Streams_m extends CI_Model {
 	/**
 	 * Remove a field assignment
 	 *
-	 * @param	obj
-	 * @param	obj
-	 * @param	obj
+	 * @param	object
+	 * @param	object
+	 * @param	object
 	 * @return	bool
 	 */
 	public function remove_field_assignment($assignment, $field, $stream)

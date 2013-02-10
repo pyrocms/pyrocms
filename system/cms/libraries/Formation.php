@@ -58,7 +58,6 @@ class Formation
 	 * Imports the global config and custom config (if given).  We have this
 	 * to support CI's loader which calls the construct.
 	 *
-	 * @access	public
 	 * @param	array	$custom_config
 	 */
 	public function __construct($custom_config = array())
@@ -72,7 +71,6 @@ class Formation
 	 * Imports the global config and custom config (if given) and initializes
 	 * the global CI instance.
 	 *
-	 * @access	public
 	 * @param	array	$custom_config
 	 */
 	public static function init($custom_config = array())
@@ -106,7 +104,6 @@ class Formation
 	 *
 	 * Merges a config array into the current config
 	 *
-	 * @access	public
 	 * @param	array	$config
 	 * @return	void
 	 */
@@ -133,7 +130,6 @@ class Formation
 	 *
 	 * Adds a form to the config
 	 *
-	 * @access	public
 	 * @param	string	$form_name
 	 * @param	array	$attributes
 	 * @param	array	$fields
@@ -157,7 +153,6 @@ class Formation
 	 *
 	 * Returns the form with all fields and options as an array
 	 *
-	 * @access	private
 	 * @param	string	$form_name
 	 * @return	array
 	 */
@@ -176,7 +171,6 @@ class Formation
 	 *
 	 * Adds a field to a given form
 	 *
-	 * @access	public
 	 * @param	string	$form_name
 	 * @param	string	$field_name
 	 * @param	array	$attributes
@@ -208,7 +202,6 @@ class Formation
 	 *
 	 * Allows you to add multiple fields at once.
 	 *
-	 * @access	public
 	 * @param	string	$form_name
 	 * @param	array	$fields
 	 * @return	void
@@ -226,7 +219,6 @@ class Formation
 	 *
 	 * Allows you to modify a field.
 	 *
-	 * @access	public
 	 * @param	string	$form_name
 	 * @param	string	$field_name
 	 * @param	array	$attributes
@@ -248,7 +240,6 @@ class Formation
 	 *
 	 * Allows you to modify multiple fields at once.
 	 *
-	 * @access	public
 	 * @param	string	$form_name
 	 * @param	array	$fields
 	 * @return	void
@@ -266,7 +257,6 @@ class Formation
 	 *
 	 * Checks if a form exists
 	 *
-	 * @access	public
 	 * @param	string	$form_name
 	 * @return	bool
 	 */
@@ -294,7 +284,6 @@ class Formation
 	 *
 	 * Builds a form and returns well-formatted, valid XHTML for output.
 	 *
-	 * @access	public
 	 * @param	string	$form_name
 	 * @return	string
 	 */
@@ -314,7 +303,6 @@ class Formation
 	 *
 	 * Builds a field and returns well-formatted, valid XHTML for output.
 	 *
-	 * @access	public
 	 * @param	string	$name
 	 * @param	string	$properties
 	 * @param	string	$form_name
@@ -406,7 +394,6 @@ class Formation
 	 *
 	 * Generates the fields opening tags.
 	 *
-	 * @access	private
 	 * @param	string	$type
 	 * @param	bool	$required
 	 * @return	string
@@ -433,7 +420,6 @@ class Formation
 	 *
 	 * Generates the fields closing tags.
 	 *
-	 * @access	private
 	 * @param	string	$type
 	 * @param	bool	$required
 	 * @return	string
@@ -462,7 +448,6 @@ class Formation
 	 *
 	 * Generates a <select> element based on the given parameters
 	 *
-	 * @access	public
 	 * @param	array	$parameters
 	 * @param	int		$indent_amount
 	 * @return	string
@@ -512,7 +497,6 @@ class Formation
 	 *
 	 * Generates the opening <form> tag
 	 *
-	 * @access	public
 	 * @param	string	$action
 	 * @param	array	$options
 	 * @return	string
@@ -558,7 +542,6 @@ class Formation
 	 *
 	 * Generates the list of fields without the form open and form close tags
 	 *
-	 * @access	public
 	 * @param	string	$action
 	 * @param	array	$options
 	 * @return	string
@@ -599,7 +582,6 @@ class Formation
 	 *
 	 * Generates the closing </form> tag
 	 *
-	 * @access	public
 	 * @return	string
 	 */
 	public static function close()
@@ -612,7 +594,6 @@ class Formation
 	 *
 	 * Generates a label based on given parameters
 	 *
-	 * @access	public
 	 * @param	string	$value
 	 * @param	string	$for
 	 * @return	string
@@ -632,7 +613,6 @@ class Formation
 	 *
 	 * Generates an <input> tag
 	 *
-	 * @access	public
 	 * @param	array	$options
 	 * @return	string
 	 */
@@ -655,7 +635,6 @@ class Formation
 	 *
 	 * Generates a <textarea> tag
 	 *
-	 * @access	public
 	 * @param	array	$options
 	 * @return	string
 	 */
@@ -679,7 +658,6 @@ class Formation
 	 *
 	 * Takes an array of attributes and turns it into a string for an input
 	 *
-	 * @access	private
 	 * @param	array	$attr
 	 * @return	string
 	 */
@@ -714,7 +692,6 @@ class Formation
 	 *
 	 * Prepares the value for display in the form
 	 *
-	 * @access	public
 	 * @param	string	$value
 	 * @return	string
 	 */
@@ -732,7 +709,6 @@ class Formation
 	 * Adds the validation rules in each field to the $_validation array
 	 * and removes it from the field attributes
 	 *
-	 * @access	private
 	 * @return	void
 	 */
 	private static function parse_validation()
@@ -765,7 +741,6 @@ class Formation
 	 *
 	 * Runs form validation on the given form
 	 *
-	 * @access	public
 	 * @param	string	$form_name
 	 * @return	bool
 	 */
@@ -787,7 +762,6 @@ class Formation
 	 *
 	 * Returns a single form validation error
 	 *
-	 * @access	public
 	 * @param	string	$field_name
 	 * @param	string	$prefix
 	 * @param	string	$suffix
@@ -805,7 +779,6 @@ class Formation
 	 *
 	 * Returns all of the form validation errors
 	 *
-	 * @access	public
 	 * @param	string	$prefix
 	 * @param	string	$suffix
 	 * @return	string
@@ -822,7 +795,6 @@ class Formation
 	 *
 	 * Set's a fields value
 	 *
-	 * @access	public
 	 * @param	string	$form_name
 	 * @param	string	$field_name
 	 * @param	mixed	$value
@@ -893,7 +865,6 @@ class Formation
 	 *
 	 * Repopulates the entire form with the submitted data.
 	 *
-	 * @access	public
 	 * @param	string	$form_name
 	 * @return	string
 	 */
@@ -912,7 +883,6 @@ class Formation
 	 *
 	 * Checks if the form_validation library is loaded.  If it is not it loads it.
 	 *
-	 * @access	private
 	 * @return	void
 	 */
 	private static function load_validation()

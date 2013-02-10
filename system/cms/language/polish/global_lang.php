@@ -53,6 +53,7 @@ $lang['required_error_label']			      = 'Uzupełnij wymagane pole';
 $lang['note_label']						          = 'Notatka';
 $lang['success_label']					        = 'Sukces!';
 $lang['global:fields']					        = 'Pola';
+$lang['global:custom_fields']					= 'Custom Fields'; #translate
 
 $lang['login_title']					          = 'Zaloguj się';
 $lang['global:fatal_error']				      = 'Błąd krytyczny, sprawdź czy CMS jest zainstalowany!';

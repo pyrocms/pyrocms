@@ -26,7 +26,6 @@ class Parameter_fields
 	/**
 	 * Maxlength field
 	 *
-	 * @access	public
 	 * @param	string
 	 * @return 	string
 	 */
@@ -47,7 +46,6 @@ class Parameter_fields
 	/**
 	 * Upload location field
 	 *
-	 * @access	public
 	 * @param	string
 	 * @return 	string
 	 */
@@ -68,7 +66,6 @@ class Parameter_fields
 	/**
 	 * Default default field
 	 *
-	 * @access	public
 	 * @param	string
 	 * @return 	string
 	 */

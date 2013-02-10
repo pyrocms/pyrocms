@@ -48,7 +48,6 @@ class Field_email
 	 * tag array so relationship data can be called with
 	 * a {field.column} syntax
 	 *
-	 * @access	public
 	 * @param	string
 	 * @param	string
 	 * @param	array
@@ -57,8 +56,6 @@ class Field_email
 	public function pre_output_plugin($input, $params)
 	{
 		$choices = array();
-		
-		get_instance()->load->helper('url');
 		
 		$choices['email_address']		= $input;
 		$choices['mailto_link']			= mailto($input, $input);

@@ -45,7 +45,6 @@ class Field_datetime
 	/**
 	 * Event
 	 *
-	 * @access 	public
 	 * @param 	obj
 	 * @return 	void
 	 */
@@ -64,7 +63,6 @@ class Field_datetime
 	/**
 	 * Validate input
 	 *
-	 * @access	public
 	 * @param	string
 	 * @param	string - mode: edit or new
 	 * @param	object
@@ -518,7 +516,6 @@ class Field_datetime
 	 *
 	 * Before we add the field to a stream 
 	 *
-	 * @access	public
 	 * @param	obj
 	 * @param	obj
 	 * @return	void
@@ -548,7 +545,6 @@ class Field_datetime
 	 * Since we are not converting datetime/unix values right now,
 	 * this just ensures that we do not change the type.
 	 *
-	 * @access 	public
 	 * @param 	obj - field
 	 * @param 	obj - stream
 	 * @param 	obj - assignment
@@ -592,7 +588,6 @@ class Field_datetime
 	/**
 	 * Process before saving to database
 	 *
-	 * @access	public
 	 * @param	array
 	 * @param	obj
 	 * @return	string
@@ -697,7 +692,6 @@ class Field_datetime
 	 * Turns a single digit number into a
 	 * two digit number
 	 *
-	 * @access 	public
 	 * @param 	string
 	 * @return 	string
 	 */
@@ -731,7 +725,6 @@ class Field_datetime
 	 * - 'current' for the current year
 	 * - +num or -num for an offset of the current year
 	 *
-	 * @access	private
 	 * @param	string
 	 * @return	string
 	 */
@@ -780,7 +773,6 @@ class Field_datetime
 	 *
 	 * Breaks up the date into pieces for use in the form
 	 *
-	 * @access	private
 	 * @param	string
 	 * @return	array
 	 */
@@ -844,7 +836,6 @@ class Field_datetime
 	/**
 	 * Start Date
 	 *
-	 * @access	public
 	 * @param	string
 	 * @return	string
 	 */
@@ -865,7 +856,6 @@ class Field_datetime
 	/**
 	 * End Date
 	 *
-	 * @access	public
 	 * @param	string
 	 * @return	string
 	 */
@@ -886,7 +876,6 @@ class Field_datetime
 	/**
 	 * Should we use time? Extra parameter
 	 *
-	 * @access	public
 	 * @param	string
 	 * @return	string
 	 */
@@ -915,7 +904,6 @@ class Field_datetime
 	/**
 	 * How should we store this in the DB?
 	 *
-	 * @access	public
 	 * @param	string
 	 * @return	string
 	 */
@@ -941,7 +929,6 @@ class Field_datetime
 	/**
 	 * How should we store this in the DB?
 	 *
-	 * @access	public
 	 * @param	string
 	 * @return	string
 	 */
@@ -960,7 +947,6 @@ class Field_datetime
 	/**
 	 * Process before outputting
 	 *
-	 * @access	public
 	 * @param	array
 	 * @return	string
 	 */
@@ -995,7 +981,6 @@ class Field_datetime
 	 *
 	 * Ouput the UNIX time.
 	 * 
-	 * @access	public
 	 * @param	array
 	 * @return	string
 	 */
@@ -1020,10 +1005,9 @@ class Field_datetime
 	 * Formats the date so things don't get screwed up
 	 * by blank entries in the database
 	 *
-	 * @access	private
 	 * @param	string
-	 * @param	string
-	 * @param	[bool]
+	 * @param	int
+	 * @param	bool
 	 * @return	string
 	 */	
 	private function format_date($format, $unix_date, $standard = false)

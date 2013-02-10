@@ -10,13 +10,6 @@
 				<th width="180"><?php echo lang('global:actions') ?></th>
 			</tr>
 		</thead>
-		<tfoot>
-			<tr>
-				<td colspan="7">
-					<div class="inner"><?php $this->load->view('admin/partials/pagination') ?></div>
-				</td>
-			</tr>
-		</tfoot>
 		<tbody>
 			<?php foreach ($blog as $post) : ?>
 				<tr>
@@ -34,17 +27,19 @@
 					<td><?php echo lang('blog:'.$post->status.'_label') ?></td>
 					<td style="padding-top:10px;">
                         <?php if($post->status=='live') : ?>
-							<a href="<?php echo site_url('blog/'.date('Y/m', $post->created_on).'/'.$post->slug) ?>" title="<?php echo lang('global:view')?>" class="icon-search ti" target="_blank" style="margin-right:8px;"></a>
+							<a href="<?php echo site_url('blog/'.date('Y/m', $post->created_on).'/'.$post->slug) ?>" title="<?php echo lang('global:view')?>" class="button" target="_blank"><?php echo lang('global:view')?></a>
                         <?php else: ?>
-							<a href="<?php echo site_url('blog/preview/' . $post->preview_hash) ?>" title="<?php echo lang('global:preview')?>" class="icon-search ti" target="_blank" style="margin-right:8px;"></a>
+							<a href="<?php echo site_url('blog/preview/' . $post->preview_hash) ?>" title="<?php echo lang('global:preview')?>" class="button" target="_blank"><?php echo lang('global:preview')?></a>
                         <?php endif ?>
-						<a href="<?php echo site_url('admin/blog/edit/' . $post->id) ?>" title="<?php echo lang('global:edit')?>" class="icon-edit edit ti" style="margin-right:6px;"></a>
-						<a href="<?php echo site_url('admin/blog/delete/' . $post->id) ?>" class="icon-remove confirm delete ti"></a>
+						<a href="<?php echo site_url('admin/blog/edit/' . $post->id) ?>" title="<?php echo lang('global:edit')?>" class="button"><?php echo lang('global:edit')?></a>
+						<a href="<?php echo site_url('admin/blog/delete/' . $post->id) ?>" title="<?php echo lang('global:delete')?>" class="button confirm"><?php echo lang('global:delete')?></a>
 					</td>
 				</tr>
 			<?php endforeach ?>
 		</tbody>
 	</table>
+
+	<?php $this->load->view('admin/partials/pagination') ?>
 
 	<div class="table_action_buttons">
 		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete', 'publish'))) ?>

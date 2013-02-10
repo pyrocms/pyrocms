@@ -81,7 +81,6 @@ class Field_year
 	 * - 'current' for the current year
 	 * - +num or -num for an offset of the current year
 	 *
-	 * @access	private
 	 * @param	string
 	 * @return	string
 	 */
@@ -133,7 +132,6 @@ class Field_year
 	/**
 	 * Start Year
 	 *
-	 * @access	public
 	 * @param	[string - value]
 	 * @return	string
 	 */
@@ -151,7 +149,6 @@ class Field_year
 	/**
 	 * End Year
 	 *
-	 * @access	public
 	 * @param	[string - value]
 	 * @return	string
 	 */
@@ -169,7 +166,6 @@ class Field_year
 	/**
 	 * Start Year
 	 *
-	 * @access	public
 	 * @param	[string - value]
 	 * @return	string
 	 */

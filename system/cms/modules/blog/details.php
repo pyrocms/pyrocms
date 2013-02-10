@@ -1,4 +1,6 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed');
+<?php
+
+use Capsule\Schema;
 
 /**
  * Blog module
@@ -12,7 +14,7 @@ class Module_Blog extends Module
 
 	public function info()
 	{
-		return array(
+		$info = array(
 			'name' => array(
 				'en' => 'Blog',
 				'ar' => 'المدوّنة',
@@ -91,16 +93,34 @@ class Module_Blog extends Module
 				),
 			),
 		);
+
+		if (function_exists('group_has_role'))
+		{
+			if(group_has_role('blog', 'admin_blog_fields'))
+			{
+				$info['sections']['fields'] = array(
+					'name' 	=> 'global:custom_fields',
+					'uri' 	=> 'admin/blog/fields',
+						'shortcuts' => array(
+							'create' => array(
+								'name' 	=> 'streams:add_field',
+								'uri' 	=> 'admin/blog/fields/create',
+								'class' => 'add'
+								)
+							)
+					);
+			}
+		}
+
+		return $info;
 	}
 
 	public function install()
 	{
-		$schema = $this->pdb->getSchemaBuilder();
+		Schema::dropIfExists('blog');
+		Schema::dropIfExists('blog_categories');
 
-		$schema->dropIfExists('blog');
-		$schema->dropIfExists('blog_categories');
-
-		$schema->create('blog', function($table) { 
+		Schema::create('blog', function($table) { 
 			$table->increments('id');
 			$table->string('slug', 200)->unique();
 			$table->string('title', 200)->unique();
@@ -122,11 +142,42 @@ class Module_Blog extends Module
 			$table->index('category_id');
 		});
 
-		$schema->create('blog_categories', function($table) { 
+		Schema::create('blog_categories', function($table) { 
 			$table->increments('id');
 			$table->string('slug', 100)->nullable()->unique();
 			$table->string('title', 100)->nullable()->unique();
 		});
+
+		$this->load->driver('Streams');
+		$this->streams->utilities->remove_namespace('blogs');
+
+		if (Schema::hasTable('data_streams')) {
+			$this->pdb
+				->table('data_streams')
+				->where('stream_namespace', 'blogs')
+				->delete();
+		}
+
+		$this->streams->streams->add_stream(
+			'lang:blog:blog_title',
+			'blog',
+			'blogs',
+			null,
+			null
+		);
+
+		// Add the intro field.
+		// This can be later removed by an admin.
+		$intro_field = array(
+			'name'		=> 'lang:blog:intro_label',
+			'slug'		=> 'intro',
+			'namespace' => 'blogs',
+			'type'		=> 'wysiwyg',
+			'assign'	=> 'blog',
+			'extra'		=> array('editor_type' => 'simple', 'allow_tags' => 'y'),
+			'required'	=> true
+		);
+		$this->streams->fields->add_field($intro_field);
 
 		return true;
 	}

@@ -20,7 +20,6 @@ class File_folders_m extends MY_Model {
 	 *
 	 * Checks if a given folder exists.
 	 *
-	 * @access	public
 	 * @param	int		The folder id or slug
 	 * @return	bool	If the folder exists
 	 */
@@ -45,7 +44,6 @@ class File_folders_m extends MY_Model {
 	 *
 	 * Checks if a given folder has children or not.
 	 *
-	 * @access	public
 	 * @param	int		The folder id
 	 * @return	bool	If the folder has children
 	 */

@@ -28,7 +28,6 @@ class Field_slug
 	 *
 	 * Add the slugify plugin
 	 *
-	 * @access	public
 	 * @return	void
 	 */
 	public function event()
@@ -44,7 +43,6 @@ class Field_slug
 	/**
 	 * Output form input
 	 *
-	 * @access	public
 	 * @param	array
 	 * @return	string
 	 */

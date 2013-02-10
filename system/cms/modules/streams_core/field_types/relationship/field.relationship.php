@@ -82,7 +82,6 @@ class Field_relationship
 	/**
 	 * Get a list of streams to choose from
 	 *
-	 * @access	public
 	 * @return	string
 	 */
 	public function param_choose_stream($stream_id = false)
@@ -114,7 +113,6 @@ class Field_relationship
 	 * this is accomplished via just grabbing the title column
 	 * and the id and displaying a link (ie, no joins here).
 	 *
-	 * @access	public
 	 * @param	array 	$input 	
 	 * @return	mixed 	null or string
 	 */
@@ -173,7 +171,6 @@ class Field_relationship
 	 * be queried separately in pre_output_plugin. Pre_output_plugin
 	 * now just formats the rows.
 	 *
-	 * @access 	public
 	 * @param 	array 	&$sql 	The sql array to add to.
 	 * @param 	obj 	$field 	The field obj
 	 * @param 	obj 	$stream The stream object
@@ -224,7 +221,6 @@ class Field_relationship
 	 * This takes the data from the join array
 	 * and formats it using the row parser.
 	 *
-	 * @access	public
 	 * @param	array 	$row 		the row data from the join
 	 * @param	array  	$custom 	custom field data
 	 * @param	mixed 	null or formatted array

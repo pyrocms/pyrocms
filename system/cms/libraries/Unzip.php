@@ -55,7 +55,6 @@ class Unzip {
 	/**
 	 * Constructor
 	 *
-	 * @access    Public
 	 * @param     string
 	 * @return    none
 	 */
@@ -69,7 +68,6 @@ class Unzip {
 	/**
 	 * Unzip all files in archive.
 	 *
-	 * @access    Public
 	 * @param     none
 	 * @return    none
 	 */
@@ -148,7 +146,6 @@ class Unzip {
 	/**
 	 * What extensions do we want out of this ZIP
 	 *
-	 * @access    Public
 	 * @param     none
 	 * @return    none
 	 */
@@ -162,7 +159,6 @@ class Unzip {
 	/**
 	 * Show error messages
 	 *
-	 * @access    public
 	 * @param    string
 	 * @return    string
 	 */
@@ -176,7 +172,6 @@ class Unzip {
 	/**
 	 * Show debug messages
 	 *
-	 * @access    public
 	 * @param    string
 	 * @return    string
 	 */
@@ -190,7 +185,6 @@ class Unzip {
 	/**
 	 * Save errors
 	 *
-	 * @access    Private
 	 * @param    string
 	 * @return    none
 	 */
@@ -204,7 +198,6 @@ class Unzip {
 	/**
 	 * Save debug data
 	 *
-	 * @access    Private
 	 * @param    string
 	 * @return    none
 	 */
@@ -218,7 +211,6 @@ class Unzip {
 	/**
 	 * List all files in archive.
 	 *
-	 * @access    Public
 	 * @param     boolean
 	 * @return    mixed
 	 */
@@ -263,7 +255,6 @@ class Unzip {
 	/**
 	 * Unzip file in archive.
 	 *
-	 * @access    Public
 	 * @param     string, boolean
 	 * @return    Unziped file.
 	 */
@@ -317,7 +308,6 @@ class Unzip {
 	/**
 	 * Free the file resource.
 	 *
-	 * @access    Public
 	 * @param     none
 	 * @return    none
 	 */
@@ -335,7 +325,6 @@ class Unzip {
 	/**
 	 * Free the file resource Automatic destroy.
 	 *
-	 * @access    Public
 	 * @param     none
 	 * @return    none
 	 */
@@ -349,7 +338,6 @@ class Unzip {
 	/**
 	 * Uncompress file. And save it to the targetFile.
 	 *
-	 * @access    Private
 	 * @param     Filecontent, int, int, boolean
 	 * @return    none
 	 */

@@ -22,7 +22,7 @@
 							var cache = {}, lastXhr;
 							$(".search-query").autocomplete({
 								minLength: 2,
-								delay: 300,
+								delay: 200,
 								source: function( request, response ) {
 									var term = request.term;
 									if ( term in cache ) {
@@ -37,6 +37,11 @@
 										}
 									});
 								},
+								
+								open: function (event, ui) {
+									$(this).data("autocomplete").menu.element.addClass("search-results animated-zing dropDown");
+								},
+								
 								focus: function(event, ui) {
 									// $("#searchform").val( ui.item.label);
 									return false;
@@ -49,7 +54,7 @@
 							.data("autocomplete")._renderItem = function(ul, item){
 								return $("<li></li>")
 								.data("item.autocomplete", item)
-								.append('<a href="' + item.url + '">' + item.title + '</a><div class="keywords">' + item.keywords + '</div><div class="singular">' + item.singular + '</div>')
+								.append('<a href="' + item.url + '">' + '<span>' + item.title + '</span>' + '<div class="keywords">' + item.keywords + '</div><div class="singular">' + item.singular + '</div>' + '</a>')
 								.appendTo(ul);
 							};
 						});

@@ -93,7 +93,6 @@ class Field_chunks
 	 * value in the form so this gets processed, but we
 	 * ignore it and grab all the chunk inputs.
 	 *
-	 * @access	public
 	 * @param	array
 	 * @return	string
 	 */

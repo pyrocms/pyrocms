@@ -53,6 +53,7 @@ $lang['required_error_label'] 			= '缺少必要欄位'; 	//'Required field miss
 $lang['note_label'] 					= '注意'; 			//'Note';
 $lang['success_label'] 					= '成功'; 			//'Success';
 $lang['global:fields']					= 'Fields'; #translate
+$lang['global:custom_fields']			= 'Custom Fields'; #translate
 
 $lang['login_title'] 					= '登入'; 			//'Log In';
 $lang['global:fatal_error'] 				= '嚴重錯誤，CMS安裝了嗎？'; //'Fatal error, is CMS installed?';

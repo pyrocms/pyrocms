@@ -127,7 +127,6 @@ class Streams_fields extends CI_Driver {
 	/**
 	 * Assign field to stream
 	 *
-	 * @access	public
 	 * @param	string - namespace
 	 * @param	string - stream slug
 	 * @param	string - field slug
@@ -198,7 +197,6 @@ class Streams_fields extends CI_Driver {
 	 * This also removes the actual column
 	 * from the database.
 	 *
-	 * @access	public
 	 * @param	string - namespace
 	 * @param	string - stream slug
 	 * @param	string - field slug
@@ -248,7 +246,6 @@ class Streams_fields extends CI_Driver {
 	/**
 	 * Delete field
 	 *
-	 * @access	public
 	 * @param	string - field slug
 	 * @param	string - field namespace
 	 * @return	bool
@@ -267,7 +264,6 @@ class Streams_fields extends CI_Driver {
 	/**
 	 * Update field
 	 *
-	 * @access	public
 	 * @param	string - slug
 	 * @param	array - new data
 	 * @return	bool
@@ -287,7 +283,6 @@ class Streams_fields extends CI_Driver {
 	 * Get assigned fields for
 	 * a stream.
 	 *
-	 * @access	public
 	 * @param	string - field slug
 	 * @param	string - namespace
 	 * @return	object
@@ -309,7 +304,6 @@ class Streams_fields extends CI_Driver {
 	 * This includes the input and other
 	 * associated data.
 	 *
-	 * @access	public
 	 * @param	[int - limit]
 	 * @param	[int - offset]
 	 * @return	object

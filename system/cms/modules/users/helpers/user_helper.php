@@ -13,7 +13,6 @@
 /**
  * Checks to see if a user is logged in or not.
  * 
- * @access public
  * @return bool
  */
 function is_logged_in()
@@ -26,7 +25,6 @@ function is_logged_in()
 /**
  * Checks if a group has access to module or role
  * 
- * @access public
  * @param string $module sameple: pages
  * @param string $role sample: put_live
  * @return bool
@@ -58,7 +56,6 @@ function group_has_role($module, $role)
 /**
  * Checks if role has access to module or returns error 
  * 
- * @access public
  * @param string $module sample: pages
  * @param string $role sample: edit_live
  * @param string $redirect_to (default: 'admin') Url to redirect to if no access

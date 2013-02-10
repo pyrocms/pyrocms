@@ -23,7 +23,6 @@ class Field_state
 	/**
 	 * Our glorious 50 states!
 	 *
-	 * @access 	public
 	 * @var 	array
 	 */
 	public $raw_states = array(
@@ -164,7 +163,6 @@ class Field_state
 	/**
 	 * Do we want the state full name of abbreviation?
 	 *
-	 * @access	public
 	 * @return	string
 	 */	
 	public function param_state_display($value = null)
@@ -182,7 +180,6 @@ class Field_state
 	/**
 	 * Default Country Parameter
 	 *
-	 * @access 	public
 	 * @return 	string
 	 */
 	public function param_default_state($input)
@@ -199,7 +196,6 @@ class Field_state
 	 *
 	 * Returns an array of states
 	 *
-	 * @access	private
 	 * @return	array
 	 */
 	private function states($is_required, $state_display = 'abbr')

@@ -264,7 +264,6 @@ class Admin_types extends Admin_Controller
 	 * to choose an appropriate stream. These are
 	 * separated by namespace.
 	 *
-	 * @access 	private
 	 * @return 	array
 	 */
 	private function get_stream_dropdown_list()
@@ -389,7 +388,6 @@ class Admin_types extends Admin_Controller
 	/**
 	 * Edit Fields for a certain page type.
 	 *
-	 * @access 	public
 	 * @return 	void
 	 */
 	public function fields()
@@ -443,7 +441,6 @@ class Admin_types extends Admin_Controller
 	/**
 	 * Sync page files for a certain page type.
 	 *
-	 * @access 	public
 	 * @return 	void
 	 */
 	public function sync()
@@ -494,7 +491,6 @@ class Admin_types extends Admin_Controller
 	 * Used for any controller function that needs to make sure they
 	 * have a valid page type in a segment.
 	 *
-	 * @access 	private
 	 * @param 	int
 	 * @return 	void or page type obj
 	 */

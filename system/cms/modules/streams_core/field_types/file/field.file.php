@@ -80,7 +80,6 @@ class Field_file
 	/**
 	 * Process before saving to database
 	 *
-	 * @access	public
 	 * @param	array
 	 * @param	obj
 	 * @return	string
@@ -127,7 +126,6 @@ class Field_file
 	/**
 	 * Process before outputting
 	 *
-	 * @access	public
 	 * @param	array
 	 * @return	mixed - null or string
 	 */	
@@ -158,7 +156,6 @@ class Field_file
 	 * tag array so relationship data can be called with
 	 * a {field.column} syntax
 	 *
-	 * @access	public
 	 * @param	string
 	 * @param	string
 	 * @param	array
@@ -203,7 +200,6 @@ class Field_file
 	/**
 	 * Choose a folder to upload to.
 	 *
-	 * @access	public
 	 * @param	[string - value]
 	 * @return	string
 	 */	
@@ -241,7 +237,6 @@ class Field_file
 	/**
 	 * Param Allowed Types
 	 *
-	 * @access	public
 	 * @param	[string - value]
 	 * @return	string
 	 */

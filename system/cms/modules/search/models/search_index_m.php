@@ -148,7 +148,7 @@ class Search_index_m extends CI_Model
 	public function count($query)
 	{
 		return $this->db
-			->where('MATCH(title, description, keywords) AGAINST ("'.$this->db->escape_str($query).'" IN BOOLEAN MODE) > 0', null, false)
+			->where('MATCH(title, description, keywords) AGAINST ("*'.$this->db->escape_str($query).'*" IN BOOLEAN MODE) > 0', null, false)
 			->count_all_results('search_index');
 	}
 

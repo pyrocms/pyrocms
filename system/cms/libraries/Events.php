@@ -191,7 +191,6 @@ class Events
 
 	/**
 	 *
-	 * @access	public
 	 * @param	string	
 	 * @return	bool	
 	 */

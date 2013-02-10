@@ -71,7 +71,6 @@ class Field_user
 	 *
 	 * This joins our user fields.
 	 *
-	 * @access 	public
 	 * @param 	array 	&$sql 	The sql array to add to.
 	 * @param 	obj 	$field 	The field obj
 	 * @param 	obj 	$stream The stream object

@@ -208,7 +208,6 @@ class Module_m extends MY_Model
 	 *
 	 * Adds a module to the database
 	 *
-	 * @access	public
 	 * @param	array	$module		Information about the module
 	 * @return	object
 	 */

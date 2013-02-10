@@ -30,7 +30,6 @@ class Field_wysiwyg
 	 *
 	 * Called before the form is built.
 	 *
-	 * @access	public
 	 * @return	void
 	 */
 	public function event()
@@ -50,7 +49,6 @@ class Field_wysiwyg
 	/**
 	 * Pre-Ouput WYSUWYG content
 	 *
-	 * @access 	public
 	 * @param 	string
 	 * @return 	string
 	 */

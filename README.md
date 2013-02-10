@@ -1,5 +1,7 @@
 # PyroCMS Community Edition
 
+[![Build Status](https://secure.travis-ci.org/pyrocms/pyrocms.png?branch=2.3/develop)](https://travis-ci.org/pyrocms/pyrocms)
+
 * [Website](http://pyrocms.com/)
 * [Documentation](https://www.pyrocms.com/support/documentation)
 * [License](http://pyrocms.com/legal/license)
@@ -15,8 +17,7 @@
 
 ## Description
 
-PyroCMS is a CMS built using the CodeIgniter PHP framework. Using an MVC architecture
-it was built with modularity in mind. Lightweight, themeable and dynamic.
+PyroCMS is an MVC PHP Content Management System built to be easy to use, theme and develop with. It is used by individuals and organizations of all sizes around the world.
 
 PyroCMS Community Edition is free to use, redistribute and/or modify for any purpose whether personal or commercial however you must retain the copyright in your source code and in the footer of the administration.
 

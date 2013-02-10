@@ -57,7 +57,6 @@ abstract class Theme {
 	 * Allows this class and classes that extend this to use $this-> just like
 	 * you were in a controller.
 	 *
-	 * @access	public
 	 * @return	mixed
 	 */
 	public function __get($var)
