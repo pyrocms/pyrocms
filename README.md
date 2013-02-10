@@ -61,6 +61,7 @@ It's strongly recommended that you download the [git-flow client](https://github
 * [Stephen Cozart](http://twitter.com/stephencozart)
 * [Matt Frost](http://shortwhitebaldguy.com)
 * [Ryan Thompson](http://aiwebsystems.com)
+* [Andrew Smith](http://silentworks.co.uk)
 
 Think you should be on this list? Add yourself in the next pull request you submit.
 
