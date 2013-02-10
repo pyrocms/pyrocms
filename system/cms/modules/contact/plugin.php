@@ -339,7 +339,7 @@ class Plugin_Contact extends Plugin
 			$userdata = $this->session->all_userdata();
 			
 			// Finally, we insert the same thing into the log as what we sent
-			$this->contact_m->insert_log($data);
+			Contact_m::create($data);
 		
 			foreach ($results as $result)
 			{
