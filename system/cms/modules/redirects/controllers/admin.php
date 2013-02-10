@@ -122,13 +122,11 @@ class Admin extends Admin_Controller
         )));
 
         if ($this->form_validation->run()) {
-            $result = Redirect::find($id)->update(array(
-                'type' => $this->input->post('type'),
-                'from' => $this->input->post('from'),
-                'to' => $this->input->post('to')
-            ));
+            $redirect->type = $this->input->post('type');
+            $redirect->from = $this->input->post('from');
+            $redirect->to = $this->input->post('to');
 
-            if ($result) {
+            if ($redirect->save()) {
                 $this->session->set_flashdata('success', $this->lang->line('redirects:edit_success'));
                 
                 Events::trigger('redirect_updated', $id);
