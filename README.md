@@ -5,12 +5,12 @@
 * [Website](http://pyrocms.com/)
 * [Documentation](https://www.pyrocms.com/support/documentation)
 * [License](http://pyrocms.com/legal/license)
-* [Forums](http://pyrocms.com/forums)
+* [Forums](http://forum.pyrocms.com)
 * Version: 2.2.0-beta2
 
 ## Team
 
-* [Adam Fairholm](http://parse19.com/)
+* [Adam Fairholm](http://adamfairholm.com/)
 * [Jerel Unruh](http://unruhdesigns.com/)
 * [Phil Sturgeon](http://philsturgeon.co.uk/)
 * [Joshua Pekera](http://joshuapekera.com/)
@@ -22,11 +22,9 @@ it was built with modularity in mind. Lightweight, themeable and dynamic.
 
 PyroCMS Community Edition is free to use, redistribute and/or modify for any purpose whether personal or commercial however you must retain the copyright in your source code and in the footer of the administration.
 
-
 ## Installation
 
 Run http://example.com/installer to run the web-based installation script.
-
 
 ## Upgrading
 
@@ -35,7 +33,7 @@ Run http://example.com/installer to run the web-based installation script.
 ## Bugs & Feature Requests
 
 [Issue tracker](http://github.com/pyrocms/pyrocms/issues)
-[Forum](http://www.pyrocms.com/forums)
+[Forum](http://forum.pyrocms.com)
 
 Before reporting bugs or requesting any features, please check that it does not already exist.
 
