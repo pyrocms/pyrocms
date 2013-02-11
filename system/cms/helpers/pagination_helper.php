@@ -23,7 +23,7 @@ if ( ! function_exists('create_pagination'))
 	 */
 	function create_pagination($uri, $total_rows, $limit = null, $uri_segment = 4, $full_tag_wrap = true)
 	{
-		$ci = & get_instance();
+		$ci = get_instance();
 		$ci->load->library('pagination');
 
 		$current_page = $ci->uri->segment($uri_segment, 0);
@@ -54,5 +54,42 @@ if ( ! function_exists('create_pagination'))
 			'offset' => $offset,
 			'links' => $ci->pagination->create_links($full_tag_wrap)
 		);
+	}
+}
+
+if ( ! function_exists('pagination_offset'))
+{
+
+	/**
+	 * Gets the offset and offset uri based on uri and total rows
+	 *
+	 * @param int $total_rows The total of the items to paginate.
+	 * @param string $uri The current URI.
+	 * @return array The offset array with `offset` and `uri` keys.
+	 */
+	function pagination_offset($uri, $total_rows)
+	{
+		$ci = get_instance();
+
+		if (isset($uri) && is_numeric($total_rows))
+		{
+			$segs = explode('/', $uri);
+			$offset['uri'] = count($segs)+1;
+	
+	 		$offset['offset'] = $ci->uri->segment($offset['uri'], 0);
+
+			// Calculate actual offset if not first page
+			if ( $offset['offset'] > 0 )
+			{
+				$offset['offset'] = ($offset['offset'] - 1) * $total_rows;
+			}
+  		}
+  		else
+  		{
+  			$offset['uri'] = null;
+  			$offset['offset'] = 0;
+  		}
+
+  		return $offset;
 	}
 }
