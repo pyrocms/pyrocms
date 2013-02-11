@@ -28,7 +28,7 @@ class File extends \Illuminate\Database\Eloquent\Model
 	 */ 
 	public function folder()
 	{
-		return $this->belongsTo('Folder', 'folder_id');
+		return $this->belongsTo('Pyro\Module\Files\Model\Folder', 'folder_id');
 	}
 	 
     /**

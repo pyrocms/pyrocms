@@ -28,7 +28,7 @@ class Folder extends \Illuminate\Database\Eloquent\Model
 	 */
 	public function files()
 	{
-		return $this->hasMany('File', 'folder_id');
+		return $this->hasMany('Pyro\Module\Files\Model\File', 'folder_id');
 	}
 	 
     /**
