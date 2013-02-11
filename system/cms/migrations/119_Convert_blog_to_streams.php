@@ -29,7 +29,7 @@ class Migration_Convert_blog_to_streams extends CI_Migration
 			// 'created_on' and 'updated_on' into 'created' and 'updated'.
 			// Streams needs created and updated to function, so we are going to
 			// just transfer the values.
-			$blogs = $this->db->select('id, created_on, updated_on')->get('blog')->result();
+			$blogs = $this->db->select('id, created_on, author_id, updated_on')->get('blog')->result();
 			foreach ($blogs as $blog)
 			{
 				$update = array(
