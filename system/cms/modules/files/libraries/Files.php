@@ -189,15 +189,14 @@ class Files
 		$folders = array();
 		$folder_array = array();
 
-		$all_folders = Folder::select('id, parent_id, slug, name')->orderBy('sort')->all();
+		$all_folders = Folder::findAndSortBySort();
 
 		// we must reindex the array first
-		foreach ($all_folders as $row) {
-			$folders[$row->id] = (array)$row;
+		foreach ($all_folders->toArray() as $row) {
+			$folders[$row['id']] = (array)$row;
 		}
 
 		unset($tree);
-
 		// build a multidimensional array of parent > children
 		foreach ($folders as $row) {
 			if (array_key_exists($row['parent_id'], $folders)) {

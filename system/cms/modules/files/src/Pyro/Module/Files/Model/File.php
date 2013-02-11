@@ -3,7 +3,7 @@
 /**
  * File model
  *
- * @author    PyroCMS Dev Team
+ * @author   PyroCMS Dev Team
  * @package  PyroCMS\Core\Modules\Keywords\Models
  */
 class File extends \Illuminate\Database\Eloquent\Model

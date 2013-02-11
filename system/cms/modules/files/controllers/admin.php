@@ -77,7 +77,7 @@ class Admin extends Admin_Controller {
 			->append_js('module::jquery.fileupload-ui.js')
 			->append_js('module::functions.js')
 			// should we show the "no data" message to them?
-			->set('folders', Folder::where('parent_id','=',0)->get())
+			->set('folders', Folder::findByParent(0))
 			->set('locations', array_combine(Files::$providers, Files::$providers))
 			->set('folder_tree', Files::folder_tree());
 

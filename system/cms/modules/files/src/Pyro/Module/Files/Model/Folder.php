@@ -3,7 +3,7 @@
 /**
  * Folder model
  *
- * @author    PyroCMS Dev Team
+ * @author   PyroCMS Dev Team
  * @package  PyroCMS\Core\Modules\Keywords\Models
  */
 class Folder extends \Illuminate\Database\Eloquent\Model
@@ -31,6 +31,28 @@ class Folder extends \Illuminate\Database\Eloquent\Model
     public static function findBySlug($slug)
     {
         return static::where('slug', '=', $slug)->first();
+    }
+
+    /**
+     * Get all folders ordered by sort
+     *
+     * @param string $direction The direction to sort results
+     * @return void
+     */
+    public static function findAndSortBySort($direction = 'asc')
+    {
+        return static::orderBy('sort', $direction)->get();
+    }
+
+    /**
+     * Get Folders by parent 
+     *
+     * @param int $parent_id
+     * @return void
+     */
+    public static function findByParent($parent_id = 0)
+    {
+        return static::where('parent_id','=',$parent_id)->get();
     }
 
     /**
