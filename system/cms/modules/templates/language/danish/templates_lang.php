@@ -16,6 +16,7 @@ $lang['templates:default_title']			= 'Standardskabeloner';
 $lang['templates:user_defined_title']		= 'Brugerdefineret skabeloner';
 
 // Messages
+$lang['templates:currently_no_templates']	= 'There are no user defined templates.'; #Translate
 $lang['templates:tmpl_create_success']		= 'E-mail skabelon "%s" er gemt.';
 $lang['templates:tmpl_create_error']		= 'E-mail skabelon "%s" er ikke gemt.';
 $lang['templates:tmpl_edit_success']		= 'Ændringer ved e-mail skabelon "%s" er gemt.';

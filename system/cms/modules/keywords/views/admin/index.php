@@ -5,7 +5,7 @@
 <section class="item">
 <div class="content">
 
-<?php if ($keywords): ?>
+<?php if ( ! $keywords->isEmpty()): ?>
     <table class="table-list" cellspacing="0">
 		<thead>
 			<tr>

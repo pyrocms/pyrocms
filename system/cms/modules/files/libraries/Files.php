@@ -1,4 +1,7 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php 
+
+use Pyro\Module\Keywords\Model\Applied;
+
 /**
  * PyroCMS File library. 
  *
@@ -172,12 +175,10 @@ class Files
 
 		if ($files)
 		{
-			ci()->load->library('keywords/keywords');
-
 			foreach ($files as &$file) 
 			{
 				$file->keywords_hash = $file->keywords;
-				$file->keywords = ci()->keywords->get_string($file->keywords);
+				$file->keywords = Keywords::get_string($file->keywords);
 				$file->formatted_date = format_date($file->date_added);
 			}
 		}
@@ -959,11 +960,8 @@ class Files
 	{
 		if ($file = ci()->file_m->select('files.*, file_folders.name foldername, file_folders.slug, file_folders.location, file_folders.remote_container')
 			->join('file_folders', 'files.folder_id = file_folders.id')
-			->get_by('files.id', $id))
-		{
-			ci()->load->model('keywords/keyword_m');
-
-			ci()->keyword_m->delete_applied($file->keywords);
+			->get_by('files.id', $id)) {
+			Applied::deleteByHash($file->keywords);
 
 			ci()->file_m->delete($id);
 

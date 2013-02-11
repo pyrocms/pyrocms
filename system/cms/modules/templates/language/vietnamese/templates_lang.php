@@ -26,6 +26,7 @@ $lang['templates:default_title']			= 'Mẫu mặc định';
 $lang['templates:user_defined_title']		= 'Mẫu do người dùng định nghĩa';
 
 // Messages
+$lang['templates:currently_no_templates']	= 'There are no user defined templates.'; #Translate
 $lang['templates:tmpl_create_success']		= 'Mẫu Email "%s" đã được lưu.';
 $lang['templates:tmpl_create_error']		= 'Mẫu Email "%s" chưa được lưu.';
 $lang['templates:tmpl_edit_success']		= 'Các thay đổi cho mẫu email "%s" đã được lưu.';

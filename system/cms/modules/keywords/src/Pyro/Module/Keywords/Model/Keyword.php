@@ -1,4 +1,4 @@
-<?php
+<?php namespace Pyro\Module\Keywords\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
  * @author	  PyroCMS Dev Team
  * @package	 PyroCMS\Core\Modules\Keywords\Models
  */
-class Keyword_m extends Model
+class Keyword extends Model
 {
 	/**
 	 * Define the table name
@@ -31,7 +31,7 @@ class Keyword_m extends Model
 	 */
 	public function hashes()
 	{
-		return $this->hasMany('AppliedKeyword_m', 'keyword_id');
+		return $this->hasMany('Applied', 'keyword_id');
 	}
 
 	/**

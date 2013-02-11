@@ -16,6 +16,7 @@ $lang['templates:default_title']			= 'תבניות ברירת מחדל';
 $lang['templates:user_defined_title']		= 'תבניות משתמשים';
 
 // Messages
+$lang['templates:currently_no_templates']	= 'There are no user defined templates.'; #Translate
 $lang['templates:tmpl_create_success']		= 'תבנית דואר אלקטרוני "%s" נשמרה בהצלחה.';
 $lang['templates:tmpl_create_error']		= 'תבנית דואר אלקטרונ "%s" לא נשמרה.';
 $lang['templates:tmpl_edit_success']		= 'השינויים שנעשו עבור תבנית דואר אלקטרונ "%s" נשמרו בהצלחה.';
