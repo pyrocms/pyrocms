@@ -48,9 +48,9 @@ class File extends \Illuminate\Database\Eloquent\Model
      * @param int $parent_id
      * @return void
      */
-    public static function findByParentAndSortBySort($parent_id = 0)
+    public static function findByFolderIdAndSortBySort($parent_id = 0)
     {
-        return static::where('parent_id','=',$parent_id)->orderBy('sort')->get();
+        return static::where('folder_id','=',$parent_id)->orderBy('sort')->get();
     }
 	
 	/**

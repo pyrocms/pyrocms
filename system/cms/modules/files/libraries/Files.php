@@ -149,7 +149,7 @@ class Files
 
 		$folders = Folder::findByParentAndSortBySort($parent)->toArray();
 
-		$files = File::findByParentAndSortbySort($parent)->toArray();
+		$files = File::findByFolderIdAndSortbySort($parent)->toArray();
 
 		// let's be nice and add a date in that's formatted like the rest of the CMS
 		if ($folders) {
