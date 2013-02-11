@@ -1,6 +1,6 @@
 <?php 
 
-use Pyro\Module\Templates\Model\EmailTemplate;
+use Pyro\Module\Templates\Model\Email;
 
 /**
  * Email Template Events Class
@@ -36,7 +36,7 @@ class Events_Templates {
         unset($data['slug']);
 
 		//get all email templates
-		$templates = EmailTemplate::findBySlug($slug);
+		$templates = Email::findBySlug($slug);
 
         //make sure we have something to work with
         if ( ! empty($templates))
