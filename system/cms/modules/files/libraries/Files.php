@@ -59,9 +59,6 @@ class Files
 		set_exception_handler(array($this, 'exception_handler'));
 		set_error_handler(array($this, 'error_handler'));
 
-		//TODO Remove this...
-		//ci()->load->model('files/file_m');
-		//ci()->load->model('files/file_folders_m');
 		ci()->load->spark('cloudmanic-storage/1.0.4');
 	}
 
@@ -83,7 +80,7 @@ class Files
 
 		$slug = $original_slug;
 
-		while (Folder::where('slug','=',$slug)->count()) {
+		while (Folder::findBySlug($slug)->count()) {
 			$i++;
 			$slug = $original_slug.'-'.$i;
 			$name = $original_name.'-'.$i;
@@ -149,21 +146,21 @@ class Files
 		// they can also pass a url hash such as #foo/bar/some-other-folder-slug
 		if ( ! is_numeric($parent)) {
 			$segment = explode('/', trim($parent, '/#'));
-			$result = ci()->file_folders_m->get_by('slug', array_pop($segment));
+			$result = Folder::findBySlug(array_pop($segment));
 
 			$parent = ($result ? $result->id : 0);
 		}
 
-		$folders = Folder::where('parent_id','=',$parent)->orderBy('sort')->get();
+		$folders = Folder::findByParentAndSortBySort($parent);
 
-		$files = File::where('folder_id','=',$parent)->orderBy('sort')->get();
+		$files = File::findByParentAndSortbySort($parent);
 
 		// let's be nice and add a date in that's formatted like the rest of the CMS
 		if ($folders) {
 			foreach ($folders as &$folder) {
 				$folder->formatted_date = format_date($folder->date_added);
 
-				$folder->file_count = File::where('folder_id','=',$folder->id)->count();
+				$folder->file_count = File::findByFolderId($folder->id)->count();
 			}
 		}
 

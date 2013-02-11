@@ -22,4 +22,26 @@ class Folder extends \Illuminate\Database\Eloquent\Model
      */
     public $timestamps = false;
 
+    /**
+     * Get a single folder by slug
+     *
+     * @param  string $slug The slug of the folder to retrieve
+     * @return object
+     */
+    public static function findBySlug($slug)
+    {
+        return static::where('slug', '=', $slug)->first();
+    }
+
+    /**
+     * Get Folders by parent ordered by sort
+     *
+     * @param int $parent_id
+     * @return void
+     */
+    public static function findByParentAndSortBySort($parent_id = 0)
+    {
+        return static::where('parent_id','=',$parent_id)->orderBy('sort')->get();
+    }
+
 }
