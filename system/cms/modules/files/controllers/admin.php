@@ -1,4 +1,8 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php 
+
+use Pyro\Module\Files\Model\File;
+use Pyro\Module\Files\Model\Folder;
+
 /**
  * PyroCMS file Admin Controller
  *
@@ -73,14 +77,13 @@ class Admin extends Admin_Controller {
 			->append_js('module::jquery.fileupload-ui.js')
 			->append_js('module::functions.js')
 			// should we show the "no data" message to them?
-			->set('folders', $this->file_folders_m->count_by('parent_id', 0))
+			->set('folders', Folder::where('parent_id','=',0)->get())
 			->set('locations', array_combine(Files::$providers, Files::$providers))
 			->set('folder_tree', Files::folder_tree());
 
 		$path_check = Files::check_dir(Files::$path);
 
-		if ( ! $path_check['status'])
-		{
+		if ( ! $path_check['status']) {
 			$this->template->set('messages', array('error' => $path_check['message']));
 		}
 
@@ -95,8 +98,7 @@ class Admin extends Admin_Controller {
 	public function new_folder()
 	{
 		// This is just a safeguard if they circumvent the JS permissions
-		if ( ! in_array('create_folder', Files::allowed_actions()))
-		{
+		if ( ! in_array('create_folder', Files::allowed_actions())) {
 			show_error(lang('files:no_permissions'));
 		}
 
@@ -155,27 +157,28 @@ class Admin extends Admin_Controller {
 	 */
 	public function order()
 	{
-
-		if ($collection = $this->input->post('order'))
-		{
-			foreach ($collection as $type => $item)
-			{
+		if ($collection = $this->input->post('order')) {
+			foreach ($collection as $type => $item) {
 				$i = 0;
 
-				foreach ($item as $id) 
-				{
-					$model = ($type == 'folder') ? 'file_folders_m' : 'file_m';
+				foreach ($item as $id) {
+					if ($type == 'folder') {
+						$folder = Folder::find($id);
+						$folder->sort = $i;
+						$folder->save();
+					} else {
+						$file = File::find($id);
+						$file->sort = $i;
+						$file->save();
+					}
 
-					$this->{$model}->update_by('id', $id, array('sort' => $i));
 					$i++;
 				}
 			}
 
 			// let the files library format the return array like all the others
 			echo json_encode(Files::result(true, lang('files:sort_saved')));
-		}
-		else 
-		{
+		} else {
 			echo json_encode(Files::result(false, lang('files:save_failed')));
 		}
 	}
@@ -186,13 +189,11 @@ class Admin extends Admin_Controller {
 	public function rename_folder()
 	{
 		// this is just a safeguard if they circumvent the JS permissions
-		if ( ! in_array('edit_folder', Files::allowed_actions()))
-		{
+		if ( ! in_array('edit_folder', Files::allowed_actions())) {
 			show_error(lang('files:no_permissions'));
 		}
 
-		if ($id = $this->input->post('folder_id') and $name = $this->input->post('name'))
-		{
+		if ($id = $this->input->post('folder_id') and $name = $this->input->post('name')) {
 			$result = Files::rename_folder($id, $name);
 			
 			$result['status'] AND Events::trigger('file_folder_updated', $id);
@@ -207,13 +208,11 @@ class Admin extends Admin_Controller {
 	public function delete_folder()
 	{
 		// this is just a safeguard if they circumvent the JS permissions
-		if ( ! in_array('delete_folder', Files::allowed_actions()))
-		{
+		if ( ! in_array('delete_folder', Files::allowed_actions())) {
 			show_error(lang('files:no_permissions'));
 		}
 
-		if ($id = $this->input->post('folder_id'))
-		{
+		if ($id = $this->input->post('folder_id')) {
 			$result = Files::delete_folder($id);
 
 			$result['status'] AND Events::trigger('file_folder_deleted', $id);
@@ -231,21 +230,17 @@ class Admin extends Admin_Controller {
 		if ( ! in_array('upload', Files::allowed_actions()) AND
 			// replacing files needs upload and delete permission
 			! ( $this->input->post('replace_id') && ! in_array('delete', Files::allowed_actions()) )
-		)
-		{
+		) {
 			show_error(lang('files:no_permissions'));
 		}
 
 		$result = null;
 		$input = $this->input->post();
 
-		if($input['replace_id'] > 0)
-		{
+		if($input['replace_id'] > 0) {
 			$result = Files::replace_file($input['replace_id'], $input['folder_id'], $input['name'], 'file', $input['width'], $input['height'], $input['ratio'], $input['alt_attribute']);
 			$result['status'] AND Events::trigger('file_replaced', $result['data']);
-		}
-		elseif ($input['folder_id'] and $input['name'])
-		{
+		} elseif ($input['folder_id'] and $input['name']) {
 			$result = Files::upload($input['folder_id'], $input['name'], 'file', $input['width'], $input['height'], $input['ratio'], null, $input['alt_attribute']);
 			$result['status'] AND Events::trigger('file_uploaded', $result['data']);
 		}
@@ -259,13 +254,11 @@ class Admin extends Admin_Controller {
 	public function rename_file()
 	{
 		// this is just a safeguard if they circumvent the JS permissions
-		if ( ! in_array('edit_file', Files::allowed_actions()))
-		{
+		if ( ! in_array('edit_file', Files::allowed_actions())) {
 			show_error(lang('files:no_permissions'));
 		}
 
-		if ($id = $this->input->post('file_id') and $name = $this->input->post('name'))
-		{
+		if ($id = $this->input->post('file_id') and $name = $this->input->post('name')) {
 			$result = Files::rename_file($id, $name);
 
 			$result['status'] AND Events::trigger('file_updated', $result['data']);
@@ -283,9 +276,12 @@ class Admin extends Admin_Controller {
 		$keywords_hash	= Keywords::process($this->input->post('keywords'), $this->input->post('old_hash'));
 		$alt_attribute	= $this->input->post('alt_attribute');
 
-		if ($id = $this->input->post('file_id'))
-		{
-			$this->file_m->update($id, array('description' => $description, 'keywords' => $keywords_hash, 'alt_attribute' => $alt_attribute));
+		if ($id = $this->input->post('file_id')) {
+			$file = File::find($id);
+			$file->description = $description;
+			$file->keywords = $keywords_hash;
+			$file->alt_attribute = $alt_attribute;
+			$file->save();
 
 			echo json_encode(Files::result(true, lang('files:description_saved')));
 		}
@@ -296,9 +292,10 @@ class Admin extends Admin_Controller {
 	 */
 	public function save_alt()
 	{
-		if ($id = $this->input->post('file_id') AND $alt_attribute = $this->input->post('alt_attribute'))
-		{
-			$this->file_m->update($id, array('alt_attribute' => $alt_attribute));
+		if ($id = $this->input->post('file_id') AND $alt_attribute = $this->input->post('alt_attribute')) {
+			$file = File::find($id);
+			$file->alt_attribute = $alt_attribute;
+			$file->save();
 			
 			echo json_encode(Files::result(TRUE, lang('files:alt_saved')));
 		}
@@ -310,14 +307,14 @@ class Admin extends Admin_Controller {
 	public function save_location()
 	{
 		// this is just a safeguard if they circumvent the JS permissions
-		if ( ! in_array('set_location', Files::allowed_actions()))
-		{
+		if ( ! in_array('set_location', Files::allowed_actions())) {
 			show_error(lang('files:no_permissions'));
 		}
 
-		if ($id = $this->input->post('folder_id') and $location = $this->input->post('location') and $container = $this->input->post('container'))
-		{
-			$this->file_folders_m->update($id, array('location' => $location));
+		if ($id = $this->input->post('folder_id') and $location = $this->input->post('location') and $container = $this->input->post('container')) {
+			$folder = Folder::find($id);
+			$folder->location = $location;
+			$folder->save();
 
 			echo json_encode(Files::create_container($container, $location, $id));
 		}
@@ -329,13 +326,11 @@ class Admin extends Admin_Controller {
 	public function synchronize()
 	{
 		// this is just a safeguard if they circumvent the JS permissions
-		if ( ! in_array('synchronize', Files::allowed_actions()))
-		{
+		if ( ! in_array('synchronize', Files::allowed_actions())) {
 			show_error(lang('files:no_permissions'));
 		}
 
-		if ($id = $this->input->post('folder_id'))
-		{
+		if ($id = $this->input->post('folder_id')) {
 			echo json_encode(Files::synchronize($id));
 		}
 	}
@@ -350,13 +345,11 @@ class Admin extends Admin_Controller {
 	public function delete_file()
 	{
 		// this is just a safeguard if they circumvent the JS permissions
-		if ( ! in_array('delete_file', Files::allowed_actions()))
-		{
+		if ( ! in_array('delete_file', Files::allowed_actions())) {
 			show_error(lang('files:no_permissions'));
 		}
 
-		if ($id = $this->input->post('file_id'))
-		{
+		if ($id = $this->input->post('file_id')) {
 			$result = Files::delete_file($id);
 
 			$result['status'] AND Events::trigger('file_deleted', $id);

@@ -1,6 +1,8 @@
 <?php 
 
 use Pyro\Module\Keywords\Model\Applied;
+use Pyro\Module\Files\Model\File;
+use Pyro\Module\Files\Model\Folder;
 
 /**
  * PyroCMS File library. 
