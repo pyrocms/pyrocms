@@ -59,8 +59,9 @@ class Files
 		set_exception_handler(array($this, 'exception_handler'));
 		set_error_handler(array($this, 'error_handler'));
 
-		ci()->load->model('files/file_m');
-		ci()->load->model('files/file_folders_m');
+		//TODO Remove this...
+		//ci()->load->model('files/file_m');
+		//ci()->load->model('files/file_folders_m');
 		ci()->load->spark('cloudmanic-storage/1.0.4');
 	}
 
@@ -82,28 +83,26 @@ class Files
 
 		$slug = $original_slug;
 
-		while (ci()->file_folders_m->count_by('slug', $slug))
-		{
+		while (Folder::where('slug','=',$slug)->count()) {
 			$i++;
 			$slug = $original_slug.'-'.$i;
 			$name = $original_name.'-'.$i;
 		}
 
-		$insert = array('parent_id' => $parent, 
-						'slug' => $slug, 
-						'name' => $name,
-						'location' => $location,
-						'remote_container' => $remote_container,
-						'date_added' => now(), 
-						'sort' => now()
-						);
+		$folder = Folder::create(array(
+			'parent_id' => $parent, 
+			'slug' => $slug, 
+			'name' => $name,
+			'location' => $location,
+			'remote_container' => $remote_container,
+			'date_added' => now(), 
+			'sort' => now()
+		));
 
-		$id = ci()->file_folders_m->insert($insert);
-
-		$insert['id'] = $id;
+		$insert['id'] = $folder->id;
 		$insert['file_count'] = 0;
 
-		return self::result(true, lang('files:item_created'), $insert['name'], $insert);
+		return self::result(true, lang('files:item_created'), $insert['name'], $folder->toArray());
 	}
 
 	// ------------------------------------------------------------------------
@@ -123,13 +122,13 @@ class Files
 		$result = ci()->storage->create_container($container, 'public');
 
 		// if they are also linking a local folder then we save that
-		if ($id)
-		{
-			ci()->db->where('id', $id)->update('file_folders', array('remote_container' => $container));
+		if ($id) {
+			$folder = Folder::find($id);
+			$folder->remote_container = $container;
+			$folder->save();
 		}
 
-		if ($result)
-		{
+		if ($result) {
 			return self::result(true, lang('files:container_created'), $container);
 		}
 
@@ -148,37 +147,28 @@ class Files
 	public static function folder_contents($parent = 0)
 	{
 		// they can also pass a url hash such as #foo/bar/some-other-folder-slug
-		if ( ! is_numeric($parent))
-		{
+		if ( ! is_numeric($parent)) {
 			$segment = explode('/', trim($parent, '/#'));
 			$result = ci()->file_folders_m->get_by('slug', array_pop($segment));
 
 			$parent = ($result ? $result->id : 0);
 		}
 
-		$folders = ci()->file_folders_m->where('parent_id', $parent)
-			->order_by('sort')
-			->get_all();
+		$folders = Folder::where('parent_id','=',$parent)->orderBy('sort')->get();
 
-		$files = ci()->file_m->where('folder_id', $parent)
-			->order_by('sort')
-			->get_all();
+		$files = File::where('folder_id','=',$parent)->orderBy('sort')->get();
 
 		// let's be nice and add a date in that's formatted like the rest of the CMS
-		if ($folders)
-		{
-			foreach ($folders as &$folder) 
-			{
+		if ($folders) {
+			foreach ($folders as &$folder) {
 				$folder->formatted_date = format_date($folder->date_added);
 
-				$folder->file_count = ci()->file_m->count_by('folder_id', $folder->id);
+				$folder->file_count = File::where('folder_id','=',$folder->id)->count();
 			}
 		}
 
-		if ($files)
-		{
-			foreach ($files as &$file) 
-			{
+		if ($files) {
+			foreach ($files as &$file) {
 				$file->keywords_hash = $file->keywords;
 				$file->keywords = Keywords::get_string($file->keywords);
 				$file->formatted_date = format_date($file->date_added);
@@ -206,29 +196,24 @@ class Files
 		$folders = array();
 		$folder_array = array();
 
-		ci()->db->select('id, parent_id, slug, name')->order_by('sort');
-		$all_folders = ci()->file_folders_m->get_all();
+		$all_folders = Folder::select('id, parent_id, slug, name')->orderBy('sort')->all();
 
 		// we must reindex the array first
-		foreach ($all_folders as $row)
-		{
+		foreach ($all_folders as $row) {
 			$folders[$row->id] = (array)$row;
 		}
 
 		unset($tree);
 
 		// build a multidimensional array of parent > children
-		foreach ($folders as $row)
-		{
-			if (array_key_exists($row['parent_id'], $folders))
-			{
+		foreach ($folders as $row) {
+			if (array_key_exists($row['parent_id'], $folders)) {
 				// add this folder to the children array of the parent folder
 				$folders[$row['parent_id']]['children'][] =& $folders[$row['id']];
 			}
 
 			// this is a root folder
-			if ($row['parent_id'] == 0)
-			{
+			if ($row['parent_id'] == 0) {
 				$folder_array[] =& $folders[$row['id']];
 			}
 		}
@@ -251,10 +236,8 @@ class Files
 
 		$containers = ci()->storage->list_containers();
 
-		foreach($containers AS $container)
-		{
-			if ($name === $container)
-			{
+		foreach ($containers as $container) {
+			if ($name === $container) {
 				return self::result(true, lang('files:container_exists'), $name);
 			}
 		}
@@ -279,20 +262,18 @@ class Files
 
 		$slug = $original_slug;
 
-		while (ci()->file_folders_m->where('id !=', $id)->count_by('slug', $slug))
-		{
+		while (Folder::all()->where('id','!=',$id)->where('slug','=',$slug)->count()) {
 			$i++;
 			$slug = $original_slug.'-'.$i;
 			$name = $original_name.'-'.$i;
 		}
 
-		$insert = array('slug' => $slug, 
-						'name' => $name
-						);
+		$folder = Folder::find($id);
+		$folder->slug = $slug;
+		$folder->name = $name;
+		$folder->save();
 
-		ci()->file_folders_m->update($id, $insert);
-
-		return self::result(true, lang('files:item_updated'), $insert['name'], $insert);
+		return self::result(true, lang('files:item_updated'), $folder->name, $folder->toArray());
 	}
 
 	// ------------------------------------------------------------------------
