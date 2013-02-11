@@ -933,12 +933,15 @@ class Files
 	**/
 	public static function delete_file($id = 0)
 	{
-		if ($file = ci()->file_m->select('files.*, file_folders.name foldername, file_folders.slug, file_folders.location, file_folders.remote_container')
+		if ($file = File::find($id)) {
+			/*
+			 ci()->file_m->select('files.*, file_folders.name foldername, file_folders.slug, file_folders.location, file_folders.remote_container')
 			->join('file_folders', 'files.folder_id = file_folders.id')
-			->get_by('files.id', $id)) {
+			->get_by('files.id', $id)
+			 */
 			Applied::deleteByHash($file->keywords);
 
-			ci()->file_m->delete($id);
+			$file->delete();
 
 			self::_unlink_file($file);
 
@@ -1217,8 +1220,9 @@ class Files
 		}
 		else
 		{
-			ci()->storage->load_driver($file->location);
-			ci()->storage->delete_file($file->remote_container, $file->filename);
+			$folder = $file->folder;
+			ci()->storage->load_driver($folder->location);
+			ci()->storage->delete_file($folder->remote_container, $file->filename);
 
 			@unlink(self::$_cache_path.$file->filename);
 		}

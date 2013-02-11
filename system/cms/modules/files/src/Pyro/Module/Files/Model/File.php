@@ -22,6 +22,15 @@ class File extends \Illuminate\Database\Eloquent\Model
      */
     public $timestamps = false;
 
+	/*
+	 * Relationship with Folder
+	 * 
+	 */ 
+	public function folder()
+	{
+		return $this->belongsTo('Folder', 'folder_id');
+	}
+	 
     /**
      * Get files by folder_id
      *
@@ -44,6 +53,14 @@ class File extends \Illuminate\Database\Eloquent\Model
         return static::where('parent_id','=',$parent_id)->orderBy('sort')->get();
     }
 	
+	/**
+     * Get Files by an array of keywords
+     *
+     * @param array $search
+	 * @param integer $limit
+	 * 
+     * @return void
+     */
 	public static function findByKeywords($search, $limit = 5)
 	{
 		// search the file records

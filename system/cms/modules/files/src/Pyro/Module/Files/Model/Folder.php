@@ -22,6 +22,15 @@ class Folder extends \Illuminate\Database\Eloquent\Model
      */
     public $timestamps = false;
 
+	/*
+	 * Relationship to File
+	 * 
+	 */
+	public function file()
+	{
+		return $this->hasMany('File', 'folder_id');
+	}
+	 
     /**
      * Get a single folder by slug
      *
@@ -66,6 +75,14 @@ class Folder extends \Illuminate\Database\Eloquent\Model
         return static::where('parent_id','=',$parent_id)->orderBy('sort')->get();
     }
 	
+	/**
+     * Get Files by an array of keywords
+     *
+     * @param array $search
+	 * @param integer $limit
+	 * 
+     * @return void
+     */
 	public static function findByKeywords($search, $limit = 5)
 	{
 		// first we search folders
