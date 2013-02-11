@@ -29,6 +29,138 @@ class Streams_cp extends CI_Driver {
 	// --------------------------------------------------------------------------
 
 	/**
+	 * Streams Table
+	 *
+	 * Creates a table of streams.
+ 	 *
+	 * @param	string - the stream namespace slug
+	 * @param	[mixed - pagination, either null for no pagination or a number for per page]
+	 * @param	[null - pagination uri without offset]
+	 * @param	[bool - setting this to true will take care of the $this->template business
+	 * @param	[array - extra params (see below)]
+	 * @return	mixed - void or string
+	 *
+	 * Extra parameters to pass in $extra array:
+	 *
+	 * title	- Title of the page header (if using view override)
+	 *			$extra['title'] = 'Streams Sample';
+	 * 
+	 * buttons	- an array of buttons (if using view override)
+	 *			$extra['buttons'] = array(
+	 *				'label' 	=> 'View Options',
+	 *				'url'		=> 'admin/streams_sample/view_options/-stream_id-',
+	 *				'confirm'	= true
+	 *			);
+	 */
+	public function streams_table($namespace, $pagination = null, $pagination_uri = null, $view_override = false, $extra = array())
+	{
+		// -------------------------------------
+		// Get fields
+		// -------------------------------------
+		
+		$this->CI->db->where('is_hidden', 'no');
+    	$this->CI->data->streams = $this->CI->streams->streams->get_streams($namespace, $pagination, $pagination_uri);
+
+		// -------------------------------------
+		// Pagination
+		// -------------------------------------
+    	$offset = pagination_offset($pagination_uri, $pagination);
+
+		$this->CI->data->pagination = create_pagination(
+										$pagination_uri,
+										$this->CI->streams_m->total_streams($namespace),
+										$pagination,
+										$offset['uri']);
+
+		// -------------------------------------
+		// Build Page
+		// -------------------------------------
+
+		$this->CI->data->buttons = isset($extra['buttons']) ? $extra['buttons'] : null;
+
+		// Set title
+		if (isset($extra['title']))
+		{
+			$this->CI->template->title($extra['title']);
+		}
+
+		// Set custom no data message
+		if (isset($extra['no_entries_message']))
+		{
+			$data['no_entries_message'] = $extra['no_entries_message'];
+		}
+		
+		$table = $this->CI->load->view('admin/partials/streams/streams', $this->CI->data, true);
+		
+		if ($view_override)
+		{
+			// Hooray, we are building the template ourself.
+			$this->CI->template->build('admin/partials/blank_section', array('content' => $table));
+		}
+		else
+		{
+			// Otherwise, we are returning the table
+			return $table;
+		}
+	}
+
+	// --------------------------------------------------------------------------   
+
+    /**
+     * Choose which items to view
+     */
+ 	public function view_options($stream_id = '', $namespace = '')
+ 	{
+		if ( ! $this->CI->data->stream = $this->CI->streams_m->get_stream($stream_id, ! is_numeric($stream_id), $namespace))
+		{
+			show_error(lang('streams:invalid_stream_id'));
+		}
+  		check_stream_permission($this->CI->data->stream);
+
+  		// -------------------------------------
+		// Process Data
+		// ------------------------------------
+
+		if( $this->CI->input->post('view_options') ):
+		
+			$opts = $this->CI->input->post('view_options');
+		
+			$update_data['view_options'] = serialize($opts);
+			
+			$this->CI->db->where('id', $this->CI->data->stream->id);
+			
+			if( !$this->CI->db->update(STREAMS_TABLE, $update_data) ):
+			
+				$this->CI->session->set_flashdata('notice', lang('streams:view_options_update_error'));
+				
+			else:
+			
+				$this->CI->session->set_flashdata('success', lang('streams:view_options_update_success'));
+			
+			endif;
+			
+			redirect('admin/streams/manage/'.$this->CI->data->stream->id);
+		
+		endif;
+
+		// -------------------------------------
+		// Get Stream Fields
+		// ------------------------------------
+		
+		// @todo - do we really need the 1000, 0 here? Did I take care of that? Check it out!
+		$this->CI->data->stream_fields = $this->CI->streams_m->get_stream_fields($this->CI->data->stream->id, 1000, 0);
+
+		// -------------------------------------
+		// Build Pages
+		// -------------------------------------
+		
+        $this->CI->template->build('admin/partials/streams/view_options', $this->CI->data);
+
+ 	}
+
+	// --------------------------------------------------------------------------
+
+	/**
 	 * Entries Table
 	 *
 	 * Creates a table of entries.
