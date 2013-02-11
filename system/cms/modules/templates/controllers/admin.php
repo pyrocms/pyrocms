@@ -142,7 +142,7 @@ class Admin extends Admin_Controller
 
 			if ($result) {
 				// Fire an event. A new email template has been created.
-				Events::trigger('email_template_created', $result->id);
+				Events::trigger('email_template_created', $result);
 
 				$this->session->set_flashdata('success', sprintf(lang('templates:tmpl_create_success'), $result->name));
 			} else {
