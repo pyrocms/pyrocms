@@ -653,13 +653,11 @@ class Files
 	public static function get_file($identifier = 0)
 	{
 		// they could have specified the row id or the actual filename
-		$column = (strlen($identifier) === 15 or strpos($identifier, '.') === false) ? 
-					'files.id' : 
-					'filename';
+		$results = (strlen($identifier) === 15 or strpos($identifier, '.') === false) ? 
+					File::find($identifier) : 
+					File::findByFilename($identifier);
 
-		$results = ci()->file_m->select('files.*, file_folders.name folder_name, file_folders.slug folder_slug')
-			->join('file_folders', 'file_folders.id = files.folder_id')
-			->get_by($column, $identifier);
+		//Make sure other code that uses this uses $file->folder->slug instead of $file->folder_slug (and same for folder name)
 
 		$message = $results ? null : lang('files:no_records_found');
 
@@ -678,11 +676,8 @@ class Files
 	**/
 	public static function get_files($location = 'local', $container = '')
 	{
-		$results = ci()->file_m->select('files.*, file_folders.name folder_name, file_folders.slug folder_slug')
-			->join('file_folders', 'file_folders.id = files.folder_id')
-			->where('location', $location)
-			->where('slug', $container)
-			->get_all();
+		$results = File::findBySlugAndLocation($container, $location);
+		//Make sure other code that uses this uses $file->folder->slug instead of $file->folder_slug (and same for folder name)
 
 		$message = $results ? null : lang('files:no_records_found');
 
@@ -758,10 +753,7 @@ class Files
 		// they're wanting a local list... give it to 'em but only if the file really exists
 		elseif ($location === 'local') 
 		{
-			$results = ci()->file_m->select('filename, filesize')
-				->join('file_folders', 'file_folders.id = files.folder_id')
-				->where('slug', $container)
-				->get_all();
+			$results = File::findBySlug($container);
 
 			if ($results)
 			{

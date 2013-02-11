@@ -54,6 +54,42 @@ class File extends \Illuminate\Database\Eloquent\Model
     }
 	
 	/**
+     * Get Files by slug
+     *
+     * @param string $slug
+     * @return void
+     */
+    public static function findBySlug($slug)
+    {
+    	return static::where('slug', $slug)->get();
+    }
+
+	/**
+     * Get Files by filename
+     *
+     * @param string $filename
+     * @return void
+     */
+    public static function findByFilename($filename)
+    {
+    	return static::where('filename', $filename)->get();
+    }
+	
+	/**
+     * Get Files by slug and location
+     *
+     * @param string $slug
+	 * @param string $location
+     * @return void
+     */
+    public static function findBySlugAndLocation($slug, $location)
+    {
+    	return static::where('slug', $slug)
+    			->where('location', $location)
+				->get();
+    }
+	
+	/**
      * Get Files by an array of keywords
      *
      * @param array $search
