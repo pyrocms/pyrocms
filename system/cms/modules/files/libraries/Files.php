@@ -34,18 +34,14 @@ class Files
 		self::$path = config_item('files:path');
 		self::$_cache_path = config_item('cache_dir').'cloud_cache/';
 
-		if ($providers = Settings::get('files_enabled_providers'))
-		{
+		if ($providers = Settings::get('files_enabled_providers')) {
 			self::$providers = explode(',', $providers);
 
 			// make 'local' mandatory. We search for the value because of backwards compatibility
-			if ( ! in_array('local', self::$providers))
-			{
+			if ( ! in_array('local', self::$providers)) {
 				array_unshift(self::$providers, 'local');
 			}
-		}
-		else
-		{
+		} else {
 			self::$providers = array('local');
 		}
 
@@ -151,24 +147,24 @@ class Files
 			$parent = ($result ? $result->id : 0);
 		}
 
-		$folders = Folder::findByParentAndSortBySort($parent);
+		$folders = Folder::findByParentAndSortBySort($parent)->toArray();
 
-		$files = File::findByParentAndSortbySort($parent);
+		$files = File::findByParentAndSortbySort($parent)->toArray();
 
 		// let's be nice and add a date in that's formatted like the rest of the CMS
 		if ($folders) {
 			foreach ($folders as &$folder) {
-				$folder->formatted_date = format_date($folder->date_added);
+				$folder['formatted_date'] = format_date($folder->date_added);
 
-				$folder->file_count = File::findByFolderId($folder->id)->count();
+				$folder['file_count'] = File::findByFolderId($folder->id)->count();
 			}
 		}
 
 		if ($files) {
 			foreach ($files as &$file) {
-				$file->keywords_hash = $file->keywords;
-				$file->keywords = Keywords::get_string($file->keywords);
-				$file->formatted_date = format_date($file->date_added);
+				$file['keywords_hash'] = $file->keywords;
+				$file['keywords'] = Keywords::get_string($file->keywords);
+				$file['formatted_date'] = format_date($file->date_added);
 			}
 		}
 
