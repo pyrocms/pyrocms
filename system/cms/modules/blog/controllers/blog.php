@@ -379,7 +379,7 @@ class Blog extends Public_Controller
 		// if it uses markdown then display the parsed version
 		if ($post['type'] === 'markdown')
 		{
-			$post['body'] = $post->parsed;
+			$post['body'] = $post['parsed'];
 		}
 
 		$this->session->set_flashdata(array('referrer' => $this->uri->uri_string()));
