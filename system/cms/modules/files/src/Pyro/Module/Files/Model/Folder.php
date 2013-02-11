@@ -26,7 +26,7 @@ class Folder extends \Illuminate\Database\Eloquent\Model
 	 * Relationship to File
 	 * 
 	 */
-	public function file()
+	public function files()
 	{
 		return $this->hasMany('File', 'folder_id');
 	}

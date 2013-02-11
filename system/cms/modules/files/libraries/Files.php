@@ -798,8 +798,10 @@ class Files
 	**/
 	public static function synchronize($folder_id)
 	{
-		$folder = ci()->file_folders_m->get_by('id', $folder_id);
+		$folder = Folder::find($folder_id);
 
+		//list of files should be obtainable via files
+		
 		$files = Files::list_files($folder->location, $folder->remote_container);
 
 		// did the fetch go ok?
@@ -807,7 +809,7 @@ class Files
 		{
 			$valid_records = array();
 			$known = array();
-			$known_files = ci()->file_m->where('folder_id', $folder_id)->get_all();
+			$known_files = File::findByFolderId($folder_id);
 
 			// now we build an array with the database filenames as the keys so we can compare with the cloud list
 			foreach ($known_files as $item)
@@ -836,13 +838,13 @@ class Files
 					);
 
 					// we add the id to the list of records that have existing files to match them
-					$valid_records[] = ci()->file_m->insert($insert);
+					$valid_records[] = File::create($insert);
 				}
 				// it's totally not a new file
 				else
 				{
 					// update with the details we got from the cloud
-					ci()->file_m->update($known[$file['filename']]->id, $file);
+					File::where('id',$known[$file['filename']]->id)->update($file);
 
 					// we add the id to the list of records that have existing files to match them
 					$valid_records[] = $known[$file['filename']]->id;
@@ -850,9 +852,7 @@ class Files
 			}
 
 			// Ok then. Let's clean up the records with no files and get out of here
-			ci()->db->where('folder_id', $folder_id)
-				->where_not_in('id', $valid_records)
-				->delete('files');
+			File::where('folder_id', $folder_id)->whereNotIn('id', $valid_records)->delete();
 
 			return self::result(true, lang('files:synchronization_complete'), $folder->name, $files['data']);
 		}
