@@ -446,10 +446,8 @@ class Files
 	**/
 	public static function move($file_id, $new_name = false, $location = false, $new_location = 'local', $container = '')
 	{
-		$file = ci()->file_m->select('files.*, file_folders.name foldername, file_folders.slug, file_folders.location')
-			->join('file_folders', 'files.folder_id = file_folders.id')
-			->get_by('files.id', $file_id);
-
+		$file = File::find($file_id);
+		
 		if ( ! $file)
 		{
 			return self::result(false, lang('files:item_not_found'), $new_name ? $new_name : $file_id);
@@ -460,10 +458,10 @@ class Files
 
 		// this would be used when move() is used during a rackspace or amazon upload as the location in the 
 		// database is not the actual file location, its location is local temporarily
-		if ($location) $file->location = $location;
+		if ($location) $file->folder->location = $location;
 
 		// if both locations are on the local filesystem then we just rename
-		if ($file->location === 'local' and $new_location === 'local')
+		if ($file->folder->location === 'local' and $new_location === 'local')
 		{
 			// if they were helpful enough to provide an extension then remove it
 			$file_slug = self::create_slug(str_replace($file->extension, '', $new_name));
@@ -488,7 +486,9 @@ class Files
 							  'location' => $new_location,
 							  'container' => $container);
 
-				ci()->file_m->update($file_id, array('filename' => $filename, 'name' => $new_name));
+				$file->filename = $filename;
+				$file->name = $new_name;
+				$file->save();
 
 				@rename(self::$path.$file->filename, self::$path.$filename);
 
@@ -500,7 +500,7 @@ class Files
 			}
 		}
 		// we'll be pushing the file from here to the cloud
-		elseif ($file->location === 'local' and $new_location)
+		elseif ($file->folder->location === 'local' and $new_location)
 		{
 			ci()->storage->load_driver($new_location);
 
@@ -554,7 +554,7 @@ class Files
 			return self::result(false, lang('files:invalid_container'), $container);
 		}
 		// pull it from the cloud to our filesystem
-		elseif ($file->location and $new_location === 'local')
+		elseif ($file->folder->location and $new_location === 'local')
 		{
 			ci()->load->helper('file');
 			ci()->load->spark('curl/1.2.1');
@@ -592,7 +592,7 @@ class Files
 			}
 		}
 		// pulling from the cloud and then pushing to another part of the cloud :P
-		elseif ($file->location and $new_location)
+		elseif ($file->folder->location and $new_location)
 		{
 			ci()->load->helper('file');
 			ci()->storage->load_driver($new_location);
@@ -626,9 +626,10 @@ class Files
 
 			$data = array('filename' => $object, 'path' => $path);
 
-			// save its new location
-			ci()->file_m->update($file->id, $data);
-
+			$file->filename = $object;
+			$file->path = path;
+			$file->save();
+			
 			// get rid of the "temp" file
 			@unlink($temp_file);
 
