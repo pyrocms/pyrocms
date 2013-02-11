@@ -233,21 +233,23 @@ class Admin extends Admin_Controller
 			$to_delete = 0;
 
 			foreach ($ids as $id) {
-				if (Email::find($id)->delete()) {
-					$deleted++;
-				} elseif (Email::find($id)->is_default) {
-					$this->session->set_flashdata('error', sprintf(lang('templates:default_delete_error'), $id));
+				if ($email_template = Email::find($id)) {
+					if ($email_template->is_default) {
+						$this->session->set_flashdata('error', sprintf(lang('templates:default_delete_error'), $id));
+					} elseif ($email_template->delete()) {
+						Events::trigger('email_template_deleted', $email_template);
+						$deleted++;
+					} else {
+						$this->session->set_flashdata('error', sprintf(lang('templates:mass_delete_error'), $id));
+					}
+					$to_delete++;
 				} else {
 					$this->session->set_flashdata('error', sprintf(lang('templates:mass_delete_error'), $id));
 				}
-				$to_delete++;
 			}
 
 			if ($deleted > 0) {
 				if (sizeof($ids) > 1) {
-					// Fire an event. An email template has been deleted.
-					Events::trigger('email_template_deleted', $id);
-
 					$this->session->set_flashdata('success', sprintf(lang('templates:mass_delete_success'), $deleted, $to_delete));
 				} else {
 					$this->session->set_flashdata('success', sprintf(lang('templates:single_delete_success')));
