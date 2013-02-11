@@ -962,36 +962,8 @@ class Files
 		$results = array();
 		$search = explode(' ', $search);
 
-		// first we search folders
-		ci()->file_folders_m->select('name, parent_id');
-		
-		foreach ($search as $match) 
-		{
-			$match = trim($match);
-
-			ci()->file_folders_m->like('name', $match)
-				->or_like('location', $match)
-				->or_like('remote_container', $match);
-		}
-
-		$results['folder'] = ci()->file_folders_m->limit($limit)
-			->get_all();
-
-
-		// search the file records
-		ci()->file_m->select('name, folder_id');
-
-		foreach ($search as $match) 
-		{
-			$match = trim($match);
-
-			ci()->file_m->like('name', $match)
-			->or_like('filename', $match)
-			->or_like('extension', $match);
-		}
-
-		$results['file'] = 	ci()->file_m->limit($limit)
-			->get_all();
+		$results['folder'] = Folder::findByKeywords($search, $limit);
+		$results['file'] = File::findByKeywords($search, $limit);
 
 		if ($results['file'] or $results['folder'])
 		{

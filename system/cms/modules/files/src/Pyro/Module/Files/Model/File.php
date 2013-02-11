@@ -43,4 +43,23 @@ class File extends \Illuminate\Database\Eloquent\Model
     {
         return static::where('parent_id','=',$parent_id)->orderBy('sort')->get();
     }
+	
+	public static function findByKeywords($search, $limit = 5)
+	{
+		// search the file records
+		static::select('name', 'folder_id');
+
+		foreach ($search as $match) 
+		{
+			$match = trim($match);
+
+			static::where(function($query) {
+				$query->orWhere('name','like',$match);
+				$query->orWhere('filename','like',$match);
+				$query->orWhere('extension','like',$match);
+			});
+		}
+
+		return static::take($limit)->get();
+	}
 }

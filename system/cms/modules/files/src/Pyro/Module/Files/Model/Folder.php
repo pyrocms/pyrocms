@@ -65,5 +65,23 @@ class Folder extends \Illuminate\Database\Eloquent\Model
     {
         return static::where('parent_id','=',$parent_id)->orderBy('sort')->get();
     }
+	
+	public static function findByKeywords($search, $limit = 5)
+	{
+		// first we search folders
+		Static::select('name', 'parent_id');
+		
+		foreach ($search as $match) 
+		{
+			$match = trim($match);
 
+			Static::where(function($query) {
+				$query->orWhere('name','like',$match);
+				$query->orWhere('location','like',$match);
+				$query->orWhere('remote_container','like',$match);
+			});
+		}
+
+		return static::take($limit)->get();
+	}
 }
