@@ -416,7 +416,7 @@ class Admin extends Admin_Controller
 			$page->css			 	= isset($input['css']) ? $input['css'] : null;
 			$page->js			 	= isset($input['js']) ? $input['js'] : null;
 			$page->meta_title		= isset($input['meta_title']) ? $input['meta_title'] : '';
-			$page->meta_keywords	= isset($input['meta_keywords']) ? $this->keywords->process($input['meta_keywords'], (isset($input['old_keywords_hash'])) ? $input['old_keywords_hash'] : null) : '';
+			$page->meta_keywords	= isset($input['meta_keywords']) ? Keywords::process($input['meta_keywords'], (isset($input['old_keywords_hash'])) ? $input['old_keywords_hash'] : null) : '';
 			$page->meta_description	= isset($input['meta_description']) ? $input['meta_description'] : '';
 			$page->rss_enabled		= ! empty($input['rss_enabled']);
 			$page->comments_enabled	= ! empty($input['comments_enabled']);

@@ -1,4 +1,8 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed');
+<?php 
+
+use Pyro\Module\Keywords\Model\Keyword;
+use Pyro\Module\Keywords\Model\Applied;
+
 /**
  * Keywords Library
  *
@@ -8,15 +12,6 @@
 
 class Keywords
 {
-	/**
-	 * The Keywords Construct
-	 */
-	public function __construct()
-	{
-		ci()->load->model('keywords/keyword_m');
-		ci()->load->model('keywords/appliedkeyword_m');
-	}
-
 	/**
 	 * Get keywords
 	 *
@@ -29,7 +24,7 @@ class Keywords
 	{
 		$keywords = array();
 
-		foreach (AppliedKeyword_m::getNamesByHash($hash) as $keyword)
+		foreach (Applied::getNamesByHash($hash) as $keyword)
 		{
 			$keywords[] = $keyword->name;
 		}
@@ -49,7 +44,7 @@ class Keywords
 	{
 		$keywords = array();
 
-		foreach (AppliedKeyword_m::getNamesByHash($hash) as $keyword)
+		foreach (Applied::getNamesByHash($hash) as $keyword)
 		{
 			$keywords[] = $keyword->name;
 		}
@@ -67,7 +62,7 @@ class Keywords
 	 */
 	public static function get($hash)
 	{
-		return AppliedKeyword_m::getNamesByHash($hash);
+		return Applied::getNamesByHash($hash);
 	}
 
 	/**
@@ -80,7 +75,7 @@ class Keywords
 	 */
 	public static function add($keyword)
 	{
-		return Keyword_m::add(static::prep($keyword))->id;
+		return Keyword::add(static::prep($keyword))->id;
 	}
 
 	/**
@@ -119,7 +114,7 @@ class Keywords
 		// Remove the old keyword assignments if we're updating
 		if ($old_hash !== null)
 		{
-			AppliedKeyword_m::deleteByHash($old_hash);
+			Applied::deleteByHash($old_hash);
 		}
 
 		// No keywords? Let's not bother then
@@ -137,7 +132,7 @@ class Keywords
 			$keyword = self::prep($keyword);
 
 			// Keyword already exists
-			if (($row = Keyword_m::findByName($keyword)))
+			if (($row = Keyword::findByName($keyword)))
 			{
 				$keyword_id = $row->id;
 			}
@@ -149,7 +144,7 @@ class Keywords
 			}
 
 			// Create assignment record
-			AppliedKeyword_m::add($assignment_hash, $keyword_id);
+			Applied::add($assignment_hash, $keyword_id);
 		}
 
 		return $assignment_hash;

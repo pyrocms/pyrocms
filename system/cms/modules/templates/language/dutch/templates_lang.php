@@ -16,6 +16,7 @@ $lang['templates:default_title']			= 'Standaard sjablonen';
 $lang['templates:user_defined_title']		= 'Door de gebruiker gedefinieerde sjablonen';
 
 // Messages
+$lang['templates:currently_no_templates']	= 'There are no user defined templates.'; #Translate
 $lang['templates:tmpl_create_success']		= 'E-mail sjabloon "%s" is opgeslagen.';
 $lang['templates:tmpl_create_error']		= 'E-mail sjabloon "%s" is niet opgeslagen.';
 $lang['templates:tmpl_edit_success']		= 'Wijzigingen aan de e-mail sjabloon "%s" zijn opgeslagen.';

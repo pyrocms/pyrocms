@@ -26,6 +26,7 @@ $lang['templates:default_title']			= 'เท็มเพล็ตตั้งต
 $lang['templates:user_defined_title']		= 'เท็มเพล็ตที่ผู้ใช้กำหนด';
 
 // Messages
+$lang['templates:currently_no_templates']	= 'There are no user defined templates.'; #Translate
 $lang['templates:tmpl_create_success']		= 'แม่แบบอีเมล "%s" ถูกบันทึก';
 $lang['templates:tmpl_create_error']		= 'แม่แบบอีเมล "%s" ยังไม่ถูกบันทึก';
 $lang['templates:tmpl_edit_success']		= 'การปรับปรุงแม่แบบอีเมล "%s" ถูกบันทึก';

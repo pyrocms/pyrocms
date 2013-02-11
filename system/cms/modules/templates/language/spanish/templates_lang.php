@@ -16,6 +16,7 @@ $lang['templates:default_title']			= 'Plantillas por defecto';
 $lang['templates:user_defined_title']		= 'Plantillas definidas por el usuario';
 
 // Messages
+$lang['templates:currently_no_templates']	= 'There are no user defined templates.'; #Translate
 $lang['templates:tmpl_create_success']		= 'La plantilla "%s" ha sido guardada.';
 $lang['templates:tmpl_create_error']		= 'La plantilla "%s" no ha sido guardada.';
 $lang['templates:tmpl_edit_success']		= 'Los cambios hechos a la plantilla "%s" han sido guardados.';

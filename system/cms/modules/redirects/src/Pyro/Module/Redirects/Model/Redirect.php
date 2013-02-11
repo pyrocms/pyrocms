@@ -54,7 +54,7 @@ class Redirect extends \Illuminate\Database\Eloquent\Model
      *
      * @return void
      */
-    public static function findByFromWithId($from, $id = 0)
+    public static function findByFromAndId($from, $id = 0)
     {
         return static::where('id', '!=', $id)
                     ->where('from', '=', $from)->first();
