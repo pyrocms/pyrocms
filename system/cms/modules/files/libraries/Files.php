@@ -875,7 +875,7 @@ class Files
 	public static function rename_file($id = 0, $name)
 	{
 		// physical filenames cannot be changed because of the risk of breaking embedded urls so we just change the db
-		ci()->file_m->update($id, array('name' => $name));
+		File::where('id', $id)->update(array('name' => $name));
 
 		return self::result(true, lang('files:item_updated'), $name, array('id' => $id, 'name' => $name));
 	}
