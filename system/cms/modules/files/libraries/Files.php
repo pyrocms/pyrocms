@@ -326,7 +326,7 @@ class Files
 		// this keeps a long running upload from stalling the site
 		session_write_close();
 
-		$folder = ci()->file_folders_m->get($folder_id);
+		$folder = Folder::get($folder_id);
 
 		if ($folder)
 		{
@@ -389,13 +389,13 @@ class Files
 				if($replace_file)
 				{
 					$file_id = $replace_file->id;
-					ci()->file_m->update($replace_file->id, $data);
+					File::where('id',$replace_file->id)->update($data);
 				}
 				else
 				{
 					$data['id'] = substr(md5(microtime()+$data['filename']), 0, 15);
 					$file_id = $data['id'];
-					ci()->file_m->insert($data);
+					File::create($data);
 				}
 
 				if ($data['type'] !== 'i')
