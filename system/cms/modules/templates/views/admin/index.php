@@ -5,13 +5,10 @@
 		
 	<section class="item">
 		<div class="content">
-	
-		    <?php echo form_open('admin/templates/action') ?>
-		
+			
 		    <table border="0" class="table-list" cellspacing="0">
 		        <thead>
 		            <tr>
-		                <th><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all'));?></th>
 		                <th><?php echo lang('name_label') ?></th>
 		                <th class="collapse"><?php echo lang('global:description') ?></th>
 		                <th class="collapse"><?php echo lang('templates:language_label') ?></th>
@@ -23,7 +20,6 @@
 				
 		    <?php foreach ($default_templates as $template): ?>
 		            <tr>
-						<td><?php echo form_checkbox('action_to[]', $template->id);?></td>
 		                <td><?php echo $template->name ?></td>
 		                <td class="collapse"><?php echo $template->description ?></td>
 		                <td class="collapse"><?php echo $template->lang ?></td>
@@ -38,11 +34,7 @@
 		    <?php endforeach ?>
 			</tbody>
 			</table>
-		    <?php echo form_close() ?>
-		 
-		 	<div class="table_action_buttons">
-				<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete') )) ?>
-			</div>
+
 		</div>
 	</section>
 </div>
