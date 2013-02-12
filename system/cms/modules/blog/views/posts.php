@@ -23,7 +23,7 @@
 			{{ if keywords }}
 			<div class="keywords">
 				{{ keywords }}
-					<span><a href="blog/tagged/{{ name }}">{{ name }}</a></span>
+					<span><a href="blog/tagged/{{ keyword }}">{{ keyword }}</a></span>
 				{{ /keywords }}
 			</div>
 			{{ endif }}

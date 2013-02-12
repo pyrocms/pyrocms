@@ -1,5 +1,5 @@
 <?php if (!empty($users)): ?>
-	<table border="0" class="table-list">
+	<table border="0" class="table-list" cellpadding="0" cellspacing="0">
 		<thead>
 			<tr>
 				<th with="30" class="align-center"><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all'));?></th>

@@ -87,15 +87,16 @@ class Plugin_Pages extends Plugin
 	 */
 	public function display()
 	{
-		$page = $this->db
+		$page = $this->db->select('pages.*, page_types.stream_id, page_types.slug as page_type_slug, page_types.title as page_type_title')
 			->where('pages.id', $this->attribute('id'))
 			->or_where('pages.slug', $this->attribute('slug'))
 			->where('status', 'live')
+			->join('page_types', 'page_types.id = pages.type_id', 'left')
 			->get('pages')
 			->row();
-        
+
 		$page->body = '';
-        
+
 		// Legacy support for chunks
 		if ($this->db->table_exists('page_chunks'))
 		{
@@ -115,7 +116,37 @@ class Plugin_Pages extends Plugin
 			// we'll unset the chunks array as Lex is grouchy about mixed data at the moment
 			unset($page->chunks);
 		}
-        
+
+		// Check for custom fields
+		if (strpos($this->content(), 'custom_fields') !== false and $page)
+		{
+			$custom_fields = array();
+			$this->load->driver('Streams');
+
+			$stream = $this->streams_m->get_stream($page->stream_id);
+
+			$params = array(
+				'stream'		=> $stream->stream_slug,
+				'namespace'		=> $stream->stream_namespace,
+				'include'		=> $page->entry_id,
+				'disable'		=> 'created_by'
+			);
+
+			$entries = $this->streams->entries->get_entries($params);
+
+			foreach ($entries['entries'] as $entry)
+			{
+				$custom_fields[$page->stream_id][$entry['id']] = $entry;
+			}
+		} else {
+			$custom_fields = false;
+		}
+
+		if ($custom_fields and isset($custom_fields[$page->stream_id][$page->entry_id]))
+		{
+			$page->custom_fields =$custom_fields[$page->stream_id][$page->entry_id];
+		}
+
 		return $this->content() ? array($page) : $page->body;
 	}
 
@@ -183,7 +214,7 @@ class Plugin_Pages extends Plugin
 	/**
 	 * Children list
 	 *
-	 * Creates a list of child pages
+	 * Creates a list of child pages one level under the parent page.
 	 *
 	 * Attributes:
 	 * - (int) limit: How many pages to show.
@@ -200,20 +231,80 @@ class Plugin_Pages extends Plugin
 	 */
 	public function children()
 	{
-		$limit     = $this->attribute('limit', 10);
-		$order_by  = $this->attribute('order-by', 'title');
-		$order_dir = $this->attribute('order-dir', 'ASC');
+		$limit			= $this->attribute('limit', 10);
+		$order_by 		= $this->attribute('order-by', 'title');
+		$order_dir 		= $this->attribute('order-dir', 'ASC');
+		$page_types 	= $this->attribute('include_types');
 
-		$pages = $this->db->select('pages.*')
+		// Restrict page types.
+		// Page types can be provided in a pipe (|) delimited string.
+		// Ex: 4|6
+		if ($page_types)
+		{
+			$types = explode('|', $page_types);
+
+			foreach ($types as $type)
+			{
+				$this->db->where('pages.type_id', $type);
+			}
+		}
+
+		$pages = $this->db->select('pages.*, page_types.stream_id, page_types.slug as page_type_slug, page_types.title as page_type_title')
 			->where('pages.parent_id', $this->attribute('id'))
 			->where('status', 'live')
+			->join('page_types', 'page_types.id = pages.type_id', 'left')
 			->order_by($order_by, $order_dir)
 			->limit($limit)
 			->get('pages')
 			->result_array();
 
+		// Custom fields provision.
+		// Since page children can have many different page types,
+		// we are going to do this in the most economical way possible:
+		// Find the entries by ID and attach them to a special custom_fields
+		// variable.
+		if (strpos($this->content(), 'custom_fields') !== false and $pages)
+		{
+			$custom_fields = array();
+			$this->load->driver('Streams');
+		
+			// Get all of the IDs by page type id.
+			// Ex: array('page_type_id' => array('1', '2'))
+			$entries = array();
+			foreach ($pages as $page)
+			{
+				$entries[$page['stream_id']][] = $page['entry_id'];
+			}
+
+			// Get our entries by steram
+			foreach ($entries as $stream_id => $entry_ids)
+			{
+				$stream = $this->streams_m->get_stream($stream_id);
+
+				$params = array(
+					'stream'		=> $stream->stream_slug,
+					'namespace'		=> $stream->stream_namespace,
+					'include'		=> implode('|', $entry_ids),
+					'disable'		=> 'created_by'
+				);
+
+				$entries = $this->streams->entries->get_entries($params);
+
+				// Set the entries in our custom fields array for
+				// easy reference later when processing our pages.
+				foreach ($entries['entries'] as $entry)
+				{
+					$custom_fields[$stream_id][$entry['id']] = $entry;	
+				}
+			}
+		}
+		else
+		{
+			$custom_fields = false;
+		}
+
 		// Legacy support for chunks
-		if ($pages && $this->db->table_exists('page_chunks'))
+		if ($pages and $this->db->table_exists('page_chunks'))
 		{
 			foreach ($pages as &$page)
 			{
@@ -234,6 +325,37 @@ class Plugin_Pages extends Plugin
 				}
 			}
 		}
+
+		// Process our pages.
+		foreach ($pages as &$page)
+		{
+			// First, let's get a full URL. This is just
+			// handy to have around.
+			$page['url'] = site_url($page['uri']);
+		
+			// Now let's process our keywords hash.
+			$keywords = Keywords::get($page['meta_keywords']);
+
+			// In order to properly display the keywords in Lex
+			// tags, we need to format them.
+			$formatted_keywords = array();
+			
+			foreach ($keywords as $key)
+			{
+				$formatted_keywords[] 	= array('keyword' => $key->name);
+
+			}
+			$page['meta_keywords'] = $formatted_keywords;
+
+			// If we have custom fields, we need to roll our
+			// entry values in.
+			if ($custom_fields and isset($custom_fields[$page['stream_id']][$page['entry_id']]))
+			{
+				$page['custom_fields'] = array($custom_fields[$page['stream_id']][$page['entry_id']]);
+			}
+		}
+
+		//return '<pre>'.print_r($pages, true).'</pre>';
 
 		return $pages;
 	}

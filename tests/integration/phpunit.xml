@@ -1,0 +1,21 @@
+<phpunit 
+	bootstrap="./Bootstrap.php"
+	colors="true"
+	convertNoticesToExceptions="true"
+	convertWarningsToExceptions="true"
+	stopOnError="false"
+	stopOnFailure="false"
+	stopOnIncomplete="false"
+	stopOnSkipped="false">
+    testSuiteLoaderClass="PHPUnit_Runner_StandardTestSuiteLoader">
+    <testsuites>
+        <testsuite name="installer">
+            <directory>installer</directory>
+            <files>*.php</files>
+        </testsuite>
+    </testsuites>
+    <php>
+        <server name="PYRO_TEST_HOST" value="localhost/installer"/>
+        <server name="PYRO_DB_HOST" value="127.0.0.1"/>
+    </php>
+</phpunit>

@@ -7,9 +7,9 @@ $lang['intro_text']		=	'Pred preveritvijo podatkovne baze, potrebujemo podatke z
 $lang['db_settings']	=	'Namestitev podatkovne baze (MYSQL DB)';
 $lang['db_text']		=	'Da bo lahko Installer preveril verzijo MYSQL strežnika je potrebno, da vnesete pot do MYSQL strežnika (ponavadi: localhost) MYSQL uporabnika ter geslo uporabnika. Ti podatki bodo uporabljeni tudi pri namestitvi podatkov v podatkovno bazo.';
 $lang['db_missing']		=	'The mysql database driver for PHP were not found, installation cannot continue. Ask your host or server administrator to install it.'; #translate
-$lang['db_create']		=	'Create Database'; #translate
-$lang['db_notice']		=	'You might need to do this yourself via your hosting control panel'; #translate
-$lang['database']		=	'MySQL Database'; #translate
+$lang['db_create']		=	'Kreiraj podatkovno bazo'; #translate
+$lang['db_notice']		=	'Lahko se zgodi, da boste to morali naredi preko nadzorne plošče spletne strani'; #translate
+$lang['database']		=	'MySQL podatkovna baza'; #translate
 
 $lang['server']			=	'Strežnik';
 $lang['username']		=	'DB Uporabnik';
