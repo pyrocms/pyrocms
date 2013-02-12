@@ -60,7 +60,7 @@ class Field_wysiwyg
 		// that I'm sure a few sites are utilizing.
 		$input = str_replace('&#123;&#123; url:site &#125;&#125;', site_url().'/', $input);
 
-		$parse_tags = ( ! isset($params['allow_tags'])) ? 'y' : $params['allow_tags'];
+		$parse_tags = ( ! isset($params['allow_tags'])) ? 'n' : $params['allow_tags'];
 
 		// If this isn't the admin and we want to allow tags,
 		// let it through. Otherwise we will escape them.
