@@ -513,7 +513,7 @@ class Admin extends Admin_Controller
 				{
 					if ($this->blog_m->delete($id))
 					{
-						$this->comment_m->where('module', 'blog')->delete_by('module_id', $id);
+						$this->comment_m->where('module', 'blog')->delete_by('entry_id', $id);
 
 						// Wipe cache for this model, the content has changed
 						$this->pyrocache->delete('blog_m');

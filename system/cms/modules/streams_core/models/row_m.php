@@ -57,6 +57,7 @@ class Row_m extends MY_Model {
 		'select'	=> array(), 	// will be joined by ','
 		'where'		=> array(),		// will be joined by 'AND'
 		'from'		=> array(),		// array of tables
+		'join'		=> array(),		// array of joins
 		'order_by'	=> array(),		// will be joined by ','
 		'misc'		=> array()		// will be joined by line breaks
 	);
@@ -339,12 +340,15 @@ class Row_m extends MY_Model {
 		
 		if (isset($include) and $include)
 		{
-			$inclusions = explode('|', $include);
+			$inclusions 	= explode('|', $include);
+			$includes 		= array();
 			
 			foreach ($inclusions as $include_id)
 			{
-				$this->sql['where'][] = $this->select_prefix.$this->db->protect_identifiers($include_by).'='.$this->db->escape($include_id);
+				$includes[] = $this->select_prefix.$this->db->protect_identifiers($include_by).'='.$this->db->escape($include_id);
 			}
+
+			$this->sql['where'][] = '('.implode(' OR ', $includes).')';
 		}
 
 		// -------------------------------------
@@ -1539,13 +1543,14 @@ class Row_m extends MY_Model {
 	 * Build Row Pagination
 	 *
 	 * @access	public
-	 * @param	int - pagination uri segment
-	 * @param	int - limit
-	 * @param	int - total rows
-	 * @Param	array - pagination configs
+	 * @param	int $pag_segment pagination uri segment where the page num is
+	 * @param	int $limit
+	 * @param	int $total_rows count of all the rows
+	 * @param	array $pagination_var array of pagination configs
+	 * @param 	string [$pag_base] optional manual pagination base
 	 * @return	string
 	 */
-	public function build_pagination($pag_segment, $limit, $total_rows, $pagination_vars)
+	public function build_pagination($pag_segment, $limit, $total_rows, $pagination_vars, $pag_base = null)
 	{
 		$this->load->library('pagination');
 
@@ -1564,10 +1569,20 @@ class Row_m extends MY_Model {
 		// -------------------------------------
 		// Find Pagination base_url
 		// -------------------------------------
+		// We either are handed this or we
+		// do it based on the pag_segment and 
+		// the current URL.
+		// -------------------------------------
 
-		$segments = array_slice($this->uri->segment_array(), 0, $pag_segment-1);
-		
-		$pagination_config['base_url'] 			= site_url(implode('/', $segments).'/');
+		if ( ! $pag_base)
+		{
+			$segments = array_slice($this->uri->segment_array(), 0, $pag_segment-1);
+			$pagination_config['base_url'] 			= site_url(implode('/', $segments).'/');
+		}
+		else
+		{
+			$pagination_config['base_url'] = $pag_base;
+		}
 
 		// -------------------------------------
 		// Figure Limit and Offset

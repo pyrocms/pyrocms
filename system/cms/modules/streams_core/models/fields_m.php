@@ -21,17 +21,17 @@ class Fields_m extends CI_Model {
 	public $fields_validation = array(
 		array(
 			'field'	=> 'field_name',
-			'label' => 'lang:streams.label.field_name',
+			'label' => 'lang:streams:label.field_name',
 			'rules'	=> 'trim|required|max_length[60]'
 		),
 		array(
 			'field'	=> 'field_slug',
-			'label' => 'lang:streams.label.field_slug',
+			'label' => 'lang:streams:label.field_slug',
 			'rules'	=> 'trim|required|max_length[60]|streams_slug_safe'
 		),
 		array(
 			'field'	=> 'field_type',
-			'label' => 'lang:streams.label.field_type',
+			'label' => 'lang:streams:label.field_type',
 			'rules'	=> 'trim|required|max_length[50]|streams_type_valid'
 		)
 	);

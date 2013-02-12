@@ -88,8 +88,8 @@ class Streams extends CI_Driver_Library {
 	 * If you are using the stream slug, you
 	 * need to provide the namespace. 
 	 *
-	 * @param	obj|int|string $stream
-	 * @param	obj|int|string $namespace
+	 * @param	mixed $stream
+	 * @param	string $namespace
 	 * @return	null|int
 	 */
 	public function stream_id($stream, $namespace = null)

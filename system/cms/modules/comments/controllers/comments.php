@@ -123,6 +123,8 @@ class Comments extends Public_Controller
 			{
 				$this->session->set_flashdata('comment', $comment);
 				$this->session->set_flashdata('error', $result['message']);
+
+				$this->_repopulate_comment();
 			}
 			else
 			{
@@ -160,6 +162,8 @@ class Comments extends Public_Controller
 				else
 				{
 					$this->session->set_flashdata('error', lang('comments:add_error'));
+
+					$this->_repopulate_comment();
 				}
 			}
 		}
@@ -169,16 +173,9 @@ class Comments extends Public_Controller
 		{
 			$this->session->set_flashdata('error', validation_errors());
 
-			// Loop through each rule
-			foreach ($this->validation_rules as $rule)
-			{
-				if ($this->input->post($rule['field']) !== false)
-				{
-					$comment[$rule['field']] = escape_tags($this->input->post($rule['field']));
-				}
-			}
-			$this->session->set_flashdata('comment', $comment);
+			$this->_repopulate_comment();
 		}
+
 
 		// If for some reason the post variable doesnt exist, just send to module main page
 		$uri = ! empty($entry['uri']) ? $entry['uri'] : $module;
@@ -187,6 +184,28 @@ class Comments extends Public_Controller
 		$uri === 'pages' and $uri = '/';
 
 		redirect($uri);
+	}
+
+	/**
+	 * Repopulate Comment
+	 *
+	 * There are a few places where we need to repopulate
+	 * the comments.
+	 *
+	 * @access 	private
+	 * @return 	void
+	 */
+	private function _repopulate_comment()
+	{
+		// Loop through each rule
+		foreach ($this->validation_rules as $rule)
+		{
+			if ($this->input->post($rule['field']) !== false)
+			{
+				$comment[$rule['field']] = escape_tags($this->input->post($rule['field']));
+			}
+		}
+		$this->session->set_flashdata('comment', $comment);
 	}
 
 	/**
@@ -235,9 +254,9 @@ class Comments extends Public_Controller
 			{
 				return array('status' => false, 'message' => implode('<br />', $this->akismet->get_errors()));
 			}
-			
 		}
 	
+		// Do our own blacklist check.
 		$blacklist = array(
 			'email' => $this->input->post('email'),
 			'website' => $this->input->post('website')
