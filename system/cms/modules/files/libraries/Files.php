@@ -316,7 +316,7 @@ class Files
 		if ( ! $check_ext = self::_check_ext($field)) {
 			return $check_ext;
 		}
-
+		
 		// this keeps a long running upload from stalling the site
 		session_write_close();
 
