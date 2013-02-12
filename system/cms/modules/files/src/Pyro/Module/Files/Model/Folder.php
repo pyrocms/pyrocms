@@ -39,7 +39,7 @@ class Folder extends \Illuminate\Database\Eloquent\Model
      */
     public static function findBySlug($slug)
     {
-        return static::where('slug', '=', $slug)->first();
+        return static::where('slug', '=', $slug)->get();
     }
 
     /**
