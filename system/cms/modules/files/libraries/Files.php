@@ -495,10 +495,13 @@ class Files
 					$url = ci()->parser->parse_string(Settings::get('files_s3_url'), array('bucket'=> $container), true);
 					$path = rtrim($url, '/').'/'.$object;
 				}
-
-				$data = array('filename' => $object, 'path' => $path);
+				
 				// save its location
-				ci()->file_m->update($file->id, $data);
+				$file->filename = $object;
+				$file->path = $path;
+				$file->save();
+				
+				$data = array('filename' => $object, 'path' => $path);
 
 				// now we create a thumbnail of the image for the admin panel to display
 				if ($file->type == 'i') {
