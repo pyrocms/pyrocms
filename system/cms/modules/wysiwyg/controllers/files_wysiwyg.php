@@ -28,14 +28,12 @@ class Files_wysiwyg extends WYSIWYG_Controller {
 								? $data->folders[$id]
 								: ($data->folders ? current($data->folders) : array());
 
-		if ($data->current_folder)
-		{
+		if ($data->current_folder) {
 			$data->current_folder->items = $data->current_folder->files->orderBy('date_added', 'desc');
 
 			$subfolders = Files::folder_tree_recursive($data->current_folder->id);
 
-			foreach ($subfolders as $subfolder)
-			{
+			foreach ($subfolders as $subfolder) {
 				$data->subfolders[$subfolder->id] = repeater('&raquo; ', $subfolder->depth) . $subfolder->name;
 			}
 
@@ -47,8 +45,7 @@ class Files_wysiwyg extends WYSIWYG_Controller {
 
 		// Array for select
 		$data->folders_tree = array();
-		foreach ($data->folders as $folder)
-		{
+		foreach ($data->folders as $folder) {
 			$data->folders_tree[$folder->id] = repeater('&raquo; ', $folder->depth) . $folder->name;
 		}
 
@@ -62,8 +59,7 @@ class Files_wysiwyg extends WYSIWYG_Controller {
 		$file = File::find($this->input->post('file_id'));
 
 		$folders = array();
-		if ($folder_id = $this->input->post('folder_id'))
-		{
+		if ($folder_id = $this->input->post('folder_id')) {
 			//TODO: Figure out what get_folder_path is supposed to be doing
 			$folders = $this->file_folders_m->get_folder_path($folder_id);
 		}
