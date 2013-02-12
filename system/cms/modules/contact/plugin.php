@@ -126,135 +126,135 @@ class Plugin_Contact extends Plugin
 	{
 		$this->load->helper('form');
 		
-		$fieldList = $this->attributes();
+		$field_list = $this->attributes();
 		
 		// If they try using the old form tag plugin give them an idea why it's failing.
-		if ( ! $this->content() or count($fieldList) == 0) {
+		if ( ! $this->content() or count($field_list) == 0) {
 			return 'The new contact plugin requires field parameters and it must be used as a double tag.';
 		}
 
 		$button             = $this->attribute('button', 'send');
 		$template           = $this->attribute('template', 'contact');
-		$autoreplyTemplate 	= $this->attribute('auto-reply', false);
+		$autoreply_template = $this->attribute('auto-reply', false);
 		$lang               = $this->attribute('lang', Settings::get('site_lang'));
 		$to                 = $this->attribute('to', Settings::get('contact_email'));
 		$from               = $this->attribute('from', Settings::get('server_email'));
-		$replyTo           	= $this->attribute('reply-to');
-		$maxSize           	= $this->attribute('max-size', 10000);
+		$reply_to          	= $this->attribute('reply-to');
+		$max_size           = $this->attribute('max-size', 10000);
 		$redirect           = $this->attribute('success-redirect', false);
 		$action             = $this->attribute('action', current_url());
-		$formMeta          	= array();
+		$form_meta          = array();
 		$validation         = array();
 		$output             = array();
 		
 		// Unset all attributes that are not field names
 		unset(
-			$fieldList['button'],
-			$fieldList['template'],
-			$fieldList['auto-reply'],
-			$fieldList['lang'],
-			$fieldList['to'],
-			$fieldList['from'],
-			$fieldList['reply-to'],
-			$fieldList['max-size'],
-			$fieldList['redirect'],
-			$fieldList['action']
+			$field_list['button'],
+			$field_list['template'],
+			$field_list['auto-reply'],
+			$field_list['lang'],
+			$field_list['to'],
+			$field_list['from'],
+			$field_list['reply-to'],
+			$field_list['max-size'],
+			$field_list['redirect'],
+			$field_list['action']
 		);
 		
 		// Prepare the form meta data and validation rules
-		foreach ($fieldList as $field => $rules) {
+		foreach ($field_list as $field => $rules) {
 			
-			$ruleArray = explode('|', $rules);
+			$rule_array = explode('|', $rules);
 			
 			// Take the simplified form names and turn them into the real deal
-			switch ($ruleArray[0]) {
+			switch ($rule_array[0]) {
 				
 				case '':
 				case 'text':
 					
-					$formMeta[$field]['type'] = 'input';
+					$form_meta[$field]['type'] = 'input';
 					break;
 				
 				case 'textarea':
 					
-					$formMeta[$field]['type'] = 'textarea';
+					$form_meta[$field]['type'] = 'textarea';
 					break;
 			
 				case 'dropdown':
 					
-					$formMeta[$field]['type'] = 'dropdown';
+					$form_meta[$field]['type'] = 'dropdown';
 					
-					// In this case $ruleArray holds the dropdown key=>values and possibly the "required" rule.
-					$values = $ruleArray;
+					// In this case $rule_array holds the dropdown key=>values and possibly the "required" rule.
+					$values = $rule_array;
 					
 					// Get rid of the field type
 					unset($values[0]);
 					
 					// Is a value required?
-					if ($requiredKey = array_search('required', $values)) {
+					if ($required_key = array_search('required', $values)) {
 						
-						$otherRules = 'required';
-						unset($values[$requiredKey]);
+						$other_rules = 'required';
+						unset($values[$required_key]);
 					} else {
 						// Just set something
-						$otherRules = 'trim';
+						$other_rules = 'trim';
 					}
 					
 					// We need to empty the array else we'll end up appending to the values of a previous field
-					$dropdownOptions = array();
+					$dropdown = array();
 					
 					// Build the array to pass to the form_dropdown() helper
 					foreach ($values as $item) {
 						
 						$item = explode('=', $item);
 						// If they didn't specify a key=>value (example: name=Your Name) then we'll use the value for the key also
-						$dropdownOptions[$item[0]] = (count($item) > 1) ? $item[1] : $item[0];
+						$dropdown[$item[0]] = (count($item) > 1) ? $item[1] : $item[0];
 					}
 					
-					$formMeta[$field]['dropdown'] = $dropdownOptions;
+					$form_meta[$field]['dropdown'] = $dropdown;
 					
 					break;
 				
 				case 'file':
 					
-					$formMeta[$field]['type'] = 'upload';
+					$form_meta[$field]['type'] = 'upload';
 					
-					$config = $ruleArray;
+					$config = $rule_array;
 					// get rid of the field type
 					unset($config[0]);
 					
 					// If this attachment is required add that to the rules and unset it from upload config
-					if ($requiredKey = array_search('required', $config)) {
+					if ($required_key = array_search('required', $config)) {
 						
 						if ( ! self::_requireUpload($field)) {
 							// We'll set this so validation will fail and our message will be shown
-							$otherRules = 'required';
+							$other_rules = 'required';
 						}
-						unset($config[$requiredKey]);
+						unset($config[$required_key]);
 					} else {
-						$otherRules = 'trim';
+						$other_rules = 'trim';
 					}
 					
 					// set configs for file uploading
-					$formMeta[$field]['config']['allowed_types'] = implode('|', $config);
-					$formMeta[$field]['config']['max_size'] = $maxSize;
-					$formMeta[$field]['config']['upload_path'] = UPLOAD_PATH.'contact_attachments';
+					$form_meta[$field]['config']['allowed_types'] = implode('|', $config);
+					$form_meta[$field]['config']['max_size'] = $max_size;
+					$form_meta[$field]['config']['upload_path'] = UPLOAD_PATH.'contact_attachments';
 					
 					break;	
 				
 				case 'hidden':
 					
-					$formMeta[$field]['type'] = 'hidden';
-					$value = preg_split('/=/',$ruleArray[1]);
+					$form_meta[$field]['type'] = 'hidden';
+					$value = preg_split('/=/',$rule_array[1]);
 					$value = $value[1];
-					$formMeta[$field]['value'] = $value;
+					$form_meta[$field]['value'] = $value;
 					
 					break;					
 			}
 
 			$validation[$field]['field'] = $field;
 			$validation[$field]['label'] = ucfirst($field);
-			$validation[$field]['rules'] = ($ruleArray[0] == 'file' or $ruleArray[0] == 'dropdown') ? $otherRules : implode('|', $ruleArray);
+			$validation[$field]['rules'] = ($rule_array[0] == 'file' or $rule_array[0] == 'dropdown') ? $other_rules : implode('|', $rule_array);
 		}
 
 		// We only need to run validation and input processing if the form has been submitted 
@@ -289,7 +289,7 @@ class Plugin_Contact extends Plugin
 				$data['slug']         = $template;
 				
 				// They may have an email field in the form. If they do we'll use that for reply-to.
-				$data['reply-to'] = (empty($replyTo) and isset($data['email'])) ? $data['email'] : $replyTo;
+				$data['reply-to'] = (empty($reply_to) and isset($data['email'])) ? $data['email'] : $reply_to;
 				$data['to']       = $to;
 				$data['from']     = $from;
 	
@@ -304,10 +304,10 @@ class Plugin_Contact extends Plugin
 						if ($file['name'] > '') {
 							
 							// Make sure the upload matches a field
-							if ( ! array_key_exists($form, $formMeta)) {
+							if ( ! array_key_exists($form, $form_meta)) {
 								break;
 							}
-							$this->upload->initialize($formMeta[$form]['config']);
+							$this->upload->initialize($form_meta[$form]['config']);
 							$this->upload->do_upload($form);
 							
 							if ($this->upload->display_errors() > '') {
@@ -316,9 +316,9 @@ class Plugin_Contact extends Plugin
 								redirect(current_url());
 							} else {
 								
-								$resultData = $this->upload->data();
+								$result_data = $this->upload->data();
 								// pass the attachment info to the email event
-								$data['attach'][$resultData['file_name']] = $resultData['full_path'];
+								$data['attach'][$result_data['file_name']] = $result_data['full_path'];
 							}
 						}
 					}
@@ -355,11 +355,11 @@ class Plugin_Contact extends Plugin
 				}
 				
 				// If autoreply has been enabled then send the end user an autoreply response
-				if ($autoreplyTemplate) {
+				if ($autoreply_template) {
 					
 					// Change the address and template slug
 					$data['to']      = $data['email'];
-					$data['slug']    = $autoreplyTemplate;
+					$data['slug']    = $autoreply_template;
 					
 					// Try sending the e-mail. Redirect on failure
 					if ( ! self::trySendingMail($data)) {
@@ -368,40 +368,40 @@ class Plugin_Contact extends Plugin
 				}
 				
 				// If we got this far we can add a success message
-				$sessionMessage = $this->session->userdata('flash:new:success');
-				$localMessage = $this->attribute('error', lang('contact_sent_text'));
+				$session_message = $this->session->userdata('flash:new:success');
+				$local_message = $this->attribute('error', lang('contact_sent_text'));
 				
-				if (null !== $sessionMessage) {
-					$localMessage = array($sessionMessage, $localMessage);
+				if (null !== $session_message) {
+					$local_message = array($session_message, $local_message);
 				} 
 				
-				$this->session->set_flashdata('success', $localMessage);
+				$this->session->set_flashdata('success', $local_message);
 				redirect(($redirect ? $redirect : current_url()));
 			}
 		}
 
 		// From here on out is form production
-		$parseData = array();
-		foreach ($formMeta as $field => $value) {
-			$parseData[$field]  = form_error($field, '<div class="'.$field.'-error error">', '</div>');
+		$parse_data = array();
+		foreach ($form_meta as $field => $value) {
+			$parse_data[$field]  = form_error($field, '<div class="'.$field.'-error error">', '</div>');
 			
 			if ($value['type'] == 'dropdown') {
-				$parseData[$field] .= call_user_func(
+				$parse_data[$field] .= call_user_func(
 										'form_'.$value['type'],
 										$field,
-										$formMeta[$field]['dropdown'],
+										$form_meta[$field]['dropdown'],
 										set_value($field),
 										'id="contact_'.$field.'" class="'.$field.'"');
 										
 			} elseif($value['type'] == 'hidden') {
-				$parseData[$field] .= call_user_func(
+				$parse_data[$field] .= call_user_func(
 										'form_'.$value['type'],
 										$field,
 										$value['value'],
 										'class="'.$field.'"');
 										
 			} else {
-				$parseData[$field] .= call_user_func(
+				$parse_data[$field] .= call_user_func(
 										'form_'.$value['type'],
 										$field,
 										set_value($field),
@@ -411,7 +411,7 @@ class Plugin_Contact extends Plugin
 	
 		$output	 = form_open_multipart($action, 'class="contact-form"').PHP_EOL;
 		$output	.= form_input('d0ntf1llth1s1n', ' ', 'class="default-form" style="display:none"');
-		$output	.= $this->parser->parse_string($this->content(), str_replace('{{', '{ {', $parseData), true).PHP_EOL;
+		$output	.= $this->parser->parse_string($this->content(), str_replace('{{', '{ {', $parse_data), true).PHP_EOL;
 		$output .= '<span class="contact-button">'.form_submit('contact-submit', ucfirst($button)).'</span>'.PHP_EOL;
 		$output .= form_close();
 
@@ -437,9 +437,9 @@ class Plugin_Contact extends Plugin
 			$localMessage = $this->attribute('error', lang('contact_error_message'));
 			
 			// Figure out whether we should add to a current error message 
-			$sessionMessage = $this->session->userdata('flash:new:error');
-			if (null !== $sessionMessage) {
-				$localMessage = array($sessionMessage, $localMessage);
+			$session_message = $this->session->userdata('flash:new:error');
+			if (null !== $session_message) {
+				$localMessage = array($session_message, $localMessage);
 			} 
 			
 			$this->session->set_flashdata('error', $localMessage);
