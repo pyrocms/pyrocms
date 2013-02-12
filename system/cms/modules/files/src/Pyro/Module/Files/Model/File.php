@@ -25,7 +25,7 @@ class File extends \Illuminate\Database\Eloquent\Model
     /**
      * Relationship with Folder
      * 
-	 * @return object
+     * @return object
      */ 
     public function folder()
     {
