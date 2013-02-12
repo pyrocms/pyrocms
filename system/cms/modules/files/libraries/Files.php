@@ -142,7 +142,7 @@ class Files
 		// they can also pass a url hash such as #foo/bar/some-other-folder-slug
 		if ( ! is_numeric($parent)) {
 			$segment = explode('/', trim($parent, '/#'));
-			$result = Folder::findBySlug(array_pop($segment));
+			$result = Folder::findBySlug(array_pop($segment))->first();
 
 			$parent = ($result ? $result->id : 0);
 		}
