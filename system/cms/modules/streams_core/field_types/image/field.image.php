@@ -203,9 +203,9 @@ class Field_image
 	public function param_folder($value = null)
 	{
 		// Get the folders
-		$this->CI->load->model('files/file_folders_m');
+		$this->CI->load->library('files/files');
 		
-		$tree = $this->CI->file_folders_m->get_folders();
+		$tree = Files::folder_tree_recursive();
 		
 		$tree = (array)$tree;
 		

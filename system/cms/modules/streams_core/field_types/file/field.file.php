@@ -194,7 +194,7 @@ class Field_file
 	 */	
 	public function param_folder($value = null)
 	{
-		$this->load->library('files/files');
+		$this->CI->load->library('files/files');
 		
 		// Get the folders
 		$tree = Files::folder_tree_recursive();
