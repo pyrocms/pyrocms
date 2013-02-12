@@ -76,8 +76,8 @@ class Folder extends \Illuminate\Database\Eloquent\Model
     {
         return static::where('parent_id','=',$parent_id)->get();
     }
-	
-	/**
+    
+    /**
      * Get Folders by parent 
      *
      * @param int $parent_id
@@ -99,24 +99,24 @@ class Folder extends \Illuminate\Database\Eloquent\Model
         return static::findByParent()->orderBy('sort')->get();
     }
     
-	/**
+    /**
      * Get Folders by path
      *
      * @param string $path
      * @return folder object
      */
-	public function findByPath($path)
-	{
-		if (is_array($path))
-		{
-			$path = implode('/', $path);
-		}
+    public function findByPath($path)
+    {
+        if (is_array($path))
+        {
+            $path = implode('/', $path);
+        }
 
-		$path = trim($path, '/');
+        $path = trim($path, '/');
 
-		return static::where('virtual_path', $path)->get();
-	}
-	
+        return static::where('virtual_path', $path)->get();
+    }
+    
     /**
      * Get Files by an array of keywords
      *
