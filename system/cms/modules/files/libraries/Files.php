@@ -254,7 +254,7 @@ class Files
 
 		$slug = $original_slug;
 
-		while (Folder::all()->where('id','!=',$id)->where('slug','=',$slug)->count()) {
+		while (Folder::findBySlugAndNotId($slug,$id)->count()) {
 			$i++;
 			$slug = $original_slug.'-'.$i;
 			$name = $original_name.'-'.$i;
@@ -279,16 +279,13 @@ class Files
 	**/
 	public static function delete_folder($id = 0)
 	{
-		$folder = ci()->file_folders_m->get($id);
+		$folder = Folder::find($id);
 
-		if ( ! $files = ci()->file_m->get_by('folder_id', $id) and ! ci()->file_folders_m->get_by('parent_id', $id))
-		{
-			ci()->file_folders_m->delete($id);
+		if ( File::findByFolder($id)->isEmpty() and Folder::findByParent($id)->isEmpty()) {
+			$folder->delete($id);
 
 			return self::result(true, lang('files:item_deleted'), $folder->name);
-		}
-		else
-		{
+		} else {
 			return self::result(false, lang('files:folder_not_empty'), $folder->name);
 		}
 	}
@@ -326,7 +323,7 @@ class Files
 		// this keeps a long running upload from stalling the site
 		session_write_close();
 
-		$folder = Folder::get($folder_id);
+		$folder = Folder::find($folder_id);
 
 		if ($folder)
 		{
@@ -401,7 +398,9 @@ class Files
 				if ($data['type'] !== 'i')
 				{
 					// so it wasn't an image. Now that we know the id we need to set the path as a download
-					ci()->file_m->update($file_id, array('path' => '{{ url:site }}files/download/'.$file_id));
+					$not_image = File::find($file_id);
+					$not_image->path = '{{ url:site }}files/download/'.$file_id;
+					$not_image->save();
 				}
 
 				if ($folder->location !== 'local')

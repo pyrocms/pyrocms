@@ -52,8 +52,8 @@ class File extends \Illuminate\Database\Eloquent\Model
     {
         return static::where('folder_id','=',$parent_id)->orderBy('sort')->get();
     }
-	
-	/**
+    
+    /**
      * Get Files by slug
      *
      * @param string $slug
@@ -61,10 +61,10 @@ class File extends \Illuminate\Database\Eloquent\Model
      */
     public static function findBySlug($slug)
     {
-    	return static::where('slug', $slug)->get();
+        return static::where('slug', $slug)->get();
     }
 
-	/**
+    /**
      * Get Files by filename
      *
      * @param string $filename
@@ -72,47 +72,58 @@ class File extends \Illuminate\Database\Eloquent\Model
      */
     public static function findByFilename($filename)
     {
-    	return static::where('filename', $filename)->get();
+        return static::where('filename', $filename)->get();
     }
-	
-	/**
+
+    /**
+     * Get Files by folder_id
+     *
+     * @param string $folder_id
+     * @return void
+     */
+    public static function findByFolder($folder_id)
+    {
+        return static::where('folder_id', $folder_id)->get();
+    }
+    
+    /**
      * Get Files by slug and location
      *
      * @param string $slug
-	 * @param string $location
+     * @param string $location
      * @return void
      */
     public static function findBySlugAndLocation($slug, $location)
     {
-    	return static::where('slug', $slug)
-    			->where('location', $location)
-				->get();
+        return static::where('slug', $slug)
+                ->where('location', $location)
+                ->get();
     }
-	
-	/**
+    
+    /**
      * Get Files by an array of keywords
      *
      * @param array $search
-	 * @param integer $limit
-	 * 
+     * @param integer $limit
+     * 
      * @return void
      */
-	public static function findByKeywords($search, $limit = 5)
-	{
-		// search the file records
-		static::select('name', 'folder_id');
+    public static function findByKeywords($search, $limit = 5)
+    {
+        // search the file records
+        static::select('name', 'folder_id');
 
-		foreach ($search as $match) 
-		{
-			$match = trim($match);
+        foreach ($search as $match) 
+        {
+            $match = trim($match);
 
-			static::where(function($query) {
-				$query->orWhere('name','like',$match);
-				$query->orWhere('filename','like',$match);
-				$query->orWhere('extension','like',$match);
-			});
-		}
+            static::where(function($query) {
+                $query->orWhere('name','like',$match);
+                $query->orWhere('filename','like',$match);
+                $query->orWhere('extension','like',$match);
+            });
+        }
 
-		return static::take($limit)->get();
-	}
+        return static::take($limit)->get();
+    }
 }
