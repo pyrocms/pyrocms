@@ -113,8 +113,7 @@ class File extends \Illuminate\Database\Eloquent\Model
         // search the file records
         static::select('name', 'folder_id');
 
-        foreach ($search as $match) 
-        {
+        foreach ($search as $match) {
             $match = trim($match);
 
             static::where(function($query) {
