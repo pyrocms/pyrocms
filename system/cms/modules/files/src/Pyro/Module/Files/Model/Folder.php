@@ -76,6 +76,17 @@ class Folder extends \Illuminate\Database\Eloquent\Model
     {
         return static::where('parent_id','=',$parent_id)->get();
     }
+	
+	/**
+     * Get Folders by parent 
+     *
+     * @param int $parent_id
+     * @return void
+     */
+    public static function findByParentAndSortByName($parent_id = 0)
+    {
+        return static::findByParent()->orderBy('name')->get();
+    }
 
     /**
      * Get Folders by parent ordered by sort
@@ -85,7 +96,7 @@ class Folder extends \Illuminate\Database\Eloquent\Model
      */
     public static function findByParentAndSortBySort($parent_id = 0)
     {
-        return static::where('parent_id','=',$parent_id)->orderBy('sort')->get();
+        return static::findByParent()->orderBy('sort')->get();
     }
     
     /**
@@ -113,37 +124,4 @@ class Folder extends \Illuminate\Database\Eloquent\Model
 
         return static::take($limit)->get();
     }
-	
-	/**
-	 * Get all folders in a tree
-	 *
-	 * @return array
-	 */
-	public static function getFolderTree()
-	{
-		$folders = array();
-		$folder_array = array();
-
-		$all_folders = static::findAndSortBySort();
-
-		// we must reindex the array first
-		foreach ($all_folders->toArray() as $row) {
-			$folders[$row['id']] = (array)$row;
-		}
-
-		unset($tree);
-		// build a multidimensional array of parent > children
-		foreach ($folders as $row) {
-			if (array_key_exists($row['parent_id'], $folders)) {
-				// add this folder to the children array of the parent folder
-				$folders[$row['parent_id']]['children'][] =& $folders[$row['id']];
-			}
-
-			// this is a root folder
-			if ($row['parent_id'] == 0) {
-				$folder_array[] =& $folders[$row['id']];
-			}
-		}
-		return $folder_array;
-	}
 }

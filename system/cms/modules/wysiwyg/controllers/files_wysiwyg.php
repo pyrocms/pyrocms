@@ -1,5 +1,8 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
+use Pyro\Module\Files\Model\File;
+use Pyro\Module\Files\Model\Folder;
+
 /**
  * Manages files selection and insertion for WYSIWYG editors
  * 
@@ -17,7 +20,7 @@ class Files_wysiwyg extends WYSIWYG_Controller {
 	{
 		$data = new stdClass();
 
-		$data->folders			= $this->file_folders_m->get_folders();
+		$data->folders			= Folder::getFolderTree();
 		$data->subfolders		= array();
 		$data->current_folder	= $id && isset($data->folders[$id])
 								? $data->folders[$id]

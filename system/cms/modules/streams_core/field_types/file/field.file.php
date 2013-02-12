@@ -1,6 +1,7 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
 use Pyro\Module\Files\Model\Folder;
+use Pyro\Module\Files\Model\File;
 
 /**
  * PyroStreams File Field Type
@@ -43,11 +44,7 @@ class Field_file
 		// Get the file
 		if ($params['value'])
 		{
-			$current_file = $this->CI->db
-							->where('id', $params['value'])
-							->limit(1)
-							->get('files')
-							->row();
+			$current_file = File::find($params['value']);
 		}
 		else
 		{
@@ -137,11 +134,7 @@ class Field_file
 
 		$this->CI->load->config('files/files');
 		
-		$file = $this->CI->db
-						->limit(1)
-						->select('name')
-						->where('id', $input)
-						->get('files')->row();
+		$file = File::find($input);
 		
 		if ($file)
 		{
@@ -172,13 +165,7 @@ class Field_file
 		$this->CI->load->config('files/files');
 		$this->CI->load->helper('html');
 		
-		$db_obj = $this->CI->db->limit(1)->where('id', $input)->get('files');
-
-		$file = $this->CI->db
-						->limit(1)
-						->select('name, extension, mimetype')
-						->where('id', $input)
-						->get('files')->row();
+		$file = File::find($input);
 
 		if ($file)
 		{					
@@ -207,8 +194,10 @@ class Field_file
 	 */	
 	public function param_folder($value = null)
 	{
+		$this->load->library('files/files');
+		
 		// Get the folders
-		$tree = Folder::getFolderTree();
+		$tree = Files::folder_tree_recursive();
 		
 		$tree = (array)$tree;
 		

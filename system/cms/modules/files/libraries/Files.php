@@ -186,7 +186,30 @@ class Files
 	 */
 	public static function folder_tree()
 	{
-		return Folder::getFolderTree();
+		$folders = array();
+		$folder_array = array();
+
+		$all_folders = Folder::findAndSortBySort();
+
+		// we must reindex the array first
+		foreach ($all_folders->toArray() as $row) {
+			$folders[$row['id']] = (array)$row;
+		}
+
+		unset($tree);
+		// build a multidimensional array of parent > children
+		foreach ($folders as $row) {
+			if (array_key_exists($row['parent_id'], $folders)) {
+				// add this folder to the children array of the parent folder
+				$folders[$row['parent_id']]['children'][] =& $folders[$row['id']];
+			}
+
+			// this is a root folder
+			if ($row['parent_id'] == 0) {
+				$folder_array[] =& $folders[$row['id']];
+			}
+		}
+		return $folder_array;
 	}
 
 	// ------------------------------------------------------------------------
@@ -1105,5 +1128,108 @@ class Files
 		}
 
 		return TRUE;
+	}
+	
+	/**
+	 * Folder Tree
+	 *
+	 * Get folder in an array
+	 *
+	 * @uses folder_subtree
+	 */
+	public static function folder_tree_recursive($parent_id = 0, $depth = 0, &$arr = array())
+	{
+		$arr = $arr ? $arr : array();
+
+		if ($parent_id === 0)
+		{
+			$arr	= array();
+			$depth	= 0;
+		}
+
+		$folders = Folder::findByParentAndSortByName($parent_id);
+
+		if ( ! $folders)
+		{
+			return $arr;
+		}
+
+		static $root = null;
+
+		foreach ($folders as $folder)
+		{
+			if ($depth < 1)
+			{
+				$root = $folder->id;
+			}
+
+//			$folder->name_indent		= repeater('&raquo; ', $depth) . $folder->name;
+			$folder->root_id			= $root;
+			$folder->depth				= $depth;
+			$folder->count_files		= count($folder->files);
+			$arr[$folder->id]			= $folder;
+			$old_size					= sizeof($arr);
+
+			static::folder_tree_recursive($folder->id, $depth+1, $arr);
+
+			$folder->count_subfolders	= sizeof($arr) - $old_size;
+		}
+
+		if ($parent_id === 0)
+		{
+			foreach ($arr as $id => &$folder)
+			{
+				$folder->virtual_path		= static::_build_asc_segments($id, array(
+					'segments'	=> $arr,
+					'separator'	=> '/',
+					'attribute'	=> 'slug'
+				));
+			}
+
+			$this->_folders = $arr;
+		}
+
+		if ($parent_id > 0 && $depth < 1)
+		{
+			foreach ($arr as $id => &$folder)
+			{
+				$folder->virtual_path = $this->_folders[$id]->virtual_path;
+			}
+		}
+
+		return $arr;
+	}
+
+	private static function _build_asc_segments($id, $options = array())
+	{
+		if ( ! isset($options['segments']))
+		{
+			return;
+		}
+
+		$defaults = array(
+			'attribute'	=> 'name',
+			'separator'	=> ' &raquo; ',
+			'limit'		=> 0
+		);
+
+		$options = array_merge($defaults, $options);
+
+		extract($options);
+
+		$arr = array();
+
+		while (isset($segments[$id]))
+		{
+			array_unshift($arr, $segments[$id]->{$attribute});
+			$id = $segments[$id]->parent_id;
+		}
+
+		if (is_int($limit) && $limit > 0 && sizeof($arr) > $limit)
+		{
+			array_splice($arr, 1, -($limit-1), '&#8230;');
+		}
+
+		return implode($separator, $arr);
 	}
 }
