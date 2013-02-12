@@ -1248,7 +1248,7 @@ class Files
 
 		// while not as nice as straight queries this allows devs to select
 		// files using their own complex where clauses and we then filter from there.
-		$files = File::all();
+		$files = File::get();
 
 		if (is_string($tags))
 		{
