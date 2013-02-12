@@ -281,7 +281,7 @@ class Files
 	{
 		$folder = Folder::find($id);
 
-		if ( Files::findByFolder($id)->isEmpty() and Folder::findByParent($id)->isEmpty()) {
+		if ( File::findByFolder($id)->isEmpty() and Folder::findByParent($id)->isEmpty()) {
 			$folder->delete($id);
 
 			return self::result(true, lang('files:item_deleted'), $folder->name);
@@ -398,7 +398,9 @@ class Files
 				if ($data['type'] !== 'i')
 				{
 					// so it wasn't an image. Now that we know the id we need to set the path as a download
-					ci()->file_m->update($file_id, array('path' => '{{ url:site }}files/download/'.$file_id));
+					$not_image = File::find($file_id);
+					$not_image->path = '{{ url:site }}files/download/'.$file_id;
+					$not_image->save();
 				}
 
 				if ($folder->location !== 'local')
