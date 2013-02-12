@@ -81,7 +81,7 @@ class Streams_cp extends CI_Driver {
 		// Set title
 		if (isset($extra['title']))
 		{
-			$this->CI->template->title($extra['title']);
+			$this->CI->template->title(lang_label($extra['title']));
 		}
 
 		// Set custom no data message
@@ -393,7 +393,7 @@ class Streams_cp extends CI_Driver {
 		// Set title
 		if (isset($extra['title']))
 		{
-			$this->CI->template->title($extra['title']);
+			$this->CI->template->title(lang_label($extra['title']));
 		}
 
 		// Set custom no data message
@@ -481,7 +481,7 @@ class Streams_cp extends CI_Driver {
 		// Set title
 		if (isset($extra['title']))
 		{
-			$this->CI->template->title($extra['title']);
+			$this->CI->template->title(lang_label($extra['title']));
 		}
 		// Set return uri
 		if (isset($extra['return']))
@@ -1092,7 +1092,7 @@ class Streams_cp extends CI_Driver {
 		// Set title
 		if (isset($extra['title']))
 		{
-			$this->CI->template->title($extra['title']);
+			$this->CI->template->title(lang_label($extra['title']));
 		}
 
 		// Set no assignments message

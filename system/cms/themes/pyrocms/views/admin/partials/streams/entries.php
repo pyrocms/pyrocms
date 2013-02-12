@@ -53,7 +53,7 @@
 							foreach($buttons as $button)
 							{
 								$class = (isset($button['confirm']) and $button['confirm']) ? 'button confirm' : 'button';
-								$all_buttons[] = anchor(str_replace('-entry_id-', $data_item->id, $button['url']), $button['label'], 'class="'.$class.'"');
+								$all_buttons[] = anchor(str_replace('-entry_id-', $data_item->id, $button['url']), lang_label($button['label']), 'class="'.$class.'"');
 							}
 						
 							echo implode('&nbsp;', $all_buttons);
