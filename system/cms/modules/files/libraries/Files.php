@@ -1232,4 +1232,53 @@ class Files
 
 		return implode($separator, $arr);
 	}
+	
+	/**
+	 * Tagged
+	 *
+	 * Selects files with any of the specified tags
+	 * 
+	 * @param	array|string	The tags to search by
+	 * @return	array	
+	 */
+	public function get_tagged_files($tags)
+	{
+		$return_files = array();
+		$hashes = array();
+
+		// while not as nice as straight queries this allows devs to select
+		// files using their own complex where clauses and we then filter from there.
+		$files = File::all();
+
+		if (is_string($tags))
+		{
+			$tags = array_map('trim', explode('|', $tags));
+		}
+
+		Applied::select('keywords_applied.hash')
+			->join('keywords_applied', 'keywords.id', '=', 'keywords_applied.keyword_id');
+
+		foreach ($tags as $tag)
+		{
+			Applied::orWhere('name', $tag);
+		}
+
+		$keywords = Applied::get();
+
+		foreach ($keywords as $keyword)
+		{
+			$hashes[] = $keyword->hash;
+		}
+
+		// select the files
+		foreach ($files as $file)
+		{
+			if (in_array($file->keywords, $hashes))
+			{
+				$return_files[] = $file;
+			}
+		}
+
+		return $return_files;
+	}
 }

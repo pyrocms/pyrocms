@@ -142,18 +142,18 @@ class Plugin_Files extends Plugin
 
 				if ($subfolders) {
 					$ids = array_merge(array((int) $folder->id), array_keys($subfolders));
-					$this->db->select('files.*, files.id as file_id, file_folders.location')
-						->join('file_folders', 'file_folders.id = files.folder_id')
-						->where_in('folder_id', $ids);
+					File::select('files.*', 'files.id as file_id', 'file_folders.location')
+						->join('file_folders', 'file_folders.id', '=', 'files.folder_id')
+						->whereIn('folder_id', $ids);
 				}
 			} else { // just the files for one folder
-				$this->db->select('files.*, files.id as file_id, file_folders.location')
-					->join('file_folders', 'file_folders.id = files.folder_id')
-					->where('folder_id', $folder->id);
+				File::select('files.*', 'files.id as file_id', 'file_folders.location')
+						->join('file_folders', 'file_folders.id', '=', 'files.folder_id')
+						->where('folder_id', $folder->id);
 			}
 		} elseif ( ! isset($folder)) { // no restrictions by folder so we'll just be getting files by their tags. Set up the join
-			$this->db->select('files.*, files.id as file_id, file_folders.location')
-				->join('file_folders', 'file_folders.id = files.folder_id');
+			File::select('files.*', 'files.id as file_id', 'file_folders.location')
+						->join('file_folders', 'file_folders.id', '=', 'files.folder_id');
 		} else {
 			return array();
 		}
@@ -164,9 +164,9 @@ class Plugin_Files extends Plugin
 		$order_by  and $this->db->order_by($order_by);
 
 	    if ($tags) {
-				$files = $this->file_m->get_tagged($tags);
+			$files = Files::get_tagged_files($tags);
 	    } else {
-			$files = $this->file_m->get_all();
+			$files = File::get();
 		}
 
 		$files and array_merge($this->_files, (array) $files);
