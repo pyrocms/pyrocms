@@ -74,6 +74,17 @@ class File extends \Illuminate\Database\Eloquent\Model
     {
         return static::where('filename', $filename)->get();
     }
+
+    /**
+     * Get Files by folder_id
+     *
+     * @param string $folder_id
+     * @return void
+     */
+    public static function findByFolder($folder_id)
+    {
+        return static::where('folder_id', $folder_id)->get();
+    }
     
     /**
      * Get Files by slug and location
