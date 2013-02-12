@@ -18,9 +18,11 @@ class Files_wysiwyg extends WYSIWYG_Controller {
 
 	public function index($id = 0)
 	{
+		$this->load->library('files/files');
+		
 		$data = new stdClass();
 
-		$data->folders			= Folder::getFolderTree();
+		$data->folders			= Files::folder_tree_recursive();
 		$data->subfolders		= array();
 		$data->current_folder	= $id && isset($data->folders[$id])
 								? $data->folders[$id]
@@ -28,13 +30,9 @@ class Files_wysiwyg extends WYSIWYG_Controller {
 
 		if ($data->current_folder)
 		{
-			$data->current_folder->items = $this->file_m
-				->select('files.*, file_folders.location')
-				->join('file_folders', 'file_folders.id = files.folder_id')
-				->order_by('files.date_added', 'DESC')
-				->get_many_by('files.folder_id', $data->current_folder->id);
+			$data->current_folder->items = $data->current_folder->files->orderBy('date_added', 'desc');
 
-			$subfolders = $this->file_folders_m->folder_tree($data->current_folder->id);
+			$subfolders = Files::folder_tree_recursive($data->current_folder->id);
 
 			foreach ($subfolders as $subfolder)
 			{
@@ -61,11 +59,12 @@ class Files_wysiwyg extends WYSIWYG_Controller {
 
 	public function ajax_get_file()
 	{
-		$file = $this->file_m->get($this->input->post('file_id'));
+		$file = File::find($this->input->post('file_id'));
 
 		$folders = array();
 		if ($folder_id = $this->input->post('folder_id'))
 		{
+			//TODO: Figure out what get_folder_path is supposed to be doing
 			$folders = $this->file_folders_m->get_folder_path($folder_id);
 		}
 
