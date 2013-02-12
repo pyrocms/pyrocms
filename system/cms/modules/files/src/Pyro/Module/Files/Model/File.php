@@ -22,15 +22,15 @@ class File extends \Illuminate\Database\Eloquent\Model
      */
     public $timestamps = false;
 
-	/*
-	 * Relationship with Folder
-	 * 
-	 */ 
-	public function folder()
-	{
-		return $this->belongsTo('Pyro\Module\Files\Model\Folder', 'folder_id');
-	}
-	 
+    /*
+     * Relationship with Folder
+     * 
+     */ 
+    public function folder()
+    {
+        return $this->belongsTo('Pyro\Module\Files\Model\Folder', 'folder_id');
+    }
+     
     /**
      * Get files by folder_id
      *
