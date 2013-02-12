@@ -22,9 +22,10 @@ class Folder extends \Illuminate\Database\Eloquent\Model
      */
     public $timestamps = false;
 
-    /*
+    /**
      * Relationship to File
      * 
+	 * @return object
      */
     public function files()
     {
