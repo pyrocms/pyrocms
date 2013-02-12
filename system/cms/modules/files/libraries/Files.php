@@ -305,18 +305,15 @@ class Files
 	 */
 	public static function upload($folder_id, $name = false, $field = 'userfile', $width = false, $height = false, $ratio = false, $allowed_types = false, $alt = NULL, $replace_file = false)
 	{
-		if ( ! $check_dir = self::check_dir(self::$path))
-		{
+		if ( ! $check_dir = self::check_dir(self::$path)) {
 			return $check_dir;
 		}
 
-		if ( ! $check_cache_dir = self::check_dir(self::$_cache_path))
-		{
+		if ( ! $check_cache_dir = self::check_dir(self::$_cache_path)) {
 			return $check_cache_dir;
 		}
 
-		if ( ! $check_ext = self::_check_ext($field))
-		{
+		if ( ! $check_ext = self::_check_ext($field)) {
 			return $check_ext;
 		}
 
@@ -325,8 +322,7 @@ class Files
 
 		$folder = Folder::find($folder_id);
 
-		if ($folder)
-		{
+		if ($folder) {
 			$upload_config = array(
 				'upload_path'	=> self::$path,
 				'file_name'		=> $replace_file ? $replace_file->filename : self::$_filename,
@@ -340,8 +336,7 @@ class Files
 
 			ci()->load->library('upload', $upload_config);
 
-			if (ci()->upload->do_upload($field))
-			{
+			if (ci()->upload->do_upload($field)) {
 				$file = ci()->upload->data();
 
 				$data = array(
@@ -361,8 +356,7 @@ class Files
 				);
 
 				// perhaps they want to resize it a bit as they upload
-				if ($file['is_image'] and ($width or $height))
-				{
+				if ($file['is_image'] and ($width or $height)) {
 					ci()->load->library('image_lib');
 
 					$config['image_library']    = 'gd2';
@@ -378,33 +372,27 @@ class Files
 					$data['height'] = ci()->image_lib->height;					
 				}
 
-				if ($file['is_image'])
-				{
+				if ($file['is_image']) {
 					$data['alt_attribute'] = $alt ? $alt : '';
 				}
 
-				if($replace_file)
-				{
+				if($replace_file) {
 					$file_id = $replace_file->id;
 					File::where('id',$replace_file->id)->update($data);
-				}
-				else
-				{
+				} else {
 					$data['id'] = substr(md5(microtime()+$data['filename']), 0, 15);
 					$file_id = $data['id'];
 					File::create($data);
 				}
 
-				if ($data['type'] !== 'i')
-				{
+				if ($data['type'] !== 'i') {
 					// so it wasn't an image. Now that we know the id we need to set the path as a download
 					$not_image = File::find($file_id);
 					$not_image->path = '{{ url:site }}files/download/'.$file_id;
 					$not_image->save();
 				}
 
-				if ($folder->location !== 'local')
-				{
+				if ($folder->location !== 'local') {
 					header("Connection: close");
 
 					return Files::move($file_id, $data['filename'], 'local', $folder->location, $folder->remote_container);
@@ -414,8 +402,7 @@ class Files
 
 				return self::result(true, lang('files:file_uploaded'), $data['name'], array('id' => $file_id) + $data);
 			}
-			else
-			{
+			else {
 				$errors = ci()->upload->display_errors();
 
 				header("Connection: close");
@@ -423,8 +410,7 @@ class Files
 				return self::result(false, $errors);
 			}
 		}
-		else
-		{
+		else {
 			header("Connection: close");
 
 			return self::result(false, lang('files:specify_valid_folder'));
@@ -447,8 +433,7 @@ class Files
 	{
 		$file = File::find($file_id);
 		
-		if ( ! $file)
-		{
+		if ( ! $file) {
 			return self::result(false, lang('files:item_not_found'), $new_name ? $new_name : $file_id);
 		}
 
@@ -460,20 +445,17 @@ class Files
 		if ($location) $file->folder->location = $location;
 
 		// if both locations are on the local filesystem then we just rename
-		if ($file->folder->location === 'local' and $new_location === 'local')
-		{
+		if ($file->folder->location === 'local' and $new_location === 'local') {
 			// if they were helpful enough to provide an extension then remove it
 			$file_slug = self::create_slug(str_replace($file->extension, '', $new_name));
 			$filename = $file_slug.$file->extension;
 
 			// does the source exist?
-			if (file_exists(self::$path.$file->filename))
-			{
+			if (file_exists(self::$path.$file->filename)) {
 				$i = 1;
 
 				// create a unique filename if the target already exists
-				while (file_exists(self::$path.$filename)) 
-				{
+				while (file_exists(self::$path.$filename))  {
 					// Example: test-image2.jpg
 					$filename = $file_slug.$i.$file->extension;
 					$i++;
@@ -492,29 +474,23 @@ class Files
 				@rename(self::$path.$file->filename, self::$path.$filename);
 
 				return self::result(true, lang('files:item_updated'), $new_name, $data);
-			}
-			else
-			{
+			} else {
 				return self::result(false, lang('files:item_not_found'), $file->name);
 			}
-		}
-		// we'll be pushing the file from here to the cloud
-		elseif ($file->folder->location === 'local' and $new_location)
-		{
+		} elseif ($file->folder->location === 'local' and $new_location) {
+			// we'll be pushing the file from here to the cloud
 			ci()->storage->load_driver($new_location);
 
 			$containers = ci()->storage->list_containers();
 
 			// if we try uploading to a non-existant container it gets ugly
-			if (in_array($container, $containers))
-			{
+			if (in_array($container, $containers)) {
 				// make a unique object name
 				$object = now().'.'.$new_name;
 
 				$path = ci()->storage->upload_file($container, self::$path.$file->filename, $object, null, 'public');
 
-				if ($new_location === 'amazon-s3')
-				{
+				if ($new_location === 'amazon-s3') {
 					// if amazon didn't throw an error we'll create a path to store like rackspace does
 					$url = ci()->parser->parse_string(Settings::get('files_s3_url'), array('bucket'=> $container), true);
 					$path = rtrim($url, '/').'/'.$object;
@@ -525,8 +501,7 @@ class Files
 				ci()->file_m->update($file->id, $data);
 
 				// now we create a thumbnail of the image for the admin panel to display
-				if ($file->type == 'i')
-				{
+				if ($file->type == 'i') {
 					ci()->load->library('image_lib');
 
 					$config['image_library']    = 'gd2';
@@ -551,25 +526,21 @@ class Files
 			}
 
 			return self::result(false, lang('files:invalid_container'), $container);
-		}
-		// pull it from the cloud to our filesystem
-		elseif ($file->folder->location and $new_location === 'local')
-		{
+		} elseif ($file->folder->location and $new_location === 'local') {
+			// pull it from the cloud to our filesystem
 			ci()->load->helper('file');
 			ci()->load->spark('curl/1.2.1');
 
 			// download the file... dum de dum
 			$curl_result = ci()->curl->simple_get($file->path);
 
-			if ($curl_result)
-			{
+			if ($curl_result) {
 				// if they were helpful enough to provide an extension then remove it
 				$file_slug = self::create_slug(str_replace($file->extension, '', $new_name));
 				$filename = $file_slug.$file->extension;
 
 				// create a unique filename if the target already exists
-				while (file_exists(self::$path.$filename)) 
-				{
+				while (file_exists(self::$path.$filename)) {
 					// Example: test-image2.jpg
 					$filename = $file_slug.$i.$file->extension;
 					$i++;
@@ -584,15 +555,11 @@ class Files
 					'container' => $container);
 
 				return self::result(true, lang('files:file_moved'), $file->name, $data);
-			}
-			else
-			{
+			} else {
 				return self::result(false, lang('files:unsuccessful_fetch'), $file);
 			}
-		}
-		// pulling from the cloud and then pushing to another part of the cloud :P
-		elseif ($file->folder->location and $new_location)
-		{
+		} elseif ($file->folder->location and $new_location) {
+			// pulling from the cloud and then pushing to another part of the cloud :P
 			ci()->load->helper('file');
 			ci()->storage->load_driver($new_location);
 
@@ -602,12 +569,9 @@ class Files
 			// and we download...
 			$curl_result = ci()->curl->simple_get($file);
 
-			if ($curl_result)
-			{
+			if ($curl_result) {
 				write_file($temp_file, $curl_result, 'wb');
-			}
-			else
-			{
+			} else {
 				return self::result(false, lang('files:unsuccessful_fetch'), $file);
 			}
 
@@ -616,8 +580,7 @@ class Files
 
 			$path = ci()->storage->upload_file($container, $temp_file, $object, null, 'public');
 
-			if ($new_location === 'amazon-s3')
-			{
+			if ($new_location === 'amazon-s3') {
 				// if amazon didn't throw an error we'll create a path to store like rackspace does
 				$url = ci()->parser->parse_string(Settings::get('files_s3_url'), array('bucket'=> $container), true);
 				$path = rtrim($url, '/').'/'.$object;
@@ -702,36 +665,28 @@ class Files
 		$files = array();
 
 		// yup they want real live file names from the cloud
-		if ($location !== 'local' and $container)
-		{
+		if ($location !== 'local' and $container) {
 			ci()->storage->load_driver($location);
 
 			$cloud_list = ci()->storage->list_files($container);
 
-			if ($cloud_list)
-			{
-				foreach ($cloud_list as $value) 
-				{
+			if ($cloud_list) {
+				foreach ($cloud_list as $value)  {
 					self::_get_file_info($value['name']);
 
-					if ($location === 'amazon-s3')
-					{
+					if ($location === 'amazon-s3') {
 						// we'll create a path to store like rackspace does
 						$url = ci()->parser->parse_string(Settings::get('files_s3_url'), array('bucket'=> $container), true);
 						$path = rtrim($url, '/').'/'.$value['name'];
-					}
-					elseif ($location === 'rackspace-cf')
-					{
+					} elseif ($location === 'rackspace-cf') {
 						// fetch the cdn uri from Rackspace
 						$cf_container = ci()->storage->get_container($container);
 						$path = $cf_container['cdn_uri'];
 
 						// they are trying to index a non-cdn enabled container
-						if ( ! $cf_container['cdn_enabled'])
-						{
+						if ( ! $cf_container['cdn_enabled']) {
 							// we'll try to enable it for them
-							if ( ! $path = ci()->storage->create_container($container, 'public'))
-							{
+							if ( ! $path = ci()->storage->create_container($container, 'public')) {
 								// epic fails all around!!
 								return self::result(false, lang('files:enable_cdn'), $container);
 							}
@@ -749,18 +704,13 @@ class Files
 					$i++;
 				}
 			}
-		}
-		// they're wanting a local list... give it to 'em but only if the file really exists
-		elseif ($location === 'local') 
-		{
+		} elseif ($location === 'local') {
+			 // they're wanting a local list... give it to 'em but only if the file really exists
 			$results = File::findBySlug($container);
 
-			if ($results)
-			{
-				foreach ($results as $value) 
-				{
-					if (file_exists(self::$path.$value->filename))
-					{
+			if ($results) {
+				foreach ($results as $value) {
+					if (file_exists(self::$path.$value->filename)) {
 						$files[$i]['filesize'] 		= $value->filesize;
 						$files[$i]['filename'] 		= $value->filename;
 						$files[$i]['extension']		= $value->extension;
@@ -797,23 +747,19 @@ class Files
 		$files = Files::list_files($folder->location, $folder->remote_container);
 
 		// did the fetch go ok?
-		if ($files['status'])
-		{
+		if ($files['status']) {
 			$valid_records = array();
 			$known = array();
 			$known_files = File::findByFolderId($folder_id);
 
 			// now we build an array with the database filenames as the keys so we can compare with the cloud list
-			foreach ($known_files as $item)
-			{
+			foreach ($known_files as $item) {
 				$known[$item->filename] = $item;
 			}
 
-			foreach ($files['data'] as $file)
-			{
+			foreach ($files['data'] as $file) {
 				// it's a totally new file
-				if ( ! array_key_exists($file['filename'], $known))
-				{
+				if ( ! array_key_exists($file['filename'], $known)) {
 					$insert = array(
 						'id' 			=> substr(md5(microtime()+$data['filename']), 0, 15),
 						'folder_id' 	=> $folder_id,
@@ -831,10 +777,7 @@ class Files
 
 					// we add the id to the list of records that have existing files to match them
 					$valid_records[] = File::create($insert);
-				}
-				// it's totally not a new file
-				else
-				{
+				} else { // it's totally not a new file
 					// update with the details we got from the cloud
 					File::where('id',$known[$file['filename']]->id)->update($file);
 
@@ -847,9 +790,7 @@ class Files
 			File::where('folder_id', $folder_id)->whereNotIn('id', $valid_records)->delete();
 
 			return self::result(true, lang('files:synchronization_complete'), $folder->name, $files['data']);
-		}
-		else
-		{
+		} else {
 			return self::result(null, lang('files:no_records_found'));
 		}
 	}
@@ -883,8 +824,7 @@ class Files
 	**/
 	public static function replace_file($to_replace, $folder_id, $name = false, $field = 'userfile', $width = false, $height = false, $ratio = false, $alt_attribute = false, $allowed_types = false)
 	{
-		if ($file_to_replace = File::find($to_replace))
-		{
+		if ($file_to_replace = File::find($to_replace)) {
 			//remove the old file...
 			self::_unlink_file($file_to_replace);
 
@@ -892,16 +832,14 @@ class Files
 			$result = self::upload($folder_id, $name, $field, $width, $height, $ratio, $allowed_types, $alt_attribute, $file_to_replace);
 
 			// remove files from cache
-			if( $result['status'] == 1 )
-			{
+			if( $result['status'] == 1 ) {
 				//md5 the name like they do it back in the thumb function
 				$cached_file_name = md5($file_to_replace->filename) . $file_to_replace->extension;
 				$path = Settings::get('cache_dir') . 'image_files/';
 				
 				$cached_files = glob( $path . '*_' . $cached_file_name );
 
-				foreach($cached_files as $full_path)
-				{
+				foreach($cached_files as $full_path) {
 					@unlink($full_path);
 				}
 			}
@@ -958,8 +896,7 @@ class Files
 		$results['folder'] = Folder::findByKeywords($search, $limit);
 		$results['file'] = File::findByKeywords($search, $limit);
 
-		if ($results['file'] or $results['folder'])
-		{
+		if ($results['file'] or $results['folder']) {
 			return self::result(true, null, null, $results);
 		}
 
@@ -1002,11 +939,9 @@ class Files
 	{
 		$allowed_actions = array();
 
-		foreach (ci()->module_m->roles('files') as $value)
-		{
+		foreach (ci()->module_m->roles('files') as $value) {
 			// build a simplified permission list for use in this module
-			if (isset(ci()->permissions['files']) and array_key_exists($value, ci()->permissions['files']) or ci()->current_user->group == 'admin')
-			{
+			if (isset(ci()->permissions['files']) and array_key_exists($value, ci()->permissions['files']) or ci()->current_user->group == 'admin') {
 				$allowed_actions[] = $value;
 			}
 		}
@@ -1051,8 +986,7 @@ class Files
 		log_message('debug', $error);
 
 		// only output the S3 error messages
-		if (strpos($error, 'S3') !== false)
-		{
+		if (strpos($error, 'S3') !== false) {
 			echo json_encode( 
 				array('status' 	=> false, // clean up the error message to make it more readable
 					  'message' => preg_replace('@S3.*?\[.*?\](.*)$@ms', '$1', $error),
@@ -1093,29 +1027,18 @@ class Files
 	**/
 	public static function check_dir($path)
 	{
-		if (is_dir($path) and is_really_writable($path))
-		{
+		if (is_dir($path) and is_really_writable($path)) {
 			return self::result(true);
-		}
-		elseif ( ! is_dir($path))
-		{
-			if ( ! @mkdir($path, 0777, true))
-			{
+		} elseif ( ! is_dir($path)) {
+			if ( ! @mkdir($path, 0777, true)) {
 				return self::result(false, lang('files:mkdir_error'), $path);
-			}
-			else
-			{
+			} else {
 				// create a catch all html file for safety
 				$uph = fopen($path . 'index.html', 'w');
 				fclose($uph);
 			}
-		}
-		else
-		{
-			if ( ! chmod($path, 0777))
-			{
-				return self::result(false, lang('files:chmod_error'));
-			}
+		} elseif ( ! chmod($path, 0777)) {
+			return self::result(false, lang('files:chmod_error'));
 		}
 	}
 	
@@ -1130,15 +1053,12 @@ class Files
 	**/
 	private static function _check_ext($field)
 	{
-		if ( ! empty($_FILES[$field]['name']))
-		{
+		if ( ! empty($_FILES[$field]['name'])) {
 			$ext		= pathinfo($_FILES[$field]['name'], PATHINFO_EXTENSION);
 			$allowed	= config_item('files:allowed_file_ext');
 
-			foreach ($allowed as $type => $ext_arr)
-			{				
-				if (in_array(strtolower($ext), $ext_arr))
-				{
+			foreach ($allowed as $type => $ext_arr) {				
+				if (in_array(strtolower($ext), $ext_arr)) {
 					self::$_type		= $type;
 					self::$_ext			= implode('|', $ext_arr);
 					self::$_filename	= trim(url_title($_FILES[$field]['name'], 'dash', true), '-');
@@ -1147,13 +1067,10 @@ class Files
 				}
 			}
 
-			if ( ! self::$_ext)
-			{
+			if ( ! self::$_ext) {
 				return self::result(false, lang('files:invalid_extension'), $_FILES[$field]['name']);
 			}
-		}		
-		elseif (ci()->method === 'upload')
-		{
+		} elseif (ci()->method === 'upload') {
 			return self::result(false, lang('files:upload_error'));
 		}
 
@@ -1176,10 +1093,8 @@ class Files
 		$ext		= array_pop(explode('.', $filename));
 		$allowed	= config_item('files:allowed_file_ext');
 
-		foreach ($allowed as $type => $ext_arr)
-		{				
-			if (in_array(strtolower($ext), $ext_arr))
-			{
+		foreach ($allowed as $type => $ext_arr) {				
+			if (in_array(strtolower($ext), $ext_arr)) {
 				self::$_type		= $type;
 				self::$_ext			= '.'.$ext;
 				self::$_filename	= $filename;
@@ -1199,19 +1114,15 @@ class Files
 	**/
 	private static function _unlink_file($file)
 	{
-		if( ! isset($file->filename) )
-		{
+		if( ! isset($file->filename) ) {
 			return FALSE;
 		}
+		
 		$folder = $file->folder;
 		
-		if ($folder->location === 'local')
-		{
+		if ($folder->location === 'local') {
 			@unlink(self::$path.$file->filename);
-		}
-		else
-		{
-			
+		} else {
 			ci()->storage->load_driver($folder->location);
 			ci()->storage->delete_file($folder->remote_container, $file->filename);
 
