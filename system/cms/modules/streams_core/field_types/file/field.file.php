@@ -1,5 +1,7 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
+use Pyro\Module\Files\Model\Folder;
+
 /**
  * PyroStreams File Field Type
  *
@@ -206,9 +208,7 @@ class Field_file
 	public function param_folder($value = null)
 	{
 		// Get the folders
-		$this->CI->load->model('files/file_folders_m');
-		
-		$tree = $this->CI->file_folders_m->get_folders();
+		$tree = Folder::getFolderTree();
 		
 		$tree = (array)$tree;
 		
