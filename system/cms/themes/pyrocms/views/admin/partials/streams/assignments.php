@@ -31,7 +31,7 @@
 								// don't render button if field is locked and $button['locked'] is set to TRUE
 								if($assignment->is_locked == 'yes' and isset($button['locked']) and $button['locked']) continue;
 								$class = (isset($button['confirm']) and $button['confirm']) ? 'button confirm' : 'button';
-								$all_buttons[] = anchor(str_replace('-assign_id-', $assignment->assign_id, $button['url']), $button['label'], 'class="'.$class.'"');
+								$all_buttons[] = anchor(str_replace('-assign_id-', $assignment->assign_id, $button['url']), lang_label($button['label']), 'class="'.$class.'"');
 							}
 						}
 					
