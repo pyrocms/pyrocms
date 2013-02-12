@@ -189,11 +189,9 @@ class Plugin_Files extends Plugin
 		if (isset($this->_files[$id])){
 			$file = $this->_files[$id];
 		} else {
-			$type and $this->file_m->select('files.*, file_folders.location')
-						->join('file_folders', 'file_folders.id = files.folder_id')
-						->where('type', $type);
+			$type and File::where('type', $type);
 
-			$file = $this->file_m->get_by('files.id', $id);
+			$file = File::find($id);
 		}
 
 		// file not found
@@ -226,22 +224,22 @@ class Plugin_Files extends Plugin
 				$dimension = trim($width . '/' . $height . '/' . $mode, '/');
 			}
 
-			if ($file->location === 'local' and $dimension) {
+			if ($file->folder->location === 'local' and $dimension) {
 				$uri = sprintf('files/thumb/%s/%s', $file->filename, $dimension);
-			} elseif ($file->location === 'local') {
+			} elseif ($file->folder->location === 'local') {
 				// we can't just return the path on this because they may not want an absolute url
 				$uri = 'files/large/' . $file->filename;
 			} else {
 				$uri = $file->path;
 			}
 		} else {
-			$uri = ($file->location === 'local') ? 'files/download/' . $file->id : $file->path;
+			$uri = ($file->folder->location === 'local') ? 'files/download/' . $file->id : $file->path;
 		}
 
 		// return string
 		if ($return) {
 			// if it isn't local then they are getting a url regardless what they ask for
-			if ($file->location !== 'local') {
+			if ($file->folder->location !== 'local') {
 				return $file->path;
 			}
 
@@ -316,14 +314,14 @@ class Plugin_Files extends Plugin
 	{
 		$id = $this->attribute('id');
 
-		$exists = (bool) (isset($this->_files[$id]) ? true : $this->file_m->exists($id));
+		$exists = (bool) (isset($this->_files[$id]) ? true : !(File::find($id)->isEmpty()));
 
 		return $exists && $this->content() ? $this->content() : $exists;
 	}
 	
 	public function folder_exists()
 	{
-		$exists = (bool) $this->file_folders_m->exists($this->attribute('slug'));
+		$exists = (bool) !(Folder::findBySlug($this->attribute('slug'))->isEmpty());
 
 		return $exists && $this->content() ? $this->content() : $exists;
 	}
