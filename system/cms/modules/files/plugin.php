@@ -1,4 +1,8 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
+
+use Pyro\Module\Files\Model\Folder;
+use Pyro\Module\Files\Model\File;
+
 /**
  * Files Plugin
  *
@@ -66,10 +70,7 @@ class Plugin_Files extends Plugin
 
 	public function __construct()
 	{
-		$this->load->model(array(
-			'file_m',
-			'file_folders_m'
-		));
+		$this->load->library('files/files');
 	}
 
 	/**
@@ -110,8 +111,8 @@ class Plugin_Files extends Plugin
 	 */
 	public function listing()
 	{
-		if ( ! $this->content())
-		{
+		
+		if ( ! $this->content()) {
 			return '';
 		}
 
@@ -123,51 +124,37 @@ class Plugin_Files extends Plugin
 		$fetch     = $this->attribute('fetch');
 		$order_by  = $this->attribute('order-by');
 
-		if ( ! empty($folder_id) && (empty($type) || in_array($type, array('a','v','d','i','o'))))
-		{
-			if (is_numeric($folder_id))
-			{
-				$folder = $this->file_folders_m->get($folder_id);
+		if ( ! empty($folder_id) && (empty($type) || in_array($type, array('a','v','d','i','o')))) {
+			if (is_numeric($folder_id)) {
+				$folder = Folder::find($folder_id);
 			}
-			elseif (is_string($folder_id))
-			{
-				$folder = $this->file_folders_m->get_by_path($folder_id);
+			elseif (is_string($folder_id)) {
+				$folder = Folder::findByPath($folder_id);
 			}
 		}
 
-		if (isset($folder) and $folder)
-		{
+		if (isset($folder) and $folder) {
 			// we're getting the files for an entire tree
-			if (in_array($fetch, array('root', 'subfolder')))
-			{
+			if (in_array($fetch, array('root', 'subfolder'))) {
 				$fetch_id = ($fetch === 'root' ? $folder->root_id : $folder->id);
 
-				$subfolders = $this->file_folders_m->folder_tree($fetch_id);
+				$subfolders = Files::folder_tree_recursive($fetch_id);
 
-				if ($subfolders)
-				{
+				if ($subfolders) {
 					$ids = array_merge(array((int) $folder->id), array_keys($subfolders));
 					$this->db->select('files.*, files.id as file_id, file_folders.location')
 						->join('file_folders', 'file_folders.id = files.folder_id')
 						->where_in('folder_id', $ids);
 				}
-			}
-			// just the files for one folder
-			else
-			{
+			} else { // just the files for one folder
 				$this->db->select('files.*, files.id as file_id, file_folders.location')
 					->join('file_folders', 'file_folders.id = files.folder_id')
 					->where('folder_id', $folder->id);
 			}
-		}
-		// no restrictions by folder so we'll just be getting files by their tags. Set up the join
-		elseif ( ! isset($folder))
-		{
+		} elseif ( ! isset($folder)) { // no restrictions by folder so we'll just be getting files by their tags. Set up the join
 			$this->db->select('files.*, files.id as file_id, file_folders.location')
 				->join('file_folders', 'file_folders.id = files.folder_id');
-		}
-		else
-		{
+		} else {
 			return array();
 		}
 
@@ -176,12 +163,9 @@ class Plugin_Files extends Plugin
 		$offset    and $this->db->offset($offset);
 		$order_by  and $this->db->order_by($order_by);
 
-    if ($tags)
-    {
-			$files = $this->file_m->get_tagged($tags);
-    }
-    else
-    {
+	    if ($tags) {
+				$files = $this->file_m->get_tagged($tags);
+	    } else {
 			$files = $this->file_m->get_all();
 		}
 
@@ -193,8 +177,7 @@ class Plugin_Files extends Plugin
 	public function file($return = '', $type = '')
 	{
 		// nothing to do
-		if ($return && ! in_array($return, array('url', 'path')))
-		{
+		if ($return && ! in_array($return, array('url', 'path'))) {
 			return '';
 		}
 
@@ -203,12 +186,9 @@ class Plugin_Files extends Plugin
 		$type = $type and in_array($type, array('a','v','d','i','o')) ? $type : '';
 
 		// get file
-		if (isset($this->_files[$id]))
-		{
+		if (isset($this->_files[$id])){
 			$file = $this->_files[$id];
-		}
-		else
-		{
+		} else {
 			$type and $this->file_m->select('files.*, file_folders.location')
 						->join('file_folders', 'file_folders.id = files.folder_id')
 						->where('type', $type);
@@ -217,27 +197,19 @@ class Plugin_Files extends Plugin
 		}
 
 		// file not found
-		if ( ! $file or ($type && $file->type !== $type))
-		{
+		if ( ! $file or ($type && $file->type !== $type)) {
 			return '';
-		}
-		// return file fields array
-		elseif ( ! $return && $this->content())
-		{
+		} elseif ( ! $return && $this->content()) { // return file fields array
 			return (array) $file;
 		}
 
 		// make uri
-		if ($type === 'i')
-		{
-			if ($size = $this->attribute('size', ''))
-			{
+		if ($type === 'i') {
+			if ($size = $this->attribute('size', '')) {
 				(strpos($size, 'x') === false) and ($size .= 'x');
 
 				list($width, $height) = explode('/', strtr($size, 'x', '/'));
-			}
-			else
-			{
+			} else {
 				$width  = $this->attribute('width', '');
 				$height	= $this->attribute('height', '');
 			}
@@ -245,43 +217,31 @@ class Plugin_Files extends Plugin
 			is_numeric($width) or $width = 'auto';
 			is_numeric($height) or $height = 'auto';
 
-			if ($width === 'auto' && $height === 'auto')
-			{
+			if ($width === 'auto' && $height === 'auto') {
 				$dimension = '';
-			}
-			else
-			{
+			} else {
 				$mode = $this->attribute('mode', '');
 				$mode = in_array($mode, array('fill', 'fit')) ? $mode : '';
 
 				$dimension = trim($width . '/' . $height . '/' . $mode, '/');
 			}
 
-			if ($file->location === 'local' and $dimension)
-			{
+			if ($file->location === 'local' and $dimension) {
 				$uri = sprintf('files/thumb/%s/%s', $file->filename, $dimension);
-			}
-			// we can't just return the path on this because they may not want an absolute url
-			elseif ($file->location === 'local')
-			{
+			} elseif ($file->location === 'local') {
+				// we can't just return the path on this because they may not want an absolute url
 				$uri = 'files/large/' . $file->filename;
-			}
-			else
-			{
+			} else {
 				$uri = $file->path;
 			}
-		}
-		else
-		{
+		} else {
 			$uri = ($file->location === 'local') ? 'files/download/' . $file->id : $file->path;
 		}
 
 		// return string
-		if ($return)
-		{
+		if ($return) {
 			// if it isn't local then they are getting a url regardless what they ask for
-			if ($file->location !== 'local')
-			{
+			if ($file->location !== 'local') {
 				return $file->path;
 			}
 
@@ -290,15 +250,12 @@ class Plugin_Files extends Plugin
 
 		$attributes	= $this->attributes();
 
-		foreach (array('base', 'size', 'id', 'title', 'type', 'mode', 'width', 'height') as $key)
-		{
-			if (isset($attributes[$key]) && ($type !== 'i' or ! in_array($key, array('width', 'height'))))
-			{
+		foreach (array('base', 'size', 'id', 'title', 'type', 'mode', 'width', 'height') as $key) {
+			if (isset($attributes[$key]) && ($type !== 'i' or ! in_array($key, array('width', 'height')))) {
 				unset($attributes[$key]);
 			}
 
-			if (isset($attributes['tag-' . $key]))
-			{
+			if (isset($attributes['tag-' . $key])) {
 				$attributes[$key] = $attributes['tag-' . $key];
 
 				unset($attributes['tag-' . $key]);
@@ -311,12 +268,10 @@ class Plugin_Files extends Plugin
 		$attributes['alt'] = isset($attributes['alt']) ? $attributes['alt'] : $file->alt_attribute;
 		
 		// return an image tag html
-		if ($type === 'i')
-		{
+		if ($type === 'i') {
 			$this->load->helper('html');
 
-			if (strpos($size, 'x') !== false && ! isset($attributes['width'], $attributes['height']))
-			{
+			if (strpos($size, 'x') !== false && ! isset($attributes['width'], $attributes['height'])) {
 				list($attributes['width'], $attributes['height']) = explode('x', $size);
 			}
 
@@ -377,8 +332,7 @@ class Plugin_Files extends Plugin
 	{
 		extract($extras);
 
-		if ($type === 'i')
-		{
+		if ($type === 'i') {
 			$attributes['src'] = $uri;
 
 			return img($attributes, $index_page);
@@ -396,14 +350,11 @@ class Plugin_Files extends Plugin
 		$this->config->set_item('base_url', '');
 
 		// generate tag
-		if ($type === 'i')
-		{
+		if ($type === 'i') {
 			$attributes['src'] = $uri;
 
 			$tag = img($attributes, $index_page);
-		}
-		else
-		{
+		} else {
 			$tag = anchor($uri, $title, $attributes);
 		}
 

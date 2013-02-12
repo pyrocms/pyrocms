@@ -99,6 +99,24 @@ class Folder extends \Illuminate\Database\Eloquent\Model
         return static::findByParent()->orderBy('sort')->get();
     }
     
+	/**
+     * Get Folders by path
+     *
+     * @param string $path
+     * @return folder object
+     */
+	public function findByPath($path)
+	{
+		if (is_array($path))
+		{
+			$path = implode('/', $path);
+		}
+
+		$path = trim($path, '/');
+
+		return static::where('virtual_path', $path)->get();
+	}
+	
     /**
      * Get Files by an array of keywords
      *
