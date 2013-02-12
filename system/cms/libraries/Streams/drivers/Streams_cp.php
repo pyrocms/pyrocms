@@ -104,18 +104,29 @@ class Streams_cp extends CI_Driver {
 		}
 	}
 
-	// --------------------------------------------------------------------------   
+	// --------------------------------------------------------------------------
 
-    /**
-     * Choose which items to view
-     */
- 	public function view_options($stream_id = '', $namespace = '')
+	/**
+	 * View Options
+	 *
+	 * Creates a table of view options that allows to choose which fields to view.
+ 	 *
+	 * @param	string - the stream slug
+	 * @param	string - the stream namespace slug
+	 * @param	string - the return uri
+	 * @param	boolean - set to true for default view or false to build your custom view 
+	 * @param	string - the title
+	 * @return	mixed - void or string
+	 */
+ 	public function view_options($stream_slug = '', $namespace = '', $return = null, $view_override = true, $title = null)
  	{
-		if ( ! $this->CI->data->stream = $this->CI->streams_m->get_stream($stream_id, ! is_numeric($stream_id), $namespace))
+		if ( ! $this->CI->data->stream = $this->CI->streams_m->get_stream($stream_slug, true, $namespace))
 		{
 			show_error(lang('streams:invalid_stream_id'));
 		}
   		check_stream_permission($this->CI->data->stream);
+
+  		$this->CI->data->return = isset($return) ? $return : 'admin/streams/manage/'.$this->CI->data->stream->id;
 
   		// -------------------------------------
 		// Process Data
@@ -139,7 +150,7 @@ class Streams_cp extends CI_Driver {
 			
 			endif;
 			
-			redirect('admin/streams/manage/'.$this->CI->data->stream->id);
+			redirect($this->CI->data->return);
 		
 		endif;
 
@@ -153,8 +164,22 @@ class Streams_cp extends CI_Driver {
 		// -------------------------------------
 		// Build Pages
 		// -------------------------------------
+
+		// Set title
+		$this->CI->template->title(isset($extra['title']) ? lang_label($extra['title']) : lang_label($this->CI->data->stream->stream_name).' &rarr; '.lang('streams:view_options'));
+
+		$table = $this->CI->load->view('admin/partials/streams/view_options', $this->CI->data, true);
 		
-        $this->CI->template->build('admin/partials/streams/view_options', $this->CI->data);
+		if ($view_override)
+		{
+			// Hooray, we are building the template ourself.
+			$this->CI->template->build('admin/partials/blank_section', array('content' => $table));
+		}
+		else
+		{
+			// Otherwise, we are returning the table
+			return $table;
+		}
 
  	}
 
