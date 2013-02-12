@@ -23,7 +23,7 @@ class Migration_Convert_blog_to_streams extends CI_Migration
 			// This will not alter any data, just add some new fields.
 			// Note: We are going to start off with 'title' and 'created' as the 
 			// fields that we show in the index.
-			$this->streams->utilities->convert_table_to_stream('blog', 'blogs', null, 'lang:blog', null, 'title', array('title', 'created'));
+			$this->streams->utilities->convert_table_to_stream('blog', 'blogs', null, 'lang:blog:blog_title', null, 'title', array('title', 'created'));
 
 			// Now we are going to go through each row and copy the value of
 			// 'created_on' and 'updated_on' into 'created' and 'updated'.
