@@ -1,4 +1,8 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php
+
+use Pyro\Module\Files\Model\File;
+use Pyro\Module\Files\Model\Folder;
+
 /**
  * Frontend controller for files and stuffs
  * 
@@ -27,15 +31,14 @@ class Files_front extends Public_Controller
 	{
 		$this->load->helper('download');
 
-		$file = $this->file_m->select('files.*, file_folders.location')
-			->join('file_folders', 'file_folders.id = files.folder_id')
-			->get_by('files.id', $id) OR show_404();
+		$file = File::find($id) OR show_404();
 
 		// increment the counter
-		$this->file_m->update($id, array('download_count' => $file->download_count + 1));
+		$file->download_count++;
+		$file->save();
 
 		// if it's cloud hosted then we send them there
-		if ($file->location !== 'local')
+		if ($file->folder->location !== 'local')
 		{
 			redirect($file->path);
 		}
@@ -54,7 +57,7 @@ class Files_front extends Public_Controller
 		// is it a 15 char hash with no file extension or is it an old style numeric id with no file extension?
 		if ((strlen($id) === 15 and strpos($id, '.') === false) or (is_numeric($id) and strpos($id, '.') === false))
 		{
-			$file = $this->file_m->get($id);
+			$file = File::find($id);
 		}
 		
 		// it's neither a legacy numeric id nor a new hash id so they've passed the filename itself
@@ -249,12 +252,10 @@ class Files_front extends Public_Controller
 
 	public function cloud_thumb($id = 0, $width = 75, $height = 50, $mode = 'fit')
 	{
-		$file = $this->file_m->select('files.*, file_folders.location')
-			->join('file_folders', 'file_folders.id = files.folder_id')
-			->get_by('files.id', $id);
+		$file = File::find($id);
 
 		// it is a cloud file, we will return the thumbnail made when it was uploaded
-		if ($file and $file->location !== 'local')
+		if ($file and $file->folder->location !== 'local')
 		{
 			$thumb_filename = config_item('cache_dir').'/cloud_cache/'.$file->filename;
 
