@@ -47,7 +47,9 @@
 					{
 						$class = (isset($button['confirm']) and $button['confirm']) ? 'button confirm ' : 'button ';
 						$class .= isset($button['class']) ? $button['class'] : '';
-						$all_buttons[] = anchor(str_replace('-stream_id-', $stream->id, $button['url']), $button['label'], 'class="'.$class.'"');
+						$url = str_replace('-stream_id-', $stream->id, $button['url']);
+						$url = str_replace('-stream_slug-', $stream->stream_slug, $url);
+						$all_buttons[] = anchor($url, lang_label($button['label']), 'class="'.$class.'"');
 					}
 				
 					echo implode('&nbsp;', $all_buttons);
