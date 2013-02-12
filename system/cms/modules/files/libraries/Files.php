@@ -1141,25 +1141,21 @@ class Files
 	{
 		$arr = $arr ? $arr : array();
 
-		if ($parent_id === 0)
-		{
+		if ($parent_id === 0) {
 			$arr	= array();
 			$depth	= 0;
 		}
 
 		$folders = Folder::findByParentAndSortByName($parent_id);
 
-		if ( ! $folders)
-		{
+		if ( ! $folders) {
 			return $arr;
 		}
 
 		static $root = null;
 
-		foreach ($folders as $folder)
-		{
-			if ($depth < 1)
-			{
+		foreach ($folders as $folder) {
+			if ($depth < 1) {
 				$root = $folder->id;
 			}
 
@@ -1175,10 +1171,8 @@ class Files
 			$folder->count_subfolders	= sizeof($arr) - $old_size;
 		}
 
-		if ($parent_id === 0)
-		{
-			foreach ($arr as $id => &$folder)
-			{
+		if ($parent_id === 0) {
+			foreach ($arr as $id => &$folder) {
 				$folder->virtual_path		= static::_build_asc_segments($id, array(
 					'segments'	=> $arr,
 					'separator'	=> '/',
@@ -1189,10 +1183,8 @@ class Files
 			$this->_folders = $arr;
 		}
 
-		if ($parent_id > 0 && $depth < 1)
-		{
-			foreach ($arr as $id => &$folder)
-			{
+		if ($parent_id > 0 && $depth < 1) {
+			foreach ($arr as $id => &$folder) {
 				$folder->virtual_path = $this->_folders[$id]->virtual_path;
 			}
 		}
@@ -1202,8 +1194,7 @@ class Files
 
 	private static function _build_asc_segments($id, $options = array())
 	{
-		if ( ! isset($options['segments']))
-		{
+		if ( ! isset($options['segments'])) {
 			return;
 		}
 
@@ -1219,14 +1210,12 @@ class Files
 
 		$arr = array();
 
-		while (isset($segments[$id]))
-		{
+		while (isset($segments[$id])) {
 			array_unshift($arr, $segments[$id]->{$attribute});
 			$id = $segments[$id]->parent_id;
 		}
 
-		if (is_int($limit) && $limit > 0 && sizeof($arr) > $limit)
-		{
+		if (is_int($limit) && $limit > 0 && sizeof($arr) > $limit) {
 			array_splice($arr, 1, -($limit-1), '&#8230;');
 		}
 
@@ -1250,31 +1239,26 @@ class Files
 		// files using their own complex where clauses and we then filter from there.
 		$files = File::get();
 
-		if (is_string($tags))
-		{
+		if (is_string($tags)) {
 			$tags = array_map('trim', explode('|', $tags));
 		}
 
 		Applied::select('keywords_applied.hash')
 			->join('keywords_applied', 'keywords.id', '=', 'keywords_applied.keyword_id');
 
-		foreach ($tags as $tag)
-		{
+		foreach ($tags as $tag) {
 			Applied::orWhere('name', $tag);
 		}
 
 		$keywords = Applied::get();
 
-		foreach ($keywords as $keyword)
-		{
+		foreach ($keywords as $keyword) {
 			$hashes[] = $keyword->hash;
 		}
 
 		// select the files
-		foreach ($files as $file)
-		{
-			if (in_array($file->keywords, $hashes))
-			{
+		foreach ($files as $file) {
+			if (in_array($file->keywords, $hashes)) {
 				$return_files[] = $file;
 			}
 		}
