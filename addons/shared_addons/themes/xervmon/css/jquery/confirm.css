@@ -1,0 +1,112 @@
+/*
+ * SimpleModal Confirm Modal Dialog
+ * http://www.ericmmartin.com/projects/simplemodal/
+ * http://code.google.com/p/simplemodal/
+ *
+ * Copyright (c) 2009 Eric Martin - http://ericmmartin.com
+ *
+ * Licensed under the MIT license:
+ *   http://www.opensource.org/licenses/mit-license.php
+ *
+ * Revision: $Id: confirm.css 185 2009-02-09 21:51:12Z emartin24 $
+ *
+ */
+
+
+/* Overlay */
+#confirmModalOverlay {background-color:#000; cursor:crosshair;}
+
+/* Container */
+#confirmModalContainer .confirm-header {
+	position: relative; 
+	background:transparent url(../../img/admin/sprite.png) no-repeat scroll 0 -990px;
+	padding-left:10px;
+}
+
+#confirmModalContainer .confirm-header span {
+	background:transparent url(../../img/admin/sprite.png) no-repeat scroll 100% -810px;
+	display:block;
+	font-size:16px;
+	font-weight:bold;
+	line-height:1.5em;
+	padding:5px 0;
+}
+
+#confirmModalContainer .confirm-message {
+	padding:10px 10px 0px 10px;
+	overflow:hidden;
+}
+
+
+#confirmModalContainer .confirm-message {
+	background:url(../../img/admin/content_bg.png) repeat-y right;
+}	
+
+#confirmModalContainer .confirm-buttons {
+text-align: left; border-width: 1px 0 0 0; background-image: none; margin: .5em 0 0 0; padding: .3em 1em .5em .4em;
+}
+
+#confirmModalContainer .confirm-buttons div {
+float: right; margin: .5em .4em .5em 0; cursor: pointer; padding: .2em .6em .3em .6em; line-height: 1.4em; width:auto; overflow:visible; 
+}
+/*#confirmModalContainer {height:140px; width:420px; font-family:'Trebuchet MS', Verdana, Arial; font-size:16px; text-align:left; background:#fff; border:2px solid #336699;}
+#confirmModalContainer .header {height:30px; width:100%; background:url(../../img/confirm/header.gif) repeat-x; color:#fff; font-size:1.1em; font-weight:bold; line-height:30px;}
+#confirmModalContainer .header span {padding-left:8px;}
+#confirmModalContainer .message {color:#333; text-align:center; margin:0; padding:12px 4px; font-size:1em;}
+#confirmModalContainer .buttons {width:160px; float:right; padding:10px 8px 0;} 
+#confirmModalContainer .buttons div {float:right; margin-left:8px; width:70px; height:26px; color:#666; font-weight:bold; text-align:center; background:url(../../img/confirm/button.gif) repeat-x; border:1px solid #bbb; cursor:pointer;} 
+
+*/
+#confirmModalContainer a.modalCloseX,
+#confirmModalContainer a.modalCloseX:link,
+#confirmModalContainer a.modalCloseX:active,
+#confirmModalContainer a.modalCloseX:visited {text-decoration:none; font-weight:bold; font-size:1.1em; position:absolute; top:-1px; left:400px; color:#ddd;}
+#confirmModalContainer a.modalCloseX:hover {color:#9bb3b3;}
+
+.dialogs{
+	display:none;
+}
+.ui-dialog { position: relative; padding: .2em; width: 300px; }
+.ui-dialog .ui-dialog-titlebar { 
+position: relative; 
+background:transparent url(../../img/admin/sprite.png) no-repeat scroll 0 -990px;
+padding-left:10px;
+}
+.ui-dialog .ui-dialog-title { 
+background:transparent url(../../img/admin/sprite.png) no-repeat scroll 100% -810px;
+display:block;
+font-size:16px;
+font-weight:bold;
+line-height:1.5em;
+padding:5px 0;
+} 
+.ui-dialog .ui-dialog-titlebar-close { 
+background: url(../../img/admin/sprite.png) repeat scroll 100% -2880px;
+height:22px;
+width:22px;
+text-indent:-9000px;
+overflow:hidden;
+position: absolute; 
+right: 10px; 
+top: 50%; 
+margin: -10px 0 0 0; 
+padding-right:10px;
+}
+.ui-dialog .ui-dialog-titlebar-close:hover{
+	background: url(../../img/admin/sprite.png) repeat scroll 100% -2910px;
+}
+.ui-dialog .ui-dialog-titlebar-close span { display: block; margin: 1px; }
+.ui-dialog .ui-dialog-content {
+border: 0; 
+overflow: auto; 
+zoom: 1; 
+}
+.ui-dialog-content .content {
+	padding:10px 10px 0px 10px;
+	background:url(../../img/admin/content_bg.png) repeat-y right;
+	overflow:hidden;
+}
+.ui-dialog .ui-dialog-buttonpane { text-align: left; border-width: 1px 0 0 0; background-image: none; margin: .5em 0 0 0; padding: .3em 1em .5em .4em; }
+.ui-dialog .ui-dialog-buttonpane button { float: right; margin: .5em .4em .5em 0; cursor: pointer; padding: .2em .6em .3em .6em; line-height: 1.4em; width:auto; overflow:visible; }
+.ui-dialog .ui-resizable-se { width: 14px; height: 14px; right: 3px; bottom: 3px; }
+.ui-draggable .ui-dialog-titlebar { cursor: move; }
