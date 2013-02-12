@@ -254,7 +254,7 @@ class Files
 
 		$slug = $original_slug;
 
-		while (Folder::all()->where('id','!=',$id)->where('slug','=',$slug)->count()) {
+		while (Folder::findBySlugAndNotId($slug,$id)->count()) {
 			$i++;
 			$slug = $original_slug.'-'.$i;
 			$name = $original_name.'-'.$i;
