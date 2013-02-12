@@ -862,11 +862,6 @@ class Files
 	public static function delete_file($id = 0)
 	{
 		if ($file = File::find($id)) {
-			/*
-			 ci()->file_m->select('files.*, file_folders.name foldername, file_folders.slug, file_folders.location, file_folders.remote_container')
-			->join('file_folders', 'files.folder_id = file_folders.id')
-			->get_by('files.id', $id)
-			 */
 			Applied::deleteByHash($file->keywords);
 
 			$file->delete();
