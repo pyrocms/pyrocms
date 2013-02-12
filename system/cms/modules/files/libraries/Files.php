@@ -1203,14 +1203,15 @@ class Files
 		{
 			return FALSE;
 		}
-
-		if ($file->location === 'local')
+		$folder = $file->folder;
+		
+		if ($folder->location === 'local')
 		{
 			@unlink(self::$path.$file->filename);
 		}
 		else
 		{
-			$folder = $file->folder;
+			
 			ci()->storage->load_driver($folder->location);
 			ci()->storage->delete_file($folder->remote_container, $file->filename);
 
