@@ -225,24 +225,7 @@ class Streams_cp extends CI_Driver {
 		// Find offset URI from array
 		// -------------------------------------
 		
-		if (is_numeric($pagination))
-		{
-			$segs = explode('/', $pagination_uri);
-			$offset_uri = count($segs)+1;
-	
-	 		$offset = $this->CI->uri->segment($offset_uri, 0);
-
-			// Calculate actual offset if not first page
-			if ( $offset > 0 )
-			{
-				$offset = ($offset - 1) * $pagination;
-			}
-  		}
-  		else
-  		{
-  			$offset_uri = null;
-  			$offset = 0;
-  		}
+ 		$offset = pagination_offset($pagination_uri, $pagination);
 
   		// -------------------------------------
 		// Sorting
@@ -258,7 +241,7 @@ class Streams_cp extends CI_Driver {
 			$this->CI->load->library('encrypt');
 
 			// We need some variables to use in the sort.
-			$this->CI->template->append_metadata('<script type="text/javascript" language="javascript">var stream_id='.$stream->id.'; var stream_offset='.$offset.'; var streams_module="'.$this->CI->encrypt->encode($this->CI->module_details['slug']).'";
+			$this->CI->template->append_metadata('<script type="text/javascript" language="javascript">var stream_id='.$stream->id.'; var stream_offset='.$offset['offset'].'; var streams_module="'.$this->CI->encrypt->encode($this->CI->module_details['slug']).'";
 				</script>');
 			$this->CI->template->append_js('streams/entry_sorting.js');
 		}
@@ -353,7 +336,7 @@ class Streams_cp extends CI_Driver {
 														$stream,
 														$stream_fields, 
 														$limit,
-														$offset,
+														$offset['offset'],
 														$filter_data);
 
 
@@ -375,7 +358,7 @@ class Streams_cp extends CI_Driver {
 									$pagination_uri,
 									$this->CI->db->select('id')->count_all_results($stream->stream_prefix.$stream->stream_slug),
 									$pagination,
-									$offset_uri
+									$offset['uri']
 								);
 		
 		// -------------------------------------
@@ -938,24 +921,7 @@ class Streams_cp extends CI_Driver {
 		$data['buttons'] = isset($extra['buttons']) ? $extra['buttons'] : null;
 
 		// Determine the offset and the pagination URI.
-		if (is_numeric($pagination))
-		{
-			$segs = explode('/', $pagination_uri);
-			$page_uri = count($segs)+1;
-	
-	 		$offset = $this->CI->uri->segment($page_uri, 0);
-
-			// Calculate actual offset if not first page
-			if ( $offset > 0 )
-			{
-				$offset = ($offset - 1) * $pagination;
-			}
-  		}
-  		else
-  		{
-  			$page_uri = null;
-  			$offset = 0;
-  		}
+		$offset = pagination_offset($pagination_uri, $pagination);
 
 		// -------------------------------------
 		// Get fields
@@ -963,7 +929,7 @@ class Streams_cp extends CI_Driver {
 
 		if (is_numeric($pagination))
 		{	
-			$data['fields'] = $this->CI->fields_m->get_fields($namespace, $pagination, $offset, $skips);
+			$data['fields'] = $this->CI->fields_m->get_fields($namespace, $pagination, $offset['offset'], $skips);
 		}
 		else
 		{
@@ -980,7 +946,7 @@ class Streams_cp extends CI_Driver {
 											$pagination_uri,
 											$this->CI->fields_m->count_fields($namespace),
 											$pagination, // Limit per page
-											$page_uri // URI segment
+											$offset['uri'] // URI segment
 										);
 		}
 		else
@@ -1052,22 +1018,7 @@ class Streams_cp extends CI_Driver {
 		$stream = $this->stream_obj($stream_slug, $namespace);
 		if ( ! $stream) $this->log_error('invalid_stream', 'assignments_table');
 
-		if (is_numeric($pagination))
-		{
-			$segs = explode('/', $pagination_uri);
-			$offset_uri = count($segs)+1;
-
-	 		$offset = $pagination*($this->CI->uri->segment($offset_uri, 0)-1);
-
-	 		// Negative value check
-	 		if ($offset < 0) $offset = 0;
-  		}
-		else
-		{
-			$offset_uri = null;
-			$offset = 0;
-			$offset_uri = null;
-		}
+ 		$offset = pagination_offset($pagination_uri, $pagination);
 
 		// -------------------------------------
 		// Get assignments
@@ -1075,7 +1026,7 @@ class Streams_cp extends CI_Driver {
 
 		if (is_numeric($pagination))
 		{	
-			$data['assignments'] = $this->CI->streams_m->get_stream_fields($stream->id, $pagination, $offset, $skips);
+			$data['assignments'] = $this->CI->streams_m->get_stream_fields($stream->id, $pagination, $offset['offset'], $skips);
 		}
 		else
 		{
@@ -1098,7 +1049,7 @@ class Streams_cp extends CI_Driver {
 											$pagination_uri,
 											$this->CI->fields_m->count_fields($namespace),
 											$pagination,
-											$offset_uri
+											$offset['uri']
 										);
 		}
 		else
@@ -1125,7 +1076,7 @@ class Streams_cp extends CI_Driver {
 			$data['no_assignments_message'] = $extra['no_assignments_message'];
 		}
 		
-		$this->CI->template->append_metadata('<script>var fields_offset='.$offset.';</script>');
+		$this->CI->template->append_metadata('<script>var fields_offset='.$offset['offset'].';</script>');
 		$this->CI->template->append_js('streams/assignments.js');
 
 		$table = $this->CI->load->view('admin/partials/streams/assignments', $data, true);
