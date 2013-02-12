@@ -90,7 +90,6 @@ class Field_textarea
 			$this->CI->load->helper('text');
 			return escape_tags($input);
 		}
-		
 	}
 
 	// --------------------------------------------------------------------------
@@ -123,9 +122,12 @@ class Field_textarea
 	public function param_allow_tags($value = null)
 	{
 		$options = array(
-			'y'	=> lang('global:yes'),
-			'n'	=> lang('global:no')
+			'n'	=> lang('global:no'),
+			'y'	=> lang('global:yes')
 		);
+
+		// Defaults to No
+		$value = ($value) ? $value : 'n';
 	
 		return form_dropdown('allow_tags', $options, $value);
 	}	

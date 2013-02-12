@@ -131,10 +131,13 @@ class Field_wysiwyg
 	public function param_allow_tags($value = null)
 	{
 		$options = array(
-			'y'	=> lang('global:yes'),
-			'n'	=> lang('global:no')
+			'n'	=> lang('global:no'),
+			'y'	=> lang('global:yes')
 		);
 	
+		// Defaults to No
+		$value = ($value) ? $value : 'n';
+
 		return form_dropdown('allow_tags', $options, $value);
 	}	
 
