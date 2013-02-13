@@ -244,6 +244,12 @@ class Admin extends Admin_Controller {
 			$result = Files::upload($input['folder_id'], $input['name'], 'file', $input['width'], $input['height'], $input['ratio'], null, $input['alt_attribute']);
 			$result['status'] AND Events::trigger('file_uploaded', $result['data']);
 		}
+		
+		/*if($result==null) {
+			$result = json_encode(array('status' 	=> false, 
+					 'message' 	=> "Unexpected error", 
+					 ));
+		}*/
 
 		echo json_encode($result);		
 	}

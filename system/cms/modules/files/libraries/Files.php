@@ -378,18 +378,15 @@ class Files
 
 				if($replace_file) {
 					$file_id = $replace_file->id;
+					if($data['type'] !== 'i') // so it wasn't an image. Now that we know the id we need to set the path as a download
+						$data['path'] = '{{ url:site }}files/download/'.$file_id;
 					File::where('id',$replace_file->id)->update($data);
 				} else {
 					$data['id'] = substr(md5(microtime()+$data['filename']), 0, 15);
 					$file_id = $data['id'];
+					if($data['type'] !== 'i') // so it wasn't an image. Now that we know the id we need to set the path as a download
+						$data['path'] = '{{ url:site }}files/download/'.$file_id;
 					File::create($data);
-				}
-
-				if ($data['type'] !== 'i') {
-					// so it wasn't an image. Now that we know the id we need to set the path as a download
-					$not_image = File::find($file_id);
-					$not_image->path = '{{ url:site }}files/download/'.$file_id;
-					$not_image->save();
 				}
 
 				if ($folder->location !== 'local') {
@@ -1049,7 +1046,7 @@ class Files
 	 * @return	bool
 	 *
 	**/
-	private static function _checkExt($field)
+	private function _checkExt($field)
 	{
 		if ( ! empty($_FILES[$field]['name'])) {
 			$ext		= pathinfo($_FILES[$field]['name'], PATHINFO_EXTENSION);
@@ -1084,7 +1081,7 @@ class Files
 	 * @return	bool
 	 *
 	**/
-	private static function _getFileInfo($filename)
+	private function _getFileInfo($filename)
 	{
 		ci()->load->helper('file');
 
@@ -1110,7 +1107,7 @@ class Files
 	 * @return	bool
 	 *
 	**/
-	private static function _unlinkFile($file)
+	private function _unlinkFile($file)
 	{
 		if( ! isset($file->filename) ) {
 			return FALSE;
