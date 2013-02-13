@@ -52,8 +52,8 @@ class Files
 		self::$max_size_possible = ($file_max > $post_max ? $post_max : $file_max) * 1048576; // convert to bytes
 		self::$max_size_allowed = Settings::get('files_upload_limit') * 1048576; // convert this to bytes also
 
-		set_exception_handler(array($this, 'exception_handler'));
-		set_error_handler(array($this, 'error_handler'));
+		set_exception_handler(array($this, 'exceptionHandler'));
+		set_error_handler(array($this, 'errorHandler'));
 
 		ci()->load->spark('cloudmanic-storage/1.0.4');
 	}
@@ -68,10 +68,10 @@ class Files
 	 * @return	array
 	 *
 	**/
-	public static function create_folder($parent = 0, $name = 'Untitled Folder', $location = 'local', $remote_container = '')
+	public static function createFolder($parent = 0, $name = 'Untitled Folder', $location = 'local', $remote_container = '')
 	{
 		$i = '';
-		$original_slug = self::create_slug($name);
+		$original_slug = self::createSlug($name);
 		$original_name = $name;
 
 		$slug = $original_slug;
@@ -108,7 +108,7 @@ class Files
 	 * @return	array
 	 *
 	**/
-	public static function create_container($container, $location, $id = 0)
+	public static function createContainer($container, $location, $id = 0)
 	{
 		ci()->storage->load_driver($location);
 
@@ -137,7 +137,7 @@ class Files
 	 * @return	array
 	 *
 	**/
-	public static function folder_contents($parent = 0)
+	public static function folderContents($parent = 0)
 	{
 		// they can also pass a url hash such as #foo/bar/some-other-folder-slug
 		if ( ! is_numeric($parent)) {
@@ -184,7 +184,7 @@ class Files
 	 *
 	 * @return array
 	 */
-	public static function folder_tree()
+	public static function folderTree()
 	{
 		$folders = array();
 		$folder_array = array();
@@ -222,7 +222,7 @@ class Files
 	 * @return	array
 	 *
 	**/
-	public static function check_container($name, $location)
+	public static function checkContainer($name, $location)
 	{
 		ci()->storage->load_driver($location);
 
@@ -246,10 +246,10 @@ class Files
 	 * @return	array
 	 *
 	**/
-	public static function rename_folder($id = 0, $name)
+	public static function renameFolder($id = 0, $name)
 	{
 		$i = '';
-		$original_slug = self::create_slug($name);
+		$original_slug = self::createSlug($name);
 		$original_name = $name;
 
 		$slug = $original_slug;
@@ -277,7 +277,7 @@ class Files
 	 * @return	array
 	 *
 	**/
-	public static function delete_folder($id = 0)
+	public static function deleteFolder($id = 0)
 	{
 		$folder = Folder::find($id);
 
@@ -305,15 +305,15 @@ class Files
 	 */
 	public static function upload($folder_id, $name = false, $field = 'userfile', $width = false, $height = false, $ratio = false, $allowed_types = false, $alt = NULL, $replace_file = false)
 	{
-		if ( ! $check_dir = self::check_dir(self::$path)) {
+		if ( ! $check_dir = self::checkDir(self::$path)) {
 			return $check_dir;
 		}
 
-		if ( ! $check_cache_dir = self::check_dir(self::$_cache_path)) {
+		if ( ! $check_cache_dir = self::checkDir(self::$_cache_path)) {
 			return $check_cache_dir;
 		}
 
-		if ( ! $check_ext = self::_check_ext($field)) {
+		if ( ! $check_ext = self::_checkExt($field)) {
 			return $check_ext;
 		}
 		
@@ -447,7 +447,7 @@ class Files
 		// if both locations are on the local filesystem then we just rename
 		if ($file->folder->location === 'local' and $new_location === 'local') {
 			// if they were helpful enough to provide an extension then remove it
-			$file_slug = self::create_slug(str_replace($file->extension, '', $new_name));
+			$file_slug = self::createSlug(str_replace($file->extension, '', $new_name));
 			$filename = $file_slug.$file->extension;
 
 			// does the source exist?
@@ -539,7 +539,7 @@ class Files
 
 			if ($curl_result) {
 				// if they were helpful enough to provide an extension then remove it
-				$file_slug = self::create_slug(str_replace($file->extension, '', $new_name));
+				$file_slug = self::createSlug(str_replace($file->extension, '', $new_name));
 				$filename = $file_slug.$file->extension;
 
 				// create a unique filename if the target already exists
@@ -616,7 +616,7 @@ class Files
 	 * @return	array
 	 *
 	**/
-	public static function get_file($identifier = 0)
+	public static function getFile($identifier = 0)
 	{
 		// they could have specified the row id or the actual filename
 		$results = (strlen($identifier) === 15 or strpos($identifier, '.') === false) ? 
@@ -640,7 +640,7 @@ class Files
 	 * @return	array
 	 *
 	**/
-	public static function get_files($location = 'local', $container = '')
+	public static function getFiles($location = 'local', $container = '')
 	{
 		$results = File::findBySlugAndLocation($container, $location);
 		//Make sure other code that uses this uses $file->folder->slug instead of $file->folder_slug (and same for folder name)
@@ -662,7 +662,7 @@ class Files
 	 * @return	array
 	 *
 	**/
-	public static function list_files($location = 'local', $container = '')
+	public static function listFiles($location = 'local', $container = '')
 	{
 		$i = 0;
 		$files = array();
@@ -675,7 +675,7 @@ class Files
 
 			if ($cloud_list) {
 				foreach ($cloud_list as $value)  {
-					self::_get_file_info($value['name']);
+					self::_getFileInfo($value['name']);
 
 					if ($location === 'amazon-s3') {
 						// we'll create a path to store like rackspace does
@@ -747,7 +747,7 @@ class Files
 
 		//list of files should be obtainable via files
 		
-		$files = Files::list_files($folder->location, $folder->remote_container);
+		$files = Files::listFiles($folder->location, $folder->remote_container);
 
 		// did the fetch go ok?
 		if ($files['status']) {
@@ -808,7 +808,7 @@ class Files
 	 * @return	array
 	 *
 	**/
-	public static function rename_file($id = 0, $name)
+	public static function renameFile($id = 0, $name)
 	{
 		// physical filenames cannot be changed because of the risk of breaking embedded urls so we just change the db
 		File::where('id', $id)->update(array('name' => $name));
@@ -825,11 +825,11 @@ class Files
 	 * @return	array
 	 *
 	**/
-	public static function replace_file($to_replace, $folder_id, $name = false, $field = 'userfile', $width = false, $height = false, $ratio = false, $alt_attribute = false, $allowed_types = false)
+	public static function replaceFile($to_replace, $folder_id, $name = false, $field = 'userfile', $width = false, $height = false, $ratio = false, $alt_attribute = false, $allowed_types = false)
 	{
 		if ($file_to_replace = File::find($to_replace)) {
 			//remove the old file...
-			self::_unlink_file($file_to_replace);
+			self::_unlinkFile($file_to_replace);
 
 			//...then upload the new file
 			$result = self::upload($folder_id, $name, $field, $width, $height, $ratio, $allowed_types, $alt_attribute, $file_to_replace);
@@ -862,14 +862,14 @@ class Files
 	 * @return	array
 	 *
 	**/
-	public static function delete_file($id = 0)
+	public static function deleteFile($id = 0)
 	{
 		if ($file = File::find($id)) {
 			Applied::deleteByHash($file->keywords);
 
 			$file->delete();
 
-			self::_unlink_file($file);
+			self::_unlinkFile($file);
 
 			return self::result(true, lang('files:item_deleted'), $file->name);
 		}
@@ -933,7 +933,7 @@ class Files
 	 * @return	array
 	 *
 	**/
-	public static function allowed_actions()
+	public static function allowedActions()
 	{
 		$allowed_actions = array();
 
@@ -957,7 +957,7 @@ class Files
 	 * @return	array
 	 *
 	**/
-	public static function exception_handler($e)
+	public static function exceptionHandler($e)
 	{
 		log_message('debug', $e->getMessage());
 
@@ -979,7 +979,7 @@ class Files
 	 * @return	array
 	 *
 	**/
-	public static function error_handler($e_number, $error)
+	public static function errorHandler($e_number, $error)
 	{
 		log_message('debug', $error);
 
@@ -1006,7 +1006,7 @@ class Files
 	 * @return	string
 	 *
 	**/
-	protected static function create_slug($name)
+	protected static function createSlug($name)
 	{
 		$name = convert_accented_characters($name);
 
@@ -1023,7 +1023,7 @@ class Files
 	 * @return	bool
 	 *
 	**/
-	public static function check_dir($path)
+	public static function checkDir($path)
 	{
 		if (is_dir($path) and is_really_writable($path)) {
 			return self::result(true);
@@ -1049,7 +1049,7 @@ class Files
 	 * @return	bool
 	 *
 	**/
-	private static function _check_ext($field)
+	private static function _checkExt($field)
 	{
 		if ( ! empty($_FILES[$field]['name'])) {
 			$ext		= pathinfo($_FILES[$field]['name'], PATHINFO_EXTENSION);
@@ -1084,7 +1084,7 @@ class Files
 	 * @return	bool
 	 *
 	**/
-	private static function _get_file_info($filename)
+	private static function _getFileInfo($filename)
 	{
 		ci()->load->helper('file');
 
@@ -1110,7 +1110,7 @@ class Files
 	 * @return	bool
 	 *
 	**/
-	private static function _unlink_file($file)
+	private static function _unlinkFile($file)
 	{
 		if( ! isset($file->filename) ) {
 			return FALSE;
@@ -1173,7 +1173,7 @@ class Files
 
 		if ($parent_id === 0) {
 			foreach ($arr as $id => &$folder) {
-				$folder->virtual_path		= static::_build_asc_segments($id, array(
+				$folder->virtual_path		= static::_buildAscSegments($id, array(
 					'segments'	=> $arr,
 					'separator'	=> '/',
 					'attribute'	=> 'slug'
@@ -1192,7 +1192,7 @@ class Files
 		return $arr;
 	}
 
-	private static function _build_asc_segments($id, $options = array())
+	private static function _buildAscSegments($id, $options = array())
 	{
 		if ( ! isset($options['segments'])) {
 			return;
