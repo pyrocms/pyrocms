@@ -127,9 +127,13 @@ class Plugin_Files extends Plugin
 		}
 		else
 		{
-			$type AND $this->file_m->select('files.*, file_folders.location')
-						->join('file_folders', 'file_folders.id = files.folder_id')
-						->where('type', $type);
+			$this->file_m->select('files.*, file_folders.location')
+				->join('file_folders', 'file_folders.id = files.folder_id');
+
+			if ($type)
+			{
+				$this->file_m->where('type', $type);
+			}
 
 			$file = $this->file_m->get_by('files.id', $id);
 		}
