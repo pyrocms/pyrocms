@@ -548,3 +548,43 @@ table .collapse{
     float: left;
     padding: 2px;
 }
+
+.date {
+    float: left;
+    margin: 0 15px 0 0;
+}
+
+
+.month {
+    background: none repeat scroll 0 0 #ED8E28;
+    border-bottom: 2px solid #CCCCCC;
+    border-top-left-radius: 2px;
+    color: #FFFFFF;
+    display: block;
+    font-weight: bold;
+    padding: 3px 10px;
+    text-align: center;
+    width: 35px;
+}
+.day {
+    background: none repeat scroll 0 0 #E0DBDB;
+    border-bottom-left-radius: 2px;
+    color: #333333;
+    display: block;
+    padding: 8px 10px 10px;
+    text-align: center;
+    width: 35px;
+}
+
+/*----------For file page-----------*/
+
+.folder.open {
+    clear: both;
+}
+.folder.close {
+    clear: both;
+}
+
+.close{
+ float:none !important;
+}
