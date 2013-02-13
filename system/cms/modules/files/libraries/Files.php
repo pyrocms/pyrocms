@@ -1251,10 +1251,10 @@ class Files
 		}
 
 		$keywords = Applied::get();
-
-		foreach ($keywords as $keyword) {
-			$hashes[] = $keyword->hash;
-		}
+		
+		$hashes = array_map(function($keyword) {
+					return $keyword->hash;
+				}, $keywords);
 
 		// select the files
 		foreach ($files as $file) {
@@ -1264,5 +1264,60 @@ class Files
 		}
 
 		return $return_files;
+	}
+	
+	/**
+	 * Files listing
+	 *
+	 * Creates a list of files
+	 * 
+	 * Used by the Files plugin
+	 *
+	 * @return array
+	 */
+	public function getListing($folder_id, $tags, $limit, $offset, $type, $fetch, $order_by, $order_ord)
+	{
+		if ( ! empty($folder_id) && (empty($type) || in_array($type, array('a','v','d','i','o')))) {
+			if (is_numeric($folder_id)) {
+				$folder = Folder::find($folder_id);
+			}
+			elseif (is_string($folder_id)) {
+				$folder = Folder::findByPath($folder_id);
+			}
+		}
+		
+		$subfolders = array();
+		
+		if (isset($folder) && $folder && in_array($fetch, array('root', 'subfolder'))) {
+			// we're getting the files for an entire tree
+			$fetch_id = ($fetch === 'root' ? $folder->root_id : $folder->id);
+
+			$subfolders = Files::folderTreeRecursive($fetch_id);
+		} elseif ( ! isset($folder)) { // no restrictions by folder so we'll just be getting files by their tags. Set up the join
+			return array();
+		}
+
+		if (!empty($subfolders)) {
+			$ids = array_merge(array((int) $folder->id), array_keys($subfolders));
+			File::whereIn('folder_id', $ids);
+		} else { // just the files for one folder
+			File::where('folder_id', $folder->id);
+		}
+		
+		$type	&&	File::where('type', $type);
+		$limit	&&	File::take($limit);
+		$offset	&&	File::skip($offset);
+		
+		if(!$order_ord) $order_ord = 'asc';
+		
+		$order_by && File::orderBy($order_by, $order_ord);
+
+	    if ($tags) {
+			$files = Files::getTaggedFiles($tags);
+	    } else {
+			$files = File::get();
+		}
+		
+		return $files;
 	}
 }

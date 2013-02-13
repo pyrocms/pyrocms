@@ -111,7 +111,6 @@ class Plugin_Files extends Plugin
 	 */
 	public function listing()
 	{
-		
 		if ( ! $this->content()) {
 			return '';
 		}
@@ -123,51 +122,9 @@ class Plugin_Files extends Plugin
 		$type      = $this->attribute('type', '');
 		$fetch     = $this->attribute('fetch');
 		$order_by  = $this->attribute('order-by');
+		$order_ord  = $this->attribute('order-ord');
 
-		if ( ! empty($folder_id) && (empty($type) || in_array($type, array('a','v','d','i','o')))) {
-			if (is_numeric($folder_id)) {
-				$folder = Folder::find($folder_id);
-			}
-			elseif (is_string($folder_id)) {
-				$folder = Folder::findByPath($folder_id);
-			}
-		}
-
-		if (isset($folder) and $folder) {
-			// we're getting the files for an entire tree
-			if (in_array($fetch, array('root', 'subfolder'))) {
-				$fetch_id = ($fetch === 'root' ? $folder->root_id : $folder->id);
-
-				$subfolders = Files::folderTreeRecursive($fetch_id);
-
-				if ($subfolders) {
-					$ids = array_merge(array((int) $folder->id), array_keys($subfolders));
-					File::select('files.*', 'files.id as file_id', 'file_folders.location')
-						->join('file_folders', 'file_folders.id', '=', 'files.folder_id')
-						->whereIn('folder_id', $ids);
-				}
-			} else { // just the files for one folder
-				File::select('files.*', 'files.id as file_id', 'file_folders.location')
-						->join('file_folders', 'file_folders.id', '=', 'files.folder_id')
-						->where('folder_id', $folder->id);
-			}
-		} elseif ( ! isset($folder)) { // no restrictions by folder so we'll just be getting files by their tags. Set up the join
-			File::select('files.*', 'files.id as file_id', 'file_folders.location')
-						->join('file_folders', 'file_folders.id', '=', 'files.folder_id');
-		} else {
-			return array();
-		}
-
-		$type      and $this->db->where('type', $type);
-		$limit     and $this->db->limit($limit);
-		$offset    and $this->db->offset($offset);
-		$order_by  and $this->db->order_by($order_by);
-
-	    if ($tags) {
-			$files = Files::getTaggedFiles($tags);
-	    } else {
-			$files = File::get();
-		}
+		Files::getListing($folder_id, $tags, $limit, $offset, $type, $fetch, $order_by, $order_ord);
 
 		$files and array_merge($this->_files, (array) $files);
 
