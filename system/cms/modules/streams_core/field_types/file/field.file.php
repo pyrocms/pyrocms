@@ -197,7 +197,7 @@ class Field_file
 		$this->CI->load->library('files/files');
 		
 		// Get the folders
-		$tree = Files::folder_tree_recursive();
+		$tree = Files::folderTreeRecursive();
 		
 		$tree = (array)$tree;
 		

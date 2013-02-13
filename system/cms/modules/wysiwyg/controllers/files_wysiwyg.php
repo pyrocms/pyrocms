@@ -22,7 +22,7 @@ class Files_wysiwyg extends WYSIWYG_Controller {
 		
 		$data = new stdClass();
 
-		$data->folders			= Files::folder_tree_recursive();
+		$data->folders			= Files::folderTreeRecursive();
 		$data->subfolders		= array();
 		$data->current_folder	= $id && isset($data->folders[$id])
 								? $data->folders[$id]
@@ -31,7 +31,7 @@ class Files_wysiwyg extends WYSIWYG_Controller {
 		if ($data->current_folder) {
 			$data->current_folder->items = $data->current_folder->files->orderBy('date_added', 'desc');
 
-			$subfolders = Files::folder_tree_recursive($data->current_folder->id);
+			$subfolders = Files::folderTreeRecursive($data->current_folder->id);
 
 			foreach ($subfolders as $subfolder) {
 				$data->subfolders[$subfolder->id] = repeater('&raquo; ', $subfolder->depth) . $subfolder->name;

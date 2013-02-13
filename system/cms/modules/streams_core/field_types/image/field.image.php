@@ -205,7 +205,7 @@ class Field_image
 		// Get the folders
 		$this->CI->load->library('files/files');
 		
-		$tree = Files::folder_tree_recursive();
+		$tree = Files::folderTreeRecursive();
 		
 		$tree = (array)$tree;
 		

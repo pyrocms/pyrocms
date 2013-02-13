@@ -21,7 +21,7 @@ class Image extends WYSIWYG_Controller {
 		
 		$data = new stdClass();
 
-		$data->folders			= Files::folder_tree_recursive();
+		$data->folders			= Files::folderTreeRecursive();
 		$data->subfolders		= array();
 		$data->current_folder	= $id && isset($data->folders[$id])
 								? $data->folders[$id]
@@ -35,7 +35,7 @@ class Image extends WYSIWYG_Controller {
 				->where('files.type', 'i')
 				->get_many_by('files.folder_id', $data->current_folder->id);
 
-			$subfolders = Files::folder_tree_recursive($data->current_folder->id);
+			$subfolders = Files::folderTreeRecursive($data->current_folder->id);
 
 			foreach ($subfolders as $subfolder) {
 				$data->subfolders[$subfolder->id] = repeater('&raquo; ', $subfolder->depth) . $subfolder->name;

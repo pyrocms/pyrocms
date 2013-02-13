@@ -138,7 +138,7 @@ class Plugin_Files extends Plugin
 			if (in_array($fetch, array('root', 'subfolder'))) {
 				$fetch_id = ($fetch === 'root' ? $folder->root_id : $folder->id);
 
-				$subfolders = Files::folder_tree_recursive($fetch_id);
+				$subfolders = Files::folderTreeRecursive($fetch_id);
 
 				if ($subfolders) {
 					$ids = array_merge(array((int) $folder->id), array_keys($subfolders));

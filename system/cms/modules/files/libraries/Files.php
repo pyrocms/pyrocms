@@ -1137,7 +1137,7 @@ class Files
 	 *
 	 * @uses folder_subtree
 	 */
-	public static function folder_tree_recursive($parent_id = 0, $depth = 0, &$arr = array())
+	public static function folderTreeRecursive($parent_id = 0, $depth = 0, &$arr = array())
 	{
 		$arr = $arr ? $arr : array();
 
@@ -1166,7 +1166,7 @@ class Files
 			$arr[$folder->id]			= $folder;
 			$old_size					= sizeof($arr);
 
-			static::folder_tree_recursive($folder->id, $depth+1, $arr);
+			static::folderTreeRecursive($folder->id, $depth+1, $arr);
 
 			$folder->count_subfolders	= sizeof($arr) - $old_size;
 		}
