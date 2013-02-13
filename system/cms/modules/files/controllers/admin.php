@@ -246,9 +246,9 @@ class Admin extends Admin_Controller {
 		}
 		
 		if($result==null) {
-			$result = json_encode(array('status' 	=> false, 
+			$result = array('status' 	=> false, 
 					 'message' 	=> "Unexpected error", 
-					 ));
+					 );
 		}
 
 		echo json_encode($result);		
