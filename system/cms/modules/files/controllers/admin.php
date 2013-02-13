@@ -245,11 +245,11 @@ class Admin extends Admin_Controller {
 			$result['status'] AND Events::trigger('file_uploaded', $result['data']);
 		}
 		
-		/*if($result==null) {
+		if($result==null) {
 			$result = json_encode(array('status' 	=> false, 
 					 'message' 	=> "Unexpected error", 
 					 ));
-		}*/
+		}
 
 		echo json_encode($result);		
 	}
