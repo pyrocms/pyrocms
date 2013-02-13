@@ -164,7 +164,7 @@ class Plugin_Files extends Plugin
 		$order_by  and $this->db->order_by($order_by);
 
 	    if ($tags) {
-			$files = Files::get_tagged_files($tags);
+			$files = Files::getTaggedFiles($tags);
 	    } else {
 			$files = File::get();
 		}

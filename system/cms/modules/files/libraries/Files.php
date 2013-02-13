@@ -1230,7 +1230,7 @@ class Files
 	 * @param	array|string	The tags to search by
 	 * @return	array	
 	 */
-	public function get_tagged_files($tags)
+	public function getTaggedFiles($tags)
 	{
 		$return_files = array();
 		$hashes = array();
