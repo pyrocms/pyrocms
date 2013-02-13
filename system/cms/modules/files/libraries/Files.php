@@ -1230,7 +1230,7 @@ class Files
 	 * @param	array|string	The tags to search by
 	 * @return	array	
 	 */
-	public function getTaggedFiles($tags)
+	public static function getTaggedFiles($tags)
 	{
 		$return_files = array();
 		$hashes = array();
@@ -1275,7 +1275,7 @@ class Files
 	 *
 	 * @return array
 	 */
-	public function getListing($folder_id, $tags, $limit, $offset, $type, $fetch, $order_by, $order_ord)
+	public static function getListing($folder_id, $tags, $limit, $offset, $type, $fetch, $order_by, $order_ord)
 	{
 		if ( ! empty($folder_id) && (empty($type) || in_array($type, array('a','v','d','i','o')))) {
 			if (is_numeric($folder_id)) {
@@ -1309,7 +1309,7 @@ class Files
 		$offset	&&	File::skip($offset);
 		
 		if(!$order_ord) $order_ord = 'asc';
-		
+
 		$order_by && File::orderBy($order_by, $order_ord);
 
 	    if ($tags) {
