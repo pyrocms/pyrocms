@@ -86,7 +86,7 @@ class Folder extends \Illuminate\Database\Eloquent\Model
      */
     public static function findByParentAndSortByName($parent_id = 0)
     {
-        return static::findByParent()->orderBy('name')->get();
+        return static::where('parent_id','=',$parent_id)->orderBy('name')->get();
     }
 
     /**
@@ -97,7 +97,7 @@ class Folder extends \Illuminate\Database\Eloquent\Model
      */
     public static function findByParentAndSortBySort($parent_id = 0)
     {
-        return static::findByParent()->orderBy('sort')->get();
+        return static::where('parent_id','=',$parent_id)->orderBy('sort')->get();
     }
     
     /**
