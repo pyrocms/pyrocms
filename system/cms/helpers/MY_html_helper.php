@@ -1,5 +1,7 @@
 <?php 
 
+use Illuminate\Database\Eloquent\Model;
+
 /**
  * PyroCMS Tree Helpers
  *
@@ -36,7 +38,7 @@ if ( ! function_exists('tree_builder'))
 			}
 
 			// now that the children html is sorted we parse the html that they passed
-			if (is_object($item)) {
+			if ($item instanceof Model) {
 				$output .= ci()->parser->parse_string($html, $item->toArray(), true);
 			} else {
 				$output .= ci()->parser->parse_string($html, $item, true);
