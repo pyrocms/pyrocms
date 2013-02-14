@@ -8,7 +8,7 @@
 			<ul class="button-menu-source buttons">
 				<li class="button animated fadeIn" data-applies-to="pane root-pane"	data-menu="refresh"><?php echo lang('files:refresh') ?></li>
 				<li class="button animated fadeIn" data-applies-to="folder" data-menu="open"><?php echo lang('files:open') ?></li>
-				<li class="button animated fadeIn" data-role="create_folder"	data-applies-to="pane root-pane" data-menu="new-folder"><?php echo lang('files:new_folder') ?></li>
+				<li class="button animated fadeIn" data-role="create_folder" data-applies-to="pane root-pane" data-menu="new-folder"><?php echo lang('files:new_folder') ?></li>
 				<li class="button animated fadeIn" data-role="upload" data-applies-to="folder pane" data-menu="upload"><?php echo lang('files:upload') ?></li>
 				<li class="button animated fadeIn" data-role="edit_file" data-applies-to="file" data-menu="rename"><?php echo lang('files:rename') ?></li>
 				<li class="button animated fadeIn" data-role="edit_folder" data-applies-to="folder" data-menu="rename"><?php echo lang('files:rename') ?></li>
@@ -17,7 +17,7 @@
 				<li class="button animated fadeIn" data-role="upload delete_file" data-applies-to="file" data-menu="replace"><?php echo lang('files:replace') ?></li>
 				<li class="button animated fadeIn" data-role="delete_file" data-applies-to="file" data-menu="delete"><?php echo lang('files:delete') ?></li>
 				<li class="button animated fadeIn" data-role="delete_folder" data-applies-to="folder" data-menu="delete"><?php echo lang('files:delete') ?></li>
-				<li class="button animated fadeIn" data-applies-to="folder file pane"	data-menu="details"><?php echo lang('files:details') ?></li>
+				<li class="button animated fadeIn" data-applies-to="folder file pane" data-menu="details"><?php echo lang('files:details') ?></li>
 			</ul>
 		</div>
 		<input type="text" id="file-search" name="file-search" value="" placeholder="<?php echo lang('files:search_message') ?>"/>
@@ -28,7 +28,7 @@
 	<section class="side">
 		<ul id="folders-sidebar">
 			<li class="folder places" data-id="0"><a href="#"><?php echo lang('files:places') ?></a></li>
-			<?php if ( ! $folders) : ?>
+			<?php if (empty($folders)) : ?>
 				<li class="no_data"><?php echo lang('files:no_folders_places') ?></li>
 			<?php elseif ($folder_tree) : ?>
 				<?php echo tree_builder($folder_tree, '<li class="folder" data-id="{{ id }}" data-name="{{ name }}"><div></div><a href="#">{{ name }}</a>{{ children }}</li>') ?>
@@ -38,7 +38,7 @@
 
 	<section class="center">
 
-			<?php if ( ! $folders) : ?>
+			<?php if (empty($folders)) : ?>
 				<div class="no_data"><?php echo lang('files:no_folders') ?></div>
 			<?php endif ?>
 
