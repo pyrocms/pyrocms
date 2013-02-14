@@ -74,7 +74,7 @@ class Files_front extends Public_Controller
 			exit;
 		}
 
-		$cache_dir = $this->config->item('cache_dir') . 'image_files/';
+		$cache_dir = $this->config->item('files:image_cache_path');
 
 		is_dir($cache_dir) or mkdir($cache_dir, 0777, true);
 
