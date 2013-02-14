@@ -32,6 +32,12 @@ class Public_Controller extends MY_Controller
 					redirect($redirect->to, 'location', $redirect->type);
 				}
 
+				// redirect for (/:any) input from user
+				if(strpos($redirect->from, '(/:any)'))
+				{
+					redirect($redirect->to, 'location', $redirect->type);
+				}
+				
 				// If it has back reference
 				if (strpos($redirect->to, '$') !== false)
 				{
