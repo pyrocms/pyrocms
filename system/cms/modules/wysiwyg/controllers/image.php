@@ -1,4 +1,6 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php
+
+use Pyro\Module\Files\Model\Folder;
 
 /**
  * Manages image selection and insertion for WYSIWYG editors
@@ -15,16 +17,17 @@ class Image extends WYSIWYG_Controller {
 	
 	public function index($id = 0)
 	{
+		$this->load->library('files/files');
+		
 		$data = new stdClass();
 
-		$data->folders			= $this->file_folders_m->get_folders();
+		$data->folders			= Files::folderTreeRecursive();
 		$data->subfolders		= array();
 		$data->current_folder	= $id && isset($data->folders[$id])
 								? $data->folders[$id]
 								: ($data->folders ? current($data->folders) : array());
 
-		if ($data->current_folder)
-		{
+		if ($data->current_folder) {
 			$data->current_folder->items = $this->file_m
 				->select('files.*, file_folders.location')
 				->join('file_folders', 'file_folders.id = files.folder_id')
@@ -32,10 +35,9 @@ class Image extends WYSIWYG_Controller {
 				->where('files.type', 'i')
 				->get_many_by('files.folder_id', $data->current_folder->id);
 
-			$subfolders = $this->file_folders_m->folder_tree($data->current_folder->id);
+			$subfolders = Files::folderTreeRecursive($data->current_folder->id);
 
-			foreach ($subfolders as $subfolder)
-			{
+			foreach ($subfolders as $subfolder) {
 				$data->subfolders[$subfolder->id] = repeater('&raquo; ', $subfolder->depth) . $subfolder->name;
 			}
 
@@ -47,8 +49,7 @@ class Image extends WYSIWYG_Controller {
 
 		// Array for select
 		$data->folders_tree = array();
-		foreach ($data->folders as $folder)
-		{
+		foreach ($data->folders as $folder) {
 			$data->folders_tree[$folder->id] = repeater('&raquo; ', $folder->depth) . $folder->name;
 		}
 
