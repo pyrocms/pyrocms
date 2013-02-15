@@ -36,7 +36,7 @@ class Events_Templates {
         unset($data['slug']);
 
 		//get all email templates
-		$templates = Email::findBySlug($slug);
+		$templates = EmailTemplate::findBySlug($slug);
 
         //make sure we have something to work with
         if ( ! empty($templates))
