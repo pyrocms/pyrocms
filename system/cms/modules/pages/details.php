@@ -228,7 +228,7 @@ class Module_Pages extends Module
 			'def_page_fields',
 			'pages',
 			null,
-			'A basic page type to get you started adding content.'
+			'A simple page type with a WYSIWYG editor that will get you started adding content.'
 		);
 	
 		// add the fields to the streams
@@ -239,6 +239,7 @@ class Module_Pages extends Module
 			'id' => 1,
 			'title' => 'Default',
 			'slug' => 'default',
+			'description' => 'A simple page type with a WYSIWYG editor that will get you started adding content.',
 			'stream_id' => $stream_id,
 			'body' => '<h2>{{ page:title }}</h2>'."\n\n".'{{ body }}',
 			'css' => '',
