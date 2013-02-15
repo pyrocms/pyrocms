@@ -175,7 +175,9 @@ class Plugin_Blog extends Plugin
 			'order_by'		=> 'created_on',
 			'sort'			=> 'desc',
 			'show_past'		=> 'no',
-			'date_by'		=> 'created_on'
+			'date_by'		=> 'created_on',
+			'limit'			=> $this->attribute('limit', 10),
+			'offset'		=> $this->attribute('offset')
 		);
 		foreach ($overrides as $k => $v)
 		{
@@ -216,16 +218,13 @@ class Plugin_Blog extends Plugin
 
 		// Categories
 		// We need to filter by certain categories
-		if ($this->attribute('category'))
+		if ($category_string = $this->attribute('category'))
 		{
-			$categories = explode('|', $category);
+			$categories = explode('|', $category_string);
 
 			foreach($categories as $category)
 			{
-				if ($category)
-				{
-					$params['where']['`blog_categories.'.(is_numeric($category) ? 'id' : 'slug').'` = \''.$category."'"];
-				}
+				$params['where'][] = '`category_'.(is_numeric($category) ? 'id' : 'slug').'` = \''.$category."'";
 			}
 		}
 
@@ -238,33 +237,36 @@ class Plugin_Blog extends Plugin
 
 		// Get our posts.
 		$posts = $this->streams->entries->get_entries($params);
-		
-		// Process posts.
-		// Each post needs some special treatment.
-		foreach ($posts as &$post)
-		{
-			$this->load->helper('text');
 
-			// Keywords array
-			$keywords = Keywords::get($post['keywords']);
-			$formatted_keywords = array();
-			$keywords_arr = array();
-
-			foreach ($keywords as $key)
+		if ($posts['entries'])
+		{		
+			// Process posts.
+			// Each post needs some special treatment.
+			foreach ($posts['entries'] as &$post)
 			{
-				$formatted_keywords[] 	= array('keyword' => $key->name);
-				$keywords_arr[] 		= $key->name;
+				$this->load->helper('text');
 
+				// Keywords array
+				$keywords = Keywords::get($post['keywords']);
+				$formatted_keywords = array();
+				$keywords_arr = array();
+
+				foreach ($keywords as $key)
+				{
+					$formatted_keywords[] 	= array('keyword' => $key->name);
+					$keywords_arr[] 		= $key->name;
+
+				}
+				$post['keywords'] = $formatted_keywords;
+				$post['keywords_arr'] = $keywords_arr;
+
+				// Full URL for convenience.
+				$post['url'] = site_url('blog/'.date('Y/m', $post['created_on']).'/'.$post['slug']);
+			
+				// What is the preview? If there is a field called intro,
+				// we will use that, otherwise we will cut down the blog post itself.
+				$post['preview'] = (isset($post['intro'])) ? $post['intro'] : $post['body'];
 			}
-			$post['keywords'] = $formatted_keywords;
-			$post['keywords_arr'] = $keywords_arr;
-
-			// Full URL for convenience.
-			$post['url'] = site_url('blog/'.date('Y/m', $post['created_on']).'/'.$post['slug']);
-		
-			// What is the preview? If there is a field called intro,
-			// we will use that, otherwise we will cut down the blog post itself.
-			$post['preview'] = (isset($post['intro'])) ? $post['intro'] : $post['body'];
 		}
 		
 		// {{ entries }} Bypass.
