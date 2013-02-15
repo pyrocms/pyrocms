@@ -255,130 +255,134 @@ class Plugin_Contact extends Plugin
 			$validation[$field]['rules'] = ($rule_array[0] == 'file' or $rule_array[0] == 'dropdown') ? $other_rules : implode('|', $rule_array);
 		}
 
-		$this->form_validation->set_rules($validation);
 
-		if ($this->input->post('contact-submit') && $this->form_validation->run())
-		{
-			// maybe it's a bot?
-			if ($this->input->post('d0ntf1llth1s1n') !== ' ')
+		if ($this->input->post('contact-submit')) { 
+			
+			$this->form_validation->set_rules($validation);
+			
+			if ($this->form_validation->run())
 			{
-				$this->session->set_flashdata('error', lang('contact_submit_error'));
-				redirect(current_url());
-			}
-
-			$data = $this->input->post();
-
-			// Add in some extra details about the visitor
-			$data['sender_agent'] = $this->agent->browser() . ' ' . $this->agent->version();
-			$data['sender_ip']    = $this->input->ip_address();
-			$data['sender_os']    = $this->agent->platform();
-			$data['slug']         = $template;
-			// they may have an email field in the form. If they do we'll use that for reply-to.
-			$data['reply-to'] = (empty($reply_to) and isset($data['email'])) ? $data['email'] : $reply_to;
-			$data['to']       = $to;
-			$data['from']     = $from;
-
-			// Yay they want to send attachments along
-			if ($_FILES > '')
-			{
-				$this->load->library('upload');
-				is_dir(UPLOAD_PATH.'contact_attachments') OR @mkdir(UPLOAD_PATH.'contact_attachments', 0777);
-				
-				foreach ($_FILES as $form => $file)
+				// maybe it's a bot?
+				if ($this->input->post('d0ntf1llth1s1n') !== ' ')
 				{
-					if ($file['name'] > '')
-					{
-						// Make sure the upload matches a field
-						if ( ! array_key_exists($form, $form_meta)) break;
+					$this->session->set_flashdata('error', lang('contact_submit_error'));
+					redirect(current_url());
+				}
 	
-						$this->upload->initialize($form_meta[$form]['config']);
-						$this->upload->do_upload($form);
-						
-						if ($this->upload->display_errors() > '')
+				$data = $this->input->post();
+	
+				// Add in some extra details about the visitor
+				$data['sender_agent'] = $this->agent->browser() . ' ' . $this->agent->version();
+				$data['sender_ip']    = $this->input->ip_address();
+				$data['sender_os']    = $this->agent->platform();
+				$data['slug']         = $template;
+				// they may have an email field in the form. If they do we'll use that for reply-to.
+				$data['reply-to'] = (empty($reply_to) and isset($data['email'])) ? $data['email'] : $reply_to;
+				$data['to']       = $to;
+				$data['from']     = $from;
+	
+				// Yay they want to send attachments along
+				if ($_FILES > '')
+				{
+					$this->load->library('upload');
+					is_dir(UPLOAD_PATH.'contact_attachments') OR @mkdir(UPLOAD_PATH.'contact_attachments', 0777);
+					
+					foreach ($_FILES as $form => $file)
+					{
+						if ($file['name'] > '')
 						{
-							$this->session->set_flashdata('error', $this->upload->display_errors());
-							redirect(current_url());
+							// Make sure the upload matches a field
+							if ( ! array_key_exists($form, $form_meta)) break;
+		
+							$this->upload->initialize($form_meta[$form]['config']);
+							$this->upload->do_upload($form);
+							
+							if ($this->upload->display_errors() > '')
+							{
+								$this->session->set_flashdata('error', $this->upload->display_errors());
+								redirect(current_url());
+							}
+							else
+							{
+								$result_data = $this->upload->data();
+								// pass the attachment info to the email event
+								$data['attach'][$result_data['file_name']] = $result_data['full_path'];
+							}
+						}
+					}
+				}
+	
+				// Try to send the email
+				$results = Events::trigger('email', $data, 'array');
+	
+				// If autoreply has been enabled then send the end user an autoreply response
+				if ($autoreply_template)
+				{
+					$data_autoreply            = $data;
+					$data_autoreply['to']      = $data['email'];
+					$data_autoreply['from']    = $data['from'];
+					$data_autoreply['slug']    = $autoreply_template;
+					$data_autoreply['name']    = $data['name'];
+					$data_autoreply['subject'] = $data['subject'];
+				}
+	
+				// fetch the template so we can parse it to insert into the database log
+				$this->load->model('templates/email_templates_m');
+				$templates = $this->email_templates_m->get_templates($template);
+				
+	            $subject = array_key_exists($lang, $templates) ? $templates[$lang]->subject : $templates['en']->subject ;
+	            $data['subject'] = $this->parser->parse_string($subject, $data, true);
+	
+	            $body = array_key_exists($lang, $templates) ? $templates[$lang]->body : $templates['en']->body ;
+	            $data['body'] = $this->parser->parse_string($body, $data, true);
+				
+				$this->load->model('contact/contact_m');
+	
+				// Grab userdata - we'll need this later
+				$userdata = $this->session->all_userdata();
+				
+				// Finally, we insert the same thing into the log as what we sent
+				$this->contact_m->insert_log($data);
+			
+				foreach ($results as $result)
+				{
+					if ( ! $result)
+					{
+						if (isset($userdata['flash:new:error']))
+						{
+							$message = (array) $userdata['flash:new:error'];
+	
+							$message[] = $message = $this->attribute('error', lang('contact_error_message'));
 						}
 						else
 						{
-							$result_data = $this->upload->data();
-							// pass the attachment info to the email event
-							$data['attach'][$result_data['file_name']] = $result_data['full_path'];
+							$message = $this->attribute('error', lang('contact_error_message'));
 						}
+						
+						$this->session->set_flashdata('error', $message);
+						redirect(current_url());
 					}
 				}
-			}
-
-			// Try to send the email
-			$results = Events::trigger('email', $data, 'array');
-
-			// If autoreply has been enabled then send the end user an autoreply response
-			if ($autoreply_template)
-			{
-				$data_autoreply            = $data;
-				$data_autoreply['to']      = $data['email'];
-				$data_autoreply['from']    = $data['from'];
-				$data_autoreply['slug']    = $autoreply_template;
-				$data_autoreply['name']    = $data['name'];
-				$data_autoreply['subject'] = $data['subject'];
-			}
-
-			// fetch the template so we can parse it to insert into the database log
-			$this->load->model('templates/email_templates_m');
-			$templates = $this->email_templates_m->get_templates($template);
-			
-            $subject = array_key_exists($lang, $templates) ? $templates[$lang]->subject : $templates['en']->subject ;
-            $data['subject'] = $this->parser->parse_string($subject, $data, true);
-
-            $body = array_key_exists($lang, $templates) ? $templates[$lang]->body : $templates['en']->body ;
-            $data['body'] = $this->parser->parse_string($body, $data, true);
-			
-			$this->load->model('contact/contact_m');
-
-			// Grab userdata - we'll need this later
-			$userdata = $this->session->all_userdata();
-			
-			// Finally, we insert the same thing into the log as what we sent
-			$this->contact_m->insert_log($data);
-		
-			foreach ($results as $result)
-			{
-				if ( ! $result)
+	
+				if($autoreply_template) {
+					Events::trigger('email', $data_autoreply, 'array');
+				}
+	
+	
+				if (isset($userdata['flash:new:success']))
 				{
-					if (isset($userdata['flash:new:error']))
-					{
-						$message = (array) $userdata['flash:new:error'];
-
-						$message[] = $message = $this->attribute('error', lang('contact_error_message'));
-					}
-					else
-					{
-						$message = $this->attribute('error', lang('contact_error_message'));
-					}
-					
-					$this->session->set_flashdata('error', $message);
-					redirect(current_url());
+					$message = (array) $userdata['flash:new:success'];
+	
+					$message[] = $this->attribute('sent', lang('contact_sent_text'));
 				}
+				else
+				{
+					$message = $this->attribute('sent', lang('contact_sent_text'));
+				}
+	
+				$this->session->set_flashdata('success', $message);
+				redirect( ($redirect ? $redirect : current_url()) );
 			}
-
-			if($autoreply_template) {
-				Events::trigger('email', $data_autoreply, 'array');
-			}
-
-
-			if (isset($userdata['flash:new:success']))
-			{
-				$message = (array) $userdata['flash:new:success'];
-
-				$message[] = $this->attribute('sent', lang('contact_sent_text'));
-			}
-			else
-			{
-				$message = $this->attribute('sent', lang('contact_sent_text'));
-			}
-
-			$this->session->set_flashdata('success', $message);
-			redirect( ($redirect ? $redirect : current_url()) );
 		}
 
 		// From here on out is form production
