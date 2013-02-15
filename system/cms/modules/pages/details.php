@@ -167,6 +167,10 @@ class Module_Pages extends Module
         // Pages Schema ----
         Schema::dropIfExists('pages');
 
+        // Just in case. If this is a new install, we 
+        // definiitely should not have a page_chunks table.
+        Schema::dropIfExists('page_chunks');
+
         Schema::create('pages', function($table) {
             $table->increments('id');
 
@@ -185,12 +189,12 @@ class Module_Pages extends Module
             $table->integer('rss_enabled')->default(false);
             $table->integer('comments_enabled')->default(false);
             $table->enum('status', array('draft', 'live'))->default('draft');
-            $table->integer('created_on');
-            $table->integer('updated_on')->nullable();
             $table->string('restricted_to', 255)->nullable();
             $table->boolean('is_home')->default(false);
             $table->boolean('strict_uri')->default(true);
             $table->integer('order')->default(0);
+            $table->integer('created_on');
+            $table->integer('updated_on')->nullable();
 
             $table->index('slug');
             $table->index('parent_id');

@@ -130,9 +130,7 @@ class Fields_m extends CI_Model {
 	 */
 	public function insert_field($field_name, $field_slug, $field_type, $field_namespace, $extra = array(), $locked = 'no')
 	{
-		if ( ! $locked) {
-			$locked = 'no';
-		}
+		$locked or $locked = 'no';
 
 		if ($locked != 'yes' and $locked != 'no') {
 			$locked = 'no';

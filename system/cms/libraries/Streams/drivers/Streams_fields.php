@@ -52,7 +52,9 @@ class Streams_fields extends CI_Driver {
 		$locked = (isset($locked) and $locked === true) ? 'yes' : 'no';
 		
 		// Set extra
-		if ( ! isset($extra) or ! is_array($extra)) $extra = array();
+		if ( ! isset($extra) or ! is_array($extra)) {
+			$extra = array();
+		}
 	
 		// -------------------------------------
 		// Create Field
@@ -61,7 +63,7 @@ class Streams_fields extends CI_Driver {
 		$field_id = ci()->fields_m->insert_field($name, $slug, $type, $namespace, $extra, $locked);
 
 		if ( ! $field_id) {
-			return false;
+			throw new Exception("Field {$name} could not be added for some bizarre reason.");
 		}
 
 		// -------------------------------------
@@ -111,7 +113,7 @@ class Streams_fields extends CI_Driver {
 	public function add_fields(array $fields)
 	{
 		if ( ! $fields) {
-			throw new Exception("Why is this empty bro?");
+			throw new Exception("Why is this empty?");
 			return false;
 		}
 		
