@@ -500,8 +500,6 @@ class Streams_m extends CI_Model {
 
 		$query = $this->pdb->table($this->table);
 
-		$query = $this->pdb->table($this->table);
-
 		if ($by_slug == true and ! is_null($namespace)) {	
 			$query->where('stream_namespace', $namespace);
 			$query->where('stream_slug', $stream_id);
