@@ -6,7 +6,7 @@
  * @author      PyroCMS Dev Team
  * @package     PyroCMS\Core\Modules\Templates\Models 
  */
-class Email extends \Illuminate\Database\Eloquent\Model
+class EmailTemplate extends \Illuminate\Database\Eloquent\Model
 {
     /**
      * Define the table name
