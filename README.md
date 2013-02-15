@@ -61,6 +61,7 @@ It's strongly recommended that you download the [git-flow client](https://github
 * [Scott Parry](http://ikreativ.com/)
 * [Steve Williamson](http://sjdub.com)
 * [Andrew Smith](http://silentworks.co.uk)
+* [Dave Shoreman](http://codeM0nK3Y.com/)
 
 Think you should be on this list? Add yourself in the next pull request you submit.
 
