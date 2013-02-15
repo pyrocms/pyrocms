@@ -101,8 +101,6 @@ class Admin_types extends Admin_Controller
 		$this->lang->load('pages');
 		$this->lang->load('page_types');
 
-		$this->load->library('form_validation');
-
 		$this->load->driver('Streams');
 	}
 
@@ -114,7 +112,7 @@ class Admin_types extends Admin_Controller
 	public function index()
 	{
 		// Get all page types
-		$this->template->page_types = $this->page_type_m->get_all();
+		$this->template->page_types = PageType::all();
 
 		// Render the view
 		$this->template
