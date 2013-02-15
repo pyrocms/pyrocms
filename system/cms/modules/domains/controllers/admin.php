@@ -1,10 +1,13 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php 
+
+use Pyro\Module\Domains\Model\Domain;
+
 /**
  * PyroCMS domain Admin Controller
  *
  * Provides an admin for the domain module.
  *
- * @author		Ryan Thompson - AI Web Systems, Inc.
+ * @author		PyroCMS Dev Team
  * @package		PyroCMS\Core\Modules\Domains\Controllers
  */
 class Admin extends Admin_Controller
