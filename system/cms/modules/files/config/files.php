@@ -5,6 +5,8 @@ if ( ! defined('UPLOAD_PATH')) define('UPLOAD_PATH', null);
 
 $config['files:path'] = UPLOAD_PATH.'files/';
 
+$config['files:image_cache_path'] = APPPATH.'cache/' . SITE_REF . '/image_files/';
+
 $config['files:encrypt_filename'] = true;
 
 $config['files:allowed_file_ext'] = array(

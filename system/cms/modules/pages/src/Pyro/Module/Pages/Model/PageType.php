@@ -53,7 +53,7 @@ class PageType extends \Illuminate\Database\Eloquent\Model
         {
             $this->load->helper('file');
         
-            $folder = FCPATH.'assets/page_types/'.$pt->slug.'/';
+            $folder = FCPATH.'assets/page_types/'.SITE_REF.'/'.$pt->slug.'/';
 
             $items = array('body' => 'html', 'js' => 'js', 'css' => 'css');
 
@@ -65,7 +65,9 @@ class PageType extends \Illuminate\Database\Eloquent\Model
                 }
             }
 
-            // Update the database if we are pulling from the DB.
+            // Update the database if we are pulling from the DB
+            // in development mode. This keeps things nice
+            // and synced up!
             if (ENVIRONMENT == PYRO_DEVELOPMENT)
             {
                 $update = array();
@@ -87,7 +89,9 @@ class PageType extends \Illuminate\Database\Eloquent\Model
     /**
      * Get all
      *
-     * Get all of the 
+     * Get all of the page types
+     *
+     * @return  obj
      */
     public function get_all()
     {
@@ -104,12 +108,10 @@ class PageType extends \Illuminate\Database\Eloquent\Model
     // --------------------------------------------------------------------------
 
     /**
-     * Create a new page type
-	 *
+     * Create a New Page Type
 	 * 
 	 * @param array $input The input to insert into the DB
 	 * @return mixed
-	 *
      */
     public function insert($input = array(), $skip_validation = false)
     {
@@ -123,7 +125,7 @@ class PageType extends \Illuminate\Database\Eloquent\Model
     // --------------------------------------------------------------------------
 
     /**
-     * Update a page type
+     * Update a Page Type
 	 *
 	 * @param int $id The ID of the page type to update
 	 * @param array $input The data to update
@@ -167,11 +169,12 @@ class PageType extends \Illuminate\Database\Eloquent\Model
     /**
      * Place files for layout files.
      *
+     * 
      */
     public function place_page_layout_files($input)
     {
         // Our folder path:
-        $folder = FCPATH.'assets/page_types/'.$input['slug'];
+        $folder = FCPATH.'assets/page_types/'.SITE_REF.'/'.$input['slug'];
 
         if (is_dir($folder))
         {
@@ -210,10 +213,11 @@ class PageType extends \Illuminate\Database\Eloquent\Model
             // then our vars are just a little different.
             $pt_slug_var = $pt ? 'slug' : 'page_type_slug';
 
-            // Grab our files.
+            // Grab our files:
+
             $this->load->helper('file');
 
-            $folder = FCPATH.'assets/page_types/'.$page->{$pt_slug_var}.'/';
+            $folder = FCPATH.'assets/page_types/'.SITE_REF.'/'.$page->{$pt_slug_var}.'/';
 
             $page->db_originals = new stdClass();
 
@@ -257,22 +261,21 @@ class PageType extends \Illuminate\Database\Eloquent\Model
     /**
      * Delete a Page Type
      *
-     * @param   int     $id     ID of the page type
-     * @param   bool    [$delete_stream]    Should we also delete the stream associated
-     *                                           with the page type?
+     * @param   int $id ID of the page type
+     * @param   bool [$delete_stream] Should we also delete the stream associated
+     *                                     with the page type?
      * @return  bool
      */
     // public function delete($id, $delete_stream = false)
     // {
     //     $page_type = $this->get($id);
 
-    //     // Are we going to delete the stream?
-    //     if ($delete_stream)
-    //     {
-    //         $stream = $this->streams_m->get_stream($page_type->stream_id);
-
-    //         $this->streams->streams->delete_stream($stream->stream_slug, $stream->stream_namespace);
-    //     }
+    //         // Are we going to delete the stream?
+    //         if ($delete_stream)
+    //         {
+    //             $stream = $this->streams_m->get_stream($page_type->stream_id);
+    //             $this->streams->streams->delete_stream($stream);
+    //         }
 
     //     // If we are saving as files, we need to remove the page
     //     // layout files to keep things tidy.
@@ -287,26 +290,39 @@ class PageType extends \Illuminate\Database\Eloquent\Model
     /**
      * Rename page layout files + the folder.
      *
+     * @param string $slug The slug to remove
+     * @param bool [$remove_folder] Should we remove the folder as well as the files?
+     * @return bool Was the operation successful?
      */
     public function remove_page_layout_files($slug, $remove_folder = false)
     {
         $this->load->helper('file');
 
-        delete_files(FCPATH.'assets/page_types/'.$slug);
+        $result = delete_files(FCPATH.'assets/page_types/'.SITE_REF.'/'.$slug);
 
         if ($remove_folder)
         {
-            $this->remove_page_layout_folder($slug);
+            $result = $this->remove_page_layout_folder($slug);
         }
+
+        return $result;
     }
 
     // --------------------------------------------------------------------------
 
+    /**
+     * Remove page layout folder
+     *
+     * @param string $slug The slug of the folder to remove.
+     * @return mixed null or bool result of rmdir
+     */
     public function remove_page_layout_folder($slug)
     {
-        if (is_dir(FCPATH.'assets/page_types/'.$slug))
+        if (is_dir(FCPATH.'assets/page_types/'.SITE_REF.'/'.$slug))
         {
-            return rmdir(FCPATH.'assets/page_types/'.$slug);       
+            return rmdir(FCPATH.'assets/page_types/'.SITE_REF.'/'.$slug);       
         }
+
+        return null;
     }
 }

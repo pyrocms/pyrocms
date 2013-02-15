@@ -39,4 +39,19 @@ class Field_url
 		return form_input($options);
 	}
 
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Pre Save
+	 *
+	 * No PyroCMS tags in URL fields.
+	 *
+	 * @return string
+	 */
+	public function pre_save($input)
+	{
+		$this->CI->load->helper('text');
+		return escape_tags($input);
+	}
+
 }

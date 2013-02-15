@@ -6,7 +6,7 @@
  * @author      PyroCMS Dev Team
  * @package     PyroCMS\Core\Modules\Templates\Models 
  */
-class Email extends \Illuminate\Database\Eloquent\Model
+class EmailTemplate extends \Illuminate\Database\Eloquent\Model
 {
     /**
      * Define the table name
@@ -44,5 +44,26 @@ class Email extends \Illuminate\Database\Eloquent\Model
     public static function findByIsDefault($default)
     {
         return static::where('is_default', '=', $default)->get();
+    }
+	
+    /**
+     * Find email template by slug and language
+     *
+     * @param string $slug The slug of the email template
+	 * @param string $language The language of the email template
+     *
+     * @return void
+     */
+    public static function findBySlugAndLanguage($slug, $language)
+    {
+        $tpl = static::where('slug', '=', $slug)
+			->where('lang', '=', $language)
+        	->first();
+		
+		return (null != $tpl) 
+			? $tpl 
+			: static::where('slug', '=', $slug)
+				->where('lang', '=', 'en')
+	        	->first();
     }
 }

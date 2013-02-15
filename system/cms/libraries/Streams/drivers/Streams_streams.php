@@ -68,11 +68,11 @@ class Streams_streams extends CI_Driver {
 	/**
 	 * Get Stream
 	 *
-	 * @param	stream - obj, id, or string
-	 * @param	[string - namespace]
+	 * @param	mixed $stream object, int or string stream
+	 * @param	string $namespace namespace if first param is string
 	 * @return	object
 	 */
-	public function get_stream($stream, $namespace)
+	public function get_stream($stream, $namespace = null)
 	{
 		$str_id = $this->stream_id($stream, $namespace);
 		
@@ -86,11 +86,11 @@ class Streams_streams extends CI_Driver {
 	/**
 	 * Delete a stream
 	 *
-	 * @param	stream - obj, id, or string
-	 * @param	[string - namespace]
+	 * @param	mixed $stream object, int or string stream
+	 * @param	string $namespace namespace if first param is string
 	 * @return	object
 	 */
-	public function delete_stream($stream, $namespace)
+	public function delete_stream($stream, $namespace = null)
 	{
 		$str_obj = $this->stream_obj($stream, $namespace);
 		
@@ -102,12 +102,12 @@ class Streams_streams extends CI_Driver {
 	/**
 	 * Update a stream
 	 *
-	 * @param	stream - obj, id, or string
-	 * @param	string - namespace
-	 * @param 	array - associative array of new data
+	 * @param	mixed $stream object, int or string stream
+	 * @param	string $namespace namespace if first param is string
+	 * @param 	array $data associative array of new data
 	 * @return	object
 	 */
-	public function update_stream($stream, $namespace, $data)
+	public function update_stream($stream, $namespace = null, $data = array())
 	{	
 		$str_id = $this->stream_id($stream, $namespace);
 		
@@ -121,11 +121,11 @@ class Streams_streams extends CI_Driver {
 	/**
 	 * Get stream field assignments
 	 *
-	 * @param	stream - obj, id, or string
-	 * @param	string - namespace
+	 * @param	mixed $stream object, int or string stream
+	 * @param	string $namespace namespace if first param is string
 	 * @return	object
 	 */
-	public function get_assignments($stream, $namespace)
+	public function get_assignments($stream, $namespace = null)
 	{
 		$str_id = $this->stream_id($stream, $namespace);
 		
@@ -137,9 +137,9 @@ class Streams_streams extends CI_Driver {
 	/**
 	 * Get streams in a namespace
 	 *
-	 * @param	string - namespace
-	 * @param 	[int - limit]
-	 * @param 	[int - offset]
+	 * @param	string $namespace namespace
+	 * @param 	int [$limit] limit, defaults to null
+	 * @param 	int [$offset] offset, defaults to 0
 	 * @return	object
 	 */
 	public function get_streams($namespace, $limit = null, $offset = 0)
@@ -162,11 +162,11 @@ class Streams_streams extends CI_Driver {
 	 * fields_count 	Number of fields assigned to the stream
 	 * last_updated		Unix timestamp of when the stream was last updated
 	 *
-	 * @param	stream - obj, id, or string
-	 * @param	string - namespace
+	 * @param	mixed $stream object, int or string stream
+	 * @param	string $namespace namespace if first param is string
 	 * @return	object
 	 */
-	public function get_stream_metadata($stream, $namespace)
+	public function get_stream_metadata($stream, $namespace = null)
 	{
 		$stream = $this->get_stream($stream, $namespace);
 
@@ -233,7 +233,7 @@ class Streams_streams extends CI_Driver {
 	 * 'label' => 'Email',
 	 * 'rules' => 'required|valid_email'
 	 */
-	public function validation_array($stream, $namespace, $method = 'new', $skips = array(), $row_id = null)
+	public function validation_array($stream, $namespace = null, $method = 'new', $skips = array(), $row_id = null)
 	{
 		$str_id = $this->stream_id($stream, $namespace);
 		

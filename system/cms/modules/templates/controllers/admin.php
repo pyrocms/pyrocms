@@ -1,6 +1,6 @@
 <?php 
 
-use Pyro\Module\Templates\Model\Email;
+use Pyro\Module\Templates\Model\EmailTemplate;
 
 /**
  * Email Templates Admin Controller
@@ -102,9 +102,9 @@ class Admin extends Admin_Controller
 	 */
 	public function index()
 	{
-		$default_templates = Email::findByIsDefault(true);
+		$default_templates = EmailTemplate::findByIsDefault(true);
 
-		$defined_templates = Email::findByIsDefault(false);
+		$defined_templates = EmailTemplate::findByIsDefault(false);
 
 		$this->template
 			->title($this->module_details['name'])
@@ -122,7 +122,7 @@ class Admin extends Admin_Controller
 		$this->load->library('form_validation');
 		$this->form_validation->set_rules($this->_validation_rules);
 
-		$email_template = new Email;
+		$email_template = new EmailTemplate;
 
 		// Go through all the known fields and get the post values
 		foreach ($this->_validation_rules as $key => $field) {
@@ -131,7 +131,7 @@ class Admin extends Admin_Controller
 
 		if ($this->form_validation->run()) {
 			
-			$result = Email::create(array(
+			$result = EmailTemplate::create(array(
                 'name' => $this->input->post('name'),
                 'slug' => $this->input->post('slug'),
                 'lang' => $this->input->post('lang'),
@@ -170,7 +170,7 @@ class Admin extends Admin_Controller
 	{
 		$id or redirect('admin/templates');
 
-		$email_template = Email::find($id);
+		$email_template = EmailTemplate::find($id);
 
 		$rules = ($email_template->is_default) ? $this->_edit_default_rules : $this->_validation_rules;
 
@@ -233,7 +233,7 @@ class Admin extends Admin_Controller
 			$to_delete = 0;
 
 			foreach ($ids as $id) {
-				if ($email_template = Email::find($id)) {
+				if ($email_template = EmailTemplate::find($id)) {
 					if ($email_template->is_default) {
 						$this->session->set_flashdata('error', sprintf(lang('templates:default_delete_error'), $id));
 					} elseif ($email_template->delete()) {
@@ -271,7 +271,7 @@ class Admin extends Admin_Controller
 	 */
 	public function preview($id = false)
 	{
-		$email_template = Email::find($id);
+		$email_template = EmailTemplate::find($id);
 
 		$this->template
 			->set_layout('modal')
@@ -292,14 +292,14 @@ class Admin extends Admin_Controller
 		$id = (int)$id;
 
 		//we will need this later after the form submission
-		$copy = Email::find($id);
+		$copy = EmailTemplate::find($id);
 
 		//unset the id and is_default from $copy we don't need or want them anymore
 		unset($copy->id);
 		unset($copy->is_default);
 
 		//lets get all variations of this template so we can remove the lang options
-		$existing = Email::findBySlug($copy->slug);
+		$existing = EmailTemplate::findBySlug($copy->slug);
 
 		$lang_options = $this->template->lang_options;
 
@@ -314,7 +314,7 @@ class Admin extends Admin_Controller
 
 		if ($this->form_validation->run()) {
 
-			$result = Email::create(array(
+			$result = EmailTemplate::create(array(
                 'name' => $copy->name,
                 'slug' => $copy->slug,
                 'lang' => $this->input->post('lang'),
@@ -328,7 +328,7 @@ class Admin extends Admin_Controller
 				Events::trigger('email_template_created', $result);
 
 				$this->session->set_flashdata('success', sprintf(lang('templates:tmpl_clone_success'), $copy->name));
-				redirect('admin/templates/edit/'.$result);
+				redirect('admin/templates/edit/'.$result->id);
 			} else {
 				$this->session->set_flashdata('error', sprintf(lang('templates:tmpl_clone_error'), $copy->name));
 			}

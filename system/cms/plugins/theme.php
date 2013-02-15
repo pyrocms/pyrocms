@@ -71,16 +71,23 @@ class Plugin_Theme extends Plugin
 	 *
 	 * Usage:
 	 *
-	 *     {{ theme:partial name="header" }}
+	 *     {{ theme:partial name="header" any_random_data="foo" }}
 	 *
 	 * @return string The final rendered partial view.
 	 */
 	public function partial()
 	{
-		$name = $this->attribute('name');
+		$attributes = $this->attributes();
+
+		if (empty($attributes['name'])) {
+			throw new Exception('Attributes must have a name="" attribute.');
+		}
+
+		$name = $attributes['name'];
+		unset($attributes['name']);
 
 		$path = $this->load->get_var('template_views');
-		$data = $this->load->get_vars();
+		$data = array_merge($this->load->get_vars(), $attributes);
 
 		$string = $this->load->file($path . 'partials/' . $name . '.html', true);
 

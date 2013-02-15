@@ -108,7 +108,7 @@ class Module_Addons extends Module
 				array(
 					'name' => 'global:upload',
 					'uri' => 'admin/addons/themes/upload',
-					'class' => 'add',
+					'class' => 'add modal',
 				),
 			);
 		}
