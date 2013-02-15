@@ -29,6 +29,9 @@ class Installer extends CI_Controller
 	/** @var array Languages supported by the installer */
 	private $languages = array();
 
+	/** Success or Error messages to output **/
+	public $messages = array();
+
 	/** @var array Directories that need to be writable */
 	private $writable_directories = array(
 		'system/cms/cache',
@@ -417,31 +420,33 @@ class Installer extends CI_Controller
 			if ($install['status'] === false)
 			{
 				// Let's tell them why the install failed
-				$this->session->set_flashdata('message', $this->lang->line('error_'.$install['code']).$install['message']);
+				$this->messages['error'] = $this->lang->line('error_'.$install['code']).$install['message'];
 
-				exit($this->_render_view('step_4'));
+				$this->_render_view('step_4');
 			}
+			else
+			{
+				// Success!
+				$this->session->set_flashdata('message', lang('success'));
+				$this->session->set_flashdata('message_type', 'success');
 
-			// Success!
-			$this->session->set_flashdata('message', lang('success'));
-			$this->session->set_flashdata('message_type', 'success');
+				// Store the default username and password in the session data
+				$this->session->set_userdata('user', array(
+					'user_email' => $this->input->post('user_email'),
+					'user_password' => $this->input->post('user_password'),
+					'user_firstname' => $this->input->post('user_firstname'),
+					'user_lastname' => $this->input->post('user_lastname')
+				));
 
-			// Store the default username and password in the session data
-			$this->session->set_userdata('user', array(
-				'user_email' => $this->input->post('user_email'),
-				'user_password' => $this->input->post('user_password'),
-				'user_firstname' => $this->input->post('user_firstname'),
-				'user_lastname' => $this->input->post('user_lastname')
-			));
+				// Define the default user email to be used in the settings module install
+				define('DEFAULT_EMAIL', $this->input->post('user_email'));
 
-			// Define the default user email to be used in the settings module install
-			define('DEFAULT_EMAIL', $this->input->post('user_email'));
+				// Import the modules
+				$this->load->library('module_import');
+				$this->module_import->import_all();
 
-			// Import the modules
-			$this->load->library('module_import');
-			$this->module_import->import_all();
-
-			redirect('installer/complete');
+				redirect('installer/complete');
+			}
 		}
 	}
 
