@@ -209,6 +209,10 @@
  * ...and it will take care of our classes
  *
  */
+if (!file_exists('../vendor/autoload.php')) {
+	echo "It seems composer hasn't been installed yet. Please reload this page after running the following commands in a terminal:";
+	exit("<pre>cd ".realpath('..')."\nphp composer.phar install</pre>");
+}
 require_once '../vendor/autoload.php';
 
 /*
