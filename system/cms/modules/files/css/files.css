@@ -334,11 +334,6 @@ section.file-path h5 a {
 	margin: 10px;
 	overflow:hidden;
 	float:left;
-	-webkit-transition: all 200ms linear;
-	-moz-transition: all 200ms linear;
-	-ms-transition: all 200ms linear;
-	-o-transition: all 200ms linear;
-	transition: all 200ms linear;
 }
 
 .folders-center .folder {
