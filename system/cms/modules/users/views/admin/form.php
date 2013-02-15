@@ -1,16 +1,20 @@
 <section class="title">
 	<?php if ($this->method == 'create'): ?>
-		<h4><?php echo lang('user_add_title');?></h4>
-		<?php echo form_open_multipart(uri_string(), 'class="crud" autocomplete="off"'); ?>
-	
+		<h4><?php echo lang('user_add_title');?></h4>	
 	<?php else: ?>
 		<h4><?php echo sprintf(lang('user_edit_title'), $member->username);?></h4>
-		<?php echo form_open_multipart(uri_string(), 'class="crud"'); ?>
 	<?php endif; ?>
 </section>
 
 <section class="item">
 	
+	<?php if ($this->method == 'create'): ?>
+		<?php echo form_open_multipart(uri_string(), 'class="crud" autocomplete="off"'); ?>
+	<?php else: ?>
+		<?php echo form_open_multipart(uri_string(), 'class="crud"'); ?>
+	<?php endif; ?>
+
+
 	<div class="tabs">
 
 		<ul class="tab-menu">
