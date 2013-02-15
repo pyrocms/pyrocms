@@ -40,6 +40,7 @@ class Streams_entries extends CI_Driver {
 			'exclude_called'	=> 'no',
 			'paginate'			=> 'no',
 			'pag_segment'		=> 2,
+			'pag_base'			=> null, 		// If null, this is automatically set
 			'partial'			=> null,
 			'site_ref'			=> SITE_REF
 	);
@@ -149,7 +150,9 @@ class Streams_entries extends CI_Driver {
 		{
 			$return['total'] 	= $rows['pag_count'];
 			
-			$return['pagination'] = $CI->row_m->build_pagination($params['pag_segment'], $params['limit'], $return['total'], $pagination_config);
+			$params['pag_base'] = (isset($params['pag_base'])) ? $params['pag_base'] : null;
+
+			$return['pagination'] = $CI->row_m->build_pagination($params['pag_segment'], $params['limit'], $return['total'], $pagination_config, $params['pag_base']);
 		}		
 		else
 		{

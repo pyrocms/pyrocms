@@ -724,6 +724,50 @@ class MY_Form_validation extends CI_Form_validation
 		return true;
 	}
 
+
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * Streams Column Safe
+	 *
+	 * Determines if the slug is okay to be used as a column.
+	 *
+	 * @param 	string
+	 * @param 	string
+	 * @return 	bool
+	 */
+	public function streams_col_safe($string, $params)
+	{
+		// Find mode - new or edit
+		$pieces = explode(':', $params);
+
+		$mode 			= (isset($pieces[0])) ? $pieces[0] : null;
+		$stream_table 	= (isset($pieces[1])) ? $pieces[1] : null;
+		$existing 		= (isset($pieces[2])) ? $pieces[2] : null;
+
+		if ( ! $stream_table) return null;
+
+		if ($mode == 'new')
+		{
+			if ($this->CI->db->field_exists($string, $stream_table))
+			{
+				$this->set_message('streams_col_safe', lang('streams:field_slug_not_unique'));
+				return false;
+			}
+		}
+		elseif ($mode != 'new' and $existing)
+		{
+			// Edit mode.
+			if ($existing != $string and 
+					$this->CI->db->field_exists($string, $stream_table))
+			{
+				$this->set_message('streams_col_safe', lang('streams:field_slug_not_unique'));
+				return false;
+			}
+		}
+		
+		return true;
+	}
 	// --------------------------------------------------------------------------
 
 	/**
