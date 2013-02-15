@@ -3,9 +3,9 @@
 /**
  * Pages model
  *
- * @author     PyroCMS Dev Team
- * @package    PyroCMS\Core\Modules\Pages\Models
- *
+ * @author   PyroCMS Dev Team
+ * @package  PyroCMS\Core\Modules\Pages\Models
+ * @link     http://docs.pyrocms.com/2.3/api/classes/Pyro.Module.Pages.Model.Page.html
  */
 class Page extends \Illuminate\Database\Eloquent\Model
 {

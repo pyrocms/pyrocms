@@ -5,6 +5,7 @@
  *
  * @author   PyroCMS Dev Team
  * @package  PyroCMS\Core\Modules\Keywords\Models
+ * @link     http://docs.pyrocms.com/2.3/api/classes/Pyro.Module.Files.Model.File.html
  */
 class File extends \Illuminate\Database\Eloquent\Model
 {
