@@ -185,30 +185,26 @@ class Plugin_Blog extends Plugin
 		}
 
 		// Convert our two non-matching posts params to their
-		// stream counterparts:
+		// stream counterparts. This is for backwards compatability.
 
 		// Order by
-		if ($this->attribute('order-by'))
-		{
+		if ($this->attribute('order-by')) {
 			$params['order_by'] = $this->attribute('order-by');
 		}
-		elseif ($this->attribute('order_by'))
-		{
+		elseif ($this->attribute('order_by')) {
 			$params['order_by'] = $this->attribute('order_by');
 		}
 
 		// Sort
-		if ($this->attribute('order-dir'))
-		{
+		if ($this->attribute('order-dir')) {
 			$params['sort'] = $this->attribute('order-dir');
 		}
-		elseif ($this->attribute('order_by'))
-		{
+		elseif ($this->attribute('order_by')) {
 			$params['sort'] = $this->attribute('sort');
 		}
 
 		// See if we have any attributes to contribute.
-		foreach ($this->streams->entries as $key => $default_value)
+		foreach ($this->streams->entries->entries_params as $key => $default_value)
 		{
 			if ( ! in_array($key, array('where', 'stream', 'namespace')))
 			{
@@ -221,10 +217,16 @@ class Plugin_Blog extends Plugin
 		if ($category_string = $this->attribute('category'))
 		{
 			$categories = explode('|', $category_string);
+			$cate_filter_by = array();
 
 			foreach($categories as $category)
 			{
-				$params['where'][] = '`category_'.(is_numeric($category) ? 'id' : 'slug').'` = \''.$category."'";
+				$cate_filter_by[] = '`'.$this->db->dbprefix('blog_categories').'`.`'.(is_numeric($category) ? 'id' : 'slug').'` = \''.$category."'";
+			}
+
+			if ($cate_filter_by)
+			{
+				$params['where'][] = implode(' OR ', $cate_filter_by);
 			}
 		}
 
