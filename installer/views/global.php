@@ -80,6 +80,19 @@
 				</div>
 			<?php endif; ?>
 
+			<!-- Message type 3 (data for the same page load) -->
+			<?php if($this->messages): ?>
+				<?php foreach (array_keys($this->messages) as $type): ?>
+					<ul class="block-message <?php echo ($type) ? $type : 'success'; ?>">
+						<?php foreach ($this->messages as $key => $message): ?>
+							<?php if ($key === $type): ?>
+								<li><?php echo $message; ?></li>
+							<?php endif; ?>
+						<?php endforeach; ?>
+					</ul>
+				<?php endforeach; ?>
+			<?php endif; ?>
+
 			<?php echo $page_output . PHP_EOL; ?>
 
 	</div>
