@@ -328,7 +328,7 @@ class Admin extends Admin_Controller
 				Events::trigger('email_template_created', $result);
 
 				$this->session->set_flashdata('success', sprintf(lang('templates:tmpl_clone_success'), $copy->name));
-				redirect('admin/templates/edit/'.$result);
+				redirect('admin/templates/edit/'.$result->id);
 			} else {
 				$this->session->set_flashdata('error', sprintf(lang('templates:tmpl_clone_error'), $copy->name));
 			}
