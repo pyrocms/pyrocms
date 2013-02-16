@@ -61,7 +61,7 @@ class Api extends API_Controller
 	public function details_get($id)
 	{
 		// Get the page along with its chunks.
-		$page = Page_m::find($id);
+		$page = Page::find($id);
 
 		if (is_null($page))
 		{

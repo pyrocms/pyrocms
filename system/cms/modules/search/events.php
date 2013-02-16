@@ -1,4 +1,7 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php
+
+use Pyro\Module\Pages\Model\Page;
+
 /**
 * Sample Events Class
 *
@@ -66,7 +69,7 @@ class Events_Search
 		}
 	}
     
-    public function index_page(Page_m $page)
+    public function index_page(Page $page)
     {
     	// Only index live articles
     	if ($page->status === 'live') {

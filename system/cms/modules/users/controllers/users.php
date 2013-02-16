@@ -11,8 +11,6 @@ class Users extends Public_Controller
 {
 	/**
 	 * Constructor method
-	 *
-	 * @return \Users
 	 */
 	public function __construct()
 	{

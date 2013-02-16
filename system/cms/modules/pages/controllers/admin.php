@@ -385,8 +385,7 @@ class Admin extends Admin_Controller
 		$page->restricted_to = explode(',', $page->restricted_to);
 
 		// Did they even submit?
-		if ($this->form_validation->run()) {
-			$input = $this->input->post();
+		if (($input = $this->input->post())) {
 
 			// do they have permission to proceed?
 			if ($input['status'] == 'live') {
@@ -398,10 +397,6 @@ class Admin extends Admin_Controller
 				$input['old_keywords_hash'] = $old_keywords_hash;
 			}
 
-			// We need to manually add this since we don't allow
-			// users to change it in the page form.
-			$input['type_id'] = $page->type_id;
-
 			// Set this one page as the homepage, and not the others
 			if ( ! empty($input['is_home'])) {
 				$page->setHomePage();
@@ -412,7 +407,6 @@ class Admin extends Admin_Controller
 			$page->title			= $input['title'];
 			$page->uri			 	= null;
 			$page->parent_id		= (int) $input['parent_id'];
-			$page->type_id			= (int) $input['type_id'];
 			$page->css			 	= isset($input['css']) ? $input['css'] : null;
 			$page->js			 	= isset($input['js']) ? $input['js'] : null;
 			$page->meta_title		= isset($input['meta_title']) ? $input['meta_title'] : '';
@@ -429,8 +423,6 @@ class Admin extends Admin_Controller
 			if ($page->save()) {
 
 				$page->buildLookup();
-
-
 
 				// Add the stream data.
 				if ($stream and $page->entry_id) {

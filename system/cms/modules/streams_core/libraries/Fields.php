@@ -605,7 +605,7 @@ class Fields
 
 				$validation_rules[] = array(
 					'field'	=> $stream_field->field_slug,
-					'label' => $stream_field->field_name,
+					'label' => lang_label($stream_field->field_name),
 					'rules'	=> implode('|', $rules)				
 				);
 

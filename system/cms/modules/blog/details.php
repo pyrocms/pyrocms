@@ -120,28 +120,6 @@ class Module_Blog extends Module
 		Schema::dropIfExists('blog');
 		Schema::dropIfExists('blog_categories');
 
-		Schema::create('blog', function($table) { 
-			$table->increments('id');
-			$table->string('slug', 200)->unique();
-			$table->string('title', 200)->unique();
-			$table->integer('category_id');
-			$table->string('attachment', 255)->default('');
-			$table->text('intro');
-			$table->text('body');
-			$table->text('parsed');
-			$table->string('keywords', 32)->default('');
-			$table->string('author_id', 11)->nullable();
-			$table->string('comments_enabled', 1)->default(1);
-			$table->enum('status', array('draft', 'live'))->default('draft');
-			$table->enum('type', array('html', 'markdown', 'wysiwyg-advanced', 'wysiwyg-simple'));
-	        $table->string('preview_hash', 32)->nullable();
-			$table->string('created_on', 11);
-			$table->string('updated_on', 11)->nullable();
-
-			$table->index('slug');
-			$table->index('category_id');
-		});
-
 		Schema::create('blog_categories', function($table) { 
 			$table->increments('id');
 			$table->string('slug', 100)->nullable()->unique();
@@ -178,6 +156,27 @@ class Module_Blog extends Module
 			'required'	=> true
 		);
 		$this->streams->fields->add_field($intro_field);
+
+		// Add fields to streamsy table
+		Schema::table('blog', function($table) { 
+			$table->string('slug', 200)->unique();
+			$table->string('title', 200)->unique();
+			$table->integer('category_id');
+			$table->string('attachment', 255)->default('');
+			// $table->text('body');
+			$table->text('parsed');
+			$table->string('keywords', 32)->default('');
+			$table->integer('author_id')->nullable();
+			$table->enum('comments_enabled', array('no','1 day','1 week','2 weeks','1 month', '3 months', 'always'))->default('3 months');
+			$table->enum('status', array('draft', 'live'))->default('draft');
+			$table->enum('type', array('html', 'markdown', 'wysiwyg-advanced', 'wysiwyg-simple'));
+	        $table->string('preview_hash', 32)->nullable();
+			$table->string('created_on', 11);
+			$table->string('updated_on', 11)->nullable();
+
+			$table->index('slug');
+			$table->index('category_id');
+		});
 
 		return true;
 	}

@@ -243,7 +243,7 @@ class MY_Controller extends MX_Controller
             // Make a connection instance with the existing PDO connection
             $conn = new $drivers[$subdriver]($pdo, $database, $prefix);
 
-            $resolver = \Capsule\Database\Connection::getResolver();
+            $resolver = Capsule\Database\Connection::getResolver();
             $resolver->addConnection('default', $conn);
             $resolver->setDefaultConnection('default');
 
@@ -252,7 +252,7 @@ class MY_Controller extends MX_Controller
         // Not using the new PDO driver
         } else {
 
-            $conn = \Capsule\Database\Connection::make('default', array(
+            $conn = Capsule\Database\Connection::make('default', array(
                 'driver' => $subdriver,
                 'dsn' => $config["dsn"],
                 'username' => $config["username"],

@@ -5,12 +5,12 @@
 * [Website](http://pyrocms.com/)
 * [Documentation](https://www.pyrocms.com/support/documentation)
 * [License](http://pyrocms.com/legal/license)
-* [Forums](http://pyrocms.com/forums)
+* [Forums](http://forum.pyrocms.com)
 * Version: 2.3.0-dev
 
 ## Team
 
-* [Adam Fairholm](http://parse19.com/)
+* [Adam Fairholm](http://adamfairholm.com/)
 * [Jerel Unruh](http://unruhdesigns.com/)
 * [Joshua Pekera](http://joshuapekera.com/)
 * [Phil Sturgeon](http://philsturgeon.co.uk/)
@@ -21,11 +21,9 @@ PyroCMS is an MVC PHP Content Management System built to be easy to use, theme a
 
 PyroCMS Community Edition is free to use, redistribute and/or modify for any purpose whether personal or commercial however you must retain the copyright in your source code and in the footer of the administration.
 
-
 ## Installation
 
 Run http://example.com/installer to run the web-based installation script.
-
 
 ## Upgrading
 
@@ -34,7 +32,7 @@ Run http://example.com/installer to run the web-based installation script.
 ## Bugs & Feature Requests
 
 [Issue tracker](http://github.com/pyrocms/pyrocms/issues)
-[Forum](http://www.pyrocms.com/forums)
+[Forum](http://forum.pyrocms.com)
 
 Before reporting bugs or requesting any features, please check that it does not already exist.
 
@@ -61,6 +59,9 @@ It's strongly recommended that you download the [git-flow client](https://github
 * [Matt Frost](http://shortwhitebaldguy.com)
 * [Ryan Thompson](http://aiwebsystems.com)
 * [Scott Parry](http://ikreativ.com/)
+* [Steve Williamson](http://sjdub.com)
+* [Andrew Smith](http://silentworks.co.uk)
+* [Dave Shoreman](http://codeM0nK3Y.com/)
 
 Think you should be on this list? Add yourself in the next pull request you submit.
 
