@@ -48,11 +48,11 @@ $lang['streams:search_not_found']						= "Search not found."; #translate
 
 /* Validation Messages */
 
-$lang['streams:field_slug_not_unique']					= "Tämän kentän nimipolku on jo käytössä.";
+$lang['streams:field_slug_not_unique']					= "Tämän kentän polkutunnus on jo käytössä.";
 $lang['streams:not_mysql_safe_word']					= "%s kenttä on MySQL varattu sana.";
 $lang['streams:not_mysql_safe_characters']				= "%s kenttä sisältää ei-sallittuja merkkejä.";
 $lang['streams:type_not_valid']							= "Valitse oikean tyyppinen kenttä.";
-$lang['streams:stream_slug_not_unique']					= "Tämän striimin nimipolku on jo käytössä.";
+$lang['streams:stream_slug_not_unique']					= "Tämän striimin polkutunnus on jo käytössä.";
 $lang['streams:field_unique']							= "%s kentän tulee olla yksilöllinen.";
 $lang['streams:field_is_required']						= "%s kenttä on pakollinen.";
 $lang['streams:date_out_or_range']						= "Valittu päiväys ei täsmää sallitun aikajanan kanssa.";
@@ -65,7 +65,7 @@ $lang['streams:label.field_unique']						= "Yksilöllinen kenttä";
 $lang['streams:label.field_instructions']				= "Kentän ohjeistus";
 $lang['streams:label.make_field_title_column']			= "Tee kentästä otsikko sarake";
 $lang['streams:label.field_name']						= "Kentän nimi";
-$lang['streams:label.field_slug']						= "Field Slug"; #translate
+$lang['streams:label.field_slug']						= "Kentän polkutunnus";
 $lang['streams:label.field_type']						= "Kentän tyyppi";
 $lang['streams:id']										= "ID";
 $lang['streams:created_by']								= "Luonut";
@@ -100,7 +100,7 @@ $lang['streams:sure']									= "Oletko varma?";
 $lang['streams:field_assignments'] 						= "Striimi kentän liitokset";
 $lang['streams:new_field_assign']						= "Uusi kenttäliitos";
 $lang['streams:stream_name']							= "Striimin nimi";
-$lang['streams:stream_slug']							= "Striimin nimipolku";
+$lang['streams:stream_slug']							= "Striimin polkutunnus";
 $lang['streams:about']									= "Lisätietoja";
 $lang['streams:total_entries']							= "Merkintöjä yhteensä";
 $lang['streams:add_stream']								= "Uusi striimi";

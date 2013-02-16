@@ -35,7 +35,7 @@ $lang['page_types:delete_success']             = 'Sivupohja #%s poistettiin.';
 $lang['page_types:mass_delete_success']        = '%s sivupohjaa poistettiin.';
 $lang['page_types:delete_none_notice']         = 'Yhtään sivupohjaa ei poistettu.';
 $lang['page_types:already_exist_error']        = 'A table with that name already exists. Please choose a different name for this page type.'; #translate
-$lang['page_types:_check_pt_slug_msg']         = 'Your page type slug must be unique.'; #translate
+$lang['page_types:_check_pt_slug_msg']         = 'Sivu tyypin polkutunnus tulee olla yksilöllinen.';
 
 $lang['page_types:variable_introduction']      = 'Tässä kentässä on kaksi muuttujaa.';
 $lang['page_types:variable_title']             = 'Sisältää sivun otsikko.';
