@@ -1,5 +1,6 @@
 <?php 
 
+use Pyro\Module\Groups;
 use Pyro\Module\Pages;
 
 /**
@@ -187,11 +188,9 @@ class Admin extends Admin_Controller {
 
 		$ids = explode(',', $link->restricted_to);
 
-		$this->load->model('groups/group_m');
-		$this->db->where_in('id', $ids);
-		$groups = $this->group_m->dropdown('id', 'name');
+		$group_options = Groups\Model\Group::findManyInId($ids);
 
-		$link->restricted_to = implode(', ', $groups);
+		$link->restricted_to = implode(', ', $group_options);
 
 		$this->load->view('admin/ajax/link_details', array('link' => $link));
 	}
@@ -208,13 +207,7 @@ class Admin extends Admin_Controller {
 	public function create($group_id = '')
 	{
 		// Set the options for restricted to
-		$this->load->model('groups/group_m');
-		$groups = $this->group_m->get_all();
-		foreach ($groups as $group)
-		{
-			$group_options[$group->id] = $group->name;
-		}
-		$this->template->group_options = $group_options;
+		$this->template->group_options = Groups\Model\Group::getGroups();
 
 		// Run if valid
 		if ($this->form_validation->run())
@@ -289,12 +282,7 @@ class Admin extends Admin_Controller {
 		$link = $this->navigation_m->get_link($id);
 
 		// Set the options for restricted to
-		$this->load->model('groups/group_m');
-		$groups = $this->group_m->get_all();
-		foreach ($groups as $group)
-		{
-			$group_options[$group->id] = $group->name;
-		}
+		$group_options = Groups\Model\Group::getGroups();
 
 		if ( ! $link)
 		{
