@@ -1,4 +1,6 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php
+
+use Pyro\Module\Groups;
 
 /**
  * Admin controller for the users module
@@ -60,21 +62,18 @@ class Admin extends Admin_Controller
 
 		// Load the required classes
 		$this->load->model('user_m');
-		$this->load->model('groups/group_m');
 		$this->load->helper('user');
 		$this->load->library('form_validation');
 		$this->lang->load('user');
 
 		if ($this->current_user->group != 'admin') 
 		{
-			$this->template->groups = $this->group_m->where_not_in('name', 'admin')->get_all();
+			$this->template->group_options = Groups\Model\Group::getGeneralGroups();
 		} 
 		else 
 		{
-			$this->template->groups = $this->group_m->get_all();
+			$this->template->group_options = Groups\Model\Group::getGroups();
 		}
-		
-		$this->template->groups_select = array_for_select($this->template->groups, 'id', 'description');
 	}
 
 	/**
@@ -206,7 +205,7 @@ class Admin extends Admin_Controller
 				Settings::temp('activation_email', false);
 			}
 
-			$group = $this->group_m->get($group_id);
+			$group = Groups\Model\Group::find($group_id);
 
 			// Register the user (they are activated by default if an activation email isn't requested)
 			if ($user_id = $this->ion_auth->register($username, $password, $email, $group_id, $profile_data, $group->name))
@@ -554,13 +553,13 @@ class Admin extends Admin_Controller
 	 *
 	 * @author Stephen Cozart
 	 *
-	 * @param int $group
+	 * @param int $group_id
 	 *
 	 * @return bool
 	 */
-	public function _group_check($group)
+	public function _group_check($group_id)
 	{
-		if ( ! $this->group_m->get($group))
+		if ( ! Groups\Model\Group::find($group_id))
 		{
 			$this->form_validation->set_message('_group_check', lang('regex_match'));
 			return false;
