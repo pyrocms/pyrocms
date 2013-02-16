@@ -35,7 +35,7 @@ $lang['buttons:edit']		= 'Muokkaa';
 $lang['buttons:clone']		= 'Kloonaa';
 $lang['buttons:re-index']	= 'Indeksoi uudelleen';
 $lang['buttons:copy']		= 'Kopioi';
-$lang['buttons:filter']		= 'Filter';
-$lang['buttons:clear']		= 'Clear';
+$lang['buttons:filter']		= 'Suodata';
+$lang['buttons:clear']		= 'Tyhjennä';
 
 /* End of file buttons_lang.php */
