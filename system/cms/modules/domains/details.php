@@ -20,7 +20,8 @@ class Module_Domains extends Module
 				'it' => 'Domini',
 				'ar' => 'أسماء النطاقات',
 				'tw' => '網域',
-				'cn' => '网域'
+				'cn' => '网域',
+				'fi' => 'Verkkotunnukset'
 			),
 			'description' => array(
 				'en' => 'Create domain aliases for your website.',
@@ -30,7 +31,8 @@ class Module_Domains extends Module
 				'it' => 'Crea alias per il tuo sito',
 				'ar' => 'أنشئ أسماء نطاقات بديلة لموقعك.',
 				'tw' => '為您的網站建立網域別名',
-				'cn' => '为您的网站建立网域别名'
+				'cn' => '为您的网站建立网域别名',
+				'fi' => 'Lisää verkkotunnus aliaksia sivustollesi.'
 			),
 			'frontend' => false,
 			'backend' => true,
