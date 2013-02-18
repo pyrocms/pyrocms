@@ -47,12 +47,17 @@ class Field_keywords
 
 	public function event($field)
 	{  	
-		$this->CI->template->append_css('jquery/jquery.tagsinput.css');
-		$this->CI->template->append_js('jquery/jquery.tagsinput.js');
+		$admin_theme = BASE_URL.'system/cms/themes/pyrocms/';
+		$this->CI->type->add_misc(
+			'<link rel="stylesheet" href="'.$admin_theme.'css/jquery/jquery.tagsinput.css">'
+		);
+		$this->CI->type->add_misc(
+			'<script src="'.$admin_theme.'js/jquery/jquery.tagsinput.js"></script>'
+		);
 		$this->CI->type->add_js('keywords', 'keywords.js');
 		$this->CI->type->add_misc(
-			'<script type="text/javascript">
-				$(document).ready(function(){pyro.field_tags_input("'.$field->field_slug.'");});
+			'<script>
+				jQuery(document).ready(function(){pyro.field_tags_input("'.$field->field_slug.'");});
 			</script>'
 		);
 	}
