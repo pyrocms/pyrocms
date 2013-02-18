@@ -1,5 +1,6 @@
 <?php
 
+use Pyro\Module\Groups;
 use Pyro\Module\Pages\Model\Page;
 use Pyro\Module\Pages\Model\PageType;
 
@@ -570,17 +571,8 @@ class Admin extends Admin_Controller
 		$this->load->model('navigation/navigation_m');
 		$navigation_groups = $this->navigation_m->get_groups();
 		$this->template->navigation_groups = array_for_select($navigation_groups, 'id', 'title');
-
-		$this->load->model('groups/group_m');
 		
-		$groups = Group_m::all();
-		$group_options = array();
-		foreach ($groups as $group) {
-			if ($group->name !== 'admin') {
-				$group_options[$group->id] = $group->name;
-			}
-		}
-		$this->template->group_options = $group_options;
+		$this->template->group_options = Groups\Model\Group::getGroupOptions();
 
 		$this->template
 			->append_js('jquery/jquery.tagsinput.js')
