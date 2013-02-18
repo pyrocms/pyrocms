@@ -474,7 +474,7 @@ class MY_Form_validation extends CI_Form_validation
 			// Is this the same value? If so, we are
 			// all in the clear. They did not change the value
 			// so we don't need to worry.
-			if ($existing->$column == $string)
+			if (strtolower($existing->$column) == strtolower($string))
 			{
 				return true;
 			}
