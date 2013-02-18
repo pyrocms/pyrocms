@@ -572,7 +572,7 @@ class Admin extends Admin_Controller
 		$navigation_groups = $this->navigation_m->get_groups();
 		$this->template->navigation_groups = array_for_select($navigation_groups, 'id', 'title');
 		
-		$this->template->group_options = Groups\Model\Group::getGroups();
+		$this->template->group_options = Groups\Model\Group::getGroupOptions();
 
 		$this->template
 			->append_js('jquery/jquery.tagsinput.js')

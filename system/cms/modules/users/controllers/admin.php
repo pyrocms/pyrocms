@@ -68,11 +68,11 @@ class Admin extends Admin_Controller
 
 		if ($this->current_user->group != 'admin') 
 		{
-			$this->template->group_options = Groups\Model\Group::getGeneralGroups();
+			$this->template->group_options = Groups\Model\Group::getGeneralGroupOptions();
 		} 
 		else 
 		{
-			$this->template->group_options = Groups\Model\Group::getGroups();
+			$this->template->group_options = Groups\Model\Group::getGroupOptions();
 		}
 	}
 

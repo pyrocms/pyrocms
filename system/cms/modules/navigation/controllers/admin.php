@@ -207,7 +207,7 @@ class Admin extends Admin_Controller {
 	public function create($group_id = '')
 	{
 		// Set the options for restricted to
-		$this->template->group_options = Groups\Model\Group::getGroups();
+		$this->template->group_options = Groups\Model\Group::getGroupOptions();
 
 		// Run if valid
 		if ($this->form_validation->run())
@@ -282,7 +282,7 @@ class Admin extends Admin_Controller {
 		$link = $this->navigation_m->get_link($id);
 
 		// Set the options for restricted to
-		$group_options = Groups\Model\Group::getGroups();
+		$group_options = Groups\Model\Group::getGroupOptions();
 
 		if ( ! $link)
 		{

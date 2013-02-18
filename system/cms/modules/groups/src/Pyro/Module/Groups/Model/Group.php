@@ -29,7 +29,7 @@ class Group extends \Illuminate\Database\Eloquent\Model
      *
      * @return array
      */
-	public static function getGroups()
+	public static function getGroupOptions()
 	{
 		return static::lists('description', 'id');
 	}
@@ -39,7 +39,7 @@ class Group extends \Illuminate\Database\Eloquent\Model
      *
      * @return array
      */
-	public static function getGeneralGroups()
+	public static function getGeneralGroupOptions()
 	{
 		return static::whereNotIn('name', 'admin')->lists('description', 'id');
 	}
