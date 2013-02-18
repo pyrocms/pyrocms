@@ -12,7 +12,7 @@
 
 			<li>
 				<?php echo lang('user:group_label', 'f_group') ?>
-				<?php echo form_dropdown('f_group', array(0 => lang('global:select-all')) + $groups_select) ?>
+				<?php echo form_dropdown('f_group', array(0 => lang('global:select-all')) + $group_options) ?>
 			</li>
 			
 			<li><?php echo form_input('f_keywords') ?></li>
