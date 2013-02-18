@@ -119,7 +119,7 @@ class Blog extends Public_Controller
 			->set_breadcrumb($category->title)
 			->set('pagination', $posts['pagination'])
 			->set('posts', $posts['entries'])
-			->set('category',$category)
+			->set('category',get_object_vars($category))
 			->build('posts');
 	}
 
