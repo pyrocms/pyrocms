@@ -51,7 +51,6 @@ class Admin extends Admin_Controller
 	public function index()
 	{
 		ci()->pdb->getQueryGrammar()->setTablePrefix('core_');
-        // Create pagination links
 		$domains = Domain::all();
 		ci()->pdb->getQueryGrammar()->setTablePrefix(SITE_REF.'_');
 
