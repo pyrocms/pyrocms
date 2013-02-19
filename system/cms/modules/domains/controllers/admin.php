@@ -71,11 +71,11 @@ class Admin extends Admin_Controller
 
 			ci()->pdb->getQueryGrammar()->setTablePrefix('core_');
 			$result = Redirect::create(array(
-                'domain' => $this->input->post('domain'),
-                'site_id' => site_id(),
-                'type' => $this->input->post('type')
-            ));
-            ci()->pdb->getQueryGrammar()->setTablePrefix(SITE_REF.'_');
+				'domain' => $this->input->post('domain'),
+				'site_id' => site_id(),
+				'type' => $this->input->post('type')
+			));
+			ci()->pdb->getQueryGrammar()->setTablePrefix(SITE_REF.'_');
 
 			if ($result) {
 				$this->session->set_flashdata('success', lang('domains:add_success'));
@@ -115,17 +115,17 @@ class Admin extends Admin_Controller
 		}
 
 		$this->form_validation->set_rules(array_merge($this->validation_rules, array(
-            'domain' => array(
+			'domain' => array(
 				'field' => 'domain',
 				'label' => 'lang:domains:domain',
 				'rules' => 'trim|required|max_length[250]|callback__check_unique['.$id.']'
 			)
-        )));
+		)));
 		
 		if ($this->form_validation->run()) {
 			$domain->domain = $this->input->post('domain');
-            $domain->site_id = site_id();
-            $domain->type = $this->input->post('type');
+			$domain->site_id = site_id();
+			$domain->type = $this->input->post('type');
 
 			if ($domain->save()) {
 				$this->session->set_flashdata('success', $this->lang->line('domains:edit_success'));
