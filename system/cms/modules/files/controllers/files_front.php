@@ -26,6 +26,9 @@ class Files_front extends Public_Controller
 	public function download($id = 0)
 	{
 		$this->load->helper('download');
+		
+		// strip extension, if any.
+		$id = substr($id, 0, (strlen ($id)) - (strlen (strrchr($id,'.'))));
 
 		$file = $this->file_m->select('files.*, file_folders.location')
 			->join('file_folders', 'file_folders.id = files.folder_id')
