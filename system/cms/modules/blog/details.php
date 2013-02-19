@@ -43,7 +43,7 @@ class Module_Blog extends Module
 				'fi' => 'Kirjoita blogi artikkeleita.',
 				'el' => 'Δημιουργήστε άρθρα και εγγραφές στο ιστολόγιο σας.',
 				'es' => 'Escribe entradas para los artículos y blog (web log).', #update translation
-				'fr' => 'Envoyez de nouveaux posts et messages de blog.', #update translation
+				'fr' => 'Poster des articles d\'actualités.',
 				'he' => 'ניהול בלוג',
 				'id' => 'Post entri blog',
 				'it' => 'Pubblica notizie e post per il blog.', #update translation
