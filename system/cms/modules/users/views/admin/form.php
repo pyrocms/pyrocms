@@ -41,7 +41,7 @@
 						<li>
 							<label for="group_id"><?php echo lang('user:group_label') ?></label>
 							<div class="input">
-								<?php echo form_dropdown('group_id', array(0 => lang('global:select-pick')) + $groups_select, $member->group_id, 'id="group_id"') ?>
+								<?php echo form_dropdown('group_id', array(0 => lang('global:select-pick')) + $group_options, $member->group_id, 'id="group_id"') ?>
 							</div>
 						</li>
 						

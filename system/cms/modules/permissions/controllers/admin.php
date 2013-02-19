@@ -1,4 +1,7 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php
+
+use Pyro\Module\Groups;
+
 /**
  * Permissions controller
  *
@@ -20,7 +23,6 @@ class Admin extends Admin_Controller
 	    parent::__construct();
 	
 	    $this->load->model('permission_m');
-	    $this->load->model('groups/group_m');
 	    $this->lang->load('permissions');
 	    $this->lang->load('groups/group');
 	}
@@ -34,7 +36,7 @@ class Admin extends Admin_Controller
 	{
 		$this->template
 			->set('admin_group', $this->config->item('admin_group', 'ion_auth'))
-			->set('groups', $this->group_m->get_all())
+			->set('groups', Groups\Model\Group::all())
 			->title($this->module_details['name'])
 			->build('admin/index');
 	}
@@ -49,6 +51,9 @@ class Admin extends Admin_Controller
 
 		$this->load->library('form_validation');
 
+		// Get the group data
+		$group = Groups\Model\Group::find($group_id);
+
 		if ($_POST)
 		{
 			$modules = $this->input->post('modules');
@@ -58,7 +63,7 @@ class Admin extends Admin_Controller
 			if ( $this->permission_m->save($group_id, $modules, $roles)){
 
 				// Fire an event. Permissions have been saved.
-				Events::trigger('permissions_saved', array($group_id, $modules, $roles));
+				Events::trigger('permissions_saved', array($group, $modules, $roles));
 
 				$this->session->set_flashdata('success', lang('permissions:message_group_saved_success'));
 			}
@@ -71,8 +76,7 @@ class Admin extends Admin_Controller
 				? redirect('admin/permissions')
 				: redirect('admin/permissions/group/'.$group_id);
 		}
-		// Get the group data
-		$group = $this->group_m->get($group_id);
+
 		// If the group data could not be retrieved
 		if ( ! $group) {
 			// Set a message to notify the user.
