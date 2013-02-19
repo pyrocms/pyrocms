@@ -407,7 +407,7 @@ class Files
 
 				if ($file['is_image'])
 				{
-					$data['alt_attribute'] = $alt ? $alt : '';
+					$data['alt_attribute'] = trim($alt ? $alt : '');
 				}
 
 				if($replace_file)
