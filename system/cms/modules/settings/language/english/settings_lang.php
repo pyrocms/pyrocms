@@ -62,7 +62,7 @@ $lang['settings:activation_email']				= 'Activation Email';
 $lang['settings:activation_email_desc']			= 'Send out an e-mail when a user signs up with an activation link. Disable this to let only admins activate accounts.';
 
 $lang['settings:records_per_page']				= 'Records Per Page';
-$lang['settings:records_per_page_desc']			= 'How many records should we show per page in the admin section?';
+$lang['settings:records_per_page_desc']			= 'How many records should we show per page? (both for frontend and for admin section) e.g.: blog posts, users etc.';
 
 $lang['settings:rss_feed_items']				= 'Feed item count';
 $lang['settings:rss_feed_items_desc']			= 'How many items should we show in RSS/blog feeds?';
