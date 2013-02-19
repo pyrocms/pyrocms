@@ -2,7 +2,7 @@
 	<h4><?php echo lang('domains:list_title') ?></h4>
 </section>
 
-<?php if ($domains): ?>
+<?php if ( ! $domains->isEmpty()): ?>
 
 	<section class="item">
 		<div class="content">
