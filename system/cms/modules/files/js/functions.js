@@ -905,7 +905,7 @@ jQuery(function($){
 	 		if ($item.id) {				$item_details.find('.id')				.html($item.id).parent().show(); }
 		 	if ($item.name) { 			$item_details.find('.name')				.html($item.name).parent().show(); }
 		 	if ($item.slug) { 			$item_details.find('.slug')				.html($item.slug).parent().show(); }
-		 	if ($item.path) { 			$item_details.find('.path')				.val($item.path).parent().show(); }
+		 	if ($item.path) { 			$item_details.find('.path')				.val($item.path+$item.extension).parent().show(); }
 		 	if ($item.formatted_date) { $item_details.find('.added')			.html($item.formatted_date).parent().show(); }
 		 	if ($item.width > 0) { 		$item_details.find('.width')			.html($item.width+'px').parent().show(); }
 		 	if ($item.height > 0) { 	$item_details.find('.height')			.html($item.height+'px').parent().show(); }
