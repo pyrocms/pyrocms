@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-$lang['blog:post']  = 'Post';
-$lang['blog:posts'] = 'Posts';
+$lang['blog:post']  = 'Article';
+$lang['blog:posts'] = 'Articles';
 
 // labels
 $lang['blog:posted_label']             = 'Posté le';
@@ -11,7 +11,7 @@ $lang['blog:author_unknown']           = 'Inconnu';
 $lang['blog:keywords_label']           = 'Mots-clés';
 $lang['blog:tagged_label']             = 'Taggé';
 $lang['blog:category_label']           = 'Catégorie';
-$lang['blog:post_label']               = 'Envoi';
+$lang['blog:post_label']               = 'Article';
 $lang['blog:date_label']               = 'Date';
 $lang['blog:date_at']                  = 'le';
 $lang['blog:time_label']               = 'Heure';
@@ -38,7 +38,7 @@ $lang['blog:comments_enabled_label']   = 'Commentaires activés';
 $lang['blog:create_title']    			= 'Créer un post';
 $lang['blog:edit_title']      			= 'Modifier le post "%s"';
 $lang['blog:archive_title']   			= 'Archiver';
-$lang['blog:posts_title']     			= 'Posts';
+$lang['blog:posts_title']     			= 'Actualités';
 $lang['blog:rss_posts_title'] 			= 'Post d\'actualité pour %s';
 $lang['blog:blog_title']      			= 'Actualités';
 $lang['blog:list_title']      			= 'Lister les posts';
