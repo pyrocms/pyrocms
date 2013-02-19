@@ -1,4 +1,4 @@
-<?php namespace Pyro\Module\Redirects\Model;
+<?php namespace Pyro\Module\Domains\Model;
 
 /**
  * Domain model

@@ -39,14 +39,12 @@ class Admin extends Admin_Controller
 
 		// Load the required classes
 		$this->load->library('form_validation');
-		$this->load->model('domain_m');
 		$this->load->helper('domains');
 		$this->lang->load('domains');
 
 		$this->form_validation->set_rules($this->validation_rules);
 
-		$this->domain_m->_site_id = site_id();
-
+		//$this->domain_m->_site_id = site_id();
 	}
 
 	/**
@@ -54,14 +52,16 @@ class Admin extends Admin_Controller
 	 */
 	public function index()
 	{
+		$domains = Domain::all();
         // Create pagination links
-		$total_rows = $this->domain_m->count_all();
+		$total_rows = $domains->count();
 		$this->template->pagination = create_pagination('admin/domains/index', $total_rows);
 
-		// Using this data, get the relevant results
-        $this->template->domains = $this->domain_m->get_all();
+		print_r($domains);
 
-		$this->template->build('admin/index');
+		$this->template
+					->set('domains',$domains)
+					->build('admin/index');
 	}
 
 	/**
