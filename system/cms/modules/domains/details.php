@@ -47,6 +47,7 @@ class Module_Domains extends Module
 
 	public function install()
 	{
+		$this->pdb->getQueryGrammar()->setTablePrefix('core_');
 		$schema = $this->pdb->getSchemaBuilder();
 
 		$schema->dropIfExists('domains');
@@ -61,6 +62,8 @@ class Module_Domains extends Module
 			$table->index('domain');
 			$table->unique('domain');
 		});
+
+		$this->pdb->getQueryGrammar()->setTablePrefix(SITE_REF.'_');
 
 		return true;
 	}

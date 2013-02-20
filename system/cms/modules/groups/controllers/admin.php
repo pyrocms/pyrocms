@@ -1,4 +1,7 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php
+
+use Pyro\Module\Groups\Model\Group;
+
 /**
  * Roles controller for the groups module
  *
@@ -19,8 +22,6 @@ class Admin extends Admin_Controller
 
 		// Load the required classes
 		$this->load->library('form_validation');
-
-		$this->load->model('group_m');
 
 		$this->lang->load('group');
 		$this->lang->load('permissions/permissions');
@@ -45,7 +46,7 @@ class Admin extends Admin_Controller
 	 */
 	public function index()
 	{
-		$groups = Group_m::all();
+		$groups = Group::all();
 
 		$this->template
 			->title($this->module_details['name'])
@@ -58,7 +59,7 @@ class Admin extends Admin_Controller
 	 */
 	public function add()
 	{
-		$group = new Group_m;
+		$group = new Group;
 
 		if ($_POST)
 		{
@@ -105,7 +106,7 @@ class Admin extends Admin_Controller
 	 */
 	public function edit($id = 0)
 	{
-		$group = Group_m::find($id);
+		$group = Group::find($id);
 
 		// Make sure we found something
 		$group or redirect('admin/groups');
@@ -157,7 +158,7 @@ class Admin extends Admin_Controller
 	 */
 	public function delete($id = 0)
 	{
-		if ($success = Group_m::find($id)->delete())
+		if ($success = Group::find($id)->delete())
 		{
 			// Fire an event. A group has been deleted.
 			Events::trigger('group_deleted', $id);

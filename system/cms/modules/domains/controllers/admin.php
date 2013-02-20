@@ -1,10 +1,13 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php 
+
+use Pyro\Module\Domains\Model\Domain;
+
 /**
  * PyroCMS domain Admin Controller
  *
  * Provides an admin for the domain module.
  *
- * @author		Ryan Thompson - AI Web Systems, Inc.
+ * @author		PyroCMS Dev Team
  * @package		PyroCMS\Core\Modules\Domains\Controllers
  */
 class Admin extends Admin_Controller
@@ -15,7 +18,7 @@ class Admin extends Admin_Controller
 	 * @var array
 	 */
 	protected $validation_rules = array(
-		array(
+		'domain' => array(
 			'field' => 'domain',
 			'label' => 'lang:domains:domain',
 			'rules' => 'trim|required|max_length[250]|callback__check_unique'
@@ -36,14 +39,10 @@ class Admin extends Admin_Controller
 
 		// Load the required classes
 		$this->load->library('form_validation');
-		$this->load->model('domain_m');
 		$this->load->helper('domains');
 		$this->lang->load('domains');
 
 		$this->form_validation->set_rules($this->validation_rules);
-
-		$this->domain_m->_site_id = site_id();
-
 	}
 
 	/**
@@ -51,14 +50,13 @@ class Admin extends Admin_Controller
 	 */
 	public function index()
 	{
-        // Create pagination links
-		$total_rows = $this->domain_m->count_all();
-		$this->template->pagination = create_pagination('admin/domains/index', $total_rows);
+		ci()->pdb->getQueryGrammar()->setTablePrefix('core_');
+		$domains = Domain::all();
+		ci()->pdb->getQueryGrammar()->setTablePrefix(SITE_REF.'_');
 
-		// Using this data, get the relevant results
-        $this->template->domains = $this->domain_m->get_all();
-
-		$this->template->build('admin/index');
+		$this->template
+					->set('domains',$domains)
+					->build('admin/index');
 	}
 
 	/**
@@ -66,31 +64,35 @@ class Admin extends Admin_Controller
 	 */
 	public function add()
 	{
-		$messages = array();
-		// Got validation?
-		if ($this->form_validation->run())
-		{
-			if ($this->domain_m->insert($_POST))
-			{
-				$this->session->set_flashdata('success', lang('domains:add_success'));
+		$domain = new Domain();
 
-				redirect('admin/domains');
+		// Got validation?
+		if ($this->form_validation->run()) {
+
+			ci()->pdb->getQueryGrammar()->setTablePrefix('core_');
+			$result = Redirect::create(array(
+				'domain' => $this->input->post('domain'),
+				'site_id' => site_id(),
+				'type' => $this->input->post('type')
+			));
+			ci()->pdb->getQueryGrammar()->setTablePrefix(SITE_REF.'_');
+
+			if ($result) {
+				$this->session->set_flashdata('success', lang('domains:add_success'));
+			} else {
+				$this->session->set_flashdata('error', lang('domains:add_error'));
 			}
 
-			$messages['error'] = lang('domains:add_error');
+			redirect('admin/domains');
 		}
 
-		$domain = new stdClass();
-
 		// Loop through each validation rule
-		foreach($this->validation_rules as $rule)
-		{
+		foreach ($this->validation_rules as $rule) {
 			$domain->$rule['field'] = set_value($rule['field']);
 		}
 
 		$this->template
 			->set('domain', $domain)
-			->set('messages', $messages)
 			->build('admin/form');
 	}
 
@@ -103,31 +105,41 @@ class Admin extends Admin_Controller
 	 */
 	public function edit($id = 0)
 	{
-		$messages = array();
 		// Got ID?
 		$id or redirect('admin/domains');
 
+		ci()->pdb->getQueryGrammar()->setTablePrefix('core_');
 		// Get the domain
-		if ( !$domain = $this->domain_m->get($id) )
-		{
+		if ( ! $domain = Domain::find($id)) {
 			redirec('admin/domains');
 		}
 
-		if ($this->form_validation->run())
-		{
-			if ($this->domain_m->update($id, $this->input->post()))
-			{
+		$this->form_validation->set_rules(array_merge($this->validation_rules, array(
+			'domain' => array(
+				'field' => 'domain',
+				'label' => 'lang:domains:domain',
+				'rules' => 'trim|required|max_length[250]|callback__check_unique['.$id.']'
+			)
+		)));
+		
+		if ($this->form_validation->run()) {
+			$domain->domain = $this->input->post('domain');
+			$domain->site_id = site_id();
+			$domain->type = $this->input->post('type');
+
+			if ($domain->save()) {
 				$this->session->set_flashdata('success', $this->lang->line('domains:edit_success'));
-
-				redirect('admin/domains');
+			} else {
+				$this->session->set_flashdata('error', $this->lang->line('domains:edit_error'));
 			}
-
-			$messages['error'] = lang('domains:edit_error');
+			
+			redirect('admin/domains');
 		}
+
+		ci()->pdb->getQueryGrammar()->setTablePrefix(SITE_REF.'_');
 
 		$this->template
 			->set('domain', $domain)
-			->set('messages', $messages)
 			->build('admin/form');
 	}
 
@@ -142,33 +154,29 @@ class Admin extends Admin_Controller
 	{
 		$id_array = ( ! empty($id)) ? array($id) : $this->input->post('action_to');
 
+		ci()->pdb->getQueryGrammar()->setTablePrefix('core_');
 		// Delete multiple
-		if( ! empty($id_array))
-		{
+		if( ! empty($id_array)) {
 			$deleted = 0;
 			$to_delete = 0;
-			foreach ($id_array as $id)
-			{
-				if ($this->domain_m->delete($id))
-				{
+			foreach ($id_array as $id) {
+				if (Domain::find($id)->delete()) {
 					$deleted++;
-				}
-				else
-				{
+				} else {
 					$this->session->set_flashdata('error', sprintf($this->lang->line('domains:mass_delete_error'), $id));
 				}
 				$to_delete++;
 			}
 
-			if ($deleted > 0)
-			{
+			if ($deleted > 0) {
 				$this->session->set_flashdata('success', sprintf($this->lang->line('domains:mass_delete_success'), $deleted, $to_delete));
 			}
-		}
-		else
-		{
+
+		} else {
 			$this->session->set_flashdata('error', $this->lang->line('domains:no_select_error'));
-		}		
+		}
+
+		ci()->pdb->getQueryGrammar()->setTablePrefix(SITE_REF.'_');
 		
 		redirect('admin/domains');
 	}
@@ -179,16 +187,16 @@ class Admin extends Admin_Controller
 	 * @param string $domain
 	 * @return bool
 	 */
-	public function _check_unique($domain)
+	public function _check_unique($domain, $id = null)
 	{
-		$id = $this->uri->segment(4);
-
-		if ($this->domain_m->check_domain($domain, $id))
-		{
+		ci()->pdb->getQueryGrammar()->setTablePrefix('core_');
+		$domain = Domain::findByDomainAndId($domain, $id);
+		ci()->pdb->getQueryGrammar()->setTablePrefix('default_');
+		if ($domain->isEmpty()) {
+			return true;
+		} else {
 			$this->form_validation->set_message('_check_unique', sprintf(lang('domains:request_conflict_error'), $domain));
 			return false;
 		}
-
-		return true;
 	}
 }
