@@ -191,7 +191,7 @@ class Module_m extends MY_Model
 				$admin = ci()->sentry->getGroupProvider()->findByName('admin');
 
 				// This user has no permissions for this module
-				if (( ! $this->current_user->inGroup($admin)) and empty($this->permissions[$row->slug]))
+				if (( ! $this->current_user->inGroup($admin)) and ! $this->current_user->hasAccess($row->slug))
 				{
 					continue;
 				}
