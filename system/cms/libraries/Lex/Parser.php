@@ -153,6 +153,10 @@ class Lex_Parser
 						$str = $this->inject_extractions($str, 'looped_tags');
 
 						$str = $this->parse_variables($str, $item_data, $callback);
+
+						// extract any noparse tags that may have been the value of another tag
+						$str = $this->extract_noparse($str);
+						
 						if ($callback !== null)
 						{
 							$str = $this->parse_callback_tags($str, $item_data, $callback);
