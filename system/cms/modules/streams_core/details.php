@@ -31,7 +31,8 @@ class Module_Streams_core extends Module
 				'tw' => 'Streams 核心',
 				'cn' => 'Streams 核心',
 				'ar' => 'الجداول الأساسية',
-				'it' => 'Streams Core'
+				'it' => 'Streams Core',
+				'fi' => 'Striimit ydin',
 			),
 			'description' => array(
 				'en' => 'Core data module for streams.',
@@ -43,6 +44,7 @@ class Module_Streams_core extends Module
 				'cn' => 'Streams 核心资料模组。',
 				'ar' => 'وحدة البيانات الأساسية للجداول',
 				'it' => 'Core dello Stream',
+				'fi' => 'Ydin datan hallinoiva moduuli striimejä varten.',
 			),
 			'frontend' => false,
 			'backend' => false,

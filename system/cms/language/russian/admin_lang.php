@@ -45,6 +45,8 @@ $lang['cp:nav_structure']						= 'Structure'; #translate
 $lang['cp:nav_content']							= 'Содержимое';
 $lang['cp:nav_misc']							= 'Miscellaneous'; #translate
 
+$lang['cp:search']                      = 'Search'; #translate
+
 $lang['cp:must_login']							= 'Вы должны войти для просмотра этой страницы.';
 $lang['cp:access_denied']						= 'У вас нет прав для просмотра этой страницы.';
 $lang['cp:delete_installer_message']              = 'The installer directory still exists! Please delete it from your server! Leaving it online means control of this site could be granted to somebody else.'; #translate

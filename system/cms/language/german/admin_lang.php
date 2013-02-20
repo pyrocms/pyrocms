@@ -37,6 +37,8 @@ $lang['cp:nav_structure']				= 'Struktur';
 $lang['cp:nav_content']                    = 'Inhalte';
 $lang['cp:nav_misc']					= 'Anderes';
 
+$lang['cp:search']                      = 'Suche';
+
 $lang['cp:must_login']                     = 'Du musst eingeloggt sein, um diese Seite sehen zu k&ouml;nnen.';
 $lang['cp:access_denied']                 = 'Du hast keine ausreichenden Zugriffsberechtigungen um diese Seite anzusehen.';
 $lang['cp:delete_installer_message']              = 'Das Installationsverzeichnis existiert noch! Bitte lösche es vom Server! Es bestehen zu lassen könnte unbefugten Zugriff erlauben.';
