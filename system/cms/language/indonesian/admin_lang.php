@@ -37,6 +37,8 @@ $lang['cp:nav_structure']				= 'Structure'; #translate
 $lang['cp:nav_content']					= 'Konten';
 $lang['cp:nav_misc']					= 'Miscellaneous'; #translate
 
+$lang['cp:search']                      = 'Search'; #translate
+
 $lang['cp:must_login']	 				= 'Anda harus masuk terlebih dahulu untuk melihat halaman ini.';
 $lang['cp:access_denied'] 				= 'Anda tidak memiliki izin untuk dapat mengakses halaman ini.';
 $lang['cp:delete_installer_message']              = 'The installer directory still exists! Please delete it from your server! Leaving it online means control of this site could be granted to somebody else.'; #translate

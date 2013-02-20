@@ -37,6 +37,8 @@ $lang['cp:nav_structure']				= '網站結構';
 $lang['cp:nav_content']					= '網站內容'; 		//'Content';
 $lang['cp:nav_misc']					= '其他項目';
 
+$lang['cp:search']                      = '搜尋';
+
 $lang['cp:must_login']	 				= '您必須登錄才能查看此頁面。'; 					//'You must be logged in to view this page.';
 $lang['cp:access_denied'] 				= '您沒有足夠的權限以查看此頁面'; 				//'You do not have sufficient permissions to view this page.';
 $lang['cp:delete_installer_message']              = 'The installer directory still exists! Please delete it from your server! Leaving it online means control of this site could be granted to somebody else.'; #translate
